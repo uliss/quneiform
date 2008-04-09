@@ -77,7 +77,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "tuner.h"
 #include "func.h"
 #include "tm.h"     //10.4.95
-#include "Status.H"
+#include "status.h"
 #include "p2libr.h"
 
 static struct cut_elm cut_pnts[64];

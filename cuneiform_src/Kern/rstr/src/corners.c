@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "struct.h"
 #include "cutstr.h"
 #include "func.h"
-#include "embBOX.h"
+#include "embbox.h"
 
 #define  CONST_PLUS 10      // this constant is added abris values in order
                             // to avoid negative values caused by shifting

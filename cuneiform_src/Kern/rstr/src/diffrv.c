@@ -69,11 +69,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "tuner.h"
 extern Word8 *EVN_GetSegmentPool (void);
 //#include "Autofont.H"
-#include "TM.h"  //NB 4.4.95
-#include "Diffrb.H"
+#include "tm.h"  //NB 4.4.95
+#include "diffrb.h"
 //#include "sfont.h"
 #include "p2libr.h"
-#include "Status.H"
+#include "status.h"
 
 extern BYTE digital_string_penalty;
 //AK for debug
@@ -777,8 +777,8 @@ WORD check_xk(INT h,BYTE let)
       INT min,max,j,pos,neg;
       for(i=h/5+1,j=0,min=max=r_abris[h/5];i < h*4/5 ;i++,j++)
 	     {
-          min = min(min,r_abris[i]);
-          max = max(max,r_abris[i]);
+          min = MIN(min,r_abris[i]);
+          max = MAX(max,r_abris[i]);
           jump[j] = r_abris[i] - r_abris[i-1];
          }
       if( max-min < 2 )

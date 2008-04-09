@@ -73,7 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include "excdefs.h"
 //#endif
 
-#include "ROOTS.H"
+#include "roots.h"
 
 #ifdef __RCUTP__
   #define RCUTP_FUNC  FUN_EXPO

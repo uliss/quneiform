@@ -358,7 +358,7 @@ static void dif_Sdol(cell *c)
    {max=hist[j-jmin]; jm=j;}
  if (max<c->h &&
      (max==hist[0] || max==hist[jmax-jmin] ||
-      max-(hist[0]+hist[jmax-jmin])/2<max(3,c->h/6)))
+      max-(hist[0]+hist[jmax-jmin])/2<MAX(3, c->h/6)))
   return;
  for (i=1; i<c->nvers && c->vers[i].let!='$'; i++) ;
  if (i<c->nvers)
