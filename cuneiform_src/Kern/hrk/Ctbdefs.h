@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __CTBDEFS_H
 
 
-#include "Recdefs.h"
+#include "recdefs.h"
 
 #define CTB_VERSION 7
 

@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #include "globus.h"
    #endif
 
-   #include "mskdefs.h"
+   /*#include "mskdefs.h"*/
    #include "memfunc.h"
 
    #ifdef __MSK__

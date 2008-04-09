@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ligas.h"
 #include "lang.h"
 #include "linutil.h"
-#include "Tuner.H"
+#include "tuner.h"
 #include "alphabet.h"
 
 extern BYTE language;

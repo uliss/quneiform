@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #include "memfunc.h"
 
    #include <string.h>
-   #include <io.h>
+/*   #include <io.h> */
    #include <stdlib.h>
 
    #ifdef __CTB__

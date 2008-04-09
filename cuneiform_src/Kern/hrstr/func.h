@@ -141,7 +141,7 @@ void pass3(CSTR_line lin,CSTR_line lout);
 BOOL pass3BL(CSTR_line ln);
 BOOL pass1_test_alphabet(str_info *str,CSTR_line ln);
 BOOL pass2_test_alphabet(str_info *str,CSTR_line ln);
-void accept_Cell(cell *ce,CSTR_rast_attr*co, CCOM_comp *cmp, BOOL sca);
+static void accept_Cell(cell *ce,CSTR_rast_attr*co, CCOM_comp *cmp, BOOL sca);
 void accept_cell(cell *ce,c_comp *co);
 void dust_ini(CSTR_line lin);
 INT revision();

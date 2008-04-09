@@ -113,7 +113,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "func.h"
 #include "ligas.h"
 #include "lang.h"
-#include "Leo.h"
+#include "leo.h"
 #include "std.h"
 
 #define NUMBER      '#'
@@ -772,6 +772,10 @@ static void  improve_proN()
 
 static RecRaster workRaster;
 
+/* swapbytes takes a 32 bit value and does an endianness change.
+ * Since it was only used on Windows (not Mac) I'm assuming it means
+ * "swap 32 bytes between big endian and current byte order".
+ */
 #if defined(WIN32) && defined(_MSC_VER) && (_MSC_VER > 800)
   #define   swapbytes(a) __asm {                      \
                                  __asm   mov   EAX,a  \
@@ -780,6 +784,14 @@ static RecRaster workRaster;
                                }
 #elif defined(PPS_MAC)
 	#define swapbytes(a)
+#elif defined(__GNUC__) /* FIXME: also check that we are on x86. And little-endian. */
+    #define swapbytes(a) asm ("movl %1, %%eax;" \
+                              "bswap %%eax;"    \
+                              "movl %%eax, %0;" \
+                              :"=r"(a)          \
+                              :"r"(a)           \
+                              :"%eax"           \
+                             );
 #else
   #error You must define swapbytes for your platform
 #endif

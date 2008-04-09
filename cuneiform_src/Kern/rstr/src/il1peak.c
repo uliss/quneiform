@@ -187,20 +187,20 @@ nomin:
   t=(gmax-threshold)*MIN_JUMP;
   l=r=(INT)f;
   if (locmin2[i] != -1)
-   l-=max(0,func[locmin2[i]]-threshold);
+   l-=MAX(0,func[locmin2[i]]-threshold);
   else
    {
    if (!fbound)
-    l-=max(0,func[from]-threshold);
+    l-=MAX(0,func[from]-threshold);
    }
   if (locmin2[i+1] != -1)
-   r-=max(0,func[locmin2[i+1]]-threshold);
+   r-=MAX(0,func[locmin2[i+1]]-threshold);
   else
    {
    if (!fbound)
-    r-=max(0,func[to]-threshold);
+    r-=MAX(0,func[to]-threshold);
    }
-  t=max(t,width*MIN_WIDTH_JUMP);
+  t=MAX(t,width*MIN_WIDTH_JUMP);
   if ((l <= bnd) && (r <= bnd) || (gmax-threshold <= bnd))
    continue;                           // 2 pixels height - uncertain
   if ((l >= t) || (r >= t))

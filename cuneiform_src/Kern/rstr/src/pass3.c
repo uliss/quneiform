@@ -61,14 +61,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////////
 #include <stdlib.h>
  #include <sys/stat.h>
- #include <io.h>
+/* #include <io.h> */
  #include "nt_types.h"
  #include <stdlib.h>
  #include <setjmp.h>
  #include <assert.h>
  #include <stdio.h>
  #include <fcntl.h>
- #include <direct.h>
+/* #include <direct.h>*/
  #include <string.h>
 
  #include "globus.h"
@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "linear.h"
 #include "linutil.h"
 #include "p2libr.h"
-#include "Tm.H"
+#include "tm.h"
 #include "lang.h"
 #include "ccom.h"
 #include "leo.h"
@@ -90,7 +90,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cuthdr.h"
 #include "dpuma.h"
 #include "match_wd.h"
-#include "SpecPrj.H"
+#include "specprj.h"
 
 // P2_COUR.C
 Bool32 RecogLEO(RecRaster *Rs,Word8 Language,UniVersions *Vs);

@@ -118,7 +118,7 @@ struct list_BOX
   WORD res;
  };
 typedef struct list_BOX LST;
-void store_new_bests(WORD ibcos, CHAR pl, CHAR ff,CHAR n_rsn);
+static void store_new_bests(WORD ibcos, CHAR pl, CHAR ff,CHAR n_rsn);
 
 
 INT  isKlasterFull( INT typl )

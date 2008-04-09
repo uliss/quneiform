@@ -71,11 +71,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 
-#include "nt_types.H"
-#include "Func.H"
-#include "Ligas.H"
-#include "Lang.H"
-#include "Linutil.h"	// 17.07.2001 E.P.
+#include "nt_types.h"
+#include "func.h"
+#include "ligas.h"
+#include "lang.h"
+#include "linutil.h"	// 17.07.2001 E.P.
 
 static BYTE solid_sticks[]     ="|1!Il\xbb"; // liga_i, liga_j // liga_i ìàêğà 08.09.2000 E.P.
 static BYTE incline_main[]     ="­è¯ç¨â…ƒ˜—ˆ’irbtfnBTEIPDFHLN"; // "íøï÷èòÅÍÃØÏĞ×ÈÒirbtfnBTEIPDFHLN"

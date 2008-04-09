@@ -642,7 +642,7 @@ static INT pitch()
      if (!sp && bad)
       {
       d=(center[i-1]-center[j])%w;
-      d=min(d,w-d);
+      d=MIN(d,w-d);
       if (!fax1x2 || abs(d)>1)
        s+=d*d;
       n1++;

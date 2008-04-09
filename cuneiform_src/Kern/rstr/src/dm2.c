@@ -681,7 +681,7 @@ trgl2:
        glsnap('b',BC,"unregistered pair");
        continue;
     }
-    lton=ltoi-rp2;
+    lton=ltoi-(CHAR*)rp2;
     ltoi=rp1[lton];
   pairgot:
     glsnap('b',BC,tx2);

@@ -59,7 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 #include <memory.h>
-#include <io.h>
+/*#include <io.h>*/
 
 #include "nt_types.h" 
 #include "struct.h" 
@@ -338,7 +338,7 @@ Int32 TestFontClusters(void)
 	  if( !is_lower(resLet) )
                resLet =  to_lower(resLet);
 	  if( (qq=strchr(hasNearSame,cluInfo.let)) && 
-		  NearSame[qq-hasNearSame] == resLet
+		  NearSame[qq-(char*)hasNearSame] == resLet
 		)
 		continue;
 	}	  

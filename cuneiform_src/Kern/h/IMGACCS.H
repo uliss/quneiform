@@ -54,7 +54,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "..\h\imxs.h"
+#include "../h/imxs.h"
 
 #define Tiger_ImageInfo Imxs_ImageInfo
 #define TImageAccess    Imxs
