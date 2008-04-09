@@ -2467,7 +2467,7 @@ static CHAR *res_for(BYTE let, BYTE *sticks, BYTE *letters, CHAR **results)
 	  !is_russian_baltic_conflict(let) &&
 	  !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 	  ) 	// 17.07.2001 E.P.
-	  return results[pos-letters];
+	  return results[pos - (CHAR*)letters];
 
   return NULL;
 }
@@ -2961,7 +2961,7 @@ static BYTE classify (cell **cells, INT N, grup *box, grup *bottom,
 //ищем дальние
 
   far_top->a=far_top->b=upper;
-  far_bottom->a=far_bottom->b=(STRRCHR(proj,'1')-proj) + upper;
+  far_bottom->a=far_bottom->b=(STRRCHR(proj,'1')-((char*)proj)) + upper;
   ge=0;
   do                                   //цикл по просветам
   {
@@ -3010,7 +3010,7 @@ static BYTE classify (cell **cells, INT N, grup *box, grup *bottom,
   ge=far_top->b-upper;
   ge=STRSPN(proj+ge,"0")+ge;    //первый не ноль
   top->a=top->b=ge+upper;
-  bottom->a=bottom->b=(STRRCHR(proj,'1')-proj) + upper;
+  bottom->a=bottom->b=(STRRCHR(proj,'1')-(char*)proj) + upper;
   do                            //цикл по просветам
   {
     gb=STRSPN(proj+ge,"1")+ge;  //начало просвета
@@ -3052,7 +3052,7 @@ static BYTE classify (cell **cells, INT N, grup *box, grup *bottom,
   ge=STRSPN(proj+ge,"0")+ge;    //первый не ноль
   box->n=N;
   box->a=ge+upper;
-  box->b=(STRRCHR(proj,'1')-proj) + upper;
+  box->b=(STRRCHR(proj,'1')-(char*)proj) + upper;
 
   far_top->b--; top->b--;
 
@@ -3090,7 +3090,7 @@ static INT horiz_proj(cell **cells, INT N, BYTE *proj, INT size)
         }
   }
 
-  proj[STRRCHR(proj,'1')-proj+1]=0;
+  proj[STRRCHR(proj,'1')-(char*)proj+1]=0;
   return upper;
 }
 
@@ -3462,7 +3462,7 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
             ( (ilet=strchr(letters_left_to_bad,v0->let)) &&
 			  !is_russian_baltic_conflict(v0->let) &&	// 17.07.2001 E.P.
 			  !is_russian_turkish_conflict(v0->let) &&	// 21.05.2002 E.P.
-              v0->prob < prob_left_to_bad[ilet-letters_left_to_bad]
+              v0->prob < prob_left_to_bad[(BYTE*)ilet-letters_left_to_bad]
            ))
         {
           if (strchr("иИнНпПшШщЩ",v0->let) &&

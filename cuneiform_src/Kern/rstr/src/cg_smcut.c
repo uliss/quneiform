@@ -289,7 +289,7 @@ void dp_pass0(cell *CP, raster *rp, struct cut_elm *cutp,
             if ( (ilet=strchr(letters_right_to_bad,let))!=0 &&
 			    !is_russian_baltic_conflict(let) // 17.07.2001 E.P.
 			   )
-              if (vers0->prob < prob_right_to_bad[ilet-letters_right_to_bad])
+              if (vers0->prob < prob_right_to_bad[(BYTE*)ilet-letters_right_to_bad])
                 ie1=j;          //может быть частью буквы
           ie2=ir;
         }
@@ -311,7 +311,7 @@ void dp_pass0(cell *CP, raster *rp, struct cut_elm *cutp,
             if ( (ilet=strchr(letters_right_to_bad,let)) !=0 &&
 			    !is_russian_baltic_conflict(let) // 17.07.2001 E.P.
 			   )
-              if (vers0->prob < prob_right_to_bad[ilet-letters_right_to_bad])
+              if (vers0->prob < prob_right_to_bad[(BYTE*)ilet-letters_right_to_bad])
                 ie1=cut->px;          //может быть частью буквы
           ib2=il;
         }
@@ -536,7 +536,7 @@ accept:
           if ( (ilet=strchr(letters_left_to_bad,let))!=0 &&
 			  !is_russian_baltic_conflict(let)	// 17.07.2001 E.P.
 			  )
-            if (vers0->prob < prob_left_to_bad[ilet-letters_left_to_bad])
+            if (vers0->prob < prob_left_to_bad[(BYTE*)ilet-letters_left_to_bad])
               *ib1=ib0;            //может быть частью буквы
 
       if (debug_on)
@@ -767,7 +767,7 @@ accept:
             if ( (ilet=strchr(letters_right_to_bad,let))!=0 &&
 			    !is_russian_baltic_conflict(let) // 17.07.2001 E.P.
 			   )
-              if (vers0->prob < prob_right_to_bad[ilet-letters_right_to_bad])
+              if (vers0->prob < prob_right_to_bad[(BYTE*)ilet-letters_right_to_bad])
                 *ie1=ie0;          //может быть частью буквы
       }
 

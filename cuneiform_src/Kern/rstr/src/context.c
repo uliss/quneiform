@@ -1244,7 +1244,7 @@ static void contextNumberTable(void)
 	     qq = strchr(letAsDig,cc->vers[0].let);
 
 		 if( qq )
-           cc->vers[0].let=accordDig[qq-letAsDig];
+           cc->vers[0].let=accordDig[(Word8*)qq-letAsDig];
 		}
 
 		if (snap_activity('c'))
