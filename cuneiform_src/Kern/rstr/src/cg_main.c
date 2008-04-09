@@ -69,7 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ligas.h"
 #include "lang.h"
 #include "linutil.h"
-#include "Status.H"
+#include "status.h"
 #include "p2libr.h"
 //#include "Alik_rec.h"
 #include "cut_glue.h"

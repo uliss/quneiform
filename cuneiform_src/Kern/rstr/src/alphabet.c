@@ -73,7 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "tigrun.h"
 #include "ligas.h"
 #include "tuner.h"
-#include "Tm.H"
+#include "tm.h"
 #include "linear.h"
 #include "linutil.h"
 #include "alphabet.h"

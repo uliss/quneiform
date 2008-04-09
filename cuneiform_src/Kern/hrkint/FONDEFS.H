@@ -63,8 +63,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __FONDEFS_H
 
 
-#include "Recdefs.h"
-#include "Leodefs.h"
+#include "recdefs.h"
+#include "leodefs.h"
 
 	typedef struct tagFontInfo {
 		int count[256];   // how many symbols in biggest cluster

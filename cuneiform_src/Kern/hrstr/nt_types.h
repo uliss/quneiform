@@ -54,6 +54,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifndef NT_TYPES_H_
+#define NT_TYPES_H_
 
 /********************************************************************/
 /*                                                                  */
@@ -102,3 +104,5 @@ typedef signed long int                 LONG;
 typedef unsigned long int               DWORD;
 typedef signed long int  *          PLONG;
 typedef unsigned long int  *        PDWORD;
+
+#endif
