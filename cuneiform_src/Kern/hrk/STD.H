@@ -219,6 +219,11 @@ typedef struct tagStdMemInfo
 #define STD_CMPFILETIME_MORE                      1
 #define STD_CMPFILETIME_ERR                        -2
 
+/* On Windows wchar_t is 16 bit. On Unix it is 32 bit. */
+#ifndef wchar_t
+#define wchar_t Int16
+#endif
+	
 STD_FUNC( Bool32 ) stdCheckFile(const char * lpFileName );
 
 STD_FUNC( Bool32 ) stdMoveFile(

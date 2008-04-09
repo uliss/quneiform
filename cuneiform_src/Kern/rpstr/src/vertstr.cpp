@@ -54,7 +54,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <windows.h>
+// FIXME: disabled everything Windows-related.
+
+//#include <windows.h>
 #include <stdlib.h>
 #include "rpstr.h"
 
@@ -64,10 +66,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 void DrawRect(Handle wnd,Word32 OperCode,Word32 color,int top,int bottom,int left,int right);
 
 extern "C" Handle hVertCompD;
-BOOL dpVertCompD;
+//BOOL dpVertCompD;
 
 RPSTR_FUNC(void) RPSTR_NormalizeVertStr(void)
 {
+
+#if 0
  Handle MainWindowD=NULL;
  MainWindowD=LDPUMA_GetWindowHandle ("Изображение после разворота");
  if(!MainWindowD)
@@ -194,6 +198,7 @@ RPSTR_FUNC(void) RPSTR_NormalizeVertStr(void)
 	 LDPUMA_WaitUserInput(hVertCompD,MainWindowD);
 	 LDPUMA_DeleteRects(MainWindowD,117);
  }
+#endif
 }
 
 void DrawRect(Handle wnd,Word32 OperCode,Word32 color,int top,int bottom,int left,int right)

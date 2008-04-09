@@ -1,3 +1,6 @@
 Issues detected during porting phase
 
 Cuneiform uses Windows' wchar_t, which is 16 bit. On Unix it is 32 bit.
+
+vertstr.cpp does GUI drawing or somesuch. Disabled everything.
+
