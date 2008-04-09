@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef H_cstrdef_h
 #define H_cstrdef_h
 
-#include "Recdefs.h"
+#include "recdefs.h"
 #include "ccomdefs.h"
 //#include "lang.h"
 #pragma pack (push,8)

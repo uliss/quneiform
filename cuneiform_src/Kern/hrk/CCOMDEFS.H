@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef H_ccomdef_h
 #define H_ccomdef_h
 
-#include "Recdefs.h"
+#include "recdefs.h"
 #pragma pack (push,8)
 
 #define CCOM_VERSION_CODE   1
