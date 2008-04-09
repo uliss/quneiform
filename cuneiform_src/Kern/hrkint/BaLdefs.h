@@ -63,8 +63,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __BALDEFS_H
 
 
-#include "Recdefs.h"
-#include "Leodefs.h"
+#include "recdefs.h"
+#include "leodefs.h"
 
 // входные параметры
   typedef struct tagBAL_RSTR_GLOBALS

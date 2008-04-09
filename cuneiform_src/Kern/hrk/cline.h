@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __CLINE_H
 #define __CLINE_H
 
-#include "Clinedefs.h"
+#include "clinedefs.h"
 
 #ifndef __GLOBUS_H
 #include "globus.h"

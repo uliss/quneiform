@@ -64,11 +64,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <string.h>
 #include <stdlib.h>
-#include <direct.h>
+/*#include <direct.h>*/
 #include <setjmp.h>
 #include <malloc.h>
 #include <time.h>
-#include <io.h>
+/*#include <io.h>*/
 #include <fcntl.h>
 #include "leo.h"
 #include "fon.h"
@@ -85,7 +85,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "resource.h"
 #include "common.h"
 #include "lang_def.h"
-#include "CRling.h"
+#include "crling.h"
 #include "dpuma.h"
 //#include "LineDefs.h"
 #include "cline.h"
@@ -398,6 +398,10 @@ Bool32 read_rec_file(INT lang, PBYTE pool, PBYTE * end)
  INT h;
  LONG  size;
 
+#ifndef O_BINARY /* This is defined only in Windows. */
+#define O_BINARY 0
+#endif
+ 
  h=open (tab3x5[lang],O_RDONLY|O_BINARY);
  if (h==-1)
         {

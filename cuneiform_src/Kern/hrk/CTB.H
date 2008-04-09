@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
    #include <string.h>
 /*   #include <io.h> */
-   #include <stdlib.h>
+/*   #include <stdlib.h> */
 
    #ifdef __CTB__
       #define CTB_FUNC  FUN_EXPO

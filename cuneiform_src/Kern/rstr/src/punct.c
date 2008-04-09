@@ -1859,15 +1859,15 @@ static void intval(cell *c,cell *cb)
    l2=c2->vers[0].let;
    if ((l1==':' || l1=='-' || l1=='_') &&
        (l2==':' || l2=='-' || l2=='_') &&
-       c2->col-(c1->col+c1->w)<=max(3,h/5) &&
+       c2->col-(c1->col+c1->w)<=MAX(3,h/5) &&
        abs(c1->row-c2->row)<=1 &&
        abs(c1->row+c1->h-(c2->row+c2->h))<=1 &&
        //!line_tabcell &&
        (d=dustpos(h,c1))>=0 && d<=3 &&
        min(c1->row,c2->row)>bl.b1)
     {
-    hh=max(c2->row+c2->h,c1->row+c1->h)-min(c2->row,c1->row);
-    ww=max(c2->col+c2->w,c1->col+c1->w)-min(c2->col,c1->col);
+    hh=MAX(c2->row+c2->h,c1->row+c1->h)-MIN(c2->row,c1->row);
+    ww=MAX(c2->col+c2->w,c1->col+c1->w)-MIN(c2->col,c1->col);
     if (ww<h || 9*hh>2*ww || pitchsize && ww<=3*pitchsize/2)
      c2->vers[0].let='-';
     else
@@ -1887,13 +1887,13 @@ static void intval(cell *c,cell *cb)
    else
     {
     if ((l1==0x27 || l1==':') && (l2==0x27 || l2==':') &&
-	max(c1->h,c2->h)>=h/5 &&
+	MAX(c1->h,c2->h)>=h/5 &&
 	(d=c2->col-c1->col-c1->w)<=h/2 &&
 	c1->row+c1->h>c2->row && c2->row+c2->h>c1->row &&
 	((c3=c2->next)==c || (l3=c3->vers[0].let)!=0x27 && l3!=':' ||
 	 d<=c3->col-c2->col-c2->w))
      {
-     if (abs(c1->h-c2->h)<=max(2,max(c1->h,c2->h)/3))
+     if (abs(c1->h-c2->h)<=MAX(2,MAX(c1->h,c2->h)/3))
       c2->vers[0].let='"';
      else
       {
@@ -1929,10 +1929,10 @@ static void intval(cell *c,cell *cb)
 	 c2->vers[0].let=(l1=='<')?left_quocket:right_quocket;
 	else
 	 {
-	 if (c1->col+max(3,c1->w)+((italic && c1->row>c2->row)?3:0)<c2->col
-	     || min(c1->row,c2->row)<
+	 if (c1->col+MAX(3,c1->w)+((italic && c1->row>c2->row)?3:0)<c2->col
+	     || MIN(c1->row,c2->row)<
 			     cbb->row-((fax1x2)?3:2)-((pitchsize)?1:0) &&
-		max(c1->row,c2->row)>=bl.bm
+		MAX(c1->row,c2->row)>=bl.bm
 	      /*|| (d=c1->row-c2->row)<=4 && d>=-4*/)
 	  {fe=1; fm=0;}
 	 else
@@ -1956,7 +1956,7 @@ static void intval(cell *c,cell *cb)
 	      (abs(c1->w-c2->w)<=2 ||
 				   2*c1->w<=3*c2->w && 2*c2->w<=3*c1->w) &&
 	      (c1->row>=c2->row || c2->col+c2->w/2-(c1->col+c1->w/2)<=
-						  max(2,min(c1->w,c2->w)/2)))
+						  MAX(2,MIN(c1->w,c2->w)/2)))
 	   {
 	   c2->vers[0].let=':';
 	   if (c1->nvers==2 || c2->nvers==2 || l1==',' || l2==',')
@@ -1994,7 +1994,7 @@ static void intval(cell *c,cell *cb)
 	    if ((l1=='-' || l1=='_' || l1=='=') &&
 		(l2=='-' || l2=='_' || l2=='='))
 	     {
-	     if (max(c1->row,c2->row)-min(c1->row+c1->h,c2->row+c2->h)<=h/2)
+	     if (MAX(c1->row,c2->row)-MIN(c1->row+c1->h,c2->row+c2->h)<=h/2)
 	      c2->vers[0].let='=';
 	     else
 	      c2->vers[0].let=':';
@@ -2028,7 +2028,7 @@ static void intval(cell *c,cell *cb)
     {
     d=dustpos(h,c1);
     if (!pitchsize && d==2 && c1->w<=c1->h+1 &&
-    max(c1->w,c1->h)>bl.ps/3 && //Oleg
+    MAX(c1->w,c1->h)>bl.ps/3 && //Oleg
 	((c3=c1->prev)->prev==NULL || c1->col-c3->col-c3->w>=h/2) &&
 	((c3=c1->next)->next==NULL || c3->col-c1->col-c1->w>=h/2))
      {
@@ -2048,7 +2048,7 @@ static void intval(cell *c,cell *cb)
       {
       if (d>2 ||
 	  d==2 && c1->row+c1->h/2>bl.bm && !(c1->cg_flag&c_cg_cut) &&
-	  (c1->row>bl.bm+1 || c1->row+c1->h+max(2,bl.ps/6)>=bl.b3) ||
+	  (c1->row>bl.bm+1 || c1->row+c1->h+MAX(2,bl.ps/6)>=bl.b3) ||
 	  d<2 && c1->row<bl.b2 && c1->h+((fax1x2)?2:0)>=c1->w &&
 							   c1->h>=bl.ps/4)
        {
@@ -2183,7 +2183,7 @@ static void intval(cell *c,cell *cb)
       c1->prev->vers[0].let!='.' &&
       !(l1==',' && c3->next->vers[0].let=='.'))
    {
-   if ((max=max(c1->h,max(c2->h,c3->h)))-min(c1->h,min(c2->h,c3->h))<=
+   if ((max=MAX(c1->h,MAX(c2->h,c3->h)))-MIN(c1->h,MIN(c2->h,c3->h))<=
 					      (s=(c1->h+c2->h+c3->h)/6))
     {
          c1->vers[0].let='.';

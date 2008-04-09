@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #include "globus.h"
    #endif
 
-   #include "BALdefs.h"
+   #include "baldefs.h"
 #ifndef __RECDEFS_H
    #include "recdefs.h"
 #endif

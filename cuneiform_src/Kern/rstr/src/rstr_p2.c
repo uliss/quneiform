@@ -58,14 +58,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  #include <stdlib.h>
  #include <sys/stat.h>
- #include <io.h>
+/* #include <io.h>*/
 
  #include "nt_types.h"
  #include <setjmp.h>
  #include <assert.h>
  #include <stdio.h>
  #include <fcntl.h>
- #include <direct.h>
+/* #include <direct.h>*/
  #include <string.h>
 
 #include  "std.h"
@@ -80,7 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "linutil.h"
 #include "p2libr.h"
 #include "leo.h"
-#include "Tm.H"
+#include "tm.h"
 #include "lang.h"
 #include "ccom.h"
 #include "struct.h" 
@@ -93,6 +93,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //#include "p2.h"
 //#include "rstr_p2.h" 
+
+static int p2_checkUpperLower(void);
 
 //======== EXTERN FUNCTIONS
 BOOL _spell(PCHAR s,BYTE lang);
@@ -666,7 +668,6 @@ int p2_checkLeoCase(void)
  }
 
  {  // Nick 19/01/2001
-  static int p2_checkUpperLower(void);
 
   p2_checkUpperLower();
  }

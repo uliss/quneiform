@@ -55,7 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 //#include "Recdefs.h"
-#include "LineDefs.h"
+#include "linedefs.h"
 //#include "LnsDefs.h"
 
 
