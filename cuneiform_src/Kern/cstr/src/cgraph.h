@@ -56,7 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef __CGRAPH_H
    #define __CGRAPH_H
-#include "Recdefs.h"
+#include "recdefs.h"
 #include "ccomdefs.h"
 #include "cstrdefs.h"
 #include "resource.h"
