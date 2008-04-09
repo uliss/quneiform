@@ -6,4 +6,5 @@ include_directories(hrkint)
 
 include_directories(itigerole/sources/tiger/h)
 
+add_subdirectory(ccom)
 add_subdirectory(rpstr)
