@@ -1,0 +1,407 @@
+Microsoft Developer Studio Workspace File, Format Version 6.00
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
+
+###############################################################################
+
+Project: "CLINE"=..\cline\sources\cline.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "MMX"=..\mmx\vc60\mmx32.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "MSK"=..\msk\vc60\msk32.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name MMX
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "RCUTP"=..\rcutp\sources\rcutp.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name ccom
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "RLings"=..\rling\sources\rlings.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name cstr
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "Rling"=..\rling\sources\rling.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name cstr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name RLings
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "Rstr"=..\rstr\vc60\rstr.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name ccom
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name CLINE
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name cstr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ctb32
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name evn32
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name fon
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name MMX
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name MSK
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name pass2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name rbal
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name RCUTP
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name Rling
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name rsadd
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name STD32
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name leo
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "STD32"=..\std\vc60\std32.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "ccom"=..\ccom\vc60\ccom.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "cpu32"=..\cpu\vc50\cpu32.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "cstr"=..\cstr\vc60\cstr.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name ccom
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "ctb32"=..\ctb\vc60\ctb32.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name ccom
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "dif"=..\dif\vc60\dif32.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "evn32"=..\evn32\vc60\evn32.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name dif
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "fon"=..\fon\vc60\fon.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name cstr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ctb32
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "leo"=..\leo\vc50\leo32.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name cpu32
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ctb32
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name dif
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name evn32
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name fon
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name MSK
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name r35
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name STD32
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "pass2"=..\pass2\vc60\pass2.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name cstr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name fon
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name STD32
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "r35"=..\r35\vc60\r3532.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name MMX
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name STD32
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "rbal"=..\rbal\vc60\rbal.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name cstr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name evn32
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "rpstr"=..\rpstr\vc60\rpstr.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name ccom
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name cstr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name Rling
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name Rstr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name STD32
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "rsadd"=..\rsadd\vc60\rsadd.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name cstr
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+

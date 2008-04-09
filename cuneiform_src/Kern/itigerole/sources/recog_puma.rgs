@@ -1,0 +1,26 @@
+HKCR
+{
+	Cognitive.Puma.1 = s 'Cognitive OCR Puma'
+	{
+		CLSID = s '{84E06770-9FD3-11d2-BAA9-0000E8D9FDF6}'
+	}
+	Cognitive.Puma = s 'Cognitive OCR Puma'
+	{
+		CLSID = s '{84E06770-9FD3-11d2-BAA9-0000E8D9FDF6}'
+		CurVer = s 'Cognitive.Puma.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {84E06770-9FD3-11d2-BAA9-0000E8D9FDF6} = s 'Cognitive OCR Puma'
+		{
+			ProgID = s 'Cognitive.Puma.1'
+			VersionIndependentProgID = s 'Cognitive.Puma'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Free'
+			}
+			'TypeLib' = s '{A7A44FF0-9FD6-11d2-BAA9-0000E8D9FDF6}'
+		}
+	}
+}

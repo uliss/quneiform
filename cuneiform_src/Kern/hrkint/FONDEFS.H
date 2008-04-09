@@ -1,0 +1,233 @@
+/*
+Copyright (c) 1993-2008, Cognitive Technologies
+All rights reserved.
+
+Разрешается повторное распространение и использование как в виде исходного кода,
+так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+
+      * При повторном распространении исходного кода должны оставаться указанное
+        выше уведомление об авторском праве, этот список условий и последующий 
+        отказ от гарантий. 
+      * При повторном распространении двоичного кода в документации и/или в 
+        других материалах, поставляемых при распространении, должны сохраняться
+        указанная выше информация об авторском праве, этот список условий и
+        последующий отказ от гарантий.  
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
+        быть использованы в качестве средства поддержки и/или продвижения 
+        продуктов, основанных на этом ПО, без предварительного письменного
+        разрешения. 
+
+ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+      this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation
+      and/or other materials provided with the distribution.
+    * Neither the name of the Cognitive Technologies nor the names of its
+      contributors may be used to endorse or promote products derived from this
+      software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+
+#ifndef PPS_MAC
+#pragma message(__FILE__)
+#endif
+
+#ifndef __FONDEFS_H
+#define __FONDEFS_H
+
+
+#include "Recdefs.h"
+#include "Leodefs.h"
+
+	typedef struct tagFontInfo {
+		int count[256];   // how many symbols in biggest cluster
+		int width[256];   // symbol width in biggest
+		int height[256];  // symbol height in biggest
+		int number[256];  // welet number - for fast search
+		int numFont[256]; // how many clusters with name
+	} FontInfo;
+
+	typedef struct tagSizesInfo {
+		int name;
+		int count;
+		int width;
+		int height;
+	} SizesInfo;
+
+	typedef struct tagClustInfo {          // information about one cluster
+      Word8 let;     // ASCII имя 
+	  Word8 weight;  // из скольких собран
+	  Word8 prob;    // оценка
+	  Word8 valid;   // валидность (LEO_VALID_...)
+	  Word8 attr;    // атрибуты (CTB_PRINT_...)
+	  Word8 mw;      // средняя ширина символов в кластере
+	  Word8 mh;      // средняя высота символов в кластере
+	  Word8 kegl;    // типичный кегль 
+      char reserved[24];
+	} ClustInfo;
+
+	// информация о распознаваемом символе
+	typedef struct tagFonSpecInfo {          
+      Int16  nInCTB;      // вход > 0 - номер в CTB
+	  Int16  nFieldRow;   // вход > 0 - номер строки (поля?)
+      Int16  col;         // вход - координаты 
+	  Int16  row;         //  
+	  Word32 wFonFlags;   // возврат - флаги frhdefs.h
+
+//Andrey - 20030620 - flags from frhdefs.h
+//----------------------------------------
+         #define  FFC_EMPTY         0x0001
+            // cell is empty, in this case rcFill should contain:
+            // rcFill.left =<leftmost> ?<field.left> :<prev_char>.rcFill.right+1;
+            // rcFill.right=<rightmost>?<field.right>:<next_char>.rcFill.left-1;
+            // rcFill.top   = ave( <prev_char>.rcFill.top,<next_char>.rcFill.top );
+            // rcFill.bottom= ave( <prev_char>.rcFill.bottom,<next_char>.rcFill.bottom );
+            // so, rcFill width should strictly equals to width of space!
+
+         // cell in real coordinates is determined by rcCell:
+         #define  FFC_CELL                   0x0002 // rcCell initialized
+         #define  FFC_CELL_STRONG_TOPBOTTOM  0x0004 // if rcCell initialized
+         #define  FFC_CELL_STRONG_LEFTRIGHT  0x0008 // if rcCell initialized
+
+      ////////////////////////////////////////////
+      // разметка знакомест от шрифтового дораспознавания:
+         #define  FFC_FON_CONFIRMED    0x8000                     // пред: FFC_FON_VERIFICATION
+            // первая альтернатива однозначно подтверждена
+
+         #define  FFC_FON_TWIN         0x4000
+            // несколько первых альтернатив укладываются в близкие кластеры и плохо различимы
+
+	      #define  FFC_FON_ALERT        0x2000
+            // знакоместо сомнительно (плохой размер, наличие других кластеров с такой буквой...)
+            // но не настолько, чтобы однозначно забраковать
+
+	      #define  FFC_FON_REJECT       0x1000
+            // результат сегментации и распознавания знакоместа забракован шрифтом
+
+	      #define  FFC_FON_CHANGE       0x0800
+            // произвел замену первой альтернативы
+
+      ////////////////////////////////////////////
+      // разметка знакомест от контекста
+         #define  FFC_CON_CONFIRMED    0x800000
+            // первая альтернатива однозначно подтверждена
+
+         #define  FFC_CON_TWIN         0x400000
+            // несколько первых альтернатив укладываются в близкие кластеры и плохо различимы
+
+	      #define  FFC_CON_ALERT        0x200000
+            // знакоместо сомнительно
+            // но не настолько, чтобы однозначно забраковать
+
+	      #define  FFC_CON_REJECT       0x100000
+            // результат сегментации и распознавания знакоместа забракован шрифтом
+
+	      #define  FFC_CON_CHANGE       0x080000
+            // произвел замену первой альтернативы
+
+      ////////////////////////////////////////////
+      // разметка знакомест от FRH
+         #define  FFC_STR_BEG          0x80000000
+            // начало строки
+
+         #define  FFC_STR_END          0x40000000
+            // конец строки
+
+	      #define  FFC_DBT_BEG          0x20000000
+            // начало сомнительного фрагмента
+
+	      #define  FFC_DBT_END          0x10000000
+            // конец сомнительного фрагмента
+
+	  Int16  nClust;      // возврат - номер лучшего кластера
+	  Int16  countRazmaz;
+	  Word8  nLet;        // вход > 0 - имя ASCII 
+	  Word8  onlySelf;    
+      Int16  h;          // вход - размеры
+	  Int16  w;          //  
+	  Word8  palkiLeo;   // вход != 0 - распознавать палки по ЛЕО
+	} FonSpecInfo;
+
+#define MAXCHECKALT 4
+	// информация о результатах проверки символа
+	typedef struct tagFonTestInfo { 
+		Int16 nClust; // какой кластер
+		Word8 prob;
+		Word8 flag;
+		Word8 kegl;
+		Word8 reserv[3];
+	} FonTestInfo;
+
+	// данные о кластерной базе в CTB-файле
+	typedef struct tagFonClusterBase{
+		Word8  oem;
+		Word8  fullX;
+		Word8  fullY;
+		Word8  let;
+		Word8  w;
+		Word8  h;
+		Word8  weight;
+		Word8  porog;
+		Word8  mw;
+		Word8  mh;
+		Word8  prob;
+		Word8  attr;
+		Word16 fill;
+		Word16 num;
+		Word16 invalid;
+		Word8  valid;
+		Word8  kegl;
+        Int16  sr_col;
+		Int16  sr_row;
+		Word32 summa;
+		Word32 fields[2]; // [NFIELDDWORD]
+		Int16  nInCTB; 
+		Word32 tablColumn;
+	} FonClusterBase;
+
+	/////////
+	// ПАРАМЕТРЫ КЛАСТЕРИЗАЦИИ ///
+	// кластеризовать и рукописные символы
+#define FONCLU_ClusterHand  0x4000 
+	// в одной строке может быть много шрифтов
+#define FONCLU_MultiFontRow 0x2000 
+	// сохранять как файл .clu
+#define FONCLU_SaveAsClu    0x1000 
+	// сохранять все кластеры - не искать шрифты
+#define FONCLU_NotFonts     0x800
+	// сохранять даже слабые кластеры
+#define FONCLU_SaveWeak     0x400
+	// добавлять к уже имеющимся кластерам
+#define FONCLU_AddClu       0x200
+    // входной файл - файл растров (tiger format) 
+#define FONCLU_InputR       0x100
+	// маска для порога
+#define FONCLU_Threshold    0xFF
+#endif

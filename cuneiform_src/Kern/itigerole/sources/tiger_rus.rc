@@ -1,0 +1,225 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Russian resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_RUS)
+#ifdef _WIN32
+LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT
+#pragma code_page(1251)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// REGISTRY
+//
+
+IDR_RECOGNITION_TIGER   REGISTRY DISCARDABLE    "Recog_tiger.rgs"
+IDR_RECOGNITION_PUMA    REGISTRY DISCARDABLE    "recog_puma.rgs"
+IDR_RECOGNITION_PUMA_MERGE REGISTRY DISCARDABLE    "recognit.bin"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_PROJNAME            "Tiger"
+    IDS_ERROR_NOMEMORY      "Не хватает оперативной памяти."
+    IDS_ERROR_NOLOAD        "Распознаватель не загружен."
+    IDS_ERROR_NOOPEN        "Изображение не открыто."
+    IDS_ERROR_FILERESULT    "Ошибка чтения результатов распознавания из временного файла."
+    IDS_ERROR_NOCREATETHREAD 
+                            "Программа не может создать поток для распознавания."
+    IDS_ERROR_CLIPBOARDEMPTY "Clipboard не содержит изображения."
+    IDS_ERROR_NO4COUNT      "Эта версия поддерживает только четырехугольные блоки."
+    IDS_ERROR_NO4IMAGE      "Эта версия не поддерживает распознавание картинок."
+    IDS_ERROR_DIBISNULL     "Указатель на DIB равен нулю."
+    IDS_ERROR_NORESOURCE    "Ошибка при чтении ресурсов."
+    IDS_LANG_ENGLISH        "Английский"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_LANG_GERMAN         "Немецкий"
+    IDS_LANG_FRENCH         "Французский"
+    IDS_LANG_RUSSIAN        "Русский"
+    IDS_LANG_SWEDISH        "Шведский"
+    IDS_LANG_SPANISH        "Испанский"
+    IDS_LANG_ITALIAN        "Итальянский"
+    IDS_LANG_UKRAINIAN      "Украинский"
+    IDS_LANG_SERBIAN        "Сербский"
+    IDS_LANG_CROATIAN       "Хорватский"
+    IDS_LANG_DANISH         "Датский"
+    IDS_LANG_PORTUGUESE     "Португальский"
+    IDS_LANG_DUTCH          "Голландский"
+    IDS_LANG_POLISH         "Польский"
+    IDS_TOEDNATIVE          "Внутренний формат. (*.fed)|*.fed|"
+    IDS_TOASCII             "Неформатированный текст.(*.txt)|*.txt|"
+    IDS_TOSMARTASCII        "Форматированный текст.(*.txt)|*.txt|"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_TORTF               "Rich Text Format. (*.rtf)|*.rtf|"
+    IDS_TOANSI              "Неформатированный текст ANSI. (*.txt)|*.txt|"
+    IDS_TOSMARTANSI         "Форматированный текст ANSI.(*.txt)|*.txt|"
+    IDS_TOTABLETXT          "Табличный текст.(*.txt)|*.txt|"
+    IDS_TOTABLECSV          "Табличный в формате CSV.(*.csv)|*.csv|"
+    IDS_TOTABLEDBF          "Табличный в формате DBF.(*.dbf)|*.dbf|"
+    IDS_TOTABLEODBC         "Табличный в формате ODBC.(*.odb)|*.odb|"
+    IDS_TOTABLEWKS          "Табличный в формате WKS.(*.wks)|*.wks|"
+    IDS_TOHTML              "HTML (*.htm)|*.htm|"
+    IDS_CODE_ASCII          "ASCII (OEM)"
+    IDS_CODE_ANSI           "ANSI"
+    IDS_CODE_KOI8           "KOI-8"
+    IDS_CODE_ISO            "ISO"
+    IDS_CODE_UNKNOWN        "Внутренний"
+    IDS_LANG_RUSENG         "Русско-Английский"
+    IDS_ERROR_SYSTEM        "Ошибка в программе. Обратитесь к разработчику."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_TOTEXT              "Неформатированный текст.(*.txt)|*.txt|"
+    IDS_TOSMARTTEXT         "Форматированный текст.(*.txt)|*.txt|"
+    IDS_LANG_DIG            "Цифровой"
+    IDS_PUMA_FORMAT_NONE    "Не форматировать"
+    IDS_PUMA_FORMAT_ALL     "Форматировать"
+    IDS_PUMA_FORMAT_ONLY_FRAME "Форматировать только фреймами"
+    IDS_PUMA_PICTURE_NONE   "Картинок нет"
+    IDS_PUMA_PICTURE_ALL    "Картинки есть"
+    IDS_PUMA_TABLE_NONE     "Таблиц нет"
+    IDS_PUMA_TABLE_DEFAULT  "Таблицы выделяются автоматически"
+    IDS_PUMA_TABLE_ONLY_LINE "Таблицы выделены только линиями"
+    IDS_PUMA_TABLE_ONLY_TEXT "Таблица выделена текстом"
+    IDS_PUMA_TABLE_LINE_TEXT "Таблица выделена линиями и текстом"
+    IDS_ERR_NOTIMPLEMENT    "Функция не реализована."
+    IDS_ERR_EXCEPTION       "Ошибка в модуле <%s>. Обратитесь к разработчику."
+    IDS_DEBUG_TOTEXT        "Текст для отладки ANSI(*.txt)|*.txt|"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_LANG_CZECH          "Чешский"
+    IDS_LANG_ROMAN          "Румынский"
+    IDS_LANG_HUNGAR         "Венгерский"
+    IDS_LANG_BULGAR         "Болгарский"
+    IDS_LANG_SLOVENIAN      "Словенский"
+    IDS_LANG_LATVIAN        "Латышский"
+    IDS_LANG_LITHUANIAN     "Литовский"
+    IDS_LANG_ESTONIAN       "Эстонский"
+    IDS_LANG_TURKISH        "Турецкий"
+    IDS_CRASH_MAIL          "mailto:cuneiform@cognitive.ru"
+    IDS_CRASH_CAPTION       "Отчет об ошибке"
+END
+
+#endif    // Russian resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "1 TYPELIB ""Tiger.tlb""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "Tiger Module\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "Tiger\0"
+            VALUE "LegalCopyright", "Copyright 1998\0"
+            VALUE "OriginalFilename", "Tiger.DLL\0"
+            VALUE "ProductName", "Tiger Module\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+            VALUE "OLESelfRegister", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+1 TYPELIB "Tiger.tlb"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

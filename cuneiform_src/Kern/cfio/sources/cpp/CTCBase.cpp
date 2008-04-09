@@ -1,0 +1,945 @@
+/*
+Copyright (c) 1993-2008, Cognitive Technologies
+All rights reserved.
+
+Ðàçðåøàåòñÿ ïîâòîðíîå ðàñïðîñòðàíåíèå è èñïîëüçîâàíèå êàê â âèäå èñõîäíîãî êîäà,
+òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
+
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
+        îòêàç îò ãàðàíòèé. 
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
+        óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
+        ðàçðåøåíèÿ. 
+
+ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+      this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation
+      and/or other materials provided with the distribution.
+    * Neither the name of the Cognitive Technologies nor the names of its
+      contributors may be used to endorse or promote products derived from this
+      software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+//////////////////////////////////////////////////////////////////////////////////
+//                                                                              //
+//                                                                              //
+//                    Cognitive Technologies Ltd.                               //
+//                                                                              //
+//                    Data Storage Container                                    //
+//                                                                              //
+//                                                                              //
+//                                                                              //
+//                                                                              //
+//                    started at 25 may 1998                                    //
+//                                                                              //
+//////////////////////////////////////////////////////////////////////////////////
+#include "CTCControl.h"
+//////////////////////////////////////////////////////////////////////////////////
+extern CTCControl * Control;
+//////////////////////////////////////////////////////////////////////////////////
+//
+CTCGlobalHeader::CTCGlobalHeader()
+{
+	//ASSERT( FALSE );
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+CTCGlobalHeader::CTCGlobalHeader(Handle NewHandle, 
+		                         void * NewData, 
+					             Word32 NewSize,
+					             Word32 NewFlag,
+					             CTCGlobalHeader * NewNext)
+{
+	SetHandle(NewHandle);
+	SetData(NewData);
+	SetNext(NewNext);
+	SetSize(NewSize);
+	SetFlag(NewFlag);
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+CTCGlobalHeader::~CTCGlobalHeader()
+{
+
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+//
+CTCGlobalFile::CTCGlobalFile()
+{
+	_ASSERT( FALSE );
+	SetHandle(NULL);
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+CTCGlobalFile::CTCGlobalFile(char * Name, Word32 Flag)
+{
+	ProvideFileFolder(Name);
+	TranslateFlagToString(Flag);
+	if ( Flag & CFIO_GF_IN_MEMORY )
+	{
+		Deleted = TRUE;
+		InMemory = TRUE;
+		MoveToFile = TRUE;
+		wSeeker = 0;
+		wClusterCounter = 0;
+		mcFirst.mcPtr = mcFirst.mcHandle = mcFirst.mcNext = NULL;
+		mcFirst.mcSize = 0;
+		SetHandle(CreateNewCluster());
+	}
+	else
+	{
+		SetHandle(CFIO_OPEN(Name, GetFlagString()));
+		Deleted = FALSE;
+		InMemory = FALSE;
+		MoveToFile = FALSE;
+	}
+
+	if ( GetHandle() )
+	{
+		SetFileName(Name);
+		wSeeker = 0;
+	}
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+CTCGlobalFile::~CTCGlobalFile()
+{
+	if ( GetHandle() )
+		Close();
+
+	if ( IsDeleted() )
+		CFIO_REMOVE( cFileName );
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+Bool32 CTCGlobalFile::IsInString(char * Flag)
+{
+	for (char * i = GetFlagString(); *i != 0x00; i++ )
+	{
+		if( *i == *Flag )
+		{
+			if( *(Flag + 1) == 0x00 )
+				return TRUE;
+			else
+				if ( *(Flag + 1) == *(i + 1) )
+				return TRUE;
+		}
+	}
+	
+	return FALSE;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+Word32 CTCGlobalFile::Write(void * pData, Word32 wDataSize, Word32 wDataCounter)
+{
+	if ( IsInString(CFIO_GF_CWRITE) || IsInString(CFIO_GF_CWRITEREAD) ||
+		 IsInString(CFIO_GF_CREADWRITE) || IsInString(CFIO_GF_CAPPEND) || 
+		 IsInString(CFIO_GF_CAPPENDEOF) )
+	{
+		if ( !InMemory )
+		{
+			Word32 Writed = CFIO_WRITE(pData, wDataSize, wDataCounter, GetHandle());
+			Flush();
+			return Writed;
+		}
+		else
+		{
+			return WriteToMemory(pData, wDataSize, wDataCounter);
+		}
+	}
+	return 0;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+Word32 CTCGlobalFile::Read(void * pData, Word32 wDataSize, Word32 wDataCounter)
+{
+	if ( IsInString(CFIO_GF_CREAD) || IsInString(CFIO_GF_CWRITEREAD) ||
+		 IsInString(CFIO_GF_CREADWRITE) || IsInString(CFIO_GF_CAPPEND) || 
+		 IsInString(CFIO_GF_CAPPENDEOF) )
+	{
+		if ( !InMemory )
+		{
+			return CFIO_READ(pData, wDataSize, wDataCounter, GetHandle());
+		}
+		else
+		{
+			return ReadFromMemory(pData, wDataSize, wDataCounter);
+		}
+	}
+	return 0;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+Bool32 CTCGlobalFile::Close()
+{
+	Word32 Closet;
+
+	if ( !InMemory )
+	{
+		Closet = CFIO_CLOSE(GetHandle());
+	}
+	else
+		if ( !IsDeleted() )
+		{
+			FILE * DiskFile;
+			char DiskFileName[CFIO_MAX_PATH];
+					
+			// extract memroy file name for disk file
+			// if present
+			if ( *(GetFileName(DiskFileName)) != 0x00 )
+			{
+				if ( IsInString( CFIO_GF_CBINARY ) )
+					DiskFile = CFIO_OPEN( DiskFileName, "wb" );
+				else
+					DiskFile = CFIO_OPEN( DiskFileName, "w" );
+				//move from memory to disk
+				MoveFromMemory(DiskFile);
+				
+				CFIO_CLOSE(DiskFile);
+			}
+		}
+		else
+		{
+			MoveFromMemory(NULL);
+		}
+
+	if ( Closet == 0 )
+	{
+		SetHandle(NULL);
+		return TRUE;
+	}
+
+	return FALSE;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//move file from memroy to disk and delete memory copy
+Bool32 CTCGlobalFile::MoveFromMemory(Handle dFile)
+{
+	Word32          DataLeft = wMemorySize;
+	Word32          wWriteCount = 0;
+	Word32          ReadFromCluster;
+	PCFIOMCLUSTER  	pCurrentCluster = mcFirst.mcNext;
+	void *          lpData;
+
+	if ( dFile )
+	{
+		while(DataLeft)
+		{
+			if ( DataLeft > CFIO_GF_MEMORY_FILE_CLUSTER )
+			{
+				ReadFromCluster = CFIO_GF_MEMORY_FILE_CLUSTER;
+			}
+			else
+			{
+				ReadFromCluster = DataLeft;
+			}
+			// take pointer to memory
+			lpData = GetPtrToMemoryCluster(NULL, pCurrentCluster);
+			// write memory to disk
+			wWriteCount += CFIO_WRITE( lpData, sizeof(char), ReadFromCluster, dFile);
+			DataLeft -= ReadFromCluster;		
+			ClosePtrToMemoryCluster(NULL, pCurrentCluster);
+			pCurrentCluster = pCurrentCluster->mcNext;
+		}
+	}
+
+	KillLastCluster( &mcFirst );
+	
+	return TRUE;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+/*
+Handle CTCGlobalFile::AssemblyToOne()
+{
+	Word32      DataLeft = wMemorySize;
+	Word32      ReadFromCluster;
+	MCLUSTER  *	pCurrentCluster = mcFirst.mcNext;
+	Handle      hMemoryBlock;
+	void *      lpData;
+	void *      lpDest;
+	char *      lpSeek;
+
+	hMemoryBlock = 	Control->Alloc(wMemorySize, MAF_GALL_GHND);
+
+	if ( hMemoryBlock )
+	{
+		lpSeek = (char *)(lpDest = Control->Lock(hMemoryBlock));
+
+		while(DataLeft)
+		{
+			if ( DataLeft > CFIO_GF_MEMORY_FILE_CLUSTER )
+			{
+				ReadFromCluster = CFIO_GF_MEMORY_FILE_CLUSTER;
+			}
+			else
+			{
+				ReadFromCluster = DataLeft;
+			}
+			// take pointer to memory
+			lpData = GetPtrToMemoryCluster(NULL, pCurrentCluster);
+			// write memory to one block
+			memcpy( (void *)lpSeek, lpData, ReadFromCluster);
+			lpSeek += ReadFromCluster;
+
+			ClosePtrToMemoryCluster(NULL, pCurrentCluster);
+			
+			pCurrentCluster = pCurrentCluster->mcNext;
+		}
+
+		Control->Unlock(hMemoryBlock);
+	}
+
+	return hMemoryBlock;
+}
+*/
+//////////////////////////////////////////////////////////////////////////////////
+//
+Word32 CTCGlobalFile::Seek(Word32 Position, Word32 Flag)
+{
+	int Direction;
+	Word32 NewSeeker;
+	
+	switch(Flag)
+	{
+	case CFIO_GF_SEEK_CURR:
+		Direction = SEEK_CUR;
+		break;
+	case CFIO_GF_SEEK_BEG:
+		Direction = SEEK_SET;
+		break;
+	case CFIO_GF_SEEK_END:
+		Direction = SEEK_END;
+		break;
+	default:
+		Direction = SEEK_CUR;
+		break;
+	}
+
+	if ( InMemory )
+	{
+		switch ( Direction )
+		{
+		case SEEK_CUR:
+			wSeeker += Position;
+
+			if ( wSeeker > wMemorySize )
+				wSeeker = wMemorySize;
+
+			break;
+
+		case SEEK_END:
+			
+			if ( Position < wMemorySize )
+				wSeeker = wMemorySize - Position;
+			else
+				wSeeker = 0;
+
+			break;
+
+		case SEEK_SET:
+			
+			if ( Position < wMemorySize )
+				wSeeker = Position;
+			else
+				wSeeker = wMemorySize;
+			break;
+		}
+	}
+	else
+	{
+		if ( CFIO_SEEK( GetHandle(), Position, Direction) == 0 )
+		{
+			NewSeeker = Tell();
+			wSeeker = NewSeeker;
+		}
+	}
+	return wSeeker;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+Word32 CTCGlobalFile::Tell()
+{
+	if ( InMemory )
+	{
+		return wSeeker;
+	}
+	else
+	{
+		return CFIO_TELL(GetHandle());
+	}
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+Word32 CTCGlobalFile::Flush()
+{
+	if ( InMemory )
+	{
+		return 0;
+	}
+	else
+	{
+		return CFIO_FLUSH(GetHandle());
+	}
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+Word32 CTCGlobalFile::GetFileSize()
+{
+	Word32 CurrentPosition = Tell();
+	Word32 Size;
+
+	if ( Seek(0, CFIO_GF_SEEK_END) )
+	{
+		Size = Tell();
+		Seek(CurrentPosition,CFIO_GF_SEEK_BEG);
+	}
+	return Size;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+void CTCGlobalFile::TranslateFlagToString(Word32 Flag)
+{
+	ClearFlagString();
+	
+	if ( Flag&CFIO_GF_CREATE )
+	{
+		if (Flag&CFIO_GF_READ )
+			AddFlagToString(CFIO_GF_CWRITEREAD);
+		else
+			AddFlagToString(CFIO_GF_CWRITE);
+	}
+	else
+	{
+		if ( Flag&CFIO_GF_READ )
+		{
+			if( Flag&CFIO_GF_WRITE )
+				AddFlagToString(CFIO_GF_CREADWRITE);
+			else
+			{
+				if ( Flag&CFIO_GF_APPEND )
+					AddFlagToString(CFIO_GF_CAPPENDEOF);
+				else
+					AddFlagToString(CFIO_GF_CREAD);
+			}
+		}
+		else
+		{
+			if( Flag&CFIO_GF_WRITE )
+				AddFlagToString(CFIO_GF_CWRITE);
+			else
+			{
+				if ( Flag&CFIO_GF_APPEND )
+					AddFlagToString(CFIO_GF_CAPPEND);
+				else
+					AddFlagToString(CFIO_GF_CWRITEREAD);
+			}
+		}
+	}
+	
+
+	if ( Flag&CFIO_GF_BINARY )
+		AddFlagToString(CFIO_GF_CBINARY);
+	else
+		AddFlagToString(CFIO_GF_CTEXT);
+
+	if ( Flag&CFIO_GF_COMMIT )
+		AddFlagToString(CFIO_GF_CCOMMIT);
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+void CTCGlobalFile::ClearFlagString(void)
+{
+	CFIO_STRCPY(cFlag,"");
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+void CTCGlobalFile::AddFlagToString( char * Flag )
+{
+	CFIO_STRCAT(cFlag, Flag);
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+char * CTCGlobalFile::GetFileName(char * lpName)
+{
+	if ( lpName && CFIO_STRLEN(lpName) <= CFIO_MAX_PATH )
+		CFIO_STRCPY(lpName, cFileName);
+
+	return cFileName;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+char * CTCGlobalFile::SetFileName(char * lpName )
+{
+	if ( lpName && CFIO_STRLEN(lpName) <= CFIO_MAX_PATH )
+		CFIO_STRCPY(cFileName, lpName);
+
+	return cFileName;
+}
+
+Word32 CTCGlobalFile::GetFileLenght()
+{
+	if ( InMemory )
+	{
+		return wMemorySize;
+	}
+	else
+	{
+		Word32 wFileLenght;
+		Word32 wCurrentPos = Tell();
+
+		wFileLenght = Seek(0, CFIO_GF_SEEK_END);
+		Seek(wCurrentPos, CFIO_GF_SEEK_BEG );
+		return wFileLenght;
+	}
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+static char FullPath[CFIO_MAX_PATH];
+static char Disk[CFIO_MAX_PATH];
+static char Folder[CFIO_MAX_PATH];
+static char File[CFIO_MAX_PATH];
+static char Extension[CFIO_MAX_PATH];
+static char Out[CFIO_MAX_PATH];
+//////////////////////////////////////////////////////////////////////////////////
+//
+Bool32 CTCGlobalFile::ProvideFileFolder(char * lpFileName)
+{
+
+	if ( strlen(lpFileName) == 0 )
+		return FALSE;
+
+	//MAKEFULLPATH(FullPath, lpFileName, _MAX_PATH);
+	CFIO_GETFOLDERSITEMS(lpFileName, Disk, Folder, File, Extension);
+	CFIO_MAKEPATH ( Out, Disk, Folder, NULL, NULL);
+	
+	if ( Out[0] == 0x0 )
+		return TRUE;
+	
+	CFIO_MAKEFOLDER(Out);
+	//CreateDirectory(Out, NULL);
+
+	CFIO_MAKEPATH(Out, Disk, Folder, File, Extension);
+
+	return TRUE;
+}
+//////////////////////////////////////////////////////////////////////////////////
+/////////////////////////memory file//////////////////////////////////////////////
+//
+Handle CTCGlobalFile::CreateNewCluster(PPCFIOMCLUSTER pmcCluster)
+{
+	PCFIOMCLUSTER pCurrentCluster, pNewCluster;
+	// if not first
+	if ( mcFirst.mcNext )
+	{
+		GetLastCluster(&pCurrentCluster);
+	}
+	else
+	{
+		pCurrentCluster = &mcFirst;
+	}
+
+	pNewCluster = new CFIOMCLUSTER;
+	
+	pNewCluster->mcNext = NULL;
+	pNewCluster->mcLocked = FALSE;
+	pNewCluster->mcPtr = NULL;
+	// new Cluster Size for alloc()
+	pNewCluster->mcSize = CFIO_GF_MEMORY_FILE_CLUSTER;
+	// new Cluster memory flag for alloc()
+	pNewCluster->mcMemoryFlag = MAF_GALL_GHND;
+	// alloc new memory for new cluster
+	pNewCluster->mcHandle = Control->Alloc(pNewCluster->mcSize, pNewCluster->mcMemoryFlag,"CFIO virtual file cluster","no comment");
+	// new cluster is clear
+	pNewCluster->mcFill = 0;
+	pNewCluster->mcNumber = wClusterCounter;
+
+	if ( pmcCluster )
+	{
+		*pmcCluster = pNewCluster;
+	}
+
+	if ( pNewCluster->mcHandle )
+	{
+		pCurrentCluster->mcNext = pNewCluster;
+	}
+	// increase cluster counter
+	wClusterCounter++;
+	return pNewCluster->mcHandle;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////
+//
+Bool32 CTCGlobalFile::KillLastCluster(PCFIOMCLUSTER pEndCluster)
+{
+	PCFIOMCLUSTER pCluster, pLastCluster, pNextToDelete;
+
+	// if 1 or more cluster present
+	if ( mcFirst.mcNext )
+	{
+		// set last cluster in chain
+		pLastCluster = &mcFirst;
+		// define end of cluster chain - 
+		if ( pEndCluster )
+		{
+			// reset last cluster
+			pLastCluster = pEndCluster;
+			// set first cluster for delete
+			pCluster = pEndCluster->mcNext;
+		}
+		// or delete las 1 cluster
+		else
+		{
+			for ( pCluster = mcFirst.mcNext; 
+				  pCluster->mcNext != NULL; 
+				  pCluster = pCluster->mcNext)
+			{
+				pLastCluster = pCluster;
+			}
+		}
+		// breah\k chain
+		pLastCluster->mcNext = NULL;
+		
+		// delete clusters from end cluster
+		while ( pCluster )
+		{
+			pNextToDelete = pCluster->mcNext;
+			// unlock memory (for any case)
+			if ( pCluster->mcLocked )
+				Control->Unlock(pCluster->mcHandle);
+			
+			// free memory cluster and ...
+			Control->Free(pCluster->mcHandle);
+			// delete memory cluster info
+			delete pCluster;
+			// decrease cluster counter;
+			wClusterCounter--;
+			pCluster = pNextToDelete;
+		}
+		return TRUE;
+	}
+	
+	return FALSE;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////
+//
+PCFIOMCLUSTER CTCGlobalFile::TakeCluster(Handle hCluster)
+{
+	PCFIOMCLUSTER pCurrentCluster;
+
+	for ( pCurrentCluster = mcFirst.mcNext; 
+	      pCurrentCluster != NULL;
+		  pCurrentCluster = pCurrentCluster->mcNext)
+		{
+			if ( pCurrentCluster->mcHandle = hCluster )
+			{
+				return pCurrentCluster;
+			}
+		}
+	return NULL;	  
+}
+///////////////////////////////////////////////////////////////////////////////////////////////
+//
+Handle CTCGlobalFile::GetLastCluster(PPCFIOMCLUSTER pmcCluster)
+{
+	PCFIOMCLUSTER pLastCluster;
+
+	if ( !mcFirst.mcNext )
+	{
+		return &mcFirst;
+	}
+
+	for ( pLastCluster = mcFirst.mcNext; 
+	      pLastCluster->mcNext != NULL; 
+		  pLastCluster = pLastCluster->mcNext);
+	
+	if ( pmcCluster )
+	{
+		*pmcCluster = pLastCluster;
+	}
+
+	return pLastCluster->mcHandle;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////
+//
+Handle CTCGlobalFile::GetNextCluster(Handle hCluster, PPCFIOMCLUSTER pmcCluster)
+{
+	PCFIOMCLUSTER pCluster = TakeCluster(hCluster);
+
+	if ( pCluster )
+	{
+		if ( pmcCluster )
+		{
+			*pmcCluster = pCluster;
+		}
+		return pCluster->mcNext->mcHandle;
+	}
+	
+	if ( pmcCluster )
+	{
+		*pmcCluster = NULL;
+	}
+	
+	return NULL;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+void * CTCGlobalFile::GetPtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pCluster)
+{
+	PCFIOMCLUSTER pCurrentCluster;
+	
+	if ( pCluster )
+	{
+		pCurrentCluster = pCluster;
+	}
+	else
+	{
+		pCurrentCluster = TakeCluster(hCluster);
+	}
+
+	if ( !pCurrentCluster->mcLocked )
+	{
+		pCurrentCluster->mcPtr = Control->Lock(pCurrentCluster->mcHandle);
+		pCurrentCluster->mcLocked = TRUE;
+	}
+
+	return pCurrentCluster->mcPtr;
+
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+Bool32 CTCGlobalFile::ClosePtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pCluster)
+{
+	PCFIOMCLUSTER pCurrentCluster;
+	
+	if ( pCluster )
+	{
+		pCurrentCluster = pCluster;
+	}
+	else
+	{
+		pCurrentCluster = TakeCluster(hCluster);
+	}
+
+	if ( pCurrentCluster->mcLocked )
+	{
+		pCurrentCluster->mcPtr = NULL;
+		Control->Unlock(pCurrentCluster->mcHandle);
+		pCurrentCluster->mcLocked = FALSE;
+	}
+
+	return !pCurrentCluster->mcLocked;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+Handle CTCGlobalFile::GetSeekedCluster(PPCFIOMCLUSTER pmcCluster)
+{
+	Word32 FilledClusters = wSeeker/CFIO_GF_MEMORY_FILE_CLUSTER;
+	PCFIOMCLUSTER pCluster;
+
+	// if allright
+	if ( FilledClusters <= wClusterCounter )
+	{
+		// seeker to end
+		if ( wSeeker == wMemorySize )
+		{
+			GetLastCluster(&pCluster);
+		}
+		else
+			//seeker to begin
+			if ( wSeeker == 0 )
+			{
+				pCluster = mcFirst.mcNext;
+			}
+			// seeker to midle of file
+			else
+			{
+				for ( pCluster = mcFirst.mcNext; 
+					  pCluster != NULL && FilledClusters > 0; 
+					  pCluster = pCluster->mcNext, FilledClusters--);
+			}
+		
+	}
+	else       // if seeker out of range
+	{
+		wSeeker = 0;
+		pCluster = mcFirst.mcNext;
+	}
+	
+	if ( pmcCluster )
+	{
+		*pmcCluster = pCluster;
+	}
+
+	if ( pCluster )
+		return pCluster->mcHandle;
+	else
+		return NULL;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+Word32 CTCGlobalFile::WriteToMemory(void * pData, Word32 wDataSize, Word32 wDataCounter)
+{
+	Word32 ClusterOffset;
+	Word32 wAllData = wDataSize * wDataCounter;
+	Word32 AvailableToWriteInCluster;
+	//Word32 i;
+	Word32 Counter = 0;
+	char *     Sorc = (char *)pData;
+	char *     Desc;
+	PCFIOMCLUSTER pWritedCluster;
+
+	// position to seeker
+	GetSeekedCluster(&pWritedCluster);
+	// set offset in cluster
+	ClusterOffset = wSeeker - ((wSeeker / CFIO_GF_MEMORY_FILE_CLUSTER) * CFIO_GF_MEMORY_FILE_CLUSTER);
+	
+	//writing:
+	while(wAllData)
+	{
+		//  available to write in this cluster
+		AvailableToWriteInCluster = CFIO_GF_MEMORY_FILE_CLUSTER - ClusterOffset;
+		// set ptr to writing
+		Desc = ((char *) GetPtrToMemoryCluster(NULL,pWritedCluster)) + ClusterOffset;
+		
+		//  if need to write less then free space in last cluster
+		if ( wAllData < AvailableToWriteInCluster )
+		{
+			// write all data in one cluster
+			AvailableToWriteInCluster = wAllData;
+		}
+		else
+		{
+			// or create new cluster if last can't be writen by all data
+			if ( pWritedCluster->mcNext == NULL )
+				CreateNewCluster();
+
+			// clear offset for next cluster
+			ClusterOffset = 0;
+		}
+		memcpy(Desc,Sorc,AvailableToWriteInCluster);
+		Sorc += AvailableToWriteInCluster;
+		wAllData -= AvailableToWriteInCluster;
+		Counter += AvailableToWriteInCluster;
+		wSeeker += AvailableToWriteInCluster;
+
+		ClosePtrToMemoryCluster(NULL,pWritedCluster);
+		
+		// switch to write on next cluster
+		if ( wAllData )
+		{
+			pWritedCluster = pWritedCluster->mcNext;
+		}
+	}
+	// new file in memory size
+	wMemorySize = wSeeker;
+	return Counter;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//
+Word32 CTCGlobalFile::ReadFromMemory(void * pData, Word32 wDataSize, Word32 wDataCounter)
+{
+	Word32 ClusterOffset;
+	Word32 wAllData = wDataSize * wDataCounter;
+	Word32 AvailableToReadInCluster;
+//	Word32 i;
+	Word32 Counter = 0;
+	char *     Sorc;
+	char *     Desc = (char *)pData;
+	PCFIOMCLUSTER pReadedCluster;
+
+	// position to seeker
+	GetSeekedCluster(&pReadedCluster);
+	// set offset in cluster
+	ClusterOffset = wSeeker - ((wSeeker / CFIO_GF_MEMORY_FILE_CLUSTER) * CFIO_GF_MEMORY_FILE_CLUSTER);
+	
+	if ( wAllData > wMemorySize )
+		wAllData = wMemorySize;
+
+	//writing:
+	while(wAllData)
+	{
+		//  available to write in this cluster
+		AvailableToReadInCluster = CFIO_GF_MEMORY_FILE_CLUSTER - ClusterOffset;
+		// set ptr to writing
+		Sorc = ((char *)GetPtrToMemoryCluster(NULL,pReadedCluster)) + ClusterOffset;
+		
+		//  if need to write less then free space in last cluster
+		if ( wAllData < AvailableToReadInCluster )
+		{
+			// write all data in one cluster
+			AvailableToReadInCluster = wAllData;
+		}
+		//copy data
+		memcpy(Desc,Sorc,AvailableToReadInCluster);
+		// move destination pointer to write next data
+		Desc += AvailableToReadInCluster;
+		// decrease data to copy counter
+		wAllData -= AvailableToReadInCluster;
+		// increase data copy counter
+		Counter += AvailableToReadInCluster;
+		// move virtual file position pointer
+		wSeeker += AvailableToReadInCluster;
+
+		ClosePtrToMemoryCluster(NULL,pReadedCluster);
+		
+		// switch to write on next cluster
+		if ( wAllData )
+		{
+			pReadedCluster = pReadedCluster->mcNext;
+			ClusterOffset = 0;
+
+			if ( !pReadedCluster )
+			{
+				return 0;
+			}
+		}
+	}
+	return Counter;
+}
+//////////////////////////////////////////////////////////////////////////////////
+//end of file
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,158 @@
+// Tiger.idl : IDL source for Tiger.dll
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (Tiger.tlb) and marshalling code.
+#ifdef __TIGER__
+	#define UUID 229C1070-829F-11D2-BA6E-0000E8D9FDF6
+	#define TYPELIB_UUID 229C1063-829F-11D2-BA6E-0000E8D9FDF6
+#else
+	#ifdef __PUMA__
+		#ifdef __MERGE__
+			#define UUID		  28EE7092-934C-4106-8AA5-D731481F57A7
+			#define TYPELIB_UUID  DF9C907E-4D8A-4ec3-8B94-50B69D650267
+		#else
+			#define UUID		  84E06770-9FD3-11d2-BAA9-0000E8D9FDF6
+			#define TYPELIB_UUID  A7A44FF0-9FD6-11d2-BAA9-0000E8D9FDF6
+		#endif //MERGE
+	#else
+		#error Undefined __PUMA__ or __TIGER__
+	#endif
+#endif
+
+import "oaidl.idl";
+import "ocidl.idl";
+	[
+		object,
+		uuid(229C106F-829F-11D2-BA6E-0000E8D9FDF6),
+		dual,
+		helpstring("IRecognition Interface"),
+		pointer_default(unique)
+	]
+interface IRecognition : IDispatch
+	{
+		[propget, id(1), helpstring("property Language")] HRESULT Language([out, retval] short *pVal);
+		[propput, id(1), helpstring("property Language")] HRESULT Language([in] short newVal);
+		[propget, id(2), helpstring("property Speller")] HRESULT Speller([out, retval] BOOL *pVal);
+		[propput, id(2), helpstring("property Speller")] HRESULT Speller([in] BOOL newVal);
+		[propget, id(3), helpstring("property OneColumn")] HRESULT OneColumn([out, retval] BOOL *pVal);
+		[propput, id(3), helpstring("property OneColumn")] HRESULT OneColumn([in] BOOL newVal);
+		[propget, id(4), helpstring("property Fax100")] HRESULT Fax100([out, retval] BOOL *pVal);
+		[propput, id(4), helpstring("property Fax100")] HRESULT Fax100([in] BOOL newVal);
+		[propget, id(5), helpstring("property DotMatrix")] HRESULT DotMatrix([out, retval] BOOL *pVal);
+		[propput, id(5), helpstring("property DotMatrix")] HRESULT DotMatrix([in] BOOL newVal);
+		[propget, id(6), helpstring("property UserDictName")] HRESULT UserDictName([out, retval] BSTR *pVal);
+		[propput, id(6), helpstring("property UserDictName")] HRESULT UserDictName([in] BSTR newVal);
+		[propget, id(7), helpstring("property Bold")] HRESULT Bold([out, retval] BOOL *pVal);
+		[propput, id(7), helpstring("property Bold")] HRESULT Bold([in] BOOL newVal);
+		[propget, id(8), helpstring("property Italic")] HRESULT Italic([out, retval] BOOL *pVal);
+		[propput, id(8), helpstring("property Italic")] HRESULT Italic([in] BOOL newVal);
+		[propget, id(9), helpstring("property Size")] HRESULT Size([out, retval] BOOL *pVal);
+		[propput, id(9), helpstring("property Size")] HRESULT Size([in] BOOL newVal);
+		[propget, id(10), helpstring("property Format")] HRESULT Format([out, retval] BOOL *pVal);
+		[propput, id(10), helpstring("property Format")] HRESULT Format([in] BOOL newVal);
+		[propget, id(11), helpstring("property SerifName")] HRESULT SerifName([out, retval] BSTR *pVal);
+		[propput, id(11), helpstring("property SerifName")] HRESULT SerifName([in] BSTR newVal);
+		[propget, id(12), helpstring("property SansSerifName")] HRESULT SansSerifName([out, retval] BSTR *pVal);
+		[propput, id(12), helpstring("property SansSerifName")] HRESULT SansSerifName([in] BSTR newVal);
+		[propget, id(13), helpstring("property CourierName")] HRESULT CourierName([out, retval] BSTR *pVal);
+		[propput, id(13), helpstring("property CourierName")] HRESULT CourierName([in] BSTR newVal);
+		[propget, id(14), helpstring("property ProgressStep")] HRESULT ProgressStep([out, retval] long *pVal);
+		[propput, id(14), helpstring("property ProgressStep")] HRESULT ProgressStep([in] long newVal);
+		[propget, id(15), helpstring("property ProgressStop")] HRESULT ProgressStop([out, retval] long *pVal);
+		[propput, id(15), helpstring("property ProgressStop")] HRESULT ProgressStop([in] long newVal);
+		[propget, id(16), helpstring("property ProgressStart")] HRESULT ProgressStart([out, retval] long *pVal);
+		[propput, id(16), helpstring("property ProgressStart")] HRESULT ProgressStart([in] long newVal);
+		[id(17), helpstring("method GetReturnCode")] HRESULT GetReturnCode([out, retval] long * rc);
+		[id(18), helpstring("method GetReturnString")] HRESULT GetReturnString([in] long rc,[out,retval] BSTR * str);
+		[id(19), helpstring("method Load")] HRESULT Load([out, retval] BOOL * rc);
+		[id(20), helpstring("method Unload")] HRESULT Unload();
+		[id(21), helpstring("method RecogDIBtoFile")] HRESULT RecogDIBtoFile([in] long hDIB, [in] BSTR lpFileName, [in] short shFormat,[in] short shCode,[out,retval] BOOL * rc);
+		[id(22), helpstring("method EnumLanguage")] HRESULT EnumLanguage([in] short PrevLang,[out,retval] short * lpNextLang);
+		[id(23), helpstring("method RecogDIBtoMemory")] HRESULT RecogDIBtoMemory([in] long hDIB,[out] long * lphMem, [in] short Format,[in] short Code,[out,retval] BOOL * rc);
+		[id(24), helpstring("method RecogClipboard")] HRESULT RecogClipboard([out,retval] BOOL * rc);
+		[id(25), helpstring("method XOpen")] HRESULT XOpen([in] long hDIB,[in] BSTR FileName,[out,retval] BOOL * hRc);
+		[id(26), helpstring("method XClose")] HRESULT XClose([out,retval] BOOL * rc);
+		[id(27), helpstring("method XRecognition")] HRESULT XRecognition([in] BOOL bThread,[in] long context,[out,retval] BOOL * rc);
+		[id(28), helpstring("method XSave")] HRESULT XSave([in] BSTR FileName,[in] long format,[in] long code,[out,retval] BOOL * rc);
+		[id(29), helpstring("method XPageAnalysis")] HRESULT 	XPageAnalysis([out,retval] BOOL * rc);
+		[id(30), helpstring("method GetLanguageString")] HRESULT GetLanguageString([in] long code,[out,retval] BSTR * lpstr);
+		[id(31), helpstring("method EnumFormats")] HRESULT EnumFormats([in] long prev,[out,retval] long * next);
+		[id(32), helpstring("method GetFormatString")] HRESULT GetFormatString([in] long code,[out,retval] BSTR * lpstr);
+		[id(33), helpstring("method EnumCodes")] HRESULT EnumCodes([in]long format,[in]long prev,[out,retval] long * next);
+		[id(34), helpstring("method GetCodeString")] HRESULT GetCodeString( [in] long code,[out, retval] BSTR * str);
+		[propget, id(35), helpstring("property ModePicture")] HRESULT ModePicture([out, retval] long *pVal);
+		[propput, id(35), helpstring("property ModePicture")] HRESULT ModePicture([in] long newVal);
+		[propget, id(36), helpstring("property ModeTable")] HRESULT ModeTable([out, retval] long *pVal);
+		[propput, id(36), helpstring("property ModeTable")] HRESULT ModeTable([in] long newVal);
+		[propget, id(37), helpstring("property ModeFormat")] HRESULT ModeFormat([out, retval] long *pVal);
+		[propput, id(37), helpstring("property ModeFormat")] HRESULT ModeFormat([in] long newVal);
+		[id(38), helpstring("method GetVersion")] HRESULT GetVersion([out,retval] BSTR *  bstrVersion);
+		[propget, id(39), helpstring("property UnrecogChar")] HRESULT UnrecogChar([out, retval] short *pVal);
+		[propput, id(39), helpstring("property UnrecogChar")] HRESULT UnrecogChar([in] short newVal);
+		[id(40), helpstring("method EnumFormatMode")] HRESULT EnumFormatMode([in] long nPrev,[out,retval]  long * pMode);
+		[id(41), helpstring("method EnumTableMode")] HRESULT EnumTableMode([in]  long nPrev,[out,retval]  long * pMode);
+		[id(42), helpstring("method EnumPictureMode")] HRESULT EnumPictureMode([in]  long nPrev,[out,retval]  long * pMode);
+		[id(43), helpstring("method GetFormatModeString")] HRESULT GetFormatModeString([in]  long nMode,[out,retval] BSTR * lpbstr);
+		[id(44), helpstring("method GetPictureModeString")] HRESULT GetPictureModeString([in]  long nMode,[out,retval] BSTR * lpbstr);
+		[id(45), helpstring("method GetTableModeString")] HRESULT GetTableModeString([in]  long nMode,[out,retval] BSTR * lpbstr);
+		[id(46), helpstring("method XGetRotateDIB")] HRESULT XGetRotateDIB([out] long * phDIB,[out] long * x0, [out] long * y0,[out,retval] BOOL * rc);
+		[propget, id(47), helpstring("property AutoRotate")] HRESULT AutoRotate([out, retval] long *pVal);
+		[propput, id(47), helpstring("property AutoRotate")] HRESULT AutoRotate([in] long newVal);
+		[id(48), helpstring("method SetPageSize")] HRESULT SetPageSize([in] long width,[in] long height);
+		[id(49), helpstring("method RenameImageFile")] HRESULT RenameImageFile([in] BSTR name);
+		[id(50), helpstring("method XSetTemplate")] HRESULT XSetTemplate([in] long nLeft,[in] long nTop,[in] long nRight,[in] long nBottom,[out,retval] BOOL * rc);
+		[propget, id(51), helpstring("property CurrentEdPage")] HRESULT CurrentEdPage([out, retval] long *pVal);
+		[propput, id(51), helpstring("property CurrentEdPage")] HRESULT CurrentEdPage([in] long newVal);
+		[propget, id(52), helpstring("property PreserveLineBreaks")] HRESULT PreserveLineBreaks([out, retval] BOOL *pVal);
+		[propput, id(52), helpstring("property PreserveLineBreaks")] HRESULT PreserveLineBreaks([in] BOOL newVal);
+		[id(53), helpstring("method Save")] HRESULT Save([in] long hEdPage,[in] BSTR FileName,[in] long format,[in] long code,[in] BOOL bAppend,[out,retval] BOOL * rc);
+		[id(54), helpstring("method SaveToBSTR")] HRESULT SaveToBSTR([in] long hEdPage,[in] long format,[in] long code,[out] BSTR * lpBstr,[out,retval] BOOL * rc);
+		[id(55), helpstring("method DeleteEdPage")] HRESULT DeleteEdPage([in] long hEdPage);
+		[id(56), helpstring("method SetSpecialProject")] HRESULT SetSpecialProject([in] long nSpecPrj, [out,retval] BOOL * ret);
+		[id(57), helpstring("method XGetTemplate")] HRESULT XGetTemplate([out] long * lpnLeft,[out] long * lpnTop,[out] long * lpnRight,[out] long * lpnBottom,[out,retval] BOOL * rc);
+		
+	};
+
+[
+	uuid(TYPELIB_UUID),
+	version(1.0),
+#if defined(__TIGER__)
+        helpstring("Tiger 1.0 Type Library")
+#else
+	#if defined (__MERGE__)
+			helpstring("Puma Merge Module 1.0 Type Library")
+	#else
+			helpstring("Puma 1.0 Type Library")
+	#endif
+#endif
+]
+library TIGERLib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	[
+		uuid(229C1071-829F-11D2-BA6E-0000E8D9FDF6),
+		helpstring("_IRecognitionEvents Interface")
+	]
+	dispinterface _IRecognitionEvents
+	{
+		properties:
+		methods:
+		[id(1), helpstring("method ProgressStart")] BOOL ProgressStart();
+		[id(2), helpstring("method ProgressFinish")] BOOL ProgressFinish();
+		[id(3), helpstring("method ProgressStep")] BOOL ProgressStep([in] long lStep,[in] BSTR btName,[in] long lPercent);
+		[id(4), helpstring("method EndThread")] HRESULT EndThread([in] BOOL rc,[in] long context);
+	};
+
+	[
+		uuid(UUID),
+		helpstring("Recognition Class")
+	]
+	coclass Recognition
+	{
+		[default] interface IRecognition;
+		[default, source] dispinterface _IRecognitionEvents;
+	};
+};

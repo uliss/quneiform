@@ -1,0 +1,147 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Russian resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_RUS)
+#ifdef _WIN32
+LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT
+#pragma code_page(1251)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,8
+ PRODUCTVERSION 1,0,0,8
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041904b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "Cognitive Technologies Ltd.\0"
+            VALUE "FileDescription", "Spelling Check Module\0"
+            VALUE "FileVersion", "1, 0, 0, 8\0"
+            VALUE "InternalName", "Rling\0"
+            VALUE "LegalCopyright", "Copyright © 1999\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "Rling.dll or Rlings.dll\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "Cognitive Technologies Ltd. Rling\0"
+            VALUE "ProductVersion", "1, 0, 0, 8\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x419, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_RLING_ERR_NO        "У нас в RLING все нормально"
+    IDS_RLING_ERR_NOTIMPLEMENT "Барин, да это ж ошибка не той системы-то!"
+    IDS_RLING_DLL_NOT_INITIALISING "Модуль RLING не прошел инициализацию"
+    IDS_RLING_DICT_NOT_LOAD "Чего проверять будем, барин? Словарь то не загружен!"
+    IDS_RLING_DICTONARY_LOADED_YET 
+                            "Э нет, барин, так не пойдет! Один словарь уже загружен, давай другой грузить не будем."
+    IDS_RLING_PATH_UNVAILABLE 
+                            "Барин, то место, где лежит твой словарь для меня недоступно"
+    IDS_RLING_ERR_NO_MEMORY "Эй, барин, а у нас проблемка есть! Память отшибло!"
+    IDS_RLING_ERR_CANT_OPEN_DICTONARY 
+                            "Барин, а у меня словарик открыть не получается!"
+    IDS_RLING_ERR_MEMORY_ERROR "А у меня ошибка в память, вот!"
+    IDS_RLING_ERR_ED_ERROR  "Э нет, такой ED я прочесть не могу! Толи я такой, толи он плохой, разбирайсмя сам!"
+    IDS_RLING_ERR_MEMORY_FAULT 
+                            "Ой, барин, а я в чужую память нагадил! чего делать будем?"
+    IDS_RLING_NO_ED         "Ой! А где же мой ED?"
+    IDS_RLING_ERROR_ED_ALREADY_CHEKED "А ED уже проверяли!"
+    IDS_RLING_ERROR_UNSUPPORTED_LANGUAGE 
+                            "Барин, я такого языка не знаю и проверять на нем неумею!"
+    IDS_RLING_ERROR_CANT_OPEN_USER_DICTONARY 
+                            "Не удается словарик пользовательский открыть"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_RLING_ERROR_TOO_MANY_USER_DICTONARY 
+                            "Словариков пользовательских слишком много"
+    IDS_RLING_ERROR_TOO_LONG_WORD "Словечко для проверочки черезчур большое!"
+END
+
+#endif    // Russian resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
