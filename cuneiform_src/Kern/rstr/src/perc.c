@@ -785,7 +785,7 @@ static RecRaster workRaster;
 #elif defined(PPS_MAC)
 	#define swapbytes(a)
 #elif defined(__GNUC__) /* FIXME: also check that we are on x86. And little-endian. */
-    #define swapbytes(aaa) asm ("bswap %0;" :"=a"(aaa) :"0"(aaa));
+    #define swapbytes(a) asm ("bswap %0;" :"=r"(a) :"0"(a));
 #else
   #error You must define swapbytes for your platform
 #endif
