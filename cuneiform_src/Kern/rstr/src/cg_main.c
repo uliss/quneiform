@@ -266,7 +266,7 @@ INT recogij(cell *C, cell **org_cells, INT N, BYTE cut_fl,
 static BYTE classify (cell **cells, INT N, grup *box, grup *bottom,
                       grup *top, grup *far_bottom, grup *far_top);
 static INT horiz_proj(cell **cells, INT N, BYTE *proj, INT size);
-static void change(void *arr, INT i, INT j);
+static void change(void **arr, INT i, INT j);
 static INT recog_one(cell *B0, s_glue *GL, INT tol, SVERS *vers);
 //static CHAR wide (cell *C);
 static INT recog_set(cell *C,cell **org_cells, INT N, BYTE cut_fl,
