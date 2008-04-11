@@ -75,16 +75,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "fon.h" 
 #include "ctb.h"
 #include "sfont.h" 
-#include "fonRec.h" 
+#include "fonrec.h" 
 
 //#include "frhdefs.h" 
 
 #include <memory.h>
 #include <string.h>
 #include <stdlib.h>
-#include <io.h>
+/*#include <io.h>*/
 #include <fcntl.h>
-#include <sys\stat.h>
+/*#include <sys\stat.h>*/
+
+#include "compat_defs.h"
 
 
 static int recog_raster(BYTE *r,WORD fullBytes,WORD w,WORD h,

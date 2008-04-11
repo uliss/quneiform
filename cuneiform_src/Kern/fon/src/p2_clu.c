@@ -85,9 +85,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <io.h>
+/*#include <io.h>*/
 #include <fcntl.h>
-#include <sys\stat.h>
+#include <sys/stat.h>
 #ifdef _GETTIME_
  #include <time.h>
 #endif
@@ -96,10 +96,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "sfont.h"
 #include "ctb.h"
 
+#include "compat_defs.h"
+
 //#include "frombas.h"
 int OpenBase(char *);
 void CloseBase(void);
 
+static SINT ReadAllFromBase(CHAR  *name,SINT *nClu,CHAR *movxy, SINT AllCount);
 
 #define MEMMOVE memmove
 #define MAXINCLUS 127
@@ -457,7 +460,6 @@ if( IsCTBBase ) {i= OpenBase(NameWr); CloseBase(); return i;}
 SINT ReadAllFromWr(CHAR  *name,BYTE *buf,SINT size,SINT *nClu,CHAR *movxy,
 		    SINT NumAll,SINT AllCount)
 {
-static SINT ReadAllFromBase(CHAR  *name,SINT *nClu,CHAR *movxy, SINT AllCount);
  SINT allnum;
  SINT fh,i;
  SINT csize;

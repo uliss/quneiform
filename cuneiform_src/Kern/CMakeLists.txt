@@ -5,6 +5,8 @@ include_directories(hhh)
 include_directories(hrk)
 include_directories(hrkint)
 include_directories(hrstr)
+include_directories(fon/src)
+
 
 include_directories(itigerole/sources/tiger/h)
 

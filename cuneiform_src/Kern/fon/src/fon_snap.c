@@ -57,10 +57,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////
 #include "fon.h" 
 #include "sfont.h" 
-#include "fonRec.h"
+#include "fonrec.h"
 
 #include <stdio.h>
-#include <windows.h>
+#include <stdlib.h>
+#include <string.h>
+/*#include <windows.h>*/
+
+#include "compat_defs.h"
 
 #define NUM_IN_SNAP 9     // maximal pictures in snap
        BOOL IsSnap=FALSE;

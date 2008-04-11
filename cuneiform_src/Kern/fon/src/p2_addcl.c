@@ -75,9 +75,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdlib.h>
 #include <string.h>
-#include <io.h>
+/*#include <io.h>*/
 #include <fcntl.h>
-#include <sys\stat.h>
+#include <sys/stat.h>
 #include <stdio.h>
 
 #ifdef _GETTIME_
@@ -86,6 +86,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "fon.h"
 #include "sfont.h"
+
+#include "compat_defs.h"
 
 SINT SetAccessTab(SINT fl,void *buf);
 SINT CheckAccessTab(SINT fh,void *buf);

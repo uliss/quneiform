@@ -1,5 +1,3 @@
-include_directories(src)
-
 add_library(fon
 src/clu_best.c
 src/clu_div.c

@@ -59,8 +59,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define APIENTRY
 #endif
 
-#ifndef DWORD /* 32 bit unsigned value */
-#define DWORD unsigned int 
+#ifndef DWORD
+#define DWORD unsigned long int 
 #endif
 /*
 #ifndef Word32
@@ -87,8 +87,56 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define HINSTANCE int
 #endif
 
+#ifndef HWND
+#define HWND unsigned int
+#endif
+
 #ifndef _ASSERT
 #define _ASSERT assert
+#endif
+
+#ifndef LPSTR
+#define LPSTR char*
+#endif
+
+#ifndef HDC
+#define HDC int
+#endif
+
+typedef struct {
+    int left;
+    int right;
+    int top;
+    int bottom;
+} RECT;
+
+typedef struct {
+     char * lpszClassName;
+     HINSTANCE hInstance;
+     void * lpfnWndProc;
+     unsigned int style;
+     int hbrBackground;
+     int hCursor;
+     int hIcon;
+     char * lpszMenuName;
+     char *cbClsExtra;
+     char *cbWndExtra;
+} WNDCLASS;
+
+#ifndef UINT
+#define UINT unsigned int
+#endif
+
+#ifndef WPARAM
+#define WPARAM int
+#endif
+
+#ifndef LPARAM
+#define LPARAM int
+#endif
+
+#ifndef O_BINARY
+#define O_BINARY 0
 #endif
 
 /* A bunch of windows DLL initialisation values. I don't know the
@@ -114,6 +162,50 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef _MAX_PATH
 #define _MAX_PATH 1024
+#endif
+
+#ifndef GWL_HINSTANCE
+#define GWL_HINSTANCE 42
+#endif
+
+#ifndef WS_OVERLAPPEDWINDOW
+#define WS_OVERLAPPEDWINDOW 6
+#endif
+
+#ifndef GRAY_BRUSH
+#define GRAY_BRUSH 1
+#endif
+
+#ifndef NULL_BRUSH
+#define NULL_BRUSH 0
+#endif
+
+#ifndef WM_DESTROY
+#define WM_DESTROY 96
+#endif
+
+#ifndef WM_SIZE
+#define WM_SIZE 10
+#endif
+
+#ifndef WM_PAINT
+#define WM_PAINT 73
+#endif
+
+#ifndef PAINTSTRUCT
+#define PAINTSTRUCT int
+#endif
+
+#ifndef WHITE_BRUSH
+#define WHITE_BRUSH 939
+#endif
+
+#ifndef IDC_ARROW
+#define IDC_ARROW 38
+#endif
+
+#ifndef IDI_ASTERISK
+#define IDI_ASTERISK 939
 #endif
 
 /* The code base has a gazillion MIN and MAX macros. Some parts of the
