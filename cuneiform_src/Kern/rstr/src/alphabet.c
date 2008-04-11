@@ -79,6 +79,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "alphabet.h"
 #include "leo.h"
 
+#include "compat_defs.h"
+
 static BYTE digital_mode;            // see in module pass3.c
 static BYTE plusminus_mode; 
 static BYTE alphabet_set[32];
@@ -507,7 +509,7 @@ if( str->alphabet==ALPHA_ALL )
       break;
 
     default :
-      if( num_dig>max(2,(3*num_all)/4) && num_let==0 ||
+      if( num_dig>MAX(2,(3*num_all)/4) && num_let==0 ||
           num_dig>0 && num_dig > num_asOne && num_bad==0 && num_let==0
 		 )
         dig = 2;
@@ -532,7 +534,7 @@ if( str->alphabet==ALPHA_ALL )
   }
   else if (str->alphabet==ALPHA_DIGITAL || str->alphabet==ALPHA_DIGITAL_TRUE)
   {
-	if( num_dig>=max(1,num_all/2) && num_let<max(1,num_all/4) ||
+	if( num_dig>=MAX(1,num_all/2) && num_let<MAX(1,num_all/4) ||
       num_dig>0 && num_bad==0 && num_let==0)
       {
       digital_mode=2;

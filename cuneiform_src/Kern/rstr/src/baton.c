@@ -67,6 +67,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "struct.h"
 #include "func.h"
 
+#include "compat_defs.h"
+
 #define VERTMAX  64*2
 #define HORMAX  128
 #define MASHINCL 2048
@@ -423,7 +425,7 @@ ok:
   incl1=(cane[i].incl-b_incl)/d_incl;
   x1=cane[i].x;
   w1=cane[i].w;
-  for (n=0,ym=min(yma,y1+cane[i].l-1),y=max(ymi,y1); y<=ym; y++)
+  for (n=0,ym=MIN(yma,y1+cane[i].l-1),y=MAX(ymi,y1); y<=ym; y++)
    if (abs(x-2*x1+*(tab_incl+(y-ymi)*n_incl+ex->incl)-
                   *(tab_incl+(y-y1)*n_incl+incl1))<=w+w1)
     n++;
@@ -486,7 +488,7 @@ static LONG typend(STICK *st,LONG mode)
    x0=st->x+*(tab_incl+h+incl)/2;
   else
    x0=st->x-*(tab_incl-h+incl)/2;
-  for (xm=min(W-1,x0+dx),x=max(0,x0-dx);
+  for (xm=MIN(W-1,x0+dx),x=MAX(0,x0-dx);
        x<=xm && /* !(raster[y*lr+x/8]&(128>>(x&7))) */!raster[y*lr+x]; x++) ;
   if (x>xm) continue;
   val[ll].b=(BYTE)(x-(x0-dx));

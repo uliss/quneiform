@@ -71,6 +71,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cut_glue.h"
 #include "linutil.h"
 
+#include "compat_defs.h"
+
 extern BOOL pass4_in;   //флаг: второй проход по странице
 
 
@@ -310,7 +312,7 @@ static CHAR quote(cell *B)
           && P->col+P->w > B->col )
     {
       BYTE p1=B->vers[0].prob,p2=P->vers[0].prob;
-      if ( max(p1,p2) >= MINlet )
+      if ( MAX(p1,p2) >= MINlet )
       {
         glsnap('a',B,"quotation");  return 1;
       }

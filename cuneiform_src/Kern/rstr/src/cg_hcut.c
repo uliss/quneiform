@@ -67,6 +67,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "status.h"
 #include "linutil.h"
 
+#include "compat_defs.h"
+
 INT gbCol1,gbCol2;
 
 typedef struct tagRecogStat
@@ -537,7 +539,7 @@ static void save_frag(cell *B, cell *E, RecogStat *rs, cell **sv_frag, INT *st_i
     if (let_or_bad(B))
     {
       rs->nbig++;
-      rs->weight = min(rs->weight,B->vers[0].prob);
+      rs->weight = MIN(rs->weight,B->vers[0].prob);
     }
     else
       if (fb2 && fb3 && c->row > bl.b2 && c->row+c->h < bl.b3)
@@ -558,7 +560,7 @@ static void replace_frag(cell *B, cell *E, RecogStat *rs, cell *sv_frag)
     if (let_or_bad(c))
     {
       nbig++;
-      weight = min(weight,c->vers[0].prob);
+      weight = MIN(weight,c->vers[0].prob);
     }
     else
       if (fb2 && fb3 && c->row > bl.b2 && c->row+c->h < bl.b3)

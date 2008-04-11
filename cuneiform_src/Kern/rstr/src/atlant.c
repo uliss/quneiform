@@ -71,6 +71,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "func.h"
 #include "ligas.h"
 
+#include "compat_defs.h"
+
 #define zone_err(i,j) { des|=i; mn_err=j; goto mn_error; }
 // 930727               des=i;  (versions 'n' 'u' make different bits)
 #define pen_roof_upright 100
@@ -913,7 +915,7 @@ wrk3:
     if ((mr1=roof[minr1++]) != 127) break;
   while (1)
     if ((mr2=roof[--minr2]) != 127) break;
-  i=min(mr1,mr2);
+  i=MIN(mr1,mr2);
   if (minroof <= (i+2)) goto tryu;		// not too deep gap
   if (minrx < minr4)                  // in left half of cell
   { INT gap_bnd_up, gap_bnd_mdl;
@@ -993,7 +995,7 @@ horizu:
     if ((mr1=roof[minr1++]) != 127) break;
   while (1)
     if ((mr2=roof[--minr2]) != 127) break;
-  i=min(mr1,mr2);
+  i=MIN(mr1,mr2);
   if (minrx < (e0[thmdle]+3)) goto retsort;   // close to left leg
   if (minrx >= (e1[thmdle]-2)) goto retsort;  // arc under leg
   if (minroof <= (i+2)) goto retsort;		// not too deep gap

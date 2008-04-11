@@ -60,6 +60,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "tuner.h"
 #include "status.h"
 
+#include "compat_defs.h"
+
 static void contextNumberTable(void);
 /****************/
 
@@ -545,14 +547,14 @@ static void Livers(cell *NC)
  for (i=0,v=NC->vers; i < NC->nvers; i++,v++)
   {
     if ((kc == kt) && (v->let == 'l'))
-     v->prob=max(v->prob-MONUS,10);
+     v->prob=MAX(v->prob-MONUS,10);
     if (kv == kt)
      {
        if ( (v->let == 'i') || (v->let == liga_i) ||
 			language == LANG_TURKISH &&  // 30.05.2002 E.P.
 				(v->let==i_sans_accent||v->let==II_dot_accent) 
 		  )
-         v->prob=max(v->prob-MONUS,10);
+         v->prob=MAX(v->prob-MONUS,10);
        if ( v->let == 'I')
         {
           if (  ( kt == 1 ) &&
@@ -561,7 +563,7 @@ static void Livers(cell *NC)
              )
            continue;
           else
-           v->prob=max(v->prob-MONUS,10);
+           v->prob=MAX(v->prob-MONUS,10);
         }
      }
   }
@@ -1204,8 +1206,8 @@ static void contextNumberTable(void)
 		   if( las->vers[0].let != '$' && las->vers[0].let != '%')
 		   {
 			   isDig = 1;
-			   minSize=min(minSize,las->h);
-			   maxSize=max(maxSize,las->h);
+			   minSize=MIN(minSize,las->h);
+			   maxSize=MAX(maxSize,las->h);
 		   }
 	   }
 	   else if( las == fir && las->vers[0].let=='-' )
@@ -1220,8 +1222,8 @@ static void contextNumberTable(void)
 			  isNumber = 0;
 		   else
 		   {
-		    minSize=min(minSize,las->h);
-		    maxSize=max(maxSize,las->h);
+		    minSize=MIN(minSize,las->h);
+		    maxSize=MAX(maxSize,las->h);
 		   }
 	   }
        else
