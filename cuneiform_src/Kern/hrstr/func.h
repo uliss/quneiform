@@ -584,7 +584,7 @@ void write_events(cell *);
 void * snap_ev_res();
 void snap_ev_reset();
 void snap_keep(BYTE user, PBYTE addr, WORD lth);
-void snap_sticks(cell *,char *);
+/*void snap_sticks(cell *,char *);*/
 
 // module v0compmn.asm
 void extrcomp (void);

@@ -71,9 +71,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "std.h"
 #include "resource.h"
 #include "cuthdr.h"
-#include "P2libr.h"
+#include "p2libr.h"
 #include "tuner.h"
 #include "fon.h"
+
+static void snap_sticks(cell *,char *);
+
+
 // from module PASSE
 BOOL _spell(PCHAR s,BYTE lang);
 BOOL _spell_agressive(PCHAR s,BYTE lang);
@@ -965,7 +969,11 @@ switch(message)
                 }
             else
                 {   // F7 : debug
+#if defined (__GNUC__) /* FIXME: only works on 32 bit x86. */
+                asm("int $0x03");
+#else
                 __asm  int 03h;
+#endif
                 }
             break;
         case    VK_F9:

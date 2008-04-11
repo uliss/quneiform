@@ -6,3 +6,7 @@ vertstr.cpp does GUI drawing or somesuch. Disabled everything.
 
 BYTE and CHAR are used interchangeably. Subtracting BYTE* from CHAR* gives
 "invalid operands to binary -" error message.
+
+Disabled use of dfon library. It seems to be some external dll file.
+I have no idea what it's supposed to do.
+

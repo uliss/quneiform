@@ -71,9 +71,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "stick.h"
   #include "ligas.h"
   #include "lang.h"
-  #include "Struct.H"
-  #include "Tuner.H"
-  #include "Linutil.h"	// 31.05.2002 E.P.
+  #include "struct.h"
+  #include "tuner.h"
+  #include "linutil.h"	// 31.05.2002 E.P.
 
 #ifdef UFA
 extern BYTE no_linear_crit;
