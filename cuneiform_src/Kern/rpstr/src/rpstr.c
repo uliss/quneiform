@@ -54,9 +54,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include<malloc.h>
 #include<stdio.h>
 #include<string.h>
+#include<stdlib.h>
 
 #include "cstr.h"
 #include "ccom.h"
@@ -91,7 +91,7 @@ extern Bool32   rpstr_correct_spell(CSTR_line ln,
 extern Bool32 rpstr_txt_spell(char * s,Word8 lang);
 
 extern int Snap_Console(char *text);;
-extern Word8    language=3;
+Word8    language=3;
 
 static Word8   s_lang4page = -1;
 
@@ -170,7 +170,7 @@ Word32          pos;
 CSTR_rast       r=(CSTR_rast)0;
 CSTR_rast_attr  attr;
 
-pos=LDPUMA_CSTR_GetPosition((int *)&r);
+pos=LDPUMA_CSTR_GetPosition((Word32 *)&r);
 
 if (!is_turkish_language(language)) // 12.06.2002 E.P.
 	language=3;

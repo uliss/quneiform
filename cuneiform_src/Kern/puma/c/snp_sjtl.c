@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cstr.h"
 #include "compat_defs.h"
 
-static HINSTANCE hSJTL = NULL;
+static HINSTANCE hSJTL = 0;
 
 typedef int (*FSJTL_1)(char*);
 typedef int (*FSJTL_2)(char*,CSTR_line,int);
