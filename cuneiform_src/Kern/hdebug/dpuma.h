@@ -93,7 +93,7 @@ typedef struct DPUMA_tagRecRaster
       Word8    Raster[DPUMA_REC_MAX_RASTER_SIZE];	// image
    }  DPUMA_RecRaster;
 
-typedef enum  DPUMA_EXPORT
+enum DPUMA_EXPORT
 {
 DPUMA_FNDPUMA_CreateSnap,
 DPUMA_FNDPUMA_DestroySnap,

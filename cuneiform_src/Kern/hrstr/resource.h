@@ -69,7 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define RSTR_ERR_VERSION         2059
 #define RSTR_ERR_MAX             2059
 
-static char *RSTR_error_name[]={
+static const char *RSTR_error_name[]={
   "No error",
   "Can't operate",
   "Not enough memory",

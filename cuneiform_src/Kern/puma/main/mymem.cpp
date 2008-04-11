@@ -55,6 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "resource.h"
 #include "mpuma.h"
@@ -72,7 +73,7 @@ void *	myAlloc(size_t stAllocateBlock)
 
 //#ifdef _DEBUG
 
-	mem = ::new char[stAllocateBlock];
+	mem = (char *)malloc(stAllocateBlock);
 	if(!mem)
 		SetReturnCode(IDS_ERR_NO_MEMORY);
 //#endif
@@ -83,7 +84,7 @@ void *	myAlloc(size_t stAllocateBlock)
 void	myFree(void * mem)
 {
 //#ifdef _DEBUG
-	::delete []	mem;
+	free(mem);
 //#endif
 }
 
@@ -127,8 +128,8 @@ void    myClose(Handle h)
 }
 
 
-Word8* Buffer;
-Word8* WorkMem;
+static Word8* Buffer;
+static Word8* WorkMem;
 
 void GiveMainBuff (void **vvBuff, int *Size)
 {

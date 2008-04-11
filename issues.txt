@@ -10,3 +10,4 @@ BYTE and CHAR are used interchangeably. Subtracting BYTE* from CHAR* gives
 Disabled use of dfon library. It seems to be some external dll file.
 I have no idea what it's supposed to do.
 
+The russian comments are encoded with CP1251.
