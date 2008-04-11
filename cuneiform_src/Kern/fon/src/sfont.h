@@ -55,6 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include "c_types.h"
+#include "cttypes.h"
 
 #ifndef SFONT_H
 #define SFONT_H

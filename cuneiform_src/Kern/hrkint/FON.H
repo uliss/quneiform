@@ -54,6 +54,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "sfont.h"
 
 #ifndef PPS_MAC
 #pragma message(__FILE__)
@@ -223,7 +224,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     FON_FUNC(Int32) FONFontClusters(char *CTBname,char *cluname,void *accept,Word8 *extern_buf,Int32 size,
 					 			    Word32 param,void *ShowProgress,Word8 language);
-	FON_FUNC(Int32) FONCutOffClusters(void *welet,Int16 numWelet);
+	FON_FUNC(Int32) FONCutOffClusters(welet *ww,Int16 numWelet);
     FON_FUNC(Bool32) FONCheckItself(Word8 let,Int32 num,Int16 col,Int16 row);
 ////////////////////
 	// функции для разрезания

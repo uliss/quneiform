@@ -377,7 +377,7 @@ Word8 TestCursivName(Word8 let)
 			 return let;
 
 		 if( (qq=(char *)strchr(cursivNames,let))!=NULL )
-			 let=notCursivNames[qq-cursivNames];
+			 let=notCursivNames[(Word8*)qq-cursivNames];
 
 		 return let;
 }

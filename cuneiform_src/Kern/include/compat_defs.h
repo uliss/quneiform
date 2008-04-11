@@ -30,6 +30,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * Typedefs for the various win32-only variable types.
  * Only defines those types that are currently undefined. Thus this
  * can be included after other headers without redefinition errors.
+ * 
+ * Most of these are also in c_types.h and/or cttypes.h. I added them
+ * here so as to make changes minimal and isolated. Eventually this
+ * header should be removed altogether. 
  */
 
 #ifndef compat_typedefs_h_
@@ -58,7 +62,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef DWORD /* 32 bit unsigned value */
 #define DWORD unsigned int 
 #endif
+/*
+#ifndef Word32
+#define Word32 unsigned int
+#endif
 
+#ifndef Int32
+#define Int32 int
+#endif
+
+#ifndef Int16
+#define Int16 short
+#endif
+
+#ifndef Word16
+#define Word16 unsigned short
+#endif
+*/
 #ifndef LPVOID
 #define LPVOID void*
 #endif

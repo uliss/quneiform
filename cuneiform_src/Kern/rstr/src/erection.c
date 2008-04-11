@@ -77,6 +77,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lang.h"
 #include "linutil.h"	// 17.07.2001 E.P.
 
+#include "compat_defs.h"
+
 static BYTE solid_sticks[]     ="|1!Il\xbb"; // liga_i, liga_j // liga_i макра 08.09.2000 E.P.
 static BYTE incline_main[]     ="­иЇзЁв…ЌѓЏђ—€’irbtfnBTEIPDFHLN"; // "ншпчитЕНГШПРЧИТirbtfnBTEIPDFHLN"
 static BYTE incline_chars[]    =
@@ -287,7 +289,7 @@ for (i=0; i<dy; i++)
   tab_angle[i] = ((long)(dy-1-i)*inc)/2048;
 
 dx = shift_raster (raster, dy, dx, tab_angle,
-      (INT)(max (abs(tab_angle[0]), abs(tab_angle[dy-1]))), sh_raster, inc);
+      (INT)(MAX (abs(tab_angle[0]), abs(tab_angle[dy-1]))), sh_raster, inc);
 memcpy(raster,sh_raster,dy*((dx+7)>>3) );
 return dx;
 }
@@ -327,7 +329,7 @@ if( shave || inc )
   {
 	// если слишком мал буфер - уходим
 	// иначе возможен вылет и т.п.  Nick 07.04.2002
-	if( (long)dy * ( (dx + (long)(max (abs(tab_angle[0]), abs(tab_angle[dy-1]))+7))>>3) > 
+	if( (long)dy * ( (dx + (long)(MAX (abs(tab_angle[0]), abs(tab_angle[dy-1]))+7))>>3) > 
 		sizeof(sh_raster) 
 	  )
 	  return c;
@@ -340,7 +342,7 @@ if( shave || inc )
       ri = diff_left_limit_cell(c, tab_angle, c->w);
 
     d_x = shift_raster (raster, dy, dx, tab_angle,
-      (INT)(max (abs(tab_angle[0]), abs(tab_angle[dy-1]))), sh_raster, inc);
+      (INT)(MAX (abs(tab_angle[0]), abs(tab_angle[dy-1]))), sh_raster, inc);
 
 /*
 	 if( line_number == 16 && c->col == 462)
@@ -500,7 +502,7 @@ if( shave || inc)
   raster = save_raster (c);
   le = diff_left_limit_rast(raster,dx,dy,tab_angle);
   d_x = shift_raster (raster, dy, dx, tab_angle,
-        (INT)(max (tab_angle[0], tab_angle[dy-1])), sh_raster, 1);
+        (INT)(MAX (tab_angle[0], tab_angle[dy-1])), sh_raster, 1);
 
   if( (sh_mn = c_locomp (sh_raster, (INT)bytlen(d_x), dy, 0, 0))==NULL )
     return NULL;
@@ -850,7 +852,7 @@ if( calc )
         extr[ num_extr++ ] = (BYTE)inc;
     }
   if( num_extr )
-    max_incline = max((extr[ num_extr-1 ]+1)*16,512);
+    max_incline = MAX((extr[ num_extr-1 ]+1)*16,512);
   else
     max_incline = 512;
   if( !num_extr )
@@ -1162,7 +1164,7 @@ if( mn==1 && zeromn>1 )          // many zero inc in word  & 1 inc
 if( mn==1 && zeromn>=1 && nIncline>=MAX_INCLINE )
   inc = 0;
 
-if( zeromn && zerall>max(all/3,2) && num_extr==0 && inc>max_incline )
+if( zeromn && zerall>MAX(all/3,2) && num_extr==0 && inc>max_incline )
   inc = 0;
 
 if( inc>700 && mn<2 && !num_extr ) // big incline & too few inclineables letsx
@@ -1429,7 +1431,7 @@ interval *inter;
 lnhead   *line;
 
 // calculating left offset of image
-min_shift = min (tab_angle[0], tab_angle[c->h-1]);
+min_shift = MIN (tab_angle[0], tab_angle[c->h-1]);
 for(line=(lnhead *)((PCHAR)c->env+c->env->lines+sizeof(INT)),left_shift=c->w;
     (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
   for(h=line->h,ind=line->row,inter=(interval *)((PCHAR)line+sizeof(lnhead)); h; h--,inter++,ind++)
@@ -1455,7 +1457,7 @@ interval *inter;
 lnhead   *line;
 
 // calculating left offset of image
-min_shift = min (tab_angle[0], tab_angle[c->h-1]);
+min_shift = MIN (tab_angle[0], tab_angle[c->h-1]);
 for(line=(lnhead *)((PCHAR)c->env+c->env->lines+sizeof(INT)),left_shift=c->w;
     (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
   for(h=line->h,ind=line->row,inter=(interval *)((PCHAR)line+sizeof(lnhead)); h; h--,inter++,ind++)

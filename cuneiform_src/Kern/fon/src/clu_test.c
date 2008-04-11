@@ -57,14 +57,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "fon.h" 
 #include "ctb.h"
 #include "sfont.h" 
-#include "fonRec.h" 
+#include "fonrec.h" 
 
 #include <memory.h>
 #include <string.h>
 #include <stdlib.h>
-#include <io.h>
+/*#include <io.h>*/
 #include <fcntl.h>
-#include <sys\stat.h>
+/*#include <sys\stat.h>*/
+
+Bool32 BadCluster(InfoCluster *infoC);
 
 Int32 TestClustNames(welet *wel,int numWel,
 					 int name1,int name2 )
@@ -914,7 +916,6 @@ int TestAddFontGood(int numCluster, InfoCluster *infoC,
 {
 	int i,let;
 	int numStay;
-	Bool32 BadCluster(InfoCluster *infoC);
 	int porogSize;
 
 	if( sBig <= sLit +1  ) return 0;

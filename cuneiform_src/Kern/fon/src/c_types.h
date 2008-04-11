@@ -54,6 +54,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifndef C_TYPES_H
+#define C_TYPES_H
 
 typedef int             BOOL;
  
@@ -105,3 +107,5 @@ typedef unsigned long int   DWORD;
 #define min(a,b)  (((a) < (b)) ? (a) : (b))
 
 /*------------------------------------------------------------------------*/
+
+#endif

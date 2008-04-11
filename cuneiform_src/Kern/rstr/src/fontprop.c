@@ -67,6 +67,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lang.h"
 #include "linutil.h"
 #include "prop_nar.h"
+
+#include "compat_defs.h"
+
 extern BOOL line_readyBL;
 extern BYTE p2_active;
 extern INT  nIncline;
@@ -390,8 +393,8 @@ INT letincl(cell *c)
   if (line->row<=maxi && line->row+line->h>mini)
    {
    intv0=(interval *)((PCHAR)line+sizeof(lnhead));
-   intv=intv0+max(0,mini-line->row);
-   intve=intv0+min(maxi+1-line->row,line->h);
+   intv=intv0+MAX(0,mini-line->row);
+   intve=intv0+MIN(maxi+1-line->row,line->h);
 /*   printf("y=%u,h=%u,b=%u,e=%u\n",line->row,line->h,
 	  (intv-intv0)+line->row-mini,intve-intv0-1+line->row-mini);*/
    for (i=intv-intv0+line->row-mini; intv<intve; intv++,i++)
@@ -490,8 +493,8 @@ static void serif(cell *c)
    {
    i1=(interval *)((PCHAR)line+sizeof(lnhead))+(h-3);
    i2=i1-(H/4-3);
-   b1=min(min(i1->e-i1->l,(i1+1)->e-(i1+1)->l),(i1+2)->e-(i1+2)->l);
-   e1=max(max(i1->e,(i1+1)->e),(i1+2)->e);
+   b1=MIN(MIN(i1->e-i1->l,(i1+1)->e-(i1+1)->l),(i1+2)->e-(i1+2)->l);
+   e1=MAX(MAX(i1->e,(i1+1)->e),(i1+2)->e);
    b2=(e2=i2->e)-i2->l;
    if (e1>e2 && b1<b2) n1++;
    if (abs(e1-b1-e2+b2)<=1 && abs(e1-e2)<=1 && abs(b1-b2)<=1) n2++;
@@ -501,8 +504,8 @@ static void serif(cell *c)
    {
    i1=(interval *)((PCHAR)line+sizeof(lnhead));
    i2=i1+(H/4-1);
-   b1=min(min(i1->e-i1->l,(i1+1)->e-(i1+1)->l),(i1+2)->e-(i1+2)->l);
-   e1=max(max(i1->e,(i1+1)->e),(i1+2)->e);
+   b1=MIN(MIN(i1->e-i1->l,(i1+1)->e-(i1+1)->l),(i1+2)->e-(i1+2)->l);
+   e1=MAX(MAX(i1->e,(i1+1)->e),(i1+2)->e);
    b2=(e2=i2->e)-i2->l;
    if (e1>e2 && b1<b2) n1++;
    if (abs(e1-b1-e2+b2)<=1 && abs(e1-e2)<=1 && abs(b1-b2)<=1) n2++;
@@ -1113,7 +1116,7 @@ extern Int32 num_of_lines;
   ey=lines[i].end.row>>line_scale;
   by-=(INT)((LONG)nIncline*bx/2048);
   ey-=(INT)((LONG)nIncline*ex/2048);
-  if (min(by,ey)<bl.b3 || max(by,ey)>bl.b3+bl.ps/2 ||
+  if (MIN(by,ey)<bl.b3 || MAX(by,ey)>bl.b3+bl.ps/2 ||
       cf->r_col-bl.ps>bx || cl->r_col+cl->w+bl.ps<ex)
     continue;
   for (c=(cell_f())->next; c->next!=NULL; c=c->next)

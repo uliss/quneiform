@@ -76,9 +76,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdlib.h>
 #include <string.h>
-#include <io.h>
+/*#include <io.h>*/
 #include <fcntl.h>
-#include <sys\stat.h>
+/*#include <sys\stat.h>*/
 #include <stdio.h>
 
 #ifdef _GETTIME_
@@ -138,7 +138,7 @@ static int sign_tab[513]={
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0  // f
 };
 static  int *sign;
-#include "Array1.h"
+#include "array1.h"
 static int DistToWelet(PBYTE r,int fullByte,int w,int h,welet * wl,
 					   int xo,int yo,int porog,
 					   int dist1)

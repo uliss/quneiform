@@ -70,6 +70,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ligas.h"
 #include "lang.h"
 
+#include "compat_defs.h"
+
 extern BYTE language;
 
 static B_LINES bl;
@@ -180,7 +182,7 @@ void final_crit()
   if (language==LANG_SWEDISH && c->vers[0].let=='A')
    {
    get_b_lines(c,&bl);
-   if (bl.b1>c->row+max(4,bl.ps/4))
+   if (bl.b1>c->row+MAX(4,bl.ps/4))
     final_A_circle(c);
    }
   if (let=='-' && 3*c->h<c->w &&
@@ -344,7 +346,7 @@ static INT final_slash_l(cell *c)
  BYTE fnt;
 
  get_b_lines(c,&bl);
- if (c->row+c->h>=bl.b3+min(3,max(1,c->h/10)))
+ if (c->row+c->h>=bl.b3+MIN(3,MAX(1,c->h/10)))
   return 0;
  if ((c->flg & (c_f_let|c_f_bad)) == 0)
    return 0;   // AL 940318
@@ -352,7 +354,7 @@ static INT final_slash_l(cell *c)
    return 0;   // AL 940318
  if ((fnt=c->prevl->font|c->nextl->font)&c_fp_ser && !(fnt&c_fp_gelv))
   return 0;
- c->nvers-=max(0,c->nvers-(VERS_IN_CELL-4));
+ c->nvers-=MAX(0,c->nvers-(VERS_IN_CELL-4));
  c->vers[c->nvers].let='l';
  c->vers[c->nvers+1].let='I';
  c->vers[c->nvers+2].let='1';
@@ -364,7 +366,7 @@ static INT final_slash_l(cell *c)
  c->nvers+=3;
  c->vers[c->nvers].let=0;
  if (c->env!=NULL && !is_slash(c))
-  c->vers[0].prob=max(2,c->vers[0].prob-50);
+  c->vers[0].prob=MAX(2,c->vers[0].prob-50);
  sort_vers(c);
  return 1;
  }
@@ -441,7 +443,7 @@ static BOOL is_back_slash(cell *c)
 
  raster=save_raster(c);
  l=(c->w+7)/8;
- i1=max(2,c->h/8);
+ i1=MAX(2,c->h/8);
  for (j1=0; !(raster[i1*l+j1/8]&(128>>(j1%8))); j1++) ;
  if (j1>i1)
   return FALSE;
@@ -472,7 +474,7 @@ static void final_bh(cell *c)
  for (i=1; i<c->nvers; i++)
   if (memchr("bh",c->vers[i].let,2))
    {
-   c->vers[i].prob=max(c->vers[i].prob,c->vers[0].prob-10);
+   c->vers[i].prob=MAX(c->vers[i].prob,c->vers[0].prob-10);
    sort_vers(c);
    return;
    }
@@ -537,7 +539,7 @@ static void final_AOU_2dot(cell *c)
  r=save_raster(c);
  let=c->vers[0].let;
  l=(c->w+7)/8;
- i=max(1,(bl.b1-c->row)/2);
+ i=MAX(1,(bl.b1-c->row)/2);
  for (j1=0; !(r[i*l+j1/8]&(128>>(j1%8))); j1++) ;
  for (j2=j1+1; j2<c->w && r[i*l+j2/8]&(128>>(j2%8)); j2++) ;
  if (j2==c->w || let!='A' && 2*(j2-1)>=c->w)
@@ -546,7 +548,7 @@ static void final_AOU_2dot(cell *c)
  if (j3==c->w || let!='A' && 2*j3<=c->w)
   return;
  for (j4=j3+1; j4<c->w && r[i*l+j4/8]&(128>>(j4%8)); j4++) ;
- if (abs(j2-j1-(j4-j3))>=max(3,bl.ps/6) ||
+ if (abs(j2-j1-(j4-j3))>=MAX(3,bl.ps/6) ||
      j3-j2+1<(j2-j1+j4-j3-2)/4)
   return;
  j=(j2+j3)/2;
@@ -565,7 +567,7 @@ static void final_AOU_2dot(cell *c)
   i=bl.bm-c->row;
   for (j2=0; !(r[i*l+j2/8]&(128>>(j2%8))); j2++) ;
   for (j3=c->w-1; !(r[i*l+j3/8]&(128>>(j3%8))); j3--) ;
-  if (j3-j2+1-(j4-j1)<=max(2,bl.ps/8) || j4-j1+1<(j3-j2+1)/2)
+  if (j3-j2+1-(j4-j1)<=MAX(2,bl.ps/8) || j4-j1+1<(j3-j2+1)/2)
    return;
   }
  c->vers[0].let=(let=='A')?AA_2dot_accent:
