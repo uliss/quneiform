@@ -56,10 +56,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*#include<windows.h>*/
 #include<stdio.h>
+#include<string.h>
 #include "clinefunc.h"
 #include "dpuma.h"
 #include "compat_defs.h"
-
 
 extern CLINE_handle hcode;
 extern Handle MemStat;
