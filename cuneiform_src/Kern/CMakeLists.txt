@@ -14,3 +14,6 @@ add_subdirectory(rstr)
 add_subdirectory(rpstr)
 add_subdirectory(cline)
 add_subdirectory(puma)
+
+add_executable(pumatest pumatest.cpp)
+target_link_libraries(pumatest puma)
