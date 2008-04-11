@@ -854,7 +854,7 @@ CSTR_FUNC(Bool32) CSTR_RestoreCont(char *filename)
 	fread(&fData, sizeof(fData), 1, in);
 	fread(&count, sizeof(count), 1, in);
 
-	if(strcmp((char *)IDt, (char *)IDtext) != NULL)
+	if(strcmp((char *)IDt, (char *)IDtext) != 0)
 	{
 		fclose(in);
 		wLowRC = CGRAPH_ERR_FILE;

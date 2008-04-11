@@ -71,7 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define CSTR_ERR_OPEN            2061
 #define CSTR_ERR_MAX             2061
 
-static char *CSTR_error_name[]={
+static const char *CSTR_error_name[]={
   "No error",
   "Can't operate",
   "Not enough memory",

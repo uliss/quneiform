@@ -1108,7 +1108,7 @@ static cell *cut_glue (cell *LC, cell *E, CHAR ovfl)
 
 #pragma warning ( disable : 4047 4024 )
 
-  memset(&vers_pool.node,NULL,MAX_SEG_VERS*sizeof(seg_vers *));
+  memset(&vers_pool.node,0,MAX_SEG_VERS*sizeof(seg_vers *));
   vers_list=&vers_pool.pool;
 
   //наклон для всех
