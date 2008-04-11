@@ -55,11 +55,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #define __CLINE__
-#include <crtdbg.h>
+/*#include <crtdbg.h>*/
+#include <assert.h>
+#include <stdlib.h>
 
 # include "dpuma.h"
 # include "lcline.h"
 # include "time.h"
+
+#include "compat_defs.h"
 
 //Главная отладка
 #define SNAP_ROOT_MAIN_DEBUG                "Главная отладка"
