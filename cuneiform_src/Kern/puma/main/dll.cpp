@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ============================================================================
 #define __PUMA__
 
-#include <windows.h>
+/*#include <windows.h>*/
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
@@ -71,6 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "resource.h"
 #include "mpuma.h"
 #include "pumadef.h"
+#include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 static char				 s_szVersion[] = "Version OCR Puma "__DATE__".";
@@ -86,6 +87,7 @@ BOOL APIENTRY DllMain( HINSTANCE  hModule,
                         DWORD ul_reason_for_call, 
                         LPVOID lpReserved )
 {
+    /* FIXME disabled this because is is very much Windows-only.
 	char * p;
 
     switch( ul_reason_for_call ) 
@@ -115,6 +117,7 @@ BOOL APIENTRY DllMain( HINSTANCE  hModule,
     case DLL_PROCESS_DETACH:
 		break;
     }
+    */
     return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -128,13 +131,13 @@ PUMA_FUNC(Bool32) PUMA_Init(Word16 wHeightCode,HANDLE hStorage)
 
 	InitDebug();
 
- return ModulesInit(ghStorage);
+ return ModulesInit((void*)ghStorage);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 PUMA_FUNC(Bool32) PUMA_Done()
 {
-Bool32 rc = ModulesDone(ghStorage);
+Bool32 rc = ModulesDone((void*)ghStorage);
 
 	DoneDebug();
 
@@ -152,6 +155,7 @@ PUMA_FUNC(Word32) PUMA_GetReturnCode()
 //
 PUMA_FUNC(char *) PUMA_GetReturnString(Word32 dwError)
 {
+    /* FIXME disabled this one as well.
 	static char szBuffer[512];
 	Word16 low = (Word16)(dwError &  0xFFFF);
 	Word16 hei = (Word16)(dwError >> 16);
@@ -170,6 +174,8 @@ PUMA_FUNC(char *) PUMA_GetReturnString(Word32 dwError)
 	}
 
 	return szBuffer;
+	*/
+    return "PUMA_GetReturnString called.";
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -361,9 +367,12 @@ char *	GetModuleTempPath()
 ////////////////////////////////////////////////////////////
 char * GetResourceString(Word32 id)
 {
-static char szBuffer[1024] = "";
+    /* FIXME disabled.
+    static char szBuffer[1024] = "";
 	LoadString(ghInst,id,szBuffer,sizeof(szBuffer));
-return szBuffer;
+	return szBuffer;
+	*/
+    return "GetResourceString called.";
 }
 //////////////////////////////////////////////////////////////////////////////////
 //end of file

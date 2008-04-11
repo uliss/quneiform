@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 
 #include "mpuma.h"
-#include "CFIO.h"
+#include "cfio.h"
 
 static Bool32 rblockProgressStep(Word32 perc)
 {
@@ -126,11 +126,11 @@ Bool32 Layout(PWord8 lpdata)
 	if ( rc )
 	{
 
-#define SET_CB(a,b)   a.p##b = b
+#define SET_CB(a,b)   a.p##b = (void*)b
 		SET_CB(CBforRS, ProgressStart);
-		CBforRS.pProgressStep       = ProgressStepLayout;
-		CBforRS.pProgressStepLines  = ProgressStepLines;
-		CBforRS.pProgressStepTables = ProgressStepTables;
+		CBforRS.pProgressStep       = (void*)ProgressStepLayout;
+		CBforRS.pProgressStepLines  = (void*)ProgressStepLines;
+		CBforRS.pProgressStepTables = (void*)ProgressStepTables;
 		SET_CB(CBforRS, ProgressFinish);
 		SET_CB(CBforRS, InitPRGTIME);
 		SET_CB(CBforRS, StorePRGTIME);
@@ -146,8 +146,8 @@ Bool32 Layout(PWord8 lpdata)
 ///////////////////////////////////////////////////////////////////////////////////
 
 		SET_CB(CBforRM, ProgressStart);
-		CBforRM.pProgressStepAutoLayout   = ProgressStepAutoLayout;
-		CBforRM.pProgressStepSearchTables = ProgressStepSearchTables;
+		CBforRM.pProgressStepAutoLayout   = (void*)ProgressStepAutoLayout;
+		CBforRM.pProgressStepSearchTables = (void*)ProgressStepSearchTables;
 		SET_CB(CBforRM, ProgressFinish);
 		SET_CB(CBforRM, InitPRGTIME);
 		SET_CB(CBforRM, StorePRGTIME);

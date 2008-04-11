@@ -54,8 +54,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <windows.h>
+/*#include <windows.h>*/
 #include <stdio.h>
+#include <string.h>
 
 #define __FRHSTRUC_H
 
@@ -225,9 +226,9 @@ Bool32 ModulesInit(Handle  ghStorage)
 	{
 		My_SJTL_open("one.frm", "one.jtl");
 	}
-
+/* FIXME: could not figure out what to do with this in Linux, so disabled it.
 	_CrtMemCheckpoint( &g_dbgMemState );
-
+*/
 //#endif
 return TRUE;
 lError:

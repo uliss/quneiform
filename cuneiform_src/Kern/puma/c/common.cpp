@@ -129,7 +129,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name)
         hCCOM=NULL;
     }
 
-	if(!REXC_SetImportData(REXC_ProgressStep, rexcProgressStep))
+	if(!REXC_SetImportData(REXC_ProgressStep, (void*)rexcProgressStep))
 	{
 		SetReturnCode(REXC_GetReturnCode());
 		return FALSE;

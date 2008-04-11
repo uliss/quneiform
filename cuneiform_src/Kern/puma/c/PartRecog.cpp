@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <string.h>
 #include "mpuma.h"
-#include "SpecPrj.H"
+#include "specprj.h"
 #include "ligas.h"		// 12.06.2002 E.P.
 
 //#include "sjtl.h"
@@ -102,8 +102,8 @@ static Bool32 MakeStrings(Handle hccom,Handle hcpage)
 	Bool32 rc = TRUE;
 	if(LDPUMA_Skip(hDebugStrings))
     {
-	 RSELSTR_SetImportData(RSELSTR_FNRSELSTR_ProgressStep,rselstrProgressStep);
-	 RSELSTR_SetImportData(RSELSTR_FNRSELSTR_ProgressFinish,rselstrProgressFinish);
+	 RSELSTR_SetImportData(RSELSTR_FNRSELSTR_ProgressStep, (void*) rselstrProgressStep);
+	 RSELSTR_SetImportData(RSELSTR_FNRSELSTR_ProgressFinish, (void*) rselstrProgressFinish);
 
  	 if(!ProgressStep(1,GetResourceString(IDS_MAKESTRING),5))
 		rc = FALSE;
@@ -116,8 +116,8 @@ static Bool32 MakeStrings(Handle hccom,Handle hcpage)
 	}
 	else
 	{
-	 RBLOCK_SetImportData(RBLOCK_FNRBLOCK_ProgressStep,rblockProgressStep);
-	 RBLOCK_SetImportData(RBLOCK_FNRBLOCK_ProgressFinish,rblockProgressFinish);
+	 RBLOCK_SetImportData(RBLOCK_FNRBLOCK_ProgressStep, (void*) rblockProgressStep);
+	 RBLOCK_SetImportData(RBLOCK_FNRBLOCK_ProgressFinish, (void*) rblockProgressFinish);
 
  	 if(!ProgressStep(1,GetResourceString(IDS_MAKESTRING),5))
 		rc = FALSE;

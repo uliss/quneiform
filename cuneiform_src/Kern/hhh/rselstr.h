@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __RSELSTR_H
 #define __RSELSTR_H
 
-#include "Ccomdefs.h"
+#include "ccomdefs.h"
 #include "cpage.h"
 
 #ifndef __GLOBUS_H

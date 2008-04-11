@@ -302,32 +302,25 @@ RSTR_FUNC(Bool32)  RSTRRecognizePostMain(CSTR_line lin, CSTR_line lino);
       Bool Check( const Rect16 & rc, int delta ) const;
 
       void
-      IRstr::
       Update( const Rect16 & rc, /*FrmLMask*/ long this2rc );
 
       void
-      IRstr::
       Update( RCIRstr rst, /*FrmLMask*/ long this2rc );
 
 
       void
-      IRstr::
       UpdateC();
 
       void
-      IRstr::
       UpdateHW();
 
       void
-      IRstr::
       UpdateLL( const Rect16 & rc, /*FrmLMask*/ long this2rc, int delta=0 );  // line by line
 
       void
-      IRstr::
       SqueezeWidth( int max_width );
 
       void
-      IRstr::
       SqueezeHeight( int max_height );
 
       /** Self checking **/
