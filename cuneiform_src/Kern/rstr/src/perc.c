@@ -116,6 +116,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "leo.h"
 #include "std.h"
 
+#include "compat_defs.h"
+
 #define NUMBER      '#'
 #define PRO_NUMBER  0xC3
 #define PRO_NUM_PART '‹'
@@ -507,7 +509,7 @@ INT rv=0,po=0;
    }
    prd=prd->next;
  }
- return max(rv,po);
+ return MAX(rv,po);
 } /*------------------------------------------------------------------*/
 
 static INT change_vers()
@@ -637,7 +639,7 @@ version *v;
   pc->vers[0].let='0';   pc->vers[1].let=(BYTE)'Ž';  pc->vers[2].let='O';
   if (test_cell(pc))
     for (v=pc->vers; v->let; v++)
-      rc=max(rc,v->prob);
+      rc=MAX(rc,v->prob);
 
     if( db_status && snap_activity('h') ){
        pc->vers[0].prob=rc;

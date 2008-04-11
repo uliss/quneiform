@@ -65,6 +65,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ligas.h"
 #include "linutil.h"
 
+#include "compat_defs.h"
+
 extern BYTE db_trace_flag   ;    // snap-detail presence byte
 extern BYTE  db_status;
 extern BYTE *MemForCutPointsTwo;
@@ -532,13 +534,13 @@ step4:
     {
      case  0: break;
      case  1:
-              if(i+1 < hgt2)   up_max=max(up_max,I[1]-I[0]+1);
+              if(i+1 < hgt2)   up_max=MAX(up_max,I[1]-I[0]+1);
 	      else
-	       if(i+1 > hgt2)  dw_max=max(dw_max,I[1]-I[0]+1);
+	       if(i+1 > hgt2)  dw_max=MAX(dw_max,I[1]-I[0]+1);
 	       else
 		   {
-		     up_max=max(up_max,I[1]-I[0]+1);
-		     dw_max=max(dw_max,I[1]-I[0]+1);
+		     up_max=MAX(up_max,I[1]-I[0]+1);
+		     dw_max=MAX(dw_max,I[1]-I[0]+1);
 		   }
               sum++;
               if(I[0]==1)
@@ -575,9 +577,9 @@ step4:
 	      }
 
              if(i<=hgt2)
-	        up_max  =max(up_max,max(I[1]-I[0]+1,I[3]-I[2]+1));
+	        up_max  =MAX(up_max,MAX(I[1]-I[0]+1,I[3]-I[2]+1));
 	     else
-	        dw_max=max(dw_max,max(I[1]-I[0]+1,I[3]-I[2]+1));
+	        dw_max=MAX(dw_max,MAX(I[1]-I[0]+1,I[3]-I[2]+1));
 
              if(I[1]-I[0]+I[3]-I[2]+1>I[2]-I[1]) sum+=2;
              else
@@ -593,7 +595,7 @@ step4:
 	     if(i<3 || i>hgt-3)  --priznak;
     }
   }
-tmp_max=max(up_max,dw_max);
+tmp_max=MAX(up_max,dw_max);
 if(priz2<=1 && !max_interval && abs(up_max-dw_max)<=3 && tmp_max>(width<<1)/3)
  {
   if((l_min[0] && !l_min[1] && l_min[2] && !r_min[0] && r_min[1] && !r_min[2])

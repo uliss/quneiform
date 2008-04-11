@@ -75,6 +75,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "status.h"
 #include "linutil.h"	// 31.05.2002 E.P.
 
+#include"compat_defs.h"
+
 extern BYTE fax1x2;
 extern INT pitchsize;
 extern BYTE db_status;
@@ -599,18 +601,18 @@ static cell *let_gl(cell *c1,cell *c2,cell *c3,cell *c4,B_LINES *bl)
   n=2;
  // AL make all decidions BEFORE deletion of cells
  r=0;
- if (c1->row+c1->h-1<=bl->b2 && abs(c1->h-c1->w)<=max(1,bl->ps/8) ||
-     c2->row+c2->h-1<=bl->b2 && abs(c2->h-c2->w)<=max(1,bl->ps/8) ||
+ if (c1->row+c1->h-1<=bl->b2 && abs(c1->h-c1->w)<=MAX(1,bl->ps/8) ||
+     c2->row+c2->h-1<=bl->b2 && abs(c2->h-c2->w)<=MAX(1,bl->ps/8) ||
      c3!=NULL &&
-     (c3->row+c3->h-1<=bl->b2 && abs(c3->h-c3->w)<=max(1,bl->ps/8) ||
+     (c3->row+c3->h-1<=bl->b2 && abs(c3->h-c3->w)<=MAX(1,bl->ps/8) ||
       c4!=NULL &&
-      c4->row+c4->h-1<=bl->b2 && abs(c4->h-c4->w)<=max(1,bl->ps/8)))
+      c4->row+c4->h-1<=bl->b2 && abs(c4->h-c4->w)<=MAX(1,bl->ps/8)))
   r|=MBI;
- if (c1->row>=bl->bm && abs(c1->h-c1->w)<=max(1,bl->ps/8) ||
-     c2->row>=bl->bm && abs(c2->h-c2->w)<=max(1,bl->ps/8) ||
+ if (c1->row>=bl->bm && abs(c1->h-c1->w)<=MAX(1,bl->ps/8) ||
+     c2->row>=bl->bm && abs(c2->h-c2->w)<=MAX(1,bl->ps/8) ||
      c3!=NULL &&
-     (c3->row>=bl->bm && abs(c3->h-c3->w)<=max(1,bl->ps/8) ||
-      c4!=NULL && c4->row>=bl->bm && abs(c4->h-c4->w)<=max(1,bl->ps/8)))
+     (c3->row>=bl->bm && abs(c3->h-c3->w)<=MAX(1,bl->ps/8) ||
+      c4!=NULL && c4->row>=bl->bm && abs(c4->h-c4->w)<=MAX(1,bl->ps/8)))
   r|=MBE;
  // AL
  // AL OK (returns new "c1")
@@ -839,7 +841,7 @@ static void quockets()
   if (((let=c->vers[0].let)=='<' || let=='>') &&
       c->next->flg&(c_f_let|c_f_bad) && c->next->vers[0].let==let &&
        abs(c->h-c->next->h)<=(c->h+c->next->h)/4 &&
-       min(c->h,c->next->h)<=h &&
+       MIN(c->h,c->next->h)<=h &&
        c->col+c->w-c->next->col<=(c->w+c->next->w)/3 &&
       abs(c->row+c->h/2-(c->next->row+c->next->h/2))<=(c->h+c->next->h)/6)
    {
@@ -1177,7 +1179,7 @@ static INT dustpos(INT h,cell *c)
     return 2;
    if ((c->h<=3 || mid<bl.b3) &&
        (c->row+c->h-bl.b3<=1 ||
-	c->row+c->h-bl.b3<=max(7*c->h/24,2) &&
+	c->row+c->h-bl.b3<=MAX(7*c->h/24,2) &&
 	c->row+c->h-bl.b3<=bl.b3-c->row-2))
     return 3;
    }
@@ -1201,7 +1203,7 @@ static INT chkdotcom(INT h,INT dp,cell *c)
  y=c->h+c->w;
  dt=cm=0;
  if (dp!=5 && !fax1x2 && c->h==1 && c->w>=3 ||
-     dp==3 && 4*y<h && bl.b3-(c->row+c->h)>=max(2,c->h))
+     dp==3 && 4*y<h && bl.b3-(c->row+c->h)>=MAX(2,c->h))
   goto ret;
  if (dp==5 ||
      5*y<=6*h &&
@@ -1346,7 +1348,7 @@ static INT chkdash(INT h,INT dp,cell *c)
  INT r;
  BYTE str[80];
 
- r=(dp<=3 && /*9*(c->h)<=4*h*/27*c->h<=13*h && c->w>=min(4,h/3) &&
+ r=(dp<=3 && /*9*(c->h)<=4*h*/27*c->h<=13*h && c->w>=MIN(4,h/3) &&
     (5*(c->w)>=2*h || dp==2 && c->w>c->h))?1:0;
 
  if (snap_activity('e'))
@@ -1660,11 +1662,11 @@ static INT chkquock(INT h,INT dp,cell *c)
      sl++;
    }
   if (sr-sl>=sr/2 || 2*c->h>=3*c->w && sr-sl>=sr/3 ||
-		     c->h>=2*c->w && sr-sl>=max(3,sr/4))
+		     c->h>=2*c->w && sr-sl>=MAX(3,sr/4))
    r=1;
   else
    if (sl-sr>=sl/2 || 2*c->h>=3*c->w && sl-sr>=sl/3 ||
-		      c->h>=2*c->w && sl-sr>=max(3,sr/4))
+		      c->h>=2*c->w && sl-sr>=MAX(3,sr/4))
     r=-1;
   }
  if (snap_activity('e'))
@@ -1750,7 +1752,7 @@ extern BYTE multy_language;
    for (i1=0; !(rstr[l*i1+j/8]&(128>>(j%8))); i1++) ;
    for (i2=c->h-1; !(rstr[l*i2+j/8]&(128>>(j%8))); i2--) ;
    i2=c->h-1-i2;
-   if (i1 && i2 && i1+i2>=max(2,c->h/5))
+   if (i1 && i2 && i1+i2>=MAX(2,c->h/5))
     {
     for (j1=j; j1>=0 && !(rstr[l*(i1-1)+j1/8]&(128>>(j1%8))); j1--) ;
     for (j2=j; j2<c->w && !(rstr[l*(i1-1)+j2/8]&(128>>(j2%8))); j2++) ;
@@ -1765,13 +1767,13 @@ extern BYTE multy_language;
    }
   if (r>2)
    {d=0; goto ret;}
-  r=max(1,c->h/6);
+  r=MAX(1,c->h/6);
   for (i=r,j1=(d<0)?0:c->w-1; !(rstr[l*i+j1/8]&(128>>(j1%8))); j1-=d) ;
   for (i=c->h-1-r,j2=(d<0)?0:c->w-1; !(rstr[l*i+j2/8]&(128>>(j2%8)));
 								     j2-=d) ;
   if (d>0)
    {j1=c->w-1-j1; j2=c->w-1-j2;}
-  if (j1<min(1,c->w/6) || j2<min(1,c->w/6))
+  if (j1<MIN(1,c->w/6) || j2<MIN(1,c->w/6))
    d=0;
   }
 ret:
@@ -1864,7 +1866,7 @@ static void intval(cell *c,cell *cb)
        abs(c1->row+c1->h-(c2->row+c2->h))<=1 &&
        //!line_tabcell &&
        (d=dustpos(h,c1))>=0 && d<=3 &&
-       min(c1->row,c2->row)>bl.b1)
+       MIN(c1->row,c2->row)>bl.b1)
     {
     hh=MAX(c2->row+c2->h,c1->row+c1->h)-MIN(c2->row,c1->row);
     ww=MAX(c2->col+c2->w,c1->col+c1->w)-MIN(c2->col,c1->col);

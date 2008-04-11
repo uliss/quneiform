@@ -92,6 +92,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "match_wd.h"
 #include "specprj.h"
 
+#include "compat_defs.h"
+
 // P2_COUR.C
 Bool32 RecogLEO(RecRaster *Rs,Word8 Language,UniVersions *Vs);
 // ERECTION.C
@@ -1903,7 +1905,7 @@ void letters_ini(CSTR_line lin, BOOL enable_scaling)
                     {
                     local_alphabet[*p]=1;
                     c2->vers[j].let =*p;
-                    c2->vers[j].prob=max(evn.Alt[i].Prob&254,2);
+                    c2->vers[j].prob=MAX(evn.Alt[i].Prob&254,2);
                     j++;
                     if( j==VERS_IN_CELL-1 )
                         break;
@@ -2163,7 +2165,7 @@ static void postrecog()
    for (j=0; j<c->nvers; j++)
     if (vers[i].let==c->vers[j].let)
      {
-     c->vers[j].prob=max(vers[i].prob,c->vers[j].prob);
+     c->vers[j].prob=MAX(vers[i].prob,c->vers[j].prob);
      break;
      }
    if (j==c->nvers && c->nvers<VERS_IN_CELL-1)
@@ -2395,8 +2397,8 @@ INT lang=c->language;
 if( lang==LANG_ENGLISH && multy_language )
     lang    = LANG_RUSENG;
 memset(ver,0,sizeof(RecVersions));
-ver->lnAltCnt = min(c->nvers, REC_MAX_VERS);
-ver->lnAltCnt = max(ver->lnAltCnt, 0);
+ver->lnAltCnt = MIN(c->nvers, REC_MAX_VERS);
+ver->lnAltCnt = MAX(ver->lnAltCnt, 0);
 ver->lnAltMax = REC_MAX_VERS;
 
 /*  comment Nick 17.02.2001
@@ -2886,7 +2888,7 @@ INT up, uploc;
 
 for(i=0;i<num_of_lines;i++)
     {
-    up=min(page_lines[i].beg.row,page_lines[i].end.row) - page_lines[i].width/2;
+    up=MIN(page_lines[i].beg.row,page_lines[i].end.row) - page_lines[i].width/2;
     if( abs(up-maxrow)<10 )
         {
         for(c=b;c!=e;c=c->next)
@@ -3236,7 +3238,7 @@ return TRUE;
 BOOL add_rus_under(cell *c)
 {
 BOOL    ret = FALSE;
-BYTE    pr = (BYTE)(max((INT)c->vers[0].prob-10,2));
+BYTE    pr = (BYTE)(MAX((INT)c->vers[0].prob-10,2));
 switch( c->vers[0].let )
     {
     case    (BYTE)'ç':
@@ -3248,7 +3250,7 @@ switch( c->vers[0].let )
         break;
     case    (BYTE)'¨':
         add_stick_vers(c,(CHAR)'æ', pr ) ;  
-        add_stick_vers(c,(CHAR)'ã', (BYTE)max((INT)pr-10,2) ) ;  
+        add_stick_vers(c,(CHAR)'ã', (BYTE)MAX((INT)pr-10,2) ) ;  
         ret = TRUE;
         break;
     case    (BYTE)'®':
@@ -3266,7 +3268,7 @@ return FALSE;
 BOOL add_eng_under(cell *c)
 {
 BOOL    ret = FALSE;
-BYTE    pr = (BYTE)(max((INT)c->vers[0].prob-10,2));
+BYTE    pr = (BYTE)(MAX((INT)c->vers[0].prob-10,2));
 switch( c->vers[0].let )
     {
     case    (BYTE)'v':
@@ -3332,7 +3334,7 @@ for(rst=CSTR_GetNextRaster(CSTR_GetFirstRaster(ln),CSTR_f_let);
             else if( uo.lnAltCnt && 
                      u.Alt[0].Prob>20+uo.Alt[0].Prob )
                 {
-                n = min(REC_MAX_VERS-1,uo.lnAltCnt);
+                n = MIN(REC_MAX_VERS-1,uo.lnAltCnt);
                 for(i=0;i<1;i++)
                     u.Alt[i+1]=uo.Alt[i];
                 u.lnAltCnt = n+1;
@@ -3356,12 +3358,12 @@ if( c->next!=cell_l() )
     if( (c->flg&c_f_dust) && (cn->flg&c_f_dust) &&
         cn->next==cell_l() )
         { // two dusts
-        rn = min(c->row,cn->row);
-        hn = max(c->row+c->h,cn->row+cn->h)-rn;
+        rn = MIN(c->row,cn->row);
+        hn = MAX(c->row+c->h,cn->row+cn->h)-rn;
         con = c->col;
         wn = cn->col+cn->w-con;
         up = rn-minrow;
-        dn = max(c->row+c->h,cn->row+cn->h)-minrow;
+        dn = MAX(c->row+c->h,cn->row+cn->h)-minrow;
         if( hn*12<wn*5 && 
             wn>=Ps/2 &&
             up>=bbs2+dh &&
