@@ -1429,5 +1429,3 @@ static INT upper_dot_I(cell *c)
 	return 1;
 }
 /////////////
-
-	
