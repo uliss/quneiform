@@ -75,6 +75,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ukr.h"
 #include"linutil.h"
 
+#include "compat_defs.h"
+
 extern BYTE fax1x2;
 extern INT pitchsize;
 extern INT current_fragment;
@@ -273,7 +275,7 @@ snvers=c->nvers;
 		(r = upper_right_angle( c )) > 0
 	 )
   {	
-		vers->prob = max(2,vers->prob - r); 
+		vers->prob = MAX(2,vers->prob - r); 
 		continue;
   }
 
@@ -476,7 +478,7 @@ cell *dot_ri(cell *c)
       cc->col+cc->w-(((c->font|c->font_new)&c_fp_it)?c->w/3:5)<=c->col+c->w &&
       (cc->col+cc->w/2<=c->col+c->w || (c->font|c->font_new)&c_fp_it ||
       c->save_stick_inc>300 && c->pos_inc==erect_rest) &&
-      cc->row+4>=min(bl.b0,bl.b1) && cc->row+cc->h>=bl.b1 &&
+      cc->row+4>=MIN(bl.b0,bl.b1) && cc->row+cc->h>=bl.b1 &&
       cc->row+cc->h-2<=bl.b2 &&
       cc->col+cc->w/2>=c->col+(2*c->w)/3)
     return cc;
@@ -663,7 +665,7 @@ INT ij_test(cell *c)
 	   )
     {
     v2->let=v1->let;
-    v2->prob=min(254,v1->prob+84);
+    v2->prob=MIN(254,v1->prob+84);
     v2++; (c->nvers)++;
     }
   v2->let=0;
@@ -755,7 +757,7 @@ cell *dot_iUkr(cell *c)
   if(     cc->flg&(c_f_dust+c_f_punct) &&  // dust
           2*cc->h<c->h &&                  // not too high
           cc->row+cc->h-2<=bl.b2 &&        // upper position
-          (cc->row+4>=min(bl.b0,bl.b1) ||  // not too upper
+          (cc->row+4>=MIN(bl.b0,bl.b1) ||  // not too upper
            cc->row>=bl.b1-bl.ps/3)
 /*        cc->row+cc->h<=c->row
 */
@@ -840,7 +842,7 @@ cell *dot_ij(cell *c)
   if (cc->flg&(c_f_dust+c_f_punct) &&  // dust
       2*cc->h<c->h &&                  // not too high
       cc->row+cc->h-2<=bl.b2 &&        // upper position
-      (cc->row+4>=min(bl.b0,bl.b1) ||  // not too upper
+      (cc->row+4>=MIN(bl.b0,bl.b1) ||  // not too upper
        cc->row>=bl.b1-bl.ps/3) &&
       cc->row+cc->h<=c->row)
    {
@@ -853,7 +855,7 @@ cell *dot_ij(cell *c)
 	  cc->h<cc->w && cc->w-(cc->h+((fax1x2)?2:0))<=H/4 ||
 	  cc->h<cc->w && 3*(c->row-cc->row)>=c->h && abs(cc->w-c->w)<=1) &&
 	 cc->col+3>=c->col &&
-	 c->col+c->w/2-(cc->col+cc->w/2)<=max(2,c->w/4) &&
+	 c->col+c->w/2-(cc->col+cc->w/2)<=MAX(2,c->w/4) &&
 	 cc->col+cc->w-6<=c->col+c->w &&
      (memchr("ij",( let = c->prevl->vers[0].let),2)==NULL &&
 		// Исправил || на "&& !" 08.09.2000 E.P. 
@@ -1004,7 +1006,7 @@ cell *dot_inv(cell *c)
     if ((fax1x2 || cc->h>=2) && cc->w>=2 || c->w<=3)
      if (cc->h-cc->w<=H/6 && cc->w-cc->h-((fax1x2)?2:1)<=H/6)
       if (cc->col+3>=c->col && cc->col+cc->w-6<=c->col+c->w)
-       if (cc->row+max(2,cc->h/3)>=bl.b2)
+       if (cc->row+MAX(2,cc->h/3)>=bl.b2)
 	if (cc->row+cc->h<=bl.bm)
 	 if (cc->row+cc->h<c->row)
 	  return cc;
@@ -1290,7 +1292,7 @@ static INT upper_right_angle(cell *c)
  lnhead *line;
  interval *intval;
  INT l,i;
- int maxH = min(MAX_UPR,c->h/3);
+ int maxH = MIN(MAX_UPR,c->h/3);
  int nDuga = 0;
  int nBigLine = 0;
  int rBound[MAX_UPR];
@@ -1319,8 +1321,8 @@ static INT upper_right_angle(cell *c)
 			if( start +i  >= maxH )
 				break;
 
-			rBound[start +i] = max(rBound[start +i], intval->e );
-			lBound[start +i] = min(lBound[start+i], intval->e-intval->l );
+			rBound[start +i] = MAX(rBound[start +i], intval->e );
+			lBound[start +i] = MIN(lBound[start+i], intval->e-intval->l );
 		}
 	}
 
@@ -1351,7 +1353,7 @@ static INT upper_right_angle(cell *c)
 	if( nDuga * 3 >= maxH )
 		return 100;
 
-	return (300*nDuga)/max(1,maxH);
+	return (300*nDuga)/MAX(1,maxH);
 //	return 0;
 }
 /////////////
@@ -1362,7 +1364,7 @@ static INT upper_dot_I(cell *c)
  lnhead *line;
  interval *intval;
  INT l,i;
- int maxH = min(MAX_UPR,c->h/3);
+ int maxH = MIN(MAX_UPR,c->h/3);
  int nBigLine = 0;
  int rBound[MAX_UPR];
  int lBound[MAX_UPR];
@@ -1389,8 +1391,8 @@ static INT upper_dot_I(cell *c)
 			if( start + i  >= maxH )
 				break;
 
-			rBound[start +i] = max(rBound[start+i], intval->e );
-			lBound[start +i] = min(lBound[start+i], intval->e-intval->l );
+			rBound[start +i] = MAX(rBound[start+i], intval->e );
+			lBound[start +i] = MIN(lBound[start+i], intval->e-intval->l );
 		}
 	}
 

@@ -76,6 +76,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "tuner.h"
 
+#include "compat_defs.h"
+
 static CHAR txg1[]={"LOCOMP ERR"};
 static CHAR txg2[]={"NO CELL got"};
 static CHAR txg3[]={"        p=(%d,%d)"};
@@ -872,7 +874,7 @@ fingb:
       goto accel; // Oleg : 30-03-1995 : near cursive rus n+cursive rus ge
   if ( ((BC->recsource & c_rs_ev) == 0) ||
        ( i < 220) ||
-       ( max(p1,p2) > 170 ) ||
+       ( MAX(p1,p2) > 170 ) ||
        ( (i+i) <= (p1+p2))
      )
      goto unrel_rs;
@@ -962,9 +964,9 @@ static void glue_dust_dust()
   if (!(EC->flg & c_f_dust)) continue;
   if( BC->accent_leader )
     continue; // Oleg : 06/10/97 17:51 : can't glued fictive images
-  i=max(EC->r_col+EC->w,BC->r_col+BC->w)-BC->r_col;
-  j=max(EC->r_row+EC->h,BC->r_row+BC->h);
-  j-=min(EC->r_row,BC->r_row);
+  i=MAX(EC->r_col+EC->w,BC->r_col+BC->w)-BC->r_col;
+  j=MAX(EC->r_row+EC->h,BC->r_row+BC->h);
+  j-=MIN(EC->r_row,BC->r_row);
   if (i < 10) continue;
   if (j < 10) continue;
   if (db_status)

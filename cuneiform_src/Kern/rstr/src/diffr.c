@@ -74,6 +74,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lang_def.h"	// 08.09.2000 E.P.
 #include "linutil.h"
 
+#include "compat_defs.h"
+
 BYTE broken_flag=0;
 BYTE rec5_flag=1,font_type=0,omni=1;
 /*#else					// А ЭТО Turbo C         
@@ -316,7 +318,7 @@ switch( (BYTE)let )
         rastr0= rasterN + Y*D_X+(X>>3);
         rastr = rastr0 + D_X*(dy>>2);
         F = FOOT(rastr, D_X,(BYTE)Dx, (BYTE)Hy,1);
-		if( F!=2 || min(LOCAL_W[0],LOCAL_W[1])>3 && beg2-end1<3 )
+		if( F!=2 || MIN(LOCAL_W[0],LOCAL_W[1])>3 && beg2-end1<3 )
 			{
 			if( dy>13 )
 				F=FOOT(rastr0+2*D_X, D_X,(BYTE)Dx, (BYTE)(dy-4),0);
@@ -340,7 +342,7 @@ switch( (BYTE)let )
            if( 2*LOCAL[0]>5*LOCAL_W[0] && 2*(dx-LOCAL[1])<3*LOCAL_W[1])
             P += 2*step_diskr;
 		   if( IN_I<3 )
-			P += min(2*(7-IN_I+IN_equ) * step_diskr,160)/2;
+			P += MIN(2*(7-IN_I+IN_equ) * step_diskr,160)/2;
 		   else if( IN_I==3 && IN_equ>2 )
 			P += IN_equ*step_diskr;
 		   //if( IN_I>10 && IN_M==0 )
@@ -713,7 +715,7 @@ switch( (BYTE)let )
        if( FOOT3_2(rastr0,D_X,(BYTE)Dx,(BYTE)dy) )
         P += step_diskr*3;
 		   diskr_sh = P;
-       P=max(P,0);
+       P=MAX(P,0);
        }
 		   else  P = diskr_sh;
 		break;
@@ -776,7 +778,7 @@ switch( (BYTE)let )
 		if( diskr_i<0 )
 		{
 		F = FOOT(rastr, D_X,(BYTE)Dx, (BYTE)Hy,1);
-		if( F!=2 || min(LOCAL_W[0],LOCAL_W[1])>3 && beg2-end1<3 )
+		if( F!=2 || MIN(LOCAL_W[0],LOCAL_W[1])>3 && beg2-end1<3 )
 			{
 			if( dy>13 )
 				F=FOOT(rastr0+2*D_X, D_X,(BYTE)Dx, (BYTE)(dy-4),0);
@@ -810,7 +812,7 @@ switch( (BYTE)let )
 				P += 8*step_diskr;
 			}
 		   if( IN_I<3 )
-			P += min(2*(7-IN_I+IN_equ) * step_diskr,160)/2;
+			P += MIN(2*(7-IN_I+IN_equ) * step_diskr,160)/2;
 		   else if( IN_I==3 && IN_equ>2 )
 			P += IN_equ*step_diskr;
       if( IN_I>=9 )
@@ -837,7 +839,7 @@ switch( (BYTE)let )
 		if( diskr_n<0 )
 		{
 		F = FOOT(rastr, D_X,(BYTE)Dx, (BYTE)Hy,1);
-		if( F!=2 || min(LOCAL_W[0],LOCAL_W[1])>3 && beg2-end1<3 )
+		if( F!=2 || MIN(LOCAL_W[0],LOCAL_W[1])>3 && beg2-end1<3 )
 			{
 			if( dy>13 )
 				F=FOOT(rastr0+2*D_X, D_X,(BYTE)Dx, (BYTE)(dy-4),0);
@@ -870,7 +872,7 @@ switch( (BYTE)let )
 			}
 
 		   if( IN_N>3 )
-			P += min(IN_N * step_diskr,160)/2;
+			P += MIN(IN_N * step_diskr,160)/2;
 		   if( DiskrRight(rastr0, D_X, Dx, dy,(INT)(dy>22?3:2)) )
 			P += 3*step_diskr;
 		   if( omni )
@@ -985,7 +987,7 @@ switch( (BYTE)let )
         }
       if( average_br_angle(rastr0,D_X,Dx,dy,0)>d_r )
         P += 4*step_diskr;
-      P=max(P,0);
+      P=MAX(P,0);
       diskr_tsh = P;
       }
     else  P = diskr_tsh;
@@ -1119,7 +1121,7 @@ for(pen=0,r=raster,i=0;i<hei;i++,r+=D_X)
 	if( i<hei/4 && RightDistance(r,D_X)>lim )
 		pen++;
 
-return pen>min(4,hei/4);
+return pen>MIN(4,hei/4);
 }
 
 #ifdef UFA
@@ -1935,7 +1937,7 @@ if( t3>2 && t2>t1 && num1>=0 && num2<7 )
 	d_e = (s3<p)?p-s3:0;
 	if( s3==0 && d_e<3 )
 		d_e = 4;
-	d_c = max(d_c,(s3>n)?s3-n+1:0);
+	d_c = MAX(d_c,(s3>n)?s3-n+1:0);
 	}
 return( (let==(BYTE)'е')?d_e:d_c );
 }
@@ -2087,7 +2089,7 @@ BYTE *r=raster;
 if( up_down_serif>=0 )
 	return( up_down_serif );
 
-l = min(l,dx0-2);
+l = MIN(l,dx0-2);
 dx = bytlen(dx);
 for(r=raster+start1*D_X,num1=0,i=start1;i<stop1;i++,r+=D_X)
 	{
@@ -2120,7 +2122,7 @@ if( up_down_serif_B>=0 )
 	return( up_down_serif_B );
 
 dx = bytlen(dx);
-l = min( l, dx0-2);
+l = MIN( l, dx0-2);
 for(r=raster+start1*D_X,num1=0,i=start1;i<stop1;i++,r+=D_X)
 	{
 	p = NumHorizInterval(r,dx);
@@ -2292,7 +2294,7 @@ static void DiskrIN(BYTE *RASTR,INT D_X,INT dy,INT bw,INT dx)
    BYTE *RAST ,*R;
 
 
-n4 = max(dy/4,(LOCAL_W[0]+LOCAL_W[1])/4);
+n4 = MAX(dy/4,(LOCAL_W[0]+LOCAL_W[1])/4);
 if( n4>dy/3 ) n4=dy/4;
 n2 = dy - (n4<<1);
 RAST = RASTR+D_X*n4;
@@ -2394,7 +2396,7 @@ for( old=hist[n4],i=n4+1;i<=n2;i++)
 if( up_space!=-1 && down_space!=-1 )
 	{
 	IN_N=3;
-	IN_I= min(up_space,down_space);
+	IN_I= MIN(up_space,down_space);
 	IN_dis=1;
 	IN_equ=2;
 	return;
@@ -2445,7 +2447,7 @@ if( l_real<=1 && ((n[end1]==0&&n[end1+1]==0) || (n[beg2]==0&&n[beg2-1]==0)) )
 if( no_serific(RASTR,dy,dx,bw) )
 	{	/* обратный пересчет в интервал высот [dy/4,dy-dy/4] */
 	INT nn4,nn2,h;
-	nn4 = max(dy>>2,(LOCAL_W[0]+LOCAL_W[1])>>1);
+	nn4 = MAX(dy>>2,(LOCAL_W[0]+LOCAL_W[1])>>1);
   if( nn4>dy/3 ) nn4=dy/4;
   nn2 = dy - (nn4<<1);
   RAST = RASTR+D_X*n4;
@@ -2647,7 +2649,7 @@ INT lim = (beg2-or-end1+ol)>>1;
 for(t=0,i=end1+ol;i<=lim;i++)
 	if( n[i]>((n2-2)<<1) )
 		t++;
-	if( t>=max(2,(l_real>>1)) )
+	if( t>=MAX(2,(l_real>>1)) )
 	{		/* перекладина слишком высоко 			*/
 	fill_center=0;	/* коррекция штрафа за отстутствие перекладины 	*/
 	IN_N=4;

@@ -80,6 +80,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "status.h"
 #include "p2libr.h"
 
+#include "compat_defs.h"
+
 static struct cut_elm cut_pnts[64];
 static struct {INT row,col,count;} debug_try_cut ={0};
 
@@ -791,7 +793,7 @@ dosur:
    }
 surbad:
    n4=crepat(B1,GL,2,sff);
-   if (n4 > max(n2,n3))
+   if (n4 > MAX(n2,n3))
    {
      n4=crecell(B1,GL,3);
      if (n4 < 0) goto fin;
@@ -1509,7 +1511,7 @@ void make_all_cuts()
    else
    {
      mrc=B1->col+B1->w;
-     i=max(i,mrc);
+     i=MAX(i,mrc);
    }
    B1=B1->next;
  }
@@ -1908,7 +1910,7 @@ repeat_with_doubles:
      c1 = T1->vers[0].let;
 
      if (forbid_stick_cut(T1,&cpos1,1) && (p1 > 70))
-     { p1 = max(p1-MONstick,2);              // near stick
+     { p1 = MAX(p1-MONstick,2);              // near stick
        lsnap('a',T1,"SR ",p1);
      }
    }
@@ -1928,10 +1930,10 @@ estim_right:
      }
      if (CL.Nd > 1)    // **************** IT WAS  > 0
      {
-       p1 = max(p1 - (CL.Nd<<6)-pen_badust,0);
+       p1 = MAX(p1 - (CL.Nd<<6)-pen_badust,0);
        lsnap('a',T1,"D ",p1);
      }
-     p3=max(VD0-(CL.Nd<<6)-pen_badust,0);
+     p3=MAX(VD0-(CL.Nd<<6)-pen_badust,0);
    }
    else  // right part isn't dust
    {
@@ -1943,7 +1945,7 @@ estim_right:
            lsnap('a',T3,"LD OK ",p1);
          else
          {
-           p1 = max(p1 - (CL.Nd<<6)-pen_badust,0);
+           p1 = MAX(p1 - (CL.Nd<<6)-pen_badust,0);
             // all penalty for dust - at 1-st part
            lsnap('a',T1,"LD Mon ",p1);
          }
@@ -2011,7 +2013,7 @@ estim_right:
      cpnt1->duflr |= GL.fres; cpnt1->gvarr = GL.var & 15;
      c3 = T3->vers[0].let;
      if (forbid_stick_cut(T3,&cpos1,2) && (p3 > 70))
-     {  p3 = max(p3-MONstick,2);              // near stick
+     {  p3 = MAX(p3-MONstick,2);              // near stick
         lsnap('a',T3," SL ",p3);
      }
      if (forest(T3,p3,TRSO2))
@@ -2021,10 +2023,10 @@ estim_right:
      memcpy(&(cpnt1->versr),&sv3,sizeof(SVERS));
    }
    estimrp:
-   cpnt1->rv.v3=max(p3,2);                 // right part estimate
+   cpnt1->rv.v3=MAX(p3,2);                 // right part estimate
    cpnt1->rv.v2=254;
    cpnt1->rv.v1=254;
-   cpnt1->lv.v3=max(p1,2);                 // single cut estimate
+   cpnt1->lv.v3=MAX(p1,2);                 // single cut estimate
    cpnt1->lv.v2=254;
    cpnt1->lv.v1=254;
    cpnt1->px = 0;                          // indicate single cut
@@ -2145,12 +2147,12 @@ acc2d:
      if  (p2 > 70)
      {
        if (forbid_stick_cut(T2,&cpos1,1))       // right side
-       { p2=max(p2-MONstick,2);                // near stick
+       { p2=MAX(p2-MONstick,2);                // near stick
          lsnap('a',T2,"SR ",p2);
        }
        if (p2 <= 70) goto p2mdust;
        if (forbid_stick_cut(T2,&cpos2,2))       // lrft side
-       { p2=max(p2-MONstick,2);                // near stick
+       { p2=MAX(p2-MONstick,2);                // near stick
          lsnap('a',T2,"SL ",p2);
        }
      }

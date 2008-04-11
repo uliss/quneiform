@@ -69,6 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rcutp.h"
 #include "linear.h"
 
+#include "compat_defs.h"
 
 //  snap globals
 extern BYTE db_status;      // snap presence byte
@@ -561,7 +562,7 @@ lrdo:;
  if (lbnd < 3) lbnd=0;
 
  v1=bodyes[lwpnt];
- lr=max(0,lwpnt-4);
+ lr=MAX(0,lwpnt-4);
  while (lwpnt>=lr)
   {
   if ((bodyes[lwpnt]<<2)  < 3*v1) break;    // body > 3/4 etalon
@@ -580,7 +581,7 @@ lrdo:;
  if (rbnd > (totalh-3)) rbnd=(CHAR)totalh;
 
  v1=bodyes[rwpnt];
- lr=min(rwpnt+4,totalh);
+ lr=MIN(rwpnt+4,totalh);
  while (rwpnt <= lr)
   {
   if ((bodyes[rwpnt]<<2)  < 3*v1) break;
@@ -678,8 +679,8 @@ static INT walltest(INT flg, INT dn1, INT dn2, INT k1, INT k2)
 
  maxh=0; minf=256;
  wt= t_width * k1;
- n1=max(0,bestx-dn1);
- n2=min(bestx+dn2,t_height);            // totalh ?
+ n1=MAX(0,bestx-dn1);
+ n2=MIN(bestx+dn2,t_height);            // totalh ?
  for (nx=n1; nx<n2; nx++)
   {
   if (flg)                              // don't cut puso beside tall wall

@@ -73,6 +73,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lang.h"
 #include "linutil.h"
 
+#include "compat_defs.h"
+
 #define MAX_DUST_CELLS 12
 //extern BYTE accent_tab[];
 extern BYTE db_pass;
@@ -202,7 +204,7 @@ INT try_cut_top_accent(cell *C1, B_LINES *my_bases, INT flag)
 
  Z = &string;
  cr = C1->row; cc = C1->col; cw = C1->w; ch = C1->h;
- if (((b2=my_bases->b2)-max(2,my_bases->ps/5)) < cr)
+ if (((b2=my_bases->b2)-MAX(2,my_bases->ps/5)) < cr)
    return 0;
  b1b2 = 2; dh = b2-cr;
 
@@ -210,7 +212,7 @@ INT try_cut_top_accent(cell *C1, B_LINES *my_bases, INT flag)
  if ( ( (b1=my_bases->b1)-
 
 	 // в балтийских языках есть низенький макрон! Nick 19.08.01
-	   max(3,my_bases->ps/(
+	   MAX(3,my_bases->ps/(
 		(
 		is_baltic_language(language) ||
 		is_turkish_language(language) // Ради точки над I, i_sans_accent 30.05.2002 E.P.
@@ -437,12 +439,12 @@ static INT thinlev_top(PBYTE r,INT w,INT dh)
  INT l,d,i,j,s1,s2,min1,min2,i1,i2;
 
  l=(w+7)/8;
- d=min(2,dh/3);
+ d=MIN(2,dh/3);
 
  if (dh<=1)
     return dh;      // 20.07.97 E.P. (instead of nonsense try to cut dot)
 
- for (min1=min2=w+1,i=max(2,dh-d); i<=dh+d; i++)
+ for (min1=min2=w+1,i=MAX(2,dh-d); i<=dh+d; i++)
   {
   for (s1=s2=j=0; j<w; j++)
    if (r[l*(i-1)+j/8]&(128>>(j%8)))
@@ -470,10 +472,10 @@ static INT thinlev_bot(PBYTE r,INT w,INT h,INT dh)
  INT l,d,i,j,s1,s2,min1,min2,i1,i2;
 
  l=(w+7)/8;
- d=min(2,dh/3);
+ d=MIN(2,dh/3);
  i1=i2=dh;  // Nick 20.06.2002
- for (  min1=min2=w+1,i=max(2,dh-d);
-        i<=min( dh+d, h/2 );   /* restrict to the lower half of raster */
+ for (  min1=min2=w+1,i=MAX(2,dh-d);
+        i<=MIN( dh+d, h/2 );   /* restrict to the lower half of raster */
         i++
      )
   {
@@ -527,13 +529,13 @@ INT try_cut_bot_accent(cell *C1, B_LINES *my_bases, INT flag)
 
  Z = &string;
  cr = C1->row; cc = C1->col; cw = C1->w; ch = C1->h;
- if (((b3=my_bases->b3)+max(2,my_bases->ps/5)) > cr+ch)
+ if (((b3=my_bases->b3)+MAX(2,my_bases->ps/5)) > cr+ch)
    return 0;
 
  b1b2 = 2;
  dh = cr+ch-b3;
 
- if (((b1=my_bases->b1)-max(3,my_bases->ps/4))-((dh<=my_bases->ps/2)?1:0)>=
+ if (((b1=my_bases->b1)-MAX(3,my_bases->ps/4))-((dh<=my_bases->ps/2)?1:0)>=
                                       cr
     )
     b1b2 = 1;

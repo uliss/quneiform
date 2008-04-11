@@ -70,6 +70,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include"nt_types.h"	// 17.07.2001 E.P.
 #include"status.h"		// 17.07.2001 E.P.
 
+#include"compat_defs.h"
+
 // SMAP.C
 extern	Bool16	snap_monitor_ori(CSTR_line *snap_line, Int32 num_lines);
 extern	Bool16	snap_activity(Word8 a);
@@ -155,9 +157,9 @@ if( need_space && c && !(attr.flg&CSTR_f_fict) )
     CSTR_GetAttr(n,&nattr);
     if( nattr.flg&(CSTR_f_let|CSTR_f_bad|CSTR_f_punct) )
         {
-        Int16   dist=min(attr.h,nattr.h);
-        dist = min( dist, attr.w);
-        dist = min( dist,nattr.w);
+        Int16   dist=MIN(attr.h,nattr.h);
+        dist = MIN( dist, attr.w);
+        dist = MIN( dist,nattr.w);
         if( nattr.col - (attr.col+attr.w)<dist/3 )
             return (CSTR_rast)0;    
         }

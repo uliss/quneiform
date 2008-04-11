@@ -59,6 +59,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "linutil.h"
 #include "lang.h"
 
+#include "compat_defs.h"
+
 static INT LiliI                (cell *);
 static INT bon_to_dig           (cell *);
 static BOOL apostr_ll           (cell *);
@@ -1239,7 +1241,7 @@ monus:;
   {
   if (v->let == 'I')
    continue;
-  v->prob=max(v->prob-MONUS,10);   // didn't expect number
+  v->prob=MAX(v->prob-MONUS,10);   // didn't expect number
   }
  sort_vers(NC);
  return 1;
@@ -1260,7 +1262,7 @@ static INT bon_to_dig(cell *NC)
 monus:;
  for (i=0,v=NC->vers; i < NC->nvers; i++,v++)
   if ((v->let < '0')  || (v->let > '9'))
-   v->prob=max(v->prob-MONUS+MONUS1I,10);  // didn't expect other than 1
+   v->prob=MAX(v->prob-MONUS+MONUS1I,10);  // didn't expect other than 1
  sort_vers(NC);
  return 1;
  }
@@ -1289,14 +1291,14 @@ monus:;
   {
   if (v->let=='l')
    continue;
-  v->prob=max(v->prob-MONUS,10);   // didn't expect other than l
+  v->prob=MAX(v->prob-MONUS,10);   // didn't expect other than l
   }
  sort_vers(NC);
  for (i=0,v=NC->nextl->vers; i < NC->nextl->nvers; i++,v++)
   {
   if (v->let == 'l')
    continue;
-  v->prob=max(v->prob-MONUS,10);   // didn't expect other than l
+  v->prob=MAX(v->prob-MONUS,10);   // didn't expect other than l
   }
  sort_vers(NC->nextl);
  return TRUE;
@@ -1323,14 +1325,14 @@ INT i, nvI, nvl, nvs;
             case    'D':
             {
                 C->vers[i].prob =
-                    min( MAX_PROB, C->vers[i].prob + FRANCH_ART_BONUS );
+                    MIN( MAX_PROB, C->vers[i].prob + FRANCH_ART_BONUS );
                 return_code = CONTINUE_ACTION;
                 break;
             }
             default    :
             {
                 C->vers[i].prob =
-                    max( MIN_PROB, C->vers[i].prob - FRANCH_ART_BONUS );
+                    MAX( MIN_PROB, C->vers[i].prob - FRANCH_ART_BONUS );
             }
         }
     }
@@ -1386,7 +1388,7 @@ INT  nv_c, nv_h, nv_b;
 
     if ( ( n_ltr == 1 ) && ( C->vers[0].let == ss_deaf_sound ) )
     {
-        C->vers[0].prob = max( MIN_PROB, C->vers[0].prob - GER_DOUBLE_S_MONUS );
+        C->vers[0].prob = MAX( MIN_PROB, C->vers[0].prob - GER_DOUBLE_S_MONUS );
         sort_vers( C );
         return_code = CONTINUE_ACTION;
         goto    GCP_Ret;
@@ -1397,7 +1399,7 @@ INT  nv_c, nv_h, nv_b;
         if ( C->vers[0].let == ss_deaf_sound )
         {
             C->vers[0].prob =
-                max( MIN_PROB, C->vers[0].prob - GER_DOUBLE_S_MONUS );
+                MAX( MIN_PROB, C->vers[0].prob - GER_DOUBLE_S_MONUS );
             sort_vers( C );
         }
         for ( i = 0, wc = C; i < n_ltr - 1; wc = wc->nextl, i++ )

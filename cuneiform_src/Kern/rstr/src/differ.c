@@ -69,6 +69,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ligas.h"
 #include "lang.h"
 
+#include "compat_defs.h"
+
 extern INT pitchsize;
 extern BYTE bcr_layout;
 extern BYTE language;
@@ -139,9 +141,9 @@ static void dif_DO(cell *c)
   else
    if (let=='O' || let=='0' || let=='o' || let=='Q' || let=='G')
     prob_O=c->vers[i].prob;
- d=max(prob_O,prob_D);
+ d=MAX(prob_O,prob_D);
  if (!prob_O || !prob_D ||
-     min(prob_O,prob_D)<PROBMIN && (d!=c->vers[0].prob ||
+     MIN(prob_O,prob_D)<PROBMIN && (d!=c->vers[0].prob ||
 					   abs(prob_O-prob_D)>DPROB))
   return;
  prob_O=d-prob_O;
@@ -152,7 +154,7 @@ static void dif_DO(cell *c)
  if (nstick<=0 || nstick>2)
   return;
  d=c->h-st->l; s1=st->bot+st->top;
- if (d<=1 && s1<=3 || d<=max(3,c->h/8) && s1<=1)
+ if (d<=1 && s1<=3 || d<=MAX(3,c->h/8) && s1<=1)
   {
   if (nstick==1)
    goto rec_D;
@@ -173,7 +175,7 @@ static void dif_DO(cell *c)
   return;
  d=st->l-(st+1)->l;
  s2=st->bot+st->top+(st+1)->top+(st+1)->bot;
- if (d>max(5,c->h/4) || d>max(4,c->h/6) && s2<-1 || s2<-3)
+ if (d>MAX(5,c->h/4) || d>MAX(4,c->h/6) && s2<-1 || s2<-3)
   return;
 
  for (i=0; i<c->nvers; i++)
@@ -208,9 +210,9 @@ static void dif_FP(cell *c)
   else
    if (let=='P')
     prob_P=c->vers[i].prob;
- d=max(prob_F,prob_P);
+ d=MAX(prob_F,prob_P);
  if (!prob_F || !prob_P ||
-     min(prob_F,prob_P)<PROBMIN && (d!=c->vers[0].prob ||
+     MIN(prob_F,prob_P)<PROBMIN && (d!=c->vers[0].prob ||
 					      abs(prob_F-prob_P)>DPROB))
   return;
  prob_F=d-prob_F;
@@ -365,7 +367,7 @@ static void dif_Sdol(cell *c)
  c->vers[i].prob=c->vers[0].prob;
  else
   {
-  c->nvers=min(c->nvers+1,VERS_IN_CELL-1);
+  c->nvers=MIN(c->nvers+1,VERS_IN_CELL-1);
   c->vers[c->nvers-1].let='$';
   c->vers[c->nvers-1].prob=c->vers[0].prob;
   c->vers[c->nvers].let=0;
@@ -543,7 +545,7 @@ static void dif_uv(cell *c)
   {
   r=save_raster(c);
   l=(c->w+7)/8;
-  i=(c->h-max(2,(c->h)/6))*l;
+  i=(c->h-MAX(2,(c->h)/6))*l;
   for (j1=0; !(r[i+j1/8]&(128>>(j1%8))); j1++) ;
   for (j2=c->w-1; !(r[i+j2/8]&(128>>(j2%8))); j2--) ;
   d1=j2-j1+1;
@@ -573,7 +575,7 @@ static void dif_O0(cell *c)
   if (v->let=='0')
    prob0=v->prob;
   }
- if (!probO || !prob0 || (probO=prob0=max(probO,prob0))<=DELTA_O0)
+ if (!probO || !prob0 || (probO=prob0=MAX(probO,prob0))<=DELTA_O0)
   return;
  if (5*c->h<=6*c->w)
   {prob0-=DELTA_O0; goto exit;}
@@ -588,7 +590,7 @@ exit:
   if (v->let=='0')
    v->prob=prob0;
   if (v->let=='Q' && v->prob<=prob0 && v->prob>probO)
-   v->prob=max(0,v->prob-DELTA_O0);
+   v->prob=MAX(0,v->prob-DELTA_O0);
   }
  sort_vers(c);
  }
@@ -612,8 +614,8 @@ static void dif_inv_roof(cell *c, Word8 letNoRoof, Word8 letRoof) // Nick 05.9.0
  }
 
  if (!prob_t || !prob_troof ||
-     min(prob_t,prob_troof)<PROBMIN && 
-	  ( max(prob_t,prob_troof)!=c->vers[0].prob ||
+     MIN(prob_t,prob_troof)<PROBMIN && 
+	  ( MAX(prob_t,prob_troof)!=c->vers[0].prob ||
 		abs(prob_t-prob_troof)>DPROB
 	  )
 	)
@@ -647,7 +649,7 @@ static void dif_inv_roof(cell *c, Word8 letNoRoof, Word8 letRoof) // Nick 05.9.0
   if ((let=c->vers[i].let)==badLet)
    c->vers[i].prob=0;
   else  if (let==goodLet) 
-    c->vers[i].prob = max(prob_t,prob_troof);
+    c->vers[i].prob = MAX(prob_t,prob_troof);
  }
 
  sort_vers(c);
@@ -682,8 +684,8 @@ static int GetBounds(cell *c1,int *lBound,int *rBound,int *wid)
 	  if( crow < 0 || crow >= c1->h )
 		  return -2;  // invalid c_comp
 
-	  lBound[crow] = min(lBound[crow], vint->e - vint->l);
-	  rBound[crow] = max(rBound[crow], vint->e);
+	  lBound[crow] = MIN(lBound[crow], vint->e - vint->l);
+	  rBound[crow] = MAX(rBound[crow], vint->e);
 	  wid[crow] += vint->l;
 	  standWid  += vint->l;
 	  numRow++;
@@ -726,8 +728,8 @@ static void dif_f_t_inv_roof(cell *c1)
   }
 
   if( !prob_f || !prob_troof ||
-      min(prob_f,prob_troof)<PROBMIN && 
-	  ( max(prob_f,prob_troof)!=c1->vers[0].prob ||
+      MIN(prob_f,prob_troof)<PROBMIN && 
+	  ( MAX(prob_f,prob_troof)!=c1->vers[0].prob ||
 		abs(prob_f-prob_troof)>DPROB
 	  )
 	)
@@ -746,7 +748,7 @@ static void dif_f_t_inv_roof(cell *c1)
   if( standWid <= 0 )
 	  return;
 
-  standWid = max(1,(standWid*3)>>2);
+  standWid = MAX(1,(standWid*3)>>2);
 
   lastUp = c1->h/4; // test !?
 
@@ -789,7 +791,7 @@ static void dif_f_t_inv_roof(cell *c1)
    if ((let=c1->vers[i].let)==badLet)
     c1->vers[i].prob=0;
    else  if (let==goodLet) 
-    c1->vers[i].prob = max(prob_f,prob_troof);
+    c1->vers[i].prob = MAX(prob_f,prob_troof);
   }
 
   sort_vers(c1);
@@ -826,8 +828,8 @@ static void dif_f_Ii_right_accent(cell *c1,Word8 Ii)
   }
 
   if( !prob_f || !prob_troof ||
-      min(prob_f,prob_troof)<PROBMIN && 
-	  ( max(prob_f,prob_troof)!=c1->vers[0].prob ||
+      MIN(prob_f,prob_troof)<PROBMIN && 
+	  ( MAX(prob_f,prob_troof)!=c1->vers[0].prob ||
 		abs(prob_f-prob_troof)>DPROB
 	  )
 	)
@@ -863,7 +865,7 @@ static void dif_f_Ii_right_accent(cell *c1,Word8 Ii)
 	}
 	else 
 	{   
-		maxWidth = max(maxWidth, wid[crow] );
+		maxWidth = MAX(maxWidth, wid[crow] );
 
 		if(  wid[crow] >= 2*standWid ) 
 		{
@@ -900,7 +902,7 @@ static void dif_f_Ii_right_accent(cell *c1,Word8 Ii)
    if ((let=c1->vers[i].let)==badLet)
     c1->vers[i].prob=0;
    else  if (let==goodLet) 
-    c1->vers[i].prob = max(prob_f,prob_troof);
+    c1->vers[i].prob = MAX(prob_f,prob_troof);
   }
 
   sort_vers(c1);
@@ -960,7 +962,7 @@ static void dif_j_i_bottom_accent(cell *c1 )
   if( standWid <= 0 )
 	  return;
 
-  lastUp = max(3, c1->h/2);
+  lastUp = MAX(3, c1->h/2);
   lastDn = c1->h - (c1->h/6);
   
   isLeft = 0;
@@ -977,8 +979,8 @@ static void dif_j_i_bottom_accent(cell *c1 )
 	  if( !wid[i] )
 		  continue;
 
-	  rightJump = max(rightJump, rBound[i] - rBound[i-1]);
-	  leftJump  = max(leftJump, lBound[i-1] - lBound[i]);
+	  rightJump = MAX(rightJump, rBound[i] - rBound[i-1]);
+	  leftJump  = MAX(leftJump, lBound[i-1] - lBound[i]);
 
 	  // горизонтальная выступающая палка
 	  if( i < lastDn &&
@@ -988,22 +990,22 @@ static void dif_j_i_bottom_accent(cell *c1 )
 			  lBound[i-1] + (standWid>>1) < lBound[i] &&
 			  wid[i-1] >= rBound[i-1] - lBound[i-1] 
 			   )
-	        leftPerekladina = max(leftPerekladina, wid[i-1]);
+	        leftPerekladina = MAX(leftPerekladina, wid[i-1]);
 
 		  if( wid[i-2] >= 2*standWid &&
 			  lBound[i-2] + (standWid>>1) < lBound[i] &&
 			  wid[i-2] >= rBound[i-2] - lBound[i-2] 
 			  )
-	        leftPerekladina = max(leftPerekladina, wid[i-2]);
+	        leftPerekladina = MAX(leftPerekladina, wid[i-2]);
 	  }
 
 
-	  isRight = max(isRight, rightMax-rBound[i]);
+	  isRight = MAX(isRight, rightMax-rBound[i]);
 
 	  if (rBound[i] > rightMax )
 		  rightMax = rBound[i];
 
-	  isLeft = max(isLeft, lBound[i]-leftMin);
+	  isLeft = MAX(isLeft, lBound[i]-leftMin);
 
 	  if( lBound[i] < leftMin )
 		  leftMin = lBound[i];
@@ -1033,9 +1035,9 @@ static void dif_j_i_bottom_accent(cell *c1 )
 	  goodLet == i_bottom_accent && prob_i <= 0 
 	)
   {
-   c1->nvers=min(c1->nvers+1,VERS_IN_CELL-1);
+   c1->nvers=MIN(c1->nvers+1,VERS_IN_CELL-1);
    c1->vers[c1->nvers-1].let=goodLet;
-   c1->vers[c1->nvers-1].prob=max(prob_j,prob_i);
+   c1->vers[c1->nvers-1].prob=MAX(prob_j,prob_i);
    c1->vers[c1->nvers].let=0;
    c1->vers[c1->nvers].prob=0;
   }
@@ -1043,10 +1045,10 @@ static void dif_j_i_bottom_accent(cell *c1 )
   for (i=0; i<c1->nvers; i++)
   {
    if ( c1->vers[i].let == goodLet)
-    c1->vers[i].prob = max(prob_j,prob_i);
+    c1->vers[i].prob = MAX(prob_j,prob_i);
 
    else if ( c1->vers[i].let ==badLet )
-    c1->vers[i].prob = max(2,c1->vers[i].prob - 20 );
+    c1->vers[i].prob = MAX(2,c1->vers[i].prob - 20 );
   }
 
   sort_vers(c1);

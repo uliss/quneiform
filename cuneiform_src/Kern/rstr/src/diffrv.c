@@ -75,6 +75,8 @@ extern Word8 *EVN_GetSegmentPool (void);
 #include "p2libr.h"
 #include "status.h"
 
+#include "compat_defs.h"
+
 extern BYTE digital_string_penalty;
 //AK for debug
 static LONG * AK_deb;
@@ -595,10 +597,10 @@ snvers=c->nvers;
        switch( dd )
         {
          case -254 :
-            v0->prob = min(254,maxprob+4);
+            v0->prob = MIN(254,maxprob+4);
 	  break;
          case -250 :
-            v0->prob = min(254,maxprob+2);
+            v0->prob = MIN(254,maxprob+2);
 	  break;
         }
       }
@@ -890,7 +892,7 @@ CHAR buf[200],tmp[200];
    sum1 = h1 < sizeof(dh1)/sizeof(dh1[0]) ? abs(sum1) <= dh1[h1] : abs(sum1*3) < h1; // make var sum logical
    strcat(buf,"\n Quockets2 ");
    strcat(buf,sum1&&sum2 ? " Yes" : " No");
-   if( abs(h1-h2) > min(h1,h2)/2) goto err;
+   if( abs(h1-h2) > MIN(h1,h2)/2) goto err;
    goto snp;
    err:
    strcpy(buf,"Error or no quockets");
@@ -1690,9 +1692,9 @@ if(  nstick==1 && !broken_flag ) return TRUE;
 if(  nstick==3 && stick[0].incl+stick[1].incl+stick[2].incl<=200 )
  return TRUE;
 if( nstick == 2)
- if( min(stick[0].incl,stick[1].incl)==0 &&
-     max(stick[0].incl,stick[1].incl)==200 &&
-     min(stick[0].w,stick[1].w) > 2) return TRUE;
+ if( MIN(stick[0].incl,stick[1].incl)==0 &&
+     MAX(stick[0].incl,stick[1].incl)==200 &&
+     MIN(stick[0].w,stick[1].w) > 2) return TRUE;
  return FALSE;
 }
 BOOL suspect_italic_ii(void)
@@ -1959,12 +1961,12 @@ if( broken_flag )
 	}
 
 if( nstick>2 && abs(dest_foot[0]-dest_foot[1])>1  &&
-    max(dest_foot[0],dest_foot[1])*2>min(dest_foot[0],dest_foot[1])*3 )
+    MAX(dest_foot[0],dest_foot[1])*2>MIN(dest_foot[0],dest_foot[1])*3 )
 	pen += 80;
 
-for(num=i=0;i<min(3,nstick);i++)
+for(num=i=0;i<MIN(3,nstick);i++)
 	num += stick[i].incl;
-num /= min(3,nstick);
+num /= MIN(3,nstick);
 w -= (h*num)/2048;
 for(num=j=0,i=h-1;i>hh;i--,j++)
 	{
@@ -1994,10 +1996,10 @@ for(i=0;i < nstick;i++)
     if( stick[i].l*4 <= c->h*3 ) pen += 40;
 
 if( nstick>2 && abs(dest_foot[0]-dest_foot[1])*3>
-        max(dest_foot[0],dest_foot[1])*2 )
+        MAX(dest_foot[0],dest_foot[1])*2 )
         pen += 80;
 
-wid_foot = 3*wid_foot + min(dest_foot[0],dest_foot[1]);
+wid_foot = 3*wid_foot + MIN(dest_foot[0],dest_foot[1]);
 
 for(d=s2=ss=0,i=dy*3/8;i < h;i++)
         {
@@ -2007,7 +2009,7 @@ for(d=s2=ss=0,i=dy*3/8;i < h;i++)
         }
 
   if( ss*2>s2  )   /* 1/8 высоты линий с несовпадающим числом интервалов */
-        pen += min(120,20*ss);
+        pen += MIN(120,20*ss);
   if( d>2 )
         pen += 20*d;
 
@@ -2209,7 +2211,7 @@ if( hist_white[i]>0  && hist_white[i+1]==0 )
 
 if( i<p || hist_n[i]==1 && hist_d[i]>2*foot_wid+dest_foot-dop)
         {
-        p = max(dest_foot-2,3);
+        p = MAX(dest_foot-2,3);
 	similar_n += (hist_white[i]>p);
         for(lstairs=stair=0,old=hist_white[i],j=1;j<5;j++)
                 {
@@ -2260,7 +2262,7 @@ if( hist_white[i]>0  && hist_white[i-1]==0 )
 
 if( i>=h/2 || hist_n[i]==1 && hist_d[i]>2*foot_wid+dest_foot-dop)
         {
-        p = max(dest_foot-2,3);
+        p = MAX(dest_foot-2,3);
 	similar_n += (hist_white[i]>p);
 
         for(rstairs=stair=0,old=hist_white[i],j=1;j<5;j++)
@@ -2416,7 +2418,7 @@ for(s2=ss=0;i < h;i++)
         else                       ss++;
 
   if( ss*3>s2  )   /* 1/3 высоты линий с несовпадающим числом интервалов */
-        dis = min(120,20*ss);
+        dis = MIN(120,20*ss);
 
   return dis;
 }
@@ -2893,10 +2895,10 @@ PBYTE rast;
     if(gl != NULL){
     left=upper=30000U; right=bottom=0; i=0;
     while((cp = gl->complist[i++]) != NULL){
-    left  = min(left  ,cp->left);
-    upper = min(upper ,cp->upper);
-    right = max(right ,cp->left  + cp->w);
-    bottom= max(bottom,cp->upper + cp->h);
+    left  = MIN(left  ,cp->left);
+    upper = MIN(upper ,cp->upper);
+    right = MAX(right ,cp->left  + cp->w);
+    bottom= MAX(bottom,cp->upper + cp->h);
                                             }
     i=0;
     _rst.h = bottom - upper;

@@ -77,6 +77,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lang.h"
 //#include "linutil.h"	// 09.07.2001 E.P.
 
+#include "compat_defs.h"
+
 #define RASTER_SIZE 128*64/8
 #define RASTER_WIDTH_B 128/8
 INT my_Ps;
@@ -944,8 +946,8 @@ INT crepat(cell *A, s_glue *GL, INT var, INT flag)
  if (!(var & 3)) goto retpt;
 
  DC=BC;
- e3=max(BC->w*LEFT_DISTANCE_MIN,200);
- e4=max(BC->w*RIGHT_DISTANCE_MIN,200);
+ e3=MAX(BC->w*LEFT_DISTANCE_MIN,200);
+ e4=MAX(BC->w*RIGHT_DISTANCE_MIN,200);
  while ((DC->prev)->prev)              // serach to the left
   {
   DC=DC->prev;
