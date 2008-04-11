@@ -60,6 +60,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lang.h"
 #include "status.h"
 
+#include "compat_defs.h"
+
 static CHAR let_mol[let_monN] = {" 0Oaeo"};
 static CHAR let_mind[80] = {
    1,  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -276,7 +278,7 @@ BYTE D_filt()
     cprob = o_filt(0x3a);
     if ( ncells > 1 ) goto DF_Ret;
 
-    dev = max( fullh / 20, 1 );
+    dev = MAX( fullh / 20, 1 );
 
     make_inter_white_histo();
 
@@ -299,7 +301,7 @@ BYTE B_filt()
 
     pen = 0;
     if ( ( scl->nvers == 1 ) || ( fullh <= 22 ) )  goto BF_Ret;
-    dev = max( fullh / 10, 1 );
+    dev = MAX( fullh / 10, 1 );
     get_max_min ( r_abr, (BYTE)(midh>>1), (BYTE)(fullh - (midh>>1)), &rmax, &rmin1,
                         &rxmax1, &rxmin11 );
     fl = monotonous_decrease( r_abr, 1, 6, &rmin2, 0 );
@@ -445,7 +447,7 @@ BYTE c_filt()
         //AK! add
 		if ( wi2 >=0 && wi2 < 128 && midh >= 0 && midh < 128 )
 		   {
-			for ( i = max( midh, wi2 ); i >= beg2 && i >= 0; i -- )
+			for ( i = MAX( midh, wi2 ); i >= beg2 && i >= 0; i -- )
 				if ( abs(wid[i] - wid[wi2]) > (fullh/3) ) 
 				   break;
 			wfrom = i;
@@ -495,7 +497,7 @@ CF_BotAndTop:
  {
     // testing italic case
     wi = ( (fullh + 9) / 10 );
-    wi0 = fullh - max( 1, wi );
+    wi0 = fullh - MAX( 1, wi );
     //AK! add
 	if ( wi0 >= 0 && wi0 < 128 && wi >= 0 && wi < 128 )
 	{
@@ -510,7 +512,7 @@ CF_BotAndTop:
     else
     {
       wi = ( (fullw + 9) / 10 );
-      wi0 = fullw - max( 1, wi );
+      wi0 = fullw - MAX( 1, wi );
     }
     wi1 = constancy_vally_lth (bot, wi, wi0, 1);
     wi2 = constancy_vally_lth (top, wi, wi0, 1);
@@ -519,7 +521,7 @@ CF_BotAndTop:
         pen += 40;
     if ( wi > ( midw>>1 ) )
         pen += CONST_VALLY_PNL;
-    wi1 = min( fullw - 3, midw + (midw>>1) + 1 );
+    wi1 = MIN( fullw - 3, midw + (midw>>1) + 1 );
     for ( fl = 0, wi = (BYTE)midw; wi <= wi1; wi++ )
     {
         if ( wi < 127 && wi >= 0 &&
@@ -601,7 +603,7 @@ AF_BintIndexTest:
  if ( fl_tail )
  {
     BYTE    wb;
-    get_max_min( bot, (BYTE)max( 1, (fullw/10) ), (BYTE)((fullw - (midw>>1))),
+    get_max_min( bot, (BYTE)MAX( 1, (fullw/10) ), (BYTE)((fullw - (midw>>1))),
                                         &fl, &prev, &wb, &wb );
     if ( fl - prev > midh )
         pen += 80;
@@ -633,7 +635,7 @@ BYTE M_filt()
  i2 = midh;  
  i1 = (fullh >> 3) + fax_corr;  
  i3 = fullh - i1;
- dev = max( get_size () / 10, 1 );
+ dev = MAX( get_size () / 10, 1 );
  mode_linh = (BYTE)make_histo( &linh[1], (BYTE)(fullh-1) );
      // this function returns mode value of the array ( 1st param.)
      // and generates histo_max_value variable
@@ -719,7 +721,7 @@ BYTE R_filt()
  INT pen;
  BYTE fl, dev, wfrom;
 
-  pen=0;  dev = max( fullh / 10, 1 );
+  pen=0;  dev = MAX( fullh / 10, 1 );
 
  if ( scl->nvers == 1 ) goto RF_Ret;
  get_max_min ( r_abr, (BYTE)(midh>>1), (BYTE)(fullh - (midh>>1)), &rmax, &rmin1,
@@ -762,7 +764,7 @@ BYTE HH_filt()
  i2 = (BYTE)midh;  
  i1 = fullh >> 3;  
  i3 = fullh - i1;
- dev = max( fullh / 10, 1 );
+ dev = MAX( fullh / 10, 1 );
 //AK! add
  if ( i1 < 128 && i2 < 128 && i3 < 128 &&
       i1 >= 0  && i2 >= 0  && i3 >= 0  )
@@ -846,11 +848,11 @@ BYTE w_filt()
  // Checking up top central node position ( avoiding 'vv' conglomerat )
  get_max_min( bot, (BYTE)(midw>>1), (BYTE)(fullw - (midw>>1)), &bmax, &bmin1,
                                             &bxmax1, &bxmin11 );
- if ( ( ncells == 1 ) && ( bmax > midh ) && ( min( bxmax1, midw ) > 3 ) )
+ if ( ( ncells == 1 ) && ( bmax > midh ) && ( MIN( bxmax1, midw ) > 3 ) )
  {
-    i3 = 0; dp1 = max( bxmax1, midw );
+    i3 = 0; dp1 = MAX( bxmax1, midw );
     i3 = constancy_vally_lth ( bot, (BYTE)(dp1 - 3), (BYTE)(dp1 + 3), 0 );
-    if ( ( i3 > max( 1, (fullw/10) ) ) || ( fullh - bmax < 3 ) )
+    if ( ( i3 > MAX( 1, (fullw/10) ) ) || ( fullh - bmax < 3 ) )
         pen += 36;
  }
  if ( (fl_ev_vers ) && ( num_lines_of_comp >= 4 ) )
@@ -876,7 +878,7 @@ BYTE w_filt()
  if ( fullh < 20 )  dps = 1;        // small point size
  if ( fullh > 38 )  dps = 3;        // big point size
 //AK! add
- for ( i= max(dps, 0); i<db && i < 128; i++)               // all strings of 2 or less segments
+ for ( i= MAX(dps, 0); i<db && i < 128; i++)               // all strings of 2 or less segments
   if ( linh[i] >= 3) goto acc1;
  if (linh[0] <3) pen += dp1;
  else
@@ -885,7 +887,7 @@ BYTE w_filt()
   }
 acc1:
  //AK! add
-  for (i=max(fullh-1, 0), j1=100; i>fullh-5 && i < 128; i--)
+  for (i=MAX(fullh-1, 0), j1=100; i>fullh-5 && i < 128; i--)
       if (j1 > linh[i]) 
          j1=linh[i];
  if (j1 > 2) 
@@ -928,7 +930,7 @@ acc1:
 
  // test bottom right corner against monotonious increasing
  //AK! add
- for ( fl = 0, jmp = 0, i = max(fullh-2, 0); i > midh && i < 127; i-- )
+ for ( fl = 0, jmp = 0, i = MAX(fullh-2, 0); i > midh && i < 127; i-- )
   {
      if ( r_abr[i] < r_abr[i-1] )
       if ( ( r_abr[i-1] - r_abr[i] ) > 1 )
@@ -1378,12 +1380,12 @@ BYTE    tresh;
         mid_bound1 -= 1;
     pen += test_against_convex( l_abr, tresh, mid_bound1 );
     pen += test_against_convex( l_abr, mid_bound2,
-                                    (BYTE)min( fullh-1, fullh-tresh ) );
+                                    (BYTE)MIN( fullh-1, fullh-tresh ) );
 }
 
 {
     INT lcv;
-    tresh = min( 2, fullh/20 );
+    tresh = MIN( 2, fullh/20 );
     lcv = constancy_vally_lth( r_abr, (BYTE)(midh - (midh>>1)),
                                         (BYTE)(midh + (midh>>1)), tresh );
     if ( lcv > midh - (midh>>2) )
@@ -1422,11 +1424,11 @@ BYTE    tresh;
     if ( (fullh & 1) == 0 )         // if height is even, then mid_bounds are 2
         mid_bound1 -= 1;
     pen += test_against_convex( r_abr, tresh, mid_bound1 );
-    pen += test_against_convex( r_abr, mid_bound2, (BYTE)min( fullh-1, fullh-tresh ) );
+    pen += test_against_convex( r_abr, mid_bound2, (BYTE)MIN( fullh-1, fullh-tresh ) );
 }
 {
     INT lcv;
-    tresh = min( 2, fullh/20 );
+    tresh = MIN( 2, fullh/20 );
     lcv = constancy_vally_lth( l_abr, (BYTE)(midh - (midh>>1)),
                                         (BYTE)(midh + (midh>>1)), tresh );
     if ( lcv > midh - (midh>>2) )
@@ -1457,8 +1459,8 @@ INT pen, degree;
     /* hanging down tail case */
     {
         wi1 = bases.b3 - scl->row + 1;
-        wi =  max( ((fullh + 9)/10), 4 );
-        wi2 = min( fullh-1, wi1 + wi );
+        wi =  MAX( ((fullh + 9)/10), 4 );
+        wi2 = MIN( fullh-1, wi1 + wi );
         for ( wi = wi1; wi < wi2; wi++ )
         {
 			//AK! add
@@ -1552,7 +1554,7 @@ INT pnl;
          ( (histo[3] > 1) || (histo[4] > 1) )  )
         goto    XF_Ret;
 // Check left and right extremums to be simmetrical ( avoiding 'z' )
-  tresh = max( get_size() / 5, 1 );
+  tresh = MAX( get_size() / 5, 1 );
   wi = abs (lxmax1 - rxmax1);
   if ( wi > tresh )
    pnl += ( wi - tresh ) * PNL_X_NOSIM;
@@ -1594,7 +1596,7 @@ INT pnl;
    if ( fax1x2 )
     {
      INT j,k;
-	 for ( j=0, k=0, i=max(twoint,0); ((i < fullh-2) && k<5 && i < 127); k++,i++ )
+	 for ( j=0, k=0, i=MAX(twoint,0); ((i < fullh-2) && k<5 && i < 127); k++,i++ )
       {
         if ( ( linh[i] >= 3 ) && ( linh[i+1] >= 3 ) )
          j++;
@@ -1610,7 +1612,7 @@ INT pnl;
   }
 DF_around:
 // Check arounding of the left abris
- for ( i=max(twoint,0); ( i < (fullh-2) && i < 127 ); i++ )
+ for ( i=MAX(twoint,0); ( i < (fullh-2) && i < 127 ); i++ )
   {
    if ( l_abr[i] - l_abr[i+1] > 3 )
     pnl += 40;
@@ -1618,7 +1620,7 @@ DF_around:
     pnl += 40;
   }
  // check bottom abris to be unbroken ( avoiding "cl" glued pair )
-  i = max ( fullw/10, 2 );         // admissable tresh
+  i = MAX ( fullw/10, 2 );         // admissable tresh
   //AK! add
   if (fullh >=3 && fullh < 131 )
       b_end = fullw - r_abr[fullh-3];  // avoiding italic
@@ -1628,7 +1630,7 @@ DF_around:
   if ( ( lgap > i ) && ( (fullh - b_max) - twoint < h14 ) )
    {
     BYTE p,q;
-    for ( q = 0, p = min(b_x_max, 127); ( q<10 && p>(midw>>1) && p >= 0); p-- )
+    for ( q = 0, p = MIN(b_x_max, 127); ( q<10 && p>(midw>>1) && p >= 0); p-- )
      {
       if ( bot[p] - b_min > i )
        q++;
@@ -1672,17 +1674,17 @@ BYTE  i, extr_min, extr_min_pos, dif, wpos;
    //AK! add
    if (fullh >=3 && fullh < 131 )
       wi = fullw - r_abr[fullh-3];  // avoiding italic
-   for (extr_min_pos = 1, extr_min = 255, i = min(wi,127); (i > midw && i >= 0 ); i--)
+   for (extr_min_pos = 1, extr_min = 255, i = MIN(wi,127); (i > midw && i >= 0 ); i--)
     {
       if ( bot[i] < extr_min )
        { extr_min = bot[i];  extr_min_pos = i; }
     }
 
    wpos = fullw - wi - 1;
-   extr_min_pos = min ( extr_min_pos, wpos );
+   extr_min_pos = MIN ( extr_min_pos, wpos );
 
-   dif = max( get_size()/10, 1 );
-   for ( i = min(extr_min_pos,127); i > 0; i-- )
+   dif = MAX( get_size()/10, 1 );
+   for ( i = MIN(extr_min_pos,127); i > 0; i-- )
     {
       if ( (bot[i] - extr_min) > dif + 1 )
        break;
@@ -1701,7 +1703,7 @@ BYTE Dig_6_filt()
 
   pen = 0;
   get_max_min( r_abr, 0, (BYTE)(midh + 1), &rmax, &rmin1, &rxmax1, &rxmin11 );
-  for ( sumb = 0, i = max(rxmax1,0); (i < midh && i < 128 ); i++ )
+  for ( sumb = 0, i = MAX(rxmax1,0); (i < midh && i < 128 ); i++ )
   {
     if ( linh[i] != 1 )
       break;
@@ -1744,7 +1746,7 @@ INT pen;
 
     pen = 0;
     tbc = monotonous_decrease( l_abr, (BYTE)(midh - (midh>>1)), (BYTE)(midh + (midh>>1)),
-                                    &wbyte, (BYTE)max( 1, fullh/20 ) );
+                                    &wbyte, (BYTE)MAX( 1, fullh/20 ) );
     if ( !( tbc == SMOOTH_FUNC ) || ( tbc == FOUND_MON_DECR ) )
         pen += 60;
 
@@ -1878,7 +1880,7 @@ BYTE CR_filt()
  pen=0; flit = 0;
 
  i2 = (BYTE)midh;  i1 = fullh >> 3;  i3 = fullh - i1;
- dev = max( fullh / 10, 1 );
+ dev = MAX( fullh / 10, 1 );
 
  // test right side against gap ( avoiding any garbege from BOX )
     if ( ncells == 1 )
@@ -1929,7 +1931,7 @@ BYTE yu_filt()
  pen=0; flit = 0;
 
  i2 = (BYTE)midh;  i1 = fullh >> 3;  i3 = fullh - i1;
- dev = max( fullh / 10, 1 );
+ dev = MAX( fullh / 10, 1 );
 
     if ( ncells == 1 )
     {

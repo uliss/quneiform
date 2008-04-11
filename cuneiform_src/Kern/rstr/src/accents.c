@@ -72,6 +72,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "linutil.h"
 #include "status.h"
 
+#include "compat_defs.h"
+
 extern BYTE language;
 extern INT pitchsize;
 extern BYTE db_status;
@@ -260,7 +262,7 @@ INT bottom_accent(cell *c)
 
     if ( v2->let )
         {
-        v2->prob=min(254,v1->prob+84);
+        v2->prob=MIN(254,v1->prob+84);
         v2++;
         n++;
         }
@@ -572,7 +574,7 @@ _ok:
           if (language==LANG_FRENCH||language==LANG_ITALIAN)
 			       {
 			       v2->let=EE_right_accent;
-			       v2->prob=min(254,v1->prob+84);
+			       v2->prob=MIN(254,v1->prob+84);
 			       v2++; n++;
 			       v2->let=EE_left_accent;  break;
 			       }
@@ -708,7 +710,7 @@ _ok:
         if (language==LANG_FRENCH||language==LANG_ITALIAN)
 			       {
 			       v2->let=e_right_accent;
-			       v2->prob=min(254,v1->prob+84);
+			       v2->prob=MIN(254,v1->prob+84);
 			       v2++; n++;
 			       v2->let=e_left_accent;  break;
 			       }
@@ -795,12 +797,12 @@ _ok:
 			{
 			// Сохранить версию 'i'
 			v2->let = 'i';
-			v2->prob=max(10,v1->prob-10);
+			v2->prob=MAX(10,v1->prob-10);
 			v2++;
 			n++;
 
 			v2->let=i_roof_accent;
-			v2->prob=max(10,v1->prob-12);
+			v2->prob=MAX(10,v1->prob-12);
 			v2++;
 			n++;
 			continue;
@@ -948,7 +950,7 @@ _ok:
 		 )
 		 	add_prob = 10;
 
-		v2->prob=min(254,v1->prob+add_prob);
+		v2->prob=MIN(254,v1->prob+add_prob);
 		v2++;
 		n++;
 	   }
@@ -1105,7 +1107,7 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
 
  // ACC_ROOF_INF над d,t в Чешском похож на апостроф. 04.09.2000 E.P.
  if (language==LANG_CZECH && memchr("dt",let,2))
-	 e += max(2,c->w/8);
+	 e += MAX(2,c->w/8);
 
  for (fld=0,cc=c->prevl->next; 
 	  cc->col<=e && cc!=cell_l(); 
@@ -1116,7 +1118,7 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
       8*cc->h<5*H &&                   // not too big
       (cc->row+cc->h-1<=c->row ||      // upper position
        c->vers[i].let=='A' && cc->row-1<=c->row) &&
-      (cc->row+4>=min(bl.b0,bl.b1) ||  // not too upper
+      (cc->row+4>=MIN(bl.b0,bl.b1) ||  // not too upper
        cc->row+cc->h>=c->row-bl.ps/4 ||
        pitchsize && cc->row+cc->h+3>=bl.b1) &&
       cc->h+cc->w>=bl.ps/5)            // not too small
@@ -1148,7 +1150,7 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
 		cc->h+cc->w>=8 && (cc->h+cc->w>=H/2 || 3*cc->h<=2*cc->w) &&
 		(let!='i' || cc->h+cc->w>=3*c->w && cc->w>=4) &&
 		(d=cc->col+cc->w/2-(c->col+c->w/2))<=(2*H)/5 && d>=-H/4 &&
-		-d<cc->w && 2*d<=3*max(cc->h,cc->w) &&
+		-d<cc->w && 2*d<=3*MAX(cc->h,cc->w) &&
 		(cc->col+cc->w>c->col+c->w/2 ||
 		(cc->cg_flag&c_cg_cutacc)!=c_cg_cutacc)
 	   )
@@ -1309,8 +1311,8 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
         {ret= ACC_2DOT;goto non_zero_ret;}
       if( memchr("AOao",let,4) &&
        2*cc->w>=c->w && 3*cc->h<=2*cc->w && 5*cc->h<=2*bl.ps &&
-       (d=cc->col+cc->w/2-(c->col+c->w/2))<=max(5,cc->w/2) &&
-       d>=-max(3,cc->w/3) &&
+       (d=cc->col+cc->w/2-(c->col+c->w/2))<=MAX(5,cc->w/2) &&
+       d>=-MAX(3,cc->w/3) &&
        acc_tild(cc,raster) )
         {ret= ACC_TILD;goto non_zero_ret;}
       }
@@ -1380,8 +1382,8 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
 			(memchr("Aa",let,2) || c->vers[1].let=='a') ||
 		language==LANG_CZECH && memchr("Uu",let,2) // 04.09.2000 E.P.
 	   ) &&
-		min(cc->h,cc->w)>=bl.ps/4 &&
-		abs(cc->h-cc->w)<=max(2,bl.ps/7)+
+		MIN(cc->h,cc->w)>=bl.ps/4 &&
+		abs(cc->h-cc->w)<=MAX(2,bl.ps/7)+
 		(((cc->cg_flag&c_cg_cutacc)==c_cg_cutacc)?1:0) &&
 		(d=cc->col+cc->w/2-(c->col+c->w/2))<=(2*H)/5 && d>=-H/4 &&
 		acc_cir(cc,raster)
@@ -1403,8 +1405,8 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
        2*cc->w>=c->w && 
 	   (language!=LANG_ESTONIAN ? 3*cc->h<=2*cc->w:4*cc->h < 3*cc->w) && 
 	   (language!=LANG_ESTONIAN ? 5*cc->h<=2*bl.ps : 7*cc->h < 3*bl.ps ) &&
-       (d=cc->col+cc->w/2-(c->col+c->w/2))<=max(5,cc->w/2) &&
-       d>=-max(3,cc->w/3) &&
+       (d=cc->col+cc->w/2-(c->col+c->w/2))<=MAX(5,cc->w/2) &&
+       d>=-MAX(3,cc->w/3) &&
        acc_tild(cc,raster)
 	  )
 		{
@@ -1438,8 +1440,8 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
 			d=cc->col+cc->w/2-(c->col+c->w/2);
 
 			if ( 5*cc->h<=2*bl.ps &&	// Не слишком высокий
-				 d<=max(5,cc->w/2)&&	// Не слишком справа от буквы
-				 d>=-max(3,cc->w/3) &&		// Не слишком слева от буквы
+				 d<=MAX(5,cc->w/2)&&	// Не слишком справа от буквы
+				 d>=-MAX(3,cc->w/3) &&		// Не слишком слева от буквы
 				 c->col + (3*c->w)/2 > cc->col+cc->w/2 && // Над буквой Nick 20.08.01
 				 c->col  - (c->w)/2 < cc->col+cc->w/2     // Над буквой
 			   )
@@ -1464,7 +1466,7 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
    if (cc->flg&(c_f_dust|c_f_punct) &&                 // dust
        8*cc->h<5*H &&                                  // not too high
        cc->row+cc->h-((let=='i')?0:1)<=c->row &&       // upper position
-       (cc->row+4>=min(bl.b0,bl.b1) ||                 // not too upper
+       (cc->row+4>=MIN(bl.b0,bl.b1) ||                 // not too upper
 	cc->row+cc->h>=c->row-bl.ps/4 ||
 	pitchsize && cc->row+cc->h+3>=bl.b1) &&
        cc->h+cc->w>=bl.ps/4)                           // not too small
@@ -1473,7 +1475,7 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
 		cc->h>=cc->w && cc->h>=4 || 3*cc->h<=2*cc->w || cc->w>=H/3) &&
 		cc->h+cc->w>=H/3 &&
 		(d=cc->col+cc->w/2-(c->col+c->w/2))<=(2*H)/5 && d>=-H/4 &&
-		-d<cc->w && 2*d<=3*max(cc->h,cc->w) &&
+		-d<cc->w && 2*d<=3*MAX(cc->h,cc->w) &&
 		(cc->col+cc->w>c->col+c->w/2 ||
 		(cc->cg_flag&c_cg_cutacc)!=c_cg_cutacc)
 	   )
@@ -1630,11 +1632,11 @@ static INT acc_lr(cell *c,cell *cc,PBYTE r)
   if ((memchr("AEUaeu",let,6) || c->vers[i+1].let=='a') &&
               (language==LANG_FRENCH||language==LANG_ITALIAN))
    if (let!='i' && 2*(s13-s24)>=s13-d ||
-       s13-s24>=max(3,s13/4) && (3*cc->h<2*cc->w || 3*cc->w<2*cc->h) ||
+       s13-s24>=MAX(3,s13/4) && (3*cc->h<2*cc->w || 3*cc->w<2*cc->h) ||
        4*s13>=11*s24 || 3*(s13-s24)>=s13 && s4<=1 && 6*s4<=s24)
     return ACC_LEFT;
   if (let!='i' && 2*(s24-s13)>=s24-d ||
-      s24-s13>=max(3,s24/4) && (3*cc->h<2*cc->w || 3*cc->w<2*cc->h) ||
+      s24-s13>=MAX(3,s24/4) && (3*cc->h<2*cc->w || 3*cc->w<2*cc->h) ||
       4*s24>=11*s13 || 3*(s24-s13)>=s24 && s3<=1 && 6*s3<=s13)
    return ACC_RIGHT;
 
@@ -1658,7 +1660,7 @@ static INT acc_lr(cell *c,cell *cc,PBYTE r)
 			     language==LANG_TURKISH && let=='I' 
 
 				 ) &&
-				  s24==s13 && min(s2,s4)<=min(s1,s3)
+				  s24==s13 && MIN(s2,s4)<=MIN(s1,s3)
 			  )
 		   )
             return ACC_RIGHT;
@@ -1701,7 +1703,7 @@ static INT acc_roof(cell *cc,PBYTE r)
  b=0x80>>(j%8);
  j=j/8;
  for (r3=cc->h-1; r2>=0 && !(r[l*r3+j]&b); r3--) ;
- if (r1>=cc->h-2 && r3>=cc->h-2 && r2<=min(cc->h-2,2*(cc->h)/3) &&
+ if (r1>=cc->h-2 && r3>=cc->h-2 && r2<=MIN(cc->h-2,2*(cc->h)/3) &&
      2*r2<r1+r3-2)
   return 1;
  if (r2==cc->h-1)
@@ -1794,10 +1796,10 @@ static Bool32 IsProgib(PBYTE r,int w,int h)
 		if( buffer[i] < buffer[best] )
 			best = i;
 
-    if( buffer[best] *3 < min(buffer[left],buffer[right]) )
+    if( buffer[best] *3 < MIN(buffer[left],buffer[right]) )
 		return TRUE;
 
-    if( (buffer[best]-1)*2 >  min( buffer[left],buffer[right]) )
+    if( (buffer[best]-1)*2 >  MIN( buffer[left],buffer[right]) )
 		return FALSE;
 
 	for(i=best,j=0;i>=left;i--)
@@ -1834,7 +1836,7 @@ static INT acc_2dot(cell *c,cell *cc,PBYTE r,BYTE let)
  INT l,d,b,j,i1,i2,r1,r2,r3,s1,s2,u;
  BYTE let1;
 
- if (cc->row<bl.b1-1 && cc->row+cc->h<c->row-max(4,cc->h)-1)
+ if (cc->row<bl.b1-1 && cc->row+cc->h<c->row-MAX(4,cc->h)-1)
   return 0;
 
  if( !(language==LANG_RUSSIAN && !langUkr && !langSer) )
@@ -1921,7 +1923,7 @@ static INT acc_2dot(cell *c,cell *cc,PBYTE r,BYTE let)
 							       cc1=cc1->next)
      if (cc1->flg&(c_f_dust|c_f_punct))
       if (let!='i' || cc1->row+cc1->h<=c->row)
-       if (cc1->row>=bl.b1-1 || cc1->row+cc1->h>=c->row-max(4,cc1->h)-2)
+       if (cc1->row>=bl.b1-1 || cc1->row+cc1->h>=c->row-MAX(4,cc1->h)-2)
 	if (cc1->h+cc1->w>=bl.ps/5)
 	 if (c->nextl->flg&c_f_fict ||
 	     cc1->col+cc1->w/2<=c->nextl->col+1 ||
@@ -1932,8 +1934,8 @@ static INT acc_2dot(cell *c,cell *cc,PBYTE r,BYTE let)
 	     let1=='j' && cc1!=dot_ij(c->nextl))
 	  if (cc->cg_flag&c_cg_cutl &&
 	      (cc->cg_flag&c_cg_cutacc)!=c_cg_cutacc ||
-	      (r1=abs(cc->h-cc1->h))<=(s1=max(2,(cc->h+cc1->h+3)/6)) &&
-	      (r2=abs(cc->w-cc1->w))<=(s2=max(2,(cc->w+cc1->w+3)/6)) &&
+	      (r1=abs(cc->h-cc1->h))<=(s1=MAX(2,(cc->h+cc1->h+3)/6)) &&
+	      (r2=abs(cc->w-cc1->w))<=(s2=MAX(2,(cc->w+cc1->w+3)/6)) &&
 	      (r3=abs(cc->row+cc->h/2-(cc1->row+cc1->h/2)))<=s1 &&
 	       r1+r2+r3<=s1+s2/2+((let=='i')?0:2))
 	   if ((d=(cc1->col+cc1->w+cc->col)/2-(c->col+c->w/2))<=
@@ -2078,7 +2080,7 @@ static INT acc_tild(cell *c,PBYTE r)
  if (cc->flg&(c_f_dust+c_f_punct) &&   // dust
       2*cc->h<c->h &&                  // not too high
       cc->row+cc->h-2<=bl.b2 &&        // upper position
-      (cc->row+4>=min(bl.b0,bl.b1) ||  // not too upper
+      (cc->row+4>=MIN(bl.b0,bl.b1) ||  // not too upper
        cc->row>=bl.b1-bl.ps/3) &&
       cc->row+cc->h<=c->row)
 
@@ -2091,7 +2093,7 @@ static INT acc_tild(cell *c,PBYTE r)
               cc->h<cc->w && 3*(c->row-cc->row)>=c->h && abs(cc->w-c->w)<=1 ||
               cc->h>=2*cc->w ) &&   // Added 23.10.97
              cc->col+3>=c->col &&
-             abs(c->col+c->w/2-(cc->col+cc->w/2))<=max(2,c->w/4) && // abs 18.10.97 for Z
+             abs(c->col+c->w/2-(cc->col+cc->w/2))<=MAX(2,c->w/4) && // abs 18.10.97 for Z
              cc->col+cc->w-6<=c->col+c->w &&
              (c->prevl->col+c->prevl->w<cc->col))
                 {
@@ -2270,7 +2272,7 @@ static INT acc_semicircle(cell *cc,PBYTE r)
  j=j/8;
  for (r3=cc->h-1; r2>=0 && !(r[l*r3+j]&b); r3--) ;
 
- if (r1>=cc->h-2 && r3>=cc->h-2 && r2<=min(cc->h-2,2*(cc->h)/3) &&
+ if (r1>=cc->h-2 && r3>=cc->h-2 && r2<=MIN(cc->h-2,2*(cc->h)/3) &&
      2*r2<r1+r3-2)
   return 1;
 
@@ -2394,11 +2396,11 @@ static Int16 FindAngles(cell *c, int *lUAngle, int *rUAngle,
 	  if( crow < 0 )
 		  return -2;  // invalid c_comp
 
-	  *lUAngle=min(*lUAngle, crow + vint->e - vint->l);
-      *rUAngle=min(*rUAngle, crow + c->w - vint->e );
+	  *lUAngle=MIN(*lUAngle, crow + vint->e - vint->l);
+      *rUAngle=MIN(*rUAngle, crow + c->w - vint->e );
 
-	  *lDAngle=min(*lDAngle, c->h-1 - crow + vint->e - vint->l);
-      *rDAngle=min(*rDAngle, c->h-1 - crow + c->w - vint->e );
+	  *lDAngle=MIN(*lDAngle, c->h-1 - crow + vint->e - vint->l);
+      *rDAngle=MIN(*rDAngle, c->h-1 - crow + c->w - vint->e );
   }
  }
 
@@ -2427,10 +2429,10 @@ static Int16 Test2Cell2(cell *c1,cell *c2,
  if( !cmp1 || !cmp2 )
      return -1;
 
- minRow = min(c1->row,c2->row);
- hei = mHei = max(c1->h+c1->row-minRow,c2->h+c2->row-minRow);
- minCol = min(c1->col,c2->col);
- wid = max(c1->w+c1->col-minCol,c2->w+c2->col-minCol);
+ minRow = MIN(c1->row,c2->row);
+ hei = mHei = MAX(c1->h+c1->row-minRow,c2->h+c2->row-minRow);
+ minCol = MIN(c1->col,c2->col);
+ wid = MAX(c1->w+c1->col-minCol,c2->w+c2->col-minCol);
 
  if( mHei > MAXNUMINT )
 	 mHei = MAXNUMINT;
@@ -2463,11 +2465,11 @@ static Int16 Test2Cell2(cell *c1,cell *c2,
       if( crow + startRow < mHei )
 	     numint[crow+startRow]++;
 
-      *lUAngle=min(*lUAngle, startRow + crow + startCol + vint->e - vint->l);
-      *rUAngle=min(*rUAngle, startRow + crow + wid - vint->e - startCol);
+      *lUAngle=MIN(*lUAngle, startRow + crow + startCol + vint->e - vint->l);
+      *rUAngle=MIN(*rUAngle, startRow + crow + wid - vint->e - startCol);
 
-	  *lDAngle=min(*lDAngle, hei-1 - crow - startRow + startCol + vint->e - vint->l);
-      *rDAngle=min(*rDAngle, hei-1 - crow - startRow + wid - vint->e -startCol);
+	  *lDAngle=MIN(*lDAngle, hei-1 - crow - startRow + startCol + vint->e - vint->l);
+      *rDAngle=MIN(*rDAngle, hei-1 - crow - startRow + wid - vint->e -startCol);
    }
   }
  }
@@ -2608,7 +2610,7 @@ static INT acc_weak_roof(cell *cc,PBYTE r)
  b=0x80>>(j%8);
  j=j/8;
  for (r3=cc->h-1; r2>=0 && !(r[l*r3+j]&b); r3--) ;
- if (r1>=cc->h-2 && r3>=cc->h-2 && r2<=min(cc->h-2,2*(cc->h)/3) &&
+ if (r1>=cc->h-2 && r3>=cc->h-2 && r2<=MIN(cc->h-2,2*(cc->h)/3) &&
      2*r2<r1+r3-2)
   return 1;
  if (r2==cc->h-1)

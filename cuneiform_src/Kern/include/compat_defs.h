@@ -100,10 +100,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * code use them without proper includes which lead to link errors.
  */
 #ifndef MIN
-#define MIN(a,b) ((a>b)?b:a)
+#define MIN(a,b) (((a)>(b))?(b):(a))
 #endif
 #ifndef MAX
-#define MAX(a,b) ((a>b)?a:b)
+#define MAX(a,b) (((a)>(b))?(a):(b))
 #endif
 
 #endif
