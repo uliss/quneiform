@@ -2804,7 +2804,7 @@ INT gaps=-1,pen=0;
 /*============== Sources level 2 ========================*/
 
 
-INT valid_inc( WORD inc )
+static BOOL valid_inc( WORD inc )
 {
 INT ret=0;
  if( inc == 0 || inc > 800) ret = 0;

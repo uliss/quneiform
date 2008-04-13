@@ -57,6 +57,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef NT_TYPES_H_
 #define NT_TYPES_H_
 
+#include "c_types.h"
+
+/* It seems that most of these definitions are duplicated in c_types.h.
+ * Thus we include it here and only add those parts that were missing.
+ */
+
+typedef signed short int                _INT;
+typedef signed short int  *         _PINT;
+#define INT  _INT
+#define PINT _PINT
+typedef unsigned short int  *       PWORD;
+#define PSTR  PCHAR
+
+typedef signed long int  *          PLONG;
+
+/* The original contents of this file follow for future reference. */
+#if 0
 /********************************************************************/
 /*                                                                  */
 /*             Basis data types and functions definitions           */
@@ -104,5 +121,7 @@ typedef signed long int                 LONG;
 typedef unsigned long int               DWORD;
 typedef signed long int  *          PLONG;
 typedef unsigned long int  *        PDWORD;
+
+#endif
 
 #endif

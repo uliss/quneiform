@@ -1553,7 +1553,7 @@ return;
 }
 
 extern PBYTE kit_curr, kit_end;
-static void accept_Cell( cell *c,CSTR_rast_attr *rst, CCOM_comp *cmp, INT shift)
+static void accept_Cell( cell *c,CSTR_rast_attr *rst, CCOM_comp *cmp, BOOL shift)
  {
  c_comp ec={0};
  Word16 zero=0;

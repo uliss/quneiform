@@ -221,7 +221,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     //    accept,extern_buf, ShowProgress  may be NULL
     //  standard usage (FormReader) FONFontClusters(CTBname,cluname,NULL,NULL,0,0,NULL);
 	//  standard usage (Puma) FONFontClusters(CTBname,cluname,NULL,NULL,0,0x2000,NULL);
-
     FON_FUNC(Int32) FONFontClusters(char *CTBname,char *cluname,void *accept,Word8 *extern_buf,Int32 size,
 					 			    Word32 param,void *ShowProgress,Word8 language);
 	FON_FUNC(Int32) FONCutOffClusters(welet *ww,Int16 numWelet);
