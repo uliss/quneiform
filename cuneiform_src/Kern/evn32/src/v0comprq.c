@@ -56,7 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 #include "struct.h"
-#include "Recdefs.h"
+#include "recdefs.h"
 extern Word8 lpool[];
 extern Word16 lpool_lth;
 #include<string.h>

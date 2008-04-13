@@ -57,6 +57,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef C_TYPES_H
 #define C_TYPES_H
 
+#include "minmax.h"
+
 typedef int             BOOL;
  
 typedef signed char		CHAR;
@@ -96,15 +98,6 @@ typedef unsigned long int   DWORD;
 #ifndef   TRUE
       #define TRUE                1
 #endif
-/*----------------- Math functions prototypes ---------------------------*/
-
-#define ABS  abs
-#define MAX  max
-#define MIN  min
-
-/* min and max macros */
-#define max(a,b)  (((a) > (b)) ? (a) : (b))
-#define min(a,b)  (((a) < (b)) ? (a) : (b))
 
 /*------------------------------------------------------------------------*/
 

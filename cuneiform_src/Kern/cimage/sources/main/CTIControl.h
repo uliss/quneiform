@@ -75,19 +75,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "CTIImageList.h"
 #include "CTIImageHeader.h"
 
+#include "minmax.h"
+
 //#define CIMAGE_CBR_ONE_LINE
 
 class CTIControl
 {
-
-#if !defined ( min )
-    #define  min(a,b)       (a) < (b) ? (a) : (b)
-#endif
-
-#if !defined ( max )
-    #define  max(a,b)       (a) > (b) ? (a) : (b)
-#endif
-
 protected:
 	CTIImageList             mlImages;
 	Handle                   hCBImage;

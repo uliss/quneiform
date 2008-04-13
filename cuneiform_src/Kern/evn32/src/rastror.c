@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //#include "struct.h"
 #include <string.h>
-#include "Recdefs.h"
+#include "recdefs.h"
 
 static Word16 wb, hb;
 

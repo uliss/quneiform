@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <math.h>
 #include <string.h>
 #include <fcntl.h>
-#include <io.h>
+/*#include <io.h>*/
 #include <stdio.h>
 #include <stdlib.h>
 #include "evn.h"
@@ -66,8 +66,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef PPS_MAC
 #include <unix.h>
 #else
-#include <sys\stat.h>
+#include <sys/stat.h>
 #endif
+
+#include "compat_defs.h"
 
 #ifndef PPS_MAC	// PC
 #define NAME     ".\\bin\\hnd1rus.dat"

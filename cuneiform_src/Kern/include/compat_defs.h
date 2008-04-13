@@ -39,6 +39,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef compat_typedefs_h_
 #define compat_typedefs_h_
 
+#include "minmax.h"
+
 #ifndef BOOL
 #define BOOL int
 #endif
@@ -101,6 +103,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef HDC
 #define HDC int
+#endif
+
+#ifndef HUGE
+#define HUGE
 #endif
 
 typedef struct {
@@ -206,16 +212,6 @@ typedef struct {
 
 #ifndef IDI_ASTERISK
 #define IDI_ASTERISK 939
-#endif
-
-/* The code base has a gazillion MIN and MAX macros. Some parts of the
- * code use them without proper includes which lead to link errors.
- */
-#ifndef MIN
-#define MIN(a,b) (((a)>(b))?(b):(a))
-#endif
-#ifndef MAX
-#define MAX(a,b) (((a)>(b))?(a):(b))
 #endif
 
 #endif

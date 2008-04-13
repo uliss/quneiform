@@ -104,7 +104,7 @@ typedef struct tagRecRasterEx
 typedef struct tagRecBmp
    {
       Rect16         Region;
-      Word8 HUGE *   pBits;
+      Word8  *   pBits;
       Int32          nOffsetX;   //this is offset of Region.left-bit
                                  //relatively 0-bit 0-byte of pBits
       Int32          nByteWidth;

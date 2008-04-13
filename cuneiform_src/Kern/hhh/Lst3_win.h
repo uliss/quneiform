@@ -71,6 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include <graph.h>
 #endif
 
+#include "minmax.h"
   
 //#define TIGER_CORR
 //#define __MRK__
@@ -100,11 +101,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 //вариант, когда считается, что в метриках смертей стоят глубины
 //#define _DEPTH_
-
-#ifndef max
-  #define max(a,b)  (((a) > (b)) ? (a) : (b))
-  #define min(a,b)  (((a) < (b)) ? (a) : (b))
-#endif
 
 #define DEBUG
 #define VIZ

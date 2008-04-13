@@ -67,6 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _STATUS_H_	// 01.09.2000 E.P.
 #define _STATUS_H_	
 
+#include "nt_types.h"
 #include "tuner.h"
 
 ////////////////////////////////////////////////////////////////////

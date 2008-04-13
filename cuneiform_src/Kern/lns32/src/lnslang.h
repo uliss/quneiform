@@ -87,9 +87,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #include "globus.h"
    #include "myassert.h"
 
-   #define min( a, b) ((a) < (b) ? (a) : (b))
-   #define max( a, b) ((a) > (b) ? (a) : (b))
-   
+   #include "minmax.h"
+
    #define BERROR( err )   ( assert(0), (Err16)(err) )
    #define THE (*this)
 

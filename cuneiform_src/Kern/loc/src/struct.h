@@ -62,10 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Recdefs.h"
 #include "Evndefs.h"
 
-#ifndef	min
-#define min(a,b) ((a<b)?a:b)
-#define max(a,b) ((a>b)?a:b)
-#endif
+#include "minmax.h"
 
 #ifdef  HUGE_IMAGE
 	#define	WORLD_MAX_HEIGHT	10000
