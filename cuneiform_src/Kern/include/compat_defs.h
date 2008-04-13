@@ -64,6 +64,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef DWORD
 #define DWORD unsigned long int 
 #endif
+
+typedef int (* _CRT_ALLOC_HOOK) (int, void *, size_t, int, long, const char *, int);
+
 /*
 #ifndef Word32
 #define Word32 unsigned int

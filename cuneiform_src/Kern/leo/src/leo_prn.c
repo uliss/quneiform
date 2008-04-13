@@ -76,7 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "std.h"
 #include "leo_tune.h"
 #include "leo_func.h"
-/*#include "snptools.h"*/
+#include "snptools.h"
 
 extern Bool32 leo_Snp_In_Rect;
 extern int  LEO_error_code;

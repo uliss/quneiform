@@ -20,5 +20,5 @@ add_subdirectory(leo)
 add_subdirectory(evn32)
 add_subdirectory(puma)
 
-add_executable(pumatest pumatest.cpp)
+add_executable(pumatest pumatest.cpp hdebug/__snp.c)
 target_link_libraries(pumatest puma ccom cstr rstr rpstr cline fon leo evn32)

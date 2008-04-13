@@ -77,7 +77,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "msk.h"
 
 #include "std.h"
-/*#include "snptools.h"*/
+#include "snptools.h"*
 #include "snpdefs.h"
 Word8 field_number=0;
 Bool32 leo_enable_fon_recog=FALSE;

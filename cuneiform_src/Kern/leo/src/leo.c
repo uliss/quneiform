@@ -73,7 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "std.h"
 #include "leo_tune.h"
 #include "leo_func.h"
-/*#include "snptools.h"*/
+#include "snptools.h"
 
 Word8 leo_alpha_type, prn_roma_regim;
 //extern int nNdxHei;

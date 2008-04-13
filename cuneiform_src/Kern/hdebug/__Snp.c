@@ -54,15 +54,18 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <windows.h>
-#include <crtdbg.h>
+/*#include <windows.h>*/
+/*#include <crtdbg.h>*/
 #include <stdio.h>
+#include <stdarg.h>
 #include <time.h>
 
 #define __SNAP_C
 
 
-#include "DPuma.h"
+#include "dpuma.h"
+
+#include "compat_defs.h"
 
 #ifdef __cplusplus
 extern "C" {
