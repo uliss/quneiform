@@ -820,9 +820,9 @@ if( let )
     pmax=letters_prop_table_rus[name].pmax;
     if( LEO_GetLetStat((Int32)let, comSizes,prob)>=0 && comSizes[0] && comSizes[2]) 
         { //   normal statistic                             && not empty
-        hei = min(comSizes[0],comSizes[2]);
-        wid = max(comSizes[1],comSizes[3]);
-        pr = min(prob[0],prob[1]); // continued after all "else"
+        hei = MIN(comSizes[0],comSizes[2]);
+        wid = MAX(comSizes[1],comSizes[3]);
+        pr = MIN(prob[0],prob[1]); // continued after all "else"
         }
     else
         { // statistic is not ready    
@@ -856,7 +856,7 @@ if( let )
                     {
                     hei = comSizes[0];
                     wid = comSizes[2];
-                    prop= min( prob[0], prob[2]);
+                    prop= MIN( prob[0], prob[2]);
             
                     if( prop>64 && hei>wid)
                         {
@@ -889,14 +889,14 @@ else
         { // all
         hei = comSizes[0];
         wid = comSizes[2];
-        pr  = min( prob[0], prob[2]);
+        pr  = MIN( prob[0], prob[2]);
         }
     else
         { // different Capital & Small
-        hei = min(comSizes[0],comSizes[1]);
-        pr  = min( prob[0], prob[1]);
+        hei = MIN(comSizes[0],comSizes[1]);
+        pr  = MIN( prob[0], prob[1]);
         wid = comSizes[2];
-        pr  = min( pr, prob[2]);
+        pr  = MIN( pr, prob[2]);
         }
     
     }
@@ -957,8 +957,8 @@ return 0;
 
     if( comSizes[1] )
         { // different Capital & Small
-        hei = min(comSizes[0],comSizes[1]);
-        pr  = min( prob[0], prob[1]);
+        hei = MIN(comSizes[0],comSizes[1]);
+        pr  = MIN( prob[0], prob[1]);
         
         if( pr>=64 )
             {

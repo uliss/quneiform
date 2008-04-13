@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "r35.h"
 #include "msk.h"
 
-#include "snptools.h"
+/*#include "snptools.h"*/
 
 static Bool32 leo_ndx_in_rect;
 extern int  LEO_error_code;
