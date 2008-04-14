@@ -57,7 +57,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __DATA_H__
 #define __DATA_H__
 
-#include <crtdbg.h>
+/*#include <crtdbg.h>*/
+#include <assert.h>
+#include "compat_defs.h"
 
 typedef struct tagCompressHeader
 {
@@ -93,7 +95,7 @@ private:
 
 
 public:
-	virtual Word32 Convert(Word32 type,void * lpdata, Word32 size) = NULL;
+	virtual Word32 Convert(Word32 type,void * lpdata, Word32 size) = 0;
 
 	Bool32 Save(Handle to);
 	Bool32 Restore(Handle from);

@@ -56,13 +56,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define __CPAGE__
 
-#include <windows.h>
+/*#include <windows.h>*/
+#include <stdlib.h>
 
 #include "resource.h"
 #include "mymem.h"
 #include "cpage.h"
 #include "backup.h"
 #include "polyblock.h"
+
+#include "decl.h"
 
 // extern functions
 

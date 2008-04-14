@@ -84,9 +84,10 @@ extern PtrList<NAMEDATA>	NameData;
 CPAGE_FUNC(Handle) CPAGE_CreatePage(Word32 type,void * lpdata, Word32 size)
 {
 	PROLOG;
+	BACKUPPAGE tail;
   SetReturnCode(IDS_ERR_NO);
 
-  Handle hPage = Page.AddTail(BACKUPPAGE());
+  Handle hPage = Page.AddTail(tail);
 
 
   if(hPage)
@@ -516,11 +517,12 @@ CPAGE_FUNC(Handle)  CPAGE_GetPageFirst(Word32 type)
 {
 	PROLOG;
 	int count = Page.GetCount();
+	int i;
 #ifdef _DEBUG
 	_ASSERT(CPAGE_GetNameInternalType(type));
 #endif
 	DefConvertInit();
-	for(int i = 0;i<count;i++)
+	for(i = 0;i<count;i++)
 	{
 		if(!type ||
 		   PAGE_N(i).GetType()==type || 
@@ -537,12 +539,13 @@ CPAGE_FUNC(Handle)  CPAGE_GetPageNext(Handle page,Word32 type)
 	PROLOG;
 	int count = Page.GetCount();
 	int pos   = Page.GetPos(page) + 1;
+	int i;
 
 #ifdef _DEBUG
 	_ASSERT(CPAGE_GetNameInternalType(type));
 #endif
 	DefConvertInit();
-	for(int i = pos; i<count && i>=0 ;i++)
+	for(i = pos; i<count && i>=0 ;i++)
 	{
 		if(!type ||
 			PAGE_N(i).GetType()==type || 
@@ -558,13 +561,14 @@ CPAGE_FUNC(Handle)  CPAGE_GetBlockFirst(Handle page, Word32 type)
 {
 	PROLOG;
 	int count = PAGE_H(page).Block.GetCount();
+	int i;
 /*	
 #ifdef _DEBUG
 	_ASSERT(CPAGE_GetNameInternalType(type));
 #endif
 */	
 	DefConvertInit();
-	for(int i = 0;i<count;i++)
+	for(i = 0;i<count;i++)
 	{
 		if(!type ||
 			BLOCK_H_N(page,i).GetType()==type || 
@@ -581,13 +585,14 @@ CPAGE_FUNC(Handle)  CPAGE_GetBlockNext(Handle page,Handle block, Word32 type)
 	PROLOG;
 	int count = PAGE_H(page).Block.GetCount();
 	int pos   = PAGE_H(page).Block.GetPos(block) + 1;
+	int i;
 /*	
 #ifdef _DEBUG
 	_ASSERT(CPAGE_GetNameInternalType(type));
 #endif
 */	
 	DefConvertInit();
-	for(int i = pos; i<count && i>=0 ;i++)
+	for(i = pos; i<count && i>=0 ;i++)
 	{
 		if(!type ||
 		    BLOCK_H_N(page,i).GetType()==type || 

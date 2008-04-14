@@ -84,7 +84,7 @@ public:
 	inline Int32 GetGeCount(){ return m_nGeCount;};
 	inline Bool32 IsPhysic() { return m_nGeCount > 1;};
 	inline Point32 operator=(Point32 p){ m_PhCoord = p; return p;};
-	inline operator=(Int32   n){ m_nNumber = n; return n;};
+	inline Int32 operator=(Int32   n){ m_nNumber = n; return n;};
 	inline Int32 & Fragment(){ return m_nBlock;};
 	inline Int32 & GeCount() { return m_nGeCount;};
 };

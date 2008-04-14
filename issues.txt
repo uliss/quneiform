@@ -11,3 +11,7 @@ Disabled use of dfon library. It seems to be some external dll file.
 I have no idea what it's supposed to do.
 
 The russian comments are encoded with CP1251.
+
+As far as I can see, the code has two main deliverables codenamed Puma and Tiger.
+Puma seems to be a DLL with the actual recognition code whereas Tiger
+is an OLE (or something like that) wrapper.

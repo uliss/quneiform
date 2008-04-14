@@ -54,7 +54,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <windows.h>
+/*#include <windows.h>*/
 
 #define __CPAGE__
 
@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "mymem.h"
 #include "cpage.h"
 #include "backup.h"
-#include "TableClass.h"
+#include "tableclass.h"
 
 //###########################################
 CPAGE_FUNC(Handle)  CPAGE_ExTableCreate (Handle hPage,Int32 Skew2048, Word32 nVer,Int32 * lpVCor, Word32 nHor,Int32 * lpHCor) 

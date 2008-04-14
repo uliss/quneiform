@@ -32,4 +32,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define __declspec(a) 
 
+#ifndef _cdecl
+#define _cdecl
+#endif
+
+
 #endif

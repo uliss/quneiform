@@ -113,12 +113,14 @@ template<class TYPE> Bool32	 PtrName<TYPE>::operator==(PtrName & pn)
 	return m_Size==pn.m_Size && !memcmp(m_Ptr,pn.m_Ptr,pn.m_Size);
 }
 ///////////////////////////////////////////////////////////
+
 template<class TYPE> PtrName<TYPE> & PtrName<TYPE>::operator=(PtrName & pn)
 {
-	rc = Create(pn.m_Size/sizeof(TYPE))
-	memcpy(rc.m_Ptr,pn.m_Ptr,pn.m_Size);
-	return rc;
+	Create(pn.m_Size/sizeof(TYPE));
+	memcpy(m_Ptr,pn.m_Ptr,pn.m_Size);
+	return *this;
 }
+
 ///////////////////////////////////////////////////////////
 template<class TYPE> TYPE & PtrName<TYPE>::operator[](Word32 n)
 { 
