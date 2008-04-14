@@ -63,13 +63,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ============================================================================
 #define __CIMAGE__
 
-#include <windows.h>
+/*#include <windows.h>*/
 
 #include "resource.h"
-#include "CTIDefines.h"
-#include "CTIImage.h"
+#include "ctidefines.h"
+#include "ctiimage.h"
 
-#include "CTIControl.h"
+#include "cticontrol.h"
+
+#include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 Word16            gwHeightRC = 0;
@@ -79,6 +81,10 @@ HINSTANCE         ghInst =     NULL;
 CTIControl *      Control =    NULL;
 Int32             InitCount =  0;
 /////////////////////////////////////////
+
+/* FIXME: Temporary workaround. */
+#define APIENTRY
+
 BOOL APIENTRY DllMain( HINSTANCE  hModule, 
                         DWORD ul_reason_for_call, 
                         LPVOID lpReserved )

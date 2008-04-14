@@ -94,7 +94,7 @@ static void  (*pUnlock)(void *)                         = NULL;
 //
 Char8 cCommentBuffer[CFIO_MAX_COMMENT];
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define TAKE_ENTRIE(Name,Pointer,Out)     	if ( !CFIO_GetExportData(##Name, (void*)(&##Pointer)) ) ##Out= FALSE;
+#define TAKE_ENTRIE(Name,Pointer,Out)     	if ( !CFIO_GetExportData(Name, (void*)(&Pointer)) ) Out= FALSE;
 Bool32 InitCFIOInterface(Bool32 Status)
 {
 	Bool32 bRet = TRUE;
