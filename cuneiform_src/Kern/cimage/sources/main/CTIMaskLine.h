@@ -71,10 +71,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ///////////////////////////////////////////////////////////////////////////
 //
 #include "resource.h"
-#include "CTIDefines.h"
-#include "CTIImage.h"
-#include "CTIMemory.h"
-#include "CTIMaskLineSegment.h"
+#include "ctidefines.h"
+#include "ctiimage.h"
+#include "ctimemory.h"
+#include "ctimasklinesegment.h"
 ///////////////////////////////////////////////////////////////////////////
 class CTIMaskLine;
 typedef CTIMaskLine *PCTIMaskLine, **PPCTIMaskLine;

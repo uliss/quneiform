@@ -67,13 +67,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # endif // (_DEBUG)
 //////////////////////////////////////////
 #include "resource.h"
-#include "CTIDefines.h"
-#include "CTIImage.h"
-#include "CTIMemory.h"
-#include "CTDIB.h"
-#include "CTIMask.h"
-#include "CTIImageList.h"
-#include "CTIImageHeader.h"
+#include "ctidefines.h"
+#include "ctiimage.h"
+#include "ctimemory.h"
+#include "ctdib.h"
+#include "ctimask.h"
+#include "ctiimagelist.h"
+#include "ctiimageheader.h"
 
 #include "minmax.h"
 

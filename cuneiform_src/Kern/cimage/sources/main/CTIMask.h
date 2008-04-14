@@ -70,10 +70,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # endif // (_DEBUG)
 //////////////////////////////////////////////////////////////////////////////////
 #include "resource.h"
-#include "CTIDefines.h"
-#include "CTIImage.h"
-#include "CTIMemory.h"
-#include "CTIMaskLine.h"
+#include "ctidefines.h"
+#include "ctiimage.h"
+#include "ctimemory.h"
+#include "ctimaskline.h"
 ////////////////////////////////////////////////////////////////////////////////////
 class CTIMask;
 typedef CTIMask  *PCTIMask, **PPCTIMask;

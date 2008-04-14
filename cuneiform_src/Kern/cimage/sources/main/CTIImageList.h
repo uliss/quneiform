@@ -66,11 +66,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # endif // (_DEBUG)
 
 #include "resource.h"
-#include "CTIDefines.h"
-#include "CTIImage.h"
-#include "CTIMemory.h"
+#include "ctidefines.h"
+#include "ctiimage.h"
+#include "ctimemory.h"
 
-#include "CTIImageHeader.h"
+#include "ctiimageheader.h"
 
 class CTIImageList
 {

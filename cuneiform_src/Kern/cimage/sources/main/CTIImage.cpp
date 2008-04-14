@@ -57,11 +57,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __CIMAGE__
 
 #include "resource.h"
-#include "CTIDefines.h"
-#include "CTIImage.h"
-#include "CTIMemory.h"
+#include "ctidefines.h"
+#include "ctiimage.h"
+#include "ctimemory.h"
 
-#include "CTIControl.h"
+#include "cticontrol.h"
 
 // exteren globals
 extern CTIControl * Control;

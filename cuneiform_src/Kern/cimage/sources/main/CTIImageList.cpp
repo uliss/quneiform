@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#include "CTIImageList.h"
+#include "ctiimagelist.h"
 
 CTIImageList::CTIImageList()
 {

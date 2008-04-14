@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#include "CTIImageHeader.h"
+#include "ctiimageheader.h"
 
 CTIImageHeader::CTIImageHeader()
 {
