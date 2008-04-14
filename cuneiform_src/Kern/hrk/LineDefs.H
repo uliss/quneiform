@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __LINEDEFS_H
 #define __LINEDEFS_H
 #include "cttypes.h"
-#include "NormDefs.H"
+#include "normdefs.h"
 
 
 typedef enum
