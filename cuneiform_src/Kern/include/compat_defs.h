@@ -67,23 +67,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef int (* _CRT_ALLOC_HOOK) (int, void *, size_t, int, long, const char *, int);
     
-/*
-#ifndef Word32
-#define Word32 unsigned int
-#endif
-
-#ifndef Int32
-#define Int32 int
-#endif
-
-#ifndef Int16
-#define Int16 short
-#endif
-
-#ifndef Word16
-#define Word16 unsigned short
-#endif
-*/
 #ifndef LPVOID
 #define LPVOID void*
 #endif
@@ -147,6 +130,12 @@ typedef struct {
 #ifndef O_BINARY
 #define O_BINARY 0
 #endif
+
+#ifndef LPTSTR
+#define LPTSTR char *
+#endif
+
+int LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax);
 
 /* A bunch of windows DLL initialisation values. I don't know the
  * real values of these, so I just put in some values. They are not

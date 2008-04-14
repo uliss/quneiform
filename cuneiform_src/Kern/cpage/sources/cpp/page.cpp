@@ -73,7 +73,8 @@ PAGE::~PAGE()
 //#################################
 Handle	PAGE::CreateBlock(Word32 Type, Word32 UserNum , Word32 Flags ,void * lpData , Word32 Size )
 {
-	Handle hBlock = Block.AddTail(BLOCK());
+    BLOCK tmp;
+	Handle hBlock = Block.AddTail(tmp);
 	if(hBlock)
 	{
 	if(!Block.GetItem(hBlock).Create(Type, UserNum , Flags ,lpData ,Size))

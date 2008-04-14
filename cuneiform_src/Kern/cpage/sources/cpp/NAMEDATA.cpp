@@ -58,9 +58,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //////////////////////////////////////////////////////////////////////
 #include <string.h>
+#include <assert.h>
 
-#include "NAMEDATA.h"
-#include "PtrList.h"
+#include "namedata.h"
+#include "ptrlist.h"
+
+#include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction

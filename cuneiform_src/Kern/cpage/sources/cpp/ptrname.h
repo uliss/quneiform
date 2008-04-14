@@ -66,8 +66,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif // _MSC_VER > 1000
 
 #include <string.h>
+#include <assert.h>
 #include "cttypes.h"
 #include "cpage.h"
+
+#define _ASSERT assert
 
 template<class TYPE> class PtrName
 {
