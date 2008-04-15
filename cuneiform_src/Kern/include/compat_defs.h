@@ -136,6 +136,18 @@ typedef struct {
 #endif
 
 int LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax);
+void _makepath(char *path, const char *drive, const char *dir,
+               const char *fname, const char *ext);
+void _splitpath(const char *path, char *drive, char *dir,
+                char *fname, char *ext);
+int CreateDirectory(const char *dir, void *dummy);
+char *_fullpath(char *absPath, const char *relPath, size_t maxLength);
+void CopyMemory(void *Destination, const void* Source, int length); // memcpy
+DWORD GetTempPath(DWORD nBufferLength, LPTSTR lpBuffer);
+int RemoveDirectory(const char *d);
+void* GlobalAlloc(UINT uFlags, int dwBytes);
+void GlobalFree(void *f);
+void* GlobalReAlloc(void* hMem, int dwBytes, UINT uFlags);
 
 /* A bunch of windows DLL initialisation values. I don't know the
  * real values of these, so I just put in some values. They are not
@@ -205,5 +217,58 @@ int LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax);
 #ifndef IDI_ASTERISK
 #define IDI_ASTERISK 939
 #endif
+
+#ifndef GHND
+#define GHND 666
+#endif
+
+#ifndef GMEM_DDESHARE
+#define GMEM_DDESHARE 777
+#endif
+
+#ifndef GMEM_DISCARDABLE
+#define GMEM_DISCARDABLE 888
+#endif
+
+#ifndef GMEM_FIXED
+#define GMEM_FIXED 999
+#endif
+
+#ifndef GMEM_LOWER
+#define GMEM_LOWER 0000
+#endif
+
+#ifndef GMEM_MOVEABLE
+#define GMEM_MOVEABLE 1111
+#endif
+
+#ifndef GMEM_NOCOMPACT
+#define GMEM_NOCOMPACT 2222
+#endif
+
+#ifndef GMEM_NODISCARD
+#define GMEM_NODISCARD 3333
+#endif
+
+#ifndef GMEM_NOT_BANKED
+#define GMEM_NOT_BANKED 4444
+#endif
+
+#ifndef GMEM_NOTIFY
+#define GMEM_NOTIFY 5555
+#endif
+
+#ifndef GMEM_SHARE
+#define GMEM_SHARE 6666
+#endif
+
+#ifndef GMEM_ZEROINIT
+#define GMEM_ZEROINIT 7777
+#endif
+
+#ifndef GPTR
+#define GPTR 8888
+#endif
+
 
 #endif

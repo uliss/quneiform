@@ -67,7 +67,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //                    started at 25 may 1998                                    //
 //                                                                              //
 //////////////////////////////////////////////////////////////////////////////////
-#include "CTCClasses.h"
+#include <string.h>
+#include "ctcclasses.h"
 //////////////////////////////////////////////////////////////////////////////////
 //
 CTCFileHeader::CTCFileHeader():CTCGlobalHeader()
@@ -274,7 +275,7 @@ Handle CTCFileList::FindFile(PChar8 lpFileName)
 		if ( pFile )
 		{
 			wComp = strcmp (pFile->GetFileName(), lpFileName );
-			wiComp = _stricmp (pFile->GetFileName(), lpFileName );
+			wiComp = strcasecomp (pFile->GetFileName(), lpFileName );
 			
 			if ( wiComp == 0)
 				return pCurrent->GetHandle();

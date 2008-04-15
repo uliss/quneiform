@@ -54,6 +54,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifndef CFIO_RESOURCE_H
+#define CFIO_RESOURCE_H
+
 #define RSTR_ERR_MIN             2048
 #define RSTR_ERR_NO              2048
 #define RSTR_ERR_NOTOPERATE      2049
@@ -84,3 +87,5 @@ static const char *RSTR_error_name[]={
   "Incorrect version",
   ""
 };
+
+#endif

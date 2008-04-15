@@ -77,10 +77,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // проверять альтернативы ?
 #define _TEST_ALTER_
 
-#ifndef max
-  #define max(a,b)  (((a) > (b)) ? (a) : (b))
-  #define min(a,b)  (((a) < (b)) ? (a) : (b))
-#endif
+#include "minmax.h"
 
 #define SS_NEG_HALF_SPACE 0x1e
 #define SS_POS_HALF_SPACE 0x1f

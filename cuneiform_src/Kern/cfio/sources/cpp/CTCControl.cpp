@@ -67,7 +67,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //                    started at 25 may 1998                                    //
 //                                                                              //
 //////////////////////////////////////////////////////////////////////////////////
-#include "CTCControl.h"
+#include <unistd.h>
+#include "ctccontrol.h"
+#include "compat_defs.h"
 void SetReturnCode(Word16 rc);
 //////////////////////////////////////////////////////////////////////////////////
 //

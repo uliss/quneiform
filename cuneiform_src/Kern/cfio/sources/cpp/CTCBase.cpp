@@ -67,7 +67,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //                    started at 25 may 1998                                    //
 //                                                                              //
 //////////////////////////////////////////////////////////////////////////////////
-#include "CTCControl.h"
+#include <assert.h>
+#include "ctccontrol.h"
+#include "compat_defs.h"
 //////////////////////////////////////////////////////////////////////////////////
 extern CTCControl * Control;
 //////////////////////////////////////////////////////////////////////////////////
@@ -540,7 +542,9 @@ static char Out[CFIO_MAX_PATH];
 //
 Bool32 CTCGlobalFile::ProvideFileFolder(char * lpFileName)
 {
-
+/* Given a filename such as "/foo/bar/baz/file.txt" creates the 
+ * directory "/foo/bar/baz".
+ */
 	if ( strlen(lpFileName) == 0 )
 		return FALSE;
 

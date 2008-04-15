@@ -83,7 +83,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 #include "cfio.h"
 #include "resource.h"
-#include "CTCBaseClasses.h"
+#include "ctcbaseclasses.h"
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #define                 CFIO_MEMORY_GLOBAL           0x0001
