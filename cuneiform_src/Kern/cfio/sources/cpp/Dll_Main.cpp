@@ -68,9 +68,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //                                                                              //
 //////////////////////////////////////////////////////////////////////////////////
 #define __CFIO__
-#define CFIO_USE_WIN32_API
-#include "CTCControl.h"
-#undef CFIO_USE_WIN32_API
+//#define CFIO_USE_WIN32_API
+#include "ctccontrol.h"
+//#undef CFIO_USE_WIN32_API
+
+#include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL 
 void SetReturnCode(Word16 rc);

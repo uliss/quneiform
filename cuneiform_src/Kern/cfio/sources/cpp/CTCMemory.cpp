@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //                    started at 25 may 1998                                    //
 //                                                                              //
 //////////////////////////////////////////////////////////////////////////////////
-#include "CTCClasses.h"
+#include "ctcclasses.h"
 //////////////////////////////////////////////////////////////////GLOBAL 
 //
 extern void SetReturnCode(Word16 rc);

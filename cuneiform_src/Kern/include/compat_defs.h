@@ -135,11 +135,19 @@ typedef struct {
 #define LPTSTR char *
 #endif
 
+#ifndef LPCTSTR
+#define LPCTSTR const char *
+#endif
+
+
+#include "split.h"
 int LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax);
+/*
 void _makepath(char *path, const char *drive, const char *dir,
                const char *fname, const char *ext);
 void _splitpath(const char *path, char *drive, char *dir,
                 char *fname, char *ext);
+*/
 int CreateDirectory(const char *dir, void *dummy);
 char *_fullpath(char *absPath, const char *relPath, size_t maxLength);
 void CopyMemory(void *Destination, const void* Source, int length); // memcpy
@@ -148,6 +156,9 @@ int RemoveDirectory(const char *d);
 void* GlobalAlloc(UINT uFlags, int dwBytes);
 void GlobalFree(void *f);
 void* GlobalReAlloc(void* hMem, int dwBytes, UINT uFlags);
+int GetTempFileName(LPCTSTR lpPathName, LPCTSTR lpPrefixString,
+                    UINT uUnique, LPTSTR lpTempFileName);
+int GetLastError();
 
 /* A bunch of windows DLL initialisation values. I don't know the
  * real values of these, so I just put in some values. They are not

@@ -68,9 +68,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //                                                                              //
 //////////////////////////////////////////////////////////////////////////////////
 //
-#define CFIO_USE_WIN32_API
-#include "CTCControl.h"
-#undef  CFIO_USE_WIN32_API
+//#define CFIO_USE_WIN32_API
+#include "ctccontrol.h"
+//#undef  CFIO_USE_WIN32_API
+#include <unistd.h>
+#include "compat_defs.h"
 //////////////////////////////////////////////////////////////////////////////////
 //
 CTCStorageHeader::CTCStorageHeader():CTCGlobalHeader()
@@ -329,7 +331,7 @@ Handle CTCStorageList::FindStorage(PChar8 lpStorageName)
 		 pStorage = pCurrent->GetStorage();
 
 		 if ( pStorage )
-			 if ( _stricmp (pStorage->GetFileName(), lpStorageName ) == 0 )
+			 if ( strcmp (pStorage->GetFileName(), lpStorageName ) == 0 )
 				return pCurrent->GetHandle();
 	}
 	return NULL;

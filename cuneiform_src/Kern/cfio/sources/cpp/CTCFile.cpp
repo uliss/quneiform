@@ -275,9 +275,10 @@ Handle CTCFileList::FindFile(PChar8 lpFileName)
 		if ( pFile )
 		{
 			wComp = strcmp (pFile->GetFileName(), lpFileName );
-			wiComp = strcasecomp (pFile->GetFileName(), lpFileName );
+			// Unix is case sensitive.
+			//wiComp = strcasecomp (pFile->GetFileName(), lpFileName );
 			
-			if ( wiComp == 0)
+			if ( wComp == 0)
 				return pCurrent->GetHandle();
 		}
 	}
