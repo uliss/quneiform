@@ -58,6 +58,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __XTEXT_H
 #define __XTEXT_H
 
+#include <stdarg.h>
+
 #ifndef __CTTYPES_H
 #include "cttypes.h"
 #endif

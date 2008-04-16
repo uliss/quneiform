@@ -64,7 +64,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #include "win_mini.h"
 #endif
 
-#include "XPath.h"
+#include "xpath.h"
+
+#include "compat_defs.h"
+
+/* FIXME */
+#define itoa(a, b, c)
 
 static Bool32 IsFullName(const char* szFileName)
 {

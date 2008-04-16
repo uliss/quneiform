@@ -63,14 +63,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "xpath.h"
 #include "safestr.h"
 
-struct _finddata_t {
-    unsigned    attrib;
-    time_t    time_create; /*-1forFATfilesystems*/
-    time_t    time_access; /*-1forFATfilesystems */
-    time_t    time_write;
-    unsigned int  size;
-    char    name[260];
-};
+#include "compat_defs.h"
+
+#define _A_ARCH 1
+#define _A_HIDDEN 2
+#define _A_NORMAL 4
+#define _A_RDONLY 8
+#define _A_SUBDIR 16
+#define _A_SYSTEM 32
+
 
 class XFindFile   // xff
 {
@@ -103,7 +104,7 @@ public:
    }
 
    operator char * (void) { return can_reply ? (char*)fileinfo.name : NULL; }
-   char* SafeStr(void)    { return can_reply ? (char*)fileinfo.name : "";   }
+   char* SafeStr(void)    { return can_reply ? (char*)fileinfo.name : (char*)"";   }
    Word32 FileAttrib(void)    { return can_reply ? (Word32)fileinfo.attrib : 0;   }
    Bool  IsArchive (void) { return fileinfo.attrib & _A_ARCH  ; };//  Archive. Set whenever the file is changed, and cleared by the BACKUP command. Value: 0x20
    Bool  IsHidden  (void) { return fileinfo.attrib & _A_HIDDEN; };//  Hidden file. Not normally seen with the DIR command, unless the /AH option is used. Returns information about normal files as well as files with this attribute. Value: 0x02
@@ -185,7 +186,7 @@ public:
    }
 
    operator char * (void) { return can_reply ? (char*)fileinfo.name : NULL; }
-   char* SafeStr(void)    { return can_reply ? (char*)fileinfo.name : "";   }
+   char* SafeStr(void)    { return can_reply ? (char*)fileinfo.name : (char*)"";   }
 
    ~XEnumDirs(void)
    {
@@ -308,7 +309,7 @@ public:
 char XEnumDirsRecursive::szReply[260]={0};         // буфер для формирования текущего ответа
 char XEnumDirsRecursive::szNameTpl[260]={0};       // шаблон имени, напр. "*.*"
 char XEnumDirsRecursive::szDir[260]={0};           // обследуемая директория без слэша на конце
-#endif XEDR_INSTANTIATE
+#endif //XEDR_INSTANTIATE
 
 class XFindFileRecursive
 {

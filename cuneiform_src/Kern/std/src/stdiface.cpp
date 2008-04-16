@@ -54,18 +54,26 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <map>
+#include <string>
+#include <fstream>
+#include <algorithm>
+
 #include "internal.h"
 #pragma hdrstop
 
-#include <windows.h>
+/*#include <windows.h>*/
 #include "wmb.h"
 #include "std.h"
+
+#include "compat_defs.h"
 
 STD_FUNC( Int32 ) stdMessageBox(
     const char * szMessageText,
     const char * szMessageTitle,
     Int32 nFlags)
 {
+#if 0
     Int32 nMFlags=0;
     if(nFlags & wMB_OK)
         nMFlags|=MB_OK;
@@ -107,16 +115,14 @@ STD_FUNC( Int32 ) stdMessageBox(
 
     }
     return wIDOK;
+#endif
+    return 0;
 }
 
 
 #include "resource.h"
 
 #pragma warning(disable:4786)
-#include <map>
-#include <string>
-#include <fstream>
-#include <algorithm>
 using namespace std;
 
 static class CRptDlgMap
@@ -174,7 +180,8 @@ Bool32 CRptDlgMap::Load(const char* pFileName)
 				continue;
 			}
 			string key_str(curr_str.begin(),pEql);
-			mp[key_str]=atoi(++pEql);
+			++pEql;
+			mp[key_str]=atoi((const char*)*pEql);
 		};
 		return bRes;
 	}
@@ -294,6 +301,7 @@ static Bool32 GetDlgUnitsScale(float& fXScale,float& fYScale,HWND hDlg)
 
 static void SetRptDlgButtonsPlacement(HWND hWnd,Int32 nBtns,HWND* pBtns)
 {
+#if 0
     float fXScale=1,fYScale=1;
     GetDlgUnitsScale(fXScale,fYScale,hWnd);
     HWND* pWnd=pBtns;
@@ -312,20 +320,24 @@ static void SetRptDlgButtonsPlacement(HWND hWnd,Int32 nBtns,HWND* pBtns)
         ::MoveWindow(pBtns[2],RPD_BUTTON33_LFT*fXScale,RPD_BUTTON_TOP*fYScale,RPD_BUTTON3_WD*fXScale,RPD_BUTTON_HGT*fYScale,TRUE);
         break;
     }
+#endif
 }
 
 static void VisualizeWindow(HWND hWnd,Bool32 bVisualize)
 {
+#if 0
     LONG ws=::GetWindowLong(hWnd,GWL_STYLE);
     if(bVisualize)
         ws|=WS_VISIBLE;
     else
         ws&=~WS_VISIBLE;
     ::SetWindowLong(hWnd,GWL_STYLE,ws);
+#endif
 }
 
 static void EnableRptDlgWindows(HWND hWnd,Int32 nFlags)
 {
+#if 0
     HWND hWndCtrl=NULL;
     hWndCtrl=::GetDlgItem(hWnd,ID_OK);
     if(hWndCtrl)
@@ -348,6 +360,7 @@ static void EnableRptDlgWindows(HWND hWnd,Int32 nFlags)
     hWndCtrl=::GetDlgItem(hWnd,ID_NO);
     if(hWndCtrl)
         VisualizeWindow(hWndCtrl,nFlags & RPD_ENWND_NO);
+#endif
 }
 
 typedef struct tagDlgProcParms
@@ -358,6 +371,7 @@ typedef struct tagDlgProcParms
 	Bool32 bNoRepeat;
 } TDlgProcParms;
 
+#if 0
 static Int32 bNoRepeat=-1;
 static HICON hIcon=NULL;
 static BOOL WINAPI DialogProc( HWND hwndDlg,UINT uMsg,WPARAM wParam,LPARAM lParam)
@@ -473,6 +487,7 @@ static BOOL WINAPI DialogProc( HWND hwndDlg,UINT uMsg,WPARAM wParam,LPARAM lPara
 
 	return FALSE;
 }
+#endif
 
 STD_FUNC( Int32 ) stdRptMessageBox(
   const char * szMessageText,
@@ -480,6 +495,7 @@ STD_FUNC( Int32 ) stdRptMessageBox(
   Int32 nFlags,
   const char * szKey)
 {
+#if 0
     TDlgProcParms parms={nFlags,szMessageTitle,szMessageText};
     HINSTANCE hModule=::GetModuleHandle("std32.dll");
 	bNoRepeat=-1;
@@ -493,5 +509,7 @@ STD_FUNC( Int32 ) stdRptMessageBox(
 	if(bNoRepeat==1)
 		pRptMap->SetShowProps(szKey ? szKey : szMessageText,RDM_UNREP_PERM | nRes);
     return nRes;
+#endif
+    return 0;
 }
 

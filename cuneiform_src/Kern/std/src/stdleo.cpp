@@ -59,6 +59,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "std.h"
 
+#include "compat_defs.h"
+
+/* FIXME*/
+#define lstrlenW(a) 0
+
 static Int8 leo_case_upper[]={
 /* 000 */ ' ',
 /* 001 */ ' ',
@@ -1394,7 +1399,7 @@ static char std_ANSI_to_ASCII[257]={
 /*E*/    " ΅Ά£¤¥¦§¨©ª«¬­®―"
 /*F*/    "ΰαβγδεζηθικλμνξο"
 };
-
+/*
 static wchar_t std_ANSI_to_UNICODE[257]=
     L"00000000000000000000000000000000 "
     L"!\"#$%&\'()*+,-./0123456789:;<=>?"
@@ -1404,6 +1409,8 @@ static wchar_t std_ANSI_to_UNICODE[257]=
     L" ΅Ά£¤¥¦§¨©ª«¬­®―°±²³΄µ¶·ΈΉΊ»Ό½ΎΏ"
     L"ΐΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡÒΣΤΥΦΧΨΩΪΫάέήί"
     L"ΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώÿ";
+*/
+static wchar_t std_ANSI_to_UNICODE[257];
 
 STD_FUNC(Word8) stdAsciiToAnsi( Word8 Code)
 {
@@ -1474,11 +1481,11 @@ STD_FUNC(void) stdStrNAnsiToUnicode(wchar_t* pUnicode,const char* pAnsi,Int32 nL
     *pCurUnic=0;
 }
 
-#include "winnls.h"
+/*#include "winnls.h"*/
 
 STD_FUNC(void) stdStrUnicodeToAnsi(char* pAnsi,const wchar_t* pUnicode)
 {
-    WideCharToMultiByte(CP_ACP,NULL,pUnicode,lstrlenW(pUnicode),pAnsi,lstrlenW(pUnicode),NULL,NULL);
+    WideCharToMultiByte(CP_ACP,NULL,(const char*)pUnicode,lstrlenW(pUnicode),pAnsi,lstrlenW(pUnicode),NULL,NULL);
 }
 
 STD_FUNC(Bool32) stdLeoCompareChar(Word8 c1, Word8 c2)

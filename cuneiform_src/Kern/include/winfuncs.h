@@ -27,13 +27,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef WINFUNCS_H_
 #define WINFUNCS_H_
+
 int LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax);
-/*
-void _makepath(char *path, const char *drive, const char *dir,
-               const char *fname, const char *ext);
-void _splitpath(const char *path, char *drive, char *dir,
-                char *fname, char *ext);
-*/
+
 int CreateDirectory(const char *dir, void *dummy);
 char *_fullpath(char *absPath, const char *relPath, int maxLength);
 void CopyMemory(void *Destination, const void* Source, int length); // memcpy
@@ -57,4 +53,30 @@ HWND FindWindow(LPCTSTR lpClassName, LPCTSTR lpWindowName);
 BOOL DeleteFile(LPCTSTR lpFileName);
 UINT RegisterWindowMessage(LPCTSTR lpString);
 void Sleep(int);
+
+int _findclose(long handle);
+long _findfirst(const char *filespec, struct _finddata_t *fileinfo);
+int _findnext(long handle, struct _finddata_t *fileinfo);
+long _tell(int handle);
+
+BOOL GetComputerName(LPTSTR lpBuffer, long unsigned int *lpnSize);
+UINT GetDriveType(LPCTSTR lpRootPathName);
+
+LONG RegOpenKeyEx(HKEY hKey, LPCTSTR lpSubKey, DWORD ulOptions,
+  REGSAM samDesired, PHKEY phkResult);
+LONG RegQueryValueEx(HKEY hKey, LPCTSTR lpValueName,
+LPDWORD lpReserved, LPDWORD lpType, LPBYTE lpData,
+LPDWORD lpcbData);
+
+BOOL GetClientRect(HWND hWnd, LPRECT lpRect);
+BOOL WritePrivateProfileString(LPCTSTR lpAppName,
+        LPCTSTR lpKeyName, LPCTSTR lpString, LPCTSTR lpFileName);
+DWORD GetPrivateProfileString(LPCTSTR lpAppName, LPCTSTR lpKeyName,
+LPCTSTR lpDefault, LPTSTR lpReturnedString, DWORD nSize, LPCTSTR lpFileName);
+UINT GetPrivateProfileInt(LPCTSTR lpAppName,
+  LPCTSTR lpKeyName, INT nDefault, LPCTSTR lpFileName);
+
+int WideCharToMultiByte(UINT CodePage, DWORD dwFlags,LPCWSTR lpWideCharStr,
+  int cchWideChar, LPSTR lpMultiByteStr, int cbMultiByte,
+  LPCSTR lpDefaultChar, LPBOOL lpUsedDefaultChar);
 #endif

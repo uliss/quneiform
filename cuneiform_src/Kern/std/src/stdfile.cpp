@@ -57,6 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "internal.h"
 #pragma hdrstop
 
+#include <unistd.h>
 #ifdef PPS_MAC
    #include <unix.h>
    #include <Files.h>
@@ -72,6 +73,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef WIN32
    #include "win_mini.h"
 #endif
+
+#include "compat_defs.h"
+
+typedef unsigned char BYTE;
 
 static Int32 _stdOpenCounter=0;
 static Int32 _stdCloseCounter=0;
@@ -283,6 +288,7 @@ STD_FUNC( Int32 ) stdAccess( const char *path, Int32 mode)
 #ifndef PPS_MAC
    return access( path, mode );
 #else
+   /* Some Macintosh garbage. Disabling.
 	FInfo info = {0};
 	Str255 name = {0};
 	short lenPath = strlen(path);
@@ -293,6 +299,8 @@ STD_FUNC( Int32 ) stdAccess( const char *path, Int32 mode)
 	memcpy ( (Ptr)name+1, path, lenPath );
 	OSErr err = GetFInfo ( name, 0, &info );
 	return (err)? -1 : 0;
+	*/
+   return 0;
 #endif
 }
 
@@ -336,7 +344,7 @@ STD_FUNC( Bool32 ) stdDeleteDirectory(
     Bool32 bDeleteOK=TRUE;
     XPath xpPath((char*)lpDirName);
     xpPath.CheckSlash();
-    XPath xpFileMask=xpPath+"*.*";
+    XPath xpFileMask=(char*)(xpPath+"*.*");
 #ifdef WIN32
     {
        XFindFile xffFile(xpFileMask);
@@ -382,7 +390,7 @@ STD_FUNC( Bool32 ) stdMoveDirectory(
     xpPathSrc.CheckSlash(); xpPathDst.CheckSlash();
     if(xpPathDst==xpPathSrc)
         return TRUE;
-    XPath xpFileMask=xpPathSrc+"*.*";
+    XPath xpFileMask=(char*)(xpPathSrc+"*.*");
 #ifdef WIN32
     {
        if(!stdCheckDirectory(xpPathDst,TRUE))
@@ -430,7 +438,7 @@ STD_FUNC( Bool32 ) stdCopyDirectory(
     xpPathSrc.CheckSlash(); xpPathDst.CheckSlash();
     if(xpPathDst==xpPathSrc)
         return TRUE;
-    XPath xpFileMask=xpPathSrc+"*.*";
+    XPath xpFileMask=(char*)(xpPathSrc+"*.*");
 #ifdef WIN32
     {
        if(!stdCheckDirectory(xpPathDst,TRUE))
@@ -662,9 +670,9 @@ STD_FUNC( Bool32 ) stdDeleteFile(
 #endif
 }
 
-#include "WinReg.h"
-#include "Windows.h"
-#include "XPath.h"
+/*#include "WinReg.h"
+#include "Windows.h"*/
+#include "xpath.h"
 
 Bool32 stdNetPathFromLocal(char* pszNetPath,Int32 nNetPathSize,const char* pszLocalPath)
 {

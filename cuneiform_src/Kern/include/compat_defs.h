@@ -39,6 +39,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef compat_typedefs_h_
 #define compat_typedefs_h_
 
+#include <time.h>
 #include "minmax.h"
 #include "filestuff.h"
 
@@ -77,9 +78,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int);
-    
+
+#ifndef LPBYTE
+#define LPBYTE unsigned char *
+#endif
+
+#ifndef LPDWORD
+#define LPDWORD unsigned long int *
+#endif
+
 #ifndef LPVOID
 #define LPVOID void*
+#endif
+
+#ifndef LPBOOL
+#define LPBOOL int*
 #endif
 
 #ifndef HINSTANCE
@@ -102,6 +115,14 @@ typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int)
 #define LPSTR char*
 #endif
 
+#ifndef LPCSTR
+#define LPCSTR const char*
+#endif
+
+#ifndef LPCWSTR
+#define LPCWSTR const char*
+#endif
+
 #ifndef HDC
 #define HDC int
 #endif
@@ -122,12 +143,18 @@ typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int)
 #define LONG long
 #endif
 
+#ifndef ULONG
+#define ULONG unsigned long
+#endif
+
 typedef struct {
     int left;
     int right;
     int top;
     int bottom;
 } RECT;
+
+typedef RECT* LPRECT;
 
 typedef struct {
      char * lpszClassName;
@@ -155,6 +182,20 @@ typedef struct tagBITMAPINFOHEADER{
   DWORD  biClrUsed; 
   DWORD  biClrImportant; 
 } BITMAPINFOHEADER, *PBITMAPINFOHEADER; 
+
+struct _finddata_t {
+    unsigned    attrib;
+    time_t    time_create; /*-1forFATfilesystems*/
+    time_t    time_access; /*-1forFATfilesystems */
+    time_t    time_write;
+    unsigned int  size;
+    char    name[260];
+};
+
+typedef int HKEY;
+
+typedef int * PHKEY;
+typedef int REGSAM;
 
 #ifndef WPARAM
 #define WPARAM int
@@ -321,6 +362,26 @@ typedef struct tagBITMAPINFOHEADER{
 
 #ifndef GPTR
 #define GPTR 8888
+#endif
+
+#ifndef DRIVE_FIXED
+#define DRIVE_FIXED 44
+#endif
+
+#ifndef ERROR_SUCCESS
+#define ERROR_SUCCESS 0
+#endif
+
+#ifndef HKEY_CURRENT_USER 
+#define HKEY_CURRENT_USER 69
+#endif
+
+#ifndef KEY_ALL_ACCESS
+#define KEY_ALL_ACCESS 100
+#endif
+
+#ifndef CP_ACP
+#define CP_ACP 593
 #endif
 
 #ifdef __cplusplus
