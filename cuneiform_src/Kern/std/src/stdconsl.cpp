@@ -57,9 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "internal.h"
 #pragma hdrstop
 
-#ifdef PPS_MAC
-	#include <stdarg.h>
-#endif
+#include <stdarg.h>
 
 #include "std.h"
 

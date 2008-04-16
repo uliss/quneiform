@@ -86,6 +86,10 @@ typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int)
 #define HINSTANCE void*
 #endif
 
+#ifndef HMODULE
+#define HMODULE void*
+#endif
+
 #ifndef HWND
 #define HWND unsigned int
 #endif
@@ -172,6 +176,10 @@ typedef struct tagBITMAPINFOHEADER{
 #define LPTSTR char *
 #endif
 
+#ifndef CREATE_NEW
+#define CREATE_NEW 2
+#endif
+
 #ifndef LPCTSTR
 #define LPCTSTR const char *
 #endif
@@ -180,26 +188,24 @@ typedef struct tagBITMAPINFOHEADER{
 #define RGB(r,g,b) ((Word32)(((Word8)(r)|((Word16)((Word8)(g))<<8))|(((Word32)(Word8)(b))<<16)))
 #endif
 
-#include "split.h"
-int LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax);
-/*
-void _makepath(char *path, const char *drive, const char *dir,
-               const char *fname, const char *ext);
-void _splitpath(const char *path, char *drive, char *dir,
-                char *fname, char *ext);
-*/
-int CreateDirectory(const char *dir, void *dummy);
-char *_fullpath(char *absPath, const char *relPath, int maxLength);
-void CopyMemory(void *Destination, const void* Source, int length); // memcpy
-DWORD GetTempPath(DWORD nBufferLength, LPTSTR lpBuffer);
-int RemoveDirectory(const char *d);
-void* GlobalAlloc(UINT uFlags, int dwBytes);
-void GlobalFree(void *f);
-void* GlobalReAlloc(void* hMem, int dwBytes, UINT uFlags);
-int GetTempFileName(LPCTSTR lpPathName, LPCTSTR lpPrefixString,
-                    UINT uUnique, LPTSTR lpTempFileName);
-int GetLastError();
+#ifndef GENERIC_READ
+#define GENERIC_READ 1
+#endif
 
+#ifndef GENERIC_WRITE
+#define GENERIC_WRITE 2
+#endif
+
+#ifndef FILE_ATTRIBUTE_NORMAL
+#define FILE_ATTRIBUTE_NORMAL 4
+#endif
+
+#ifndef INVALID_HANDLE_VALUE
+#define INVALID_HANDLE_VALUE NULL
+#endif
+
+#include "split.h"
+#include "winfuncs.h"
 /* A bunch of windows DLL initialisation values. I don't know the
  * real values of these, so I just put in random values. They are not
  * used anyway, so no harm.

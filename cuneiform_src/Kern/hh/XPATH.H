@@ -97,13 +97,13 @@ public:
    {
       ::GetModuleFileName( hModule, buf, sizeof(buf) );
       return *this;         
-   }
+   };
 
    XPath& GetCurrentDirectory(void)
    {
       ::GetCurrentDirectory( sizeof(buf), buf );
       return *this;         
-   }
+   };
 
    XPath& GetTempPath(void)
    {

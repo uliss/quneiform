@@ -117,7 +117,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       #  endif
       #endif
    #elif defined( PPS_MAC )
-	#   include <Types.h>
+	#   include <sys/types.h>
    #elif defined( PPS_DOS )
    #  include <dos.h>
 	#endif

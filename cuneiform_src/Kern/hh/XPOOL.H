@@ -79,6 +79,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "swabytes.h"
 #endif
 
+#undef HUGE
+#define HUGE
 
 class XPool
 {

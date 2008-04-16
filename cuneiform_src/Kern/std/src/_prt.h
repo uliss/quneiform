@@ -54,18 +54,21 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "stdprt.h"
-#include "xstack.h"
-#include "xpath.h"
-#include "wincon.h"
-#include "direct.h"
-#include "time.h"
-#include "windows.h"
-#pragma warning (disable:4530)
-#pragma warning(disable:4786)
+#ifndef _PRT_H_
+#define _PRT_H_
+
 #include <string>
 #include <list>
 #include <vector>
+#include "stdprt.h"
+#include "xstack.h"
+#include "xpath.h"
+/*#include "wincon.h"
+#include "direct.h"*/
+#include "time.h"
+/*#include "windows.h"*/
+#pragma warning (disable:4530)
+#pragma warning(disable:4786)
 using namespace std;
 
 
@@ -137,7 +140,8 @@ class stdPrtConsole
    UINT uiMesasageHandle;
    Bool32 bUseConsole;
 public:
-   operator HANDLE (void) const { return bUseConsole ? hConsoleOutput = FindWindow( NULL, "PrtConsole") : 0; };
+   //operator HANDLE (void) const { return bUseConsole ? hConsoleOutput = FindWindow( NULL, "PrtConsole") : 0; };
+    operator HANDLE (void) const { return NULL;};
    stdPrtConsole() : hConsoleOutput(0) , bUseConsole(0)
    {
       uiMesasageHandle = RegisterWindowMessage("SendTextToPrtConsole");
@@ -192,7 +196,7 @@ public:
 
 
 // send to public
-#include "windows.h"
+/*#include "windows.h"*/
 
 class CPrtSendEventToPublic
 {
@@ -251,7 +255,7 @@ public:
          ::CloseHandle(file);*/
 
    };
-#include "Winbase.h"
+/*#include "Winbase.h"*/
    Bool32 operator()(char* EventText)
    {
 /*      if(!file||file==INVALID_HANDLE_VALUE)
@@ -400,3 +404,5 @@ bool ReadFromEvnTable(char* TableName);
 Bool32 EvnParseFormat(char* in, char* out);
 bool PrtLoad();
 void PrtUnload();
+
+#endif

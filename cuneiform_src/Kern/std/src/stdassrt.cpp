@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 #ifndef PPS_MAC
-#include <conio.h>
+#include <curses.h>
 #endif
 
 STD_FUNC( void ) stdAssert(   char *__cond,char *__file,int __line  )
@@ -96,7 +96,11 @@ STD_FUNC( void ) stdAssert(   char *__cond,char *__file,int __line  )
         if (c == 27)
                 exit(0);
 if ( c == 13){
+#ifdef __GNUC__
+           asm("int $0x03");
+#else
            _asm int 3
+#endif
                }
   printf("..OK");
 #endif

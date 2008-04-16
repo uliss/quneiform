@@ -59,9 +59,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __XFINDFIL_H
 
 // files enumeration: _finsfirst() - _findnext()..._findnext() - _findclose()
-#include <io.h>
-#include "XPath.h"
-#include "SafeStr.h"
+/*#include <io.h>*/
+#include "xpath.h"
+#include "safestr.h"
+
+struct _finddata_t {
+    unsigned    attrib;
+    time_t    time_create; /*-1forFATfilesystems*/
+    time_t    time_access; /*-1forFATfilesystems */
+    time_t    time_write;
+    unsigned int  size;
+    char    name[260];
+};
 
 class XFindFile   // xff
 {

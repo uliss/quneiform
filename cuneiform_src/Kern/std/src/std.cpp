@@ -54,16 +54,16 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "_prt.h"
+#include "xpath.h"
 #include "internal.h"
 #pragma hdrstop
 
 #include "win_mini.h"
 /*#include <winuser.h>*/
 #include "cttypes.h"
-#include "stdIface.h"
+#include "stdiface.h"
 #include "std.h"
-#include "xpath.h"
-#include "_prt.h"
 #include "stdprop.h"
 
 STD_FUNC( Bool32 ) StdLoad(void)
