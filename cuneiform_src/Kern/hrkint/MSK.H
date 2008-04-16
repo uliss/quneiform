@@ -63,6 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
    /*#include "mskdefs.h"*/
    #include "memfunc.h"
+   #include "recdefs.h" 
 
    #ifdef __MSK__
       #define MSK_FUNC  FUN_EXPO

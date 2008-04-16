@@ -56,19 +56,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdlib.h>
 #include <ctype.h>
-#include <windows.h>
-#include <sys\\types.h>
-#include <sys\\stat.h>
-#include <dos.h>
-#include <conio.h>
+/*#include <windows.h>*/
+#include <sys/types.h>
+#include <sys/stat.h>
+/*#include <dos.h>
+#include <conio.h>*/
 #include <malloc.h>
 #include <fcntl.h>
 #include <float.h>
 #include <stdio.h>
-#include <io.h>
+/*#include <io.h>*/
 #include <string.h>
 #include <memory.h>
-#include <process.h>
+/*#include <process.h>*/
 #include <time.h>
 #include <math.h>
 
@@ -77,12 +77,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "mmx.h"
 #include "msk32fun.h"
 
-
-#ifndef min
-	#define min(a,b) (((a)<(b))?(a):(b))
-	#define max(a,b) (((a)>(b))?(a):(b))
-#endif
-
+#include "compat_defs.h"
+#include "minmax.h"
 
 Int16 err;
 Word32 bit_cnt[66000];

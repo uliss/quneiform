@@ -54,6 +54,11 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifndef MSK32FUN_H_
+#define MSK32FUN_H_
+
+typedef unsigned char BYTE;
+
 int new_reco(short, short,Word16 *, Word8 *, BYTE, BYTE,
 			 short m1,short n1,short m2,short n2, Word8 *ch, Word8 enable_1);
 
@@ -80,3 +85,5 @@ short recindexNDX(short hor, short ver, short *lett_coo,
 short det_symn(unsigned short *, unsigned short *, unsigned short *);
 
 unsigned short iobraz[],list[],meas[],lmin,lmax;
+
+#endif
