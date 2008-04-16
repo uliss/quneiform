@@ -99,7 +99,7 @@ STD_FUNC( void )  stdGetMemInfo( StdMemInfo* pMemInf )
 
 STD_FUNC( void* ) stdMalloc( Int32 size )
 {
-
+#if 0
    void * res =
                #if defined( WIN32 )
                   malloc(size);
@@ -123,6 +123,8 @@ STD_FUNC( void* ) stdMalloc( Int32 size )
 #endif
 
    return res;
+#endif
+   return malloc(size);
 };
 
 STD_FUNC( void* )  stdRealloc( void* old_ptr, Int32 new_size, Int32 old_size )

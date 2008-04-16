@@ -54,12 +54,14 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "_prt.h"
 #include "internal.h"
 #pragma hdrstop
 
 
 
-#include "_prt.h"
+
+#include "compat_defs.h"
 
 static int gl_iTransaction = 0;
 static int  gl_iEventCount = 0;
@@ -261,6 +263,7 @@ bool CTableEvnFiller::OpenEvnTable(char *TableName)
 
 Bool32 stdPrtConsole::SendTextToConsole(char *text, int len)
 {
+#if 0
    if(!hConsoleOutput)
       return 0;
    if(!uiMesasageHandle)
@@ -275,6 +278,8 @@ Bool32 stdPrtConsole::SendTextToConsole(char *text, int len)
    ::GlobalUnlock(hMessageText);
    ::PostMessage(hConsoleOutput,uiMesasageHandle,reinterpret_cast<unsigned int>(hMessageText),len);
    return TRUE;
+#endif
+   printf(text);
 };
 
 Bool32 stdPrtConsole::AllocPrtConsole()

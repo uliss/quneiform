@@ -54,13 +54,13 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#pragma warning(disable:4786 )
+#include <string>
+#include <map>
 #include "internal.h"
 #pragma hdrstop
 #include "std.h"
 
-#pragma warning(disable:4786 )
-#include <string>
-#include <map>
 using namespace std;
 
 static map<string,string>* p_map_prop;

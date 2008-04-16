@@ -61,6 +61,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "win_mini.h"
 #include "cttypes.h"
 
+#include "compat_defs.h"
+
 static char szCompName[MAX_COMPUTERNAME_LENGTH + 1]={0};
 
 STD_FUNC(const char*) stdGetComputerName()

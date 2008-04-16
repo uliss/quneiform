@@ -384,6 +384,10 @@ typedef int REGSAM;
 #define CP_ACP 593
 #endif
 
+#ifndef MAX_COMPUTERNAME_LENGTH
+#define MAX_COMPUTERNAME_LENGTH 100
+#endif
+
 #ifdef __cplusplus
     }
 #endif
