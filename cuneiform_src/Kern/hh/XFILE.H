@@ -66,14 +66,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __XFILE_H
 #define __XFILE_H
 
-#include <io.h>
+/*#include <io.h>*/
+#include <unistd.h>
 #include <fcntl.h>
 #include <assert.h>
-#ifdef PPS_MAC
-#include <unix.h>
-#else
-#include <sys\stat.h>
-#endif
+#include <sys/stat.h>
 #include "globus.h"
 
 #include "std.h"
@@ -81,6 +78,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef WIN32
 #define PPS_WIN32
 #endif
+
+#define O_BINARY 0
 
 enum XFileOpenMode
 {  XF_UNDEFINED = 0,
@@ -110,7 +109,7 @@ public:
    XFile( XFile & xf ) { if (xf.hnd != -1){ assert(0); }; }; // no copy for opened files!
    ~XFile(void) { Close(); };
 
-   Int32  Commit(void) { return (hnd != -1) ? _commit(hnd) : -1; };
+   Int32  Commit(void) { return (hnd != -1) ? fsync(hnd) : -1; };
    Bool32 Open(char* name, XFileOpenMode mode_)
    {
       assert(hnd==-1);

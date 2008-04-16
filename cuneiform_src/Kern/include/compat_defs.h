@@ -40,6 +40,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define compat_typedefs_h_
 
 #include "minmax.h"
+#include "filestuff.h"
 
 #ifdef __cplusplus
     extern "C" {
@@ -218,14 +219,6 @@ int GetLastError();
 
 #ifndef DLL_THREAD_DETACH
 #define DLL_THREAD_DETACH 4
-#endif
-
-#ifndef _MAX_PATH
-#define _MAX_PATH 1024
-#endif
-
-#ifndef MAX_PATH
-#define MAX_PATH _MAX_PATH
 #endif
 
 #ifndef GWL_HINSTANCE

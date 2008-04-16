@@ -62,6 +62,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "xtext.h"
 #endif
 
+#include "split.h"
+#include "compat_defs.h"
 
 class XPath : public XText< _MAX_PATH >
 {

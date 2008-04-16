@@ -1,7 +1,8 @@
 include_directories(include)
 include_directories(h)
-include_directories(hdebug)
+include_directories(hh)
 include_directories(hhh)
+include_directories(hdebug)
 include_directories(hrk)
 include_directories(hrkint)
 include_directories(hrstr)
@@ -29,6 +30,7 @@ add_subdirectory(msk)
 add_subdirectory(rling)
 add_subdirectory(ctb)
 add_subdirectory(rsadd)
+add_subdirectory(std)
 
 set(RPSTR_LIBS rpstr rstr rling mmx pass2 rbal cline leo rlings rsadd
 fon msk evn32 cstr ctb32 dif rcutp ccom)
@@ -38,5 +40,8 @@ cimage loc rdib cfio)
 
 add_executable(pumatest pumatest.cpp windummy hdebug/__snp.c)
 target_link_libraries(pumatest 
+
 puma rline cpage cimage cfio 
-rpstr rstr cline leo rling rlings rsadd msk evn32 fon cstr ctb32 dif rcutp ccom)
+
+rpstr rstr cline leo rling rlings rsadd std32 msk evn32 fon cstr ctb32 
+dif rcutp ccom)

@@ -58,13 +58,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma hdrstop
 
 #include "win_mini.h"
-#include <winuser.h>
+/*#include <winuser.h>*/
 #include "cttypes.h"
 #include "stdIface.h"
 #include "std.h"
-#include "XPath.h"
-#include "_Prt.h"
-#include "StdProp.h"
+#include "xpath.h"
+#include "_prt.h"
+#include "stdprop.h"
 
 STD_FUNC( Bool32 ) StdLoad(void)
 {
