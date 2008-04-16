@@ -60,20 +60,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <math.h>
 
 #include "stdafx.h"
-#include "LineDefs.h"
+#include "linedefs.h"
 #include "lnsdefs.h"
 #include "cpage.h"
-#include "CTIImage.h"
-#include "RShellLinesCom.h"
+#include "ctiimage.h"
+#include "rshelllinescom.h"
 #include "rline.h"
 #include "dpuma.h"
-#include "LineDefs.h"
 #include "cline.h"
 #include "ccom.h"
 #include "pumadef.h"
-#include <fstream.h>
+#include <fstream>
 
 #include "rsl.h"
+
+#include "compat_defs.h"
+#include "minmax.h"
 
 # define INCLINE_FACTOR  2048
 #define OffsetCoor 4
@@ -999,14 +1001,14 @@ BOOL MyPutLines(CLINE_handle hContainerOut,CLINE_handle hCLINE,BOOL dotline)
  int DELTA_X;
  int Wide;
  int Y;
- ofstream outfile, textfile;
+ std::ofstream outfile, textfile;
  char* buffer;
  int totalevents = 0, totaleventinvs = 0, totalcps = 0, totalcpinvs = 0, totalcomps = 0;
  Handle draw_window = NULL;
 
  if (!LDPUMA_Skip(hWriteLineInFile))
  {
-     outfile.open("lines.res", ios::out|ios::binary|ios::app);
+     outfile.open("lines.res", std::ios::out|std::ios::binary|std::ios::app);
      char* name = LDPUMA_GetFileName(NULL);
      char szFileName[MAX_PATH];
      for(int ff=0; ff<MAX_PATH; ff++) szFileName[ff]=0;
@@ -1016,7 +1018,7 @@ BOOL MyPutLines(CLINE_handle hContainerOut,CLINE_handle hCLINE,BOOL dotline)
      int sizes = CLINE_GetLineCount(hContainerOut);
      memcpy(buffer, &sizes, sizeof(int));
      outfile.write(buffer, sizeof(int));
-     textfile.open("lines.txt", ios::out);
+     textfile.open("lines.txt", std::ios::out);
      textfile << "number of lines = " << sizes << "\n";
 /*     sizes = sizeof(DEvent);
      memcpy(buffer, &sizes, sizeof(int));
@@ -1832,8 +1834,8 @@ void DeleteBadDotLine(CLINE_handle hCLINE,CCOM_handle hCCOM,Handle hCPAGE)
 /***********************************************************************************************/
 void PrintLines(CLINE_handle hContainer, char* FileName)
 {
-	ofstream outfile;
-	outfile.open(FileName, ios::out|ios::binary|ios::app);
+	std::ofstream outfile;
+	outfile.open(FileName, std::ios::out|std::ios::binary|std::ios::app);
 	if (outfile.fail()) return;
 
     char* buff = LDPUMA_GetFileName(NULL);
@@ -2145,8 +2147,9 @@ Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM)
 	// проход по гориз. линиям
 	do
 	{
+	    CLINE_handle hLine;
 		CountLines = 0;
-		for (CLINE_handle hLine = CLINE_GetFirstLine(hContainer); hLine; hLine = CLINE_GetNextLine(hLine))
+		for (hLine = CLINE_GetFirstLine(hContainer); hLine; hLine = CLINE_GetNextLine(hLine))
 		{
 			pLine = CLINE_GetLineData(hLine);
 			if (pLine)
@@ -2223,8 +2226,9 @@ Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM)
 	// проход по верт. линиям
 	do
 	{
+	    CLINE_handle hLine;
 		CountLines = 0;
-		for (CLINE_handle hLine = CLINE_GetFirstLine(hContainer); hLine; hLine = CLINE_GetNextLine(hLine))
+		for (hLine = CLINE_GetFirstLine(hContainer); hLine; hLine = CLINE_GetNextLine(hLine))
 		{
 			pLine = CLINE_GetLineData(hLine);
 			if (pLine)
@@ -2921,7 +2925,7 @@ Int32 countCompLen(CCOM_comp* pCompMass, Int32 CountComp, CPDLine pLine, CPDLine
 				pCompMass[i].h > max_width)
 				continue;
 
-			countLen += min(pCompMass[i].left + pCompMass[i].w - 1, RastRect.right) - max(pCompMass[i].left, RastRect.left) + 1;
+			countLen += MIN(pCompMass[i].left + pCompMass[i].w - 1, RastRect.right) - MAX(pCompMass[i].left, RastRect.left) + 1;
 		}
 		else
 		{
@@ -2934,7 +2938,7 @@ Int32 countCompLen(CCOM_comp* pCompMass, Int32 CountComp, CPDLine pLine, CPDLine
 				pCompMass[i].w > max_width)
 				continue;
 
-			countLen += min(pCompMass[i].upper + pCompMass[i].h - 1, RastRect.bottom) - max(pCompMass[i].upper, RastRect.top) + 1;
+			countLen += MIN(pCompMass[i].upper + pCompMass[i].h - 1, RastRect.bottom) - MAX(pCompMass[i].upper, RastRect.top) + 1;
 		}
 
 	return countLen;
@@ -2985,7 +2989,8 @@ Int32 findFirstComp(CCOM_comp* pCompMass, Int32 CountComp, Rect32 RastRect, Bool
 		}
 	}
 
-	for (Int32 i = curr; i > 0; i--)
+	Int32 i;
+	for (i = curr; i > 0; i--)
 		if ((IsHor && pCompMass[i].left >= RastRect.left - 7 ||
 			!IsHor && pCompMass[i].upper >= RastRect.top - 7) &&
 			(IsHor && pCompMass[i-1].left < RastRect.left - 7 ||

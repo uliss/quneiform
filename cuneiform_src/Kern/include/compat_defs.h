@@ -46,7 +46,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 #ifndef HANDLE
-#define HANDLE int
+#define HANDLE void*
 #endif
 
 #ifndef FALSE
@@ -60,6 +60,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef APIENTRY /* Not currently used in Linux. */
 #define APIENTRY
 #endif
+/*
+#ifndef WORD
+#define WORD short int
+#endif
+*/
+/*typedef unsigned short int              WORD;*/
 
 #ifndef DWORD
 #define DWORD unsigned long int 
@@ -95,6 +101,18 @@ typedef int (* _CRT_ALLOC_HOOK) (int, void *, size_t, int, long, const char *, i
 #define HUGE
 #endif
 
+#ifndef UINT
+#define UINT unsigned int
+#endif
+
+#ifndef INT
+#define INT int
+#endif
+
+#ifndef LONG
+#define LONG long
+#endif
+
 typedef struct {
     int left;
     int right;
@@ -115,9 +133,19 @@ typedef struct {
      char *cbWndExtra;
 } WNDCLASS;
 
-#ifndef UINT
-#define UINT unsigned int
-#endif
+typedef struct tagBITMAPINFOHEADER{
+  DWORD  biSize; 
+  LONG   biWidth; 
+  LONG   biHeight; 
+  int   biPlanes;    /* Was WORD */
+  int   biBitCount;  /* Was WORD */
+  DWORD  biCompression; 
+  DWORD  biSizeImage; 
+  LONG   biXPelsPerMeter; 
+  LONG   biYPelsPerMeter; 
+  DWORD  biClrUsed; 
+  DWORD  biClrImportant; 
+} BITMAPINFOHEADER, *PBITMAPINFOHEADER; 
 
 #ifndef WPARAM
 #define WPARAM int
@@ -139,6 +167,9 @@ typedef struct {
 #define LPCTSTR const char *
 #endif
 
+#ifndef RGB
+#define RGB(r,g,b) ((Word32)(((Word8)(r)|((Word16)((Word8)(g))<<8))|(((Word32)(Word8)(b))<<16)))
+#endif
 
 #include "split.h"
 int LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax);
@@ -183,6 +214,10 @@ int GetLastError();
 
 #ifndef _MAX_PATH
 #define _MAX_PATH 1024
+#endif
+
+#ifndef MAX_PATH
+#define MAX_PATH _MAX_PATH
 #endif
 
 #ifndef GWL_HINSTANCE

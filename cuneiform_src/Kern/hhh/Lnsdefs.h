@@ -244,8 +244,9 @@ inline void ltiGetNotNoise( LinesTotalInfo* plti,  // get
                             int& hcnt, int& vcnt   // put
                           )
 {
+   int i;
    hcnt = plti->Hor.Cnt;
-   for (int i=0; i < plti->Hor.Cnt; i++)
+   for (i=0; i < plti->Hor.Cnt; i++)
    {  if (plti->Hor.Lns[i].Flags & LI_NOISE)
          hcnt--;
    }

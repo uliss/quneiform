@@ -87,6 +87,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cpage.h"
 #endif
 
+#include "compat_defs.h"
+#include "decl.h"
+
 //#define SecondPath       2
 //#define ThirdPath        3
 

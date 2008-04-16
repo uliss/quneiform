@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define __RLINE__
 
-
+#include <stdlib.h>
 #include "stdafx.h"
 #include "resource.h"
 #include "rline.h"
@@ -68,8 +68,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cpage.h"
 #include "lns.h"
 #include "dpuma.h"
-#include "LineDefs.h"
-#include "RShellLinesCom.h"
+#include "linedefs.h"
+#include "rshelllinescom.h"
 
 /// BogDmitry
 #include "rsl.h"
@@ -77,6 +77,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define RESULT                  2
 extern Bool32 gbRSLT = FALSE;
 /// BogDmitry
+
+#include "compat_defs.h"
 
 extern Bool32 gbNOFILLGAP3;
 extern Bool32 gbNOHBORDER;

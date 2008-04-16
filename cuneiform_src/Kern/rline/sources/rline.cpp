@@ -60,21 +60,25 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define __RLINE__
 
-#include <windows.h>
+/*#include <windows.h>*/
 #include <memory.h>
-#include <crtdbg.h>
-#include <fstream.h>
+/*#include <crtdbg.h>*/
+#include <fstream>
 #include <stdio.h>
+#include <assert.h>
 
 #include "resource.h"
 #include "rline.h"
 #include "cline.h"
 #include "ctiimage.h"
+#include "c_types.h"
 #include "cpage.h"
 #include "lns.h"
 #include "dpuma.h"
 #include "pumadef.h"
 #include "rshelllinescom.h"
+
+#include "compat_defs.h"
 
 Handle    hMainWindow;
 
@@ -532,7 +536,8 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 
         Word32 x = 255<<8;
 		Int32 temp;
-		for(int i=0;i<lti.Hor.Cnt;i++)
+		int i;
+		for(i=0;i<lti.Hor.Cnt;i++)
 		{
 			temp = (-100)*lti.Hor.Lns[i].Thickness;
 			_ASSERT(lti.Hor.Lns[i].Thickness>0);

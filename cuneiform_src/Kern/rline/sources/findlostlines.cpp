@@ -60,8 +60,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define SOURCE_FILE_NAME "FindLostLines.cpp"
 #endif
 /***********************************************************************************************/
+#include <stdlib.h>
+#include <string.h>
 #include "stdafx.h"
-#include "RShellLinesCom.h"
+#include "rshelllinescom.h"
 #include "rline.h"
 #include "dpuma.h"
 #include "pumadef.h"
@@ -69,6 +71,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef _DEBUG
 #include <fstream.h>
 #endif
+
+#include "compat_defs.h"
+
 /***********************************************************************************************/
 #define INCLINE_FACTOR 2048
 #define DEFAULT_DPI 300
@@ -331,7 +336,8 @@ Bool32 findLostLines(CLINE_handle hCLINE, PAGEINFO* info)
 
 				//remove crossed lines
 				//--------------------
-				for (CLINE_handle hNewLine = CLINE_GetFirstLine(fll_data.hTempContainer); hNewLine; hNewLine = CLINE_GetNextLine(hNewLine))
+				CLINE_handle hNewLine;
+				for (hNewLine = CLINE_GetFirstLine(fll_data.hTempContainer); hNewLine; hNewLine = CLINE_GetNextLine(hNewLine))
 				{
 					CPDLine pNewLine = CLINE_GetLineData(hNewLine);
 
@@ -469,8 +475,9 @@ Bool32 getLostLines(const FLLData *work_data, const LineData* aCPLines, const In
 	Int32 nIncline = work_data->pInfo->Incline2048;
 	bool bshowcp = work_data->bShowCP;
 	Handle hWnd = work_data->hWnd;
+	Int32 i;
 
-	for (Int32 i = 0; i < nCPLines; i++)
+	for (i = 0; i < nCPLines; i++)
 	{
 		if ((aCPLines[i].flag & good_line) != good_line)
 			continue;
@@ -679,11 +686,12 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 
 	do
 	{
+	    Int32 i;
 		nWork = 0;
 
 		//filtrate cross points
 		//---------------------
-		for (Int32 i = first_cp; i < finish_cp; i++)
+		for (i = first_cp; i < finish_cp; i++)
 		{
 			if (aCPStatus[i] == SW_EXAMINED)
 				continue;
@@ -839,16 +847,17 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 				//--------------------------
 				for (i = 0; i < nWork; i++)
 				{
+				    Int32 j, k;
 //					if (!checkBlack(aInterval[i].black, aInterval[i].base_line == -1 ? false : (aContLines[aInterval[i].base_line].flag & FL_GOOD)))
 					if (!checkBlack(aInterval[i].black, false))
 						continue;
 
-					for (Int32 j = i + 1; j < nWork; j++)
+					for (j = i + 1; j < nWork; j++)
 //						if (!checkBlack(aInterval[j].black, aInterval[j].base_line == -1 ? false : (aContLines[aInterval[j].base_line].flag & FL_GOOD)))
 						if (!checkBlack(aInterval[j].black, false))
 							break;
 
-					for (Int32 k = i; k < j; k++)
+					for (k = i; k < j; k++)
 						if (aInterval[k].black < FULL_BLACK)
 							break;
 
@@ -1398,6 +1407,7 @@ void updateLine(/*CLINE_handle* hLine, */const FLLData* work_data, bool is_horiz
 	Int32 bad_lines;
 	LineData *aBadLines;
 	Rect32 rect;
+	Int32 i;
 
 	InitLine(&dLine);
 
@@ -1426,7 +1436,7 @@ void updateLine(/*CLINE_handle* hLine, */const FLLData* work_data, bool is_horiz
 	//--------------
 	getLineIdealStrictRectangular(&dLine.Line, &rect, !is_horiz, 0);
 
-	for (Int32 i = 0; i < bad_lines; i++)
+	for (i = 0; i < bad_lines; i++)
 		if (rect.top <= aBadLines[i].rect.bottom &&
 			rect.left <= aBadLines[i].rect.right &&
 			rect.bottom >= aBadLines[i].rect.top &&
