@@ -90,7 +90,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "nt_types.h"
   #include <stdlib.h>
   #include <stdio.h>
-  #include <io.h>
+  /*#include <io.h>*/
   #include <string.h>
   #include <ctype.h>
   #include <setjmp.h>
@@ -98,7 +98,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  #include "iolib.h"          // 08-13-93 06:46pm, Mike
   #include "speldefs.h"
   #include "spelfunc.h"
-  #include  "TigerEmulate.h"
+  #include  "tigeremulate.h"
 
 // --------------------------------------------------------------------
   void	ErrorExit(int Code);

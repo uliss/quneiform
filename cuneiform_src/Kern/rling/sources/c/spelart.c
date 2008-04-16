@@ -81,12 +81,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include <stdlib.h>
   #include <ctype.h>
 
-  #include "TigerEmulate.h"
+  #include "tigeremulate.h"
   #include "speldefs.h"
   #include "spelfunc.h"
 //  #include "iolib.h"
   #include "lang.h"
 
+#include "compat_defs.h"
 
 extern STD std;
 extern BYTE fax1x2;

@@ -86,7 +86,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "speldefs.h"
   #include "spelfunc.h"
   #include "lang.h"
-  #include "TigerEmulate.h"
+  #include "tigeremulate.h"
+
+#include "compat_defs.h"
 //////////////////
 // AK change   27.01.99
 //  #include "iolib.h"

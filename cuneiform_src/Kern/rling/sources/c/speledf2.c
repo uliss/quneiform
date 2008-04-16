@@ -77,11 +77,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "speldefs.h"
 #include "spelfunc.h"
 
-#include "EDTABLE.H"
+#include "edtable.h"
 
 //////////////////////
 // AK 27.01.99
-#include "TigerEmulate.h"
+#include "tigeremulate.h"
 void	ErrorExit(int Code);
 // end AK
 /*************************************************************************/

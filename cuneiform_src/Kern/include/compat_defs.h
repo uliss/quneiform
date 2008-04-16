@@ -82,7 +82,7 @@ typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int)
 #endif
 
 #ifndef HINSTANCE
-#define HINSTANCE int
+#define HINSTANCE void*
 #endif
 
 #ifndef HWND
@@ -161,6 +161,10 @@ typedef struct tagBITMAPINFOHEADER{
 
 #ifndef O_BINARY
 #define O_BINARY 0
+#endif
+
+#ifndef O_TEXT
+#define O_TEXT 0
 #endif
 
 #ifndef LPTSTR

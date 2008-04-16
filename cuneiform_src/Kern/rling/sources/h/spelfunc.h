@@ -63,6 +63,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __SPEL_FUNCS_H__
 #define __SPEL_FUNCS_H__
 
+#include "nt_types.h"
+
 #if _MSC_VER > 1000
    #pragma once
 #endif // _MSC_VER > 1000

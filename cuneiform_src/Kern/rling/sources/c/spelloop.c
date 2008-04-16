@@ -56,8 +56,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <assert.h>
 #include <stdio.h>
-#include <io.h>
-#include <sys\\stat.h>
+/*#include <io.h>*/
+#include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
 #include <stdlib.h>
@@ -84,7 +84,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "tuner.h"
   #include "spelmode.h"
   #include "nt_types.h"
-  #include "TigerEmulate.h"
+  #include "tigeremulate.h"
 /*
   #if defined(TURBO_C)
     #include "tc_types.h"
@@ -105,7 +105,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  #include "iolib.h"        // IO stream library
   #include "lang.h"         // language trigger
 
-
+#include "compat_defs.h"
 ///////////////////////////////////////////////////////////////////////////////
 // 
 #ifdef _DEBUG

@@ -71,8 +71,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "globus.h"
 #include "cttypext.h"
-#include "CRLMemory.h"
-#include "CRLEd.h"	// Added by ClassView
+#include "crlmemory.h"
+#include "crled.h"	// Added by ClassView
 
 class CRLControl  
 {

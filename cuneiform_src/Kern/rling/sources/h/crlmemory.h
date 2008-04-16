@@ -66,10 +66,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # endif // (_DEBUG)
 //////////////////////////////////////////////////////////////////////////////////////////
 //
-#include <crtdbg.h>
+/*#include <crtdbg.h>*/
 #include "globus.h"
 #include "cttypext.h"
-#include "CRLDefines.h"
+#include "crldefines.h"
 //#ifndef Handle
 //	#define Handle void * 
 //#endif 

@@ -62,6 +62,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*                                                                  */
 /********************************************************************/
 
+#ifndef NT_TYPES_H_
+#define NT_TYPES_H_
+
 /*----------------- Signed and unsigned integer types ------------------*/
 
 /*                      Byte size data                                */
@@ -114,3 +117,5 @@ typedef signed long int                 LONG;
 typedef unsigned long int               DWORD;
 typedef signed long int  *          PLONG;
 typedef unsigned long int  *        PDWORD;
+
+#endif

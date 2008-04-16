@@ -74,7 +74,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
   #include "speldefs.h"
   #include "spelfunc.h"
-  #include "TigerEmulate.h"
+  #include "tigeremulate.h"
 
 
 #define RASTER_SIZE 128*64/8

@@ -72,11 +72,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "speldefs.h"
   #include "spelfunc.h"
 
-  #include "EDTABLE.H"
+  #include "edtable.h"
   
   /////////////////////////
   // AK change  27.01.99
-  #include "TigerEmulate.h"
+  #include "tigeremulate.h"
   void	ErrorExit(int Code);
   //end AK
 
@@ -239,7 +239,7 @@ INT processEdSymb(void)
 							break;
 		case SS_TABUL     : ret=mvbuf(sizeof(struct tabul));
 							break;
-		case SS_TABL_TABUL: if (SPQ.buff_ptr-SPQ.text_buff >= SPQ.buff_l-1)
+		case SS_TABL_TABUL: if (SPQ.buff_ptr-(BYTE*)SPQ.text_buff >= SPQ.buff_l-1)
 								ret=NO;
 							else
 							 {
@@ -300,7 +300,7 @@ INT mvbuf(WORD l)
 */
  {
   if( l==0 )  return -1; // Oleg : need stop if unknown tag in ED
-  if (SPQ.buff_ptr-SPQ.text_buff+l > SPQ.buff_l)
+  if (SPQ.buff_ptr-(BYTE*)SPQ.text_buff+l > SPQ.buff_l)
     return(NO);
   SPQ.l+=l;
   move_from_near_to_huge(SPQ.str_ptr, SPQ.buff_ptr,l);
@@ -347,13 +347,13 @@ INT set_descr(CHAR c)
    {                                   /* sheet */
     SPQ.sheet_disk_descr_ptr=(struct sheet_disk_descr *)SPQ.buff_ptr;
 
-    if ((DWORD)(SPQ.buff_ptr - SPQ.text_buff) > (DWORD)(SPQ.buff_l - sizeof(struct sheet_disk_descr)))
+    if ((DWORD)(SPQ.buff_ptr - (BYTE*)SPQ.text_buff) > (DWORD)(SPQ.buff_l - sizeof(struct sheet_disk_descr)))
       return(NO);
     
 	SPQ.qt_fm=SPQ.sheet_disk_descr_ptr->quant_fragm;
     if(SPQ.qt_fm >= MAX_FRAGM )                         return TOO_MANY_FRAGMS;
 
-    if (SPQ.buff_ptr-SPQ.text_buff >=
+    if (SPQ.buff_ptr-(BYTE*)SPQ.text_buff >=
 	 SPQ.buff_l-SPQ.sheet_disk_descr_ptr->descr_lth)
 			 /* not enough room in buffer for all fragm descr */
       return(NO);
@@ -373,7 +373,7 @@ INT set_descr(CHAR c)
      SPQ.st.cur_segm->string_lth+=DELTA;
      SPQ.free_alloc_mem+=DELTA;
    check_free_mem();
-    if ( (DWORD)(SPQ.buff_ptr - SPQ.text_buff) > (DWORD)(SPQ.buff_l - sizeof(struct line_beg)) )
+    if ( (DWORD)(SPQ.buff_ptr - (BYTE*)SPQ.text_buff) > (DWORD)(SPQ.buff_l - sizeof(struct line_beg)) )
       return(NO);
     SPQ.ptr_next_segm=(struct segm *)SPQ.free_alloc_mem;
     SPQ.str_ptr=SPQ.ptr_next_segm->string;
@@ -414,7 +414,7 @@ INT do_fragm(void)
 
   check_free_mem();
 
-  if ( (DWORD)(SPQ.buff_ptr - SPQ.text_buff) > (DWORD)(SPQ.buff_l - sizeof(struct fragm_disk)) )
+  if ( (DWORD)(SPQ.buff_ptr - (BYTE*)SPQ.text_buff) > (DWORD)(SPQ.buff_l - sizeof(struct fragm_disk)) )
     return(NO);
   SPQ.fragm_disk_ptr=(struct fragm_disk *)SPQ.buff_ptr;
   SPQ.cur_fragm=SPQ.fragm_disk_ptr->fragm_numb;

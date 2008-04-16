@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "lang.h"
   #include "tuner.h"
 
-  #include "TigerEmulate.h"
+  #include "tigeremulate.h"
 
 #ifdef  RUS_ENG_LANG
 extern BYTE multy_language ;

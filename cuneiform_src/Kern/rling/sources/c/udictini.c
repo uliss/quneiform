@@ -77,8 +77,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  #include "spelfunc.h"
  #include "udicfunc.h"
 
- #include "TigerEmulate.h"
+ #include "tigeremulate.h"
 
+#include "compat_defs.h"
+  
 DWORD        LoadUserDict( CHAR      *DictName,
                            CHAR      *pool,
 			               DWORD     pool_size,

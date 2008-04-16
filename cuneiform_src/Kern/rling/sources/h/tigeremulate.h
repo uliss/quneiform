@@ -72,7 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include "nt_types.h"
 
-#include "CRLDefines.h"
+#include "crldefines.h"
 
 #define MEMSET(a,b,c)       memset(a,b,c)
 #define MEMCHR(a,b,c)       memchr(a,b,c)

@@ -59,15 +59,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#define _NO_CFIO
 #endif
 
-#define  RLING_USE_GLOBAL_MEM
+/*#define  RLING_USE_GLOBAL_MEM*/
 
 #ifdef RLING_USE_GLOBAL_MEM
 #include <windows.h>
 #endif
 
 #include "resource.h"
-#include "CRLDefines.h"
-#include "CRLMemory.h"
+#include "crldefines.h"
+#include "crlmemory.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //

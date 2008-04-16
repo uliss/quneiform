@@ -67,18 +67,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #define __RLINGS__
 #endif
 
-#include <windows.h>
+/*#include <windows.h>*/
 
 #include "resource.h"
-#include "RLControl.h"
+#include "rlcontrol.h"
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 // хидер для второй копии (только для первой)   
 #if !defined ( RLING_SECONDARY ) //& defined (RLING_MASTER)
   #define RLING_SECONDARY
-  #include "CRLing.h"
+  #include "crling.h"
   #undef RLING_SECONDARY
 #endif
-#include "CRLing.h"
+#include "crling.h"
+
+#include "compat_defs.h"
+
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 Word16            gwHeightRC = 0;
 Word16            gwLowRC = 0;
@@ -89,6 +92,11 @@ CRLControl *      Control = NULL;
 void SetReturnCode(Word16 rc);
 Word16 GetReturnCode();
 ///////////////////////////////////////////////////////////////////////////////////
+
+// FIXME: temp hack
+#undef APIENTRY
+#define APIENTRY
+
 BOOL APIENTRY DllMain( HINSTANCE hModule, 
                         DWORD ul_reason_for_call, 
                         LPVOID lpReserved )

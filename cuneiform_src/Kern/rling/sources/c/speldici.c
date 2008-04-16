@@ -104,7 +104,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "speldefs.h"
   #include "spelfunc.h"
   #include "udicfunc.h"
-  #include "TigerEmulate.h"
+  #include "tigeremulate.h"
 
   #ifndef MAXPATH
     #define MAXPATH 128

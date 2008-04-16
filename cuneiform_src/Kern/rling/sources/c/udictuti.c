@@ -94,9 +94,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "udicfunc.h"
 //  #include "iolib.h"
 //  #include "status.h"
-  #include "lang.H"
-  #include "TigerEmulate.h"
+  #include "lang.h"
+  #include "tigeremulate.h"
 
+#include "compat_defs.h"
+    
 	      /***        P R O T O T Y P E S       ****/
 
  static INT UserDictRDWR( BYTE * word,voc_state * user_dict,INT weight,INT mode);

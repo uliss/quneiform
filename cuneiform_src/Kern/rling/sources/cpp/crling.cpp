@@ -61,8 +61,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 #include "resource.h"
-#include "RLControl.h"
-#include "CRLing.h"
+#include "rlcontrol.h"
+#include "crling.h"
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 // exteren globals
 extern CRLControl * Control;

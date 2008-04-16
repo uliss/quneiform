@@ -517,7 +517,7 @@ typedef struct tab
 /*  I have exclude static dictionary internal structures from this file   */
 /*  and have create new header file SPELLDICT.H.                          */
 
-#include "SPELDICT.H"
+#include "speldict.h"
 
 /***************************************************************************/
 /*          data types & definitions for edconv()                          */

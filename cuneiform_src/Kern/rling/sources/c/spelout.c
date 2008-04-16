@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
   //////////////////////
   //AK change : 27.01.99
-  #include "TigerEmulate.h"
+  #include "tigeremulate.h"
   void	ErrorExit(int Code);
   // end AK
 
@@ -586,7 +586,7 @@ INT outpos_ins_shift (SOBJ * obj, INT pos, BYTE cnew)
 				/* either insert in old segm or not: */
   {                                 /* old segm is full, set newsegm       */
 				    /* everywhere after the pos inserted:  */
-   shift= (LONG)(SPQ.ns_symb-(CHAR  *)(lt));
+   shift= (LONG)(SPQ.ns_symb-(BYTE  *)(lt));
    for(pi=pos+1; pi<endpos; pi++)
     {
      if(obj->pos[pi].tif_ref.segm!=segm) /* other segm then in ins-pos ?   */
@@ -718,7 +718,7 @@ INT shift_left(INT v_s,struct segm * cur_segm, CHAR * cur_symb)
  *****************************************************/
   if(cur_segm == SPQ.ns_segm)
   {
-   if (cur_segm->busy_lth+v_s == SPQ.ns_symb-(CHAR *)cur_segm->string+2)
+   if (cur_segm->busy_lth+v_s == SPQ.ns_symb-(BYTE *)cur_segm->string+2)
    {
     BYTE  *symb;
                        /* Set SPQ.ns_symb onto the last line position */
