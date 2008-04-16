@@ -41,6 +41,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "minmax.h"
 
+#ifdef __cplusplus
+    extern "C" {
+#endif
+
 #ifndef BOOL
 #define BOOL int
 #endif
@@ -71,7 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define DWORD unsigned long int 
 #endif
 
-typedef int (* _CRT_ALLOC_HOOK) (int, void *, size_t, int, long, const char *, int);
+typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int);
     
 #ifndef LPVOID
 #define LPVOID void*
@@ -180,7 +184,7 @@ void _splitpath(const char *path, char *drive, char *dir,
                 char *fname, char *ext);
 */
 int CreateDirectory(const char *dir, void *dummy);
-char *_fullpath(char *absPath, const char *relPath, size_t maxLength);
+char *_fullpath(char *absPath, const char *relPath, int maxLength);
 void CopyMemory(void *Destination, const void* Source, int length); // memcpy
 DWORD GetTempPath(DWORD nBufferLength, LPTSTR lpBuffer);
 int RemoveDirectory(const char *d);
@@ -192,7 +196,7 @@ int GetTempFileName(LPCTSTR lpPathName, LPCTSTR lpPrefixString,
 int GetLastError();
 
 /* A bunch of windows DLL initialisation values. I don't know the
- * real values of these, so I just put in some values. They are not
+ * real values of these, so I just put in random values. They are not
  * used anyway, so no harm.
  */
 
@@ -316,5 +320,8 @@ int GetLastError();
 #define GPTR 8888
 #endif
 
-
+#ifdef __cplusplus
+    }
+#endif
+    
 #endif

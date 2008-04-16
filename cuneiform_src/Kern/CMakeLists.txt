@@ -24,6 +24,6 @@ add_subdirectory(cfio)
 add_subdirectory(puma)
 add_subdirectory(rline)
 
-add_executable(pumatest pumatest.cpp hdebug/__snp.c)
+add_executable(pumatest pumatest.cpp windummy hdebug/__snp.c)
 target_link_libraries(pumatest puma ccom cstr rstr rpstr cline
 fon leo evn32 cpage cimage rline cfio)
