@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //* CTB_CNVM.C :       convert memory functions **************************//
 //************************************************************************//
 
-#include "CTB.h"
+#include "ctb.h"
 
 static void conv_bits_to_bytes8(Word8 *bits,   Word8 *bytes, Int16 l);
 static void conv_bytes_to_bits8(Word8 *bytes,  Word8 *bits, Int16 l);

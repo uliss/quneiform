@@ -26,6 +26,7 @@ add_subdirectory(rline)
 add_subdirectory(rcutp)
 add_subdirectory(dif)
 add_subdirectory(msk)
+add_subdirectory(ctb)
 
 set(RPSTR_LIBS rpstr rstr rling mmx pass2 rbal cline leo rlings rsadd
 fon msk evn32 cstr ctb32 dif rcutp ccom)
@@ -36,4 +37,4 @@ cimage loc rdib cfio)
 add_executable(pumatest pumatest.cpp windummy hdebug/__snp.c)
 target_link_libraries(pumatest 
 puma rline cpage cimage cfio 
-rpstr rstr cline leo msk evn32 fon cstr dif rcutp ccom)
+rpstr rstr cline leo msk evn32 fon cstr ctb32 dif rcutp ccom)

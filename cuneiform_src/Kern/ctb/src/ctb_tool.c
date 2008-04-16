@@ -64,13 +64,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include<stdio.h>
 #include<string.h>
-#include<sys\stat.h>
-#include<direct.h>
+#include<sys/stat.h>
+/*#include<direct.h>*/
 #include<stdlib.h>
 #include<ctype.h>
-#include<io.h>
+/*#include<io.h>*/
 
-#include "CTB.h"
+#include "ctb.h"
 
 //********************************************************************
 //*************** static data : **************************************

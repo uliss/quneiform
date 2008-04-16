@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <string.h>
 
-#include "CTB.h"
+#include "ctb.h"
 
 static int  my_fgets(void);
 static void str_to_bmp(char *buf,unsigned char *rast,int h,int ww,int w_last);

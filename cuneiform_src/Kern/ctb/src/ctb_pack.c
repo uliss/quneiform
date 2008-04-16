@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //************************************************************************//
 //* CTB_pack : PCX pack-unpack functions *********************************//
 //************************************************************************//
-#include "CTB.h"
+#include "ctb.h"
 Int16 encput( Word8 byt, Word8 cnt,Word8 *save)
 {
 if( cnt )

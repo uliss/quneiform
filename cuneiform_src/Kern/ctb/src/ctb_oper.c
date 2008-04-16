@@ -60,8 +60,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define MAXPATH 256
 #include<string.h>
-#include<sys\stat.h>
-#include "CTB.h"
+#include<sys/stat.h>
+#include "ctb.h"
 
 /// extern fuxntions and data
 extern char * ctb_last_punct(char *word);
