@@ -171,8 +171,9 @@ int GetCountCutLetters(CCOM_comp* comp, Word8* pmasp)
  int count_black=0;
  int i;
  int k;
+ int j;
  
- for(int j=h-1;j>=0;j--)
+ for(j=h-1;j>=0;j--)
  {
   newstr=j*bytewide;
   count_black=0;
@@ -340,7 +341,8 @@ BOOL GetMasP(Rect16 Rc,Word8** ppmasp)
 /*********************************************************************************************/
 BOOL JNotInMas2(int j,int* mas,int size,int bound)
 {
-  for(int i=j+medium_h;i>=j;i--)
+  int i;
+  for(i=j+medium_h;i>=j;i--)
   {
 	for(int k=size-1;k>bound;k--)
 	{

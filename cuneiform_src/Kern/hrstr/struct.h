@@ -463,7 +463,7 @@ struct str_struc
  WORD scale;            // scale of the string
  INT fragment;          // fragment of the string
  BYTE language;         // language of the string
- c_comp *c_comp[1];       // array of ptrs to components
+ c_comp *ccomp[1];       // array of ptrs to components
  };
 typedef struct str_struc str;
 

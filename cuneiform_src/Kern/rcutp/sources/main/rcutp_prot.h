@@ -92,4 +92,4 @@ INT  Alik_define_cut_points(PCHAR,struct own_cut *,INT,INT,INT);
 //EXTERN Handle hDebugMy            VAL( NULL );
 //EXTERN Handle hDebugCutP          VAL( NULL );
 
-#endif // __rcutp_prot_h__
+#endif // __rcutp_prot_h_

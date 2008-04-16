@@ -56,7 +56,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // RCUTP.cpp : Defines the entry point for the DLL application.
 //
-#include "StdAfx.h"
+/*#include "StdAfx.h"*/
+#include <stdlib.h>
 #include "resource.h"
 #include "rcutp.h"
 #include "rcutp_prot.h"
@@ -64,6 +65,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "dpuma.h"
 #include "dsnap.h"
+
+#include "compat_defs.h"
 
 //--------------------------GLOBAL VARIABLES------------------------
 Int16      minrow,bbs1,bbs2,bbs3,bbs4,Nb1,Nb2,Nb3;

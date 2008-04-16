@@ -66,14 +66,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "recdefs.h"
 
 extern  Int16      minrow,bbs1,bbs2,bbs3,bbs4,Nb1,Nb2,Nb3;
-#ifndef max
-#define max(a,b)            (((a) > (b)) ? (a) : (b))
-#endif
 
-#ifndef min
-#define min(a,b)            (((a) < (b)) ? (a) : (b))
-#endif
-
+#include "minmax.h"
 
 void snap_clear_screen(void);
 
