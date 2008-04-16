@@ -75,7 +75,7 @@ Word8   alphabet[256];
 Bool32  digit_mode = FALSE, dif_adding_mode ;
 Word8   language;
 Int32   dif_typ_of_font=0;
-#define min(a, b)  (((a) < (b)) ? (a) : (b))
+#include "minmax.h"
 
 extern Int16 broken_ii;
 extern Word8 broken_flag;

@@ -235,8 +235,10 @@ num_flag_conc (l, wide);
 //////*l_mode = (lm-corr_mode)>>2;
 ///*l_mode = left_mode_EEM = (lm-corr_mode)>>2;	// 05.08.1993	SOPLI I WOPLI
 ///*r_mode = (rm-corr_mode)>>2;
-s->left_mode  = (Word8)*l_mode = (lm-corr_mode)>>2;	// 07.01.1994
-s->right_mode =(Word8) *r_mode = (rm-corr_mode)>>2;
+    *l_mode = (lm-corr_mode)>>2;	// 07.01.1994
+    s->left_mode  = (Word8)*l_mode; 
+    *r_mode = (rm-corr_mode)>>2;
+    s->right_mode =(Word8) *r_mode;
 //////s->full_width = l->max_flag + wide + r->max_flag;	// 07.01.1994	###
 s->full_width = (s->right_mode - s->left_mode + 1) +	// 07.01.1994
 		l->max_flag + r->max_flag;
