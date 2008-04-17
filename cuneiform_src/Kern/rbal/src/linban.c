@@ -71,7 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "tuner.h"
 
 #include "wrgb.h" //IGOR
-#include "StatSearchBL.h" //IGOR
+#include "statsearchbl.h" //IGOR
 
 //IGOR
 #define draw_puma_bl(n,l)	rs.y = re.y = minrow + bbs##n;	\
@@ -79,12 +79,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define draw_stat_bl(n,l)	rs.y = re.y = minrow + m_attr.bs##n;\
 							snap_draw_line(NULL, &rs, &re, (INT)nIncline/2, rgb, -100, 2##l)
 #define draw_bl_marking(n,l)	rsm.y = rs.y - 1; rem.y = rs.y + 1;	\
-								for(mc = 0; mc < ##n; mc++)	\
+								for(mc = 0; mc < n; mc++)	\
 								{	\
 									rsm.x = rs.x - 1 + mc*5; rem.x = rs.x + 1 + mc*5;	\
 									snap_draw_line(NULL, &rsm, &rem, (INT)nIncline/2, rgb, -100, 1##l);\
 								}
-#define del_bl(m,l)			snap_del_line(NULL, ##m##l);
+#define del_bl(m,l)			snap_del_line(NULL,  m##l);
 //IGOR
 
 #ifdef UFA

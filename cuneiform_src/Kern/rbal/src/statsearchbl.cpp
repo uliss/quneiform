@@ -57,13 +57,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // StatSearchBL.cpp : implementation file
 //
 #include <memory.h> 
-#include <windows.h>
-#include <Winbase.h>
+/*#include <windows.h>
+#include <Winbase.h>*/
 #include <string.h>
+#include <stdlib.h>
 
 //#include "puma.h"
 #include "dpuma.h"
-#include "StatSearchBL.h"
+#include "statsearchbl.h"
 #include "gistogramma.h"
 
 #define Pb1 0.05
@@ -72,9 +73,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define Pb4 0.11
 #define	G   1
 #define GE  2
-#define max(a,b) (((a) > (b)) ? (a) : (b))
-#define min(a,b) (((a) < (b)) ? (a) : (b))
 #define LNCNST 100
+
+#include "minmax.h"
 
 INT minrow;
 
@@ -85,8 +86,8 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr,
 
 	ROW_STRUCT row_str;	
 
-	Int16 sz_FreqY2Arr = _msize(p_FreqY2Arr) / sizeof(Int16);
-	Int16     sz_Y2Arr = _msize(p_Y2Arr) / sizeof(Int16);
+	Int16 sz_FreqY2Arr = malloc_usable_size(p_FreqY2Arr) / sizeof(Int16);
+	Int16     sz_Y2Arr = malloc_usable_size(p_Y2Arr) / sizeof(Int16);
 //	if(p_attr->number == 39) DebugBreak();// && p_attr->language == 0
 
 	//главный максимум
@@ -1225,9 +1226,9 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 
 	ROW_STRUCT row_str;	
 
-	Int16 sz_FreqY1Arr = _msize(p_FreqY1Arr) / sizeof(Int16);
-	Int16     sz_Y1Arr = _msize(p_Y1Arr) / sizeof(Int16);
-	Int16     sz_Y2Arr = _msize(p_Y2Arr) / sizeof(Int16);
+	Int16 sz_FreqY1Arr = malloc_usable_size(p_FreqY1Arr) / sizeof(Int16);
+	Int16     sz_Y1Arr = malloc_usable_size(p_Y1Arr) / sizeof(Int16);
+	Int16     sz_Y2Arr = malloc_usable_size(p_Y2Arr) / sizeof(Int16);
 	Int16    min_Y1Arr = p_Y1Arr[stat_index_GlobMin(p_Y1Arr, sz_Y1Arr)];
 
 // 	if(p_attr->number == 161) DebugBreak(); // && p_attr->language == 0
@@ -1411,8 +1412,8 @@ void stat_FormArrays(CSTR_line line, Int16 row, Int16 *p_Y1Array, Int16 *p_Y2Arr
 {
 	if(p_Y1Array == NULL || p_Y2Array == NULL) return;
 
-	Int16  sz_Y1Array = _msize(p_Y1Array) / sizeof(Int16);
-	Int16  sz_Y2Array = _msize(p_Y2Array) / sizeof(Int16);
+	Int16  sz_Y1Array = malloc_usable_size(p_Y1Array) / sizeof(Int16);
+	Int16  sz_Y2Array = malloc_usable_size(p_Y2Array) / sizeof(Int16);
 
 	if(sz_Y1Array == 0 || sz_Y2Array == 0) return;
 
@@ -1472,7 +1473,7 @@ void stat_FormArrays(CSTR_line line, Int16 row, Int16 *p_Y1Array, Int16 *p_Y2Arr
 void StatSearchBL(CSTR_line line, CSTR_attr *p_attr, 
 				  Int16 *Ns1, Int16 *Ns2, Int16 *Ns3, Int16 *Ns4)
 {
-	Int16  n = stat_LineLength(line);  //_msize(pY1Array) / sizeof(Int16) - размерность pY1Array и pY2Array
+	Int16  n = stat_LineLength(line);  //malloc_usable_size(pY1Array) / sizeof(Int16) - размерность pY1Array и pY2Array
 	Int16 *pY1Array = (Int16 *) malloc(sizeof(Int16) * n);
 	Int16 *pY2Array = (Int16 *) malloc(sizeof(Int16) * n);
 
@@ -1573,7 +1574,7 @@ BOOL stat_FormCSTR_attrArray(Int32 line_start, Int32 line_stop, CSTR_attr *pCSTR
 {
 	if(line_stop > CSTR_GetMaxNumber() || pCSTR_attrArray == NULL) return FALSE;
 
-	Int16 sz = _msize(pCSTR_attrArray) / sizeof(CSTR_attr);
+	Int16 sz = malloc_usable_size(pCSTR_attrArray) / sizeof(CSTR_attr);
 	if(sz < line_stop - line_start) return FALSE;
 
 	for(Int32 l = 0; l < line_stop - line_start; l++)
@@ -1691,7 +1692,7 @@ Int16 stat_Mode_diff_b2_b1(Int32 line_number, Int16 diff_b3_b2)
 						Int16 *pFrequencyArray = stat_gistoGramma(p_diff, jCount);
 						if(pFrequencyArray != NULL)
 						{
-							Int16 szFrequencyArray = _msize(pFrequencyArray) / sizeof(Int16);
+							Int16 szFrequencyArray = malloc_usable_size(pFrequencyArray) / sizeof(Int16);
 							Int16          minArray = p_diff[stat_index_GlobMin(p_diff,jCount)];
 							Int16 maxFrequencyArray = stat_index_GlobMax(pFrequencyArray,szFrequencyArray, G);
 							if(szFrequencyArray != 0) free(pFrequencyArray);
@@ -1717,8 +1718,9 @@ Int16 stat_Left_diff_from_max(Int16 *p_FrequencyArray, Int16 max_FrequencyArray)
 {
 	Int16 jret = -1;
 	Int16 derivative = 0;
+	Int16 i;
 
-	for(Int16 i = max_FrequencyArray - 1; i >= 0; i--)
+	for(i = max_FrequencyArray - 1; i >= 0; i--)
 	{
 		if(p_FrequencyArray[i] == 0)
 		{
@@ -1746,11 +1748,12 @@ Int16 stat_Left_diff_from_max(Int16 *p_FrequencyArray, Int16 max_FrequencyArray)
 
 Int16 stat_Right_diff_from_max(Int16 *p_FrequencyArray, Int16 max_FrequencyArray)
 {
-	Int16 sz = _msize(p_FrequencyArray) / sizeof(Int16);
+	Int16 sz = malloc_usable_size(p_FrequencyArray) / sizeof(Int16);
 	Int16 jret = sz - max_FrequencyArray + 1;
 	Int16 derivative = 0;
+	Int16 i;
 
-	for(Int16 i = max_FrequencyArray + 1; i < sz; i++)
+	for(i = max_FrequencyArray + 1; i < sz; i++)
 	{
 		if(p_FrequencyArray[i] == 0)
 		{
@@ -1818,7 +1821,7 @@ Int16 stat_Mode_diff_b3_b4(Int32 line_number, Int16 diff_b3_b2)
 						Int16  *pFrequencyArray = stat_gistoGramma(p_diff, jCount);
 						if(pFrequencyArray != NULL)
 						{						
-							Int16  szFrequencyArray = _msize(pFrequencyArray) / sizeof(Int16);
+							Int16  szFrequencyArray = malloc_usable_size(pFrequencyArray) / sizeof(Int16);
 							Int16          minArray = p_diff[stat_index_GlobMin(p_diff,jCount)];
 							Int16 maxFrequencyArray = stat_index_GlobMax(pFrequencyArray,szFrequencyArray, G);
 							if(szFrequencyArray != 0) free(pFrequencyArray);
@@ -1887,7 +1890,7 @@ Int16 stat_Mode_diff_b2_b3(Int32 line_number, Int16 diff, Int16 fl_b2_or_b1)
 						Int16  *pFrequencyArray = stat_gistoGramma(p_diff, jCount);
 						if(pFrequencyArray != NULL)
 						{						
-							Int16  szFrequencyArray = _msize(pFrequencyArray) / sizeof(Int16);
+							Int16  szFrequencyArray = malloc_usable_size(pFrequencyArray) / sizeof(Int16);
 							Int16          minArray = p_diff[stat_index_GlobMin(p_diff,jCount)];
 							Int16 maxFrequencyArray = stat_index_GlobMax(pFrequencyArray,szFrequencyArray, G);
 							if(szFrequencyArray != 0) free(pFrequencyArray);

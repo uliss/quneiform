@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "linear.h"
 #include "ligas.h"
 
-#include "BaL.h"
+#include "bal.h"
 
 extern INT it_done;
 static Int16 skew_corr_stat(CSTR_line ln, INT pool_src);
