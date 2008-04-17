@@ -54,10 +54,11 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "MMX.h"
+#include "mmx.h"
 
 MMX_FUNC(Word32) MMX_scalar(Word32 _EAX, Word32 _EDX)
 {
+#ifdef WIN32
 _asm{
     mov eax, _EAX
     mov edx, _EDX
@@ -92,6 +93,7 @@ _asm{
 
     //RET
 	}
+#endif
 }
 
 
@@ -99,6 +101,7 @@ _asm{
 
 MMX_FUNC(Word32) MMX_scalar16_(Word32  _EAX, Word32 _EDX)
 {
+#ifdef WIN32
 _asm{
     mov edx, _EDX
 
@@ -124,10 +127,12 @@ _asm{
 
     //RET
     }
+#endif
 }
 
 MMX_FUNC(void) MMX_open_image(Word16 *_EAX)
 {
+#ifdef WIN32
 _asm{
     mov eax, _EAX
 
@@ -138,20 +143,24 @@ _asm{
 
     //RET
     }
+#endif
 }
 
 MMX_FUNC(void) MMX_close_image(void)
 {
+#ifdef WIN32
 _asm{
 
     EMMS
 
     //RET
     }
+#endif
 }
 
 MMX_FUNC(Word32) MMX_scalar_sq(Word16 *_EAX,Int32 _ECX)
 {
+#ifdef WIN32
 _asm{
     mov		eax,	_EAX
 	mov		ecx,	_ECX
@@ -185,10 +194,12 @@ cykl:
 	EMMS
 
     }
+#endif
 }
 
 MMX_FUNC(void) MMX_scale( Word16 *_EAX, Int32 _ECX, Int32 _EDX)
 {
+#ifdef WIN32
 _asm{
 	mov		eax,	_EAX
 	mov		ecx,	_ECX
@@ -217,10 +228,12 @@ cykl:
 
 	//RET
     }
+#endif
 }
 
 MMX_FUNC(void) MMX_binarize_16x16(Word16 *rin,Word8 *rout)
 {
+#ifdef WIN32
 _asm{
     mov     eax,    rin
 
@@ -288,4 +301,5 @@ _loop:
 
     EMMS
     }
+#endif
 }

@@ -73,7 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*#define     _USE_DFON_ 1         // use DFON    library*/
 #define     _USE_FON_ 1          // use DFON    library
 #define     _USE_CTB_ 1          // use CTB     library
-#define     _USE_MMX_ 1          // use MMX     library
+/*#define     _USE_MMX_ 1          // use MMX     library*/
 #define     _USE_STD_ 1          // use STD     library
 #define     _USE_RSADD_ 1        // use RSADD   library
 ////////////////////////////////////////////////////////////////////

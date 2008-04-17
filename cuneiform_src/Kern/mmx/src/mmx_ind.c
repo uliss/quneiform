@@ -54,7 +54,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include"MMX.h"
+#include"mmx.h"
 
 extern   Word32 bit_cnt[];
 
@@ -63,6 +63,7 @@ extern   Word32 bit_cnt[];
 //
 MMX_FUNC(Bool32) MMX_anding(Int32 *image,Word16 *etalons,Int32 L)
 {
+#ifdef WIN32
 _asm    {
         
         mov     edx,    etalons
@@ -343,12 +344,13 @@ retur:
 		add		eax,	L
         }
         
-        
+#endif  
 }        
         
 
 MMX_FUNC(void) MMX_open( Int32 *image)
 {
+#ifdef WIN32
 _asm    {
 		mov     edx,    image
 		movq	mm2,	[edx]	     ;   MM2 = (image   = iobraz)
@@ -358,10 +360,12 @@ _asm    {
 		movq	mm6,	[edx+16]	 ;   MM6 = (image   = iobraz)
     	movq	mm7,	[edx+8*4+16] ;   MM7 = (image+8 = iobraz2)
         }
+#endif
 }
 
 MMX_FUNC(void) MMX_close(void)
 {
-
+#ifdef WIN32
 _asm		EMMS
+#endif
 }

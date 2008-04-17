@@ -54,12 +54,13 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include"MMX.h"
+#include"mmx.h"
 
 //       Word32   MMX_scalarUni (Int16 * _EAX, Int16 * _EDX, Int32 num)
 //		return  0 if num<=0
 MMX_FUNC(Word32)   MMX_scalarUni (Int16 * _EAX, Int16 * _EDX, Int32 num)
 {
+#ifdef WIN32
 _asm{
 	mov eax, _EAX
 	mov edx, _EDX
@@ -106,6 +107,7 @@ save_res:
 
 	EMMS
     }
+#endif
 }
 
 //
@@ -113,6 +115,7 @@ save_res:
 //
 MMX_FUNC(Word32) MMX_scalar16 (Int16 * _EAX, Int16 * _EDX)
 {
+#ifdef WIN32
 _asm{
 	mov eax, _EAX
 	mov edx, _EDX
@@ -143,6 +146,7 @@ _asm{
 
 	EMMS
     }
+#endif
 }
 
 //
@@ -150,6 +154,7 @@ _asm{
 //
 MMX_FUNC(Word32) MMX_scalar36 (Int16 * _EAX, Int16 * _EDX)
 {
+#ifdef WIN32
 _asm{
 	mov eax, _EAX
 	mov edx, _EDX
@@ -206,6 +211,7 @@ _asm{
 
 	EMMS
     }
+#endif
 }
 
 
