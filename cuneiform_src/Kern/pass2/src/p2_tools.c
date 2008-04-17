@@ -59,12 +59,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  #include <stdlib.h>
  #include <sys/stat.h>
- #include <io.h>
+ /*#include <io.h>*/
 
  #include "nt_types.h"
  #include <stdio.h>
  #include <fcntl.h>
- #include <direct.h>
+/* #include <direct.h>*/
  #include <string.h>
 
 #include "cstr.h" // OLEG

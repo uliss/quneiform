@@ -177,6 +177,10 @@ static int prevLine = -11;
 static int prevLang = -1;
 /*======= Local funcs ==================*/
 // установить язык
+FON_FUNC(Int32) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
+                              CSTR_rast firNew,CSTR_rast lasNew,
+                              int lang, int porog, int nNaklon, int nRazmaz);
+
 static void p2_SetLanguage(CSTR_rast first, CSTR_rast last, Word8 lang);
 static int BrokenRerecog(CSTR_rast first,CSTR_rast last,CSTR_line lineRaw,Bool32 single);
 static int GlueRerecog(CSTR_rast first,CSTR_rast last, CSTR_line lineRaw,Bool32 boAll);
@@ -2079,9 +2083,6 @@ static const BYTE bigPuncts[]=":;";
 static int BrokenRerecog(CSTR_rast first,CSTR_rast last,CSTR_line lineRaw,
 						 Bool32 single)
 {
-FON_FUNC(Int32) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
-							  CSTR_rast firNew,CSTR_rast lasNew,
-						      int lang, int porog, int nNaklon, int nRazmaz);
 CSTR_rast rst;
 RecVersions     verOld;
 CSTR_rast_attr  attr;

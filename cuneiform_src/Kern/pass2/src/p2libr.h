@@ -54,7 +54,11 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifndef P2LIBR_H_
+#define P2LIBR_H_
+
 //#include "sfont.h"
+#include "fondefs.h"
 
 // p2_tools.c
 Bool32 p2_StoreVersions(CSTR_rast rast,RecVersions *rver);
@@ -71,8 +75,10 @@ void	p2_init		(void);
 
 // p2_choice.c
 Int32  p2_leoMixture(CSTR_rast rast,RecVersions *old,RecVersions *ver,
-						void *fontinfo );
+						FontInfo *fontinfo );
 Bool32 p2_leo_choise_fon_or_leo(Word8 p_fon,Word8 p_leo);
 Int32  p2_leo_sort_vers_prob(RecVersions *v);
 //============ Global Data ============
 //extern BOOL pass4_in;
+
+#endif
