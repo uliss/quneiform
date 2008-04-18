@@ -69,6 +69,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "std.h"
 #include "alphaset.h"
 #include "leo_func.h"
+
+#include "minmax.h"
+
 // extern data
 extern unsigned char alphabet[];
 extern Word8 nIsPrint;

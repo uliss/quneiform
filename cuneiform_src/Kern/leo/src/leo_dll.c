@@ -79,6 +79,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "std.h"
 #include "snptools.h"*
 #include "snpdefs.h"
+
+#include "minmax.h"
+
 Word8 field_number=0;
 Bool32 leo_enable_fon_recog=FALSE;
 Bool32 leo_Snp_In_Rect=FALSE;
