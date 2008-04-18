@@ -82,4 +82,13 @@ int WideCharToMultiByte(UINT CodePage, DWORD dwFlags,LPCWSTR lpWideCharStr,
 
 BOOL ShowWindow(HWND hWnd, int nCmdShow);
 
+long _filelength(int fd);
+long _msize(void *memblock);
+int _access(const char *filename, int mode);
+BOOL SetWindowText(HWND hWnd,LPCTSTR lpString);
+int ReleaseDC(HWND hWnd, HDC hDC);
+BOOL IsIconic(HWND hWnd);
+int _chdir(const char *dirname);
+HDC GetDC(HWND hWnd);
+
 #endif

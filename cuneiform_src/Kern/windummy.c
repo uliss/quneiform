@@ -26,6 +26,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <assert.h>
+
 #include "compat_defs.h"
 
 /* Stub functions for Windows functions. These do nothing and will get
@@ -150,3 +155,45 @@ int WideCharToMultiByte(UINT CodePage, DWORD dwFlags,LPCWSTR lpWideCharStr,
 BOOL ShowWindow(HWND hWnd, int nCmdShow) {
     return 0;
 }
+
+long _filelength(int fd) {
+    struct stat foo;
+    if(fstat(fd, &foo) != 0) {
+        return 0;
+    }
+    return foo.st_size;
+}
+
+long _msize(void *memblock) {
+    return malloc_usable_size(memblock);
+}
+
+/* All uses in Cuneiform just check if the file exists. Ignoring all other
+ * cases.
+ */
+int _access(const char *filename, int mode) {
+    struct stat foo;
+    assert(mode == 0);
+    return stat(filename, &foo);
+}
+
+BOOL SetWindowText(HWND hWnd,LPCTSTR lpString) {
+    return 0;
+}
+
+int ReleaseDC(HWND hWnd, HDC hDC) {
+    return 0;
+}
+
+BOOL IsIconic(HWND hWnd) {
+    return 0;
+}
+
+int _chdir(const char *dirname) {
+    return chdir(dirname);
+}
+
+HDC GetDC(HWND hWnd) {
+    return 0;
+}
+
