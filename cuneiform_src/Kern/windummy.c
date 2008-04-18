@@ -197,3 +197,33 @@ HDC GetDC(HWND hWnd) {
     return 0;
 }
 
+BOOL EndPaint(HWND hWnd, ...) {
+    return 1;
+}
+
+HDC BeginPaint(HWND hwnd,...) {
+    return 0;
+}
+
+LRESULT SendMessage(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
+    return 0;
+}
+
+void strlwr(char *foo) {
+    // FIXME: this is probably actually used somewhere.
+}
+
+HWND CreateWindow(      
+    LPCTSTR lpClassName,
+    LPCTSTR lpWindowName,
+    DWORD dwStyle,
+    int x,
+    int y,
+    int nWidth,
+    int nHeight,
+    HWND hWndParent,
+    HMENU hMenu,
+    HINSTANCE hInstance,
+    LPVOID lpParam) {
+    return (HWND) 55;
+}

@@ -90,5 +90,21 @@ int ReleaseDC(HWND hWnd, HDC hDC);
 BOOL IsIconic(HWND hWnd);
 int _chdir(const char *dirname);
 HDC GetDC(HWND hWnd);
-
+BOOL EndPaint(HWND hWnd, ...);
+HDC BeginPaint(HWND hwnd,...);
+LRESULT SendMessage(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
+void strlwr(char *foo);
+HWND CreateWindow(      
+    LPCTSTR lpClassName,
+    LPCTSTR lpWindowName,
+    DWORD dwStyle,
+    int x,
+    int y,
+    int nWidth,
+    int nHeight,
+    HWND hWndParent,
+    HMENU hMenu,
+    HINSTANCE hInstance,
+    LPVOID lpParam
+);
 #endif

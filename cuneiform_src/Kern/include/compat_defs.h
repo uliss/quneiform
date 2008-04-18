@@ -192,6 +192,16 @@ struct _finddata_t {
     char    name[260];
 };
 
+/*
+typedef struct tagPAINTSTRUCT { 
+  HDC  hdc; 
+  BOOL fErase; 
+  RECT rcPaint; 
+  BOOL fRestore; 
+  BOOL fIncUpdate; 
+  unsigned char rgbReserved[32]; 
+} PAINTSTRUCT, *PPAINTSTRUCT; 
+*/
 typedef int HKEY;
 
 typedef int * PHKEY;
@@ -244,6 +254,12 @@ typedef int REGSAM;
 #ifndef INVALID_HANDLE_VALUE
 #define INVALID_HANDLE_VALUE NULL
 #endif
+
+#ifndef LRESULT
+#define LRESULT int
+#endif
+
+#define HMENU int
 
 #include "split.h"
 #include "winfuncs.h"
