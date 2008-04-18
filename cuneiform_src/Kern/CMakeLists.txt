@@ -34,8 +34,9 @@ add_subdirectory(std)
 add_subdirectory(pass2)
 add_subdirectory(rbal)
 add_subdirectory(mmx)
+add_subdirectory(r35)
 
-set(RPSTR_LIBS rpstr rstr rling mmx pass2 rbal cline leo rlings rsadd
+set(RPSTR_LIBS rpstr rstr rling mmx pass2 rbal cline leo r35 rlings rsadd
 fon msk evn32 cstr ctb32 dif rcutp ccom)
 set(PUMA_LIBS puma rcorrkegl marker rstuff rpic rline meg smetric rreccom
 lns32 rhellines rfmrt rsestr rblock rout rverline rimage exc ced cpage
@@ -49,5 +50,4 @@ target_link_libraries(rpstrtest ${RPSTR_LIBS})
 #
 #puma rline cpage cimage cfio 
 #
-#rpstr rstr cline leo rling rlings mmx pass2 rbal rsadd std32 msk evn32 fon cstr ctb32 
-#dif rcutp ccom)
+#${RPSTR_LIBS})

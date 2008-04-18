@@ -57,15 +57,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <fcntl.h>
 #include <string.h>
-#include <io.h>
+/*#include <io.h>*/
 #ifndef PPS_MAC
-	#include <sys\stat.h>
-    #include <malloc.h>
+	#include <sys/stat.h>
 #else
 	#include <unix.h>
 
-	#define	min(a,b)	(((a)<(b))?(a):(b))
-	#define	max(a,b)	(((a)>(b))?(a):(b))
 #endif
 #include <stdio.h>
 
@@ -73,6 +70,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "r35.h"
 #include "mmx.h"
 #include "std.h"
+
+#include "compat_defs.h"
+#include "minmax.h"
 
 #define MTR_LEARN1
 
@@ -1725,14 +1725,14 @@ else if( proport==1 )
     if( w0>h0 )
         {
         memset(Image3x5,0,to_x*to_y*sizeof(Image3x5[0]));
-        to_y = max((h0*to_y)/w0,1);
+        to_y = MAX((h0*to_y)/w0,1);
         ret = r35_pack(rast, wb, 0,0, w,h, Image3x5,to_x, to_y  );
         }
     else if( w0<h0 )
         {
         memset(Image3x5,0,to_x*to_y*sizeof(Image3x5[0]));
         swb   = to_x;
-        to_x = max((w0*to_x)/h0,1);
+        to_x = MAX((w0*to_x)/h0,1);
         ret = r35_pack(rast, wb, 0,0, w,h, Im16x16,to_x, to_y  );
         wb   = to_x*sizeof(Image3x5[0]);
         for(iii=ii=i=0;i<to_y;i++,ii+=to_x,iii+=swb)
@@ -1820,14 +1820,14 @@ else
     if( w0>h0 )
         {
         memset(Image3x5,0,to_x*to_y*sizeof(Image3x5[0]));
-        to_y = max((h0*to_y)/w0,1);
+        to_y = MAX((h0*to_y)/w0,1);
         r35_pack_gray(rast, wb, 0,0, w,h, Image3x5,to_x, to_y  );
         }
     else if( w0<h0 )
         {
         memset(Image3x5,0,to_x*to_y*sizeof(Image3x5[0]));
         swb   = to_x;
-        to_x = max((w0*to_x)/h0,1);
+        to_x = MAX((w0*to_x)/h0,1);
         r35_pack_gray(rast, wb, 0,0, w,h, Im16x16,to_x, to_y  );
         wb   = to_x*sizeof(Image3x5[0]);
         for(iii=ii=i=0;i<to_y;i++,ii+=to_x,iii+=swb)
@@ -2004,7 +2004,7 @@ if( !header3x5all || !header3x5all )
   }
 
 memset(vers,0,sizeof(vers));
-nvers = min(res->lnAltCnt,sizeof(vers)/sizeof(vers[0]) );
+nvers = MIN(res->lnAltCnt,sizeof(vers)/sizeof(vers[0]) );
 for(i=0;i<nvers;i++)
 	{
   vers[i].let=res->Alt[i].Code;
@@ -2044,7 +2044,7 @@ if( !header3x5ndx || !header3x5ndx )
   }
 memset(vers,0,sizeof(vers));
 
-nvers = min(res->lnAltCnt,sizeof(vers)/sizeof(vers[0]) );
+nvers = MIN(res->lnAltCnt,sizeof(vers)/sizeof(vers[0]) );
 for(i=0;i<nvers;i++)
 	{
   vers[i].let=res->Alt[i].Code;
@@ -2088,7 +2088,7 @@ if( !header3x5print || !header3x5print )
 
 memset(vers,0,sizeof(vers));
 
-nvers = min(res->lnAltCnt,sizeof(vers)/sizeof(vers[0]) );
+nvers = MIN(res->lnAltCnt,sizeof(vers)/sizeof(vers[0]) );
 for(i=0;i<nvers;i++)
 	{
   vers[i].let=res->Alt[i].Code;

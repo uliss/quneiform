@@ -72,6 +72,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define etap_name 'g'
 #define BYTE    Word8
 #include "ligas.h"
+#include "minmax.h"
+
 static Int16   crsadd_rus1=10;
 static Int16   crsadd_rus2=10;
 static Int16   crsadd_eng1=10;
@@ -300,10 +302,10 @@ if( need_space==1 && c && !(attr.flg&CSTR_f_fict) &&
     if( /*attr.w &&*/ (nattr.flg&(CSTR_f_let|CSTR_f_bad|CSTR_f_punct)) )
         {
         Int16   dist=16000;
-        if( attr.h )    dist = min( dist, attr.h);
-        if(nattr.h )    dist = min( dist,nattr.h);
-        if( attr.w )    dist = min( dist, attr.w);
-        if(nattr.w )    dist = min( dist,nattr.w);
+        if( attr.h )    dist = MIN( dist, attr.h);
+        if(nattr.h )    dist = MIN( dist,nattr.h);
+        if( attr.w )    dist = MIN( dist, attr.w);
+        if(nattr.w )    dist = MIN( dist,nattr.w);
         if( dist!=16000 &&
             !strchr(true_terms,vers.Alt[0].Code) &&
             nattr.col - (attr.col+attr.w)>0 &&
@@ -348,10 +350,10 @@ static Bool32 GoodWordBounds(CSTR_rast cs, CSTR_rast best, Int32 engCol, Int32 e
 			 if( !(rattr.flg & CSTR_f_bad) )
 				 IsGood = TRUE;
 
-			 rect.top = min(rect.top,rattr.row);
-			 rect.bottom = max(rect.bottom,rattr.row+rattr.h);
-			 rect.left = min(rect.left,rattr.col);
-			 rect.right = max(rect.right,rattr.col+rattr.w);
+			 rect.top = MIN(rect.top,rattr.row);
+			 rect.bottom = MAX(rect.bottom,rattr.row+rattr.h);
+			 rect.left = MIN(rect.left,rattr.col);
+			 rect.right = MAX(rect.right,rattr.col+rattr.w);
 
 			 iUp++;
 	}
@@ -368,7 +370,7 @@ static Bool32 GoodWordBounds(CSTR_rast cs, CSTR_rast best, Int32 engCol, Int32 e
 	iUp = (rect.bottom + rect.top)/2 - 1;
 	iDn = (rect.bottom + rect.top)/2 + 1;
 
-	porog = max(3, (rect.bottom-rect.top)/4);
+	porog = MAX(3, (rect.bottom-rect.top)/4);
 
 	if( best )
 	{
@@ -798,9 +800,9 @@ do  {
     rightn  =attr.col+attr.w;
     if( rightn>=left && right>=leftn )
         {
-        Int16   dist=min(attr.h,pattr.h);
-        dist = min( dist, attr.w);
-        dist = min( dist,pattr.w);
+        Int16   dist=MIN(attr.h,pattr.h);
+        dist = MIN( dist, attr.w);
+        dist = MIN( dist,pattr.w);
         if( !strchr(true_terms,vers.Alt[0].Code) &&
 			vers.Alt[0].Code != liga_TM_usual && // Nick 12.01.2001
 			vers.Alt[0].Code != liga_CC_usual &&
@@ -1303,7 +1305,7 @@ BL_small = lattr.bs3-lattr.bs2;
 
 // Nick 29.10.00
 CSTR_GetLineAttr(leng,&lattr); 
-BL_small = min(BL_small, lattr.bs3-lattr.bs2);
+BL_small = MIN(BL_small, lattr.bs3-lattr.bs2);
 
 
 tables=(lattr.tab_column>0);

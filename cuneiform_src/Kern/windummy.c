@@ -147,3 +147,6 @@ int WideCharToMultiByte(UINT CodePage, DWORD dwFlags,LPCWSTR lpWideCharStr,
   LPCSTR lpDefaultChar, LPBOOL lpUsedDefaultChar) {
     return 0;
 }
+BOOL ShowWindow(HWND hWnd, int nCmdShow) {
+    return 0;
+}
