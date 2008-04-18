@@ -35,8 +35,9 @@ add_subdirectory(pass2)
 add_subdirectory(rbal)
 add_subdirectory(mmx)
 add_subdirectory(r35)
+add_subdirectory(cpu)
 
-set(RPSTR_LIBS rpstr rstr rling mmx pass2 rbal cline leo r35 rlings rsadd
+set(RPSTR_LIBS rpstr rstr rling mmx pass2 rbal cline leo cpu r35 rlings rsadd
 fon msk evn32 cstr ctb32 dif rcutp ccom)
 set(PUMA_LIBS puma rcorrkegl marker rstuff rpic rline meg smetric rreccom
 lns32 rhellines rfmrt rsestr rblock rout rverline rimage exc ced cpage

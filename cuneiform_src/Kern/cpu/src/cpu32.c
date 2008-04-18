@@ -55,6 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 //#include "cpu.h"
+#include "decl.h"
 #define PC_TYPE
 
 __declspec( dllexport ) int GetCPUName(void)
