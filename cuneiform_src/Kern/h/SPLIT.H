@@ -54,11 +54,15 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifndef SPLIT_H_
+#define SPLIT_H_
 
+/*
 #ifndef PPS_MAC
 #pragma message(__FILE__)
 #endif
 #define PPS_MAC
+*/
 
 #ifdef __cplusplus
 	extern "C" {
@@ -68,4 +72,6 @@ void  _makepath
 void _splitpath(/*const*/ char *f,char *drive,char *dir,char *fname,char *ext);
 #ifdef __cplusplus
 	}
+#endif
+
 #endif
