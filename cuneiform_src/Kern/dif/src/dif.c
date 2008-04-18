@@ -121,10 +121,10 @@ DIF_FUNC(Bool32)  DIFPenaltyChar( RecRaster*  r,
         switch( pen )
             {
             case    -254: 
-                res->Alt[i].Prob=min(255,maxprob+4);
+                res->Alt[i].Prob=MIN(255,maxprob+4);
                 break;
             case    -252: 
-                res->Alt[i].Prob=min(255,maxprob+2);
+                res->Alt[i].Prob=MIN(255,maxprob+2);
                 break;
             }
         }

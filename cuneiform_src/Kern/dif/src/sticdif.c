@@ -61,9 +61,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "recdefs.h"
 #include "lang_def.h"
 
+#include "minmax.h"
+
 #define ABS  abs
-#define MIN	min
-#define MAX	max
 #define MAX_ADD_DIS  30		/* max discrim for adding 'º','1'	*/
 static Word8 tab_t[]=					// dis_t
 	{
@@ -282,7 +282,7 @@ if ( num_of_lines (GL_center, nc, dy, GL_hist_int) )
 
 num_angles =   sizeof(stick_inc)/sizeof(stick_inc[0]);
 f_a=first_tg(stick_inc, num_angles,nIncline );
-num_angles=min( (dx*2048/dy)>800?LIMIT_OF_ANGLES+4:LIMIT_OF_ANGLES,
+num_angles=MIN( (dx*2048/dy)>800?LIMIT_OF_ANGLES+4:LIMIT_OF_ANGLES,
            (Int16)(sizeof(stick_inc)/sizeof(stick_inc[0])-f_a-1));
 
 if( (ret_br=(Word8)make_center_line(GL_center,(Int16)(nc-(GL_center[nc-1].len==1)),
@@ -294,7 +294,7 @@ if( (ret_br=(Word8)make_center_line(GL_center,(Int16)(nc-(GL_center[nc-1].len==1
         {
         opt=0;
         set_stick_char (GL_left0, GL_right0, GL_hooks, dy, dx, opt, wide,
-		        (Int16)(opt - min ( GL_tab_angle[0], GL_tab_angle[dy-1] )),
+		        (Int16)(opt - MIN ( GL_tab_angle[0], GL_tab_angle[dy-1] )),
 		        0, 0, 0, 0,  0,		// NB: LAST ZERO PAR - inc_num (?????)
 		        &left_chars, &right_chars, &signums,
 		        &left_mode, &right_mode);
@@ -306,11 +306,11 @@ if( (ret_br=(Word8)make_center_line(GL_center,(Int16)(nc-(GL_center[nc-1].len==1
 		           /* not exist center-line       */
     }
 
-opt = ((max( GL_tab_angle[0], GL_tab_angle[dy-1] ))>>1)<<1;
+opt = ((MAX( GL_tab_angle[0], GL_tab_angle[dy-1] ))>>1)<<1;
 abris_expansion (GL_left0, GL_right0, dy, dx, GL_tab_angle);
 
 set_stick_char (GL_left0, GL_right0, GL_hooks, dy, dx, opt, wide,
-		(Int16)(opt - min ( GL_tab_angle[0], GL_tab_angle[dy-1] )),
+		(Int16)(opt - MIN ( GL_tab_angle[0], GL_tab_angle[dy-1] )),
 		0, 0, 0, 0,  0,		// NB: LAST ZERO PAR - inc_num (?????)
 		&left_chars, &right_chars, &signums,
 		&left_mode, &right_mode);
@@ -384,7 +384,7 @@ if ( num_of_lines (GL_center, nc, dy, GL_hist_int) )
 
 num_angles =   sizeof(stick_inc)/sizeof(stick_inc[0]);
 f_a=first_tg(stick_inc, num_angles,nIncline );
-num_angles=min((dx*2048/dy)>800?LIMIT_OF_ANGLES+4:LIMIT_OF_ANGLES,
+num_angles=MIN((dx*2048/dy)>800?LIMIT_OF_ANGLES+4:LIMIT_OF_ANGLES,
            (Int16)(sizeof(stick_inc)/sizeof(stick_inc[0])-f_a-1));
 
 if( make_center_line(GL_center,(Int16)(nc-(GL_center[nc-1].len==1)),
@@ -394,11 +394,11 @@ if( make_center_line(GL_center,(Int16)(nc-(GL_center[nc-1].len==1)),
   return(-1); /* abnormal set of ceneters : silmular to (,) or */
 		   /* not exist center-line                         */
 
-opt = ((max( GL_tab_angle[0], GL_tab_angle[dy-1] ))>>1)<<1;
+opt = ((MAX( GL_tab_angle[0], GL_tab_angle[dy-1] ))>>1)<<1;
 abris_expansion (GL_left0, GL_right0, dy, dx, GL_tab_angle);
 
 set_stick_char (GL_left0, GL_right0, GL_hooks, dy, dx, opt, wide,
-		(Int16)(opt - min ( GL_tab_angle[0], GL_tab_angle[dy-1] )),
+		(Int16)(opt - MIN ( GL_tab_angle[0], GL_tab_angle[dy-1] )),
 		0, 0, 0, 0,  0,		// NB: LAST ZERO PAR - inc_num (?????)
 		&left_chars, &right_chars, &signums,
 		&left_mode, &right_mode);
@@ -502,7 +502,7 @@ static Int16 abris_expansion (Word8 left[], Word8 right[],
 Int16 i, opt;
 Int16 k, max_negat_left=0, max_negat_right=0; // 09.12.1993
 
-opt = max (tab_angle[0], tab_angle[dy-1]);  // NB: NO VERY GOOD !!!
+opt = MAX (tab_angle[0], tab_angle[dy-1]);  // NB: NO VERY GOOD !!!
 for (i=0; i<dy; i++) {	/* dilate (step=4) and shift (inc = tab_angle) */
 	if ( left[i]!=0xFF )  {
 		/******************************	BEFORE 09.12.1993
@@ -553,17 +553,17 @@ Int16	d_L, d_R;	// 24.02.1993
          return 126;
 //////	dis += mk_dis_for_liga_exm;	// 06.01.1994 (0 or 2);	MOVE TO END;
 
-lmu = l->mount[0];  rmu = r->mount[0];	max_u = max (lmu, rmu);
-lmd = l->mount[4];  rmd = r->mount[4];	max_d = max (lmd, rmd);
+lmu = l->mount[0];  rmu = r->mount[0];	max_u = MAX (lmu, rmu);
+lmd = l->mount[4];  rmd = r->mount[4];	max_d = MAX (lmd, rmd);
 /*......................................................................*/
 if( lmu+lmd==0 && rmu+rmd>0 && l->conc[0]>1 && l->conc[4]>1 )
     dis += 50; // similar (
 if( lmu+lmd>0 && rmu+rmd==0 && r->conc[0]>1 && r->conc[4]>1 )
     dis += 50; // similar (
 if( lmu+rmu+lmd+rmd != 0 )  {
-if ( max_u > (max(max_d,3)<<1) )		// MK PROBA 18.02.1993
+if ( max_u > (MAX(max_d,3)<<1) )		// MK PROBA 18.02.1993
 	dis += 222;							// 222
-if ( max_u > (max(max_d,2)<<1) && max_d<2 )		// MK PROBA 18.02.1993
+if ( max_u > (MAX(max_d,2)<<1) && max_d<2 )		// MK PROBA 18.02.1993
 	dis += 222;							// 222
 
 DIS_HALF_SERIF (l,r,0,1,tab_I[0]);	/* test upper serif  */		// 20
@@ -942,15 +942,15 @@ if ( (s->typ_nose_1==0)  &&		// 02.06.1993 PROBA:
 		dis += 20;	// PROBA-20				// 20
 
 /******************************************************************
-if (r->conc[0]>=max(wid,3))	// 09.06.1993  for CUT. 'h' to "ll"
+if (r->conc[0]>=MAX(wid,3))	// 09.06.1993  for CUT. 'h' to "ll"
 	dis += 80;		// PROBA-80				// 80
 	***************************************************************/
 
 if (s->cut_r &&		// 09.06.1993 PROBA for CUT. "The" (stdj10);
     (r->mount[0] || r->m_meandr==0) &&
     !r->down_serif &&
-////l->mount[0]>max(wid*2-3,5))	// first
-    l->mount[0]>max(wid,5))	// second
+////l->mount[0]>MAX(wid*2-3,5))	// first
+    l->mount[0]>MAX(wid,5))	// second
 //////	dis += 80;		// PROBA-80				// 80
 //////	dis += 160;		// PROBA-160				// 160
 	dis += (rmu+2)*80;	// PROBA-rmu"*80			// *80
@@ -1052,11 +1052,11 @@ if (rmd<2 && (s->cut_l || s->cut_r))	// 21.10.1993 CUT, NO R.M.D
 if (rmd>=2 && lmu>lmd+wid+rmd)		// 17.01.1994 too long nose
 	dis += 60;			// for der Laterne		// 60
 					// h15/6, i15/28 {'l} => {1}
-if( lmu>2*max(lmd,rmd) && l->me_pos[0]<4 && lmu>8 && lmu==l->mount[0])
+if( lmu>2*MAX(lmd,rmd) && l->me_pos[0]<4 && lmu>8 && lmu==l->mount[0])
     dis += 60;
 /*......................................................................*/
 //////m_ex:
-dis = max(dis,dis_sI);
+dis = MAX(dis,dis_sI);
 if(0)
 //if( is_digital_string() )
 //if( language==LANG_RUSSIAN )
@@ -1132,10 +1132,10 @@ if( r->mount[0] && r->mount[4] )    /* '('    */
 
 if( sl==1 && sr==0 && (l->mount[0] || l->mount[1]) )  /* ')' */
   dis += tab_circle_brace[2];   /* similar '1' */
-ru=max(r->mount[0],r->mount[1]);
-rd=max(r->mount[3],r->mount[4]);
-lu=max(l->mount[0],l->mount[1]);
-ld=max(l->mount[3],l->mount[4]);
+ru=MAX(r->mount[0],r->mount[1]);
+rd=MAX(r->mount[3],r->mount[4]);
+lu=MAX(l->mount[0],l->mount[1]);
+ld=MAX(l->mount[3],l->mount[4]);
 if( typ )
 { // '('
     if( !r->mount[0] && !r->mount[1] && r->mount[3]<2 && r->mount[4]<2 )
@@ -1146,7 +1146,7 @@ if( typ )
         l->conc[2]>(s->stick_width>2?2:1) )
         dis += tab_circle_brace[6]; /* bad bugles in 1,3 zones  */
 	if( !inc && r->mount[0]>2 && r->mount[4]>2 && 
-		abs(r->mount[0] - r->mount[4])>min(r->mount[0],r->mount[4]) )
+		abs(r->mount[0] - r->mount[4])>MIN(r->mount[0],r->mount[4]) )
 		dis += tab_circle_brace[6]; /* differnets mounts  */
     if( s->width>6 &&
         l->conc[0]<2 && l->conc[1]<2 && 
@@ -1169,7 +1169,7 @@ else
         r->conc[2]>(s->stick_width>2?2:1) )
         dis += tab_circle_brace[6]; /* bad bugles in 1,3 zones  */
 	if( !inc && l->mount[0]>2 && l->mount[4]>2 && 
-		abs(l->mount[0] - l->mount[4])>min(l->mount[0],l->mount[4]) )
+		abs(l->mount[0] - l->mount[4])>MIN(l->mount[0],l->mount[4]) )
 		dis += tab_circle_brace[6]; /* differnets mounts  */
     if( s->width>6 &&
         r->conc[0]<2 && r->conc[1]<2 && 
@@ -1336,7 +1336,7 @@ if ( (num_l==1) &&				// 09.07.1993, 12.10.1993
 		dis += tab_l[11];	// similar 'L'		// 48
 
 if ( num_l==3 && lmu>0 && s->typ_nose_1==1 &&	
-     (  (l->m_pos[0]>=max(wid,5)-1) ) &&	
+     (  (l->m_pos[0]>=MAX(wid,5)-1) ) &&	
      lmu >= lmd)					// 31.05.1993
 	dis += tab_l[11];	// similar '1'			// 48
 
@@ -1375,7 +1375,7 @@ if (dis<tab_l[10] && lmu>tt && rmu>tt && lmd>tt)  dis = tab_l[10];	// 70;
 if (s->cut_r &&		// 09.06.1993 PROBA for CUT. "The" (stdj10);
     (r->mount[0] || r->m_meandr==0) &&
     !r->down_serif &&
-    l->mount[0]>max(wid,5))	// second
+    l->mount[0]>MAX(wid,5))	// second
 	dis += (rmu+2)*80;	// PROBA rmu"*80		// *80
 }
 /*......................................................................*/
@@ -1412,7 +1412,7 @@ if( wid<3 )  { l->c_meandr++;  r->c_meandr++;  }	// MODIFY c_meandr !!!
 	    }
 
 				// add 25.05.1993 for stdf12/11 "Given"
-	if (s->neck && l->m_pos[0]>max(5,s->base_2))	// ZONE-0 TOO DOWN !!!
+	if (s->neck && l->m_pos[0]>MAX(5,s->base_2))	// ZONE-0 TOO DOWN !!!
 		DIS_CENTER_FLAG (l,0,wid,inc,tab_l[6],d_L);	// 60, 12(0)
 
 DIS_FLAGS_L_R(1,tab_l[6]);				// 60, 12(0)/12(0)
@@ -1574,7 +1574,7 @@ if ( (num_l==1) &&				// 09.07.1993, 12.10.1993
 		dis += tab_l[11];	// similar 'L'		// 48
 
 if ( num_l==3 && lmu>0 && s->typ_nose_1==1 &&	// OLD OLEG   &&
-     ( /*(pitchsize==0) ||*/ (l->m_pos[0]>=max(wid,5)-1) ) &&	// 01.06.1993 &&
+     ( /*(pitchsize==0) ||*/ (l->m_pos[0]>=MAX(wid,5)-1) ) &&	// 01.06.1993 &&
      lmu >= lmd)					// 31.05.1993
 	dis += tab_l[11];	// similar '1'			// 48
 
@@ -1612,7 +1612,7 @@ if (dis<tab_l[10] && lmu>tt && rmu>tt && lmd>tt)  dis = tab_l[10];	// 70;
 if (s->cut_r &&		// 09.06.1993 PROBA for CUT. "The" (stdj10);
     (r->mount[0] || r->m_meandr==0) &&
     !r->down_serif &&
-    l->mount[0]>max(wid,5))	// second
+    l->mount[0]>MAX(wid,5))	// second
 	dis += (rmu+2)*80;	// PROBA rmu"*80		// *80
 }
 /*......................................................................*/

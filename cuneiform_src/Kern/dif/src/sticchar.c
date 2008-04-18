@@ -58,6 +58,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <stdlib.h>
 
+#include "minmax.h"
+
 #define COPY_PEAK(lr,i,j)                \
 	{                                \
 	lr->mount[i]  = lr->mount[j];    \
@@ -427,7 +429,7 @@ static void set_serifs(Word8 left[],Word8 right[],
 {
 Int16 l1,l2,r1,r2,dy_u=dy/6,dy_d=dy-1-dy/6,d=(dx-1)<<2;
 
-r1 = min(r+4,d); r2 = min(r+8,d); /* r1-one,r2-two step in right direct */
+r1 = MIN(r+4,d); r2 = MIN(r+8,d); /* r1-one,r2-two step in right direct */
 if( r1==r2 )
 	r2 += 4; /* right mode = dx-1 */
 /* upper right serif */
@@ -451,7 +453,7 @@ else if( right[dy-1-skip_dr]>=r1 )
 	right_chars->down_serif=1;
 }
 
-l2 = max(l-8,0); l1 = max(l-4,0);  /* l1-one,l2-two step in left direct */
+l2 = MAX(l-8,0); l1 = MAX(l-4,0);  /* l1-one,l2-two step in left direct */
 
 /* upper left serif */
 if( left_chars->mount[0] && left_chars->m_pos[0]<dy_u )
@@ -534,7 +536,7 @@ return;
 
 static Int16 correct_beam(STICK_CHARS *l, STICK_CHARS *r,Int16 lev,Int16 dist)
 {
-Int16 i,lm,rm,lmn,rmn,t,dist1=max(dist,1);
+Int16 i,lm,rm,lmn,rmn,t,dist1=MAX(dist,1);
 for(i=0;i<2;i++) /* study zones 0,1,2 */
 	{
 	lm  = l->mount[i];	rm  = r->mount[i];
@@ -786,10 +788,10 @@ for(r=l=0,i=skip_u;i<nn;i++)
 	if( f<=level+4 && f>=level-4 ) continue;
 	if( f>level+4 )
 		find_peak_new (&i,&imax,fun,n,level,sr,&extr,&f);  // MK NEW
-/* right lane ________________________ f = max( fun[i] ) ______________  */
+/* right lane ________________________ f = MAX( fun[i] ) ______________  */
 	else	/* f<level+4 */
 		find_conc_new (&i,&imax,fun,n,level,sl,&extr,&f);  // MK NEW
-/* left lane ___________________________ f = max(fun[i]) _____________ */
+/* left lane ___________________________ f = MAX(fun[i]) _____________ */
 
 	k = index_arr(imax,lim,SIZ);    /* imax -  begin interval */
 	m = index_arr(i,lim,SIZ);       /* i    -  end interval   */
