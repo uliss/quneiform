@@ -336,7 +336,7 @@ if( nIsPrint  )
     return (n_2<5 && n_0<1)?4:5; // print 1-line comp
     }
 // study jumps on contures
-lim = min(3, max((w+7)/8,1) );
+lim = MIN(3, MAX((w+7)/8,1) );
 for(jmp=0,ol=hist_le[1],or=hist_ri[1],i=2;i<=h;i++)
     {
     if( hist_le[i]>ol+1 )

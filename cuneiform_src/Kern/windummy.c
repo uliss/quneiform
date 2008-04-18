@@ -85,3 +85,65 @@ int GetTempFileName(LPCTSTR lpPathName, LPCTSTR lpPrefixString,
 int GetLastError() {
     return 0;
 }
+
+
+DWORD GetModuleFileName(HMODULE hModule, LPTSTR lpFilename, DWORD nSize);
+BOOL CloseHandle(HANDLE hObject);
+DWORD GetCurrentDirectory(DWORD nBufferLength, LPTSTR lpBuffer);
+HANDLE CreateFile(LPCTSTR lpFileName, DWORD dwDesiredAccess,
+DWORD dwShareMode, void* lpSecurityAttributes,
+DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile);
+
+HWND FindWindow(LPCTSTR lpClassName, LPCTSTR lpWindowName);
+BOOL DeleteFile(LPCTSTR lpFileName);
+UINT RegisterWindowMessage(LPCTSTR lpString);
+void Sleep(int);
+
+int _findclose(long handle);
+long _findfirst(const char *filespec, struct _finddata_t *fileinfo);
+int _findnext(long handle, struct _finddata_t *fileinfo);
+long _tell(int handle);
+
+BOOL GetComputerName(LPTSTR lpBuffer, long unsigned int *lpnSize) {
+    return 0;
+}
+
+UINT GetDriveType(LPCTSTR lpRootPathName) {
+    return 0;
+}
+
+LONG RegOpenKeyEx(HKEY hKey, LPCTSTR lpSubKey, DWORD ulOptions,
+  REGSAM samDesired, PHKEY phkResult) {
+    return 0;
+}
+
+LONG RegQueryValueEx(HKEY hKey, LPCTSTR lpValueName,
+LPDWORD lpReserved, LPDWORD lpType, LPBYTE lpData,
+LPDWORD lpcbData) {
+    return 0;
+}
+
+BOOL GetClientRect(HWND hWnd, LPRECT lpRect) {
+    return 0;
+}
+
+BOOL WritePrivateProfileString(LPCTSTR lpAppName,
+        LPCTSTR lpKeyName, LPCTSTR lpString, LPCTSTR lpFileName) {
+    return 0;
+}
+
+DWORD GetPrivateProfileString(LPCTSTR lpAppName, LPCTSTR lpKeyName,
+LPCTSTR lpDefault, LPTSTR lpReturnedString, DWORD nSize, LPCTSTR lpFileName) {
+    return 0;
+}
+
+UINT GetPrivateProfileInt(LPCTSTR lpAppName,
+  LPCTSTR lpKeyName, INT nDefault, LPCTSTR lpFileName) {
+    return 0;
+}
+
+int WideCharToMultiByte(UINT CodePage, DWORD dwFlags,LPCWSTR lpWideCharStr,
+  int cchWideChar, LPSTR lpMultiByteStr, int cbMultiByte,
+  LPCSTR lpDefaultChar, LPBOOL lpUsedDefaultChar) {
+    return 0;
+}

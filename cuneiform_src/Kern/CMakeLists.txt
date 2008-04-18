@@ -41,7 +41,7 @@ set(PUMA_LIBS puma rcorrkegl marker rstuff rpic rline meg smetric rreccom
 lns32 rhellines rfmrt rsestr rblock rout rverline rimage exc ced cpage
 cimage loc rdib cfio)
 
-add_executable(rpstrtest rpstrtest.c)
+add_executable(rpstrtest rpstrtest.c windummy.c)
 target_link_libraries(rpstrtest ${RPSTR_LIBS})
 
 #add_executable(pumatest pumatest.cpp windummy hdebug/__snp.c)

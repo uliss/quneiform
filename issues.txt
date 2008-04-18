@@ -19,3 +19,7 @@ collection called rpstr.
 
 The RLING subdirectory seems to be compiled twice with slightly different
 definitions.
+
+There are a lot of duplicate definitions of some functions and variables.
+Maybe MSVC is just lax and tries to "do what I mean". It may also have
+something to do with Windows DLL symbol resolving rules.

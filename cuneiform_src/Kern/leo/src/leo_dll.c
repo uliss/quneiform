@@ -1095,7 +1095,7 @@ static int GetNewProb(int oldRec,int newRec,int nice)
 		addRec = 10;
 	else addRec = 5;
 
-	return min(254,max(newRec,oldRec+addRec));
+	return MIN(254,MAX(newRec,oldRec+addRec));
 }
 ///////////
 // надо взять иную первую альтернативу ? 
