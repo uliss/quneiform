@@ -54,6 +54,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifndef COR_SPEL_H_
+#define COR_SPEL_H_
 
 struct vers_ref
     {
@@ -103,3 +105,5 @@ struct sheet_disk_descr
     Word16  incline;
     Int8 tabl[13];
     } ;
+
+#endif

@@ -41,10 +41,13 @@ set(PUMA_LIBS puma rcorrkegl marker rstuff rpic rline meg smetric rreccom
 lns32 rhellines rfmrt rsestr rblock rout rverline rimage exc ced cpage
 cimage loc rdib cfio)
 
-add_executable(pumatest pumatest.cpp windummy hdebug/__snp.c)
-target_link_libraries(pumatest 
+add_executable(rpstrtest rpstrtest.c)
+target_link_libraries(rpstrtest ${RPSTR_LIBS})
 
-puma rline cpage cimage cfio 
-
-rpstr rstr cline leo rling rlings mmx pass2 rbal rsadd std32 msk evn32 fon cstr ctb32 
-dif rcutp ccom)
+#add_executable(pumatest pumatest.cpp windummy hdebug/__snp.c)
+#target_link_libraries(pumatest 
+#
+#puma rline cpage cimage cfio 
+#
+#rpstr rstr cline leo rling rlings mmx pass2 rbal rsadd std32 msk evn32 fon cstr ctb32 
+#dif rcutp ccom)
