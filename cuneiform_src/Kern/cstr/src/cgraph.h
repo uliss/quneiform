@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cstrdefs.h"
 #include "resource.h"
 
-Word16 wLowRC;
+extern Word16 wLowRC;
 
 //32
 typedef struct CGRAPH_Data

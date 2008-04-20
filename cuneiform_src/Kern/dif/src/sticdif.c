@@ -63,7 +63,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "minmax.h"
 
-#define ABS  abs
 #define MAX_ADD_DIS  30		/* max discrim for adding 'º','1'	*/
 static Word8 tab_t[]=					// dis_t
 	{
@@ -1455,13 +1454,13 @@ if( l->mount[1]>0 && r->mount[1]>0 && r->mount[4]>0 && sl==1 && sr==2 )
 if ( (s->neck==1) && (wid>=6) &&
      (
        ( l->conc[0] && r->conc[0] &&	// fax 27/7 "Capability", first 'º'
-	 ( l->cb_pos[0]==r->cb_pos[0] && ABS(l->cb_pos[0]-s->base_2)<4  ||
-	   l->ce_pos[0]==r->ce_pos[0] && ABS(l->ce_pos[0]-s->base_2)<4 ) &&
+	 ( l->cb_pos[0]==r->cb_pos[0] && abs(l->cb_pos[0]-s->base_2)<4  ||
+	   l->ce_pos[0]==r->ce_pos[0] && abs(l->ce_pos[0]-s->base_2)<4 ) &&
 	   l->cb_pos[0]!=l->ce_pos[0] && r->cb_pos[0]!=r->ce_pos[0] )
 	 ||
        ( l->conc[1] && r->conc[1] &&	// fax ....................... 'º'
-	 ( l->cb_pos[1]==r->cb_pos[1] && ABS(l->cb_pos[1]-s->base_2)<4  ||
-	   l->ce_pos[1]==r->ce_pos[1] && ABS(l->ce_pos[1]-s->base_2)<4 ) &&
+	 ( l->cb_pos[1]==r->cb_pos[1] && abs(l->cb_pos[1]-s->base_2)<4  ||
+	   l->ce_pos[1]==r->ce_pos[1] && abs(l->ce_pos[1]-s->base_2)<4 ) &&
 	   l->cb_pos[1]!=l->ce_pos[1] && r->cb_pos[1]!=r->ce_pos[1] )
    ) )
 		dis += tab_l[17];					// 6
@@ -1684,7 +1683,7 @@ if( l->mount[2]<3 || r->mount[2]<3 )
       {
       if( r->mount[4]<3 && rm<2 )
         dis+=80;
-      if( r->mount[4]>2 && ABS(r->mount[4] - rm)>2 )
+      if( r->mount[4]>2 && abs(r->mount[4] - rm)>2 )
         dis+=80;
       }
     }
@@ -1700,7 +1699,7 @@ if( l->mount[2]<3 || r->mount[2]<3 )
       lm = MAX(l->mount[1],l->mount[2]);
       if( l->mount[4]<3 && lm<2 )
         dis+=80;
-      if( l->mount[4]>2 && ABS(l->mount[4] - lm)>2 )
+      if( l->mount[4]>2 && abs(l->mount[4] - lm)>2 )
         dis+=80;
       }
     }
@@ -1717,13 +1716,13 @@ if( l->mount[1]>0 && r->mount[1]>0 && r->mount[4]>0 && sl==1 && sr==2 )
 if ( (s->neck==1) && (wid>=6) &&
      (
        ( l->conc[0] && r->conc[0] &&	// fax 27/7 "Capability", first 'º'
-	 ( l->cb_pos[0]==r->cb_pos[0] && ABS(l->cb_pos[0]-s->base_2)<4  ||
-	   l->ce_pos[0]==r->ce_pos[0] && ABS(l->ce_pos[0]-s->base_2)<4 ) &&
+	 ( l->cb_pos[0]==r->cb_pos[0] && abs(l->cb_pos[0]-s->base_2)<4  ||
+	   l->ce_pos[0]==r->ce_pos[0] && abs(l->ce_pos[0]-s->base_2)<4 ) &&
 	   l->cb_pos[0]!=l->ce_pos[0] && r->cb_pos[0]!=r->ce_pos[0] )
 	 ||
        ( l->conc[1] && r->conc[1] &&	// fax ....................... 'º'
-	 ( l->cb_pos[1]==r->cb_pos[1] && ABS(l->cb_pos[1]-s->base_2)<4  ||
-	   l->ce_pos[1]==r->ce_pos[1] && ABS(l->ce_pos[1]-s->base_2)<4 ) &&
+	 ( l->cb_pos[1]==r->cb_pos[1] && abs(l->cb_pos[1]-s->base_2)<4  ||
+	   l->ce_pos[1]==r->ce_pos[1] && abs(l->ce_pos[1]-s->base_2)<4 ) &&
 	   l->cb_pos[1]!=l->ce_pos[1] && r->cb_pos[1]!=r->ce_pos[1] )
    ) )
 		dis += tab_l[17];					// 6
@@ -1774,7 +1773,7 @@ if( t<0 )  {						// BAD BEAM:
 
 		if( t==0 && r->mb_pos[0]<2 &&
 		    !(s->base_2!=-1 &&			// 18.11.1993
-		      ABS(r->m_pos[0]-s->base_2) < (/*fax1x2 ? 3 :*/ 2 )) &&
+		      abs(r->m_pos[0]-s->base_2) < (/*fax1x2 ? 3 :*/ 2 )) &&
 		    !(r->m_pos[0]>dy/6&&r->me_pos[0]>dy/3) )
 			dis += tab_t[24];				//100
 				//long right flag belong 0-zone

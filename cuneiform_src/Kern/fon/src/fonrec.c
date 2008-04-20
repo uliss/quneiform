@@ -935,7 +935,7 @@ int avr;
   }  // end j
  }   // end i 
 
-  n = ABS(n) - np * avr; // all points with dist 1
+  n = abs(n) - np * avr; // all points with dist 1
   n *= n;
   n /= avr;
   ac -= n; // progressive penalty
@@ -1004,10 +1004,10 @@ int recogWelet(PBYTE r,WORD fullRow,WORD w,WORD h,welet * wl)
 //   if( h >= WR_MAX_HEIGHT-1 ) return 0;
 //   if( w >= WR_MAX_WIDTH-1 )  return 0;
 
-   if(ABS(wl->mh-h)*5 > h ) return 0; // check for height likeness
-//   if(ABS(wl->w-w) >= MIN(wl->w,w)/2) return 0;
-//   if(ABS(wl->mw-w)*3 >= MIN(wl->mw,w) ) return 0;
-   if(ABS(wl->mw-w)*3 >= wl->mw ) return 0;
+   if(abs(wl->mh-h)*5 > h ) return 0; // check for height likeness
+//   if(abs(wl->w-w) >= MIN(wl->w,w)/2) return 0;
+//   if(abs(wl->mw-w)*3 >= MIN(wl->mw,w) ) return 0;
+   if(abs(wl->mw-w)*3 >= wl->mw ) return 0;
 
    return cmp(r,fullRow,w,h,wl);
 }
