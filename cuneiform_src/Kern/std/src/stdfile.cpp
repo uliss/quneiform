@@ -252,7 +252,7 @@ STD_FUNC( Int32 ) stdFileLength( Int32 hnd )
       stdConsole("=>stdFileLength(-1) {%ld}", _stdFileLengthCounter);
       return -1;
    }
-#if defined(PPS_MAC)
+#ifndef WIN32 // defined(PPS_MAC)
    Int32 cur = stdSeek(hnd, 0, SEEK_CUR);
    if (cur==-1)
       return -1;

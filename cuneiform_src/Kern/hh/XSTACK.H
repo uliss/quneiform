@@ -145,7 +145,7 @@ Bool     XStack< T >::Resize( Int32 new_max_cnt )
       if ( !XPool::Realloc( new_max_cnt*sizeof(T) ) )
 			RETFALSE;
 		MaxCnt = new_max_cnt;
-      CurCnt =  mini( CurCnt, new_max_cnt );
+      CurCnt =  MIN( CurCnt, new_max_cnt );
 		return TRUE;
 	};
  
@@ -154,7 +154,7 @@ T*       XStack< T >::Push( Int32* no ) // fix space for new element
 {
 		assert( CurCnt <= MaxCnt );
       if ( CurCnt == MaxCnt )
-         if (!Resize( maxi( CurCnt*2, 1 ) ))
+         if (!Resize( MAX( CurCnt*2, 1 ) ))
             RETNULL;
 
       assert( CurCnt < MaxCnt );
@@ -173,7 +173,7 @@ Bool     XStack< T >::Push( T* t, Int32* no )
 	{
 		assert( CurCnt <= MaxCnt );
       if ( CurCnt == MaxCnt )
-         if (!Resize( maxi( CurCnt*2, 1 ) ))
+         if (!Resize( MAX( CurCnt*2, 1 ) ))
             RETFALSE;
 
       assert( CurCnt < MaxCnt );

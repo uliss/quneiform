@@ -153,9 +153,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #define LENGTH_OF( arr ) (sizeof(arr)/sizeof(arr[0]))
    #endif
 
-   #ifndef __MINIMAXI_H
-   #include "minimaxi.h"
-   #endif
+   #include "minmax.h"
 
    #ifndef RCEXP
    #define RCEXP(rc)  rc.left, rc.top, rc.right, rc.bottom

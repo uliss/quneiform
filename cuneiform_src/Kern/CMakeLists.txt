@@ -38,7 +38,7 @@ add_subdirectory(r35)
 add_subdirectory(cpu)
 
 set(RPSTR_LIBS rpstr rstr rling mmx pass2 rbal cline leo cpu r35 rlings rsadd
-fon msk evn32 cstr ctb32 dif rcutp ccom)
+fon msk std32 evn32 cstr ctb32 dif rcutp ccom)
 set(PUMA_LIBS puma rcorrkegl marker rstuff rpic rline meg smetric rreccom
 lns32 rhellines rfmrt rsestr rblock rout rverline rimage exc ced cpage
 cimage loc rdib cfio)
