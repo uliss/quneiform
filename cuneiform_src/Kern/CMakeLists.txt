@@ -37,6 +37,7 @@ add_subdirectory(mmx)
 add_subdirectory(r35)
 add_subdirectory(cpu)
 add_subdirectory(rdib)
+add_subdirectory(loc)
 
 set(RPSTR_LIBS rpstr rstr rling mmx pass2 rbal cline leo cpu r35 rlings rsadd
 fon msk std32 evn32 cstr ctb32 dif rcutp ccom)
@@ -50,6 +51,6 @@ cimage loc rdib cfio)
 add_executable(pumatest pumatest.cpp windummy hdebug/__snp.c)
 target_link_libraries(pumatest 
 
-puma rline cpage cimage rdib cfio 
+puma rline cpage cimage loc rdib cfio 
 
 ${RPSTR_LIBS})
