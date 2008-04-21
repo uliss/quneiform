@@ -57,7 +57,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //Filename ced_struct_implem.cpp
 //Created 7.12.98 by Bozhenov Artem,(c) CT inc.
 //#include "stdafx.h"
-#include "StdAfx.h"
+#include <string.h>
+#include "stdafx.h"
 
 #include "ced_struct.h"
 #include "cedint.h"
@@ -148,7 +149,8 @@ CEDPage::~CEDPage()
 		se1=se;
 	}
 	//”ничтожаем таблицу шрифтов
-	for ( int i=0;i<fontsUsed;i++)
+	int i;
+	for ( i=0;i<fontsUsed;i++)
 		free(fontTable[i].fontName);
 	delete[] fontTable;
 
@@ -209,7 +211,8 @@ CEDSection * CEDPage::SetCurSection(CEDSection* _sect)
 
 CEDSection * CEDPage::SetCurSection(int _number)
 {
-	for (CEDSection* sect=sections;sect&&sect->internalNumber!=_number;sect=sect->next);
+    CEDSection* sect;
+	for (sect=sections;sect&&sect->internalNumber!=_number;sect=sect->next);
 	curSect=sect;
 	return sect;
 }
@@ -236,7 +239,8 @@ CEDSection * CEDPage::PrevSection()
 
 CEDSection * CEDPage::GetSection(int _num)
 {
-	for (CEDSection* ss=sections;ss&&ss->internalNumber!=_num;ss=ss->next);
+    CEDSection* ss;
+	for ( ss=sections;ss&&ss->internalNumber!=_num;ss=ss->next);
 	return ss;
 }
 CEDParagraph * CEDPage::GetParagraph(int _num)
@@ -244,7 +248,8 @@ CEDParagraph * CEDPage::GetParagraph(int _num)
 	CEDSection * qq=sections;
 	while (qq&&!qq->paragraphs)
 		qq=qq->next;
-	for (CEDParagraph* ss=qq?qq->paragraphs:0;ss&&ss->internalNumber!=_num;ss=ss->next);
+	CEDParagraph* ss;
+	for (ss=qq?qq->paragraphs:0;ss&&ss->internalNumber!=_num;ss=ss->next);
 	return ss;
 }
 CEDLine * CEDPage::GetLine(int _num)
@@ -252,7 +257,8 @@ CEDLine * CEDPage::GetLine(int _num)
 	CEDParagraph *qq=GetParagraph(0);
 	while (qq&&!qq->lines)
 		qq=qq->next;
-	for (CEDLine* ss=qq?qq->lines:0;ss&&ss->internalNumber!=_num;ss=ss->next);
+	CEDLine* ss;
+	for (ss=qq?qq->lines:0;ss&&ss->internalNumber!=_num;ss=ss->next);
 	return ss;
 }
 CEDChar * CEDPage::GetChar(int _num)
@@ -261,7 +267,8 @@ CEDChar * CEDPage::GetChar(int _num)
 	while (qq&&!qq->chars)
 		qq=qq->next;
 	int num=0;
-	for (CEDChar* ss=qq?qq->chars:0;ss&&num!=_num;ss=ss->next)
+	CEDChar* ss;
+	for (ss=qq?qq->chars:0;ss&&num!=_num;ss=ss->next)
 		num++;
 	return ss;
 }	
@@ -930,7 +937,8 @@ CEDParagraph * CEDSection::SetCurParagraph(int _number)
 	int i=0;
 	if (paragraphs)
 		i=paragraphs->internalNumber;
-	for (CEDParagraph* para=paragraphs;para&&para->internalNumber-i!=_number;para=para->next);
+	CEDParagraph* para;
+	for (para=paragraphs;para&&para->internalNumber-i!=_number;para=para->next);
 	curPara=para;
 	return para;
 }
@@ -1068,7 +1076,8 @@ CEDLine * CEDParagraph::SetCurLine(int _number)
 	int i=0;
 	if (lines)
 		i=lines->internalNumber;
-	for (CEDLine* line=lines;line&&line->internalNumber-i!=_number;line=line->next);
+	CEDLine* line;
+	for (line=lines;line&&line->internalNumber-i!=_number;line=line->next);
 	curLine=line;
 	return line;
 }
@@ -1177,7 +1186,8 @@ void CEDParagraph::CreateTableOfCells()
 	cy=tabDescriptor->size.cy=tabDescriptor->numOfRows;
 	tabDescriptor->linesY= new int [cy+1];
 	tabDescriptor->linesY[0]=0;
-	for (int r=0;r<cy;r++)
+	int r;
+	for (r=0;r<cy;r++)
 	{
 		CEDParagraph * row=GetRow(r);
 		numOfC+=((EDROWDESCR*)(row->descriptor))->numOfCells+1;
@@ -1296,7 +1306,8 @@ CEDParagraph* CEDParagraph::GetLogicalCell(int number)
 	int cx=((EDTABDESCR*)descriptor)->size.cx; 
 	int cy=((EDTABDESCR*)descriptor)->size.cy; 
 	int* table=((EDTABDESCR*)descriptor)->table;
-	for(int i=0;i<cx*cy;i++)
+	int i;
+	for(i=0;i<cx*cy;i++)
 		if (table[i]==number)
 			break;
 	int r=i/cx;
@@ -1334,7 +1345,8 @@ int CEDParagraph::GetCountLogicalCell()
 	int i=0;
 	if (lines)
 		i=lines->internalNumber;
-	for (CEDLine* line=lines;line&&line->internalNumber-i!=_num;line=line->next);
+	CEDLine* line;
+	for (line=lines;line&&line->internalNumber-i!=_num;line=line->next);
 	return line;
 }
 
@@ -1429,7 +1441,8 @@ CEDChar * CEDLine::SetCurChar(int _number)
 	int num=0;
 //	if (chars)
 //		i=chars->internalNumber;
-	for (CEDChar* chr=chars;chr&&num!=_number;chr=chr->next)
+	CEDChar* chr;
+	for (chr=chars;chr&&num!=_number;chr=chr->next)
 		num++;
 	curChar=chr;
 	return chr;
@@ -1472,7 +1485,8 @@ CEDChar*	CEDLine::GetChar(int _num)
 	int num=0;
 //	if (chars)
 //		i=chars->internalNumber;
-	for (CEDChar* chr=chars;chr&&num!=_num;chr=chr->next)
+	CEDChar* chr;
+	for (chr=chars;chr&&num!=_num;chr=chr->next)
 		num++;
 	return chr;
 }

@@ -86,7 +86,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define CFIOHightCode 0x0001
 
-//#include "ced.h"
+#include "ced.h"
+#include "ced_struct.h"
 #include "cfio.h"
 //#include "edfile.h"
 

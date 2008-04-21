@@ -55,12 +55,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
+#include "compat_defs.h"
 #define     MAIN_CONTEXT_MODULE
 #include "context.h"
 #include "tuner.h"
 #include "status.h"
 
-#include "compat_defs.h"
+
 
 static void contextNumberTable(void);
 /****************/

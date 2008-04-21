@@ -30,6 +30,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <sys/stat.h>
 #include <unistd.h>
 #include <assert.h>
+#include <string.h>
+#include <stdio.h>
 
 #include "compat_defs.h"
 
@@ -273,7 +275,7 @@ LPTSTR lstrcpy(LPTSTR lpString1, LPTSTR lpString2) {
 }
 
 int wsprintf(LPTSTR lpOut, LPCTSTR lpFmt, ...) {
-    return sprintf(lpOut, lpFmt, ...);
+    return sprintf(lpOut, "WSPRINTF-FUNCTION");
 }
 
 int lstrcmpi(LPCTSTR lpString1, LPCTSTR lpString2) {
@@ -288,7 +290,7 @@ HMETAFILE CloseMetaFile(HDC hdc) {
     return 0;
 }
 
-BOOL SetWindowOrgEx(HDC hdc, int X, int Y LPPOINT lpPoint) {
+BOOL SetWindowOrgEx(HDC hdc, int X, int Y, LPPOINT lpPoint) {
     return 0;
 }
 

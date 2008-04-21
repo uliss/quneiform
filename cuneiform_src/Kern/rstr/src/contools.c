@@ -55,11 +55,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #define CONTOOLS_MODULE
+#include "compat_defs.h"
 #include "context.h"
 #include "linutil.h"
 #include "lang.h"
 
-#include "compat_defs.h"
 
 static INT LiliI                (cell *);
 static INT bon_to_dig           (cell *);

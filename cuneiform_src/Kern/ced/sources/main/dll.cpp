@@ -61,10 +61,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 // dll_cpage.cpp : 
 // ============================================================================
-#include "StdAfx.h"
+#include "stdafx.h"
 
 #include "resource.h"
-#include "CED_struct.h"
+#include "ced_struct.h"
 #include "cedint.h"
 #include "pumadef.h"
 

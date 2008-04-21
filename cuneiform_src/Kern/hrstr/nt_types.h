@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef NT_TYPES_H_
 #define NT_TYPES_H_
 
-#include "c_types.h"
+#include "cttypes.h"
 
 /* It seems that most of these definitions are duplicated in c_types.h.
  * Thus we include it here and only add those parts that were missing.
