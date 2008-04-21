@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define _CED_STRUCT_
 
 
-#include <windows.h>
+/*#include <windows.h>*/
 //#include "edfile.h"
 #include "ced.h"
 
@@ -318,7 +318,7 @@ public:
 	CEDSection * prev,*next;		//Указатели на соседние эл-ты в списке
 	int internalNumber;			//Порядковый номер абзаца он начала файла
 
-friend CEDPage;
+friend class CEDPage;
 };
 
 class CED_FUNC(CEDParagraph)
@@ -389,8 +389,8 @@ public:
 	CEDParagraph * prev,*next;		//Указатели на соседние эл-ты в списке
 	int internalNumber;			//Порядковый номер абзаца он начала файла
 	int parentNumber;			//Порядковый номер родителя в файле
-friend CEDSection;
-friend CEDPage;
+friend class CEDSection;
+friend class CEDPage;
 };
 
 class CED_FUNC(CEDLine)
@@ -431,8 +431,8 @@ public:
 	CEDLine * prev,*next;		//Указатели на соседние эл-ты в списке
 	int internalNumber;			//Порядковый номер строки он начала файла
 	int parentNumber;			//Порядковый номер родителя в файле
-friend CEDParagraph;
-friend CEDPage;
+friend class CEDParagraph;
+friend class CEDPage;
 };
 
 class CED_FUNC(CEDChar)
@@ -455,11 +455,11 @@ public:
 protected:
 //	int internalNumber;			//Порядковый номер строки он начала файла
 	int parentNumber;			//Порядковый номер родителя в файле
-friend CEDLine;
-friend CEDPage;
+friend class CEDLine;
+friend class CEDPage;
 friend void FormattedTR(const text_ref* pt);
 friend void StripLines();
 };
 
 
-#endif _CED_STRUCT_
+#endif// _CED_STRUCT_

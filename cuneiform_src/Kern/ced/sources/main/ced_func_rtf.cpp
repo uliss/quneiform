@@ -54,16 +54,21 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "StdAfx.h"
+#include <string.h>
+#include <ctype.h>
+#include "stdafx.h"
 
 #include "ced_struct.h"
 #include "cedint.h"
 #include "resource.h"
+#include "compat_defs.h"
 
 #define MAX_LEN 500
 #define DIB_TO_METAFILE
 #define MAX_RTF_COLORS     200
 #define TextDefBkColor	RGB(255,255,255)
+
+#define far
 
 Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
 {
@@ -1025,14 +1030,16 @@ BOOL WriteRtfCharFmt(struct StrRtfOut far *rtf,CEDChar* curChar)
 
     //write foreground color
     if (CurTextColor!=PrevTextColor/* && CurTextColor != RGB( 0, 128, 0) && CurTextBkColor != RGB( 192, 192, 192 )*/ ) {
-       for (int i=0;i<rtf->TotalColors;i++) if (rtf->color[i].color==CurTextColor) break;
+        int i;
+       for (i=0;i<rtf->TotalColors;i++) if (rtf->color[i].color==CurTextColor) break;
        if (i==rtf->TotalColors) i=0;
        if (!WriteRtfControl(rtf,"cf",PARAM_INT,i)) return FALSE;        // write the color index
     }
 
     //write background color
     if (CurTextBkColor!=PrevTextBkColor/* && CurTextColor != RGB( 0, 128, 0) && CurTextBkColor != RGB( 192, 192, 192 )*/ ) {
-       for (int i=0;i<rtf->TotalColors;i++) if (rtf->color[i].color==CurTextBkColor) break;
+       int i;
+       for (i=0;i<rtf->TotalColors;i++) if (rtf->color[i].color==CurTextBkColor) break;
        if (i==rtf->TotalColors) i=0;
        if (!WriteRtfControl(rtf,"highlight",PARAM_INT,i)) return FALSE;        // write the color index
     }
@@ -2003,8 +2010,8 @@ void* TerGetMetaFileBits(HMETAFILE hMeta)
     return pMem;
 }
 
-ReadRtfFontTable(struct StrRtfOut far *rtf, int * maxFontNum);
-ReadRtfColorTable(struct StrRtfOut far *rtf);
+int ReadRtfFontTable(struct StrRtfOut far *rtf, int * maxFontNum);
+int ReadRtfColorTable(struct StrRtfOut far *rtf);
 BOOL WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
 {
 	int oldIndex;
@@ -2012,7 +2019,8 @@ BOOL WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
 	char * ptr=rtf->oldFile;
 	int len=rtf->oldFileLen;
 	int lvl=0;
-	for (int i=0;i<len-(int)strlen("\\fonttbl");i++)
+	int i;
+	for (i=0;i<len-(int)strlen("\\fonttbl");i++)
 		if (memcmp(ptr+i,"\\fonttbl",strlen("\\fonttbl"))==0) 
 			if (i==0||ptr[i-1]!='\\')
 				break;
@@ -2756,7 +2764,7 @@ BOOL WriteRtfColor(struct StrRtfOut far *rtf,BOOL head)
     it returns an error code (RTF_FILE_INCOMPLETE or RTF_SYNTAX_ERROR)
 ******************************************************************************/
 
-ReadRtfColorTable(struct StrRtfOut far *rtf)
+int ReadRtfColorTable(struct StrRtfOut far *rtf)
 {
     struct StrRtfColor far *color;
     int    i,CurColor=0,ControlGroupLevel=0;

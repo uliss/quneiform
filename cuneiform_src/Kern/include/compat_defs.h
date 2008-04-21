@@ -48,10 +48,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     extern "C" {
 #endif
 
-#ifndef BOOL
-#define BOOL int
-#endif
-
 #ifndef HANDLE
 #define HANDLE void*
 #endif
@@ -74,9 +70,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 /*typedef unsigned short int              WORD;*/
 
-#ifndef DWORD
-#define DWORD unsigned long int 
-#endif
 
 typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int);
 
@@ -152,6 +145,9 @@ typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int)
 #define ULONG unsigned long
 #endif
 
+extern int HFILE_ERROR;
+typedef int HFILE;
+
 typedef struct {
     int left;
     int right;
@@ -160,6 +156,16 @@ typedef struct {
 } RECT;
 
 typedef RECT* LPRECT;
+typedef DWORD COLORREF;
+typedef DWORD *LPCOLORREF;
+
+#ifndef HGLOBAL
+#define HGLOBAL void*
+#endif
+
+#ifndef HMETAFILE
+#define HMETAFILE void*
+#endif
 
 typedef struct {
      char * lpszClassName;
@@ -197,6 +203,50 @@ struct _finddata_t {
     char    name[260];
 };
 
+typedef struct tagRGBQUAD {
+  BYTE    rgbBlue; 
+  BYTE    rgbGreen; 
+  BYTE    rgbRed; 
+  BYTE    rgbReserved; 
+} RGBQUAD; 
+
+typedef struct tagBITMAPINFO { 
+  BITMAPINFOHEADER bmiHeader; 
+  RGBQUAD          bmiColors[1]; 
+} BITMAPINFO, *PBITMAPINFO; 
+
+typedef BITMAPINFO* LPBITMAPINFO;
+
+typedef struct tagMETAHEADER { 
+  WORD  mtType; 
+  WORD  mtHeaderSize; 
+  WORD  mtVersion; 
+  DWORD mtSize; 
+  WORD  mtNoObjects; 
+  DWORD mtMaxRecord; 
+  WORD  mtNoParameters; 
+} METAHEADER, *PMETAHEADER;
+
+typedef struct tagPALETTEENTRY { 
+  BYTE peRed; 
+  BYTE peGreen; 
+  BYTE peBlue; 
+  BYTE peFlags; 
+} PALETTEENTRY; 
+
+typedef struct tagLOGPALETTE { 
+  WORD         palVersion; 
+  WORD         palNumEntries; 
+  PALETTEENTRY palPalEntry[1]; 
+} LOGPALETTE; 
+
+/*
+typedef struct {
+    int x;
+} HPALETTE;
+*/
+typedef int HPALETTE;
+
 /*
 typedef struct tagPAINTSTRUCT { 
   HDC  hdc; 
@@ -207,6 +257,20 @@ typedef struct tagPAINTSTRUCT {
   unsigned char rgbReserved[32]; 
 } PAINTSTRUCT, *PPAINTSTRUCT; 
 */
+
+typedef struct tagPOINT { 
+  LONG x; 
+  LONG y; 
+} POINT, *PPOINT;
+
+typedef struct  tagSIZE{
+    LONG cx;    
+    LONG cy;
+} SIZE;
+
+typedef POINT* LPPOINT;
+typedef SIZE* LPSIZE;
+
 typedef int HKEY;
 
 typedef int * PHKEY;
@@ -214,6 +278,18 @@ typedef int REGSAM;
 
 #ifndef WPARAM
 #define WPARAM int
+#endif
+
+#ifndef COLORONCOLOR
+#define COLORONCOLOR 31
+#endif
+
+#ifndef DIB_RGB_COLORS
+#define DIB_RGB_COLORS 85
+#endif
+
+#ifndef SRCCOPY
+#define SRCCOPY 482 
 #endif
 
 #ifndef LPARAM

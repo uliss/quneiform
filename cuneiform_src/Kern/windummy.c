@@ -33,6 +33,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
+int HFILE_ERROR;
+
 /* Stub functions for Windows functions. These do nothing and will get
  * removed eventually.
  */
@@ -251,6 +253,106 @@ HWND CreateWindow(
 }
 
 HGDIOBJ SelectObject(HDC hdc, HGDIOBJ hgdiobj) {
+    return 0;
+}
+
+LPTSTR lstrcat(LPTSTR lpString1, LPTSTR lpString2) {
+    return strcat(lpString1, lpString2);
+}
+
+int lstrlen(LPCTSTR lpString) {
+    return strlen(lpString);
+}
+
+int lstrcmp(LPCTSTR lpString1, LPCTSTR lpString2) {
+    return strcmp(lpString1, lpString2);
+}
+
+LPTSTR lstrcpy(LPTSTR lpString1, LPTSTR lpString2) {
+    return strcpy(lpString1, lpString2);
+}
+
+int wsprintf(LPTSTR lpOut, LPCTSTR lpFmt, ...) {
+    return sprintf(lpOut, lpFmt, ...);
+}
+
+int lstrcmpi(LPCTSTR lpString1, LPCTSTR lpString2) {
+    return strcasecomp(lpString1, lpString2);
+}
+
+HDC CreateMetaFile(LPCTSTR lpszFile) {
+    return NULL;
+}
+
+HMETAFILE CloseMetaFile(HDC hdc) {
+    return 0;
+}
+
+BOOL SetWindowOrgEx(HDC hdc, int X, int Y LPPOINT lpPoint) {
+    return 0;
+}
+
+BOOL SetWindowExtEx(HDC hdc, int nXExtent, int nYExtent,
+LPSIZE lpSize) {
+    return 0;
+}
+
+COLORREF SetTextColor(HDC hdc, COLORREF crColor) {
+    return NULL;
+}
+
+COLORREF SetBkColor(HDC hdc, COLORREF crColor) {
+    return NULL;
+}
+
+int SetStretchBltMode(HDC hdc, int iStretchMode) {
+    return 0;
+}
+
+HPALETTE CreatePalette(const LOGPALETTE *lplgpl) {
+    return NULL;
+}
+
+HPALETTE SelectPalette(HDC hdc, HPALETTE hpal, BOOL bForceBackground) {
+    return hpal;
+}
+
+UINT RealizePalette(HDC hdc) {
+    return 0;
+}
+
+int StretchDIBits(HDC hdc, int XDest, int YDest, int nDestWidth,
+int nDestHeight, int XSrc, int YSrc, int nSrcWidth, int nSrcHeight,
+const void *lpBits, const BITMAPINFO *lpBitsInfo, UINT iUsage,
+DWORD dwRop) {
+    return -1;
+}
+
+BOOL UnrealizeObject(HGDIOBJ hgdiobj) {
+    return 0;
+}
+
+BOOL DeleteObject(HGDIOBJ hObject) {
+    return 0;
+}
+
+BOOL DeleteMetaFile(HMETAFILE hmf) {
+    return 0;
+}
+
+UINT GetMetaFileBitsEx(HMETAFILE hmf, UINT nSize, LPVOID lpvData) {
+    return 0;
+}
+
+BYTE GetRValue(DWORD rgb) {
+    return 0;
+}
+
+BYTE GetGValue(DWORD rgb) {
+    return 0;
+}
+
+BYTE GetBValue(DWORD rgb) {
     return 0;
 }
 

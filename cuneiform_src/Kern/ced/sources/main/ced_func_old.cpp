@@ -54,7 +54,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "StdAfx.h"
+#include <string.h>
+#include "stdafx.h"
 
 #include "ced_struct.h"
 #include "cedint.h"
@@ -369,8 +370,8 @@ void FormattedTR(const text_ref* pt)
 			}
 		}
 		array[arPosition].number=pt->object;
-		
-		for (int i=TRPosition-1;i>=0&&TRarray[i].type!=SSR_LINE_FN;i--);
+		int i;
+		for (i=TRPosition-1;i>=0&&TRarray[i].type!=SSR_LINE_FN;i--);
 		if(i>=0&&TRarray[i].type==SSR_LINE_FN)
 			array[arPosition].frameNum=TRarray[i].object;
 
@@ -464,14 +465,16 @@ int compare( const void *arg1, const void *arg2 );
 
 void StripLines()
 {
+    int i;
+    CEDChar* ch;
 	
-	for (int i=0;i<arPosition-1;i++)
+	for (i=0;i<arPosition-1;i++)
 	{
 		array[i].end=array[i+1].beg;
 		array[i].beg=array[i].beg!=0?array[i].beg->next:0;
 	}
 
-	for (CEDChar* ch=array[i].beg;ch&&ch->next;ch=ch->next);
+	for (ch=array[i].beg;ch&&ch->next;ch=ch->next);
 	array[i].beg=array[i].beg!=0?array[i].beg->next:0;
 	array[i].end=ch;
 
@@ -549,8 +552,9 @@ void RecreateFrames()
 	int * borders;//Массив их координат и ширин(через одну)
 	Bool32 firstCell;
 	CEDParagraph *cell,*table,*row;
+	int i;
 	//Цикл по всем text_remark'ам до конца описателя файла
-	for (int i=0;i<TRPosition&&TRarray[i].type!=SSR_FRAG_END;i++)
+	for (i=0;i<TRPosition&&TRarray[i].type!=SSR_FRAG_END;i++)
 	{
 		if (TRarray[i].type==SSR_FRAG_TYPE&&(TRarray[i].object==TP_MCOL_BEG))
 			(mainPage->InsertSection())->CreateColumn();
@@ -610,6 +614,7 @@ void RecreateFrames()
 		}
 		if (TRarray[i].type==SSR_FRAG_TYPE&&(TRarray[i].object==TP_MCOL_END)&&inTable)
 		{
+		    int k;
 			//Обновляем инфо в заголовке таблицы
 			edSize sz;
 			sz.cx=numOfCols;
@@ -619,7 +624,7 @@ void RecreateFrames()
 			int * q3=new int[sz.cy*sz.cx];
 			Bool32 * q4=new Bool32[sz.cx+1];
 			Bool32 * q5=new Bool32[sz.cy+1];
-			for(int k=0;k<sz.cy;k++)
+			for(k=0;k<sz.cy;k++)
 				for(int j=0;j<sz.cx;j++)
 					q3[k*sz.cx+j]=k*sz.cx+j;
 			for (k=0;k<borNum;k+=2)
@@ -634,8 +639,9 @@ void RecreateFrames()
 			delete[]q5;
 			numOfCols=-1;
 			inTable=FALSE;
+			CEDParagraph* para;
 			//Делаем, чтобы абзацы, ограничивающие секцию не были видны ф-ции GetParagraph( чтобы совпать но номеру абзаца с файлом)
-			for (CEDParagraph* para=table->prev;para!=((edTabDescr*)(table->descriptor))->last->next;para=para->next)
+			for (para=table->prev;para!=((edTabDescr*)(table->descriptor))->last->next;para=para->next)
 				para->internalNumber--;
 			para->internalNumber-=2;
 		}
@@ -645,10 +651,11 @@ void RecreateFrames()
 			edSize sz;
 			edBox bx;
 			EDRECT rct;
+			int j;
 			rct.left=rct.right=rct.top=-1;
 			sz.cx=sz.cy=-1;
 			bx.h=bx.w=bx.x=bx.y=-1;
-			for (int j=i;j<TRPosition&&TRarray[j].type!=SSR_FRAG_X;j++);
+			for (j=i;j<TRPosition&&TRarray[j].type!=SSR_FRAG_X;j++);
 			if (TRarray[j].type==SSR_FRAG_X)
 				bx.x=TRarray[j].object;
 			for (j=i;j<TRPosition&&TRarray[j].type!=SSR_FRAG_Y;j++);

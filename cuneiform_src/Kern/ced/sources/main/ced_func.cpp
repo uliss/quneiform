@@ -54,7 +54,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "StdAfx.h"
+#include <string.h>
+#include "stdafx.h"
 
 #include "ced_struct.h"
 #include "cedint.h"
@@ -213,7 +214,8 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 		sect->numSnakeCols=  sp->numSnakeCols; 
 		sect->colInfo=new EDCOL[sect->numSnakeCols];
 		char * c=(char*)ptExt+sizeof(sectParams1);
-		for(int i=0;i<sect->numSnakeCols;i++)
+		int i;
+		for(i=0;i<sect->numSnakeCols;i++)
 		{
 			sect->colInfo[i].width=*((Int32*)c);
 			c+=4;
@@ -764,7 +766,7 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 	fdd.code=SS_FRAGMENT;
 	if (!Write(hFile,(PInt8)&fdd,sizeof(fdd))) goto ED_WRITE_END;
 	//Пишем текстовый описатель версии
-	if (!WriteExtCode(hFile,EDEXT_VERSION,"CuneiForm2000 file format",strlen("CuneiForm2000 file format")+1)) goto ED_WRITE_END;
+	if (!WriteExtCode(hFile,EDEXT_VERSION,(void*)"CuneiForm2000 file format",strlen("CuneiForm2000 file format")+1)) goto ED_WRITE_END;
 	//Пишем таблицу шрифтов
 	if (!WriteFontTable(hFile,page)) goto ED_WRITE_END;
 	//Пишем границы листа
@@ -786,6 +788,7 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 	for (sec=0;sec<page->GetNumberOfSections();sec++)
 	{
 		CEDSection * sect=page->GetSection(sec);
+		int i;
 		sectParams1	sp;
 		sp.bottomMargin=sect->borders.bottom;
 		sp.topMargin=sect->borders.top;
@@ -795,7 +798,7 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 		sp.colInterval=sect->colInterval;
 		sp.numSnakeCols=sect->numSnakeCols;
 		if (!WriteExtCode(hFile,EDEXT_SECTION,&sp,sizeof(sp),sizeof(sectParams2)+sect->numSnakeCols*8)) goto ED_WRITE_END;
-		for (int i=0;i<sect->numSnakeCols;i++)
+		for (i=0;i<sect->numSnakeCols;i++)
 			if (!Write(hFile,(PInt8)&(sect->colInfo[i].width),4)) goto ED_WRITE_END;
 		for (i=0;i<sect->numSnakeCols;i++)
 			if (!Write(hFile,(PInt8)&(sect->colInfo[i].space),4)) goto ED_WRITE_END;
@@ -1017,9 +1020,10 @@ Bool32 WriteFontTable(HANDLE hFile, CEDPage* page)
 	char* ch=0;
 	//определяем суммарную длину всех имен шрифтов
 	int len=0;
+	int q;
 	if (!(page->fontsUsed))
 		return TRUE;
-	for (int q=0;q<page->fontsUsed;q++)
+	for (q=0;q<page->fontsUsed;q++)
 	{	
 		page->GetFont(q,0,0,0,&ch);
 		if (ch)
@@ -1061,9 +1065,10 @@ Bool32 WritePictTable(HANDLE hFile, CEDPage* page)
 	char* ch=0;
 	//определяем суммарную длину всех картинок
 	int len=0;
+	int q;
 	if (!(page->picsUsed))
 		return TRUE;
-	for (int q=0;q<page->picsUsed;q++)
+	for (q=0;q<page->picsUsed;q++)
 	{	
 		len+=page->picsTable[q].len;
 	}
