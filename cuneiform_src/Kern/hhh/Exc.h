@@ -110,10 +110,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define ExRc_NotEnoughMemory    4
 
 typedef Bool  (* Tiger_ProcComp)    (void * pool,Word32 size);
+/*
 #ifndef Handle
 typedef void * Handle ;
 #endif
-
+*/
 #ifdef PPS_MAC
  #pragma export on
 #endif

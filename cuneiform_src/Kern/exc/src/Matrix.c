@@ -78,7 +78,7 @@ static Int16 ls, nsb1;		// Length of string and strings per buffer
 static Word16 rest;		// Length of rest in the buffer after previous read
 static Word8 reserv[2048];
 extern Int16 image_lth     ;  // bytes per line
-void matrix_process ();
+static void matrix_process ();
 
 
 void matrix_open ()
