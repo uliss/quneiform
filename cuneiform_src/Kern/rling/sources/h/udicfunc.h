@@ -65,6 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #pragma message(__FILE__)
 #endif
 
+#include "cttypes.h"
 #include "udictest.h"
 
  DWORD        LoadUserDict( CHAR      *DictName,

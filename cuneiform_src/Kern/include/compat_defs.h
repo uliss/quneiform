@@ -42,6 +42,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <time.h>
 #include "minmax.h"
 #include "filestuff.h"
+#include "cttypes.h" /* Most type definitions are here. */
 
 #ifdef __cplusplus
     extern "C" {

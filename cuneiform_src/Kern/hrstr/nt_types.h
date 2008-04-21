@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /* It seems that most of these definitions are duplicated in c_types.h.
  * Thus we include it here and only add those parts that were missing.
  */
-
+/*
 typedef signed short int                _INT;
 typedef signed short int  *         _PINT;
 #define INT  _INT
@@ -71,7 +71,7 @@ typedef unsigned short int  *       PWORD;
 #define PSTR  PCHAR
 
 typedef signed long int  *          PLONG;
-
+*/
 /* The original contents of this file follow for future reference. */
 #if 0
 /********************************************************************/

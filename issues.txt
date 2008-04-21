@@ -23,3 +23,7 @@ definitions.
 There are a lot of duplicate definitions of some functions and variables.
 Maybe MSVC is just lax and tries to "do what I mean". It may also have
 something to do with Windows DLL symbol resolving rules.
+
+Basic datatypes were multiply defined all over the tree (cttypes.h, 
+c_types.h, nt_types.h). Now they are all in h/cttypes.h. Any multiple
+definitions should be considered bugs.

@@ -161,6 +161,37 @@ extern "C"
 }
 #endif   // __cplusplus
 
+/* These definitions were originally scattered about the code tree.
+ * Consolidating them all here.
+ */
+
+typedef int             BOOL;
+ 
+typedef signed char     CHAR;
+typedef signed char *   PCHAR;
+
+typedef unsigned char   BYTE;
+typedef unsigned char * PBYTE;
+
+typedef signed   short int  SINT;
+typedef unsigned short int  WORD;
+
+typedef signed   long int   LONG;
+typedef unsigned long int   DWORD;
+
+typedef signed long int  *          PLONG;
+typedef unsigned long int  *        PDWORD;
+
+typedef signed short int                _INT;
+typedef signed short int  *         _PINT;
+#define INT  _INT
+#define PINT _PINT
+typedef unsigned short int  *       PWORD;
+
+#define PSTR  PCHAR
+#define TCHUGE 
+#define TCFAR
+
 #include "cttypext.h"
 
 #endif   // __CTTYPES_H 

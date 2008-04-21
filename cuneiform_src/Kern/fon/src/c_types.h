@@ -58,7 +58,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define C_TYPES_H
 
 #include "minmax.h"
+#include "cttypes.h"
 
+/* Moved all these to cttypes.h so they are in one single place. */
+
+#if 0
 typedef int             BOOL;
  
 typedef signed char		CHAR;
@@ -100,5 +104,7 @@ typedef unsigned long int   DWORD;
 #endif
 
 /*------------------------------------------------------------------------*/
+
+#endif
 
 #endif

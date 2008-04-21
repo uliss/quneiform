@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef MSK32FUN_H_
 #define MSK32FUN_H_
 
-typedef unsigned char BYTE;
+#include "cttypes.h"
 
 int new_reco(short, short,Word16 *, Word8 *, BYTE, BYTE,
 			 short m1,short n1,short m2,short n2, Word8 *ch, Word8 enable_1);
