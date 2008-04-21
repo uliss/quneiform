@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <memory.h>
 #include <stdlib.h>
-#include "CTDIB.h"
+#include "ctdib.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
