@@ -265,7 +265,7 @@ void LayoutBackup (void)
      if(pCopy -> lPictures > 0){
         if((pCopy -> pPictures =  malloc(pCopy -> lPictures))==NULL)
             ErrorNoEnoughMemory ("in LTHLUNDO.C,LayoutBackup,part 3.1");
-        MEMCPY(pCopy -> pPictures,buffer,pCopy -> lPictures);
+        memcpy(pCopy -> pPictures,buffer,pCopy -> lPictures);
         }
      else  {
         pCopy -> lPictures = 0;

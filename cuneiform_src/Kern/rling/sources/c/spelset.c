@@ -138,7 +138,7 @@ INT readobj (INT status,SOBJ * obj)   /* Two statuses may occur             */
 /* ----------------- start object treatment ------------------------- */
 Begobj:
 	nobj = obj->nmb;                               /* old nmb of obj     */
-	MEMSET (obj,0,sizeof(SOBJ));          /* obj initial state  */
+	memset (obj,0,sizeof(SOBJ));          /* obj initial state  */
 	npos = 0;
 	nalt = 0;
 	init_specpos (obj);
@@ -839,7 +839,7 @@ void genobj (SOBJ * obj)
  obj->dif_wt     = 0;
  obj->alt_nmb    = 0;
 
- MEMCPY ( &(obj->tif_ref), &(obj->pos[0].tif_ref), sizeof(struct tifref) );
+ memcpy ( &(obj->tif_ref), &(obj->pos[0].tif_ref), sizeof(struct tifref) );
  for (i=0; i<npos; i++)
   {
    obj->type    |= obj->pos[i].type;    /* accumulate type                */
@@ -915,7 +915,7 @@ Setpart_new:
   return (No);           /* part not found in part-buff & buff overflowed   */
  i = obj->part_max;      /* new part index                                  */
  obj->part_max++;        /* one part more in part[]                         */
- MEMSET (&(part[i]),0,sizeof(SPART)); /* part initial state        */
+ memset (&(part[i]),0,sizeof(SPART)); /* part initial state        */
  obj->part = &(part[i]);       /* obj ref to curr part                      */
  part[i].beg = obj->part_beg;  /* part beg                                  */
  part[i].end = obj->part_end;  /* and end                                   */

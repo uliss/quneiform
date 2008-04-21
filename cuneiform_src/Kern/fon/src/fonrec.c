@@ -1130,10 +1130,10 @@ BYTE index[16],*ndx;
 PWORD lp;
 
 
- MEMSET(answ,0,sizeof(Version)*(MAXVERS+1));
+ memset(answ,0,sizeof(Version)*(MAXVERS+1));
 // {Valdemar classic version
  id++; // var to prevent recognition by the same cluster
- MEMSET(index,255,sizeof(index));
+ memset(index,255,sizeof(index));
 #ifdef STANDALONE
  lp=init_fac(r,h,w);
 #else

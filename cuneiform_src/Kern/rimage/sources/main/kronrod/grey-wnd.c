@@ -1336,7 +1336,7 @@ m1:	if (b==NJ_1)  return;	bbb = b + b + b;
 //////	if ((Flag_OTL) && (b>=640))  return;	// ****** OTLADKA *******
 	if (KR [bbb + 2])  { b = KR [bbb + 1];  goto  m1; }	// TO NEXT
 	e = KR [bbb + 1];
-	for (j=b; j<e; j++)  {		// for FREE INTERVAL:
+	for (j=b; j<e; j++)  {		// for free INTERVAL:
 //////	    if (pC[j]>=Porog_38)  goto m2;
 	    if (pC[j]>=Porog_38)  {
 		Korob_add (j);
@@ -1414,7 +1414,7 @@ m_right:					// REFERENCE for RIGHT:
 	KR [ccc + 1] = d;	// LEFT:  NEXT	// GLUE  c & d
 	KR [ddd + 0] = c;	// RIGHT: LAST
 	KR [ddd + 1] = e;	// RIGHT: NEXT	// GLUE  d & e
-	KR [ddd + 2] = 0;	// RIGHT: DOWN (FREE)
+	KR [ddd + 2] = 0;	// RIGHT: DOWN (free)
 	KR [eee + 0] = d;	// NEXT:  LAST
 	b = d;		// to NEXT INTERVAL
 	goto  m1;

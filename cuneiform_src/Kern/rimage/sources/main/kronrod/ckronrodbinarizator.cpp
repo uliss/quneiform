@@ -1390,7 +1390,7 @@ m1:
 	}	// TO NEXT
 	e = KR [bbb + 1];
 	for (j=b; j<e; j++)  
-	{		// for FREE INTERVAL:
+	{		// for free INTERVAL:
 	//////	    if (pC[j]>=Porog_38)  goto m2;
 	    if (pC[j]>=Porog_38)  
 		{
@@ -1486,7 +1486,7 @@ m_right:					// REFERENCE for RIGHT:
 	KR [ccc + 1] = (KRType)d;	// LEFT:  NEXT	// GLUE  c & d
 	KR [ddd + 0] = (KRType)c;	// RIGHT: LAST
 	KR [ddd + 1] = (KRType)e;	// RIGHT: NEXT	// GLUE  d & e
-	KR [ddd + 2] = (KRType)0;	// RIGHT: DOWN (FREE)
+	KR [ddd + 2] = (KRType)0;	// RIGHT: DOWN (free)
 	KR [eee + 0] = (KRType)d;	// NEXT:  LAST
 	b = d;		// to NEXT INTERVAL
 	goto  m1;

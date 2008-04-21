@@ -1338,7 +1338,7 @@ if( p2_active  )
     }
 
  c=new_cell();
- //MEMSET(c,0,sizeof(cell)); // Valdemar 11-20-95 05:46pm
+ //memset(c,0,sizeof(cell)); // Valdemar 11-20-95 05:46pm
  c->row=c->col=c->r_row=c->r_col=c->w=c->h=0;
  c->flg=c_f_space;
  c->flg_new = 0;

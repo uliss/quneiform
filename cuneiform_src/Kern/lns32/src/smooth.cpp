@@ -82,7 +82,7 @@ Bool     smooth_start(int _width_dword)
       return TRUE; // no smoothing
 
    width_dword = _width_dword;
-   buff = (Int32 HUGE*)(MALLOC(  4*width_dword*(nSmoothHeight+1) ) ); 
+   buff = (Int32 HUGE*)(malloc(  4*width_dword*(nSmoothHeight+1) ) ); 
    if (buff==NULL)
       return FALSE;
    
@@ -174,7 +174,7 @@ void     smooth_finish()
 {
    if (buff)
    {
-      FREE(buff);
+      free(buff);
       buff = NULL;
    }
 }

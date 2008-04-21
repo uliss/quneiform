@@ -104,7 +104,7 @@ void CloseBase(void);
 
 static SINT ReadAllFromBase(CHAR  *name,SINT *nClu,CHAR *movxy, SINT AllCount);
 
-#define MEMMOVE memmove
+#define memmove memmove
 #define MAXINCLUS 127
 
 
@@ -225,12 +225,12 @@ void EndHausdorfDLL(void)
  SINT i;
 
  for(i=(IsRhHauBuf >= 2?0:1);i<NumHauBit;i++)
-  { if(BitHau[i]!=NULL) FREE(BitHau[i]);
+  { if(BitHau[i]!=NULL) free(BitHau[i]);
 	BitHau[i]=NULL;
   }
  BitHau[0]=NULL;
 
- if(IsRhHauBuf!=0 && rh!=NULL) FREE(rh);
+ if(IsRhHauBuf!=0 && rh!=NULL) free(rh);
  rh=NULL;
  NumHauBit=0;
 
@@ -247,12 +247,12 @@ LONG size=0;
 
 #ifdef _NONFLAT_
  IsRhHauBuf=2;
- rh=(Nraster_header *)MALLOC((DWORD)MAXSYM*sizeof(Nraster_header));
+ rh=(Nraster_header *)malloc((DWORD)MAXSYM*sizeof(Nraster_header));
  if(rh==NULL) return -1;
 
  NumHauBit=0;
  // init bitmap for buffers
- BitHau[0]=(BYTE  *)MALLOC(SIZEBUF);  // take one segment
+ BitHau[0]=(BYTE  *)malloc(SIZEBUF);  // take one segment
  if(BitHau[0]==NULL)	 return -1;
  MaxSizeBuf=SIZEBUF;
  size=(DWORD)MAXSYM*sizeof(Nraster_header)+SIZEBUF;
@@ -261,7 +261,7 @@ LONG size=0;
  if(num <= 0) num=MAXSYM;
  if(ExternBuf == NULL)
  {
-  rh=(Nraster_header *)MALLOC((DWORD)MAXSYM*sizeof(Nraster_header)+(DWORD)SIZEBUF);
+  rh=(Nraster_header *)malloc((DWORD)MAXSYM*sizeof(Nraster_header)+(DWORD)SIZEBUF);
   if(rh==NULL) return -1;
   BitHau[0]=(BYTE *)rh;
   BitHau[0]+=(DWORD)num*sizeof(Nraster_header);
@@ -280,7 +280,7 @@ LONG size=0;
   }
  else  // use extern buffer for BitHau[0]
   {
-  rh=(Nraster_header *)MALLOC((DWORD)MAXSYM*sizeof(Nraster_header));
+  rh=(Nraster_header *)malloc((DWORD)MAXSYM*sizeof(Nraster_header));
   if(rh==NULL) return -1;
   BitHau[0]=(BYTE *)ExternBuf;
   MaxSizeBuf=SizeExternBuf;
@@ -306,7 +306,7 @@ BYTE *AddBuffer(LONG sizebitmap)
 		 {
 		  // get new buffer
 		  if(NumHauBit >= MAXHAU) return NULL;
-		  BitHau[NumHauBit]=MALLOC(SIZEBUF);
+		  BitHau[NumHauBit]=malloc(SIZEBUF);
 		  if(BitHau[NumHauBit]==NULL) return NULL;
 		  NumHauBit++;
 		  LastBit=0;
@@ -377,10 +377,10 @@ static SINT MakeBitmapsDLL(Nraster_header  *rhh, BYTE *pp,
   pic=rhh->pHau;
   j=(sx+7)>>3;  // real bytes
   if(sxbyte==j)   // not add empty bytes
-	  MEMCPY(pic,pp,sizebitmap);
+	  memcpy(pic,pp,sizebitmap);
   else
 	{
-	 for(i=0;i<sy;i++,pic+=sxbyte,pp+=j) MEMCPY(pic,pp,j);
+	 for(i=0;i<sy;i++,pic+=sxbyte,pp+=j) memcpy(pic,pp,j);
 	}
 
   rhh->pHaur=rhh->pHau+sxbyte*sy;
@@ -395,7 +395,7 @@ static SINT MakeBitmapsDLL(Nraster_header  *rhh, BYTE *pp,
   if( (rhh->pHau=AddBuffer(sizebitmap)) ==NULL )
 	  return -1;
   pic=rhh->pHau;
-  MEMCPY(pic,pp,sizebitmap);
+  memcpy(pic,pp,sizebitmap);
 
      //  save - how many need move
   rhh->sr_col=*(movxy+2*num);
@@ -437,7 +437,7 @@ if( IsCTBBase ) {i= OpenBase(NameWr); CloseBase(); return i;}
 	// stay part of raster header?
   if(num < csize )
   {
-	MEMCPY(buf,buf+num,csize-num);
+	memcpy(buf,buf+num,csize-num);
 	j=read(fh,buf+csize-num,size-csize+num);
 	if(j <= 0) break;
 	csize=csize-num+j;
@@ -507,7 +507,7 @@ SINT ReadAllFromWr(CHAR  *name,BYTE *buf,SINT size,SINT *nClu,CHAR *movxy,
 	  if(++CurCount == AllCount)  {CurCount=0;Signal();}
 	}
 
-	MEMCPY(buf,buf+num,csize-num);
+	memcpy(buf,buf+num,csize-num);
 	 num=csize-num;
   }
 
@@ -721,7 +721,7 @@ static SINT ClusterHausdorfDLL(CHAR  *NameWr,SINT porog,
 #endif
  }
 
- MEMSET(nClus,0,MAXSYM*sizeof(SINT));
+ memset(nClus,0,MAXSYM*sizeof(SINT));
 
  AllCount=NumAll/SIGNAL_CLUSTER;  // number of symbols for one Signal!
 
@@ -1066,7 +1066,7 @@ SINT SaveCluster(SINT fh,CTB_handle *CTBfile,
  if(maxy > WR_MAX_HEIGHT) maxy = WR_MAX_HEIGHT;
 
    // collect all symbols to raster
- MEMSET(welBuf,0,sizeof(welet));
+ memset(welBuf,0,sizeof(welet));
  welBuf->weight=(CHAR)j;
  welBuf->w=maxx;
  welBuf->h=maxy;
@@ -1315,7 +1315,7 @@ static SINT TestUnionOne(SINT porog,SINT NumAll,SINT NumClus)
  NumIn=mysteck;
  LasIn=mysteck+NumClus;
 
- MEMSET(mysteck,0,2*NumClus*sizeof(SINT));
+ memset(mysteck,0,2*NumClus*sizeof(SINT));
   // how many symbols in clusters and get names
  for(i=0;i<NumAll;i++)
  {
@@ -1400,8 +1400,8 @@ static SINT TestUnionOne(SINT porog,SINT NumAll,SINT NumClus)
 	  NumIn[best]++;
 	  for(j=0;j<NumAll;j++)  if(nClus[j] > i ) nClus[j]--;
 	  NumClus--;
-	  MEMCPY(LasIn+i,LasIn+i+1,(NumClus-i)*sizeof(SINT));
-	  MEMCPY(NumIn+i,NumIn+i+1,(NumClus-i)*sizeof(SINT));
+	  memcpy(LasIn+i,LasIn+i+1,(NumClus-i)*sizeof(SINT));
+	  memcpy(NumIn+i,NumIn+i+1,(NumClus-i)*sizeof(SINT));
 	  i--;
 	  continue;
 	 }
@@ -1590,7 +1590,7 @@ SINT *order;
 
   newclus=mysteck;
   order=mysteck+NumClus;
-  MEMSET(order,0,sizeof(SINT)*NumClus);
+  memset(order,0,sizeof(SINT)*NumClus);
   for(i=1;i<NumClus;i++) newclus[i]=i;
 
    // set parameters
@@ -1641,7 +1641,7 @@ SINT SetAccessTab(SINT fh,void *buf)
 {
  access_tab *act=(access_tab *)buf;
 
- MEMSET(act,0,sizeof(access_tab));
+ memset(act,0,sizeof(access_tab));
  act->wlsize=sizeof(welet);
  STRCPY(act->sign,SIGNATURE);
  if(write(fh,act,sizeof(access_tab)) != sizeof(access_tab)) return -11;
@@ -1667,7 +1667,7 @@ clu_info make_font(PCHAR rname,MKFAM accept,PBYTE extern_buf,LONG size)
  SINT ret;
  clu_info cin;
 
- MEMSET(&cin,0,sizeof(clu_info));
+ memset(&cin,0,sizeof(clu_info));
  STRCPY(szOutName,rname);
  MakRas(szOutName,"clu",0);
  my_percent=0;
@@ -1751,7 +1751,7 @@ BYTE SetHand(BYTE val);
  // fill massiv
  init11();
 
- MEMSET(&cin,0,sizeof(clu_info));
+ memset(&cin,0,sizeof(clu_info));
  my_percent=0;
  PutPercent=ShowProgress;
 

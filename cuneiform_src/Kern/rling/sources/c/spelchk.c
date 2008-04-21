@@ -271,7 +271,7 @@ INT selectobj (SOBJ * obj, INT ibeg, SPART * part)
 /* At 1-st, find a starting part to construct chains to the left:           */
  ib = ibeg;                    /* curr part ibeg */
  ie = obj->pos_part_nmb;       /* curr part iend */
- MEMSET (cur_part,0,sizeof(cur_part));
+ memset (cur_part,0,sizeof(cur_part));
  if (!(findpart (obj, part, obj->pos_part[ib], obj->pos_part[ie], &pi)))
   {
    pi = obj->part_max;     /* part not found => consider last part         */
@@ -402,7 +402,7 @@ INT selectobj_best (SOBJ * obj, SPART part[],
  if (summark > obj->opt_mark) /* is curr partitioning better then best ? */
 Ok_selobjbest:
   {                           /* Yes => curr will be best                */
-   MEMCPY (obj->opt_part, cur_part, sizeof(obj->opt_part)); /* partitioning */
+   memcpy (obj->opt_part, cur_part, sizeof(obj->opt_part)); /* partitioning */
    obj->opt_mark = summark;                                 /* mark         */
    obj->opt_pen  = sumpen;                                  /* penalty      */
    obj->opt_entire = *entire;                               /* flag         */
@@ -471,7 +471,7 @@ Selectp_ok:                      /* we're sure in the best word of the part:*/
 		obj->part->word = wrdfst;     /* the part will have the only word(best)  */
 		
 		if (bestword != wrdfst)          /* is the best word first               */
-			MEMCPY (wrdfst,bestword,sizeof(SWORD)); /* best is 1-st !      */
+			memcpy (wrdfst,bestword,sizeof(SWORD)); /* best is 1-st !      */
 		
 		wrdfst++;                        /* save only the best word of part      */
 		obj->word = wrdfst;              /* will proceed with the next           */
@@ -1221,7 +1221,7 @@ static INT fill_raster(CHAR raster[], CHAR  *tif_buf,
    dest=x_map%8;		/* |dest   |    8    |    8    |.. */
    tx_wth=(t_wth+7)/8;		/* total lth (bytes) */
 		 /* set init state:                               */
-   MEMSET (raster,0,RASTER_SIZE);  /* of raster                   */
+   memset (raster,0,RASTER_SIZE);  /* of raster                   */
    if ( tx_wth*t_hght > RASTER_SIZE )
      return -1;
 			/* move & shift two bytes */

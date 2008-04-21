@@ -231,9 +231,9 @@ void init_tab_alpha(BYTE *s1,BYTE *s2,INT num)
 {
 INT i;
 if( language==LANG_RUSSIAN && multy_language || language==LANG_RUSENG)
-  MEMSET(&tab_alphas[128],0,128);
+  memset(&tab_alphas[128],0,128);
 else
-  MEMSET(tab_alphas,0,256);
+  memset(tab_alphas,0,256);
 for(i=0;i<num;i++)
   tab_alphas[s1[i]] = tab_alphas[s2[i]] = 1;
 return;

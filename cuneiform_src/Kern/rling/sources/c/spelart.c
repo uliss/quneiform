@@ -286,7 +286,7 @@ INT partspec (SOBJ * obj, SPART part[])
       else
        {
 	obj->type_art |= T_REPL;     /* flag                            */
-	MEMSET (&(obj->art[0]),0, sizeof(obj->art));
+	memset (&(obj->art[0]),0, sizeof(obj->art));
 	obj->artn = -1;              /* 1-st find art            */
       }
   do
@@ -316,7 +316,7 @@ if(!(obj->type_art & T_BRK))
  if(!(obj->type_art & T_GC))    /* is glue-cut being considered 1-st time ? */
   {
    obj->type_art |= T_GC;       /* flag                                     */
-   MEMSET (&(obj->art[0]),0, sizeof(obj->art));
+   memset (&(obj->art[0]),0, sizeof(obj->art));
    obj->artn = -1;              /* 1-st find art                            */
   }
  setpart(obj,part);
@@ -337,7 +337,7 @@ INT  partbrk(SOBJ*obj,SPART  part[])
  if(!(obj->type_art & T_BRK))    /* is glue-cut being considered 1-st time ? */
   {
    obj->type_art |= T_BRK;       /* flag                                     */
-   MEMSET (&(obj->art[0]),0, sizeof(obj->art));
+   memset (&(obj->art[0]),0, sizeof(obj->art));
    obj->artn = -1;              /* 1-st find art                            */
   }
  setpart(obj,part);
@@ -601,8 +601,8 @@ if ( a->sr2)
  set_act_art(obj,act_art); /* set copy of obj->art[] for setart action:    */
 			   /* arts may overlapped, so the least important  */
 			   /* of them must be excluded                     */
-  MEMCPY(&savepa,obj->part,sizeof(SPART));
- MEMSET (obj->part,0,sizeof(SPART));  /* part initial state       */
+  memcpy(&savepa,obj->part,sizeof(SPART));
+ memset (obj->part,0,sizeof(SPART));  /* part initial state       */
  obj->part->beg = obj->part_beg;  /* part beg                              */
  obj->part->end = obj->part_end;  /* and end                               */
  obj->part->begi = obj->part_begi;/* part beg index in obj->pos_part[]     */
@@ -644,7 +644,7 @@ if ( a->sr2)
 
   return (Ok);                 /* Yes                                       */
 No_setart:
- MEMCPY(obj->part,&savepa,sizeof(SPART));
+ memcpy(obj->part,&savepa,sizeof(SPART));
  return (No);                  /* No - KNMOHO-TO-XEPOBATO                   */
 }
 
@@ -668,7 +668,7 @@ INT  set_act_art (SOBJ * obj, INT act_art[])
      ai;        /* current art-change-id                                    */
  INT aix;
 
- MEMSET (&(act_art[0]),0,sizeof(INT)*MAX_VIEW_SIZE); /* act_art init state */
+ memset (&(act_art[0]),0,sizeof(INT)*MAX_VIEW_SIZE); /* act_art init state */
  for (ai=1; ai /*< MAX_ARTS*/ <=max_art; ai++)
   {
    for (pa1=0; pa1<=obj->part->lth; pa1++)
@@ -744,7 +744,7 @@ INT  setart_new (SOBJ * obj, INT * pa,
   }
  posn--;
 
- MEMSET (&(obj->pos[posn]),0,sizeof(SPOS));
+ memset (&(obj->pos[posn]),0,sizeof(SPOS));
  obj->pos[posn].type_art = obj->type_art; /* it's art pos                   */
 
  if (code==BLANK)                                /* blank  ? */
@@ -874,7 +874,7 @@ INT init_specpos (SOBJ * obj)
  INT i;
  LT  * lt;
 
- MEMSET (&(obj->pos[SPEC_POS]),0,sizeof(SPOS));
+ memset (&(obj->pos[SPEC_POS]),0,sizeof(SPOS));
  obj->pos[SPEC_POS].type_art |= obj->type_art;
  obj->pos[SPEC_POS].       orig.code = BLANK;
  obj->pos[SPEC_POS].alt[0].orig.code = BLANK;

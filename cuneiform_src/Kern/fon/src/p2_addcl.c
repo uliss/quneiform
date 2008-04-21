@@ -105,7 +105,7 @@ SINT ReadAllFromWr(CHAR  *name,BYTE *buf,SINT size,SINT *nClu,CHAR *movxy,SINT N
 void MakRas(CHAR *inp,CHAR *ras,SINT point);
 SINT GetNumSym(CHAR *NameWr);
 
-#define MEMMOVE memmove
+#define memmove memmove
 
 #define MAXWELHAU  16
 #define MAXWELSYM  2048    // maximal number old clusters
@@ -205,7 +205,7 @@ SINT AddToClusters(CHAR  *rname,SINT NumClus,SINT porog,SINT porog2,SINT *nClus,
      return -2;
    }
 
- MEMSET(IsAdd,0,NumClus*sizeof(SINT));
+ memset(IsAdd,0,NumClus*sizeof(SINT));
  for(allnum=0;allnum<MAXSYM;allnum++,movxy+=2)
  {
   #ifdef _SIMPLDOS_
@@ -280,13 +280,13 @@ void EndHausdorfDLL2(void)
  SINT i;
 
  for(i=(IsRhHauBuf2 >= 2?0:1);i<NumWelHau;i++)
-  { if(WelHau[i]!=NULL) FREE(WelHau[i]);
+  { if(WelHau[i]!=NULL) free(WelHau[i]);
 	WelHau[i]=NULL;
   }
  WelHau[0]=NULL;
  NumWelHau=0;
 
- if(IsRhHauBuf2!=0 && swel!=NULL) FREE(swel);
+ if(IsRhHauBuf2!=0 && swel!=NULL) free(swel);
  swel=NULL;
 }
 /***********************/
@@ -300,12 +300,12 @@ LONG size=0;
 
 #ifdef _NONFLAT_
  IsRhHauBuf2=2;
- swel=(SWEL *)MALLOC((DWORD)num*sizeof(SWEL));
+ swel=(SWEL *)malloc((DWORD)num*sizeof(SWEL));
  if(swel==NULL) return -1;
 
  NumWelHau=0;
  // init bitmap for buffers
- WelHau[0]=(BYTE  *)MALLOC(SIZEBUF);  // take one segment
+ WelHau[0]=(BYTE  *)malloc(SIZEBUF);  // take one segment
  if(WelHau[0]==NULL)	 return -1;
  MaxSizeBuf2=SIZEBUF;
  size=(DWORD)num*sizeof(SWEL)+SIZEBUF;
@@ -314,7 +314,7 @@ LONG size=0;
  if(num <= 0) num=MAXWELSYM;
  if(ExternBuf == NULL)
  {
-  swel=(SWEL *)MALLOC((DWORD)MAXWELSYM*sizeof(SWEL)+(DWORD)SIZEBUF);
+  swel=(SWEL *)malloc((DWORD)MAXWELSYM*sizeof(SWEL)+(DWORD)SIZEBUF);
   if(swel==NULL) return -1;
   WelHau[0]=(BYTE *)swel;
   WelHau[0]+=(DWORD)num*sizeof(SWEL);
@@ -333,7 +333,7 @@ LONG size=0;
   }
  else  // use extern buffer for WelHau[0]
   {
-  swel=(SWEL *)MALLOC((DWORD)MAXWELSYM*sizeof(SWEL));
+  swel=(SWEL *)malloc((DWORD)MAXWELSYM*sizeof(SWEL));
   if(swel==NULL) return -1;
   WelHau[0]=(BYTE *)ExternBuf;
   MaxSizeBuf2=SizeExternBuf;
@@ -355,7 +355,7 @@ SINT AddBuffer2(LONG sizebitmap)
 		 {
 		  // get new buffer
 		  if(NumWelHau >= MAXWELHAU) return -6;
-		  WelHau[NumWelHau]=MALLOC(SIZEBUF);
+		  WelHau[NumWelHau]=malloc(SIZEBUF);
 		  if(WelHau[NumWelHau]==NULL) return -1;
 		  NumWelHau++;
 		  LastWel=0;
@@ -393,7 +393,7 @@ SINT stx,sty;
 #endif
 
  rr=sw->raster=WelHau[NumWelHau-1]+LastWel;
- for(i=0;i<h;i++,ras+=WR_MAX_WIDTH,rr+=w) MEMCPY(rr,ras,w);
+ for(i=0;i<h;i++,ras+=WR_MAX_WIDTH,rr+=w) memcpy(rr,ras,w);
  LastWel+=(LONG)w*h;
  return 0;
 }
@@ -601,20 +601,20 @@ SINT j;
 	rr=wel->raster+newstarty*WR_MAX_WIDTH+newstartx;
 	rr1=rr+sdvigy*WR_MAX_WIDTH+sdvigx;
 	for(i=0;i<sy;i++,rr+=WR_MAX_WIDTH,rr1+=WR_MAX_WIDTH)
-	 MEMCPY(rr,rr1,sx);
+	 memcpy(rr,rr1,sx);
   }
  else if(sdvigy==0 &&sdvigx < 0)   // move right
   {
 	rr=wel->raster+newstarty*WR_MAX_WIDTH+newstartx;
 	for(i=0;i<sy;i++,rr+=WR_MAX_WIDTH)
-	 MEMMOVE(rr,rr+sdvigx,sx);
+	 memmove(rr,rr+sdvigx,sx);
   }
  else   // move down - sdvigy < 0
   {
 	rr=wel->raster+(newstarty+sy-1)*WR_MAX_WIDTH+newstartx;
 	rr1=rr+sdvigy*WR_MAX_WIDTH+sdvigx;
 	for(i=0;i<sy;i++,rr-=WR_MAX_WIDTH,rr1-=WR_MAX_WIDTH)
-	 MEMCPY(rr,rr1,sx);
+	 memcpy(rr,rr1,sx);
   }
 
    // if set distance - not need set 0-s !
@@ -622,24 +622,24 @@ SINT j;
   // set 0 - on moved space
   // upper lines
  rr=wel->raster+starty*WR_MAX_WIDTH+startx;
- for(i=starty;i<newstarty;i++,rr+=WR_MAX_WIDTH)  MEMSET(rr,0,sx);
+ for(i=starty;i<newstarty;i++,rr+=WR_MAX_WIDTH)  memset(rr,0,sx);
   // down lines
  rr=wel->raster+(newstarty+sy)*WR_MAX_WIDTH+startx;
  for(i=newstarty;i<starty;i++,rr+=WR_MAX_WIDTH)
-	  MEMSET(rr,0,sx);
+	  memset(rr,0,sx);
 
  // left columns
  if( (j=newstartx-startx) > 0)
   {
 	rr=wel->raster+newstarty*WR_MAX_WIDTH+startx;
-	for(i=0;i<sy;i++,rr+=WR_MAX_WIDTH) MEMSET(rr,0,j);
+	for(i=0;i<sy;i++,rr+=WR_MAX_WIDTH) memset(rr,0,j);
   }
 
  // right columns
  if( (j=startx-newstartx) > 0)
   {
 	rr=wel->raster+newstarty*WR_MAX_WIDTH+newstartx+sx;
-	for(i=0;i<sy;i++,rr+=WR_MAX_WIDTH) MEMSET(rr,0,j);
+	for(i=0;i<sy;i++,rr+=WR_MAX_WIDTH) memset(rr,0,j);
   }
 #endif
 }
@@ -771,7 +771,7 @@ SINT NumClus; // how many clusters
   if(size < 0) return -1;
   cin->memused=size;
   if(size > 0) 
-	{posXY=MALLOC(NumClus*sizeof(POSXY));
+	{posXY=malloc(NumClus*sizeof(POSXY));
      if(posXY==NULL) return -1;
      cin->memused+= NumClus*sizeof(POSXY);
 	}
@@ -824,7 +824,7 @@ SINT AddClusterHausdorf(CHAR  *NameWr,CHAR  *szOutName,
   NumClus=StartWeightedClusters(szOutName,extern_buf,size_extern,cin,0);
   if(NumClus < 0)   return NumClus;
 
-  MEMSET(nClus,0,MAXSYM*sizeof(SINT));
+  memset(nClus,0,MAXSYM*sizeof(SINT));
   movxy=(CHAR *)welBuf;
 
 #ifdef _GETTIME_

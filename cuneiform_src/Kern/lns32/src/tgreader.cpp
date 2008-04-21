@@ -131,7 +131,7 @@ TigerReader::TigerReader(void)
 
       lines_count = 0;
       dword_len = BUF_LEN / 4;
-      line_buf = (Word8*)MALLOC( BUF_LEN ); // 24 apr 96, VP. Bug:  BUF_LEN <== (dword_len*4)
+      line_buf = (Word8*)malloc( BUF_LEN ); // 24 apr 96, VP. Bug:  BUF_LEN <== (dword_len*4)
 		if (line_buf == NULL)
       {  assert(0); errCode = ER_NOMEMORY;
          dword_len=0;
@@ -151,7 +151,7 @@ TigerReader::~TigerReader(void)
 
       Tiger_Callback_ImageClose();
 		if (line_buf != NULL)
-         FREE( (void*)line_buf );
+         free( (void*)line_buf );
 	};
 
 void*   TigerReader::getLine(void)

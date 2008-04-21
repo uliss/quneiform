@@ -103,7 +103,7 @@ BYTE *AddBuffer(LONG sizebitmap);
   pic=rhh->pHau;
   pp=r->Raster;
   for(i=0;i<sy;i++,pic+=sxbyte,pp+=wb) 
-	  MEMCPY(pic,pp,j);
+	  memcpy(pic,pp,j);
 
   rhh->pHaur=rhh->pHau+sxbyte*sy;
   // размазать и обнулить хвосты!

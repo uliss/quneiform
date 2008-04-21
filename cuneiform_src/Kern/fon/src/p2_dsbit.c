@@ -234,11 +234,11 @@ SINT MakeMoved(BYTE *etalon,SINT xbyte,SINT yrow,BYTE *tmpbuf)
 {
 SINT i,j;
 
-  MEMCPY(tmpbuf,etalon,xbyte*yrow);
+  memcpy(tmpbuf,etalon,xbyte*yrow);
   MoveRightBmp(tmpbuf,1,xbyte,yrow);
 
   tmpbuf+=xbyte*yrow;
-  MEMCPY(tmpbuf,etalon,xbyte*yrow);
+  memcpy(tmpbuf,etalon,xbyte*yrow);
   MoveLeftBmp(tmpbuf,1,xbyte,yrow);
 
    // calc 1-s in first column

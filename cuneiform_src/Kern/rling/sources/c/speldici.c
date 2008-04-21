@@ -292,9 +292,9 @@ BYTE * load_stat_dict ( CHAR  *point )
 /*  -- Load decode tables. -- NEED TO THINK ABOUT !!!
 --
 --  memcpy( nearBuf, dictHdr->abcUpper, sizeof(dictHdr->abcUpper));
---  MEMCPY( alphabet[0], nearBuf, sizeof(dictHdr->abcUpper) );
+--  memcpy( alphabet[0], nearBuf, sizeof(dictHdr->abcUpper) );
 --  memcpy( nearBuf, dictHdr->abcLower, sizeof(dictHdr->abcLower));
---  MEMCPY( alphabet[1], nearBuf, sizeof(dictHdr->abcLower) );
+--  memcpy( alphabet[1], nearBuf, sizeof(dictHdr->abcLower) );
 --
 */
 

@@ -144,7 +144,7 @@ Bool Sweeper_ImageOpen (Tiger_ImageInfo* lpImageInfo)
 			return WRONG();
 
 
-      LinesBuf  = (Word8*)MALLOC( BUF_LEN );
+      LinesBuf  = (Word8*)malloc( BUF_LEN );
 		if (LinesBuf == NULL) return WRONG();
 
 		MustCloseImage = TRUE;
@@ -345,7 +345,7 @@ Int16 Sweeper_ImageRead (Word8* lpImage, Word16 wMaxSize)
 Bool  Sweeper_ImageClose (void)
 {  //...
 	if (LinesBuf)
-      FREE(LinesBuf  );
+      free(LinesBuf  );
    LinesBuf   = NULL;
 	CurLine = 0;
 	Ready = FALSE;

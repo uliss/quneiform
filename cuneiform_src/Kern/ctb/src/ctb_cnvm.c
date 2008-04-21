@@ -120,12 +120,12 @@ return 0;
 // 256 colors //
 void conv_bits_to_bytes1(Word8 *bin,Word8 *text, Int16 len)
 {
-MEMCPY( text,bin, (Word16)len);
+memcpy( text,bin, (Word16)len);
 return;
 }
 void conv_bytes_to_bits1(Word8 *text,Word8 *bin, Int16 len)
 {
-MEMCPY( text,bin, (Word16)len);
+memcpy( text,bin, (Word16)len);
 return;
 }
 
@@ -134,7 +134,7 @@ void conv_bits_to_bytes2(Word8 *bin,Word8 *text, Int16 len)
 {
 Int16 i;
 Word8 c,*p;
-MEMSET( text,0x0, (Word16)len<<1);
+memset( text,0x0, (Word16)len<<1);
 for(p=text,i=0;i<len;i++)
 	{
 	c = bin[i];
@@ -174,7 +174,7 @@ void conv_bits_to_bytes1plane(Word8 *bin,Word8 *text,Int16 len)
 Int16 i,len8=len/8,len0;
 Word8 c,*p;
 
-MEMSET( text,0x0, (Word16)len);
+memset( text,0x0, (Word16)len);
 len0 = len8;
 for(p=text,i=0;i<len0;i++)
 	{
@@ -344,7 +344,7 @@ void conv_bits_to_bytes2plane(Word8 *bin,Word8 *text,Int16 len)
 Int16 i,len4=len>>2,len2=len>>1,len3=len2+len4;
 Word8 c,*p;
 
-MEMSET( text,0x0, (Word16)len<<1);
+memset( text,0x0, (Word16)len<<1);
 for(p=text,i=0;i<len4;i++)
 	{
     c = bin[i];
@@ -435,7 +435,7 @@ void conv_bits_to_bytes4(Word8 *bin,Word8 *text,Int16 len)
 {
 Word16 i;
 Word8 c,*p;
-MEMSET( text,0x0, (Word16)len<<2);
+memset( text,0x0, (Word16)len<<2);
 for(p=text,i=0;i<len;i++)
 	{
 	c = bin[i];
@@ -473,7 +473,7 @@ void conv_bits_to_bytes4plane(Word8 *bin,Word8 *text,Int16 len)
 Int16 i,len2=len>>1;
 Word8 c,*p;
 
-MEMSET( text,0x0, (Word16)len<<2);
+memset( text,0x0, (Word16)len<<2);
 for(p=text,i=0;i<len2;i++)
 	{
   c = bin[i];
@@ -535,7 +535,7 @@ void conv_bits_to_bytes8(Word8 *bin,Word8 *text, Int16 len)
 {
 Int16 i;
 Word8 c,*p;
-MEMSET( text,0x0, len*8);
+memset( text,0x0, len*8);
 for(p=text,i=0;i<len;i++)
 	{
 	c = bin[i];

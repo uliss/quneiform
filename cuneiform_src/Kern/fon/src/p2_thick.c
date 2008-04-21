@@ -157,14 +157,14 @@ SINT Razmaz(BYTE *bSource,BYTE *bDest,SINT xbyte,SINT xbit,SINT yrow,BYTE fat)
 	 fat=VeryFat(bSource,xbit,yrow,xbyte);
 
   // обнулим последнюю строку 'толстого'
- MEMSET(bDest+xbyte*yrow,0,xbyte);
+ memset(bDest+xbyte*yrow,0,xbyte);
 
 #ifdef _SPECSMALL_
 	// not add angles
  if( yrow <= SMALLPOROG || fat )
   {
 		// скопируем
-	MEMCPY(bDest,bSource,xbyte*yrow);
+	memcpy(bDest,bSource,xbyte*yrow);
 	MoveLeftRightBitmap(bDest,xbyte,yrow);
 	MoveUpDownBitmap(bSource,xbyte,yrow,bDest);
   }
@@ -172,7 +172,7 @@ SINT Razmaz(BYTE *bSource,BYTE *bDest,SINT xbyte,SINT xbit,SINT yrow,BYTE fat)
   {
 #endif
 	// скопируем
- MEMCPY(bDest,bSource,xbyte*yrow);
+ memcpy(bDest,bSource,xbyte*yrow);
   // и наконец размажем
   //  вверх-вниз
  MoveUpDownBitmap(bSource,xbyte,yrow,bDest);
@@ -205,7 +205,7 @@ SINT MoveUpDownBitmap2(SINT xbyte,SINT yrow,BYTE *bDest)
  BYTE *bSource=tmpbuf;
 
 
- MEMCPY(bSource,bDest+xbyte,xbyte*yrow);
+ memcpy(bSource,bDest+xbyte,xbyte*yrow);
 
 	 // размажем вниз
  b2=bDest+2*xbyte;
@@ -295,7 +295,7 @@ SINT Razmaz2(BYTE *bSource,BYTE *bDest,SINT xbit,SINT yrow,SINT porogX,SINT poro
 
 	// скопируем
  for(i=0,b2=bDest+xbyte2,b1=bSource;i<yrow;i++,b1+=xbyte,b2+=xbyte2)
-  MEMCPY(b2,b1,xbyte);
+  memcpy(b2,b1,xbyte);
 
   // если есть лишний байт в Dest - обнулим
  if(xbyte<xbyte2)
@@ -305,8 +305,8 @@ SINT Razmaz2(BYTE *bSource,BYTE *bDest,SINT xbit,SINT yrow,SINT porogX,SINT poro
   }
 
   // обнулим first & последнюю строку 'толстого'
- MEMSET(bDest,0,xbyte2);
- MEMSET(bDest+xbyte2*(yrow+1),0,xbyte2);
+ memset(bDest,0,xbyte2);
+ memset(bDest+xbyte2*(yrow+1),0,xbyte2);
 
   
  MoveLeftRightBitmap2(bDest+xbyte2,xbyte2,yrow);
@@ -344,7 +344,7 @@ SINT Razmaz2xByte(BYTE *bSource,BYTE *bDest,SINT xbyteAll,SINT xbit,SINT yrow,
 
 	// скопируем
  for(i=0,b2=bDest+xbyte2,b1=bSource;i<yrow;i++,b1+=xbyteAll,b2+=xbyte2)
-  MEMCPY(b2,b1,xbyte);
+  memcpy(b2,b1,xbyte);
 
   // если есть лишний байт в Dest - обнулим
  if(xbyte<xbyte2)
@@ -354,8 +354,8 @@ SINT Razmaz2xByte(BYTE *bSource,BYTE *bDest,SINT xbyteAll,SINT xbit,SINT yrow,
   }
 
   // обнулим first & последнюю строку 'толстого'
- MEMSET(bDest,0,xbyte2);
- MEMSET(bDest+xbyte2*(yrow+1),0,xbyte2);
+ memset(bDest,0,xbyte2);
+ memset(bDest+xbyte2*(yrow+1),0,xbyte2);
 
   
  MoveLeftRightBitmap2(bDest+xbyte2,xbyte2,yrow);
@@ -426,7 +426,7 @@ SINT RazmazHalf(BYTE *bSource,BYTE *bDest,SINT xbit,SINT yrow)
   }
 
  for(i=0,b2=bDest,b1=bSource;i<yrow;i++,b1+=xbyte,b2+=xbyte2)
-  MEMCPY(b2,b1,xbyte);
+  memcpy(b2,b1,xbyte);
 
   // если есть лишний байт в Dest - обнулим
  if(xbyte<xbyte2) 
@@ -436,7 +436,7 @@ SINT RazmazHalf(BYTE *bSource,BYTE *bDest,SINT xbit,SINT yrow)
   }
 
   // обнулим последнюю строку 'толстого'
- MEMSET(bDest+xbyte2*yrow,0,xbyte2);
+ memset(bDest+xbyte2*yrow,0,xbyte2);
 
  MoveDownBitmap(bSource,xbyte,yrow,bDest,xbyte2);
  MoveRightBitmap(bDest,xbyte2,yrow);

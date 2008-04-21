@@ -323,8 +323,8 @@ int TestMoveRaster(int start,Nraster_header *rh,int NumAll,
     for(k=0;k<NumAll;k++)
 	  if(nClus[k]>j) nClus[k]--;
     NumClus--;
-    MEMCPY(LasIn+j,LasIn+j+1,(NumClus-j)*sizeof(SINT));
-    MEMCPY(NumIn+j,NumIn+j+1,(NumClus-j)*sizeof(SINT));
+    memcpy(LasIn+j,LasIn+j+1,(NumClus-j)*sizeof(SINT));
+    memcpy(NumIn+j,NumIn+j+1,(NumClus-j)*sizeof(SINT));
 	if(LasIn[nClus[start]] < i)
 		LasIn[nClus[start]] = i;
 	numAdded++;

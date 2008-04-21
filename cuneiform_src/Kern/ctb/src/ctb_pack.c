@@ -132,7 +132,7 @@ for( inB=inBuffer, inE=inBuffer+inLen ; inB<inE ; inB++)
 	if( *inB>=0xC0 )
 		{
 		cnt = 0x3F & *inB++;
-		MEMSET(outBuffer,*inB,cnt);
+		memset(outBuffer,*inB,cnt);
 		outBuffer += cnt;
 		}
 	else

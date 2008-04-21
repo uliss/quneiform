@@ -140,7 +140,7 @@ INT begin(BYTE batch_run)
 	SPQ.last_del_line              = NULL;
 	SPQ.stack_change_flag          = YES;
 	
-	MEMSET(SPQ.fragm_flag,NONEXIST,sizeof(SPQ.fragm_flag));
+	memset(SPQ.fragm_flag,NONEXIST,sizeof(SPQ.fragm_flag));
 
 	if(  read_file(batch_run)== FALSE)         
 		return FALSE;

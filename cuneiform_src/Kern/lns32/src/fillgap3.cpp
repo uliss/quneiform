@@ -87,7 +87,7 @@ Bool     FillGap3_Init(int wImageByteWidth)
 	{
 		nByteWidth= wImageByteWidth;
 		
-		buff_ = (Word8*)MALLOC(nByteWidth+4); 
+		buff_ = (Word8*)malloc(nByteWidth+4); 
 		if (buff_==NULL)
 			return FALSE;
 		memset(buff_, 0xff, nByteWidth + 4); 
@@ -134,7 +134,7 @@ void     FillGap3_Done()
 	{
 		if (buff_)
 		{
-			FREE(buff_);
+			free(buff_);
 			buff_ = NULL;
 			buff = NULL;
 		}

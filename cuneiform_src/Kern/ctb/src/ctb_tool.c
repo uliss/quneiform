@@ -155,7 +155,7 @@ ctb_err_code = CTB_ERR_NONE;
 strcpy(file_name,filename);
 p=ctb_last_punct(file_name);
 strlwr(attr);
-MEMSET(hnd,0,sizeof(CTB_handle));
+memset(hnd,0,sizeof(CTB_handle));
 if( p ) *p='\0';
 SPRINTF(lin,"%s.CTB",file_name);
 
@@ -378,7 +378,7 @@ switch( hnd->version )
         break;
     }
 if( data )
-  MEMCPY(data,zero_data,datalen);
+  memcpy(data,zero_data,datalen);
 
 fp=hnd->ndx;
 if( FSEEK(fp,num*8,SEEK_SET) )
@@ -431,7 +431,7 @@ save_pack[l]=save_pack[l+1]=0;
 // read data and picture        //
 if( data )
     {
-    MEMCPY(data,save_pack,datalen);
+    memcpy(data,save_pack,datalen);
     if( hnd->version<6 )
         data[0]=CTB_OEM_CHARSET;
     }
@@ -455,7 +455,7 @@ if( hnd->version>=6 )
     switch( save_pack[datalen+0] ) 
             {
             case        CTB_COMP_NONE:  // no compression
-                    MEMCPY(save_bin,&save_pack[datalen+1],len);
+                    memcpy(save_bin,&save_pack[datalen+1],len);
                     break;
             case        CTB_COMP_PCX:   // decode picture by PCX-compressing    
                     decLine(&save_pack[datalen+1],(Int16)l_seek,save_bin);
@@ -470,7 +470,7 @@ else
     switch( save_pack[0] ) 
             {
             case        CTB_COMP_NONE:  // no compression
-                    MEMCPY(save_bin,&save_pack[datalen],len);
+                    memcpy(save_bin,&save_pack[datalen],len);
                     break;
             case        CTB_COMP_PCX:   // decode picture by PCX-compressing    
                     decLine(&save_pack[datalen],(Int16)l_seek,save_bin);
@@ -538,7 +538,7 @@ switch( hnd->version )
         gdatalen=CTB_DATA_SIZE; 
         break;
     }
-MEMCPY(data,zero_data,gdatalen);
+memcpy(data,zero_data,gdatalen);
 if( hnd==NULL )
         {
         ctb_err_code = CTB_ERR_NOT_OPEN;
@@ -593,7 +593,7 @@ switch( hnd->version )
         datalen=hnd->attr_size;
         break;
     }
-MEMCPY(data,zero_data,datalen);
+memcpy(data,zero_data,datalen);
 if( hnd==NULL )
         {
         ctb_err_code = CTB_ERR_NOT_OPEN;
@@ -684,7 +684,7 @@ sp = encLine(bin, n,&save_pack[1],len);
 if( sp>=n )
         {    // copy bit map to out buffer if PCX can't decrease size //
         sp = n;
-    MEMCPY(&save_pack[1],bin,sp);
+    memcpy(&save_pack[1],bin,sp);
     save_pack[0]=CTB_COMP_NONE;
     sp++; 
         }

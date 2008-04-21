@@ -140,20 +140,20 @@ SINT MakeIdeal(welet *wel,SINT porog)
 	rr=wel->raster+newstarty*WR_MAX_WIDTH+newstartx;
 	rr1=rr+sdvigy*WR_MAX_WIDTH+sdvigx;
 	for(i=0;i<newsy;i++,rr+=WR_MAX_WIDTH,rr1+=WR_MAX_WIDTH)
-	 MEMCPY(rr,rr1,newsx);
+	 memcpy(rr,rr1,newsx);
   }
  else if(sdvigy==0 &&sdvigx < 0)   // move right
   {
 	rr=wel->raster+newstarty*WR_MAX_WIDTH+newstartx;
 	for(i=0;i<newsy;i++,rr+=WR_MAX_WIDTH)
-	 MEMMOVE(rr,rr+sdvigx,newsx);
+	 memmove(rr,rr+sdvigx,newsx);
   }
  else   // move down - sdvigy < 0
   {
 	rr=wel->raster+(newstarty+newsy-1)*WR_MAX_WIDTH+newstartx;
 	rr1=rr+sdvigy*WR_MAX_WIDTH+sdvigx;
 	for(i=0;i<newsy;i++,rr-=WR_MAX_WIDTH,rr1-=WR_MAX_WIDTH)
-	 MEMCPY(rr,rr1,newsx);
+	 memcpy(rr,rr1,newsx);
   }
 
    // if set distance - not need set 0-s !
@@ -162,24 +162,24 @@ SINT MakeIdeal(welet *wel,SINT porog)
   // upper lines
  rr=wel->raster+(starty+fy)*WR_MAX_WIDTH+startx+fx;
  for(i=starty+fy;i<newstarty;i++,rr+=WR_MAX_WIDTH)
-	  MEMSET(rr,0,newsx);
+	  memset(rr,0,newsx);
   // down lines
  rr=wel->raster+(newstarty+newsy)*WR_MAX_WIDTH+startx+fx;
  for(i=newstarty+newsy;i<starty+ly;i++,rr+=WR_MAX_WIDTH)
-	  MEMSET(rr,0,newsx);
+	  memset(rr,0,newsx);
 
  // left columns
  if( (j=newstartx-startx-fx) > 0)
   {
 	rr=wel->raster+newstarty*WR_MAX_WIDTH+startx+fx;
-	for(i=0;i<newsy;i++,rr+=WR_MAX_WIDTH) MEMSET(rr,0,j);
+	for(i=0;i<newsy;i++,rr+=WR_MAX_WIDTH) memset(rr,0,j);
   }
 
  // right columns
  if( (j=startx+lx-newstartx-newsx) > 0)
   {
 	rr=wel->raster+newstarty*WR_MAX_WIDTH+newstartx+newsx;
-	for(i=0;i<newsy;i++,rr+=WR_MAX_WIDTH) MEMSET(rr,0,j);
+	for(i=0;i<newsy;i++,rr+=WR_MAX_WIDTH) memset(rr,0,j);
   }
 #endif
  return summa;
@@ -441,7 +441,7 @@ SINT FindDistanceWr(welet *wel,welet *outwel)
     { if(bound<=-128) break;
       else ras[j]=(char)bound;
     }
-  if(j>=0) MEMSET(ras,-128,j+1);
+  if(j>=0) memset(ras,-128,j+1);
  }
 
  // right part
@@ -457,7 +457,7 @@ SINT FindDistanceWr(welet *wel,welet *outwel)
    {if(bound<=-128) break;
     ras[j]=(char)bound;
    }
-  if( j < WR_MAX_WIDTH ) MEMSET(ras+j,-128,WR_MAX_WIDTH-j);
+  if( j < WR_MAX_WIDTH ) memset(ras+j,-128,WR_MAX_WIDTH-j);
  }
 
  #else
@@ -485,7 +485,7 @@ SINT FindDistanceWr(welet *wel,welet *outwel)
 
  for(i=0;i<starty;i++,fullout-=WR_MAX_WIDTH,cout-=WR_MAX_WIDTH)
  {
-  //MEMCPY(fullout,cout,WR_MAX_WIDTH);
+  //memcpy(fullout,cout,WR_MAX_WIDTH);
   for(j=0;j<WR_MAX_WIDTH;j++) fullout[j]=cout[j]+1;
  }
 
@@ -499,7 +499,7 @@ SINT FindDistanceWr(welet *wel,welet *outwel)
 
  for(i=starty+sizey;i<WR_MAX_HEIGHT;i++,fullout+=WR_MAX_WIDTH,cout+=WR_MAX_WIDTH)
  {
-  //MEMCPY(fullout,cout,WR_MAX_WIDTH);
+  //memcpy(fullout,cout,WR_MAX_WIDTH);
   for(j=0;j<WR_MAX_WIDTH;j++) fullout[j]=cout[j]+1;
  }
 

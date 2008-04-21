@@ -78,7 +78,7 @@ TFltBuf::TFltBuf( int width_dword )
 			return;
 		};
 
-      x16 = (Int32 HUGE*)(MALLOC( (Int32)32 * (Int32)sizeof(Int32) * (Int32)width_dword  ));
+      x16 = (Int32 HUGE*)(malloc( (Int32)32 * (Int32)sizeof(Int32) * (Int32)width_dword  ));
 		if (x16 == NULL) {
 			return;
 		};
@@ -96,14 +96,14 @@ TFltBuf::TFltBuf( int width_dword )
 void TFltBuf::destroy( void )
 	{
 		if (x16!=NULL) {
-         FREE( (void*)x16 );
+         free( (void*)x16 );
 			x16 = NULL;
 		};
 	};
 
 void TFltBuf::addLine( void* new_line )
 	{
-      MEMMOVE( (void*)(x16+widthDWord*nCurLine), new_line, widthDWord*4 );
+      memmove( (void*)(x16+widthDWord*nCurLine), new_line, widthDWord*4 );
 		nCurLine++;
 	};
 
@@ -169,7 +169,7 @@ void TFltBuf::updateByLine( void* new_line )
 		swap( last16, cur16 );
 
       curA = (Int32*)x16+wdw*n_cur;
-      MEMMOVE( (void*)curA, new_line, wdw*4 );
+      memmove( (void*)curA, new_line, wdw*4 );
       curB = (n_cur & (Int32)1) ?
              (Int32*)x16+wdw*(n_cur - 1):    // odd - get previous
              (Int32*)x16+wdw*(n_cur + 1);    // even - get next

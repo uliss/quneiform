@@ -379,13 +379,13 @@ INT setimg (SOBJ * obj,
  for (ii=0; ii<=obj->part->lth; ii++)
   {
    pi = obj->part->posn[ii];
-   MEMSET (&(wrdimg[ii]),0,sizeof(LTIMG));/*init state of wrdimg item */
+   memset (&(wrdimg[ii]),0,sizeof(LTIMG));/*init state of wrdimg item */
    wrdimg[ii].lt=(LT  *)&wrdimg[ii].std;  /*allways alt-list in std !  */
    wrdimg[ii].lt+=0;                            /* normalize !               */
      wrdimg[ii].source =(CHAR *) &(obj->pos[pi].orig);
    if (obj->pos[pi].type_sp & T_BLANK)  /* blank in this position    */
     {
-     MEMCPY(&wrdimg[ii].std,&std,sizeof(STD));
+     memcpy(&wrdimg[ii].std,&std,sizeof(STD));
      wrdimg[ii].blank=1;        /* this flag is used for dict access !!! */
     }
    else                           /* not blank, copy all alts of the pos: */
@@ -445,9 +445,9 @@ INT setwrd (SOBJ * obj,
  LT  * wlt;
 
  wrd = obj->word->next;         /* save ref to the next in part-word list */
- MEMSET ( obj->word, 0, sizeof(SWORD) );
+ memset ( obj->word, 0, sizeof(SWORD) );
  obj->word->next = wrd;         /* restore ref to the next ...            */
- MEMSET ( obj->wordchar, 0, MAX_WORD_SIZE );
+ memset ( obj->wordchar, 0, MAX_WORD_SIZE );
 
  for (i=0; wrddef[i] ; i++)
   {
@@ -541,7 +541,7 @@ INT nextwrd (SOBJ * obj,
      if (*(wrddef[i]->source)==BLANK)          /*blank in this position ?*/
       {                                        /* Yes:                   */
        wrddef[i]->blank = 1;   /* this flag is used for dict access !!!  */
-       MEMCPY(&(wrddef[i]->std),&std,sizeof(STD));
+       memcpy(&(wrddef[i]->std),&std,sizeof(STD));
       }
     }
   }

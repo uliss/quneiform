@@ -172,14 +172,14 @@ BOOL InitializeAlphabet (INT CountryCode)
     ABCSize = atoi(w);
   }
 
-  if ( TGGETS( h, MEMSET( w, 0, sizeof(w)), sizeof(w)) == w ) {
-    MEMCPY( alphabet[0], w, ABCSIZE );
+  if ( TGGETS( h, memset( w, 0, sizeof(w)), sizeof(w)) == w ) {
+    memcpy( alphabet[0], w, ABCSIZE );
   }
-  if ( TGGETS( h, MEMSET( w, 0, sizeof(w)), sizeof(w)) == w ) {
-    MEMCPY( alphabet[1], w, ABCSIZE );
+  if ( TGGETS( h, memset( w, 0, sizeof(w)), sizeof(w)) == w ) {
+    memcpy( alphabet[1], w, ABCSIZE );
   }
-  if ( TGGETS( h, MEMSET( w, 0, sizeof(w)), sizeof(w)) == w ) {
-    MEMCPY( alphabet[2], w, ABCSIZE );
+  if ( TGGETS( h, memset( w, 0, sizeof(w)), sizeof(w)) == w ) {
+    memcpy( alphabet[2], w, ABCSIZE );
   }
   else {
     TGCLOSE(h);
@@ -221,7 +221,7 @@ BOOL InitializeAlphabet (INT CountryCode)
 /*     return FALSE;                                                  */
 /*   }                                                                */
 /*                                                                    */
-/*   MEMSET( AcsInd, 0, sizeof(AcsInd));                              */
+/*   memset( AcsInd, 0, sizeof(AcsInd));                              */
 /*                                                                    */
 /*   do{                                                              */
 /*     while ( AcsGrps[i] == (BYTE)' ' ) { i++; }                     */
@@ -239,8 +239,8 @@ void dectable_init(void)
   INT i,j;
   WORD index;
 
-  MEMSET(codetable,0,sizeof(codetable));
-  MEMSET(codepermit,0,sizeof(codepermit));
+  memset(codetable,0,sizeof(codetable));
+  memset(codepermit,0,sizeof(codepermit));
 
   for ( i=0 ; i < 2 ; i++ ) {
     for ( j=0 ; j < ABCSize ; j++ ) {
@@ -259,7 +259,7 @@ void std_init(void)
 {
   int i;
 
-  MEMSET( &std, 0, sizeof(std) );
+  memset( &std, 0, sizeof(std) );
 
   for ( i = 0 ; i < ABCSize ; i++ ) {
     std.stdlt[i].code = alphabet[0][i];
@@ -273,7 +273,7 @@ void initcode( void )
 {
   register INT i;
 
-  MEMSET( all_lt, 0, sizeof(all_lt));
+  memset( all_lt, 0, sizeof(all_lt));
 
   for ( i = 0 ; i < ABCSize ; i++ ) {
     all_lt[alphabet[0][i]]=E_CP;
@@ -342,7 +342,7 @@ void initstdn(void)
 {
   register INT i, j;
 
-  MEMSET( tabstdn, 0xFF, sizeof(tabstdn) );
+  memset( tabstdn, 0xFF, sizeof(tabstdn) );
 
   for( i = 0; i < sizeof(STD)/sizeof(LT); i++ ) {
     j=std.stdlt[i].code;                      /* symb ASCII mnb */

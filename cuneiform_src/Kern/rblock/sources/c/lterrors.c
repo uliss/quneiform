@@ -374,7 +374,7 @@ void * DebugRealloc(void * old_blk,size_t size)
              new_blk=DebugMalloc(size);
 
            if(new_blk!=NULL && old_blk!=NULL)
-              MEMCPY(new_blk,old_blk,(Block->size<=size ? Block->size:size));
+              memcpy(new_blk,old_blk,(Block->size<=size ? Block->size:size));
 
              if(old_blk!=NULL)
                  DebugFree(old_blk);

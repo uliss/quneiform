@@ -89,9 +89,9 @@ BYTE rec5_flag=1,font_type=0,omni=1;
 			// CHAR - char                                    
 			// BYTE - unsigned char                           
 
-	#define MEMSET  memset
+	#define memset  memset
 
-	#define ABS  abs
+	#define abs  abs
 	#define MAX  max
 	#define MIN  min
 	#define MEMCHR memchr
