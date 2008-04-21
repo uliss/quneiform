@@ -52,7 +52,7 @@ DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile);
 HWND FindWindow(LPCTSTR lpClassName, LPCTSTR lpWindowName);
 BOOL DeleteFile(LPCTSTR lpFileName);
 UINT RegisterWindowMessage(LPCTSTR lpString);
-void Sleep(int);
+void Sleep(int );
 
 int _findclose(long handle);
 long _findfirst(const char *filespec, struct _finddata_t *fileinfo);
@@ -107,4 +107,8 @@ HWND CreateWindow(
     HINSTANCE hInstance,
     LPVOID lpParam
 );
+
+HGDIOBJ SelectObject(HDC hdc, HGDIOBJ hgdiobj);
+
+
 #endif

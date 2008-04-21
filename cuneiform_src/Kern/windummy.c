@@ -92,17 +92,39 @@ int GetLastError() {
 }
 
 
-DWORD GetModuleFileName(HMODULE hModule, LPTSTR lpFilename, DWORD nSize);
-BOOL CloseHandle(HANDLE hObject);
-DWORD GetCurrentDirectory(DWORD nBufferLength, LPTSTR lpBuffer);
+DWORD GetModuleFileName(HMODULE hModule, LPTSTR lpFilename, DWORD nSize) {
+    return 0;
+}
+
+BOOL CloseHandle(HANDLE hObject) {
+    return FALSE;
+}
+
+DWORD GetCurrentDirectory(DWORD nBufferLength, LPTSTR lpBuffer) {
+    return 0;
+}
+
 HANDLE CreateFile(LPCTSTR lpFileName, DWORD dwDesiredAccess,
 DWORD dwShareMode, void* lpSecurityAttributes,
-DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile);
+DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile) {
+    return 0;
+}
 
-HWND FindWindow(LPCTSTR lpClassName, LPCTSTR lpWindowName);
-BOOL DeleteFile(LPCTSTR lpFileName);
-UINT RegisterWindowMessage(LPCTSTR lpString);
-void Sleep(int);
+HWND FindWindow(LPCTSTR lpClassName, LPCTSTR lpWindowName) {
+    return 0;
+}
+
+BOOL DeleteFile(LPCTSTR lpFileName) {
+    return FALSE;
+}
+
+UINT RegisterWindowMessage(LPCTSTR lpString) {
+    return 0;
+}
+
+void Sleep(int s) {
+    sleep(s);
+}
 
 int _findclose(long handle);
 long _findfirst(const char *filespec, struct _finddata_t *fileinfo);
@@ -227,3 +249,8 @@ HWND CreateWindow(
     LPVOID lpParam) {
     return (HWND) 55;
 }
+
+HGDIOBJ SelectObject(HDC hdc, HGDIOBJ hgdiobj) {
+    return 0;
+}
+

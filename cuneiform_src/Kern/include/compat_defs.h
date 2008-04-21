@@ -127,6 +127,10 @@ typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int)
 #define HDC int
 #endif
 
+#ifndef HGDIOBJ
+#define HGDIOBJ int
+#endif
+
 #ifndef HUGE
 #define HUGE
 #endif
