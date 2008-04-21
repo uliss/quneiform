@@ -70,9 +70,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #include "resource.h"
-#include "CRIDefines.h"
-#include "CRIImage.h"
-#include "CRIMemory.h"
+#include "cridefines.h"
+#include "criimage.h"
+#include "crimemory.h"
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #ifndef _NO_CFIO
@@ -92,7 +92,7 @@ static void* (*pLock)(void *)                           = NULL;
 static void  (*pUnlock)(void *)                         = NULL;
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-#define TAKE_ENTRIE(Name,Pointer,Out)     	if ( !CFIO_GetExportData(##Name, (void*)(&##Pointer)) ) ##Out= FALSE;
+#define TAKE_ENTRIE(Name,Pointer,Out)     	if ( !CFIO_GetExportData(Name, (void*)(&Pointer)) ) Out= FALSE;
 Bool32 InitCFIOInterface(Bool32 Status)
 {
 	Bool32 bRet = TRUE;

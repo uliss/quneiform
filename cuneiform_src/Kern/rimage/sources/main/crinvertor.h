@@ -69,7 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # pragma message( __FILE__" : Image inverse")
 # endif // (_DEBUG)
 
-#include "CTDIB.h"
+#include "ctdib.h"
 
 class CRInvertor  
 {

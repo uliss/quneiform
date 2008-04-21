@@ -58,8 +58,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //////////////////////////////////////////////////////////////////////
 
-#include "CDezaBinarizator.h"
-#include "CRIBinarizator.h"
+#include "cdezabinarizator.h"
+#include "cribinarizator.h"
+#include "crimemory.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction

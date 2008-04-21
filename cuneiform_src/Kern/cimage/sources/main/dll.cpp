@@ -81,8 +81,7 @@ HINSTANCE         ghInst =     NULL;
 CTIControl *      Control =    NULL;
 Int32             InitCount =  0;
 /////////////////////////////////////////
-
-/* FIXME: Temporary workaround. */
+#undef APIENTRY
 #define APIENTRY
 
 BOOL APIENTRY DllMain( HINSTANCE  hModule, 

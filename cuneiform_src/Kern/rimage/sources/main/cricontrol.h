@@ -68,18 +68,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 #include "resource.h"
-#include "CRIDefines.h"
+#include "cridefines.h"
 #include "cttypext.h"
-#include "CRIImage.h"
-#include "CTIImage.h"
-#include "CRInvertor.h"	// Added by ClassView
-#include "CTDIB.h"	// Added by ClassView
-#include "RProgressor.h"	// Added by ClassView
-#include "CRIBinarizator.h"
-#include "CRTurner.h"
-#include "CRInvertor.h"
-#include "CRRotator.h"
-#include "..\..\..\H\Cttypes.h"	// Added by ClassView
+#include "criimage.h"
+#include "ctiimage.h"
+#include "crinvertor.h"	// Added by ClassView
+#include "ctdib.h"	// Added by ClassView
+#include "rprogressor.h"	// Added by ClassView
+#include "cribinarizator.h"
+#include "crturner.h"
+#include "crinvertor.h"
+#include "crrotator.h"
+#include "cttypes.h"	// Added by ClassView
 
 class CRIControl
 {

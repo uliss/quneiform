@@ -62,14 +62,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ============================================================================
 #define __RIMAGE__
 
-#include <windows.h>
+/*#include <windows.h>*/
 
 #include "resource.h"
-#include "CRIDefines.h"
-#include "CRIMemory.h"
-#include "CRIControl.h"
-#include "CRIImage.h"
+#include "cridefines.h"
+#include "crimemory.h"
+#include "cricontrol.h"
+#include "criimage.h"
 //#include "dpuma.h"
+#include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 Word16            gwHeightRC = 0;

@@ -58,8 +58,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //////////////////////////////////////////////////////////////////////
 
-#include "stdlib.h"
-#include "RProgressor.h"
+#include <stdlib.h>
+#include "rprogressor.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction

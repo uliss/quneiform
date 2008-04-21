@@ -56,9 +56,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //
 //////////////////////////////////////////////////////////////////////
-#include "CKronrodBinarizator.h"
+#include "ckronrodbinarizator.h"
 
 #include <stdlib.h>
+#include "compat_defs.h"
+
+#define far
+
 //#include <stdio.h>
 //#include "globus.h"
 //#include "CRIMemory.h"

@@ -70,9 +70,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # endif // (_DEBUG)
 /////////////////////////
 #include "globus.h"
-#include "CTDIB.h"	// Added by ClassView
-#include "RProgressor.h"	// Added by ClassView
-#include "CDezaBinarizator.h"
+#include "ctdib.h"	// Added by ClassView
+#include "rprogressor.h"	// Added by ClassView
+#include "cdezabinarizator.h"
 //#include "CKronrodBinarizator.h"
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //

@@ -73,21 +73,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int);
 
-#ifndef LPBYTE
-#define LPBYTE unsigned char *
-#endif
-
-#ifndef LPDWORD
-#define LPDWORD unsigned long int *
-#endif
-
-#ifndef LPVOID
-#define LPVOID void*
-#endif
-
-#ifndef LPBOOL
-#define LPBOOL int*
-#endif
 
 #ifndef HINSTANCE
 #define HINSTANCE void*
@@ -483,6 +468,10 @@ typedef int REGSAM;
 
 #ifndef MAX_COMPUTERNAME_LENGTH
 #define MAX_COMPUTERNAME_LENGTH 100
+#endif
+
+#ifndef MB_SYSTEMMODAL
+#define MB_SYSTEMMODAL 773
 #endif
 
 #ifdef __cplusplus

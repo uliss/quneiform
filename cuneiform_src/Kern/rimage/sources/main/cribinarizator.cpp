@@ -60,8 +60,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "resource.h"
 #include <stdlib.h>
 #include <math.h>
-#include "CRIBinarizator.h"
-#include "CRIMemory.h"
+#include "cribinarizator.h"
+#include "crimemory.h"
 
 //#include "CRDezaG2BW_trk.h"
 //////////////////////////////////////////////////////////////////////

@@ -188,6 +188,12 @@ typedef signed short int  *         _PINT;
 #define PINT _PINT
 typedef unsigned short int  *       PWORD;
 
+typedef BYTE* LPBYTE;
+typedef unsigned long int * LPDWORD;
+typedef BOOL* LPBOOL;
+typedef LONG* LPLONG;
+typedef void* LPVOID;
+
 #define PSTR  PCHAR
 #define TCHUGE 
 #define TCFAR

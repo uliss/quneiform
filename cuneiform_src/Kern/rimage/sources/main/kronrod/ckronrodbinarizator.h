@@ -69,11 +69,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # pragma message( __FILE__" : Binarizator by Kronrod")
 # endif // (_DEBUG)
 
-#include <windows.h>
+/*#include <windows.h>*/
 #include <stdio.h>
 #include "stdlib.h"
 #include "globus.h"
-#include "CRIMemory.h"
+#include "crimemory.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //

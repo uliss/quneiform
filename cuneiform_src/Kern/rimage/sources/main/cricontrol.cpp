@@ -63,8 +63,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //   Версии:     CImage.dll - 31 Jan 2000
 //               RDIB.dll   - 31 Jan 2000
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-#include "CRIControl.h"
-#include "CRIMemory.h"
+#include "cricontrol.h"
+#include "crimemory.h"
 /////////////////////////////////////////////////
 //#define RIMAGE_DUMP_ENABLE
 

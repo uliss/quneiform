@@ -57,11 +57,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __RIMAGE__
 
 #include "resource.h"
-#include "CRIImage.h"
-#include "CRIMemory.h"
-#include "CRIDefines.h"
+#include "criimage.h"
+#include "crimemory.h"
+#include "cridefines.h"
 
-#include "CRIControl.h"
+#include "cricontrol.h"
 
 // exteren globals
 extern CRIControl * Control;

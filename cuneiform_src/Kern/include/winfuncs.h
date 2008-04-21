@@ -141,4 +141,9 @@ BYTE GetRValue(DWORD rgb);
 BYTE GetGValue(DWORD rgb);
 BYTE GetBValue(DWORD rgb);
 
+void *_fmemcpy(void *dst, const void *src, size_t length);
+void *_fmemset(void *dst, int c, size_t length);
+HWND GetFocus();
+int MessageBox(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType);
+
 #endif

@@ -59,10 +59,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////////
 #include <memory.h>
 #include <math.h>
+#include <stdlib.h>
 
-#include "CTDIB.h"
-#include "CRRotator.h"
-#include "CRIMemory.h"
+#include "ctdib.h"
+#include "crrotator.h"
+#include "crimemory.h"
 #include "resource.h"
 //////////////////////////////////////////////////////////////////////
 

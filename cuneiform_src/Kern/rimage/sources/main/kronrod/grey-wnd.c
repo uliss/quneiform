@@ -109,7 +109,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 02/03.11.92	+5work - Work with 5x, 5y
 // 27.09.1993   MK: mod. Korob_calc_BOX: 2 places: (jj==NJ_1) => (jj>=NJ_1);
 /*----------------------------------------------------------------------*/
-#include <windows.h>
+/*#include <windows.h>*/
 #include <stdio.h>
 #include <string.h>
 		//// ###FileOpen, FileClose: HANDLES - windowsh
@@ -117,7 +117,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "gdata.h"
 ////////////////////////////////////////////////////////////////////////////
 //AK память через RIMAGE
-#include  "CRIMemory.h"
+#include  "crimemory.h"
 
 #define KRONROD_ALLOC(a)          RIMAGEAlloc(a)
 #define KRONROD_FREE(h)           RIMAGEFree(h)
@@ -128,9 +128,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 //#define G_DEBUG        // D.L. 3.4.94 // uncomment to debug
+/*
 typedef short int  Int16;
 typedef		 long  Int32;
-
+*/
 #ifdef WIN32
 	#define EXPORT(a) __declspec(dllexport) a
 	#define _fmemset(a,b,c) memset(a,b,c)
@@ -138,6 +139,9 @@ typedef		 long  Int32;
 #else
 	#define EXPORT(a)  a _export
 #endif
+
+#define _export
+#define far
 
 /*----------------------------------------------------------------------*/
 EXPORT(void) grey_open (WORD H, WORD N);

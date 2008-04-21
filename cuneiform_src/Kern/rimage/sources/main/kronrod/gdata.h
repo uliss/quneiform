@@ -78,6 +78,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define INIT(v)
 #endif
 
+#include "compat_defs.h"
+
+#define FAR
+
 EXTERN HWND             hAppWnd;
 #define BUFSZ   0x4000
 

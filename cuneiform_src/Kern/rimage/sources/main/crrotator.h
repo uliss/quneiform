@@ -66,8 +66,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif // _MSC_VER > 1000
 
 #include "ctdib.h"
-#include "RProgressor.h"	// Added by ClassView
-#include "..\..\..\H\Cttypes.h"	// Added by ClassView
+#include "rprogressor.h"	// Added by ClassView
+#include "cttypes.h"	// Added by ClassView
 
 class CRRotator  
 {

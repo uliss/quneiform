@@ -60,10 +60,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#define RIMAGE_DUMP_TO_FILE
 //////////////////////////////////////////////////////////////////////
 #include "globus.h"
-#include "CRTurner.h"
+#include "crturner.h"
 //#include "turn.h"
-#include "CRIImage.h"
-#include "CRIMemory.h"
+#include "criimage.h"
+#include "crimemory.h"
 #include "resource.h"
 #include "memory.h"
 //#include "dpuma.h"
