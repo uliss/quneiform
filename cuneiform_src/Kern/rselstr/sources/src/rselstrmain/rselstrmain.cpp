@@ -70,6 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lns.h"
 #include "rline.h"
 
+#include "minmax.h"
 
 #define RGB(r,g,b)          ((COLORREF)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((DWORD)(BYTE)(b))<<16)))
 typedef DWORD   COLORREF;
@@ -597,7 +598,7 @@ int IsInPoly(Point16 a, void * pPoly)
 		}
 		if((y== a.y)&&(p->com.Vertex[ind].x >= a.x))
 			Count++;
-		else if(min(p->com.Vertex[i].y,p->com.Vertex[j].y)== a.y) 
+		else if(MIN(p->com.Vertex[i].y,p->com.Vertex[j].y)== a.y) 
 				continue;
 		else
 		{

@@ -104,7 +104,7 @@ void BlocksAccessTableBuild (void)
     }
 
     if (nMinBlock == 0 || nMaxBlock == 0)
-        ErrorInternal ((Word8*)"No blocks");
+        ErrorInternal ((PSTR)"No blocks");
 
     nBlocks = nMaxBlock + 1;
     pBlockPointer =(BLOCK**) malloc (nBlocks * sizeof (BLOCK *));

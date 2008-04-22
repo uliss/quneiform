@@ -55,13 +55,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <stdio.h>
-#include <windows.h>
+/*#include <windows.h>*/
 #include <math.h>
 #include<time.h>
 
 
-#include "Recdefs.h"
-#include "Ccomdefs.h"
+#include "recdefs.h"
+#include "ccomdefs.h"
 
 /*----------------------------------------------------------------------------*/
 

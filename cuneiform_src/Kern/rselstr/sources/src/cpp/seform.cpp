@@ -86,6 +86,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "dpuma.h"
 # include "cstr.h"
 
+#include "minmax.h"
 
 int nCurrentFillingRoots;
 
@@ -221,11 +222,11 @@ void StringCalculateParameters (STRING *pString)
                       / (pString -> nLetters - pString -> nSpecialsLetters)));
 
     pString -> yMin = pString -> yMiddleTop
-                      - max (2 * pString -> nTopDispersion,
+                      - MAX (2 * pString -> nTopDispersion,
                              3 * pString -> nMiddleHeight / 4);
 
     pString -> yMax = pString -> yMiddleBottom
-                      + max (2 * pString -> nBottomDispersion,
+                      + MAX (2 * pString -> nBottomDispersion,
                              3 * pString -> nMiddleHeight / 4);
 
     bSpecialFound = FALSE;
@@ -554,7 +555,7 @@ void StringsForming (void)
     if (pCurrentBlock -> pHystogram == NULL ||
         pCurrentBlock -> nHystColumns == 0)
     {
-        ErrorInternal ((Word8*)"Empty hystogram");
+        ErrorInternal ((PSTR)"Empty hystogram");
     }
 # endif
 

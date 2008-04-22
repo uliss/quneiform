@@ -55,11 +55,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <stdio.h>
-#include <windows.h>
+/*#include <windows.h>*/
 
 
-#include "LHSTR.h"
-#include "DPUMA.h"
+#include "lhstr.h"
+#include "dpuma.h"
 #include "cpage.h"
 
 

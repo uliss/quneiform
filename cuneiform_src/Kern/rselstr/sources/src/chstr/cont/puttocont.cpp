@@ -57,8 +57,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __RSELSTR__
 
 
-#include "RSELSTR.h"
-#include "PutToCont.h"
+#include "rselstr.h"
+#include "puttocont.h"
 
 
 
@@ -94,7 +94,8 @@ RSELSTR_FUNC(Bool32) RSELSTR_PutObjects (Handle hCPage,Handle hCCOM,CHSTR_Object
   {
 	if(string->ImageName= new Word8[CPAGE_MAXNAME] )
 	{
-		for(int j=0;j<CPAGE_MAXNAME&&ImageName[j]!='\0';j++)
+	    int j;
+		for(j=0;j<CPAGE_MAXNAME&&ImageName[j]!='\0';j++)
 	        string->ImageName[j]=ImageName[j];
 		if(j<CPAGE_MAXNAME)
             string->ImageName[j]='\0';

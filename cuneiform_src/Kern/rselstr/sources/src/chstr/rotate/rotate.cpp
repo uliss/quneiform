@@ -55,9 +55,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #define __RSELSTR__
-
-#include "Rotate.h"
-#include "RSELSTR.h"
+#include <string.h>
+#include "rotate.h"
+#include "rselstr.h"
 
 /*    из-за чего-то происзодит залезание при чтении на границы pmasp, 
       которое проявляется только в релизе и раз на раз не приходится... 

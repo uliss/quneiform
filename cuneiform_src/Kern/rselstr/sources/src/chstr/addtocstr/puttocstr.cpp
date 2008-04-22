@@ -56,9 +56,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define __RSELSTR__
 
-#include "PutToCSTR.h"
-#include "RSELSTR.h"
+#include <string.h>
+#include <stdlib.h>
+#include "puttocstr.h"
+#include "rselstr.h"
 
+#include "compat_defs.h"
 
 /*----------------------------------------------------------------------------*/
 
@@ -1012,7 +1015,8 @@ void InitRotateImageName(Word8* RotateImageName,int code)
 		size++;
 	}
 	code=1;
-	for(int j=1;j<size;j++)
+	int j;
+	for(j=1;j<size;j++)
         code*=10;
     for(j=0;j<size;j++)
 	{

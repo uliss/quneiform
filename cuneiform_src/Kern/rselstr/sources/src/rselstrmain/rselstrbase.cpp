@@ -55,7 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #define __RSELSTR__
-#include <windows.h>
+/*#include <windows.h>*/
 #include <setjmp.h>
 
 # include "dpuma.h"
@@ -64,9 +64,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "newfunc.h"
 # include "kernel.h"
 # include "pumadef.h"
-# include "LHSTR.h"
+# include "lhstr.h"
 
-
+#include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 Word16 gwHeightRC = 0;
