@@ -63,17 +63,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*---------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <math.h>
-#include <windows.h>
+/*#include <windows.h>*/
+#include <stdlib.h>
+#include <string.h>
 /*  interface our-other  */
 #include "lnsdefs.h"
 #define _Not_Cpagetyps
 #include "cpage.h"
 #undef _Not_Cpagetyps
 /*  interface my        */
-#include "AM_ERR.H"
-#include "AM_COMM.H"
-#include "VL_RULE.H"
-#include "MyRaster.H"
+#include "am_err.h"
+#include "am_comm.h"
+#include "vl_rule.h"
+#include "myraster.h"
 /*---------------------------------------------------------------------------*/
 #define       MaxRastrHeight         33
 #define       MaxRastrSize         1000

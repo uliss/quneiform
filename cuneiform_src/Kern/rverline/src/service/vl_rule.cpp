@@ -63,8 +63,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*----------------------------------------------------------------------------*/
 #include <stdio.h>
 /*  interface my        */
-#include "AM_COMM.H"
-#include "VL_RULE.H"
+#include "am_comm.h"
+#include "vl_rule.h"
 /*------------own objects-----------------------------------------------------*/
 /*  Верификация линий  */
 static Handle VL_Into;

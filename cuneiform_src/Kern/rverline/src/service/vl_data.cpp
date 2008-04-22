@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :  Обмен с другими библиотеками.                               */
 /*----------------------------------------------------------------------------*/
 #include <stdio.h>
-#include <windows.h>
+/*#include <windows.h>*/
 /*  interface our-other  */
 #include "cpage.h"
 #include "lnsdefs.h"
@@ -71,13 +71,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ctiimage.h"
 #include "cline.h"
 /*  interface our-my     */
-#include "RVerLine.H"
+#include "rverline.h"
 /*  interface my        */
-#include "AM_ERR.H"
-#include "AM_COMM.H"
-#include "MyRaster.H"
+#include "am_err.h"
+#include "am_comm.h"
+#include "myraster.h"
 /*  interface my-my      */
-#include "AM_Buff.H"
+#include "am_buff.h"
 /*------------own objects-----------------------------------------------------*/
 FNCPAGE_GetBlockFirst GetBlockFirst;
 FNCPAGE_GetBlockNext GetBlockNext;

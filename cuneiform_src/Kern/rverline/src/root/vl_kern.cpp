@@ -64,22 +64,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __RVERLINE__
 
 #include <stdio.h>
-#include <windows.h>
+/*#include <windows.h>*/
+#include <string.h>
 /*  interface our-other  */
 #include "lnsdefs.h"
 #include "cpage.h"
-#include "pumadef.H"
+#include "pumadef.h"
 #include "cline.h"
 /*  interface our-my     */
-#include "RVerLine.H"
+#include "rverline.h"
 /*  interface my        */
-#include "AM_ERR.H"
-#include "AM_COMM.H"
-#include "VL_RULE.H"
-#include "VL_SNAP.H"
+#include "am_err.h"
+#include "am_comm.h"
+#include "vl_rule.h"
+#include "vl_snap.h"
 /*  interface my-my      */
-#include "AM_Buff.H"
-#include "AMT_Geom.H"
+#include "am_buff.h"
+#include "amt_geom.h"
 /*----------------------------------------------------------------------------*/
 #define       MaxComps       25000//12000
 #define       MaxLines        2000

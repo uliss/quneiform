@@ -63,15 +63,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*----------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <math.h>
-#include <windows.h>
+/*#include <windows.h>*/
+#include <stdlib.h>
 /*  interface our-other  */
 #include "lnsdefs.h"
 #include "ctiimage.h"
 /*  interface our-my     */
 /*  interface my        */
-#include "AM_ERR.H"
-#include "AM_COMM.H"
-#include "VL_RULE.H"
+#include "am_err.h"
+#include "am_comm.h"
+#include "vl_rule.h"
 /*  interface our util  */
 #include "skew1024.h"
 /*----------------------------------------------------------------------------*/

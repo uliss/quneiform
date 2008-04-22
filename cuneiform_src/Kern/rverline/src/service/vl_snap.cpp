@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*---------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <math.h>
-#include <windows.h>
+/*#include <windows.h>*/
 /*  interface our  */
 #include "skew1024.h"
 /*  interface our-other  */
@@ -71,14 +71,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "ccom.h"
 #include "pumadef.h"
 /*  interface our-my     */
-#include "RVerLine.H"
+#include "rverline.h"
 /*  interface my        */
-#include "AM_COMM.H"
-#include "VL_RULE.H"
-#include "AM_ERR.H"
-#include "VL_Snap.H"
+#include "am_comm.h"
+#include "vl_rule.h"
+#include "am_err.h"
+#include "vl_snap.h"
 /*  interface my-my      */
-#include "AM_Buff.H"
+#include "am_buff.h"
+#include "compat_defs.h"
 /*------------extern functions-----------------------------------------------*/
 void   SetReturnCode (Word16 rc);
 /*---------------------------------------------------------------------------*/

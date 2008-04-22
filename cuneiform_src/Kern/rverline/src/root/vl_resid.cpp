@@ -64,13 +64,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __RVERLINE__
 
 #include <stdio.h>
-#include <windows.h>
+#include <string.h>
+/*#include <windows.h>*/
 /*  interface our  */
-#include "RVerLine.H"
+#include "rverline.h"
 /*  interface my   */
-#include "AM_ERR.H"
-#include "AM_COMM.H"
-#include "VL_RULE.H"
+#include "am_err.h"
+#include "am_comm.h"
+#include "vl_rule.h"
+#include "compat_defs.h"
 /*------------own objects-----------------------------------------------------*/
 Word16      gwHeightRC = 0;      // ”никальный номер библиотеки в одном сеансе
 Word16      gwLowRC    = ER_ROUGH_NONE;      // ќшибки в работе библиотеки

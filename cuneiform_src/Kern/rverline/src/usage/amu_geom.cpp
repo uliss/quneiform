@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  interface our util  */
 #include "skew1024.h"
 /*  interface my-my      */
-#include "AMT_Geom.H"
+#include "amt_geom.h"
 /*----------------------------------------------------------------------------*/
 void RotateRect (Rect16 *pRcRe, Rect16 *pRcId, Int32 Skew)
 {
