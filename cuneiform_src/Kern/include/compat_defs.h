@@ -253,6 +253,14 @@ typedef struct  tagSIZE{
     LONG cy;
 } SIZE;
 
+typedef struct tagBITMAPFILEHEADER { 
+  WORD    bfType; 
+  DWORD   bfSize; 
+  WORD    bfReserved1; 
+  WORD    bfReserved2; 
+  DWORD   bfOffBits; 
+} BITMAPFILEHEADER, *PBITMAPFILEHEADER; 
+
 typedef POINT* LPPOINT;
 typedef SIZE* LPSIZE;
 
@@ -260,6 +268,34 @@ typedef int HKEY;
 
 typedef int * PHKEY;
 typedef int REGSAM;
+
+#ifndef _O_BINARY
+#define _O_BINARY O_BINARY
+#endif
+
+#ifndef _O_CREAT
+#define _O_CREAT O_CREAT
+#endif
+
+#ifndef _O_EXCL
+#define _O_EXCL O_EXCL
+#endif
+
+#ifndef _O_RDONLY
+#define _O_RDONLY O_RDONLY
+#endif
+
+#ifndef _O_RDWR
+#define _O_RDWR O_RDWR
+#endif
+
+#ifndef _S_IREAD
+#define _S_IREAD S_IREAD
+#endif
+
+#ifndef _S_IWRITE
+#define _S_IWRITE S_IWRITE
+#endif
 
 #ifndef WPARAM
 #define WPARAM int
@@ -472,6 +508,10 @@ typedef int REGSAM;
 
 #ifndef MB_SYSTEMMODAL
 #define MB_SYSTEMMODAL 773
+#endif
+
+#ifndef ERROR_ALREADY_EXISTS
+#define ERROR_ALREADY_EXISTS 1000
 #endif
 
 #ifdef __cplusplus

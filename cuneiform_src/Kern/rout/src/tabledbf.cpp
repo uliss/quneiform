@@ -60,10 +60,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //********************************************************************
 //********************************************************************
 
+#include <time.h>
+#include <string.h>
 #include "stdafx.h"
 #include "rout_own.h"
 #include "dbf.h"
-#include <time.h>
 
 static BOOL TableDBF_Finish(long reason);
 static BOOL MakeDbfHeader();

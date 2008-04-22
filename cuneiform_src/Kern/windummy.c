@@ -78,8 +78,8 @@ void* GlobalAlloc(UINT uFlags, int dwBytes) {
     return NULL;
 }
 
-void GlobalFree(void *f) {
-    
+HGLOBAL GlobalFree(void *f) {
+    return NULL;
 }
 
 void* GlobalReAlloc(void* hMem, int dwBytes, UINT uFlags) {
@@ -374,3 +374,12 @@ int MessageBox(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType) {
     printf("lpText");
     return 0;
 }
+
+LPVOID GlobalLock(HGLOBAL hMem) {
+    return NULL;
+}
+
+BOOL GlobalUnlock(HGLOBAL hMem) {
+    return 0;
+}
+

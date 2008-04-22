@@ -65,6 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // By Eugene Pliskin pliskin@cs.isa.ac.ru
 //********************************************************************
 
+#include <string.h>
 #include "stdafx.h"
 #include "rout_own.h"
 

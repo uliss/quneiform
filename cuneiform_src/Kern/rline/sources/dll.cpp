@@ -75,7 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rsl.h"
 #define PUMA_MODULE_RSL         116
 #define RESULT                  2
-extern Bool32 gbRSLT = FALSE;
+/*extern*/ Bool32 gbRSLT = FALSE;
 /// BogDmitry
 
 #include "compat_defs.h"

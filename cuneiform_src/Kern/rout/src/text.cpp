@@ -60,9 +60,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //********************************************************************
 //********************************************************************
 
+#include <string.h>
 #include "stdafx.h"
 #include "rout_own.h"
-#include "LIGAS.H"	// Теперь в HHH 01.09.2000 E.P.
+#include "ligas.h"	// Теперь в HHH 01.09.2000 E.P.
 
 static BOOL Static_MakeText(Handle hObject, long reason);
 static BOOL TableStub();

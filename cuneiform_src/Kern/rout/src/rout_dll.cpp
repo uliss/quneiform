@@ -73,14 +73,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "resource.h"
 
+/*
 #include <crtdbg.h>
 #include <io.h>
-	
+*/
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
 #include <fcntl.h>
-#include <sys\stat.h>
+#include <sys/stat.h>
 #include <assert.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include "compat_defs.h"
 
 //*********************************************************************
 BOOL APIENTRY DllMain( HANDLE hModule, 

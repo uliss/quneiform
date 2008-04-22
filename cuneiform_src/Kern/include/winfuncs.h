@@ -28,6 +28,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef WINFUNCS_H_
 #define WINFUNCS_H_
 
+#define _chsize(a, b) ftruncate((a), (b))
+#define _close(a) close(a)
+#define _lseek(a, b, c) lseek((a), (b), (c))
+#define _open(a, b, c) open((a), (b), (c))
+#define _write(a, b, c) write((a), (b), (c))
+
 int LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax);
 
 int CreateDirectory(const char *dir, void *dummy);
@@ -36,7 +42,7 @@ void CopyMemory(void *Destination, const void* Source, int length); // memcpy
 DWORD GetTempPath(DWORD nBufferLength, LPTSTR lpBuffer);
 int RemoveDirectory(const char *d);
 void* GlobalAlloc(UINT uFlags, int dwBytes);
-void GlobalFree(void *f);
+HGLOBAL GlobalFree(void *f);
 void* GlobalReAlloc(void* hMem, int dwBytes, UINT uFlags);
 int GetTempFileName(LPCTSTR lpPathName, LPCTSTR lpPrefixString,
                     UINT uUnique, LPTSTR lpTempFileName);
@@ -145,5 +151,8 @@ void *_fmemcpy(void *dst, const void *src, size_t length);
 void *_fmemset(void *dst, int c, size_t length);
 HWND GetFocus();
 int MessageBox(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType);
+
+LPVOID GlobalLock(HGLOBAL hMem);
+BOOL GlobalUnlock(HGLOBAL hMem);
 
 #endif
