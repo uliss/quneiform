@@ -69,13 +69,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # include <fcntl.h>
 # include <stdio.h>
-# include <crtdbg.h>
+/*# include <crtdbg.h>*/
 
 # include "c_memory.h"
 # include "iolib.h"
 # include "layout.h"
 # include "my_mem.h"
-
+#include "compat_defs.h"
 
 # ifdef LT_STAND_ALONE
 ROOT  *pRoots = NULL;
@@ -110,7 +110,7 @@ int nRootStripsOffset;
 
 BOOL RootsLoadFile (PSTR pFilename)
 {
-    typedef int HANDLE;
+/*    typedef int HANDLE;*/
 
     HANDLE hFile;
     ROOT   RootRecord;

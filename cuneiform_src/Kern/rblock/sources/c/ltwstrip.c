@@ -77,8 +77,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "my_mem.h"
 
 
-# ifdef LT_DEBUG
-# include <conio.h>
+# ifdef LT_DEBUG 
+/*# include <conio.h>*/
 # endif
 
 int  * pWSB_Hyst1       = NULL;
