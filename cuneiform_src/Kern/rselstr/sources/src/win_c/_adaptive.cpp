@@ -56,6 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <malloc.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "c_types.h"
 #include "func.h"
@@ -68,6 +69,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "dpuma.h"
 #include "newfunc.h"
+
+#include "layout.h"
 
 extern INT nIncline;
 
@@ -169,12 +172,14 @@ for(k=ii=i=0;k<h;k++,i+=d,ii+=dd)
 return work_raster;
 }
 
+/* FIXME: PROOT does not have a pComp. Don't know what should be done, so
+ * I disabled this.
 
 CCOM_comp *get_CCOM_comp(PROOT r)
 {
 	return (CCOM_comp *)r->pComp; 
 }
-
+*/
 BOOL save_MN(MN *mn)
 {
 extern Int32 exthCCOM; 

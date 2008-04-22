@@ -228,7 +228,7 @@ void PageStrings2 (void)
 
 void LayoutPart1 (void)
 {
-extern SheetsCorrectRoots();
+//extern SheetsCorrectRoots();
 # ifdef LT_DEBUG
     switch (layout)
     {

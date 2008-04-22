@@ -58,9 +58,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include<math.h>
 #include<time.h>
 #include "rselstr.h"
-#include "ROOTS.H"
-#include "LAYOUT.H"
-#include "Recdefs.h"
+#include "roots.h"
+#include "layout.h"
+#include "recdefs.h"
 #include "ccom.h"
 #include "ccomdefs.h"
 #include "ctiimage.h"
@@ -1387,8 +1387,9 @@ BOOL Increase2(RecRaster* rast,CCOM_comp* comp)
 
 	for(k=REC_MAX_RASTER_SIZE-1;k>=0;k--)
 		str[k]=0;
-
-	for(int i=rast->lnPixHeight-1;i>=0;i--)
+	
+	int i;
+	for(i=rast->lnPixHeight-1;i>=0;i--)
 	{
 		nowbyte=i*count*8;
 		nowbyte2=i*new_count*8;

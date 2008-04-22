@@ -67,13 +67,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # include <fcntl.h>
 # include <stdio.h>
-# include <crtdbg.h>
+/*# include <crtdbg.h>*/
+#include <assert.h>
 
 # include "c_memory.h"
 # include "iolib.h"
 # include "layout.h"
 # include "my_mem.h"
 
+#include "compat_defs.h"
 
 # ifdef LT_STAND_ALONE
 ROOT  *pRoots = NULL;
@@ -166,7 +168,7 @@ void RootStripsCalculate (void)
     int  iStripEnd;
 
     if (nRoots == 0)
-        ErrorInternal ((Word8*)"nRoots == 0");
+        ErrorInternal ((PSTR)"nRoots == 0");
 
     yMin = pRoots [0].yRow;
     yMax = pRoots [0].yRow + pRoots [0].nHeight - 1;
@@ -239,7 +241,7 @@ void RootStripsGetLoopParameters
     int  iStrip;
 
     if (nRootStripsStep == 0)
-        ErrorInternal ((Word8*)"nRootStripsStep == 0");
+        ErrorInternal ((PSTR)"nRootStripsStep == 0");
 
     iStripBegin = (yTop
                    - nRootStripsOffset)
@@ -281,7 +283,7 @@ void RootStripsGetLoopParameters
     }
 
     if ((pBegin == NULL) != (pEnd == NULL))
-        ErrorInternal ((Word8*)"(pBegin == NULL) != (pEnd == NULL)");
+        ErrorInternal ((PSTR)"(pBegin == NULL) != (pEnd == NULL)");
 
     if (pBegin == NULL)
     {
@@ -318,7 +320,7 @@ void RootsSaveNonLayoutData (void)
     int i;
 
     if (pRootExts != NULL)
-        ErrorInternal ((Word8*)"RootsSaveNonLayoutData: pRootExts != NULL");
+        ErrorInternal ((PSTR)"RootsSaveNonLayoutData: pRootExts != NULL");
 
     nRootExts = nRoots;
 
@@ -341,7 +343,7 @@ void RootsRestoreNonLayoutData_ForDustAndRemoved (void)
     int i;
 
     if (pRootExts == NULL)
-        ErrorInternal ((Word8*)"RootsRestoreNonLayoutData: pRootExts == NULL");
+        ErrorInternal ((PSTR)"RootsRestoreNonLayoutData: pRootExts == NULL");
 
     for (i = 0; i < nRootExts; i++)
     {
@@ -359,7 +361,7 @@ void RootsRestoreNonLayoutData (void)
     int i;
 
     if (pRootExts == NULL)
-        ErrorInternal ((Word8*)"RootsRestoreNonLayoutData: pRootExts == NULL");
+        ErrorInternal ((PSTR)"RootsRestoreNonLayoutData: pRootExts == NULL");
 
     for (i = 0; i < nRootExts; i++)
     {

@@ -55,16 +55,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <stdio.h>
-#include <windows.h>
+/*#include <windows.h>*/
 #include <time.h>
 
-#include "LHSTR.h"
+#include "lhstr.h"
 #include "ccom.h"
 #include "ctiimage.h"
 #include "exc.h"
-#include "Recdefs.h"
+#include "recdefs.h"
 #include "rstr.h"
-#include "DPUMA.h"
+#include "dpuma.h"
 #include "cpage.h"
 
 

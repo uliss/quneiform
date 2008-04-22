@@ -383,3 +383,10 @@ BOOL GlobalUnlock(HGLOBAL hMem) {
     return 0;
 }
 
+BOOL IsBadWritePtr(LPVOID lp, int ucb) {
+    return 0;
+}
+
+void OutputDebugString(LPCTSTR lpOutputString) {
+
+}

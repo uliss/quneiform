@@ -154,5 +154,7 @@ int MessageBox(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType);
 
 LPVOID GlobalLock(HGLOBAL hMem);
 BOOL GlobalUnlock(HGLOBAL hMem);
+BOOL IsBadWritePtr(LPVOID lp, int ucb);
+void OutputDebugString(LPCTSTR lpOutputString);
 
 #endif

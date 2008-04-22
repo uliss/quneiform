@@ -72,10 +72,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include <setjmp.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <conio.h>
+/*# include <conio.h>*/
 
 # include "resource.h"
-# include "NewFunc.h"
+# include "newfunc.h"
 
 # include "lterrors.h"
 # include "layout.h"
@@ -84,6 +84,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "my_mem.h"
 # include "glalloc.h"
 # include "dpuma.h"
+
+#include "compat_defs.h"
 
 extern  jmp_buf fatal_error_exit;
 

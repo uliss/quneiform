@@ -58,8 +58,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "cpage.h"
 #include "ccom.h"
-#include "LAYOUT.H"
-#include "Recdefs.h"
+#include "layout.h"
+#include "recdefs.h"
 #include "dpuma.h"
 #include "ctiimage.h"
 #include "exc.h"
@@ -193,14 +193,15 @@ int GetLineY(Point32 beg,Point32 end,int x)
 BOOL CutComp(Handle hCPAGE,CCOM_handle hCCOM,CCOM_comp* comp,int bound,BOOL fl_cut)
 {
  RecRaster rast;
+ int ii;
 
  if(!CCOM_GetRaster(comp,&rast))
 	 return FALSE;
 
  RecRaster rast2;
 
- for(int i=REC_MAX_RASTER_SIZE-1;i;i--)
-     rast2.Raster[i]=0;
+ for(ii=REC_MAX_RASTER_SIZE-1;ii;ii--)
+     rast2.Raster[ii]=0;
 
  int rast_bound=(bound-comp->upper+1)>>(comp->scale);
  int nowbyte=0;
@@ -216,10 +217,10 @@ BOOL CutComp(Handle hCPAGE,CCOM_handle hCCOM,CCOM_comp* comp,int bound,BOOL fl_c
 
 
 
- for(i=rast_bound*8*((rast.lnPixWidth+63)/64);i<j;i++)
+ for(ii=rast_bound*8*((rast.lnPixWidth+63)/64);ii<j;ii++)
  {
-  rast2.Raster[nowbyte]=rast.Raster[i];
-  rast.Raster[i]=0;
+  rast2.Raster[nowbyte]=rast.Raster[ii];
+  rast.Raster[ii]=0;
   nowbyte++;
  }
 
@@ -362,11 +363,11 @@ BOOL CutComp(Handle hCPAGE,CCOM_handle hCCOM,CCOM_comp* comp,int bound,BOOL fl_c
  if(f)
  {
   int max_count=6;
-	 
+	 int i;
 //  if(oldRoot.top>comp->upper||oldRoot.bottom<comp->upper+comp->h-1||oldRoot.left>comp->left||oldRoot.right<comp->left+comp->w-1)
 //  {
 	 fprintf(f,"Top:%d",comp1->upper);
-	 for(int i=GetCountNumbers(comp1->upper);i<=max_count;i++)
+	 for(i=GetCountNumbers(comp1->upper);i<=max_count;i++)
 		 fprintf(f," ");
 	 fprintf(f,"Bottom:%d",comp1->upper+comp1->h-1);
 	 for(i=GetCountNumbers(comp1->upper+comp1->h-1);i<=max_count;i++)
@@ -413,11 +414,11 @@ BOOL CutComp(Handle hCPAGE,CCOM_handle hCCOM,CCOM_comp* comp,int bound,BOOL fl_c
  if(f_temp)
  {
   int max_count=6;
-	 
+	 int i;
 //  if(oldRoot.top>comp->upper||oldRoot.bottom<comp->upper+comp->h-1||oldRoot.left>comp->left||oldRoot.right<comp->left+comp->w-1)
 //  {
 	 fprintf(f_temp,"Top:%d",comp1->upper);
-	 for(int i=GetCountNumbers(comp1->upper);i<=max_count;i++)
+	 for(i=GetCountNumbers(comp1->upper);i<=max_count;i++)
 		 fprintf(f_temp," ");
 	 fprintf(f_temp,"Bottom:%d",comp1->upper+comp1->h-1);
 	 for(i=GetCountNumbers(comp1->upper+comp1->h-1);i<=max_count;i++)

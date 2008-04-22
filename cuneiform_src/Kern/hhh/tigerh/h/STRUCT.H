@@ -457,7 +457,7 @@ struct str_struc
  WORD scale;		// scale of the string
  INT fragment;		// fragment of the string
  BYTE language;         // language of the string
- c_comp *c_comp[1];       // array of ptrs to components
+ c_comp *c__comp[1];       // array of ptrs to components
  };
 typedef struct str_struc str;
 
@@ -474,11 +474,11 @@ typedef struct baseline_struct B_LINES;
 //AK:  without collision when snap.dll creating
 #ifndef _SNAP_
 
-struct POINT {INT row,col;} ;
+struct POINT_S {INT row,col;} ;
 
 struct rule_struct
  {
- struct POINT beg,end;
+ struct POINT_S beg,end;
  BYTE width;
  BYTE type;
 #define VERT_LN  0
@@ -489,7 +489,7 @@ struct rule_struct
 typedef struct rule_struct STRLN;
 
 struct frame_struct
- {struct POINT topleft,topright,botleft,botright;};
+ {struct POINT_S topleft,topright,botleft,botright;};
 typedef struct frame_struct FRAME;
 
 

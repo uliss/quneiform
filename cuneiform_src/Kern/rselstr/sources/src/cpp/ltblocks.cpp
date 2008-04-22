@@ -74,6 +74,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "lang.h"
 # include "my_mem.h"
 
+#include "minmax.h"
 
 BLOCK *pBlocksList              = NULL;
 BLOCK *pHighEmbeddingBlocksList = NULL;
@@ -227,12 +228,12 @@ void BlockSetAverageHeight (BLOCK *p)
             p -> nAverageHeight = 1;
         else
             p -> nAverageHeight =
-                max (p -> nHeightesSum / p -> nRoots, 1);
+                MAX(p -> nHeightesSum / p -> nRoots, 1);
     }
     else
     {
         p -> nAverageHeight =
-            max (p -> nHeightesSum / (p -> nRoots - p -> nDust), 1);
+            MAX(p -> nHeightesSum / (p -> nRoots - p -> nDust), 1);
     }
 }
 

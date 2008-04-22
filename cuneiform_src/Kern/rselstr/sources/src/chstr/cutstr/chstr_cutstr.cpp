@@ -56,10 +56,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define __RSELSTR__
 
-#include "CutStr.h"
+#include "cutstr.h"
 #include "rselstr.h"
 #include <assert.h>
-
+#include "compat_defs.h"
 
 
 

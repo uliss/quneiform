@@ -75,17 +75,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *                                                                          *
  ***************************************************************************/
 
-# include <conio.h>
-# include <malloc.h>
+/*# include <conio.h>*/
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <dos.h>
+#include <curses.h>
+/*# include <dos.h>*/
 
 # include "layout.h"
 # include "extract.h"
 
 #include "graphics.h"
+#include "minmax.h"
 
 # if defined (LT_DEBUG) || defined (SE_DEBUG)
 
@@ -778,7 +779,7 @@ static void RasterUpdate (int xLeft, int yTop, int nScaling)
 
     LT_GraphicsClearScreen ();
 
-    nStep = min (FIELD_WIDTH / nRasterWidth, FIELD_HEIGHT / nRasterHeight);
+    nStep = MIN (FIELD_WIDTH / nRasterWidth, FIELD_HEIGHT / nRasterHeight);
 
     if (nStep == 0) nStep = 1;
 
@@ -832,7 +833,7 @@ static void BreakingUpdate (int xLeft, int yTop, int nScaling)
 
     LT_GraphicsClearScreen ();
 
-    nStep = min (FIELD_WIDTH / nRasterWidth, FIELD_HEIGHT / nRasterHeight);
+    nStep = MIN (FIELD_WIDTH / nRasterWidth, FIELD_HEIGHT / nRasterHeight);
 
     if (nStep == 0)
         nStep = 1;
