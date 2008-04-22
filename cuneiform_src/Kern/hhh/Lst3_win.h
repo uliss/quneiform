@@ -61,11 +61,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 #ifndef PPS_MAC
-	#include <dos.h>
+/*	#include <dos.h>*/
 #endif
-#include <io.h>
+/*#include <io.h>*/
 #ifndef PPS_MAC
-	#include <sys\types.h>
+	#include <sys/types.h>
 #endif
 #if defined (MSC_MOD) && defined (DOS_MOD)
   #include <graph.h>
@@ -152,13 +152,14 @@ typedef TYPE (*DistFrame)(FRAME*,FRAME*);
   //#define CPP
 #endif
 
+/*
 #ifndef WIN_MOD
   typedef uint HWND;
   #ifndef PPS_MAC
 	  typedef char far* LPCSTR;
   #endif
 #endif
-
+*/
 //≈сли установлено ID4, ID_SYM длиной 4 байта, иначе - 8
 #ifndef BLANK
   //#define ID4
@@ -542,7 +543,7 @@ void pointt_w(int x1,int y1,int krat,int ifil);
 void point_w(int x1,int y1), point(int x,int y), vect_w(int x1,int y1),
      vector_w(int x1,int y1,int x2,int y2), vect(int x,int y),
      vector(int x1,int y1,int x2,int y2), clear(void),
-     pause(void), opn1(void), win_real(void),
+     pause_internal(void), opn1(void), win_real(void),
      bounds_frm(int ii,FRAME **frm,int nx),
      BoundsRect(int ii,RECT *frm,int nx),
      polygon_w(int *x,int *y,int n,int col,int zap,int krat,int ifil),

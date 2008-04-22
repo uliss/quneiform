@@ -65,8 +65,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __CreateRtf_h__
 #define __CreateRtf_h__
 
-#include "RtfEdWrite.h"
+#include "rtfedwrite.h"
 #include "recdefs.h"
+#include "compat_defs.h"
 
 #define TIRE                  0x97        //'-'
 

@@ -2849,7 +2849,7 @@ char *get2_param(char *str,char *param,Int16 max_len)
 
 #ifdef alDebug
 void clear(void)  {;}
-void pause(void)  {;}
+void pause_internal(void)  {;}
 
 void image_frm(FRAME *f,int col,int line_style,int fill)
 {

@@ -35,7 +35,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define MIN(a,b) (((a)>(b))?(b):(a))
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
-#define min MIN
-#define max MAX
+#define min(a,b) (((a)>(b))?(b):(a))
+#define max(a,b) (((a)>(b))?(a):(b))
 
 #endif

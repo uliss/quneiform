@@ -390,3 +390,32 @@ BOOL IsBadWritePtr(LPVOID lp, int ucb) {
 void OutputDebugString(LPCTSTR lpOutputString) {
 
 }
+
+BOOL SetRect(LPRECT lprc, int xLeft, int yTop,
+int xRight, int yBottom) {
+    return 0;
+}
+
+BOOL PtInRect(const RECT *lprc, POINT pt) {
+    
+}
+
+BOOL IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2) {
+    
+}
+
+HWND GetActiveWindow() {
+    return NULL;
+}
+
+HFONT CreateFont(int nHeight, int nWidth, int nEscapement,
+int nOrientation, int fnWeight, DWORD fdwItalic, DWORD fdwUnderline,
+DWORD fdwStrikeOut, DWORD fdwCharSet, DWORD fdwOutputPrecision,
+DWORD fdwClipPrecision, DWORD fdwQuality, DWORD fdwPitchAndFamily,
+LPCTSTR lpszFace) {
+    return 0;
+}
+
+BOOL GetTextExtentPoint32(HDC hdc, LPCTSTR lpString, int c, LPSIZE lpSize) {
+    return 0;
+}

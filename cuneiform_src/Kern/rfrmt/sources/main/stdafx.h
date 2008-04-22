@@ -67,8 +67,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif // _MSC_VER >= 1000
 
 #define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
-#include <windows.h>
+/*#include <windows.h>*/
 #include <stdio.h>
+#include "compat_defs.h"
 
 //отключаем warning о слишком длинных stl'ных именах
 #pragma warning(disable:4786)

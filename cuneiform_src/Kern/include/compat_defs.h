@@ -266,6 +266,8 @@ typedef SIZE* LPSIZE;
 
 typedef int HKEY;
 
+typedef int HFONT;
+
 typedef int * PHKEY;
 typedef int REGSAM;
 
@@ -513,6 +515,19 @@ typedef int REGSAM;
 #ifndef ERROR_ALREADY_EXISTS
 #define ERROR_ALREADY_EXISTS 1000
 #endif
+
+#ifndef OUT_DEFAULT_PRECIS
+#define OUT_DEFAULT_PRECIS 253
+#endif
+
+#ifndef DEFAULT_QUALITY
+#define DEFAULT_QUALITY 49
+#endif
+
+#ifndef CLIP_DEFAULT_PRECIS
+#define CLIP_DEFAULT_PRECIS 7
+#endif
+
 
 #ifdef __cplusplus
     }

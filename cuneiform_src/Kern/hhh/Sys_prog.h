@@ -57,6 +57,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef SYS_PROG_DEFINED
 #define SYS_PROG_DEFINED
 
+#ifndef WIN32
+#define huge
+#define far
+#endif
+
 #ifdef PPS_MAC
 	#include "split.h"
 	#define GLOB
@@ -151,7 +156,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <stdlib.h>
 #ifndef PPS_MAC
-	#include <sys\stat.h>
+	#include <sys/stat.h>
 #endif
 
 #include <string.h>
@@ -174,7 +179,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#endif
 
 #endif
-
+/*
 #ifndef WIN_MOD
   typedef unsigned char BYTE;
   typedef unsigned int WORD;
@@ -192,7 +197,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #define HIWORD(l) ((WORD)(((DWORD)(l) >> 16) & 0xFFFF))
   typedef int HFILE;
 #endif
-
+*/
 #ifndef uint
   #ifndef BITS32
     typedef unsigned int uint;
@@ -233,18 +238,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   int PutMyMessage(HWND,int,char *);
 #else
 	#ifndef PPS_MAC
-  	#include <conio.h>
+  	/*#include <conio.h>*/
+  
 	#endif
   #define PASC
   #define WINAPI
   #define CALLBACK
   #define _export
   #define pascal
+  
+  #ifndef FAR
   #define FAR far
-
+  #endif
+  
   #define COM
+  /*
   typedef struct {int left,top,right,bottom;} RECT;
   typedef struct h_point { int x,y; } POINT ;
+  */
 	#ifndef PPS_MAC
 		int UnionRect(RECT *out,RECT *in1,RECT *in2);
 	#endif
@@ -368,11 +379,11 @@ int  GetERR(char *NameFunc);
 // ---------------- Работа с памятью и обработка ошибок: КОНЕЦ --------------
 
 #ifndef WIN_MOD
-
+/*
 	int GetPrivateProfileInt(char *section, char *key, int Default, char *name);
 	int GetPrivateProfileString(char *section, char *key, char *Default,
 			char *result,int maxsize, char *name);
-
+*/
 #endif
 #ifdef PPS_MAC
 	short strcmpi(const char* s1, const char *s2);
