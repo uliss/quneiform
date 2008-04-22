@@ -56,7 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // frmtdibapi.h
 //
-
+#include "compat_defs.h"
 
 #ifndef _INC_DIBAPI
 #define _INC_DIBAPI

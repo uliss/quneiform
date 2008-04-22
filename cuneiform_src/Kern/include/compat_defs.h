@@ -130,14 +130,22 @@ typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int)
 #define ULONG unsigned long
 #endif
 
+#ifndef DECLARE_HANDLE
+#define DECLARE_HANDLE(a)
+#endif
+
+#ifndef WINAPI
+#define WINAPI
+#endif
+
 extern int HFILE_ERROR;
 typedef int HFILE;
 
-typedef struct {
-    int left;
-    int right;
-    int top;
-    int bottom;
+typedef struct tagRECT {
+    LONG left;
+    LONG right;
+    LONG top;
+    LONG bottom;
 } RECT;
 
 typedef RECT* LPRECT;
@@ -179,6 +187,14 @@ typedef struct tagBITMAPINFOHEADER{
   DWORD  biClrImportant; 
 } BITMAPINFOHEADER, *PBITMAPINFOHEADER; 
 
+typedef struct tagBITMAPCOREHEADER {
+  DWORD   bcSize; 
+  WORD    bcWidth; 
+  WORD    bcHeight; 
+  WORD    bcPlanes; 
+  WORD    bcBitCount; 
+} BITMAPCOREHEADER, *PBITMAPCOREHEADER; 
+
 struct _finddata_t {
     unsigned    attrib;
     time_t    time_create; /*-1forFATfilesystems*/
@@ -200,6 +216,14 @@ typedef struct tagBITMAPINFO {
   RGBQUAD          bmiColors[1]; 
 } BITMAPINFO, *PBITMAPINFO; 
 
+typedef struct tagRGBTRIPLE { 
+  BYTE rgbtBlue; 
+  BYTE rgbtGreen; 
+  BYTE rgbtRed; 
+} RGBTRIPLE; 
+
+typedef BITMAPCOREHEADER* LPBITMAPCOREHEADER;
+typedef BITMAPINFOHEADER* LPBITMAPINFOHEADER;
 typedef BITMAPINFO* LPBITMAPINFO;
 
 typedef struct tagMETAHEADER { 
@@ -223,13 +247,16 @@ typedef struct tagLOGPALETTE {
   WORD         palVersion; 
   WORD         palNumEntries; 
   PALETTEENTRY palPalEntry[1]; 
-} LOGPALETTE; 
+} LOGPALETTE;
 
 /*
 typedef struct {
     int x;
 } HPALETTE;
 */
+
+typedef BOOL(*WNDENUMPROC)(HWND, int);
+
 typedef int HPALETTE;
 
 /*
@@ -260,6 +287,12 @@ typedef struct tagBITMAPFILEHEADER {
   WORD    bfReserved2; 
   DWORD   bfOffBits; 
 } BITMAPFILEHEADER, *PBITMAPFILEHEADER; 
+
+typedef struct tagCOPYDATASTRUCT {
+    ULONG dwData;
+    DWORD cbData;
+    PVOID lpData;
+} COPYDATASTRUCT, *PCOPYDATASTRUCT;
 
 typedef POINT* LPPOINT;
 typedef SIZE* LPSIZE;
@@ -528,6 +561,9 @@ typedef int REGSAM;
 #define CLIP_DEFAULT_PRECIS 7
 #endif
 
+#ifndef WM_COPYDATA
+#define WM_COPYDATA 30
+#endif
 
 #ifdef __cplusplus
     }

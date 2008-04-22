@@ -70,23 +70,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "stdafx.h"
 
 #include <math.h>
-#include <io.h>
-#include <direct.h>
+/*#include <io.h>
+#include <direct.h>*/
 
 #include "cpage.h"
 #include "cpagetyps.h"
-#include "RtfEdWrite.h"
+#include "rtfedwrite.h"
 #include "frmtpict.h"
 #include "dpuma.h"
 #include "pumadef.h"
 #include "ctdib.h"
-#include "CTIImage.h"
+#include "ctiimage.h"
 #include "frmtdibapi.h"
 #include "criimage.h"
 #include "sys_prog.h"
 #include "ced.h"
 #include "rfrmt_prot.h"
 
+#include "minmax.h"
 
 #define  USE_NONE              0x0040   // no formatting
 
@@ -384,7 +385,7 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 					LDPUMA_Skip(hTestGetMaskDIB);
 					if(CPAGE_PictureGetMask (h_Page,h_Pict,0,NULL,&nSize))
 					{
-						char * lpMask = malloc_m(sizeof(in) + nSize );
+						char * lpMask = (char*)malloc_m(sizeof(in) + nSize );
 						if(lpMask)
 						{// Получаем маску
 							*(PCIMAGE_InfoDataInGet)lpMask = in;
@@ -438,8 +439,8 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 					playout.y   = -1;
 					playout.h   = -1;
 
-					Lr.x = max(0,Lr.x);
-					Lr.y = max(0,Lr.y);
+					Lr.x = MAX(0,Lr.x);
+					Lr.y = MAX(0,Lr.y);
 					
 					slayout.left   = (int)(Lr.x);
 					slayout.right  = (int)(Lr.x + Wh.x);
@@ -462,9 +463,9 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 					{
  						if(SectorInfo->FlagInColumn==TRUE)
 						{
- 							EdFragmRect.x = max(0,SectorInfo->OffsetFromColumn.x);   
-							EdFragmRect.y = max(0,SectorInfo->OffsetFromColumn.y);
- 							EdFragmRect.w = (int)(max(0, Wh.x-FrameOffset)*Twips);
+ 							EdFragmRect.x = MAX(0,SectorInfo->OffsetFromColumn.x);   
+							EdFragmRect.y = MAX(0,SectorInfo->OffsetFromColumn.y);
+ 							EdFragmRect.w = (int)(MAX(0, Wh.x-FrameOffset)*Twips);
 	 						EdFragmRect.h = (int)(Wh.y*Twips);
 		 					SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn, 
 							                                      EdFragmRect, 0x22,-1, -1, -1);
@@ -473,7 +474,7 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 						{
 							EdFragmRect.x = (int)(Lr.x*Twips - SectorInfo->Offset.x);
 							EdFragmRect.y = (int)(Lr.y*Twips - SectorInfo->Offset.y);
- 							EdFragmRect.w = (int)(max(0, Wh.x-FrameOffset)*Twips);
+ 							EdFragmRect.w = (int)(MAX(0, Wh.x-FrameOffset)*Twips);
 	 						EdFragmRect.h = (int)(Wh.y*Twips);
 		 					SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn, 
 			                                       			EdFragmRect, 0x22,-1, 0, 0);

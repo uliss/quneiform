@@ -375,6 +375,10 @@ int MessageBox(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType) {
     return 0;
 }
 
+int WINAPI GlobalSize(HGLOBAL hMem) {
+    return 0;
+}
+
 LPVOID GlobalLock(HGLOBAL hMem) {
     return NULL;
 }
@@ -397,11 +401,15 @@ int xRight, int yBottom) {
 }
 
 BOOL PtInRect(const RECT *lprc, POINT pt) {
-    
+    return 0;
 }
 
 BOOL IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2) {
-    
+    return 0;
+}
+
+BOOL UnionRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2) {
+    return 0;
 }
 
 HWND GetActiveWindow() {
@@ -419,3 +427,12 @@ LPCTSTR lpszFace) {
 BOOL GetTextExtentPoint32(HDC hdc, LPCTSTR lpString, int c, LPSIZE lpSize) {
     return 0;
 }
+
+BOOL EnumWindows(WNDENUMPROC lpEnumFunc, LPARAM lParam) {
+    return 0;
+}
+
+int GetWindowText(HWND hWnd, LPTSTR lpString, int nMaxCount) {
+    return 0;    
+}
+

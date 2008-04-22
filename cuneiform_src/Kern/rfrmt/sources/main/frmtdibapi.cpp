@@ -75,8 +75,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cpagetyps.h"
 
 #include "frmtdibapi.h"
-#include <io.h>
+/*#include <io.h>*/
 #include <errno.h>
+#include "compat_defs.h"
 
 /*************************************************************************
  *

@@ -65,6 +65,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __frmt_prot_h__
 #define __frmt_prot_h__
 
+#include <stddef.h>
+
 BOOL CreateInternalFileForFormatter(void);
 #ifdef __cplusplus
 	extern "C" {

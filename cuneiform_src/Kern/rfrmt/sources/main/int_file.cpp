@@ -54,6 +54,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <unistd.h>
 #include "lst3_win.h"
 
 #ifndef PPS_MAC
@@ -62,12 +63,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "wind32.h"
 
+#include "compat_defs.h"
+
 /*========mode=OF_READ||OF_READWRITE||OF_WRITE*/
 FILE1 *fopen_m(char *name,int mode)
 {
    FILE1 *f=(FILE1*)malloc_m(sizeof(FILE1));
    if(mode == OF_READ)
-   { if( (f->hFile=_lopen(name,mode)) <= 0)
+   { if( (f->hFile =_lopen(name,mode)) <= 0)
      { free_m(f); /*ErrorHandler();*/ return NULL; }
    }
    else

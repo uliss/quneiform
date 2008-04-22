@@ -73,8 +73,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ful_txt.h"
 #include "globus.h"
 #include "wind32.h"
-#include "alDebug.h"
-
+#include "aldebug.h"
+#include "decl.h"
 	////////////// functions, which are moved from other modules //////////////
 #ifdef alDebug
 static int dets=1;

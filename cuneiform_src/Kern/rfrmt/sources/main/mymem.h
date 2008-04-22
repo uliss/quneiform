@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __MYMEM_H__
 #define __MYMEM_H__
 
-#include <crtdbg.h>
+/*#include <crtdbg.h>*/
 
 
 #ifdef _DEBUG

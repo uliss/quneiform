@@ -69,9 +69,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rfrmt_prot.h"
 #include "rfrmtfile.h"
 #include "polyblock.h"
-#include "alDebug.h"
+#include "aldebug.h"
 #include "dpuma.h"
 #include "resource.h"
+
+#include "minmax.h"
 
 #ifdef alDebug
 extern std::vector<RECT>   *pInputArray;
@@ -463,7 +465,7 @@ BOOL CheckLineForFilling( CSTR_line* Comingline )
 }
 
 
-CFragment::Write()
+BOOL CFragment::Write()
 {
  return TRUE;
 }
@@ -655,7 +657,7 @@ void CChar::AddingLetter(CSTR_rast* rast, int index, BOOL* FlagCapDrop)
 	                    rast_attr.r_col - TemplateOffset.x + rast_attr.w,
                         rast_attr.r_row - TemplateOffset.y + rast_attr.h);
 
- m_wCountAlt  = min(vers.lnAltCnt,REC_MAX_VERS);
+ m_wCountAlt  = MIN(vers.lnAltCnt,REC_MAX_VERS);
  m_bFlg_spell = 0;
 
  if(!vers.lnAltCnt)

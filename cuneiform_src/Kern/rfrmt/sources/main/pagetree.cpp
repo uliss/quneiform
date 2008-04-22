@@ -69,10 +69,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "alDebug.h"
+#include "aldebug.h"
 #include "cpage.h"
 #include "cpagetyps.h"
-#include "CreateRtf.h"
+#include "creatertf.h"
 #include "dpuma.h"
 
 #define MAIN
@@ -84,6 +84,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "globus.h"
 #include "wind32.h"
 #include "consmess.h"
+
+#include "decl.h"
+#include "minmax.h"
 
 #ifdef alDebug
 #define CONS_MESS1 if(det1)	ConsMess
@@ -134,16 +137,16 @@ extern  void MyDrawForDebug(void);
 extern  WORD                 *CountRect;
 
 #else
-	#define CONS_MESS1 1 ? (void)0 : ConsMess
-	#define CONS_MESS2 1 ? (void)0 : ConsMess
-	#define CONS_MESS3 1 ? (void)0 : ConsMess
-	#define CONS_MESS4 1 ? (void)0 : ConsMess
-	#define CONS_MESS6 1 ? (void)0 : ConsMess
-	#define CONS_MESS9 1 ? (void)0 : ConsMess
-	#define CONS_MESS20 1 ? (void)0 : ConsMess
-	#define CONS_MESS21 1 ? (void)0 : ConsMess
-	#define CONS_MESS22 1 ? (void)0 : ConsMess
-	#define CONS_MESS23 1 ? (void)0 : ConsMess
+	#define CONS_MESS1 1 ? 0 : ConsMess
+	#define CONS_MESS2 1 ? 0 : ConsMess
+	#define CONS_MESS3 1 ? 0 : ConsMess
+	#define CONS_MESS4 1 ? 0 : ConsMess
+	#define CONS_MESS6 1 ? 0 : ConsMess
+	#define CONS_MESS9 1 ? 0 : ConsMess
+	#define CONS_MESS20 1 ? 0 : ConsMess
+	#define CONS_MESS21 1 ? 0 : ConsMess
+	#define CONS_MESS22 1 ? 0 : ConsMess
+	#define CONS_MESS23 1 ? 0 : ConsMess
 #endif
 
 #define  My_Debug ON
@@ -317,10 +320,10 @@ void bound_frm(FRAME **frm,int k_frm,BOUND *bnd)
 	int ymin=32000,ymax=-32000,xmin=32000,xmax=-32000,i;
 	do0(i,0,k_frm)
 	{
-		ymin=min(ymin,frm[i]->up);
-		ymax=max(ymax,frm[i]->down);
-		xmin=min(xmin,frm[i]->left);
-		xmax=max(xmax,frm[i]->right);
+		ymin=MIN(ymin,frm[i]->up);
+		ymax=MAX(ymax,frm[i]->down);
+		xmin=MIN(xmin,frm[i]->left);
+		xmax=MAX(xmax,frm[i]->right);
 	}
 	bnd->left=xmin; bnd->right=xmax; bnd->up=ymin; bnd->down=ymax;
 }
@@ -630,10 +633,10 @@ Int16 GenerateTreeByFragm(Rect16 *RectFragm,Int16 NumFragm,
 		if (dets) ConsMess("i=%d  l=%d,r=%d,u=%d,d=%d",i,
 			          RectFragm[i].left,RectFragm[i].right,RectFragm[i].top,RectFragm[i].bottom);
 #endif
-		BndAll.left =min(BndAll.left ,RectFragm[i].left);
-		BndAll.right=max(BndAll.right,RectFragm[i].right);
-		BndAll.up   =min(BndAll.up   ,RectFragm[i].top);
-		BndAll.down =max(BndAll.down ,RectFragm[i].bottom);
+		BndAll.left =MIN(BndAll.left ,RectFragm[i].left);
+		BndAll.right=MAX(BndAll.right,RectFragm[i].right);
+		BndAll.up   =MIN(BndAll.up   ,RectFragm[i].top);
+		BndAll.down =MAX(BndAll.down ,RectFragm[i].bottom);
 	}
 	//--calling internal function for tree generation--
 	if(CreateTreePlainTxt1(BndAll,NULL,0,NULL,0,
@@ -850,7 +853,7 @@ Int16 CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
 					{
 						CONS_MESS1("beg------------------4");
 						CONS_MESS1("order == HOR");
-						minz=min(ThresX,del);
+						minz=MIN(ThresX,del);
 						if((left= !j ? ptr->Rect.left :
 							AddLine1(&LineVK,&nV,&nVmax,(Int16)endI[j-1],minz)) < 0)
 						{
@@ -867,7 +870,7 @@ Int16 CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
 					//!!!для разновысоких колонок можно уточнять и верхи и низы!!!
 					//но тогда придется рассчитать рамки новых колонок
 						del1=b.down-b.up;
-						minz=min(ThresY,del1);
+						minz=MIN(ThresY,del1);
 						if((top=AddLine1(&LineHK,&nH,&nHmax,b.up,minz)) < 0)
 						{
 							CONS_MESS9("836       top-100");
@@ -884,7 +887,7 @@ Int16 CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
 					{
 						CONS_MESS1("beg------------------5");
 						CONS_MESS1("order == VER");
-						minz=min(ThresY,del);
+						minz=MIN(ThresY,del);
 						if((top= !j ? ptr->Rect.top :
 						AddLine1(&LineHK,&nH,&nHmax,endI[j-1],minz)) < 0)
 						{
@@ -900,7 +903,7 @@ Int16 CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
 					//left=ptr->Rect.left; right=ptr->Rect.right;
 					//!!!для разношироких колонок можно уточнять и боковые линии!!!
 						del1=b.right-b.left;
-						minz=min(ThresX,del1);
+						minz=MIN(ThresX,del1);
 						if((left=AddLine1(&LineVK,&nV,&nVmax,b.left,minz)) < 0)
 						{
 							CONS_MESS9("874       left-100");
@@ -1691,7 +1694,7 @@ Int16 SortHorLine1(LINE_KNOT *LineHK,Int16 NumH,LINE_KNOT *LineVK,Int16 NumV,
     KNOTT *Root,KNOTT ***colt1,Int16 *k_colt1,FRAME **frm)
 //==
 {
-	INDEX_SORT *Ind=(INDEX_SORT *)malloc_m(max(NumH,NumV)*sizeof(INDEX_SORT));
+	INDEX_SORT *Ind=(INDEX_SORT *)malloc_m(MAX(NumH,NumV)*sizeof(INDEX_SORT));
   STAT_CELL StDefault;
   Int16 *Index=(Int16 *)malloc_m(NumH*sizeof(Int16)),
         *IndexV=(Int16 *)malloc_m(NumV*sizeof(Int16));
@@ -2470,7 +2473,7 @@ BadReturn:
 							pRtfChar=pRtfWord->m_arChars[nz]; 
 						
 						 
-							pRtfChar->m_wCountAlt=min(Zn[nc][ns][nw][nz].Title.Z_Num_Alt,REC_MAX_VERS);
+							pRtfChar->m_wCountAlt=MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt,REC_MAX_VERS);
 							for (int alt=0;alt<Zn[nc][ns][nw][nz].Title.Z_Num_Alt&&alt<REC_MAX_VERS;alt++)
 							{
 								pRtfChar->m_chrVersions[alt].m_bChar        = Zn[nc][ns][nw][nz].Alt[alt].a_Code;
@@ -2608,7 +2611,7 @@ BadReturn:
 							pRtfChar=pRtfWord->m_arChars[nz]; 
 
 					
-							pRtfChar->m_wCountAlt=min(Zn[nc][ns][nw][nz].Title.Z_Num_Alt,REC_MAX_VERS);
+							pRtfChar->m_wCountAlt=MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt,REC_MAX_VERS);
 							for (int alt=0;alt<Zn[nc][ns][nw][nz].Title.Z_Num_Alt&&alt<REC_MAX_VERS;alt++)
 							{
 								pRtfChar->m_chrVersions[alt].m_bChar        = Zn[nc][ns][nw][nz].Alt[alt].a_Code;
@@ -2799,18 +2802,18 @@ void RtfAssignRect_CRect_CRect(tagRECT *s1,tagRECT *s2)
 
 void RtfUnionRect_CRect_SRect(tagRECT *s1,SRECT *s2)
 {
- s1->left   = min(s1->left  , s2->left);
- s1->right  = max(s1->right , s2->right);
- s1->top    = min(s1->top   , s2->top);
- s1->bottom = max(s1->bottom, s2->bottom);
+ s1->left   = MIN(s1->left  , s2->left);
+ s1->right  = MAX(s1->right , s2->right);
+ s1->top    = MIN(s1->top   , s2->top);
+ s1->bottom = MAX(s1->bottom, s2->bottom);
 }
 
 void RtfUnionRect_CRect_CRect(tagRECT *s1,tagRECT *s2)
 {
- s1->left   = min(s1->left  , s2->left);
- s1->right  = max(s1->right , s2->right);
- s1->top    = min(s1->top   , s2->top);
- s1->bottom = max(s1->bottom, s2->bottom);
+ s1->left   = MIN(s1->left  , s2->left);
+ s1->right  = MAX(s1->right , s2->right);
+ s1->top    = MIN(s1->top   , s2->top);
+ s1->bottom = MAX(s1->bottom, s2->bottom);
 }
 
 void	RtfCalcRectSizeInTwips(tagRECT *s1, float Twips)
@@ -2825,10 +2828,10 @@ void	RtfCalcRectSizeInTwips(tagRECT *s1, float Twips)
 void MyUnionRect(SRECT *s1,SRECT *s2,SRECT *u)
 //==
 {
- u->left  =min(s1->left ,s2->left);
- u->right =max(s1->right,s2->right);
- u->top   =min(s1->top  ,s2->top);
- u->bottom=max(s1->bottom,s2->bottom);
+ u->left  =MIN(s1->left ,s2->left);
+ u->right =MAX(s1->right,s2->right);
+ u->top   =MIN(s1->top  ,s2->top);
+ u->bottom=MAX(s1->bottom,s2->bottom);
 }
 
 //==
@@ -2882,20 +2885,20 @@ void image_rect(RECT *f,int col,int line_style,int fill)
 		pFragRectColor->push_back(Graphic1Color);
 		if(Graphic1Color==0)
 		{
-			f->left=max(0,f->left-12);
-			f->top=max(0,f->top-12);
+			f->left=MAX(0,f->left-12);
+			f->top=MAX(0,f->top-12);
 	        f->right+=12;f->bottom+=12;
 		}
 		if(Graphic1Color==1)
 		{
-			f->left=max(0,f->left-8);
-			f->top=max(0,f->top-8);
+			f->left=MAX(0,f->left-8);
+			f->top=MAX(0,f->top-8);
 	        f->right+=8;f->bottom+=8;
 		}
 		if(Graphic1Color==2)
 		{
-			f->left=max(0,f->left-4);
-			f->top=max(0,f->top-4);
+			f->left=MAX(0,f->left-4);
+			f->top=MAX(0,f->top-4);
 	        f->right+=4;f->bottom+=4;
 		}
 	}

@@ -71,6 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include <graph.h>
 #endif
 
+#include "compat_defs.h"
 #include "minmax.h"
   
 //#define TIGER_CORR
@@ -804,28 +805,35 @@ int OrtFoure(float *y,float *Re,float *Im,float *ys,float *Err,int k,int p,
 int na,int beg,int end);
 //--Описание универсал. (DOS - Windows) файл. интерфейса--
 #ifndef WIN_MOD
-  #ifndef V_LOCK
-   typedef FILE FILE1;
-  #endif
   #define OF_READ      0x0000
   #define OF_READWRITE 0x0001
   #define OF_WRITE     0x0002
-#else
-  #ifndef V_LOCK
-   typedef struct h_file { int hFile; } FILE1;
-  #endif
 #endif
+
+#ifdef WIN32
+   typedef FILE FILE1;
+#else
+   typedef struct h_file { int hFile; } FILE1;
+#endif
+
 #ifndef V_LOCK
 FILE1 *fopen_m(char *name,int mode);
 FILE1 *myfopen(char *name,LONG* len);
 LONG filelength_m(FILE1 *stream);
-#ifdef WIN_MOD
+#ifndef WIN32
   int fclose_m(FILE1 *f);
   int fread_m(void *buf,int size,int count,FILE1 *stream);
   int fwrite_m(void *buf,int size,int count,FILE1 *stream);
   int fseek_m(FILE1 *stream, long offset, int origin);
   LONG ftell_m(FILE1 *stream);
   int setvbuf_m(FILE1 *stream,char *buf,int type,int size);
+#define _hread(a, b, c) read(a, b, c)
+#define _lclose(a) close(a)
+#define _lcreat(a, b) creat(a, b)
+#define _llseek(a, b, c) lseek(a, b, c)
+#define _lopen(a, b) open(a, b)
+#define _lread(a, b, c) read(a, b, c)
+#define _lwrite(a, b, c) write(a, b, c)
 #else
   #define fclose_m      fclose
   #define fread_m       fread

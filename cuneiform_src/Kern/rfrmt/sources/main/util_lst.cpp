@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 #include "lst3_win.h"
-#include "alDebug.h"
+#include "aldebug.h"
 
 #ifndef PPS_MAC
 #pragma hdrstop

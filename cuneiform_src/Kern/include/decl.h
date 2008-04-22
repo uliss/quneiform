@@ -36,5 +36,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define _cdecl
 #endif
 
+#ifndef __cdecl
+#define __cdecl
+#endif
+
+#ifndef __stdcall
+#define __stdcall
+#endif
+
 
 #endif

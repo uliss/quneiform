@@ -255,12 +255,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   /*
   typedef struct {int left,top,right,bottom;} RECT;
   typedef struct h_point { int x,y; } POINT ;
-  */
+
 	#ifndef PPS_MAC
 		int UnionRect(RECT *out,RECT *in1,RECT *in2);
 	#endif
   int SetRectEmpty(RECT *r);
   int CopyRect(RECT *out,RECT *in);
+  */
 #endif
 
 #ifdef DLL_MOD

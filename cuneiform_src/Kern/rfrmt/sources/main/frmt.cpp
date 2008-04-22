@@ -70,9 +70,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __RFRMT__
 #include "rfrmt.h"
 #include "mymem.h"
-#include "RtfFragRect.h"
+#include "rtffragrect.h"
 #include "dpuma.h"
-#include "alDebug.h"
+#include "aldebug.h"
 #include "rfrmt_prot.h"
 
 #define  USE_NONE             0x0040   // no formatting
@@ -141,7 +141,7 @@ RFRMT_FUNC(Bool32)  RFRMT_Formatter(char* lpInputImageName , Handle* PtrEdTree )
  ExFlagMode = FALSE;
 
  RtfWriteMode = FALSE;
- strcpy(WriteRtfImageName,lpInputImageName);
+ strcpy((char*)WriteRtfImageName,lpInputImageName);
 
 #ifdef alDebug
 CRtfFragRect  RtfFragRect;
@@ -186,9 +186,9 @@ RtfFragRect.m_Step                        = 0;
    else                                  
      FlagMode |= USE_NONE;
 
- strcpy( lpMyNameSerif	   , gpSerifName     );
- strcpy( lpMyNameNonSerif	, gpSansSerifName );
- strcpy( lpMyNameMono 	   , gpCourierName   );
+ strcpy( (char*)lpMyNameSerif	   , gpSerifName     );
+ strcpy( (char*)lpMyNameNonSerif	, gpSansSerifName );
+ strcpy( (char*)lpMyNameMono 	   , gpCourierName   );
 
  FlagChangeSizeKegl=TRUE;
  if(!LDPUMA_Skip(hDebugKegl))
@@ -278,7 +278,7 @@ RFRMT_FUNC(Bool32)  RFRMT_SaveRtf(char* lpOutputFileName,Word32 code)
    hDbgWnd = LDPUMA_CreateWindow("Форматирование",LDPUMA_GetDIBptr(NULL));
  }
 
- strcpy( RtfFileName, lpOutputFileName );
+ strcpy( (char*)RtfFileName, lpOutputFileName );
 
 #ifdef alDebug
  CRtfFragRect  RtfFragRect;
@@ -325,9 +325,9 @@ RFRMT_FUNC(Bool32)  RFRMT_SaveRtf(char* lpOutputFileName,Word32 code)
    else                                  
       FlagMode |= USE_NONE;
 
- strcpy( lpMyNameSerif	   , gpSerifName     );
- strcpy( lpMyNameNonSerif	, gpSansSerifName );
- strcpy( lpMyNameMono 	   , gpCourierName   );
+ strcpy( (char*)lpMyNameSerif	   , gpSerifName     );
+ strcpy( (char*)lpMyNameNonSerif	, gpSansSerifName );
+ strcpy( (char*)lpMyNameMono 	   , gpCourierName   );
 
  FlagChangeSizeKegl=TRUE;
  if(!LDPUMA_Skip(hDebugKegl))

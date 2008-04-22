@@ -152,6 +152,7 @@ void *_fmemset(void *dst, int c, size_t length);
 HWND GetFocus();
 int MessageBox(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType);
 
+int WINAPI GlobalSize(HGLOBAL hMem);
 LPVOID GlobalLock(HGLOBAL hMem);
 BOOL GlobalUnlock(HGLOBAL hMem);
 BOOL IsBadWritePtr(LPVOID lp, int ucb);
@@ -160,6 +161,7 @@ BOOL SetRect(LPRECT lprc, int xLeft, int yTop,
 int xRight, int yBottom);
 BOOL PtInRect(const RECT *lprc, POINT pt);
 BOOL IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2);
+BOOL UnionRect(LPRECT lprcDst, const RECT *lprcSrc1,const RECT *lprcSrc2);
 
 HWND GetActiveWindow();
 HFONT CreateFont(int nHeight, int nWidth, int nEscapement,
@@ -168,4 +170,7 @@ DWORD fdwStrikeOut, DWORD fdwCharSet, DWORD fdwOutputPrecision,
 DWORD fdwClipPrecision, DWORD fdwQuality, DWORD fdwPitchAndFamily,
 LPCTSTR lpszFace);
 BOOL GetTextExtentPoint32(HDC hdc, LPCTSTR lpString, int c, LPSIZE lpSize);
+BOOL EnumWindows(WNDENUMPROC lpEnumFunc, LPARAM lParam);
+int GetWindowText(HWND hWnd, LPTSTR lpString, int nMaxCount);
+
 #endif

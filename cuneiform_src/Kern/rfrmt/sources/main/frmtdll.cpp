@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // frmtdll.cpp : 
 // ============================================================================
 
-#include <windows.h>
+/*#include <windows.h>*/
 #include "resource.h"
 #define __RFRMT__
 #define __RFRMT_EXTERN__
@@ -69,6 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "dpuma.h"
 #include "pumadef.h"
 #include "rfrmt_prot.h"
+#include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 Word16     gwHeightRC = 0;
