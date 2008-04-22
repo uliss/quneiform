@@ -76,7 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "cstrdefs.h"
 # include "polyblock.h"
 # include "ctp.h" 
-# include "pic&table.h"
+# include "pic_n_table.h"
 # include "rpic.h"
 # include "rstr.h"
 

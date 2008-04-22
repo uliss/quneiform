@@ -54,8 +54,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
- #include <malloc.h>
+#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "c_types.h"
 #include "func.h"
@@ -140,7 +141,7 @@ extern BYTE lpool[];
 //extern version * start_rec, *rec_ptr;
 static BYTE make_fill[] = {0, 1, 3, 7, 15, 31, 63, 127, 255};
 static  INT comp_max_w=128,comp_min_w=0, comp_max_h=64,comp_min_h=0;
-MN * c_locomp (PBYTE raster, INT bw, INT h, INT upper, INT left)
+MN * c_locomp (PBYTE raster, LONG bw, LONG h, INT upper, INT left)
 {
 return LOC_CLocomp (raster, bw, h, upper, left); 
 }
@@ -188,12 +189,14 @@ void online_comp(c_comp *w)
 return;
  
 }
+/* FIXME: PROOT does not have a pComp. Don't know what should be done, so
+ * I disabled this.
 
 CCOM_comp *get_CCOM_comp(PROOT r)
 {
 	return (CCOM_comp *)r->pComp; 
 }
-
+*/
 BOOL save_MN(MN *mn)
 {
 extern Int32 exthCCOM; 

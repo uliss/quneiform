@@ -62,14 +62,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ============================================================================
 #define __RBLOCK__
 
-#include <windows.h>
+/*#include <windows.h>*/
 #include <setjmp.h>
 
 # include "resource.h"
 # include "dpuma.h"
-# include "RBLOCK.h"
+# include "rblock.h"
 # include "newfunc.h"
 # include "kernel.h"
+
+#include "compat_defs.h"
 
 
 //#include "status.h"

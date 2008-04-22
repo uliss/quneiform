@@ -239,7 +239,7 @@ INT compare_vect(v_val *,v_val *);
 INT cell_is_BOX_solid (cell*);
 
 // module locomp.asm
-MN *c_locomp(PBYTE,INT,INT,INT,INT);
+MN *c_locomp(PBYTE,LONG,LONG,INT,INT);
 
 // module v0compgl.asm
 void invert_tiff(PBYTE c, WORD lth);

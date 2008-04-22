@@ -76,10 +76,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef PC_TYPE
 
 #include <stdlib.h>
-#include <io.h>
+/*#include <io.h>*/
 #include <fcntl.h>
-#include <sys\stat.h>
-#include <sys\types.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 //#include <bios.h>
 
 #define BO_CREAT      O_CREAT|O_TRUNC|O_BINARY|O_RDWR,S_IREAD|S_IWRITE

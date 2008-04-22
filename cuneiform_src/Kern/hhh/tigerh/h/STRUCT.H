@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef H_struct_h
 #define H_struct_h
 
-#include "Tuner.H"
+#include "tuner.h"
 
 #ifdef  HUGE_IMAGE
 	#define	WORLD_MAX_HEIGHT	    10000
@@ -509,7 +509,7 @@ typedef struct FragmentDescriptor   FragDesc;
 
 //-------------------------------------------------------------
 #include "cutstr.h"
-#include "embBOX.h"
+#include "embbox.h"
 #endif
 
 

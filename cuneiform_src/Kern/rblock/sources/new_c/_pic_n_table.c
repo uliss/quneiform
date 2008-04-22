@@ -56,7 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # include <setjmp.h>
 # include <string.h>
-# include <crtdbg.h>
+/*# include <crtdbg.h>*/
 
 # include "new_c.h"
 

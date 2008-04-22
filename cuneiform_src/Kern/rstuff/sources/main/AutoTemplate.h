@@ -69,9 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define PEN_WIDTH -100	//для прорисовки
 
-/* min and max macros */
-#define max(a,b)  (((a) > (b)) ? (a) : (b))
-#define min(a,b)  (((a) < (b)) ? (a) : (b))
+#include "minmax.h"
 
 #define BEGIN(iv) ((iv).e-(iv).l) 
 #define SCALE_FACT(comp) (1<<((comp)->scale&7))

@@ -90,7 +90,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define COMPS_QUANTUM 128
 */
 extern Handle hNotUseAntonCross;
-static int IsInPoly(Point32 a, void * pPoly);
+static int IsInPoly(Point32 a, POLY_ * pPoly);
 
 Int32 hCcom;
 

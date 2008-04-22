@@ -81,6 +81,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  #include <stdio.h>
  #include <string.h>
 
+#include "cttypes.h"
+
+#if 0
  #ifndef ___WIN386_INCLUDED__
 
   #ifdef _IBMC_
@@ -205,5 +208,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*------------------------------------------------------------------------*/
 
  #include "typesa.h"
-
+#endif
 #endif

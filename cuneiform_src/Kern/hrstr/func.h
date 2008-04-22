@@ -544,7 +544,7 @@ void take_kit_addr(PBYTE a);
 void add_vers(cell *, version *);
 void del_version( cell *c, BYTE let);
 void online_comp(c_comp *);
-void save_MN(MN *);
+BOOL save_MN(MN *);
 void cell_bonus_let(cell *C, CHAR Let, INT BonVal);
 void cell_bonus(cell *C, version *pVer, INT BonVal);
 

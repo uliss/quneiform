@@ -56,11 +56,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define __RBLOCK__
 
-#include <windows.h>
+/*#include <windows.h>*/
 #include <setjmp.h>
+#include <assert.h>
 
 #include "resource.h"
-#include "RBLOCK.h"
+#include "rblock.h"
 #include "mymem.h"
 #include "newfunc.h"
 #include "dpuma.h"
@@ -69,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cpage.h"
 
 //# include "new_c.h"
-
+#include "compat_defs.h"
 ////////////// KERNEL //////////////////
 
 extern "C"

@@ -75,10 +75,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include <setjmp.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <conio.h>
+/*# include <conio.h>*/
 
 # include "resource.h"
-# include "NewFunc.h"
+# include "newfunc.h"
 
 # include "lterrors.h"
 # include "layout.h"
