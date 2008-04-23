@@ -61,15 +61,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 	#ifndef __PUANSO_H
-	#	include "Puanso.h"
+	#	include "puanso.h"
 	#endif
 
 	#ifndef __RBAMBUK_H
-	#	include "RBambuk.h"
+	#	include "rbambuk.h"
 	#endif
 
 	#ifndef __LBAMBUK_H
-	#	include "LBambuk.h"
+	#	include "lbambuk.h"
 	#endif
 
 	#  ifndef __STDLIB_H
@@ -77,6 +77,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#  endif
 
 #include "hliner.h"
+#include "decl.h"
 
 	int cdecl compFragLevels( const void *frag1, const void *frag2 ); //used by qsort()
 
@@ -262,7 +263,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
             int good_right[512]={0}; // index [i]=> right end of good good segment with i
             int good_left[512]={0};  // index [i]=> left  end of good good segment with i
             Bool outside = TRUE;
-            for (i=511; i>=0; i--)  // compute good_right[]
+            for (int i=511; i>=0; i--)  // compute good_right[]
             {  
                if (wdt[i] && wdt[i] <= max_width) // good point
                {            
@@ -283,7 +284,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
                }
             }
             outside = TRUE;
-            for (i=0; i < 512; i++)  // compute good_left[]
+            for (int i=0; i < 512; i++)  // compute good_left[]
             {  
                if (wdt[i] && wdt[i] <= max_width) // good point
                {            
@@ -306,7 +307,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 // 04 oct ////////////////
             {  // find longmost zone
                int maxzonelen=0; int maxzonestart = 0;
-               for (i=0; i < 512; i++)  // compute good_left[]
+               for (int i=0; i < 512; i++)  // compute good_left[]
                {  
                   if (!good_right[i])
                      continue;
@@ -324,7 +325,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
                   {
                      good_left[i]=good_right[i]=0;
                   }
-                  for ( i=maxzonestart+maxzonelen+1; i<512; i++)
+                  for (int i=maxzonestart+maxzonelen+1; i<512; i++)
                   {
                      good_left[i]=good_right[i]=0;
                   }
@@ -1252,7 +1253,7 @@ Bool AnalyzeFragments( TLinesBambuk& hLB, TLinesBambuk& vLB)
    int hh[ MAX_H_RASTERS_COUNT ] = {0};
    
    for (int i=0; i < nv; i++ ) vv[i]=i;
-   for (    i=0; i < nh; i++ ) hh[i]=i;
+   for (int i=0; i < nh; i++ ) hh[i]=i;
 
    TLineFragment* _lf_hor = &(hLB[0]);
    TLineFragment* _lf_ver = &(vLB[0]);
@@ -1351,7 +1352,7 @@ Bool AnalyzeFragments( TLinesBambuk& hLB, TLinesBambuk& vLB)
 
 ///////////////////////////////////////////
 // search vertical lines for letter sticks
-#include <windows.h> // OutputDebugString
+/*#include <windows.h> // OutputDebugString*/
 #include "lns.h"
 static LnsFrag* vfrags = NULL;
 static LnsFrag* hfrags = NULL;
@@ -1492,7 +1493,7 @@ Bool AnalyzeFragmentsII( TLinesBambuk& hLB, TLinesBambuk& vLB)
    int hh[ MAX_H_RASTERS_COUNT ] = {0};
 
  
-   for ( i=0; i < nh; i++ ) hh[i]=i;
+   for (int i=0; i < nh; i++ ) hh[i]=i;
 
    hfrags = LnsGetFragments(TRUE);
 

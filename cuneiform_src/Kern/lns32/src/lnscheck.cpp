@@ -67,6 +67,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lns_skew1024.h"
 #endif
 
+#include "decl.h"
+
 typedef Point16 XPoint16;
 #define maxi max
 #define mini min
@@ -965,7 +967,7 @@ for(int l=0; l<h_count; l++)
      };
    };
 
-for( j=0; j<v_count; j++)
+for(int j=0; j<v_count; j++)
    {
    if(!VMarkedNoise[j])  continue;
    if(VBound(h1_count, j))
@@ -1143,7 +1145,7 @@ FillFlag()
 			};
       };
 
-   for(    i=0; i<v_count; i++)
+   for( int i=0; i<v_count; i++)
       {
       	if(VMarkedNoise[i])
          {	va[(v_lns[i]).C].Flags |= LI_NOISE;
@@ -1170,7 +1172,7 @@ for(int i=0; i<h_count; i++)
      };
    };
 
-for(    i=0; i<v_count; i++)
+for( int i=0; i<v_count; i++)
    {
    LineInfo& L = ((Lti->Ver).Lns)[(v_lns[i].C)];
    if( L.TmpUsage == 0 )
@@ -1269,14 +1271,14 @@ for( int k=0; k<h_count; k++)
    L.ltiPrev  = ADJA[k].prev;
    };
 
-for(    s=0; s<v_count; s++)
+for( int s=0; s<v_count; s++)
    {
    ADJA[s].first = -1;
    ADJA[s].last  = -1;
    ADJA[s].prev  = -1;
    ADJA[s].next  = -1;
    };
-for(    i=0; i<v1_count; i++)
+for( int i=0; i<v1_count; i++)
    {
    l = v1_lns[i].y;
    f = v1_lns[i].x;
@@ -1328,7 +1330,7 @@ for(    i=0; i<v1_count; i++)
    if( Init != 0 )   ADJA[adnum].next = /* L.ltiNext */ v_lns[next].C;
    };
 
-for(     k=0; k<v_count; k++)
+for( int k=0; k<v_count; k++)
    {
    AdjacentLst& L = (((Lti->Ver).Lns)[k]).Adj;
    L.ltiLast  = ADJA[k].last;
@@ -1418,7 +1420,7 @@ for(int i=0; i<h_count; i++)
    (h_lns[i]).C = i;
    };
 
-for(    i=0; i<v_count; i++)
+for( int i=0; i<v_count; i++)
    {
    (v_lns[i]).A = (((lti->Ver).Lns)[i]).A;
    (v_lns[i]).B = (((lti->Ver).Lns)[i]).B;
@@ -1458,7 +1460,7 @@ for(int i=0; i<h_count; i++)
    (h_lns[i]).C = i;
    };
 
-for(    i=0; i<v_count; i++)
+for(int i=0; i<v_count; i++)
    {
    (v_lns[i]).A = (((lti->Ver).Lns)[i]).A;
    (v_lns[i]).B = (((lti->Ver).Lns)[i]).B;

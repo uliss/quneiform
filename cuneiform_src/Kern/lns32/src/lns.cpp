@@ -210,7 +210,7 @@ void  __RejectNearBound(LinesTotalInfo* plti)
          { li.Flags |= LI_NOISE;  hcnt--;continue; };
       }
    };
-   for (    i=0; i< plti->Ver.Cnt; i++ )
+   for ( int i=0; i< plti->Ver.Cnt; i++ )
    {  LineInfo & li = plti->Ver.Lns[i];
       if (li.Flags & LI_NOISE)
          continue;

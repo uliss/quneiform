@@ -58,7 +58,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __MEMOPS_H
 #ifdef __cplusplus
 
-#ifndef NO_ASM
+/*#ifndef NO_ASM*/
+#if 0
    extern "C"
    {
 //#endif

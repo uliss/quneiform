@@ -69,7 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //	_TYPEDEFFAR( TPuanso );
 
    #ifndef __PARALINE_H
-   #	include "ParaLine.h"
+   #	include "paraline.h"
    #endif
 
    #define STRANGE_PHI   10             // ?

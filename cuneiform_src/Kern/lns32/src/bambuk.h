@@ -69,7 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 	#ifndef __FARARRAY_H
-	#	include "FarArray.h"
+	#	include "fararray.h"
 	#endif
 
 typedef 	Int32 BHandle ;

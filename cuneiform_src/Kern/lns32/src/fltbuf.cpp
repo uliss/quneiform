@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 	#ifndef __FLTBUF_H
-	#	include "FltBuf.h"
+	#	include "fltbuf.h"
 	#endif
 
    #ifndef __MEMOPS_H

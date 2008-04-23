@@ -122,7 +122,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    // SnpTreeNode hanling routines
    //
 
-   static            // SnpTreeNode construction and connection;
+   /*static            // SnpTreeNode construction and connection;*/
    void SnpAddNode(  // should be called from dll's XxxRegisterSnpTree();
          SnpTreeNode *  node, // on module's static data segment
          char *         name, // user readable
@@ -165,7 +165,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       };
    };
 
-   static  // internal usage, dont call directly
+   /*static  // internal usage, dont call directly*/
    void __SnpIterParent( SnpTreeNode* node, Bool activate )
    {
    #ifdef __cplusplus
@@ -212,7 +212,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       };
    };
 
-   static
+   /*static*/
    Bool16 SnpSkip( SnpTreeNode* node )
       // checks node for skip (no activity) condition;
       // for iterative nodes decreases SkipCnt;
@@ -238,7 +238,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
    };
 
-   static
+   /*static*/
    void    SnpStartLoop( // call in dll before start of loop
       SnpTreeNode* node, // node inside loop
       Word32 iter_total  // iteration count, 0 if unknown
@@ -256,7 +256,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       };
    }
 
-   static
+   /*static*/
    void    SnpLoopNext( // call in dll at start of next iteration
       SnpTreeNode* node
                       )

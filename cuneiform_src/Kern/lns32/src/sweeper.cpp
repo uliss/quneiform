@@ -59,19 +59,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef PPS_MAC
 #pragma hdrstop
 #endif
-	#include "lns.h"
+#include "lns.h"
 
 #include <string.h>
 
-	#ifndef __SBAMBUK_H
-	#	include "SBambuk.h"
-	#endif
-   #ifndef __SWEEPER_H
-   #  include "sweeper.h"
-   #endif
-	#ifndef __MEMOPS_H
-	#  include "memops.h"
-	#endif
+#include "sbambuk.h"
+#include "sweeper.h"
+
+#include "memops.h"
 
 
 static  TImageOpen  __f_op = NULL;

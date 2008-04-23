@@ -70,16 +70,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #endif
 
 	#ifndef __SBAMBUK_H
-	#	include "SBambuk.h"
+	#	include "sbambuk.h"
 	#endif
 	#ifndef __RBAMBUK_H
-	#	include "RBambuk.h"
+	#	include "rbambuk.h"
 	#endif
 	#ifndef __LBAMBUK_H
-	#	include "LBambuk.h"
+	#	include "lbambuk.h"
 	#endif
 	#ifndef __PARALINE_H
-	#	include "ParaLine.h"
+	#	include "paraline.h"
 	#endif
 
    #ifndef __SWEEPER_H
@@ -87,6 +87,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #endif
 
 #include "lns_skew1024.h"
+
+#include "decl.h"
 
    Bool  cdecl  ExtrLinesIsOk(void);
 	/* Implementation ************************/
@@ -213,12 +215,12 @@ static void FillFragmentsCount( Int32 hnd, Bool hor, Int16* cnt, Word8* quality)
 //**********************************************************
 #define LOG_TIME
 #ifdef LOG_TIME
-#include <windows.h> // OutputDebugString()
+/*#include <windows.h> // OutputDebugString()*/
 #define CONSOLE(str) OutputDebugString(str)
 #include "xtimer.h"
 #endif
 
-#include "HLiner.h"
+#include "hliner.h"
 
 Err16 ExtrLinesUnderTigerStatic(  Int32  hor_len, Int32  ver_len,
 														Int32 &hor_cnt, Int32 &ver_cnt )
@@ -403,7 +405,7 @@ Bool ExtrLinesGetCount(   Int32  hor_len, Int32  ver_len,
          ) hor_cnt++;
    };
    ver_cnt = 0;
-   for ( i = 0; i < vLB->linesCount; i++)
+   for ( int i = 0; i < vLB->linesCount; i++)
    {  if (  (vLB->linesRoot[i].lineAsIs.end.y -
              vLB->linesRoot[i].lineAsIs.start.y
             )  >  ver_len
@@ -463,7 +465,7 @@ Bool ExtrLinesGetInfo(  LinesTotalInfo * lti,
 			};
 	};
 	ver_cnt = 0;
-	for ( i = 0; i < vLB->linesCount; i++)
+	for ( int i = 0; i < vLB->linesCount; i++)
 	{  if (  (vLB->linesRoot[i].lineAsIs.end.y -
 				 vLB->linesRoot[i].lineAsIs.start.y
 				)  >  ver_len
@@ -508,13 +510,13 @@ Bool ExtrLinesGetInfo(  LinesTotalInfo * lti,
    }
 
    int skew = lti->Skew1024;
-   for ( i = 0; i < hor_cnt; i++)
+   for ( int i = 0; i < hor_cnt; i++)
 	{
 		LineInfo& li = lti->Hor.Lns[i];
       li.Ar = li.A; Deskew(li.Ar, skew);
       li.Br = li.B; Deskew(li.Br, skew);
 	};
-   for ( i = 0; i < ver_cnt; i++)
+   for ( int i = 0; i < ver_cnt; i++)
 	{
 		LineInfo& li = lti->Ver.Lns[i];
       li.Ar = li.A; Deskew(li.Ar, skew);

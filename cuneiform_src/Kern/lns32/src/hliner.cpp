@@ -238,7 +238,7 @@ Int32    HLiner_Analyze(void) // returns count of extracted lines
    }
 
    // замазываем дырки и убиваем одиночек
-   for (i=gap; i<nHeight-gap-1; i++)  // by lines
+   for (int i=gap; i<nHeight-gap-1; i++)  // by lines
    {
       Word8* line_on = GetMapLine(i);
       for (int j=wid; j<nWidth-wid-1; j++)  // first column
@@ -262,7 +262,7 @@ Int32    HLiner_Analyze(void) // returns count of extracted lines
    // 
    Word8* line_on = NULL;
    Line16 ln={0};
-   for ( i=gap; i<nHeight-gap-1; i++)  // by lines
+   for ( int i=gap; i<nHeight-gap-1; i++)  // by lines
    {
       Word8* line_on = GetMapLine(i);
       for (int j=wid; j<nWidth-wid-1; j++)  // first column

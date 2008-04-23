@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 	#ifndef __ROMBLB_H
-	#	include "RomBabble.h"
+	#	include "rombabble.h"
 	#endif
 
    #ifndef __MEMOPS_H

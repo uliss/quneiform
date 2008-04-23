@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //	_TYPEDEFFAR( TigerReader );
 
 	#ifndef __ERROBJ_H
-	#	include "ErrObj.h"
+	#	include "errobj.h"
 	#endif
 
 	#include "imgaccs.h"

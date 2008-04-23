@@ -61,20 +61,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 	#ifndef __SBAMBUK_H
-	#	include "SBambuk.h"
+	#	include "sbambuk.h"
 	#endif
 	#ifndef __RBAMBUK_H
-	#	include "RBambuk.h"
+	#	include "rbambuk.h"
 	#endif
 
 	#ifndef NDEBUG
 
-	#ifndef PPS_MAC
-		#	ifndef __CONIO_H
-		#		include <conio.h>
+	#ifndef WIN32	
+		#		include <curses.h>
 	#endif
-	#	endif
-	#endif
+
+    #endif
 
    TSegBambuk* sb_ = NULL;
 

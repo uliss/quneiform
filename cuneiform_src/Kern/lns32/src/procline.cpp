@@ -61,11 +61,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 	#ifndef __BLCKWHTE_H
-	#	include "BLCKWHTE.H"
+	#	include "blckwhte.h"
 	#endif
 
 	#ifndef __SBAMBUK_H
-	#  include "SBambuk.h"
+	#  include "sbambuk.h"
 	#endif
 
 	void SetupHConverter( int right,

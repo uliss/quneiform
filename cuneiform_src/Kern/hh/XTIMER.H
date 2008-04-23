@@ -58,6 +58,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __XTIMER_H
 
 #include <time.h>
+#include <compat_defs.h>
+
 class XTimer
 {
    clock_t start, finish;

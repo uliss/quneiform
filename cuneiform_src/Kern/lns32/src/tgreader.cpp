@@ -58,19 +58,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef PPS_MAC
 #pragma hdrstop
 #endif
-   #include "lns.h"
+#include "lns.h"
 
-	#ifndef __TGREADER_H
-	#  include  "TGREADER.H"
-	#endif
-
-   #ifndef __SWEEPER_H
-	#	include "sweeper.h"
-   #endif
-
-	#ifndef NO_ASM
-	#	include "memops.h"
-	#endif
+#include  "tgreader.h"
+#include "sweeper.h"
+#include "memops.h"
 
 	void ExtrLinesInitLNS(void);
 

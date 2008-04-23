@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 	#ifndef __PUANSO_H
-	#	include "Puanso.h"
+	#	include "puanso.h"
 	#endif
 
 	static double delta1; 	// ä [x2-x1]

@@ -60,19 +60,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 	//#   define DEBUG_SBAMBUK
 
-   #ifndef __FCNTL_H
-   #	include <FCNTL.h>
-   #endif
+   #include <fcntl.h>
 
 	#ifndef __SBAMBUK_H
-	#	include "SBambuk.h"
+	#	include "sbambuk.h"
 	#endif
    #ifndef __BLCKWHTE_H
-   #	include "BlckWhte.h"
+   #	include "blckwhte.h"
    #endif
 
    
-   #include "HLiner.h"
+   #include "hliner.h"
 
    #include "smooth.h"
    static int _smooth_height=0;

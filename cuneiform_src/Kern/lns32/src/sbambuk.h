@@ -76,27 +76,27 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //	_TYPEDEFFAR( TSegBambuk  )
 //	_TYPEDEFFAR( THVSegBambuk)
    #ifndef __BAMBUK_H
-  	#	include "Bambuk.h"
+  	#	include "bambuk.h"
   	#endif
 	#ifndef __XYDIM_H
-  	#	include "XYDim.h"
+  	#	include "xydim.h"
   	#endif
 	#ifndef __ERROBJ_H
-  	#	include "ErrObj.h"
+  	#	include "errobj.h"
   	#endif
    #ifndef __TGREADER_H    // under windows tiger lib
-   #  include "TgReader.h"
+   #  include "tgreader.h"
    #endif
 
    #ifndef __PROCLINE_H
-	#	include "Procline.h"
+	#	include "procline.h"
 	#endif
 	#ifndef __FLTBUF_H
-  	#	include "FltBuf.h"
+  	#	include "fltbuf.h"
   	#endif
 
 	#ifndef __PARALINE_H
-	#	include "ParaLine.h"
+	#	include "paraline.h"
 	#endif
 
 	#define H_FLT_LEN  (int)16
@@ -210,17 +210,17 @@ void addHorisontal( Int32 left, Int32 right )
 			};
 
 	/** vertical building routines **/
-Bool TSegBambuk::vUpdate(  Int32* new_line,
+Bool /*TSegBambuk::*/vUpdate(  Int32* new_line,
                            Int32* cur16,
                            Int32* prev16,
 									int cur_row
 	//									int width_dword ??
 								);
-Bool TSegBambuk::vUpdateFirst(   Int32* new_line,
+Bool /*TSegBambuk::*/vUpdateFirst(   Int32* new_line,
                                  Int32* cur16,
 											int cur_row       // at this version == 16
 							 			);
-Bool TSegBambuk::vUpdateLast(    Int32* cur16,
+Bool /*TSegBambuk::*/vUpdateLast(    Int32* cur16,
                                  Int32* last16,
 											int bottom_row
 							 			);

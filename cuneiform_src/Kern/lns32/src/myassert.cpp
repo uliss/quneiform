@@ -64,17 +64,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #	include <stdio.h>
 #endif
 
-#ifndef PPS_MAC
-	#ifndef __CONIO_H
-	#	include <conio.h>
-	#endif
+#ifndef WIN32
+#include <curses.h>
 #endif
 
 #ifndef __STDLIB_H
 #	include <stdlib.h>
 #endif
 
-#include <windows.h> // MB()
+/*#include <windows.h> // MB()*/
 
 #ifdef __cplusplus
 extern "C" {
@@ -104,7 +102,7 @@ void   my_assert_fail(   char  *__cond,
                                        char  *__file,
 													int __line	){
 
-   //char c;
+   char c;
 #if defined( _Windows ) || defined( WIN32 )
 	char mess[500];
 	sprintf( mess,

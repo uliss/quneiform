@@ -64,11 +64,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //_TYPEDEFFAR( TRasterBambuk )
 
 	#ifndef __FARARRAY_H
-	#	include "FarArray.h"
+	#	include "fararray.h"
 	#endif
 
 	#ifndef __SBAMBUK_H
-	#	include "SBambuk.h"
+	#	include "sbambuk.h"
 	#endif
 
 
