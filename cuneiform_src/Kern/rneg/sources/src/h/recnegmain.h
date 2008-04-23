@@ -55,17 +55,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <stdio.h>
-#include <windows.h>
+/*#include <windows.h>*/
 #include <time.h>
 
-#include "DPUMA.h"
-#include "RSELSTR.h"
+#include "dpuma.h"
+#include "rselstr.h"
 #include "cpage.h"
 #include "ctiimage.h"
-#include "NegDefs.h"
-#include "Polyblock.h"
+#include "negdefs.h"
+#include "polyblock.h"
 #include "criimage.h"
-#include "CTDIB.h"
+#include "ctdib.h"
 
 
 /*----------------------------------------------------------------------------*/

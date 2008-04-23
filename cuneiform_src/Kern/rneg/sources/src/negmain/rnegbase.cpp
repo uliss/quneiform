@@ -57,7 +57,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __RNEG__
 
 #include "rneg.h"
-#include "RNegBase.h"
+#include "rnegbase.h"
+#include "compat_defs.h"
 
 double inf_neg_black=.65;
 double sup_neg_black_del=.7;

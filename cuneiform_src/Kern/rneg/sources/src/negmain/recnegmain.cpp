@@ -56,8 +56,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define __RNEG__
 
+#include <string.h>
 #include "rneg.h"
-#include "RecNegMain.h"
+#include "recnegmain.h"
+#include "compat_defs.h"
 
 #define MY_IMAGE_ROTATE "RNEG Image Rotate"
 #define INF_ROTATE_H 1000

@@ -55,14 +55,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <stdio.h>
-#include <windows.h>
+/*#include <windows.h>*/
 
 
 #include "ccom.h"
 #include "ctiimage.h"
 #include "cpage.h"
-#include "NegDefs.h"
-#include "RSELSTR.h"
+#include "negdefs.h"
+#include "rselstr.h"
 
 /*----------------------------------------------------------------------------*/
 

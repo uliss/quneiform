@@ -54,11 +54,13 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "NegRecog.h"
+#include <string.h>
+#include "negrecog.h"
 #include "rneg.h"
 //-------------------------------------------
 #include "pumadef.h"
 //-------------------------------------
+#include "compat_defs.h"
 
 extern BOOL dpPrintResConsole;
 extern BOOL dpNegResD;
@@ -347,7 +349,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
 
 					TurnOverNeg(rec, pTempDib);
 
-                    char *pText;
+                    const char *pText;
                     pText = turn ? "Component up-down" : "Component down-up";
                     comp_window = LDPUMA_CreateWindow(pText, pDIB);
 //                    LDPUMA_WaitUserInput(hShowNegComps, comp_window);
@@ -1167,12 +1169,12 @@ void TurnRaster(RecRaster* rec)
         }
     //сдвиг влево
     int rest = wide*8-wideinp-2;
-    for(i=0; i<hwide; i++)
+    for(int i=0; i<hwide; i++)
     {
         for(int j=0; j<wide; j++) (*rec).Raster[i*bytewide+j] = (*rec).Raster[i*bytewide+j+bytewide-wide];
-        for(j=wide; j<bytewide; j++) (*rec).Raster[i*bytewide+j] = 0;
+        for(int j=wide; j<bytewide; j++) (*rec).Raster[i*bytewide+j] = 0;
         if (rest > 0)
-            for(j=0; j<wide; j++)
+            for(int j=0; j<wide; j++)
             {
                 Word8 t = (*rec).Raster[i*bytewide+j];
                 Word8 t1 = (*rec).Raster[i*bytewide+j+1];
@@ -1515,13 +1517,13 @@ void PutTempToCPAGE(Handle hCPage,NegList* root)
   if(now->neg.rot.pmasp)
   {
 	  temp.fl_rotate=TRUE;
-	  for(i=temp.nRc;i>=0;i--)
+	  for(int i=temp.nRc;i>=0;i--)
 		 temp.phi[i]=now->neg.rot.hi[i];
   }
   else
 	  temp.fl_rotate=FALSE;
 
-  for(i=temp.nRc;i>=0;i--)
+  for(int i=temp.nRc;i>=0;i--)
   {
 	 temp.prc[i].bottom=now->neg.pRc[i].bottom;
 	 temp.prc[i].top=now->neg.pRc[i].top;

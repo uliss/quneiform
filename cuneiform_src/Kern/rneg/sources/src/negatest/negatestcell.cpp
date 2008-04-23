@@ -57,8 +57,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __RNEG__
 
 #include "rneg.h"
-#include "RecNegMain.h"
-
+#include "recnegmain.h"
+#include "compat_defs.h"
 /*----------------------------------------------------------------------------*/
 
 //Настройки

@@ -55,8 +55,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <stdio.h>
-#include <windows.h>
-#include "Recdefs.h"
+/*#include <windows.h>*/
+#include "recdefs.h"
 #include "ccom.h"
 
 #define MAX_STR 1000

@@ -55,10 +55,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <stdio.h>
-#include <windows.h>
+/*#include <windows.h>*/
 
-#include "DPUMA.h"
-#include "RSELSTR.h"
+#include "dpuma.h"
+#include "rselstr.h"
 
 
 
