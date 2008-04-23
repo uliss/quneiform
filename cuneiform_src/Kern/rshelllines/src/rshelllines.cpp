@@ -74,13 +74,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "linedefs.h"
 #include "pumadef.h"
 #include "cpage.h"  
-#include "CTIImage.h"
+#include "ctiimage.h"
 #include "dpuma.h"
-#include "RShellLinesCom.h"
-#include "RShellLines.h"  
+#include "rshelllinescom.h"
+#include "rshelllines.h"  
 #include "rsl.h"
-#include "RverLine.h"
-#include "UN_Buff.H"
+#include "rverline.h"
+#include "un_buff.h"
 #include "cfio.h"
 
 #define CRIME_CUT   50
@@ -91,7 +91,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define     RSL_AboutLines_SizeMyBuff    492000
 #define     RSL_AboutLines_SizeWorkMem   180000
 
-#define     RSL_ERR_NO_MEMORY "Ошибка выделения памяти системой"
+//#define     RSL_ERR_NO_MEMORY "Ошибка выделения памяти системой"
+#define RSL_ERR_NO_MEMORY 1
 #define     MAF_GALL_GPTR              0x0010
 Char8       cCommentBuffer[CFIO_MAX_COMMENT];
 
