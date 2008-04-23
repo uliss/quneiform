@@ -55,14 +55,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <string.h>
-
+#include <stdlib.h>
+#include <values.h>
+#include <ctype.h>
 #include "cstr.h"
 #include "cpage.h"
 //#include "ccom.h"
 #include "rcorrkegl.h"
 //#include "..\resource.h"
 #include "wrgb.h"
-#include "Lst3_win.h"
+#include "lst3_win.h"
 //#include "table.h"
 #include "dpuma.h"
 //#include "leodefs.h"
@@ -1065,7 +1067,7 @@ static Bool32 SomnitelnaLinia(int Nb)
 }
 
 
-static cur_line=MAXINT;
+static int cur_line=MAXINT;
 
 void next_fragment()
 {

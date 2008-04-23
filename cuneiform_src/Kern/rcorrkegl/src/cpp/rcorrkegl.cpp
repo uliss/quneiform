@@ -57,10 +57,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // RCorrKegl.cpp : Defines the entry point for the DLL application.
 //
 
+#include <string.h>
 #include "stdafx.h"
 #include "rcorrkegl.h"
 #include "resource.h"
 #include "dpuma.h"
+#include "compat_defs.h"
 
 Bool32 CorrectKegl(Int32 version);
 void kegl_snap_init();
