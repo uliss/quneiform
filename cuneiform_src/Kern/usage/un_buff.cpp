@@ -74,7 +74,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*----------------------------------------------------------------------------*/
 #include <stdio.h>
 /*  межпроектные мои  */
-#include "UN_Buff.H"
+#include "un_buff.h"
 /*----------    Переходные функции    ------------------------------------------------------------*/
 void CleanLastDataPart (void *p_vB)
 {

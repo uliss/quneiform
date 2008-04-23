@@ -69,7 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  межпроектные чужие  */
 #include "skew1024.h"
 /*  общесорсовые мои (отдаваемые)  */
-#include "AMT_Geom.H"
+#include "amt_geom.h"
 /*----------    Управление локальное    ----------------------------------------------------------*/
 /*+ (AverageRoundToBig) +*/
 static const double HALF = .5; ///< половина :-)
@@ -197,7 +197,7 @@ void FindMinimIdealRegion (const int nRc, const int *pDo, const Rect16 *pRcIdeal
     int MinLef = pRcIdeal[iFirst].left;
     int MaxRig = pRcIdeal[iFirst].right;
     /*  Пределы по всем компонентам  */
-    for (i = iFirst; i < nRc; i++)
+    for (int i = iFirst; i < nRc; i++)
     {
         if (pDo[i] != 1)
             continue;

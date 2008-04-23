@@ -56,7 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdio.h>
 /*  interface my        */
-#include "Gystogra.H"
+#include "gystogra.h"
 /*  interface our util  */
 #include "skew1024.h"
 /*---------------------------------------------------------------------------*/

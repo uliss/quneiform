@@ -65,20 +65,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdio.h>
 #include <math.h>
-#include <windows.h>
+#include <string.h>
+#include <stdlib.h>
+/*#include <windows.h>*/
 /*  interface our-other  */
 /*  interface our  */
-#include "SMetric.H"
+#include "smetric.h"
 /*  interface my        */
-#include "UN_ERR.H"
-#include "AM_COMM.H"
-#include "Gystogra.H"
-#include "SkewTrip.H"
-#include "MarkDataDefs.H"
-#include "LineDesc.H"
+#include "un_err.h"
+#include "am_comm.h"
+#include "gystogra.h"
+#include "skewtrip.h"
+#include "markdatadefs.h"
+#include "linedesc.h"
 /*  interface my-my      */
-#include "UN_Buff.H"
-#include "AMT_Geom.H"
+#include "un_buff.h"
+#include "amt_geom.h"
 /*  interface our util  */
 #include "skew1024.h"
 

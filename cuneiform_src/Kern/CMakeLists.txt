@@ -1,13 +1,15 @@
-include_directories(include)
-include_directories(h)
-include_directories(hh)
-include_directories(hhh)
-include_directories(hdebug)
-include_directories(hrk)
-include_directories(hrkint)
-include_directories(hrstr)
-include_directories(fon/src)
-#include_directories(rout)
+include_directories(include
+h
+hh
+hhh
+hdebug
+hrk
+hrkint
+hrstr
+fon/src
+#rout
+usage
+)
 
 
 include_directories(itigerole/sources/tiger/h)
@@ -50,6 +52,7 @@ add_subdirectory(rfrmt)
 add_subdirectory(rshelllines)
 add_subdirectory(lns32)
 add_subdirectory(rreccom)
+add_subdirectory(smetric)
 
 set(RPSTR_LIBS rpstr rstr rling mmx pass2 rbal cline leo cpu r35 rlings rsadd
 fon msk std32 evn32 cstr ctb32 dif rcutp ccom)
@@ -63,7 +66,7 @@ cimage loc rdib cfio)
 add_executable(pumatest pumatest.cpp windummy hdebug/__snp.c)
 target_link_libraries(pumatest 
 
-puma rline rreccom lns32 rshelllines rfrmt
+puma rline smetric rreccom lns32 rshelllines rfrmt
 rselstr rblock rout rverline rimage exc ced cpage cimage loc rdib cfio 
 
 ${RPSTR_LIBS})

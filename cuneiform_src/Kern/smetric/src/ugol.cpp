@@ -65,12 +65,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdio.h>
 #include <math.h>
-#include <windows.h>
+/*#include <windows.h>*/
 
-#include "SMetric.H"
+#include "smetric.h"
 /*  interface our util  */
-	#include "Gystogra.H"
-	#include "SkewTrip.H"
+	#include "gystogra.h"
+	#include "skewtrip.h"
 #include "skew1024.h"
 /*------------own functions--------------------------------------------------*/
 double Q_Estimate (Un_GYST *pGt);

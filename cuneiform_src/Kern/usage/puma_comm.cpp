@@ -64,13 +64,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :  Обмен с консолью.                                           */
 /*----------------------------------------------------------------------------*/
 #include <stdio.h>
-#include <windows.h>
+#include <string.h>
+/*#include <windows.h>*/
 /*  interface our-other  */
 #include "dpuma.h"
 /*  interface my        */
 #define _AM_Comm_
-#include "AM_COMM.H"  // Own functions
-#include "UN_ERR.H"
+#include "am_comm.h"  // Own functions
+#include "un_err.h"
 /*------------own objects-----------------------------------------------------*/
 static Word32 wRltMainCode;
 #define     MaxResCodes   3

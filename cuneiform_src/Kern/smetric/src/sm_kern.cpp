@@ -64,12 +64,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __SMetric__
 
 #include <stdio.h>
-#include <windows.h>
+#include <string.h>
+/*#include <windows.h>*/
 /*  interface our  */
-#include "SMetric.H"
+#include "smetric.h"
 /*  interface my   */
-#include "UN_ERR.H"
-#include "SkewTrip.H"
+#include "un_err.h"
+#include "skewtrip.h"
+#include "compat_defs.h"
 /*------------own objects----------------------------------------------------*/
 Word16      gwHeightRC = 0;      // ”никальный номер библиотеки в одном сеансе
 Word16      gwLowRC    = ER_ROUGH_NONE;      // ќшибки в работе библиотеки
