@@ -59,15 +59,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //#define _USE_GRA_ 1
 /*********************************************************************************************/
-#include <windows.h>
-#include <direct.h>
+/*#include <windows.h>
+#include <direct.h>*/
 #include <string.h>
 
-#include "RRecCom.h"
+#include "rreccom.h"
 #include "evn.h"
 #include "ccom.h"
 #include "r35.h"
 #include "excdefs.h"
+#include "compat_defs.h"
 /*********************************************************************************************/
 const Int32 max_raster = REC_MAX_RASTER_SIZE;//2048*32;
 

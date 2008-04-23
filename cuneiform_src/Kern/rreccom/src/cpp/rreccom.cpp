@@ -57,9 +57,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*********************************************************************************************/
 #define __RRECCOM__
 /*********************************************************************************************/
+#include <string.h>
 #include "stdafx.h"
-#include "RRecCom.h"
+#include "rreccom.h"
 #include "resource.h"
+#include "compat_defs.h"
 /*********************************************************************************************/
 Word16 gwHeightRC = 0;
 Word16 gwLowRC = RRECCOM_ERR_NO;
