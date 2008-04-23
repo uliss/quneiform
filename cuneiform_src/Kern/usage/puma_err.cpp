@@ -56,8 +56,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdio.h>
 /*  interface my         */
-#include "UN_ERR.H"
-#include "Puma_Err.H" //own functions
+#include "un_err.h"
+#include "puma_err.h" //own functions
 /*----------------------------------------------------------------------------*/
 void Error_MyNoMem_Code (Word16 *pCode)
 {

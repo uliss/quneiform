@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include <windows.h>
 //#include "resource.h"
 //#include "dpuma.h"
-#include "RStuff.H"
+#include "rstuff.h"
 //#include "RSFunc.h"
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

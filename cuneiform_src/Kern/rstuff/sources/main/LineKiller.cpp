@@ -68,18 +68,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdio.h>
 #include <string.h>
-#include "RStuff.H"
-#include "RSFunc.h"
-#include "RSGlobalData.h"
-#include "DPuma.h"
+#include "rstuff.h"
+#include "rsfunc.h"
+#include "rsglobaldata.h"
+#include "dpuma.h"
 
 #include "mpumatime.h"
 #include "pumadef.h"
-#include "CCom.h"
-#include "CPage.h"
-#include "RLine.h"
+#include "ccom.h"
+#include "cpage.h"
+#include "rline.h"
 #include "cline.h"
-#include "LineDefs.h"
+#include "linedefs.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 // 

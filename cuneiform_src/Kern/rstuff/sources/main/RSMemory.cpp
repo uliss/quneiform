@@ -78,9 +78,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #include "resource.h"
-#include "RSDefines.h"
-#include "RSMemory.h"
-#include "RSFunc.h"
+#include "rsdefines.h"
+#include "rsmemory.h"
+#include "rsfunc.h"
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #ifndef _NO_CFIO
@@ -105,7 +105,7 @@ int BufferSize=0;
 int WorkMemSize=0;
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-#define TAKE_ENTRIE(Name,Pointer,Out)     	if ( !CFIO_GetExportData(##Name, (void*)(&##Pointer)) ) ##Out= FALSE;
+#define TAKE_ENTRIE(Name,Pointer,Out)     	if ( !CFIO_GetExportData(Name, (void*)(&Pointer)) ) Out= FALSE;
 Bool32 InitCFIOInterface(Bool32 Status)
 {
 	Bool32 bRet = TRUE;

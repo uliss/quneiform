@@ -69,32 +69,32 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <string.h>
 #include "puma.h"
-#include "RStuff.H"
-#include "RSFunc.h"
-#include "RSGlobalData.h"
-#include "RSMemory.h"
+#include "rstuff.h"
+#include "rsfunc.h"
+#include "rsglobaldata.h"
+#include "rsmemory.h"
 #include "mpumatime.h"
 #include "pumadef.h"
-#include "LnsDefs.h"
-#include "UN_Buff.H"
-#include "Line_VP_Util.H"
-#include "Line_VP_2_AM.h"
-#include "MarkDataOper.H"
-#include "UN_Err.H"
-#include "SpecPrj.H"
+#include "lnsdefs.h"
+#include "un_buff.h"
+#include "line_vp_util.h"
+#include "line_vp_2_am.h"
+#include "markdataoper.h"
+#include "un_err.h"
+#include "specprj.h"
 
 // модули
-#include "CCom.h"
-#include "CPage.h"
-#include "CRIImage.h"
-#include "CTIImage.h"
-#include "DPuma.h"
-#include "Exc.h"
-#include "Puma.h"
-#include "RPic.h"
-#include "RLine.h"
-#include "RverLine.h"
-#include "SMetric.H"
+#include "ccom.h"
+#include "cpage.h"
+#include "criimage.h"
+#include "ctiimage.h"
+#include "dpuma.h"
+#include "exc.h"
+#include "puma.h"
+#include "rpic.h"
+#include "rline.h"
+#include "rverline.h"
+#include "smetric.h"
 #include "rreccom.h"
 
 const int MIN_BIG_H=30;
@@ -498,7 +498,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name, PR
         *Image->phCCOM=NULL;
     }
 
-	if(!REXC_SetImportData(REXC_ProgressStep, rexcProgressStep))
+	if(!REXC_SetImportData(REXC_ProgressStep, (void*)rexcProgressStep))
 	{
 		SetReturnCode(REXC_GetReturnCode());
 		return FALSE;

@@ -76,7 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include "globus.h"
 #include "mpumatime.h"
-#include "RStuff.h"
+#include "rstuff.h"
 /////////////////////////////////////////////////////////////////////////////////////////////
 //
 typedef void    (*RSPROGRESSSTART)       (void);

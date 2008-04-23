@@ -62,17 +62,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :  Формальности для работы с унифицированным буфером.          */
 /*----------------------------------------------------------------------------*/
 #include <stdio.h>
-#include <windows.h>
+#include <string.h>
+#include <stdlib.h>
+/*#include <windows.h>*/
 /*  interface my        */
-#include "LineDesc.H"
-#include "MarkDataDefs.H"
+#include "linedesc.h"
+#include "markdatadefs.h"
 /*  interface our  */
 #include "skew1024.h"
 /*  interface my-my      */
-#include "AM_COMM.H"
-#include "UN_Buff.H"
-#include "UN_Err.H"
-#include "Line_AM_Util.H" //own functions
+#include "am_comm.h"
+#include "un_buff.h"
+#include "un_err.h"
+#include "line_am_util.h" //own functions
 /*----------------------------------------------------------------------------*/
 void LastForLinesAM (void *vB)
 {

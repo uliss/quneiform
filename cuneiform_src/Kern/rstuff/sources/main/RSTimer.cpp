@@ -64,10 +64,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Содержание :  Калбэки puma.dll для привязки времени и отладчика           */
 /*  Назначение :                                                              */
 /*----------------------------------------------------------------------------*/
-#include "RStuff.h"
-#include "RSGlobalData.h"
-#include "RSDefines.h"
-#include "RSFunc.h"
+#include "rstuff.h"
+#include "rsglobaldata.h"
+#include "rsdefines.h"
+#include "rsfunc.h"
 //////////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 SetCBProgressPoints(void * pData)
@@ -93,24 +93,24 @@ Bool32 SetCBProgressPoints(void * pData)
 #undef SET_CB_POINTS
 	return true;
 }
-#define DEF_CB_FUNC(a,b,c,d,e)       a b##c \
+#define DEF_CB_FUNC(a,b,c,d,e)       a b c \
 {\
 	DEC_CB_TYPE(b) pfFunc; \
 	a ret = e ; \
 	if ( ProgressPoints.p##b ) \
 	{ \
 		pfFunc = ( DEC_CB_TYPE(b) )ProgressPoints.p##b; \
-		return pfFunc##d ; \
+		return pfFunc d ; \
 	} \
 	return ret; \
 }
-#define DEF_CB_VOID_FUNC(b,c,d)       void b##c \
+#define DEF_CB_VOID_FUNC(b,c,d)       void b c \
 { \
 	DEC_CB_TYPE(b) pfFunc; \
 	if ( ProgressPoints.p##b ) \
 	{ \
 		pfFunc = ( DEC_CB_TYPE(b) )ProgressPoints.p##b; \
-		pfFunc##d; \
+		pfFunc d; \
 	}\
 }
 

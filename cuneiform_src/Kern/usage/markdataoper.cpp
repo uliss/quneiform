@@ -58,13 +58,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 /*  interface our-other  */
 #include "polyblock.h"
-#include "CPAGE.H"
+#include "cpage.h"
 /*  interface our-our    */
-#include "UN_ERR.H"
-#include "UN_Buff.H"
+#include "un_err.h"
+#include "un_buff.h"
 /*  interface my-my      */
-#include "AMT_Geom.H"
-#include "MarkDataOper.H" //own functions
+#include "amt_geom.h"
+#include "markdataoper.h" //own functions
 /*----------------------------------------------------------------------------*/
 Bool FullRotatedRects_rv (void *vB, UN_DATAAIMS OldAim, UN_DATAAIMS NewAim
 					   , Int32 SkewReg, char *pStr, char *pWho)
@@ -265,9 +265,9 @@ Bool LoadPicts_rv (Handle hC, void *vB, char *pStr)
 		}
 		nRc++;
 		ret = MakeRectFromPict (pCurr, (void *)(&Pict));
-	#include "AM_COMM.H"
+	#include "am_comm.h"
 #ifdef Almi
-	#include "FT_Rule.H"
+	#include "ft_rule.h"
 		if (!ret)
 		{
 			if (!AM_Skip (FT_GetKeyOfRule (RU_FT_C_ContWarn)))

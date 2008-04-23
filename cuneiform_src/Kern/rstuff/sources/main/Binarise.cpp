@@ -70,10 +70,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include "dpuma.h"
 #include <stdio.h>
 #include <string.h>
-#include "RStuff.H"
-#include "RSDefines.h"
-#include "RSFunc.h"
-#include "RSGlobalData.h"
+#include "rstuff.h"
+#include "rsdefines.h"
+#include "rsfunc.h"
+#include "rsglobaldata.h"
 #include "mpumatime.h"
 #include "pumadef.h"
 ////////////////////////////////////////////////////////////////////////////////

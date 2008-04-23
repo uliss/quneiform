@@ -54,7 +54,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <windows.h>
+/*#include <windows.h>/
 #include <stdio.h>
 #include <time.h>
 
@@ -63,10 +63,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lns.h"
 #include "rline.h"
 #include "dpuma.h"
-#include "CTDIB.h"
-#include "Rstuff.h"
-#include "RSFunc.h"
-#include "Cfio.h"
+#include "ctdib.h"
+#include "rstuff.h"
+#include "rsfunc.h"
+#include "cfio.h"
 #include "pumadef.h"
 #include "cline.h"
 

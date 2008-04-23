@@ -66,21 +66,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*----------------------------------------------------------------------------*/
 #define __RSTUFF__
 
-#include <windows.h>
+/*#include <windows.h>*/
 #include "resource.h"
-#include "RStuff.H"
-#include "RSFunc.h"
-#include "RSMemory.h"
+#include "rstuff.h"
+#include "rsfunc.h"
+#include "rsmemory.h"
 #include "dpuma.h"
 #include "pumadef.h"
-#include "SMetric.h"
+#include "smetric.h"
 
 #include "rline.h"
 
 #define __RSTUFF_CPP__
-#include "RSGlobalData.h"
+#include "rsglobaldata.h"
 #undef __RSTUFF_CPP__
 
+#include "compat_defs.h"
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 struct tagRC16
 {
@@ -98,7 +99,7 @@ Word16 wHighErrCode=0;
 
 #define RESULT 2
 
-extern Bool32 gbRSLT = FALSE;
+Bool32 gbRSLT = FALSE;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 Handle            ghStorage = NULL;
@@ -142,6 +143,9 @@ Handle hDebugPrintResolution;
 
 int KVO=1;
 int move;
+
+#undef APIENRTY
+#define APIENTRY
 
 extern Word8* Buffer;
 extern Word8* WorkMem;

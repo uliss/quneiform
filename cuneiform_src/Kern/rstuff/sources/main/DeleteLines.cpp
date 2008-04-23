@@ -54,10 +54,13 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <windows.h>
+/*#include <windows.h>*/
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <time.h>
-#include <crtdbg.h>
+#include <assert.h>
+/*#include <crtdbg.h>*/
 
 #include "ctiimage.h"
 #include "cpage.h"
@@ -65,9 +68,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rline.h"
 #include "cline.h"
 #include "dpuma.h"
-#include "CTDIB.h"
-#include "LineDefs.h"
+#include "ctdib.h"
+#include "linedefs.h"
 
+#include "compat_defs.h"
 
     struct MyLine
 	{

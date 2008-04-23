@@ -77,8 +77,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # endif // (_DEBUG)
 ////////////////////////////////////////////////////////////////////////////////
 #include "globus.h"
-#include "RSDefines.h"
-#include "LnsDefs.h"
+#include "rsdefines.h"
+#include "lnsdefs.h"
 
 // predefined 
 #ifdef __RSTUFF_CPP__
@@ -118,6 +118,6 @@ EXTERN Handle               hDebugKillLinesData                 VAL(NULL);
 EXTERN Handle               hDebugKillLinesShowComponentsBefore VAL(NULL);
 EXTERN Handle               hDebugKillLinesShowComponentsAfter  VAL(NULL);
 EXTERN	Word8				db_spec_prj			VAL(0);
-#endif _RSGLOBALDATA_H_
+#endif //_RSGLOBALDATA_H_
 ////////////////////////////////////////////////////////////////////////////////////
 //end of file

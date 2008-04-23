@@ -66,19 +66,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*                                                                                                 */
 /*-------------------------------------------------------------------------------------------------*/
 #include <stdio.h>
-#include <windows.h>
+/*#include <windows.h>*/
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 // 
-#include "RSDefines.h"
-#include "RSMemory.h"
-#include "RSFunc.h"
+#include "rsdefines.h"
+#include "rsmemory.h"
+#include "rsfunc.h"
 #include "resource.h"
 /*  interface my         */
-#include "Puma_ERR.H"
-#include "AboutLines.Buffer.H"
+#include "puma_err.h"
+#include "aboutlines.buffer.h"
 /*  interface my-my      */
-#include "UN_Buff.H"
-#include "UN_Err.H"
+#include "un_buff.h"
+#include "un_err.h"
 /*------------extern functions------------------------------------------------*/
 Bool GetSomeKeys_rv (void *vB, Word32 *pKeyHor, Word32 *pKeyVer
 					 , int *pCntHor, int *pCntVer, char *pStr);

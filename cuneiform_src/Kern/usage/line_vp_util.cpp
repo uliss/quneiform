@@ -63,25 +63,26 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*----------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <math.h>
-#include <windows.h>
+#include <stdlib.h>
+/*#include <windows.h>*/
 /*  interface our-other  */
-#include "CPAGE.H"
+#include "cpage.h"
 #include "cline.h"
 #include "lnsdefs.h"
 #include "rline.h"
 /*  interface my        */
-#include "UN_ERR.H"
-#include "AM_COMM.H"
+#include "un_err.h"
+#include "am_comm.h"
 
 #ifdef Almi
 #include "FT_Rule.H"
 #endif
 
-#include "MarkDataDefs.H"
+#include "markdatadefs.h"
 /*  interface my-my      */
-#include "UN_Buff.H"
-#include "Line_VP_Util.H" //own functions
-#include "Puma_Err.H"
+#include "un_buff.h"
+#include "line_vp_util.h" //own functions
+#include "puma_err.h"
 /*----------------------------------------------------------------------------*/
 Bool LoadLinesVP_rv (Handle hC, int Type, void *vB, char *pStr, Word16 *pCode)
 {

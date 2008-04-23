@@ -63,21 +63,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*----------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <math.h>
-#include <windows.h>
+/*#include <windows.h>*/
 /*  interface our-other  */
 #include "lnsdefs.h"
 /*  interface my         */
-#include "UN_ERR.H"
-#include "Line_VP_2_AM.H" //own functions
-#include "LineDesc.H"
-#include "MarkDataDefs.H"
-#include "AM_COMM.H"
+#include "un_err.h"
+#include "line_vp_2_am.h" //own functions
+#include "linedesc.h"
+#include "markdatadefs.h"
+#include "am_comm.h"
 /*  interface my-my      */
-#include "UN_Buff.H"
-#include "AMT_Geom.H"
-#include "Line_VP_Util.H"
-#include "Line_AM_Util.H"
-#include "Puma_Err.H"
+#include "un_buff.h"
+#include "amt_geom.h"
+#include "line_vp_util.h"
+#include "line_am_util.h"
+#include "puma_err.h"
 /*------------own functions---------------------------------------------------*/
 Bool FullMyLines_Mod (void *vLns, int nLns, void *vB, int *pForw, int *SizeForw
 	, int ShifValuForw, Rect16 *pRcReg, Int32 SkewReg, Bool Hori, char *pStr, Bool ContWarn);

@@ -64,21 +64,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :                                                                                   */
 /*-------------------------------------------------------------------------------------------------*/
 #include <stdio.h>
-#include <windows.h>
+/*#include <windows.h>*/
 /*  interface our-other  */
 #include "lnsdefs.h"
 #include "dpuma.h"
-#include "RSDefines.h"
-#include "RSMemory.h"
-#include "RSFunc.h"
+#include "rsdefines.h"
+#include "rsmemory.h"
+#include "rsfunc.h"
 #include "resource.h"
 #include "cline.h"
 /*  interface our-my     */
 /*  interface my        */
-#include "UN_ERR.H"
-#include "AboutLines.Buffer.H"
+#include "un_err.h"
+#include "aboutlines.buffer.h"
 /*  interface my-my      */
-#include "UN_Buff.H"
+#include "un_buff.h"
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 static char *Buffer = NULL;/*[SizeMyBuff]*/;
