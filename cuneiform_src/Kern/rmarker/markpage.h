@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __MARK_PAGE_H__
 #define __MARK_PAGE_H__
 
-#include <crtdbg.h>
+/*#include <crtdbg.h>*/
 
 #include <rmarker.h>
 
@@ -79,11 +79,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rout.h"
 #include "rpic.h"
 #include "rstr.h"
-#include "RStuff.h"
-#include "RverLine.h"
+#include "rstuff.h"
+#include "rverline.h"
 #include "mpumatime.h"
+#include "lnsdefs.h"
 
-#include "ShortVerticalLinesFilter.h"
+#include "shortverticallinesfilter.h"
 #include "resource.h"
 #include "mymem.h"
 

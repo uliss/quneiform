@@ -56,10 +56,11 @@ add_subdirectory(smetric)
 add_subdirectory(rneg)
 add_subdirectory(rpic)
 add_subdirectory(rstuff)
+add_subdirectory(rmarker)
 
 set(RPSTR_LIBS rpstr rstr rling mmx pass2 rbal cline leo cpu r35 rlings rsadd
 fon msk std32 evn32 cstr ctb32 dif rcutp ccom)
-set(PUMA_LIBS puma rcorrkegl marker rstuff rpic rline meg smetric rreccom
+set(PUMA_LIBS puma rcorrkegl rmarker rstuff rpic rline rneg smetric rreccom
 lns32 rhellines rfmrt rsestr rblock rout rverline rimage exc ced cpage
 cimage loc rdib cfio)
 
@@ -69,7 +70,7 @@ cimage loc rdib cfio)
 add_executable(pumatest pumatest.cpp windummy hdebug/__snp.c)
 target_link_libraries(pumatest 
 
-puma rstuff rpic rline rneg smetric rreccom lns32 rshelllines rfrmt
+puma rmarker rstuff rpic rline rneg smetric rreccom lns32 rshelllines rfrmt
 rselstr rblock rout rverline rimage exc ced cpage cimage loc rdib cfio 
 
 ${RPSTR_LIBS})

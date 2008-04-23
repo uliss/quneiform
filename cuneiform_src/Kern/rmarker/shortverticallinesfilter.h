@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :                                                                                   */
 /*-------------------------------------------------------------------------------------------------*/
 
-#include "LnsDefs.h"
+#include "lnsdefs.h"
 
 typedef struct tagPUMALinesBuffer
 {

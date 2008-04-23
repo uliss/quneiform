@@ -56,20 +56,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define _RMARKER_CPP
 
-#include <windows.h>
+/*#include <windows.h>*/
 #include <fstream.h>
 #include "markpage.h"
 #include "rmfunc.h"
-#include "UN_Buff.H"
-#include "Line_VP_Util.H"
-#include "Line_VP_2_AM.h"
-#include "MarkDataOper.H"
-#include "Amt_geom.h"
-#include "UN_Err.H"
-#include "Puma_Err.h"
+#include "un_buff.h"
+#include "line_vp_util.h"
+#include "line_vp_2_am.h"
+#include "markdataoper.h"
+#include "amt_geom.h"
+#include "un_err.h"
+#include "puma_err.h"
 #include "rneg.h"
-#include "RSELSTR.h"
+#include "rselstr.h"
 #include "rline.h"
+
+#include "compat_defs.h"
 
 # define INCLINE_FACTOR  2048
 
@@ -232,8 +234,8 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
 			{
                 Bool32  bEnableSearchPicture;
 				PRGTIME	prev = StorePRGTIME(40, 100);
-				RBLOCK_SetImportData(RBLOCK_FNRBLOCK_ProgressStep,rblockProgressStep);
-				RBLOCK_SetImportData(RBLOCK_FNRBLOCK_ProgressFinish,rblockProgressFinish);
+				RBLOCK_SetImportData(RBLOCK_FNRBLOCK_ProgressStep,(void*)rblockProgressStep);
+				RBLOCK_SetImportData(RBLOCK_FNRBLOCK_ProgressFinish,(void*)rblockProgressFinish);
                 bEnableSearchPicture = Image->gnPictures ;
                 RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture,&bEnableSearchPicture);
                 RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn,&(Image->gbOneColumn));

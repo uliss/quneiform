@@ -59,8 +59,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "CTIImage.h"
-#include "CcomDefs.h"
+#include "ctiimage.h"
+#include "ccomdefs.h"
 #include "cpage.h"
 #include "mpumatime.h"
 
@@ -90,7 +90,7 @@ void ReSetMem(void);
 void MySetNegative (void *vB, Handle hCPage);
 //
 #define DEC_CB_TYPE(a)  PF##a
-#define DEC_CB_FUN(a,b,c) typedef a (*DEC_CB_TYPE(b))c; a b##c;
+#define DEC_CB_FUN(a,b,c) typedef a (*DEC_CB_TYPE(b))c; a b c;
 DEC_CB_FUN(void,    ProgressStart,      (void)); 
 DEC_CB_FUN(Bool32,  ProgressStepAutoLayout,  (Word32,  Word32)); 
 DEC_CB_FUN(Bool32,  ProgressStepSearchTables, (Word32,  Word32)); 

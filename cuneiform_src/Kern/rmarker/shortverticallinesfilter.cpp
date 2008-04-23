@@ -69,7 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 
 #include "markpage.h"
-#include "LineDefs.h"
+#include "linedefs.h"
 #include "cline.h"
 
 static Bool32 bShowDebug     = FALSE;
