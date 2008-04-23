@@ -62,8 +62,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define __RPIC_CPP__
 
-#include <windows.h>
+/*#include <windows.h>*/
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "mainpic.h"
 #undef __RPIC_CPP__

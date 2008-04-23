@@ -54,7 +54,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-# include <windows.h>
+/*# include <windows.h>*/
 # include <stdio.h>
 
 #include "dpuma.h"
@@ -64,7 +64,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ccom.h"
 #include "rstr.h"
 #include "rpic.h"
-
 
 /************************ External Handles from DPUMA *************************/
 extern Handle hShowCheckLetters;
