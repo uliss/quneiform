@@ -79,6 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include "rline.h"
 
 #include "dpuma.h"
+#include "minmax.h"
 
 # ifndef LT_STAND_ALONE
 # include "struct.h"

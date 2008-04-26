@@ -75,6 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "layout.h"
 # include "func.h"
 # include "my_mem.h"
+#include "minmax.h"
 
 
 # ifdef LT_DEBUG 

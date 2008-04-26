@@ -76,6 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "my_mem.h"
 
 # include "dpuma.h"
+#include "minmax.h"
 
 extern Handle hBlocksBreaking;
 extern Handle hNotWholeLine ;

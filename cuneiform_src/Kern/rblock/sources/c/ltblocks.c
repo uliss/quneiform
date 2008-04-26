@@ -76,6 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "my_mem.h"
 
 #include "dpuma.h" //George, 12.11.01 (dd.mm.yy)
+#include "minmax.h"
 Handle hSetTrivAverHeight;//George, 12.11.01 (dd.mm.yy)
 
 

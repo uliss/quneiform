@@ -70,6 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include <stdlib.h>
 # include <string.h>
 /*# include <crtdbg.h>*/
+#include <assert.h>
 
 # include "c_memory.h"
 # include "layout.h"
@@ -77,7 +78,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "msgerr.h"
 
 # include "dpuma.h"
-
+#include "minmax.h"
+#include "compat_defs.h"
 
 BYTE * PageMatrix;  ////  [PAGE_MATRIX_SIZE];
 extern BYTE *CellsPage;

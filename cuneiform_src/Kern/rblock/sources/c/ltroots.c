@@ -70,6 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include <fcntl.h>
 # include <stdio.h>
 /*# include <crtdbg.h>*/
+#include <assert.h>
 
 # include "c_memory.h"
 # include "iolib.h"

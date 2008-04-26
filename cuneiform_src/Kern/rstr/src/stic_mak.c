@@ -66,6 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
   #include "func.h"
   #include "stick.h"
+#include "minmax.h"
 
 //////  #include "inc_tab.h"
 extern INT nIncline  ;
