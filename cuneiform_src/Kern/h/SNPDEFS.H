@@ -69,6 +69,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __SNPDEFS_H
 #define __SNPDEFS_H
 
+#define NO_SNP // JussiP: I had to disable all of SNP because it caused compile errors.
+
 #include "cttypes.h"
 #include "ctmacros.h"
 #include "recdefs.h"
@@ -174,7 +176,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
          Word32 GetIterCur()   { return IterCur; };
          Word32 GetIterParent(){ return IterParent; };
          Word32 GetIterStop()  { return IterStop; };
-   friend        void    __SnpIterParent( SnpTreeNode* node, Bool activate );
+   friend        void   __SnpIterParent( SnpTreeNode* node, Bool activate );
    friend        void    SnpStartLoop( SnpTreeNode* node, Word32 iter_total );
    friend        void    SnpLoopNext( SnpTreeNode* node );
    friend        Bool16  SnpSkip( SnpTreeNode* node );

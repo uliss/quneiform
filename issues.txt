@@ -27,3 +27,7 @@ something to do with Windows DLL symbol resolving rules.
 Basic datatypes were multiply defined all over the tree (cttypes.h, 
 c_types.h, nt_types.h). Now they are all in h/cttypes.h. Any multiple
 definitions should be considered bugs.
+
+Snp is problematic. snptools.h uses e.g. __SnpIterParent static but also
+uses it as a friend for class SnpTreeNode. Gcc does not allow the second
+kind to be static.

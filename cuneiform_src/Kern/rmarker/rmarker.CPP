@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define _RMARKER_CPP
 
 /*#include <windows.h>*/
-#include <fstream.h>
+#include <fstream>
 #include "markpage.h"
 #include "rmfunc.h"
 #include "un_buff.h"

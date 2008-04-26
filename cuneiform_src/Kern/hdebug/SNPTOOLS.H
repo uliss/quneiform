@@ -165,7 +165,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       };
    };
 
-   /*static  // internal usage, dont call directly*/
+   static  // internal usage, dont call directly
    void __SnpIterParent( SnpTreeNode* node, Bool activate )
    {
    #ifdef __cplusplus
@@ -281,6 +281,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    };
 
 #else
+      /*
    // Snp toggled off, lets define stubs
    static void SnpSetTools(__SnpToolBox* tools){;};
    static Bool SnpIsActive(void) { return FALSE; };
@@ -315,12 +316,47 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    static void   SnpRasterText(char *Text){;};
    static void SnpAddNode( SnpTreeNode *  node, char * name,
       SnpTreeNode * parent ) {;};
-
    static void    __SnpIterParent( SnpTreeNode* node, Bool activate ){;};
    static void    SnpStartLoop( SnpTreeNode* node, Word32 iter_total ){;};
    static void    SnpLoopNext( SnpTreeNode* node ){;};
    static Bool16  SnpSkip( SnpTreeNode* node ){ return TRUE; };
+*/
+       void SnpSetTools(__SnpToolBox* tools);
+       Bool SnpIsActive(void);
 
+       int    SnpLog( const char* s, ...);
+       void   SnpStatusLine( char* s, ...);
+       void   SnpDrawRect(Rect16* rc, Int32 skew, Word32 rgb_color,
+         Int32 pen_width,Word32 key);
+       void   SnpHideRects(Word32 key);
+       void   SnpDrawLine(Point16* start, Point16* end, Int32 skew,
+         Word32 rgb_color,Int16 pen_width,Word32 key );
+       void   SnpHideLines(Word32 key);
+       void   SnpDrawFocusRect(Rect16* rc);
+       Word32 SnpSetZoneOn(Rect16*  zone_rect,
+         Word32   rgb_color,char* status_line_comment,
+         Word32  users_zone_handle, FTOnMouseDown  on_mouse_down );
+       void   SnpSetZoneOff( Word32 zone_handle );
+       void   SnpUpdateViews(void);
+       void   SnpMessBoxOk( char * message );
+       Bool16 SnpMessBoxYesNo( char * message );
+       Bool16 SnpGetUserString (char * _text,
+         char * result_string, Word32 result_string_length );
+       Bool16 SnpGetUserLong(char * _text,
+         Int32 * result_long);
+       Bool16 SnpGetUserRect( Rect16* rect );
+       Bool16 SnpGetUserPoint(Point16* pnt);
+       Word32 SnpWaitUserInput(SnpTreeNode* cur_node);
+       void SnpNotifyAppl(SnpTreeNode* cur_node);
+      // tree manipulation
+       void   SnpRasterText(char *Text);
+      void SnpAddNode( SnpTreeNode *  node, char * name,
+         SnpTreeNode * parent ) ;
+   void    __SnpIterParent( SnpTreeNode* node, Bool activate );
+   void    SnpStartLoop( SnpTreeNode* node, Word32 iter_total );
+   void    SnpLoopNext( SnpTreeNode* node );
+   Bool16  SnpSkip( SnpTreeNode* node );
+   
 #endif
 #else 
 
