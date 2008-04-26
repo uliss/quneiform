@@ -59,6 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*# include <crtdbg.h>*/
 
 # include "new_c.h"
+#include "minmax.h"
 
 /************** External declaration ***********************/
 //extern BYTE *CellsPage;
@@ -95,7 +96,7 @@ int IsInPoly(Point16 a, void * pPoly)
 		}
 		if((y== a.y)&&(p->com.Vertex[ind].x >= a.x))
 			Count++;
-		else if(min(p->com.Vertex[i].y,p->com.Vertex[j].y)== a.y) 
+		else if(MIN(p->com.Vertex[i].y,p->com.Vertex[j].y)== a.y) 
 				continue;
 		else
 		{

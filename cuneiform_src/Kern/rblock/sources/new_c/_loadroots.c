@@ -57,6 +57,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include <setjmp.h>
 # include <string.h>
 /*# include <crtdbg.h>*/
+#include <assert.h>
+#include "compat_defs.h"
 
 # define __LOAD_ROOTS_C__
 

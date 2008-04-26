@@ -86,9 +86,7 @@ typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int)
 #define HWND unsigned int
 #endif
 
-#ifndef _ASSERT
 #define _ASSERT assert
-#endif
 
 #ifndef LPSTR
 #define LPSTR char*
