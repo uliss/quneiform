@@ -158,7 +158,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
          TDash& dd = (*rb_)[ dash ];
          seg = dd.firstSegHandle;   assert( seg != NULLBHandle );
          row = dd.firstSegEntry;
-			down = min( down, (int)row );
+			down = MIN( down, (int)row );
 			do {
             TBlackSeg& bs = (*sb_)[ seg ];
 				puanso.increase( bs.left,
@@ -167,7 +167,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 									);
 				seg = bs.nLower;
          } while ( seg != NULLBHandle );
-			up = max( up, (int)row );
+			up = MAX( up, (int)row );
 		} while ((dash = rb_->nextMember( dash ))!=NULLBHandle);
 
       puanso.atOwnCoords();
@@ -619,7 +619,7 @@ void TLinesBambuk::computeVRasters( TRasterBambuk* rb, TSegBambuk* sb ){
          TDash& dd = (*rb_)[ dash ];
          seg = dd.firstSegHandle;            assert( seg != NULLBHandle );
          col = dd.firstSegEntry;
-         left = min( left, (int)col );
+         left = MIN( left, (int)col );
          do {
             TBlackSeg& bs = (*sb_)[ seg ];
             puanso.increase( bs.left,    // down
@@ -628,7 +628,7 @@ void TLinesBambuk::computeVRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 									);
             col++; seg = bs.nLower;
          }  while ( seg != NULLBHandle );
-         right = max( right, (int)col );
+         right = MAX( right, (int)col );
 		} while ((dash = rb_->nextMember( dash ))!=NULLBHandle);
 
 		puanso.atOwnCoords();
@@ -1113,7 +1113,7 @@ Bool  has_H_linked(  PLine  line, PLine  frag )
 
 inline int   line_length( PLine line )
 {
-	return max(abs(line->end.x-line->start.x), abs(line->end.y-line->start.y));
+	return MAX(abs(line->end.x-line->start.x), abs(line->end.y-line->start.y));
 };
 
 
@@ -1131,7 +1131,7 @@ Bool  has_V_linked(  PLine  line, PLine  frag ){
 	PLine fst = frag->start.y < line->start.y ? frag : line; 
 	PLine sec = frag->start.y < line->start.y ? line : frag;
 
-	int min_len = min( line_length(fst), line_length(sec) );
+	int min_len = MIN( line_length(fst), line_length(sec) );
 	// test delta
 	Int32 delta =	abs(fst->end.x - sec->start.x);
 	int delta_limit = (min_len < 50) ? 5 : 10;
@@ -1275,8 +1275,8 @@ Bool AnalyzeFragments( TLinesBambuk& hLB, TLinesBambuk& vLB)
 
       Rect32 corner0; Point2Rect(corner0, top.start, CORNER_DELTA);
       Rect32 corner1; Point2Rect(corner1, top.end,   CORNER_DELTA);
-      int zone_start  = min(corner0.top,    corner1.top);
-      int zone_finish = max(corner0.bottom, corner1.bottom);
+      int zone_start  = MIN(corner0.top,    corner1.top);
+      int zone_finish = MAX(corner0.bottom, corner1.bottom);
 
       //// skip to start of test zone
       while (  prev_ver < nv && _lf_ver[vv[prev_ver]].fragmentAsIs.start.y < zone_start )
@@ -1318,7 +1318,7 @@ Bool AnalyzeFragments( TLinesBambuk& hLB, TLinesBambuk& vLB)
             // now we have 'Ï'- connection; test for bottom
             Rect32 corner2; Point2Rect(corner2, left.end,  CORNER_DELTA);
             Rect32 corner3; Point2Rect(corner3, right.end, CORNER_DELTA);
-            int bottom_zone_finish = max(left.end.y, right.end.y) + CORNER_DELTA;
+            int bottom_zone_finish = MAX(left.end.y, right.end.y) + CORNER_DELTA;
             for (int bottom_hor = top_hor; bottom_hor < nh; bottom_hor++ )
             {
                Line& bottom = _lf_hor[hh[bottom_hor]].fragmentAsIs;
@@ -1384,11 +1384,11 @@ static int yproject( LnsFrag& lf1, LnsFrag& lf2 )
 
    int h1 = yheight(lf1);
    int h2 = yheight(lf2);
-   int minh = min(h1, h2);
+   int minh = MIN(h1, h2);
    assert(minh > 0);
 
-   int a = max(lf1.A.y,lf2.A.y);
-   int b = min(lf1.B.y,lf2.B.y);
+   int a = MAX(lf1.A.y,lf2.A.y);
+   int b = MIN(lf1.B.y,lf2.B.y);
 
    assert(b >= a);
    
@@ -1566,8 +1566,8 @@ Bool AnalyzeFragmentsII( TLinesBambuk& hLB, TLinesBambuk& vLB)
 
          nstick_len += yheight(vlf);
          nsticks_near ++;
-         left = min(left, xlev);
-         right = max(right, xlev);
+         left = MIN(left, xlev);
+         right = MAX(right, xlev);
 
          if (ya > yproj_hor || yb < yproj_hor) 
             // stick not intersectes nor touches horisontal fragment

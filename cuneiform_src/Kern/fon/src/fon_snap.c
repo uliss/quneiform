@@ -217,7 +217,7 @@ int step,x,y;
 BYTE cc;
 BYTE *buf=rr->Raster;
                         
-  step=min(sx/wid,sy/hei);
+  step=MIN(sx/wid,sy/hei);
   if(step < 3) step=3;        
                
   for(i=0,y=fy;i<hei;i++,buf+=xbyte,y+=step)

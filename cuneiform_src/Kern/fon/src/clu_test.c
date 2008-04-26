@@ -99,7 +99,7 @@ Int32 TestClustNames(welet *wel,int numWel,
 	   else          dist1=dist;
 	}
 
-	return min(dist1,dist2);
+	return MIN(dist1,dist2);
 }
 ////////////////
 Int32 GetNearestClusters (int num, welet *wel,int numWel ,
@@ -152,7 +152,7 @@ int   i,j;
 BYTE  cbyte,ccbyte;
 int   rbyte;
 int   dist;
-int   ylast=min(h,yrow2-ymove-1);
+int   ylast=MIN(h,yrow2-ymove-1);
 
  if(xmove <-1 || xmove > 1) 
 	 return porog+1;

@@ -71,8 +71,8 @@ static SINT DistanceBitDLL(BYTE *b1,SINT xbyte1,SINT yrow1,
 						 SINT porog)
 {
  register SINT i,j;
- SINT xbyte=min(xbyte1,xbyte2);
- SINT yrow=min(yrow1,yrow2);
+ SINT xbyte=MIN(xbyte1,xbyte2);
+ SINT yrow=MIN(yrow1,yrow2);
  SINT dist;
 
  for(i=0,dist=0;i<yrow;i++,b1+=xbyte1,b2+=xbyte2)
@@ -111,8 +111,8 @@ SINT DistanceBitFull(BYTE *b1,SINT xbyte1,SINT yrow1,
 						 BYTE  *b2,SINT xbyte2,SINT yrow2)
 {
  register SINT i,j;
- SINT xbyte=min(xbyte1,xbyte2);
- SINT yrow=min(yrow1,yrow2);
+ SINT xbyte=MIN(xbyte1,xbyte2);
+ SINT yrow=MIN(yrow1,yrow2);
  SINT dist;
 
  for(i=0,dist=0;i<yrow;i++,b1+=xbyte1,b2+=xbyte2)

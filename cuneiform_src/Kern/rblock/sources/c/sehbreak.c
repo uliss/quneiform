@@ -74,6 +74,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include    "ccom.h"
 #include	"evn.h" 
 #include	"newfunc.h"
+#include "minmax.h"
 # define EXTENDED_RASTER_MAX_WIDTH  RASTER_MAX_WIDTH
 # define EXTENDED_RASTER_MAX_HEIGHT (RASTER_MAX_HEIGHT * 2)
 

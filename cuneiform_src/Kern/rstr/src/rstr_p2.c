@@ -400,7 +400,7 @@ Int32 p2_Cstr2Cell( CSTR_line lin,CSTR_rast first,CSTR_rast last,Bool32 needVers
     }
   if( needVers && evn.lnAltCnt )
         {
-     c2->nvers=(INT)min(VERS_IN_CELL-1,evn.lnAltCnt);
+     c2->nvers=(INT)MIN(VERS_IN_CELL-1,evn.lnAltCnt);
      for(i=0;i< c2->nvers;i++)
         {
         c2->vers[i].let =evn.Alt[i].Liga; //Code;
@@ -757,7 +757,7 @@ cell cc=*BC;
  {
     stick_center_study(&cc,NULL,1);
  }
- return min(40,prob - cc.vers[0].prob);
+ return MIN(40,prob - cc.vers[0].prob);
 }
 /////////////////////
 #define POROG_GOOD_LEO 220  
@@ -816,7 +816,7 @@ int nClust=0;
 	  )
 
     {
-     vers.Alt[i].Prob = (BYTE)max(1,vers.Alt[i].Prob - CritVers(BC,GL,vers.Alt[i].Code,vers.Alt[i].Prob));
+     vers.Alt[i].Prob = (BYTE)MAX(1,vers.Alt[i].Prob - CritVers(BC,GL,vers.Alt[i].Code,vers.Alt[i].Prob));
     }
   }
 
@@ -1020,9 +1020,9 @@ Int32 p2_setBasLines(CSTR_line lineIn)
     
     bsdust_ps = Ps;
     i = bbs2 - (bbs3-bbs2)/2;
-    bsdust_upper = min(i,bbs1) - 2 + minrow;
+    bsdust_upper = MIN(i,bbs1) - 2 + minrow;
     if (language != LANG_ENGLISH)
-    bsdust_upper -= (max(2,(bbs3-bbs2)/7));
+    bsdust_upper -= (MAX(2,(bbs3-bbs2)/7));
     bsdust_lower = bbs4 + minrow;
 
  nIncline=(INT)lineAttr.incline;
@@ -1315,7 +1315,7 @@ static Int32 IsTwinCluster(int nClus, Word8 name, Word8 *tName)
     if( abs(clustinfo.mw-twininfo.mw) <= porogW &&
         abs(clustinfo.mh-twininfo.mh) <= porogH
       )
-      clustinfo.weight=max(clustinfo.weight, twininfo.weight);
+      clustinfo.weight=MAX(clustinfo.weight, twininfo.weight);
   }
 
 
@@ -1392,14 +1392,14 @@ static int AddParamSize(ParamRecogSize *param, cell *c, Word8 ch,
   if( isBase )
   {
    param->num++;
-   param->basMax  = max(param->basMax, c->row);
-   param->basMin  = min(param->basMin, c->row);
+   param->basMax  = MAX(param->basMax, c->row);
+   param->basMin  = MIN(param->basMin, c->row);
   }
 
   if( (isBase && (ch & v_bs3)) || isSize )
   {
-   param->sizeMax = max(param->sizeMax, c->h);
-   param->sizeMin = min(param->sizeMin, c->h);
+   param->sizeMax = MAX(param->sizeMax, c->h);
+   param->sizeMin = MIN(param->sizeMin, c->h);
    param->height += c->h;
    param->sizeNum++;
   }
@@ -1773,7 +1773,7 @@ static int Progib(int *hhh,int GreyLev,POIS *pois, int threshPlato,
 			 dimPlato = k;
 		   }
 
-           i=max(i,j-1);
+           i=MAX(i,j-1);
 		   continue;
 		 } 
 	  }
@@ -1801,7 +1801,7 @@ static int Progib(int *hhh,int GreyLev,POIS *pois, int threshPlato,
 				numPoi--;
 #endif
 		    pois[numPoi].poi = prommin+(dimPlato/2);
-			pois[numPoi].progib = min(hhh[i-1],hhh[lefth])-hhh[prommin];
+			pois[numPoi].progib = MIN(hhh[i-1],hhh[lefth])-hhh[prommin];
 			pois[numPoi++].plato = dimPlato;
 
 #ifndef _TESTPROM_
@@ -1834,7 +1834,7 @@ static int Progib(int *hhh,int GreyLev,POIS *pois, int threshPlato,
 				numPoi--;
 #endif
 	  pois[numPoi].poi = prommin + (dimPlato/2);
-	  pois[numPoi].progib = min(hhh[GreyLev-1],hhh[lefth])-hhh[prommin];
+	  pois[numPoi].progib = MIN(hhh[GreyLev-1],hhh[lefth])-hhh[prommin];
 	  pois[numPoi++].plato = dimPlato;
 	}
   }
@@ -1875,8 +1875,8 @@ static int CheckSizes(int *heiUp, int *heiDn,
 	}
 
     // 
-	start = min(parDn->sizeMin, parUp->sizeMin);
-	end   = max(parDn->sizeMax, parUp->sizeMax);
+	start = MIN(parDn->sizeMin, parUp->sizeMin);
+	end   = MAX(parDn->sizeMax, parUp->sizeMax);
 	buf = bufHei + start;
 	
 	numPoi = Progib(buf, end-start+1, pois, 1, minSize);
@@ -1958,8 +1958,8 @@ static int CheckBases(int *basUp, int *basDn,
 	}
 
     // 
-	start = min(parDn->basMin, parUp->basMin)-minbase;
-	end   = max(parDn->basMax, parUp->basMax)-minbase;
+	start = MIN(parDn->basMin, parUp->basMin)-minbase;
+	end   = MAX(parDn->basMax, parUp->basMax)-minbase;
 
 	buf = bufHei + start;
 	
@@ -2179,7 +2179,7 @@ static int p2_checkUpperLower(void)
  {
     if( !( c->flg & c_f_let ) )
         continue;
-	minBase = min(minBase,c->row);
+	minBase = MIN(minBase,c->row);
  }
 
  for (c = cell_f()->nextl; c != cell_l(); c = c -> nextl)
@@ -2257,12 +2257,12 @@ static int p2_checkUpperLower(void)
   }
 
   // to avoid problems in Checking
-  niceUp.basMin=min(niceUp.basMin,minBase+MAXHEI-1);
-  niceDn.basMin=min(niceDn.basMin,minBase+MAXHEI-1);
-  allUp.basMin=min(allUp.basMin,minBase+MAXHEI-1);
-  allDn.basMin=min(allDn.basMin,minBase+MAXHEI-1);
-  upS.basMin=min(upS.basMin,minBase+MAXHEI-1);
-  downS.basMin=min(downS.basMin,minBase+MAXHEI-1);
+  niceUp.basMin=MIN(niceUp.basMin,minBase+MAXHEI-1);
+  niceDn.basMin=MIN(niceDn.basMin,minBase+MAXHEI-1);
+  allUp.basMin=MIN(allUp.basMin,minBase+MAXHEI-1);
+  allDn.basMin=MIN(allDn.basMin,minBase+MAXHEI-1);
+  upS.basMin=MIN(upS.basMin,minBase+MAXHEI-1);
+  downS.basMin=MIN(downS.basMin,minBase+MAXHEI-1);
 
   heiUp = heiDn = 0;
   basUp = basDn = -1;
@@ -2272,23 +2272,23 @@ static int p2_checkUpperLower(void)
   if( niceUp.sizeNum > 0 )
   {
 	  heiUp = (niceUp.height + (niceUp.sizeNum>>1))/niceUp.sizeNum;
-	  porog = max(porog,heiUp/6);
+	  porog = MAX(porog,heiUp/6);
   }
   else if( upS.sizeNum > 0 )
   {
 	  heiUp = (upS.height + (upS.sizeNum>>1))/upS.sizeNum;
-	  porog = max(porog,heiUp/6);
+	  porog = MAX(porog,heiUp/6);
   }
 
   if( niceDn.sizeNum > 0 )
   {
 	  heiDn = (niceDn.height + (niceDn.sizeNum>>1))/niceDn.sizeNum;
-	  porog = max(porog,heiDn/4);
+	  porog = MAX(porog,heiDn/4);
   }
   else if( downS.sizeNum > 0 )
   {
 	  heiDn = (downS.height + (downS.sizeNum>>1))/downS.sizeNum;
-	  porog = max(porog,heiDn/4);
+	  porog = MAX(porog,heiDn/4);
 //	  heiDn = downS.sizeMax;
   }
 
@@ -2326,7 +2326,7 @@ static int p2_checkUpperLower(void)
 	 )
    {
 	  heiUp = (niceUp.height + (niceUp.sizeNum>>1))/niceUp.sizeNum;
-	  porog = max(porog,heiUp/6);
+	  porog = MAX(porog,heiUp/6);
 	  heiDn = 0;
 	  basDn = -1;
    }
@@ -2336,7 +2336,7 @@ static int p2_checkUpperLower(void)
 	 )
    {
 	  heiDn = (niceDn.height + (niceDn.sizeNum>>1))/niceDn.sizeNum;
-	  porog = max(porog,heiDn/4);
+	  porog = MAX(porog,heiDn/4);
 	  heiUp = 0;
 	  basUp = -1;
    }
@@ -2393,7 +2393,7 @@ static int p2_checkUpperLower(void)
 	 )
    {
 	  heiUp = (niceUp.height + (niceUp.sizeNum>>1))/niceUp.sizeNum;
-	  porog = max(porog,heiUp/6);
+	  porog = MAX(porog,heiUp/6);
    }
 
    else if( niceDn.sizeNum > 0 && niceDn.sizeNum > 0  && niceDn.num > niceDn.twin +1 &&
@@ -2401,7 +2401,7 @@ static int p2_checkUpperLower(void)
 	 )
    {
 	  heiDn = (niceDn.height + (niceDn.sizeNum>>1))/niceDn.sizeNum;
-	  porog = max(porog,heiDn/4);
+	  porog = MAX(porog,heiDn/4);
    }
   }
 
@@ -2423,7 +2423,7 @@ static int p2_checkUpperLower(void)
 		  if( bufHeight[i] > bufHeight[j])
 			  j = i;
 
-      porog = max(porog,j/5);
+      porog = MAX(porog,j/5);
   }
 
   // не противоречат?
@@ -2551,8 +2551,8 @@ static int addRaster(c_comp *w, Word8 *raster,
    for( ; ip!= NULL && ip->l > 0 ; ip++, pp += bytesx)
    {
 	 StoreOneInterval( pp, 
-		   max(0, startx + ip->e - ip->l),    
-		   min(wid , startx + ip->e) 
+		   MAX(0, startx + ip->e - ip->l),    
+		   MIN(wid , startx + ip->e) 
 		   );
 
    }
@@ -2578,10 +2578,10 @@ int		i;
 	i=0;
     while((cp = gl->complist[i++]) != NULL)
 	{
-		left  = min(left  ,cp->left);
-		upper = min(upper ,cp->upper);
-		right = max(right ,cp->left  + cp->w);
-		bottom= max(bottom,cp->upper + cp->h);
+		left  = MIN(left  ,cp->left);
+		upper = MIN(upper ,cp->upper);
+		right = MAX(right ,cp->left  + cp->w);
+		bottom= MAX(bottom,cp->upper + cp->h);
 	}
 
 	recRast.lnPixWidth  = right - left;

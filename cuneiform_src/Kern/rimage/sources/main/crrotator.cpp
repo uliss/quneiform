@@ -240,7 +240,7 @@ Bool32 CRRotator::Rotate(PCTDIB cDIBIn, PCTDIB cDIBOut, Int32 Num, Int32 Denum)
 Bool32 CRRotator::Descew(PCTDIB cDIBIn, PCTDIB cDIBOut )
 {
 	# ifndef max
-	#    define     max(a,b)             ( (a) > (b) ? (a) : (b) )
+	#    define     MAX(a,b)             ( (a) > (b) ? (a) : (b) )
 	# endif
 	Bool32 Ret = TRUE;
 	Word32 Line;
@@ -258,7 +258,7 @@ Bool32 CRRotator::Descew(PCTDIB cDIBIn, PCTDIB cDIBOut )
 	mwOriginalWidth  = cDIBIn->GetLineWidth();
 	mwDescewedHeight = cDIBOut->GetLinesNumber();
 	mwDescewedWidth  = cDIBOut->GetLineWidth();
-	mwTablesRange    = max (mwDescewedHeight, mwDescewedWidth);
+	mwTablesRange    = MAX (mwDescewedHeight, mwDescewedWidth);
 
 
 	AllocWorkBuffers(TRUE);

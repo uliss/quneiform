@@ -186,7 +186,7 @@ static BOOL TableDBF_Finish(
 			gMemCur = rec_ptr + f->offset;
 
 			// Не более ширины поля, без нулевого байта
-			long w = min(f->length,gCurLineText->ltext);
+			long w = MIN(f->length,gCurLineText->ltext);
 
 			// Скопировать текст
 			memcpy(gMemCur,gCurLineText->text,w);
@@ -249,7 +249,7 @@ static BOOL MakeDbfHeader()
 			POSSIBLE_LOSS_OF_DATA;
 
 		// Ширина поля
-		f->length = min(w,254);
+		f->length = MIN(w,254);
 
 		// Смещение поля от начала записи
 		f->offset = dbf_header->record_size;

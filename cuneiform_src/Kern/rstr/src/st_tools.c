@@ -83,6 +83,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lang.h"
 #include "tuner.h"
 #include "linutil.h"	// 31.05.2002 E.P.
+#include "minmax.h"
 
 static INT correct_braces(BYTE fun[],INT n,INT lev,INT typ);
 static INT num_zero_intervals(BYTE fun[],INT n,INT lev);
@@ -208,7 +209,7 @@ INT i,p;
 for(i=0;i<c->nvers;i++)
   {
   p = c->vers[i].prob - monus;
-  c->vers[i].prob = max(p,2);
+  c->vers[i].prob = MAX(p,2);
   }
 sort_vers(c);
 return;
@@ -362,7 +363,7 @@ static int dotIsGlue(cell *c)
  lnhead *line;
  interval *intval;
  INT l,i,start;
- int maxH = min(MAX_UP,c->h/3);
+ int maxH = MIN(MAX_UP,c->h/3);
  int size[MAX_UP];
 
 	if( !c->env || maxH <= 1 )
@@ -565,7 +566,7 @@ if (s->neck==3)					// 16.12.1993  ADD º FIRST:
 //////	add_stick_vers (c, liga_i, cut_by_pos(c,liga_i,prob,1,1));
 if(language != LANG_RUSSIAN)
 	add_stick_vers (c, (CHAR)liga_i,	// 17.01.1994, 140 for der Laterne:
-			(BYTE)cut_by_pos(c,liga_i,(CHAR)(max(prob,140)),1,1));
+			(BYTE)cut_by_pos(c,liga_i,(CHAR)(MAX(prob,140)),1,1));
 
 if( !inc &&  wide<<1<=dx &&				// ADD º SECOND:
     s->neck && typ_snap &&
@@ -669,7 +670,7 @@ if ((s->right_mode - s->left_mode < 5)  &&	// 07.01.1994
     mkm3 = (lbeg<<8) | lend;
     mkm4 = (rbeg<<8) | rend;
     mkm5 = (l_len<<8) | r_len;
-	if (abs (max(lend,rend)-base_C) < 2  &&		// COMMON CONDITION;
+	if (abs (MAX(lend,rend)-base_C) < 2  &&		// COMMON CONDITION;
 	    (abs (lend-rend) < 2  &&  (l_len>3 || r_len>3)  ||		// A;
     //////	     l->mount[0] && l->mount[4] && r->mount[0] && r->mount[4] || // B;
 			// DELETE 07.01.1994 because IT IS DIRECT SERIF 'I';
@@ -865,7 +866,7 @@ if (db_status && (typ_snap==0 ||
 		off = off_shift_string (&raster[(dy-1)*bytlen(dx)],
 					(INT)(bytlen(dx)) );
 		d_x = shift_raster (raster, dy, dx, tab_angle,
-      (INT)(max (tab_angle[0], tab_angle[dy-1])), sh_raster, 1);
+      (INT)(MAX (tab_angle[0], tab_angle[dy-1])), sh_raster, 1);
 		off -= off_shift_string (&sh_raster[(dy-1)*bytlen(d_x)],
 					 (INT)(bytlen(d_x)) );
 		off += dest_to_comp (sh_raster, dy, d_x);

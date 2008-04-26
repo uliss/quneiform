@@ -867,7 +867,7 @@ BOOL WriteRtfSection(struct StrRtfOut far *rtf, CEDSection* sect)
 	{
 	int i;
 		if (!WriteRtfControl(rtf,"cols",PARAM_INT,sect->numSnakeCols)) return FALSE;
-		if (!WriteRtfControl(rtf,"colsx",PARAM_INT,max(sect->colInterval,0))) return FALSE;
+		if (!WriteRtfControl(rtf,"colsx",PARAM_INT,MAX(sect->colInterval,0))) return FALSE;
 		//Не пишем инфу по колонкам, если первая ширина=-1, т.е. юзер не задал разноширинность
 		if (sect->colInfo&&sect->colInfo[0].width>=0)
 			for (i=0;i<sect->numSnakeCols;i++)

@@ -72,6 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "il1peak.h"
 #include "lang.h"
 #include "ligas.h"
+#include "minmax.h"
 
 #define N_HIST 12                      // number of histograms
 #define MAX_NEW_FUNC 9
@@ -440,9 +441,9 @@ static void NHcell (cell *C)
         GL.ncell        = 1;
         make_broken_raster (&GL, 1);
         if ( h <= 21 )
-          rot = min ( vrot_small [SBOX.dens / 2], 8 );
+          rot = MIN ( vrot_small [SBOX.dens / 2], 8 );
         else
-          rot = min ( vrot [SBOX.dens / 4], 17 );  // the treshold of the density
+          rot = MIN ( vrot [SBOX.dens / 4], 17 );  // the treshold of the density
         if (!rot)
           {
              NHdiff( C );              // differ N and H by usual way
@@ -654,7 +655,7 @@ static void TYrecog ()
 
     if ( dx < 5 )  goto TY_noshift;
     if ( dy < 20 ) goto TY_noshift;
-    jmp   = max( dy / 20, 1 );   // set admissible jump of top abris
+    jmp   = MAX( dy / 20, 1 );   // set admissible jump of top abris
     shift = dx >> 2;             // set shift from any side 1/4 of width
     from  = shift;
     to    = dx - shift;
@@ -949,9 +950,9 @@ static void put_two_case(cell *C, PCHAR pair)
     }
     v -> let   = 0;                         // end flag for versions in cell
     m          = v - vers;
-    m          = min (m, 8);
+    m          = MIN (m, 8);
     C -> nvers = m;
-    memcpy (C -> vers, vers, min (m + 1, 8) * sizeof (*v));
+    memcpy (C -> vers, vers, MIN (m + 1, 8) * sizeof (*v));
     C -> flg   = c_f_let;
     sort_vers (C);
 end:;
@@ -1064,7 +1065,7 @@ static void make_func_ec ()
     for (i = 0; i < dy; i ++)
     funcs [nfunc][i] = hist [4][i];
     nfunc ++;
-    nfunc = min (nfunc, MAX_NEW_FUNC);
+    nfunc = MIN (nfunc, MAX_NEW_FUNC);
 }
 
 static BOOL middle_long_sharp_peak (INT nf, INT from, INT to)
@@ -1148,7 +1149,7 @@ static void ecrecog ()
         goto fin;
     }
 
-    jump = max ( dy / 10, 1 ) - 1;
+    jump = MAX ( dy / 10, 1 ) - 1;
     if (pure_concave (funcs [3], (INT)(dy * 2 / 10), (INT)(dy * 8 / 10), jump))
     {
       for ( n3 = 0, n2 = 0, n1 = (dx>>1); n1 < dx-2; n1++ )

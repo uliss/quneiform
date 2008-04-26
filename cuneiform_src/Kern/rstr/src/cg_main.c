@@ -378,7 +378,7 @@ void cuts_glues()
  else
    minw=minp;
 //   minw=minp=my_bases.ps/10;
-// minw=max(minw,1); minp=max(minp,1);
+// minw=MAX(minw,1); minp=max(minp,1);
 
 //уточняем оценки и расставляем точки над 'i'
 
@@ -1395,8 +1395,8 @@ static INT init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
 
 
           close_ds(seci,x,(INT)(ncut-1));
-//          close_ds(seci,max(mincl,C->r_col-1)-rastlc,ncut-1);
-//          close_ds(seci,min(maxcl,C->r_col-1)-rastlc,ncut-1);
+//          close_ds(seci,MAX(mincl,C->r_col-1)-rastlc,ncut-1);
+//          close_ds(seci,MIN(maxcl,C->r_col-1)-rastlc,ncut-1);
           ncut++;  
 		  seci++;
 
@@ -1426,7 +1426,7 @@ static INT init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
         {
 //          x=((seci-1)->x+C->r_col-rastlc)>>1;
 //          ro=middle(C)-rastlc;
-//          (seci-1)->x=min(x,ro);
+//          (seci-1)->x=MIN(x,ro);
           if ( lefter(C,(seci-1)->x+rastlc) )  //перекрывается предыдущим
           {                        // "большим" - обходимся как с dust'ом
             maxcl=MAX(maxcl,C->r_col+C->w); continue;

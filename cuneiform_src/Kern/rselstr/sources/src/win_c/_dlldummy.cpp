@@ -423,7 +423,7 @@ static void HystogramUpdate (int xLeft, int yTop, int nScaling)
     nCharHeight = VIEW_HEIGHT / 10 / nScaling / 2;
     _setcharsize (nCharHeight, nCharHeight / 2);
 
-    for (i = 0; i < nMaxValue - nMaxValue / 20; i += max (nMaxValue / 10, 1))
+    for (i = 0; i < nMaxValue - nMaxValue / 20; i += MAX (nMaxValue / 10, 1))
     {
         _moveto ((VIEW_LEFT                                 - xLeft)/ nScaling,
                  (VIEW_BOTTOM - i * VIEW_HEIGHT / nMaxValue - yTop) / nScaling);

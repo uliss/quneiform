@@ -174,7 +174,7 @@ BYTE s_filt(cell *cl)
                      // their coordinates are: lxmin1, lxmin2; lxmax1, lxmax2
  if ((lmin2 < BOT_MIN_LEFT_S) && (lmin1 > TOP_MIN_LEFT_S))  // italic
    goto try_r;
- if (lxmax2 < midh)     mon+=PNL_2MAX;   // 2-nd max (i.e. gap) in upper part
+ if (lxmax2 < midh)     mon+=PNL_2MAX;   // 2-nd MAX (i.e. gap) in upper part
  if (linh[lxmax2] > 1)  goto try_r;      // 1 line
  if ((lmax < 3)  || (lxmax2-lxmax1 > 3)) mon+=PNL_NOEXT;   // too plain
 try_r:

@@ -502,7 +502,7 @@ void DrawRealHorzPictureLine (LPOINT Point1, LPOINT Point2, int nWidth)
 {
     int y1, y2;
     int x, y;
-    int nHalfWidth = max (1, nWidth / 2);
+    int nHalfWidth = MAX (1, nWidth / 2);
     int dx, dy;
     LPOINT LocalBegin, LocalEnd;
 
@@ -511,9 +511,9 @@ void DrawRealHorzPictureLine (LPOINT Point1, LPOINT Point2, int nWidth)
     // (но не менее единичной, есно)
     if (XY_COMPRESS (Point1.y) == XY_COMPRESS (Point2.y))
     {
-        y1 = XY_COMPRESS (min (Point1.y, Point2.y) - nHalfWidth)
+        y1 = XY_COMPRESS (MIN (Point1.y, Point2.y) - nHalfWidth)
              - nExtension;
-        y2 = XY_COMPRESS (max (Point1.y, Point2.y) + nHalfWidth)
+        y2 = XY_COMPRESS (MAX (Point1.y, Point2.y) + nHalfWidth)
              + nExtension;
 
         for (y = y1; y <= y2; y++)
@@ -557,9 +557,9 @@ void DrawRealHorzPictureLine (LPOINT Point1, LPOINT Point2, int nWidth)
 #else
         LocalEnd.y = Point1.y + LocalEnd.x * dy / dx;
 #endif
-        y1 = XY_COMPRESS (min (LocalBegin.y, LocalEnd.y) - nHalfWidth)
+        y1 = XY_COMPRESS (MIN (LocalBegin.y, LocalEnd.y) - nHalfWidth)
              - nExtension;
-        y2 = XY_COMPRESS (max (LocalBegin.y, LocalEnd.y) + nHalfWidth)
+        y2 = XY_COMPRESS (MAX (LocalBegin.y, LocalEnd.y) + nHalfWidth)
              + nExtension;
 
         fDrawMatrixPictureVertInterval (XY_COMPRESS (x), y1, y2);
@@ -570,12 +570,12 @@ void DrawRealVertPictureLine (LPOINT Point1, LPOINT Point2, int nWidth)
 {
     int x1, x2;
     int x;
-    int nHalfWidth = max (1, nWidth / 2);
+    int nHalfWidth = MAX (1, nWidth / 2);
 
     if (XY_COMPRESS (Point1.x) == XY_COMPRESS (Point2.x))
     {
-        x1 = XY_COMPRESS (min (Point1.x, Point2.x) - nHalfWidth);
-        x2 = XY_COMPRESS (max (Point1.x, Point2.x) + nHalfWidth);
+        x1 = XY_COMPRESS (MIN (Point1.x, Point2.x) - nHalfWidth);
+        x2 = XY_COMPRESS (MAX (Point1.x, Point2.x) + nHalfWidth);
 
         for (x = x1; x <= x2; x++)
         {
@@ -587,7 +587,7 @@ void DrawRealVertPictureLine (LPOINT Point1, LPOINT Point2, int nWidth)
 
 void DrawRealPictureLine (LPOINT Point1, LPOINT Point2, int nWidth)
 {
-    int nHalfWidth = max (1, nWidth / 2);
+    int nHalfWidth = MAX (1, nWidth / 2);
     RECTANGLE rBegin, rEnd;
 
     rBegin.xLeft   = XY_COMPRESS (Point1.x - nHalfWidth);
@@ -707,8 +707,8 @@ BYTE PageMatrixFlagsByIdealXY (int xIdeal, int yIdeal)
 
     REAL_XY (xReal, yReal);
 
-    xReal = min (max (xReal, 0), PAGE_MATRIX_REAL_WIDTH  - 1);
-    yReal = min (max (yReal, 0), PAGE_MATRIX_REAL_HEIGHT - 1);
+    xReal = MIN (MAX (xReal, 0), PAGE_MATRIX_REAL_WIDTH  - 1);
+    yReal = MIN (MAX (yReal, 0), PAGE_MATRIX_REAL_HEIGHT - 1);
 
     return (PageMatrix
             [

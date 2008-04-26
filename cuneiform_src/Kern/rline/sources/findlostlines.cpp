@@ -276,7 +276,7 @@ Bool32 findLostLines(CLINE_handle hCLINE, PAGEINFO* info)
 
 	if (pc)
 	{
-		Int32 max_cp = max(hori_cp, vert_cp);
+		Int32 max_cp = MAX(hori_cp, vert_cp);
 
 		if (max_cp > 1)//we need at least 2 cross points to reconstruct a line
 		{
@@ -584,10 +584,10 @@ Bool32 getLostLines(const FLLData *work_data, const LineData* aCPLines, const In
 
 	for (i = 0; i < cp; i++)
 	{
-		endj = min(max_cp, aCP[i].x + hyst_spread) - min_cp;
+		endj = MIN(max_cp, aCP[i].x + hyst_spread) - min_cp;
 		cp_dist[aCP[i].x - min_cp]++;
 
-		for (Int32 j = max(0, aCP[i].x - min_cp - hyst_spread); j < endj; j++)
+		for (Int32 j = MAX(0, aCP[i].x - min_cp - hyst_spread); j < endj; j++)
 			cp_hyst[j]++;
 	}
 
@@ -994,13 +994,13 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 
 						if (is_horiz)
 						{
-							beg = max(start_line.y, aContLines[k].rect.top);
-							end = min(finish_line.y, aContLines[k].rect.bottom);
+							beg = MAX(start_line.y, aContLines[k].rect.top);
+							end = MIN(finish_line.y, aContLines[k].rect.bottom);
 						}
 						else
 						{
-							beg = max(start_line.y, aContLines[k].rect.left);
-							end = min(finish_line.y, aContLines[k].rect.right);
+							beg = MAX(start_line.y, aContLines[k].rect.left);
+							end = MIN(finish_line.y, aContLines[k].rect.right);
 						}
 
 						beg -= start_line.y;
@@ -1056,13 +1056,13 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 
 						Int32 line_top = is_horiz ? aContLines[aInterval[k].base_line].rect.top : aContLines[aInterval[k].base_line].rect.left;
 
-						cur_line.y = max(start_line.y, is_horiz ? aContLines[aInterval[k].base_line].rect.top : aContLines[aInterval[k].base_line].rect.left);
+						cur_line.y = MAX(start_line.y, is_horiz ? aContLines[aInterval[k].base_line].rect.top : aContLines[aInterval[k].base_line].rect.left);
 						cur_line.x = finish_line.x + (Int32)(angle*(finish_line.y - cur_line.y));
 
 						if (start_line.y < cur_line.y)
 							updateLine(work_data, is_horiz, &start_line, &cur_line);
 
-						start_line.y = min(finish_line.y, is_horiz ? aContLines[aInterval[k].base_line].rect.bottom : aContLines[aInterval[k].base_line].rect.right);
+						start_line.y = MIN(finish_line.y, is_horiz ? aContLines[aInterval[k].base_line].rect.bottom : aContLines[aInterval[k].base_line].rect.right);
 						start_line.x = finish_line.x + (Int32)(angle*(finish_line.y - start_line.y));
 						cur_line = finish_line;
 					}

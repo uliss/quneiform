@@ -74,11 +74,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern  Int16      minrow,bbs1,bbs2,bbs3,bbs4,Nb1,Nb2,Nb3;
 extern  Word8      language;
 #ifndef max
-#define max(a,b)            (((a) > (b)) ? (a) : (b))
+#define MAX(a,b)            (((a) > (b)) ? (a) : (b))
 #endif
 
 #ifndef min
-#define min(a,b)            (((a) < (b)) ? (a) : (b))
+#define MIN(a,b)            (((a) < (b)) ? (a) : (b))
 #endif
 
 extern INT   up_position,dw_position;
@@ -239,7 +239,7 @@ if(CP)
        CP=Alik_sort(cut_points,(PINT)adr_cut_points,dx);
        if(CP)  CP=Alik_del_doubl_cut((PINT)adr_cut_points,product,penalty,CP);
       }
-     CP=min(STK_H-2,CP);   
+     CP=MIN(STK_H-2,CP);   
 
     }
    if (!CP)  Alik_tr_bit_matr(hor_byte,dx,adr_raster,raster_frag,ver_byte,dy);
@@ -264,8 +264,8 @@ if(CP)
      ans_ptr->x   = (CHAR)*((PINT)adr_cut_points+j);
      ans_ptr->h   = dy - *(trace+i);
      ans_ptr->dh  = dy+1 - *(trace+i+1)-*(trace+i);
-     ans_ptr->dh  = (CHAR)min(ans_ptr->dh,dy);
-     ans_ptr->dh  = min(ans_ptr->dh,ans_ptr->h);
+     ans_ptr->dh  = (CHAR)MIN(ans_ptr->dh,dy);
+     ans_ptr->dh  = MIN(ans_ptr->dh,ans_ptr->h);
      if (ans_ptr->dh < tret_h)   ans_ptr->var=1;
      else                        ans_ptr->var=8;
      ans_ptr++;
@@ -368,7 +368,7 @@ struct own_cut oct[STK_H],*ptr;
       oct[n].dh =ptr->dh;
       oct[n].var=ptr->var;
       if(oct[n].x==127)  break;
-      min_dh=min(min_dh,ptr->dh);
+      min_dh=MIN(min_dh,ptr->dh);
      }
 
  for (i=0; i<=n; i++)
@@ -538,7 +538,7 @@ INT  max_h,h_h,tret_h,dve_tret_h,chetvert_h,two_min_dh,begin[3],end[3];
         /*внизу три коротких одинаковых*/
         if(ans->h<=chetvert_h && (ans+1)->h<=chetvert_h && (ans+2)->h<=chetvert_h)
          {
-           max_h=max(max(ans->h,(ans+1)->h),max((ans+1)->h,(ans+2)->h));
+           max_h=MAX(MAX(ans->h,(ans+1)->h),MAX((ans+1)->h,(ans+2)->h));
            if(ans->h==max_h)      return 6;
            if((ans+1)->h==max_h)  return 8;
            else                   return 7;

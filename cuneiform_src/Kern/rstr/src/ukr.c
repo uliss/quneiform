@@ -66,6 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ligas.h"
 #include "linutil.h"
 #include "ukr.h"
+#include "minmax.h"
 
 strucI workI;
 
@@ -219,13 +220,13 @@ BOOL  proc_UKR_I( cell *c )
                ldis = c->prevl->col - c->prevl->prevl->col - c->prevl->prevl->w;
                rdis = c->nextl->col - c->col - c->w;
                mdis = c->col - c->prevl->col - c->prevl->w;
-               if( mdis < 2*min(ldis,rdis) ){
+               if( mdis < 2*MIN(ldis,rdis) ){
                   if(  2*ldis <= rdis ){
                      promote('b',c->prevl,UKR_ii,-30);
                      promote('b',c       ,UKR_i, -30);
                   }
                   else{
-                     if( 4*min(ldis,rdis) > c->w ){
+                     if( 4*MIN(ldis,rdis) > c->w ){
                         promote('b',c->prevl,UKR_i,-30);
                         promote('b',c       ,UKR_i,-30);
                      }

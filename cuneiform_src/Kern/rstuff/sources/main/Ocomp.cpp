@@ -93,7 +93,7 @@ static Int16 distance  (CCOM_interval16 *f, CCOM_interval16 *s)
 
 	Int16 fbeg=BEGIN(*f),sbeg=BEGIN(*s);
 	Int16 ro1=sbeg-f->e,ro2=fbeg-s->e;
-	return max(ro1,ro2);
+	return MAX(ro1,ro2);
 }
 
 
@@ -111,7 +111,7 @@ static CCOM_interval16 join(CCOM_interval16 *f, CCOM_interval16 *s)
 		return *f;
 
 	Int16 fbeg=BEGIN(*f),sbeg=BEGIN(*s);
-	Int16 rbeg=min(fbeg,sbeg),rend=max(f->e,s->e);
+	Int16 rbeg=MIN(fbeg,sbeg),rend=MAX(f->e,s->e);
 	CCOM_interval16	res={rend-rbeg,rend};
 	return res;
 }

@@ -638,7 +638,7 @@ for(ii=i=0;i<ver->lnAltCnt;i++)
     }
 
 v.Alt[ii]=ver->Alt[i_1];
-v.Alt[ii].Prob=max(ver->Alt[i_1].Prob,ver->Alt[i_2].Prob);
+v.Alt[ii].Prob=MAX(ver->Alt[i_1].Prob,ver->Alt[i_2].Prob);
 ii++;
 v.lnAltCnt=ii;
 leo_sort_vers_prob(&v);

@@ -153,8 +153,8 @@ BOOL StringIncludes (STRING *p, STRING *q)
         // 940223 AL   replaced by:   check SF_VERTCUT
         //int    nPBigDistance = (p -> yMiddleBottom - p -> yMiddleTop + 1) * 6;
         //int    nQBigDistance = (q -> yMiddleBottom - q -> yMiddleTop + 1) * 6;
-        //int    nTestDistance = min (nPBigDistance, nQBigDistance);
-        //int    nPQDistance = max (q->xLeft - p->xRight,p->xLeft - q->xRight );
+        //int    nTestDistance = MIN (nPBigDistance, nQBigDistance);
+        //int    nPQDistance = MAX (q->xLeft - p->xRight,p->xLeft - q->xRight );
           bNotIncludes =
             (
                 (q -> uFlags & SF_VERTCUT) &&

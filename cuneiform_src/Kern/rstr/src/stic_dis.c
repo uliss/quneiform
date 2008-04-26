@@ -74,6 +74,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "struct.h"
   #include "tuner.h"
   #include "linutil.h"	// 31.05.2002 E.P.
+#include "minmax.h"
 
 #ifdef UFA
 extern BYTE no_linear_crit;
@@ -259,7 +260,7 @@ switch( let )
   if( language == LANG_RUSSIAN && langUkr )
     if( let == 'i' ){
        if( dis > 0 )
-         dis = min(dis,dis_i(l,r,s,2));
+         dis = MIN(dis,dis_i(l,r,s,2));
     }
 
 
@@ -361,7 +362,7 @@ if( i )  {	// (2) pitch font
 			dis += tab_0xBA[1];	// long upper left flag	// 20
 		}
 	lm = l->mount[4]; rm=r->mount[4];
-	t=max(wid/2,3);
+	t=MAX(wid/2,3);
 	if( lm>t && rm<2 )	/* left long downer flag, right - small */
 		dis += tab_0xBA[2];					// 10
 	else
@@ -392,7 +393,7 @@ if( i )  {	// (2) pitch font
 
 	DIS_CENTER_FLAG(r,2,wid,inc,tab_0xBA[6],tab_0xBA[7]);
 	if ( l->down_serif && r->down_serif &&
-	     min(l->mount[4],r->mount[4])<4 &&
+	     MIN(l->mount[4],r->mount[4])<4 &&
 	     s->neck<3)		// add 25.05.1993
 		DIS_DIFFERENT_SERIFS(l,r,4,2,wid,tab_0xBA[13]);		// *26
 
@@ -498,7 +499,7 @@ if ( s->neck < 2  &&  r->down_serif  &&	// 16.02.1993  fax9/20(19) "tool"
 		dis += tab_0xBA[22];					// 50
 
 				// similar TOO LONG 'L' (h3/32) "L. Steele"
-if ((min(wid,6) + wid + r->mount[4]) > dy)			// 12.10.1993
+if ((MIN(wid,6) + wid + r->mount[4]) > dy)			// 12.10.1993
 	dis += 100;		// too LONG right down flag		// 100
 
 				// 16.01.1994	PROBA dis/=2 for NECK==3;
@@ -511,7 +512,7 @@ static INT dis_i (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
 		  INT npoints_1_or_2)  {		// 17.01.1994
 INT	dis=0;
 INT	wid=s->stick_width, inc=s->inc;
-INT maxlen = max (max(l->mount[0],l->mount[4]), max(r->mount[0],l->mount[4]));
+INT maxlen = MAX (MAX(l->mount[0],l->mount[4]), max(r->mount[0],l->mount[4]));
 
 /*......................................................................*/
 				// 05.08.1993 about DOT:
@@ -549,9 +550,9 @@ if ( (maxlen + s->stick_width + maxlen)*2  >  s->height*3 )	// 08.07.1993
 
 //////if (l->mount[0] > l->mount[4] + r->mount[4] + 2)		// 28.07.1993
 if (l->mount[0] >	// see frae7/10,  stdm11/8:		// 29.07.1993
-////max ((l->mount[4] + r->mount[4] + 2), (s->stick_width + 1)))
+////MAX ((l->mount[4] + r->mount[4] + 2), (s->stick_width + 1)))
 				// 17.01.1994 frac11/15 "Writer":
-    max ((l->mount[4] + r->mount[4] + 1), (s->stick_width + 1)))
+    MAX ((l->mount[4] + r->mount[4] + 1), (s->stick_width + 1)))
 	dis += 166;		// "reverse r" for "ri" -> "ii"		// 166
 			// NOTA BENE: "max" - for ZONE-3 R.DOWN, NO L.DOWN !!!
 
@@ -604,7 +605,7 @@ INT	wid=s->stick_width, inc=s->inc;
 INT	tt = (dy>30) ? 2 : 1;	// 25.02.1993	// CAUTION: USED TWICE ######
 //////INT	d_L, d_R;	// 04.06.1993
 
-lmu = max(l->mount[0],l->mount[1]);  rmu = max(r->mount[0],r->mount[1]);
+lmu = MAX(l->mount[0],l->mount[1]);  rmu = max(r->mount[0],r->mount[1]);
 lmd = l->mount[4];  rmd = r->mount[4];
 
 /*......................................................................*/
@@ -680,15 +681,15 @@ if ( (s->typ_nose_1==0)  &&		// 02.06.1993 PROBA:
 		dis += 20;	// PROBA-20				// 20
 
 /******************************************************************
-if (r->conc[0]>=max(wid,3))	// 09.06.1993  for CUT. 'h' to "ll"
+if (r->conc[0]>=MAX(wid,3))	// 09.06.1993  for CUT. 'h' to "ll"
 	dis += 80;		// PROBA-80				// 80
 	***************************************************************/
 
 if (s->cut_r &&		// 09.06.1993 PROBA for CUT. "The" (stdj10);
     (r->mount[0] || r->m_meandr==0) &&
     !r->down_serif &&
-////l->mount[0]>max(wid*2-3,5))	// first
-    l->mount[0]>max(wid,5))	// second
+////l->mount[0]>MAX(wid*2-3,5))	// first
+    l->mount[0]>MAX(wid,5))	// second
 //////	dis += 80;		// PROBA-80				// 80
 //////	dis += 160;		// PROBA-160				// 160
 	dis += (rmu+2)*80;	// PROBA-rmu"*80			// *80
@@ -892,13 +893,13 @@ if ( (num_z==3) &&					// 01.06.1993
 		dis += tab_l[11];	// similar 'f','1'	// 48
 
 if ( (num_l==1) &&				// 09.07.1993, 12.10.1993
-/////(rmd>max(wid,3)) && (l->conc[4]*2<wid))	// fraa13/10	'L' (4:5)
-     (rmd>max(wid,4)) && (l->conc[4]*2<wid))	// stdg19/8(11) 'l' (3:4)
+/////(rmd>MAX(wid,3)) && (l->conc[4]*2<wid))	// fraa13/10	'L' (4:5)
+     (rmd>MAX(wid,4)) && (l->conc[4]*2<wid))	// stdg19/8(11) 'l' (3:4)
 		dis += tab_l[11];	// similar 'L'		// 48
 
 if ( num_l==3 && lmu>0 && s->typ_nose_1==1 &&	// OLD OLEG   &&
 /////pitchsize==0 &&					// 25.05.1993 &&
-     ( (pitchsize==0) || (l->m_pos[0]>=max(wid,5)-1) ) &&	// 01.06.1993 &&
+     ( (pitchsize==0) || (l->m_pos[0]>=MAX(wid,5)-1) ) &&	// 01.06.1993 &&
      lmu >= lmd)					// 31.05.1993
 	dis += tab_l[11];	// similar '1'			// 48
 
@@ -928,7 +929,7 @@ if ( ( lmd==0 || (lmd==1 && dy>30) || (rmd<<1>dy && lmd<3) ) &&
 	}
 
 /******************************************
-if (r->conc[0]>=max(wid,3))	// 09.06.1993  for CUT. 'h' to "ll"
+if (r->conc[0]>=MAX(wid,3))	// 09.06.1993  for CUT. 'h' to "ll"
 	dis += 80;		// PROBA-80			// 80
 	***********************************/
 
@@ -958,8 +959,8 @@ if (dis<tab_l[10] && lmu>tt && rmu>tt && lmd>tt)  dis = tab_l[10];	// 70;
 if (s->cut_r &&		// 09.06.1993 PROBA for CUT. "The" (stdj10);
     (r->mount[0] || r->m_meandr==0) &&
     !r->down_serif &&
-////l->mount[0]>max(wid*2-3,5))	// first
-    l->mount[0]>max(wid,5))	// second
+////l->mount[0]>MAX(wid*2-3,5))	// first
+    l->mount[0]>MAX(wid,5))	// second
 //////	dis += 80;		// PROBA 80			// 80
 //////	dis += 160;		// PROBA 160			// 160
 	dis += (rmu+2)*80;	// PROBA rmu"*80		// *80
@@ -1016,7 +1017,7 @@ if( wid<3 )  { l->c_meandr++;  r->c_meandr++;  }	// MODIFY c_meandr !!!
 	    }
 
 				// add 25.05.1993 for stdf12/11 "Given"
-	if (s->neck && l->m_pos[0]>max(5,s->base_2))	// ZONE-0 TOO DOWN !!!
+	if (s->neck && l->m_pos[0]>MAX(5,s->base_2))	// ZONE-0 TOO DOWN !!!
 		DIS_CENTER_FLAG (l,0,wid,inc,tab_l[6],d_L);	// 60, 12(0)
 
 DIS_FLAGS_L_R(1,tab_l[6]);				// 60, 12(0)/12(0)
@@ -1189,11 +1190,11 @@ if ( (num_z==3) &&					// 01.06.1993
 		dis += tab_l[11];	// similar 'f','1'	// 48
 
 if ( (num_l==1) &&				// 09.07.1993, 12.10.1993
-     (rmd>max(wid,4)) && (l->conc[4]*2<wid))	// stdg19/8(11) 'l' (3:4)
+     (rmd>MAX(wid,4)) && (l->conc[4]*2<wid))	// stdg19/8(11) 'l' (3:4)
 		dis += tab_l[11];	// similar 'L'		// 48
 
 if ( num_l==3 && lmu>0 && s->typ_nose_1==1 &&	// OLD OLEG   &&
-     ( (pitchsize==0) || (l->m_pos[0]>=max(wid,5)-1) ) &&	// 01.06.1993 &&
+     ( (pitchsize==0) || (l->m_pos[0]>=MAX(wid,5)-1) ) &&	// 01.06.1993 &&
      lmu >= lmd)					// 31.05.1993
 	dis += tab_l[11];	// similar '1'			// 48
 
@@ -1231,7 +1232,7 @@ if (dis<tab_l[10] && lmu>tt && rmu>tt && lmd>tt)  dis = tab_l[10];	// 70;
 if (s->cut_r &&		// 09.06.1993 PROBA for CUT. "The" (stdj10);
     (r->mount[0] || r->m_meandr==0) &&
     !r->down_serif &&
-    l->mount[0]>max(wid,5))	// second
+    l->mount[0]>MAX(wid,5))	// second
 	dis += (rmu+2)*80;	// PROBA rmu"*80		// *80
 }
 /*......................................................................*/
@@ -1283,7 +1284,7 @@ if( l->mount[2]<3 || r->mount[2]<3 )
     dis += 30;
 
   if( l->conc[2]>1 && r->conc[2]>1 && wid<7 )
-    dis += 20*max(r->conc[2],l->conc[2]);
+    dis += 20*MAX(r->conc[2],l->conc[2]);
 
   if( l->mount[1]+l->mount[2]+r->mount[1]+r->mount[2]<3 )
     dis +=10;
@@ -1293,7 +1294,7 @@ if( l->mount[2]<3 || r->mount[2]<3 )
 
   if( r->mount[4] )
     {
-    rm = max(r->mount[1],r->mount[2]);
+    rm = MAX(r->mount[1],r->mount[2]);
     if( r->mount[4]==1 )
       {
       if( rm<1 )
@@ -1316,7 +1317,7 @@ if( l->mount[2]<3 || r->mount[2]<3 )
       }
     else
       {
-      lm = max(l->mount[1],l->mount[2]);
+      lm = MAX(l->mount[1],l->mount[2]);
       if( l->mount[4]<3 && lm<2 )
         dis+=80;
       if( l->mount[4]>2 && abs(l->mount[4] - lm)>2 )

@@ -353,12 +353,12 @@ static Bool32 get_stats()
         alt=&uni.Alt[0];   let=alt->Code[0];
 
       //для кегл
-        attr.keg=min(attr.keg,MAX_KEG-1);
+        attr.keg=MIN(attr.keg,MAX_KEG-1);
         if(!(attr.flg & CSTR_f_space) && attr.keg && uni.lnAltCnt)
         {
           keg=attr.kegf=attr.keg;
-          max_keg=max(keg,max_keg);
-          min_keg=min(keg,min_keg);
+          max_keg=MAX(keg,max_keg);
+          min_keg=MIN(keg,min_keg);
           keg_stats[keg]++;
         }
         CSTR_SetAttr(rst,&attr);
@@ -503,7 +503,7 @@ static void get_keg_tab()
     {
       if (rise)
       {                  //найден локальный максимум
-        Int32 tol=min(prev_max_n,prev_n)/3;
+        Int32 tol=MIN(prev_max_n,prev_n)/3;
         Word16 *cur_max=keg_statsi-1;
         if (num_keg_opt>0)       //не первый кегль
         {
@@ -613,7 +613,7 @@ static void  cor_fax_fragment()
     keg=keg_tab[keg0].keg0;
     if (keg>0)
     {
-      max_keg=max(max_keg,keg);
+      max_keg=MAX(max_keg,keg);
       stat[keg]++;
     }
   }
@@ -627,11 +627,11 @@ static void  cor_fax_fragment()
       keg0=get_word_keg();
       keg=keg_tab[keg0].keg0;
       keg=abs(keg);
-      max_keg=max(max_keg,keg);
+      max_keg=MAX(max_keg,keg);
       stat[keg]++;
       keg=keg_tab[keg0].keg1;
       keg=abs(keg);
-      max_keg=max(max_keg,keg);
+      max_keg=MAX(max_keg,keg);
       stat[keg]++;
     }
     while(next_word());
@@ -1150,17 +1150,17 @@ static void garbage_fragments()
 
           if(!(attr.flg & CSTR_f_space) && attr.keg && uni.lnAltCnt)
           {
-            rect->top=min(rect->top,attr.r_row);
-            rect->left=min(rect->left,attr.r_col);
-            rect->bottom=max(rect->bottom,attr.r_row+attr.h);
-            rect->right=max(rect->right,attr.r_col+attr.w);
+            rect->top=MIN(rect->top,attr.r_row);
+            rect->left=MIN(rect->left,attr.r_col);
+            rect->bottom=MAX(rect->bottom,attr.r_row+attr.h);
+            rect->right=MAX(rect->right,attr.r_col+attr.w);
 
-            rsti->max_keg=max(attr.keg,rsti->max_keg);
-            rsti->min_keg=min(attr.keg,rsti->min_keg);
+            rsti->max_keg=MAX(attr.keg,rsti->max_keg);
+            rsti->min_keg=MIN(attr.keg,rsti->min_keg);
             if (rsti->flag & RS_GOOD)
             {
-              max_keg=max(attr.keg,max_keg);
-              min_keg=min(attr.keg,min_keg);
+              max_keg=MAX(attr.keg,max_keg);
+              min_keg=MIN(attr.keg,min_keg);
             }
           }
         }
@@ -1182,7 +1182,7 @@ static void garbage_fragments()
 
       cover_rect(&main_area,rect);
       main_found=TRUE;
-      hmax=min(main_area.bottom,V_SIZE-1);
+      hmax=MIN(main_area.bottom,V_SIZE-1);
       for (j=main_area.top; j<=hmax; j++)  vproj[j]=1;
 
       if (page_num && page_num->top != main_area.top && page_num->bottom != main_area.bottom)
@@ -1250,8 +1250,8 @@ static void garbage_fragments()
       }
 
       rect=&rsti->rect;
-      d=min(rect->bottom-rect->top,rect->right-rect->left);
-      mainsize=min(main_area.right-main_area.left,main_area.bottom-main_area.top);
+      d=MIN(rect->bottom-rect->top,rect->right-rect->left);
+      mainsize=MIN(main_area.right-main_area.left,main_area.bottom-main_area.top);
       ingap=in_gap(rect->top,rect->bottom,vproj);
 
       if (main_area.top-rect->bottom>d || rect->top-main_area.bottom>d)   //далеко вверху или внизу
@@ -1282,7 +1282,7 @@ static void garbage_fragments()
       }
       else  //близко или внутри
       {
-        Int32 size=max(rect->right-rect->left,rect->bottom-rect->top);
+        Int32 size=MAX(rect->right-rect->left,rect->bottom-rect->top);
         if (SMALL_FRAG*size>mainsize)
         {
           if (rsti->min_keg>=min_keg && rsti->max_keg<=max_keg)  rsti->flag=RS_ADD;
@@ -1317,7 +1317,7 @@ static void garbage_fragments()
 
   // расширение прямоугольника и коррекция проекции
       cover_rect(&main_area,&rsti->rect);
-      hmax=min(main_area.bottom,V_SIZE-1);
+      hmax=MIN(main_area.bottom,V_SIZE-1);
       for (j=main_area.top; j<=hmax; j++)  vproj[j]=1;
 
       if (page_num && page_num->top != main_area.top && page_num->bottom != main_area.bottom)
@@ -1544,10 +1544,10 @@ static void pull_rect(Rect32 *rect, Point32 *point)
 
 static void cover_rect(Rect32 *main_area, Rect32 *rect)
 {
-  main_area->top=min(main_area->top,rect->top);
-  main_area->left=min(main_area->left,rect->left);
-  main_area->right=max(main_area->right,rect->right);
-  main_area->bottom=max(main_area->bottom,rect->bottom);
+  main_area->top=MIN(main_area->top,rect->top);
+  main_area->left=MIN(main_area->left,rect->left);
+  main_area->right=MAX(main_area->right,rect->right);
+  main_area->bottom=MAX(main_area->bottom,rect->bottom);
 }
 
 static Int32 rect_dist(Rect32 *main, Rect32 *test)
@@ -1559,10 +1559,10 @@ static Int32 rect_dist(Rect32 *main, Rect32 *test)
   Int32 y2=test->top-main->bottom;
   if (x1>0 || x2>0 || y1>0 || y2>0)   //не пересекаютс
   {
-    x=max(x1,x2);  y=max(y1,y2);
+    x=MAX(x1,x2);  y=max(y1,y2);
     if (x<0)  return y;
     if (y<0)  return x;
-    return min(x,y);
+    return MIN(x,y);
   }
 
 //пересекаютс
@@ -1570,8 +1570,8 @@ static Int32 rect_dist(Rect32 *main, Rect32 *test)
   x2=test->right-main->right;
   y1=main->top-test->top;
   y2=test->bottom-main->bottom;
-  x=max(x1,x2);  y=max(y1,y2);
-  x=max(x,y);
+  x=MAX(x1,x2);  y=max(y1,y2);
+  x=MAX(x,y);
   return (x>0) ? x : 0;
 }
 
@@ -1586,9 +1586,9 @@ static Int32 dist_border(Rect32 *rect)
   Int32 rv=MAXINT32;
   PAGEINFO     PageInfo;
   GetPageInfo(hCPAGE,&PageInfo);
-  rv=min(rect->left,rect->top);
-  rv=min(rv,(Int32)PageInfo.Width-rect->right);
-  rv=min(rv,(Int32)PageInfo.Height-rect->bottom);
+  rv=MIN(rect->left,rect->top);
+  rv=MIN(rv,(Int32)PageInfo.Width-rect->right);
+  rv=MIN(rv,(Int32)PageInfo.Height-rect->bottom);
   return rv;
 }
 
@@ -1668,7 +1668,7 @@ static void draw_keg(char *str)
             Int32 keg = attr.keg;
             Word8 green;
 //             if (j==1)  keg /= 2;
-            keg=min(keg,max_keg);
+            keg=MIN(keg,max_keg);
             green=(Word8)(255*(max_keg-keg)/keg_range);
 
             box.left=attr.r_col;  box.right=box.left+attr.w-1;
@@ -1750,7 +1750,7 @@ static void keg_frag_stats()
         if(!(attr.flg & CSTR_f_space) && attr.keg && uni.lnAltCnt)
         {
           Word8 keg=attr.keg;
-          max_keg=max(keg,max_keg);
+          max_keg=MAX(keg,max_keg);
           keg_stats[keg]++;
         }
       }

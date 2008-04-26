@@ -470,7 +470,7 @@ BOOL WSB_BreakBlock (BLOCK * p, WSB_POINT Point)
     {
     }
 
-    if (iRSpaceEnd - iLSpaceEnd - 1 < max (p -> nAverageHeight, 1))
+    if (iRSpaceEnd - iLSpaceEnd - 1 < MAX (p -> nAverageHeight, 1))
         goto NO_BREAK;
 
     /*
@@ -578,8 +578,8 @@ BOOL WSB_CutUpperLine (BLOCK * p, WSB_POINT Point)
      **  2.3. Find intersection of page and block minimum intervals
      **/
 
-    xLeftCorrected  = max (Point.xBegin + xWSB_HystOffset, xLeftBlockMin);
-    xRightCorrected = min (Point.xEnd   + xWSB_HystOffset, xRightBlockMin);
+    xLeftCorrected  = MAX (Point.xBegin + xWSB_HystOffset, xLeftBlockMin);
+    xRightCorrected = MIN (Point.xEnd   + xWSB_HystOffset, xRightBlockMin);
 
     /**
      **  2.4. Discrimination corrected white strip

@@ -70,6 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  #include "linutil.h"
  #include "ligas.h"
  #include "func.h"
+#include "minmax.h"
 
 extern BYTE p2_active;
 // Discrim © by base lines                              *
@@ -87,7 +88,7 @@ INT pen=0,upper=32000,dis,i;
 
  get_b_lines(gl->celist[0],&bl);
  for(i=0;i < gl->ncell;i++)
-  upper = min(upper,gl->celist[i]->row);
+  upper = MIN(upper,gl->celist[i]->row);
 
  if(let==(BYTE)'©' &&
 	 !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
@@ -201,7 +202,7 @@ if(0&&!p2_active)  // OLEG
       return -1; //OLEG:new return style of composed
      let = is_lower(let) ? (BYTE)'©' : (BYTE)'‰';
         c->vers[0].let = let;
-	c->vers[0].prob=min(254,c->vers[0].prob+2);
+	c->vers[0].prob=MIN(254,c->vers[0].prob+2);
 	c->recsource = 0; // artifact
 	c->dens = 255; // undef
      c->nvers=1;c->vers[1].let=c->vers[1].prob=0;
@@ -237,10 +238,10 @@ INT i,cap_row,cap_col,cap_h,cap_w,cap_rt,cap_bt,ncaps;
       cap_row=cap_col=32000; cap_rt=cap_bt=0;i=0;
       while(cap=caplist[i]){
       i++;
-      cap_row=min(cap_row,cap->row);
-      cap_col=min(cap_col,cap->col);
-      cap_rt =max(cap_rt,cap->col+cap->w);
-      cap_bt =max(cap_bt,cap->row+cap->h);
+      cap_row=MIN(cap_row,cap->row);
+      cap_col=MIN(cap_col,cap->col);
+      cap_rt =MAX(cap_rt,cap->col+cap->w);
+      cap_bt =MAX(cap_bt,cap->row+cap->h);
       }
       cap_h = cap_bt-cap_row;
       cap_w = cap_rt-cap_col;
@@ -268,7 +269,7 @@ INT i,cap_row,cap_col,cap_h,cap_w,cap_rt,cap_bt,ncaps;
       return 0; //OLEG:new return style of composed
      let = is_lower(let) ? (BYTE)'©' : (BYTE)'‰';
         c->vers[0].let = let;
-	c->vers[0].prob=min(254,c->vers[0].prob+2);
+	c->vers[0].prob=MIN(254,c->vers[0].prob+2);
 	c->recsource = 0; // artifact
 	c->dens = 255; // undef
      c->nvers=1;c->vers[1].let=c->vers[1].prob=0;

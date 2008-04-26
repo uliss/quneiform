@@ -282,7 +282,7 @@ static Bool32 GoodSpell(CSTR_rast first,CSTR_rast last,int minSize)
 
         lang=attr.language;
         wrd[nlet++]=verOld.Alt[0].Code;
-        minProb=min(minProb,verOld.Alt[0].Prob);
+        minProb=MIN(minProb,verOld.Alt[0].Prob);
         if(nlet>=MAX_LEN_WORD)
                 return FALSE;
    }
@@ -1635,7 +1635,7 @@ Int32			porogFine;
 		verNew = verOld;
 		//memset(&verNew,0,sizeof(verNew));
 		for( i=0;i<verOld.lnAltCnt;i++)
-			verNew.Alt[i].Prob=min(verNew.Alt[i].Prob,POROG_BROKEN);
+			verNew.Alt[i].Prob=MIN(verNew.Alt[i].Prob,POROG_BROKEN);
 		rast = FillAnswer(lineOut,rst,&verNew,rast);
 
         if( p2globals.enable_smart_cut )
@@ -1808,10 +1808,10 @@ static void AddToRect(Rect32 *rect,CSTR_rast_attr *attr,CSTR_rast first)
 	}
 	else
 	{
-	    rect->bottom = max(rect->bottom,attr->row+attr->h);
-        rect->top    = min(rect->top,attr->row);
-        rect->right  = max(rect->right, attr->col+attr->w);
-        rect->left   = min(rect->left, attr->col);
+	    rect->bottom = MAX(rect->bottom,attr->row+attr->h);
+        rect->top    = MIN(rect->top,attr->row);
+        rect->right  = MAX(rect->right, attr->col+attr->w);
+        rect->left   = MIN(rect->left, attr->col);
     } 
 }
 ///////////////
@@ -1823,7 +1823,7 @@ static int FindEqualLine(CSTR_line lineRaw,CSTR_rast *firOld,CSTR_rast *lasOld,R
  Rect32 newrect;
  Int32  nFind;
 
- bLeft = max(bLeft, rect->left - porog );
+ bLeft = MAX(bLeft, rect->left - porog );
         
         *firOld=(CSTR_rast)NULL;
 		firNew = NULL;
@@ -2133,7 +2133,7 @@ int  leftBou;
 					strchr(bigPuncts,verOld.Alt[0].Code)
 				  )
 				{
-					prob = min(prob,verOld.Alt[0].Prob);
+					prob = MIN(prob,verOld.Alt[0].Prob);
 					AddToRect(&rect, &attr, firstNew );
 					rst = CSTR_GetNext(rst);
 					if( RecogBrokenPalki( firstNew, rst, lineRaw, &rect, language,prob) )
@@ -2189,9 +2189,9 @@ int  leftBou;
 		if(nBrok == 1)
 		{
 			if( wasPunct == TRUE ) // Nick 09.07.2002 - for "->u,n
-				porog = max(POROG_2PALKI,initClink);
+				porog = MAX(POROG_2PALKI,initClink);
 			else
-				porog = max(POROG_BROKEN,initClink);
+				porog = MAX(POROG_BROKEN,initClink);
 		}
 		else
 			porog = POROG_BROKEN;
@@ -2203,7 +2203,7 @@ int  leftBou;
 			if( leftRast )
 			{
 				CSTR_GetAttr(leftRast, &leftAttr);
-                leftBou = min(rect.left, leftAttr.col+leftAttr.w);
+                leftBou = MIN(rect.left, leftAttr.col+leftAttr.w);
 			}
 			else
 				leftBou = rect.left-4;
@@ -2293,7 +2293,7 @@ static int RecogBrokenPalki(CSTR_rast firLeo,CSTR_rast lasLeo,
 	  if( lasLeo )
 	  {
          CSTR_GetAttr(lasLeo,&attr);
-         rightBou = max(rect->right, (rect->right+attr.col)/2);
+         rightBou = MAX(rect->right, (rect->right+attr.col)/2);
 	  }
 	  else
 		  rightBou = rect->right;
@@ -2365,7 +2365,7 @@ Int32 prob;
 				continue;
 			}
 
-			prob = min(prob,verOld.Alt[0].Prob);
+			prob = MIN(prob,verOld.Alt[0].Prob);
 			AddToRect(&rect, &attr, firstNew );
 			rst = CSTR_GetNext(rst);
 			if( RecogBrokenPalki( firstNew, rst, lineRaw, &rect, language,prob) )
@@ -2716,7 +2716,7 @@ int     palkiNew = 0;
                                            numFONnotLEO++;
                    if(vrFon.Alt[0].Prob >  TRSFINE ) strong++;
                    else if(vrFon.Alt[0].Prob >  TRSNOTBAD ) nsb++;
-                   minFon=min(minFon,vrFon.Alt[0].Prob);
+                   minFon=MIN(minFon,vrFon.Alt[0].Prob);
                 }
                 else
                         minFon=0;
@@ -2739,7 +2739,7 @@ int     palkiNew = 0;
                         }
                         else if( vrFon.lnAltCnt > 0 )
                         {       
-                                minLeo=min(minLeo,vrLeo.Alt[0].Prob);
+                                minLeo=MIN(minLeo,vrLeo.Alt[0].Prob);
                                 // пунктуация лучше плохой буквы
                                 if( attrFon.flg & (CSTR_f_punct) )
                                 {
@@ -2972,9 +2972,9 @@ CSTR_rast       lStart = *oldLStart;
                  break;
 
    if(nextLeo)
-    lRight=max(leoRight,attrNextLeo.col+attrNextLeo.w);
+    lRight=MAX(leoRight,attrNextLeo.col+attrNextLeo.w);
    if(nextFon)
-    fRight=max(fonRight,attrNextFon.col+attrNextFon.w);
+    fRight=MAX(fonRight,attrNextFon.col+attrNextFon.w);
 
    // кого добавить ?
    if( (nextLeo && nextFon && 
@@ -2989,7 +2989,7 @@ CSTR_rast       lStart = *oldLStart;
          curLeo = nextLeo;
          if( !CSTR_GetAttr (curLeo, &attrLeo ) )
             return -3;
-         leoRight=max(leoRight,attrLeo.col+attrLeo.w);
+         leoRight=MAX(leoRight,attrLeo.col+attrLeo.w);
      nextLeo  = GetFirstLetter(CSTR_GetNext(curLeo),lEnd);
    }
    else if( ( nextLeo && nextFon && 
@@ -3003,7 +3003,7 @@ CSTR_rast       lStart = *oldLStart;
          curFon = nextFon;
          if( !CSTR_GetAttr (curFon, &attrFon ) )
             return -3;
-         fonRight=max(fonRight,attrFon.col+attrFon.w);
+         fonRight=MAX(fonRight,attrFon.col+attrFon.w);
      nextFon  = GetFirstLetter(CSTR_GetNext(curFon),fEnd);
    }
    else 

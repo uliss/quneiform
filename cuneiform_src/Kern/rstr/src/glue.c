@@ -63,6 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cuthdr.h"
 #include "dmconst.h"
 #include "func.h"
+#include "minmax.h"
 
 static INT n1,n2;
 static INT h1,h2, h10, h20;
@@ -424,8 +425,8 @@ static INT glueable()
    if (a == B)   { gi1e=B+1; gi2e=B+1; return(1);}
    if ((b > A) && (a < B))
     {
-    gi1e=gi2e=min(b,B)+1;
-    gi1l=gi2l=gi1e-max(a,A);
+    gi1e=gi2e=MIN(b,B)+1;
+    gi1l=gi2l=gi1e-MAX(a,A);
     return(1);
     }
    ret03:
@@ -444,8 +445,8 @@ static INT glueable()
    if (a == B)   { gi1e=B+1;           return(1);}
    if ((b > A) && (a < B))
     {
-    gi1e=min(b,B)+1;
-    gi1l=gi1e-max(a,A);
+    gi1e=MIN(b,B)+1;
+    gi1l=gi1e-MAX(a,A);
     return(1);
     }
    ret02:

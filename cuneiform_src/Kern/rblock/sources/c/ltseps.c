@@ -336,8 +336,8 @@ void SeparatorsGet (void)
 				   (pSeps[i].yBegin > pSeps[j].yEnd)			 &&
 				   (pSeps[i].yBegin - pSeps[j].yEnd) < ResolutionCoeff/2)
 				{
-					pSeps[i].xBegin = min(pSeps[i].xBegin, pSeps[j].xBegin);
-					pSeps[i].xEnd = max(pSeps[i].xEnd, pSeps[j].xEnd);
+					pSeps[i].xBegin = MIN(pSeps[i].xBegin, pSeps[j].xBegin);
+					pSeps[i].xEnd = MAX(pSeps[i].xEnd, pSeps[j].xEnd);
 					pSeps[i].yBegin = pSeps[j].yBegin;
 					DeleteSeps(j);
 					j--;
@@ -350,8 +350,8 @@ void SeparatorsGet (void)
 				   (pSeps[i].xBegin > pSeps[j].xEnd)			 &&
 				   (pSeps[i].xBegin - pSeps[j].xEnd) < ABS2)
 				{
-					pSeps[i].yBegin = min(pSeps[i].yBegin, pSeps[j].yBegin);
-					pSeps[i].yEnd = max(pSeps[i].yEnd, pSeps[j].yEnd);
+					pSeps[i].yBegin = MIN(pSeps[i].yBegin, pSeps[j].yBegin);
+					pSeps[i].yEnd = MAX(pSeps[i].yEnd, pSeps[j].yEnd);
 					pSeps[i].xBegin = pSeps[j].xBegin;
 					DeleteSeps(j);
 					j--;
@@ -383,8 +383,8 @@ void SeparatorsGet (void)
 # else
 static int SepComp (const SEPARATOR *p, const SEPARATOR *q)		//AK 04.03.97
 {
-    return (max (abs (q -> xEnd - q -> xBegin), abs (q -> yEnd - q -> yBegin)) -
-            max (abs (p -> xEnd - p -> xBegin), abs (p -> yEnd - p -> yBegin)));
+    return (MAX (abs (q -> xEnd - q -> xBegin), abs (q -> yEnd - q -> yBegin)) -
+            MAX (abs (p -> xEnd - p -> xBegin), abs (p -> yEnd - p -> yBegin)));
 }
 
 void SeparatorsGet (void)

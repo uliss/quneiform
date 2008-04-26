@@ -269,8 +269,8 @@ BYTE *rr;
      for(j=stx;j<stx+ww;j++)   if(curr[j]> wei) dist++;
   if(dist > porog) return dist;
 
-  lasty=min(starty+h,sty+hh);
-  lastx=min(startx+w,stx+ww);
+  lasty=MIN(starty+h,sty+hh);
+  lastx=MIN(startx+w,stx+ww);
 
   if( starty < sty) r+=(sty-starty)*fullByte;
 
@@ -421,8 +421,8 @@ BYTE *rr;
      for(j=stx;j<stx+ww;j++)   if(curr[j]> wei) dist++;
  if(dist > porog) return dist;
 
- lasty=min(starty+h,sty+hh);
- lastx=min(startx+w,stx+ww);
+ lasty=MIN(starty+h,sty+hh);
+ lastx=MIN(startx+w,stx+ww);
  if( starty < sty) r+=(sty-starty)*fullByte;
 
  if(startx < stx)  
@@ -538,7 +538,7 @@ int distWelet(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int porog,int countR
 {
  WORD best,east,west,north,south,center;
  int   lbest;   // local best
- int bound=140; //2*min(50,w+h);
+ int bound=140; //2*MIN(50,w+h);
  int initPorog=porog;
 
  best=east=west=north=south=center=lbest=0;
@@ -656,17 +656,17 @@ static int LookBestClusters(int w,int h,BYTE *buf,BYTE *bufrazmaz,
 	  )
 	)
   {
-	 if(  j*5 >  min(h,wel->mh)  ) 
+	 if(  j*5 >  MIN(h,wel->mh)  ) 
 	   continue; 
   }
   else
   {
-   if( j > 2 && j*4 >  max(h,wel->mh)  ) 
+   if( j > 2 && j*4 >  MAX(h,wel->mh)  ) 
 	   continue; 
   }
 
   j=abs(wel->mw-w);
-  if( j > 3 && j*3 >= max(w,wel->mw) ) continue;
+  if( j > 3 && j*3 >= MAX(w,wel->mw) ) continue;
   
   dist=distWelet(buf,bufrazmaz,w,h,wel,porog+1,countRazmaz);
 
@@ -782,7 +782,7 @@ static SINT CheckLetter(SINT w,SINT h,BYTE *buf,BYTE *bufrazmaz,
 
   if(dist <= porog) 
   {
-   Word8 prob=max(0,255-STRAFPOINT*dist);  
+   Word8 prob=MAX(0,255-STRAFPOINT*dist);  
    numAlt = AddTestAlt( prob,numAlt,attr,wel,i);
   }
   
@@ -826,7 +826,7 @@ SINT RecogClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
   Razmaz2(buf,bufrazmaz,xbit,yrow, 0,POROG_ANGLES); 
 
   if(porog < 0) 
-	  porog=min(50,xbit+yrow+4);
+	  porog=MIN(50,xbit+yrow+4);
 
   if(maxNames > MAX_ALT ) 
       maxNames=MAX_ALT;
@@ -899,8 +899,8 @@ SINT CheckClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
   Razmaz2(buf,bufrazmaz,xbit,yrow,
     0,(SINT)POROG_ANGLES );
 
-  //porog=max(xbit,yrow);   
-  porog=min(50,xbit+yrow);
+  //porog=MAX(xbit,yrow);   
+  porog=MIN(50,xbit+yrow);
 
   i=CheckLetter(xbit,yrow,buf,bufrazmaz,
 		        fbase, porog, let, attr,nInCTB);
@@ -933,7 +933,7 @@ int CompareCluster(BYTE *rast,int xbyte,int xbit,int yrow,welet *wel,
    (SINT)0,(SINT)POROG_ANGLES); 
 
   i=distOne(buf,bufrazmaz,xbit,yrow,85,wel,movex,movey,1);
-  return max(0,255-STRAFPOINT*i); 
+  return MAX(0,255-STRAFPOINT*i); 
 }
 ///////////////////////////
 #ifdef _TEST_ADD_FAT_
@@ -1041,7 +1041,7 @@ static int AddTestRecogCollection( BYTE *rast,int xbit,int yrow,
 	}
     
 	for(i=iSame;i<num;i++)
-		recres[i].prob=min(recres[i].prob,recres[iSame-1].prob-1);
+		recres[i].prob=MIN(recres[i].prob,recres[iSame-1].prob-1);
 
 	return num;
 }
@@ -1149,8 +1149,8 @@ BYTE *rr;
      for(j=stx;j<stx+ww;j++)   if(curr[j]> wei) dist++;
  if(dist > porog) return dist;
 
- lasty=min(starty+h,sty+hh);
- lastx=min(startx+w,stx+ww);
+ lasty=MIN(starty+h,sty+hh);
+ lastx=MIN(startx+w,stx+ww);
  if( starty < sty) r+=(sty-starty)*rbyte;
 
  if(startx < stx)  
@@ -1205,7 +1205,7 @@ static int distWeletOkr(BYTE *buf,BYTE *razmaz,int w,int h,welet * wl,int porog,
 {
  WORD best,east,west,north,south,center;
  int   lbest;   // local best
- int bound=200; //2*min(50,w+h);
+ int bound=200; //2*MIN(50,w+h);
  int initPorog=porog;
  int ne,es,sw,wn;
 
@@ -1346,11 +1346,11 @@ static int LookBestOkr(int w,int h,BYTE *buf,BYTE *razmaz,
 
   // check for height likeness
   j=abs(wel->mh-h);
-  if( j > 2 && j*3 >  max(h,wel->mh)  ) 
+  if( j > 2 && j*3 >  MAX(h,wel->mh)  ) 
 	   continue; 
 
   j=abs(wel->mw-w);
-  if( j > 3 && j*3 >= max(w,wel->mw) ) 
+  if( j > 3 && j*3 >= MAX(w,wel->mw) ) 
 	  continue;
   
   dist=distWeletOkr(buf,razmaz,w,h,wel,porog+1,okr,proc);
@@ -1394,7 +1394,7 @@ int RecogCluOkr(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
 
   Razmaz2(buf,bufrazmaz,xbit,yrow,0,POROG_ANGLES); 
 
-  //porog=max(xbit,yrow);   
+  //porog=MAX(xbit,yrow);   
   if(porog < 0) porog= 200;
 
   if(maxNames > MAX_ALT ) 
@@ -1488,7 +1488,7 @@ static int LookBestInner(int w,int h,BYTE *buf,BYTE *razmaz,
  int stepx,stepy;
  int lastx,lasty;
  int brow,bcol;
- float KOEFF=max(1.0f,(w*h)/250.0f);
+ float KOEFF=MAX(1.0f,(w*h)/250.0f);
 
  for(i=num=0 ;i<NumClus;i++,wel++)
  {

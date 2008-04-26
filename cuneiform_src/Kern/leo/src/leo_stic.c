@@ -143,8 +143,8 @@ for(lem=rim=256,i=0;i<h;i++,r+=wb)
     rim = ri;
   }
 
-return  abs(i-w)<=max(w/4,2)||
-        rim!=256&&lem!=256&&abs(i-w+rim+lem)<max(w/4,2)||
+return  abs(i-w)<=MAX(w/4,2)||
+        rim!=256&&lem!=256&&abs(i-w+rim+lem)<MAX(w/4,2)||
         i>3&&i<h/5; // similar to square
 }
 

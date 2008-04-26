@@ -87,10 +87,10 @@ int i;
  memset(CTBdata,0,CTB_DATA_SIZE);
  memcpy(&CTBdata[1],ParolBase,5);
  *pint16=countFont;
- i=min(countFont,4);
+ i=MIN(countFont,4);
  memcpy(pword32,fields,i*NFIELDDWORD*sizeof(Word32));
 
- CTBdata[0]=max(8+4*NFIELDDWORD*sizeof(Word32),
+ CTBdata[0]=MAX(8+4*NFIELDDWORD*sizeof(Word32),
 	           34+NFIELDDWORD*sizeof(Word32));
 
  if( CTB_create_gray(outname,CTBdata) == FALSE )
@@ -193,7 +193,7 @@ num++;
 ////////////////////// 
 static CTB_handle CTBfileBW;
 static Word8 CTBima[((BASE_MAX_W+7)/8)*(BASE_MAX_H+1)];
-static Word8 CTBdata[max(CTB_DATA_SIZE,36)];
+static Word8 CTBdata[MAX(CTB_DATA_SIZE,36)];
 
 void CloseBase(void)
 { 

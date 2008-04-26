@@ -73,6 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "c_memory.h"
 # include "layout.h"
 # include "my_mem.h"
+#include "minmax.h"
 
 
 static BYTE *pMatrix = NULL;
@@ -111,7 +112,7 @@ void IntervalsInit (void)
         // интервал -- он интервал и есть: xBegin, xEnd (и COMP*);
         // nWidth и nHeight -- of PageMatrix;
         pIntervals
-            = malloc (max (nHeight, nWidth) * sizeof (INTERVAL));
+            = malloc (MAX (nHeight, nWidth) * sizeof (INTERVAL));
 
         if (pIntervals == NULL)
             ErrorNoEnoughMemory ("in LTEXCOMP.C,IntervalsInit,part 1");
@@ -120,7 +121,7 @@ void IntervalsInit (void)
     if (pPrevIntervals == NULL)
     {
         pPrevIntervals
-            = malloc (max (nHeight, nWidth) * sizeof (INTERVAL));
+            = malloc (MAX (nHeight, nWidth) * sizeof (INTERVAL));
 
         if (pPrevIntervals == NULL)
             ErrorNoEnoughMemory ("in LTEXCOMP.C,IntervalsInit,part 2");
@@ -630,7 +631,7 @@ void CompsBuild
     BlackMask  = _BlackMask;
 
     IntervalsInit (); // всего лишь выделение памяти
-                      // на max(nWidth, nHeight) /интервалов/.
+                      // на MAX(nWidth, nHeight) /интервалов/.
     for (y = 0; y < nHeight; y++)
     {
         IntervalsStep (y);

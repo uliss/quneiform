@@ -310,7 +310,7 @@ static int MixedProbs(RecVersions *old,RecVersions *ver)
  int i,j;
  int prob;
  Word8 used[REC_MAX_VERS];
- int oldNum=min(REC_MAX_VERS,old->lnAltCnt);
+ int oldNum=MIN(REC_MAX_VERS,old->lnAltCnt);
 
  if( oldNum <= 0 )
          return 0;
@@ -384,11 +384,11 @@ static int AddFonVersions(RecVersions *old,RecVersions *ver)
         continue;
 
       if( i< old->lnAltCnt )
-                  old->Alt[i].Prob=max(old->Alt[i].Prob,min(oldProb-10,ver->Alt[j].Prob));
+                  old->Alt[i].Prob=MAX(old->Alt[i].Prob,MIN(oldProb-10,ver->Alt[j].Prob));
       else if( old->lnAltCnt < REC_MAX_VERS)
           {
                   old->Alt[old->lnAltCnt]=ver->Alt[j];
-                  old->Alt[old->lnAltCnt].Prob= min(oldProb-10,ver->Alt[j].Prob);
+                  old->Alt[old->lnAltCnt].Prob= MIN(oldProb-10,ver->Alt[j].Prob);
                   old->lnAltCnt++;
           }
   }
@@ -448,7 +448,7 @@ CSTR_rast_attr attr;
   {
        if( old->Alt[0].Code == ver->Alt[0].Code )
        {
-          old->Alt[0].Prob=max(old->Alt[0].Prob, ver->Alt[0].Prob);
+          old->Alt[0].Prob=MAX(old->Alt[0].Prob, ver->Alt[0].Prob);
 
 		  for(i=1;i<old->lnAltCnt;i++)  
                          if( old->Alt[i].Prob > 1 ) old->Alt[i].Prob--;
@@ -576,7 +576,7 @@ CSTR_rast_attr attr;
           {
               //if( ver->Alt[0].Prob>240 ) ver->Alt[0].Prob=255;
               //else
-              ver->Alt[0].Prob=max(oldProb, ver->Alt[0].Prob);
+              ver->Alt[0].Prob=MAX(oldProb, ver->Alt[0].Prob);
                           i=1;
                           //    data[15] |= LEO_VALID_FONT;
           }
@@ -651,7 +651,7 @@ CSTR_rast_attr attr;
         )
 
 	  {
-         old->Alt[0].Prob=max(old->Alt[0].Prob,ver->Alt[0].Prob);
+         old->Alt[0].Prob=MAX(old->Alt[0].Prob,ver->Alt[0].Prob);
 		 // Nick 16.06.2001
 		 for(i=1;i<old->lnAltCnt;i++)  
                          if( old->Alt[i].Prob > 1 ) old->Alt[i].Prob--;
@@ -679,11 +679,11 @@ CSTR_rast_attr attr;
       for(i=1;i<old->lnAltCnt;i++)  
                 if( old->Alt[i].Code == ver->Alt[0].Code) break;
       if( i< old->lnAltCnt )
-                  old->Alt[i].Prob=max(old->Alt[i].Prob,min(oldProb-10,ver->Alt[0].Prob));
+                  old->Alt[i].Prob=MAX(old->Alt[i].Prob,MIN(oldProb-10,ver->Alt[0].Prob));
           else if( old->lnAltCnt < REC_MAX_VERS)
           {
                   old->Alt[old->lnAltCnt]=ver->Alt[0];
-                  old->Alt[old->lnAltCnt].Prob= min(oldProb-10,ver->Alt[0].Prob);
+                  old->Alt[old->lnAltCnt].Prob= MIN(oldProb-10,ver->Alt[0].Prob);
                   old->lnAltCnt++;
           }
           p2_leo_sort_vers_prob( old );
@@ -695,7 +695,7 @@ CSTR_rast_attr attr;
           }
   }
   else if(ver->lnAltCnt==1 || ver->Alt[0].Prob - 5 > ver->Alt[1].Prob )
-         old->Alt[0].Prob=max(old->Alt[0].Prob,ver->Alt[0].Prob);
+         old->Alt[0].Prob=MAX(old->Alt[0].Prob,ver->Alt[0].Prob);
 #endif
 
   p2_StoreVersions(rast,old);
@@ -884,7 +884,7 @@ Bool32 TestPalka(CSTR_rast leoStart,CSTR_rast leoEnd,
                   )
                 return 0;
 
-       Prob=min(Prob,vrLeo.Alt[0].Prob);
+       Prob=MIN(Prob,vrLeo.Alt[0].Prob);
            num1++;
    }
 
@@ -951,7 +951,7 @@ Bool32 TestNewDust(CSTR_rast fonStart,CSTR_rast fonEnd,
                         return 0;
            if( vrFon.lnAltCnt <= 0 )
                    return 0;
-       Prob=min(Prob,vrFon.Alt[0].Prob);
+       Prob=MIN(Prob,vrFon.Alt[0].Prob);
            num1++;
    }
 
@@ -1134,7 +1134,7 @@ int     engLang = -1;
 					 engProb = 0;
 				 else
 				 {
-				     engProb=min(engProb,vrEng.Alt[0].Prob);
+				     engProb=MIN(engProb,vrEng.Alt[0].Prob);
 					 if( IsInPalki(vrEng.Alt[0].Code) )
 				               isPalkaEng++;
 				 }
@@ -1176,7 +1176,7 @@ int     engLang = -1;
                         return -3;
 		        if( vrRus.lnAltCnt > 0 )
 				{
-			         rusProb = min(rusProb, vrRus.Alt[0].Prob);
+			         rusProb = MIN(rusProb, vrRus.Alt[0].Prob);
 					 if( IsInPalki(vrRus.Alt[0].Code) )
 				        isPalkaRus++;
 				}
@@ -1223,7 +1223,7 @@ int     engLang = -1;
              
              if(attrEng.language==LANG_ENGLISH)
              { 
-              if( max(isMultiRus,isMultiEng) <= 1 && (qq=strchr(sameEngRus,vrEng.Alt[0].Code))!=NULL &&
+              if( MAX(isMultiRus,isMultiEng) <= 1 && (qq=strchr(sameEngRus,vrEng.Alt[0].Code))!=NULL &&
                                  (char)vrRus.Alt[0].Code==sameRusEng[qq-sameEngRus]
                            )
               { 
@@ -1238,7 +1238,7 @@ int     engLang = -1;
              }
              else
              {
-             if( max(isMultiRus,isMultiEng) <= 1 && (qq=strchr(sameRusEng,vrEng.Alt[0].Code))!=NULL &&
+             if( MAX(isMultiRus,isMultiEng) <= 1 && (qq=strchr(sameRusEng,vrEng.Alt[0].Code))!=NULL &&
                      (char)vrRus.Alt[0].Code==sameEngRus[qq-sameRusEng]
                            )
               { 
@@ -1275,7 +1275,7 @@ int     engLang = -1;
                          }
 #ifdef _SPECTEST_
                else if(!same && 
-				       max(isMultiRus,isMultiEng) <= 1 &&  // 29.01.2001 
+				       MAX(isMultiRus,isMultiEng) <= 1 &&  // 29.01.2001 
                                 fontinfo->count[vrEng.Alt[0].Code] > 0 &&
                                 fontinfo->count[vrRus.Alt[0].Code] > 0 &&
                                 (vrEng.Alt[0].Method!=REC_METHOD_FON ||
@@ -1337,11 +1337,11 @@ int     engLang = -1;
                 if( vrRus.lnAltCnt <= 0 )
                         minrus=0;
                 else 
-                        minrus=min(minrus, rusProb);
+                        minrus=MIN(minrus, rusProb);
                 if( vrEng.lnAltCnt <= 0 )
                         mineng=0;
                 else 
-                        mineng=min(mineng, engProb);
+                        mineng=MIN(mineng, engProb);
 
                 if( attrRus.col + attrRus.w <= attrEng.col + attrEng.w)
                 {

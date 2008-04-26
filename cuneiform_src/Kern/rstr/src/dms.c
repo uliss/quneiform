@@ -115,14 +115,14 @@ INT compare_vect(v_val *a, v_val *b)
    return x;
  /************* 93.06.15 attempt to ignore weak 2nd component's difference
   {
-   y = max(a2, b2);
+   y = MAX(a2, b2);
    if (y > 170)      // one of vectors -- not too bad
      return x;
    if (abs(x) > 70)  // solid deficit
      return x;
    // both vectors weak in 2nd component
    y = (a1=a->v1)-(b1=b->v1);
-   if (max(a1,b1) < 170)  // both unreliable
+   if (MAX(a1,b1) < 170)  // both unreliable
      return x;
    if (abs(y) > 50)  // reliable deficit of 1st component  50=220-170
      return y;

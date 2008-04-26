@@ -93,10 +93,10 @@ void TPuanso::flashPuanso( void ){
 
 void TPuanso::increase( int x1, int x2, int y ){
 
-   left = min(x1, left);
-   right = max(x2, right);
-//   down = min(y, down );
-//   up  = max(y, up);
+   left = MIN(x1, left);
+   right = MAX(x2, right);
+//   down = MIN(y, down );
+//   up  = MAX(y, up);
 	xx1 = (double)x1;
 	xx2 = (double)x2;
 	yy  = (double)y;

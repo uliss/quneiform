@@ -69,6 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "stick.h"
   #include "ligas.h"
   #include "tuner.h"
+#include "minmax.h"
 extern BYTE multy_language;
 
 extern INT pitchsize ;
@@ -200,7 +201,7 @@ if( t>0 )     /* normal beam ; for zones 1,2,3,4 */
 			// 20.01.1993: fax25/16 r.m[2]=r.m[4]=1; ?????
 //////	if( l->mount[4]==0 & r->mount[4]>r->mount[t]-1 )	// OLD OLEG
 	if( l->mount[4]==0 &&
-	    r->mount[4] > max (r->mount[t], 2) - 1 )		// 20.01.1993
+	    r->mount[4] > MAX (r->mount[t], 2) - 1 )		// 20.01.1993
 		dis += r->mount[0]<r->mount[t] ? tab_f[10]<<1 : tab_f[10];
 		/* similar 't' : right downer long flag */	      //120,60
 
@@ -211,18 +212,18 @@ if( t>0 )     /* normal beam ; for zones 1,2,3,4 */
 //////		    h_beam = (lm>rm)  ?  l->m_pos[t]  :  r->m_pos[t]; ######
 		    if (l->mount[t] > r->mount[t])	h_beam = l->m_pos[t];
 		    else if (l->mount[t] < r->mount[t])	h_beam = r->m_pos[t];
-		    else h_beam = min (l->m_pos[t], r->m_pos[t]);
+		    else h_beam = MIN (l->m_pos[t], r->m_pos[t]);
 		    }
 		if ((l->down_serif + r->down_serif) < 4)  // DL==DR==2 ???
 		    {					// OLD OLEG VARIANT:
-		    if (s->base_2 > max(dy/6,3) &&
+		    if (s->base_2 > MAX(dy/6,3) &&
 			h_beam > s->base_2+wid )
 			    dis += tab_f[14];			// 100 => 60
 		    }
 		else					// NEW MK VARIANT:
-		    if (s->base_2 > max(dy/6,3) &&
-//////			h_beam > max((h_beam>s->base_2+wid),	// OLEG ######
-			h_beam > max((s->base_2+wid),		// OLEG
+		    if (s->base_2 > MAX(dy/6,3) &&
+//////			h_beam > MAX((h_beam>s->base_2+wid),	// OLEG ######
+			h_beam > MAX((s->base_2+wid),		// OLEG
 				     (dy/2)))			// MISA
 			    dis += tab_f[14];			// 100 => 60
 		}
@@ -257,11 +258,11 @@ if( s->l_f_symptom>0 && s->r_f_symptom>1 )
 	/* decrease DIS if good right symptom and delicate left symptom */
 
 {				// 11.03.1993 SOPLI about {f'}; NE NA MESTE !!!
-INT	l12 = max (l->mount[1],l->mount[2]);
-INT	r12 = max (r->mount[1],r->mount[2]);
+INT	l12 = MAX (l->mount[1],l->mount[2]);
+INT	r12 = MAX (r->mount[1],r->mount[2]);
 	if ( r->mount[0] >		// fax23/14(16) "Cardiff's"
-//////	     max (l12,l->mount[4]) + wid + max (r12,r->mount[4]) )	// a)
-	     max (l12,l->mount[4]) + wid + max (r12,r->mount[4]) + 4)	// b)
+//////	     MAX (l12,l->mount[4]) + wid + max (r12,r->mount[4]) )	// a)
+	     MAX (l12,l->mount[4]) + wid + max (r12,r->mount[4]) + 4)	// b)
 		dis += 222;						// 222
 }
 
@@ -275,7 +276,7 @@ INT	r12 = max (r->mount[1],r->mount[2]);
 
 	if (s->cut_r  &&		// 21.10.1993 for similar 'D' (CUT)
 	    r->mount[0]==r->mount[4]  &&
-	    max(r->mount[1],r->mount[2])*3 < r->mount[0])
+	    MAX(r->mount[1],r->mount[2])*3 < r->mount[0])
 		dis += mk_80_for_CUT;					// 80
 
 	if (s->cut_r  &&		// 18.11.1993 for similar 'E' (CUT)
@@ -295,8 +296,8 @@ INT	lmd, rmd;	// 25.01.1994
 
 //////printf (" r(%d,%d) ", r->mount[0], r->mount[4]);
 
-lmu = max(l->mount[0],l->mount[1]);	// "UPPER ZONE: 0 or 1
-rmu = max(r->mount[0],r->mount[1]);
+lmu = MAX(l->mount[0],l->mount[1]);	// "UPPER ZONE: 0 or 1
+rmu = MAX(r->mount[0],r->mount[1]);
 
 lmd = l->mount [4];	rmd = r->mount [4];	// 25.01.1994, DOWN ZONE;
 
@@ -534,11 +535,11 @@ if (fax1x2)	{				// OTLADKA 20.01.1993
   if( s->base_2!=-1 )  {  /* base lines known */
     t2=2;
 if( multy_language ) t2=4;
-	    if (s->base_2>max(s->height/6,3) &&
-    (max(l->m_pos[t],r->m_pos[t]) < s->base_2-t2 ||
-//////		 min(l->m_pos[t],r->m_pos[t]) > s->base_2+4))	// 18.10.1993
-//////		 max(l->m_pos[t],r->m_pos[t]) > s->base_2+4))	// 18.10.1993
-		 max(l->mb_pos[t],r->mb_pos[t]) > s->base_2+4))	// 19.10.1993
+	    if (s->base_2>MAX(s->height/6,3) &&
+    (MAX(l->m_pos[t],r->m_pos[t]) < s->base_2-t2 ||
+//////		 MIN(l->m_pos[t],r->m_pos[t]) > s->base_2+4))	// 18.10.1993
+//////		 MAX(l->m_pos[t],r->m_pos[t]) > s->base_2+4))	// 18.10.1993
+		 MAX(l->mb_pos[t],r->mb_pos[t]) > s->base_2+4))	// 19.10.1993
 			dis += tab_t[18];			      // 100
 	    else if (inc_num_EEM>=2  &&		// 18.11.1993 similar '7'
 		     t==0  &&			// j10/29 "08/77" first '7'
@@ -636,8 +637,8 @@ if( l->up_serif==2 && l->down_serif==2 &&
     r->up_serif==0 && r->down_serif==0 &&  t<2 )
 	dis += tab_t[15];  /* similar    ],) */				// 60
 
-//////t = max( l->m_pos[t], r->m_pos[t])+1;
-tpos = max( l->m_pos[t], r->m_pos[t])+1;	// 18.11.1993
+//////t = MAX( l->m_pos[t], r->m_pos[t])+1;
+tpos = MAX( l->m_pos[t], r->m_pos[t])+1;	// 18.11.1993
 if( tpos>dy>>1 )
 	dis += tab_t[13]*(tpos-(dy>>1)); /* too low beam */	     // *16
 /* ----------------- FIND f-CONFIGURATIONS ------------------- */
@@ -683,7 +684,7 @@ if( l->m_meandr==1 && l->num_flags==1 && l->mount[4] &&
 /*......................................................................*/
 {				// MK: TOO LONG HOOK: for "t." ==> 't'
 ///INT	n1, n2;			// NB: tab_t[29]=80 (fax12/32 "document.")
-///	n1 = max (wid, (lm+rm));
+///	n1 = MAX (wid, (lm+rm));
 //////	n2 = (n1<4) ? (n1+4) : (n1*2);	// 4 - MK VOLUNTAR.	before 9.3.1993
 ///	n2 = (n1<4) ? (n1+4) : (n1*2)-2; // 4 - MK VOLUNTAR.	from 09.03.1993
 //////	if (r->mount[4]>n2)  dis += tab_t [29];	// before 26.01.1993	// 80

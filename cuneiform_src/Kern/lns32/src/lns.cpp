@@ -193,8 +193,8 @@ void  __RejectNearBound(LinesTotalInfo* plti)
          break;   // keep lines, if lack
       if (li.Flags & LI_NOISE)
          continue;
-      Point32 Mn; Mn.x = min(li.A.x,li.B.x);   Mn.y = min(li.A.y,li.B.y);
-      Point32 Mx; Mx.x = max(li.A.x,li.B.x);   Mx.y = max(li.A.y,li.B.y);
+      Point32 Mn; Mn.x = MIN(li.A.x,li.B.x);   Mn.y = min(li.A.y,li.B.y);
+      Point32 Mx; Mx.x = MAX(li.A.x,li.B.x);   Mx.y = max(li.A.y,li.B.y);
       if ((Mn.y < imgrect.top + 50) || (Mx.y > imgrect.bottom - 50))
       {  
          if (!__HasCorners(li, plti, TRUE))
@@ -216,8 +216,8 @@ void  __RejectNearBound(LinesTotalInfo* plti)
          continue;
       if (vcnt < 5)
          break;   // keep lines, if lack
-      Point32 Mn; Mn.x = min(li.A.x,li.B.x);   Mn.y = min(li.A.y,li.B.y);
-      Point32 Mx; Mx.x = max(li.A.x,li.B.x);   Mx.y = max(li.A.y,li.B.y);
+      Point32 Mn; Mn.x = MIN(li.A.x,li.B.x);   Mn.y = min(li.A.y,li.B.y);
+      Point32 Mx; Mx.x = MAX(li.A.x,li.B.x);   Mx.y = max(li.A.y,li.B.y);
       if ((Mn.x < imgrect.left + 50) || (Mx.x > imgrect.right - 50))
       {  
          if (!__HasCorners(li, plti, FALSE))

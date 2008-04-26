@@ -275,7 +275,7 @@ void atlant(cell *AA, s_glue *GL, INT flag, INT flag_m)
  h1h2_done:
   h1=(hc * 80 ) >> 8;   // 80/256 ===  1/3  interval for legs width test
   h2=(hc * 176) >> 8;   // 176/256 === 2/3
-  // find min(leg beg)  max(leg end) for legs crossing  (h1, h2)
+  // find MIN(leg beg)  MAX(leg end) for legs crossing  (h1, h2)
   nc=0;
   hhmin = 0; hhmax = 127;
   while (1)

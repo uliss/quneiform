@@ -201,7 +201,7 @@ Int32 StartAddMemCluster(Word8 *metkaValid,Int32 CurClus,
 // now to static - fonts info
  fBase->countFont=countFont;
  // Информация о шрифтах в полях
- i=min(countFont,4);
+ i=MIN(countFont,4);
  memcpy(fBase->fontFields,allFields,i*NFIELDDWORD*sizeof(Word32));
 
  return CurCount;

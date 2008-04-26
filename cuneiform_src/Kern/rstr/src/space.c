@@ -72,6 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lang.h"
 #include "linutil.h"
 //#include "edfile.h"
+#include "minmax.h"
 
 //#define NEW_PROBEL
 
@@ -313,9 +314,9 @@ void space_size(INT h)
  {
 #ifdef NEW_PROBEL
 	 	// Nick 04.01.2002. pitchsize - стандартная ширина + пробел между символами ! 
-	 sp = pitchsize+max(pitchsize/6,2)+1;
+	 sp = pitchsize+MAX(pitchsize/6,2)+1;
 #else	 
-	 sp=pitchsize+max(pitchsize/6,3)+1;   
+	 sp=pitchsize+MAX(pitchsize/6,3)+1;   
 #endif
 	
 
@@ -329,8 +330,8 @@ void space_size(INT h)
 	}
 	if( hist[i] <= 0 && hist[i+1] > 0 )
 	{
-		sp = min(sp,i+1);
-		spmin = min(spmin, sp);
+		sp = MIN(sp,i+1);
+		spmin = MIN(spmin, sp);
 	}
 
 
@@ -477,7 +478,7 @@ void space_size(INT h)
 		goto cntrl;
 	}
   	else
-		if (abs(s-(ss+d/2))<=min(s,ss+d/2))
+		if (abs(s-(ss+d/2))<=MIN(s,ss+d/2))
 		{
 			sv=s;
 			s=(s+ss+((s>ss)?d/2:0)+1)/2;
@@ -1048,7 +1049,7 @@ static INT longtail(cell *c)
  r=save_raster(c);
  l=(c->w+7)/8;
  dh=c->h/3;
- dw=max(3,c->w/6);
+ dw=MAX(3,c->w/6);
  for (i=0; i<dh; i++)
   for (j=0; j<dw; j++)
    if (r[i*l+j/8]&(128>>(j%8)))
@@ -1291,7 +1292,7 @@ void space_cell()
        let1=='.' && let2=='.')
     i-=sp/2;
    if (let1=='_' || let2=='_' || let1==liga_bull || let2==liga_bull)
-    i=max(i,sp);
+    i=MAX(i,sp);
 
    if (i>=sp && i<spmax)
     {
@@ -1562,7 +1563,7 @@ for  ( c2=((cell_f())->next)->next;
 			snap_monitor();
 		}
    
-		if (3*max(d1,d2)<2*spmin) 
+		if (3*MAX(d1,d2)<2*spmin) 
 			continue;
    
 		if (d1>d2)
@@ -1626,7 +1627,7 @@ for ( c2=(cell_f())->next; /*c2->next!=NULL*/c2 != cell_l(); c2=c2->next)
 			snap_monitor();
 		}
    
-		if (2*min(d1,d2)>3*sp)
+		if (2*MIN(d1,d2)>3*sp)
 			continue;
 		
 		if (d1<d2)

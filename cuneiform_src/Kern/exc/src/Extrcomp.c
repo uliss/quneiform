@@ -987,7 +987,7 @@ if(  c->scale<3 && (c->w>>c->scale)<comp_max_w && (c->h>>c->scale)<comp_max_h )
         exc_ori_recog(&gravers);
         if( gravers.lnAltCnt && gravers.Alt[0].Prob>200 && gravers.Alt[0].Code!='~' )
             {
-            gravers.lnAltCnt=min(gravers.lnAltCnt,8);
+            gravers.lnAltCnt=MIN(gravers.lnAltCnt,8);
             for(j=i=0;j<16&&i<gravers.lnAltCnt;i++)
                 {
                 if( alphabet[ gravers.Alt[i].Code ] )
@@ -1851,8 +1851,8 @@ for (pBox = (BOX *) mn -> mnfirstbox, nBox = 0;
         y    = pLine -> y-wcomp.upper;
         if( y<hmin )    hmin=y;
         if( y>hmax )    hmax=y;
-        xBeg = max(xEnd - pLine -> l,0);        
-        WriteOneInterval ( y, xBeg, min(xEnd,right) ,wcomp.rw,scale_2);         
+        xBeg = MAX(xEnd - pLine -> l,0);        
+        WriteOneInterval ( y, xBeg, MIN(xEnd,right) ,wcomp.rw,scale_2);         
         pInts = (BOXINT *) ((Word8 *) pBox + sizeof (BOX) + sizeof (LNSTRT));
         }
     else
@@ -1871,8 +1871,8 @@ for (pBox = (BOX *) mn -> mnfirstbox, nBox = 0;
         y++;
         if( y<hmin )    hmin=y;
         if( y>hmax )    hmax=y;
-        xBeg  = max(xEnd - pInt -> l,0);        
-        WriteOneInterval (y, xBeg, min(xEnd,right), wcomp.rw,scale_2);
+        xBeg  = MAX(xEnd - pInt -> l,0);        
+        WriteOneInterval (y, xBeg, MIN(xEnd,right), wcomp.rw,scale_2);
         }
     }
 if( hmin==0 && hmax>=h-1 )
@@ -2079,7 +2079,7 @@ for (pBox = (BOX *) mn -> mnfirstbox, nBox = 0;
         hh=1;
         xEnd = pLine -> x-wcomp.left;
         y0=y    = pLine -> y-wcomp.upper;
-        xBeg = max(xEnd - pLine -> l,0);        
+        xBeg = MAX(xEnd - pLine -> l,0);        
                     
         CCOM_LargeNewLn(cmp,&lnh);    
         lnh->lth=0;
@@ -2200,7 +2200,7 @@ else if( wcomp.h<(comp_max_h<<7) )    scale=1+6;
 else if( wcomp.h<(comp_max_h<<8) )    scale=1+7;
 else                           scale=1+8;
 original_density = mn_sum(mn);
-scale_2 = max(scale_2,scale);
+scale_2 = MAX(scale_2,scale);
 if( scale_2==0 )
     { // normal sizes
     if( MaxScale==1 && (ExControl&Ex_PictureLarge) )
@@ -2217,9 +2217,9 @@ if( scale_2==0 )
         }
     return FALSE; 
     }
-scale_2 = min(scale_2,MaxScale-1);
+scale_2 = MIN(scale_2,MaxScale-1);
 scale = 1<<scale_2 ; 
-original_begends=(Word8)(min(wcomp.begs+wcomp.ends,255));
+original_begends=(Word8)(MIN(wcomp.begs+wcomp.ends,255));
 // COMPRESSION PICTURES TO comp_max_w:comp_max_h
 sv_upper    =wcomp.upper;
 sv_left     =wcomp.left ;

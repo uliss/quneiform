@@ -99,7 +99,7 @@ if( lang==LANG_ENGLISH && p2globals.multy_language )
  if(!rast) return FALSE;
  ver=&cver;
  memset(ver,0,sizeof(UniVersions));
- ver->lnAltCnt = min(REC_MAX_VERS,rver->lnAltCnt);
+ ver->lnAltCnt = MIN(REC_MAX_VERS,rver->lnAltCnt);
  ver->lnAltMax = REC_MAX_VERS;
 
  for(i=0;i<ver->lnAltCnt;i++)
@@ -150,7 +150,7 @@ static Bool32 Lines2Raster(CCOM_lnhead *linerep, Int16 size,
   {
    Word8 *buf=&rec->Raster[ line->row*ww ];
    for(inter = (CCOM_interval*)(line+1), i=0; i<line->h; i++, inter++,buf+=ww)
-    StoreOneInterval( buf, inter->e-inter->l, min(w,inter->e));
+    StoreOneInterval( buf, inter->e-inter->l, MIN(w,inter->e));
   }
 
 return TRUE;

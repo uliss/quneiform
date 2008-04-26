@@ -209,7 +209,7 @@ int alloc_seg(KNOT **kn,int *kb,int max_kn,uint size_item,int *size_bloc)
   /*===попытка захвата кусочной памяти под max_knot узлов*/
   k_knot=(int)(SIZE_SEG/size_item); //max_kn=max_knot;
   while(max_kn > -2)
-  { uint k=max(min(k_knot,max_kn+2),1);
+  { uint k=MAX(MIN(k_knot,max_kn+2),1);
     if( (kn[++(*kb)]=(KNOT*)malloc_m(k*size_item)) != NULL) /*смогли взять*/
        { max_kn-=k; size_bloc[*kb]=k-1; }
     else
@@ -230,7 +230,7 @@ uint determine_free_memory(uint size1)
   /*_dos_allocmem(0xFFFF,&max_size); Этой функции недоступна память, возвращен-
   ная в хип malloc-a по free, для этого используется функция прохождения по
   списку malloc-ов
-  max_size=min(MAX_BLOC,(long)max_size*16);*/
+  max_size=MIN(MAX_BLOC,(long)max_size*16);*/
   while( (ptr=(char*)malloc_m(size)) == NULL )
     if((size=((size>>1)+(size>>2))) < 100) {size=0;break;}
   if(size) free_m(ptr);
@@ -333,14 +333,14 @@ int read_frm(char *file_frm,FRAME ***frm_arr,int *k_arr_frm,FRAME ***frm,
       for(i=0; i <= kb1; ++i)
       {
         dx=buf[i].right-buf[i].left;dy=buf[i].down-buf[i].up;
-        dx=max(dx,dy); ++his[min(dx,kh)];
+        dx=MAX(dx,dy); ++his[MIN(dx,kh)];
       }
     }
     kf1=0;
     doi(i,kh,1)
     { kf1+=his[i];
       if(kf1 >= MAX_FRAME)
-      	{SizeMin=max(SizeMin,i); kf=kf1-his[i]; break;}
+      	{SizeMin=MAX(SizeMin,i); kf=kf1-his[i]; break;}
     }
     fseek_m(rb,0L,SEEK_SET); free_m(buf); free_m(his);
   }
@@ -375,7 +375,7 @@ int read_frm(char *file_frm,FRAME ***frm_arr,int *k_arr_frm,FRAME ***frm,
     	dx=buf[i].right-buf[i].left;dy=buf[i].down-buf[i].up;
       if(dx <= 0 || dy <= 0)
       	return -10;
-      if(max(dx,dy) > SizeMin
+      if(MAX(dx,dy) > SizeMin
 				#ifdef EXACT_REG
 				 && (flOver || TestExactReg(buf[i]))
 				#endif
@@ -638,7 +638,7 @@ int InitSubAlloc(long Size,SUB_ALLOC *Sub)
   Sub->NumPtr=NumPtr; Sub->CurrPtr=0; Sub->CurrPos=0; Sub->Size=Size;
   in=-1;
   while(Size > 0)
-  { k=min(SIZE_SEGL,Size);
+  { k=MIN(SIZE_SEGL,Size);
     if((Sub->Ptr[++in]=(char*)malloc_m((uint)k))==NULL)return NOT_ALLOC;
     Sub->SizePtr[in]=k; Size-=k;
   }
@@ -723,7 +723,7 @@ int memmove_m(void HUGE_P *out,void HUGE_P *in,long size)
     { char HUGE_P *BegIn=(char HUGE_P *)in,HUGE_P *BegOut=(char HUGE_P *)out;
       long len=64000;
       while(size > 0)
-      { len=min(len,size);
+      { len=MIN(len,size);
         memmove(/*normptr*/(char far *)BegOut,/*normptr*/(char far *)BegIn,(uint)len);
         size-=len; BegIn+=len; BegOut+=len;
       }
@@ -737,7 +737,7 @@ int memmove_m(void HUGE_P *out,void HUGE_P *in,long size)
     { char HUGE_P *BegIn=(char HUGE_P *)in,HUGE_P *BegOut=(char HUGE_P *)out;
       long len=64000;
       while(size > 0)
-      { len=min(len,size);
+      { len=MIN(len,size);
         memmove(normptr(BegOut),normptr(BegIn),(uint)len);
         size-=len; BegIn+=len; BegOut+=len;
       }
@@ -838,7 +838,7 @@ int EstIntrvlHor(FRAME **frm,int num,BOUND *bnd,int dxAS,int dyAS,
 { AS As; SEG_ARR List; KNOT3 ***beg_as,*p,*pp,*ptr; RECT Rect = {0};
   int i,in,ret,iy,ix,up,down,left,right,ii,fl,dist,ky,kx,n,
       dx,dy,ddx,ddy,inX[3],iix,l,r,u,d,dxMax,NumMod,nn;
-  int MaxNum=max(300,MinVol);
+  int MaxNum=MAX(300,MinVol);
   int *arr,*arrY;
 	char *err="EstIntrvlHor";
   *dsym=*AveX=*AveY=INDEF; ret=0;

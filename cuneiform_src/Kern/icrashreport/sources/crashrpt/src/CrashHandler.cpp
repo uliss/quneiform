@@ -201,17 +201,17 @@ void CCrashHandler::GenerateErrorReport(PEXCEPTION_POINTERS pExInfo)
 		//Читаем дейтсвие
 		DWORD dwBufLen = 1000;
 		rk.QueryValue(action.GetBuffer(1000), "Action", &dwBufLen);
-	    action.ReleaseBuffer(max(dwBufLen - 1, 0));
+	    action.ReleaseBuffer(MAX(dwBufLen - 1, 0));
 
 		//Читаем папку для автосохранения
 		dwBufLen = 1000;
 		rk.QueryValue(storeFolder.GetBuffer(1000), "StoreFolder", &dwBufLen);
-	    storeFolder.ReleaseBuffer(max(dwBufLen - 1, 0));
+	    storeFolder.ReleaseBuffer(MAX(dwBufLen - 1, 0));
 
 		//Читаем тип дампа
 		dwBufLen = 1000;
 		rk.QueryValue(dump.GetBuffer(1000), "DumpType", &dwBufLen);
-	    dump.ReleaseBuffer(max(dwBufLen - 1, 0));
+	    dump.ReleaseBuffer(MAX(dwBufLen - 1, 0));
 
 		rk.Close();
 

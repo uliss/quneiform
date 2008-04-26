@@ -253,7 +253,7 @@ int CalcStatTiger(void)
   for(nc=0; nc <= NumCol; ++nc)
   { int Dif_b1b2;//признак различия линеек b1 и b2
     ThrDif_b1b2=NORM_SCAN(3);
-    ThrDif_b1b2=max(ThrDif_b1b2,(StatCol[nc].dy_Upp - StatCol[nc].dy_Low)/2);
+    ThrDif_b1b2=MAX(ThrDif_b1b2,(StatCol[nc].dy_Upp - StatCol[nc].dy_Low)/2);
     if((StatCol[nc].stat_str=(STAT_STR*)malloc_m((NumStr[nc]+1)*sizeof(STAT_STR)))==NULL)
 			return NOT_ALLOC;
     for(ns=0; ns <= NumStr[nc]; ++ns)
@@ -307,14 +307,14 @@ int CalcStatTiger(void)
       { clear(); rr.left=32000;rr.top=32000;rr.right=-32000;rr.bottom=-32000;
         for(nw=0; nw < TitleStr[nc][ns].S_Gen.S_NumWord; ++nw)
           { for(nz=0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz)
-            { rr.left  =min(rr.left  ,Zn[nc][ns][nw][nz].Title.Z_Rect.left  );
-              rr.top   =min(rr.top   ,Zn[nc][ns][nw][nz].Title.Z_Rect.top   );
-              rr.right =max(rr.right ,Zn[nc][ns][nw][nz].Title.Z_Rect.right );
-              rr.bottom=max(rr.bottom,Zn[nc][ns][nw][nz].Title.Z_Rect.bottom);
+            { rr.left  =MIN(rr.left  ,Zn[nc][ns][nw][nz].Title.Z_Rect.left  );
+              rr.top   =MIN(rr.top   ,Zn[nc][ns][nw][nz].Title.Z_Rect.top   );
+              rr.right =MAX(rr.right ,Zn[nc][ns][nw][nz].Title.Z_Rect.right );
+              rr.bottom=MAX(rr.bottom,Zn[nc][ns][nw][nz].Title.Z_Rect.bottom);
             }
           }
-        rr.top=min(rr.top,rS->top); rr.top-=30;
-        rr.bottom=max(rr.bottom,rS->bottom); rr.bottom+=30;
+        rr.top=MIN(rr.top,rS->top); rr.top-=30;
+        rr.bottom=MAX(rr.bottom,rS->bottom); rr.bottom+=30;
         BoundsRect(0,(RECT*)&rr,0);
         for(nw=0; nw < TitleStr[nc][ns].S_Gen.S_NumWord; ++nw)
         { for(nz=0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz)
@@ -566,7 +566,7 @@ short __cdecl  OpenFullOutTiger(char *FileName)
 					fread_m(&tz->Z_Rect,sizeof(SRECT),1,in); // BOX
 					fread_m(&tz->Z_RealRect,sizeof(SRECT),1,in); // Real BOX
 
-					fread_m(&num,2,1,in);  tz->Z_Num_Alt=(BYTE)min(num,REC_MAX_VERS); //NumAlt
+					fread_m(&num,2,1,in);  tz->Z_Num_Alt=(BYTE)MIN(num,REC_MAX_VERS); //NumAlt
 //					if(num > 1)
 //						num = 1;
 
@@ -1659,7 +1659,7 @@ WORD Penalty1LenWord(int n)
     do0(i,0,15) {s=get_param(s,param,MAX_LEN-1); Pen[i]=(WORD)atoi(param);}
     free_m(str); return 0;
   }
-  return Pen[min(n,15)];
+  return Pen[MIN(n,15)];
 }
 */ // !!! Art - устарело
 /* // !!! Art - устарело
@@ -2090,7 +2090,7 @@ int FormatStr(int nc,SRECT *Bnd,char ***Str,int **Ksym,int ncO)
     Bnd->top=Zn[nc][0][0][0].Title.Z_Rect.top/DelStr;
     LeftMargin=Zn[nc][0][0][0].Title.Z_Rect.left;
     do0(ns,0,ks)
-			LeftMargin=min(LeftMargin,(Zn[nc][ns][0][0].Title.Z_Rect.left));
+			LeftMargin=MIN(LeftMargin,(Zn[nc][ns][0][0].Title.Z_Rect.left));
     Bnd->left=LeftMargin/(StatCol[nc].dx_col+StatCol[nc].dsym_col);
   #else
     Bnd->left=Bnd->top=0;
@@ -2174,7 +2174,7 @@ int FormatStr(int nc,SRECT *Bnd,char ***Str,int **Ksym,int ncO)
     }
     else
 			buf[ksy=0]=' ';//Empty Str
-    Bnd->right=max(Bnd->right,ksy);
+    Bnd->right=MAX(Bnd->right,ksy);
     if(ksy < 0)
 			return -11;
     #ifdef SUB_FRM
@@ -2258,13 +2258,13 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
   {
 		if(i)
 			tmp=(LineH[i].beg-LineH[i-1].beg)/HeiStr + 1;
-    LineH[i].BegTxt= !i ? 2 : LineH[i-1].BegTxt + max(2,tmp);
+    LineH[i].BegTxt= !i ? 2 : LineH[i-1].BegTxt + MAX(2,tmp);
   }
   for(i=0; i < nV; ++i)
   {
 		if(i)
 			tmp=Space ? (LineV[i].beg-LineV[i-1].beg)/Space + 1 : 0;
-    LineV[i].BegTxt= !i ? 2 : LineV[i-1].BegTxt + max(2,tmp);
+    LineV[i].BegTxt= !i ? 2 : LineV[i-1].BegTxt + MAX(2,tmp);
   }
   //--Рассчитываем общее число TERM-Cell
   if(NewStack(20,&St))
@@ -2529,7 +2529,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
 //      if(*s == '\\' && *(s+1) == 'v') //Вертикал.надпись
 //      { s+=2;
 //        while(*s)
-//        { len=max(len,1);
+//        { len=MAX(len,1);
 //          #ifdef SUB_FRM
 //           str[++kstr]=(char*)Submalloc(1,&SubFrm);
 //          #else
@@ -2543,7 +2543,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
 //      { while(*s)
 //        { if(*s == '\\')
 //          { if( *(++s) == 'n')
-//            { len=max(len,ksy);
+//            { len=MAX(len,ksy);
 //              #ifdef SUB_FRM
 //               str[++kstr]=(char*)Submalloc(ksy+1,&SubFrm);
 //              #else
@@ -2557,7 +2557,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
 //          ++s;
 //        }
 //        if(ksy >= 0)
-//        { len=max(len,ksy);
+//        { len=MAX(len,ksy);
 //          #ifdef SUB_FRM
 //           str[++kstr]=(char*)Submalloc(ksy+1,&SubFrm);
 //          #else

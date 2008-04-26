@@ -350,7 +350,7 @@ void BlockSetAverageHeight (BLOCK *p)
         p -> nAverageHeight = 1;
     else
         p -> nAverageHeight =
-            max (p -> nHeightesSum / p -> nRoots, 1);
+            MAX (p -> nHeightesSum / p -> nRoots, 1);
 
     // хотя.. если считать, что пыль образована из осколков 
     // букв, то среднее разумно чуть увеличить.. только вот --
@@ -364,14 +364,14 @@ void BlockSetAverageHeight (BLOCK *p)
             p -> nAverageHeight = 1;
         else
             p -> nAverageHeight =
-                max (p -> nHeightesSum / p -> nRoots, 1);
+                MAX (p -> nHeightesSum / p -> nRoots, 1);
     }
     else
     {
         // меня смущает, что при превышении числом пылинок
         // числа основных блоков среднее будет отрицательно.
         p -> nAverageHeight =
-            max (p -> nHeightesSum / (p -> nRoots - p -> nDust), 1);
+            MAX (p -> nHeightesSum / (p -> nRoots - p -> nDust), 1);
         // то есть добавляя пылинку (точку), я почему-то 
         // увеличиваю среднюю высоту. я (GF) отказываюсь это понимать.
 
@@ -783,8 +783,8 @@ void BlocksDisAbsorbBoundaryDust (void)     /* STDG4, STDG19 */
         if (p -> Type != BLOCK_TEXT || ! (p -> uFlags & BF_CROSSED))
             continue;
 
-        dxExt = 3 * max (p -> nAverageHeight, MAX_DUST_WIDTH);
-        dyExt = max (p -> nAverageHeight, MAX_DUST_HEIGHT);
+        dxExt = 3 * MAX (p -> nAverageHeight, MAX_DUST_WIDTH);
+        dyExt = MAX (p -> nAverageHeight, MAX_DUST_HEIGHT);
 
         rExt.xLeft   = p -> Rect.xLeft   - dxExt;
         rExt.yTop    = p -> Rect.yTop    - dyExt;

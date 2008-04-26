@@ -66,6 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rstr.h"
 #include "dpuma.h"
 #include "wrgb.h"
+#include "minmax.h"
 
 extern BYTE * letters_pidx_table;
 INT get_cuts (cell *C, struct cut_elm *list, INT nmax );
@@ -473,10 +474,10 @@ static BOOL  make_str_raster(cell *wb, cell *we, StrRaster *str_raster)
 //raster size
   for (c=wb; c != we; c=c->next)
   {
-    top=min(top,c->r_row);
-    bottom=max(bottom,c->r_row+c->h);
-    left=min(left,c->r_col);
-    right=max(right,c->r_col+c->w);
+    top=MIN(top,c->r_row);
+    bottom=MAX(bottom,c->r_row+c->h);
+    left=MIN(left,c->r_col);
+    right=MAX(right,c->r_col+c->w);
   }
   str_raster->left=(LONG)left;
   str_raster->top =(LONG)top;
@@ -589,8 +590,8 @@ static BOOL calc_cut_points(cell *wb, cell *we, INT rastlc, INT rastdr)
           (seci-1)->x=((seci-1)->x+(C->r_col-rastlc))>>1;
           dust_sect=1; mincl=maxcl=C->r_col+C->w;
         }
-      maxcl=max(maxcl,C->r_col+C->w);
-      mincl=min(mincl,C->r_col+C->w);
+      maxcl=MAX(maxcl,C->r_col+C->w);
+      mincl=MIN(mincl,C->r_col+C->w);
     }
     else  //не dust
     {
@@ -602,8 +603,8 @@ static BOOL calc_cut_points(cell *wb, cell *we, INT rastlc, INT rastdr)
           if ( maxcl>C->r_col ) x=mincl-rastlc;
           else                  x=maxcl-rastlc;
           close_ds(seci,seci_add,nodei,x,(INT)(ncut-1));
-//          close_ds(seci,max(mincl,C->r_col-1)-rastlc,ncut-1);
-//          close_ds(seci,min(maxcl,C->r_col-1)-rastlc,ncut-1);
+//          close_ds(seci,MAX(mincl,C->r_col-1)-rastlc,ncut-1);
+//          close_ds(seci,MIN(maxcl,C->r_col-1)-rastlc,ncut-1);
           ncut++;  seci++;  seci_add++;  nodei++;
           if ( ncut==MAX_CUTS )  break;
         }
@@ -622,17 +623,17 @@ static BOOL calc_cut_points(cell *wb, cell *we, INT rastlc, INT rastdr)
         {
 //          x=((seci-1)->x+C->r_col-rastlc)>>1;
 //          ro=middle(C)-rastlc;
-//          (seci-1)->x=min(x,ro);
+//          (seci-1)->x=MIN(x,ro);
           if ( lefter(C,(seci-1)->x+rastlc) )  //перекрывается предыдущим
           {                        // "большим" - обходимся как с dust'ом
-            maxcl=max(maxcl,C->r_col+C->w); continue;
+            maxcl=MAX(maxcl,C->r_col+C->w); continue;
           }
           else
             (seci-1)->x=((seci-1)->x+C->r_col-rastlc)>>1;
         }
         else
           (seci-1)->x=maxcl-rastlc;
-      maxcl=max(maxcl,C->r_col+C->w);
+      maxcl=MAX(maxcl,C->r_col+C->w);
       nc=0;
       if ( bad(C) &&
            ( C->w > (INT)min_cut_width ||
@@ -691,10 +692,10 @@ static BOOL calc_cut_points(cell *wb, cell *we, INT rastlc, INT rastdr)
       else
         if (!just(C)) save_alpha_vers(C,&seci_add->vers);//just(C) еще не распознавался
 
-    seci_add->top   = min(seci_add->top   ,C->row);
-    seci_add->left  = min(seci_add->left  ,C->col);
-    seci_add->bottom= max(seci_add->bottom,C->row+C->h);
-    seci_add->right = max(seci_add->right ,C->col+C->w);
+    seci_add->top   = MIN(seci_add->top   ,C->row);
+    seci_add->left  = MIN(seci_add->left  ,C->col);
+    seci_add->bottom= MAX(seci_add->bottom,C->row+C->h);
+    seci_add->right = MAX(seci_add->right ,C->col+C->w);
 
     if (nodei->prev==0) cut_list->n |= C->cg_flag & c_cg_cutl;
   }
@@ -748,7 +749,7 @@ static INT get_points (cell *C, CutPoint *listn, INT nmax )
 {
   struct cut_elm list0[128],*li,*le;
   INT n;
-  n=get_cuts(C,list0,(INT)min(nmax,127));
+  n=get_cuts(C,list0,(INT)MIN(nmax,127));
   for (li=list0,le=li+n; li<le; li++,listn++)
   {
     listn->x=li->x;  listn->dh=li->dh;  listn->h=li->h;  listn->var=li->var;  listn->n=0;
@@ -824,7 +825,7 @@ static Weight match(BYTE *word)
     if (!test_set(prev,curh,(BYTE)l,RELY,rerecog,&imax,&pmax))   //first from prev
     {
       LONG il=prev-1,ir=prev+1;
-      LONG ile=max(0,il-1),ire=min(ncut-1,ir+1);
+      LONG ile=MAX(0,il-1),ire=MIN(ncut-1,ir+1);
       LONG x=cut_list[prev].x;
       while (il>=ile || ir<ire)
       {
@@ -1056,7 +1057,7 @@ static LONG add_sect(LONG il, LONG ir, BYTE nlet, BOOL rerecog, BYTE *p)
 result:
   ro = MAX_RO-(*p);
 //  wt = (wp & ~0xFF) + ro;
-//  wt = max(wt,wp);
+//  wt = MAX(wt,wp);
   wt = add_weight(&wp,(BYTE)ro,nlet);
   if (wc.meas<0 || wc.meas>wt.meas)
   {
@@ -1127,7 +1128,7 @@ static LONG select_cells(LONG il, LONG ir, BYTE cut_fl, cell **cells)
   LONG beg=(LONG)xl/8-1,end=(LONG)(xr+7)/8+1;
   LONG row,col;
   MN *mn;
-  beg=max(0,beg);  end=min(end,wwb-1);
+  beg=MAX(0,beg);  end=MIN(end,wwb-1);
   rwb=end-beg+1;
   *cells=NULL;
 
@@ -1166,7 +1167,7 @@ static LONG select_cells(LONG il, LONG ir, BYTE cut_fl, cell **cells)
          CI=del_cell(CI);
        else
        {
-         *cells++=CI;  minrow=min(minrow,CI->row);
+         *cells++=CI;  minrow=MIN(minrow,CI->row);
        }
      }
      else
@@ -1274,8 +1275,8 @@ static void show_layer(BYTE let, LONG prev, LONG imax)
   char msg[600],*s=msg;
   GraphNode *layer=prev_layer;
   LONG i2=imax+3,i1,i,j,shift;
-  i2=min(i2,ncut-1);
-  i1=i2-15;  i1=max(i1,0);
+  i2=MIN(i2,ncut-1);
+  i1=i2-15;  i1=MAX(i1,0);
 
   s += sprintf(msg,"%c %d %d\n",let,prev,imax);
   for (i=i1; i<=i2; i++)

@@ -345,7 +345,7 @@ MasIntervals1 MI1[MAX_CUT_POINT_NUMBER];
 	  }
 	 /*  Есть средняя  лапка ДД */
          if(MI[i].cvl && MI[i].cvr &&
-	     lb > MI[i].lb + max((MIN_OSNOV_D>>1),(MI[i].rb-MI[i].lb)/3) &&
+	     lb > MI[i].lb + MAX((MIN_OSNOV_D>>1),(MI[i].rb-MI[i].lb)/3) &&
              rb < MI[i].rb - (MI[i].rb-MI[i].lb)/3)
               {MI[i].mb=lb+((rb-lb)>>1); MI[i].cvm++; goto con;}
          /*  Правая  лапка Д */
@@ -364,7 +364,7 @@ MasIntervals1 MI1[MAX_CUT_POINT_NUMBER];
 	  }
 	 continue;
 	  /* максимальная ширина ноги */
-con:	 MI[i].wf=max(MI[i].wf,rb-lb+1);
+con:	 MI[i].wf=MAX(MI[i].wf,rb-lb+1);
 	}
       }
 
@@ -759,10 +759,10 @@ Coor_brus CB[MaxCountBrus+1];  // +1 Nick 24.08.2002, was bug
          flag_point=(foot_size+((interval+1)>>1))/interval;
          if(flag_point)
           {
-           interval=min(CB[j].R-CB[j].L+1,CB[j+1].R-CB[j+1].L+1);
+           interval=MIN(CB[j].R-CB[j].L+1,CB[j+1].R-CB[j+1].L+1);
            if(CB[j].P && !CB[j+1].P)    //л
             {
-             n=min(2,CB[j].R-CB[j].L);
+             n=MIN(2,CB[j].R-CB[j].L);
              for(; n<= CB[j].R-CB[j].L;)
               if((*(product_two+CB[j].R-(n+1))<=*(product_two+CB[j].R-n))
                   && (*(penalty+CB[j].R-(n+1))<=*(penalty+CB[j].R-n))) n++;
@@ -903,8 +903,8 @@ INT   i,ver_byte,interval,l1,r1,minl,maxl,minr,maxr,tret;
    if(l1<0 || r1<0) return -1;
    if(i>0)
     {
-     minl=min(minl,l1); minr=min(minr,r1);
-     maxl=max(maxl,l1); maxr=max(maxr,r1);
+     minl=MIN(minl,l1); minr=min(minr,r1);
+     maxl=MAX(maxl,l1); maxr=max(maxr,r1);
     }
    else
     {
@@ -932,7 +932,7 @@ INT   i,ver_byte,interval,dist,mind,maxd;
  for(i=0; i<=interval; i++,CurPos+=ver_byte)
   {
    dist=LeftDistance((PBYTE)CurPos,ver_byte);
-   if(i>0) { mind=min(mind,dist);  maxd=max(maxd,dist); }
+   if(i>0) { mind=MIN(mind,dist);  maxd=MAX(maxd,dist); }
    else      mind=maxd=dist;
   }
 
@@ -1015,8 +1015,8 @@ WORD  min_pen;
 /*************     Определяем левую точку      *************/
   if(left >= MINCOL)
    {
-    l_bound=max(0,left-1);
-    r_bound=max(l_bound,right - LEFT_STEP);
+    l_bound=MAX(0,left-1);
+    r_bound=MAX(l_bound,right - LEFT_STEP);
     pen=penalty  + l_bound;
     prod_two = product_two + l_bound;
     prod = product + l_bound;
@@ -1028,7 +1028,7 @@ WORD  min_pen;
         (*prod_two == min_prod_two && (WORD)*pen < min_pen))
        {
         left=(BYTE)i;
-        min_prod_two=min(*prod_two,*prod);
+        min_prod_two=MIN(*prod_two,*prod);
         min_pen=(WORD)(*pen);
        }
      }
@@ -1039,8 +1039,8 @@ WORD  min_pen;
 /*************     Определяем правую точку      *************/
   if(dx-right >= MINCOL)
    {
-    l_bound=min(dx,right + Y_CUT);
-    r_bound=min(dx,l_bound + Y_CUT + LEFT_STEP);
+    l_bound=MIN(dx,right + Y_CUT);
+    r_bound=MIN(dx,l_bound + Y_CUT + LEFT_STEP);
     right=l_bound;
     pen=penalty  + l_bound;
     prod_two = product_two + l_bound;
@@ -1053,7 +1053,7 @@ WORD  min_pen;
         (*prod_two == min_prod_two && (WORD)*pen < min_pen))
         {
          right=(BYTE)i;
-         min_prod_two=min(*prod_two,*prod);
+         min_prod_two=MIN(*prod_two,*prod);
          min_pen=(WORD)(*pen);
         }
       CurPos =bufer + i*ver_byte;
@@ -1182,7 +1182,7 @@ while(1)
   if(AL >= *Pproduct)
    {
     if(AL > *Pproduct)  {Pcut_points = Pcut_points1; DI = -1;}
-    if(*Ppenalty <= min(NAV_BOUND,DI))
+    if(*Ppenalty <= MIN(NAV_BOUND,DI))
      {
       if(*Ppenalty < DI)
                         Pcut_points = Pcut_points1;
@@ -1407,7 +1407,7 @@ PBYTE  CurPos;
  CurPos=bufer;
  PPen=penalty;
  ver_byte=(dy+7)>>3;
- hgt_bbs=min(bbs3-bbs2,hgt);
+ hgt_bbs=MIN(bbs3-bbs2,hgt);
  up_position=0; dw_position=0;
  in_up=0; in_dw=0; out_up=0; out_dw=0;
 

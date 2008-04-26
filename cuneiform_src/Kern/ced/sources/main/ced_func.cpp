@@ -812,7 +812,7 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 		sp2.lineBetCol=sect->lineBetCol;
 		if (!Write(hFile,(PInt8)&sp2,sizeof(sp2))) goto ED_WRITE_END;
 		if (!WriteRemark(hFile,SSR_FRAG_TYPE,TP_MCOL_BEG)) goto ED_WRITE_END;
-		if (!WriteRemark(hFile,SSR_FRAG_PNUM,min(sect->numberOfColumns,1))) goto ED_WRITE_END;
+		if (!WriteRemark(hFile,SSR_FRAG_PNUM,MIN(sect->numberOfColumns,1))) goto ED_WRITE_END;
 		//Пишем заголовки абзацев в колонках
 		Bool32 fisrtCol=TRUE;//Чтобы не писала NEW_COL в начале первой колонки
 		CEDParagraph* hPara=sect->paragraphs;

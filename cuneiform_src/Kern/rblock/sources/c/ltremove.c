@@ -209,13 +209,13 @@ void PrepareDebugPictureOutput (void)
     }
 
     rBoundary.xLeft   =
-        max (0, rMatrix.xLeft - MAX_DISTANCE);
+        MAX (0, rMatrix.xLeft - MAX_DISTANCE);
     rBoundary.xRight  =
-        min (PAGE_MATRIX_WIDTH  - 1, rMatrix.xRight  + MAX_DISTANCE);
+        MIN (PAGE_MATRIX_WIDTH  - 1, rMatrix.xRight  + MAX_DISTANCE);
     rBoundary.yTop    =
-        max (0, rMatrix.yTop  - MAX_DISTANCE);
+        MAX (0, rMatrix.yTop  - MAX_DISTANCE);
     rBoundary.yBottom =
-        min (PAGE_MATRIX_HEIGHT - 1, rMatrix.yBottom + MAX_DISTANCE);
+        MIN (PAGE_MATRIX_HEIGHT - 1, rMatrix.yBottom + MAX_DISTANCE);
 
     pFirstLine = PageMatrix + (rBoundary.yTop    << PAGE_MATRIX_WIDTH_SHIFT);
     pLastLine  = PageMatrix + (rBoundary.yBottom << PAGE_MATRIX_WIDTH_SHIFT);
@@ -268,17 +268,17 @@ static void CalculateDirectionsValues (BLOCK *pBlock)
     REAL_XY (BottomLeft.x , BottomLeft.y);
     REAL_XY (BottomRight.x, BottomRight.y);
 
-    rReal.xLeft   = min (TopLeft.x, BottomLeft.x);
-    rReal.yTop    = min (TopLeft.y, TopRight.y);
-    rReal.xRight  = max (TopRight.x, BottomRight.x);
-    rReal.yBottom = max (BottomLeft.y, BottomRight.y);
+    rReal.xLeft   = MIN (TopLeft.x, BottomLeft.x);
+    rReal.yTop    = MIN (TopLeft.y, TopRight.y);
+    rReal.xRight  = MAX (TopRight.x, BottomRight.x);
+    rReal.yBottom = MAX (BottomLeft.y, BottomRight.y);
 
     // Normalize rectangle coordinates
 
-    rReal.xLeft   = min (max (rReal.xLeft,   0), PAGE_MATRIX_REAL_WIDTH  - 1);
-    rReal.yTop    = min (max (rReal.yTop,    0), PAGE_MATRIX_REAL_HEIGHT - 1);
-    rReal.xRight  = min (max (rReal.xRight,  0), PAGE_MATRIX_REAL_WIDTH  - 1);
-    rReal.yBottom = min (max (rReal.yBottom, 0), PAGE_MATRIX_REAL_HEIGHT - 1);
+    rReal.xLeft   = MIN (MAX (rReal.xLeft,   0), PAGE_MATRIX_REAL_WIDTH  - 1);
+    rReal.yTop    = MIN (MAX (rReal.yTop,    0), PAGE_MATRIX_REAL_HEIGHT - 1);
+    rReal.xRight  = MIN (MAX (rReal.xRight,  0), PAGE_MATRIX_REAL_WIDTH  - 1);
+    rReal.yBottom = MIN (MAX (rReal.yBottom, 0), PAGE_MATRIX_REAL_HEIGHT - 1);
 
     // Calculate matrix coordinates
 

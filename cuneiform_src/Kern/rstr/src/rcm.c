@@ -2572,7 +2572,7 @@ switch(dwType)
 			else 
 				tmp_gray_name++;
 
-			if (max(strlen(tmp_ctb_name), strlen(tmp_gray_name)) + strlen(tmp_dir) > 256)
+			if (MAX(strlen(tmp_ctb_name), strlen(tmp_gray_name)) + strlen(tmp_dir) > 256)
 			{
 				wLowRC = RSTR_ERR_VALUE;
 

@@ -203,7 +203,7 @@ Int16 Sweeper_ImageRead (Word8* lpImage, Word16 wMaxSize)
       return 0;
 
    Int32 max_read_rqst = BUF_LEN - 4*ImageInfo.wImageByteWidth;
-   Int32 size_read = (Int32)Tiger_Callback_ImageRead( (Word8*)lpImage, (Word16) min( wMaxSize, max_read_rqst ) );
+   Int32 size_read = (Int32)Tiger_Callback_ImageRead( (Word8*)lpImage, (Word16) MIN( wMaxSize, max_read_rqst ) );
 	if (size_read ==0)
 		return 0;
 	assert( size_read <= max_read_rqst );

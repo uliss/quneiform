@@ -227,7 +227,7 @@ static SINT MoveUpDownNoAngle(BYTE *bSource,SINT xbyte1,
  BYTE *b1;
  BYTE *b2;
  BYTE stay;
- SINT xbyte=min(xbyte1,xbyte2);
+ SINT xbyte=MIN(xbyte1,xbyte2);
 
 	 // размажем вниз
  b2=bDest;
@@ -474,8 +474,8 @@ PBYTE rr;
 
  dist=0;
  rbyte=(w+7)>>3;
- lasty=min(h,sty+wh);  // last in intersection
- lastx=min(w,stx+ww);
+ lasty=MIN(h,sty+wh);  // last in intersection
+ lastx=MIN(w,stx+ww);
 
  if( sty < 0 ) wr-=sty*ww;
  if( stx < 0)  wr-=stx;     // point to start intersection
@@ -548,8 +548,8 @@ PBYTE rr;
  startx-=stx;
  starty-=sty;
  stx=sty=0;
- lastx=min(ww,startx+w);
- lasty=min(wh,starty+h);
+ lastx=MIN(ww,startx+w);
+ lasty=MIN(wh,starty+h);
  dist=0;
 
  if(starty<0) r-=starty*rbyte; // first few rows from r not useful

@@ -165,7 +165,7 @@ for (s=0,c1=c=cell_l()->prev; c->prev!=NULL; c=c->prev)
         return 0;
     get_b_lines(c,&bl);
     b3=bl.b3;
-    if( line_readyBL && /*abs(c->row-b3)<max(c->h/2,1)*/
+    if( line_readyBL && /*abs(c->row-b3)<MAX(c->h/2,1)*/
         c->row-1<=b3 && c->row+c->h+2>=b3 )
         break; // OLEG for tables
     ps=bl.ps;

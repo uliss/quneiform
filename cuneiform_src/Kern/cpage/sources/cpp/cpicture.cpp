@@ -254,7 +254,7 @@ CPAGE_FUNC(Bool32)  CPAGE_PictureGetMask(Handle hPage, Handle hPicture, Int32 Sk
 				int y1 = GetIndex(lpHor,nMaxHor,pict.Corner[i].y);
 				int y2 = GetIndex(lpHor,nMaxHor,pict.Corner[ci].y);
 				if (x<nMaxVer&&y1<nMaxHor&&y2<nMaxHor)
-					for(int y = min(y1,y2);y<max(y1,y2);y++)
+					for(int y = MIN(y1,y2);y<MAX(y1,y2);y++)
 						*(lpMatrix + x + y*nMaxVer) = sign;
 			}
 		}

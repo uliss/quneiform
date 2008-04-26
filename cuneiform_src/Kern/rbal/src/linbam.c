@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "linear.h"
 #include "ligas.h"
 #include "lang_def.h"	// 08.09.2000 E.P.
-
+#include "minmax.h"
 
 extern      line_BL;
 extern  CSTR_line lin_str;
@@ -748,8 +748,8 @@ INT same_int(CSTR_rast St, BYTE dir)
    cur_dup = cur_ddn = 1;
    if ((ch > 24) && (fbs & CSTR_bs_round))
      cur_dup=2;
-   wrk_dup=max(cur_dup,int_dup);
-   wrk_ddn=max(cur_ddn,int_ddn);
+   wrk_dup=MAX(cur_dup,int_dup);
+   wrk_ddn=MAX(cur_ddn,int_ddn);
    if ((attr.flg & CSTR_f_let) && !(attr.difflg & 0x40))
    {
      if (int_fid & CSTR_db_b1)   // large initiator
@@ -2094,7 +2094,7 @@ again_m0:
       bc->startcol=bp->startcol;
       bc->c1=bp->c1;
       bc->ncells += bp->ncells;
-      bc->startf = min(bc->startf,bp->startf);
+      bc->startf = MIN(bc->startf,bp->startf);
       if (intsim)
         merge_bases (bc, bp);
       else
@@ -2120,7 +2120,7 @@ again_m0:
       bc->endcol=bn->endcol;
       bc->c2=bn->c2;
       bc->ncells += bn->ncells;
-      bc->endf = max(bc->endf,bn->endf);
+      bc->endf = MAX(bc->endf,bn->endf);
       bs_int_no--;
       if (intsim)
         merge_bases (bc, bn);
@@ -2141,10 +2141,10 @@ again_tripples:
         bp->endcol=bn->endcol;
         bp->ncells += bn->ncells;
         bp->ncells += bc->ncells;
-        bp->endf = max(bp->endf,bn->endf);
-        bp->endf = max(bp->endf,bc->endf);
-        bp->startf = min(bp->startf,bn->startf);
-        bp->startf = min(bp->startf,bc->startf);
+        bp->endf = MAX(bp->endf,bn->endf);
+        bp->endf = MAX(bp->endf,bc->endf);
+        bp->startf = MIN(bp->startf,bn->startf);
+        bp->startf = MIN(bp->startf,bc->startf);
         bs_int_no -= 2;
 	bp->c2 = bn->c2;  // AL 940318
 	merge_bases(bp,bn);
@@ -2157,10 +2157,10 @@ again_tripples:
         bp->endcol=bn->endcol;
         bp->ncells += bn->ncells;
         bp->ncells += bc->ncells;
-        bp->endf = max(bp->endf,bn->endf);
-        bp->endf = max(bp->endf,bc->endf);
-        bp->startf = min(bp->startf,bn->startf);
-	bp->startf = min(bp->startf,bc->startf);
+        bp->endf = MAX(bp->endf,bn->endf);
+        bp->endf = MAX(bp->endf,bc->endf);
+        bp->startf = MIN(bp->startf,bn->startf);
+	bp->startf = MIN(bp->startf,bc->startf);
 	bp->c2 = bn->c2;  // AL 940318
         bs_int_no -= 2;
         merge_bas1(bp,bn);
@@ -2172,7 +2172,7 @@ again_tripples:
     {
         bp->endcol=bc->endcol;
         bp->ncells += bc->ncells;
-	bp->endf = max(bp->endf,bc->endf);
+	bp->endf = MAX(bp->endf,bc->endf);
 	bp->c2 = bc->c2;  // AL 940318
         bs_int_no --;
         merge_b4(bp,bc);
@@ -2183,7 +2183,7 @@ again_tripples:
     {
         bn->startcol=bc->startcol;
         bn->ncells += bc->ncells;
-	bp->startf = min(bp->startf,bc->startf);
+	bp->startf = MIN(bp->startf,bc->startf);
 	bn->c1 = bc->c1; // AL 940318
         bs_int_no --;
         merge_b4(bn,bc);
@@ -2202,7 +2202,7 @@ again_tripples:
     bc->c2 = bn->c2;
     bc->endcol = bn->endcol;
     bc->ncells += bn->ncells;
-    bc->endf = max(bc->endf,bn->endf);
+    bc->endf = MAX(bc->endf,bn->endf);
     merge_bases (bc, bn);
     delete_int(bn);
     bs_int_no--;
@@ -2215,7 +2215,7 @@ again_tripples:
     bn->startcol = bc->startcol;
     bn->ncells += bc->ncells;
     bn->c1 = bc->c1;
-    bn->startf = min(bc->startf,bn->startf);
+    bn->startf = MIN(bc->startf,bn->startf);
     merge_b4(bn,bc);
     delete_int(bc);
     bs_int_no--;
@@ -2239,7 +2239,7 @@ again_tripples:
     bc->ncells += bp->ncells;
     bc->startcol = bp->startcol;
     bc->c1 = bp->c1;
-    bc->startf = min(bc->startf,bp->startf);
+    bc->startf = MIN(bc->startf,bp->startf);
     merge_bases (bc,bp);
     delete_int(bp);
     bs_int_no--;
@@ -2251,7 +2251,7 @@ again_tripples:
     bp->endcol = bc->endcol;
     bp->ncells += bc->ncells;
     bp->c2 = bc->c2;
-    bp->endf = max(bc->endf,bp->endf);
+    bp->endf = MAX(bc->endf,bp->endf);
     merge_b4(bp,bc);
     delete_int(bc);
     bs_int_no--;
@@ -2280,7 +2280,7 @@ again_dead:
       if (int_similar (bc,bn))
       {
         bc->endcol=bn->endcol;
-        bc->endf = max(bc->endf,bn->endf);
+        bc->endf = MAX(bc->endf,bn->endf);
         bc->c2 = bn->c2;
         bc->ncells += bn->ncells;
         bs_int_no--;
@@ -2290,13 +2290,13 @@ again_dead:
       }
       if (bc->endf > bc->endcol)       // current extendable to right
       {
-        bc->endf = bc->endcol = min (bc->endf,bn->startcol);
+        bc->endf = bc->endcol = MIN (bc->endf,bn->startcol);
         bc ->fl_ext |= 1;
         goto again;
       }
       if (bn->startf < bn->startcol)       // next extendable to left
       {
-        bn->startf = bn->startcol = max (bn->startf,bc->endcol);
+        bn->startf = bn->startcol = MAX (bn->startf,bc->endcol);
         bn ->fl_ext |= 2;
         goto again;
       }
@@ -2315,7 +2315,7 @@ pairs_loop:
     if (int_similar (bc,bn))
     {
       bc->endcol=bn->endcol;
-      bc->endf = max(bc->endf,bn->endf);
+      bc->endf = MAX(bc->endf,bn->endf);
       bc->c2 = bn->c2;
       bc->ncells += bn->ncells;
       merge_bases (bc,bn);
@@ -2326,7 +2326,7 @@ pairs_loop:
     if (int_sim_base2 (bc,bn))
     {
       bc->endcol=bn->endcol;
-      bc->endf = max(bc->endf,bn->endf);
+      bc->endf = MAX(bc->endf,bn->endf);
       bc->c2 = bn->c2;
       bc->ncells += bn->ncells;
       merge_bas1 (bc,bn);
@@ -2337,7 +2337,7 @@ pairs_loop:
     if ((simfl=int_sim_base1 (bc,bn)) != 0)
     {
       bc->endcol=bn->endcol;
-      bc->endf = max(bc->endf,bn->endf);
+      bc->endf = MAX(bc->endf,bn->endf);
       bc->c2 = bn->c2;
       bc->ncells += bn->ncells;
       if ((simfl==1) && (bn->n2 >= 2))
@@ -2366,7 +2366,7 @@ pairs_loop:
       bn->startcol = bc->startcol;
       bn->ncells += 1;
       bn->c1 = bc->c1;
-      bn->startf = min(bc->startf,bn->startf);
+      bn->startf = MIN(bc->startf,bn->startf);
       merge_b4(bn,bc);
       delete_int(bc);
       bs_int_no--;
@@ -2384,7 +2384,7 @@ pairs_loop:
       bp->endcol = bc->endcol;
       bp->ncells += bc->ncells;
       bp->c2 = bc->c2;
-      bp->endf = max(bc->endf,bp->endf);
+      bp->endf = MAX(bc->endf,bp->endf);
       merge_b4(bp,bc);
       delete_int(bc);
       bs_int_no--;
@@ -2402,7 +2402,7 @@ pairs_loop:
         bp->endcol = bc->endcol;
         bp->ncells += bc->ncells;
         bp->c2 = bc->c2;
-        bp->endf = max(bc->endf,bp->endf);
+        bp->endf = MAX(bc->endf,bp->endf);
         merge_b4(bp,bc);
         delete_int(bc);
         bs_int_no--;
@@ -2413,7 +2413,7 @@ pairs_loop:
         bn->startcol = bc->startcol;
         bn->ncells += 1;
         bn->c1 = bc->c1;
-        bn->startf = min(bc->startf,bn->startf);
+        bn->startf = MIN(bc->startf,bn->startf);
         merge_b4(bn,bc);
         delete_int(bc);
         bs_int_no--;

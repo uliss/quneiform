@@ -283,7 +283,7 @@ int det_sym_sort(short ptr_char, Word16 pri, Word16 abc_n1,
 				}
 				ms[n1]=ii;char_lst[n1]=let;lst[n1]=i;number_lst[n1]=i;
 				if (nm<MAX_NM)  nm++;
-				L=min(L,(Word32)(ms[0]+4));
+				L=MIN(L,(Word32)(ms[0]+4));
 				for (m1=nm-1;m1>0;m1--)
 					if ((Word32)ms[m1]>=L)  nm--;
 				if (n1>=nm) continue;
@@ -983,7 +983,7 @@ Word16  *bgfff;
 						else 
 						{
 							jjold++;
-							jj1=min(jj-1,jj1);
+							jj1=MIN(jj-1,jj1);
 						}
                     }
 					k=1;

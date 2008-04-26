@@ -66,6 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # include <stdlib.h>
 # include "extract.h"
+#include "minmax.h"
 
 void StringCountRecog (STRING *);   // 940223  AL
 BOOL StringBreakOnVertical (STRING *p,  int x,
@@ -157,8 +158,8 @@ static BOOL CheckIntervalsAndProcessString
         return (FALSE);
     }
 
-    xCrossEnd   = max (xLetEnd,   xDustEnd);
-    xCrossBegin = min (xLetBegin, xDustBegin);
+    xCrossEnd   = MAX (xLetEnd,   xDustEnd);
+    xCrossBegin = MIN (xLetBegin, xDustBegin);
 
     if (xCrossBegin - xCrossEnd >= nBigDistance &&
         StringBreakOnVertical (p, (xCrossBegin+xCrossEnd) / 2, &q, &r))

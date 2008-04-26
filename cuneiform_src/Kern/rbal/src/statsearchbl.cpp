@@ -100,7 +100,7 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr,
 	//правый максимум (относительно главного максимума)
 	Int16 right_diff = stat_Right_diff_from_max(p_FreqY2Arr, max_FreqY2Arr);
 
-	right_diff = max(3, right_diff);
+	right_diff = MAX(3, right_diff);
 
 	Int16 rightMax_FreqY2Arr = stat_index_RightLocMax(p_FreqY2Arr, sz_FreqY2Arr, 
 													max_FreqY2Arr + right_diff);
@@ -119,7 +119,7 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr,
 
 	//левый максимум (относительно главного максимума)
 	Int16  left_diff =  stat_Left_diff_from_max(p_FreqY2Arr, max_FreqY2Arr);
-	left_diff = max(left_diff, 3);
+	left_diff = MAX(left_diff, 3);
 
 	Int16 leftMax_FreqY2Arr = stat_index_LeftLocMax(p_FreqY2Arr, max_FreqY2Arr - left_diff);
 
@@ -133,14 +133,14 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr,
 		//третья линия
 		p_attr->bs3 = row_str.globMax;
 		Ns3[0] = row_str.ValGM;
-		p_attr->Nb3 = (short)min(100,(Float32)100 * row_str.ValGM /
+		p_attr->Nb3 = (short)MIN(100,(Float32)100 * row_str.ValGM /
 																(Float32)(sz_Y2Arr * Pb3));
 		//четвертая линия
 		if(row_str.rightLocMax != -1)
 		{
 			p_attr->bs4 = row_str.rightLocMax;
 			Ns4[0] = row_str.ValRLM;
-			p_attr->Nb4 = (short)min(100, (Float32)100 * row_str.ValRLM /
+			p_attr->Nb4 = (short)MIN(100, (Float32)100 * row_str.ValRLM /
 															(Float32)(sz_Y2Arr * Pb4));
 		}
 		else
@@ -155,7 +155,7 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr,
 		//четвертая линия
 		p_attr->bs4 = row_str.globMax;;
 		Ns4[0] = row_str.ValGM;
-		p_attr->Nb4 = (short)min(100,(Float32)100 * row_str.ValGM /
+		p_attr->Nb4 = (short)MIN(100,(Float32)100 * row_str.ValGM /
 																(Float32)(sz_Y2Arr * Pb4));
 
 		//третья линия
@@ -163,7 +163,7 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr,
 		{
 			p_attr->bs3 = row_str.leftLocMax;
 			Ns3[0] = row_str.ValLLM;
-			p_attr->Nb3 = (short)min(100,(Float32)100 * row_str.ValLLM /
+			p_attr->Nb3 = (short)MIN(100,(Float32)100 * row_str.ValLLM /
 																(Float32)(sz_Y2Arr * Pb3));
 		}
 		else
@@ -1256,7 +1256,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 
 	//левый (относительно глобального) максимум
 	Int16  left_diff =  stat_Left_diff_from_max(p_FreqY1Arr, max_FreqY1Arr);
-	left_diff = max(left_diff, 3);
+	left_diff = MAX(left_diff, 3);
 
 	Int16 leftMax_FreqY1Arr = stat_index_LeftLocMax(p_FreqY1Arr, max_FreqY1Arr - left_diff);
 	//проверка t-уровня  
@@ -1292,7 +1292,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 
 	//правый максимум
 	Int16 right_diff = stat_Right_diff_from_max(p_FreqY1Arr, max_FreqY1Arr);
-	right_diff = max(right_diff, 3);
+	right_diff = MAX(right_diff, 3);
 
 	Int16 rightMax_FreqY1Arr = stat_index_RightLocMax(p_FreqY1Arr, sz_FreqY1Arr, max_FreqY1Arr + right_diff);
 
@@ -1332,7 +1332,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 		{
 			case 1:	p_attr->bs1 = row_str.globMax;
  					Ns1[0] = row_str.ValGM;
-					p_attr->Nb1 = (Int16)min(100, 
+					p_attr->Nb1 = (Int16)MIN(100, 
 									(Float32)100 * row_str.ValGM/(Float32)(sz_Y1Arr * Pb1));
 
 					if(row_str.ValRLM != -1 && 
@@ -1340,7 +1340,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 					{
 						p_attr->bs2 = row_str.rightLocMax;
 						Ns2[0] = row_str.ValRLM;
-						p_attr->Nb2 = (Int16)min(100, 
+						p_attr->Nb2 = (Int16)MIN(100, 
 								   (Float32)100 * row_str.ValRLM/(Float32)(sz_Y1Arr * Pb2));																	
 					}
 					else
@@ -1353,7 +1353,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 			case 2:	;
 			default:p_attr->bs2 = row_str.globMax;
  					Ns2[0] = row_str.ValGM;
-					p_attr->Nb2 = (Int16)min(100, 
+					p_attr->Nb2 = (Int16)MIN(100, 
 									(Float32)100 * row_str.ValGM/(Float32)(sz_Y1Arr * Pb2));
 
 					if(row_str.ValLLM != -1 && 
@@ -1361,7 +1361,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 					{
 						p_attr->bs1 = row_str.leftLocMax;
 						Ns1[0] = row_str.ValLLM;
-						p_attr->Nb1 = (Int16)min(100, 
+						p_attr->Nb1 = (Int16)MIN(100, 
 								   (Float32)100 * row_str.ValLLM/(Float32)(sz_Y1Arr * Pb1));																	
 					}
 					else
@@ -1536,7 +1536,7 @@ Int16 stat_Hypothesis(Int32 line_number, Int16 diff_b3_bsl)
 
 	if(line_number <= CSTR_GetMaxNumber())
 	{
-		Int32 line_start = max(1, line_number - LNCNST); 
+		Int32 line_start = MAX(1, line_number - LNCNST); 
 
 		CSTR_attr *pCSTR_attrArray = (CSTR_attr *)malloc((line_number - line_start) * sizeof(CSTR_attr));
 
@@ -1657,7 +1657,7 @@ Int16 stat_Mode_diff_b2_b1(Int32 line_number, Int16 diff_b3_b2)
 
 	if(line_number <= CSTR_GetMaxNumber())
 	{
-		Int32 line_start = max(1, line_number - LNCNST); 
+		Int32 line_start = MAX(1, line_number - LNCNST); 
 
 		CSTR_attr *pCSTR_attrArray = (CSTR_attr *)malloc((line_number - line_start) * sizeof(CSTR_attr));
 
@@ -1786,7 +1786,7 @@ Int16 stat_Mode_diff_b3_b4(Int32 line_number, Int16 diff_b3_b2)
 
 	if(line_number <= CSTR_GetMaxNumber())
 	{
-		Int32 line_start = max(1, line_number - LNCNST); 
+		Int32 line_start = MAX(1, line_number - LNCNST); 
 
 		CSTR_attr *pCSTR_attrArray = (CSTR_attr *)malloc((line_number - line_start) * sizeof(CSTR_attr));
 
@@ -1850,7 +1850,7 @@ Int16 stat_Mode_diff_b2_b3(Int32 line_number, Int16 diff, Int16 fl_b2_or_b1)
 
 	if(line_number <= CSTR_GetMaxNumber())
 	{
-		Int32 line_start = max(1, line_number - LNCNST); 
+		Int32 line_start = MAX(1, line_number - LNCNST); 
 
 		CSTR_attr *pCSTR_attrArray = (CSTR_attr *)malloc((line_number - line_start) * sizeof(CSTR_attr));
 

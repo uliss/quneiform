@@ -1399,7 +1399,7 @@ my_cut_points=cut_points;
             {
             cutpoints_show[numpoints_show].y=C->h-cpnt->h+1;
             cutpoints_show[numpoints_show+1].y=cutpoints_show[numpoints_show].y+(cpnt->dh?cpnt->dh:C->h);
-            cutpoints_show[numpoints_show+1].y=min(C->h,cutpoints_show[numpoints_show+1].y);
+            cutpoints_show[numpoints_show+1].y=MIN(C->h,cutpoints_show[numpoints_show+1].y);
             }
         cutpoints_show[numpoints_show+1].y--;
         if( !cuts_point_methode )

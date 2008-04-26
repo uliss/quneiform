@@ -127,7 +127,7 @@ Int16 events_recog_rt()
  if (mn->mnlines > NET_COMPONENT)
   {if (net_comp(mn) > NET_COMPONENT) goto no_answer;}
 
- ev_rt_num_ln = min(mn->mnlines,15);
+ ev_rt_num_ln = MIN(mn->mnlines,15);
  main_number_ptr = mn; boxes_account();
  //snap_keep(snap_rotate,NULL,0);
  ev_vector_cnt();

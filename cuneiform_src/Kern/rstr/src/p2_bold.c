@@ -236,9 +236,9 @@ static void FillFromLine(CCOM_lnhead *linerep,int size,int *thickBuf,int add)
    {
       if(inter->l < 0) 
                   return;
-          j=min(MAXTHICK-1,inter->l+add);
+          j=MIN(MAXTHICK-1,inter->l+add);
           thickBuf[j]++;
-      //StoreOneInterval( buf, inter->e-inter->l, min(w,inter->e));
+      //StoreOneInterval( buf, inter->e-inter->l, MIN(w,inter->e));
    }
   }
 }
@@ -300,7 +300,7 @@ static int AddThickStat(CSTR_rast first,Word8 name,int *thickBuffer)
 
   if(i==0)
   {
-          heiLitBuffer[max(0,min(k,MAXHEI-1))]++;
+          heiLitBuffer[MAX(0,MIN(k,MAXHEI-1))]++;
   }
   else
   {
@@ -309,7 +309,7 @@ static int AddThickStat(CSTR_rast first,Word8 name,int *thickBuffer)
    else if(i==1) k=(k*4)/5;
   }
 
-  heiAllBuffer[max(0,min(k,MAXHEI-1))]++;
+  heiAllBuffer[MAX(0,MIN(k,MAXHEI-1))]++;
 
   return i+1;
 }
@@ -344,22 +344,22 @@ static int GetTipicalThick(int nLet,WORDThick *LineThick,int *thickBuf,int bestH
           return 0;
 
   // поищем лучшего среди толстых
-  maxThick=min(maxThick, bestHeight>>1);
-  maxSumma=max(thickBuf[bestWidth-1],thickBuf[bestWidth+1]);
+  maxThick=MIN(maxThick, bestHeight>>1);
+  maxSumma=MAX(thickBuf[bestWidth-1],thickBuf[bestWidth+1]);
   maxSumma+=thickBuf[bestWidth];
   for(k=-1,i=bestWidth+1,minWidth=thickBuf[bestWidth];i<=maxThick;i++)
   {
          if( thickBuf[i] > 2*minWidth &&
           (k < 0 || thickBuf[i] >= thickBuf[k] ) &&
             ( thickBuf[i]*10 > thickBuf[bestWidth]*7 &&
-			  (thickBuf[i]+max(thickBuf[i+1],thickBuf[i-1]))*10 > maxSumma*7
+			  (thickBuf[i]+MAX(thickBuf[i+1],thickBuf[i-1]))*10 > maxSumma*7
 			||
 			  thickBuf[i]*10 > thickBuf[bestWidth]*6 &&
-			  (thickBuf[i]+max(thickBuf[i+1],thickBuf[i-1]))*10 > maxSumma*8
+			  (thickBuf[i]+MAX(thickBuf[i+1],thickBuf[i-1]))*10 > maxSumma*8
 			 )
            ) 
                  k=i;
-     minWidth=min(minWidth,thickBuf[i]);
+     minWidth=MIN(minWidth,thickBuf[i]);
   }
   if(k>0)
           bestWidth=k;
@@ -413,7 +413,7 @@ static int GetTipicalThick(int nLet,WORDThick *LineThick,int *thickBuf,int bestH
   else
    k=(bestWidth*1000)/adjustedHeight;
 
-  LineThick->strih =(Word8)min(MAXTHICK-1,bestWidth);
+  LineThick->strih =(Word8)MIN(MAXTHICK-1,bestWidth);
   LineThick->height=bestHeight;
   LineThick->thick =k;
   LineThick->nLet  =nLet;
@@ -561,7 +561,7 @@ static int p2_SetBoldWord(CSTR_rast first,CSTR_rast last,
  if(tmpThick.thick < POROG_LIGHT)
          return P2_LIGHT;
 
- porog=10+max(0,5-tmpThick.nLet);
+ porog=10+MAX(0,5-tmpThick.nLet);
  if(lineThick->thick > 0 && tmpThick.thick > lineThick->thick+porog)
          return P2_BOLD;
 
@@ -829,9 +829,9 @@ static int SetTestBold(int nWord,WORDThick *wthick,int maxWord,WORDThick *prevLi
 #ifdef _NEW_SMALL_
 				int porog=(wthick[i].nLet==1?8:5);
                 if( (bold==P2_LIGHT && 
-				     wthick[i].thick+porog >= min(wthick[i-1].thick,wthick[j].thick)) || 
+				     wthick[i].thick+porog >= MIN(wthick[i-1].thick,wthick[j].thick)) || 
 					 (bold==P2_BOLD && 
-				     wthick[i].thick <= max(wthick[i-1].thick,wthick[j].thick)+porog) 
+				     wthick[i].thick <= MAX(wthick[i-1].thick,wthick[j].thick)+porog) 
 				   ) 
 #endif
                  bold=wthick[k].bold;
@@ -884,8 +884,8 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
 //       if(wthick[i].nLet < 3)
 //                 continue;
 
-           minVal=min(minVal,wthick[i].thick);
-       maxVal=max(maxVal,wthick[i].thick);
+           minVal=MIN(minVal,wthick[i].thick);
+       maxVal=MAX(maxVal,wthick[i].thick);
 
            if( wthick[i].nLet < MIN_STAT_PAGE )
                    continue;
@@ -897,7 +897,7 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
                    if( wthick[i].thick < minBold)
                            minBold=wthick[i].thick;
            
-                   pageBold =min(pageBold, wthick[i].thick);
+                   pageBold =MIN(pageBold, wthick[i].thick);
                    isGoodStat=TRUE;
                    nBold++;
            }
@@ -906,12 +906,12 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
                     if( wthick[i].thick > maxLight)
                            maxLight=wthick[i].thick;
                    
-                    pageLight=max(pageLight,wthick[i].thick);
+                    pageLight=MAX(pageLight,wthick[i].thick);
                         isGoodStat=TRUE;
                         nLight++;
            }
 
-//         thickBuffer[min(MAXTHICK-1,wthick[i].thick)]++;
+//         thickBuffer[MIN(MAXTHICK-1,wthick[i].thick)]++;
         }
 
         if(minVal > maxVal)
@@ -1415,13 +1415,13 @@ int p2_SetBoldLine(CSTR_line line)
  {
          LineThick.bold=P2_BOLD;
      if(LineThick.nLet > MIN_SIZE_LINE && LineThick.height > MIN_HEIGHT )
-                 pageLineBold=min(pageLineBold,LineThick.thick);
+                 pageLineBold=MIN(pageLineBold,LineThick.thick);
  }
  else if(LineThick.thick < POROG_LIGHT )
  {
          LineThick.bold=P2_LIGHT;
          if(LineThick.nLet > MIN_SIZE_LINE && LineThick.height > MIN_HEIGHT) 
-                 pageLineLight=max(pageLineLight,LineThick.thick);
+                 pageLineLight=MAX(pageLineLight,LineThick.thick);
  }
 
  prevWord=NULL;      // &prevLineThick;  
@@ -1538,13 +1538,13 @@ int p2_SetBoldLine(CSTR_line line)
    {
       LineThick.bold=P2_BOLD;
           if( corRet==P2_BOLD &&  p2_active && LineThick.nLet > MIN_SIZE_LINE) 
-                  acceptLineBold=min(acceptLineBold,LineThick.thick);
+                  acceptLineBold=MIN(acceptLineBold,LineThick.thick);
    }
    else  if(nl>0 && nb==0 )  
    {
      LineThick.bold=P2_LIGHT;
          if( corRet==P2_LIGHT && p2_active && LineThick.nLet > MIN_SIZE_LINE) 
-                 acceptLineLight=max(acceptLineLight,LineThick.thick);
+                 acceptLineLight=MAX(acceptLineLight,LineThick.thick);
    }
    else LineThick.bold=0;
    prevLineThick=LineThick;
@@ -1613,7 +1613,7 @@ int p2_SetBoldLine(CSTR_line line)
   for(i=0;i<nWord;i++)
   {
           if( WordThick[i].height > MIN_HEIGHT )
-                 GistThickness[min(WordThick[i].thick,MAXGISTHICK-1)]++;
+                 GistThickness[MIN(WordThick[i].thick,MAXGISTHICK-1)]++;
   }
  }
 
@@ -1665,13 +1665,13 @@ static int FindBounds(int *val,int size)
 
     BoundLIGHT=BoundBOLD=0;
 
-    minVal=max(pageLight,pageLineLight); 
+    minVal=MAX(pageLight,pageLineLight); 
 
         // могут плавать границы pageLight,... 
 	while( minVal > 1 && val[minVal-1] && val[minVal-1] < val[minVal] )
        minVal--;
 
-    maxVal=min(pageBold,pageLineBold);
+    maxVal=MIN(pageBold,pageLineBold);
 
     if( maxVal <= minVal)  // 25.11.99
 		maxVal=minVal+1;
@@ -1701,7 +1701,7 @@ static int FindBounds(int *val,int size)
 
      if(maxVal!=MAXTHICK)
         {
-         maxVal=min(maxVal,size-1);
+         maxVal=MIN(maxVal,size-1);
          for( i=maxVal-1;i>0;i--)
          {
                         if(val[i] > val[maxVal]*2 )
@@ -1749,7 +1749,7 @@ static int FindBounds(int *val,int size)
 
         if( maxVal== MAXTHICK)
         {
-                maxVal=min(size-1,minVal+1);
+                maxVal=MIN(size-1,minVal+1);
                 for(i=maxVal+1;i<size;i++)
                 {
                         if(val[i]>val[maxVal])
@@ -1824,8 +1824,8 @@ static int FindBounds(int *val,int size)
 
         if(minVal > maxVal)
         {
-                minVal=max(pageLineLight,pageLight);
-                maxVal=min(pageLineBold,pageBold);
+                minVal=MAX(pageLineLight,pageLight);
+                maxVal=MIN(pageLineBold,pageBold);
 
                 if( minVal==0 || maxVal== MAXTHICK ||
                         minVal >= maxVal
@@ -1985,7 +1985,7 @@ static int FindBounds(int *val,int size)
 				if( promMax > minVal)
 				{
 /*
-					if( val[promMax] > min(val[bestMin],val[bestMax]) )
+					if( val[promMax] > MIN(val[bestMin],val[bestMax]) )
 					{
                        if(val[minVal] > val[maxVal]) 
 						   minVal = maxVal;
@@ -2107,17 +2107,17 @@ static void TestColumnsThick(void)
 			  thickCol[i][j].thick /= thickCol[i][j].nLet;
 
 
-		  maxLight = max(maxLight,thickCol[i][j].minThick); 
-		  minBold  = min(minBold,thickCol[i][j].maxThick); 
+		  maxLight = MAX(maxLight,thickCol[i][j].minThick); 
+		  minBold  = MIN(minBold,thickCol[i][j].maxThick); 
 
-		  maxs[min(MAXTHICK-1,thickCol[i][j].maxThick)]++;
-		  mins[min(MAXTHICK-1,thickCol[i][j].minThick)]++;
+		  maxs[MIN(MAXTHICK-1,thickCol[i][j].maxThick)]++;
+		  mins[MIN(MAXTHICK-1,thickCol[i][j].minThick)]++;
 
-		  stats[min(MAXTHICK-1,thickCol[i][j].thick)]++;
+		  stats[MIN(MAXTHICK-1,thickCol[i][j].thick)]++;
 		}
 
 
-		commonThick = allThick/max(1,allNum);
+		commonThick = allThick/MAX(1,allNum);
 
 		midThick = TestStatsMinMax(stats,mins,maxs,maxLight,minBold);
 
@@ -2212,7 +2212,7 @@ static void TestColumnsThick(void)
              thickCol[i][j].bold = commonBold;
 
 			 if( thickCol[i][j].maxThick  > thickCol[i][j].minThick +  POROG_ONECOL)
-			      thickCol[i][j].nThick = max(1,min(255,thickCol[i][j].thick));
+			      thickCol[i][j].nThick = MAX(1,MIN(255,thickCol[i][j].thick));
 			 continue;
 		 }
 
@@ -2223,7 +2223,7 @@ static void TestColumnsThick(void)
              if( thickCol[i][j].minThick < midThick - 1 &&
 				 thickCol[i][j].maxThick  > thickCol[i][j].minThick +  POROG_ONECOL
 			   )
-			   thickCol[i][j].nThick = max(1,min(255,thickCol[i][j].thick));
+			   thickCol[i][j].nThick = MAX(1,MIN(255,thickCol[i][j].thick));
 			 continue;
 		 }
 		 if(  thickCol[i][j].thick < midThick - 2 )
@@ -2232,13 +2232,13 @@ static void TestColumnsThick(void)
 			 if( thickCol[i][j].maxThick > midThick + 1 &&
 				 thickCol[i][j].maxThick  > thickCol[i][j].minThick +  POROG_ONECOL
 			   )
-			   thickCol[i][j].nThick = max(1,min(255,thickCol[i][j].thick));
+			   thickCol[i][j].nThick = MAX(1,MIN(255,thickCol[i][j].thick));
 			 continue;
 		 }
 
 		 if( thickCol[i][j].maxThick  > thickCol[i][j].minThick +  POROG_ONECOL)
 		 {
-			 thickCol[i][j].nThick = max(1,min(255,thickCol[i][j].thick));
+			 thickCol[i][j].nThick = MAX(1,MIN(255,thickCol[i][j].thick));
 		 }
 
 		 thickCol[i][j].bold = commonBold;
@@ -2300,7 +2300,7 @@ static int Progib(int *hhh,int GreyLev, int numAccord )
 			 dimPlato = k;
 		   }
 
-           i=max(i,j-1);
+           i=MAX(i,j-1);
 		   continue;
 		 } 
 	  }
@@ -2317,7 +2317,7 @@ static int Progib(int *hhh,int GreyLev, int numAccord )
 
 	    if( prommin!=-1 && hhh[i-1] > hhh[prommin] && i-1-lefth > 2)
 	    {
-			int progib = min(hhh[i-1],hhh[lefth])-hhh[prommin];
+			int progib = MIN(hhh[i-1],hhh[lefth])-hhh[prommin];
 
 			if( !best || progib	> bestProgib ||
 				progib == bestProgib && dimPlato >= bestPlato )
@@ -2340,7 +2340,7 @@ static int Progib(int *hhh,int GreyLev, int numAccord )
 		 // study last point
  if( prommin != -1  && lefth != -1 && hhh[GreyLev-1] > hhh[prommin] )
   {
-	 int progib = min(hhh[GreyLev-1],hhh[lefth])-hhh[prommin];
+	 int progib = MIN(hhh[GreyLev-1],hhh[lefth])-hhh[prommin];
 
 	 if( !best || progib	> bestProgib ||
 	 	 progib == bestProgib && dimPlato >= bestPlato )
@@ -2377,7 +2377,7 @@ static void AddRowBold(int i,int midThick)
 		// среднее значение для строки таблицы
 		 if( thickRow[i][j].bold == 0 )
 		 {
-			thickRow[i][j].nThick = (Word8)max(1,min(255,thickRow[i][j].thick));
+			thickRow[i][j].nThick = (Word8)MAX(1,MIN(255,thickRow[i][j].thick));
 			if( thickRow[i][j].thick <= midThick )
 				thickRow[i][j].bold = P2_LIGHT;
 			else
@@ -2414,13 +2414,13 @@ static void TestRowsThick(void)
           if(  thickRow[i][j].nLet > 0 )
 			  thickRow[i][j].thick /= thickRow[i][j].nLet;
 
-		  maxLight = max(maxLight,thickRow[i][j].minThick); 
-		  minBold  = min(minBold,thickRow[i][j].maxThick); 
+		  maxLight = MAX(maxLight,thickRow[i][j].minThick); 
+		  minBold  = MIN(minBold,thickRow[i][j].maxThick); 
 
-		  maxs[min(MAXTHICK-1,thickRow[i][j].maxThick)]++;
-		  mins[min(MAXTHICK-1,thickRow[i][j].minThick)]++;
+		  maxs[MIN(MAXTHICK-1,thickRow[i][j].maxThick)]++;
+		  mins[MIN(MAXTHICK-1,thickRow[i][j].minThick)]++;
 
-		  stats[min(MAXTHICK-1,thickRow[i][j].thick)]++;
+		  stats[MIN(MAXTHICK-1,thickRow[i][j].thick)]++;
 		}
 
 		// all intersect ?
@@ -2557,7 +2557,7 @@ static void TestAccordRowsColumns(void)
 				continue;
 
 			if( thickRow[i][j].bold != bold )
-				thickRow[i][j].nThick = (Word8)max(1,min(255,thickRow[i][j].thick));
+				thickRow[i][j].nThick = (Word8)MAX(1,MIN(255,thickRow[i][j].thick));
 		}
 	}
 }

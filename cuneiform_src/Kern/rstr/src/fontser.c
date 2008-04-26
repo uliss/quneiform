@@ -202,7 +202,7 @@ static cell *serif_word(cell *c)
 //  while (!(c->flg & (c_f_space | c_f_fict)));
   end=c;
 
-  serif=meas;  reliable = max(np,nm) >= 2*min(np,nm);
+  serif=meas;  reliable = MAX(np,nm) >= 2*MIN(np,nm);
 
   if (!reliable && p2_active)  //let's use database
   {
@@ -242,7 +242,7 @@ static cell *serif_word(cell *c)
       c=c->next;
     }
     while (!(c->flg & c_f_fict));
-    serif=meas;  reliable = max(np,nm) >= 2*min(np,nm);
+    serif=meas;  reliable = MAX(np,nm) >= 2*MIN(np,nm);
   }
 
   if (serif != 0)
@@ -315,7 +315,7 @@ static LONG new_serif(cell *c)
 /*
   else
   {
-    LONG nmin=(np,nm),nmax=max(np,nm);
+    LONG nmin=(np,nm),nmax=MAX(np,nm);
     if (nmin>1 || nmax-nmin<2)
       return 0;
 
@@ -499,7 +499,7 @@ static void find_serif(cell *c, WORD map, LONG *meas, LONG *np, LONG *nm)
   shape=map&3;
   if (shape)  //left-up
   {
-    for (i=0,sti=st; i<min(2,nstick); i++,sti++)   //in russian 'i' left stick maybe not first
+    for (i=0,sti=st; i<MIN(2,nstick); i++,sti++)   //in russian 'i' left stick maybe not first
       if (sti->y+sti->l+2>=c->h)
       {
         INT x=sti->x+sti->l*sti->incl/INCL_FAC-dw;
@@ -543,7 +543,7 @@ static LONG downserif(c_comp *env, BYTE shape, INT H, STICK *st)
       LONG lsum=0,rsum=0,imaxl=0,vmaxl=0,imaxr=0,vmaxr=0;
       interval *intv;
 
-      i0=max(i0,0);
+      i0=MAX(i0,0);
       i=h-H8-1;              //from line top
       if (!(intv=interval_fit(i,line,H,st)))
         continue;             //line not corresponds to stick
@@ -642,7 +642,7 @@ static LONG upserif(c_comp *env, BYTE shape, INT H, STICK *st)
        line=(lnhead *)((PCHAR)line+line->lth))
     if (line->flg&l_fbeg && (h=line->h) > H3 && line->row <= 2)
     {
-      INT x1,x2,i,i0=min(H3,h),begl=0,begr=0;
+      INT x1,x2,i,i0=MIN(H3,h),begl=0,begr=0;
       LONG lsum=0,rsum=0,imaxl=0,vmaxl=0,imaxr=0,vmaxr=0;
       interval *intv;
 
@@ -660,7 +660,7 @@ static LONG upserif(c_comp *env, BYTE shape, INT H, STICK *st)
 
       x2=intv->e;  x1=x2-intv->l;
 //      i0=env->h-st->y-st->l;        //in 'p' stick not begins on top
-      i0=max(line->row,env->h-st->y-st->l);  //finish interval in serif search
+      i0=MAX(line->row,env->h-st->y-st->l);  //finish interval in serif search
       i0=i-i0;                               //number of intervals in serif search
       for (i=0;  i<=i0 && shape != 0;  i++,intv--)
 //        if (intv->l<=w2 || intv->e<x1 || intv->e-intv->l>=x2)

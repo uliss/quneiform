@@ -226,7 +226,7 @@ Bool32 TestFontCourier(void)
     
    if(!MSKRecogCharExp( HndTab, &recRast,       &MSKres )  ) 
             continue;
-   p = max(MSKres.Alt[0].Prob,MSKres.Alt[1].Prob);
+   p = MAX(MSKres.Alt[0].Prob,MSKres.Alt[1].Prob);
    if( p> 150)
        numCourier++;
     nC++;

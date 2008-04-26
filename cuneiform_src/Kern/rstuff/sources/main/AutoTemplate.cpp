@@ -599,15 +599,15 @@ static Int32 GetCompInfo(CompInfo *info)
 					LDPUMA_DrawLine(hWndTurn,&beg,&end,0,wRGB(0,255,0),PEN_WIDTH,key);
 				}
 				Int16 beg = inter->e - inter->l;
-				habris[cInter].b = min(habris[cInter].b,beg);
-				habris[cInter].e = max(habris[cInter].e,inter->e);
+				habris[cInter].b = MIN(habris[cInter].b,beg);
+				habris[cInter].e = MAX(habris[cInter].e,inter->e);
 				for (i=inter->l,pvabris=vabris+inter->e-1; i>0; i--,pvabris--)
 				{
 					if (cInter < pvabris->b)	pvabris->b = cInter;
 					else
 					if (pvabris->e < cInter)	pvabris->e = cInter;
 				}
-				width = max(width,inter->e);
+				width = MAX(width,inter->e);
 				lineDark += inter->l;
 
 				inter++;
@@ -616,7 +616,7 @@ static Int32 GetCompInfo(CompInfo *info)
 			}
 			dark += lineDark;
 			AddToBigLineList(info,lnhead,lineDark);
-			height = max(height,cInter);
+			height = MAX(height,cInter);
 			lnhead = (CCOM_lnhead*)((char*)lnhead+lnhead->lth);
 		}
 	}
@@ -639,15 +639,15 @@ static Int32 GetCompInfo(CompInfo *info)
 					LDPUMA_DrawLine(hWndTurn,&beg,&end,0,wRGB(0,255,0),PEN_WIDTH,key);
 				}
 				Int16 beg = inter->e - inter->l;
-				habris[cInter].b = min(habris[cInter].b,beg);
-				habris[cInter].e = max(habris[cInter].e,inter->e);
+				habris[cInter].b = MIN(habris[cInter].b,beg);
+				habris[cInter].e = MAX(habris[cInter].e,inter->e);
 				for (i=inter->l,pvabris=vabris+inter->e-1; i>0; i--,pvabris--)
 				{
 					if (cInter < pvabris->b)	pvabris->b = cInter;
 					else
 					if (pvabris->e < cInter)	pvabris->e = cInter;
 				}
-				width = max(width,inter->e);
+				width = MAX(width,inter->e);
 				lineDark += inter->l;
 
 				inter++;
@@ -656,7 +656,7 @@ static Int32 GetCompInfo(CompInfo *info)
 			}
 			dark += lineDark;
 			AddToBigLineList(info,lnhead,lineDark);
-			height = max(height,cInter);
+			height = MAX(height,cInter);
 			lnhead = (CCOM_lnhead*)((char*)lnhead+lnhead->lth);
 		}
 	}
@@ -697,7 +697,7 @@ static Int32 GetCompInfo(CompInfo *info)
 			Int32 w=phabris->e - phabris->b;
 			if (w<=ww)	{ hwhole += w; 	 count++; }
 		}
-		info->ww = hwhole*fact/height;	info->ww = max(1,info->ww);
+		info->ww = hwhole*fact/height;	info->ww = MAX(1,info->ww);
 	}
 
 	if (width==0)
@@ -710,7 +710,7 @@ static Int32 GetCompInfo(CompInfo *info)
 			Int32 h=pvabris->e - pvabris->b + 1;
 			if (h<=wh)  { vwhole += h; 	 count++; }
 		}
-		info->wh = vwhole*fact/width;	info->wh = max(1,info->wh);
+		info->wh = vwhole*fact/width;	info->wh = MAX(1,info->wh);
 	}
 	return TRUE;
 }
@@ -719,7 +719,7 @@ static Bool32 OnBorder(CompInfo *info)
 {
 	CCOM_comp *comp=info->comp;
 	Int8 side=0;
-	Int32 d=min(info->ww,info->wh)/2;
+	Int32 d=MIN(info->ww,info->wh)/2;
 	if (comp->left <= d)	side |= SIDE_LEFT;
 	if (comp->left+comp->w-1+d >= (Int16)PageInfo.Width)	side |= SIDE_RIGHT;
 	if (comp->upper <= d)	 side |= SIDE_UP;
@@ -752,8 +752,8 @@ static SmRect32	*Cpattern(Interval abris[], Int32 len, Int32 side)
 		sm += pint->e+pint->b;
 		sb += pint->b; 
 		se += pint->e;
-		right = max(right,pint->e);
-		left  = min(left,pint->b);
+		right = MAX(right,pint->e);
+		left  = MIN(left,pint->b);
 	}
 	sm = DIV_ROUND(sm,len*2);
 
@@ -767,7 +767,7 @@ static SmRect32	*Cpattern(Interval abris[], Int32 len, Int32 side)
 		sw = DIV_ROUND(se+sw,len);
 		for ( ; ib1<len; ib1++,intb++)		   //ib1 - конец загогулины в начале
 		{
-			topmax=max(topmax,intb->e);
+			topmax=MAX(topmax,intb->e);
 			if (intb->e <= sw) break;
 		}
 		for (ib2=ib1 ; ib2<len; ib2++,intb++)  //ib2 - начало выступа в середине
@@ -776,7 +776,7 @@ static SmRect32	*Cpattern(Interval abris[], Int32 len, Int32 side)
 		Int32 botmax=0;
 		for ( ; ie1>ib2; ie1--,inte--)		   //ie1 - начало загогулины в конце
 		{
-			botmax=max(botmax,intb->e);
+			botmax=MAX(botmax,intb->e);
 			if (inte->e <= sw) break;
 		}
 		for (ie2=ie1 ; ie2>ib2; ie2--,inte--)  //ie2 - коней выступа в середине
@@ -802,7 +802,7 @@ static SmRect32	*Cpattern(Interval abris[], Int32 len, Int32 side)
 		sw = DIV_ROUND(sb-sw,len);
 		for ( ; ib1<len; ib1++,intb++)			//ib1 - конец загогулины в начале
 		{
-			topmin=min(topmin,intb->b);
+			topmin=MIN(topmin,intb->b);
 			if (intb->b >= sw) break;
 		}
 
@@ -812,7 +812,7 @@ static SmRect32	*Cpattern(Interval abris[], Int32 len, Int32 side)
 		Int32 botmin=0;
 		for ( ; ie1>ib2; ie1--,inte--)			//ie1 - начало загогулины в конце
 		{
-			botmin=min(botmin,intb->b);
+			botmin=MIN(botmin,intb->b);
 			if (inte->b >= sw) break;
 		}
 
@@ -857,8 +857,8 @@ static Bool32 Sticklike(Interval abris[], Int32 len, Int32 width, Interval *boun
 		Int32 mid=(pint->b+pint->e)/2;
 		if (mb<=mid && mid<=me)
 		{
-			bounds->b = min(bounds->b,pint->b);
-			bounds->e = max(bounds->e,pint->e);
+			bounds->b = MIN(bounds->b,pint->b);
+			bounds->e = MAX(bounds->e,pint->e);
 		}
 		else
 			jut++;
@@ -891,12 +891,12 @@ Bool32 AttachComp(CompInfo *info, Bool32 hor)
 				CCOM_comp *comp=info->comp;
 				if (side&1)
 				{
-					Int32 d=bounds.e*fact;	d = min(d,comp->h);
+					Int32 d=bounds.e*fact;	d = MIN(d,comp->h);
 					info->rcBay = SmRect32(comp->left,comp->upper+d,comp->left+comp->w,comp->upper+comp->h);
 				}
 				if (side&2)
 				{
-					Int32 d=bounds.b*fact;	d = min(d,comp->h);
+					Int32 d=bounds.b*fact;	d = MIN(d,comp->h);
 					info->rcBay = SmRect32(comp->left,comp->upper,comp->left+comp->w,comp->upper+d);
 				}
 				return TRUE;
@@ -920,12 +920,12 @@ Bool32 AttachComp(CompInfo *info, Bool32 hor)
 				CCOM_comp *comp=info->comp;
 				if (side&1)
 				{
-					Int32 d=bounds.e*fact;	d = min(d,comp->w);
+					Int32 d=bounds.e*fact;	d = MIN(d,comp->w);
 					info->rcBay = SmRect32(comp->left+d,comp->upper,comp->left+comp->w,comp->upper+comp->h);
 				}
 				if (side&2)
 				{
-					Int32 d=bounds.b*fact;	d = min(d,comp->w);
+					Int32 d=bounds.b*fact;	d = MIN(d,comp->w);
 					info->rcBay = SmRect32(comp->left,comp->upper,comp->left+d,comp->upper+comp->h);
 				}
 				return TRUE;
@@ -980,24 +980,24 @@ static void SetNewRect(CompInfo *info, Rect32 *rect)
 	if (info->hdens>=info->vdens && (info->side & (SIDE_LEFT | SIDE_RIGHT)))  // С-образный 
 	{
 		if (info->side & SIDE_LEFT)
-			newRect.left = max(newRect.left,bay->left);
+			newRect.left = MAX(newRect.left,bay->left);
 		else
-			newRect.right = min(newRect.right,bay->right);
+			newRect.right = MIN(newRect.right,bay->right);
 		if (info->side & SIDE_UP)
-			newRect.top = max(newRect.top,bay->top);
+			newRect.top = MAX(newRect.top,bay->top);
 		if (info->side & SIDE_DOWN)
-			newRect.bottom = min(newRect.bottom,bay->bottom);
+			newRect.bottom = MIN(newRect.bottom,bay->bottom);
 	}
 	else// П-образный
 	{
 		if (info->side & SIDE_UP)
-			newRect.top = max(newRect.top,bay->top);
+			newRect.top = MAX(newRect.top,bay->top);
 		else
-			newRect.bottom = min(newRect.bottom,bay->bottom);
+			newRect.bottom = MIN(newRect.bottom,bay->bottom);
 		if (info->side & SIDE_LEFT)
-			newRect.left = max(newRect.left,bay->left);
+			newRect.left = MAX(newRect.left,bay->left);
 		if (info->side & SIDE_RIGHT)
-			newRect.right = min(newRect.right,bay->right);
+			newRect.right = MIN(newRect.right,bay->right);
 	}
 //	Rect16 box={(Int16)newRect.left,(Int16)newRect.top,(Int16)newRect.right,(Int16)newRect.bottom};
 //	LDPUMA_DrawRect(hWndTurn,&box,0,wRGB(255,0,0),PEN_WIDTH,key);
@@ -1084,7 +1084,7 @@ static Bool32 LetterOverRect(CCOM_comp * comp, Rect32 *rect, Bool32 mode)
 {
 	SmRect32 smRect(*rect);
 	GarbageTestBag	bag(smRect);
-	Int32 rate,size=max(rect->right-rect->left,rect->bottom-rect->top)/16;
+	Int32 rate,size=MAX(rect->right-rect->left,rect->bottom-rect->top)/16;
 	comp = (comp==0) ? 
 		CCOM_GetFirst ((Int32)hCCOM, NULL) :
 		CCOM_GetNext (comp, NULL);
@@ -1103,7 +1103,7 @@ static Bool32 LetterOverRect(CCOM_comp * comp, Rect32 *rect, Bool32 mode)
 					GetCompInfo(&info);
 *-/
 				rate=-1;
-				if (!mode && max(comp->w,comp->h)>size)
+				if (!mode && MAX(comp->w,comp->h)>size)
 					if (TestForNegative(comp,(CCOM_handle)hCCOMBig,hCPage,(PWord8)((PageInfo.Angle==0) ? PUMA_IMAGE_USER : PUMA_IMAGE_TURN)))
 							goto end;		  
 
@@ -1245,8 +1245,8 @@ static Bool32 BigComps()
 {
 	CCOM_comp * pcomp;
 	Rect32 newRect=gRectTemplate;
-	Int32 maxSize=min(PageInfo.Width,PageInfo.Height)/2;
-	Int32 minSize=max(PageInfo.DPIX,PageInfo.DPIY)/2;
+	Int32 maxSize=MIN(PageInfo.Width,PageInfo.Height)/2;
+	Int32 minSize=MAX(PageInfo.DPIX,PageInfo.DPIY)/2;
 	pcomp = CCOM_GetFirst ((Int32)hCCOMBig, NULL);
 	while(pcomp && (compNum<MAXCOMPNUMBER || negNum<MAXCOMPNUMBER))
 	{
@@ -1259,7 +1259,7 @@ static Bool32 BigComps()
 /*
 			CompInfo  info(pcomp);
 			GetCompInfo(&info);
-			dens = max(info.hdens,info.vdens);
+			dens = MAX(info.hdens,info.vdens);
 *-/
 			SmRect32 cavRect;
 			Bool32 changes;
@@ -1270,10 +1270,10 @@ static Bool32 BigComps()
 				if (!TestForNegative(pcomp,(CCOM_handle)hCCOMBig,hCPage,(PWord8)((PageInfo.Angle==0) ? PUMA_IMAGE_USER : PUMA_IMAGE_TURN)))
 				{
 					if (compNum<MAXCOMPNUMBER) CompList[compNum++]=pcomp;
-					newRect.left=max(newRect.left,cavRect.left);
-					newRect.top=max(newRect.top,cavRect.top);
-					newRect.right=min(newRect.right,cavRect.right);
-					newRect.bottom=min(newRect.bottom,cavRect.bottom);
+					newRect.left=MAX(newRect.left,cavRect.left);
+					newRect.top=MAX(newRect.top,cavRect.top);
+					newRect.right=MIN(newRect.right,cavRect.right);
+					newRect.bottom=MIN(newRect.bottom,cavRect.bottom);
 				}
 			}
 			else
@@ -1331,12 +1331,12 @@ static void GetProfile(Int32 *vprofile,Int32 *hprofile)
 			pos = vprofile + comp->upper;
 			for (i=0; i<comp->h; i++,pos++)
 			{
-				*pos += size; hmax=max(hmax,*pos);
+				*pos += size; hmax=MAX(hmax,*pos);
 			}
 			pos = hprofile + comp->left;
 			for (i=0; i<comp->w; i++,pos++)
 			{
-				*pos += size; wmax=max(wmax,*pos);
+				*pos += size; wmax=MAX(wmax,*pos);
 			}
 		}
 		comp = CCOM_GetNext (comp, NULL);
@@ -1435,7 +1435,7 @@ static Bool32 HMargins(Int32 *profile, SmRect32 &newRect)
 			CCOM_comp * comp=NULL;
 			if (LetterInRect(comp,&gapRect))
 				break;
-			newRect.top=max(newRect.top,gapRect.bottom);
+			newRect.top=MAX(newRect.top,gapRect.bottom);
 		}
 	;
 	for (j2=ng-1; j2>=j1; j2--)
@@ -1445,7 +1445,7 @@ static Bool32 HMargins(Int32 *profile, SmRect32 &newRect)
 			CCOM_comp * comp=NULL;
 			if (LetterInRect(comp,&gapRect))
 				break;
-			newRect.bottom=min(newRect.bottom,gapRect.top);
+			newRect.bottom=MIN(newRect.bottom,gapRect.top);
 		}
 	return TRUE;
 }
@@ -1453,7 +1453,7 @@ static Bool32 HMargins(Int32 *profile, SmRect32 &newRect)
 static Bool32 VMargins(Int32 *profile, SmRect32 &newRect)
 {
 	Point32 gaps[MAXGAPS]={0};
-	Int32 minSize=max(PageInfo.DPIX,PageInfo.DPIY)/32;
+	Int32 minSize=MAX(PageInfo.DPIX,PageInfo.DPIY)/32;
 	Int32 ng=GetGaps((Int32)PageInfo.Width,10,profile,gaps);
 	if (ng<2)
 		return TRUE;
@@ -1468,7 +1468,7 @@ static Bool32 VMargins(Int32 *profile, SmRect32 &newRect)
 			CCOM_comp * comp=NULL;
 			if (LetterInRect(comp,&gapRect))
 				break;
-			newRect.left=max(newRect.left,gapRect.right);
+			newRect.left=MAX(newRect.left,gapRect.right);
 		}
 	;
 	for (j2=ng-1; j2>=j1; j2--)
@@ -1478,7 +1478,7 @@ static Bool32 VMargins(Int32 *profile, SmRect32 &newRect)
 			CCOM_comp * comp=NULL;
 			if (LetterInRect(comp,&gapRect))
 				break;
-			newRect.right=min(newRect.right,gapRect.left);
+			newRect.right=MIN(newRect.right,gapRect.left);
 		}
 	return TRUE;
 }
@@ -1574,10 +1574,10 @@ Bool32 AutoTemplate(PRSPreProcessImage Image)
 	   if (rNew->left>rRef.left || rNew->right<rRef.right ||
 		   rNew->top>rRef.top || rNew->bottom<rRef.bottom)
 	   {
-		   rNew->left = max(rNew->left-2,rRef.left);
-		   rNew->top = max(rNew->top-2,rRef.top);
-		   rNew->right = min(rNew->right+2,rRef.right);
-		   rNew->bottom = min(rNew->bottom+2,rRef.bottom);
+		   rNew->left = MAX(rNew->left-2,rRef.left);
+		   rNew->top = MAX(rNew->top-2,rRef.top);
+		   rNew->right = MIN(rNew->right+2,rRef.right);
+		   rNew->bottom = MIN(rNew->bottom+2,rRef.bottom);
 		   (Image->fnXSetTemplate)(*rNew);
 	   }
 

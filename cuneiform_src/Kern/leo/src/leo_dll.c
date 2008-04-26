@@ -1090,7 +1090,7 @@ static int GetNewProb(int oldRec,int newRec,int nice)
 	if( newRec > VERY_GOOD_FON)
 	{
 		addRec = 30;
-		newRec = max(newRec,nice);
+		newRec = MAX(newRec,nice);
 	}
 	else if(newRec > 240)
 		addRec = 20;
@@ -1321,7 +1321,7 @@ for(i=0;i<n;i++)
                     if( ver.Alt[0].Prob>240 )
                         ver.Alt[0].Prob=255;
                     else
-                        ver.Alt[0].Prob=max(data[3], ver.Alt[0].Prob);
+                        ver.Alt[0].Prob=MAX(data[3], ver.Alt[0].Prob);
                     data[15] |= LEO_VALID_FONT;
                     data[27] |= LEO_CONTROL_FON_CONFIRMED;
                     }

@@ -773,7 +773,7 @@ cell *dot_iUkr(cell *c)
              cc->h<cc->w && cc->w-(cc->h+((fax1x2)?2:0))<=H/4 ||
              cc->h<cc->w && 3*(c->row-cc->row)>=c->h && abs(cc->w-c->w)<=1) &&
             cc->col+3>=c->col &&
-            c->col+c->w/2-(cc->col+cc->w/2)<=max(2,c->w/4) &&
+            c->col+c->w/2-(cc->col+cc->w/2)<=MAX(2,c->w/4) &&
             cc->col+cc->w-6<=c->col+c->w &&
             (memchr("ij",c->prevl->vers[0].let,2)==NULL ||
                          c->prevl->col+c->prevl->w<cc->col) &&

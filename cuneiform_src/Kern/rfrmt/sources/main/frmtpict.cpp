@@ -239,7 +239,7 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 			else
 				if( SectorInfo->CountFragments == 1 )
 				{
-					Realx = max(0,(int)(Lr.x*Twips));       
+					Realx = MAX(0,(int)(Lr.x*Twips));       
 					str.Format("\\marglsxn%i\\margrsxn1800\\margtsxn360\\margbsxn360\\headery360\\footery360\\sbknone\\pard\\f3\\fs6\\par\\par\\fi0",Realx);
 				}
 				else
@@ -260,7 +260,7 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 					Realx = (int)(Lr.x*Twips - SectorInfo->Offset.x);       
 					Realy = (int)(Lr.y*Twips - SectorInfo->Offset.y);
 					str.Format("{\\pard\\s0\\pvpara\\phmrg\\posx%i\\posy%i\\absh0\\absw%i\\abslock1\\dxfrtext180\\dfrmtxtx0\\dfrmtxty0\\ql\\plain\\fs6\\f3\\fs0\\fi0",
-							Realx,Realy,(int)(max(0, Wh.x-FrameOffset)*Twips) );
+							Realx,Realy,(int)(MAX(0, Wh.x-FrameOffset)*Twips) );
 		 		}
  
 //				(*PictString) += str;

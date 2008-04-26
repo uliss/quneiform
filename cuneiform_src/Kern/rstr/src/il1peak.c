@@ -68,6 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cuthdr.h"
 #include "func.h"
 #include "il1peak.h"
+#include "minmax.h"
 
 struct local_extremum
  {

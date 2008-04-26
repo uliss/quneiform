@@ -73,6 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "msgerr.h"
 #include "ligas.h"
 #include "tuner.h"
+#include "minmax.h"
 
 /* incline of string NOT USED !!!                           */
 /* BULLET hav one line ONLY, otherwise non study c_comp !!!   */
@@ -278,7 +279,7 @@ if( center_bul>center_bl &&
 			      return(0);      /* no bullet : small c_comp */
 	}
 
-if( width<8 && height<8 || max(width,height)<=8 && min(width,height)>=6 )
+if( width<8 && height<8 || MAX(width,height)<=8 && MIN(width,height)>=6 )
 	{       /* too small  c_comp */
 	if( abs(width-height)>2 )
 		return(0);     /* no bullet : c_comp hav bad proportions   */
@@ -356,7 +357,7 @@ INT k=16,d=9,scc,ww;
 if( cc==cell_f() )
 	return(2);              /* not exist left c_comp   */
 
-ww = ( cc->vers[0].let==bad_char )?min(cc->w,cc->h):cc->w;
+ww = ( cc->vers[0].let==bad_char )?MIN(cc->w,cc->h):cc->w;
 if(   (c->col - cc->col - cc->w)*2 < conv_size_capital_let(cc->vers[0].let,ww) )
 	return(0);  	        /* near components       */
 
@@ -387,7 +388,7 @@ INT  k=16,d=9,scc,ww;
 if( cc==cell_l() )
 	return(2);              /* not exist right c_comp  */
 
-ww = ( cc->vers[0].let==bad_char )?min(cc->w,cc->h):cc->w;
+ww = ( cc->vers[0].let==bad_char )?MIN(cc->w,cc->h):cc->w;
 if( (cc->col - c->col - c->w)*2 < conv_size_capital_let(cc->vers[0].let,ww) )
 	return(0);  	        /* near components       */
 

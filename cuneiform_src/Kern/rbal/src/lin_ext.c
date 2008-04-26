@@ -68,6 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ligas.h"
 
 #include "bal.h"
+#include "minmax.h"
 
 extern INT it_done;
 static Int16 skew_corr_stat(CSTR_line ln, INT pool_src);
@@ -616,10 +617,10 @@ static int basedraft(CSTR_line ln, Word8 isDust)
   ncut_vers=ncut_cells=ntot_cells=0;
 
   i = bbs2 - (bbs3-bbs2)/2;
-  bsdust_upper = min(i,bbs1) - 2 + minrow;
+  bsdust_upper = MIN(i,bbs1) - 2 + minrow;
 
   if (language != LANG_ENGLISH)
-    bsdust_upper -= (max(2,(bbs3-bbs2)/7));
+    bsdust_upper -= (MAX(2,(bbs3-bbs2)/7));
   bsdust_lower = bbs4 + minrow;
 
   if (db_status)

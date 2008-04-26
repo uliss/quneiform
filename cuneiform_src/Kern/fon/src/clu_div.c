@@ -226,7 +226,7 @@ static void FillInfo(InfoCluster *infoC, Nraster_header *rh, int i)
 	if( infoC->count == 0)
          infoC->first=i;
 	infoC->count++;
-	infoC->prob   = max(infoC->prob,rh->prob);
+	infoC->prob   = MAX(infoC->prob,rh->prob);
 	infoC->valid |= rh->valid;
 }
 //////////////

@@ -372,8 +372,8 @@ SINT w,h;
 PCHAR ras,rr;
 SINT stx,sty;
 
- w=min(WR_MAX_WIDTH,wl->w+2);   // add two rows !!!
- h=min(WR_MAX_HEIGHT,wl->h+2);
+ w=MIN(WR_MAX_WIDTH,wl->w+2);   // add two rows !!!
+ h=MIN(WR_MAX_HEIGHT,wl->h+2);
 
  if( (i=AddBuffer2(w*h)) < 0) return i;
  stx=(WR_MAX_WIDTH-w)/2;
@@ -678,20 +678,20 @@ SINT SaveAddCluster(SINT fh,SINT clus,SINT firCl,SINT lastCl,welet *wel,welet *d
   {
    if(nClu[i] !=clus) continue;
 
-   sdvigx=max(0,(WR_MAX_WIDTH-(SINT)rh[i].w)/2+rh[i].sr_col);
-   sdvigy=max(0,(WR_MAX_HEIGHT-(SINT)rh[i].h)/2+rh[i].sr_row);
-   lastx=max(lastx,sdvigx+rh[i].w);
-   lasty=max(lasty,sdvigy+rh[i].h);
-   startx=min(startx,sdvigx);
-   starty=min(starty,sdvigy);
+   sdvigx=MAX(0,(WR_MAX_WIDTH-(SINT)rh[i].w)/2+rh[i].sr_col);
+   sdvigy=MAX(0,(WR_MAX_HEIGHT-(SINT)rh[i].h)/2+rh[i].sr_row);
+   lastx=MAX(lastx,sdvigx+rh[i].w);
+   lasty=MAX(lasty,sdvigy+rh[i].h);
+   startx=MIN(startx,sdvigx);
+   starty=MIN(starty,sdvigy);
 
 	  // where put next raster ?
    rast=wel->raster+sdvigy*WR_MAX_WIDTH+sdvigx;
 
    wel->summa+=PutSymbolRaster(rh[i].pHau,rast,(SINT)WR_MAX_WIDTH,
-				  (SINT)min(rh[i].w,WR_MAX_WIDTH-sdvigx),
+				  (SINT)MIN(rh[i].w,WR_MAX_WIDTH-sdvigx),
 				  (SINT)((rh[i].w+7)>>3),
-				  (SINT)min(rh[i].h,WR_MAX_HEIGHT-sdvigy));
+				  (SINT)MIN(rh[i].h,WR_MAX_HEIGHT-sdvigy));
    summax+=rh[i].w;
    summay+=rh[i].h;
    wei++;
@@ -707,8 +707,8 @@ SINT SaveAddCluster(SINT fh,SINT clus,SINT firCl,SINT lastCl,welet *wel,welet *d
 
  // check new center of weighted raster
  // get new sizes:
- lastx=min(lastx,WR_MAX_WIDTH)-startx;
- lasty=min(lasty,WR_MAX_HEIGHT)-starty;
+ lastx=MIN(lastx,WR_MAX_WIDTH)-startx;
+ lasty=MIN(lasty,WR_MAX_HEIGHT)-starty;
 
  MoveWeighted(wel,(SINT)((WR_MAX_WIDTH-lastx)/2),(SINT)((WR_MAX_HEIGHT-lasty)/2),
 		lastx,lasty, startx,starty);
@@ -766,7 +766,7 @@ SINT NumClus; // how many clusters
   
   if(NumClus <= 0)   return -4;
 
-  NumClus=min(NumClus,MAXWELSYM);
+  NumClus=MIN(NumClus,MAXWELSYM);
   size=StartHausdorfDLL2(NumClus,extern_buf,size_extern);
   if(size < 0) return -1;
   cin->memused=size;
@@ -865,7 +865,7 @@ SINT AddClusterHausdorf(CHAR  *NameWr,CHAR  *szOutName,
  size +=(DWORD)(NumHauBit-1)*SIZEBUF;
 
   // compare memory for weighted rasters and b/w rasters
- cin->memused=max(size,cin->memused);
+ cin->memused=MAX(size,cin->memused);
 
 #ifdef _GETTIME_
  cl3=clock();

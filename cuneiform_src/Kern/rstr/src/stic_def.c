@@ -67,6 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "status.h"
   #include "lang.h"
   #include "inc_tab.h"
+#include "minmax.h"
 extern INT nIncline  ;
 
 extern BYTE fax1x2;	// MK NEW 14.01.1993
@@ -242,7 +243,7 @@ prob = ADD_PROB(c) - abs(dy-nc)*20;
 
 num_angles =   sizeof(stick_inc)/sizeof(stick_inc[0]);
 f_a=first_tg(stick_inc, num_angles, nIncline );
-num_angles=min(LIMIT_OF_ANGLES+(c_slash!=0),
+num_angles=MIN(LIMIT_OF_ANGLES+(c_slash!=0),
            (INT)(sizeof(stick_inc)/sizeof(stick_inc[0])-f_a-1));
 if( f_a<11 ) f_a=11;
 typ=make_center_line (GL_center, (INT)(nc-(GL_center[nc-1].len==1)),
@@ -263,7 +264,7 @@ if( typ!=-2 )
 
 /* --- stick is correct ( not similar '(',')' and exist central line) --- */
 
-opt = max ( GL_tab_angle[0], GL_tab_angle[dy-1] );
+opt = MAX ( GL_tab_angle[0], GL_tab_angle[dy-1] );
 abris_expansion (GL_left0, GL_right0, dy, dx, GL_tab_angle);
 /* --------- shift abris if inc; step of abris = 4 ---------- */
 
@@ -383,7 +384,7 @@ if( i>dy>>2 )  /* too big number of 2-interval-rows */
 
 num_angles =   sizeof(stick_inc)/sizeof(stick_inc[0]);
 f_a=first_tg(stick_inc, num_angles, nIncline );
-num_angles=min(LIMIT_OF_ANGLES+(c_slash!=0),
+num_angles=MIN(LIMIT_OF_ANGLES+(c_slash!=0),
            (INT)(sizeof(stick_inc)/sizeof(stick_inc[0])-f_a-1));
 
 typ=make_center_line (GL_center, (INT)(nc-(GL_center[nc-1].len==1)),
@@ -424,7 +425,7 @@ if( typ!=-2 )
 
 /* --- stick is correct ( not similar '(',')' and exist central line) --- */
 
-opt = max ( GL_tab_angle[0], GL_tab_angle[dy-1] );
+opt = MAX ( GL_tab_angle[0], GL_tab_angle[dy-1] );
 if( c_f )
 	{   /* calculate symptoms 'f' befor shift */
 	INT e_len = dx-1-((opt+wide*2)>>2);
@@ -466,7 +467,7 @@ if (GL_tab_angle[0]!=GL_tab_angle[dy-1]  &&
 //////mkm5 = tab_angle[dy-1];
 
 set_stick_char (GL_left0, GL_right0, GL_hooks, dy, dx, opt, wide,
-		(INT)(opt - min (GL_tab_angle[0], GL_tab_angle[dy-1])),
+		(INT)(opt - MIN (GL_tab_angle[0], GL_tab_angle[dy-1])),
 		skip_ul, skip_dl, skip_ur, skip_dr,
 		(INT)inc_num_EEM,		
 		&left_chars, &right_chars, &signums,
@@ -489,7 +490,7 @@ if( GL_hist_int[0]==1 && c_f && right_chars.mount[0]>wide &&
 
 if( c_Y || c_T )
 	{   /* calculate similar-flags for TY  */
-	typ_T = calc_T_config (GL_hist_int, (INT)(dy>>1), (INT)max(skip_ul,skip_ur),
+	typ_T = calc_T_config (GL_hist_int, (INT)(dy>>1), (INT)MAX(skip_ul,skip_ur),
 			       (INT)(wide<3?1:2));
 	T_2_3 = calc_T_2_3 (GL_hist_int, (INT)(dy>>1));		// 21.01.1993
 	T_skok_LR = abris_leap_new (GL_left0, GL_right0, (INT)(dy/2), wide);
@@ -498,7 +499,7 @@ if( c_Y || c_T )
 	if( !typ_T && dy>15 &&
 	    left_chars.down_serif==0 && right_chars.down_serif==0 )
 		{  /* > 8-kegl; no down serif; typ_t==0 */
-		INT s=max(skip_ul,skip_ur);
+		INT s=MAX(skip_ul,skip_ur);
 		typ_T = T_roof (&GL_hist_int[s], &GL_left0[s], &GL_right0[s],
 				2, dx);
 		}
@@ -548,7 +549,7 @@ full_snap (c,
 	   GLU,		// 14.12.1993 add this parametr;
 	   &left_chars, &right_chars, &signums, GL_tab_angle,
 	   left_mode, right_mode,
-	   (INT)min (GL_tab_angle[0], GL_tab_angle[dy-1]),
+	   (INT)MIN (GL_tab_angle[0], GL_tab_angle[dy-1]),
 	   wide,				
 	   inc_v, typ_snap);	/* show results */
 
@@ -590,7 +591,7 @@ INT	let_0=c->vers[0].let;
 	     r->ce_pos[2] - r->cb_pos[2] > 4)  &&
 	    !l->num_long_flags  &&  !r->num_long_flags)  {
 		prob_new = (l->conc[2] + r->conc[2]) >= ((wid+1)>>1) ?
-			   min (prob_0+2, 254) : max (prob_0-2, 2);
+			   MIN (prob_0+2, 254) : MAX (prob_0-2, 2);
 //////		add_stick_vers (c, liga_exm, 254);	// ST_TOOLS.C
 		add_stick_vers (c, (CHAR)liga_exm, (BYTE)prob_new);
 //////		sort_vers (c);
@@ -601,7 +602,7 @@ INT	let_0=c->vers[0].let;
 	    inc  &&
 	    l->mount[0]<2 && l->mount[4]<2  &&
 	    dy > 24)
-		add_stick_vers (c, ']', (BYTE)min (prob_0+2, 254));
+		add_stick_vers (c, ']', (BYTE)MIN (prob_0+2, 254));
 
 //////	sort_vers (c);
 	return;
@@ -658,8 +659,8 @@ return(FALSE);
 /////static BOOL abris_leap_new (BYTE left[], BYTE right[], INT n, INT wide)  {
 static WORD abris_leap_new (BYTE left[], BYTE right[], INT n, INT wide)  {
 							// 17.02.1993
-////INT	i, porog = max (wide, 4) << 2, d, dL=0, dR=0;
-INT	i, porog = max (wide-2, 4) << 2, d, dL=0, dR=0;
+////INT	i, porog = MAX (wide, 4) << 2, d, dL=0, dR=0;
+INT	i, porog = MAX (wide-2, 4) << 2, d, dL=0, dR=0;
 		// NOTA BENE: left,right - MASTAB.4 (*4),  wide - MAST.1 (sic!)
 
 	for(i=1; i<n; i++)  {
@@ -905,7 +906,7 @@ static INT abris_expansion (BYTE left[], BYTE right[],
 INT	i, opt;
 INT	k, max_negat_left=0, max_negat_right=0;	// 09.12.1993
 
-opt = max (tab_angle[0], tab_angle[dy-1]);	// NB: NO VERY GOOD !!!
+opt = MAX (tab_angle[0], tab_angle[dy-1]);	// NB: NO VERY GOOD !!!
 for (i=0; i<dy; i++) {	/* dilate (step=4) and shift (inc = tab_angle) */
 	if ( left[i]!=0xFF )  {
 		/******************************	BEFORE 09.12.1993
@@ -1155,7 +1156,7 @@ if ( num_of_lines (GL_center, nc, dy, GL_hist_int) )
 
 num_angles =   sizeof(stick_inc)/sizeof(stick_inc[0]);
 f_a=first_tg(stick_inc, num_angles, nIncline );
-num_angles=min(LIMIT_OF_ANGLES,
+num_angles=MIN(LIMIT_OF_ANGLES,
            sizeof(stick_inc)/sizeof(stick_inc[0])-f_a-1);
 
 if( make_center_line(GL_center, (INT)(nc-(GL_center[nc-1].len==1)),
@@ -1165,11 +1166,11 @@ if( make_center_line(GL_center, (INT)(nc-(GL_center[nc-1].len==1)),
 	return(0); /* abnormal set of ceneters : silmular to (,) or */
 		   /* not exist center-line                         */
 
-opt = ((max( GL_tab_angle[0], GL_tab_angle[dy-1] ))>>1)<<1;
+opt = ((MAX( GL_tab_angle[0], GL_tab_angle[dy-1] ))>>1)<<1;
 abris_expansion (GL_left0, GL_right0, dy, dx, GL_tab_angle);
 
 set_stick_char (GL_left0, GL_right0, GL_hooks, dy, dx, opt, wide,
-		(INT)(opt - min ( GL_tab_angle[0], GL_tab_angle[dy-1] )),
+		(INT)(opt - MIN ( GL_tab_angle[0], GL_tab_angle[dy-1] )),
 		0, 0, 0, 0,  0,		// NB: LAST ZERO PAR - inc_num (?????)
 		&left_chars, &right_chars, &signums,
 		&left_mode, &right_mode);

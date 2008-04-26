@@ -134,7 +134,7 @@ int fwrite_m(void *buf,int size,int count,FILE1 *stream)
 /*========*/
 int fseek_m(FILE1 *stream, long offset, int origin)
 {  LONG fl=_llseek(stream->hFile,offset,origin);
-   return (int)(fl=min(fl,0L));
+   return (int)(fl=MIN(fl,0L));
 }
 
 /*========*/

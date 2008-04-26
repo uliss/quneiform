@@ -207,13 +207,13 @@ SINT AnalisFirstRow(BYTE *row,SINT fir,SINT las,BYTE *out,
 	  out[i]=out[i-1]+1;
 		// if last point exist - use it too !
 	  if(las < sizex && out[i] > las-i) out[i]=las-i;
-	  PrevDist=min(out[i],sizey);
+	  PrevDist=MIN(out[i],sizey);
 	  for(j=1,nextRow=row+fullx+i;j< PrevDist;j++,nextRow+=fullx)
 			if( *nextRow) {out[i]=(BYTE)j;break;}
 	 }
 
 	// check distance from right
-	for(i=las-2;i>fir;i--)    out[i]=min(out[i],out[i+1]+1);
+	for(i=las-2;i>fir;i--)    out[i]=MIN(out[i],out[i+1]+1);
   }
 
  else
@@ -223,13 +223,13 @@ SINT AnalisFirstRow(BYTE *row,SINT fir,SINT las,BYTE *out,
 	for(i=las-2;i>=fir;i--)
 	 {
 	  out[i]=out[i+1]+1;
-	  PrevDist=min(out[i],sizey);
+	  PrevDist=MIN(out[i],sizey);
 	  for(j=1,nextRow=row+fullx+i;j< PrevDist;j++,nextRow+=fullx)
 			if( *nextRow) {out[i]=(BYTE)j;break;}
 	 }
 
 	// check distance from left
-	for(i=fir;i<las-1;i++)   out[i]=min(out[i],out[i+1]+1);
+	for(i=fir;i<las-1;i++)   out[i]=MIN(out[i],out[i+1]+1);
   }
 
  return 0;
@@ -250,7 +250,7 @@ SINT AnalisNextRow (BYTE *row,SINT fir,SINT las, BYTE *out,
 	  if(las < sizex && out[fir] > las-fir) out[fir]=las-fir;
 	  if(out[fir] > 1)
 		{
-		 PrevDist=min(out[fir],sizey);
+		 PrevDist=MIN(out[fir],sizey);
 		 for(j=(out[fir]==2?1:out[fir]-2),nextRow=row+j*fullx+fir;j< PrevDist;
 					  j++,nextRow+=fullx)
 			if( *nextRow) {out[fir]=(BYTE)j;break;}
@@ -262,7 +262,7 @@ SINT AnalisNextRow (BYTE *row,SINT fir,SINT las, BYTE *out,
 		 // know distance for upper point !
 	  PrevDist=out[i-fullx];
 		 // check left point
-	  out[i]=min(out[i-1],PrevDist)+1;
+	  out[i]=MIN(out[i-1],PrevDist)+1;
 		 // distance for points - not more 1
 	  if(out[i] < PrevDist) continue;
 
@@ -273,7 +273,7 @@ SINT AnalisNextRow (BYTE *row,SINT fir,SINT las, BYTE *out,
 	  if(PrevDist >1 ) j=PrevDist-1;
 	  else j=PrevDist;
 
-	  PrevDist=min(out[i],sizey);
+	  PrevDist=MIN(out[i],sizey);
 	  if(j>=PrevDist) continue;
 
 	  for(nextRow=row+j*fullx+i;j< PrevDist;j++,nextRow+=fullx)
@@ -281,7 +281,7 @@ SINT AnalisNextRow (BYTE *row,SINT fir,SINT las, BYTE *out,
 	 }
 
 	// check distance from right
- for(i=las-2;i>=fir;i--)    out[i]=min(out[i],out[i+1]+1);
+ for(i=las-2;i>=fir;i--)    out[i]=MIN(out[i],out[i+1]+1);
 
  return 0;
 }
@@ -373,7 +373,7 @@ SINT FindDistanceWr(welet *wel,welet *outwel)
 
  if(koef < 1 ) koef=1;
 
- ckoef=min(128,koef);
+ ckoef=MIN(128,koef);
  maxvei=128/koef;
 
   // set new weighted distance inside

@@ -74,6 +74,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "linutil.h"
 #include "ligas.h"
 #include "user_voc.h"
+#include "minmax.h"
 
 extern BYTE db_trace_flag;
 extern BYTE decode_ASCII_to_[256][4];
@@ -938,7 +939,7 @@ for(c=cell_f()->nextl,m=0;c!=cell_l();c=c->nextl)
       m++;
 m = n-m;
 if( n<=8 )
-return (m<max(2,n-3)||n<3);
+return (m<MAX(2,n-3)||n<3);
 return( m<3 );
 }
 

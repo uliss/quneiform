@@ -72,6 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "wrgb.h" //IGOR
 #include "statsearchbl.h" //IGOR
+#include "minmax.h"
 
 //IGOR
 #define draw_puma_bl(n,l)	rs.y = re.y = minrow + bbs##n;	\
@@ -644,7 +645,7 @@ void add_hist(CSTR_rast a, INT flg, BYTE *begs)
     if (!(Lp1->flg & l_fbeg)) 
 		continue;
     hbeg = Lp1->row;
-    th = min(hcell+attr.h, bbs3) - hcell;      // part of cell above bs3
+    th = MIN(hcell+attr.h, bbs3) - hcell;      // part of cell above bs3
     //  part of cell above bs3
     if (5*hbeg >= 3*th) 
 		continue;    // line must begin above 2/5 of
@@ -775,7 +776,7 @@ void hist_top(INT x1, INT x2)
     Lp2=(CCOM_lnhead *) ((CHAR *)Lp1+Lp1->lth);   // next line
     if (!(Lp1->flg & l_fbeg)) continue;   // take free begs only
     hbeg = Lp1->row;
-    th = min(hcell+attr.h, bbs3) - hcell;      // part of cell above bs3
+    th = MIN(hcell+attr.h, bbs3) - hcell;      // part of cell above bs3
     //  part of cell above bs3
     if (2*hbeg >= th) continue;  // line must begin above 1/2 of
                                      // the part of cell height
@@ -847,7 +848,7 @@ void histes()
 {
  INT  i, m, m3, lb3;
  BYTE  *bp, *bc, *bn;
- // find: max(segs) in same place as max(ends)
+ // find: MAX(segs) in same place as max(ends)
  m3=-1;
  if (Ns3)
  { INT ibeg, iend;
@@ -1278,7 +1279,7 @@ void hist_max(CSTR_rast a)
     if (hbeg == 0) 
 		continue;  // ignore upper scan lines
 
-    th = min(hcell+attr.h, bbs3) - hcell;      // part of cell above bs3
+    th = MIN(hcell+attr.h, bbs3) - hcell;      // part of cell above bs3
 
     //  part of cell above bs3
     if (5*hbeg >= 3*th) 
@@ -1745,7 +1746,7 @@ INT dbsum(INT filter)
 			{
 				Int16 ic = 0;
 				rgb = wRGB(64,128,128);
-				rs.x = startx; re.x = startx + min(80, endx - startx);
+				rs.x = startx; re.x = startx + MIN(80, endx - startx);
 				while(rs.x <= endx && re.x <= endx) 	
 				{
 					draw_puma_bl(1,3);
@@ -1772,7 +1773,7 @@ INT dbsum(INT filter)
 						}
 					}
 					rs.x = re.x + 5;
-					re.x = rs.x + min(80, abs(endx - rs.x)); 
+					re.x = rs.x + MIN(80, abs(endx - rs.x)); 
 					ic = 1;
 				}
 			}
@@ -1800,7 +1801,7 @@ INT dbsum(INT filter)
 			{
 				Int16 ic = 0;
 				rgb = wRGB(124,190,190);
-				rs.x = startx; re.x = startx + min(80, endx - startx);
+				rs.x = startx; re.x = startx + MIN(80, endx - startx);
 				while(rs.x <= endx && re.x <= endx)
 				{
 					draw_puma_bl(1,0);
@@ -1827,7 +1828,7 @@ INT dbsum(INT filter)
 						}
 					}
 					rs.x = re.x + 5;
-					re.x = rs.x + min(80, abs(endx - rs.x));
+					re.x = rs.x + MIN(80, abs(endx - rs.x));
 					ic = 1;
 				}
 			}

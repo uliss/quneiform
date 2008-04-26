@@ -328,8 +328,8 @@ BYTE *rr;
  }
  if(dist > porog) return dist;
 
- lasty=min(starty+h,sty+hh);
- lastx=min(startx+w,stx+ww);
+ lasty=MIN(starty+h,sty+hh);
+ lastx=MIN(startx+w,stx+ww);
 
  if( starty < sty) r+=(sty-starty)*fullByte;
 
@@ -351,7 +351,7 @@ BYTE *rr;
   rr=r;
   cbyte=*rr;
 
-  lastx=min(bou[i]+1,startx+w);
+  lastx=MIN(bou[i]+1,startx+w);
   for(;j<lastx;j++,cc>>=1)
   {
    if(cc==0) {cc=128;cbyte=*(++rr);}
@@ -398,7 +398,7 @@ static int distWeletBound(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int poro
 {
  WORD best,east,west,north,south,center;
  int   lbest; // local best
- int bound=2*min(50,w+h);
+ int bound=2*MIN(50,w+h);
  int initPorog=porog;
 
  recBou->movx=0;
@@ -670,7 +670,7 @@ static int FindBestClustersBound(int w,int h,BYTE *buf,BYTE *bufrazmaz,
 		 recBou.bound[k]=2;
 
 	 recBou.name =(BYTE)wel->let;
-     recBou.prob =(BYTE)(max(0,255-STRAFPOINT*dist));
+     recBou.prob =(BYTE)(MAX(0,255-STRAFPOINT*dist));
 	 recBou.dist = dist;
      recBou.num  =i;
  
@@ -727,8 +727,8 @@ SINT RecogCluBound(BYTE *rast,SINT xbyte,SINT xbit,SINT yyrow,BYTE *names,
   // left bound
   FillLeft(buf,rbyte,yrow,xbit,StartInRow);
 
-  //porog=max(xbit,yrow);   
-  porog=min(50,xbit+yrow);
+  //porog=MAX(xbit,yrow);   
+  porog=MIN(50,xbit+yrow);
 
   if(maxNames > MAX_ALT_BOU ) maxNames=MAX_ALT_BOU;
   numAlt=FindBestClustersBound(xbit,yrow,buf,bufrazmaz,
@@ -868,27 +868,27 @@ static int LookLeft(int *startRow,int yrow,int bits,int height,
 
  for(i=j-1,j=j+1;LRow-FRow<height;)
  {
-  if(i>=0 ) sizeup=NumInRow[i]-max(0,LRow-height-FirstRow[i]);
+  if(i>=0 ) sizeup=NumInRow[i]-MAX(0,LRow-height-FirstRow[i]);
   else sizeup=-1;
 
-  if(j<NumStart) sizedown =min(NumInRow[j],FRow+height-FirstRow[j]);
+  if(j<NumStart) sizedown =MIN(NumInRow[j],FRow+height-FirstRow[j]);
   else sizedown=-1;
 
   if(sizeup <=0 && sizedown <=0 ) break;
 
   if(sizeup>=sizedown)
 	{
-	 FRow=max(FirstRow[i],LRow-height);
+	 FRow=MAX(FirstRow[i],LRow-height);
 	 i--;
 	}
   else
 	{
-	 LRow=min(FirstRow[j]+NumInRow[j],FRow+height);
+	 LRow=MIN(FirstRow[j]+NumInRow[j],FRow+height);
 	 j++;
 	}
  }
 
-// FRow=min(FRow,yrow-height);
+// FRow=MIN(FRow,yrow-height);
  *outHeight=LRow-FRow;
  return FRow;
 }
@@ -1238,12 +1238,12 @@ static int GetFromStack(BYTE *inBuf,int xbyte,int xbit,int yrow,
 //int *bou;
 int startX;
 int outByte,outBit;
-int maxWidth=REC_MAX_RASTER_SIZE/max(1,yrow);
+int maxWidth=REC_MAX_RASTER_SIZE/MAX(1,yrow);
 
     
     if( !bou )
 	{
-      *oBit=min(maxWidth<<3,xbit);
+      *oBit=MIN(maxWidth<<3,xbit);
       outByte = ((*oBit)+7) >> 3;
 	  for(;yrow>0;yrow--,inBuf+=xbyte,outBuf+=outByte)
 		  memcpy(outBuf,inBuf,outByte);
@@ -1396,10 +1396,10 @@ static int GetCommonSize(CSTR_rast fir,CSTR_rast last,RECT *rect)
 	{
         if( !CSTR_GetAttr (fir, &attr) )
                 return -1;
-		rect->left=min(rect->left,attr.col);
-        rect->right=max(rect->right,attr.col+attr.w);
-        rect->top=min(rect->top,attr.row);
-        rect->bottom=max(rect->bottom,attr.row+attr.h);
+		rect->left=MIN(rect->left,attr.col);
+        rect->right=MAX(rect->right,attr.col+attr.w);
+        rect->top=MIN(rect->top,attr.row);
+        rect->bottom=MAX(rect->bottom,attr.row+attr.h);
 	}
 
    return (rect->right-rect->left+7)>>3;
@@ -1506,7 +1506,7 @@ static int GetAsRecRaster(BYTE *inBuf,int xbit,int yrow,
  int xbyte=(xbit+7)>>3;
  int startX;
  int outByte,outBit;
- int maxWidth=REC_MAX_RASTER_SIZE/max(1,yrow);
+ int maxWidth=REC_MAX_RASTER_SIZE/MAX(1,yrow);
  int xbyte8;
  BYTE *bb;
  int  yFir,yHei;
@@ -1615,7 +1615,7 @@ Word8 let;
  if(!rast) return FALSE;
  ver=&cver;
  memset(ver,0,sizeof(UniVersions));
- ver->lnAltCnt = min(REC_MAX_VERS,rver->lnAltCnt);
+ ver->lnAltCnt = MIN(REC_MAX_VERS,rver->lnAltCnt);
  ver->lnAltMax = REC_MAX_VERS;
 
  for(i=0;i<ver->lnAltCnt;i++)
@@ -2017,8 +2017,8 @@ FON_FUNC(Int32) FONRecog2Glue(CSTR_rast firLeo,CSTR_rast lasLeo,
   if( recs->vers.lnAltCnt <= 0  || recs->vers.Alt[0].Prob < porog)
 	  continue;
   
-  if( better == -1 || min(AllRecBou[better].prob,recs2[0].vers.Alt[0].Prob) < 
-	     min(AllRecBou[i].prob,recs->vers.Alt[0].Prob) )
+  if( better == -1 || MIN(AllRecBou[better].prob,recs2[0].vers.Alt[0].Prob) < 
+	     MIN(AllRecBou[i].prob,recs->vers.Alt[0].Prob) )
   {
 	  recs->nClust = specInfo.nClust;
 	  if( better != -1) 
@@ -2109,7 +2109,7 @@ FON_FUNC(Int32) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
                 specInfo.nLet   = verOld.Alt[0].Code; 
 		}
 
-		specInfo.countRazmaz = max(1,nRazmaz);  // was alwayes 4
+		specInfo.countRazmaz = MAX(1,nRazmaz);  // was alwayes 4
  
   numAlt=FONRecogChar(&recRast,&verOld,&specInfo);
 
@@ -2126,7 +2126,7 @@ FON_FUNC(Int32) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
 
   // уменьшим ...
 //  for( i=0; i < verOld.lnAltCnt; i++)
-//    verOld.Alt[i].Prob = max(1,verOld.Alt[i].Prob-10);
+//    verOld.Alt[i].Prob = MAX(1,verOld.Alt[i].Prob-10);
 
  // remove old 
   for(rst=CSTR_GetNext(firOut);rst && rst!=lasOut;)

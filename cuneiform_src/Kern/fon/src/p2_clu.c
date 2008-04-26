@@ -126,9 +126,9 @@ typedef LONG (* MKFAM) (raster_header * rh,WORD nclu);
 //   (now 128*64+... > 8192)
 //
 // working buffer
-static CHAR  mybuffer[max( 2*MAXSYM*sizeof(SINT),max(2*sizeof(welet),sizeof(access_tab)))];
+static CHAR  mybuffer[MAX( 2*MAXSYM*sizeof(SINT),max(2*sizeof(welet),sizeof(access_tab)))];
    welet *welBuf=(welet *)mybuffer;
-   welet *dist_wel=(welet *)(mybuffer+max(MAXSYM*sizeof(SINT),sizeof(welet)));   // use as 
+   welet *dist_wel=(welet *)(mybuffer+MAX(MAXSYM*sizeof(SINT),sizeof(welet)));   // use as 
    
 // union twins with solid? - tiger
 //             remove week? - CTB   
@@ -327,8 +327,8 @@ SINT DistanceHausDLL(BYTE  *b1,SINT xbyte1,SINT yrow1,
 						SINT porog)
 {
  SINT i,j;
- SINT xbyte=min(xbyte1,xbyte2);
- SINT yrow=min(yrow1,yrow2);
+ SINT xbyte=MIN(xbyte1,xbyte2);
+ SINT yrow=MIN(yrow1,yrow2);
  SINT dist;
 
  for(i=0,dist=0;i<yrow;i++,b1+=xbyte1,b2+=xbyte2)
@@ -1047,8 +1047,8 @@ SINT SaveCluster(SINT fh,CTB_handle *CTBfile,
 	if(sdvigy<0) fy=-1;
 	movex[j]  =sdvigx;
 	movey[j]  =sdvigy;
-	maxx=max(maxx,(SINT)rh[i].w+sdvigx);
-	maxy=max(maxy,(SINT)rh[i].h+sdvigy);
+	maxx=MAX(maxx,(SINT)rh[i].w+sdvigx);
+	maxy=MAX(maxy,(SINT)rh[i].h+sdvigy);
 
 	NextInClus[j-1]=i;   // pointer from previous to current
 	summax+=rh[i].w;
@@ -1085,9 +1085,9 @@ SINT SaveCluster(SINT fh,CTB_handle *CTBfile,
 	etalon=rast+sdvigy*WR_MAX_WIDTH+sdvigx;
 
 	fat=PutSymbolRaster(rh[i].pHau,etalon,WR_MAX_WIDTH,
-					  (SINT)min(rh[i].w,WR_MAX_WIDTH-startx-sdvigx),
+					  (SINT)MIN(rh[i].w,WR_MAX_WIDTH-startx-sdvigx),
 					  (SINT)((rh[i].w>>3)+1),
-					  (SINT)min(rh[i].h,WR_MAX_HEIGHT-starty-sdvigy));
+					  (SINT)MIN(rh[i].h,WR_MAX_HEIGHT-starty-sdvigy));
     welBuf->summa+=fat;
 
 	AddDWORDField(rh[i].nField,fields);
@@ -1101,7 +1101,7 @@ SINT SaveCluster(SINT fh,CTB_handle *CTBfile,
 		nGelv++;
 	if(rh[i].narrow) 
 		nArrow++;
-    keglBuffer[min(rh[i].kegl,MAXKEGL)]++;
+    keglBuffer[MIN(rh[i].kegl,MAXKEGL)]++;
 	if( rh[i].tablColumn && rh[i].tablColumn <= 32)
            tablColumn |= (odin << (rh[i].tablColumn-1));
 
@@ -1229,7 +1229,7 @@ SINT SaveCluster(SINT fh,CTB_handle *CTBfile,
 void MakRas(CHAR *inp,CHAR *ras,SINT point)
 {
  register SINT i;
- SINT j = min(3,strlen(ras));
+ SINT j = MIN(3,strlen(ras));
  SINT lens = strlen(inp);
 
  for(i=lens-1;i >= 0;i--)
@@ -1355,7 +1355,7 @@ static SINT TestUnionOne(SINT porog,SINT NumAll,SINT NumClus)
 						  NumClus, NumAll,
 						  LasIn, NumIn );
    if(NumClus < k) // was unions
-   { i=max(0,i-(k-NumClus));
+   { i=MAX(0,i-(k-NumClus));
      maxClusName[CurName]++;
    }
   }

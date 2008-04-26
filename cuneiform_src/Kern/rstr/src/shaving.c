@@ -68,6 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "cuthdr.h"
 # include "func.h"
 # include "shaving.h"
+#include "minmax.h"
 # else
 # include <stdio.h>
 # include <conio.h>
@@ -803,7 +804,7 @@ static INT compute_condition_N (INT x, INT y)
 {
     INT n1 = (PP1 | PP2) + (PP3 | PP4) + (PP5 | PP6) + (PP7 | PP8);
     INT n2 = (PP2 | PP3) + (PP4 | PP5) + (PP6 | PP7) + (PP8 | PP1);
-    return (min (n1, n2));
+    return (MIN (n1, n2));
 }
 
 

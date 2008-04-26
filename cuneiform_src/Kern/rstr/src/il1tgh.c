@@ -181,7 +181,7 @@ static WORD integral (PBYTE func, INT from, INT to, INT threshold)
 
     s = 0;
     for (i = from; i <= (DWORD)to; i++)
-    s += max (0, func [i] - threshold);
+    s += MAX (0, func [i] - threshold);
     return s;
 }
 

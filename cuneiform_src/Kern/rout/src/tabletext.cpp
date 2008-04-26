@@ -384,12 +384,12 @@ BOOL Static_TableText_Prepare(
 
 			// Ўирина колонки таблицы
 			pl = &gTableColWidths[gIndexTableCol];
-			*pl = max(*pl,gCellText->width);
+			*pl = MAX(*pl,gCellText->width);
 
 			//  оордината низа строки таблицы дл€ строки таблицы, 
 			// в которой заканчиваетс€ текуща€ €чейка
 			pl = &gTableRowBottoms[BottomRow()];
-			*pl = max(*pl,
+			*pl = MAX(*pl,
 					gTableRowTops[gIndexTableRow] + 
 						gCellText->lines);
 
@@ -437,7 +437,7 @@ static BOOL LineEnd()
 
 	// Ўирина €чейки
 	long *pl = &gCellText->width;
-	*pl = max(*pl,lth);
+	*pl = MAX(*pl,lth);
 
 	// ƒописать ноль на конце строки текста
 	*gMemCur++ = 0;
@@ -525,7 +525,7 @@ static BOOL TableText_Columns()
 			// дл€ самой правой колонки таблицы, 
 			// в которой заканчиваетс€ текуща€ €чейка
 			long *pl = &gTableColRights[RightmostCol()];
-			*pl = max(*pl,
+			*pl = MAX(*pl,
 					gTableColLefts[gIndexTableCol] + 
 						gCellText->width);
 

@@ -408,7 +408,7 @@ if( mn != NULL && mn->mnnext==NULL )
     }
 else
 	return FALSE;
-ev_num_ln= min(mn->mnlines,15)<<4;
+ev_num_ln= MIN(mn->mnlines,15)<<4;
 nvers = 0;
 nvers = recog_letter();   // to recognize
 for(nvers1=0,i=0;i<nvers;i++)
@@ -674,7 +674,7 @@ return ii;
 EVN_FUNC(MN *) EVN_CLocomp (Word8* raster, Int32 bw, Int32 h, Int16 upper, Int16 left)
 {
 MN *m;
-left = max(0,left);
+left = MAX(0,left);
 m=c_locomp (raster,bw,h,upper,left);
 return m;
 }

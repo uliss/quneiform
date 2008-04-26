@@ -867,7 +867,7 @@ static void WSB_HystogramUpdate
     nCharHeight = VIEW_HEIGHT / 16 / nScaling / 2;
     _setcharsize (nCharHeight, nCharHeight / 2);
 
-    for (i = 0; i < nMaxValue - nMaxValue / 32; i += max(nMaxValue / 16,1))
+    for (i = 0; i < nMaxValue - nMaxValue / 32; i += MAX(nMaxValue / 16,1))
     {
         _moveto ((VIEW_LEFT                                 - xLeft)/ nScaling,
                  (VIEW_BOTTOM - i * VIEW_HEIGHT / nMaxValue - yTop) / nScaling);

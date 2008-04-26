@@ -68,6 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include "lang.h"
 #include "linutil.h"
 #include "ligas.h"      // Pit 10-10-94 03:56pm
+#include "minmax.h"
 
 /*============= Func prototypes ==================*/
 
@@ -530,7 +531,7 @@ INT uc[MAX_HEIGHT]={0},
     lc[MAX_HEIGHT]={0};
 
  // Nick 26.01.2000  - в таблицах могут быть очень большие номера строк!
- int lastLineNumber = min(sizeof(lht)/sizeof(lht[0]), line_number );
+ int lastLineNumber = MIN(sizeof(lht)/sizeof(lht[0]), line_number );
  int firLineNumber = 1;  // у нас нет линии 0
 
       page_stat=0;
@@ -541,8 +542,8 @@ INT uc[MAX_HEIGHT]={0},
 
  for(i=firLineNumber;i < line_number && i < sizeof(lht)/sizeof(lht[0]);i++)
  {
-  uc[min(lht[i].caps,MAX_HEIGHT-1)]++; /* Calc histogram */
-  lc[min(lht[i].lcase,MAX_HEIGHT-1)]++; // Nick 25.05.2001 
+  uc[MIN(lht[i].caps,MAX_HEIGHT-1)]++; /* Calc histogram */
+  lc[MIN(lht[i].lcase,MAX_HEIGHT-1)]++; // Nick 25.05.2001 
  }
 
  umax  = uc[lh]+uc[lh+1]+uc[lh-1]+uc[lh+2]+uc[lh-2];
@@ -1062,13 +1063,13 @@ INT GetPsFromHeights(void)
 	   ind2=flood_peak(Hh,ind2);
 
    
-   if(max2 > 0 && ( abs(ind1-ind2) >= min(ind1,ind2)/3) ) 
+   if(max2 > 0 && ( abs(ind1-ind2) >= MIN(ind1,ind2)/3) ) 
 	   peak2=1;
    
    if( max2 > 3 && peak2 )
    { 
-	 BPs=min(ind1,ind2); 
-     bbs1=bbs3-max(ind1,ind2); 
+	 BPs=MIN(ind1,ind2); 
+     bbs1=bbs3-MAX(ind1,ind2); 
      goto ret; 
    } // two peaks
 

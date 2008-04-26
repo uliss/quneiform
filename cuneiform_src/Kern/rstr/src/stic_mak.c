@@ -258,10 +258,10 @@ else	make_hist_centers_LIMITED (center, nc, GL_hist, tab_angle,
 	opt=max_center_hist_new(GL_hist,(INT)(dx<<1),center,nc,tab_angle, 0); // ???
 
 optmax = GL_hist [opt>>1];		// find maximum in hist
-//////dop_opt = max( hist_BBB[(opt>>1)-1],hist_BBB[(opt>>1)+1]);  MAC.ERROR
+//////dop_opt = MAX( hist_BBB[(opt>>1)-1],hist_BBB[(opt>>1)+1]);  MAC.ERROR
 dop_opt_BBB_1 = (opt<=2)      ? 0 : GL_hist[(opt>>1)-1];	// 09.04.1993
 dop_opt_BBB_2 = (opt>=4*dx-2) ? 0 : GL_hist[(opt>>1)+1];
-dop_opt = max (dop_opt_BBB_1, dop_opt_BBB_2);
+dop_opt = MAX (dop_opt_BBB_1, dop_opt_BBB_2);
 /*......................................................................*/
 wd = width_of_hist (GL_hist, (INT)(dx<<1));
 ov = overlay_interval (center, nc, (INT)(opt>>2), (INT)(opt%4==0), tab_angle) ;
@@ -292,7 +292,7 @@ if (en==3  &&			// LEFT or RIGHT vert Line
 	optmax = GL_hist [opt>>1];	// find maximum in hist
 	dop_opt_BBB_1 = (opt<=2)      ? 0 : GL_hist[(opt>>1)-1];
 	dop_opt_BBB_2 = (opt>=4*dx-2) ? 0 : GL_hist[(opt>>1)+1];
-	dop_opt = max (dop_opt_BBB_1, dop_opt_BBB_2);
+	dop_opt = MAX (dop_opt_BBB_1, dop_opt_BBB_2);
 	wd = width_of_hist (GL_hist, (INT)(dx<<1));
 	ov = overlay_interval (center, nc, (INT)(opt>>2), (INT)(opt%4==0), tab_angle);
 	}
@@ -625,7 +625,7 @@ for(;p_center!=p_end;p_center++)
 	en_cp=0;
 	r = p_center->row ;
 	D = abs(p_center->col-(ang[ r ]>>1)) ;
-	L = max(p_center->len,2);
+	L = MAX(p_center->len,2);
 
 	if( D<=L )
 		en_cp=1;
@@ -1196,7 +1196,7 @@ INT j;
 	else
 	    memset (ang, 0, hei<<1);
 
-//////return ( max (ang[0], ang[hei-1]) );	// 09.12.1993 DELETE IT
+//////return ( MAX (ang[0], ang[hei-1]) );	// 09.12.1993 DELETE IT
 						// ("INT" => "void")
 						// as UNUSED and UNKNOWN !!!
 }

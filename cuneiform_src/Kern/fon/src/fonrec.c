@@ -440,7 +440,7 @@ BOOL   isInField;
 		if( !IntersectFields(nField, wel->fields) ) 
 		// из одного шрифта ?
 		{
-			int k,all=min(fonbase.countFont,4);
+			int k,all=MIN(fonbase.countFont,4);
 			for(k=0;k<all;k++)
 			{ 
                if( IntersectFields ( nField, fonbase.fontFields[k] ) &&

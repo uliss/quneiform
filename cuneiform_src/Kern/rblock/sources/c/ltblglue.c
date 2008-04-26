@@ -72,6 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # include "c_memory.h"
 # include "layout.h"
+#include "minmax.h"
 
 # define MIN_GLUED_COLUMN_HEIGHTES_WIDTH    4
 
@@ -111,7 +112,7 @@ static BOOL IsColumn (BLOCK *p, BLOCK *q)
     }
 
     if (q -> Rect.yTop - p -> Rect.yBottom >
-            3 * min (p -> nAverageHeight, q -> nAverageHeight))
+            3 * MIN (p -> nAverageHeight, q -> nAverageHeight))
     {
         return (FALSE);
     }
@@ -127,7 +128,7 @@ static BOOL IsColumn (BLOCK *p, BLOCK *q)
         return (FALSE);
     }
 
-    nFluctuation = max (max (nWidth1, nWidth2)
+    nFluctuation = MAX (MAX (nWidth1, nWidth2)
                           / COLUMN_SHIFT_FLUCTUATION_DIVIDER,
                         COLUMN_SHIFT_SMALL_FLUCTUATION);
 
@@ -183,7 +184,7 @@ static BOOL IsIncorrectBreaking (BLOCK *p, BLOCK *q)
         return (FALSE);
 
     if (q -> Rect.xLeft - p -> Rect.xRight >=
-                min (p -> nConditionalMinColumnWidth,
+                MIN (p -> nConditionalMinColumnWidth,
                      q -> nConditionalMinColumnWidth))
     {
         return (FALSE);
@@ -265,7 +266,7 @@ static BOOL IsIncorrectSmartBreaking (BLOCK *p, BLOCK *q)
     }
 
     bNearRootFound = FALSE;
-    nMinDistance = max (p -> nAverageHeight, q -> nAverageHeight) * 4;
+    nMinDistance = MAX (p -> nAverageHeight, q -> nAverageHeight) * 4;
 
     for (pRoot = p -> pRoots; pRoot != NULL; pRoot = pRoot -> u1.pNext)
     {

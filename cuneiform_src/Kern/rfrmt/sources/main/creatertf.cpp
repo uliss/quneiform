@@ -1941,7 +1941,7 @@ void CRtfSector::FillingSectorInfo()
 				pRtfFragment = pRtfVerticalColumn->m_arFragments[i2];
 
 //!!!Art   if(pRtfFragment->m_wType == FT_FRAME || pRtfFragment->m_wType == FT_TEXT )
-//!!!Art   SectorInfo.Offset.y = min(SectorInfo.Offset.y, pRtfFragment->m_rect.top);
+//!!!Art   SectorInfo.Offset.y = MIN(SectorInfo.Offset.y, pRtfFragment->m_rect.top);
 			}
 		}
 	}
@@ -2855,7 +2855,7 @@ void CRtfHorizontalColumn::SortFragments()
 		{
 			//вычитаем 2 высоты - фикт. абзаца и разрыва
 			//если меньше, чем высота разрава, то чтобы он не упрыгнул вниз
-			pRtfFragment->m_wOffsetFromPrevTextFragment = (WORD)max(brkHeight,pRtfFragment->m_rect.top - pRtfFragmentFirst->m_rect.bottom-brkHeight-parHeight);
+			pRtfFragment->m_wOffsetFromPrevTextFragment = (WORD)MAX(brkHeight,pRtfFragment->m_rect.top - pRtfFragmentFirst->m_rect.bottom-brkHeight-parHeight);
 		}
 	}
 */}
