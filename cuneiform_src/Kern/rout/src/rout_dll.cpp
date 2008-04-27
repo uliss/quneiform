@@ -425,9 +425,9 @@ Bool32 MyClose(Handle hFile, Word32 dwFlag)
 	else
 		{
 		long f = (long)hFile;
-		long pos = _tell(f);
-		_chsize(f,pos);	// Если разрешена запись
-		good = (_close(f) != -1);
+		long pos = lseek(f, 0, SEEK_CUR);
+		ftruncate(f,pos);	// Если разрешена запись
+		good = (close(f) != -1);
 		}
 
 	if ( !good )

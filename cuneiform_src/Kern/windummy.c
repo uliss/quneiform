@@ -133,7 +133,9 @@ void Sleep(int s) {
 int _findclose(long handle);
 long _findfirst(const char *filespec, struct _finddata_t *fileinfo);
 int _findnext(long handle, struct _finddata_t *fileinfo);
-long _tell(int handle);
+long _tell(int handle) {
+    return lseek(handle, 0, SEEK_CUR);
+}
 
 BOOL GetComputerName(LPTSTR lpBuffer, long unsigned int *lpnSize) {
     return 0;
