@@ -56,8 +56,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define __RSELSTR__
 
-#include "PutToCSTR.h"
-#include "RSELSTR.h"
+#include <stdlib.h>
+#include <string.h>
+#include "puttocstr.h"
+#include "rselstr.h"
 #include "rneg.h"
 
 
@@ -292,7 +294,8 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM,Handle hCPage,Rec
   temp->hStrCCOM=hStrCCOM;
   if(my_str->ImageName)
   {
-   for(int i=0;i<CPAGE_MAXNAME&&my_str->ImageName[i]!='\0';i++)
+   int i;
+   for(i=0;i<CPAGE_MAXNAME&&my_str->ImageName[i]!='\0';i++)
 	  temp->ImageName[i]=my_str->ImageName[i];
    temp->ImageName[i]='\0';
   }
@@ -502,10 +505,11 @@ CCOM_handle CreateContainer(Handle hCPage,CCOM_handle hCCOM_old,Rect16 Rc)
 BOOL AddToCpage(Handle hCPAGE,CPrepHstr* temp)
 {
  int size_phstr=sizeof(CPrepHstr);
+ int i;
  if(temp->nRc>MAX_STR_COUNT)
 	 temp->nRc=MAX_STR_COUNT;
 
- for(int i=0;i<temp->nRc;i++)
+ for(i=0;i<temp->nRc;i++)
  {
 	 temp->prc[i].bottom=temp->pRc[i].bottom;
 	 temp->prc[i].top=temp->pRc[i].top;
@@ -572,7 +576,7 @@ BOOL InitPrepList(Handle hCPAGE)
 			 add->hi=new int[add->nRc];
 			 if(!add->hi)
 				 add->nRc=0;
-			 for(i=0;i<add->nRc;i++)
+			 for(int i=0;i<add->nRc;i++)
 				 add->hi[i]=add->phi[i];
 		 }
 
@@ -616,7 +620,7 @@ BOOL InitPrepList(Handle hCPAGE)
 			 add->hi=new int[add->nRc];
 			 if(!add->hi)
 				 add->nRc=0;
-			 for(i=0;i<add->nRc;i++)
+			 for(int i=0;i<add->nRc;i++)
 				 add->hi[i]=neg_tmp.phi[i];
 		 }
 		 add->h=neg_tmp.h;
@@ -962,7 +966,7 @@ BOOL MainVertDiagnostic(Handle hCPage,CCOM_handle hCCOM,CPrepHstr* temp,Rect16* 
  Recstr.left=Rect.left;
  Recstr.right=Rect.right;
 
- for(i=0;i<nRc;i++)
+ for(int i=0;i<nRc;i++)
  {
 	 GetStrBounds(HCCOM,pRc,nRc,i,&(h_top[i]),&(h_bottom[i]),FALSE,Rc);
      Recstr.top=h_top[i];
@@ -979,7 +983,7 @@ BOOL MainVertDiagnostic(Handle hCPage,CCOM_handle hCCOM,CPrepHstr* temp,Rect16* 
 
 
 
- for(i=0;i<temp->nRc;i++)
+ for(int i=0;i<temp->nRc;i++)
  {
   if(v_bottom[i]-v_top[i]>2*max_size_v)
   {
@@ -991,7 +995,7 @@ BOOL MainVertDiagnostic(Handle hCPage,CCOM_handle hCCOM,CPrepHstr* temp,Rect16* 
   }
  }
 
- for(i=0;i<nRc;i++)
+ for(int i=0;i<nRc;i++)
  {
   if(h_bottom[i]-h_top[i]>2*max_size_h)
   {
@@ -1005,7 +1009,7 @@ BOOL MainVertDiagnostic(Handle hCPage,CCOM_handle hCCOM,CPrepHstr* temp,Rect16* 
 
 
  int medium_betw_h=0;
- for(i=nRc-2;i>=0;i--)
+ for(int i=nRc-2;i>=0;i--)
  {
 	 if(h_top[i]-h_bottom[i+1]>=0)
         medium_betw_h+=h_top[i]-h_bottom[i+1];
@@ -1014,7 +1018,7 @@ BOOL MainVertDiagnostic(Handle hCPage,CCOM_handle hCCOM,CPrepHstr* temp,Rect16* 
  medium_betw_h+=2*incl_h;
 
  int medium_betw_v=0;
- for(i=temp->nRc-2;i>=0;i--)
+ for(int i=temp->nRc-2;i>=0;i--)
  {
 	 if(v_top[i]-v_bottom[i+1]>=0)
         medium_betw_v+=v_top[i]-v_bottom[i+1];
@@ -1238,7 +1242,7 @@ BOOL NotInAll(CCOM_handle hCCOM,Rect16 Rc,Rect16* pRc,int& nRc,BOOL vert)
 	{
 		if(comp->w>(inf_let_h>>1)&&comp->h>inf_let_h)
 		{
-		 for(i=0;i<nRc;i++)
+		 for(int i=0;i<nRc;i++)
 		 {
 		  top=pRc[i].top;
 		  bottom=pRc[i].bottom;
@@ -1277,7 +1281,7 @@ BOOL NotInAll(CCOM_handle hCCOM,Rect16 Rc,Rect16* pRc,int& nRc,BOOL vert)
    }
 
  BOOL ret=FALSE;
- for(i=nRc-1;i>=0;i--)
+ for(int i=nRc-1;i>=0;i--)
  {
 	 if(fl_in[i]==FALSE)
 		 StrMoveMas(pRc,nRc,i);

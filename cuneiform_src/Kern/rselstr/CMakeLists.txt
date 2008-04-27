@@ -38,4 +38,6 @@ sources/src/cpp/sehyst.cpp
 sources/src/cpp/semain.cpp
 sources/src/cpp/sestring.cpp
 sources/src/cpp/sevbreak.cpp
+sources/src/chstr/vertical/testforvertical.cpp
+
 )
