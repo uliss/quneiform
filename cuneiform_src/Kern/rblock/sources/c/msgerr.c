@@ -287,7 +287,7 @@ void error_exit_str(INT group, INT element,PCHAR s)
  extern void FreeAllData(void);
 
     FreeAllData();
-    STRCPY(add_mess,s);
+    strcpy(add_mess,s);
     msg_err (group,element); /* show message */
     longjmp (fatal_error_exit, element);
 }
@@ -302,8 +302,8 @@ PCHAR get_message (WORD code)
 {
     PCHAR c=mess;
     if (code == 0) return "OK.";
-    STRCPY(mess,*(message_groups [(code - 1000)/100] + code%100 - 1));  /* ptr to message */
-    STRCAT(mess,add_mess);
+    strcpy(mess,*(message_groups [(code - 1000)/100] + code%100 - 1));  /* ptr to message */
+    strcat(mess,add_mess);
 #ifdef __MAC__
 // Перекодирование под Windows идет в WINCV\DLL_MAIN.c
 // тк программа под DOS и WINDOWS собирается на одной компиляции
