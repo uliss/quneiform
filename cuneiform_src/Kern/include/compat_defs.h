@@ -64,13 +64,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef APIENTRY /* Not currently used in Linux. */
 #define APIENTRY
 #endif
-/*
-#ifndef WORD
-#define WORD short int
-#endif
-*/
-/*typedef unsigned short int              WORD;*/
-
 
 typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int);
 
@@ -89,18 +82,6 @@ typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int)
 
 #define _ASSERT assert
 
-#ifndef LPSTR
-#define LPSTR char*
-#endif
-
-#ifndef LPCSTR
-#define LPCSTR const char*
-#endif
-
-#ifndef LPCWSTR
-#define LPCWSTR const char*
-#endif
-
 #ifndef HDC
 #define HDC int
 #endif
@@ -111,22 +92,6 @@ typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int)
 
 #ifndef HUGE
 #define HUGE
-#endif
-
-#ifndef UINT
-#define UINT unsigned int
-#endif
-
-#ifndef INT
-#define INT int
-#endif
-
-#ifndef LONG
-#define LONG long
-#endif
-
-#ifndef ULONG
-#define ULONG unsigned long
 #endif
 
 #ifndef DECLARE_HANDLE
@@ -176,8 +141,8 @@ typedef struct tagBITMAPINFOHEADER{
   DWORD  biSize; 
   LONG   biWidth; 
   LONG   biHeight; 
-  int   biPlanes;    /* Was WORD */
-  int   biBitCount;  /* Was WORD */
+  WORD   biPlanes;    
+  WORD   biBitCount;  
   DWORD  biCompression; 
   DWORD  biSizeImage; 
   LONG   biXPelsPerMeter; 
@@ -258,7 +223,6 @@ typedef BOOL(*WNDENUMPROC)(HWND, int);
 
 typedef int HPALETTE;
 
-/*
 typedef struct tagPAINTSTRUCT { 
   HDC  hdc; 
   BOOL fErase; 
@@ -267,7 +231,6 @@ typedef struct tagPAINTSTRUCT {
   BOOL fIncUpdate; 
   unsigned char rgbReserved[32]; 
 } PAINTSTRUCT, *PPAINTSTRUCT; 
-*/
 
 typedef struct tagPOINT { 
   LONG x; 
@@ -359,16 +322,8 @@ typedef int REGSAM;
 #define O_TEXT 0
 #endif
 
-#ifndef LPTSTR
-#define LPTSTR char *
-#endif
-
 #ifndef CREATE_NEW
 #define CREATE_NEW 2
-#endif
-
-#ifndef LPCTSTR
-#define LPCTSTR const char *
 #endif
 
 #ifndef RGB
@@ -446,10 +401,6 @@ typedef int REGSAM;
 
 #ifndef WM_PAINT
 #define WM_PAINT 73
-#endif
-
-#ifndef PAINTSTRUCT
-#define PAINTSTRUCT int
 #endif
 
 #ifndef WHITE_BRUSH
