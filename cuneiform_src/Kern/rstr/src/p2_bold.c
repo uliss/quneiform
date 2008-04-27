@@ -85,6 +85,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include "linear.h"
 #include "p2libr.h"
 #include "ligas.h"	// 08.09.2000 E.P.
+#include "minmax.h"
 ///////////////// 
 void   clear_cells(void);
 void p2_TextWord(CSTR_rast  c,CSTR_rast stop, char *intxt,BOOL ansi);

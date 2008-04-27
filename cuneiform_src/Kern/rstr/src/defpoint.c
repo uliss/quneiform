@@ -71,6 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "dmconst.h"
 #include "alik_rec.h"
 #include "linear.h"
+#include "minmax.h"
 
 extern INT   up_position,dw_position;
 extern BYTE *MemForCutPoints;

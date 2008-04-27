@@ -261,8 +261,8 @@ if( s->l_f_symptom>0 && s->r_f_symptom>1 )
 INT	l12 = MAX (l->mount[1],l->mount[2]);
 INT	r12 = MAX (r->mount[1],r->mount[2]);
 	if ( r->mount[0] >		// fax23/14(16) "Cardiff's"
-//////	     MAX (l12,l->mount[4]) + wid + max (r12,r->mount[4]) )	// a)
-	     MAX (l12,l->mount[4]) + wid + max (r12,r->mount[4]) + 4)	// b)
+//////	     MAX (l12,l->mount[4]) + wid + MAX (r12,r->mount[4]) )	// a)
+	     MAX (l12,l->mount[4]) + wid + MAX (r12,r->mount[4]) + 4)	// b)
 		dis += 222;						// 222
 }
 

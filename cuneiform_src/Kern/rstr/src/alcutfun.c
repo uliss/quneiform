@@ -64,6 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "linear.h"
 
 #include "compat_defs.h"
+#include "minmax.h"
 
 void snap_clear_screen(void);
 

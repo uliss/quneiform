@@ -90,6 +90,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rsadd.h"
 
 #include "lang.h"
+#include "minmax.h"
 
 //#include "p2.h"
 //#include "rstr_p2.h" 

@@ -74,6 +74,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "p2libr.h"
 #include "tuner.h"
 #include "fon.h"
+#include "minmax.h"
 
 static void snap_sticks(cell *,char *);
 

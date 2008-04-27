@@ -43,6 +43,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 #include "filestuff.h"
 #include "cttypes.h" /* Most type definitions are here. */
+#include "minmax.h"
 
 #ifdef __cplusplus
     extern "C" {

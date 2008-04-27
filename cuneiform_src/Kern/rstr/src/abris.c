@@ -61,6 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "status.h"
 
 #include "compat_defs.h"
+#include "minmax.h"
 
 static CHAR let_mol[let_monN] = {" 0Oaeo"};
 static CHAR let_mind[80] = {

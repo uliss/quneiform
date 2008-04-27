@@ -70,6 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "dpuma.h"
 #include "ligas.h"
 #include "status.h"
+#include "minmax.h"
 
 #define INCL_FAC 2048
 

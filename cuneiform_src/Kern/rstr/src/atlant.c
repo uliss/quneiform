@@ -72,6 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ligas.h"
 
 #include "compat_defs.h"
+#include "minmax.h"
 
 #define zone_err(i,j) { des|=i; mn_err=j; goto mn_error; }
 // 930727               des=i;  (versions 'n' 'u' make different bits)

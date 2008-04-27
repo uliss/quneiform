@@ -68,6 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "func.h"
 
 #include "compat_defs.h"
+#include "minmax.h"
 
 #define VERTMAX  64*2
 #define HORMAX  128

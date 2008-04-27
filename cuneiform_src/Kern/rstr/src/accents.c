@@ -73,6 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "status.h"
 
 #include "compat_defs.h"
+#include "minmax.h"
 
 extern BYTE language;
 extern INT pitchsize;

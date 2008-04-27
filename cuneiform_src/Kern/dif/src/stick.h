@@ -198,7 +198,7 @@ typedef struct int_s interval;
 #define DIS_DIFFERENT_SERIFS(L,R,i,dist,wid,tab)      \
 	{                                             \
 	Int16 t,m;                                      \
-	t =  ABS(L->mount[i]-R->mount[i]) ;           \
+	t =  abs(L->mount[i]-R->mount[i]) ;           \
 	m =  MIN(L->mount[i],R->mount[i]) ;           \
 	if( t>MAX(((wid)>>1),dist) || m==0 )          \
 		dis += (tab)*t;                       \
@@ -207,7 +207,7 @@ typedef struct int_s interval;
 #define DIS_DIFFERENT_SERIFS(L,R,i,dist,wid,tab)      \
 	{                                             \
 	Int16 t,m;                                      \
-	t =  ABS(L->mount[i]-R->mount[i]) ;           \
+	t =  abs(L->mount[i]-R->mount[i]) ;           \
 	m =  MIN(L->mount[i],R->mount[i]) ;           \
 	if( t>MAX(((wid)>>1),dist) || m==0 )          \
 		dis += (tab)*t;                       \
