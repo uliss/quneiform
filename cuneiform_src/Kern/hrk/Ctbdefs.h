@@ -267,7 +267,7 @@ typedef FILE*          FFILE;
 #define STRCHR          strchr
 #define STRRCHR         strrchr
 #define STRCPY          strcpy
-#define STRCAT          strcat
+#define STRCAT(a,b)          strcat((a), (b))
 #define STRLEN          strlen
 
 typedef struct 	{

@@ -85,6 +85,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include "rcutp.h"
 
 #include "resource.h"
+/* JussiP: This does not seem to make any sense. Sticking to basic malloc.
 // memory manipulation overload
 #ifndef PPS_MAC
  #define malloc(a)     HeapAlloc(GetProcessHeap(),0,a)
@@ -93,7 +94,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  #define malloc(a)              NewPtr(a)
  #define free(a)                DisposPtr(a);
 #endif
-
+*/
 //static  Word8*  lnOcrPath;
 static  Rect16  merge_frame;
 static  Bool32  is_merge_frame=FALSE;

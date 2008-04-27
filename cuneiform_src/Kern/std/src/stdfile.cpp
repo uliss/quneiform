@@ -325,7 +325,7 @@ STD_FUNC( Bool32 ) stdCheckDirectory( const char* name, Bool32 bCreateIfNone )
    // no directory, no file - try to create
    if (bCreateIfNone)
    {
-      if (_mkdir(name)==0)
+      if (mkdir(name)==0)
       {
          return TRUE;
       }

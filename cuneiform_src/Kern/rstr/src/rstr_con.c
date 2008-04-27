@@ -56,7 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <string.h>
 /*#include <direct.h>*/
-
+#include <sys/stat.h>
 #include "leo.h"
 #include "std.h"
 #include "ctb.h"
@@ -155,7 +155,7 @@ rstr_close_cont();
 data[0]=38;
 if( !CTB_create(local_ctb_name,data) || !CTB_open(local_ctb_name,&this_ctb,"w") )
     {
-    _mkdir(".\\TMP");
+    mkdir("TMP", S_IRWXU);
     if( !CTB_create(local_ctb_name,data) || !CTB_open(local_ctb_name,&this_ctb,"w") )
         return FALSE;
     }
