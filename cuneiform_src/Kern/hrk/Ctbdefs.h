@@ -266,7 +266,7 @@ typedef FILE*          FFILE;
 #define SPRINTF         sprintf
 #define STRCHR          strchr
 #define STRRCHR         strrchr
-#define STRCPY          strcpy
+#define STRCPY(a,b)          strcpy((a), (b))
 #define STRCAT(a,b)          strcat((a), (b))
 #define STRLEN          strlen
 
