@@ -32,6 +32,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <assert.h>
 #include <string.h>
 #include <stdio.h>
+#include <dlfcn.h>
 
 #include "compat_defs.h"
 
@@ -438,3 +439,14 @@ int GetWindowText(HWND hWnd, LPTSTR lpString, int nMaxCount) {
     return 0;    
 }
 
+HMODULE LoadLibrary(LPCTSTR lpFileName) {
+	return dlopen(lpFileName, RTLD_LAZY);
+}
+
+BOOL FreeLibrary(HMODULE hModule) {
+	return dlclose(hModule);
+}
+
+void* GetProcAddress(HMODULE hModule, LPCSTR lpProcName) {
+	return dlsym(hModule, lpProcName);
+}
