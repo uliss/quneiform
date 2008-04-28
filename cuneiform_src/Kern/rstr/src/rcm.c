@@ -66,7 +66,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 /*#include <direct.h>*/
 #include <setjmp.h>
-#include <malloc.h>
 #include <time.h>
 /*#include <io.h>*/
 #include <fcntl.h>

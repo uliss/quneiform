@@ -68,7 +68,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ***************************************************************************/
 
 /*# include <conio.h>*/
-# include <malloc.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>

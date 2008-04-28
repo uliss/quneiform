@@ -56,7 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <string.h>
 #include <stdlib.h>
-#include <values.h>
+#include <limits.h>
 #include <ctype.h>
 #include "cstr.h"
 #include "cpage.h"
@@ -471,7 +471,7 @@ static Bool32 get_stats()
 static void get_keg_tab()
 {
   Word16 *prev_max=NULL,*cur_min=NULL,*keg_statsi=NULL;
-  Int32 prev_max_n=0,min_n=MAXINT,prev_n=0;
+  Int32 prev_max_n=0,min_n=INT_MAX,prev_n=0;
 //  Int32 prev_size=0,i_prev=0;
   Int32 i,j;
   Word8 rely1,rely2,extend2;
@@ -1067,11 +1067,11 @@ static Bool32 SomnitelnaLinia(int Nb)
 }
 
 
-static int cur_line=MAXINT;
+static int cur_line=INT_MAX;
 
 void next_fragment()
 {
-  cur_line=MAXINT;
+  cur_line=INT_MAX;
 }
 
 static void garbage_fragments()

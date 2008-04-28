@@ -79,7 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #define MALLOC(size) 	((void*)NewPtr(size))
    #define FREE(p)  	(DisposePtr((Ptr)p))
 #else
-   #include <malloc.h>
+   #include <stdlib.h>
    #define MALLOC 	malloc
    #define FREE   	free
 #endif

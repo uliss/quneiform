@@ -61,7 +61,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <sys/stat.h>
 /*#include <dos.h>
 #include <conio.h>*/
-#include <malloc.h>
 #include <fcntl.h>
 #include <float.h>
 #include <stdio.h>

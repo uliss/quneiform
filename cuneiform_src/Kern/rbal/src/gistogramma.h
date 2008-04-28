@@ -56,7 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef __GISTOGRAMMA_H__
 
-#include <malloc.h>
+#include <stdlib.h>
 //#include <math.h>
 #include <stdio.h>
 

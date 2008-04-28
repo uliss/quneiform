@@ -55,8 +55,4 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include "tech.h"
-#ifdef __DOSWIN_
-#include <malloc.h>
-#else
 #include <stdlib.h>
-#endif
