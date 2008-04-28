@@ -60,17 +60,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma hdrstop
 #endif
 
-#ifndef __STDIO_H
-#	include <stdio.h>
-#endif
-
-#ifndef WIN32
-#include <curses.h>
-#endif
-
-#ifndef __STDLIB_H
-#	include <stdlib.h>
-#endif
+#include <stdio.h>
+#include <stdlib.h>
 
 /*#include <windows.h> // MB()*/
 
@@ -129,7 +120,7 @@ void   my_assert_fail(   char  *__cond,
 
 #ifndef PPS_MAC
 	do {
-		c = getch();
+		c = getchar();
 	} while ((c != 32)&&( c != 27 ));
 	if (c == 27)
 		exit(0);

@@ -79,7 +79,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-#include <curses.h>
 /*# include <dos.h>*/
 
 # include "layout.h"
@@ -908,7 +907,7 @@ void LT_GraphicsTitle (char *pTitle)
 int LT_Getch (void)
 {
 char c;
-    if((c=getch())=='d'){
+    if((c=getchar())=='d'){
         void break_point_data (char * c);
         static char stop_here_byte=0;
         static unsigned short int * stop_here_check=0;

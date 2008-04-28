@@ -64,10 +64,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #include <winuser.h>
 #endif
 
-#ifndef PPS_MAC
-#include <curses.h>
-#endif
-
 STD_FUNC( void ) stdAssert(   char *__cond,char *__file,int __line  )
 {
 
@@ -91,7 +87,7 @@ STD_FUNC( void ) stdAssert(   char *__cond,char *__file,int __line  )
    char c;
 
      do {
-    c = getch();
+    c = getchar();
       } while ((c != 32)&&( c != 27 )&&(c!=13));
         if (c == 27)
                 exit(0);

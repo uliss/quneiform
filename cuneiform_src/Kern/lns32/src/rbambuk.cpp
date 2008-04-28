@@ -69,10 +69,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 	#ifndef NDEBUG
 
-	#ifndef WIN32	
-		#		include <curses.h>
-	#endif
-
     #endif
 
    TSegBambuk* sb_ = NULL;
