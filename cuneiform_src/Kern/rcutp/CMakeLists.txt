@@ -1,6 +1,6 @@
 include_directories(sources/main)
 
-add_library(rcutp
+add_library(rcutp ${LIBTYPE}
 sources/main/rcut_4rselstr.cpp
 sources/main/rcutp.rc
 sources/main/rcutp_call.cpp

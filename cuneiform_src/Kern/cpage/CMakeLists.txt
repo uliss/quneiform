@@ -1,6 +1,6 @@
 include_directories(BEFORE sources/cpp sources/main)
 
-add_library(cpage
+add_library(cpage ${LIBTYPE}
 sources/cpp/backup.cpp
 sources/cpp/block.cpp
 sources/cpp/compress.cpp

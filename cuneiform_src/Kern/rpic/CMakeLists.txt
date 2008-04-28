@@ -4,7 +4,7 @@ sources
 ../hhh/tigerh/h
 )
 
-add_library(rpic
+add_library(rpic ${LIBTYPE}
 #..\..\Hdebug\__Snp.c
 sources/debug.cpp
 sources/dll.cpp

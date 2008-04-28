@@ -1,6 +1,6 @@
 include_directories(src)
 
-add_library(leo
+add_library(leo ${LIBTYPE}
 src/leo.c
 src/leo_cont.c
 src/leo_dll.c

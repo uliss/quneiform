@@ -1,4 +1,4 @@
-add_library(fon
+add_library(fon ${LIBTYPE}
 src/clu_best.c
 src/clu_div.c
 src/clu_lang.c

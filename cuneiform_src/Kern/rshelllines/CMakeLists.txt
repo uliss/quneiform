@@ -3,7 +3,7 @@ h
 src
 )
 
-add_library(rshelllines
+add_library(rshelllines ${LIBTYPE}
 #SOURCE=..\Hdebug\__Snp.c
 src/rshelllines.cpp
 #src/RShellLines.rc

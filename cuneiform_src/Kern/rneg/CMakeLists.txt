@@ -1,6 +1,6 @@
 include_directories(BEFORE sources/src/h)
 
-add_library(rneg
+add_library(rneg ${LIBTYPE}
 #SOURCE=..\..\Hdebug\__Snp.c
 sources/src/negatest/negatestcell.cpp
 sources/src/negmain/negdefs.cpp

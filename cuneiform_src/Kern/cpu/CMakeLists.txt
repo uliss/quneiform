@@ -1,4 +1,4 @@
-add_library(cpu
+add_library(cpu ${LIBTYPE}
 src/cpu.c
 src/cpu32.c
 )

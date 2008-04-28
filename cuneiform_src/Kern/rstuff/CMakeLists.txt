@@ -1,6 +1,6 @@
 include_directories(BEFORE sources/main)
 
-add_library(rstuff
+add_library(rstuff ${LIBTYPE}
 #SOURCE=..\..\..\Hdebug\__Snp.c
 sources/main/aboutlines.aboutlin.cpp
 sources/main/aboutlines.buffer.cpp

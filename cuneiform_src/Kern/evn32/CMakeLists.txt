@@ -1,6 +1,6 @@
 include_directories(src)
 
-add_library(evn32
+add_library(evn32 ${LIBTYPE}
 src/compdata.c
 src/compkit.c
 src/evn.c

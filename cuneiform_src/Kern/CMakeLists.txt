@@ -11,8 +11,13 @@ fon/src
 usage
 )
 
-
 include_directories(itigerole/sources/tiger/h)
+
+set(LIBTYPE STATIC CACHE STRING "STATIC or SHARED")
+
+if(LIBTYPE STREQUAL SHARED)
+    set(SNP_SRC ${CMAKE_CURRENT_SOURCE_DIR}/hdebug/__snp.c)
+endif()
 
 add_subdirectory(ccom)
 add_subdirectory(cstr)

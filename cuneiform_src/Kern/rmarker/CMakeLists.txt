@@ -1,4 +1,4 @@
-add_library(rmarker
+add_library(rmarker ${LIBTYPE}
 #Hdebug\__Snp.c
 dll.cpp
 rmarker.cpp

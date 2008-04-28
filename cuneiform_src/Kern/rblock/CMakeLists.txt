@@ -4,7 +4,7 @@ sources/main
 ../hhh/tigerh
 ../hhh/tigerh/h)
 
-add_library(rblock
+add_library(rblock ${LIBTYPE}
 #sources/main/rblock.rc
 #SOURCE=..\..\..\Hdebug\__Snp.c
 sources/winc/_adaptive.c

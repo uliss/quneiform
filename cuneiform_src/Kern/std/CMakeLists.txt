@@ -1,6 +1,6 @@
 include_directories(src)
 
-add_library(std32
+add_library(std32 ${LIBTYPE}
 src/std.cpp
 #src/Std.rc
 src/stdassrt.cpp

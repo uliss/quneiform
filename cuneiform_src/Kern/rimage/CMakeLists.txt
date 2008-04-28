@@ -1,6 +1,6 @@
 include_directories(BEFORE sources/main sources/main/deza sources/main/kronrod)
 
-add_library(rimage
+add_library(rimage ${LIBTYPE}
 sources/main/deza/cdezabinarizator.cpp
 sources/main/kronrod/ckronrodbinarizator.cpp
 sources/main/kronrod/gdata.c

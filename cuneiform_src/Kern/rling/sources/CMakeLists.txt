@@ -1,6 +1,6 @@
 add_definitions(-DRLINSG_EXPORTS -DRLING_SECONDARY)
 
-add_library(rlings
+add_library(rlings ${LIBTYPE}
 cpp/crled.cpp
 cpp/crling.cpp
 #SOURCE=.\CRLing.rc

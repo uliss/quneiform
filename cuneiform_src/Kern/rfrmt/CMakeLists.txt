@@ -2,7 +2,7 @@ include_directories(BEFORE
 h
 sources/main)
 
-add_library(rfrmt
+add_library(rfrmt ${LIBTYPE}
 #SOURCE=..\..\Hdebug\__Snp.c
 sources/main/creatertf.cpp
 sources/main/frmt.cpp
