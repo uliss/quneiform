@@ -4,7 +4,7 @@ src
 )
 
 add_library(rshelllines ${LIBTYPE}
-#SOURCE=..\Hdebug\__Snp.c
+${SNP_SRC}
 src/rshelllines.cpp
 #src/RShellLines.rc
 src/stdafx.cpp

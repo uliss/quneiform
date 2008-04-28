@@ -5,7 +5,7 @@ sources
 )
 
 add_library(rpic ${LIBTYPE}
-#..\..\Hdebug\__Snp.c
+${SNP_SRC}
 sources/debug.cpp
 sources/dll.cpp
 sources/polypic.cpp

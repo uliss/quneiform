@@ -73,7 +73,7 @@ cimage loc rdib cfio)
 #add_executable(rpstrtest rpstrtest.c windummy.c)
 #target_link_libraries(rpstrtest ${RPSTR_LIBS})
 
-add_executable(pumatest pumatest.cpp windummy hdebug/__snp.c)
+add_executable(pumatest pumatest.cpp windummy)
 target_link_libraries(pumatest 
 
 ${PUMA_LIBS} ${RPSTR_LIBS})

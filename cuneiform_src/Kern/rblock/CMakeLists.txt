@@ -6,7 +6,7 @@ sources/main
 
 add_library(rblock ${LIBTYPE}
 #sources/main/rblock.rc
-#SOURCE=..\..\..\Hdebug\__Snp.c
+${SNP_SRC}
 sources/winc/_adaptive.c
 sources/new_c/_debug.c
 sources/main/_dll.cpp

@@ -1,5 +1,5 @@
 add_library(rmarker ${LIBTYPE}
-#Hdebug\__Snp.c
+${SNP_SRC}
 dll.cpp
 rmarker.cpp
 rmarkermem.cpp

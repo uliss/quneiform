@@ -3,7 +3,7 @@ h
 sources/main)
 
 add_library(rfrmt ${LIBTYPE}
-#SOURCE=..\..\Hdebug\__Snp.c
+${SNP_SRC}
 sources/main/creatertf.cpp
 sources/main/frmt.cpp
 sources/main/frmtallignment.cpp

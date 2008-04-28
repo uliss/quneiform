@@ -1,7 +1,7 @@
 include_directories(BEFORE src/h)
 
 add_library(rcorrkegl ${LIBTYPE}
-#SOURCE=..\..\Hdebug\__Snp.c
+${SNP_SRC}
 src/cpp/cor_kegl.cpp
 src/cpp/rcorrkegl.cpp
 src/cpp/stdafx.cpp
