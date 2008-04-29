@@ -1705,7 +1705,7 @@ Bool32 rpstr_is_voc_word(Word8 *wrd, char *voc[])
 Int32   i;
 for(i=0; voc[i][0]!=0;i++)
     {
-    if( !strcasecomp(voc[i],wrd) )
+    if( !strcasecmp(voc[i],wrd) )
         return TRUE;
     }
 return FALSE;

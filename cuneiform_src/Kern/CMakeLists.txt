@@ -16,8 +16,10 @@ include_directories(itigerole/sources/tiger/h)
 set(LIBTYPE STATIC CACHE STRING "STATIC or SHARED")
 
 if(LIBTYPE STREQUAL SHARED)
-    set(SNP_SRC ${CMAKE_CURRENT_SOURCE_DIR}/hdebug/__snp.c)
-    message(STATUS "Adding __snp.c to build.")
+    #set(SNP_SRC ${CMAKE_CURRENT_SOURCE_DIR}/hdebug/__snp.c)
+    #message(STATUS "Adding __snp.c to build.")
+    add_library(snp SHARED hdebug/__snp.c)
+    set(SNP_LIBS snp)
 endif()
 
 add_subdirectory(ccom)
@@ -74,7 +76,6 @@ cimage loc rdib cfio)
 #add_executable(rpstrtest rpstrtest.c windummy.c)
 #target_link_libraries(rpstrtest ${RPSTR_LIBS})
 
-add_executable(pumatest pumatest.cpp windummy)
+add_executable(pumatest pumatest.cpp windummy.c)
 target_link_libraries(pumatest 
-
-${PUMA_LIBS} ${RPSTR_LIBS})
+${PUMA_LIBS} ${RPSTR_LIBS} ${SNP_LIBS} dl)

@@ -1107,14 +1107,14 @@ Bool32 rsadd_eng_group(Word8 *wrd,Word8 last)
 Int32   i;
 for(i=0; rsadd_prev_eng_group[i][0]!=0;i++)
     {
-    if( !_strcmpi(rsadd_prev_eng_group[i],wrd) )
+    if( !strcasecmp(rsadd_prev_eng_group[i],wrd) )
         return TRUE;
     }
 if( last=='.' )
     {
     for(i=0; rsadd_prev_eng_group_err[i][0]!=0;i++)
         {
-        if( !_strcmpi(rsadd_prev_eng_group_err[i],wrd) )
+        if( !strcasecmp(rsadd_prev_eng_group_err[i],wrd) )
             return TRUE;
         }
     }
