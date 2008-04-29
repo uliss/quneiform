@@ -81,6 +81,8 @@ static int dets=1;
 #endif
 static HWND h_found=NULL;
 
+int *NumStr;
+
 BOOL __stdcall FindByPartOfTitle(
     HWND hwnd,	    // handle to parent window
     LPARAM lParam 	// application-defined value

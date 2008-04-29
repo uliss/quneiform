@@ -424,7 +424,7 @@ void MyUnionRect(SRECT *s1,SRECT *s2,SRECT *u);
 #ifdef MAIN2
   //---Из секции колонок---
   int NumCol,SizeSectionCol;
-  int *NumStr;//[nc]
+  //int *NumStr;//[nc] Moved to util_spl.cpp
   Word32 *UserNumber;//[nc]
   Word32 *FragFlag;//[nc]
   SRECT *BndCol;//[nc]
