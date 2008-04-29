@@ -282,7 +282,7 @@ int wsprintf(LPTSTR lpOut, LPCTSTR lpFmt, ...) {
 }
 
 int lstrcmpi(LPCTSTR lpString1, LPCTSTR lpString2) {
-    return strcasecomp(lpString1, lpString2);
+    return strcasecmp(lpString1, lpString2);
 }
 
 HDC CreateMetaFile(LPCTSTR lpszFile) {
@@ -487,6 +487,11 @@ long filelength(int fd) {
 }
 
 int LoadCursor(HINSTANCE hInstance, LPCTSTR lpCursorName) {
+	return 0;
+}
+
+BOOL Rectangle(HDC hdc,
+  int nLeftRect, int nTopRect, int nRightRect, int nBottomRect) {
 	return 0;
 }
 

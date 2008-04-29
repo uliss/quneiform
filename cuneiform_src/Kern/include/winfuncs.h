@@ -188,5 +188,7 @@ HICON LoadIcon(HINSTANCE hInstance, LPCTSTR lpIconName);
 
 long filelength(int fd);
 int LoadCursor(HINSTANCE hInstance, LPCTSTR lpCursorName);
+BOOL Rectangle(HDC hdc,
+  int nLeftRect, int nTopRect, int nRightRect, int nBottomRect);
 
 #endif
