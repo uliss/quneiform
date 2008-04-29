@@ -7,7 +7,7 @@ cpp/crling.cpp
 cpp/crlmemory.cpp
 cpp/dll.cpp
 cpp/rlcontrol.cpp
-#c/rling_ma.c
+c/rling_ma.c
 c/spel2dic.c
 c/spel2voc.c
 c/spelabc.c

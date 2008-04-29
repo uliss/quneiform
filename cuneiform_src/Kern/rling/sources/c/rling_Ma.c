@@ -56,8 +56,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <assert.h>
 #include <stdio.h>
-#include <io.h>
-#include <sys\\stat.h>
+/*#include <io.h>*/
+#include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
 #include <stdlib.h>
@@ -84,12 +84,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "tuner.h"
   #include "spelmode.h"
   #include "nt_types.h"
-  #include "TigerEmulate.h"
-  #include "CRLDefines.h"
+  #include "tigeremulate.h"
+  #include "crldefines.h"
   #include <ctype.h>
   #include <time.h>
 //  #include <malloc.h>
-  #include "CRLMemory.h"
+  #include "crlmemory.h"
 
   #include "recdefs.h"
   #include "lang_def.h"
@@ -109,7 +109,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     #error   NO TOOOL SPECIFIED
   #endif
 */
-
+#include "compat_defs.h"
 //      NEED 
 //      1)      proceeding ED-file
 //      2)      setup language and alphabet

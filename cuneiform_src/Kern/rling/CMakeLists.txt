@@ -13,7 +13,7 @@ sources/cpp/crling.cpp
 sources/cpp/crlmemory.cpp
 sources/cpp/dll.cpp
 sources/cpp/rlcontrol.cpp
-#sources/c/rling_ma.c
+sources/c/rling_ma.c
 sources/c/spel2dic.c
 sources/c/spel2voc.c
 sources/c/spelabc.c
