@@ -6,8 +6,8 @@ sources/src/h
 sources/src/chstr/h
 )
 
-add_library(rselstr
-#SOURCE=..\..\Hdebug\__Snp.c
+add_library(rselstr ${LIBTYPE}
+${SNP_SRC}
 sources/src/win_c/_adaptive.cpp
 sources/src/win_c/_dlldummy.cpp
 sources/src/cpp/_loadroots.cpp

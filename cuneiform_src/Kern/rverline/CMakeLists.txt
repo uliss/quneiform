@@ -1,7 +1,7 @@
 include_directories(BEFORE src/h src/usage)
 
-add_library(rverline
-#SOURCE=..\..\Hdebug\__Snp.c
+add_library(rverline ${LIBTYPE}
+${SNP_SRC}
 src/usage/amu_geom.cpp
 src/algoritm/by_image.cpp
 src/usage_puma/pum_comm.cpp

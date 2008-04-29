@@ -1,6 +1,6 @@
 include_directories(src)
 
-add_library(dif
+add_library(dif ${LIBTYPE}
 src/dif.c
 src/diffr.c
 src/diffrb.c

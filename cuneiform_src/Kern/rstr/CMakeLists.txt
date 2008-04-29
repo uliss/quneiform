@@ -1,6 +1,6 @@
 #include_subdirectories(src)
 
-add_library(rstr
+add_library(rstr ${LIBTYPE}
 src/abris.c
 src/abrtools.c
 src/acc_tabs.c

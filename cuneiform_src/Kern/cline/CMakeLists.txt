@@ -1,6 +1,6 @@
 include_directories(sources/src/h)
 
-add_library(cline
+add_library(cline ${LIBTYPE}
 sources/src/main/clinebase.cpp
 sources/src/cpp/clinefunc.cpp
 sources/src/main/clinemain.cpp

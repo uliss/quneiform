@@ -1,6 +1,6 @@
 include_directories(BEFORE src)
 
-add_library(pass2
+add_library(pass2 ${LIBTYPE}
 src/p2_choic.c
 src/p2_proc.c
 src/p2_rstr.c

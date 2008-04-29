@@ -2,8 +2,8 @@ include_directories(BEFORE
 h
 sources/main)
 
-add_library(rfrmt
-#SOURCE=..\..\Hdebug\__Snp.c
+add_library(rfrmt ${LIBTYPE}
+${SNP_SRC}
 sources/main/creatertf.cpp
 sources/main/frmt.cpp
 sources/main/frmtallignment.cpp

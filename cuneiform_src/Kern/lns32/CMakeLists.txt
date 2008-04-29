@@ -1,6 +1,6 @@
 include_directories(BEFORE src)
 
-add_library(lns32
+add_library(lns32 ${LIBTYPE}
 src/bit_data.cpp
 src/extrlns.cpp
 src/fillgap3.cpp

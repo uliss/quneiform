@@ -65,9 +65,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #if defined(__APPLE__) && defined(__MACH__)
 #include <malloc/malloc.h>
 #define malloc_usable_size(a) malloc_size(a)
+#else
+#include <malloc.h>
 #endif
 
-#include <malloc/malloc.h>
 //#include "puma.h"
 #include "dpuma.h"
 #include "statsearchbl.h"

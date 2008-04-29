@@ -6,7 +6,7 @@ add_subdirectory(sources)
 
 add_definitions(-DRLING_EXPORTS)
 
-add_library(rling
+add_library(rling ${LIBTYPE}
 sources/cpp/crled.cpp
 sources/cpp/crling.cpp
 #SOURCE=.\CRLing.rc

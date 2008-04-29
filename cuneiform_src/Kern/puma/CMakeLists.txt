@@ -1,6 +1,6 @@
 include_directories(h)
 
-add_library(puma
+add_library(puma ${LIBTYPE}
 c/common.cpp 
 c/debug.cpp 
 c/enum.cpp

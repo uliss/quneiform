@@ -1,4 +1,4 @@
-add_library(ctb32
+add_library(ctb32 ${LIBTYPE}
 src/ctb_aln.c
 src/ctb_cnvm.c
 src/ctb_gray.c

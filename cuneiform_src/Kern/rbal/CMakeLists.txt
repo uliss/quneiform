@@ -1,6 +1,6 @@
 include_directories(src)
 
-add_library(rbal
+add_library(rbal ${LIBTYPE}
 src/gistogramma.cpp
 src/lin_ext.c
 src/lin_rec.c

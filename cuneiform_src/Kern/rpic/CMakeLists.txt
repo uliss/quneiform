@@ -4,8 +4,8 @@ sources
 ../hhh/tigerh/h
 )
 
-add_library(rpic
-#..\..\Hdebug\__Snp.c
+add_library(rpic ${LIBTYPE}
+${SNP_SRC}
 sources/debug.cpp
 sources/dll.cpp
 sources/polypic.cpp

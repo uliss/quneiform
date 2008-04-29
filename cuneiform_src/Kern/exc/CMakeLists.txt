@@ -1,6 +1,6 @@
 include_directories(BEFORE src)
 
-add_library(exc
+add_library(exc ${LIBTYPE}
 src/compdata.c
 src/compkit.c
 src/extrcomp.c

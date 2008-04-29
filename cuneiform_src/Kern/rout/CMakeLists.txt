@@ -1,6 +1,6 @@
 include_directories(BEFORE . src)
 
-add_library(rout
+add_library(rout ${LIBTYPE}
 src/browse.cpp
 src/codetables.cpp
 src/html.cpp

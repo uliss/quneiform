@@ -1,7 +1,7 @@
 include_directories(BEFORE src)
 
-add_library(smetric
-#SOURCE=..\..\Hdebug\__Snp.c
+add_library(smetric ${LIBTYPE}
+${SNP_SRC}
 src/skewmain.cpp
 src/sm_kern.cpp
 src/ugol.cpp

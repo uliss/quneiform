@@ -173,4 +173,8 @@ BOOL GetTextExtentPoint32(HDC hdc, LPCTSTR lpString, int c, LPSIZE lpSize);
 BOOL EnumWindows(WNDENUMPROC lpEnumFunc, LPARAM lParam);
 int GetWindowText(HWND hWnd, LPTSTR lpString, int nMaxCount);
 
+HMODULE LoadLibrary(LPCTSTR lpFileName);
+BOOL FreeLibrary(HMODULE hModule);
+void* GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
+
 #endif
