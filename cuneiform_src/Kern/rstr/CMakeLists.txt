@@ -1,6 +1,8 @@
 #include_subdirectories(src)
+add_definitions(-DDPUMA_SNAP)
 
 add_library(rstr ${LIBTYPE}
+${SNP_SRC}
 src/abris.c
 src/abrtools.c
 src/acc_tabs.c

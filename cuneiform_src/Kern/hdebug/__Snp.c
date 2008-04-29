@@ -904,7 +904,7 @@ Int32  LDPUMA_FPuts(Handle hFile,const char * lpString)
 //////////////////////////////////////////////
 #ifdef DPUMA_SNAP
 
-#include "SnpTools.h"
+#include "snptools.h"
 
 void SnpSetTools(__SnpToolBox* tools)
 {	
