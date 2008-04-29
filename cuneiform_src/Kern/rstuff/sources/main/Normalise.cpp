@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :                                                              */
 /*----------------------------------------------------------------------------*/
 
-#include <fstream.h>
+#include <fstream>
 #include <stdio.h>
 #include <string.h>
 #include "puma.h"
