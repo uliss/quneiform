@@ -944,7 +944,7 @@ SINT AddClusterHausdorf(CHAR  *NameWr,CHAR  *szOutName,
 #endif
 
  // save common rasters
- STRCPY(tmpname,szOutName);
+ strcpy(tmpname,szOutName);
  MakRas(tmpname,"$$$",0);
  unlink(tmpname);  // if exist ...
 

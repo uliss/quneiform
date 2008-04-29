@@ -450,3 +450,24 @@ BOOL FreeLibrary(HMODULE hModule) {
 void* GetProcAddress(HMODULE hModule, LPCSTR lpProcName) {
 	return dlsym(hModule, lpProcName);
 }
+
+HGDIOBJ GetStockObject(int fnObject) {
+	return -1;
+}
+
+BOOL IsWindowVisible(HWND hWnd) {
+	return 0;
+}
+
+LRESULT DefWindowProc(HWND hWnd, UINT Msg, WPARAM wParam,
+    LPARAM lParam) {
+	return 0;
+}
+
+LONG GetWindowLong(HWND hWnd, int nIndex) {
+	return 0;
+}
+
+BOOL RegisterClass(const WNDCLASS *lpWndClass) {
+	return 0;
+}

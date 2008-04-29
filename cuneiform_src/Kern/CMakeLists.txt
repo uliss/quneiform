@@ -17,6 +17,7 @@ set(LIBTYPE STATIC CACHE STRING "STATIC or SHARED")
 
 if(LIBTYPE STREQUAL SHARED)
     set(SNP_SRC ${CMAKE_CURRENT_SOURCE_DIR}/hdebug/__snp.c)
+    message(STATUS "Adding __snp.c to build.")
 endif()
 
 add_subdirectory(ccom)

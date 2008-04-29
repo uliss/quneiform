@@ -81,7 +81,51 @@ static int dets=1;
 #endif
 static HWND h_found=NULL;
 
-int *NumStr;
+/* These were in ful_txt.h. That caused missing symbols
+ * so I moved them here. JussiP.
+ */
+
+//---Из секции колонок---
+int NumCol,SizeSectionCol;
+int *NumStr;//[nc] 
+Word32 *UserNumber;//[nc]
+Word32 *FragFlag;//[nc]
+SRECT *BndCol;//[nc]
+STAT_COL *StatCol;//[nc]
+int len_col,k_frm;
+//int k_colt,slope,space;
+char name[80],name1[LEN_PATH];
+int k_col[MAX_LEV+1],k_lev; LEV **knot; //Дерево
+int fl_EditStruct; //Признак несоответствия дерева терминал. колонкам
+//---Из секции имен баз---
+int SizeSectionFntName; char *FntName;
+//---Из секции знакомест---
+ZN ****Zn;//[nc][ns][nw][nz]
+TITLE_STR **TitleStr;//[nc][ns]
+TITLE_WORD ***TitleWord;//[nc][ns][nw]
+TITLE_FUL TitleFul;
+COOR_COMP *CoorComp; long NumComp;
+//--FullSpellFull
+uchar word[MAX_SYM_WORD+1],word1[MAX_SYM_WORD+1];
+float dist[MAX_SYM_WORD+1],dist1[MAX_SYM_WORD+1];
+PAR_FUL par_ful;
+char PunctuationMarks[256];
+int ExtSettings;
+//char AlphabetAllow[256];
+char WordOne[256];
+uchar Upper[256],Lower[256],UppLow[256],UppLowOther[256],EndSentence[256];
+BYTE KoderRus[256],KoderLat[256];
+int FlCarryStr;
+char FileParSpel[MAXFILENAME],FileParSpelOut[MAXFILENAME];
+int *Pen;
+int MaxValue;
+//--КОРРЕКТОР ПО ОДНОРОДНОСТИ
+FEAT_LET FeatLet[256];
+BYTE **ClustOCR;int K_Clust;//Кластеры перепутывания
+//---WORK---
+BYTE buf[1024],buf1[1024];
+
+/* End of things brought from ful_txt.h. */
 
 BOOL __stdcall FindByPartOfTitle(
     HWND hwnd,	    // handle to parent window

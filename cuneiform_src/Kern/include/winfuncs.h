@@ -177,4 +177,11 @@ HMODULE LoadLibrary(LPCTSTR lpFileName);
 BOOL FreeLibrary(HMODULE hModule);
 void* GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 
+HGDIOBJ GetStockObject(int fnObject);
+BOOL IsWindowVisible(HWND hWnd);
+LRESULT DefWindowProc(HWND hWnd, UINT Msg, WPARAM wParam,
+    LPARAM lParam);
+LONG GetWindowLong(HWND hWnd, int nIndex);
+BOOL RegisterClass(const WNDCLASS *lpWndClass);
+
 #endif

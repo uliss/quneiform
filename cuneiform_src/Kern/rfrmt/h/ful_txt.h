@@ -422,9 +422,10 @@ void MyUnionRect(SRECT *s1,SRECT *s2,SRECT *u);
 //#endif
 #pragma pack(2)
 #ifdef MAIN2
+/* Moved all these to util_spl.cpp.
   //---Из секции колонок---
   int NumCol,SizeSectionCol;
-  //int *NumStr;//[nc] Moved to util_spl.cpp
+  int *NumStr;//[nc] 
   Word32 *UserNumber;//[nc]
   Word32 *FragFlag;//[nc]
   SRECT *BndCol;//[nc]
@@ -464,6 +465,7 @@ void MyUnionRect(SRECT *s1,SRECT *s2,SRECT *u);
   BYTE **ClustOCR;int K_Clust;//Кластеры перепутывания
   //---WORK---
   BYTE buf[1024],buf1[1024];
+*/
 #else
   //---Из секции колонок---
   extern int NumCol,SizeSectionCol;
