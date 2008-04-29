@@ -54,9 +54,11 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/*#include <windows.h>/
+/*#include <windows.h>*/
 #include <stdio.h>
 #include <time.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "ctiimage.h"
 #include "cpage.h"
@@ -70,6 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "pumadef.h"
 #include "cline.h"
 
+#include "compat_defs.h"
 
 extern int move;
 extern Handle OrtMove;

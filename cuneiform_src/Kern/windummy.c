@@ -471,3 +471,22 @@ LONG GetWindowLong(HWND hWnd, int nIndex) {
 BOOL RegisterClass(const WNDCLASS *lpWndClass) {
 	return 0;
 }
+
+HMODULE GetModuleHandle(LPCTSTR lpModuleName) {
+	return NULL;
+}
+
+HICON LoadIcon(HINSTANCE hInstance, LPCTSTR lpIconName) {
+	return NULL;
+}
+
+long filelength(int fd) {
+	struct stat buf;
+	fstat(fd, &buf);
+	return buf.st_size;
+}
+
+int LoadCursor(HINSTANCE hInstance, LPCTSTR lpCursorName) {
+	return 0;
+}
+

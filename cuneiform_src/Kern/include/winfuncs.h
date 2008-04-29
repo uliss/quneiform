@@ -183,5 +183,10 @@ LRESULT DefWindowProc(HWND hWnd, UINT Msg, WPARAM wParam,
     LPARAM lParam);
 LONG GetWindowLong(HWND hWnd, int nIndex);
 BOOL RegisterClass(const WNDCLASS *lpWndClass);
+HMODULE GetModuleHandle(LPCTSTR lpModuleName);
+HICON LoadIcon(HINSTANCE hInstance, LPCTSTR lpIconName);
+
+long filelength(int fd);
+int LoadCursor(HINSTANCE hInstance, LPCTSTR lpCursorName);
 
 #endif

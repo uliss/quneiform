@@ -76,6 +76,10 @@ typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int)
 #define HMODULE void*
 #endif
 
+#ifndef HICON
+#define HICON void*
+#endif
+
 #ifndef HWND
 #define HWND unsigned int
 #endif
