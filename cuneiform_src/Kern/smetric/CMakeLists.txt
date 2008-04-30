@@ -10,3 +10,5 @@ src/ugol.cpp
 ../usage/puma_comm.cpp
 ../usage/un_buff.cpp
 )
+
+target_link_libraries(smetric windummy)

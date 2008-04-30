@@ -18,3 +18,5 @@ sources/cpp/picture.cpp
 sources/cpp/table.cpp
 sources/cpp/tableclass.cpp
 )
+
+target_link_libraries(cpage windummy)

@@ -37,3 +37,5 @@ sources/c/spelspec.c
 sources/c/udictini.c
 sources/c/udictuti.c
 )
+
+target_link_libraries(rling cstr rlings)

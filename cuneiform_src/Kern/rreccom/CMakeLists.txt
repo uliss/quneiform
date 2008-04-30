@@ -5,3 +5,5 @@ src/cpp/alphabet.cpp
 src/cpp/recog.cpp
 src/cpp/rreccom.cpp
 )
+
+target_link_libraries(rreccom ccom evn32 windummy)

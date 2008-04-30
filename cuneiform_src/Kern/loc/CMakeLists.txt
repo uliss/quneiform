@@ -7,3 +7,5 @@ src/loc.c
 src/locompmn.c
 src/v0compgl.c
 )
+
+target_link_libraries(loc windummy)

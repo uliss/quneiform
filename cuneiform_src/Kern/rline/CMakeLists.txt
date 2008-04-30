@@ -6,3 +6,10 @@ sources/findlostlines.cpp
 sources/newline.cpp
 sources/rline.cpp
 )
+
+target_link_libraries(rline
+cimage
+cpage
+lns32
+rshelllines
+)    

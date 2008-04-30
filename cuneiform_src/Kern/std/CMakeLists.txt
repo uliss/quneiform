@@ -17,3 +17,5 @@ src/stdprt.cpp
 src/stdsort.cpp
 src/stdwapi.cpp
 )
+
+target_link_libraries(std32 windummy)

@@ -25,3 +25,15 @@ sources/main/rstuff.cpp
 ../usage/puma_err.cpp
 ../usage/un_buff.cpp
 )
+
+target_link_libraries(rstuff
+cfio
+cimage
+cpage
+rdib
+rimage
+rline
+smetric
+rreccom
+exc
+)

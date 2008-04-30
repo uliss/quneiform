@@ -9,3 +9,13 @@ sources/src/negmain/recnegmain.cpp
 sources/src/negmain/rnegbase.cpp
 sources/src/searchneg/searchneg.cpp
 )
+
+target_link_libraries(rneg
+cimage
+cpage
+rdib
+rimage
+rselstr
+exc
+rstr
+)

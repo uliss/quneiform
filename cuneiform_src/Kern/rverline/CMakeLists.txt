@@ -12,3 +12,10 @@ src/service/vl_data.cpp
 src/service/vl_rule.cpp
 src/service/vl_snap.cpp
 )
+
+target_link_libraries(rverline
+cimage
+cpage
+cline
+ccom
+)

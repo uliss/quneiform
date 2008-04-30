@@ -15,3 +15,5 @@ src/p2_mem.c
 src/p2_thick.c
 src/utilctb.c
 )
+
+target_link_libraries(fon cstr ctb32)

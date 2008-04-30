@@ -12,3 +12,5 @@ sources/main/ctimasklinesegment.cpp
 sources/main/ctimemory.cpp
 sources/main/dll.cpp
 )
+
+target_link_libraries(cimage cfio rdib)

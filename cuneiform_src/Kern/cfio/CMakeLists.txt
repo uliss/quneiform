@@ -8,3 +8,5 @@ sources/cpp/ctcmemory.cpp
 sources/cpp/ctcstorage.cpp
 sources/cpp/dll_main.cpp
 )
+
+target_link_libraries(cfio windummy)

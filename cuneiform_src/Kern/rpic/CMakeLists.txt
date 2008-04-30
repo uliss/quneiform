@@ -12,3 +12,5 @@ sources/polypic.cpp
 sources/rectpic.cpp
 sources/rpic.cpp
 )
+
+target_link_libraries(rpic cpage ccom rstr)

@@ -10,3 +10,5 @@ src/v0compan.c
 src/v0compgl.c
 src/v0compmn.c
 )
+
+target_link_libraries(exc loc ccom evn32)

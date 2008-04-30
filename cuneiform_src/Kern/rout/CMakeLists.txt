@@ -13,3 +13,5 @@ src/tabletext.cpp
 src/text.cpp
 src/words.cpp
 )
+
+target_link_libraries(rout ced cfio)

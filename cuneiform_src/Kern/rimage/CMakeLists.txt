@@ -16,3 +16,9 @@ sources/main/crturner.cpp
 sources/main/dll.cpp
 sources/main/rprogressor.cpp
 )
+
+target_link_libraries(rimage
+cfio
+cimage
+rdib
+)

@@ -31,3 +31,5 @@ c/spelspec.c
 c/udictini.c
 c/udictuti.c
 )
+
+target_link_libraries(rlings cstr windummy)

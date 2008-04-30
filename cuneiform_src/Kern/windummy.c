@@ -34,6 +34,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <dlfcn.h>
 
+#if defined(__APPLE__) && defined(__MACH__)
+#include <malloc/malloc.h>
+#define malloc_usable_size(a) malloc_size(a)
+#else
+#include <malloc.h>
+#endif
+
+
 #include "compat_defs.h"
 
 int HFILE_ERROR;

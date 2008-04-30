@@ -6,3 +6,5 @@ src/cpp/cor_kegl.cpp
 src/cpp/rcorrkegl.cpp
 src/cpp/stdafx.cpp
 )
+
+target_link_libraries(rcorrkegl cstr cpage)

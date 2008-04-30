@@ -10,3 +10,5 @@ sources/main/dll.cpp
 sources/main/stdafx.cpp
 sources/main/wrapper.cpp
 )
+
+target_link_libraries(ced cfio windummy)

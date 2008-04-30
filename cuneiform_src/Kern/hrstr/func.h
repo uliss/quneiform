@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef KERNEL_H_INCLUDE
 #define KERNEL_H_INCLUDE
 
-#define c_locomp        EVN_CLocomp
+/*#define c_locomp(a, b, c, d, e)        EVN_CLocomp((a), (b), (c), (d), (e))*/
 
 #include <setjmp.h>
 

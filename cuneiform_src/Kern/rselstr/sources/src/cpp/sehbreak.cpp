@@ -76,6 +76,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # define EXTENDED_RASTER_MAX_WIDTH  RASTER_MAX_WIDTH
 # define EXTENDED_RASTER_MAX_HEIGHT (RASTER_MAX_HEIGHT * 2)
 
+/* FIXME: JussiP, I added this here to make it link. Don't know if it's correct. */
+#define c_locomp(a, b, c, d, e)        EVN_CLocomp((a), (b), (c), (d), (e))
+
 extern Int32 exthCCOM; 
 
 BYTE *pRaster;

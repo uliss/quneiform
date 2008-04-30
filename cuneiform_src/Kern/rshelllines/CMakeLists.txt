@@ -9,3 +9,10 @@ src/rshelllines.cpp
 #src/RShellLines.rc
 src/stdafx.cpp
 )
+
+target_link_libraries(rshelllines
+cfio
+cimage
+cpage
+rverline
+)

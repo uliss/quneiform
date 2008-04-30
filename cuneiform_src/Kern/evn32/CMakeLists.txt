@@ -12,3 +12,5 @@ src/v0compev.c
 src/v0compgl.c
 src/v0comprq.c
 )
+
+target_link_libraries(evn32 dif windummy)

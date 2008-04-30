@@ -8,3 +8,5 @@ src/ctb_prot.c
 src/ctb_recr.c
 src/ctb_tool.c
 )
+
+target_link_libraries(ctb32 windummy)

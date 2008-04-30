@@ -39,5 +39,15 @@ sources/src/cpp/semain.cpp
 sources/src/cpp/sestring.cpp
 sources/src/cpp/sevbreak.cpp
 sources/src/chstr/vertical/testforvertical.cpp
+)
 
+target_link_libraries(rselstr
+cimage
+cpage
+loc
+rimage
+exc
+cline
+cstr
+rcutp
 )

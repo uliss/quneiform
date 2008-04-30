@@ -10,3 +10,5 @@ src/linpon.c
 src/linutil.c
 src/statsearchbl.cpp
 )
+
+target_link_libraries(rbal cstr evn32)

@@ -7,3 +7,5 @@ src/p2_rstr.c
 src/p2_test.c
 src/p2_tools.c
 )
+
+target_link_libraries(pass2 cstr fon std32)

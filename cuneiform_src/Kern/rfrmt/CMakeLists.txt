@@ -19,3 +19,13 @@ sources/main/util.cpp
 sources/main/util_lst.cpp
 sources/main/util_spl.cpp
 )
+
+target_link_libraries(rfrmt
+ced
+cimage
+cpage
+rdib
+rimage
+cline
+cstr
+)    

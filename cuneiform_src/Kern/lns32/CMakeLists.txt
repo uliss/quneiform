@@ -1,6 +1,9 @@
 include_directories(BEFORE src)
 
+add_definitions(-DDPUMA_SNAP) # See warning below.
+
 add_library(lns32 ${LIBTYPE}
+${SNP_SRC} # WARNING: not here in original VS solution.
 src/bit_data.cpp
 src/extrlns.cpp
 src/fillgap3.cpp
@@ -21,3 +24,5 @@ src/smooth.cpp
 src/sweeper.cpp
 src/tgreader.cpp
 )
+
+target_link_libraries(lns32 cline std32 windummy)

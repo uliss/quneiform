@@ -8,3 +8,11 @@ src/incl/cor_incl.c
 src/cor_spel.c 
 src/rpstr.c 
 src/vertstr.cpp)
+
+target_link_libraries(rpstr
+ccom
+cstr
+rling
+rstr
+std32
+)

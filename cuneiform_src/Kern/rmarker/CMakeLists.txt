@@ -13,3 +13,14 @@ shortverticallinesfilter.cpp
 ../usage/puma_err.cpp
 ../usage/un_buff.cpp
 )
+
+target_link_libraries(rmarker
+cfio
+cimage
+cpage
+rblock
+rline
+rneg
+rpic
+rselstr
+)
