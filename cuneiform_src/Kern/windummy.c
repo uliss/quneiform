@@ -70,9 +70,8 @@ char *_fullpath(char *absPath, const char *relPath, int maxLength) {
     return NULL;
 }
 
-// This is in effect memcpy.
 void CopyMemory(void *Destination, const void* Source, int length) {
-    
+  memcpy(Destination, Source, length);
 }
 
 DWORD GetTempPath(DWORD nBufferLength, LPTSTR lpBuffer) {
@@ -80,19 +79,21 @@ DWORD GetTempPath(DWORD nBufferLength, LPTSTR lpBuffer) {
 }
 
 int RemoveDirectory(const char *d) {
-    return -1;
+  return rmdir(d);
 }
 
 void* GlobalAlloc(UINT uFlags, int dwBytes) {
-    return NULL;
+  if(uFlags & GMEM_ZEROINIT)
+    return calloc(dwBytes, 1);
+  return malloc(dwBytes);
 }
 
 HGLOBAL GlobalFree(void *f) {
-    return NULL;
+  free(f);
 }
 
 void* GlobalReAlloc(void* hMem, int dwBytes, UINT uFlags) {
-    return NULL;
+  return realloc(hMem, dwBytes); // Should init to zero on uFlags & GMEM_ZEROINIT.
 }
 
 int GetTempFileName(LPCTSTR lpPathName, LPCTSTR lpPrefixString,
@@ -128,7 +129,7 @@ HWND FindWindow(LPCTSTR lpClassName, LPCTSTR lpWindowName) {
 }
 
 BOOL DeleteFile(LPCTSTR lpFileName) {
-    return FALSE;
+  return unlink(lpFileName);
 }
 
 UINT RegisterWindowMessage(LPCTSTR lpString) {

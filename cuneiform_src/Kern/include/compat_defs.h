@@ -420,55 +420,55 @@ typedef int REGSAM;
 #endif
 
 #ifndef GHND
-#define GHND 666
+#define GHND 0x42
 #endif
 
 #ifndef GMEM_DDESHARE
-#define GMEM_DDESHARE 777
+#define GMEM_DDESHARE 0
 #endif
 
 #ifndef GMEM_DISCARDABLE
-#define GMEM_DISCARDABLE 888
+#define GMEM_DISCARDABLE 0
 #endif
 
 #ifndef GMEM_FIXED
-#define GMEM_FIXED 999
+#define GMEM_FIXED 0
 #endif
 
 #ifndef GMEM_LOWER
-#define GMEM_LOWER 0000
+#define GMEM_LOWER 0
 #endif
 
 #ifndef GMEM_MOVEABLE
-#define GMEM_MOVEABLE 1111
+#define GMEM_MOVEABLE 0x02
 #endif
 
 #ifndef GMEM_NOCOMPACT
-#define GMEM_NOCOMPACT 2222
+#define GMEM_NOCOMPACT 0
 #endif
 
 #ifndef GMEM_NODISCARD
-#define GMEM_NODISCARD 3333
+#define GMEM_NODISCARD 0
 #endif
 
 #ifndef GMEM_NOT_BANKED
-#define GMEM_NOT_BANKED 4444
+#define GMEM_NOT_BANKED 0
 #endif
 
 #ifndef GMEM_NOTIFY
-#define GMEM_NOTIFY 5555
+#define GMEM_NOTIFY 0
 #endif
 
 #ifndef GMEM_SHARE
-#define GMEM_SHARE 6666
+#define GMEM_SHARE 0
 #endif
 
 #ifndef GMEM_ZEROINIT
-#define GMEM_ZEROINIT 7777
+#define GMEM_ZEROINIT 0x0040
 #endif
 
 #ifndef GPTR
-#define GPTR 8888
+#define GPTR 0x40
 #endif
 
 #ifndef DRIVE_FIXED
