@@ -503,3 +503,8 @@ BOOL Rectangle(HDC hdc,
 	return 0;
 }
 
+/* String to uppercase. */
+
+char* _strupr(char*s) {
+  return s;
+}

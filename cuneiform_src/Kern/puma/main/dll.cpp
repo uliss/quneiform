@@ -87,7 +87,6 @@ BOOL APIENTRY DllMain( HINSTANCE  hModule,
                         DWORD ul_reason_for_call, 
                         LPVOID lpReserved )
 {
-    /* FIXME disabled this because is is very much Windows-only.
 	char * p;
 
     switch( ul_reason_for_call ) 
@@ -117,7 +116,7 @@ BOOL APIENTRY DllMain( HINSTANCE  hModule,
     case DLL_PROCESS_DETACH:
 		break;
     }
-    */
+
     return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -155,7 +154,6 @@ PUMA_FUNC(Word32) PUMA_GetReturnCode()
 //
 PUMA_FUNC(char *) PUMA_GetReturnString(Word32 dwError)
 {
-    /* FIXME disabled this one as well.
 	static char szBuffer[512];
 	Word16 low = (Word16)(dwError &  0xFFFF);
 	Word16 hei = (Word16)(dwError >> 16);
@@ -174,8 +172,7 @@ PUMA_FUNC(char *) PUMA_GetReturnString(Word32 dwError)
 	}
 
 	return szBuffer;
-	*/
-    return "PUMA_GetReturnString called.";
+
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -367,12 +364,9 @@ char *	GetModuleTempPath()
 ////////////////////////////////////////////////////////////
 char * GetResourceString(Word32 id)
 {
-    /* FIXME disabled.
     static char szBuffer[1024] = "";
 	LoadString(ghInst,id,szBuffer,sizeof(szBuffer));
 	return szBuffer;
-	*/
-    return "GetResourceString called.";
 }
 //////////////////////////////////////////////////////////////////////////////////
 //end of file

@@ -519,6 +519,10 @@ typedef int REGSAM;
 #define WM_COPYDATA 30
 #endif
 
+#ifndef MB_ICONSTOP
+#define MB_ICONSTOP 888
+#endif
+
 #ifdef __cplusplus
     }
 #endif

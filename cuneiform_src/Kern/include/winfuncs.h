@@ -190,5 +190,6 @@ long filelength(int fd);
 int LoadCursor(HINSTANCE hInstance, LPCTSTR lpCursorName);
 BOOL Rectangle(HDC hdc,
   int nLeftRect, int nTopRect, int nRightRect, int nBottomRect);
+char* _strupr(char*s);
 
 #endif
