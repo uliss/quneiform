@@ -129,7 +129,7 @@ public:
 	Word32 Seek(Handle hFile, Word32 dwBytes, Word32 dwFrom);
 	Word32 Tell(Handle hFile);
 	Bool32 Flush(Handle hFile);
-	Handle Alloc(Word32 dwSize, Word32 dwFlag, PChar8 cOwner, PChar8 Coment);
+	Handle Alloc(Word32 dwSize, Word32 dwFlag, const char *cOwner, const char *Coment);
 	Handle ReAlloc(Handle hMemory, Word32 wNewSize, Word32 wFlag);
 	Bool32 Free(Handle hMem);
 	LPVOID Lock(Handle hMem);
@@ -142,8 +142,8 @@ public:
 private:
 	Handle AddFileInList(CTCGlobalFile * File, Word32 Flag, Handle Storage);
 	Handle OpenFileAndAttach(PChar8 lpNAme, Word32 Flag, Handle Storage = NULL);
-	Handle AllocNewMemory(Word32 wFlag, Word32 wSize, Bool32 Global, PChar8 cOwner, PChar8 Coment);
-	Bool32 AddNewMemoryInList( Handle hMemory, Word32 wSize, Word32 IsGlobal, PChar8 cOwner, PChar8 Coment);
+	Handle AllocNewMemory(Word32 wFlag, Word32 wSize, Bool32 Global, const char *cOwner, const char* Coment);
+	Bool32 AddNewMemoryInList( Handle hMemory, Word32 wSize, Word32 IsGlobal, const char *cOwner, const char *Coment);
 	Bool32 FreeMemory(Handle hMemory, Word32 wFlag = 0x0);
 	Bool32 TakeMemory(Handle hMemory, Word32 * wMemorySize, Word32 * wMemoryFlag);
 	Bool32 GetMemory(Handle hMemory, PPCTCMemoryHeader pHeader);

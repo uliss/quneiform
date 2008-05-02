@@ -261,7 +261,7 @@ public:
 	Handle              GetFileHandle()                 { return ((Handle)hFile); };
 	HandleFILE          GetHandle()                     { return hFile; };
 	PChar8              GetFlagString(void)             { return cFlag; };
-	Bool32              IsInString(PChar8 Flag );
+	Bool32              IsInString(const char* Flag );
 	Word32              GetFileSize();
 	Word32              GetHeaderSize()                 { return(sizeof(class CTCGlobalFile)); };
 	Bool32              SetDelete()                     { return ( Deleted = TRUE ); };
@@ -276,7 +276,7 @@ protected:
 public:
 	void                TranslateFlagToString(Word32 Flag);
 	void                ClearFlagString(void);
-	void                AddFlagToString(PChar8 Flag);
+	void                AddFlagToString(const char*Flag);
 
 private:
 	Handle              CreateNewCluster(PPCFIOMCLUSTER pmcCluster = NULL);

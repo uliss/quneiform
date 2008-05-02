@@ -443,7 +443,7 @@ Bool32 CTCControl::Flush(Handle hFile)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Handle CTCControl::Alloc(Word32 wSize, Word32 wFlag, PChar8 cOwner, PChar8 Coment)
+Handle CTCControl::Alloc(Word32 wSize, Word32 wFlag, const char *cOwner, const char *Coment)
 {
 	int iTestFixed = 0;
 	Bool32 Global = FALSE;
@@ -688,7 +688,7 @@ Word32 CTCControl::ReadMemFromStorage(Handle hStorage, PChar8 lpName, Handle * p
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Handle CTCControl::AllocNewMemory(Word32 wFlag, Word32 wSize, Bool32 bGlobal, PChar8 cOwner, PChar8 Coment)
+Handle CTCControl::AllocNewMemory(Word32 wFlag, Word32 wSize, Bool32 bGlobal, const char *cOwner, const char *Coment)
 {
 	Handle hNewMemory = NULL;
 
@@ -716,7 +716,7 @@ Handle CTCControl::AllocNewMemory(Word32 wFlag, Word32 wSize, Bool32 bGlobal, PC
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTCControl::AddNewMemoryInList( Handle hMemory, Word32 wSize, Word32  IsGlobal, PChar8 cOwner, PChar8 Coment)
+Bool32 CTCControl::AddNewMemoryInList( Handle hMemory, Word32 wSize, Word32  IsGlobal, const char *cOwner, const char *Coment)
 {
 	return MemoryList.AddItem(hMemory, wSize, IsGlobal, cOwner, Coment);
 }

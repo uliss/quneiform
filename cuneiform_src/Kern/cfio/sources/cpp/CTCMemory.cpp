@@ -88,7 +88,7 @@ CTCMemoryHeader::CTCMemoryHeader(Handle hMemory, Word32 wBlockSize)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCMemoryHeader::CTCMemoryHeader(Handle hMemory, Word32 wBlockSize, PChar8 OwnerName, PChar8 Commentary)
+CTCMemoryHeader::CTCMemoryHeader(Handle hMemory, Word32 wBlockSize, const char *OwnerName, const char *Commentary)
                 :CTCGlobalHeader(hMemory,NULL,wBlockSize)
 {
 	SetHeaderSize(sizeof( class CTCMemoryHeader));
@@ -181,7 +181,7 @@ CTCMemoryHeader * CTCMemoryList::pLast()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTCMemoryList::AddItem(Handle hMemory, Word32 wSize, Word32 wIsGlobal, PChar8 cOwner, PChar8 Coment)
+Bool32 CTCMemoryList::AddItem(Handle hMemory, Word32 wSize, Word32 wIsGlobal, const char *cOwner, const char *Coment)
 {
 	CTCMemoryHeader * Current, * NewBlock = NULL;
 	

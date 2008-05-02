@@ -101,7 +101,7 @@ public:
 	PChar8 GetComment(void) { return mcComment; };
 
 public:
-	CTCMemoryHeader(Handle hMemory, Word32 wBlockSize, PChar8 OwnerName, PChar8 Commentary);
+	CTCMemoryHeader(Handle hMemory, Word32 wBlockSize, const char *OwnerName, const char *Commentary);
 	CTCMemoryHeader * GetNext()    { return (CTCMemoryHeader *)(CTCGlobalHeader::GetNext()); };
 private:
 	Char8 mcComment[CFIO_MAX_COMMENT];
@@ -255,7 +255,7 @@ public:
 	~CTCMemoryList();
 
 public:
-	Bool32 AddItem(Handle hMemory, Word32 wSize, Word32 wIsGlobal, PChar8 cOwner, PChar8 Coment);
+	Bool32 AddItem(Handle hMemory, Word32 wSize, Word32 wIsGlobal, const char *cOwner, const char *Coment);
 	CTCMemoryHeader * GetItem(Handle hMemory);
 	Bool32 LockUnlockItem(Handle hMemory, Bool32 bLock);
 	Bool32 TakeItem(Handle hMemory, Word32 * wSize, Word32 * wFlag);

@@ -149,7 +149,7 @@ CTCGlobalFile::~CTCGlobalFile()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTCGlobalFile::IsInString(char * Flag)
+Bool32 CTCGlobalFile::IsInString(const char * Flag)
 {
 	for (char * i = GetFlagString(); *i != 0x00; i++ )
 	{
@@ -491,7 +491,7 @@ void CTCGlobalFile::ClearFlagString(void)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void CTCGlobalFile::AddFlagToString( char * Flag )
+void CTCGlobalFile::AddFlagToString(const char * Flag )
 {
 	CFIO_STRCAT(cFlag, Flag);
 }
