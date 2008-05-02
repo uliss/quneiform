@@ -501,6 +501,10 @@ STD_FUNC( Bool32 ) stdSetCurrentDirectory(
 #endif
 }
 
+/* Return full path to the directory where the executable currently
+ * running is located.
+ */
+
 static char _HomeDirectory[256]={0};
 STD_FUNC( const char* ) stdGetHomeDirectory(void)
 {
@@ -517,7 +521,8 @@ STD_FUNC( const char* ) stdGetHomeDirectory(void)
    };
    return _HomeDirectory;
 #else
-   RETFALSE;   // to be implemented
+   //   RETFALSE;   // to be implemented
+   return "."; // FIXME, read from /proc/self/exe or something like that.
 #endif
 }
 
