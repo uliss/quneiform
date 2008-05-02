@@ -77,7 +77,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#define REXC_ERR_GETORIENT          2067
 //#define REXC_ERR_IMAGEINFO          2068
 //#define REXC_ERR_MAX                2068
-static char *REXC_error_name[]={
+static const char *REXC_error_name[]={
   "No error",
   "Can't operate",
   "Not enough memory",

@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define CCOM_ERR_LARGECOMP       2057
 #define CCOM_ERR_MAX             2057
 
-static char *CCOM_error_name[]={
+static const char *CCOM_error_name[]={
   "No error",
   "Can't operate",
   "Not enough memory",

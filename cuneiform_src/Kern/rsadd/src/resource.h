@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define RSADD_ERR_BADDATA         2056
 #define RSADD_ERR_MAX             2056
 
-static char *RSADD_error_name[]={
+static const char *RSADD_error_name[]={
   "No error",
   "Can't operate",
   "Not enough memory",

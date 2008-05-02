@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define RPSTR_ERR_INTERNAL        2057
 #define RPSTR_ERR_MAX             2057
 
-static char *RPSTR_error_name[]={
+static const char *RPSTR_error_name[]={
   "No error",
   "Can't operate",
   "Not enough memory",
