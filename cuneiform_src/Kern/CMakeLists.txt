@@ -13,11 +13,11 @@ usage
 
 include_directories(itigerole/sources/tiger/h)
 
-set(LIBTYPE STATIC CACHE STRING "STATIC or SHARED")
+set(LIBTYPE SHARED CACHE STRING "STATIC or SHARED")
 
 if(LIBTYPE STREQUAL SHARED)
     set(SNP_SRC ${CMAKE_CURRENT_SOURCE_DIR}/hdebug/__snp.c)
-    message(STATUS "Adding __snp.c to build.")
+    message(STATUS "Adding __snp.c to individual libraries.")
     #add_library(snp SHARED hdebug/__snp.c)
     #set(SNP_LIBS snp)
 endif()
