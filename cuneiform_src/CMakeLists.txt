@@ -8,4 +8,5 @@ if(PROJECT_BINARY_DIR STREQUAL PROJECT_SOURCE_DIR)
    message(FATAL_ERROR "In-tree build attempt detected, aborting. Set your build dir outside your source dir and try again.")
 endif()
 
+add_subdirectory(Addfiles)
 add_subdirectory(Kern)
