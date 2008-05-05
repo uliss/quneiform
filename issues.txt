@@ -31,3 +31,10 @@ definitions should be considered bugs.
 Snp is problematic. snptools.h uses e.g. __SnpIterParent static but also
 uses it as a friend for class SnpTreeNode. Gcc does not allow the second
 kind to be static.
+
+Cuneiform reads its data files as if it was installed on Windows. Meaning
+like "\\BIN\\rec4cour.dat". Eventually this should be turned into nice
+unix-style $PREFIX/rec4cour.dat. But to get started I just dump all
+built items and data files to the root of the build directory. This means
+that you must run pumatest in the build root directory. Otherwise
+it will NOT work.
