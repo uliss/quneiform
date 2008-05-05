@@ -68,8 +68,8 @@ static  Int32     num_lines      = 0,num_fragments0=0,num_fragments1 = 0;
 static  Int32     user_number = 0xFFFFFF+1;
 Word16           wHeightRC      = 0;
 Word16           wLowRC         = CSTR_ERR_NO;
-static  CSTR_line *FragmFirst0=0, *FragmLast0=0;
-static  CSTR_line *FragmFirst1=0, *FragmLast1=0;
+static  CSTR_line *FragmFirst0=NULL, *FragmLast0=NULL;
+static  CSTR_line *FragmFirst1=NULL, *FragmLast1=NULL;
 static  Int32 FragmMin[2], FragmMax[2];
 //int     mem=0;
 // memory funct

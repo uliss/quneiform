@@ -33,6 +33,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include"puma.h"
 
 int main(int argc, char **argv) {
+    if(!PUMA_Init(0, 0)) {
+        printf("Puma initialisation failed.");
+        return 1;
+    }
     PUMA_XOpen(NULL, "none.txt");
     return 0;
 }
