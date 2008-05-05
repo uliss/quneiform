@@ -501,8 +501,8 @@ return TRUE;
 Bool32  p2_msk_init()
 {
 #ifdef _USE_MSK_
-HndTab=MSKInit( NULL, ".\\BIN\\rec4cour.dat");
-HndTabInc=MSKInit( NULL, ".\\BIN\\rec4inc.dat");
+HndTab=MSKInit( NULL, "rec4cour.dat");
+HndTabInc=MSKInit( NULL, "rec4inc.dat");
 #endif
 return HndTab;
 }

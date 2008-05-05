@@ -34,9 +34,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 int main(int argc, char **argv) {
     if(!PUMA_Init(0, 0)) {
-        printf("Puma initialisation failed.");
+        printf("Puma initialisation failed.\n");
         return 1;
     }
+    printf("Puma initialized.\n");
     PUMA_XOpen(NULL, "none.txt");
+    printf("PUMA_XOpen succeeded.\n");
     return 0;
 }

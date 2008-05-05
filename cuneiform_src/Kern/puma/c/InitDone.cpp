@@ -190,8 +190,8 @@ Bool32 ModulesInit(Handle  ghStorage)
 	else
 	{
 		char szRec6AllFilename[260];
-		strcpy(szRec6AllFilename,GetModulePath());
-		strcat(szRec6AllFilename,"\\BIN\\REC6ALL.DAT");
+		//strcpy(szRec6AllFilename,GetModulePath()); JussiP: disabled this old path function thingy.
+		strcpy(szRec6AllFilename,"rec6all.dat");
 		if(!ROUT_LoadRec6List(szRec6AllFilename))
 		{
 			SetReturnCode(ROUT_GetReturnCode());

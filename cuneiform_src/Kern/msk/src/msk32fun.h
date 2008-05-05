@@ -73,7 +73,7 @@ int chn_mat(Int16 coo,Word16  *bgf,BYTE bgf_col,
             Int16 i1,Int16 j1,Int16 i2,Int16 j2,Word16 *ss,
             Int16 co1,Int16 k0,Int16 l0,Int16 k1,Int16 l1);
 
-int tch_in(char *NameFile);
+int tch_in(const char *NameFile);
 
 int chn_mat1(short coo,Word16 *bgfff,char buff_col,short i1,
 			 short j1,short i2,short j2,unsigned short *ss,

@@ -385,7 +385,7 @@ MSK_FUNC(void)    MSKSetPlatform(Int32 cpu)
 
 
 
-MSK_FUNC(Bool32)  MSKInit( MemFunc* mem, char *NameFile)
+MSK_FUNC(Bool32)  MSKInit( MemFunc* mem, const char *NameFile)
 {
 	unsigned int i,j,k;
 	short ret_val;
@@ -639,7 +639,7 @@ MSK_FUNC(Bool32)  MSKRecogNDX(
 ///
 ///  sors fun
 /////////////
-int tch_in(char *NameFile)
+int tch_in(const char *NameFile)
 {	
 	Word16 num_mask,tmp;
 	int hnd,i,j;

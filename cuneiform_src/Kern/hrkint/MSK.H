@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   MSK_FUNC(void)    MSKSetPlatform(Int32 cpu);
 
 ///
-  MSK_FUNC(Bool32)  MSKInit( MemFunc* mem, char *NameFile );
+  MSK_FUNC(Bool32)  MSKInit( MemFunc* mem, const char *NameFile );
 		// Start Initialization; TRUE - OK
 		// for mem==NULL need used internal memory functions from DLL
     // New call - after close library without MSKDone

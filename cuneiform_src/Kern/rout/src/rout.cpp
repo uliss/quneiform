@@ -958,6 +958,11 @@ static BOOL LoadAlphabet(
 // Загрузка файла REC6.DAT
 	FILE *f = NULL;
 	char buf[256] = "";
+#ifdef WIN32
+	const char line_end = '\n';
+#else
+	const char line_end = '\r';
+#endif
 
 	ASSERT (language >= 0 && language < LANG_TOTAL);
 
@@ -993,9 +998,9 @@ static BOOL LoadAlphabet(
 	fclose(f);
 	f = NULL;
 
-	char *p1 = strchr(upper,'\n');
-	char *p2 = strchr(lower,'\n');
-	char *p3 = strchr(vowels,'\n');
+	char *p1 = strchr(upper, line_end);
+	char *p2 = strchr(lower, line_end);
+	char *p3 = strchr(vowels, line_end);
 
 	if ( p1 ) *p1 = 0;
 	if ( p2 ) *p2 = 0;
