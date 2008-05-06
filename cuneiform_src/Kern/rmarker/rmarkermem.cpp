@@ -98,10 +98,10 @@ void ReSetMem()
 
 void *	RMARKERAlloc(int stAllocateBlock)
 {
-	return new Word8[stAllocateBlock];
+	return malloc(stAllocateBlock);
 }
 
 void	RMARKERFree(void * mem)
 {
- delete[]	mem;
+ free(mem);
 }

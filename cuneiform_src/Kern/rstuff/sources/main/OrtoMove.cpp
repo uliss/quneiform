@@ -408,12 +408,12 @@ void  MasCopy(Word8* oldpmasp,Word8* pmasp,int oldbytewide,int num_str)
 
 void* MyMemAlloc(Word32 size)
 {
-	return new char[size];
+	return malloc(size);
 }
 
 void MyMemDelete(void* mem)
 {
-	delete[] mem;
+	free(mem);
 }
 
 void *  MyMemLock(void* mem)
