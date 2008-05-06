@@ -143,7 +143,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     
     // Данные образуемые в результате работы.
     EXTERN char szFormatStorageName[]	VAL("%sstorage.tmp");
-    EXTERN char szFormatTbl1[]			VAL("%s\\BIN\\tbl1%s.dat");
+    EXTERN char szFormatTbl1[]			VAL("%stbl1%s.dat");
     
     EXTERN Int32 gnNumberTables			VAL(0);
     

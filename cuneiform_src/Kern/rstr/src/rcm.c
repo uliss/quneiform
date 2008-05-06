@@ -243,95 +243,95 @@ TURKISH_CHARSET				   // LANG_TURKISH	  27
 };
 
 static char *tab3x5[]={
-".\\bin\\rec3.dat",         // LANG_ENGLISH   0
-".\\bin\\rec3.dat",         // LANG_GERMAN    1
-".\\bin\\rec3.dat",         // LANG_FRENCH    2
-".\\bin\\rec3rus.dat",      // LANG_RUSSIAN   3
-".\\bin\\rec3.dat",         // LANG_SWEDISH   4
-".\\bin\\rec3.dat",         // LANG_SPANISH   5
-".\\bin\\rec3.dat",         // LANG_ITALIAN   6
-".\\bin\\rec3r&e.dat",      // LANG_RUSENG    7
-".\\bin\\rec3rus.dat",      // LANG_UKRAINIAN 8
-".\\bin\\rec3rus.dat",      // LANG_SERBIAN   9
-".\\bin\\rec3cen.dat",      // LANG_CROATIAN  10
-".\\bin\\rec3cen.dat",      // LANG_POLISH    11
-".\\bin\\rec3n.dat",        // LANG_DANISH    12
-".\\bin\\rec3n.dat",        // LANG_PORTUGUESE  13
-".\\bin\\rec3n.dat",        // LANG_DUTCH		14
-".\\bin\\rec3.dat",         // LANG_DIG			15
-".\\bin\\rec3uzb.dat",      // LANG_UZBEK		16	// 01.09.2000 E.P.
-".\\bin\\rec3kaz.dat",      // LANG_KAZ			17
-".\\bin\\rec3kaz.dat",      // LANG_KAZ_ENG		18
-".\\bin\\rec3cen.dat",      // LANG_CZECH		19
-".\\bin\\rec3cen.dat",      // LANG_ROMAN		20
-".\\bin\\rec3cen.dat",      // LANG_HUNGAR		21
-".\\bin\\rec3rus.dat",      // LANG_BULGAR		22
-".\\bin\\rec3cen.dat",      // LANG_SLOVENIAN	23
-".\\bin\\rec3blt.dat",      // LANG_LATVIAN	    24
-".\\bin\\rec3blt.dat",      // LANG_LITHUANIAN  25
-".\\bin\\rec3blt.dat",      // LANG_ESTONIAN	26
-".\\bin\\rec3tur.dat"       // LANG_TURKISH		27
+"rec3.dat",         // LANG_ENGLISH   0
+"rec3.dat",         // LANG_GERMAN    1
+"rec3.dat",         // LANG_FRENCH    2
+"rec3rus.dat",      // LANG_RUSSIAN   3
+"rec3.dat",         // LANG_SWEDISH   4
+"rec3.dat",         // LANG_SPANISH   5
+"rec3.dat",         // LANG_ITALIAN   6
+"rec3r&e.dat",      // LANG_RUSENG    7
+"rec3rus.dat",      // LANG_UKRAINIAN 8
+"rec3rus.dat",      // LANG_SERBIAN   9
+"rec3cen.dat",      // LANG_CROATIAN  10
+"rec3cen.dat",      // LANG_POLISH    11
+"rec3n.dat",        // LANG_DANISH    12
+"rec3n.dat",        // LANG_PORTUGUESE  13
+"rec3n.dat",        // LANG_DUTCH		14
+"rec3.dat",         // LANG_DIG			15
+"rec3uzb.dat",      // LANG_UZBEK		16	// 01.09.2000 E.P.
+"rec3kaz.dat",      // LANG_KAZ			17
+"rec3kaz.dat",      // LANG_KAZ_ENG		18
+"rec3cen.dat",      // LANG_CZECH		19
+"rec3cen.dat",      // LANG_ROMAN		20
+"rec3cen.dat",      // LANG_HUNGAR		21
+"rec3rus.dat",      // LANG_BULGAR		22
+"rec3cen.dat",      // LANG_SLOVENIAN	23
+"rec3blt.dat",      // LANG_LATVIAN	    24
+"rec3blt.dat",      // LANG_LITHUANIAN  25
+"rec3blt.dat",      // LANG_ESTONIAN	26
+"rec3tur.dat"       // LANG_TURKISH		27
 };
 
 static char *tabevn1[]={
-".\\bin\\rec1.dat",         // LANG_ENGLISH   0
-".\\bin\\rec1.dat",         // LANG_GERMAN    1
-".\\bin\\rec1.dat",         // LANG_FRENCH    2
-".\\bin\\rec1rus.dat",      // LANG_RUSSIAN   3
-".\\bin\\rec1.dat",         // LANG_SWEDISH   4
-".\\bin\\rec1.dat",         // LANG_SPANISH   5
-".\\bin\\rec1.dat",         // LANG_ITALIAN   6
-".\\bin\\rec1r&e.dat",      // LANG_RUSENG    7
-".\\bin\\rec1rus.dat",      // LANG_UKRAINIAN 8
-".\\bin\\rec1rus.dat",      // LANG_SERBIAN   9
-".\\bin\\rec1cen.dat",      // LANG_CROATIAN  10
-".\\bin\\rec1cen.dat",      // LANG_POLISH    11
-".\\bin\\rec1n.dat",        // LANG_DANISH    12
-".\\bin\\rec1n.dat",        // LANG_PORTUGUESE  13
-".\\bin\\rec1n.dat",        // LANG_DUTCH       14
-".\\bin\\rec1.dat",         // LANG_DIG         15
-".\\bin\\rec1uzb.dat",      // LANG_UZBEK		16	// 01.09.2000 E.P.
-".\\bin\\rec1kaz.dat",      // LANG_KAZ			17
-".\\bin\\rec1kaz.dat",      // LANG_KAZ_ENG		18
-".\\bin\\rec1cen.dat",      // LANG_CZECH		19
-".\\bin\\rec1cen.dat",      // LANG_ROMAN		20
-".\\bin\\rec1cen.dat",      // LANG_HUNGAR		21
-".\\bin\\rec1rus.dat",      // LANG_BULGAR		22
-".\\bin\\rec1cen.dat",      // LANG_SLOVENIAN	23
-".\\bin\\rec1blt.dat",      // LANG_LATVIAN	    24
-".\\bin\\rec1blt.dat",      // LANG_LITHUANIAN  25
-".\\bin\\rec1blt.dat",      // LANG_ESTONIAN	26
-".\\bin\\rec1tur.dat"       // LANG_TURKISH		27
+"rec1.dat",         // LANG_ENGLISH   0
+"rec1.dat",         // LANG_GERMAN    1
+"rec1.dat",         // LANG_FRENCH    2
+"rec1rus.dat",      // LANG_RUSSIAN   3
+"rec1.dat",         // LANG_SWEDISH   4
+"rec1.dat",         // LANG_SPANISH   5
+"rec1.dat",         // LANG_ITALIAN   6
+"rec1r&e.dat",      // LANG_RUSENG    7
+"rec1rus.dat",      // LANG_UKRAINIAN 8
+"rec1rus.dat",      // LANG_SERBIAN   9
+"rec1cen.dat",      // LANG_CROATIAN  10
+"rec1cen.dat",      // LANG_POLISH    11
+"rec1n.dat",        // LANG_DANISH    12
+"rec1n.dat",        // LANG_PORTUGUESE  13
+"rec1n.dat",        // LANG_DUTCH       14
+"rec1.dat",         // LANG_DIG         15
+"rec1uzb.dat",      // LANG_UZBEK		16	// 01.09.2000 E.P.
+"rec1kaz.dat",      // LANG_KAZ			17
+"rec1kaz.dat",      // LANG_KAZ_ENG		18
+"rec1cen.dat",      // LANG_CZECH		19
+"rec1cen.dat",      // LANG_ROMAN		20
+"rec1cen.dat",      // LANG_HUNGAR		21
+"rec1rus.dat",      // LANG_BULGAR		22
+"rec1cen.dat",      // LANG_SLOVENIAN	23
+"rec1blt.dat",      // LANG_LATVIAN	    24
+"rec1blt.dat",      // LANG_LITHUANIAN  25
+"rec1blt.dat",      // LANG_ESTONIAN	26
+"rec1tur.dat"       // LANG_TURKISH		27
 };
 static char *tabevn2[]={
-".\\bin\\rec2.dat",         // LANG_ENGLISH   0
-".\\bin\\rec2.dat",         // LANG_GERMAN    1
-".\\bin\\rec2.dat",         // LANG_FRENCH    2
-".\\bin\\rec2rus.dat",      // LANG_RUSSIAN   3
-".\\bin\\rec2.dat",         // LANG_SWEDISH   4
-".\\bin\\rec2.dat",         // LANG_SPANISH   5
-".\\bin\\rec2.dat",         // LANG_ITALIAN   6
-".\\bin\\rec2r&e.dat",      // LANG_RUSENG    7
-".\\bin\\rec2rus.dat",      // LANG_UKRAINIAN 8
-".\\bin\\rec2rus.dat",      // LANG_SERBIAN   9
-".\\bin\\rec2cen.dat",      // LANG_CROATIAN  10
-".\\bin\\rec2cen.dat",      // LANG_POLISH    11
-".\\bin\\rec2n.dat",        // LANG_DANISH    12
-".\\bin\\rec2n.dat",        // LANG_PORTUGUESE	13
-".\\bin\\rec2n.dat",        // LANG_DUTCH		14
-".\\bin\\rec2.dat",         // LANG_DIG			15
-".\\bin\\rec2uzb.dat",      // LANG_UZBEK		16 // 01.09.2000 E.P.
-".\\bin\\rec2kaz.dat",      // LANG_KAZ			17
-".\\bin\\rec2kaz.dat",      // LANG_KAZ_ENG		18
-".\\bin\\rec2cen.dat",      // LANG_CZECH		19
-".\\bin\\rec2cen.dat",      // LANG_ROMAN		20
-".\\bin\\rec2cen.dat",      // LANG_HUNGAR		21
-".\\bin\\rec2rus.dat",      // LANG_BULGAR		22
-".\\bin\\rec2cen.dat",      // LANG_SLOVENIAN	23
-".\\bin\\rec2blt.dat",      // LANG_LATVIAN	    24
-".\\bin\\rec2blt.dat",      // LANG_LITHUANIAN  25
-".\\bin\\rec2blt.dat",      // LANG_ESTONIAN	26
-".\\bin\\rec2tur.dat"       // LANG_TURKISH		27
+"rec2.dat",         // LANG_ENGLISH   0
+"rec2.dat",         // LANG_GERMAN    1
+"rec2.dat",         // LANG_FRENCH    2
+"rec2rus.dat",      // LANG_RUSSIAN   3
+"rec2.dat",         // LANG_SWEDISH   4
+"rec2.dat",         // LANG_SPANISH   5
+"rec2.dat",         // LANG_ITALIAN   6
+"rec2r&e.dat",      // LANG_RUSENG    7
+"rec2rus.dat",      // LANG_UKRAINIAN 8
+"rec2rus.dat",      // LANG_SERBIAN   9
+"rec2cen.dat",      // LANG_CROATIAN  10
+"rec2cen.dat",      // LANG_POLISH    11
+"rec2n.dat",        // LANG_DANISH    12
+"rec2n.dat",        // LANG_PORTUGUESE	13
+"rec2n.dat",        // LANG_DUTCH		14
+"rec2.dat",         // LANG_DIG			15
+"rec2uzb.dat",      // LANG_UZBEK		16 // 01.09.2000 E.P.
+"rec2kaz.dat",      // LANG_KAZ			17
+"rec2kaz.dat",      // LANG_KAZ_ENG		18
+"rec2cen.dat",      // LANG_CZECH		19
+"rec2cen.dat",      // LANG_ROMAN		20
+"rec2cen.dat",      // LANG_HUNGAR		21
+"rec2rus.dat",      // LANG_BULGAR		22
+"rec2cen.dat",      // LANG_SLOVENIAN	23
+"rec2blt.dat",      // LANG_LATVIAN	    24
+"rec2blt.dat",      // LANG_LITHUANIAN  25
+"rec2blt.dat",      // LANG_ESTONIAN	26
+"rec2tur.dat"       // LANG_TURKISH		27
 };
 
 BYTE *  CellsPage, *CellsPageEnd;
@@ -2524,7 +2524,8 @@ switch(dwType)
     case    RSTR_OcrPath:
         strcpy(lnOcrPath,(char *)pData);
         strcpy(lnOcrLingPath,(char *)pData);
-        strcat(lnOcrLingPath,"\\BIN\\");
+        /*strcat(lnOcrLingPath,"\\BIN\\");*/
+        strcat(lnOcrLingPath, "/");
         break;
     case    RSTR_Word8_mmx:
         mmx=*(Word8*)pData;

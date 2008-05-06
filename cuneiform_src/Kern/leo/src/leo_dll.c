@@ -362,7 +362,7 @@ if( !leo_init_r35_prn )
 
 if( !leo_init_msk_prn )
     {
-    leo_MSK_ndx[1]=MSKInit( mem, ".\\bin\\rec4r&e.dat" );
+    leo_MSK_ndx[1]=MSKInit( mem, "rec4r&e.dat" );
     if( leo_MSK_ndx[1] )
         leo_init_msk_prn=TRUE;
     else
@@ -374,7 +374,7 @@ if( !leo_init_msk_prn )
 
 if( !leo_init_msk_prn_mtr )
     {
-    leo_MSK_ndx[2]=MSKInit( mem, ".\\bin\\rec4mtr.dat" );
+    leo_MSK_ndx[2]=MSKInit( mem, "rec4mtr.dat" );
     if( leo_MSK_ndx[2] )
         leo_init_msk_prn_mtr=TRUE;
     else

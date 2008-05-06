@@ -69,7 +69,7 @@ static  Bool32      ccom_init=FALSE;
 static  Bool32      ccom_show_kill_mode=FALSE;
 Word16              wHeightRC      = 0;
 Word16              wLowRC         = CCOM_ERR_NO;
-#define     CCOM_DAT    "BIN\\CCOM.DAT"
+#define     CCOM_DAT    "ccom.dat"
 
 // memory funct
 static void *   ccom_alloc(Word32 len)   { 

@@ -76,7 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define MTR_LEARN1
 
-#ifndef PPS_MAC
+#ifndef WIN32
 	#define NAME        ".\\bin\\hnd3rus.dat"
 	#define NAME_NDX    ".\\bin\\hnd3ind.dat"
     #define NAME_PRINT  ".\\bin\\rec3r&e.dat"
@@ -85,9 +85,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#define PC_TYPE 0
     #define R35_DEBUG
 #else
-	#define NAME        ":bin:hnd3rus.dat"
-	#define NAME_NDX    ":bin:hnd3ind.dat"
-    #define NAME_PRINT  ":bin:rec3rus.dat"
+	#define NAME        "hnd3rus.dat"
+	#define NAME_NDX    "hnd3ind.dat"
+    #define NAME_PRINT  "rec3rus.dat"
 #endif
 
 #ifdef PC_TYPE

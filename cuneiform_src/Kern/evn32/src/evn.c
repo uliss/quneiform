@@ -71,16 +71,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-#ifndef PPS_MAC	// PC
+#ifdef WIN32	
 #define NAME     ".\\bin\\hnd1rus.dat"
 #define NAME_RT  ".\\bin\\hnd2rus.dat"
 #define NAMEP    ".\\bin\\rec1r&e.dat"
 #define NAME_RTP ".\\bin\\rec2r&e.dat"
-#else	        // Macintosh
-#define NAME     ":bin:hnd1rus.dat"
-#define NAME_RT  ":bin:hnd2rus.dat"
-#define NAMEP    ":bin:rec1r&e.dat"
-#define NAME_RTP ":bin:rec2r&e.dat"
+#else	        
+#define NAME     "hnd1rus.dat"
+#define NAME_RT  "hnd2rus.dat"
+#define NAMEP    "rec1r&e.dat"
+#define NAME_RTP "rec2r&e.dat"
 #endif
 //-------------- FROM DIF.DLL
 extern Bool32 DIF_SetLanguage(Word8 lang);
