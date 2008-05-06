@@ -34,15 +34,27 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 int main(int argc, char **argv) {
     if(!PUMA_Init(0, 0)) {
-        printf("Puma initialisation failed.\n");
+        printf("PUMA_Init failed.\n");
         return 1;
     }
     printf("Puma initialized.\n");
-    PUMA_XOpen(NULL, "none.txt");
+    
+    if(!PUMA_XOpen(NULL, "none.txt")) {
+        printf("PUMA_Xopen failed.\n");
+        return 1;
+    }
     printf("PUMA_XOpen succeeded.\n");
-    PUMA_XClose();
+    
+    if(!PUMA_XClose()) {
+        printf("PUMA_XClose failed.\n");
+        return 1;
+    }
     printf("PUMA_XClose succeeded.\n");
-    PUMA_Done();
+    
+    if(!PUMA_Done()) {
+        printf("PUMA_Done failed.\n");
+        return 1;
+    }
     printf("PUMA_Done succeeded.\nAll done.\n");
     return 0;
 }
