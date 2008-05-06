@@ -40,5 +40,7 @@ int main(int argc, char **argv) {
     printf("Puma initialized.\n");
     PUMA_XOpen(NULL, "none.txt");
     printf("PUMA_XOpen succeeded.\n");
+    PUMA_XClose();
+    printf("PUMA_XClose succeeded.\n");
     return 0;
 }

@@ -70,11 +70,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //####################################
 void *	myAlloc(size_t stAllocateBlock)
 {
-	char * mem = NULL;
+	void * mem = NULL;
 
 #ifdef _DEBUG
 
-	mem = ::new char[stAllocateBlock];
+	mem = malloc(stAllocateBlock);
 	if(!mem)
 		SetReturnCode(IDS_ERR_NO_MEMORY);
 #endif
@@ -85,7 +85,7 @@ void *	myAlloc(size_t stAllocateBlock)
 void	myFree(void * mem)
 {
 #ifdef _DEBUG
-	::delete []	mem;
+	free(mem);
 #endif
 }
 

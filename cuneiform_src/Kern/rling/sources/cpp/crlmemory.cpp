@@ -83,6 +83,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //memory Allocator for RLING module
 void *	RLINGAlloc(Word32 stAllocateBlock)
 {
+    /* JussiP: disabled all this, since it seems to be legacy from Win16 days. Just use malloc.
 	char * mem = NULL;
 
 #ifdef _NO_CFIO
@@ -105,11 +106,14 @@ void *	RLINGAlloc(Word32 stAllocateBlock)
 #endif
 
 	return mem;
+	*/
+    return malloc(stAllocateBlock);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //
 void	RLINGFree(void * mem)
 {
+    /*
 #ifdef _NO_CFIO
 	
   #ifdef  RLING_USE_GLOBAL_MEM
@@ -123,6 +127,8 @@ void	RLINGFree(void * mem)
 	FreeMemory(mem);
 
 #endif
+*/
+    free(mem);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //
