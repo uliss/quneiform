@@ -42,5 +42,7 @@ int main(int argc, char **argv) {
     printf("PUMA_XOpen succeeded.\n");
     PUMA_XClose();
     printf("PUMA_XClose succeeded.\n");
+    PUMA_Done();
+    printf("PUMA_Done succeeded.\nAll done.\n");
     return 0;
 }
