@@ -33,13 +33,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include"puma.h"
 
 int main(int argc, char **argv) {
+    if(argc != 2) {
+        printf("Usage: %s imagefile\n", argv[0]);
+        return 0;
+    }
     if(!PUMA_Init(0, 0)) {
         printf("PUMA_Init failed.\n");
         return 1;
     }
     printf("Puma initialized.\n");
     
-    if(!PUMA_XOpen(NULL, "none.txt")) {
+    if(!PUMA_XOpen(argv[1], "none.txt")) {
         printf("PUMA_Xopen failed.\n");
         return 1;
     }
