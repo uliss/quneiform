@@ -49,6 +49,33 @@ int main(int argc, char **argv) {
     }
     printf("PUMA_XOpen succeeded.\n");
     
+    /* From recogpuma.cpp
+    LPUMA_SetSpeller(g_bSpeller);
+    LPUMA_SetOneColumn(g_bOneColumn);
+    LPUMA_SetFax100(g_bFax100);
+    LPUMA_SetDotMatrix(g_bDotMatrix);
+    LPUMA_SetPictures(g_nPicture);
+    LPUMA_SetTables(g_nTable);
+    LPUMA_SetFormatMode(g_nFormat);
+    LPUMA_SetUnrecogChar(g_btUnrecogChar);
+
+    LPUMA_SetBold(g_bBold);
+    LPUMA_SetItalic(g_bItalic);
+    LPUMA_SetSize(g_bSize);
+    LPUMA_SetFormat(g_bFormat);
+    LPUMA_SetSerifName(g_strSerifName);
+    LPUMA_SetSansSerifName(g_strSansSerifName);
+    LPUMA_SetCourierName(g_strCourierName);
+
+    rc = LPUMA_XFinalRecognition();
+    */
+    if(!PUMA_XFinalRecognition()) {
+        printf("PUMA_XFinalrecognition failed.\n");
+        return 1;
+    }
+    printf("PUMA_XFinalRecognition succeeded.\n");
+    
+    
     if(!PUMA_XClose()) {
         printf("PUMA_XClose failed.\n");
         return 1;
