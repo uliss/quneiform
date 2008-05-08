@@ -58,9 +58,8 @@ int main(int argc, char **argv) {
     fread(bmpheader, 1, 2, f);
     fread(bmpheader, 1, 2, f);
     fread(&offset, sizeof(int32_t), 1, f);
-    fseek(f, offset, SEEK_SET);
-    
-    dibsize -= offset;
+
+    dibsize -= ftell(f);
     dib = (char*)malloc(dibsize); // I don't free() this one, because I am just that tough.
     fread(dib, dibsize, 1, f);
     fclose(f);

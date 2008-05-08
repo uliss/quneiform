@@ -156,7 +156,7 @@ Int32  CRLControl::IsDictonaryAvailable(Word32 wLang, PChar8 pDictPath)
 		else
 		{
 			SetReturnCode(IDS_RLING_PATH_UNVAILABLE);
-			strcpy((PChar8)own_dir, ".\\");
+			strcpy((PChar8)own_dir, "./");
 		}
 	}
 
@@ -218,7 +218,7 @@ Bool32 CRLControl::LoadDictonary(Word32 wLang, PChar8 pDictPath)
 		else
 		{
 			SetReturnCode(IDS_RLING_PATH_UNVAILABLE);
-			strcpy((PChar8)own_dir, ".\\");
+			strcpy((PChar8)own_dir, "./");
 		}
 	}
 

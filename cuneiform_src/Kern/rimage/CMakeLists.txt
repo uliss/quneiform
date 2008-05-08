@@ -8,7 +8,7 @@ sources/main/kronrod/grey-wnd.c
 sources/main/cribinarizator.cpp
 sources/main/cricontrol.cpp
 sources/main/criimage.cpp
-sources/main/crimage.rc
+#sources/main/crimage.rc
 sources/main/crimemory.cpp
 sources/main/crinvertor.cpp
 sources/main/crrotator.cpp

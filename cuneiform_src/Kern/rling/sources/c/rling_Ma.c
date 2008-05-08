@@ -165,20 +165,20 @@ static PROOT     root_file       = NULL;                /* start of the root fil
 static PWord8    full_list[512];
 static PWord8    font_full_list[512];
 static PWord8    omni_full_list[512];
-static Int8      seq_name[]            = "REC0";
-Int8      own_dir[256]          = {".\\"};
+static Int8      seq_name[]            = "rec0";
+Int8      own_dir[256]          = {"./"};
 static Int8      txt_ext[16]           = {"txt"};
 static Int16     file_handle[16]       = { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
 static Int16     file_stream[16]       = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 static Int16     stream_op[10]         = {0,0,0,0,0,0,0,0,0,0};
 static Int8 *lang_suff[LANG_TOTAL] = 
 {
-"","GRM","FRN","RUS","SWE","SPA","ITA","R&E","UKR","SER","CRO","POL","DAN","POR","DUT","DIG",
-"UZB","KAZ","KAZ",			// 04.09.2000 E.P.
-"CZE","ROM","HUN","BUL",	// 04.09.2000 E.P. LANG_CZECH è ò.ä.
-"SLO",	// LANG_SLOVENIAN 25.05.2001 E.P.
-"LAT","LIT","EST",	// LANG_LATVIAN è ò.ä.
-"TUR"	// 03.06.2002 E.P.
+"","grm","frn","rus","swe","spa","ita","r&e","ukr","ser","cro","pol","dan","por","dut","dig",
+"uzb","kaz","kaz",			// 04.09.2000 E.P.
+"cze","rom","hun","bul",	// 04.09.2000 E.P. LANG_CZECH è ò.ä.
+"slo",	// LANG_SLOVENIAN 25.05.2001 E.P.
+"lat","lit","est",	// LANG_LATVIAN è ò.ä.
+"tur"	// 03.06.2002 E.P.
 };
 /////////////////////////////////////////////////////////////////////////////////////
 //  exit generation functions
@@ -207,9 +207,10 @@ void TE_make_name (Int16 stream, PInt8 name, PInt8 wname)
         {
         case TG_STREAM:
         case TB_STREAM:
-                
+                /* FIXME: own_dir gets changed somewhere so it points to "/" rather than "./".
                 an = own_dir;
                 strcpy (wname, an);
+                */ strcpy(wname, "./");
                 strcat (wname, name);
                 break;
 
@@ -257,7 +258,7 @@ void GetRecFileName(Int16 tab,Int16 lang, PInt8 wname)
 {
         seq_name[3] = tab + '0';
         append_by_lang (lang, seq_name, wname);
-        strcat(wname,".DAT");
+        strcat(wname,".dat");
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //
