@@ -30,20 +30,49 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include<stdio.h>
+#include<stdint.h>
+#include<stdlib.h>
 #include"puma.h"
 
 int main(int argc, char **argv) {
+    char bmpheader[2];
+    char *dib;
+    FILE *f;
+    int32_t dibsize, offset;
+    
     if(argc != 2) {
         printf("Usage: %s imagefile\n", argv[0]);
         return 0;
     }
+    f = fopen(argv[1], "rb");
+    if(!f) {
+        printf("Could not open file %s.\n", argv[1]);
+        return 1;
+    }
+    fread(bmpheader, 1, 2, f);
+    if(bmpheader[0] != 'B' || bmpheader[1] != 'M') {
+        printf("Invalid BMP header.\n");
+        return 1;
+    }
+    fread(&dibsize, sizeof(int32_t), 1, f);
+    fread(bmpheader, 1, 2, f);
+    fread(bmpheader, 1, 2, f);
+    fread(&offset, sizeof(int32_t), 1, f);
+    fseek(f, offset, SEEK_SET);
+    
+    dibsize -= offset;
+    dib = (char*)malloc(dibsize); // I don't free() this one, because I am just that tough.
+    fread(dib, dibsize, 1, f);
+    fclose(f);
+    
+    
     if(!PUMA_Init(0, 0)) {
         printf("PUMA_Init failed.\n");
         return 1;
     }
     printf("Puma initialized.\n");
     
-    if(!PUMA_XOpen(argv[1], "none.txt")) {
+    if(!PUMA_XOpen(dib, "none.txt")) {
         printf("PUMA_Xopen failed.\n");
         return 1;
     }
