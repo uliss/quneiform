@@ -73,7 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 CPAGE_FUNC(Handle)  CPAGE_PictureGetFirst		(Handle hPage)
 {
 	PROLOG;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
 
 	Handle rc = CPAGE_GetBlockFirst(hPage, TYPE_CPAGE_PICTURE);
 	EPILOG;
@@ -83,7 +83,7 @@ CPAGE_FUNC(Handle)  CPAGE_PictureGetFirst		(Handle hPage)
 CPAGE_FUNC(Handle)  CPAGE_PictureGetNext(Handle hPage,Handle hPicture)
 {
 	PROLOG;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
 
 	Handle rc = CPAGE_GetBlockNext(hPage,hPicture, TYPE_CPAGE_PICTURE);
 	EPILOG;
@@ -100,7 +100,7 @@ CPAGE_FUNC(Bool32)  CPAGE_PictureGetPlace(Handle hPage,Handle hPicture,Int32 Ske
 	PROLOG;
 	Bool32 rc = FALSE;
 
-	SetReturnCode(IDS_ERR_NO);
+	SetReturnCode_cpage(IDS_ERR_NO);
 
 	CPAGE_PICTURE pict = {0};
 	Point32 lt = {0};
@@ -155,7 +155,7 @@ CPAGE_FUNC(Bool32)  CPAGE_PictureGetMask(Handle hPage, Handle hPicture, Int32 Sk
 	PROLOG;
 	Bool32 rc = FALSE;
 
-	SetReturnCode(IDS_ERR_NO);
+	SetReturnCode_cpage(IDS_ERR_NO);
 
 	Point32 lt = {0};
 	Point32 wh = {0};
@@ -214,7 +214,7 @@ CPAGE_FUNC(Bool32)  CPAGE_PictureGetMask(Handle hPage, Handle hPicture, Int32 Sk
 		}
 		else
 		{
-			SetReturnCode(IDS_ERR_NO_MEMORY);
+			SetReturnCode_cpage(IDS_ERR_NO_MEMORY);
 			goto lOut;
 		}
 		// ”пор€дочим их

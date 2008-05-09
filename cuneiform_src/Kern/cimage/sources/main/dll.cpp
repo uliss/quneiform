@@ -112,7 +112,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_Init(Word16 wHeightCode,Handle hStorage)
 	{
 		if ( !InitCFIOInterface(TRUE) )
 		{
-			SetReturnCode(IDS_CIMAGE_OTHER_DLL_NOT_INITIALIZED);
+			SetReturnCode_cimage(IDS_CIMAGE_OTHER_DLL_NOT_INITIALIZED);
 			return FALSE;
 		}
 
@@ -125,14 +125,14 @@ CIMAGE_FUNC(Bool32) CIMAGE_Init(Word16 wHeightCode,Handle hStorage)
 		return TRUE;
 	}
 
-	SetReturnCode(IDS_CIMAGE_DLL_NOT_INITIALISING);
+	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 CIMAGE_FUNC(Bool32) CIMAGE_Done()
 {
-	SetReturnCode(IDS_CIMAGE_ERR_NO);
+	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 	
 	if ( Control )
 	{
@@ -145,7 +145,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_Done()
 		return TRUE;
 	}
 	
-	SetReturnCode(IDS_CIMAGE_DLL_NOT_INITIALISING);
+	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -224,14 +224,14 @@ CIMAGE_FUNC(Bool32) CIMAGE_SetImportData(Word32 dwType, void * pData)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void SetReturnCode(Word16 rc)
+void SetReturnCode_cimage(Word16 rc)
 {
 	if ( rc == IDS_CIMAGE_ERR_NO || gwLowRC == IDS_CIMAGE_ERR_NO )
 		gwLowRC = rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Word16 GetReturnCode()
+Word16 GetReturnCode_cimage()
 {
 	return gwLowRC;
 }

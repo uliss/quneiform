@@ -110,7 +110,7 @@ static Bool32 MakeStrings(Handle hccom,Handle hcpage)
 
 	 if(rc && !RSELSTR_ExtractTextStrings(hccom,hcpage))
 	 {
-		SetReturnCode(RSELSTR_GetReturnCode());
+		SetReturnCode_puma(RSELSTR_GetReturnCode());
 		rc=FALSE;
 	 }
 	}
@@ -124,7 +124,7 @@ static Bool32 MakeStrings(Handle hccom,Handle hcpage)
 
 	 if(rc && !RBLOCK_ExtractTextStrings(hccom,hcpage))
 	 {
-		SetReturnCode(RBLOCK_GetReturnCode());
+		SetReturnCode_puma(RBLOCK_GetReturnCode());
 		rc = FALSE;
 	 }
 	}
@@ -156,13 +156,13 @@ static Bool32 RecognizeSetup(int language)
 //    if(!RSTR_NewPage(&setup,hCPAGE))
     if(!RSTR_NewPage(nResolutionY, hCPAGE))
 	{
-		SetReturnCode(RSTR_GetReturnCode());
+		SetReturnCode_puma(RSTR_GetReturnCode());
 		rc= FALSE;
 	}
 
 	if(rc && !RSTR_SetOptions (&opt))
 	{
-		SetReturnCode(RSTR_GetReturnCode());
+		SetReturnCode_puma(RSTR_GetReturnCode());
 		rc= FALSE;
 	}
 	else
@@ -234,7 +234,7 @@ static Bool32 RecognizeStringsPass1(void)
 			lin_out = CSTR_NewLine(i, CSTR_LINVERS_MAINOUT, -1); // OLEG
 			if(lin_out == (CSTR_line)NULL)
 			{
-				SetReturnCode(CSTR_GetReturnCode());
+				SetReturnCode_puma(CSTR_GetReturnCode());
 				rc = FALSE;
 				break;
 			}
@@ -242,14 +242,14 @@ static Bool32 RecognizeStringsPass1(void)
 			lin_in  = CSTR_GetLineHandle (i,CSTR_LINVERS_MAIN);
 			if(lin_in == (CSTR_line)NULL)
 			{
-				SetReturnCode(CSTR_GetReturnCode());
+				SetReturnCode_puma(CSTR_GetReturnCode());
 				rc = FALSE;
 				break;
 			}
 
 			if (!RSTR_Recog(lin_in, lin_out) ) // Recognition
 			{
-				SetReturnCode(RSTR_GetReturnCode());
+				SetReturnCode_puma(RSTR_GetReturnCode());
                 rc = FALSE;
 				break;
 			}
@@ -299,7 +299,7 @@ static Bool32 RecognizeStringsPass1(void)
 			rc = FALSE;
 		rc = RSTR_EndPage(hCPAGE);
 		if(!rc)
-			SetReturnCode(RSTR_GetReturnCode());
+			SetReturnCode_puma(RSTR_GetReturnCode());
 	}
 
 	return rc;
@@ -338,7 +338,7 @@ static Bool32 RecognizeStringsPass2()
 		if(lin_out == (CSTR_line)NULL)
 		{
         continue;
-//			SetReturnCode(CSTR_GetReturnCode());
+//			SetReturnCode_puma(CSTR_GetReturnCode());
 //			rc = FALSE;
 //			break;
 		}
@@ -347,14 +347,14 @@ static Bool32 RecognizeStringsPass2()
 		if(lin_in == (CSTR_line)NULL)
 		{
         continue;
-//			SetReturnCode(CSTR_GetReturnCode());
+//			SetReturnCode_puma(CSTR_GetReturnCode());
 //			rc = FALSE;
 //			break;
 		}
 
 		if (!RSTR_Recog(lin_in, lin_out) ) // Recognition
 		{
-			SetReturnCode(RSTR_GetReturnCode());
+			SetReturnCode_puma(RSTR_GetReturnCode());
 			break;
 		}
 		/*
@@ -374,7 +374,7 @@ static Bool32 RecognizeStringsPass2()
 	{
 		rc = RSTR_EndPage(hCPAGE);
 		if(!rc)
-			SetReturnCode(RSTR_GetReturnCode());
+			SetReturnCode_puma(RSTR_GetReturnCode());
 	}
 
 	return rc;
@@ -398,7 +398,7 @@ int             i;
 		lin_in  = CSTR_GetLineHandle (i,CSTR_LINVERS_MAINOUT);
 		if(lin_in == (CSTR_line)NULL)
 		{
-		SetReturnCode(CSTR_GetReturnCode());
+		SetReturnCode_puma(CSTR_GetReturnCode());
 		rc = FALSE;
 		break;
 		}
@@ -421,7 +421,7 @@ int             i;
 		  *lpColor=3;
 		  if( !RCOLOR_GetColorMask( point, lpMask, size, lpColor) )
 		  {
-		  SetReturnCode(RCOLOR_GetReturnCode());
+		  SetReturnCode_puma(RCOLOR_GetReturnCode());
 		  rc = FALSE;
 		  return rc;
 		  }
@@ -480,7 +480,7 @@ Bool32 Recognize()
 //
 		if(!CPAGE_SavePage(hCPAGE,(Int8*)szLayoutFileName))
 		{
-			SetReturnCode(CPAGE_GetReturnCode());
+			SetReturnCode_puma(CPAGE_GetReturnCode());
 			return FALSE;
 		}
 		else
@@ -494,7 +494,7 @@ Bool32 Recognize()
 		hCPAGE = CPAGE_RestorePage(TRUE,(Int8*)szLayoutFileName);
 		if(hCPAGE==NULL)
 		{
-			SetReturnCode(CPAGE_GetReturnCode());
+			SetReturnCode_puma(CPAGE_GetReturnCode());
 			rc= FALSE;
 		}
 		else
@@ -517,7 +517,7 @@ Bool32 Recognize()
 			}
 			else
 			{
-				SetReturnCode(CPAGE_GetReturnCode());
+				SetReturnCode_puma(CPAGE_GetReturnCode());
 				rc = FALSE;
 			}
 			RestorePRGTIME(prev);
@@ -703,7 +703,7 @@ Bool32 Recognize()
 						{
 							if( !RPSTR_CorrectSpell(1))
 							{
-								SetReturnCode(RPSTR_GetReturnCode());
+								SetReturnCode_puma(RPSTR_GetReturnCode());
 								rc= FALSE;
 							}
 						}
@@ -720,7 +720,7 @@ Bool32 Recognize()
 							if( !RCORRKEGL_SetImportData(RCORRKEGL_Bool32_Fax100,&gbFax100) ||
                                 !RCORRKEGL_CorrectKegl(1))
 							{
-								SetReturnCode(RPSTR_GetReturnCode());
+								SetReturnCode_puma(RPSTR_GetReturnCode());
 								rc= FALSE;
 							}
 						}
@@ -822,7 +822,7 @@ Bool32 Recognize()
 								}
 								if(!RFRMT_Formatter(szInputFileName,&ghEdPage))
 								{
-									SetReturnCode(RFRMT_GetReturnCode());
+									SetReturnCode_puma(RFRMT_GetReturnCode());
 									rc = FALSE;
 								}
 								else

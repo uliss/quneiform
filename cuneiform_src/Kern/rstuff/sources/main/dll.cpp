@@ -195,7 +195,7 @@ RSTUFF_FUNC(Bool32) RSTUFF_Init(Word16 wHeightCode,Handle hStorage)
 
 /*    if (!SLINEDOT_Init(PUMA_MODULE_SLINEDOT, hStorage))
     {
-        //        SetReturnCode(SLINEDOT_GetReturnCode());
+        //        SetReturnCode_rstuff(SLINEDOT_GetReturnCode());
         return FALSE;
     }*/
 
@@ -203,7 +203,7 @@ RSTUFF_FUNC(Bool32) RSTUFF_Init(Word16 wHeightCode,Handle hStorage)
 
     if(!rc)
     {
-//        SetReturnCode(RLINE_GetReturnCode());
+//        SetReturnCode_rstuff(RLINE_GetReturnCode());
         return FALSE;
 	}
 
@@ -248,7 +248,7 @@ RSTUFF_FUNC(Bool32)RSTUFF_Done()
 //
 RSTUFF_FUNC(Bool32)RSTUFF_Reset()
 {
-	SetReturnCode((Word16)0);
+	SetReturnCode_rstuff((Word16)0);
 	return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -294,7 +294,7 @@ RSTUFF_FUNC(Bool32) RSTUFF_GetExportData(Word32 dwType, void * pData)
 
 	default:
 		*(Handle *)pData = NULL;
-		SetReturnCode((Word16)IDS_RSTUFF_ERR_NOTIMPLEMENT);
+		SetReturnCode_rstuff((Word16)IDS_RSTUFF_ERR_NOTIMPLEMENT);
 		rc = FALSE;
 	}
 
@@ -329,7 +329,7 @@ RSTUFF_FUNC(Bool32) RSTUFF_SetImportData(Word32 dwType, void * pData)
 //		rc = TRUE;
 //		break;
 	default:
-		SetReturnCode((Word16)IDS_RSTUFF_ERR_NOTIMPLEMENT);
+		SetReturnCode_rstuff((Word16)IDS_RSTUFF_ERR_NOTIMPLEMENT);
 		rc = FALSE;
 	}
 
@@ -339,7 +339,7 @@ RSTUFF_FUNC(Bool32) RSTUFF_SetImportData(Word32 dwType, void * pData)
 //
 RSTUFF_FUNC(Bool32) RSTUFF_RSBinarise( void )
 {
-	SetReturnCode((Word16)0);
+	SetReturnCode_rstuff((Word16)0);
 
 	return Binarise();
 }
@@ -347,7 +347,7 @@ RSTUFF_FUNC(Bool32) RSTUFF_RSBinarise( void )
 //
 RSTUFF_FUNC(Bool32) RSTUFF_RSNormalise( PRSPreProcessImage Image,void* vBuff,int Size,void* vWork,int SizeWork )
 {
-	SetReturnCode((Word16)0);
+	SetReturnCode_rstuff((Word16)0);
 	SetMainBuff(vBuff,Size);
 	SetWorkBuff(vWork,SizeWork);
 	Bool32 rc=Normalise( Image );
@@ -359,7 +359,7 @@ RSTUFF_FUNC(Bool32) RSTUFF_RSNormalise( PRSPreProcessImage Image,void* vBuff,int
 //
 RSTUFF_FUNC(Bool32) RSTUFF_RSNormVerify( PRSPreProcessImage Image )
 {
-	SetReturnCode((Word16)0);
+	SetReturnCode_rstuff((Word16)0);
 
 	return VerifyN( Image );
 }
@@ -367,7 +367,7 @@ RSTUFF_FUNC(Bool32) RSTUFF_RSNormVerify( PRSPreProcessImage Image )
 //
 RSTUFF_FUNC(Bool32) RSTUFF_RSNormRemoveLines( PRSPreProcessImage Image )
 {
-	SetReturnCode((Word16)0);
+	SetReturnCode_rstuff((Word16)0);
 
 	return KillLinesN( Image );
 }
@@ -375,13 +375,13 @@ RSTUFF_FUNC(Bool32) RSTUFF_RSNormRemoveLines( PRSPreProcessImage Image )
 //
 RSTUFF_FUNC(Bool32) RSTUFF_RSLayout( PRSPreProcessImage Image )
 {
-	SetReturnCode((Word16)0);
+	SetReturnCode_rstuff((Word16)0);
 
 	return Layout(Image);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void SetReturnCode(Word16 rc)
+void SetReturnCode_rstuff(Word16 rc)
 {
 	if (rc==0)
 		RC.gwRC=0;
@@ -393,7 +393,7 @@ void SetReturnCode(Word16 rc)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void SetReturnCode(Word32 rc)
+void SetReturnCode_rstuff(Word32 rc)
 {
 	RC.gwRC=rc;
 //	Word16 low = (Word16)(rc &  0xFFFF);

@@ -91,8 +91,8 @@ public:
 // for debug functions
 #endif
 
- void   SetReturnCode(Word16 rc);
- Word16 GetReturnCode();
+ void   SetReturnCode_cpage(Word16 rc);
+ Word16 GetReturnCode_cpage();
 
 void DefConvertInit();
 Word32 DefConvertBlock( Word32 dwContext,

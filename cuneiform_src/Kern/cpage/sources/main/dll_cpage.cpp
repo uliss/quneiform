@@ -265,12 +265,12 @@ CPAGE_FUNC(Bool32) CPAGE_SetImportData(Word32 dwType, void * pData)
 return rc;
 }
 
-void SetReturnCode(Word16 rc)
+void SetReturnCode_cpage(Word16 rc)
 {
 	gwLowRC = rc;
 }
 
-Word16 GetReturnCode()
+Word16 GetReturnCode_cpage()
 {
 	return gwLowRC;
 }

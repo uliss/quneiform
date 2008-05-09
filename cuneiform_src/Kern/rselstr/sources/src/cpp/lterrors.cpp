@@ -104,7 +104,7 @@ void ErrorNoEnoughMemory (PBYTE message)
 {
     LDPUMA_Console ("No enough memory - press any key\nMESSAGE:%s",message);
     FreeAllData ();
-	SetReturnCode(IDS_ERR_NO_MEMORY);
+	SetReturnCode_rselstr(IDS_ERR_NO_MEMORY);
 	longjmp (fatal_error_exit, -1);
 }
 
@@ -112,7 +112,7 @@ void ErrorInternal (PSTR s)
 {
     LDPUMA_Console ("Internal error: %s - press any key\n", s);
     FreeAllData ();
-	SetReturnCode(IDS_ERR_INTERNAL);
+	SetReturnCode_rselstr(IDS_ERR_INTERNAL);
 	longjmp (fatal_error_exit, -1);
 }
 
@@ -120,7 +120,7 @@ void ErrorFile (void)
 {
     LDPUMA_Console ( "File error - press any key\n");
     FreeAllData ();
-	SetReturnCode(IDS_ERR_INTERNAL);
+	SetReturnCode_rselstr(IDS_ERR_INTERNAL);
 	longjmp (fatal_error_exit, -1);
 }
 
@@ -129,7 +129,7 @@ void ErrorEmptyPage (void)
     LDPUMA_Console ("Internal error: page is empty - press any key\n");
 //    LT_Getch ();
     FreeAllData ();
-	SetReturnCode(IDS_ERR_EMPTYPAGE);
+	SetReturnCode_rselstr(IDS_ERR_EMPTYPAGE);
 	longjmp (fatal_error_exit, -1);
 //    exit (-1);
 }

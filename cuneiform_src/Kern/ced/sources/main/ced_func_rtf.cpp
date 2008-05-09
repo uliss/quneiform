@@ -95,7 +95,7 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
     // allocate space for the Strrtf info structure
     if (NULL==(rtf=new StrRtfOut)) 
 	{
-		SetReturnCode(IDS_ERR_NO_MEMORY);
+		SetReturnCode_ced(IDS_ERR_NO_MEMORY);
 //       PrintError(w,MSG_OUT_OF_MEM,"RtfWrite");
 		return FALSE;
     }
@@ -109,13 +109,13 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
 		rtf->oldFileLen=MemFromFile((PInt8)fileName,&oldRtfHndl);
 		if (rtf->oldFileLen==0)
 		{
-			SetReturnCode(CFIO_GetReturnCode());
+			SetReturnCode_ced(CFIO_GetReturnCode());
 			return 0;
 		}
 		rtf->oldFile=(char*)Lock(oldRtfHndl);
 		if ( !rtf->oldFile )
 		{
-			SetReturnCode(CFIO_GetReturnCode());
+			SetReturnCode_ced(CFIO_GetReturnCode());
 			Unlock(oldRtfHndl);
 			Free(oldRtfHndl);
 			return 0;
@@ -129,7 +129,7 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
 
 		if (!rtf->hFile) 	
 		{
-			SetReturnCode(CFIO_GetReturnCode());
+			SetReturnCode_ced(CFIO_GetReturnCode());
 			return FALSE;
 		} 	
     }
@@ -336,10 +336,10 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
     for (j=rtf->GroupLevel;j>0;j--) if (!EndRtfGroup(rtf)) goto WRITE_END;
 
 	ret=TRUE;
-	SetReturnCode(IDS_ERR_NO);
+	SetReturnCode_ced(IDS_ERR_NO);
 	goto FINAL;
 WRITE_END:
-	SetReturnCode(CFIO_GetReturnCode());
+	SetReturnCode_ced(CFIO_GetReturnCode());
 	ret=FALSE;
 FINAL:
     // flush text buffer
@@ -2026,7 +2026,7 @@ BOOL WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
 				break;
 	if (i==len-(int)strlen("\\fonttbl"))
 	{
-		SetReturnCode(IDS_ERR_NOT_RTF);
+		SetReturnCode_ced(IDS_ERR_NOT_RTF);
 		return FALSE;
 	}
 	i+=strlen("\\fonttbl");
@@ -2034,7 +2034,7 @@ BOOL WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
 	int m;
 	if (ReadRtfFontTable(rtf,&m)) 
 	{
-		SetReturnCode(IDS_ERR_NOT_RTF);
+		SetReturnCode_ced(IDS_ERR_NOT_RTF);
 		return FALSE;
 	}
 //	if (m=-1) m=0;
@@ -2071,7 +2071,7 @@ BOOL WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
 		rtf->TextIndex=i;
 		if (ReadRtfColorTable(rtf)) 
 		{
-			SetReturnCode(IDS_ERR_NOT_RTF);
+			SetReturnCode_ced(IDS_ERR_NOT_RTF);
 			return FALSE;
 		}
 		head=FALSE;
@@ -2097,7 +2097,7 @@ BOOL WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
 
 	goto OK;
 END_HDR:
-	SetReturnCode(CFIO_GetReturnCode());
+	SetReturnCode_ced(CFIO_GetReturnCode());
 	ret=FALSE;
 OK:
 	return ret;

@@ -74,7 +74,7 @@ void *	myAlloc(size_t stAllocateBlock)
 
 	mem = malloc(stAllocateBlock);
 	if(!mem)
-		SetReturnCode(IDS_ERR_NO_MEMORY);
+		SetReturnCode_cpage(IDS_ERR_NO_MEMORY);
 //#endif
 
 	return mem;
@@ -93,7 +93,7 @@ Handle  myOpenSave(char * lpName)
 //#ifdef _DEBUG
 	rc = (Handle)fopen(lpName,"wb");	
 	if(!rc)
-		SetReturnCode(IDS_ERR_WRITEFILE);
+		SetReturnCode_cpage(IDS_ERR_WRITEFILE);
 //#endif
 	return rc;
 }
@@ -103,7 +103,7 @@ Handle  myOpenRestore(char * lpName)
 //#ifdef _DEBUG
 	rc = (Handle)fopen(lpName,"rb");	
 	if(!rc)
-		SetReturnCode(IDS_ERR_READFILE);
+		SetReturnCode_cpage(IDS_ERR_READFILE);
 //#endif
 	return rc;
 }
@@ -113,7 +113,7 @@ unsigned int  myWrite(Handle h,void * lpdata,unsigned int size)
 //#ifdef _DEBUG
 	rc = fwrite(lpdata,1,size,(FILE*)h);
 	if(rc != size)
-		SetReturnCode(IDS_ERR_WRITEFILE);
+		SetReturnCode_cpage(IDS_ERR_WRITEFILE);
 //#endif
 	return rc;
 }
@@ -123,7 +123,7 @@ unsigned int  myRead(Handle h,void * lpdata,unsigned int size)
 //#ifdef _DEBUG
 	rc = fread(lpdata,1,size,(FILE *)h);
 	if(rc != size)
-		SetReturnCode(IDS_ERR_READFILE);
+		SetReturnCode_cpage(IDS_ERR_READFILE);
 //#endif
 	return rc;
 }

@@ -291,8 +291,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     //functions
-    void	SetReturnCode(Word32 rc);
-    Word32	GetReturnCode();
+    void	SetReturnCode_puma(Word32 rc);
+    Word32	GetReturnCode_puma();
     char *	GetModulePath();
     char *	GetModuleTempPath();
     char *  GetResourceString(Word32 id);

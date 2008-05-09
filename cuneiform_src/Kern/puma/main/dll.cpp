@@ -252,7 +252,7 @@ PUMA_FUNC(Bool32) PUMA_GetExportData(Word32 dwType, void * pData)
 	CASE_FUNCTION(PUMA_SaveToMemory);
 	 default:
 		*(Handle *)pData = NULL;
-		SetReturnCode(IDS_ERR_NOTIMPLEMENT);
+		SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
 		rc = FALSE;
 	}
 #undef CASE_FUNCTION
@@ -297,7 +297,7 @@ PUMA_FUNC(Bool32) PUMA_SetImportData(Word32 dwType, void * pData)
 	CASE_DATAUP(PUMA_Bool32_AutoRotate,Bool32,gbAutoRotate,FLG_UPDATE);
 	CASE_DATA(PUMA_Handle_CurrentEdPage,Handle,ghEdPage);
 	 default:
-		SetReturnCode(IDS_ERR_NOTIMPLEMENT);
+		SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
 		rc = FALSE;
 	}
 	// Связь с предыдущими версиями
@@ -317,7 +317,7 @@ PUMA_FUNC(Bool32) PUMA_SetImportData(Word32 dwType, void * pData)
 return rc;
 }
 
-void SetReturnCode(Word32 rc)
+void SetReturnCode_puma(Word32 rc)
 {
 Word16 low = (Word16)(rc &  0xFFFF);
 Word16 hei = (Word16)(rc >> 16);
@@ -340,7 +340,7 @@ Word16 hei = (Word16)(rc >> 16);
 			LDPUMA_Stop();
 }
 
-Word32 GetReturnCode()
+Word32 GetReturnCode_puma()
 {
 Word32 rc = gwRC;
 Word16 low = (Word16)(gwRC &  0xFFFF);

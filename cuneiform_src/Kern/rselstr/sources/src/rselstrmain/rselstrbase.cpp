@@ -359,7 +359,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_SetImportData(Word32 dwType, void * pData)
 	 CASE_PDATA(RSELSTR_FNRSELSTR_ProgressStep,	FNRSELSTR_ProgressStep,	fnProgressStep);
 	 CASE_PDATA(RSELSTR_FNRSELSTR_ProgressFinish,	FNRSELSTR_ProgressFinish,fnProgressFinish);	
 	 default:
-		SetReturnCode(IDS_ERR_NOTIMPLEMENT);
+		SetReturnCode_rselstr(IDS_ERR_NOTIMPLEMENT);
 		rc = FALSE;
 	}
 
@@ -375,7 +375,7 @@ RSELSTR_FUNC(Word32) RSELSTR_SetReturnCode(Word32 rc)
 return (Word32)(0);
 }
 
-void SetReturnCode(Word32 rc)
+void SetReturnCode_rselstr(Word32 rc)
 {
 Word16 low = (Word16)(rc &  0xFFFF);
 Word16 hei = (Word16)(rc >> 16);
@@ -391,7 +391,7 @@ Word16 hei = (Word16)(rc >> 16);
 	}
 }
 
-Word32 GetReturnCode()
+Word32 GetReturnCode_rselstr()
 {
 Word32 rc = gwRC;
 Word16 low = (Word16)(gwRC &  0xFFFF);

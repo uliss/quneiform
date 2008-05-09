@@ -175,7 +175,7 @@ RBLOCK_FUNC(Bool32) RBLOCK_GetExportData(Word32 dwType, void * pData)
 		break;
 	default:
 		*(Handle *)pData = NULL;
-		SetReturnCode(IDS_ERR_NOTIMPLEMENT);
+		SetReturnCode_rblock(IDS_ERR_NOTIMPLEMENT);
 		rc = FALSE;
 	}
 return rc;
@@ -206,7 +206,7 @@ RBLOCK_FUNC(Bool32) RBLOCK_SetImportData(Word32 dwType, void * pData)
 
 		break;
 	 default:
-		SetReturnCode(IDS_ERR_NOTIMPLEMENT);
+		SetReturnCode_rblock(IDS_ERR_NOTIMPLEMENT);
 		rc = FALSE;
 	}
 
@@ -216,7 +216,7 @@ RBLOCK_FUNC(Bool32) RBLOCK_SetImportData(Word32 dwType, void * pData)
 return rc;
 }
 
-void SetReturnCode(Word32 rc)
+void SetReturnCode_rblock(Word32 rc)
 {
 Word16 low = (Word16)(rc &  0xFFFF);
 Word16 hei = (Word16)(rc >> 16);
@@ -232,7 +232,7 @@ Word16 hei = (Word16)(rc >> 16);
 	}
 }
 
-Word32 GetReturnCode()
+Word32 GetReturnCode_rblock()
 {
 Word32 rc = gwRC;
 Word16 low = (Word16)(gwRC &  0xFFFF);

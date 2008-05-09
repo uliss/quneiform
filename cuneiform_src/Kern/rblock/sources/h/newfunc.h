@@ -89,8 +89,8 @@ void PageLayoutPart2 (void);
 void PageLayoutBlocks(Int32 hCCOM);
 void PageLayoutStrings(Handle hCCOM,Handle hCPAGE);
 
-void SetReturnCode(Word32 rc);
-Word32 GetReturnCode( void );
+void SetReturnCode_rblock(Word32 rc);
+Word32 GetReturnCode_rblock( void );
 char * GetModulesString(Word32 dwError);
 
 Bool32 OutputFragments( Handle hPage );

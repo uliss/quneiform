@@ -367,7 +367,7 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 				//if(!REXC_GetOrient(&ori) && db_spec_prj!=SPEC_PRJ_GIP )
 				if(!RNORM_GetOrient(&ori, *(Image->phCCOM)) && db_spec_prj!=SPEC_PRJ_GIP )
 				{
-					SetReturnCode(RNORM_GetReturnCode());
+					SetReturnCode_rstuff(RNORM_GetReturnCode());
 					rc = FALSE;
 				}
 				else
@@ -396,7 +396,7 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 						{
 							if(!RIMAGE_Turn((PWord8)glpRecogName,(PWord8)PUMA_IMAGE_TURN,dwTurn,0))
 							{
-								SetReturnCode(RIMAGE_GetReturnCode());
+								SetReturnCode_rstuff_rstuff(RIMAGE_GetReturnCode());
 								rc = FALSE;
 							}
 							else
@@ -404,7 +404,7 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 
 								if(!CIMAGE_ReadDIB((PWord8)PUMA_IMAGE_TURN,(Handle*)gpRecogDIB,TRUE))
 								{
-									SetReturnCode(CIMAGE_GetReturnCode());
+									SetReturnCode_rstuff_rstuff(CIMAGE_GetReturnCode());
 									rc = FALSE;
 								}
 								else
@@ -500,7 +500,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name, PR
 
 	if(!REXC_SetImportData(REXC_ProgressStep, (void*)rexcProgressStep))
 	{
-		SetReturnCode(REXC_GetReturnCode());
+		SetReturnCode_rstuff(REXC_GetReturnCode());
 		return FALSE;
 	}
 
@@ -518,7 +518,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name, PR
 /*//Andrey: опознавалка вынесена в отдельный модуль RRecCom
 	if(rc && !REXC_SetEVNProperties(exc, GetModulePath(),(Word8)Image->gnLanguage) )
 	{ // инициализировать распознавание по эвентам и задать алфавит
-		SetReturnCode(REXC_GetReturnCode());
+		SetReturnCode_rstuff(REXC_GetReturnCode());
 		rc = FALSE;
 	}
 	else
@@ -537,7 +537,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name, PR
     CIMAGEIMAGECALLBACK clbk;
     if(rc && !CIMAGE_GetCallbackImage(name, &clbk))
     {
-		SetReturnCode(CIMAGE_GetReturnCode());
+		SetReturnCode_rstuff(CIMAGE_GetReturnCode());
         rc = FALSE;
     }
     if( rc && !REXCExtracomp3CB(exc, // поиск компонент by 3CallBacks
@@ -546,7 +546,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name, PR
         (TImageRead)clbk.CIMAGE_ImageRead)
         )
 		{
-		SetReturnCode(REXC_GetReturnCode());
+		SetReturnCode_rstuff(REXC_GetReturnCode());
 		rc = FALSE;
 		}
 
@@ -555,7 +555,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name, PR
 		*Image->phCCOM = (Handle)REXCGetContainer();
 		if(*Image->phCCOM==0)
 		{
-			SetReturnCode(REXC_GetReturnCode());
+			SetReturnCode_rstuff(REXC_GetReturnCode());
 			rc = FALSE;
 		}
 
@@ -565,7 +565,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name, PR
 
 		if (!RRECCOM_Recog(*(Image->phCCOM), rec_control, GetModulePath(), (Word8)Image->gnLanguage))
 		{
-			SetReturnCode(RRECCOM_GetReturnCode());
+			SetReturnCode_rstuff(RRECCOM_GetReturnCode());
 			rc = FALSE;
 		}
 	}
@@ -589,7 +589,7 @@ Bool32 SearchLines ( PRSPreProcessImage Image )
 
 		if(!RLINE_SearchLines(Image->hCPAGE,Image->phCLINE))
 		{
-			//SetReturnCode(RLINE_GetReturnCode());
+			//SetReturnCode_rstuff(RLINE_GetReturnCode());
 			//rc = FALSE;
 			*Image->pgrc_line = FALSE;
 			LDPUMA_Console("ПРЕДУПРЕЖДЕНИЕ: RLINE(0x%X) %s\n",RLINE_GetReturnCode(),RLINE_GetReturnString(RLINE_GetReturnCode()));
@@ -615,7 +615,7 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 			if( !RVERLINE_SetImportData(RVERLINE_DTRVERLINE_RegimeOfVerifyLines,&val)||
 				!RVERLINE_MarkLines(*Image->phCCOM, Image->hCPAGE))
 			{
-				SetReturnCode(RVERLINE_GetReturnCode());
+				SetReturnCode_rstuff(RVERLINE_GetReturnCode());
 				rc = FALSE;
 			}
 			else
@@ -638,7 +638,7 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 ////			if( !RLTABLE_SetImportData(RLTABLE_DTRLTABLE_RegimeOfVerifyLines,&val)||
 ////				!RLTABLE_MarkLines(hCCOM, hCPAGE))
 ////			{
-////				SetReturnCode(RLTABLE_GetReturnCode());
+////				SetReturnCode_rstuff(RLTABLE_GetReturnCode());
 ////				rc = FALSE;
 ////			}
 ////			else
@@ -888,7 +888,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, PWord8 * lppDIB)
 	{
 	 if(rc && !RLINE_DeleteLines(hcpage,PUMA_IMAGE_DELLINE))
 	 {
-		SetReturnCode(RLINE_GetReturnCode());
+		SetReturnCode_rstuff(RLINE_GetReturnCode());
 		rc = FALSE;
 	 }
      if (rc && LDPUMA_Skip(NotKillPointed) && LDPUMA_Skip(Image->hDebugCancelSearchDotLines))
@@ -901,7 +901,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, PWord8 * lppDIB)
 	//
 	if(rc && !CIMAGE_ReadDIB((PWord8)PUMA_IMAGE_DELLINE,(Handle*)&hDIB,TRUE))
 	{
-		SetReturnCode(CIMAGE_GetReturnCode());
+		SetReturnCode_rstuff(CIMAGE_GetReturnCode());
 		rc = FALSE;
 	}
 	if(hDIB)
@@ -943,7 +943,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, PWord8 * lppDIB)
 			*Image->phCCOM = (Handle)REXCGetContainer();
 			if(*Image->phCCOM == 0)
 			{
-				SetReturnCode(REXC_GetReturnCode());
+				SetReturnCode_rstuff(REXC_GetReturnCode());
 				rc = FALSE;
 			}
 			hccom = *Image->phCCOM;
@@ -1126,7 +1126,7 @@ Bool32    SearchTables( PRSPreProcessImage Image)
 		{
 			if (!RLTABLE_SetImportData(RLTABLE_DTRLTABLE_WhereMustSearchTable, NULL))
 			{
-				SetReturnCode(RLTABLE_GetReturnCode());
+				SetReturnCode_rstuff(RLTABLE_GetReturnCode());
 				rc = FALSE;
 			}
 			else
@@ -1136,14 +1136,14 @@ Bool32    SearchTables( PRSPreProcessImage Image)
 				HowToSearch = SST_Default;
 				if(!RLTABLE_SetImportData(RLTABLE_DTRLTABLE_StyleOfSearchTable, (void *)(&HowToSearch)))
 				{
-					SetReturnCode(RLTABLE_GetReturnCode());
+					SetReturnCode_rstuff(RLTABLE_GetReturnCode());
 					rc = FALSE;
 				}
 				else
 				{
   				   if(!RLTABLE_SearchTable(*Image->phCCOM,Image->hCPAGE, TRUE, Image->pgnNumberTables))
 					{
-						SetReturnCode(RLTABLE_GetReturnCode());
+						SetReturnCode_rstuff(RLTABLE_GetReturnCode());
 						rc = FALSE;
 					}
 				}
@@ -1199,7 +1199,7 @@ Bool32 CalcIncline(PRSPreProcessImage Image)
 //	    ret = LoadLinesVP_rv (hCPage, UN_LD_LinesVP, (void *)(&MainBuff), Str, &Code);
 	if ((ret!=RV_TRUE)&&(ret!=RV_EMPTY))
 	{
-		SetReturnCode (Code);
+		SetReturnCode_rstuff (Code);
 		return ret;
 	}
 	WasLine = (ret==RV_TRUE);
@@ -1207,7 +1207,7 @@ Bool32 CalcIncline(PRSPreProcessImage Image)
 	ret = LoadComps_rv (*(Image->phCCOM), (void *)(&MainBuff), Str, 0); //t-e-d
 	if (ret==RV_DOUBT)
 	{
-		SetReturnCode (Code);
+		SetReturnCode_rstuff (Code);
 		CleanLastDataPart ((void *)(&MainBuff));
 	}
 	ManyComp = (ret==RV_TRUE)&&(MainBuff.nPartUnits[MainBuff.nPart-1]>10000);
@@ -1220,7 +1220,7 @@ Bool32 CalcIncline(PRSPreProcessImage Image)
 			ret = LoadComps_rv (*(Image->phCCOM), (void *)(&MainBuff), Str, 3); //t-e-d
 			if (ret==RV_DOUBT)
 			{
-				SetReturnCode (Code);
+				SetReturnCode_rstuff (Code);
 				CleanLastDataPart ((void *)(&MainBuff));
 			}
 	}
@@ -1248,7 +1248,7 @@ Bool32 CalcIncline(PRSPreProcessImage Image)
 //			,(int *)cWork, SizeWork / sizeof (int), &RcReg, SkewReg, Str, ContWarn); // f-t-e-d
 	if (ret==RV_DOUBT)
 	{
-			SetReturnCode (Code);
+			SetReturnCode_rstuff (Code);
 	}
 	if (ret!=RV_TRUE)
 		return ret;
@@ -1263,7 +1263,7 @@ Bool32 CalcIncline(PRSPreProcessImage Image)
 	info.SkewLocVerLin2048 = SkewLocVerLin*2;
 	if(!CPAGE_SetPageData(Image->hCPAGE,PT_PAGEINFO,&info,sizeof(PAGEINFO)))
 	{
-		SetReturnCode(CPAGE_GetReturnCode());
+		SetReturnCode_rstuff(CPAGE_GetReturnCode());
 		return FALSE;
 	}
 

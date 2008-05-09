@@ -167,7 +167,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_ExtractTextStrings(Handle hCCOM,Handle hCPAGE)
 
   dphShowString=!LDPUMA_Skip(hShowString);
 
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_rselstr(IDS_ERR_NO);
   Open_Res_Log();
 
   if (setjmp (fatal_error_exit))
@@ -257,7 +257,7 @@ void LayoutFromCPAGE(Handle hCPAGE,Handle hCCOM)
         Word32 f = CPAGE_GetBlockFlags(hCPAGE,h);
 		if(CPAGE_GetBlockData(hCPAGE,h,TYPE_TEXT, &block, sizeof(block))!=sizeof(block))
 		{
-			SetReturnCode(CPAGE_GetReturnCode());
+			SetReturnCode_rselstr(CPAGE_GetReturnCode());
 			longjmp (fatal_error_exit, -1);
 		}
 		if(block.negative==TYPE_NEGATIVE||block.orient==TYPE_DOWNUP||block.orient==TYPE_UPDOWN)
@@ -292,7 +292,7 @@ void LayoutFromCPAGE(Handle hCPAGE,Handle hCCOM)
 
 	if(CPAGE_GetReturnCode())
 	{
-		SetReturnCode(CPAGE_GetReturnCode());
+		SetReturnCode_rselstr(CPAGE_GetReturnCode());
 		longjmp (fatal_error_exit, -1);
 	}
 
@@ -427,7 +427,7 @@ void file_string(STRING * s)
     lin_in = CSTR_NewLine(nStrings, 0, -1); 
     if( lin_in == (CSTR_line)NULL )
         {
-         SetReturnCode(CSTR_GetReturnCode());
+         SetReturnCode_rselstr(CSTR_GetReturnCode());
 		 longjmp (fatal_error_exit, -1);
         }
     else

@@ -165,7 +165,7 @@ void file_string(STRING * s)
     lin_in = CSTR_NewLine(nStrings, 0, -1); 
     if( lin_in == (CSTR_line)NULL )
         {
-         SetReturnCode(CSTR_GetReturnCode());
+         SetReturnCode_rblock(CSTR_GetReturnCode());
 		 longjmp (fatal_error_exit, -1);
         }
     else
@@ -349,7 +349,7 @@ static void LayoutFromCPAGE(Handle hCPAGE)
 		//BlockNumber = CPAGE_GetBlockUserNum(hCPAGE,h)*64000;// Piter 030399
 		if(CPAGE_GetBlockData(hCPAGE,h,TYPE_TEXT, &block, sizeof(block))!=sizeof(block))
 		{
-			SetReturnCode(CPAGE_GetReturnCode());
+			SetReturnCode_rblock(CPAGE_GetReturnCode());
 			longjmp (fatal_error_exit, -1);
 		}
 		nBlocks++;
@@ -386,7 +386,7 @@ static void LayoutFromCPAGE(Handle hCPAGE)
 
 	if(CPAGE_GetReturnCode())
 	{
-		SetReturnCode(CPAGE_GetReturnCode());
+		SetReturnCode_rblock(CPAGE_GetReturnCode());
 		longjmp (fatal_error_exit, -1);
 	}
 

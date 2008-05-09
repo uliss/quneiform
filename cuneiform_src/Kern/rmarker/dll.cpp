@@ -262,5 +262,5 @@ RMARKER_FUNC(Bool32) RMARKER_GetExportData(Word32 dwType, void * pData)
 
 Word32 RMARKER_GetReturnCode(void)
 {
-	return GetReturnCode();
+	return GetReturnCode_rmarker();
 }

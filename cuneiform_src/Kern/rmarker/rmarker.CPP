@@ -218,7 +218,7 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
 		Image->hCPAGE = CPAGE_RestorePage(TRUE,(PInt8)(Image->szLayoutFileName));
 		if(Image->hCPAGE==NULL)
 		{
-			SetReturnCode(CPAGE_GetReturnCode());
+			SetReturnCode_rmarker(CPAGE_GetReturnCode());
 			rc= FALSE;
 		}
 		else
@@ -242,7 +242,7 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
 
 				if(!RBLOCK_ExtractTextBlocks(Image->hCCOM,Image->hCPAGE,Image->hCLINE))
 				{
-					SetReturnCode(RBLOCK_GetReturnCode());
+					SetReturnCode_rmarker(RBLOCK_GetReturnCode());
 					rc = FALSE;
 				}
 				RestorePRGTIME( prev );
@@ -262,12 +262,12 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
 	return rc;
 }
 
-void SetReturnCode(Word32 rc)
+void SetReturnCode_rmarker(Word32 rc)
 {
 	gwRC = rc;
 }
 
-Word32 GetReturnCode(void)
+Word32 GetReturnCode_rmarker(void)
 {
 	return gwRC;
 }
@@ -299,7 +299,7 @@ Bool32 SearchPictures ( PRMPreProcessImage Image, BIG_IMAGE big_Image )
 			{
 				Word32 RPicRetCode = RPIC_GetReturnCode();
 
-				SetReturnCode(RPicRetCode);
+				SetReturnCode_rmarker(RPicRetCode);
 				rc = FALSE;
 			}
 		}

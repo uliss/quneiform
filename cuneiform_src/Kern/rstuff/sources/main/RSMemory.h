@@ -98,8 +98,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 ///////////////////////////////////////////////////////////////////////////////////
-//void SetReturnCode(Word16 rc);
-//Word16 GetReturnCode();
+//void SetReturnCode_rstuff(Word16 rc);
+//Word16 GetReturnCode_rstuff();
 /////////////////////////////////////////////////////////////////////////////////////////
 //
 void    RSTUFFComment(PChar8 Comment);

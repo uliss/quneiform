@@ -1084,7 +1084,7 @@ AGAIN:
 		hBlock = CPAGE_CreateBlock(hPage, TYPE_TEXT,0,0,&all_polys[i],sizeof(POLY_));
 		if(!hBlock)
 		{
-			SetReturnCode(CPAGE_GetReturnCode());
+			SetReturnCode_rblock(CPAGE_GetReturnCode());
 			rc = FALSE;
 			break;
 		}

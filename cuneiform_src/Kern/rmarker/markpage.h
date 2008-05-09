@@ -108,6 +108,6 @@ EXTERN PUMALinesBuffer gSVLBuffer VALM(0);
 EXTERN RMCBProgressPoints   ProgressPoints   VALM(NULL);
 EXTERN LinesTotalInfo       *gLTInfo         VAL(NULL);
 
-void SetReturnCode(Word32 rc);
+void SetReturnCode_rmarker(Word32 rc);
 
 #endif

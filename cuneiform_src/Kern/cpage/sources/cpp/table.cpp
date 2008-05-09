@@ -75,7 +75,7 @@ Word32 TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn,Word32 SizeIn,CPAGE_TABLE 
 		sizeof(CPAGE_TABLE) != SizeOut ||
 		lpDataIn == NULL)
 	{
-		SetReturnCode(IDS_ERR_DISCREP);
+		SetReturnCode_cpage(IDS_ERR_DISCREP);
 		return 0;
 	}
 
@@ -135,7 +135,7 @@ Word32 CPAGE_TABLE_to_TYPE_DESK( CPAGE_TABLE * lpDataIn,Word32 SizeIn,TABLE_DESC
 		sizeof(CPAGE_TABLE) != SizeIn ||
 		lpDataIn == NULL)
 	{
-		SetReturnCode(IDS_ERR_DISCREP);
+		SetReturnCode_cpage(IDS_ERR_DISCREP);
 		return 0;
 	}
 

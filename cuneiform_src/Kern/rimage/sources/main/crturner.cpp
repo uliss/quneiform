@@ -335,7 +335,7 @@ Bool32 CRTurner::CheckInAndOut180(PCTDIB pIn, PCTDIB pOut)
 		 pIn->GetImageWidth()  != pOut->GetImageWidth()  ||
 		 pIn->GetPixelSize()   != pOut->GetPixelSize()      )
 	{
-		SetReturnCode(IDS_RIMAGE_OUTCOME_DIB_NOT_LINK_TO_INCOME);
+		SetReturnCode_rimage(IDS_RIMAGE_OUTCOME_DIB_NOT_LINK_TO_INCOME);
 		 return FALSE;
 	}
 
@@ -348,7 +348,7 @@ Bool32 CRTurner::CheckInAndOut90(PCTDIB pIn, PCTDIB pOut)
 		 pIn->GetImageWidth()  != pOut->GetImageHeight()  ||
 		 pIn->GetPixelSize()   != pOut->GetPixelSize()      )
 	{
-		SetReturnCode(IDS_RIMAGE_OUTCOME_DIB_NOT_LINK_TO_INCOME);
+		SetReturnCode_rimage(IDS_RIMAGE_OUTCOME_DIB_NOT_LINK_TO_INCOME);
 		return FALSE;
 	}
 

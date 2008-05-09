@@ -81,8 +81,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  #define CFIO_MAX_COMMENT       48
 #endif
 // extern functions
-//void SetReturnCode(Word16 rc);
-//Word16 GetReturnCode();
+//void SetReturnCode_cimage(Word16 rc);
+//Word16 GetReturnCode_cimage();
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //CFIO Entries
 static void* (*pDAlloc)(Word32, Word32, PWord8, PWord8) = NULL;
@@ -146,12 +146,12 @@ void *	CIMAGEAlloc(Word32 stAllocateBlock)
 	#endif
 
 	if(!mem)
-		SetReturnCode(IDS_CIMAGE_ERR_NO_MEMORY);
+		SetReturnCode_cimage(IDS_CIMAGE_ERR_NO_MEMORY);
 #else
 	mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(Int8*)"CImage", (Int8*)cCommentBuffer);
 
 	if(!mem)
-		SetReturnCode(IDS_CIMAGE_ERR_NO_MEMORY);
+		SetReturnCode_cimage(IDS_CIMAGE_ERR_NO_MEMORY);
 
 #endif
 

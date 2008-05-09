@@ -91,8 +91,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#endif
 #endif
 ///////////////////////////////////////////////////////////////////////////////////
-void SetReturnCode(Word16 rc);
-Word16 GetReturnCode();
+void SetReturnCode_cimage(Word16 rc);
+Word16 GetReturnCode_cimage();
 /////////////////////////////////////////////////////////////////////////////////////////
 //
 Bool32  InitCFIOInterface(Bool32 Status);

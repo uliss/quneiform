@@ -85,20 +85,20 @@ Bool32 ConverROUT(char * lpOutFileName, Int32 lnFormat, Int32 lnCode,Bool32 bApp
 		!ROUT_SetImportData(ROUT_LONG_Code,(void*)lnCode)||
 		!ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR,&gnUnrecogChar))
 	{
-		SetReturnCode(ROUT_GetReturnCode());
+		SetReturnCode_puma(ROUT_GetReturnCode());
 		return FALSE;
 	}
 
 	/*
 	if (!LoadAlphabet(Rec6DatFilename))
 		{
-		SetReturnCode(ROUT_GetReturnCode());
+		SetReturnCode_puma(ROUT_GetReturnCode());
 		return FALSE;
 		}
 
 	if (!ROUT_SetAlphabet(sizeAlphabet,upper,lower,vowels))
 		{
-		SetReturnCode(ROUT_GetReturnCode());
+		SetReturnCode_puma(ROUT_GetReturnCode());
 		return FALSE;
 		}
 	*/
@@ -106,7 +106,7 @@ Bool32 ConverROUT(char * lpOutFileName, Int32 lnFormat, Int32 lnCode,Bool32 bApp
 		long countObjects = ROUT_CountObjects();
 		if ( countObjects == -1 )
 			{
-				SetReturnCode(ROUT_GetReturnCode());
+				SetReturnCode_puma(ROUT_GetReturnCode());
 				return FALSE;
 			}
 
@@ -122,7 +122,7 @@ Bool32 ConverROUT(char * lpOutFileName, Int32 lnFormat, Int32 lnCode,Bool32 bApp
                 p = (char*)ROUT_GetDefaultObjectName(objIndex);
                 if(!p)
                 {
-				    SetReturnCode(ROUT_GetReturnCode());
+				    SetReturnCode_puma(ROUT_GetReturnCode());
 				    return FALSE;
                 }
 			}
@@ -131,7 +131,7 @@ Bool32 ConverROUT(char * lpOutFileName, Int32 lnFormat, Int32 lnCode,Bool32 bApp
 
 			if (!ROUT_SaveObject(objIndex,path,bAppend))
 				{
-					SetReturnCode(ROUT_GetReturnCode());
+					SetReturnCode_puma(ROUT_GetReturnCode());
 					return FALSE;
 				}
 			} // Цикл по объектам на странице
@@ -150,7 +150,7 @@ Word32 rc = 0;
 		!ROUT_SetImportData(ROUT_LONG_Code,(void*)lnCode)||
 		!ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR,&gnUnrecogChar))
 	{
-		SetReturnCode(ROUT_GetReturnCode());
+		SetReturnCode_puma(ROUT_GetReturnCode());
 		return rc;
 	}
 
@@ -158,7 +158,7 @@ Word32 rc = 0;
 		long countObjects = ROUT_CountObjects();
 		if ( countObjects == -1 )
 			{
-				SetReturnCode(ROUT_GetReturnCode());
+				SetReturnCode_puma(ROUT_GetReturnCode());
 				return rc;
 			}
 // Просмотрим размер памяти
@@ -173,7 +173,7 @@ Word32 rc = 0;
 				{
 					if (!ROUT_GetObject(objIndex,lpMem + (nSize - nCurSize),&nCurSize))
 						{
-							SetReturnCode(ROUT_GetReturnCode());
+							SetReturnCode_puma(ROUT_GetReturnCode());
 							return rc;
 						}
 				}

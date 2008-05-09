@@ -94,7 +94,7 @@ Handle MainWindowD;
 //###########################################
 RBLOCK_FUNC(Bool32) RBLOCK_ExtractTextBlocks(Handle hCCOM,Handle hCPAGE,CLINE_handle hCLINE)
 {
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_rblock(IDS_ERR_NO);
   Open_Res_Log();
 
   MainWindowD=NULL;
@@ -126,7 +126,7 @@ RBLOCK_FUNC(Bool32) RBLOCK_ExtractTextBlocks(Handle hCCOM,Handle hCPAGE,CLINE_ha
 ////////////////////////////////////////////////
 RBLOCK_FUNC(Bool32) RBLOCK_ExtractTextStrings(Handle hCCOM,Handle hCPAGE)
 {
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_rblock(IDS_ERR_NO);
   Open_Res_Log();
 
   if (setjmp (fatal_error_exit))
@@ -146,7 +146,7 @@ RBLOCK_FUNC(Bool32) RBLOCK_ExtractTextStrings(Handle hCCOM,Handle hCPAGE)
 RBLOCK_FUNC(Bool32) RBLOCK_GetAnglePage(Handle hCCOM,Int32 * lpNominator,Int32 * lpDenominator)
 {
  Bool32 rc = TRUE;
- SetReturnCode(IDS_ERR_NO);
+ SetReturnCode_rblock(IDS_ERR_NO);
  Open_Res_Log();
 
   if (setjmp (fatal_error_exit))

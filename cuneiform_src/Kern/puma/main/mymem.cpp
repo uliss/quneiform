@@ -75,7 +75,7 @@ void *	myAlloc(size_t stAllocateBlock)
 
 	mem = (char *)malloc(stAllocateBlock);
 	if(!mem)
-		SetReturnCode(IDS_ERR_NO_MEMORY);
+		SetReturnCode_puma(IDS_ERR_NO_MEMORY);
 //#endif
 
 	return mem;

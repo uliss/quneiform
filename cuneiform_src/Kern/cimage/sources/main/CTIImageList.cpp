@@ -96,7 +96,7 @@ Bool32 CTIImageList::AddImage(PChar8  lpName, Handle hDIB, Word32 wFlag)
 /* commented by Andrey    
     if ( FindImage(lpName, &LastImage) )
 	{
-		SetReturnCode(IDS_CIMAGE_IMAGE_NAME_REPEATED);
+		SetReturnCode_cimage(IDS_CIMAGE_IMAGE_NAME_REPEATED);
 		return FALSE;
 	}
 */
@@ -108,19 +108,19 @@ Bool32 CTIImageList::AddImage(PChar8  lpName, Handle hDIB, Word32 wFlag)
 
 	if ( lpName == NULL && lpName[0] == 0x0 )
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_IMAGE_NAME);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGE_NAME);
 		return FALSE;
 	}
 
 	if ( hDIB == NULL )
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_IMAGE_INFO);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGE_INFO);
 		return FALSE;
 	}
 
 	if ( LastImage == NULL )
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
 		return FALSE;
 	}
 
@@ -129,7 +129,7 @@ Bool32 CTIImageList::AddImage(PChar8  lpName, Handle hDIB, Word32 wFlag)
 	
 	if ( NewImage == NULL )
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_IMAGE_INFO);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGE_INFO);
 		return FALSE;
 	}
 	
@@ -145,7 +145,7 @@ Bool32 CTIImageList::GetImage(PChar8  lpName, PHandle phDIB)
 
 	if (Image == NULL)
 	{
-		SetReturnCode(IDS_CIMAGE_NO_IMAGE_FOUND);
+		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
 		return FALSE;
 	}
 	
@@ -196,7 +196,7 @@ CTIImageHeader * CTIImageList::FindImage(PChar8  lpName, CTIImageHeader ** Previ
 
 			if ( Current == End() )
 			{
-				SetReturnCode(IDS_CIMAGE_NO_IMAGE_IN_CONTAINER);
+				SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_IN_CONTAINER);
 				Current = NULL;
 			}
 
@@ -234,7 +234,7 @@ Bool32 CTIImageList::SetImageWriteMask(PChar8 lpName, PCTIMask pWMask)
 
 	if (Image == NULL)
 	{
-		SetReturnCode(IDS_CIMAGE_NO_IMAGE_FOUND);
+		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
 		return FALSE;
 	}
 	
@@ -250,7 +250,7 @@ Bool32 CTIImageList::SetImageReadMask(PChar8 lpName,PCTIMask pAMask)
 
 	if (Image == NULL)
 	{
-		SetReturnCode(IDS_CIMAGE_NO_IMAGE_FOUND);
+		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
 		return FALSE;
 	}
 	
@@ -265,7 +265,7 @@ Bool32 CTIImageList::GetImageWriteMask(PChar8 lpName, PPCTIMask ppWMask, PBool32
 
 	if (Image == NULL)
 	{
-		SetReturnCode(IDS_CIMAGE_NO_IMAGE_FOUND);
+		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
 		return FALSE;
 	}
 	
@@ -281,7 +281,7 @@ Bool32 CTIImageList::GetImageReadMask(PChar8 lpName, PPCTIMask ppMask, PBool32 p
 
 	if (Image == NULL)
 	{
-		SetReturnCode(IDS_CIMAGE_NO_IMAGE_FOUND);
+		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
 		return FALSE;
 	}
 	
@@ -296,7 +296,7 @@ Bool32 CTIImageList::EnableMask(PChar8 pName, PChar8 pType, Bool32 mEnabled)
 
 	if (Image == NULL)
 	{
-		SetReturnCode(IDS_CIMAGE_NO_IMAGE_FOUND);
+		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
 		return FALSE;
 	}
 	

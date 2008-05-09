@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 CPAGE_FUNC(Handle)  CPAGE_ExTableCreate (Handle hPage,Int32 Skew2048, Word32 nVer,Int32 * lpVCor, Word32 nHor,Int32 * lpHCor) 
 {
 	PROLOG;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
 	Handle rc = NULL;
 	Bool32 res = FALSE;
 
@@ -85,7 +85,7 @@ CPAGE_FUNC(Handle)  CPAGE_ExTableCreate (Handle hPage,Int32 Skew2048, Word32 nVe
 CPAGE_FUNC(void)  CPAGE_ExTableDelete (Handle hTable) 
 {
 	PROLOG;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
 	TableClass * tc = (TableClass *)hTable;
 	if(tc)
 		tc->Remove();
@@ -97,7 +97,7 @@ CPAGE_FUNC(Handle)  CPAGE_ExTableGetFirst		(Handle hPage)
 	PROLOG;
 	Handle rc = NULL;
 	Handle hBlock = NULL;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
 	Word32 Type = CPAGE_GetInternalType("TableClass");
 	if(!CPAGE_UpdateBlocks( hPage, Type ))
 	{
@@ -114,7 +114,7 @@ lOut:EPILOG;
 CPAGE_FUNC(Handle)  CPAGE_ExTableGetNext(Handle hTable)
 {
 	PROLOG;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
 	TableClass * tc = (TableClass *)hTable;
 	if(tc)
 		tc = tc->GetNext();
@@ -126,7 +126,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExGeTableGetNumberCells	(Handle hTable,Int32 * lpNumbe
 {
 	PROLOG;
   Bool32 rc = FALSE;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
 	TableClass * tc = (TableClass *)hTable;
 	if(tc)  
 	{
@@ -141,7 +141,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExPhTableGetNumberCells	(Handle hTable,Int32 * lpNumbe
 {
 	PROLOG;
 	Bool32 rc = FALSE;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
 	TableClass * tc = (TableClass *)hTable;
 
   if(tc)
@@ -157,7 +157,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExTableGetNumberRow		(Handle hTable,Int32 * lpNumber)
 {
 	PROLOG;
 	Bool32 rc = FALSE;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
 	TableClass * tc = (TableClass *)hTable;
   if(tc)
   {
@@ -172,7 +172,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExTableGetNumberColumn		(Handle hTable,Int32 * lpNumbe
 {
 	PROLOG;
 	Bool32 rc = FALSE;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
 	TableClass * tc = (TableClass *)hTable;
   if(tc)
   {
@@ -187,7 +187,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExGeTableGetSizeCell		(Handle hTable,Point32 point,Rec
 {
 	PROLOG;
 	Bool32 rc = FALSE;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
 	Rect32      rect = {0};
   
 	_ASSERT(lpRect);
@@ -209,7 +209,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExPhTableGetSizeCell		(Handle hTable,Point32 point,Rec
 {
 	PROLOG;
 	Bool32 rc = FALSE;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
   TableClass * tc = (TableClass *)hTable;
   if(tc)
   {
@@ -223,7 +223,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExTableGetNumberBlock	(Handle hTable,Point32 point,Int
 {
 	PROLOG;
 	Bool32 rc = FALSE;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
 
   _ASSERT(lpNumber);
 
@@ -244,7 +244,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExGeTableGetPhysical		(Handle hTable,Point32 point,Poi
 {
 	PROLOG;
 	Bool32 rc = FALSE;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
 
   _ASSERT(lpPoint);
 
@@ -262,7 +262,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExPhTableGetNumberGeometry	(Handle hTable,Point32 poin
 {
 	PROLOG;
 	Bool32 rc = FALSE;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
 
   _ASSERT(lpNumber);
 
@@ -283,7 +283,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExPhTableGetGeometry		(Handle hTable,Point32 point,Int
 {
 	PROLOG;
 	Bool32 rc = FALSE;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
 
   _ASSERT(lpPoint);
 
@@ -300,7 +300,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExPhTableSetNumberBlock	(Handle hTable,Point32 point,I
 {
 	PROLOG;
 	Bool32 rc = FALSE;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
 
   TableClass * tc = (TableClass *)hTable;
   if(tc)
@@ -316,7 +316,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExTableIsPhysicCell	(Handle hTable,Point32 point,Bool3
 {
 	PROLOG;
 	Bool32 rc = FALSE;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
 
 	_ASSERT(lpIsPhysic);
 
@@ -334,7 +334,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExTableSize(Handle hTable,Rect32 * lpRect)
 {
 	PROLOG;
 	Bool32 rc = FALSE;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
 
 	_ASSERT(lpRect);
 
@@ -357,7 +357,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExTableGetSkew(Handle hTable,Int32 * lpNumerator,Int32
 {
 	PROLOG;
 	Bool32 rc = FALSE;
-  SetReturnCode(IDS_ERR_NO);
+  SetReturnCode_cpage(IDS_ERR_NO);
 
 	_ASSERT(lpNumerator);
 	_ASSERT(lpDenominator);

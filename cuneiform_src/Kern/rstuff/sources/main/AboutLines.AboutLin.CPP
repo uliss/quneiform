@@ -104,7 +104,7 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, Int32 *ScanQual)
 
 	if (Buffer == NULL || WorkMem == NULL )
 	{
-		SetReturnCode((Word16)IDS_RSTUFF_ERR_NO_MEMORY);
+		SetReturnCode_rstuff((Word16)IDS_RSTUFF_ERR_NO_MEMORY);
 		bRc =  FALSE;
 	}
 	

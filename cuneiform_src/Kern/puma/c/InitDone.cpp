@@ -67,124 +67,124 @@ Bool32 ModulesInit(Handle  ghStorage)
 	// CONTEINERS
 	if(!CLINE_Init(PUMA_MODULE_CLINE,NULL))
 	{
-		SetReturnCode(CLINE_GetReturnCode());
+		SetReturnCode_puma(CLINE_GetReturnCode());
 		goto lError;
 	}
 	if(!CFIO_Init(PUMA_MODULE_CFIO,NULL))
 	{
-		SetReturnCode(CFIO_GetReturnCode());
+		SetReturnCode_puma(CFIO_GetReturnCode());
 		goto lError;
 	}
 	/*
 	ghStorage = OpenStorage(szStorage,OS_CREATE);
 	if(ghStorage==NULL)
 	{
-		SetReturnCode(IDS_ERR_CREATESTORAGE);
+		SetReturnCode_puma(IDS_ERR_CREATESTORAGE);
 		goto lError;
 	}
 	*/
 	if(!CIMAGE_Init(PUMA_MODULE_CIMAGE,NULL))
 	{
-		SetReturnCode(CIMAGE_GetReturnCode());
+		SetReturnCode_puma(CIMAGE_GetReturnCode());
 		goto lError;
 	}
 	if(!CCOM_Init(PUMA_MODULE_CCOM,NULL))   //  нужна инициализация контейнера CCOM перед
 	{               //  вызовом поиска компонент
-		SetReturnCode(CCOM_GetReturnCode());
+		SetReturnCode_puma(CCOM_GetReturnCode());
 		goto lError;
 	}
 	if(!CPAGE_Init(PUMA_MODULE_CPAGE,ghStorage))
 	{
-		SetReturnCode(CPAGE_GetReturnCode());
+		SetReturnCode_puma(CPAGE_GetReturnCode());
 		goto lError;
 	}
 	if(!CSTR_Init(PUMA_MODULE_CSTR,ghStorage))
 	{
-		SetReturnCode(CSTR_GetReturnCode());
+		SetReturnCode_puma(CSTR_GetReturnCode());
 		goto lError;
 	}
 	// RECOGNITIONS
 	if(!REXC_Init(PUMA_MODULE_REXC,NULL)) // инициализация библиотеки поиска компонент
 	{
-		SetReturnCode(REXC_GetReturnCode());
+		SetReturnCode_puma(REXC_GetReturnCode());
 		goto lError;
 	}
 //	REXC_SetImportData(REXC_OcrPath, GetModulePath());
 	if(!RLINE_Init(PUMA_MODULE_RLINE,ghStorage))
 	{
-		SetReturnCode(RLINE_GetReturnCode());
+		SetReturnCode_puma(RLINE_GetReturnCode());
 		goto lError;
 	}
 
     if(!RRECCOM_Init(PUMA_MODULE_RRECCOM,ghStorage))
 	{
- 		SetReturnCode(RRECCOM_GetReturnCode());
+ 		SetReturnCode_puma(RRECCOM_GetReturnCode());
 		goto lError;
 	}
 	RRECCOM_SetImportData(RRECCOM_OcrPath, GetModulePath());
 
     if(!RSL_Init(PUMA_MODULE_RSL,ghStorage))
 	{
- 		SetReturnCode(RSL_GetReturnCode());
+ 		SetReturnCode_puma(RSL_GetReturnCode());
 		goto lError;
 	}
 	if(!RSTUFF_Init(PUMA_MODULE_RSTUFF,ghStorage))
 	{
-		SetReturnCode(RSTUFF_GetReturnCode());
+		SetReturnCode_puma(RSTUFF_GetReturnCode());
 		goto lError;
 	}
 	if(!RMARKER_Init(PUMA_MODULE_RBLOCK,ghStorage))
 	{
- 		SetReturnCode(RMARKER_GetReturnCode());
+ 		SetReturnCode_puma(RMARKER_GetReturnCode());
 		goto lError;
 	}
 	if(!RBLOCK_Init(PUMA_MODULE_RBLOCK,ghStorage))
 	{
-		SetReturnCode(RBLOCK_GetReturnCode());
+		SetReturnCode_puma(RBLOCK_GetReturnCode());
 		goto lError;
 	}
 	if(!RSELSTR_Init(PUMA_MODULE_RBLOCK,ghStorage))
 	{
-		SetReturnCode(RSELSTR_GetReturnCode());
+		SetReturnCode_puma(RSELSTR_GetReturnCode());
 		goto lError;
 	}
     RSTR_SetImportData(RSTR_OcrPath, GetModulePath());
 	RSTR_SetImportData(RSTR_pchar_temp_dir, GetModuleTempPath());
 	if(!RSTR_Init(PUMA_MODULE_RSTR,ghStorage))
 	{
-		SetReturnCode(RSTR_GetReturnCode());
+		SetReturnCode_puma(RSTR_GetReturnCode());
 		goto lError;
 	}
 	
 	if(!RFRMT_Init(PUMA_MODULE_RFRMT,ghStorage))
 	{
-		SetReturnCode(RFRMT_GetReturnCode());
+		SetReturnCode_puma(RFRMT_GetReturnCode());
 		goto lError;
 	}
 	if(!RIMAGE_Init(PUMA_MODULE_RIMAGE,ghStorage))
 	{
-		SetReturnCode(RIMAGE_GetReturnCode());
+		SetReturnCode_puma(RIMAGE_GetReturnCode());
 		goto lError;
 	}
 	// Инициализируем виртуальные функции
 	if(!RPSTR_Init(PUMA_MODULE_RPSTR,ghStorage))
 	{
-		SetReturnCode(RPSTR_GetReturnCode());
+		SetReturnCode_puma(RPSTR_GetReturnCode());
 		goto lError;
 	}
 	if(!RPIC_Init(PUMA_MODULE_RPIC,ghStorage))
 	{
-		SetReturnCode(RPIC_GetReturnCode());
+		SetReturnCode_puma(RPIC_GetReturnCode());
 		goto lError;
 	}
 	if(!CED_Init(PUMA_MODULE_CED,ghStorage))
 	{
-		SetReturnCode(CED_GetReturnCode());
+		SetReturnCode_puma(CED_GetReturnCode());
 		goto lError;
 	}
 	if(!ROUT_Init(PUMA_MODULE_ROUT,ghStorage))
 	{
-		SetReturnCode(ROUT_GetReturnCode());
+		SetReturnCode_puma(ROUT_GetReturnCode());
 		goto lError;
 	}
 	else
@@ -194,7 +194,7 @@ Bool32 ModulesInit(Handle  ghStorage)
 		strcpy(szRec6AllFilename,"rec6all.dat");
 		if(!ROUT_LoadRec6List(szRec6AllFilename))
 		{
-			SetReturnCode(ROUT_GetReturnCode());
+			SetReturnCode_puma(ROUT_GetReturnCode());
 			goto lError;
 		}
 	}
@@ -202,7 +202,7 @@ Bool32 ModulesInit(Handle  ghStorage)
 #ifdef _USE_RVERLINE_
 	if(!RVERLINE_Init(PUMA_MODULE_RVERLINE,ghStorage))
 	{
-		SetReturnCode(RVERLINE_GetReturnCode());
+		SetReturnCode_puma(RVERLINE_GetReturnCode());
 		goto lError;
 	}
 #endif //_USE_RVERLINE_
@@ -210,7 +210,7 @@ Bool32 ModulesInit(Handle  ghStorage)
 #ifdef _USE_RMSEGMENT_
 	if(!RMSEGMENT_Init(PUMA_MODULE_RMSEGMENT,ghStorage))
 	{
-		SetReturnCode(RMSEGMENT_GetReturnCode());
+		SetReturnCode_puma(RMSEGMENT_GetReturnCode());
 		goto lError;
 	}
 #endif //_USE_RMSEGMENT_

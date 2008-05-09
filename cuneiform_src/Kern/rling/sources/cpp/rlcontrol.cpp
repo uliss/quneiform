@@ -155,7 +155,7 @@ Int32  CRLControl::IsDictonaryAvailable(Word32 wLang, PChar8 pDictPath)
 		}
 		else
 		{
-			SetReturnCode(IDS_RLING_PATH_UNVAILABLE);
+			SetReturnCode_rling(IDS_RLING_PATH_UNVAILABLE);
 			strcpy((PChar8)own_dir, "./");
 		}
 	}
@@ -217,7 +217,7 @@ Bool32 CRLControl::LoadDictonary(Word32 wLang, PChar8 pDictPath)
 		}
 		else
 		{
-			SetReturnCode(IDS_RLING_PATH_UNVAILABLE);
+			SetReturnCode_rling(IDS_RLING_PATH_UNVAILABLE);
 			strcpy((PChar8)own_dir, "./");
 		}
 	}
@@ -306,7 +306,7 @@ Bool32 CRLControl::CheckWord(PChar8 cWord, PInt32 pOutCheck)
 
 	if ( strlen( cWord ) > RLING_MAX_WORD_LENGHT )
 	{
-		SetReturnCode(IDS_RLING_ERROR_TOO_LONG_WORD);
+		SetReturnCode_rling(IDS_RLING_ERROR_TOO_LONG_WORD);
 	}
 	else
 	{
@@ -314,7 +314,7 @@ Bool32 CRLControl::CheckWord(PChar8 cWord, PInt32 pOutCheck)
 
 		if ( m_Language < 0 )
 		{
-			SetReturnCode(IDS_RLING_DICT_NOT_LOAD);
+			SetReturnCode_rling(IDS_RLING_DICT_NOT_LOAD);
 		}
 		else
 		{
@@ -348,7 +348,7 @@ Bool32 CRLControl::CheckED(void *pEDPool, void * pEDOutPool, Word32 wEDPoolSize,
 
 	if ( pEDPool == NULL || wEDPoolSize == 0 || pEDOutPool == NULL || pwEDOutPoolSize == NULL )
 	{
-		SetReturnCode(IDS_RLING_NO_ED);
+		SetReturnCode_rling(IDS_RLING_NO_ED);
 		return FALSE;
 	}
 
@@ -357,13 +357,13 @@ Bool32 CRLControl::CheckED(void *pEDPool, void * pEDOutPool, Word32 wEDPoolSize,
 
 	if ( !AllocEDBuffer() )
 	{
-		SetReturnCode(IDS_RLING_ERR_NO_MEMORY);
+		SetReturnCode_rling(IDS_RLING_ERR_NO_MEMORY);
 		return FALSE;
 	}
 	
  	if ( m_Language < 0 )
 	{
-		SetReturnCode(IDS_RLING_DICT_NOT_LOAD);
+		SetReturnCode_rling(IDS_RLING_DICT_NOT_LOAD);
 	}
 	else
 	{
@@ -424,7 +424,7 @@ Bool32 CRLControl::CheckFile(PChar8 pFile, PInt32 pCheck)
 
 	if ( m_Language < 0 )
 	{
-		SetReturnCode(IDS_RLING_DICT_NOT_LOAD);
+		SetReturnCode_rling(IDS_RLING_DICT_NOT_LOAD);
 	}
 	else
 	{
@@ -552,28 +552,28 @@ void CRLControl::SetCodeWhenExit(Int32 Code)
 	switch (Code)
 	{
 	case RLING_ERROR_CANT_OPEN_TABLE:
-		SetReturnCode(IDS_RLING_ERR_CANT_OPEN_DICTONARY);
+		SetReturnCode_rling(IDS_RLING_ERR_CANT_OPEN_DICTONARY);
 		break;
 	case RLING_ERROR_MEMORY_ERROR:
-		SetReturnCode(IDS_RLING_ERR_MEMORY_ERROR);
+		SetReturnCode_rling(IDS_RLING_ERR_MEMORY_ERROR);
 		break;
 	case RLING_ERROR_ED_ALREADY_CHEKED:
-		SetReturnCode(IDS_RLING_ERROR_ED_ALREADY_CHEKED);
+		SetReturnCode_rling(IDS_RLING_ERROR_ED_ALREADY_CHEKED);
 		break;
 	case RLING_ERROR_WRONG_ED_FILE:
-		SetReturnCode(IDS_RLING_ERR_ED_ERROR);
+		SetReturnCode_rling(IDS_RLING_ERR_ED_ERROR);
 		break;
 	case RLING_ERROR_MEMORY_FAULT:
-		SetReturnCode(IDS_RLING_ERR_MEMORY_FAULT);
+		SetReturnCode_rling(IDS_RLING_ERR_MEMORY_FAULT);
 		break;
 	case RLING_ERROR_CANT_OPEN_USER_DICTONARY:
-		SetReturnCode(IDS_RLING_ERROR_CANT_OPEN_USER_DICTONARY);
+		SetReturnCode_rling(IDS_RLING_ERROR_CANT_OPEN_USER_DICTONARY);
 		break;
 	case RLING_ERROR_TOO_MANY_USER_DICTONARY:
-		SetReturnCode(IDS_RLING_ERROR_TOO_MANY_USER_DICTONARY);
+		SetReturnCode_rling(IDS_RLING_ERROR_TOO_MANY_USER_DICTONARY);
 		break;
 	default:
-		SetReturnCode(IDS_RLING_ERR_NOTIMPLEMENT);
+		SetReturnCode_rling(IDS_RLING_ERR_NOTIMPLEMENT);
 	}
 }
 

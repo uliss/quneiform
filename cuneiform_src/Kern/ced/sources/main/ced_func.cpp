@@ -748,7 +748,7 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 	HANDLE hFile=Open(0, (PInt8)fileName,OSF_CREATE|OSF_BINARY|OSF_WRITE);
 	if (!hFile)
 	{
-		SetReturnCode(CFIO_GetReturnCode());
+		SetReturnCode_ced(CFIO_GetReturnCode());
 		return FALSE;
 	} 	
 	//Пишем заголовок
@@ -1004,11 +1004,11 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 		}while(line);
 	}
 
-	SetReturnCode(IDS_ERR_NO);
+	SetReturnCode_ced(IDS_ERR_NO);
 	ret=TRUE;
 	goto FINAL;
 ED_WRITE_END:
-	SetReturnCode(CFIO_GetReturnCode());
+	SetReturnCode_ced(CFIO_GetReturnCode());
 	ret=FALSE;
 FINAL:
 	Close(hFile,CSF_SAVEDISK);

@@ -122,7 +122,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_Init(Word16 wHeightCode,Handle hStorage)
 		return TRUE;
 	}
 
-	SetReturnCode(IDS_RIMAGE_DLL_NOT_INITIALISING);
+	SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -244,14 +244,14 @@ RIMAGE_FUNC(Bool32) RIMAGE_SetImportData(Word32 dwType, void * pData)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void SetReturnCode(Word16 rc)
+void SetReturnCode_rimage(Word16 rc)
 {
 	if ( rc == IDS_RIMAGE_ERR_NO || gwLowRC == IDS_RIMAGE_ERR_NO )
 		gwLowRC = rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Word16 GetReturnCode()
+Word16 GetReturnCode_rimage()
 {
 	return gwLowRC;
 }

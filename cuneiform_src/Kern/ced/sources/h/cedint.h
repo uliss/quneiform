@@ -102,8 +102,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"	    
 
 extern FNRDProc RDProced;//”казатель на ф-цию обработки сырых данных
-void SetReturnCode(Word32 rc);//”становка кода ошибки
-Word32 GetReturnCode();
+void SetReturnCode_ced(Word32 rc);//”становка кода ошибки
+Word32 GetReturnCode_ced();
 
 //Ёкспортируемые из CFIO ф-ции
 extern	FNCFIOReadMemoryFromFile    MemFromFile;              //19

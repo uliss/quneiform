@@ -183,14 +183,14 @@ Bool32 CRRotator::Rotate(PCTDIB cDIBIn, PCTDIB cDIBOut, Int32 Num, Int32 Denum)
 
 	if ( Num == 0 || Denum == 0)
 	{
-		SetReturnCode(IDS_RIMAGE_ZERO_NUMERATOR_OR_DENUMERATOR);
+		SetReturnCode_rimage(IDS_RIMAGE_ZERO_NUMERATOR_OR_DENUMERATOR);
 		return FALSE;
 	}
 
 	/*
 	if ( cDIBIn->GetPixelSize() == 4 )
 	{
-		SetReturnCode(IDS_RIMAGE_UNDER_CONSTRUCTION);
+		SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
 		return FALSE;
 	}
 	*/
@@ -201,13 +201,13 @@ Bool32 CRRotator::Rotate(PCTDIB cDIBIn, PCTDIB cDIBOut, Int32 Num, Int32 Denum)
 
 	if (  fabs(mfTang) > CTROTATOR_MAX_TANG )
 	{
-		SetReturnCode(IDS_RIMAGE_ANGLE_GREAT_MAXIMUM);
+		SetReturnCode_rimage(IDS_RIMAGE_ANGLE_GREAT_MAXIMUM);
 		return FALSE;
 	}
 
 	if ( fabs(mfTang) < CTROTATOR_MIN_TANG ) 
 	{
-		SetReturnCode(IDS_RIMAGE_ANGLE_LEAST_MINIMUM);
+		SetReturnCode_rimage(IDS_RIMAGE_ANGLE_LEAST_MINIMUM);
 		return FALSE;
 	}
 
@@ -223,11 +223,11 @@ Bool32 CRRotator::Rotate(PCTDIB cDIBIn, PCTDIB cDIBOut, Int32 Num, Int32 Denum)
 	{
 		if ( wExit = IDS_RIMAGE_EXIT_BY_USER)
 		{
-			SetReturnCode(IDS_RIMAGE_EXIT_BY_USER);
+			SetReturnCode_rimage(IDS_RIMAGE_EXIT_BY_USER);
 		}
 		else
 		{
-			SetReturnCode(IDS_RIMAGE_UNKNOWN_ERROR);
+			SetReturnCode_rimage(IDS_RIMAGE_UNKNOWN_ERROR);
 		}
 
 		FreeWorkBuffers();

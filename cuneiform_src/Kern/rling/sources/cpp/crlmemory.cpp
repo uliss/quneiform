@@ -76,8 +76,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 // extern functions
-//void SetReturnCode(Word16 rc);
-//Word16 GetReturnCode();
+//void SetReturnCode_rling(Word16 rc);
+//Word16 GetReturnCode_rling();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //memory Allocator for RLING module
@@ -95,13 +95,13 @@ void *	RLINGAlloc(Word32 stAllocateBlock)
   #endif
 
 	if(!mem)
-		SetReturnCode(IDS_RLING_ERR_NO_MEMORY);
+		SetReturnCode_rling(IDS_RLING_ERR_NO_MEMORY);
 #else
 
 	mem = (char *)AllocMemory(1024,MAF_GALL_GPTR);
 
 	if(!mem)
-		SetReturnCode(IDS_RLING_ERR_NO_MEMORY);
+		SetReturnCode_rling(IDS_RLING_ERR_NO_MEMORY);
 
 #endif
 

@@ -141,7 +141,7 @@ Bool32 ShortVerticalLinesProcess ( Word32 Step, PRMPreProcessImage Image )
 
 	if ( bRet == FALSE )
 	{
-		SetReturnCode(IDS_ERR_INITIATED_BY_ALLEX);
+		SetReturnCode_rmarker(IDS_ERR_INITIATED_BY_ALLEX);
 	}
 
 	return bRet;

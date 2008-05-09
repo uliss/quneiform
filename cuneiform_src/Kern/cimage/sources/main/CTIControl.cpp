@@ -166,7 +166,7 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 	//проверка имени картинки
 	if ( !lpName || lpName[0] == 0x0 ) 
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_IMAGE_NAME);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGE_NAME);
 		return FALSE;
 	}
 	//
@@ -199,14 +199,14 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 
 	if ( Ret == FALSE )
 	{
-		SetReturnCode(IDS_CIMAGE_UNABLE_USE_IMPORT_CALLBACK);
+		SetReturnCode_cimage(IDS_CIMAGE_UNABLE_USE_IMPORT_CALLBACK);
 		mCBWInProcess = FALSE;
 		return FALSE;
 	}
 
 	if ( ImageInfo.wImageByteWidth == 0 || ImageInfo.wImageHeight == 0 )
 	{
-		SetReturnCode(IDS_CIMAGE_UNABLE_USE_IMPORT_CALLBACK);
+		SetReturnCode_cimage(IDS_CIMAGE_UNABLE_USE_IMPORT_CALLBACK);
 		mCBWInProcess = FALSE;
 		return FALSE;
 	}
@@ -325,7 +325,7 @@ Bool32 CTIControl::GetCBImage (PChar8  lpName, PCIMAGEIMAGECALLBACK pCbk)
 
 	if ( !pCbk  )
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_PARAMETR);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_PARAMETR);
 		return FALSE;
 	}
 
@@ -371,7 +371,7 @@ Bool32 CTIControl::SetDIB(PChar8  lpName, Handle hDIB, Word32 wFlag)
 	{  // создаем новую копию
 		if ( !CopyDIB( hDIB, &hImage) )
 		{
-			SetReturnCode(IDS_CIMAGE_UNABLE_COPY_DIB);
+			SetReturnCode_cimage(IDS_CIMAGE_UNABLE_COPY_DIB);
 			return FALSE;
 		}
 	}
@@ -408,7 +408,7 @@ Bool32 CTIControl::GetDIB(PChar8  lpName, PHandle phDIB, Word32 wFlag)
 			return TRUE;
 		}
 
-		SetReturnCode(IDS_CIMAGE_UNABLE_COPY_DIB);
+		SetReturnCode_cimage(IDS_CIMAGE_UNABLE_COPY_DIB);
 	}
 	else
 	{
@@ -466,7 +466,7 @@ Bool32 CTIControl::GetImage(PChar8  lpName, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 						CIMAGEFree(mhBitFildFromImage);
 					
 					delete pDscDIB;
-					SetReturnCode(IDS_CIMAGE_ERR_NO_MEMORY);
+					SetReturnCode_cimage(IDS_CIMAGE_ERR_NO_MEMORY);
 					return FALSE;
 				}
 
@@ -525,7 +525,7 @@ Bool32 CTIControl::ReplaceImage(PChar8  lpName, PCIMAGE_InfoDataInReplace lpIn)
 	
 	if ( !pImage )
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
 		ret =  FALSE;
 	}
 
@@ -555,7 +555,7 @@ Bool32 CTIControl::ReplaceImage(PChar8  lpName, PCIMAGE_InfoDataInReplace lpIn)
 
 					if ( !SetFrame(pSrcDIB, pDscDIB, lpIn) )
 					{
-						SetReturnCode(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
+						SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
 						ret = FALSE;
 					}
 				}
@@ -575,7 +575,7 @@ Bool32 CTIControl::GetImageInfo(PChar8  lpName, PCIMAGEBITMAPINFOHEADER lpBIH)
 
 	if ( !lpBIH )
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_PARAMETR);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_PARAMETR);
 		return FALSE;
 	}
 
@@ -619,7 +619,7 @@ Bool32 CTIControl::CopyDIB(Handle hSrc, PHandle phCopyedDib)
 
 	if ( !pcSrcDIB->SetDIBbyPtr(pSrc) )
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_DIB);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_DIB);
 		delete pcSrcDIB;
 		return FALSE;
 	}
@@ -645,7 +645,7 @@ Bool32 CTIControl::CopyDIB(Handle hSrc, PHandle phCopyedDib)
 
 	if ( !pcDscDIB->SetDIBbyPtr(pDsc) )
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_DIB);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_DIB);
 		delete pcDscDIB;
 		return FALSE;
 	}
@@ -669,20 +669,20 @@ Bool32 CTIControl::GetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInGe
 {
 	if ( pSrcDIB == NULL || pDscDIB == NULL )
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
 		return FALSE;
 	}
 
 	if ( ( pSrcDIB->GetLineWidth() < pDscDIB->GetLineWidth() + pIn->dwX ) ||
 		 ( pSrcDIB->GetLinesNumber() < pDscDIB->GetLinesNumber() + pIn->dwY ) )
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
 		return FALSE;
 	}
 	//копируем из одного диба в другой
 	if ( !CopyToFrame(pSrcDIB, pDscDIB, pIn, pMask) )
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
 		return FALSE;
 	}
 
@@ -709,7 +709,7 @@ Bool32 CTIControl::CopyToFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataI
 
 	if ( pSrcDIB->GetPixelSize() != pSrcDIB->GetPixelSize() )
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
 		return FALSE;
 	}
 	
@@ -717,7 +717,7 @@ Bool32 CTIControl::CopyToFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataI
 	{
 		if ( !pDscDIB->SetFuelLineFromDIB(pSrcDIB, nLine, dLine++, StartX) )
 		{
-			SetReturnCode(IDS_CIMAGE_INVALID_FRAME_SIZE);
+			SetReturnCode_cimage(IDS_CIMAGE_INVALID_FRAME_SIZE);
 			return FALSE;
 		}
 		bRet = TRUE;
@@ -746,7 +746,7 @@ Bool32 CTIControl::CopyFromFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDat
 
 	if ( pSrcDIB->GetPixelSize() != pSrcDIB->GetPixelSize() )
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
 		return FALSE;
 	}
 	
@@ -757,7 +757,7 @@ Bool32 CTIControl::CopyFromFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDat
 		{
 			if ( !pDscDIB->SetFuelLineFromDIB(pSrcDIB, dLine++, nLine, 0) )
 			{
-				SetReturnCode(IDS_CIMAGE_INVALID_FRAME_SIZE);
+				SetReturnCode_cimage(IDS_CIMAGE_INVALID_FRAME_SIZE);
 				return FALSE;
 			}
 		}
@@ -808,7 +808,7 @@ Bool32 CTIControl::ApplayBitMaskToFrame(PCIMAGE_InfoDataInGet pIn, PCIMAGE_InfoD
 			break;
 
 		default:
-			SetReturnCode(IDS_CIMAGE_NO_SUPPORT_DIB_FORMAT_FOR_THIS_ACTION);
+			SetReturnCode_cimage(IDS_CIMAGE_NO_SUPPORT_DIB_FORMAT_FOR_THIS_ACTION);
 			return FALSE;
 		
 		}
@@ -857,7 +857,7 @@ Bool32 CTIControl::ApplayBitMaskToDIB(PWord8 pMask, PCTDIB pDIB)
 
 		catch(...)
 		{
-			SetReturnCode(IDS_CIMAGE_INVALID_MASK_MEMORY);
+			SetReturnCode_cimage(IDS_CIMAGE_INVALID_MASK_MEMORY);
 			LDPUMA_Console("CImage: Mask unvailable or mask memory blok less then needed!\n        Mask not applied.\n");
 			return TRUE;
 		}
@@ -961,7 +961,7 @@ Bool32 CTIControl::ApplayBitMaskToDIB(PWord8 pMask, PCTDIB pDIB)
 				break;
 		
 			default:
-				SetReturnCode(IDS_CIMAGE_NOT_REALIZED);
+				SetReturnCode_cimage(IDS_CIMAGE_NOT_REALIZED);
 				return FALSE;
 			}
 		}
@@ -977,7 +977,7 @@ Bool32 CTIControl::SetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInRe
 
 	if ( pSrcDIB == NULL || pDscDIB == NULL || !pIn)
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
 		return FALSE;
 	}
 	// проверяем на ненулевость
@@ -985,20 +985,20 @@ Bool32 CTIControl::SetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInRe
 
 	if ( wFrameSize == 0 )
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_FRAME_SIZE);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_FRAME_SIZE);
 		return FALSE;
 	}
 	// Проверяем на соответствие размеров	
 	if ( ( pDscDIB->GetLineWidth()   < pSrcDIB->GetLineWidth() + pIn->dwX ) ||
 		 ( pDscDIB->GetLinesNumber() < pSrcDIB->GetLinesNumber() + pIn->dwY ) )
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_FRAME_SIZE);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_FRAME_SIZE);
 		return FALSE;
 	}
 
 	if ( !CopyFromFrame(pSrcDIB, pDscDIB, pIn) )
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
 		return FALSE;
 	}
 	
@@ -1171,13 +1171,13 @@ Bool32 CTIControl::FreeAlloced(Handle hDIB)
 {
 	if (hDIB == NULL)
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_PARAMETR);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_PARAMETR);
 		return FALSE;
 	}
 
 	if ( mlImages.FindHandle(hDIB) )
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_PARAMETR);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_PARAMETR);
 		return FALSE;
 	}
 
@@ -1229,7 +1229,7 @@ Bool32 CTIControl::GetDIBFromImage(PChar8 lpName, PCIMAGE_InfoDataInGet lpIn, PI
 	
 	if ( !pImage )
 	{
-		SetReturnCode(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
 		return bRet;
 	}
 	
@@ -1255,13 +1255,13 @@ Bool32 CTIControl::GetDIBFromImage(PChar8 lpName, PCIMAGE_InfoDataInGet lpIn, PI
 					bRet = GetFrame(pSrcDIB, mpDIBFromImage, &NewIn, (NewIn.MaskFlag == TRUE ? (PWord8)&lpIn[1] : NULL) );
 				}
 				else
-					SetReturnCode(IDS_CIMAGE_UNABLE_CREATE_DIB);
+					SetReturnCode_cimage(IDS_CIMAGE_UNABLE_CREATE_DIB);
 			}
 			else
-				SetReturnCode(IDS_CIMAGE_UNABLE_COPY_DIB);
+				SetReturnCode_cimage(IDS_CIMAGE_UNABLE_COPY_DIB);
 		}
 		else
-			SetReturnCode(IDS_CIMAGE_INVALID_PARAMETR);
+			SetReturnCode_cimage(IDS_CIMAGE_INVALID_PARAMETR);
 	}
 	
 	pSrcDIB->DestroyDIB();
@@ -1442,7 +1442,7 @@ Bool32 CTIControl::OpenDIBFromList(PChar8 lpName, PHandle phImage)
 	
 	if ( !(*phImage) )
 	{
-		SetReturnCode(IDS_CIMAGE_NO_IMAGE_FOUND);
+		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
 		return FALSE;
 	}
 
@@ -1460,7 +1460,7 @@ Bool32 CTIControl::OpenMaskFromList(PChar8 lpName, PPCTIMask ppMask, PBool32 pEn
 			bRet = mlImages.GetImageWriteMask(lpName, ppMask, pEnMask);
 		
 	if ( !bRet )
-		SetReturnCode(IDS_CIMAGE_NO_IMAGE_FOUND);
+		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
 
 	return bRet;
 }
@@ -1476,7 +1476,7 @@ Bool32 CTIControl::SetMaskToList(PChar8 pName, PCTIMask pMask, PChar8 pcType)
 			bRet = mlImages.SetImageWriteMask(pName, pMask);
 		
 	if ( !bRet )
-		SetReturnCode(IDS_CIMAGE_NO_IMAGE_FOUND);
+		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
 
 	return bRet;
 }
@@ -1493,7 +1493,7 @@ Bool32 CTIControl::OpenDIBFromList(PChar8 lpName, PCTDIB pcDIB)
 		
 	if ( !hDIB )
 	{
-		SetReturnCode(IDS_CIMAGE_NO_IMAGE_FOUND);
+		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
 		return FALSE;
 	}
 	pcDIB->SetDIBHandle(hDIB);
@@ -1626,7 +1626,7 @@ Bool32 CTIControl::ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, Word32 wAtX, Wor
 							wX = Segm.GetEnd() + 1;
 							if ( !ApplayMaskToDIBLine( pDIB, &Segm, wY, wAtX, wAtY) )
 							{
-								SetReturnCode(IDS_CIMAGE_UNABLE_APPLAY_MASK);
+								SetReturnCode_cimage(IDS_CIMAGE_UNABLE_APPLAY_MASK);
 								return FALSE;
 							}
 						}

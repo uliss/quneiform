@@ -89,8 +89,8 @@ static Handle            ghStorage = NULL;
 static Handle            ghInst =  NULL;
 CRLControl *      Control = NULL;
 ///////////////////////////////////////////////////////////////////////////////////
-void SetReturnCode(Word16 rc);
-Word16 GetReturnCode();
+void SetReturnCode_rling(Word16 rc);
+Word16 GetReturnCode_rling();
 ///////////////////////////////////////////////////////////////////////////////////
 
 // FIXME: temp hack
@@ -134,7 +134,7 @@ RLINGS_FUNC(Bool32) RLINGS_Init(Word16 wHeightCode,Handle hStorage)
 		return TRUE;
 #endif
 
-	SetReturnCode(IDS_RLING_DLL_NOT_INITIALISING);
+	SetReturnCode_rling(IDS_RLING_DLL_NOT_INITIALISING);
 	return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -260,14 +260,14 @@ RLINGS_FUNC(Bool32) RLINGS_SetImportData(Word32 dwType, void * pData)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void SetReturnCode(Word16 rc)
+void SetReturnCode_rling(Word16 rc)
 {
 	if ( rc == IDS_RLING_ERR_NO || gwLowRC == IDS_RLING_ERR_NO )
 		gwLowRC = rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Word16 GetReturnCode()
+Word16 GetReturnCode_rling()
 {
 	return gwLowRC;
 }

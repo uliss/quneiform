@@ -113,7 +113,7 @@ Bool32 CTIMask::AddRectangle(PCIMAGE_Rect pRect)
 
 	if ( !SetPtrToPrevLine(wYb, &pPL) )
 	{
-		SetReturnCode(IDS_CIMAGE_UNABLE_ADD_MASK);
+		SetReturnCode_cimage(IDS_CIMAGE_UNABLE_ADD_MASK);
 		return FALSE;
 	}
 	pL = pPL->GetNext();
@@ -129,7 +129,7 @@ Bool32 CTIMask::AddRectangle(PCIMAGE_Rect pRect)
 				// кладем новый сегмент в линию
 				if ( !pL->AddSegment(&Segm) )
 				{
-					SetReturnCode(IDS_CIMAGE_UNABLE_ADD_MASK);
+					SetReturnCode_cimage(IDS_CIMAGE_UNABLE_ADD_MASK);
 					return FALSE;
 				}
 			}
@@ -171,7 +171,7 @@ Bool32 CTIMask::RemoveRectangle(PCIMAGE_Rect pRect)
 	
 	if ( !SetPtrToPrevLine(wYb, &pPL) )
 	{
-		SetReturnCode(IDS_CIMAGE_UNABLE_REMOVE_MASK);
+		SetReturnCode_cimage(IDS_CIMAGE_UNABLE_REMOVE_MASK);
 		return FALSE;
 	}
 	pL = pPL->GetNext();
@@ -180,13 +180,13 @@ Bool32 CTIMask::RemoveRectangle(PCIMAGE_Rect pRect)
 	{
 		if ( !pL )
 		{
-			SetReturnCode(IDS_CIMAGE_UNABLE_REMOVE_MASK);
+			SetReturnCode_cimage(IDS_CIMAGE_UNABLE_REMOVE_MASK);
 			return FALSE;
 		}
 		else
 			if ( !pL->RemoveSegment(&Segm) )
 			{
-				SetReturnCode(IDS_CIMAGE_UNABLE_REMOVE_MASK);
+				SetReturnCode_cimage(IDS_CIMAGE_UNABLE_REMOVE_MASK);
 				return FALSE;
 			}
 

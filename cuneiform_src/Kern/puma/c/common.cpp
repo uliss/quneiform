@@ -131,7 +131,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name)
 
 	if(!REXC_SetImportData(REXC_ProgressStep, (void*)rexcProgressStep))
 	{
-		SetReturnCode(REXC_GetReturnCode());
+		SetReturnCode_puma(REXC_GetReturnCode());
 		return FALSE;
 	}
 
@@ -146,7 +146,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name)
 /*
 	if(rc && !REXC_SetEVNProperties(exc, GetModulePath(),(Word8)gnLanguage) )
 	{ // инициализировать распознавание по эвентам и задать алфавит
-		SetReturnCode(REXC_GetReturnCode());
+		SetReturnCode_puma(REXC_GetReturnCode());
 		rc = FALSE;
 	}
 	else
@@ -164,7 +164,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name)
     CIMAGEIMAGECALLBACK clbk;
     if(rc && !CIMAGE_GetCallbackImage(name, &clbk))
     {
-		SetReturnCode(CIMAGE_GetReturnCode());
+		SetReturnCode_puma(CIMAGE_GetReturnCode());
         rc = FALSE;
     }
     if( rc && !REXCExtracomp3CB(exc, // поиск компонент by 3CallBacks
@@ -173,7 +173,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name)
         (TImageRead)clbk.CIMAGE_ImageRead) 
         )
 		{
-		SetReturnCode(REXC_GetReturnCode());
+		SetReturnCode_puma(REXC_GetReturnCode());
 		rc = FALSE;
 		}
 			
@@ -182,7 +182,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name)
 		hCCOM = (Handle)REXCGetContainer();
 		if(hCCOM==0)
 		{
-			SetReturnCode(REXC_GetReturnCode());
+			SetReturnCode_puma(REXC_GetReturnCode());
 			rc = FALSE;
 		}
 		
@@ -192,7 +192,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name)
 		hCCOM = (Handle)REXCGetContainer();
 		if(hCCOM==0)
 		{
-			SetReturnCode(REXC_GetReturnCode());
+			SetReturnCode_puma(REXC_GetReturnCode());
 			rc = FALSE;
 		}
 	}
@@ -320,7 +320,7 @@ Bool32 RemoveLines(Handle hccom,Handle hcpage,PWord8 * lppDIB)
 //	
 	if(rc && !RLINE_DeleteLines(hcpage,PUMA_IMAGE_DELLINE))
 	{
-		SetReturnCode(RLINE_GetReturnCode());
+		SetReturnCode_puma(RLINE_GetReturnCode());
 		rc = FALSE;
 	}
 //	
@@ -328,7 +328,7 @@ Bool32 RemoveLines(Handle hccom,Handle hcpage,PWord8 * lppDIB)
 //	
 	if(rc && !CIMAGE_ReadDIB((PWord8)PUMA_IMAGE_DELLINE,(Handle*)&hDIB,TRUE))
 	{
-		SetReturnCode(CIMAGE_GetReturnCode());
+		SetReturnCode_puma(CIMAGE_GetReturnCode());
 		rc = FALSE;
 	}
 	if(hDIB)
@@ -367,7 +367,7 @@ Bool32 RemoveLines(Handle hccom,Handle hcpage,PWord8 * lppDIB)
 			hCCOM = (Handle)REXCGetContainer();
 			if(hCCOM==0)
 			{
-				SetReturnCode(REXC_GetReturnCode());
+				SetReturnCode_puma(REXC_GetReturnCode());
 				rc = FALSE;
 			}
 			hccom = hCCOM;
@@ -450,7 +450,7 @@ int count = CSTR_GetMaxNumber();
 
 if(code != PUMA_CODE_ANSI)
 {
-	SetReturnCode(IDS_ERR_NOTIMPLEMENT);
+	SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
 	return FALSE;
 }
 
@@ -465,7 +465,7 @@ FILE * f = fopen(lpOutFileName,"wt");
 			lin_out = CSTR_GetLineHandle(i, 1); // OLEG
 			if(lin_out == (CSTR_line)NULL)
 			{
-				SetReturnCode(CSTR_GetReturnCode());
+				SetReturnCode_puma(CSTR_GetReturnCode());
 				rc = FALSE;
 				break;
 			}
@@ -477,14 +477,14 @@ FILE * f = fopen(lpOutFileName,"wt");
 				unsigned len = strlen(szString);
 				if(fwrite(szString,sizeof(char),len,f) != len)
 				{
-					SetReturnCode(IDS_ERR_FILEWRITE);
+					SetReturnCode_puma(IDS_ERR_FILEWRITE);
 					rc = FALSE;
 					break;
 				}
 			}
 			else
 			{
-				SetReturnCode(CSTR_GetReturnCode());
+				SetReturnCode_puma(CSTR_GetReturnCode());
 				rc = FALSE;
 				break;
 			}
@@ -494,7 +494,7 @@ FILE * f = fopen(lpOutFileName,"wt");
 	}
 	else
 	{
-		SetReturnCode(IDS_ERR_FILEOPEN);
+		SetReturnCode_puma(IDS_ERR_FILEOPEN);
 		rc = FALSE;
 	}
 	return rc;

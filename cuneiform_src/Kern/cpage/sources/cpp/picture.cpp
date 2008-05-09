@@ -75,7 +75,7 @@ Word32 TYPE_PICTURE_to_CPAGE_PICTURE(POLY_ * lpDataIn,Word32 SizeIn,CPAGE_PICTUR
 		sizeof(CPAGE_PICTURE) != SizeOut ||
 		lpDataIn == NULL)
 	{
-		SetReturnCode(IDS_ERR_DISCREP);
+		SetReturnCode_cpage(IDS_ERR_DISCREP);
 		return 0;
 	}
 
@@ -105,7 +105,7 @@ Word32 CPAGE_PICTURE_to_TYPE_PICTURE( CPAGE_PICTURE * lpDataIn,Word32 SizeIn,POL
 		sizeof(CPAGE_PICTURE) != SizeIn ||
 		lpDataIn == NULL)
 	{
-		SetReturnCode(IDS_ERR_DISCREP);
+		SetReturnCode_cpage(IDS_ERR_DISCREP);
 		return 0;
 	}
 

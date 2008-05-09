@@ -139,7 +139,8 @@ Bool32 Layout(PWord8 lpdata)
 		SET_CB(CBforRS, rexcProgressStep);
 		SET_CB(CBforRS, DPumaSkipComponent);
 		SET_CB(CBforRS, DPumaSkipTurn);
-		SET_CB(CBforRS, SetReturnCode);
+		//SET_CB(CBforRS, SetReturnCode);
+		CBforRS.pSetReturnCode = (void*) SetReturnCode_puma;
 		SET_CB(CBforRS, GetModulePath);
 		SET_CB(CBforRS, SetUpdate);
 
@@ -156,7 +157,8 @@ Bool32 Layout(PWord8 lpdata)
 		SET_CB(CBforRM, rexcProgressStep);
 		SET_CB(CBforRM, DPumaSkipComponent);
 		SET_CB(CBforRM, DPumaSkipTurn);
-		SET_CB(CBforRM, SetReturnCode);
+		//SET_CB(CBforRM, SetReturnCode);
+		CBforRM.pSetReturnCode = (void*) SetReturnCode_puma;
 		SET_CB(CBforRM, GetModulePath);
 		SET_CB(CBforRM, SetUpdate);
 
@@ -203,7 +205,7 @@ Bool32 Layout(PWord8 lpdata)
 
 			if( !rc )
 			{
-				SetReturnCode(RSTUFF_GetReturnCode());
+				SetReturnCode_puma(RSTUFF_GetReturnCode());
 				rc = FALSE;
 			}
 
@@ -262,7 +264,7 @@ Bool32 Layout(PWord8 lpdata)
 
 			if( !rc )
 			{
-				SetReturnCode(RMARKER_GetReturnCode());
+				SetReturnCode_puma(RMARKER_GetReturnCode());
 			}
 			else
 				hCPAGE = DataforRM.hCPAGE;	  //Paul 25-01-2001

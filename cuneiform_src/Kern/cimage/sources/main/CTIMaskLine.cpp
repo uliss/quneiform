@@ -171,7 +171,7 @@ Bool32 CTIMaskLine::AddSegment(PCTIMaskLineSegment pSegm)
 			CheckSegments();
 	}
 	else
-		SetReturnCode(IDS_CIMAGE_INVALID_MASK_LAGER_IMAGE);
+		SetReturnCode_cimage(IDS_CIMAGE_INVALID_MASK_LAGER_IMAGE);
 
 	return bRet;
 }
@@ -238,10 +238,10 @@ Bool32 CTIMaskLine::RemoveSegment(PCTIMaskLineSegment pSegm)
 			}
 		}
 		else
-			SetReturnCode(IDS_CIMAGE_INVALID_MASK_LAGER_IMAGE);
+			SetReturnCode_cimage(IDS_CIMAGE_INVALID_MASK_LAGER_IMAGE);
 	}
 	else
-		SetReturnCode(IDS_CIMAGE_NO_MASK_ON_THIS_LINE);
+		SetReturnCode_cimage(IDS_CIMAGE_NO_MASK_ON_THIS_LINE);
 
 	return TRUE;
 }

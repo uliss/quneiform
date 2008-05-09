@@ -107,19 +107,19 @@ Bool32 CRIBinarizator::SetRasters(PCTDIB pSrcDIB, PCTDIB pDescDIB)
 		
 		if ( (mwSrcBitCount = mpIncomeDIB->GetPixelSize()) < 4 )
 		{
-			SetReturnCode(IDS_RIMAGE_DIB_CANT_TO_BE_BINARISED);
+			SetReturnCode_rimage(IDS_RIMAGE_DIB_CANT_TO_BE_BINARISED);
 			return FALSE;
 		}
 
 		if ( mpOutcomeDIB->GetPixelSize() != 1 )
 		{
-			SetReturnCode(IDS_RIMAGE_DIB_OUT_FORMAT_NOT_BINARISED);
+			SetReturnCode_rimage(IDS_RIMAGE_DIB_OUT_FORMAT_NOT_BINARISED);
 			return FALSE;
 		}
 
 		if ( (mwLineLenght = mpIncomeDIB->GetLineWidth()) != mpOutcomeDIB->GetLineWidth() )
 		{
-			SetReturnCode(IDS_RIMAGE_OUTCOME_DIB_NOT_LINK_TO_INCOME);
+			SetReturnCode_rimage(IDS_RIMAGE_OUTCOME_DIB_NOT_LINK_TO_INCOME);
 			return FALSE;
 		}
 
@@ -161,11 +161,11 @@ Bool32 CRIBinarizator::Binarize(CTBinarize eBinType, Word32 wFlag)
 	{
 		if ( wExit = IDS_RIMAGE_EXIT_BY_USER)
 		{
-			SetReturnCode(IDS_RIMAGE_EXIT_BY_USER);
+			SetReturnCode_rimage(IDS_RIMAGE_EXIT_BY_USER);
 		}
 		else
 		{
-			SetReturnCode(IDS_RIMAGE_UNKNOWN_ERROR);
+			SetReturnCode_rimage(IDS_RIMAGE_UNKNOWN_ERROR);
 		}
 
 		bRet =  FALSE;

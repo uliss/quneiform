@@ -80,7 +80,7 @@ Word32 DefConvertBlock(Word32 dwContext,
 				  Word32 TypeOut,void * LpDataOut, Word32 SizeOut)
 {
 	Word32 rc = 0;
-	SetReturnCode(IDS_ERR_NO);
+	SetReturnCode_cpage(IDS_ERR_NO);
 
 	if(TypeIn==TYPE_DESK)
 	{
@@ -110,7 +110,7 @@ Word32 DefConvertPage(Word32 dwContext,
 				  Word32 TypeOut,void * LpDataOut, Word32 SizeOut)
 {
 	Word32 rc = 0;
-	SetReturnCode(IDS_ERR_NO);
+	SetReturnCode_cpage(IDS_ERR_NO);
 
 	return rc;
 }

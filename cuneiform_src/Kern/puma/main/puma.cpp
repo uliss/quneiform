@@ -93,7 +93,7 @@ Bool32 BinariseImage()
 	//CIMAGEBITMAPINFOHEADER info;
 	if(!CIMAGE_GetImageInfo((PWord8)PUMA_IMAGE_USER,&info))
 	{
-		SetReturnCode(CIMAGE_GetReturnCode());
+		SetReturnCode_puma(CIMAGE_GetReturnCode());
 		rc = FALSE;
 	}
 	
@@ -106,14 +106,14 @@ Bool32 BinariseImage()
 		PRGTIME prev = StorePRGTIME(10, 100);
 		if(!RIMAGE_Binarise((PWord8 )PUMA_IMAGE_USER,(PWord8)PUMA_IMAGE_BINARIZE,4,0))//RIMAGE_BINARISE_KRONROD
 		{
-			SetReturnCode(RIMAGE_GetReturnCode());
+			SetReturnCode_puma(RIMAGE_GetReturnCode());
 			rc = FALSE;
 		}
 		else
 		{
 			if(!CIMAGE_ReadDIB((PWord8 )PUMA_IMAGE_BINARIZE,(Handle*)&gpRecogDIB,TRUE))
 			{
-				SetReturnCode(CIMAGE_GetReturnCode());
+				SetReturnCode_puma(CIMAGE_GetReturnCode());
 				rc = FALSE;
 			}
 			else
@@ -131,7 +131,7 @@ Bool32 BinariseImage()
 		//              RCOLOR_SetProgress(rcolorStart,rcolorStep,rcolorFinish);
 		//              if(!RCOLOR_Convert(gpInputDIB,&gpRecogDIB))
 		//              {
-		//                      SetReturnCode(RCOLOR_GetReturnCode());
+		//                      SetReturnCode_puma(RCOLOR_GetReturnCode());
 		//                      rc = FALSE;
 		//              }
 		//              else
@@ -143,7 +143,7 @@ Bool32 BinariseImage()
 	{
 		if(rc && info.biBitCount > 1)
 		{ // Дальнейшая работа без бинаризатора невозможна !
-			SetReturnCode(IDS_ERR_NOBINARIZATION);
+			SetReturnCode_puma(IDS_ERR_NOBINARIZATION);
 			rc = FALSE;
 		}
 	}
@@ -182,7 +182,7 @@ Bool32 PreProcessImage()
 //	CIMAGEBITMAPINFOHEADER info;
 //	if(!CIMAGE_GetImageInfo((PWord8)PUMA_IMAGE_USER,&info))
 //	{
-//		SetReturnCode(CIMAGE_GetReturnCode());
+//		SetReturnCode_puma(CIMAGE_GetReturnCode());
 //		rc = FALSE;
 //	}
 //	
@@ -195,14 +195,14 @@ Bool32 PreProcessImage()
 //		PRGTIME prev = StorePRGTIME(10, 60);
 //		if(!RIMAGE_Binarise((PWord8 )PUMA_IMAGE_USER,(PWord8)PUMA_IMAGE_BINARIZE,4,0))//RIMAGE_BINARISE_KRONROD
 //		{
-//			SetReturnCode(RIMAGE_GetReturnCode());
+//			SetReturnCode_puma(RIMAGE_GetReturnCode());
 //			rc = FALSE;
 //		}
 //		else
 //		{
 //			if(!CIMAGE_ReadDIB((PWord8 )PUMA_IMAGE_BINARIZE,(Handle*)&gpRecogDIB,TRUE))
 //			{
-//				SetReturnCode(CIMAGE_GetReturnCode());
+//				SetReturnCode_puma(CIMAGE_GetReturnCode());
 //				rc = FALSE;
 //			}
 //			else
@@ -213,7 +213,7 @@ Bool32 PreProcessImage()
 //		//              RCOLOR_SetProgress(rcolorStart,rcolorStep,rcolorFinish);
 //		//              if(!RCOLOR_Convert(gpInputDIB,&gpRecogDIB))
 //		//              {
-//		//                      SetReturnCode(RCOLOR_GetReturnCode());
+//		//                      SetReturnCode_puma(RCOLOR_GetReturnCode());
 //		//                      rc = FALSE;
 //		//              }
 //		//              else
@@ -225,7 +225,7 @@ Bool32 PreProcessImage()
 //	{
 //		if(rc && info.biBitCount > 1)
 //		{ // Дальнейшая работа без бинаризатора невозможна !
-//			SetReturnCode(IDS_ERR_NOBINARIZATION);
+//			SetReturnCode_puma(IDS_ERR_NOBINARIZATION);
 //			rc = FALSE;
 //		}
 //	}
@@ -238,7 +238,7 @@ Bool32 PreProcessImage()
 //	//      {
 //	//              if(!CIMAGE_WriteDIB((PWord8)PUMA_IMAGE_BINARIZE,gpRecogDIB,TRUE))
 //	//              {
-//	//                      SetReturnCode(CIMAGE_GetReturnCode());
+//	//                      SetReturnCode_puma(CIMAGE_GetReturnCode());
 //	//                      rc = FALSE;
 //	//              }
 //	//      }
@@ -357,7 +357,7 @@ Bool32 rc = TRUE;
 #endif
 	}
 	SetUpdate(FLG_UPDATE,FLG_UPDATE_NO);
-	SetReturnCode(IDS_ERR_NO);
+	SetReturnCode_puma(IDS_ERR_NO);
 	return rc;
 }
 //////////////////////////////////////////////////
@@ -369,7 +369,7 @@ static Bool32  PostOpenInitialize(const char * lpFileName)
 			LDPUMA_SetFileName(NULL,(char*)lpFileName);
 		if(!CIMAGE_GetImageInfo((PWord8)PUMA_IMAGE_USER,&info))
 		{
-			SetReturnCode(CIMAGE_GetReturnCode());
+			SetReturnCode_puma(CIMAGE_GetReturnCode());
 			rc = FALSE;
 		}
 		else
@@ -400,7 +400,7 @@ PUMA_FUNC(Bool32) PUMA_XOpen(void * pDIB,const char * lpFileName)
 	PreOpenInitialize(lpFileName);
 	if( pDIB == NULL)
 	{
-		SetReturnCode(IDS_ERR_IMAGE);
+		SetReturnCode_puma(IDS_ERR_IMAGE);
 		rc = FALSE;
 	}
 	else
@@ -412,7 +412,7 @@ PUMA_FUNC(Bool32) PUMA_XOpen(void * pDIB,const char * lpFileName)
 	{
 		if(!CIMAGE_WriteDIB((PWord8)PUMA_IMAGE_USER,pDIB,1))
 		{
-			SetReturnCode(CIMAGE_GetReturnCode());
+			SetReturnCode_puma(CIMAGE_GetReturnCode());
 			rc = FALSE;
 		}
 	}
@@ -432,7 +432,7 @@ PUMA_FUNC(Bool32) PUMA_XOpenClbk(PUMAIMAGECALLBACK CallBack,const char * lpFileN
 		lpCallBack->CIMAGE_ImageOpen ==NULL || 
 		lpCallBack->CIMAGE_ImageRead==NULL )
 	{
-		SetReturnCode(IDS_ERR_IMAGE);
+		SetReturnCode_puma(IDS_ERR_IMAGE);
 		rc = FALSE;
 	}
 	//
@@ -442,14 +442,14 @@ PUMA_FUNC(Bool32) PUMA_XOpenClbk(PUMAIMAGECALLBACK CallBack,const char * lpFileN
 	{
 		if(!CIMAGE_WriteCallbackImage((PWord8)PUMA_IMAGE_USER,*(CIMAGEIMAGECALLBACK*)lpCallBack))
 		{
-			SetReturnCode(CIMAGE_GetReturnCode());
+			SetReturnCode_puma(CIMAGE_GetReturnCode());
 			rc = FALSE;
 		}
 		else
 		{
 			if(!CIMAGE_ReadDIB((PWord8)PUMA_IMAGE_USER,(Handle *)&gpInputDIB,1))
 			{
-				SetReturnCode(CIMAGE_GetReturnCode());
+				SetReturnCode_puma(CIMAGE_GetReturnCode());
 				rc = FALSE;
 			}
 			//gpInputDIB = (PWord8)pDIB;
@@ -474,7 +474,7 @@ PUMA_FUNC(Bool32) PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p)
 	
 	if(!CPAGE_GetPageData(hCPAGE,PT_PAGEINFO,(void*)&PInfo,sizeof(PInfo)))
 	{
-		SetReturnCode(CPAGE_GetReturnCode());
+		SetReturnCode_puma(CPAGE_GetReturnCode());
 		rc = FALSE;
 	}
 	else
@@ -498,7 +498,7 @@ PUMA_FUNC(Bool32) PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p)
         }
         else
         {
-			SetReturnCode(CIMAGE_GetReturnCode());
+			SetReturnCode_puma(CIMAGE_GetReturnCode());
 			rc = FALSE;
         }
 	}
@@ -517,7 +517,7 @@ PUMA_FUNC(Bool32) PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p)
 			(PWord8)PUMA_IMAGE_ROTATE,
 			PInfo.Incline2048,2048, 0))
 		{
-			SetReturnCode(RIMAGE_GetReturnCode());
+			SetReturnCode_puma(RIMAGE_GetReturnCode());
 			rc = FALSE;
 		}
         
@@ -525,7 +525,7 @@ PUMA_FUNC(Bool32) PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p)
 		{
 			if(!CIMAGE_ReadDIB((PWord8)PUMA_IMAGE_ROTATE,lpDIB,TRUE))
 			{
-				SetReturnCode(CIMAGE_GetReturnCode());
+				SetReturnCode_puma(CIMAGE_GetReturnCode());
 				rc = FALSE;
 			}
 		}
@@ -625,7 +625,7 @@ PUMA_FUNC(Bool32) PUMA_Save(Handle hEdPage, const char * lpOutFileName, Int32 ln
 
 	if(ghEdPage==NULL)	
 	{
-		SetReturnCode(IDS_ERR_PARAM);
+		SetReturnCode_puma(IDS_ERR_PARAM);
 		return FALSE;
 	}
 
@@ -645,7 +645,7 @@ PUMA_FUNC(Bool32) PUMA_Save(Handle hEdPage, const char * lpOutFileName, Int32 ln
 			SetOptionsToFRMT();
 			rc = RFRMT_SaveRtf((char*)lpOutFileName,lnCode);
 			if(!rc)
-				SetReturnCode(RFRMT_GetReturnCode());
+				SetReturnCode_puma(RFRMT_GetReturnCode());
 				*/
 			if(bAppend)
 				rc = CED_MergeFormattedRtf((char*)lpOutFileName, ghEdPage);
@@ -653,12 +653,12 @@ PUMA_FUNC(Bool32) PUMA_Save(Handle hEdPage, const char * lpOutFileName, Int32 ln
 			    rc = CED_WriteFormattedRtf((char*)lpOutFileName, ghEdPage);
 
 			if(!rc)
-				SetReturnCode(CED_GetReturnCode());
+				SetReturnCode_puma(CED_GetReturnCode());
 			break;
 		case PUMA_TOEDNATIVE:
 			rc = CED_WriteFormattedEd((char*)lpOutFileName, ghEdPage);
 			if(!rc)
-				SetReturnCode(CED_GetReturnCode());
+				SetReturnCode_puma(CED_GetReturnCode());
 			break;
 		case PUMA_TOTEXT:
 		case PUMA_TOSMARTTEXT:
@@ -668,7 +668,7 @@ PUMA_FUNC(Bool32) PUMA_Save(Handle hEdPage, const char * lpOutFileName, Int32 ln
 			rc = ConverROUT((char *)lpOutFileName, lnFormat, lnCode, bAppend);                
 			break;
 		default:
-			SetReturnCode(IDS_ERR_NOTIMPLEMENT);
+			SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
 			rc = FALSE;
 		}
 	}
@@ -692,7 +692,7 @@ PUMA_FUNC(Word32) PUMA_SaveToMemory(Handle hEdPage, Int32 lnFormat, Int32 lnCode
 
 	if(ghEdPage==NULL)	
 	{
-		SetReturnCode(IDS_ERR_PARAM);
+		SetReturnCode_puma(IDS_ERR_PARAM);
 		return rc;
 	}
 
@@ -710,7 +710,7 @@ PUMA_FUNC(Word32) PUMA_SaveToMemory(Handle hEdPage, Int32 lnFormat, Int32 lnCode
 			rc = ConverROUTtoMemory(hEdPage, lnFormat, lnCode, (Byte*)lpMem, size);
 			break;
 		default:
-			SetReturnCode(IDS_ERR_NOTIMPLEMENT);
+			SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
 		}
 	}
 	LDPUMA_Skip(hDebugCancelFictive);

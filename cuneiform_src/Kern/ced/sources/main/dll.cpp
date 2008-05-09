@@ -132,7 +132,7 @@ DEC_FUN(void, CED_Letter,(const letter* pt,const Word32 alternatives));
 #undef DEC_FUN
 
 #define	ReadFunction(a,b) if(!CFIO_GetExportData(a, &b)) \
-		SetReturnCode((Word16)CFIO_GetReturnCode());				
+		SetReturnCode_ced((Word16)CFIO_GetReturnCode());				
  
 ReadFunction(CFIO_FNReadMemoryFromFile,MemFromFile);
 ReadFunction(CFIO_FNLockMemory,Lock);
@@ -146,7 +146,7 @@ ReadFunction(CFIO_FNWriteToFile,Write);
 logName[0]=0;
 logStream=0;
 
-return GetReturnCode()==0?1:GetReturnCode();
+return GetReturnCode_ced()==0?1:GetReturnCode_ced();
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -299,7 +299,7 @@ CED_FUNC(Bool32) CED_GetExportData(Word32 dwType, void * pData)
 #endif
 	default:
 		*(Handle *)pData = NULL;
-		SetReturnCode(IDS_ERR_NOTIMPLEMENT);
+		SetReturnCode_ced(IDS_ERR_NOTIMPLEMENT);
 		rc = FALSE;
 	}
 #undef CASE_FUNCTION
@@ -342,14 +342,14 @@ CASE_FUNCTION(CED_ExtentionNew);
 CASE_FUNCTION(CED_Aksant);
 CASE_FUNCTION(CED_Letter);
 	 default:
-		SetReturnCode(IDS_ERR_NOTIMPLEMENT);
+		SetReturnCode_ced(IDS_ERR_NOTIMPLEMENT);
 		rc = FALSE;
 	}
 #undef CASE_FUNCTION
 return rc;
 }
 
-void SetReturnCode(Word32 rc)
+void SetReturnCode_ced(Word32 rc)
 {
 Word16 low = (Word16)(rc &  0xFFFF);
 Word16 hei = (Word16)(rc >> 16);
@@ -366,7 +366,7 @@ Word16 hei = (Word16)(rc >> 16);
 
 }
 
-Word32 GetReturnCode()
+Word32 GetReturnCode_ced()
 {
 Word32 rc = gwRC;
 Word16 low = (Word16)(gwRC &  0xFFFF);

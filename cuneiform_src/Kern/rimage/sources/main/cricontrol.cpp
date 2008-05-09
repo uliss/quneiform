@@ -127,7 +127,7 @@ CRIControl::~CRIControl()
 //
 Bool32 CRIControl::SetMargins(PRIMAGEMARGINS pMargins)
 {
-	SetReturnCode(IDS_RIMAGE_UNDER_CONSTRUCTION);
+	SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
 	return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -146,7 +146,7 @@ Bool32 CRIControl::Binarise(PChar8 cDIBIn, PChar8 cDIBOut, Word32 wFlag, Word32 
     if ( !SupportedIndexColorImage(mpSourceDIB) )
     {
         CloseSourceDIB();
-		SetReturnCode(IDS_RIMAGE_NOTSUPPORTED_INDEX_COLOR);
+		SetReturnCode_rimage(IDS_RIMAGE_NOTSUPPORTED_INDEX_COLOR);
 		return FALSE;
     }
 		*/
@@ -154,7 +154,7 @@ Bool32 CRIControl::Binarise(PChar8 cDIBIn, PChar8 cDIBOut, Word32 wFlag, Word32 
 	if ( ! CreateDestinatonDIB(1) )           // create DIB 1 bit per pixel         
 	{
         CloseSourceDIB();
-		SetReturnCode(IDS_RIMAGE_CANNOT_CREATE_NEW_DIB);
+		SetReturnCode_rimage(IDS_RIMAGE_CANNOT_CREATE_NEW_DIB);
 		return FALSE;
 	}
 	//открываем бинаризатор
@@ -165,7 +165,7 @@ Bool32 CRIControl::Binarise(PChar8 cDIBIn, PChar8 cDIBOut, Word32 wFlag, Word32 
 	// закидываем туда картинки
 	if ( !mpBinarizator->SetRasters(mpSourceDIB, mpDestinationDIB) )
 	{
-		SetReturnCode(IDS_RIMAGE_CANNOT_SET_DIB);
+		SetReturnCode_rimage(IDS_RIMAGE_CANNOT_SET_DIB);
 		Ret = FALSE;
 	}
 
@@ -180,20 +180,20 @@ Bool32 CRIControl::Binarise(PChar8 cDIBIn, PChar8 cDIBOut, Word32 wFlag, Word32 
 	// бинаризуем
 	if ( !mpBinarizator->Binarize(bType, wFlag) )
 	{
-		SetReturnCode(IDS_RIMAGE_CANT_BINARYZE);
+		SetReturnCode_rimage(IDS_RIMAGE_CANT_BINARYZE);
 		Ret = FALSE;
 	}
 	//отписваем новый в контейнер и освобождаем
 	if ( !CloseDestinationDIB(cDIBOut) )
 	{
-		SetReturnCode(IDS_RIMAGE_UNDER_CONSTRUCTION);
+		SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
 		Ret = FALSE;
 	}
 
 	//закрываем исходный
 	if ( !CloseSourceDIB() )
 	{
-		SetReturnCode(IDS_RIMAGE_UNDER_CONSTRUCTION);
+		SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
 		Ret = FALSE;
 	}
 	return Ret;
@@ -213,7 +213,7 @@ Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, Int32 High, Int32 Low
 	
 	if ( mpDestinationDIB )
 	{
-		SetReturnCode(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
+		SetReturnCode_rimage(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
 		return FALSE;
 	}
 
@@ -230,7 +230,7 @@ Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, Int32 High, Int32 Low
 
 	if ( !mpRotator->Rotate(mpSourceDIB, mpDestinationDIB, High, Low) )
 	{
-		Word16 wRet = GetReturnCode();
+		Word16 wRet = GetReturnCode_rimage();
 // !!! Art Изменил - теперь она заносит не хендлы, а указатели, а то память утекала
 //почему-то...
 		//		Handle hDIBtoSet;
@@ -243,12 +243,12 @@ Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, Int32 High, Int32 Low
 		{
 //			SetDIB(cDIBOut, hDIBtoSet);
 			WriteDIB(cDIBOut, pDIBtoSet);
-			SetReturnCode(IDS_RIMAGE_ERR_NO);
+			SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 			NoDest = Ret = TRUE;
 		}
 		else
 		{
-			SetReturnCode(IDS_RIMAGE_CANNOT_ROTATE_IMAGE);
+			SetReturnCode_rimage(IDS_RIMAGE_CANNOT_ROTATE_IMAGE);
 			Ret = FALSE;
 		}
 	}
@@ -263,7 +263,7 @@ Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, Int32 High, Int32 Low
 	{
 		if ( NoDest == FALSE )
 		{
-			SetReturnCode(IDS_RIMAGE_CANNT_SAVE_OUTCOMING_DIB);
+			SetReturnCode_rimage(IDS_RIMAGE_CANNT_SAVE_OUTCOMING_DIB);
 			Ret = FALSE;
 		}
 	}
@@ -273,7 +273,7 @@ Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, Int32 High, Int32 Low
 	//закрываем исходный
 	if ( !CloseSourceDIB() )
 	{
-		SetReturnCode(IDS_RIMAGE_UNDER_CONSTRUCTION);
+		SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
 		Ret = FALSE;
 	}
 	return Ret;
@@ -289,13 +289,13 @@ Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, Word32 wFlag, Word32 Us
 
 	if ( wFlag != RIMAGE_TURN_90 && wFlag != RIMAGE_TURN_270 && wFlag != RIMAGE_TURN_180 )
 	{
-		SetReturnCode(IDS_RIMAGE_INVALID_FUNCTION_PARAMETR);
+		SetReturnCode_rimage(IDS_RIMAGE_INVALID_FUNCTION_PARAMETR);
 		return FALSE;
 	}
 
 	if ( mp_TurnedDIB != NULL )
 	{
-		SetReturnCode(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
+		SetReturnCode_rimage(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
 		return FALSE;
 	}
 	// открываем исходный
@@ -308,7 +308,7 @@ Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, Word32 wFlag, Word32 Us
 	/*
 	if ( !mpSourceDIB->GetDIBPtr( &pSDIB ) )
 	{
-		SetReturnCode(IDS_RIMAGE_INVALID_EXTERNAL_DIB);
+		SetReturnCode_rimage(IDS_RIMAGE_INVALID_EXTERNAL_DIB);
 		return FALSE;
 	}
 	*/
@@ -321,7 +321,7 @@ Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, Word32 wFlag, Word32 Us
 	// генерим новенький
 	if ( mpDestinationDIB )
 	{
-		SetReturnCode(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
+		SetReturnCode_rimage(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
 		return FALSE;
 	}
 
@@ -345,7 +345,7 @@ Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, Word32 wFlag, Word32 Us
 	/*
 	if ( !(mp_TurnedDIB = mpTurner->TurnDIB(pSDIB, wFlag)) )
 	{
-		SetReturnCode(IDS_RIMAGE_CANT_TURN_DIB);
+		SetReturnCode_rimage(IDS_RIMAGE_CANT_TURN_DIB);
 		return FALSE;
 	}
 	*/
@@ -354,13 +354,13 @@ Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, Word32 wFlag, Word32 Us
 	//отписваем новый в контейнер и освобождаем
 	if ( !WriteDIB(cDIBOutt, mp_TurnedDIB) )
 	{
-		SetReturnCode(IDS_RIMAGE_UNABLE_WRITE_DIB);
+		SetReturnCode_rimage(IDS_RIMAGE_UNABLE_WRITE_DIB);
 		return FALSE;
 	}
 
 	if ( !mpTurner->FreeDIB(mp_TurnedDIB) )
 	{
-		SetReturnCode(IDS_RIMAGE_INVALID_EXTERNAL_DIB);
+		SetReturnCode_rimage(IDS_RIMAGE_INVALID_EXTERNAL_DIB);
 		return FALSE;
 	}
 
@@ -369,13 +369,13 @@ Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, Word32 wFlag, Word32 Us
 	//отписваем новый в контейнер и освобождаем
 	if ( !CloseDestinationDIB(cDIBOut) )
 	{
-		SetReturnCode(IDS_RIMAGE_CANNT_SAVE_OUTCOMING_DIB);
+		SetReturnCode_rimage(IDS_RIMAGE_CANNT_SAVE_OUTCOMING_DIB);
 		bRet = FALSE;
 	}
 	//закрываем исходный
 	if ( !CloseSourceDIB() )
 	{
-		SetReturnCode(IDS_RIMAGE_UNDER_CONSTRUCTION);
+		SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
 		bRet = FALSE;
 	}
 	return bRet;
@@ -401,14 +401,14 @@ Bool32 CRIControl::Inverse(PChar8  cDIBIn, PChar8  cDIBOut, Word32 UseMargins)
 	// Инвертируем
 	if ( !mpInvertor->Inverse(mpDestinationDIB) )
 	{
-		SetReturnCode(IDS_RIMAGE_CANNOT_INVERT_IMAGE);
+		SetReturnCode_rimage(IDS_RIMAGE_CANNOT_INVERT_IMAGE);
 		bErrors = FALSE;
 	}
 
 	//отписваем новый в контейнер и освобождаем
 	if ( !SetDestinationDIBtoStorage(cDIBOut) )
 	{
-		SetReturnCode(IDS_RIMAGE_UNABLE_WRITE_DIB);
+		SetReturnCode_rimage(IDS_RIMAGE_UNABLE_WRITE_DIB);
 		bErrors = FALSE;
 	}
 
@@ -422,7 +422,7 @@ Bool32 CRIControl::GetDIB(PChar8  cDIB, PHandle phDIB)
 	if ( CIMAGE_ReadDIB((PWord8)cDIB, phDIB, TRUE) )
 		return TRUE;
 
-	SetReturnCode(IDS_RIMAGE_NO_IMAGE_FOUND);
+	SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
 	return FALSE;
 
 }
@@ -433,7 +433,7 @@ Bool32 CRIControl::SetDIB(PChar8  cDIB, Handle hDIB)
 	if ( CIMAGE_WriteDIB((PWord8)cDIB, hDIB, TRUE) )
 		return TRUE;
 
-	SetReturnCode(IDS_RIMAGE_UNABLE_WRITE_DIB);
+	SetReturnCode_rimage(IDS_RIMAGE_UNABLE_WRITE_DIB);
 	return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -443,7 +443,7 @@ Bool32 CRIControl::WriteDIB(PChar8  cDIB, Handle hDIB)
 	if ( CIMAGE_WriteDIB((PWord8)cDIB, hDIB, FALSE) )
 		return TRUE;
 
-	SetReturnCode(IDS_RIMAGE_NO_IMAGE_FOUND);
+	SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
 	return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -453,7 +453,7 @@ Bool32 CRIControl::ReadDIB(PChar8  cDIB, PHandle phDIB)
 	if ( CIMAGE_ReadDIB((PWord8)cDIB, phDIB, FALSE) )
 		return TRUE;
 
-	SetReturnCode(IDS_RIMAGE_UNABLE_WRITE_DIB);
+	SetReturnCode_rimage(IDS_RIMAGE_UNABLE_WRITE_DIB);
 	return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -465,7 +465,7 @@ Bool32 CRIControl::CloseSourceDIB()
 
 	if ( mpSourceDIB == NULL )
 	{
-		SetReturnCode(IDS_RIMAGE_NOT_OPENED);
+		SetReturnCode_rimage(IDS_RIMAGE_NOT_OPENED);
 		return FALSE;
 	}
 
@@ -488,13 +488,13 @@ Bool32 CRIControl::OpenSourceDIB(PChar8  cDIBName)
 	
 	if ( !ReadDIB(cDIBName, &hDIBIn) )
 	{
-		SetReturnCode(IDS_RIMAGE_NO_IMAGE_FOUND);
+		SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
 		return FALSE;
 	}
 
 	if ( !(pDIB = RIMAGELock(hDIBIn) ) )
 	{
-		SetReturnCode(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
+		SetReturnCode_rimage(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
 		return FALSE;
 	}
 
@@ -504,7 +504,7 @@ Bool32 CRIControl::OpenSourceDIB(PChar8  cDIBName)
 	{
 		delete mpSourceDIB;
 		mpSourceDIB = NULL;
-		SetReturnCode(IDS_RIMAGE_DIB_NOT_ATTACHED);
+		SetReturnCode_rimage(IDS_RIMAGE_DIB_NOT_ATTACHED);
 		return FALSE;
 	}
 
@@ -535,7 +535,7 @@ Bool32 CRIControl::CloseDestinationDIB(PChar8  cDIBName)
 	
 	if ( !WriteDIB(cDIBName, pDIB) )
 	{
-		SetReturnCode(IDS_RIMAGE_NO_IMAGE_FOUND);
+		SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
 		return FALSE;
 	}
 
@@ -579,7 +579,7 @@ Bool32 CRIControl::CreateDestinatonDIB(Word32 BitCount)
 
 	if ( mpSourceDIB == NULL )
 	{
-		SetReturnCode(IDS_RIMAGE_NOT_OPENED);
+		SetReturnCode_rimage(IDS_RIMAGE_NOT_OPENED);
 		return FALSE;
 	}
 
@@ -588,7 +588,7 @@ Bool32 CRIControl::CreateDestinatonDIB(Word32 BitCount)
 	RIMAGEComment("CreateDestinationDIB - temporary DIB");
 	if ( !mpDestinationDIB->SetExternals(RIMAGEAlloc, RIMAGEFree, RIMAGELock, RIMAGEUnlock) )
 	{
-		SetReturnCode(IDS_RIMAGE_PREPARE_TO_CREATE);
+		SetReturnCode_rimage(IDS_RIMAGE_PREPARE_TO_CREATE);
 		delete mpDestinationDIB;
 		mpDestinationDIB = NULL;
 		return FALSE;
@@ -635,13 +635,13 @@ Bool32 CRIControl::OpenDestinationDIBfromSource(PChar8  cDIBName)
 
 	if ( !ReadDIB(cDIBName, &hDIBIn) )
 	{
-		SetReturnCode(IDS_RIMAGE_NO_IMAGE_FOUND);
+		SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
 		return FALSE;
 	}
 
 	if ( !(pDIB = RIMAGELock(hDIBIn) ) )
 	{
-		SetReturnCode(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
+		SetReturnCode_rimage(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
 		return FALSE;
 	}
 
@@ -651,7 +651,7 @@ Bool32 CRIControl::OpenDestinationDIBfromSource(PChar8  cDIBName)
 	{
 		delete mpSourceDIB;
 		mpDestinationDIB = NULL;
-		SetReturnCode(IDS_RIMAGE_DIB_NOT_ATTACHED);
+		SetReturnCode_rimage(IDS_RIMAGE_DIB_NOT_ATTACHED);
 		return FALSE;
 	}
 
@@ -677,14 +677,14 @@ Bool32 CRIControl::SetDestinationDIBtoStorage(PChar8  cDIBName)
 
 	if ( !SetDIB(cDIBName, hSDIB ) )
 	{
-		SetReturnCode(IDS_RIMAGE_NO_IMAGE_FOUND);
+		SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
 		return FALSE;
 	}
 	
 	
 	if ( !CIMAGE_FreeCopedDIB(hSDIB) )
 	{
-		SetReturnCode(IDS_RIMAGE_CIMAGE_MEMORY_ERROR);
+		SetReturnCode_rimage(IDS_RIMAGE_CIMAGE_MEMORY_ERROR);
 		bErrors = FALSE;
 	}
 
@@ -707,7 +707,7 @@ Bool32 CRIControl::Roll(PChar8 cDIBIn, PChar8 cDIBOut, Int32 Num, Int32 Denum, W
 
 	if ( mpDestinationDIB )
 	{
-		SetReturnCode(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
+		SetReturnCode_rimage(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
 		return FALSE;
 	}
 	mpDestinationDIB = new CTDIB;
@@ -720,21 +720,21 @@ Bool32 CRIControl::Roll(PChar8 cDIBIn, PChar8 cDIBOut, Int32 Num, Int32 Denum, W
 
 	if ( !mpRotator->Roll(mpSourceDIB, mpDestinationDIB, Num, Denum) )
 	{
-		SetReturnCode(IDS_RIMAGE_CANNOT_ROTATE_IMAGE);
+		SetReturnCode_rimage(IDS_RIMAGE_CANNOT_ROTATE_IMAGE);
 		Ret = FALSE;
 	}
 
 	//отписваем новый в контейнер и освобождаем
 	if ( !CloseDestinationDIB(cDIBOut) )
 	{
-		SetReturnCode(IDS_RIMAGE_CANNT_SAVE_OUTCOMING_DIB);
+		SetReturnCode_rimage(IDS_RIMAGE_CANNT_SAVE_OUTCOMING_DIB);
 		Ret = FALSE;
 	}
 
 	//закрываем исходный
 	if ( !CloseSourceDIB() )
 	{
-		SetReturnCode(IDS_RIMAGE_UNDER_CONSTRUCTION);
+		SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
 		Ret = FALSE;
 	}
 	return Ret;

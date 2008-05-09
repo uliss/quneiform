@@ -165,7 +165,7 @@ Bool LoadData_rv (Handle hC, int Type, void *vB, char *pStr, int Filter)
 /*----------------------------------------------------------------------------*/
 void Error_MyNoMem (char *pStr, int HowMuch, char *pWhat)
 {
-//	SetReturnCode (Code);
+//	SetReturnCode_rstuff (Code);
 	sprintf (pStr, "RSource.AboutLines: Не хватило памяти под %d %s!", HowMuch, pWhat);
 }
 /*----------------------------------------------------------------------------*/

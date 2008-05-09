@@ -1010,7 +1010,7 @@ static Handle  ExtractBigComponents()
 /*
 	if(!REXC_SetImportData(REXC_ProgressStep, rexcProgressStep))
 	{
-		SetReturnCode(REXC_GetReturnCode());
+		SetReturnCode_rstuff(REXC_GetReturnCode());
 		return FALSE;
 	}
 *-/
