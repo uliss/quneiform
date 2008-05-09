@@ -83,8 +83,8 @@ Handle RltVertix_VL; // корневая вершина отладки для верификации линий
 /*------------extern functions------------------------------------------------*/
 Bool MyInit_CPage ();
 /*------------own functions---------------------------------------------------*/
-void   SetReturnCode (Word16 rc);
-Word16 GetReturnCode ();
+void   SetReturnCode_rverline (Word16 rc);
+Word16 GetReturnCode_rverline ();
 Bool WasInitRVERLINE ();
 /*----------------------------------------------------------------------------*/
 BOOL APIENTRY DllMain( HANDLE hModule, 
@@ -318,12 +318,12 @@ RVERLINE_FUNC(Bool32) RVERLINE_GetExportData(Word32 dwType, void * pData)
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-void SetReturnCode(Word16 rc)
+void SetReturnCode_rverline(Word16 rc)
 {
 	gwLowRC = rc;
 }
 /*----------------------------------------------------------------------------*/
-Word16 GetReturnCode()
+Word16 GetReturnCode_rverline()
 {
 	return gwLowRC;
 }

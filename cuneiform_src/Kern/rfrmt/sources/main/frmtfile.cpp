@@ -81,7 +81,7 @@ extern std::vector<RECT>   *pInputArray;
 
 Int32	PageIncline2048 = 2048;
 Word32  CountPict=0,CountTable=0;
-void    SetReturnCode(Word16 rc);
+void    SetReturnCode_rfrmt(Word16 rc);
 POINT   TemplateOffset;
 
 extern "C" Word32   GetPictCount(void);
@@ -139,7 +139,7 @@ BOOL CreateInternalFileForFormatter(void)
 
  if(!(Page.Count.Frags + (int)CountPict + (int)CountTable)){
 	if(CreateEmptyRtfFile()<0){
- 	   SetReturnCode(IDS_ERR_SIZEFRAGMENT);
+ 	   SetReturnCode_rfrmt(IDS_ERR_SIZEFRAGMENT);
  	   return FALSE;
     }
 	return TRUE;
@@ -718,7 +718,7 @@ BOOL CheckRect(InternalRect* Inner)
    Inner->left,Inner->right,Inner->top,Inner->bottom );
    
    LDPUMA_Console(str);
-   SetReturnCode(IDS_ERR_SIZEFRAGMENT);
+   SetReturnCode_rfrmt(IDS_ERR_SIZEFRAGMENT);
    return FALSE;
  }
 

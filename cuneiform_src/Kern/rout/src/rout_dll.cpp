@@ -325,12 +325,12 @@ ROUT_FUNC(Bool32) ROUT_SetImportData(Word32 dwType, void * pData)
 return rc;
 }
 //********************************************************************
-void SetReturnCode(Word16 rc)
+void SetReturnCode_rout(Word16 rc)
 {
 	gwLowRC_rout = rc;
 }
 //********************************************************************
-Word16 GetReturnCode()
+Word16 GetReturnCode_rout()
 {
 	return gwLowRC_rout;
 }

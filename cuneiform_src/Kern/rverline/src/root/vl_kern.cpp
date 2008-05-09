@@ -94,8 +94,8 @@ static Regime_VerifyLines   MainRegime;
 static Rect16 Rc[MaxComps];
 static int WhatDo[MaxComps];
 /*------------extern functions------------------------------------------------*/
-void   SetReturnCode (Word16 rc);
-Word16 GetReturnCode ();
+void   SetReturnCode_rverline (Word16 rc);
+Word16 GetReturnCode_rverline ();
 Bool WasInitRVERLINE ();
 void GiveMemFor_FWP_Inst (int **ppWhatDo, int *nLimComp);
 Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage, Word32 *pHoriType, Word32 *pVertType, char *pStr);
@@ -152,7 +152,7 @@ RVERLINE_FUNC(Bool32) RVERLINE_MarkLines (Handle hCComp, Handle hCPage)
 	Code = (Word16)(err8<<8);
 	err8 = (Word8)ER_DETAIL_EMPTY_FUNC;
 	Code |= (Word16)err8;
-	SetReturnCode (Code);
+	SetReturnCode_rverline (Code);
 	/*  —читываю линии  */
 	lti.Hor.Lns = LHor;
 	lti.Ver.Lns = LVer;
@@ -178,7 +178,7 @@ RVERLINE_FUNC(Bool32) RVERLINE_MarkLines (Handle hCComp, Handle hCPage)
 			Code = (Word16)(err8<<8);
 			err8 = (Word8)ER_DETAIL_NO_MEMORY;
 			Code |= (Word16)err8;
-			SetReturnCode (Code);
+			SetReturnCode_rverline (Code);
 			myKeyWarn  = AM_GetKeyOfRule (RU_VL_C_ContWarn);
 			if (!AM_Skip (myKeyWarn))
 				AM_ConsolN ("Rlt-WarningCommon-Abort : \

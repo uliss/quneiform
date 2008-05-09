@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ctcclasses.h"
 //////////////////////////////////////////////////////////////////GLOBAL 
 //
-extern void SetReturnCode(Word16 rc);
+extern void SetReturnCode_cfio(Word16 rc);
 //////////////////////////////////////////////////////////////////////////////////
 //
 CTCMemoryHeader::CTCMemoryHeader()
@@ -258,7 +258,7 @@ CTCMemoryHeader * CTCMemoryList::GetItem(Handle hMemory)
 	{
 		if ( !Current )
 		{
-			SetReturnCode(IDS_CFIO_ERR_INTERNAL);
+			SetReturnCode_cfio(IDS_CFIO_ERR_INTERNAL);
 			return NULL;
 		}
 

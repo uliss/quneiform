@@ -194,8 +194,8 @@ Word32	  rc32;
 	int MinVerLenForTrue = 94;//58; //было  50
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-void SetReturnCode( Word32 );
-void SetReturnCode( Word16 );
+void SetReturnCode_rline( Word32 );
+void SetReturnCode_rline( Word16 );
 void CleanLineData( void* pdata,int size);
 
 
@@ -405,7 +405,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 	{
 		LDPUMA_Console( " Error in GetPageData " );
 		rc32 = CPAGE_GetReturnCode();
-		SetReturnCode( rc32 );
+		SetReturnCode_rline( rc32 );
 		return FALSE;
 	}
 
@@ -439,7 +439,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 	{
 		LDPUMA_Console( " Error in GetCallbackImage " );
 		rc32 = CIMAGE_GetReturnCode();
-		SetReturnCode( rc32 );
+		SetReturnCode_rline( rc32 );
 		return FALSE;
 	}
 
@@ -492,7 +492,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 	if (!LnsExtractLines( min_h_len, min_v_len, &result_h_count, &result_v_count ))
 	{
 		//rc16 = LnsGetError ();
-		SetReturnCode( rc16 );
+		SetReturnCode_rline( rc16 );
         CLINE_DeleteContainer(*PHCLINE);
         *PHCLINE = CLINE_CreateContainer(TRUE);
 		return FALSE;
@@ -503,7 +503,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
       lti.Hor.Lns = (LineInfo*)malloc(result_h_count * sizeof(LineInfo));
       if (lti.Hor.Lns == NULL)
 	  {
-		  SetReturnCode( rc16 );
+		  SetReturnCode_rline( rc16 );
 		  return FALSE;
 	  }
 	}
@@ -515,7 +515,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
       lti.Ver.Lns = (LineInfo*)malloc(result_v_count * sizeof(LineInfo));
       if (lti.Ver.Lns == NULL)
 	  {
-		  SetReturnCode( rc16 );
+		  SetReturnCode_rline( rc16 );
 		  return FALSE;
 	  }
 	}
@@ -524,7 +524,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 
 	if (!LnsUpload( &lti, min_h_len, min_v_len ))
 	{
-		SetReturnCode( rc16 );
+		SetReturnCode_rline( rc16 );
 		return FALSE;
 	}
 
@@ -665,7 +665,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 		{
 			LDPUMA_Console( " Error in CreateBlock " );
 			rc32 = CPAGE_GetReturnCode();
-			SetReturnCode( rc32 );
+			SetReturnCode_rline( rc32 );
 			return FALSE;
 		}
 	}
@@ -684,7 +684,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 	{
 		LDPUMA_Console( " Error in CreateBlock " );
 		rc32 = CPAGE_GetReturnCode();
-		SetReturnCode( rc32 );
+		SetReturnCode_rline( rc32 );
 		return FALSE;
 	}
    }
@@ -732,7 +732,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 	{
 		LDPUMA_Console( " Error in GetPageData " );
 		rc32 = CPAGE_GetReturnCode();
-		SetReturnCode( rc32 );
+		SetReturnCode_rline( rc32 );
 		return FALSE;
 	}
 
@@ -750,7 +750,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 	{
 		LDPUMA_Console( " Error in GetBlockFirst " );
 		rc32 = CPAGE_GetReturnCode();
-		SetReturnCode( rc32 );
+		SetReturnCode_rline( rc32 );
 		return FALSE;
 	}
 
@@ -758,7 +758,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 	if (size32 != sizeof(LinesTotalInfo) )
 	{
 		rc32 = CPAGE_GetReturnCode();
-		SetReturnCode( rc32 );
+		SetReturnCode_rline( rc32 );
 		return FALSE;
 	}
 
@@ -770,7 +770,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 	{
 		LDPUMA_Console( " Error in GetCallbackImage " );
 		rc32 = CIMAGE_GetReturnCode();
-		SetReturnCode( rc32 );
+		SetReturnCode_rline( rc32 );
 		return FALSE;
 	}
 	
@@ -820,7 +820,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 	//работаем...
 	if (!LnsExtractLines( min_h_len, min_v_len, &result_h_count, &result_v_count ))
 	{
-		SetReturnCode( rc16 );
+		SetReturnCode_rline( rc16 );
 		return FALSE;
 	}
 
@@ -829,7 +829,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
       lti2.Hor.Lns = (LineInfo*)malloc(result_h_count * sizeof(LineInfo));
       if (lti2.Hor.Lns == NULL)
       {
-		  SetReturnCode( rc16 );
+		  SetReturnCode_rline( rc16 );
 		  return FALSE;
 	  }
 	}
@@ -841,7 +841,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
       lti2.Ver.Lns = (LineInfo*)malloc(result_v_count * sizeof(LineInfo));
       if (lti2.Ver.Lns == NULL)
       {
-		  SetReturnCode( rc16 );
+		  SetReturnCode_rline( rc16 );
 		  return FALSE;
 	  }
 	}
@@ -850,7 +850,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 
 	if (!LnsUpload( &lti2, min_h_len, min_v_len ))
 	{
-		SetReturnCode( rc16 );
+		SetReturnCode_rline( rc16 );
 		return FALSE;
 	}
 
@@ -873,7 +873,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 	  if (!cpdata)
 	  {
 			rc32 = CLINE_GetReturnCode();
-			SetReturnCode( rc32 );
+			SetReturnCode_rline( rc32 );
 			return FALSE;
 	  }
       if(cpdata->Dir==LD_Horiz)
@@ -928,7 +928,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 		if (size32 != sizeof(LineInfo) )
 		{
 			rc32 = CPAGE_GetReturnCode();
-			SetReturnCode( rc32 );
+			SetReturnCode_rline( rc32 );
 			return FALSE;
 		}
 
@@ -972,7 +972,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 		if (size32 != sizeof(LineInfo) )
 		{
 			rc32 = CPAGE_GetReturnCode();
-			SetReturnCode( rc32 );
+			SetReturnCode_rline( rc32 );
 			return FALSE;
 		}
 
@@ -1020,14 +1020,14 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 	if (!CIMAGE_GetCallbackImage( (PWord8)pImage, &cbk))
 	{
 		rc32 = CIMAGE_GetReturnCode();
-		SetReturnCode( rc32 );
+		SetReturnCode_rline( rc32 );
 		return FALSE;
 	}
 
 	if (!CIMAGE_WriteCallbackImage( (PWord8)lpOutDIB, cbk1 ))
 	{
 		rc32 = CIMAGE_GetReturnCode();
-		SetReturnCode( rc32 );
+		SetReturnCode_rline( rc32 );
 		return FALSE;
 	}
 

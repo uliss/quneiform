@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <unistd.h>
 #include "ctccontrol.h"
 #include "compat_defs.h"
-void SetReturnCode(Word16 rc);
+void SetReturnCode_cfio(Word16 rc);
 //////////////////////////////////////////////////////////////////////////////////
 //
 CTCControl::CTCControl()
@@ -863,7 +863,7 @@ Handle CTCControl::AddFileInList(CTCGlobalFile * File, Word32 Flag, Handle Stora
 {
 	Handle ret=FileList.AddItem(File, Flag, Storage);
 	if (!ret)
-		SetReturnCode(IDS_CFIO_ERR_CANT_OPEN_FILE);
+		SetReturnCode_cfio(IDS_CFIO_ERR_CANT_OPEN_FILE);
 	return ret;
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -944,7 +944,7 @@ Word32 CTCControl::WriteDataToFile(Handle File, void * lpData, Word32 Size)
 		}
 	}
 	if (WritedDataCount!=Size)
-		SetReturnCode(IDS_CFIO_ERR_CANT_WRITE);
+		SetReturnCode_cfio(IDS_CFIO_ERR_CANT_WRITE);
 
 	return WritedDataCount;
 }

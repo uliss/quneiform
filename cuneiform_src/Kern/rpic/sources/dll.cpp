@@ -184,7 +184,7 @@ return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 
-void SetReturnCode(Word32 rc)
+void SetReturnCode_rpic(Word32 rc)
 {
 Word16 low = (Word16)(rc &  0xFFFF);
 Word16 hei = (Word16)(rc >> 16);
@@ -200,7 +200,7 @@ Word16 hei = (Word16)(rc >> 16);
 	}
 }
 
-Word32 GetReturnCode()
+Word32 GetReturnCode_rpic()
 {
 Word32 rc = gwLowRC;
 Word16 low = (Word16)(gwLowRC &  0xFFFF);

@@ -166,12 +166,12 @@ RCUTP_FUNC(Bool32) RCUTP_SetImportData(Word32 dwType, void * pData)
 return rc;
 }
 
-void SetReturnCode(Word16 rc)
+void SetReturnCode_rcutp(Word16 rc)
 {
 	gwLowRC = rc;
 }
 
-Word16 GetReturnCode()
+Word16 GetReturnCode_rcutp()
 {
 	return gwLowRC;
 }

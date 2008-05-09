@@ -107,8 +107,8 @@ extern   char*    gpCourierName;
 extern   Word32   CountTable;
 
 // extern functions
-void    SetReturnCode(Word16 rc);
-Word16  GetReturnCode();
+void    SetReturnCode_rfrmt(Word16 rc);
+Word16  GetReturnCode_rfrmt();
 
 #ifdef alDebug
 std::vector <tagRECT>   *pInputArray;
@@ -170,7 +170,7 @@ RtfFragRect.m_Step                        = 0;
  Draw_Cycle     =  RtfFragRect.m_Cycle               ;  
 #endif
 	
- SetReturnCode(IDS_ERR_NO);
+ SetReturnCode_rfrmt(IDS_ERR_NO);
  if(CreateInternalFileForFormatter() == FALSE)
    return FALSE;
 
@@ -307,7 +307,7 @@ RFRMT_FUNC(Bool32)  RFRMT_SaveRtf(char* lpOutputFileName,Word32 code)
  Draw_Cycle     =  RtfFragRect.m_Cycle               ;  
 #endif
 
- SetReturnCode(IDS_ERR_NO);
+ SetReturnCode_rfrmt(IDS_ERR_NO);
  if(CreateInternalFileForFormatter() == FALSE){
  	LDPUMA_Skip(hDebugProfEnd);
 	return FALSE;

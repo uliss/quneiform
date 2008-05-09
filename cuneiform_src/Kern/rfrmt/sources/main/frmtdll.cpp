@@ -277,12 +277,12 @@ RFRMT_FUNC(Bool32) RFRMT_SetImportData(Word32 dwType, void * pData)
 return rc;
 }
 
-void SetReturnCode(Word16 rc)
+void SetReturnCode_rfrmt(Word16 rc)
 {
  gwLowRC = rc;
 }
 
-Word16 GetReturnCode()
+Word16 GetReturnCode_rfrmt()
 {
  return gwLowRC;
 }

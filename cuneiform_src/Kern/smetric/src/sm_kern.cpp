@@ -79,8 +79,8 @@ static HANDLE      ghStorage  = NULL;   // ”казатель на хранилище
 static HANDLE      ghInst     = NULL;   // ”казатель на свое окно
 static Int8 szBuffer[512];               // ƒл€ докладов наверх
 /*------------own functions--------------------------------------------------*/
-void   SetReturnCode (Word16 rc);
-Word16 GetReturnCode ();
+void   SetReturnCode_smetric (Word16 rc);
+Word16 GetReturnCode_smetric ();
 Bool WasInitSMetric ();
 /*------------extern functions------------------------------------------------*/
 Bool AM_InitComm (Word16 wRltOwnCode);
@@ -350,12 +350,12 @@ SMetric_FUNC(Bool32) SMetric_SetImportData(Word32 dwType, void *pData)
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-void SetReturnCode(Word16 rc)
+void SetReturnCode_smetric(Word16 rc)
 {
 	gwLowRC = rc;
 }
 /*---------------------------------------------------------------------------*/
-Word16 GetReturnCode()
+Word16 GetReturnCode_smetric()
 {
 	return gwLowRC;
 }

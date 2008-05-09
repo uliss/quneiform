@@ -232,21 +232,21 @@ return rc;
 //////////////////////////////////////////////////////////////////////////////////
 //
 
-void SetReturnCode(Word32 rc)
+void SetReturnCode_rline(Word32 rc)
 {
 	gwHeightRC = (Word16)(rc>>16);
 	gwLowRC = (Word16)rc;
 }
 
 
-void SetReturnCode(Word16 rc)
+void SetReturnCode_rline(Word16 rc)
 {
 	gwLowRC = rc;
 }
 
 
 
-Word16 GetReturnCode()
+Word16 GetReturnCode_rline()
 {
 	return gwLowRC;
 }

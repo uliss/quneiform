@@ -75,7 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL 
-void SetReturnCode(Word16 rc);
+void SetReturnCode_cfio(Word16 rc);
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 static Word16            wHeightRC =                         0;
 static Word16            wLowRC =                            0;
@@ -107,7 +107,7 @@ BOOL APIENTRY DllMain( Handle hModule,
 //
 CFIO_FUNC(Bool32) CFIO_Init(Word16 wHeightCode,Handle hStorage)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if ( !Control )
 	{
@@ -121,14 +121,14 @@ CFIO_FUNC(Bool32) CFIO_Init(Word16 wHeightCode,Handle hStorage)
 		return TRUE;
 	}
 
-	SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+	SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 	return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 CFIO_FUNC(Bool32) CFIO_Done()
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if ( Control )
 	{
@@ -142,9 +142,9 @@ CFIO_FUNC(Bool32) CFIO_Done()
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 	}
 	
 	return FALSE;
@@ -174,14 +174,14 @@ CFIO_FUNC(Int8 *) CFIO_GetReturnString(Word32 dwError)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void SetReturnCode(Word16 rc)
+void SetReturnCode_cfio(Word16 rc)
 {
 	if ( rc == IDS_CFIO_ERR_NO || wLowRC == IDS_CFIO_ERR_NO )
 		wLowRC = rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Word16 GetReturnCode()
+Word16 GetReturnCode_cfio()
 {
 	return wLowRC;
 }
@@ -194,7 +194,7 @@ CFIO_FUNC(Bool32) CFIO_GetExportData(Word32 dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	wLowRC = 0;
 	switch(dwType)
@@ -246,7 +246,7 @@ CFIO_FUNC(Bool32) CFIO_SetImportData(Word32 dwType, void * pData)
 {
 	Word32      Folder;
 
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	wLowRC = 0;
 	switch(dwType)
@@ -273,16 +273,16 @@ return Control->SetFolder(Folder, (char *)pData);
 //
 CFIO_FUNC(Handle) CFIO_OpenStorage(PInt8 lpName, Word32 dwTypes)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->OpenStorage((PChar8)lpName, dwTypes);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -290,16 +290,16 @@ CFIO_FUNC(Handle) CFIO_OpenStorage(PInt8 lpName, Word32 dwTypes)
 //
 CFIO_FUNC(Bool32) CFIO_CloseStorage(Handle  hStorage, Word32  dwFlag)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->CloseStorage(hStorage, dwFlag);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -307,16 +307,16 @@ CFIO_FUNC(Bool32) CFIO_CloseStorage(Handle  hStorage, Word32  dwFlag)
 //
 CFIO_FUNC(Bool32) CFIO_DeleteStorage (PInt8 lpName)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->DeleteStorage((PChar8)lpName);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -324,16 +324,16 @@ CFIO_FUNC(Bool32) CFIO_DeleteStorage (PInt8 lpName)
 //
 CFIO_FUNC(Word32) CFIO_WriteFileToStorage (Handle hStorage, Handle hFile, PInt8 lpNameInStorage)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->WriteFileToStorage(hStorage, hFile, (PChar8)lpNameInStorage);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -341,16 +341,16 @@ CFIO_FUNC(Word32) CFIO_WriteFileToStorage (Handle hStorage, Handle hFile, PInt8 
 //
 CFIO_FUNC(Handle) CFIO_ReadFileFromStorage (Handle hStorage, PInt8 lpName)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->ReadFileFromStorage(hStorage, (PChar8)lpName);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -358,16 +358,16 @@ CFIO_FUNC(Handle) CFIO_ReadFileFromStorage (Handle hStorage, PInt8 lpName)
 //
 CFIO_FUNC(Handle) CFIO_OpenFreeFile(Handle hStorage, PInt8 lpName, Word32 dwFlag)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->OpenFile(hStorage, (PChar8)lpName, dwFlag);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -375,16 +375,16 @@ CFIO_FUNC(Handle) CFIO_OpenFreeFile(Handle hStorage, PInt8 lpName, Word32 dwFlag
 //
 CFIO_FUNC(Bool32) CFIO_CloseFreeFile(Handle hFile, Word32 dwFlag)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->CloseFile(hFile, dwFlag);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -392,16 +392,16 @@ CFIO_FUNC(Bool32) CFIO_CloseFreeFile(Handle hFile, Word32 dwFlag)
 //
 CFIO_FUNC(Word32) CFIO_WriteToFile (Handle hFile, PInt8 lpData, Word32 dwSize)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->WriteFile(hFile, lpData, dwSize);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -409,16 +409,16 @@ CFIO_FUNC(Word32) CFIO_WriteToFile (Handle hFile, PInt8 lpData, Word32 dwSize)
 //
 CFIO_FUNC(Word32) CFIO_ReadFromFile (Handle hFile, PInt8 lpData, Word32 dwSize)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->ReadFromFile(hFile, lpData, dwSize);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -426,16 +426,16 @@ CFIO_FUNC(Word32) CFIO_ReadFromFile (Handle hFile, PInt8 lpData, Word32 dwSize)
 //
 CFIO_FUNC(Word32) CFIO_SeekFilePointer (Handle hFile, Word32 dwBytes, Word32 dwFrom)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->Seek(hFile, dwBytes, dwFrom);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -443,16 +443,16 @@ CFIO_FUNC(Word32) CFIO_SeekFilePointer (Handle hFile, Word32 dwBytes, Word32 dwF
 //
 CFIO_FUNC(Word32) CFIO_TellFilePointer (Handle hFile)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->Tell(hFile);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -460,16 +460,16 @@ CFIO_FUNC(Word32) CFIO_TellFilePointer (Handle hFile)
 //
 CFIO_FUNC(Bool32) CFIO_FlushFile(Handle hFile)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->Flush(hFile);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -477,16 +477,16 @@ CFIO_FUNC(Bool32) CFIO_FlushFile(Handle hFile)
 //
 CFIO_FUNC(Handle) CFIO_AllocMemory (Word32 dwSize, Word32 dwFlag)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->Alloc(dwSize, dwFlag,"CFIO general memory block","no comment");
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -494,16 +494,16 @@ CFIO_FUNC(Handle) CFIO_AllocMemory (Word32 dwSize, Word32 dwFlag)
 //
 CFIO_FUNC(Handle) CFIO_DAllocMemory (Word32 dwSize, Word32 dwFlag, Int8* cOwner, Int8* Comment)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->Alloc(dwSize, dwFlag, (PChar8)cOwner, (PChar8)Comment);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -511,16 +511,16 @@ CFIO_FUNC(Handle) CFIO_DAllocMemory (Word32 dwSize, Word32 dwFlag, Int8* cOwner,
 //
 CFIO_FUNC(Handle) CFIO_ReAllocMemory (Handle hMemory, Word32 dwSize, Word32 dwFlag)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->ReAlloc(hMemory, dwSize, dwFlag);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -528,16 +528,16 @@ CFIO_FUNC(Handle) CFIO_ReAllocMemory (Handle hMemory, Word32 dwSize, Word32 dwFl
 //
 CFIO_FUNC(Bool32) CFIO_FreeMemory(Handle hMem)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->Free(hMem);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -545,16 +545,16 @@ CFIO_FUNC(Bool32) CFIO_FreeMemory(Handle hMem)
 //
 CFIO_FUNC(Handle) CFIO_LockMemory(Handle hMem)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->Lock(hMem);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -562,16 +562,16 @@ CFIO_FUNC(Handle) CFIO_LockMemory(Handle hMem)
 //
 CFIO_FUNC(Bool32) CFIO_UnlockMemory(Handle hMem)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->Unlock(hMem);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -579,16 +579,16 @@ CFIO_FUNC(Bool32) CFIO_UnlockMemory(Handle hMem)
 //
 CFIO_FUNC(Word32) CFIO_WriteMemoryToFile(Handle hMem, PInt8 lpName)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->WriteMemToFile(hMem, (PChar8)lpName);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -596,16 +596,16 @@ CFIO_FUNC(Word32) CFIO_WriteMemoryToFile(Handle hMem, PInt8 lpName)
 //
 CFIO_FUNC(Word32) CFIO_ReadMemoryFromFile(PInt8 lpName, Handle * phMem)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->ReadMemFromFile((PChar8)lpName, phMem);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -613,16 +613,16 @@ CFIO_FUNC(Word32) CFIO_ReadMemoryFromFile(PInt8 lpName, Handle * phMem)
 //
 CFIO_FUNC(Word32) CFIO_WriteMemoryToStorage(Handle hMem, Handle hStorage, PInt8 lpName)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->WriteMemToStorage(hMem, hStorage, (PChar8)lpName);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }
@@ -630,16 +630,16 @@ CFIO_FUNC(Word32) CFIO_WriteMemoryToStorage(Handle hMem, Handle hStorage, PInt8 
 //
 CFIO_FUNC(Word32) CFIO_ReadMemoryFromStorage(Handle hStorage, PInt8 lpName, Handle * phMem)
 {
-	SetReturnCode(IDS_CFIO_ERR_NO);
+	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 	
 	if( Control )
 		return Control->ReadMemFromStorage(hStorage, (PChar8)lpName, phMem);
 	else
 	{
 		if (InitDone)
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_DONE);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_DONE);
 		else
-			SetReturnCode(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
+			SetReturnCode_cfio(IDS_CFIO_ERR_CONTAINER_NOT_INITIALIZED);
 		return FALSE;
 	}
 }

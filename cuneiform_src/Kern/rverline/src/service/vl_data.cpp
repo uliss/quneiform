@@ -84,7 +84,7 @@ FNCPAGE_GetBlockNext GetBlockNext;
 FNCPAGE_GetBlockData GetBlockData;
 /*------------extern functions------------------------------------------------*/
 void MyErrorNoMem (char* str);
-void   SetReturnCode (Word16 rc);
+void   SetReturnCode_rverline (Word16 rc);
 /*------------own functions---------------------------------------------------*/
 Bool MyInit_CPage ();
 Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage, Word32 *pHoriType, Word32 *pVertType, char *pStr);
@@ -457,7 +457,7 @@ void Error_CPage (char *str)
 	Code = (Word16)(err8<<8);
 	err8 = (Word8)ER_DETAIL_FUNC_CPAGE;
 	Code |= (Word16)err8;
-	SetReturnCode (Code);
+	SetReturnCode_rverline (Code);
 	AM_Console ("RVERLINE : Ошибка чужой библиотеки - [CPAGE]%s", str);
 }
 /*----------------------------------------------------------------------------*/

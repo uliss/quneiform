@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "am_buff.h"
 #include "compat_defs.h"
 /*------------extern functions-----------------------------------------------*/
-void   SetReturnCode (Word16 rc);
+void   SetReturnCode_rverline (Word16 rc);
 /*---------------------------------------------------------------------------*/
 void My_WaitUserInput (Handle myKey, Handle myWindow)
 {
@@ -265,7 +265,7 @@ void MyErrorNoMem (char *pStr)
 	Code = (Word16)(err8<<8);
 	err8 = (Word8)ER_DETAIL_NO_MEMORY;
 	Code |= (Word16)err8;
-	SetReturnCode (Code);
+	SetReturnCode_rverline (Code);
 	myKeyErr  = AM_GetKeyOfRule (RU_VL_C_ContErr);
 	if (!AM_Skip (myKeyErr))
 		AM_ConsolN ("Rlt-Error-Stop : Не хватило памяти под %s! Аварийное завершение.", pStr);
@@ -280,7 +280,7 @@ void MyErrorNoComment (char *pStr)
 	Code = (Word16)(err8<<8);
 	err8 = (Word8)ER_DETAIL_NO_COMMENT;
 	Code |= (Word16)err8;
-	SetReturnCode (Code);
+	SetReturnCode_rverline (Code);
 	myKeyErr  = AM_GetKeyOfRule (RU_VL_C_ContErr);
 	if (!AM_Skip (myKeyErr))
 		AM_ConsolN ("Rlt-Error-Stop : %s Аварийное завершение.", pStr);
