@@ -401,8 +401,9 @@ PInt8 TE_handle_fgets  ( Int16 Handle, PInt8 Buff, Int16 Lenght )
                         break; 
                 }            /* EOF   */
                 
-                if ( ch == '\n' )
+                if ( ch == '\r' ) /* JussiP: The data files have Windows line endings. */
                 {
+                        TE_read(Handle, &ch, 1L); /* Skip the following \n. */
                         break; 
                 }            /* EOL   */
         
