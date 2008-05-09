@@ -63,8 +63,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "resource.h"
 #include "compat_defs.h"
 /*********************************************************************************************/
-Word16 gwHeightRC = 0;
-Word16 gwLowRC = RRECCOM_ERR_NO;
+static Word16 gwHeightRC = 0;
+static Word16 gwLowRC = RRECCOM_ERR_NO;
 Word8*  lnOcrPath = NULL;
 /*********************************************************************************************/
 /*********************************************************************************************/

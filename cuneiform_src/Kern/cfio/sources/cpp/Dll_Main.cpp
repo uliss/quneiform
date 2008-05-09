@@ -77,12 +77,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////GLOBAL 
 void SetReturnCode(Word16 rc);
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-Word16            wHeightRC =                         0;
-Word16            wLowRC =                            0;
-Handle            hInst =                             NULL;
+static Word16            wHeightRC =                         0;
+static Word16            wLowRC =                            0;
+static Handle            hInst =                             NULL;
 CTCControl *      Control =                           NULL;
-Int32             InitCount =                         0;
-Bool32            InitDone =                          FALSE;
+static Int32             InitCount =                         0;
+static Bool32            InitDone =                          FALSE;
 //////////////////////////////////////////////////////////////////////////////////
 //
 BOOL APIENTRY DllMain( Handle hModule, 

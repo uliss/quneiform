@@ -362,13 +362,13 @@ static BOOL TableStub()
 // Слова "Таблица", "Строк:", "Столбцов:", "Ячеек:"
 char word1[40]="", word2[40]="", word3[40]="", word4[40]="";
 
-	LoadString((HINSTANCE)ghInst,
+	LoadString((HINSTANCE)ghInst_rout,
 		IDS_MODULE_TEXT_Table,word1,sizeof(word1));
-	LoadString((HINSTANCE)ghInst,
+	LoadString((HINSTANCE)ghInst_rout,
 		IDS_MODULE_TEXT_Rows,word2,sizeof(word2));
-	LoadString((HINSTANCE)ghInst,
+	LoadString((HINSTANCE)ghInst_rout,
 		IDS_MODULE_TEXT_Cols,word3,sizeof(word3));
-	LoadString((HINSTANCE)ghInst,
+	LoadString((HINSTANCE)ghInst_rout,
 		IDS_MODULE_TEXT_Cells,word4,sizeof(word4));
 
 	char buf[1000] = "";

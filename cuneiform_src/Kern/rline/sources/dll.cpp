@@ -88,10 +88,10 @@ extern Bool32 gbNOVBORDER;
 Bool32 RLINE_SubInit( void );
 
 ///////////////////////////////////GLOBAL VARIABLES///////////////////////////////
-Word16            gwHeightRC = 0;
-Word16            gwLowRC = 0;
-HANDLE            ghStorage = NULL;
-HINSTANCE         ghInst =  NULL;
+static Word16            gwHeightRC = 0;
+static Word16            gwLowRC = 0;
+static HANDLE            ghStorage = NULL;
+static HINSTANCE         ghInst =  NULL;
 //////////////////////////////////////////////////////////////////////////////////
 
 BOOL APIENTRY DllMain( HINSTANCE hModule, 

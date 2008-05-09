@@ -99,10 +99,10 @@ Char8       cCommentBuffer[CFIO_MAX_COMMENT];
 static char *Buffer = NULL;
 static char *WorkMem = NULL;
 
-Word16            gwHeightRC = 0;
-Word16            gwLowRC = 0;
-HANDLE            ghStorage = NULL;
-HINSTANCE         ghInst =  NULL;
+static Word16            gwHeightRC = 0;
+static Word16            gwLowRC = 0;
+static HANDLE            ghStorage = NULL;
+static HINSTANCE         ghInst =  NULL;
 //DVP DLine*             tempLine;
 HANDLE			  hSkipDeleteNoiseEvents = NULL;
 HANDLE			  hPrintUnderlineTest = NULL;

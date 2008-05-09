@@ -73,10 +73,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "skewtrip.h"
 #include "compat_defs.h"
 /*------------own objects----------------------------------------------------*/
-Word16      gwHeightRC = 0;      // ”никальный номер библиотеки в одном сеансе
-Word16      gwLowRC    = ER_ROUGH_NONE;      // ќшибки в работе библиотеки
-HANDLE      ghStorage  = NULL;   // ”казатель на хранилище
-HANDLE      ghInst     = NULL;   // ”казатель на свое окно
+static Word16      gwHeightRC = 0;      // ”никальный номер библиотеки в одном сеансе
+static Word16      gwLowRC    = ER_ROUGH_NONE;      // ќшибки в работе библиотеки
+static HANDLE      ghStorage  = NULL;   // ”казатель на хранилище
+static HANDLE      ghInst     = NULL;   // ”казатель на свое окно
 static Int8 szBuffer[512];               // ƒл€ докладов наверх
 /*------------own functions--------------------------------------------------*/
 void   SetReturnCode (Word16 rc);

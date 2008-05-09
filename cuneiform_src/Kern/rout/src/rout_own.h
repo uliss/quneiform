@@ -152,10 +152,10 @@ EXTERN long gLine	VAL(0);	// Ќомер строки из __LINE
 EXTERN long gROUT_Option1	VAL(0);
 
 // ѕараметры инициализации и мой код ошибки
-EXTERN Word16	gwHighRC	VAL(0);
-EXTERN Word16   gwLowRC		VAL(0);
-EXTERN HANDLE   ghStorage	VAL(NULL);
-EXTERN HANDLE   ghInst		VAL(NULL);
+EXTERN Word16	gwHighRC_rout	VAL(0);
+EXTERN Word16   gwLowRC_rout    VAL(0);
+EXTERN HANDLE   ghStorage_rout	VAL(NULL);
+EXTERN HANDLE   ghInst_rout	VAL(NULL);
 
 // язык распознавани€, см. lang_def.h
 EXTERN long gLanguage		VAL(0);

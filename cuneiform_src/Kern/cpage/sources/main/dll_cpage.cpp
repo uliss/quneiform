@@ -77,10 +77,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 FNCPAGE_HL_TableExtract CPAGE_HL_TableExtract = NULL;
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-Word16            gwHeightRC = 0;
-Word16            gwLowRC = 0;
-HANDLE            ghStorage = NULL;
-HINSTANCE         ghInst =  NULL;
+static Word16            gwHeightRC = 0;
+static Word16            gwLowRC = 0;
+static HANDLE            ghStorage = NULL;
+static HINSTANCE         ghInst =  NULL;
 
 #ifdef DPUMA_ON
 	Handle hSnapTimerBeg = NULL;

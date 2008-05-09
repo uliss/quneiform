@@ -95,7 +95,7 @@ BOOL APIENTRY DllMain( HANDLE hModule,
     switch( ul_reason_for_call ) 
 		{
 		case DLL_PROCESS_ATTACH:
-			ghInst = hModule;
+			ghInst_rout = hModule;
 			break;
 		case DLL_THREAD_ATTACH:
 			break;
@@ -112,9 +112,9 @@ ROUT_FUNC(Bool32) ROUT_Init(Word16 wHighCode,HANDLE hStorage)
 {
 //	DEBUG_PRINT("ROUT_Init(%d,%d)",wHighCode,hStorage);
 
-	gwHighRC = wHighCode;
-	ghStorage = hStorage;
-	gwLowRC = 0;
+	gwHighRC_rout = wHighCode;
+	ghStorage_rout = hStorage;
+	gwLowRC_rout = 0;
 
 	// Собственный кусок памяти на одну страницу
 	gOwnMemory = MyAlloc(gOwnMemorySize,0);
@@ -139,10 +139,10 @@ ROUT_FUNC(Bool32) ROUT_Done()
 ROUT_FUNC(Word32) ROUT_GetReturnCode()
 {
 // Возвращает 0 если нет ошибки
-// Добавляет в старшие 2 байта мой код модуля из gwHighRC
+// Добавляет в старшие 2 байта мой код модуля из gwHighRC_rout
 Word32 rc = 0;
-	if(gwLowRC)
-		rc = (Word32)(gwHighRC<<16)|(gwLowRC - IDS_ERR_NO);
+	if(gwLowRC_rout)
+		rc = (Word32)(gwHighRC_rout<<16)|(gwLowRC_rout - IDS_ERR_NO);
 
 return rc;
 }
@@ -152,11 +152,11 @@ ROUT_FUNC(Int8 *) ROUT_GetReturnString(Word32 dwError)
 	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
 	static Int8 szBuffer[512];
 
-	if( dwError >> 16 != gwHighRC)
-		gwLowRC = IDS_ERR_NOTIMPLEMENT;
+	if( dwError >> 16 != gwHighRC_rout)
+		gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
 
 	if( rc >= IDS_ERR_NO )
-		LoadString((HINSTANCE)ghInst,rc,
+		LoadString((HINSTANCE)ghInst_rout,rc,
 				(char *)szBuffer,sizeof(szBuffer));
 	else
 		return NULL;
@@ -169,7 +169,7 @@ ROUT_FUNC(Bool32) ROUT_GetExportData(Word32 dwType, void * pData)
 // Экспорт моих функций
 	Bool32 rc = TRUE;
 
-	gwLowRC = 0;
+	gwLowRC_rout = 0;
 
 //#define CASE_FUNCTION(a) case ROUT_FN##a: *(FN##a *)pData = a; break
 
@@ -185,7 +185,7 @@ ROUT_FUNC(Bool32) ROUT_GetExportData(Word32 dwType, void * pData)
 		break;
 
 	default:
-		gwLowRC = IDS_ERR_NOTIMPLEMENT;
+		gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
 		rc = FALSE;
 	}
 
@@ -318,7 +318,7 @@ ROUT_FUNC(Bool32) ROUT_SetImportData(Word32 dwType, void * pData)
 			break;
 
 		default:
-			gwLowRC = IDS_ERR_NOTIMPLEMENT;
+			gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
 			rc = FALSE;
 		}
 #undef CASE_FUNCTION
@@ -327,12 +327,12 @@ return rc;
 //********************************************************************
 void SetReturnCode(Word16 rc)
 {
-	gwLowRC = rc;
+	gwLowRC_rout = rc;
 }
 //********************************************************************
 Word16 GetReturnCode()
 {
-	return gwLowRC;
+	return gwLowRC_rout;
 }
 //********************************************************************
 // Далее идут мои переходники для CFIO.
@@ -510,7 +510,7 @@ void MyDebugPrint(char *format,...)
 //********************************************************************
 void ClearError()
 {
-	gwLowRC = 0;
+	gwLowRC_rout = 0;
 }
 //********************************************************************
 void NotImplemented(char *file, long line)
@@ -519,7 +519,7 @@ void NotImplemented(char *file, long line)
 	gLine = line;
 	MyDebugPrint("NotImplemented");
 
-	gwLowRC = IDS_ERR_NOTIMPLEMENT;
+	gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
 }
 //********************************************************************
 void WrongArgument(char *file, long line)
@@ -528,7 +528,7 @@ void WrongArgument(char *file, long line)
 	gLine = line;
 	MyDebugPrint("WrongArgument");
 
-	gwLowRC = IDS_ERR_WRONG_ARGUMENT;
+	gwLowRC_rout = IDS_ERR_WRONG_ARGUMENT;
 }
 //********************************************************************
 void NoMemory(char *file, long line)
@@ -537,7 +537,7 @@ void NoMemory(char *file, long line)
 	gLine = line;
 	MyDebugPrint("NoMemory");
 
-	gwLowRC = IDS_ERR_NO_MEMORY;
+	gwLowRC_rout = IDS_ERR_NO_MEMORY;
 }
 //********************************************************************
 void ErrOpenFile(char *file, long line)
@@ -546,7 +546,7 @@ void ErrOpenFile(char *file, long line)
 	gLine = line;
 	MyDebugPrint("ErrOpenFile");
 
-	gwLowRC = IDS_ERR_OPEN_FILE;
+	gwLowRC_rout = IDS_ERR_OPEN_FILE;
 }
 //********************************************************************
 void ErrWritingToFile(char *file, long line)
@@ -555,7 +555,7 @@ void ErrWritingToFile(char *file, long line)
 	gLine = line;
 	MyDebugPrint("ErrWritingToFile");
 
-	gwLowRC = IDS_ERR_WRITING_TO_FILE;
+	gwLowRC_rout = IDS_ERR_WRITING_TO_FILE;
 }
 //********************************************************************
 void ErrCloseFile(char *file, long line)
@@ -564,7 +564,7 @@ void ErrCloseFile(char *file, long line)
 	gLine = line;
 	MyDebugPrint("ErrCloseFile");
 
-	gwLowRC = IDS_ERR_CLOSE_FILE;
+	gwLowRC_rout = IDS_ERR_CLOSE_FILE;
 }
 //********************************************************************
 void ErrCreateDirectory(char *file, long line)
@@ -573,7 +573,7 @@ void ErrCreateDirectory(char *file, long line)
 	gLine = line;
 	MyDebugPrint("ErrCreateDirectory");
 
-	gwLowRC = IDS_ERR_CREATE_DIRECTORY;
+	gwLowRC_rout = IDS_ERR_CREATE_DIRECTORY;
 }
 //********************************************************************
 void ErrPageNotLoaded(char *file, long line)
@@ -582,7 +582,7 @@ void ErrPageNotLoaded(char *file, long line)
 	gLine = line;
 	MyDebugPrint("ErrPageNotLoaded");
 
-	gwLowRC = IDS_ERR_PAGE_NOT_LOADED;
+	gwLowRC_rout = IDS_ERR_PAGE_NOT_LOADED;
 }
 //********************************************************************
 void ErrObjectNotFound(char *file, long line)
@@ -591,7 +591,7 @@ void ErrObjectNotFound(char *file, long line)
 	gLine = line;
 	MyDebugPrint("ErrObjectNotFound");
 
-	gwLowRC = IDS_ERR_OBJECT_NOT_FOUND;
+	gwLowRC_rout = IDS_ERR_OBJECT_NOT_FOUND;
 }
 //********************************************************************
 void ErrPossibleLossOfData(char *file, long line)
@@ -600,7 +600,7 @@ void ErrPossibleLossOfData(char *file, long line)
 	gLine = line;
 	MyDebugPrint("ErrPossibleLossOfData");
 
-	gwLowRC = IDS_ERR_POSSIBLE_LOSS_OF_DATA;
+	gwLowRC_rout = IDS_ERR_POSSIBLE_LOSS_OF_DATA;
 }
 //********************************************************************
 void ErrPictureData(char *file, long line)
@@ -609,7 +609,7 @@ void ErrPictureData(char *file, long line)
 	gLine = line;
 	MyDebugPrint("ErrPictureData");
 
-	gwLowRC = IDS_ERR_PICTURE_DATA;
+	gwLowRC_rout = IDS_ERR_PICTURE_DATA;
 }
 //********************************************************************
 void ErrLoadAlphabet(char *file, long line)
@@ -618,7 +618,7 @@ void ErrLoadAlphabet(char *file, long line)
 	gLine = line;
 	MyDebugPrint("ErrLoadAlphabet");
 
-	gwLowRC = IDS_ERR_LOAD_ALPHABET;
+	gwLowRC_rout = IDS_ERR_LOAD_ALPHABET;
 }
 //********************************************************************
 void ErrLoadRec6List(char *file, long line)
@@ -627,7 +627,7 @@ void ErrLoadRec6List(char *file, long line)
 	gLine = line;
 	MyDebugPrint("ErrLoadRec6List");
 
-	gwLowRC = IDS_ERR_LOAD_REC6LIST;
+	gwLowRC_rout = IDS_ERR_LOAD_REC6LIST;
 }
 //********************************************************************
 void ErrUpdateActiveAlphabet(char *file, long line)
@@ -636,7 +636,7 @@ void ErrUpdateActiveAlphabet(char *file, long line)
 	gLine = line;
 	MyDebugPrint("ErrUpdateActiveAlphabet");
 
-	gwLowRC = IDS_ERR_UPDATE_ACTIVE_ALPHABET;
+	gwLowRC_rout = IDS_ERR_UPDATE_ACTIVE_ALPHABET;
 }
 //********************************************************************
 BOOL InitMemory(Byte *memStart, 

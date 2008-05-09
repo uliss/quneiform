@@ -301,7 +301,7 @@ Bool32 ROUT_GetObject
 	// Сколько использовано памяти
 	*sizeMem = gMemCur - gMemStart;
 
-	return (gwLowRC?FALSE:TRUE);
+	return (gwLowRC_rout?FALSE:TRUE);
 }
 //********************************************************************
 BOOL SetLanguage(long language)
@@ -398,7 +398,7 @@ long ROUT_ListFormats(PWord8 buf, ULONG sizeBuf)
 
 #define ITEM(a) {\
 	p->code = ROUT_FMT_##a;\
-	LoadString((HINSTANCE)ghInst, IDS_FMT_##a,\
+	LoadString((HINSTANCE)ghInst_rout, IDS_FMT_##a,\
 		p->name,sizeof(p->name));\
 	p++; count++;\
 		}
@@ -434,7 +434,7 @@ long ROUT_ListCodes(PWord8 buf, ULONG sizeBuf)
 
 #define ITEM(a) {\
 	p->code = ROUT_CODE_##a;\
-	LoadString((HINSTANCE)ghInst, IDS_CODE_##a,\
+	LoadString((HINSTANCE)ghInst_rout, IDS_CODE_##a,\
 		p->name,sizeof(p->name));\
 	p++; count++;\
 		}
@@ -1082,7 +1082,7 @@ long ROUT_ListAvailableFormats(PWord8 buf, ULONG sizeBuf)
 
 #define ITEM(a) {\
 	p->code = ROUT_FMT_##a;\
-	LoadString((HINSTANCE)ghInst, IDS_FMT_##a,\
+	LoadString((HINSTANCE)ghInst_rout, IDS_FMT_##a,\
 		p->name,sizeof(p->name));\
 	p++; count++;\
 		}

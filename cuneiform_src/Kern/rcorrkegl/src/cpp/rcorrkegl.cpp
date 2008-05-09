@@ -67,8 +67,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 Bool32 CorrectKegl(Int32 version);
 void kegl_snap_init();
 
-Word16 gwHeightRC = 0;
-Word16 gwLowRC = 0;
+static Word16 gwHeightRC = 0;
+static Word16 gwLowRC = 0;
 Bool32 snap_enable = TRUE;
 Bool32 exit_enable = FALSE;
 Bool32 gbFax100 = FALSE;

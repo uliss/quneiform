@@ -69,10 +69,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-Word16 gwHeightRC = 0;
-Word32 gwRC = 0;
-HANDLE ghStorage = NULL;
-HINSTANCE ghInst =  NULL;
+static Word16 gwHeightRC = 0;
+static Word32 gwRC = 0;
+static HANDLE ghStorage = NULL;
+static HINSTANCE ghInst =  NULL;
 Handle Root;
 Handle VertCells=NULL;
 Handle NegaCells=NULL;

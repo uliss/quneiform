@@ -73,12 +73,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-Word16            gwHeightRC = 0;
-Word16            gwLowRC = 0;
-Handle            ghStorage = NULL;
-Handle            ghInst =  NULL;
+static Word16            gwHeightRC = 0;
+static Word16            gwLowRC = 0;
+static Handle            ghStorage = NULL;
+static Handle            ghInst =  NULL;
 CRIControl *      Control = NULL;
-Int32             InitCount =  0;
+static Int32             InitCount =  0;
 
 Bool32 InitCFIOInterface(Bool32 Status);
 /////////////////////////////////////////

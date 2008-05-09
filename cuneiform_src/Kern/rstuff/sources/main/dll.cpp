@@ -94,16 +94,16 @@ union  RCode
 	Word32            gwRC;
 };
 
-RCode  RC = {0};
-Word16 wHighErrCode=0;
+static RCode  RC = {0};
+static Word16 wHighErrCode=0;
 
 #define RESULT 2
 
 Bool32 gbRSLT = FALSE;
 
 /////////////////////////////////////////////////////////////////////////////////////////
-Handle            ghStorage = NULL;
-Handle            ghInst =  NULL;
+static Handle            ghStorage = NULL;
+static Handle            ghInst =  NULL;
 Int32             InitCount =  0;
 Handle ObvKillLines;
 Handle OKL;
