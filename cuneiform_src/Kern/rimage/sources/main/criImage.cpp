@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cricontrol.h"
 
 // exteren globals
-extern CRIControl * Control;
+extern CRIControl * Control_cri;
 // extern functions
 void SetReturnCode_rimage(Word16 rc);
 Word16 GetReturnCode_rimage();
@@ -75,8 +75,8 @@ RIMAGE_FUNC(Bool32) RIMAGE_SetMargins(PRIMAGEMARGINS pMargins)
 {
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
-	if ( Control )
-		return Control->SetMargins( pMargins );
+	if ( Control_cri )
+		return Control_cri->SetMargins( pMargins );
 
 	SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -87,8 +87,8 @@ RIMAGE_FUNC(Bool32) RIMAGE_SetProgressCB(PRIMAGECBPRogressStart pStart, PRIMAGEC
 {
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
-	if ( Control )
-		return Control->SetProgressCallBacks( pStart, pStep, pFinish );
+	if ( Control_cri )
+		return Control_cri->SetProgressCallBacks( pStart, pStep, pFinish );
 
 	SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -99,8 +99,8 @@ RIMAGE_FUNC(Bool32) RIMAGE_Binarise(PWord8 cDIBIn, PWord8 cDIBOut, Word32 wFlag,
 {
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
-	if ( Control )
-		return Control->Binarise( (PChar8)cDIBIn, (PChar8)cDIBOut, wFlag, UseMargins);
+	if ( Control_cri )
+		return Control_cri->Binarise( (PChar8)cDIBIn, (PChar8)cDIBOut, wFlag, UseMargins);
 
 	SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -111,8 +111,8 @@ RIMAGE_FUNC(Bool32) RIMAGE_Rotate(PWord8 cDIBIn, PWord8 cDIBOut, Int32 High, Int
 {
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
-	if ( Control )
-		return Control->Rotate( (PChar8)cDIBIn, (PChar8)cDIBOut, High, Low, UseMargins);
+	if ( Control_cri )
+		return Control_cri->Rotate( (PChar8)cDIBIn, (PChar8)cDIBOut, High, Low, UseMargins);
 
 	SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -123,8 +123,8 @@ RIMAGE_FUNC(Bool32) RIMAGE_RotatePoint( PWord8 cDIBIn, Int32 wX, Int32 wY, PInt3
 {
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
-	if ( Control )
-		return Control->RotatePoint( (PChar8)cDIBIn, wX, wY, prX, prY );
+	if ( Control_cri )
+		return Control_cri->RotatePoint( (PChar8)cDIBIn, wX, wY, prX, prY );
 
 	SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -135,8 +135,8 @@ RIMAGE_FUNC(Bool32) RIMAGE_Roll(PWord8 cDIBIn, PWord8 cDIBOut, Int32 High, Int32
 {
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
-	if ( Control )
-		return Control->Roll( (PChar8)cDIBIn, (PChar8)cDIBOut, High, Low, UseMargins);
+	if ( Control_cri )
+		return Control_cri->Roll( (PChar8)cDIBIn, (PChar8)cDIBOut, High, Low, UseMargins);
 
 	SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -147,8 +147,8 @@ RIMAGE_FUNC(Bool32) RIMAGE_Turn(PWord8 cDIBIn, PWord8 cDIBOut, Word32 wFlag, Wor
 {
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
-	if ( Control )
-		return Control->Turn( (PChar8)cDIBIn, (PChar8)cDIBOut, wFlag, UseMargins);
+	if ( Control_cri )
+		return Control_cri->Turn( (PChar8)cDIBIn, (PChar8)cDIBOut, wFlag, UseMargins);
 
 	SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -159,8 +159,8 @@ RIMAGE_FUNC(Bool32) RIMAGE_Inverse(PWord8 cDIBIn, PWord8 cDIBOut, Word32 UseMarg
 {
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
-	if ( Control )
-		return Control->Inverse( (PChar8)cDIBIn, (PChar8)cDIBOut, UseMargins);
+	if ( Control_cri )
+		return Control_cri->Inverse( (PChar8)cDIBIn, (PChar8)cDIBOut, UseMargins);
 
 	SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;

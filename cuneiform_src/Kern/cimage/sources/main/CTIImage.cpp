@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cticontrol.h"
 
 // exteren globals
-extern CTIControl * Control;
+extern CTIControl * Control_cti;
 // extern functions
 void SetReturnCode_cimage(Word16 rc);
 Word16 GetReturnCode_cimage();
@@ -76,8 +76,8 @@ CIMAGE_FUNC(Bool32) CIMAGE_WriteCallbackImage(PWord8                 lpName,
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
-	if ( Control )
-		return Control->WriteCBImage( (PChar8)lpName, Cbk );
+	if ( Control_cti )
+		return Control_cti->WriteCBImage( (PChar8)lpName, Cbk );
 
 	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -90,8 +90,8 @@ CIMAGE_FUNC(Bool32) CIMAGE_GetCallbackImage(PWord8                  lpName,
 	Bool32 A = FALSE;
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
-	if ( Control )
-		A = Control->GetCBImage( (PChar8)lpName, pCbk );
+	if ( Control_cti )
+		A = Control_cti->GetCBImage( (PChar8)lpName, pCbk );
 	else
 		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 
@@ -106,8 +106,8 @@ CIMAGE_FUNC(Bool32) CIMAGE_WriteDIB(PWord8    lpName,
 	Bool32 A = FALSE;
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
-	if ( Control )
-		A = Control->SetDIB( (PChar8)lpName, lpDIB, wFlag );
+	if ( Control_cti )
+		A = Control_cti->SetDIB( (PChar8)lpName, lpDIB, wFlag );
 	else
 		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 	
@@ -122,8 +122,8 @@ CIMAGE_FUNC(Bool32) CIMAGE_ReadDIB(PWord8     lpName,
 	Bool32 A = FALSE;
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
-	if ( Control )
-		A = Control->GetDIB( (PChar8)lpName, lplpDIB, wFlag );
+	if ( Control_cti )
+		A = Control_cti->GetDIB( (PChar8)lpName, lplpDIB, wFlag );
 	else
 		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 
@@ -138,8 +138,8 @@ CIMAGE_FUNC(Bool32) CIMAGE_GetData(PWord8                     lpName,
 	Bool32 A = FALSE;
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
-	if ( Control )
-		A = Control->GetImage( (PChar8)lpName, lpIn, lpOut );
+	if ( Control_cti )
+		A = Control_cti->GetImage( (PChar8)lpName, lpIn, lpOut );
 	else
 		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 
@@ -154,8 +154,8 @@ CIMAGE_FUNC(Bool32) CIMAGE_GetDIBData(PWord8                      lpName,
 	Bool32 A = FALSE;
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
-	if ( Control )
-		A = Control->GetDIBFromImage( (PChar8)lpName, lpIn, lpDIB );
+	if ( Control_cti )
+		A = Control_cti->GetDIBFromImage( (PChar8)lpName, lpIn, lpDIB );
 	else
 		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 
@@ -168,8 +168,8 @@ CIMAGE_FUNC(Bool32) CIMAGE_ReplaceData(PWord8                        lpName,
 	Bool32 A = FALSE;
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
-	if ( Control )
-		A = Control->ReplaceImage( (PChar8)lpName, lpIn );
+	if ( Control_cti )
+		A = Control_cti->ReplaceImage( (PChar8)lpName, lpIn );
 	else
 		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 
@@ -183,8 +183,8 @@ CIMAGE_FUNC(Bool32) CIMAGE_GetImageInfo(PWord8                     lpName,
 	Bool32 A = FALSE;
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
-	if ( Control )
-		A = Control->GetImageInfo( (PChar8)lpName, lpBIH );
+	if ( Control_cti )
+		A = Control_cti->GetImageInfo( (PChar8)lpName, lpBIH );
 	else
 		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 
@@ -196,8 +196,8 @@ CIMAGE_FUNC(Bool32) CIMAGE_DeleteImage( PWord8  lpName)
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
-	if ( Control )
-		return Control->RemoveImage( (PChar8)lpName );
+	if ( Control_cti )
+		return Control_cti->RemoveImage( (PChar8)lpName );
 
 	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -208,8 +208,8 @@ CIMAGE_FUNC(Bool32) CIMAGE_FreeCopedDIB(Handle hDIB)
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 	
-	if ( Control )
-		return Control->FreeAlloced( hDIB );
+	if ( Control_cti )
+		return Control_cti->FreeAlloced( hDIB );
 
 	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -220,8 +220,8 @@ CIMAGE_FUNC(Bool32) CIMAGE_FreeBuffers()
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 	
-	if ( Control )
-		return Control->FreeBuffers();
+	if ( Control_cti )
+		return Control_cti->FreeBuffers();
 
 	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -232,13 +232,13 @@ CIMAGE_FUNC(Bool32) CIMAGE_Reset(void)
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 	
-	if ( Control )
+	if ( Control_cti )
 	{
-		delete Control;
+		delete Control_cti;
 
-		Control = new CTIControl;
+		Control_cti = new CTIControl;
 
-		if ( Control )
+		if ( Control_cti )
 			return TRUE;
 		return FALSE;
 	}
@@ -252,8 +252,8 @@ CIMAGE_FUNC(Bool32) CIMAGE_AddReadCloseRects(PWord8 lpName, Word32 wCount, PCIMA
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
-	if ( Control )
-		return Control->AddReadRectangles( (PChar8)lpName, wCount, pFirst );
+	if ( Control_cti )
+		return Control_cti->AddReadRectangles( (PChar8)lpName, wCount, pFirst );
 
 	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -264,8 +264,8 @@ CIMAGE_FUNC(Bool32) CIMAGE_RemoveReadCloseRects(PWord8 lpName, Word32 wCount, PC
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
-	if ( Control )
-		return Control->RemoveReadRectangles( (PChar8)lpName, wCount, pFirst );
+	if ( Control_cti )
+		return Control_cti->RemoveReadRectangles( (PChar8)lpName, wCount, pFirst );
 
 	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -276,8 +276,8 @@ CIMAGE_FUNC(Bool32) CIMAGE_AddWriteCloseRects(PWord8 lpName, Word32 wCount, PCIM
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
-	if ( Control )
-		return Control->AddWriteRectangles( (PChar8)lpName, wCount, pFirst );
+	if ( Control_cti )
+		return Control_cti->AddWriteRectangles( (PChar8)lpName, wCount, pFirst );
 
 	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -288,8 +288,8 @@ CIMAGE_FUNC(Bool32) CIMAGE_RemoveWriteCloseRects(PWord8 lpName, Word32 wCount, P
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
-	if ( Control )
-		return Control->RemoveWriteRectangles( (PChar8)lpName, wCount, pFirst );
+	if ( Control_cti )
+		return Control_cti->RemoveWriteRectangles( (PChar8)lpName, wCount, pFirst );
 
 	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -300,8 +300,8 @@ CIMAGE_FUNC(Bool32) CIMAGE_EnableMask(PWord8 lpName, PWord8 lpType, Bool32 bEnab
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
-	if ( Control )
-		return Control->EnableMask((PChar8)lpName, (PChar8)lpType, bEnabler);
+	if ( Control_cti )
+		return Control_cti->EnableMask((PChar8)lpName, (PChar8)lpType, bEnabler);
 
 	SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 	return FALSE;
@@ -312,13 +312,13 @@ CIMAGE_CALLBACK_FUNC(CIMAGEBOOL16) CIMAGE_Callback_ImageOpen(PCIMAGE_ImageInfo l
 {
 	Bool16 A = FALSE;
 
-	if ( !Control )
+	if ( !Control_cti )
 	{
 		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 		return FALSE;
 	}
 
-	A = (CIMAGEBOOL16)(Control->CBImageOpen(lpImageInfo));
+	A = (CIMAGEBOOL16)(Control_cti->CBImageOpen(lpImageInfo));
 
 	return A;
 }
@@ -326,25 +326,25 @@ CIMAGE_CALLBACK_FUNC(CIMAGEBOOL16) CIMAGE_Callback_ImageOpen(PCIMAGE_ImageInfo l
 //
 CIMAGE_CALLBACK_FUNC(CIMAGEWORD)   CIMAGE_Callback_ImageRead(PInt8  lpImage, Word16 wMaxSize)
 {
-	if ( !Control )
+	if ( !Control_cti )
 	{
 		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 		return 0;
 	}
 
-	return (CIMAGEWORD)(Control->CBImageRead((PChar8)lpImage, wMaxSize));
+	return (CIMAGEWORD)(Control_cti->CBImageRead((PChar8)lpImage, wMaxSize));
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 CIMAGE_CALLBACK_FUNC(CIMAGEBOOL16) CIMAGE_Callback_ImageClose(void)
 {
-	if ( !Control )
+	if ( !Control_cti )
 	{
 		SetReturnCode_cimage(IDS_CIMAGE_DLL_NOT_INITIALISING);
 		return FALSE;
 	}
 
-	return (CIMAGEBOOL16)(Control->CBImageClose());
+	return (CIMAGEBOOL16)(Control_cti->CBImageClose());
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // end of file

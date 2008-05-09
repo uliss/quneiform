@@ -77,7 +77,7 @@ static Word16            gwHeightRC = 0;
 static Word16            gwLowRC = 0;
 static Handle            ghStorage = NULL;
 static Handle            ghInst =  NULL;
-CRIControl *      Control = NULL;
+CRIControl *      Control_cri = NULL;
 static Int32             InitCount =  0;
 
 Bool32 InitCFIOInterface(Bool32 Status);
@@ -105,18 +105,18 @@ BOOL APIENTRY DllMain( HINSTANCE hModule,
 RIMAGE_FUNC(Bool32) RIMAGE_Init(Word16 wHeightCode,Handle hStorage)
 {
 	
-	if ( !Control )
+	if ( !Control_cri )
 	{
 		if ( InitCFIOInterface(TRUE) )
 		{
-			Control = new CRIControl;
+			Control_cri = new CRIControl;
 			gwHeightRC = wHeightCode;
 		}
 		else
 			return FALSE;
 	}
 
-	if ( Control )
+	if ( Control_cri )
 	{
 		InitCount++;
 		return TRUE;
@@ -130,12 +130,12 @@ RIMAGE_FUNC(Bool32) RIMAGE_Init(Word16 wHeightCode,Handle hStorage)
 RIMAGE_FUNC(Bool32)RIMAGE_Done()
 {
 
-	if ( Control )
+	if ( Control_cri )
 	{
 		if (--InitCount == 0)
 		{
-			delete Control;
-			Control = NULL;
+			delete Control_cri;
+			Control_cri = NULL;
 			InitCFIOInterface(FALSE);
 		}
 		return TRUE;
@@ -148,12 +148,12 @@ RIMAGE_FUNC(Bool32)RIMAGE_Done()
 RIMAGE_FUNC(Bool32)RIMAGE_Reset()
 {
 
-	if ( Control )
+	if ( Control_cri )
 	{
 		if (InitCount == 1)
 		{
-			delete Control;
-			Control = new CRIControl;
+			delete Control_cri;
+			Control_cri = new CRIControl;
 			return TRUE;
 		}
 	}
@@ -224,15 +224,15 @@ RIMAGE_FUNC(Bool32) RIMAGE_SetImportData(Word32 dwType, void * pData)
 	switch(dwType)
 	{
 	case RIMAGE_FN_SetProgressStart:
-		Control->SetProgressCallBacks((PRIMAGECBPRogressStart)pData, NULL, NULL);
+		Control_cri->SetProgressCallBacks((PRIMAGECBPRogressStart)pData, NULL, NULL);
 		rc = TRUE;
 		break;
 	case RIMAGE_FN_SetProgressStep:
-		Control->SetProgressCallBacks(NULL, (PRIMAGECBPRogressStep)pData, NULL);
+		Control_cri->SetProgressCallBacks(NULL, (PRIMAGECBPRogressStep)pData, NULL);
 		rc = TRUE;
 		break;
 	case RIMAGE_FN_SetProgressFinish:
-		Control->SetProgressCallBacks(NULL, NULL, (PRIMAGECBPRogressFinish)pData);
+		Control_cri->SetProgressCallBacks(NULL, NULL, (PRIMAGECBPRogressFinish)pData);
 		rc = TRUE;
 		break;
 	default:

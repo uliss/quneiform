@@ -96,7 +96,7 @@ CTCStorageHeader::CTCStorageHeader(CTCGlobalFile * pNewStorage,
 								   PChar8 pcNewStorageFolder )
 								   :CTCGlobalHeader(pNewStorage,NULL,0,wNewFlag)//, Contents()
 {
-	extern CTCControl * Control;
+	extern CTCControl * Control_ctc;
 
 	SetHandle(AcceptFile(pNewStorage));
 	SetFlag(wNewFlag);
@@ -106,13 +106,13 @@ CTCStorageHeader::CTCStorageHeader(CTCGlobalFile * pNewStorage,
 	{
 		CFIO_GETFOLDERSITEMS(pcNewStorageFolder,ShDisk,ShFolder,ShFile,ShExtension);
 		// берем временную директорию
-		Control->GetFolder(CFIO_TEMP_FOLDER, ShFolder);
+		Control_ctc->GetFolder(CFIO_TEMP_FOLDER, ShFolder);
 		// отписываем туда
 		CFIO_MAKEPATH(pcFolder,ShDisk,ShFolder,ShFile,ShExtension);
 	}
 	else
 	{
-		Control->GetFolder(CFIO_TEMP_FOLDER, ShFolder);
+		Control_ctc->GetFolder(CFIO_TEMP_FOLDER, ShFolder);
 		CFIO_MAKEFOLDER(ShFolder);
 		//CreateDirectory(ShFolder, NULL);
 		if ( GetTempFileName(ShFolder,"STG",0, ShFile) )
@@ -148,7 +148,7 @@ CTCStorageHeader::CTCStorageHeader(CTCGlobalFile * pNewStorage,
 
 			// Free the buffer.
 			LocalFree( lpMsgBuf );
-			Control->GetFolder(CFIO_STORAGE_FOLDER, ShFile);
+			Control_ctc->GetFolder(CFIO_STORAGE_FOLDER, ShFile);
 			//  кончаем пробовать №№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№			
 #endif      // _DEBUG
 			CFIO_STRCPY(pcFolder,ShFile);

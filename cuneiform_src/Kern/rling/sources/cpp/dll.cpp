@@ -87,7 +87,7 @@ static Word16            gwHeightRC = 0;
 static Word16            gwLowRC = 0;
 static Handle            ghStorage = NULL;
 static Handle            ghInst =  NULL;
-CRLControl *      Control = NULL;
+CRLControl *      Control_crl = NULL;
 ///////////////////////////////////////////////////////////////////////////////////
 void SetReturnCode_rling(Word16 rc);
 Word16 GetReturnCode_rling();
@@ -125,9 +125,9 @@ RLINGS_FUNC(Bool32) RLINGS_Init(Word16 wHeightCode,Handle hStorage)
 {
 	gwHeightRC = wHeightCode;
 	
-	Control = new CRLControl;
+	Control_crl = new CRLControl;
 
-	if ( Control )
+	if ( Control_crl )
 #if defined ( __RLING__ )
 		return RLINGS_Init(wHeightCode, hStorage);
 #else
@@ -145,7 +145,7 @@ RLING_FUNC(Bool32)RLING_Done()
 RLINGS_FUNC(Bool32)RLINGS_Done()
 #endif
 {
-	delete Control;
+	delete Control_crl;
 
 #if defined ( __RLING__ )
 		return RLINGS_Done();

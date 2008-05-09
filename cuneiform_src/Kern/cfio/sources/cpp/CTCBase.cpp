@@ -71,7 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ctccontrol.h"
 #include "compat_defs.h"
 //////////////////////////////////////////////////////////////////////////////////
-extern CTCControl * Control;
+extern CTCControl * Control_ctc;
 //////////////////////////////////////////////////////////////////////////////////
 //
 CTCGlobalHeader::CTCGlobalHeader()
@@ -297,11 +297,11 @@ Handle CTCGlobalFile::AssemblyToOne()
 	void *      lpDest;
 	char *      lpSeek;
 
-	hMemoryBlock = 	Control->Alloc(wMemorySize, MAF_GALL_GHND);
+	hMemoryBlock = 	Control_ctc->Alloc(wMemorySize, MAF_GALL_GHND);
 
 	if ( hMemoryBlock )
 	{
-		lpSeek = (char *)(lpDest = Control->Lock(hMemoryBlock));
+		lpSeek = (char *)(lpDest = Control_ctc->Lock(hMemoryBlock));
 
 		while(DataLeft)
 		{
@@ -324,7 +324,7 @@ Handle CTCGlobalFile::AssemblyToOne()
 			pCurrentCluster = pCurrentCluster->mcNext;
 		}
 
-		Control->Unlock(hMemoryBlock);
+		Control_ctc->Unlock(hMemoryBlock);
 	}
 
 	return hMemoryBlock;
@@ -588,7 +588,7 @@ Handle CTCGlobalFile::CreateNewCluster(PPCFIOMCLUSTER pmcCluster)
 	// new Cluster memory flag for alloc()
 	pNewCluster->mcMemoryFlag = MAF_GALL_GHND;
 	// alloc new memory for new cluster
-	pNewCluster->mcHandle = Control->Alloc(pNewCluster->mcSize, pNewCluster->mcMemoryFlag,"CFIO virtual file cluster","no comment");
+	pNewCluster->mcHandle = Control_ctc->Alloc(pNewCluster->mcSize, pNewCluster->mcMemoryFlag,"CFIO virtual file cluster","no comment");
 	// new cluster is clear
 	pNewCluster->mcFill = 0;
 	pNewCluster->mcNumber = wClusterCounter;
@@ -644,10 +644,10 @@ Bool32 CTCGlobalFile::KillLastCluster(PCFIOMCLUSTER pEndCluster)
 			pNextToDelete = pCluster->mcNext;
 			// unlock memory (for any case)
 			if ( pCluster->mcLocked )
-				Control->Unlock(pCluster->mcHandle);
+				Control_ctc->Unlock(pCluster->mcHandle);
 			
 			// free memory cluster and ...
-			Control->Free(pCluster->mcHandle);
+			Control_ctc->Free(pCluster->mcHandle);
 			// delete memory cluster info
 			delete pCluster;
 			// decrease cluster counter;
@@ -737,7 +737,7 @@ void * CTCGlobalFile::GetPtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pClus
 
 	if ( !pCurrentCluster->mcLocked )
 	{
-		pCurrentCluster->mcPtr = Control->Lock(pCurrentCluster->mcHandle);
+		pCurrentCluster->mcPtr = Control_ctc->Lock(pCurrentCluster->mcHandle);
 		pCurrentCluster->mcLocked = TRUE;
 	}
 
@@ -762,7 +762,7 @@ Bool32 CTCGlobalFile::ClosePtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pCl
 	if ( pCurrentCluster->mcLocked )
 	{
 		pCurrentCluster->mcPtr = NULL;
-		Control->Unlock(pCurrentCluster->mcHandle);
+		Control_ctc->Unlock(pCurrentCluster->mcHandle);
 		pCurrentCluster->mcLocked = FALSE;
 	}
 

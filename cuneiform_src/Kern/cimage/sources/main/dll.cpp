@@ -78,7 +78,7 @@ static Word16            gwHeightRC = 0;
 static Word16            gwLowRC =    0;
 static Handle            ghStorage =  NULL;
 static HINSTANCE         ghInst =     NULL;
-CTIControl *      Control =    NULL;
+CTIControl *      Control_cti =    NULL;
 static Int32             InitCount =  0;
 /////////////////////////////////////////
 #undef APIENTRY
@@ -108,7 +108,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_Init(Word16 wHeightCode,Handle hStorage)
 {
 	gwHeightRC = wHeightCode;
 	
-	if ( !Control )
+	if ( !Control_cti )
 	{
 		if ( !InitCFIOInterface(TRUE) )
 		{
@@ -116,10 +116,10 @@ CIMAGE_FUNC(Bool32) CIMAGE_Init(Word16 wHeightCode,Handle hStorage)
 			return FALSE;
 		}
 
-		Control = new CTIControl;
+		Control_cti = new CTIControl;
 	}
 
-	if ( Control )
+	if ( Control_cti )
 	{
 		InitCount++;
 		return TRUE;
@@ -134,12 +134,12 @@ CIMAGE_FUNC(Bool32) CIMAGE_Done()
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 	
-	if ( Control )
+	if ( Control_cti )
 	{
 		if (--InitCount == 0)
 		{
-			delete Control;
-			Control = NULL;
+			delete Control_cti;
+			Control_cti = NULL;
 			InitCFIOInterface(FALSE);
 		}
 		return TRUE;
