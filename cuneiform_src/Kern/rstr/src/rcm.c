@@ -2550,10 +2550,10 @@ switch(dwType)
 
 			strcpy(tmp_dir, (char *)pData);
 		
-	        if( tmp_dir[strlen(tmp_dir)-1]!='\\' )
+	        if( tmp_dir[strlen(tmp_dir)-1]!='/' )
 			{
 				if (strlen(tmp_dir) < 255)
-					strcat(tmp_dir,"\\");
+					strcat(tmp_dir,"/");
 				else
 				{
 					wLowRC = RSTR_ERR_VALUE;

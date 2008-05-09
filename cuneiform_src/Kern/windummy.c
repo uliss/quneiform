@@ -63,7 +63,10 @@ void _makepath(char *f,const char *drive,const char *dir,const char *fname,const
 }
 
 void _splitpath(/*const*/ char *f,char *drive,char *dir,char *fname,char *ext) {
-    
+    drive[0] = '\0';
+    dir[0] = '\0';
+    ext[0] = '\0';
+    strcpy(fname, f);
 }
 
 char *_fullpath(char *absPath, const char *relPath, int maxLength) {
