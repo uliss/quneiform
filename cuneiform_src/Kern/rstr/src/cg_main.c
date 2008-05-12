@@ -2298,23 +2298,24 @@ ret:
 ---------------------------------------------------------------------*/
 static CHAR *unite_list(CHAR *resstr,INT i1,INT i0,struct cut_elm *cut_list,
                         seg_vers **vers_list)
-{                      //для сегментов слева и справа
-  CHAR  *res1,*res2;   //списки результатов
-  SVERS *vers1,*vers2; //версии
-  INT  i=i0;           //граница между ними
-  CHAR  *res;          //пересечение res1 и res2
-  CHAR  *res0=NULL;    //возвращаемое значение
+{                      // for segments of the left and right
+  CHAR  *res1,*res2;   // lists results
+  SVERS *vers1,*vers2; // version
+  INT  i=i0;           // boundary between them
+  CHAR  *res;          // res1 intersection and res2
+  CHAR  *res0=NULL;    // return value
   BYTE let,pt;
   CHAR  wrk1[RESLEN],wrk2[RESLEN];
   seg_vers *cur_vers;
 
-  // 16.07.2001 E.P. конфликт с a_bottom_accent_baltic 0xe0 
+  // 16.07.2001 E.P. conflict with a_bottom_accent_baltic 0xe0 
   if (is_baltic_language(language))
 	results_right_to_bad[9][6]=0;
-  else
-	results_right_to_bad[9][6]=(BYTE)0xe0;  // =DOS-буква русская "р", выглядит в тексте как "а"
-
-  // 21.05.2002 E.P. турецко-русские конфликты
+  else {
+      printf("%d\n", (int) results_right_to_bad[9][6]);
+	results_right_to_bad[9][6] = (BYTE)0xe0;  // Russian letter "p" appears in the text as "a"
+  }
+  // 21.05.2002 E.P. Turkish-russian conflicts
   if (is_turkish_language(language))
 	{
 	results_left_to_bad[0][22] = 'k';

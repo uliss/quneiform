@@ -79,8 +79,8 @@ static Word16            gwHeightRC = 0;
 static Word32            gwRC = 0;
 static HANDLE            ghStorage = NULL;
 static HINSTANCE         ghInst =  NULL;
-static char				 szPath[_MAX_PATH];
-static char				 szTempPath[_MAX_PATH];
+static char				 szPath[_MAX_PATH] = ".";
+static char				 szTempPath[_MAX_PATH] = ".";
 static char				 szStorage[_MAX_PATH];
 /////////////////////////////////////////
 BOOL APIENTRY DllMain( HINSTANCE  hModule, 

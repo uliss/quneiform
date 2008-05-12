@@ -89,11 +89,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include "LineDefs.h"
 #include "cline.h"
 
-#define LOCAL_GREY_CTB "PAGE6666"
-#define LOCAL_CTB_NAME "CT666666"
+#define LOCAL_GREY_CTB "page6666"
+#define LOCAL_CTB_NAME "ct666666"
 unsigned char    alpha_used_mode=0;
-char    local_grey_ctb[256]=".\\TMP\\PAGE6666";
-char    local_ctb_name[256]=".\\TMP\\CT666666";
+char    local_grey_ctb[256]="TMP/page6666";
+char    local_ctb_name[256]="TMP/ct666666";
 Word8 * (*local_ret_error_str)(Word32 dwError);
 Word32  local_ret_error_code=0;
 typedef Word8 *(*fun_error)(Word32);
@@ -2537,8 +2537,8 @@ switch(dwType)
     case RSTR_pchar_temp_dir:
 		{
 			char tmp_dir[256] = "";
-			char* tmp_ctb_name = strrchr(local_ctb_name, '\\');
-			char* tmp_gray_name = strrchr(local_grey_ctb, '\\');
+			char* tmp_ctb_name = strrchr(local_ctb_name, '/');
+			char* tmp_gray_name = strrchr(local_grey_ctb, '/');
 			char tmp_ctb[256] = "";
 			char tmp_gray[256] = "";
 			if (strlen((char*)pData) > 256)

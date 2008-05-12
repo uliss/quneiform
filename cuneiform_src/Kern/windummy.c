@@ -110,7 +110,9 @@ int GetLastError() {
 
 
 DWORD GetModuleFileName(HMODULE hModule, LPTSTR lpFilename, DWORD nSize) {
-    return 0;
+    lpFilename[0] = '.'; /* Currently all modules must be in the directory pumatest was run in. */
+    lpFilename[1] = '\0';
+    return 1;
 }
 
 BOOL CloseHandle(HANDLE hObject) {
