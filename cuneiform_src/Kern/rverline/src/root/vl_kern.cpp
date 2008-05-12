@@ -86,8 +86,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define       MaxLines        2000
 #define       MaxZherTotal    100
 /*------------extern objects--------------------------------------------------*/
-extern Word16      gwHeightRC;
-extern Word16      gwLowRC;
+extern Word16      gwHeightRC_rver;
+extern Word16      gwLowRC_rver;
 //extern Handle      hUseCLine;
 /*------------own objects-----------------------------------------------------*/
 static Regime_VerifyLines   MainRegime;
@@ -277,12 +277,12 @@ RVERLINE_FUNC(Bool32) RVERLINE_MarkLines (Handle hCComp, Handle hCPage)
 RVERLINE_FUNC(Bool32) RVERLINE_SetImportData(Word32 dwType, void *pData)
 {
 	Word8 err8;
-	if (gwHeightRC==0)
+	if (gwHeightRC_rver==0)
 	{
 		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
-		gwLowRC = (Word16)(err8<<8);
+		gwLowRC_rver = (Word16)(err8<<8);
 		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
-		gwLowRC |= (Word16)err8;
+		gwLowRC_rver |= (Word16)err8;
 		return FALSE;
 	}
 	switch (dwType)
@@ -295,9 +295,9 @@ RVERLINE_FUNC(Bool32) RVERLINE_SetImportData(Word32 dwType, void *pData)
 			break;
 		default :
 			err8 = (Word8)ER_ROUGH_CALL_REFUSED;
-			gwLowRC = (Word16)(err8<<8);
+			gwLowRC_rver = (Word16)(err8<<8);
 			err8 = (Word8)ER_DETAIL_BAD_PARAMETRS;
-			gwLowRC |= (Word16)err8;
+			gwLowRC_rver |= (Word16)err8;
 		return FALSE;
 	}
 	return TRUE;

@@ -74,8 +74,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "vl_rule.h"
 #include "compat_defs.h"
 /*------------own objects-----------------------------------------------------*/
-static Word16      gwHeightRC = 0;      // ”никальный номер библиотеки в одном сеансе
-static Word16      gwLowRC    = ER_ROUGH_NONE;      // ќшибки в работе библиотеки
+/* These two would be static, but they are accessed in vl_kern.cpp. */
+Word16      gwHeightRC_rver = 0;      // ”никальный номер библиотеки в одном сеансе
+Word16      gwLowRC_rver    = ER_ROUGH_NONE;      // ќшибки в работе библиотеки
 static HANDLE      ghStorage  = NULL;   // ”казатель на хранилище
 static HANDLE      ghInst     = NULL;   // ”казатель на свое окно
 static Int8 szBuffer[512];               // ƒл€ докладов наверх
@@ -110,29 +111,29 @@ RVERLINE_FUNC(Bool32) RVERLINE_Init (Word16 wHeightCode, HANDLE hStorage)
 {
 	Word8 err8;
 	Bool ret;
-	if (gwHeightRC!=0)
+	if (gwHeightRC_rver!=0)
 	{
 		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
-		gwLowRC = (Word16)(err8<<8);
+		gwLowRC_rver = (Word16)(err8<<8);
 		err8 = (Word8)ER_DETAIL_WAS_YET_INIT;
-		gwLowRC |= (Word16)err8;
+		gwLowRC_rver |= (Word16)err8;
 		return FALSE;
 	}
 	if (wHeightCode==0)
 	{
 		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
-		gwLowRC = (Word16)(err8<<8);
+		gwLowRC_rver = (Word16)(err8<<8);
 		err8 = (Word8)ER_DETAIL_BAD_UNICAL_NUMBER;
-		gwLowRC |= (Word16)err8;
+		gwLowRC_rver |= (Word16)err8;
 		return FALSE;
 	}
 	ret = AM_InitComm (wHeightCode);
 	if (!ret)
 	{
 		err8 = (Word8)ER_ROUGH_NORMAL;
-		gwLowRC = (Word16)(err8<<8);
+		gwLowRC_rver = (Word16)(err8<<8);
 		err8 = (Word8)ER_DETAIL_FUNC_DPUMA;
-		gwLowRC |= (Word16)err8;
+		gwLowRC_rver |= (Word16)err8;
 		return FALSE;
 	}
 	/*  регистраци€ корневых вершин отладки  */
@@ -143,8 +144,8 @@ RVERLINE_FUNC(Bool32) RVERLINE_Init (Word16 wHeightCode, HANDLE hStorage)
 	ret = MyInit_CPage ();
 	if (!ret)
 		return FALSE;
-	gwHeightRC = wHeightCode;
-	gwLowRC = ER_ROUGH_NONE;
+	gwHeightRC_rver = wHeightCode;
+	gwLowRC_rver = ER_ROUGH_NONE;
 	ghStorage  = hStorage;
 	return TRUE;
 }
@@ -152,16 +153,16 @@ RVERLINE_FUNC(Bool32) RVERLINE_Init (Word16 wHeightCode, HANDLE hStorage)
 RVERLINE_FUNC(Bool32) RVERLINE_Done()
 {
 	Word8 err8;
-	if (gwHeightRC==0)
+	if (gwHeightRC_rver==0)
 	{
 		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
-		gwLowRC = (Word16)(err8<<8);
+		gwLowRC_rver = (Word16)(err8<<8);
 		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
-		gwLowRC |= (Word16)err8;
+		gwLowRC_rver |= (Word16)err8;
 		return FALSE;
 	}
-	gwHeightRC = 0;
-	gwLowRC = ER_ROUGH_NONE;
+	gwHeightRC_rver = 0;
+	gwLowRC_rver = ER_ROUGH_NONE;
 	ghStorage  = NULL;
 	CloseAllRes ();
 	AM_DoneComm ();
@@ -172,19 +173,19 @@ RVERLINE_FUNC(Word32) RVERLINE_GetReturnCode()
 {
 	Word8  err8;
 	Word32 err32;
-	if (gwHeightRC==0)
+	if (gwHeightRC_rver==0)
 	{
 		err32 = (Word32)(0);
 		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
-		gwLowRC = (Word16)(err8<<8);
+		gwLowRC_rver = (Word16)(err8<<8);
 		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
-		gwLowRC |= (Word16)err8;
-		err32 |= (Word32)gwLowRC;
+		gwLowRC_rver |= (Word16)err8;
+		err32 |= (Word32)gwLowRC_rver;
 		return err32;
 	}
-	if (gwLowRC==ER_ROUGH_NONE)
+	if (gwLowRC_rver==ER_ROUGH_NONE)
 		return (Word32)(0);
-	return (Word32)(gwHeightRC<<16)|(gwLowRC);
+	return (Word32)(gwHeightRC_rver<<16)|(gwLowRC_rver);
 }
 /*----------------------------------------------------------------------------*/
 RVERLINE_FUNC(Int8 *) RVERLINE_GetReturnString(Word32 dwError)
@@ -192,20 +193,20 @@ RVERLINE_FUNC(Int8 *) RVERLINE_GetReturnString(Word32 dwError)
 	Word8  err8, err8_1;
 	Word16 err16;
 	char  Work[256];
-	if (gwHeightRC==0)
+	if (gwHeightRC_rver==0)
 	{
 		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
-		gwLowRC = (Word16)(err8<<8);
+		gwLowRC_rver = (Word16)(err8<<8);
 		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
-		gwLowRC |= (Word16)err8;
+		gwLowRC_rver |= (Word16)err8;
 		return NULL;
 	}
-	if (dwError >> 16 != gwHeightRC)
+	if (dwError >> 16 != gwHeightRC_rver)
 	{
 		err8 = (Word8)ER_ROUGH_OTHER_LIBRARY;
-		gwLowRC = (Word16)(err8<<8);
+		gwLowRC_rver = (Word16)(err8<<8);
 		err8 = (Word8)ER_DETAIL_NO_COMMENT;
-		gwLowRC |= (Word16)err8;
+		gwLowRC_rver |= (Word16)err8;
 		return NULL;
 	}
 	err16  = (Word16)(dwError & 0xFFFF);
@@ -231,9 +232,9 @@ RVERLINE_FUNC(Int8 *) RVERLINE_GetReturnString(Word32 dwError)
 			break;
 		default :
 			err8 = (Word8)ER_ROUGH_NOT_SUCH_ERROR_CODE;
-			gwLowRC = (Word16)(err8<<8);
+			gwLowRC_rver = (Word16)(err8<<8);
 			err8 = (Word8)ER_DETAIL_NO_COMMENT;
-			gwLowRC |= (Word16)err8;
+			gwLowRC_rver |= (Word16)err8;
 			return NULL;
 	}
 	switch (err8)
@@ -292,15 +293,15 @@ RVERLINE_FUNC(Int8 *) RVERLINE_GetReturnString(Word32 dwError)
 RVERLINE_FUNC(Bool32) RVERLINE_GetExportData(Word32 dwType, void * pData)
 {
 	Word8 err8;
-	if (gwHeightRC==0)
+	if (gwHeightRC_rver==0)
 	{
 		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
-		gwLowRC = (Word16)(err8<<8);
+		gwLowRC_rver = (Word16)(err8<<8);
 		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
-		gwLowRC |= (Word16)err8;
+		gwLowRC_rver |= (Word16)err8;
 		return FALSE;
 	}
-	gwLowRC = ER_ROUGH_NONE;
+	gwLowRC_rver = ER_ROUGH_NONE;
 
 #define CASE_FUNCTION(a)	case RVERLINE_FN##a:	*(FN##a *)pData = a; break
 
@@ -310,9 +311,9 @@ RVERLINE_FUNC(Bool32) RVERLINE_GetExportData(Word32 dwType, void * pData)
 		default:
 			*(Handle *)pData = NULL;
 			err8 = (Word8)ER_ROUGH_CALL_REFUSED;
-			gwLowRC = (Word16)(err8<<8);
+			gwLowRC_rver = (Word16)(err8<<8);
 			err8 = (Word8)ER_DETAIL_NOT_MADE_SUCH_DATA;
-			gwLowRC |= (Word16)err8;
+			gwLowRC_rver |= (Word16)err8;
 			return FALSE;
 	}
 	return TRUE;
@@ -320,23 +321,23 @@ RVERLINE_FUNC(Bool32) RVERLINE_GetExportData(Word32 dwType, void * pData)
 /*----------------------------------------------------------------------------*/
 void SetReturnCode_rverline(Word16 rc)
 {
-	gwLowRC = rc;
+	gwLowRC_rver = rc;
 }
 /*----------------------------------------------------------------------------*/
 Word16 GetReturnCode_rverline()
 {
-	return gwLowRC;
+	return gwLowRC_rver;
 }
 /*----------------------------------------------------------------------------*/
 Bool WasInitRVERLINE ()
 {
 	Word8 err8;
-	if (gwHeightRC==0)
+	if (gwHeightRC_rver==0)
 	{
 		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
-		gwLowRC = (Word16)(err8<<8);
+		gwLowRC_rver = (Word16)(err8<<8);
 		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
-		gwLowRC |= (Word16)err8;
+		gwLowRC_rver |= (Word16)err8;
 		return FALSE;
 	}
 	return TRUE;
