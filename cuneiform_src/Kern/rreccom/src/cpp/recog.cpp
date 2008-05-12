@@ -80,7 +80,7 @@ Word8 work_raster[max_raster];
 
 static Word8 make_fill[] = {0, 1, 3, 7, 15, 31, 63, 127, 255};
 
-extern Word16 gwLowRC;
+extern Word16 gwLowRC_rrec;
 extern Word8*  lnOcrPath;
 /*********************************************************************************************/
 Bool32 rec_init(RRecComControl control, char *spath, Word8 lang);
@@ -131,13 +131,13 @@ Bool32 rec_init(RRecComControl control, char *spath, Word8 lang)
 		{
 			if (!rec_is_language(lang))
 			{
-				gwLowRC=RRECCOM_ERR_NOLANGUAGE;
+				gwLowRC_rrec=RRECCOM_ERR_NOLANGUAGE;
 				return FALSE;
 			}
 
 			if (!rec_set_alpha(lang, alphabet))
 			{
-				gwLowRC=RRECCOM_ERR_NOSETALPHABET;
+				gwLowRC_rrec=RRECCOM_ERR_NOSETALPHABET;
 				return FALSE;
 			}
 			
@@ -145,7 +145,7 @@ Bool32 rec_init(RRecComControl control, char *spath, Word8 lang)
 			
 			if (!rec_load_tables(lang))
 			{
-				gwLowRC=RRECCOM_ERR_NOINITEV;
+				gwLowRC_rrec=RRECCOM_ERR_NOINITEV;
 				return FALSE;
 			}
 		}

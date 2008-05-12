@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 /*********************************************************************************************/
 static Word16 gwHeightRC = 0;
-static Word16 gwLowRC = RRECCOM_ERR_NO;
+Word16 gwLowRC_rrec = RRECCOM_ERR_NO; /* Not static since it is accessed in recog.cpp. */
 Word8*  lnOcrPath = NULL;
 /*********************************************************************************************/
 /*********************************************************************************************/
@@ -80,7 +80,7 @@ RRECCOM_FUNC(Bool32) RRECCOM_GetExportData(Word32 dwType, void * pData)
 {
 #define CASE_DATA(a,b,c)        case a: *(b *)pData = c; break
 
-	gwLowRC = RRECCOM_ERR_NO;
+	gwLowRC_rrec = RRECCOM_ERR_NO;
 
 	switch(dwType)
     {
@@ -139,7 +139,7 @@ RRECCOM_FUNC(Bool32) RRECCOM_GetExportData(Word32 dwType, void * pData)
             *(Word32*)pData =          (Word32)exc_set_all_alphabet_gra;
             break;*/
 		default:
-                gwLowRC = RRECCOM_ERR_NOTIMPLEMENT;
+                gwLowRC_rrec = RRECCOM_ERR_NOTIMPLEMENT;
                 return FALSE;
 	}
 
@@ -153,7 +153,7 @@ RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(Word32 dwType, void * pData)
 //#define CASE_DATA(a,b,c)        case a: c = *(b *)pData; break
 #define CASE_PDATA(a,b,c)       case a: c = (b)pData;    break
 
-	gwLowRC = RRECCOM_ERR_NO;
+	gwLowRC_rrec = RRECCOM_ERR_NO;
 	
 	switch(dwType)
     {
@@ -166,7 +166,7 @@ RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(Word32 dwType, void * pData)
 */
     CASE_PDATA(RRECCOM_OcrPath,    Word8*, lnOcrPath);     
 		default:
-				gwLowRC = RRECCOM_ERR_NOTIMPLEMENT;
+				gwLowRC_rrec = RRECCOM_ERR_NOTIMPLEMENT;
 				return FALSE;
     }
 
@@ -179,9 +179,9 @@ RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(Word32 dwType, void * pData)
 /*********************************************************************************************/
 RRECCOM_FUNC(Word32)   RRECCOM_GetReturnCode(void)
 {
-	if(gwLowRC == RRECCOM_ERR_NO) return 0;
+	if(gwLowRC_rrec == RRECCOM_ERR_NO) return 0;
 
-	return (gwHeightRC<<16)|(gwLowRC-RRECCOM_ERR_MIN);
+	return (gwHeightRC<<16)|(gwLowRC_rrec-RRECCOM_ERR_MIN);
 }
 /*********************************************************************************************/
 RRECCOM_FUNC(char*)   RRECCOM_GetReturnString(Word32 dwError)
@@ -189,7 +189,7 @@ RRECCOM_FUNC(char*)   RRECCOM_GetReturnString(Word32 dwError)
 	Word16 rc = (Word16)((dwError & 0xFFFF) );
     static char szBuffer[512];
 
-    if (dwError >> 16 != gwHeightRC) gwLowRC = RRECCOM_ERR_NOTIMPLEMENT;
+    if (dwError >> 16 != gwHeightRC) gwLowRC_rrec = RRECCOM_ERR_NOTIMPLEMENT;
 
     if (rc > 0 && rc <= RRECCOM_ERR_MAX-RRECCOM_ERR_MIN)
 		strcpy((char *)szBuffer, RRECCOM_error_name [rc]);
