@@ -37,6 +37,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 int main(int argc, char **argv) {
     char bmpheader[2];
     char *dib;
+    const char *outfilename = "pumaout.txt";
     FILE *f;
     int32_t dibsize, offset;
     
@@ -103,6 +104,11 @@ int main(int argc, char **argv) {
     }
     printf("PUMA_XFinalRecognition succeeded.\n");
     
+    if(!PUMA_XSave(outfilename, PUMA_TOTEXT, 0)) {
+        printf("PUMA_XSave failed.\n");
+        return 1;
+    }
+    printf("PUMA_XSave succeeded.\n");
     
     if(!PUMA_XClose()) {
         printf("PUMA_XClose failed.\n");
