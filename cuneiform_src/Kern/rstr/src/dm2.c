@@ -100,12 +100,30 @@ static BYTE sticks_left_to_bad[]  =  {"  /l1IJ)}]  11"};
                                                          
                                                          
 static BYTE letters_left_to_bad[] =  {" nrvtcC(u<>ÏúØ|·ë£"}; // 0th pos for sticks
-static CHAR *results_left_to_bad[] =
-     {"kDPbhèØ ","m","nm","w","u","ao","O6","oO6","w","odÆ","xXÂ","Î","õ",
-//     stick     n   r    v   t   c    C    (     u   <     >     Ï   õ
-     "ËÈ","≠ç®àØè™ä¨å","Æ","é","Ø"};
-//       Ø     |        ·   ë   £
 
+static CHAR ltmp0[] = "kDPbhèØ "; /* stick */
+static CHAR ltmp1[] = "m"; /* n */
+static CHAR ltmp2[] = "nm"; /* r */
+static CHAR ltmp3[] = "w"; /* v */
+static CHAR ltmp4[] = "u"; /* t */
+static CHAR ltmp5[] = "ao"; /* c */
+static CHAR ltmp6[] = "O6"; /* C */
+static CHAR ltmp7[] = "oO6"; /* ( */
+static CHAR ltmp8[] = "w"; /* u */
+static CHAR ltmp9[] = "odÆ"; /* < */
+static CHAR ltmp10[] = "xXÂ"; /* > */
+static CHAR ltmp11[] = "Î"; /* Ï */
+static CHAR ltmp12[] = "õ"; /* õ */
+static CHAR ltmp13[] = "ËÈ"; /* Ø */
+static CHAR ltmp14[] = "≠ç®àØè™ä¨å"; /* | */ 
+static CHAR ltmp15[] = "Æ"; /* · */
+static CHAR ltmp16[] = "é"; /* ë */
+static CHAR ltmp17[] = "Ø"; /* £ */
+
+static CHAR *results_left_to_bad[] = {
+        ltmp0, ltmp1, ltmp2, ltmp3, ltmp4, ltmp5, ltmp6, ltmp7, ltmp8, ltmp9,
+        ltmp10, ltmp11, ltmp12, ltmp13, ltmp14, ltmp15, ltmp16, ltmp17
+};
 
 /*
 	0 pos reserved for liga_i
@@ -113,9 +131,27 @@ static CHAR *results_left_to_bad[] =
 */
 static BYTE sticks_right_to_bad[] =  {" /l1I]11"};  // 1st pos reserved for liga_i
 static BYTE letters_right_to_bad[] = {" nvt)u><·ÊñÆé™˜"}; // 0th pos for sticks
-static CHAR *results_right_to_bad[] =
-  {"d≠®Øè","m","w","u","o","w","bop6DÆ","kXx™¶","™¶","È","ô","Ó","û","¶","Ë"};
-//          n   v   t   )   u   >       <        ·    Ê   ñ   Æ   é  ™    ˜
+
+static CHAR rtmp0[] = "d≠®Øè";
+static CHAR rtmp1[] = "m"; /* n */
+static CHAR rtmp2[] = "w"; /* v */
+static CHAR rtmp3[] = "u"; /* t */
+static CHAR rtmp4[] = "o"; /* ) */ 
+static CHAR rtmp5[] = "w"; /* u */
+static CHAR rtmp6[] = "bop6DÆ"; /* < */
+static CHAR rtmp7[] = "kXx™¶"; /* > */
+static CHAR rtmp8[] = "™¶"; /* · */
+static CHAR rtmp9[] = "È"; /* Ê */
+static CHAR rtmp10[] = "ô"; /* ñ */
+static CHAR rtmp11[] = "Ó"; /* Æ */
+static CHAR rtmp12[] = "û"; /* é */
+static CHAR rtmp13[] = "¶"; /* ™ */
+static CHAR rtmp14[] = "Ë"; /* ˜ */
+
+static CHAR *results_right_to_bad[] = {
+        rtmp0, rtmp1, rtmp2, rtmp3, rtmp4, rtmp5, rtmp6, rtmp7, rtmp8, rtmp9,
+        rtmp10, rtmp11, rtmp12, rtmp13, rtmp14,
+};
 
 static CHAR *ltoi;
 static INT lton;
