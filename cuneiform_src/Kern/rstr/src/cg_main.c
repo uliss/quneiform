@@ -140,16 +140,41 @@ typedef struct grup_struct grup;
  BYTE sticks_left_to_bad[]  =  {"  1/!|l1IJ)}[]"};  // 0,1st pos reserved for liga_i, liga_exm
 												    // 2nd	for turkish i_sans_accent - Nick 12.06.02			
  BYTE letters_left_to_bad[] =  {" nrvtcC(u<>ìœ¨ˆ÷ªŠ«­¯á‘£ƒ"}; // 0th pos for sticks " nrvtcC(u<>üÜèÈ÷êÊëíÍïÏñÑãÃ"
- CHAR *results_left_to_bad[] =
-      {"kDPbh¢‚­¨ˆ¯ªŠ¬Œæ–è˜é™î","m","nm","w","u","ao","O6","oO®06","w",
-//    {"kDPbhâÂíÍèÈïÏêÊìÌöÖøØùÙşŞ","m","nm","w","u","ao","O6","oOîÎ06","w",
-//     stick                       n   r    v   t   c    C    (        u
-      "od®","xX¦†å","ë","›","¬èé","˜™","èé","î","","¬","èéî","˜™","õèé","˜™","®ä",	// 23
-//    "odî","xXæÆõ","û","Û","ìøù","ØÙ","øù","ş","Ş","ì","øùş","ØÙŞ","õøù","ØÙ","îô",
- //    <     >       ü   Ü   è     È    ÷    ê   Ê   ë   í     Í     ï     Ï    ñ
-      "","¯",""};
-//    "Î","ï","Ï"};
-//     Ñ   ã   Ã
+ 
+ static CHAR ltmp0[] = "kDPbh¢‚­¨ˆ¯ªŠ¬Œæ–è˜é™î";
+ static CHAR ltmp1[] = "m"; /* m */
+ static CHAR ltmp2[] = "nm"; /* r */
+ static CHAR ltmp3[] = "w"; /* v */
+ static CHAR ltmp4[] = "u"; /* t */
+ static CHAR ltmp5[] = "ao"; /* c */
+ static CHAR ltmp6[] = "O6"; /* C */
+ static CHAR ltmp7[] = "oO®06"; /* ( */
+ static CHAR ltmp8[] = "w"; /* u */
+ static CHAR ltmp9[] = "od®"; /* < */
+ static CHAR ltmp10[] = "xX¦†å"; /* > */
+ static CHAR ltmp11[] = "ë"; /* ü */
+ static CHAR ltmp12[] = "›"; /* Ü */
+ static CHAR ltmp13[] = "¬èé"; /* è */
+ static CHAR ltmp14[] = "˜™"; /* È */
+ static CHAR ltmp15[] = "èé"; /* ÷ */
+ static CHAR ltmp16[] = "î"; /* ê */
+ static CHAR ltmp17[] = "";
+ static CHAR ltmp18[] = "¬"; /* ë */
+ static CHAR ltmp19[] = "èéî"; /* í */
+ static CHAR ltmp20[] = "˜™"; /* Í */
+ static CHAR ltmp21[] = "õèé"; /* ï */
+ static CHAR ltmp22[] = "˜™"; /* Ï */
+ static CHAR ltmp23[] = "®ä"; /* ñ */
+ static CHAR ltmp24[] = ""; /* Ñ */
+ static CHAR ltmp25[] = "¯"; /* ã */
+ static CHAR ltmp26[] = ""; /* Ã */
+ 
+ CHAR *results_left_to_bad[] = {
+         ltmp0, ltmp1, ltmp2, ltmp3, ltmp4, ltmp5, ltmp6, ltmp7, ltmp8, ltmp9,
+         ltmp10, ltmp11, ltmp12, ltmp13, ltmp14, ltmp15, ltmp16, ltmp17, ltmp18, ltmp19,       
+         ltmp20, ltmp21, ltmp22, ltmp23, ltmp24, ltmp25, ltmp26
+      };
+
  BYTE prob_left_to_bad[] =
       { MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO,
  //     stick   n       r       v       t       c       C       (       u
@@ -168,12 +193,41 @@ typedef struct grup_struct grup;
 												
  BYTE letters_right_to_bad[] = {" cJnNvt)u><£ƒá‘æ–¨ˆ÷­®¯ªŠ«"};	// " cJnNvt)u><ãÃñÑöÖèÈ÷íÍîÎïÏêÊë"
                                                       // 0th pos for sticks
+ 
+ static CHAR tmp0[] = "dU«‹¬Œ­¨ˆ¯è˜ë›";
+ static CHAR tmp1[] = "k"; /* c */
+ static CHAR tmp2[] = "U"; /* J */
+ static CHAR tmp3[] = "m"; /* n */
+ static CHAR tmp4[] = "W"; /* N */
+ static CHAR tmp5[] = "w"; /* v */
+ static CHAR tmp6[] = "u"; /* t */
+ static CHAR tmp7[] = "oO®0"; /* ) */
+ static CHAR tmp8[] = "w"; /* u */
+ static CHAR tmp9[] = "bop6D®à"; /* > */
+ static CHAR tmp10[] = "kxXªŠ¦†å•"; /* < */
+ static CHAR tmp11[] = "â"; /* £ */
+ static CHAR tmp12[] = "’"; /* ƒ */
+ static CHAR tmp13[] = "ª¦"; /* á */
+ static CHAR tmp14[] = "Š†"; /* ‘ */
+ static CHAR tmp15[] = "é"; /* æ */
+ static CHAR tmp16[] = "™"; /* æ */
+ static CHAR tmp17[] = "¬è"; /* ÷ */
+ static CHAR tmp18[] = "˜"; /* ˆ */
+ static CHAR tmp19[] = "è"; /* ÷ */
+ static CHAR tmp20[] = "è"; /* ­ */
+ static CHAR tmp21[] = "˜"; /*  */
+ static CHAR tmp22[] = "î"; /* ® */
+ static CHAR tmp23[] = ""; /*  */
+ static CHAR tmp24[] = "õè"; /* ¯ */
+ static CHAR tmp25[] = "˜"; /*  */
+ static CHAR tmp26[] = "¦"; /* ª */
+ static CHAR tmp27[] = "†"; /* Š */
+ static CHAR tmp28[] = "¬"; /* « */
+
  CHAR *results_right_to_bad[] =
-   {"dU«‹¬Œ­¨ˆ¯è˜ë›","k","U","m","W","w","u","oO®0","w","bop6D®à",
- //  stick              c   J   n   N   v   t      )    u   >
-    "kxXªŠ¦†å•","â","’","ª¦","Š†","é","™","¬è","˜","è","è","˜","î","","õè","˜",
- //  <           £   ƒ   á    ‘    æ   –   ¨    ˆ   ÷   ­      ®      ¯   
-    "¦","†","¬"};
+   {tmp0, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, tmp7, tmp8, tmp9,
+    tmp10, tmp11, tmp12, tmp13 ,tmp14 ,tmp15, tmp16, tmp17, tmp18, tmp19,
+    tmp20, tmp21, tmp22, tmp23 ,tmp24 ,tmp25, tmp26, tmp27, tmp28};
  //  ª   Š   «
  BYTE prob_right_to_bad[] =
       { MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO,
@@ -2311,10 +2365,9 @@ static CHAR *unite_list(CHAR *resstr,INT i1,INT i0,struct cut_elm *cut_list,
   // 16.07.2001 E.P. conflict with a_bottom_accent_baltic 0xe0 
   if (is_baltic_language(language))
 	results_right_to_bad[9][6]=0;
-  else {
-      printf("%d\n", (int) results_right_to_bad[9][6]);
+  else
 	results_right_to_bad[9][6] = (BYTE)0xe0;  // Russian letter "p" appears in the text as "a"
-  }
+
   // 21.05.2002 E.P. Turkish-russian conflicts
   if (is_turkish_language(language))
 	{
