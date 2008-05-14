@@ -100,7 +100,7 @@ Bool32 BinariseImage()
 	if(!ProgressStep(2,GetResourceString(IDS_PRG_OPEN),100))
 		rc = FALSE;
 	
-	LDPUMA_Console("The image depth is %i at this point.\n",info.biBitCount);
+	LDPUMA_Console("The image depth is %d at this point.\n", (int)info.biBitCount);
 	if(rc && LDPUMA_Skip(hDebugCancelBinarize) && info.biBitCount>1)
 	{
 		PRGTIME prev = StorePRGTIME(10, 100);
