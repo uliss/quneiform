@@ -412,7 +412,13 @@ void   LDPUMA_UpdateView(Handle wnd)
 //////////////////////////////////////////////
 Int32 LDPUMA_Console(const char * message,...)
 {
-	int rc = 0;
+    va_list marker;
+    va_start( marker, message);
+    printf(message,marker);
+    va_end(marker);
+    return 1;
+    /*
+    int rc = 0;
 	if(Console)
 	{
 		va_list marker;
@@ -421,6 +427,8 @@ Int32 LDPUMA_Console(const char * message,...)
 		va_end(marker);
 	}
 	return rc;
+	*/
+    
 }
 Int32 LDPUMA_ConsoleN(const char * message,...)
 {
