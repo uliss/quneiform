@@ -343,10 +343,10 @@ RSL_FUNC(Bool32) RSL_SetImportData(Word32 dwType, void * pData)
             }
             
             if(!*Image->pgneed_clean_line)
-                LDPUMA_Console("Предупреждение: RSL говорит, что снимать линии не надо.\n");
+                LDPUMA_Console("Warning: RSL said that the lines do not have to withdraw.\n");
         }
         else
-            LDPUMA_Console("Пропущен этап оценки линий.\n");
+            LDPUMA_Console("Missing stage of the evaluation lines.\n");
     }  
     
     //CPAGE_DeleteBlock(&phCPage, VerifyN);
