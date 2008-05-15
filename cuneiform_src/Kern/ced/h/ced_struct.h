@@ -272,7 +272,7 @@ public:
 	int		extDataLen;			// Data size.
 
 	CEDParagraph * CreateColumn();
-	CEDParagraph * CreateFrame(CEDParagraph* hObject, edBox rect, char position=-1, DWORD borderSpace=-1, DWORD dxfrtextx=-1, DWORD dxfrtexty=-1);
+	CEDParagraph * CreateFrame(CEDParagraph* hObject, edBox rect, char position=-1, int borderSpace=-1, int dxfrtextx=-1, int dxfrtexty=-1);
 	CEDParagraph * CreateParagraph(CEDParagraph * hObject,int align, EDRECT indent, int UserNum,int FlagBorder,EDSIZE interval, edBox layout, int  color, int  shading, 
 						   int spaceBetweenLines, char spcBtwLnsMult, 
 						   char  keep);

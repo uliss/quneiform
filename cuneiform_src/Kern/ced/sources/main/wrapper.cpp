@@ -209,7 +209,7 @@ CED_FUNC(Handle) CED_CreateColumn( Handle hEdSection)
 
 //ׁמחהאעü פנויל
 CED_FUNC(Handle) CED_CreateFrame(Handle hEdSection, Handle hEdColumn, edBox rect, 
-								 char position, DWORD borderSpace, DWORD dxfrtextx, DWORD dxfrtexty)
+								 char position, int borderSpace, int dxfrtextx, int dxfrtexty)
 {
 	if (logStream)
 	{

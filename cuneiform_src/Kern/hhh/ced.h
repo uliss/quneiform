@@ -457,7 +457,7 @@ DEC_FUN(Bool32, CED_SetParaBorders,(Handle hEdParagraph, int leftBrdrType, int l
 DEC_FUN(Handle, CED_CreateLine,(Handle hEdParagraph,Bool32 hardBreak,int defChrFontHeight));
 DEC_FUN(Bool32, CED_SetLineParams,(Handle hEdLine, Bool32 hardBreak, int defChrFontHeight));
 DEC_FUN(Handle, CED_CreateChar,(Handle hEdLine, EDRECT layout, LETTER* alternatives, int fontHeight, int fontNum, int fontAttribs, int fontLang, int foregroundColor, int backgroundColor));
-DEC_FUN(Handle, CED_CreateFrame,(Handle hEdSection, Handle hEdColumn, EDBOX rect, char position, DWORD borderSpace, DWORD dxfrtextx, DWORD dxfrtexty));
+DEC_FUN(Handle, CED_CreateFrame,(Handle hEdSection, Handle hEdColumn, EDBOX rect, char position, int borderSpace, int dxfrtextx, int dxfrtexty));
 DEC_FUN(Bool32, CED_SetFrameFlag,(Handle hEdFrame, int flag));
 DEC_FUN(Handle, CED_CreateTable,(Handle hEdSection, Handle hObject));
 DEC_FUN(Handle, CED_CreateTableRow,(Handle hEdSection, Handle hEdTable, int left, int rowHeight, int leftBrdrType, int leftBrdrWidth, int rightBrdrType, int rightBrdrWidth, int topBrdrType, int topBrdrWidth, int bottomBrdrType, int bottomBrdrWidth, int gaph, int position, Bool32 header));

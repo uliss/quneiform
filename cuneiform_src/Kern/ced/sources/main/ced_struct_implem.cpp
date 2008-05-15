@@ -556,7 +556,7 @@ CEDParagraph * CEDSection::GetColumn( int _num)
 }
 
 */
-CEDParagraph * CEDSection::CreateFrame(CEDParagraph* hObject, edBox rect, char position, DWORD borderSpace, DWORD dxfrtextx, DWORD dxfrtexty)
+CEDParagraph * CEDSection::CreateFrame(CEDParagraph* hObject, edBox rect, char position, int borderSpace, int dxfrtextx, int dxfrtexty)
 {
 	if (hObject->type!=COLUMN_BEGIN) 
 	{
