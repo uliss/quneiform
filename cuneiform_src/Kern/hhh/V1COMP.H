@@ -79,15 +79,16 @@ struct bw_segment
 };
 
 typedef struct bw_segment BWS;
+typedef struct bw_segment BWSS;
 //
 //		Memory organisation
 //
 //		We reserve additional memory for
-#define BOX_NUMBER	2048	// boxes, wich should allocate in
+#define BOX_NUMBER	2048*7	// boxes, wich should allocate in
 				// remaining memory (320 Kb now).
-#define LINE_MAX_LTH	512	// maximal length of image string mesured
+#define LINE_MAX_LTH	512*4	// maximal length of image string mesured
 				// in bytes
-#define SEG_MAX_NUM	1024	// maximal number of segments
+#define SEG_MAX_NUM	(LINE_MAX_LTH*2)	// maximal number of segments
 //		Boxes and main numbers has dinamical structure organisation,
 //	that means free elements are conected in the chains. For
 //	this purpose are used fields mnfree and boxchain.
@@ -111,8 +112,8 @@ PBYTE dcodeend;	// end of read line buffer ptr
 //								lth=12
 //		Line service
 //
-//WORD dotlength;		// number of dots in the line
-//WORD bytelength;	// length of the line in bytes
+WORD dotlength;		// number of dots in the line
+WORD bytelength;	// length of the line in bytes
 WORD lineno;		// line counter
 WORD reserv_v1comp;	// arround byte
 //								lth=7
@@ -121,17 +122,21 @@ WORD reserv_v1comp;	// arround byte
 //
 //
 
-//// MN mnstart[SEG_MAX_NUM];    // pool of main numbers
-//// BWS line1start[SEG_MAX_NUM];    // line 1
-//// BWS line2start[SEG_MAX_NUM];    // line 2
-//   Big tables uses 36*SEG_MAX_NUM bytes (36 Kb now).
-//// BYTE scan_buffer[0x4000+LINE_MAX_LTH];  // buffer for image reding
-
+MN mnstart[SEG_MAX_NUM];    // pool of main numbers
+BWS line1start[SEG_MAX_NUM];    // line 1
+BWS line2start[SEG_MAX_NUM];    // line 2
+//  Big tables uses 36*SEG_MAX_NUM bytes (36 Kb now).
+BYTE scan_buffer[0x4000+LINE_MAX_LTH];  // buffer for image reding
+/*
  MN  *mnstart; // [SEG_MAX_NUM];    // pool of main numbers
+*/
  BOX *boxstart;	   // box pool
+ /*
  BWS *line1start; // [SEG_MAX_NUM];    // line 1
  BWS *line2start; //[SEG_MAX_NUM];    // line 2
 //   Big tables uses 36*SEG_MAX_NUM bytes (36 Kb now).
  BYTE *scan_buffer; //[0x4000+LINE_MAX_LTH];  // buffer for image reading
+ */
 };
 
+#define NET_COMPONENT 10
