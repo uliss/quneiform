@@ -105,7 +105,7 @@ typedef struct {
 	CPAGE_ExtConvert	fnConvertor;	// Функция конвертировани
 }	CPAGE_CONVERTOR;
 
-typedef enum CPAGE_EXPORT_ENTRIES
+enum CPAGE_EXPORT_ENTRIES
 {
 		CPAGE_FNCPAGE_CreatePage = 1,
 		CPAGE_FNCPAGE_DeletePage,

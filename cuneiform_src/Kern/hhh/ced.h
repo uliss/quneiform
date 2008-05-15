@@ -250,7 +250,7 @@ char * GetModulesString(Word32 dwError);
 /////////////////////////////////////////////////////////////
 
 //Импорт
-typedef enum
+enum CED_IMPORT_ENTRIES
 {
 	CED_FNCED_BitmapRef = 1,			
 	CED_FNCED_TextRef,
@@ -279,7 +279,7 @@ typedef enum
 	CED_FNCED_Aksant,
 	CED_FNCED_Letter,
 	CED_FNCED_ExtentionNew
-} CED_IMPORT_ENTRIES;
+};
 
 typedef void (*FNRDProc)(Word8* ptr, Word32 lth);
 

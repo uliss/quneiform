@@ -121,7 +121,7 @@ WORD reserv_v1comp;	// arround byte
 //		Big tables size counting and its allocation
 //
 //
-
+ 
 MN mnstart[SEG_MAX_NUM];    // pool of main numbers
 BWS line1start[SEG_MAX_NUM];    // line 1
 BWS line2start[SEG_MAX_NUM];    // line 2

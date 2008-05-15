@@ -170,28 +170,28 @@ class CED_FUNC(CEDPage)
 public:
 	
 	//Данные о изображении
-	EDSIZE	sizeOfImage;		//Размеры исходной картинки в пикселях
+	EDSIZE	sizeOfImage;		// The size of the original image in pixels
 	EDSIZE	dpi;				//Разрешение сканера для этой картинки
-	int		turn;				//Тангенс угла поворота картинки относительно вертикали*2048
-	char*	imageName;			//Имя файла изображения. Если путь не указан, ищется в одном 
-								//каталоге с ed файлом
+	int		turn;				// Tangent angle on the vertical images * 2048
+	char*	imageName;			// Filename image. If the path is not specified, is searched in one 
+	                            // Directory with the file ed
 	
-	int		pageNumber;			//Номер страницы(=0 не в пакетном режиме)
-	EDSIZE	pageSizeInTwips;	//Ширина страницы в твипах(1дюйм=1440твипов) для текстового редактора
-	EDRECT	pageBordersInTwips;	//Поля страницы в твипах
+	int		pageNumber;			// Number of Pages (= 0 not in batch mode)
+	EDSIZE	pageSizeInTwips;	// The width of the page in twip (1dyuym = 1440tvipov) for text editor
+	EDRECT	pageBordersInTwips;	
 	char	unrecogChar;
 	char	recogLang;
 	Bool32  resizeToFit;
 
-	int		fontsUsed;			//Количество использованных шрифтов в таблице
-	int		fontsCreated;			//Количество созданных шрифтов в таблице
-	fontEntry*	fontTable;			//указатель на таблицу шрифтов
-	int		picsUsed;			//Количество использованных картинок в таблице
-	int		picsCreated;			//Количество созданных картинок в таблице
-	pictEntry*	picsTable;			//указатель на таблицу картинок
+	int		fontsUsed;			//КThe number of fonts used in table
+	int		fontsCreated;		//КThe number of fonts created in the table
+	fontEntry*	fontTable;		// Pointer to the table fonts
+	int		picsUsed;			//КNumber of images used in table
+	int		picsCreated;		//КNumber of images created in the table
+	pictEntry*	picsTable;		// pointer to a table of images
 
-	char *	extData;			//Данные, кот. будут записаны в файл после заголовка;
-	int		extDataLen;			//Их длина
+	char *	extData;			// Data cat. will be recorded in the file after the title
+	int		extDataLen;			// Its size
 
 	CEDPage();
 	~CEDPage();
@@ -250,13 +250,14 @@ public:
 class CED_FUNC(CEDSection)
 {
 public:
-	int		numberOfColumns;	//Количество колонок в секции(n штук)
-//	int		numberOfFrames;		//Количество фреймов-1 в секции(n-1 штук)
-	//SIZE *	pColSize;			//Указатель на n-1 штуку структур SIZE.cx-ширина колонки,
-								//SIZE.cy - расстояние до следующей колонки в твипах
-								//Ширина_последней_колонки = ширина_страницы - ширина_полей -
-								//- ширина_пред.колонок - ширина_итервалов_между_колонками
-	EDRECT	borders;			//отступы от края бумаги
+	int		numberOfColumns;	//К The number of columns in the section (n pieces)
+//	int		numberOfFrames;		//КNumber of frames-1 in the section (n-1 pieces) 
+	//SIZE *	pColSize;		// Pointer to n-1 piece structures SIZE.cx-width columns,
+								// SIZE.cy - the distance to the next column in twip 
+	                            // width_last_column width = page - width_fields --
+	                            // width_columns_before - width_between_columns_itervalov
+
+	EDRECT	borders;			// padding from the edge of paper 
 	int colInterval;
 	char sectionBreak;
 	int width;
@@ -267,8 +268,8 @@ public:
 	int numSnakeCols;
 	BOOL lineBetCol;
 	EDCOL *colInfo;
-	char *	extData;			//Данные, кот. будут записаны в файл после заголовка;
-	int		extDataLen;			//Их длина
+	char *	extData;			// Data cat. will be recorded in the file after the title; 
+	int		extDataLen;			// Data size.
 
 	CEDParagraph * CreateColumn();
 	CEDParagraph * CreateFrame(CEDParagraph* hObject, edBox rect, char position=-1, DWORD borderSpace=-1, DWORD dxfrtextx=-1, DWORD dxfrtexty=-1);
@@ -295,8 +296,8 @@ public:
 	CEDSection();
 	~CEDSection();
 	
-	CEDParagraph * InsertParagraph(Bool32 AfterCurrent=TRUE);	//Вставляет новый абзац после текущего. Текущей становится новый абзац
-								//Возвращает указатель на вновь созданный абзац
+	CEDParagraph * InsertParagraph(Bool32 AfterCurrent=TRUE);	// Inserts new paragraph after the current. Current becomes a new paragraph 
+								// Returns pointer to the newly created bullet
 //	CEDParagraph * DeleteParagraph(Bool32 _deleteSubItems);	//Удаляет текущий абзац. Текущим становится предыдущий абзац.
 								//Он и возвращается 
 				//_deleteSubItems - удалять ли все дочерние элементы, либо прикрепить их
@@ -324,14 +325,14 @@ friend class CEDPage;
 class CED_FUNC(CEDParagraph)
 {
 public:
-	int		type;					//Тип абзаца
-	int		alignment;				//Выравнивание абзатца
-	EDRECT	indent;					//Отступы: left=левый, right=ширина,top=красн.строка(в твипах)
-	int		userNumber;				//Номер, данный пользователем на этапе фрагментации
-	int		border;					//Рамка вокруг абзатца
-	EDSIZE	interval;				//cx-верхний отступ, cy- нижний
+	int		type;					// Type paragraph 
+	int		alignment;				// Alignment abzattsa 
+	EDRECT	indent;					// Indentation: left = left, right = width, top = red.line (in twip)
+	int		userNumber;				// ID number, the user at the stage of fragmentation 
+	int		border;					//  frame around abzattsa 
+	EDSIZE	interval;				//  cx-upper indentation, cy-bottom 
 
-	edBox		layout;					//Расположение абзаца на странице
+	edBox		layout;					//  Location paragraph on page 
 	int		color;
 	int		shading;
 	int		spaceBetweenLines;
@@ -348,10 +349,10 @@ public:
 	int bottomBrdrWidth;
 	int brdrBtw;
 
-	void *	descriptor;			//Указатель на расширенный описатель специальных структур
+	void *	descriptor;			// Pointer to advanced descriptor of special structures 
 	
-	char *	extData;			//Данные, кот. будут записаны в файл после заголовка;
-	int		extDataLen;			//Их длина
+	char *	extData;			// Data cat. will be recorded in the file after the title; 
+	int		extDataLen;			// Its size
 
 	CEDParagraph();
 	~CEDParagraph();
