@@ -3033,7 +3033,7 @@ static BYTE classify (cell **cells, INT N, grup *box, grup *bottom,
         while ( i<N )
           if ( cells[i]->row < gba )
           {
-            change(cells,i,(INT)(N-1)); N--; far_top->n++;
+            change((void**)cells,i,(INT)(N-1)); N--; far_top->n++;
           }
           else
             i++;
@@ -3046,7 +3046,7 @@ static BYTE classify (cell **cells, INT N, grup *box, grup *bottom,
           while ( i<N )
             if ( cells[i]->row >= gea )
             {
-              change(cells,i,(INT)(N-1)); N--; far_bottom->n++;
+              change((void**)cells,i,(INT)(N-1)); N--; far_bottom->n++;
             }
             else
               i++;
@@ -3080,7 +3080,7 @@ static BYTE classify (cell **cells, INT N, grup *box, grup *bottom,
         while ( i<N )
           if ( cells[i]->row < gba )
           {
-            change(cells,i,(INT)(N-1)); N--; top->n++;
+            change((void**)cells,i,(INT)(N-1)); N--; top->n++;
             top->b=gba;
           }
           else
@@ -3093,7 +3093,7 @@ static BYTE classify (cell **cells, INT N, grup *box, grup *bottom,
           while ( i<N )
             if ( cells[i]->row >= gea )
             {
-              change(cells,i,(INT)(N-1)); N--; bottom->n++;
+              change((void**)cells,i,(INT)(N-1)); N--; bottom->n++;
             }
             else
               i++;
