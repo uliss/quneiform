@@ -91,7 +91,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    typedef unsigned long int      Word32 ;   _SETTYPES( Word32 )
    typedef signed short int       Int16  ;   _SETTYPES( Int16  )
    typedef unsigned short int     Word16 ;   _SETTYPES( Word16 )
-   typedef signed char            Int8   ;   _SETTYPES( Int8   )
+   typedef char                   Int8   ;   _SETTYPES( Int8   )
    typedef unsigned char          Word8  ;   _SETTYPES( Word8  )
    typedef float                  Float32;   _SETTYPES( Float32 )
    typedef double                 Float64;   _SETTYPES( Float64 )
@@ -167,8 +167,8 @@ extern "C"
 
 typedef int             BOOL;
  
-typedef signed char     CHAR;
-typedef signed char *   PCHAR;
+typedef char     CHAR;
+typedef char *   PCHAR;
 
 typedef unsigned char   BYTE;
 typedef unsigned char * PBYTE;

@@ -380,7 +380,7 @@ Handle MyOpen(char * lpName, Word32 dwFlag)
 
 	if (CFIO_Open)
 		{
-		f = CFIO_Open(0, (signed char*)lpName, dwFlag );
+		f = CFIO_Open(0, (PInt8)lpName, dwFlag );
 		if ( f == NULL )
 			{
 			ERR_OPEN_FILE;
@@ -441,7 +441,7 @@ Word32 MyWrite(Handle hFile,
 			   Word32 dwSize)
 {
 	ULONG bytesWritten =  CFIO_Write?
-		CFIO_Write(hFile, (signed char*)lpData, dwSize):
+		CFIO_Write(hFile, (PInt8)lpData, dwSize):
 		_write((int)hFile, lpData, dwSize);
 
 	if ( bytesWritten != dwSize )

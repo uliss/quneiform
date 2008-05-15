@@ -272,7 +272,7 @@ return;
 
 CTB_FUNC(Bool32)  CTB_files_test(char *filename,Int16 maxX, Int16 maxY, Int16 dpb)
 {
-H_CTB_file H_CTB={{'C','T'},0,128,96,0,0,0,0,{0},{0}},HCTB;
+H_CTB_file H_CTB={{'C','T'},0,128,96,0,0,0,0,0,{0}},HCTB;
 char s[MAXPATH],file_name[MAXPATH],*p;
 FFILE fp;
 
@@ -1333,7 +1333,7 @@ return NULL;     // i==4                         //
 Bool32  CTB_files_init(char *filename,Word8 *data,Int16 maxX, Int16 maxY,
       Int16 dpb, Word8 signums, Word8 attr_size)
 {
-H_CTB_file H_CTB={{'C','T'},0,0,0,0,0,0,0,{0},{0}}; // signatura only //
+H_CTB_file H_CTB={{'C','T'},0,0,0,0,0,0,0,0,{0}}; // signatura only //
 char s[MAXPATH],file_name[MAXPATH],*p;
 FFILE fp;
 Int16 l;
