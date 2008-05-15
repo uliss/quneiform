@@ -84,6 +84,4 @@ short recindexNDX(short hor, short ver, short *lett_coo,
 
 short det_symn(unsigned short *, unsigned short *, unsigned short *);
 
-unsigned short iobraz[],list[],meas[],lmin,lmax;
-
 #endif

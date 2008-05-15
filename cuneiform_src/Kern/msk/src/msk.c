@@ -454,7 +454,7 @@ MSK_FUNC(Bool32)  MSKRecogChar(
 	lett_coo[2]=hor-1;
 	lett_coo[3]=ver-1;
 	hor=((hor+63)>>6)<<6;
-	buff_image=(Bool16  *)(recraster->Raster);
+	buff_image=(Word16  *)(recraster->Raster);
 
 	nm=0;
 	err=(Int16) recindex (0, (BYTE)(0), hor, ver, lett_coo, (BYTE)(0),

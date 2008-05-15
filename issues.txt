@@ -43,3 +43,10 @@ The dat files that come with Cuneiform have binary stuff mixed with
 Windows line ending strings. When read in Unix they become '\r\n'.
 Input data is validated by checking the lengths of read strings.
 The additional '\r' causes these checks to fail.
+
+Cuneiform stores its text strings in CHAR (signed char) and BYTE (unsigned char) 
+arrays, which get compared against each other. This leads to pointer type mismatch 
+warnings. Also giving BYTE pointers to libc string functions such as strlen give
+these warnings. An easy fix would be to convert them all to chars, but it won't
+work because at certain times the character values are compared to constants
+larger than 127.
