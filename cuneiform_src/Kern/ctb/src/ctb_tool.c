@@ -159,7 +159,7 @@ memset(hnd,0,sizeof(CTB_handle));
 if( p ) *p='\0';
 SPRINTF(lin,"%s.CTB",file_name);
 
-hnd->bas = FOPEN(lin,*attr=='r' ? R_B : R_B_PLUS);
+hnd->bas = fopen(lin,*attr=='r' ? R_B : R_B_PLUS);
 if( hnd->bas==BAD_FOPEN )
         {
         ctb_err_code = CTB_ERR_OPEN_CTB;
@@ -167,12 +167,12 @@ if( hnd->bas==BAD_FOPEN )
         }
 hnd->attr = *attr=='r' ? 'r' : 'w';
 
-if( FSEEK(hnd->bas,0,SEEK_SET))
+if( fseek(hnd->bas,0,SEEK_SET))
         {
         ctb_err_code = CTB_ERR_SEEK;
         return 0;    // can't seek //
         }
-FREAD(&HCTB,sizeof( HCTB ),1, hnd->bas);  // read header of CTBfile//
+fread(&HCTB,sizeof( HCTB ),1, hnd->bas);  // read header of CTBfile//
 if( HCTB.sign[0]!='C' || HCTB.sign[1]!='T' )
         {
         ctb_err_code = CTB_ERR_SIGN;
@@ -215,14 +215,14 @@ switch( hnd->version )
         hnd->attr_size      = HCTB.attr_size;
         break;
     }
-if( FSEEK(hnd->bas,0,SEEK_END) )  // ???? //
+if( fseek(hnd->bas,0,SEEK_END) )  // ???? //
         {
         ctb_err_code = CTB_ERR_SEEK;
         return 0;
         }
 
 SPRINTF(lin,"%s.IND",file_name);
-hnd->ndx = FOPEN(lin,*attr=='r' ? R_B : R_B_PLUS);
+hnd->ndx = fopen(lin,*attr=='r' ? R_B : R_B_PLUS);
 if( hnd->ndx==BAD_FOPEN )
         {
         ctb_err_code = CTB_ERR_OPEN_NDX;
@@ -239,9 +239,9 @@ H_CTB_file HCTB;
 
 if( hnd->bas!=BAD_FOPEN )
   {
-  if( FSEEK(hnd->bas,0,SEEK_SET) )
+  if( fseek(hnd->bas,0,SEEK_SET) )
     return ;
-  FREAD(&HCTB,sizeof( HCTB ),1, hnd->bas);   // read header of CTBile //
+  fread(&HCTB,sizeof( HCTB ),1, hnd->bas);   // read header of CTBile //
   HCTB.volume = hnd->num;
   if(hnd->need_compress)
     HCTB.need_compress |=0x01 ;
@@ -251,18 +251,18 @@ if( hnd->bas!=BAD_FOPEN )
     HCTB.need_compress &=(0xFF^0x02) ;
   if( HCTB.dot_per_byte<=0 )
     HCTB.dot_per_byte = (Word8)((long)hnd->len/((long)HCTB.size_x*HCTB.size_y)) ;
-  if( FSEEK(hnd->bas,0,SEEK_SET) )
+  if( fseek(hnd->bas,0,SEEK_SET) )
     return ;
   if( hnd->attr=='w' )                         // if enable change CTB  //
-    FWRITE(&HCTB,sizeof( HCTB ),1, hnd->bas);  // save corrected header //
-  FCLOSE(hnd->bas);
+    fwrite(&HCTB,sizeof( HCTB ),1, hnd->bas);  // save corrected header //
+  fclose(hnd->bas);
   hnd->bas=BAD_FOPEN;
   }
 
 
 if( hnd->ndx!=BAD_FOPEN )
   {
-  FCLOSE(hnd->ndx);
+  fclose(hnd->ndx);
   hnd->ndx=BAD_FOPEN;
   }
 
@@ -283,28 +283,28 @@ ctb_err_code = CTB_ERR_NONE;
 HCTB = H_CTB;
 if( p ) *p='\0';
 SPRINTF(s,"%s.CTB",file_name);
-fp=FOPEN(s,R_B);
+fp=fopen(s,R_B);
 if( fp==BAD_FOPEN )
         {
         ctb_err_code = CTB_ERR_OPEN_CTB;
         return FALSE;
         }
-if( FREAD(&HCTB,sizeof(HCTB),1,fp)!=RET_FREAD(sizeof(HCTB),1) )
+if( fread(&HCTB,sizeof(HCTB),1,fp)!=RET_FREAD(sizeof(HCTB),1) )
         { // can't read header CTBile //
         ctb_err_code = CTB_ERR_READ;
-        FCLOSE(fp);
+        fclose(fp);
         return FALSE;
         }
-FCLOSE(fp); // exist CTB file //
+fclose(fp); // exist CTB file //
 
 SPRINTF(s,"%s.IND",file_name);
-fp=FOPEN(s,R_B);
+fp=fopen(s,R_B);
 if( fp==BAD_FOPEN )
         {
         ctb_err_code = CTB_ERR_OPEN_NDX;
         return FALSE;
         }
-FCLOSE(fp); // exist IND file //
+fclose(fp); // exist IND file //
 
 if( HCTB.sign[0]=='C' && HCTB.sign[1]=='T' &&
   HCTB.size_x==maxX && HCTB.size_y==maxY &&
@@ -381,17 +381,17 @@ if( data )
   memcpy(data,zero_data,datalen);
 
 fp=hnd->ndx;
-if( FSEEK(fp,num*8,SEEK_SET) )
+if( fseek(fp,num*8,SEEK_SET) )
         {
         ctb_err_code = CTB_ERR_SEEK;
         return 0;
         }
-if( FREAD(&f_seek,4,1,fp)!=RET_FREAD(4,1) )
+if( fread(&f_seek,4,1,fp)!=RET_FREAD(4,1) )
         {
         ctb_err_code = CTB_ERR_READ;
         return 0;
         }
-if( FREAD(&l_seek,4,1,fp)!=RET_FREAD(4,1) )
+if( fread(&l_seek,4,1,fp)!=RET_FREAD(4,1) )
         {
         ctb_err_code = CTB_ERR_READ;
         return 0;
@@ -410,7 +410,7 @@ if( f_seek<0 )
 // read index   //
 
 fp=hnd->bas;
-if( FSEEK(fp,f_seek,SEEK_SET) )
+if( fseek(fp,f_seek,SEEK_SET) )
         {
         ctb_err_code = CTB_ERR_SEEK;
         return 0;
@@ -422,7 +422,7 @@ if( l_seek>hnd->len )
         return 0; // unknown packing type //
     }
 
-if( FREAD(save_pack,l,1,fp)!=RET_FREAD(l,1) )
+if( fread(save_pack,l,1,fp)!=RET_FREAD(l,1) )
         {
         ctb_err_code = CTB_ERR_READ;
         return 0;
@@ -545,12 +545,12 @@ if( hnd==NULL )
         return FALSE;   // file is not opened //
         }
 
-if( FSEEK(hnd->bas,sizeof(H_CTB_file)-gdatalen,SEEK_SET) )
+if( fseek(hnd->bas,sizeof(H_CTB_file)-gdatalen,SEEK_SET) )
         {
         ctb_err_code = CTB_ERR_SEEK;
         return FALSE;
         }
-if( FREAD(data,gdatalen,1,hnd->bas)!=RET_FREAD(gdatalen,1) )
+if( fread(data,gdatalen,1,hnd->bas)!=RET_FREAD(gdatalen,1) )
         {
         ctb_err_code = CTB_ERR_READ;
         return FALSE;
@@ -600,12 +600,12 @@ if( hnd==NULL )
         return FALSE;   // file is not opened //
         }
 fp = hnd->ndx;
-if( FSEEK(fp,num*8,SEEK_SET) )
+if( fseek(fp,num*8,SEEK_SET) )
         {
         ctb_err_code = CTB_ERR_SEEK;
         return FALSE;
         }
-if( FREAD(&f_seek,4,1,fp)!=RET_FREAD(4,1) )
+if( fread(&f_seek,4,1,fp)!=RET_FREAD(4,1) )
         {
         ctb_err_code = CTB_ERR_READ;
         return FALSE;
@@ -618,13 +618,13 @@ if( f_seek<0 )
 // read index   //
 
 fp = hnd->bas;
-if( FSEEK(fp,f_seek,SEEK_SET))
+if( fseek(fp,f_seek,SEEK_SET))
         {
         ctb_err_code = CTB_ERR_SEEK;
         return FALSE;
         }
 
-if( FREAD(data,datalen,1,fp)!=RET_FREAD(datalen,1) )
+if( fread(data,datalen,1,fp)!=RET_FREAD(datalen,1) )
         {
         ctb_err_code = CTB_ERR_READ;
         return FALSE;
@@ -695,12 +695,12 @@ else
     }
 
 fp=hnd->bas;
-if(FSEEK(fp,0,SEEK_END) )
+if(fseek(fp,0,SEEK_END) )
         {
         ctb_err_code = CTB_ERR_SEEK;
         return FALSE;
         }
-pos=FTELL(fp);
+pos=ftell(fp);
 switch( hnd->version )
     {
     case    3:
@@ -716,12 +716,12 @@ switch( hnd->version )
         datalen=hnd->attr_size;
         break;
     }
-if( FWRITE(data?data:zero_data,datalen,1,fp)!=RET_FWRITE(datalen,1) )
+if( fwrite(data?data:zero_data,datalen,1,fp)!=RET_FWRITE(datalen,1) )
         {
         ctb_err_code = CTB_ERR_WRITE;
         return FALSE;
         }
-if( FWRITE(save_pack,sp,1,fp)!=RET_FWRITE(sp,1) )
+if( fwrite(save_pack,sp,1,fp)!=RET_FWRITE(sp,1) )
         {
         ctb_err_code = CTB_ERR_WRITE;
         return FALSE;
@@ -732,7 +732,7 @@ if( num>-1 )
         {
         if(     num<hnd->num )
                 {       // rewrite index //
-                if( FSEEK(fp,num*8,SEEK_SET) )
+                if( fseek(fp,num*8,SEEK_SET) )
                         {
                         ctb_err_code = CTB_ERR_SEEK;
                         return FALSE;
@@ -749,7 +749,7 @@ else
                 { // adding index  //
                 if( !hnd->need_compress )
                         {
-                        if( FSEEK(fp,0,SEEK_END) )
+                        if( fseek(fp,0,SEEK_END) )
                                 {
                                 ctb_err_code = CTB_ERR_SEEK;
                                 return FALSE;
@@ -757,7 +757,7 @@ else
                         }
                 else
                         {
-                        if( FSEEK(fp,(long)hnd->num*8, SEEK_SET) )
+                        if( fseek(fp,(long)hnd->num*8, SEEK_SET) )
                                 {
                                 ctb_err_code = CTB_ERR_SEEK;
                                 return FALSE;
@@ -766,13 +766,13 @@ else
                 hnd->num++;
                 }
 
-if( FWRITE(&pos,sizeof(pos),1,fp)!=RET_FWRITE(sizeof(pos),1) )
+if( fwrite(&pos,sizeof(pos),1,fp)!=RET_FWRITE(sizeof(pos),1) )
         {
         ctb_err_code = CTB_ERR_WRITE;
         return FALSE;
         }
 pos = mark?-sp:sp;
-if( FWRITE(&pos,sizeof(pos),1,fp)!=RET_FWRITE(sizeof(pos),1) )
+if( fwrite(&pos,sizeof(pos),1,fp)!=RET_FWRITE(sizeof(pos),1) )
         {
         ctb_err_code = CTB_ERR_WRITE;
         return FALSE;
@@ -801,12 +801,12 @@ if( hnd==NULL )
         return FALSE;   // file is not opened //
     }
 fp = hnd->ndx;
-if( FSEEK(fp,num*8,SEEK_SET) )
+if( fseek(fp,num*8,SEEK_SET) )
     {
     ctb_err_code = CTB_ERR_SEEK;
         return FALSE;
     }
-if( FREAD(&f_seek,4,1,fp)!=RET_FREAD(4,1) )
+if( fread(&f_seek,4,1,fp)!=RET_FREAD(4,1) )
     {
     ctb_err_code = CTB_ERR_READ;
         return FALSE;
@@ -817,12 +817,12 @@ if( f_seek<0 )
     }
 
 f_seek = - f_seek;
-if( FSEEK(fp,num*8,SEEK_SET) )
+if( fseek(fp,num*8,SEEK_SET) )
     {
     ctb_err_code = CTB_ERR_SEEK;
         return FALSE;
     }
-if( FWRITE(&f_seek,4,1,fp)!=RET_FWRITE(4,1) )
+if( fwrite(&f_seek,4,1,fp)!=RET_FWRITE(4,1) )
     {
     ctb_err_code = CTB_ERR_WRITE;
         return FALSE;
@@ -855,12 +855,12 @@ if( num1<0 || num1>=hnd->num || num2<0 || num2>=hnd->num )
 
 fp = hnd->ndx;
 
-if( FSEEK(fp,num1*8,SEEK_SET) )
+if( fseek(fp,num1*8,SEEK_SET) )
     {
     ctb_err_code = CTB_ERR_SEEK;
         return FALSE;
     }
-if( FREAD(&f_seek1,4,1,fp)!=RET_FREAD(4,1) )
+if( fread(&f_seek1,4,1,fp)!=RET_FREAD(4,1) )
     {
     ctb_err_code = CTB_ERR_READ;
         return FALSE;
@@ -871,18 +871,18 @@ if( f_seek1<0 )
         return FALSE; // deleted image //
     }
 
-if( FREAD(&l_seek1,4,1,fp)!=RET_FREAD(4,1) )
+if( fread(&l_seek1,4,1,fp)!=RET_FREAD(4,1) )
     {
     ctb_err_code = CTB_ERR_READ;
         return FALSE;
     }
 
-if( FSEEK(fp,num2*8,SEEK_SET) )
+if( fseek(fp,num2*8,SEEK_SET) )
     {
     ctb_err_code = CTB_ERR_SEEK;
         return FALSE;
     }
-if( FREAD(&f_seek2,4,1,fp)!=RET_FREAD(4,1) )
+if( fread(&f_seek2,4,1,fp)!=RET_FREAD(4,1) )
     {
     ctb_err_code = CTB_ERR_READ;
         return FALSE;
@@ -892,39 +892,39 @@ if( f_seek2<0 )
     ctb_err_code = CTB_ERR_KILLED;
         return FALSE; // deleted image //
     }
-if( FREAD(&l_seek2,4,1,fp)!=RET_FREAD(4,1) )
+if( fread(&l_seek2,4,1,fp)!=RET_FREAD(4,1) )
     {
     ctb_err_code = CTB_ERR_READ;
         return FALSE;
     }
 
-if( FSEEK(fp,num1*8,SEEK_SET) )
+if( fseek(fp,num1*8,SEEK_SET) )
     {
     ctb_err_code = CTB_ERR_SEEK;
         return FALSE;
     }
-if( FWRITE(&f_seek2,4,1,fp)!=RET_FWRITE(4,1) )
+if( fwrite(&f_seek2,4,1,fp)!=RET_FWRITE(4,1) )
     {
     ctb_err_code = CTB_ERR_WRITE;
         return FALSE;
     }
-if( FWRITE(&l_seek2,4,1,fp)!=RET_FWRITE(4,1) )
+if( fwrite(&l_seek2,4,1,fp)!=RET_FWRITE(4,1) )
     {
     ctb_err_code = CTB_ERR_WRITE;
         return FALSE;
     }
 
-if( FSEEK(fp,num2*8,SEEK_SET) )
+if( fseek(fp,num2*8,SEEK_SET) )
     {
     ctb_err_code = CTB_ERR_SEEK;
         return FALSE;
     }
-if( FWRITE(&f_seek1,4,1,fp)!=RET_FWRITE(4,1) )
+if( fwrite(&f_seek1,4,1,fp)!=RET_FWRITE(4,1) )
     {
     ctb_err_code = CTB_ERR_WRITE;
         return FALSE;
     }
-if( FWRITE(&l_seek1,4,1,fp)!=RET_FWRITE(4,1) )
+if( fwrite(&l_seek1,4,1,fp)!=RET_FWRITE(4,1) )
     {
     ctb_err_code = CTB_ERR_WRITE;
         return FALSE;
@@ -951,12 +951,12 @@ if( num<0 || num>=hnd->num )
         return FALSE;
     }
 fp = hnd->ndx;
-if( FSEEK(fp,num*8,SEEK_SET) )
+if( fseek(fp,num*8,SEEK_SET) )
     {
     ctb_err_code = CTB_ERR_SEEK;
         return FALSE;
     }
-if( FREAD(&f_seek,4,1,fp)!=RET_FREAD(4,1) )
+if( fread(&f_seek,4,1,fp)!=RET_FREAD(4,1) )
     {
     ctb_err_code = CTB_ERR_READ;
         return FALSE;
@@ -966,24 +966,24 @@ if( f_seek<0 )
     ctb_err_code = CTB_ERR_KILLED;
         return FALSE; // deleted image //
     }
-if( FREAD(&l_seek,4,1,fp)!=RET_FREAD(4,1) )
+if( fread(&l_seek,4,1,fp)!=RET_FREAD(4,1) )
     {
     ctb_err_code = CTB_ERR_READ;
         return FALSE;
     }
 
 l_seek = - l_seek;
-if( FSEEK(fp,num*8,SEEK_SET) )
+if( fseek(fp,num*8,SEEK_SET) )
     {
     ctb_err_code = CTB_ERR_SEEK;
         return FALSE;
     }
-if( FWRITE(&f_seek,4,1,fp)!=RET_FWRITE(4,1) )
+if( fwrite(&f_seek,4,1,fp)!=RET_FWRITE(4,1) )
     {
     ctb_err_code = CTB_ERR_WRITE;
         return FALSE;
     }
-if( FWRITE(&l_seek,4,1,fp)!=RET_FWRITE(4,1) )
+if( fwrite(&l_seek,4,1,fp)!=RET_FWRITE(4,1) )
     {
     ctb_err_code = CTB_ERR_WRITE;
         return FALSE;
@@ -1012,22 +1012,22 @@ if( num<0 || num>n )
 
 for(i=(Int16)num;i<n;i++)
         {
-        if( FSEEK(hnd->ndx,(i+1)*8,SEEK_SET) )
+        if( fseek(hnd->ndx,(i+1)*8,SEEK_SET) )
         {
         ctb_err_code = CTB_ERR_SEEK;
                 return FALSE;
         }
-        if( FREAD(buffer,8,1,hnd->ndx)!=RET_FREAD(8,1) )
+        if( fread(buffer,8,1,hnd->ndx)!=RET_FREAD(8,1) )
         {
         ctb_err_code = CTB_ERR_READ;
                 return FALSE;
         }
-        if( FSEEK(hnd->ndx,i*8,SEEK_SET) )
+        if( fseek(hnd->ndx,i*8,SEEK_SET) )
         {
         ctb_err_code = CTB_ERR_SEEK;
                 return FALSE;
         }
-        if( FWRITE(buffer,8,1,hnd->ndx)!=RET_FWRITE(8,1) )
+        if( fwrite(buffer,8,1,hnd->ndx)!=RET_FWRITE(8,1) )
         {
         ctb_err_code = CTB_ERR_WRITE;
                 return FALSE;
@@ -1054,22 +1054,22 @@ if( num<=n )
         {
         for(i=n;i>=num;i--)
                 {
-                if( FSEEK(hnd->ndx,i*8,SEEK_SET) )
+                if( fseek(hnd->ndx,i*8,SEEK_SET) )
                         {
             ctb_err_code = CTB_ERR_SEEK;
             return FALSE;
             }
-                if( FREAD(buffer,8,1,hnd->ndx)!=RET_FREAD(8,1) )
+                if( fread(buffer,8,1,hnd->ndx)!=RET_FREAD(8,1) )
                         {
             ctb_err_code = CTB_ERR_READ;
             return FALSE;
             }
-                if( FSEEK(hnd->ndx,(i+1)*8,SEEK_SET) )
+                if( fseek(hnd->ndx,(i+1)*8,SEEK_SET) )
                         {
             ctb_err_code = CTB_ERR_SEEK;
             return FALSE;
             }
-                if( FWRITE(buffer,8,1,hnd->ndx)!=RET_FWRITE(8,1) )
+                if( fwrite(buffer,8,1,hnd->ndx)!=RET_FWRITE(8,1) )
             {
             ctb_err_code = CTB_ERR_WRITE;
                         return FALSE;
@@ -1109,12 +1109,12 @@ if( hnd==NULL )
     return FALSE;   // file is not opened //
     }
 fp = hnd->ndx;
-if( FSEEK(fp,num*8,SEEK_SET) )
+if( fseek(fp,num*8,SEEK_SET) )
     {
     ctb_err_code = CTB_ERR_SEEK;
     return FALSE;
     }
-if( FREAD(&f_seek,4,1,fp)!=RET_FREAD(4,1) )
+if( fread(&f_seek,4,1,fp)!=RET_FREAD(4,1) )
     {
     ctb_err_code = CTB_ERR_READ;
     return FALSE;
@@ -1128,7 +1128,7 @@ if( f_seek<0 )
 // read index   //
 
 fp = hnd->bas;
-if( FSEEK(fp,f_seek,SEEK_SET))
+if( fseek(fp,f_seek,SEEK_SET))
     {
     ctb_err_code = CTB_ERR_SEEK;
     return FALSE;
@@ -1147,7 +1147,7 @@ switch( hnd->version )
         datalen=hnd->attr_size;
         break;
     }
-if( FWRITE(data,datalen,1,fp)!=RET_FWRITE(datalen,1) )
+if( fwrite(data,datalen,1,fp)!=RET_FWRITE(datalen,1) )
     {
     ctb_err_code = CTB_ERR_WRITE;
     return FALSE;
@@ -1173,7 +1173,7 @@ if( hnd==NULL )
     return FALSE;       // file is not opened //
     }
 fp = hnd->bas;
-if( FSEEK(fp,16,SEEK_SET) )
+if( fseek(fp,16,SEEK_SET) )
         {
     ctb_err_code = CTB_ERR_SEEK;
     return FALSE;
@@ -1193,7 +1193,7 @@ switch( hnd->version )
         gdatalen=CTB_DATA_SIZE; 
         break;
     }
-if( FWRITE(data,gdatalen,1,fp)!=RET_FWRITE(gdatalen,1) )
+if( fwrite(data,gdatalen,1,fp)!=RET_FWRITE(gdatalen,1) )
         {
     ctb_err_code = CTB_ERR_WRITE;
     return FALSE;
@@ -1291,16 +1291,16 @@ if( STAT(lin,&sts)==-1 )
 
 n = (Int32)(sts.st_size/8);
 
-fp=FOPEN(lin,R_B);
+fp=fopen(lin,R_B);
 if( fp==BAD_FOPEN )
         return 0;
 for(k=i=0;i<n;i++)
         {
-        FREAD(&fs,4,1,fp);
-        FREAD(&fl,4,1,fp);
+        fread(&fs,4,1,fp);
+        fread(&fl,4,1,fp);
         if( fs>0 ) k++;
         }
-FCLOSE(fp);
+fclose(fp);
 
 return k;
 }
@@ -1357,19 +1357,19 @@ H_CTB.dot_per_byte = (Word8)dpb;  // point inbyte
 H_CTB.signums      = signums;     // characteristics 
 H_CTB.attr_size    = attr_size;   // number of attributes
 l = sizeof(H_CTB)-CTB_DATA_SIZE;
-if( FWRITE(&H_CTB,l,1,fp)!=RET_FWRITE(l,1) )
+if( fwrite(&H_CTB,l,1,fp)!=RET_FWRITE(l,1) )
         {
         ctb_err_code = CTB_ERR_READ;
-        FCLOSE(fp);
+        fclose(fp);
         return FALSE;
         }
-if( FWRITE( data?data:zero_data,CTB_DATA_SIZE,1,fp)!=RET_FWRITE(CTB_DATA_SIZE,1) )
+if( fwrite( data?data:zero_data,CTB_DATA_SIZE,1,fp)!=RET_FWRITE(CTB_DATA_SIZE,1) )
         {
         ctb_err_code = CTB_ERR_READ;
-        FCLOSE(fp);
+        fclose(fp);
         return FALSE;
         }
-FCLOSE(fp);
+fclose(fp);
 
 SPRINTF(s,"%s.IND",file_name);
 fp = FCREAT(s, 0);
@@ -1378,7 +1378,7 @@ if( fp==BAD_FOPEN )
         ctb_err_code = CTB_ERR_OPEN_NDX;
         return FALSE;
         }
-FCLOSE(fp);
+fclose(fp);
 
 return TRUE;
 }

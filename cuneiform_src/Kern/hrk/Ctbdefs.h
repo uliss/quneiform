@@ -231,23 +231,12 @@ typedef struct 	{
 
 //******** stream Input/Output *******************
 #define FCREAT(S,T)     fopen(S,"wb")
-#define FOPEN(S,T)      fopen(S,T)
-#define FSEEK(a,b,c)    (fseek(a,b,c)!=0)
-#define FREAD(a,b,c,d)  fread(a,b,c,d)
-#define FWRITE(a,b,c,d) fwrite(a,b,c,d)
-#define FTELL(a)        ftell(a)
-#define FCLOSE(f)       fclose(f)
 #define RET_FREAD(a,b)  (b)
 #define RET_FWRITE(a,b) (b)
 #define BAD_FOPEN       NULL
 #define R_B             "rb"
 #define	W_B             "wb"
 #define R_B_PLUS        "rb+"
-
-#ifndef FREE
-#define MALLOC(m)       malloc(m)
-#define FREE(a)         free(a)
-#endif
 
 typedef FILE*          FFILE;
 
