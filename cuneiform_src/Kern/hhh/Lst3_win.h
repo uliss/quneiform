@@ -875,7 +875,7 @@ char *get1_param(char *str,char *param,int max_len);
   extern int KbAll;
   extern int CountCol,Percent1,Percent2,Percent3,NumColt;
   extern char FileParStr[MAXFILENAME];
-  extern int ScanResolution;extern float MulScanRes;
+  extern WORD ScanResolution;extern float MulScanRes;
   extern int Break_on;
   extern FUN_POMP pump;
   extern FUN_MESS FunMessage;
@@ -906,7 +906,7 @@ char *get1_param(char *str,char *param,int max_len);
   int KbAll;
   int CountCol,Percent1=5,Percent2=55,Percent3=40,NumColt;
   char FileParStr[MAXFILENAME];
-  int ScanResolution;float MulScanRes;//Разрешения сканера и нормир.множитель
+  WORD ScanResolution;float MulScanRes;//Разрешения сканера и нормир.множитель
   int Break_on=0; // if == 1 => break process
   FUN_POMP pump;  // вставляем в цикле
   FUN_MESS FunMessage; //в режиме DLL вместо SendMessage

@@ -86,7 +86,8 @@ static HWND h_found=NULL;
  */
 
 //---Из секции колонок---
-int NumCol,SizeSectionCol;
+WORD NumCol;
+int SizeSectionCol;
 int *NumStr;//[nc] 
 Word32 *UserNumber;//[nc]
 Word32 *FragFlag;//[nc]
@@ -174,7 +175,7 @@ int SaveFullOutTiger(char *FileName);
 //FileNameOut - имя выходного файла
 //Return: 0 - OK
 //
-int NumZ,NumW,NumS;
+WORD NumZ,NumW,NumS;
 Int16 SizeYGlobUpp;
 int IsB1(BYTE a)
 { if((FeatLet[a].Chif && a != ',' && a != '.' && a != '-') ||
@@ -449,11 +450,11 @@ short __cdecl  OpenFullOutTiger(char *FileName)
 		return FALSE;
 	}
 
- fread_m(&ScanResolution,sizeof(int),1,in);
-	fread_m(&NumCol,sizeof(int),1,in);
- fread_m(&NumZ,2,1,in); 
- fread_m(&NumW,2,1,in);
- fread_m(&NumS,2,1,in);
+ fread_m(&ScanResolution,sizeof(WORD),1,in);
+ fread_m(&NumCol,sizeof(WORD),1,in);
+ fread_m(&NumZ,sizeof(WORD),1,in); 
+ fread_m(&NumW,sizeof(WORD),1,in);
+ fread_m(&NumS,sizeof(WORD),1,in);
 
 #ifdef alDebug
 		if(dets)	{ ConsMess("OpenFullOutTiger ScanResolution=%d ",ScanResolution); }

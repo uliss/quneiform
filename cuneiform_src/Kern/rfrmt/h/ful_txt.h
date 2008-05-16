@@ -125,15 +125,15 @@ COOR_COMP
 	BYTE  buf;
 	short lenght;
 };
-TITLE_ZN { BYTE Z_Code; //Опознавательный код заголовка (=0)
-           ID_SYM Z_Id; //Идентификатор символа
+TITLE_ZN { BYTE Z_Code; // identification code header (= 0)
+           ID_SYM Z_Id; // identification code
            BYTE Z_Gen;  //Родословная знакоместа
-           SRECT Z_Rect;//Рамка
-           SRECT Z_RealRect;//Реальная рамка
-           BYTE Z_Num_Alt;//Число альтернатив
+           SRECT Z_Rect;// Frame
+           SRECT Z_RealRect;// Real frame
+           BYTE Z_Num_Alt;// # of alternatives
            BYTE Z_NumComp;
            #ifdef CMP
-            COOR_COMP CoorComp;//Адрес компоненты (компонент)
+            COOR_COMP CoorComp;// Address components (component)
            #endif
          };
 ALT_ZN { BYTE a_Code; //Код символа
@@ -468,7 +468,8 @@ void MyUnionRect(SRECT *s1,SRECT *s2,SRECT *u);
 */
 #else
   //---Из секции колонок---
-  extern int NumCol,SizeSectionCol;
+  extern WORD NumCol;
+  extern int SizeSectionCol;
   extern int *NumStr;//[nc]
   extern Word32 *UserNumber;//[nc]
   extern Word32 *FragFlag;//[nc]
