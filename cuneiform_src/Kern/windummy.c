@@ -414,18 +414,54 @@ void OutputDebugString(LPCTSTR lpOutputString) {
 
 BOOL SetRect(LPRECT lprc, int xLeft, int yTop,
 int xRight, int yBottom) {
-    return 0;
+    lprc->left = xLeft;
+    lprc->right = xRight;
+    lprc->top = yTop;
+    lprc->bottom = yBottom;
+    return TRUE;
 }
 
 BOOL PtInRect(const RECT *lprc, POINT pt) {
-    return 0;
+    if(pt.x >= lprc->left && pt.x < lprc->right
+            && pt.y >= lprc->top && pt.y < lprc->bottom)
+        return TRUE;
+    return FALSE;
 }
 
+/* This is only called from creatertf.cpp. It does not use lprcDst at all so 
+ * we do not need to calculate it.
+ */
+
 BOOL IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2) {
-    return 0;
+    if(lprcSrc1->left > lprcSrc2->right 
+       || lprcSrc1->right < lprcSrc2->left 
+       || lprcSrc1->top > lprcSrc2->bottom 
+       || lprcSrc1->bottom < lprcSrc2->top)
+        return FALSE;
+    return TRUE;           
 }
 
 BOOL UnionRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2) {
+    if(lprcSrc1->left - lprcSrc1->right == 0 || lprcSrc1->top - lprcSrc1->bottom == 0) {
+        lprcDst->left = lprcSrc2->left;
+        lprcDst->right = lprcSrc2->right;
+        lprcDst->top = lprcSrc2->top;
+        lprcDst->bottom = lprcSrc2->bottom;
+        return TRUE;
+    }
+    if(lprcSrc2->left - lprcSrc2->right == 0 || lprcSrc2->top - lprcSrc2->bottom == 0) {
+        lprcDst->left = lprcSrc1->left;
+        lprcDst->right = lprcSrc1->right;
+        lprcDst->top = lprcSrc1->top;
+        lprcDst->bottom = lprcSrc1->bottom;
+        return TRUE;
+    }   
+    
+    lprcDst->left = lprcSrc1->left < lprcSrc2->left ? lprcSrc1->left : lprcSrc2->left;
+    lprcDst->right = lprcSrc1->right > lprcSrc2->right ? lprcSrc1->right : lprcSrc2->right;
+    lprcDst->top = lprcSrc1->top < lprcSrc2->top ? lprcSrc1->top : lprcSrc2->top;
+    lprcDst->bottom = lprcSrc1->bottom > lprcSrc2->bottom ? lprcSrc1->bottom : lprcSrc2->bottom;
+    
     return 0;
 }
 
