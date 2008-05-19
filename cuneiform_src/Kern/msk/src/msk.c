@@ -80,7 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 
 Int16 err;
-Word32 bit_cnt[66000];
+static Word32 bit_cnt_msk[66000];
 Word16 Limii;
 short initiated=0;
 int nm, char_lst[16],number_lst[16],lst[16], ms[16];
@@ -180,17 +180,17 @@ int add_abc(short pri,Word16 iobraz[])
 /**************************************************/
 #define CYKL2(IND) {						\
 	t   = *((int *)(etalons+IND));          \
-	ii += bit_cnt[ *(image+IND)      & t ]; \
+	ii += bit_cnt_msk[ *(image+IND)      & t ]; \
 	t   = ~t ;	                            \
-	ii += bit_cnt[ *(image+16+IND)   & t ]; \
+	ii += bit_cnt_msk[ *(image+16+IND)   & t ]; \
 	if (ii>=L )	                            \
 		return ii;					        \
 }
 #define CYKL20(IND) {						\
 	t   = *((int *)etalons);				\
-	ii  = bit_cnt[ *image      & t ];		\
+	ii  = bit_cnt_msk[ *image      & t ];		\
 	t   = ~t ;								\
-	ii += bit_cnt[ *(image+16) & t ];		\
+	ii += bit_cnt_msk[ *(image+16) & t ];		\
 }
 
 Bool32 all_anding(Int32 *image,Word16 *etalons,Int32 L)
@@ -403,16 +403,16 @@ MSK_FUNC(Bool32)  MSKInit( MemFunc* mem, const char *NameFile)
 //	memset(alphabet,0,256*sizeof(alphabet[0]));
 
 	for(i=0;i<256;i++)
-	{	bit_cnt[i]=0;
+	{	bit_cnt_msk[i]=0;
 		for (k=0;k<16;k++)
 			if (i_16(i,k))
-	  			bit_cnt[i]++;
+	  			bit_cnt_msk[i]++;
 	}
 	for(k=256,i=1;i<256;i++,k+=256)
 		for(j=0;j<256;j++)
-			bit_cnt[k+j] = bit_cnt[i]+bit_cnt[j];
+			bit_cnt_msk[k+j] = bit_cnt_msk[i]+bit_cnt_msk[j];
 
-	MMX_ind_setup_table(bit_cnt);
+	MMX_ind_setup_table(bit_cnt_msk);
 	ret_val=TRUE;
 	return initiated;
 }
@@ -799,7 +799,7 @@ int new_reco(short ptr_char, short hor,Word16  *bgf,
 /*
 	jj=0;
 	for (i=0;i<16;i++)
-		jj+=(short)bit_cnt[iobraz[i]];
+		jj+=(short)bit_cnt_msk[iobraz[i]];
 */
 	memcpy(iobraz1,iobraz,16*sizeof(short));
 	memcpy(iobraz1,iobraz,16*sizeof(short));

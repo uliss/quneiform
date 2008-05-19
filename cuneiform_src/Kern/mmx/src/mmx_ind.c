@@ -56,7 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include"mmx.h"
 
-extern   Word32 bit_cnt[];
+extern   Word32 bit_cnt_mmx[];
 
 //
 //       DWORD   MMX_anding (int32 * images, int32 * etalon, int32 limit)
@@ -106,15 +106,15 @@ _asm    {
 		mov		ecx,	ebx
 		and		ebx,	0ffffh
 		shr		ecx,	16
-        add     eax,    dword ptr bit_cnt[esi*4]  ;    0-15
+        add     eax,    dword ptr bit_cnt_mmx[esi*4]  ;    0-15
 		
-		add     eax,    dword ptr bit_cnt[ebx*4]  ;    0-15
+		add     eax,    dword ptr bit_cnt_mmx[ebx*4]  ;    0-15
 		jge			retur
 
         psrlq   mm0,    32
-		add     eax,    dword ptr bit_cnt[edi*4]  ;    16-31
+		add     eax,    dword ptr bit_cnt_mmx[edi*4]  ;    16-31
         psrlq   mm1,    32
-        add     eax,    dword ptr bit_cnt[ecx*4]  ;    16-31
+        add     eax,    dword ptr bit_cnt_mmx[ecx*4]  ;    16-31
 		jge			retur
 
         movd   esi,    mm0
@@ -125,14 +125,14 @@ _asm    {
 		mov		ecx,	ebx
 		and		ebx,	0ffffh
 		shr		ecx,	16
-        add     eax,    dword ptr bit_cnt[esi*4]  ;    32-47
+        add     eax,    dword ptr bit_cnt_mmx[esi*4]  ;    32-47
 		
-		add     eax,    dword ptr bit_cnt[ebx*4]  ;    32-47
+		add     eax,    dword ptr bit_cnt_mmx[ebx*4]  ;    32-47
 		jge			retur
 
-		add     eax,    dword ptr bit_cnt[edi*4]  ;    48-63
+		add     eax,    dword ptr bit_cnt_mmx[edi*4]  ;    48-63
 		add     edx,    8
-        add     eax,    dword ptr bit_cnt[ecx*4]  ;    48-63
+        add     eax,    dword ptr bit_cnt_mmx[ecx*4]  ;    48-63
 ;IF     ARG NE 3
 		jge			retur
 ;ENDIF
@@ -174,15 +174,15 @@ _asm    {
 		mov		ecx,	ebx
 		and		ebx,	0ffffh
 		shr		ecx,	16
-        add     eax,    dword ptr bit_cnt[esi*4]  ;    0-15
+        add     eax,    dword ptr bit_cnt_mmx[esi*4]  ;    0-15
 		
-		add     eax,    dword ptr bit_cnt[ebx*4]  ;    0-15
+		add     eax,    dword ptr bit_cnt_mmx[ebx*4]  ;    0-15
 		jge			retur
 
         psrlq   mm0,    32
-		add     eax,    dword ptr bit_cnt[edi*4]  ;    16-31
+		add     eax,    dword ptr bit_cnt_mmx[edi*4]  ;    16-31
         psrlq   mm1,    32
-        add     eax,    dword ptr bit_cnt[ecx*4]  ;    16-31
+        add     eax,    dword ptr bit_cnt_mmx[ecx*4]  ;    16-31
 		jge			retur
 
         movd   esi,    mm0
@@ -193,14 +193,14 @@ _asm    {
 		mov		ecx,	ebx
 		and		ebx,	0ffffh
 		shr		ecx,	16
-        add     eax,    dword ptr bit_cnt[esi*4]  ;    32-47
+        add     eax,    dword ptr bit_cnt_mmx[esi*4]  ;    32-47
 		
-		add     eax,    dword ptr bit_cnt[ebx*4]  ;    32-47
+		add     eax,    dword ptr bit_cnt_mmx[ebx*4]  ;    32-47
 		jge			retur
 
-		add     eax,    dword ptr bit_cnt[edi*4]  ;    48-63
+		add     eax,    dword ptr bit_cnt_mmx[edi*4]  ;    48-63
 		add     edx,    8
-        add     eax,    dword ptr bit_cnt[ecx*4]  ;    48-63
+        add     eax,    dword ptr bit_cnt_mmx[ecx*4]  ;    48-63
 ;IF     ARG NE 3
 		jge			retur
 ;ENDIF        
@@ -242,15 +242,15 @@ _asm    {
 		mov		ecx,	ebx
 		and		ebx,	0ffffh
 		shr		ecx,	16
-        add     eax,    dword ptr bit_cnt[esi*4]  ;    0-15
+        add     eax,    dword ptr bit_cnt_mmx[esi*4]  ;    0-15
 		
-		add     eax,    dword ptr bit_cnt[ebx*4]  ;    0-15
+		add     eax,    dword ptr bit_cnt_mmx[ebx*4]  ;    0-15
 		jge			retur
 
         psrlq   mm0,    32
-		add     eax,    dword ptr bit_cnt[edi*4]  ;    16-31
+		add     eax,    dword ptr bit_cnt_mmx[edi*4]  ;    16-31
         psrlq   mm1,    32
-        add     eax,    dword ptr bit_cnt[ecx*4]  ;    16-31
+        add     eax,    dword ptr bit_cnt_mmx[ecx*4]  ;    16-31
 		jge			retur
 
         movd   esi,    mm0
@@ -261,14 +261,14 @@ _asm    {
 		mov		ecx,	ebx
 		and		ebx,	0ffffh
 		shr		ecx,	16
-        add     eax,    dword ptr bit_cnt[esi*4]  ;    32-47
+        add     eax,    dword ptr bit_cnt_mmx[esi*4]  ;    32-47
 		
-		add     eax,    dword ptr bit_cnt[ebx*4]  ;    32-47
+		add     eax,    dword ptr bit_cnt_mmx[ebx*4]  ;    32-47
 		jge			retur
 
-		add     eax,    dword ptr bit_cnt[edi*4]  ;    48-63
+		add     eax,    dword ptr bit_cnt_mmx[edi*4]  ;    48-63
 		add     edx,    8
-        add     eax,    dword ptr bit_cnt[ecx*4]  ;    48-63
+        add     eax,    dword ptr bit_cnt_mmx[ecx*4]  ;    48-63
 ;IF     ARG NE 3
 		jge			retur
 ;ENDIF
@@ -310,15 +310,15 @@ _asm    {
 		mov		ecx,	ebx
 		and		ebx,	0ffffh
 		shr		ecx,	16
-        add     eax,    dword ptr bit_cnt[esi*4]  ;    0-15
+        add     eax,    dword ptr bit_cnt_mmx[esi*4]  ;    0-15
 		
-		add     eax,    dword ptr bit_cnt[ebx*4]  ;    0-15
+		add     eax,    dword ptr bit_cnt_mmx[ebx*4]  ;    0-15
 		jge			retur
 
         psrlq   mm0,    32
-		add     eax,    dword ptr bit_cnt[edi*4]  ;    16-31
+		add     eax,    dword ptr bit_cnt_mmx[edi*4]  ;    16-31
         psrlq   mm1,    32
-        add     eax,    dword ptr bit_cnt[ecx*4]  ;    16-31
+        add     eax,    dword ptr bit_cnt_mmx[ecx*4]  ;    16-31
 		jge			retur
 
         movd   esi,    mm0
@@ -329,14 +329,14 @@ _asm    {
 		mov		ecx,	ebx
 		and		ebx,	0ffffh
 		shr		ecx,	16
-        add     eax,    dword ptr bit_cnt[esi*4]  ;    32-47
+        add     eax,    dword ptr bit_cnt_mmx[esi*4]  ;    32-47
 		
-		add     eax,    dword ptr bit_cnt[ebx*4]  ;    32-47
+		add     eax,    dword ptr bit_cnt_mmx[ebx*4]  ;    32-47
 		jge			retur
 
-		add     eax,    dword ptr bit_cnt[edi*4]  ;    48-63
+		add     eax,    dword ptr bit_cnt_mmx[edi*4]  ;    48-63
 		add     edx,    8
-        add     eax,    dword ptr bit_cnt[ecx*4]  ;    48-63
+        add     eax,    dword ptr bit_cnt_mmx[ecx*4]  ;    48-63
 ;IF     ARG NE 3
 ;		jge			retur
 ;ENDIF
