@@ -251,7 +251,7 @@ extern Int16 set_stick_char (Word8 left[], Word8 right[], Int16 hooks[],
        Int16 inc_num,
 		   STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
        Int16 *l_mode, Int16 *r_mode);
-extern Int16 make_center_line (center_interval center[], Int16 nc,
+extern Int16 make_center_line_dif (center_interval center[], Int16 nc,
        Word8 left[], Word8 right[],
        Int16  dy, Int16 dx, INC_BASE *angles[], Int16 num_angles,
        Int16  tab_angle[],
@@ -284,7 +284,7 @@ f_a=first_tg(stick_inc, num_angles,nIncline );
 num_angles=MIN( (dx*2048/dy)>800?LIMIT_OF_ANGLES+4:LIMIT_OF_ANGLES,
            (Int16)(sizeof(stick_inc)/sizeof(stick_inc[0])-f_a-1));
 
-if( (ret_br=(Word8)make_center_line(GL_center,(Int16)(nc-(GL_center[nc-1].len==1)),
+if( (ret_br=(Word8)make_center_line_dif(GL_center,(Int16)(nc-(GL_center[nc-1].len==1)),
 		     GL_left0, GL_right0,dy, dx,
 		     &stick_inc[f_a], num_angles, GL_tab_angle,
          0, 0, 1, 0, &wide, GL_hooks, &inc_v, 1)) ) // with correct
@@ -386,7 +386,7 @@ f_a=first_tg(stick_inc, num_angles,nIncline );
 num_angles=MIN((dx*2048/dy)>800?LIMIT_OF_ANGLES+4:LIMIT_OF_ANGLES,
            (Int16)(sizeof(stick_inc)/sizeof(stick_inc[0])-f_a-1));
 
-if( make_center_line(GL_center,(Int16)(nc-(GL_center[nc-1].len==1)),
+if( make_center_line_dif(GL_center,(Int16)(nc-(GL_center[nc-1].len==1)),
 		     GL_left0, GL_right0,dy, dx,
 		     &stick_inc[f_a], num_angles, GL_tab_angle,
          0, 0, 1, 0, &wide, GL_hooks, &inc_v, 1) ) // with correct
@@ -2214,7 +2214,7 @@ f_a=first_tg(stick_inc, num_angles, nIncline );
 num_angles=MIN(LIMIT_OF_ANGLES,
            sizeof(stick_inc)/sizeof(stick_inc[0])-f_a-1);
 
-if( make_center_line(GL_center, (Int16)(nc-(GL_center[nc-1].len==1)),
+if( make_center_line_dif(GL_center, (Int16)(nc-(GL_center[nc-1].len==1)),
 		     GL_left0, GL_right0,dy, dx,
 		     &stick_inc[f_a], num_angles, GL_tab_angle,
          0, 0, 1, 0, &wide, GL_hooks, &inc_v, 1) ) // with correct

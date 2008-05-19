@@ -1,4 +1,4 @@
-include_directories(src)
+include_directories(BEFORE src)
 
 add_definitions(-DDPUMA_SNAP) # See warning below.
 

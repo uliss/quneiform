@@ -77,7 +77,7 @@ static Int16 inc_periods[LIMIT_HEIGHT];
 int inc_num_EEM ;
 Word8 inc_char_EEM;
 /////////////////////// Functions prototypes //////////////////////////
-Int16 make_center_line (center_interval center[], Int16 nc,   
+Int16 make_center_line_dif (center_interval center[], Int16 nc,   
       Word8 left[], Word8 right[],
       Int16  dy, Int16 dx, INC_BASE *angles[], Int16 num_angles,
       Int16  tab_angle[],
@@ -90,7 +90,7 @@ static Int16 max_center_hist_new (Word8 fun[], Int16 n,
     center_interval center[], Int16 nc, Int16 tab_angle[],
     Int16 typ)  ;
 static Int16 calc_LENs_LIMITED (Word8 fun[], Int16 n, Int16 sum) ;
-static void make_tab_angles (INC_BASE *angle, Int16 hei, Int16 ang[]);
+static void make_tab_angles (const INC_BASE *angle, Int16 hei, Int16 ang[]);
 static void make_hist (center_interval center[],Int16 nc, Word8 hist[], Int16 ang[],
           Int16 dx,Int16 len, Int16 typ);
 static void make_hist_centers_LIMITED (center_interval center[], Int16 nc,
@@ -121,7 +121,7 @@ static Int16 abris_inc_line (Word8 fun[], Int16 n, Int16 inc[], Bool16 sig_left)
 static Int16 correct_result_MK (center_interval cent[], Int16 inc[], Int16 dy) ;
 ////////////////////////////////////////////////////////////////////////
 
-Int16 make_center_line (center_interval center[], Int16 nc,   // 22.11.1993
+Int16 make_center_line_dif (center_interval center[], Int16 nc,   // 22.11.1993
       Word8 left[], Word8 right[],
       Int16  dy, Int16 dx, INC_BASE *angles[], Int16 num_angles,
       Int16  tab_angle[],
@@ -451,11 +451,11 @@ Word8  porog_2 = (sum - 1) >> 1; // for 18 porog_2=8;
 return (im);
 }
 
-static void make_tab_angles (INC_BASE *angle, Int16 hei, Int16 ang[])  {
+static void make_tab_angles (const INC_BASE *angle, Int16 hei, Int16 ang[])  {
 							// 09.12.1993
 							// case BACK NAKLON;
 			// here was DEBUG_GRAPH
-Int16 *p_angle=&(angle->inc[0]);    // KOGO;
+const Int16 *p_angle=&(angle->inc[0]);    // KOGO;
 Int16 *p_ang=&ang[hei],*p_beg=&ang[0];  // KUDA
 Int16 disp_for_BACK_NAKLON=0;
 

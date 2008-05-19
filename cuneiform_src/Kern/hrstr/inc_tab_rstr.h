@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 19.11.1993	VERS-085;
 /*----------------------------------------------------------------------*/
 
-static INC_BASE inc_11={ -2048,	-11,
+static INC_BASE inc_11_rs={ -2048,	-11,
    {
    0,   -1,   -2,   -3,   -4,   -5,   -6,   -7,
   -8,   -9,  -10,  -11,  -12,  -13,  -14,  -15,
@@ -86,7 +86,7 @@ static INC_BASE inc_11={ -2048,	-11,
    }
  };
 
-static INC_BASE inc_10={ -1718,	-10,
+static INC_BASE inc_10_rs={ -1718,	-10,
    {
    0,   -1,   -2,   -3,   -3,   -4,   -5,   -6,
   -7,   -8,   -8,   -9,  -10,  -11,  -12,  -13,
@@ -107,7 +107,7 @@ static INC_BASE inc_10={ -1718,	-10,
    }
  };
 
-static INC_BASE inc_9={ -1434,	-9,
+static INC_BASE inc_9_rs={ -1434,	-9,
    {
    0,   -1,   -1,   -2,   -3,   -3,   -4,   -5,
   -6,   -6,   -7,   -8,   -8,   -9,  -10,  -10,
@@ -128,7 +128,7 @@ static INC_BASE inc_9={ -1434,	-9,
    }
  };
 
-static INC_BASE inc_8={ -1182,	-8,
+static INC_BASE inc_8_rs={ -1182,	-8,
    {
    0,   -1,   -1,   -2,   -2,   -3,   -3,   -4,
   -5,   -5,   -6,   -6,   -7,   -7,   -8,   -9,
@@ -149,7 +149,7 @@ static INC_BASE inc_8={ -1182,	-8,
    }
  };
 
-static INC_BASE inc_7={ -954,	-7,
+static INC_BASE inc_7_rs={ -954,	-7,
    {
    0,    0,   -1,   -1,   -2,   -2,   -3,   -3,
   -4,   -4,   -5,   -5,   -6,   -6,   -6,   -7,
@@ -170,7 +170,7 @@ static INC_BASE inc_7={ -954,	-7,
    }
  };
 
-static INC_BASE inc_6={ -745,	-6,
+static INC_BASE inc_6_rs={ -745,	-6,
    {
    0,    0,   -1,   -1,   -1,   -2,   -2,   -3,
   -3,   -3,   -4,   -4,   -4,   -5,   -5,   -5,
@@ -191,7 +191,7 @@ static INC_BASE inc_6={ -745,	-6,
    }
  };
 
-static INC_BASE inc_5={ -512,	-5,
+static INC_BASE inc_5_rs={ -512,	-5,
    {
    0,    0,    0,    0,   -1,   -1,   -1,   -1,
   -2,   -2,   -2,   -2,   -3,   -3,   -3,   -3,
@@ -212,7 +212,7 @@ static INC_BASE inc_5={ -512,	-5,
    }
  };
 
-static INC_BASE inc_4={ -409,	-4,
+static INC_BASE inc_4_rs={ -409,	-4,
    {
    0,    0,    0,    0,    0,   -1,   -1,   -1,
   -1,   -1,   -2,   -2,   -2,   -2,   -2,   -3,
@@ -233,7 +233,7 @@ static INC_BASE inc_4={ -409,	-4,
    }
  };
 
-static INC_BASE inc_3={ -341,	-3,
+static INC_BASE inc_3_rs={ -341,	-3,
    {
    0,    0,    0,    0,    0,    0,   -1,   -1,
   -1,   -1,   -1,   -1,   -2,   -2,   -2,   -2,
@@ -254,7 +254,7 @@ static INC_BASE inc_3={ -341,	-3,
    }
  };
 
-static INC_BASE inc_2={ -292,	-2,
+static INC_BASE inc_2_rs={ -292,	-2,
    {
    0,    0,    0,    0,    0,    0,    0,   -1,
   -1,   -1,   -1,   -1,   -1,   -1,   -2,   -2,
@@ -275,7 +275,7 @@ static INC_BASE inc_2={ -292,	-2,
    }
  };
 
-static INC_BASE inc_1={ -256,	-1,
+static INC_BASE inc_1_rs={ -256,	-1,
    {
    0,    0,    0,    0,    0,    0,    0,    0,
   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
@@ -296,7 +296,7 @@ static INC_BASE inc_1={ -256,	-1,
    }
  };
 
-static INC_BASE inc0={ 0,	0,
+static INC_BASE inc0_rs={ 0,	0,
    {
    0,    0,    0,    0,    0,    0,    0,    0,
    0,    0,    0,    0,    0,    0,    0,    0,
@@ -317,7 +317,7 @@ static INC_BASE inc0={ 0,	0,
    }
  };
 
-static INC_BASE inc1={ 256,	1,
+static INC_BASE inc1_rs={ 256,	1,
    {
    0,    0,    0,    0,    0,    0,    0,    0,
    1,    1,    1,    1,    1,    1,    1,    1,
@@ -338,7 +338,7 @@ static INC_BASE inc1={ 256,	1,
    }
  };
 
-static INC_BASE inc2={ 292,	2,
+static INC_BASE inc2_rs={ 292,	2,
    {
    0,    0,    0,    0,    0,    0,    0,    1,
    1,    1,    1,    1,    1,    1,    2,    2,
@@ -359,7 +359,7 @@ static INC_BASE inc2={ 292,	2,
    }
  };
 
-static INC_BASE inc3={ 341,	3,
+static INC_BASE inc3_rs={ 341,	3,
    {
    0,    0,    0,    0,    0,    0,    1,    1,
    1,    1,    1,    1,    2,    2,    2,    2,
@@ -380,7 +380,7 @@ static INC_BASE inc3={ 341,	3,
    }
  };
 
-static INC_BASE inc4={ 409,	4,
+static INC_BASE inc4_rs={ 409,	4,
    {
    0,    0,    0,    0,    0,    1,    1,    1,
    1,    1,    2,    2,    2,    2,    2,    3,
@@ -401,7 +401,7 @@ static INC_BASE inc4={ 409,	4,
    }
  };
 
-static INC_BASE inc5={ 512,	5,
+static INC_BASE inc5_rs={ 512,	5,
    {
    0,    0,    0,    0,    1,    1,    1,    1,
    2,    2,    2,    2,    3,    3,    3,    3,
@@ -422,7 +422,7 @@ static INC_BASE inc5={ 512,	5,
    }
  };
 
-static INC_BASE inc6={ 682,	6,		// 27.10.1993 MK NEW (PROBA)
+static INC_BASE inc6_rs={ 682,	6,		// 27.10.1993 MK NEW (PROBA)
    {
   0,   0,   0,   1,   1,   1,   2,   2,		// ALL 3
   2,   3,   3,   3,   4,   4,   4,   5,
@@ -443,7 +443,7 @@ static INC_BASE inc6={ 682,	6,		// 27.10.1993 MK NEW (PROBA)
    }
  };
 
-static INC_BASE inc7={ 745,	7,		// OLD inc_6
+static INC_BASE inc7_rs={ 745,	7,		// OLD inc_6
    {
   0,   0,   1,   1,   1,   2,   2,   3,
   3,   3,   4,   4,   4,   5,   5,   5,
@@ -464,7 +464,7 @@ static INC_BASE inc7={ 745,	7,		// OLD inc_6
    }
  };
 
-static INC_BASE inc8={ 954,	8,		// OLD inc_7
+static INC_BASE inc8_rs={ 954,	8,		// OLD inc_7
    {
   0,   0,   1,   1,   2,   2,   3,   3,
   4,   4,   5,   5,   6,   6,   6,   7,
@@ -485,7 +485,7 @@ static INC_BASE inc8={ 954,	8,		// OLD inc_7
    }
  };
 
-static INC_BASE inc9={ 1182,	9,		// OLD inc_8
+static INC_BASE inc9_rs={ 1182,	9,		// OLD inc_8
    {
   0,   1,   1,   2,   2,   3,   3,   4,
   5,   5,   6,   6,   7,   7,   8,   9,
@@ -506,7 +506,7 @@ static INC_BASE inc9={ 1182,	9,		// OLD inc_8
    }
  };
 
-static INC_BASE inc10={ 1434,	10,		// OLD inc_9
+static INC_BASE inc10_rs={ 1434,	10,		// OLD inc_9
    {
   0,   1,   1,   2,   3,   3,   4,   5,
   6,   6,   7,   8,   8,   9,  10,  10,
@@ -527,7 +527,7 @@ static INC_BASE inc10={ 1434,	10,		// OLD inc_9
    }
  };
 
-static INC_BASE inc11={ 1718,	11,		// OLD inc_10
+static INC_BASE inc11_rs={ 1718,	11,		// OLD inc_10
    {
   0,   1,   2,   3,   3,   4,   5,   6,
   7,   8,   8,   9,  10,  11,  12,  13,
@@ -548,7 +548,7 @@ static INC_BASE inc11={ 1718,	11,		// OLD inc_10
    }
  };
 
-static INC_BASE inc12={ 2048,	12,		// OLD inc_11
+static INC_BASE inc12_rs={ 2048,	12,		// OLD inc_11
    {
   0,   1,   2,   3,   4,   5,   6,   7,
   8,   9,  10,  11,  12,  13,  14,  15,
@@ -571,12 +571,12 @@ static INC_BASE inc12={ 2048,	12,		// OLD inc_11
 
 /*----------------------------------------------------------------------*/
 
-static INC_BASE *stick_inc[] =
+static INC_BASE *stick_inc_rs[] =
 	{
-	&inc_11,&inc_10,&inc_9,&inc_8,&inc_7,&inc_6,&inc_5,
-		&inc_4,&inc_3,&inc_2,&inc_1,
-	&inc0,
-	&inc1,&inc2,&inc3,&inc4,&inc5,&inc6,&inc7,&inc8,&inc9,&inc10,&inc11,
-	&inc12
+	&inc_11_rs,&inc_10_rs,&inc_9_rs,&inc_8_rs,&inc_7_rs,&inc_6_rs,&inc_5_rs,
+		&inc_4_rs,&inc_3_rs,&inc_2_rs,&inc_1_rs,
+	&inc0_rs,
+	&inc1_rs,&inc2_rs,&inc3_rs,&inc4_rs,&inc5_rs,&inc6_rs,&inc7_rs,&inc8_rs,&inc9_rs,&inc10_rs,&inc11_rs,
+	&inc12_rs
 	};
 /*----------------------------------------------------------------------*/

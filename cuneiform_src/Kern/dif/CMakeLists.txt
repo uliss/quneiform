@@ -1,4 +1,4 @@
-include_directories(src)
+include_directories(BEFORE src)
 
 add_library(dif ${LIBTYPE}
 src/dif.c

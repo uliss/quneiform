@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "stick.h"
   #include "status.h"
   #include "lang.h"
-  #include "inc_tab.h"
+  #include "inc_tab_rstr.h"
 #include "minmax.h"
 extern INT nIncline  ;
 
@@ -241,13 +241,13 @@ prob = ADD_PROB(c) - abs(dy-nc)*20;
 
 /* ---------------- upper dust not selected ------------------------ */
 
-num_angles =   sizeof(stick_inc)/sizeof(stick_inc[0]);
-f_a=first_tg(stick_inc, num_angles, nIncline );
+num_angles =   sizeof(stick_inc_rs)/sizeof(stick_inc_rs[0]);
+f_a=first_tg(stick_inc_rs, num_angles, nIncline );
 num_angles=MIN(LIMIT_OF_ANGLES+(c_slash!=0),
-           (INT)(sizeof(stick_inc)/sizeof(stick_inc[0])-f_a-1));
+           (INT)(sizeof(stick_inc_rs)/sizeof(stick_inc_rs[0])-f_a-1));
 if( f_a<11 ) f_a=11;
 typ=make_center_line (GL_center, (INT)(nc-(GL_center[nc-1].len==1)),
-		GL_left0, GL_right0, dy, dx, &stick_inc[f_a], num_angles,
+		GL_left0, GL_right0, dy, dx, &stick_inc_rs[f_a], num_angles,
 		GL_tab_angle, c_wide, c_T, c_f, c_r,
     &wide, GL_hooks, &inc_v, 0); // without correct
 
@@ -382,13 +382,13 @@ if( i>dy>>2 )  /* too big number of 2-interval-rows */
 
 /* ---------------- upper dust not selected ------------------------ */
 
-num_angles =   sizeof(stick_inc)/sizeof(stick_inc[0]);
-f_a=first_tg(stick_inc, num_angles, nIncline );
+num_angles =   sizeof(stick_inc_rs)/sizeof(stick_inc_rs[0]);
+f_a=first_tg(stick_inc_rs, num_angles, nIncline );
 num_angles=MIN(LIMIT_OF_ANGLES+(c_slash!=0),
-           (INT)(sizeof(stick_inc)/sizeof(stick_inc[0])-f_a-1));
+           (INT)(sizeof(stick_inc_rs)/sizeof(stick_inc_rs[0])-f_a-1));
 
 typ=make_center_line (GL_center, (INT)(nc-(GL_center[nc-1].len==1)),
-		GL_left0, GL_right0, dy, dx, &stick_inc[f_a], num_angles,
+		GL_left0, GL_right0, dy, dx, &stick_inc_rs[f_a], num_angles,
 		GL_tab_angle, c_wide, c_T, c_f, c_r,
     &wide, GL_hooks, &inc_v, 1); // with correct
 
@@ -1154,14 +1154,14 @@ STICK_SIGNUMS signums;
 if ( num_of_lines (GL_center, nc, dy, GL_hist_int) )
 	return(0); /* non stick:>1lines*/
 
-num_angles =   sizeof(stick_inc)/sizeof(stick_inc[0]);
-f_a=first_tg(stick_inc, num_angles, nIncline );
+num_angles =   sizeof(stick_inc_rs)/sizeof(stick_inc_rs[0]);
+f_a=first_tg(stick_inc_rs, num_angles, nIncline );
 num_angles=MIN(LIMIT_OF_ANGLES,
-           sizeof(stick_inc)/sizeof(stick_inc[0])-f_a-1);
+           sizeof(stick_inc_rs)/sizeof(stick_inc_rs[0])-f_a-1);
 
 if( make_center_line(GL_center, (INT)(nc-(GL_center[nc-1].len==1)),
 		     GL_left0, GL_right0,dy, dx,
-		     &stick_inc[f_a], num_angles, GL_tab_angle,
+		     &stick_inc_rs[f_a], num_angles, GL_tab_angle,
          0, 0, 1, 0, &wide, GL_hooks, &inc_v, 1) ) // with correct
 	return(0); /* abnormal set of ceneters : silmular to (,) or */
 		   /* not exist center-line                         */
