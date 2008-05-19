@@ -141,11 +141,16 @@ extern BYTE lpool[];
 //extern version * start_rec, *rec_ptr;
 static BYTE make_fill[] = {0, 1, 3, 7, 15, 31, 63, 127, 255};
 static  INT comp_max_w=128,comp_min_w=0, comp_max_h=64,comp_min_h=0;
+
+/* LOC_CLocomp is in loc.c and calls c_locomp function 
+ * in locompmn.c.
+ */
+/*
 MN * c_locomp (PBYTE raster, LONG bw, LONG h, INT upper, INT left)
 {
 return LOC_CLocomp (raster, bw, h, upper, left); 
 }
-
+*/
 
 PBYTE make_raster_CCOM(CCOM_comp *cmp)
 {
