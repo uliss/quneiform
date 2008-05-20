@@ -112,7 +112,7 @@ INT findstat(INT * currw,LTIMG * wrddef[],
 extern struct dict_state  * load_dict;
 extern INT vocs_NOK;   // 0 - vocs found at load
 
-INT text_findstat(CHAR * word)
+INT text_findstat_rling(CHAR * word)
 { KEYTYPE wordin[MAX_WORD_SIZE],c;
   LTIMG * wrddef[MAX_WORD_SIZE+1], *p;
   LTIMG wrdim[MAX_WORD_SIZE];

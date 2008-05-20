@@ -101,7 +101,7 @@ extern "C"
 	Int16     TE_table_op(Int16, Int16, Int16, Int16);
 	Int16     TE_close(Int16);
 	void      trees_load(void);
-	Int16     text_findstat(PChar8);
+	Int16     text_findstat_rling(PChar8);
 	Int16     spelling(PWord8, Int32);
 	void      load_user_dicts (PChar8, PChar8);
 	void      unload_user_dicts(void);
@@ -322,7 +322,7 @@ Bool32 CRLControl::CheckWord(PChar8 cWord, PInt32 pOutCheck)
 			////////////////////////////////////////////////////////////////
 			try
 			{
-				m_LastCheck = text_findstat(m_LastWord);
+				m_LastCheck = text_findstat_rling(m_LastWord);
 			}
 			/////////////////////////////////////////////////////////////////
 			catch( Int32 PumaExceptCode )
