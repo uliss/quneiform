@@ -565,11 +565,11 @@ INT uc[MAX_HEIGHT]={0},
  { 
 	 ret=1; if(!ckH) page_stat=1; 
  }
- if(db_status & snap_activity(db_pass) && ret!=0)
+ if(db_status & snap_activity_rbal(db_pass) && ret!=0)
  {
   CHAR buf[120];
   sprintf(buf,"Page statistic lh=%u  caps=%u,%u lcase=%u,%u ",lh,umax,uprob,lmax,lprob);
-  snap_show_text(buf); snap_monitor();
+  snap_show_text_rbal(buf); snap_monitor_rbal();
  }
 return ret;
 }
@@ -1134,12 +1134,12 @@ INT GetPsFromHeights(void)
 
    ret:
     HIST_STATISTIC=1;
-    if(db_status & snap_activity(db_pass) )
+    if(db_status & snap_activity_rbal(db_pass) )
 	{
      CHAR buf[120];
      sprintf(buf,"Histogramms: min=%d b3=%d peak1= %d|%d peak2= %d|%d sunk=%d",
                               minrow,bbs3,    ind1,max1,   ind2,max2, n_sunk);
-     snap_show_text(buf); snap_monitor();
+     snap_show_text_rbal(buf); snap_monitor_rbal();
     }
     return BPs;
 }

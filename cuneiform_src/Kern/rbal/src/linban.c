@@ -76,16 +76,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //IGOR
 #define draw_puma_bl(n,l)	rs.y = re.y = minrow + bbs##n;	\
-							snap_draw_line(NULL, &rs, &re, (INT)nIncline/2, rgb, -100, 1##l)
+							snap_draw_line_rbal(NULL, &rs, &re, (INT)nIncline/2, rgb, -100, 1##l)
 #define draw_stat_bl(n,l)	rs.y = re.y = minrow + m_attr.bs##n;\
-							snap_draw_line(NULL, &rs, &re, (INT)nIncline/2, rgb, -100, 2##l)
+							snap_draw_line_rbal(NULL, &rs, &re, (INT)nIncline/2, rgb, -100, 2##l)
 #define draw_bl_marking(n,l)	rsm.y = rs.y - 1; rem.y = rs.y + 1;	\
 								for(mc = 0; mc < n; mc++)	\
 								{	\
 									rsm.x = rs.x - 1 + mc*5; rem.x = rs.x + 1 + mc*5;	\
-									snap_draw_line(NULL, &rsm, &rem, (INT)nIncline/2, rgb, -100, 1##l);\
+									snap_draw_line_rbal(NULL, &rsm, &rem, (INT)nIncline/2, rgb, -100, 1##l);\
 								}
-#define del_bl(m,l)			snap_del_line(NULL,  m##l);
+#define del_bl(m,l)			snap_del_line_rbal(NULL,  m##l);
 //IGOR
 
 #ifdef UFA
@@ -303,7 +303,7 @@ void complete_bas(CHAR *txt)
  }
  if (fax1x2) Psf = Ps + 3; // AL 940329  was '+2' TWO TIMES
 
- if(!snap_baselines('a'))//IGOR
+ if(!snap_baselines_rbal('a'))//IGOR
  {//IGOR
  Nb4 = Ns4;
  if (Ns4>0) bbs4=(sbs4+(Ns4>>1))/Ns4;
@@ -942,7 +942,7 @@ INT defbas(INT filter)
        histofl = 2;
        return 1;
      }
-	if(!snap_baselines('a'))//IGOR
+	if(!snap_baselines_rbal('a'))//IGOR
 	{//IGOR
      if (!(bbh=bas_by_hist(-32000,32000,3)))  // histogramms unable to make b1/b2
      {
@@ -989,7 +989,7 @@ INT defbas(INT filter)
       #ifdef UFA  // Valdemar 12-17-94 04:35pm
       if( 1 ) return 1; // UFA has no long strings for histogram
       #endif
-	if(!snap_baselines('a'))//IGOR
+	if(!snap_baselines_rbal('a'))//IGOR
 	  {//IGOR
       if ((bbh < 0 && ( !HIST_STATISTIC && language == LANG_RUSSIAN)) &&
           (!(bbh=bas_by_hist(-32000,32000,3))))
@@ -1033,7 +1033,7 @@ INT defbas(INT filter)
         return 1;
       }
       *******************************************************/
-	  if(!snap_baselines('a'))//IGOR
+	  if(!snap_baselines_rbal('a'))//IGOR
 	  {//IGOR
       if ((bbh < 0 && ( !HIST_STATISTIC && language == LANG_RUSSIAN)) &&
           (!(bbh=bas_by_hist(-32000,32000,3))))
@@ -1625,16 +1625,16 @@ INT dbsum(INT filter)
 
 	// собственно поиск БЛ
 	//IGOR
-	if(snap_baselines('c')) i_method = 3;
+	if(snap_baselines_rbal('c')) i_method = 3;
 	else 
-		if(snap_baselines('b')) i_method = 2;
+		if(snap_baselines_rbal('b')) i_method = 2;
 		else
-			if(snap_baselines('a')) i_method = 1;
+			if(snap_baselines_rbal('a')) i_method = 1;
 
 	if(i_method != 1)
 	{
 		rz =  calc_base();
-		if (db_status && snap_is_marked(lin_str))//IGOR
+		if (db_status && snap_is_marked_rbal(lin_str))//IGOR
 		{ 
 			jl += sprintf(ww + jl, "line %d, lin_pass %d, language %d\nBsl: %d %d %d %d (PUMA)\n", 
 						  line_number, lin_pass, language, 
@@ -1676,7 +1676,7 @@ INT dbsum(INT filter)
 			rz = 1;
 		}
 
-		if (db_status && snap_is_marked(lin_str))//IGOR
+		if (db_status && snap_is_marked_rbal(lin_str))//IGOR
 		{ 
 			if(jl > 0)
 			{
@@ -1858,7 +1858,7 @@ INT dbsum(INT filter)
 			glsnap ('d',cell_f()->next,ww);
 		}
 
-		if(db_status && snap_is_marked(lin_str)) 
+		if(db_status && snap_is_marked_rbal(lin_str)) 
 		{
 			CSTR_line ln[] = {lin_str};
 			char txt[] = "Press any key...\n";
@@ -1866,10 +1866,10 @@ INT dbsum(INT filter)
 			sprintf(ww + jl, "%s", txt);
 
 			snap_show_text(ww);
-			snap_monitor_ori(&ln[0],1);
+			snap_monitor_ori_rbal(&ln[0],1);
 		}
 
-		if(i_method != 3 || (db_status && snap_is_marked(lin_str)) )
+		if(i_method != 3 || (db_status && snap_is_marked_rbal(lin_str)) )
 		{
 			if(language == 3)
 			{

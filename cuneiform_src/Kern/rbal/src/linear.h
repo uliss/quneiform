@@ -240,17 +240,17 @@ INT short_recog_cell (CSTR_rast c, int line_scale);
 WORD el_pidx_crit(WORD t_let,INT pidx);
 
 // added for snap
-BOOL (*snap_monitor)(void);
+BOOL (*snap_monitor_rbal)(void);
 //IGOR
-BOOL (*snap_monitor_ori)(CSTR_line *snap_line, Int32 num_lines);
-BOOL (*snap_is_marked)(CSTR_line ln);//IGOR
-BOOL (*snap_baselines)(BYTE a);//IGOR
-void (*snap_draw_line)(Handle wnd, Point16 *start, Point16 *end, Int32 skew, 
+BOOL (*snap_monitor_ori_rbal)(CSTR_line *snap_line, Int32 num_lines);
+BOOL (*snap_is_marked_rbal)(CSTR_line ln);//IGOR
+BOOL (*snap_baselines_rbal)(BYTE a);//IGOR
+void (*snap_draw_line_rbal)(Handle wnd, Point16 *start, Point16 *end, Int32 skew, 
 										  Word32 rgb, Int16 pen, Word32 key);//IGOR
-void (*snap_del_line)(Handle wnd, Word32 key);
+void (*snap_del_line_rbal)(Handle wnd, Word32 key);
 //IGOR
-BOOL (*snap_show_text)(BYTE *txt);
-BOOL (*snap_activity)(BYTE a);
+BOOL (*snap_show_text_rbal)(BYTE *txt);
+BOOL (*snap_activity_rbal)(BYTE a);
 //BOOL snap_newcell (CSTR_rast c);
 
 // from struct.h

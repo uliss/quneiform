@@ -87,16 +87,16 @@ static Word8 let_linempty[512]={0};
 
 Int16 (*RSTR_skew_corr)(CSTR_line ln, INT pool_src)=skew_corr_stat;
 Int16 (*RSTR_rast_is_BOX_solid) (CSTR_rast B1,Int16 scale) = rast_is_BOX_solid;
-BOOL (*snap_monitor)(void)=snap_monitor_stat;
-BOOL (*snap_show_text)(BYTE *txt)=snap_show_text_stat;
-BOOL (*snap_activity)(BYTE a)=snap_activity_stat;
-BOOL (*snap_monitor_ori)(CSTR_line *snap_line, Int32 num_lines)=snap_monitor_ori_stat; //IGOR
-BOOL (*snap_is_marked)(CSTR_line ln)=snap_is_marked_stat;//IGOR
-BOOL (*snap_baselines)(BYTE a)=snap_baselines_stat;//IGOR
-void (*snap_draw_line)(Handle wnd, Point16 *start, Point16 *end, Int32 skew,
+BOOL (*snap_monitor_rbal)(void)=snap_monitor_stat;
+BOOL (*snap_show_text_rbal)(BYTE *txt)=snap_show_text_stat;
+BOOL (*snap_activity_rbal)(BYTE a)=snap_activity_stat;
+BOOL (*snap_monitor_ori_rbal)(CSTR_line *snap_line, Int32 num_lines)=snap_monitor_ori_stat; //IGOR
+BOOL (*snap_is_marked_rbal)(CSTR_line ln)=snap_is_marked_stat;//IGOR
+BOOL (*snap_baselines_rbal)(BYTE a)=snap_baselines_stat;//IGOR
+void (*snap_draw_line_rbal)(Handle wnd, Point16 *start, Point16 *end, Int32 skew,
 					                   Word32 rgb, Int16 pen, Word32 key)
 							=snap_draw_line_stat;//IGOR
-void (*snap_del_line)(Handle wnd, Word32 key) = snap_del_line_stat;//IGOR
+void (*snap_del_line_rbal)(Handle wnd, Word32 key) = snap_del_line_stat;//IGOR
 
 CSTR_line lin_str=(CSTR_line)NULL;
 
@@ -216,10 +216,10 @@ void glsnap(CHAR I, CSTR_rast C, CHAR *txt)
  if (!db_status) return;
 
 // snap_newcell(C);
- if (snap_activity(I))
+ if (snap_activity_rbal(I))
   {
-  snap_show_text(txt);
-  snap_monitor();
+  snap_show_text_rbal(txt);
+  snap_monitor_rbal();
   }
 }
 
@@ -718,14 +718,14 @@ static void GetRstrGlobals(BAL_RSTR_GLOBALS  *rstrGlob)
 
 	db_status = rstrGlob->db_status;
 	db_pass   = rstrGlob->db_pass;
-	snap_monitor  = rstrGlob->snap_monitor;
-	snap_activity = rstrGlob->snap_activity;
-	snap_show_text= rstrGlob->snap_show_text;
-	snap_monitor_ori= rstrGlob->snap_monitor_ori;//IGOR
-	snap_is_marked= rstrGlob->snap_is_marked; //IGOR
-	snap_baselines= rstrGlob->snap_baselines; //IGOR
-	snap_draw_line= rstrGlob->snap_draw_line; //IGOR
-	snap_del_line = rstrGlob->snap_del_line; //IGOR
+	snap_monitor_rbal  = rstrGlob->snap_monitor;
+	snap_activity_rbal = rstrGlob->snap_activity;
+	snap_show_text_rbal= rstrGlob->snap_show_text;
+	snap_monitor_ori_rbal= rstrGlob->snap_monitor_ori;//IGOR
+	snap_is_marked_rbal= rstrGlob->snap_is_marked; //IGOR
+	snap_baselines_rbal= rstrGlob->snap_baselines; //IGOR
+	snap_draw_line_rbal= rstrGlob->snap_draw_line; //IGOR
+	snap_del_line_rbal = rstrGlob->snap_del_line; //IGOR
 }
 //////////////////////
 static void GetBalGlobals(BAL_INOUT_GLOBALS  *balGlob)

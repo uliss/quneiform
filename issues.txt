@@ -50,3 +50,8 @@ warnings. Also giving BYTE pointers to libc string functions such as strlen give
 these warnings. An easy fix would be to convert them all to chars, but it won't
 work because at certain times the character values are compared to constants
 larger than 127.
+
+The following functions are multiply defined and may cause
+link errors: snap_monitor, snap_activity, snap_show_text,
+snap_monitor_ori, snap_is_marked, snap_baselines, snap_draw_line,
+snap_del_line
