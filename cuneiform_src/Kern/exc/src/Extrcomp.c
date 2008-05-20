@@ -112,16 +112,16 @@ static  Word8 mask_l[]     =
         {255,    127,   63,   31,   15,    7,    3,   1};
 static  Word8 mask_r[]     =
         {  128,  192,  224,  240,  248,  252,  254, 255};
-static FNREXC_ProgressStart  fnProgressStart =NULL;
-static FNREXC_ProgressStep   fnProgressStep  =NULL;
-static FNREXC_ProgressFinish fnProgressFinish=NULL;
+static FNREXC_ProgressStart  fnProgressStart_exc =NULL;
+static FNREXC_ProgressStep   fnProgressStep_exc  =NULL;
+static FNREXC_ProgressFinish fnProgressFinish_exc=NULL;
 //=========== Progress Monitor
 static  Word32 progress_vol=0, progress_rel=0;
 void    progress_start (Word32 volume)
 { 
 progress_vol=volume;
-if( fnProgressStart )
-    fnProgressStart();  
+if( fnProgressStart_exc )
+    fnProgressStart_exc();  
 return ; 
 }
 
@@ -129,8 +129,8 @@ void    progress_stop(void)
 { 
 progress_vol=0;
 progress_rel=0;
-if( fnProgressFinish )
-    fnProgressFinish();
+if( fnProgressFinish_exc )
+    fnProgressFinish_exc();
 return ; 
 }
 
@@ -140,8 +140,8 @@ Word32  rel = (step/progress_vol)*100;
 if( !progress_vol || rel<progress_rel+10 )
     return step;
 progress_rel = rel;
-if( fnProgressStep )
-    fnProgressStep(rel);
+if( fnProgressStep_exc )
+    fnProgressStep_exc(rel);
 return step; 
 }
  //------------------ Image attributes ---------------------
@@ -1308,9 +1308,9 @@ switch(dwType)
         CASE_DATA(REXC_Word8_Matrix             ,Word8,matrix);
         CASE_DATA(REXC_Word8_Fax1x2             ,Word8,fax1x2);
     CASE_DATA(REXC_Word16_ActualResolution,Word16,actual_resolution);
-    CASE_PDATA(REXC_ProgressStart,      FNREXC_ProgressStart, fnProgressStart);
-        CASE_PDATA(REXC_ProgressStep,   FNREXC_ProgressStep,  fnProgressStep);
-        CASE_PDATA(REXC_ProgressFinish, FNREXC_ProgressFinish,fnProgressFinish);        
+    CASE_PDATA(REXC_ProgressStart,      FNREXC_ProgressStart, fnProgressStart_exc);
+        CASE_PDATA(REXC_ProgressStep,   FNREXC_ProgressStep,  fnProgressStep_exc);
+        CASE_PDATA(REXC_ProgressFinish, FNREXC_ProgressFinish,fnProgressFinish_exc);        
 //    CASE_PDATA(REXC_OcrPath,    Word8*, lnOcrPath);     
     default:
             wLowRC = REXC_ERR_NOTIMPLEMENT;

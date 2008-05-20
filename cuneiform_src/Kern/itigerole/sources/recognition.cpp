@@ -95,22 +95,22 @@ static char g_strTempPath[_MAX_PATH];
 
 
 /////////////////////////////////////////
-static int ProgressStep(unsigned long dStep, char * lpStepName, unsigned long dPercent)
+static int ProgressStep_dummy(unsigned long dStep, char * lpStepName, unsigned long dPercent)
 {
 	return TRUE;
 }
-static int ProgressStart()
+static int ProgressStart_dummy()
 {
 	return TRUE;
 }
-static int ProgressStop()
+static int ProgressStop_dummy()
 {
 	return TRUE;
 }
 
-FNPROGRESS_START fnProgressStart = ProgressStart;
-FNPROGRESS_STOP  fnProgressStop = ProgressStop;
-FNPROGRESS_STEP  fnProgressStep = ProgressStep;
+FNPROGRESS_START fnProgressStart = ProgressStart_dummy;
+FNPROGRESS_STOP  fnProgressStop = ProgressStop_dummy;
+FNPROGRESS_STEP  fnProgressStep = ProgressStep_dummy;
 /////////////////////////////////////////////////////////////////////////////
 // CRecognition
 

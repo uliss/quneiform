@@ -94,14 +94,14 @@ DWORD progress_set_step (DWORD volume)
 DWORD progress_set_percent (DWORD volume)
 {
 	DWORD rc = 0;
-	if(fnProgressStep)
-		rc  = !fnProgressStep(volume);
+	if(fnProgressStep_rblock)
+		rc  = !fnProgressStep_rblock(volume);
 	return rc;
 };
 void progress_finish(void)
 {
-	if(fnProgressFinish)
-		fnProgressFinish();
+	if(fnProgressFinish_rblock)
+		fnProgressFinish_rblock();
 };
 
 #undef malloc

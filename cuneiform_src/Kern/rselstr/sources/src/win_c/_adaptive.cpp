@@ -81,14 +81,14 @@ WORD run_options = 0;
 DWORD progress_set_percent (DWORD volume)
 {
 	DWORD rc = 0;
-	if(fnProgressStep)
-		rc  = !fnProgressStep(volume);
+	if(fnProgressStep_rsel)
+		rc  = !fnProgressStep_rsel(volume);
 	return rc;
 };
 void progress_finish(void)
 {
-	if(fnProgressFinish)
-		fnProgressFinish();
+	if(fnProgressFinish_rsel)
+		fnProgressFinish_rsel();
 };
 
 #undef malloc

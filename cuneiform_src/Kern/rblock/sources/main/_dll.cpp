@@ -193,9 +193,9 @@ RBLOCK_FUNC(Bool32) RBLOCK_SetImportData(Word32 dwType, void * pData)
 
 	switch(dwType)
 	{
-	CASE_PDATA(RBLOCK_FNRBLOCK_ProgressStart,	FNRBLOCK_ProgressStart ,fnProgressStart);
-	CASE_PDATA(RBLOCK_FNRBLOCK_ProgressStep,	FNRBLOCK_ProgressStep,	fnProgressStep);
-	CASE_PDATA(RBLOCK_FNRBLOCK_ProgressFinish,	FNRBLOCK_ProgressFinish,fnProgressFinish);	
+	CASE_PDATA(RBLOCK_FNRBLOCK_ProgressStart,	FNRBLOCK_ProgressStart ,fnProgressStart_rblock);
+	CASE_PDATA(RBLOCK_FNRBLOCK_ProgressStep,	FNRBLOCK_ProgressStep,	fnProgressStep_rblock);
+	CASE_PDATA(RBLOCK_FNRBLOCK_ProgressFinish,	FNRBLOCK_ProgressFinish,fnProgressFinish_rblock);	
     CASE_DATA(RBLOCK_Bool32_SearchPicture,Bool32,bSearchPicture);
 	case RBLOCK_Bool32_OneColumn:
 

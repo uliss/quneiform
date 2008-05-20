@@ -74,9 +74,9 @@ extern "C" {
 
 Edef Bool32 bSearchPicture                          VAL(FALSE);
 
-Edef FNRSELSTR_ProgressStart   fnProgressStart		VAL(NULL);
-Edef FNRSELSTR_ProgressStep 	fnProgressStep		VAL(NULL);
-Edef FNRSELSTR_ProgressFinish  fnProgressFinish		VAL(NULL);
+Edef FNRSELSTR_ProgressStart   fnProgressStart_rsel		VAL(NULL);
+Edef FNRSELSTR_ProgressStep 	fnProgressStep_rsel		VAL(NULL);
+Edef FNRSELSTR_ProgressFinish  fnProgressFinish_rsel	VAL(NULL);
 
 void PageLayoutStrings(Handle hCCOM,Handle hCPAGE);
 void SetReturnCode_rselstr(Word32 rc);

@@ -74,9 +74,9 @@ extern "C" {
 
 Edef Bool32 bSearchPicture                          VAL(FALSE);
 
-Edef FNRBLOCK_ProgressStart   fnProgressStart		VAL(NULL);
-Edef FNRBLOCK_ProgressStep 	fnProgressStep			VAL(NULL);
-Edef FNRBLOCK_ProgressFinish  fnProgressFinish		VAL(NULL);
+Edef FNRBLOCK_ProgressStart   fnProgressStart_rblock		VAL(NULL);
+Edef FNRBLOCK_ProgressStep 	fnProgressStep_rblock			VAL(NULL);
+Edef FNRBLOCK_ProgressFinish  fnProgressFinish_rblock		VAL(NULL);
 
 void InitDebug(void);
 void DoneDebug(void);

@@ -355,9 +355,9 @@ RSELSTR_FUNC(Bool32) RSELSTR_SetImportData(Word32 dwType, void * pData)
 
 	switch(dwType)
 	{
-	 CASE_PDATA(RSELSTR_FNRSELSTR_ProgressStart,	FNRSELSTR_ProgressStart ,fnProgressStart);
-	 CASE_PDATA(RSELSTR_FNRSELSTR_ProgressStep,	FNRSELSTR_ProgressStep,	fnProgressStep);
-	 CASE_PDATA(RSELSTR_FNRSELSTR_ProgressFinish,	FNRSELSTR_ProgressFinish,fnProgressFinish);	
+	 CASE_PDATA(RSELSTR_FNRSELSTR_ProgressStart,	FNRSELSTR_ProgressStart ,fnProgressStart_rsel);
+	 CASE_PDATA(RSELSTR_FNRSELSTR_ProgressStep,	FNRSELSTR_ProgressStep,	fnProgressStep_rsel);
+	 CASE_PDATA(RSELSTR_FNRSELSTR_ProgressFinish,	FNRSELSTR_ProgressFinish,fnProgressFinish_rsel);	
 	 default:
 		SetReturnCode_rselstr(IDS_ERR_NOTIMPLEMENT);
 		rc = FALSE;
