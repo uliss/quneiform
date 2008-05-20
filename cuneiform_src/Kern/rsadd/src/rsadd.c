@@ -117,15 +117,15 @@ static Word8 eng_uni_letters[]="iwWRFGLZz\xb1\xb2\xb3\xb4\xb5\xb6\xb9"; //+N
 static Word8 non_letters[]="«»()";
 static Word8 true_terms[]="/-\x5F";
 
-Bool16	my_snap_monitor_ori(CSTR_line *snap_line, Int32 num_lines){return FALSE;};
-Bool16	my_snap_activity(Word8 a){return FALSE;};
-Bool16	my_snap_show_text(Word8 *txt){return FALSE;};
+static Bool16	my_snap_monitor_ori(CSTR_line *snap_line, Int32 num_lines){return FALSE;};
+static Bool16	my_snap_activity(Word8 a){return FALSE;};
+static Bool16	my_snap_show_text(Word8 *txt){return FALSE;};
 
-Bool16	(*snap_monitor_ori)(CSTR_line *snap_line, Int32 num_lines)=my_snap_monitor_ori;
-Bool16	(*snap_activity)(Word8 a)=my_snap_activity;
-Bool16	(*snap_show_text)(Word8 *txt)=my_snap_show_text;
-Word8	db_status=0;
-Word8   spec_camera=0;
+static Bool16	(*snap_monitor_ori)(CSTR_line *snap_line, Int32 num_lines)=my_snap_monitor_ori;
+static Bool16	(*snap_activity)(Word8 a)=my_snap_activity;
+static Bool16	(*snap_show_text)(Word8 *txt)=my_snap_show_text;
+static Word8	db_status=0;
+static Word8   spec_camera=0;
 
 RSADD_FUNC(void) RSADD_SetRSTR( Word8 status,Word8 camera, 
                                 Handle monitor_ori,
