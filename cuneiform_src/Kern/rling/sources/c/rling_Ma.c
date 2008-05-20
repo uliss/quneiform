@@ -126,7 +126,7 @@ void   append_by_lang (Int16 lang, PInt8 src, PInt8 dst);
 ///////////////////////////////////////////////////////////
 Int16 to_voc();
 ///////////////////////////////////////////////////////////
-void trees_load(void);
+void trees_load_rling(void);
 static void read_rec_file(Int16 fileno, PWord8 pool, PWord8 * end);
 static PWord8 preload_font_BOX( PWord8 free );
 static PWord8 load_BOX(PWord8 free);
@@ -441,7 +441,7 @@ void ed_out_write(PWord8 p, Word16 size)
 }
 ///////////////////////////////////////////////////////////////////////////////////
 // протащено
-void trees_load()
+void trees_load_rling()
 {
         PWord8 oBOX=NULL;
         

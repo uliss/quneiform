@@ -100,7 +100,7 @@ extern "C"
 	void      SetErrorExit( pExitByCatchFunc );
 	Int16     TE_table_op(Int16, Int16, Int16, Int16);
 	Int16     TE_close(Int16);
-	void      trees_load(void);
+	void      trees_load_rling(void);
 	Int16     text_findstat_rling(PChar8);
 	Int16     spelling(PWord8, Int32);
 	void      load_user_dicts (PChar8, PChar8);
@@ -238,7 +238,7 @@ Bool32 CRLControl::LoadDictonary(Word32 wLang, PChar8 pDictPath)
 		//////////////////////////////////////////////////////////////////////
 		try
 		{
-			trees_load();
+			trees_load_rling();
 		}
 
 		catch( Int32 PumaExceptCode )

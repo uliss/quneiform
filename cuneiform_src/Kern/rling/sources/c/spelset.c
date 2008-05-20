@@ -175,13 +175,13 @@ Begobj:
 	/*
 	if(SPQ.stack->language!=language)
 	{
-        extern trees_load(void);
+        extern trees_load_rling(void);
         extern BOOL FlagMixedText;
 
         FlagMixedText=TRUE;
         language=SPQ.stack->language;
 
-        trees_load();
+        trees_load_rling();
         init_stat_dict(&SPQ.d_state);
 
     }
