@@ -334,7 +334,7 @@ static char *tabevn2[]={
 "rec2tur.dat"       // LANG_TURKISH		27
 };
 
-BYTE *  CellsPage, *CellsPageEnd;
+BYTE *  CellsPage_rstr, *CellsPageEnd_rstr;
 BYTE *  MemForCutPoints, *MemForCutPointsTwo;
 BYTE *  ForRaster1;
 BYTE *  ForRaster2;
@@ -541,14 +541,14 @@ RSTR_FUNC(Bool32)  RSTRInit( MemFunc* mem )
    local_ret_error_code=0;
    wLowRC         = RSTR_ERR_NO;
    line_number=0;
-   CellsPage = my_alloc(10*65536+3*R_S);
-   if (CellsPage==NULL)
+   CellsPage_rstr = my_alloc(10*65536+3*R_S);
+   if (CellsPage_rstr==NULL)
         {
         wLowRC  = RSTR_ERR_NOMEMORY;
         return FALSE;
         }
-   CellsPageEnd        = CellsPage + 65536*4;
-   MemForCutPoints     = CellsPageEnd ;
+   CellsPageEnd_rstr        = CellsPage_rstr + 65536*4;
+   MemForCutPoints     = CellsPageEnd_rstr ;
    MemForCutPointsTwo  = MemForCutPoints + 65536;
    ForRaster1          = MemForCutPointsTwo + 65536;
    ForRaster2          = ForRaster1 + R_S;
@@ -1859,7 +1859,7 @@ RSTR_FUNC(void)  RSTRDone(void)
    FONEndSnap();
 #endif
    LDPUMA_Done();
-   my_free(CellsPage,0);
+   my_free(CellsPage_rstr,0);
    my_free(kit_start,0);
    my_free(memory_pool,0);
 if( !p2_disable )

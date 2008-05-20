@@ -389,11 +389,11 @@ version *pv;
   }
 }
 /*=================== Start of string processing ======================*/
-extern BYTE *CellsPage, *CellsPageEnd;
+extern BYTE *CellsPage_rstr, *CellsPageEnd_rstr;
 void setup_string()
 {
-LONG    number_of_cells=((LONG)CellsPageEnd-(LONG)CellsPage)/sizeof (cell);
- empty_cell=(cell *) (CellsPage);
+LONG    number_of_cells=((LONG)CellsPageEnd_rstr-(LONG)CellsPage_rstr)/sizeof (cell);
+ empty_cell=(cell *) (CellsPage_rstr);
  cell_boundary = empty_cell + number_of_cells;//NUMBER_OF_CELLS;
  free_cell_chain=NULL;
 //Paul 04-04-2002
