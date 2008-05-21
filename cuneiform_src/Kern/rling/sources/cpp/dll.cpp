@@ -146,6 +146,7 @@ RLINGS_FUNC(Bool32)RLINGS_Done()
 #endif
 {
 	delete Control_crl;
+	Control_crl = NULL;
 
 #if defined ( __RLING__ )
 		return RLINGS_Done();
