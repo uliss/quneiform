@@ -470,7 +470,7 @@ void MyUnionRect(SRECT *s1,SRECT *s2,SRECT *u);
   //---Из секции колонок---
   extern WORD NumCol;
   extern int SizeSectionCol;
-  extern int *NumStr;//[nc]
+  extern Int16 *NumStr;//[nc]
   extern Word32 *UserNumber;//[nc]
   extern Word32 *FragFlag;//[nc]
   extern SRECT *BndCol;//[nc]

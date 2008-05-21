@@ -306,7 +306,8 @@ typedef struct hINF_TREE
   //++ќписани€ терминал.€чеек
   BOUND     bnd_page,*bnd_col,**bnd_str;
   FRAME     ***sym;
-  int       k_colt,*k_str,**k_sym;
+  int       k_colt,**k_sym;
+  Int16  	*k_str;
   STAT_COL  *StatCol;
   POS_STR   **PosStr;
   char      FilePrc[255];//им€ файла извлечен.компонент

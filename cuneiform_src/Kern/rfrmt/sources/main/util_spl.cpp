@@ -88,7 +88,7 @@ static HWND h_found=NULL;
 //---Из секции колонок---
 WORD NumCol;
 int SizeSectionCol;
-int *NumStr;//[nc] 
+Int16 *NumStr;//[nc] 
 Word32 *UserNumber;//[nc]
 Word32 *FragFlag;//[nc]
 SRECT *BndCol;//[nc]
@@ -127,6 +127,19 @@ BYTE **ClustOCR;int K_Clust;//Кластеры перепутывания
 BYTE buf[1024],buf1[1024];
 
 /* End of things brought from ful_txt.h. */
+
+/* Rectangles are written in frmtfile.cpp and they contain 16-bit integers.
+ * They are processed as 32-bit integers here, so we need to convert.
+ */
+
+static void readSRECT(SRECT *r, FILE1 *f) {
+    Rect16 r16;
+    fread_m(&r16, sizeof(Rect16), 1, f);
+    r->left = r16.left;
+    r->top = r16.top;
+    r->right = r16.right;
+    r->bottom = r16.bottom;
+}
 
 BOOL __stdcall FindByPartOfTitle(
     HWND hwnd,	    // handle to parent window
@@ -471,7 +484,7 @@ short __cdecl  OpenFullOutTiger(char *FileName)
 // Twips = (float)((int)(Twips+0.5));
 	if(NumCol)
 	{
-		NumStr    = (int*)malloc_m(NumCol*sizeof(int));
+		NumStr    = (Int16*)malloc_m(NumCol*sizeof(Int16));
 		StatCol   = (STAT_COL*)malloc_m(NumCol*sizeof(STAT_COL)); 
 		if(NumStr==NULL||StatCol==NULL)
 		{
@@ -543,9 +556,9 @@ short __cdecl  OpenFullOutTiger(char *FileName)
 	{
   fread_m(&RectFragm[nc],1,sizeof(Rect16),in);   
 	 // *********** РАСЧЕТ КОЛОННОЙ СТАТИСТИКИ *************
-  fread_m(&NumStr[nc],2,1,in); 
-  fread_m(&UserNumber[nc],4,1,in); 
-  fread_m(&FragFlag[nc],4,1,in); 
+  fread_m(&NumStr[nc],sizeof(Int16),1,in); 
+  fread_m(&UserNumber[nc],sizeof(Word32),1,in); 
+  fread_m(&FragFlag[nc],sizeof(Word32),1,in); 
 
   Zn[nc]=(ZN***)Submalloc((NumStr[nc])*sizeof(ZN**),&SubZn);
   TitleStr[nc]=(TITLE_STR*)Submalloc((NumStr[nc])*sizeof(TITLE_STR),&SubZn);
@@ -557,18 +570,20 @@ short __cdecl  OpenFullOutTiger(char *FileName)
 		for(ns=0; ns <= NumStr[nc]; ++ns)
 		{
 			TITLE_STR *t = &TitleStr[nc][ns]; 
-			int        tmp;
+			Int16        tmp;
 
 			t->Z_Code = 2;
 			t->S_Attr = 0;
 
-			fread_m(&t->S_Rect,sizeof(SRECT),1,in);             // 4 base lines,?
+			//fread_m(&t->S_Rect,sizeof(SRECT),1,in);             // 4 base lines,?
+			readSRECT(&t->S_Rect, in);
 			//exchange : top,bottom - standard, left,right - extern
 			tmp              = t->S_Rect.right; 
 			t->S_Rect.right  = t->S_Rect.bottom; 
 			t->S_Rect.bottom = tmp;  
 			//Реальные коор. строки!
-			fread_m(&t->S_Real_Rect,sizeof(SRECT),1,in);
+			//fread_m(&t->S_Real_Rect,sizeof(SRECT),1,in);
+			readSRECT(&t->S_Real_Rect, in);
 			fread_m(&tmp,2,1,in); 
 			t->S_Gen.S_NumWord = tmp;               // NumWrd
 
@@ -586,15 +601,15 @@ short __cdecl  OpenFullOutTiger(char *FileName)
 				TITLE_WORD *tw=&TitleWord[nc][ns][nw];
 				
 				tw->Z_Code=1;
-				fread_m(&tmp,2,1,in); 
+				fread_m(&tmp, sizeof(Int16), 1, in); 
 				tw->W_Gen.W_NumSym=tmp;// NumZn
 				k_z=tw->W_Gen.W_NumSym-1;
       
-				fread_m(&tmp,2,1,in); 
-				tw->W_Gen.FontNumber=(WORD)tmp;  
+				fread_m(&tmp, sizeof(Int16), 1, in); 
+				tw->W_Gen.FontNumber=(WORD)tmp;
 
-				fread_m(&tmp,2,1,in); 
-				tw->W_Gen.FontSize=(WORD)tmp;  
+				fread_m(&tmp, sizeof(Int16), 1, in); 
+				tw->W_Gen.FontSize=(WORD)tmp;
     
 				if((Zn[nc][ns][nw]=(ZN*)Submalloc((k_z+1)*sizeof(ZN),&SubZn))==NULL) 
 					goto BadReturn;
@@ -603,17 +618,19 @@ short __cdecl  OpenFullOutTiger(char *FileName)
 				{
 					ZN        *z  = &Zn[nc][ns][nw][nz]; 
 					TITLE_ZN  *tz = &z->Title; 
-					int        num;
+					Int16     num;
 #pragma pack(1)
 					//   struct RECT_TIGER {int top,left,bottom,right;} rect;
 					struct ALT_TIGER1  {unsigned char let, prob;} alt1;
 					struct ALT_TIGER2  {unsigned char language, spellnocarrying, FlagCapDrop, spell, base;} alt2;
 #pragma pack()
 
-					fread_m(&tz->Z_Rect,sizeof(SRECT),1,in); // BOX
-					fread_m(&tz->Z_RealRect,sizeof(SRECT),1,in); // Real BOX
+					//fread_m(&tz->Z_Rect,sizeof(SRECT),1,in); // BOX
+					readSRECT(&tz->Z_Rect, in);
+					//fread_m(&tz->Z_RealRect,sizeof(SRECT),1,in); // Real BOX
+					readSRECT(&tz->Z_RealRect, in);
 
-					fread_m(&num,2,1,in);  tz->Z_Num_Alt=(BYTE)MIN(num,REC_MAX_VERS); //NumAlt
+					fread_m(&num, sizeof(Int16), 1, in);  tz->Z_Num_Alt=(BYTE)MIN(num,REC_MAX_VERS); //NumAlt
 //					if(num > 1)
 //						num = 1;
 
