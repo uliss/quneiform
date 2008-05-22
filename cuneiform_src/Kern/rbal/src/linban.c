@@ -1865,7 +1865,7 @@ INT dbsum(INT filter)
 
 			sprintf(ww + jl, "%s", txt);
 
-			snap_show_text(ww);
+			snap_show_text_rbal(ww);
 			snap_monitor_ori_rbal(&ln[0],1);
 		}
 

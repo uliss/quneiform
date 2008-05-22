@@ -158,7 +158,7 @@ EXTERN HANDLE   ghStorage_rout	VAL(NULL);
 EXTERN HANDLE   ghInst_rout	VAL(NULL);
 
 // язык распознавани€, см. lang_def.h
-EXTERN long gLanguage		VAL(0);
+EXTERN long gLanguage		VAL(-1);
 
 // ƒл€ ‘ранцузского Windows
 EXTERN BOOL gWinFrench		VAL(FALSE);
