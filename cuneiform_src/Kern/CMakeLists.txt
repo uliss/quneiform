@@ -11,6 +11,13 @@ fon/src
 usage
 )
 
+find_library(DL_LIB dl)
+
+# Emulate Windows DLL symbol resolve order.
+if(UNIX AND NOT APPLE)
+  set(CMAKE_SHARED_LINKER_FLAGS "-Wl,-Bsymbolic")
+endif()
+
 include_directories(itigerole/sources/tiger/h)
 
 set(LIBTYPE SHARED CACHE STRING "STATIC or SHARED")
@@ -79,5 +86,5 @@ cimage loc rdib cfio)
 add_library(windummy ${LIBTYPE} windummy.c)
 
 add_executable(pumatest pumatest.cpp)
-target_link_libraries(pumatest puma dl)
+target_link_libraries(pumatest puma ${DL_LIB})
 #${PUMA_LIBS} ${RPSTR_LIBS} ${SNP_LIBS} dl)
