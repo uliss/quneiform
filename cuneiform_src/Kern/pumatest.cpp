@@ -25,21 +25,31 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/* This is a simple test program for the Puma library. It does not
- * actually do anything.
- */
+/* This is a simple test program for the Puma library. */
+
+#include "ctiimage.h"
+
+//#include"dpuma.h"
 
 #include<stdio.h>
 #include<stdint.h>
 #include<stdlib.h>
 #include"puma.h"
 
+//#include"mpuma.h"
+//void ProgressStart( void );
+//void     SetSpeller(Bool32 nNewValue);
+//Bool32 g_bSpeller =TRUE;
+
 int main(int argc, char **argv) {
+
     char bmpheader[2];
     char *dib;
     const char *outfilename = "pumaout.txt";
     FILE *f;
     int32_t dibsize, offset;
+    
+    printf("Cuneiform for Linux 0.1\n");
     
     if(argc != 2) {
         printf("Usage: %s imagefile\n", argv[0]);
@@ -61,22 +71,31 @@ int main(int argc, char **argv) {
     fread(&offset, sizeof(int32_t), 1, f);
 
     dibsize -= ftell(f);
-    dib = (char*)malloc(dibsize); // I don't free() this one, because I am just that tough.
+    dib = (char*)malloc(dibsize);
     fread(dib, dibsize, 1, f);
     fclose(f);
     
+    if(*((int32_t*)dib) != 40) {
+        printf("BMP is not of type \"Windows V3\", which is the only supported format.\n");
+        return 1;
+    }
+    
+    if(*((int32_t*) (dib+16)) != 0) {
+        printf("%s is a compressed BMP. Only uncompressed BMP files are supported.\n", argv[1]);
+        return 1;
+    }
     
     if(!PUMA_Init(0, 0)) {
         printf("PUMA_Init failed.\n");
         return 1;
     }
-    printf("Puma initialized.\n");
+    //printf("Puma initialized.\n");
     
     if(!PUMA_XOpen(dib, "none.txt")) {
         printf("PUMA_Xopen failed.\n");
         return 1;
     }
-    printf("PUMA_XOpen succeeded.\n");
+    //printf("PUMA_XOpen succeeded.\n");
     
     /* From recogpuma.cpp
     LPUMA_SetSpeller(g_bSpeller);
@@ -98,28 +117,30 @@ int main(int argc, char **argv) {
 
     rc = LPUMA_XFinalRecognition();
     */
+
     if(!PUMA_XFinalRecognition()) {
         printf("PUMA_XFinalrecognition failed.\n");
         return 1;
     }
-    printf("PUMA_XFinalRecognition succeeded.\n");
+    //printf("PUMA_XFinalRecognition succeeded.\n");
     
     if(!PUMA_XSave(outfilename, PUMA_TOTEXT, 0)) {
         printf("PUMA_XSave failed.\n");
         return 1;
     }
-    printf("PUMA_XSave succeeded.\n");
+    //printf("PUMA_XSave succeeded.\n");
     
     if(!PUMA_XClose()) {
         printf("PUMA_XClose failed.\n");
         return 1;
     }
-    printf("PUMA_XClose succeeded.\n");
+    //printf("PUMA_XClose succeeded.\n");
     
     if(!PUMA_Done()) {
         printf("PUMA_Done failed.\n");
         return 1;
     }
-    printf("PUMA_Done succeeded.\nAll done.\n");
+    //printf("PUMA_Done succeeded.\nAll done.\n");
+    free(dib);
     return 0;
 }
