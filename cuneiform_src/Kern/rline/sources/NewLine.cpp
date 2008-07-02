@@ -56,8 +56,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define __RLINE__
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <fstream>
+#include <cstring>
+
 
 #include "stdafx.h"
 #include "linedefs.h"
@@ -70,7 +74,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cline.h"
 #include "ccom.h"
 #include "pumadef.h"
-#include <fstream>
 
 #include "rsl.h"
 

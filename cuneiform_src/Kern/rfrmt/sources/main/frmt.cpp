@@ -65,6 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include <afxtempl.h>
 //#include <afxwin.h>
 //#include <windows.h>
+#include <stdlib.h>
 #include "stdafx.h"
 #include "resource.h"
 #define __RFRMT__
@@ -74,6 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "dpuma.h"
 #include "aldebug.h"
 #include "rfrmt_prot.h"
+#include <cstring>
 
 #define  USE_NONE             0x0040   // no formatting
 #define  USE_FRAME_AND_COLUMN 0x0001   // use columns & frames

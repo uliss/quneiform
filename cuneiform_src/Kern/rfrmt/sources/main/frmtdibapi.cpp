@@ -71,6 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
 #include "stdafx.h"
+#include <cstring>
 #include "cpage.h"
 #include "cpagetyps.h"
 

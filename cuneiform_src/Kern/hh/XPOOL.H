@@ -82,6 +82,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #undef HUGE
 #define HUGE
 
+#include <cstring>
+
 class XPool
 {
 protected:
