@@ -1147,7 +1147,8 @@ Int16 SearchColHist1(HFRAME **frm,Int16 k_frm,BOUND *bnd,Int16 ave_x,Int16 ave_y
     Int16 reg,Int16 *k_int,Int16 **intr1,Int16 **begI,Int16 **endI,Int16 *NumMax)
 //==
 {
-	Int16 ave_dir,ave_ort,i,kcol,x,in,kf,k_bloc,fl,ki,MaxOld=*NumMax;
+	Int16 ave_dir,ave_ort,i,kcol,x,in,kf,fl,ki,MaxOld=*NumMax;
+	int k_bloc;
 	Int16 *intr=*intr1;
 	KNOT4 *Free,**knot,**beg=(KNOT4**)malloc_m(*NumMax*sizeof(PTR)),*ptr;
 	
@@ -1186,7 +1187,7 @@ Int16 SearchColHist1(HFRAME **frm,Int16 k_frm,BOUND *bnd,Int16 ave_x,Int16 ave_y
 	
 	k_bloc=-1;
 	
-	if((fl=init_lst((KNOT***)&knot,(int*)&k_bloc,k_frm+2,(KNOT**)&Free,
+	if((fl=init_lst((KNOT***)&knot,&k_bloc,k_frm+2,(KNOT**)&Free,
       sizeof(KNOT4)))!=0)
 		return -fl-50;
 
