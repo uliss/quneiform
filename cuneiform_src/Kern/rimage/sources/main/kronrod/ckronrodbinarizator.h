@@ -85,8 +85,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 #ifdef WIN32
 	#define EXPORT(a) __declspec(dllexport) a
-	#define _fmemset(a,b,c) memset(a,b,c)
-	#define _fmemcpy(a,b,c) memcpy(a,b,c)
 #else
 	#define EXPORT(a)  a _export
 #endif

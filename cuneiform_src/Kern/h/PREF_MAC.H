@@ -62,8 +62,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /////////#define WIN32
 #define BITS32
 #define hmemcpy memcpy
-#define _fmemcpy memcpy
-#define _fmemset memset
 #include "DebugWindow.h"
 #include <stdio.h>
 //#define printf Debug

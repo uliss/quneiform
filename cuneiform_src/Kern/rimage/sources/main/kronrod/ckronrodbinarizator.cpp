@@ -59,6 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ckronrodbinarizator.h"
 
 #include <stdlib.h>
+#include <string.h>
 #include "compat_defs.h"
 
 #define far
@@ -316,7 +317,7 @@ void CKronrodBinarizator::grey_open_init_MEM()
 	for (k=0; k<NI; k++)  
 		ppMem[k] = NULL;		// NEW
 
-	_fmemset (pMBIT, 0, N_Bytes_in_all_MBIT);	// ZERO to MBIT
+	memset (pMBIT, 0, N_Bytes_in_all_MBIT);	// ZERO to MBIT
 	pMBIT_tek = pMBIT;
 	N_tek_Line_in_MBIT = 0;
 
@@ -346,7 +347,7 @@ Word32 CKronrodBinarizator::grey_to(PWord8 pKogo)
 	if (I_to==NI)
 	{ pr_ERR_2 ((PInt8)("GREY TO:\nTOO MANY LINES %d,%d"), I_to,Itek);
 					return 0; }
-	_fmemcpy (pMem_kuda, pKogo, NJ);
+	memcpy (pMem_kuda, pKogo, NJ);
 
 	if ((Flag_OTL) && (I_to<=100) && (I_to%10==0))
 	PR_BEG "GREY_TO  I=%d\nJ: 00, 40, 80, C0\nB: %02X, %02X, %02X, %02X",
@@ -415,9 +416,9 @@ void CKronrodBinarizator::grey_to_monitor_MBIT(Word32 n_from)
 	n1 = N_tek_Line_in_MBIT * N_Bytes_in_MBIT_Line;
 	n2 = N_Bytes_in_all_MBIT - n1;
 
-	_fmemcpy (pMBIT, pMBIT + n1, n2);	// SHIFT to begin
-	_fmemset (pMBIT + n2, 0, n1);		// ZERO to end
-	if (Flag_Draw)	_fmemset (pMBIT + n2,  0x24,  16); // * * * * * *
+	memcpy (pMBIT, pMBIT + n1, n2);	// SHIFT to begin
+	memset (pMBIT + n2, 0, n1);		// ZERO to end
+	if (Flag_Draw)	memset (pMBIT + n2,  0x24,  16); // * * * * * *
 	pMBIT_tek = pMBIT;
 	N_tek_Line_in_MBIT = 0;
 
@@ -438,7 +439,7 @@ void CKronrodBinarizator::grey_from(PWord8 pKuda)
 		Korobs ();
 	//......................................................................//
 	// NEW QUANT
-	_fmemcpy (pKuda, pMBIT_tek, N_Bytes_in_MBIT_Line); // WRITE RESULT
+	memcpy (pKuda, pMBIT_tek, N_Bytes_in_MBIT_Line); // WRITE RESULT
 	pMBIT_tek += N_Bytes_in_MBIT_Line;
 	N_tek_Line_in_MBIT++;
 	//......................................................................//
@@ -2234,7 +2235,7 @@ void CKronrodBinarizator::Korob_Files_Write()
 	/*......................................................................*/
 	for (i=Korob_i1; i<=Korob_i2; i++) 
 	{
-	    _fmemcpy ((LPBYTE) buf_B, ppMem [i] + Korob_j1, Korob_nj);	///
+	    memcpy ((LPBYTE) buf_B, ppMem [i] + Korob_j1, Korob_nj);	///
 	    n = fwrite (buf_B, 1, Korob_nj, mkFile_KOROBS_BODIES);
 	    if (n!=Korob_nj)
 		PR_BEG 

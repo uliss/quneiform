@@ -134,8 +134,6 @@ typedef		 long  Int32;
 */
 #ifdef WIN32
 	#define EXPORT(a) __declspec(dllexport) a
-	#define _fmemset(a,b,c) memset(a,b,c)
-	#define _fmemcpy(a,b,c) memcpy(a,b,c)
 #else
 	#define EXPORT(a)  a _export
 #endif
@@ -485,7 +483,7 @@ if (N_Bytes_FROM==0)  pr_ERR ("GREY: NBF==0");
 //////	for (k=0; k<MAX_NI; k++)  ppMem [k] = NULL;	// OLD
 	for (k=0; k<NI; k++)  ppMem [k] = NULL;		// NEW
 
-	_fmemset (pMBIT, 0, N_Bytes_in_all_MBIT);	// ZERO to MBIT
+	memset (pMBIT, 0, N_Bytes_in_all_MBIT);	// ZERO to MBIT
 	pMBIT_tek = pMBIT;
 	N_tek_Line_in_MBIT = 0;
 
@@ -510,7 +508,7 @@ WORD	n_acc, n_from;	// really it is N_lines_will_be_ready;
 	if (I_to==NI)
 	   { pr_ERR_2 ("GREY TO:\nTOO MANY LINES %d,%d", I_to,Itek);
 								return 0; }
-	_fmemcpy (pMem_kuda, pKogo, NJ);
+	memcpy (pMem_kuda, pKogo, NJ);
 
 if ((Flag_OTL) && (I_to<=100) && (I_to%10==0))
 PR_BEG "GREY_TO  I=%d\nJ: 00, 40, 80, C0\nB: %02X, %02X, %02X, %02X",
@@ -572,9 +570,9 @@ WORD	n1, n2;
 	n1 = N_tek_Line_in_MBIT * N_Bytes_in_MBIT_Line;
 	n2 = N_Bytes_in_all_MBIT - n1;
 
-	_fmemcpy (pMBIT, pMBIT + n1, n2);	// SHIFT to begin
-	_fmemset (pMBIT + n2, 0, n1);		// ZERO to end
-	if (Flag_Draw)	_fmemset (pMBIT + n2,  0x24,  16); // * * * * * *
+	memcpy (pMBIT, pMBIT + n1, n2);	// SHIFT to begin
+	memset (pMBIT + n2, 0, n1);		// ZERO to end
+	if (Flag_Draw)	memset (pMBIT + n2,  0x24,  16); // * * * * * *
 	pMBIT_tek = pMBIT;
 	N_tek_Line_in_MBIT = 0;
 
@@ -590,7 +588,7 @@ EXPORT(void) grey_from (BYTE far *pKuda) {       // 29.08.1992
 	if ((Itek!=0) && (Itek!=NI_1))  Korobs ();
 //......................................................................//
 							// NEW QUANT
-	_fmemcpy (pKuda, pMBIT_tek, N_Bytes_in_MBIT_Line); // WRITE RESULT
+	memcpy (pKuda, pMBIT_tek, N_Bytes_in_MBIT_Line); // WRITE RESULT
 	pMBIT_tek += N_Bytes_in_MBIT_Line;
 	N_tek_Line_in_MBIT++;
 //......................................................................//
@@ -1954,7 +1952,7 @@ WORD	buf_B [2550];	//////////////////////////////////////////////////
 	if (n!=8)  PR_BEG "ERROR Korob_Files_Write: n=%d", n);	PR_END
 /*......................................................................*/
 	for (i=Korob_i1; i<=Korob_i2; i++)  {
-	    _fmemcpy ((LPBYTE) buf_B, ppMem [i] + Korob_j1, Korob_nj);	///
+	    memcpy ((LPBYTE) buf_B, ppMem [i] + Korob_j1, Korob_nj);	///
 	    n = fwrite (buf_B, 1, Korob_nj, mkFile_KOROBS_BODIES);
 	    if (n!=Korob_nj)
 		PR_BEG "ERROR Korob_Files_Write: n=%d#%d",

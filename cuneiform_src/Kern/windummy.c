@@ -375,14 +375,6 @@ BYTE GetBValue(DWORD rgb) {
     return 0;
 }
 
-void *_fmemcpy(void *dst, const void *src, size_t length) {
-    return memcpy(dst, src, length);
-}
-
-void *_fmemset(void *dst, int c, size_t length) {
-    return memset(dst, c, length);
-}
-
 HWND GetFocus() {
     return NULL;
 }
