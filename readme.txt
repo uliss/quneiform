@@ -29,7 +29,7 @@ Then type the following commands:
 
 mkdir builddir
 cd builddir
-cmake -DCMAKE_BUILD_TYPE=debug ../cuneiform_src
+cmake -DCMAKE_BUILD_TYPE=debug ..
 make
 
 
