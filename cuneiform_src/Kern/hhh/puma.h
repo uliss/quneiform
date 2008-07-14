@@ -132,7 +132,7 @@ typedef struct
 	FNSetImportData		fnSetImportData;
 } PUMAENTRY, * LPPUMAENTRY;
 
-typedef enum PUMA_EXPORT_ENTRIES
+enum PUMA_EXPORT_ENTRIES
 {
 		PUMA_FNPUMA_XOpen = 1,
 		PUMA_FNPUMA_XClose,

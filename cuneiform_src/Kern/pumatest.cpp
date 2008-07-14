@@ -34,35 +34,105 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include<stdio.h>
 #include<stdint.h>
 #include<stdlib.h>
+#include<cstring>
 #include"puma.h"
 
-//#include"mpuma.h"
-//void ProgressStart( void );
-//void     SetSpeller(Bool32 nNewValue);
-//Bool32 g_bSpeller =TRUE;
+struct langlist {
+    int puma_number;
+    const char *name;
+};
+
+/* Language codes according to ISO 639-2. Most of these don't seem to have
+ * corresponding data files. A bug?
+ */
+static const langlist langs[] = { 
+        {PUMA_LANG_ENGLISH,   "eng"},
+        {PUMA_LANG_GERMAN,    "ger"},
+        {PUMA_LANG_FRENCH,    "fra"},
+        {PUMA_LANG_RUSSIAN,   "rus"},
+        {PUMA_LANG_SWEDISH,   "swe"},
+        {PUMA_LANG_SPANISH,   "spa"},
+        {PUMA_LANG_ITALIAN,   "ita"},
+        {PUMA_LANG_RUSENG,    "ruseng"},
+        {PUMA_LANG_UKRAINIAN, "ukr"},
+        {PUMA_LANG_SERBIAN,   "srp"},
+        {PUMA_LANG_CROATIAN,  "hrv"},
+        {PUMA_LANG_POLISH,    "pol"},
+        {PUMA_LANG_DANISH,    "dan"},
+        {PUMA_LANG_PORTUGUESE,"por"},
+        {PUMA_LANG_DUTCH,     "dut"},
+        {PUMA_LANG_DIG,       "dig"}, // What is this language?
+        {PUMA_LANG_UZBEK,     "uzb"},
+        {PUMA_LANG_KAZ,       "kaz"}, 
+        {PUMA_LANG_KAZ_ENG,   "kazeng"},
+        {PUMA_LANG_CZECH,     "cze"},
+        {PUMA_LANG_ROMAN,     "rum"},
+        {PUMA_LANG_HUNGAR,    "hun"},
+        {PUMA_LANG_BULGAR,    "bul"},
+        {PUMA_LANG_SLOVENIAN, "slo"},
+        {PUMA_LANG_LATVIAN,   "lav"},
+        {PUMA_LANG_LITHUANIAN,"lit"},
+        {PUMA_LANG_ESTONIAN,  "est"},
+        {PUMA_LANG_TURKISH,   "tur"},
+        {-1, NULL}
+};
+
+static void print_supported_languages() {
+    printf("Supported languages:");
+    for(const langlist *l = langs; l->puma_number >= 0; l++)
+        printf(" %s", l->name);
+    printf(".\n");
+}
 
 int main(int argc, char **argv) {
 
     char bmpheader[2];
     char *dib;
+    const char *infilename = NULL;
+    Word32 langcode = PUMA_LANG_ENGLISH; // By default recognize plain english text.
     const char *outfilename = "pumaout.txt";
     FILE *f;
     int32_t dibsize, offset;
     
     printf("Cuneiform for Linux 0.1\n");
     
-    if(argc != 2) {
-        printf("Usage: %s imagefile\n", argv[0]);
+    for(int i=1; i<argc; i++) {
+        /* Changing language. */
+        if(strcmp(argv[i], "-l") == 0) {
+            if(++i >= argc) {
+                printf("Missing language after -l.\n");
+                print_supported_languages();
+                return 1;
+            }
+            for(int j=0; langs[j].puma_number >= 0; j++) {
+                if(strcmp(langs[j].name, argv[i]) == 0) {
+                    langcode = langs[j].puma_number;
+                    break;
+                }
+            }
+            if(langcode == -1) {
+                printf("Unknown language %s.\n", argv[i]);
+                print_supported_languages();
+                return 1;
+            }
+        } else {        
+        /* No switches, so set input file. */
+        infilename = argv[i];
+        }
+    }
+    
+    if(infilename == NULL) {
+        printf("Usage: %s [-l languagename] imagefile\n", argv[0]);
         return 0;
     }
-    f = fopen(argv[1], "rb");
+    f = fopen(infilename, "rb");
     if(!f) {
-        printf("Could not open file %s.\n", argv[1]);
+        printf("Could not open file %s.\n", infilename);
         return 1;
     }
     fread(bmpheader, 1, 2, f);
     if(bmpheader[0] != 'B' || bmpheader[1] != 'M') {
-        printf("%s is not a BMP file.\n", argv[1]);
+        printf("%s is not a BMP file.\n", infilename);
         return 1;
     }
     fread(&dibsize, sizeof(int32_t), 1, f);
@@ -82,7 +152,7 @@ int main(int argc, char **argv) {
     }
     
     if(*((int32_t*) (dib+16)) != 0) {
-        printf("%s is a compressed BMP. Only uncompressed BMP files are supported.\n", argv[1]);
+        printf("%s is a compressed BMP. Only uncompressed BMP files are supported.\n", infilename);
         printf("Please convert your BMP to uncompressed V3 format and try again.");
         return 1;
     }
@@ -92,6 +162,9 @@ int main(int argc, char **argv) {
         return 1;
     }
     //printf("Puma initialized.\n");
+    
+    // Set the language.
+    PUMA_SetImportData(PUMA_Word32_Language, &langcode);
     
     if(!PUMA_XOpen(dib, "none.txt")) {
         printf("PUMA_Xopen failed.\n");

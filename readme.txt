@@ -16,9 +16,6 @@ This port is has several limitations. Among the biggest ones are:
 - it only works if you run it in the build directory
 - it only reads BMP files
 - layout analysis is disabled
-- only supported language is a mixture of english and russian (which means that
-  some of your 'a' letters may get recognized as the corresponding cyrillic
-  letter and so on)
 
 Patches to fix any of these issues are gladly accepted.
 
@@ -37,10 +34,14 @@ Running
 
 You MUST be in the root of the build directory. Then just do
 
-./pumatest <filename.bmp>
+./pumatest [-l language] <filename.bmp>
 
 Output is written to pumaout.txt. Cuneiform assumes that your image contains
 only a single column of text.
+
+By default Cuneiform recognizes english text. To change the language use the
+command line switch -l followed by your language string. To get a list of
+supported languages type "./pumatest -l".
 
 
 Contact information
