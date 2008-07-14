@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
     }
     fread(bmpheader, 1, 2, f);
     if(bmpheader[0] != 'B' || bmpheader[1] != 'M') {
-        printf("Invalid BMP header.\n");
+        printf("%s is not a BMP file.\n", argv[1]);
         return 1;
     }
     fread(&dibsize, sizeof(int32_t), 1, f);
@@ -77,11 +77,13 @@ int main(int argc, char **argv) {
     
     if(*((int32_t*)dib) != 40) {
         printf("BMP is not of type \"Windows V3\", which is the only supported format.\n");
+        printf("Please convert your BMP to uncompressed V3 format and try again.");
         return 1;
     }
     
     if(*((int32_t*) (dib+16)) != 0) {
         printf("%s is a compressed BMP. Only uncompressed BMP files are supported.\n", argv[1]);
+        printf("Please convert your BMP to uncompressed V3 format and try again.");
         return 1;
     }
     
