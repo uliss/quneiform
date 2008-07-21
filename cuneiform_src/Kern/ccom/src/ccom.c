@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№ 
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№. 
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ 
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.  
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚ 
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ 
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ. 
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ, 
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР• 
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР• 
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р 
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР• 
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•, 
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™ 
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР, 
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™ 
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -339,7 +339,7 @@ if( size_lrep && lines>0 && lines )
   comp->size_linerep = (Int16)size_lrep;  
   comp->linerep      = (Word8*)my_alloc(size_lrep+2);
   if( !comp->linerep || 
-	  size_lrep==-1 ) // OLEG & ANTON : очень большие компоненты
+	  size_lrep==-1 ) // OLEG & ANTON : very large components
     return FALSE;
   memcpy( comp->linerep, lines, size_lrep);
   *(comp->linerep+size_lrep)=0; // LAST zero
@@ -449,7 +449,7 @@ if( size_lrep && lines>0 && lines )
   comp->size_linerep = (Int16)size_lrep;  
   comp->linerep      = (Word8*)my_alloc(size_lrep+2);
   if( !comp->linerep || 
-	  size_lrep==-1 ) // OLEG & ANTON : очень большие компоненты
+	  size_lrep==-1 ) // OLEG & ANTON : very large components
     return FALSE;
   memcpy( comp->linerep, lines, size_lrep);
   *(comp->linerep+size_lrep)=0; // LAST zero
@@ -516,7 +516,7 @@ while( ub )
 return TRUE;
 }
 
-// delete withoout change list of comps
+// delete without change list of comps
 static CCOM_comp *  CCOM_DeleteComp(CCOM_handle hcont,CCOM_comp * comp)
 {
 CCOM_comp   * next=comp->next_comp;
@@ -944,16 +944,16 @@ if( comp->numcomp>1 )
     h = comp->h;
     if( comp->scale )
         {
-        //w >>= comp->scale; // относительная (шкалированная) ширина компоненты
+        //w >>= comp->scale; // relative (scaled) width of component
         //h >>= comp->scale;
         w =(w+(1<<comp->scale)-1)>> comp->scale;
-        // т.е., не [w/2^scale], а [( w+((2^scale)-1) )/2^scale],
-        // ибо ширине и высоте как-то не к лицу быть нулем
-        // (то есть -- даже все мелкие линии отрисовываются)
+        // i.e., not a [w/2^scale], but [( w+((2^scale)-1) )/2^scale] instead.
+        // as far both width and height are not supposed to be 0.
+        // (hence --- even the very small lines are still drawn (past tense of draw))
         h =(h+(1<<comp->scale)-1)>> comp->scale;    
-        // а вот начало компоненты нулем вполне может быть нулем
-        // (то есть в ноль при сжатии отображается не одна нулевая
-        // точка, а, как и положено, весь интервал [0..((2^scale)-1))]
+        // beginning of component can be 0.
+        // (i.e., pre-image of 0 with respect to this contraction is not only 0,
+        // but also the whole interval [0..((2^scale)-1))]
         left>>=comp->scale;
         upper>>=comp->scale;
         }
@@ -972,7 +972,7 @@ if( comp->scale )
     //h >>= comp->scale;
     w =(w+(1<<comp->scale)-1)>> comp->scale;
     h =(h+(1<<comp->scale)-1)>> comp->scale;    
-    // а вот здесь -- именно ">>=comp->scale":
+    // exactly here we do ">>=comp->scale":
     left>>=comp->scale;
     upper>>=comp->scale;
     }
@@ -1384,112 +1384,112 @@ CCOM_FUNC(Bool32) CCOM_GetExportData(Word32 dwType, void * pData)
   wLowRC = CCOM_ERR_NO;
 	switch(dwType)
 	{
-	case CCOM_FNNEW:                    // создать новую компоненту       
+	case CCOM_FNNEW:                    // create new component
 		EXPORT(CCOM_New);
 		break;
-    case CCOM_FNSTORE:                  // записать в компоненту образ
+    case CCOM_FNSTORE:                  // write an image to the component
 		EXPORT(CCOM_Store);
 		break;
-    case CCOM_FNCOPY:                  // записать в компоненту образ другой
+    case CCOM_FNCOPY:                  // write the image of another component to this component
 		EXPORT(CCOM_Copy);
 		break;
-    case CCOM_FNDELETE:                 // удалить компоненту   
+    case CCOM_FNDELETE:                 // delete a component
 		EXPORT(CCOM_Delete);
 		break;
-    case CCOM_FNGETFIRST:               // дать первую компоненту из контейнера   
+    case CCOM_FNGETFIRST:               // get a first component from conatiner
 		EXPORT(CCOM_GetFirst);
 		break;
-    case CCOM_FNGETNEXT:                // дать следующую компоненту    
+    case CCOM_FNGETNEXT:                // get next component (from the container)
 		EXPORT(CCOM_GetNext);
 		break;
-    case CCOM_FNGETLINE:                // получить интервальное представление   
+    case CCOM_FNGETLINE:                // obtain an interval representation (interval is adjective here)
 		EXPORT(CCOM_GetLine);
 		break;
-    case CCOM_FNGETRASTER:              // получить рабочий растр компоненты  
+    case CCOM_FNGETRASTER:              // get raster of the component
 		EXPORT(CCOM_GetRaster);
 		break;
-    case CCOM_FNGETCOLLECTION:            // Получить коллекцию распознавания 
+    case CCOM_FNGETCOLLECTION:            // get a collection of recognition
 		EXPORT(CCOM_GetCollection);
 		break;
-    case CCOM_FNGETUSERBLOCK:           // Получить пользовательский блок
+    case CCOM_FNGETUSERBLOCK:           // get user block
 		EXPORT(CCOM_GetUserBlock);
 		break;
-    case CCOM_FNCREATECONT:             // Создать новый контейнер
+    case CCOM_FNCREATECONT:             // create new container
         EXPORT(CCOM_CreateContainer);
         break;
-    case CCOM_FNDELETECONT:             // Уничтожить контейнер
+    case CCOM_FNDELETECONT:             // delete container
         EXPORT(CCOM_DeleteContainer);
         break;
-    case    CCOM_FNADDLPTORS:           // Добавить ЛП к растру
+    case    CCOM_FNADDLPTORS:           // Add LP to raster
         EXPORT(CCOM_AddLPToRaster);
         break;
-    case    CCOM_FNMAKELP:              // Получить интервальное представление
+    case    CCOM_FNMAKELP:              // Obtain an interval representation (interval is adjective here).
         EXPORT(CCOM_MakeLP);
         break;
-    case    CCOM_FNSETUSERBLOCK:        // Записать пользовательский блок
+    case    CCOM_FNSETUSERBLOCK:        // write user block
         EXPORT(CCOM_SetUserBlock);
         break;
-    case    CCOM_FNNEWUSERCODE:         // Дать код свободного пользовательского кода
+    case    CCOM_FNNEWUSERCODE:         // Give a code of a free user code (senseless).
         EXPORT(CCOM_NewUserCode);
         break;
-    case    CCOM_FNVERSION:             // Дать номер версии
+    case    CCOM_FNVERSION:             // give version number
         EXPORT(vers);
         break;
-    case    CCOM_FNBACKUP:              // сохранить контейнер на диск         
+    case    CCOM_FNBACKUP:              // save container to disk
         EXPORT(CCOM_Backup);
         break;
-    case    CCOM_FNRESTORE:             // восстановить контейнер с диска
+    case    CCOM_FNRESTORE:             // restore container from disk
         EXPORT(CCOM_Restore);
         break;
-    case    CCOM_FNDELALL:              // удалить все контейнеры
+    case    CCOM_FNDELALL:              // delete all containers
         EXPORT(CCOM_DeleteAll);
         break;
-    case    CCOM_FNLARGENEW:            // создать новую компоненту с длинными интервалами
+    case    CCOM_FNLARGENEW:            // create new component with long intervals
         EXPORT( CCOM_LargeNew );       
         break;
-    case    CCOM_FNLARGENEWLN:          // создать новую линию с длинными интервалами
+    case    CCOM_FNLARGENEWLN:          // create new line with long intervals
         EXPORT( CCOM_LargeNewLn );       
         break;
-    case    CCOM_FNLARGENEWINTERVAL:    // записать новый длинный интервал
+    case    CCOM_FNLARGENEWINTERVAL:    // write new long interval
         EXPORT( CCOM_LargeNewInterval );       
         break;
-    case    CCOM_FNLARGECLOSE:          // закончить обработку компоненты с длинными интервалами
+    case    CCOM_FNLARGECLOSE:          // finish processing of the component with long intervals
         EXPORT( CCOM_LargeClose );     
         break;
-    case    CCOM_FNSETKILLEDACCESS:       // режим доступа к убитым
+    case    CCOM_FNSETKILLEDACCESS:       // mode with access to killed (no noun follows)
         EXPORT( CCOM_SetKilledAccess );     
         break;
-    case    CCOM_FNKILL:                   // удалить бе уничтожения
+    case    CCOM_FNKILL:                   // kill without deletion
         EXPORT( CCOM_Kill);
         break;
-    case CCOM_FNGETEXTRASTER:              // получить рабочий растр компоненты  
+    case CCOM_FNGETEXTRASTER:              // get raster of the component
 		EXPORT(CCOM_GetExtRaster);
 		break;
     case CCOM_FNCLEARCONTAINER:
         EXPORT( CCOM_ClearContatiner);
         break;
-    case CCOM_FNGETSCALERASTER:           // ЛП в растр со сжатием
+    case CCOM_FNGETSCALERASTER:           // LP (interval representation) into raster with contraction (or contracted raster).
 		EXPORT(CCOM_GetScaleRaster);
 		break;
-    case    CCOM_COMPRESSCONTAINER:       // удалить мелочь
+    case    CCOM_COMPRESSCONTAINER:       // remove minor stuff
         EXPORT(CCOM_CompressContatiner);
 		break;
-    case    CCOM_SETLANGUAGE:       // установить язык контейнера
+    case    CCOM_SETLANGUAGE:       // set language of container
         EXPORT(CCOM_SetLanguage);
 		break;
-    case    CCOM_GETLANGUAGE:       // получить язык контейнера
+    case    CCOM_GETLANGUAGE:       // get language of container
         EXPORT(CCOM_GetLanguage);
 		break;
-    case    CCOM_GECONTAINERVOLUME: // число компонент в контейнере
+    case    CCOM_GECONTAINERVOLUME: // number of components in container
         EXPORT(CCOM_GetContainerVolume);
         break;
-    //case CCOM_FNSTORELARGE:         // записать в компоненту образ с длинными интервалами
+    //case CCOM_FNSTORELARGE:         // write an image with killed long intervals to the component
 	//	EXPORT(CCOM_StoreLarge);
 	//	break;
-    case    CCOM_FNREANIMATE:             // восстановить убитую компоненту
+    case    CCOM_FNREANIMATE:             // restore killed component
         EXPORT(CCOM_Reanimate);
         break;
-    case    CCOM_FNADDCOMPTORS:             // восстановить убитую компоненту
+    case    CCOM_FNADDCOMPTORS:             // restore killed component
         EXPORT(CCOM_AddCompToRaster);
         break;
 

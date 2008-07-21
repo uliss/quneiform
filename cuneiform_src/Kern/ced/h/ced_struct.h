@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№ 
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№. 
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ 
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.  
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚ 
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ 
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ. 
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ, 
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР• 
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР• 
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р 
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР• 
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•, 
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™ 
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР, 
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™ 
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -82,8 +82,7 @@ class CEDParagraph;
 class CEDLine;
 class CEDChar;
 
-//Все структуры ed...Descr должны иметь первым полем 
-//CEDParagraph* next, чтобы можно было по ним ходить
+//all structures of ed... first field of Descr  is CEDParagraph* next, (in order to go along them
 
 typedef struct edColDescr
 {
@@ -126,7 +125,7 @@ typedef struct edCellDescr
 }EDCELLDESCR;
 typedef struct edRowDescr
 {
-	CEDParagraph* next,*last,*cur;//Первая ячейка, след. абзац с типом RowBeg либо TabEnd,cur - последняя введенная ячейка
+	CEDParagraph* next,*last,*cur;//first cell, next paragraph with type RowBeg or TabEnd, cur - last of input cells
 	int numOfCells;
 	int left; 
 	int rowHeight;
@@ -169,9 +168,9 @@ class CED_FUNC(CEDPage)
 {
 public:
 	
-	//Данные о изображении
+	//picture data
 	EDSIZE	sizeOfImage;		// The size of the original image in pixels
-	EDSIZE	dpi;				//Разрешение сканера для этой картинки
+	EDSIZE	dpi;				//scanner resolution for this picture
 	int		turn;				// Tangent angle on the vertical images * 2048
 	char*	imageName;			// Filename image. If the path is not specified, is searched in one 
 	                            // Directory with the file ed
@@ -183,11 +182,11 @@ public:
 	char	recogLang;
 	Bool32  resizeToFit;
 
-	int		fontsUsed;			//КThe number of fonts used in table
-	int		fontsCreated;		//КThe number of fonts created in the table
+	int		fontsUsed;			//РљThe number of fonts used in table
+	int		fontsCreated;		//РљThe number of fonts created in the table
 	fontEntry*	fontTable;		// Pointer to the table fonts
-	int		picsUsed;			//КNumber of images used in table
-	int		picsCreated;		//КNumber of images created in the table
+	int		picsUsed;			//РљNumber of images used in table
+	int		picsCreated;		//РљNumber of images created in the table
 	pictEntry*	picsTable;		// pointer to a table of images
 
 	char *	extData;			// Data cat. will be recorded in the file after the title
@@ -222,36 +221,35 @@ public:
 
 	Bool32 CreatePicture(int pictNumber, EDSIZE pictSize, EDSIZE pictGoal, int pictAlign, int type, void * data, int len);
 
-	CEDSection * InsertSection();	//Вставляет новую секцию после текущей. Текущей становится новая секция
-								//Возвращает указатель на вновь созданную секцию
-//	CEDSection * DeleteSection(Bool32 _deleteSubItems);	//Удаляет текущую секцию. Текущей становится предыдущая секция.
-								//Она и возвращается 
-				//_deleteSubItems - удалять ли все дочерние элементы, либо прикрепить их
-				//к предыдущему объекту
-	CEDSection * SetCurSection(CEDSection* _sect);//Устанавливает новое значение текущей секции
-	CEDSection * SetCurSection(int _number);//Устанавливает новое значение текущей секции
+	CEDSection * InsertSection();	//inserts new section after current one. inserted one becomes current
+								//sets pointer to the inserted one
+//	CEDSection * DeleteSection(Bool32 _deleteSubItems);	//deletes current section. previous one becomes current
+								//return it
+				//_deleteSubItems - either delete all daughter elements or attach it to previous object
+	CEDSection * SetCurSection(CEDSection* _sect);//sets new value of current section
+	CEDSection * SetCurSection(int _number);//sets new value of current section
 	
-	CEDSection * GetCurSection();	//Возвращает текущую секцию
-	int		GetNumOfCurSection();	//Возвращает текущую секцию
+	CEDSection * GetCurSection();	//returns current section
+	int		GetNumOfCurSection();	//returns current section
 	
-	CEDSection * NextSection();	//Возвращает секцию, следующую за текущей,0 - если секция последняя
-	CEDSection * PrevSection();	//Возвращает секцию, предыдущую текущей,0 - если секция первая
+	CEDSection * NextSection();	//returns next section, 0 if last
+	CEDSection * PrevSection();	//return previous section, 0 if first
 
 	int NumberOfSections,NumberOfParagraphs,NumberOfLines,NumberOfChars;
 
-	CEDSection * sections;		//Связный список из секций
-//	CEDParagraph * paragraphs;	//Связный список абзатцев
+	CEDSection * sections;		//connected list of sections
+//	CEDParagraph * paragraphs;	//connected list of paragraphs
 //	CEDLine * lines;
 //	CEDChar * chars;
 	
-	CEDSection * curSect;		//Текущая секуия
+	CEDSection * curSect;		//current section
 	};
 
 class CED_FUNC(CEDSection)
 {
 public:
-	int		numberOfColumns;	//К The number of columns in the section (n pieces)
-//	int		numberOfFrames;		//КNumber of frames-1 in the section (n-1 pieces) 
+	int		numberOfColumns;	//Рљ The number of columns in the section (n pieces)
+//	int		numberOfFrames;		//РљNumber of frames-1 in the section (n-1 pieces) 
 	//SIZE *	pColSize;		// Pointer to n-1 piece structures SIZE.cx-width columns,
 								// SIZE.cy - the distance to the next column in twip 
 	                            // width_last_column width = page - width_fields --
@@ -298,26 +296,25 @@ public:
 	
 	CEDParagraph * InsertParagraph(Bool32 AfterCurrent=TRUE);	// Inserts new paragraph after the current. Current becomes a new paragraph 
 								// Returns pointer to the newly created bullet
-//	CEDParagraph * DeleteParagraph(Bool32 _deleteSubItems);	//Удаляет текущий абзац. Текущим становится предыдущий абзац.
-								//Он и возвращается 
-				//_deleteSubItems - удалять ли все дочерние элементы, либо прикрепить их
-				//к предыдущему объекту
-	CEDParagraph *	SetCurParagraph(CEDParagraph* _para);//Устанавливает новое значение текущего абзаца
-	CEDParagraph * SetCurParagraph(int _number);//Устанавливает новое значение текущей абзаца
+//	CEDParagraph * DeleteParagraph(Bool32 _deleteSubItems);	//deletes current paragraph. previous one becomes current
+								//return it
+				//_deleteSubItems - either delete all daughter elements or attach it to previous object
+	CEDParagraph *	SetCurParagraph(CEDParagraph* _para);//sets new value of current paragraph
+	CEDParagraph * SetCurParagraph(int _number);//sets new value of current paragraph
 
-	CEDParagraph * GetCurParagraph();	//Возвращает текущий абзац 
-	int		GetNumOfCurParagraph();	//Возвращает текущий абзац
+	CEDParagraph * GetCurParagraph();	//returns current paragraph
+	int		GetNumOfCurParagraph();	//returns current paragraph
 	
-	CEDParagraph * NextParagraph(Bool32 _goThroughSect);	//Возвращает абзац, следующий за текущим,0 - если абзац последний
-	CEDParagraph * PrevParagraph(Bool32 _goThroughSect);	//Возвращает абзац, предыдущий текущему,0 - если абзац первый
-		//Если _goThroughSect = TRUE, то крайним считается последний абзац в файле, иначе- в секции
+	CEDParagraph * NextParagraph(Bool32 _goThroughSect);	//returns next paragraph, 0 if last
+	CEDParagraph * PrevParagraph(Bool32 _goThroughSect);	//returns previous paragraph, 0 if first
+		//If _goThroughSect = TRUE, then we consider boundary paragraphs in file, othrwise in section
 
-	CEDParagraph * paragraphs;	//Связный список абзацев
+	CEDParagraph * paragraphs;	//connected list of paragraphs
 	CEDParagraph * columnsBeg,*columnsEnd,*columnsCur/*,*framesBeg,*framesEnd,*framesCur*/;
 
-	CEDParagraph * curPara;//Текущий абзац
-	CEDSection * prev,*next;		//Указатели на соседние эл-ты в списке
-	int internalNumber;			//Порядковый номер абзаца он начала файла
+	CEDParagraph * curPara;//current paragraph
+	CEDSection * prev,*next;		//pointer to neibor elements in connected list
+	int internalNumber;			//number of paragraph from start of the file
 
 friend class CEDPage;
 };
@@ -367,29 +364,28 @@ public:
 	CEDParagraph* GetLogicalCell(int number);
 	int GetCountLogicalCell();
 	void CreateTableOfCells();		
-	CEDLine * InsertLine();	//Вставляет новую строку после текущей. Текущей становится новая строкя
-								//Возвращает указатель на вновь созданную строку
-	//CEDLine * DeleteLine(Bool32 _deleteSubItems);	//Удаляет текущую строку. Текущей становится предыдущая строка.
-								//Она и возвращается 
-				//_deleteSubItems - удалять ли все дочерние элементы, либо прикрепить их
-				//к предыдущему объекту
+	CEDLine * InsertLine();	//inserts new line after current one. new line becomes current
+								//returns pointer to new line
+	//CEDLine * DeleteLine(Bool32 _deleteSubItems);	//deletes current line. previous one becomes current
+								//return it
+				//_deleteSubItems - either delete all daughter elements or attach it to previous object
 
-	void	SetCurLine(CEDLine* _line);//Устанавливает новое значение текущей строки
-	CEDLine * SetCurLine(int _number);//Устанавливает новое значение текущей строки
+	void	SetCurLine(CEDLine* _line);//sets new value of current line
+	CEDLine * SetCurLine(int _number);//sets new value of current line
 	
-	CEDLine * GetCurLine();	//Возвращает текущую строку
-	int		GetNumOfCurLine();	//Возвращает текущую строку
+	CEDLine * GetCurLine();	//returns current line
+	int		GetNumOfCurLine();	//returns current line
 	
-	CEDLine * NextLine(Bool32 _goThroughPara);	//Возвращает строку, следующую за текущей,0 - если строка последняя
-	CEDLine * PrevLine(Bool32 _goThroughPara);	//Возвращает строку, предыдущую текущей,0 - если строка первая
-		//Если _goThroughSect = TRUE, то крайним считается последняя строка в файле, иначе- в абзаце
+	CEDLine * NextLine(Bool32 _goThroughPara);	//returns next line, 0 if last 
+	CEDLine * PrevLine(Bool32 _goThroughPara);	//returns previous line, 0 if first
+		//If _goThroughSect = TRUE, then we consider boundary lines in file, otherwise in paragraph
 
-	CEDLine * lines;	//Связный список строк
+	CEDLine * lines;	//connected list of lines
 	int		numOfLines;
-	CEDLine * curLine;		//Текущая строка
-	CEDParagraph * prev,*next;		//Указатели на соседние эл-ты в списке
-	int internalNumber;			//Порядковый номер абзаца он начала файла
-	int parentNumber;			//Порядковый номер родителя в файле
+	CEDLine * curLine;		//current line
+	CEDParagraph * prev,*next;		//pointer to neibor elements in connected list
+	int internalNumber;			//number of paragraph from start of file
+	int parentNumber;			//number of parent in file
 friend class CEDSection;
 friend class CEDPage;
 };
@@ -397,8 +393,8 @@ friend class CEDPage;
 class CED_FUNC(CEDLine)
 {
 public:
-	char *	extData;			//Данные, кот. будут записаны в файл после заголовка;
-	int		extDataLen;			//Их длина
+	char *	extData;			//data to be written in file after header
+	int		extDataLen;			//their length
 	Bool32	hardBreak;		
 	int defChrFontHeight;
 
@@ -408,30 +404,28 @@ public:
 	CEDChar*	GetChar(int _num);	
 	int	GetCountChar();	
 
-	CEDChar * InsertChar();	//Вставляет новый символ после текущего. Текущим становится новый символ
-								//Возвращает указатель на вновь созданный символ
-//	CEDChar * DeleteChar(Bool32 _deleteSubItems);	//Удаляет текущий символ. Текущим становится предыдущий символ.
-								//Он и возвращается 
-					//_deleteSubItems - удалять ли все дочерние элементы, либо прикрепить их
-				//к предыдущему объекту
-
-	void	SetCurChar(CEDChar* _char);//Устанавливает новое значение текущго символа
-	CEDChar * SetCurChar(int _number);//Устанавливает новое значение текущго символа
+	CEDChar * InsertChar();	//inserts new symbol after current one. new symbol becomes current
+								//returns pointer to new symbol
+//	CEDChar * DeleteChar(Bool32 _deleteSubItems);	//deletes current symbol. previous one becomes current
+								//return it
+					//_deleteSubItems - either delete all daughter elements or attach it to previous object
+	void	SetCurChar(CEDChar* _char);//set new value of current symbol
+	CEDChar * SetCurChar(int _number);//set new value of current symbol
 	
-	CEDChar * GetCurChar();	//Возвращает текущий символ
-	int		GetNumOfCurChar();	//Возвращает текущий символ
+	CEDChar * GetCurChar();	//return current symbol
+	int		GetNumOfCurChar();	//return current symbol
 	
-	CEDChar * NextChar(Bool32 _goThroughLines);	//Возвращает символ, следующую за текущим,0 - если символ последний
-	CEDChar * PrevChar(Bool32 _goThroughLines);	//Возвращает символ, предыдущий текущему,0 - если символ первый
-		//Если _goThroughSect = TRUE, то крайним считается последний символ в файле, иначе- в строке
+	CEDChar * NextChar(Bool32 _goThroughLines);	//returns next symbol, 0 if last
+	CEDChar * PrevChar(Bool32 _goThroughLines);	//returns previous symbol, 0 if first
+		//if _goThroughSect = TRUE, then we consider last symbol in file, otherwise in line
 
-	CEDChar * chars;	//Связный список символов
+	CEDChar * chars;	//connected list of symbols
 	int		numOfChars;
 
-	CEDChar * curChar;			//Текущий символ
-	CEDLine * prev,*next;		//Указатели на соседние эл-ты в списке
-	int internalNumber;			//Порядковый номер строки он начала файла
-	int parentNumber;			//Порядковый номер родителя в файле
+	CEDChar * curChar;			//current symbol
+	CEDLine * prev,*next;		//pointer to neibor elements in connected list
+	int internalNumber;			//number of line from start of file
+	int parentNumber;			//number of parent in a file
 friend class CEDParagraph;
 friend class CEDPage;
 };
@@ -439,23 +433,23 @@ friend class CEDPage;
 class CED_FUNC(CEDChar)
 {
 public:
-	edRect		layout;			//Размещение символа на исходном изображении(в пикселях)
-	int		fontHeight,fontAttribs;	//параметры шрифта
+	edRect		layout;			//layout of symbol in input image (in pixel)
+	int		fontHeight,fontAttribs;	//font parameters
 	int fontNum;
 	int fontLang;
 	int foregroundColor;
 	int backgroundColor;
-	letterEx * alternatives;	//Массив альтернатив
+	letterEx * alternatives;	//array of alternatives
 	int		numOfAltern;
-	char *	extData;			//Данные, кот. будут записаны в файл после заголовка;
-	int		extDataLen;			//Их длина
+	char *	extData;			//data to be written in file after header
+	int		extDataLen;			//their length
 
 	CEDChar();
 	~CEDChar();
-	CEDChar * prev,*next;		//Указатели на соседние эл-ты в списке
+	CEDChar * prev,*next;		//pointer to neibor elements in connected list
 protected:
-//	int internalNumber;			//Порядковый номер строки он начала файла
-	int parentNumber;			//Порядковый номер родителя в файле
+//	int internalNumber;			//number of lines from start of file 
+	int parentNumber;			//number of parent in a file
 friend class CEDLine;
 friend class CEDPage;
 friend void FormattedTR(const text_ref* pt);

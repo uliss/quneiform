@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№ 
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№. 
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ 
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.  
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚ 
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ 
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ. 
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ, 
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР• 
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР• 
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р 
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР• 
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•, 
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™ 
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР, 
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™ 
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -65,8 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include "edext.h"
 //#include "ced_struct.h"
 
-//Пред. дефайн предписывает все дибы отписывать как метафайлы, т.к.
-//ворд не понимвает дибов.
+//First of all, we define all .dib as metafiles since word does not know about .dib
 static CEDPage * mainPage;
 static CEDLine * curEdLine;
 static edBox		refBox;
@@ -131,7 +130,7 @@ CEDPage * CED_FormattedLoad (char * file,Bool32 readFromFile, Word32 bufLen)
 	return mainPage;
 }
 
-//Помещает нераспознанные коды в соттв. поле extData
+//Put non-recognized codes to the corresponding field of extData
 void ExtDataProc(Word8* _ptr, Word32 lth)
 {}
 
@@ -173,7 +172,7 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 		mainPage->pageBordersInTwips.bottom= pd->margb;      
 		mainPage->pageBordersInTwips.right=  pd->margr;      
 		mainPage->resizeToFit=               pd->resizeToFit;
-		//Для совместимости со старыми версиями
+		//for backward compatibility
 		if ( unsigned( (&(pd->recogLang)) - ((BYTE*)pd) )<pt->length-sizeof(edExtention))
 			mainPage->recogLang=pd->recogLang;
 		break;
@@ -232,7 +231,7 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 		sect->height=       sp2->height		; 
 		sect->orientation=  sp2->orientation	; 
 		sect->sectionBreak= sp2->sectionBreak;
-		//Для совместимости со старыми версиями
+		//for backward compatibility
 		if ( unsigned( (&(sp2->lineBetCol)) - ((BYTE*)sp) )<pt->length-sizeof(edExtention))
 			sect->lineBetCol=sp2->lineBetCol;
 		break;
@@ -253,7 +252,7 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 		hPara->spaceBetweenLines=    pard->spaceBetweenLines;
 		hPara->spcBtwLnsMult=        pard->spcBtwLnsMult;
 		hPara->userNumber=           (signed short)pard->userNum;
-		//Для совместимости со старыми версиями
+		//for backward compatibility
 		if ( unsigned( (&(pard->topBrdrType)) - ((BYTE*)pard) )<pt->length-sizeof(edExtention))
 			hPara->topBrdrType=pard->topBrdrType		; 
 		if ( unsigned( (BYTE*)(&(pard->topBrdrWidth)) - ((BYTE*)pard) )<pt->length-sizeof(edExtention))
@@ -312,7 +311,7 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 		cd->shading=         (signed short)cp->shading			; 
 		cd->merging=         cp->merging			; 
 		cd->vertTextAlign=	 cp->vertTextAlign;
-		//Для совместимости со старыми версиями
+		//for backward compatibility
 		if ( unsigned( (&(cp->flag)) - ((BYTE*)cp) )<pt->length-sizeof(edExtention))
 			cd->flag=cp->flag;
 		break;
@@ -330,7 +329,7 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 		fd->dxfrtextx=  fp->dxfrtextx	;
 		fd->dxfrtexty=  fp->dxfrtexty	;
 		fd->position=	fp->position;
-		//Для совместимости со старыми версиями
+		//for backward compatiility
 		if ( unsigned( (&(fp->flag)) - ((BYTE*)fp) )<pt->length-sizeof(edExtention))
 			fd->flag=fp->flag;
 		break;
@@ -340,7 +339,7 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 		charParams* chp=(charParams*)ptExt;
 		fontNum=chp->fontNumber;
 		foregroundColor=chp->foregroundColor;
-		//Для совместимости со старыми версиями
+		//for backward compatibility
 		if ( unsigned( (BYTE*)(&(chp->backgroundColor)) - ((BYTE*)chp) )<pt->length-sizeof(edExtention))
 			backgroundColor=chp->backgroundColor;
 		else
@@ -449,12 +448,10 @@ void NewFormattedL(const letter* pt,const Word32 alternatives)
 		return;
 	CEDLine *lin=curEdLine;
 /*	if(!mainPage->GetCurSection())
-		mainPage->InsertSection()->CreateColumn();//Если вдруг ed кривой, и символы идут
-										//gеред определением фрагмента
+		mainPage->InsertSection()->CreateColumn();//In case of wrong 'ed', such that symbols are before the definition of fragment
 	CEDLine * lin=mainPage->GetCurSection()->GetCurParagraph()->GetCurLine();
 	if (!lin)
-		lin=mainPage->GetCurSection()->GetCurParagraph()->InsertLine();//Если вдруг ed кривой, и символы идут
-										//gеред определением строки
+		lin=mainPage->GetCurSection()->GetCurParagraph()->InsertLine();//In case of wrong 'ed', such that symbols are before the definition of line
 */	CEDChar *chr=lin->InsertChar();
 	letterEx * lpData = new letterEx[alternatives];
 	memcpy(lpData,(void*)pt,alternatives*sizeof(letterEx));
@@ -483,7 +480,7 @@ void RepairStructure()
 	{
 		case TAB_BEGIN:
 		{
-			//Запомнили начало таблицы
+			//Memorized beginning of table
 			tabBeg=hPara;
 			EDTABDESCR *td=(EDTABDESCR*)(tabBeg->descriptor);
 			td->numOfRows=0;
@@ -494,18 +491,18 @@ void RepairStructure()
 		}
 		case TAB_ROW_BEGIN:
 		{
-			//Если не первая строка - ссылка на ткущую
+			//If it is not a first line - refer to the current one
 			if (rowBeg)
 			{
 				EDROWDESCR *rd=(EDROWDESCR*)(rowBeg->descriptor);
 				rd->last=hPara;
 			}
-			//В таблице строк+1
+			//In a table of lines+1
 			if (tabBeg)
 			{
 				EDTABDESCR *td=(EDTABDESCR*)(tabBeg->descriptor);
 				td->numOfRows++;
-				//Если строка первая
+				//If it is a first line
 				if (!rowBeg)
 					td->next=hPara;
 				td->cur=hPara;
@@ -751,7 +748,7 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 		SetReturnCode_ced(CFIO_GetReturnCode());
 		return FALSE;
 	} 	
-	//Пишем заголовок
+	//Write header
 	sheet_disk_descr sdd;
 	sdd.code=SS_SHEET_DESCR;
 	sdd.quant_fragm=1;
@@ -765,11 +762,11 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 	memset((void*)&fdd,0,sizeof(fdd));
 	fdd.code=SS_FRAGMENT;
 	if (!Write(hFile,(PInt8)&fdd,sizeof(fdd))) goto ED_WRITE_END;
-	//Пишем текстовый описатель версии
+	//Write text description of version
 	if (!WriteExtCode(hFile,EDEXT_VERSION,(void*)"CuneiForm2000 file format",strlen("CuneiForm2000 file format")+1)) goto ED_WRITE_END;
-	//Пишем таблицу шрифтов
+	//Write table of fonts
 	if (!WriteFontTable(hFile,page)) goto ED_WRITE_END;
-	//Пишем границы листа
+	//Write the boundaries of the page
 	pageDescr pd;
 	pd.paperw=page->pageSizeInTwips.cx;
 	pd.paperh=page->pageSizeInTwips.cy;
@@ -780,11 +777,11 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 	pd.resizeToFit=BYTE(page->resizeToFit);
 	pd.recogLang=page->recogLang;
 	if (!WriteExtCode(hFile,EDEXT_BORDERS, &pd,sizeof(pd))) goto ED_WRITE_END;
-	//Пишем параметры тифа
+	//Write parameters of .tif
 	if (!WriteTiffDescr(hFile,page)) goto ED_WRITE_END;
-	//Пишем все наличиствующие картинки
+	//Write all available pictures
 	if (!WritePictTable(hFile, page)) goto ED_WRITE_END;
-	//Пишем описатели секций и абзацев
+	//Write descriptions of sections and paragraphs.
 	for (sec=0;sec<page->GetNumberOfSections();sec++)
 	{
 		CEDSection * sect=page->GetSection(sec);
@@ -813,8 +810,8 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 		if (!Write(hFile,(PInt8)&sp2,sizeof(sp2))) goto ED_WRITE_END;
 		if (!WriteRemark(hFile,SSR_FRAG_TYPE,TP_MCOL_BEG)) goto ED_WRITE_END;
 		if (!WriteRemark(hFile,SSR_FRAG_PNUM,MIN(sect->numberOfColumns,1))) goto ED_WRITE_END;
-		//Пишем заголовки абзацев в колонках
-		Bool32 fisrtCol=TRUE;//Чтобы не писала NEW_COL в начале первой колонки
+		//Write headers of paragraphs in rows
+		Bool32 fisrtCol=TRUE;//In order for it not to write NEW_COL in the beginning og first column
 		CEDParagraph* hPara=sect->paragraphs;
 		while (hPara&&hPara->parentNumber==sec)
 		{
@@ -912,7 +909,7 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 
 	if (!WriteRemark(hFile,SSR_FRAG_END,0)) goto ED_WRITE_END;
 
-	//Пишем сам файл
+	//Write the file itself
 	tmpChr=page->GetChar(0);
 	if (tmpChr)
 	{
@@ -1018,7 +1015,7 @@ FINAL:
 Bool32 WriteFontTable(HANDLE hFile, CEDPage* page)
 {
 	char* ch=0;
-	//определяем суммарную длину всех имен шрифтов
+	//define the sum of lengths of all names of fonts
 	int len=0;
 	int q;
 	if (!(page->fontsUsed))
@@ -1037,9 +1034,9 @@ Bool32 WriteFontTable(HANDLE hFile, CEDPage* page)
 		page->GetFont(q,&(fond.fontNumber),&(fond.fontPitchAndFamily),
 			&(fond.fontCharset),&ch);
 		fond.size=strlen(ch)+1+sizeof(fontDiscr);
-		//пишем инфу о шрифте
+		//write info about font
 		if (!Write(hFile,(PInt8)&fond,sizeof(fontDiscr))) return FALSE;
-		//пишем имя шрифта
+		//write font's name
 		if (!Write(hFile,(PInt8)ch,strlen(ch)+1)) return FALSE;
 	}
 	return TRUE;
@@ -1063,7 +1060,7 @@ Bool32 WriteTiffDescr(HANDLE hFile, CEDPage* page)
 Bool32 WritePictTable(HANDLE hFile, CEDPage* page)
 {
 	char* ch=0;
-	//определяем суммарную длину всех картинок
+	//define sum of lengths of all pictures
 	int len=0;
 	int q;
 	if (!(page->picsUsed))
@@ -1086,9 +1083,9 @@ Bool32 WritePictTable(HANDLE hFile, CEDPage* page)
 		picd.len=page->picsTable[q].len;
 		picd.type=page->picsTable[q].type;
 		picd.size=page->picsTable[q].len+sizeof(picd);
-		//пишем инфу о картинке
+		//write picture info.
 		if (!Write(hFile,(PInt8)&picd,sizeof(picd))) return FALSE;
-		//пишем картинку
+		//write picture
 		if (!Write(hFile,(PInt8)page->picsTable[q].data,page->picsTable[q].len)) return FALSE;
 	}
 	return TRUE;
@@ -1123,7 +1120,7 @@ Bool32 WritePara(HANDLE hFile,CEDParagraph* hPara)
 	return TRUE;
 }
 
-//В поле о длине запшется lenOfObj+extraLen
+//write lenOfObj+extraLen to the field corresponding to length
 Bool32 WriteExtCode(HANDLE hFile,int Ecode, void* object, int lenOfObj, int extraLen)
 {
 	if (!(Ecode&0x8000))

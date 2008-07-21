@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№ 
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№. 
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ 
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.  
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚ 
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ 
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ. 
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ, 
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР• 
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР• 
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р 
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР• 
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•, 
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™ 
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР, 
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™ 
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -60,10 +60,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ced_struct.h"
 #include "cedint.h"
 
-//Определяем переменные и заглушки
-FNRDProc RDProced=0;//Указатель на обработчик неструктурированных данных
+//define variables and stubs
+FNRDProc RDProced=0;//points to unstructured data processor
 #define DEC_FUN(a,b,c)  FN##b b; a My##b c {}; a MyRawData##b c {RDProced((Word8*)pt,sizeof(*pt));}
-//Указатели на обработчики структурир. данных; функции, перенапр. структ. данные в неструкт.
+//points to structured data processor; functions map structured data into unstructured one
 
 DEC_FUN(void, CED_BitmapRef,(const bit_map_ref* pt));			
 DEC_FUN(void, CED_TextRef,(const text_ref* pt));
@@ -93,11 +93,11 @@ DEC_FUN(void, CED_Aksant,(const aksant* pt));
 #undef DEC_FUN
 
 #define DEC_FUN(a,b,c)  FN##b b; a My##b c {}; a MyRawData##b c {RDProced((Word8*)pt,alternatives*2);}
-//То же для символов
+//the same for symbols
     DEC_FUN(void, CED_Letter,(const letter* pt,const Word32 alternatives));
 #undef DEC_FUN
 #define DEC_FUN(a,b,c)  FN##b b; a My##b c {}; a MyRawData##b c {RDProced((Word8*)pt,pt->length);}
-//То же для спец. кодов
+//the same for special codes
     DEC_FUN(void, CED_Extention,(const edExtention* pt,const void* ptExt));
     DEC_FUN(void, CED_ExtentionNew,(const edExtentionNew* pt,const void* ptExt));
 #undef DEC_FUN
@@ -113,13 +113,13 @@ struct lin
 static CEDPage * mainPage;
 static edBox		refBox;
 static int		font,kegl,lang;
-static Word8	level;		//Уровень в структуре для помещения ExtData
+static Word8	level;		//level in a structure, where we put ExtData
 					//0-CEDPage,1-Section,2-Para,3-Line,4-Char
-static lin* array;//Массив для перетасовки строк
-static int arPosition,arLen;//Позиция и длина в массиве
+static lin* array;//array for rearrangement of rows
+static int arPosition,arLen;//position and length in array
 static char * verInfo;
-static text_ref * TRarray;//Сюда кладем все встретившиеся text_ref'ы
-static int TRPosition,TRLen;//Позиция и длина в массиве
+static text_ref * TRarray;//put all text_ref-s here
+static int TRPosition,TRLen;//position and length in array
 
 
 static void ExtDataProc(Word8* _ptr, Word32 lth);
@@ -152,7 +152,7 @@ CEDPage * Formattedload_96(char * file,Bool32 readFromFile, Word32 bufLen)
 	CED_EdTagLanguage=FormattedLang;
 
 	mainPage=new(CEDPage);
-	level=0;//ExtData пойдет в CEDPage
+	level=0;//ExtData goes to CEDPage
 	refBox.x=refBox.y=refBox.h=refBox.w=0;
 	font=kegl=lang=-1;
 	arPosition=0;
@@ -176,7 +176,7 @@ CEDPage * Formattedload_96(char * file,Bool32 readFromFile, Word32 bufLen)
 	return mainPage;
 }
 
-//Помещает нераспознанные коды в соттв. поле extData
+//Puts non-recognized codes to the corresponding field of extData
 void ExtDataProc(Word8* _ptr, Word32 lth)
 {
 /*	int*	lengthPtr;
@@ -421,20 +421,17 @@ void FormattedFD(const fragm_disk* pt)
 void FormattedLB(const line_beg* pt)
 {
 	if(!mainPage->GetCurSection())
-		mainPage->InsertSection()->CreateColumn();//Если вдруг ed кривой, и символы идут
-										//gеред определением фрагмента
+		mainPage->InsertSection()->CreateColumn();//In case of wrong 'ed', such that symbols are before the definition of fragment
 	mainPage->GetCurSection()->GetCurParagraph()->InsertLine();
 }
 
 void FormattedL(const letter* pt,const Word32 alternatives)
 {
 	if(!mainPage->GetCurSection())
-		mainPage->InsertSection()->CreateColumn();//Если вдруг ed кривой, и символы идут
-										//gеред определением фрагмента
+		mainPage->InsertSection()->CreateColumn();//In case of wrong 'ed', such that symbols are before the definition of fragment
 	CEDLine * lin=mainPage->GetCurSection()->GetCurParagraph()->GetCurLine();
 	if (!lin)
-		lin=mainPage->GetCurSection()->GetCurParagraph()->InsertLine();//Если вдруг ed кривой, и символы идут
-										//gеред определением строки
+		lin=mainPage->GetCurSection()->GetCurParagraph()->InsertLine();//In case of wrong 'ed', such that symbols are before the definition of line
 	CEDChar *chr=lin->InsertChar();
 //	char * lpData = (char *)malloc(alternatives*sizeof(letter));
 	letterEx * lpData = new letterEx[alternatives];
@@ -478,7 +475,7 @@ void StripLines()
 	array[i].beg=array[i].beg!=0?array[i].beg->next:0;
 	array[i].end=ch;
 
-	//Если строка началась до превого символа(или несколько пустых строк):
+	//If line started before the first symbol (or even some amount of empty lines):
 	for (i=0;array[i].beg==0;i++);
 	if	(i)
 	{
@@ -527,11 +524,11 @@ int compare( const void *arg1, const void *arg2 )
 }
 void RecreateFrames()
 {
-	//Сохраняем первую линию
+	//save first line
 	CEDLine *ll=mainPage->GetLine(0);
 	if (ll==0)
 		return;
-	//Удаляем все абзацы
+	//remove all paragraphs
 	CEDParagraph * pa1,*pa;
 	pa1=pa=mainPage->GetParagraph(0);
 	while (pa1)
@@ -542,18 +539,18 @@ void RecreateFrames()
 		delete pa1;
 		pa1=pa;
 	}
-	//удаляем единственную секцию
+	//delete the only existing section
 	delete mainPage->sections;
 	mainPage->curSect=0;
 	mainPage->NumberOfSections=0;
-	Bool32 inTable=FALSE;//Обрабатывается ли сейцас таблица?
-	int numOfCols=0;//Число колонок в таблице
-	int borNum=0;//Количество ячеек линий в таблице*2
-	int * borders;//Массив их координат и ширин(через одну)
+	Bool32 inTable=FALSE;//is table processing now?
+	int numOfCols=0;//number of columns in a table
+	int borNum=0;//number of cells of rows in a table, multiplied by 2
+	int * borders;//array of coordintes and widths (alternately)
 	Bool32 firstCell;
 	CEDParagraph *cell,*table,*row;
 	int i;
-	//Цикл по всем text_remark'ам до конца описателя файла
+	//cycle over all text_remark-s up to the end of file description
 	for (i=0;i<TRPosition&&TRarray[i].type!=SSR_FRAG_END;i++)
 	{
 		if (TRarray[i].type==SSR_FRAG_TYPE&&(TRarray[i].object==TP_MCOL_BEG))
@@ -574,19 +571,19 @@ void RecreateFrames()
 			Bool32 * q4=new Bool32[2];
 			Bool32 * q5=new Bool32[2];*/
 //			if (!mainPage->GetCurSection())
-			//Новая таблица всегда в новой секции
+			//new table is always in a new section
 				mainPage->InsertSection()->CreateColumn();
 			table=mainPage->GetCurSection()->CreateTable(mainPage->GetCurSection()->columnsCur/*,
 									sz,q1,q2,q3,q4,q5*/);
 			row=mainPage->GetCurSection()->CreateTableRow(table,0, 0, -1, -1, -1,-1,-1, -1,-1,-1,-1,0, FALSE);
 			cell=mainPage->GetCurSection()->CreateCell(row,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,bx,-1,-1);
-			firstCell=TRUE;//Чтобы поменять ее ширину
+			firstCell=TRUE;//in order to change its width
 		/*	delete[]q1;
 			delete[]q2;
 			delete q3;
 			delete[]q4;
 			delete[]q5;*/
-			numOfCols=-1;//Это значит, что когда в файле встретится число колонок, то мы их запомним
+			numOfCols=-1;//this means: when we find relevant amount of columns, we memorize them
 		}
 		if (TRarray[i].type==SSR_FRAG_PNUM&&numOfCols==-1)
 		{
@@ -595,7 +592,7 @@ void RecreateFrames()
 			borNum=0;
 		}
 		
-		//Запоминаем верт.линии
+		//memorize vertical lines
 		if (TRarray[i].type==SSR_FRAG_COLXW&&numOfCols!=-1)
 		{
 			borders[borNum++]=(Int16)TRarray[i].object;
@@ -615,7 +612,7 @@ void RecreateFrames()
 		if (TRarray[i].type==SSR_FRAG_TYPE&&(TRarray[i].object==TP_MCOL_END)&&inTable)
 		{
 		    int k;
-			//Обновляем инфо в заголовке таблицы
+			//renew info in a table header
 			edSize sz;
 			sz.cx=numOfCols;
 			sz.cy=((edTabDescr*)(table->descriptor))->numOfRows;
@@ -640,7 +637,7 @@ void RecreateFrames()
 			numOfCols=-1;
 			inTable=FALSE;
 			CEDParagraph* para;
-			//Делаем, чтобы абзацы, ограничивающие секцию не были видны ф-ции GetParagraph( чтобы совпать но номеру абзаца с файлом)
+			//force paragraphs bounding a section to be invisible to function GetParagraph( in order for them to coincide with a file by paragraph number)
 			for (para=table->prev;para!=((edTabDescr*)(table->descriptor))->last->next;para=para->next)
 				para->internalNumber--;
 			para->internalNumber-=2;
@@ -674,7 +671,7 @@ void RecreateFrames()
 				mainPage->GetCurSection()->CreateParagraph(cell,-1,rct,-1,-1,sz,bx,-1,-1,-1,-1,-1);
 		}
 	}
-	//Раздаем созданным абзацам первые строки
+	//create first lines in these paragraphs
 	int last=-1;
 	for (i=0;i<arPosition;i++)
 	{
@@ -685,7 +682,7 @@ void RecreateFrames()
 		}
 		ll=ll->next;
 	}
-	//Заполняем инфо о родителе, числе строк в абзаце и  создаем новые абзацы под строки с атрибутом ParaBegin
+	//fill in info about parent, number of lines in paragraph and create new paragraphs for lines with attribute ParaBegin
 	int inc=0;
 	int fn=array[0].frameNum;
 	CEDParagraph * par=mainPage->GetParagraph(array[0].frameNum);
@@ -712,7 +709,7 @@ void RecreateFrames()
 		par->numOfLines++;
 	}	
 		
-	//Удаляем ненужные разделители секций
+	//delete useless section separators
 	int dec=0,paraNum,numOfSect=mainPage->GetNumberOfSections();
 	if (mainPage->GetNumberOfSections()!=1)
 	{
@@ -771,7 +768,7 @@ void RecreateFrames()
 				}
 		}
 	}
-	//Восстанавливаем нумерацию абзацев
+	//restore enumeration of paragraphs
 	i=0;
 	for (par=mainPage->GetParagraph(0);par;par=par->next)
 	{

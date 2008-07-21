@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Ğàçğåøàåòñÿ ïîâòîğíîå ğàñïğîñòğàíåíèå è èñïîëüçîâàíèå êàê â âèäå èñõîäíîãî êîäà,
-òàê è â äâîè÷íîé ôîğìå, ñ èçìåíåíèÿìè èëè áåç, ïğè ñîáëşäåíèè ñëåäóşùèõ óñëîâèé:
+Ğ Ğ°Ğ·Ñ€ĞµÑˆĞ°ĞµÑ‚ÑÑ Ğ¿Ğ¾Ğ²Ñ‚Ğ¾Ñ€Ğ½Ğ¾Ğµ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ğµ Ğ¸ Ğ¸ÑĞ¿Ğ¾Ğ»ÑŒĞ·Ğ¾Ğ²Ğ°Ğ½Ğ¸Ğµ ĞºĞ°Ğº Ğ² Ğ²Ğ¸Ğ´Ğµ Ğ¸ÑÑ…Ğ¾Ğ´Ğ½Ğ¾Ğ³Ğ¾ ĞºĞ¾Ğ´Ğ°,
+Ñ‚Ğ°Ğº Ğ¸ Ğ² Ğ´Ğ²Ğ¾Ğ¸Ñ‡Ğ½Ğ¾Ğ¹ Ñ„Ğ¾Ñ€Ğ¼Ğµ, Ñ Ğ¸Ğ·Ğ¼ĞµĞ½ĞµĞ½Ğ¸ÑĞ¼Ğ¸ Ğ¸Ğ»Ğ¸ Ğ±ĞµĞ·, Ğ¿Ñ€Ğ¸ ÑĞ¾Ğ±Ğ»ÑĞ´ĞµĞ½Ğ¸Ğ¸ ÑĞ»ĞµĞ´ÑƒÑÑ‰Ğ¸Ñ… ÑƒÑĞ»Ğ¾Ğ²Ğ¸Ğ¹:
 
-      * Ïğè ïîâòîğíîì ğàñïğîñòğàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîğñêîì ïğàâå, ıòîò ñïèñîê óñëîâèé è ïîñëåäóşùèé 
-        îòêàç îò ãàğàíòèé. 
-      * Ïğè ïîâòîğíîì ğàñïğîñòğàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
-        äğóãèõ ìàòåğèàëàõ, ïîñòàâëÿåìûõ ïğè ğàñïğîñòğàíåíèè, äîëæíû ñîõğàíÿòüñÿ
-        óêàçàííàÿ âûøå èíôîğìàöèÿ îá àâòîğñêîì ïğàâå, ıòîò ñïèñîê óñëîâèé è
-        ïîñëåäóşùèé îòêàç îò ãàğàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòğóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñğåäñòâà ïîääåğæêè è/èëè ïğîäâèæåíèÿ 
-        ïğîäóêòîâ, îñíîâàííûõ íà ıòîì ÏÎ, áåç ïğåäâàğèòåëüíîãî ïèñüìåííîãî
-        ğàçğåøåíèÿ. 
+      * ĞŸÑ€Ğ¸ Ğ¿Ğ¾Ğ²Ñ‚Ğ¾Ñ€Ğ½Ğ¾Ğ¼ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ğ¸ Ğ¸ÑÑ…Ğ¾Ğ´Ğ½Ğ¾Ğ³Ğ¾ ĞºĞ¾Ğ´Ğ° Ğ´Ğ¾Ğ»Ğ¶Ğ½Ñ‹ Ğ¾ÑÑ‚Ğ°Ğ²Ğ°Ñ‚ÑŒÑÑ ÑƒĞºĞ°Ğ·Ğ°Ğ½Ğ½Ğ¾Ğµ
+        Ğ²Ñ‹ÑˆĞµ ÑƒĞ²ĞµĞ´Ğ¾Ğ¼Ğ»ĞµĞ½Ğ¸Ğµ Ğ¾Ğ± Ğ°Ğ²Ñ‚Ğ¾Ñ€ÑĞºĞ¾Ğ¼ Ğ¿Ñ€Ğ°Ğ²Ğµ, ÑÑ‚Ğ¾Ñ‚ ÑĞ¿Ğ¸ÑĞ¾Ğº ÑƒÑĞ»Ğ¾Ğ²Ğ¸Ğ¹ Ğ¸ Ğ¿Ğ¾ÑĞ»ĞµĞ´ÑƒÑÑ‰Ğ¸Ğ¹ 
+        Ğ¾Ñ‚ĞºĞ°Ğ· Ğ¾Ñ‚ Ğ³Ğ°Ñ€Ğ°Ğ½Ñ‚Ğ¸Ğ¹. 
+      * ĞŸÑ€Ğ¸ Ğ¿Ğ¾Ğ²Ñ‚Ğ¾Ñ€Ğ½Ğ¾Ğ¼ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ğ¸ Ğ´Ğ²Ğ¾Ğ¸Ñ‡Ğ½Ğ¾Ğ³Ğ¾ ĞºĞ¾Ğ´Ğ° Ğ² Ğ´Ğ¾ĞºÑƒĞ¼ĞµĞ½Ñ‚Ğ°Ñ†Ğ¸Ğ¸ Ğ¸/Ğ¸Ğ»Ğ¸ Ğ² 
+        Ğ´Ñ€ÑƒĞ³Ğ¸Ñ… Ğ¼Ğ°Ñ‚ĞµÑ€Ğ¸Ğ°Ğ»Ğ°Ñ…, Ğ¿Ğ¾ÑÑ‚Ğ°Ğ²Ğ»ÑĞµĞ¼Ñ‹Ñ… Ğ¿Ñ€Ğ¸ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ğ¸, Ğ´Ğ¾Ğ»Ğ¶Ğ½Ñ‹ ÑĞ¾Ñ…Ñ€Ğ°Ğ½ÑÑ‚ÑŒÑÑ
+        ÑƒĞºĞ°Ğ·Ğ°Ğ½Ğ½Ğ°Ñ Ğ²Ñ‹ÑˆĞµ Ğ¸Ğ½Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ†Ğ¸Ñ Ğ¾Ğ± Ğ°Ğ²Ñ‚Ğ¾Ñ€ÑĞºĞ¾Ğ¼ Ğ¿Ñ€Ğ°Ğ²Ğµ, ÑÑ‚Ğ¾Ñ‚ ÑĞ¿Ğ¸ÑĞ¾Ğº ÑƒÑĞ»Ğ¾Ğ²Ğ¸Ğ¹ Ğ¸
+        Ğ¿Ğ¾ÑĞ»ĞµĞ´ÑƒÑÑ‰Ğ¸Ğ¹ Ğ¾Ñ‚ĞºĞ°Ğ· Ğ¾Ñ‚ Ğ³Ğ°Ñ€Ğ°Ğ½Ñ‚Ğ¸Ğ¹.  
+      * ĞĞ¸ Ğ½Ğ°Ğ·Ğ²Ğ°Ğ½Ğ¸Ğµ Cognitive Technologies, Ğ½Ğ¸ Ğ¸Ğ¼ĞµĞ½Ğ° ĞµĞµ ÑĞ¾Ñ‚Ñ€ÑƒĞ´Ğ½Ğ¸ĞºĞ¾Ğ² Ğ½Ğµ Ğ¼Ğ¾Ğ³ÑƒÑ‚ 
+        Ğ±Ñ‹Ñ‚ÑŒ Ğ¸ÑĞ¿Ğ¾Ğ»ÑŒĞ·Ğ¾Ğ²Ğ°Ğ½Ñ‹ Ğ² ĞºĞ°Ñ‡ĞµÑÑ‚Ğ²Ğµ ÑÑ€ĞµĞ´ÑÑ‚Ğ²Ğ° Ğ¿Ğ¾Ğ´Ğ´ĞµÑ€Ğ¶ĞºĞ¸ Ğ¸/Ğ¸Ğ»Ğ¸ Ğ¿Ñ€Ğ¾Ğ´Ğ²Ğ¸Ğ¶ĞµĞ½Ğ¸Ñ 
+        Ğ¿Ñ€Ğ¾Ğ´ÑƒĞºÑ‚Ğ¾Ğ², Ğ¾ÑĞ½Ğ¾Ğ²Ğ°Ğ½Ğ½Ñ‹Ñ… Ğ½Ğ° ÑÑ‚Ğ¾Ğ¼ ĞŸĞ, Ğ±ĞµĞ· Ğ¿Ñ€ĞµĞ´Ğ²Ğ°Ñ€Ğ¸Ñ‚ĞµĞ»ÑŒĞ½Ğ¾Ğ³Ğ¾ Ğ¿Ğ¸ÑÑŒĞ¼ĞµĞ½Ğ½Ğ¾Ğ³Ğ¾
+        Ñ€Ğ°Ğ·Ñ€ĞµÑˆĞµĞ½Ğ¸Ñ. 
 
-İÒÀ ÏĞÎÃĞÀÌÌÀ ÏĞÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎĞÑÊÈÕ ÏĞÀÂ È/ÈËÈ ÄĞÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀĞÀÍÒÈÉ, ÂÛĞÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄĞÀÇÓÌÅÂÀÅÌÛÕ, 
-ÂÊËŞ×Àß ÃÀĞÀÍÒÈÈ ÊÎÌÌÅĞ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏĞÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊĞÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃĞÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎĞÑÊÈÕ ÏĞÀÂ È ÍÈ ÎÄÍÎ ÄĞÓÃÎÅ ËÈÖÎ, ÊÎÒÎĞÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎĞÍÎ ĞÀÑÏĞÎÑÒĞÀÍßÒÜ ÏĞÎÃĞÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËŞ×Àß ËŞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏĞÎÃĞÀÌÌÛ (ÂÊËŞ×Àß ÏÎÒÅĞÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅĞÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒĞÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏĞÎÃĞÀÌÌÛ ĞÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄĞÓÃÈÌÈ ÏĞÎÃĞÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃĞÀÍÈ×ÈÂÀßÑÜ İÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃĞÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
-ÂËÀÄÅËÅÖ ÈËÈ ÄĞÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅĞÜ.
+Ğ­Ğ¢Ğ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞ ĞŸĞ Ğ•Ğ”ĞĞ¡Ğ¢ĞĞ’Ğ›Ğ•ĞĞ Ğ’Ğ›ĞĞ”Ğ•Ğ›Ğ¬Ğ¦ĞĞœĞ˜ ĞĞ’Ğ¢ĞĞ Ğ¡ĞšĞ˜Ğ¥ ĞŸĞ ĞĞ’ Ğ˜/Ğ˜Ğ›Ğ˜ Ğ”Ğ Ğ£Ğ“Ğ˜ĞœĞ˜ Ğ›Ğ˜Ğ¦ĞĞœĞ˜ "ĞšĞĞš
+ĞĞĞ Ğ•Ğ¡Ğ¢Ğ¬" Ğ‘Ğ•Ğ— ĞšĞĞšĞĞ“Ğ-Ğ›Ğ˜Ğ‘Ğ Ğ’Ğ˜Ğ”Ğ Ğ“ĞĞ ĞĞĞ¢Ğ˜Ğ™, Ğ’Ğ«Ğ ĞĞ–Ğ•ĞĞĞ«Ğ¥ Ğ¯Ğ’ĞĞ Ğ˜Ğ›Ğ˜ ĞŸĞĞ”Ğ ĞĞ—Ğ£ĞœĞ•Ğ’ĞĞ•ĞœĞ«Ğ¥, 
+Ğ’ĞšĞ›Ğ®Ğ§ĞĞ¯ Ğ“ĞĞ ĞĞĞ¢Ğ˜Ğ˜ ĞšĞĞœĞœĞ•Ğ Ğ§Ğ•Ğ¡ĞšĞĞ™ Ğ¦Ğ•ĞĞĞĞ¡Ğ¢Ğ˜ Ğ˜ ĞŸĞ Ğ˜Ğ“ĞĞ”ĞĞĞ¡Ğ¢Ğ˜ Ğ”Ğ›Ğ¯ ĞšĞĞĞšĞ Ğ•Ğ¢ĞĞĞ™ Ğ¦Ğ•Ğ›Ğ˜, ĞĞ ĞĞ•
+ĞĞ“Ğ ĞĞĞ˜Ğ§Ğ˜Ğ’ĞĞ¯Ğ¡Ğ¬ Ğ˜ĞœĞ˜. ĞĞ˜ Ğ’Ğ›ĞĞ”Ğ•Ğ›Ğ•Ğ¦ ĞĞ’Ğ¢ĞĞ Ğ¡ĞšĞ˜Ğ¥ ĞŸĞ ĞĞ’ Ğ˜ ĞĞ˜ ĞĞ”ĞĞ Ğ”Ğ Ğ£Ğ“ĞĞ• Ğ›Ğ˜Ğ¦Ğ, ĞšĞĞ¢ĞĞ ĞĞ• 
+ĞœĞĞ–Ğ•Ğ¢ Ğ˜Ğ—ĞœĞ•ĞĞ¯Ğ¢Ğ¬ Ğ˜/Ğ˜Ğ›Ğ˜ ĞŸĞĞ’Ğ¢ĞĞ ĞĞ Ğ ĞĞ¡ĞŸĞ ĞĞ¡Ğ¢Ğ ĞĞĞ¯Ğ¢Ğ¬ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞ£, ĞĞ˜ Ğ’ ĞšĞĞ•Ğœ Ğ¡Ğ›Ğ£Ğ§ĞĞ• ĞĞ• 
+ĞĞ•Ğ¡ĞĞ¢ ĞĞ¢Ğ’Ğ•Ğ¢Ğ¡Ğ¢Ğ’Ğ•ĞĞĞĞ¡Ğ¢Ğ˜, Ğ’ĞšĞ›Ğ®Ğ§ĞĞ¯ Ğ›Ğ®Ğ‘Ğ«Ğ• ĞĞ‘Ğ©Ğ˜Ğ•, Ğ¡Ğ›Ğ£Ğ§ĞĞ™ĞĞ«Ğ•, Ğ¡ĞŸĞ•Ğ¦Ğ˜ĞĞ›Ğ¬ĞĞ«Ğ• Ğ˜Ğ›Ğ˜ 
+ĞŸĞĞ¡Ğ›Ğ•Ğ”ĞĞ’ĞĞ’Ğ¨Ğ˜Ğ• Ğ£Ğ‘Ğ«Ğ¢ĞšĞ˜, Ğ¡Ğ’Ğ¯Ğ—ĞĞĞĞ«Ğ• Ğ¡ Ğ˜Ğ¡ĞŸĞĞ›Ğ¬Ğ—ĞĞ’ĞĞĞ˜Ğ•Ğœ Ğ˜Ğ›Ğ˜ ĞŸĞĞĞ•Ğ¡Ğ•ĞĞĞ«Ğ• Ğ’Ğ¡Ğ›Ğ•Ğ”Ğ¡Ğ¢Ğ’Ğ˜Ğ• 
+ĞĞ•Ğ’ĞĞ—ĞœĞĞ–ĞĞĞ¡Ğ¢Ğ˜ Ğ˜Ğ¡ĞŸĞĞ›Ğ¬Ğ—ĞĞ’ĞĞĞ˜Ğ¯ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞ« (Ğ’ĞšĞ›Ğ®Ğ§ĞĞ¯ ĞŸĞĞ¢Ğ•Ğ Ğ˜ Ğ”ĞĞĞĞ«Ğ¥, Ğ˜Ğ›Ğ˜ Ğ”ĞĞĞĞ«Ğ•, 
+Ğ¡Ğ¢ĞĞ’Ğ¨Ğ˜Ğ• ĞĞ•Ğ“ĞĞ”ĞĞ«ĞœĞ˜, Ğ˜Ğ›Ğ˜ Ğ£Ğ‘Ğ«Ğ¢ĞšĞ˜ Ğ˜/Ğ˜Ğ›Ğ˜ ĞŸĞĞ¢Ğ•Ğ Ğ˜ Ğ”ĞĞ¥ĞĞ”ĞĞ’, ĞŸĞĞĞ•Ğ¡Ğ•ĞĞĞ«Ğ• Ğ˜Ğ—-Ğ—Ğ Ğ”Ğ•Ğ™Ğ¡Ğ¢Ğ’Ğ˜Ğ™ 
+Ğ¢Ğ Ğ•Ğ¢Ğ¬Ğ˜Ğ¥ Ğ›Ğ˜Ğ¦ Ğ˜/Ğ˜Ğ›Ğ˜ ĞĞ¢ĞšĞĞ—Ğ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞ« Ğ ĞĞ‘ĞĞ¢ĞĞ¢Ğ¬ Ğ¡ĞĞ’ĞœĞ•Ğ¡Ğ¢ĞĞ Ğ¡ Ğ”Ğ Ğ£Ğ“Ğ˜ĞœĞ˜ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞĞœĞ˜, 
+ĞĞ ĞĞ• ĞĞ“Ğ ĞĞĞ˜Ğ§Ğ˜Ğ’ĞĞ¯Ğ¡Ğ¬ Ğ­Ğ¢Ğ˜ĞœĞ˜ Ğ¡Ğ›Ğ£Ğ§ĞĞ¯ĞœĞ˜), ĞĞ ĞĞ• ĞĞ“Ğ ĞĞĞ˜Ğ§Ğ˜Ğ’ĞĞ¯Ğ¡Ğ¬ Ğ˜ĞœĞ˜, Ğ”ĞĞ–Ğ• Ğ•Ğ¡Ğ›Ğ˜ Ğ¢ĞĞšĞĞ™ 
+Ğ’Ğ›ĞĞ”Ğ•Ğ›Ğ•Ğ¦ Ğ˜Ğ›Ğ˜ Ğ”Ğ Ğ£Ğ“ĞĞ• Ğ›Ğ˜Ğ¦Ğ Ğ‘Ğ«Ğ›Ğ˜ Ğ˜Ğ—Ğ’Ğ•Ğ©Ğ•ĞĞ« Ğ Ğ’ĞĞ—ĞœĞĞ–ĞĞĞ¡Ğ¢Ğ˜ Ğ¢ĞĞšĞ˜Ğ¥ Ğ£Ğ‘Ğ«Ğ¢ĞšĞĞ’ Ğ˜ ĞŸĞĞ¢Ğ•Ğ Ğ¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 char logName[_MAX_PATH];
 FILE *logStream;
 
-// Ñîçäàòü ñòğàíèöó
+//create page
 CED_FUNC(Handle) CED_CreatePage(char * _imageName,EDSIZE _sizeOfImage,EDSIZE _dpi,int _turn,
 					  int _pageNumber,EDSIZE _sizeInTwips, EDRECT _pageBordersInTwips, char _unrecogChar, Bool32 _resizeToFit)
 {
@@ -105,7 +105,7 @@ CED_FUNC(Handle) CED_CreatePage(char * _imageName,EDSIZE _sizeOfImage,EDSIZE _dp
 	return (Handle)ret;
 }
 
-//Ñîçäàòü  øğèôò
+//create foont
 CED_FUNC(Bool32) CED_CreateFont(Handle hEdPage, BYTE fontNumber, BYTE fontPitchAndFamily, BYTE fontCharset,
 				char* fontName)
 {
@@ -139,7 +139,7 @@ CED_FUNC(Bool32) CED_CreatePicture(Handle hEdPage, int pictNumber, EDSIZE pictSi
 	}
 	return ret;
 }
-//Ñîçäàòü ñåêöèş
+//create section
 
 CED_FUNC(Handle) CED_CreateSection(Handle hEdPage,EDRECT border, int colInterval, int numOfCols, 
 								   EDCOL* colInfo, char sectionBreak, int width, int height, 
@@ -190,7 +190,7 @@ CED_FUNC(Bool32) CED_SetSectLineBetCol( Handle hEdSection, Bool32 lineBetCol)
 	return TRUE;
 }
 
-//Ñîçäàòü êîëîíêó
+//create column
 CED_FUNC(Handle) CED_CreateColumn( Handle hEdSection)
 {
 	if (logStream)
@@ -207,7 +207,7 @@ CED_FUNC(Handle) CED_CreateColumn( Handle hEdSection)
 	return ret;
 }
 
-//Ñîçäàòü ôğåéì
+//create frame
 CED_FUNC(Handle) CED_CreateFrame(Handle hEdSection, Handle hEdColumn, edBox rect, 
 								 char position, int borderSpace, int dxfrtextx, int dxfrtexty)
 {
@@ -242,7 +242,7 @@ CED_FUNC(Bool32) CED_SetFrameFlag(Handle hEdFrame, int flag)
 	return TRUE;
 }
 
-//Ñîçäàòü òàáëèöó
+//create table
 CED_FUNC(Handle) CED_CreateTable(  Handle hEdSection, Handle hObject)
 {
 	if (logStream)
@@ -288,7 +288,7 @@ CED_FUNC(Handle) CED_CreateTableRow(Handle hEdSection, Handle hEdTable,
 	return ret;
 }
 
-// Ñîçäàòü ÿ÷åéêó òàáëèöû
+// create table's cell
 CED_FUNC(Handle) CED_CreateCell(Handle hEdSection,Handle hEdRow, int cellX, int merging, int vertTextAlign, 
 					  int leftBrdrType, int leftBrdrWidth, 
 					  int rightBrdrType, int rightBrdrWidth, 
@@ -328,7 +328,7 @@ CED_FUNC(Bool32) CED_SetCellFlag(Handle hEdCell, int flag)
 	}
 	return TRUE;
 }
-//Ñîçäàòü ïàğàãğàô
+//create paragraph
 
 CED_FUNC(Handle) CED_CreateParagraph(Handle hEdSection, Handle hObject, 
 						   int align, EDRECT indent, int UserNum,
@@ -352,7 +352,7 @@ CED_FUNC(Handle) CED_CreateParagraph(Handle hEdSection, Handle hObject,
 	return ret;
 }
 
-// Çàäàòü ãğàíèöû àáçàöà
+//set boundary of paragraph
 CED_FUNC(Bool32) CED_SetParaBorders(Handle hEdParagraph,
 					  int leftBrdrType, int leftBrdrWidth, 
 					  int rightBrdrType, int rightBrdrWidth, 
@@ -385,7 +385,7 @@ CED_FUNC(Bool32) CED_SetParaBorders(Handle hEdParagraph,
 }
 
 
-//Ñîçäàòü ñòğîêó 
+//create line
 CED_FUNC(Handle) CED_CreateLine(Handle hEdParagraph, Bool32 hardBreak, int defChrFontHeight)
 {
 	if (logStream)
@@ -425,7 +425,7 @@ CED_FUNC(Bool32) CED_SetLineParams(Handle hEdLine, Bool32 hardBreak, int defChrF
 	return TRUE;
 }
 
-//Ñîçäàòü ñèìâîë
+//create symbol
 CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, EDRECT layout, 
 								letterEx* alternatives, int fontHeight, 
 								int fontNum, int fontAttribs, int fontLang,
@@ -465,7 +465,7 @@ CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, EDRECT layout,
 
 }
 
-//Óäàëèòü âñ¸
+//delete all
 CED_FUNC(void) CED_DeletePage(Handle hEdPage)
 {
 	delete (CEDPage*)hEdPage;
@@ -477,7 +477,7 @@ CED_FUNC(void) CED_DeletePage(Handle hEdPage)
 	}
 }
 
-//Ïîëó÷èòü îïèñàòåëü ñòğàíèöû
+//get description of page
 
 CED_FUNC(Handle) CED_ReadFormattedEd(char * lpEdFile,Bool32 readFromFile, Word32 bufLen)
 {
@@ -563,7 +563,7 @@ CED_FUNC(Handle) CED_GetParagraph(Handle hEdPage,int _num)
 return ((CEDPage*)hEdPage)->GetParagraph(_num);
 }
 
-//Ïîëó÷èòü øğèôò
+//get font
 CED_FUNC(Bool32) CED_GetFont(Handle hEdPage,int number, BYTE* fontNumber, BYTE* fontPitchAndFamily, BYTE* fontCharset,
 				char** fontName)
 {
@@ -944,7 +944,7 @@ CED_FUNC(Bool32) CED_GetParaParams(Handle hEdParagraph,int*  color, int*  shadin
 		*keep=((CEDParagraph*)hEdParagraph)->keep;
 	return TRUE;
 }
-// Ïîëó÷èòü ãğàíèöû àáçàöà
+//obtain boundary of paragraph
 CED_FUNC(Bool32) CED_GetParaBorders(Handle hEdParagraph,
 					  int* leftBrdrType, int* leftBrdrWidth, 
 					  int* rightBrdrType, int* rightBrdrWidth, 

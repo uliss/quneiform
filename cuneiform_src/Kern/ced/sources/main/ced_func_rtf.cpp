@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№ 
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№. 
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ 
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.  
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚ 
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ 
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ. 
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ, 
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР• 
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР• 
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р 
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР• 
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•, 
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™ 
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР, 
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™ 
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -102,7 +102,7 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
 
     memset(rtf,0,sizeof(struct StrRtfOut));  // initialize with zeros
 
-	//Читаем старый rtf
+	//read old rtf
 	HANDLE oldRtfHndl;
 	if (merge)
 	{
@@ -124,7 +124,7 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
 	}
 	else
 	{
-		//открываем новый rtf
+		//open new rtf
 		rtf->hFile=Open(0, (PInt8)fileName,OSF_CREATE|OSF_BINARY);
 
 		if (!rtf->hFile) 	
@@ -180,7 +180,7 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
     if (!WriteRtfControl(rtf,"ansi",PARAM_NONE,0)) goto WRITE_END;
     if (!WriteRtfControl(rtf,"deff",PARAM_INT,0)) goto WRITE_END;
     if (!WriteRtfControl(rtf,"deflang",PARAM_INT,1024)) goto WRITE_END;
-    //Заполняем таблицу шрифтов умолчальными значениями
+    //fill in font table with default values
 	for (int i=0;i<rtf->page->fontsUsed;i++)
 		rtf->table[i]=rtf->page->fontTable[i].fontNumber;
 	rtf->maxFntNum=-1;
@@ -222,8 +222,7 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
 		{
 			CEDParagraph* col=sect->GetColumn(colNum);
 
-			BOOL firstParaGraph=TRUE;//Обрабатываем первый элемент в колонке - для
-			//корректной конвертации заливки абзаца
+			BOOL firstParaGraph=TRUE;//process first element in a row - for correct paragraph convertation
 			CEDParagraph* para=col->GetFirstObject();
 			while (para)
 			{				
@@ -265,26 +264,26 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
 							rtf->reset=TRUE;
 							rtf->frm=para;
 							para=rtf->frm->GetFirstObject();
-							//Если фрейм с одинокой картинкой - не пишем его высоту и ширину
+							//if there is only one picture in a frame --- dont write frame's width and height
 							rtf->wrtFrmSz=TRUE;
-							//Если абзац один во фрейме и не фиктивный
+							//if there is only one paragraph in a frame and this paragraph is real.
 							if (para&&(!para->GetNextObject())&&(!(para->type&FICTIVE)))
 							{
 								CEDLine * l=para->lines;
-								//если строка одна в абзаце
+								//if there is only one line in a paragraph
 								if (l&&((!l->next)||
 									l->next->parentNumber!=l->parentNumber))
 								{
 									CEDChar * c=l->chars;
-									//то же для символа
+									//the same for symbol
 									if (c&&((!c->next)||
 										c->next->parentNumber!=c->parentNumber)
 										&&CED_IsPicture(c))
 										rtf->wrtFrmSz=FALSE;
 								}
 							}
-							//Если фрейм с одинокой таблицей - не пишем его высоту и ширину
-							//Если абзац один во фрейме и он - таблица
+							//if there is only one picture in a frame --- dont write frame's width and height
+							//if there is only one paragraph in a frame and this paragraph is a table
 							if (para&&(!para->GetNextObject())&&(para->type==TAB_BEGIN))
 								rtf->wrtFrmSz=FALSE;
 						}
@@ -292,8 +291,8 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
 				else
 				{
 					int shading=para->shading;
-					//Если мы встретили закрашенный абзац и он - первый в непервой колонке
-					//то вставляем фиктивный абзац, чтобы не подкрасился разрыв колонки в ворде
+					//if we found painted paragraph, which is first one in a non-first line
+					//then we fill in fake paragraph in order not to paint column break in word
 					if (colNum!=0&&firstParaGraph&&rtf->PrevPfmt&&shading!=rtf->PrevPfmt->shading)
 					{
 						if (!WriteRtfControl(rtf,"pard",PARAM_NONE,0)) goto WRITE_END;
@@ -348,7 +347,7 @@ FINAL:
 	Close(rtf->hFile,CSF_SAVEDISK);
 
     if (rtf->table)   delete[] rtf->table;          // free rtf control area
-    if (merge&&rtf->oldFile)   Free(rtf->oldFile);          // чистим старый файл
+    if (merge&&rtf->oldFile)   Free(rtf->oldFile);          // free old rtf
     if (rtf)   delete rtf;          // free rtf control area
     if (color) delete[] color;        // free the rtf color table
     
@@ -448,13 +447,12 @@ BOOL WriteRtfPara(struct StrRtfOut far *rtf,CEDParagraph* p, BOOL brk)
        len=0;      // length of the segment
        for (j=0;j<=LastCol;j++)
 	   {
-		   chr=l->GetChar(j);//эта конструкцмя валидна
-			//!!Warning  - цикл на 1 длинее, чем строка, так что надо рабать осторожнее!	
-		   //Да и эта тоже	
+		   chr=l->GetChar(j);//this construction is correct
+			//!!Warning  - cycle is longer then a line (length of line +1), so be careful	
+		   //this one is also correct
 		   CEDChar * prvCh=&(rtf->PrevChar);//chr?chr->prev:0;
-		   //warning в лучшем смысле этого слова - в следующем if
-		   // первой должна идти проверка про ласткол, т.к.
-		   //это символ за пределами строки
+		   //in the next if we primarily need last call check
+		   // since it is the symbol outside of a line
           if ( j==LastCol || len==MAX_LEN||
 			  (prvCh&&(prvCh->fontHeight!=chr->fontHeight||
 			  prvCh->fontAttribs!=chr->fontAttribs||
@@ -544,7 +542,7 @@ BOOL WriteRtfPara(struct StrRtfOut far *rtf,CEDParagraph* p, BOOL brk)
        LINE_END:
        // Write EOL in non-wordwrap mode
 //       if (!TerArg.WordWrap && l<WriteEndRow && !WriteRtfControl(w,rtf,"par",PARAM_NONE,0)) goto WRITE_END; // write para break
-       //Если строка не последняя в абзаце
+       //If line is not last one in paragraph
 		if (l->next&&l->next->parentNumber==parent&&l->hardBreak)
 		   if (!WriteRtfControl(rtf,"line",PARAM_NONE,0)) return FALSE;
 		}
@@ -715,7 +713,7 @@ BOOL WriteRtfFont(struct StrRtfOut far *rtf, BOOL head)
 		if (rtf->table[q]<=rtf->maxFntNum) continue;
 		page->GetFont(q,&(fond.fontNumber),&(fond.fontPitchAndFamily),
 			&(fond.fontCharset),&ch);
-		//пишем инфу о шрифте
+		//write font info
 		if (!BeginRtfGroup(rtf)) return FALSE;// begin current font
 		if (!WriteRtfControl(rtf,"f",PARAM_INT,rtf->table[q])) return FALSE;  // write font number
 		rtf->WritingControl=TRUE;                   // disable line break
@@ -763,8 +761,8 @@ BOOL WriteRtfFont(struct StrRtfOut far *rtf, BOOL head)
 		if (!WriteRtfText(rtf,family,lstrlen(family))) return FALSE; // write font family
 
 		if (!WriteRtfControl(rtf,"fcharset",PARAM_INT,fond.fontCharset)) return FALSE;
-		//пишем имя шрифта
-	  rtf->SpacePending=FALSE;//Чтобы вставляла 1 а не 2 пробела
+		//write font ame
+	  rtf->SpacePending=FALSE;//in order to paste 1 blank, not 2
       rtf->WritingControl=TRUE;                   // disable line break
       if (!WriteRtfText(rtf," ",1)) return FALSE;// write family delimiter
 
@@ -868,7 +866,7 @@ BOOL WriteRtfSection(struct StrRtfOut far *rtf, CEDSection* sect)
 	int i;
 		if (!WriteRtfControl(rtf,"cols",PARAM_INT,sect->numSnakeCols)) return FALSE;
 		if (!WriteRtfControl(rtf,"colsx",PARAM_INT,MAX(sect->colInterval,0))) return FALSE;
-		//Не пишем инфу по колонкам, если первая ширина=-1, т.е. юзер не задал разноширинность
+		//dont write column info if first width is -1, i.e. user set different-width property
 		if (sect->colInfo&&sect->colInfo[0].width>=0)
 			for (i=0;i<sect->numSnakeCols;i++)
 			{
@@ -1252,7 +1250,7 @@ BOOL WriteRtfParaFmt(struct StrRtfOut far *rtf,CEDParagraph* NewPfmt,CEDParagrap
     if (  rtf->reset) 
 	{  // reset para id
 
-//Это мы делаем ручками перед вызовом		     
+//do this by hands before the call
 //       WriteRtfControl(rtf,"pard",PARAM_NONE,0);   // reset para information as tab stops are not incremental
        if (rtf->RtfInTable) 
           WriteRtfControl(rtf,"intbl",PARAM_NONE,0);   // indicate that we are in a table now
@@ -1546,9 +1544,8 @@ BOOL WriteRtfRow(struct StrRtfOut far *rtf, CEDParagraph* NewCell,CEDParagraph *
     if (td->header && !WriteRtfControl(rtf,"trhdr",PARAM_NONE,0)) return FALSE;
 
     // write border
-//Не пишем границы, т.к. они перекрывают информацию о границах
-//ячеек, да еще как-то странно это делают...(если у каждой строки поставить
-//все границы, то они появятся только вокруг таблицы)
+//dont write borders, since they overlap with information about cell boundaries. even in a quite strange manner. 
+//(if we put all boundaries near every line, they will appear near table only
 /*    if (td->topBrdrType>0) {
        if (!WriteRtfControl(rtf,"trbrdrt",PARAM_NONE,0)) return FALSE;
 	   if(td->topBrdrType==1)
@@ -1667,7 +1664,7 @@ BOOL WriteRtfCell(struct StrRtfOut far *rtf, CEDParagraph* NewCell)
     // write shading percentage
     if (cd->shading>=0 && !WriteRtfControl(rtf,"clshdng",PARAM_INT,cd->shading)) return FALSE;
 
-	//Пишем направление текста
+	//write direction of text
 	if (cd->flag&ED_TDIR_UP&& !WriteRtfControl(rtf,"cltxbtlr",PARAM_NONE,0)) return FALSE;
 	if (cd->flag&ED_TDIR_DOWN&& !WriteRtfControl(rtf,"cltxtbrl",PARAM_NONE,0)) return FALSE;
 	
@@ -1839,7 +1836,7 @@ BOOL WriteRtfMetafile(struct StrRtfOut far *rtf,int pict)
    // write picture height/width in HIMETRIC
 //   if (!WriteRtfControl(rtf,"picw",PARAM_INT,((float)rtf->page->picsTable[pict].pictSize.cx)*8.3))/*((bmWidth*2500)/1440) ))*/ return FALSE;  // write picture format
 //   if (!WriteRtfControl(rtf,"pich",PARAM_INT,((float)rtf->page->picsTable[pict].pictSize.cy)*8.3))/*((bmHeight*2500)/1440) ))*/ return FALSE;  // write picture format
-//Утверждается, что так более или менее правильно
+//this seems to be more or less correct
    if (!WriteRtfControl(rtf,"picw",PARAM_INT,((double)(rtf->page->picsTable[pict].pictGoal.cx))*1.7641 )) return FALSE;  // write picture format
    if (!WriteRtfControl(rtf,"pich",PARAM_INT,((double)(rtf->page->picsTable[pict].pictGoal.cy))*1.7641 )) return FALSE;  // write picture format
 
@@ -2049,7 +2046,7 @@ BOOL WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
 		}
 	}
     BOOL ret=TRUE;
-	//Затираем старый файл - он похож на rtf
+	//remove old file - it is similar to rtf
 	rtf->hFile=Open(0, (PInt8)name,OSF_CREATE|OSF_BINARY);
 	if (!rtf->hFile) goto END_HDR;
 
@@ -2091,7 +2088,7 @@ BOOL WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
 	if (!WriteRtfControl(rtf,"sect",PARAM_NONE,0)) goto END_HDR;
 	if (!WriteRtfControl(rtf,"plain",PARAM_NONE,0)) goto END_HDR;
 	if (!WriteRtfControl(rtf,"fs",PARAM_INT,24)) goto END_HDR;
-	//Чтобы в конце пририсовать "}"
+	//in order to draw "}" at the end
 	rtf->GroupLevel=1;
 	rtf->SpacePending=FALSE;          // delimit the last control by '{' character
 
@@ -2246,7 +2243,7 @@ int ReadRtfFontTable(struct StrRtfOut far *rtf,int * maxFontNum)//PTERWND w,stru
     return 0;                 // successful
 }
 
-//Сравниваем имена шрифтов, не учитывая суффиксов
+//compare fonts names
 int nameCmp(char* s1,char* s2)
 {
 	if (strcmp(s1,s2)==0) return 0;

@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№ 
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№. 
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ 
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.  
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚ 
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ 
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ. 
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ, 
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР• 
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР• 
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р 
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР• 
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•, 
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™ 
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР, 
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™ 
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -62,9 +62,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "ced_struct.h"
 #include "cedint.h"
-//Шаг разрастания таблицы шрифтов
+//step of expansion of font table
 #define FONTS_STEPPING 5
-//Шаг разрастания таблицы картинок
+//step of expansion of picture table
 #define PICS_STEPPING  3
 CEDPage::CEDPage()
 {
@@ -84,12 +84,12 @@ CEDPage::CEDPage()
 	curSect=0;
 	unrecogChar=0;
 	NumberOfSections=0;
-	fontsUsed=0;			//Количество использованных шрифтов в таблице
-	fontsCreated=0;			//Количество созданных шрифтов в таблице
-	fontTable=0;			//указатель на таблицу шрифтов
-	picsUsed=0;			//Количество использованных картинок в таблице
-	picsCreated=0;			//Количество созданных картинок в таблице
-	picsTable=0;			//указатель на таблицу картинок
+	fontsUsed=0;			//number of fonts used in table
+	fontsCreated=0;			//number of fonts created in table
+	fontTable=0;			//pointer to font table
+	picsUsed=0;			//number of picture used in table
+	picsCreated=0;			//number of pictures created in table
+	picsTable=0;			//pointer to picture table
 	resizeToFit=0;
 	recogLang=LANG_RUSENG;
 };
@@ -148,13 +148,13 @@ CEDPage::~CEDPage()
 		delete se1;
 		se1=se;
 	}
-	//Уничтожаем таблицу шрифтов
+	//delete font table
 	int i;
 	for ( i=0;i<fontsUsed;i++)
 		free(fontTable[i].fontName);
 	delete[] fontTable;
 
-	//Уничтожаем таблицу картинок
+	//delete picture table
 	for ( i=0;i<picsUsed;i++)
 		free(picsTable[i].data);
 	delete[] picsTable;
@@ -505,13 +505,13 @@ CEDParagraph * CEDSection::CreateColumn()
 	{
 //		if (framesEnd) 
 //			SetCurParagraph(framesEnd);
-		//Начинаем колонку
+		//start column
 		CEDParagraph * para =InsertParagraph();
 		columnsBeg=para;
 		para->type=COLUMN_BEGIN;
 		EDCOLDESCR* colinf=(EDCOLDESCR *)malloc(sizeof(EDCOLDESCR));
 		para->descriptor=colinf;
-		//Кончаем колонки
+		//finish all columns
 		CEDParagraph * para1 =InsertParagraph();
 		columnsEnd=para1;
 		para1->type=LAST_IN_COLUMN;
@@ -521,7 +521,7 @@ CEDParagraph * CEDSection::CreateColumn()
 	}
 	else
 	{
-		//Начинаем колонку
+		//start column
 		SetCurParagraph(columnsEnd);
 		CEDParagraph * para =InsertParagraph(FALSE);
 		para->type=COLUMN_BEGIN;
@@ -561,7 +561,7 @@ CEDParagraph * CEDSection::CreateFrame(CEDParagraph* hObject, edBox rect, char p
 	if (hObject->type!=COLUMN_BEGIN) 
 	{
 #ifdef _DEBUG
-		MessageBox(0,"Попытка создать фрейм не в колонке","CED error",MB_OK);
+		MessageBox(0,"Attempt of frame creation outside of table","CED error",MB_OK);
 #endif
 		return 0;
 	}
@@ -569,14 +569,14 @@ CEDParagraph * CEDSection::CreateFrame(CEDParagraph* hObject, edBox rect, char p
 #ifdef _DEBUG
 	if (colde==0)
 	{
-		MessageBox(0,"Попытка создать фрейм в обычном абзаце\n(не в колонке)","CED error",MB_OK);
+		MessageBox(0,"Attempt of frame creation in ordinary paragraph\n(not in column)","CED error",MB_OK);
 		return 0;
 	}
 #endif
-	//Если это не последняя колонка - идем на ее последний абзац
+	//if this column is not not last one - go to column's last paragraph
 	if (colde->next)
 		SetCurParagraph((CEDParagraph *)(colde->next)->prev);
-	//Иначе делаем то же самое
+	//otherwise do the same
 	else
 	{
 		if (hObject->type==COLUMN_BEGIN)
@@ -586,7 +586,7 @@ CEDParagraph * CEDSection::CreateFrame(CEDParagraph* hObject, edBox rect, char p
 	}
 //		if (columnsEnd) 
 //			SetCurParagraph(columnsEnd);
-		//Начинаем фрейм
+		//start frame
 		CEDParagraph * para =InsertParagraph();
 		para->type=FRAME_BEGIN;
 		edFrameDescr* framinf=(EDFRAMEDESCR *)malloc(sizeof(EDFRAMEDESCR));
@@ -600,7 +600,7 @@ CEDParagraph * CEDSection::CreateFrame(CEDParagraph* hObject, edBox rect, char p
 		framinf->dxfrtexty=dxfrtexty;
 		framinf->flag=0;
 		para->descriptor=framinf;
-		//Кончаем фрейм
+		//finish frame
 		CEDParagraph * para1 =InsertParagraph();
 //		framesEnd=para1;
 		para1->type=FRAME_END;
@@ -624,7 +624,7 @@ CEDParagraph * CEDSection::CreateTable(CEDParagraph * hObject)
 	if (hObject->type==TAB_BEGIN||hObject->type==TAB_CELL_BEGIN) 
 	{
 #ifdef _DEBUG
-		MessageBox(0,"Попытка создать таблицу в таблице","CED error",MB_OK);
+		MessageBox(0,"Attempt of table creation in a table","CED error",MB_OK);
 #endif
 		return 0;
 	}
@@ -632,7 +632,7 @@ CEDParagraph * CEDSection::CreateTable(CEDParagraph * hObject)
 	if (colde==0)
 	{
 #ifdef _DEBUG
-		MessageBox(0,"Попытка создать таблицу в обычном абзаце\n(не в колонке или фрейме)","CED error",MB_OK);
+		MessageBox(0,"Attempt of table creation in ordinary paragraph\n(not in column or frame)","CED error",MB_OK);
 #endif
 		return 0;
 	}
@@ -690,42 +690,42 @@ CEDParagraph * CEDSection::CreateTableRow(CEDParagraph * hTable,
 	if (hTable->type!=TAB_BEGIN) 
 	{
 #ifdef _DEBUG
-		MessageBox(0,"Попытка создать строку таблицы не в таблице","CED error",MB_OK);
+		MessageBox(0,"Attempt to create table row outside of table","CED error",MB_OK);
 #endif
 		return 0;
 	}
 #ifdef _DEBUG
 	if(!hTable->descriptor)
 	{
-		MessageBox(0,"Попытка создать строку таблицы в обычном абзаце\n(не в таблице)","CED error",MB_OK);
+		MessageBox(0,"Attempt to create table row in ordinary paragraph\n(not in table)","CED error",MB_OK);
 		return 0;
 }
 #endif
-	//Вставляем абзац-заголовок
+	//insert paragraph-header
 	SetCurParagraph(((EDTABDESCR *)hTable->descriptor)->last);
 	CEDParagraph * para=InsertParagraph(FALSE);
 	if (!para) return 0;
-	//Число строк в таблице+1
+	//number of rows in table+1
 	((EDTABDESCR *)(hTable->descriptor))->numOfRows++;
-	//Старому текущему: следущий - свежевставленный
+	//old current: next is the one just inserted
 	CEDParagraph * para1=((EDTABDESCR *)hTable->descriptor)->cur;
 	if (para1->type==TAB_BEGIN)
 		((EDTABDESCR *)para1->descriptor)->next=para;
 	else
 		((EDROWDESCR *)para1->descriptor)->last=para;
-	//Текущий абзац - свежевставленный
+	//next paragraph is the one just insterted
 	((EDTABDESCR *)hTable->descriptor)->cur=para;
-	//Создаем дискриптор
+	//create description
 	edRowDescr * td=(EDROWDESCR*)malloc(sizeof(EDROWDESCR));
-	//Заполняем его
-	//Следующая строка - последний абзац таблицы
+	//fill it in
+	//next line is last paragraph in table
 	td->last=para->next;
-	//первая ячейка
+	//first cell
 	td->next=para;
-	//текущая ячейка - на начало строки
+	//current cell --- to the beginning of line
 	td->cur=para;
 	td->numOfCells=0;
-	//Кладем переданные данные
+	//put received data
 	td->left=left;
 	td->rowHeight=rowHeight;
 	td->leftBrdrType=leftBrdrType;
@@ -740,7 +740,7 @@ CEDParagraph * CEDSection::CreateTableRow(CEDParagraph * hTable,
 	td->position=position;
 	td->header=header;
 
-	//Кладем тип и дискриптор абзаца
+	//put type and description of paragraph
 	para->descriptor=(void*)td;
 	para->type=TAB_ROW_BEGIN;
 
@@ -784,23 +784,23 @@ CEDParagraph * CEDSection::CreateCell(CEDParagraph* hRow,
 	if (hRow->type!=TAB_ROW_BEGIN) 
 	{
 #ifdef _DEBUG
-		MessageBox(0,"Попытка создать ячейку таблицы не в строке таблицы","CED error",MB_OK);
+		MessageBox(0,"Attempt to create cell of table outside of table's row","CED error",MB_OK);
 #endif
 		return 0;
 	}
 	CEDParagraph * para1=SetCurParagraph(((EDTABDESCR *)hRow->descriptor)->last);
 	CEDParagraph * para=InsertParagraph(FALSE);
 	EDCELLDESCR * td=(EDCELLDESCR*)malloc(sizeof(EDCELLDESCR));
-	//Следующая ячейка - конец таблицы/новая строка
+	//next cell is end of table/new line
 	td->next=para1;
 	para->descriptor=(void*)td;
 	para->type=TAB_CELL_BEGIN;
-	//число ячеек++
+	//number of cells++
 	((EDROWDESCR *)(hRow->descriptor))->numOfCells++;
-	//предыдущая ячейка:след=новая
+	//previous cell:next=new
 	para1=((EDTABDESCR *)hRow->descriptor)->cur;
 	((EDROWDESCR *)para1->descriptor)->next=para;
-	//тек. ячейка в строке - новая
+	//current cell in row is new one
 	((EDROWDESCR *)hRow->descriptor)->cur=para;
 	td->cellX=cellX;
 	td->merging=merging;
@@ -827,7 +827,7 @@ CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject,int align, EDR
 	if (hObject->type!=TAB_CELL_BEGIN&&hObject->type!=FRAME_BEGIN&&hObject->type!=COLUMN_BEGIN) 
 	{
 #ifdef _DEBUG
-		MessageBox(0,"Попытка создать абзац в строке таблицы, таблице или обычном абзаце\n(не в колонке, фрейме или ячейке таблицы","CED error",MB_OK);
+		MessageBox(0,"Attempt to create paragraph in table's row or in table or in ordinary paragraph\n(not in column or frame or table's cell","CED error",MB_OK);
 #endif
 		return 0;
 	}
@@ -835,7 +835,7 @@ CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject,int align, EDR
 #ifdef _DEBUG
 	if (!colde)
 	{
-		MessageBox(0,"Попытка создать абзац в обычном абзаце\n(не в колонке, фрейме или ячейке таблицы)","CED error",MB_OK);
+		MessageBox(0,"Attempt to create paragraph in ordinary paragraph\n(not in column or in frame or in table's cell)","CED error",MB_OK);
 		return 0;
 	}
 #endif
@@ -1125,15 +1125,15 @@ CEDParagraph* CEDParagraph::GetNextObject()
 		ret= (((edTabDescr*)descriptor)->last)->next;
 	if (type==FRAME_BEGIN)
 		ret= (((edFrameDescr*)descriptor)->last)->next;
-	//Если это начало таблицы/фрейма 
+	//if this is a start of table/frame
 	if (ret)
-		//Если он последний в колонке или фрейме
+		//if it is last in column or frame
 		if(ret->type==LAST_IN_COLUMN||ret->type==COLUMN_BEGIN||ret->type==FRAME_END)
 			return 0;
-		//Если не последний
+		//if it is not last
 		else
 			return ret;
-	//Если есть следующий фрейм и это простой/таблица/фрейм - то возвращаем его
+	//if there is next frame, which is simple one/table/frame --- return it
 	if(next&&((next->type&FICTIVE)==0||next->type==TAB_BEGIN||next->type==FRAME_BEGIN))
 		return  next;
 	else
@@ -1171,7 +1171,7 @@ CEDParagraph* CEDParagraph::GetCell(int cell)
 
 struct quant
 {
-	int x, count;//count - кол-во ячеек в данной строке с указанной x-координатой
+	int x, count;//count - number of cells with given x coordinate
 };
 int comp( const void *arg1, const void *arg2 )
 {
@@ -1182,7 +1182,7 @@ void CEDParagraph::CreateTableOfCells()
 	int numOfC=0;
 	int cx,cy;
 	EDTABDESCR* tabDescriptor=(EDTABDESCR*)descriptor;
-	//Считаем гориз. линии
+	//count horizontal lines
 	cy=tabDescriptor->size.cy=tabDescriptor->numOfRows;
 	tabDescriptor->linesY= new int [cy+1];
 	tabDescriptor->linesY[0]=0;
@@ -1193,15 +1193,15 @@ void CEDParagraph::CreateTableOfCells()
 		numOfC+=((EDROWDESCR*)(row->descriptor))->numOfCells+1;
 		tabDescriptor->linesY[r+1]=((EDROWDESCR*)row->descriptor)->rowHeight;
 	}
-	//Берём все x-координаты всех ячеек
-	//Используем хитрый алгоритм учёта ячеек с нулевой шириной (такие иногда попадаются)
+	//take all x-coordinates of all cells
+	//use complicated algorithm of counting cells with zero width (sometimes it happens)
 	quant * x=new quant[numOfC];
 	int i=0;
 	for (r=0;r<cy;r++)
 	{
 		CEDParagraph * row=GetRow(r);
 		int lastX=0;
-		//Левая граница
+		//left boundary
 		x[i].x=lastX;
 		x[i].count=1;
 		i++;
@@ -1218,12 +1218,12 @@ void CEDParagraph::CreateTableOfCells()
 			else
 			{
 				x[i-1].count++;
-				numOfC--;//Чтобы точно знать, сколько координат записано
+				numOfC--;//in order to know exactly, what is the written number of coordinates
 			}
 		}
 	}
 	qsort( (void *)x, (size_t)numOfC, sizeof(quant), comp );
-	//Удаляем дублирующиеся
+	//delete dublicates
 	int i1=x[0].x;
 	int n=0;
 	for (i=1;i<numOfC;i++)
@@ -1235,14 +1235,14 @@ void CEDParagraph::CreateTableOfCells()
 		}
 		else
 			if (x[i].count>x[n].count)
-				x[n].count=x[i].count;//Ищем наибольшую кратность
+				x[n].count=x[i].count;//count maximal number of overlapping ones
 	}
 	cx=n;
-	//Увеличиваем на кол-во дублирующихся ячеек
+	//add number of dublicating cells
 	for (i=0;i<n+1;i++)
 		cx+=x[i].count-1;
 	tabDescriptor->size.cx=cx;
-	//Запоминаем
+	//memorize
 	int * linesX=tabDescriptor->linesX= new int [cx+1];
 	int j=0;
 	for (i=0;i<n+1;i++)
@@ -1273,8 +1273,8 @@ void CEDParagraph::CreateTableOfCells()
 					i++;
 					if(i==cx)
 						break;
-					//Выходим, если следующая вертикальная черта имеет те же координаты, что и текущая
-					//и есть ещё ячейки
+					//break if next vertical line has the same coordinates as current one
+					//and there are some more cells
 					if (((EDCELLDESCR*)cell->descriptor)->cellX==linesX[i]&&
 						linesX[i]==linesX[i+1]&&c<((EDROWDESCR*)row->descriptor)->numOfCells-1)
 						break;
@@ -1289,7 +1289,7 @@ void CEDParagraph::CreateTableOfCells()
 					i++;
 					if(i==cx)
 						break;
-					//Выходим, если следующая вертикальная черта имеет те же координаты, что и текущая
+					//break if next vertical line has the same coordinates as current one
 					if (((EDCELLDESCR*)cell->descriptor)->cellX==linesX[i]&&
 						linesX[i]==linesX[i+1]&&c<((EDROWDESCR*)row->descriptor)->numOfCells-1)
 						break;
