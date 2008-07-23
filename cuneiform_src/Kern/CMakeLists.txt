@@ -11,6 +11,17 @@ fon/src
 usage
 )
 
+# CMake does not currently have direct support for ImageMagick.
+include(FindPkgConfig)
+pkg_check_modules(MAGICK ImageMagick++)
+if(MAGICK_LIBRARIES)
+    set(USE_MAGICK TRUE)
+else()
+    message(STATUS "ImageMagick++ not found. Only uncompressed BMP images supported.")
+endif()
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/config.h)
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
 find_library(DL_LIB dl)
 
 # Emulate Windows DLL symbol resolve order.
@@ -86,5 +97,5 @@ cimage loc rdib cfio)
 add_library(windummy ${LIBTYPE} windummy.c)
 
 add_executable(pumatest pumatest.cpp)
-target_link_libraries(pumatest puma ${DL_LIB})
+target_link_libraries(pumatest puma ${MAGICK_LIBRARIES} ${DL_LIB})
 #${PUMA_LIBS} ${RPSTR_LIBS} ${SNP_LIBS} dl)

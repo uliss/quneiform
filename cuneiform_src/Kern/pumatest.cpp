@@ -27,15 +27,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /* This is a simple test program for the Puma library. */
 
-#include "ctiimage.h"
-
-//#include"dpuma.h"
+#include"ctiimage.h" // Must be first, or else you get compile errors.
 
 #include<stdio.h>
 #include<stdint.h>
 #include<stdlib.h>
 #include<cstring>
 #include"puma.h"
+#include"config.h"
 
 struct langlist {
     int puma_number;
@@ -84,15 +83,84 @@ static void print_supported_languages() {
     printf(".\n");
 }
 
-int main(int argc, char **argv) {
+/**
+ * Read file and return it as a BMP DIB entity. On failure write an error
+ * and return NULL. Caller free()'s the returned result.
+ */
+static char* read_file(const char *fname);
 
+#ifdef USE_MAGICK
+#include <Magick++.h>
+using namespace Magick;
+
+static char* read_file(const char *fname) {
+    Blob blob;
+    size_t data_size;
+    char *dib;
+    try {
+        Image image(fname);
+        // Write to BLOB in BMP format
+        image.write( &blob, "DIB" );
+    } catch(Exception &error_) {
+        printf("ImageMagick error: %s\n", error_.what());
+        return NULL;
+    }
+    data_size = blob.length();
+    dib = static_cast<char*> (malloc(data_size));
+    memcpy(dib, blob.data(), data_size); 
+    return dib;
+}
+
+#else // No ImageMagick++
+
+static char* read_file(const char *fname) {
     char bmpheader[2];
+    char *dib;
+    FILE *f;
+    int32_t dibsize, offset;
+
+    f = fopen(fname, "rb");
+    if (!f) {
+        printf("Could not open file %s.\n", fname);
+        return NULL;
+    }
+    fread(bmpheader, 1, 2, f);
+    if (bmpheader[0] != 'B' || bmpheader[1] != 'M') {
+        printf("%s is not a BMP file.\n", fname);
+        return NULL;
+    }
+    fread(&dibsize, sizeof(int32_t), 1, f);
+    fread(bmpheader, 1, 2, f);
+    fread(bmpheader, 1, 2, f);
+    fread(&offset, sizeof(int32_t), 1, f);
+
+    dibsize -= ftell(f);
+    dib = static_cast<char*> (malloc(dibsize));
+    fread(dib, dibsize, 1, f);
+    fclose(f);
+
+    if (*((int32_t*)dib) != 40) {
+        printf("BMP is not of type \"Windows V3\", which is the only supported format.\n");
+        printf("Please convert your BMP to uncompressed V3 format and try again.");
+        return NULL;
+    }
+
+    if (*((int32_t*) (dib+16)) != 0) {
+        printf("%s is a compressed BMP. Only uncompressed BMP files are supported.\n",
+               fname);
+        printf("Please convert your BMP to uncompressed V3 format and try again.");
+        return NULL;
+    }
+    return dib;
+}
+
+#endif // USE_MAGICK
+
+int main(int argc, char **argv) {
     char *dib;
     const char *infilename = NULL;
     Word32 langcode = PUMA_LANG_ENGLISH; // By default recognize plain english text.
     const char *outfilename = "pumaout.txt";
-    FILE *f;
-    int32_t dibsize, offset;
     
     printf("Cuneiform for Linux 0.1\n");
     
@@ -125,37 +193,10 @@ int main(int argc, char **argv) {
         printf("Usage: %s [-l languagename] imagefile\n", argv[0]);
         return 0;
     }
-    f = fopen(infilename, "rb");
-    if(!f) {
-        printf("Could not open file %s.\n", infilename);
-        return 1;
-    }
-    fread(bmpheader, 1, 2, f);
-    if(bmpheader[0] != 'B' || bmpheader[1] != 'M') {
-        printf("%s is not a BMP file.\n", infilename);
-        return 1;
-    }
-    fread(&dibsize, sizeof(int32_t), 1, f);
-    fread(bmpheader, 1, 2, f);
-    fread(bmpheader, 1, 2, f);
-    fread(&offset, sizeof(int32_t), 1, f);
 
-    dibsize -= ftell(f);
-    dib = (char*)malloc(dibsize);
-    fread(dib, dibsize, 1, f);
-    fclose(f);
-    
-    if(*((int32_t*)dib) != 40) {
-        printf("BMP is not of type \"Windows V3\", which is the only supported format.\n");
-        printf("Please convert your BMP to uncompressed V3 format and try again.");
+    dib = read_file(infilename);
+    if(!dib) // Error msg is already printed so just get out.
         return 1;
-    }
-    
-    if(*((int32_t*) (dib+16)) != 0) {
-        printf("%s is a compressed BMP. Only uncompressed BMP files are supported.\n", infilename);
-        printf("Please convert your BMP to uncompressed V3 format and try again.");
-        return 1;
-    }
     
     if(!PUMA_Init(0, 0)) {
         printf("PUMA_Init failed.\n");
@@ -216,6 +257,6 @@ int main(int argc, char **argv) {
         return 1;
     }
     //printf("PUMA_Done succeeded.\nAll done.\n");
-    free(dib);
+ //   free(dib);
     return 0;
 }
