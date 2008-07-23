@@ -14,14 +14,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -44,7 +44,7 @@ struct langlist {
 /* Language codes according to ISO 639-2. Most of these don't seem to have
  * corresponding data files. A bug?
  */
-static const langlist langs[] = { 
+static const langlist langs[] = {
         {PUMA_LANG_ENGLISH,   "eng"},
         {PUMA_LANG_GERMAN,    "ger"},
         {PUMA_LANG_FRENCH,    "fra"},
@@ -62,7 +62,7 @@ static const langlist langs[] = {
         {PUMA_LANG_DUTCH,     "dut"},
         {PUMA_LANG_DIG,       "dig"}, // What is this language?
         {PUMA_LANG_UZBEK,     "uzb"},
-        {PUMA_LANG_KAZ,       "kaz"}, 
+        {PUMA_LANG_KAZ,       "kaz"},
         {PUMA_LANG_KAZ_ENG,   "kazeng"},
         {PUMA_LANG_CZECH,     "cze"},
         {PUMA_LANG_ROMAN,     "rum"},
@@ -107,7 +107,7 @@ static char* read_file(const char *fname) {
     }
     data_size = blob.length();
     dib = static_cast<char*> (malloc(data_size));
-    memcpy(dib, blob.data(), data_size); 
+    memcpy(dib, blob.data(), data_size);
     return dib;
 }
 
@@ -161,9 +161,9 @@ int main(int argc, char **argv) {
     const char *infilename = NULL;
     Word32 langcode = PUMA_LANG_ENGLISH; // By default recognize plain english text.
     const char *outfilename = "cuneiform-out.txt";
-    
-    printf("Cuneiform for Linux 0.1\n");
-    
+
+    printf("Cuneiform for Linux 0.2\n");
+
     for(int i=1; i<argc; i++) {
         /* Changing language. */
         if(strcmp(argv[i], "-l") == 0) {
@@ -188,12 +188,12 @@ int main(int argc, char **argv) {
                 return 1;
             }
             outfilename = argv[i];
-        } else {        
+        } else {
         /* No switches, so set input file. */
         infilename = argv[i];
         }
     }
-    
+
     if(infilename == NULL) {
         printf("Usage: %s [-l languagename -o result_file] imagefile\n", argv[0]);
         return 0;
@@ -202,22 +202,22 @@ int main(int argc, char **argv) {
     dib = read_file(infilename);
     if(!dib) // Error msg is already printed so just get out.
         return 1;
-    
+
     if(!PUMA_Init(0, 0)) {
         printf("PUMA_Init failed.\n");
         return 1;
     }
     //printf("Puma initialized.\n");
-    
+
     // Set the language.
     PUMA_SetImportData(PUMA_Word32_Language, &langcode);
-    
+
     if(!PUMA_XOpen(dib, "none.txt")) {
         printf("PUMA_Xopen failed.\n");
         return 1;
     }
     //printf("PUMA_XOpen succeeded.\n");
-    
+
     /* From recogpuma.cpp
     LPUMA_SetSpeller(g_bSpeller);
     LPUMA_SetOneColumn(g_bOneColumn);
@@ -244,19 +244,19 @@ int main(int argc, char **argv) {
         return 1;
     }
     //printf("PUMA_XFinalRecognition succeeded.\n");
-    
+
     if(!PUMA_XSave(outfilename, PUMA_TOTEXT, 0)) {
         printf("PUMA_XSave failed.\n");
         return 1;
     }
     //printf("PUMA_XSave succeeded.\n");
-    
+
     if(!PUMA_XClose()) {
         printf("PUMA_XClose failed.\n");
         return 1;
     }
     //printf("PUMA_XClose succeeded.\n");
-    
+
     if(!PUMA_Done()) {
         printf("PUMA_Done failed.\n");
         return 1;

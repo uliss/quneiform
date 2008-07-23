@@ -1,4 +1,4 @@
-Cuneiform for Linux 0.1
+Cuneiform for Linux 0.2
 
 Cuneiform is an multi-language OCR system originally developed
 and open sourced by Cognitive Technologies. Cuneiform was
@@ -10,6 +10,7 @@ project. If someone is missing, please let me know, so I can add them.
 
 Keith Beaumont
 Vincent Wagelaar
+zanin
 Alexander Schlegel
 
 
