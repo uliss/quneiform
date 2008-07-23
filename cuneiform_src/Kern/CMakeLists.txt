@@ -96,6 +96,6 @@ cimage loc rdib cfio)
 
 add_library(windummy ${LIBTYPE} windummy.c)
 
-add_executable(pumatest pumatest.cpp)
-target_link_libraries(pumatest puma ${MAGICK_LIBRARIES} ${DL_LIB})
+add_executable(cuneiform cuneiform-cli.cpp)
+target_link_libraries(cuneiform puma ${MAGICK_LIBRARIES} ${DL_LIB})
 #${PUMA_LIBS} ${RPSTR_LIBS} ${SNP_LIBS} dl)

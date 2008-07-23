@@ -25,7 +25,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/* This is a simple test program for the Puma library. */
+/* This is a simple command line program for the Puma library. */
 
 #include"ctiimage.h" // Must be first, or else you get compile errors.
 

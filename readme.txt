@@ -39,14 +39,14 @@ Running
 
 You MUST be in the root of the build directory. Then just do
 
-./pumatest [-l language] <image_file>
+./cuneiform [-l language] <image_file>
 
 Output is written to pumaout.txt. Cuneiform assumes that your image contains
 only a single column of text.
 
 By default Cuneiform recognizes english text. To change the language use the
 command line switch -l followed by your language string. To get a list of
-supported languages type "./pumatest -l".
+supported languages type "./cuneiform -l".
 
 If you have ImageMagick++ on your system, Cuneiform autodetects and builds
 against it. Then Cuneiform can process any image that ImageMagick knows how
