@@ -160,7 +160,7 @@ int main(int argc, char **argv) {
     char *dib;
     const char *infilename = NULL;
     Word32 langcode = PUMA_LANG_ENGLISH; // By default recognize plain english text.
-    const char *outfilename = "pumaout.txt";
+    const char *outfilename = "cuneiform-out.txt";
     
     printf("Cuneiform for Linux 0.1\n");
     
@@ -168,7 +168,6 @@ int main(int argc, char **argv) {
         /* Changing language. */
         if(strcmp(argv[i], "-l") == 0) {
             if(++i >= argc) {
-                printf("Missing language after -l.\n");
                 print_supported_languages();
                 return 1;
             }
@@ -183,6 +182,12 @@ int main(int argc, char **argv) {
                 print_supported_languages();
                 return 1;
             }
+        } else if(strcmp(argv[i], "-o") == 0) {
+            if(++i >= argc) {
+                printf("Missing output file name.\n");
+                return 1;
+            }
+            outfilename = argv[i];
         } else {        
         /* No switches, so set input file. */
         infilename = argv[i];
@@ -190,7 +195,7 @@ int main(int argc, char **argv) {
     }
     
     if(infilename == NULL) {
-        printf("Usage: %s [-l languagename] imagefile\n", argv[0]);
+        printf("Usage: %s [-l languagename -o result_file] imagefile\n", argv[0]);
         return 0;
     }
 
