@@ -57,10 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <unistd.h>
 #include "lst3_win.h"
 
-#ifndef PPS_MAC
-#pragma hdrstop
-#endif
-
 #include "wind32.h"
 
 #include "compat_defs.h"

@@ -100,16 +100,7 @@ STD_FUNC( void )  stdGetMemInfo( StdMemInfo* pMemInf )
 STD_FUNC( void* ) stdMalloc( Int32 size )
 {
 #if 0
-   void * res =
-               #if defined( WIN32 )
-                  malloc(size);
-               #endif
-               #if defined( PPS_WIN )
-                  farmalloc(size);
-               #endif
-               #ifdef PPS_MAC
-                  NewPtr(size);
-               #endif
+   void * res = malloc(size);
 
 #ifdef _DEBUG
    if (res==NULL)

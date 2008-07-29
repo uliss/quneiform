@@ -55,17 +55,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-
-#ifdef PPS_MAC
-	#define PPS_BIG_ARR_NEWPTR
-#endif
-
 #include "lst3_win.h"
 #include "aldebug.h"
 
-#ifndef PPS_MAC
-#pragma hdrstop
-#endif
 //#include <math.h>
 #include "wind32.h"
 
@@ -73,24 +65,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#include "snptools.h"
 #endif
 
-
-#ifdef PPS_MAC
-
-	static Handle HandleFrmAll;
-
-	static Ptr MyNewPtrClear ( long size )
-	{
-		HandleFrmAll = NewHandleClear( size );
-		HLock ( HandleFrmAll );
-		return *HandleFrmAll;
-	}
-
-	static void MyDisposeHandle ( Handle h )
-	{
-		DisposeHandle ( h );
-	}
-
-#endif //PPS_MAC
 
 #ifdef alDebug
  extern short FlagGraphic1,Graphic1Color;

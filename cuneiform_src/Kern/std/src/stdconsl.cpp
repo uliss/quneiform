@@ -65,9 +65,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #include <wingdi.h>
    #include <winuser.h>
 #endif
-#ifdef PPS_MAC
-   #define OutputDebugString(s) {if(gStdOutputFile) fputs(s,gStdOutputFile);}
-#endif
    FILE *gStdOutputFile = 0;
 
 static FTConsole _ConsoleHandler = NULL;
@@ -120,7 +117,7 @@ STD_FUNC( int ) stdConsole( char* str, ... )
 #endif
    char* res_str = strbuf[1]=='\n' ? strbuf+1 : strbuf;
 
-#if defined( WIN32 ) || defined( PPS_MAC )
+#if defined( WIN32 )
    {
       if (res_str[0]!='\n')
          OutputDebugString("\n"); // cover MSVC Bug
@@ -190,7 +187,7 @@ STD_FUNC( int ) stdConsole_( char* str, ... )   // без перевода строки
 #endif
    char* res_str = strbuf;
 
-#if defined( WIN32 ) || defined( PPS_MAC )
+#if defined( WIN32 )
    {
       if (res_str[0]!='\n')
          OutputDebugString("\n"); // cover MSVC Bug

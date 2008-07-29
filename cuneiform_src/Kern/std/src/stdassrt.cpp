@@ -78,9 +78,6 @@ STD_FUNC( void ) stdAssert(   char *__cond,char *__file,int __line  )
       case IDNO   :  _asm int 3;break;
       case IDYES  :   break;
         };
-#elif defined ( PPS_MAC )
-    Debug( "\nAssertion failed: %s file %s, line %d\n", __cond, __file, __line );
-    return;
 #else
    printf( "\nAssertion failed: %s file %s, line %d\n", __cond, __file, __line );
    printf( "\nPress <Space> to continue,<Enter> to break, <Esc> to abort" );

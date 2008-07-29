@@ -58,12 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma hdrstop
 
 #include <unistd.h>
-#ifdef PPS_MAC
-   #include <unix.h>
-   #include <Files.h>
-#else
-   #include <sys/stat.h>
-#endif
+#include <sys/stat.h>
 
 #include "std.h"
 /*#include <io.h>*/
@@ -91,16 +86,10 @@ STD_FUNC( Int32 ) stdOpen( const char *filename, Int32 oflag, Int32 pmode )
       _stdOpenCounter++;
       assert(filename);
 
-#ifndef PPS_MAC
       if (pmode == 0)
          pmode = S_IREAD | S_IWRITE;
-#endif
 
-#if !defined(PPS_MAC)
       Int32 hnd  = open( filename, oflag, pmode );
-#else
-      Int32 hnd  = open( (char*)filename, oflag );
-#endif
       if (hnd == -1)
       {
          CONSOLE("stdOpen('%s') failed {%ld}", filename, _stdOpenCounter);
@@ -252,7 +241,7 @@ STD_FUNC( Int32 ) stdFileLength( Int32 hnd )
       stdConsole("=>stdFileLength(-1) {%ld}", _stdFileLengthCounter);
       return -1;
    }
-#ifndef WIN32 // defined(PPS_MAC)
+#ifndef WIN32
    Int32 cur = stdSeek(hnd, 0, SEEK_CUR);
    if (cur==-1)
       return -1;
@@ -285,23 +274,7 @@ STD_FUNC( Int32 ) stdAccess( const char *path, Int32 mode)
 */
 
 
-#ifndef PPS_MAC
    return access( path, mode );
-#else
-   /* Some Macintosh garbage. Disabling.
-	FInfo info = {0};
-	Str255 name = {0};
-	short lenPath = strlen(path);
-	if ( lenPath > 255 )
-		return -1;
-
-	name[0] = lenPath;
-	memcpy ( (Ptr)name+1, path, lenPath );
-	OSErr err = GetFInfo ( name, 0, &info );
-	return (err)? -1 : 0;
-	*/
-   return 0;
-#endif
 }
 
 //////////////////////////////////////////////////////////

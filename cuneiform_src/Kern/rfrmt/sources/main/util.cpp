@@ -54,16 +54,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifdef PPS_MAC
-	//ifdef NEW_PTR_ONLY => use only NewPtr & DisposPrt functions
-	//#define NEW_PTR_ONLY
-#endif
-
 #include "sys_prog.h"
-
-#ifndef PPS_MAC
-#pragma hdrstop
-#endif
 
 #include "wind32.h"
 
@@ -111,14 +102,6 @@ void heapstat(char *mess)
 #if defined (WIN_MOD) || defined (DEBUG_MEM)
 char * PASC malloc_m(unsigned long size)
 {
-#ifdef PPS_MAC
-	if(size > 65500)
-		printf("\n malloc_m size=%ld",size);
-#endif
-
-#if defined (PPS_MAC) && defined (NEW_PTR_ONLY)
-	return NewPtr(size);
-#endif
 
 #ifdef WIN_MOD
 	#ifndef WIN32
@@ -177,16 +160,6 @@ char * PASC malloc_m(unsigned long size)
 char huge * PASC  halloc_m(long n, uint size)
 { char *err="halloc_m";
 
-  #ifdef PPS_MAC
-     if(size > 65500)
-     	  printf("\n halloc_m size=%ld",size);
-  #endif
-
-	#if defined (PPS_MAC) && defined (NEW_PTR_ONLY)
-		return NewPtr(n*size);
-	#endif
-
-
   #ifdef WIN_MOD
     #ifndef WIN32
       HANDLE h;
@@ -218,17 +191,13 @@ char huge * PASC  halloc_m(long n, uint size)
   	   return halloc(n, size);
  	   #endif
     #else /*DOS_MOD*/
-    	return  (char*)malloc(n*size); //PPS_MAC
+    	return  (char*)malloc(n*size);
     #endif /*DOS_MOD*/
   #endif
 }
 //=================
 void PASC free_m(void *ptr)
 {
-
-	#if defined (PPS_MAC) && defined (NEW_PTR_ONLY)
-		DisposePtr((char*)ptr);
-	#endif
 
 
   #ifdef WIN_MOD
@@ -270,9 +239,6 @@ void PASC free_m(void *ptr)
 //=================
 void   PASC hfree_m(void huge *ptr)
 {
-	#if defined (PPS_MAC) && defined (NEW_PTR_ONLY)
-		DisposePtr((char*)ptr);
-	#endif
 
   #ifdef WIN_MOD
     #ifndef WIN32
@@ -309,7 +275,7 @@ void   PASC hfree_m(void huge *ptr)
 	    hfree(ptr);
 	   #endif
     #else //DOS_MOD
-     free(ptr); //PPS_MAC
+     free(ptr);
 		#endif
   #endif //WIN_MOD
 }
@@ -334,12 +300,8 @@ void free_c(void *ptr)
       {free(ptr);}
     #endif
   #else
-		#if defined (PPS_MAC) && defined (NEW_PTR_ONLY)
-			{DisposePtr((char*)ptr);}
-		#else
     	{free(ptr);}
     #endif
-  #endif
 }
 
 //===
@@ -433,12 +395,8 @@ void PutMess(int num, char *str)
 {
   #ifndef WIN_MOD
 
-	#ifndef PPS_MAC
 	    fprintf(stderr, "\n%s %d",str,num);
-	#else
-	    printf("\n%s %d",str,num);
 
-	#endif
   #else
     char str1[160];
     wsprintf(str1,"\n%s %d",str,num);
@@ -592,13 +550,6 @@ void ProjectPoint1024(Point16 *r,Int32 Skew1024)
 	}
 */ // !!! Art - устарело
 #endif /*WIN_MOD*/
-
-#ifdef PPS_MAC
-short strcmpi(const char* s1, const char *s2)
-{
-		return strcmp(s1,s2);
-}
-#endif
 
 
 

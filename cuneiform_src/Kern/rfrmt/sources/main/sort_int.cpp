@@ -58,9 +58,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include <time.h>
 #include "lst3_win.h"
 
-#ifndef PPS_MAC
-#pragma hdrstop
-#endif
 #include <string.h>
 #include <stdlib.h>
 //#include <math.h>
