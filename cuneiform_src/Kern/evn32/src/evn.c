@@ -63,11 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "evn.h"
 #include "struct.h"
 
-#ifdef PPS_MAC
-#include <unix.h>
-#else
 #include <sys/stat.h>
-#endif
 
 #include "compat_defs.h"
 
@@ -105,15 +101,9 @@ extern Int32 recog_letter(void);
 extern Int32 recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, Word8 *lp,Word16 lth);
 
 
-#ifndef PPS_MAC
 static void *EvnAlloc(Word32 len) { return malloc(len); }
 static void  EvnFree(void *ptr,Word32 len) { free(ptr); }
 static Int32 GetFileLength(Int32 handle) { return filelength(handle);}
-#else
-static void *EvnAlloc(Word32 len) { return NewPtr(len); }
-static void  EvnFree(void *ptr,Word32 len) { DisposPtr(ptr); }
-static Int32 GetFileLength(Int32 handle) {return filelength_n(handle);}
-#endif
 
 static void* (*my_alloc)(Word32 len)=EvnAlloc;
 static void  (*my_free)(void *ptr,Word32 len)=EvnFree;
@@ -154,7 +144,7 @@ Int32 evn_tab_init( void )
     return 0;
     }
   size=GetFileLength(h);
-  events_treeh=(Int8 *)my_alloc( size );
+  events_treeh=(Word8 *)my_alloc( size );
   if( !events_treeh )
     {
     evn_error_code = ER_EVN_MEMORY;
@@ -167,15 +157,6 @@ Int32 evn_tab_init( void )
    close( h );
    return 0;
    }
-#ifdef PPS_MAC
-{
-Word32 *p;
-Int32   i;
-
-for(p=events_treeh,i=0;i<2560;i++,p++)
-  swab_my( p, 4 );
-}
-#endif
   ///////////////////////////////////////////////////////////
 
   close( h );
@@ -201,15 +182,6 @@ for(p=events_treeh,i=0;i<2560;i++,p++)
    close( h );
    return 0;
    }
-#ifdef PPS_MAC
-{
-Word32 *p;
-Int32   i;
-
-for(p=events_tree_rth,i=0;i<2560;i++,p++)
-  swab_my( p, 4 );
-}
-#endif
   close( h );
   return 1;
 }
@@ -243,15 +215,6 @@ Int32 evn_tab_init_prn( char *file1, char *file2 )
    close( h );
    return 0;
    }
-#ifdef PPS_MAC
-{
-Word32 *p;
-Int32   i;
-
-for(p=events_treep,i=0;i<2560;i++,p++)
-  swab_my( p, 4 );
-}
-#endif
   ///////////////////////////////////////////////////////////
 
   close( h );
@@ -277,15 +240,6 @@ for(p=events_treep,i=0;i<2560;i++,p++)
    close( h );
    return 0;
    }
-#ifdef PPS_MAC
-{
-Word32 *p;
-Int32   i;
-
-for(p=events_tree_rtp,i=0;i<2560;i++,p++)
-  swab_my( p, 4 );
-}
-#endif
   close( h );
   return 1;
 }

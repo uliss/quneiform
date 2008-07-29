@@ -85,16 +85,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include "rcutp.h"
 
 #include "resource.h"
-/* JussiP: This does not seem to make any sense. Sticking to basic malloc.
-// memory manipulation overload
-#ifndef PPS_MAC
- #define malloc(a)     HeapAlloc(GetProcessHeap(),0,a)
- #define free(a)       HeapFree (GetProcessHeap(),0,a)
-#else
- #define malloc(a)              NewPtr(a)
- #define free(a)                DisposPtr(a);
-#endif
-*/
 //static  Word8*  lnOcrPath;
 static  Rect16  merge_frame;
 static  Bool32  is_merge_frame=FALSE;
@@ -936,9 +926,6 @@ void alone_comp(void)
 
 void save_component(ExtComponent *c, version *vs, version *ve, Word8* lp, Word16 lpl)
 {
-#ifdef PPS_MAC
-        static  // Symantec 8.1 can't alloc memory in stack
-#endif
 char pool[64*1024];
 char *p=pool;
 //Bool32  mkrs=FALSE;
@@ -1040,37 +1027,6 @@ if( !(ExControl & Ex_NoContainer) )
     push_comp_to_container((ExtComponent *)pool);
 
 proc:;
-#if defined( PPS_MAC ) && defined( MAC_PC_TEST )
-// for checking indentity of PC and Mac versions
- if(ExControl & Ex_DumpFile)
- {
-  ExtComponent * cc = (ExtComponent*)pool;
-  lnhead * line;
-  long realLth;                 // 25.02.97 for swab_my line -> lth
-
-  swab_my(&cc->upper,sizeof(cc->upper));
-  swab_my(&cc->left ,sizeof(cc->left));
-  swab_my(&cc->size ,sizeof(cc->size));
-  swab_my(&cc->h    ,sizeof(cc->h));
-  swab_my(&cc->w    ,sizeof(cc->w));
-  swab_my(&cc->nvers,sizeof(cc->nvers));
-  swab_my(&cc->records,sizeof(cc->records));
-  swab_my(&cc->lines,sizeof(cc->lines));
-  swab_my(&cc->nl   ,sizeof(cc->nl));
-
-  swab_my(cc+1,sizeof(Word16));
-
- for (line=(lnhead *)((char*)(cc+1)+sizeof(Word16));
-       line->lth > 0; line=(lnhead *)((char*)line+realLth))
-  {
-   realLth = line->lth;
-   swab_my(&line->lth ,sizeof(line->lth));
-   swab_my(&line->row ,sizeof(line->row));
-   swab_my(&line->h   ,sizeof(line->h));
-   // interval struct has only byte fields
-  }
- }
-#endif
 if( ExControl & Ex_NoContainer )
  process_comp(pool,p - pool);
 }
@@ -1129,11 +1085,7 @@ Bool write_dump(void * pool,Int32 size)
 {
 int h;
 
- if((h=open(dumpfile,O_CREAT|O_RDWR|O_BINARY
-  #ifndef PPS_MAC
-                        , S_IREAD|S_IWRITE
-  #endif
- )) == -1)
+ if((h=open(dumpfile, O_CREAT|O_RDWR|O_BINARY, S_IREAD|S_IWRITE)) == -1)
   error_exit(0,ExRc_DumpOpenFail);
  lseek(h,0,SEEK_END); // append to the end
  if(write(h,pool,size) != size) error_exit(0,ExRc_DumpWriteFail);

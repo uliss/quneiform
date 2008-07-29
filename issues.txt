@@ -51,7 +51,7 @@ these warnings. An easy fix would be to convert them all to chars, but it won't
 work because at certain times the character values are compared to constants
 larger than 127.
 
-The following functions are multiply defined and may cause
-link errors: snap_monitor, snap_activity, snap_show_text,
-snap_monitor_ori, snap_is_marked, snap_baselines, snap_draw_line,
-snap_del_line
+There is a call to a swab_my function, which is not defined anywhere. It seems
+to be used inside PPS_MAC #defines. If it has something to do with endianness
+swapping, then people working on that might look at commit 207 to find out
+where they were originally.

@@ -58,12 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <fcntl.h>
 #include <string.h>
 /*#include <io.h>*/
-#ifndef PPS_MAC
-	#include <sys/stat.h>
-#else
-	#include <unix.h>
-
-#endif
+#include <sys/stat.h>
 #include <stdio.h>
 
 
@@ -103,13 +98,8 @@ static void  (*open_image)(Word16 Im3x5[])=ALL_open_image;
 static void  (*close_image)(void)=ALL_close_image;
 
 
-#ifndef PPS_MAC
 static void* r35_alloc(Word32 len){return malloc(len);}
 static void  r35_free(void *ptr,Word32 len){ free(ptr);}
-#else
-static void* r35_alloc(Word32 len){return NewPtr(len);}
-static void  r35_free(void *ptr,Word32 len){ DisposPtr(ptr);}
-#endif
 
 static void* (*my_alloc)(Word32 len)=r35_alloc;
 static void  (*my_free)(void *,Word32 len)=r35_free;
@@ -956,18 +946,8 @@ return;
 
 Bool32 r35_init(char *name,elm3x5 **tab3x5this, ind3x5 **header3x5this)
 {
-Int32 f=open(name,O_BINARY|O_RDONLY
-  #ifndef PPS_MAC
-  ,S_IREAD
-  #endif
-  );
+Int32 f=open(name, O_BINARY|O_RDONLY, S_IREAD);
 Word32 num;
-#ifdef PPS_MAC
-Word32 i,j;
-Int32 fLength = filelength_n( f );
-if ( fLength <= 0 )
-        return 0;
-#endif
 
 r35_error_code = ER_R35_NO_ERROR;
 if( f==-1 )
@@ -992,15 +972,7 @@ if( read(f,*header3x5this,1024)!=1024 )
   return 0;
   }
 
-#ifdef PPS_MAC
-for(i=0;i<256;i++)
-	{
-	swab_my(&((*header3x5this)[i].numel),2);
-	}
-num = (fLength - 1024)/sizeof(elm3x5);
-#else
 num = (filelength(f)-1024)/sizeof(elm3x5);
-#endif
 *tab3x5this  = my_alloc(num*sizeof(elm3x5) );
 
 if( *tab3x5this==NULL )
@@ -1016,15 +988,6 @@ if( read( f, *tab3x5this, num*sizeof(elm3x5))!=(int)(num*sizeof(elm3x5)) )
   r35_error_code = ER_R35_READ;
   return 0;
   }
-#ifdef PPS_MAC
-for(i=0;i<num;i++)
-	{
-	swab_my(&((*tab3x5this)[i].list),2);
-	swab_my(&((*tab3x5this)[i].bnd),2);
-	for(j=0;j<15;j++)
-		swab_my(&((*tab3x5this)[i].vect[j]),2);
-	}
-#endif
 
 close(f);
 
@@ -1517,11 +1480,9 @@ for(i=skip_y,ii=skip_y*dx,iii=0;i<dy;i++,ii+=dx,iii+=dbx)
 rRaster->lnPixWidth      = dx;
 rRaster->lnPixHeight     = dy;
 rRaster->lnRasterBufSize = REC_MAX_RASTER_SIZE;  ;
-#ifndef PPS_MAC
 if( (r35_cpu==5860||r35_cpu==6860) && dx==16 && dy==16 )
     MMX_binarize_16x16(CompImage,rRaster->Raster);
 else
-#endif
 {
 memset(rRaster->Raster,0,dbx*dy);
 

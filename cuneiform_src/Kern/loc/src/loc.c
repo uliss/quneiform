@@ -63,11 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "loc.h"
 #include "struct.h"
 
-#ifdef PPS_MAC
-#include <unix.h>
-#else
 #include <sys/stat.h>
-#endif
 
 
 //-------------- FROM DIF.DLL
@@ -94,22 +90,16 @@ extern Int32 recog_letter(void);
 extern Int32 recog_letter_lp(ExtComponent *ec, Word8 *lp,Word16 lth);
 
 
-#ifndef PPS_MAC
 static void *EvnAlloc(Word32 len) { return malloc(len); }
 static void  EvnFree(void *ptr,Word32 len) { free(ptr); }
 static Int32 GetFileLength(Int32 handle) { return filelength(handle);}
-#else
-static void *EvnAlloc(Word32 len) { return NewPtr(len); }
-static void  EvnFree(void *ptr,Word32 len) { DisposPtr(ptr); }
-static Int32 GetFileLength(Int32 handle) {return filelength_n(handle);}
-#endif
 
 static void* (*my_alloc)(Word32 len)=EvnAlloc;
 static void  (*my_free)(void *ptr,Word32 len)=EvnFree;
 
 
 
-
+
 
 
 LOC_FUNC(Bool32)  LOCInit( MemFunc* mem )
