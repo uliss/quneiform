@@ -279,11 +279,7 @@ struct frame_struct
  {struct POINT topleft,topright,botleft,botright;};
 typedef struct frame_struct FRAME;
 
-#ifdef PPS_MAC
-	#pragma align
-#else
-	#pragma pack()
-#endif /*PPS_MAC*/
+#pragma pack()
 
 #endif
 

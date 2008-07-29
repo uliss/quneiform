@@ -55,9 +55,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-#ifndef PPS_MAC
-#pragma message(__FILE__)
-#endif
 #ifndef VECTOR_H
 #define VECTOR_H
 

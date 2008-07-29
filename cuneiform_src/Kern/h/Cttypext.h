@@ -63,9 +63,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 	#include "globus.h"
 
-#ifndef PPS_MAC
-   #pragma message(__FILE__)
-#endif
 //AK add:
    typedef void *                 Handle ;   _SETTYPES( Handle )
    typedef void *                 PVOID  ;   _SETTYPES( PVOID  )

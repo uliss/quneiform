@@ -61,10 +61,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #pragma once
 #endif // _MSC_VER > 1000
 
-#ifndef PPS_MAC
-   #pragma message(__FILE__)
-#endif
-
 /*** _SETTYPES() ***/
    #undef _SETTYPES
    #if defined( __cplusplus )
@@ -113,11 +109,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    typedef struct tagPoint32 { Int32 x,y; } Point32; _SETTYPES( Point32 )
    typedef struct tagRect16 { Int16 left,top,right,bottom; } Rect16; _SETTYPES( Rect16 )
    typedef struct tagRect32 { Int32 left,top,right,bottom; } Rect32; _SETTYPES( Rect32 )
-#ifdef PPS_MAC
-	#pragma align
-#else
-	#pragma pack()
-#endif
+#pragma pack()
    //////////////////////////////
    // some of generic callbacks:
 typedef void   (* FTVoid   )  ( void );

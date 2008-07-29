@@ -55,9 +55,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-#ifndef PPS_MAC
-#pragma message(__FILE__)
-#endif
 #ifndef __MEMFUNC_H
 #define __MEMFUNC_H
 
@@ -66,12 +63,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #endif
 
 
-	 #ifdef PPS_MAC
-			#ifdef __cplusplus
-			extern "C" {
-			#endif
-	 #endif
-
 	 typedef void *(*FTAllocPtr)( Word32 );
    typedef void (*FTFreePtr)( void *, Word32 );
 
@@ -79,11 +70,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       FTAllocPtr    alloc;
       FTFreePtr     free;
    }  MemFunc;
-
-	 #ifdef PPS_MAC
-			#ifdef __cplusplus
-			}
-			#endif
-	 #endif
 
 #endif

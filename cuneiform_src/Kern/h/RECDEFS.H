@@ -192,12 +192,7 @@ typedef struct tagRecObject
 #define LS_INDEX     2   // post-indexes
 #define LS_PRINT     4   // printed lettres
 
-#ifndef PPS_MAC
-	#pragma pack()
-#else
-	#pragma align
-#endif
-
+#pragma pack()
 
 #endif   // __RECDEFS_H
 

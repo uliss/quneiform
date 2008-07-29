@@ -55,10 +55,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-#ifndef PPS_MAC
-#pragma message(__FILE__)
-#endif
-
 #ifndef __CTMACROS_H
 #define __CTMACROS_H
 

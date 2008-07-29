@@ -57,13 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef SPLIT_H_
 #define SPLIT_H_
 
-/*
-#ifndef PPS_MAC
-#pragma message(__FILE__)
-#endif
-#define PPS_MAC
-*/
-
 #ifdef __cplusplus
 	extern "C" {
 #endif
