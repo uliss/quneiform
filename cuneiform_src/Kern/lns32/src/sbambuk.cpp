@@ -55,9 +55,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include "lnslang.h"
-#ifndef PPS_MAC
-#pragma hdrstop
-#endif
 	//#   define DEBUG_SBAMBUK
 
    #include <fcntl.h>
@@ -97,7 +94,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 	static int width_dword_ = 0;
 	static int width_byte_ = 0;
-
+
 #ifdef __TGREADER_H
 THVSegBambuk::THVSegBambuk( TigerReader  & reader )
  {
@@ -147,7 +144,7 @@ THVSegBambuk::THVSegBambuk( TigerReader  & reader )
 	******/
 
  };
- 
+
 Bool THVSegBambuk::makeIt(   TigerReader * reader,
                              TFltBuf* filter )
 	{
@@ -395,7 +392,7 @@ Bool TSegBambuk::vUpdateFirst(   Int32* new_line,
 		for ( int i = 0; i < width_dword_ - 1; i++ ){
 			/* process started segments */
 			if ( ( was_born_dword = (~(*cur16)) ) != 0){      // 1(W) at prev; 0(B) at cur;
-#ifdef PPS_MAC
+#ifdef BIG_ENDIAN
             was_born_dword = SWAPLONG(was_born_dword);
 #endif
 				if ( (was_born = (Word8)was_born_dword ) != 0){  // first byte
@@ -466,7 +463,7 @@ Bool TSegBambuk::vUpdateFirst(   Int32* new_line,
 
 			/* process ended segments */
 			if ( (has_died_dword = (~(*cur16) & (*new_line)) ) != 0 ){   // 0(B) at cur; 1(W) at new_line;
-#ifdef PPS_MAC
+#ifdef BIG_ENDIAN
             has_died_dword= SWAPLONG(has_died_dword);
 #endif
 				if ((has_died = (Word8)has_died_dword ) != 0){   // first byte
@@ -570,7 +567,7 @@ Bool TSegBambuk::vUpdateLast(    Int32* cur16,
 		for ( int i = 0; i < width_dword_ - 1; i++ ){
 			/* process started segments */
 			if ( (was_born_dword = ((*last16) & ~(*cur16)) ) != 0 ){      // 1(W) at prev; 0(B) at cur;
-#ifdef PPS_MAC
+#ifdef BIG_ENDIAN
             was_born_dword = SWAPLONG(was_born_dword);
 #endif
 				if ((was_born = (Word8)was_born_dword) != 0){  // first byte
@@ -641,7 +638,7 @@ Bool TSegBambuk::vUpdateLast(    Int32* cur16,
 
 			/* process ended segments */
 			if ( ( has_died_dword = ~(*cur16) ) != 0){   // 0(B) at cur; 1(W) at new_line;
-#ifdef PPS_MAC
+#ifdef BIG_ENDIAN
             has_died_dword= SWAPLONG(has_died_dword);
 #endif
 				if ( (has_died = (Word8)has_died_dword ) != 0){   // first byte

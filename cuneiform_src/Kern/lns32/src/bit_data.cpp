@@ -56,11 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "lnslang.h"
 
-#ifndef PPS_MAC
-#pragma hdrstop
-#endif
-
-	extern const Word8 bit_byte[8] =
+   extern const Word8 bit_byte[8] =
 		{
 			0x01,	0x02,	0x04,	0x08,
 			0x10,	0x20,	0x40,	0x80

@@ -56,9 +56,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "lnslang.h"
 
-#ifndef PPS_MAC
-#pragma hdrstop
-#endif
 /*#include <windows.h>*/
 #include "compat_defs.h"
 

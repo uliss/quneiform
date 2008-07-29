@@ -56,10 +56,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "lnslang.h"
 
-#ifndef PPS_MAC
-#pragma hdrstop
-#endif
-
 	#ifndef __BLCKWHTE_H
 	#	include "blckwhte.h"
 	#endif
@@ -177,7 +173,7 @@ static inline void new_segment( int left, int right )
  };
 
 inline Word16 GetWord16( Word16* pw )
-#ifndef PPS_MAC
+#ifndef BIG_ENDIAN
 {  return *pw; }
 #else
 {  return (*pw << 8 ) | (*pw >> 8); }

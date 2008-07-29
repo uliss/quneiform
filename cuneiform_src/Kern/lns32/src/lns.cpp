@@ -56,10 +56,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "lnslang.h"
 
-#ifndef PPS_MAC
-#pragma hdrstop
-#endif
-
 //#define LNS_FUNC( ret_type ) __declspec(dllexport) ret_type
 #include "lns.h"
 #include "lnscheck.h"
@@ -68,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "hliner.h"
 
 static Err16 lnserr = ER_NONE;
-
+
 
 /// 10.02.99, VP ------- registering fragments for external usage
 #include "frag.h"
@@ -135,7 +131,7 @@ LNS_FUNC( void )            LnsPageStart( TImageAccess* img )
    ResetCheckBoxes();
    HLiner_Init();
 }
-
+
 
 LNS_FUNC( Bool16 )          LnsExtractLines( Int32   min_h_len,
                                              Int32   min_v_len,
@@ -302,15 +298,9 @@ LNS_FUNC( Bool16 )          LnsUpload( LinesTotalInfo* lti,
 static TImageAccess swpimg;
 
 extern "C" {
-#ifdef PPS_MAC
-	#pragma export on
-#endif
    LNS_FUNC(Bool16)  LnsImageOpen(Tiger_ImageInfo* lpImageInfo);
    LNS_FUNC(Int16)   LnsImageRead(Word8* lpImage, Word16 wMaxSize);
    LNS_FUNC(Bool16)  LnsImageClose(void);
-#ifdef PPS_MAC
-	#pragma export off
-#endif
 };
 
 LNS_FUNC(Bool16)  LnsImageOpen(Tiger_ImageInfo* lpImageInfo)

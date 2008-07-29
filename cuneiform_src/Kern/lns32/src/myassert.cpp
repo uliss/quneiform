@@ -56,10 +56,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "lnslang.h"
 
-#ifndef PPS_MAC
-#pragma hdrstop
-#endif
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -118,14 +114,11 @@ void   my_assert_fail(   char  *__cond,
 	printf( "\nAssertion failed: %s file %s, line %d\n", __cond, __file, __line );
 	printf( "\nPress <Space> to continue execution, <Esc> to abort" );
 
-#ifndef PPS_MAC
 	do {
 		c = getchar();
 	} while ((c != 32)&&( c != 27 ));
 	if (c == 27)
 		exit(0);
 	printf("..OK");
-#endif
-
 #endif
 };

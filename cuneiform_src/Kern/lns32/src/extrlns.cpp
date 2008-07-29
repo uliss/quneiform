@@ -57,10 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <math.h>
 #include "lnslang.h"
 
-#ifndef PPS_MAC
-#pragma hdrstop
-#endif
-
    #ifndef __LNS_H
 	#  include "lns.h"
    #endif
@@ -112,12 +108,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 
-#ifdef PPS_MAC
-	void *operator new( size_t sz ){return (void*)NewPtr(sz);}
-	void operator delete( void* p){ DisposePtr((Ptr)p);}
-#endif
-
-
 //#define DELETE_PTR(ptr) if (ptr != NULL) { ::delete ptr; ptr = NULL; };
 #define DELETE_PTR(ptr) if (ptr != NULL) { delete ptr; ptr = NULL; };
 static void _destroy_lines(void)
@@ -128,7 +118,7 @@ static void _destroy_lines(void)
    DELETE_PTR( vRB  );
    DELETE_PTR( vLB  );
 };
-
+
 void ExtrLinesInitLNS(void)
 { _destroy_lines();
    //*******************Rom********************
@@ -386,7 +376,7 @@ ErrorExit :
 
    return err_code; // Bad exit
 };
-
+
 Bool ExtrLinesGetCount(   Int32  hor_len, Int32  ver_len,
 								  Int32 &hor_cnt, Int32 &ver_cnt
                             )
@@ -420,7 +410,7 @@ dst.x=(Int16)(src.x);
 dst.y=(Int16)(src.y);
 }
 
-
+
 Bool ExtrLinesGetInfo(  LinesTotalInfo * lti,
 								Int32  hor_len, Int32  ver_len,
 								Int32 &hor_cnt, Int32 &ver_cnt
@@ -536,7 +526,7 @@ Bool ExtrLinesIsOk(void)
 
    return TRUE;
 };
-
+
 static Bool _PreSwp( LnsInfoArray& larr, Bool hor )
 {
    if (larr.Cnt == 0)    return TRUE;
@@ -1171,4 +1161,4 @@ Bool  SortList ( RomBubble* rptr)
 
 	return IsOk;
 }
-
+

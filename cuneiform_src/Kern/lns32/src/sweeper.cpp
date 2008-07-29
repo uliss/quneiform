@@ -56,9 +56,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "lnslang.h"
 
-#ifndef PPS_MAC
-#pragma hdrstop
-#endif
 #include "lns.h"
 
 #include <string.h>
@@ -152,7 +149,7 @@ Bool Sweeper_ImageOpen (Tiger_ImageInfo* lpImageInfo)
 		Ready =  TRUE;
 		return TRUE;
 	}
-
+
 static void unpack_segments( Word8* dstprev, Word8* dst, Word8* dstnext, Int32 line )
 {
 		// after unpack segments black pixels are 1, white 0
@@ -196,7 +193,7 @@ static void unpack_segments( Word8* dstprev, Word8* dst, Word8* dstnext, Int32 l
 		sh = sb.nextMember( sh );
 	}
 }
-
+
 Int16 Sweeper_ImageRead (Word8* lpImage, Word16 wMaxSize)
 {
 	if (!Ready)
@@ -336,7 +333,7 @@ Int16 Sweeper_ImageRead (Word8* lpImage, Word16 wMaxSize)
 
 	return (Int16)size_read;
 };
-
+
 Bool  Sweeper_ImageClose (void)
 {  //...
 	if (LinesBuf)

@@ -56,10 +56,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "lnslang.h"
 
-#ifndef PPS_MAC
-#pragma hdrstop
-#endif
-
 #include "fararray.h"
 #include "lnscheck.h"
 
@@ -74,11 +70,7 @@ typedef Point16 XPoint16;
 #define mini min
 #define PPSArray TFarArray
 
-#ifndef PPS_MAC
-	#define CONSOLE
-#else
-	#define CONSOLE printf
-#endif
+#define CONSOLE /* This can also be printf. */
 
 typedef	struct { int first; int last; int prev; int next; } ADJ;
 typedef	struct { XPoint16 A; XPoint16 B; int C; } XSEGM;
