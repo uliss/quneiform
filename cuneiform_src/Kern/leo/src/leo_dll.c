@@ -62,8 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "leo_tune.h"
 #include "cpu.h"
-#ifndef PPS_MAC
-	#define PC_TYPE 0
+#define PC_TYPE 0
 #define MAX_FIELDS 1000
 #include "leo.h"
 #include "alphaset.h"
@@ -105,10 +104,6 @@ static Int32 fields_tab[MAX_FIELDS]={0};
 static MemFunc* leo_mem;
 static void* leo_alloc(Word32 len){return malloc(len);}
 static void  leo_free(void *ptr,Word32 len){ free(ptr);}
-#else
-static void* leo_alloc(Word32 len){return NewPtr(len);}
-static void  leo_free(void *ptr,Word32 len){ DisposPtr(ptr);}
-#endif
 static void* (*my_alloc)(Word32 len)=leo_alloc;
 static void  (*my_free)(void *,Word32 len)=leo_free;
 static Bool32 leo_is_load = FALSE;
@@ -224,7 +219,6 @@ void leo_snapChar3x5(RecVersions *ver, char *tit, int enable)
 {
 char buf[256], *t;
 int i;
-#ifndef PPS_MAC
 if (!SnpSkip(&stnCharRecog)||enable || leo_Snp_In_Rect)
 	{
 	t = buf;
@@ -246,7 +240,6 @@ if (!SnpSkip(&stnCharRecog)||enable || leo_Snp_In_Rect)
 			strcpy(buf,"-");
 	SnpLog("%s %s", tit, buf);
 	}
-#endif //PPS_MAC
 return;
 }
 

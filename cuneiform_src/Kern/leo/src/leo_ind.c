@@ -62,9 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "leo_tune.h"
 
-#ifndef PPS_MAC
-	#define PC_TYPE 0
-#endif
+#define PC_TYPE 0
 
 #include "leo.h"
 #include "r35.h"
