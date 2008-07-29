@@ -55,10 +55,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-#ifndef PPS_MAC
-#pragma message(__FILE__)
-#pragma warning( disable : 4244 )
-#endif
 //////////////////////////////////////////////////////
 // Rotation routines:
 //
@@ -541,10 +537,6 @@ inline Bool Overlap( int a1, int a2, int b1, int b2 )  // two ranges intersectio
    return !( (a2 < b1) || (b2 < a1) );
 }
 
-#endif
-
-#ifndef PPS_MAC
-#pragma warning( default: 4244 )
 #endif
 
 #endif // __cplusplus

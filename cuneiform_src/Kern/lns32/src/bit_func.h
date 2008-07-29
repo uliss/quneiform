@@ -72,7 +72,7 @@ extern const Word8 bit1_cnt[256];
 extern const Word8 first_bit0_pos[256];
 extern const Word8 first_bit1_pos[256];
 /**
-#ifndef PPS_MAC
+#ifndef BIG_ENDIAN
 #define hi_byte( some_word )     ( *( ((Word8*)&some_word) +1 )    )
 #define low_byte( some_word )    (    (Word8)some_word             )
 #else

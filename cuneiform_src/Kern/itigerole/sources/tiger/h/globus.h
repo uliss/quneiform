@@ -206,17 +206,4 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       #pragma message(__FILE__"(1) : FINISH ")
    #endif
 
-#ifdef PPS_MAC
-
-	#define	_MAX_DRIVE		32
-	#define	_MAX_DIR		128
-	#define	_MAX_FNAME		32
-	#define	_MAX_EXT		32
-
-	#define	MAXINT			0x7FFF
-	#define	LPCSTR			char*
-
-
-#endif
-
 #endif /* __GLOBUS_H */

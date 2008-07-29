@@ -276,11 +276,7 @@ typedef struct tagTiger_ImageInfo
     Word16  wAddY;
 } Tiger_ImageInfo;
 
-#ifdef PPS_MAC
-	#pragma align
-#else
-	#pragma pack()
-#endif
+#pragma pack()
 
 
 typedef Tiger_ImageInfo TIGER_IMAGEINFO;

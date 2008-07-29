@@ -65,10 +65,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #pragma once
 #endif // _MSC_VER > 1000
 
-#ifndef PPS_MAC
-   #pragma message(__FILE__)
-#endif
-
 #define  UD_NOTEXIST   1   /* FileName doesn't exist.                      */
 #define  UD_WRONGHEAD  2   /* FileName is not CTC user dictionary.         */
 #define  UD_PERMITTED  3   /* FileName permitted as a CTC user dictionary. */

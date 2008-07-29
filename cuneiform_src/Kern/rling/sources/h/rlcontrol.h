@@ -65,10 +65,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma once
 #endif // _MSC_VER > 1000
 
-#ifndef PPS_MAC
-  #pragma message(__FILE__": Checker")
-#endif
-
 #include "globus.h"
 #include "cttypext.h"
 #include "crlmemory.h"

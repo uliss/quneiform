@@ -61,10 +61,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #pragma once
 #endif // _MSC_VER > 1000
 
-#ifndef PPS_MAC
-   #pragma message(__FILE__)
-#endif
-
 /********************************************************************/
 /**    S P E L L I N G   C O N F I G U R A T I O N  F I L E      ****/
 /********************************************************************/

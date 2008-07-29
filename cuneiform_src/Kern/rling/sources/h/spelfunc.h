@@ -69,9 +69,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #pragma once
 #endif // _MSC_VER > 1000
 
-#ifndef PPS_MAC
-   #pragma message(__FILE__)
-#endif
 /*** TG_SPELL ***/
 
   LONG read_all_file(PSTR name,CHAR  *buff);                                      /* atal  .lib */

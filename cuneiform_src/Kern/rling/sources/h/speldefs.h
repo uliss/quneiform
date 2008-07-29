@@ -68,10 +68,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #pragma once
 #endif // _MSC_VER > 1000
 
-#ifndef PPS_MAC
-   #pragma message(__FILE__)
-#endif
-
 
 #include "ligas.h"
 

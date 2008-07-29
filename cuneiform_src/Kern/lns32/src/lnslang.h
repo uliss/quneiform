@@ -74,15 +74,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #define MEMMOVE	memmove
 #endif
 
-#ifdef PPS_MAC
-   // #include ??? NewPtr/DisposPtr
-   #define MALLOC(size) 	((void*)NewPtr(size))
-   #define FREE(p)  	(DisposePtr((Ptr)p))
-#else
    #include <stdlib.h>
    #define MALLOC 	malloc
    #define FREE   	free
-#endif
 
    #include "globus.h"
    #include "myassert.h"

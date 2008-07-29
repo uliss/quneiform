@@ -67,10 +67,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #pragma once
 #endif // _MSC_VER > 1000
 
-#ifndef PPS_MAC
-   #pragma message(__FILE__)
-#endif
-
 #define   SPELLER_EXIST         // Remove code implementing speller from TIGER
 #define   UFA_HET               // Special project
 #define   RUS_ENG_LANG 1        // two lang recognition
