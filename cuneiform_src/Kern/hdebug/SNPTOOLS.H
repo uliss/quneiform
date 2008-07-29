@@ -54,9 +54,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef PPS_MAC
-#pragma message(__FILE__)
-#endif
 #ifndef __SNPTOOLS_H
 #define __SNPTOOLS_H
 
@@ -219,7 +216,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       // NOTE: call it once per iteration
    {
 
-#ifndef PPS_MAC
       if ( !SnpIsActive()         // snap is not active at all
    || node->IterParent > 0        // parent iterated
    || NOT_ACTIVE(node->Status)    // no node activity
@@ -233,9 +229,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       ///////////// node about to be activated ///////////
       SnpNotifyAppl(node);            // notify application
       return FALSE;
-#else
-      return TRUE;
-#endif
    };
 
    /*static*/

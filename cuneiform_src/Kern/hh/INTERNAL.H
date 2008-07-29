@@ -116,26 +116,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       #     include "win_mini.h"
       #  endif
       #endif
-   #elif defined( PPS_MAC )
-	#   include <sys/types.h>
-   #elif defined( PPS_DOS )
-   #  include <dos.h>
-	#endif
+   #endif
 
    #ifndef __GLOBUS_H
       #include "globus.h"
    #endif
 
-/*
-   //== misc PPS and childs compiler dependent options ==
-   #if defined(PPS_MAC)
-      #if defined(THINK_CPLUS)
-         #if !defined(PPS_INST_TEMPLATES)
-            #pragma SC template_access extern
-         #endif
-      #endif
-   #endif
-*/
    //== to be precompiled
    #ifndef __STD_H
       #include "std.h"

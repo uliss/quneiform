@@ -73,11 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			{ return Var; }
 
 
-   #ifdef PPS_MAC
-         template <class T> static void swap( T& a, T& b )
-   #else
          template <class T> inline void swap( T& a, T& b )
-   #endif
             {
                T tmp; tmp = a; a = b; b = tmp;
             }
