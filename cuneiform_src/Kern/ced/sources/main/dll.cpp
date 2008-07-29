@@ -374,10 +374,10 @@ Word16 hei = (Word16)(gwRC >> 16);
 
 	if(hei == gwHeightRC || hei == 0)
 		rc = low + IDS_ERR_NO;
-	
+
 return rc;
 }
-/*
+
 char * GetModulesString(Word32 dwError)
 {
 	Word16 low = (Word16)(dwError &  0xFFFF);
@@ -393,7 +393,7 @@ char * GetModulesString(Word32 dwError)
 		}
 	return szString;
 }
-*/
+
 
 //////////////////////////////////////////////////////////////////////////////////
 //end of file

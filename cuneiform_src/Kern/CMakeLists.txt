@@ -14,11 +14,14 @@ usage
 # CMake does not currently have direct support for ImageMagick.
 include(FindPkgConfig)
 pkg_check_modules(MAGICK ImageMagick++)
-if(MAGICK_LIBRARIES)
+if(MAGICK_FOUND)
     set(USE_MAGICK TRUE)
+    include_directories(${MAGICK_INCLUDE_DIRS})
+    link_directories(${MAGICK_LIBRARY_DIRS})
 else()
     message(STATUS "ImageMagick++ not found. Only uncompressed BMP images supported.")
 endif()
+
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
