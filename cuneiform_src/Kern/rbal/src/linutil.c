@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -137,10 +137,10 @@ INT is_english(BYTE ch)
 {
 return (ch >= 'a' && ch <= 'z')||(ch >= 'A' && ch <= 'Z')||
        (
-//	   ch>=ligas_beg && ch<=ligas_end && 
+//	   ch>=ligas_beg && ch<=ligas_end &&
 	   is_liga(ch) &&  // 14.09.2000 E.P.
 
-	   ch!=liga_exm && ch!=liga_qm ) 
+	   ch!=liga_exm && ch!=liga_qm )
 	   ;
 }
 
@@ -172,20 +172,20 @@ return (ch == POLISH_SS  ||   ch == POLISH_s  ||
 INT is_czech_special(BYTE let)
 {
 return (
-     let == AA_right_accent || let == a_right_accent	|| 
-     let == CC_inv_roof		|| let == c_inv_roof		|| 
-     let == DD_inv_roof		|| let == d_inv_roof		|| 
-     let == EE_right_accent || let == e_right_accent	|| 
-     let == EE_inv_roof		|| let == e_inv_roof		|| 
-     let == II_right_accent || let == i_right_accent	|| 
-     let == NN_inv_roof		|| let == n_inv_roof		|| 
-     let == OO_right_accent || let == o_right_accent	|| 
-     let == RR_inv_roof		|| let == r_inv_roof		|| 
-     let == SS_inv_roof		|| let == s_inv_roof		|| 
-     let == TT_inv_roof		|| let == t_inv_roof		|| 
-     let == UU_right_accent || let == u_right_accent	|| 
-     let == UU_circle_accent|| let == u_circle_accent	|| 
-     let == YY_right_accent || let == y_right_accent	|| 
+     let == AA_right_accent || let == a_right_accent	||
+     let == CC_inv_roof		|| let == c_inv_roof		||
+     let == DD_inv_roof		|| let == d_inv_roof		||
+     let == EE_right_accent || let == e_right_accent	||
+     let == EE_inv_roof		|| let == e_inv_roof		||
+     let == II_right_accent || let == i_right_accent	||
+     let == NN_inv_roof		|| let == n_inv_roof		||
+     let == OO_right_accent || let == o_right_accent	||
+     let == RR_inv_roof		|| let == r_inv_roof		||
+     let == SS_inv_roof		|| let == s_inv_roof		||
+     let == TT_inv_roof		|| let == t_inv_roof		||
+     let == UU_right_accent || let == u_right_accent	||
+     let == UU_circle_accent|| let == u_circle_accent	||
+     let == YY_right_accent || let == y_right_accent	||
      let == ZZ_inv_roof		|| let == z_inv_roof
     );
 }
@@ -204,11 +204,11 @@ return (
 INT is_hungar_special(BYTE let)
 {
 return (
-     let == AA_right_accent || 		let == a_right_accent || 
-     let == EE_right_accent || 		let == e_right_accent || 
-     let == II_right_accent || 		let == i_right_accent || 
-     let == OO_right_accent || 		let == o_right_accent || 
-     let == OO_2dot_accent  || 		let == o_2dot_accent  || 
+     let == AA_right_accent || 		let == a_right_accent ||
+     let == EE_right_accent || 		let == e_right_accent ||
+     let == II_right_accent || 		let == i_right_accent ||
+     let == OO_right_accent || 		let == o_right_accent ||
+     let == OO_2dot_accent  || 		let == o_2dot_accent  ||
      let == OO_double_right || 		let == o_double_right
     );
 }
@@ -341,7 +341,7 @@ BYTE    lcase,caps;
 
 // Nick 26.01.2001
 // íóæíà èíèöèàëèçàöèÿ äëÿ âñåõ ñòðîê, ò.ê. â count_line_hi()
-// íå äëÿ âñåõ ñòðîê ìîæåì ïîïàäàòü! È òîãäà ñòàòèñòèêà â ýòèõ ñòðîêàõ 
+// íå äëÿ âñåõ ñòðîê ìîæåì ïîïàäàòü! È òîãäà ñòàòèñòèêà â ýòèõ ñòðîêàõ
 // îñòàíåòñÿ îò ïðåæíåãî ôàéëà (èëè íå÷òî âîîáùå íåèçâåñòíîå)
 void BaseLineStatisticInit(void)
 {
@@ -362,7 +362,7 @@ INT count_line_hi(void)
  BYTE ch;
  UniVersions vers;
 
-	if(line_number >= arrnum(lht)) 
+	if(line_number >= arrnum(lht))
 		return 0;
 	memset(&lht[line_number],0,sizeof(lht[0]));  //init
 	/* check validate of base 2 and base 3                       */
@@ -380,17 +380,17 @@ INT count_line_hi(void)
 
     CSTR_GetCollectionUni(c,&vers);
 
-	if(vers.lnAltCnt<=0 || vers.Alt[0].Prob < 140) 
+	if(vers.lnAltCnt<=0 || vers.Alt[0].Prob < 140)
 		continue;
 
 	ch = let_lindef[vers.Alt[0].Liga];
     if((ch & (v_bs1 | v_bs3)) == (v_bs1 | v_bs3))
-	{ 
+	{
 		d13[attr.h]++;
-		nbcaps++; 
+		nbcaps++;
 	}
     if((ch & (v_bs2 | v_bs3)) == (v_bs2 | v_bs3))
-	{ 
+	{
 		d23[attr.h]++;
 		nbsmall++;
 	}
@@ -400,25 +400,25 @@ INT count_line_hi(void)
  for(i=0,max=0,index=0;i < sizeof(d13)/sizeof(d13[0]);i++)
  {
     if(max < d13[i])
-	{ 
-		max = d13[i]; index = i; 
+	{
+		max = d13[i]; index = i;
 	}
  }
 
- if( max > 0 ) 
+ if( max > 0 )
 	 lht[line_number].caps = (BYTE)index;
 
  for(i=0,max=0,index=0;i < sizeof(d23)/sizeof(d23[0]);i++)
  {
     if(max < d23[i])
-	{ 
-		max = d23[i]; index = i; 
+	{
+		max = d23[i]; index = i;
 	}
  }
-    
+
  if( max > 0 ) lht[line_number].lcase = (BYTE)index;
 
- lht[line_number].ns1 = nbcaps; 
+ lht[line_number].ns1 = nbcaps;
  lht[line_number].ns2 = nbsmall;
 
  return (lht[line_number].caps  != 0 ||
@@ -444,7 +444,7 @@ INT h_hist(void)
 	if(attr.h <0 || attr.h >= MAX_HEIGHT )
 		continue;
 
-    total++;  
+    total++;
     th[attr.h]++; // all over
 
     CSTR_GetCollectionUni(c,&vers);
@@ -455,8 +455,8 @@ INT h_hist(void)
 
 	ch = let_lindef[vers.Alt[0].Liga];
     if((ch & v_bs3) && ((ch & v_bs1) || (ch & v_bs2)))
-    {  
-	   recognized++; 
+    {
+	   recognized++;
 	   h[attr.h]++;
 	}
  }
@@ -466,8 +466,8 @@ INT h_hist(void)
    for(i=0,max=0,index=0;i < sizeof(h)/sizeof(h[0]);i++)
    {
     if(max < h[i])
-	{ 
-		max = h[i]; index = i; 
+	{
+		max = h[i]; index = i;
 	}
    }
 
@@ -490,8 +490,8 @@ INT h_hist(void)
    for(i=0,max=0,index=0;i < sizeof(th)/sizeof(th[0]);i++)
    {
     if(max < th[i])
-	{ 
-		max = th[i]; index = i; 
+	{
+		max = th[i]; index = i;
 	}
    }
 
@@ -507,12 +507,12 @@ INT h_hist(void)
   for(i=0,max=0,index=0;i < sizeof(th)/sizeof(th[0]);i++)
   {
     if(max < th[i])
-	{ 
-		max = th[i]; index = i; 
+	{
+		max = th[i]; index = i;
 	}
   }
-      
-  if(max+th[index+1]+th[index-1] == total ) 
+
+  if(max+th[index+1]+th[index-1] == total )
 	  return index;
 
   return 0;
@@ -543,7 +543,7 @@ INT uc[MAX_HEIGHT]={0},
  for(i=firLineNumber;i < line_number && i < sizeof(lht)/sizeof(lht[0]);i++)
  {
   uc[MIN(lht[i].caps,MAX_HEIGHT-1)]++; /* Calc histogram */
-  lc[MIN(lht[i].lcase,MAX_HEIGHT-1)]++; // Nick 25.05.2001 
+  lc[MIN(lht[i].lcase,MAX_HEIGHT-1)]++; // Nick 25.05.2001
  }
 
  umax  = uc[lh]+uc[lh+1]+uc[lh-1]+uc[lh+2]+uc[lh-2];
@@ -553,17 +553,17 @@ INT uc[MAX_HEIGHT]={0},
    if( abs(lht[i].lcase-lh) < 3 )lprob += lht[i].ns2;
  for(i=firLineNumber, uprob=0;i < lastLineNumber;i++)  // Nick 26.01.2001 - was line_number
  {
-   if( abs(lht[i].caps-lh) < 3 ) 
+   if( abs(lht[i].caps-lh) < 3 )
 	   uprob += lht[i].ns1;
  }
 
  if(lmax >= umax && lmax > 0)
- { 
-	 ret=2; if(!ckH) page_stat=1; 
+ {
+	 ret=2; if(!ckH) page_stat=1;
  }
  if(umax >  lmax && umax > 0)
- { 
-	 ret=1; if(!ckH) page_stat=1; 
+ {
+	 ret=1; if(!ckH) page_stat=1;
  }
  if(db_status & snap_activity_rbal(db_pass) && ret!=0)
  {
@@ -601,11 +601,11 @@ INT dist,cutting_made=0,diff;
   {
    CSTR_GetCollectionUni(c,&vers);
    let = vers.Alt[0].Liga;
-//   if(!(c->flg & CSTR_f_let) || !isletter(let)) 
+//   if(!(c->flg & CSTR_f_let) || !isletter(let))
    if( vers.lnAltCnt<=0 || !isletter(let) )
 	   continue;
 
-   if(!twin(let)) 
+   if(!twin(let))
 	   continue;
    let = is_lower(let) ? to_upper(let) : to_lower(let);
    promote(0,c,let,0); // insvers
@@ -621,9 +621,9 @@ INT dist,cutting_made=0,diff;
   {
 //   if(!(c->flg & CSTR_f_let)) continue;
    CSTR_GetAttr(c,&attr);
-   dist = 0;   
+   dist = 0;
    diff = 0;
-   if( attr.bdiff!=127 ) 
+   if( attr.bdiff!=127 )
 	   diff=attr.bdiff;
 
    CSTR_GetCollectionUni(c,&vers);
@@ -635,9 +635,9 @@ INT dist,cutting_made=0,diff;
 	let = vers.Alt[i].Liga;
 
     ldef = let_linpos[let] & 0x0f;
-    if(memchr("ŠŸ†",let,3)) 
+    if(memchr("ŠŸ†",let,3))
 		continue; // don't discrim
-    if(memchr("à“ã",let,4)) 
+    if(memchr("à“ã",let,4))
 		gtwin = 1;
 
     if(ldef == 2) // Is it sunk letter
@@ -658,11 +658,11 @@ INT dist,cutting_made=0,diff;
       cutting_made = 1;
 	 }
     }
-                                         
+
    }  // loop by hyps
 
    CSTR_StoreCollectionUni(c,&vers);
-                          
+
   }       // loop by string
  }  // end if bs == 3
 
@@ -697,11 +697,11 @@ INT dist,cutting_made=0,diff;
 		vers.Alt[i].Prob |= 1; // Exclude from statistic by base line detection
         cutting_made = 1;
 	   }
-                                         
+
    }  // loop by hyps
 
    CSTR_StoreCollectionUni(c,&vers);
-                          
+
   }       // loop by string
  }
 
@@ -731,11 +731,11 @@ INT dist,cutting_made=0,diff;
         vers.Alt[i].Prob |= 1; // Exclude from statistic by base line detection
         cutting_made = 1;
 	   }
-                                         
+
    }  // loop by hyps
 
    CSTR_StoreCollectionUni(c,&vers);
-                          
+
   }       // loop by string
  }  // end if
 
@@ -762,7 +762,7 @@ void set_rus_difflg(CSTR_rast B1, INT filter)
   fl_retain = filter & f_retain;
   fl1=0xff;                           // all lines defined
   fl2=fl2t=0;
-  solid=0;  
+  solid=0;
   notwins=disable_twins == 1 ? 1 : 0;
   flt=0;
   flnt = 0;     // 't' only
@@ -807,7 +807,7 @@ void set_rus_difflg(CSTR_rast B1, INT filter)
 
     if( disable_twins == 2)
 	{
-     if( memchr("à“ã",let,4)) 
+     if( memchr("à“ã",let,4))
 		 notwins = 1;
 	}
 
@@ -831,12 +831,12 @@ void set_rus_difflg(CSTR_rast B1, INT filter)
 
     fl1 &= tbe;
 
-    if( lin_pass == 3 && 
+    if( lin_pass == 3 &&
 //		v0 == B1->vers && B1->nvers > 1 &&
         i == 0 && vers.lnAltCnt > 1 &&
 //       (v0->prob - (v0+1)->prob) > 60 &&
         vers.Alt[i].Prob- vers.Alt[i+1].Prob > 60 &&
-        !twin(let) && 
+        !twin(let) &&
 	    ( attr.recsource & CSTR_rs_BOX )
      )
     break; //
@@ -866,7 +866,7 @@ void set_rus_difflg(CSTR_rast B1, INT filter)
          if( attr.bas_acc & CSTR_ba_chance ) // gleb
            attr.basflg |= (CSTR_bs_b1a | CSTR_bs_b2a); // agrees to be both b1. b2
        }
-      if( disable_twins == 0 && fl1 & CSTR_db_b4) 
+      if( disable_twins == 0 && fl1 & CSTR_db_b4)
 		  fl1 &=~CSTR_db_b4;
      }
      if (fl2 & (CSTR_db_b1 | c_df_b1a))
@@ -874,7 +874,7 @@ void set_rus_difflg(CSTR_rast B1, INT filter)
      if (fl2 & (CSTR_db_b2 | c_df_b2a))
        attr.basflg |= CSTR_bs_b2a;
      attr.difflg = attr.difflg | (fl1 & 15);
-     if (flnt==0) 
+     if (flnt==0)
 		 attr.basflg |= CSTR_bs_t;  // no "not a 't'" version
   }
 
@@ -898,8 +898,8 @@ INT smart_diff(CSTR_rast c)
    return attr.bdiff;
   #endif
 
-  if( attr.h >= Ps && 
-	  (abs(d1) < 2 || abs(d2) < 2) && 
+  if( attr.h >= Ps &&
+	  (abs(d1) < 2 || abs(d2) < 2) &&
 	  row+attr.h >= bbs3
 	)
   {
@@ -919,11 +919,11 @@ INT smart_diff(CSTR_rast c)
    }
    else
    { // letter d'not lay on base
-    if( row < (bbs1+bbs2)/2 ) 
+    if( row < (bbs1+bbs2)/2 )
 		return 0;    // farewell !
     if( row < bbs2 )
 	{
-        if( row+attr.h < bbs3 ) 
+        if( row+attr.h < bbs3 )
 			return 0;   // farewell !
         else if( attr.bdiff > 0 )
                {
@@ -932,7 +932,7 @@ INT smart_diff(CSTR_rast c)
                }
 	}
    }
-   
+
   }
 
   if( attr.h < Ps-1 && (attr.flg & (CSTR_f_let | CSTR_f_bad)) )
@@ -973,8 +973,8 @@ INT GetPsFromHeights(void)
 
   if( Ns1 && Ns2 )
 	  b1_or_b2_rong = ( abs(bbs1-bbs2) > 3 ) ?   FALSE : TRUE;
-  else 
-	  b1_or_b2_rong=FALSE; 
+  else
+	  b1_or_b2_rong=FALSE;
 
   c=cell_f();
 //  while( (c=c->nextl)->nextl )
@@ -983,98 +983,98 @@ INT GetPsFromHeights(void)
     INT df,sn;
 
 	CSTR_GetAttr(c, &attr);
-    df=attr.bdiff; 
-	if(df == 127 ) 
+    df=attr.bdiff;
+	if(df == 127 )
 		df=0;
     b_top=attr.row-minrow;
     sn=(b_top+attr.h)-(df+bbs3);
     if(abs(sn) > ((attr.h+2)/5 - 2) )   // far from b3
     {
-      if(sn > attr.h>>2) 
+      if(sn > attr.h>>2)
 		  n_sunk++;   // sunk letter
       continue;
     }
 
 	CSTR_GetCollectionUni(c, &vers);
-    if( vers.lnAltCnt>0 && BracketIn(&vers) ) 
+    if( vers.lnAltCnt>0 && BracketIn(&vers) )
 		continue; // bracket present in verses,
                                                    // skip letter
-    Hh[attr.h]++; 
+    Hh[attr.h]++;
 	cDefs++;   // accumulate to histogramm
   }
 
    // find first peak
    for(i=max1=ind1=0;i < h_size; i++)
    {
-    if( max1 < Hh[i] ) 
-	{ 
-		max1 = Hh[i]; ind1 = i; 
+    if( max1 < Hh[i] )
+	{
+		max1 = Hh[i]; ind1 = i;
 	}
    }
-     
+
    max1*=2;
-   if( ind1 > 0 )       
+   if( ind1 > 0 )
 	   max1+=Hh[ind1-1]*2;
-   if( ind1 < h_size-1) 
+   if( ind1 < h_size-1)
 	   max1+=Hh[ind1+1]*2;
-   if( ind1 < h_size-2) 
+   if( ind1 < h_size-2)
 	   max1+=Hh[ind1+2];
-   if( ind1 >1 )        
+   if( ind1 >1 )
 	   max1+=Hh[ind1-2];
    max1/=2;
 
-   if(max1) 
+   if(max1)
 	   ind1=flood_peak(Hh,ind1);
 
-   if( cDefs>>1 > max1 ) 
-   { 
-	   multi_bas=4; 
-	   return 0; 
+   if( cDefs>>1 > max1 )
+   {
+	   multi_bas=4;
+	   return 0;
    }  // flooded
 
    // second peak
    for(i=max2=ind2=0;i < h_size;i++)
    {
     if(i>=ind1-4 && i<=ind1+4) continue;
-    if( max2 < Hh[i] ) 
-	{ 
-		max2 = Hh[i]; ind2 = i; 
+    if( max2 < Hh[i] )
+	{
+		max2 = Hh[i]; ind2 = i;
 	}
    }
-    
+
    max2*=2;
-   
-   if( ind2 > 0 )       
+
+   if( ind2 > 0 )
 	   max2+=Hh[ind2-1]*2;
-   
-   if( ind2 < h_size-1) 
+
+   if( ind2 < h_size-1)
 	   max2+=Hh[ind2+1]*2;
-   
-   if( ind2 < h_size-2) 
+
+   if( ind2 < h_size-2)
 	   max2+=Hh[ind2+2];
-   
-   if( ind2 >1 )        
+
+   if( ind2 >1 )
 	   max2+=Hh[ind2-2];
-   
+
    max2/=2;
 
-   
-   if(max2) 
+
+   if(max2)
 	   ind2=flood_peak(Hh,ind2);
 
-   
-   if(max2 > 0 && ( abs(ind1-ind2) >= MIN(ind1,ind2)/3) ) 
+
+   if(max2 > 0 && ( abs(ind1-ind2) >= MIN(ind1,ind2)/3) )
 	   peak2=1;
-   
+
    if( max2 > 3 && peak2 )
-   { 
-	 BPs=MIN(ind1,ind2); 
-     bbs1=bbs3-MAX(ind1,ind2); 
-     goto ret; 
+   {
+	 BPs=MIN(ind1,ind2);
+     bbs1=bbs3-MAX(ind1,ind2);
+     goto ret;
    } // two peaks
 
-   
-   if( n_sunk > 2 && !b1_or_b2_rong ) 
+
+   if( n_sunk > 2 && !b1_or_b2_rong )
    {
       INT TPs,ds;
       TPs=def_upper_side();   // check tops
@@ -1102,15 +1102,15 @@ INT GetPsFromHeights(void)
     }
    } // if b1 or b2 not rong
 
-   if( peak2 && ind1 < ind2 ) 
-   { 
-	   BPs=ind1; 
-	   goto ret; 
+   if( peak2 && ind1 < ind2 )
+   {
+	   BPs=ind1;
+	   goto ret;
    }
-   if( !peak2 && n_sunk > 0 ) 
-   { 
-	   BPs=ind1; 
-	   goto ret; 
+   if( !peak2 && n_sunk > 0 )
+   {
+	   BPs=ind1;
+	   goto ret;
    }
 
    if((i=setup_let_case(ind1)))
@@ -1120,10 +1120,10 @@ INT GetPsFromHeights(void)
       goto ret;
    }
 
-   if( peak2 && ind2 < ind1 ) 
-   { 
-	   BPs=-ind1; 
-	   goto ret; 
+   if( peak2 && ind2 < ind1 )
+   {
+	   BPs=-ind1;
+	   goto ret;
    }
 
     // default :
@@ -1186,10 +1186,10 @@ INT def_upper_side(void)
 
 	CSTR_GetAttr(c, &attr);
 
-    df=attr.bdiff; 
-	if(df == 127 ) 
+    df=attr.bdiff;
+	if(df == 127 )
 		df=0;             // + diff
-    b_top=attr.row-minrow;  
+    b_top=attr.row-minrow;
 	sn=(b_top+attr.h)-(df+bbs3);
 
     if( b_top-df>=RASTER_MAX_HEIGHT*2 )
@@ -1197,52 +1197,52 @@ INT def_upper_side(void)
 
     if(abs(sn) > ((attr.h+2)/5 - 2) )               // far from b3
     {
-      if(sn > attr.h>>2) 
-	  { 
-		  h_sunk[b_top-df]++; 
-		  n_sn++; 
+      if(sn > attr.h>>2)
+	  {
+		  h_sunk[b_top-df]++;
+		  n_sn++;
 	  }// sunk letter
       continue;
     }
-    h_top[b_top-df]++; 
+    h_top[b_top-df]++;
 	n_def++;
   }
 
    //  find peak tops
    for(i=max=ind=0;i < h_size; i++)
    {
-    if( max < h_top[i] ) 
-     { 
-      max = h_top[i]; 
-      ind=i; 
+    if( max < h_top[i] )
+     {
+      max = h_top[i];
+      ind=i;
      }
    }
 
    max*=2;
-   if( ind > 0 )       
+   if( ind > 0 )
        max+=h_top[ind-1]*2;
-   if( ind < h_size-1) 
+   if( ind < h_size-1)
        max+=h_top[ind+1]*2;
-   if( ind < h_size-2) 
+   if( ind < h_size-2)
        max+=h_top[ind+2];
-   if( ind >1 )        
+   if( ind >1 )
        max+=h_top[ind-2];
    max/=2;
-   if(max) 
+   if(max)
        ind=flood_peak(h_top,ind);
-   if( n_def>>1 > max ) 
+   if( n_def>>1 > max )
        return FALSE;  // flooded tops
 
     // find peak tops of sunked
    for(i=max_sn=ind_sn=0;i < h_size; i++)
    {
-    if( max_sn < h_sunk[i] ) 
-	{ 
-		max_sn = h_sunk[i]; 
-		ind_sn=i; 
+    if( max_sn < h_sunk[i] )
+	{
+		max_sn = h_sunk[i];
+		ind_sn=i;
 	}
    }
-     
+
    max_sn*=2;
    if( ind_sn > 0 )       max_sn+=h_sunk[ind_sn-1]*2;
    if( ind_sn < h_size-1) max_sn+=h_sunk[ind_sn+1]*2;
@@ -1250,10 +1250,10 @@ INT def_upper_side(void)
    if( ind_sn >1 )        max_sn+=h_sunk[ind_sn-2];
    max_sn/=2;
 
-   if(max_sn) 
+   if(max_sn)
 	   ind_sn=flood_peak(h_sunk,ind_sn);
 
-   if( !max_sn || n_sn>>1 > max_sn )  
+   if( !max_sn || n_sn>>1 > max_sn )
 	   return FALSE;  // flooded sunk tops
 
    return ( abs(ind-ind_sn)<=3 ) ?   bbs3-ind : FALSE ;
@@ -1267,11 +1267,11 @@ void tell_for_b3(INT hist_array[])
 
   stable_b3=FALSE;
 
-  if( language != LANG_RUSSIAN ) 
+  if( language != LANG_RUSSIAN )
 	  return;
-  if( Ns3 < 5 ) 
+  if( Ns3 < 5 )
 	  return;
-   
+
   NDisp=0;
   bbs3=(sbs3+(Ns3>>1))/Ns3;
 
@@ -1288,7 +1288,7 @@ void tell_for_b3(INT hist_array[])
 INT flood_peak(INT *Hh,INT ind)
 {
  WORD Num,Den,t,t1;
- 
+
  if(ind > 1)
       t=Hh[ind-2]*(ind-2);
  else t=0;

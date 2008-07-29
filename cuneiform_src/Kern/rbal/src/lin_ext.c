@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -124,18 +124,18 @@ Word8 *letters_pidx_table = &let_linempty[0];  // 512
 Word8 decode_ASCII_to_[256][4] = {0};
 
 ///////////////////////////////
-CSTR_rast cell_f() 
-{ 
+CSTR_rast cell_f()
+{
 	if(!lin_str)
-            return NULL; 
+            return NULL;
 
 	return CSTR_GetFirstRaster(lin_str);
 }
 ///////////
-CSTR_rast cell_l() 
-{ 
+CSTR_rast cell_l()
+{
 	if(!lin_str)
-            return NULL; 
+            return NULL;
 
 	return CSTR_GetLastRaster(lin_str);
 }
@@ -150,10 +150,10 @@ void sort_vers(CSTR_rast c)
  int i,j;
 
  CSTR_GetCollectionUni(c, &vers);
- if (vers.lnAltCnt <= 0)  
+ if (vers.lnAltCnt <= 0)
  {
-	 set_bad_cell(c); 
-	 return; 
+	 set_bad_cell(c);
+	 return;
  }
 
  for (i=0;i<vers.lnAltCnt;i++)
@@ -181,7 +181,7 @@ void sort_vers(CSTR_rast c)
 
  CSTR_StoreCollectionUni(c,&vers);
 
- if ( vers.lnAltCnt <= 0 ) 
+ if ( vers.lnAltCnt <= 0 )
 	 set_bad_cell(c);
 }
 /////////////
@@ -199,7 +199,7 @@ void set_bad_cell(CSTR_rast c)
 // attr.bottom_accent = 0;  // need not in CSTR ?
  attr.accent_leader = 0;
 
- if (attr.flg & (CSTR_f_let | CSTR_f_bad)) 
+ if (attr.flg & (CSTR_f_let | CSTR_f_bad))
 	 attr.flg = CSTR_f_bad;
 
  CSTR_SetAttr(c,&attr);
@@ -228,7 +228,7 @@ void glsnap(CHAR I, CSTR_rast C, CHAR *txt)
 void ideal_rc(CSTR_rast c)
 {
  CSTR_rast_attr attr;
- 
+
  CSTR_GetAttr(c,&attr);
 
  attr.row=attr.r_row-(INT)((LONG)nIncline*attr.r_col/2048);
@@ -243,30 +243,30 @@ void ideal_rc(CSTR_rast c)
 void promote (BYTE sn, CSTR_rast cl, BYTE let, INT delta)
 {
  BYTE wl, wl_sacc, let_sacc;
-// version *vp1, *vp2; 
+// version *vp1, *vp2;
  UniVersions vers;
  int i,j;
- BYTE p1, pw; 
+ BYTE p1, pw;
  INT pwi, dlt, dlv, fld;
 
  CSTR_GetCollectionUni(cl, &vers);
- if ( vers.lnAltCnt <=0 ) 
+ if ( vers.lnAltCnt <=0 )
 	 return;
 
  let_sacc = let_sans_acc[let];
 
  dlt=delta;
  fld=0;
- if (dlt > 512) 
- { 
-	 fld=1; dlv=dlt=dlt-512; 
+ if (dlt > 512)
+ {
+	 fld=1; dlv=dlt=dlt-512;
  }  // absolute value (not a promotion)
 
 // for (vp2=vp1=cl->vers; (((wl=vp1->let) != 0) && ((p1=vp1->prob) != 0)); vp1++)
  for(i=j=0; i <vers.lnAltCnt;i++)
  {
-   wl = vers.Alt[i].Liga; 
-   p1 = vers.Alt[i].Prob; 
+   wl = vers.Alt[i].Liga;
+   p1 = vers.Alt[i].Prob;
 
    wl_sacc = let_sans_acc[wl];
 
@@ -274,28 +274,28 @@ void promote (BYTE sn, CSTR_rast cl, BYTE let, INT delta)
    {
      if (delta > 0)
      {
-       if ( i == j) 
+       if ( i == j)
 		   dlt=8;
 
        if (fld)  // make known value (not less than present)
        {
-         pw = vers.Alt[i].Prob;  // vp1->prob; 
+         pw = vers.Alt[i].Prob;  // vp1->prob;
 		 pwi= pw;
-         if (pwi < dlv) 
+         if (pwi < dlv)
 			 pwi=dlv;
        }
        else     // make the version to be the 1st
        {
-         pw = vers.Alt[j].Prob;  //vp2->prob; 
+         pw = vers.Alt[j].Prob;  //vp2->prob;
 		 pwi=pw;
          pwi += dlt;
        }
 
-       if (pwi > 254) 
+       if (pwi > 254)
 		   pwi = 254;
-       
+
 	   // give (max+delta) to promoted version
-	   //vp1->prob=(BYTE)pwi;  
+	   //vp1->prob=(BYTE)pwi;
 	   vers.Alt[i].Prob = (BYTE)pwi;
 	   CSTR_StoreCollectionUni(cl, &vers);
 
@@ -307,9 +307,9 @@ void promote (BYTE sn, CSTR_rast cl, BYTE let, INT delta)
      }
      else
      {
-       pwi=p1; 
+       pwi=p1;
 	   pwi += delta;
-       if (pwi <= 2) 
+       if (pwi <= 2)
 		   pwi=2;
        //vp1->prob=(BYTE)pwi;
 	   vers.Alt[i].Prob = (BYTE)pwi;
@@ -324,35 +324,35 @@ void promote (BYTE sn, CSTR_rast cl, BYTE let, INT delta)
    } //  IF letter found
  } // FOR versions
 
- if (delta < 0) 
+ if (delta < 0)
 	 return;
 
  // add version
- if ( vers.lnAltCnt >= REC_MAX_VERS) 
+ if ( vers.lnAltCnt >= REC_MAX_VERS)
 	 i = REC_MAX_VERS-1;
- else 
+ else
 	 i = vers.lnAltCnt;
 
  memset(&vers.Alt[i],0,sizeof(UniAlt));
- //vp1->let=let; 
+ //vp1->let=let;
  vers.Alt[i].Liga = let;
  strcpy(vers.Alt[i].Code , decode_ASCII_to_[let]);
 
- pw=vers.Alt[j].Prob; 
+ pw=vers.Alt[j].Prob;
  pwi=pw;
 
  if (fld)
- { 
-	 if (pwi < dlv) pwi=dlv; 
+ {
+	 if (pwi < dlv) pwi=dlv;
  }
  else pwi += dlt;
 
- if (pwi > 254) 
-	 pwi=254; 
+ if (pwi > 254)
+	 pwi=254;
 
 // vp1->prob=(BYTE)pwi;
  vers.Alt[i].Prob = (BYTE)pwi;
- if ( vers.lnAltCnt < REC_MAX_VERS) 
+ if ( vers.lnAltCnt < REC_MAX_VERS)
 	 vers.lnAltCnt++;
 
  CSTR_StoreCollectionUni(cl,&vers);
@@ -412,7 +412,7 @@ static Bool32 CopyRasterToLine(CSTR_rast c, CSTR_line trg)
   return FALSE;
 }
 ////////////////////////////
-// pass3.c    
+// pass3.c
 #define PROPMAX   25
 void dust_ini(CSTR_line lin)
 {
@@ -536,13 +536,13 @@ static int basedraft(CSTR_line ln, Word8 isDust)
 
   if( !isDust ) // начальный проход
   {
-   //if (line_number == 0) 
-   if ( line_number <= 1 ) 
+   //if (line_number == 0)
+   if ( line_number <= 1 )
 	 oldPs2 = -1;
    else
    {
-    oldPs2=bbs3-bbs2; 
-    oldPs1=bbs3-bbs1; 
+    oldPs2=bbs3-bbs2;
+    oldPs1=bbs3-bbs1;
     oldPs4=bbs3-bbs4;
     oldn1=Nb1; oldn2=Nb2; oldn4=Nb4;
     oldmult = multi_bas;
@@ -551,14 +551,14 @@ static int basedraft(CSTR_line ln, Word8 isDust)
    it_done=0;
   }
 
-  
+
   lin_pass = 1;
 
   dust_in = isDust?1:0;
 
 //  riter0=2;
 
-  if( isDust > 1) 
+  if( isDust > 1)
 	  goto mainCircle;
 
   if( isDust ) // второй проход - уже с дустом
@@ -568,11 +568,11 @@ static int basedraft(CSTR_line ln, Word8 isDust)
    trans_total = forbiset;
    hist_done = 0;
 
-//  old version - add dust from lin_str (riter1==0), 
+//  old version - add dust from lin_str (riter1==0),
 //   now - only check dust-letter
    test_dust();
-   
-//   if (cell_f()->nextl->next == NULL) 
+
+//   if (cell_f()->nextl->next == NULL)
    if( !CSTR_GetNextRaster(cell_f(),f_letter) )
    	   goto drfin;  // line emptied
 
@@ -584,10 +584,10 @@ static int basedraft(CSTR_line ln, Word8 isDust)
    for(C=CSTR_GetNext(C);C;C=CSTR_GetNext(C))
      ideal_rc(C);
 
-   if (!trans_total) 
+   if (!trans_total)
 	   goto drfin;
 //	   break;
-//   if (riter0) 
+//   if (riter0)
 //	   goto again_for_dust;
   }
 
@@ -638,11 +638,11 @@ static int basedraft(CSTR_line ln, Word8 isDust)
     hist_done = 0;
   }
 
-  return 0;    // вернемся за дустом - 
+  return 0;    // вернемся за дустом -
 	           // какие-то БЛ уже есть, можно точнее
 	           // определить точки i, j  и т.п.
-  
-  
+
+
 mainCircle:
   for(riter1 = 0;riter1 < 3;riter1++)
   {
@@ -651,11 +651,11 @@ mainCircle:
    trans_total = forbiset;
    hist_done = 0;
 
-//  old version - add dust from lin_str (riter1==0), 
+//  old version - add dust from lin_str (riter1==0),
 //   now - only check dust-letter
    test_dust();
-   
-//   if (cell_f()->nextl->next == NULL) 
+
+//   if (cell_f()->nextl->next == NULL)
    if( !CSTR_GetNextRaster(cell_f(),f_letter) )
    	   goto drfin;  // line emptied
 
@@ -668,12 +668,12 @@ mainCircle:
    for(C=CSTR_GetNext(C);C;C=CSTR_GetNext(C))
      ideal_rc(C);
 
-   if (!trans_total) 
+   if (!trans_total)
 	   break;
-//   if (riter0) 
+//   if (riter0)
 //	   goto again_for_dust;
 
-   if (fl_artifact > 1) 
+   if (fl_artifact > 1)
 	   break;
 
    // уточнить БЛ
@@ -681,7 +681,7 @@ mainCircle:
  }
 
 drfin:
- if (db_status) 
+ if (db_status)
 	 li_snap("draft fin");
  bbs0 = min_crow;
 
@@ -707,7 +707,7 @@ static void GetRstrGlobals(BAL_RSTR_GLOBALS  *rstrGlob)
     let_linpos         = rstrGlob->let_linpos;
     let_linshape       = rstrGlob->let_linshape;
     let_sans_acc       = rstrGlob->let_sans_acc;     // [257]
-    letters_pidx_table = rstrGlob->letters_pidx_table;   
+    letters_pidx_table = rstrGlob->letters_pidx_table;
 	                  // 512
 
 	memcpy(&decode_ASCII_to_[0][0],rstrGlob->decode_ASCII_to_,256*4);
@@ -835,7 +835,7 @@ BAL_FUNC(Bool32) BAL_basedraft(CSTR_line ln, Word8 isDust,
 	GetBalGlobals(balGlob);
 
 	ret = basedraft(ln, isDust);
-   
+
 	SetBalGlobals(balGlob);
 
 	SetBalBases(bal_bases);  // don't need for draft ?
@@ -843,7 +843,7 @@ BAL_FUNC(Bool32) BAL_basedraft(CSTR_line ln, Word8 isDust,
 	return ret?TRUE:FALSE;
 }
 ///////////////
-BAL_FUNC(Bool32) BAL_linpos(CSTR_line ln, 
+BAL_FUNC(Bool32) BAL_linpos(CSTR_line ln,
 					  BAL_RSTR_GLOBALS  *rstrGlob,
 					  BAL_INOUT_GLOBALS *balGlob,
 					  BAL_bas_ln *bal_bases)
@@ -854,7 +854,7 @@ BAL_FUNC(Bool32) BAL_linpos(CSTR_line ln,
 	GetBalGlobals(balGlob);
 
 	linpos(ln);
-   
+
 	SetBalGlobals(balGlob);
 
 	SetBalBases(bal_bases);
@@ -862,7 +862,7 @@ BAL_FUNC(Bool32) BAL_linpos(CSTR_line ln,
 	return TRUE;
 }
 ///////////////
-BAL_FUNC(Bool32) BAL_basefin(CSTR_line ln, 
+BAL_FUNC(Bool32) BAL_basefin(CSTR_line ln,
 					   BAL_RSTR_GLOBALS  *rstrGlob,
 					   BAL_INOUT_GLOBALS *balGlob,
 					   BAL_bas_ln *bal_bases )
@@ -873,7 +873,7 @@ BAL_FUNC(Bool32) BAL_basefin(CSTR_line ln,
 	GetBalGlobals(balGlob);
 
 	basefin( ln );
-   
+
 	SetBalGlobals(balGlob);
 
 	SetBalBases(bal_bases);

@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -106,7 +106,7 @@ CEDPage * CED_FormattedLoad (char * file,Bool32 readFromFile, Word32 bufLen)
 	CED_SheetDiskDescr=NewFormattedSDD;
 	CED_TextRef=NewFormattedTR;
 //	CED_FragmDiskDescr=FormattedFDD;
-//	CED_FragmDisk=NewFormattedFD; 
+//	CED_FragmDisk=NewFormattedFD;
 	CED_LineBeg=NewFormattedLB;
 	CED_Letter=NewFormattedL;
 	CED_BitmapRef=NewFormattedBMR;
@@ -165,12 +165,12 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 	case EDEXT_BORDERS:
 	{
 		pageDescr* pd=(pageDescr*)ptExt;
-		mainPage->pageSizeInTwips.cx=        pd->paperw;     
-		mainPage->pageSizeInTwips.cy=        pd->paperh;     
-		mainPage->pageBordersInTwips.top=    pd->margt;      
-		mainPage->pageBordersInTwips.left=   pd->margl;      
-		mainPage->pageBordersInTwips.bottom= pd->margb;      
-		mainPage->pageBordersInTwips.right=  pd->margr;      
+		mainPage->pageSizeInTwips.cx=        pd->paperw;
+		mainPage->pageSizeInTwips.cy=        pd->paperh;
+		mainPage->pageBordersInTwips.top=    pd->margt;
+		mainPage->pageBordersInTwips.left=   pd->margl;
+		mainPage->pageBordersInTwips.bottom= pd->margb;
+		mainPage->pageBordersInTwips.right=  pd->margr;
 		mainPage->resizeToFit=               pd->resizeToFit;
 		//for backward compatibility
 		if ( unsigned( (&(pd->recogLang)) - ((BYTE*)pd) )<pt->length-sizeof(edExtention))
@@ -180,13 +180,13 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 	case EDEXT_TIFF_DESC:
 	{
 		originalImageDesc* fond=(originalImageDesc*)ptExt;
-		mainPage->sizeOfImage.cy=fond->height; 		
-		mainPage->sizeOfImage.cx=fond->width;  		
-		mainPage->pageNumber=    fond->pageNum;		
-		mainPage->turn=          fond->inclune;		
-		mainPage->dpi.cx=  fond->resolutionX;	
-		mainPage->dpi.cy=  fond->resolutionY;	
-		mainPage->unrecogChar=   fond->unrecogSymbol;	
+		mainPage->sizeOfImage.cy=fond->height;
+		mainPage->sizeOfImage.cx=fond->width;
+		mainPage->pageNumber=    fond->pageNum;
+		mainPage->turn=          fond->inclune;
+		mainPage->dpi.cx=  fond->resolutionX;
+		mainPage->dpi.cy=  fond->resolutionY;
+		mainPage->unrecogChar=   fond->unrecogSymbol;
 		mainPage->imageName=strdup((char*)ptExt+sizeof(originalImageDesc));
 		break;
 	}
@@ -204,13 +204,13 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 	{
 		CEDSection * sect=mainPage->InsertSection();
 		sectParams1* sp=(sectParams1*)ptExt;
-		sect->borders.bottom=sp->bottomMargin	; 
-		sect->borders.top=   sp->topMargin	; 
-		sect->borders.left=  sp->leftMargin	; 
-		sect->borders.right= sp->rightMargin	; 
-		sect->numberOfColumns=0;//  sp->columns		; 
-		sect->colInterval=   sp->colInterval	; 
-		sect->numSnakeCols=  sp->numSnakeCols; 
+		sect->borders.bottom=sp->bottomMargin	;
+		sect->borders.top=   sp->topMargin	;
+		sect->borders.left=  sp->leftMargin	;
+		sect->borders.right= sp->rightMargin	;
+		sect->numberOfColumns=0;//  sp->columns		;
+		sect->colInterval=   sp->colInterval	;
+		sect->numSnakeCols=  sp->numSnakeCols;
 		sect->colInfo=new EDCOL[sect->numSnakeCols];
 		char * c=(char*)ptExt+sizeof(sectParams1);
 		int i;
@@ -225,11 +225,11 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 			c+=4;
 		}
 		sectParams2* sp2=(sectParams2*)c;
-		sect->footerY=      sp2->footerY		; 
-		sect->headerY=      sp2->headerY		; 
-		sect->width=        sp2->width		; 
-		sect->height=       sp2->height		; 
-		sect->orientation=  sp2->orientation	; 
+		sect->footerY=      sp2->footerY		;
+		sect->headerY=      sp2->headerY		;
+		sect->width=        sp2->width		;
+		sect->height=       sp2->height		;
+		sect->orientation=  sp2->orientation	;
 		sect->sectionBreak= sp2->sectionBreak;
 		//for backward compatibility
 		if ( unsigned( (&(sp2->lineBetCol)) - ((BYTE*)sp) )<pt->length-sizeof(edExtention))
@@ -242,10 +242,10 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 		CEDParagraph* hPara=mainPage->GetCurSection()->GetCurParagraph();
 		hPara->color=                (signed short)pard->color;
 		hPara->interval.cx=          pard->spaceBefore;
-		hPara->interval.cy=          pard->spaceAfter;		
+		hPara->interval.cy=          pard->spaceAfter;
 		hPara->alignment=            pard->alignment;
 		hPara->indent.top=           pard->firstIndent;
-		hPara->indent.left=          pard->leftIndent;		
+		hPara->indent.left=          pard->leftIndent;
 		hPara->indent.right=         pard->rightIndent;
 		hPara->keep=                 pard->keep;
 		hPara->shading=              (signed short)pard->shading;
@@ -254,21 +254,21 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 		hPara->userNumber=           (signed short)pard->userNum;
 		//for backward compatibility
 		if ( unsigned( (&(pard->topBrdrType)) - ((BYTE*)pard) )<pt->length-sizeof(edExtention))
-			hPara->topBrdrType=pard->topBrdrType		; 
+			hPara->topBrdrType=pard->topBrdrType		;
 		if ( unsigned( (BYTE*)(&(pard->topBrdrWidth)) - ((BYTE*)pard) )<pt->length-sizeof(edExtention))
-			hPara->topBrdrWidth=    pard->topBrdrWidth	; 
+			hPara->topBrdrWidth=    pard->topBrdrWidth	;
 		if ( unsigned( (&(pard->bottomBrdrType)) - ((BYTE*)pard) )<pt->length-sizeof(edExtention))
-			hPara->bottomBrdrType=  pard->bottomBrdrType	; 
+			hPara->bottomBrdrType=  pard->bottomBrdrType	;
 		if ( unsigned( (BYTE*)(&(pard->bottomBrdrWidth)) - ((BYTE*)pard) )<pt->length-sizeof(edExtention))
-			hPara->bottomBrdrWidth= pard->bottomBrdrWidth	; 
+			hPara->bottomBrdrWidth= pard->bottomBrdrWidth	;
 		if ( unsigned( (&(pard->leftBrdrType)) - ((BYTE*)pard) )<pt->length-sizeof(edExtention))
-			hPara->leftBrdrType=    pard->leftBrdrType	; 
+			hPara->leftBrdrType=    pard->leftBrdrType	;
 		if ( unsigned( (BYTE*)(&(pard->leftBrdrWidth)) - ((BYTE*)pard) )<pt->length-sizeof(edExtention))
-			hPara->leftBrdrWidth=   pard->leftBrdrWidth	; 
+			hPara->leftBrdrWidth=   pard->leftBrdrWidth	;
 		if ( unsigned( (&(pard->rightBrdrType)) - ((BYTE*)pard) )<pt->length-sizeof(edExtention))
-			hPara->rightBrdrType=   pard->rightBrdrType	; 
+			hPara->rightBrdrType=   pard->rightBrdrType	;
 		if ( unsigned( (BYTE*)(&(pard->rightBrdrWidth)) - ((BYTE*)pard) )<pt->length-sizeof(edExtention))
-			hPara->rightBrdrWidth=  pard->rightBrdrWidth	; 
+			hPara->rightBrdrWidth=  pard->rightBrdrWidth	;
 
 		break;
 	}
@@ -277,20 +277,20 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 		CEDParagraph *hPara=mainPage->GetCurSection()->GetCurParagraph();
 		edRowDescr *rd=(edRowDescr*)(hPara)->descriptor;
 		rowParam* rp=(rowParam*)ptExt;
-		rd->topBrdrType=     rp->topBrdrType		; 
-		rd->topBrdrWidth=    rp->topBrdrWidth	; 
-		rd->bottomBrdrType=  rp->bottomBrdrType	; 
-		rd->bottomBrdrWidth= rp->bottomBrdrWidth	; 
-		rd->leftBrdrType=    rp->leftBrdrType	; 
-		rd->leftBrdrWidth=   rp->leftBrdrWidth	; 
-		rd->rightBrdrType=   rp->rightBrdrType	; 
-		rd->rightBrdrWidth=  rp->rightBrdrWidth	; 
-		rd->gaph=            rp->gaph			; 
-		rd->header=          rp->header			; 
-		rd->header=          rp->left			; 
-		rd->position=        rp->position		; 
-		rd->rowHeight=       rp->rowHeight		; 
-		rd->left=			 rp->left		; 
+		rd->topBrdrType=     rp->topBrdrType		;
+		rd->topBrdrWidth=    rp->topBrdrWidth	;
+		rd->bottomBrdrType=  rp->bottomBrdrType	;
+		rd->bottomBrdrWidth= rp->bottomBrdrWidth	;
+		rd->leftBrdrType=    rp->leftBrdrType	;
+		rd->leftBrdrWidth=   rp->leftBrdrWidth	;
+		rd->rightBrdrType=   rp->rightBrdrType	;
+		rd->rightBrdrWidth=  rp->rightBrdrWidth	;
+		rd->gaph=            rp->gaph			;
+		rd->header=          rp->header			;
+		rd->header=          rp->left			;
+		rd->position=        rp->position		;
+		rd->rowHeight=       rp->rowHeight		;
+		rd->left=			 rp->left		;
 		break;
 	}
 	case EDEXT_TABLE_CELL:
@@ -298,18 +298,18 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 		CEDParagraph *hPara=mainPage->GetCurSection()->GetCurParagraph();
 		cellParam *cp=(cellParam *)ptExt;
 		edCellDescr *cd=(edCellDescr*)(hPara)->descriptor;
-		cd->topBrdrType=     cp->topBrdrType		; 
-		cd->topBrdrWidth=    cp->topBrdrWidth	; 
-		cd->bottomBrdrType=  cp->bottomBrdrType	; 
-		cd->bottomBrdrWidth= cp->bottomBrdrWidth	; 
-		cd->leftBrdrType=    cp->leftBrdrType	; 
-		cd->leftBrdrWidth=   cp->leftBrdrWidth	; 
-		cd->rightBrdrType=   cp->rightBrdrType	; 
-		cd->rightBrdrWidth=  cp->rightBrdrWidth	; 
-		cd->cellX=           cp->cellX			; 
-		cd->color=           (signed short)cp->color			; 
-		cd->shading=         (signed short)cp->shading			; 
-		cd->merging=         cp->merging			; 
+		cd->topBrdrType=     cp->topBrdrType		;
+		cd->topBrdrWidth=    cp->topBrdrWidth	;
+		cd->bottomBrdrType=  cp->bottomBrdrType	;
+		cd->bottomBrdrWidth= cp->bottomBrdrWidth	;
+		cd->leftBrdrType=    cp->leftBrdrType	;
+		cd->leftBrdrWidth=   cp->leftBrdrWidth	;
+		cd->rightBrdrType=   cp->rightBrdrType	;
+		cd->rightBrdrWidth=  cp->rightBrdrWidth	;
+		cd->cellX=           cp->cellX			;
+		cd->color=           (signed short)cp->color			;
+		cd->shading=         (signed short)cp->shading			;
+		cd->merging=         cp->merging			;
 		cd->vertTextAlign=	 cp->vertTextAlign;
 		//for backward compatibility
 		if ( unsigned( (&(cp->flag)) - ((BYTE*)cp) )<pt->length-sizeof(edExtention))
@@ -606,7 +606,7 @@ void CED_ShowTree(char * name, Handle hEdPage)
 	Handle tblRow;
 	unsigned int tblRowNum=0,tblCellNum=0;
 	FILE *stream = fopen( name, "w" );
-	fprintf(stream,"Page,dpi=%i,imName=%s,\ntw.x=%i,tw.y=%i,sz.x=%i,sz.y=%i,turn=%i,char=%c\n", 
+	fprintf(stream,"Page,dpi=%i,imName=%s,\ntw.x=%i,tw.y=%i,sz.x=%i,sz.y=%i,turn=%i,char=%c\n",
 		CED_GetPageDpi(hEdPage).cx,CED_GetPageImageName(hEdPage),CED_GetPageSize(hEdPage).cx,
 		CED_GetPageSize(hEdPage).cy,CED_GetPageImageSize(hEdPage).cx,
 		CED_GetPageImageSize(hEdPage).cy,CED_GetPageTurn(hEdPage),CED_GetPageUnrecogChar(hEdPage));
@@ -634,7 +634,7 @@ void CED_ShowTree(char * name, Handle hEdPage)
 		for (unsigned int j=0;j<CED_GetCountColumn(sect);j++)
 		{
 			Handle col=CED_GetColumn(sect,j);
-			if (!col) 
+			if (!col)
 			{
 				printf("Internal error in CED_GetColumn");
 				continue;
@@ -642,7 +642,7 @@ void CED_ShowTree(char * name, Handle hEdPage)
 			fprintf(stream,"\nNewCol");
 			Handle para=CED_GetFirstObject(col);
 			while (para)
-			{				
+			{
 				if (!CED_IsParagraph(para))
 				{
 					if (CED_IsTable(para))
@@ -747,7 +747,7 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 	{
 		SetReturnCode_ced(CFIO_GetReturnCode());
 		return FALSE;
-	} 	
+	}
 	//Write header
 	sheet_disk_descr sdd;
 	sdd.code=SS_SHEET_DESCR;
@@ -845,11 +845,11 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
  				rp.left=rd->header;
 				rp.position=rd->position;
 				rp.rowHeight=rd->rowHeight;
-				rp.left=rd->left; 
+				rp.left=rd->left;
 
 				if (!WriteExtCode(hFile,EDEXT_TABLE_ROW,&rp,sizeof(rp))) goto ED_WRITE_END;
 				break;
-			
+
 			case TAB_CELL_BEGIN:
 				if (!WriteRemark(hFile,SSR_FRAG_TYPE,TP_NEW_CELL_BEG)) goto ED_WRITE_END;
 				cd=(edCellDescr*)(hPara)->descriptor;
@@ -932,7 +932,7 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 		font=kegl=0;
 	fn=0;
 
-	CEDLine *line;			
+	CEDLine *line;
 	if(line=page->GetLine(0))
 	{
 		do
@@ -959,7 +959,7 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 						font=fk.new_font=chr->fontAttribs;
 						kegl=fk.new_kegl=chr->fontHeight;
 						if (!Write(hFile,(PInt8)&fk,sizeof(fk))) goto ED_WRITE_END;
-					}	
+					}
 					if(chr->fontNum!=fontNum||chr->foregroundColor!=foregroundColor||chr->backgroundColor!=backgroundColor)
 					{
 						charParams chp;
@@ -1021,7 +1021,7 @@ Bool32 WriteFontTable(HANDLE hFile, CEDPage* page)
 	if (!(page->fontsUsed))
 		return TRUE;
 	for (q=0;q<page->fontsUsed;q++)
-	{	
+	{
 		page->GetFont(q,0,0,0,&ch);
 		if (ch)
 			len+=strlen(ch)+1;
@@ -1030,7 +1030,7 @@ Bool32 WriteFontTable(HANDLE hFile, CEDPage* page)
 
 	fontDiscr fond;
 	for (q=0;q<page->fontsUsed;q++)
-	{	
+	{
 		page->GetFont(q,&(fond.fontNumber),&(fond.fontPitchAndFamily),
 			&(fond.fontCharset),&ch);
 		fond.size=strlen(ch)+1+sizeof(fontDiscr);
@@ -1066,14 +1066,14 @@ Bool32 WritePictTable(HANDLE hFile, CEDPage* page)
 	if (!(page->picsUsed))
 		return TRUE;
 	for (q=0;q<page->picsUsed;q++)
-	{	
+	{
 		len+=page->picsTable[q].len;
 	}
 	if (!WriteExtCode(hFile,EDEXT_PICS,0,0,len+sizeof(pictDescr)*page->picsUsed)) return FALSE;
 
 	pictDescr picd;
 	for (q=0;q<page->picsUsed;q++)
-	{	
+	{
 		picd.pictAlign=page->picsTable[q].pictAlign;
 		picd.pictGoal.cx=page->picsTable[q].pictGoal.cx;
 		picd.pictGoal.cy=page->picsTable[q].pictGoal.cy;

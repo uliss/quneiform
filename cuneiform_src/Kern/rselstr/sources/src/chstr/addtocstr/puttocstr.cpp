@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -121,25 +121,25 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
  GetPageInfo(hCPage,&info);
 
  int skew=info.Incline2048;
- 
+
  DPIX=info.DPIX;
  DPIY=info.DPIY;
  Word8 ImageName[CPAGE_MAXNAME];
 // Word8 RotateImageName[CPAGE_MAXNAME];
 
- 
+
  inf_str_h=inf_str_h*((int)(DPIY)+1)/300;
  inf_str_w=inf_str_w*((int)(DPIY)+1)/300;
  inf_let_h=inf_let_h*((int)(DPIY)+1)/300;
  inf_betw_str_h=inf_betw_str_h*((int)(DPIY)+1)/300;
  min_let_w=min_let_w*((int)(DPIY)+1)/300;
  min_let_h=min_let_h*((int)(DPIY)+1)/300;
- 
+
  Word8* pmaspold;
  Word8* pmasp;
  Word8 Data[1000];
  memset (Data, 0, sizeof (Data));
- 
+
 
  int max_str=CSTR_GetMaxNumber ();
  max_str++;
@@ -188,7 +188,7 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
    Rc.left=my_str->left;
    Rc.right=my_str->left+my_str->w-1;
 
-  
+
   my_prep_str=NULL;//___commented by Andrey___ WasAlreadyPrep(my_str);
   if(my_prep_str)
   {
@@ -209,21 +209,21 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
 	  my_str=my_str->next;
    if(!ret )
 	   continue;
-  
-  
+
+
    pRc[0].bottom=Rc.bottom;
    pRc[0].top=Rc.top;
    pRc[0].right=Rc.right;
    pRc[0].left=Rc.left;
 //  fl_rotate=MyRotateImage(ImageName,RotateImageName,-skew,&(pRc[0]),my_str->vertical,my_str->m_num_frag,&rot,&unrot);
-  
+
 
    pmaspold = Data;
    ret=GetMasP(hCPage,ImageName,Rc,&pmaspold);
    if(!ret)
 	  my_str=my_str->next;
    if(!ret)
-	  continue; 
+	  continue;
 
 //  int w=pRc[0].right-pRc[0].left+1;
 //  int h=pRc[0].bottom-pRc[0].top+1;
@@ -245,7 +245,7 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
    pRc[0].top=Rc.top;
    pRc[0].right=Rc.right;
    pRc[0].left=Rc.left;
- 
+
    if(my_str->vertical)
       ToHorizont(pRc,pmasp,pmaspold);
    else
@@ -258,7 +258,7 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
    unrotRc.left=pRc[0].left;
    unrotRc.right=pRc[0].right;
 
-  
+
    if(!InitRotateMas(pRc[0],&begx,&movey,&flmovey))
 	  fl_rotate=FALSE;
    else
@@ -269,9 +269,9 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
 //     LDPUMA_ConsoleN("Time rotate=%d",clock()-time);
    }
 //  LDPUMA_WaitUserInput (StrD,MainWindowD);
-   
- 
-  
+
+
+
    oldleft=pRc[0].top;
 
    if(my_str->neg)
@@ -320,8 +320,8 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
    {
     InitRotateMas(&hi,nRc);
     RSELSTR_UnRotateRect(-skew,pRc,nRc,unrotRc,begx,movey,flmovey,hi);
-   }  
-   
+   }
+
 /* hi=NULL;
   if(!(hi=new int[nRc]))
   {
@@ -332,13 +332,13 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
   }
   if(!ret)
 	  continue;
-	 
+
   MyUnRotateRect(pRc,nRc,hi,unrot);
 */
    delete[] pmasp;
   }
 
- 
+
   Int32 hStrCCOM;
   CCOM_comp * pcomp;
   oldleft=my_str->left;
@@ -398,7 +398,7 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
    my_right=(Int32)Rc.right;
 
    pcomp = CCOM_GetFirst(hStrCCOM,Filter);
-  
+
    if(pcomp==NULL)
 	  continue;
 
@@ -444,11 +444,11 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
 	pC[nN]=pcomp;
     nN++;
    }
-  
- 
+
+
 //   if(nomem)
 //	   continue;
-  
+
 //   SortLetter(pN,nN,my_str->vertical);
    int j;
    if(fl_rotate)
@@ -470,7 +470,7 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
 		  nRc++;
 		  StrMoveMas(hi,nRc,i);
 	  }
-  
+
 	  if(!my_prep_str)
 	  {
         if(hStrCCOM!=(CCOM_handle)hCCOM)
@@ -487,9 +487,9 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
    }
    if(!j)
 	  continue;
- 
+
 //Çàïîëíåíèå â CSTR:
-   
+
    string=CSTR_NewLine(max_str,0,-1);
    if(string==NULL)
    {
@@ -576,10 +576,10 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
     ret=StrGetRaster(hCPage,my_str->ImageName,pN[j],pC[j],&rec,my_str->vertical,my_str->neg,scale);
     if(!ret)
 	  continue;
-	
+
     GetRasterRect(ImageName,pN[j],&RastRec,&attr,0);
-   
-    rast=CSTR_NewRaster(string,RastRec.left,RastRec.top,RastRec.right-RastRec.left+1);	
+
+    rast=CSTR_NewRaster(string,RastRec.left,RastRec.top,RastRec.right-RastRec.left+1);
     if(!rast)
 	   continue;
 
@@ -595,7 +595,7 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
     }
     if(!(ret=CSTR_SetAttr(rast,&r_attr)) )
         CSTR_DelRaster(rast);
-     
+
     if(!ret)
 	    continue;
 
@@ -628,7 +628,7 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
    }
   }
 
- 
+
 // Ïðîðèñîâêà ñòðîê
   if(!fl_rotate)
   {
@@ -636,7 +636,7 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
    {
     if(!(LDPUMA_Skip (StrD)) )
     {
-	
+
       StrDrawRect(MainWindowD,code_strd,RGB(0,0,255),pRc,nRc,my_str->vertical,Rc);
       LDPUMA_WaitUserInput (StrD,MainWindowD);
       LDPUMA_DeleteRects (MainWindowD,code_strd);
@@ -709,7 +709,7 @@ BOOL StrGetRaster(Handle hCPage,Word8* ImageName,Rect16 N,CCOM_comp* comp,RecRas
 	 bytewide++;
  int vbytewide=(h)/8;
  if( ((h)%8) != 0)
-	 vbytewide++; 
+	 vbytewide++;
  Word8 pmasp[REC_MAX_RASTER_SIZE];
  for(i=REC_MAX_RASTER_SIZE-1;i>=0;i--)
 	 pmasp[i]=0;
@@ -772,41 +772,41 @@ BOOL StrGetRaster(Handle hCPage,Word8* ImageName,Rect16 N,CCOM_comp* comp,RecRas
 	 j=h*bytewide;
 	 for(i=0;i<j;i++)
 	   pmasp[i]=~(pmasp[i]);
-	   
+
  }
  */
  if((k=(w%8))>0)
- {	 
+ {
 	  bytep=0;
 	  for(j=128;j>(128>>k);j=j>>1)
 		 bytep|=j;
  	  for(i=0;i<h;i++)
 	     pmasp[(i+1)*bytewide-1]&=bytep;
- }	
- 
+ }
+
  for(i=0;i<scale;i++)
  {
 	 if(!vert)
 	 {
-		 
+
 			 StrAr2(pmasp,h,w);
 			 w=w/2;
 			 h=h/2;
 			 bytewide=(w)/8;
              if( ((w)%8) != 0)
 	            bytewide++;
-		 
+
 	 }
 	 else
 	 {
-		
+
 			 StrAr2(pmasp,h,w);
 			 w=w/2;
 			 h=h/2;
 			 vbytewide=(h)/8;
              if( ((h)%8) != 0)
 	            vbytewide++;
-		 
+
 	 }
  }
 
@@ -872,7 +872,7 @@ BOOL StrGetRaster(Handle hCPage,Word8* ImageName,Rect16 N,CCOM_comp* comp,RecRas
   (*rec).lnPixWidth=h;
   (*rec).lnRasterBufSize=REC_MAX_RASTER_SIZE;
  }
- 
+
  return TRUE;
 }
 
@@ -922,10 +922,10 @@ void StrAr2(Word8* pmasp,int h,int w)
      nowbyte2=(i*newbytewide)<<1;
 	 for(j=0;j<newbytewide;j++)
 		 pmasp[nowbyte+j]=pmasp[nowbyte2+j]|pmasp[nowbyte2+newbytewide+j];
- 
+
  }
 }
-    
+
 
 void Invert(RecRaster* rec)
 {
@@ -956,17 +956,17 @@ BOOL MyRotateImage(Word8* ImageName,Word8* RotateImageName,int skew,Rect16* Rc,B
 	 skew=-skew;
 
  if((double)(w*skew)/2048.<(double)(inf_betw_str_h))
- { 
+ {
 	 InitRotateImageName(RotateImageName,ImageName);
 	 return FALSE;
  }
 
  use_marg=0;
- 
+
  InitRotateImageName(RotateImageName,code);
 
  time=clock();
-   
+
  if(!RIMAGE_Rotate(ImageName,RotateImageName,own_skew,2048,use_marg))
  {
 	 InitRotateImageName(RotateImageName,ImageName);

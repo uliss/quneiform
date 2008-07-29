@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -83,7 +83,7 @@ static BYTE solid_sticks[]     ="|1!Il\xbb"; // liga_i, liga_j // liga_i ìàêðà 0
 static BYTE incline_main[]     ="­è¯ç¨â…ƒ˜—ˆ’irbtfnBTEIPDFHLN"; // "íøï÷èòÅÍÃØÏÐ×ÈÒirbtfnBTEIPDFHLN"
 static BYTE incline_chars[]    =
 	"©æ­£èéêäë¢¯àïç¨âêì¡î‰–…ƒ˜™š”›‚Ÿ—ˆ’œšž\xf7\xf5ijbrtfnBTEIPDFHLNR";
-//	"éöíãøùúôûâïðÿ÷èòúüáþÉÖÅÍÃØÙÚÔÛÂÏÐß×ÈÒÜÚÁÞ\xf7\xf5ijbrtfnBTEIPDFHLNR";	
+//	"éöíãøùúôûâïðÿ÷èòúüáþÉÖÅÍÃØÙÚÔÛÂÏÐß×ÈÒÜÚÁÞ\xf7\xf5ijbrtfnBTEIPDFHLNR";
 // cursive ¨,â
 static BYTE aux_inc_chars[]    ="ªê¥ ý®¦íá¬ŠŽ†‘ŒukdhqecmoKUOCM";
 static BYTE disable_rerecog[] ="á¨¬¢ìcb";
@@ -312,7 +312,7 @@ cell    *cret = c                              ;
 
 if ( dy >= 256 )
 	dy = 255;                                        //AK! add for crash steck protection
-if( !c->env     )              
+if( !c->env     )
 	return c;
 
 if( c->flg&c_f_dust)  shave = 0; // dust can't shave
@@ -329,8 +329,8 @@ if( shave || inc )
   {
 	// åñëè ñëèøêîì ìàë áóôåð - óõîäèì
 	// èíà÷å âîçìîæåí âûëåò è ò.ï.  Nick 07.04.2002
-	if( (long)dy * ( (dx + (long)(MAX (abs(tab_angle[0]), abs(tab_angle[dy-1]))+7))>>3) > 
-		sizeof(sh_raster) 
+	if( (long)dy * ( (dx + (long)(MAX (abs(tab_angle[0]), abs(tab_angle[dy-1]))+7))>>3) >
+		sizeof(sh_raster)
 	  )
 	  return c;
 
@@ -363,7 +363,7 @@ if( shave || inc )
     if( (sh_cell[i]=create_cell (sh_mn, c, c->bdiff, (CHAR)(c->difflg&0xf0)))==NULL )
       return c;
     if( sh_cell[i]->w>RASTER_MAX_WIDTH || sh_cell[i]->h>RASTER_MAX_HEIGHT ||
-		!sh_cell[i]->env 
+		!sh_cell[i]->env
 	  )
       {
       for(;i>=0;i--)
@@ -677,14 +677,14 @@ while(1)
   sc = snap_stopcell(c,e)?snap_get_stopcell():NULL;
   tmp = c->prev;
   inc = erection_incline_word(c, e, bl.b3, 0);
-  if( inc && !local_pass ) 
+  if( inc && !local_pass )
     {
     incline = 1;
     av_inc+=inc;
     n_inc++;
     erect_page_incline[inc/16]++;
     }
-  
+
 #ifdef STEND_INC
   if( inc && !(db_status && snap_activity('i')) )
     {
@@ -748,7 +748,7 @@ return(BYTE) incline ;
 
 
 INT get_baton_inc(cell *c)
- { 
+ {
  INT n, inc=0;
  STICK *res,*r;
  Word8 let;
@@ -759,7 +759,7 @@ if( c->nvers<1 )
  let = decode_ASCII_to_[c->vers[0].let][0];
  n=sticks_in_letter(c,0,&res);
  r=res;
-     
+
  if (n>=0)
     {
     switch( let )
@@ -788,7 +788,7 @@ if( c->nvers<1 )
             inc=1;
             break;
         }
-    }   
+    }
  else
       return 0;
 
@@ -822,7 +822,7 @@ for( nall=ninc=0, c=b; c!=e; c = c->next,nall++)
         {
         if( erector(c, 1, 0, 1, 0)==2 )  // set incline in c->stick_inc
             {
-            
+
             }
         inc=0;
         if( c->stick_inc!=NO_INCLINE )
@@ -866,7 +866,7 @@ if( calc )
                 hist[ c->stick_inc/16 ]--;
             ninc--;
             if( !local_pass )
-                c->stick_inc=0;        
+                c->stick_inc=0;
             }
         }
     }
@@ -1004,7 +1004,7 @@ BOOL no_bad_alias(cell *c)
 INT  i, n;
 BYTE *p;
 
-if( c->nvers<2 )  
+if( c->nvers<2 )
     return TRUE;
 for(i=1;i<c->nvers;i++)
     {
@@ -1023,7 +1023,7 @@ for(i=1;i<c->nvers;i++)
             INT     n;
             n=sticks_in_letter(c,0,&r);
             if( n==2 && abs(r[1].incl-r[0].incl)>50 )
-                return FALSE;   
+                return FALSE;
             }
         }
     }
@@ -1072,7 +1072,7 @@ for(n1=inc1=inc=0,zerall=zero=zeromn=all=mn=i=n=0,c=b; c!=e; c=c->next)
         memchr(incline_main,c->vers[0].let,sizeof(incline_main)) &&
 		!is_russian_baltic_conflict(c->vers[0].let)	&& // 17.07.2001 E.P.
 		!is_russian_turkish_conflict(c->vers[0].let)&&// 21.05.2002 E.P.
-        no_bad_alias(c) 
+        no_bad_alias(c)
 	  )
       mn++;
     if( (c->flg&c_f_bad)&&mode_incline(c->stick_inc) )
@@ -1095,7 +1095,7 @@ for(n1=inc1=inc=0,zerall=zero=zeromn=all=mn=i=n=0,c=b; c!=e; c=c->next)
         zeromn++;
     }
 
-  if( (c->flg&c_f_let) &&      c->stick_inc==0 &&      c->nvers>0 && 
+  if( (c->flg&c_f_let) &&      c->stick_inc==0 &&      c->nvers>0 &&
     (memchr(incline_chars,c->vers[0].let,sizeof(incline_chars) ) &&
 		!is_russian_baltic_conflict(c->vers[0].let)&&// 17.07.2001 E.P.
 		!is_russian_turkish_conflict(c->vers[0].let) // 21.05.2002 E.P.
@@ -1157,7 +1157,7 @@ if( inc<300 &&  // small incline
   inc = 0;
 
 if( inc<350 && mn==0 && all<4 && zeromn>0 )
-    inc=0; 
+    inc=0;
 if( mn==1 && zeromn>1 )          // many zero inc in word  & 1 inc
   inc = 0;
 
@@ -1202,7 +1202,7 @@ if( d )
     d = -d;
   if( d && tmp->col>=d && tmp->r_col>=d )
 	 // Nick 14.08.2002 - ïåðåìåñòèë íèæå - tmp->env ì.á. NULL !!!
-	 // &&   tmp->env->left>=d ) 
+	 // &&   tmp->env->left>=d )
     {
     tmp->col       -= (INT)d;
     tmp->r_col     -= (INT)d;
@@ -1236,7 +1236,7 @@ cell  * c;
 INT     i,wn, up,let;
 for(up=let=i=0, c=b; c!=e; c=c->next, i++)
     {
-    if( c->flg&(c_f_let|c_f_bad) ) 
+    if( c->flg&(c_f_let|c_f_bad) )
         {
         let++;
         if( c->stick_inc!=NO_INCLINE && (((long)c->stick_inc*c->h)/204l)>16 &&
@@ -1306,10 +1306,10 @@ for(i=0, c=b; c!=e; c=c->next, i++)
     c=erect_cell_value (c, c->stick_inc, shave , TRUE);
   else
     c=erect_cell_value (c, (INT)inc, shave , TRUE);
-  
+
   for(tmp = tmp->next;tmp!=cnext;tmp=tmp->next)
     {    // shift cell boxes
-    erect_rotate_bl(tmp,base_3,inc,-1);//(INT)(line_scale?(base_3>>line_scale):base_3),inc,-1);    
+    erect_rotate_bl(tmp,base_3,inc,-1);//(INT)(line_scale?(base_3>>line_scale):base_3),inc,-1);
     v2_pidx_crit(tmp);
     if( (save_nvers = c->nvers)>0 )
         memcpy(save_versions,c->vers,VERS_IN_CELL*sizeof(version));
@@ -1318,7 +1318,7 @@ for(i=0, c=b; c!=e; c=c->next, i++)
       {
       if(n_call==0  )
         {
-        if( tmp->nvers>0 && 
+        if( tmp->nvers>0 &&
 			memchr(disable_rerecog,tmp->vers[0].let,sizeof(disable_rerecog) ) &&
 				!is_russian_baltic_conflict(tmp->vers[0].let)&&// 17.07.2001 E.P.
 				!is_russian_turkish_conflict(tmp->vers[0].let)   // 21.05.2002 E.P.
@@ -1735,10 +1735,10 @@ INT i;
 return FALSE;
 for(i=0;i<c->nvers;i++)
     {
-    if( !memchr(solid_sticks,c->vers[i].let,sizeof(solid_sticks)) && 
+    if( !memchr(solid_sticks,c->vers[i].let,sizeof(solid_sticks)) &&
 		c->vers[i].let!= liga_i	&& // 08.09.2000 E.P.
 		!(language == LANG_TURKISH &&  // 30.05.2002 E.P.
-			(c->vers[i].let==i_sans_accent||c->vers[i].let==II_dot_accent) 
+			(c->vers[i].let==i_sans_accent||c->vers[i].let==II_dot_accent)
 		 )
 		)
         return FALSE;

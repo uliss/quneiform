@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 CTCStorageHeader::CTCStorageHeader():CTCGlobalHeader()
 {
 	pStorageFile = NULL;
-	pcFolder[0] = 0; 
+	pcFolder[0] = 0;
 	pcName[0] = 0;
 	wContensCounter = 0;
 }
@@ -91,8 +91,8 @@ CTCStorageHeader::CTCStorageHeader():CTCGlobalHeader()
 	static char ShBuffer[_MAX_PATH + 4];
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCStorageHeader::CTCStorageHeader(CTCGlobalFile * pNewStorage, 
-								   Word32 wNewFlag, 
+CTCStorageHeader::CTCStorageHeader(CTCGlobalFile * pNewStorage,
+								   Word32 wNewFlag,
 								   PChar8 pcNewStorageFolder )
 								   :CTCGlobalHeader(pNewStorage,NULL,0,wNewFlag)//, Contents()
 {
@@ -129,27 +129,27 @@ CTCStorageHeader::CTCStorageHeader(CTCGlobalFile * pNewStorage,
 			// ïîïðîáóåì ñîîáùèòü îá îøèáêå  ¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹
 #ifdef _DEBUG
 			LPVOID lpMsgBuf;
- 
-			FormatMessage( 
+
+			FormatMessage(
 				FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
 				NULL,
 				Err,                                       //GetLastError(),
 				MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
 				(LPTSTR) &lpMsgBuf,
 				0,
-				NULL 
+				NULL
 			);
 
 			// Display the string.
-			MessageBox ( NULL, 
-				         ( PChar8 ) lpMsgBuf, 
-						 "CFIO: Storage can't create own unpack folder", 
+			MessageBox ( NULL,
+				         ( PChar8 ) lpMsgBuf,
+						 "CFIO: Storage can't create own unpack folder",
 						 MB_OK|MB_ICONINFORMATION );
 
 			// Free the buffer.
 			LocalFree( lpMsgBuf );
 			Control_ctc->GetFolder(CFIO_STORAGE_FOLDER, ShFile);
-			//  êîí÷àåì ïðîáîâàòü ¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹			
+			//  êîí÷àåì ïðîáîâàòü ¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹¹
 #endif      // _DEBUG
 			CFIO_STRCPY(pcFolder,ShFile);
 			//MAKEPATH(pcFolder,NULL,ShFolder,ShFile,ShExtension);
@@ -173,13 +173,13 @@ CTCStorageHeader::~CTCStorageHeader()
 Bool32 CTCStorageHeader::AddItemToStorage(Handle hNewItem, Word32 wID, Word32 wNewSize)
 {
 	CTCStorageContents * pCurrent, * New;
-	
+
 	for ( pCurrent = &Contents; pCurrent->GetNext() != NULL; pCurrent = pCurrent->GetNext() )
 	{}
 
-	New      = new CTCStorageContents(hNewItem, wID, wNewSize, NULL); 
+	New      = new CTCStorageContents(hNewItem, wID, wNewSize, NULL);
 	pCurrent->SetNext(New);
-	
+
 	return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -187,7 +187,7 @@ Bool32 CTCStorageHeader::AddItemToStorage(Handle hNewItem, Word32 wID, Word32 wN
 Bool32 CTCStorageHeader::DeleteItemFromStorage(Handle Item)
 {
 	CTCStorageContents * pCurrent, * Erase;
-	
+
 	for ( pCurrent = ((Erase = &Contents)->GetNext()); pCurrent != NULL; pCurrent = pCurrent->GetNext() )
 	{
 		if ( pCurrent->GetHandle() == Item )
@@ -196,7 +196,7 @@ Bool32 CTCStorageHeader::DeleteItemFromStorage(Handle Item)
 			delete pCurrent;
 			return TRUE;
 		}
-		
+
 		Erase = pCurrent;
 	}
 	return FALSE;
@@ -219,7 +219,7 @@ Handle CTCStorageHeader::EnumItemContents(Handle Item)
 		}
 		return NULL;
 	}
-	
+
 	return Contents.GetNext()->GetHandle();
 }
 */
@@ -229,12 +229,12 @@ CTCStorageList::CTCStorageList()
 {
 	msFirstItem.SetNext(&msLastItem);
 	msFirstItem.SetSize(0);
-	msLastItem.SetSize(0); 
+	msLastItem.SetSize(0);
 	msFirstItem.SetHandle(FICTIV_Handle);
 	msLastItem.SetHandle(FICTIV_Handle);
 
-	pList = NULL; 
-	wItemCounter = 0; 
+	pList = NULL;
+	wItemCounter = 0;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -251,16 +251,16 @@ Handle CTCStorageList::AddItem(CTCGlobalFile * pNewStorage, Word32 wNewFlag)
 
 	if( !NewHandle )
 		return NULL;
-	
-	for ( Current = pFirst(); Current->GetNext() != pLast(); Current = Current->GetNext() ) 
+
+	for ( Current = pFirst(); Current->GetNext() != pLast(); Current = Current->GetNext() )
 		if ( Current->GetHandle() == pNewStorage->GetFileHandle() )
 		{
 			return NULL;
 		}
-	
+
 	NewBlock = new CTCStorageHeader(pNewStorage, wNewFlag, "");
 	NewBlock->SetNext(Current->GetNext());
-	Current->SetNext(NewBlock); 
+	Current->SetNext(NewBlock);
 	IncreaseItemCounter();
 
 	return NewHandle;
@@ -279,7 +279,7 @@ Bool32 CTCStorageList::DeleteItem(Handle Storage, Word32 Flag)
 			EraseBlock = Current;
 			DecreaseItemCounter();
 			Last->SetNext(Current->GetNext());
-			delete EraseBlock;   
+			delete EraseBlock;
 			IsOK++;
 			Current = Last;
 		}

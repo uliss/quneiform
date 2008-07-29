@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -100,7 +100,7 @@ static char SOut[CFIO_MAX_PATH];
 //
 PChar8 CTCControl::FileNameToFolder(PChar8 Buffer, PChar8 FolderName, PChar8 FileName, Word32 Size)
 {
-	PChar8      i, j; 
+	PChar8      i, j;
 	Word32      SizeOfFolder = CFIO_STRLEN(FolderName);
 	Word32      SizeOfFile =   CFIO_STRLEN(FileName);
 	Word32      Shift = SizeOfFolder;
@@ -119,7 +119,7 @@ PChar8 CTCControl::FileNameToFolder(PChar8 Buffer, PChar8 FolderName, PChar8 Fil
 			{
 				Shift--;
 			}
-			
+
 			if ( FolderName[SizeOfFolder-1] != '\\' && FileName[0] != '\\' )
 			{
 				Shift++;
@@ -127,24 +127,24 @@ PChar8 CTCControl::FileNameToFolder(PChar8 Buffer, PChar8 FolderName, PChar8 Fil
 		//	FileName = FolderName;
 		//	FolderName = Buffer;
 			for( i = Buffer, j = FolderName; i < &Buffer[Shift]; *(i + Shift) = *(i), *(i++) = *(j++) );
-			
+
 			if ( *i != '\\' && *(i-1) != '\\' )
 			{
 				*(i-1) = '\\';
 			}
 			return Buffer;
 		}
-		
+
 		if ( Buffer[SizeOfFolder-1] == '\\' && FileName[0] == '\\' )
 		{
 			Buffer[SizeOfFolder-1] = 0x0;
 		}
-		
+
 		if ( Buffer[SizeOfFolder-1] != '\\' && FileName[0] != '\\' )
 		{
 			CFIO_STRCAT(Buffer, "\\");
 		}
-		
+
 		CFIO_STRCAT(Buffer, FileName);
 	}
 	else
@@ -163,17 +163,17 @@ PChar8 CTCControl::MakeNameForStorage(PChar8 FileName, CTCStorageHeader * hStora
 	//Word32 FolderNameSize = 0;
 	//Word32 FileNameSize = 0;
 	//Word32 Append;
-	
+
 	if ( !FileName )
 		return NULL;
 
 	if ( strlen ( FileName ) > CFIO_MAX_PATH )
 		return FileName;
-	
+
 	// копируем папку хранилища
 	if ( hStorageHead )
 	{
-		CFIO_STRCPY( szBuffer, hStorageHead->GetStorageFolder() ); 
+		CFIO_STRCPY( szBuffer, hStorageHead->GetStorageFolder() );
 	}
 	else
 	{
@@ -187,7 +187,7 @@ PChar8 CTCControl::MakeNameForStorage(PChar8 FileName, CTCStorageHeader * hStora
 	CFIO_STRCAT(szBuffer,SFile);
 
 	i = &szBuffer[CFIO_STRLEN(szBuffer) - 1];
-	
+
 	i++;
 	*i = '\\';
 	*(i+1) = 0x0;
@@ -197,9 +197,9 @@ PChar8 CTCControl::MakeNameForStorage(PChar8 FileName, CTCStorageHeader * hStora
 	//  для хранилища оставляем только имя файла с расширением
 
 	CFIO_MAKEPATH(SOut, NULL, NULL, SFile, SExtension);
-	
+
 	return SOut;
-	
+
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -265,7 +265,7 @@ Handle CTCControl::OpenStorage( PChar8 lpName, Word32 wFlag )
 		wFlag |= OS_CREATE;
 		OpenedStorage = OpenNewStorage( lpName, wFlag );
 	}
-		
+
 	return OpenedStorage;
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -283,7 +283,7 @@ Bool32 CTCControl::CloseStorage(Handle  hStorage, Word32  wFlag)
 		else
 			return CloseStorageFile( hStorage, wFlag );
 	}
-	
+
 	if ( wFlag & CS_ALL )
 	{
 		CompliteAllStorage( hStorage, wFlag );
@@ -353,13 +353,13 @@ Handle CTCControl::OpenFile(Handle hStorage, PChar8 lpName, Word32 wFlag)
 
 	if ( wFlag & OSF_CREATE )
 		FileFlag |= CFIO_FILE_CREATE;
-	
+
 	if ( wFlag & OSF_OPEN )
 		FileFlag |= CFIO_FILE_OPEN;
-	
+
 	if ( wFlag & OSF_READ )
 		FileFlag |= CFIO_FILE_READ;
-	
+
 	if ( wFlag & OSF_WRITE )
 		FileFlag |= CFIO_FILE_WRITE;
 
@@ -448,7 +448,7 @@ Handle CTCControl::Alloc(Word32 wSize, Word32 wFlag, const char *cOwner, const c
 	int iTestFixed = 0;
 	Bool32 Global = FALSE;
 	Word32 GlobalFlag = 0x0;
-	
+
 	if ( wFlag & MAF_GPTR || wFlag & MAF_GNHD )
 	{
 		return NULL;
@@ -495,7 +495,7 @@ Handle CTCControl::Alloc(Word32 wSize, Word32 wFlag, const char *cOwner, const c
 
 	if ( wFlag & MAF_GALL_GMEM_NOTIFY )
 		GlobalFlag |= GMEM_NOTIFY;
-	
+
 	if ( wFlag & MAF_GALL_GMEM_SHARE )
 		GlobalFlag |= GMEM_SHARE;
 
@@ -534,7 +534,7 @@ Handle CTCControl::ReAlloc(Handle hMemory, Word32 wNewSize, Word32 wFlag)
 		break;
 
 	default :
-		
+
 		if ( wFlag & MAF_GALL_GMEM_MOVEABLE )
 			GlobalFlag |= GMEM_MOVEABLE;
 
@@ -594,7 +594,7 @@ Word32 CTCControl::WriteMemToFile(Handle hMem, PChar8 lpName)
 		MemoryList.TakeItem(hMem, &wMemorySize, &wMemoryFlag );
 		Seek(hFile, 0, FS_END);
 		pMem = (PInt8)Lock(hMem);
-		
+
 		if ( pMem )
 		{
 			Counter += WriteFile(hFile,pMem,wMemorySize);
@@ -628,7 +628,7 @@ Word32 CTCControl::ReadMemFromFile(PChar8 lpName, Handle * phMem, Word32 wFlag)
 		if ( hMem )
 		{
 			pMem = (PInt8)Lock(hMem);
-			
+
 			if ( pMem )
 			{
 				Counter += ReadFromFile(hFile,pMem,wFileSize);
@@ -650,7 +650,7 @@ Word32 CTCControl::WriteMemToStorage(Handle hMem, Handle hStorage, PChar8 lpName
 	if ( wData = WriteMemToFile(hMem, lpName) )
 	{
 		hFile = OpenFile(hStorage, lpName, OSF_READ|OSF_BINARY);
-		
+
 		if ( hFile )
 		{
 			if ( !CloseFile(hFile, CSF_SAVESTORAGE, hStorage) )
@@ -661,7 +661,7 @@ Word32 CTCControl::WriteMemToStorage(Handle hMem, Handle hStorage, PChar8 lpName
 			wData = 0;
 		}
 	}
-	return wData;	
+	return wData;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -677,14 +677,14 @@ Word32 CTCControl::ReadMemFromStorage(Handle hStorage, PChar8 lpName, Handle * p
 	if ( hStorageHead )
 	{
 		FileNameToFolder(NameForStorage,hStorageHead->GetStorageFolder(), lpName, _MAX_PATH);
-		
+
 		Readed = ReadMemFromFile(NameForStorage, &hMem );
-		
+
 		if ( Readed )
 			*phMem = hMem;
 	}
-	
-		return Readed;	
+
+		return Readed;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -724,7 +724,7 @@ Bool32 CTCControl::AddNewMemoryInList( Handle hMemory, Word32 wSize, Word32  IsG
 //
 Bool32 CTCControl::TakeMemory(Handle hMemory, Word32 * wMemorySize, Word32 * wMemoryFlag)
 {
-	return MemoryList.TakeItem(hMemory, wMemorySize, wMemoryFlag); 
+	return MemoryList.TakeItem(hMemory, wMemorySize, wMemoryFlag);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -751,7 +751,7 @@ Bool32 CTCControl::FreeMemory(Handle hMemory, Word32 wFlag)
 {
 	Word32 wMemoryStatus;
 	Word32 wMemorySize;
-	
+
 	if( TakeMemory(hMemory, &wMemorySize, &wMemoryStatus) )
 	{
 		// delete header from list
@@ -772,7 +772,7 @@ LPVOID CTCControl::LockMemory(Handle hMemory)
 	Word32 wMemorySize;
 	LPVOID pMemory = NULL;
 	// ну , тут осталось немного. отписывать адрес в память,
-	// но пока тут падает, а так как глобальная память не используется, то и 
+	// но пока тут падает, а так как глобальная память не используется, то и
 	// оставим это на потом
 	//PCTCMemoryHeader pMemoryHeader;
 
@@ -782,7 +782,7 @@ LPVOID CTCControl::LockMemory(Handle hMemory)
 	//{
 	//	wMemorySize = pMemoryHeader->GetSize();
 	//	wMemoryStatus = pMemoryHeader->GetFlag();
-		
+
 		if ( wMemorySize && (wMemoryStatus&CFIO_MEMORY_GLOBAL) )
 		{
 			// if memory can be locked
@@ -793,7 +793,7 @@ LPVOID CTCControl::LockMemory(Handle hMemory)
 				pMemory = hMemory;
 #endif
 		}
-		else 
+		else
 		{
 			pMemory = hMemory;
 		}
@@ -834,7 +834,7 @@ Handle CTCControl::OpenFileAndAttach(PChar8 lpName, Word32 Flag, Handle Storage)
 	// пока не используем
 	// см так же DecompliteStorage
 	//MAKEFULLPATH(szBuffer, lpName, _MAX_PATH);
-	
+
 	if ( CFIO_STRLEN(lpName) < _MAX_PATH )
 		CFIO_STRCPY(szBuffer,lpName);
 	else
@@ -845,13 +845,13 @@ Handle CTCControl::OpenFileAndAttach(PChar8 lpName, Word32 Flag, Handle Storage)
 		szBuffer[0] = 0x0;
 		return hOpened;
 	}
-	
+
 	pNewFile = new CTCGlobalFile(szBuffer, Flag);
-	
+
 	if ( pNewFile )
 	{
 		szBuffer[0] = 0x0;
-		return AddFileInList(pNewFile, Flag, Storage );	
+		return AddFileInList(pNewFile, Flag, Storage );
 	}
 
 	szBuffer[0] = 0x0;
@@ -897,7 +897,7 @@ Bool32 CTCControl::CloseFileAndDettach(Handle File, Word32 Flag, Handle Storage)
 			return TRUE;
 		}
 	}
-	
+
 	return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -924,7 +924,7 @@ Bool32 CTCControl::AttachFileToStorage(Handle File, Handle Storage, Word32 Flag)
 	{
 		return AttachedFile->AttachToStorage(Storage);
 	}
-		
+
 	return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -940,7 +940,7 @@ Word32 CTCControl::WriteDataToFile(Handle File, void * lpData, Word32 Size)
 		if ( CurrentFileHeader->CanWrite() )
 		{
 			CurrentFile = CurrentFileHeader->GetFile();
-			WritedDataCount = CurrentFile->Write( lpData, sizeof(char), Size); 
+			WritedDataCount = CurrentFile->Write( lpData, sizeof(char), Size);
 		}
 	}
 	if (WritedDataCount!=Size)
@@ -957,9 +957,9 @@ Word32 CTCControl::ReadDataFromFile(Handle File, void * lpData, Word32 Size)
 
 	if ( CurrentFile )
 	{
-		ReadedDataCount = CurrentFile->Read( lpData, sizeof(char), Size); 
+		ReadedDataCount = CurrentFile->Read( lpData, sizeof(char), Size);
 	}
-	
+
 	return ReadedDataCount;
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -971,9 +971,9 @@ Word32 CTCControl::SeekFilePointer(Handle File, Word32 Position, Word32 From)
 
 	if ( CurrentFile )
 	{
-		Seeker = CurrentFile->Seek( Position, From ); 
+		Seeker = CurrentFile->Seek( Position, From );
 	}
-	
+
 	return Seeker;
 
 }
@@ -986,9 +986,9 @@ Word32 CTCControl::TellFilePointer(Handle File)
 
 	if ( CurrentFile )
 	{
-		Seeker = CurrentFile->Tell(); 
+		Seeker = CurrentFile->Tell();
 	}
-	
+
 	return Seeker;
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -999,7 +999,7 @@ Bool32 CTCControl::FlushFile(Handle File)
 
 	if ( CurrentFile )
 	{
-		return CurrentFile->Flush(); 
+		return CurrentFile->Flush();
 	}
 
 	return FALSE;
@@ -1009,18 +1009,18 @@ Bool32 CTCControl::FlushFile(Handle File)
 Bool32 CTCControl::DeleteFileFromDisk(Handle File)
 {
 	CTCGlobalFile * CurrentFile = FileList.GetItem(File);
-	
+
 	if ( CurrentFile )
 	{
 		CurrentFile->SetDelete();
-		
+
 		if ( FileList.DeleteItem(File) )
 		{
 			delete CurrentFile;
 			return TRUE;
 		}
 	}
-	
+
 	return TRUE;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1059,12 +1059,12 @@ Word32 CTCControl::WriteFileToStorage(CTCStorageHeader * Storage, CTCFileHeader 
 {
 	CTCFileHeader *    pItemHeader = File;
 	CTCGlobalFile *    pStorage = Storage->GetStorage();
-	CTCGlobalFile *    pItem;	
+	CTCGlobalFile *    pItem;
 	STORAGEITEM        ItemInfo;
 	Word32 FileSize =          0;
 	Word32 FileRealBuffer =    0;
 	Word32 WritedDataCount =   0;
-	
+
 	if ( Storage )
 	{
 		pItem = pItemHeader->GetFile();
@@ -1080,10 +1080,10 @@ Word32 CTCControl::WriteFileToStorage(CTCStorageHeader * Storage, CTCFileHeader 
 			while (FileSize)
 			{
 				FileRealBuffer = FileSize > COPYBUFFER ? COPYBUFFER : FileSize;
-				
+
 				pItem->Read(CopyBuffer, sizeof ( char ), FileRealBuffer);
 				WritedDataCount += WriteItemToStorage(Storage, CopyBuffer, FileRealBuffer);
-				
+
 				FileSize -= FileRealBuffer;
 			}
 		}
@@ -1104,37 +1104,37 @@ Word32 CTCControl::ReadFileFromStorage(CTCStorageHeader * Storage, STORAGEITEM *
 	//Handle                     hNewFile;
 
 	ReadedDataCount += ReadItemFromStorage(Storage, &ItemInfo, sizeof( ItemInfo ));
-	
-	(*pInfo).siHeaderSize = ItemInfo.siHeaderSize; 
-	FileSize = (*pInfo).siItemSize = ItemInfo.siItemSize; 
-	(*pInfo).siFlag = ItemInfo.siFlag; 
+
+	(*pInfo).siHeaderSize = ItemInfo.siHeaderSize;
+	FileSize = (*pInfo).siItemSize = ItemInfo.siItemSize;
+	(*pInfo).siFlag = ItemInfo.siFlag;
 	// создаем имя файла
 	FileNameToFolder(ItemInfo.siName, Storage->GetStorageFolder(), ItemInfo.siName, _MAX_PATH);
 	CFIO_STRCPY(pInfo->siName, ItemInfo.siName);
-	
+
 	if ( ItemInfo.siName )
 	{
 		NewFile = new CTCGlobalFile(ItemInfo.siName, CFIO_GF_CREATE|CFIO_GF_READ|ItemInfo.siFlag);
 		*pFile = NewFile;
-		
+
 		// проверяем, что смогли открыть
 		if ( ! NewFile->GetHandle() )
 		{
 			return 0;
 		}
 	}
-	
+
 	while ( FileSize )
 	{
 		FileRealBuffer = FileSize > COPYBUFFER ? COPYBUFFER : FileSize;
-		
+
 		ReadItemFromStorage(Storage, CopyBuffer, FileRealBuffer);
 		ReadedDataCount += NewFile->Write(CopyBuffer, sizeof ( char ), FileRealBuffer);
 		//NewFile->Flush();   // flushed when write
 
 		FileSize -= FileRealBuffer;
 	}
-	
+
 	return ReadedDataCount;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1159,20 +1159,20 @@ Handle CTCControl::CompliteStorage(Handle Storage, Word32 Flag)
 	{
 		pStorage = pStorageHeader->GetStorage();
 		CFIO_STRCPY(StorageName,pStorage->GetFileName());
-		
+
 		// папочка для файликов...
 		CFIO_STRCPY(&StorageFolder[sizeof(*FolderSize)],pStorageHeader->GetStorageFolder());
 		*FolderSize = strlen(&StorageFolder[sizeof(*FolderSize)]) + sizeof(*FolderSize);
 		StorageFlag = pStorageHeader->GetFlag();
-		
+
 		// удаляем
 		pStorage->SetDelete();
 		StorageList.DeleteItem(Storage);
-		//delete pStorage; // deleted at header destructor 
+		//delete pStorage; // deleted at header destructor
 		// создаем новое с тем же именем
 		// GlobalFile
 		pStorage = new CTCGlobalFile( &StorageName[0], CFIO_GF_CREATE );
-		// Handle 
+		// Handle
 		ReStorage = StorageList.AddItem(pStorage,StorageFlag);
 		// Header
 		pStorageHeader = StorageList.GetItemHeader(ReStorage);
@@ -1181,7 +1181,7 @@ Handle CTCControl::CompliteStorage(Handle Storage, Word32 Flag)
 	{
 		return 0;
 	}
-		ComplitedSpace += WriteItemToStorage(pStorageHeader, 
+		ComplitedSpace += WriteItemToStorage(pStorageHeader,
 			                                 (void *) StorageFolder,
 											 *FolderSize);
 
@@ -1193,16 +1193,16 @@ Handle CTCControl::CompliteStorage(Handle Storage, Word32 Flag)
 			pItemHeader->LockToStorage();
 		}
 		//  отписываем файл
-		ComplitedSpace += WriteFileToStorage(pStorageHeader, pItemHeader); 
+		ComplitedSpace += WriteFileToStorage(pStorageHeader, pItemHeader);
 		ComplitedItems++;
 
 	}
 	// вобщем бесполезная операция
 	pStorageHeader->AddFlag(CFIO_GF_COMPLITE);
-	
+
 	// закрываем вновь созданное хранилище
 	// StorageList.DeleteItem(ReStorage);
-	// delete pStorage; // deleted at header destructor 
+	// delete pStorage; // deleted at header destructor
 
 	return ReStorage;
 }
@@ -1226,7 +1226,7 @@ Word32 CTCControl::DecompileStorage(Handle Storage)
 
 	// читаем папочку для файликов
 	pStorage->Seek(NextItem,CFIO_GF_SEEK_BEG);
-	
+
 	ReadItemFromStorage(StorageHeader, (void *)StorageFolder, sizeof(*FolderSize) );
 	NextItem += *FolderSize;
 	StorageSize -= NextItem;
@@ -1241,7 +1241,7 @@ Word32 CTCControl::DecompileStorage(Handle Storage)
 		pStorage->Seek(NextItem,CFIO_GF_SEEK_BEG);
 		ReadItem = ReadFileFromStorage(StorageHeader, &ExtractInfo, &pExtractFile);
 		ItemSize = ExtractInfo.siHeaderSize + ExtractInfo.siItemSize;
-		
+
 		StorageSize -= ItemSize;
 		NextItem += ItemSize;
 
@@ -1269,8 +1269,8 @@ Handle CTCControl::OpenCompliteStorage(PChar8 lpName, Word32 Flag)
 	Handle             hNewStorage;
 
 	pNewStorage = new CTCGlobalFile(lpName,CFIO_GF_WRITE|CFIO_GF_READ|CFIO_GF_BINARY);
-	hNewStorage = AddStorageInList(pNewStorage, Flag);	
-	
+	hNewStorage = AddStorageInList(pNewStorage, Flag);
+
 	if ( hNewStorage )
 	{
 		hStorageHeader = StorageList.GetItemHeader(hNewStorage);
@@ -1295,12 +1295,12 @@ Handle CTCControl::OpenNewStorage(PChar8 lpName, Word32 Flag)
 		return hOpened;
 
 	pNewStorage = new CTCGlobalFile(szBuffer, CFIO_GF_CREATE|CFIO_GF_READ|CFIO_GF_BINARY);
-	
+
 	if ( pNewStorage )
 	{
-		return AddStorageInList(pNewStorage, Flag );	
+		return AddStorageInList(pNewStorage, Flag );
 	}
-	
+
 	return NULL;
 
 }

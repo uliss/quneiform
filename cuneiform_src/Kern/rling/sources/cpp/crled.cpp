@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -95,7 +95,7 @@ Bool32 CRLEd::MakeWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 	Int16           k,i,n,h,wb, nlig, nl;
 	CSTR_rast_attr  a;
 	Int16           top,bottom,left,right;
-	
+
 	Init();
 
 	for(top=10000,bottom=0,left=10000,right=0,c=b;c&&c!=e;c=CSTR_GetNext(c))
@@ -113,7 +113,7 @@ Bool32 CRLEd::MakeWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
         {
 			*pLanguage=a.language;
         }
-    }   
+    }
 	h = bottom-top-1;
 	wb= (right-left-1+7)/8;
 	//    start sheet_disk_descr
@@ -128,13 +128,13 @@ Bool32 CRLEd::MakeWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
     mFdd.w_width  = wb;
     mFdd.kegl     = 10;
     Write((Word8*)&mFdd,sizeof(mFdd));
-    
+
 	// start fragm_disk
     mFd.code=0x0b;
     Write((Word8*)&mFd,sizeof(mFd));
-    
+
 	for(c=b;c&&c!=e;c=CSTR_GetNext(c))
-    {    
+    {
 		CSTR_GetAttr(c,&a);
 		// start bitmap ref
 		mBmr.code    =0;
@@ -147,30 +147,30 @@ Bool32 CRLEd::MakeWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 		n=(Int16)uni.lnAltCnt;
 		if(n>7) n=7;
 		if(n<1) n=1;
-		
+
 		if( n && memchr(mHalfSpaces,uni.Alt[0].Liga,2) )
         {
 			Write((Word8*)&mBmr,sizeof(mBmr));
 			p=uni.Alt[0].Prob;
-			
-			if( p&1 )  
+
+			if( p&1 )
 				p--;
 
 			p++;
 			mVr.code = uni.Alt[0].Liga;
 			mVr.prob = p;
-			Write((Word8*)&mVr,sizeof(mVr));   
+			Write((Word8*)&mVr,sizeof(mVr));
 			continue;  // half spaces for spelling analisys
         }
 		nlig = strlen((char*)uni.Alt[0].Code);
-		
+
 		if( uni.lnAltCnt>1 && nlig>1 )
 			return FALSE;
-		
+
 		for(nl=0;nl<nlig;nl++)
 		{
-			Write((Word8*)&mBmr,sizeof(mBmr));   
-			
+			Write((Word8*)&mBmr,sizeof(mBmr));
+
 			for(k=i=0;k<n;)
 			{
 				p=uni.Alt[i].Prob;
@@ -182,12 +182,12 @@ Bool32 CRLEd::MakeWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 						p = p+1; // last even propability
 					mVr.code = *l;
 					mVr.prob =  p;
-					Write((Word8*)&mVr,sizeof(mVr));   
-				}        
+					Write((Word8*)&mVr,sizeof(mVr));
+				}
 			}
-		}    
+		}
 	}
-	
+
 	mbReadyToAdd = TRUE;
 	return TRUE;
 }
@@ -199,7 +199,7 @@ Bool32 CRLEd::AddWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 	UniVersions     uni;
 	Int16           k,i,n, nlig, nl;
 	CSTR_rast_attr  a;
-	
+
 	for(c=b;c && c!=e;c=CSTR_GetNext(c))
     {
 		CSTR_GetAttr(c,&a);
@@ -207,10 +207,10 @@ Bool32 CRLEd::AddWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
         {
 			*pLanguage=a.language;
         }
-    }   
-	
+    }
+
 	for(c=b;c&&c!=e;c=CSTR_GetNext(c))
-    {    
+    {
 		CSTR_GetAttr(c,&a);
 		// start bitmap ref
 		mBmr.code    =0;
@@ -223,60 +223,60 @@ Bool32 CRLEd::AddWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 		n=(Int16)uni.lnAltCnt;
 		if(n>7) n=7;
 		if(n<1) n=1;
-		
+
 		if( n && memchr(mHalfSpaces,uni.Alt[0].Liga,2) )
         {
 			Write((Word8*)&mBmr,sizeof(mBmr));
 			p=uni.Alt[0].Prob;
-			
-			if( p&1 )   
+
+			if( p&1 )
 				p--;
-			
+
 			p++;
 			mVr.code = uni.Alt[0].Liga;
 			mVr.prob = p;
-			Write((Word8*)&mVr,sizeof(mVr));   
+			Write((Word8*)&mVr,sizeof(mVr));
 			continue;  // half spaces for spelling analisys
         }
 		nlig = strlen((char*)uni.Alt[0].Code);
-		
+
 		if( uni.lnAltCnt>1 && nlig>1 )
 			return FALSE;
-		
+
 		for(nl=0;nl<nlig;nl++)
 		{
-			Write((Word8*)&mBmr,sizeof(mBmr));   
-			
+			Write((Word8*)&mBmr,sizeof(mBmr));
+
 			for(k=i=0;k<n;)
 			{
 				p=uni.Alt[i].Prob;
 				if( p&1 )   p--;
 				if( !p  )   p=2;    // all odd propability
-				
+
 				for(l = &uni.Alt[i++].Code[nl];*l && k<n;l++,k++)
 				{ // for ligas : strlen(uni.Alt[i].Code)>1
 					if( k==n-1 )
 						p = p+1; // last even propability
-					
+
 					mVr.code = *l;
 					mVr.prob =  p;
-					Write((Word8*)&mVr,sizeof(mVr));   
-				}        
+					Write((Word8*)&mVr,sizeof(mVr));
+				}
 			}
-		}    
+		}
 	}
-	
+
 	return TRUE;
 }
 
 void CRLEd::Write(PWord8 pP, Word16 wSize)
 {
-	if (mpEdFileBound -  mpEdFileEnd < wSize) 	
+	if (mpEdFileBound -  mpEdFileEnd < wSize)
     {
 		return;
     }
 
-	memcpy (mpEdFileEnd, pP, wSize); 		
+	memcpy (mpEdFileEnd, pP, wSize);
 	mpEdFileEnd += wSize;
 }
 
@@ -287,12 +287,12 @@ Bool32 CRLEd::ExcludeToVers(Int32 size, PChar8 pStr)
 	//struct  bit_map_ref  bm;
 	struct  VersRef     vf;
 	struct  BitMapRef   bm;
-	Int32   i; 
+	Int32   i;
 	Bool32	new_bmp;
-	
+
 	//i=-1;
 	i=miEdNVers=0;
-	mEdVers[0].lnAltCnt=0;            
+	mEdVers[0].lnAltCnt=0;
 	new_bmp=FALSE;
 	p  = mpEdOutBuffer + sizeof(mSdd)+sizeof(mFdd)+sizeof(mFd);
 	pe = &mpEdOutBuffer[size];
@@ -303,17 +303,17 @@ Bool32 CRLEd::ExcludeToVers(Int32 size, PChar8 pStr)
         {
         case    0:
             memcpy(&bm,p,sizeof(bm));
-            p+=sizeof(bm);  
-            
-			if( !new_bmp && !(!bm.row && !bm.col && 
+            p+=sizeof(bm);
+
+			if( !new_bmp && !(!bm.row && !bm.col &&
 				!bm.height && !bm.width) )
-			{                
+			{
                 //i++;
                 //memset(&ed_vers[i],0,sizeof(RecVersions));
                 mEdRect[i].top    = bm.row;
                 mEdRect[i].left   = bm.col;
                 mEdRect[i].bottom = bm.height;
-                mEdRect[i].right  = bm.width;         
+                mEdRect[i].right  = bm.width;
 				new_bmp=TRUE;
 			}
             break;
@@ -323,21 +323,21 @@ Bool32 CRLEd::ExcludeToVers(Int32 size, PChar8 pStr)
             //if( vf.code<30  )
 			//  return FALSE;
             mEdVers[i].Alt[mEdVers[i].lnAltCnt].Code = vf.code;
-            mEdVers[i].Alt[mEdVers[i].lnAltCnt].Prob = 
+            mEdVers[i].Alt[mEdVers[i].lnAltCnt].Prob =
                 (vf.prob>1?vf.prob:254);
             if( !mEdVers[i].lnAltCnt )
-                *pStr++ = vf.code;                
-            mEdVers[i].lnAltCnt++;            
+                *pStr++ = vf.code;
+            mEdVers[i].lnAltCnt++;
 			new_bmp=FALSE;
             if( vf.prob&1 )
 			{
                 i++;
-                mEdVers[i].lnAltCnt=0;            
+                mEdVers[i].lnAltCnt=0;
 			}
             break;
         }
-		
-		
+
+
     }
 	miEdNVers = i;
 	for(i=0;i<miEdNVers;i++)
@@ -372,7 +372,7 @@ RecVersions CRLEd::GetVersElement(Word32 i, PWord32 wNVers)
 			*wNVers = miEdNVers;
 			return mEdVers[i];
 		}
-	
+
 	*wNVers = 0;
 	return Out;
 }

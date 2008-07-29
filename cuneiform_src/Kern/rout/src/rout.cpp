@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -192,7 +192,7 @@ Bool32 ROUT_SaveObject(
 	Handle f = NULL;
 	ULONG pos = 0;
 
-	f = MyOpen(path,OSF_CREATE | OSF_OPEN | 
+	f = MyOpen(path,OSF_CREATE | OSF_OPEN |
 				     OSF_WRITE | OSF_BINARY );
 	if (!f)
 		{
@@ -314,7 +314,7 @@ BOOL SetLanguage(long language)
 
 		// Язык 255 означает, что язык не задан,
 		// это используется, в частности, для пробелов
-		if (language == 255) 
+		if (language == 255)
 			{
 			return TRUE;
 			}
@@ -536,7 +536,7 @@ long ROUT_CountObjects()
 		case ROUT_FMT_CSV:
 		case ROUT_FMT_WKS:
 		case ROUT_FMT_DBF:
-			// Просмотреть страницу и вернуть 
+			// Просмотреть страницу и вернуть
 			// количество таблиц
 			gTargetObjectIndex = LONG_MAX;
 			gTargetObjectHandle = NULL;
@@ -557,7 +557,7 @@ long ROUT_CountObjects()
 }
 //********************************************************************
 BOOL Static_GetTargetObject(
-			Handle hObject, 
+			Handle hObject,
 			long reason	// См. enum BROWSE_REASON
 			)
 {
@@ -663,7 +663,7 @@ char *ROUT_GetDefaultObjectName(
 		ULONG objIndex	// Индекс объекта начиная от 1
 		)
 {
-/* 
+/*
 	Сформировать имя выходного файла из имени страницы
 	для текущей комбинации формат-кодировка и для
 	заданного индекса объекта.
@@ -923,7 +923,7 @@ Bool32 ROUT_LoadRec6List(
 		// начинающиеся с точки с запятой, пропускать
 		char *p = buf;
 
-		while (*p == ' ' || *p == '\t' ) 
+		while (*p == ' ' || *p == '\t' )
 			p++;
 
 		if ( *p == ';' || !*p || *p == 0x0d || *p == 0x0a )
@@ -933,10 +933,10 @@ Bool32 ROUT_LoadRec6List(
 		sscanf(buf,"%d%s", &language, &theName[0]);
 
 		// Полный путь
-		sprintf(rec6xxxFilename, "%s%s%s", 
+		sprintf(rec6xxxFilename, "%s%s%s",
 				drive,dir,theName);
 
-		if (language <0 || language >= LANG_TOTAL || 
+		if (language <0 || language >= LANG_TOTAL ||
 			!theName[0] ||
 			!LoadAlphabet(language,rec6xxxFilename)
 			)
@@ -949,7 +949,7 @@ Bool32 ROUT_LoadRec6List(
 
 	fclose(f);
 	return TRUE;
-}		
+}
 //********************************************************************
 static BOOL LoadAlphabet(
 			long language,
@@ -976,8 +976,8 @@ static BOOL LoadAlphabet(
 
 	sscanf(buf,"%d",&sizeAlphabet);
 
-	if( sizeAlphabet < 1 || 
-		sizeAlphabet > kMaxSizeAlphabet 
+	if( sizeAlphabet < 1 ||
+		sizeAlphabet > kMaxSizeAlphabet
 	  )
 		{
 		fclose(f);
@@ -1008,7 +1008,7 @@ static BOOL LoadAlphabet(
 
 	if ( (long)strlen(upper) != sizeAlphabet ||
 		 (long)strlen(lower) != sizeAlphabet ||
-		 (long)strlen(vowels)> sizeAlphabet 
+		 (long)strlen(vowels)> sizeAlphabet
 		)
 		{
 		ERR_LOAD_ALPHABET;
@@ -1028,9 +1028,9 @@ static BOOL UpdateActiveAlphabet()
 
 */
 
-	if (!gAT_sizeAlphabet[gLanguage] || 
-		!gAT_upper[gLanguage] || 
-		!gAT_lower[gLanguage] || 
+	if (!gAT_sizeAlphabet[gLanguage] ||
+		!gAT_upper[gLanguage] ||
+		!gAT_lower[gLanguage] ||
 		!gAT_vowels[gLanguage] ||
 		!ROUT_SetAlphabet(
 			gAT_sizeAlphabet[gLanguage],
@@ -1055,7 +1055,7 @@ long ROUT_ListAvailableFormats(PWord8 buf, ULONG sizeBuf)
 	Возвращает количество форматов или -1 при ошибке
 
 	Табличные форматы включаются при наличии таблиц на странице.
-	Если страница не загружена, то 
+	Если страница не загружена, то
 	устанавливается ошибка PAGE_NOT_LOADED
 */
 
@@ -1104,7 +1104,7 @@ long ROUT_ListAvailableFormats(PWord8 buf, ULONG sizeBuf)
 }
 //********************************************************************
 BOOL Static_GetFirstTable(
-			Handle hObject, 
+			Handle hObject,
 			long reason	// См. enum BROWSE_REASON
 			)
 {

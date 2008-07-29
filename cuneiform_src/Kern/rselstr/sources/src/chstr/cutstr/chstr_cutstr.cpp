@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -116,14 +116,14 @@ void StrDrawRect(Handle wnd,Word32 OperCode,Word32 color,Rect16 *pRc,int nRc,BOO
 
 void StrDrawRect(Handle wnd,Word32 OperCode,Word32 color,Rect16 Rc)
 {
-	
+
 	Rect16 Rect;
-	
+
 		Rect.bottom=Rc.bottom;
 		Rect.left=Rc.left;
 		Rect.right=Rc.right+1;
 		Rect.top=Rc.top-1;
-	
+
 		LDPUMA_DrawRect (wnd, &(Rect),0, color, 1,OperCode );
 
 }
@@ -157,7 +157,7 @@ Int32 GetStrCCOM(Handle hCPage,Word8* ImageName,Rect16 Rc,BOOL neg,BOOL vertical
 	  min_w=min_let_h;
 	  max_w=Rc.right-Rc.left+1;
 	  max_h=max_w*2;
-	  
+
  }
  else
  {
@@ -191,7 +191,7 @@ void Invert(Rect16* pRc,Word8* pmasp)
  int j=h*bytewide;
  for(int i=0;i<j;i++)
  	 pmasp[i]=~(pmasp[i]);
-	
+
 }
 
 
@@ -205,7 +205,7 @@ void CopyP(Rect16* pRc,Word8* Raster,Word8* pmasp)
  int j=h*bytewide;
  for(int i=0;i<j;i++)
      Raster[i]=pmasp[i];
-		 
+
 }
 
 void ToHorizont(Rect16* pRc,Word8* Raster,Word8* pmasp)
@@ -224,7 +224,7 @@ void ToHorizont(Rect16* pRc,Word8* Raster,Word8* pmasp)
  int nowbyte2;
  int delj;
  int rectj;
- 
+
  for(int j=0;j<w;j++)
  {
    delj=j>>3;
@@ -268,7 +268,7 @@ void ToHorizont(Rect16* pRc,Word8* Raster,Word8* pmasp)
    Raster[nowbyte]=bytep;
    nowbyte++;
  }
- 
+
  pRc[0].top=pRc[0].left;
  pRc[0].bottom=pRc[0].right;
  pRc[0].left=0;
@@ -352,17 +352,17 @@ RSELSTR_FUNC(Bool32) RSELSTR_CutStr(Rect16** ppRc,int& nRc,int& len_mas,Word8* p
    for(j=leftbyte;j<=rightbyte;j++)
    {
     bytep=pmasp[nowbyte+j];
-    
-	   if( (bytep&128)==0 ) count_black++; 
-	   if( (bytep&64)==0 ) count_black++; 
-	   if( (bytep&32)==0 ) count_black++; 
-	   if( (bytep&16)==0 ) count_black++; 
-	   if( (bytep&8)==0 ) count_black++; 
-	   if( (bytep&4)==0 ) count_black++; 
-	   if( (bytep&2)==0 ) count_black++; 
-	   if( (bytep&1)==0 ) count_black++; 
 
-   }  
+	   if( (bytep&128)==0 ) count_black++;
+	   if( (bytep&64)==0 ) count_black++;
+	   if( (bytep&32)==0 ) count_black++;
+	   if( (bytep&16)==0 ) count_black++;
+	   if( (bytep&8)==0 ) count_black++;
+	   if( (bytep&4)==0 ) count_black++;
+	   if( (bytep&2)==0 ) count_black++;
+	   if( (bytep&1)==0 ) count_black++;
+
+   }
    if(w==W)
    {
     bytep=pmasp[nowbyte+bytewide-1];
@@ -416,24 +416,24 @@ RSELSTR_FUNC(Bool32) RSELSTR_CutStr(Rect16** ppRc,int& nRc,int& len_mas,Word8* p
 			}
             StrMoveMasR(pRc,nRc,i);
 			pRc[i+1].top=pRc[i].top;
-			pRc[i+1].bottom=top-1;	
+			pRc[i+1].bottom=top-1;
 		   }
 		   top+=k-1;
 		   pRc[i].top=top;
 		}
 
 	 }
-	 
+
    }
    else
    {
 	 if(proc>=cut_white)
-	 { 
+	 {
 		white=TRUE;
         oldtop=top;
 		str=TRUE;
 	 }
-	 
+
    }
    top++;
   }
@@ -465,10 +465,10 @@ int GetStrW(Word8* pmasp,int spusk,int from,int h,int w,int& leftbyte,int& right
 	 real_spusk=h-from;
  int count_black;
  Word8 bytep;
- 
+
  leftbyte=0;
  rightbyte=bytewide-1;
- 
+
 
  while(w-(leftbyte<<3)>=inf_str_w)
  {
@@ -477,10 +477,10 @@ int GetStrW(Word8* pmasp,int spusk,int from,int h,int w,int& leftbyte,int& right
   {
 	  bytep=pmasp[j*bytewide+leftbyte];
 
-       if( (bytep&128)==0 ) count_black++; 
-	   if( (bytep&64)==0 ) count_black++; 
-	   if( (bytep&32)==0 ) count_black++; 
-	   if( (bytep&16)==0 ) count_black++; 
+       if( (bytep&128)==0 ) count_black++;
+	   if( (bytep&64)==0 ) count_black++;
+	   if( (bytep&32)==0 ) count_black++;
+	   if( (bytep&16)==0 ) count_black++;
   }
   if((double)(count_black)/(double)(real_spusk<<2)>=inf_let_black)
 	  break;
@@ -489,10 +489,10 @@ int GetStrW(Word8* pmasp,int spusk,int from,int h,int w,int& leftbyte,int& right
   {
 	  bytep=pmasp[j*bytewide+leftbyte];
 
-	   if( (bytep&8)==0 ) count_black++; 
-	   if( (bytep&4)==0 ) count_black++; 
-	   if( (bytep&2)==0 ) count_black++; 
-	   if( (bytep&1)==0 ) count_black++; 
+	   if( (bytep&8)==0 ) count_black++;
+	   if( (bytep&4)==0 ) count_black++;
+	   if( (bytep&2)==0 ) count_black++;
+	   if( (bytep&1)==0 ) count_black++;
 
   }
   if((double)(count_black)/(double)(real_spusk<<2)>=inf_let_black)
@@ -506,7 +506,7 @@ int GetStrW(Word8* pmasp,int spusk,int from,int h,int w,int& leftbyte,int& right
 	rightbyte=bytewide-1;
     return w;
  }
- 
+
  count_black=0;
  for(j=from;j<from+real_spusk;j++)
  {
@@ -525,10 +525,10 @@ int GetStrW(Word8* pmasp,int spusk,int from,int h,int w,int& leftbyte,int& right
   {
 	  bytep=pmasp[j*bytewide+rightbyte];
 
-       if( (bytep&128)==0 ) count_black++; 
-	   if( (bytep&64)==0 ) count_black++; 
-	   if( (bytep&32)==0 ) count_black++; 
-	   if( (bytep&16)==0 ) count_black++; 
+       if( (bytep&128)==0 ) count_black++;
+	   if( (bytep&64)==0 ) count_black++;
+	   if( (bytep&32)==0 ) count_black++;
+	   if( (bytep&16)==0 ) count_black++;
   }
   if((double)(count_black)/(double)(real_spusk<<2)>=inf_let_black)
 	  break;
@@ -538,10 +538,10 @@ int GetStrW(Word8* pmasp,int spusk,int from,int h,int w,int& leftbyte,int& right
   {
 	  bytep=pmasp[j*bytewide+rightbyte];
 
-	   if( (bytep&8)==0 ) count_black++; 
-	   if( (bytep&4)==0 ) count_black++; 
-	   if( (bytep&2)==0 ) count_black++; 
-	   if( (bytep&1)==0 ) count_black++; 
+	   if( (bytep&8)==0 ) count_black++;
+	   if( (bytep&4)==0 ) count_black++;
+	   if( (bytep&2)==0 ) count_black++;
+	   if( (bytep&1)==0 ) count_black++;
 
   }
   if((double)(count_black)/(double)(real_spusk<<2)>=inf_let_black)
@@ -585,14 +585,14 @@ BOOL IfNewStr(Word8* pmasp,int i,int h,int bytewide,int w,int& l,int rect)
    {
     bytep=pmasp[nowbyte+j];
 
-       if( (bytep&128)==0 ) count_black++; 
-	   if( (bytep&64)==0 ) count_black++; 
-	   if( (bytep&32)==0 ) count_black++; 
-	   if( (bytep&16)==0 ) count_black++; 
-	   if( (bytep&8)==0 ) count_black++; 
-	   if( (bytep&4)==0 ) count_black++; 
-	   if( (bytep&2)==0 ) count_black++; 
-	   if( (bytep&1)==0 ) count_black++; 
+       if( (bytep&128)==0 ) count_black++;
+	   if( (bytep&64)==0 ) count_black++;
+	   if( (bytep&32)==0 ) count_black++;
+	   if( (bytep&16)==0 ) count_black++;
+	   if( (bytep&8)==0 ) count_black++;
+	   if( (bytep&4)==0 ) count_black++;
+	   if( (bytep&2)==0 ) count_black++;
+	   if( (bytep&1)==0 ) count_black++;
 
   }
    if(w==W)
@@ -695,7 +695,7 @@ BOOL GetMasP(Handle hCPage,Word8* ImageName,Rect16 Rc,Word8** ppmasp)
 	DataInto.dwX        = left;
 	DataInto.dwY        = upper;
 	DataInto.MaskFlag   = 0x00;
-    
+
 	DataOut.dwWidth    = DataInto.dwWidth;
 	DataOut.dwHeight   = DataInto.dwHeight;
 	DataOut.wByteWidth = DataInto.wByteWidth;
@@ -715,13 +715,13 @@ void InitRc(Rect16* pRc,int nRC,CCOM_comp * pcomp)
 {
  pRc[nRC].left   = pcomp->left;
  pRc[nRC].right  = pcomp->left + pcomp->w - 1;
- pRc[nRC].top    = pcomp->upper;		
+ pRc[nRC].top    = pcomp->upper;
  pRc[nRC].bottom = pcomp->upper + pcomp->h - 1;
 }
 
 
 //////////////////////////////////////////////////////////////////////////
-// GF [ 2004/01/29 ] ==---> 
+// GF [ 2004/01/29 ] ==--->
 
 //////////////////////////////////////////////////////////////////////////
 // =--> отладочная вставка для слежения за качеством заплатки
@@ -752,12 +752,12 @@ BOOL InitStrMas(Rect16** ppRc,int len)
       // проверка корректности заплатки (вызов IsBadWritePtr() специфичен для платформы Windows)
 			if ( IsBadWritePtr( (LPVOID)(*ppRc), sizeof(Rect16) ) )
 			{
-					// если мы здесь, то где-то перед вызовом InitStrMas()  
+					// если мы здесь, то где-то перед вызовом InitStrMas()
 					// (*ppRc) объявлен, но не обнулен (надо найти, где и обнулить)
 					#ifdef _DEBUG
 								DebugBreakEx();
 					#else
-					      OutputDebugString("puma/RSELSTR/chstr_cutstr.cpp(~688) {InitStrMas(), заплатка на утечку памяти}: на этом файле надо отладиться!\n");					  
+					      OutputDebugString("puma/RSELSTR/chstr_cutstr.cpp(~688) {InitStrMas(), заплатка на утечку памяти}: на этом файле надо отладиться!\n");
 					#endif
 					//#ifdef _DEBUG
 					{ // устроить один раз ассерт
@@ -765,7 +765,7 @@ BOOL InitStrMas(Rect16** ppRc,int len)
             assert(bCallOnce); // см. комментарий 10 строками выше
 						bCallOnce = false;
 					}
-			} 
+			}
 			else // нам передали для обнуления указатель,
 			{    // указывающий на "живую" память -- так что
 			     // скорее всего, мы имеем дело с утечкой
@@ -774,8 +774,8 @@ BOOL InitStrMas(Rect16** ppRc,int len)
 				delete [] (*ppRc);
 				// !!!
 			}
-			(*ppRc)=NULL;  
-	} 
+			(*ppRc)=NULL;
+	}
 
 	if(!((*ppRc)=new Rect16[len]))
 		return FALSE;
@@ -804,7 +804,7 @@ BOOL InitStrMas(CCOM_comp*** ppRc,int len)
 }
 
 //////////////////////////////////////////////////////////////////////////
-// GF [ 2004/01/29 ] ==---> 
+// GF [ 2004/01/29 ] ==--->
 void DelStrMas(Rect16** pmasp)
 {
 	delete[] (*pmasp);
@@ -875,12 +875,12 @@ void SortLetter(CCOM_comp** ppComp,int n,BOOL vert)
 {
  CCOM_comp* comp;
  int j,i;
- 
+
  for(i=n-1 ; i>0 ; i--)
  {
   for(j=1 ; j<=i ; j++)
   {
-	 
+
 	  if( ((!vert)&&(ppComp[j-1]->left>ppComp[j]->left))||((vert)&&(ppComp[j-1]->upper+ppComp[j-1]->h<ppComp[j]->upper+ppComp[j]->h)) )
 	  {
 		  comp=ppComp[j];

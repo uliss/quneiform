@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -130,75 +130,75 @@ void space_size(INT h)
  gap=0;
  H=(h+((fax1x2)?2:0))*256;
  sm=nh=3*h/2+((fax1x2)?5:2);
- 
+
  if (pitchsize)
 	nh=4*pitchsize/3+2;  // pitchsize - стандартная ширина + пробел между символами
-						 // (стандартное расстояние между центрами)			
- 
+						 // (стандартное расстояние между центрами)
+
  italic=FALSE;
  c1=cell_f();
  c2=c1->next;
  S=n=0;
- 
+
  for (i=0; i < 128 && i<=nh; i++)      //AK! add crash guard
 	hist[i]=0;
- 
+
  while (c1=c2,c2=c1->next, c2 && c2->next!=NULL)
  {
 	if ((c1->font|c1->font_new)&c_fp_it)
 		italic=TRUE;
-  
+
 	if ((c1->font|c1->font_new)&c_fp_str)
 		italic=FALSE;
-  
+
 	let1=c1->vers[0].let;
-  
+
 	if (c1->vers[0].prob<=prob_min)
 		let1=bad_char;
-  
+
 	let2=c2->vers[0].let;
-  
+
 	if (c2->vers[0].prob<=prob_min)
 		let2=bad_char;
 
 // Generic for Central Europe ligas 29.08.2000 E.P.
   if ( language != LANG_RUSSIAN )
-      space_ligas(&let1,&let2); 
+      space_ligas(&let1,&let2);
 
 	if ( let1=='_' && !memchr(".,",let2,2) ||
          let2=='_' && !memchr(".,",let1,2) ||
          let1==liga_bull || let2==liga_bull)
 		continue;
-  
-	if ( 
+
+	if (
 		let1==low_quotes  || // Макрос 31.05.2001 E.P.
- 	    let2==',' ||	
+ 	    let2==',' ||
         (language==LANG_ENGLISH || language==LANG_GERMAN  ||
         language==LANG_RUSSIAN) && (let2==':' || let2==';')
 		)
 		continue;
-  
+
 	if (let1=='$' && let2>='0' && let2<='9')
 		continue;
-	
+
 	if (let1=='.' && let2=='.')
 		continue;
-  
+
 	if (language==LANG_FRENCH && (let1==left_quocket || let2==right_quocket))
 		continue;
-  
+
 	i=c2->left-c1->right;
-  
+
 	if ( (c=c1->prev)->flg!=c_f_fict && c->right>c1->right)
 		i=c2->left-c->right;
-  
+
 	d=0;
-  
+
 	if (c1->cg_flag&c_cg_cutr && c2->cg_flag&c_cg_cutl)
 		i=0;
 	else
 	{
-		if ( !pitchsize ) 
+		if ( !pitchsize )
 		{
 			d=delta(c1,c2,let1,let2);
 			i+=d/256;
@@ -206,93 +206,93 @@ void space_size(INT h)
 		else
 		{
 #ifdef NEW_PROBEL
-			if (i>=H/sp_min && 
-				i * 100 > pitchsize *35 ) // Nick 4.01.2002 
+			if (i>=H/sp_min &&
+				i * 100 > pitchsize *35 ) // Nick 4.01.2002
 #else
 			if (i>=H/sp_min && i>=pitchsize/2 )
 #endif
 			{
 				i=c2->left+c2->w/2-(c1->left+c1->w/2);
-     
+
 				if ( memchr("l1I",let1,3) && !((c1->font|c1->font_new)&c_fp_it) &&
 				     c1->font&c_fp_gelv && 4*c1->w>c1->h)
 					d-=256*c1->w/3;
-     
+
 				if ( memchr("l1I",let2,3) && !((c2->font|c2->font_new)&c_fp_it) &&
 					 c2->font&c_fp_gelv && 4*c2->w>c2->h)
 					d+=256*c2->w/3;
-     
-				if ( (let1=='i' && 5*c1->w>2*c1->h || 
+
+				if ( (let1=='i' && 5*c1->w>2*c1->h ||
 						(let1==liga_i ||
-						 language==LANG_TURKISH && 
+						 language==LANG_TURKISH &&
 							(let1==i_sans_accent||let1==II_dot_accent) // 30.05.2002 E.P.
-						)&& 
+						)&&
 					 4*c1->w>c1->h) &&
 					 !((c1->font|c1->font_new)&c_fp_it) && c1->font&c_fp_gelv)
 					d-=256*c1->w/5;
-     
-				if ( (let2=='i' && 5*c2->w>2*c2->h || 
+
+				if ( (let2=='i' && 5*c2->w>2*c2->h ||
 						(let2==liga_i ||
-						 language==LANG_TURKISH && 
+						 language==LANG_TURKISH &&
 							(let2==i_sans_accent||let2==II_dot_accent) // 30.05.2002 E.P.
-						)&& 
+						)&&
 					 4*c2->w>c2->h) &&
 				     !((c2->font|c2->font_new)&c_fp_it) && c2->font&c_fp_gelv)
 					d+=256*c2->w/5;
-     
+
 				if ( let1=='f' && !((c1->font|c1->font_new)&c_fp_it) && c1->font&c_fp_gelv &&
 					 2*c1->w>c1->h)
 					d+=256*c1->w/5;
-     
+
 				if ( let2=='f' && !((c2->font|c2->font_new)&c_fp_it) && c2->font&c_fp_gelv &&
 				     2*c2->w>c2->h)
 					d-=256*c2->w/5;
 				i+=d/256;
 			}
-			else 
+			else
 				i=0;
 		}
 	}
-	if (i<0) 
+	if (i<0)
 		i=0;
-	if (i>nh) 
+	if (i>nh)
 		i=nh;
 
 	if ( n > 298 )                       //AK! crash gurd fo dist[300]
 		n = 298;
 
 	dist[n++]=(BYTE)i;
-  
+
 	if (i<sm) sm=i;
 
-  
+
 	if (snap_activity('f'))
 	{
-		if (n==1) 
+		if (n==1)
 			sprintf(str,"distances:\n");
 		else
-			if ((n%10)==1) 
+			if ((n%10)==1)
 				sprintf(str+strlen(str),"\n");
 		sprintf(str+strlen(str),"%3d(%2d)",i,d/256);
 	}
-  
+
 	if (i<nh)
 		S+=i;
 	if ( i > 127 )
 		i = 127;
 	hist[i]++;
  }
- 
+
  if (nh > 127 )                                //AK! add crash guard
 	 nh = 127;
 
- if (sm>h/2) 
+ if (sm>h/2)
 	 sm=0;
- 
+
  if (snap_activity('f'))
  {
 	snap_newcell(cell_f()->next);
-	if (n) 
+	if (n)
 		snap_show_text(str);
 	snap_monitor();
   }
@@ -310,22 +310,22 @@ void space_size(INT h)
 	snap_monitor();
   }
 
- if (pitchsize ) 
+ if (pitchsize )
  {
 #ifdef NEW_PROBEL
-	 	// Nick 04.01.2002. pitchsize - стандартная ширина + пробел между символами ! 
+	 	// Nick 04.01.2002. pitchsize - стандартная ширина + пробел между символами !
 	 sp = pitchsize+MAX(pitchsize/6,2)+1;
-#else	 
-	 sp=pitchsize+MAX(pitchsize/6,3)+1;   
+#else
+	 sp=pitchsize+MAX(pitchsize/6,3)+1;
 #endif
-	
+
 
 	spmin=sp-1;
 	spmax=sp+1;
 
 	for( i=spmin;i >= pitchsize;i--)
 	{
-		if( hist[i] <= 0 ) 
+		if( hist[i] <= 0 )
 			break;
 	}
 	if( hist[i] <= 0 && hist[i+1] > 0 )
@@ -348,56 +348,56 @@ void space_size(INT h)
 
  if (n-hist[nh]<=1)
  {
-	 s=h; 
-	 d=0; 
+	 s=h;
+	 d=0;
 	 goto ret1;
  }
 
- for (i=0; i<=nh; i++) 
+ for (i=0; i<=nh; i++)
  {
-	 x[i]=i; 
+	 x[i]=i;
 	 y[i]=hist[i];
  }
- 
+
  for (n1=nh+1; n1>2; n1=n2)
-	for (pl=n2=i=0; i < 127 && i<n1; i++)                //AK! add crash guard    
+	for (pl=n2=i=0; i < 127 && i<n1; i++)                //AK! add crash guard
 	{
-		if ( ( i==0 || y[i-1] < y[i]) && 
-			 (i == n1-1 || y[i+1] < y[i]))  
+		if ( ( i==0 || y[i-1] < y[i]) &&
+			 (i == n1-1 || y[i+1] < y[i]))
 		{
-			x[n2]=x[i]; 
-			y[n2]=y[i]; 
+			x[n2]=x[i];
+			y[n2]=y[i];
 			n2++;
 		}
-   
+
 		if ((i==0 || y[i-1]<y[i]) && i<n1-1 && y[i+1]==y[i])
 		{
-			pl=1; 
+			pl=1;
 			j=i;
 		}
-   
+
 		if (pl && (i==n1-1 || y[i+1]<y[i]))
 		{
-			x[n2]=(x[j]+x[i])/2; 
-			y[n2]=y[i]; 
+			x[n2]=(x[j]+x[i])/2;
+			y[n2]=y[i];
 			n2++;
 		}
-   
-		if (i<n1-1 && y[i+1]!=y[i]) 
+
+		if (i<n1-1 && y[i+1]!=y[i])
 			pl=0;
 	}
- if (n1==1 || x[1]==nh || x[1]-x[0] < H/sp_min)  
+ if (n1==1 || x[1]==nh || x[1]-x[0] < H/sp_min)
 	 s=0;
- else  
+ else
 	 s=(x[0]+x[1]+1)/2;
- 
+
  for (gap=x[0]; gap < 128 && hist[gap] != 0; gap++);
 	if (snap_activity('f'))
 	{
 		sprintf(str,"argmax1=%u",x[0]);
-		if (n1==2) 
+		if (n1==2)
 			sprintf(str+strlen(str),", argmax2=%u",x[1]);
-		if (s) 
+		if (s)
 			sprintf(str+strlen(str),"\ns=%u",s);
 		snap_show_text(str);
 		snap_monitor();
@@ -405,52 +405,52 @@ void space_size(INT h)
 
  dd= ( language==LANG_FRENCH || language==LANG_GERMAN ||
 	   language==LANG_SWEDISH) ? 2 : 0;
- 
+
  for (nh1=nh-((hist[nh] < NBSMIN) ? 1 : 0),s1=0; s1<2; s1++)
  {
 	for (n2=i=0; i<=nh1 && hist[i]<=s1; n2+=hist[i++])
 	{}
-	
-	if (i>nh1) 
+
+	if (i>nh1)
 	{
-		d=0; 
+		d=0;
 		break;
 	}
-  
+
 	for (j=nh1; j > 0 &&  hist[j]<=s1; j--)                     //AK! add crash guard
 	{}
 
 	if (snap_activity('f'))
 		sprintf(str,"level=%u from %u to %u",s1,i,j);
-  
+
 	for (d=0;i > 0 && i < 128 && i<j; n2+=n1*s1)
     {
-   
+
 		for ( ; i > 0 && i < 128 && hist[i]>s1 && i<j; n2+=hist[i++])
 		{}
 
-		if (i==j) 
+		if (i==j)
 			break;
-		
-		for (pl=i++,n1=1; hist[i]<=s1; i++,n1++) 
+
+		for (pl=i++,n1=1; hist[i]<=s1; i++,n1++)
 		{}
 
 		if (snap_activity('f'))
 			sprintf(str+strlen(str),"\nlacune : beg=%u,length=%u",pl,n1);
-   
+
 		if ( d<n1 && n+1>=(n-n2+1)*lw_min &&
-		     ((n-n2) && n+1<=(n-n2+1)*(lw_max+dd) || 
+		     ((n-n2) && n+1<=(n-n2+1)*(lw_max+dd) ||
 			 !(n-n2) && n+1<=lw_max1+dd) && pl-sm<=H/sp_max)
 		{
-			if (!s && pl==d+ss+1 && (n1==d+1 || d>=3)) 
+			if (!s && pl==d+ss+1 && (n1==d+1 || d>=3))
 				fl=1;
-			else 
+			else
 				fl=0;
-    
-			d=n1; 
+
+			d=n1;
 			ss=pl;
-    
-			if (d>=4 || ss+d-1>H/sp_min && d>=3 || ss>2*H/sp_min && d>=2) 
+
+			if (d>=4 || ss+d-1>H/sp_min && d>=3 || ss>2*H/sp_min && d>=2)
 				break;
 		}
 	}
@@ -460,7 +460,7 @@ void space_size(INT h)
 		snap_show_text(str);
 		snap_monitor();
 	}
-	if (d) 
+	if (d)
 		break;
  }
  if ( nh > 127 )
@@ -468,13 +468,13 @@ void space_size(INT h)
  if ( nh < 0 )
 	 nh = 0;
 
- if (n+1<=(hist[nh]+1)*lw_aver && d==1) 
+ if (n+1<=(hist[nh]+1)*lw_aver && d==1)
 	 d=0;
  if (s)
  {
-	if (!d) 
+	if (!d)
 	{
-		d=1; 
+		d=1;
 		goto cntrl;
 	}
   	else
@@ -486,21 +486,21 @@ void space_size(INT h)
 			goto cntrl;
 		}
  }
- 
+
  if (d)
  {
 	s=ss;
-	if (!fl) 
+	if (!fl)
 	{
-		if (d>=3) 
-			s++; 
-		if (d>=4) 
-			s++; 
-		if (d>=6) 
+		if (d>=3)
+			s++;
+		if (d>=4)
+			s++;
+		if (d>=6)
 			s++;
 	}
-  
-	d=2; 
+
+	d=2;
 	goto cntrl;
  }
  else
@@ -520,59 +520,59 @@ avgap:
  ss=(S*256)/(n-hist[nh]);
  for (S=i=0; i < 128 && i<nh; i++)
  {
-	 j=(i*256)-ss; 
-	 if (j<0) 
-		 j=-j; 
+	 j=(i*256)-ss;
+	 if (j<0)
+		 j=-j;
 	 S+=(long)j*hist[i];
  }
  s1=S/(n-hist[nh]);
- 
+
  if (s1<384)
 	s1+=256;
- 
+
  if (s1>ss)
 	s1=ss;
- 
+
  if (snap_activity('f'))
  {
 	sprintf(str,"gap : aver=%u,disp=%u",(ss+128)/256,(s1+128)/256);
 	snap_show_text(str);
 	snap_monitor();
  }
- 
+
  for (s=(ss+s1+128)/256; s < 128 &&  s<nh; s++)
  {
-	if (hist[s]==0) 
+	if (hist[s]==0)
 	{
-		d=4; 
+		d=4;
 		break;
 	}
-  
-	if (hist[s]<hist[s+1]) 
+
+	if (hist[s]<hist[s+1])
 	{
-		d=5; 
+		d=5;
 		break;
 	}
-  
-	if ((s>h/2) && (hist[s]==hist[s+1])) 
+
+	if ((s>h/2) && (hist[s]==hist[s+1]))
 	{
-		d=6; 
+		d=6;
 		break;
 	}
  }
- 
- for (n2=0,i=s;i < 128 && i<=nh; i++) 
+
+ for (n2=0,i=s;i < 128 && i<=nh; i++)
 	 n2+=hist[i];
 
- for (i=nh-1; !hist[i]; i--) 
+ for (i=nh-1; !hist[i]; i--)
  {}
 
  s1=((ss+128)/256+(s1+128)/256+i+1)/2+1;
- 
+
  if ( n+1<(n2+1)*lw_min && s1>s ||
       (n2 && n+1>(n2+1)*(lw_max+dd) || !n2 && n+1>lw_max1+dd) && s1<s)
  {
-	 s=s1; 
+	 s=s1;
 	 d=7;
  }
 /////////////////////////////////////////////
@@ -581,42 +581,42 @@ ret:
  if (s-sm<H/sss)
  {
 	s=sm+H/sss;
-	for (i=s;i < 128 && i > 0 && i<nh && !hist[i]; i++) 
+	for (i=s;i < 128 && i > 0 && i<nh && !hist[i]; i++)
 	{}
-  
+
 	if (i==nh)
     {
-		for (i=s; i > 0 && i < 128 && !hist[i-1]; i--) 
+		for (i=s; i > 0 && i < 128 && !hist[i-1]; i--)
 		{}
-   
-		if (4*hist[i-1]<n) 
+
+		if (4*hist[i-1]<n)
 			s=i;
 	}
 	d=8;
  }
  sss=(h>SMALLKEG) ? sp_max : sp_max1;
- 
+
  if (s-sm>H/sss)
  {
-	for (n1=0,i=s; i < 128 && i > 0 && i<=nh; i++) 
+	for (n1=0,i=s; i < 128 && i > 0 && i<=nh; i++)
 		n1+=hist[i];
-	for (n2=0,i=sm+H/sss; i < 128 && i > 0 && i<=nh; i++) 
+	for (n2=0,i=sm+H/sss; i < 128 && i > 0 && i<=nh; i++)
 		n2+=hist[i];
 	if ( n1 && n+1>(n1+1)*(lw_max+dd) || !n1 && n+1>(lw_max1+dd) ||
          n+1>=(n2+1)*lw_min)
     {
-		s=sm+H/sss; 
+		s=sm+H/sss;
 		d=9;
 	}
  }
  d*=10;
- 
- if (d>=80) 
+
+ if (d>=80)
 	 goto ret1;
- 
+
  if ((d!=30 || sv>s) && !hist[s] && hist[s+1]<hist[s-1] && hist[s-2])
  {
-	 s++; 
+	 s++;
 	 d++;
  }
  else
@@ -624,7 +624,7 @@ ret:
 	     (d!=30 || sv<s) && s<nh && !hist[s-1] && hist[s-2]<hist[s] &&
 		 hist[s+1] )
 	{
-	 s--; 
+	 s--;
 	 d+=2;
 	}
 
@@ -638,16 +638,16 @@ ret1:
 		s++;
 	d+=5;
  }
- 
+
  if (snap_activity('f'))
  {
 	sprintf(str,"space : size=%u,var=%u",s,d);
 	snap_show_text(str);
 	snap_monitor();
  }
- 
- spmin=s-1; 
- sp=s; 
+
+ spmin=s-1;
+ sp=s;
  spmax=s+1;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -801,7 +801,7 @@ static INT delta(cell *c1,cell *c2,BYTE let1,BYTE let2)
   else
    d+=H/d_lowit_b;
   }
- if (let2=='J' && let1!='.' && let1!=',' && 
+ if (let2=='J' && let1!='.' && let1!=',' &&
 	 let1!=low_quotes &&	// Макрос 31.05.2001 E.P.
      let1!=left_quocket && let1!=right_quocket
 	 )
@@ -947,7 +947,7 @@ static INT delta(cell *c1,cell *c2,BYTE let1,BYTE let2)
   }
  if (let1=='F' || let1=='P')
   d+=H/d_FP_a;
- if (let1==0x27 || 
+ if (let1==0x27 ||
 	 let1==low_quotes || // Макрос 31.05.2001 E.P.
 	 let2==0x27 || let2=='"' ||
      language==LANG_GERMAN && (let1==right_quocket || let2==left_quocket))
@@ -976,12 +976,12 @@ static INT delta(cell *c1,cell *c2,BYTE let1,BYTE let2)
   }
  if ((c1->font|c1->font_new)&c_fp_it && memchr("yvw",let1,3) && c2->row+c2->h>bl.bm)
   d+=H/d_vwyit_a;
- if ((c2->font|c2->font_new)&c_fp_it && 
+ if ((c2->font|c2->font_new)&c_fp_it &&
 	 (let2=='p' || let2=='y' && longtail(c2)))
   d+=H/d_lowit_b;
 /* if (let1==0x27 && let2=='"' || let1=='"' && let2==0x27)
   d-=H/d_ap_qt;*/
- if ((c1->font|c1->font_new)&c_fp_it && 
+ if ((c1->font|c1->font_new)&c_fp_it &&
 		(let1=='g' ||
 			language==LANG_TURKISH && let1==g_semicircle // 27.06.2002 E.P.
 		) && ser_g(c1))
@@ -1095,12 +1095,12 @@ static INT ser_g(cell *c)
 
 BOOL enable_word(cell *c1,cell *c2,BYTE *word)
  {
-   if( !strcmp("http",word) && 
+   if( !strcmp("http",word) &&
         c2->nvers && c2->vers[0].let==':' )
         {
         return FALSE;
         }
-    if( !strcmp("mail",word) && 
+    if( !strcmp("mail",word) &&
         c2->nvers && c2->vers[0].let==':' )
         {
         return FALSE;
@@ -1109,7 +1109,7 @@ BOOL enable_word(cell *c1,cell *c2,BYTE *word)
         {
         return FALSE;
         }
-    if( !strcmp("e-mail",word) && 
+    if( !strcmp("e-mail",word) &&
         c2->nvers && c2->vers[0].let==':' )
         {
         return FALSE;
@@ -1118,20 +1118,20 @@ BOOL enable_word(cell *c1,cell *c2,BYTE *word)
         {
         return FALSE;
         }
-   if( !strcmp("htt",word) && 
+   if( !strcmp("htt",word) &&
         c2->nvers && c2->vers[0].let=='p' &&
         c2->next && c2->next->nvers && c2->next->vers[0].let==':' )
         {
         return FALSE;
         }
-    if( !strcmp("ht",word)&& 
+    if( !strcmp("ht",word)&&
         c2->nvers        && c2->vers[0].let=='t' &&
         c2->nextl->nvers && c2->nextl->vers[0].let=='p' &&
         c2->nextl->next  && c2->nextl->next->nvers && c2->next->vers[0].let==':' )
         {
         return FALSE;
         }
-    if( !strcmp("h",word)        && 
+    if( !strcmp("h",word)        &&
         c2->nvers               && c2->vers[0].let=='t' &&
         c2->nextl->nvers        && c2->nextl->vers[0].let=='t' &&
         c2->nextl->nextl->nvers && c2->nextl->nextl->vers[0].let=='p' &&
@@ -1184,14 +1184,14 @@ void space_cell()
        let2=='_' && !memchr(".,",let1,2) ||
        let1==liga_bull || let2==liga_bull)
     {
-    insert_space(c1,c2,0); 
+    insert_space(c1,c2,0);
     wrd=&word[0];
     *wrd=0;
     continue;
     }
    if (language==LANG_FRENCH && (let1==left_quocket || let2==right_quocket))
     {
-    insert_space(c1,c2,0); 
+    insert_space(c1,c2,0);
     *wrd=0;
     continue;
     }
@@ -1204,7 +1204,7 @@ void space_cell()
    *wrd=0;
    if( !enable_word(c1,c2,word) )
     continue;
-   
+
    if(i>=sp && i<spmax )
     {
     insert_space(c1,c2,1);
@@ -1219,7 +1219,7 @@ void space_cell()
     *wrd=0;
     }
 
-   if (i>=spmin && i<sp) 
+   if (i>=spmin && i<sp)
    {
     if( i>2 || !line_tabcell ) // OLEG
         {
@@ -1232,10 +1232,10 @@ void space_cell()
   else
   {
 #ifdef NEW_PROBEL
-   if ((d=c2->left-c1->right)>=H/sp_min && 
-		d * 100 > pitchsize * 35 ) // Nick 4.01.2002 
+   if ((d=c2->left-c1->right)>=H/sp_min &&
+		d * 100 > pitchsize * 35 ) // Nick 4.01.2002
 #else
-   if ((d=c2->left-c1->right)>=H/sp_min && 
+   if ((d=c2->left-c1->right)>=H/sp_min &&
 	     d>=pitchsize/2)
 #endif
    {
@@ -1244,10 +1244,10 @@ void space_cell()
 	{
         INT distance;
         //if (memchr("л›ий™оћ¦†",let2,10) && c2->w>c2->h) i-=c2->w/3;
-        if (isletter(let2) && let2>128 && c2->w>c2->h) 
+        if (isletter(let2) && let2>128 && c2->w>c2->h)
 			i-=c2->w/3;
         distance=c2->col-c1->col-c1->w;
-        if (14*distance<6*c1->w && 14*distance<6*c2->w) 
+        if (14*distance<6*c1->w && 14*distance<6*c2->w)
 			i-=c2->w/4;
     }
 
@@ -1257,16 +1257,16 @@ void space_cell()
     if (memchr("l1I",let2,3) && !((c2->font|c2->font_new)&c_fp_it) &&
 	c2->font&c_fp_gelv && 4*c2->w>c2->h)
      i+=c2->w/3;
-    if ((let1=='i' && 5*c1->w>2*c1->h || 
+    if ((let1=='i' && 5*c1->w>2*c1->h ||
 			(let1==liga_i ||
-			 language==LANG_TURKISH && 
+			 language==LANG_TURKISH &&
 				(let1==i_sans_accent||let1==II_dot_accent) // 30.05.2002 E.P.
 			)&& 4*c1->w>c1->h) &&
 	!((c1->font|c1->font_new)&c_fp_it) && c1->font&c_fp_gelv)
      i-=c1->w/5;
-    if ((let2=='i' && 5*c2->w>2*c2->h || 
+    if ((let2=='i' && 5*c2->w>2*c2->h ||
 			(let2==liga_i ||
-			 language==LANG_TURKISH && 
+			 language==LANG_TURKISH &&
 				(let2==i_sans_accent||let2==II_dot_accent) // 30.05.2002 E.P.
 			)&& 4*c2->w>c2->h) &&
 	!((c2->font|c2->font_new)&c_fp_it) && c2->font&c_fp_gelv)
@@ -1285,7 +1285,7 @@ void space_cell()
 		i += pitchsize/8;  // Nick 4.01.2002
 #endif
    }
-   else 
+   else
 	   i=0;
 
    if (memchr(",:;",let2,3) || let1=='$' && let2>='0' && let2<='9' ||
@@ -1310,7 +1310,7 @@ void space_cell()
     {
     n=(i+pitchsize/2)/pitchsize-1;
     if (!n) n=1;
-    for ( ; n; n--,c1=c1->next) 
+    for ( ; n; n--,c1=c1->next)
         {
         insert_space(c1,c2,0);
         wrd=&word[0];
@@ -1371,7 +1371,7 @@ void cont_space()
  INT h,i,d,dd,d1,d2,cnt,ss;
  BYTE str[80],word[300],*wrd=&word[0];
  *wrd=0;
- if (pitchsize) 
+ if (pitchsize)
 	 return;
  if (snap_activity('f'))
  {
@@ -1382,16 +1382,16 @@ void cont_space()
 
  h=(INT)get_size();
  ss=sm+H/((n>=lw_aver)?sp_min:sp_min1);
- 
+
  if (sp<ss)
  {
-	 spmin=ss-1; 
-	 sp=ss; 
+	 spmin=ss-1;
+	 sp=ss;
 	 spmax=ss+1;
  }
- 
-for ( cnt=0,c1=(cell_f())->next; 
-      c1 != cell_l() && c1->next != cell_l(); 
+
+for ( cnt=0,c1=(cell_f())->next;
+      c1 != cell_l() && c1->next != cell_l();
       c1=c1->next)
 {
 	c2 = c1->next;
@@ -1415,7 +1415,7 @@ for ( cnt=0,c1=(cell_f())->next;
     *wrd=0;
     if( !enable_word(c1,c2,word) )
      continue;
-  
+
     space_ligas(0,&let2);       // 29.08.2000 E.P.
 
 	if ( memchr("lIitf/",let1,6) && !memchr(" ,:;",let2,4) ||
@@ -1425,70 +1425,70 @@ for ( cnt=0,c1=(cell_f())->next;
 		{
 			c1=del_cell(c1);
 			let1=c1->vers[0].let;
-			
+
 			if (c1->vers[0].prob<=prob_min)
 				let1=bad_char;
 
 			space_ligas(&let1,0);       // 29.08.2000 E.P.
 
 		}
-   
+
 		if (let2==0x1f || let2==0x1e)
 		{
 			c2=(del_cell(c2))->next;
 			let2=c2->vers[0].let;
-			
+
 			if (c2->vers[0].prob<=prob_min)
 				let2=bad_char;
-    
+
 			space_ligas(0,&let2);       // 29.08.2000 E.P.
 		}
-		
+
 		i=c2->left-c1->right;
-   
+
 		if(c1->prev)                          //AK add for case of p == NULL
 		{
 			if ( !((c3=c1->prev)->flg&(c_f_fict|c_f_space)) &&
 			     c3->right>c1->right)
 				i=c2->left-c3->right;
 		}
-		
+
 		d=0;
-   
+
 		if ( c1->cg_flag&c_cg_cutr && c2->cg_flag&c_cg_cutl )
 			i=0;
 		else
 		{
 			d=delta(c1,c2,let1,let2);
-    
+
 			if (memchr("lIi",let1,3) && vers1(c1))
 			{
 				dd=4*(H-(((c1->font|c1->font_new)&c_fp_it)?180:256)*c1->w)/d_1;
-				
+
 				if ( (c3=c1->prev)->flg&(c_f_fict|c_f_space) ||
 				     c1->left-c3->right>dd/256 )
 					d+=dd+H/d_dig;
-     
+
 				if (let2=='-')
 					d+=H/d_def_dig;
 			}
-    
+
 			if (memchr("lIi",let2,3) && vers1(c2))
 			{
 				dd=4*(H-(((c2->font|c2->font_new)&c_fp_it)?180:256)*c2->w)/d_1;
 				if ( (c3=c2->next)->flg&(c_f_fict|c_f_space) ||
 					 c3->left-c2->right>dd/256)
 					d+=dd+H/d_dig;
-     
+
 				if (let1=='-')
 					d+=H/d_def_dig;
-     
+
 				if (let1==',')
 					d+=H/d_cm_dig;
 			}
 		}
 		i+=d/256;
-   
+
 		if (snap_activity('f'))
 		{
 			snap_newcell(c1);
@@ -1496,31 +1496,31 @@ for ( cnt=0,c1=(cell_f())->next;
 			snap_show_text(str);
 			snap_monitor();
 		}
-   
+
 		if (i>=spmax)
             {
 			insert_space(c1,c2,0);
             wrd=&word[0];
             *wrd=0;
             }
-   
+
 		if (i>=sp && i<spmax)
             {
 			insert_space(c1,c2,1);
             wrd=&word[0];
             *wrd=0;
             }
-   
+
 		if (i>=spmin && i<sp)
             {
 			insert_space(c1,c2,-1);
             wrd=&word[0];
             *wrd=0;
             }
-   
+
 		if (i>=spmin)
 		{
-			cnt++; 
+			cnt++;
 			c1=c1->next;
 		}
 	}
@@ -1537,24 +1537,24 @@ for  ( c2=((cell_f())->next)->next;
 		     c1->flg&c_f_space && c1->vers[0].let!=0x1e  ||
 		     c1->flg&c_f_let && c1->vers[0].let=='(')
 			continue;
-   
+
 		if ( (c3=c2->next)->flg&c_f_punct ||
 		     c3->flg&c_f_space && c3->vers[0].let!=0x1e ||
 		     c3->flg&c_f_let &&
 		     ((let3=c3->vers[0].let)==')' || let3=='?' ||
 		     let3=='!' || let3==liga_exm || let3==liga_qm))
 			continue;
-   
+
 		if ( !(c1->flg&c_f_space) )
 			d1=c2->left-c1->right;
 		else
 			d1=c2->left-c1->prev->right;
-   
+
 		if ( !(c3->flg&c_f_space) )
 			d2=c3->left-c2->right;
 		else
 			d2=(c3->next)->left-c2->right;
-   
+
 		if (snap_activity('f'))
 		{
 			snap_newcell(c2);
@@ -1562,10 +1562,10 @@ for  ( c2=((cell_f())->next)->next;
 			snap_show_text(str);
 			snap_monitor();
 		}
-   
-		if (3*MAX(d1,d2)<2*spmin) 
+
+		if (3*MAX(d1,d2)<2*spmin)
 			continue;
-   
+
 		if (d1>d2)
 		{
 			if (c1->flg&c_f_space)
@@ -1603,7 +1603,7 @@ for ( c2=(cell_f())->next; /*c2->next!=NULL*/c2 != cell_l(); c2=c2->next)
 				d1=c2->left-c1->right;
 			}
 		}
-   
+
 		if ((c3=c2->next)->next==NULL)
 			d2=1000;
 		else
@@ -1618,7 +1618,7 @@ for ( c2=(cell_f())->next; /*c2->next!=NULL*/c2 != cell_l(); c2=c2->next)
 				d2=c3->left-c2->right;
 			}
 		}
-   
+
 		if (snap_activity('f'))
 		{
 			snap_newcell(c2);
@@ -1626,13 +1626,13 @@ for ( c2=(cell_f())->next; /*c2->next!=NULL*/c2 != cell_l(); c2=c2->next)
 			snap_show_text(str);
 			snap_monitor();
 		}
-   
+
 		if (2*MIN(d1,d2)>3*sp)
 			continue;
-		
+
 		if (d1<d2)
 			del_cell(c2->prev);
-		
+
 		if (d1>d2)
 			del_cell(c2->next);
 	}
@@ -1652,9 +1652,9 @@ for ( c1=(cell_f())->next;
 	if ( c4 == cell_l() )
 		break;
 
-	if ( ((let1=c1->vers[0].let)==' ' || 
+	if ( ((let1=c1->vers[0].let)==' ' ||
 		 let1==0x1f || let1==0x1e) &&
-         c2->vers[0].let=='.' && c3->vers[0].let=='.' 
+         c2->vers[0].let=='.' && c3->vers[0].let=='.'
 		 && c4->vers[0].let=='.' &&
          c2->left-c1->prev->right<=(4*(c3->left-c2->right))/3)
 		c1=del_cell(c1);
@@ -1724,7 +1724,7 @@ for ( c1=(cell_f())->next;
 				d=H/d_w_b;
 			if (c4->left-c3->right+d>c3->left-c2->right)
 			{
-				insert_space(c3,c4,1); 
+				insert_space(c3,c4,1);
                 wrd=&word[0];
                 *wrd=0;
 				cnt++;
@@ -1760,16 +1760,16 @@ for (c1=(cell_f())->next; c1 != cell_l() && c1->next != cell_l(); c1=c1->next)
 	if ( c2 == cell_l() )
 		break;
 
-	if ( c1->vers[0].let == (BYTE)'-' && 
-		 c2->flg&c_f_space && 
+	if ( c1->vers[0].let == (BYTE)'-' &&
+		 c2->flg&c_f_space &&
 		 c2->vers[0].let != (BYTE)' ')
 	{
-		del_cell(c2); 
+		del_cell(c2);
 		continue;
 	}
 
-	if ( c1->flg&c_f_space && 
-		 c1->vers[0].let != (BYTE)' ' && 
+	if ( c1->flg&c_f_space &&
+		 c1->vers[0].let != (BYTE)' ' &&
 		 c2->vers[0].let == (BYTE)'-' )
 		c1=del_cell(c1);
 }
@@ -1781,7 +1781,7 @@ for (c1=(cell_f())->next; c1 != cell_l() && c1->next != cell_l(); c1=c1->next)
 	if ( c1->vers[0].let=='f' && !(c1->cg_flag&c_cg_cutr) &&
          c2->vers[0].let=='l')
 	{
-		insert_space(c1,c2,-1); 
+		insert_space(c1,c2,-1);
         wrd=&word[0];
         *wrd=0;
 		cnt++;
@@ -1794,7 +1794,7 @@ if (snap_activity('f'))
 	snap_show_text("post-context spacing end");
 	snap_monitor();
 }
- 
+
 if (cnt)
 	context_proc_line();
 }
@@ -1816,10 +1816,10 @@ void set_space_size(INT spn)
 {
 	CHAR str[80];
 
-	sp=spn; 
-	spmin=sp-1; 
+	sp=spn;
+	spmin=sp-1;
 	spmax=sp+1;
-	
+
 	if (snap_activity('f'))
 	{
 		sprintf(str,"R&E restore russian space size =%d,spmin=%d,spmax=%d",
@@ -1841,31 +1841,31 @@ void space_valid_words(void)
 cell *c=cell_f()->nextl;
 for(;c!=cell_l();c=c->nextl)
     {
-    if( c->next!=c->nextl && c->next==c->nextl->prev && 
+    if( c->next!=c->nextl && c->next==c->nextl->prev &&
         (c->next->flg&c_f_punct) &&
-        (c->flg&c_f_let) && (c->nextl->flg&c_f_let) && 
+        (c->flg&c_f_let) && (c->nextl->flg&c_f_let) &&
          (c->flg&c_f_solid) && (c->nextl->flg&c_f_solid))
         { // let1->>punct-->>let2
         if( !strchr("(-",c->next->vers[0].let) &&
-            !(c->next->vers[0].let=='.' && 
-              c->nextl->next && c->nextl->next->nvers && 
+            !(c->next->vers[0].let=='.' &&
+              c->nextl->next && c->nextl->next->nvers &&
               c->nextl->next->vers[0].let=='.' ) &&
 
 			// Англ. "Let's" и т.п. 04.09.2001 E.P.
-			!(language!=LANG_RUSSIAN && 
+			!(language!=LANG_RUSSIAN &&
 			  c->next->vers[0].let=='\'' &&
-			  c->nextl->next && c->nextl->next->nvers && 
+			  c->nextl->next && c->nextl->next->nvers &&
               c->nextl->next->vers[0].let==' ' ) &&
 
 			  // Француз. "C'est" и т.п. 11.03.2002 Nick
 			!(
 			  ( language == LANG_FRENCH ||
 
-				// В турецком встречается апостроф 
+				// В турецком встречается апостроф
 				// в середине слова 18.06.2002 E.P.
 			    language == LANG_TURKISH
 				)
-			  && 
+			  &&
 			  c->next->vers[0].let=='\'' )
 
 		  )
@@ -1873,7 +1873,7 @@ for(;c!=cell_l();c=c->nextl)
         }
     if( !(c->nextl->flg&c_f_fict) &&
         c->next==c->nextl &&
-        (c->flg&c_f_let) && (c->flg&c_f_solid) && 
+        (c->flg&c_f_let) && (c->flg&c_f_solid) &&
         (c->nextl->flg&c_f_let) && c->nextl->nvers>0 &&
 //        !strchr("(\xd7",c->vers[0].let) &&
 //        strchr("(\xd7",c->nextl->vers[0].let) &&
@@ -1897,7 +1897,7 @@ for(c=cell_f()->nextl;c!=cell_l();c=c->nextl)
 return;
 }
 
-// 
+//
 static void space_ligas(BYTE *let1, BYTE *let2) // 29.08.2000 E.P.
 {
   BYTE c1=(let1)?(*let1):0,
@@ -1943,7 +1943,7 @@ static BYTE  leftlig_turkish[]={"ffffrr./frj!?"},
 		   *let1=c1;
 
 		// Заменить букву с акцентом на букву без акцента 12.09.2000 E.P.
-		else if ( ( (accent_tab[c1] & ~ACC_SUPERUP) 
+		else if ( ( (accent_tab[c1] & ~ACC_SUPERUP)
 					|| is_cen_bottom_accent(c1) ) &&
 				let_sans_acc[c1] && let_sans_acc[c1] != c1
 				)
@@ -1976,7 +1976,7 @@ static BYTE  leftlig_turkish[]={"ffffrr./frj!?"},
 		   *let2=c2;
 
 		// Заменить букву с акцентом на букву без акцента 12.09.2000 E.P.
-		else if ( ( (accent_tab[c2] & ~ACC_SUPERUP) 
+		else if ( ( (accent_tab[c2] & ~ACC_SUPERUP)
 					|| is_cen_bottom_accent(c2) ) &&
 				let_sans_acc[c2] && let_sans_acc[c2] != c2
 				)
@@ -1999,7 +1999,7 @@ static BYTE  leftlig_turkish[]={"ffffrr./frj!?"},
 			*let1='!';
 
 		// Заменить букву с акцентом на букву без акцента 12.09.2000 E.P.
-		else if ( ( (accent_tab[c1] & ~ACC_SUPERUP) 
+		else if ( ( (accent_tab[c1] & ~ACC_SUPERUP)
 					|| is_cen_bottom_accent(c1) ) &&
 				let_sans_acc[c1] && let_sans_acc[c1] != c1
 				)
@@ -2018,7 +2018,7 @@ static BYTE  leftlig_turkish[]={"ffffrr./frj!?"},
 			*let2='!';
 
 		// Заменить букву с акцентом на букву без акцента 12.09.2000 E.P.
-		else if ( ( (accent_tab[c2] & ~ACC_SUPERUP) 
+		else if ( ( (accent_tab[c2] & ~ACC_SUPERUP)
 					|| is_cen_bottom_accent(c2) ) &&
 				let_sans_acc[c2] && let_sans_acc[c2] != c2
 				)
@@ -2039,7 +2039,7 @@ static BYTE  leftlig_turkish[]={"ffffrr./frj!?"},
 			*let1 = 'i';
 
 		// Заменить букву с акцентом на букву без акцента 12.09.2000 E.P.
-		else if ( ( (accent_tab[c1] & ~ACC_SUPERUP) 
+		else if ( ( (accent_tab[c1] & ~ACC_SUPERUP)
 					|| is_turkish_bottom_accent(c1) ) &&
 				let_sans_acc[c1] && let_sans_acc[c1] != c1
 				)
@@ -2055,7 +2055,7 @@ static BYTE  leftlig_turkish[]={"ffffrr./frj!?"},
 			*let2 = 'i';
 
 		// Заменить букву с акцентом на букву без акцента 12.09.2000 E.P.
-		else if ( ( (accent_tab[c2] & ~ACC_SUPERUP) 
+		else if ( ( (accent_tab[c2] & ~ACC_SUPERUP)
 					|| is_turkish_bottom_accent(c2) ) &&
 				let_sans_acc[c2] && let_sans_acc[c2] != c2
 				)

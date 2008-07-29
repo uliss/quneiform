@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,20 +43,20 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 //////////////////////////
-#include "fon.h" 
-#include "sfont.h" 
+#include "fon.h"
+#include "sfont.h"
 #include "fonrec.h"
 
 #include <stdio.h>
@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define NUM_IN_SNAP 9     // maximal pictures in snap
        BOOL IsSnap=FALSE;
-static int  InSnap=0;     // now pictures in snap 
+static int  InSnap=0;     // now pictures in snap
 static RecRaster *snapRaster=NULL;
 static BOOL WasRegister=FALSE;
 static HWND hwndSnap=NULL;
@@ -95,7 +95,7 @@ FON_FUNC(Int32) FONInitSnap(Handle hwnd)
 	  return -1;
 
   if( WasRegister == FALSE )
-  { 
+  {
    if( hwnd )
     hGluInstance=(HINSTANCE)GetWindowLong((HWND)hwnd,GWL_HINSTANCE);
    else
@@ -113,8 +113,8 @@ FON_FUNC(Int32) FONInitSnap(Handle hwnd)
            NULL,  NULL,
            hGluInstance, NULL);
 
-  
-  if(hwndSnap && !IsWindowVisible(hwndSnap) ) 
+
+  if(hwndSnap && !IsWindowVisible(hwndSnap) )
 	  ShowWindow(hwndSnap,TRUE);
 
   IsSnap=TRUE;
@@ -126,15 +126,15 @@ FON_FUNC(Int32) FONEndSnap(void)
 
 	IsSnap=FALSE;
 	InSnap = 0;
-	if(snapRaster) 
+	if(snapRaster)
 		free(snapRaster);
 	snapRaster=NULL;
 
-	if(hwndSnap) 
+	if(hwndSnap)
 	{
 		SendMessage( hwndSnap, WM_DESTROY, 0, 0);
 	}
-	
+
 //	UnregisterClass(szGluName, hGluInstance);
 //	WasRegister = FALSE;
 	return 1;
@@ -172,19 +172,19 @@ int AddBitmapToSnap(BYTE *buf,int xbit,int yrow,int name,int dist)
  if( !IsSnap)
 	 return 0;
 
- if( InSnap >= NUM_IN_SNAP) 
+ if( InSnap >= NUM_IN_SNAP)
 	 InSnap = 0;
 	 //return -10;
 
- if(name <= 0) 
+ if(name <= 0)
  { nameSnap[InSnap]='~';
    probSnap[InSnap]=0;
  }
  // to ANSI from ASCII
- else 
- { if(name >= 128 && name <176) 
+ else
+ { if(name >= 128 && name <176)
 	 nameSnap[InSnap]=name+64;
-   else  if(name >= 224 && name <240) 
+   else  if(name >= 224 && name <240)
 	 nameSnap[InSnap]=name+16;
    else nameSnap[InSnap]=name;
    probSnap[InSnap]=dist;
@@ -192,45 +192,45 @@ int AddBitmapToSnap(BYTE *buf,int xbit,int yrow,int name,int dist)
 
  if(bytesx*yrow > REC_MAX_RASTER_SIZE)
 	 yrow=REC_MAX_RASTER_SIZE/bytesx;
- 
+
  recRas=snapRaster+InSnap;
  recRas->lnPixHeight=yrow;
  recRas->lnPixWidth =xbit;
  recRas->lnRasterBufSize=REC_MAX_RASTER_SIZE;
  ras=recRas->Raster;
- for(; yrow>0;yrow--,ras+=bytesx,buf+=xbyte) 
+ for(; yrow>0;yrow--,ras+=bytesx,buf+=xbyte)
    memcpy(ras,buf,xbyte);
 
- InSnap++;	
+ InSnap++;
  return 1;
 }
 //////////////
 // rr-> at position fx,fy, size sx,sy
 static int PutRecRaster(HDC hDC,RecRaster *rr,
 					 int fx,int fy,int sx,int sy)
-{        
-int i,j; 
+{
+int i,j;
 int wid=rr->lnPixWidth;
 int hei=rr->lnPixHeight;
 int xbyte=((wid+63)/64)*8;
 int step,x,y;
 BYTE cc;
 BYTE *buf=rr->Raster;
-                        
+
   step=MIN(sx/wid,sy/hei);
-  if(step < 3) step=3;        
-               
+  if(step < 3) step=3;
+
   for(i=0,y=fy;i<hei;i++,buf+=xbyte,y+=step)
    {
-    for(j=0,x=fx,cc=128;j<wid;j++,x+=step) 
+    for(j=0,x=fx,cc=128;j<wid;j++,x+=step)
      {
-      if(buf[j>>3]&cc) 
+      if(buf[j>>3]&cc)
 		  Rectangle(hDC,x,y,x+step,y+step);
       cc>>=1;
-      if(cc==0) cc=128;                   
-     }                    
-   }            
-   
+      if(cc==0) cc=128;
+     }
+   }
+
   return step;
 }
 /*************************/
@@ -247,7 +247,7 @@ int all;
 
   if(hwndSnap==NULL)
 	  return -3;
-  
+
   if(IsIconic (hwndSnap ))  return 0;
 
   GetClientRect(hwndSnap,&rect);
@@ -255,9 +255,9 @@ int all;
   numRow=1;
   if(InSnap > 6 ) numRow=3;       // make 3 rows
   else if(InSnap > 3 ) numRow=2;  // make 2 rows
-  
+
   if(InSnap >=3 ) j=rect.right/3;
-  else            j=rect.right/InSnap; 
+  else            j=rect.right/InSnap;
 
   hDC=GetDC(hwndSnap);
   Rectangle(hDC,0,0,rect.right,rect.bottom);
@@ -268,13 +268,13 @@ int all;
   {
    for(i=xstart=0;i<3 && all< InSnap;i++,xstart+=j,all++)
    {
-	  SelectObject(hDC,GetStockObject(NULL_BRUSH)); 
-	  Rectangle(hDC,xstart,ystart,xstart+j,ystart+rect.bottom); 
+	  SelectObject(hDC,GetStockObject(NULL_BRUSH));
+	  Rectangle(hDC,xstart,ystart,xstart+j,ystart+rect.bottom);
 	  SelectObject(hDC,GetStockObject(GRAY_BRUSH)); // can gray?
 	  PutRecRaster(hDC,snapRaster+all,xstart,ystart,j,rect.bottom);
    }
-  } 
-  
+  }
+
   ReleaseDC(hwndSnap,hDC);
 //  SetWindowText(hwndSnap,nameSnap);
   PutNamesSnap(InSnap,nameSnap,probSnap);
@@ -289,9 +289,9 @@ int all;
  * Handle messages for the application window
  */
 LONG FAR PASCAL GluFonWindowProc(HWND win, UINT msg, WPARAM wparam, LPARAM lparam)
-{                                               
+{
  PAINTSTRUCT ps;
- 
+
  switch ( msg )
     {
     case WM_DESTROY:
@@ -299,7 +299,7 @@ LONG FAR PASCAL GluFonWindowProc(HWND win, UINT msg, WPARAM wparam, LPARAM lpara
 		hwndSnap=NULL;
 		IsSnap = FALSE;
         break;
-    case WM_SIZE: 
+    case WM_SIZE:
 		 if(InSnap) FONShowSnap();
 		 break;
     case WM_PAINT:
@@ -314,10 +314,10 @@ LONG FAR PASCAL GluFonWindowProc(HWND win, UINT msg, WPARAM wparam, LPARAM lpara
 }
 ////////////////////////
 static BOOL RegisterGlu(HANDLE hInstance,LPSTR szAppName)
-{  
-  WNDCLASS WndClass; 
+{
+  WNDCLASS WndClass;
   BOOL bSuccess;
-  
+
      memset(&WndClass,0,sizeof(WNDCLASS)) ;
 
 	 WndClass.lpszClassName=szAppName;
@@ -332,7 +332,7 @@ static BOOL RegisterGlu(HANDLE hInstance,LPSTR szAppName)
 	 WndClass.cbWndExtra=(int)NULL;
 
 	 bSuccess=RegisterClass(&WndClass);
-	 
+
 	 return bSuccess;
 }
 //////////////////////////

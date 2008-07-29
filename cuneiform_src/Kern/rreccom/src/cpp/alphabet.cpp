@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -201,20 +201,20 @@ if(language==LANG_RUSSIAN || language==LANG_RUSENG ||
    language==LANG_BULGAR // 01.09.2000 E.P.
    )
     {
-    alphabet[r_cu_d]=1; 
-    alphabet[r_cu_g]=1; 
-    alphabet[r_cu_m]=1; 
-    alphabet[r_cu_u]=1; 
-    alphabet[r_cu_z]=1;  
-    alphabet[r_cu_a]=1; 
+    alphabet[r_cu_d]=1;
+    alphabet[r_cu_g]=1;
+    alphabet[r_cu_m]=1;
+    alphabet[r_cu_u]=1;
+    alphabet[r_cu_z]=1;
+    alphabet[r_cu_a]=1;
 
-    alphabet[liga_exm]=1; 
-    alphabet[liga_qm]=1; 
-    alphabet[liga_uperc]=1; 
-    alphabet[liga_lperc]=1; 
+    alphabet[liga_exm]=1;
+    alphabet[liga_qm]=1;
+    alphabet[liga_uperc]=1;
+    alphabet[liga_lperc]=1;
     }
 
-// В Болгарском нет трех русских букв. 01.09.2000 E.P. 
+// В Болгарском нет трех русских букв. 01.09.2000 E.P.
 if(language==LANG_BULGAR)
 	{
 	alphabet[r_EE_2dot]=0;	alphabet[r_e_2dot]=0;
@@ -224,134 +224,134 @@ if(language==LANG_BULGAR)
 
 if( language==LANG_UKRAINIAN )
     {
-    alphabet[r_cu_d]=1; 
-    alphabet[r_cu_g]=1; 
-    alphabet[r_cu_m]=1; 
-    alphabet[r_cu_u]=1; 
-    alphabet[r_cu_z]=1;  
+    alphabet[r_cu_d]=1;
+    alphabet[r_cu_g]=1;
+    alphabet[r_cu_m]=1;
+    alphabet[r_cu_u]=1;
+    alphabet[r_cu_z]=1;
     alphabet[r_cu_a]=1;
-    alphabet['I' ]=1; 
-    alphabet['i' ]=1; 
-    alphabet[UKR_I ]=1; 
-    alphabet[UKR_i ]=1; 
-    alphabet[UKR_II]=1; 
-    alphabet[UKR_ii]=1; 
-    alphabet[UKR_E ]=1; 
-    alphabet[UKR_e ]=1; 
-    alphabet[UKR_G ]=1; 
-    alphabet[UKR_g ]=1; 
-    alphabet[liga_i]=1; 
+    alphabet['I' ]=1;
+    alphabet['i' ]=1;
+    alphabet[UKR_I ]=1;
+    alphabet[UKR_i ]=1;
+    alphabet[UKR_II]=1;
+    alphabet[UKR_ii]=1;
+    alphabet[UKR_E ]=1;
+    alphabet[UKR_e ]=1;
+    alphabet[UKR_G ]=1;
+    alphabet[UKR_g ]=1;
+    alphabet[liga_i]=1;
 
-    alphabet[liga_exm]=1; 
-    alphabet[liga_qm]=1; 
-    alphabet[liga_uperc]=1; 
-    alphabet[liga_lperc]=1; 
+    alphabet[liga_exm]=1;
+    alphabet[liga_qm]=1;
+    alphabet[liga_uperc]=1;
+    alphabet[liga_lperc]=1;
     }
 if( language==LANG_SERBIAN )
     {
-    alphabet[r_cu_d]=1; 
-    alphabet[r_cu_g]=1; 
-    alphabet[r_cu_m]=1; 
-    alphabet[r_cu_u]=1; 
-    alphabet[r_cu_z]=1;  
-    alphabet[r_cu_a]=1; 
-    alphabet[SERB_HH]=1; 
-    alphabet[SERB_hh]=1; 
-    alphabet[SERB_L ]=1; 
-    alphabet[SERB_l ]=1; 
-    alphabet[SERB_N ]=1; 
-    alphabet[SERB_n ]=1; 
-    alphabet[SERB_H ]=1; 
-    alphabet[SERB_h ]=1; 
+    alphabet[r_cu_d]=1;
+    alphabet[r_cu_g]=1;
+    alphabet[r_cu_m]=1;
+    alphabet[r_cu_u]=1;
+    alphabet[r_cu_z]=1;
+    alphabet[r_cu_a]=1;
+    alphabet[SERB_HH]=1;
+    alphabet[SERB_hh]=1;
+    alphabet[SERB_L ]=1;
+    alphabet[SERB_l ]=1;
+    alphabet[SERB_N ]=1;
+    alphabet[SERB_n ]=1;
+    alphabet[SERB_H ]=1;
+    alphabet[SERB_h ]=1;
     alphabet[SERB_U ]=1;
-    alphabet[SERB_u ]=1; 
-    alphabet[SERB_J ]=1;  
-    alphabet[SERB_j ]=1; 
-    alphabet['J' ]=1;  
-    alphabet['j' ]=1; 
-    alphabet[liga_j]=1; 
+    alphabet[SERB_u ]=1;
+    alphabet[SERB_J ]=1;
+    alphabet[SERB_j ]=1;
+    alphabet['J' ]=1;
+    alphabet['j' ]=1;
+    alphabet[liga_j]=1;
 
-    alphabet[liga_exm]=1; 
-    alphabet[liga_qm]=1; 
-    alphabet[liga_uperc]=1; 
-    alphabet[liga_lperc]=1; 
+    alphabet[liga_exm]=1;
+    alphabet[liga_qm]=1;
+    alphabet[liga_uperc]=1;
+    alphabet[liga_lperc]=1;
     }
 
 if(language==LANG_CROATIAN)
     {
-    alphabet[CROAT_D ]=1; 
-    alphabet[CROAT_d ]=1; 
-    alphabet[CROAT_SR]=1; 
-    alphabet[CROAT_sr]=1; 
-    alphabet[CROAT_CA]=1; 
-    alphabet[CROAT_ca]=1; 
-    alphabet[CROAT_ZR]=1; 
-    alphabet[CROAT_zr]=1; 
-    alphabet[CROAT_CR]=1; 
-    alphabet[CROAT_cr]=1; 
+    alphabet[CROAT_D ]=1;
+    alphabet[CROAT_d ]=1;
+    alphabet[CROAT_SR]=1;
+    alphabet[CROAT_sr]=1;
+    alphabet[CROAT_CA]=1;
+    alphabet[CROAT_ca]=1;
+    alphabet[CROAT_ZR]=1;
+    alphabet[CROAT_zr]=1;
+    alphabet[CROAT_CR]=1;
+    alphabet[CROAT_cr]=1;
     }
 if(language == LANG_POLISH )
     {
-    alphabet[POLISH_SS ]=1; 
-    alphabet[POLISH_s  ]=1; 
-    alphabet[POLISH_ZZR]=1; 
-    alphabet[POLISH_zr ]=1; 
-    alphabet[POLISH_ZZD]=1; 
-    alphabet[POLISH_zd ]=1; 
-    alphabet[POLISH_CC ]=1; 
-    alphabet[POLISH_c  ]=1; 
-    alphabet[POLISH_EE ]=1; 
-    alphabet[POLISH_e  ]=1; 
-    alphabet[POLISH_NN ]=1; 
-    alphabet[POLISH_n  ]=1; 
-    alphabet[POLISH_OO ]=1; 
-    alphabet[POLISH_o  ]=1; 
-    alphabet[POLISH_LL ]=1; 
-    alphabet[POLISH_l  ]=1; 
+    alphabet[POLISH_SS ]=1;
+    alphabet[POLISH_s  ]=1;
+    alphabet[POLISH_ZZR]=1;
+    alphabet[POLISH_zr ]=1;
+    alphabet[POLISH_ZZD]=1;
+    alphabet[POLISH_zd ]=1;
+    alphabet[POLISH_CC ]=1;
+    alphabet[POLISH_c  ]=1;
+    alphabet[POLISH_EE ]=1;
+    alphabet[POLISH_e  ]=1;
+    alphabet[POLISH_NN ]=1;
+    alphabet[POLISH_n  ]=1;
+    alphabet[POLISH_OO ]=1;
+    alphabet[POLISH_o  ]=1;
+    alphabet[POLISH_LL ]=1;
+    alphabet[POLISH_l  ]=1;
     }
 
 if( language==LANG_GERMAN )
     {
-    alphabet[AA_2dot_accent ]=1;  
+    alphabet[AA_2dot_accent ]=1;
     alphabet[a_2dot_accent  ]=1;
-    alphabet[UU_2dot_accent ]=1;  
+    alphabet[UU_2dot_accent ]=1;
     alphabet[u_2dot_accent  ]=1;
-    alphabet[OO_2dot_accent ]=1;  
+    alphabet[OO_2dot_accent ]=1;
     alphabet[o_2dot_accent  ]=1;
     alphabet[0xDF  ]=1;  // ??? small S-cet
     }
 
 if( language==LANG_FRENCH )
     {
-    alphabet[AA_left_accent ]=1;  
+    alphabet[AA_left_accent ]=1;
     alphabet[AA_roof_accent ]=1;
-    alphabet[CC_bottom_accent ]=1;  
+    alphabet[CC_bottom_accent ]=1;
     alphabet[EE_left_accent ]=1;
-    alphabet[EE_right_accent ]=1;  
+    alphabet[EE_right_accent ]=1;
     alphabet[EE_roof_accent ]=1;
-    alphabet[EE_2dot_accent ]=1;  
+    alphabet[EE_2dot_accent ]=1;
     alphabet[II_roof_accent ]=1;
-    alphabet[II_2dot_accent ]=1;  
+    alphabet[II_2dot_accent ]=1;
     alphabet[OO_roof_accent ]=1;
-    alphabet[OE_cap_deaf_sound ]=1;  
+    alphabet[OE_cap_deaf_sound ]=1;
     alphabet[AE_cap_deaf_sound ]=1;
-    alphabet[UU_left_accent ]=1;  
+    alphabet[UU_left_accent ]=1;
     alphabet[UU_roof_accent ]=1;
     alphabet[UU_2dot_accent ]=1;
 
-    alphabet[a_left_accent ]=1;  
+    alphabet[a_left_accent ]=1;
     alphabet[a_roof_accent ]=1;
-    alphabet[c_bottom_accent ]=1;  
+    alphabet[c_bottom_accent ]=1;
     alphabet[e_left_accent ]=1;
-    alphabet[e_right_accent ]=1;  
+    alphabet[e_right_accent ]=1;
     alphabet[e_roof_accent ]=1;
-    alphabet[e_2dot_accent ]=1;  
+    alphabet[e_2dot_accent ]=1;
     alphabet[i_roof_accent ]=1;
-    alphabet[i_2dot_accent ]=1;  
+    alphabet[i_2dot_accent ]=1;
     alphabet[o_roof_accent ]=1;
-    alphabet[oe_deaf_sound ]=1;  
+    alphabet[oe_deaf_sound ]=1;
     alphabet[ae_deaf_sound ]=1;
-    alphabet[u_left_accent ]=1;  
+    alphabet[u_left_accent ]=1;
     alphabet[u_roof_accent ]=1;
     alphabet[u_2dot_accent ]=1;
     }
@@ -490,7 +490,7 @@ if( language==LANG_DUTCH )
 // В связи с новыми кодами лиг для cp1250 01.09.2000 E.P.
 if(is_cen_language(language))
 	{
-    alphabet[liga_exm]=1;	
+    alphabet[liga_exm]=1;
     alphabet[liga_inv_exm]=1;
     alphabet[right_quocket]=1;
     alphabet[liga_CC]=1;
@@ -498,48 +498,48 @@ if(is_cen_language(language))
 	}
 
 if(language==LANG_CZECH)
-	{ 
-    alphabet[AA_right_accent]=		alphabet[a_right_accent]=1; 
-    alphabet[CC_inv_roof]=			alphabet[c_inv_roof]=1; 
-    alphabet[DD_inv_roof]=			alphabet[d_inv_roof]=1; 
-    alphabet[EE_right_accent]=		alphabet[e_right_accent]=1; 
-    alphabet[EE_inv_roof]=			alphabet[e_inv_roof]=1; 
-    alphabet[II_right_accent]=		alphabet[i_right_accent]=1; 
-    alphabet[NN_inv_roof]=			alphabet[n_inv_roof]=1; 
-    alphabet[OO_right_accent]=		alphabet[o_right_accent]=1; 
-    alphabet[RR_inv_roof]=			alphabet[r_inv_roof]=1; 
-    alphabet[SS_inv_roof_latin]=	alphabet[s_inv_roof_latin]=1; 
-    alphabet[TT_inv_roof]=			alphabet[t_inv_roof]=1; 
-    alphabet[UU_right_accent]=		alphabet[u_right_accent]=1; 
-    alphabet[UU_circle_accent]=		alphabet[u_circle_accent]=1; 
-    alphabet[YY_right_accent]=		alphabet[y_right_accent]=1; 
-    alphabet[ZZ_inv_roof_latin]=	alphabet[z_inv_roof_latin]=1; 
+	{
+    alphabet[AA_right_accent]=		alphabet[a_right_accent]=1;
+    alphabet[CC_inv_roof]=			alphabet[c_inv_roof]=1;
+    alphabet[DD_inv_roof]=			alphabet[d_inv_roof]=1;
+    alphabet[EE_right_accent]=		alphabet[e_right_accent]=1;
+    alphabet[EE_inv_roof]=			alphabet[e_inv_roof]=1;
+    alphabet[II_right_accent]=		alphabet[i_right_accent]=1;
+    alphabet[NN_inv_roof]=			alphabet[n_inv_roof]=1;
+    alphabet[OO_right_accent]=		alphabet[o_right_accent]=1;
+    alphabet[RR_inv_roof]=			alphabet[r_inv_roof]=1;
+    alphabet[SS_inv_roof_latin]=	alphabet[s_inv_roof_latin]=1;
+    alphabet[TT_inv_roof]=			alphabet[t_inv_roof]=1;
+    alphabet[UU_right_accent]=		alphabet[u_right_accent]=1;
+    alphabet[UU_circle_accent]=		alphabet[u_circle_accent]=1;
+    alphabet[YY_right_accent]=		alphabet[y_right_accent]=1;
+    alphabet[ZZ_inv_roof_latin]=	alphabet[z_inv_roof_latin]=1;
 	}
 
 if(language==LANG_ROMAN)
-	{ 
-    alphabet[AA_semicircle]=		alphabet[a_semicircle]=1; 
-    alphabet[AA_roof_accent]=		alphabet[a_roof_accent]=1; 
-    alphabet[II_roof_accent]=		alphabet[i_roof_accent]=1; 
-    alphabet[SS_bottom_accent]=		alphabet[s_bottom_accent]=1; 
-    alphabet[TT_bottom_accent]=		alphabet[t_bottom_accent]=1; 
+	{
+    alphabet[AA_semicircle]=		alphabet[a_semicircle]=1;
+    alphabet[AA_roof_accent]=		alphabet[a_roof_accent]=1;
+    alphabet[II_roof_accent]=		alphabet[i_roof_accent]=1;
+    alphabet[SS_bottom_accent]=		alphabet[s_bottom_accent]=1;
+    alphabet[TT_bottom_accent]=		alphabet[t_bottom_accent]=1;
 	}
 
 if(language==LANG_HUNGAR)
 	{
-    alphabet[AA_right_accent]=		alphabet[a_right_accent]=1; 
-    alphabet[EE_right_accent]=		alphabet[e_right_accent]=1; 
-    alphabet[II_right_accent]=		alphabet[i_right_accent]=1; 
-    alphabet[OO_right_accent]=		alphabet[o_right_accent]=1; 
-    alphabet[OO_2dot_accent]=		alphabet[o_2dot_accent]=1; 
-    alphabet[OO_double_right]=		alphabet[o_double_right]=1; 
+    alphabet[AA_right_accent]=		alphabet[a_right_accent]=1;
+    alphabet[EE_right_accent]=		alphabet[e_right_accent]=1;
+    alphabet[II_right_accent]=		alphabet[i_right_accent]=1;
+    alphabet[OO_right_accent]=		alphabet[o_right_accent]=1;
+    alphabet[OO_2dot_accent]=		alphabet[o_2dot_accent]=1;
+    alphabet[OO_double_right]=		alphabet[o_double_right]=1;
 	}
 
 if(language==LANG_SLOVENIAN)
-	{ 
-    alphabet[CC_inv_roof]=			alphabet[c_inv_roof]=1; 
-    alphabet[SS_inv_roof_latin]=	alphabet[s_inv_roof_latin]=1; 
-    alphabet[ZZ_inv_roof_latin]=	alphabet[z_inv_roof_latin]=1; 
+	{
+    alphabet[CC_inv_roof]=			alphabet[c_inv_roof]=1;
+    alphabet[SS_inv_roof_latin]=	alphabet[s_inv_roof_latin]=1;
+    alphabet[ZZ_inv_roof_latin]=	alphabet[z_inv_roof_latin]=1;
 	}
 
 // Прибалтийские лиги cp1257 09.07.2001 E.P.
@@ -558,16 +558,16 @@ if(is_baltic_language(language))
 if( language==LANG_LATVIAN )
 	{
 	 // LATVIAN 09.07.2001 E.P.
-     alphabet[AA_macron			]=1;	alphabet[a_macron			]=1; 
-     alphabet[CC_inv_roof		]=1;	alphabet[c_inv_roof			]=1; 
-     alphabet[EE_macron			]=1;	alphabet[e_macron			]=1; 
-     alphabet[GG_bottom_accent	]=1;	alphabet[LATVIAN_g			]=1; 
-     alphabet[II_macron			]=1;	alphabet[i_macron			]=1; 
-     alphabet[KK_bottom_accent	]=1;	alphabet[k_bottom_accent	]=1; 
-     alphabet[LL_bottom_accent	]=1;	alphabet[l_bottom_accent	]=1; 
-     alphabet[NN_bottom_accent	]=1;	alphabet[n_bottom_accent	]=1; 
-     alphabet[SS_inv_roof_baltic]=1;	alphabet[s_inv_roof_baltic	]=1; 
-     alphabet[UU_macron			]=1;	alphabet[u_macron			]=1; 
+     alphabet[AA_macron			]=1;	alphabet[a_macron			]=1;
+     alphabet[CC_inv_roof		]=1;	alphabet[c_inv_roof			]=1;
+     alphabet[EE_macron			]=1;	alphabet[e_macron			]=1;
+     alphabet[GG_bottom_accent	]=1;	alphabet[LATVIAN_g			]=1;
+     alphabet[II_macron			]=1;	alphabet[i_macron			]=1;
+     alphabet[KK_bottom_accent	]=1;	alphabet[k_bottom_accent	]=1;
+     alphabet[LL_bottom_accent	]=1;	alphabet[l_bottom_accent	]=1;
+     alphabet[NN_bottom_accent	]=1;	alphabet[n_bottom_accent	]=1;
+     alphabet[SS_inv_roof_baltic]=1;	alphabet[s_inv_roof_baltic	]=1;
+     alphabet[UU_macron			]=1;	alphabet[u_macron			]=1;
      alphabet[ZZ_inv_roof_baltic]=1;	alphabet[z_inv_roof_baltic	]=1;
 
      alphabet[(Word8)'Q'] = alphabet[(Word8)'q'] = 0;
@@ -579,16 +579,16 @@ if( language==LANG_LATVIAN )
 if( language==LANG_LITHUANIAN )
 	{
 	 // LITHUANIAN 09.07.2001 E.P.
-     alphabet[AA_bottom_accent	]=1;	alphabet[a_bottom_accent	]=1; 
-     alphabet[CC_inv_roof		]=1;	alphabet[c_inv_roof			]=1; 
-     alphabet[EE_bottom_accent	]=1;	alphabet[e_bottom_accent	]=1; 
-     alphabet[EE_dot_accent		]=1;	alphabet[e_dot_accent		]=1; 
-     alphabet[II_bottom_accent	]=1;	alphabet[i_bottom_accent	]=1; 
-     alphabet[SS_inv_roof_baltic]=1;	alphabet[s_inv_roof_baltic	]=1; 
-     alphabet[UU_bottom_accent	]=1;	alphabet[u_bottom_accent	]=1; 
-     alphabet[UU_macron			]=1;	alphabet[u_macron			]=1; 
+     alphabet[AA_bottom_accent	]=1;	alphabet[a_bottom_accent	]=1;
+     alphabet[CC_inv_roof		]=1;	alphabet[c_inv_roof			]=1;
+     alphabet[EE_bottom_accent	]=1;	alphabet[e_bottom_accent	]=1;
+     alphabet[EE_dot_accent		]=1;	alphabet[e_dot_accent		]=1;
+     alphabet[II_bottom_accent	]=1;	alphabet[i_bottom_accent	]=1;
+     alphabet[SS_inv_roof_baltic]=1;	alphabet[s_inv_roof_baltic	]=1;
+     alphabet[UU_bottom_accent	]=1;	alphabet[u_bottom_accent	]=1;
+     alphabet[UU_macron			]=1;	alphabet[u_macron			]=1;
      alphabet[ZZ_inv_roof_baltic]=1;	alphabet[z_inv_roof_baltic	]=1;
-	 
+
      alphabet[(Word8)'Q'] = alphabet[(Word8)'q'] = 0;
      alphabet[(Word8)'W'] = alphabet[(Word8)'w'] = 0;
      alphabet[(Word8)'X'] = alphabet[(Word8)'x'] = 0;
@@ -597,13 +597,13 @@ if( language==LANG_LITHUANIAN )
 if( language==LANG_ESTONIAN )
 	{
 	 // ESTONIAN 09.07.2001 E.P.
-     alphabet[AA_2dot_accent	]=1;	alphabet[a_2dot_accent		]=1; 
-     alphabet[OO_tild_accent	]=1;	alphabet[o_tild_accent		]=1; 
-     alphabet[OO_2dot_accent	]=1;	alphabet[o_2dot_accent		]=1; 
-     alphabet[SS_inv_roof_baltic]=1;	alphabet[s_inv_roof_baltic	]=1; 
-     alphabet[UU_2dot_accent	]=1;	alphabet[u_2dot_accent		]=1; 
+     alphabet[AA_2dot_accent	]=1;	alphabet[a_2dot_accent		]=1;
+     alphabet[OO_tild_accent	]=1;	alphabet[o_tild_accent		]=1;
+     alphabet[OO_2dot_accent	]=1;	alphabet[o_2dot_accent		]=1;
+     alphabet[SS_inv_roof_baltic]=1;	alphabet[s_inv_roof_baltic	]=1;
+     alphabet[UU_2dot_accent	]=1;	alphabet[u_2dot_accent		]=1;
      alphabet[ZZ_inv_roof_baltic]=1;	alphabet[z_inv_roof_baltic	]=1;
-	 
+
      alphabet[(Word8)'C'] = alphabet[(Word8)'c'] = 0;
      alphabet[(Word8)'Q'] = alphabet[(Word8)'q'] = 0;
      alphabet[(Word8)'W'] = alphabet[(Word8)'w'] = 0;
@@ -627,7 +627,7 @@ if( language==LANG_TURKISH )
 	alphabet[II_dot_accent				]=1;
 	alphabet[i_sans_accent				]=1;
 	alphabet[SS_bottom_accent_turkish	]=1;
-	alphabet[s_bottom_accent_turkish	]=1; 
+	alphabet[s_bottom_accent_turkish	]=1;
 	alphabet['Q'] = alphabet['q'] = 0;
 	alphabet['W'] = alphabet['w'] = 0;
 	alphabet['X'] = alphabet['x'] = 0;
@@ -652,7 +652,7 @@ static char *tabevn1[LANG_TOTAL]={
 "rec1n.dat",        // LANG_DANISH		12
 "rec1n.dat",        // LANG_PORTUGUESE	13
 "rec1n.dat",        // LANG_DUTCH		14
-"rec1.dat",         // LANG_DIG			15	
+"rec1.dat",         // LANG_DIG			15
 "rec1uzb.dat",      // LANG_UZBEK		16	// 01.09.2000 E.P.
 "rec1kaz.dat",      // LANG_KAZ			17
 "rec1kaz.dat",      // LANG_KAZ_ENG		18
@@ -667,22 +667,22 @@ static char *tabevn1[LANG_TOTAL]={
 "rec1tur.dat"       // LANG_TURKISH		27
 };
 static char *tabevn2[LANG_TOTAL]={
-"rec2.dat",         // LANG_ENGLISH		0  
-"rec2.dat",         // LANG_GERMAN		1  
-"rec2.dat",         // LANG_FRENCH		2  
-"rec2rus.dat",      // LANG_RUSSIAN		3  
-"rec2.dat",         // LANG_SWEDISH		4  
-"rec2.dat",         // LANG_SPANISH		5  
-"rec2.dat",         // LANG_ITALIAN		6  
-"rec2r&e.dat",      // LANG_RUSENG		7  
-"rec2rus.dat",      // LANG_UKRAINIAN	8 
-"rec2rus.dat",      // LANG_SERBIAN		9  
-"rec2cen.dat",      // LANG_CROATIAN	10  
-"rec2cen.dat",      // LANG_POLISH		11  
-"rec2n.dat",        // LANG_DANISH		12  
+"rec2.dat",         // LANG_ENGLISH		0
+"rec2.dat",         // LANG_GERMAN		1
+"rec2.dat",         // LANG_FRENCH		2
+"rec2rus.dat",      // LANG_RUSSIAN		3
+"rec2.dat",         // LANG_SWEDISH		4
+"rec2.dat",         // LANG_SPANISH		5
+"rec2.dat",         // LANG_ITALIAN		6
+"rec2r&e.dat",      // LANG_RUSENG		7
+"rec2rus.dat",      // LANG_UKRAINIAN	8
+"rec2rus.dat",      // LANG_SERBIAN		9
+"rec2cen.dat",      // LANG_CROATIAN	10
+"rec2cen.dat",      // LANG_POLISH		11
+"rec2n.dat",        // LANG_DANISH		12
 "rec2n.dat",        // LANG_PORTUGUESE	13
-"rec2n.dat",        // LANG_DUTCH		14  
-"rec2.dat",         // LANG_DIG			15	
+"rec2n.dat",        // LANG_DUTCH		14
+"rec2.dat",         // LANG_DIG			15
 "rec2uzb.dat",      // LANG_UZBEK		16 // 01.09.2000 E.P.
 "rec2kaz.dat",      // LANG_KAZ			17
 "rec2kaz.dat",      // LANG_KAZ_ENG		18

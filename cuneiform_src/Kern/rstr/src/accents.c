@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -138,7 +138,7 @@ for(c=cell_f()->nextl;c!=cell_l();c=c->nextl)
        language==LANG_POLISH   && memchr("SZCNOszcno",let,10) ||
        language==LANG_SWEDISH  && memchr("AEOaeo",let,6) ||
 	   language==LANG_CZECH    && memchr(// 04.09.2000 E.P.
-			"AaCcDdEeIiNnOoRrSsTtUuYyZz",let,26) 
+			"AaCcDdEeIiNnOoRrSsTtUuYyZz",let,26)
 			||
        language==LANG_ROMAN    && memchr("AaIi",let,4) ||
        language==LANG_HUNGAR   && memchr("AaEeIiOoUu",let,10) ||
@@ -224,7 +224,7 @@ INT bottom_accent(cell *c)
                 case 'L': v2->let = LL_bottom_accent;break;
                 case 'l': v2->let = l_bottom_accent; break;
                 case '1': if( !was_l )
-							  v2->let = l_bottom_accent; 
+							  v2->let = l_bottom_accent;
 					      break; // Nick 31.08.01
                 case 'N': v2->let = NN_bottom_accent;break;
                 case 'n': v2->let = n_bottom_accent; break;
@@ -273,14 +273,14 @@ INT bottom_accent(cell *c)
 			continue;
 
 	// Турецкая c_bottom_accent после отрезания дает
-	// несколько версий с оценкой 254. 
+	// несколько версий с оценкой 254.
 	// 18.06.2002 E.P.
 	else if ( language==LANG_TURKISH )
 		{
 		if ( (i+1 < c->nvers) && (v1+1)->prob >= 240 )
 			continue;
 		}
-    else 
+    else
         break;
     }
 
@@ -323,26 +323,26 @@ INT accent(cell *c)
     memchr("AEOaeo",v1->let,6)&&acc_type==ACC_LEFT ||
     memchr("AEOaeo",v1->let,6)&&acc_type==ACC_ROOF ||
     memchr("AOao",v1->let,4)&&acc_type==ACC_TILD ||
-    memchr("EIei",v1->let,4)&&acc_type==ACC_2DOT) 
+    memchr("EIei",v1->let,4)&&acc_type==ACC_2DOT)
 	)
 	goto _ok;
 
   if (language==LANG_ITALIAN && memchr("o",v1->let,1) &&
       acc_type==ACC_LEFT ||
 	language==LANG_RUSSIAN && !langUkr && !langSer && memchr("Ґ…",v1->let,2) &&
-			acc_type==ACC_2DOT 
+			acc_type==ACC_2DOT
 	)
 	goto _ok;
 
 	if (language==LANG_CROATIAN && memchr("cC",v1->let,2) &&
 			acc_type==ACC_RIGHT ||
   language==LANG_CROATIAN && (memchr("SsZzCc",v1->let,6)) &&
-      acc_type==ACC_ROOF_INV 
+      acc_type==ACC_ROOF_INV
 	  )
 	goto _ok;
 
   if (language==LANG_DANISH && (memchr("Aa",v1->let,2)) &&
-      acc_type==ACC_CIR 
+      acc_type==ACC_CIR
 	  )
 	goto _ok;
 
@@ -365,14 +365,14 @@ INT accent(cell *c)
 	((v1->let=='A' || v1->let=='a') &&
 	 (acc_type==ACC_CIR || acc_type==ACC_2DOT) ||
 	 (v1->let=='E' || v1->let=='e') && acc_type&ACC_RIGHT ||
-	 (v1->let=='O' || v1->let=='o') && acc_type==ACC_2DOT) 
+	 (v1->let=='O' || v1->let=='o') && acc_type==ACC_2DOT)
 	 )
 	goto _ok;
 
   if (language==LANG_SPANISH && memchr("AEINOUaeinou",v1->let,12) &&
 	(v1->let!='N' && v1->let!='n' && acc_type&ACC_RIGHT ||
 	 (v1->let=='U' || v1->let=='u' && acc_type==ACC_2DOT) ||
-	 (v1->let=='N' || v1->let=='n') && acc_type==ACC_TILD) 
+	 (v1->let=='N' || v1->let=='n') && acc_type==ACC_TILD)
 	 )
 	goto _ok;
 
@@ -391,13 +391,13 @@ INT accent(cell *c)
 
   language==LANG_HUNGAR && (
 		memchr("AaEeIiOoUu",v1->let,10) && acc_type==ACC_RIGHT ||
-		memchr("OoUu",v1->let,4) && 
+		memchr("OoUu",v1->let,4) &&
 			(acc_type==ACC_2DOT || acc_type==ACC_DOUBLE_RIGHT)
 	) ||
 
   language==LANG_SLOVENIAN && (
 	memchr("CcSsZz",v1->let,6) && acc_type==ACC_ROOF_INV
-	) 
+	)
 	)
 	goto _ok;
 
@@ -412,14 +412,14 @@ INT accent(cell *c)
   language==LANG_LITHUANIAN && (
 	memchr("CcSsZz",v1->let,6)  && acc_type==ACC_ROOF_INV	||
 	(v1->let=='E' || v1->let=='e')  && acc_type==ACC_DOT	||
-	(v1->let=='U' || v1->let=='u')  && acc_type==ACC_MACRON	  
+	(v1->let=='U' || v1->let=='u')  && acc_type==ACC_MACRON
 	) ||
 
   language==LANG_ESTONIAN   && (
 	memchr("AaOoUu",v1->let,6)  && acc_type==ACC_2DOT		||
 	(v1->let=='O' || v1->let=='o')  && acc_type==ACC_TILD	||
-	memchr("SsZz",v1->let,4)    && acc_type==ACC_ROOF_INV	
-	) 
+	memchr("SsZz",v1->let,4)    && acc_type==ACC_ROOF_INV
+	)
 	)
 	goto _ok;
 
@@ -476,7 +476,7 @@ _ok:
 
       case ACC_ROOF_INV :	// CROAT,CZECH 04.09.2000 E.P.
 						    // А также балтийские языки. 10.07.2001 E.P.
-		  v2->let=s_inv_roof;		break; 
+		  v2->let=s_inv_roof;		break;
 
       default: continue;
       }
@@ -555,7 +555,7 @@ _ok:
             continue;
 
 	  // ROMAN 04.09.2000 E.P.
-	  case ACC_SEMICIRCLE:	  v2->let=AA_semicircle;		break;	  
+	  case ACC_SEMICIRCLE:	  v2->let=AA_semicircle;		break;
 
 	  // LATVIAN 10.07.2001 E.P.
 	  case ACC_MACRON:		  v2->let=AA_macron;			break;
@@ -642,7 +642,7 @@ _ok:
       case ACC_ROOF :         v2->let=UU_roof_accent;   break;
       case ACC_2DOT :         v2->let=UU_2dot_accent;   break;
 
-      case ACC_LR   :         
+      case ACC_LR   :
 		  if (language==LANG_FRENCH||language==LANG_ITALIAN)
 		      {v2->let=UU_left_accent; break;}
 		  if (language==LANG_SPANISH)
@@ -650,10 +650,10 @@ _ok:
 		  continue;
 
 	  // 04.09.2000 E.P.
-      case ACC_CIR:  
+      case ACC_CIR:
 		  v2->let=UU_circle_accent;  break;	// CZECH
 
-      case ACC_DOUBLE_RIGHT:  
+      case ACC_DOUBLE_RIGHT:
 		  v2->let=UU_double_right;	 break;	// HUNGAR
 
 	  // LATVIAN,LITHUANIAN 10.07.2001 E.P.
@@ -669,11 +669,11 @@ _ok:
       case ACC_RIGHT:     v2->let=a_right_accent;       break;
       case ACC_ROOF :     v2->let=a_roof_accent;        break;
       case ACC_2DOT :     v2->let=a_2dot_accent;        break;
-      case ACC_TILD:      
+      case ACC_TILD:
 
 			// Тильда от версии 'o'. 16.08.2001 E.P.
 		    if(language !=LANG_ESTONIAN)
-				v2->let=a_tild_accent;        
+				v2->let=a_tild_accent;
 			break;
 
       case ACC_CIR  :     v2->let=a_circle_accent;      break;
@@ -692,7 +692,7 @@ _ok:
 
 	  // ROMAN 04.09.2000 E.P.
 	  case ACC_SEMICIRCLE:	v2->let=a_semicircle;		break;
-		  
+
 	  // LATVIAN 10.07.2001 E.P.
 	  case ACC_MACRON:		v2->let=a_macron;			break;
 
@@ -734,7 +734,7 @@ _ok:
     case (BYTE)'Ґ':
      switch (acc_type)
       {
-      case ACC_2DOT :         
+      case ACC_2DOT :
 		  if( language==LANG_RUSSIAN && !langUkr && !langSer  && !langBul) // 31.08.2000 E.P.
                 {
                 v2->let = r_e_2dot;
@@ -746,7 +746,7 @@ _ok:
     case (BYTE)'…':
      switch (acc_type)
       {
-      case ACC_2DOT :         
+      case ACC_2DOT :
 		  if( language==LANG_RUSSIAN && !langUkr && !langSer && !langBul ) // 31.08.2000 E.P.
                 {
                 v2->let = r_EE_2dot;
@@ -793,7 +793,7 @@ _ok:
 
 	  // ROMAN 31.05.2001
 	  // TURKISH 30.05.2002 E.P.
-	  case ACC_WEAK_ROOF: 
+	  case ACC_WEAK_ROOF:
 		if (n<VERS_IN_CELL-2)
 			{
 			// Сохранить версию 'i'
@@ -846,7 +846,7 @@ _ok:
       case ACC_ROOF :         v2->let=u_roof_accent;    break;
       case ACC_2DOT :         v2->let=u_2dot_accent;    break;
 
-      case ACC_LR   :         
+      case ACC_LR   :
 		  if (language==LANG_FRENCH||language==LANG_ITALIAN)
 		      {v2->let=u_left_accent; break;}
 		  if (language==LANG_SPANISH)
@@ -854,10 +854,10 @@ _ok:
 		  continue;
 
 	  // 04.09.2000 E.P.
-      case ACC_CIR:  
+      case ACC_CIR:
 		  v2->let=u_circle_accent;  break;	// CZECH
 
-      case ACC_DOUBLE_RIGHT:  
+      case ACC_DOUBLE_RIGHT:
 		  v2->let=u_double_right;   break;	// HUNGAR
 
 	  // LATVIAN,ESTONIAN 10.07.2001 E.P.
@@ -943,7 +943,7 @@ _ok:
 	   {
 	   BYTE add_prob = 84;	// 27.06.2002 E.P.
 
-	   // Для разваленной турецкой g_semicircle вредно добавлять 
+	   // Для разваленной турецкой g_semicircle вредно добавлять
 	   // слишком много. 27.06.2002 E.P.
 	   if(language==LANG_TURKISH &&
 			v2->let==g_semicircle &&
@@ -1098,7 +1098,7 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
   }
 
  // Пропустить версии без акцентов
- for (i=0; i < c->nvers && 
+ for (i=0; i < c->nvers &&
 		!memchr(acc_base,let_sans_acc[c->vers[i].let],acc_base_num);
 	  i++) ;
 
@@ -1110,8 +1110,8 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
  if (language==LANG_CZECH && memchr("dt",let,2))
 	 e += MAX(2,c->w/8);
 
- for (fld=0,cc=c->prevl->next; 
-	  cc->col<=e && cc!=cell_l(); 
+ for (fld=0,cc=c->prevl->next;
+	  cc->col<=e && cc!=cell_l();
 	  cc=cc->next
 	 )
   // Первая проверка
@@ -1166,9 +1166,9 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
 		goto non_zero_ret;
 		}
 
-	 // В румынском есть ACC_ROOF и ACC_SEMICIRCLE, 
+	 // В румынском есть ACC_ROOF и ACC_SEMICIRCLE,
 	 // но нет ACC_ROOF_INV. 04.09.2000 E.P.
-	if ( language==LANG_ROMAN ) 
+	if ( language==LANG_ROMAN )
 		{
 		// ACC_ROOF
 		if (memchr("AOIi",let,4) && acc_roof(cc,raster))
@@ -1197,7 +1197,7 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
 			}
 		}
 
-	if ( language==LANG_TURKISH ) 
+	if ( language==LANG_TURKISH )
 		{
 		// ACC_ROOF
 		if (memchr("AaIiUu",let,6) && acc_roof(cc,raster))
@@ -1248,9 +1248,9 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
      if (!(let=='i' && (cc->cg_flag&c_cg_cutacc)==c_cg_cutacc) &&
 		 (let!='i' || cc->col<c->col+c->w) &&
 
-		 !((language==LANG_FRENCH||language==LANG_ITALIAN) && 
+		 !((language==LANG_FRENCH||language==LANG_ITALIAN) &&
 			memchr("IOio",let,4) &&	c->vers[i+1].let!='a'
-		  ) && 
+		  ) &&
 
 		 !is_baltic_language(language) &&	// 14.08.2001 E.P.
 
@@ -1261,8 +1261,8 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
 		goto non_zero_ret;
 		}
 
-	 /* 
-	 В cp1250 есть правый акцент и акцент справа от dt, 
+	 /*
+	 В cp1250 есть правый акцент и акцент справа от dt,
 	 но нет левого акцента. 04.09.2000 E.P.
 	 Здесь ловится все что похоже на ACC_LEFT,ACC_RIGHT:
 	 */
@@ -1330,17 +1330,17 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
     }
 
    // ACC_2DOT
-   if ( ( 
+   if ( (
 	    language==LANG_FRENCH && memchr("EIUeiu",let,6) ||
-		language==LANG_GERMAN && 
-			(memchr("AOUaou",let,6) || 
+		language==LANG_GERMAN &&
+			(memchr("AOUaou",let,6) ||
 			 memchr("aou",c->vers[1].let,3)) ||
 		language==LANG_SWEDISH &&
-			(memchr("AOao",let,4) || 
+			(memchr("AOao",let,4) ||
 			 memchr("ao",c->vers[1].let,2)) ||
 		language==LANG_SPANISH && memchr("Uu",let,2) ||
-		language==LANG_RUSSIAN && 
-				!langUkr && !langSer && 
+		language==LANG_RUSSIAN &&
+				!langUkr && !langSer &&
 				!langBul && // 04.09.2000 E.P.
 			memchr("…Ґ",let,2) ||
 
@@ -1350,8 +1350,8 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
 		language==LANG_ESTONIAN && memchr("AaOoUu",let,6) ||	// 10.07.2001 E.P.
 
 		// Турецкие умляуты по аналогии с немецкими 30.05.2002 E.P.
-		language==LANG_TURKISH && 
-			(memchr("OUou",let,4) || 
+		language==LANG_TURKISH &&
+			(memchr("OUou",let,4) ||
 			 memchr("ou",c->vers[1].let,2)) ||
 		0
 		) && acc_2dot(c,cc,raster,let)
@@ -1366,7 +1366,7 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
 	   language == LANG_POLISH		&& (let=='Z'||let=='z') ||
 	   language == LANG_LATVIAN		&& (let=='g')			||	// 16.08.2001 E.P.
 	   language == LANG_LITHUANIAN	&& (let=='E'||let=='e') ||	// 10.07.2001 E.P.
-	   language == LANG_TURKISH	&& 
+	   language == LANG_TURKISH	&&
 			(let=='I' || let==i_sans_accent) ||	// 30.05.2002 E.P.
 	   0
 	   ) && acc_dot(c,cc)
@@ -1398,13 +1398,13 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
    if (
 	   ( language==LANG_SPANISH &&
 			(memchr("Nn",let,2) || c->vers[1].let=='n')  ||
-		 language==LANG_ESTONIAN && 
+		 language==LANG_ESTONIAN &&
 			(let=='O'||let=='o' ||
 				(let=='a' && c->vers[1].let=='o') // 16.08.2001 E.P.
 			)
 	   ) &&
-       2*cc->w>=c->w && 
-	   (language!=LANG_ESTONIAN ? 3*cc->h<=2*cc->w:4*cc->h < 3*cc->w) && 
+       2*cc->w>=c->w &&
+	   (language!=LANG_ESTONIAN ? 3*cc->h<=2*cc->w:4*cc->h < 3*cc->w) &&
 	   (language!=LANG_ESTONIAN ? 5*cc->h<=2*bl.ps : 7*cc->h < 3*bl.ps ) &&
        (d=cc->col+cc->w/2-(c->col+c->w/2))<=MAX(5,cc->w/2) &&
        d>=-MAX(3,cc->w/3) &&
@@ -1418,7 +1418,7 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
 	// ACC_MACRON. 18.07.2001 E.P.
 	if ( language==LANG_LATVIAN &&
 			(memchr("AaEeIiUu",let,8) || memchr("aeIiUu",c->vers[1].let,6) )  ||
-		language==LANG_LITHUANIAN && 
+		language==LANG_LITHUANIAN &&
 			(let=='U'||let=='u' || c->vers[1].let=='U' || c->vers[1].let=='u')
 	  )
 		{
@@ -1484,7 +1484,7 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
      raster=save_raster(cc);
      if (!(let=='i' && (cc->cg_flag&c_cg_cutacc)==c_cg_cutacc) &&
 		(let!='i' || cc->col<c->col+c->w) &&
-	    !((language==LANG_FRENCH||language==LANG_ITALIAN) && 
+	    !((language==LANG_FRENCH||language==LANG_ITALIAN) &&
 				memchr("IOio",let,4) &&
 				c->vers[i+1].let!='a') &&
 		(r=acc_lr(c,cc,raster))!=0
@@ -1495,7 +1495,7 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
 		}
 
 	 // ACC_ROOF
-     if (language==LANG_FRENCH || 
+     if (language==LANG_FRENCH ||
 		 language==LANG_ROMAN  ||	// 12.09.2000 E.P.
 		 language==LANG_TURKISH // 30.05.2002 E.P.
 		 )
@@ -1504,11 +1504,11 @@ INT type_acc(cell *c,BOOL enable_mark_satellit)
 			{ret= ACC_ROOF;goto non_zero_ret;}
 
 		 // 31.05.2001 E.P.
-		 if ( (language==LANG_ROMAN || 
+		 if ( (language==LANG_ROMAN ||
 			 language==LANG_TURKISH // 30.05.2002 E.P.
-			 )&& 
+			 )&&
 			 c->vers[0].let=='i' &&
-			 acc_weak_roof(cc,raster)  
+			 acc_weak_roof(cc,raster)
 			)
 			{ret= ACC_WEAK_ROOF;goto non_zero_ret;}
 		 }
@@ -1619,7 +1619,7 @@ static INT acc_lr(cell *c,cell *cc,PBYTE r)
  for (i=0; i<c->nvers && memchr(sCanHaveLRAccents,
         c->vers[i].let,nCanHaveLRAccents)==NULL; i++)
            ;
- if( i==c->nvers )	
+ if( i==c->nvers )
 	 i=0;
 
  s13=s1+s3;
@@ -1651,14 +1651,14 @@ static INT acc_lr(cell *c,cell *cc,PBYTE r)
     if (s24>=s13)
         {
         // Avoid mistake with Zz dot accent. 23.10.97.
-        if (!(  
+        if (!(
 				(language==LANG_POLISH && memchr("Zz",let,2) ||
 
 				 // And with Ee dot accent. 16.07.2001 E.P.
 			     language==LANG_LITHUANIAN && memchr("Ee",let,2) ||
 
 				 // And with II dot accent. 31.05.2002 E.P.
-			     language==LANG_TURKISH && let=='I' 
+			     language==LANG_TURKISH && let=='I'
 
 				 ) &&
 				  s24==s13 && MIN(s2,s4)<=MIN(s1,s3)
@@ -1772,7 +1772,7 @@ static Bool32 IsProgib(PBYTE r,int w,int h)
 			if(!cc)
 			{
 				cc =128;
-                tek=r[j>>3]; 
+                tek=r[j>>3];
 			}
 
 			if( tek&cc )
@@ -1806,7 +1806,7 @@ static Bool32 IsProgib(PBYTE r,int w,int h)
 	for(i=best,j=0;i>=left;i--)
 	{
 		if( ( bufUp[i] < bufUp[best] && bufDn[i] < bufDn[best] ) ||
-			( bufUp[i] > bufUp[best] && bufDn[i] > bufDn[best] )  
+			( bufUp[i] > bufUp[best] && bufDn[i] > bufDn[best] )
           )
 		{
 			j++;
@@ -1817,7 +1817,7 @@ static Bool32 IsProgib(PBYTE r,int w,int h)
 	for(i=best;i<=right;i++)
 	{
 		if( ( bufUp[i] < bufUp[best] && 	bufDn[i] < bufDn[best] ) ||
-			( bufUp[i] > bufUp[best] && bufDn[i] > bufDn[best] )  
+			( bufUp[i] > bufUp[best] && bufDn[i] > bufDn[best] )
           )
 		{
 			j++;
@@ -1842,12 +1842,12 @@ static INT acc_2dot(cell *c,cell *cc,PBYTE r,BYTE let)
 
  if( !(language==LANG_RUSSIAN && !langUkr && !langSer) )
  {
-  if ( 
+  if (
 	 (
 	  2*(cc->h-(((cc->cg_flag&c_cg_cutacc)==c_cg_cutacc)?1:0))<=cc->w+1 ||
 	  // Nick 29.08.01 for Estonian
-	  language == LANG_ESTONIAN && 3*cc->h < 2*H && 
-      (NumIntersect2(cc->env, cc->h)+1)*2 >= cc->h 
+	  language == LANG_ESTONIAN && 3*cc->h < 2*H &&
+      (NumIntersect2(cc->env, cc->h)+1)*2 >= cc->h
      )
 	  &&
      (d=cc->col+cc->w/2-(c->col+c->w/2))<=4*H/9 && d>=-H/4 &&
@@ -1859,10 +1859,10 @@ static INT acc_2dot(cell *c,cell *cc,PBYTE r,BYTE let)
   j=(cc->w-1)/2;
   b=128>>(j%8);
   j/=8;
-  for (i1=0; !(r[i1*l+j]&b) && 
+  for (i1=0; !(r[i1*l+j]&b) &&
 		i1 < cc->h;		// 04.09.2000 Nick
-		i1++) ; 
-  for (i2=cc->h-1; !(r[i2*l+j]&b) && 
+		i1++) ;
+  for (i2=cc->h-1; !(r[i2*l+j]&b) &&
 		i2 >=0;		// 04.09.2000 Nick
 		i2--) ;
 
@@ -1909,7 +1909,7 @@ static INT acc_2dot(cell *c,cell *cc,PBYTE r,BYTE let)
      if (!memchr("/l()J1It[]VW",(let1=cc1->vers[0].let),12) &&
 			let1!=liga_i &&
 		 !(language == LANG_TURKISH &&  // 30.05.2002 E.P.
-			(let1==i_sans_accent||let1==II_dot_accent) 
+			(let1==i_sans_accent||let1==II_dot_accent)
 		  )
 		)
       if (let!='i')
@@ -2027,7 +2027,7 @@ static INT acc_tild(cell *c,PBYTE r)
 			 // dwo dots ?
            if( numIntersect*2 >= c->h )
 		   {
-	        accadr1=NULL; 
+	        accadr1=NULL;
 	        return 0;
 		   }
 
@@ -2037,7 +2037,7 @@ static INT acc_tild(cell *c,PBYTE r)
 	 // old version
 	 else
 	 {
-	  accadr1=NULL; 
+	  accadr1=NULL;
 	  return 0;
 	 }
  }
@@ -2056,14 +2056,14 @@ static INT acc_tild(cell *c,PBYTE r)
 			 	 // dwo dots ?
            if( noTild || numIntersect*2 >= c->h )
 		   {
-	        accadr1=NULL; 
+	        accadr1=NULL;
 	        return 0;
 		   }
 		 }
 	 }
 	 else // old standard
 	 {
-	  accadr1=NULL; 
+	  accadr1=NULL;
 	  return 0;
 	 }
  }
@@ -2167,13 +2167,13 @@ INT find_bottom_accent(cell *c)
 
   if ( (cc->flg&(c_f_dust|c_f_punct) && cc->env) && // dust
 	  // not too big
-      (2*cc->h<H || 
-		( (language == LANG_LITHUANIAN || 
+      (2*cc->h<H ||
+		( (language == LANG_LITHUANIAN ||
 		   language == LANG_LATVIAN ||
 		   language== LANG_TURKISH	// 19.06.2002 E.P.
 		  ) && 3*cc->h<2*H
-		) 
-	  ) &&   
+		)
+	  ) &&
       c->row+c->h-1<=cc->row &&          // bottom position
       (cc->row<=bl.b4 ||                 // not too low
        cc->row<=c->row+c->h+bl.ps/4) &&
@@ -2194,7 +2194,7 @@ INT find_bottom_accent(cell *c)
 		  }
 
 	  // Узкие прибалтийские буквы и узкие акценты. 16.07.2001 E.P.
-	  else if (language==LANG_LATVIAN && 
+	  else if (language==LANG_LATVIAN &&
 				// Узкая буква
 				( (let=='l' || c->h > 3* c->w) &&
 				   cc->w < 3*c->w &&		// not too wide
@@ -2210,7 +2210,7 @@ INT find_bottom_accent(cell *c)
 			  return 1;
 			  }
 
-	  else if (language==LANG_LITHUANIAN && 
+	  else if (language==LANG_LITHUANIAN &&
 				// Узкие буквы
 				(let=='i' || let== 'I' || c->h > 3* c->w) &&
 				   cc->w < 3*c->w &&		// not too wide
@@ -2221,7 +2221,7 @@ INT find_bottom_accent(cell *c)
 			  return 1;
 			  }
 
-	  else if (language==LANG_TURKISH && 
+	  else if (language==LANG_TURKISH &&
 				// Узкие буквы
 				(let=='s') &&
 				   2*cc->w < c->w &&	// not too wide
@@ -2254,7 +2254,7 @@ static INT acc_semicircle(cell *cc,PBYTE r)
 	Функция работает на перевернутом растре и распознает
 	полукруг выпуклостью вверх, аналогично acc_roof
 
-	Скопирован из acc_roof(). 
+	Скопирован из acc_roof().
 	04.09.2000 E.P.
 */
  INT r1,r2,r3,b,s11,s12,s21,s22,s31,s32,ss13,ss2,sp,sm,ss,i,j,l;
@@ -2366,7 +2366,7 @@ Int16 NumIntersect2(c_comp *cmp, int mHei)
 
  for( i = crow = 0; crow < mHei; crow++ )
   if( numint[crow] > 1 ) i++;
- 
+
  return i;
 }
 //**************************************************************************
@@ -2405,7 +2405,7 @@ static Int16 FindAngles(cell *c, int *lUAngle, int *rUAngle,
   }
  }
 
- 
+
  return 1;
 }
 //**************************************************************************
@@ -2477,7 +2477,7 @@ static Int16 Test2Cell2(cell *c1,cell *c2,
 
  for( i = crow = 0; crow < mHei; crow++ )
   if( numint[crow] > 1 ) i++;
- 
+
  return (i*100)/mHei;
 }
 //**************************************************************************
@@ -2521,7 +2521,7 @@ static INT acc_double_right(cell *c,cell *cc,PBYTE r)
 	if( FindAngles(cc,&leftUAngle,&rightUAngle,&leftDAngle,&rightDAngle) < 0 )
 		return 0;
 
-	if( leftUAngle   >= rightUAngle*3 && 
+	if( leftUAngle   >= rightUAngle*3 &&
 		leftDAngle*3 <= rightDAngle
 	  )
         {
@@ -2539,14 +2539,14 @@ static INT acc_double_right(cell *c,cell *cc,PBYTE r)
 	  cc1->col >= c->col - cc->w/2 &&
 	  cc1->col + cc1->w < c->col+c->w &&
 	  abs(cc1->h - cc->h) <= cc->h/3 &&
-	  abs(cc1->row - cc->row) <= cc->h/3 
+	  abs(cc1->row - cc->row) <= cc->h/3
 	)
   {
     numInt = Test2Cell2(cc,cc1,
 						&leftUAngle, &rightUAngle,
 						&leftDAngle, &rightDAngle );
 	if( numInt >= 50 &&
-		leftUAngle   >= rightUAngle*3 && 
+		leftUAngle   >= rightUAngle*3 &&
 		leftDAngle*3 <= rightDAngle
 	  )
         {
@@ -2564,27 +2564,27 @@ static INT acc_double_right(cell *c,cell *cc,PBYTE r)
 	  cc1->col < c->col + c->w &&
 	  cc1->col + cc1->w < c->col+c->w + cc->w/2 &&
 	  abs(cc1->h - cc->h) <= cc->h/3 &&
-	  abs(cc1->row - cc->row) <= cc->h/3 
+	  abs(cc1->row - cc->row) <= cc->h/3
 	)
   {
     numInt = Test2Cell2(cc,cc1,
 						&leftUAngle, &rightUAngle,
 						&leftDAngle, &rightDAngle );
 	if( numInt >= 50 &&
-		leftUAngle   >= rightUAngle*2 && 
+		leftUAngle   >= rightUAngle*2 &&
 		leftDAngle*2 <= rightDAngle   &&
-        (leftUAngle + rightDAngle ) >= (rightUAngle+leftDAngle)*3 
+        (leftUAngle + rightDAngle ) >= (rightUAngle+leftDAngle)*3
 	  )
         {
 		  if( snap_activity('e'))
 		  {
 			  char qq[128];
-			  sprintf(qq,"found double right! numI=%d lU=%d rU=%d lD=%d rD=%d",numInt,leftUAngle,rightUAngle, 
+			  sprintf(qq,"found double right! numI=%d lU=%d rU=%d lD=%d rD=%d",numInt,leftUAngle,rightUAngle,
 		              leftDAngle,rightDAngle);
 			  snap_show_text(qq);
 			  snap_monitor();
 		  }
-		    
+
            accadr1 = cc;
 		   accadr2 = cc1;
   	       return 1;
@@ -2679,7 +2679,7 @@ static INT acc_macron(cell *c,PBYTE r)
 	accadr1=c;
 
 	// Высота достаточно малая, а форма достаточно вытянутая
-	if (h<=3 && w > 2*h)  // Nick 28.08.01.  Old version - >= 3*h 
+	if (h<=3 && w > 2*h)  // Nick 28.08.01.  Old version - >= 3*h
 	{
 		//Nick 20.08.01
 		if( NotEmptyInside( r, w, h) )
@@ -2692,7 +2692,7 @@ static INT acc_macron(cell *c,PBYTE r)
 		s=0;
 		for (j=0; j<w; j++)
 			{
-			// Черная точка 
+			// Черная точка
 			if (r[l*i+j/8]&(128>>(j%8)))
 				s++;
 			}
@@ -2713,7 +2713,7 @@ static INT acc_macron(cell *c,PBYTE r)
 		s=0;
 		for (j=0; j<w; j++)
 			{
-			// Черная точка 
+			// Черная точка
 			if (r[l*i+j/8]&(128>>(j%8)))
 				s++;
 			}

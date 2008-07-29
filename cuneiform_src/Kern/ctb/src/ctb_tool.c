@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,21 +43,21 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 //************************************************************************
-// CTB_TOOL : read, write and test tool for CTB-format file               
+// CTB_TOOL : read, write and test tool for CTB-format file
 //************************************************************************
-//           for version 3,4,5,6,7                                       
+//           for version 3,4,5,6,7
 //************************************************************************
 
 #define MAXPATH 256
@@ -75,7 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //********************************************************************
 //*************** static data : **************************************
 //********************************************************************
-static Word8 save_pack[256*128+3+CTB_DATA_SIZE]; // global bit map buffer       
+static Word8 save_pack[256*128+3+CTB_DATA_SIZE]; // global bit map buffer
 static Word8 zero_data[CTB_DATA_SIZE]={0};  // zero attributes              //
 static char *error_strings[]={
 "Error free!",
@@ -133,7 +133,7 @@ Bool32  conv_bits_to_bytes( Int16 colors, Word8 *text,Word8 *bin, Int16 len);
 CTB_FUNC(void)   CTB_done(void )
 {
 return;
-}        
+}
 
 CTB_FUNC(Int32) CTB_get_error(void)
 {
@@ -203,7 +203,7 @@ hnd->is_sort        = ((HCTB.need_compress&0x02)!=0);
 switch( hnd->version )
     {
     case    3:
-    
+
         hnd->attr_size      = 16;
         break;
     case    4:
@@ -245,7 +245,7 @@ if( hnd->bas!=BAD_FOPEN )
   HCTB.volume = hnd->num;
   if(hnd->need_compress)
     HCTB.need_compress |=0x01 ;
-  if(hnd->is_sort)    
+  if(hnd->is_sort)
     HCTB.need_compress |=0x02 ;
   else
     HCTB.need_compress &=(0xFF^0x02) ;
@@ -340,11 +340,11 @@ CTB_FUNC(Int32)  CTB_read( CTB_handle *hnd,Int32 num , Word8 *save_bin, Word8 *d
 {
 FFILE   fp;
 Int32   l_seek,f_seek,l, len, w,h, sign, wb, datalen;
-Bool32  gray=(hnd->signums&CTB_GRAY_SCALE), 
+Bool32  gray=(hnd->signums&CTB_GRAY_SCALE),
         plane=(hnd->signums&CTB_PLANE);
 
 ctb_err_code = CTB_ERR_NONE;
-if( num<0 ) 
+if( num<0 )
         {
         ctb_err_code = CTB_ERR_NDX;
         return 0; // non correct index //
@@ -365,7 +365,7 @@ if( data==NULL )
 switch( hnd->version )
     {
     case    3:
-    
+
         datalen=16;
         break;
     case    4:
@@ -374,7 +374,7 @@ switch( hnd->version )
         break;
     case    6:
     case    7:
-        datalen=hnd->attr_size; 
+        datalen=hnd->attr_size;
         break;
     }
 if( data )
@@ -443,21 +443,21 @@ if( !w || !h )
         return 0;
         }
 
-wb =  gray ? (((Int32)w+7)/8)*8 : (((Int32)w+7)/8); 
+wb =  gray ? (((Int32)w+7)/8)*8 : (((Int32)w+7)/8);
 len = wb*(Int32)h;
-if( hnd->type==CTB_256_128_2 && (w>255 || h>127 || len>REC_MAX_RASTER_SIZE) ) 
+if( hnd->type==CTB_256_128_2 && (w>255 || h>127 || len>REC_MAX_RASTER_SIZE) )
     {
         ctb_err_code = CTB_ERR_READ;
         return FALSE;
         }
 if( hnd->version>=6 )
     {
-    switch( save_pack[datalen+0] ) 
+    switch( save_pack[datalen+0] )
             {
             case        CTB_COMP_NONE:  // no compression
                     memcpy(save_bin,&save_pack[datalen+1],len);
                     break;
-            case        CTB_COMP_PCX:   // decode picture by PCX-compressing    
+            case        CTB_COMP_PCX:   // decode picture by PCX-compressing
                     decLine(&save_pack[datalen+1],(Int16)l_seek,save_bin);
                     break;
             default:
@@ -467,12 +467,12 @@ if( hnd->version>=6 )
     }
 else
     {
-    switch( save_pack[0] ) 
+    switch( save_pack[0] )
             {
             case        CTB_COMP_NONE:  // no compression
                     memcpy(save_bin,&save_pack[datalen],len);
                     break;
-            case        CTB_COMP_PCX:   // decode picture by PCX-compressing    
+            case        CTB_COMP_PCX:   // decode picture by PCX-compressing
                     decLine(&save_pack[datalen],(Int16)l_seek,save_bin);
                     break;
             default:
@@ -486,7 +486,7 @@ if( hnd->type==CTB_256_128_2   )
     {
     mask = (Word8)mask_r[w&7];
     }
-xor_lines_rest(save_bin,!plane?wb:wb/8,len,mask);  
+xor_lines_rest(save_bin,!plane?wb:wb/8,len,mask);
 }
 return sign;
 }
@@ -503,7 +503,7 @@ char lin[MAXPATH],file_name[MAXPATH],*p;
 
 strcpy(file_name,filename);
 p=ctb_last_punct(file_name);
-if( p ) 
+if( p )
     *p='\0';
 SPRINTF(lin,"%s.IND",file_name);
 if( STAT(lin,&sts)==-1 )
@@ -526,7 +526,7 @@ if( data==NULL )
 switch( hnd->version )
     {
     case    3:
-    
+
         gdatalen=16;
         break;
     case    4:
@@ -535,7 +535,7 @@ switch( hnd->version )
         break;
     case    6:
     case    7:
-        gdatalen=CTB_DATA_SIZE; 
+        gdatalen=CTB_DATA_SIZE;
         break;
     }
 memcpy(data,zero_data,gdatalen);
@@ -575,13 +575,13 @@ FFILE fp;
 ctb_err_code = CTB_ERR_NONE;
 if( data==NULL )
         {
-        ctb_err_code = CTB_ERR_ZERO_DATA;       
+        ctb_err_code = CTB_ERR_ZERO_DATA;
         return FALSE; // can't store to it //
         }
 switch( hnd->version )
     {
     case    3:
-    
+
         datalen=16;
         break;
     case    4:
@@ -646,7 +646,7 @@ FFILE   fp;
 Int32   pos, datalen, wb;
 Int16   len;
 Word8   w,h;
-Bool32  gray=(hnd->signums&CTB_GRAY_SCALE), 
+Bool32  gray=(hnd->signums&CTB_GRAY_SCALE),
         plane=(hnd->signums&CTB_PLANE);
 
 ctb_err_code = CTB_ERR_NONE;
@@ -669,10 +669,10 @@ if( !w || !h )
         return FALSE;
         }
 
-wb =  gray ? (((Int32)w+7)/8)*8 : (((Int32)w+7)/8); 
+wb =  gray ? (((Int32)w+7)/8)*8 : (((Int32)w+7)/8);
 
 n = len = (Int16)(wb*(Int32)h);
-if( hnd->type==CTB_256_128_2 && (w>255 || h>127 || len>REC_MAX_RASTER_SIZE) ) 
+if( hnd->type==CTB_256_128_2 && (w>255 || h>127 || len>REC_MAX_RASTER_SIZE) )
     {
         ctb_err_code = CTB_ERR_WRITE;
         return FALSE;
@@ -686,12 +686,12 @@ if( sp>=n )
         sp = n;
     memcpy(&save_pack[1],bin,sp);
     save_pack[0]=CTB_COMP_NONE;
-    sp++; 
+    sp++;
         }
 else
     {
     save_pack[0]=CTB_COMP_PCX;
-    sp++; 
+    sp++;
     }
 
 fp=hnd->bas;
@@ -704,7 +704,7 @@ pos=ftell(fp);
 switch( hnd->version )
     {
     case    3:
-    
+
         datalen=16;
         break;
     case    4:
@@ -834,7 +834,7 @@ return TRUE;
 }
 
 
-CTB_FUNC(Bool32)  CTB_swap(CTB_handle *hnd, 
+CTB_FUNC(Bool32)  CTB_swap(CTB_handle *hnd,
                                                    Int32 num1,Int32 num2)
 {
 long f_seek1, l_seek1;
@@ -1135,7 +1135,7 @@ if( fseek(fp,f_seek,SEEK_SET))
     }
 switch( hnd->version )
     {
-    case    3:    
+    case    3:
         datalen=16;
         break;
     case    4:
@@ -1164,7 +1164,7 @@ Int32 gdatalen;
 ctb_err_code = CTB_ERR_NONE;
 if( data==NULL )
     {
-    ctb_err_code = CTB_ERR_ZERO_DATA;    
+    ctb_err_code = CTB_ERR_ZERO_DATA;
     return FALSE; // can't save it //
     }
 if( hnd==NULL )
@@ -1181,7 +1181,7 @@ if( fseek(fp,16,SEEK_SET) )
 switch( hnd->version )
     {
     case    3:
-    
+
         gdatalen=16;
         break;
     case    4:
@@ -1190,7 +1190,7 @@ switch( hnd->version )
         break;
     case    6:
     case    7:
-        gdatalen=CTB_DATA_SIZE; 
+        gdatalen=CTB_DATA_SIZE;
         break;
     }
 if( fwrite(data,gdatalen,1,fp)!=RET_FWRITE(gdatalen,1) )
@@ -1225,7 +1225,7 @@ if( mask )
         xor_one_line(&bin[ii],&bin[ii-wb],wb);
         bin[ii+wb-1]&=mask;
         }
-    
+
     }
 else
     {
@@ -1350,11 +1350,11 @@ if( fp==BAD_FOPEN )
         ctb_err_code = CTB_ERR_OPEN_CTB;
         return FALSE;
         }
-H_CTB.version      = CTB_VERSION; // version number  
-H_CTB.size_x       = maxX;        // frame width     
-H_CTB.size_y       = maxY;        // frame height    
-H_CTB.dot_per_byte = (Word8)dpb;  // point inbyte    
-H_CTB.signums      = signums;     // characteristics 
+H_CTB.version      = CTB_VERSION; // version number
+H_CTB.size_x       = maxX;        // frame width
+H_CTB.size_y       = maxY;        // frame height
+H_CTB.dot_per_byte = (Word8)dpb;  // point inbyte
+H_CTB.signums      = signums;     // characteristics
 H_CTB.attr_size    = attr_size;   // number of attributes
 l = sizeof(H_CTB)-CTB_DATA_SIZE;
 if( fwrite(&H_CTB,l,1,fp)!=RET_FWRITE(l,1) )

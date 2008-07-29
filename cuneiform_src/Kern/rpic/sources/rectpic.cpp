@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -73,23 +73,23 @@ extern Handle hShowCheckLetters;
 ////////////////////////////////////////////////////////////////////////////////
 Bool32 CheckAreaForComps(Int32 hCCOM,Int32 hCCOM_big, Rect32 rect, Int32 Height, Word32 *Result1, Word32 *Result2)
 {
-	CCOM_comp * comp; 
+	CCOM_comp * comp;
 	Word32 i;
 	comp =  NULL;
-	
+
 	Rect16 rect1;
-	Word32 key = 111; 
-	Word32 color = 23000; 
+	Word32 key = 111;
+	Word32 color = 23000;
 
 	Handle MainWindowD=NULL;
     MainWindowD=LDPUMA_GetWindowHandle ("Èçîáðàæåíèå ïîñëå ðàçâîðîòà");
     if(!MainWindowD)
        MainWindowD=LDPUMA_GetWindowHandle ("Main");
 
-	
+
 	*Result1 = 0;
 	*Result2 = 0;
-	
+
 	if(!LDPUMA_Skip(hShowCheckLetters))
 	{
 		rect1.top = (Word16)rect.top;
@@ -98,7 +98,7 @@ Bool32 CheckAreaForComps(Int32 hCCOM,Int32 hCCOM_big, Rect32 rect, Int32 Height,
 		rect1.right = (Word16)rect.right;
 		LDPUMA_DrawRect(MainWindowD, &rect1, 0, 23635, 4, key);
 	}
-	
+
 //stepa_am
 comp = CCOM_GetFirst(hCCOM_big,NULL);
 	while (comp)
@@ -120,7 +120,7 @@ comp = CCOM_GetFirst(hCCOM_big,NULL);
 				goto lNextComp_big;
 			}
 		}
-		
+
 		if((comp->h > Height*0.5)&&(comp->h < Height*1.5))
 		{
 			(*Result1)++;
@@ -134,7 +134,7 @@ comp = CCOM_GetFirst(hCCOM_big,NULL);
 			}
 			goto lNextComp_big;
 		}
-		
+
 		if((comp->h > Height/3*0.5)&&(comp->h < Height/3*1.5))
 		{
 			(*Result2)++;
@@ -148,7 +148,7 @@ comp = CCOM_GetFirst(hCCOM_big,NULL);
 			}
 			goto lNextComp_big;
 		}
-		
+
 lNextComp_big:
 		comp = CCOM_GetNext(comp,NULL);
 	}
@@ -174,7 +174,7 @@ lNextComp_big:
 				goto lNextComp;
 			}
 		}
-		
+
 		if((comp->h > Height*0.5)&&(comp->h < Height*1.5))
 		{
 			(*Result1)++;
@@ -188,7 +188,7 @@ lNextComp_big:
 			}
 			goto lNextComp;
 		}
-		
+
 		if((comp->h > Height/3*0.5)&&(comp->h < Height/3*1.5))
 		{
 			(*Result2)++;
@@ -202,18 +202,18 @@ lNextComp_big:
 			}
 			goto lNextComp;
 		}
-		
+
 lNextComp:
 		comp = CCOM_GetNext(comp,NULL);
 	}
-	
+
 	if(!LDPUMA_Skip(hShowCheckLetters))
 	{
 		LDPUMA_Console("RPIC_Àíàëèç íà çàãîëîâêè  \n");
 		LDPUMA_WaitUserInput(hShowCheckLetters, MainWindowD);
 		LDPUMA_DeleteRects(MainWindowD, key);
 	}
-	
+
 	return TRUE;
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -236,10 +236,10 @@ Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 	RecVersions vs;
 	Int16 Language;
 	RPIC_Comp_Rect CompRect;
-	
-	
+
+
 	BlockType = CPAGE_GetInternalType("pic's to letters boxes");
-	
+
 	for(i=0; i<nPics; i++)
 	{
 		pic = pPics[i];
@@ -247,16 +247,16 @@ Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 		my_left   = pic.left;
 		my_bottom = pic.upper + pic.h;
 		my_right  = pic.left + pic.w;
-		
-		
-		//Additional parameter - local distribution of heights 
+
+
+		//Additional parameter - local distribution of heights
 		//in case of local fragment with different (from main) height
 		nLocalComps = 0;
 		for(j=0;j<MaxHeightOfLetter;j++)
 		{
 			pLocalHystogram[j] = 0;
 		}
-		
+
 //stepa_am
 		comp = CCOM_GetFirst(hCCOM_big, &MyFiltrateIn);
 		while(comp)
@@ -280,7 +280,7 @@ Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 			}
 			comp = CCOM_GetNext(comp, &MyFiltrateIn);
 		}
-		
+
 		if (nLocalComps!=0)
 		{
 			MaxLocal = pLocalHystogram[0];
@@ -292,7 +292,7 @@ Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 					nMaxLocal = j;
 				}
 			}
-			
+
 			Result1 = 0;
 			Result2 = 0;
 			sprintf(tmp_str, " %i Result1 (must be 0)\n", Result1);
@@ -310,13 +310,13 @@ Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 				//LDPUMA_FPuts(hFile,tmp_str);
 				if( (comp->h < MaxHeightOfLetter-1) && (comp->h > MinHeightOfLetter) )
 				{
-					
+
 					sprintf(tmp_str, " %i  (comp->h)\n", comp->h);
 					LDPUMA_FPuts(logFile_comp,tmp_str);
 					sprintf(tmp_str, " %i  (pHystogram[comp->h])\n", pHystogram[comp->h]);
 					LDPUMA_FPuts(logFile_comp,tmp_str);
-					
-					
+
+
 					//Result1 += OVERALL*pHystogram[comp->h];
 					Result1 += pHystogram[comp->h]/20+pHystogram[comp->h-1]/20+pHystogram[comp->h+1]/20;
 					if(comp->h - nMaxLocal < DIFFERENCE1)
@@ -336,13 +336,13 @@ Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 				//LDPUMA_FPuts(hFile,tmp_str);
 				if( (comp->h < MaxHeightOfLetter-1) && (comp->h > MinHeightOfLetter) )
 				{
-					
+
 					sprintf(tmp_str, " %i  (comp->h)\n", comp->h);
 					LDPUMA_FPuts(logFile_comp,tmp_str);
 					sprintf(tmp_str, " %i  (pHystogram[comp->h])\n", pHystogram[comp->h]);
 					LDPUMA_FPuts(logFile_comp,tmp_str);
-					
-					
+
+
 					//Result1 += OVERALL*pHystogram[comp->h];
 					Result1 += pHystogram[comp->h]/20+pHystogram[comp->h-1]/20+pHystogram[comp->h+1]/20;
 					if(comp->h - nMaxLocal < DIFFERENCE1)
@@ -353,19 +353,19 @@ Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 				}
 				comp = CCOM_GetNext(comp, &MyFiltrateIn);
 			}
-			
+
 			//Result1 = Result1/nComps;
 			Result1 = Result1/10;
 			//Result2 = Result2/nLocalComps;
 			Result2 = Result2/20;
-			
+
 			sprintf(tmp_str , " Picture %i (i)\n", i);
 			LDPUMA_FPuts(logFile_comp,tmp_str);
 			sprintf(tmp_str, " %i (Result1)\n", Result1);
 			LDPUMA_FPuts(logFile_comp,tmp_str);
 			sprintf(tmp_str, " %i (Result2)\n", Result2);
 			LDPUMA_FPuts(logFile_comp,tmp_str);
-			
+
 			if(Result1 + Result2 > CONDITION1)
 			{
 				DeleteFromPics(i);
@@ -373,11 +373,11 @@ Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 				continue;
 			}
 		}
-		
+
 		/**************************************************************************/
 		/*                      Analys by comp's count of begins&ends             */
 		/**************************************************************************/
-		
+
 		CCOM_USER_BLOCK uBlock;
 		uBlock.code = CCOM_UB_BEGENDS;
 		if( CCOM_GetUserBlock(&pPics[i], &uBlock) )
@@ -387,32 +387,32 @@ Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 				continue;
 			}
 		}
-		
+
 		/**************************************************************************/
 		/*                      Analys by comp's intervals                        */
 		/**************************************************************************/
-		
+
 		//CCOM_USER_BLOCK uBlock;
 		uBlock.code = CCOM_UB_DENSITY;
 		if( CCOM_GetUserBlock(&pPics[i], &uBlock) )
 		{
 			LengthByIntervals = *(Int32*)uBlock.data;
 			LengthTotal = pPics[i].h * pPics[i].w;
-			
+
 			if(LengthByIntervals==0)
 			{
 				return FALSE;
 			}
-			
+
 			if(LengthTotal/LengthByIntervals > CONDITION2)
 			{
 				DeleteFromPics(i);
 				//i--;
 			}
 		}
-		
+
 	}
-	
+
 	/***********************************************************************************/
 	/*
 	{
@@ -458,7 +458,7 @@ Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 			}
 		}
 	}
-	
+
 	/***********************************************************************************/
 	/*
 	{
@@ -476,8 +476,8 @@ Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 	LDPUMA_DeleteRects(NULL, 111);
 	}
 	/***********************************************************************************/
-	
-	
+
+
 	for (i=0; i<nPics; i++)
 	{
 		if(pPics[i].large & CCOM_LR_KILLED)
@@ -497,13 +497,13 @@ Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 				(pPics[i].upper + pPics[i].h  > pPics[j].upper) )
 			{
 				common = pPics[i];
-				if (pPics[i].upper >= pPics[j].upper) 
+				if (pPics[i].upper >= pPics[j].upper)
 					common.upper = pPics[j].upper;
-				if (pPics[i].left >= pPics[j].left) 
+				if (pPics[i].left >= pPics[j].left)
 					common.left = pPics[j].left;
-				if (pPics[i].upper + pPics[i].h < pPics[j].upper + pPics[j].h) 
+				if (pPics[i].upper + pPics[i].h < pPics[j].upper + pPics[j].h)
 					common.h = pPics[j].upper + pPics[j].h - pPics[i].upper;
-				if (pPics[i].left  + pPics[i].w < pPics[j].left + pPics[j].w) 
+				if (pPics[i].left  + pPics[i].w < pPics[j].left + pPics[j].w)
 					common.w = pPics[j].left + pPics[j].w - pPics[i].left;
 				common.h += pPics[i].upper - common.upper;
 				common.w += pPics[i].left  - common.left;
@@ -538,8 +538,8 @@ Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 	LDPUMA_DeleteRects(NULL, 111);
 	}
 	/***********************************************************************************/
-	
-	
+
+
 	for(i=0; i<nPics; i++)
 	{
 		if(pPics[i].large & CCOM_LR_KILLED)
@@ -553,7 +553,7 @@ Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 		my_right  = pic.left + pic.w;
 		/*
 		Deleting from Pics, in case of Titles and "Bukvica", zero version,
-		planing CHECK (by Oleg) for Letters in case of Bukvica, else check for 
+		planing CHECK (by Oleg) for Letters in case of Bukvica, else check for
 		comps with compatible heights in local area (horizontal).
 		*/
 		if(pPics[i].scale <= 3)
@@ -563,14 +563,14 @@ Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 			rect.bottom = pPics[i].upper + pPics[i].h;
 			rect.right = pPics[i].left + pPics[i].w + pPics[i].h;
 			CheckAreaForComps(hCCOM,hCCOM_big, rect, nAverageHeight, &Result1, &Result2);
-			
+
 			if( (Result1 > 10)&&(pPics[i].type != CCOM_CH_NOTLTR))
 			{
 				if( CCOM_GetRaster(&pPics[i], &rec) &&
 					CCOM_GetLanguage(hCCOM, &Language) &&
 					RSTR_RecogOneLetter (&rec, (Word8)(Language), &vs) )
 				{
-					
+
 					if( (vs.lnAltCnt > 0)&&
 						(vs.Alt[0].Prob > 240)&&
 						(vs.Alt[0].Code != 'i')&&
@@ -584,15 +584,15 @@ Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 						CompRect.h = pPics[i].h;
 						CompRect.w = pPics[i].w;
 						CPAGE_CreateBlock(hCPAGE, BlockType, 0, 0, &CompRect, sizeof(CompRect));
-						
+
 						DeleteFromPics(i);
 						//i--;
 						continue;
 					}
 				}
 			}
-			
-			
+
+
 			rect.top = pPics[i].upper - (Int32)(0.3*(double)(pPics[i].h));
 			rect.left = pPics[i].left - 12*pPics[i].h;
 			rect.bottom = pPics[i].upper + (Int32)(1.3*(double)(pPics[i].h));
@@ -616,12 +616,12 @@ Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 				CompRect.h = pPics[i].h;
 				CompRect.w = pPics[i].w;
 				CPAGE_CreateBlock(hCPAGE, BlockType, 0, 0, &CompRect, sizeof(CompRect));
-				
+
 				DeleteFromPics(i);
 				//i--;
 				continue;
 			}
-			
+
 			rect.top = pPics[i].upper - (Int32)(0.3*(double)(pPics[i].h));
 			rect.left = pPics[i].left + pPics[i].w;
 			rect.bottom = pPics[i].upper + (Int32)(1.3*(double)(pPics[i].h));
@@ -647,13 +647,13 @@ Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 				CompRect.h = pPics[i].h;
 				CompRect.w = pPics[i].w;
 				CPAGE_CreateBlock(hCPAGE, BlockType, 0, 0, &CompRect, sizeof(CompRect));
-				
+
 				DeleteFromPics(i);
 				//i--;
 				continue;
 			}
 		}
         }
-		
+
         return TRUE;
 }

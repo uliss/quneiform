@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -251,8 +251,8 @@ while(1)
   pwrd = buf+l;
   wrd  = buf;
   cc=c;
-  while(   l<n && (c->flg==c_f_punct || 
-            c->nvers && strchr(left_terms,c->vers[0].let) ) && 
+  while(   l<n && (c->flg==c_f_punct ||
+            c->nvers && strchr(left_terms,c->vers[0].let) ) &&
             c->next!=e )
     {
     c=c->next;
@@ -260,8 +260,8 @@ while(1)
 	l--;
     }
   ce=e;
-  while(   l>0  && (e->prev->flg==c_f_punct || 
-            e->prev->nvers && strchr(right_terms,e->prev->vers[0].let) ) && 
+  while(   l>0  && (e->prev->flg==c_f_punct ||
+            e->prev->nvers && strchr(right_terms,e->prev->vers[0].let) ) &&
             e->prev!=c )
     {
     e=e->prev;
@@ -271,16 +271,16 @@ while(1)
 
   *pwrd = 0;
   nextlet=( (ce->flg&c_f_punct) && ce->nvers)?ce->vers[0].let:'\x0';
-  llanguage = cells_get_language(c,e);   
-  
+  llanguage = cells_get_language(c,e);
+
   if( llanguage!=255 )
       {
       INT   u, d;
       cell  *cu, *cd;
-      if ( !cells_get_solid(c,e) && 
-            (short_spell(wrd,llanguage,nextlet ) || 
-            //_spell_agressive(wrd,llanguage) || 
-            _spell(wrd,llanguage) || 
+      if ( !cells_get_solid(c,e) &&
+            (short_spell(wrd,llanguage,nextlet ) ||
+            //_spell_agressive(wrd,llanguage) ||
+            _spell(wrd,llanguage) ||
             short_spell_re(wrd,llanguage )) )
         {
         if( !p2_active )
@@ -312,7 +312,7 @@ while(1)
                 cd->vers[0].let=to_upper(cd->vers[0].let);
                 }
             }
-        
+
         if( db_status && snap_activity(Etap) )
              {
              strcpy( buff, "Solid word : ");
@@ -335,16 +335,16 @@ while(1)
   l=strlen(buf);
   pwrd = buf+l;
   wrd  = buf;
-  while(   l<n&&(c->flg==c_f_punct || 
-            c->nvers && strchr(left_terms,c->vers[0].let) ) && 
+  while(   l<n&&(c->flg==c_f_punct ||
+            c->nvers && strchr(left_terms,c->vers[0].let) ) &&
             c->next!=e )
     {
     c=c->next;
     wrd++;
 	l--;
     }
-  while(  l>0 && (e->prev->flg==c_f_punct || 
-            e->prev->nvers && strchr(right_terms,e->prev->vers[0].let) ) && 
+  while(  l>0 && (e->prev->flg==c_f_punct ||
+            e->prev->nvers && strchr(right_terms,e->prev->vers[0].let) ) &&
             e->prev!=c )
     {
     e=e->prev;
@@ -353,7 +353,7 @@ while(1)
     }
 
   *pwrd = 0;
-  
+
   if( strlen(wrd)==1 && (c->flg&c_f_solid) &&
       !cells_left_solid(c) && !cells_right_solid(c) )
     {
@@ -366,7 +366,7 @@ while(1)
          snap_monitor();
          }
     }
-  
+
   if( ee==NULL )
     break;
   c = ee;
@@ -378,7 +378,7 @@ if( db_status && snap_activity(Etap) )
  snap_monitor();
  }
 #undef Etap
-  
+
 return;
 }
 
@@ -618,7 +618,7 @@ cell *c,*roll;
 		        // Nick 29.10.2000
         // don't use small probabilities (only for first word MINI_PROB)
         if( v->prob <  FINE_LET &&
-			v != roll->vers 
+			v != roll->vers
 		  )
 		  break;
 
@@ -640,7 +640,7 @@ cell *c,*roll;
          if(cl<5)   *BadWord=4;
          else       *BadWord=0;
 
-		 if(cl==2 && !memcmp(word," §",2))  
+		 if(cl==2 && !memcmp(word," §",2))
 			return FALSE;
 
          return TRUE;
@@ -665,7 +665,7 @@ for(pw=w; *s; s++)
      // recode russian E   e
      if( ss==r_e_2dot )   ss=(BYTE)'Ґ';
      if( ss==r_EE_2dot )  ss=(BYTE)'…';
-     
+
      }
  if( ss==liga_i ) ss='i';
  if( ss==liga_j ) ss='j';
@@ -678,7 +678,7 @@ for(pw=w; *s; s++)
 if( strlen(w)<4 )
     return 0;
 if( lang==LANG_ENGLISH && multy_language )
-    ret = text_findstat_aux( w);         
+    ret = text_findstat_aux( w);
 else
     ret = text_findstat(w);
 return  ret > 0;
@@ -704,11 +704,11 @@ for(pw=w; *s; s++)
  }
 if( strlen(w)<4 )
     return 0;
-ret = text_findstat_agressive( w);         
+ret = text_findstat_agressive( w);
 return  ret > 0;
 }
 
-static BYTE russian_letters[] ="©ж­ийкдлў«¤¦нп¬ЁвмЎ‰–“ѓ™љ”Џ‹„†ќџ—€ЃрсчшАИ"; 
+static BYTE russian_letters[] ="©ж­ийкдлў«¤¦нп¬ЁвмЎ‰–“ѓ™љ”Џ‹„†ќџ—€ЃрсчшАИ";
 static BYTE english_letters[] ="Ili";
 static BYTE two_lang_letters[]="ю234567890г“ЄЉҐ…ЌЈ§‡е•‚ ЂЇађ®Ћзб‘Њ’њх";
 //static BYTE eng_lang_letters[]="ю234567890yYkKeEHr33xXBaAnpPoOvcCMTbm";
@@ -731,14 +731,14 @@ if( b==e->prev )
   pr = b->vers[0].prob;
   if( strchr(punct_letters,ch) ) //,sizeof(punct_letters)) )
     return 0;
-  if( ch==(BYTE)'ю' )   
+  if( ch==(BYTE)'ю' )
 	return 0;
-  if( is_digit(ch) ) 
+  if( is_digit(ch) )
 	return 0;
-  if( strchr(russian_letters,ch) && //,sizeof(russian_letters)) && 
+  if( strchr(russian_letters,ch) && //,sizeof(russian_letters)) &&
     pr>GOOD_PROB )
     return 0;
-  if( strchr(russian_prepositions,ch) && //,sizeof(russian_prepositions)) && 
+  if( strchr(russian_prepositions,ch) && //,sizeof(russian_prepositions)) &&
     pr>160 )
     return 0;
   }
@@ -1027,9 +1027,9 @@ for(ii=i=0;i<MAX_LEN_WORD-1&&wrd[i]!='\0';i++)
   if( !memchr(punct_letters,wrd[i],sizeof(punct_letters)) )
     {
     c = to_lower(wrd[i]);
-    //strcat(w,decode_ASCII_to_[c]);    
+    //strcat(w,decode_ASCII_to_[c]);
 	if( strlen(w) + strlen(decode_ASCII_to_[c])<MAX_LEN_WORD-1 )
-		strcat(w,decode_ASCII_to_[c]);    
+		strcat(w,decode_ASCII_to_[c]);
 	else
 		break;
     }
@@ -1269,7 +1269,7 @@ if( e!=b && e->nvers && e->vers[0].let=='.' )
     e=e->prev;
     if( e->nvers && e->vers[0].let=='r' )
         {
-        if( e==b || 
+        if( e==b ||
             e!=b && e->prev && e->prev->nvers && strchr("0123456789I",e->prev->vers[0].let) )
             {
             e->nvers =1;
@@ -1446,10 +1446,10 @@ do{
   *str++  = c->vers[0].let;
   c = c->next;
   i++;
-  }while( (!c->nvers || 
+  }while( (!c->nvers ||
 		!strchr(right_limit_word,
 				(let=c->vers[0].let)
-				) && 
+				) &&
 		(
 		// Лиги задаются макросами и зависят от языка. 31.05.2001 E.P.
 		 let != liga_TM &&

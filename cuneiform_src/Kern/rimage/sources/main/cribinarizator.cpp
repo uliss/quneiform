@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 CRIBinarizator::CRIBinarizator()
 {
-	
+
 	meBinType         = CTBIN_UNKNOWN;
 	mpIncomeDIB       = NULL;
 	mpOutcomeDIB      = NULL;
@@ -104,7 +104,7 @@ Bool32 CRIBinarizator::SetRasters(PCTDIB pSrcDIB, PCTDIB pDescDIB)
 	{
 		mpIncomeDIB = pSrcDIB;
 		mpOutcomeDIB = pDescDIB;
-		
+
 		if ( (mwSrcBitCount = mpIncomeDIB->GetPixelSize()) < 4 )
 		{
 			SetReturnCode_rimage(IDS_RIMAGE_DIB_CANT_TO_BE_BINARISED);
@@ -125,7 +125,7 @@ Bool32 CRIBinarizator::SetRasters(PCTDIB pSrcDIB, PCTDIB pDescDIB)
 
 		if ( !SupportedIndexColorImage(mpIncomeDIB) )
 		{
-			
+
 		}
 
 		return TRUE;
@@ -152,11 +152,11 @@ Bool32 CRIBinarizator::Binarize(CTBinarize eBinType, Word32 wFlag)
 			CloseBinarizator();
 			return FALSE;
 		}
-		
+
 		CloseBinarizator();
 		bRet =  TRUE;
 	}
-	
+
 	catch ( Word32 wExit)
 	{
 		if ( wExit = IDS_RIMAGE_EXIT_BY_USER)
@@ -218,18 +218,18 @@ Bool32 CRIBinarizator::CloseBinarizator()
 	//close Deza////////////////////////////////
 	case CTBIN_DEZA:
 		DezaCloseBin();
-		
+
 		if ( mpDezaBinarizator )
 		{
 			delete mpDezaBinarizator;
 			mpDezaBinarizator = NULL;
 		}
-		
+
 		break;
 	//close Kronrod/////////////////////////////
 	case CTBIN_KRONROD:
 		KronrodCloseGray();
-		
+
 		if (mpszGreyBuffer)
 		{
 			RIMAGEUnlock(mhszGreyBuffer);
@@ -237,7 +237,7 @@ Bool32 CRIBinarizator::CloseBinarizator()
 		}
 		if (mhszGreyBuffer)
 			RIMAGEFree(mhszGreyBuffer);
-		
+
 		mhszGreyBuffer = NULL;
 		/*
 		if ( mpKronrodBinarizator)
@@ -261,7 +261,7 @@ Bool32 CRIBinarizator::OnBinarizator()
 
 	switch (meBinType)
 	{
-	case CTBIN_DEZA:		
+	case CTBIN_DEZA:
 	case CTBIN_KRONROD:
 		bRet = OnBinarizeLoop();
 		break;
@@ -287,7 +287,7 @@ Bool32 CRIBinarizator::OnBinarizeLoop()
 	switch (meBinType)
 	{
 	// DEZA line binarize//////////////////////////////////////////
-	case CTBIN_DEZA:		
+	case CTBIN_DEZA:
 		i = 0;
 		do
 		{
@@ -297,14 +297,14 @@ Bool32 CRIBinarizator::OnBinarizeLoop()
 				break;
 		}
 		while ( mpDezaBinarizator->GetBinarized(pLALine, (Word16)(mpOutcomeDIB->GetUsedLineWidthInBytes())) );          // was Outcome
-		
+
 		bRet = ( i == ( (Int32)nLines + 1 ) );
 		break;
 	// Kranrod line binarize///////////////////////////////////////
 	case CTBIN_KRONROD:
 		i = 0;
 		CurGreyLine = 0;
-		
+
 		mpProgressor->Start();
 
 		while (  i < (Int32)nLines )
@@ -313,17 +313,17 @@ Bool32 CRIBinarizator::OnBinarizeLoop()
 
 			if(!NumberBWLines)
 			{
-				do 
+				do
 				{
 					if(!KronrodImageRead(mpszGreyBuffer,(Int16)CurGreyLine++,(Int16)1))
 						return 0;
-			
+
 					if ( mpProgressor->SetStep( ((CurGreyLine / nLines ) * 50) ) )
 					{
 						mpProgressor->Finish();
 						throw IDS_RIMAGE_EXIT_BY_USER;
 					}
-				} 
+				}
 				while((NumberBWLines=KronrodGreyTo(mpszGreyBuffer),!NumberBWLines));
 			}
 			KronrodGreyFrom(pLALine);
@@ -346,16 +346,16 @@ Bool32 CRIBinarizator::OnBinarizeLoop()
 }
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Kronrod binarization
-	#undef FUN_IMPO	
+	#undef FUN_IMPO
 	#define FUN_IMPO(a)    a
-	extern "C" 
+	extern "C"
 	{
 		FUN_IMPO(void)   grey_open(Word16 Width, Word16 Height);
 		FUN_IMPO(Word16) grey_to(PWord8);
 		FUN_IMPO(void)   grey_from(PWord8);
 		FUN_IMPO(void)   grey_close(void);
 	}
-	#undef FUN_IMPO	
+	#undef FUN_IMPO
 //////////////////////////////////////////////////////////
 //
 Bool32 CRIBinarizator::KronrodOpenBin(Word32 wHeight, Word32 wWeidth)
@@ -391,7 +391,7 @@ Int32 CRIBinarizator::KronrodImageRead(PWord8 lpImage, Int32 fstLine, Int32 nLin
 	Word8 gray;
 	Word8 halfgray;
 	PWord8 pIn;
-	
+
 	if ( !lpImage )
 		return 0;
 
@@ -403,9 +403,9 @@ Int32 CRIBinarizator::KronrodImageRead(PWord8 lpImage, Int32 fstLine, Int32 nLin
 	case 8:
 		for(i=0;i<wLines;i++)
 		{
-			
-			ReadedPixelsperLine = 0;   
-			
+
+			ReadedPixelsperLine = 0;
+
 			for(j=0;j<mwLineLenght;j++)
 			{
 				if ( !(pIn = (PWord8)mpIncomeDIB->GetPtrToPixel(j,fstLine + i /*- 1*/)) )
@@ -414,7 +414,7 @@ Int32 CRIBinarizator::KronrodImageRead(PWord8 lpImage, Int32 fstLine, Int32 nLin
 				gray = mbIndexColor ? wIndex8ToGray[pIn[0]] : pIn[0];
 
 				*(lpImage + mwLineLenght*i + j)	= gray ;
-		
+
 				ReadedPixelsperLine++;
 			}
 
@@ -424,7 +424,7 @@ Int32 CRIBinarizator::KronrodImageRead(PWord8 lpImage, Int32 fstLine, Int32 nLin
 	case 4:
 		for(i=0;i<wLines;i++)
 		{
-			ReadedPixelsperLine = 0;			   
+			ReadedPixelsperLine = 0;
 
 			for(j=0;j<mwLineLenght;j+=2)
 			{
@@ -432,9 +432,9 @@ Int32 CRIBinarizator::KronrodImageRead(PWord8 lpImage, Int32 fstLine, Int32 nLin
 					break;
 
 				gray = *pIn;
-				halfgray = mbIndexColor ? wIndex4ToGray[((gray & 0xF0)>>4)] : ((gray & 0xF0)>>4); 
+				halfgray = mbIndexColor ? wIndex4ToGray[((gray & 0xF0)>>4)] : ((gray & 0xF0)>>4);
 				*(lpImage + mwLineLenght*i + j)	=  halfgray;
-				halfgray = mbIndexColor ? wIndex4ToGray[(gray & 0x0F)] : (gray & 0x0F); 
+				halfgray = mbIndexColor ? wIndex4ToGray[(gray & 0x0F)] : (gray & 0x0F);
 				*(lpImage + mwLineLenght*i + j + 1)	=  halfgray;
 
 				ReadedPixelsperLine += 2;
@@ -446,9 +446,9 @@ Int32 CRIBinarizator::KronrodImageRead(PWord8 lpImage, Int32 fstLine, Int32 nLin
 	case 24:
 		for(i=0;i<wLines;i++)
 		{
-			
-			ReadedPixelsperLine = 0;			   
-			   
+
+			ReadedPixelsperLine = 0;
+
 			for(j=0;j<mwLineLenght;j++)
 			{
 				if ( !(pIn = (PWord8)mpIncomeDIB->GetPtrToPixel(j,fstLine + i)) )
@@ -492,7 +492,7 @@ Bool32 CRIBinarizator::KronrodGreyFrom(PWord8 pGFrom)
 
 	//mpKronrodBinarizator->grey_from(pGFrom);
 	grey_from(pGFrom);
-	
+
 	if(mbKronrodInvert)
 	{
 		for(i=0;i<Size;i++)
@@ -517,7 +517,7 @@ Bool32 CRIBinarizator::DezaOpenBin(Word32 wDezaFlag)
 
 #ifdef DEZA_TIG_IMAGEINFO
 	TIG_IMAGEINFO    DezaImageInfo;
-	
+
 	DezaImageInfo.wImageHeight       = (Word16)mpIncomeDIB->GetLinesNumber();
 	DezaImageInfo.wImageWidth        = (Word16)mpIncomeDIB->GetLineWidth();
 	DezaImageInfo.wImageByteWidth    = (Word16)mpIncomeDIB->GetUsedLineWidthInBytes();
@@ -564,23 +564,23 @@ Bool32 CRIBinarizator::SupportedIndexColorImage(PCTDIB pImage)
     if ( PalletteSize == 0 || Colors == 2 || Colors > 256 )
         return TRUE;
 
-	
+
     for ( i = 1; i < Colors; i++ )
     {
         if ( !pImage->GetRGBQuad(i, &Q) || !pImage->GetRGBQuad(i-1, &prQ) )
             return FALSE;
 
-        if ( ( Q.rgbBlue  < prQ.rgbBlue ) || 
+        if ( ( Q.rgbBlue  < prQ.rgbBlue ) ||
 			 ( Q.rgbGreen < prQ.rgbGreen ) ||
 			 ( Q.rgbRed   < prQ.rgbRed )      )
             break;
     }
-	
+
 	if ( i == Colors )
 		return true;
 
 	PrepareIndexTable(pImage);
-		
+
     return true;
 }
 

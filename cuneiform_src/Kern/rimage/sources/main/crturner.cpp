@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -91,12 +91,12 @@ CRTurner::CRTurner()
 		wRightMask[i] =  wRightMask[i - 1] << 1;
 
 		wLeftMask[i] = wLeftMask[i - 1] >> 1;
-		
+
 		wRightShift[i] = wRightShift[i-1] - 1;
 
 		wBitMask[7 - i] = wBitMask[8 - i] << 1;
 	}
-	
+
     for(i = 0; i < 256; i++)
     {
 		Turn1at180[i] = 0;
@@ -131,7 +131,7 @@ CRTurner::~CRTurner()
 
 void * CRTurner::TurnDIB(void *pDIB, Word32 wAngle)
 {
-    return NULL;                      
+    return NULL;
 }
 
 Bool32 CRTurner::FreeDIB(void *pDIB)
@@ -142,10 +142,10 @@ Bool32 CRTurner::FreeDIB(void *pDIB)
 Bool32 CRTurner::TurnDIB(PCTDIB pInDIB, PCTDIB pOutDIB, Word32 wAngle)
 {
 	Bool32 bRet;
-	
+
 	if ( !pInDIB || !pOutDIB )
 		return FALSE;
-	
+
 	WriteDIBtoBMP("BeforeTurn.bmp",pInDIB);
 
 	switch(wAngle)
@@ -168,14 +168,14 @@ Bool32 CRTurner::TurnDIB(PCTDIB pInDIB, PCTDIB pOutDIB, Word32 wAngle)
 	WriteDIBtoBMP("AfterTurn.bmp", pInDIB);
 	if ( bRet )
 		WriteDIBtoBMP("DestinationTurn.bmp", pOutDIB);
-	
+
 	return bRet;
 }
 
 Bool32 CRTurner::Turn90(PCTDIB pInDIB, PCTDIB pOutDIB)
 {
 	Bool32 bRet = FALSE;
-	
+
 	if ( CheckInAndOut90(pInDIB, pOutDIB) )
 	{
 		switch (pInDIB->GetPixelSize())
@@ -194,14 +194,14 @@ Bool32 CRTurner::Turn90(PCTDIB pInDIB, PCTDIB pOutDIB)
 			bRet = FALSE;
 		}
 	}
-	
+
 	return bRet;
 }
 
 Bool32 CRTurner::Turn180(PCTDIB pInDIB, PCTDIB pOutDIB)
 {
 	Bool32 bRet = FALSE;
-	
+
 	if ( CheckInAndOut180(pInDIB, pOutDIB) )
 	{
 		switch (pInDIB->GetPixelSize())
@@ -220,14 +220,14 @@ Bool32 CRTurner::Turn180(PCTDIB pInDIB, PCTDIB pOutDIB)
 			bRet = FALSE;
 		}
 	}
-	
+
 	return bRet;
 }
 
 Bool32 CRTurner::Turn270(PCTDIB pInDIB, PCTDIB pOutDIB)
 {
 	Bool32 bRet = FALSE;
-	
+
 	if ( CheckInAndOut90(pInDIB, pOutDIB) )
 	{
 		switch (pInDIB->GetPixelSize())
@@ -246,7 +246,7 @@ Bool32 CRTurner::Turn270(PCTDIB pInDIB, PCTDIB pOutDIB)
 			bRet = FALSE;
 		}
 	}
-	
+
 	return bRet;
 }
 
@@ -269,7 +269,7 @@ Bool32 CRTurner::Turn180LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 
 	hLineBuffer = RIMAGEDAlloc((sLineSize = pInDIB->GetLineWidthInBytes()),"CRTurner::Turn180LA - line buffer" );
 	LineBuffer  = (PWord8)RIMAGELock(hLineBuffer);
-	
+
 	// позиция последнего пиксела
 	sShift = pOutDIB->GetPixelShiftInByte(pOutDIB->GetLineWidth() - 1);
 	rShift = 7 - sShift;
@@ -287,7 +287,7 @@ Bool32 CRTurner::Turn180LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 		{
 			nPix = LineBuffer + sBytesPerLine - 1;
 		}
-	
+
 		for (  cByte = 0; cByte < sBytesPerLine; cByte++ )
 		{
 			// просто копируем переворачивая
@@ -316,7 +316,7 @@ Bool32 CRTurner::Turn180LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 	}
 
 	FreeBuffers();
-	
+
 	return bRet;
 }
 
@@ -368,7 +368,7 @@ Bool32 CRTurner::Turn90LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 	Word32 sBytesPerLine = pOutDIB->GetLineWidth()/8;
 	Word32 cByte;
 	Word32 sShift;
-	
+
 	for ( dLine = 0, sX = 0; dLine < (Int32)dLines; dLine++, sX++ )
 	{
 		// начало линии
@@ -383,7 +383,7 @@ Bool32 CRTurner::Turn90LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 			//x.......
 			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine--);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][0];
-			
+
 			//.x......
 			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine--);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][1];
@@ -391,7 +391,7 @@ Bool32 CRTurner::Turn90LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 			//..x.....
 			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine--);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][2];
-			
+
 			//...x....
 			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine--);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][3];
@@ -399,7 +399,7 @@ Bool32 CRTurner::Turn90LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 			//....x...
 			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine--);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][4];
-			
+
 			//.....x..
 			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine--);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][5];
@@ -407,14 +407,14 @@ Bool32 CRTurner::Turn90LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 			//......x.
 			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine--);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][6];
-			
+
 			//.......x
 			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine--);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][7];
 
 			dPix++;
 		}
-		
+
 		// последний неполный пиксел
 		if ( sLine >= 0 )
 		{
@@ -443,7 +443,7 @@ Bool32 CRTurner::Turn270LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 	Word32 sBytesPerLine = pOutDIB->GetLineWidth()/8;
 	Word32 cByte;
 	Word32 sShift;
-	
+
 	for ( dLine = 0, sX = dLines - 1; dLine < (Int32)dLines; dLine++, sX-- )
 	{
 		// начало линии
@@ -454,11 +454,11 @@ Bool32 CRTurner::Turn270LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 		for ( cByte = 0, sLine = 0, dX = 0; cByte < sBytesPerLine; cByte++, dX += 8 )
 		{
 			*dPix = 0x0;
-			
+
 			//x.......
 			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine++);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][0];
-			
+
 			//.x......
 			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine++);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][1];
@@ -466,7 +466,7 @@ Bool32 CRTurner::Turn270LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 			//..x.....
 			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine++);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][2];
-			
+
 			//...x....
 			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine++);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][3];
@@ -474,7 +474,7 @@ Bool32 CRTurner::Turn270LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 			//....x...
 			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine++);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][4];
-			
+
 			//.....x..
 			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine++);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][5];
@@ -482,14 +482,14 @@ Bool32 CRTurner::Turn270LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 			//......x.
 			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine++);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][6];
-			
+
 			//.......x
 			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine++);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][7];
 
 			dPix++;
 		}
-		
+
 		// последний неполный пиксел
 		// если есть
 		if ( sLine < (Int32)sLines )
@@ -499,7 +499,7 @@ Bool32 CRTurner::Turn270LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 			for ( ; sLine < (Int32)sLines; sLine++, dX++ )
 			{
 				sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine);
-				
+
 				*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][(pOutDIB->GetPixelShiftInByte(dX))];
 			}
 		}
@@ -530,11 +530,11 @@ Bool32 CRTurner::Turn90GC(PCTDIB pIn, PCTDIB pOut)
 		for( dLine = 0, sX = 0;  dLine < (Int32)dLines; dLine++, sX++ )
 		{
 		CONTINUEPIXEL(dPix8 = (PWord8)pOut->GetPtrToLine( dLine ));
-			
+
 			for ( sLine = sLines - 1, dX = 0; dX < (Int32)sLines; sLine--, dX++, dPix8++ )
 			{
 				CONTINUEPIXEL(sPix8 = (PWord8)pIn->GetPtrToPixel( sX, sLine));
-				*dPix8 = *sPix8;	
+				*dPix8 = *sPix8;
 			}
 		}
 		bRet = TRUE;
@@ -544,21 +544,21 @@ Bool32 CRTurner::Turn90GC(PCTDIB pIn, PCTDIB pOut)
 		for( dLine = 0, sX = 0;  dLine < (Int32)dLines; dLine++, sX++ )
 		{
 			CONTINUEPIXEL(dPix16 = (PWord16)pOut->GetPtrToLine( dLine ));
-			
+
 			for ( sLine = sLines - 1, dX = 0; dX < (Int32)sLines; sLine--, dX++, dPix16++ )
 			{
 				CONTINUEPIXEL(sPix16 = (PWord16)pIn->GetPtrToPixel( sX, sLine));
-				*dPix16 = *sPix16;	
+				*dPix16 = *sPix16;
 			}
 		}
 		bRet = TRUE;
 		break;
-	
+
 	case 3:
 		for( dLine = 0, sX = 0;  dLine < (Int32)dLines; dLine++, sX++ )
 		{
 			CONTINUEPIXEL(dPix8 = (PWord8)pOut->GetPtrToLine( dLine )) ;
-			
+
 			for ( sLine = sLines - 1, dX = 0; dX < (Int32)sLines; sLine--, dX++ )
 			{
 				CONTINUEPIXEL(sPix8 = (PWord8)pIn->GetPtrToPixel( sX, sLine));
@@ -574,11 +574,11 @@ Bool32 CRTurner::Turn90GC(PCTDIB pIn, PCTDIB pOut)
 		for( dLine = 0, sX = 0;  dLine < (Int32)dLines; dLine++, sX++ )
 		{
 			CONTINUEPIXEL(dPix32 = (PWord32)pOut->GetPtrToLine( dLine ));
-			
+
 			for ( sLine = sLines - 1, dX = 0; dX < (Int32)sLines; sLine--, dX++, dPix32++ )
 			{
 				CONTINUEPIXEL(sPix32 = (PWord32)pIn->GetPtrToPixel( sX, sLine));
-				*dPix32 = *sPix32;	
+				*dPix32 = *sPix32;
 			}
 		}
 		bRet = TRUE;
@@ -614,10 +614,10 @@ Bool32 CRTurner::Turn180GC(PCTDIB pIn, PCTDIB pOut)
 		{
 			sPix8 = (PWord8)pIn->GetPtrToPixel( sLineWidth - 1, sLine);
 			dPix8 = (PWord8)pOut->GetPtrToLine( dLine );
-			
+
 			for ( wPix = 0; wPix < sLineWidth; wPix++, sPix8 --, dPix8 ++ )
 			{
-				*dPix8 = *sPix8;	
+				*dPix8 = *sPix8;
 			}
 		}
 		bRet = TRUE;
@@ -628,21 +628,21 @@ Bool32 CRTurner::Turn180GC(PCTDIB pIn, PCTDIB pOut)
 		{
 			sPix16 = (PWord16)pIn->GetPtrToPixel( sLineWidth - 1, sLine);
 			dPix16 = (PWord16)pOut->GetPtrToLine( dLine );
-			
+
 			for ( wPix = 0; wPix < sLineWidth; wPix++, sPix16 --, dPix16 ++ )
 			{
-				*dPix16 = *sPix16;	
+				*dPix16 = *sPix16;
 			}
 		}
 		bRet = TRUE;
 		break;
-	
+
 	case 3:
 		for( dLine = 0, sLine = wLines - 1; dLine < wLines; dLine++, sLine--)
 		{
 			sPix8 = (PWord8)pIn->GetPtrToPixel( sLineWidth - 1, sLine);
 			dPix8 = (PWord8)pOut->GetPtrToLine( dLine );
-			
+
 			for ( wPix = 0; wPix < sLineWidth; wPix++, sPix8 -= 6)
 			{
 				*dPix8++ = *sPix8++;
@@ -658,10 +658,10 @@ Bool32 CRTurner::Turn180GC(PCTDIB pIn, PCTDIB pOut)
 		{
 			sPix32 = (PWord32)pIn->GetPtrToPixel( sLineWidth - 1, sLine);
 			dPix32 = (PWord32)pOut->GetPtrToLine( dLine );
-			
+
 			for ( wPix = 0; wPix < sLineWidth; wPix++, sPix32--, dPix32++ )
 			{
-				*dPix32 = *sPix32;	
+				*dPix32 = *sPix32;
 			}
 		}
 		bRet = TRUE;
@@ -697,11 +697,11 @@ Bool32 CRTurner::Turn270GC(PCTDIB pIn, PCTDIB pOut)
 		for( dLine = 0, sX = dLines - 1;  dLine < (Int32)dLines; dLine++, sX-- )
 		{
 			CONTINUEPIXEL(dPix8 = (PWord8)pOut->GetPtrToLine( dLine ));
-			
+
 			for ( sLine = 0, dX = 0; sLine < (Int32)sLines; sLine++, dX++, dPix8++ )
 			{
 				CONTINUEPIXEL(sPix8 = (PWord8)pIn->GetPtrToPixel( sX, sLine));
-				*dPix8 = *sPix8;	
+				*dPix8 = *sPix8;
 			}
 		}
 		bRet = TRUE;
@@ -711,21 +711,21 @@ Bool32 CRTurner::Turn270GC(PCTDIB pIn, PCTDIB pOut)
 		for( dLine = 0, sX = dLines - 1;  dLine < (Int32)dLines; dLine++, sX-- )
 		{
 			CONTINUEPIXEL(dPix16 = (PWord16)pOut->GetPtrToLine( dLine ));
-			
+
 			for ( sLine = 0, dX = 0; sLine < (Int32)sLines; sLine++, dX++, dPix16++ )
 			{
 				CONTINUEPIXEL(sPix16 = (PWord16)pIn->GetPtrToPixel( sX, sLine));
-				*dPix16 = *sPix16;	
+				*dPix16 = *sPix16;
 			}
 		}
 		bRet = TRUE;
 		break;
-	
+
 	case 3:
 		for( dLine = 0, sX = dLines - 1;  dLine < (Int32)dLines; dLine++, sX-- )
 		{
 			CONTINUEPIXEL(dPix8 = (PWord8)pOut->GetPtrToLine( dLine ));
-			
+
 			for ( sLine = 0, dX = 0; sLine < (Int32)sLines; sLine++, dX++  )
 			{
 				CONTINUEPIXEL(sPix8 = (PWord8)pIn->GetPtrToPixel( sX, sLine));
@@ -741,11 +741,11 @@ Bool32 CRTurner::Turn270GC(PCTDIB pIn, PCTDIB pOut)
 		for( dLine = 0, sX = dLines - 1;  dLine < (Int32)dLines; dLine++, sX-- )
 		{
 			CONTINUEPIXEL(dPix32 = (PWord32)pOut->GetPtrToLine( dLine ));
-			
+
 			for ( sLine = 0, dX = 0; sLine < (Int32)sLines; sLine++, dX++, dPix32++ )
 			{
 				CONTINUEPIXEL(sPix32 = (PWord32)pIn->GetPtrToPixel( sX, sLine));
-				*dPix32 = *sPix32;	
+				*dPix32 = *sPix32;
 			}
 		}
 		bRet = TRUE;
@@ -763,7 +763,7 @@ Bool32 CRTurner::WriteDIBtoBMP(PChar8 cName, PCTDIB pDIB)
 #ifdef RIMAGE_DUMP_TO_FILE
 	Word32  wBMPSize = pDIB->GetDIBSize() + 14;
 	PumaMemoryToFileDumper BMPDump(cName);
-	
+
 	BMPDump.AddDump("BM",2);
 	BMPDump.AddDump((char *)&wBMPSize,4);
 	wBMPSize = 0;

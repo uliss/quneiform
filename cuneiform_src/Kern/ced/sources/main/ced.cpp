@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 Bool32 func_char(PWord8 p, Word32 lth);
 Bool32 func_spec(PWord8 p, Word32 lth);
 
-FNCFIOReadMemoryFromFile    MemFromFile;   
+FNCFIOReadMemoryFromFile    MemFromFile;
 FNCFIOLockMemory					Lock;
 FNCFIOUnlockMemory				Unlock;
 FNCFIOFreeMemory					Free;
@@ -115,9 +115,9 @@ static unsigned char ed_table[]=
 //###########################################
 void CED_SetRawDataProc(FNRDProc proc)
 {
-#define DEC_FUN(a,b,c)  b=MyRawData##b 
+#define DEC_FUN(a,b,c)  b=MyRawData##b
 
-DEC_FUN(void, CED_BitmapRef,(const bit_map_ref* pt));			
+DEC_FUN(void, CED_BitmapRef,(const bit_map_ref* pt));
 DEC_FUN(void, CED_TextRef,(const text_ref* pt));
 DEC_FUN(void, CED_FontKegl,(const font_kegl *pt));
 DEC_FUN(void, CED_Kegl,(const kegl* pt));
@@ -177,7 +177,7 @@ RDProced=proc;
 	}
 	PWord8 curr = edscan_stop=start;
 	PWord8 end=start+ret;
-	
+
 next_symb:
 	if (curr>=end) goto quit;
 	if (*curr >= ' ')
@@ -186,7 +186,7 @@ next_symb:
 		while (end - curr >= 2)
 		{
 			curr += 2;
-			if (!(*(curr-1) & 1)) 
+			if (!(*(curr-1) & 1))
 				goto char_proc;
 		}
 		edscan_stop = start; goto quit;
@@ -205,25 +205,25 @@ char_proc:
 	{
 		if (code == 0)
 		{
-			curr += sizeof(*curr); 
-			goto next_symb; 
+			curr += sizeof(*curr);
+			goto next_symb;
 		}
     // { edscan_stop = curr;        return 32; }
 		if (end - curr < code)
 		{
-			edscan_stop = curr;   
-			goto quit; 
+			edscan_stop = curr;
+			goto quit;
 		}
 		if ( func_spec(curr, code) )
-		{ 
-			curr += code;	
-			goto next_symb; 
+		{
+			curr += code;
+			goto next_symb;
 		}
-		edscan_stop=curr; 
+		edscan_stop=curr;
 		goto quit;
 	}
 
-	if (code & 0x80)               
+	if (code & 0x80)
 	{
 //SS_EXTENTION can be either 16 or 32 bit.
 		if (*(Word8*)curr!=SS_EXTENTION)
@@ -236,30 +236,30 @@ char_proc:
 				lth=*(PWord32) (curr + (code & 0xf));
 		}
 	}
-	else                           
+	else
 		lth = *(PWord8) (curr + (code & 0xf));
 
 	if (lth == 0)
-	{ 
-		curr += sizeof(*curr); 
-		goto next_symb; 
+	{
+		curr += sizeof(*curr);
+		goto next_symb;
 	}
     //{ edscan_stop = curr; return 32; }
 	if ((unsigned)(end - curr) < lth)
-	{ 
-		edscan_stop = curr;   
-		goto quit; 
+	{
+		edscan_stop = curr;
+		goto quit;
 	}
 	if ( func_spec(curr, lth) )
     {
-		curr += lth; 
-		goto next_symb; 
+		curr += lth;
+		goto next_symb;
 	}
-	edscan_stop=curr; 
+	edscan_stop=curr;
 	goto quit;
 
 quit:
-	 ret=(int)(edscan_stop-start);	
+	 ret=(int)(edscan_stop-start);
 	if (readFromFile)
 	{
 		Unlock(PedHandle);
@@ -281,10 +281,10 @@ Bool32 func_spec(PWord8 p, Word32 lth)
 
 	switch (*p)
 	{
-	    case SS_BITMAP_REF:      
+	    case SS_BITMAP_REF:
 		{
 			const struct bit_map_ref *pt= (struct bit_map_ref*)p;
-			CED_BitmapRef(pt);			
+			CED_BitmapRef(pt);
 			break;
 		}
 
@@ -315,7 +315,7 @@ Bool32 func_spec(PWord8 p, Word32 lth)
 			CED_Shift(pt);
 			break;
 		}
-		
+
 		case SS_RETR_LEVEL:
 		{
 			const retrieve_level *pt=(retrieve_level *)p;
@@ -392,63 +392,63 @@ Bool32 func_spec(PWord8 p, Word32 lth)
 			break;
 		}
 
-        case SS_LANGUAGE:     
+        case SS_LANGUAGE:
 		{
 			const struct EdTagLanguage *pt= (struct EdTagLanguage*)p;
 			CED_EdTagLanguage(pt);
 			break;
 		}
 
-        case SS_TABL_CONFORM_SIZES:     
+        case SS_TABL_CONFORM_SIZES:
 		{
 			const struct table_conform_sizes *pt= (struct table_conform_sizes*)p;
 			CED_TableConformSizes(pt);
 			break;
 		}
 
-        case SS_GROUP_WORDS:     
+        case SS_GROUP_WORDS:
 		{
 			const struct group_words *pt= (struct group_words*)p;
 			CED_GroupWords(pt);
 			break;
 		}
 
-        case SS_GROUP_SYMBOLS:     
+        case SS_GROUP_SYMBOLS:
 		{
 			const struct group_symbols *pt= (struct group_symbols*)p;
 			CED_GroupSymbols(pt);
 			break;
 		}
 
-        case 0x15:     
+        case 0x15:
 		{
 			*(p+1)&=254;
 			func_char(p,2);
 			break;
 		}
 
-        case SS_BORDER:     
+        case SS_BORDER:
 		{
 			const struct border *pt= (struct border*)p;
 			CED_Border(pt);
 			break;
 		}
 
-        case SS_TABLE_HEADER:     
+        case SS_TABLE_HEADER:
 		{
 			const struct table_header *pt= (struct table_header*)p;
 			CED_TableHeader(pt);
 			break;
 		}
 
-        case SS_LIST_OF_FRAGMENTS:     
+        case SS_LIST_OF_FRAGMENTS:
 		{
 			const struct list_of_fragments *pt= (struct list_of_fragments*)p;
 			CED_ListOfFragments(pt);
 			break;
 		}
 
-        case SS_EXTENTION:     
+        case SS_EXTENTION:
 		{
 			const struct edExtention *pt= (struct edExtention*)p;
 			if (!(pt->Ecode&0x8000))
@@ -461,7 +461,7 @@ Bool32 func_spec(PWord8 p, Word32 lth)
 			break;
 		}
 
-        case SS_AKSANT:     
+        case SS_AKSANT:
 		{
 			const struct aksant *pt= (struct aksant*)p;
 			CED_Aksant(pt);

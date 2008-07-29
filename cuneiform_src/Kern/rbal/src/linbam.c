@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -95,7 +95,7 @@ INT stick_like (CSTR_rast r)
   int i;
 
   CSTR_GetAttr(r,tr);
-  if ((tr->flg & CSTR_f_let) == 0) 
+  if ((tr->flg & CSTR_f_let) == 0)
 	  return 0;
   CSTR_GetCollectionUni(r,vers);
   //for ( v=tr->vers; (c=v->let); v++)
@@ -104,7 +104,7 @@ INT stick_like (CSTR_rast r)
      c = vers->Alt[i].Liga;
      if(! memchr("LTJ()<>[]trI1ijl!/",c,18) && (c!=liga_i) &&
 		 !(language == LANG_TURKISH &&  // 30.05.2002 E.P.
-			(c==i_sans_accent||c==II_dot_accent) 
+			(c==i_sans_accent||c==II_dot_accent)
 		  )
 	   )
        return 0;
@@ -133,20 +133,20 @@ INT can_serve(CSTR_rast b, INT bs, INT pass)
    CSTR_rast_attr bb2;
    CSTR_rast_attr *b2=&bb2;
    UniVersions vv;
-   UniVersions *v0=&vv; 
+   UniVersions *v0=&vv;
    BYTE chr;
    int i;
-   
- 
+
+
    CSTR_GetAttr(b,b2);
-   if (b2->basflg & CSTR_bs_done) 
+   if (b2->basflg & CSTR_bs_done)
 	   return 0;
-   if (b2->basflg & CSTR_bs_bt) 
+   if (b2->basflg & CSTR_bs_bt)
 	   return 0;     // 't' not to serve as initiators
 
    CSTR_GetCollectionUni(b,v0);
 
-   if ( v0->lnAltCnt <=0 ) 
+   if ( v0->lnAltCnt <=0 )
 	   return 0;
 
    if (pass==2)    // admit cells at b1
@@ -159,7 +159,7 @@ INT can_serve(CSTR_rast b, INT bs, INT pass)
      chr = v0->Alt[i].Liga;
      if(! memchr("LTJ()<>[]trI1l!/",chr,16) && (chr!=liga_i) &&
 		 !(language == LANG_TURKISH &&  // 30.05.2002 E.P.
-			(chr==i_sans_accent||chr==II_dot_accent) 
+			(chr==i_sans_accent||chr==II_dot_accent)
 		  )
 	   )
        return 1;   // "non-stick" available
@@ -170,9 +170,9 @@ INT can_serve(CSTR_rast b, INT bs, INT pass)
 static int init_type;
 
 CSTR_rast def_init_cell()
-{ 
+{
   CSTR_rast b1, b2, b3;
-  CSTR_rast_attr aab2; 
+  CSTR_rast_attr aab2;
   CSTR_rast_attr *ab2=&aab2;
 
   INT up, dflg, nmax, nacc, pass;
@@ -200,10 +200,10 @@ again:
     }
 
     if (dmin < 3)
-    { 
+    {
       CSTR_GetAttr(Start_cell,ab2);
-	  init_type = ab2->difflg; 
-	  return Start_cell; 
+	  init_type = ab2->difflg;
+	  return Start_cell;
 	}
   }
   nmax = 0;
@@ -245,10 +245,10 @@ again:
  pass++;
  if ((pass==1) && (Start_cell==NULL)) goto again;
  if (Start_cell)
- { 
+ {
 	 CSTR_GetAttr(Start_cell,ab2);
-	 init_type = ab2->difflg; 
-	 return Start_cell; 
+	 init_type = ab2->difflg;
+	 return Start_cell;
  }
 
  if (multi_bas & 4)
@@ -280,10 +280,10 @@ again:
 		  break;
 
       CSTR_GetAttr(b3,ab2);
-	  
+
       if (ab2->basflg & CSTR_bs_b1a)   // agrees to be at B1 ?
       { INT rw;
-	    
+
         rw=ab2->row - minrow - ab2->bdiff;
         if (abs(rw-up) < 2) nacc++;
       }
@@ -430,9 +430,9 @@ finpspsf:
 
 void cut_sunk_let ()
 {
-  CSTR_rast wc; 
-  BYTE chr, tbe, flcut; 
-  //version *v0; 
+  CSTR_rast wc;
+  BYTE chr, tbe, flcut;
+  //version *v0;
   INT nv, rowup, rowdn;
   //c_comp *env;
   CCOM_comp *env;
@@ -529,7 +529,7 @@ void cut_sunk_let ()
 	  for(j=i;j<vers.lnAltCnt-1;j++)
 		  vers.Alt[j]=vers.Alt[j+1];
 	  memset(&vers.Alt[vers.lnAltCnt-1], 0, sizeof(UniAlt));
-	  vers.lnAltCnt--; 
+	  vers.lnAltCnt--;
 	  i--;
 	  flcut++;
     }
@@ -568,7 +568,7 @@ void cut_sunk_let ()
          attr.basflg |= CSTR_bs_t;  // "t-only" version
     }
 
-	CSTR_SetAttr(wc,&attr);  
+	CSTR_SetAttr(wc,&attr);
 
     if (flcut)
     {
@@ -731,7 +731,7 @@ static BYTE fbd, fbs;
 INT same_int(CSTR_rast St, BYTE dir)
 {  INT ch, rb;
    CSTR_rast_attr attr;
-   
+
    CSTR_GetAttr(St,&attr);
    if (attr.flg & CSTR_f_fict)
    { rb=0; goto decide; }
@@ -904,7 +904,7 @@ INT comp_Slet(BYTE dir, CSTR_rast St)   // Small initiator
  CSTR_rast_attr attr;
  UniVersions    vers;
 
- CSTR_GetAttr(St,&attr); 
+ CSTR_GetAttr(St,&attr);
 
  roundi = int_fis & CSTR_bs_round;
  roundc = fbs & CSTR_bs_round;
@@ -951,7 +951,7 @@ INT comp_Slet(BYTE dir, CSTR_rast St)   // Small initiator
        int_sumb2 += cur_up;
        int_nb2++;
        int_mid2 = (int_sumb2+int_nb2/2) / int_nb2;
-	   CSTR_SetAttr(St,&attr); 
+	   CSTR_SetAttr(St,&attr);
      }
      return 5;  // agrees to be small
    }
@@ -961,7 +961,7 @@ INT comp_Slet(BYTE dir, CSTR_rast St)   // Small initiator
  CSTR_GetCollectionUni(St,&vers);
  if (difi > 0)              // smaller small
  {
-   if (vers.lnAltCnt>0 && vers.Alt[0].Liga == 'i') 
+   if (vers.lnAltCnt>0 && vers.Alt[0].Liga == 'i')
 	   return 5;
    return  -1;  //// -1;   ???  931020
  }
@@ -1060,7 +1060,7 @@ INT comp_Llet(BYTE dir, CSTR_rast St)   // Large initiator
  CSTR_rast_attr attr;
  UniVersions    vers;
 
- CSTR_GetAttr(St,&attr); 
+ CSTR_GetAttr(St,&attr);
 
  roundi = int_fis & CSTR_bs_round;
  roundc = fbs & CSTR_bs_round;
@@ -1189,7 +1189,7 @@ INT comp_Llet(BYTE dir, CSTR_rast St)   // Large initiator
  }
  // new is smaller than registered b2
  CSTR_GetCollectionUni(St,&vers);
- if ( vers.lnAltCnt>0 && vers.Alt[0].Liga == 'i') 
+ if ( vers.lnAltCnt>0 && vers.Alt[0].Liga == 'i')
 	 return 5;
  if (int_bst != -128)  // both levels busy ?
    return -1;
@@ -1208,7 +1208,7 @@ INT comp_Lbad(CSTR_rast St)
 {
  CSTR_rast_attr attr;
 
- CSTR_GetAttr(St,&attr); 
+ CSTR_GetAttr(St,&attr);
 
   if (abs(cur_up-int_mid1) < 2)
   {
@@ -1228,7 +1228,7 @@ INT comp_Lbad(CSTR_rast St)
 INT comp_Sbad(CSTR_rast St)
 {
   CSTR_rast_attr attr;
-  CSTR_GetAttr(St,&attr); 
+  CSTR_GetAttr(St,&attr);
 
   if (abs(cur_up-int_mid2) < 2) // same height
   {
@@ -1237,11 +1237,11 @@ INT comp_Sbad(CSTR_rast St)
     {
  set_to_b2:
       attr.bas_acc |= CSTR_ba_b2;
-      CSTR_SetAttr(St,&attr); 
+      CSTR_SetAttr(St,&attr);
       return 1;
     }
     // IN FUTURE: CHECK AGAINST HISTOGRAMM; now lin eto be not too low
-    if ((bbs3 - attr.bas1) < 8) 
+    if ((bbs3 - attr.bas1) < 8)
 		goto set_to_b2;
     return -1;   // base inside - stop
   }
@@ -1254,7 +1254,7 @@ INT comp_Sbad(CSTR_rast St)
   if (abs(attr.bas1-int_mid2) < 2)
   {
     attr.bas_acc |= CSTR_ba_b1;
-	CSTR_SetAttr(St,&attr); 
+	CSTR_SetAttr(St,&attr);
     return 1;
   }
   return -1;
@@ -1289,13 +1289,13 @@ void prt_interval(bas_ln *bp)
 {
   char ww[128];
   if (db_status)
-  { CSTR_rast wc;  
+  { CSTR_rast wc;
     INT cl1, cl2;
 
     wc = bp->c1;
     if (bp->startcol==-32000)
-    { cl1=cl2=0;  
-	  wc = CSTR_GetPrevRaster(cell_l(),f_letter|CSTR_f_fict); 
+    { cl1=cl2=0;
+	  wc = CSTR_GetPrevRaster(cell_l(),f_letter|CSTR_f_fict);
 	}
     else
     {
@@ -1383,8 +1383,8 @@ if( n_again<0 ) // OLEG : KNOT for clear cycling 11 apr 2002
   if (bn->endcol != 32000)   // next exists   AL 940405
   {
     // AL 940405  check columns, not cells
-    CSTR_GetAttr(bn->c1,&attr); 
-	CSTR_GetAttr(CSTR_GetNextRaster(bp->c2,f_letter | CSTR_f_fict),&attrn); 
+    CSTR_GetAttr(bn->c1,&attr);
+	CSTR_GetAttr(CSTR_GetNextRaster(bp->c2,f_letter | CSTR_f_fict),&attrn);
     //if (bn->c1->col <= bp->c2->nextl->col)    // bp, bn overlap --> new covered
 	if( attr.col <= attrn.col )
        return;
@@ -1402,14 +1402,14 @@ if( n_again<0 ) // OLEG : KNOT for clear cycling 11 apr 2002
       }
     }
   }
-  sp=bp->startcol; 
+  sp=bp->startcol;
 
   CSTR_GetAttr(bp->c2,&attr);
   ep=attr.col;
 
   if (s1 <= ep)    // overlaps left side
   {
-    wc = wcm = CSTR_GetPrevRaster(Start_cell, f_letter | CSTR_f_fict); 
+    wc = wcm = CSTR_GetPrevRaster(Start_cell, f_letter | CSTR_f_fict);
 	maxdif = 0;
     while (1)
     {
@@ -1433,14 +1433,14 @@ if( n_again<0 ) // OLEG : KNOT for clear cycling 11 apr 2002
     goto insleft;
   if (e1c >= sn)       // overlaps right side;
   {
-    //wc = wcm = bn->c1->prevl; 
+    //wc = wcm = bn->c1->prevl;
 	wc = wcm = CSTR_GetPrevRaster(bn->c1, f_letter | CSTR_f_fict);
 	maxdif = 0;
     while (1)
     {
       //wcn = wc->nextl;
       wcn =  CSTR_GetNextRaster(wc, f_letter | CSTR_f_fict);
-      
+
 	  CSTR_GetAttr(wc,&attr);
 	  CSTR_GetAttr(wcn,&attrn);
 
@@ -1463,7 +1463,7 @@ insleft:
   insert_int(bn);
   CSTR_GetAttr(Start_cell,&attr);
   bn->startcol = attr.col;
-  CSTR_GetAttr(End_cell,&attr); 
+  CSTR_GetAttr(End_cell,&attr);
   bn->endcol = attr.col + attr.w;
   bn->cf1=bn->c1 = Start_cell;
   bn->cf2=bn->c2 = End_cell;
@@ -1474,16 +1474,16 @@ insleft:
   bn->startf = bn->startcol;
   bn->endf = bn->endcol;
   if (Fail_Ecell)
-  {  bn->cf2 = Fail_Ecell; 
-     //bn->endf = bn->cf2->col+bn->cf2->w; 
+  {  bn->cf2 = Fail_Ecell;
+     //bn->endf = bn->cf2->col+bn->cf2->w;
 	 CSTR_GetAttr(bn->cf2,&attr);
-	 bn->endf = attr.col+attr.w; 
+	 bn->endf = attr.col+attr.w;
   }
   if (Fail_Scell)
-  {  bn->cf1 = Fail_Scell; 
-     //bn->startf = bn->cf1->col; 
+  {  bn->cf1 = Fail_Scell;
+     //bn->startf = bn->cf1->col;
 	 CSTR_GetAttr(bn->cf1,&attr);
-	 bn->startf = attr.col; 
+	 bn->startf = attr.col;
   }
 
   if (int_fid & CSTR_db_b1)   // large initiator
@@ -1530,10 +1530,10 @@ insleft:
   }
 
   if (int_lower > bn->b3+2 )
-  { 
-	  bn->fl_def |= CSTR_db_b4; 
-      bn->b4 = int_lower; 
-	  bn->n4 = 127; 
+  {
+	  bn->fl_def |= CSTR_db_b4;
+      bn->b4 = int_lower;
+	  bn->n4 = 127;
   }
   else
      bn->b4=(3*bbs3-bn->b2)>>1;
@@ -1638,7 +1638,7 @@ INT int_dream2 (bas_ln *bp, bas_ln *bc, bas_ln *bn)
 
 INT cell_sticker (CSTR_rast wc)
 {
-  BYTE chr; 
+  BYTE chr;
   UniVersions vers;
   int i;
 
@@ -1652,7 +1652,7 @@ INT cell_sticker (CSTR_rast wc)
     chr = vers.Alt[i].Liga;
     if (! memchr("l1rtfI",chr,6) && chr!=liga_i &&
 		 !(language == LANG_TURKISH &&  // 30.05.2002 E.P.
-			(chr==i_sans_accent||chr==II_dot_accent) 
+			(chr==i_sans_accent||chr==II_dot_accent)
 		  )
 	   ) return 0;
   }
@@ -1699,11 +1699,11 @@ INT int_nosmall (bas_ln *bc)
 
 INT int_caps (bas_ln *bc)
 {
-  CSTR_rast wc; 
-  CSTR_rast_attr attr; 
+  CSTR_rast wc;
+  CSTR_rast_attr attr;
   UniVersions    vers;
   int i;
-  BYTE chr; 
+  BYTE chr;
   INT nv, dsmall, dcap, smallrq, smallal, capsal, capsrq, cells;
 
   smallal = smallrq = capsal = capsrq = cells = 0;
@@ -1750,13 +1750,13 @@ INT int_caps (bas_ln *bc)
 
 INT int_smalls (bas_ln *bc)
 {
-  CSTR_rast wc; 
-  CSTR_rast_attr attr; 
+  CSTR_rast wc;
+  CSTR_rast_attr attr;
   UniVersions    vers;
 
-  BYTE chr; 
+  BYTE chr;
   INT nv, dsmall, dcap, smallrq, smallal, capsal, capsrq, cells;
-  int i; 
+  int i;
 
   smallal = smallrq = capsal = capsrq = cells = 0;
   wc = bc->c1;
@@ -2031,7 +2031,7 @@ again:
     bc->ncells = 0;
     sw=s1;
 	CSTR_GetAttr(sw,&attr);
-    while (attr.col < bc->startcol) 
+    while (attr.col < bc->startcol)
 	{
 		//sw=sw->nextl;
 		sw = CSTR_GetNextRaster(sw,f_letter | CSTR_f_fict );
@@ -2046,7 +2046,7 @@ again:
     if ((bc->fl_ext & 2) == 0)
     {
       bc -> startcol = attr.col; // sw->col;
-      if (bc->startf > bc->startcol) 
+      if (bc->startf > bc->startcol)
 		  bc->startf = bc->startcol;
     }
     //AK! Crashed line
@@ -2066,12 +2066,12 @@ again:
     {
       CSTR_GetAttr(bc->c2,&attr);
       bc->endcol = attr.col + attr.w;
-      if (bc->endf < bc->endcol) 
+      if (bc->endf < bc->endcol)
 		  bc->endf = bc->endcol;
     }
-    if (bc->ncells > maxn) 
-	{ 
-		bmax=bc; maxn=bc->ncells; maxi=i; 
+    if (bc->ncells > maxn)
+	{
+		bmax=bc; maxn=bc->ncells; maxi=i;
 	}
   }
   if (bs_int_no <= 1) goto all_done;

@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -58,11 +58,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // Written by Shahverdiev  Alik
 // This file cration date: 05.04.99
 //
-// FrmtPict.cpp 
+// FrmtPict.cpp
 // Source file for Device-Independent Bitmap (DIB) API.  Provides
-// the following functions: 
+// the following functions:
 // GetPictCount()      - Return Picture count
-// WritePict()         - Write  Picture 
+// WritePict()         - Write  Picture
 
 // ============================================================================
 //#include "afx.h"
@@ -91,8 +91,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define  USE_NONE              0x0040   // no formatting
 
-extern   Word32 FlagMode; 
-extern   Word32 RtfWriteMode; 
+extern   Word32 FlagMode;
+extern   Word32 RtfWriteMode;
 extern   POINT  TemplateOffset;
 
 extern	  CHAR   RtfFileName[MAX_PATH];
@@ -110,7 +110,7 @@ Word32 GetPictCount(void)
 	Word32 PictCount = 0;
 	Word32 NumberPage = CPAGE_GetCurrentPage();
 	Handle h_Page = CPAGE_GetHandlePage(NumberPage);
-	
+
 	Handle h_Pict = CPAGE_PictureGetFirst(h_Page);
 	while(h_Pict)
 	{
@@ -129,20 +129,20 @@ BYTE GetPictRect( Word32 NumberPict , Rect16* RectPict,Word32* UserNumber )
 	Word32  NumberPage = CPAGE_GetCurrentPage();
 	Handle  h_Page     = CPAGE_GetHandlePage(NumberPage);
 	Handle  h_Pict     = CPAGE_PictureGetFirst(h_Page);
-	
+
 	while( h_Pict && PictCount < NumberPict )
 	{
 		PictCount++;
 		h_Pict = CPAGE_PictureGetNext( h_Page,h_Pict );
 	}
-	
+
 	if(!h_Pict)
 		return FALSE;
-	
-	
+
+
 	*UserNumber = (Word32)CPAGE_GetBlockUserNum( h_Page, h_Pict  );
-	
-	
+
+
 	if(CPAGE_PictureGetPlace (h_Page, h_Pict, 0, &Lr, &Wh))
 	{
 		RectPict->left   = (Int16)( Lr.x - TemplateOffset.x);
@@ -150,7 +150,7 @@ BYTE GetPictRect( Word32 NumberPict , Rect16* RectPict,Word32* UserNumber )
 		RectPict->top    = (Int16)( Lr.y - TemplateOffset.y);
 		RectPict->bottom = (Int16)( Lr.y - TemplateOffset.y + Wh.y );
 	}
-	return TRUE; 
+	return TRUE;
 }
 
 //**************************** Запись картин ************************************
@@ -163,11 +163,11 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 
 
 	LDPUMA_Skip(hTest);
-	
+
 #ifdef EdWrite
 	Handle 	hParagraph=NULL;
 	Handle 	hString=NULL;
-	
+
 	EDSIZE   pictSize;
 	EDSIZE   pictGoal;
 	EDRECT   indent;
@@ -178,7 +178,7 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 	letterEx Letter;
 	Handle   hPrevObject;
 #endif
-	
+
 	Word32   NumberPage    = CPAGE_GetCurrentPage();
 	Handle   h_Page        = CPAGE_GetHandlePage(NumberPage);
 	Handle   h_Pict        = CPAGE_PictureGetFirst(h_Page);
@@ -186,17 +186,17 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 /*
 	if(RtfWriteMode)
 		PictString->Empty();
-*/	
+*/
 	while( h_Pict )
 	{
 		if( ++PictNumber > IndexPict )
 			break;
 		h_Pict = CPAGE_PictureGetNext(h_Page,h_Pict);
 	}
-	
+
 	if(!h_Pict)
 		return 0;
-	
+
 	PAGEINFO pinfo = {0};
 	if(GetPageInfo(h_Page,&pinfo))
 	{
@@ -234,18 +234,18 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 
 /*		if(RtfWriteMode)
 		{
-			if(FlagMode & USE_NONE) 
+			if(FlagMode & USE_NONE)
 				str.Format("\\marglsxn1800\\margrsxn1800\\margtsxn1440\\margbsxn1440\\headery1440\\footery1440\\sbknone\\pard\\f3\\fs6\\par\\par\\fi0");
 			else
 				if( SectorInfo->CountFragments == 1 )
 				{
-					Realx = MAX(0,(int)(Lr.x*Twips));       
+					Realx = MAX(0,(int)(Lr.x*Twips));
 					str.Format("\\marglsxn%i\\margrsxn1800\\margtsxn360\\margbsxn360\\headery360\\footery360\\sbknone\\pard\\f3\\fs6\\par\\par\\fi0",Realx);
 				}
 				else
 				if(SectorInfo->FlagInColumn==TRUE)
 				{
- 					Realx = SectorInfo->OffsetFromColumn.x;   
+ 					Realx = SectorInfo->OffsetFromColumn.x;
 					Realy = SectorInfo->OffsetFromColumn.y;
 					if( SectorInfo->FlagFictiveParagraph)
 					{
@@ -257,12 +257,12 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 				}
  				else
 	 			{
-					Realx = (int)(Lr.x*Twips - SectorInfo->Offset.x);       
+					Realx = (int)(Lr.x*Twips - SectorInfo->Offset.x);
 					Realy = (int)(Lr.y*Twips - SectorInfo->Offset.y);
 					str.Format("{\\pard\\s0\\pvpara\\phmrg\\posx%i\\posy%i\\absh0\\absw%i\\abslock1\\dxfrtext180\\dfrmtxtx0\\dfrmtxty0\\ql\\plain\\fs6\\f3\\fs0\\fi0",
 							Realx,Realy,(int)(MAX(0, Wh.x-FrameOffset)*Twips) );
 		 		}
- 
+
 //				(*PictString) += str;
 		}
 */		// Получим картинку из исходного изображения задав ее контур
@@ -363,10 +363,10 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 					else
 					{
 						in.dwX = 0;
-					 //  Beg of Almi Corr  
+					 //  Beg of Almi Corr
  //						in.dwY = ptWh.x*pinfo.Incline2048/2048;
 						in.dwY = (-ptWh.x*pinfo.Incline2048/2048);
-						//  End of Almi Corr  			
+						//  End of Almi Corr
 					}
 					if(!RIMAGE_RotatePoint((PWord8)lpName,
 						in.dwX,in.dwY,
@@ -419,12 +419,12 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
   					LDPUMA_Skip(hTestWriteED);
 					PCTDIB pTmpDIB = new CTDIB;
 					pTmpDIB->SetDIBbyPtr(pOutDIB);
-					
+
 					pictSize.cx = int(Wh.x);
 					pictSize.cy = int(Wh.y);
 					pictGoal.cx = int((DWORD)(Twips* pTmpDIB->GetLineWidth()));
 					pictGoal.cy = int((DWORD)(Twips* pTmpDIB->GetLinesNumber()));
-					
+
 					Int32 iDIBSize = pTmpDIB->GetDIBSize();
 					delete pTmpDIB;
 
@@ -441,7 +441,7 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 
 					Lr.x = MAX(0,Lr.x);
 					Lr.y = MAX(0,Lr.y);
-					
+
 					slayout.left   = (int)(Lr.x);
 					slayout.right  = (int)(Lr.x + Wh.x);
 					slayout.top    = (int)(Lr.y);
@@ -451,7 +451,7 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 
 					if(SectorInfo->FlagInColumn || (OutPutTypeFrame && SectorInfo->FlagFictiveParagraph))
 					{
-						hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hColumn, -1, indent, 
+						hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hColumn, -1, indent,
 						                                 SectorInfo->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
 						hString = CED_CreateLine(hParagraph, 0,6);
 						SectorInfo->FlagFictiveParagraph = FALSE;
@@ -463,11 +463,11 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 					{
  						if(SectorInfo->FlagInColumn==TRUE)
 						{
- 							EdFragmRect.x = MAX(0,SectorInfo->OffsetFromColumn.x);   
+ 							EdFragmRect.x = MAX(0,SectorInfo->OffsetFromColumn.x);
 							EdFragmRect.y = MAX(0,SectorInfo->OffsetFromColumn.y);
  							EdFragmRect.w = (int)(MAX(0, Wh.x-FrameOffset)*Twips);
 	 						EdFragmRect.h = (int)(Wh.y*Twips);
-		 					SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn, 
+		 					SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
 							                                      EdFragmRect, 0x22,-1, -1, -1);
 						}
 						else
@@ -476,25 +476,25 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 							EdFragmRect.y = (int)(Lr.y*Twips - SectorInfo->Offset.y);
  							EdFragmRect.w = (int)(MAX(0, Wh.x-FrameOffset)*Twips);
 	 						EdFragmRect.h = (int)(Wh.y*Twips);
-		 					SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn, 
+		 					SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
 			                                       			EdFragmRect, 0x22,-1, 0, 0);
 						}
 					}
-					
-					hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject, -1, indent, 
+
+					hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject, -1, indent,
 						SectorInfo->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
 					hString = CED_CreateLine(hParagraph, 0,6);
 
 					Letter.alternative = ' ';
 					Letter.probability = 0;
-					CED_CreateChar(hString, slayout, &Letter, 12, 
+					CED_CreateChar(hString, slayout, &Letter, 12,
 						ED_PICT_BASE + (int)IndexPict, -1, -1, -1, -1);
-					
-					if( !CED_CreatePicture(SectorInfo->hEDPage, (int)IndexPict, pictSize, 
+
+					if( !CED_CreatePicture(SectorInfo->hEDPage, (int)IndexPict, pictSize,
 						pictGoal, ED_ALIGN_MIDDLE, 1, pOutDIB, (int)iDIBSize) )
 					{
      					SectorInfo->hObject = hPrevObject ;
-						return FALSE; 
+						return FALSE;
 					}
 #endif
 					LDPUMA_Skip(hTestDeleteImage);
@@ -513,7 +513,7 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 			{
  				(*PictString) += "\\f0\\fs6\\par}";
 				if(SectorInfo->FlagInColumn==TRUE)
-					(*PictString) +="}}}"; 
+					(*PictString) +="}}}";
 			}
 		}
 */	}
@@ -547,7 +547,7 @@ static void bufcpy(char ** str, void  * mem, unsigned sz)
 BOOL SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
 {
 	BOOL rc = FALSE;
-	
+
 #pragma pack (push,1)
 	struct MF_header {
 		WORD 	mtType;
@@ -558,12 +558,12 @@ BOOL SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
 		DWORD 	mtMaxRecord;
 		WORD	mtNoParameters;
 	} hMF={1,9,0x0300,0,0,0,0};
-	
+
 	struct MF_GDI_records {
 		DWORD   rdSize;
 		WORD    rdFunction;
 	} MF_GDI;
-	
+
 	struct MF_StretchDlBitst_info {
 		DWORD	dwRop;
 		WORD	wUsage;
@@ -577,27 +577,27 @@ BOOL SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
 		WORD	dstX;
 	}  MF_SI;
 #pragma pack (pop)
-	
+
 	// Заголовок картинки
 	CString text;
-	
+
 	int nPalette = 0;
-	
+
 	if(lpDIB->biBitCount == 1)
 		nPalette = 2;
 	else if(lpDIB->biBitCount == 4)
 		nPalette = 16;
 	else if(lpDIB->biBitCount == 8)
 		nPalette = 256;
-	
+
 	int SizePicture = sizeof(BITMAPINFOHEADER)
 		+ sizeof(RGBQUAD) * nPalette
 		+ lpDIB->biSizeImage;
-	
+
 	hMF.mtMaxRecord=
-		(sizeof(MF_GDI) + sizeof(MF_SI) + 
+		(sizeof(MF_GDI) + sizeof(MF_SI) +
 		+ SizePicture)/2L;
-	
+
 	// 3. ђ §¬Ґа ¬Ґв д ©«  ў б«®ў е
 	hMF.mtSize= sizeof(hMF)/2 +       // header
 		sizeof(MF_GDI)/2 + 2 +// SetWindowOrg
@@ -605,7 +605,7 @@ BOOL SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
 		sizeof(MF_GDI)/2 + 2 +// SetTextColor
 		sizeof(MF_GDI)/2 + 2 +// SetBkColor
 		sizeof(MF_GDI)/2 + 1 +// StretchBltMode
-		hMF.mtMaxRecord +     
+		hMF.mtMaxRecord +
 		sizeof(MF_GDI)/2;     // End
 	//
 	// Создадим буфер картинки
@@ -619,16 +619,16 @@ BOOL SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
 			);
 
 		*strBuf = *strBuf + text;
-	long OldSizestrPict = strBuf->GetLength(); 
+	long OldSizestrPict = strBuf->GetLength();
 	long NewSizestrPict = OldSizestrPict + hMF.mtSize * 4 + 1 + 1;
 	char * strPic = strBuf->GetBuffer(NewSizestrPict);
 	if(strPic)
 	{
 		char * str = strPic + OldSizestrPict;
-		
+
 		// header
 		bufcpy(&str,&hMF,sizeof(hMF));
-		
+
 		// SetWindowOrg
 		MF_GDI.rdSize=5;
 		MF_GDI.rdFunction=0x20b;
@@ -665,7 +665,7 @@ BOOL SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
 		MF_GDI.rdSize=hMF.mtMaxRecord;
 		MF_GDI.rdFunction=0xf43;
 		bufcpy(&str,&MF_GDI,sizeof(MF_GDI));
-		
+
 		MF_SI.dwRop	=0x00cc0020L;
 		MF_SI.wUsage	=0;
 		MF_SI.srcYExt	=(WORD)lpDIB->biHeight;
@@ -677,7 +677,7 @@ BOOL SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
 		MF_SI.dstY	=0;
 		MF_SI.dstX	=0;
 		bufcpy(&str,&MF_SI,sizeof(MF_SI));
-		
+
 		bufcpy(&str,lpDIB,SizePicture);
 		// End
 		MF_GDI.rdSize=3;
@@ -692,7 +692,7 @@ BOOL SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
 		*strBuf += "}";
 		rc = FALSE;
 	}
-	
+
 	return rc;
 }
 */

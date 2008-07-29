@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -107,7 +107,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 ///////////////////////////////////////////////////////////////////////////////
-// 
+//
 #ifdef _DEBUG
 #ifdef RLING_SECONDARY
 //FILE *dbg_fs;
@@ -232,15 +232,15 @@ static INT run_page()       /* run one page */
 
 	SPQ.free_alloc_mem = q_free_alloc_mem;   /* RESTORE ! */
 
-	if (begin(0)== FALSE)                    
+	if (begin(0)== FALSE)
 	{
 		ErrorExit(RLING_ERROR_WRONG_ED_FILE);
 		//return WRONG_FILE;
 	}
 
 	// !!! And now we must test ed-file  to preserve it
-	//   from secondary spelling checking (something converted to blue !)    
-	// ??? ACT !!! 
+	//   from secondary spelling checking (something converted to blue !)
+	// ??? ACT !!!
 	if( *find_byte_flag() & FIR_CHECKED)
 	{
 		ErrorExit(RLING_ERROR_ED_ALREADY_CHEKED);
@@ -293,15 +293,15 @@ LONG  read_all_vtab( INT tabn, CHAR *buff)
 
 	if (vocs_NOK)
 		return -1;
-	
+
 	f=TBOPEN((INT)tabn,(INT)language,(INT)(O_RDONLY|O_BINARY),(INT)(S_IREAD));
-	
-	if(f==-1) 
+
+	if(f==-1)
 	{
 		vocs_NOK = vocs_NOK | (1 << tabn);
 		return(-1);
 	}
-	
+
 	lth=TGREAD((INT)(f), buff, (LONG)(TGFILELTH((INT)f)));
 	TGCLOSE((INT)f);
 
@@ -368,14 +368,14 @@ INT ed_conv ( struct dict_state * dict, user_voc voc_array[], INT voc_no )
 		genobj (&obj);             /* set object init state via its positions    */
 
 		if (multy_language&&language==LANG_RUSSIAN)
-			if ((obj.type & (T_CAP|T_LOW))== 0) 
+			if ((obj.type & (T_CAP|T_LOW))== 0)
 				continue;
 		/*  printf ( "Obj # %d\n", obj.nmb ); */
 
 		TPR(genobj)
 		if (checkobj (&obj)==No)             /* object rejected */
 			continue;
-	
+
 		obj.word = (SWORD *)&word[0];
 		tempword = (PBYTE)word + sizeof(word) -sizeof(SWORD);
 		TPR(chkobj=yes)
@@ -399,10 +399,10 @@ INT ed_conv ( struct dict_state * dict, user_voc voc_array[], INT voc_no )
 
 				obj.type_art &= ~(T_REPL|T_GC|T_BRK);
 				obj.type_orig = 0;
-				
+
 				if (!(setpart (&obj,part)))
 					continue;
-	
+
 				TPR(setp=yes)
 				obj.word->next=NULL;
 				obj.allowedlth = 0;
@@ -412,7 +412,7 @@ Start_wrd_gen:
 
 				if (checkpart(&obj)==No)    /* part rejected                          */
 					goto No_part;
-				
+
 				TPR(chkpart=yes)
 				/* ----- dict (static) : ----- */
 				setimg (&obj,wrdimg);       /* set part image                         */
@@ -423,15 +423,15 @@ Start_wrd_gen:
 
 				if(anal_part_wrd (&obj, wrddef, dict, voc_array, voc_no)== No)
 					goto SetBlue;
-				
+
 				TPR(analpart=yes)
 				sp_n ++;
 				ret = selectpart(&obj);  /* have we gathered smth worth ?    */
 				TPR(selectpart=?)
-				
+
 				if (ret==Ok)                  /* Yes, dynamic spelling not needed */
 					goto Ok_part;
-				
+
 				TPR(selectpart not ok)
 
 				if (ret==No)
@@ -452,30 +452,30 @@ Start_wrd_gen:
 					/*remove the part & set once more(partspec changes!)*/
 
 					if (!(obj.type_art & T_GC)) /* 1-st glue-cut of the part => :       */
-					{ 
+					{
 						if (!(setpart (&obj,part))) /*alloc new part buff                  */
 							break;                     /* buff overflowed !!!                 */
 						TPR(setpart glue == yes)
 					}
-					
+
 					if (partgc(&obj,part))      /* Try to apply glue-cut of the part    */
 						goto Start_wrd_gen;        /* restart the changed part treatment   */
 
 					TPR(partgc == no)
-					
+
 					if(!(obj.type_art&T_BRK))
 					{
 						if (!(setpart (&obj,part))) /*alloc new part buff                  */
 							break;                     /* buff overflowed !!!                 */
-	
+
 						TPR(setpart partgc = yes)
 					}
-					
+
 					if(!(obj.type_sp&T_BLANK))
 					{
 						if(partbrk(&obj,part))
 							goto Start_wrd_gen;
-	
+
 						TPR(partbrk = no)
 					}
 
@@ -489,7 +489,7 @@ No_part:
 Ok_part:
 				{
 					TPR(OK part)
-					
+
 					if (obj.part_end == obj.pos_part[obj.pos_part_nmb]) /* last part ?  */
 						if (ret=selectobj (&obj, bpart, part))  /* select best parts-chain,    */
 							goto Out_obj;                      /*  ending with this part      */
@@ -570,18 +570,18 @@ SetBlue:
 INT anal_part_wrd (SOBJ * obj,
                    LTIMG * wrddef[],
 		           struct dict_state * dict,
-	               user_voc voc_array[], 
+	               user_voc voc_array[],
 				   INT voc_no )
-{ 
+{
 	INT found;
-	
+
 	obj->type_art &= ~T_ALTS;
 
 	do
 	{
 		if(++perebor_threshold >= TEMP_PEREBOR_THRESHOLD)
 			return  (obj -> nmb_wrdfound ) ?  Stop : No;
-		
+
 		if(!setwrd (obj,wrddef))
 			continue;
 
@@ -590,13 +590,13 @@ INT anal_part_wrd (SOBJ * obj,
 
 		if (!(genwrd (obj)))
 			continue;
-		
-		switch(checkwrd (obj)) 
+
+		switch(checkwrd (obj))
 		{
-			case Stop: 
+			case Stop:
 				return Stop;       /* no worth words expected more */
 
-			case No:    
+			case No:
 				continue;       /* generate next word           */
 		}
 
@@ -615,14 +615,14 @@ INT anal_part_wrd (SOBJ * obj,
 			continue;
 
 		obj->part->word = obj->word;
-		
+
 		if((PBYTE)obj ->word < tempword)
 			(++obj->word)->next = obj->part->word;
-		else 
+		else
 			return Stop;
 	}
 	while( obj->type_art |= T_ALTS, nextwrd (obj,wrddef)!=Stop);
-	
+
 	return (Ok);
 }
 ///////////////////////////////////////////////////////////////////////////

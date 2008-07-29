@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -162,7 +162,7 @@ void punct()
  // ACC_ROOF_INF íàä d,t â ×åøñêîì ïîõîæ íà àïîñòðîô. 07.09.2000 E.P.
  if (language==LANG_CZECH)
 	czech_dt_glue_apostroph();
- 
+
  bad_to_dust();
  glue_dust();
  dots();
@@ -219,7 +219,7 @@ void punct()
 				// Êîíôëèêòíûé êîä 07.09.2000 E.P.
 			    !is_baltic_language(language) && 	// 17.07.2001 E.P.
 			    !is_turkish_language(language) && (	// 30.05.2002 E.P.
-				!is_cen_language(language) && l==i_left_accent || 
+				!is_cen_language(language) && l==i_left_accent ||
 				l==i_right_accent ) ||
 
 				// Áàëòèéñêèå ïàëêè. 10.07.2001 E.P.
@@ -241,7 +241,7 @@ void punct()
             if (memchr("ã“7",l,7))
               x-=(c1->w)/4;
             //    if ((c1->font&c_fp_it || italic) && memchr("ˆ16¡",l,14))Paul  10-14-96
-            if (((c1->font|c1->font_new)&c_fp_it || italic) && 
+            if (((c1->font|c1->font_new)&c_fp_it || italic) &&
 				!(memchr("€„†Š•–™š›œ",l,10) &&
 					!is_russian_turkish_conflict(l) // 21.05.2002 E.P.
 				 )
@@ -252,8 +252,8 @@ void punct()
 				// Êîíôëèêòíûé êîä 07.09.2000 E.P.
 				!is_baltic_language(language) && 	// 17.07.2001 E.P.
 				!is_turkish_language(language) && (	// 30.05.2002 E.P.
-				!is_cen_language(language) && l==i_left_accent 
-				|| l==i_right_accent 
+				!is_cen_language(language) && l==i_left_accent
+				|| l==i_right_accent
 				) ||
 
 				// Áàëòèéñêèå ïàëêè. 10.07.2001 E.P.
@@ -268,11 +268,11 @@ void punct()
               x-=(c1->w)/4;
         }
         c1=c1->nextl;
-		
+
 		//AK add crashguard
 		if ( (!AKCellInChain(c2) || !AKCellInChain(c1)) )
 			break;
-		
+
         while (c2!=c1)
         {
               if (c2->flg & c_f_punct)  { c2=c2->next;  continue; }
@@ -652,10 +652,10 @@ if( !compose_cell(n,clist,c) )
  c->vers[c->nvers].let=0;
  if( language==LANG_RUSSIAN && c->nvers==0 )
     {
-    c->vers[0].let=bad_char;   
+    c->vers[0].let=bad_char;
     }
- 
- insert_cell(c,cp); 
+
+ insert_cell(c,cp);
  return c;
  }
 
@@ -703,7 +703,7 @@ static void dots()
    if (let=='!' || let=='?')
     {c->left=c->col; c->right=c->col+c->w;}
    }
-  
+
   for(i=0;i<c->nvers;i++)
     {
     vers[i]=c->vers[i];
@@ -1022,7 +1022,7 @@ static void punctsign(cell **ac1,cell **ac2)
     }
    }
   if (fl && c2->prev->flg==c_f_let &&
-      ( (let=c2->prev->vers[0].let)=='g' || 
+      ( (let=c2->prev->vers[0].let)=='g' ||
 	  	let=='r' ||
 		language==LANG_TURKISH && let==g_semicircle // 27.06.2002 E.P.
 	  ) &&
@@ -1037,7 +1037,7 @@ static void punctsign(cell **ac1,cell **ac2)
    if( c2->flg & (c_f_bad|c_f_let) )
         {
         cell *t,*n;
-        if( c2->nextl==(cell *)0xffff0000 || 
+        if( c2->nextl==(cell *)0xffff0000 ||
             c2->prevl==(cell *)0xffff0000 )
             {
             for(t=c2->prev;t;t=t->prev)
@@ -1087,16 +1087,16 @@ static void punctsign(cell **ac1,cell **ac2)
              snap_monitor();
          }
    }
-   else 
-    {    
-    if( multy_language && c2->w>SMALL_SIZE && 
+   else
+    {
+    if( multy_language && c2->w>SMALL_SIZE &&
         c2->row>bl.b1 && c2->row+c2->h<bl.b4 )
         {
         dust_to_bad(c2);
 
 				// Nick 1.06.2001
 		if( c2->nvers <= 0 )
-		  c2->flg = c_f_bad; 
+		  c2->flg = c_f_bad;
 
         c2->flg_new |= c_fn_temp;
 
@@ -1112,7 +1112,7 @@ static void punctsign(cell **ac1,cell **ac2)
         {
         cell *cc2;
         cc2 = c2;
-    
+
         no_cut(c2);
         c2=hide(c2);
             if (snap_activity('e'))
@@ -1125,7 +1125,7 @@ static void punctsign(cell **ac1,cell **ac2)
           *ac1=c2->next;
         if (*ac2==cc2)
           *ac2=c2->next;
-        }    
+        }
     }
    }
   c2=c2->next;
@@ -1378,9 +1378,9 @@ static INT chkquot(INT h,INT dp,cell *c)
   for (min=c->h+1,i1=(c->w)/2-1; i1<=(c->w)/2+1; i1++)
    {
    s=i1/8; l=128>>(i1%8);
-   
+
    for (j1=0; !(rstr[j1*ls+s]&l); j1++) ;
-   
+
    for (k1=c->h-1; !(rstr[k1*ls+s]&l); k1--)                  // AK add c/g 06.03.98
 	if ( k1 == 0 )
 		break;
@@ -2277,7 +2277,7 @@ void clean_punct_temp()
 cell *C=cell_f()->next;
 for (; C->next; C=C->next)
     {
-    if( (C->flg_new&c_fn_temp) && 
+    if( (C->flg_new&c_fn_temp) &&
         (C->flg & (c_f_punct|c_f_let)) &&
          C->nvers && C->vers[0].prob>100 )
         C->flg_new -= c_fn_temp;
@@ -2293,16 +2293,16 @@ void clean_punct()
   INT gap=get_gap();
 
   for (; C->next; C=C->next)
-  {   
-    if (!(C->flg & c_f_punct))  
+  {
+    if (!(C->flg & c_f_punct))
         continue;
-    if (C->vers[0].let=='\'' && language == LANG_ENGLISH)  
+    if (C->vers[0].let=='\'' && language == LANG_ENGLISH)
         continue;
     for (L=C; L->prev && !(L->flg & (c_f_let+c_f_bad)); L=L->prev);
-    if (!(L->flg & (c_f_let+c_f_bad)))  
+    if (!(L->flg & (c_f_let+c_f_bad)))
         continue;
     R=L->nextl;
-    if (!(R->flg & (c_f_let+c_f_bad)))  
+    if (!(R->flg & (c_f_let+c_f_bad)))
         continue;
     if (R->col - (L->col+L->w) <= gap )
     {
@@ -2362,25 +2362,25 @@ cell *hide(cell *C)
 	if (language == LANG_RUSSIAN)
 	{
 		C=C->prev;
-		
-		if (B->flg & c_f_punct)  
+
+		if (B->flg & c_f_punct)
 			B->flg ^= c_f_dust | c_f_punct;
-		
+
 		B->complist=(c_comp *)sv_fantom;
 		sv_fantom=del_save_cell(B);
 	}
 	else
 		C=del_cell(C);
-	
+
 	return C;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 void hide_dusts(BYTE mode)
 {
 	cell *C;
-	
+
 	for (C=cell_f()->next; C && C != cell_l()/*C->next*/; C=C->next)
-		if (C->flg&c_f_dust && !(mode && C->cg_flag&c_cg_cut))  
+		if (C->flg&c_f_dust && !(mode && C->cg_flag&c_cg_cut))
 		{
 			C=hide(C);
 		}
@@ -2402,9 +2402,9 @@ cell *c,*e;
 
 for(c=cell_f()->next, e=cell_l(); c!=e; c=c->next )
     {
-    if( c->flg!=c_f_bad && (c->flg&c_f_bad)!=0 && 
+    if( c->flg!=c_f_bad && (c->flg&c_f_bad)!=0 &&
         c->flg!=(c_f_bad|c_f_solid) && c->flg&(c_f_bad|c_f_solid)!=0 )
-        dust_to_bad(c);    
+        dust_to_bad(c);
     }
 return;
 }
@@ -2435,7 +2435,7 @@ for (c=(cell_f())->next; (cc=c->next)!=NULL; c=c->next)
 	// Àïîñòðîô ïîñëå d, t
 	if (cc->vers[0].let != '\'')
 		continue;
-	
+
 	// Äîñòàòî÷íî ëè áëèçêî
 	d= cc->col - c->right;
 	if (d >= gap)

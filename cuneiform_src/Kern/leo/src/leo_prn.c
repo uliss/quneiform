@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -105,7 +105,7 @@ return;
 static void leo_kill_3x5_unique(RecVersions *ver,Word8 first)
 {
 do{
-     if( ver->Alt[0].Prob>60 )         
+     if( ver->Alt[0].Prob>60 )
       ver->Alt[0].Prob -= 60;
      else
       ver->Alt[0].Prob = 1;
@@ -564,8 +564,8 @@ return 0;
 }
 
 void leo_reverse_russian(RecVersions *ver, Word8 Code1, Word8 Code2)
-{ 
-    Int32 i_1=leo_exist_code(ver,Code1), 
+{
+    Int32 i_1=leo_exist_code(ver,Code1),
           i_2=leo_exist_code(ver,Code2), i, i_22;
 	Word8 p;
     if( ver->lnAltCnt==REC_MAX_VERS )
@@ -580,7 +580,7 @@ void leo_reverse_russian(RecVersions *ver, Word8 Code1, Word8 Code2)
         if( ver->Alt[i_2].Prob==ver->Alt[i_1].Prob )
             ver->Alt[i_2].Prob--;
         }
-    if( (i_1==0 && i_2==-1||i_2==0 && i_1==-1)  && 
+    if( (i_1==0 && i_2==-1||i_2==0 && i_1==-1)  &&
         ver->Alt[0].Prob>10 )
         {
         ver->Alt[ver->lnAltCnt]=ver->Alt[0];
@@ -598,7 +598,7 @@ void leo_reverse_russian(RecVersions *ver, Word8 Code1, Word8 Code2)
         leo_sort_vers_prob(ver);
 		if( ver->Alt[0].Prob>240 )
 			leo_set_max_vers(ver, ver->Alt[0].Prob-5);
-		
+
         }
 	if( i_1!=-1 && i_2!=-1 )
 		{
@@ -608,17 +608,17 @@ void leo_reverse_russian(RecVersions *ver, Word8 Code1, Word8 Code2)
 	i_22=leo_exist_code(ver,Code2);
 	if( i_1==0 && i_22>1 )
 		{
-		p = ver->Alt[i_22].Prob;	
+		p = ver->Alt[i_22].Prob;
 		ver->Alt[i_22].Prob=ver->Alt[1].Prob;
 		ver->Alt[1].Prob   = p;
 		leo_sort_vers_prob(ver);
 		}
-return;    
+return;
 }
 
 void leo_kill_double_russian(RecVersions *ver, Word8 Code1, Word8 Code2)
-{ 
-    Int32 i_1=leo_exist_code(ver,Code1), 
+{
+    Int32 i_1=leo_exist_code(ver,Code1),
           i_2=leo_exist_code(ver,Code2);
 Int32 i,ii;
 RecVersions v={0};
@@ -734,7 +734,7 @@ if( ver.lnAltCnt && per.lnAltCnt && per.Alt[0].Prob>80 &&
         if( ver.lnAltCnt==1 && leo_comp_codes(ver.Alt[0].Code,per.Alt[0].Code) ||
             per.Alt[0].Prob>200 && leo_exist_code(&ver, per.Alt[0].Code)!=-1     )
             {
-            
+
             loc = ver;
             DIFPenaltyChar( &object->recData.recRaster,  &loc);
             if( loc.Alt[0].Prob==per.Alt[0].Prob )
@@ -743,7 +743,7 @@ if( ver.lnAltCnt && per.lnAltCnt && per.Alt[0].Prob>80 &&
                 per.Alt[0].Prob=255;
                 if( leo_alpha_type==ALPH_DIG )
                     {
-                        switch(let) 
+                        switch(let)
                         {
                         case    (Word8)'Î':
                             per.Alt[0].Code='0';
@@ -760,7 +760,7 @@ if( ver.lnAltCnt && per.lnAltCnt && per.Alt[0].Prob>80 &&
                 ver = per;
                 goto XOPOIII_HET3X5;
                 }
-           
+
             }
 
 if( alphabet['N'] )
@@ -778,7 +778,7 @@ if( alphabet['N'] )
                 goto XOPOIII_HET3X5;
                 }
             }
-        if( leo_exist_code(&ver, (Word8)'#')!=-1 && 
+        if( leo_exist_code(&ver, (Word8)'#')!=-1 &&
             per.lnAltCnt && per.Alt[0].Prob>150  )
             {
             loc = ver;
@@ -806,7 +806,7 @@ if( ver.lnAltCnt  )
   r35 = ver;
   msk = ver;
   ver.lnAltCnt=0;
-  
+
   R35RecogPrintCharIm3x5_expert(object->recData.v3x5, &r35, FALSE);
   if( leo_add_vers(&ver,&r35) )
 	{
@@ -821,7 +821,7 @@ if( ver.lnAltCnt  )
   MSKRecogCharExp(leo_MSK_ndx[1],&object->recData.recRaster, &msk);
   leo_sort_vers_prob(&msk);
   leo_reduce_typefaces(&msk);
-  
+
   if( leo_add_vers(&ver,&msk) )
 		object->lwStatusMethods |= REC_STATUS_METHODS_MSK;
   if( msk.lnAltCnt==0 || msk.Alt[0].Prob<150 )
@@ -844,7 +844,7 @@ if( ver.lnAltCnt  )
   }
 
 if( !ver.lnAltCnt               ||
-    ver.lnAltCnt && ver.Alt[0].Prob<150     
+    ver.lnAltCnt && ver.Alt[0].Prob<150
     )
 	{  // CONSILIUM
     Int32 ind;
@@ -853,7 +853,7 @@ if( !ver.lnAltCnt               ||
     R35RecogPrintCharIm3x5(object->recData.v3x5, &r35);
     for(ind=0;ind<r35.lnAltCnt;ind++)
         {
-        if( wid*2<=hei*3 && strchr("1",r35.Alt[ind].Code) && 
+        if( wid*2<=hei*3 && strchr("1",r35.Alt[ind].Code) &&
             r35.Alt[ind].Prob>50)
             r35.Alt[ind].Prob -= 50;
         }
@@ -868,7 +868,7 @@ if( !ver.lnAltCnt               ||
 
     MSKRecogChar(leo_MSK_ndx[1],&object->recData.recRaster, &msk);
     leo_reduce_typefaces(&msk);
-    
+
     if( msk.lnAltCnt==0 || msk.Alt[0].Prob<150 )
         unter++;
 	if( leo_add_vers(&ver,&msk) )
@@ -891,7 +891,7 @@ disable_dis=FALSE;
 if( ver.lnAltCnt && per.lnAltCnt && r35.lnAltCnt && msk.lnAltCnt)
     {
     if( leo_alpha_type==ALPH_ALL )
-        { 
+        {
         if( alphabet[(Word8)'‡'] && alphabet['3'] )
             {
             leo_kill_double_russian(&ver, (Word8)'‡', '3');
@@ -907,7 +907,7 @@ if( ver.lnAltCnt && per.lnAltCnt && r35.lnAltCnt && msk.lnAltCnt)
             leo_kill_double_russian(&msk, (Word8)'Ž', '0');
             }
         }
-    if( ver.Alt[0].Prob>150 && ver.Alt[0].Method==REC_METHOD_3X5 && 
+    if( ver.Alt[0].Prob>150 && ver.Alt[0].Method==REC_METHOD_3X5 &&
         ver.Alt[0].Code!=per.Alt[0].Code )
         { // kill unique alt from 3x5
         Word8 first=per.Alt[0].Code;
@@ -917,8 +917,8 @@ if( ver.lnAltCnt && per.lnAltCnt && r35.lnAltCnt && msk.lnAltCnt)
         if( ver.Alt[0].Prob<245 )
         if( i_msk==0 ||                 // 180                              200
             i_msk==1 && msk.Alt[0].Prob>150 && i_r35==1 && r35.Alt[0].Prob>180 ||
-            i_msk==1 && msk.Alt[0].Prob==msk.Alt[1].Prob && per.Alt[0].Prob>100) 
-            {           
+            i_msk==1 && msk.Alt[0].Prob==msk.Alt[1].Prob && per.Alt[0].Prob>100)
+            {
             leo_kill_3x5_unique(&ver,first);
             leo_snapChar(&ver,"LEO PRN kill unique 3x5 Alt: ",0);
             }
@@ -935,7 +935,7 @@ if( !leo_strchr_codes_ansi("ØÙÆÇÝ", ver.Alt[0].Code) )
             disable_dis=TRUE;
         else if( i_r35==0 && i_msk==1 && msk.Alt[1].Prob>100 )
             disable_dis=TRUE;
-        else if( i_msk<2 && i_r35==1 && 
+        else if( i_msk<2 && i_r35==1 &&
             (r35.Alt[1].Prob>180 || msk.Alt[0].Prob>180))
             disable_dis=TRUE;
         else if( i_msk==0 && msk.Alt[0].Prob>100 && r35.Alt[i_r35].Prob>210 )
@@ -943,8 +943,8 @@ if( !leo_strchr_codes_ansi("ØÙÆÇÝ", ver.Alt[0].Code) )
         }
     if( i_per==0 && i_r35==0 && i_msk==0  )
         {
-        if( msk.Alt[0].Prob>150 && 
-            per.Alt[0].Prob>100 && 
+        if( msk.Alt[0].Prob>150 &&
+            per.Alt[0].Prob>100 &&
             r35.Alt[0].Prob>230)
             disable_dis=TRUE;
         }
@@ -954,9 +954,9 @@ if( disable_dis )
 }
 disable_r35=FALSE;
 
-if( ver.lnAltCnt==3 && 
-    ver.Alt[0].Code==ver.Alt[1].Code && 
-    ver.Alt[0].Code==ver.Alt[2].Code && 
+if( ver.lnAltCnt==3 &&
+    ver.Alt[0].Code==ver.Alt[1].Code &&
+    ver.Alt[0].Code==ver.Alt[2].Code &&
     (   ver.Alt[0].Method==REC_METHOD_NCU && ver.Alt[0].Prob>220 ||
         ver.Alt[0].Method==REC_METHOD_MSK && ver.Alt[0].Prob>230) )
     disable_r35=TRUE;
@@ -986,7 +986,7 @@ disable_r35=TRUE;
 leo_snapChar(&ver,"LEO PRN disable rerecog 3x5 : ",0);
 }
 
-if( over_bonus<2 && ver.lnAltCnt>1 && 
+if( over_bonus<2 && ver.lnAltCnt>1 &&
     over[ver.Alt[1].Code]>2 && ver.Alt[0].Prob<220    )
     {
     Word8 tmp=ver.Alt[1].Code;
@@ -1006,7 +1006,7 @@ if( wid*3<=hei && ver.lnAltCnt>1 &&
     }
 if( leo_strchr_codes("1|iI()[]tl", ver.Alt[0].Code) )
     {
-    if( !(wid*5>=hei*2 && disable_dis && 
+    if( !(wid*5>=hei*2 && disable_dis &&
         (ver.lnAltCnt==1||ver.lnAltCnt>1&&ver.Alt[0].Prob>ver.Alt[1].Prob+100) ) )
         {
         leo_snapChar(&ver,"LEO PRN BEFORE DISKRIM STICKS : ",0);
@@ -1026,14 +1026,14 @@ else
         }
     if( !disable_r35 &&
         ver.lnAltCnt &&
-        leo_strchr_codes("%#", ver.Alt[0].Code) && 
+        leo_strchr_codes("%#", ver.Alt[0].Code) &&
         ver.Alt[0].Prob>200 )
         {
         disable_r35=TRUE;
         leo_snapChar(&ver,"LEO PRN disable rerecog 3x5 : ",0);
         }
     if( !disable_r35 &&
-        inp && 
+        inp &&
         (object->recData.lwStatus&REC_STATUS_BROKEN_II)   )
         {
         disable_r35=TRUE;
@@ -1057,15 +1057,15 @@ else
     if( !(leo_typ_of_font&(LEO_FONT_TW|LEO_FONT_MTR)) && over_bonus<3 && !disable_dis )
         {
         Word8   pr;
-        
+
         loc = ver;
         leo_snapChar(&ver,"LEO PRN BEFORE DISKRIMINATORs : ",0);
         DIFPenaltyChar( &object->recData.recRaster,  &loc);
         pr = loc.Alt[0].Prob;
         if( pr!=ver.Alt[0].Prob && !inp && !ce )
             {
-            if( ver.lnAltCnt && 
-                ver.Alt[0].Prob==ver.Alt[1].Prob && 
+            if( ver.lnAltCnt &&
+                ver.Alt[0].Prob==ver.Alt[1].Prob &&
                 loc.Alt[1].Prob<pr )
                 pr = loc.Alt[1].Prob;
             leo_set_max_vers(&ver, pr);
@@ -1077,7 +1077,7 @@ else
             ver=loc;
             leo_sort_vers_prob( &ver );
             if( !leo_strchr_codes("()", ver.Alt[0].Code) )
-            if( oldcode!=ver.Alt[0].Code  && // over_bonus<3  && 
+            if( oldcode!=ver.Alt[0].Code  && // over_bonus<3  &&
                 !(leo_strchr_codes("%#", ver.Alt[0].Code)&&ver.Alt[0].Prob>200) &&
                 !(inp && (object->recData.lwStatus&REC_STATUS_BROKEN_II)))
                     {
@@ -1090,14 +1090,14 @@ else
 
                     leo_expert_prob(   &ver, object->recData.v3x5, &object->recData.recRaster,
                                         prob_3x5, prob_3x5, 1 , (over_bonus>2) , TRUE);
-        
+
                     }
-            
+
             leo_snapChar(&ver,"LEO PRN AFTER DISKRIMS : ",0);
             }
         } // end non TW
-    
-    } // end non sticks 
+
+    } // end non sticks
 if( leo_enable_fon_recog )
     {
     leo_set_max_vers(&ver, ver.Alt[0].Prob>60 ? ver.Alt[0].Prob-60 : 1);
@@ -1109,7 +1109,7 @@ leo_compress_prn(&ver);
 leo_reduce_typefaces(&ver);
 leo_compress( &ver );
 if( leo_alpha_type==ALPH_ALL )
-    { 
+    {
     if( alphabet[(Word8)'‡'] && alphabet['3'] )
         leo_reverse_russian(&ver, (Word8)'‡', '3');
     if( alphabet[(Word8)'Ž'] && alphabet['0'] )
@@ -1147,7 +1147,7 @@ if( per.lnAltCnt && ver.lnAltCnt && leo_comp_codes(ver.Alt[1].Code,per.Alt[0].Co
             break;
         }
     }
-if( per.lnAltCnt && ver.lnAltCnt>1 && ver.Alt[0].Prob==ver.Alt[1].Prob && ver.Alt[0].Prob>200 &&  
+if( per.lnAltCnt && ver.lnAltCnt>1 && ver.Alt[0].Prob==ver.Alt[1].Prob && ver.Alt[0].Prob>200 &&
     per.Alt[0].Prob>120 && ver.Alt[1].Code==per.Alt[0].Code )
     {
     ver.Alt[1].Code=ver.Alt[0].Code;
@@ -1157,7 +1157,7 @@ if( per.lnAltCnt && ver.lnAltCnt>1 && ver.Alt[0].Prob==ver.Alt[1].Prob && ver.Al
 if( alphabet['N'] )
     {
     Int32 i_N=leo_exist_code(&ver,'N');
-    if( i_N!=-1 && ver.Alt[i_N].Method==REC_METHOD_3X5 && 
+    if( i_N!=-1 && ver.Alt[i_N].Method==REC_METHOD_3X5 &&
         ver.Alt[0].Prob>240 &&  ver.Alt[i_N].Prob>200 )
         {
         ver.Alt[i_N].Prob=199;
@@ -1181,7 +1181,7 @@ memcpy(&object->recResults,&ver,sizeof(RecVersions));
 
 return TRUE;
 }
-            
+
 
 void leo_smoothing16(RecRaster *rr,RecRaster *rr_sm)
 {
@@ -1220,7 +1220,7 @@ if( R35Pack(&object->recData.recRaster, CompImage16x16,16, 16) )
     f16x16=1;
     R35Binarize(&recR, CompImage16x16,16, 16);
     memcpy(&rr, &recR, sizeof(RecRaster));
-    
+
     leo_smoothing16(&rr,&rr_sm);
     //object->recData.recRaster = rr_sm;
     }
@@ -1277,7 +1277,7 @@ if( !ver.lnAltCnt && R35Pack(&object->recData.recRaster, CompImage16x16,16,16) )
 	R35Binarize(&recR, CompImage16x16,16,16);
 	EVNRecogCharPRN(&recR, &ver);
 	}
-    
+
 
 object->lwStatusMethods |= REC_STATUS_METHODS_EVN;
 leo_reduce_typefaces(&ver);
@@ -1310,7 +1310,7 @@ if( !(object->recData.lwStatus & REC_STATUS_V3X5) )
     Int32 ind;
 	ver.lnAltCnt=0;
 
-    if( (leo_typ_of_font&LEO_FONT_MTR) && 
+    if( (leo_typ_of_font&LEO_FONT_MTR) &&
         ver.lnAltCnt && ver.Alt[0].Prob>30 )
         leo_set_max_vers(&ver,ver.Alt[0].Prob-30);
 
@@ -1331,7 +1331,7 @@ if( !(object->recData.lwStatus & REC_STATUS_V3X5) )
         }
     MSKRecogChar(leo_MSK_ndx[2],&object->recData.recRaster,&msk);
     leo_reduce_typefaces(&msk);
-    
+
 	if( leo_add_vers(&ver,&msk) )
 		object->lwStatusMethods |= REC_STATUS_METHODS_MSK;
 
@@ -1358,7 +1358,7 @@ disable_dis=FALSE;
 if( ver.lnAltCnt && per.lnAltCnt && r35.lnAltCnt && msk.lnAltCnt)
 {
 if( leo_alpha_type==ALPH_ALL )
-    { 
+    {
     if( alphabet[(Word8)'‡'] && alphabet['3'] )
         {
         leo_kill_double_russian(&ver, (Word8)'‡', '3');
@@ -1374,16 +1374,16 @@ if( leo_alpha_type==ALPH_ALL )
         leo_kill_double_russian(&msk, (Word8)'Ž', '0');
         }
     }
-if( ver.Alt[0].Prob>150 && ver.Alt[0].Method==REC_METHOD_3X5 && 
+if( ver.Alt[0].Prob>150 && ver.Alt[0].Method==REC_METHOD_3X5 &&
     ver.Alt[0].Code!=per.Alt[0].Code )
     { // kill unique alt from 3x5
     Word8 first=per.Alt[0].Code;
     Int32 i_msk=leo_exist_code(&msk,first);
     Int32 i_r35=leo_exist_code(&r35,first);
 
-    if( i_msk==0 || i_msk==1 && msk.Alt[0].Prob==msk.Alt[1].Prob && per.Alt[0].Prob>100) 
-        {       
-        leo_kill_3x5_unique(&ver,first);        
+    if( i_msk==0 || i_msk==1 && msk.Alt[0].Prob==msk.Alt[1].Prob && per.Alt[0].Prob>100)
+        {
+        leo_kill_3x5_unique(&ver,first);
         leo_snapChar(&ver,"LEO PRN MTR kill unique 3x5 Alt: ",0);
         }
     }
@@ -1400,7 +1400,7 @@ if( !leo_strchr_codes_ansi("ØÙÆ", ver.Alt[0].Code) )
             disable_dis=TRUE;
         else if( i_r35==0 && i_msk==1 && msk.Alt[1].Prob>100 )
             disable_dis=TRUE;
-        else if( i_msk<2 && i_r35==1 && 
+        else if( i_msk<2 && i_r35==1 &&
             (r35.Alt[1].Prob>180 || msk.Alt[0].Prob>180))
             disable_dis=TRUE;
         else if( i_msk==0 && r35.Alt[i_r35].Prob>200 && msk.Alt[0].Prob>180 )
@@ -1412,9 +1412,9 @@ if( disable_dis )
 }
 disable_r35=FALSE;
 
-if( ver.lnAltCnt==3 && 
-    ver.Alt[0].Code==ver.Alt[1].Code && 
-    ver.Alt[0].Code==ver.Alt[2].Code && 
+if( ver.lnAltCnt==3 &&
+    ver.Alt[0].Code==ver.Alt[1].Code &&
+    ver.Alt[0].Code==ver.Alt[2].Code &&
     (   ver.Alt[0].Method==REC_METHOD_NCU && ver.Alt[0].Prob>220 ||
         ver.Alt[0].Method==REC_METHOD_MSK && ver.Alt[0].Prob>230) )
     disable_r35=TRUE;
@@ -1460,10 +1460,10 @@ if( !(object->recData.lwStatus & REC_STATUS_V3X5) )
     if( !disable_r35 && !leo_strchr_codes("1|iI()[]tl", ver.Alt[0].Code))
         {
         leo_snapChar(&ver,"LEO PRN MTR BEFORE RERECOG3x5 : ",0);
-        
+
 
         leo_expert_prob(   &ver, object->recData.v3x5, &object->recData.recRaster,
-                            prob_3x5, prob_3x5, 1 , FALSE, FALSE); 
+                            prob_3x5, prob_3x5, 1 , FALSE, FALSE);
     }
 
     if( !disable_dis )
@@ -1478,10 +1478,10 @@ if( !(object->recData.lwStatus & REC_STATUS_V3X5) )
             leo_sort_vers_prob( &ver );
             }
         }
-    } // end non sticks 
-    
-if( ver.lnAltCnt==1 && 
-    ver.Alt[0].Code=='N' && 
+    } // end non sticks
+
+if( ver.lnAltCnt==1 &&
+    ver.Alt[0].Code=='N' &&
     ver.Alt[0].Method==REC_METHOD_EVN &&
     ver.Alt[0].Prob<100 &&
     !not_n)
@@ -1501,7 +1501,7 @@ leo_compress_prn(&ver);
 leo_reduce_typefaces(&ver);
 leo_compress( &ver );
 if( leo_alpha_type==ALPH_ALL )
-    { 
+    {
     if( alphabet[(Word8)'‡'] && alphabet['3'] )
         leo_reverse_russian(&ver, (Word8)'‡', '3');
     if( alphabet[(Word8)'Ž'] && alphabet['0'] )
@@ -1605,7 +1605,7 @@ switch( Method )
         if( R35Pack(&object->recData.recRaster, CompImage16x16,3,5) )
             R35RecogPrintCharIm3x5(CompImage16x16, &ver);
         break;
-    
+
     default :
         return FALSE;
     }

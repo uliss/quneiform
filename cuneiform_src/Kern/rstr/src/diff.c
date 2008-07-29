@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -203,7 +203,7 @@ snvers=c->nvers;
        language==LANG_SWEDISH && memchr("AEOaeo",let,6)) && !flacc ||
 
 	   // 05.09.2000 E.P.
-	   language==LANG_CZECH	   && 
+	   language==LANG_CZECH	   &&
 					memchr("AaCcDdEeIiNnOoRrSsTtUuYyZz",let,26) ||
        language==LANG_ROMAN    && memchr("AaIiSsTt",let,8) ||	// Включая нижние акценты s,t 05.07.2002 E.P.
        language==LANG_HUNGAR   && memchr("AaEeIiOoUu",let,10) ||
@@ -215,7 +215,7 @@ snvers=c->nvers;
 	   language==LANG_ESTONIAN   && memchr("AaOoSsUuZz",let,10) ||
 
 	   // 21.05.2002 E.P.
-	   language==LANG_TURKISH   && 
+	   language==LANG_TURKISH   &&
 		(memchr("AaCcIiGgOoSsUu",let,14) || let == i_sans_accent
 		) ||
 	   0
@@ -227,11 +227,11 @@ snvers=c->nvers;
    }
 
   // Урезание чужих букв из общих таблиц
-  if( 
+  if(
 	  language==LANG_POLISH && memchr("qQ",let,2) ||
-	
+
 	  // BULGAR 08.09.2000 E.P.
-	  language==LANG_RUSSIAN && langBul && 
+	  language==LANG_RUSSIAN && langBul &&
 		(
 		let==155 || let==235 || // Ыы 08.09.2000 E.P.
 		let==157 || let==237 || // Ээ 08.09.2000 E.P.
@@ -260,13 +260,13 @@ snvers=c->nvers;
   if( c->flg&(c_f_let|c_f_bad) ) // Oleg : 02-28-96 04:55pm : letter only
   if ( ((let=vers->let)=='i' || let=='j' ||
 	  (language==LANG_TURKISH && let==II_dot_accent) // 17.06.2002 E.P.
-	 ) 
-		&& 
+	 )
+		&&
 		(r=ij_dot(c))!=0
 	 )
-    {	if (r>0) 
-			break; 
-		vers--; 
+    {	if (r>0)
+			break;
+		vers--;
 		continue;
 	}
 
@@ -274,8 +274,8 @@ snvers=c->nvers;
   if ( language == LANG_TURKISH && ((let=vers->let)== i_sans_accent || let == II_dot_accent ) &&
 		(r = upper_right_angle( c )) > 0
 	 )
-  {	
-		vers->prob = MAX(2,vers->prob - r); 
+  {
+		vers->prob = MAX(2,vers->prob - r);
 		continue;
   }
 
@@ -602,11 +602,11 @@ INT ij_test(cell *c)
  version *v,*v1,*v2;
  INT d;
  cell *cc=0;	// 17.06.2002 E.P.
- 
+
  cc=dot_ij(c);
 
 /* очень плохо для i_sans_accent - tur001.tif и т.д. Nick 20.06.2002
-	// Пока нет лиги для II_dot_accent с прилипшей точкой. 
+	// Пока нет лиги для II_dot_accent с прилипшей точкой.
 	// 18.06.2002 E.P.
 	if( is_turkish_language(language) &&
 		check_letter(c, II_dot_accent)
@@ -642,13 +642,13 @@ INT ij_test(cell *c)
 
 	let = c->vers[0].let;
     if( is_cen_language(language) &&
-		memchr("SsZzCc",let,6)&&c->w*8>c->h*5 
+		memchr("SsZzCc",let,6)&&c->w*8>c->h*5
 	  )
        goto ret0;
 
 	// На всякий случай. 16.07.2001 E.P.
     if( is_baltic_language(language) &&
-		memchr("Eeg",let,3)&&c->w*8>c->h*5 
+		memchr("Eeg",let,3)&&c->w*8>c->h*5
 	  )
        goto ret0;
 
@@ -693,10 +693,10 @@ INT ij_test(cell *c)
   if (!cc->nvers || cc->vers[0].prob<TRPROB)
    goto ret0;
   for (v=cc->vers; v->let; v++)
-   if (!strchr("/l()J1It[]",v->let) && v->let!=liga_i && 
+   if (!strchr("/l()J1It[]",v->let) && v->let!=liga_i &&
 	   !(language==LANG_TURKISH && // 30.05.2002 E.P.
 			(v->let==i_sans_accent||v->let==II_dot_accent)
-		) && 
+		) &&
 	   v->prob>=TRPROB
 	  )
      goto ret0;
@@ -712,12 +712,12 @@ ret0:
  for (c->nvers=0,v1=v2=c->vers; v1->let; v1++)
  {
 	if( language==LANG_TURKISH && // 31.05.2002 E.P.
-		 v1->let==II_dot_accent && 
+		 v1->let==II_dot_accent &&
 		 !upper_dot_I(	c )      // Nick 23.06.2002
 		)
 		continue;
 
-	if ( v1->let!='i' && v1->let!='j' ) 
+	if ( v1->let!='i' && v1->let!='j' )
 	{
 		v2->let=v1->let;
 		v2->prob=v1->prob;
@@ -858,7 +858,7 @@ cell *dot_ij(cell *c)
 	 c->col+c->w/2-(cc->col+cc->w/2)<=MAX(2,c->w/4) &&
 	 cc->col+cc->w-6<=c->col+c->w &&
      (memchr("ij",( let = c->prevl->vers[0].let),2)==NULL &&
-		// Исправил || на "&& !" 08.09.2000 E.P. 
+		// Исправил || на "&& !" 08.09.2000 E.P.
       !( language == LANG_POLISH &&
 			( let == ZZ_dot_accent || let == z_dot_accent ) ||
 
@@ -1334,10 +1334,10 @@ static INT upper_right_angle(cell *c)
 
 	for(i=1; i < maxH; i++ )
 	{
-			if ( ( rBound[i] > rBound[i-1] || 
-				   ( rBound[i] == rBound[i-1] &&  rBound[i] * 2 < c->w ) 
+			if ( ( rBound[i] > rBound[i-1] ||
+				   ( rBound[i] == rBound[i-1] &&  rBound[i] * 2 < c->w )
 				 )
-				&& 	lBound[i] >= lBound[i-1] 
+				&& 	lBound[i] >= lBound[i-1]
                )
 				nDuga++;
 			else if( rBound[i] < rBound[i-1] )

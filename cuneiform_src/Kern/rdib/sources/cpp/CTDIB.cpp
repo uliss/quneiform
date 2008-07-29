@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -123,7 +123,7 @@ Bool32 CTDIB::AttachDIB()
 	{
 		return !DetachDIB();
 	}
-	
+
 
 	if ( IsExternalsSets() && hDIB && !UnderConstruction )
 		pDIB = pExternalLock(hDIB);
@@ -133,13 +133,13 @@ Bool32 CTDIB::AttachDIB()
 #else
 		pDIB = hDIB;
 #endif
-*/		
+*/
 	if ( pDIB )
 	{	// bitmapinfoheader
 		IsAvailable = TRUE;
 		pSimpleHead = (PCTDIBBITMAPINFOHEADER) pDIB;
 		wDirect = (pSimpleHead->biHeight > 0 ? BottomUp : TopDown );
-		
+
 		switch (pSimpleHead->biSize)
 		{
 		case CTDIB_VERSION_3_HEADER_SIZE:
@@ -228,14 +228,14 @@ Bool32 CTDIB::IsDIBAvailable()
 Int32 CTDIB::GetImageHeight()
 {
 	CTDIB_IFNODIB(0);
-	
+
 	return ((PCTDIBBITMAPINFOHEADER)pDIBHeader)->biHeight;
 }
 
 Word32 CTDIB::GetLinesNumber()
-{	
+{
 	CTDIB_IFNODIB(0);
-	
+
 	return abs(GetImageHeight());
 }
 //////////////////  !
@@ -249,14 +249,14 @@ Int32 CTDIB::GetImageWidth()
 Word32 CTDIB::GetLineWidth()
 {
 	CTDIB_IFNODIB(0);
-	
+
 	return abs(GetImageWidth());
 }
 
 Word32 CTDIB::GetLineWidthInBytes()
 {
 	CTDIB_IFNODIB(0);
-	
+
 	return DIB_BITS_TO_BYTES(GetLineWidth() * GetPixelSize());
 }
 
@@ -269,14 +269,14 @@ Word32 CTDIB::GetUsedLineWidthInBytes()
 Word32 CTDIB::GetImageSize()
 {
 	CTDIB_IFNODIB(0);
-	
+
 	return GetLinesNumber() * GetLineWidth();
 }
 
 Word32 CTDIB::GetImageSizeInBytes()
 {
 	CTDIB_IFNODIB(0);
-	
+
 	return GetLineWidthInBytes() * GetLinesNumber();
 }
 /////////////////////////////////////////////////////////////////////
@@ -366,12 +366,12 @@ Handle CTDIB::CreateDIBBegin(Int32 Width, Int32 Height, Word32 BitCount, Word32 
 	if ( !(hDIB = pExternalAlloc(FuelSize)) )
 		return FALSE;
 
-	if (!( pDIB = pExternalLock(hDIB)) ) 
+	if (!( pDIB = pExternalLock(hDIB)) )
 	{
 		pExternalFree(hDIB);
 		return FALSE;
 	}
-	
+
 	CreatedByMe = TRUE;
 	memset(pDIB, 0x00, FuelSize);
 	memcpy(pDIB, pHeader,HeaderSize);
@@ -394,10 +394,10 @@ Bool32 CTDIB::SetExternals(PCTDIBMemAlloc pfAlloc, PCTDIBMemFree pfFree, PCTDIBM
 	if ( !pfAlloc && !pfFree && !pfLock && !pfUnlock )
 		return FALSE;
 
-	if ( (void *)pfAlloc == (void *)pfFree   || 
-		 (void *)pfAlloc == (void *)pfLock   || 
+	if ( (void *)pfAlloc == (void *)pfFree   ||
+		 (void *)pfAlloc == (void *)pfLock   ||
 		 (void *)pfAlloc == (void *)pfUnlock ||
-		 (void *)pfFree  == (void *)pfLock   || 
+		 (void *)pfFree  == (void *)pfLock   ||
 		 (void *)pfFree  == (void *)pfUnlock   )
 	{
 		return FALSE;
@@ -456,7 +456,7 @@ Word32 CTDIB::UsedColors(Word32 wBitCount, Word32 wClrUsed)
 Bool32 CTDIB::SetResolutionDPI(Word32 X_Dpi, Word32 Y_Dpi)
 {
 	CTDIB_UNDECONST(FALSE);
-	
+
 	return SetResolutionDPM((Word32)CTDIB_DPI_TO_DPM(X_Dpi), (Word32)CTDIB_DPI_TO_DPM(Y_Dpi));
 }
 
@@ -483,7 +483,7 @@ Bool32 CTDIB::GetResolutionDPI(PWord32 pX_Dpi, PWord32 pY_Dpi)
 	Word32 y_dpi;
 
 	CTDIB_IFNODIB(FALSE);
-	
+
 	if ( pX_Dpi == NULL || !GetResolutionDPM(&x_dpi, &y_dpi) )
 		return FALSE;
 
@@ -502,7 +502,7 @@ Bool32 CTDIB::GetResolutionDPM(PWord32 pX_Dpm, PWord32 pY_Dpm)
 	PCTDIBBITMAPINFOHEADER pH;
 
 	CTDIB_IFNODIB(FALSE);
-	
+
 	if (pX_Dpm == NULL)
 		return FALSE;
 
@@ -556,7 +556,7 @@ PVOID CTDIB::GetPtrToPixel(Word32 wPixelX, Word32 wPixelY)
 		return NULL;
 
 	pLine = (PWord8)GetPtrToLine(wPixelY);
-	
+
 	if ( !pLine )
 		return NULL;
 
@@ -601,7 +601,7 @@ Bool32 CTDIB::SetRGBQuad(Word32 wQuad, CTDIBRGBQUAD Quad)
 	{
 		return FALSE;
 	}
-	
+
     pCurrentQuad = (PCTDIBRGBQUAD)GetPtrToRGB();
 	pCurrentQuad += wQuad;
 
@@ -617,7 +617,7 @@ Bool32 CTDIB::DestroyDIB()
 	Bool32 bRet = TRUE;
 
 	CTDIB_IFNODIB(FALSE);
-	
+
 	hMem = hDIB;
 	FreeMem = CreatedByMe && IsExternalsSets();
 
@@ -702,12 +702,12 @@ Bool32 CTDIB::GetRGBQuad(Word32 wQuad, PCTDIBRGBQUAD pQuad)
 
 	if ( pRGBQuads == NULL )
 		return FALSE;
-	
+
 	if ( wQuad > GetActualColorNumber() )
 	{
 		return FALSE;
 	}
-	
+
     pCurrentQuad = (PCTDIBRGBQUAD)GetPtrToRGB();
 	pCurrentQuad += wQuad;
 
@@ -749,7 +749,7 @@ Bool32 CTDIB::SetFuelLineFromDIB(CTDIB * pSrcDIB, Word32 nSrcLine, Word32 nDscLi
 
 	if ( pSrcDIB->GetPixelSize() != this->GetPixelSize() )
 		return FALSE;
-	
+
 	Word32 t = pSrcDIB->GetUsedLineWidthInBytes() > this->GetUsedLineWidthInBytes() + ((wSrcX * GetPixelSize()) / 8) ? 1 : 0;
 	switch ( this->GetPixelSize() )
 	{
@@ -777,12 +777,12 @@ Bool32 CTDIB::SetFuelLineFromDIB(CTDIB * pSrcDIB, Word32 nSrcLine, Word32 nDscLi
 //			while ( wByte-- )
 			while ( wByte - t > 0)
 			{
-/*	Commemted by Andrey 11.04.2002			
+/*	Commemted by Andrey 11.04.2002
 				wShiftic = *(pwByte + 1);
 				*pwByte = *pwByte << wShift;
 				wShiftic = wShiftic >> (8 - wShift);
 				*pwByte |= wShiftic;
-				pwByte++; 
+				pwByte++;
 */
 				wByte--;
 				if (wByte) wShiftic = *(pwByte + 1);
@@ -792,11 +792,11 @@ Bool32 CTDIB::SetFuelLineFromDIB(CTDIB * pSrcDIB, Word32 nSrcLine, Word32 nDscLi
 				{
 					wShiftic = wShiftic >> (8 - wShift);
 					*pwByte |= wShiftic;
-					pwByte++; 
+					pwByte++;
 				}
 			}
 		}
-		memcpy( pDscStart, pBuffer, this->GetUsedLineWidthInBytes() ); 
+		memcpy( pDscStart, pBuffer, this->GetUsedLineWidthInBytes() );
 
 		delete[] pBuffer;
 		break;
@@ -818,7 +818,7 @@ Bool32 CTDIB::CopyPalleteFromDIB(CTDIB *pSrcDIB)
 	CTDIBRGBQUAD Quad;
 	Word32       wQuad;
 	Word32       nColors = this->GetActualColorNumber();
-	
+
 	CTDIB_IFNODIB(FALSE);
 
 	if ( pSrcDIB->GetActualColorNumber() != nColors )
@@ -847,7 +847,7 @@ Bool32 CTDIB::CopyDPIFromDIB(CTDIB *pSrcDIB)
 	if ( pSrcDIB->GetResolutionDPM( &wX, &wY ) &&
 		 this->SetResolutionDPM( wX, wY )         )
 		 return TRUE;
-	
+
 	return FALSE;
 }
 
@@ -857,7 +857,7 @@ Word32 CTDIB::GetWhitePixel()
 	CTDIBRGBQUAD sQ;
 	Word32 i;
 	Word32 Color = 0;
-	
+
 	CTDIB_IFNODIB(0);
 
 
@@ -911,7 +911,7 @@ Word32 CTDIB::GetBlackPixel()
 	CTDIBRGBQUAD sQ;
 	Word32 i;
 	Word32 Color = 0;
-	
+
 	CTDIB_IFNODIB(0);
 
 
@@ -952,11 +952,11 @@ Word32 CTDIB::GetBlackPixel()
 
 Bool32 CTDIB::FirstQUADLighterThenSecond(PCTDIBRGBQUAD fQuad, PCTDIBRGBQUAD sQuad)
 {
-	return ( (fQuad->rgbBlue  * fQuad->rgbBlue  + 
-		      fQuad->rgbGreen * fQuad->rgbGreen + 
+	return ( (fQuad->rgbBlue  * fQuad->rgbBlue  +
+		      fQuad->rgbGreen * fQuad->rgbGreen +
 			  fQuad->rgbRed   * fQuad->rgbRed)  >
-			 (sQuad->rgbBlue  * sQuad->rgbBlue  + 
-			  sQuad->rgbGreen * sQuad->rgbGreen + 
+			 (sQuad->rgbBlue  * sQuad->rgbBlue  +
+			  sQuad->rgbGreen * sQuad->rgbGreen +
 			  sQuad->rgbRed   * sQuad->rgbRed)  ?
 			 TRUE : FALSE );
 }

@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -2030,59 +2030,59 @@ PR_BEG	"%d Korobs;  S=%ld (%d)\n"
 PR_END
 }
 /*----------------------------------------------------------------------*/
-void	memory_allocation ()	
+void	memory_allocation ()
 {			// 11.02.1992
 	WORD	k;
 //////	hMem  = GlobalAlloc (GHND, bufl);
 //////	lpMem = GlobalLock (hMem);
 
-	if (Flag_OTL)  
+	if (Flag_OTL)
 		PR_BEG  "N.B.p.O.M=%04X", N_Bytes_per_ONE_MEM); PR_END
 
-	for (k=0; k<8; k++)  
+	for (k=0; k<8; k++)
 	{	//~64 000 b (63 750) per each of 8 MEMs:
-	    if (hMem08[k])  
+	    if (hMem08[k])
 			PR_BEG "MEM.ALL ERR: hMem08 [%d] = %04X", k, hMem08 [k]); PR_END
-	    
+
 		hMem08[k] = KRONROD_ALLOC(N_Bytes_per_ONE_MEM);   //GlobalAlloc (GHND, N_Bytes_per_ONE_MEM);
-		
-		if (hMem08[k]==0)  
+
+		if (hMem08[k]==0)
 			PR_BEG "hMem08 [%d] = %04X", k, hMem08 [k]); PR_END
 	}
 
-	if (Flag_OTL)  
+	if (Flag_OTL)
 		PR_BEG  "N.B.in.all.MBIT=%04X", N_Bytes_in_all_MBIT); PR_END
 
-	if (hMBIT)  
+	if (hMBIT)
 		PR_BEG "MEM.ALL ERR: hMBIT = %04X", hMBIT);	PR_END
-	
+
 	hMBIT = KRONROD_ALLOC(N_Bytes_in_all_MBIT); //GlobalAlloc (GHND, N_Bytes_in_all_MBIT);	//~63 800 b
-	
-	if (hMBIT==0)  
+
+	if (hMBIT==0)
 		PR_BEG "hMBIT = %04X", hMBIT);	PR_END
 
-	if (hMREF)  
+	if (hMREF)
 		PR_BEG "MEM.ALL ERR: hMREF = %04X", hMREF);	PR_END
-	
+
 	hMREF = KRONROD_ALLOC(NJ*6); //GlobalAlloc (GHND, NJ*6);		// NJ*3 Int16
-	
-	if (hMREF==0)  
+
+	if (hMREF==0)
 		PR_BEG "hMREF = %04X", hMREF);	PR_END
 
-	if (hPPMEM)  
+	if (hPPMEM)
 		PR_BEG "MEM.ALL ERR: hPPMEM = %04X", hPPMEM);  PR_END
 //////	hPPMEM = GlobalAlloc (GHND, MAX_NI*4);		// MAX_NI far *
-	
+
 	hPPMEM = KRONROD_ALLOC(NI*4); //GlobalAlloc (GHND, NI*4); // NI *****
-	
-	if (hPPMEM==0)  
+
+	if (hPPMEM==0)
 		PR_BEG "hPPMEM = %04X", hPPMEM);  PR_END
 /*......................................................................*/
-	for (k=0; k<8; k++)  
+	for (k=0; k<8; k++)
 	{
 	    pMem08[k] = KRONROD_LOCK(hMem08[k]); //GlobalLock (hMem08 [k]);
-	
-		if (pMem08[k]==NULL)  
+
+		if (pMem08[k]==NULL)
 			PR_BEG "pMem08[%d] = NULL", k);  PR_END
 	}
 
@@ -2169,31 +2169,31 @@ KEY	PR_BEG	"pMem08: %lX,%lX,%lX,%lX\n....... %lX,%lX,%lX,%lX",
 //	MKPR "MEM ALL BufQ h,p %X %lX", hBufQ, pBufQ);	MMM_NP;
 }
 /*----------------------------------------------------------------------*/
-void	memory_free ()	
+void	memory_free ()
 {				// 03.11.1992
 	WORD	k;
 				//for 8 MEMs
-	for (k=0; k<8; k++)  
+	for (k=0; k<8; k++)
 	{
-		if (hMem08[k])  
+		if (hMem08[k])
 			KRONROD_FREE( hMem08[k] ); //GlobalFree (hMem08 [k]);
-		
+
 		hMem08[k] = 0;
 	}
 
-	if (hMBIT)	
-		KRONROD_FREE(hMBIT); //GlobalFree (hMBIT);	
-	
+	if (hMBIT)
+		KRONROD_FREE(hMBIT); //GlobalFree (hMBIT);
+
 	hMBIT = 0;
 
-	if (hMREF)	
-		KRONROD_FREE(hMREF); //GlobalFree (hMREF);	
-	
+	if (hMREF)
+		KRONROD_FREE(hMREF); //GlobalFree (hMREF);
+
 	hMREF = 0;
 
-	if (hPPMEM)	
-		KRONROD_FREE(hPPMEM); //GlobalFree (hPPMEM);	
-	
+	if (hPPMEM)
+		KRONROD_FREE(hPPMEM); //GlobalFree (hPPMEM);
+
 	hPPMEM = 0;
 }
 /*----------------------------------------------------------------------*/

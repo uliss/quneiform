@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,21 +43,21 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /*Andrey: whole file moved to RNORM
 //-----------------------
 #include <memory.h>
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <assert.h>
@@ -153,7 +153,7 @@ public:
 	Interval() {}
 	Interval(Int32 beg, Int32 end)	{ b=beg; e=end;	}
 	Interval operator *(Int32 fact)
-	{ 
+	{
 		Interval ival=*this;
 		ival.b *= fact; ival.e *= fact; return ival;
 	}
@@ -181,7 +181,7 @@ public:
 #define		SIDE_UP		2
 #define		SIDE_RIGHT	4
 #define		SIDE_DOWN	8
-	Interval habris[MAXHEIGHT];	//контур по левому и правому краю 
+	Interval habris[MAXHEIGHT];	//контур по левому и правому краю
 	Interval vabris[MAXWIDTH];  //контур по верхнему и нижнему краю
 	LineWeight	bigLinesWeights[MAXBIGLINES+1];
 
@@ -227,7 +227,7 @@ class GarbageTestBag
 	Int32 nSizeGroup;	//число групп компонент сходного размер
 	Int32 nLargestGroup;//номер наибольшей
 	SizeGroup sizeGroups[MAXSIZENUMBER];	//сами группы
-	
+
 	void AddToGroup(Int32 nGroup, CCOM_comp *comp);
 	void NewGroup(CCOM_comp *comp);
 	Int32 FindGroup(CCOM_comp *comp);
@@ -309,7 +309,7 @@ void GarbageTestBag::NewGroup(CCOM_comp *comp)
 		pGr=sizeGroups;	 nMin=0;
 		Int32 sMin=pGr->nComp;
 		for (Int32 i=1; i<nSizeGroup; i++,pGr++)
-			if (pGr->nComp<sMin)	{ nMin=i, sMin=pGr->nComp; } 
+			if (pGr->nComp<sMin)	{ nMin=i, sMin=pGr->nComp; }
 	}
 	else
 		nSizeGroup++;
@@ -350,7 +350,7 @@ Int32 GarbageTestBag::IsGarbage()
 			maxGroupSize<=3 && nGarbArea>100*nLetArea)
 			return 1;
 	}
-	
+
 	if (maxGroupSize>=5 && 8*maxGroupSize>nLetComp)
 		return -1;
 
@@ -396,9 +396,9 @@ static PAGEINFO PageInfo;
 static Handle hCCOM;
 static Handle hCCOMBig;
 static Handle hCPage;
-static Int32 compNum; 
+static Int32 compNum;
 static CCOM_comp *CompList[MAXCOMPNUMBER];
-static Int32 negNum; 
+static Int32 negNum;
 static CCOM_comp *NegList[MAXCOMPNUMBER];
 static Word8 NegFlag[MAXCOMPNUMBER];
 #define NEGFLAG	1
@@ -412,11 +412,11 @@ Bool32 PUMA_XSetTemplate(Rect32 rect)
 	Rect32 old_rect = gRectTemplate;
 	Bool32 rc = FALSE;
 	CIMAGEBITMAPINFOHEADER info = {0};
-	
+
 	if(CIMAGE_GetImageInfo((PWord8)PUMA_IMAGE_USER,&info))
 	{
 		CIMAGE_Rect full = {0,0,info.biWidth,info.biHeight};
-		PAGEINFO           PInfo = {0};  
+		PAGEINFO           PInfo = {0};
 
 		GetPageInfo(hCPAGE,&PInfo);
 
@@ -444,7 +444,7 @@ Bool32 PUMA_XSetTemplate(Rect32 rect)
 			if(rect.left>=0 && rect.top>=0 &&
 				(rect.right-rect.left)<=info.biWidth &&
 				(rect.bottom - rect.top)<=info.biHeight)
-                
+
 			{
 				CIMAGE_Rect r = {rect.left,rect.top,rect.right-rect.left,rect.bottom-rect.top};
 				rc = CIMAGE_RemoveReadCloseRects((PWord8)PUMA_IMAGE_USER,1, &r);
@@ -472,7 +472,7 @@ CCOM_comp * dualLP(CCOM_comp *comp)
 	static CCOM_comp newComp;
 	static Word8 lp[6000+2];
 	RecRaster turned;
-	RecRaster org; 
+	RecRaster org;
 	Int16 lp_size=0,numcomp=0;
 	if (!CCOM_GetRaster(comp,&org ))
 		return NULL;
@@ -561,7 +561,7 @@ static Int32 InList(CCOM_comp * comp, CCOM_comp *list[])
 
 static Int32 GetCompInfo(CompInfo *info)
 {
-	CCOM_comp *comp=info->comp; 
+	CCOM_comp *comp=info->comp;
 	Interval *phabris,*habris;	phabris=habris=info->habris;
 	Interval *pvabris,*vabris;	pvabris=vabris=info->vabris;
 	Int32 i,dark=0,hwhole=0,vwhole=0,height=0,width=0;
@@ -571,13 +571,13 @@ static Int32 GetCompInfo(CompInfo *info)
 
 	for (i=0; i<comp->h; i++,phabris++)
 	{
-		phabris->b=MAXWIDTH;	
-		phabris->e=0;			
+		phabris->b=MAXWIDTH;
+		phabris->e=0;
 	}
 	for (i=0; i<comp->w; i++,pvabris++)
 	{
 		pvabris->b=MAXHEIGHT;
-		pvabris->e=0;        
+		pvabris->e=0;
 	}
 
 	if (comp->scale & CCOM_LONGLINES)
@@ -586,7 +586,7 @@ static Int32 GetCompInfo(CompInfo *info)
 	//	lnhead = (_lnhead*)((char*)comp + sizeof(CCOM_comp) + sizeof(Word16));
 		lnhead = (CCOM_lnhead*)(comp->linerep + sizeof(Word16));
 		while( lnhead->lth )						// по линиям
-		{ 
+		{
 			Int32 lineDark=0;
 			Int16 cInter = lnhead->row;
 			CCOM_interval16 *inter = (CCOM_interval16*)(lnhead+1);
@@ -626,12 +626,12 @@ static Int32 GetCompInfo(CompInfo *info)
 	//	lnhead = (_lnhead*)((char*)comp + sizeof(CCOM_comp) + sizeof(Word16));
 		lnhead = (CCOM_lnhead*)(comp->linerep + sizeof(Word16));
 		while( lnhead->lth )						// по линиям
-		{ 
+		{
 			Int32 lineDark=0;
 			Int16 cInter = lnhead->row;
 			CCOM_interval *inter = (CCOM_interval*)(lnhead+1);
 			while( inter->l && cInter<MAXHEIGHT )	// по интервалам линии
-			{ 
+			{
 				if (!LDPUMA_Skip(hAutoTemplateBCShow))
 				{
 					Int16 h=comp->upper+cInter;
@@ -660,7 +660,7 @@ static Int32 GetCompInfo(CompInfo *info)
 			lnhead = (CCOM_lnhead*)((char*)lnhead+lnhead->lth);
 		}
 	}
-//test				
+//test
 	if (!LDPUMA_Skip(hAutoTemplateBCShow))
 	{
 		LDPUMA_WaitUserInput(hDebugAutoTemplate,NULL);
@@ -750,7 +750,7 @@ static SmRect32	*Cpattern(Interval abris[], Int32 len, Int32 side)
 	{
 		sw += pint->e-pint->b;
 		sm += pint->e+pint->b;
-		sb += pint->b; 
+		sb += pint->b;
 		se += pint->e;
 		right = MAX(right,pint->e);
 		left  = MIN(left,pint->b);
@@ -772,7 +772,7 @@ static SmRect32	*Cpattern(Interval abris[], Int32 len, Int32 side)
 		}
 		for (ib2=ib1 ; ib2<len; ib2++,intb++)  //ib2 - начало выступа в середине
 			if (intb->e > sw) break;
-				  
+
 		Int32 botmax=0;
 		for ( ; ie1>ib2; ie1--,inte--)		   //ie1 - начало загогулины в конце
 		{
@@ -839,7 +839,7 @@ static Bool32 Sticklike(Interval abris[], Int32 len, Int32 width, Interval *boun
 
 	if (16*width>=len)
 		return NULL;
-	
+
 	Interval *pint=abris;
 	Int32 i,mb=0,me=0,jut=0;
 	for (i=0; i<len; i++,pint++)
@@ -977,7 +977,7 @@ static Bool32 CompFit(CompInfo *info)
 static void SetNewRect(CompInfo *info, Rect32 *rect)
 {
 	Rect32	newRect=*rect, *bay=&info->rcBay;
-	if (info->hdens>=info->vdens && (info->side & (SIDE_LEFT | SIDE_RIGHT)))  // С-образный 
+	if (info->hdens>=info->vdens && (info->side & (SIDE_LEFT | SIDE_RIGHT)))  // С-образный
 	{
 		if (info->side & SIDE_LEFT)
 			newRect.left = MAX(newRect.left,bay->left);
@@ -1085,7 +1085,7 @@ static Bool32 LetterOverRect(CCOM_comp * comp, Rect32 *rect, Bool32 mode)
 	SmRect32 smRect(*rect);
 	GarbageTestBag	bag(smRect);
 	Int32 rate,size=MAX(rect->right-rect->left,rect->bottom-rect->top)/16;
-	comp = (comp==0) ? 
+	comp = (comp==0) ?
 		CCOM_GetFirst ((Int32)hCCOM, NULL) :
 		CCOM_GetNext (comp, NULL);
 
@@ -1105,10 +1105,10 @@ static Bool32 LetterOverRect(CCOM_comp * comp, Rect32 *rect, Bool32 mode)
 				rate=-1;
 				if (!mode && MAX(comp->w,comp->h)>size)
 					if (TestForNegative(comp,(CCOM_handle)hCCOMBig,hCPage,(PWord8)((PageInfo.Angle==0) ? PUMA_IMAGE_USER : PUMA_IMAGE_TURN)))
-							goto end;		  
+							goto end;
 
 				if ((rate=bag.AddAndTest(comp))<0)	//точно не мусор - можно заканчивать
-					goto end;		  
+					goto end;
 			}
 		}
 	}
@@ -1266,7 +1266,7 @@ static Bool32 BigComps()
 //			CCOM_comp * turn=dualLP(pcomp);
 //			if (turn)	denst = density(turn);
 			if (changes=TestOcomp(pcomp,&cavRect))
-			{											   
+			{
 				if (!TestForNegative(pcomp,(CCOM_handle)hCCOMBig,hCPage,(PWord8)((PageInfo.Angle==0) ? PUMA_IMAGE_USER : PUMA_IMAGE_TURN)))
 				{
 					if (compNum<MAXCOMPNUMBER) CompList[compNum++]=pcomp;
@@ -1303,7 +1303,7 @@ static Bool32 BigComps()
 
 	gRectTemplate=newRect;
 /*
-	Rect16 box=toRect16(newRect);																						   
+	Rect16 box=toRect16(newRect);
 	LDPUMA_DrawRect(hWndTurn,&box,0,wRGB(0,0,255),3,key);
     LDPUMA_Skip(hDebugAutoTemplate);
 	LDPUMA_DeleteRects(hWndTurn,key);
@@ -1374,13 +1374,13 @@ static Bool32 NextGap(Int32 *profile, Int32 size, Int32 tol, Int32 *pos, Point32
 	while (*p++>=tol);
 
 	gap->x=(p-1)-profile;
-	
+
 	while (*p<tol && p<end) p++;
 
 	gap->y=(p-1)-profile;
 	*pos=p-profile;
 	return TRUE;
-}			 
+}
 
 static Int32 GetGaps(Int32 size, Int32 tol, Int32 *profile, Point32 *gaps)
 {
@@ -1499,14 +1499,14 @@ static Bool32 Margins()
 	}
 	return TRUE;
 }
-			  
+
 static Bool32 DoAutoTemplate(PRSPreProcessImage inImage)
 {
 	Image = inImage;
 	hCCOM=*(Image->phCCOM);
     memset(&PageInfo,0,sizeof(PAGEINFO));
-	GetPageInfo(hCPage,&PageInfo);				 
-	if (PageInfo.BitPerPixel != 1)				 
+	GetPageInfo(hCPage,&PageInfo);
+	if (PageInfo.BitPerPixel != 1)
 		return TRUE;
 
 	Point32 size={PageInfo.Width,PageInfo.Height};
@@ -1529,10 +1529,10 @@ static Bool32 DoAutoTemplate(PRSPreProcessImage inImage)
 	(Image->fnXSetTemplate)(Image->gRectTemplate);
 
 	PageInfo.status |=	PINFO_AUTOTEMPLATE;
-	SetPageInfo(hCPage,PageInfo);				 
+	SetPageInfo(hCPage,PageInfo);
 
 	if (hCCOMBig)  CCOM_DeleteContainer((CCOM_handle)hCCOMBig);
-	
+
 	return TRUE;
 }
 
@@ -1541,7 +1541,7 @@ static Init()
 	memset(CompList,0,sizeof(CompList));
 	memset(NegList,0,sizeof(NegList));
 	memset(NegFlag,0,sizeof(NegFlag));
-	compNum=negNum=0; 
+	compNum=negNum=0;
 }
 
 Bool32 AutoTemplate(PRSPreProcessImage Image)

@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,22 +43,22 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
     #ifndef __MPUMA_H__
     #define __MPUMA_H__
-    
+
     /*#include <crtdbg.h>*/
-    
+
     #include "resource.h"
     #include "puma.h"
     #include "dpuma.h"
@@ -91,7 +91,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     #define BYTE Int8
-    
+
     // predefined
     #ifdef __PUMA_CPP__
     	#define EXTERN
@@ -106,10 +106,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     	#define VAL2(a,b)
     	#define VAL4(a,b,c,d)
     #endif
-    
+
     #define NOSAVEBACKUP	//не сохранять предысторию ручной фрагментации - Paul 29-12-2000
-    
-    
+
+
     // global variables
     // Исходные данные, передаваемые пользователем
     EXTERN Word32 gnLanguage			VAL(7);
@@ -123,36 +123,36 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     EXTERN Bool32 gbFormat				VAL(TRUE); // устарела см. gnFormat
     EXTERN Word32 gnFormat				VAL(1);
     EXTERN Bool32 gnPreserveLineBreaks  VAL(FALSE);
-    
+
     EXTERN Word8  gnUnrecogChar			VAL('~');
-    
+
     EXTERN Word32 gnPictures			VAL(1);
     EXTERN Word32 gnTables				VAL(1);
-    
+
     EXTERN char * gpUserDictName		VAL("");
     EXTERN char * gpSerifName			VAL("Times New Roman");
     EXTERN char * gpSansSerifName		VAL("Arial");
     EXTERN char * gpCourierName			VAL("Courier New");
-    
+
     EXTERN char	  szInputFileName[260];
     EXTERN PWord8 gpInputDIB			VAL(NULL);
     EXTERN PWord8 gpRecogDIB			VAL(NULL);
     EXTERN Bool32 gbAutoRotate			VAL(FALSE);
     EXTERN Point32 gPageSize			VAL2(209,295); // формат А4 в миллиметрах
     EXTERN Rect32 gRectTemplate			VAL4(-1,-1,-1,-1);
-    
+
     // Данные образуемые в результате работы.
     EXTERN char szFormatStorageName[]	VAL("%sstorage.tmp");
     EXTERN char szFormatTbl1[]			VAL("%stbl1%s.dat");
-    
+
     EXTERN Int32 gnNumberTables			VAL(0);
-    
+
     EXTERN Handle       hCCOM			      VAL(NULL);
     EXTERN Handle       hCPAGE				  VAL(NULL);
     EXTERN CLINE_handle hCLINE                VAL(0);
     EXTERN Handle       hLinesCCOM            VAL(NULL); // компоненты с линиями
     EXTERN Handle       ghEdPage			  VAL(NULL);
-    
+
     // 1. Отладочная информаци
     EXTERN Handle hDebugRoot		          VAL(NULL);
     EXTERN Handle hDebugCancelStrings         VAL(NULL);
@@ -191,7 +191,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     EXTERN Handle hDebugLines			      VAL(NULL);
     EXTERN Handle hDebugVerLines		      VAL(NULL);
     EXTERN Handle hDebugRSL		              VAL(NULL);
-    
+
     // 3
     EXTERN Handle hDebugRootLayout		      VAL(NULL);
     EXTERN Handle hDebugLayout			      VAL(NULL);
@@ -213,15 +213,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     EXTERN Handle hDebugRootFormatting	      VAL(NULL);
     EXTERN Handle hDebugConverters		      VAL(NULL);
     EXTERN Handle hDebugCeglCorr		      VAL(NULL);
-    
-    
+
+
     EXTERN Handle hDebugMainDebug             VAL(NULL);
     EXTERN Handle hDebugMainTimeControl       VAL(NULL);
-    
+
     EXTERN Handle hDebugLayoutFromFile	      VAL(NULL);
     EXTERN Handle hDebugLayoutToFile	      VAL(NULL);
     EXTERN Handle hDebugHandLayout		      VAL(NULL);
-    
+
     EXTERN Handle hDebugCancelPropertyConsole                       VAL(NULL);
     EXTERN Handle hDebugCancelConsoleOutputText                     VAL(NULL);
     EXTERN Handle					hDebugCancelConsoleKeglOutput	VAL(NULL);
@@ -230,15 +230,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     EXTERN Handle					hDebugCancelFictive				VAL(NULL);
     EXTERN Handle					hDebugCancelTurn				VAL(NULL);
     EXTERN Handle					hDebugEnablePrintFormatted		VAL(NULL);
-    
+
     EXTERN char						szLayoutFileName[256]			VAL("Layout.bin");
     EXTERN unsigned					nDebugReturnCode				VAL(0);
     EXTERN unsigned					nDebugAllocMemory				VAL(0);
-    
+
     EXTERN FNPUMA_ProgressStart		fnProgressStart					VAL(NULL);
     EXTERN FNPUMA_ProgressFinish	fnProgressFinish				VAL(NULL);
     EXTERN FNPUMA_ProgressStep		fnProgressStep					VAL(NULL);
-    
+
     EXTERN Word32					g_prgStep						VAL(0);
     //Allex  при разделении бинаризации и обработки сырь
     //имя картинки 'lpRecogName' сделано глабольной переменной
@@ -247,26 +247,26 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     EXTERN Bool32                   gneed_clean_line                VAL(FALSE);
     EXTERN Bool32                   gKillVSLComponents              VAL(TRUE);
     EXTERN Word8  gnSpecialProject			VAL(0);
-  
+
     //allex
     #ifdef _DEBUG
-    
+
     EXTERN _CrtMemState				g_dbgMemState;
-    
+
     #endif
-    
+
     // Флаги обновления контейнеров
     // перехали в mpumatime.h
     //#define FLG_UPDATE_NO		0
     //#define FLG_UPDATE			(Word32)-1
     //#define FLG_UPDATE_CCOM		0x1
     //#define FLG_UPDATE_CPAGE	0x2
-    
+
     EXTERN Word32 g_flgUpdate			VAL(0);
-    
+
     Bool32 IsUpdate(Word32 flg);
     void   SetUpdate(Word32 flgAdd,Word32 flgRemove);
-    
+
     //typedef struct
     //	{
     //	Word32 dwBeg;   // Начало текущего диапозона
@@ -275,9 +275,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     //	Word32 dwStep;  // текущий номер шага
     //	char * name;	// текущее название шага
     //	} PRGTIME;
-    
+
     EXTERN PRGTIME g_PrgTime;
-    
+
     //////////////////////////////////////////////////////////////////
     // 07.07,2000 Allex
     // Вынес Бинаризацию наверх из PreProcessImage
@@ -296,12 +296,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     char *	GetModulePath();
     char *	GetModuleTempPath();
     char *  GetResourceString(Word32 id);
-    
+
     Bool32 InitMem(void);
     void   DoneMem(void);
     void   GiveMainBuff (void **vvBuff, int *Size);
     void   GiveWorkBuff (void **vvBuff, int *Size);
-    
+
     //use SJTL.dll
     #ifdef __cplusplus
     	extern "C" {
@@ -316,24 +316,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     #ifdef __cplusplus
     	}
     #endif
-    
-    
+
+
     Bool32 ModulesInit(Handle  ghStorage);
     Bool32 ModulesDone(Handle  ghStorage);
     char * GetModulesString(Word32 dwError);
-    
+
     Bool32 Layout(PWord8 lpdata);
     Bool32 Recognize();
-    
+
     void InitDebug();
     void DoneDebug();
-    
+
     // STATIC
     static char lang_suff[][4] ={
     	"","GRM","FRN","RUS","SWE","SPA","ITA","R&E","UKR","SER","CRO",
     	"POL","DAN","POR","DUT","DIG"
     	};
-    
+
     // Enum.cpp
     long	_EnumFormats(long prev);
     long	_EnumCodes(long f,long prev);
@@ -341,7 +341,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     long	_EnumFormatMode(long prev);
     long	_EnumTable(long prev);
     long	_EnumPicture(long prev);
-    
+
     // common.cpp
     void	ClearAll( void );
     Bool32  rexcProgressStep  (Word32);
@@ -364,7 +364,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     Bool32	DonePRGTIME();
     PRGTIME	StorePRGTIME(Word32 beg, Word32 end);// Устанавливает дапозон изменений, который учитывается в  ProgressStep
     void 	RestorePRGTIME(PRGTIME prev);// Устанавливает дапозон изменений, который учитывается в  ProgressStep
-    
+
     void	ProgressStart();
     void	ProgressFinish();
     Bool32	ProgressStep(Word32 step,char*name,Word32 percent);
@@ -382,7 +382,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     //
     Bool32 PreProcessImage();
     Bool32 BinariseImage();
-    
+
     Bool32 PrintResult(int num,CSTR_line lout,Handle hCPAGE);
     Bool32 ConverROUT(char * lpOutFileName, Int32 lnFormat, Int32 lnCode,Bool32 bAppend);
     Word32 ConverROUTtoMemory(Handle hEd, Int32 lnFormat, Int32 lnCode, Byte * lpMem, Word32 size);
@@ -395,5 +395,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     Bool32 CompIsGood (CCOM_comp *, Int32 );
     */
     //////////////////////////////////////////////////////////////////////////////////
-    
+
     #endif

@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -68,7 +68,7 @@ extern BOOL dpNegRecD;
 extern BOOL dpRecOneLetter;
 
 #define TYPE_RNEG_TEMP_PHSTR CPAGE_GetInternalType("TYPE_RNEG_TEMP_PHSTR")
- 
+
 
 void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
 {
@@ -93,13 +93,13 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
  double neg_str_control;
  int len_result;
  double prec;
- double prob0[2], prob1[2]; 
+ double prob0[2], prob1[2];
 
  for(i=1;i<nRC;i++)
 	 now=now->next;
- 
+
  NegSetAlf(Alf);
- 
+
  while(now)
  {
   if((now->neg).rot.pmasp)
@@ -119,10 +119,10 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
   {
    vertical=TRUE;
   }
-  
+
   for(i=(now->neg).nRc-1;i>=0;i--)
   {
-   
+
    nomem=FALSE;
    len_neg_mas=100;
    nN=0;
@@ -174,8 +174,8 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
    if(pcomp==NULL)
 	  continue;
 
-  
-  
+
+
    if(!(InitNegMas(&pN,len_neg_mas)))
     continue;
 
@@ -196,7 +196,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
 
     nN++;
    }
-   
+
    if(i>=MAX_STR)
       CCOM_DeleteContainer(hNegCCOM);
 
@@ -222,14 +222,14 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
       LDPUMA_DeleteRects (MainWindowD,code_recd);
     }
    }
-  
+
    SortLetter(pN,nN,vertical);
 
    neg_str_control=NegStrControl(pN,nN,vertical,&(now->neg.pRc[i]));
    (now->neg).p_str+=neg_str_control;
    RecVersions* vs;
    UniVersions* uvs;
-  
+
    if(!(InitNegMas(&vs,nN)))
    {
     nomem=TRUE;
@@ -246,7 +246,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
    }
    if(nomem==TRUE)
 	  continue;
-  
+
    RecRaster rec;
    Int16 Language;
    int turn;
@@ -273,19 +273,19 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
 //         if (vertical) TurnOverNeg(&rec);
          for(turn=0; turn<2; turn++)
          {
-             
+
 //-----------------------------------------------------------
             if (ShowNegByOne/* && vertical*/)
-            {           
+            {
                BITMAPINFOHEADER   lpBI;     // Pointer to DIB info structure
-               RGBQUAD            Palette1; 
-               RGBQUAD            Palette2; 
+               RGBQUAD            Palette1;
+               RGBQUAD            Palette2;
 	           DWORD              bfSize, dwDIBSize;
 	           HANDLE             hDIB;
 	           Word8*              pDIB;
 	           Word8*              pTmpDIB;
 	           Word8*              pTmpBuffer;
-               WORD               Height, Width, ByteWidth; 
+               WORD               Height, Width, ByteWidth;
                CIMAGEBITMAPINFOHEADER image_info = {0};
 
                Height    = (WORD)rec.lnPixHeight;
@@ -293,7 +293,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
 
                ByteWidth = (Width+7)/8;
                dwDIBSize = 64 * Height;
-               bfSize    = dwDIBSize + sizeof(BITMAPINFOHEADER) + 2*sizeof(RGBQUAD);  
+               bfSize    = dwDIBSize + sizeof(BITMAPINFOHEADER) + 2*sizeof(RGBQUAD);
 
                /////////////////  Bitmap  information header   //////////////////////////////////
                lpBI.biSize           = sizeof(BITMAPINFOHEADER);
@@ -310,15 +310,15 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
                lpBI.biClrImportant   = 0;
 
                ///////////////    Palette   ///////////////////////////////////////////////////////////
-               Palette1.rgbBlue      = 0xFF; 
-               Palette1.rgbGreen     = 0xFF; 
-               Palette1.rgbRed       = 0xFF; 
-               Palette1.rgbReserved  = 0; 
+               Palette1.rgbBlue      = 0xFF;
+               Palette1.rgbGreen     = 0xFF;
+               Palette1.rgbRed       = 0xFF;
+               Palette1.rgbReserved  = 0;
 
-               Palette2.rgbBlue      = 0; 
-               Palette2.rgbGreen     = 0; 
-               Palette2.rgbRed       = 0; 
-               Palette2.rgbReserved  = 0; 
+               Palette2.rgbBlue      = 0;
+               Palette2.rgbGreen     = 0;
+               Palette2.rgbRed       = 0;
+               Palette2.rgbReserved  = 0;
 
                hDIB = (HANDLE) ::GlobalAlloc(GMEM_MOVEABLE | GMEM_ZEROINIT, bfSize);
  	           if (hDIB != 0)
@@ -333,15 +333,15 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
 
                     memcpy(pTmpDIB, &Palette1, sizeof(RGBQUAD));
                     pTmpDIB += sizeof(RGBQUAD);
- 
+
                     memcpy(pTmpDIB, &Palette2, sizeof(RGBQUAD));
                     pTmpDIB += sizeof(RGBQUAD);
-  
+
                     pTmpBuffer = rec.Raster;
 					Word8* pTempDib = pTmpDIB;
 
                     for(int i=0; i<Height; i++ )
-                    { 
+                    {
                         memcpy(pTmpDIB, pTmpBuffer, 8);
                         pTmpDIB += 8;
                         pTmpBuffer += 8;
@@ -358,7 +358,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
                }
             }
 //----------------------------------------------------------------------
-         
+
         	  if( !(RSTR_RecogOneLetter_all (&rec,Alf, &(vs[j]),(Int32)(1)) ) )
                 Prob[1]=0;
 	          else
@@ -383,7 +383,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
 				if (ShowNegByOne)
 					LDPUMA_ConsoleN("print symbol: %c , probability = %d", (char)vs[j].Alt[0].Code, vs[j].Alt[0].Prob);
               }
-                
+
 			 if (ShowNegByOne)
 				LDPUMA_WaitUserInput(hShowNegComps, comp_window);
 
@@ -393,8 +393,8 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
 
 
          vs[j].Alt[0].Prob=(Word8)( ((int)(Prob[0])+(int)(Prob[1])/*+(int)(Prob[2])*/)/2/*3*/);
-	  
-		  
+
+
 	  /*else
 	  {
 		  vs[j].lnAltMax =uvs[j].lnAltMax;
@@ -406,17 +406,17 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
 		  }
 
 	  }*/
-      
+
 	 }
      else
 	 {
-	 
+
 	  if( !(RSTR_RecogOneLetter (&rec, (Word8)(Language), &(vs[j])) ) )
        vs[j].Alt[0].Prob=0;
-	 
-	 } 
+
+	 }
     }
-    else 
+    else
        vs[j].Alt[0].Prob=0;
    }
   }
@@ -424,7 +424,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
    if(vertical)
 	  ToHoriz(pN,nN);
 
-  
+
    medium_w=GetMediumW(pN,nN);
    int medium_h=GetMediumH(pN,nN);
 
@@ -479,15 +479,15 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
    r=1;
    (now->neg).p_rec+=prec/(double)(nN);
   }
-   
+
 /*   for(j=1;j<nN;j++)
    {
-   
+
     if(result[r]!='?')
     {
 	  if(result[r]!=' ')
 	  {
-       if(result[r]=='|') 
+       if(result[r]=='|')
 		   result[r]='I';
 	   if(Language==7)
 	   {
@@ -506,7 +506,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
 			{
 			 if(j<nN-1)
 			 {
-				if(!(IfGl(result[r+1])))  
+				if(!(IfGl(result[r+1])))
 				result[r]=256+'А';
 			 }
 			 else
@@ -514,11 +514,11 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
 			}
 		   }
        }
-	   
+
 	    if( (pN[j].right-pN[j].left+1>pN[j].bottom-pN[j].top+1) && (result[r]=='I') )
 		   result[r]='-';
         r++;
-	   
+
 	  }
       else
 	  {
@@ -556,7 +556,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
 	if(dpPrintResConsole)
 	  NegPrintConsol(pRc[0].left,pRc[(now->neg).nRc-1].top,pRc[0].right,pRc[0].bottom);
    }
-   
+
    if(dpPrintResConsole)
     NegPrintConsol(result,len_result);
 
@@ -579,7 +579,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
       LDPUMA_ConsoleN("площадь=%d",(int)((now->neg).pRc[0].right-(now->neg).pRc[0].left+1)*(int)((now->neg).pRc[0].bottom-(now->neg).pRc[(now->neg).nRc-1].top+1));
 	}
    }
-  
+
    if(i==0)
    {
     if(dpNegResD)
@@ -594,7 +594,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
         LDPUMA_DeleteRects (MainWindowD,code_resd);
     }
    }
-  
+
    DelNegMas(vs);
    DelNegMas(uvs);
    delete[] result;
@@ -614,7 +614,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
   else
    now=now->prev;
  }
- 
+
  (*proot)=root;
 
 }
@@ -719,7 +719,7 @@ int CountLetter(Rect16* pRc,int n,BOOL vertical)
  int count=0;
  const int DY=10*(DPIY+1)/300-1;
  const int DX=3*(DPIX+1)/300-1;
- 
+
  if(vertical)
  {
 	for(int i=n;i>=0;i--)
@@ -803,7 +803,7 @@ BOOL IfGl(Word8 c)
 {
 	if( (c==256+'А')||(c==256+'Е')||(c==256+'У')||(c==256+'Ы')||(c==256+'О')||(c==256+'Э')||(c==256+'Я')||(c==256+'И')||(c==256+'Ю') )
 		return TRUE;
-	else 
+	else
 		return FALSE;
 }
 
@@ -823,7 +823,7 @@ void NegPrintConsol(Word8* result,int len)
 
   for(k=0;k<len;k++)
   {
-    if(result[k]!=0)		
+    if(result[k]!=0)
 		LDPUMA_Console("%c",result[k]);
 	else
         LDPUMA_Console("?");
@@ -834,20 +834,20 @@ void NegPrintConsol(Word8* result,int len)
 
 void NegPrintConsol(int left,int top,int right,int bottom)
 {
- 
+
   LDPUMA_ConsoleN("");
   LDPUMA_Console(" (%d,",left);
   LDPUMA_Console("%d)",top);
   LDPUMA_Console(" (%d,",right);
   LDPUMA_Console("%d): ",bottom);
-  
+
 }
 
 
 void NegPrintConsol(double p)
 {
  int i;
-  
+
   if((int)(p)==1)
   {
 	  LDPUMA_ConsoleN("100%%");
@@ -882,7 +882,7 @@ void NegPutLetter(Word8* result,int& len_result,RecAlt Alt,BOOL Flag)
       result[len_result]=Alt.Code;
       len_result++;
 	}
-    else	
+    else
 	{
 	 result[len_result]='?';
      len_result++;
@@ -900,7 +900,7 @@ int GetMediumW(Rect16* pN,int n)
  }
  if(n>1)
  return (medium/(n-1));
- else 
+ else
 	 return 0;
 }
 
@@ -908,11 +908,11 @@ int GetMediumW(Rect16* pN,int n)
 int GetMediumH(Rect16* pN,int n)
 {
  int medium=0,i=0;
- 
+
  for(i=0;i<n;i++)
  {
 	 medium+=(pN[i].bottom-pN[i].top+1);
-	 
+
  }
  return medium/n;
 }
@@ -930,7 +930,7 @@ BOOL NegGetRaster(Handle hCPage,Rect16 N,RecRaster* rec,BOOL vert)
 	 bytewide++;
  int vbytewide=(h)/8;
  if( ((h)%8) != 0)
-	 vbytewide++; 
+	 vbytewide++;
  Word8* pmasp;
  memset (Data, 0, sizeof (Data));
  pmasp=Data;
@@ -1234,23 +1234,23 @@ void NegAr2(Word8* pmasp,int h,int w)
      nowbyte2=(i*newbytewide)<<1;
 	 for(j=0;j<newbytewide;j++)
 		 pmasp[nowbyte+j]=pmasp[nowbyte2+j]|pmasp[nowbyte2+newbytewide+j];
- 
+
  }
 }
-    
+
 
 
 void NegInvert(RecRaster* rec,Rect16 N)
 {
  int i,j;
  int h=N.bottom-N.top+1;
- 
+
  int bytewide=8;
  j=h*bytewide-1;
- 
+
   for(i=0;i<j;i++)
 	(*rec).Raster[i]=~( (*rec).Raster[i] );
- 
+
 }
 
 
@@ -1272,7 +1272,7 @@ Int32 GetNegCCOM(Handle hCPage,Rect16* pRc,int i)
 	  min_w=min_let_h;
 	  max_w=pRc[i].right-pRc[i].left+1;
 	  max_h=max_w*2;
-	  
+
  }
  else
  {
@@ -1287,7 +1287,7 @@ Int32 GetNegCCOM(Handle hCPage,Rect16* pRc,int i)
  Control.MaxCompWid=max_w;
  Control.MaxScale=1;
  Control.Control=Ex_ExtraComp|Ex_DisableCut|Ex_Invert;
-  
+
  if(REXCExtraDIB(Control,(Word8*)(lpDIB),pRc[i].left,pRc[i].top,pRc[i].right-pRc[i].left+1,pRc[i].bottom-pRc[i].top+1))
     return REXCGetContainer();
  return 0;
@@ -1302,7 +1302,7 @@ Int32 GetNegCCOM(Handle hCPage,Rect16* pRc,int i)
 	  min_w=min_let_h;
 	  max_w=pRc[i].right-pRc[i].left+1;
 	  max_h=max_w*2;
-	  
+
  }
  else
  {
@@ -1311,7 +1311,7 @@ Int32 GetNegCCOM(Handle hCPage,Rect16* pRc,int i)
 	  max_h=pRc[i].bottom-pRc[i].top+1;
 	  max_w=max_h*2;
  }
- 
+
  int bytewide=(pRc[i].right-pRc[i].left+8)/8;
  BOOL fotomet=FALSE;
  BOOL RevOv=TRUE;
@@ -1325,7 +1325,7 @@ Int32 GetNegCCOM(Handle hCPage,Rect16* pRc,int i)
 
 
  if(REXCExtra(Control,pmasp,bytewide,RevOv,bytewide*8,pRc[i].bottom-pRc[i].top+1,(DPIX*10000)/254,(DPIY*10000)/254,0,0,0,0,fotomet))
-    return REXCGetContainer(); 
+    return REXCGetContainer();
  return 0;
  */
 }
@@ -1344,7 +1344,7 @@ void SortLetter(Rect16 *pRc,int n,BOOL vert)
   {
    for(j=1 ; j<=i ; j++)
    {
-	 
+
 	  if(pRc[j-1].bottom<pRc[j].bottom)
 	  {
 		  bottom=pRc[j].bottom;
@@ -1369,7 +1369,7 @@ void SortLetter(Rect16 *pRc,int n,BOOL vert)
   {
    for(j=1 ; j<=i ; j++)
    {
-	 
+
 	  if(pRc[j-1].left>pRc[j].left)
 	  {
 		  bottom=pRc[j].bottom;
@@ -1389,18 +1389,18 @@ void SortLetter(Rect16 *pRc,int n,BOOL vert)
   }
  }
 }
- 
+
 void NegDrawRect(Handle wnd,Word32 OperCode,Word32 color,Rect16 Rc)
 {
-	
+
 	Rect16 Rect;
-	
+
 		Rect.bottom=Rc.bottom;
 		Rect.left=Rc.left;
 		Rect.right=Rc.right+1;
 		Rect.top=Rc.top-1;
 		LDPUMA_DrawRect (wnd, &(Rect),0, color, 1,OperCode );
-	
+
 
 }
 
@@ -1481,7 +1481,7 @@ void NegMoveMas(Int32* hCCOM,int n,int num)
 {
  int i;
  CCOM_DeleteContainer(hCCOM[num]);
- 
+
   for(i=num;i<n-1;i++)
   {
 	  hCCOM[i]=hCCOM[i+1];

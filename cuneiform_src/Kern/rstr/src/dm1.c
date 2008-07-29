@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -178,7 +178,7 @@ void est_snap(CHAR user,cell *C,PCHAR txt)
 //static int dc_cnt=0;
 static void delcels(all_cells *CL)
  {
- INT nc; 
+ INT nc;
  cell *wc;
 
  if( !CL )
@@ -219,7 +219,7 @@ static INT colcels(all_cells *CL, MN  *mn1, cell *I1,cell *I3, INT wd)
   //est_snap(db_pass,I1,"cut_off cell inserted");
   newcell->cg_flag |= c_cg_just;
   if (!newcell->env)
-    { 
+    {
 	  // Nick 15.08.2002 was bug - don't add too many cells !!!
 	  if( CL->Nd >= MAX_CELLS_IN_LIST )
 	  {
@@ -624,7 +624,7 @@ static INT allow_comp(cell *B1, INT bnd1, INT bnd2, INT p0)
   c1 = B1->vers[0].let;
   if ((p0 > bnd2) &&
       ((c1=='i') || (c1=='j') ||
-      (language == LANG_RUSSIAN && 
+      (language == LANG_RUSSIAN &&
 		((c1==(BYTE)'©') || (c1==(BYTE)'‰'))
 	  ) ||
       (c1==invers_exm) || (c1==invers_qm)))
@@ -892,11 +892,11 @@ fin:
             ( let0==II_macron		&& let1=='I'			||
               let0=='I'			    && let1==II_macron		||
               let0==i_macron		&& let1==liga_i			||
-              let0==liga_i			&& let1==i_macron		
+              let0==liga_i			&& let1==i_macron
             ) ||
 
          language == LANG_ESTONIAN &&
-            ( 
+            (
               let0==OO_2dot_accent  && let1==OO_tild_accent	||
               let0==OO_tild_accent  && let1==OO_2dot_accent	||
               let0==o_2dot_accent  && let1==o_tild_accent	||
@@ -904,11 +904,11 @@ fin:
             ) ||
 
          language == LANG_TURKISH &&
-            ( 
+            (
               let0==II_dot_accent  && let1=='I'	||
               let0=='I' && let1==II_dot_accent	||
               let0==i_sans_accent  && let1=='i'	||
-              let0=='i'  && let1==i_sans_accent	
+              let0=='i'  && let1==i_sans_accent
             ) ||
 
 		 0
@@ -1005,12 +1005,12 @@ INT estcomp(CHAR user, cell *B1, SVERS *save, INT trs, INT bnd1, INT bnd2,
  {
  BYTE let = B1->vers[0].let;
    if (
-		language!=LANG_ENGLISH && 
-		language!=LANG_CROATIAN && language!=LANG_RUSSIAN&& 
+		language!=LANG_ENGLISH &&
+		language!=LANG_CROATIAN && language!=LANG_RUSSIAN&&
 			memchr ("aoeu",let,4)||
   language == LANG_RUSSIAN && memchr ("¥…",let,2)||
   language == LANG_POLISH && memchr ("SCZNOsczno",let,10) ||
-  
+
   // 05.09.2000 E.P.
   language==LANG_CZECH	&& memchr("AaCcDdEeIiNnOoRrSsTtUuYyZz",let,26) ||
   language==LANG_ROMAN  && memchr("AaIi",let,4) ||
@@ -1022,7 +1022,7 @@ INT estcomp(CHAR user, cell *B1, SVERS *save, INT trs, INT bnd1, INT bnd2,
   language==LANG_ESTONIAN   && memchr("AaOoSsUuZz",let,10) ||
 
   // 21.05.2002 E.P.
-  language==LANG_TURKISH && 
+  language==LANG_TURKISH &&
 	(memchr("AaCcIiGgOoSsUu",let,14) || let == i_sans_accent) ||
   0
   )
@@ -1083,7 +1083,7 @@ INT estcomp(CHAR user, cell *B1, SVERS *save, INT trs, INT bnd1, INT bnd2,
    { p1=(BYTE)h_filt(B1,p1,GL,c);  goto deciBOX; }
       c_sacc = let_sans_acc[c];
    if ( (language!=LANG_CROATIAN && memchr("sSaoO0QGDMNHURdxq6<>cCkwWBEA",c_sacc,28)) ||
-        !B1->accent_leader && 
+        !B1->accent_leader &&
 			(
 			language == LANG_CROATIAN && memchr ("scz",c_sacc,3)    ||
 			language == LANG_POLISH   && memchr ("sczno",c_sacc,5)  ||
@@ -1099,8 +1099,8 @@ INT estcomp(CHAR user, cell *B1, SVERS *save, INT trs, INT bnd1, INT bnd2,
 			language==LANG_ESTONIAN   && memchr("AaOoSsUuZz",let,10) ||
 
 		    // 21.05.2002 E.P.
-		    language==LANG_TURKISH && 
-				(memchr("AaCcIiGgOoSsUu",let,14) || 
+		    language==LANG_TURKISH &&
+				(memchr("AaCcIiGgOoSsUu",let,14) ||
 				let == i_sans_accent
 				) ||
 			0
@@ -1118,20 +1118,20 @@ INT estcomp(CHAR user, cell *B1, SVERS *save, INT trs, INT bnd1, INT bnd2,
 	   ||   // 07.01.1993 (see S_TOOLS.C)
       ( language == LANG_CROATIAN && (c==CROAT_d||c=='d') )  ||
       ( language == LANG_POLISH   && (c== POLISH_l || c=='l') )  ||
-      ( language != LANG_RUSSIAN  && 
+      ( language != LANG_RUSSIAN  &&
 		   (c==liga_i ||  c==liga_j  ||
 
 		// Êîíôëèêòíûå êîäû 07.09.2000 E.P.
-		!is_baltic_language(language) && 
+		!is_baltic_language(language) &&
 		!is_turkish_language(language) &&
 	    !is_cen_language(language) && (
-			c==i_left_accent ||  
+			c==i_left_accent ||
 		    c==i_2dot_accent ||
-		    c==II_left_accent ||  
+		    c==II_left_accent ||
 		    c==II_2dot_accent
 		) ||
 		   c==i_right_accent  ||
-		   c==i_roof_accent   ||  
+		   c==i_roof_accent   ||
 		   c==II_right_accent ||
 		   c==II_roof_accent  )
 	  ) ||
@@ -1206,7 +1206,7 @@ INT estcomp(CHAR user, cell *B1, SVERS *save, INT trs, INT bnd1, INT bnd2,
         est_snap(db_pass,B1,"CUT/GLUE to BOX");
       goto estiBOX;    // cutten version - estimate by BOX
    }
-	 if (memchr("1lI()[]{}!",c,10) || c==liga_i || 
+	 if (memchr("1lI()[]{}!",c,10) || c==liga_i ||
 		   language==LANG_TURKISH &&  // 30.05.2002 E.P.
 			(c==i_sans_accent||c==II_dot_accent)
 			||
@@ -1263,7 +1263,7 @@ INT estcomp(CHAR user, cell *B1, SVERS *save, INT trs, INT bnd1, INT bnd2,
 			  is_baltic_language(language) || // 09.07.2001 E.P.
 			  is_turkish_language(language)	  // 21.05.2002 E.P.
 			)
-		 ) 
+		 )
 	  )
       pans=p1=(BYTE)rec_own(B1,GL,bnd1,bnd2,dup,&disd);
     else
@@ -1318,15 +1318,15 @@ static BYTE thick_crit[33] =
 
 void   croat_reverse(cell *B1,BYTE c)
 {
-/* 
+/*
 	Òåïåðü âûçûâàåòñÿ äëÿ âñåõ öåíòðàëüíîåâðîïåéñêèõ ÿçûêîâ 05.09.2000 E.P.
 
-	Çäåñü åñòü îøèáêà: åñëè â model ïîâòîðÿþòñÿ áóêâû, òî memchr íàéäåò òîëüêî 
+	Çäåñü åñòü îøèáêà: åñëè â model ïîâòîðÿþòñÿ áóêâû, òî memchr íàéäåò òîëüêî
 	ïåðâîå âõîæäåíèå. Ñì. íèæå ôóíêöèþ baltic_turkish_reverse(), ãäå ýòà îøèáêà èçæèòà.
 	16.07.2001 - 21.05.2002 E.P.
 */
 
-BYTE model[]=  "sScCzZcCoOzZsSoOoO"; 
+BYTE model[]=  "sScCzZcCoOzZsSoOoO";
 BYTE croat[]={CROAT_SR,  CROAT_sr,  CROAT_CA,  CROAT_ca,
               CROAT_ZR,  CROAT_zr,  CROAT_CR,  CROAT_cr,
 			  OO_right_accent, o_right_accent, // 05.09.2000 E.P.
@@ -1584,7 +1584,7 @@ forwb:;
        my_bases.n1, my_bases.n2, my_bases.n3, my_bases.n4);
      glsnap('a',B1,bb);
    }
-  
+
    try_cut_bot_accent(B1,&my_bases,0);
 
    // 940329 p0=estcomp('a',B1,&sv0,TRS2,190,100,&GL,&cposd,&cposd,0,0,0);
@@ -1605,9 +1605,9 @@ init_est_done:
  tryfin:
 
    if (gv0 > 0)   // best version was with surrounding cells
-     { 
-     rest_vers(B1,&sv0);  
-     B1=finpat(B1,&GL,gv0,(BYTE)gf0,32); 
+     {
+     rest_vers(B1,&sv0);
+     B1=finpat(B1,&GL,gv0,(BYTE)gf0,32);
      // Nick&Oleg : 290699 : can be init of accent! for pass2
      }
    else
@@ -1620,7 +1620,7 @@ init_est_done:
    GL.flarg = GFbadr + GFbadl;
    GL.arg = GAallest + GABOXR;
    p0=estcomp('a',B1,&sv0,TRS2,190,100,&GL,&cposd,&cposd,0,0,0);
-   
+
    memcpy(&sv00,&svown,sizeof(sv00));
    if (dust_mon_flag)
      lsnap('a',B1,"upper dust ",p0);
@@ -1676,7 +1676,7 @@ init_est_done:
           B1 = B1->prevl;
         else
           B1 = cell_f();
-        
+
         goto forwb;
         }
       }
@@ -1871,7 +1871,7 @@ repeat_with_doubles:
 		 if( //( B1->nvers > 0 && B1->vers[0].prob > TUR_PALKA_POROG ||
 			   cpnt0 && cpnt0->versm.nvers > 0 && cpnt0->versm.vers[0].prob > TUR_PALKA_POROG
 			 // )
-			 &&			 
+			 &&
 			 T1->nvers > 0 &&
 			 T1->w < mw &&   // not full
 			 ( T1->vers[0].let == i_sans_accent ||
@@ -1881,7 +1881,7 @@ repeat_with_doubles:
 		 {
 			p1=0; c1=0;
 			set_bad_cell(T1);
-			save_vers(T1,&sv1); 
+			save_vers(T1,&sv1);
 			goto estim_right;
 		 }
 	 }
@@ -1986,7 +1986,7 @@ estim_right:
 		 // íå îòðåçàòü ïàëêè ó õîðîøèõ!
 		 if( //( B1->nvers > 0 && B1->vers[0].prob > TUR_PALKA_POROG ||
 			   cpnt0 && cpnt0->versm.nvers > 0 && cpnt0->versm.vers[0].prob > TUR_PALKA_POROG
-              //) 
+              //)
 			  &&
 			 T3->nvers > 0 &&
 			 T3->w < mw &&   // not full
@@ -2045,7 +2045,7 @@ estim_right:
        goto next1; // replg;
    }
    ///////// delcels(&CL);
-   
+
    already_cut = 0;
    if ((c1=='v') && (c3=='v') && (c0=='w') && (p1+p3 >= TRSw-20) && !gv0)
      goto  restore_cell;
@@ -2126,7 +2126,7 @@ acc2d:
 		 // íå îòðåçàòü ïàëêè áåç òî÷åê ó õîðîøèõ!
 		 if( cpnt1->versm.nvers > 0 && cpnt1->versm.vers[0].prob > TUR_PALKA_POROG &&
 			 T2->nvers > 0 &&
-			 T2->vers[0].let == i_sans_accent 
+			 T2->vers[0].let == i_sans_accent
 			)
 		 {
 			p2=0; //c3=0;
@@ -2263,7 +2263,7 @@ restore_cell:
 
  if( ( is_baltic_language(language) ||
 	   is_turkish_language(language) // 21.05.2002 E.P.
-	 ) && acc_p>200 
+	 ) && acc_p>200
    )
 	baltic_turkish_reverse(B1,c0);
 
@@ -2579,7 +2579,7 @@ static INT forbid_stick_cut(cell *c, cut_pos *cpos, INT edge)
   prob = c->vers[0].prob;
 
   // is it a stick ?
-  if ((l!='i') && (l!='l') && (l!='1') && (l!='I') && 
+  if ((l!='i') && (l!='l') && (l!='1') && (l!='I') &&
 	  (l!=liga_i) &&
 	   !(language==LANG_TURKISH &&  // 30.05.2002 E.P.
 			(l==i_sans_accent||l==II_dot_accent)
@@ -2711,7 +2711,7 @@ static void corr_cut()
      c3=b3->vers[0].let;
      // try to recover "stick_to_something" producing 'k', 'd', 'b'
      if (memchr("lI1/J)!",c2,7) ||         // stick character ?
-		c2==liga_i || 
+		c2==liga_i ||
 		   language==LANG_TURKISH &&  // 30.05.2002 E.P.
 			(c2==i_sans_accent||c2==II_dot_accent) ||
 		c2==liga_exm
@@ -2741,7 +2741,7 @@ static INT TM_suspect(INT position, cell *c)
            switch (position)
                   {
                     case 1:
-                        if ( (let=='T' || let=='t' || 
+                        if ( (let=='T' || let=='t' ||
 							  let==(BYTE)'’' || let==(BYTE)'â' ) &&
 						     !is_russian_baltic_conflict(let) &&// 17.07.2001 E.P.
 							 !is_russian_turkish_conflict(let)	// 21.05.2002 E.P.

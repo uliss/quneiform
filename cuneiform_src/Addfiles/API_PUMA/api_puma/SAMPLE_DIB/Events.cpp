@@ -56,13 +56,13 @@ BEGIN_DISPATCH_MAP(Events, CCmdTarget)
 END_DISPATCH_MAP()
 
 // Note: we add support for IID_IEvents to support typesafe binding
-//  from VBA.  This IID must match the GUID that is attached to the 
+//  from VBA.  This IID must match the GUID that is attached to the
 //  dispinterface in the .ODL file.
 
 // {367DEC5D-2EED-447F-8290-41FAED27F28C}
 const IID DIID__IRecognitionEvents = {0x229C1071,0x829F,0x11D2,{0xBA,0x6E,0x00,0x00,0xE8,0xD9,0xFD,0xF6}};
 
-static const IID IID_IEvents = DIID__IRecognitionEvents;     
+static const IID IID_IEvents = DIID__IRecognitionEvents;
 //{ 0x367dec5d, 0x2eed, 0x447f, { 0x82, 0x90, 0x41, 0xfa, 0xed, 0x27, 0xf2, 0x8c } };
 
 BEGIN_INTERFACE_MAP(Events, CCmdTarget)
@@ -72,8 +72,8 @@ END_INTERFACE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // Events message handlers
 
-BOOL Events::Start() 
-{	
+BOOL Events::Start()
+{
     m_dlg->m_progress="";
     m_dlg->UpdateData(false);
     m_dlg->UpdateWindow();
@@ -81,7 +81,7 @@ BOOL Events::Start()
 	return TRUE;
 }
 
-BOOL Events::Stop() 
+BOOL Events::Stop()
 {
 	m_dlg->m_progress="Распознавание закончено.";
     m_dlg->UpdateData(false);
@@ -91,7 +91,7 @@ BOOL Events::Stop()
 }
 
 
-BOOL Events::Step(long lStep, LPCTSTR strName, long lPerc) 
+BOOL Events::Step(long lStep, LPCTSTR strName, long lPerc)
 {
 	m_dlg->m_progress.Format("%s %d%%",strName,lPerc);
     m_dlg->UpdateData(false);
@@ -100,7 +100,7 @@ BOOL Events::Step(long lStep, LPCTSTR strName, long lPerc)
 	return TRUE;
 }
 
-long Events::EndThread(BOOL rc, long lContext) 
+long Events::EndThread(BOOL rc, long lContext)
 {
 	// TODO: Add your dispatch handler code here
 

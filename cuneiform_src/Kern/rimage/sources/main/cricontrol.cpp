@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -141,7 +141,7 @@ Bool32 CRIControl::Binarise(PChar8 cDIBIn, PChar8 cDIBOut, Word32 wFlag, Word32 
 	{
 		return FALSE;
 	}
-	
+
 		/*
     if ( !SupportedIndexColorImage(mpSourceDIB) )
     {
@@ -151,7 +151,7 @@ Bool32 CRIControl::Binarise(PChar8 cDIBIn, PChar8 cDIBOut, Word32 wFlag, Word32 
     }
 		*/
 	// ñîçäàåì íîâûé
-	if ( ! CreateDestinatonDIB(1) )           // create DIB 1 bit per pixel         
+	if ( ! CreateDestinatonDIB(1) )           // create DIB 1 bit per pixel
 	{
         CloseSourceDIB();
 		SetReturnCode_rimage(IDS_RIMAGE_CANNOT_CREATE_NEW_DIB);
@@ -210,7 +210,7 @@ Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, Int32 High, Int32 Low
 	{
 		return FALSE;
 	}
-	
+
 	if ( mpDestinationDIB )
 	{
 		SetReturnCode_rimage(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
@@ -329,17 +329,17 @@ Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, Word32 wFlag, Word32 Us
 	RIMAGEComment("Turn - temporary destination DIB");
 	mpDestinationDIB->SetExternals( RIMAGEAlloc, RIMAGEFree, RIMAGELock, RIMAGEUnlock);
 
-	if ( mpDestinationDIB->CreateDIBBegin(NewWidth, 
+	if ( mpDestinationDIB->CreateDIBBegin(NewWidth,
 		                                  NewHeight,
 										  mpSourceDIB->GetPixelSize()) &&
 	     mpDestinationDIB->CopyPalleteFromDIB(mpSourceDIB) &&
 		 mpDestinationDIB->CopyDPIFromDIB(mpSourceDIB) &&
 		 mpDestinationDIB->CreateDIBEnd()  )
 	{
-		bRet = mpTurner->TurnDIB(mpSourceDIB, mpDestinationDIB, wFlag );	
+		bRet = mpTurner->TurnDIB(mpSourceDIB, mpDestinationDIB, wFlag );
 	}
 
-	
+
 
 	// âåðòèì
 	/*
@@ -365,7 +365,7 @@ Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, Word32 wFlag, Word32 Us
 	}
 
 	mp_TurnedDIB = NULL;
-	*/ 
+	*/
 	//îòïèñâàåì íîâûé â êîíòåéíåð è îñâîáîæäàåì
 	if ( !CloseDestinationDIB(cDIBOut) )
 	{
@@ -391,13 +391,13 @@ Bool32 CRIControl::Inverse(PChar8  cDIBIn, PChar8  cDIBOut, Word32 UseMargins)
 	{
 		return FALSE;
 	}
-	
+
 	//îòêðûâàåì èíâåðòîð
 	if ( !mpInvertor )
 	{
 		mpInvertor = new CRInvertor;
 	}
-	
+
 	// Èíâåðòèðóåì
 	if ( !mpInvertor->Inverse(mpDestinationDIB) )
 	{
@@ -460,7 +460,7 @@ Bool32 CRIControl::ReadDIB(PChar8  cDIB, PHandle phDIB)
 // Close Source DIB
 Bool32 CRIControl::CloseSourceDIB()
 {
-	
+
 	Handle    hDIB;
 
 	if ( mpSourceDIB == NULL )
@@ -485,7 +485,7 @@ Bool32 CRIControl::OpenSourceDIB(PChar8  cDIBName)
 {
 	Handle  hDIBIn;
 	PVOID   pDIB;
-	
+
 	if ( !ReadDIB(cDIBName, &hDIBIn) )
 	{
 		SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
@@ -532,7 +532,7 @@ Bool32 CRIControl::CloseDestinationDIB(PChar8  cDIBName)
 		mpDestinationDIB = NULL;
 		return FALSE;
 	}
-	
+
 	if ( !WriteDIB(cDIBName, pDIB) )
 	{
 		SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
@@ -575,7 +575,7 @@ Bool32 CRIControl::CreateDestinatonDIB(Word32 BitCount)
 	Word32 wXResolution;
 	Word32 wYResolution;
 	CTDIBRGBQUAD       BWQuads[2] = {{0x00,0x00,0x00,0x00},{0xff,0xff,0xff,0x00} };
-	
+
 
 	if ( mpSourceDIB == NULL )
 	{
@@ -584,7 +584,7 @@ Bool32 CRIControl::CreateDestinatonDIB(Word32 BitCount)
 	}
 
 	mpDestinationDIB = new CTDIB;
-	
+
 	RIMAGEComment("CreateDestinationDIB - temporary DIB");
 	if ( !mpDestinationDIB->SetExternals(RIMAGEAlloc, RIMAGEFree, RIMAGELock, RIMAGEUnlock) )
 	{
@@ -602,7 +602,7 @@ Bool32 CRIControl::CreateDestinatonDIB(Word32 BitCount)
 	{
 		return FALSE;
 	}
-	
+
 	if ( !mpDestinationDIB->SetResolutionDPM(wXResolution, wYResolution) )
 	{
 		//return FALSE;
@@ -617,7 +617,7 @@ Bool32 CRIControl::CreateDestinatonDIB(Word32 BitCount)
 	{
 		return FALSE;
 	}
-	
+
 	if ( !mpDestinationDIB->CreateDIBEnd() )
 	{
 		return FALSE;
@@ -629,7 +629,7 @@ Bool32 CRIControl::OpenDestinationDIBfromSource(PChar8  cDIBName)
 {
 	Handle  hDIBIn;
 	PVOID   pDIB;
-	
+
 	if ( mpSourceDIB != NULL )
 		return FALSE;
 
@@ -663,7 +663,7 @@ Bool32 CRIControl::SetDestinationDIBtoStorage(PChar8  cDIBName)
 {
 	Handle hSDIB;
 	Bool32  bErrors = TRUE;
-	
+
 	if ( DIBOpeningType == FALSE)
 	{
 		return CloseDestinationDIB(cDIBName);
@@ -671,7 +671,7 @@ Bool32 CRIControl::SetDestinationDIBtoStorage(PChar8  cDIBName)
 	// çàïèñûââàåì â áëîê âûäåëåíûé â CIMAGE ïðè îòêðûòèè
 	if ( mpDestinationDIB == NULL )
 		return FALSE;
-	
+
 	if ( !mpDestinationDIB->GetDIBHandle(&hSDIB) )
 		return FALSE;
 
@@ -680,8 +680,8 @@ Bool32 CRIControl::SetDestinationDIBtoStorage(PChar8  cDIBName)
 		SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
 		return FALSE;
 	}
-	
-	
+
+
 	if ( !CIMAGE_FreeCopedDIB(hSDIB) )
 	{
 		SetReturnCode_rimage(IDS_RIMAGE_CIMAGE_MEMORY_ERROR);
@@ -765,10 +765,10 @@ Bool32 CRIControl::RotatePoint(PChar8 cDIB, Int32 iX, Int32 iY, PInt32 prX, PInt
 Bool32 CRIControl::WriteDIBtoBMP(PChar8 cName, PCTDIB pDIB)
 {
 #ifdef RIMAGE_DUMP_ENABLE
-	
+
 	Word32  wBMPSize = pDIB->GetDIBSize() + 14;
 	PumaMemoryToFileDumper BMPDump(cName);
-	
+
 	BMPDump.AddDump("BM",2);
 	BMPDump.AddDump((char *)&wBMPSize,4);
 	wBMPSize = 0;

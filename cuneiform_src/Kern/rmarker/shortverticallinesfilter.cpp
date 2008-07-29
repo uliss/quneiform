@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -78,7 +78,7 @@ static Bool32 bShowDebugData = FALSE;
 //extern Handle hUseCLine;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 Bool32 ShortVerticalLinesProcess ( Word32 Step, PRMPreProcessImage Image )
 {
 	Bool32 bRet = FALSE;
@@ -89,7 +89,7 @@ Bool32 ShortVerticalLinesProcess ( Word32 Step, PRMPreProcessImage Image )
 
 		gSVLBuffer.HLinesBufferA = gSVLBuffer.LineInfoA->Hor.Lns = NULL/*(LineInfo *)myAlloc(sizeof(LineInfo) * PUMAMaxNumLines)*/;
 		//gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns = (LineInfo *)myAlloc(sizeof(LineInfo) * PUMAMaxNumLines);
-		
+
 		if ( gSVLBuffer.VLinefBufferA == NULL )
 			gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns = (LineInfo *)CFIO_DAllocMemory((sizeof(LineInfo) * PUMAMaxNumLines), MAF_GALL_GPTR, (PInt8)"puma", (PInt8)"SVL step I lines pool");
 
@@ -102,7 +102,7 @@ Bool32 ShortVerticalLinesProcess ( Word32 Step, PRMPreProcessImage Image )
 
 		gSVLBuffer.HLinesBufferB = gSVLBuffer.LineInfoB->Hor.Lns = NULL/*(LineInfo *)myAlloc(sizeof(LineInfo) * PUMAMaxNumLines)*/;
 		//gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns = (LineInfo *)myAlloc(sizeof(LineInfo) * PUMAMaxNumLines);
-		
+
 		if ( gSVLBuffer.VLinefBufferB == NULL )
 			gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns = (LineInfo *)CFIO_DAllocMemory((sizeof(LineInfo) * PUMAMaxNumLines), MAF_GALL_GPTR, (PInt8)"puma", (PInt8)"SVL step II lines pool");
 
@@ -116,7 +116,7 @@ Bool32 ShortVerticalLinesProcess ( Word32 Step, PRMPreProcessImage Image )
 
 		bClear = TRUE;
 	}
-	
+
 	if ( Step == PUMA_SVL_THRID_STEP )
 	{
 		//myFree ( gSVLBuffer.HLinesBufferA );
@@ -132,7 +132,7 @@ Bool32 ShortVerticalLinesProcess ( Word32 Step, PRMPreProcessImage Image )
 		{
 			CFIO_FreeMemory(gSVLBuffer.VLinefBufferB);
 		}
-		
+
 		gSVLBuffer.VLinefBufferA = NULL;
 		gSVLBuffer.VLinefBufferB = NULL;
 
@@ -151,7 +151,7 @@ Bool32 ShortVerticalLinesProcess ( Word32 Step, PRMPreProcessImage Image )
 Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Image )
 {
  Bool32         bRet = TRUE;
-		
+
 // Handle         hBlockLine;
 // Handle         hBlockLineHor;
 // Handle         hBlockLineVer;
@@ -167,12 +167,12 @@ Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Ima
  int count=0;
  Handle hPage=Image->hCPAGE;
  CLINE_handle hCLINE=Image->hCLINE;
- 
+
 
 //   if(!LDPUMA_Skip(hUseCLine))
 //   {
 	 CLINE_handle hline;
-	 CPDLine cpdata; 
+	 CPDLine cpdata;
 	 hline=CLINE_GetFirstLine(hCLINE);
      LTInfo->Hor.Cnt=0;
 	 LTInfo->Ver.Cnt=0;
@@ -250,10 +250,10 @@ Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Ima
 	if ( bRet )
 	{
 		nReal = CPAGE_GetBlockData (Image->hCPAGE, hBlockLine, RLINE_BLOCK_TYPE, (void *)LTInfo, nTagSize);
-		
+
 		wErr32 = CPAGE_GetReturnCode ();
 	}
-	
+
 	if ((nReal!=nTagSize)||(wErr32!=0))
 	{
 		//Error_CPage ("[GetBlockData]");
@@ -265,11 +265,11 @@ Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Ima
 		//return RV_DOUBT;
 		bRet = FALSE;
 	}
-	//  Горизонтальные линии  
+	//  Горизонтальные линии
 	if ( bRet && pLHor != NULL )
 	{
 		for (Int32 i=0; i<LTInfo->Hor.Cnt; i++)
-		{ 
+		{
 			if (i==0)
 				hBlockLineHor = CPAGE_GetBlockFirst (Image->hCPAGE, (Word32)(LTInfo->Hor.Lns));
 			else
@@ -296,11 +296,11 @@ Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Ima
 			hBlockLinePrev = hBlockLineHor;
 		}
 	}
-	// Вертикальные линии  
+	// Вертикальные линии
 	if ( bRet && pLVer != NULL )
 	{
 		for (Int32 i=0; i<LTInfo->Ver.Cnt; i++)
-		{ 
+		{
 			if (i==0)
 				hBlockLineVer = CPAGE_GetBlockFirst (Image->hCPAGE, (Word32)(LTInfo->Ver.Lns));
 			else
@@ -335,7 +335,7 @@ Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Ima
 	return bRet;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage Image)
 {
 	Bool32 rc = TRUE;
@@ -345,7 +345,7 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage 
 	Int32 j = 0;
 	Word32 SVLCount = 0;
 	Rect16 ZoomRect;
-	
+
 	bShowDebug     = !LDPUMA_Skip(Image->hDebugSVLines);
 	bShowStepDebug = !LDPUMA_Skip(Image->hDebugSVLinesStep);
 	bShowDebugData = !LDPUMA_Skip(Image->hDebugSVLinesData);
@@ -358,8 +358,8 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage 
 
 	LinesTotalA = LtiA->Ver.Cnt;
 	LinesTotalB = LtiB->Ver.Cnt;
-	
-	if ( ( bShowDebug || bShowStepDebug )&& bShowDebugData ) 
+
+	if ( ( bShowDebug || bShowStepDebug )&& bShowDebugData )
 	{
 		sprintf( str, "VSL: до поиска таблиц - %i, после - %i\n", LinesTotalA, LinesTotalB);
 		LDPUMA_Console(str);
@@ -371,25 +371,25 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage 
 		{
 			if ( !(LtiA->Ver.Lns[i].Flags & LI_IsTrue) && (LtiB->Ver.Lns[i].Flags & LI_IsTrue) )
 			{
-				
+
 				if ( SVLCount != 0 && bShowStepDebug )
 					LDPUMA_WaitUserInput( Image->hDebugSVLinesStep, NULL );
-				
+
 				if ( bShowDebug || bShowStepDebug)
 				{
-					j = sprintf( str, "VSL: < %4.4i, %4.4i > < %4.4i, %4.4i > x %3.3i flag: from %#8.8x to %#8.8x", 
-								 LtiB->Ver.Lns[i].A.x, 
-								 LtiA->Ver.Lns[i].A.y, 
-								 LtiB->Ver.Lns[i].B.x, 
-								 LtiB->Ver.Lns[i].B.y, 
-								 LtiB->Ver.Lns[i].Thickness, 
-								 LtiA->Ver.Lns[i].Flags, 
+					j = sprintf( str, "VSL: < %4.4i, %4.4i > < %4.4i, %4.4i > x %3.3i flag: from %#8.8x to %#8.8x",
+								 LtiB->Ver.Lns[i].A.x,
+								 LtiA->Ver.Lns[i].A.y,
+								 LtiB->Ver.Lns[i].B.x,
+								 LtiB->Ver.Lns[i].B.y,
+								 LtiB->Ver.Lns[i].Thickness,
+								 LtiA->Ver.Lns[i].Flags,
 								 LtiB->Ver.Lns[i].Flags);
 
 					j += sprintf( str + j, " - удалить");
-				
-					j += sprintf ( str + j, "\n");		
-					
+
+					j += sprintf ( str + j, "\n");
+
 					if ( bShowDebugData )
 						LDPUMA_Console(str);
 
@@ -403,12 +403,12 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage 
 					ZoomRect.top    += ((ZoomRect.top - ZoomRect.bottom) / 3);
 					ZoomRect.left   -= ((ZoomRect.right - ZoomRect.left) / 3) >= ZoomRect.left ? ZoomRect.left : ((ZoomRect.right - ZoomRect.left) / 3);
 					ZoomRect.right  += ((ZoomRect.right - ZoomRect.left) / 3);
-					
+
 					if ( bShowStepDebug )
 						LDPUMA_ZoomToRect(NULL, &ZoomRect);
 
 				}
-				
+
 				if ( !SVLComponentFilter(&LtiB->Ver.Lns[i], Image) )
 				{
 					rc = FALSE;
@@ -433,15 +433,15 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage 
 			LDPUMA_DeleteRects(NULL, 316);
 			ZoomRect.top    = 0;
 			ZoomRect.bottom = 0;
-			
-			if ( bShowStepDebug ) 
+
+			if ( bShowStepDebug )
 				LDPUMA_ZoomToRect(NULL, &ZoomRect);
 		}
 	}
 	return rc;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 Bool32 SVLComponentFilter(LineInfo *Line, PRMPreProcessImage Image)
 {
 	CCOM_comp * pcomp;
@@ -472,13 +472,13 @@ Bool32 SVLComponentFilter(LineInfo *Line, PRMPreProcessImage Image)
 		Rl.left  += Thick;
 		Rl.right -= Thick;
 	}
-	
+
 	pcomp = CCOM_GetFirst ((Int32)(Image->hCCOM), NULL);
-	
+
 	do
 	{
 		GoodComp = CompIsGood (pcomp, Filter);
-		
+
 		if (GoodComp)
 		{
 			Rc.left   = pcomp->left;
@@ -498,14 +498,14 @@ Bool32 SVLComponentFilter(LineInfo *Line, PRMPreProcessImage Image)
 
 				if ( bShowDebug || bShowStepDebug )
 				{
-					j = sprintf( str, "VSL: intersect component < %4.4i, %4.4i > < %4.4i, %4.4i >", Rc.left, Rc.top, Rc.right, Rc.bottom ); 
+					j = sprintf( str, "VSL: intersect component < %4.4i, %4.4i > < %4.4i, %4.4i >", Rc.left, Rc.top, Rc.right, Rc.bottom );
 
 					if ( bDieComponent )
 						j += sprintf( str + j, " +dead+" );
 
 					j += sprintf( str + j, "\n" );
-					
-					if ( bShowDebugData ) 
+
+					if ( bShowDebugData )
 						LDPUMA_Console(str);
 
 					LDPUMA_DrawRect(NULL, &Rc, 0, 0xff0000, 1, 316);
@@ -513,19 +513,19 @@ Bool32 SVLComponentFilter(LineInfo *Line, PRMPreProcessImage Image)
 				}
 			}
 		}
-		
+
 		if ( !bDieComponent )
 			pcomp = CCOM_GetNext (pcomp, NULL);
 		else // Almi 18.09.00
 			bDieComponent = FALSE;
-		
-		
+
+
 	} while( pcomp != NULL );
-	
+
 	return TRUE;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 Bool32 IsRectIntersect(Rect16 *A, Rect16 *B)
 {
 	Bool32 rc = FALSE;
@@ -550,7 +550,7 @@ Bool32 IsRectIntersect(Rect16 *A, Rect16 *B)
 	{
 		rc = TRUE;
 	}
-	
+
 	return rc;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////

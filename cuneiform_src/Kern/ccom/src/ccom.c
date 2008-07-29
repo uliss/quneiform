@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -72,7 +72,7 @@ Word16              wLowRC         = CCOM_ERR_NO;
 #define     CCOM_DAT    "ccom.dat"
 
 // memory funct
-static void *   ccom_alloc(Word32 len)   { 
+static void *   ccom_alloc(Word32 len)   {
 //return malloc(len);
 void *ma = malloc(len);
     if( !ma )
@@ -189,7 +189,7 @@ CCOM_FUNC(void)    CCOM_DeleteAll(void)
 {
 CCOM_cont * i, *inext;
 
-for( i=top.next;i && i!=&tail ; i=inext)	
+for( i=top.next;i && i!=&tail ; i=inext)
 	{
 	inext = i->next;
     CCOM_DeleteContainer((CCOM_handle)i);
@@ -246,7 +246,7 @@ CCOM_FUNC(char*)   CCOM_GetReturnString(Word32 dwError)
 static Bool32  ccom_to_many_comps(CCOM_handle hcont)
 {
 CCOM_cont * cont=(CCOM_cont *)hcont;
-return !cont->kill_dust_mode && 
+return !cont->kill_dust_mode &&
         cont->nsmall[1]>(cont->nall-cont->nsmall[1])*3 &&
         cont->nall>3000;
 }
@@ -290,7 +290,7 @@ if( !cont->first )
   cont->last          = new_comp;
   }
 else
-  { 
+  {
   cont->last->next_comp = new_comp;
   cont->last          = new_comp;
   }
@@ -303,7 +303,7 @@ if( sz<8 )
     cont->nsmall[sz]++;
 if( ccom_to_many_comps(hcont)  )
     {
-    for(comp=cont->first;comp && comp!=new_comp;comp=comp->next_comp) 
+    for(comp=cont->first;comp && comp!=new_comp;comp=comp->next_comp)
         {
         if( ccom_small_dust(comp,hcont) )
             CCOM_Kill(comp);
@@ -336,9 +336,9 @@ if( !comp  )
 
 if( size_lrep && lines>0 && lines )
   {
-  comp->size_linerep = (Int16)size_lrep;  
+  comp->size_linerep = (Int16)size_lrep;
   comp->linerep      = (Word8*)my_alloc(size_lrep+2);
-  if( !comp->linerep || 
+  if( !comp->linerep ||
 	  size_lrep==-1 ) // OLEG & ANTON : very large components
     return FALSE;
   memcpy( comp->linerep, lines, size_lrep);
@@ -347,7 +347,7 @@ if( size_lrep && lines>0 && lines )
     comp->size_linerep += 2;
   if( numcomp<2 && (nl==0 || free_beg==0 || free_end==0) )
     {
-    for (size=2,ln=(CCOM_lnhead*)((Word8*)lines+2),free_beg=free_end=0,nl=0; 
+    for (size=2,ln=(CCOM_lnhead*)((Word8*)lines+2),free_beg=free_end=0,nl=0;
                     size<size_lrep&&ln->lth;
 					nl++,ln=(CCOM_lnhead *)((Word8*)ln+ln->lth))
                      {
@@ -357,7 +357,7 @@ if( size_lrep && lines>0 && lines )
                         free_end++;
                      size += ln->lth;
                      }
-        
+
     }
   if( numcomp )
     {
@@ -391,7 +391,7 @@ if( vers )
     }
   if( comp->vers )
     memcpy(comp->vers , vers, sizeof(RecVersions) );
-  
+
   if( vers->lnAltCnt==1 )
     comptype |= CCOM_CH_PERFECT;
   }
@@ -446,9 +446,9 @@ if( !comp  )
 
 if( size_lrep && lines>0 && lines )
   {
-  comp->size_linerep = (Int16)size_lrep;  
+  comp->size_linerep = (Int16)size_lrep;
   comp->linerep      = (Word8*)my_alloc(size_lrep+2);
-  if( !comp->linerep || 
+  if( !comp->linerep ||
 	  size_lrep==-1 ) // OLEG & ANTON : very large components
     return FALSE;
   memcpy( comp->linerep, lines, size_lrep);
@@ -457,7 +457,7 @@ if( size_lrep && lines>0 && lines )
     comp->size_linerep += 2;
   if( numcomp<2 && (nl==0 || free_beg==0 || free_end==0) )
     {
-    for (size=2,ln=(CCOM_lnhead*)((Word8*)lines+2),free_beg=free_end=0,nl=0; 
+    for (size=2,ln=(CCOM_lnhead*)((Word8*)lines+2),free_beg=free_end=0,nl=0;
                     size<size_lrep&&ln->lth;
 					nl++,ln=(CCOM_lnhead *)((Word8*)ln+ln->lth))
                      {
@@ -467,7 +467,7 @@ if( size_lrep && lines>0 && lines )
                         free_end++;
                      size += ln->lth;
                      }
-        
+
     }
   if( numcomp )
     {
@@ -501,7 +501,7 @@ if( vers )
     }
   if( comp->vers )
     memcpy(comp->vers , vers, sizeof(RecVersions) );
-  
+
   if( vers->lnAltCnt==1 )
     comptype |= CCOM_CH_PERFECT;
   }
@@ -646,7 +646,7 @@ else
     {
     for(curr=comp->next_comp; curr!=NULL; curr=curr->next_comp)
         {
-        if( filtrate(curr->upper,curr->left,curr->w,curr->h)&& 
+        if( filtrate(curr->upper,curr->left,curr->w,curr->h)&&
             ccom_filtrate(curr) )
             return curr;
         }
@@ -678,7 +678,7 @@ else
     {
     for(curr=cont->first; curr!=NULL; curr=curr->next_comp)
         {
-        if( filtrate(curr->upper,curr->left,curr->w,curr->h) && 
+        if( filtrate(curr->upper,curr->left,curr->w,curr->h) &&
             ccom_filtrate(curr) )
             return curr;
         }
@@ -702,7 +702,7 @@ if( !comp->size_linerep )
     wLowRC=CCOM_ERR_BADDATA;
     return 0;
     }
-size=comp->size_linerep;  
+size=comp->size_linerep;
 if( !size )
     {
     wLowRC=CCOM_ERR_NULL;
@@ -739,7 +739,7 @@ rec->lnRasterBufSize = REC_MAX_RASTER_SIZE;
 if( comp->scale )
     {
     rec->lnPixWidth  =(rec->lnPixWidth +(1<<comp->scale)-1)>> comp->scale;
-    rec->lnPixHeight =(rec->lnPixHeight+(1<<comp->scale)-1)>> comp->scale;    
+    rec->lnPixHeight =(rec->lnPixHeight+(1<<comp->scale)-1)>> comp->scale;
     }
 memset( rec->Raster, 0 , REC_GW_WORD8(rec->lnPixWidth)*rec->lnPixHeight);
 rec->lnRasterBufSize = REC_MAX_RASTER_SIZE;
@@ -754,7 +754,7 @@ if( comp->numcomp>1 )
     if( comp->scale )
         {
         w =(w+(1<<comp->scale)-1)>> comp->scale;
-        h =(h+(1<<comp->scale)-1)>> comp->scale;    
+        h =(h+(1<<comp->scale)-1)>> comp->scale;
         }
     do  { // comps cycle
 		ret = Linerep2Raster((CCOM_lnhead*)&lp[2],(Int16)((*lt)-2), w, h, 0,0,rec, TRUE);
@@ -768,7 +768,7 @@ h = comp->h;
 if( comp->scale )
     {
     w =(w+(1<<comp->scale)-1)>> comp->scale;
-    h =(h+(1<<comp->scale)-1)>> comp->scale;    
+    h =(h+(1<<comp->scale)-1)>> comp->scale;
     }
 lp = &comp->linerep[0];
 lt = (Int16*)lp;
@@ -801,11 +801,11 @@ if( comp->scale&CCOM_LONGLINES)
 
 rec->lnPixWidth  = comp->w;
 rec->lnPixHeight = comp->h;
-rec->lnRasterBufSize=REC_MAX_RASTER_SIZE;    
+rec->lnRasterBufSize=REC_MAX_RASTER_SIZE;
 memset( rec->Raster, 0 , REC_GW_WORD8(rec->lnPixWidth)*rec->lnPixHeight);
 if( comp->numcomp>1 )
     return FALSE;
-    
+
 w = comp->w;
 h = comp->h;
 
@@ -841,12 +841,12 @@ if( comp->scale&CCOM_LONGLINES)
 rec->lnPixWidth  = comp->w;
 rec->lnPixHeight = comp->h;
 rec->lnPixWidth  =(rec->lnPixWidth +(1<<scale)-1)>> scale;
-rec->lnPixHeight =(rec->lnPixHeight+(1<<scale)-1)>> scale;    
-rec->lnRasterBufSize=REC_MAX_RASTER_SIZE;        
+rec->lnPixHeight =(rec->lnPixHeight+(1<<scale)-1)>> scale;
+rec->lnRasterBufSize=REC_MAX_RASTER_SIZE;
 memset( rec->Raster, 0 , REC_GW_WORD8(rec->lnPixWidth)*rec->lnPixHeight);
 if( comp->numcomp>1 )
     return FALSE;
-    
+
 w = comp->w;
 h = comp->h;
 
@@ -885,10 +885,10 @@ if( comp->numcomp>1 )
     h = comp->h;
     if( comp->scale )
         {
-        //w >>= comp->scale; 
+        //w >>= comp->scale;
         //h >>= comp->scale;
         w =(w+(1<<comp->scale)-1)>> comp->scale;
-        h =(h+(1<<comp->scale)-1)>> comp->scale;    
+        h =(h+(1<<comp->scale)-1)>> comp->scale;
         }
     do  { // comps cycle
         ret = Linerep2Raster((CCOM_lnhead*)&lp[2],(Int16)((*lt)-2), w, h, 0,0,rec, TRUE);
@@ -901,19 +901,19 @@ w = comp->w;
 h = comp->h;
 if( comp->scale )
     {
-    //w >>= comp->scale; 
+    //w >>= comp->scale;
     //h >>= comp->scale;
     w =(w+(1<<comp->scale)-1)>> comp->scale;
-    h =(h+(1<<comp->scale)-1)>> comp->scale;    
+    h =(h+(1<<comp->scale)-1)>> comp->scale;
     }
 lp = &comp->linerep[0];
 lt = (Int16*)lp;
 return Linerep2Raster((CCOM_lnhead*)&comp->linerep[2],(Int16)((*lt)-2), w, h, 0,0,rec, TRUE);
 }
 
-CCOM_FUNC(Bool32)      CCOM_AddCompToRaster(CCOM_comp * comp, 
-                                            Int16 relleft, 
-                                            Int16 relupper, 
+CCOM_FUNC(Bool32)      CCOM_AddCompToRaster(CCOM_comp * comp,
+                                            Int16 relleft,
+                                            Int16 relupper,
                                             RecRaster *rec)
 {
 Int16 w, h, left=relleft,upper=relupper;
@@ -950,7 +950,7 @@ if( comp->numcomp>1 )
         // i.e., not a [w/2^scale], but [( w+((2^scale)-1) )/2^scale] instead.
         // as far both width and height are not supposed to be 0.
         // (hence --- even the very small lines are still drawn (past tense of draw))
-        h =(h+(1<<comp->scale)-1)>> comp->scale;    
+        h =(h+(1<<comp->scale)-1)>> comp->scale;
         // beginning of component can be 0.
         // (i.e., pre-image of 0 with respect to this contraction is not only 0,
         // but also the whole interval [0..((2^scale)-1))]
@@ -968,10 +968,10 @@ w = comp->w;
 h = comp->h;
 if( comp->scale )
     {
-    //w >>= comp->scale; 
+    //w >>= comp->scale;
     //h >>= comp->scale;
     w =(w+(1<<comp->scale)-1)>> comp->scale;
-    h =(h+(1<<comp->scale)-1)>> comp->scale;    
+    h =(h+(1<<comp->scale)-1)>> comp->scale;
     // exactly here we do ">>=comp->scale":
     left>>=comp->scale;
     upper>>=comp->scale;
@@ -1183,7 +1183,7 @@ while( 1 )
     {
     if( my_fread(&cur,sizeof(CCOM_comp),1,fp)!=1)
         break; // EOF
-    cur.linerep = my_alloc(cur.size_linerep);   
+    cur.linerep = my_alloc(cur.size_linerep);
     if( !cur.linerep )
         {
         wLowRC=CCOM_ERR_NOMEMORY ;
@@ -1194,7 +1194,7 @@ while( 1 )
         wLowRC=CCOM_ERR_FILEACCESS;
         return (CCOM_handle)NULL;
         }
-    
+
     real_comp = CCOM_New(hnd, cur.upper, cur.left, cur.w, cur.h);
     CCOM_Store(real_comp,cur.numcomp,
                 cur.size_linerep, cur.linerep,cur.nl,
@@ -1250,7 +1250,7 @@ if( size>32767 )
 	comp->size_linerep = -1;
 }
 else
-	comp->size_linerep = (Int16)size;  
+	comp->size_linerep = (Int16)size;
 comp->linerep      = (Word8*)my_alloc(size+4);
 if( !comp->linerep )
     return (CCOM_comp*)NULL;
@@ -1445,19 +1445,19 @@ CCOM_FUNC(Bool32) CCOM_GetExportData(Word32 dwType, void * pData)
         EXPORT(CCOM_DeleteAll);
         break;
     case    CCOM_FNLARGENEW:            // create new component with long intervals
-        EXPORT( CCOM_LargeNew );       
+        EXPORT( CCOM_LargeNew );
         break;
     case    CCOM_FNLARGENEWLN:          // create new line with long intervals
-        EXPORT( CCOM_LargeNewLn );       
+        EXPORT( CCOM_LargeNewLn );
         break;
     case    CCOM_FNLARGENEWINTERVAL:    // write new long interval
-        EXPORT( CCOM_LargeNewInterval );       
+        EXPORT( CCOM_LargeNewInterval );
         break;
     case    CCOM_FNLARGECLOSE:          // finish processing of the component with long intervals
-        EXPORT( CCOM_LargeClose );     
+        EXPORT( CCOM_LargeClose );
         break;
     case    CCOM_FNSETKILLEDACCESS:       // mode with access to killed (no noun follows)
-        EXPORT( CCOM_SetKilledAccess );     
+        EXPORT( CCOM_SetKilledAccess );
         break;
     case    CCOM_FNKILL:                   // kill without deletion
         EXPORT( CCOM_Kill);

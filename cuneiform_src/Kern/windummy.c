@@ -14,14 +14,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -59,7 +59,7 @@ int CreateDirectory(const char *dir, void *dummy) {
 }
 
 void _makepath(char *f,const char *drive,const char *dir,const char *fname,const char *ext) {
-    
+
 }
 
 void _splitpath(/*const*/ char *f,char *drive,char *dir,char *fname,char *ext) {
@@ -256,7 +256,7 @@ void strlwr(char *foo) {
     // FIXME: this is probably actually used somewhere.
 }
 
-HWND CreateWindow(      
+HWND CreateWindow(
     LPCTSTR lpClassName,
     LPCTSTR lpWindowName,
     DWORD dwStyle,
@@ -420,17 +420,17 @@ BOOL PtInRect(const RECT *lprc, POINT pt) {
     return FALSE;
 }
 
-/* This is only called from creatertf.cpp. It does not use lprcDst at all so 
+/* This is only called from creatertf.cpp. It does not use lprcDst at all so
  * we do not need to calculate it.
  */
 
 BOOL IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2) {
-    if(lprcSrc1->left > lprcSrc2->right 
-       || lprcSrc1->right < lprcSrc2->left 
-       || lprcSrc1->top > lprcSrc2->bottom 
+    if(lprcSrc1->left > lprcSrc2->right
+       || lprcSrc1->right < lprcSrc2->left
+       || lprcSrc1->top > lprcSrc2->bottom
        || lprcSrc1->bottom < lprcSrc2->top)
         return FALSE;
-    return TRUE;           
+    return TRUE;
 }
 
 BOOL UnionRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2) {
@@ -447,13 +447,13 @@ BOOL UnionRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2) {
         lprcDst->top = lprcSrc1->top;
         lprcDst->bottom = lprcSrc1->bottom;
         return TRUE;
-    }   
-    
+    }
+
     lprcDst->left = lprcSrc1->left < lprcSrc2->left ? lprcSrc1->left : lprcSrc2->left;
     lprcDst->right = lprcSrc1->right > lprcSrc2->right ? lprcSrc1->right : lprcSrc2->right;
     lprcDst->top = lprcSrc1->top < lprcSrc2->top ? lprcSrc1->top : lprcSrc2->top;
     lprcDst->bottom = lprcSrc1->bottom > lprcSrc2->bottom ? lprcSrc1->bottom : lprcSrc2->bottom;
-    
+
     return 0;
 }
 
@@ -478,7 +478,7 @@ BOOL EnumWindows(WNDENUMPROC lpEnumFunc, LPARAM lParam) {
 }
 
 int GetWindowText(HWND hWnd, LPTSTR lpString, int nMaxCount) {
-    return 0;    
+    return 0;
 }
 
 HMODULE LoadLibrary(LPCTSTR lpFileName) {

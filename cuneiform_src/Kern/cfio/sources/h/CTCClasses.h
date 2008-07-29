@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -111,20 +111,20 @@ private:
 typedef CTCMemoryHeader *PCTCMemoryHeader, **PPCTCMemoryHeader;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-#define                CFIO_FILE_CREATE                    CFIO_GF_CREATE     
-#define                CFIO_FILE_OPEN                      CFIO_GF_OPEN       
-#define                CFIO_FILE_WRITE                     CFIO_GF_WRITE      
-#define                CFIO_FILE_READ                      CFIO_GF_READ       
-#define                CFIO_FILE_APPEND                    CFIO_GF_APPEND     
-#define                CFIO_FILE_BINARY                    CFIO_GF_BINARY     
-#define                CFIO_FILE_COMMIT                    CFIO_GF_COMMIT     
-#define                CFIO_FILE_EXIST                     CFIO_GF_FILE       
-#define                CFIO_FILE_ATTACHED                  CFIO_GF_STORAGE    
+#define                CFIO_FILE_CREATE                    CFIO_GF_CREATE
+#define                CFIO_FILE_OPEN                      CFIO_GF_OPEN
+#define                CFIO_FILE_WRITE                     CFIO_GF_WRITE
+#define                CFIO_FILE_READ                      CFIO_GF_READ
+#define                CFIO_FILE_APPEND                    CFIO_GF_APPEND
+#define                CFIO_FILE_BINARY                    CFIO_GF_BINARY
+#define                CFIO_FILE_COMMIT                    CFIO_GF_COMMIT
+#define                CFIO_FILE_EXIST                     CFIO_GF_FILE
+#define                CFIO_FILE_ATTACHED                  CFIO_GF_STORAGE
 #define                CFIO_FILE_IN_MEMORY                 CFIO_GF_IN_MEMORY
 #define                CFIO_FILE_TEMPORARY                 CFIO_GF_TEMPORARY
-#define                CFIO_FILE_LOCKED                    CFIO_GF_LOCKED   
-#define                CFIO_FILE_SEEK_CUR                  CFIO_GF_SEEK_CURR  
-#define                CFIO_FILE_SEEK_BEG                  CFIO_GF_SEEK_BEG   
+#define                CFIO_FILE_LOCKED                    CFIO_GF_LOCKED
+#define                CFIO_FILE_SEEK_CUR                  CFIO_GF_SEEK_CURR
+#define                CFIO_FILE_SEEK_BEG                  CFIO_GF_SEEK_BEG
 #define                CFIO_FILE_SEEK_END                  CFIO_GF_SEEK_END
 class CTCFileHeader : public CTCGlobalHeader
 {
@@ -138,8 +138,8 @@ public:
 	Bool32 UnlockFromStorage(void);
 	Bool32 LockToStorage(void);
 	CTCFileHeader();
-	CTCFileHeader(CTCGlobalFile * pNewFile, 
-		          Word32 Flag =CFIO_FILE_READ|CFIO_FILE_WRITE, 
+	CTCFileHeader(CTCGlobalFile * pNewFile,
+		          Word32 Flag =CFIO_FILE_READ|CFIO_FILE_WRITE,
 				  Handle hStorage = NULL);
 	~CTCFileHeader();
 
@@ -173,7 +173,7 @@ private:
 	Word32               wItemSize;
 
 public:
-	CTCStorageContents():wItemID(3),wItemSize(0),wContentsSize( sizeof ( class CTCStorageContents)) 
+	CTCStorageContents():wItemID(3),wItemSize(0),wContentsSize( sizeof ( class CTCStorageContents))
 	{pNext = NULL; hItem = NULL;};
 	CTCStorageContents(Handle H, Word32 ID = 0, Word32 Size = 0, CTCStorageContents * Next = NULL): wItemID(ID),wItemSize(Size),wContentsSize( sizeof ( class CTCStorageContents) )
 	{ hItem = H;  pNext = Next;};
@@ -194,7 +194,7 @@ public:
 	void       SetNext(CTCStorageContents * Next) {  pNext = Next; };
 };
 */
-typedef struct 
+typedef struct
 {
 	Word32    siHeaderSize;
 	Word32    siItemSize;

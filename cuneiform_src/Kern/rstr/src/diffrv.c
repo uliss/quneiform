@@ -6,28 +6,28 @@ All rights reserved.
 Ú‡Í Ë ‚ ‰‚ÓË˜ÌÓÈ ÙÓÏÂ, Ò ËÁÏÂÌÂÌËˇÏË ËÎË ·ÂÁ, ÔË ÒÓ·Î˛‰ÂÌËË ÒÎÂ‰Û˛˘Ëı ÛÒÎÓ‚ËÈ:
 
       * œË ÔÓ‚ÚÓÌÓÏ ‡ÒÔÓÒÚ‡ÌÂÌËË ËÒıÓ‰ÌÓ„Ó ÍÓ‰‡ ‰ÓÎÊÌ˚ ÓÒÚ‡‚‡Ú¸Òˇ ÛÍ‡Á‡ÌÌÓÂ
-        ‚˚¯Â Û‚Â‰ÓÏÎÂÌËÂ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ˝ÚÓÚ ÒÔËÒÓÍ ÛÒÎÓ‚ËÈ Ë ÔÓÒÎÂ‰Û˛˘ËÈ 
-        ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ. 
-      * œË ÔÓ‚ÚÓÌÓÏ ‡ÒÔÓÒÚ‡ÌÂÌËË ‰‚ÓË˜ÌÓ„Ó ÍÓ‰‡ ‚ ‰ÓÍÛÏÂÌÚ‡ˆËË Ë/ËÎË ‚ 
+        ‚˚¯Â Û‚Â‰ÓÏÎÂÌËÂ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ˝ÚÓÚ ÒÔËÒÓÍ ÛÒÎÓ‚ËÈ Ë ÔÓÒÎÂ‰Û˛˘ËÈ
+        ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ.
+      * œË ÔÓ‚ÚÓÌÓÏ ‡ÒÔÓÒÚ‡ÌÂÌËË ‰‚ÓË˜ÌÓ„Ó ÍÓ‰‡ ‚ ‰ÓÍÛÏÂÌÚ‡ˆËË Ë/ËÎË ‚
         ‰Û„Ëı Ï‡ÚÂË‡Î‡ı, ÔÓÒÚ‡‚ÎˇÂÏ˚ı ÔË ‡ÒÔÓÒÚ‡ÌÂÌËË, ‰ÓÎÊÌ˚ ÒÓı‡ÌˇÚ¸Òˇ
         ÛÍ‡Á‡ÌÌ‡ˇ ‚˚¯Â ËÌÙÓÏ‡ˆËˇ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ˝ÚÓÚ ÒÔËÒÓÍ ÛÒÎÓ‚ËÈ Ë
-        ÔÓÒÎÂ‰Û˛˘ËÈ ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ.  
-      * ÕË Ì‡Á‚‡ÌËÂ Cognitive Technologies, ÌË ËÏÂÌ‡ ÂÂ ÒÓÚÛ‰ÌËÍÓ‚ ÌÂ ÏÓ„ÛÚ 
-        ·˚Ú¸ ËÒÔÓÎ¸ÁÓ‚‡Ì˚ ‚ Í‡˜ÂÒÚ‚Â ÒÂ‰ÒÚ‚‡ ÔÓ‰‰ÂÊÍË Ë/ËÎË ÔÓ‰‚ËÊÂÌËˇ 
+        ÔÓÒÎÂ‰Û˛˘ËÈ ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ.
+      * ÕË Ì‡Á‚‡ÌËÂ Cognitive Technologies, ÌË ËÏÂÌ‡ ÂÂ ÒÓÚÛ‰ÌËÍÓ‚ ÌÂ ÏÓ„ÛÚ
+        ·˚Ú¸ ËÒÔÓÎ¸ÁÓ‚‡Ì˚ ‚ Í‡˜ÂÒÚ‚Â ÒÂ‰ÒÚ‚‡ ÔÓ‰‰ÂÊÍË Ë/ËÎË ÔÓ‰‚ËÊÂÌËˇ
         ÔÓ‰ÛÍÚÓ‚, ÓÒÌÓ‚‡ÌÌ˚ı Ì‡ ˝ÚÓÏ œŒ, ·ÂÁ ÔÂ‰‚‡ËÚÂÎ¸ÌÓ„Ó ÔËÒ¸ÏÂÌÌÓ„Ó
-        ‡ÁÂ¯ÂÌËˇ. 
+        ‡ÁÂ¯ÂÌËˇ.
 
 ›“¿ œ–Œ√–¿ÃÃ¿ œ–≈ƒŒ—“¿¬À≈Õ¿ ¬À¿ƒ≈À‹÷¿Ã» ¿¬“Œ–— »’ œ–¿¬ »/»À» ƒ–”√»Ã» À»÷¿Ã» " ¿ 
-ŒÕ¿ ≈—“‹" ¡≈«  ¿ Œ√Œ-À»¡Œ ¬»ƒ¿ √¿–¿Õ“»…, ¬€–¿∆≈ÕÕ€’ ﬂ¬ÕŒ »À» œŒƒ–¿«”Ã≈¬¿≈Ã€’, 
+ŒÕ¿ ≈—“‹" ¡≈«  ¿ Œ√Œ-À»¡Œ ¬»ƒ¿ √¿–¿Õ“»…, ¬€–¿∆≈ÕÕ€’ ﬂ¬ÕŒ »À» œŒƒ–¿«”Ã≈¬¿≈Ã€’,
 ¬ Àﬁ◊¿ﬂ √¿–¿Õ“»»  ŒÃÃ≈–◊≈— Œ… ÷≈ÕÕŒ—“» » œ–»√ŒƒÕŒ—“» ƒÀﬂ  ŒÕ –≈“ÕŒ… ÷≈À», ÕŒ Õ≈
-Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã». Õ» ¬À¿ƒ≈À≈÷ ¿¬“Œ–— »’ œ–¿¬ » Õ» ŒƒÕŒ ƒ–”√Œ≈ À»÷Œ,  Œ“Œ–Œ≈ 
-ÃŒ∆≈“ »«Ã≈Õﬂ“‹ »/»À» œŒ¬“Œ–ÕŒ –¿—œ–Œ—“–¿Õﬂ“‹ œ–Œ√–¿ÃÃ”, Õ» ¬  Œ≈Ã —À”◊¿≈ Õ≈ 
-Õ≈—®“ Œ“¬≈“—“¬≈ÕÕŒ—“», ¬ Àﬁ◊¿ﬂ Àﬁ¡€≈ Œ¡Ÿ»≈, —À”◊¿…Õ€≈, —œ≈÷»¿À‹Õ€≈ »À» 
-œŒ—À≈ƒŒ¬¿¬ÿ»≈ ”¡€“ », —¬ﬂ«¿ÕÕ€≈ — »—œŒÀ‹«Œ¬¿Õ»≈Ã »À» œŒÕ≈—≈ÕÕ€≈ ¬—À≈ƒ—“¬»≈ 
-Õ≈¬Œ«ÃŒ∆ÕŒ—“» »—œŒÀ‹«Œ¬¿Õ»ﬂ œ–Œ√–¿ÃÃ€ (¬ Àﬁ◊¿ﬂ œŒ“≈–» ƒ¿ÕÕ€’, »À» ƒ¿ÕÕ€≈, 
-—“¿¬ÿ»≈ Õ≈√ŒƒÕ€Ã», »À» ”¡€“ » »/»À» œŒ“≈–» ƒŒ’ŒƒŒ¬, œŒÕ≈—≈ÕÕ€≈ »«-«¿ ƒ≈…—“¬»… 
-“–≈“‹»’ À»÷ »/»À» Œ“ ¿«¿ œ–Œ√–¿ÃÃ€ –¿¡Œ“¿“‹ —Œ¬Ã≈—“ÕŒ — ƒ–”√»Ã» œ–Œ√–¿ÃÃ¿Ã», 
-ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ ›“»Ã» —À”◊¿ﬂÃ»), ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã», ƒ¿∆≈ ≈—À» “¿ Œ… 
+Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã». Õ» ¬À¿ƒ≈À≈÷ ¿¬“Œ–— »’ œ–¿¬ » Õ» ŒƒÕŒ ƒ–”√Œ≈ À»÷Œ,  Œ“Œ–Œ≈
+ÃŒ∆≈“ »«Ã≈Õﬂ“‹ »/»À» œŒ¬“Œ–ÕŒ –¿—œ–Œ—“–¿Õﬂ“‹ œ–Œ√–¿ÃÃ”, Õ» ¬  Œ≈Ã —À”◊¿≈ Õ≈
+Õ≈—®“ Œ“¬≈“—“¬≈ÕÕŒ—“», ¬ Àﬁ◊¿ﬂ Àﬁ¡€≈ Œ¡Ÿ»≈, —À”◊¿…Õ€≈, —œ≈÷»¿À‹Õ€≈ »À»
+œŒ—À≈ƒŒ¬¿¬ÿ»≈ ”¡€“ », —¬ﬂ«¿ÕÕ€≈ — »—œŒÀ‹«Œ¬¿Õ»≈Ã »À» œŒÕ≈—≈ÕÕ€≈ ¬—À≈ƒ—“¬»≈
+Õ≈¬Œ«ÃŒ∆ÕŒ—“» »—œŒÀ‹«Œ¬¿Õ»ﬂ œ–Œ√–¿ÃÃ€ (¬ Àﬁ◊¿ﬂ œŒ“≈–» ƒ¿ÕÕ€’, »À» ƒ¿ÕÕ€≈,
+—“¿¬ÿ»≈ Õ≈√ŒƒÕ€Ã», »À» ”¡€“ » »/»À» œŒ“≈–» ƒŒ’ŒƒŒ¬, œŒÕ≈—≈ÕÕ€≈ »«-«¿ ƒ≈…—“¬»…
+“–≈“‹»’ À»÷ »/»À» Œ“ ¿«¿ œ–Œ√–¿ÃÃ€ –¿¡Œ“¿“‹ —Œ¬Ã≈—“ÕŒ — ƒ–”√»Ã» œ–Œ√–¿ÃÃ¿Ã»,
+ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ ›“»Ã» —À”◊¿ﬂÃ»), ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã», ƒ¿∆≈ ≈—À» “¿ Œ…
 ¬À¿ƒ≈À≈÷ »À» ƒ–”√Œ≈ À»÷Œ ¡€À» »«¬≈Ÿ≈Õ€ Œ ¬Œ«ÃŒ∆ÕŒ—“» “¿ »’ ”¡€“ Œ¬ » œŒ“≈–‹.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -92,7 +92,7 @@ BOOL snap_show_raster(PBYTE raster, INT height, INT width);
 INT  SumIntervalBits( BYTE *r, INT bx, INT ex);
 INT  NumHorizInterval( BYTE *r, INT );
 INT  corner_type(BYTE crn);
-INT  cut_by_pos_ii(s_glue * gl,BYTE let);    
+INT  cut_by_pos_ii(s_glue * gl,BYTE let);
 
 /*============ Export functions ==================*/
 
@@ -334,7 +334,7 @@ snvers=c->nvers;
  segment_pool = EVN_GetSegmentPool();
  make_white_hist(segment_pool,_rst.h);
  dens = internal_filling((segment*)segment_pool,_rst.h,_rst.w);
- 
+
 //#pragma warning	( disable : 4047 4024 )				   //AK 11.03.97
 
  calc_angles(&_rst,segment_pool,/*&*/corners,              //AK 04.03.97 ? for address
@@ -576,7 +576,7 @@ snvers=c->nvers;
 		 break;
 
         case (BYTE)liga_exm_latin:
-		 if (liga_exm_latin == liga_exm) 
+		 if (liga_exm_latin == liga_exm)
             d_cun = check_I_dot(c,v0->let);
 		 break;
 
@@ -645,8 +645,8 @@ snvers=c->nvers;
          }
       }
     d += d_ang;
-if( v0->let=='|'                || 
-    (c->env && !c->env->scale)  || 
+if( v0->let=='|'                ||
+    (c->env && !c->env->scale)  ||
     (c->cg_flag&c_cg_cut) )
     d += d_cun;
     d += d_abris; // sum penalty
@@ -715,7 +715,7 @@ WORD check_xk(INT h,BYTE let)
    // check right side
   memset(hist,0,sizeof hist);
   //AK! temporary 'zatychka' not solved problem of l_abris[..]<0!
-  for(i=h/5,max=0,index=0;i < h*4/5 ;i++) 
+  for(i=h/5,max=0,index=0;i < h*4/5 ;i++)
      {
 	  if (r_abris[i] < 0 || r_abris[i] > 127)
 		  continue;
@@ -724,23 +724,23 @@ WORD check_xk(INT h,BYTE let)
  /* check hist peak */
   for(i=0,max=0,index=0;i < sizeof(hist)/sizeof(hist[0]);i++)
      if( max < hist[i])
-       { 
-	    max = hist[i]; 
-		index = i; 
+       {
+	    max = hist[i];
+		index = i;
        }
-  if(index > 0 && hist[index-1]==1) 
+  if(index > 0 && hist[index-1]==1)
 	  max++; // add one dot throw
-  if(hist[index+1]==1) 
+  if(hist[index+1]==1)
 	  max++;
   if( max*6 > h*5*3/5 )
-     { 
-	  pen_rx += 60; 
+     {
+	  pen_rx += 60;
 	  pen_rk += 60;
      }// stick in right side
 
   memset(hist,0,sizeof hist);
   //AK! temporary 'zatychka' not solved problem of l_abris[..]<0!
-  for(i=h/5,max=0,index=0;i < h*4/5 ;i++) 
+  for(i=h/5,max=0,index=0;i < h*4/5 ;i++)
 	 {
 	  if (l_abris[i] < 0 || l_abris[i] > 127)
 		  continue;
@@ -749,28 +749,28 @@ WORD check_xk(INT h,BYTE let)
  /* check hist peak */
   for(i=0,max=0,index=0;i < sizeof(hist)/sizeof(hist[0]);i++)
      if( max < hist[i])
-        { 
-	     max = hist[i]; 
-		 index = i; 
+        {
+	     max = hist[i];
+		 index = i;
         }
-  if(index > 0 && hist[index-1]==1) 
+  if(index > 0 && hist[index-1]==1)
 	  max++; // add one dot throw
-  if(hist[index+1]==1)              
+  if(hist[index+1]==1)
 	  max++;
-  if( max*6 > h*5*3/5 ) 
+  if( max*6 > h*5*3/5 )
 	  pen_lx += 60; // stick in left side
   // check italic
   for(i=h/5,smooth=0,mono=0;i < h*4/5-1 ;i++)
      { // skip serif
-      if(abs (l_abris[i]-l_abris[i+1]) < 2) 
+      if(abs (l_abris[i]-l_abris[i+1]) < 2)
 		  smooth++;
-      if( l_abris[i]-l_abris[i+1] < 0) 
+      if( l_abris[i]-l_abris[i+1] < 0)
 		  mono--;
-        else                             
+        else
 		  mono++;
      }
   i = h*4/5-1 - h/5; // total iterations
-  if( i == smooth && i == abs(mono) && pen_lx == 0) 
+  if( i == smooth && i == abs(mono) && pen_lx == 0)
 	  pen_lx += 80; // italic k
   smooth = i == smooth ? 1 : 0; // make var logical
 
@@ -787,20 +787,20 @@ WORD check_xk(INT h,BYTE let)
 	     { //  may be meandr
           for(i=0,pos=0,neg=0; i < j;i++)
 		     {  // how many peaks
-              if(jump[i] > 0 ) 
+              if(jump[i] > 0 )
 				  pos++;
-              if(jump[i] < 0 ) 
+              if(jump[i] < 0 )
 				  neg++;
              }
           if( pos + neg == 1 )
-		    { 
-			 pen_rk += 30; 
-			 pen_rx += 80; 
+		    {
+			 pen_rk += 30;
+			 pen_rx += 80;
 		    }
-           else 
+           else
 			if( pos > 1 && neg > 1 )
-		      { 
-			   pen_rk += 40; 
+		      {
+			   pen_rk += 40;
 			   pen_rx += 80;
 		      }
          }
@@ -1882,29 +1882,29 @@ if( nstick==2 || nstick_broken==2)
 
   switch( let ){
   case  (BYTE)'Ë'     :
-  case  (BYTE)'ò'     :  
+  case  (BYTE)'ò'     :
 	  if(suspect_italic_III(c))
-	    { 
+	    {
 		 pen += old_diskr;
-		 break; 
+		 break;
 	    }
 	  pen = check_III(c,foot_wid,dest_foot);
      break;
   case  (BYTE)'È'     :
-  case  (BYTE)'ô'     :  
+  case  (BYTE)'ô'     :
 	  if(suspect_italic_III_bend(c))
-	    { 
+	    {
 		 pen += old_diskr;
-		 break; 
+		 break;
 	    }
 		pen = check_III_bend(c,dest_foot);
 	   break;
   case  (BYTE)'Ø'     :
-  case  (BYTE)'è'     :  
+  case  (BYTE)'è'     :
 	  if(suspect_italic_nn()&&!dnri_hook)
-	    { 
+	    {
 		 pen += old_diskr;
-		 break; 
+		 break;
 	    }
 	  if( !(nstick==2 && stick[1].incl==0) )
 		pen += check_inc_foots(c,2);
@@ -2473,28 +2473,28 @@ void calc_abris(PBYTE pint,INT height )
 {
  INT col,i,ndx;
  segment * segm = (segment*)pint;
- 
+
  memset(l_abris,0x33,sizeof l_abris );
  memset(r_abris,0x33,sizeof r_abris );
  for(i=0,ndx=0,col=0,segm++;i < height;i++,ndx++,col=0)
     {
 	 if((i==0 || i == height-1) && !valid_line(segm))
 	    {
-		 ndx--; 
+		 ndx--;
 		 continue;
 	    }
-	 if(segm->segblack) 
+	 if(segm->segblack)
 		 l_abris[ndx] = 0;
-	   else               
+	   else
 		 l_abris[ndx] = segm->segwhite;
 	 while(TRUE)
 	   {
 	    col+=segm->segblack;
-	    if(segm->segwhite != 0x9000 ) 
+	    if(segm->segwhite != 0x9000 )
 	       col+=segm->segwhite;
-	     else 
-		   { 
-		    segm++;break; 
+	     else
+		   {
+		    segm++;break;
 		   }
 	    segm++;
 	 }
@@ -2657,7 +2657,7 @@ for(row=0,end=0,col=0,start=0,segm++;
       	end = right;
       if (start < left)
       	start = left;
-      
+
       if( start < end)
       	fill += end - start;
       if(segm->segwhite != 0x9000)
@@ -2764,7 +2764,7 @@ ret:
     case (BYTE)'†'  : return pen_a;
     case (BYTE)'¢'  : return pen_v;
     case (BYTE)'ß'  : return pen_z;
-    case (BYTE)'Ì'  : 
+    case (BYTE)'Ì'  :
 			   // ¬ ·ÓÎ„‡ÒÍÓÏ ÌÂÚ ˝. 08.09.2000 E.P.
 	   if (language==LANG_RUSSIAN && langBul)
 			return 200;
@@ -2837,7 +2837,7 @@ stick = NULL;nstickLP=0;stickLP=NULL;
 BOOL stick_online(cell * c)
 {
 STICK * s;
-if( stick || !c) 
+if( stick || !c)
     return FALSE;
 if( c->n_baton==NO_BATONS )
  {
@@ -3066,15 +3066,15 @@ cell *  c, sc;
 INT     dist;
 
 c = cl->prevl;
-if( c ) 
+if( c )
     dist = cl->col - (c->col + c->w);
-else 
+else
     goto kill; // stick first in line
 
-if( memchr("ÏúöÍ",c->vers[0].let,4) && 
-    c->vers[0].prob > 12 && dist < c->w ) 
+if( memchr("ÏúöÍ",c->vers[0].let,4) &&
+    c->vers[0].prob > 12 && dist < c->w )
     return 0;
-else              
+else
 goto kill;
 kill:
 sc = *cl;
@@ -3106,7 +3106,7 @@ BYTE let;
 c = cell_f();
 while((c=c->nextl) != NULL )
      {
-     if( !(c->flg & (c_f_let+c_f_bad)) ) 
+     if( !(c->flg & (c_f_let+c_f_bad)) )
         continue;
      if(!c->nextl || !(c->nextl->flg & (c_f_let+c_f_bad)) )
         continue;
@@ -3114,16 +3114,16 @@ while((c=c->nextl) != NULL )
      if( memchr("ÏúÍ",let,3) && c->nextl->vers[0].let == '|' )
      //(c->nextl->vers[0].let == '|' || p2_active && c->nextl->vers[0].let=='1' && test_I(c->nextl)) )
         {
-        if(pass == 0 && !(c->nextl->cg_flag & c_cg_cut)) 
+        if(pass == 0 && !(c->nextl->cg_flag & c_cg_cut))
             continue;
-        if( 
+        if(
 			langBul || // ¬ ¡ÓÎ„‡ÒÍÓÏ ÌÂÚ €˚! // 08.09.2000 E.P.
 
 			// heights very different
 			abs(c->h - c->nextl->h) > 3 ||
             abs(c->row - c->nextl->row) > 3
 		  )
-            { 
+            {
             c->nextl->vers[0].prob = 20; // pen '|' deadly
             sort_vers(c->nextl);
             continue;
@@ -3148,12 +3148,12 @@ WORD check_I_dot(cell * c,BYTE let)
  case '!'       : return (c->cg_flag & c_cg_cut) ? 120 : 0;
 
  // 31.08.2000 E.P.
- case liga_exm_usual  : 
+ case liga_exm_usual  :
 	 if (liga_exm_usual == liga_exm)
 		return (c->cg_flag & c_cg_cut) ? 80 : 0;
 	 break;
 
- case liga_exm_latin  : 
+ case liga_exm_latin  :
 	 if (liga_exm_latin == liga_exm)
 		return (c->cg_flag & c_cg_cut) ? 80 : 0;
 	 break;
@@ -3363,7 +3363,7 @@ switch( c->vers[0].let )
              _rst = create_raster(c,NULL);
              if(_rst.raster )
                 {
-                INT pen = 
+                INT pen =
              Diskrim((BYTE)'N',_rst.raster,_rst.w,0,0,_rst.w,_rst.h,c->cg_flag,
                    (INT)(c->save_stick_inc!=NO_INCLINE?c->save_stick_inc:0));
              if(  pen )

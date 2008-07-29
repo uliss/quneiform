@@ -14,14 +14,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -30,10 +30,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * Typedefs for the various win32-only variable types.
  * Only defines those types that are currently undefined. Thus this
  * can be included after other headers without redefinition errors.
- * 
+ *
  * Most of these are also in c_types.h and/or cttypes.h. I added them
  * here so as to make changes minimal and isolated. Eventually this
- * header should be removed altogether. 
+ * header should be removed altogether.
  */
 
 #ifndef compat_typedefs_h_
@@ -142,26 +142,26 @@ typedef struct {
 } WNDCLASS;
 
 typedef struct tagBITMAPINFOHEADER{
-  DWORD  biSize; 
-  LONG   biWidth; 
-  LONG   biHeight; 
-  WORD   biPlanes;    
-  WORD   biBitCount;  
-  DWORD  biCompression; 
-  DWORD  biSizeImage; 
-  LONG   biXPelsPerMeter; 
-  LONG   biYPelsPerMeter; 
-  DWORD  biClrUsed; 
-  DWORD  biClrImportant; 
-} BITMAPINFOHEADER, *PBITMAPINFOHEADER; 
+  DWORD  biSize;
+  LONG   biWidth;
+  LONG   biHeight;
+  WORD   biPlanes;
+  WORD   biBitCount;
+  DWORD  biCompression;
+  DWORD  biSizeImage;
+  LONG   biXPelsPerMeter;
+  LONG   biYPelsPerMeter;
+  DWORD  biClrUsed;
+  DWORD  biClrImportant;
+} BITMAPINFOHEADER, *PBITMAPINFOHEADER;
 
 typedef struct tagBITMAPCOREHEADER {
-  DWORD   bcSize; 
-  WORD    bcWidth; 
-  WORD    bcHeight; 
-  WORD    bcPlanes; 
-  WORD    bcBitCount; 
-} BITMAPCOREHEADER, *PBITMAPCOREHEADER; 
+  DWORD   bcSize;
+  WORD    bcWidth;
+  WORD    bcHeight;
+  WORD    bcPlanes;
+  WORD    bcBitCount;
+} BITMAPCOREHEADER, *PBITMAPCOREHEADER;
 
 struct _finddata_t {
     unsigned    attrib;
@@ -173,48 +173,48 @@ struct _finddata_t {
 };
 
 typedef struct tagRGBQUAD {
-  BYTE    rgbBlue; 
-  BYTE    rgbGreen; 
-  BYTE    rgbRed; 
-  BYTE    rgbReserved; 
-} RGBQUAD; 
+  BYTE    rgbBlue;
+  BYTE    rgbGreen;
+  BYTE    rgbRed;
+  BYTE    rgbReserved;
+} RGBQUAD;
 
-typedef struct tagBITMAPINFO { 
-  BITMAPINFOHEADER bmiHeader; 
-  RGBQUAD          bmiColors[1]; 
-} BITMAPINFO, *PBITMAPINFO; 
+typedef struct tagBITMAPINFO {
+  BITMAPINFOHEADER bmiHeader;
+  RGBQUAD          bmiColors[1];
+} BITMAPINFO, *PBITMAPINFO;
 
-typedef struct tagRGBTRIPLE { 
-  BYTE rgbtBlue; 
-  BYTE rgbtGreen; 
-  BYTE rgbtRed; 
-} RGBTRIPLE; 
+typedef struct tagRGBTRIPLE {
+  BYTE rgbtBlue;
+  BYTE rgbtGreen;
+  BYTE rgbtRed;
+} RGBTRIPLE;
 
 typedef BITMAPCOREHEADER* LPBITMAPCOREHEADER;
 typedef BITMAPINFOHEADER* LPBITMAPINFOHEADER;
 typedef BITMAPINFO* LPBITMAPINFO;
 
-typedef struct tagMETAHEADER { 
-  WORD  mtType; 
-  WORD  mtHeaderSize; 
-  WORD  mtVersion; 
-  DWORD mtSize; 
-  WORD  mtNoObjects; 
-  DWORD mtMaxRecord; 
-  WORD  mtNoParameters; 
+typedef struct tagMETAHEADER {
+  WORD  mtType;
+  WORD  mtHeaderSize;
+  WORD  mtVersion;
+  DWORD mtSize;
+  WORD  mtNoObjects;
+  DWORD mtMaxRecord;
+  WORD  mtNoParameters;
 } METAHEADER, *PMETAHEADER;
 
-typedef struct tagPALETTEENTRY { 
-  BYTE peRed; 
-  BYTE peGreen; 
-  BYTE peBlue; 
-  BYTE peFlags; 
-} PALETTEENTRY; 
+typedef struct tagPALETTEENTRY {
+  BYTE peRed;
+  BYTE peGreen;
+  BYTE peBlue;
+  BYTE peFlags;
+} PALETTEENTRY;
 
-typedef struct tagLOGPALETTE { 
-  WORD         palVersion; 
-  WORD         palNumEntries; 
-  PALETTEENTRY palPalEntry[1]; 
+typedef struct tagLOGPALETTE {
+  WORD         palVersion;
+  WORD         palNumEntries;
+  PALETTEENTRY palPalEntry[1];
 } LOGPALETTE;
 
 /*
@@ -227,32 +227,32 @@ typedef BOOL(*WNDENUMPROC)(HWND, int);
 
 typedef int HPALETTE;
 
-typedef struct tagPAINTSTRUCT { 
-  HDC  hdc; 
-  BOOL fErase; 
-  RECT rcPaint; 
-  BOOL fRestore; 
-  BOOL fIncUpdate; 
-  unsigned char rgbReserved[32]; 
-} PAINTSTRUCT, *PPAINTSTRUCT; 
+typedef struct tagPAINTSTRUCT {
+  HDC  hdc;
+  BOOL fErase;
+  RECT rcPaint;
+  BOOL fRestore;
+  BOOL fIncUpdate;
+  unsigned char rgbReserved[32];
+} PAINTSTRUCT, *PPAINTSTRUCT;
 
-typedef struct tagPOINT { 
-  LONG x; 
-  LONG y; 
+typedef struct tagPOINT {
+  LONG x;
+  LONG y;
 } POINT, *PPOINT;
 
 typedef struct  tagSIZE{
-    LONG cx;    
+    LONG cx;
     LONG cy;
 } SIZE;
 
-typedef struct tagBITMAPFILEHEADER { 
-  WORD    bfType; 
-  DWORD   bfSize; 
-  WORD    bfReserved1; 
-  WORD    bfReserved2; 
-  DWORD   bfOffBits; 
-} BITMAPFILEHEADER, *PBITMAPFILEHEADER; 
+typedef struct tagBITMAPFILEHEADER {
+  WORD    bfType;
+  DWORD   bfSize;
+  WORD    bfReserved1;
+  WORD    bfReserved2;
+  DWORD   bfOffBits;
+} BITMAPFILEHEADER, *PBITMAPFILEHEADER;
 
 typedef struct tagCOPYDATASTRUCT {
     ULONG dwData;
@@ -311,7 +311,7 @@ typedef int REGSAM;
 #endif
 
 #ifndef SRCCOPY
-#define SRCCOPY 482 
+#define SRCCOPY 482
 #endif
 
 #ifndef LPARAM
@@ -479,7 +479,7 @@ typedef int REGSAM;
 #define ERROR_SUCCESS 0
 #endif
 
-#ifndef HKEY_CURRENT_USER 
+#ifndef HKEY_CURRENT_USER
 #define HKEY_CURRENT_USER 69
 #endif
 
@@ -526,5 +526,5 @@ typedef int REGSAM;
 #ifdef __cplusplus
     }
 #endif
-    
+
 #endif

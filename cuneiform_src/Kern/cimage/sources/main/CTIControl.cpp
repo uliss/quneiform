@@ -6,28 +6,28 @@ All rights reserved.
 Ú‡Í Ë ‚ ‰‚ÓË˜ÌÓÈ ÙÓÏÂ, Ò ËÁÏÂÌÂÌËˇÏË ËÎË ·ÂÁ, ÔË ÒÓ·Î˛‰ÂÌËË ÒÎÂ‰Û˛˘Ëı ÛÒÎÓ‚ËÈ:
 
       * œË ÔÓ‚ÚÓÌÓÏ ‡ÒÔÓÒÚ‡ÌÂÌËË ËÒıÓ‰ÌÓ„Ó ÍÓ‰‡ ‰ÓÎÊÌ˚ ÓÒÚ‡‚‡Ú¸Òˇ ÛÍ‡Á‡ÌÌÓÂ
-        ‚˚¯Â Û‚Â‰ÓÏÎÂÌËÂ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ˝ÚÓÚ ÒÔËÒÓÍ ÛÒÎÓ‚ËÈ Ë ÔÓÒÎÂ‰Û˛˘ËÈ 
-        ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ. 
-      * œË ÔÓ‚ÚÓÌÓÏ ‡ÒÔÓÒÚ‡ÌÂÌËË ‰‚ÓË˜ÌÓ„Ó ÍÓ‰‡ ‚ ‰ÓÍÛÏÂÌÚ‡ˆËË Ë/ËÎË ‚ 
+        ‚˚¯Â Û‚Â‰ÓÏÎÂÌËÂ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ˝ÚÓÚ ÒÔËÒÓÍ ÛÒÎÓ‚ËÈ Ë ÔÓÒÎÂ‰Û˛˘ËÈ
+        ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ.
+      * œË ÔÓ‚ÚÓÌÓÏ ‡ÒÔÓÒÚ‡ÌÂÌËË ‰‚ÓË˜ÌÓ„Ó ÍÓ‰‡ ‚ ‰ÓÍÛÏÂÌÚ‡ˆËË Ë/ËÎË ‚
         ‰Û„Ëı Ï‡ÚÂË‡Î‡ı, ÔÓÒÚ‡‚ÎˇÂÏ˚ı ÔË ‡ÒÔÓÒÚ‡ÌÂÌËË, ‰ÓÎÊÌ˚ ÒÓı‡ÌˇÚ¸Òˇ
         ÛÍ‡Á‡ÌÌ‡ˇ ‚˚¯Â ËÌÙÓÏ‡ˆËˇ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ˝ÚÓÚ ÒÔËÒÓÍ ÛÒÎÓ‚ËÈ Ë
-        ÔÓÒÎÂ‰Û˛˘ËÈ ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ.  
-      * ÕË Ì‡Á‚‡ÌËÂ Cognitive Technologies, ÌË ËÏÂÌ‡ ÂÂ ÒÓÚÛ‰ÌËÍÓ‚ ÌÂ ÏÓ„ÛÚ 
-        ·˚Ú¸ ËÒÔÓÎ¸ÁÓ‚‡Ì˚ ‚ Í‡˜ÂÒÚ‚Â ÒÂ‰ÒÚ‚‡ ÔÓ‰‰ÂÊÍË Ë/ËÎË ÔÓ‰‚ËÊÂÌËˇ 
+        ÔÓÒÎÂ‰Û˛˘ËÈ ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ.
+      * ÕË Ì‡Á‚‡ÌËÂ Cognitive Technologies, ÌË ËÏÂÌ‡ ÂÂ ÒÓÚÛ‰ÌËÍÓ‚ ÌÂ ÏÓ„ÛÚ
+        ·˚Ú¸ ËÒÔÓÎ¸ÁÓ‚‡Ì˚ ‚ Í‡˜ÂÒÚ‚Â ÒÂ‰ÒÚ‚‡ ÔÓ‰‰ÂÊÍË Ë/ËÎË ÔÓ‰‚ËÊÂÌËˇ
         ÔÓ‰ÛÍÚÓ‚, ÓÒÌÓ‚‡ÌÌ˚ı Ì‡ ˝ÚÓÏ œŒ, ·ÂÁ ÔÂ‰‚‡ËÚÂÎ¸ÌÓ„Ó ÔËÒ¸ÏÂÌÌÓ„Ó
-        ‡ÁÂ¯ÂÌËˇ. 
+        ‡ÁÂ¯ÂÌËˇ.
 
 ›“¿ œ–Œ√–¿ÃÃ¿ œ–≈ƒŒ—“¿¬À≈Õ¿ ¬À¿ƒ≈À‹÷¿Ã» ¿¬“Œ–— »’ œ–¿¬ »/»À» ƒ–”√»Ã» À»÷¿Ã» " ¿ 
-ŒÕ¿ ≈—“‹" ¡≈«  ¿ Œ√Œ-À»¡Œ ¬»ƒ¿ √¿–¿Õ“»…, ¬€–¿∆≈ÕÕ€’ ﬂ¬ÕŒ »À» œŒƒ–¿«”Ã≈¬¿≈Ã€’, 
+ŒÕ¿ ≈—“‹" ¡≈«  ¿ Œ√Œ-À»¡Œ ¬»ƒ¿ √¿–¿Õ“»…, ¬€–¿∆≈ÕÕ€’ ﬂ¬ÕŒ »À» œŒƒ–¿«”Ã≈¬¿≈Ã€’,
 ¬ Àﬁ◊¿ﬂ √¿–¿Õ“»»  ŒÃÃ≈–◊≈— Œ… ÷≈ÕÕŒ—“» » œ–»√ŒƒÕŒ—“» ƒÀﬂ  ŒÕ –≈“ÕŒ… ÷≈À», ÕŒ Õ≈
-Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã». Õ» ¬À¿ƒ≈À≈÷ ¿¬“Œ–— »’ œ–¿¬ » Õ» ŒƒÕŒ ƒ–”√Œ≈ À»÷Œ,  Œ“Œ–Œ≈ 
-ÃŒ∆≈“ »«Ã≈Õﬂ“‹ »/»À» œŒ¬“Œ–ÕŒ –¿—œ–Œ—“–¿Õﬂ“‹ œ–Œ√–¿ÃÃ”, Õ» ¬  Œ≈Ã —À”◊¿≈ Õ≈ 
-Õ≈—®“ Œ“¬≈“—“¬≈ÕÕŒ—“», ¬ Àﬁ◊¿ﬂ Àﬁ¡€≈ Œ¡Ÿ»≈, —À”◊¿…Õ€≈, —œ≈÷»¿À‹Õ€≈ »À» 
-œŒ—À≈ƒŒ¬¿¬ÿ»≈ ”¡€“ », —¬ﬂ«¿ÕÕ€≈ — »—œŒÀ‹«Œ¬¿Õ»≈Ã »À» œŒÕ≈—≈ÕÕ€≈ ¬—À≈ƒ—“¬»≈ 
-Õ≈¬Œ«ÃŒ∆ÕŒ—“» »—œŒÀ‹«Œ¬¿Õ»ﬂ œ–Œ√–¿ÃÃ€ (¬ Àﬁ◊¿ﬂ œŒ“≈–» ƒ¿ÕÕ€’, »À» ƒ¿ÕÕ€≈, 
-—“¿¬ÿ»≈ Õ≈√ŒƒÕ€Ã», »À» ”¡€“ » »/»À» œŒ“≈–» ƒŒ’ŒƒŒ¬, œŒÕ≈—≈ÕÕ€≈ »«-«¿ ƒ≈…—“¬»… 
-“–≈“‹»’ À»÷ »/»À» Œ“ ¿«¿ œ–Œ√–¿ÃÃ€ –¿¡Œ“¿“‹ —Œ¬Ã≈—“ÕŒ — ƒ–”√»Ã» œ–Œ√–¿ÃÃ¿Ã», 
-ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ ›“»Ã» —À”◊¿ﬂÃ»), ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã», ƒ¿∆≈ ≈—À» “¿ Œ… 
+Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã». Õ» ¬À¿ƒ≈À≈÷ ¿¬“Œ–— »’ œ–¿¬ » Õ» ŒƒÕŒ ƒ–”√Œ≈ À»÷Œ,  Œ“Œ–Œ≈
+ÃŒ∆≈“ »«Ã≈Õﬂ“‹ »/»À» œŒ¬“Œ–ÕŒ –¿—œ–Œ—“–¿Õﬂ“‹ œ–Œ√–¿ÃÃ”, Õ» ¬  Œ≈Ã —À”◊¿≈ Õ≈
+Õ≈—®“ Œ“¬≈“—“¬≈ÕÕŒ—“», ¬ Àﬁ◊¿ﬂ Àﬁ¡€≈ Œ¡Ÿ»≈, —À”◊¿…Õ€≈, —œ≈÷»¿À‹Õ€≈ »À»
+œŒ—À≈ƒŒ¬¿¬ÿ»≈ ”¡€“ », —¬ﬂ«¿ÕÕ€≈ — »—œŒÀ‹«Œ¬¿Õ»≈Ã »À» œŒÕ≈—≈ÕÕ€≈ ¬—À≈ƒ—“¬»≈
+Õ≈¬Œ«ÃŒ∆ÕŒ—“» »—œŒÀ‹«Œ¬¿Õ»ﬂ œ–Œ√–¿ÃÃ€ (¬ Àﬁ◊¿ﬂ œŒ“≈–» ƒ¿ÕÕ€’, »À» ƒ¿ÕÕ€≈,
+—“¿¬ÿ»≈ Õ≈√ŒƒÕ€Ã», »À» ”¡€“ » »/»À» œŒ“≈–» ƒŒ’ŒƒŒ¬, œŒÕ≈—≈ÕÕ€≈ »«-«¿ ƒ≈…—“¬»…
+“–≈“‹»’ À»÷ »/»À» Œ“ ¿«¿ œ–Œ√–¿ÃÃ€ –¿¡Œ“¿“‹ —Œ¬Ã≈—“ÕŒ — ƒ–”√»Ã» œ–Œ√–¿ÃÃ¿Ã»,
+ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ ›“»Ã» —À”◊¿ﬂÃ»), ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã», ƒ¿∆≈ ≈—À» “¿ Œ…
 ¬À¿ƒ≈À≈÷ »À» ƒ–”√Œ≈ À»÷Œ ¡€À» »«¬≈Ÿ≈Õ€ Œ ¬Œ«ÃŒ∆ÕŒ—“» “¿ »’ ”¡€“ Œ¬ » œŒ“≈–‹.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -161,10 +161,10 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 	CIMAGE_ImageInfo           ImageInfo;
 	CTDIBRGBQUAD               cdFQuad;
 	CTDIBRGBQUAD               cdSQuad;
-	
+
 	//////////////////////////////////////////////////////////////////////
 	//ÔÓ‚ÂÍ‡ ËÏÂÌË Í‡ÚËÌÍË
-	if ( !lpName || lpName[0] == 0x0 ) 
+	if ( !lpName || lpName[0] == 0x0 )
 	{
 		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGE_NAME);
 		return FALSE;
@@ -225,7 +225,7 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 			{
 				cdFQuad.rgbBlue = cdFQuad.rgbGreen = cdFQuad.rgbRed = 0x00;
 				cdSQuad.rgbBlue = cdSQuad.rgbGreen = cdSQuad.rgbRed = 0xff;
-				
+
 				if (ImageInfo.bFotoMetrics == 0)
 				{
 					bInvert = true;
@@ -235,7 +235,7 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 				mCBWSourceDIB->SetRGBQuad(0,cdFQuad);
 				mCBWDestianationDIB->SetRGBQuad(1,cdSQuad);
 				mCBWSourceDIB->SetRGBQuad(1,cdSQuad);
-				// Á‡ÔÓÎÌˇÂÏ ÒÚÛÍÚÛÍÛ	‰Îˇ Á‡ÏÂ˘ÂÌËˇ ÒÚÓÍ		
+				// Á‡ÔÓÎÌˇÂÏ ÒÚÛÍÚÛÍÛ	‰Îˇ Á‡ÏÂ˘ÂÌËˇ ÒÚÓÍ
 				FrameToReplace.byBit      = (Word16)mCBWSourceDIB->GetPixelSize();
 				FrameToReplace.dwX        = 0;
 				FrameToReplace.dwY        = 0;
@@ -246,7 +246,7 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 				FrameToReplace.MaskFlag   = 0;
 
 				PWord8 toRstr = (PWord8)mCBWSourceDIB->GetPtrToLine(0);
-				
+
 				// «‡ÔÓÎÌˇÂÏ Â„Ó
 				for ( i = 0; i < ImageInfo.wImageHeight; i++ )
 				{
@@ -283,7 +283,7 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 				mbWriteFlag = TRUE;
 				Ret = SetDIB(lpName, hNewDIB, 0);
 				mbWriteFlag = FALSE;
-				
+
 				if ( Ret == FALSE )
 				{
 					mCBWInProcess = FALSE;
@@ -398,7 +398,7 @@ Bool32 CTIControl::GetDIB(PChar8  lpName, PHandle phDIB, Word32 wFlag)
 	if ( !OpenMaskFromList( lpName, &mpcSrcDIBReadMask, &mbEnableDIBReadMask, "r" ) ||
 		 !OpenMaskFromList( lpName, &mpcSrcDIBWriteMask, &mbEnableDIBWriteMask, "w" )  )
 		 return FALSE;
-	
+
 
 	mbSourceDIBCopy = (wFlag == 0 );
 	if ( mbSourceDIBCopy )
@@ -434,14 +434,14 @@ Bool32 CTIControl::GetImage(PChar8  lpName, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 		pDscDIB = new CTDIB;
 		if ( pDscDIB->SetDIBbyPtr(pDIBMemory) )
 		{
-#ifdef CIMAGE_DUMP_ENABLE 
+#ifdef CIMAGE_DUMP_ENABLE
 			//WriteDIBtoBMP("Allex.AlmiData.bmp",pDscDIB);
 #endif
 			//////////////////////////////////////
 			// ÒÏÓÚËÏ, ˜ÚÓ Ú‡Ï Ì‡ ‚˚ıÓ‰;
-			if ( lpIn->wByteWidth >= pDscDIB->GetUsedLineWidthInBytes() 
-				 && lpIn->dwWidth    == pDscDIB->GetLineWidth() 
-				 && lpIn->dwHeight   == pDscDIB->GetLinesNumber()  
+			if ( lpIn->wByteWidth >= pDscDIB->GetUsedLineWidthInBytes()
+				 && lpIn->dwWidth    == pDscDIB->GetLineWidth()
+				 && lpIn->dwHeight   == pDscDIB->GetLinesNumber()
 				)
 			{
 				Word32 nOutLine;
@@ -452,9 +452,9 @@ Bool32 CTIControl::GetImage(PChar8  lpName, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 				lplpOut->dwHeight   = pDscDIB->GetLinesNumber();
 				lplpOut->dwWidth    = pDscDIB->GetLineWidth();
 				lplpOut->wByteWidth = (Word16)pDscDIB->GetUsedLineWidthInBytes();
-				
+
 				lplpOut->wBlackBit  = pDscDIB->GetBlackPixel();
-				
+
 				WhiteBit = (Word8)pDscDIB->GetWhitePixel();
 
 				mhBitFildFromImage = CIMAGEDAlloc(lpIn->wByteWidth * lpIn->dwHeight,lpName);
@@ -464,7 +464,7 @@ Bool32 CTIControl::GetImage(PChar8  lpName, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 				{
 					if ( mhBitFildFromImage )
 						CIMAGEFree(mhBitFildFromImage);
-					
+
 					delete pDscDIB;
 					SetReturnCode_cimage(IDS_CIMAGE_ERR_NO_MEMORY);
 					return FALSE;
@@ -494,7 +494,7 @@ Bool32 CTIControl::GetImage(PChar8  lpName, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 				bRet = TRUE;
 			}
 		}
-	
+
 		delete pDscDIB;
 	}
 	else
@@ -522,7 +522,7 @@ Bool32 CTIControl::ReplaceImage(PChar8  lpName, PCIMAGE_InfoDataInReplace lpIn)
 	}
 
 	pImage = CIMAGELock(hImage);
-	
+
 	if ( !pImage )
 	{
 		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
@@ -562,7 +562,7 @@ Bool32 CTIControl::ReplaceImage(PChar8  lpName, PCIMAGE_InfoDataInReplace lpIn)
 			}
 		}
 	}
-	
+
 	CIMAGEUnlock(hImage);
 	return ret;
 }
@@ -607,7 +607,7 @@ Bool32 CTIControl::CopyDIB(Handle hSrc, PHandle phCopyedDib)
 	Word32         DIBSize = 0;
 	PCTDIB         pcSrcDIB = NULL;
 	PCTDIB         pcDscDIB = NULL;
-	
+
 	pSrc = CIMAGELock(hSrc);
 
 	if ( !pSrc )
@@ -638,7 +638,7 @@ Bool32 CTIControl::CopyDIB(Handle hSrc, PHandle phCopyedDib)
 	}
 
 	CIMAGE_MEMCOPY(pDsc, pSrc, DIBSize);
-	
+
 	//ALLEX Mask/////////////////////////////////////
 	// Ó¯Ë·Í‡ ÚÛÚ
 	pcDscDIB   = new CTDIB;
@@ -712,7 +712,7 @@ Bool32 CTIControl::CopyToFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataI
 		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
 		return FALSE;
 	}
-	
+
 	for ( nLine = StartY; nLine < EndY; nLine++)
 	{
 		if ( !pDscDIB->SetFuelLineFromDIB(pSrcDIB, nLine, dLine++, StartX) )
@@ -726,7 +726,7 @@ Bool32 CTIControl::CopyToFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataI
 	WriteDIBtoBMP("Allex.DIBCopyToFrame.Before Bit Mask.bmp", pDscDIB);
 
 	if( pMask != NULL &&
-		pDscDIB->GetLinesNumber() == pFrameInfo->dwHeight && 
+		pDscDIB->GetLinesNumber() == pFrameInfo->dwHeight &&
 		pDscDIB->GetLineWidth()   == pFrameInfo->dwWidth     )
 	{
 		bRet = ApplayBitMaskToDIB( pMask, pDscDIB );
@@ -749,7 +749,7 @@ Bool32 CTIControl::CopyFromFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDat
 		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
 		return FALSE;
 	}
-	
+
 	for ( nLine = StartY; nLine < EndY; nLine++)
 	{
 		// ÂÒÎË ¯ËËÌ‡ ÒÓ‚Ô‡‰‡ÂÚ, ÚÓ
@@ -787,7 +787,7 @@ Bool32 CTIControl::ApplayBitMaskToFrame(PCIMAGE_InfoDataInGet pIn, PCIMAGE_InfoD
 		char * Dsc;
 
 		pMask += sizeof(CIMAGE_InfoDataInGet);
-		
+
 		switch (pOut->byBit)
 		{
 
@@ -796,10 +796,10 @@ Bool32 CTIControl::ApplayBitMaskToFrame(PCIMAGE_InfoDataInGet pIn, PCIMAGE_InfoD
 			SizeInBytes = (pOut->dwWidth) * (pOut->dwHeight);
 			SizeInBytes += 7;
 			SizeInBytes /= 8;
-			
+
 			Dsc = pRaster;
 			Msc = pMask;
-			
+
 			for ( i = 0; i < (SizeInBytes - 1); i++ )
 			{
 				 *Dsc = (*(Dsc++) & *(Msc++));
@@ -810,7 +810,7 @@ Bool32 CTIControl::ApplayBitMaskToFrame(PCIMAGE_InfoDataInGet pIn, PCIMAGE_InfoD
 		default:
 			SetReturnCode_cimage(IDS_CIMAGE_NO_SUPPORT_DIB_FORMAT_FOR_THIS_ACTION);
 			return FALSE;
-		
+
 		}
 
 	}
@@ -877,7 +877,7 @@ Bool32 CTIControl::ApplayBitMaskToDIB(PWord8 pMask, PCTDIB pDIB)
 				while ( (j > 0) )
 				{
 					tmpByte = ~(*(pMaskByte));
-				
+
 					if ( WhiteByte == 1 )
 					{
 						*(pImageByte++) = *(pImageByte) | tmpByte;
@@ -923,7 +923,7 @@ Bool32 CTIControl::ApplayBitMaskToDIB(PWord8 pMask, PCTDIB pDIB)
 				}
 					pMaskByte++;
 				break;
-		
+
 			case 24:
 				while ( j > 7 )
 				{
@@ -959,7 +959,7 @@ Bool32 CTIControl::ApplayBitMaskToDIB(PWord8 pMask, PCTDIB pDIB)
 					}
 				}
 				break;
-		
+
 			default:
 				SetReturnCode_cimage(IDS_CIMAGE_NOT_REALIZED);
 				return FALSE;
@@ -988,7 +988,7 @@ Bool32 CTIControl::SetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInRe
 		SetReturnCode_cimage(IDS_CIMAGE_INVALID_FRAME_SIZE);
 		return FALSE;
 	}
-	// œÓ‚ÂˇÂÏ Ì‡ ÒÓÓÚ‚ÂÚÒÚ‚ËÂ ‡ÁÏÂÓ‚	
+	// œÓ‚ÂˇÂÏ Ì‡ ÒÓÓÚ‚ÂÚÒÚ‚ËÂ ‡ÁÏÂÓ‚
 	if ( ( pDscDIB->GetLineWidth()   < pSrcDIB->GetLineWidth() + pIn->dwX ) ||
 		 ( pDscDIB->GetLinesNumber() < pSrcDIB->GetLinesNumber() + pIn->dwY ) )
 	{
@@ -1001,13 +1001,13 @@ Bool32 CTIControl::SetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInRe
 		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
 		return FALSE;
 	}
-	
+
 	return TRUE;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 CTIControl::CBImageOpen(PCIMAGE_ImageInfo lpImageInfo)
-{	
+{
 	Word32 wFrgb;
 	Word32 wSrgb;
 	Handle hDescDIB;
@@ -1034,9 +1034,9 @@ Bool32 CTIControl::CBImageOpen(PCIMAGE_ImageInfo lpImageInfo)
 	{
 		return FALSE;
 	}
-	
+
 	pCBImage = CIMAGELock(hCBImage);
-	
+
 	if ( mCBDestianationDIB != NULL || mCBSourceDIB != NULL )
 	{
 		return FALSE;
@@ -1050,9 +1050,9 @@ Bool32 CTIControl::CBImageOpen(PCIMAGE_ImageInfo lpImageInfo)
 		wCBBufferSize = mCBSourceDIB->GetUsedLineWidthInBytes();
 		wCBWidth      = mCBSourceDIB->GetLineWidth();
 		wCBStep++;
-		
+
 		CIMAGEComment("Temporary DIB - CBImageOpen");
-		if ( mCBDestianationDIB->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock) && 
+		if ( mCBDestianationDIB->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock) &&
 			 (hDescDIB = mCBDestianationDIB->CreateDIBBegin(wCBWidth,1,mCBSourceDIB->GetPixelSize())) &&
 			 mCBDestianationDIB->CreateDIBEnd() )
 		{
@@ -1066,9 +1066,9 @@ Bool32 CTIControl::CBImageOpen(PCIMAGE_ImageInfo lpImageInfo)
 			mCBSourceDIB->GetResolutionDPI(&wFrgb, &wSrgb);
 			lpImageInfo->wResolutionX       = (Word16)wFrgb;
 			lpImageInfo->wResolutionY       = (Word16)wSrgb;
-			
+
 			lpImageInfo->bFotoMetrics       = (Word8)mCBSourceDIB->GetWhitePixel();
-			
+
 			lpImageInfo->wAddX              = 0;
 			lpImageInfo->wAddY              = 0;
 
@@ -1090,13 +1090,13 @@ Word32 CTIControl::CBImageRead(PChar8  lpBuff, Word32 wMaxSize)
 	Word32                 nOutLine;
 	Word32                 CopiedBytes = 0;
 	PChar8                 pNextLineInBuffer = lpBuff;
-	
+
 #ifndef CIMAGE_CBR_ONE_LINE
 	LinesAtOnce = wMaxSize / wCBBufferSize;
 #else
 	LinesAtOnce = 1;
 #endif
-	
+
 	if ( pCBImage )
 	{
 		if ( !(wMaxSize < wCBBufferSize) )
@@ -1226,17 +1226,17 @@ Bool32 CTIControl::GetDIBFromImage(PChar8 lpName, PCIMAGE_InfoDataInGet lpIn, PI
 	}
 
 	pImage = CIMAGELock(hImage);
-	
+
 	if ( !pImage )
 	{
 		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
 		return bRet;
 	}
-	
+
 	//ËÌËˆË‡ÎËÁËÛÂÏ ctdib-˜ËÍË
 	pSrcDIB = new CTDIB;
 	mpDIBFromImage = new CTDIB;
-	
+
 	if ( pSrcDIB->SetDIBbyPtr(pImage) &&
 		 pSrcDIB->GetResolutionDPM(&wResolutionX, &wResolutionY) )
 	{
@@ -1263,7 +1263,7 @@ Bool32 CTIControl::GetDIBFromImage(PChar8 lpName, PCIMAGE_InfoDataInGet lpIn, PI
 		else
 			SetReturnCode_cimage(IDS_CIMAGE_INVALID_PARAMETR);
 	}
-	
+
 	pSrcDIB->DestroyDIB();
 	delete pSrcDIB;
 
@@ -1281,7 +1281,7 @@ Bool32 CTIControl::GetDIBFromImage(PChar8 lpName, PCIMAGE_InfoDataInGet lpIn, PI
 Bool32 CTIControl::FreeBuffers()
 {
 	Bool32 bCrashedDIB = FALSE;
-	
+
 	if ( mpBitFildFromImage != NULL )
 	{
 		CIMAGEFree(mpBitFildFromImage);
@@ -1293,7 +1293,7 @@ Bool32 CTIControl::FreeBuffers()
 		//CIMAGEFree(mhCopyedDIB);
 		mhCopyedDIB = NULL;
 	}
-	
+
 	if ( mpDIBFromImage != NULL )
 	{
 		if ( mpDIBFromImage->DestroyDIB() )
@@ -1325,7 +1325,7 @@ Bool32 CTIControl::CheckInData(PCTDIB pDIB, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 
 	if ( pDIB == NULL )
 		return FALSE;
-	
+
 	DIBW  = (Int32)pDIB->GetLineWidth();
 	DIBH  = (Int32)pDIB->GetLinesNumber();
 
@@ -1350,7 +1350,7 @@ Bool32 CTIControl::CheckInData(PCTDIB pDIB, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 	{
 		if ( *NewW > -*NewX )
 			*NewW = *NewW + *NewX;
-		
+
 		*NewX = 0;
 	}
 
@@ -1366,7 +1366,7 @@ Bool32 CTIControl::CheckInData(PCTDIB pDIB, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 	{
 		if ( *NewH > -*NewY )
 			*NewH = *NewH + *NewY;
-		
+
 		*NewY = 0;
 	}
 
@@ -1394,10 +1394,10 @@ Bool32 CTIControl::CheckInData(PCTDIB pDIB, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 Bool32 CTIControl::WriteDIBtoBMP(PChar8 cName, PCTDIB pDIB)
 {
 #ifdef CIMAGE_DUMP_ENABLE
-	
+
 	Word32  wBMPSize = pDIB->GetDIBSize() + 14;
 	PumaMemoryToFileDumper BMPDump(cName);
-	
+
 	BMPDump.AddDump("BM",2);
 	BMPDump.AddDump((char *)&wBMPSize,4);
 	wBMPSize = 0;
@@ -1439,7 +1439,7 @@ Bool32 CTIControl::OpenDIBFromList(PChar8 lpName, PHandle phImage)
 	// Ó¯Ë·Í‡ ÌÂ ÚÛÚ
 	OpenMaskFromList(lpName, &(mpcSrcDIBReadMask = NULL), &mbEnableDIBReadMask, "r");
 	OpenMaskFromList(lpName, &(mpcSrcDIBWriteMask = NULL), &mbEnableDIBWriteMask, "w");
-	
+
 	if ( !(*phImage) )
 	{
 		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
@@ -1458,7 +1458,7 @@ Bool32 CTIControl::OpenMaskFromList(PChar8 lpName, PPCTIMask ppMask, PBool32 pEn
 	else
 		if ( pcType[0] == 'w' )
 			bRet = mlImages.GetImageWriteMask(lpName, ppMask, pEnMask);
-		
+
 	if ( !bRet )
 		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
 
@@ -1474,7 +1474,7 @@ Bool32 CTIControl::SetMaskToList(PChar8 pName, PCTIMask pMask, PChar8 pcType)
 	else
 		if ( pcType[0] == 'w' )
 			bRet = mlImages.SetImageWriteMask(pName, pMask);
-		
+
 	if ( !bRet )
 		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
 
@@ -1490,7 +1490,7 @@ Bool32 CTIControl::OpenDIBFromList(PChar8 lpName, PCTDIB pcDIB)
 	// Ó¯Ë·Í‡ ÌÂ ÚÛÚ
 	OpenMaskFromList(lpName, &(mpcSrcDIBReadMask = NULL), &mbEnableDIBReadMask, "r");
 	OpenMaskFromList(lpName, &(mpcSrcDIBWriteMask = NULL), &mbEnableDIBWriteMask, "w");
-		
+
 	if ( !hDIB )
 	{
 		SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
@@ -1531,7 +1531,7 @@ Bool32 CTIControl::AddRectsToMask(PChar8 lpName, Word32 wNumber, PCIMAGE_Rect pF
 
 		if ( !OpenDIBFromList(lpName, &DIB) )
 			return FALSE;
-		
+
 		pMask = new CTIMask(DIB.GetLineWidth(), DIB.GetLinesNumber());
 		CloseDIBFromList(&DIB);
 
@@ -1546,7 +1546,7 @@ Bool32 CTIControl::AddRectsToMask(PChar8 lpName, Word32 wNumber, PCIMAGE_Rect pF
 	{
 		if ( pMask->AddRectangle(&pFirstRect[wRect]) )
 			continue;
-	
+
 		bInvalidMask = TRUE;
 		break;
 	}
@@ -1577,7 +1577,7 @@ Bool32 CTIControl::RemoveRectsFromMask(PChar8 lpName, Word32 wNumber, PCIMAGE_Re
 	{
 		if ( pMask->RemoveRectangle(&pFirstRect[wRect]) )
 			continue;
-		
+
 		bInvalidMask = TRUE;
 		break;
 	}
@@ -1592,7 +1592,7 @@ Bool32 CTIControl::ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, Word32 wAtX, Wor
 	Word32 wYb, wYe;
 	Word32 wSegmentsOnLine;
 	PCTIMaskLine  pcMaskLine;
-	
+
 	if ( !pDIB )
 		return FALSE;
 
@@ -1600,7 +1600,7 @@ Bool32 CTIControl::ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, Word32 wAtX, Wor
 	wYe = (wYb = wAtY) + pDIB->GetLinesNumber();
 
 	CIMAGE_Rect cRectAllDIB = {wXb, wYb, wXe - wXb, wYe - wYb};
-	
+
 	if ( !pMask->IsRectOnMask( &cRectAllDIB ) )
 		return FALSE;
 
@@ -1636,7 +1636,7 @@ Bool32 CTIControl::ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, Word32 wAtX, Wor
 			}
 		}
 	}
-	
+
 	return TRUE;
 }
 
@@ -1655,7 +1655,7 @@ Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm, 
 	Word32 wLAEndPos;
 	Int32 wLAFullBits;
 
-	if ( ( pSegm->GetStart() > (Int32)(pcDIB->GetLineWidth() + wAtX )) || 
+	if ( ( pSegm->GetStart() > (Int32)(pcDIB->GetLineWidth() + wAtX )) ||
 		 ( pSegm->GetEnd() > (Int32)(pcDIB->GetLineWidth() + wAtX )) ||
 		 ( wLine >= pcDIB->GetLinesNumber() + wAtY ) )
 		 return FALSE;
@@ -1688,7 +1688,7 @@ Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm, 
 		wLAEndPos   = pcDIB->GetPixelShiftInByte(wXe);
 		wWPLA       = (Word8)pcDIB->GetWhitePixel();
 		wLAFullBits = pPixE - pPixB - 1;
-		
+
 		if ( wLAFullBits > 0 )
 		{
 			if ( wWPLA == 0 )

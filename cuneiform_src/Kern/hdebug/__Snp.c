@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -136,7 +136,7 @@ static FNDPUMA_GetFileName		fGetFileName = NULL;
 static FNDPUMA_HandLayout		fHandLayout = NULL;
 static FNDPUMA_LockImage		fLockImage = NULL;
 static FNDPUMA_RegistryHelp		RegistryHelp = NULL;
-static FNDPUMA_SaveFile			fSaveFile = NULL;	
+static FNDPUMA_SaveFile			fSaveFile = NULL;
 static FNDPUMA_ProgressStart	fProgressStart = NULL;
 static FNDPUMA_ProgressFinish	fProgressFinish = NULL;
 static FNDPUMA_ProgressStep		fProgressStep = NULL;
@@ -159,11 +159,11 @@ static FNDPUMA_FPuts	fFPuts = NULL;
 
 static Handle hWriteFile = NULL;
 //////////////////////////////////////////////
-static int __DPUMA__AllocHook__( int allocType, void *userData, size_t size, int blockType, 
+static int __DPUMA__AllocHook__( int allocType, void *userData, size_t size, int blockType,
    long requestNumber, const unsigned char *filename, int lineNumber)
 {
 	Word32 prevSize = 0;
-	int rc = PrevAllocHook(allocType,userData,size,blockType, 
+	int rc = PrevAllocHook(allocType,userData,size,blockType,
 							requestNumber, filename, lineNumber);
 	if(fAllocHook && rc > 0) // Åñëè rc ìåíüøå íóëÿ, òîãäà ìû óæå ðàáîòàëè
 	{
@@ -172,7 +172,7 @@ static int __DPUMA__AllocHook__( int allocType, void *userData, size_t size, int
 			prevSize = _msize_dbg(userData,blockType);
 #endif
 		if(LDPUMA_IsActive())
-			rc = fAllocHook(allocType,userData,size,prevSize,blockType, 
+			rc = fAllocHook(allocType,userData,size,prevSize,blockType,
 								requestNumber,(PWord8)filename, lineNumber);
 	}
 	return rc;
@@ -183,7 +183,7 @@ Bool32   LDPUMA_Init(Word16 wHightCode, Handle hStorage)
 {
 Bool32 rc = FALSE;
 #ifdef _DEBUG
-	_CrtDbgReport( _CRT_WARN,NULL,__LINE__,__FILE__, 
+	_CrtDbgReport( _CRT_WARN,NULL,__LINE__,__FILE__,
 		"LDPUMA_Init(%i,%x)\n",wHightCode, hStorage);
 #endif
 	hDPuma = LoadLibrary("DPUMA.DLL");
@@ -294,7 +294,7 @@ Bool32 LDPUMA_Done()
 {
 	Bool32 rc = FALSE;
 #ifdef _DEBUG
-	_CrtDbgReport( _CRT_WARN,NULL,__LINE__,__FILE__, 
+	_CrtDbgReport( _CRT_WARN,NULL,__LINE__,__FILE__,
 		"LDPUMA_Done()\n");
 	if(PrevAllocHook)
 			_CrtSetAllocHook(PrevAllocHook);
@@ -327,7 +327,7 @@ Bool32 LDPUMA_GetExportData(Word32 wType, void * pData)
 void   LDPUMA_DestroySnap()
 {
 #ifdef _DEBUG
-	_CrtDbgReport( _CRT_WARN,NULL,__LINE__,__FILE__, 
+	_CrtDbgReport( _CRT_WARN,NULL,__LINE__,__FILE__,
 		"LDPUMA_DestroySnap()\n");
 #endif
 	if(DestroySnap)
@@ -338,7 +338,7 @@ Word32   LDPUMA_CreateSnap()
 {
 	Word32 rc = 0;
 #ifdef _DEBUG
-	_CrtDbgReport( _CRT_WARN,NULL,__LINE__,__FILE__, 
+	_CrtDbgReport( _CRT_WARN,NULL,__LINE__,__FILE__,
 		"LDPUMA_CreateSnap()\n");
 #endif
 	if(CreateSnap)
@@ -359,8 +359,8 @@ Handle LDPUMA_CreateWindow(const char * lpName, void * lpDIB)
 	return NULL;
 }
 //////////////////////////////////////////////
-Bool32 LDPUMA_IsActive(void) 
-{ 
+Bool32 LDPUMA_IsActive(void)
+{
 	return IsActive ? IsActive():FALSE;
 };
 //////////////////////////////////////////////
@@ -428,7 +428,7 @@ Int32 LDPUMA_Console(const char * message,...)
 	}
 	return rc;
 	*/
-    
+
 }
 Int32 LDPUMA_ConsoleN(const char * message,...)
 {
@@ -467,7 +467,7 @@ void   LDPUMA_MessageBoxOk( const char * message,...)
 };
 //////////////////////////////////////////////
 Bool16 LDPUMA_MessageBoxYesNo(const char * message,...)
-{ 
+{
 	Bool16 rc = FALSE;
 	if(MessageBoxYesNo)
 	{
@@ -496,11 +496,11 @@ Bool16 LDPUMA_GetUserPoint(Handle wnd,Point16* pnt)
 };
 //////////////////////////////////////////////
 Word32 LDPUMA_WaitUserInput(Handle cur_node,Handle wnd)
-{ 
+{
 	Word32 rc = 0;
 	if(WaitUserInput)
 		rc = WaitUserInput(cur_node,wnd);
-	return rc; 
+	return rc;
 };
 //////////////////////////////////////////////
 void LDPUMA_Registry( Handle node, char * name,Handle parent )
@@ -522,7 +522,7 @@ void LDPUMA_LoopNext( Handle node )
 };
 //////////////////////////////////////////////
 Bool16  LDPUMA_Skip( Handle node )
-{ 
+{
 	return Skip ? Skip(node):TRUE;
 };
 //////////////////////////////////////////////
@@ -765,7 +765,7 @@ void LDPUMA_ProgressFinish( void )
 		fProgressFinish();
 }
 //////////////////////////////////////////////
-Bool32 LDPUMA_ProgressStep(Word32 step,char * name, Word32 percent)	
+Bool32 LDPUMA_ProgressStep(Word32 step,char * name, Word32 percent)
 {
 	Bool32 rc = TRUE;
 	if(fProgressStep)
@@ -775,7 +775,7 @@ Bool32 LDPUMA_ProgressStep(Word32 step,char * name, Word32 percent)
 //////////////////////////////////////////////
 Bool32 LDPUMA_SetConsoleProperty(Bool32 bold,Bool32 italic,
 	Bool32 strikeout,Bool32 underline,Int32 height,	Int32 offset,	Word32 textcolor,
-	Int32 charset,	char * name )	
+	Int32 charset,	char * name )
 {
 	Bool32 rc = TRUE;
 
@@ -877,7 +877,7 @@ Bool32 LDPUMA_SetFileName(Handle wnd,char * lpName)
 Handle  LDPUMA_FOpen(const char * lpName,const char * lpMode)
 {
 	Handle hFile = NULL;
-    
+
 	if(fFOpen && !LDPUMA_Skip(hWriteFile))
 		hFile = fFOpen(lpName,lpMode);
 	return hFile;
@@ -915,32 +915,32 @@ Int32  LDPUMA_FPuts(Handle hFile,const char * lpString)
 #include "snptools.h"
 
 void SnpSetTools(__SnpToolBox* tools)
-{	
+{
 	LDPUMA_Init(0,NULL);
 };
 void   SnpDrawFocusRect(Rect16* rc)
 {
 	LDPUMA_DrawFocusRect(NULL,rc);
 }
-Bool16 SnpGetUserLong(char * static_text,Int32 * result_long) 
-{ 
-	return LDPUMA_MessageBoxYesNo(static_text); 
+Bool16 SnpGetUserLong(char * static_text,Int32 * result_long)
+{
+	return LDPUMA_MessageBoxYesNo(static_text);
 };
 Bool16 SnpGetUserString (char * static_text,
 	  char * result_string, Word32 result_string_length )
-{ 
-	return LDPUMA_MessageBoxYesNo(static_text); 
+{
+	return LDPUMA_MessageBoxYesNo(static_text);
 };
 Bool16 SnpGetUserRect( Rect16* rect )
 {
 	return LDPUMA_GetUserRect(NULL, rect );
 }
 Bool16 SnpGetUserPoint(Point16* pnt)
-{ 
+{
 	return LDPUMA_GetUserPoint(NULL,pnt);
 };
 Word32 SnpWaitUserInput(SnpTreeNode* cur_node)
-{ 
+{
 	return LDPUMA_WaitUserInput(cur_node ? *(Handle *)cur_node:NULL,NULL);
 };
 void SnpAddNode( SnpTreeNode *  node, char * name,SnpTreeNode * parent )
@@ -952,11 +952,11 @@ void SnpStartLoop( SnpTreeNode* node, Word32 iter_total )
 	LDPUMA_StartLoop( node ? *(Handle *)node:NULL, iter_total );
 };
 void SnpLoopNext( SnpTreeNode* node )
-{ 
+{
 	LDPUMA_LoopNext( node ? *(Handle *)node:NULL );
 };
 Bool16  SnpSkip( SnpTreeNode* node )
-{ 
+{
 	return LDPUMA_Skip( node ? *(Handle *)node:NULL);
 };
 void SnpDrawRaster(RecRaster * raster)
@@ -1015,21 +1015,21 @@ void   SnpMessBoxOk( char * message )
 	LDPUMA_MessageBoxOk( message );
 }
 Bool16 SnpMessBoxYesNo( char * message)
-{ 
+{
 	return LDPUMA_MessageBoxYesNo( message);
 };
-Bool SnpIsActive(void) 
-{ 
+Bool SnpIsActive(void)
+{
 	return LDPUMA_IsActive();
 };
 void   SnpDrawRect(Rect16* rc, Int32 skew, Word32 rgb_color,
       Int32 pen_width,Word32 key)
-{ 
+{
 	LDPUMA_DrawRect(NULL,rc,skew,rgb_color,(Int16)pen_width,key);
 }
 void   SnpHideRects(Word32 key)
-{ 
-	LDPUMA_DeleteRects(NULL,key); 
+{
+	LDPUMA_DeleteRects(NULL,key);
 }
 Word32 SnpSetZoneOn(Rect16*  zone_rect,
 	  Word32   rgb_color,char* status_line_comment,
@@ -1042,7 +1042,7 @@ void SnpNotifyAppl(SnpTreeNode* cur_node){;};
 void __SnpIterParent( SnpTreeNode* node, Bool activate ){;};
 #endif
 //////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////   
+//////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 }
 #endif

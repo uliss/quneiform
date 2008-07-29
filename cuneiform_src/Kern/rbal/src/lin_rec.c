@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -90,14 +90,14 @@ INT prop_index(INT h, INT w)
 {
  if (fax1x2)	h+=2;
 
- if( h <= 0 ) 
+ if( h <= 0 )
 	 h =1;
  if( w<=0 )
 	 w = 1;
 
- if (w <= h)   	
+ if (w <= h)
 	 return ((WORD)w << 6) / h;
- else		
+ else
 	 return 128 - ((WORD)h << 6) / w;
 }
 /////////////////
@@ -117,8 +117,8 @@ static void v2_pidx_crit (CSTR_rast c)
    return;
  //
 
- attr.reasno=0; 
- pidx = prop_index(attr.h, attr.w); 
+ attr.reasno=0;
+ pidx = prop_index(attr.h, attr.w);
 // wv = v = c->vers;
  wvers.lnAltMax = REC_MAX_VERS;
 
@@ -131,22 +131,22 @@ static void v2_pidx_crit (CSTR_rast c)
    else
     //let = (let_sans_acc[wv->let=v->let]) * 2;
     let = (let_sans_acc[vers.Alt[i].Liga]) * 2;
-    
+
 
 //   wv->prob = v->prob;
    if (pidx + prop_l_delta < letters_pidx_table[let])
-   { 
-	   attr.reasno |= CSTR_rn_left; 
-	   continue; 
+   {
+	   attr.reasno |= CSTR_rn_left;
+	   continue;
    }
 
    if (pidx - prop_r_delta > letters_pidx_table[let+1])
-   { 
-	   attr.reasno |= CSTR_rn_right; 
-       continue; 
+   {
+	   attr.reasno |= CSTR_rn_right;
+       continue;
    }
 
-//   v++; 
+//   v++;
 //   wv++;
    wvers.Alt[j] = vers.Alt[i];
    j++;
@@ -157,7 +157,7 @@ static void v2_pidx_crit (CSTR_rast c)
 
  wvers.lnAltCnt = j;
 
-// if ((c->nvers -= v-wv) == 0) 
+// if ((c->nvers -= v-wv) == 0)
  if( wvers.lnAltCnt <= 0 )
 	 set_bad_cell(c);
  else
@@ -189,14 +189,14 @@ static Bool32 Ccomp2ExtComponenet(CCOM_comp *cmp, ExtComponent *ec,
    // test cmp - плохие не берем
   if ( (cmp->type&CCOM_CH_GREAT) || cmp->scale>2-1*0)
             return FALSE;
-  if ( cur->h>PROPMAX*cur->w) 
+  if ( cur->h>PROPMAX*cur->w)
             return FALSE;
-  if (!cmp->scale && (cur->w > RASTER_MAX_WIDTH ||  cur->h > RASTER_MAX_HEIGHT )     ) 
+  if (!cmp->scale && (cur->w > RASTER_MAX_WIDTH ||  cur->h > RASTER_MAX_HEIGHT )     )
             return FALSE;
-  if ( cmp->scale && ((cur->w>>line_scale) > RASTER_MAX_WIDTH ||  
-                          (cur->h>>line_scale) > RASTER_MAX_HEIGHT )     ) 
+  if ( cmp->scale && ((cur->w>>line_scale) > RASTER_MAX_WIDTH ||
+                          (cur->h>>line_scale) > RASTER_MAX_HEIGHT )     )
             return FALSE;
-  
+
 
   ec->size     = sizeof(ExtComponent); // +cmp->size_linerep +2;
 
@@ -228,18 +228,18 @@ INT short_recog_cell (CSTR_rast c, int line_scale)
  CCOM_comp *comp;
 // ExtComponent ec;
  Int16 *pint16;
- Word8 *lpool; 
+ Word8 *lpool;
  UniVersions vers={0};
 
   CSTR_GetAttr(c,&attr);
   comp = CSTR_GetComp(c);
- 
- // исходно была ошибка Tools.c - 
+
+ // исходно была ошибка Tools.c -
  // если c->env == 0 в lpool лежало неизвестно что!
 
  // if( (c->cg_flag & CSTR_cg_comp) &&  !c->env )
  //   return 0;
-  if ( (attr.cg_flag & CSTR_cg_comp) ||   !comp ) 
+  if ( (attr.cg_flag & CSTR_cg_comp) ||   !comp )
 	 return 0;
 
 // comp_from_kit(c);

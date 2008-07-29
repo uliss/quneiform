@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -200,11 +200,11 @@ void SetReturnCode_rline( Word16 );
 void CleanLineData( void* pdata,int size);
 
 
-Bool16 SampleImageOpen (CIMAGE_ImageInfo* lpImageInfo) 
+Bool16 SampleImageOpen (CIMAGE_ImageInfo* lpImageInfo)
 { return swp_imxs->f_op( (Imxs_ImageInfo*)lpImageInfo ); };
 Word16 SampleImageRead ( PInt8 lpImage, Word16 wMaxSize)
 { return swp_imxs->f_re( (Word8*)lpImage, wMaxSize ); };
-Bool16 SampleImageClose ( void ) 
+Bool16 SampleImageClose ( void )
 { return swp_imxs->f_cl( ); };
 
 
@@ -212,7 +212,7 @@ Bool16 DibOpen (Imxs_ImageInfo* lpImageInfo)
 { return cbk.CIMAGE_ImageOpen( (CIMAGE_ImageInfo*)lpImageInfo ); };
 Int16  DibRead ( Word8* lpImage, Word16 wMaxSize)
 { return cbk.CIMAGE_ImageRead( (PInt8)lpImage, wMaxSize ); };
-Bool16 DibClose ( void ) 
+Bool16 DibClose ( void )
 { return cbk.CIMAGE_ImageClose( ); };
 
 
@@ -234,10 +234,10 @@ Bool32 RLINE_SubInit ( void )
 
 	LDPUMA_Registry(&RLINE_Search,"Линии LNS", hRLINE_Pass1); // регистрация вершины отладки
 	LDPUMA_RegistryHelp(RLINE_Search,
-		"Выполнить поиск линий используя LNS32.DLL.", FALSE); 
+		"Выполнить поиск линий используя LNS32.DLL.", FALSE);
 	LDPUMA_Registry(&hRLINE_Correct, "Коррекция линий LNS", hRLINE_Pass1);
 	LDPUMA_RegistryHelp(hRLINE_Correct,
-		"Коррекция линий, найденных LNS.", FALSE); 
+		"Коррекция линий, найденных LNS.", FALSE);
 
 	LDPUMA_Registry(&hRLINE_CorrectOutput,"Результат коррекции линий", hRLINE_Correct);
 		LDPUMA_Registry(&hRLINE_CorrectDrawLines,"Рисовать скорректированные линии (I)", hRLINE_CorrectOutput);
@@ -262,7 +262,7 @@ Bool32 RLINE_SubInit ( void )
 	LDPUMA_Registry(&RLINE_NoFillgap,"Выполнить 'размазывание' линий", hRLINE_Search_Debug); // регистрация вершины отладки
 	LDPUMA_RegistryHelp(RLINE_NoFillgap,
 		"Под 'размазыванием' понимается удлинение базовых линий на 3 пиксела. Этот режим используется \
-при работе с изображением от матричного принтера.", FALSE); 
+при работе с изображением от матричного принтера.", FALSE);
 	//LDPUMA_Registry(&RLINE_NoHorBorder,"Не выделять горизонтальные поля", RLINE_Root); // регистрация вершины отладки
 	LDPUMA_Registry(&RLINE_NoHorBorder,"Выделять горизонтальные поля", hRLINE_Search_Debug); // регистрация вершины отладки
 	LDPUMA_RegistryHelp(RLINE_NoHorBorder,
@@ -289,7 +289,7 @@ Bool32 RLINE_SubInit ( void )
 	LDPUMA_Registry(&RLINE_ShowWithoutLines,"Показать изображение после снятия линий", RLINE_Root); // регистрация вершины отладки
 	LDPUMA_RegistryHelp(RLINE_ShowWithoutLines,
 		"Показать изображение после снятия линий", FALSE); // регистрация вершины отладки
-*/    
+*/
 //    LDPUMA_Registry (&hUseCLine,"Работа с контейнером линий",NULL);
 /*
 	LDPUMA_Registry(&Parts,"Этапирование второго и третьего прохода",RLINE_Root);
@@ -313,7 +313,7 @@ Bool32 RLINE_SubInit ( void )
     LDPUMA_RegVariable(hRLINE_Correct,"Подтверждать ВерЛин НеКороче",&MinVerLenForTrue,"unsigned");
 
 	LDPUMA_Registry(&hDotKilledD,"Прорисовка удалённых точечных линий", hRLINE_CorrectControl);
-	LDPUMA_RegistryHelp(hDotKilledD,"Прорисовка удалённых точечных линий", FALSE); 
+	LDPUMA_RegistryHelp(hDotKilledD,"Прорисовка удалённых точечных линий", FALSE);
 
 	LDPUMA_Registry(&hSkipDelSmallLines, "НЕ удалять маленькие остатки линий", hRLINE_CorrectDebug);
 	LDPUMA_RegistryHelp(hSkipDelSmallLines, "Оставлять в контейнере короткие (длиной меньше 30) отделенные от линий остатки", FALSE);
@@ -463,13 +463,13 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 	else
 	{
 		gbNOFILLGAP3 = FALSE;
-	}	
+	}
 	ls.nOptions |= gbNOFILLGAP3 ? 0 : LSS_NOFILLGAP3_FILTER;
 
 	if ( !LDPUMA_Skip(RLINE_NoHorBorder) )
 	{
 		gbNOHBORDER = TRUE;
-	}	
+	}
 	else
 	{
 		gbNOHBORDER = FALSE;
@@ -479,7 +479,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 	if ( !LDPUMA_Skip(RLINE_NoVerBorder) )
 	{
 		gbNOVBORDER = TRUE;
-	}	
+	}
 	else
 	{
 		gbNOVBORDER = FALSE;
@@ -500,7 +500,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 	}
 
 	if (result_h_count)
-    {  
+    {
       lti.Hor.Lns = (LineInfo*)malloc(result_h_count * sizeof(LineInfo));
       if (lti.Hor.Lns == NULL)
 	  {
@@ -512,7 +512,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
     lti.Hor.Cnt = result_h_count;
 
 	if (result_v_count)
-	{  
+	{
       lti.Ver.Lns = (LineInfo*)malloc(result_v_count * sizeof(LineInfo));
       if (lti.Ver.Lns == NULL)
 	  {
@@ -560,7 +560,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
    int i;
-	
+
 //   if(!LDPUMA_Skip(hUseCLine))
 //   {
 	CLINE_handle hCLINE=CLINE_CreateContainer(TRUE);
@@ -628,11 +628,11 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 	}
     *PHCLINE=hCLINE;
 
-	if (!LDPUMA_Skip(hRLINE_CorrectDebugFrag)) 
+	if (!LDPUMA_Skip(hRLINE_CorrectDebugFrag))
 	{
 		ExtractAllEvents(hCLINE, &lti);
 
- 		if (!LDPUMA_Skip(hRLINE_Search_Output_ShowFrags)) 
+ 		if (!LDPUMA_Skip(hRLINE_Search_Output_ShowFrags))
 			DrawFragsForAllLines(hCLINE, hRLINE_Search_Output_ShowFrags);
 	}
 
@@ -691,7 +691,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
    }
 */
 	// Завершаем работу со страницей
-	LnsPageFinish();			 
+	LnsPageFinish();
 
 
 	if ( !LDPUMA_Skip(RLINE_Search) )
@@ -725,7 +725,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 	DelAllLines = FALSE;
 	CLINE_handle hCLINE=CLINE_GetMainContainer();
 	//DelAllLines = !LDPUMA_Skip(RLINE_DeleteAll);
-		   
+
 
 
 	// Получаем PAGEINFO текущей страницы
@@ -765,8 +765,8 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 
 	HorType = (Word32)lti.Hor.Lns;
 	VerType = (Word32)lti.Ver.Lns;
-   }	
-*/	
+   }
+*/
 	if (!CIMAGE_GetCallbackImage((PWord8) pImage, &cbk))
 	{
 		LDPUMA_Console( " Error in GetCallbackImage " );
@@ -774,14 +774,14 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 		SetReturnCode_rline( rc32 );
 		return FALSE;
 	}
-	
+
 	imxs.f_op = DibOpen;								// Мы не можем из за разных названий одного
 	imxs.f_re = DibRead;								// и того же типа в CIMAGE и LNS32 присвоить
 	imxs.f_cl = DibClose;								// imxs->... cbk->... нужно преобразование типов.
 
 	// Подготавливаем страницу
 	LnsPageStart(&imxs);
-	
+
 	// Установка параметров работы LNS32.dll
 	ls.nOptions = 0;
 	LnsSetup ( &ls );
@@ -793,13 +793,13 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 	else
 	{
 		gbNOFILLGAP3 = FALSE;
-	}	
+	}
 	ls.nOptions |= gbNOFILLGAP3 ? 0 : LSS_NOFILLGAP3_FILTER;
 
 	if ( !LDPUMA_Skip(RLINE_NoHorBorder) )
 	{
 		gbNOHBORDER = TRUE;
-	}	
+	}
 	else
 	{
 		gbNOHBORDER = FALSE;
@@ -809,7 +809,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 	if ( !LDPUMA_Skip(RLINE_NoVerBorder) )
 	{
 		gbNOVBORDER = TRUE;
-	}	
+	}
 	else
 	{
 		gbNOVBORDER = FALSE;
@@ -826,7 +826,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 	}
 
 	if (result_h_count)
-    {  
+    {
       lti2.Hor.Lns = (LineInfo*)malloc(result_h_count * sizeof(LineInfo));
       if (lti2.Hor.Lns == NULL)
       {
@@ -838,7 +838,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
     lti2.Hor.Cnt = result_h_count;
 
 	if (result_v_count)
-	{  
+	{
       lti2.Ver.Lns = (LineInfo*)malloc(result_v_count * sizeof(LineInfo));
       if (lti2.Ver.Lns == NULL)
       {
@@ -882,7 +882,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 		for (i=0; i<lti2.Hor.Cnt; i++)
 		{
 			if( (lti2.Hor.Lns[i].A.x == cpdata->Line.Beg_X) && (lti2.Hor.Lns[i].B.x == cpdata->Line.End_X) &&
-					(lti2.Hor.Lns[i].A.y == cpdata->Line.Beg_Y) && (lti2.Hor.Lns[i].B.y == cpdata->Line.End_Y) ) 
+					(lti2.Hor.Lns[i].A.y == cpdata->Line.Beg_Y) && (lti2.Hor.Lns[i].B.y == cpdata->Line.End_Y) )
 			{
 					if (cpdata->Flags & LI_NOTWHOLE)
 					{
@@ -890,7 +890,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 					 lti2.Hor.Lns[i].Bnew = cpdata->lns_data.Bnew;
 					}
 					lti2.Hor.Lns[i].Flags = cpdata->Flags;
-					if (cpdata->Flags &  LI_IsTrue) 
+					if (cpdata->Flags &  LI_IsTrue)
 						lti2.Hor.Lns[i].Flags |= LI_SWEEP;
 					i=lti2.Hor.Cnt;
 			}
@@ -901,7 +901,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 		for (i=0; i<lti2.Ver.Cnt; i++)
 		{
 			if( (lti2.Ver.Lns[i].A.x == cpdata->Line.Beg_X) && (lti2.Ver.Lns[i].B.x == cpdata->Line.End_X) &&
-					(lti2.Ver.Lns[i].A.y == cpdata->Line.Beg_Y) && (lti2.Ver.Lns[i].B.y == cpdata->Line.End_Y) ) 
+					(lti2.Ver.Lns[i].A.y == cpdata->Line.Beg_Y) && (lti2.Ver.Lns[i].B.y == cpdata->Line.End_Y) )
 			{
 					if (cpdata->Flags & LI_NOTWHOLE)
 					{
@@ -909,7 +909,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 					 lti2.Ver.Lns[i].Bnew = cpdata->lns_data.Bnew;
 					}
 					lti2.Ver.Lns[i].Flags = cpdata->Flags;
-					if (cpdata->Flags &  LI_IsTrue) 
+					if (cpdata->Flags &  LI_IsTrue)
 						lti2.Ver.Lns[i].Flags |= LI_SWEEP;
 					i=lti2.Ver.Cnt;
 			}
@@ -939,12 +939,12 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 			{
 				lti2.Hor.Lns[i].Flags = LI_SWEEP;
 			}
-			else 
+			else
 			{
 				if( (lti2.Hor.Lns[i].A.x == lInfo.A.x) && (lti2.Hor.Lns[i].B.x == lInfo.B.x) &&
-					(lti2.Hor.Lns[i].A.y == lInfo.A.y) && (lti2.Hor.Lns[i].B.y == lInfo.B.y) ) 
+					(lti2.Hor.Lns[i].A.y == lInfo.A.y) && (lti2.Hor.Lns[i].B.y == lInfo.B.y) )
 				{
-					if (lInfo.Flags &  LI_IsTrue) 
+					if (lInfo.Flags &  LI_IsTrue)
 						lInfo.Flags |= LI_SWEEP;
 					//************
 					if (lInfo.Flags & LI_NOTWHOLE)
@@ -954,7 +954,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 					}
 					//************
 					lti2.Hor.Lns[i].Flags = lInfo.Flags;
-				
+
 				}
 			}
 		}
@@ -962,7 +962,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 		pBlock = CPAGE_GetBlockNext( lpInPage, pBlock, HorType );
 
 	}
-	
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 	pBlock = CPAGE_GetBlockFirst ( lpInPage, VerType );
@@ -983,12 +983,12 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 			{
 				lti2.Ver.Lns[i].Flags = LI_SWEEP;
 			}
-			else 
+			else
 			{
 				if( (lti2.Ver.Lns[i].A.x == lInfo.A.x) && (lti2.Ver.Lns[i].B.x == lInfo.B.x) &&
-					(lti2.Ver.Lns[i].A.y == lInfo.A.y) && (lti2.Ver.Lns[i].B.y == lInfo.B.y) ) 
+					(lti2.Ver.Lns[i].A.y == lInfo.A.y) && (lti2.Ver.Lns[i].B.y == lInfo.B.y) )
 				{
-					if (lInfo.Flags &  LI_IsTrue) 
+					if (lInfo.Flags &  LI_IsTrue)
 						lInfo.Flags |= LI_SWEEP;
 					//************
 					if (lInfo.Flags & LI_NOTWHOLE)
@@ -998,7 +998,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 					}
 					//************
 					lti2.Ver.Lns[i].Flags = lInfo.Flags;
-				
+
 				}
 			}
 		}
@@ -1011,12 +1011,12 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 /////////////////////////////////////////////////////////////////////////////////////////////
 	swp_imxs = LnsGetSweepedImage( &lti2 );
 
-	
+
 	CIMAGEIMAGECALLBACK cbk1;
 	cbk1.CIMAGE_ImageOpen  = SampleImageOpen;
 	cbk1.CIMAGE_ImageRead  = SampleImageRead;
 	cbk1.CIMAGE_ImageClose = SampleImageClose;
-		
+
 
 	if (!CIMAGE_GetCallbackImage( (PWord8)pImage, &cbk))
 	{
@@ -1043,7 +1043,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
 		LDPUMA_Console("Нажмите любую клавишу...");
 		LDPUMA_WaitUserInput(RLINE_ShowWithoutLines, hwnd );
 	}
-	
+
 	if(lti2.Hor.Lns) free(lti2.Hor.Lns);
 	if(lti2.Ver.Lns) free(lti2.Ver.Lns);
 

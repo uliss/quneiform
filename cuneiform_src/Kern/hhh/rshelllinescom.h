@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -73,9 +73,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 #define VerticalLine     0
-#define HorizantalLine   1  
+#define HorizantalLine   1
 
-#define HalfOtstup       4  
+#define HalfOtstup       4
 #define Otstup           4
 #define MaxNumber        4
 
@@ -111,14 +111,14 @@ struct CLineImage
 */
 struct DOT_STRUCT
  {
-  Int32 left; 
+  Int32 left;
   Int32 right;
-  Int32 top;  
+  Int32 top;
   Int32 bottom;
   Int32 i_left;
   Int32 i_top;
   Int32 i_right;
-  BOOL  flag; 
+  BOOL  flag;
  };
 /*
 class  CSL_POLY:public CObject
@@ -127,7 +127,7 @@ public:
   CSL_POLY(){count=4;}
  ~CSL_POLY(){}
 
- Int16   count;	
+ Int16   count;
  Point32 Vertex[MaxNumber];
 };
 */
@@ -155,7 +155,7 @@ public:
   CInterval(){}
  ~CInterval(){}
 
-  Int32  Pos;  
+  Int32  Pos;
   Int32  Lent;
 };
 */
@@ -167,8 +167,8 @@ public:
   CPRect32(){m_flag=TRUE;};
  ~CPRect32(){};
 
-  Rect32  rect;  
-  BOOL    m_flag; 
+  Rect32  rect;
+  BOOL    m_flag;
 };
 */
 
@@ -184,9 +184,9 @@ public:
   Bool            Increase;                //наращивать или уменьшать уровень
   Int32           Lev_0;                   //уровень первого интервала
   int             Width;
-  Int32           EventLength; 
+  Int32           EventLength;
 
-  CObArray        m_arIntervals; 
+  CObArray        m_arIntervals;
 
   int             GetCountIntervals(void);
   CInterval*      GetInterval(int i);
@@ -204,9 +204,9 @@ public:
  ~CStripe();
 
   Int32           Level;                   //уровень полосы
-  
-  CObArray        m_arIntervals; 
-  
+
+  CObArray        m_arIntervals;
+
   int             GetCountIntervals(void);
   CInterval*      GetInterval(int i);
   CInterval*      GetNewInterval(void);
@@ -227,9 +227,9 @@ public:
 
   int    Direction;
   Int32  Level;                            //уровень полосы
-  
-  CObArray        m_arIntervals; 
-  
+
+  CObArray        m_arIntervals;
+
   int             GetCountIntervals(void);
   CInterval*      GetInterval(int i);
   CInterval*      GetNewInterval(void);
@@ -239,8 +239,8 @@ public:
 // Component's class
 
 #define  InitialPointHasCrossPoint  1  //defines for Component
-#define  MiddleHasCrossPoint        2  
-#define  EndPointHasCrossPoint      4  
+#define  MiddleHasCrossPoint        2
+#define  EndPointHasCrossPoint      4
 /*
 class RSHELLLINES_API CComponent:public CObject
 {
@@ -249,8 +249,8 @@ public:
  ~CComponent();
 
   int    CrossPointFlag;
-  Int32  BeginPoint;                            
-  Int32  EndPoint;                            
+  Int32  BeginPoint;
+  Int32  EndPoint;
 };
 */
 /////////////////////////////////////////////////////////////////////////////
@@ -264,16 +264,16 @@ public:
   CPRect32        m_LeftDot;       // левая точка
   CPRect32        m_RightDot;      // правая точка
   BOOL            m_LeftDotState;  //FALSE-линия не имеет лев. продольжение
-  BOOL            m_RightDotState; //FALSE-линия не имеет прав.продольжение 
+  BOOL            m_RightDotState; //FALSE-линия не имеет прав.продольжение
 
   CObArray        m_arDots;        // все точки без сортировки
-  CWordArray      m_dist;          // все расстояния между точками 
+  CWordArray      m_dist;          // все расстояния между точками
 
   BOOL            m_Flag;          //Если == FALSE то плохая точечная линия
 
   int             GetCountOfDots(void);
   CPRect32*       GetDot(int i);
-  void            AddDot(CPRect32*); 
+  void            AddDot(CPRect32*);
   void            SetLeftDot(CPRect32* in_dot);
   void            SetRightDot(CPRect32* in_dot);
 };
@@ -281,13 +281,13 @@ public:
 // For Flags
 //#define LI_IsTrue       0x00000040 			// правильно выделенная линия
 //#define LI_IsFalse      0x00000080			// не линия
-//#define LI_Pointed      0x00001000          // точечная   
+//#define LI_Pointed      0x00001000          // точечная
 
 // For Status
-#define ST_Unknown      0x00000000 			// 
-#define ST_Basil_Short  0x00000001			// 
-#define ST_Good         0x00000002          // 
-#define ST_Bad          0x00000004          // 
+#define ST_Unknown      0x00000000 			//
+#define ST_Basil_Short  0x00000001			//
+#define ST_Good         0x00000002          //
+#define ST_Bad          0x00000004          //
 
 /////////////////////////////////////////////////////////////////////////////
 // Line's class
@@ -298,24 +298,24 @@ class RSHELLLINES_API CLine:public CObject
 public:
   CLine();
  ~CLine();
-*/  
+*/
 RSHELLLINES_API void            InitLine(DLine* linedata);  //
 /*  Word32          Flags;                   // common use info
   Word32          Tail;                    // остаток линии за таблицой
   Point32         BeginPoint;
   Point32         EndPoint;
-  Rect32          rect;                    // прямоугольник линии 
-  BOOL            ProcessingType;          // тип обработки линии(гор. или верт.)      
+  Rect32          rect;                    // прямоугольник линии
+  BOOL            ProcessingType;          // тип обработки линии(гор. или верт.)
   int             Width;
-  Int32           LineEventsLength;        // сумма черных точек линии   
+  Int32           LineEventsLength;        // сумма черных точек линии
   double          Degree;
   int             RelationshipIndex;       // индекс коробки компонент
   BOOL            FlagCalculatedWidth;
   BOOL            FlagExtensible;
-  BOOL            FlagDot;                 // устанавливается когда линия точечная  
-  BOOL            FlagBad;  
-  BOOL            FlagLongStrip;  
-  int             PathNumber;              // номер прохода 
+  BOOL            FlagDot;                 // устанавливается когда линия точечная
+  BOOL            FlagBad;
+  BOOL            FlagLongStrip;
+  int             PathNumber;              // номер прохода
 
   NR_SimpLine     Line;                    // простейшее описание линии
   NR_SimpLine     LineMid;                 // Средние точки линии
@@ -329,16 +329,16 @@ RSHELLLINES_API void            InitLine(DLine* linedata);  //
 
   CObArray        m_arStripes;             // все полосы и интервалы
   CObArray        m_arStripesVerticalLine; // все полосы и интервалы для вертикальной линии
-//  CObArray        m_arCorrectedStripes;    // полосы и интервалы после коррекции 
+//  CObArray        m_arCorrectedStripes;    // полосы и интервалы после коррекции
   CObArray        m_arEvents;              // фрагменты
-  CObArray        m_arCutPoints;           // точки пересечения с ортогональными линиями 
+  CObArray        m_arCutPoints;           // точки пересечения с ортогональными линиями
   CObArray        m_arComponents;          // компоненты линии с признаками точек пересечения
 //take'em away!  CWordArray      m_arSeparationPoints;    // точки деления линии на подлинии(компоненты)
-  CWordArray      m_arFriendsIndex;        // индексы дружественных линий 
+  CWordArray      m_arFriendsIndex;        // индексы дружественных линий
 
 */
   BOOL            SetLineNormDataTypes(NORM_DATATYPES, DLine* line); //
-/*  NORM_DATATYPES  GetLineNormDataTypes(void);  
+/*  NORM_DATATYPES  GetLineNormDataTypes(void);
 
   int             GetCountStripes(void);
   CStripe*        GetStripe(int i);
@@ -347,7 +347,7 @@ RSHELLLINES_API void            InitLine(DLine* linedata);  //
   int             GetCountStripesVerticalLine(void);
   CStripe*        GetStripeVerticalLine(int i);
 */  void            GetNewStripeVerticalLine(DEvent* eventdata); //
-  
+
 /*  int             GetCountEvents(void);
   CEvent*         GetNewEvent();
   CEvent*         GetEvent(int i);
@@ -363,10 +363,10 @@ RSHELLLINES_API void            InitLine(DLine* linedata);  //
   int             GetCountComponents(void);
   CComponent*     GetNewComponent();
   CComponent*     GetComponent(int i);
-*/  
+*/
   void            SetLineProcessingType(DLine* linedata); //
   void            SetWidth(CLINE_handle line, DLine* pCLine); //
-  void            SetLength(CLINE_handle line, DLine* pCLine); // 
+  void            SetLength(CLINE_handle line, DLine* pCLine); //
   void            SetComponentsCrossPointFlag(CLINE_handle line, DLine* pCLine); //
 RSHELLLINES_API Bool32          CheckSeparationPoints(CLINE_handle hLine, CLINE_handle hComp = NULL); //
 
@@ -394,14 +394,14 @@ public:
 
   CWordArray      m_arFriendsIndex;        // индексы дружественных линий (m_arLines)
   CWordArray      m_arCutPointsL;           // точки пересечения (left for interval)
-  CWordArray      m_arCutPointsR;           // точки пересечения (right for interval) 
+  CWordArray      m_arCutPointsR;           // точки пересечения (right for interval)
   CWordArray      m_arFrequency;           // и частота
 
-  double          Degree;                  // +- 0.05  
-  BOOL            ProcessingType;          // тип обработки линий(гор. или верт.)      
+  double          Degree;                  // +- 0.05
+  BOOL            ProcessingType;          // тип обработки линий(гор. или верт.)
   int             RelationshipIndex;       // индекс коробки компонент
-  WORD            m_top;   
-  WORD            m_bottom;   
+  WORD            m_top;
+  WORD            m_bottom;
 
   int             GetCountOfFriendLines(void);
 };
@@ -414,8 +414,8 @@ public:
   CGroupOfExtensibleLines();
  ~CGroupOfExtensibleLines();
 
-  double          Degree;                  // +- 0.05  
-  BOOL            ProcessingType;          // тип обработки линий(гор. или верт.)      
+  double          Degree;                  // +- 0.05
+  BOOL            ProcessingType;          // тип обработки линий(гор. или верт.)
   CWordArray      m_arFriendsIndex;        // индексы дружественных линий (m_arLines)
 
   int             GetCountOfExtensibleLines(void);
@@ -467,7 +467,7 @@ public:
 */
   BOOL                     IsItNewLine(CLINE_handle hContainer, DLine* pLineCP, Int32 GroupVerOffset, Bool32 IfDrawResult); //
   BOOL                     CheckLinesForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
-  BOOL                     CheckLinesImpositionForExtensible(CLINE_handle hLine, GLM* hGroupEx); // 
+  BOOL                     CheckLinesImpositionForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
   BOOL                     CheckLinesDegreeForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
 //  BOOL                     CheckGroupsForExtensible(void);
 

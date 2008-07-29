@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -67,17 +67,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern Word8 language;
 extern Word8 langCyrilRoman;
 
-static Bool32 CyrilLanguage(void) 
+static Bool32 CyrilLanguage(void)
 {
     if( langCyrilRoman == 1)
 		return TRUE;
-    if( langCyrilRoman == 2) 
+    if( langCyrilRoman == 2)
         return FALSE;
-	if ( 
+	if (
 		 language == LANG_RUSSIAN   || language == LANG_ENGLISH ||
          language == LANG_UKRAINIAN || language == LANG_SERBIAN ||
          language == LANG_BULGAR    ||
-         language == LANG_RUSENG  
+         language == LANG_RUSENG
 		)
 	{
          langCyrilRoman = 1;
@@ -86,22 +86,22 @@ static Bool32 CyrilLanguage(void)
 	return FALSE;
 }
 /////////////////
-static Bool32 RomanLanguage(void) 
+static Bool32 RomanLanguage(void)
 {
 	if( langCyrilRoman == 1)
 		return FALSE;
-    if( langCyrilRoman == 2) 
+    if( langCyrilRoman == 2)
         return TRUE;
 
 	if	(language == LANG_GERMAN ||
-     language == LANG_FRENCH || language == LANG_SWEDISH || 
+     language == LANG_FRENCH || language == LANG_SWEDISH ||
      language == LANG_ITALIAN|| language == LANG_SPANISH ||
      language == LANG_DANISH || language == LANG_PORTUGUESE ||
      language == LANG_DUTCH  ||
 	 language == LANG_POLISH || language == LANG_CROATIAN ||
 	 language == LANG_CZECH  || language == LANG_HUNGAR   ||
 	 language == LANG_ROMAN	 || language == LANG_SLOVENIAN||
-	 is_baltic_language(language)	|| // 09.07.2001 E.P. 
+	 is_baltic_language(language)	|| // 09.07.2001 E.P.
 	 is_turkish_language(language)
 	 )
 	{
@@ -114,8 +114,8 @@ static Bool32 RomanLanguage(void)
 Bool32 LetDigSymbol(int i) // letter or digit
 {
 	if( i >= '0' && i <= '9' ||
-		i >= 'A' && i <= 'Z' || 
-		i >= 'a' && i <= 'z' 
+		i >= 'A' && i <= 'Z' ||
+		i >= 'a' && i <= 'z'
 	  )
 		return TRUE;
 	if( i == 35)    // Nomer
@@ -123,7 +123,7 @@ Bool32 LetDigSymbol(int i) // letter or digit
 
     if( CyrilLanguage() &&
 		(i >= 128 && i < 176  ||    // ascii A-ï
-		 i >= 224 && i < 240      //       ð-ÿ  
+		 i >= 224 && i < 240      //       ð-ÿ
 	   )
       )
 	  return TRUE;
@@ -137,7 +137,7 @@ Bool32 LetDigSymbol(int i) // letter or digit
 Bool32 BigSymbol(int i)
 {
 	if( i >= '0' && i <= '9' ||
-		i >= 'A' && i <= 'Z' || 
+		i >= 'A' && i <= 'Z' ||
 		i == 'l' )
 		return TRUE;
 
@@ -172,10 +172,10 @@ static const Word8 cursivNames[]   ="\xfd\xf8\xf0\xf7\xf5";
 Bool32 BigSmallSymbol(int i)
 {
 	// áðó
-	if( // 16.07.2001 E.P. êîíôëèêò ñ a_bottom_accent_baltic 0xe0 
+	if( // 16.07.2001 E.P. êîíôëèêò ñ a_bottom_accent_baltic 0xe0
 		CyrilLanguage() &&
-			(i==0xa1 || i==0xe0 || i==0xe3) ||  
-		strchr(bigLitLet,i) 
+			(i==0xa1 || i==0xe0 || i==0xe3) ||
+		strchr(bigLitLet,i)
       )
 	  return TRUE;
 
@@ -211,20 +211,20 @@ Bool32 SmallSymbol(int i)
 Bool32 is_czech_special(BYTE let)
 {
 return (
-     let == AA_right_accent || let == a_right_accent	|| 
-     let == CC_inv_roof		|| let == c_inv_roof		|| 
-     let == DD_inv_roof		|| let == d_inv_roof		|| 
-     let == EE_right_accent || let == e_right_accent	|| 
-     let == EE_inv_roof		|| let == e_inv_roof		|| 
-     let == II_right_accent || let == i_right_accent	|| 
-     let == NN_inv_roof		|| let == n_inv_roof		|| 
-     let == OO_right_accent || let == o_right_accent	|| 
-     let == RR_inv_roof		|| let == r_inv_roof		|| 
-     let == SS_inv_roof_latin	|| let == s_inv_roof_latin	|| 
-     let == TT_inv_roof		|| let == t_inv_roof		|| 
-     let == UU_right_accent || let == u_right_accent	|| 
-     let == UU_circle_accent|| let == u_circle_accent	|| 
-     let == YY_right_accent || let == y_right_accent	|| 
+     let == AA_right_accent || let == a_right_accent	||
+     let == CC_inv_roof		|| let == c_inv_roof		||
+     let == DD_inv_roof		|| let == d_inv_roof		||
+     let == EE_right_accent || let == e_right_accent	||
+     let == EE_inv_roof		|| let == e_inv_roof		||
+     let == II_right_accent || let == i_right_accent	||
+     let == NN_inv_roof		|| let == n_inv_roof		||
+     let == OO_right_accent || let == o_right_accent	||
+     let == RR_inv_roof		|| let == r_inv_roof		||
+     let == SS_inv_roof_latin	|| let == s_inv_roof_latin	||
+     let == TT_inv_roof		|| let == t_inv_roof		||
+     let == UU_right_accent || let == u_right_accent	||
+     let == UU_circle_accent|| let == u_circle_accent	||
+     let == YY_right_accent || let == y_right_accent	||
      let == ZZ_inv_roof_latin		|| let == z_inv_roof_latin
     );
 }
@@ -243,11 +243,11 @@ return (
 Bool32 is_hungar_special(BYTE let)
 {
 return (
-     let == AA_right_accent || 		let == a_right_accent || 
-     let == EE_right_accent || 		let == e_right_accent || 
-     let == II_right_accent || 		let == i_right_accent || 
-     let == OO_right_accent || 		let == o_right_accent || 
-     let == OO_2dot_accent  || 		let == o_2dot_accent  || 
+     let == AA_right_accent || 		let == a_right_accent ||
+     let == EE_right_accent || 		let == e_right_accent ||
+     let == II_right_accent || 		let == i_right_accent ||
+     let == OO_right_accent || 		let == o_right_accent ||
+     let == OO_2dot_accent  || 		let == o_2dot_accent  ||
      let == OO_double_right || 		let == o_double_right
     );
 }
@@ -255,16 +255,16 @@ return (
 Bool32 is_latvian_special(BYTE let)
 {
 return (
-     let == AA_macron			||let == a_macron			|| 
-     let == CC_inv_roof			||let == c_inv_roof			|| 
-     let == EE_macron			||let == e_macron			|| 
-     let == GG_bottom_accent	||let == LATVIAN_g			|| 
-     let == II_macron			||let == i_macron			|| 
-     let == KK_bottom_accent	||let == k_bottom_accent	|| 
-     let == LL_bottom_accent	||let == l_bottom_accent	|| 
-     let == NN_bottom_accent	||let == n_bottom_accent	|| 
-     let == SS_inv_roof_baltic	||let == s_inv_roof_baltic	|| 
-     let == UU_macron			||let == u_macron			|| 
+     let == AA_macron			||let == a_macron			||
+     let == CC_inv_roof			||let == c_inv_roof			||
+     let == EE_macron			||let == e_macron			||
+     let == GG_bottom_accent	||let == LATVIAN_g			||
+     let == II_macron			||let == i_macron			||
+     let == KK_bottom_accent	||let == k_bottom_accent	||
+     let == LL_bottom_accent	||let == l_bottom_accent	||
+     let == NN_bottom_accent	||let == n_bottom_accent	||
+     let == SS_inv_roof_baltic	||let == s_inv_roof_baltic	||
+     let == UU_macron			||let == u_macron			||
      let == ZZ_inv_roof_baltic	||let == z_inv_roof_baltic	||
 	 0
     );
@@ -273,15 +273,15 @@ return (
 Bool32 is_lithuanian_special(BYTE let)
 {
 return (
-     let == AA_bottom_accent	|| 	let == a_bottom_accent	||  
-     let == CC_inv_roof			|| 	let == c_inv_roof		||  
-     let == EE_bottom_accent	|| 	let == e_bottom_accent	||  
-     let == EE_dot_accent		|| 	let == e_dot_accent		||  
-     let == II_bottom_accent	|| 	let == i_bottom_accent	||  
-     let == SS_inv_roof_baltic	|| 	let == s_inv_roof_baltic||  
-     let == UU_bottom_accent	|| 	let == u_bottom_accent	||  
-     let == UU_macron			|| 	let == u_macron			||  
-     let == ZZ_inv_roof_baltic	|| 	let == z_inv_roof_baltic|| 
+     let == AA_bottom_accent	|| 	let == a_bottom_accent	||
+     let == CC_inv_roof			|| 	let == c_inv_roof		||
+     let == EE_bottom_accent	|| 	let == e_bottom_accent	||
+     let == EE_dot_accent		|| 	let == e_dot_accent		||
+     let == II_bottom_accent	|| 	let == i_bottom_accent	||
+     let == SS_inv_roof_baltic	|| 	let == s_inv_roof_baltic||
+     let == UU_bottom_accent	|| 	let == u_bottom_accent	||
+     let == UU_macron			|| 	let == u_macron			||
+     let == ZZ_inv_roof_baltic	|| 	let == z_inv_roof_baltic||
 	 0
     );
 }
@@ -289,12 +289,12 @@ return (
 Bool32 is_estonian_special(BYTE let)
 {
 return (
-     let == AA_2dot_accent		|| 	let == a_2dot_accent		||  
-     let == OO_tild_accent		|| 	let == o_tild_accent		||  
-     let == OO_2dot_accent		|| 	let == o_2dot_accent		||  
-     let == SS_inv_roof_baltic	|| 	let == s_inv_roof_baltic	||  
-     let == UU_2dot_accent		|| 	let == u_2dot_accent		||  
-     let == ZZ_inv_roof_baltic	|| 	let == z_inv_roof_baltic	|| 
+     let == AA_2dot_accent		|| 	let == a_2dot_accent		||
+     let == OO_tild_accent		|| 	let == o_tild_accent		||
+     let == OO_2dot_accent		|| 	let == o_2dot_accent		||
+     let == SS_inv_roof_baltic	|| 	let == s_inv_roof_baltic	||
+     let == UU_2dot_accent		|| 	let == u_2dot_accent		||
+     let == ZZ_inv_roof_baltic	|| 	let == z_inv_roof_baltic	||
 	 0
     );
 }
@@ -307,7 +307,7 @@ return (
      let == GG_semicircle			|| 	let == g_semicircle				||
      let == II_dot_accent			|| 	let == i_sans_accent			||
      let == II_roof_accent			|| 	let == i_roof_accent			||
-     let == OO_2dot_accent			|| 	let == o_2dot_accent			||  
+     let == OO_2dot_accent			|| 	let == o_2dot_accent			||
      let == SS_bottom_accent_turkish|| 	let == s_bottom_accent_turkish	||
      let == UU_2dot_accent			|| 	let == u_2dot_accent			||
      let == UU_roof_accent			|| 	let == u_roof_accent			||
@@ -327,7 +327,7 @@ Bool32 NotStandardSymbol(int i)
 
 	  if( is_roman_special((BYTE)i) )
 		  return TRUE;
-	  
+
 	  switch(language)
 	  {
 	   case LANG_HUNGAR:
@@ -345,7 +345,7 @@ Bool32 NotStandardSymbol(int i)
        case LANG_LATVIAN:
 		   if( is_latvian_special((BYTE)i) )
 		      return TRUE;
-		   break; 
+		   break;
        case LANG_ESTONIAN:
 		   if( is_estonian_special((BYTE)i) )
 		      return TRUE;

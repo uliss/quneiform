@@ -6,28 +6,28 @@ All rights reserved.
 Ú‡Í Ë ‚ ‰‚ÓË˜ÌÓÈ ÙÓÏÂ, Ò ËÁÏÂÌÂÌËˇÏË ËÎË ·ÂÁ, ÔË ÒÓ·Î˛‰ÂÌËË ÒÎÂ‰Û˛˘Ëı ÛÒÎÓ‚ËÈ:
 
       * œË ÔÓ‚ÚÓÌÓÏ ‡ÒÔÓÒÚ‡ÌÂÌËË ËÒıÓ‰ÌÓ„Ó ÍÓ‰‡ ‰ÓÎÊÌ˚ ÓÒÚ‡‚‡Ú¸Òˇ ÛÍ‡Á‡ÌÌÓÂ
-        ‚˚¯Â Û‚Â‰ÓÏÎÂÌËÂ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ˝ÚÓÚ ÒÔËÒÓÍ ÛÒÎÓ‚ËÈ Ë ÔÓÒÎÂ‰Û˛˘ËÈ 
-        ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ. 
-      * œË ÔÓ‚ÚÓÌÓÏ ‡ÒÔÓÒÚ‡ÌÂÌËË ‰‚ÓË˜ÌÓ„Ó ÍÓ‰‡ ‚ ‰ÓÍÛÏÂÌÚ‡ˆËË Ë/ËÎË ‚ 
+        ‚˚¯Â Û‚Â‰ÓÏÎÂÌËÂ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ˝ÚÓÚ ÒÔËÒÓÍ ÛÒÎÓ‚ËÈ Ë ÔÓÒÎÂ‰Û˛˘ËÈ
+        ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ.
+      * œË ÔÓ‚ÚÓÌÓÏ ‡ÒÔÓÒÚ‡ÌÂÌËË ‰‚ÓË˜ÌÓ„Ó ÍÓ‰‡ ‚ ‰ÓÍÛÏÂÌÚ‡ˆËË Ë/ËÎË ‚
         ‰Û„Ëı Ï‡ÚÂË‡Î‡ı, ÔÓÒÚ‡‚ÎˇÂÏ˚ı ÔË ‡ÒÔÓÒÚ‡ÌÂÌËË, ‰ÓÎÊÌ˚ ÒÓı‡ÌˇÚ¸Òˇ
         ÛÍ‡Á‡ÌÌ‡ˇ ‚˚¯Â ËÌÙÓÏ‡ˆËˇ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ˝ÚÓÚ ÒÔËÒÓÍ ÛÒÎÓ‚ËÈ Ë
-        ÔÓÒÎÂ‰Û˛˘ËÈ ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ.  
-      * ÕË Ì‡Á‚‡ÌËÂ Cognitive Technologies, ÌË ËÏÂÌ‡ ÂÂ ÒÓÚÛ‰ÌËÍÓ‚ ÌÂ ÏÓ„ÛÚ 
-        ·˚Ú¸ ËÒÔÓÎ¸ÁÓ‚‡Ì˚ ‚ Í‡˜ÂÒÚ‚Â ÒÂ‰ÒÚ‚‡ ÔÓ‰‰ÂÊÍË Ë/ËÎË ÔÓ‰‚ËÊÂÌËˇ 
+        ÔÓÒÎÂ‰Û˛˘ËÈ ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ.
+      * ÕË Ì‡Á‚‡ÌËÂ Cognitive Technologies, ÌË ËÏÂÌ‡ ÂÂ ÒÓÚÛ‰ÌËÍÓ‚ ÌÂ ÏÓ„ÛÚ
+        ·˚Ú¸ ËÒÔÓÎ¸ÁÓ‚‡Ì˚ ‚ Í‡˜ÂÒÚ‚Â ÒÂ‰ÒÚ‚‡ ÔÓ‰‰ÂÊÍË Ë/ËÎË ÔÓ‰‚ËÊÂÌËˇ
         ÔÓ‰ÛÍÚÓ‚, ÓÒÌÓ‚‡ÌÌ˚ı Ì‡ ˝ÚÓÏ œŒ, ·ÂÁ ÔÂ‰‚‡ËÚÂÎ¸ÌÓ„Ó ÔËÒ¸ÏÂÌÌÓ„Ó
-        ‡ÁÂ¯ÂÌËˇ. 
+        ‡ÁÂ¯ÂÌËˇ.
 
 ›“¿ œ–Œ√–¿ÃÃ¿ œ–≈ƒŒ—“¿¬À≈Õ¿ ¬À¿ƒ≈À‹÷¿Ã» ¿¬“Œ–— »’ œ–¿¬ »/»À» ƒ–”√»Ã» À»÷¿Ã» " ¿ 
-ŒÕ¿ ≈—“‹" ¡≈«  ¿ Œ√Œ-À»¡Œ ¬»ƒ¿ √¿–¿Õ“»…, ¬€–¿∆≈ÕÕ€’ ﬂ¬ÕŒ »À» œŒƒ–¿«”Ã≈¬¿≈Ã€’, 
+ŒÕ¿ ≈—“‹" ¡≈«  ¿ Œ√Œ-À»¡Œ ¬»ƒ¿ √¿–¿Õ“»…, ¬€–¿∆≈ÕÕ€’ ﬂ¬ÕŒ »À» œŒƒ–¿«”Ã≈¬¿≈Ã€’,
 ¬ Àﬁ◊¿ﬂ √¿–¿Õ“»»  ŒÃÃ≈–◊≈— Œ… ÷≈ÕÕŒ—“» » œ–»√ŒƒÕŒ—“» ƒÀﬂ  ŒÕ –≈“ÕŒ… ÷≈À», ÕŒ Õ≈
-Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã». Õ» ¬À¿ƒ≈À≈÷ ¿¬“Œ–— »’ œ–¿¬ » Õ» ŒƒÕŒ ƒ–”√Œ≈ À»÷Œ,  Œ“Œ–Œ≈ 
-ÃŒ∆≈“ »«Ã≈Õﬂ“‹ »/»À» œŒ¬“Œ–ÕŒ –¿—œ–Œ—“–¿Õﬂ“‹ œ–Œ√–¿ÃÃ”, Õ» ¬  Œ≈Ã —À”◊¿≈ Õ≈ 
-Õ≈—®“ Œ“¬≈“—“¬≈ÕÕŒ—“», ¬ Àﬁ◊¿ﬂ Àﬁ¡€≈ Œ¡Ÿ»≈, —À”◊¿…Õ€≈, —œ≈÷»¿À‹Õ€≈ »À» 
-œŒ—À≈ƒŒ¬¿¬ÿ»≈ ”¡€“ », —¬ﬂ«¿ÕÕ€≈ — »—œŒÀ‹«Œ¬¿Õ»≈Ã »À» œŒÕ≈—≈ÕÕ€≈ ¬—À≈ƒ—“¬»≈ 
-Õ≈¬Œ«ÃŒ∆ÕŒ—“» »—œŒÀ‹«Œ¬¿Õ»ﬂ œ–Œ√–¿ÃÃ€ (¬ Àﬁ◊¿ﬂ œŒ“≈–» ƒ¿ÕÕ€’, »À» ƒ¿ÕÕ€≈, 
-—“¿¬ÿ»≈ Õ≈√ŒƒÕ€Ã», »À» ”¡€“ » »/»À» œŒ“≈–» ƒŒ’ŒƒŒ¬, œŒÕ≈—≈ÕÕ€≈ »«-«¿ ƒ≈…—“¬»… 
-“–≈“‹»’ À»÷ »/»À» Œ“ ¿«¿ œ–Œ√–¿ÃÃ€ –¿¡Œ“¿“‹ —Œ¬Ã≈—“ÕŒ — ƒ–”√»Ã» œ–Œ√–¿ÃÃ¿Ã», 
-ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ ›“»Ã» —À”◊¿ﬂÃ»), ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã», ƒ¿∆≈ ≈—À» “¿ Œ… 
+Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã». Õ» ¬À¿ƒ≈À≈÷ ¿¬“Œ–— »’ œ–¿¬ » Õ» ŒƒÕŒ ƒ–”√Œ≈ À»÷Œ,  Œ“Œ–Œ≈
+ÃŒ∆≈“ »«Ã≈Õﬂ“‹ »/»À» œŒ¬“Œ–ÕŒ –¿—œ–Œ—“–¿Õﬂ“‹ œ–Œ√–¿ÃÃ”, Õ» ¬  Œ≈Ã —À”◊¿≈ Õ≈
+Õ≈—®“ Œ“¬≈“—“¬≈ÕÕŒ—“», ¬ Àﬁ◊¿ﬂ Àﬁ¡€≈ Œ¡Ÿ»≈, —À”◊¿…Õ€≈, —œ≈÷»¿À‹Õ€≈ »À»
+œŒ—À≈ƒŒ¬¿¬ÿ»≈ ”¡€“ », —¬ﬂ«¿ÕÕ€≈ — »—œŒÀ‹«Œ¬¿Õ»≈Ã »À» œŒÕ≈—≈ÕÕ€≈ ¬—À≈ƒ—“¬»≈
+Õ≈¬Œ«ÃŒ∆ÕŒ—“» »—œŒÀ‹«Œ¬¿Õ»ﬂ œ–Œ√–¿ÃÃ€ (¬ Àﬁ◊¿ﬂ œŒ“≈–» ƒ¿ÕÕ€’, »À» ƒ¿ÕÕ€≈,
+—“¿¬ÿ»≈ Õ≈√ŒƒÕ€Ã», »À» ”¡€“ » »/»À» œŒ“≈–» ƒŒ’ŒƒŒ¬, œŒÕ≈—≈ÕÕ€≈ »«-«¿ ƒ≈…—“¬»…
+“–≈“‹»’ À»÷ »/»À» Œ“ ¿«¿ œ–Œ√–¿ÃÃ€ –¿¡Œ“¿“‹ —Œ¬Ã≈—“ÕŒ — ƒ–”√»Ã» œ–Œ√–¿ÃÃ¿Ã»,
+ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ ›“»Ã» —À”◊¿ﬂÃ»), ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã», ƒ¿∆≈ ≈—À» “¿ Œ…
 ¬À¿ƒ≈À≈÷ »À» ƒ–”√Œ≈ À»÷Œ ¡€À» »«¬≈Ÿ≈Õ€ Œ ¬Œ«ÃŒ∆ÕŒ—“» “¿ »’ ”¡€“ Œ¬ » œŒ“≈–‹.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -121,7 +121,7 @@ void DelIn(Handle hCPage,NegList** proot,int& nRc)
 			       blackin=NegBlack(pmasp,Rc);
 			  }
 			  if(blackout>=blackin)
-			  { 
+			  {
 				  nRc--;
 				  temp=nowin;
 				  if(root==temp)
@@ -196,7 +196,7 @@ void CutNegStr(Handle hCPage,NegList** proot,int& nRc,int skew)
 {
  if(nRc<=0)
 	 return;
- 
+
  int h,w;
  Word8* pmasp;
  NegList* now=(*proot);
@@ -210,7 +210,7 @@ void CutNegStr(Handle hCPage,NegList** proot,int& nRc,int skew)
  while(now)
  {
   fl_cont=FALSE;
- 
+
   w=(now->neg).pRc[0].right-(now->neg).pRc[0].left+1;
   h=(now->neg).pRc[0].bottom-(now->neg).pRc[0].top+1;
   if( (h<=inf_neg_h*2) || (w<=inf_neg_w ) || (h>w) )
@@ -292,7 +292,7 @@ void CutNeg(Handle hCPage,NegList** proot,int& nRc,int skew)
  while(now)
  {
   fl_cont=FALSE;
-  
+
 
 /*  if(IsNegBlack(hCPage,now))
   {
@@ -304,7 +304,7 @@ void CutNeg(Handle hCPage,NegList** proot,int& nRc,int skew)
   }
   if(fl_cont)
 	  continue;
-*/  
+*/
   w=(now->neg).pRc[0].right-(now->neg).pRc[0].left+1;
   h=(now->neg).pRc[0].bottom-(now->neg).pRc[0].top+1;
   if( (h<=inf_neg_h*3) || (w<=inf_neg_w ) )
@@ -332,7 +332,7 @@ void CutNeg(Handle hCPage,NegList** proot,int& nRc,int skew)
   }
   if(fl_cont)
 	  continue;
-  
+
     bytewide=(w+7)/8;
     rect=w&7;
 	if(!rect)
@@ -358,16 +358,16 @@ void CutNeg(Handle hCPage,NegList** proot,int& nRc,int skew)
      for(;p<pend;p++)
 	 {
       bytep=(*p);
-       
+
 	  count_black-=((bytep>>7)+((bytep&64)>>6)+((bytep&32)>>5)+((bytep&16)>>4)+((bytep&8)>>3)+((bytep&4)>>2)+((bytep&2)>>1)+(bytep&1));
-  
+
 	 }
      bytep=(*p);
        for(k=0;k<rect;k++)
           count_black-=((bytep&(128>>k))>>(7-k));
 	 p++;
      proc=((double)(count_black))/((double)(w));
- 
+
      if(neg==TRUE)
 	 {
 	   if(proc<=neg_cut_white)
@@ -395,7 +395,7 @@ void CutNeg(Handle hCPage,NegList** proot,int& nRc,int skew)
      else
 	 {
 	  if(proc>=neg_cut_black)
-	  { 
+	  {
 		neg=TRUE;
         oldtop=top;
 	  }
@@ -429,8 +429,8 @@ void CutNeg(Handle hCPage,NegList** proot,int& nRc,int skew)
 	  DeleteRotateMas(&((now->neg).rot.pmasp),&((now->neg).rot.begx),&((now->neg).rot.movey),&((now->neg).rot.flmovey),&((now->neg).rot.hi));
       now=now->next;
 	}
- }	  
-  
+ }
+
  (*proot)=root;
 
 
@@ -447,7 +447,7 @@ BOOL IfNegIn(NegList* root,int nRc,int top,int bottom,int left,int right)
  int neg_bottom;
  int neg_left;
  int neg_right;
- 
+
 	 for(i=0;i<nRc;i++)
 	 {
 		 neg_top=(now->neg).pRc[0].top;
@@ -463,11 +463,11 @@ BOOL IfNegIn(NegList* root,int nRc,int top,int bottom,int left,int right)
            if( ((neg_left<=left)&&(neg_right>left)) || ((neg_left>left)&&(right>neg_left)) )
 			   return TRUE;
 		 }
-		now=now->next; 
+		now=now->next;
 	 }
 	 return FALSE;
 }
-         
+
 
 
 BOOL SearchNegBySize(CCOM_handle hCCOM, Handle hCPage,NegList** ROOT,int& nRC)
@@ -483,7 +483,7 @@ BOOL SearchNegBySize(CCOM_handle hCCOM, Handle hCPage,NegList** ROOT,int& nRC)
  GetPageInfo(hCPage,&info);
  DPIX=info.DPIX;
  DPIY=info.DPIY;
- 
+
  InitRc(&Rc,pcomp);
  if( IsNegSize(Rc.bottom-Rc.top+1,Rc.right-Rc.left+1) )
  {
@@ -491,7 +491,7 @@ BOOL SearchNegBySize(CCOM_handle hCCOM, Handle hCPage,NegList** ROOT,int& nRC)
 	  return FALSE;
    nRC++;
  }
- 
+
  for(;;)
  {
   pcomp = CCOM_GetNext (pcomp, NULL);
@@ -521,7 +521,7 @@ BOOL SearchNegBySize(CCOM_handle hCCOM, Handle hCPage,NegList** ROOT,int& nRC)
    }
   }
  }
-	
+
  (*ROOT)=root;
  return TRUE;
 }
@@ -561,12 +561,12 @@ BOOL IfDrob(Handle hCPage,Rect16* pRc,int num,CCOM_comp * pdr)
  if(delta_top<0) delta_top=-delta_top;
  int delta_bottom=pRc[num].bottom-pdr->upper-pdr->h+1;
  if(delta_bottom<0) delta_bottom=-delta_bottom;
- 
+
  if( (left-oldright)>inteps || (left-oldright)<0 )
 	 return FALSE;
  if( (delta_top>delta) || (delta_bottom>delta) )
 	 return FALSE;
-  
+
  if(oldtop>pdr->upper) pRc[num].top=pdr->upper;
  if(oldbot<pdr->upper+pdr->h-1) pRc[num].bottom=pdr->upper+pdr->h-1;
  pRc[num].left=oldright;
@@ -584,7 +584,7 @@ BOOL IfDrob(Handle hCPage,Rect16* pRc,int num,CCOM_comp * pdr)
   pRc[num].left=oldleft;
   pRc[num].right=pdr->left+pdr->w-1;
  }
-  
+
  return TRUE;
 }
 */
@@ -609,7 +609,7 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
  register Word8* pend;
  Word8* pbeg;
 
- 
+
  if((now->neg).rot.pmasp)
  {
 	 pmasp=(now->neg).rot.pmasp;
@@ -622,32 +622,32 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
 
   if(!(GetMasP(Rc,&pmasp)) )
   {
-  
-	 //ÔÓÔ˚ÚÍ‡ - ÌÂ Ô˚ÚÍ‡ 
-  
+
+	 //ÔÓÔ˚ÚÍ‡ - ÌÂ Ô˚ÚÍ‡
+
    BOOL top=FALSE,left=FALSE,right=FALSE,bottom=FALSE;
-  
+
    	  while((*Rc).top<=0)
 		  ((*Rc).top)++;
 	  while( ((*Rc).bottom+1)>Height )
           ((*Rc).bottom)--;
-   
-   	   
+
+
 	  while((*Rc).left<0)
 		  ((*Rc).left)++;
 	  while( ((*Rc).right+1)>Width )
           ((*Rc).right)--;
-  
+
    int prewide=(((*Rc).right-(*Rc).left+8)/8)*8;
    if( ((*Rc).left+prewide)>Width )
-	    (*Rc).right-=8; 
+	    (*Rc).right-=8;
 
    pmasp = Data;
    if(!(GetMasP(Rc,&pmasp)) )
    {
-//¬ÌËÏ‡ÌËÂ!!! «‰ÂÒ¸ ÌÂ ‰ÓÎÊÌÓ ÓÒÚ‡Ì‡‚ÎË‚‡Ú¸Òˇ 
+//¬ÌËÏ‡ÌËÂ!!! «‰ÂÒ¸ ÌÂ ‰ÓÎÊÌÓ ÓÒÚ‡Ì‡‚ÎË‚‡Ú¸Òˇ
     if((*Rc).top<5) top=TRUE;
-    if((*Rc).left<5) left=TRUE; 
+    if((*Rc).left<5) left=TRUE;
     if((*Rc).right>(Int16)(Width)-5) right=TRUE;
     if((*Rc).bottom>(Int16)(Height)-5) bottom=TRUE;
     k=10;
@@ -661,7 +661,7 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
       if( GetMasP(Rc,&pmasp) )
 		break;
     }
-  
+
     if(i==k)
     {
      if(now==(*proot))
@@ -676,7 +676,7 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
  w=(*Rc).right-(*Rc).left+1;
  h=(*Rc).bottom-(*Rc).top+1;
  const int bytewide=(w+7)/8;
- 
+
  i=7-(bytewide*8-w);
  j=128;
  rect=w&7;
@@ -685,15 +685,15 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
  topp=0;
  lp=0;
  stop=h-topp-inf_neg_h;
-	 
+
  black_del=sup_neg_black_del;
  p=pmasp;
  pend=p+(bytewide-1);
  i=w-lp;
  while(stop>0)
- {  
-//  if( (h-topp)>(w-lp) ) black_del=sup_neg_black_del;  
-//  else black_del=weak_neg_black_del; 
+ {
+//  if( (h-topp)>(w-lp) ) black_del=sup_neg_black_del;
+//  else black_del=weak_neg_black_del;
   count_black=i;
   for(;p<pend;p++)
   {
@@ -712,7 +712,7 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
   pend+=bytewide;
  }
 
- if( !(IsNegSize(h-topp,w-lp)) ) 
+ if( !(IsNegSize(h-topp,w-lp)) )
  {
   if(now==(*proot))
 	 (*proot)=now->next;
@@ -721,7 +721,7 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
   return;
  }
 
- stop=(h-topp)-inf_neg_h;	 
+ stop=(h-topp)-inf_neg_h;
  black_del=sup_neg_black_del;
  pend=pmasp+(h-1)*bytewide;
  p=pend+(bytewide-1);
@@ -747,8 +747,8 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
   stop--;
   pend-=bytewide;
  }
- 
- if( !(IsNegSize(h-topp,w-lp))  )  
+
+ if( !(IsNegSize(h-topp,w-lp))  )
  {
   if(now==(*proot))
 	 (*proot)=now->next;
@@ -776,50 +776,50 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
   {
   case 0:
   for(p=pbeg;p<=pend;p+=bytewide)
-  {   
-   count_black-=((*p)>>7);   
+  {
+   count_black-=((*p)>>7);
   }
   break;
   case 1:
   for(p=pbeg;p<=pend;p+=bytewide)
-  {   
-   count_black-=(((*p)&64)>>6);   
+  {
+   count_black-=(((*p)&64)>>6);
   }
   break;
   case 2:
   for(p=pbeg;p<=pend;p+=bytewide)
-  {   
-   count_black-=(((*p)&32)>>5);   
+  {
+   count_black-=(((*p)&32)>>5);
   }
   break;
   case 3:
   for(p=pbeg;p<=pend;p+=bytewide)
-  {   
-   count_black-=(((*p)&16)>>4);   
+  {
+   count_black-=(((*p)&16)>>4);
   }
   break;
   case 4:
   for(p=pbeg;p<=pend;p+=bytewide)
-  {   
-   count_black-=(((*p)&8)>>3);   
+  {
+   count_black-=(((*p)&8)>>3);
   }
   break;
   case 5:
   for(p=pbeg;p<=pend;p+=bytewide)
-  {   
-   count_black-=(((*p)&4)>>2);   
+  {
+   count_black-=(((*p)&4)>>2);
   }
   break;
   case 6:
   for(p=pbeg;p<=pend;p+=bytewide)
-  {   
-   count_black-=(((*p)&2)>>1);   
+  {
+   count_black-=(((*p)&2)>>1);
   }
   break;
   case 7:
   for(p=pbeg;p<=pend;p+=bytewide)
-  {   
-   count_black-=((*p)&1);   
+  {
+   count_black-=((*p)&1);
   }
   pbeg++;
   pend++;
@@ -832,7 +832,7 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
   lp++;
   stop--;
  }
- if( !(IsNegSize(h-topp,w-lp)) ) 
+ if( !(IsNegSize(h-topp,w-lp)) )
  {
   if(now==(*proot))
 	 (*proot)=now->next;
@@ -841,7 +841,7 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
    return;
  }
 
- if( (h-topp)<(w-lp) ) 
+ if( (h-topp)<(w-lp) )
 	 black_del=sup_neg_black_del-.2;
  else
 	 black_del=weak_neg_black_del;
@@ -860,52 +860,52 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
   {
   case 1:
   for(p=pbeg;p<=pend;p+=bytewide)
-  {   
-   count_black-=((*p)>>7);   
+  {
+   count_black-=((*p)>>7);
   }
   pbeg--;
   pend--;
   break;
   case 2:
   for(p=pbeg;p<=pend;p+=bytewide)
-  {   
-   count_black-=(((*p)&64)>>6);   
+  {
+   count_black-=(((*p)&64)>>6);
   }
   break;
   case 3:
   for(p=pbeg;p<=pend;p+=bytewide)
-  {   
-   count_black-=(((*p)&32)>>5);   
+  {
+   count_black-=(((*p)&32)>>5);
   }
   break;
   case 4:
   for(p=pbeg;p<=pend;p+=bytewide)
-  {   
-   count_black-=(((*p)&16)>>4);   
+  {
+   count_black-=(((*p)&16)>>4);
   }
   break;
   case 5:
   for(p=pbeg;p<=pend;p+=bytewide)
-  {   
-   count_black-=(((*p)&8)>>3);   
+  {
+   count_black-=(((*p)&8)>>3);
   }
   break;
   case 6:
   for(p=pbeg;p<=pend;p+=bytewide)
-  {   
-   count_black-=(((*p)&4)>>2);   
+  {
+   count_black-=(((*p)&4)>>2);
   }
   break;
   case 7:
   for(p=pbeg;p<=pend;p+=bytewide)
-  {   
-   count_black-=(((*p)&2)>>1);   
+  {
+   count_black-=(((*p)&2)>>1);
   }
   break;
   case 0:
   for(p=pbeg;p<=pend;p+=bytewide)
-  {   
-   count_black-=((*p)&1);   
+  {
+   count_black-=((*p)&1);
   }
   break;
   default:break;
@@ -916,7 +916,7 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
   w--;
   stop--;
  }
- if( !(IsNegSize(h-topp-2,w-lp-2)) ) 
+ if( !(IsNegSize(h-topp-2,w-lp-2)) )
  {
   if(now==(*proot))
 	 (*proot)=now->next;
@@ -928,9 +928,9 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
  (*Rc).right=(*Rc).left+w-1-1;
  (*Rc).left+=lp+1;
  (*Rc).bottom=(*Rc).top+h-1-1;
- (*Rc).top+=topp+1; 
+ (*Rc).top+=topp+1;
 }
- 
+
 
 void NegMoveMas(Rect16* pRc,int& nRc,int num)
 {
@@ -974,7 +974,7 @@ void PMoveMas(double* p,int nRc,int num)
  int i;
   for(i=num;i<(nRc-1);i++)
 	  p[i]=p[i+1];
-      
+
 }
 
 void NegMoveMasR(Rect16* pRc,int& nRc,int num)
@@ -1022,7 +1022,7 @@ BOOL IsNegBlack(Handle hCPage,NegList* now)
 		break;
    }
    pmasp = Data;
-   if(!(GetMasP((now->neg).pRc,&pmasp)) )	 
+   if(!(GetMasP((now->neg).pRc,&pmasp)) )
     return FALSE;
   }
  }
@@ -1151,8 +1151,8 @@ void PrintFrameComp(Handle hCPage,Rect16* pRc,int num)
 	 bytep=pmasp[j];
      for(k=128;k>=rect;k=k>>1)
        if( (bytep&k)==0 ) printf("b");
-	   else printf("w"); 
- 
+	   else printf("w");
+
  printf("\ndown:");
  for(j=0;j<(bytewide-1);j++)
 	 {
@@ -1247,7 +1247,7 @@ BOOL AddLenNegMas(Rect16** ppRc,int& len,int add)
 	 dop[i]=(*ppRc)[i];
  DelNegMas(ppRc);
  if(!(InitNegMas(ppRc,len+add)) )
- {   
+ {
 	 (*ppRc)=dop;
 	 return FALSE;
  }
@@ -1267,7 +1267,7 @@ BOOL AddLenNegMas(CCOM_comp*** ppRc,int& len,int add)
 	 dop[i]=(*ppRc)[i];
  DelNegMas(*ppRc);
  if(!(InitNegMas(ppRc,len+add)) )
- {   
+ {
 	 (*ppRc)=dop;
 	 return FALSE;
  }
@@ -1282,7 +1282,7 @@ void InitRc(Rect16* pRc,CCOM_comp * pcomp)
 {
  pRc->left   = pcomp->left;
  pRc->right  = pcomp->left + pcomp->w - 1;
- pRc->top    = pcomp->upper;		
+ pRc->top    = pcomp->upper;
  pRc->bottom = pcomp->upper + pcomp->h - 1;
 }
 
@@ -1291,7 +1291,7 @@ void InitRc(Rect16* pRc,int nRc,CCOM_comp * pcomp)
 {
  pRc[nRc].left   = pcomp->left;
  pRc[nRc].right  = pcomp->left + pcomp->w - 1;
- pRc[nRc].top    = pcomp->upper;		
+ pRc[nRc].top    = pcomp->upper;
  pRc[nRc].bottom = pcomp->upper + pcomp->h - 1;
 }
 
@@ -1319,7 +1319,7 @@ void PostRotate(NegList* now,int skew)
     memcpy(&Rc,&(now->neg.rot.Rc),size_Rect16);
     memcpy(&Rect,(now->neg.pRc),size_Rect16);
     const int h=Rc.bottom-Rc.top+1;
-    
+
     if(h<3*(Rect.bottom-Rect.top))
         return;
 
@@ -1347,7 +1347,7 @@ void PostRotate(NegList* now,int skew)
 #include<stdio.h>
 #include<stdlib.h>
 void un(float [],float [],float [],int);
- 
+
 main()
 {float *a,*b,*c,s;int n,i=0;FILE *f,*g;
 printf("Enter N\n");scanf("%d",&n);
@@ -1362,13 +1362,13 @@ un(a,b,c,n);i=0;
 while(c[i]!='\0'){printf("%f ",c[i]);i++;}
 return;}
 
-void un(float a[],float b[],float c[],int n)      
+void un(float a[],float b[],float c[],int n)
 {int i,j,l=0,m=0,d,e=0,k;float x;
 for(i=0; i<n; i++){x=b[i];d=n;
 while(e!=d){k=(d+e)/2;if(x>a[k]) e=k+1;else d=k;}
 if(x==a[d]){c[l]=a[m];l++;m++;continue;}
 for(j=m ; j<d ; j++){c[l]=a[m];l++;m++;}
-c[l]=x;l++;} c[l]='\0';       
+c[l]=x;l++;} c[l]='\0';
 return;}
 
 */

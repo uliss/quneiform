@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -122,7 +122,7 @@ static void (*proc_open)(Int32 *image)=all_open;
 static void (*proc_close)(void)=all_close;
 
 
-int double_alphabet(Int32 i,Int32 n1)   
+int double_alphabet(Int32 i,Int32 n1)
 {
 	if (n1>0 && abc[i].let=='0'  &&   char_lst[n1-1]=='Î')
 		return 1;
@@ -258,8 +258,8 @@ int det_sym_sort(short ptr_char, Word16 pri, Word16 abc_n1,
 	nm=0; list[0]=abc_n1; meas[0]=999; l=0; L = LIMI;
 	proc_open(obraz);
 	jj=ptr_char;
-	for(j=ptr_ind[jj];j!=-1;j=ptr_ind[++jj]) 
-	{	
+	for(j=ptr_ind[jj];j!=-1;j=ptr_ind[++jj])
+	{
 		let = abc_ind[j].let;			// letter
 
 		if (!alphabet[let])	continue;	// absent letter
@@ -429,7 +429,7 @@ MSK_FUNC(Bool32)  MSKSetAlphabet( char char_tbl_put_to[] )
 
 
 MSK_FUNC(Bool32)  MSKRecogChar(
-	  int HndTab,	
+	  int HndTab,
       RecRaster  *recraster, // raster description
       RecVersions *Indres           )
 {
@@ -478,12 +478,12 @@ MSK_FUNC(Bool32)  MSKRecogChar(
 
 
 MSK_FUNC(Bool32)  MSKRecogCharExp(
-	  int HndTab,	
+	  int HndTab,
       RecRaster  *recraster, // raster description
       RecVersions *Indres           )
 {
 	Word8*    p1616=NULL, io_char;
-	short i, hor, ver, lett_coo[4];	
+	short i, hor, ver, lett_coo[4];
 	Word16  *buff_image;
 	int let;
 
@@ -498,16 +498,16 @@ MSK_FUNC(Bool32)  MSKRecogCharExp(
 	lett_coo[3]=ver-1;
 	hor=((hor+63)>>6)<<6;
 	buff_image=(Bool16  *)(recraster->Raster);
-	
+
 	for(i=0;i<Indres->lnAltCnt;i++)
-	{	
-		let=ptr_ind[257]=Indres->Alt[i].Code; 
-		ptr_ind[258]=-1; nm=0; 
+	{
+		let=ptr_ind[257]=Indres->Alt[i].Code;
+		ptr_ind[258]=-1; nm=0;
 
 		if( abc_ind[let].vol == 0  ||  !alphabet[(Word8)let] )
 			Indres->Alt[i].Prob = 1;
 		else{
-			err=(Int16) recindex (257, (BYTE)(0) ,hor, ver, lett_coo, 
+			err=(Int16) recindex (257, (BYTE)(0) ,hor, ver, lett_coo,
 						(BYTE)(0),buff_image, p1616, &io_char, TRUE );
             if( err!=-1 )
 			    Indres->Alt[i].Prob = ((LIMI-ms[0])*255)/LIMI;
@@ -521,13 +521,13 @@ MSK_FUNC(Bool32)  MSKRecogCharExp(
 }
 
 MSK_FUNC(Bool32)  MSKRecogCharExpPuma(
-	  int HndTab,	
+	  int HndTab,
       RecRaster  *recraster, // raster description
       RecVersions *Indres,
       Word32    Flags           )
 {
 	Word8*    p1616=NULL, io_char;
-	short i, hor, ver, lett_coo[4];	
+	short i, hor, ver, lett_coo[4];
 	Word16  *buff_image;
 	int let;
 
@@ -542,16 +542,16 @@ MSK_FUNC(Bool32)  MSKRecogCharExpPuma(
 	lett_coo[3]=ver-1;
 	hor=((hor+63)>>6)<<6;
 	buff_image=(Bool16  *)(recraster->Raster);
-	
+
 	for(i=0;i<Indres->lnAltCnt;i++)
-	{	
-		let=ptr_ind[257]=Indres->Alt[i].Code; 
-		ptr_ind[258]=-1; nm=0; 
+	{
+		let=ptr_ind[257]=Indres->Alt[i].Code;
+		ptr_ind[258]=-1; nm=0;
 
 		if( abc_ind[let].vol == 0  ||  !alphabet[(Word8)let] )
 			Indres->Alt[i].Prob = 1;
 		else{
-			err=(Int16) recindex (257, (BYTE)(0) ,hor, ver, lett_coo, 
+			err=(Int16) recindex (257, (BYTE)(0) ,hor, ver, lett_coo,
 						(BYTE)(0),buff_image, p1616, &io_char, (Word8)((Flags&1)?FALSE:TRUE) );
             if( err!=-1 )
 			    Indres->Alt[i].Prob = ((LIMI-ms[0])*255)/LIMI;
@@ -585,7 +585,7 @@ MSK_FUNC(void)  MSKDone(void)
 
 MSK_FUNC(Bool32)  MSKSetHndTab(int hndTab)
 {
-	if(hndTab > initiated  ||  hndTab >= 11) 
+	if(hndTab > initiated  ||  hndTab >= 11)
 		return -1;
 	abc_n=Hnd_abc_n[hndTab];
 	abc=Hnd_abc[hndTab];
@@ -603,7 +603,7 @@ MSK_FUNC(Bool32)  MSKRecogNDX(
 {
 	short hor,ver,lett_coo[4],i,err;
 	Word16  *buff_image;
-	
+
 	err=0;
 	hor=(short)(recraster->lnPixWidth);
 	ver=(short)(recraster->lnPixHeight);
@@ -640,11 +640,11 @@ MSK_FUNC(Bool32)  MSKRecogNDX(
 ///  sors fun
 /////////////
 int tch_in(const char *NameFile)
-{	
+{
 	Word16 num_mask,tmp;
 	int hnd,i,j;
 	char NameTab[32];
-	
+
 	initiated++;
 	Hnd_abc_n[initiated]=0;
 	if( (hnd=open(NameFile,O_RDONLY|O_BINARY))> 0 )
@@ -760,7 +760,7 @@ ret:
 
 #define MIN_WID_PERC  33
 #define MAX_WID_PERC 460
-int new_reco(short ptr_char, short hor,Word16  *bgf, 
+int new_reco(short ptr_char, short hor,Word16  *bgf,
 			 Word8  *p1616, BYTE bgf_col, BYTE pri, short m1,
 			 short n1,short m2,short n2, Word8 *ch, Word8 enable_1)
 {
@@ -919,7 +919,7 @@ Word16  *bgfff;
 	int j,ii,jj,ii1,jj1,pp;
 	int co,n,m,i,k,iiold,jjold;
 	int tabi[300],tabj[300];
- 
+
 	co=coo>>4;
 
 	if (i2<=i1 || j2<=j1) return(-1);
@@ -931,7 +931,7 @@ Word16  *bgfff;
 	for (i=0;i<=i2-i1;i++)
 	{
 		tabi[i]=( ii1 )  /(i2-i1)  ;
-		if (i==i2-i1) 
+		if (i==i2-i1)
 			tabi[i]=k1-k0;
 		ii1+=(k1-k0);
     }
@@ -939,7 +939,7 @@ Word16  *bgfff;
 	for (i=0;i<=j2-j1;i++)
 	{
 		tabj[i]=( ii1 )  /(j2-j1)  ;
-		if (i==j2-j1) 
+		if (i==j2-j1)
 			tabj[i]=l1-l0;
 		ii1+=(l1-l0);
     }
@@ -974,12 +974,12 @@ Word16  *bgfff;
 				{
 					if (jjold<3 && ii>1 && ii<14)
 					{
-						if (jj<=4) 
+						if (jj<=4)
 						{
-							jjold=0; 
+							jjold=0;
 							jj1=14;
 						}
-						else 
+						else
 						{
 							jjold++;
 							jj1=MIN(jj-1,jj1);
@@ -988,12 +988,12 @@ Word16  *bgfff;
 					k=1;
                 }
 			}
-			if (m==15) 
+			if (m==15)
 			{
 				m=0;
 				n++;
 			}
-			else 
+			else
 				m++;
 		}
 		pp+=co;
@@ -1015,40 +1015,40 @@ Word16  *bgfff;
 short det_symn(iobraz,list,meas)
 unsigned short iobraz[],list[],meas[];
 {
-	short l,n1,m1; 
+	short l,n1,m1;
 	unsigned int *loc_i_abn1, loc_iobraz[16];
 	int i;
 
 	for(i=0;i<16;i++)
-		loc_iobraz[i] = iobraz[i];	
+		loc_iobraz[i] = iobraz[i];
 
 	meas[0]=999;
 	l=nm=0;
-	
+
 	for (i=0;i<MAX_ABC1;i++)
 	{
 		meas[3]=0;
 		if (!alphabet[abn1[i]]) continue;
-  
+
 		loc_i_abn1 = i_abn1[i];
-		CYKL(0);  
+		CYKL(0);
 		CYKL(1);
 		CYKL(2);
 		CYKL(3);
-		CYKL(4);  
+		CYKL(4);
 		CYKL(5);
 		CYKL(6);
 		CYKL(7);
-    
-		CYKL(8);  
+
+		CYKL(8);
 		CYKL(9);
 		CYKL(10);
 		CYKL(11);
-		CYKL(12);  
+		CYKL(12);
 		CYKL(13);
 		CYKL(14);
 		CYKL(15);
-	
+
 
 		for (n1=0;n1<nm;n1++)
 			if (meas[3]<ms[n1]) break;

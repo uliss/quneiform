@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -190,7 +190,7 @@ static PBYTE iso_table[LANG_TOTAL]={
   iso_euro,		// LANG_DANISH     12
   iso_euro,		// LANG_PORTUGUESE 13
   iso_euro,		// LANG_DUTCH      14
-  iso_cyr,		// LANG_DIG		   15	
+  iso_cyr,		// LANG_DIG		   15
   iso_cyr,		// LANG_UZBEK      16
   iso_cyr,		// LANG_KAZ        17
   iso_cyr,		// LANG_KAZ_ENG    18
@@ -348,7 +348,7 @@ static PBYTE ansi_table[LANG_TOTAL]={
   ansi_euro,    // LANG_DANISH     12
   ansi_euro,    // LANG_PORTUGUESE 13
   ansi_euro,    // LANG_DUTCH      14
-  ansi_euro,	// LANG_DIG		   15	
+  ansi_euro,	// LANG_DIG		   15
   ansi_cyr,     // LANG_UZBEK      16
   ansi_cyr,     // LANG_KAZ        17
   ansi_cyr,     // LANG_KAZ_ENG    18
@@ -486,7 +486,7 @@ static PBYTE ascii_table[LANG_TOTAL]={
   ascii_euro,    // LANG_DANISH     12
   ascii_euro,    // LANG_PORTUGUESE 13
   ascii_euro,    // LANG_DUTCH      14
-  ascii_euro, 	 // LANG_DIG		15	
+  ascii_euro, 	 // LANG_DIG		15
   ascii_cyr,     // LANG_UZBEK      16
   ascii_cyr,     // LANG_KAZ        17
   ascii_cyr,     // LANG_KAZ_ENG    18
@@ -539,7 +539,7 @@ static PBYTE koi8r_table[LANG_TOTAL]={
   ansi_euro,     // LANG_DANISH     12
   ansi_euro,     // LANG_PORTUGUESE 13
   ansi_euro,     // LANG_DUTCH      14
-  koi8r_cyr,	 // LANG_DIG		15	
+  koi8r_cyr,	 // LANG_DIG		15
   koi8r_cyr,     // LANG_UZBEK      16
   koi8r_cyr,     // LANG_KAZ        17
   koi8r_cyr,     // LANG_KAZ_ENG    18
@@ -578,7 +578,7 @@ static BYTE mac_euro[257]={
 /* f*/ 0xf0,0xf1,0xf2,0xf3,0xf4,0xf5,0xf6,0xf7,0xf8,0xf9,0xfa,0xfb,0xfc,0xfd,0xfe,0xff};
 
 /*
-Windows cp1257 => Mac OS Central European 
+Windows cp1257 => Mac OS Central European
 		for Estonian, Latvian, Lithuanian
 */
 static BYTE mac_baltic[257]={
@@ -636,7 +636,7 @@ static PBYTE mac_table[LANG_TOTAL]={
   mac_euro,    // LANG_DANISH     12
   mac_euro,    // LANG_PORTUGUESE 13
   mac_euro,    // LANG_DUTCH      14
-  mac_euro,    // LANG_DIG		  15	
+  mac_euro,    // LANG_DIG		  15
   mac_euro,    // LANG_UZBEK      16
   mac_euro,    // LANG_KAZ        17
   mac_euro,	   // LANG_KAZ_ENG    18
@@ -662,7 +662,7 @@ static BYTE **code_table[] = {
 BOOL UpdateActiveCodeTable()
 {
 // Выбор кодовой таблицы для комбинации "язык - кодировка"
-	
+
 	// Индекс в code_table[]
 	long indexCodeTable = 1;
 	switch(gActiveCode)
@@ -684,7 +684,7 @@ BOOL UpdateActiveCodeTable()
 	// Специальная настройка ASCIII для Узбекского и Казахского
 	if (gActiveCode == ROUT_CODE_ASCII)
 		{
-		// Корректное сохранение и восстановление 
+		// Корректное сохранение и восстановление
 		// оригинальной таблицы. 17.10.98  E.P.
 		static BYTE saveTable_cyr[256] = {0};
 		static BYTE wasHere = 0;
@@ -792,7 +792,7 @@ for (index=0;index < gCountTigerToUserCharSet; index++ )
 //*************************************************************************
 long GetCodePage()
 {
-/* 
+/*
 	Номер кодовой страницы:
 
 	437		DOS USA
@@ -825,7 +825,7 @@ static long cp_ascii[LANG_TOTAL]={
 	865,  	// LANG_DANISH     12
 	850,  	// LANG_PORTUGUESE 13
 	850,  	// LANG_DUTCH      14
-	850,  	// LANG_DIG		   15	
+	850,  	// LANG_DIG		   15
 	866,  	// LANG_UZBEK      16
 	866,  	// LANG_KAZ        17
 	866,  	// LANG_KAZ_ENG    18
@@ -856,7 +856,7 @@ static long cp_ansi[LANG_TOTAL]={
 	1251,  	// LANG_DANISH     12
 	1251,  	// LANG_PORTUGUESE 13
 	1251,  	// LANG_DUTCH      14
-	1251,  	// LANG_DIG		   15	
+	1251,  	// LANG_DIG		   15
 	1251,  	// LANG_UZBEK      16
 	1251,  	// LANG_KAZ        17
 	1251,  	// LANG_KAZ_ENG    18

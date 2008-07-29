@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -116,7 +116,7 @@ NegImage* pNegImage;
 
 RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName,int skew)
 {
- 
+
  MainWindowD=NULL;
  MainWindowD=LDPUMA_GetWindowHandle ("Изображение после разворота");
  if(!MainWindowD)
@@ -134,7 +134,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
  int time=clock();
  if(!(LDPUMA_Skip (NegSearch)) )
 	 return;
- 
+
  Word32 code_sersized=(512<<16);
  Word32 code_normd=(512<<17);
  Word32 code_colord=(512<<17)+(512<<16);
@@ -191,7 +191,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
 
  if(!LDPUMA_Skip(SetSkew))
 	 skew=Skew;
- 
+
  for(i=0;i<CPAGE_MAXNAME&&pImageName[i]!='\0';i++)
 	 ImageName[i]=pImageName[i];
  if(i<CPAGE_MAXNAME)
@@ -241,13 +241,13 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
 		  ((now->neg).pRc[0].top)++;
 	  while(((now->neg).pRc[0].bottom+1)>Height )
           ((now->neg).pRc[0].bottom)--;
-   
-   	   
+
+
 	  while((now->neg).pRc[0].left<0)
 		  ((now->neg).pRc[0].left)++;
 	  while( ((now->neg).pRc[0].right+1)>Width )
           ((now->neg).pRc[0].right)--;
-  
+
       int prewide=(((now->neg).pRc[0].right-(now->neg).pRc[0].left+8)/8)*8;
       if( ((now->neg).pRc[0].left+prewide)>Width )
 	    (now->neg).pRc[0].right-=8;
@@ -261,7 +261,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
  {
 
 /* Поворот (если необходим) негативов*/
-  
+
   flag_rotate=NegRotate(hCPage,root,nRC,skew);
 
    now=root;
@@ -276,10 +276,10 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
 	now=temp;
    }
 
-  
+
 /*Обратное преобразование*/
    if(flag_rotate)
-   { 
+   {
 	  now=root;
 	  while(now)
 	  {
@@ -289,10 +289,10 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
              PostRotate(now,skew);
            }
 	       DeleteRotateMas(&((now->neg).rot.pmasp),&((now->neg).rot.begx),&((now->neg).rot.movey),&((now->neg).rot.flmovey),&((now->neg).rot.hi));
-      now=now->next;     
+      now=now->next;
 	  }
    }
-  
+
 
   /* Прорисовка нормализованных кандидатов в негативы*/
 
@@ -359,7 +359,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
 	   now=now->next;
 	   }
    }
-  
+
 
   /* Прорисовка разрезанных негативов*/
 
@@ -384,7 +384,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
 
 
   now=root;
- 
+
  for(i=1;i<nRC;i++)
 	 now=now->next;
  int h;
@@ -440,13 +440,13 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
  flag_rotate=NegRotate(hCPage,root,nRC,skew);
 
 
-/* Осуществляется отсев кандидатов в негативы по насыщенности 
-            чёрного цвета*/ 
+/* Осуществляется отсев кандидатов в негативы по насыщенности
+            чёрного цвета*/
 
  if(LDPUMA_Skip (NegColor) )
  {
   SearchNegByBlack(hCPage,&root,nRC);
- 
+
   /*Прорисовка кандидатов в негативы после отсева по цветовой гамме*/
 
   if(nRC>0)
@@ -466,15 +466,15 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
    }
   }
  }
- 
+
  /* Резка многострочных негативов*/
 
- 
+
  if(LDPUMA_Skip (NegCutStr) )
  {
   CutNegStr(hCPage,&root,nRC,skew);
 
-  
+
   /* Прорисовка разрезанных негативов*/
 
   if(nRC>0)
@@ -543,8 +543,8 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
 
  /* Отпись в CPage*/
 
- 
- 
+
+
  now=root;
  if(1/*!(LDPUMA_Skip (PutToCPage) )*/)
  {
@@ -574,10 +574,10 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
 /*          if(Rc.bottom-Rc.top>Rc.right-Rc.left)
 			{
                    block.orient=TYPE_DOWNUP;
-                   
+
 				   block.com.Flags|=VERTICA;
 			}
-			else 
+			else
 				block.orient=TYPE_LEFTRIGHT;
 */
             if ((now->neg).Flags&FlVert)
@@ -606,7 +606,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
  if(!(LDPUMA_Skip (PutToCHSTR) ))
  {
   now=root;
-  
+
   Word8 Name[CPAGE_MAXNAME];
   for (int j=0; j<CPAGE_MAXNAME; j++)
 		Name[j] = ImageName[j];
@@ -614,8 +614,8 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
   if(!(LDPUMA_Skip (TestCHSTR) ))
   {
    CHSTR_Objects Hstr;
-   Hstr.Rc.top=TOP; 
-   Hstr.Rc.bottom=BOTTOM; 
+   Hstr.Rc.top=TOP;
+   Hstr.Rc.bottom=BOTTOM;
    Hstr.Rc.left=LEFT;
    Hstr.Rc.right=RIGHT;
    Hstr.block_number=1000;
@@ -625,7 +625,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
    RSELSTR_PutObjects(hCPage,(void*)hCCOM,&Hstr,1);
   }
  }
-  
+
  PutTempToCPAGE(hCPage,root);
 
  if( (LDPUMA_Skip (NegSearchSize))&&(fl_del_mas_neg==TRUE) )
@@ -639,7 +639,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
  }
 
  ResetMyImage();
- 
+
 // LDPUMA_ConsoleN("Time work RNEG=%d",clock()-time);
 }
 
@@ -663,7 +663,7 @@ BOOL NegRotate(Handle hCPage,NegList* root,int nRc,int skew)
  NegList* now=root;
  Rect16 Rc;
  BOOL fl_cont;
- 
+
  while(now)
  {
   fl_cont=FALSE;
@@ -723,8 +723,8 @@ BOOL NegRotate(Handle hCPage,NegList* root,int nRc,int skew)
 
   now=now->next;
  }
- 
-	 
+
+
 
  return ret;
 }
@@ -1054,7 +1054,7 @@ BOOL InitMyImage()
 	Handle lpDIB;
 	if(!CIMAGE_ReadDIB(ImageName,&lpDIB,1))
 		return FALSE;
-	
+
 	CTDIB* ctdib = new CTDIB;
 	if(!ctdib)
 		return FALSE;

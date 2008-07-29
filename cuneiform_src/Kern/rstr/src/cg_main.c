@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -138,9 +138,9 @@ typedef struct grup_struct grup;
  Handle hSnapBLcut;
 
  BYTE sticks_left_to_bad[]  =  {"  1/!|l1IJ)}[]"};  // 0,1st pos reserved for liga_i, liga_exm
-												    // 2nd	for turkish i_sans_accent - Nick 12.06.02			
+												    // 2nd	for turkish i_sans_accent - Nick 12.06.02
  BYTE letters_left_to_bad[] =  {" nrvtcC(u<>мњЁ€чЄЉ«­ЌЇЏб‘Јѓ"}; // 0th pos for sticks " nrvtcC(u<>ьЬиИчкКлнНпПсСгГ"
- 
+
  static CHAR ltmp0[] = "kDPbhў‚­ЌЁ€ЇЏЄЉ¬Њж–ий™оћ";
  static CHAR ltmp1[] = "m"; /* m */
  static CHAR ltmp2[] = "nm"; /* r */
@@ -168,10 +168,10 @@ typedef struct grup_struct grup;
  static CHAR ltmp24[] = "Ћ"; /* С */
  static CHAR ltmp25[] = "Ї"; /* г */
  static CHAR ltmp26[] = "Џ"; /* Г */
- 
+
  CHAR *results_left_to_bad[] = {
          ltmp0, ltmp1, ltmp2, ltmp3, ltmp4, ltmp5, ltmp6, ltmp7, ltmp8, ltmp9,
-         ltmp10, ltmp11, ltmp12, ltmp13, ltmp14, ltmp15, ltmp16, ltmp17, ltmp18, ltmp19,       
+         ltmp10, ltmp11, ltmp12, ltmp13, ltmp14, ltmp15, ltmp16, ltmp17, ltmp18, ltmp19,
          ltmp20, ltmp21, ltmp22, ltmp23, ltmp24, ltmp25, ltmp26
       };
 
@@ -182,18 +182,18 @@ typedef struct grup_struct grup;
  //     <       >       ь       Ь       и    И    ч       к       К
         240, 240, 240, MAX_RO, 240, MAX_RO, MAX_RO, MAX_RO, MAX_RO };
  //     л    н    Н    п       П    с       С       г       Г
- 
+
 /*
 	0 pos reserved for liga_i
 	1st pos reserved for liga_exm,
-	2-3 pos for turkish II_dot_accent, i_sans_accent 21.05.2002 E.P. 
+	2-3 pos for turkish II_dot_accent, i_sans_accent 21.05.2002 E.P.
 */
  BYTE sticks_right_to_bad[] =  {"1111/!|l1I[]"};
-												
-												
+
+
  BYTE letters_right_to_bad[] = {" cJnNvt)u><Јѓб‘ж–Ё€ч­Ќ®ЋЇЏЄЉ«"};	// " cJnNvt)u><гГсСцЦиИчнНоОпПкКл"
                                                       // 0th pos for sticks
- 
+
  static CHAR tmp0[] = "dU«‹¬Њ­ЌЁ€ЇЏил›";
  static CHAR tmp1[] = "k"; /* c */
  static CHAR tmp2[] = "U"; /* J */
@@ -242,8 +242,8 @@ typedef struct grup_struct grup;
 
  static BYTE  left_to_bad[] = {" /!l1IJ)}]cCnrvtЈѓбч‘з(u<>мњЇЏ|\x0"}; // 0 =>liga_exm.  10.09.2000 E.P.
  static BYTE right_to_bad[] = {"/|!l1I]nvt)u><ЈѓчЇЏб‘ЄЉж–з®Ћ\x0"};
- static BYTE       sticks[] = {"  1lI1]!"}; // 0,1 -> liga_i,liga_exm // 08.09.2000 E.P. 
-											// 2 -> turkish i_sans_accent	Nick 12.06.02					
+ static BYTE       sticks[] = {"  1lI1]!"}; // 0,1 -> liga_i,liga_exm // 08.09.2000 E.P.
+											// 2 -> turkish i_sans_accent	Nick 12.06.02
  static BYTE  left_to_dust[] = {"«®з1!"};
  static BYTE right_to_dust[] = {"Јѓ®Ёз!"};
 
@@ -279,7 +279,7 @@ typedef struct grup_struct grup;
 #define loc_err(x) (MAX_RO-(x)->vers[0].prob) //«®Є «м­ п ¬Ґа 
 #define norm(m,l)  ( (m)*(l)>>2 )             //­®а¬Ёа®ўЄ  ¬Ґал
 
-#define stick(x)   ( strchr(sticks,(x)) ) 
+#define stick(x)   ( strchr(sticks,(x)) )
 
 #define Alik cuts_point_methode
 
@@ -378,7 +378,7 @@ void cuts_glues()
  left_to_bad[0] = liga_exm;	// 10.09.2000 E.P.
 
 
- sticks_left_to_bad[0] =liga_i; 
+ sticks_left_to_bad[0] =liga_i;
  sticks_left_to_bad[1] =liga_exm;
  sticks_right_to_bad[0]=liga_i;
  sticks_right_to_bad[1]=liga_exm;
@@ -469,7 +469,7 @@ adjust_3x5(TRUE);
  }
  while ( WB->next ) ;
 
- if(language==LANG_RUSSIAN) 
+ if(language==LANG_RUSSIAN)
 	 paste();
 
 
@@ -665,7 +665,7 @@ static INT get_sym_width3(cell *WB, cell *WE)
     if (let(B) && strchr(unify_width,B->vers[0].let) &&
 		 !is_russian_baltic_conflict(B->vers[0].let) &&	// 17.07.2001 E.P.
 		 !is_russian_turkish_conflict(B->vers[0].let)	// 21.05.2002 E.P.
-	   )  
+	   )
 		{ ws += B->w; s++; }
   if (s>0)  return  ws/s;
   return  my_bases.ps-(my_bases.ps>>3);
@@ -699,11 +699,11 @@ cell *process_word (cell *WB, cell *WE)
 		{
         let=E->vers[0].let;
 
-       if ( let(E) && 
+       if ( let(E) &&
 				(
-				let==(BYTE)'в' && 
+				let==(BYTE)'в' &&
 					!is_russian_turkish_conflict(let) || // 21.05.2002 E.P.
-				let==(BYTE)'’') 
+				let==(BYTE)'’')
 				)
        {                 //"в" ­Ґ ўбҐЈ¤  ­ ¤Ґ¦­® Ї® нўҐ­в ¬
          if ( !complete_recog(E) )
@@ -779,7 +779,7 @@ static cell *process_frame (cell *WB, cell *WE)
    while ( let(B) || !may_glue(B) )      //ЁйҐ¬ ­ з «®
    {
      B=B->next;
-     if ( B==RW ) 
+     if ( B==RW )
 		 return B;
    };
 
@@ -815,7 +815,7 @@ static cell *process_frame (cell *WB, cell *WE)
        if ( (C=B->prev) == LW || !lefter(B,C->r_col+C->w) )
          if ( E == RW || lefter(E->prev,E->r_col) )
 		 {
-           if ( one_glue(n,&B,trs2) ) 
+           if ( one_glue(n,&B,trs2) )
 			   continue;  //¤ «миҐ Ї® б«®ўг
 		 }
    }
@@ -846,17 +846,17 @@ static cell *process_frame (cell *WB, cell *WE)
              //д®а  ¤«п а §ў «ЁўиЁебп ЎгЄў:
              if ( fl )  p -= 60; //’,в
              else
-               if ( middle < C->row && 
+               if ( middle < C->row &&
 						let==(BYTE)'®' &&
 							!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 				)  p -= 50; //Ў
                else
-                 if ( B->row > midc && 
+                 if ( B->row > midc &&
 					 let==(BYTE)'з' &&
 						!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 					 )  p -= 30; //г,­
 
-             if ( one_glue(2,&B,p) ) 
+             if ( one_glue(2,&B,p) )
 				 continue;  //¤ «миҐ Ї® б«®ўг
            }
          }
@@ -878,13 +878,13 @@ static cell *process_frame (cell *WB, cell *WE)
              p=C->vers[0].prob;
              //д®а  ¤«п а §ў «ЁўиЁебп ЎгЄў:
              if ( fl || bottom < midc && let==(BYTE)'«'   //ѓ,е
-                     || B->row > midc && 
+                     || B->row > midc &&
 						let==(BYTE)'з' &&
 							!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 				) //­,г
                p -= 30;
              else
-               if ( middle < C->row && 
+               if ( middle < C->row &&
 					let==(BYTE)'®' &&
 						!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 				  )  p -= 50;  //Ў
@@ -1169,7 +1169,7 @@ static cell *cut_glue (cell *LC, cell *E, CHAR ovfl)
 
   //­ Є«®­ ¤«п ўбҐе
 
-  for (i=0; i<MAX_SECT && B != E; i++,B=B->next)  
+  for (i=0; i<MAX_SECT && B != E; i++,B=B->next)
 	  org_cells.cells[i]=B;
 
   st_inc = erection_compose_inc(i, org_cells.cells);
@@ -1210,7 +1210,7 @@ static cell *cut_glue (cell *LC, cell *E, CHAR ovfl)
     org_cells.cells[j++]=C;
   }
 
-  if ( j==0 )  
+  if ( j==0 )
 	  return NULL;
   if ( j==1 && org_cells.cells[0]->w<=cut_width )
   {
@@ -1451,22 +1451,22 @@ static INT init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
           close_ds(seci,x,(INT)(ncut-1));
 //          close_ds(seci,MAX(mincl,C->r_col-1)-rastlc,ncut-1);
 //          close_ds(seci,MIN(maxcl,C->r_col-1)-rastlc,ncut-1);
-          ncut++;  
+          ncut++;
 		  seci++;
 
-          if ( ncut==MAX_CUTS )  
+          if ( ncut==MAX_CUTS )
 			  break;
         }
         else
 		{
 			if (mincl==maxcl && ((seci-1)->x + rastlc + mincl)>>1 < C->r_col)
-			{   
+			{
 				//§ Єалў Ґ¬  dust-бҐЄжЁо
 			  close_ds(seci,(INT)(mincl-rastlc),(INT)(ncut-1));
-			  ncut++;  
+			  ncut++;
 			  seci++;
 
-			  if ( ncut==MAX_CUTS )  
+			  if ( ncut==MAX_CUTS )
 				  break;
 			}
 //        else                            //dust-бҐЄжЁп  ­г«ЁагҐвбп
@@ -1499,14 +1499,14 @@ static INT init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
              C->r_col < (seci-1)->x+rastlc ||
              C->r_col+C->w > C->nextl->r_col ) //ЇҐаҐЄалў Ґвбп б б®бҐ¤п¬Ё
          )
-      { 
+      {
 		  //аҐ¦Ґ¬
         nc=get_cuts(C,seci,(INT)(MAX_CUTS-ncut-1));
 
         for ( j=ncut; j<ncut+nc; j++ )         //Є®ааҐЄвЁагҐ¬ ­  Ї®«®¦Ґ­ЁҐ
           cor_sect(C,&cut_list[j],rastlc,rastdr);  //cell'®ў ў а бваҐ
 
-        ncut+=nc;  
+        ncut+=nc;
 		seci+=nc;
       }
 
@@ -1521,10 +1521,10 @@ static INT init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
       seci->lv.v3 = C->col;
       seci->rv.v2 = C->row+C->h;
       seci->rv.v3 = C->col+C->w;
-      ncut++;  
+      ncut++;
 	  seci++;
 
-      if ( ncut==MAX_CUTS ) 
+      if ( ncut==MAX_CUTS )
 		  break;
     }
 
@@ -1866,7 +1866,7 @@ void dp_bound(struct cut_elm *cut_list,seg_vers **vers_list,
               }
               break;
 
-              case (BYTE)'о': 
+              case (BYTE)'о':
 				  if (is_russian_turkish_conflict(let)) // 21.05.2002 E.P.
 					  break;
 			  case (BYTE)'ћ':
@@ -2362,7 +2362,7 @@ static CHAR *unite_list(CHAR *resstr,INT i1,INT i0,struct cut_elm *cut_list,
   CHAR  wrk1[RESLEN],wrk2[RESLEN];
   seg_vers *cur_vers;
 
-  // 16.07.2001 E.P. conflict with a_bottom_accent_baltic 0xe0 
+  // 16.07.2001 E.P. conflict with a_bottom_accent_baltic 0xe0
   if (is_baltic_language(language))
 	results_right_to_bad[9][6]=0;
   else
@@ -2413,7 +2413,7 @@ static CHAR *unite_list(CHAR *resstr,INT i1,INT i0,struct cut_elm *cut_list,
 	results_right_to_bad[22][0]='о';
 
 	}
-  
+
   *resstr=0;
   while( (i=not_connect_sect(i1,i,cut_list))>0 )
   {
@@ -2514,12 +2514,12 @@ static CHAR *res_for(BYTE let, BYTE *sticks, BYTE *letters, CHAR **results)
     pos=strchr(sticks,let);
     if (pos || let==liga_i || // 08.09.2000 E.P.
 		 language == LANG_TURKISH &&  // 30.05.2002 E.P.
-			(let==i_sans_accent||let==II_dot_accent) 
+			(let==i_sans_accent||let==II_dot_accent)
 	   )
 		return results[0];
   }
   pos=strchr(letters,let);
-  if (pos && 
+  if (pos &&
 	  !is_russian_baltic_conflict(let) &&
 	  !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 	  ) 	// 17.07.2001 E.P.
@@ -2805,7 +2805,7 @@ ret:
   {
     BYTE let=vers->vers[0].let;
     if ( dust(vers) && let != '-' ||
-         cut_up  && !(*gvar &  up_dust) && let != 'i' && 
+         cut_up  && !(*gvar &  up_dust) && let != 'i' &&
 			!(let ='©' &&
 				!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 			 ) ||
@@ -3240,17 +3240,17 @@ static BYTE accept_vers(CHAR *s, struct cut_elm *cut_list,
 
   //"х" Ё«Ё "вЇ"
       case (BYTE)'х':
-      if ( letl==(BYTE)'в' && 
+      if ( letl==(BYTE)'в' &&
 		  !is_russian_turkish_conflict(letl) && // 21.05.2002 E.P.
 		  letr==(BYTE)'Ї' )  pen=30;
       break;
 
   //"л®" Ё«Ё "мо"
-      case (BYTE)'о':  
+      case (BYTE)'о':
 	  case (BYTE)'ћ':
 		  if (is_russian_turkish_conflict(let0)) // 21.05.2002 E.P.
 			  break;
-      if ( letl==(BYTE)'|' || letl==liga_exm || 
+      if ( letl==(BYTE)'|' || letl==liga_exm ||
 		   letl==(BYTE)'л' || letl==(BYTE)'›' // ыЫ
 		 )
         if ( secl->dh==0 && secm->dh==0 )  //палка никуда не приклеена
@@ -3319,16 +3319,16 @@ static BYTE accept_vers(CHAR *s, struct cut_elm *cut_list,
       if (il==secm->px)
       {
       //§ ЇаҐй Ґвбп ЇаЁЄ«ҐЁў вм 'i', Ґб«Ё Ї®«гз Ґвбп в  ¦Ґ ЎгЄў 
-        if ( letl==let0 && 
+        if ( letl==let0 &&
 				(letr=='i' || letr==liga_i ||
 					language == LANG_TURKISH &&  // 30.05.2002 E.P.
-					(letr==i_sans_accent||letr==II_dot_accent) 
+					(letr==i_sans_accent||letr==II_dot_accent)
 				)  // X+i=X
                && versl->vers[0].prob>200 ||
-             letr==let0 && 
+             letr==let0 &&
 				(letl=='i' || letl==liga_i ||
 					language == LANG_TURKISH &&  // 30.05.2002 E.P.
-					(letl==i_sans_accent||letl==II_dot_accent) 
+					(letl==i_sans_accent||letl==II_dot_accent)
 				)  // i+X=X
                && versr->vers[0].prob>200 )
           goto retb;
@@ -3347,9 +3347,9 @@ static BYTE accept_vers(CHAR *s, struct cut_elm *cut_list,
           let=versi->vers[0].let;
           if ( ( let==(BYTE)'®' &&
 			  		!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
-			     ||			 
+			     ||
 				let==(BYTE)'Ћ'
-			   ) && versi->vers[0].prob>trs2 
+			   ) && versi->vers[0].prob>trs2
 			 ) goto retb;
 
           seci=cut_list+(seci->px);
@@ -3487,13 +3487,13 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
 	  )
 	 )     // Nick 29.09.2000
   { // В болгарском нет ы - не отрезать палку после ь,ъ
-	for( i0 = N-1; i0 > 0;i0 = seci0->px) 
+	for( i0 = N-1; i0 > 0;i0 = seci0->px)
 	{
      seci0=&cut_list[i0];
      versi0=&seci0->versm;
 	 if( seci0->px <= 0 )
 		 break;
-    } 
+    }
 
 	if( i0 > 0 && versi0->vers[0].let == '|' )
 	 return NULL;
@@ -3799,7 +3799,7 @@ static void paste()
 		  )
         expect=(BYTE)'®';
       else
-        if(memchr("мњљ",c2,3) && 
+        if(memchr("мњљ",c2,3) &&
 			(memchr("/1!()ш",c3,6) || c3==liga_exm) // 10.09.2000 E.P.
 			&&
            abs(BC->h - EC->h) < 4 && abs(BC->row - EC->row) < 4 &&
@@ -4025,21 +4025,21 @@ INT full_recog (cell *B1, s_glue *gl0, INT trs, INT tol)
         ( language != LANG_RUSSIAN && (c==liga_i  ||                                   // FARA REDACTION
 
 	!is_baltic_language(language) && 	// 17.07.2001 E.P.
-	!is_turkish_language(language) && 
+	!is_turkish_language(language) &&
 		(	// 21.05.2002 E.P.
 		c==i_right_accent ||
-		c==i_roof_accent  ||  
+		c==i_roof_accent  ||
 		c==II_right_accent||
-		c==II_roof_accent ||  
+		c==II_roof_accent ||
 
 		// Конфликтные коды 07.09.2000 E.P.
 		!is_cen_language(language) && (
-			c==i_left_accent  ||  
+			c==i_left_accent  ||
 			c==i_2dot_accent  ||
-			c==II_left_accent ||  
+			c==II_left_accent ||
 			c==II_2dot_accent
 		) ) ||
-		
+
 		is_baltic_palka(c) ||	// Балтийские палки. 10.07.2001 E.P.
 		is_turkish_palka(c)		// Турецкие палки. 21.05.2002 E.P.
 	) ) )
@@ -4106,7 +4106,7 @@ INT full_recog (cell *B1, s_glue *gl0, INT trs, INT tol)
         est_snap(db_pass,B1,"CUT/GLUE to BOX");
       goto estiBOX;    // cutten version - estimate by BOX
    }
-	 if (memchr("1lI()[]{}!",c,10) || c==liga_i || 
+	 if (memchr("1lI()[]{}!",c,10) || c==liga_i ||
 		  language == LANG_TURKISH &&  // 30.05.2002 E.P.
 			(c==i_sans_accent||c==II_dot_accent) ||
 		 c==liga_exm
@@ -4255,7 +4255,7 @@ static void corr_cut()
       c3=b3->vers[0].let;
        // try to recover "stick_to_something" producing 'k', 'd', 'b'
        if (memchr("lI1/J)!",c2,7) ||         // stick character ?
-           c2==liga_i || 
+           c2==liga_i ||
 		   language == LANG_TURKISH &&  // 30.05.2002 E.P.
 			(c2==i_sans_accent||c2==II_dot_accent) ||
 		   c2==liga_exm
@@ -4319,9 +4319,9 @@ static INT forbid_stick_cut(cell *c, SVERS *vers, INT h, cut_pos *cpos,
   // is it a stick ?
   if ( (l!='i') && (l!='l') && (l!='1') && (l!='I') && (l!=liga_i) &&
 		!(language == LANG_TURKISH &&  // 30.05.2002 E.P.
-			(l==i_sans_accent||l==II_dot_accent) 
+			(l==i_sans_accent||l==II_dot_accent)
 		 )
-	 ) 
+	 )
 	 return 0;
 
   wd = (row2=cpos->row2)-(row1=cpos->row1);  // cut width

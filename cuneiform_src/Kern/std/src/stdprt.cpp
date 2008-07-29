@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -81,10 +81,10 @@ void CPrtTransactionBuffer::FreeBuffer()
 static CPrtTransactionBuffer* pTransactionBuffer = NULL;
 
 
-static StdPrtEvent szStdPrtSysEventList[] = 
+static StdPrtEvent szStdPrtSysEventList[] =
    {
       {"Çàðåãèñòðèðîâàí òèï ñîîáùåíèÿ íîìåð %03i(%i ïàðàìåòðîâ). Ñòðîêà ñîîáùåíèÿ - \"%s\"",SPE_PUBLIC|SPE_WAIT|SPE_WITHTIME,0,0}, // Ðåãèñòðàöèÿ ñîáûòèÿ
-      {"Ñîîáùåíèå ñèñòåìíîãî òàéìåðà:\t%s",0,1,0}, // òàéìåð 
+      {"Ñîîáùåíèå ñèñòåìíîãî òàéìåðà:\t%s",0,1,0}, // òàéìåð
       {"%s òðàíçàêöèè:\tìàøèíà-%s\tïðîöåññ-%s\tïîëüçîâàòåëü-%s",SPE_PUBLIC|SPE_WAIT|SPE_WITHTIME,2,0},
       {"",SPE_PUBLIC|SPE_WAIT,3,0},
       {"",SPE_PUBLIC|SPE_WAIT,4,0},
@@ -142,7 +142,7 @@ static StdPrtEvent szStdPrtSysEventList[] =
 };
 */
 CTableEvnFiller::CTableEvnFiller()
-{  
+{
    char szString[_MAX_PATH] = {0};
    Int32 size = _MAX_PATH;
    stdGetProfileString(szString,&size,"protocol.ini","Options","EvnTablePath",STD_SETPROF_DIR_PROJECT);
@@ -162,7 +162,7 @@ CTableEvnFiller::CTableEvnFiller()
          memset(xsTblEventData[i].szFormat,0,256);
    }
 //   ReadFromEvnTable(m_szTableName);
-   
+
    FILE* fl = fopen(m_szTableName,"rt");
    if(fl)
    {
@@ -303,7 +303,7 @@ Bool32 EvnParseFormat(char* in, char* out)
    char *str = in;
    char out_str[256] = {0};
    Bool startf = FALSE;
-   int i = 0; 
+   int i = 0;
    int k = 0;
    char ch = 0;
    while(*str)
@@ -395,8 +395,8 @@ Bool32 GetTimeString(char* tm_string)
       RET_FALSE;
  	struct tm *newtime;
 	time_t long_time;
-	time( &long_time );  
-	newtime = localtime( &long_time ); 
+	time( &long_time );
+	newtime = localtime( &long_time );
    sprintf(tm_string,
       "%02i:%02i:%02i %02i.%02i.%04i",
       newtime->tm_hour,
@@ -410,7 +410,7 @@ Bool32 GetTimeString(char* tm_string)
 }
 Bool32 CPrtEventSender::SendEvent(StdPrtEvent* pspe, va_list& List)
 {
-   
+
    Bool32 res1=TRUE,res2,res3;
    /* Ïîäãîòîâêà ñòðîêè ñîîáùåíèÿ äëÿ ïóáëèêàöèè â ãëîáàëüíîì ñïèñêå*/
    if(pspe->nFlags&SPE_PUBLIC)
@@ -430,7 +430,7 @@ Bool32 CPrtEventSender::SendEvent(StdPrtEvent* pspe, va_list& List)
       res1 = SendEvent(MessageBuffer,3);
    }
    /**/
-   
+
    /* Ïîäãîòîâêà ñòðîêè ñîîáùåíèÿ äëÿ ïóáëèêàöèè â ëîêàëüíîì ñïèñêå*/
    {
       char service_buf[128] = {0};
@@ -476,7 +476,7 @@ Bool32 CPrtEventSender::SendEvent(char* EventText,Int32 EvnType)
    }
    return res1;//(res1&&res2&&res2);
 };
-   
+
 Bool32 CPrtSysEventSender::SendSysEvent(Int32 SysEvnNo,...)
 {
    if(SysEvnNo >= CUR_SYS_EVN_COUNT || SysEvnNo < 0)
@@ -551,7 +551,7 @@ Bool32 CPrtSysEventSender::SendTimerEvent()
       SendSysEvent(1, datetime);
       gl_szOldTime = new_time;
    };
-   return TRUE;   
+   return TRUE;
 };
 
 void CPrtSysEventSender::Destroy()
@@ -600,7 +600,7 @@ STD_FUNC(Int32) stdSysPrt( Int32 EvnNo, ... )
    va_start(List, EvnNo);
 // CPrtSysEventSender Event;
    Int32 res = SysEvent.SendSysEvent(EvnNo,List);
-   va_end( List ); 
+   va_end( List );
    return res;
 };
 
@@ -668,7 +668,7 @@ static int     iParamsStringLen = 0;
 static XStack<int>  xsParamsShift;
 //vector<xsParamsShift>
 static StdPrtEvent szCurEvn = {0};
-typedef XStack<char> XString; 
+typedef XStack<char> XString;
 
 static stdPrtFILE theParaseFile;
 
@@ -720,7 +720,7 @@ void PrtUnload()
 
 Int32 ReadEventString(FILE* fl, char* str)
 {
-   XString xsString; 
+   XString xsString;
    if(!fl)
       RET_ZERO;
    char ch;
@@ -759,7 +759,7 @@ Int32 GetNextEvnFld(char *evn_str,char* str)
 
 Int32 ParseEventString(char* evn_str,Int32 iEvnSize)
 {
-   
+
    char *str = evn_str;
    Int32 iEvnSqNo = 0;
    char buf[256] = {0};
@@ -768,7 +768,7 @@ Int32 ParseEventString(char* evn_str,Int32 iEvnSize)
    GetNextEvnFld(str,buf);
    iEvnSqNo = atoi(buf);
    memset(buf,0,255);
-   
+
    // âûäåëåíèå íîìåðà òèïà ñîáûòèÿ
    int iEvnNo = 0;
    GetNextEvnFld(str,buf);
@@ -810,7 +810,7 @@ STD_FUNC(Int32) stdPrtStartParsePrt(char *file_name)
    {
       delete pParamsString;
       pParamsString = NULL;
-      iParamsStringLen = 0;   
+      iParamsStringLen = 0;
    };
    return 1;
 };
@@ -852,7 +852,7 @@ static StdPrtEvent spe2= { "Ôàéë %s ðàñïîçíàí ïî ôîðìå %s", SPE_PUBLIC | SPE_WAI
 ---------------------
 
 
-#185 Evn=1    EvnNo=101 Ôàéë %s ðàñïîçíàí ïî ôîðìå %s 0 
+#185 Evn=1    EvnNo=101 Ôàéë %s ðàñïîçíàí ïî ôîðìå %s 0
 #185 Evn=101  myfile1.tif SZV1_1
 #185 Evn=101  myfile2.tif SZV1_1
 #185 Evn=101  myfile3.tif SZV1_1
@@ -861,7 +861,7 @@ static StdPrtEvent spe2= { "Ôàéë %s ðàñïîçíàí ïî ôîðìå %s", SPE_PUBLIC | SPE_WAI
 #185 Evn=101  myfile6.tif SZV1_1
 ....
 #185 Evn=2 12.57
-#186 Evn=101  myfile.tif  SZV1_1   
+#186 Evn=101  myfile.tif  SZV1_1
 
 
 /*Bool32 SendTimerEvent()
@@ -879,7 +879,7 @@ static StdPrtEvent spe2= { "Ôàéë %s ðàñïîçíàí ïî ôîðìå %s", SPE_PUBLIC | SPE_WAI
       SendEvnToConsole(buff);
       gl_szOldTime = new_time;
    };
-   return TRUE;   
+   return TRUE;
 };*/
 
 /*
@@ -887,7 +887,7 @@ Bool32 SendEvnToConsole(StdPrtEvent* pspe,va_list& List)
 {
    if((HANDLE)(stdPrtConsole) == NULL)
       return FALSE;
-   
+
    char buf[4097*2] = {0};
    char buff1[4097] = {0};
    char buff2[4097] = {0};
@@ -918,10 +918,10 @@ STD_FUNC(Int32) stdPrt( StdPrtEvent* pspe, ... )
    if (NULL==(FILE*)theFile)
       return 0;
    int nBytesWritten=0;
-   
+
    if(pspe->hEvent)
    {
-    
+
       va_list List;
       va_start(List, pspe);
       nBytesWritten=fprintf(theFile,"#%05i\tEvn=%03i",gl_iEventCount,xsEventTypeData[(pspe->hEvent-1)].iEvnNo);
@@ -937,7 +937,7 @@ STD_FUNC(Int32) stdPrt( StdPrtEvent* pspe, ... )
    {
       va_list List;
       va_start(List, pspe);
-          
+
       StdPrtEventData szEvnData = {0};
       Int32 res = EvnParseFormat(pspe->szFormat,szEvnData.FrmtEvnString);
       if(!res)
@@ -959,7 +959,7 @@ STD_FUNC(Int32) stdPrt( StdPrtEvent* pspe, ... )
       fprintf(theFile,"\n\r");
       fflush(theFile);
       SendEvnToConsole(pspe,List);
-            
+
       va_end( List );
    }
 

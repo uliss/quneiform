@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -92,7 +92,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 	BOOL fl_not_kill_pointed;
 	BOOL dphNotTestAlik;
-	
+
 
 BOOL AddLenLineMas(MyLine** ppLines,int& len,int add);
 BOOL InitLineMas(MyLine** ppLines,int len);
@@ -125,7 +125,7 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, char* ImageDelLines)
 
 	CIMAGEIMAGECALLBACK         cbk;
 	CIMAGEIMAGECALLBACK         cbk1;
-//	LinesTotalInfo          lti;	
+//	LinesTotalInfo          lti;
 //	LineInfo			  linfo;     // ñîáñòâåííî, ÷òî è íàäî
 	PAGEINFO              info = {0};	 // Îïèñàíèå ñòðàíèöû
 //	Handle                pBlock;
@@ -136,7 +136,7 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, char* ImageDelLines)
 	BOOL fl_cont;
     Word8 ImageName[CPAGE_MAXNAME];
 	// Ïîëó÷àåì PAGEINFO òåêóùåé ñòðàíèöû
-	GetPageInfo(hCPage,&info);	
+	GetPageInfo(hCPage,&info);
 
 	// Êîïèðóåì â pImage èç PInfo óêàçàòåëü íà èçîáðàæåíèå,
 	// ñâÿçàííîå ñî ñòðàíèöåé
@@ -145,7 +145,7 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, char* ImageDelLines)
 
 	if (!CIMAGE_GetCallbackImage(ImageName,&cbk))
 		return FALSE;
-   
+
 	cbk1.CIMAGE_ImageOpen  = cbk.CIMAGE_ImageOpen;
 	cbk1.CIMAGE_ImageRead  = cbk.CIMAGE_ImageRead;
 	cbk1.CIMAGE_ImageClose = cbk.CIMAGE_ImageClose;
@@ -154,14 +154,14 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, char* ImageDelLines)
 	{
 	    return FALSE;
 	}
-	
+
     Handle lpDIB;
     if(!CIMAGE_ReadDIB((Word8*)ImageDelLines,&lpDIB,1))
 	{
 	  CIMAGE_DeleteImage((Word8*)ImageDelLines);
 	  return FALSE;
 	}
-   
+
     CTDIB* ctdib = new CTDIB;
 	if(!ctdib)
 	{
@@ -196,7 +196,7 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, char* ImageDelLines)
      len_hor_mas=50;
 	 nVerLines=0;
 	 len_ver_mas=50;
-   	 
+
      if(!InitLineMas(&pHorLines,len_hor_mas))
 	 {
 		 ctdib->ResetDIB ();
@@ -222,7 +222,7 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, char* ImageDelLines)
 	     hline=CLINE_GetNextLine(hline);
       else
 	  {
-        if((cpdata->Flags & LI_IsTrue)&&(!fl_not_kill_pointed||(fl_not_kill_pointed&&cpdata->Type!=NR_DT_LinePointed)))                                
+        if((cpdata->Flags & LI_IsTrue)&&(!fl_not_kill_pointed||(fl_not_kill_pointed&&cpdata->Type!=NR_DT_LinePointed)))
         {
 		  if(cpdata->Dir==LD_Horiz)
 		  {
@@ -265,13 +265,13 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, char* ImageDelLines)
 		    nVerLines++;
 			hline=CLINE_GetNextLine(hline);
 		   }
-		  }	
+		  }
 		}
 		else
 			hline=CLINE_GetNextLine(hline);
 	  }
 	 }
-/*	} 
+/*	}
 	else
 	{
      pBlock=NULL;
@@ -295,8 +295,8 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, char* ImageDelLines)
 
 	 HorType = (Word32)lti.Hor.Lns;
 	 VerType = (Word32)lti.Ver.Lns;
-	
-	
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////
      nHorLines=0;
      len_hor_mas=50;
@@ -311,7 +311,7 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, char* ImageDelLines)
 
      pBlock=NULL;
 	 pBlock = CPAGE_GetBlockFirst(hCPage,HorType);
-    
+
 	 while (pBlock)
 	 {
 		fl_cont=FALSE;
@@ -352,9 +352,9 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, char* ImageDelLines)
 		pBlock = CPAGE_GetBlockNext(hCPage,pBlock,HorType);
 
 	 }
-	
+
 /////////////////////////////////////////////////////////////////////////////////////////////
-    
+
      nVerLines=0;
      len_ver_mas=50;
 
@@ -409,10 +409,10 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, char* ImageDelLines)
 		nVerLines++;
 
 		pBlock = CPAGE_GetBlockNext(hCPage,pBlock,VerType);
-	 	 
+
 	 }
     }
-*/	
+*/
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -478,7 +478,7 @@ BOOL AddLenLineMas(MyLine** ppLines,int& len,int add)
 	 dop[i]=(*ppLines)[i];
  DelLineMas(*ppLines);
  if(!(InitLineMas(ppLines,len+add)) )
- {   
+ {
 	 (*ppLines)=dop;
 	 return FALSE;
  }
@@ -514,7 +514,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
  x2=endx;
  if(x2>=(bytewide<<3))
 	 x2=(bytewide<<3)-1;
- 
+
  y1=num_str-1-(begy-(wide>>1));
  y2=num_str-1-(begy+(wide>>1));
  if(begy<endy)
@@ -551,7 +551,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 
  switch(old_x1&7)
  {
- case 0:  
+ case 0:
 	 for(i=y1;i>=y2;i--)
 	 {
 		 (*now)=255;
@@ -614,7 +614,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 
  switch(x2&7)
  {
- case 0:  
+ case 0:
 	 for(i=y1;i>=y2;i--)
 	 {
 		 (*now)|=128;
@@ -672,12 +672,12 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 	 break;
  default:break;
  }
- 
+
  int w=x2-x1+1;
  int ownerbytewide = x2%8 ? (x2>>3)+1 : x2>>3;
  int spusk;
  int nowspusk;
- 
+
  if(abs(begy-endy)<2)
  {
   j=y1*bytewide+startbyte;
@@ -716,7 +716,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 		  if(!nowspusk)
 		  {
 			  nowspusk=spusk;
-			  
+
 			  if ((now-=bytewide) < pmasp)
 				  break;
 		  }
@@ -726,7 +726,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 		  if(!nowspusk)
 		  {
 			  nowspusk=spusk;
-			  
+
 			  if ((now-=bytewide) < pmasp)
 				  break;
 		  }
@@ -736,7 +736,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 		  if(!nowspusk)
 		  {
 			  nowspusk=spusk;
-			  
+
 			  if ((now-=bytewide) < pmasp)
 				  break;
 		  }
@@ -746,7 +746,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 		  if(!nowspusk)
 		  {
 			  nowspusk=spusk;
-			  
+
 			  if ((now-=bytewide) < pmasp)
 				  break;
 		  }
@@ -756,7 +756,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 		  if(!nowspusk)
 		  {
 			  nowspusk=spusk;
-			  
+
 			  if ((now-=bytewide) < pmasp)
 				  break;
 		  }
@@ -766,7 +766,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 		  if(!nowspusk)
 		  {
 			  nowspusk=spusk;
-			  
+
 			  if ((now-=bytewide) < pmasp)
 				  break;
 		  }
@@ -776,7 +776,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 		  if(!nowspusk)
 		  {
 			  nowspusk=spusk;
-			  
+
 			  if ((now-=bytewide) < pmasp)
 				  break;
 		  }
@@ -786,7 +786,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 		  if(!nowspusk)
 		  {
 			  nowspusk=spusk;
-			  
+
 			  if ((now-=bytewide) < pmasp)
 				  break;
 		  }
@@ -813,7 +813,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 		  if(!nowspusk)
 		  {
 			  nowspusk=spusk;
-			  
+
 			  if ((now+=bytewide) > end_byte)
 				  break;
 		  }
@@ -823,7 +823,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 		  if(!nowspusk)
 		  {
 			  nowspusk=spusk;
-			  
+
 			  if ((now+=bytewide) > end_byte)
 				  break;
 		  }
@@ -833,7 +833,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 		  if(!nowspusk)
 		  {
 			  nowspusk=spusk;
-			  
+
 			  if ((now+=bytewide) > end_byte)
 				  break;
 		  }
@@ -843,7 +843,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 		  if(!nowspusk)
 		  {
 			  nowspusk=spusk;
-			  
+
 			  if ((now+=bytewide) > end_byte)
 				  break;
 		  }
@@ -853,7 +853,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 		  if(!nowspusk)
 		  {
 			  nowspusk=spusk;
-			  
+
 			  if ((now+=bytewide) > end_byte)
 				  break;
 		  }
@@ -863,7 +863,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 		  if(!nowspusk)
 		  {
 			  nowspusk=spusk;
-			  
+
 			  if ((now+=bytewide) > end_byte)
 				  break;
 		  }
@@ -873,7 +873,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 		  if(!nowspusk)
 		  {
 			  nowspusk=spusk;
-			  
+
 			  if ((now+=bytewide) > end_byte)
 				  break;
 		  }
@@ -883,7 +883,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 		  if(!nowspusk)
 		  {
 			  nowspusk=spusk;
-			  
+
 			  if ((now+=bytewide) > end_byte)
 				  break;
 		  }
@@ -918,7 +918,7 @@ BOOL DelOneVerLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 	 y1=num_str-1;
  if(y2<0)
 	 y2=0;
- 
+
  x1=begx-(wide>>1);
  x2=begx+(wide>>1);
  if(begx<endx)
@@ -957,7 +957,7 @@ BOOL DelOneVerLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
  int nowbyte;
  int startrealp=x1%8;
  int realp;
- 
+
  if(abs(begx-endx)<2)
  {
   for(i=y1;i>=y2;i--)
@@ -1064,9 +1064,9 @@ BOOL GetMasP(Handle hCPage,Word8* ImageName,int x1,int y1,int x2,int y2,Word8** 
 	PAGEINFO info = {0};
 	CIMAGEInfoDataInGet DataInto = {0};
 	CIMAGEInfoDataOutGet DataOut = {0};
-	
+
 	Bool ret;
-	
+
 	DataInto.dwHeight   = (Word32)(h);
 	DataInto.dwWidth    = (Word32)(prewide);
 	DataInto.wByteWidth = (Word16)(prewide/8);
@@ -1074,7 +1074,7 @@ BOOL GetMasP(Handle hCPage,Word8* ImageName,int x1,int y1,int x2,int y2,Word8** 
 	DataInto.dwY        = upper;
 	DataInto.MaskFlag   = 0x00;
     GetPageInfo(hCPage,&info);
-	
+
 	DataOut.dwWidth    = DataInto.dwWidth;
 	DataOut.dwHeight   = DataInto.dwHeight;
 	DataOut.wByteWidth = DataInto.wByteWidth;
@@ -1151,7 +1151,7 @@ BOOL DelLineFromInside(Word8* pmasp,const int bytewide,int num_str,CLINE_handle 
      if(!data_event)
 	   return FALSE;
 
-	  Level=(end_str-data_event->Lev_0)*bytewide;	  
+	  Level=(end_str-data_event->Lev_0)*bytewide;
 	  for(hinv=CLINE_GetFirstEventInv(hevent);hinv;hinv=CLINE_GetNextEventInv(hinv),Level-=bytewide)
 	  {
 		if(Level<0||Level>=byte_count)
@@ -1160,7 +1160,7 @@ BOOL DelLineFromInside(Word8* pmasp,const int bytewide,int num_str,CLINE_handle 
 		data_inv=CLINE_GetEventInvData(hinv);
 		if(!data_inv)
 			return FALSE;
-		 
+
 //àëãîðèòì
 		 Beg=data_inv->Pos;
 		 End=data_inv->Lent+Beg;
@@ -1276,7 +1276,7 @@ BOOL DelLineFromInside(Word8* pmasp,const int bytewide,int num_str,CLINE_handle 
 		data_inv=CLINE_GetEventInvData(hinv);
 		if(!data_inv)
 			return FALSE;
-		 
+
 //àëãîðèòì
 		 Beg=data_inv->Pos;
 		 End=data_inv->Lent+Beg;
@@ -1590,7 +1590,7 @@ Bool32 DeleteDotLines(void* phCLINE, char* ImageDelLines)
 
     if (!CIMAGE_GetCallbackImage((Word8*)ImageDelLines,&cbk))
 		return FALSE;
-   
+
 	cbk1.CIMAGE_ImageOpen  = cbk.CIMAGE_ImageOpen;
 	cbk1.CIMAGE_ImageRead  = cbk.CIMAGE_ImageRead;
 	cbk1.CIMAGE_ImageClose = cbk.CIMAGE_ImageClose;
@@ -1599,14 +1599,14 @@ Bool32 DeleteDotLines(void* phCLINE, char* ImageDelLines)
 	{
 	    return FALSE;
 	}
-	
+
     Handle lpDIB;
     if(!CIMAGE_ReadDIB((Word8*)ImageDelLines,&lpDIB,1))
 	{
 	  CIMAGE_DeleteImage((Word8*)ImageDelLines);
 	  return FALSE;
 	}
-   
+
     CTDIB* ctdib = new CTDIB;
 	if(!ctdib)
 	{

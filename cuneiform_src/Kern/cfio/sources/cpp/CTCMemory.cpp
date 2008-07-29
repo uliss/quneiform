@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //                                                                              //
 //////////////////////////////////////////////////////////////////////////////////
 #include "ctcclasses.h"
-//////////////////////////////////////////////////////////////////GLOBAL 
+//////////////////////////////////////////////////////////////////GLOBAL
 //
 extern void SetReturnCode_cfio(Word16 rc);
 //////////////////////////////////////////////////////////////////////////////////
@@ -93,7 +93,7 @@ CTCMemoryHeader::CTCMemoryHeader(Handle hMemory, Word32 wBlockSize, const char *
 {
 	SetHeaderSize(sizeof( class CTCMemoryHeader));
 	mcComment[0] = mcOwner[0] = 0x0;
-	
+
 	if ( OwnerName[0] != 0x0 && CFIO_STRLEN(OwnerName) < CFIO_MAX_OWNER )
 	{
 		CFIO_STRCPY(mcOwner, OwnerName);
@@ -135,7 +135,7 @@ CTCMemoryList::CTCMemoryList()
 {
 	mhFirstItem.SetNext(&mhLastItem);
 	wListSize = sizeof(class CTCMemoryList);
-	wMemoryCounter = 0; 
+	wMemoryCounter = 0;
 	wItemCounter = 0;
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -146,10 +146,10 @@ CTCMemoryList::~CTCMemoryList()
 	{
 #ifdef TRACE
 		TRACE("CFIO: Missed memory block { handle: 0x%x, data: 0x%x, size: %i, owner:\"%s\", comment:\"%s\" } allocated by CFIO \n",
-			   pFirst()->GetNext()->GetHandle(), 
-			   pFirst()->GetNext()->GetData(), 
-			   pFirst()->GetNext()->GetSize(), 
-			   pFirst()->GetNext()->GetOwner(), 
+			   pFirst()->GetNext()->GetHandle(),
+			   pFirst()->GetNext()->GetData(),
+			   pFirst()->GetNext()->GetSize(),
+			   pFirst()->GetNext()->GetOwner(),
 			   pFirst()->GetNext()->GetComment());
 #endif
 		KillItem(NULL, pFirst());
@@ -159,13 +159,13 @@ CTCMemoryList::~CTCMemoryList()
 //
 Word32 CTCMemoryList::IncreaseMemoryCounter(Word32 wSize)
 {
-	return ( wMemoryCounter = wMemoryCounter + wSize );	
+	return ( wMemoryCounter = wMemoryCounter + wSize );
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 Word32 CTCMemoryList::DecreaseMemoryCounter(Word32 wSize)
 {
-	return ( wMemoryCounter = wMemoryCounter - wSize );	
+	return ( wMemoryCounter = wMemoryCounter - wSize );
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -184,8 +184,8 @@ CTCMemoryHeader * CTCMemoryList::pLast()
 Bool32 CTCMemoryList::AddItem(Handle hMemory, Word32 wSize, Word32 wIsGlobal, const char *cOwner, const char *Coment)
 {
 	CTCMemoryHeader * Current, * NewBlock = NULL;
-	
-	for ( Current = pFirst(); Current->GetNext() != pLast(); Current = Current->GetNext() ) 
+
+	for ( Current = pFirst(); Current->GetNext() != pLast(); Current = Current->GetNext() )
 	{
 		if ( Current->GetHandle() == hMemory )
 		{
@@ -204,10 +204,10 @@ Bool32 CTCMemoryList::AddItem(Handle hMemory, Word32 wSize, Word32 wIsGlobal, co
 	}
 	else
 	{
-		// 
+		//
 		NewBlock->SetData(hMemory);
 	}
-	
+
 	return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -237,7 +237,7 @@ Bool32 CTCMemoryList::DeleteItem(Handle hMemory, Word32 wParam)
 Bool32 CTCMemoryList::KillItem(PCTCMemoryHeader pItem, PCTCMemoryHeader pPrevItem)
 {
 	PCTCMemoryHeader pErased;
-	
+
 	if ( pItem )
 		pErased = pItem;
 	else
@@ -252,7 +252,7 @@ Bool32 CTCMemoryList::KillItem(PCTCMemoryHeader pItem, PCTCMemoryHeader pPrevIte
 //
 CTCMemoryHeader * CTCMemoryList::GetItem(Handle hMemory)
 {
-	CTCMemoryHeader * Current; 
+	CTCMemoryHeader * Current;
 
 	for ( Current = pFirst(); Current != pLast(); Current = Current->GetNext() )
 	{
@@ -272,7 +272,7 @@ CTCMemoryHeader * CTCMemoryList::GetItem(Handle hMemory)
 //
 Bool32 CTCMemoryList::TakeItem(Handle hMemory, Word32 * wSize, Word32 * wFlag)
 {
-	CTCMemoryHeader * Current = GetItem(hMemory); 
+	CTCMemoryHeader * Current = GetItem(hMemory);
 
 	if ( Current )
 	{
@@ -280,7 +280,7 @@ Bool32 CTCMemoryList::TakeItem(Handle hMemory, Word32 * wSize, Word32 * wFlag)
 		*wFlag = Current->GetFlag();
 		return TRUE;
 	}
-	
+
 	*wSize = 0;
 	*wFlag = 0;
 	return FALSE;
@@ -289,7 +289,7 @@ Bool32 CTCMemoryList::TakeItem(Handle hMemory, Word32 * wSize, Word32 * wFlag)
 // Add and remove Lock Flag (depend by bLock)
 Bool32 CTCMemoryList::LockUnlockItem(Handle hMemory, Bool32 bLock)
 {
-	CTCMemoryHeader * Current; 
+	CTCMemoryHeader * Current;
 
 	for ( Current = pFirst(); Current != pLast(); Current = Current->GetNext() )
 	{
@@ -300,7 +300,7 @@ Bool32 CTCMemoryList::LockUnlockItem(Handle hMemory, Bool32 bLock)
 				Current->AddFlag(CFIO_MEMORY_LOCK);
 				return TRUE;
 			}
-			
+
 			if ( !bLock && Current->IsFlag(CFIO_MEMORY_LOCK) )
 			{
 				Current->RemoveFlag(CFIO_MEMORY_LOCK);

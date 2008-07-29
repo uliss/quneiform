@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -80,8 +80,8 @@ CTCGlobalHeader::CTCGlobalHeader()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCGlobalHeader::CTCGlobalHeader(Handle NewHandle, 
-		                         void * NewData, 
+CTCGlobalHeader::CTCGlobalHeader(Handle NewHandle,
+		                         void * NewData,
 					             Word32 NewSize,
 					             Word32 NewFlag,
 					             CTCGlobalHeader * NewNext)
@@ -162,7 +162,7 @@ Bool32 CTCGlobalFile::IsInString(const char * Flag)
 				return TRUE;
 		}
 	}
-	
+
 	return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -170,7 +170,7 @@ Bool32 CTCGlobalFile::IsInString(const char * Flag)
 Word32 CTCGlobalFile::Write(void * pData, Word32 wDataSize, Word32 wDataCounter)
 {
 	if ( IsInString(CFIO_GF_CWRITE) || IsInString(CFIO_GF_CWRITEREAD) ||
-		 IsInString(CFIO_GF_CREADWRITE) || IsInString(CFIO_GF_CAPPEND) || 
+		 IsInString(CFIO_GF_CREADWRITE) || IsInString(CFIO_GF_CAPPEND) ||
 		 IsInString(CFIO_GF_CAPPENDEOF) )
 	{
 		if ( !InMemory )
@@ -191,7 +191,7 @@ Word32 CTCGlobalFile::Write(void * pData, Word32 wDataSize, Word32 wDataCounter)
 Word32 CTCGlobalFile::Read(void * pData, Word32 wDataSize, Word32 wDataCounter)
 {
 	if ( IsInString(CFIO_GF_CREAD) || IsInString(CFIO_GF_CWRITEREAD) ||
-		 IsInString(CFIO_GF_CREADWRITE) || IsInString(CFIO_GF_CAPPEND) || 
+		 IsInString(CFIO_GF_CREADWRITE) || IsInString(CFIO_GF_CAPPEND) ||
 		 IsInString(CFIO_GF_CAPPENDEOF) )
 	{
 		if ( !InMemory )
@@ -220,7 +220,7 @@ Bool32 CTCGlobalFile::Close()
 		{
 			FILE * DiskFile;
 			char DiskFileName[CFIO_MAX_PATH];
-					
+
 			// extract memroy file name for disk file
 			// if present
 			if ( *(GetFileName(DiskFileName)) != 0x00 )
@@ -231,7 +231,7 @@ Bool32 CTCGlobalFile::Close()
 					DiskFile = CFIO_OPEN( DiskFileName, "w" );
 				//move from memory to disk
 				MoveFromMemory(DiskFile);
-				
+
 				CFIO_CLOSE(DiskFile);
 			}
 		}
@@ -274,14 +274,14 @@ Bool32 CTCGlobalFile::MoveFromMemory(Handle dFile)
 			lpData = GetPtrToMemoryCluster(NULL, pCurrentCluster);
 			// write memory to disk
 			wWriteCount += CFIO_WRITE( lpData, sizeof(char), ReadFromCluster, dFile);
-			DataLeft -= ReadFromCluster;		
+			DataLeft -= ReadFromCluster;
 			ClosePtrToMemoryCluster(NULL, pCurrentCluster);
 			pCurrentCluster = pCurrentCluster->mcNext;
 		}
 	}
 
 	KillLastCluster( &mcFirst );
-	
+
 	return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -320,7 +320,7 @@ Handle CTCGlobalFile::AssemblyToOne()
 			lpSeek += ReadFromCluster;
 
 			ClosePtrToMemoryCluster(NULL, pCurrentCluster);
-			
+
 			pCurrentCluster = pCurrentCluster->mcNext;
 		}
 
@@ -336,7 +336,7 @@ Word32 CTCGlobalFile::Seek(Word32 Position, Word32 Flag)
 {
 	int Direction;
 	Word32 NewSeeker;
-	
+
 	switch(Flag)
 	{
 	case CFIO_GF_SEEK_CURR:
@@ -366,7 +366,7 @@ Word32 CTCGlobalFile::Seek(Word32 Position, Word32 Flag)
 			break;
 
 		case SEEK_END:
-			
+
 			if ( Position < wMemorySize )
 				wSeeker = wMemorySize - Position;
 			else
@@ -375,7 +375,7 @@ Word32 CTCGlobalFile::Seek(Word32 Position, Word32 Flag)
 			break;
 
 		case SEEK_SET:
-			
+
 			if ( Position < wMemorySize )
 				wSeeker = Position;
 			else
@@ -438,7 +438,7 @@ Word32 CTCGlobalFile::GetFileSize()
 void CTCGlobalFile::TranslateFlagToString(Word32 Flag)
 {
 	ClearFlagString();
-	
+
 	if ( Flag&CFIO_GF_CREATE )
 	{
 		if (Flag&CFIO_GF_READ )
@@ -473,7 +473,7 @@ void CTCGlobalFile::TranslateFlagToString(Word32 Flag)
 			}
 		}
 	}
-	
+
 
 	if ( Flag&CFIO_GF_BINARY )
 		AddFlagToString(CFIO_GF_CBINARY);
@@ -542,7 +542,7 @@ static char Out[CFIO_MAX_PATH];
 //
 Bool32 CTCGlobalFile::ProvideFileFolder(char * lpFileName)
 {
-/* Given a filename such as "/foo/bar/baz/file.txt" creates the 
+/* Given a filename such as "/foo/bar/baz/file.txt" creates the
  * directory "/foo/bar/baz".
  */
 	if ( strlen(lpFileName) == 0 )
@@ -551,10 +551,10 @@ Bool32 CTCGlobalFile::ProvideFileFolder(char * lpFileName)
 	//MAKEFULLPATH(FullPath, lpFileName, _MAX_PATH);
 	CFIO_GETFOLDERSITEMS(lpFileName, Disk, Folder, File, Extension);
 	CFIO_MAKEPATH ( Out, Disk, Folder, NULL, NULL);
-	
+
 	if ( Out[0] == 0x0 )
 		return TRUE;
-	
+
 	CFIO_MAKEFOLDER(Out);
 	//CreateDirectory(Out, NULL);
 
@@ -579,7 +579,7 @@ Handle CTCGlobalFile::CreateNewCluster(PPCFIOMCLUSTER pmcCluster)
 	}
 
 	pNewCluster = new CFIOMCLUSTER;
-	
+
 	pNewCluster->mcNext = NULL;
 	pNewCluster->mcLocked = FALSE;
 	pNewCluster->mcPtr = NULL;
@@ -617,7 +617,7 @@ Bool32 CTCGlobalFile::KillLastCluster(PCFIOMCLUSTER pEndCluster)
 	{
 		// set last cluster in chain
 		pLastCluster = &mcFirst;
-		// define end of cluster chain - 
+		// define end of cluster chain -
 		if ( pEndCluster )
 		{
 			// reset last cluster
@@ -628,8 +628,8 @@ Bool32 CTCGlobalFile::KillLastCluster(PCFIOMCLUSTER pEndCluster)
 		// or delete las 1 cluster
 		else
 		{
-			for ( pCluster = mcFirst.mcNext; 
-				  pCluster->mcNext != NULL; 
+			for ( pCluster = mcFirst.mcNext;
+				  pCluster->mcNext != NULL;
 				  pCluster = pCluster->mcNext)
 			{
 				pLastCluster = pCluster;
@@ -637,7 +637,7 @@ Bool32 CTCGlobalFile::KillLastCluster(PCFIOMCLUSTER pEndCluster)
 		}
 		// breah\k chain
 		pLastCluster->mcNext = NULL;
-		
+
 		// delete clusters from end cluster
 		while ( pCluster )
 		{
@@ -645,7 +645,7 @@ Bool32 CTCGlobalFile::KillLastCluster(PCFIOMCLUSTER pEndCluster)
 			// unlock memory (for any case)
 			if ( pCluster->mcLocked )
 				Control_ctc->Unlock(pCluster->mcHandle);
-			
+
 			// free memory cluster and ...
 			Control_ctc->Free(pCluster->mcHandle);
 			// delete memory cluster info
@@ -656,7 +656,7 @@ Bool32 CTCGlobalFile::KillLastCluster(PCFIOMCLUSTER pEndCluster)
 		}
 		return TRUE;
 	}
-	
+
 	return FALSE;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -665,7 +665,7 @@ PCFIOMCLUSTER CTCGlobalFile::TakeCluster(Handle hCluster)
 {
 	PCFIOMCLUSTER pCurrentCluster;
 
-	for ( pCurrentCluster = mcFirst.mcNext; 
+	for ( pCurrentCluster = mcFirst.mcNext;
 	      pCurrentCluster != NULL;
 		  pCurrentCluster = pCurrentCluster->mcNext)
 		{
@@ -674,7 +674,7 @@ PCFIOMCLUSTER CTCGlobalFile::TakeCluster(Handle hCluster)
 				return pCurrentCluster;
 			}
 		}
-	return NULL;	  
+	return NULL;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -687,10 +687,10 @@ Handle CTCGlobalFile::GetLastCluster(PPCFIOMCLUSTER pmcCluster)
 		return &mcFirst;
 	}
 
-	for ( pLastCluster = mcFirst.mcNext; 
-	      pLastCluster->mcNext != NULL; 
+	for ( pLastCluster = mcFirst.mcNext;
+	      pLastCluster->mcNext != NULL;
 		  pLastCluster = pLastCluster->mcNext);
-	
+
 	if ( pmcCluster )
 	{
 		*pmcCluster = pLastCluster;
@@ -712,12 +712,12 @@ Handle CTCGlobalFile::GetNextCluster(Handle hCluster, PPCFIOMCLUSTER pmcCluster)
 		}
 		return pCluster->mcNext->mcHandle;
 	}
-	
+
 	if ( pmcCluster )
 	{
 		*pmcCluster = NULL;
 	}
-	
+
 	return NULL;
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -725,7 +725,7 @@ Handle CTCGlobalFile::GetNextCluster(Handle hCluster, PPCFIOMCLUSTER pmcCluster)
 void * CTCGlobalFile::GetPtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pCluster)
 {
 	PCFIOMCLUSTER pCurrentCluster;
-	
+
 	if ( pCluster )
 	{
 		pCurrentCluster = pCluster;
@@ -749,7 +749,7 @@ void * CTCGlobalFile::GetPtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pClus
 Bool32 CTCGlobalFile::ClosePtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pCluster)
 {
 	PCFIOMCLUSTER pCurrentCluster;
-	
+
 	if ( pCluster )
 	{
 		pCurrentCluster = pCluster;
@@ -792,18 +792,18 @@ Handle CTCGlobalFile::GetSeekedCluster(PPCFIOMCLUSTER pmcCluster)
 			// seeker to midle of file
 			else
 			{
-				for ( pCluster = mcFirst.mcNext; 
-					  pCluster != NULL && FilledClusters > 0; 
+				for ( pCluster = mcFirst.mcNext;
+					  pCluster != NULL && FilledClusters > 0;
 					  pCluster = pCluster->mcNext, FilledClusters--);
 			}
-		
+
 	}
 	else       // if seeker out of range
 	{
 		wSeeker = 0;
 		pCluster = mcFirst.mcNext;
 	}
-	
+
 	if ( pmcCluster )
 	{
 		*pmcCluster = pCluster;
@@ -831,7 +831,7 @@ Word32 CTCGlobalFile::WriteToMemory(void * pData, Word32 wDataSize, Word32 wData
 	GetSeekedCluster(&pWritedCluster);
 	// set offset in cluster
 	ClusterOffset = wSeeker - ((wSeeker / CFIO_GF_MEMORY_FILE_CLUSTER) * CFIO_GF_MEMORY_FILE_CLUSTER);
-	
+
 	//writing:
 	while(wAllData)
 	{
@@ -839,7 +839,7 @@ Word32 CTCGlobalFile::WriteToMemory(void * pData, Word32 wDataSize, Word32 wData
 		AvailableToWriteInCluster = CFIO_GF_MEMORY_FILE_CLUSTER - ClusterOffset;
 		// set ptr to writing
 		Desc = ((char *) GetPtrToMemoryCluster(NULL,pWritedCluster)) + ClusterOffset;
-		
+
 		//  if need to write less then free space in last cluster
 		if ( wAllData < AvailableToWriteInCluster )
 		{
@@ -862,7 +862,7 @@ Word32 CTCGlobalFile::WriteToMemory(void * pData, Word32 wDataSize, Word32 wData
 		wSeeker += AvailableToWriteInCluster;
 
 		ClosePtrToMemoryCluster(NULL,pWritedCluster);
-		
+
 		// switch to write on next cluster
 		if ( wAllData )
 		{
@@ -890,7 +890,7 @@ Word32 CTCGlobalFile::ReadFromMemory(void * pData, Word32 wDataSize, Word32 wDat
 	GetSeekedCluster(&pReadedCluster);
 	// set offset in cluster
 	ClusterOffset = wSeeker - ((wSeeker / CFIO_GF_MEMORY_FILE_CLUSTER) * CFIO_GF_MEMORY_FILE_CLUSTER);
-	
+
 	if ( wAllData > wMemorySize )
 		wAllData = wMemorySize;
 
@@ -901,7 +901,7 @@ Word32 CTCGlobalFile::ReadFromMemory(void * pData, Word32 wDataSize, Word32 wDat
 		AvailableToReadInCluster = CFIO_GF_MEMORY_FILE_CLUSTER - ClusterOffset;
 		// set ptr to writing
 		Sorc = ((char *)GetPtrToMemoryCluster(NULL,pReadedCluster)) + ClusterOffset;
-		
+
 		//  if need to write less then free space in last cluster
 		if ( wAllData < AvailableToReadInCluster )
 		{
@@ -920,7 +920,7 @@ Word32 CTCGlobalFile::ReadFromMemory(void * pData, Word32 wDataSize, Word32 wDat
 		wSeeker += AvailableToReadInCluster;
 
 		ClosePtrToMemoryCluster(NULL,pReadedCluster);
-		
+
 		// switch to write on next cluster
 		if ( wAllData )
 		{

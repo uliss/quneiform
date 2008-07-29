@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -82,7 +82,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 static BYTE digital_mode;            // see in module pass3.c
-static BYTE plusminus_mode; 
+static BYTE plusminus_mode;
 static BYTE alphabet_set[32];
 static cell *clist[2];
 INT  digital_string_penalty;
@@ -93,7 +93,7 @@ BOOL isLikeDigit(BYTE c)
 // Ñ ó÷åòîì òóðåöêî-ðóññêèõ êîíôëèêòîâ. 21.05.2002 E.P.
  if( memchr("0123456789Ž®¡‡§’‚øl",c,19) &&
 	  !is_russian_turkish_conflict(c)
-    ) 
+    )
 	return TRUE;
 
  return FALSE;
@@ -156,7 +156,7 @@ if( db_status && snap_activity('c') )
 
     c = curr->vers[0].let;
     if( memchr(punct_list,c,l) ||
-        c==left_quocket || c==right_quocket || 
+        c==left_quocket || c==right_quocket ||
         c==low_quotes  // macros E.P.
 	)
         {
@@ -174,7 +174,7 @@ if( db_status && snap_activity('c') )
          */
     if( (curr->flg&c_f_let) )
       {
-      //if( memchr("0123456789Ž®¡‡§’‚øl",c,19) && 
+      //if( memchr("0123456789Ž®¡‡§’‚øl",c,19) &&
       if( isLikeDigit(c) && // 21.05.2002 E.P.
 		  curr->vers[0].prob > 150  // Nick 26.02.2001
 		)
@@ -184,8 +184,8 @@ if( db_status && snap_activity('c') )
       }
     }
 
-if( digital_mode==2     || 
-    num_dig*4>=num*3 || 
+if( digital_mode==2     ||
+    num_dig*4>=num*3 ||
     num_dig==2 && num==3 ||
     num_dig==1 && num==1 && num_bad==1 )
   { /* digital string */
@@ -212,7 +212,7 @@ if( digital_mode==2     ||
         curr->vers[0].let='-' ;
       if( c==(BYTE)'ø' )
         curr->vers[0].let='2' ;
-      if( c==(BYTE)'Ž' || 
+      if( c==(BYTE)'Ž' ||
 			// 21.05.2002 E.P.
 			( c==(BYTE)'®')&& !is_russian_turkish_conflict(c)
 		)
@@ -229,7 +229,7 @@ if( digital_mode==2     ||
         curr->vers[0].let='1' ;
       if( c==(BYTE)'l' )
         curr->vers[0].let='1' ;
-    
+
       if( c=='$' && curr->nvers==1 )
         {
         curr->vers[0].let='5';
@@ -294,7 +294,7 @@ for(curr=cell_f()->nextl;curr!=cell_l();curr=curr->nextl)
 
     for(curr=cell_f()->nextl;curr!=cell_l();curr=curr->nextl)
     {
-    if( curr->nvers && curr->vers[0].let=='(' && 
+    if( curr->nvers && curr->vers[0].let=='(' &&
         curr->next &&
         curr->next->nvers && curr->next->vers[0].let==')' )
         {
@@ -378,10 +378,10 @@ curr = cell_f();
 num_all=num_dig=num_let=num_bad=num_dig_let=0;
 while(   (curr=curr->next)->next )
     {
-    if( !(curr->flg&c_f_let) ) //!(curr->flg&(c_f_let|c_f_bad)) )          
+    if( !(curr->flg&c_f_let) ) //!(curr->flg&(c_f_let|c_f_bad)) )
         continue;
     num_all++;
-    if( (curr->flg&c_f_bad) )   
+    if( (curr->flg&c_f_bad) )
         num_bad++;
     else
       {
@@ -399,11 +399,11 @@ while(   (curr=curr->next)->next )
 		if( p > 240 ) // Nick 11.05.2001
 		{
 			//num_let++;
-		    if( curr->nvers < 2  || 
+		    if( curr->nvers < 2  ||
 				!isLikeDigit(curr->vers[1].let) ||
 				curr->vers[1].prob < 220
 			  )
-			  num_dig--; // øòðàô íà öèôðîâîé 
+			  num_dig--; // øòðàô íà öèôðîâîé
 		}
 	  }
       if( isLikeDigit(c) )
@@ -450,11 +450,11 @@ num_asOne = 0;
 
 while(   (curr=curr->next)->next )
     {
-    if( !(curr->flg&(c_f_let|c_f_bad)) )          
+    if( !(curr->flg&(c_f_let|c_f_bad)) )
 		continue;
 
     num_all++;
-    if( (curr->flg&c_f_bad) )   
+    if( (curr->flg&c_f_bad) )
 		num_bad++;
     else
       {
@@ -552,10 +552,10 @@ if( str->alphabet==ALPHA_ALL )
     if( !(curr->flg&c_f_let) )
 		continue;
 
-    if( curr->nvers>0 && 
+    if( curr->nvers>0 &&
 	    (
-         memchr(punct_list,curr->vers[0].let,sizeof(punct_list)) || 
-		 curr->vers[0].let != '1' && memchr(asOne_list,curr->vers[0].let,sizeof(asOne_list)) 
+         memchr(punct_list,curr->vers[0].let,sizeof(punct_list)) ||
+		 curr->vers[0].let != '1' && memchr(asOne_list,curr->vers[0].let,sizeof(asOne_list))
 		)
 	  )
       {
@@ -761,8 +761,8 @@ else
 
         if( rst && CSTR_GetImage(rst,(Word8 *)&rrst,CSTR_TYPE_IMAGE_RS))
             {
-            if( c->w>c->h*5 
-				|| c->w>c->h*3 && c->env && c->env->nl == 1 // Nick 18.01.2002 
+            if( c->w>c->h*5
+				|| c->w>c->h*3 && c->env && c->env->nl == 1 // Nick 18.01.2002
 			  )
                 {
                 c->nvers=1;
@@ -796,7 +796,7 @@ else
                     c->vers[0].let='+';
                     c->vers[0].prob=254;
                     ver.lnAltCnt =1;
-                    
+
                     CSTR_StoreCollection(rst,&ver);
                     CSTR_GetAttr(rst,&attr);
                     //attr.keg=Ps<<line_scale;
@@ -908,7 +908,7 @@ for(i=0;i<VertNum;i++)
         str_inf[i].alphabet=ALPHA_PLUS_MINUS;
     }
   else if( str_inf[i].all>0 )
-    { // small column    
+    { // small column
     if( str_inf[i].dig*3>=str_inf[i].all*2 )
         str_inf[i].alphabet=ALPHA_DIGITAL;      // digital column
     if( str_inf[i].fuzzy_dig*10>str_inf[i].all*6 )
@@ -917,7 +917,7 @@ for(i=0;i<VertNum;i++)
         str_inf[i].all>3 && str_inf[i].dig==str_inf[i].all )
         str_inf[i].alphabet=ALPHA_DIGITAL_TRUE;
     if( str_inf[i].pm*2>str_inf[i].all*1 )
-        str_inf[i].alphabet=ALPHA_PLUS_MINUS; 
+        str_inf[i].alphabet=ALPHA_PLUS_MINUS;
     }
   }
 return;
@@ -1077,7 +1077,7 @@ for(i=0;i<VertNum;i++)
     {
 	  // Nick - new vers.
 	  // old bad on En_18,t_t_14,saus32
-     if( str_inf[i].dig*100 > str_inf[i].all*92 )  
+     if( str_inf[i].dig*100 > str_inf[i].all*92 )
       str_inf[i].alphabet=ALPHA_DIGITAL_TRUE; // digital column
 /*
     if( str_inf[i].dig*2>=(str_inf[i].all-str_inf[i].pm) &&
@@ -1085,7 +1085,7 @@ for(i=0;i<VertNum;i++)
         str_inf[i].alphabet=ALPHA_DIGITAL_TRUE; // digital column
     }
   else if( str_inf[i].all>0 )
-    { // small column    
+    { // small column
     if( str_inf[i].dig*3>=str_inf[i].all*2 )
         str_inf[i].alphabet=ALPHA_DIGITAL_TRUE;
 */

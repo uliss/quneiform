@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -98,7 +98,7 @@ static BYTE Only_symbols[257]={
 /* c*/ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 /* d*/ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 /* e*/ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-/* f*/ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0       
+/* f*/ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 };
 //////////////////////////////////////////////////////////////////////////////////////
 //
@@ -107,7 +107,7 @@ static BOOL proplet_tg(BYTE let)
 {
 
 	extern BYTE NO_Punct;
-	
+
 	if ( language == LANG_DIG )
 		return is_digit(let);
 
@@ -129,7 +129,7 @@ static BOOL proplet_tg(BYTE let)
 				let == UKR_E || let == UKR_e || let == UKR_G || let == UKR_g || let == liga_i || memchr("iI",let,2) )
 				return  FALSE;
 		}
-		
+
 		if( langSer )
 		{
 			if( memchr("‰©™йљк›лњмќнћоџп",let,16) )
@@ -144,7 +144,7 @@ static BOOL proplet_tg(BYTE let)
 				return  FALSE;
 		}
 
-		// В Болгарском нет трех русских букв. 05.09.2000 E.P. 
+		// В Болгарском нет трех русских букв. 05.09.2000 E.P.
 		if (langBul &&
 			( let == r_EE_2dot ||
 			  let == r_e_2dot ||
@@ -156,16 +156,16 @@ static BOOL proplet_tg(BYTE let)
 	}
 
 	// for INTERSEPTOR need "S"
-	if(language==LANG_RUSSIAN && multy_language && (is_english(let)||let=='$'||let==(Word8)'Я')) 
+	if(language==LANG_RUSSIAN && multy_language && (is_english(let)||let=='$'||let==(Word8)'Я'))
 		return FALSE;
 	// Oleg : 20-10-1994 : kill english versions for Rus-Eng mode
-	if(language==LANG_ENGLISH && (is_russian(let)||let=='|')) 
+	if(language==LANG_ENGLISH && (is_russian(let)||let=='|'))
 		return FALSE;
 	// Oleg : 20-10-1994 : kill russian versions for Rus-Eng mode
- 
+
 	// Затычка от ошибок в таблицах. 12.09.2000 E.P.
-	if (!let && 
-		 (is_cen_language(language) || 
+	if (!let &&
+		 (is_cen_language(language) ||
 		  is_baltic_language(language) ||	// 09.07.2001 E.P.
 		  is_turkish_language(language)		// 21.05.2002 E.P.
 		 )
@@ -174,7 +174,7 @@ static BOOL proplet_tg(BYTE let)
 
 	if( language==LANG_CROATIAN )
 	{
-		if( let<128 || 
+		if( let<128 ||
 			(is_ligas_latin(let)&&let!=POLISH_l&&let!=POLISH_a) ||
 			let==CROAT_D  || let==CROAT_d  ||
 			let==CROAT_SR || let==CROAT_sr ||
@@ -188,8 +188,8 @@ static BOOL proplet_tg(BYTE let)
 
 	if( language==LANG_POLISH )
 	{
-		if( let < 128 || is_ligas_latin(let) || 
-			is_polish_special( let ) 
+		if( let < 128 || is_ligas_latin(let) ||
+			is_polish_special( let )
 		  )
 			return TRUE;
 		else
@@ -299,9 +299,9 @@ static BOOL proplet_tg(BYTE let)
 			return FALSE;
 	}
 
-	if (language==LANG_RUSSIAN)    
+	if (language==LANG_RUSSIAN)
 		return TRUE;
-	
+
 	if (language!=LANG_FRENCH &&
 		(let==CC_bottom_accent || let==c_bottom_accent) ||
 		language!=LANG_GERMAN && let==ss_deaf_sound     ||
@@ -309,7 +309,7 @@ static BOOL proplet_tg(BYTE let)
 		let==liga_inv_exm || let==liga_inv_qm))
 		return FALSE;
     if( line_tabcell && let==liga_exm )
-        return FALSE;	
+        return FALSE;
 
 	return TRUE;
 }

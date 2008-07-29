@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -83,7 +83,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "tm.h"
 #include "lang.h"
 #include "ccom.h"
-#include "struct.h" 
+#include "struct.h"
 #include "cstr.h" // OLEG
 #include "fon.h"
 #include "dpuma.h"
@@ -93,7 +93,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 
 //#include "p2.h"
-//#include "rstr_p2.h" 
+//#include "rstr_p2.h"
 
 static int p2_checkUpperLower(void);
 
@@ -134,8 +134,8 @@ Bool32 p2_accept_Cell( cell *c,CSTR_rast_attr *rst, CCOM_comp *cmp, INT scale)
 
  if( !cmp )
     return FALSE;
- 
- if (cmp->type != ch_great) 
+
+ if (cmp->type != ch_great)
  {
   ec.size     = sizeof(c_comp)+cmp->size_linerep +2;
   if( kit_curr+ec.size >= kit_end )
@@ -200,12 +200,12 @@ static void AttrCstr2Cell(cell *attr,CSTR_rast_attr *c)
         attr->flg    = c->flg ;
 
                 // проверка флагов - бывали бяки в сырой строке
-        if( attr->flg == c_f_solid || 
-                        attr->flg == c_f_confirmed  ) 
+        if( attr->flg == c_f_solid ||
+                        attr->flg == c_f_confirmed  )
                         attr->flg = c_f_bad;
 
                 if( attr->flg & c_f_dust )
-            attr->flg &= ~(c_f_punct|c_f_let|c_f_bad);  
+            attr->flg &= ~(c_f_punct|c_f_let|c_f_bad);
                 else if( attr->flg & c_f_punct )
               attr->flg &= ~(c_f_let|c_f_bad);
                 else if( attr->flg  & c_f_bad )
@@ -219,7 +219,7 @@ static void AttrCstr2Cell(cell *attr,CSTR_rast_attr *c)
         attr->recsource = c->recsource ;
         attr->history =   0;
         if( c->RecogHistory & CSTR_hi_evn)
-            attr->history |=    c_rs_ev;                
+            attr->history |=    c_rs_ev;
         if( c->RecogHistory & CSTR_hi_3x5)
             attr->history |=    c_rs_BOX;
         if( c->RecogHistory & CSTR_hi_3x5s )
@@ -240,10 +240,10 @@ static void AttrCstr2Cell(cell *attr,CSTR_rast_attr *c)
         attr->broken_II = c->broken_II ;
         attr->language = c->language ;
         attr->pos_inc  = c->pos_inc;
-                attr->clink    = c->clink; 
-                attr->clu_attr = c->clu_attr; 
-                attr->nClust   = c->nClust; 
-        attr->flg_new  = c->flg_new; 
+                attr->clink    = c->clink;
+                attr->clu_attr = c->clu_attr;
+                attr->nClust   = c->nClust;
+        attr->flg_new  = c->flg_new;
 		// Nick 20.02.2001
 		attr->cg_flag_fine = c->cg_flag_fine;
 
@@ -287,16 +287,16 @@ Int32 p2_Cstr2Cell( CSTR_line lin,CSTR_rast first,CSTR_rast last,Bool32 needVers
 
  if( first == NULL )
  {
-  if( lin == (CSTR_line)NULL ) 
+  if( lin == (CSTR_line)NULL )
           return 0;
 
   first=CSTR_GetFirstRaster(lin);
   last =CSTR_GetLastRaster (lin);
-  if(!first) 
+  if(!first)
           return 0;
-  
+
   first=CSTR_GetNext(first);
-  if(!first) 
+  if(!first)
           return 0;
  }
 
@@ -308,12 +308,12 @@ Int32 p2_Cstr2Cell( CSTR_line lin,CSTR_rast first,CSTR_rast last,Bool32 needVers
 
   if(cur.flg & disable )
           continue;
-  
+
   cmp=CSTR_GetComp(curr);
   CSTR_GetCollectionUni(curr,&evn);
   if( (cur.flg&CSTR_f_space) && evn.lnAltCnt )
     {
-    c2=new_cell();   
+    c2=new_cell();
     c2->nvers=1;
     c2->row=c2->col=c2->r_row=c2->r_col=c2->w=c2->h=0;
     c2->flg=c_f_space;
@@ -333,29 +333,29 @@ Int32 p2_Cstr2Cell( CSTR_line lin,CSTR_rast first,CSTR_rast last,Bool32 needVers
     c2->vers[0].prob = evn.Alt[0].Prob;
     next = c1->next;
     c1->next=next->prev=c2;
-    c2->next=next; c2->prev=c1; 
+    c2->next=next; c2->prev=c1;
     c1=c2;
     numCell++;
     continue;
     }
-  if( !cmp ) 
+  if( !cmp )
           continue;
 
   {  // test cmp - плохие не берем
       if ( (cmp->type&CCOM_CH_GREAT) || cmp->scale>2-1*0)
            continue;
-      if ( cur.h>PROPMAX*cur.w) 
+      if ( cur.h>PROPMAX*cur.w)
             continue;
-      if (!cmp->scale && (cur.w > RASTER_MAX_WIDTH ||  cur.h > RASTER_MAX_HEIGHT )     ) 
+      if (!cmp->scale && (cur.w > RASTER_MAX_WIDTH ||  cur.h > RASTER_MAX_HEIGHT )     )
             continue;
-      if ( cmp->scale && ((cur.w>>line_scale) > RASTER_MAX_WIDTH ||  
-                          (cur.h>>line_scale) > RASTER_MAX_HEIGHT )     ) 
+      if ( cmp->scale && ((cur.w>>line_scale) > RASTER_MAX_WIDTH ||
+                          (cur.h>>line_scale) > RASTER_MAX_HEIGHT )     )
             continue;
   }
 
 
   // проверим - есть ли место !
-  if( cmp && cmp->type != ch_great) 
+  if( cmp && cmp->type != ch_great)
   {
    // Nick 03.04.2002 если нет памяти
    if( kit_curr+sizeof(c_comp)+cmp->size_linerep +2 >= kit_end )
@@ -369,20 +369,20 @@ Int32 p2_Cstr2Cell( CSTR_line lin,CSTR_rast first,CSTR_rast last,Bool32 needVers
   c2->cg_flag=0;
   c2->dens=255;    // density not yet made by BOX
 
-  
+
     if(! p2_accept_Cell(c2,&cur, cmp, line_scale) )//(BOOL)(cmp->scale!=0)) )
-        { 
+        {
           free_cell(c2);  // нельзя del_cell() если не было insert_cell()
           break;
         }
 
-    if(c2->env) 
+    if(c2->env)
         c2->env->scale=cmp->scale;
-  
+
 
   AttrCstr2Cell(c2,&cur);
 
-  if(c2->env) 
+  if(c2->env)
     {
     c2->env->upper=c2->r_row;
     c2->env->left =c2->r_col;
@@ -422,15 +422,15 @@ Int32 p2_Cstr2Cell( CSTR_line lin,CSTR_rast first,CSTR_rast last,Bool32 needVers
 
           c2->nvers=0;
   }
-  
-  if( !needVers && (c2->flg & c_f_punct) )    
+
+  if( !needVers && (c2->flg & c_f_punct) )
     {
     if( c2->h<CCOM_DUST_SIZE )
       c2->flg = c_f_dust;
     else
       c2->flg = c_f_bad;
     }
-  
+
   p2_insert_cell(c2,c1);
   c1=c2;
 
@@ -444,7 +444,7 @@ Int32 p2_Cstr2Cell( CSTR_line lin,CSTR_rast first,CSTR_rast last,Bool32 needVers
  //c2=cell_l();
  //c1->next=c1->nextl=c2;
  //c2->prev=c2->prevl=c1;
- 
+
 
  return numCell;
 }
@@ -460,7 +460,7 @@ static void p2_CopyAttr2CSTR(CSTR_rast_attr *attr, cell *c)
         attr->r_col = c->r_col   ;
 
   //attr->row=attr->r_row-(INT)((LONG)nIncline*attr->r_col/2048);
-  //attr->col=attr->r_col+(INT)((LONG)nIncline*attr->r_row/2048);        
+  //attr->col=attr->r_col+(INT)((LONG)nIncline*attr->r_row/2048);
         attr->row=c->row;
         attr->col=c->col;
 
@@ -475,9 +475,9 @@ static void p2_CopyAttr2CSTR(CSTR_rast_attr *attr, cell *c)
         attr->cpos  = c->cpos   ;
         attr->bas_acc= c->bas_acc   ;
         attr->dlang_dup = c->dlang_dup; // oleg
-                attr->flg    = (BYTE) c->flg; 
+                attr->flg    = (BYTE) c->flg;
                 if( attr->flg & CSTR_f_dust )
-            attr->flg &= ~(CSTR_f_punct|CSTR_f_let|CSTR_f_bad);  
+            attr->flg &= ~(CSTR_f_punct|CSTR_f_let|CSTR_f_bad);
                 else if( attr->flg & CSTR_f_punct )
               attr->flg &= ~(CSTR_f_let|CSTR_f_bad);
                 else if( attr->flg  & CSTR_f_let )
@@ -491,7 +491,7 @@ static void p2_CopyAttr2CSTR(CSTR_rast_attr *attr, cell *c)
         attr->recsource = c->recsource ;
         attr->RecogHistory = CSTR_hi_none  ;
         if( c->history & c_rs_ev)
-            attr->RecogHistory |= CSTR_hi_evn   ;                
+            attr->RecogHistory |= CSTR_hi_evn   ;
         if( c->history & c_rs_BOX)
             attr->RecogHistory |= CSTR_hi_3x5   ;
         if( c->history & c_rs_BOXs )
@@ -512,14 +512,14 @@ static void p2_CopyAttr2CSTR(CSTR_rast_attr *attr, cell *c)
         attr->broken_II = c->broken_II ;
         attr->language = c->language ;
         attr->pos_inc  = c->pos_inc;
-        attr->clink    = c->clink; 
-                attr->clu_attr = c->clu_attr; 
-                attr->nClust   = c->nClust; 
+        attr->clink    = c->clink;
+                attr->clu_attr = c->clu_attr;
+                attr->nClust   = c->nClust;
 
         attr->n_baton=c->n_baton;
         if( c->n_baton!=NO_BATONS )
             memcpy(attr->save_baton,c->save_baton,c->n_baton*sizeof(STICK));
-        attr->flg_new  = c->flg_new; 
+        attr->flg_new  = c->flg_new;
 		// Nick 20.02.2001
 		attr->cg_flag_fine = c->cg_flag_fine;
 
@@ -543,7 +543,7 @@ UniVersions     uvs;
    {
    cc = *c;
    // don't take dust  !
-   if( c->flg_new & c_fn_temp ) 
+   if( c->flg_new & c_fn_temp )
     continue;
    if( c->flg & c_f_space  )
     {
@@ -555,19 +555,19 @@ UniVersions     uvs;
         switch( c->vers[0].let )
             {
             case    SS_NEG_HALF_SPACE:
-                uvs.Alt[0].Code[0]=0;    
+                uvs.Alt[0].Code[0]=0;
                 uvs.Alt[0].Liga   =SS_NEG_HALF_SPACE;
                 uvs.Alt[0].Prob   =75;
                 break;
             case    SS_POS_HALF_SPACE:
                 uvs.Alt[0].Code[0]=' ';
-                uvs.Alt[0].Code[1]=0;    
+                uvs.Alt[0].Code[1]=0;
                 uvs.Alt[0].Liga   =SS_POS_HALF_SPACE;
                 uvs.Alt[0].Prob   =150;
                 break;
             case    SS_SPACE         :
                 uvs.Alt[0].Code[0]=' ';
-                uvs.Alt[0].Code[1]=0;    
+                uvs.Alt[0].Code[1]=0;
                 uvs.Alt[0].Liga   =SS_SPACE;
                 uvs.Alt[0].Prob   =254;
                 break;
@@ -579,7 +579,7 @@ UniVersions     uvs;
     }
 
     // don't take dust  ?
-    //if( c->flg & c_f_dust ) 
+    //if( c->flg & c_f_dust )
         //      continue;
 
     if( attrlin.Flags & CSTR_STR_SCALED )
@@ -644,13 +644,13 @@ int p2_checkLeoCase(void)
 		// Nick 13.06.2001
 		for(i=0;i<c->nvers;i++)
 		{
-			if( c->vers[i].let == save_vers[0].let || 
+			if( c->vers[i].let == save_vers[0].let ||
 				c->vers[i].let == save_vers[1].let
 			  )
 			  break;
         }
 
-		if( i >= c->nvers) 
+		if( i >= c->nvers)
 		{
 			for(j=REC_MAX_VERS-1;j>=2;j--)
 				c->vers[j]=c->vers[j-2];
@@ -710,14 +710,14 @@ static void p2_TestAccent()
 
  for(c=cell_f()->nextl; c != NULL; c=c->nextl)
  {
-   if(c->flg & c_f_bad) 
+   if(c->flg & c_f_bad)
            continue;
    if( c->nvers <= 0 || c->vers[0].prob == 0)
            continue;
 
    // i_bottom_accent часто без точки!
-   if( !(language == LANG_LITHUANIAN && c->vers[0].let == i_bottom_accent ) && 
-       !strchr(accents,c->vers[0].let) 
+   if( !(language == LANG_LITHUANIAN && c->vers[0].let == i_bottom_accent ) &&
+       !strchr(accents,c->vers[0].let)
 	 )
            continue;
 
@@ -728,9 +728,9 @@ static void p2_TestAccent()
 
    estletter(c,NULL);
 
-   if( 
+   if(
 	   ( c->nvers <= 0 || c->vers[0].prob < vers[0].prob -20 ) //c->vers[0].let  != 'j' )
-     ) 
+     )
    {
 	   c->nvers=savNum;
 	   c->flg = savFlg;
@@ -748,8 +748,8 @@ void r_criteria(cell *c, const s_glue * gl);         // difrv
 cell cc=*BC;
  if( language==LANG_RUSSIAN )
  {
-  cc.nvers = 1; 
-  cc.vers[0].let =let; 
+  cc.nvers = 1;
+  cc.vers[0].let =let;
   cc.vers[0].prob=prob;
   cc.vers[1].let=cc.vers[1].prob=0;
   r_criteria(&cc,GL);
@@ -761,7 +761,7 @@ cell cc=*BC;
  return MIN(40,prob - cc.vers[0].prob);
 }
 /////////////////////
-#define POROG_GOOD_LEO 220  
+#define POROG_GOOD_LEO 220
 // распознать cell - по FON (+LEO)
 INT estletter(cell * BC,s_glue * GL)
 {
@@ -774,17 +774,17 @@ int nClust=0;
 
   vers.lnAltCnt = 0;
 
-#ifdef _USE_PASS2_  
+#ifdef _USE_PASS2_
 
 #ifdef _USE_GLUE_BOX_
   // not empty list ?
-  if( GL && 
+  if( GL &&
 	  ( GL->complist[0] == NULL || GL->complist[1] == NULL )
     )
 	GL = NULL;
 
 
-  if( GL ) 
+  if( GL )
       nClust = recogGlueRaster( GL, &vers );
 
   else
@@ -808,12 +808,12 @@ int nClust=0;
   for(i=0;i<vers.lnAltCnt;i++)
   {
     if( // Макры для лиг 10.09.2000 E.P.
-		liga_i == vers.Alt[i].Code || 
+		liga_i == vers.Alt[i].Code ||
 		language == LANG_TURKISH &&  // 30.05.2002 E.P.
-			(vers.Alt[i].Code==i_sans_accent||vers.Alt[i].Code==II_dot_accent) 
+			(vers.Alt[i].Code==i_sans_accent||vers.Alt[i].Code==II_dot_accent)
 		||
-		liga_exm == vers.Alt[i].Code || 
-		strchr("|!1li",vers.Alt[i].Code) 
+		liga_exm == vers.Alt[i].Code ||
+		strchr("|!1li",vers.Alt[i].Code)
 	  )
 
     {
@@ -882,7 +882,7 @@ void make_all_cuts( void);
 void make_all_glues(void);
 
  // set global variables
- p2_SetP2Globals(p2glob); 
+ p2_SetP2Globals(p2glob);
 // очистим результаты предыдущего распознавания
 
   // delete cell_f() -> next & s.o.
@@ -892,7 +892,7 @@ void make_all_glues(void);
  if( p2_Cstr2Cell( (CSTR_line)NULL, first, last, FALSE, CSTR_f_space) <= 0 )
  { // удалим старое содержимое lineFon
   first=CSTR_GetFirstRaster(lineFon);
-  for(last=CSTR_GetNext(first);last;last=CSTR_GetNext(first))  
+  for(last=CSTR_GetNext(first);last;last=CSTR_GetNext(first))
           CSTR_DelRaster(last);
   return 0;
  }
@@ -911,7 +911,7 @@ void make_all_glues(void);
 
   cuts_point_methode = sv;
 
- // в результате разрезания/склейки 
+ // в результате разрезания/склейки
  // к буквам могут быть приклеены куски
   p2_TestAccent();
  }
@@ -939,7 +939,7 @@ void make_all_glues(void);
 
   // удалим старое содержимое lineFon
   first=CSTR_GetFirstRaster(lineFon);
-  for(last=CSTR_GetNext(first);last;last=CSTR_GetNext(first))  
+  for(last=CSTR_GetNext(first);last;last=CSTR_GetNext(first))
           CSTR_DelRaster(last);
 
   // распознанное ->  в lineFon
@@ -947,7 +947,7 @@ void make_all_glues(void);
 
   // delete cell_f() ->
   clear_cells();
-  p2_GetP2Globals(p2glob); 
+  p2_GetP2Globals(p2glob);
   return 1;
 }
 ///////////////////////
@@ -986,14 +986,14 @@ Int32 p2_setBasLines(CSTR_line lineIn)
  minrow=(INT)lineAttr.l_row;
  if( minr==32000 )
     minr=minrow;
- 
+
  bbs1  =lineAttr.bs1;//+minrow-minr;
  bbs2  =lineAttr.bs2;//+minrow-minr;
  bbs3  =lineAttr.bs3;//+minrow-minr;
  bbs4  =lineAttr.bs4;//+minrow-minr;
 
  bbsm =lineAttr.bsm;
- 
+
 /* not need !!!!
  if( line_readyBL==TRUE&& lineAttr.tab_number )
      {
@@ -1018,7 +1018,7 @@ Int32 p2_setBasLines(CSTR_line lineIn)
 
 
  bs_got = 1;   // set for faragev's sticks_in_letter()
-    
+
     bsdust_ps = Ps;
     i = bbs2 - (bbs3-bbs2)/2;
     bsdust_upper = MIN(i,bbs1) - 2 + minrow;
@@ -1078,7 +1078,7 @@ Int32 p2_GetP2Globals(P2GLOBALS *p2globals)
 	  p2globals->nIncline = nIncline;
 
 	  p2globals->cuts_point_methode = cuts_point_methode;
-      p2globals->langBul = langBul;  // Nick 13.09.2000 
+      p2globals->langBul = langBul;  // Nick 13.09.2000
 
 
 	  return 1;
@@ -1099,7 +1099,7 @@ Int32 p2_SetP2Globals(P2GLOBALS *p2globals)
 	  nIncline = p2globals->nIncline;
 
 	  cuts_point_methode = p2globals->cuts_point_methode;
-      langBul = p2globals->langBul;  // Nick 13.09.2000 
+      langBul = p2globals->langBul;  // Nick 13.09.2000
 
 
 	  return 1;
@@ -1123,7 +1123,7 @@ if( v->lnAltCnt>1 && v->Alt[0].Prob==v->Alt[1].Prob )
         c1 = v->Alt[1].Code;
     a0 = v->Alt[0];
         a1 = v->Alt[1];
-    
+
         for(n1=n0=i=0;i<v->lnAltCnt; i++)
                 {
                 n0 += (v->Alt[i].Code==c0);
@@ -1135,7 +1135,7 @@ if( v->lnAltCnt>1 && v->Alt[0].Prob==v->Alt[1].Prob )
                 //a1.Code=c0 ;
         v->Alt[0]=a1;
                 v->Alt[1]=a0;
-        
+
                 }
         }
 return v->lnAltCnt;
@@ -1168,12 +1168,12 @@ void p2_FillTxt(CSTR_line cc,char *intxt,BOOL ansi)
     CSTR_rast first=CSTR_GetFirstRaster(cc);
     CSTR_rast last=CSTR_GetLastRaster(cc);
     if(!first) return;
-    p2_TextWord(CSTR_GetNext(first),last,intxt,ansi);   
+    p2_TextWord(CSTR_GetNext(first),last,intxt,ansi);
 }
 //////////////////////////////
 Bool32 p2_Line2Raster(c_comp *comp, RecRaster *rec)
 {
-#ifdef _USE_PASS2_  
+#ifdef _USE_PASS2_
 Word8 *lp;
 Int16 *lt;
 
@@ -1199,7 +1199,7 @@ Bool32 p2_LEOSetupField(char *letInfo,Int32 nFont,FontInfo *fontinfo)
   Word8   asciiName;
 
     fs.nStyle = LS_PRINT;
-    for(;*aa;aa++) 
+    for(;*aa;aa++)
         {
                 // get only unknown for FONT
           asciiName=stdAnsiToAscii(*aa);
@@ -1234,12 +1234,12 @@ Bool32 p2_LEORecog(RecObject *ro)
 #endif
 }
 ///////////////
-void	p2_init		(void) 
+void	p2_init		(void)
 {
-#ifdef _USE_PASS2_  
+#ifdef _USE_PASS2_
 	P2_SetRSTR( p2_RecogCutGlu,
                 p2_SetP2Alphabet,p2_GetCodePage,p2_DecodeCode,
-                p2_NoStopSnapLEO, 
+                p2_NoStopSnapLEO,
 				snap_monitor_ori, snap_activity, snap_show_text,
                 _spell,
 				p2_LEOSetupPage,
@@ -1258,13 +1258,13 @@ static Bool32 p2_twin(BYTE ch)
 {
  if( language==LANG_RUSSIAN )
  {
-  if(memchr(non_twin,ch,sizeof non_twin)) 
+  if(memchr(non_twin,ch,sizeof non_twin))
 	 return FALSE;
   if( ch >= 128 && ch < 192 || ch >= 224 && ch < 240 )
 	 return TRUE;
  }
 
- if( memchr(lat_twins,ch,sizeof lat_twins)) 
+ if( memchr(lat_twins,ch,sizeof lat_twins))
    return TRUE;
  return FALSE;
 }
@@ -1486,7 +1486,7 @@ static int CheckCluHeights(int heiUp, int heiDn, int basUp, int basDn)
 	{
 		// по размерам
      if( heiUp > 0 && heiDn > 0 &&  heiUp > heiDn )
-	 {   
+	 {
 		 if(  c->h  < heiUp -1 )
 		 {
 			 c->vers[0].let = twinName;
@@ -1500,16 +1500,16 @@ static int CheckCluHeights(int heiUp, int heiDn, int basUp, int basDn)
       )
     {
 
-	 // по соседу - для й Й 	
+	 // по соседу - для й Й
 	 if	(!(ch & v_bs1) || !(chTwin & v_bs2) )
 	 {
 		 if( language != LANG_RUSSIAN || name != 137 )
 		       continue;
 
 		 prev = c->prevl;
-         
+
 		 if( prev && (prev->flg & c_f_let) &&
-			 (c->col - prev->col -prev->w)*4 < c->w 
+			 (c->col - prev->col -prev->w)*4 < c->w
 		   )
 		 {
 			 // после маленькой - маленькая
@@ -1523,7 +1523,7 @@ static int CheckCluHeights(int heiUp, int heiDn, int basUp, int basDn)
 		 continue;
 	 }
 
-    // только по положению 
+    // только по положению
 	 if( basUp >= 0 && basDn >= 0 &&  basDn >= basUp )
 	 {
 			if( (c->row-basUp) * 2 <= (basDn-c->row) )
@@ -1539,14 +1539,14 @@ static int CheckCluHeights(int heiUp, int heiDn, int basUp, int basDn)
 			}
 
 	 }
-       
+
 	 continue;
 	}
 
 
     // по размерам
     if( heiUp > 0 && heiDn > 0 &&  heiUp > heiDn )
-	{   
+	{
 		 if( (heiUp - c->h)*2 <= (c->h - heiDn) )
 		 {
 			 c->vers[0].let = name;
@@ -1564,7 +1564,7 @@ static int CheckCluHeights(int heiUp, int heiDn, int basUp, int basDn)
 	// по положению
 	if( (ch & v_bs1) && (chTwin & v_bs2) &&
 		basUp >= 0 && basDn >= 0 &&  basDn >= basUp )
-	{   
+	{
 		    if( (c->row-basUp) * 2 <= (basDn-c->row) )
 			{
 			 c->vers[0].let = name;
@@ -1611,9 +1611,9 @@ static int CheckCluSosed(int basUp, int basDn)
 	if( p2_twin(name) )
 		continue;
 
-    if( ch & v_bs1 ) 
+    if( ch & v_bs1 )
 		prevB1 = c->row;
-	 else if( ch & v_bs2 ) 
+	 else if( ch & v_bs2 )
 		prevB2 = c->row;
 
 	 if(IsBigLetter(name))
@@ -1637,9 +1637,9 @@ static int CheckCluSosed(int basUp, int basDn)
 
 	if( !p2_twin(name) )
 	{
-     if( ch & v_bs1 ) 
+     if( ch & v_bs1 )
 		prevB1 = c->row;
-	 else if( ch & v_bs2 ) 
+	 else if( ch & v_bs2 )
 		prevB2 = c->row;
 
 	 if(IsBigLetter(name))
@@ -1676,23 +1676,23 @@ static int CheckCluSosed(int basUp, int basDn)
 		IsSmallLetter(twinName )
       )
     {
-		if( prevHei1 < 0 ) 
+		if( prevHei1 < 0 )
 			  prevHei1 = (prevHei2*4)/3;
 		if( prevHei2 < 0 )
 			prevHei2 = (prevHei1*3)/4;
 
 		if( (prevHei1 - c->h)*2 <= c->h - prevHei2 )
 		{
-			if( ch & v_bs1 ) 
+			if( ch & v_bs1 )
 			  prevB1 = c->row;
 			prevHei1 = c->h;
 			c->vers[0].let = name;
 			continue;
 		}
-		 
+
 		else if( prevHei1 - c->h >= (c->h - prevHei2)*2 )
 		{
-			if( chTwin & v_bs2 ) 
+			if( chTwin & v_bs2 )
 			 prevB2 = c->row;
 			prevHei2 = c->h;
 			c->vers[0].let = twinName;
@@ -1700,10 +1700,10 @@ static int CheckCluSosed(int basUp, int basDn)
         }
 	}
 
-    //  по положению 
-		
+    //  по положению
+
 	 if	( (ch & v_bs1) && (chTwin & v_bs2) &&
-		  ( prevB1 > 0 || prevB2 > 0 ) 
+		  ( prevB1 > 0 || prevB2 > 0 )
 		)
 	 {
 		 if( prevB1 <0 )
@@ -1720,9 +1720,9 @@ static int CheckCluSosed(int basUp, int basDn)
 	name = c->vers[0].let;
     ch = let_lindef[name];
 
-    if( ch & v_bs1 ) 
+    if( ch & v_bs1 )
 		prevB1 = c->row;
-	else if( ch & v_bs2 ) 
+	else if( ch & v_bs2 )
 		prevB2 = c->row;
 
 	if(IsBigLetter(name))
@@ -1749,7 +1749,7 @@ static int Progib(int *hhh,int GreyLev,POIS *pois, int threshPlato,
 
  for(numPoi=0,dimPlato=0,lefth=-1,i=1;i<GreyLev;i++)
   {
-    
+
 	if(hhh[i] >= hhh[i-1])
 	  {
 	   if(spusk == 0 )
@@ -1761,13 +1761,13 @@ static int Progib(int *hhh,int GreyLev,POIS *pois, int threshPlato,
        if( prommin == -1 || hhh[i-1] <= hhh[prommin] )
 	     {
 		   int j,k;
-		   // count the same   
-		   for(j=i, k=1;j<GreyLev;j++,k++) 
+		   // count the same
+		   for(j=i, k=1;j<GreyLev;j++,k++)
 		     if( hhh[j] != hhh[i-1] ) break;
-           
-		   if( prommin == -1 || 
-			   hhh[i-1] < hhh[prommin] || 
-		       k >= dimPlato 
+
+		   if( prommin == -1 ||
+			   hhh[i-1] < hhh[prommin] ||
+		       k >= dimPlato
              )
 		   {
 		     prommin = i-1;
@@ -1776,26 +1776,26 @@ static int Progib(int *hhh,int GreyLev,POIS *pois, int threshPlato,
 
            i=MAX(i,j-1);
 		   continue;
-		 } 
+		 }
 	  }
 	else
 	  {
 		if(spusk ) continue;
 		spusk = 0xFF;                /* local maximum */
-		if(lefth == -1 ) 
+		if(lefth == -1 )
 		{
 		   if( hhh[i-1] > 0 )
 		     lefth = i-1;
 		   continue;
 		}
 
-	    if( prommin!=-1 && hhh[i-1] > hhh[prommin] && 
-			hhh[prommin] < threshMin 
+	    if( prommin!=-1 && hhh[i-1] > hhh[prommin] &&
+			hhh[prommin] < threshMin
 		  )
 	    {
 		 // not too near ?
          if( i-1 - lefth > threshPlato )
-         {  // add point 
+         {  // add point
 #ifdef _TESTPROM_
 			 // same point ?
             if( numPoi > 0 && prommin+(dimPlato/2) == pois[numPoi-1].poi )
@@ -1811,7 +1811,7 @@ static int Progib(int *hhh,int GreyLev,POIS *pois, int threshPlato,
 			dimPlato = 0;
 			continue;
 #endif
-         } 
+         }
 		}
 		  /* right higher then left */
 		if(hhh[i-1] >= hhh[lefth])
@@ -1820,11 +1820,11 @@ static int Progib(int *hhh,int GreyLev,POIS *pois, int threshPlato,
 			prommin=-1;
 			dimPlato = 0;
 		}
-	}   // end else 
+	}   // end else
   }
 		 // study last point
  if( prommin != -1  && lefth != -1 && hhh[GreyLev-1] > hhh[prommin] &&
-	 hhh[prommin] < threshMin 
+	 hhh[prommin] < threshMin
    )
   {
     if( GreyLev - 1 - lefth > threshPlato )
@@ -1844,7 +1844,7 @@ static int Progib(int *hhh,int GreyLev,POIS *pois, int threshPlato,
 }
 /*************************/
 
-static int CheckSizes(int *heiUp, int *heiDn, 
+static int CheckSizes(int *heiUp, int *heiDn,
 					  ParamRecogSize *parUp,
 					  ParamRecogSize *parDn,
 					  int *bufHei, int minSize
@@ -1875,18 +1875,18 @@ static int CheckSizes(int *heiUp, int *heiDn,
 		return best;
 	}
 
-    // 
+    //
 	start = MIN(parDn->sizeMin, parUp->sizeMin);
 	end   = MAX(parDn->sizeMax, parUp->sizeMax);
 	buf = bufHei + start;
-	
+
 	numPoi = Progib(buf, end-start+1, pois, 1, minSize);
 	for(i=0;i<numPoi;i++)
 		pois[i].poi += start;
 
 	for(i=0, best=-1;i<numPoi;i++)
 	{
-       if( pois[i].poi > parDn->sizeMin && 
+       if( pois[i].poi > parDn->sizeMin &&
 		   pois[i].poi < parUp->sizeMax &&
 		   (
 		    best == -1 ||
@@ -1923,7 +1923,7 @@ static int CheckSizes(int *heiUp, int *heiDn,
 }
 ////////////////////
 
-static int CheckBases(int *basUp, int *basDn, 
+static int CheckBases(int *basUp, int *basDn,
 					  ParamRecogSize *parUp,
 					  ParamRecogSize *parDn,
 					  int *bufHei, int minbase
@@ -1944,7 +1944,7 @@ static int CheckBases(int *basUp, int *basDn,
 	if( *basUp > 0 && *basDn > 0 )
 	{
      medium = (*basUp+*basDn)/2;
-     medium -= minbase; 
+     medium -= minbase;
 
 	 for (i=parUp->basMax+1-minbase, best=-1; i < parDn->basMin-minbase;i++)
 	 {
@@ -1958,19 +1958,19 @@ static int CheckBases(int *basUp, int *basDn,
 		return best+minbase;
 	}
 
-    // 
+    //
 	start = MIN(parDn->basMin, parUp->basMin)-minbase;
 	end   = MAX(parDn->basMax, parUp->basMax)-minbase;
 
 	buf = bufHei + start;
-	
+
 	numPoi = Progib(buf, end-start+1, pois, 1, 1);
 	for(i=0;i<numPoi;i++)
 		pois[i].poi += start+minbase;
 
 	for(i=0, best=-1;i<numPoi;i++)
 	{
-       if( pois[i].poi >= parUp->basMin && 
+       if( pois[i].poi >= parUp->basMin &&
 		   pois[i].poi <= parDn->basMax &&
 		   (
 		    best == -1 ||
@@ -2030,8 +2030,8 @@ static int UpDownByHeights(int heiUp, int heiDn)
 	if( p2_twin(name) )
 	{
 
-     if( !IsBigLetter((Word8)(is_upper(name)?name:to_upper(name))) || 
-		 !IsSmallLetter((Word8)(is_lower(name)?name:(Word8)to_lower(name))) 
+     if( !IsBigLetter((Word8)(is_upper(name)?name:to_upper(name))) ||
+		 !IsSmallLetter((Word8)(is_lower(name)?name:(Word8)to_lower(name)))
 		)
 		 continue;
 
@@ -2111,7 +2111,7 @@ static int AntiUpBase(int basDn)
 
  // if (numUp > 0 ) ????
   if( numUp > 0 &&
-	  numUp >= numDn + numTwin 
+	  numUp >= numDn + numTwin
 	 )
 	  return 1;
 
@@ -2126,7 +2126,7 @@ static int AntiUpBase(int basDn)
 // Nbi = 99 - искусственная линия, только под #ifdef UFA
 // Иначе - чем больше Nb1, тем надежнее.
 // Не предусмотрено, а если в строке действительно 127,128 символов?
-// 
+//
 //
 static int p2_checkUpperLower(void)
 {
@@ -2152,13 +2152,13 @@ static int p2_checkUpperLower(void)
  int heiUp, heiDn;
  int basUp, basDn;
 
- int bound; 
+ int bound;
 
  BYTE sav_lang=language;
 
  // на втором проходе языки могут смешиваться!
  if( language == LANG_ENGLISH && multy_language )
-     language = LANG_RUSSIAN;  
+     language = LANG_RUSSIAN;
 
  memset(bufHeight,0,MAXHEI*sizeof(int));
  memset(bufBase,0,MAXHEI*sizeof(int));
@@ -2241,7 +2241,7 @@ static int p2_checkUpperLower(void)
 	{
       AddParamSize(&allDn,c,ch,ch & v_bs2,IsSmallLetter(name));
 
-      if( IsConfirmed ) 
+      if( IsConfirmed )
         AddParamSize(&downS, c, ch,ch & v_bs2,IsSmallLetter(name));
 
       if( IsNice )
@@ -2309,14 +2309,14 @@ static int p2_checkUpperLower(void)
 
 
   if( niceUp.num > 0 )
-	  basUp = niceUp.basMax; 
+	  basUp = niceUp.basMax;
   else if( upS.num > 0 )
-	  basUp = upS.basMax; 
+	  basUp = upS.basMax;
 
   if( niceDn.num > 0 )
-	  basDn = niceDn.basMin; 
+	  basDn = niceDn.basMin;
   else if( downS.num > 0 )
-	  basDn = downS.basMin; 
+	  basDn = downS.basMin;
 
   //  не противоречат?
   //  сначала смотрим по очень хорошим Nick 06.08.2001
@@ -2351,7 +2351,7 @@ static int p2_checkUpperLower(void)
 			(heiUp - heiDn)*3 > heiDn
 		)
 		bound = (heiUp+heiDn)/2;
-	  else	
+	  else
          bound = CheckSizes(&heiUp,&heiDn,
 	           niceUp.sizeNum>0?&niceUp:upS.sizeNum>0?&upS:&allUp,
 			   niceDn.sizeNum>0?&niceDn:downS.sizeNum>0?&downS:&allDn, bufHeight, 1 );
@@ -2470,11 +2470,11 @@ static int p2_checkUpperLower(void)
    if( niceUp.sizeNum > 0  && niceUp.num > niceUp.twin +1 &&
 	   niceDn.num <= 0
 	 )
-	 basUp = niceUp.basMax; 
+	 basUp = niceUp.basMax;
    else if( niceDn.sizeNum > 0 && niceDn.sizeNum > 0  && niceDn.num > niceDn.twin +1 &&
 	   niceUp.num <= 0
 	 )
-	 basDn = niceDn.basMin; 
+	 basDn = niceDn.basMin;
   }
 
   if( basUp < 0 )
@@ -2489,7 +2489,7 @@ static int p2_checkUpperLower(void)
   }
 
   // проверим базы - вдруг у нас многобазовость !
-  // много несоответсвий 
+  // много несоответсвий
   if( basDn >= 0 && AntiUpBase(basDn) )
 	  return -1;
 
@@ -2510,7 +2510,7 @@ static int p2_checkUpperLower(void)
 }
 /////////////
 
-// склеить и распознавать на втором проходе 
+// склеить и распознавать на втором проходе
 static const Word8 mask[]={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
 
 static void StoreOneInterval( Word8 *raster, int b, int e)
@@ -2529,7 +2529,7 @@ int i;
 static int addRaster(c_comp *w, Word8 *raster,
 					 int bytesx,
 					 int startx, int starty
-					 ) 
+					 )
 {
  lnhead * lp;
  interval *ip;
@@ -2538,7 +2538,7 @@ static int addRaster(c_comp *w, Word8 *raster,
  int wid = bytesx<<3;
 
  w = (c_comp *)((PBYTE)w + w->lines);
- lpool_lth=*(PINT)w; 
+ lpool_lth=*(PINT)w;
  w=(c_comp *)((PINT)w+1);
 
  lpool_lth -= sizeof(INT);
@@ -2546,14 +2546,14 @@ static int addRaster(c_comp *w, Word8 *raster,
  lp = (lnhead *)w;
  while ( lp->lth )
  {
-   pp = raster + (starty+lp->row) * bytesx; 
+   pp = raster + (starty+lp->row) * bytesx;
 
    ip = (interval *) (lp+1);
    for( ; ip!= NULL && ip->l > 0 ; ip++, pp += bytesx)
    {
-	 StoreOneInterval( pp, 
-		   MAX(0, startx + ip->e - ip->l),    
-		   MIN(wid , startx + ip->e) 
+	 StoreOneInterval( pp,
+		   MAX(0, startx + ip->e - ip->l),
+		   MIN(wid , startx + ip->e)
 		   );
 
    }
@@ -2570,12 +2570,12 @@ static int recogGlueRaster( const s_glue * gl,
 c_comp		*cp;
 int			right,bottom,left,upper,wb;
 RecRaster   recRast={0};
-FonSpecInfo specinfo; 
+FonSpecInfo specinfo;
 int		i;
 
-    left=upper=30000; 
-	right=bottom=0; 
-	
+    left=upper=30000;
+	right=bottom=0;
+
 	i=0;
     while((cp = gl->complist[i++]) != NULL)
 	{
@@ -2605,7 +2605,7 @@ int		i;
     i=0;
     while((cp = gl->complist[i++]) != NULL)
 	{
-		addRaster(cp, recRast.Raster, wb, 
+		addRaster(cp, recRast.Raster, wb,
 				  cp->left - left,
 			      cp->upper - upper
 				  );

@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -122,7 +122,7 @@ CRecognition::CRecognition()
 	bIsLoad = FALSE;
 	bIsOpen = FALSE;
 	hThread = NULL;
-	DllRegisterServer(); //Âîññòàíàâëèâàåì èíôîðìàöèþ îá id èíòåðôåéñîâ â ðååñòðå, 
+	DllRegisterServer(); //Âîññòàíàâëèâàåì èíôîðìàöèþ îá id èíòåðôåéñîâ â ðååñòðå,
 	//à òî îíà ñëåòàåò, åñëè çàðåãèñòðèðîâàòü 2 pum'û,à ïîòîì îäíó ðàçðåãèñòðèðîâàòü.
 }
 
@@ -148,7 +148,7 @@ void CRecognition::SetError(char * str)
 {
 	USES_CONVERSION;
 	ICreateErrorInfo * pErr;
-	IErrorInfo *perrinfo;    
+	IErrorInfo *perrinfo;
 	HRESULT hr;
 
 	if(CreateErrorInfo(&pErr)==S_OK)
@@ -157,11 +157,11 @@ void CRecognition::SetError(char * str)
 		pErr->SetGUID(IID_IRecognition);
 		pErr->SetSource(T2OLE("Cognitive.Tiger"));
 		hr = pErr->QueryInterface(IID_IErrorInfo, (LPVOID FAR*) &perrinfo);
-		if (SUCCEEDED(hr))    
-		{ 
+		if (SUCCEEDED(hr))
+		{
 			SetErrorInfo(0, perrinfo);
-			perrinfo->Release();    
-		}    
+			perrinfo->Release();
+		}
 		pErr->Release();
 	}
 	RCODE_EXCEPTION;
@@ -169,7 +169,7 @@ void CRecognition::SetError(char * str)
 
 STDMETHODIMP CRecognition::InterfaceSupportsErrorInfo(REFIID riid)
 {
-	static const IID* arr[] = 
+	static const IID* arr[] =
 	{
 		&IID_IRecognition
 	};
@@ -538,7 +538,7 @@ STDMETHODIMP CRecognition::Load(BOOL *rc)
 	{
 //		SetError(IDS_ERROR_SYSTEM);
 	}
-	
+
 	LeaveCriticalSection(&Critical);
 	return RCODE_VAL;
 }
@@ -625,7 +625,7 @@ STDMETHODIMP CRecognition::RecogDIBtoMemory(long hDIB,long *lphMem, short Format
 		 if(f)
 		 {
 			UINT size = _filelength(f->_file);
-			
+
 			*lphMem = (long)GlobalAlloc(GMEM_MOVEABLE|GMEM_DDESHARE,size+1);
 			if(*lphMem)
 			{
@@ -642,7 +642,7 @@ STDMETHODIMP CRecognition::RecogDIBtoMemory(long hDIB,long *lphMem, short Format
 				}
 			GlobalUnlock((HANDLE)*lphMem);
 			}
-			else 
+			else
 			{
 				SetError(IDS_ERROR_NOMEMORY);
 				*rc = FALSE;
@@ -679,7 +679,7 @@ STDMETHODIMP CRecognition::RecogClipboard(BOOL *rc)
 	HANDLE hDIB = GetClipboardData(CF_DIB);
 	if(hDIB)
 	{
-		RecogDIBtoMemory((long)hDIB, (long *)&hMem, 2, 2,rc); 
+		RecogDIBtoMemory((long)hDIB, (long *)&hMem, 2, 2,rc);
 		if(*rc)
 		{
 			EmptyClipboard();
@@ -959,8 +959,8 @@ STDMETHODIMP CRecognition::GetFormatString(long code, BSTR * lpstr)
 #undef CASE_FORMAT
 	default:
 			SetError(IDS_ERROR_NORESOURCE);
-	}	
-	
+	}
+
 	return RCODE_VAL;
 }
 
@@ -994,7 +994,7 @@ STDMETHODIMP CRecognition::GetCodeString(long code, BSTR *lpstr)
 #elif defined(__PUMA__)
 	#define CASE_CODE(code) case PUMA##code: if(LoadString(_Module.GetResourceInstance(),IDS##code,szName,sizeof(szName)))\
 		{ *lpstr = T2BSTR(szName); } else {SetError(IDS_ERROR_NORESOURCE);} break;
-#endif 
+#endif
 	CASE_CODE( _CODE_UNKNOWN );
 	CASE_CODE( _CODE_ASCII );
 	CASE_CODE( _CODE_ANSI  );
@@ -1257,17 +1257,17 @@ STDMETHODIMP CRecognition::XSetTemplate(long nLeft, long nTop, long nRight, long
 	RCODE_CLEAR;
 	#if defined(__PUMA__)
 	__try {
-		Rect32 rect = {nLeft, nTop, nRight, nBottom};	
-		*rc = LPUMA_XSetTemplate(rect);		
+		Rect32 rect = {nLeft, nTop, nRight, nBottom};
+		*rc = LPUMA_XSetTemplate(rect);
 	}
 	__except(PassException(GetExceptionInformation()))
 	{
 //		SetError(IDS_ERROR_SYSTEM);
 	}
-	#else	
+	#else
 		*rc = FALSE;
-		SetError(IDS_ERR_NOTIMPLEMENT);	
-	#endif	
+		SetError(IDS_ERR_NOTIMPLEMENT);
+	#endif
 	return RCODE_VAL;
 }
 //////////////////////////////////////////////////////////////////////////////
@@ -1318,15 +1318,15 @@ STDMETHODIMP CRecognition::get_CurrentEdPage(long *pVal)
 	RCODE_CLEAR;
 	#if defined(__PUMA__)
 	__try {
-		*pVal = (long)LPUMA_GetCurrentEdPage();		
+		*pVal = (long)LPUMA_GetCurrentEdPage();
 	}
 	__except(PassException(GetExceptionInformation()))
 	{
 //		SetError(IDS_ERROR_SYSTEM);
 	}
-	#else	
-		SetError(IDS_ERR_NOTIMPLEMENT);	
-	#endif	
+	#else
+		SetError(IDS_ERR_NOTIMPLEMENT);
+	#endif
 	return RCODE_VAL;
 }
 
@@ -1335,15 +1335,15 @@ STDMETHODIMP CRecognition::put_CurrentEdPage(long newVal)
 	RCODE_CLEAR;
 	#if defined(__PUMA__)
 	__try {
-		LPUMA_SetCurrentEdPage((void *)newVal);		
+		LPUMA_SetCurrentEdPage((void *)newVal);
 	}
 	__except(PassException(GetExceptionInformation()))
 	{
 //		SetError(IDS_ERROR_SYSTEM);
 	}
-	#else	
-		SetError(IDS_ERR_NOTIMPLEMENT);	
-	#endif	
+	#else
+		SetError(IDS_ERR_NOTIMPLEMENT);
+	#endif
 	return RCODE_VAL;
 }
 
@@ -1352,15 +1352,15 @@ STDMETHODIMP CRecognition::get_PreserveLineBreaks(BOOL *pVal)
 	RCODE_CLEAR;
 	#if defined(__PUMA__)
 	__try {
-		*pVal = LPUMA_GetPreserveLineBreaks();		
+		*pVal = LPUMA_GetPreserveLineBreaks();
 	}
 	__except(PassException(GetExceptionInformation()))
 	{
 //		SetError(IDS_ERROR_SYSTEM);
 	}
-	#else	
-		SetError(IDS_ERR_NOTIMPLEMENT);	
-	#endif	
+	#else
+		SetError(IDS_ERR_NOTIMPLEMENT);
+	#endif
 	return RCODE_VAL;
 }
 
@@ -1369,15 +1369,15 @@ STDMETHODIMP CRecognition::put_PreserveLineBreaks(BOOL newVal)
 	RCODE_CLEAR;
 	#if defined(__PUMA__)
 	__try {
-		LPUMA_SetPreserveLineBreaks(newVal);		
+		LPUMA_SetPreserveLineBreaks(newVal);
 	}
 	__except(PassException(GetExceptionInformation()))
 	{
 //		SetError(IDS_ERROR_SYSTEM);
 	}
-	#else	
-		SetError(IDS_ERR_NOTIMPLEMENT);	
-	#endif	
+	#else
+		SetError(IDS_ERR_NOTIMPLEMENT);
+	#endif
 	return RCODE_VAL;
 }
 
@@ -1429,7 +1429,7 @@ STDMETHODIMP CRecognition::SaveToBSTR(long hEdPage, long format, long code, BSTR
 //		SetError(IDS_ERROR_SYSTEM);
 	}
 #else
-		SetError(IDS_ERR_NOTIMPLEMENT);	
+		SetError(IDS_ERR_NOTIMPLEMENT);
 #endif
 	LeaveCriticalSection(&Critical);
 	return RCODE_VAL;
@@ -1440,15 +1440,15 @@ STDMETHODIMP CRecognition::DeleteEdPage(long hEdPage)
 	RCODE_CLEAR;
 	#if defined(__PUMA__)
 	__try {
-		LCED_DeletePage((Handle)hEdPage);		
+		LCED_DeletePage((Handle)hEdPage);
 	}
 	__except(PassException(GetExceptionInformation()))
 	{
 //		SetError(IDS_ERROR_SYSTEM);
 	}
-	#else	
-		SetError(IDS_ERR_NOTIMPLEMENT);	
-	#endif	
+	#else
+		SetError(IDS_ERR_NOTIMPLEMENT);
+	#endif
 	return RCODE_VAL;
 }
 
@@ -1475,7 +1475,7 @@ STDMETHODIMP CRecognition::XGetTemplate(long *lpnLeft, long *lpnTop, long *lpnRi
 	RCODE_CLEAR;
 	#if defined(__PUMA__)
 	__try {
-		Rect32 rect;	
+		Rect32 rect;
 		*rc = LPUMA_XGetTemplate(&rect);
 		*lpnLeft=rect.left; *lpnTop=rect.top; *lpnRight=rect.right; *lpnBottom=rect.bottom;
 	}
@@ -1483,9 +1483,9 @@ STDMETHODIMP CRecognition::XGetTemplate(long *lpnLeft, long *lpnTop, long *lpnRi
 	{
 //		SetError(IDS_ERROR_SYSTEM);
 	}
-	#else	
+	#else
 		*rc = FALSE;
-		SetError(IDS_ERR_NOTIMPLEMENT);	
-	#endif	
+		SetError(IDS_ERR_NOTIMPLEMENT);
+	#endif
 	return RCODE_VAL;
 }

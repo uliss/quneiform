@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -91,9 +91,9 @@ static CHAR diff_curv = 0;   // always !
 
 static INT change_vote = 0;  // only ++, never more used !
 
-static INT ncut_cells=0;  // static 
-static INT ncut_vers=0;   // static 
-static INT ntot_cells=0;  // static 
+static INT ncut_cells=0;  // static
+static INT ncut_vers=0;   // static
+static INT ntot_cells=0;  // static
 
 //////////////////
 
@@ -291,7 +291,7 @@ void interdif(cell *P, cell *N, cell *B1)
    case  0: B1->bdiff = (CHAR)wdn  ; goto retcv;
  }
 
-  
+
 
  interpol:
  if (wdp==wdn) {B1->bdiff=(CHAR)wdn; goto retcv; }
@@ -409,7 +409,7 @@ static INT cut_by_posf(cell *C, BYTE chr, INT wp, BYTE flg, BYTE arg)
 
   if (flg==1)
   {
-    top=C->row-minrow; 
+    top=C->row-minrow;
 	bot=top+C->h;
     db=C->bdiff;
     def_locbas(C);
@@ -714,7 +714,7 @@ INT cut_by_posu(cell *C, BYTE chr, INT wp, BYTE flg, BYTE arg)
   int pen_up,pen_dn;
 
   // Nick 31.01.2001
-  // Если базовые линии - совершенно ненадежны, ничего по 
+  // Если базовые линии - совершенно ненадежны, ничего по
   // ним не резать !
   if( (Nb1 == 128 || Nb1 <=0) && (Nb2 == 128 || Nb2 <=0) &&
 	  (Nb3 == 128 || Nb3 <=0)
@@ -774,7 +774,7 @@ INT cut_by_posu(cell *C, BYTE chr, INT wp, BYTE flg, BYTE arg)
     pen_dn=ptd1[j];
     break;
    case 2:
-    if (Nb3>0 )            // OLEG for under cells 
+    if (Nb3>0 )            // OLEG for under cells
      { if (cpsau(bot-b3+((C->flg_new&c_fn_under)?1:0)) < 3) goto cut; }
     if (Nb4<=0) break;
     if ((i=cpsu(b4-bot)) < 0) break;
@@ -789,7 +789,7 @@ INT cut_by_posu(cell *C, BYTE chr, INT wp, BYTE flg, BYTE arg)
      i++;
     pen_dn=ptd3[i]; break;
    case 4:
-    if (Nb3>0)           
+    if (Nb3>0)
      { if (cpsau(bot-b3) > 3) goto cut; }
     if (Nb4>0)
      { if (cpsu(b4-bot) < 4) goto cut; }
@@ -1047,7 +1047,7 @@ INT levcut(cell *C, INT arg)
  version  *v0;
  BYTE  chr, surviver;
 
- top=C->row-minrow; 
+ top=C->row-minrow;
  bot=top+C->h;
  db=C->bdiff;
  flcv = 0;
@@ -1104,10 +1104,10 @@ INT levcut(cell *C, INT arg)
  { version *v0; BYTE chr;
    for (v0=C->vers; (chr=v0->let) !=0; v0++)
    {
-     if(! memchr("LTJ()<>[]trI1l!/",chr,16) && 
-		 (chr!=liga_i) && 
+     if(! memchr("LTJ()<>[]trI1l!/",chr,16) &&
+		 (chr!=liga_i) &&
 		 !(language == LANG_TURKISH &&  // 30.05.2002 E.P.
-			(chr==i_sans_accent||chr==II_dot_accent) 
+			(chr==i_sans_accent||chr==II_dot_accent)
 		  ) &&
 		 (chr!=liga_inv_exm)
 	   )
@@ -1269,7 +1269,7 @@ static INT dust_to_let()
  }
 
 /////////////////////////////
-// добавить мелочь из lin_str (if arg==0) 
+// добавить мелочь из lin_str (if arg==0)
 // проверить буквы -> мусор и наоборот
 // linbam.c
 void bring_dust(INT arg)

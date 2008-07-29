@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -88,7 +88,7 @@ static HWND h_found=NULL;
 //---Из секции колонок---
 WORD NumCol;
 int SizeSectionCol;
-Int16 *NumStr;//[nc] 
+Int16 *NumStr;//[nc]
 Word32 *UserNumber;//[nc]
 Word32 *FragFlag;//[nc]
 SRECT *BndCol;//[nc]
@@ -254,8 +254,8 @@ int CalcStatTiger(void)
       for(ns=0; ns <= NumStr[nc]; ++ns)
         for(nw=0; nw < TitleStr[nc][ns].S_Gen.S_NumWord; ++nw)
           for(nz=0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz)
-          { 
-											 ZN *z=&Zn[nc][ns][nw][nz]; 
+          {
+											 ZN *z=&Zn[nc][ns][nw][nz];
 												SRECT *r=&z->Title.Z_Rect;
             if(numL >= maxL)
             { int MaxOld=maxL*sizeof(int); maxL*=2;
@@ -265,7 +265,7 @@ int CalcStatTiger(void)
           }
     if(numL > 0)           //ALIK 01.05.99
 					  Statist(Low,numL,&ave,&sig,&SizeYGlob,&mod,0);
-    else 
+    else
 					  return -1;
   }
   // -- расчет колонных размеров --
@@ -360,7 +360,7 @@ int CalcStatTiger(void)
       { med=1; Statist(Low,numL,&ave,&sig,&med,&mod,0);
         StatCol[nc].stat_str[ns].dy=med;
       }
-      else 
+      else
 				StatCol[nc].stat_str[ns].dy=StatCol[nc].dy_Low;
       #ifdef DRAWxxxx
       if(viz && (numU || numB1))
@@ -404,8 +404,8 @@ int CalcStatTiger(void)
       }
     }
   }
-  free_m(Upp); 
-	free_m(Low); 
+  free_m(Upp);
+	free_m(Low);
 	free_m(arrB1);
 	return 0;
 }
@@ -414,7 +414,7 @@ int CalcStatTiger(void)
 //Int16 ScanResolution
 //Int16 NumCol,NumZ,NumW,NumS - числа колонок, знакомест, слов и строк in all page
 //Int16 MonoSpaceAllPage - distance between left margin letters-neighdoors from one word
-//Int16 HeiStrAllPage - distance between top margin 
+//Int16 HeiStrAllPage - distance between top margin
 //Fragm[0], ..., Fragm[NumCol-1] фрагменты
 //  Fragm[nf]: один фрагмент
 //    Rect16 RectFragm
@@ -434,7 +434,7 @@ int CalcStatTiger(void)
 //                  Alt[nf][ns][nw][nz][na] одна альтернатива
 //                    BYTE Code код
 //                    BYTE Prob  вероятность
-//                    BYTE Spell check end string for - 
+//                    BYTE Spell check end string for -
 //                    BYTE Base  base number чтобы задавать шрифты для таблицы шрифтов RTF (семейство + имя)
 
 // -------  paragraphs mark --------
@@ -465,7 +465,7 @@ short __cdecl  OpenFullOutTiger(char *FileName)
 
  fread_m(&ScanResolution,sizeof(WORD),1,in);
  fread_m(&NumCol,sizeof(WORD),1,in);
- fread_m(&NumZ,sizeof(WORD),1,in); 
+ fread_m(&NumZ,sizeof(WORD),1,in);
  fread_m(&NumW,sizeof(WORD),1,in);
  fread_m(&NumS,sizeof(WORD),1,in);
 
@@ -485,7 +485,7 @@ short __cdecl  OpenFullOutTiger(char *FileName)
 	if(NumCol)
 	{
 		NumStr    = (Int16*)malloc_m(NumCol*sizeof(Int16));
-		StatCol   = (STAT_COL*)malloc_m(NumCol*sizeof(STAT_COL)); 
+		StatCol   = (STAT_COL*)malloc_m(NumCol*sizeof(STAT_COL));
 		if(NumStr==NULL||StatCol==NULL)
 		{
 
@@ -502,14 +502,14 @@ short __cdecl  OpenFullOutTiger(char *FileName)
 //#ifdef alDebug
 //		if(dets)	{ ConsMess("OpenFullOutTiger  str2375 NumCol=0"); }
 //#endif
-  goto BadReturn;		
-	} 
+  goto BadReturn;
+	}
 
- BndCol     = (SRECT*)malloc_m(NumCol * sizeof(SRECT));  
+ BndCol     = (SRECT*)malloc_m(NumCol * sizeof(SRECT));
  UserNumber = (Word32*)malloc_m(NumCol*sizeof(Word32));
  FragFlag   = (Word32*)malloc_m(NumCol*sizeof(Word32));
- 
- RectFragm = (Rect16*)malloc_m(NumCol*sizeof(Rect16)); 
+
+ RectFragm = (Rect16*)malloc_m(NumCol*sizeof(Rect16));
 
  if(BndCol==NULL||UserNumber==NULL||RectFragm==NULL)
 	{
@@ -519,7 +519,7 @@ short __cdecl  OpenFullOutTiger(char *FileName)
   goto BadReturn;
 	}
  // *********** РАССЧИТАТЬ slope,SizeXGlob,SizeYGlob + OneColStat *********
-	
+
 	{
 		int fl;                //---Calculate Common Size Section Zn---
   long lenZn,lenWord,lenStr,NumT=NumCol;
@@ -554,11 +554,11 @@ short __cdecl  OpenFullOutTiger(char *FileName)
 
  for(nc=0; nc < NumCol; ++nc)
 	{
-  fread_m(&RectFragm[nc],1,sizeof(Rect16),in);   
+  fread_m(&RectFragm[nc],1,sizeof(Rect16),in);
 	 // *********** РАСЧЕТ КОЛОННОЙ СТАТИСТИКИ *************
-  fread_m(&NumStr[nc],sizeof(Int16),1,in); 
-  fread_m(&UserNumber[nc],sizeof(Word32),1,in); 
-  fread_m(&FragFlag[nc],sizeof(Word32),1,in); 
+  fread_m(&NumStr[nc],sizeof(Int16),1,in);
+  fread_m(&UserNumber[nc],sizeof(Word32),1,in);
+  fread_m(&FragFlag[nc],sizeof(Word32),1,in);
 
   Zn[nc]=(ZN***)Submalloc((NumStr[nc])*sizeof(ZN**),&SubZn);
   TitleStr[nc]=(TITLE_STR*)Submalloc((NumStr[nc])*sizeof(TITLE_STR),&SubZn);
@@ -566,10 +566,10 @@ short __cdecl  OpenFullOutTiger(char *FileName)
   if(Zn[nc]==NULL||TitleStr[nc]==NULL||TitleWord[nc]==NULL)
    goto BadReturn;
   --NumStr[nc];
-  
+
 		for(ns=0; ns <= NumStr[nc]; ++ns)
 		{
-			TITLE_STR *t = &TitleStr[nc][ns]; 
+			TITLE_STR *t = &TitleStr[nc][ns];
 			Int16        tmp;
 
 			t->Z_Code = 2;
@@ -578,13 +578,13 @@ short __cdecl  OpenFullOutTiger(char *FileName)
 			//fread_m(&t->S_Rect,sizeof(SRECT),1,in);             // 4 base lines,?
 			readSRECT(&t->S_Rect, in);
 			//exchange : top,bottom - standard, left,right - extern
-			tmp              = t->S_Rect.right; 
-			t->S_Rect.right  = t->S_Rect.bottom; 
-			t->S_Rect.bottom = tmp;  
+			tmp              = t->S_Rect.right;
+			t->S_Rect.right  = t->S_Rect.bottom;
+			t->S_Rect.bottom = tmp;
 			//Реальные коор. строки!
 			//fread_m(&t->S_Real_Rect,sizeof(SRECT),1,in);
 			readSRECT(&t->S_Real_Rect, in);
-			fread_m(&tmp,2,1,in); 
+			fread_m(&tmp,2,1,in);
 			t->S_Gen.S_NumWord = tmp;               // NumWrd
 
 			fread_m(&t->S_Flags,sizeof(t->S_Flags),1,in); //NEGA_STR
@@ -593,31 +593,31 @@ short __cdecl  OpenFullOutTiger(char *FileName)
 			k_word            = TitleStr[nc][ns].S_Gen.S_NumWord-1;
 			Zn[nc][ns]        = (ZN**)        Submalloc((k_word+1)*sizeof(ZN*),&SubZn);
 			TitleWord[nc][ns] = (TITLE_WORD*) Submalloc((k_word+1)*sizeof(TITLE_WORD),&SubZn);
-			if(Zn[nc][ns] == NULL || TitleWord[nc][ns] == NULL)  
+			if(Zn[nc][ns] == NULL || TitleWord[nc][ns] == NULL)
 				goto BadReturn;
 
  			for(nw=0; nw <= k_word; ++nw)
 			{
 				TITLE_WORD *tw=&TitleWord[nc][ns][nw];
-				
+
 				tw->Z_Code=1;
-				fread_m(&tmp, sizeof(Int16), 1, in); 
+				fread_m(&tmp, sizeof(Int16), 1, in);
 				tw->W_Gen.W_NumSym=tmp;// NumZn
 				k_z=tw->W_Gen.W_NumSym-1;
-      
-				fread_m(&tmp, sizeof(Int16), 1, in); 
+
+				fread_m(&tmp, sizeof(Int16), 1, in);
 				tw->W_Gen.FontNumber=(WORD)tmp;
 
-				fread_m(&tmp, sizeof(Int16), 1, in); 
+				fread_m(&tmp, sizeof(Int16), 1, in);
 				tw->W_Gen.FontSize=(WORD)tmp;
-    
-				if((Zn[nc][ns][nw]=(ZN*)Submalloc((k_z+1)*sizeof(ZN),&SubZn))==NULL) 
+
+				if((Zn[nc][ns][nw]=(ZN*)Submalloc((k_z+1)*sizeof(ZN),&SubZn))==NULL)
 					goto BadReturn;
 
 				for(nz=0; nz <= k_z; ++nz)
 				{
-					ZN        *z  = &Zn[nc][ns][nw][nz]; 
-					TITLE_ZN  *tz = &z->Title; 
+					ZN        *z  = &Zn[nc][ns][nw][nz];
+					TITLE_ZN  *tz = &z->Title;
 					Int16     num;
 #pragma pack(1)
 					//   struct RECT_TIGER {int top,left,bottom,right;} rect;
@@ -645,7 +645,7 @@ short __cdecl  OpenFullOutTiger(char *FileName)
 						if(i < REC_MAX_VERS)
 						{
 							ALT_ZN *Alt =&z->Alt[i];
-							Alt->a_Code =alt1.let;  
+							Alt->a_Code =alt1.let;
 							Alt->a_Prob =alt1.prob;
 							Alt->a_Dist=(float)(alt1.prob/256.);
 						}
@@ -702,7 +702,7 @@ int PASC CorrTiger(char *FileNameFul,char *FileNameOut,char *FilePar,int fl_cor)
     if(viz) viz=fl_cor;
   #endif
   if(fl_cor)
-  { 
+  {
 		//if((fl=InitSpell(FilePar,3,PLAIN))!=0)
 		//	return fl-50;
     //if((fl=Init_FeatLet()) != 0)
@@ -729,16 +729,16 @@ int FreeStructFull(void)
   char *err="FreeStructFull";
   #ifdef SUB_ZN
    do0(nc,0,NumCol)
-   { 
+   {
 		if(StatCol[nc].stat_str) free_m(StatCol[nc].stat_str);
-     
-   } 
+
+   }
 	 free_m(StatCol);
 	 DeleteSubAlloc(&SubZn);
   #else
    //---Секция знакомест---
    do0(nc,0,NumCol)
-   { 
+   {
 		 if(StatCol[nc].stat_str) free_m(StatCol[nc].stat_str);
 		 do0(ns,0,NumStr[nc])
      { kw=TitleStr[nc][ns].S_Gen.S_NumWord-1;
@@ -765,7 +765,7 @@ int FreeStructFull(void)
 	 free_m(TitleWord);
 	 free_m(TitleStr);
   #endif
-  
+
   #ifdef CMP
     free_m(CoorComp);
   #endif
@@ -813,8 +813,8 @@ int FreeStructFull(void)
   char *fnexts_m(FILE1 *f, char *buf);
 
 	static int findname(char *sect, char *key, char *res)
-  { 
-		if(Regim==REWIND) 
+  {
+		if(Regim==REWIND)
 			    fseek_m(f03, 0l, SEEK_SET);
 
     while (fnexts_m(f03, buf03))
@@ -838,7 +838,7 @@ int FreeStructFull(void)
     return 0;
   }
   static int findnameNoSect(char *sect, char *key, char *res)
-  { 
+  {
 		while (fnexts_m(f03, buf03))
     { if (*buf03 == ';' || *buf03 == 0) ;
       else if (*buf03 == '[') break;
@@ -926,7 +926,7 @@ int OpenFullOut(char *FileName)
   long K_MultiComp=1000,NumW,NumS;
   if((in=fopen_m(FileName,OF_READ)) == NULL) return -1;
   //ВВОД ЗАГОЛОВКА ФАЙЛА .ful
-  fread_m(&TitleFul,sizeof(TITLE_FUL),1,in); 
+  fread_m(&TitleFul,sizeof(TITLE_FUL),1,in);
   #ifdef CMP
     CoorComp=(COOR_COMP*)malloc_m((K_MultiComp+1)*sizeof(COOR_COMP));
     NumComp=-1L;
@@ -1514,7 +1514,7 @@ int OpenFullOut(char *FileName)
         }
       }
     }
-  } 
+  }
   fclose_m(in); return 0;
 }*/// !!! Art - устарело
 
@@ -1708,7 +1708,7 @@ int TstNameOwr(uchar LastCod,uchar FirstCod)
   if(Upper[(int)FirstCod]==0) return 0;
   else if(EndSentence[(int)LastCod]==1) return 1;
   else return -1;
-} 
+}
 */ // !!! Art - устарело
 /*// !!! Art - устарело
 #define MAX_LEN 50 //max число знаков в параметре
@@ -1765,8 +1765,8 @@ void PASC CloseOneSpell(void)
 int PASC InitSpell(char *PathName,int cod,int TypeDoc)
 //===========
 {
- #if defined (WIN_MOD) && !defined (TIGER_CORR) 
-	FILE1 *f; 
+ #if defined (WIN_MOD) && !defined (TIGER_CORR)
+	FILE1 *f;
   int OpenFlag;
  #endif
   if(PathName == NULL)
@@ -1944,9 +1944,9 @@ void close_f03(void)
 //          in=K_Clust;
 //        }
 //        else if(act[in] == 0) //Create new Cluster
-//        { 
+//        {
 //					ClustOCR[++K_Clust]=(BYTE*)malloc_m(strlen_m((char*)s)+strlen_m((char*)ClustOCR[in])+2);
-//          strcpy_m((char*)ClustOCR[K_Clust],(char*)ClustOCR[in]); 
+//          strcpy_m((char*)ClustOCR[K_Clust],(char*)ClustOCR[in]);
 //					strcat((char*)ClustOCR[K_Clust],(char*)s);
 //          act[in]=K_Clust; in=K_Clust;
 //        }
@@ -1969,7 +1969,7 @@ void close_f03(void)
 //		if(K_Clust>=0)
 //		{
 //		  do0(i,0,K_Clust) free_m(ClustOCR[i]);
-//    } 
+//    }
 //    free_m(ClustOCR);
 //    free_m(str);
 //		free_m(act);

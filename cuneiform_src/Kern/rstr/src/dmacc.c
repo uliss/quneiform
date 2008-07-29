@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -198,7 +198,7 @@ INT try_cut_top_accent(cell *C1, B_LINES *my_bases, INT flag)
 	 !(let=='I' && language==LANG_LATVIAN) &&
 
 	 // Попытка отрезать точку от I1. 30.05.2002 E.P.
-	 !(memchr("I1",let,2) && language==LANG_TURKISH) 
+	 !(memchr("I1",let,2) && language==LANG_TURKISH)
 	)
 	return 0;
 
@@ -216,10 +216,10 @@ INT try_cut_top_accent(cell *C1, B_LINES *my_bases, INT flag)
 		(
 		is_baltic_language(language) ||
 		is_turkish_language(language) // Ради точки над I, i_sans_accent 30.05.2002 E.P.
-		)?5:4) ) 
-	  )- 
+		)?5:4) )
+	  )-
 	   ((dh<=my_bases->ps/2)?1:0)
-		>= cr 
+		>= cr
 		||
 		C1->vers[0].prob>=PROBOK &&
         (
@@ -297,15 +297,15 @@ INT try_cut_top_accent(cell *C1, B_LINES *my_bases, INT flag)
 		!is_baltic_language(language) && // 17.07.2001 E.P.
 		!is_turkish_language(language) && (	// 30.05.2002 E.P.
 		!is_cen_language(language) && (
-			chr==i_left_accent ||  
+			chr==i_left_accent ||
 		    chr==i_2dot_accent ||
-		    chr==II_left_accent ||  
+		    chr==II_left_accent ||
 		    chr==II_2dot_accent
 			) ||
 		   chr==i_right_accent  ||
-		   chr==i_roof_accent   ||  
+		   chr==i_roof_accent   ||
 		   chr==II_right_accent ||
-		   chr==II_roof_accent	
+		   chr==II_roof_accent
 		) ||
 
 		is_baltic_palka(chr) ||	// Балтийские палки. 10.07.2001 E.P.
@@ -324,22 +324,22 @@ INT try_cut_top_accent(cell *C1, B_LINES *my_bases, INT flag)
    chr = C1->vers[0].let;
    if (prob>=PROBOK &&
        (let=='d' &&
-     
+
 		 // Конфликтные коды 17.07.2001 E.P.
 		 !is_baltic_language(language) && (	// 17.07.2001 E.P.
 		 chr==a_right_accent || chr==u_left_accent ||
 
 		 // Конфликтные коды 07.09.2000 E.P.
-		 !is_cen_language(language) && 
+		 !is_cen_language(language) &&
 			(chr==a_left_accent || chr==a_circle_accent)
 		) ||
 
 		(let=='O' || let=='0') &&
-		 (chr==u_2dot_accent || 
+		 (chr==u_2dot_accent ||
 
 		// Конфликтные коды // 07.09.2000 E.P.
-		!is_cen_language(language) && 
-			(chr==u_roof_accent || chr==UU_roof_accent) 
+		!is_cen_language(language) &&
+			(chr==u_roof_accent || chr==UU_roof_accent)
 	 ) ||
 	(let=='U' || let=='V') && let_sans_acc[chr]=='u' ||
 	// Конфликтные коды. 17.07.2001 E.P.
@@ -347,10 +347,10 @@ INT try_cut_top_accent(cell *C1, B_LINES *my_bases, INT flag)
 	let=='2' && chr==i_roof_accent ||
 	let=='8' && chr==o_roof_accent ||
 	let=='5' &&
-     (chr==a_right_accent || chr==a_roof_accent || 
+     (chr==a_right_accent || chr==a_roof_accent ||
 	  chr==o_right_accent || chr==o_roof_accent)
-	  ) || 
-	
+	  ) ||
+
 	  // От I согласен отрезать только roof_accent. 13.09.2000 E.P.
 	  is_cen_language(language) &&
 	  (let=='I' && chr!=II_roof_accent) ||
@@ -362,10 +362,10 @@ INT try_cut_top_accent(cell *C1, B_LINES *my_bases, INT flag)
 
 		  // Что может получиться, если от цифры отрезать акцент. 17.07.2001 E.P.
 		  let=='2' && chr==i_macron ||
-		  let=='8' && 
+		  let=='8' &&
 			( chr==o_tild_accent || chr==o_2dot_accent) ||
 		  let=='5' &&
-			(chr==a_2dot_accent || chr==a_macron || 
+			(chr==a_2dot_accent || chr==a_macron ||
 			 chr==o_tild_accent || chr==o_2dot_accent) ||
 
 		  // От чего не следует отрезать макрон над i
@@ -375,7 +375,7 @@ INT try_cut_top_accent(cell *C1, B_LINES *my_bases, INT flag)
 		// Запрещенные комбинации для турецкого:
 		// let - то что было, chr - что получилось после отрезания
 		is_turkish_language(language) &&
-		  ( 
+		  (
 		  // От I согласен отрезать точку либо roof_accent.
 		  let=='I' && chr != II_dot_accent && chr != II_roof_accent ||
 		  0
@@ -390,15 +390,15 @@ INT try_cut_top_accent(cell *C1, B_LINES *my_bases, INT flag)
 		!is_baltic_language(language) &&	// 17.07.2001 E.P.
 		!is_turkish_language(language) && (	// 30.05.2002 E.P.
 		!is_cen_language(language) && (
-			chr==i_left_accent ||  
+			chr==i_left_accent ||
 		    chr==i_2dot_accent ||
-		    chr==II_left_accent ||  
+		    chr==II_left_accent ||
 		    chr==II_2dot_accent
 			) ||
 	    chr==i_right_accent  ||
-        chr==i_roof_accent   ||  
+        chr==i_roof_accent   ||
 	    chr==II_right_accent ||
-        chr==II_roof_accent	
+        chr==II_roof_accent
 	    ) ||
 
 		is_baltic_palka(chr) ||	// Балтийские палки. 10.07.2001 E.P.
@@ -516,7 +516,7 @@ INT try_cut_bot_accent(cell *C1, B_LINES *my_bases, INT flag)
  let=C1->vers[0].let;
  prob=C1->vers[0].prob;
 
- if (language!=LANG_FRENCH		&& 
+ if (language!=LANG_FRENCH		&&
 	 language!=LANG_POLISH		&&
 	 language!=LANG_ROMAN		&&	// 08.09.2000 E.P.
 	 language!=LANG_LATVIAN		&&	// 10.07.2001 E.P.
@@ -556,7 +556,7 @@ INT try_cut_bot_accent(cell *C1, B_LINES *my_bases, INT flag)
 
    // too thin
    if ( language!=LANG_LATVIAN	  &&	// Для l_bottom_accent	10.07.2001 E.P.
-	    language!=LANG_LITHUANIAN &&	// Для Ii_bottom_accent 10.07.2001 E.P. 
+	    language!=LANG_LITHUANIAN &&	// Для Ii_bottom_accent 10.07.2001 E.P.
 	    language!=LANG_TURKISH &&		// Для II_dot_accent 30.05.2002 E.P.
 	    mh  > cw * 2 + (language==LANG_ROMAN? 2*cw:0)
 	  )
@@ -607,7 +607,7 @@ if (is_turkish_language(language))
  insert_cell(C1,I1);
  // est_snap(db_pass,I1,"new C1 inserted");
  // NOW line contains:  C1 (=LET), new_cells
- 
+
  est_snap(db_pass,C1,"try cut bot accent");	// 18.06.2002 E.P.
 
  recog_cell (C1);

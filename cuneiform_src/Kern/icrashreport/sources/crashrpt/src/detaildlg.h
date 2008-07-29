@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -92,41 +92,41 @@ LVCOLUMN _ListColumns[] =
    */
    {  // Column 1: File name
       LVCF_FMT | LVCF_ORDER | LVCF_SUBITEM | LVCF_TEXT | LVCF_WIDTH,
-      LVCFMT_LEFT, 
-      114, 
-      (LPTSTR)IDS_NAME, 
-      0, 
-      0, 
-      0, 
+      LVCFMT_LEFT,
+      114,
+      (LPTSTR)IDS_NAME,
+      0,
+      0,
+      0,
       0
    },
    {  // Column 2: File description
-      LVCF_FMT | LVCF_ORDER | LVCF_SUBITEM | LVCF_TEXT | LVCF_WIDTH, 
-      LVCFMT_LEFT, 
-      150, 
-      (LPTSTR)IDS_DESC, 
-      0, 
-      1, 
-      0, 
+      LVCF_FMT | LVCF_ORDER | LVCF_SUBITEM | LVCF_TEXT | LVCF_WIDTH,
+      LVCFMT_LEFT,
+      150,
+      (LPTSTR)IDS_DESC,
+      0,
+      1,
+      0,
       1
    },
    {  // Column 3: File type
-      LVCF_FMT | LVCF_ORDER | LVCF_SUBITEM | LVCF_TEXT | LVCF_WIDTH, LVCFMT_LEFT, 
-      100, 
-      (LPTSTR)IDS_TYPE, 
-      0, 
-      2, 
-      0, 
+      LVCF_FMT | LVCF_ORDER | LVCF_SUBITEM | LVCF_TEXT | LVCF_WIDTH, LVCFMT_LEFT,
+      100,
+      (LPTSTR)IDS_TYPE,
+      0,
+      2,
+      0,
       2
    },
    {  // Column 4: File size
-      LVCF_FMT | LVCF_ORDER | LVCF_SUBITEM | LVCF_TEXT | LVCF_WIDTH, 
-      LVCFMT_RIGHT, 
-      100, 
-      (LPTSTR)IDS_SIZE, 
-      0, 
-      3, 
-      0, 
+      LVCF_FMT | LVCF_ORDER | LVCF_SUBITEM | LVCF_TEXT | LVCF_WIDTH,
+      LVCFMT_RIGHT,
+      100,
+      (LPTSTR)IDS_SIZE,
+      0,
+      3,
+      0,
       3
    },
 };
@@ -136,7 +136,7 @@ LVCOLUMN _ListColumns[] =
 
 // ===========================================================================
 // CDetailDlg
-// 
+//
 // See the module comment at top of file.
 //
 class CDetailDlg : public CDialogImpl<CDetailDlg>
@@ -146,7 +146,7 @@ public:
 
    TStrStrMap  *m_pUDFiles;      // File <name,desc>
    CImageList  m_iconList;       // Shell icon list
-   
+
 	BEGIN_MSG_MAP(CDetailDlg)
 		MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
       MESSAGE_HANDLER(WM_CTLCOLORSTATIC, OnCtlColor)
@@ -160,19 +160,19 @@ public:
    //-----------------------------------------------------------------------------
    // ~CDetailDlg
    //
-   // 
    //
-   ~CDetailDlg() 
+   //
+   ~CDetailDlg()
    {
       // Release shell icon list
       m_iconList.Detach();
    };
 
-	
+
    //-----------------------------------------------------------------------------
    // OnInitDialog
    //
-   // 
+   //
    //
    LRESULT OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 	{
@@ -181,8 +181,8 @@ public:
 	   // Add "About..." menu item to system menu.
 /*
 	   // IDM_ABOUTBOX must be in the system command range.
-      ATLASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX); 
-      ATLASSERT(IDM_ABOUTBOX < 0xF000); 
+      ATLASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
+      ATLASSERT(IDM_ABOUTBOX < 0xF000);
 
       CMenu sysMenu;
       sysMenu.Attach(GetSystemMenu(FALSE));
@@ -230,10 +230,10 @@ public:
       for (i = 0; i < sizeof(_ListColumns) / sizeof(LVCOLUMN); i++)
       {
          list.InsertColumn(
-            i, 
-            CString(_ListColumns[i].pszText), 
-            _ListColumns[i].fmt, 
-            _ListColumns[i].cx, 
+            i,
+            CString(_ListColumns[i].pszText),
+            _ListColumns[i].fmt,
+            _ListColumns[i].cx,
             _ListColumns[i].iSubItem);
       }
 
@@ -280,9 +280,9 @@ public:
 
       // Select first file
       ListView_SetItemState(
-         GetDlgItem(IDC_FILE_LIST), 
-         0, 
-         LVIS_SELECTED, 
+         GetDlgItem(IDC_FILE_LIST),
+         0,
+         LVIS_SELECTED,
          LVIS_SELECTED);
 
       list.Detach();
@@ -290,11 +290,11 @@ public:
       return TRUE;
 	}
 
-	
+
    //-----------------------------------------------------------------------------
    // OnSysCommand
    //
-   // 
+   //
    //
    LRESULT OnSysCommand(UINT, WPARAM wParam, LPARAM , BOOL& bHandled)
    {
@@ -326,11 +326,11 @@ public:
       return res;
    }
 
-	
+
    //-----------------------------------------------------------------------------
    // OnOK
    //
-   // 
+   //
    //
    LRESULT OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
@@ -338,7 +338,7 @@ public:
 		return 0;
 	}
 
-   
+
    //-----------------------------------------------------------------------------
    // OnItemChanged
    //
@@ -346,7 +346,7 @@ public:
    //
    LRESULT OnItemChanged(int /*idCtrl*/, LPNMHDR pnmh, BOOL& /*bHandled*/)
    {
-      LPNMLISTVIEW lpItem           = (LPNMLISTVIEW)pnmh; 
+      LPNMLISTVIEW lpItem           = (LPNMLISTVIEW)pnmh;
       int iItem                     = lpItem->iItem;
 
       if (lpItem->uChanged & LVIF_STATE
@@ -354,11 +354,11 @@ public:
       {
          SelectItem(iItem);
       }
-   
+
       return 0;
    }
 
-   
+
    //-----------------------------------------------------------------------------
    // OnItemDblClicked
    //
@@ -366,7 +366,7 @@ public:
    //
    LRESULT OnItemDblClicked(int /*idCtrl*/, LPNMHDR pnmh, BOOL& /*bHandled*/)
    {
-      LPNMLISTVIEW lpItem           = (LPNMLISTVIEW)pnmh; 
+      LPNMLISTVIEW lpItem           = (LPNMLISTVIEW)pnmh;
       int iItem                     = lpItem->iItem;
       DWORD_PTR dwRet               = 0;
 
@@ -377,11 +377,11 @@ public:
       for (int i = 0; i < iItem; i++, p++);
 
       dwRet = (DWORD_PTR)::ShellExecute(
-                              0, 
-                              _T("open"), 
+                              0,
+                              _T("open"),
                               p->first,
-                              0, 
-                              0, 
+                              0,
+                              0,
                               SW_SHOWNORMAL
                               );
       ATLASSERT(dwRet > 32);
@@ -389,7 +389,7 @@ public:
       return 0;
    }
 
-   
+
    //-----------------------------------------------------------------------------
    // SelectItem
    //
@@ -404,11 +404,11 @@ public:
       // Sanity check
       if (iItem < 0 || (int)m_pUDFiles->size() < iItem)
           return;
- 
+
       TStrStrMap::iterator p = m_pUDFiles->begin();
       for (int i = 0; i < iItem; i++, p++);
 
-      // 
+      //
       // Update preview header info
       //
       ::SetWindowText(GetDlgItem(IDC_NAME), p->first);

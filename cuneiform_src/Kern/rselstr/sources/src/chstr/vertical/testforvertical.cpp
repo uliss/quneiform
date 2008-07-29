@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -114,24 +114,24 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM,Handle hCPage,Rec
  GetPageInfo(hCPage,&info);
 
  int skew=info.Incline2048;
- 
+
  DPIX=info.DPIX;
  DPIY=info.DPIY;
  Word8 ImageName[CPAGE_MAXNAME];
 
- 
+
  inf_str_h=inf_str_h*((int)(DPIY)+1)/300;
  inf_str_w=inf_str_w*((int)(DPIY)+1)/300;
  inf_let_h=inf_let_h*((int)(DPIY)+1)/300;
  inf_betw_str_h=inf_betw_str_h*((int)(DPIY)+1)/300;
  min_let_w=min_let_w*((int)(DPIY)+1)/300;
  min_let_h=min_let_h*((int)(DPIY)+1)/300;
- 
+
  Word8* pmaspold;
  Word8* pmasp;
  Word8 Data[1000];
  memset (Data, 0, sizeof (Data));
- 
+
 
  CHstr* my_str=new CHstr;
  my_str->left=RC.left;
@@ -189,12 +189,12 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM,Handle hCPage,Rec
 	delete my_str;
        return FALSE;
   }
-  
+
   pRc[0].bottom=Rc.bottom;
   pRc[0].top=Rc.top;
   pRc[0].right=Rc.right;
   pRc[0].left=Rc.left;
-  
+
 
   pmaspold = Data;
   ret=GetMasP(hCPage,ImageName,Rc,&pmaspold);
@@ -225,7 +225,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM,Handle hCPage,Rec
        return FALSE;
   }
 
- 
+
   ToHorizont(pRc,pmasp,pmaspold);
   if(my_str->neg)
       Invert(pRc,pmasp);
@@ -235,7 +235,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM,Handle hCPage,Rec
   unrotRc.left=pRc[0].left;
   unrotRc.right=pRc[0].right;
 
-  
+
   if(!InitRotateMas(pRc[0],&begx,&movey,&flmovey))
 	  fl_rotate=FALSE;
   else
@@ -244,8 +244,8 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM,Handle hCPage,Rec
    fl_rotate=RSELSTR_RotateRaster(pmasp,-skew,&(pRc[0]),begx,movey,flmovey,inf_betw_str_h);
 //   if(fl_rotate)
 //   LDPUMA_ConsoleN("Time rotate=%d",clock()-time);
-  }   
-  
+  }
+
   int oldleft=pRc[0].top;
   if(!(RSELSTR_CutStr(&pRc,nRc,len_mas,pmasp,DPIX,DPIY,0)) )
   {
@@ -318,10 +318,10 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM,Handle hCPage,Rec
 
 
 
-  
+
 //Ðåçêà íà ñòðîêè ïî ãèïîòåçå ãîðèçîíòàëüíîñòè
 
-  my_str->vertical=FALSE; 
+  my_str->vertical=FALSE;
   nRc=1;
   len_mas=10;
   pRc=NULL;
@@ -338,12 +338,12 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM,Handle hCPage,Rec
 	   delete my_str;
        return FALSE;
   }
-  
+
   pRc[0].bottom=Rc.bottom;
   pRc[0].top=Rc.top;
   pRc[0].right=Rc.right;
   pRc[0].left=Rc.left;
-  
+
 
   pmaspold = Data;
   ret=GetMasP(hCPage,ImageName,Rc,&pmaspold);
@@ -356,7 +356,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM,Handle hCPage,Rec
        return FALSE;
   }
 
- 
+
   CopyP(pRc,pmasp,pmaspold);
   if(my_str->neg)
       Invert(pRc,pmasp);
@@ -366,7 +366,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM,Handle hCPage,Rec
   unrotRc.left=pRc[0].left;
   unrotRc.right=pRc[0].right;
 
-  
+
   if(!InitRotateMas(pRc[0],&begx,&movey,&flmovey))
 	  fl_rotate=FALSE;
   else
@@ -376,7 +376,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM,Handle hCPage,Rec
 //   if(fl_rotate)
 //    LDPUMA_ConsoleN("Time rotate=%d",clock()-time);
   }
-  
+
 
   if(!(RSELSTR_CutStr(&pRc,nRc,len_mas,pmasp,DPIX,DPIY,0)) )
   {
@@ -402,7 +402,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM,Handle hCPage,Rec
 	 {
       InitRotateMas(&(temp->hi),temp->nRc);
       RSELSTR_UnRotateRect(-skew,temp->pRc,temp->nRc,temp->unrotRc,temp->begx,temp->movey,temp->flmovey,temp->hi);
-	 }  
+	 }
 	 DelStrMas(pRc);
 	 delete[] pmasp;
 	 delete my_str;
@@ -428,7 +428,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM,Handle hCPage,Rec
 	 {
       InitRotateMas(&(temp->hi),temp->nRc);
       RSELSTR_UnRotateRect(-skew,temp->pRc,temp->nRc,temp->unrotRc,temp->begx,temp->movey,temp->flmovey,temp->hi);
-	 }  
+	 }
    // GF: killed memory leak on 2004.01.29
 	 DelStrMas(&pRc); pRc = NULL;
 	 delete[] pmasp;
@@ -455,7 +455,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM,Handle hCPage,Rec
 	 DeleteRotateMas(begx,movey,flmovey,hi);
 	 delete temp;
      return FALSE;
-  } 
+  }
 
 // LDPUMA_ConsoleN("Time work CHSTR=%d",clock()-TIME);
 }
@@ -477,7 +477,7 @@ CCOM_handle CreateContainer(Handle hCPage,CCOM_handle hCCOM_old,Rect16 Rc)
  CCOM_comp* comp=NULL;
  CCOM_comp* new_comp;
  comp=CCOM_GetFirst(hCCOM_old,Filter);
-                 
+
   while(comp)
   {
 	if(my_top-comp->upper<(comp->h>>1)&&comp->upper+comp->h-1-my_bottom<(comp->h>>1)&&my_left-comp->left<(comp->w>>1)&&comp->left+comp->w-1-my_right<(comp->w>>1))
@@ -493,12 +493,12 @@ CCOM_handle CreateContainer(Handle hCPage,CCOM_handle hCCOM_old,Rect16 Rc)
 		       CCOM_Delete(hCCOM_new,comp);
 		}
 	   }
-	
+
 	}
 	  comp=CCOM_GetNext(comp,Filter);
   }
 
-	  
+
   return hCCOM_new;
 }
 
@@ -675,7 +675,7 @@ BOOL AddToPrepList(CPrepHstr* temp)
 // temp->ImageName=NULL;
 // temp->movey=NULL;
  temp->pRc=NULL;
- 
+
  return TRUE;
 }
 
@@ -688,7 +688,7 @@ Bool32 Filter(Int32 upper, Int32 left, Int32 w, Int32 h)
 	{
 		return FALSE;
 	}
-	
+
 	return TRUE;
 }
 
@@ -842,7 +842,7 @@ int GetMinCol(CCOM_comp** pC,int nN,BOOL vert)
 
 BOOL MainVertDiagnostic(Handle hCPage,CCOM_handle hCCOM,CPrepHstr* temp,Rect16* pRc,int nRc,int param)
 {
- 
+
  PAGEINFO info = {0};
  GetPageInfo(hCPage,&info);
 
@@ -890,7 +890,7 @@ BOOL MainVertDiagnostic(Handle hCPage,CCOM_handle hCCOM,CPrepHstr* temp,Rect16* 
 	 return FALSE;
  if(nRc==0)
 	 return TRUE;
- 
+
  if(num<=temp->nRc)
  {
 	 return FALSE;
@@ -915,7 +915,7 @@ BOOL MainVertDiagnostic(Handle hCPage,CCOM_handle hCCOM,CPrepHstr* temp,Rect16* 
 
  if(temp->nRc==1)
  {
-     if(IfOneRowComp(HCCOM,Rect,TRUE)) 
+     if(IfOneRowComp(HCCOM,Rect,TRUE))
 	 {
          if(num>=2)
          {
@@ -962,7 +962,7 @@ BOOL MainVertDiagnostic(Handle hCPage,CCOM_handle hCCOM,CPrepHstr* temp,Rect16* 
 	 }
  }
 
- 
+
  Recstr.left=Rect.left;
  Recstr.right=Rect.right;
 

@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -209,34 +209,34 @@ void BlocksRemoveDescriptor (BLOCK *p)
 // ********************** Rom 23-02-99 ***************
 //void TryingAddBorderDust (BLOCK *p, ROOT *pRoot, Bool32 *WasExtendedUp, Bool32 *WasExtendedDown)
 void TryingAddBorderDust (BLOCK *p, ROOT *pRoot, Int32 *yTop,  Int32 *yBottom, Int32 *xLeft, Int32 *xRight)
-{	
+{
 
 	if (pRoot -> xColumn < p -> Rect.xLeft - p->nAverageHeight)
 		return;
 
 	if (pRoot -> xColumn + pRoot -> nWidth - 1 > p -> Rect.xRight + p->nAverageHeight)
 		return;
-	
+
 	if (pRoot -> yRow < p -> Rect.yTop - p->nAverageHeight)
 		return;
-	
+
 	if (pRoot -> yRow + pRoot -> nHeight - 1 > p -> Rect.yBottom + p->nAverageHeight/2)
 		return;
 
 	/*
 	if (pRoot -> xColumn < p -> Rect.xLeft)
 		p -> Rect.xLeft   = pRoot -> xColumn;
-	
+
 	if (pRoot -> xColumn + pRoot -> nWidth - 1 > p -> Rect.xRight)
 		p -> Rect.xRight  = pRoot -> xColumn + pRoot -> nWidth - 1;
-	
+
 	if (pRoot -> yRow < p -> Rect.yTop)
 		p -> Rect.yTop    = pRoot -> yRow;
-	
+
 	if (pRoot -> yRow + pRoot -> nHeight - 1 > p -> Rect.yBottom)
 		p -> Rect.yBottom = pRoot -> yRow + pRoot -> nHeight - 1;
 		*/
-    
+
 
 	pRoot -> nBlock = p -> nNumber;
 	//pRoot -> u1.pNext = p -> pRoots;
@@ -246,13 +246,13 @@ void TryingAddBorderDust (BLOCK *p, ROOT *pRoot, Int32 *yTop,  Int32 *yBottom, I
 
 	if (pRoot -> xColumn < *xLeft)
 		*xLeft = pRoot -> xColumn;
-	
+
 	if (pRoot -> xColumn + pRoot -> nWidth  > *xRight)
 		*xRight = pRoot -> xColumn + pRoot -> nWidth ;
-	
+
 	if (pRoot -> yRow < *yTop)
 		*yTop = pRoot -> yRow;
-	
+
 	if (pRoot -> yRow + pRoot -> nHeight - 1 > *yBottom)
 			//p -> Rect.yBottom = pRoot -> yRow + pRoot -> nHeight - 1;
 		*yBottom = pRoot -> yRow + pRoot -> nHeight - 1;
@@ -287,7 +287,7 @@ void BlockAccountRoot (BLOCK *p, ROOT *pRoot)
         p -> nRoots       = 0; // ??? ñð. ñ óñëîâèåì (if())
         p -> nLetters     = 0;
         p -> nDust        = 0;
-        p -> nHeightesSum = pRoot -> nHeight; 
+        p -> nHeightesSum = pRoot -> nHeight;
 
         p -> pRoots    = pRoot;
         p -> pEndRoots = pRoot;
@@ -334,10 +334,10 @@ void BlockAccountRoot (BLOCK *p, ROOT *pRoot)
         p -> nDust++;
     else
         p -> nHeightesSum += pRoot -> nHeight;
-*/		
+*/
 }
 
-// åñëè ïûëåâûõ áëîêîâ ñòîëüêî æå, ñêîëüêî îñíîâíûõ -- 
+// åñëè ïûëåâûõ áëîêîâ ñòîëüêî æå, ñêîëüêî îñíîâíûõ --
 // òî ñ÷èòàåòñÿ "âûñîòà ñðåäíåãî áëîêà".
 // èíà÷å ñ÷èòàåòñÿ âåëè÷èíà, ñìûñë êîòîðîé òóìàíåí.
 // ìîãó òîëüêî ñêàçàòü, ÷òî â îïðåäåëåíèè íåò íåïðåðûâíîñòè
@@ -353,7 +353,7 @@ void BlockSetAverageHeight (BLOCK *p)
         p -> nAverageHeight =
             MAX (p -> nHeightesSum / p -> nRoots, 1);
 
-    // õîòÿ.. åñëè ñ÷èòàòü, ÷òî ïûëü îáðàçîâàíà èç îñêîëêîâ 
+    // õîòÿ.. åñëè ñ÷èòàòü, ÷òî ïûëü îáðàçîâàíà èç îñêîëêîâ
     // áóêâ, òî ñðåäíåå ðàçóìíî ÷óòü óâåëè÷èòü.. òîëüêî âîò --
     // -- ïî÷åìó ïðîïîðöèîíàëüíî nRoots/(nRoots-nDust) ?
   }
@@ -373,10 +373,10 @@ void BlockSetAverageHeight (BLOCK *p)
         // ÷èñëà îñíîâíûõ áëîêîâ ñðåäíåå áóäåò îòðèöàòåëüíî.
         p -> nAverageHeight =
             MAX (p -> nHeightesSum / (p -> nRoots - p -> nDust), 1);
-        // òî åñòü äîáàâëÿÿ ïûëèíêó (òî÷êó), ÿ ïî÷åìó-òî 
+        // òî åñòü äîáàâëÿÿ ïûëèíêó (òî÷êó), ÿ ïî÷åìó-òî
         // óâåëè÷èâàþ ñðåäíþþ âûñîòó. ÿ (GF) îòêàçûâàþñü ýòî ïîíèìàòü.
 
-        // õîòÿ.. åñëè ñ÷èòàòü, ÷òî ïûëü îáðàçîâàíà èç îñêîëêîâ 
+        // õîòÿ.. åñëè ñ÷èòàòü, ÷òî ïûëü îáðàçîâàíà èç îñêîëêîâ
         // áóêâ, òî ñðåäíåå ðàçóìíî ÷óòü óâåëè÷èòü.. òîëüêî âîò --
         // -- ïî÷åìó ïðîïîðöèîíàëüíî nRoots/(nRoots-nDust) ?
     }
@@ -402,9 +402,9 @@ void BlocksExtract ()
         {
             continue;
         }
-		
+
         // ïî ñïèñêó òåêñòîâûõ áëîêîâ ïðîèñõîäèò íàêîïëåíèå
-        // ñóììû âûñîò ðóòîâ (?) è ñîçäàåòñÿ îáòÿãèâàþùèé 
+        // ñóììû âûñîò ðóòîâ (?) è ñîçäàåòñÿ îáòÿãèâàþùèé
         // ýòó ãðóïïó ðóòîâ ïðÿìîóãîëüíèê
         for (p = pBlocksList; p != NULL; p = p -> pNext)
         {
@@ -415,14 +415,14 @@ void BlocksExtract ()
                 goto FOUND; //"break çäåñü è continue âî âíåøíåì"
             }
         }
-		
+
         /* Block descriptor not found */
-        p = BlocksAddDescriptor (); // ñîçäàíèå íîâîãî áëîêà 
+        p = BlocksAddDescriptor (); // ñîçäàíèå íîâîãî áëîêà
         // èëè èíèöèàëèçàöèÿ ñàìîãî ñïèñêà áëîêîâ
-        
+
         p -> Type = BLOCK_TEXT;
         p -> nNumber = pRoot -> nBlock;
-		
+
 		    p -> nUserNum = pRoot ->nUserNum; // Piter
 		    /*
 		    // Piter 08-17-95 06:26pm
@@ -433,7 +433,7 @@ void BlocksExtract ()
 		    */
 
         BlockAccountRoot (p, pRoot);
-		
+
 FOUND:
         ;
     }
@@ -450,7 +450,7 @@ FOUND:
 		WasExtendedUp = FALSE; //Rom
 		WasExtendedDown = FALSE; //Rom
 	// ******************** Rom 23-02-99 ***************
-	// Trying include border dust 
+	// Trying include border dust
 		for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++)
 		{
 			if (pRoot -> nBlock == DUST_BLOCK_NUMBER ||
@@ -680,14 +680,14 @@ void BlocksAbsorbDust (void)
 
 
     BlocksSetRootsNumbers ();
-	
+
     for (p = pHighEmbeddingBlocksList;
 	p != NULL;
 	p = p -> pLowerEmbedding)
     {
         if (p -> Type != BLOCK_TEXT)
             continue;
-		
+
         RootStripsGetLoopParameters
 			(
             p -> Rect.yTop,
@@ -695,10 +695,10 @@ void BlocksAbsorbDust (void)
             &pRootsBegin,
             &pRootsAfter
 			);
-		
+
         if (pRootsBegin == NULL)
             continue;
-		
+
         for (pRoot = pRootsBegin; pRoot < pRootsAfter; pRoot++)
         {
             if (pRoot -> nBlock == DUST_BLOCK_NUMBER &&
@@ -725,7 +725,7 @@ void BlocksAbsorbDust (void)
 		xRight  = p -> Rect.xRight;
 
 	// ******************** Rom 23-02-99 ***************
-	// Trying include border dust 
+	// Trying include border dust
 		for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++)
 		{
 			/*

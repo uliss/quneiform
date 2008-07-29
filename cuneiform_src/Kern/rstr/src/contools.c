@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -155,39 +155,39 @@ INT check_numb_2_9 (BYTE c)
  if (language == LANG_CZECH)
 	{
 	if (
-		c == AA_right_accent  ||  
-		c == CC_inv_roof	  ||  
-		c == DD_inv_roof	  ||  
-		c == EE_right_accent  ||  
-		c == EE_inv_roof	  ||  
-		c == II_right_accent  ||  
-		c == NN_inv_roof	  ||  
-		c == OO_right_accent  ||  
-		c == RR_inv_roof	  ||  
-		c == SS_inv_roof_latin	  ||  
-		c == TT_inv_roof	  ||  
-		c == UU_right_accent  ||  
-		c == UU_circle_accent ||  
-		c == YY_right_accent  ||  
-		c == ZZ_inv_roof_latin		
+		c == AA_right_accent  ||
+		c == CC_inv_roof	  ||
+		c == DD_inv_roof	  ||
+		c == EE_right_accent  ||
+		c == EE_inv_roof	  ||
+		c == II_right_accent  ||
+		c == NN_inv_roof	  ||
+		c == OO_right_accent  ||
+		c == RR_inv_roof	  ||
+		c == SS_inv_roof_latin	  ||
+		c == TT_inv_roof	  ||
+		c == UU_right_accent  ||
+		c == UU_circle_accent ||
+		c == YY_right_accent  ||
+		c == ZZ_inv_roof_latin
 	   )
 	   return TRUE;
 
 	if (
-		c == a_right_accent	|| 
-		c == c_inv_roof		|| 
-		c == d_inv_roof		|| 
-		c == e_right_accent	|| 
-		c == e_inv_roof		|| 
-		c == i_right_accent	|| 
-		c == n_inv_roof		|| 
-		c == o_right_accent	|| 
-		c == r_inv_roof		|| 
-		c == s_inv_roof_latin		|| 
-		c == t_inv_roof		|| 
-		c == u_right_accent	|| 
-		c == u_circle_accent|| 
-		c == y_right_accent	|| 
+		c == a_right_accent	||
+		c == c_inv_roof		||
+		c == d_inv_roof		||
+		c == e_right_accent	||
+		c == e_inv_roof		||
+		c == i_right_accent	||
+		c == n_inv_roof		||
+		c == o_right_accent	||
+		c == r_inv_roof		||
+		c == s_inv_roof_latin		||
+		c == t_inv_roof		||
+		c == u_right_accent	||
+		c == u_circle_accent||
+		c == y_right_accent	||
 		c == z_inv_roof_latin
 	   )
 	   return FALSE;
@@ -219,21 +219,21 @@ INT check_numb_2_9 (BYTE c)
  if (language == LANG_HUNGAR)
 	{
 	if (
-		c == AA_right_accent || 		 
-		c == EE_right_accent || 		 
-		c == II_right_accent || 		 
-		c == OO_right_accent || 		 
-		c == OO_2dot_accent  || 		 
-		c == OO_double_right 
+		c == AA_right_accent ||
+		c == EE_right_accent ||
+		c == II_right_accent ||
+		c == OO_right_accent ||
+		c == OO_2dot_accent  ||
+		c == OO_double_right
 	   )
 	   return TRUE;
 
 	if (
-		c == a_right_accent || 
-		c == e_right_accent || 
-		c == i_right_accent || 
-		c == o_right_accent || 
-		c == o_2dot_accent  || 
+		c == a_right_accent ||
+		c == e_right_accent ||
+		c == i_right_accent ||
+		c == o_right_accent ||
+		c == o_2dot_accent  ||
 		c == o_double_right
 	   )
 	   return FALSE;
@@ -242,15 +242,15 @@ INT check_numb_2_9 (BYTE c)
  if (language == LANG_SLOVENIAN)
 	{
 	if (
-		c == CC_inv_roof	  ||  
-		c == SS_inv_roof_latin	  ||  
-		c == ZZ_inv_roof_latin		
+		c == CC_inv_roof	  ||
+		c == SS_inv_roof_latin	  ||
+		c == ZZ_inv_roof_latin
 	   )
 	   return TRUE;
 
 	if (
-		c == c_inv_roof		|| 
-		c == s_inv_roof_latin		|| 
+		c == c_inv_roof		||
+		c == s_inv_roof_latin		||
 		c == z_inv_roof_latin
 	   )
 	   return FALSE;
@@ -369,7 +369,7 @@ INT check_numb_2_9 (BYTE c)
 		c == g_semicircle				||
 		c == i_sans_accent				||
 		c == i_roof_accent				||
-		c == o_2dot_accent				||  
+		c == o_2dot_accent				||
 		c == s_bottom_accent_turkish	||
 		c == u_2dot_accent				||
 		c == u_roof_accent				||
@@ -490,39 +490,39 @@ INT check_numb_2_9 (BYTE c)
  if (language == LANG_CZECH)
 	{
 	if (
-		c == AA_right_accent  ||  
-		c == CC_inv_roof	  ||  
-		c == DD_inv_roof	  ||  
-		c == EE_right_accent  ||  
-		c == EE_inv_roof	  ||  
-		c == II_right_accent  ||  
-		c == NN_inv_roof	  ||  
-		c == OO_right_accent  ||  
-		c == RR_inv_roof	  ||  
-		c == SS_inv_roof_latin	  ||  
-		c == TT_inv_roof	  ||  
-		c == UU_right_accent  ||  
-		c == UU_circle_accent ||  
-		c == YY_right_accent  ||  
-		c == ZZ_inv_roof_latin		
+		c == AA_right_accent  ||
+		c == CC_inv_roof	  ||
+		c == DD_inv_roof	  ||
+		c == EE_right_accent  ||
+		c == EE_inv_roof	  ||
+		c == II_right_accent  ||
+		c == NN_inv_roof	  ||
+		c == OO_right_accent  ||
+		c == RR_inv_roof	  ||
+		c == SS_inv_roof_latin	  ||
+		c == TT_inv_roof	  ||
+		c == UU_right_accent  ||
+		c == UU_circle_accent ||
+		c == YY_right_accent  ||
+		c == ZZ_inv_roof_latin
 	   )
 	   return FALSE;
 
 	if (
-		c == a_right_accent	|| 
-		c == c_inv_roof		|| 
-		c == d_inv_roof		|| 
-		c == e_right_accent	|| 
-		c == e_inv_roof		|| 
-		c == i_right_accent	|| 
-		c == n_inv_roof		|| 
-		c == o_right_accent	|| 
-		c == r_inv_roof		|| 
-		c == s_inv_roof_latin		|| 
-		c == t_inv_roof		|| 
-		c == u_right_accent	|| 
-		c == u_circle_accent|| 
-		c == y_right_accent	|| 
+		c == a_right_accent	||
+		c == c_inv_roof		||
+		c == d_inv_roof		||
+		c == e_right_accent	||
+		c == e_inv_roof		||
+		c == i_right_accent	||
+		c == n_inv_roof		||
+		c == o_right_accent	||
+		c == r_inv_roof		||
+		c == s_inv_roof_latin		||
+		c == t_inv_roof		||
+		c == u_right_accent	||
+		c == u_circle_accent||
+		c == y_right_accent	||
 		c == z_inv_roof_latin
 	   )
 	   return TRUE;
@@ -554,21 +554,21 @@ INT check_numb_2_9 (BYTE c)
  if (language == LANG_HUNGAR)
 	{
 	if (
-		c == AA_right_accent || 		 
-		c == EE_right_accent || 		 
-		c == II_right_accent || 		 
-		c == OO_right_accent || 		 
-		c == OO_2dot_accent  || 		 
-		c == OO_double_right 
+		c == AA_right_accent ||
+		c == EE_right_accent ||
+		c == II_right_accent ||
+		c == OO_right_accent ||
+		c == OO_2dot_accent  ||
+		c == OO_double_right
 	   )
 	   return FALSE;
 
 	if (
-		c == a_right_accent || 
-		c == e_right_accent || 
-		c == i_right_accent || 
-		c == o_right_accent || 
-		c == o_2dot_accent  || 
+		c == a_right_accent ||
+		c == e_right_accent ||
+		c == i_right_accent ||
+		c == o_right_accent ||
+		c == o_2dot_accent  ||
 		c == o_double_right
 	   )
 	   return TRUE;
@@ -577,15 +577,15 @@ INT check_numb_2_9 (BYTE c)
  if (language == LANG_SLOVENIAN)
 	{
 	if (
-		c == CC_inv_roof	  ||  
-		c == SS_inv_roof_latin	  ||  
-		c == ZZ_inv_roof_latin		
+		c == CC_inv_roof	  ||
+		c == SS_inv_roof_latin	  ||
+		c == ZZ_inv_roof_latin
 	   )
 	   return FALSE;
 
 	if (
-		c == c_inv_roof		|| 
-		c == s_inv_roof_latin		|| 
+		c == c_inv_roof		||
+		c == s_inv_roof_latin		||
 		c == z_inv_roof_latin
 	   )
 	   return TRUE;
@@ -690,7 +690,7 @@ INT check_numb_2_9 (BYTE c)
 		c == g_semicircle				||
 		c == i_sans_accent				||
 		c == i_roof_accent				||
-		c == o_2dot_accent				||  
+		c == o_2dot_accent				||
 		c == s_bottom_accent_turkish	||
 		c == u_2dot_accent				||
 		c == u_roof_accent				||
@@ -883,7 +883,7 @@ INT check_foreign_language_ligature_slavic(BYTE c)
   // Òåïåðü ìàêðû ëèã ãîäÿòñÿ äëÿ âñåõ ÿçûêîâ // 07.09.2000 E.P.
  if ( ( c == liga_qm ) || ( c == liga_exm ) ||
       ( c == liga_inv_qm )||
-      ( c == liga_inv_exm ) 
+      ( c == liga_inv_exm )
 	 )
     return FALSE;
 
@@ -893,7 +893,7 @@ INT check_foreign_language_ligature_slavic(BYTE c)
 
 // if ((c >= ligas_beg)&&(c <= ligas_end)) return 1;    // ligatures B1-BF
 
- if ( language != LANG_ENGLISH && 
+ if ( language != LANG_ENGLISH &&
       !(language == LANG_RUSSIAN && langSer) &&
 	  ! is_cen_language(language) &&		// 07.09.2000 E.P.
 	  ! is_baltic_language(language) &&		// 09.07.2001 E.P.
@@ -910,7 +910,7 @@ INT check_foreign_language_ligature_slavic(BYTE c)
     return 1;
 
   // 05.09.2000 E.P.
-  if ( language == LANG_CZECH && is_czech_special (c)) 
+  if ( language == LANG_CZECH && is_czech_special (c))
     return 1;
 
   // 05.09.2000 E.P.
@@ -926,20 +926,20 @@ INT check_foreign_language_ligature_slavic(BYTE c)
     return 1;
 
   // 25.05.2001 E.P.
-  if ( language == LANG_SLOVENIAN && is_slovenian_special (c)) 
+  if ( language == LANG_SLOVENIAN && is_slovenian_special (c))
     return 1;
 
   // 09.07.2001 E.P.
-  if ( language == LANG_LATVIAN && is_latvian_special (c)) 
+  if ( language == LANG_LATVIAN && is_latvian_special (c))
     return 1;
 
-  if ( language == LANG_LITHUANIAN && is_lithuanian_special (c)) 
+  if ( language == LANG_LITHUANIAN && is_lithuanian_special (c))
     return 1;
 
-  if ( language == LANG_ESTONIAN && is_estonian_special (c)) 
+  if ( language == LANG_ESTONIAN && is_estonian_special (c))
     return 1;
 
-  if ( language == LANG_TURKISH && is_turkish_special (c)) 
+  if ( language == LANG_TURKISH && is_turkish_special (c))
     return 1;
 
  return 0;
@@ -978,12 +978,12 @@ INT check_foreign_language_ligature_slavic(BYTE c)
  if (language == LANG_CZECH)
 	{
 	if (
-		c == c_inv_roof		|| 
-		c == d_inv_roof		|| 
-		c == n_inv_roof		|| 
-		c == r_inv_roof		|| 
-		c == s_inv_roof_latin		|| 
-		c == t_inv_roof		|| 
+		c == c_inv_roof		||
+		c == d_inv_roof		||
+		c == n_inv_roof		||
+		c == r_inv_roof		||
+		c == s_inv_roof_latin		||
+		c == t_inv_roof		||
 		c == z_inv_roof_latin
 	   )
 	   return 1;
@@ -1003,8 +1003,8 @@ INT check_foreign_language_ligature_slavic(BYTE c)
  if (language == LANG_SLOVENIAN)
 	{
 	if (
-		c == c_inv_roof			|| 
-		c == s_inv_roof_latin	|| 
+		c == c_inv_roof			||
+		c == s_inv_roof_latin	||
 		c == z_inv_roof_latin
 	   )
 	   return 1;
@@ -1014,12 +1014,12 @@ INT check_foreign_language_ligature_slavic(BYTE c)
  if (language == LANG_LATVIAN)
 	 {
 	 if (
-		 c == c_inv_roof		|| 
-		 c == LATVIAN_g			|| 
-		 c == k_bottom_accent	|| 
-		 c == l_bottom_accent	|| 
-		 c == n_bottom_accent	|| 
-		 c == s_inv_roof_baltic	|| 
+		 c == c_inv_roof		||
+		 c == LATVIAN_g			||
+		 c == k_bottom_accent	||
+		 c == l_bottom_accent	||
+		 c == n_bottom_accent	||
+		 c == s_inv_roof_baltic	||
 		 c == z_inv_roof_baltic	||
 		 0
 		 )
@@ -1202,7 +1202,7 @@ INT return_code, nv;
     if ( !(C->next->flg&c_f_punct && C->next->vers[0].let=='.') )
     {
       if( language != LANG_LITHUANIAN || C->vers[0].let != i_bottom_accent ) // Nick 4.09.2001
-          LiliI(C);	
+          LiliI(C);
       return_code = CONTINUE_ACTION;
       goto ECP_Ret;
     }

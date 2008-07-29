@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -114,8 +114,8 @@ void differ()
   if (!pitchsize)
    dif_O0(c);
 
-  dif_inv_roof(c,'t',t_inv_roof); // Nick 05.09.00 
-  dif_inv_roof(c,'d',d_inv_roof); // Nick 05.09.00 
+  dif_inv_roof(c,'t',t_inv_roof); // Nick 05.09.00
+  dif_inv_roof(c,'d',d_inv_roof); // Nick 05.09.00
 
   dif_f_t_inv_roof(c); // Nick 13.09.2000
   dif_f_Ii_right_accent(c,i_right_accent); // Nick 13.09.2000
@@ -253,7 +253,7 @@ static void dif_n_ri(cell *c)
 
  if (c->vers[0].let=='n' && !pitchsize && (cc=dot_ri(c))!=NULL)
   {
-  if( ((c->font|c->font_new)&c_fp_str) || 
+  if( ((c->font|c->font_new)&c_fp_str) ||
        c->save_stick_inc<300 && c->pos_inc==erect_rest )
    {
    r=save_raster(c);
@@ -614,7 +614,7 @@ static void dif_inv_roof(cell *c, Word8 letNoRoof, Word8 letRoof) // Nick 05.9.0
  }
 
  if (!prob_t || !prob_troof ||
-     MIN(prob_t,prob_troof)<PROBMIN && 
+     MIN(prob_t,prob_troof)<PROBMIN &&
 	  ( MAX(prob_t,prob_troof)!=c->vers[0].prob ||
 		abs(prob_t-prob_troof)>DPROB
 	  )
@@ -626,7 +626,7 @@ static void dif_inv_roof(cell *c, Word8 letNoRoof, Word8 letRoof) // Nick 05.9.0
 	 return;
 
  nIntersect=NumIntersect2(c->env, hei3);
- if( nIntersect < 0 ) 
+ if( nIntersect < 0 )
 	 return;
 
  nIntersect = (nIntersect*100) / hei3;
@@ -641,14 +641,14 @@ static void dif_inv_roof(cell *c, Word8 letNoRoof, Word8 letRoof) // Nick 05.9.0
 	 goodLet = letRoof;
 	 badLet  = letNoRoof;
  }
- else 
+ else
 	 return;  // unknown
 
  for (i=0; i<c->nvers; i++)
  {
   if ((let=c->vers[i].let)==badLet)
    c->vers[i].prob=0;
-  else  if (let==goodLet) 
+  else  if (let==goodLet)
     c->vers[i].prob = MAX(prob_t,prob_troof);
  }
 
@@ -672,7 +672,7 @@ static int GetBounds(cell *c1,int *lBound,int *rBound,int *wid)
 
   if( !cmp )
      return -1;
- 
+
   line=(lnhead *)((PCHAR)cmp+cmp->lines+sizeof(INT));
 // test all lines - fill bounds
   for (numRow = standWid = 0; (len=line->lth)>0; line=(lnhead *)((PCHAR)line+len))
@@ -728,7 +728,7 @@ static void dif_f_t_inv_roof(cell *c1)
   }
 
   if( !prob_f || !prob_troof ||
-      MIN(prob_f,prob_troof)<PROBMIN && 
+      MIN(prob_f,prob_troof)<PROBMIN &&
 	  ( MAX(prob_f,prob_troof)!=c1->vers[0].prob ||
 		abs(prob_f-prob_troof)>DPROB
 	  )
@@ -739,7 +739,7 @@ static void dif_f_t_inv_roof(cell *c1)
 	 return;
 
   for(i=0; i < c1->h ; i++)
-     lBound[i] = c1->w; 
+     lBound[i] = c1->w;
 
   memset(rBound,0,c1->h*sizeof(int));
   memset(wid,0,c1->h*sizeof(int));
@@ -762,13 +762,13 @@ static void dif_f_t_inv_roof(cell *c1)
 		if( !wideStart )
 		  numRow++;
 	}
-	else 
+	else
 		if( !wideStart && wid[crow] >= 2*standWid ) wideStart=crow+1;
 
     if( !isStep &&
 		lBound[crow+1] > standWid &&
 		wid[crow] == rBound[crow] - lBound[crow] &&
-		lBound[crow] > lBound[crow+1]  + standWid 
+		lBound[crow] > lBound[crow+1]  + standWid
 	  )
 	  isStep = crow+1;
   }
@@ -783,19 +783,19 @@ static void dif_f_t_inv_roof(cell *c1)
 	 badLet   = t_inv_roof;
 	 goodLet  = 'f';
   }
-  else 
+  else
 	 return;  // unknown
 
   for (i=0; i<c1->nvers; i++)
   {
    if ((let=c1->vers[i].let)==badLet)
     c1->vers[i].prob=0;
-   else  if (let==goodLet) 
+   else  if (let==goodLet)
     c1->vers[i].prob = MAX(prob_f,prob_troof);
   }
 
   sort_vers(c1);
- 
+
   return;
 }
 //**************************************************************************
@@ -828,7 +828,7 @@ static void dif_f_Ii_right_accent(cell *c1,Word8 Ii)
   }
 
   if( !prob_f || !prob_troof ||
-      MIN(prob_f,prob_troof)<PROBMIN && 
+      MIN(prob_f,prob_troof)<PROBMIN &&
 	  ( MAX(prob_f,prob_troof)!=c1->vers[0].prob ||
 		abs(prob_f-prob_troof)>DPROB
 	  )
@@ -839,7 +839,7 @@ static void dif_f_Ii_right_accent(cell *c1,Word8 Ii)
 	 return;
 
   for(i=0; i < c1->h ; i++)
-     lBound[i] = c1->w; 
+     lBound[i] = c1->w;
 
   memset(rBound,0,c1->h*sizeof(int));
   memset(wid,0,c1->h*sizeof(int));
@@ -851,27 +851,27 @@ static void dif_f_Ii_right_accent(cell *c1,Word8 Ii)
   maxWidth = standWid;
 
   lastUp = c1->h - (c1->h/5);
-  
+
   for( numStep = wideStart = wideEnd =0, crow = 0, numRow=0 ; crow < c1->h ; crow++ )
   {
     if( !wid[crow] )
 		continue;  // empty row
-    
+
 
     if( wid[crow]  < rBound[crow] - lBound[crow] )
 	{
-		if( crow*3 < c1->h ) 
+		if( crow*3 < c1->h )
 		    numRow++;
 	}
-	else 
-	{   
+	else
+	{
 		maxWidth = MAX(maxWidth, wid[crow] );
 
-		if(  wid[crow] >= 2*standWid ) 
+		if(  wid[crow] >= 2*standWid )
 		{
-		 if( !wideStart && crow*3 < c1->h  ) 
+		 if( !wideStart && crow*3 < c1->h  )
 			wideStart=crow+1;
-		 else if ( !wideEnd && crow > lastUp  ) 
+		 else if ( !wideEnd && crow > lastUp  )
 			wideEnd = crow+1;
 		}
 	}
@@ -894,19 +894,19 @@ static void dif_f_Ii_right_accent(cell *c1,Word8 Ii)
 	 goodLet   = Ii;
 	 badLet  = 'f';
   }
-  else 
+  else
 	 return;  // unknown
 
   for (i=0; i<c1->nvers; i++)
   {
    if ((let=c1->vers[i].let)==badLet)
     c1->vers[i].prob=0;
-   else  if (let==goodLet) 
+   else  if (let==goodLet)
     c1->vers[i].prob = MAX(prob_f,prob_troof);
   }
 
   sort_vers(c1);
- 
+
   return;
 }
 //**************************************************************************
@@ -935,14 +935,14 @@ static void dif_j_i_bottom_accent(cell *c1 )
   if( c1->nvers <= 0 )
 	  return;
 
-  if( c1->vers[0].let != 'j' && 
+  if( c1->vers[0].let != 'j' &&
 	  c1->vers[0].let != i_bottom_accent
 	  )
 	  return;
 
   if( c1->h > RASTER_MAX_HEIGHT || c1->h < 5)
 	 return;
-  
+
   for (prob_j=prob_i=0,i=c1->nvers-1; i>=0; i--)
   {
    if ((let=c1->vers[i].let)=='j')
@@ -953,7 +953,7 @@ static void dif_j_i_bottom_accent(cell *c1 )
 
 
   for(i=0; i < c1->h ; i++)
-     lBound[i] = c1->w; 
+     lBound[i] = c1->w;
 
   memset(rBound,0,c1->h*sizeof(int));
   memset(wid,0,c1->h*sizeof(int));
@@ -964,7 +964,7 @@ static void dif_j_i_bottom_accent(cell *c1 )
 
   lastUp = MAX(3, c1->h/2);
   lastDn = c1->h - (c1->h/6);
-  
+
   isLeft = 0;
   isRight = 0;
 
@@ -988,13 +988,13 @@ static void dif_j_i_bottom_accent(cell *c1 )
 	  {
 		  if( wid[i-1] >= 2*standWid &&
 			  lBound[i-1] + (standWid>>1) < lBound[i] &&
-			  wid[i-1] >= rBound[i-1] - lBound[i-1] 
+			  wid[i-1] >= rBound[i-1] - lBound[i-1]
 			   )
 	        leftPerekladina = MAX(leftPerekladina, wid[i-1]);
 
 		  if( wid[i-2] >= 2*standWid &&
 			  lBound[i-2] + (standWid>>1) < lBound[i] &&
-			  wid[i-2] >= rBound[i-2] - lBound[i-2] 
+			  wid[i-2] >= rBound[i-2] - lBound[i-2]
 			  )
 	        leftPerekladina = MAX(leftPerekladina, wid[i-2]);
 	  }
@@ -1012,27 +1012,27 @@ static void dif_j_i_bottom_accent(cell *c1 )
   }
 
 
-  if( rightJump >= standWid || 
+  if( rightJump >= standWid ||
 	  leftPerekladina >= 2*standWid && leftJump < standWid  ||
-	  isRight >= standWid && isLeft < standWid 
-	) 
+	  isRight >= standWid && isLeft < standWid
+	)
   {
 	 goodLet   = i_bottom_accent;
 	 badLet  = 'j';
   }
-  else if( leftJump > standWid && rightJump <= (standWid>>1)|| 
-	       isLeft >= standWid && isRight < standWid 
+  else if( leftJump > standWid && rightJump <= (standWid>>1)||
+	       isLeft >= standWid && isRight < standWid
 		  )
   {
 	 goodLet   = 'j';
 	 badLet  = i_bottom_accent;
   }
-  else 
+  else
 	 return;  // unknown
 
   // need add version ?
   if( goodLet == 'j' && prob_j <= 0 ||
-	  goodLet == i_bottom_accent && prob_i <= 0 
+	  goodLet == i_bottom_accent && prob_i <= 0
 	)
   {
    c1->nvers=MIN(c1->nvers+1,VERS_IN_CELL-1);
@@ -1052,7 +1052,7 @@ static void dif_j_i_bottom_accent(cell *c1 )
   }
 
   sort_vers(c1);
- 
+
   return;
 }
 //**************************************************************************

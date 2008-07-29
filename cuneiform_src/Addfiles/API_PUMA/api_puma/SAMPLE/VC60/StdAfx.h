@@ -19,7 +19,7 @@
 #ifndef _AFX_NO_AFXCMN_SUPPORT
 #include <afxcmn.h>			// MFC support for Windows Common Controls
 #endif // _AFX_NO_AFXCMN_SUPPORT
-#include <afxole.h>		
+#include <afxole.h>
 
 
 // This macro is the same as IMPLEMENT_OLECREATE, except it passes TRUE

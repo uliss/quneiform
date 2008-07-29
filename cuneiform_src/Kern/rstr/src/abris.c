@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -182,19 +182,19 @@ try_r:
  make_right_max();
  if ((rmin1 < BOT_MIN_RGHT_S) && (rmin2 > TOP_MIN_RGHT_S))  // italic
    goto accept;
- if (rxmax1 > midh)     
+ if (rxmax1 > midh)
 	 mon+=PNL_2MAX;         // second gap in lower part
   //AK! add
- if (rxmax1 >= 0 && rxmax1 < 128 && linh[rxmax1] > 1)  
+ if (rxmax1 >= 0 && rxmax1 < 128 && linh[rxmax1] > 1)
 	 goto accept;     // 1 line
- if ((rmax < 3) || (rxmax2-rxmax1 > 3)) 
+ if ((rmax < 3) || (rxmax2-rxmax1 > 3))
 	 mon +=PNL_NOEXT;   // too plain
 
 accept:
  //AK! add
  if (rxmax1 >= 0 && rxmax1 < 128 && r_abr[rxmax1]-rmin1 > 3)         // there is a gap in right side
    {
-    //AK! 
+    //AK!
 	//let_mon[let_mind['a'-'0']] -= PNL_GAP;
     //let_mon[let_mind['o'-'0']] -= PNL_GAP;
     //let_mon[let_mind['O'-'0']] -= PNL_GAP;
@@ -409,7 +409,7 @@ BYTE c_filt()
              ( ( histo[end2] == fl ) && ( midh - end2 > 1 ) ) )
             goto CF_BotAndTop;   // 'c' with hooked nose case
         //AK! add
-		if ( end2 < 128 && end2 >0 && 
+		if ( end2 < 128 && end2 >0 &&
 			( histo[end2] > histo[end2-1] ) && ( r_abr[end2] > r_abr[end2-1] ) )
             goto CF_BotAndTop;    // 'c' with hooked nose case
 
@@ -449,11 +449,11 @@ BYTE c_filt()
 		if ( wi2 >=0 && wi2 < 128 && midh >= 0 && midh < 128 )
 		   {
 			for ( i = MAX( midh, wi2 ); i >= beg2 && i >= 0; i -- )
-				if ( abs(wid[i] - wid[wi2]) > (fullh/3) ) 
+				if ( abs(wid[i] - wid[wi2]) > (fullh/3) )
 				   break;
 			wfrom = i;
 			for ( i = (BYTE)midh; i < end2 && i < 128; i ++ )
-				if ( abs(wid[i] - wid[wi2]) > (fullh/3) ) 
+				if ( abs(wid[i] - wid[wi2]) > (fullh/3) )
 					break;
             wto = i + 1;
 		   }
@@ -560,7 +560,7 @@ BYTE a_filt()
      }
    }
    //AK! add
-   if ( fullh < 130 )   
+   if ( fullh < 130 )
    for (i=fullh-2, prev=1, fl=0; i>=midh && i >= 1; i--)
    {
       if (linh[i]==1)
@@ -626,15 +626,15 @@ BYTE M_filt()
  pen=0; flit=0; fax_corr = 0;
  if ( fax1x2 ) fax_corr = 1;
 //AK! add
- if ( fax_corr < 127 && fax_corr >= -1 && 
+ if ( fax_corr < 127 && fax_corr >= -1 &&
 	  linh[1+fax_corr] <2)  pen += 40;
  if ( fullh-fax_corr < 130 && fullh-fax_corr >= 2 &&
 	  linh[fullh-2-fax_corr] < 2)  pen += 40;
 
  // test right side and left side against rounding ( avoiding "OO" )
 
- i2 = midh;  
- i1 = (fullh >> 3) + fax_corr;  
+ i2 = midh;
+ i1 = (fullh >> 3) + fax_corr;
  i3 = fullh - i1;
  dev = MAX( get_size () / 10, 1 );
  mode_linh = (BYTE)make_histo( &linh[1], (BYTE)(fullh-1) );
@@ -656,7 +656,7 @@ BYTE M_filt()
 
  // test right side and left side against funnel like image ( avoiding "W" )
 
- i1 = fullh >> 2;  
+ i1 = fullh >> 2;
  i2 = fullh - i1;
 //AK! add
  if ( i1 >= 0 && i2 >= 0 && i1 < 128 && i2 < 128 &&
@@ -762,8 +762,8 @@ BYTE HH_filt()
 
  // test right side and left side against rounding ( avoiding "OO" )
 
- i2 = (BYTE)midh;  
- i1 = fullh >> 3;  
+ i2 = (BYTE)midh;
+ i1 = fullh >> 3;
  i3 = fullh - i1;
  dev = MAX( fullh / 10, 1 );
 //AK! add
@@ -866,9 +866,9 @@ BYTE w_filt()
 
  for (i3=0, sb=sumh[i3]; i3<4; i3++)
    {
-     if (linh[i3] > 2) 
+     if (linh[i3] > 2)
 		 break;
-     if ((sumh[i3] - sb) > 2) 
+     if ((sumh[i3] - sb) > 2)
 		 break;
      sb=sumh[i3];
    }
@@ -889,24 +889,24 @@ BYTE w_filt()
 acc1:
  //AK! add
   for (i=MAX(fullh-1, 0), j1=100; i>fullh-5 && i < 128; i--)
-      if (j1 > linh[i]) 
+      if (j1 > linh[i])
          j1=linh[i];
- if (j1 > 2) 
+ if (j1 > 2)
 	 pen+=dp1;
 
- j1=l_abr[1]; 
+ j1=l_abr[1];
  //AK! add
  if ( fullh >= 2 && fullh < 130 )
-     j2=l_abr[fullh-2]; 
+     j2=l_abr[fullh-2];
  //AK! add
  if ( midh >= 0 && midh < 128 )
      i=l_abr[midh];
- if ((j1-i > 2) && (j2-i > 2)) 
+ if ((j1-i > 2) && (j2-i > 2))
 	 pen+=dp1;
- j1=r_abr[1]; 
+ j1=r_abr[1];
  //AK! add
  if ( fullh >= 2 && fullh < 130 )
- j2=r_abr[fullh-2]; 
+ j2=r_abr[fullh-2];
  //AK! add
  if ( midh >= 0 && midh < 128 )
  i=r_abr[midh];
@@ -914,18 +914,18 @@ acc1:
  flat_side = 0;
  //AK! add
  if ( midh >= 3 && midh < 131 )
- j1 = r_abr[midh-3]; 
+ j1 = r_abr[midh-3];
  //AK! add
  if ( fullh >= 3 && midh < 131 )
- j2 = r_abr[fullh-3]; 
+ j2 = r_abr[fullh-3];
   //AK! add
  if ( midh=dps >= 0 && midh+dps < 128 )
  i=r_abr[midh+dps];
- if ( j1 == j2 ) 
+ if ( j1 == j2 )
 	 flat_side += 1;
- if ( j1 == i ) 
+ if ( j1 == i )
 	 flat_side += 1;
- if ( j2 == i ) 
+ if ( j2 == i )
 	 flat_side += 1;
  pen += pnl_rs * flat_side;       // too flat right side is forbidden
 
@@ -946,15 +946,15 @@ acc1:
 //AK! add
  if ( midh < 128 && midh >= 0)
  for (i=midh, sb=l_abr[midh], fl=0; i>=i3 && i >= 0; i--)
-    { 
+    {
 	 nb=l_abr[i];
      db=nb-sb;
      if (db <= 0)
-       { 
-		if (fl==0)  
-		   { 
-			j1=i; 
-			sb=nb; 
+       {
+		if (fl==0)
+		   {
+			j1=i;
+			sb=nb;
 	       }
 	   }
       else
@@ -963,23 +963,23 @@ acc1:
            {
             if (fl)
                {
-                if ((fullh < 18) || (i > 0)) 
+                if ((fullh < 18) || (i > 0))
 					goto penl;  // second jump
                 break;
                }
               else
-               { 
-				if (i==i3) 
+               {
+				if (i==i3)
 					break;  // may be serif and 1 pixel at top
- penl:          
-				pen+=dp1; 
+ penl:
+				pen+=dp1;
 				break;
                }
            }
-          else 
-		  { 
-		   fl=1; 
-		   continue; 
+          else
+		  {
+		   fl=1;
+		   continue;
 		  }
        }
     } /* end of for_operator */
@@ -1058,7 +1058,7 @@ acc1:
    for (i=fullw-1, sb=0; i>midw && i >=0; i--)
      if (sb < top[i]) { sb=top[i]; j2=i; }
    if (sb < midh) goto retpen;
-   
+
    //AK! add
    if (j1 >= 0 )
    for (i=j1, sb=127; i<j2 && i < 128; i++)
@@ -1501,7 +1501,7 @@ INT pen, degree, numi_mode_val;
        pen += degree;
    wi = bases.b2 - scl->row;
    //AK! add
-   if ( wi < 128 && wi >= 0 ) 
+   if ( wi < 128 && wi >= 0 )
 	numi_mode_val = make_histo( &linh[wi], (BYTE)(fullh - wi - 1) );
    if ( ( histo[1] > 1 ) || ( histo_max_value >= 3 ) )
    {
@@ -1581,9 +1581,9 @@ INT pnl;
 
 // check too large black intervals at lower third ( avoiding "al" );
 //AK! add
-  if ( h23 >= -1 && h23 < 127 && 
+  if ( h23 >= -1 && h23 < 127 &&
 	   h14 >= 1  && h14 < 129 &&
-	   sumh[h23 + 1] > ( (sumh[h14-1] + 1) << 1 )) 
+	   sumh[h23 + 1] > ( (sumh[h14-1] + 1) << 1 ))
    pnl += 10;
 
 // check the upper gap  ( avoiding stick tuching anything at left side)
@@ -1844,8 +1844,8 @@ INT h_filt(cell *c, INT prob, s_glue *GL, BYTE h_or_b_Let)
 
   if ( db_pass == 'b' ) goto UpperGap;   // if step is glue - no checking
   //AK! add
-  if ( h23 >= -1 && h23 < 127 && 
-	   h14 >= 1  && h14 < 129 && 
+  if ( h23 >= -1 && h23 < 127 &&
+	   h14 >= 1  && h14 < 129 &&
 	   sumh[h23 + 1] > ( (sumh[h14-1] + 1) << 1 ) )
    pnl += 10;
 

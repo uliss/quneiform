@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -159,8 +159,8 @@ public:
 
 
 // Constructor/Destructor
-	CBitmapButtonImpl(DWORD dwExtendedStyle = BMPBTN_AUTOSIZE, HIMAGELIST hImageList = NULL) : 
-			m_ImageList(hImageList), m_dwExtendedStyle(dwExtendedStyle), 
+	CBitmapButtonImpl(DWORD dwExtendedStyle = BMPBTN_AUTOSIZE, HIMAGELIST hImageList = NULL) :
+			m_ImageList(hImageList), m_dwExtendedStyle(dwExtendedStyle),
 			m_lpstrToolTipText(NULL),
 			m_fMouseOver(0), m_fFocus(0), m_fPressed(0)
 	{
@@ -629,7 +629,7 @@ class CBitmapButton : public CBitmapButtonImpl<CBitmapButton>
 public:
 	DECLARE_WND_SUPERCLASS(_T("WTL_BitmapButton"), GetWndClassName())
 
-	CBitmapButton(DWORD dwExtendedStyle = BMPBTN_AUTOSIZE, HIMAGELIST hImageList = NULL) : 
+	CBitmapButton(DWORD dwExtendedStyle = BMPBTN_AUTOSIZE, HIMAGELIST hImageList = NULL) :
 		CBitmapButtonImpl<CBitmapButton>(dwExtendedStyle, hImageList)
 	{ }
 };
@@ -784,27 +784,27 @@ __declspec(selectany) struct
 	int yHotSpot;
 	unsigned char arrANDPlane[cxWidth * cyHeight / 8];
 	unsigned char arrXORPlane[cxWidth * cyHeight / 8];
-} _AtlHyperLink_CursorData = 
+} _AtlHyperLink_CursorData =
 {
-	5, 0, 
+	5, 0,
 	{
-		0xF9, 0xFF, 0xFF, 0xFF, 0xF0, 0xFF, 0xFF, 0xFF, 0xF0, 0xFF, 0xFF, 0xFF, 0xF0, 0xFF, 0xFF, 0xFF, 
-		0xF0, 0xFF, 0xFF, 0xFF, 0xF0, 0x3F, 0xFF, 0xFF, 0xF0, 0x07, 0xFF, 0xFF, 0xF0, 0x01, 0xFF, 0xFF, 
-		0xF0, 0x00, 0xFF, 0xFF, 0x10, 0x00, 0x7F, 0xFF, 0x00, 0x00, 0x7F, 0xFF, 0x00, 0x00, 0x7F, 0xFF, 
-		0x80, 0x00, 0x7F, 0xFF, 0xC0, 0x00, 0x7F, 0xFF, 0xC0, 0x00, 0x7F, 0xFF, 0xE0, 0x00, 0x7F, 0xFF, 
-		0xE0, 0x00, 0xFF, 0xFF, 0xF0, 0x00, 0xFF, 0xFF, 0xF0, 0x00, 0xFF, 0xFF, 0xF8, 0x01, 0xFF, 0xFF, 
-		0xF8, 0x01, 0xFF, 0xFF, 0xF8, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
-		0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
+		0xF9, 0xFF, 0xFF, 0xFF, 0xF0, 0xFF, 0xFF, 0xFF, 0xF0, 0xFF, 0xFF, 0xFF, 0xF0, 0xFF, 0xFF, 0xFF,
+		0xF0, 0xFF, 0xFF, 0xFF, 0xF0, 0x3F, 0xFF, 0xFF, 0xF0, 0x07, 0xFF, 0xFF, 0xF0, 0x01, 0xFF, 0xFF,
+		0xF0, 0x00, 0xFF, 0xFF, 0x10, 0x00, 0x7F, 0xFF, 0x00, 0x00, 0x7F, 0xFF, 0x00, 0x00, 0x7F, 0xFF,
+		0x80, 0x00, 0x7F, 0xFF, 0xC0, 0x00, 0x7F, 0xFF, 0xC0, 0x00, 0x7F, 0xFF, 0xE0, 0x00, 0x7F, 0xFF,
+		0xE0, 0x00, 0xFF, 0xFF, 0xF0, 0x00, 0xFF, 0xFF, 0xF0, 0x00, 0xFF, 0xFF, 0xF8, 0x01, 0xFF, 0xFF,
+		0xF8, 0x01, 0xFF, 0xFF, 0xF8, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+		0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
 		0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
 	},
 	{
-		0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 
-		0x06, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x06, 0xC0, 0x00, 0x00, 0x06, 0xD8, 0x00, 0x00, 
-		0x06, 0xDA, 0x00, 0x00, 0x06, 0xDB, 0x00, 0x00, 0x67, 0xFB, 0x00, 0x00, 0x77, 0xFF, 0x00, 0x00, 
-		0x37, 0xFF, 0x00, 0x00, 0x17, 0xFF, 0x00, 0x00, 0x1F, 0xFF, 0x00, 0x00, 0x0F, 0xFF, 0x00, 0x00, 
-		0x0F, 0xFE, 0x00, 0x00, 0x07, 0xFE, 0x00, 0x00, 0x07, 0xFE, 0x00, 0x00, 0x03, 0xFC, 0x00, 0x00, 
-		0x03, 0xFC, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+		0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00,
+		0x06, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x06, 0xC0, 0x00, 0x00, 0x06, 0xD8, 0x00, 0x00,
+		0x06, 0xDA, 0x00, 0x00, 0x06, 0xDB, 0x00, 0x00, 0x67, 0xFB, 0x00, 0x00, 0x77, 0xFF, 0x00, 0x00,
+		0x37, 0xFF, 0x00, 0x00, 0x17, 0xFF, 0x00, 0x00, 0x1F, 0xFF, 0x00, 0x00, 0x0F, 0xFF, 0x00, 0x00,
+		0x0F, 0xFE, 0x00, 0x00, 0x07, 0xFE, 0x00, 0x00, 0x07, 0xFE, 0x00, 0x00, 0x03, 0xFC, 0x00, 0x00,
+		0x03, 0xFC, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 	}
 };
@@ -851,7 +851,7 @@ public:
 
 
 // Constructor/Destructor
-	CHyperLinkImpl(DWORD dwExtendedStyle = HLINK_UNDERLINED) : 
+	CHyperLinkImpl(DWORD dwExtendedStyle = HLINK_UNDERLINED) :
 			m_lpstrLabel(NULL), m_lpstrHyperLink(NULL),
 			m_hCursor(NULL), m_hFont(NULL), m_hFontNormal(NULL),
 			m_clrLink(RGB(0, 0, 255)), m_clrVisited(RGB(128, 0, 128)),
@@ -1405,9 +1405,9 @@ public:
 				ModifyStyle(0, SS_NOTIFY);   // we need this
 				DWORD dwStyle = GetStyle() & 0x000000FF;
 #ifndef _WIN32_WCE
-				if(dwStyle == SS_ICON || dwStyle == SS_BLACKRECT || dwStyle == SS_GRAYRECT || 
-						dwStyle == SS_WHITERECT || dwStyle == SS_BLACKFRAME || dwStyle == SS_GRAYFRAME || 
-						dwStyle == SS_WHITEFRAME || dwStyle == SS_OWNERDRAW || 
+				if(dwStyle == SS_ICON || dwStyle == SS_BLACKRECT || dwStyle == SS_GRAYRECT ||
+						dwStyle == SS_WHITERECT || dwStyle == SS_BLACKFRAME || dwStyle == SS_GRAYFRAME ||
+						dwStyle == SS_WHITEFRAME || dwStyle == SS_OWNERDRAW ||
 						dwStyle == SS_BITMAP || dwStyle == SS_ENHMETAFILE)
 #else // CE specific
 				if(dwStyle == SS_ICON || dwStyle == SS_BITMAP)
@@ -1902,7 +1902,7 @@ class CCustomWaitCursor : public CWaitCursor
 {
 public:
 // Constructor/destructor
-	CCustomWaitCursor(ATL::_U_STRINGorID cursor, bool bSet = true, HINSTANCE hInstance = NULL) : 
+	CCustomWaitCursor(ATL::_U_STRINGorID cursor, bool bSet = true, HINSTANCE hInstance = NULL) :
 			CWaitCursor(false, IDC_WAIT, true)
 	{
 		if(hInstance == NULL)
@@ -2119,7 +2119,7 @@ public:
 		{
 			for(int i = nIndex; i < nDef; i++)
 				pPanesPos[i] += cxOff;
-				
+
 		}
 		else			// after default one
 		{
@@ -2338,7 +2338,7 @@ public:
 				bUpdate = true;
 			}
 
-			if((dwPrevStyle & (PANECNT_FLATBORDER | PANECNT_NOBORDER)) != 
+			if((dwPrevStyle & (PANECNT_FLATBORDER | PANECNT_NOBORDER)) !=
 			   (m_dwExtendedStyle & (PANECNT_FLATBORDER | PANECNT_NOBORDER)))   // change border
 			{
 				bUpdate = true;
@@ -2802,7 +2802,7 @@ public:
 // sort listview extended styles
 #define SORTLV_USESHELLBITMAPS	0x00000001
 
-// Notification sent to parent when sort column is changed by user clicking header.  
+// Notification sent to parent when sort column is changed by user clicking header.
 #define SLVN_SORTCHANGED	LVN_LAST
 
 // A LPNMSORTLISTVIEW is sent with the SLVN_SORTCHANGED notification
@@ -2846,7 +2846,7 @@ public:
 		m_nShellSortUpID = 133
 	};
 
-	// passed to LVCompare functions as lParam1 and lParam2 
+	// passed to LVCompare functions as lParam1 and lParam2
 	struct LVCompareParam
 	{
 		int iItem;
@@ -2859,7 +2859,7 @@ public:
 			LPCTSTR pszValue;
 		};
 	};
-	
+
 	// passed to LVCompare functions as the lParamSort parameter
 	struct LVSortInfo
 	{
@@ -2877,11 +2877,11 @@ public:
 	DWORD m_dwSortLVExtendedStyle;
 	ATL::CSimpleArray<WORD> m_arrColSortType;
 	bool m_bUseWaitCursor;
-	
+
 	CSortListViewImpl() :
 			m_bSortDescending(false),
 			m_bCommCtrl6(false),
-			m_iSortColumn(-1), 
+			m_iSortColumn(-1),
 			m_fmtOldSortCol(0),
 			m_hbmOldSortCol(NULL),
 			m_dwSortLVExtendedStyle(SORTLV_USESHELLBITMAPS),
@@ -2894,7 +2894,7 @@ public:
 		m_bCommCtrl6 = SUCCEEDED(hRet) && dwMajor >= 6;
 #endif // !_WIN32_WCE
 	}
-	
+
 // Attributes
 	void SetSortColumn(int iCol)
 	{
@@ -2909,10 +2909,10 @@ public:
 		if(m_bCommCtrl6)
 		{
 #ifndef HDF_SORTUP
-			const int HDF_SORTUP = 0x0400;	
+			const int HDF_SORTUP = 0x0400;
 #endif // HDF_SORTUP
 #ifndef HDF_SORTDOWN
-			const int HDF_SORTDOWN = 0x0200;	
+			const int HDF_SORTDOWN = 0x0200;
 #endif // HDF_SORTDOWN
 			const int nMask = HDF_SORTUP | HDF_SORTDOWN;
 			HDITEM hditem = { HDI_FORMAT };
@@ -3151,15 +3151,15 @@ public:
 		if((m_dwSortLVExtendedStyle & SORTLV_USESHELLBITMAPS) != 0)
 		{
 			bool bFree = false;
-			LPCTSTR pszModule = _T("shell32.dll"); 
+			LPCTSTR pszModule = _T("shell32.dll");
 			HINSTANCE hShell = ::GetModuleHandle(pszModule);
 
-			if (hShell == NULL)		
+			if (hShell == NULL)
 			{
 				hShell = ::LoadLibrary(pszModule);
 				bFree = true;
 			}
- 
+
 			if (hShell != NULL)
 			{
 				bool bSuccess = true;
@@ -3167,7 +3167,7 @@ public:
 				{
 					if(!m_bmSort[i].IsNull())
 						m_bmSort[i].DeleteObject();
-					m_bmSort[i] = (HBITMAP)::LoadImage(hShell, MAKEINTRESOURCE(m_nShellSortUpID + i), 
+					m_bmSort[i] = (HBITMAP)::LoadImage(hShell, MAKEINTRESOURCE(m_nShellSortUpID + i),
 #ifndef _WIN32_WCE
 						IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS);
 #else // CE specific
@@ -3222,7 +3222,7 @@ public:
 
 	void DrawSortBitmap(CDCHandle dc, int iBitmap, LPRECT prc)
 	{
-		dc.FillRect(prc, ::GetSysColorBrush(COLOR_BTNFACE));	
+		dc.FillRect(prc, ::GetSysColorBrush(COLOR_BTNFACE));
 		HBRUSH hbrOld = dc.SelectBrush(::GetSysColorBrush(COLOR_BTNSHADOW));
 		CPen pen;
 		pen.CreatePen(PS_SOLID, 0, ::GetSysColor(COLOR_BTNSHADOW));
@@ -3230,17 +3230,17 @@ public:
 		POINT ptOrg = { (m_cxSortImage - m_cxSortArrow) / 2, (m_cySortImage - m_cySortArrow) / 2 };
 		if(iBitmap == m_iSortUp)
 		{
-			POINT pts[3] = 
+			POINT pts[3] =
 			{
 				{ ptOrg.x + m_cxSortArrow / 2, ptOrg.y },
-				{ ptOrg.x, ptOrg.y + m_cySortArrow - 1 }, 
+				{ ptOrg.x, ptOrg.y + m_cySortArrow - 1 },
 				{ ptOrg.x + m_cxSortArrow - 1, ptOrg.y + m_cySortArrow - 1 }
 			};
 			dc.Polygon(pts, 3);
 		}
 		else
 		{
-			POINT pts[3] = 
+			POINT pts[3] =
 			{
 				{ ptOrg.x, ptOrg.y },
 				{ ptOrg.x + m_cxSortArrow / 2, ptOrg.y + m_cySortArrow - 1 },
@@ -3274,7 +3274,7 @@ public:
 		ATLASSERT(lpstr != NULL);
 		if(lpstr == NULL || lpstr[0] == _T('\0'))
 			return 0;
-		
+
 		USES_CONVERSION;
 		HRESULT hRet = E_FAIL;
 		long lRet = 0;
@@ -3331,7 +3331,7 @@ public:
 		LVCompareParam* pParam1 = (LVCompareParam*)lParam1;
 		LVCompareParam* pParam2 = (LVCompareParam*)lParam2;
 		LVSortInfo* pInfo = (LVSortInfo*)lParamSort;
-		
+
 		int nRet = lstrcmp(pParam1->pszValue, pParam2->pszValue);
 		return pInfo->bDescending ? -nRet : nRet;
 	}
@@ -3343,7 +3343,7 @@ public:
 		LVCompareParam* pParam1 = (LVCompareParam*)lParam1;
 		LVCompareParam* pParam2 = (LVCompareParam*)lParam2;
 		LVSortInfo* pInfo = (LVSortInfo*)lParamSort;
-		
+
 		int nRet = lstrcmpi(pParam1->pszValue, pParam2->pszValue);
 		return pInfo->bDescending ? -nRet : nRet;
 	}
@@ -3355,7 +3355,7 @@ public:
 		LVCompareParam* pParam1 = (LVCompareParam*)lParam1;
 		LVCompareParam* pParam2 = (LVCompareParam*)lParam2;
 		LVSortInfo* pInfo = (LVSortInfo*)lParamSort;
-		
+
 		int nRet = 0;
 		if(pParam1->lValue > pParam2->lValue)
 			nRet = 1;
@@ -3371,7 +3371,7 @@ public:
 		LVCompareParam* pParam1 = (LVCompareParam*)lParam1;
 		LVCompareParam* pParam2 = (LVCompareParam*)lParam2;
 		LVSortInfo* pInfo = (LVSortInfo*)lParamSort;
-		
+
 		int nRet = 0;
 		if(pParam1->dblValue > pParam2->dblValue)
 			nRet = 1;
@@ -3387,7 +3387,7 @@ public:
 		LVCompareParam* pParam1 = (LVCompareParam*)lParam1;
 		LVCompareParam* pParam2 = (LVCompareParam*)lParam2;
 		LVSortInfo* pInfo = (LVSortInfo*)lParamSort;
-		
+
 		int nRet = pInfo->pT->CompareItemsCustom(pParam1, pParam2, pInfo->iSortCol);
 		return pInfo->bDescending ? -nRet : nRet;
 	}
@@ -3400,7 +3400,7 @@ public:
 		LVCompareParam* pParam1 = (LVCompareParam*)lParam1;
 		LVCompareParam* pParam2 = (LVCompareParam*)lParam2;
 		LVSortInfo* pInfo = (LVSortInfo*)lParamSort;
-		
+
 		int nRet = (int)::VarDecCmp(&pParam1->decValue, &pParam2->decValue);
 		nRet--;
 		return pInfo->bDescending ? -nRet : nRet;
@@ -3449,7 +3449,7 @@ public:
 		{
 			return VARCMP_NULL;
 		}
-		
+
 		// Degenerate case - at least one comparand is of the form
 		// [+-]0*10^N (denormalized zero)
 		bool bLeftZero = (!pdecLeft->Lo64 && !pdecLeft->Hi32);
@@ -3540,7 +3540,7 @@ public:
 		LVCompareParam* pParam1 = (LVCompareParam*)lParam1;
 		LVCompareParam* pParam2 = (LVCompareParam*)lParam2;
 		LVSortInfo* pInfo = (LVSortInfo*)lParamSort;
-		
+
 		int nRet = (int)VarDecCmp(&pParam1->decValue, &pParam2->decValue);
 		nRet--;
 		return pInfo->bDescending ? -nRet : nRet;
@@ -3555,7 +3555,7 @@ public:
 		MESSAGE_HANDLER(WM_SETTINGCHANGE, OnSettingChange)
 	END_MSG_MAP()
 
-	LRESULT OnInsertColumn(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& /*bHandled*/)	
+	LRESULT OnInsertColumn(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& /*bHandled*/)
 	{
 		T* pT = static_cast<T*>(this);
 		LRESULT lRet = pT->DefWindowProc(uMsg, wParam, lParam);
@@ -3577,14 +3577,14 @@ public:
 		return lRet;
 	}
 
-	LRESULT OnDeleteColumn(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& /*bHandled*/)	
+	LRESULT OnDeleteColumn(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& /*bHandled*/)
 	{
 		T* pT = static_cast<T*>(this);
 		LRESULT lRet = pT->DefWindowProc(uMsg, wParam, lParam);
 		if(lRet == 0)
 			return 0;
 
-		int iCol = (int)wParam; 
+		int iCol = (int)wParam;
 		if(m_iSortColumn == iCol)
 			m_iSortColumn = -1;
 		else if(m_iSortColumn > iCol)
@@ -3602,7 +3602,7 @@ public:
 			int iOld = m_iSortColumn;
 			bool bDescending = (m_iSortColumn == p->iItem) ? !m_bSortDescending : false;
 			if(DoSortItems(p->iItem, bDescending))
-				NotifyParentSortChanged(p->iItem, iOld);				
+				NotifyParentSortChanged(p->iItem, iOld);
 		}
 		bHandled = FALSE;
 		return 0;
@@ -3647,7 +3647,7 @@ public:
 	{
 		return DoSortItems(iCol, bDescending);
 	}
-		
+
 	BEGIN_MSG_MAP(CSortListViewCtrlImpl)
 		MESSAGE_HANDLER(LVM_INSERTCOLUMN, CSortListViewImpl<T>::OnInsertColumn)
 		MESSAGE_HANDLER(LVM_DELETECOLUMN, CSortListViewImpl<T>::OnDeleteColumn)
@@ -3744,21 +3744,21 @@ public:
 
 // Constructor/destructor
 	CTabViewImpl() :
-			m_nActivePage(-1), 
-			m_cyTabHeight(0), 
-			m_tab(this, 1), 
-			m_nInsertItem(-1), 
-			m_cchTabTextLength(30), 
-			m_nMenuItemsCount(10), 
-			m_lpstrTitleBarBase(NULL), 
-			m_cchTitleBarLength(100), 
-			m_bDestroyPageOnRemove(true), 
-			m_bDestroyImageList(true), 
-			m_bActivePageMenuItem(true), 
-			m_bActiveAsDefaultMenuItem(false), 
-			m_bEmptyMenuItem(false), 
-			m_bWindowsMenuItem(false), 
-			m_bTabCapture(false), 
+			m_nActivePage(-1),
+			m_cyTabHeight(0),
+			m_tab(this, 1),
+			m_nInsertItem(-1),
+			m_cchTabTextLength(30),
+			m_nMenuItemsCount(10),
+			m_lpstrTitleBarBase(NULL),
+			m_cchTitleBarLength(100),
+			m_bDestroyPageOnRemove(true),
+			m_bDestroyImageList(true),
+			m_bActivePageMenuItem(true),
+			m_bActiveAsDefaultMenuItem(false),
+			m_bEmptyMenuItem(false),
+			m_bWindowsMenuItem(false),
+			m_bTabCapture(false),
 			m_bTabDrag(false)
 	{
 		m_ptStartDrag.x = 0;

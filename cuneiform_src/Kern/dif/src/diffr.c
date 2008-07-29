@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -276,8 +276,8 @@ case (Word8)'ќ' :  case (Word8)'н' :
        if( LeftHole(rastr, D_X, Dx, Hy) )
             { // need mount on the central zone
             P+=60;
-            } 
- 
+            }
+
        diskr_3 = P;
        }
        else P = diskr_3;
@@ -292,8 +292,8 @@ case (Word8)'‚' :      case (Word8)'ў' :
                 P+=9*1;
             //else
             //    P+=step_diskr;
-            } 
- 
+            }
+
        diskr_b = P;
        }
        else P = diskr_b;
@@ -308,7 +308,7 @@ case (Word8)'Ґ' :
        }
        else  P = diskr_e;
     break;
-// russian o,O 
+// russian o,O
 //  case '0' :
   case (Word8)'Ћ' :  case (Word8)'®' :
     if( diskr_o<0 )
@@ -361,7 +361,7 @@ case (Word8)'Ґ' :
 			}
 		   else
 		   {
-           IN_dis=-1;			   
+           IN_dis=-1;
 		   DiskrIN(rastr0,D_X,dy,bw,dx);
 		   IN_dis=-1;
            if( 2*LOCAL[0]>5*LOCAL_W[0] && 2*(dx-LOCAL[1])<3*LOCAL_W[1])
@@ -373,10 +373,10 @@ case (Word8)'Ґ' :
 		   //if( IN_I>10 && IN_M==0 )
             //P += 40;
 		   }
-		   
+
       if( inc>0 )  // OLEG : ERECTION conditions : 09-12-95 07:29pm
         P >>= 1;
-      		
+
 		diskr_N = P;
 		}
 		else P=diskr_N;
@@ -441,7 +441,7 @@ case (Word8)'Ґ' :
 			P += IN_equ*step_diskr;
 		   /*
       if( IN_I>=9 )
-        { // ®зҐ­м ­ҐЈ®аЁ§®­в «м­ п ЇҐаҐЄ« ¤Ё­  
+        { // ®зҐ­м ­ҐЈ®аЁ§®­в «м­ п ЇҐаҐЄ« ¤Ё­ 
         if( (F=up_down_hist_M(rastr0+D_X, (Int16)D_X,(Int16)Dx, (Int16)(dy-2)))>0 )
           P += F*step_diskr>>2;
         if( LOCAL[1]>(Dx>>1) &&
@@ -451,14 +451,14 @@ case (Word8)'Ґ' :
         }
 		   */
 		   }
-		   
+
       if( inc>0 )  // OLEG : ERECTION conditions : 09-12-95 07:29pm
         P >>= 1;
       if(     IN_I_Bonus && broken_flag && (broken_ii ||
 			!IN_IN_Monus &&
 			Num2Interval(rastr0+2*D_X, (Int16)D_X,(Int16)Dx, (Int16)(dy-4))) )
 			P =(IN_I_Bonus==2)?-254:-250;
-			
+
 		diskr_i = P;
 		}
 		else P=diskr_i;
@@ -487,7 +487,7 @@ case (Word8)'Ґ' :
 		*/
 		   DiskrIN(rastr0,D_X,dy,bw,dx);
 		   if( DiskrHorizIN(rastr0,D_X,dy) )
-			{   // ¦Ёа­ п ЇҐаҐЄ« ¤Ё­  
+			{   // ¦Ёа­ п ЇҐаҐЄ« ¤Ё­ 
 			IN_N=3;
 			IN_I=2;
 			}
@@ -516,12 +516,12 @@ case (Word8)'Ґ' :
 			}
 			*/
 		   }
-		
+
     if( IN_N_Bonus && broken_flag && (broken_ii ||
 			!IN_IN_Monus &&
 			Num2Interval(rastr0+2*D_X, (Int16)D_X,(Int16)Dx, (Int16)(dy-4))) )
 			P =(IN_N_Bonus==2)?-254:-250;
-	
+
 		diskr_n = P;
 		}
 		else P=diskr_n;
@@ -667,7 +667,7 @@ case (Word8)'Ґ' :
       P=MAX(P,0);
       diskr_tsh = P;
       }
-    else  P = diskr_tsh;    
+    else  P = diskr_tsh;
     break;
 // capiatl & small IO
     case (Word8)'ћ' :  case (Word8)'о' :
@@ -676,7 +676,7 @@ case (Word8)'Ґ' :
 		//}
     if( diskr_ju<0 )
        {
-       r=FOOT_HEI( rastr0, D_X, (Word8)dx, (Word8)dy); 
+       r=FOOT_HEI( rastr0, D_X, (Word8)dx, (Word8)dy);
        if( DiskrJuCut(r,dx) && r>1)
             P += 3*step_diskr;
        if( DiskrLeft(rastr0, D_X, Dx, dy,2) )
@@ -689,7 +689,7 @@ case (Word8)'Ґ' :
        }
        else P = diskr_ju;
     break;
-// capital & small M  
+// capital & small M
     case (Word8)'Њ' :  case (Word8)'¬' :
       if( diskr_m<0 )
       {
@@ -736,15 +736,15 @@ case (Word8)'Ґ' :
          P += (-mii)*step_diskr;
       if(mii==0)
          P+= 5*step_diskr;
-      
+
       diskr_ii = P;
       }
     else  P = diskr_ii;
-    break;    
+    break;
  default:
-    break; 
+    break;
  }
-return(P & 0xFFFF); 
+return(P & 0xFFFF);
 }
 
 
@@ -1744,15 +1744,15 @@ for(old=l=k=i=0;i<=NWIDTH;i++)
   old=c;
   }
 
-  if ( k != 3 || maxw-minw>1 )  
+  if ( k != 3 || maxw-minw>1 )
     return(0);    // enigmatic image
   i=LOCAL[2]+LOCAL[0]-(LOCAL[1]<<1);          // assimetry
-  if (i==0)  
+  if (i==0)
     return (-2);
   if (i<0) i=-i;
   if( i<3 && NWIDTH>22 )  i=1;  //Oleg:02-13-96: too small for wide image
   i=(i<<6)/(32+NWIDTH);
-  if (i==1) 
+  if (i==1)
      i=0;
   return(i);
 }
@@ -2057,16 +2057,16 @@ fine=0;
       if( j >  3*(bit1-bit0)/5 )    fine+=20;
       if( j == (bit1-bit0) )        goto end;
    }
-   if( fine < 40 )   { goto   bbb;}//* breaking 
+   if( fine < 40 )   { goto   bbb;}//* breaking
 
 //******************  make histogramm   ********************************
 
    FOOT_A(RASTR, D_X, (Word8)Dx, (Word8)n4); bool_foot=0;
 
    for(i=bit0+1;i<bit1+1;i++){
-      if(BUFFER[i]==0)  goto   bbb;//* breaking 
+      if(BUFFER[i]==0)  goto   bbb;//* breaking
    }
-   goto   end;//* gluing 
+   goto   end;//* gluing
 
 //************   check gluing on upper right angle ************
 
@@ -2076,19 +2076,19 @@ bbb:fine=0;
       if( j >  3*(bit2-bit1)/5 )     fine+=20;
       if( j == (bit2-bit1) )             {  return(1); }
    }
-   if( fine < 40 )   goto   end;// breaking 
+   if( fine < 40 )   goto   end;// breaking
 
 //******************  make histogramm  ********************************
 
    if( bool_foot ) FOOT_A(RASTR, D_X, (Word8)Dx, (Word8)n4);
    for(i=bit1+1;i<bit2+1;i++){
-      if(BUFFER[i]==0)  goto   end; // breaking 
+      if(BUFFER[i]==0)  goto   end; // breaking
    }
-   return( 1 );// gluing 
+   return( 1 );// gluing
 
 end: return ( 0 );
 
-}  // DiskrTsh 
+}  // DiskrTsh
 
 
 static Int16 average_br_angle(Word8 *RASTER, Int16 D_X, Int16 dx, Int16 dy,
@@ -2585,7 +2585,7 @@ return FALSE;
 DIF_FUNC(Int16) DIF_GetNoCutPoint(Word8 *RASTER, Int16 Wx, Word8 NWIDTH, Word8 NLENGTH)
 {
 Int16 f=FOOT_HEI( RASTER, Wx, NWIDTH, NLENGTH);
-if( f!=2 || f==2 && (LOCAL[0]-(LOCAL_W[0]+1)/2)>(LOCAL_W[0]+1)/2 ) 
+if( f!=2 || f==2 && (LOCAL[0]-(LOCAL_W[0]+1)/2)>(LOCAL_W[0]+1)/2 )
 	return 0;
 return LOCAL[1]+(LOCAL_W[1]+1)/2;
 }

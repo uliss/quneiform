@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîğìå, ñ èçìåíåíèÿìè èëè áåç, ïğè ñîáëşäåíèè ñëåäóşùèõ óñëîâèé:
 
       * Ïğè ïîâòîğíîì ğàñïğîñòğàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîğñêîì ïğàâå, ıòîò ñïèñîê óñëîâèé è ïîñëåäóşùèé 
-        îòêàç îò ãàğàíòèé. 
-      * Ïğè ïîâòîğíîì ğàñïğîñòğàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîğñêîì ïğàâå, ıòîò ñïèñîê óñëîâèé è ïîñëåäóşùèé
+        îòêàç îò ãàğàíòèé.
+      * Ïğè ïîâòîğíîì ğàñïğîñòğàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äğóãèõ ìàòåğèàëàõ, ïîñòàâëÿåìûõ ïğè ğàñïğîñòğàíåíèè, äîëæíû ñîõğàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîğìàöèÿ îá àâòîğñêîì ïğàâå, ıòîò ñïèñîê óñëîâèé è
-        ïîñëåäóşùèé îòêàç îò ãàğàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòğóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñğåäñòâà ïîääåğæêè è/èëè ïğîäâèæåíèÿ 
+        ïîñëåäóşùèé îòêàç îò ãàğàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòğóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñğåäñòâà ïîääåğæêè è/èëè ïğîäâèæåíèÿ
         ïğîäóêòîâ, îñíîâàííûõ íà ıòîì ÏÎ, áåç ïğåäâàğèòåëüíîãî ïèñüìåííîãî
-        ğàçğåøåíèÿ. 
+        ğàçğåøåíèÿ.
 
 İÒÀ ÏĞÎÃĞÀÌÌÀ ÏĞÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎĞÑÊÈÕ ÏĞÀÂ È/ÈËÈ ÄĞÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀĞÀÍÒÈÉ, ÂÛĞÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄĞÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀĞÀÍÒÈÉ, ÂÛĞÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄĞÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËŞ×Àß ÃÀĞÀÍÒÈÈ ÊÎÌÌÅĞ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏĞÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊĞÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃĞÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎĞÑÊÈÕ ÏĞÀÂ È ÍÈ ÎÄÍÎ ÄĞÓÃÎÅ ËÈÖÎ, ÊÎÒÎĞÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎĞÍÎ ĞÀÑÏĞÎÑÒĞÀÍßÒÜ ÏĞÎÃĞÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËŞ×Àß ËŞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏĞÎÃĞÀÌÌÛ (ÂÊËŞ×Àß ÏÎÒÅĞÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅĞÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒĞÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏĞÎÃĞÀÌÌÛ ĞÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄĞÓÃÈÌÈ ÏĞÎÃĞÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃĞÀÍÈ×ÈÂÀßÑÜ İÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃĞÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃĞÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎĞÑÊÈÕ ÏĞÀÂ È ÍÈ ÎÄÍÎ ÄĞÓÃÎÅ ËÈÖÎ, ÊÎÒÎĞÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎĞÍÎ ĞÀÑÏĞÎÑÒĞÀÍßÒÜ ÏĞÎÃĞÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËŞ×Àß ËŞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏĞÎÃĞÀÌÌÛ (ÂÊËŞ×Àß ÏÎÒÅĞÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅĞÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒĞÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏĞÎÃĞÀÌÌÛ ĞÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄĞÓÃÈÌÈ ÏĞÎÃĞÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃĞÀÍÈ×ÈÂÀßÑÜ İÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃĞÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄĞÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅĞÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -59,1023 +59,1023 @@ int bit_distance000(  char d[]){
 return 0   ;
 }
 int bit_distance001(  char d[]){
-return 
+return
 sign[d[7] ]   ;
 }
 int bit_distance002(  char d[]){
-return 
+return
 sign[d[6] ]   ;
 }
 int bit_distance003(  char d[]){
-return 
+return
 sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance004(  char d[]){
-return 
+return
 sign[d[5] ]   ;
 }
 int bit_distance005(  char d[]){
-return 
+return
 sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance006(  char d[]){
-return 
+return
 sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance007(  char d[]){
-return 
+return
 sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance008(  char d[]){
-return 
+return
 sign[d[4] ]   ;
 }
 int bit_distance009(  char d[]){
-return 
+return
 sign[d[4] ]+sign[d[7] ]   ;
 }
 int bit_distance010(  char d[]){
-return 
+return
 sign[d[4] ]+sign[d[6] ]   ;
 }
 int bit_distance011(  char d[]){
-return 
+return
 sign[d[4] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance012(  char d[]){
-return 
+return
 sign[d[4] ]+sign[d[5] ]   ;
 }
 int bit_distance013(  char d[]){
-return 
+return
 sign[d[4] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance014(  char d[]){
-return 
+return
 sign[d[4] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance015(  char d[]){
-return 
+return
 sign[d[4] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance016(  char d[]){
-return 
+return
 sign[d[3] ]   ;
 }
 int bit_distance017(  char d[]){
-return 
+return
 sign[d[3] ]+sign[d[7] ]   ;
 }
 int bit_distance018(  char d[]){
-return 
+return
 sign[d[3] ]+sign[d[6] ]   ;
 }
 int bit_distance019(  char d[]){
-return 
+return
 sign[d[3] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance020(  char d[]){
-return 
+return
 sign[d[3] ]+sign[d[5] ]   ;
 }
 int bit_distance021(  char d[]){
-return 
+return
 sign[d[3] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance022(  char d[]){
-return 
+return
 sign[d[3] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance023(  char d[]){
-return 
+return
 sign[d[3] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance024(  char d[]){
-return 
+return
 sign[d[3] ]+sign[d[4] ]   ;
 }
 int bit_distance025(  char d[]){
-return 
+return
 sign[d[3] ]+sign[d[4] ]+sign[d[7] ]   ;
 }
 int bit_distance026(  char d[]){
-return 
+return
 sign[d[3] ]+sign[d[4] ]+sign[d[6] ]   ;
 }
 int bit_distance027(  char d[]){
-return 
+return
 sign[d[3] ]+sign[d[4] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance028(  char d[]){
-return 
+return
 sign[d[3] ]+sign[d[4] ]+sign[d[5] ]   ;
 }
 int bit_distance029(  char d[]){
-return 
+return
 sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance030(  char d[]){
-return 
+return
 sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance031(  char d[]){
-return 
+return
 sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance032(  char d[]){
-return 
+return
 sign[d[2] ]   ;
 }
 int bit_distance033(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[7] ]   ;
 }
 int bit_distance034(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[6] ]   ;
 }
 int bit_distance035(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance036(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[5] ]   ;
 }
 int bit_distance037(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance038(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance039(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance040(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[4] ]   ;
 }
 int bit_distance041(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[4] ]+sign[d[7] ]   ;
 }
 int bit_distance042(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[4] ]+sign[d[6] ]   ;
 }
 int bit_distance043(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[4] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance044(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[4] ]+sign[d[5] ]   ;
 }
 int bit_distance045(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[4] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance046(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance047(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance048(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[3] ]   ;
 }
 int bit_distance049(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[3] ]+sign[d[7] ]   ;
 }
 int bit_distance050(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[3] ]+sign[d[6] ]   ;
 }
 int bit_distance051(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[3] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance052(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[3] ]+sign[d[5] ]   ;
 }
 int bit_distance053(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[3] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance054(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[3] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance055(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[3] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance056(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[3] ]+sign[d[4] ]   ;
 }
 int bit_distance057(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[7] ]   ;
 }
 int bit_distance058(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[6] ]   ;
 }
 int bit_distance059(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance060(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]   ;
 }
 int bit_distance061(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance062(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance063(  char d[]){
-return 
+return
 sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance064(  char d[]){
-return 
+return
 sign[d[1] ]   ;
 }
 int bit_distance065(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[7] ]   ;
 }
 int bit_distance066(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[6] ]   ;
 }
 int bit_distance067(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance068(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[5] ]   ;
 }
 int bit_distance069(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance070(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance071(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance072(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[4] ]   ;
 }
 int bit_distance073(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[4] ]+sign[d[7] ]   ;
 }
 int bit_distance074(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[4] ]+sign[d[6] ]   ;
 }
 int bit_distance075(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[4] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance076(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[4] ]+sign[d[5] ]   ;
 }
 int bit_distance077(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[4] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance078(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance079(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance080(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[3] ]   ;
 }
 int bit_distance081(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[3] ]+sign[d[7] ]   ;
 }
 int bit_distance082(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[3] ]+sign[d[6] ]   ;
 }
 int bit_distance083(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[3] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance084(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[3] ]+sign[d[5] ]   ;
 }
 int bit_distance085(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[3] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance086(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[3] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance087(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[3] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance088(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[3] ]+sign[d[4] ]   ;
 }
 int bit_distance089(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[3] ]+sign[d[4] ]+sign[d[7] ]   ;
 }
 int bit_distance090(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[3] ]+sign[d[4] ]+sign[d[6] ]   ;
 }
 int bit_distance091(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[3] ]+sign[d[4] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance092(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]   ;
 }
 int bit_distance093(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance094(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance095(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance096(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]   ;
 }
 int bit_distance097(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[7] ]   ;
 }
 int bit_distance098(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[6] ]   ;
 }
 int bit_distance099(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance100(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[5] ]   ;
 }
 int bit_distance101(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance102(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance103(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance104(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[4] ]   ;
 }
 int bit_distance105(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[4] ]+sign[d[7] ]   ;
 }
 int bit_distance106(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[4] ]+sign[d[6] ]   ;
 }
 int bit_distance107(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[4] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance108(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[4] ]+sign[d[5] ]   ;
 }
 int bit_distance109(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[4] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance110(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance111(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance112(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[3] ]   ;
 }
 int bit_distance113(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[7] ]   ;
 }
 int bit_distance114(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[6] ]   ;
 }
 int bit_distance115(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance116(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[5] ]   ;
 }
 int bit_distance117(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance118(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance119(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance120(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]   ;
 }
 int bit_distance121(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[7] ]   ;
 }
 int bit_distance122(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[6] ]   ;
 }
 int bit_distance123(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance124(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]   ;
 }
 int bit_distance125(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance126(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance127(  char d[]){
-return 
+return
 sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance128(  char d[]){
-return 
+return
 sign[d[0] ]   ;
 }
 int bit_distance129(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[7] ]   ;
 }
 int bit_distance130(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[6] ]   ;
 }
 int bit_distance131(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance132(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[5] ]   ;
 }
 int bit_distance133(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance134(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance135(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance136(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[4] ]   ;
 }
 int bit_distance137(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[4] ]+sign[d[7] ]   ;
 }
 int bit_distance138(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[4] ]+sign[d[6] ]   ;
 }
 int bit_distance139(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[4] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance140(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[4] ]+sign[d[5] ]   ;
 }
 int bit_distance141(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[4] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance142(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance143(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance144(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[3] ]   ;
 }
 int bit_distance145(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[3] ]+sign[d[7] ]   ;
 }
 int bit_distance146(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[3] ]+sign[d[6] ]   ;
 }
 int bit_distance147(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[3] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance148(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[3] ]+sign[d[5] ]   ;
 }
 int bit_distance149(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[3] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance150(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[3] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance151(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[3] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance152(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[3] ]+sign[d[4] ]   ;
 }
 int bit_distance153(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[3] ]+sign[d[4] ]+sign[d[7] ]   ;
 }
 int bit_distance154(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[3] ]+sign[d[4] ]+sign[d[6] ]   ;
 }
 int bit_distance155(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[3] ]+sign[d[4] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance156(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]   ;
 }
 int bit_distance157(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance158(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance159(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance160(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]   ;
 }
 int bit_distance161(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[7] ]   ;
 }
 int bit_distance162(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[6] ]   ;
 }
 int bit_distance163(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance164(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[5] ]   ;
 }
 int bit_distance165(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance166(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance167(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance168(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[4] ]   ;
 }
 int bit_distance169(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[4] ]+sign[d[7] ]   ;
 }
 int bit_distance170(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[4] ]+sign[d[6] ]   ;
 }
 int bit_distance171(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[4] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance172(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[4] ]+sign[d[5] ]   ;
 }
 int bit_distance173(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[4] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance174(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance175(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance176(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[3] ]   ;
 }
 int bit_distance177(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[3] ]+sign[d[7] ]   ;
 }
 int bit_distance178(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[3] ]+sign[d[6] ]   ;
 }
 int bit_distance179(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[3] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance180(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[3] ]+sign[d[5] ]   ;
 }
 int bit_distance181(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[3] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance182(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[3] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance183(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[3] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance184(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]   ;
 }
 int bit_distance185(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[7] ]   ;
 }
 int bit_distance186(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[6] ]   ;
 }
 int bit_distance187(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance188(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]   ;
 }
 int bit_distance189(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance190(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance191(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance192(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]   ;
 }
 int bit_distance193(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[7] ]   ;
 }
 int bit_distance194(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[6] ]   ;
 }
 int bit_distance195(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance196(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[5] ]   ;
 }
 int bit_distance197(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance198(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance199(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance200(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[4] ]   ;
 }
 int bit_distance201(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[4] ]+sign[d[7] ]   ;
 }
 int bit_distance202(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[4] ]+sign[d[6] ]   ;
 }
 int bit_distance203(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[4] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance204(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[4] ]+sign[d[5] ]   ;
 }
 int bit_distance205(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[4] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance206(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance207(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance208(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[3] ]   ;
 }
 int bit_distance209(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[3] ]+sign[d[7] ]   ;
 }
 int bit_distance210(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[3] ]+sign[d[6] ]   ;
 }
 int bit_distance211(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[3] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance212(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[3] ]+sign[d[5] ]   ;
 }
 int bit_distance213(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[3] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance214(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[3] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance215(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[3] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance216(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[3] ]+sign[d[4] ]   ;
 }
 int bit_distance217(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[3] ]+sign[d[4] ]+sign[d[7] ]   ;
 }
 int bit_distance218(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[3] ]+sign[d[4] ]+sign[d[6] ]   ;
 }
 int bit_distance219(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[3] ]+sign[d[4] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance220(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]   ;
 }
 int bit_distance221(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance222(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance223(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance224(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]   ;
 }
 int bit_distance225(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[7] ]   ;
 }
 int bit_distance226(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[6] ]   ;
 }
 int bit_distance227(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance228(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[5] ]   ;
 }
 int bit_distance229(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance230(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance231(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance232(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[4] ]   ;
 }
 int bit_distance233(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[4] ]+sign[d[7] ]   ;
 }
 int bit_distance234(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[4] ]+sign[d[6] ]   ;
 }
 int bit_distance235(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[4] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance236(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[4] ]+sign[d[5] ]   ;
 }
 int bit_distance237(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[4] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance238(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance239(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance240(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[3] ]   ;
 }
 int bit_distance241(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[7] ]   ;
 }
 int bit_distance242(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[6] ]   ;
 }
 int bit_distance243(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance244(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[5] ]   ;
 }
 int bit_distance245(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance246(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance247(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance248(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]   ;
 }
 int bit_distance249(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[7] ]   ;
 }
 int bit_distance250(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[6] ]   ;
 }
 int bit_distance251(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 int bit_distance252(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]   ;
 }
 int bit_distance253(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[7] ]   ;
 }
 int bit_distance254(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]   ;
 }
 int bit_distance255(  char d[]){
-return 
+return
 sign[d[0] ]+sign[d[1] ]+sign[d[2] ]+sign[d[3] ]+sign[d[4] ]+sign[d[5] ]+sign[d[6] ]+sign[d[7] ]   ;
 }
 

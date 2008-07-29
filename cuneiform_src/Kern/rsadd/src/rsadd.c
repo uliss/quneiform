@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -88,7 +88,7 @@ static Int16   crsadd_dup4r=150;
 static Int16   crsadd_dup5r=170;
 static Int16   crsadd_dup4e=150;
 static Int16   crsadd_equa1=100;
-static Int16   crsadd_equa2=100;    
+static Int16   crsadd_equa2=100;
 #define MAX_LEN_WORD  68
 
 Word16              wHeightRC      = 0;
@@ -110,8 +110,8 @@ static Word8 rus_similar[]="џ18$";
 static Word8 eng_similar[]="SISS";
 static Word8 rus_alias  []="ЈЇвЎ‚8";
 static Word8 eng_alias  []="rnr68B";
-static Word8 rus_equal  []="в®аЄебў¬…’“ЋђЂЌЉ•‘‚ЊҐгЁ®а еб“Ћђ•‘­Јэх123456789031"; 
-static Word8 eng_equal  []="TOPKXCBMETYOPAHKXCBMeyuopaxcyopxcHIam1234567890‡є"; 
+static Word8 rus_equal  []="в®аЄебў¬…’“ЋђЂЌЉ•‘‚ЊҐгЁ®а еб“Ћђ•‘­Јэх123456789031";
+static Word8 eng_equal  []="TOPKXCBMETYOPAHKXCBMeyuopaxcyopxcHIam1234567890‡є";
 static Word8 rus_uni_letters[]="©‰й™д”л›¤„¦†нќпџоћЃ\xf0";
 static Word8 eng_uni_letters[]="iwWRFGLZz\xb1\xb2\xb3\xb4\xb5\xb6\xb9"; //+N
 static Word8 non_letters[]="«»()";
@@ -127,7 +127,7 @@ static Bool16	(*snap_show_text)(Word8 *txt)=my_snap_show_text;
 static Word8	db_status=0;
 static Word8   spec_camera=0;
 
-RSADD_FUNC(void) RSADD_SetRSTR( Word8 status,Word8 camera, 
+RSADD_FUNC(void) RSADD_SetRSTR( Word8 status,Word8 camera,
                                 Handle monitor_ori,
                                 Handle activity,
                                 Handle show_text)
@@ -154,7 +154,7 @@ CSTR_rast_attr  attr;
 RecVersions     vers;
 
 CSTR_GetAttr(c,&attr);
-if( attr.flg==CSTR_f_fict && attr.col==0x7fff ) 
+if( attr.flg==CSTR_f_fict && attr.col==0x7fff )
     return (CSTR_rast)0; // last rast
 do{
   c=CSTR_GetNext(c);
@@ -178,7 +178,7 @@ RecVersions     vers;
 Bool32          solid=FALSE,prev_over=FALSE;
 
 
-if( rightTrue ) 
+if( rightTrue )
 // поиск в первую очередь по правой границе
 // Nick 11.05.2001
 {
@@ -186,7 +186,7 @@ if( rightTrue )
     CSTR_rast best=NULL;
 	Int32 bestDist=32000;
 	Int32 dist;
-	
+
 	for(c=cs;c;c=CSTR_GetNext(c) )
 	{
 		CSTR_GetAttr(c,&attr);
@@ -219,19 +219,19 @@ if( rightTrue )
 			bestDist = dist;
 		}
 
-    } 
+    }
 
 	if( best && bestDist < 5 )
 	{
 		best = CSTR_GetNext(best);
-		
+
 		// for snap
 		 for(c=cs,i=0;c != best; c= CSTR_GetNext(c),i++ )
 		 {
 			CSTR_GetCollection(c,&vers);
-            *str++  = vers.Alt[0].Code; 
+            *str++  = vers.Alt[0].Code;
 		 }
-        
+
 		 c= best ? best : CSTR_GetLastRaster(CSTR_GetRasterLine(cs));
 
          *str='\0';
@@ -253,12 +253,12 @@ if( need_space==2 )
     do{
         c=CSTR_GetNext(c);
         CSTR_GetCollection(c,&vers);
-        *str++  = vers.Alt[0].Code;  
+        *str++  = vers.Alt[0].Code;
         CSTR_GetAttr(c,&attr);
         i++;
-        }while(  c && 
+        }while(  c &&
                 (!strchr(" ",vers.Alt[0].Code)||(attr.flg&CSTR_fn_hide)) &&
-                !(attr.flg&CSTR_f_fict) && 
+                !(attr.flg&CSTR_f_fict) &&
                  i<MAX_LEN_WORD-1);
     }
 else
@@ -266,14 +266,14 @@ else
     do{
       c=CSTR_GetNext(c);
       CSTR_GetCollection(c,&vers);
-      *str++  = vers.Alt[0].Code;  
+      *str++  = vers.Alt[0].Code;
       CSTR_GetAttr(c,&attr);
       i++;
       if( attr.flg&CSTR_f_solid )
         solid=TRUE;
       if( (solid||prev_over) && vers.Alt[0].Code==0x1F )
         break;
-      prev_over=( abs(attr.col+attr.w-right_limit)<dif  && 
+      prev_over=( abs(attr.col+attr.w-right_limit)<dif  &&
           abs(attr.col-left_limit)<dif )  ;
       }while( c && !memchr(right_limit_word,vers.Alt[0].Code,sizeof(right_limit_word)) &&
               attr.col+attr.w<=right_limit+dif &&
@@ -286,7 +286,7 @@ if( c && attr.w && !prev_over &&
     {
     c=CSTR_GetNext(c);
     CSTR_GetCollection(c,&vers);
-    *str++  = vers.Alt[0].Code;  
+    *str++  = vers.Alt[0].Code;
     CSTR_GetAttr(c,&attr);
     i++;
     }
@@ -294,11 +294,11 @@ if( c && attr.w && !prev_over &&
 if( need_space==1 && c && !(attr.flg&CSTR_f_fict) &&
     vers.Alt[0].Code != liga_TM_usual && // Nick 11.05.2001
     vers.Alt[0].Code != liga_CC_usual &&
-    vers.Alt[0].Code != liga_CR_usual 
+    vers.Alt[0].Code != liga_CR_usual
    )
     {
     n = CSTR_GetNext(c);
-    CSTR_GetAttr(n,&nattr);        
+    CSTR_GetAttr(n,&nattr);
     if( /*attr.w &&*/ (nattr.flg&(CSTR_f_let|CSTR_f_bad|CSTR_f_punct)) )
         {
         Int16   dist=16000;
@@ -310,7 +310,7 @@ if( need_space==1 && c && !(attr.flg&CSTR_f_fict) &&
             !strchr(true_terms,vers.Alt[0].Code) &&
             nattr.col - (attr.col+attr.w)>0 &&
             nattr.col - (attr.col+attr.w)<dist/3 )
-            return (CSTR_rast)0;    
+            return (CSTR_rast)0;
         }
     }
 c=c ? c : CSTR_GetLastRaster(CSTR_GetRasterLine(cs));
@@ -381,11 +381,11 @@ static Bool32 GoodWordBounds(CSTR_rast cs, CSTR_rast best, Int32 engCol, Int32 e
 		   if( !memchr(right_limit_word,vers.Alt[0].Code,sizeof(right_limit_word)) &&
 			   ! (rattr.flg & CSTR_f_space) &&
 			   ! (rattr.flg & CSTR_f_bad) &&
-			   rattr.col <= rect.right+porog 
+			   rattr.col <= rect.right+porog
 			  )
 		   {
 			if( rattr.h*2 > rect.bottom-rect.top &&
-				rattr.row + rattr.h > iDn && 
+				rattr.row + rattr.h > iDn &&
 				rattr.row < iUp
 			  )
 			{
@@ -405,7 +405,7 @@ static Bool32 GoodWordBounds(CSTR_rast cs, CSTR_rast best, Int32 engCol, Int32 e
 			      !(rattr.flg & CSTR_f_space) &&
 				  ! (rattr.flg & CSTR_f_bad) &&
 			     rattr.h*2 > rect.bottom-rect.top &&
-				 rattr.row + rattr.h > iDn && 
+				 rattr.row + rattr.h > iDn &&
 				 rattr.row < iUp
 			   )
 			  return FALSE;
@@ -415,7 +415,7 @@ static Bool32 GoodWordBounds(CSTR_rast cs, CSTR_rast best, Int32 engCol, Int32 e
 
 	if(  (c=CSTR_GetPrev(cs))!=NULL )
 	{
-		CSTR_GetCollection(c,&vers);   
+		CSTR_GetCollection(c,&vers);
 		CSTR_GetAttr(c, &rattr);
 
 		if( memchr(right_limit_word,vers.Alt[0].Code,sizeof(right_limit_word)) ||
@@ -427,30 +427,30 @@ static Bool32 GoodWordBounds(CSTR_rast cs, CSTR_rast best, Int32 engCol, Int32 e
 		 return TRUE;
 
 		if( rattr.h*2 <= rect.bottom-rect.top ||
-			rattr.row + rattr.h < iDn || 
+			rattr.row + rattr.h < iDn ||
 			rattr.row > iUp
 		  )
 		  return TRUE;
 
 		// могли захватить лишнего?
 		c = cs;
-		CSTR_GetCollection(c,&vers);   
+		CSTR_GetCollection(c,&vers);
 		CSTR_GetAttr(c, &rattr);
 
 
 		if( memchr(right_limit_word,vers.Alt[0].Code,sizeof(right_limit_word)) ||
 			memchr(left_limit_word,vers.Alt[0].Code,sizeof(left_limit_word)) ||
 			(rattr.flg & CSTR_f_space) ||
-			(rattr.flg & CSTR_f_bad) 
+			(rattr.flg & CSTR_f_bad)
 		  )
 		  return TRUE;
 
 		if( rattr.col >= engCol )
 			return FALSE;
 
-		
+
 		if( rattr.h*2 <= rect.bottom-rect.top ||
-			rattr.row + rattr.h < iDn || 
+			rattr.row + rattr.h < iDn ||
 			rattr.row > iUp
 		  )
 			  return TRUE;
@@ -473,7 +473,7 @@ CSTR_rast_attr  attr;
 Bool32  ret, rleftcut;
 if( spec_camera )
     return TRUE;
-    
+
 dr=1;
 CSTR_GetAttr(rus, &attr);
 rl=attr.r_col;
@@ -482,7 +482,7 @@ CSTR_GetAttr(ruse, &attr);
 if( attr.flg&CSTR_f_space )
     {
     ruse = CSTR_GetPrev(ruse);
-    CSTR_GetAttr(ruse, &attr);    
+    CSTR_GetAttr(ruse, &attr);
     }
 rr=attr.r_col+attr.w;
 if( attr.pos_inc==CSTR_erect_rest )
@@ -495,7 +495,7 @@ CSTR_GetAttr(enge, &attr);
 if( attr.flg&CSTR_f_space )
     {
     enge = CSTR_GetPrev(enge);
-    CSTR_GetAttr(enge, &attr);    
+    CSTR_GetAttr(enge, &attr);
     }
 er=attr.r_col+attr.w;///2; // 17.12.92
 ret = rsadd_over_segm(rr,rl,er,el,dr);
@@ -512,18 +512,18 @@ CSTR_rast_attr  a;
  if( !c )
     return endlet;
  else
- { 
+ {
     CSTR_GetAttr(c,&a);
-	
+
     if( !(a.flg& CSTR_f_punct) )
-        return endlet;  
+        return endlet;
     }
 
- do  
+ do
  {
     c=CSTR_GetNextRaster(c,255);
     CSTR_GetAttr(c,&a);
- } 
+ }
  while( !(a.flg&CSTR_f_fict) && (a.flg&(CSTR_f_punct)));
 
  return !(a.flg&CSTR_f_fict)?c:CSTR_GetLastRaster(CSTR_GetRasterLine(c));
@@ -537,9 +537,9 @@ CSTR_rast c;
 RecVersions     vers;
 
 for(c=be;c&&c!=en;c=CSTR_GetNext(c))
-	{	
+	{
 	CSTR_GetCollection(c,&vers);
-	*str++  = vers.Alt[0].Code; 
+	*str++  = vers.Alt[0].Code;
 	}
 
 *str='\0';
@@ -555,7 +555,7 @@ switch( language )
     case    LANG_RUSSIAN:
         return( code>191 && code<224 || code>47&& code<58 );
     case    LANG_ENGLISH:
-        return( code>64 && code<91 || code>47&& code<58 );            
+        return( code>64 && code<91 || code>47&& code<58 );
     }
 return FALSE;
 }
@@ -570,7 +570,7 @@ switch( language )
     case    LANG_RUSSIAN:
         return( code>191 && !strchr("шШщЩжЖыЫюЮ",code) );
     case    LANG_ENGLISH:
-        return( strchr("QERTYUOPASDFGHJKLZXCVBNMqeyuopasdghkzxcvbn",code)!=NULL );            
+        return( strchr("QERTYUOPASDFGHJKLZXCVBNMqeyuopasdghkzxcvbn",code)!=NULL );
     }
 return FALSE;
 }
@@ -634,9 +634,9 @@ for(r=beg;r && r!= end; r=CSTR_GetNext(r), nall++)
             maxp = u.Alt[0].Prob ;
 
         if( u.Alt[0].Prob>220 )
-            s->nh++;                
+            s->nh++;
         else if( u.Alt[0].Prob>100 )
-            s->nm++;                
+            s->nm++;
         else
             s->ns++;
         if( rsadd_is_digit(u.Alt[0].Liga) )
@@ -672,9 +672,9 @@ s->minp      = (Word8)minp;
 s->maxp      = (Word8)maxp;
 s->norec     = norec;
 s->var_width = ( maxw*2>minw*5 );
-s->var_kegl  = ( !nup_first  && nupall || 
+s->var_kegl  = ( !nup_first  && nupall ||
         nup+nup_first!=s->nall  && nup>0);
-s->var_dig   = ( ndig_first && ndig+ndig_first!=s->nall|| 
+s->var_dig   = ( ndig_first && ndig+ndig_first!=s->nall||
         ndig+ndig_first!=s->nall && ndig>0 );
 s->case_up   = (s->nall==nup+nup_first);
 s->case_dn   = (nup+nup_first==0);
@@ -691,12 +691,12 @@ CSTR_rast c;
 for(c=rus;c&&c!=ruse;)
     {
     c = CSTR_DelRaster (c);
-    } 
+    }
 return;
 }
 
 static Bool32 rsadd_CopyWord(   CSTR_rast   cn,
-                                CSTR_rast   eng,CSTR_rast   enge, 
+                                CSTR_rast   eng,CSTR_rast   enge,
                                 Bool32 rus_lang,
                                 CSTR_rast   *svb,CSTR_rast   *sve,
 								Int32 lastPos )
@@ -719,13 +719,13 @@ for(c=eng;c && c!=enge;c=CSTR_GetNext(c))
         (comp=CSTR_GetComp(c))!=NULL )
         {
 		// Nick 11.03.2001
-        if( lastPos && ( !(attr.flg & CSTR_f_space) ) && 
+        if( lastPos && ( !(attr.flg & CSTR_f_space) ) &&
 			attr.col > lastPos )
 			break;
-		  
+
         if( rus_lang )
             attr.language=LANG_RUSSIAN;
-        
+
         if( !(cn=CSTR_InsertRaster (cn))        ||
             !CSTR_SetAttr (cn, &attr)           ||
             !CSTR_StoreRaster (cn, &rs)         ||
@@ -737,7 +737,7 @@ for(c=eng;c && c!=enge;c=CSTR_GetNext(c))
         if( sve)
             *sve=cn;
         } // end of getting information and storing
-    } 
+    }
 return TRUE;
 }
 
@@ -791,7 +791,7 @@ RecVersions     vers;
 rst = CSTR_GetFirstRaster(ln);
 do  {
     CSTR_GetAttr(rst,&attr);
-    CSTR_GetCollection(rst,&vers); 
+    CSTR_GetCollection(rst,&vers);
     if( !(attr.flg&CSTR_f_space) )// prevously attr
         pattr = attr;
     rst = CSTR_GetNextRaster(rst, CSTR_f_let|CSTR_f_bad|CSTR_f_punct|CSTR_f_fict);
@@ -832,7 +832,7 @@ if( attr.col+attr.w>=right-1 )
 do  {
     rst = CSTR_GetNextRaster(rst, 255);
     CSTR_GetAttr(rst,&attr);
-    
+
     leftn   =attr.col;
     rightn  =attr.col+attr.w;
     if( rsadd_over_segm(rightn,leftn,right,left,1) ||
@@ -864,7 +864,7 @@ else if( lang==LANG_ENGLISH )
     fs=eng_similar;
     }
 else
-    return RSADD_as_none;    
+    return RSADD_as_none;
 if( strchr(fe,let) )
     return RSADD_as_equal;
 
@@ -948,7 +948,7 @@ for(ndx=0,p=eng; *p;p++,ndx++)
         find=TRUE;
         if( rus[ndx]==r )
             {
-            comp = TRUE;  
+            comp = TRUE;
             break;
             }
         }
@@ -979,7 +979,7 @@ for(;*e&&*r;r++,e++)
         case    1: // alias
             if( !find_in_paar_arrays(*e,*r,
                     eng_equal,
-                    rus_equal) && 
+                    rus_equal) &&
                 !find_in_paar_arrays(*e,*r,
                     eng_alias,
                     rus_alias))
@@ -988,17 +988,17 @@ for(;*e&&*r;r++,e++)
         case    2: // similar
             if( !find_in_paar_arrays(*e,*r,
                     eng_equal,
-                    rus_equal) && 
+                    rus_equal) &&
                 !find_in_paar_arrays(*e,*r,
                     eng_alias,
-                    rus_alias) && 
+                    rus_alias) &&
                 !find_in_paar_arrays(*e,*r,
                     eng_similar,
                     rus_similar))
                 return FALSE;
             break;
         }
-    
+
     }
 return TRUE;
 }
@@ -1018,8 +1018,8 @@ for(r=rus;r && r!=ruse;r=CSTR_GetNext(r))
     {
     CSTR_GetAttr(r,&a);
     CSTR_GetCollectionUni(r,&u);
-    if( (a.flg&CSTR_f_let) && 
-        u.lnAltCnt && 
+    if( (a.flg&CSTR_f_let) &&
+        u.lnAltCnt &&
         strchr(eng_uni_letters,u.Alt[0].Code[0]) &&
         u.Alt[0].Prob>220 )
         return TRUE;
@@ -1078,7 +1078,7 @@ int    nlet;
    {
     CSTR_GetAttr(r,&a);
     CSTR_GetCollectionUni(r,&u);
-    if( !(a.flg&CSTR_f_solid) && 
+    if( !(a.flg&CSTR_f_solid) &&
          (u.lnAltCnt && !strchr(non_letters,u.Alt[0].Code[0]) ||
         !u.lnAltCnt ))
         return FALSE;
@@ -1161,7 +1161,7 @@ Word8   *p;
 ii=strlen(rwrd);
 iv=strlen(russian_year);
 if( rwrd[0]==russian_year[0] )
-    {    
+    {
     if( ii>=iv &&
         !memcmp(russian_year,rwrd,iv) )
         {
@@ -1241,7 +1241,7 @@ UniVersions     u;
 Int32           all, small;
 
 for(all=small=0,c=eng;c && c!=enge;c=CSTR_GetNext(c))
-    {    
+    {
     CSTR_GetCollectionUni(c,&u);
     if( u.lnAltCnt && isupper(u.Alt[0].Code[0]) )
         {
@@ -1304,7 +1304,7 @@ BL_cap   = lattr.bs3-lattr.bs1;
 BL_small = lattr.bs3-lattr.bs2;
 
 // Nick 29.10.00
-CSTR_GetLineAttr(leng,&lattr); 
+CSTR_GetLineAttr(leng,&lattr);
 BL_small = MIN(BL_small, lattr.bs3-lattr.bs2);
 
 
@@ -1329,7 +1329,7 @@ while(1)
     need_rus_coord=FALSE;
     CSTR_GetAttr(enge,&attr);
     is_one_eword=( (attr.flg&CSTR_f_fict) && num_word==1 );
-        
+
     CSTR_GetCollection(enge,&v);
     if( rsadd_eng_group(ewrd,(Word8)((attr.flg&CSTR_f_punct)?v.Alt[0].Code:0)) )
         {
@@ -1344,7 +1344,7 @@ while(1)
         strcpy(buf,"can't find russian for ");
         strcat(buf,ewrd);
         if( db_status && snap_activity(etap_name) )
-            {				
+            {
             snap_show_text(buf);
 		    snap_monitor_ori(sln,2);
 		    }
@@ -1357,9 +1357,9 @@ while(1)
         cn=CSTR_GetPrevRaster(cn,255);
         CSTR_GetAttr(cn,&eattr);
         }
-    pruse = ruse;    
+    pruse = ruse;
     ruse = rsadd_end_word (rus,rwrd,&rlen,eattr.col,(Int16)(eattr.col+eattr.w),1,TRUE);
-    
+
     if( need_rus_coord )
          {
          CSTR_GetAttr(enge,&attr);
@@ -1383,14 +1383,14 @@ while(1)
             ruse=rsadd_get_right_coord(rus,eattr.col,(Int16)(eattr.col+eattr.w));
         if( is_one_eword )
             ruse =  CSTR_GetPrev(CSTR_GetLastRaster(lrus));
-        
+
         if( !ruse || !isSolid && !GoodWordBounds(rus,ruse,engCol,eattr.col+eattr.w) )
             {
             strcpy(buf,"can't find russian for <");
             strcat(buf,ewrd);
             strcat(buf,">");
             if( db_status && snap_activity(etap_name) )
-                {				
+                {
                 snap_show_text(buf);
 		        snap_monitor_ori(sln,2);
 		        }
@@ -1405,7 +1405,7 @@ while(1)
         strcat(buf,rwrd);
         strcat(buf,">");
         if( db_status && snap_activity(etap_name) )
-            {				
+            {
             snap_show_text(buf);
 		    snap_monitor_ori(sln,2);
 		    }
@@ -1456,32 +1456,32 @@ while(1)
         type = 0;
         switch( rattr.rus_eng_word )
             {
-            case CSTR_ruseng_rus:   
+            case CSTR_ruseng_rus:
                 if( !verdict )
-                verdict = ( estat.minp>=rstat.minp+crsadd_rus1 && esolid || 
+                verdict = ( estat.minp>=rstat.minp+crsadd_rus1 && esolid ||
                     estat.minp>=rstat.minp+crsadd_rus2 && !rsolid  );
                 type = 1;
                 break;
             case CSTR_ruseng_eng:
                 if( !verdict )
-                verdict = ( esolid || 
+                verdict = ( esolid ||
                     estat.minup>180 && rstat.minup<100 && !rsolid ||
-                    estat.minp>=rstat.minp+crsadd_eng1 && !rsolid || 
+                    estat.minp>=rstat.minp+crsadd_eng1 && !rsolid ||
                     estat.minp>=rstat.minp-crsadd_eng3 && rstat.var_dig && !estat.var_dig ||
                     aliases && !rsolid && estat.minp>=rstat.minp+crsadd_eng2 );
                 type = 2;
                 break;
-            case CSTR_ruseng_re :               
+            case CSTR_ruseng_re :
             case CSTR_ruseng_alt:
                 if( !verdict && !estat.var_dig  )
-                verdict = ( esolid || 
+                verdict = ( esolid ||
                     estat.minup>200 && rstat.minup<100 && !rsolid ||
-                    estat.minp>=rstat.minp+crsadd_re1 && !rsolid || 
+                    estat.minp>=rstat.minp+crsadd_re1 && !rsolid ||
                     aliases && rsolid && estat.minp>=rstat.minp+crsadd_re2 );
                 type = 3;
                 break;
             }
-        
+
 //        rtri=rec_versions_triad( rwrd,LANG_RUSSIAN);
 //        etri=rec_versions_triad( ewrd,LANG_ENGLISH);
 
@@ -1498,7 +1498,7 @@ while(1)
 
         if( enorec )
             verdict=FALSE;
-        if( rnorec && 
+        if( rnorec &&
             !(rnorec==1 && rstat.minp>estat.minp+150 && estat.minup<100 ) &&
             !(rnorec==1 && rstat.minup>250 && estat.minup<100 ) &&
             !(rnorec==1 && !rstat.var_dig && rstat.minp>estat.minp+20 && estat.maxup && estat.maxup<180 ) )
@@ -1515,7 +1515,7 @@ while(1)
         similar = FALSE;
         if( !equal && !aliases )
             similar = rsadd_similar(rwrd,ewrd);
-        if( equal && abs(estat.minp-rstat.minp)<crsadd_equa1 && abs(estat.maxp-rstat.maxp)<crsadd_equa2 ) 
+        if( equal && abs(estat.minp-rstat.minp)<crsadd_equa1 && abs(estat.maxp-rstat.maxp)<crsadd_equa2 )
             verdict=FALSE;
         if( !estat.var_kegl && (isupper(ewrd[0])||isupper(ewrd[1])) &&
             rsadd_bl_conflict(eng,enge,BL_small) )
@@ -1539,7 +1539,7 @@ while(1)
                 rstat.norec, rstat.nall, rstat.nh, rstat.nm, rstat.ns,
                 rstat.var_width?'y':'n',rstat.var_kegl?'y':'n',rstat.var_dig?'y':'n');
         short_russian=FALSE;
-        if( verdict ) 
+        if( verdict )
             {
             neng++;
             rsadd_revert_lang(pruse,rus,LANG_ENGLISH);
@@ -1564,8 +1564,8 @@ while(1)
 					(
 					 estat.minp < rstat.minp && estat.nh < rstat.nh ||
 					 estat.minp < rstat.minp && estat.maxp < rstat.maxp && estat.nh <= rstat.nh ||
-					 estat.maxp <= rstat.maxp && 
-					 (estat.nh < rstat.nh || rstat.nh + 1 >= rstat.nall && rstat.minp > 180 )&& 
+					 estat.maxp <= rstat.maxp &&
+					 (estat.nh < rstat.nh || rstat.nh + 1 >= rstat.nall && rstat.minp > 180 )&&
 					 ( estat.maxp < rstat.maxp || rstat.nh + 1 >= rstat.nall ) &&
 					 estat.maxup < 220  // not hei
 					)
@@ -1592,7 +1592,7 @@ while(1)
                     return FALSE;
                  rsadd_DelWord(eng,enge);
 				}
-                
+
                 if( copy_pass2 )
                     {
                     if( similar || short_russian )
@@ -1619,8 +1619,8 @@ while(1)
                 enge = CSTR_GetPrevRaster(enge,255);
 
 				if( ruse )
-				{ 
-                 RecVersions     vers; 
+				{
+                 RecVersions     vers;
 				 CSTR_GetCollection(ruse,&vers);
 
 		         if( !memchr(right_limit_word,vers.Alt[0].Code,sizeof(right_limit_word)) )
@@ -1628,12 +1628,12 @@ while(1)
 				}
                 }
             } // end of solid word
-        else if(    (rstat.minp<crsadd_dup4r && !rsolid && !estat.var_dig && !estat.var_kegl ) || 
+        else if(    (rstat.minp<crsadd_dup4r && !rsolid && !estat.var_dig && !estat.var_kegl ) ||
                     !aliases && !rsolid && !(estat.var_kegl&&!rstat.var_kegl) && abs(rstat.minp-estat.minp)<10 && abs(rstat.maxp-estat.maxp)<10 ||
                     similar || short_russian ||
                     nall>4 && neng*5>nall*3 && rstat.minp<crsadd_dup5r && !rsolid && !estat.var_dig && !estat.var_kegl  ||
-                    (!enorec && 
-                   (rattr.rus_eng_word&(CSTR_ruseng_re| CSTR_ruseng_alt)) && 
+                    (!enorec &&
+                   (rattr.rus_eng_word&(CSTR_ruseng_re| CSTR_ruseng_alt)) &&
                    (rstat.minp>crsadd_dup2 && estat.minp>crsadd_dup1 && estat.minp>rstat.minp-crsadd_dup2||
                     aliases && estat.minp>crsadd_dup3 ||
                     equal )) )
@@ -1679,7 +1679,7 @@ while(1)
             strcat(buf,"> deleted");
             rsadd_DelWord(eng,enge);
             }
-            
+
         } // end of over words
     else
         {
@@ -1690,7 +1690,7 @@ while(1)
         strcat(buf,">");
         }
     if( db_status && snap_activity(etap_name) )
-        {				
+        {
 		snap_show_text(buf1);
         snap_show_text(buf2);
         snap_show_text(buf3);
@@ -1754,7 +1754,7 @@ do  {
                     attr.flg_new |= CSTR_fn_hide;
                     CSTR_SetAttr(rri,&attr);
                     hide++;
-                    }             
+                    }
                 }
             return (hide>0);
             }
@@ -1786,7 +1786,7 @@ for( ; eng && eng!=enge; eng=CSTR_GetNext(eng))
     }
 return (hide>0);
 }
-// standart functions 
+// standart functions
 
 
 

@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // use ASCII (DOS-coding) !!!
 
 // дополнительная проверка колонок таблиц
-#define _TEST_COLUMNS_   
+#define _TEST_COLUMNS_
 // дополнительная проверка не вошедших в шрифты кластеров
 #define _TEST_STAY_
 
@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // находится в базе
 #define _TEST_MULTI_FONT_
 
-// имена символов указаны правильно - 
+// имена символов указаны правильно -
 // а не с точноcтью до регистра
 #define _GOOD_BIG_SMALL_
 
@@ -87,8 +87,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define MAX_WIDTH  128
 #define POROG_BAD_LINGVO 80
 #define POROG_PROB_GOOD 185
-#define POROG_GOOD_DVA  210   // if from 2 symbols 1.10.98 
-#define POROG_VERYGOOD  250   // for clusters weight 1 
+#define POROG_GOOD_DVA  210   // if from 2 symbols 1.10.98
+#define POROG_VERYGOOD  250   // for clusters weight 1
 
 #define POROG_360       220  //  можно взять из 3,6,0 как букву
 
@@ -100,7 +100,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define MAXFONT         8
 #define UNRECOG_SYMBOL '~'
- 
+
 #include "c_types.h"
 
 #include <stdlib.h>
@@ -144,7 +144,7 @@ int countCluster[256]; // how many clusters with name
 static int TestFillAll  = 1;
 // в одном поле (строке)   - один шрифт
 static int OneFontField = 1;
-       
+
 static int maxCluster[256];   // which   best
 static int max2Cluster[256];   // small or big - name same in examples!
 static int bestSizes[MAX_HEIGHT];
@@ -159,7 +159,7 @@ void SetFillAll(int sss)
 	TestFillAll=sss;
 	OneFontField = sss; // temporary?
 }
-///////////////////// 
+/////////////////////
 //  is one bitmap part of other ?
 //
 static int HausInnerDistance(Nraster_header *rh1,Nraster_header *rh2,int porog)
@@ -185,10 +185,10 @@ int dist;
 void MakeDWORDField(int i,Word32 *fifi)
 {
   int j;
-  
+
 	memset(fifi,0,NFIELDDWORD*sizeof(Word32));
 
-	if(i<=0 || i > MAXFIELD) 
+	if(i<=0 || i > MAXFIELD)
 		return;
 	j=(i-1)>>5;     // 32
     fifi[j]=((Word32)1)<<(i-j*32-1);
@@ -197,8 +197,8 @@ void MakeDWORDField(int i,Word32 *fifi)
 void AddDWORDField(int i,Word32 *fifi)
 {
   int j;
-  
-	if(i<=0 || i > MAXFIELD) 
+
+	if(i<=0 || i > MAXFIELD)
 		return;
 	j=(i-1)>>5;     // 32
     fifi[j]|=((Word32)1)<<(i-j*32-1);
@@ -302,7 +302,7 @@ static int TryRename(int testCluster,int numSymbol,Nraster_header *rh,
 }
 ///////////////////
 //
-// compare clusters '0' & russian O - 142 dos 
+// compare clusters '0' & russian O - 142 dos
 //					'6' & russian 'б' - 161 dos
 // infoC.isSame=0 !
 // выбрать лучшую из 0 как букву О
@@ -320,7 +320,7 @@ static int TestO0b6(int numSymbol,Nraster_header *rh,
  if( clusDig < 0 || clusLet < 0) return clusLet;
 
  // was > 2 - matrix2 find 4 !? 30.10.98
- if( abs( infoC[clusDig].mh-infoC[clusLet].mh) > 4 ) 
+ if( abs( infoC[clusDig].mh-infoC[clusLet].mh) > 4 )
 	 return clusLet;
 
  // use as metka for common clusters with clusDig
@@ -332,7 +332,7 @@ static int TestO0b6(int numSymbol,Nraster_header *rh,
    curClus=nClus[i]-1;
    if(curClus < 0 || curClus >= numClus ) continue;
    if( infoC[curClus].isSame ) continue;
-   if( infoC[curClus].mh < bSize ) continue; 
+   if( infoC[curClus].mh < bSize ) continue;
    if( infoC[curClus].invalid) continue;
 
    if(rh[i].fat) porog=0;
@@ -348,12 +348,12 @@ static int TestO0b6(int numSymbol,Nraster_header *rh,
 
  if( infoC[clusLet].isSame == 0) return clusLet;
 
- for(i=0,best=-1;i<numClus;i++) 
+ for(i=0,best=-1;i<numClus;i++)
  {
 	 if( infoC[i].let != nameLet ) continue;
 	 if( infoC[i].isSame !=0 ) continue;
 	 if( infoC[i].invalid) continue;
-	 if( infoC[i].mh < bSize ) continue; 
+	 if( infoC[i].mh < bSize ) continue;
 	 if(metkaGood[i] < POROG_360 ) continue;  // check ???
 	 if(best==-1 || infoC[i].count > infoC[best].count ||
 		infoC[i].count == infoC[best].count && metkaGood[i] > metkaGood[best])
@@ -370,11 +370,11 @@ void GetClusterStatistic(int numSymbol,int numCluster,Nraster_header *rh,
  int i;
  int curClus;
  int let;
- Word32 odin = 1; 
+ Word32 odin = 1;
 
  memset(countC,0,256*sizeof(int));
  memset(infoC,0,numCluster*sizeof(InfoCluster));
- 
+
  for(i=0;i<numSymbol;i++)
  {
     curClus=nClus[i]-1;
@@ -477,11 +477,11 @@ static int FindBest(int  let,int numCluster,InfoCluster *infoC,
 	for(i=0,best=-1;i<numCluster;i++)
 	{
 //		if( metkaGood[i] < POROG_PROB_GOOD ) continue;
-		if(infoC[i].let != let ) 
+		if(infoC[i].let != let )
 			continue;
-		if(infoC[i].invalid ) 
+		if(infoC[i].invalid )
 			continue;
-		if( i == isCluster ) 
+		if( i == isCluster )
 			continue;
 
 		if( ( metkaValid[i] & LEO_VALID_FINAL ) == 0)
@@ -498,22 +498,22 @@ static int FindBest(int  let,int numCluster,InfoCluster *infoC,
 
 		if( infoC[i].mh  <  minSize )  continue;
 		if( infoC[i].mh  >= maxSize )  continue;
-		if( isCluster >=0 && 
+		if( isCluster >=0 &&
 			abs( infoC[i].mh - infoC[isCluster].mh) < porogSize )
 			continue;
-        
+
 		// test konflict with other
 		if( infoC[i].count == 1 &&
             TestClusterGood( rh,i+1,infoC[i].first,1,NumAll,
 							 0, // porog
-							 nClus, metkaGood,NULL,0) > 0 
-			)				 
+							 nClus, metkaGood,NULL,0) > 0
+			)
 		{ infoC[i].invalid=TRUE;
 		  continue;
 		}
 
-		if( best < 0 ||	infoC[i].count > infoC[best].count || 
-			infoC[i].count == infoC[best].count && 
+		if( best < 0 ||	infoC[i].count > infoC[best].count ||
+			infoC[i].count == infoC[best].count &&
 			infoC[i].prob > infoC[best].prob )
 			best=i;
 	}
@@ -531,7 +531,7 @@ static int AddSpecialName(int  let,int numCluster,InfoCluster *infoC,
 		if( infoC[i].let != let ) continue;
 		if( infoC[i].good ) continue;
 		if( infoC[i].invalid ) continue;
-		if( infoC[i].valid & LEO_VALID_LINGVO ) 
+		if( infoC[i].valid & LEO_VALID_LINGVO )
 			infoC[i].good=1;
 	}
 	return 0;
@@ -569,7 +569,7 @@ Bool32 BadCluster(InfoCluster *infoC)
 	 if( infoC->valid & LEO_VALID_LINGVO )
 		 return FALSE;
 
-     if( infoC->count <= 2  && infoC->prob < POROG_GOOD_DVA ) 
+     if( infoC->count <= 2  && infoC->prob < POROG_GOOD_DVA )
 		 return TRUE;
 	 if( infoC->count <= 1  && infoC->prob < POROG_VERYGOOD )
 		 return TRUE;
@@ -592,12 +592,12 @@ static int AnalyzeInfo(int numCluster,InfoCluster *infoC,
  int porogSize;
  //
  // now test sizes - if only one font !
- // 
+ //
  memset( bestSizes,0,sizeof(bestSizes));
  memset( bestWidth,0,sizeof(bestWidth));
 
  for(j=0;j<numCluster;j++)
- { 
+ {
 	 if(infoC[j].let==UNRECOG_SYMBOL) continue;
      if(infoC[j].invalid ) continue;
 
@@ -606,15 +606,15 @@ static int AnalyzeInfo(int numCluster,InfoCluster *infoC,
 
 
 	 if(  metkaValid[j] & LEO_VALID_LINGVO )
-		   {  
-		      metkaGood[j]=MAX(metkaGood[j],POROG_GOOD_DVA); 
+		   {
+		      metkaGood[j]=MAX(metkaGood[j],POROG_GOOD_DVA);
 #ifndef _ACTIVE_LINGVO_
-	          infoC[j].count+=LINGVO_COUNT;  // make more 
+	          infoC[j].count+=LINGVO_COUNT;  // make more
 #endif
-		   }	  
+		   }
 
 
-     if(infoC[j].count <= 2  && metkaGood[j] < POROG_GOOD_DVA ) 
+     if(infoC[j].count <= 2  && metkaGood[j] < POROG_GOOD_DVA )
 		 {metkaGood[j]=0; continue;}
 
 	 if(infoC[j].count <= 1  && (metkaGood[j] < POROG_VERYGOOD ||
@@ -624,21 +624,21 @@ static int AnalyzeInfo(int numCluster,InfoCluster *infoC,
 	 if( infoC[j].mw < MAX_WIDTH) bestWidth[infoC[j].mw]++;
  }
 
- for(i=2,bWidth=1;i<MAX_WIDTH;i++) 
+ for(i=2,bWidth=1;i<MAX_WIDTH;i++)
 	 if(bestWidth[i] > bestWidth[bWidth]) bWidth=i;
 
- for(i=2,bSize=1;i<MAX_HEIGHT;i++) 
+ for(i=2,bSize=1;i<MAX_HEIGHT;i++)
 	 if(bestSizes[i] > bestSizes[bSize]) bSize=i;
- 
+
  for(j=bSize-POROG_HEIGHT;j>1;j--) if( bestSizes[j] > bestSizes[j+1] ) break;
- for(bSizeLeft=j,j--;j>1;j--) 
+ for(bSizeLeft=j,j--;j>1;j--)
 	 if(bestSizes[j] > bestSizes[bSizeLeft]) bSizeLeft=j;
 
  for(j=bSize+POROG_HEIGHT;j<MAX_HEIGHT;j++) if( bestSizes[j] > bestSizes[j-1] ) break;
- for(;j<MAX_HEIGHT;j++) 
+ for(;j<MAX_HEIGHT;j++)
 	 if(bestSizes[j] > bestSizes[bSizeLeft]) bSizeLeft=j;
 
- if( bestSizes[bSizeLeft] < 2 ) 
+ if( bestSizes[bSizeLeft] < 2 )
 	{ sizeBig=sizeLit=bSize;porogSize=POROG_HEIGHT;}
  else
 	{
@@ -649,8 +649,8 @@ static int AnalyzeInfo(int numCluster,InfoCluster *infoC,
 
  *tipSizeBig=sizeBig ;
  *tipSizeLit=sizeLit ;
- *porSize   =porogSize; 
- 
+ *porSize   =porogSize;
+
  // можно верить ?
  if(bestWidth[bWidth] > 3) *standWidth=bWidth;
  else *standWidth=0;
@@ -664,7 +664,7 @@ static void AnalyzeMetki(int numCluster,InfoCluster *infoC,
  int j;
 
  for(j=0;j<numCluster;j++)
- { 
+ {
 	 if(infoC[j].let==UNRECOG_SYMBOL) continue;
      if(infoC[j].invalid ) continue;
 
@@ -673,21 +673,21 @@ static void AnalyzeMetki(int numCluster,InfoCluster *infoC,
 
 	 // Nick 29.06.2002  - if very bad
 	 if( metkaGood[j] < POROG_BAD_LINGVO )
-		 // for LANG_TURKISH 
+		 // for LANG_TURKISH
 	 {
-		 metkaGood[j]=0; 
+		 metkaGood[j]=0;
 		 continue;
 	 }
 
 	 if(  metkaValid[j] & LEO_VALID_LINGVO )
-	 {  
-		      metkaGood[j]=MAX(metkaGood[j],POROG_GOOD_DVA); 
+	 {
+		      metkaGood[j]=MAX(metkaGood[j],POROG_GOOD_DVA);
 #ifndef _ACTIVE_LINGVO_
-	          infoC[j].count+=LINGVO_COUNT;  // make more 
+	          infoC[j].count+=LINGVO_COUNT;  // make more
 #endif
-	 }	  
+	 }
 
-     if(infoC[j].count <= 2  && metkaGood[j] < POROG_GOOD_DVA ) 
+     if(infoC[j].count <= 2  && metkaGood[j] < POROG_GOOD_DVA )
 		 {metkaGood[j]=0; continue;}
 
 	 if(infoC[j].count <= 1  && (metkaGood[j] < POROG_VERYGOOD ||
@@ -697,7 +697,7 @@ static void AnalyzeMetki(int numCluster,InfoCluster *infoC,
 // new - Nick
 	 if( infoC[j].prob < POROG_PROB_GOOD && infoC[j].count > 10 &&
          infoC[j].prob > 175 )
-		  metkaGood[j]=POROG_PROB_GOOD; 
+		  metkaGood[j]=POROG_PROB_GOOD;
  }
 }
 #endif
@@ -706,9 +706,9 @@ static void AnalyzeMetki(int numCluster,InfoCluster *infoC,
 static int GetBestClusters(int minSizeBig,int maxSizeBig,
 						   int minSizeLit,int maxSizeLit,
 						   int porogSize,
-					int bWidth , 
+					int bWidth ,
 					InfoCluster *infoC, int *countC, int numCluster,
-					BYTE *metkaGood, 
+					BYTE *metkaGood,
 					int *maxC,int *max2,Word32 *curFields)
 {
 int i,j;
@@ -725,7 +725,7 @@ int best;
 
 #ifdef _TEST_MULTI_FONT_
 	 // уже взяли ?
-     if( infoC[j].good ) 	 continue; 
+     if( infoC[j].good ) 	 continue;
 #endif
 
 	 i=infoC[j].let;
@@ -738,20 +738,20 @@ int best;
 	 if( bWidth > 0)  // bestWidth[bWidth] > 3 )
 	 {
 	 // test wide letters Ж Ш Щ Ю
-		if( WideSymbol(i) ) 
-		{if( infoC[j].mw < bWidth - 2 )  
+		if( WideSymbol(i) )
+		{if( infoC[j].mw < bWidth - 2 )
 #ifdef _TEST_MULTI_FONT_
 		continue;
 #else
-			{metkaGood[j]=0; continue;}	 
+			{metkaGood[j]=0; continue;}
 #endif
 		}
 		else
-		{if( infoC[j].mw >= bWidth*2  )  
+		{if( infoC[j].mw >= bWidth*2  )
 #ifdef _TEST_MULTI_FONT_
 		continue;
 #else
-			{metkaGood[j]=0; continue;}	 
+			{metkaGood[j]=0; continue;}
 #endif
 		}
 	 }
@@ -765,7 +765,7 @@ int best;
       if( infoC[j].mh < minSizeLit ) continue;
 	 // don't touch ДдЙйФфЦцЩщ
       if( infoC[j].mh > maxSizeBig &&  !NotStandardSymbol(i) )
-		  continue; 
+		  continue;
 	 }
 #else
 	 // big letters & digits
@@ -780,8 +780,8 @@ int best;
       {
        if( infoC[j].mh < minSizeBig ) continue;
 	  // don't touch ДЙЦЩ
-       if( maxSizeBig && infoC[j].mh > maxSizeBig ) 
-        continue;  
+       if( maxSizeBig && infoC[j].mh > maxSizeBig )
+        continue;
 	  }
 	  else if( SmallSymbol(i) )
       {
@@ -790,15 +790,15 @@ int best;
 
 	  // not too high ?
        if( maxSizeLit && infoC[j].mh > maxSizeLit  )
-		 continue; 
-	   if( maxSizeBig && infoC[j].mh > maxSizeBig )  
-		 continue; 
+		 continue;
+	   if( maxSizeBig && infoC[j].mh > maxSizeBig )
+		 continue;
 	  }
 	  else if( BigSmallSymbol(i))
 	  {
        if( infoC[j].mh < minSizeLit ) continue;
-	   if( maxSizeBig && infoC[j].mh > maxSizeBig )  
-		 continue; 
+	   if( maxSizeBig && infoC[j].mh > maxSizeBig )
+		 continue;
 	  }
 	 }
 #endif
@@ -806,8 +806,8 @@ int best;
 	 best=maxC[i];
 
 	 if( best < 0 || infoC[j].count > infoC[best].count ||
-		 infoC[j].count == infoC[best].count && 
-		 infoC[j].prob > infoC[best].prob || 
+		 infoC[j].count == infoC[best].count &&
+		 infoC[j].prob > infoC[best].prob ||
 		 ( IntersectFields(infoC[best].fields,curFields)== 0  )&&
 		 ( IntersectFields(infoC[j].fields, curFields) != 0  )
 		 )
@@ -822,12 +822,12 @@ int best;
 
 #ifndef _GOOD_BIG_SMALL_
    // test sizes
- for(i=128;i<256;i++) 
+ for(i=128;i<256;i++)
  {
 
      if( max2[i] < 0 ) continue;
 	 // don't touch РрУуФф
-	 if( i== 144 || i==147 || i== 148 || 
+	 if( i== 144 || i==147 || i== 148 ||
 		 i==224 || i== 227 || i==228 )
 		 continue;
 	 if( abs( infoC[maxC[i]].mh - infoC[max2[i]].mh)  < porogSize )
@@ -836,7 +836,7 @@ int best;
  }
 #endif
 
- 
+
  maxC[UNRECOG_SYMBOL]=max2[UNRECOG_SYMBOL]=-1;
 
  if( (i=maxC['(']) >= 0 && ( infoC[i].mh < minSizeBig ) )
@@ -861,13 +861,13 @@ static int CompareFonts(int numF,FONTFIELD *fontF,
 
  for(i=0;i<numF;i++)
  {
-	   
+
 			if(sBig >0 && fontF[i].sBig > 0 &&
 				abs(sBig-fontF[i].sBig) > 2 )
 				  continue;
             if(sLit >0 && fontF[i].sLit > 0 &&
 				abs(sLit-fontF[i].sLit) > 2 )
-				  continue; 
+				  continue;
 			if( sBig > 0 && fontF[i].sLit >= sBig )
 				 continue;
 			if( fontF[i].sBig > 0 &&  sLit >= fontF[i].sBig  )
@@ -889,13 +889,13 @@ static int CompareFonts(int numF,FONTFIELD *fontF,
  // есть похожие ?
  if( best < 0 ) return -1;
 
- if( commonCount == 0 ) 
+ if( commonCount == 0 )
 	 return best;
- if( commonCount*3 < allCount ) 
+ if( commonCount*3 < allCount )
 	 return best;
 //      пополнение ?
 // if( ( (oldField | fontF[best].field) == oldField ) ||
-//	 ( (oldField | fontF[best].field) == fontF[best].field ) 
+//	 ( (oldField | fontF[best].field) == fontF[best].field )
 //   )
 //	 return best;
 
@@ -919,7 +919,7 @@ int porogS;
 Word32 oldField[NFIELDDWORD];
 
 // get maximal clusters
-   
+
    for(j=0;j<256;j++) maxC[j]=-1;
    memset(inNewField,0,sizeof(inNewField));
 
@@ -937,16 +937,16 @@ Word32 oldField[NFIELDDWORD];
 
 	 i=infoC[j].let;
      // weak ?
-	 if( metkaGood[j] < POROG_PROB_GOOD ) 
+	 if( metkaGood[j] < POROG_PROB_GOOD )
 	 {
-		 allBad++;  
+		 allBad++;
          if( !TestFillAll )
 		   continue;
 	 }
      else if( NotEmptyField(infoC[j].fields) )
 	 {
 	  nGood++;
-	  allGood++;  
+	  allGood++;
 
 	   // big letters & digits
 	  if( BigSymbol(i) && !NotStandardSymbol(i)) // || BigSmall ?
@@ -964,12 +964,12 @@ Word32 oldField[NFIELDDWORD];
 
 	 }
 
-	 
+
 	  best=maxC[i];
 
-	  if( best < 0 || 
+	  if( best < 0 ||
 		 infoC[j].count > infoC[best].count ||
-		 infoC[j].count == infoC[best].count && 
+		 infoC[j].count == infoC[best].count &&
 		 infoC[j].prob > infoC[best].prob )
 		maxC[i]=j;
 
@@ -991,7 +991,7 @@ Word32 oldField[NFIELDDWORD];
 	   porogS=(sBig-sLit)>>1;
 
     // test sizes
-   for( i ='0' ; i < 256 ;i++) 
+   for( i ='0' ; i < 256 ;i++)
    {
         if( (best=maxC[i]) < 0 )
 		   continue;
@@ -1005,28 +1005,28 @@ Word32 oldField[NFIELDDWORD];
 	    if( nBig > 0 && BigSymbol(i) )
 		{
 		   if( infoC[best].mh < sBig-porogS ||
-               infoC[best].mh > sBig+porogS 
+               infoC[best].mh > sBig+porogS
 		      )
 		    maxC[i]=-1;
 		   continue;
 		}
 		if( nLit > 0 && SmallSymbol(i)  )
 		{
-	     if(  infoC[best].mh < sLit-porogS  || 
+	     if(  infoC[best].mh < sLit-porogS  ||
 			  infoC[best].mh > sLit + porogS )
            maxC[i]=-1;
 		 continue;
 		}
 		if( BigSmallSymbol(i) )
 		{
-		  if( nLit > 0 && infoC[best].mh < sLit-porogS  || 
+		  if( nLit > 0 && infoC[best].mh < sLit-porogS  ||
 			  nBig > 0 && infoC[best].mh > sBig + porogS )
            maxC[i]=-1;
 		  continue;
 		}
-		if(LetDigSymbol(i) && 
+		if(LetDigSymbol(i) &&
 		   nLit > 0 && infoC[best].mh < sLit-porogS )
-           maxC[i]=-1; 
+           maxC[i]=-1;
 	}
 
     maxC[UNRECOG_SYMBOL]=-1;
@@ -1040,18 +1040,18 @@ Word32 oldField[NFIELDDWORD];
      if( (best=maxC[j]) < 0) continue;
 	// уже взяли раньше ?
      if( infoC[best].good )
-	 { 
-		 nOld++; 
-		 maxC[j]=-1;
-		 AddFields(oldField,infoC[best].fields);
-		 continue; 
-	 }
-	 if( OneFontField  && IntersectFields(usedFields[j],testField) ) 
 	 {
-         nOld++; 
+		 nOld++;
 		 maxC[j]=-1;
 		 AddFields(oldField,infoC[best].fields);
-		 continue; 
+		 continue;
+	 }
+	 if( OneFontField  && IntersectFields(usedFields[j],testField) )
+	 {
+         nOld++;
+		 maxC[j]=-1;
+		 AddFields(oldField,infoC[best].fields);
+		 continue;
 	 }
 
 	 if(infoC[best].count == 1 &&
@@ -1059,23 +1059,23 @@ Word32 oldField[NFIELDDWORD];
 				   numCluster, nClus,
 				   infoC, 8) > 0  // FUTURE - test POROG !!!!
        )
-	 { 
-		 nOld++; 
+	 {
+		 nOld++;
 		 maxC[j]=-1;
-		 continue; 
+		 continue;
 	 }
 	 if( metkaGood[best] == 0 && infoC[best].count == 1 &&
          TestClusterGood( rh,best+1,infoC[best].first,infoC[best].count,
 		                  numSymbol, 2, // porog
-						  nClus, metkaGood,NULL,0) > 0 
-		)				 
+						  nClus, metkaGood,NULL,0) > 0
+		)
 		{ infoC[best].invalid=TRUE;
 	      maxC[j]=-1;
 		  continue;
 		}
 
 	 if( TestFillAll && infoC[best].prob < POROG_PROB_GOOD  &&
-         ( (infoC[best].valid & LEO_VALID_LINGVO)==0 )  
+         ( (infoC[best].valid & LEO_VALID_LINGVO)==0 )
 	   ) // ??
 	 {	 maxC[j]=-1;
 	     continue;
@@ -1096,10 +1096,10 @@ Word32 oldField[NFIELDDWORD];
 		goto endNoFont;
 
 	// не очень мало символов ?
-    if( allGood*2 <= inField && nGood <= 5 ) 
+    if( allGood*2 <= inField && nGood <= 5 )
 		goto endNoFont;
 */
-	if(sBig < 0 && sLit < 0) 
+	if(sBig < 0 && sLit < 0)
 			goto endNoFont;
 
 	i=CompareFonts( numF, fontF, oldField,
@@ -1107,29 +1107,29 @@ Word32 oldField[NFIELDDWORD];
 
     if(  i < 0 ) // new font !
 		{
-	       if( numF >= MAXFONT ) 
+	       if( numF >= MAXFONT )
 			   goto endNoFont;
 
 		   // не мало новых - для режима в одной строке 1 шрифт?
-		   if( OneFontField && nGood < 10 && 
-				 (nOld*2 >= nGood || allGood*2 <= inField ) 
+		   if( OneFontField && nGood < 10 &&
+				 (nOld*2 >= nGood || allGood*2 <= inField )
 	           )
 		           goto endNoFont;
 
 		   // не мало новых - для режима в одной строке м.б. много шрифтов?
-           if( !OneFontField && nGood < 10 && 
-				 nOld > nGood && allGood*2 <= inField 
-	           )  
+           if( !OneFontField && nGood < 10 &&
+				 nOld > nGood && allGood*2 <= inField
+	           )
 			   goto endNoFont;
 
-		   SetFields(fontF[numF].field,testField); 
+		   SetFields(fontF[numF].field,testField);
 		   SetFields(fontF[numF].testField,testField);
            fontF[numF].sBig=sBig;
 		   fontF[numF].sLit=sLit;
 		   i=numF;
 		}
-   
-   // no intersection with other clusters - return numF 
+
+   // no intersection with other clusters - return numF
    return i;
 
 endNoFont:
@@ -1164,10 +1164,10 @@ int FindBestClusters(int numSymbol,int numCluster,Nraster_header *rh,
  if( ffFields ) memset(ffFields,0,maxOutFonts*sizeof(Word32)*NFIELDDWORD);
 
  if(numCluster < MAXWEICLUS ) infoCluster=infoClusterStat;
- else 
+ else
  {
 	infoCluster=malloc(numCluster*sizeof(InfoCluster));
-	if(!infoCluster) 
+	if(!infoCluster)
 	{infoCluster=infoClusterStat;
 	 numCluster=MAXWEICLUS;
 	}
@@ -1180,7 +1180,7 @@ int FindBestClusters(int numSymbol,int numCluster,Nraster_header *rh,
 	GetClusterStatistic(numSymbol,numCluster,rh,nClus,infoCluster,countCluster,
 		metka,metkaValid,TRUE);
 
-// for multifont test 
+// for multifont test
 #ifdef _TEST_MULTI_FONT_
   AnalyzeMetki(numCluster,infoCluster,metka,metkaValid);
   AnalizeSizes(infoCluster, numCluster,metka,1);
@@ -1189,9 +1189,9 @@ int FindBestClusters(int numSymbol,int numCluster,Nraster_header *rh,
   {
    if( GetNextFont(&bSize,&lSize,&porogSize,
 				   &minBig,&maxBig,
-				   &minLit,&maxLit,curFields) <= 0 ) 
+				   &minLit,&maxLit,curFields) <= 0 )
 				   break;
-   
+
    if(curFont == 0 )  // as in old one-font version
 	   CorrectSizes(&minBig,&maxBig,&minLit,&maxLit,bSize,lSize,porogSize);
 
@@ -1203,11 +1203,11 @@ int FindBestClusters(int numSymbol,int numCluster,Nraster_header *rh,
 				   metka, maxCluster, max2Cluster,curFields);
    if(curFont != 0)
 	   goto fillGood;
-	  
+
 #else
   AnalyzeInfo(numCluster,infoCluster,
 		metka,metkaValid,&bSize,&lSize,&porogSize,&bWidth);
-  
+
   minBig=bSize-porogSize;
   maxBig=bSize+porogSize;
   minLit=lSize-porogSize;
@@ -1221,9 +1221,9 @@ int FindBestClusters(int numSymbol,int numCluster,Nraster_header *rh,
      int sizeDigit,j;
 
 	 // SECOND PASS	for digits
-     // now test only digits 
+     // now test only digits
 	 for(i='0',j=sizeDigit=0;i<='9';i++)
-	 { 
+	 {
 	  if( maxCluster[i] < 0 ) continue;
 	  maxCluster[i]=BestBySize(i,numCluster,infoCluster,bSize,porogSize,metka);
 	  if( maxCluster[i] < 0 ) continue;
@@ -1288,7 +1288,7 @@ fillGood:
     int porogMin,porogMax;
     for(i='0';i< 256;i++)
 	{
-      if(!LetDigSymbol(i) ) 
+      if(!LetDigSymbol(i) )
 		  continue;
 	  if( countCluster[i] <= 0 || maxCluster[i] >= 0 )
 		  continue;
@@ -1299,11 +1299,11 @@ fillGood:
 	  else if( SmallSymbol(i) )
 		{ porogMin = minLit;porogMax = maxLit; }
 	  else
-#endif 
+#endif
 		{ porogMin = minLit;porogMax = maxBig; }
 
       maxCluster[i]=FindBest(i,numCluster,infoCluster,porogMin,porogMax,
-		                metka,metkaValid,-1,porogSize,rh,numSymbol,nClus); 
+		                metka,metkaValid,-1,porogSize,rh,numSymbol,nClus);
 	}
  }    // TEST_FILL_ALL
 
@@ -1318,31 +1318,31 @@ fillGood:
 	if(countFont < MAXFONT )
 		memset(fontField+countFont,0,sizeof(FONTFIELD));
 	ClearFields(allField);
-	for(i=0,addToFont=0;i<256;i++) 
+	for(i=0,addToFont=0;i<256;i++)
 	{
-	 if( (j=maxCluster[i]) >= 0 )  
+	 if( (j=maxCluster[i]) >= 0 )
 	 {
-        
+
        if( TryRename(j,numSymbol,rh,nClus, numCluster,infoCluster ) )
 		   continue;
 
 	   // проверка не подтвержденных по словарю
-	   if( TestFillAll == 0 && 
-		   ( infoCluster[j].valid & LEO_VALID_LINGVO ) == 0 && 
+	   if( TestFillAll == 0 &&
+		   ( infoCluster[j].valid & LEO_VALID_LINGVO ) == 0 &&
 		   infoCluster[j].count <= 3 &&  // was 2
            TestClusterGood( rh,j+1,infoCluster[j].first,infoCluster[j].count,
 		                  numSymbol, 0, // porog
-						  nClus, metka,metkaValid,0) > 0 
-		)				 
+						  nClus, metka,metkaValid,0) > 0
+		)
 		{ infoCluster[j].invalid=TRUE;
 		  continue;
 		}
 
-       AddFields(usedFields[i],infoCluster[maxCluster[i]].fields);  
+       AddFields(usedFields[i],infoCluster[maxCluster[i]].fields);
 	   AddFields(allField     ,infoCluster[maxCluster[i]].fields);
 
-	   addToFont++;  // mark - new font 
-	   if( countFont < MAXFONT) 
+	   addToFont++;  // mark - new font
+	   if( countFont < MAXFONT)
 		   fontField[countFont].inFont[i]=maxCluster[i]+1;
 	   infoCluster[maxCluster[i]].good=TRUE;
 	 }
@@ -1357,7 +1357,7 @@ fillGood:
 		int ii;
 		for(ii=0;ii<countFont && ii<MAXFONT;ii++)
 		{
-			if( abs(fontField[ii].sBig - bSize) < 2 && 
+			if( abs(fontField[ii].sBig - bSize) < 2 &&
 				abs(fontField[ii].sLit - lSize) < 2
 			)
             break;
@@ -1369,20 +1369,20 @@ fillGood:
 	if( !OneFontField && addToFont > 0 && addToFont < 7 &&
 		addToFont*2 < numCluster )
 	{
-      for(i=0;i<256;i++) 
-	    if( (j=maxCluster[i]) >= 0 )  
+      for(i=0;i<256;i++)
+	    if( (j=maxCluster[i]) >= 0 )
 			infoCluster[j].good=0;
       addToFont=0;
 	}
 
-	if( addToFont > 0 ) 
+	if( addToFont > 0 )
 	{
 		if( countFont < MAXFONT)
 		{
           fontField[countFont].sBig=bSize;
 		  fontField[countFont].sLit=lSize;
-          SetFields(fontField[countFont].field,allField);  
-		  ClearFields(fontField[countFont].testField);  // no special field 
+          SetFields(fontField[countFont].field,allField);
+		  ClearFields(fontField[countFont].testField);  // no special field
 		}
 		countFont++;   // if addToFont > 5 ?
 
@@ -1397,7 +1397,7 @@ fillGood:
 
 // 10.12.98
 #if defined(_TEST_MULTI_FONT_) && defined(_GOOD_BIG_SMALL_)
-   { 
+   {
      Word32 fifi[NFIELDDWORD];
 	 int fld,newFont,inField,best;
 	 Int32 FieldCount[MAXFIELD];
@@ -1406,11 +1406,11 @@ fillGood:
 	 for(fld=0;fld<numSymbol;fld++)
 		 if( rh[fld].nField > 0 &&  rh[fld].nField <= MAXFIELD )
           FieldCount[rh[fld].nField-1]++;
-   
+
 	 for(fld=1;fld<=MAXFIELD;fld++)
 	 {
-		
-		if( (inField=FieldCount[fld-1]) <= 1 ) 
+
+		if( (inField=FieldCount[fld-1]) <= 1 )
 			 continue;
 		MakeDWORDField(fld,fifi);
 
@@ -1434,29 +1434,29 @@ fillGood:
 #ifdef _TEST_ITALIC_SERIF_
 		if( newFont < MAXFONT )
 		{
-         
+
          TestItSeBoldCluster(numCluster, infoCluster,
-				 fontField[newFont].sBig,fontField[newFont].sLit, 
-				 maxCluster, fifi, 
+				 fontField[newFont].sBig,fontField[newFont].sLit,
+				 maxCluster, fifi,
 				 newFont < countFont? fontField+newFont:NULL);
 		}
 #endif
 
-	// fill results 
-		for(i=0,addToFont=0;i<256;i++) 
+	// fill results
+		for(i=0,addToFont=0;i<256;i++)
 		{
 		 if( (best=maxCluster[i]) < 0 )   continue;
 		 // проверить похожие буквы
-		 if( TryRename(best,numSymbol,rh,nClus, numCluster,infoCluster ) ) 
+		 if( TryRename(best,numSymbol,rh,nClus, numCluster,infoCluster ) )
 		   continue;
 		 // проверка не подтвержденных по словарю
-	     if( TestFillAll == 0 && 
-		    ( infoCluster[best].valid & LEO_VALID_LINGVO ) == 0 && 
+	     if( TestFillAll == 0 &&
+		    ( infoCluster[best].valid & LEO_VALID_LINGVO ) == 0 &&
 		    infoCluster[best].count <= 3 &&
             TestClusterGood( rh,best+1,infoCluster[best].first,infoCluster[best].count,
 		                  numSymbol, 0, // porog
-						  nClus, metka,metkaValid,0) > 0 
-		    )				 
+						  nClus, metka,metkaValid,0) > 0
+		    )
 		 { infoCluster[best].invalid=TRUE;
 		   continue;
 		 }
@@ -1464,7 +1464,7 @@ fillGood:
 		 if( newFont < countFont && newFont < MAXFONT &&
 			 fontField[newFont].inFont[i] )
 		 {
-           if(infoCluster[best].count <= infoCluster[fontField[newFont].inFont[i]-1].count )  
+           if(infoCluster[best].count <= infoCluster[fontField[newFont].inFont[i]-1].count )
 			   continue;
 		   // else - replace old
 		   infoCluster[fontField[newFont].inFont[i]-1].good=0;
@@ -1474,20 +1474,20 @@ fillGood:
 		 if(newFont < MAXFONT)
 		 {
 			 fontField[newFont].inFont[i]=best+1;
-			 AddFields(fontField[newFont].field,infoCluster[best].fields);  
+			 AddFields(fontField[newFont].field,infoCluster[best].fields);
 		 }
-		 AddFields(usedFields[i],infoCluster[best].fields);  
+		 AddFields(usedFields[i],infoCluster[best].fields);
 	     infoCluster[best].good=TRUE;
 		}
 
-		if( newFont == countFont && addToFont > 0) 
+		if( newFont == countFont && addToFont > 0)
 		 countFont++;
 	 }
 	}
 
     TestIntersectFields( MIN(countFont,MAXFONT),fontField,
 						 infoCluster);
-	
+
 #endif
 	{
       int let='i';
@@ -1507,12 +1507,12 @@ fillGood:
 	}
 #endif
 
-#ifdef _TEST_COLUMNS_   
+#ifdef _TEST_COLUMNS_
 	// 25.10.2000
 	{
 	 int TectTablColumn(InfoCluster *infoCluster,int numCluster,int i,Nraster_header *rh,
 		 int numAll,SINT *nClus);
-	 for(i=0;i<numCluster;i++) 
+	 for(i=0;i<numCluster;i++)
 	 {
         if( !infoCluster[i].good )
 		  infoCluster[i].good = TectTablColumn(infoCluster,numCluster,i,rh,numSymbol,nClus);
@@ -1521,16 +1521,16 @@ fillGood:
 #endif
 
 	// output - какие поля - к какому шрифту
-	if( ffFields ) 
+	if( ffFields )
 	{
 		for(i=0;i<maxOutFonts && i < countFont && i < MAXFONT;i++)
 		    SetFields((ffFields+i*NFIELDDWORD),fontField[i].field);
 	}
 
 	// fill output
-	for(i=0;i<numCluster;i++) 
+	for(i=0;i<numCluster;i++)
 	{
-		if( infoCluster[i].good==FALSE ) 
+		if( infoCluster[i].good==FALSE )
 			metkaValid[i] &= ~METKA_VALID;
 		else
 			metkaValid[i] |= METKA_VALID;
@@ -1553,15 +1553,15 @@ fillGood:
 		  fclose(fin);
 		  if(countFont <= 1 )
 		      fin=fopen(".\\tmp\\nick1.tmp","at");
-		  else 
+		  else
 			  fin=fopen(".\\tmp\\nick2.tmp","at");
 		  fprintf(fin,"%s %d\n",name,countFont);
-		  
+
 		  for(i=0;i<countFont;i++)
 		  {
 		   for(i1=0;i1<NFIELDDWORD;i1++)
 		   {
-            for(ii=1,jj=1;jj<=32;ii<<=1,jj++) 
+            for(ii=1,jj=1;jj<=32;ii<<=1,jj++)
 				if(ii & fontField[i][i1].field)
 					fprintf(fin," %d",i1*32+ii);
 		   }
@@ -1570,7 +1570,7 @@ fillGood:
 		  fclose(fin);
 
 #ifdef _SAVE_CTB_
-          for(--len;len>=0;len--) 
+          for(--len;len>=0;len--)
 			  if( name[len]=='\\' || name[len] == ':')
 				  break;
           CTB_copy(name+len+1,".\\tmp\\ct999999");
@@ -1601,7 +1601,7 @@ int i,curClus;
 }
 ////////////////////////////////////////
 //
-// for not-single font version 
+// for not-single font version
 static int MultiAnalyzeInfo(int numCluster,InfoCluster *infoC,
 					   int *countC,int *maxC,int *max2,
 					   BYTE *metkaGood,int *minSizeBig,
@@ -1610,15 +1610,15 @@ static int MultiAnalyzeInfo(int numCluster,InfoCluster *infoC,
  int j;
  //
  // now test sizes - if only one font !
- // 
+ //
  memset( bestSizes,0,sizeof(bestSizes));
  memset( bestWidth,0,sizeof(bestWidth));
 
  for(j=0;j<numCluster;j++)
- { 
-	 if(infoC[j].let==UNRECOG_SYMBOL) 
+ {
+	 if(infoC[j].let==UNRECOG_SYMBOL)
 		 {metkaGood[j]=0; continue;}
-     if(infoC[j].invalid ) 
+     if(infoC[j].invalid )
 		 {metkaGood[j]=0; continue;}
 
 	 if( ( metkaValid[j] & LEO_VALID_FINAL ) == 0)
@@ -1626,27 +1626,27 @@ static int MultiAnalyzeInfo(int numCluster,InfoCluster *infoC,
 
 
 	 if(  metkaValid[j] & LEO_VALID_LINGVO )
-		   {  
+		   {
  		      metkaGood[j]=MAX(metkaGood[j],POROG_GOOD_DVA); // 255?
 #ifndef _ACTIVE_LINGVO_
-	          infoC[j].count+=LINGVO_COUNT;  // make more 
+	          infoC[j].count+=LINGVO_COUNT;  // make more
 #endif
-		   }	  
+		   }
 
 
 	 // don't take suspicious
-     if( metkaGood[j] < POROG_PROB_GOOD ) 
+     if( metkaGood[j] < POROG_PROB_GOOD )
 		 {metkaGood[j]=0; continue;}
 
-#ifdef _SPEC_DVA_    
-	 if( infoC[j].count <= 2 && metkaGood[j] < POROG_GOOD_DVA ) 
+#ifdef _SPEC_DVA_
+	 if( infoC[j].count <= 2 && metkaGood[j] < POROG_GOOD_DVA )
 		 {metkaGood[j]=0; continue;}
 #endif
 
 	 if(infoC[j].count <= 1  && (metkaGood[j] < POROG_VERYGOOD ||
 		 infoC[j].let < '0' || infoC[j].let>'9' && infoC[j].let <'@' ||
-		 infoC[j].let>'Z' && infoC[j].let <'a' || 
-		 infoC[j].let>'z' && infoC[j].let < 128 )) 
+		 infoC[j].let>'Z' && infoC[j].let <'a' ||
+		 infoC[j].let>'z' && infoC[j].let < 128 ))
 		{metkaGood[j]=0; continue;}
      if( infoC[j].mh < MAX_HEIGHT) bestSizes[infoC[j].mh]++;
 	 if( infoC[j].mw < MAX_WIDTH) bestWidth[infoC[j].mw]++;
@@ -1666,10 +1666,10 @@ InfoCluster *infoCluster;
  memset(metkaValid,0,numCluster);
 
  if(numCluster < MAXWEICLUS ) infoCluster=infoClusterStat;
- else 
+ else
  {
 	infoCluster=malloc(numCluster*sizeof(InfoCluster));
-	if(!infoCluster) 
+	if(!infoCluster)
 	{infoCluster=infoClusterStat;
 	 numCluster=MAXWEICLUS;
 	}
@@ -1683,9 +1683,9 @@ InfoCluster *infoCluster;
 
 
 	// fill output
-	for(i=0;i<numCluster;i++) 
+	for(i=0;i<numCluster;i++)
 	{
-		if( metka[i] == 0 ) 
+		if( metka[i] == 0 )
 			metkaValid[i] &= ~METKA_VALID;
 		else
 			metkaValid[i] |= METKA_VALID;
@@ -1698,7 +1698,7 @@ InfoCluster *infoCluster;
 }
 /////////////////////////
 //
-typedef struct tagKuchka 
+typedef struct tagKuchka
 {
 	Int16 start;
 	Int16 end;
@@ -1732,7 +1732,7 @@ Word32 fields[NFIELDDWORD]={0,0};
 	   for(j=0;j<numBest;j++)
 	    if(count > ku[j].count ) break;
 
-       if(j < maxAlt) 
+       if(j < maxAlt)
 	   {
         if(numBest < maxAlt) numBest++;
 	    memmove(ku+j+1,ku+j,(numBest-j-1)*sizeof(KUCHKA));
@@ -1745,10 +1745,10 @@ Word32 fields[NFIELDDWORD]={0,0};
 	   isKuchka=0;
        count=0;
 	   ClearFields(fields);
-	   continue;	    
+	   continue;
 	 }
 
-	 if(isKuchka==0) 
+	 if(isKuchka==0)
 		 start=i;
 	 isKuchka=1;
      count+=bSizes[i];
@@ -1760,7 +1760,7 @@ Word32 fields[NFIELDDWORD]={0,0};
 	   for(j=0;j<numBest;j++)
 	    if(count > ku[j].count ) break;
 
-       if(j < maxAlt) 
+       if(j < maxAlt)
 	   {
         if(numBest < maxAlt) numBest++;
 	    memmove(ku+j+1,ku+j,(numBest-j-1)*sizeof(KUCHKA));
@@ -1785,8 +1785,8 @@ static KUCHKA kuLit[MAXFONT];
 static int numBig;        // num groups
 static int numLit;        // num groups
 static int allBig,allLit; // all letters
-static int goodBig;       // large groups 
-static int goodLit;       // large groups 
+static int goodBig;       // large groups
+static int goodLit;       // large groups
 
 // now - very simple
 static int GetAccord(int size,int num,KUCHKA *ku)
@@ -1795,7 +1795,7 @@ static int GetAccord(int size,int num,KUCHKA *ku)
 
  for(i=0;i<num;i++)
 	 if( size >= ku[i].start && size < ku[i].end ) return i;
- 
+
  return -1;
 }
 ///////////////
@@ -1806,7 +1806,7 @@ static int GetMiddleValue(int *sizes,KUCHKA *ku)
 
  for(i=ku->start+1;i<ku->end;i++)
 	 if( sizes[i] > sizes[best] ) best=i;
- 
+
  return best;
 }
 //////////////
@@ -1881,10 +1881,10 @@ static int TestAcc(int testNum,int num,KUCHKA *ku,int *sizes,Word32 *fields)
 
  progib=ProgibFun(sizes+ku[testNum].start,ku[testNum].end-ku[testNum].start,&valProg);
  // exist ?
- if(progib <= 0) 
+ if(progib <= 0)
 	 return num;
  // not too small ?
- if(sizes[progib] >= valProg) 
+ if(sizes[progib] >= valProg)
 	 return num;
  progib+=ku[testNum].start;
 
@@ -1906,7 +1906,7 @@ static int TestAcc(int testNum,int num,KUCHKA *ku,int *sizes,Word32 *fields)
 
  for(j=0;j<num;j++)
 	    if(countl > ku[j].count) break;
- if(j < MAXFONT) 
+ if(j < MAXFONT)
  {
 	 if(num < MAXFONT) num++;
 	 memmove(ku+j+1,ku+j,(num-j-1)*sizeof(KUCHKA));
@@ -1915,13 +1915,13 @@ static int TestAcc(int testNum,int num,KUCHKA *ku,int *sizes,Word32 *fields)
 	 ku[j].end  =progib+1;
 	 ClearFields(ku[j].field);
 
-     for(fir=ku[j].start;fir<ku[j].end;fir++) 
+     for(fir=ku[j].start;fir<ku[j].end;fir++)
            AddFields(ku[j].field , (fields+fir*NFIELDDWORD));
  }
 
  for(j=0;j<num;j++)
 	    if(countr > ku[j].count) break;
- if(j < MAXFONT) 
+ if(j < MAXFONT)
  {
 	 if(num < MAXFONT) num++;
 	 memmove(ku+j+1,ku+j,(num-j-1)*sizeof(KUCHKA));
@@ -1930,7 +1930,7 @@ static int TestAcc(int testNum,int num,KUCHKA *ku,int *sizes,Word32 *fields)
 	 ku[j].end  =las;
 	 ClearFields(ku[j].field);
 
-     for(fir=ku[j].start;fir<ku[j].end;fir++) 
+     for(fir=ku[j].start;fir<ku[j].end;fir++)
            AddFields(ku[j].field, (fields+fir*NFIELDDWORD));
  }
 
@@ -1948,7 +1948,7 @@ KUCHKA tmpKuch;
     if(num <= 0) return 0;
 	count=1;
 	SetFields(usedFields,ku[0].field);
-    for(i=1;i<num;i++) 
+    for(i=1;i<num;i++)
 	{
 		if( OneFontField && IntersectFields(ku[i].field,usedFields) )
 			continue;
@@ -1981,9 +1981,9 @@ static int AnalizeSizes(InfoCluster *infoC,int numClus,
 
  for(j=0;j<numClus;j++)
  {
-	 if( infoC[j].good ) 
+	 if( infoC[j].good )
 		 continue;
-	 if( metka[j] == 0 || infoC[j].prob < POROG_PROB_GOOD )  
+	 if( metka[j] == 0 || infoC[j].prob < POROG_PROB_GOOD )
 		 continue;
 	 hei=MIN(infoC[j].mh, WR_MAX_HEIGHT -1);
 
@@ -1991,7 +1991,7 @@ static int AnalizeSizes(InfoCluster *infoC,int numClus,
 
 	 	 // don't touch ДдЙйФфЦцЩщ
      if(  NotStandardSymbol(i) )
-		 continue; 
+		 continue;
 
 	 	 // don't touch "бру" - or add to big ?
 	 if( BigSmallSymbol(i) )
@@ -2015,10 +2015,10 @@ static int AnalizeSizes(InfoCluster *infoC,int numClus,
  numLit = GetKuchki(litSizes,&litFields[0][0],WR_MAX_HEIGHT,kuLit,
 					 MAXFONT,OneFontField?2:5);   // 1 ?
 
- for(i=0;i<numBig;i++) 
+ for(i=0;i<numBig;i++)
 	 if(kuBig[i].count*10 < allBig) break;
  goodBig=i;
- 
+
  // test kuchki
  for(i=0;i<goodBig;i++)
  {
@@ -2028,7 +2028,7 @@ static int AnalizeSizes(InfoCluster *infoC,int numClus,
 	 for(j=0;j<i;j++)
 		if(accord[j]==acc) numLit=TestAcc(acc,numLit,kuLit,litSizes,&litFields[0][0]);
  }
- for(i=0;i<numLit;i++) 
+ for(i=0;i<numLit;i++)
 	 if(kuLit[i].count*10 < allLit) break;
  goodLit=i;
 
@@ -2041,7 +2041,7 @@ static int AnalizeSizes(InfoCluster *infoC,int numClus,
 		if(accord[j]==acc) numBig=TestAcc(acc,numBig,kuBig,bigSizes,&bigFields[0][0]);
  }
 
- // new goodBig ? 
+ // new goodBig ?
  goodBig=GetCountGood(numBig,kuBig,allBig);
  goodLit=GetCountGood(numLit,kuLit,allLit);
 
@@ -2055,8 +2055,8 @@ static int GetNextFont(int *bSize,int *lSize,int *pSize,
 {
 int sizeBig,sizeLit;
 int i;
- 
- if(goodBig <= 0 && goodLit <= 0 ) 
+
+ if(goodBig <= 0 && goodLit <= 0 )
 	 return -1;
 
  if(goodBig >= 1 && goodLit >= 1 )
@@ -2098,11 +2098,11 @@ int i;
 	    *maxLit=kuLit[i].end;
 		SetFields(fields, kuBig[0].field);
 		AddFields(fields, kuLit[i].field);
-	
+
 		sizeLit=GetMiddleValue(litSizes,kuLit+i);
         *bSize=sizeBig;
-        *lSize=sizeLit; 
-        
+        *lSize=sizeLit;
+
 		memcpy(kuBig,kuBig+1,(numBig-1)*sizeof(KUCHKA));
 		memcpy(kuLit+i,kuLit+i+1,(numLit-i-1)*sizeof(KUCHKA));
 		*pSize=(sizeBig-sizeLit+1)>>1;

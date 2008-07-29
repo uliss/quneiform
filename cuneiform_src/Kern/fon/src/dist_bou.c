@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -79,11 +79,11 @@ static int LookLeft(int *startRow,int yrow,int bits,int height,
 					int *outHeight);
 static void FillLeft(BYTE *pic,int xbyte,int yrow,int bits,
 					 int *outStart);
-typedef struct tagRECBOU 
+typedef struct tagRECBOU
 	{
 	  BYTE name;
 	  BYTE prob;
-	  int  num; 
+	  int  num;
 	  int  dist;
 	  int  movx;
 	  int  movy;
@@ -126,9 +126,9 @@ static const unsigned char mas00[8] = {255,127,63,31,15,7,3,1};
 static const unsigned char mas11[8] = {0,128,192,224,240,248,252,254};
 static const unsigned char mas1[8]  = {128,64,32,16,8,4,2,1};
 static const unsigned char mas10[8]  ={255,128,192,224,240,248,252,254};
- ///////////////////////   
+ ///////////////////////
    // meet first 0 in byte
-static const int tabl0[256]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+static const int tabl0[256]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -136,24 +136,24 @@ static const int tabl0[256]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,  
-                             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1, 
-                             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1, 
                              1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-                             2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,  
+                             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
                              2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-                             3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,  
-                             4,4,4,4,4,4,4,4,5,5,5,5,6,6,7,8 };                               
+                             2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+                             3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+                             4,4,4,4,4,4,4,4,5,5,5,5,6,6,7,8 };
     // meet first 1 in byte
 static const int tabl1[256]={8,7,6,6,5,5,5,5,4,4,4,4,4,4,4,4,
                              3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-                             2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,  
                              2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-                             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,  
-                             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1, 
-                             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1, 
-                             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1, 
-                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+                             2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+                             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -186,7 +186,7 @@ static const int firRight1[256]={8,
 5,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,
 4,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0} ;
 
-//////////////////////         
+//////////////////////
 void   EndBounds(void)
 {
 	if(AllBounds) free(AllBounds);
@@ -212,9 +212,9 @@ int *bou;
 
 	if(AllBounds) return TRUE;
 	AllBounds=malloc(WR_MAX_HEIGHT*num*sizeof(int));
-	if(!AllBounds) 
+	if(!AllBounds)
 		return FALSE;
-    
+
 	// now set bounds itself
     for(bou=AllBounds;num;num--,wel++,bou+=WR_MAX_HEIGHT)
 		SetBound(wel,bou);
@@ -245,17 +245,17 @@ int lastColumn;
  dist1 = wl->summa/wl->fill;
  dist1=-dist1;
 
- // куда положим растр - чтобы левая часть легла 
+ // куда положим растр - чтобы левая часть легла
  // на центр кластера
 
  firColumn  = (WR_MAX_WIDTH-wl->w)/2;
  firColumn +=(wl->w-wl->mw)>>1;
  firColumn += xo;             // variation
- 
+
  firRow=(WR_MAX_HEIGHT-h)/2;
  firRow+=yo;                   // variation
 
- curr = wl->raster + WR_MAX_WIDTH * firRow; 
+ curr = wl->raster + WR_MAX_WIDTH * firRow;
  bou+=firRow;
 
  rbyte=(w+7)>>3;
@@ -271,16 +271,16 @@ int lastColumn;
    cbyte=r[j];
    if(cbyte == 0) {jj+=8;continue;}
 
-   
+
    for(cc=128;jj <= lastColumn && cc!=0 ;cc>>=1,jj++)
    {
-    if( (cbyte & cc) && curr[jj] < dist1 ) 
-	  dist++;	
+    if( (cbyte & cc) && curr[jj] < dist1 )
+	  dist++;
    } // end cc
    if(dist > porog) return dist;
 
   }  // end j
- }   // end i 
+ }   // end i
 
   return (dist);
 }
@@ -323,7 +323,7 @@ BYTE *rr;
  for(i=sty;i<starty;i++,curr+=WR_MAX_WIDTH)
  {
 //	 if(bou[i] < 0) continue;
-     for(j=stx;j<=bou[i];j++)   
+     for(j=stx;j<=bou[i];j++)
 		 if(curr[j]> wei) dist++;
  }
  if(dist > porog) return dist;
@@ -333,9 +333,9 @@ BYTE *rr;
 
  if( starty < sty) r+=(sty-starty)*fullByte;
 
- if(startx < stx)  
+ if(startx < stx)
  {initCC=128>>((stx-startx)&7);
-  r+=(stx-startx)>>3; 
+  r+=(stx-startx)>>3;
  }
  else initCC=128;   // from first bit
 
@@ -388,7 +388,7 @@ int dist,j;
 	  countRazmaz = 1;
 
   j= DistWeletRazmazBound(bufrazmaz,(w+9)>>3,w+2,h+2,wel,x,y,(bestdist-dist-1)*countRazmaz, bou);
-  
+
 
   return dist+((j+countRazmaz-1)/countRazmaz);
 }
@@ -406,7 +406,7 @@ static int distWeletBound(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int poro
 
  best=east=west=north=south=center=lbest=0;
 
-// center - special threshold??? check 
+// center - special threshold??? check
  center =best=distOneBound(buf,bufraz,w,h,bound,wl,0,0,bou,countRazmaz);
 // center =best=distOne(buf,bufraz,w,h,porog,wl,0,0);
  if(best == 0 ) return best;
@@ -415,14 +415,14 @@ static int distWeletBound(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int poro
  if(best < porog) porog=best;
 
  if((south = distOneBound(buf,bufraz,w,h,porog,wl, 0, 1,bou,countRazmaz)) < best )
- { best = south; 
+ { best = south;
    recBou->movy=1;
  }
  if(best==0) return best;
  if(best < porog) porog=best;
  if((north = distOneBound(buf,bufraz,w,h,porog,wl, 0,-1,bou,countRazmaz)) < best )
  {
-   best = north; 
+   best = north;
    recBou->movy=-1;
  }
  if(best==0) return best;
@@ -438,7 +438,7 @@ static int distWeletBound(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int poro
  if(best < porog) porog=best;
  if((west = distOneBound(buf,bufraz,w,h,porog,wl,-1, 0,bou,countRazmaz)) < best )
  {
-    best = west; 
+    best = west;
 	recBou->movx=-1;
 	recBou->movy=0;
  }
@@ -450,7 +450,7 @@ static int distWeletBound(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int poro
 	 return best;
 
  // nothing good ?
- if( best >= initPorog) 
+ if( best >= initPorog)
 	 return best;
 
  center=best;  // to save old best for compare
@@ -459,7 +459,7 @@ static int distWeletBound(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int poro
  {
   if((lbest = distOneBound(buf,bufraz,w,h,porog,wl,1,-1,bou,countRazmaz)) < best )
   {
-    best = lbest; 
+    best = lbest;
 	recBou->movx=1;
 	recBou->movy=-1;
   }
@@ -469,7 +469,7 @@ static int distWeletBound(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int poro
  {
   if((lbest = distOneBound(buf,bufraz,w,h,porog,wl,1, 1,bou,countRazmaz)) < best )
   {
-    best = lbest; 
+    best = lbest;
 	recBou->movx=1;
 	recBou->movy=1;
   }
@@ -479,7 +479,7 @@ static int distWeletBound(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int poro
  {
   if((lbest = distOneBound(buf,bufraz,w,h,porog,wl,-1, 1,bou,countRazmaz)) < best )
   {
-    best = lbest; 
+    best = lbest;
 	recBou->movx=-1;
 	recBou->movy=1;
   }
@@ -489,7 +489,7 @@ static int distWeletBound(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int poro
  {
   if((lbest = distOneBound(buf,bufraz,w,h,porog,wl,-1,-1,bou,countRazmaz)) < best )
   {
-    best = lbest; 
+    best = lbest;
 	recBou->movx=-1;
 	recBou->movy=-1;
   }
@@ -500,22 +500,22 @@ static int distWeletBound(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int poro
 
 ///////////////////////////
 ///////
-// ordSpisok - порядковый номер кластера - 
-//              
+// ordSpisok - порядковый номер кластера -
+//
 int AddBoundVersion(RECBOU *curRec,
 			        int num,int maxNames,
 					RECBOU *allRec)
 {
 int j,k;
 
-   for(j=0;j<num;j++ ) 
-	 { 
-	   if( allRec[j].name == curRec->name ) 
+   for(j=0;j<num;j++ )
+	 {
+	   if( allRec[j].name == curRec->name )
 	    {
          if(curRec->prob > allRec[j].prob)
 		    allRec[j]=*curRec;
 		 return num;
-		} // was better the same 
+		} // was better the same
 
 	   if( curRec->prob > allRec[j].prob ) break;
 	 }
@@ -523,17 +523,17 @@ int j,k;
    if( j>=maxNames ) return num;
 
 	  // was such name - to new position
-   for(k=j+1;k<num;k++ ) 
+   for(k=j+1;k<num;k++ )
    {
-	 if( allRec[k].name == curRec->name ) 
-	   {   
+	 if( allRec[k].name == curRec->name )
+	   {
 		   memmove(allRec+j+1,allRec+j,(k-j)*sizeof(RECBOU));
 		   allRec[j]=*curRec;
 		   return num;
 	   }
 	}
 
-   if(num<maxNames) num++; 
+   if(num<maxNames) num++;
 
    if( j < num-1)
     memmove(allRec+j+1,allRec+j,(num-j-1)*sizeof(RECBOU));
@@ -549,7 +549,7 @@ static int NumInRow[WR_MAX_HEIGHT];
 
 /////////
 static Bool32 IsSinglePoint(int *bou)
-{ 
+{
  int i;
  int start[2];
  int size[2];
@@ -560,11 +560,11 @@ static Bool32 IsSinglePoint(int *bou)
 	 if( bou[i] >= 0 )
 	 {
 		 if( start[cur] < 0 )
-			 start[cur] = i; 
+			 start[cur] = i;
 
 		 size[cur]++;
 	 }
-	 else if( cur==0) 
+	 else if( cur==0)
 		 cur++;
  }
 
@@ -595,7 +595,7 @@ static int FindBestClustersBound(int w,int h,BYTE *buf,BYTE *bufrazmaz,
  int yStart,yHeight;
  RECBOU recBou;
 
- 
+
  for(i=num=0 ;i<NumClus;i++,wel++,bou+=WR_MAX_HEIGHT)
  {
   if( wel->invalid ) continue;
@@ -604,10 +604,10 @@ static int FindBestClustersBound(int w,int h,BYTE *buf,BYTE *bufrazmaz,
   if( wel->num < 0 )  // не из нашего алфавита
 	   continue;
 
-  if( strchr(Palki, wel->let) || 
-	  wel->let==liga_i || 
+  if( strchr(Palki, wel->let) ||
+	  wel->let==liga_i ||
 	  (language == LANG_TURKISH &&  // 30.05.2002 E.P.
-		(wel->let==i_sans_accent||wel->let==II_dot_accent) 
+		(wel->let==i_sans_accent||wel->let==II_dot_accent)
 	  ) ||
 	  wel->let==liga_exm)
   {
@@ -616,7 +616,7 @@ static int FindBestClustersBound(int w,int h,BYTE *buf,BYTE *bufrazmaz,
   }
 
     // не распознавать себя ?
-  if( wel->weight == 1 &&  
+  if( wel->weight == 1 &&
 	  (wel->nInCTB ==nInCTB ||
 	   abs(col-wel->sr_col)<=1 && abs(row-wel->sr_row)<=1
 	  )
@@ -637,32 +637,32 @@ static int FindBestClustersBound(int w,int h,BYTE *buf,BYTE *bufrazmaz,
 	   w,yHeight,
 	   wel,porog+1,bou,&recBou, countRazmaz);
 
-  if(dist <= porog) 
-  { 
+  if(dist <= porog)
+  {
 	  // fill right bound
      int firColumn,firRow;
 	 int k;
-	 
+
 	 firColumn  = (WR_MAX_WIDTH-wel->w)/2;
      firColumn +=(wel->w-wel->mw)>>1;
      firColumn += recBou.movx;             // variation
- 
+
      firRow=(WR_MAX_HEIGHT-yHeight)/2;
      firRow+=recBou.movy;                   // var
 
 	 recBou.yFirst   = yStart;
 	 recBou.yHeight  = yHeight;
 
-       // if good recog - fill output bounds 
+       // if good recog - fill output bounds
 
 	 for(k=0;k<yStart;k++)
          recBou.bound[k] = 2;
 
-	 for(k=0;k<yHeight;k++) 
+	 for(k=0;k<yHeight;k++)
 	 {
-	  if( bou[k+firRow] < 0 ) 
+	  if( bou[k+firRow] < 0 )
 		  recBou.bound[k+yStart]=2;
-	  else 
+	  else
 		  recBou.bound[k+yStart]=bou[k+firRow]-firColumn+2;
 	 }
 
@@ -673,16 +673,16 @@ static int FindBestClustersBound(int w,int h,BYTE *buf,BYTE *bufrazmaz,
      recBou.prob =(BYTE)(MAX(0,255-STRAFPOINT*dist));
 	 recBou.dist = dist;
      recBou.num  =i;
- 
+
 	 num=AddBoundVersion(&recBou,num,maxNames,recBounds);
-     if(num>=maxNames) 
+     if(num>=maxNames)
 	 {
 	  porog = recBounds[maxNames-1].dist-1;
 	  if(porog < 0) break;
 	 }
 //	if(dist==0) break;
   }
-  
+
  }
 
  return num;
@@ -721,13 +721,13 @@ SINT RecogCluBound(BYTE *rast,SINT xbyte,SINT xbit,SINT yyrow,BYTE *names,
 //   RazmazHalf(buf,bufrazmaz,xbit,yrow);
 
   Razmaz2(buf,bufrazmaz,xbit,(SINT)yrow,0,
-          (SINT)POROG_ANGLES); 
+          (SINT)POROG_ANGLES);
    //  - threshold add angles
 
   // left bound
   FillLeft(buf,rbyte,yrow,xbit,StartInRow);
 
-  //porog=MAX(xbit,yrow);   
+  //porog=MAX(xbit,yrow);
   porog=MIN(50,xbit+yrow);
 
   if(maxNames > MAX_ALT_BOU ) maxNames=MAX_ALT_BOU;
@@ -743,18 +743,18 @@ SINT RecogCluBound(BYTE *rast,SINT xbyte,SINT xbit,SINT yyrow,BYTE *names,
   {
     names[i]=AllRecBou[i].name;
 	probs[i]=AllRecBou[i].prob;
-    
+
 	memcpy(bounds,&AllRecBou[i].bound[0],
 		yyrow*sizeof(int));
   }
 
 
-  return numAlt; 
+  return numAlt;
 }
 ///////////////////////////
 /***************************/
 //
-// найти положение левой границы символа шириной bits 
+// найти положение левой границы символа шириной bits
 //
 static void FillLeft(BYTE *pic,int xbyte,int yrow,int bits,
 					 int *outStart)
@@ -768,7 +768,7 @@ static void FillLeft(BYTE *pic,int xbyte,int yrow,int bits,
  for(i=0;i<yrow;i++,pic+=xbyte)
   {
 	 // study current row
-	for(j=0;j<xbyte;j++) 
+	for(j=0;j<xbyte;j++)
 		if( pic[j])  break;
 
 	if( j>= xbyte )  {outStart[i]=-1;continue;}
@@ -802,7 +802,7 @@ static int LookLeft(int *startRow,int yrow,int bits,int height,
   {
 	 // study current row
     if(startRow[i] < 0 || startRow[i] >= bits )
-	{    
+	{
 		 if(IsBlack) NumStart++; // new rows
 		 IsBlack=0;
 	     continue;
@@ -822,10 +822,10 @@ static int LookLeft(int *startRow,int yrow,int bits,int height,
  if(NumStart <=0) return -1;  // empty
 
  // ищем самую хорошую полоску
- for(i=1,j=0;i<NumStart;i++)   
+ for(i=1,j=0;i<NumStart;i++)
 	 if(NumInRow[i]>NumInRow[j]) j=i;
 
- if(NumInRow[j] >= height) 
+ if(NumInRow[j] >= height)
  {
 	 int minBit=bits-3;
 	 int fir=0,las=NumInRow[j];
@@ -911,18 +911,18 @@ static int MinBoundLeft(BYTE *pic,int xbyte,int yrow,int *bou )
   {
 	 // study current row
 	j= bou[i]>>3;
-	if( j <xbyte ) 
+	if( j <xbyte )
     {
      cc=pic[j]&mas00[bou[i]&7];
-	 while( cc==0 ) 
-	 {	
+	 while( cc==0 )
+	 {
 	    j++;
         if(j >= xbyte) break;
 		cc=pic[j];
 	 }
 	}
 
-	if( j>= xbyte )  
+	if( j>= xbyte )
 	  continue;
 
     k=(j<<3)+tabl1[cc];
@@ -955,7 +955,7 @@ static void RemoveLeft(BYTE *inBuf,
 	{
 		if(bou[i] <= startX ) continue;
 		j=bou[i]-startX;
-			
+
 		memset(inBuf,0,j>>3);
 		inBuf[j>>3]&=mas00[j&7];
     }
@@ -1003,7 +1003,7 @@ void MoveWindowRow2(BYTE *outrow,BYTE *inrow,int SizeByte,int fbit)
 	break;
    default:return;
   }
-  
+
 }
 ///////////////
 void MoveWindowRow1(BYTE *outrow,BYTE *inrow,int SizeByte,int fbit)
@@ -1062,8 +1062,8 @@ static int MoveAllLeft(BYTE *inBuf,int xbyte,
  int outSizeByte=(outSizeBit+7)>>3;
  int firBit=start&7;
  BYTE hvost=mas10[outSizeBit&7];
- 
- inBuf+=start>>3; 
+
+ inBuf+=start>>3;
 
  if( firBit == 0 ) MoveWindowRow=MoveWindowRow0;
  else if( ( (xbit-1)&7 ) >= firBit )
@@ -1080,7 +1080,7 @@ static int MoveAllLeft(BYTE *inBuf,int xbyte,
 }
 ////////////
 //
-// найти первый кластер, подходящий по порогу 
+// найти первый кластер, подходящий по порогу
 //
 static int FindFirstClusterPorog(int w,int h,
 			  BYTE *buf,BYTE *bufrazmaz,
@@ -1108,12 +1108,12 @@ static int FindFirstClusterPorog(int w,int h,
   if( wel->num < 0 )
 	  continue;
 
-  if( strchr(Palki, wel->let) || 
-		wel->let==liga_i || 
+  if( strchr(Palki, wel->let) ||
+		wel->let==liga_i ||
 		  (language == LANG_TURKISH &&  // 30.05.2002 E.P.
-			(wel->let==i_sans_accent||wel->let==II_dot_accent) 
+			(wel->let==i_sans_accent||wel->let==II_dot_accent)
 		  ) ||
-		wel->let==liga_exm 
+		wel->let==liga_exm
 	)
 	  continue;
 
@@ -1131,35 +1131,35 @@ static int FindFirstClusterPorog(int w,int h,
 	   w,yHeight,
 	   wel,porog+1,bou,&recBou,1);
 
-  if(dist <= porog) 
-  { 
+  if(dist <= porog)
+  {
 	  // fill right bound
      int firColumn,firRow;
 	 int k,prevBou;
-	 
+
 	 firColumn  = (WR_MAX_WIDTH-wel->w)/2;
      firColumn +=(wel->w-wel->mw)>>1;
      firColumn += recBou.movx;             // variation
- 
+
      firRow=(WR_MAX_HEIGHT-yHeight)/2;
      firRow+=recBou.movy;                   // var
 
-       // if good recog - fill output bounds 
+       // if good recog - fill output bounds
 
 	 // what put on free space - find first not-empty?
-	for(k=0,prevBou=0;k<yHeight;k++) 
-	 { if( bou[k+firRow] > 0 ) 
+	for(k=0,prevBou=0;k<yHeight;k++)
+	 { if( bou[k+firRow] > 0 )
 		{ prevBou=bou[k+firRow]-firColumn+1; break;}
 	 }
 
 	// now - fill output
 	for(j=0;j< yStart;j++)
          outBou[j]=prevBou;
-	for(k=0;k<yHeight;k++) 
+	for(k=0;k<yHeight;k++)
 	 {
-	  if( bou[k+firRow] < 0 ) 
+	  if( bou[k+firRow] < 0 )
 		  outBou[yStart+k]=prevBou;
-	  else 
+	  else
 		  prevBou=outBou[yStart+k]=bou[k+firRow]-firColumn+1;
 	 }
 	for(j=yStart+yHeight; j < h;j++ )
@@ -1171,10 +1171,10 @@ static int FindFirstClusterPorog(int w,int h,
 //	recBou.name =(BYTE)wel->let;
 //  recBou.prob =(BYTE)(255-dist);
 //  recBou.order=i;
- 
+
 	return i;
   }
-  
+
  }  // end i
 
  return -1;
@@ -1196,9 +1196,9 @@ static int AddToStack(int name,int num,int dist,int startX,int yrow,int *bou,int
 {
 int i;
 
-  if(TekInStack >= MAX_GLUE) 
+  if(TekInStack >= MAX_GLUE)
 	  return -1;
-  
+
   mystack[TekInStack].name =name;
   mystack[TekInStack].num =num;
   mystack[TekInStack].dist=dist;
@@ -1218,7 +1218,7 @@ static int UpdateSpisokAlter(int oldPorog,int *oldSumma)
 
   for(i=summa=0,maxDist=mystack[0].dist;i<TekInStack ;i++)
   {
-      if(maxDist < mystack[i].dist )    
+      if(maxDist < mystack[i].dist )
 		  maxDist=mystack[i].dist;
 	  summa+=mystack[i].dist;
   }
@@ -1240,7 +1240,7 @@ int startX;
 int outByte,outBit;
 int maxWidth=REC_MAX_RASTER_SIZE/MAX(1,yrow);
 
-    
+
     if( !bou )
 	{
       *oBit=MIN(maxWidth<<3,xbit);
@@ -1253,8 +1253,8 @@ int maxWidth=REC_MAX_RASTER_SIZE/MAX(1,yrow);
 //    bou=(best?&bestStack[num-1].bounds[0]:&mystack[num-1].bounds[0]);
 
     startX=MinBoundLeft(inBuf,xbyte,yrow,bou);
-    
-	if(startX >= xbit) 
+
+	if(startX >= xbit)
 	{
 		*oBit = 0;
 		return startX;
@@ -1268,7 +1268,7 @@ int maxWidth=REC_MAX_RASTER_SIZE/MAX(1,yrow);
 	outByte = (outBit+7)>>3;
 
     RemoveLeft(outBuf,outByte,yrow, startX,bou);
-    
+
 	*oBit=outBit;
 	return startX;
 }
@@ -1318,13 +1318,13 @@ int  heiY;
 						  TekInStack?&mystack[TekInStack-1].bound[0]:NULL);
 	 outByte = (outBit+7)>>3;
 
-	 
+
 	 // stay - recognize
 	 if(  startX + POROG_STOP < xbit)
-	 {  
-	     		 
+	 {
+
          Razmaz2(buf,bufrazmaz,(SINT)(outBit),(SINT)yrow,
-			 (SINT)0,(SINT)POROG_ANGLES); 
+			 (SINT)0,(SINT)POROG_ANGLES);
 
  // left bound
          FillLeft(buf,outByte,yrow,outByte<<3,StartInRow);
@@ -1339,7 +1339,7 @@ int  heiY;
 	 }
 
 	 else // все разрезали - добавим список
-		 //  попробуем еще откатиться за новыми 
+		 //  попробуем еще откатиться за новыми
 		 //  вариантами ?
 	 {
 		 porog=UpdateSpisokAlter(porog,&summaErrors);
@@ -1349,8 +1349,8 @@ int  heiY;
 
      // надо вернуться ?
 	 if( k < 0 )
-	 { 
-		 TekInStack--; 
+	 {
+		 TekInStack--;
 		 if( TekInStack < 0)  break;
 		 startWel=mystack[TekInStack].num+1;
 	 }
@@ -1358,7 +1358,7 @@ int  heiY;
 	 {   AddToStack(wl[k].let,k,dist,startX,yrow,outBou,startY,heiY);
 		 startWel=0;
 	 }
-      
+
  }
 
   for(k=0;k<inBestStack && k < maxNames;k++)
@@ -1413,7 +1413,7 @@ static int FillInBuf(BYTE *inBuf,int xbyte,int yrow,CSTR_rast fir,CSTR_rast las,
  int i,j;
  int sdvig,asdvig;
  BYTE *bu,*inbu;
- int xbyte8; 
+ int xbyte8;
  int inbyte;
 
    memset(inBuf,0,xbyte*yrow);
@@ -1429,10 +1429,10 @@ static int FillInBuf(BYTE *inBuf,int xbyte,int yrow,CSTR_rast fir,CSTR_rast las,
 		inbyte = (recRast.lnPixWidth+7)>>3;
 		sdvig=(attr.col-rect->left)&7;
 		asdvig=8-sdvig;
-		
+
 		bu=inBuf+(attr.row-rect->top)*xbyte+((attr.col-rect->left)>>3);
 		inbu=recRast.Raster;
-		
+
 		for(i=0;i<attr.h;i++,bu+=xbyte,inbu+=xbyte8)
 		{
 			bu[0] |= inbu[0]>>sdvig;
@@ -1466,17 +1466,17 @@ static int RemoveRight(BYTE *buff,int startX,int xbyte,int yrow,int *bou,
 		   memset(buf,0,xbyte);
 		   continue;
 	   }
-       
+
 	   if( xbyte > (j>>3)+1 )
         memset(buf+(j>>3)+1,0,xbyte-(j>>3)-1);
 	   buf[j>>3] &= mas11[j&7];
 
 	   for(j=(j>>3),k=0;j>=0;j--)
 	   {
-		   if( buf[j] == 0) 
+		   if( buf[j] == 0)
 			   continue;
            k=(j<<3)+8-firRight1[buf[j]];
-           break; 
+           break;
 	   }
 
 	   if( k <= 0)
@@ -1512,7 +1512,7 @@ static int GetAsRecRaster(BYTE *inBuf,int xbit,int yrow,
  int  yFir,yHei;
  int i;
 
- if( nInStack < 0) 
+ if( nInStack < 0)
    return -1;
  startX=GetFromStack( inBuf, xbyte, xbit, yrow,
 					  bufrazmaz,&outBit,
@@ -1526,7 +1526,7 @@ static int GetAsRecRaster(BYTE *inBuf,int xbit,int yrow,
  if( RemoveRight(bufrazmaz+yFir*outByte,startX,outByte,yHei,bou+yFir,rect) < 0)
 	 return -1;
 
- if( rect->right <= rect->left || 
+ if( rect->right <= rect->left ||
 	 rect->bottom <= rect->top )
 	 return -1;
 
@@ -1573,21 +1573,21 @@ BYTE decode_ASCII_to_[256][4]=
 };
 //////////////////
 BYTE CodePages[LANG_TOTAL]={
-CSTR_ANSI_CHARSET            , // LANG_ENGLISH    
-CSTR_ANSI_CHARSET            , // LANG_GERMAN     
-CSTR_ANSI_CHARSET            , // LANG_FRENCH     
-CSTR_RUSSIAN_CHARSET         , // LANG_RUSSIAN    
-CSTR_ANSI_CHARSET            , // LANG_SWEDISH    
-CSTR_ANSI_CHARSET            , // LANG_SPANISH    
-CSTR_ANSI_CHARSET            , // LANG_ITALIAN    
-CSTR_RUSSIAN_CHARSET         , // LANG_RUSENG     
-CSTR_RUSSIAN_CHARSET         , // LANG_UKRAINIAN  
-CSTR_RUSSIAN_CHARSET         , // LANG_SERBIAN    
-CSTR_EASTEUROPE_CHARSET      , // LANG_CROATIAN   
-CSTR_EASTEUROPE_CHARSET      , // LANG_POLISH     
-CSTR_ANSI_CHARSET            , // LANG_DANISH     
-CSTR_ANSI_CHARSET            , // LANG_PORTUGUESE 
-CSTR_ANSI_CHARSET            , // LANG_DUTCH      
+CSTR_ANSI_CHARSET            , // LANG_ENGLISH
+CSTR_ANSI_CHARSET            , // LANG_GERMAN
+CSTR_ANSI_CHARSET            , // LANG_FRENCH
+CSTR_RUSSIAN_CHARSET         , // LANG_RUSSIAN
+CSTR_ANSI_CHARSET            , // LANG_SWEDISH
+CSTR_ANSI_CHARSET            , // LANG_SPANISH
+CSTR_ANSI_CHARSET            , // LANG_ITALIAN
+CSTR_RUSSIAN_CHARSET         , // LANG_RUSENG
+CSTR_RUSSIAN_CHARSET         , // LANG_UKRAINIAN
+CSTR_RUSSIAN_CHARSET         , // LANG_SERBIAN
+CSTR_EASTEUROPE_CHARSET      , // LANG_CROATIAN
+CSTR_EASTEUROPE_CHARSET      , // LANG_POLISH
+CSTR_ANSI_CHARSET            , // LANG_DANISH
+CSTR_ANSI_CHARSET            , // LANG_PORTUGUESE
+CSTR_ANSI_CHARSET            , // LANG_DUTCH
 CSTR_ANSI_CHARSET            , // LANG_DIG        15
 CSTR_RUSSIAN_CHARSET         , // LANG_UZBEK	  16 // 01.09.2000 E.P.
 CSTR_RUSSIAN_CHARSET         , // LANG_KAZ	      17
@@ -1626,7 +1626,7 @@ Word8 let;
       ver->Alt[i].Prob      =  rver->Alt[i].Prob;
       ver->Alt[i].Method    =  rver->Alt[i].Method;
       ver->Alt[i].Charset   =  CodePages[lang]; // Oleg
-      ver->Alt[i].Info      =  rver->Alt[i].Info; 
+      ver->Alt[i].Info      =  rver->Alt[i].Info;
      }
 
  return CSTR_StoreCollectionUni(rast,ver);
@@ -1644,7 +1644,7 @@ static int PutNewRasters(BYTE *inBuf,int xbit,int yrow,CSTR_rast outFir,
    RECT rect;
    FonSpecInfo specInfo;
 
-   
+
    for(i=0;i<inBestStack;i++)
    {
        if( recs && i ==  inBestStack-1 )
@@ -1662,7 +1662,7 @@ static int PutNewRasters(BYTE *inBuf,int xbit,int yrow,CSTR_rast outFir,
 		   return -1;
 
 		 attr.nClust = bestStack[i].num+1;
-	   
+
 // rerecognize - to add alternatives !?
 	     memset(&vers,0,sizeof(RecVersions));
 
@@ -1677,7 +1677,7 @@ static int PutNewRasters(BYTE *inBuf,int xbit,int yrow,CSTR_rast outFir,
 	      vers.Alt[0].Code=(BYTE)bestStack[i].name;
 	      vers.Alt[0].Prob=(BYTE)(255-STRAFPOINT*bestStack[i].dist);
 	      vers.Alt[0].Method=REC_METHOD_FON;
-		 } 
+		 }
 		 else
 		 {
 			 if( vers.lnAltCnt > 1 &&
@@ -1693,17 +1693,17 @@ static int PutNewRasters(BYTE *inBuf,int xbit,int yrow,CSTR_rast outFir,
 
        attr.n_baton=255;  // =NO_BATONS;
        attr.pos_inc = 0;  // =erect_no;
-	   
+
        attr.language=(BYTE)lang;
 	   attr.flg =CSTR_f_let;
-	   
+
 	   attr.w   = (short)rec.lnPixWidth;
 	   attr.h   = (short)rec.lnPixHeight;
 
 	   attr.clink  = vers.Alt[0].Prob;
-	   
+
 	   attr.recsource    = CSTR_rs_bitcmp;
-       attr.RecogHistory = CSTR_hi_fon; 
+       attr.RecogHistory = CSTR_hi_fon;
 
 	   if( fromNew )
 	   {
@@ -1726,9 +1726,9 @@ static int PutNewRasters(BYTE *inBuf,int xbit,int yrow,CSTR_rast outFir,
        if( !(rastOut=CSTR_InsertRaster (rastOut)) ||
            !CSTR_SetAttr (rastOut, &attr) ||
            !CSTR_StoreRaster (rastOut, &rec) || //OLEG
-           !p2_StoreVersions (rastOut, &vers,lang) 
+           !p2_StoreVersions (rastOut, &vers,lang)
 //           (rs.lnPixHeight && !CSTR_StoreScale(rastOut,comp->scale)) )// OLEG
-         ) 
+         )
                  return 0;
    }
 
@@ -1767,17 +1767,17 @@ FON_FUNC(int) FONRecogGlue(CSTR_rast firLeo,CSTR_rast lasLeo,
 
  // сделать общий растр
  xbyte=GetCommonSize(firLeo,lasLeo,&wordRect);
- if( xbyte <= 0) 
+ if( xbyte <= 0)
 	 return -1;
 
  yrow=wordRect.bottom-wordRect.top;
  if( yrow > WR_MAX_HEIGHT-2)
-	 return -11; 
+	 return -11;
 
  inBuf=malloc(xbyte*yrow);
- if( !inBuf ) 
+ if( !inBuf )
 	 return -1;
- 
+
  xbit=wordRect.right-wordRect.left;
 
  if( !FillInBuf(inBuf,xbyte,yrow,firLeo,lasLeo,&wordRect) )
@@ -1796,13 +1796,13 @@ FON_FUNC(int) FONRecogGlue(CSTR_rast firLeo,CSTR_rast lasLeo,
 						  TekInStack?&mystack[TekInStack-1].bound[0]:NULL);
 	 outByte = (outBit+7)>>3;
 
-	 
+
 	 // stay - recognize
 	 if(  startX + POROG_STOP < xbit)
-	 {  
-	     		 
+	 {
+
          Razmaz2(buf,bufrazmaz,(SINT)(outBit),(SINT)yrow,
-			 (SINT)0,(SINT)POROG_ANGLES); 
+			 (SINT)0,(SINT)POROG_ANGLES);
 
  // left bound
          FillLeft(buf,outByte,yrow,outByte<<3,StartInRow);
@@ -1817,19 +1817,19 @@ FON_FUNC(int) FONRecogGlue(CSTR_rast firLeo,CSTR_rast lasLeo,
 	 }
 
 	 else // все разрезали - добавим список
-		 //  попробуем еще откатиться за новыми 
+		 //  попробуем еще откатиться за новыми
 		 //  вариантами ?
 	 {
 		 porog=UpdateSpisokAlter(porog,&summaErrors);
-		 //if(porog==0) 
+		 //if(porog==0)
 			 break;
 		 k=-1;
 	 }
 
      // надо вернуться ?
 	 if( k < 0 )
-	 { 
-		 TekInStack--; 
+	 {
+		 TekInStack--;
 		 if( TekInStack < 0)  break;
 		 startWel=mystack[TekInStack].num+1;
 	 }
@@ -1840,10 +1840,10 @@ FON_FUNC(int) FONRecogGlue(CSTR_rast firLeo,CSTR_rast lasLeo,
 			 free(inBuf);
 			 return -12;
 		 }
-	  
+
 		 startWel=0;
 	 }
-      
+
  }
 
  k = PutNewRasters( inBuf, xbit, yrow, firOut,
@@ -1893,19 +1893,19 @@ FON_FUNC(Int32) FONRecog2Glue(CSTR_rast firLeo,CSTR_rast lasLeo,
 
  // сделать общий растр - сначала получить размеры
  xbyte=GetCommonSize(firLeo,lasLeo,&wordRect);
- if( xbyte <= 0) 
+ if( xbyte <= 0)
 	 return -1;
  xbit=wordRect.right-wordRect.left;
 
  yrow=wordRect.bottom-wordRect.top;
  if( yrow > WR_MAX_HEIGHT-2)
-	 return -11; 
+	 return -11;
 
  if( xbit < 2*MIN_WIDTH || yrow < MIN_WIDTH )
 	 return 0;
 
  inBuf=malloc(xbyte*yrow);
- if( !inBuf ) 
+ if( !inBuf )
 	 return -1;
 
  if( !FillInBuf(inBuf,xbyte,yrow,firLeo,lasLeo,&wordRect) )
@@ -1920,19 +1920,19 @@ FON_FUNC(Int32) FONRecog2Glue(CSTR_rast firLeo,CSTR_rast lasLeo,
  outByte = (outBit+7)>>3;
 
  Razmaz2(buf,bufrazmaz,(SINT)(outBit),(SINT)yrow,
-			 (SINT)0,(SINT)POROG_ANGLES); 
+			 (SINT)0,(SINT)POROG_ANGLES);
 
  FillLeft(buf,outByte,yrow,outByte<<3,StartInRow);
 
  // dont'recog by itself only!
  CSTR_GetAttr(firOut,&attr);
  CSTR_GetCollection(firOut,&vers);
- 
+
  numAlt=FindBestClustersBound(xbit,yrow,buf,bufrazmaz,
 		      numWel,(255-porog)/STRAFPOINT,fonbase->start,
 			  AllRecBou,MAX_ALT_BOU,
-			  StartInRow, attr.col, attr.row, 
-			  vers.lnAltCnt > 0 ? vers.Alt[0].Info:0, 
+			  StartInRow, attr.col, attr.row,
+			  vers.lnAltCnt > 0 ? vers.Alt[0].Info:0,
 			  countRazmaz);
 
  if(IsSnap)
@@ -1969,13 +1969,13 @@ FON_FUNC(Int32) FONRecog2Glue(CSTR_rast firLeo,CSTR_rast lasLeo,
 	 AddBitmapToSnap( buf, outBit, yrow, AllRecBou[i].name ,AllRecBou[i].prob);
 	 FONShowSnap();
   }
-  
+
   // find first-last rows
   for(j=0,oBuf=buf;j<yrow;j++,oBuf+=outByte)
   {
 	  for(k=0;k<outByte;k++)
 		  if( oBuf[k] ) break;
-      if( k < outByte ) break; 
+      if( k < outByte ) break;
   }
   firY=j;
   if(firY >= yrow)
@@ -1985,7 +1985,7 @@ FON_FUNC(Int32) FONRecog2Glue(CSTR_rast firLeo,CSTR_rast lasLeo,
   {
 	  for(k=0;k<outByte;k++)
 		  if( oBuf[k] ) break;
-      if( k < outByte ) break; 
+      if( k < outByte ) break;
   }
   lasY=j;
 
@@ -2011,29 +2011,29 @@ FON_FUNC(Int32) FONRecog2Glue(CSTR_rast firLeo,CSTR_rast lasLeo,
   memset(&specInfo,0,sizeof(FonSpecInfo));
   specInfo.countRazmaz = countRazmaz;
   nAlt=FONRecogChar(&recs->rast,&recs->vers,&specInfo);
-  
-  if( nAlt <= 0) 
+
+  if( nAlt <= 0)
 	  continue;
   if( recs->vers.lnAltCnt <= 0  || recs->vers.Alt[0].Prob < porog)
 	  continue;
-  
-  if( better == -1 || MIN(AllRecBou[better].prob,recs2[0].vers.Alt[0].Prob) < 
+
+  if( better == -1 || MIN(AllRecBou[better].prob,recs2[0].vers.Alt[0].Prob) <
 	     MIN(AllRecBou[i].prob,recs->vers.Alt[0].Prob) )
   {
 	  recs->nClust = specInfo.nClust;
-	  if( better != -1) 
+	  if( better != -1)
 		  memcpy(&recs2[0],recs,sizeof(RECS2));
 	  better = i;
   }
  }
 
- if( better == -1 ) 
+ if( better == -1 )
  {
 	 free(inBuf);
 	 return 0;
  }
 
- // remove old 
+ // remove old
  for(rst=CSTR_GetNext(firOut);rst && rst!=lasOut;)
 	 rst = CSTR_DelRaster(rst);
 
@@ -2070,13 +2070,13 @@ FON_FUNC(Int32) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
 
  // сделать общий растр - сначала получить размеры
  xbyte=GetCommonSize(firLeo,lasLeo,&wordRect);
- if( xbyte <= 0) 
+ if( xbyte <= 0)
 	 return -1;
 
  xbit=wordRect.right-wordRect.left;
  yrow=wordRect.bottom-wordRect.top;
  if( yrow > WR_MAX_HEIGHT-2 || xbit > WR_MAX_WIDTH-2 )
-	 return -11; 
+	 return -11;
 
   xbyte=REC_GW_WORD8(xbit);
 
@@ -2096,21 +2096,21 @@ FON_FUNC(Int32) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
  // dont'recog by itself only!
   CSTR_GetAttr(firOut,&attr);
   CSTR_GetCollection(firOut,&verOld);
- 
- // fill specInfo 
+
+ // fill specInfo
         memset(&specInfo,0,sizeof(FonSpecInfo));
 
 //        specInfo.nFieldRow=p2globals.line_number;
         specInfo.col      =attr.col;
-        specInfo.row      =attr.row;        
-        if( verOld.lnAltCnt > 0) 
+        specInfo.row      =attr.row;
+        if( verOld.lnAltCnt > 0)
 		{
                 specInfo.nInCTB = verOld.Alt[0].Info;
-                specInfo.nLet   = verOld.Alt[0].Code; 
+                specInfo.nLet   = verOld.Alt[0].Code;
 		}
 
 		specInfo.countRazmaz = MAX(1,nRazmaz);  // was alwayes 4
- 
+
   numAlt=FONRecogChar(&recRast,&verOld,&specInfo);
 
   if(IsSnap)
@@ -2119,7 +2119,7 @@ FON_FUNC(Int32) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
      FONShowSnap();
   }
 
-  if( numAlt <= 0) 
+  if( numAlt <= 0)
 	  return 0;
   if( verOld.lnAltCnt <= 0  || verOld.Alt[0].Prob < porog)
 	  return 0;
@@ -2128,24 +2128,24 @@ FON_FUNC(Int32) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
 //  for( i=0; i < verOld.lnAltCnt; i++)
 //    verOld.Alt[i].Prob = MAX(1,verOld.Alt[i].Prob-10);
 
- // remove old 
+ // remove old
   for(rst=CSTR_GetNext(firOut);rst && rst!=lasOut;)
 	 rst = CSTR_DelRaster(rst);
 
   memset(&attr,0,sizeof(CSTR_rast_attr));
   attr.n_baton=255;  // =NO_BATONS;
   attr.pos_inc = 0;  // =erect_no;
-	   
+
   attr.language=(BYTE)lang;
   attr.flg =CSTR_f_let;
-	   
+
   attr.w   = (short)recRast.lnPixWidth;
   attr.h   = (short)recRast.lnPixHeight;
 
   attr.clink  = verOld.Alt[0].Prob;
   attr.nClust = specInfo.nClust;
   attr.recsource    = CSTR_rs_bitcmp;
-  attr.RecogHistory = CSTR_hi_fon; 
+  attr.RecogHistory = CSTR_hi_fon;
 
 
   if( firOut == firLeo )  // from new
@@ -2168,9 +2168,9 @@ FON_FUNC(Int32) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
   if( !(rastOut=CSTR_InsertRaster (firOut)) ||
       !CSTR_SetAttr (rastOut, &attr) ||
       !CSTR_StoreRaster (rastOut, &recRast) || //OLEG
-      !p2_StoreVersions (rastOut, &verOld,lang) 
+      !p2_StoreVersions (rastOut, &verOld,lang)
 //           (rs.lnPixHeight && !CSTR_StoreScale(rastOut,comp->scale)) )// OLEG
-    ) 
+    )
                  return 0;
 
  // remove first old - stay only new rasters

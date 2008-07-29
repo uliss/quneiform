@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -313,8 +313,8 @@ cell *c;
 B_LINES my_bases;
 get_b_lines(NULL,&my_bases);
 c=cell_f()->next;
-if( c->nvers && 
-   // memchr("\xD7\xD8",c->vers[0].let,2) 
+if( c->nvers &&
+   // memchr("\xD7\xD8",c->vers[0].let,2)
 	(c->vers[0].let == left_quocket || // макры 10.09.2000 E.P.
 	 c->vers[0].let == right_quocket)
    )
@@ -430,7 +430,7 @@ void pass3(CSTR_line ln,CSTR_line lout)
                 if( lneout )
                     CSTR_PackLine(lneout);
                 }
-// разбирательство c курсивом и прямым шрифтом с использованием кластеров 
+// разбирательство c курсивом и прямым шрифтом с использованием кластеров
             cstr_erection_pass2(lout);
             if( language==LANG_RUSSIAN )
                 multi_bas=0;
@@ -498,8 +498,8 @@ for (Step=0; Step<pass2+1; Step++ )
 // goto ready BL
 
 // если базовые линии были найдены (агрегатированная строка из таблицы)
-//		- берем готовые базовые линии, добавление мелочи из исходной строки, 
-//		- отсечение альтернатив по базовым линиям. Проверка корректности. 
+//		- берем готовые базовые линии, добавление мелочи из исходной строки,
+//		- отсечение альтернатив по базовым линиям. Проверка корректности.
         if( line_readyBL && !line_scale )
             {
             INT old_nIncline=nIncline, bado, badn;
@@ -521,7 +521,7 @@ for (Step=0; Step<pass2+1; Step++ )
             bado = pass3_num_killed_line();
             all_cell_levcut(1);    // apply penalties
             badn = pass3_num_killed_line();
-            if( bado<2 && badn>0 && 
+            if( bado<2 && badn>0 &&
 				// уходим, только если убили лишнего
 				badn > bado + 1 // Nick 16.06.2001
 				)
@@ -572,7 +572,7 @@ no_ready_BL:;
              goto cont;
             }
 
-// ищутся допустимые пропорции букв в строке 
+// ищутся допустимые пропорции букв в строке
          prop(0);
 
         if( spec_camera )
@@ -705,7 +705,7 @@ ready_BL:;
             snap_monitor();
             }
 
-// проверка - уточнение распознавания сходных букв. Это цикл дискриминаторов. 
+// проверка - уточнение распознавания сходных букв. Это цикл дискриминаторов.
         criteries();
 
         if (snap_activity('d'))
@@ -721,7 +721,7 @@ ready_BL:;
             perc();
             }
 
-// распознать 'Й'. Русская буква с шапкой распознаётся уникальным алгоритмом, 
+// распознать 'Й'. Русская буква с шапкой распознаётся уникальным алгоритмом,
 //		а не через accent(), как русская буква 'Ё'
         if( language == LANG_RUSSIAN && !langUkr && !langSer ) //&& !langBul) Almi&Oleg
             proc_ii();//paste '©'
@@ -738,7 +738,7 @@ got_line:
             set_cells_language(language);
             }
         else if(p2_active && Step == 0)
-            {            
+            {
             Int32 ret;
             Bool32 wasSnap=FALSE;
             if (snap_activity('m'))
@@ -748,18 +748,18 @@ got_line:
                 snap_show_text(ttt);
                 wasSnap=TRUE;
                 }
-#ifdef _USE_PASS2_            
+#ifdef _USE_PASS2_
             // make all postrecognition
 			// распознавание на втором проходе
 // Библиотека Pass2.dll c использованием Fon.dll, Leo.dll
-// Символы, распознанные на первом проходе, проверяются при помощи кластерного 
-//  наложения. В случае отсутствия кластеров возможно 
-//			распознавания по ЛЕО. Если нет подтверждения - символы перераспознаются по кластерам. 
-//			Слова могут перерезаться при помощи кластерного наложения, 
+// Символы, распознанные на первом проходе, проверяются при помощи кластерного
+//  наложения. В случае отсутствия кластеров возможно
+//			распознавания по ЛЕО. Если нет подтверждения - символы перераспознаются по кластерам.
+//			Слова могут перерезаться при помощи кластерного наложения,
 //			могут происходить склейки из пыли.
 //  В случае двуязычия производится окончательный выбор одного из вариантов языка для каждого слова.
 
-                { 
+                {
                 Int32 i;
                 P2GLOBALS p2globals;
                 extern Handle hSnapSmartCut;
@@ -827,7 +827,7 @@ got_line:
                 pass3_empty(ln,lout);
                 goto end;
                 }
-//  Выбор строчных-прописных букв, распознанных ЛЕО (ЛЕО не делает различия между большими и маленькими). 
+//  Выбор строчных-прописных букв, распознанных ЛЕО (ЛЕО не делает различия между большими и маленькими).
 //	Уточнение регистра всех букв с использованием БЛ и кластеров.
             { // p2_tools.c
             int p2_checkLeoCase(void);
@@ -886,7 +886,7 @@ got_line:
 
                             }
                     }
-// распознавание Ы. Это, действительно уникальная буква, состоящая из двух компонент, стоящих рядом. 
+// распознавание Ы. Это, действительно уникальная буква, состоящая из двух компонент, стоящих рядом.
 //			Аналога в латинице нет.
 // распознавание особых украинских букв, а также сербских, болгарских и других, производимых из алфавита кириллицы
             if( language == LANG_RUSSIAN && !langUkr && !langSer && !langBul)
@@ -913,7 +913,7 @@ got_line:
 // проверка букв на наклонность, выпрямление с бритьем, перераспознвание после выпрямления
         if( !p2_active && erection_enable &&   erection_language(language))
             erection_incline_words(1);
-                
+
         if( erection_cond_language(language) )
             erection_restore();
 
@@ -1050,11 +1050,11 @@ got_line:
         space_cell();
 #endif
 
-// проверка - удаление пунктуации 
+// проверка - удаление пунктуации
         clean_punct();
         hide_dusts(0);
 
-// проверка - замена << на шеврон 
+// проверка - замена << на шеврон
         shevron(cell_f()->nextl);
         clean_punct_temp();
 
@@ -1156,7 +1156,7 @@ if( pass2 )
         language = LANG_RUSSIAN;
         trees_load_fict();
 
-        RSADD_SetRSTR( db_status,spec_camera, 
+        RSADD_SetRSTR( db_status,spec_camera,
                         (Handle)snap_monitor_ori,
                         (Handle)snap_activity,
                         (Handle)snap_show_text);
@@ -1177,7 +1177,7 @@ if( pass2 )
         trees_load_fict();
         p2_Cstr2Cell( lout,NULL,NULL,TRUE,CSTR_f_dust);
         CSTR_ClearLine(lout,(INT)(-16000+1),(INT)(0x7fff-1));
-        }    
+        }
     CSTR_DeleteLine(lne);
     erection_restore();
     font_let();
@@ -1210,17 +1210,17 @@ if( p2_active)
     INT p2Ps= p2_GetPs();
     if(p2Ps )
         {
-        if( line_readyBL && abs(p2Ps-(bbs3-bbs2))>1 || 
+        if( line_readyBL && abs(p2Ps-(bbs3-bbs2))>1 ||
             abs(p2Ps-(bbs3-bbs2))>3 )
             bbs2=bbs3-p2Ps;
         }
-    else if( line_tabcell && 
+    else if( line_tabcell &&
             (line_alphabet==ALPHA_DIGITAL_TRUE ||line_alphabet==ALPHA_DIGITAL) &&
              abs(Ps*3/2-(bbs3-bbs1))>2 && (p2Ps= p2_GetPs_up()) )
             bbs2=bbs3-p2Ps;
     }
 
-//уточнение в расстановке пробелов 
+//уточнение в расстановке пробелов
 space_valid_words();
 
 // установка характеристик шрифта - курсив,серифность,
@@ -1268,7 +1268,7 @@ else
     Cells2CSTR(ln,lout,NULL,1);
 
 // Если шрифт - узкий,шкалированная строка, перераспознаем по ЛЕО
-    if( line_scale && language==LANG_RUSSIAN && 
+    if( line_scale && language==LANG_RUSSIAN &&
         cell_f()->nextl && (cell_f()->nextl->font&c_fp_narrow) )
         cstr_rerecog_leo(lout);
 
@@ -1342,7 +1342,7 @@ pass3_special_recode(lout);
 // проверка многоточий - замена в них запятых на точки
 if( !p2_active )
     pass3_table_points_suspension(lout);
-else 
+else
     {
     CSTR_attr   attr;
     CSTR_GetLineAttr(lout,&attr);
@@ -1371,40 +1371,40 @@ switch( c )
 		// Конфликтные коды 08.09.2000 E.P.
         case liga_i_usual:
 			if (liga_i_usual == liga_i)
-				c = 'i';    
+				c = 'i';
 			break;
 
         case liga_i_latin:
 			if (liga_i_latin == liga_i)
-				c = 'i';    
+				c = 'i';
 			break;
 
         case liga_j          : c = 'j';    break;
 
 		// 31.08.2000 E.P.
-        case liga_exm_usual  : 
+        case liga_exm_usual  :
 			if (liga_exm_usual == liga_exm)
-				c = '!';    
+				c = '!';
 			break;
 
-        case liga_exm_latin  : 
+        case liga_exm_latin  :
 			if (liga_exm_latin == liga_exm)
-				c = '!';    
+				c = '!';
 			break;
 
         case liga_qm         : c = '?';    break;
 
         		// 31.08.2000 E.P.
-        case liga_inv_exm_usual    : 
-			if (liga_inv_exm_usual == liga_inv_exm) 
-				c = '\xA2'; 
+        case liga_inv_exm_usual    :
+			if (liga_inv_exm_usual == liga_inv_exm)
+				c = '\xA2';
 			break;
 
-        case liga_inv_exm_latin    : 
-			if (liga_inv_exm_latin == liga_inv_exm) 
-				c = '\xA2'; 
+        case liga_inv_exm_latin    :
+			if (liga_inv_exm_latin == liga_inv_exm)
+				c = '\xA2';
 			break;
- 
+
         case liga_inv_qm     : c = '\xBF'; break;
         default:
             break;
@@ -1635,7 +1635,7 @@ void letters_ini(CSTR_line lin, BOOL enable_scaling)
  INT             i,j,hmax,nscale=0,nsmall=0,nall=0,ndust, nlet;
  RecVersions     evn,zer={0};
  BYTE            sl=language, ssc=line_scale;
- 
+
 
  c1=cell_f();
  CSTR_GetLineAttr(lin,&attr);
@@ -1764,7 +1764,7 @@ void letters_ini(CSTR_line lin, BOOL enable_scaling)
           }
 
         }
-     if( nall>3 && nall==nsmall ||  
+     if( nall>3 && nall==nsmall ||
         multy_language && language==LANG_ENGLISH && ssc==0 ||
         !enable_scaling )
         {
@@ -1870,7 +1870,7 @@ void letters_ini(CSTR_line lin, BOOL enable_scaling)
             scale_comp->h= 1<<scale;
 
         accept_Cell(c2,&cur, scale_comp, scale);
-        c2->env->scale=(BYTE)line_scale;        
+        c2->env->scale=(BYTE)line_scale;
         if( cmp->scale )
             compress_second(c2,1);
         }
@@ -2006,7 +2006,7 @@ void dust_ini(CSTR_line lin)
              if( cur.w<6 && cur.h<6 )
              {
                  curr = CSTR_DelRaster(curr);
-                 
+
              }
              else
                  curr = CSTR_GetNext(curr);
@@ -2404,7 +2404,7 @@ ver->lnAltMax = REC_MAX_VERS;
 /*  comment Nick 17.02.2001
 if( c->nvers>1 && c->vers[0].prob==c->vers[1].prob && c->vers[0].prob>2 )
   {
-  c->vers[1].prob-=2;  
+  c->vers[1].prob-=2;
   }
 */
 
@@ -2928,7 +2928,7 @@ BOOL pass3BL(CSTR_line ln)
     if( snap_is_active() || snap_is_marked(ln) )
         {
         char        buf[256];
-    
+
         cstr2txt(buf,ln,(CSTR_line)NULL);
         snap_show_text(buf);
         snap_active=TRUE;
@@ -2958,9 +2958,9 @@ BOOL pass3BL(CSTR_line ln)
             {
             if( c->flg&c_f_bad )
                 bado++;
-             if( c->row < minr) 
+             if( c->row < minr)
 				 minr = c->row;
-			 if( c->row + c->h > maxr) 
+			 if( c->row + c->h > maxr)
 				 maxr = c->row + c->h ;
             }
         line_scale0=line_scale;
@@ -3014,7 +3014,7 @@ BOOL pass3BL(CSTR_line ln)
         if( bd>=5 )
             loc_bdiff[5]++;
         else
-            loc_bdiff[bd]++;   
+            loc_bdiff[bd]++;
         if( c->flg&c_f_bad )
             badn++;
         }
@@ -3245,18 +3245,18 @@ switch( c->vers[0].let )
 		if(is_russian_turkish_conflict(c->vers[0].let)) // 21.05.2002 E.P.
 			break;
 
-        add_stick_vers(c,(CHAR)'г', pr ) ;  
+        add_stick_vers(c,(CHAR)'г', pr ) ;
         ret = TRUE;
         break;
     case    (BYTE)'Ё':
-        add_stick_vers(c,(CHAR)'ж', pr ) ;  
-        add_stick_vers(c,(CHAR)'г', (BYTE)MAX((INT)pr-10,2) ) ;  
+        add_stick_vers(c,(CHAR)'ж', pr ) ;
+        add_stick_vers(c,(CHAR)'г', (BYTE)MAX((INT)pr-10,2) ) ;
         ret = TRUE;
         break;
     case    (BYTE)'®':
  		if(is_russian_turkish_conflict(c->vers[0].let)) // 21.05.2002 E.P.
 			break;
-       add_stick_vers(c,(CHAR)'а', pr ) ;  
+       add_stick_vers(c,(CHAR)'а', pr ) ;
         ret = TRUE;
         break;
     default:
@@ -3272,16 +3272,16 @@ BYTE    pr = (BYTE)(MAX((INT)c->vers[0].prob-10,2));
 switch( c->vers[0].let )
     {
     case    (BYTE)'v':
-        add_stick_vers(c,(CHAR)'y',pr ) ;  
+        add_stick_vers(c,(CHAR)'y',pr ) ;
         ret = TRUE;
         break;
     case    (BYTE)'o':
-        add_stick_vers(c,(CHAR)'p',pr ) ;  
+        add_stick_vers(c,(CHAR)'p',pr ) ;
         ret = TRUE;
         break;
     case    (BYTE)'a':
-        add_stick_vers(c,(CHAR)'q',pr ) ;  
-        add_stick_vers(c,(CHAR)'g',pr ) ;  
+        add_stick_vers(c,(CHAR)'q',pr ) ;
+        add_stick_vers(c,(CHAR)'g',pr ) ;
         ret = TRUE;
         break;
     default:
@@ -3319,19 +3319,19 @@ Int32           n, i;
 for(rst=CSTR_GetNextRaster(CSTR_GetFirstRaster(ln),CSTR_f_let);
     rst; rst=CSTR_GetNextRaster(rst,CSTR_f_let) )
     {
-    CSTR_GetAttr(rst,&attr);    
+    CSTR_GetAttr(rst,&attr);
     if( attr.language==LANG_RUSSIAN )
         {
         CSTR_GetImage(rst,(Word8*)&rc, CSTR_TYPE_IMAGE_RS);
         CSTR_GetCollectionUni(rst,&uo);
         u=uo;
         RecogLEO(&rc,attr.language,&u);
-        if( u.lnAltCnt && 
+        if( u.lnAltCnt &&
             u.Alt[0].Liga!='|' )
-            { 
+            {
             if( u.Alt[0].Prob>200 )
                 CSTR_StoreCollectionUni(rst,&u);
-            else if( uo.lnAltCnt && 
+            else if( uo.lnAltCnt &&
                      u.Alt[0].Prob>20+uo.Alt[0].Prob )
                 {
                 n = MIN(REC_MAX_VERS-1,uo.lnAltCnt);
@@ -3340,7 +3340,7 @@ for(rst=CSTR_GetNextRaster(CSTR_GetFirstRaster(ln),CSTR_f_let);
                 u.lnAltCnt = n+1;
                 CSTR_StoreCollectionUni(rst,&u);
                 }
-                
+
             }
         }
     }
@@ -3364,7 +3364,7 @@ if( c->next!=cell_l() )
         wn = cn->col+cn->w-con;
         up = rn-minrow;
         dn = MAX(c->row+c->h,cn->row+cn->h)-minrow;
-        if( hn*12<wn*5 && 
+        if( hn*12<wn*5 &&
             wn>=Ps/2 &&
             up>=bbs2+dh &&
             dn<=bbs3-dh )
@@ -3390,8 +3390,8 @@ if( c->next!=cell_l() )
 up=c->row-minrow;
 dn=up+c->h;
 
-if( c->h*12<c->w*5 && 
-    c->w>=Ps/2  /*&& up>=bbs1 && dn<=bbs4 */) 
+if( c->h*12<c->w*5 &&
+    c->w>=Ps/2  /*&& up>=bbs1 && dn<=bbs4 */)
     {
     c->vers[0].let='-';
     c->vers[0].prob=( up>=bbs2+dh && dn<=bbs3-dh)?254:150;
@@ -3416,13 +3416,13 @@ LONG    s2,s1,n,h,s12,na,nl;
 
 for(s1=s2=na=nl=n=0,c=cell_f()->nextl;c!=cell_l();c=c->nextl,na++)
     {
-    if( c->nvers                        && 
+    if( c->nvers                        &&
         (((c->recsource|c->history) & c_rs_bitcmp)    ||
         c->flg&(c_f_let|c_f_confirmed))&&
         strchr(lets,c->vers[0].let)     &&
 		!is_russian_baltic_conflict(c->vers[0].let) &&	// 17.07.2001 E.P.
 		!is_russian_turkish_conflict(c->vers[0].let)&& // 21.05.2002 E.P.
-        c->vers[0].prob>200 
+        c->vers[0].prob>200
         )
         {
         if( c->vers[0].prob>200 )
@@ -3459,12 +3459,12 @@ LONG    s2,s1,n,h,s12,na,nl;
 
 for(s1=s2=na=nl=n=0,c=cell_f()->nextl;c!=cell_l();c=c->nextl,na++)
     {
-    if( c->nvers                        && 
+    if( c->nvers                        &&
         (((c->recsource|c->history) & c_rs_bitcmp)  ||
         c->flg&(c_f_let|c_f_confirmed) ) &&
         strchr(lets_up,c->vers[0].let)   &&
 		!is_russian_turkish_conflict(c->vers[0].let)&& // 21.05.2002 E.P.
-        c->vers[0].prob>200 
+        c->vers[0].prob>200
         )
         {
         if( c->vers[0].prob>200 )
@@ -3504,7 +3504,7 @@ for(rst=CSTR_GetNext(CSTR_GetFirstRaster(ln));rst;rst=CSTR_GetNext(rst))
     {
     CSTR_GetCollectionUni(rst,&uni);
     CSTR_GetAttr(rst,&attr);
-    if( uni.lnAltCnt && uni.Alt[0].Liga==0x84 && attr.language==LANG_ENGLISH )        
+    if( uni.lnAltCnt && uni.Alt[0].Liga==0x84 && attr.language==LANG_ENGLISH )
         {
         uni.Alt[0].Liga=0xd5;
         CSTR_StoreCollectionUni(rst,&uni);
@@ -3559,7 +3559,7 @@ for(numdots=0,rst=CSTR_GetNext(CSTR_GetFirstRaster(ln));rst;rst=CSTR_GetNext(rst
                     case    (Word8)'\xd5':
                         uni.Alt[0].Liga='.';
                         uni.Alt[0].Code[0]='.'; uni.Alt[0].Code[1]=0;
-                        CSTR_StoreCollectionUni(rst,&uni);                        
+                        CSTR_StoreCollectionUni(rst,&uni);
                         break;
                     }
                 }
@@ -3589,7 +3589,7 @@ for(rst=CSTR_GetPrev(CSTR_GetLastRaster(ln));rst;rst=CSTR_GetPrev(rst))
             {
             case    (Word8)0x1e:
             case    (Word8)0x1f:
-            case    ' ':    
+            case    ' ':
                 uni.Alt[0].Liga='\x1e';
                 uni.Alt[0].Code[0]=0;
                 uni.Alt[0].Prob=75;
@@ -3608,7 +3608,7 @@ for(rst=CSTR_GetPrev(CSTR_GetLastRaster(ln));rst;rst=CSTR_GetPrev(rst))
             case    (Word8)'\xd5':
                 uni.Alt[0].Liga='.';
                 uni.Alt[0].Code[0]='.'; uni.Alt[0].Code[1]=0;
-                CSTR_StoreCollectionUni(rst,&uni);                        
+                CSTR_StoreCollectionUni(rst,&uni);
                 break;
             }
         }
@@ -3618,7 +3618,7 @@ for(rst=CSTR_GetPrev(CSTR_GetLastRaster(ln));rst;rst=CSTR_GetPrev(rst))
 return;
 }
 
-//  Nick 20.02.2001  - 
+//  Nick 20.02.2001  -
 // чтобы без потерь использовать CopyAttr2CSTR!!!
 BOOL SetFontReady(BOOL fready)
 {

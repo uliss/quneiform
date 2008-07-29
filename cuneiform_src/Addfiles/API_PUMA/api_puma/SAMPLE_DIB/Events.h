@@ -21,7 +21,7 @@ class Events : public CCmdTarget
 
 // Attributes
 public:
-    
+
 // Operations
 public:
     CSampleDlg    *m_dlg;

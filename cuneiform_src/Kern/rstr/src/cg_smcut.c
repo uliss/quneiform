@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -157,7 +157,7 @@ void dp_pass0(cell *CP, raster *rp, struct cut_elm *cutp,
   if (ib1 != ib2)
   {
     cut=cut_list+ib2;
-    if (cut->duflm)  
+    if (cut->duflm)
 		addij(LC,r,cut_list,vers_list,ncut,ib1,ib2,0);
     if ((let=cut->versm.vers[0].let)==(BYTE)'ì' &&
 			!is_russian_baltic_conflict(let) ||		// 17.07.2001 E.P.
@@ -302,7 +302,7 @@ void dp_pass0(cell *CP, raster *rp, struct cut_elm *cutp,
         {
           cut=cut_list+il;
           vers0=&cut->versm.vers[0];
-          if ((let=vers0->let)==(BYTE)'â' && 
+          if ((let=vers0->let)==(BYTE)'â' &&
 			  !is_russian_baltic_conflict(let) && 	// 17.07.2001 E.P.
 			  !is_russian_turkish_conflict(let) 	// 21.05.2002 E.P.
 			  )
@@ -548,7 +548,7 @@ accept:
           show_and_wait(snap_text);
         }
       if (*ib2>=ie2)
-        if (*ib2==ie2 || on_path(*ib2,iemax,cut_list))  
+        if (*ib2==ie2 || on_path(*ib2,iemax,cut_list))
 		  return 1;
       if ( (let==(BYTE)'ì' || let==(BYTE)'œ') &&
 		  !is_russian_baltic_conflict(let) 	// 17.07.2001 E.P.
@@ -1136,23 +1136,23 @@ static CHAR radjust_cut(INT ib, INT *ir, INT *ie0, INT ie, INT d,
 ----------------------------------------------------------------*/
 static void spec_pairs()
 {
-  struct cut_elm *cut; 
+  struct cut_elm *cut;
   INT i,ip; //â¥ªãé¥¥ ¨ ¯à¥¤ë¤ãé¥¥ á¥ç¥­¨ï
   SVERS *vers;                   //â¥ªãé ï ¢¥àá¨ï
   BYTE let,letp;                 //â¥ªãé ï ¨ ¯à¥¤ë¤ãé ï ¡ãª¢ë
-  struct cut_elm *cuts; 
+  struct cut_elm *cuts;
   INT is,x0;  //¯à ¢ ï £à ­¨æ  "á"
   INT m_row;                     //áà¥¤­ïï ¡ §®¢ ï «¨­¨ï
 
   det_snap(LC, "special pairs");
 
-  i=ncut-1; 
-  letp=0; 
+  i=ncut-1;
+  letp=0;
   ip=i;
   while (i>0)
     {
-     cut=cut_list+i;  
-	 vers=&cut->versm;  
+     cut=cut_list+i;
+	 vers=&cut->versm;
 	 let=vers->vers[0].let;
      if (dust(vers))
        {
@@ -1166,10 +1166,10 @@ static void spec_pairs()
               addij(LC,r,cut_list,vers_list,ncut,i,ip,0);
        }
       else
-        if ( cut->dh != 0 && strchr("ªŠâ’ã“",let) && 
+        if ( cut->dh != 0 && strchr("ªŠâ’ã“",let) &&
 		    !is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
 			!is_russian_turkish_conflict(let)&&	// 21.05.2002 E.P.
-		     (letp==(BYTE)'£' || letp==(BYTE)'ƒ') 
+		     (letp==(BYTE)'£' || letp==(BYTE)'ƒ')
 		   )
           {
            INT  j,il=cut->px;
@@ -1177,11 +1177,11 @@ static void spec_pairs()
            BYTE *letr=&cut_list[ip].versm.vers[0].let;
            for (j=i-1,cuts=cut-1; j>il && cuts->x >= x0; j--,cuts--)
              {
-              if (addij(LC,r,cut_list,vers_list,ncut,il,j,0)>1)  
+              if (addij(LC,r,cut_list,vers_list,ncut,il,j,0)>1)
 				 break;
-//              if (cut_list[j].versm.vers[0].prob<trs2)  
+//              if (cut_list[j].versm.vers[0].prob<trs2)
 //			       break;
-              if (addij(LC,r,cut_list,vers_list,ncut,j,ip,0)>1)  
+              if (addij(LC,r,cut_list,vers_list,ncut,j,ip,0)>1)
 				 continue;
               if ( (*letr==(BYTE)'â' || *letr==(BYTE)'’')  &&
 					!is_russian_baltic_conflict(*letr) && // 17.07.2001 E.P.
@@ -1202,7 +1202,7 @@ static void spec_pairs()
                 x0=right_bound(r,0,cut->x,(INT)(m_row-r->top+1),(INT)(r->h-1));
                }
               else
-                if (cut->dh != 0 && strchr("¥á‘",let) && 
+                if (cut->dh != 0 && strchr("¥á‘",let) &&
 					!is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
 				    (letp==(BYTE)'¯' || letp==(BYTE)''))
                   {
@@ -1217,8 +1217,8 @@ static void spec_pairs()
                       x0=cut->x-((cut_list[ip].x-cut->x)>>2);
                      }
                     else
-                      if ((let==(BYTE)'ë' || let==(BYTE)'›') && 
-					      strchr(letters_right_to_bad,letp) && 
+                      if ((let==(BYTE)'ë' || let==(BYTE)'›') &&
+					      strchr(letters_right_to_bad,letp) &&
 			              letp != (BYTE)'ª' && letp != (BYTE)'Š' &&
 						  !is_russian_baltic_conflict(let)	&&	// 17.07.2001 E.P.
 						  !is_russian_baltic_conflict(letp)		// 17.07.2001 E.P.
@@ -1230,9 +1230,9 @@ static void spec_pairs()
                              letp != (BYTE)'ª' && letp != (BYTE)'Š')
                            {
                             i=cut->px;
-                            if (i==0)  
+                            if (i==0)
 							  break;
-                            cut=cut_list+i;  
+                            cut=cut_list+i;
 							x0=cut->x;
                            }
                           else
@@ -1240,14 +1240,14 @@ static void spec_pairs()
              if (x0 != 0)
                {
                 //¨é¥¬ ¡«¨¦ ©è¨© ª x0 à §à¥§
-                is=i; 
+                is=i;
 		        cuts=cut;
-                while (cuts->x > x0)  
-		          { 
-		           is--; 
-		           cuts--; 
+                while (cuts->x > x0)
+		          {
+		           is--;
+		           cuts--;
 		          };
-                if ( (cuts+1)->x-x0 < x0-cuts->x )  
+                if ( (cuts+1)->x-x0 < x0-cuts->x )
 			      is++;
                 //à á¯®§­ ¥¬
                 addij(LC,r,cut_list,vers_list,ncut,cut->px,is,0);

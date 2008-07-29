@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -61,10 +61,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <memory.h>
 /*#include <io.h>*/
 
-#include "nt_types.h" 
-#include "struct.h" 
-#include "status.h" 
-#include "func.h" 
+#include "nt_types.h"
+#include "struct.h"
+#include "status.h"
+#include "func.h"
 #include "lang.h"
 #include "cstr.h" // OLEG
 #include "fon.h"
@@ -111,7 +111,7 @@ for(ii=1;ii<res->lnAltCnt;ii++)
     {
     fprintf(fp,",%c(%d)",ansi?stdAnsiToAscii(res->Alt[ii].Code):res->Alt[ii].Code,res->Alt[ii].Prob);
     }
-fprintf(fp,"\n");   
+fprintf(fp,"\n");
 return;
 }
 
@@ -157,16 +157,16 @@ for(i=0,nC=numCourier=0;i<nClust;i++)
         ro.recData.lwStatus=0;
         LEOSetupPage(&ps);
         fprintf(fp,"Nclu=%d(%d) let=%c tresh=%d%s\n",i,i*3+jj, name, jj,jj?"":"(default)" );
-                
+
         LEORecogPrintChar(&ro);
         print_method(fp,&ro.recResults,"         leo : ",1);
-        
+
 
         LEORecogPrnMethod( &ro , REC_METHOD_MSK, 1);
         print_method(fp,&ro.recResults,"         msk : ",0);
 
         LEORecogCharDebug( &ro );
-        print_method(fp,&ro.recResults,"     evn+3x5 : ",1);        
+        print_method(fp,&ro.recResults,"     evn+3x5 : ",1);
         } // end treshold
     fprintf(fp,"\n");
     }   // end clusters
@@ -186,7 +186,7 @@ Bool32 TestFontCourier(void)
  int            nClust;
  int            porog=0; // test !!!
  int            numCourier,nC;
- 
+
  RecVersions    MSKres;
  ClustInfo      clustinfo;
  Int32          nf=FONGetFontCount();
@@ -197,11 +197,11 @@ Bool32 TestFontCourier(void)
   nClust=FONGetClustCount();
   if(nClust < 20 )
     return FALSE;
-  
+
   if(!HndTab)
      return FALSE;
-  MSKSetAlphabet  ( alphabet );  
-  
+  MSKSetAlphabet  ( alphabet );
+
   for(i=0,nC=numCourier=0;i<nClust;i++)
   {
    name=0;
@@ -223,15 +223,15 @@ Bool32 TestFontCourier(void)
    MSKres.Alt[0].Prob=255;
    MSKres.Alt[1].Code=(Word8)to_lower((Word8)name);
    MSKres.Alt[1].Prob=255;
-    
-   if(!MSKRecogCharExp( HndTab, &recRast,       &MSKres )  ) 
+
+   if(!MSKRecogCharExp( HndTab, &recRast,       &MSKres )  )
             continue;
    p = MAX(MSKres.Alt[0].Prob,MSKres.Alt[1].Prob);
    if( p> 150)
        numCourier++;
     nC++;
   }
-  
+
   if(numCourier*3 > nC*2)
     return TRUE;
 #endif
@@ -240,7 +240,7 @@ Bool32 TestFontCourier(void)
 ////////////////////////
 static int curNumFile=0;
 static Word8 hasNearSame[]="\xa7\xed";  // зэ
-static Word8 NearSame[]="\xed\xa7";     // эз  
+static Word8 NearSame[]="\xed\xa7";     // эз
 Int32 TestFontClusters(void)
  {
  #ifdef _USE_LEO_
@@ -278,7 +278,7 @@ Int32 TestFontClusters(void)
 
   for(i=0,numInvalid=0;i<nClust;i++)
   {
-    cluInfo.let = 0; 
+    cluInfo.let = 0;
     j=FONGetClustInfo(&cluInfo,i+1);
     if(j<=0)
          continue;
@@ -290,7 +290,7 @@ Int32 TestFontClusters(void)
                  continue;
 
         // now - test only russian ASCII letters
-        if(cluInfo.let < 128 || 
+        if(cluInfo.let < 128 ||
            cluInfo.let >= 176 && cluInfo.let < 224 ||
            cluInfo.let > 240
            )
@@ -311,7 +311,7 @@ Int32 TestFontClusters(void)
     ps.nIdPage=-1;
     ro.recData.lwStatus=0;
     LEOSetupPage(&ps);
-                
+
     LEORecogPrintChar(&ro);
 
     // ничего хорошего по LEO ?
@@ -323,7 +323,7 @@ Int32 TestFontClusters(void)
     for(j=0;j<ro.recResults.lnAltCnt;j++)
         {
          resLet = stdAnsiToAscii(ro.recResults.Alt[j].Code);
-         
+
          if( resLet == cluInfo.let ||
              resLet == addLet )
                  break;
@@ -337,18 +337,18 @@ Int32 TestFontClusters(void)
 	  resLet = stdAnsiToAscii(ro.recResults.Alt[0].Code);
 	  if( !is_lower(resLet) )
                resLet =  to_lower(resLet);
-	  if( (qq=strchr(hasNearSame,cluInfo.let)) && 
+	  if( (qq=strchr(hasNearSame,cluInfo.let)) &&
 		  NearSame[qq-(char*)hasNearSame] == resLet
 		)
 		continue;
-	}	  
+	}
 
         // узналось как что-то иное ?
         // если совсем не распозналось - бывает ('И' в sten91)
-     if( j >= ro.recResults.lnAltCnt ||  
-         ro.recResults.Alt[j].Prob < 180 || 
+     if( j >= ro.recResults.lnAltCnt ||
+         ro.recResults.Alt[j].Prob < 180 ||
          ro.recResults.Alt[j].Prob < 220 &&
-         ro.recResults.Alt[j].Prob + 25 < ro.recResults.Alt[0].Prob 
+         ro.recResults.Alt[j].Prob + 25 < ro.recResults.Alt[0].Prob
        )
      {
      FonTestInfo testInfo[MAXCHECKALT];
@@ -401,7 +401,7 @@ Bool32 RecogLEOcap(RecRaster *Rs,Word8 Language,RecVersions *Vs)
  RecObject      ro={0};
  LeoPageSetup   ps={0};
  char    *      alpha;
- 
+
  switch(Language)
     {
     case LANG_RUSSIAN:
@@ -427,9 +427,9 @@ Bool32 RecogLEOcap(RecRaster *Rs,Word8 Language,RecVersions *Vs)
         ps.nIdPage=-1;
         ro.recData.lwStatus=0;
         LEOSetupPage(&ps);
-                
+
         LEORecogPrintChar(&ro);
-        memcpy(Vs,&ro.recResults,sizeof(RecVersions));        
+        memcpy(Vs,&ro.recResults,sizeof(RecVersions));
 #endif
 return TRUE;
 }
@@ -443,8 +443,8 @@ Bool32 RecogLEO(RecRaster *Rs,Word8 Language,UniVersions *Us)
  char    *      alpha;
  Word8          c, cw;
  Int32          i, up=-1;
- 
-  
+
+
   alpha = alpha_str;
   set_alphabet(alphabet1, alpha);
 
@@ -458,9 +458,9 @@ Bool32 RecogLEO(RecRaster *Rs,Word8 Language,UniVersions *Us)
         ps.nIdPage=-1;
         ro.recData.lwStatus=0;
         LEOSetupPage(&ps);
-                
+
         LEORecogPrintChar(&ro);
-//        memcpy(Vs,&ro.recResults,sizeof(RecVersions));        
+//        memcpy(Vs,&ro.recResults,sizeof(RecVersions));
         if( Us->lnAltCnt )
             {
             c = Us->Alt[0].Liga     ;
@@ -532,8 +532,8 @@ if(language!=LANG_RUSSIAN && language!=LANG_RUSENG )
      return 0;
 CSTR_GetImage(rst,(Word8*)&rc,CSTR_TYPE_IMAGE_RS);
 if( !rc.lnPixHeight || !rc.lnPixWidth )
-     return 0;    
-MSKSetAlphabet  ( alphabet );  
+     return 0;
+MSKSetAlphabet  ( alphabet );
 
 CSTR_GetCollection(rst,&ver);
 ver.lnAltCnt=2;
@@ -592,7 +592,7 @@ Bool32 RecogLEOall(RecRaster *Rs,RecVersions *Us,Int32 nType)
  LeoFieldSetup  fs={0};
  RecObject      ro={0};
  LeoPageSetup   ps={0};
- 
+
   fs.nStyle = LS_PRINT;
   memcpy(fs.AlphaTable,alphabet1,256);
   LEOSetupField(&fs);
@@ -606,7 +606,7 @@ Bool32 RecogLEOall(RecRaster *Rs,RecVersions *Us,Int32 nType)
   {
       LEORecogPrintChar(&ro);
   }
-  
+
   *Us=ro.recResults;
 #endif
 return TRUE;

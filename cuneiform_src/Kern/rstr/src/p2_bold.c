@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -86,14 +86,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "p2libr.h"
 #include "ligas.h"	// 08.09.2000 E.P.
 #include "minmax.h"
-///////////////// 
+/////////////////
 void   clear_cells(void);
 void p2_TextWord(CSTR_rast  c,CSTR_rast stop, char *intxt,BOOL ansi);
 extern INT  line_number;
 
 static int FindBounds(int *val,int size);
 static Word8 SetBoldByTable(int nThick, int midThick,
-							Word8 colBold, int thick, 
+							Word8 colBold, int thick,
 							int minVal, int maxVal);
 
 #ifdef _PRINT_BOLD_
@@ -102,15 +102,15 @@ static Word8 SetBoldByTable(int nThick, int midThick,
 #endif
 ///////////////////////
 #define MIN_STAT_PAGE 5  // ìèíèìàëüíàÿ äëèíà ñëîâà äëÿ
-                         // îöåíêè ñòàòèñòèêè ñòðàíèöû 
-#define POROG_INTERLINE 4  // åñëè ðàçíèöà æèðíîñòåé ñòðîê 
+                         // îöåíêè ñòàòèñòèêè ñòðàíèöû
+#define POROG_INTERLINE 4  // åñëè ðàçíèöà æèðíîñòåé ñòðîê
                            // ìåíüøå ïîðîãà, óñòàíîâèòü îäèíàêîâî
 #define POROG_ONECOL  7
 #define POROG_ONECELL 9
 
 #define MAXTHICK 256
 #define MAXHEI   128
-#define ADD_THIN 4 
+#define ADD_THIN 4
 typedef struct tagThick {
         CSTR_rast first;
         CSTR_rast last;
@@ -167,10 +167,10 @@ static const char bigLitLet[]="bdfghiklpqty";
 ////////////
 static Int32 LetDigSymbol(int i) // letter or digit
 {
-        if( i >= '0' && i <= '9' ) 
+        if( i >= '0' && i <= '9' )
                 return 1;
         if(
-                i >= 'A' && i <= 'Z' || 
+                i >= 'A' && i <= 'Z' ||
                 i >= 'a' && i <= 'z' )
                 return 2;
         if( language == LANG_RUSSIAN || language == LANG_ENGLISH)
@@ -193,16 +193,16 @@ static int BigSymbol(int i)
 
         if( i >= '0' && i <= '9' ||
                 i >= 'A' && i <= 'Z' ||
-                strchr(bigLitLet,i) 
+                strchr(bigLitLet,i)
       )
           return 2;
 
         if( language == LANG_RUSSIAN || language == LANG_ENGLISH)
         {
-                if( i==0xe4 ) 
+                if( i==0xe4 )
                         return 3;
 
-                if( i >= 128 && i < 160 ) 
+                if( i >= 128 && i < 160 )
                         return 2;
 
         // áéðóôä (ä-êóðñèâ!)
@@ -215,7 +215,7 @@ static int BigSymbol(int i)
         }
         else
         {
-                if(i>=0xC0 && i <0xDE) 
+                if(i>=0xC0 && i <0xDE)
                         return 3;
                 if(i >= 0xDE )
                         return 2;
@@ -235,7 +235,7 @@ static void FillFromLine(CCOM_lnhead *linerep,int size,int *thickBuf,int add)
          // íà÷àëî ëèíèè (line->row) - íàì íå âàæíî
    for(inter = (CCOM_interval*)(line+1), i=0; i<line->h; i++, inter++)
    {
-      if(inter->l < 0) 
+      if(inter->l < 0)
                   return;
           j=MIN(MAXTHICK-1,inter->l+add);
           thickBuf[j]++;
@@ -249,8 +249,8 @@ static Bool32 FillThickBuffer(CCOM_comp *comp,int *thickBuf,int *height)
  Word8 *pWord8;
  Int16 *pInt16;
  int w,h;
- 
-   if(!comp || !comp->linerep) 
+
+   if(!comp || !comp->linerep)
          return FALSE;
 
    pWord8 = &comp->linerep[0];
@@ -261,7 +261,7 @@ static Bool32 FillThickBuffer(CCOM_comp *comp,int *thickBuf,int *height)
    if( comp->scale )
         {
         w =(w+(1<<comp->scale)-1)>> comp->scale;
-        h =(h+(1<<comp->scale)-1)>> comp->scale;    
+        h =(h+(1<<comp->scale)-1)>> comp->scale;
         }
    *height=h;
    do  { // comps cycle
@@ -269,10 +269,10 @@ static Bool32 FillThickBuffer(CCOM_comp *comp,int *thickBuf,int *height)
                 FillFromLine((CCOM_lnhead*)(pWord8+2),(*pInt16)-2,thickBuf,0);
                 if( comp->numcomp <= 1)
                         break;
-                
+
         pWord8 += *pInt16;
         pInt16  = (Int16*)pWord8;
-                
+
         }
    while(  (*pInt16) > 0 );
    return TRUE;
@@ -287,7 +287,7 @@ static int AddThickStat(CSTR_rast first,Word8 name,int *thickBuffer)
  CCOM_comp *comp=CSTR_GetComp(first);
  int i,k,dig;
 
-  if(!comp) 
+  if(!comp)
           return 0;
 
   dig=LetDigSymbol(name);
@@ -324,24 +324,24 @@ static int GetTipicalThick(int nLet,WORDThick *LineThick,int *thickBuf,int bestH
  int adjustedHeight; // Nick 25.12.2001
 
   memset(LineThick,0,sizeof(WORDThick));
-  if(nLet <= 0 || bestHeight <= 0 ) 
+  if(nLet <= 0 || bestHeight <= 0 )
           return 0;
 
   for(bestWidth=0,i=1;i<MAXTHICK;i++)
   {
-         if( thickBuf[i] <= 0) 
+         if( thickBuf[i] <= 0)
                  continue;
 
-         if(thickBuf[i] > thickBuf[bestWidth]) 
+         if(thickBuf[i] > thickBuf[bestWidth])
                  bestWidth=i;
          if(thickBuf[i] == thickBuf[bestWidth] &&
             (commonThick == NULL || commonThick->strih!=bestWidth)
                 )
-         bestWidth=i;  
+         bestWidth=i;
          maxThick=i;
   }
 
-  if( bestWidth <= 0 ) 
+  if( bestWidth <= 0 )
           return 0;
 
   // ïîèùåì ëó÷øåãî ñðåäè òîëñòûõ
@@ -358,7 +358,7 @@ static int GetTipicalThick(int nLet,WORDThick *LineThick,int *thickBuf,int bestH
 			  thickBuf[i]*10 > thickBuf[bestWidth]*6 &&
 			  (thickBuf[i]+MAX(thickBuf[i+1],thickBuf[i-1]))*10 > maxSumma*8
 			 )
-           ) 
+           )
                  k=i;
      minWidth=MIN(minWidth,thickBuf[i]);
   }
@@ -384,13 +384,13 @@ static int GetTipicalThick(int nLet,WORDThick *LineThick,int *thickBuf,int bestH
 
   if( language == LANG_RUSSIAN &&
           commonThick &&
-          commonThick->height > 0 && 
-          bestHeight != commonThick->height && 
+          commonThick->height > 0 &&
+          bestHeight != commonThick->height &&
       abs( commonThick->strih - bestWidth) < 2
         )
         bestHeight = commonThick->height;
 
-	adjustedHeight = bestHeight*10 + addHeight;	
+	adjustedHeight = bestHeight*10 + addHeight;
 
   if( bestWidth > 0 && bestWidth < MAXTHICK-1 &&
           thickBuf[bestWidth-1] != thickBuf[bestWidth+1]
@@ -398,12 +398,12 @@ static int GetTipicalThick(int nLet,WORDThick *LineThick,int *thickBuf,int bestH
   {
    if( bestWidth>1 &&
            thickBuf[bestWidth-1] > thickBuf[bestWidth+1] &&
-           thickBuf[bestWidth-2] +1 >= thickBuf[bestWidth+1] ) 
+           thickBuf[bestWidth-2] +1 >= thickBuf[bestWidth+1] )
           k=(((bestWidth-1)*thickBuf[bestWidth-1] + bestWidth*thickBuf[bestWidth])*1000)/
              (adjustedHeight*(thickBuf[bestWidth]+thickBuf[bestWidth-1]));
    else if( bestWidth < MAXTHICK-1 &&
            thickBuf[bestWidth-1] < thickBuf[bestWidth+1] &&
-           thickBuf[bestWidth+2] + 1 >= thickBuf[bestWidth-1] ) 
+           thickBuf[bestWidth+2] + 1 >= thickBuf[bestWidth-1] )
           k=(((bestWidth+1)*thickBuf[bestWidth+1] + bestWidth*thickBuf[bestWidth])*1000)/
              (adjustedHeight*(thickBuf[bestWidth]+thickBuf[bestWidth+1]));
    else
@@ -418,7 +418,7 @@ static int GetTipicalThick(int nLet,WORDThick *LineThick,int *thickBuf,int bestH
   LineThick->height=bestHeight;
   LineThick->thick =k;
   LineThick->nLet  =nLet;
-  return k; 
+  return k;
 }
 ///////////////////
 static int FindAddHeight(int bestHeight, int *heiBuf, int size)
@@ -427,7 +427,7 @@ static int FindAddHeight(int bestHeight, int *heiBuf, int size)
 	int para = 0;
 
 	if( bestHeight <= 0 || bestHeight >= size - 1 ||
-		heiBuf[bestHeight] <= 1 
+		heiBuf[bestHeight] <= 1
 	  )
 		return 0;
 
@@ -440,7 +440,7 @@ static int FindAddHeight(int bestHeight, int *heiBuf, int size)
 
 	if( heiBuf[para]*3 < heiBuf[bestHeight]*2 )
 		return 0;
-	
+
 	i = (heiBuf[para]*5)/heiBuf[bestHeight];
 
 	if( para > bestHeight )
@@ -452,14 +452,14 @@ static int FindAddHeight(int bestHeight, int *heiBuf, int size)
 ///////////////
 static int p2_SetBoldWord(CSTR_rast first,CSTR_rast last,
                           int nWord,WORDThick *lineThick,
-                          WORDThick *prevThick,Bool32 veryThin, 
+                          WORDThick *prevThick,Bool32 veryThin,
 						  int lineAddHeight )
 {
   CSTR_rast fRast;
   CSTR_rast_attr  attr;
   int       numLet=0;
   int       nLet;
-  RecVersions     rv; 
+  RecVersions     rv;
   WORDThick   tmpThick={0};
   int porog;
   int i,bestHeight;
@@ -494,51 +494,51 @@ static int p2_SetBoldWord(CSTR_rast first,CSTR_rast last,
  {
 	for(i=1;i<MAXHEI;i++)
 	{
-         if( heiLitBuffer[i] == 0) 
+         if( heiLitBuffer[i] == 0)
                  continue;
          if(heiLitBuffer[i]>heiLitBuffer[bestHeight] ||
 			heiLitBuffer[i] == heiLitBuffer[bestHeight] &&
 			lineThick->height > 0 &&
-                abs(lineThick->height - i) < abs(lineThick->height - bestHeight) 
-           ) 
+                abs(lineThick->height - i) < abs(lineThick->height - bestHeight)
+           )
                  bestHeight=i;
 	}
  }
- 
 
- if( bestHeight== 0 || 
+
+ if( bestHeight== 0 ||
 	 bestHeight != lineThick->height &&
 	 ( heiLitBuffer[bestHeight] <= 1 ||  ( (nLitLet<<1) < nLet ) )
    )
  {
   for(bestHeight=0,i=1;i<MAXHEI;i++)
   {
-     if( heiAllBuffer[i] == 0) 
-                 continue; 
+     if( heiAllBuffer[i] == 0)
+                 continue;
          if(heiAllBuffer[i]>heiAllBuffer[bestHeight] ||
         heiAllBuffer[i] == heiAllBuffer[bestHeight] &&
         lineThick->height > 0 &&
-                abs(lineThick->height - i) < abs(lineThick->height - bestHeight) 
-           ) 
+                abs(lineThick->height - i) < abs(lineThick->height - bestHeight)
+           )
                  bestHeight=i;
   }
  }
 
  if(bestHeight <= 0 ||
-    nLet <= 1 &&  language == LANG_RUSSIAN || 
-    lineThick->height > 0 && 
+    nLet <= 1 &&  language == LANG_RUSSIAN ||
+    lineThick->height > 0 &&
     (abs(lineThick->height - bestHeight) < 2 )
    )
  {
        bestHeight = lineThick->height;
 	   addHeight  = lineAddHeight;
- }	
+ }
  else
 	addHeight = FindAddHeight(bestHeight, heiLitBuffer, MAXHEI);
 
 
  GetTipicalThick(nLet,&tmpThick,thickBuffer,bestHeight,lineThick, addHeight);
- if(veryThin && tmpThick.thick > 0) 
+ if(veryThin && tmpThick.thick > 0)
          tmpThick.thick+=ADD_THIN;
 
  if(snap_activity('j'))
@@ -546,7 +546,7 @@ static int p2_SetBoldWord(CSTR_rast first,CSTR_rast last,
    int j;
    strcpy(snapText,"BoldGist.:");
    for(j=0;j<MAXTHICK;j++)
-           if( thickBuffer[j]>0 && strlen(snapText)<MAXSNAP-32 ) 
+           if( thickBuffer[j]>0 && strlen(snapText)<MAXSNAP-32 )
                    sprintf(snapText+strlen(snapText),"(%d,%d)",j,thickBuffer[j]);
    snap_show_text(snapText);
  }
@@ -566,7 +566,7 @@ static int p2_SetBoldWord(CSTR_rast first,CSTR_rast last,
  if(lineThick->thick > 0 && tmpThick.thick > lineThick->thick+porog)
          return P2_BOLD;
 
- if(tmpThick.nLet > 5 ) 
+ if(tmpThick.nLet > 5 )
          porog=5;
  else
      porog=POROG_SOSED_MAX-tmpThick.nLet;
@@ -595,7 +595,7 @@ static void SetBoldness(int i,CSTR_rast first,CSTR_rast last)
   }
   else
           return;
-  
+
   for(fRast=first; fRast && fRast!=last; fRast=CSTR_GetNext(fRast) )
   {
         if( !CSTR_GetAttr (fRast, &attr) )
@@ -634,11 +634,11 @@ static int GetOneBold(int thick,int prevBold,int prevThick)
  int minVal=BoundLIGHT;
  int maxVal=BoundBOLD;
 
- //if( minVal == 0)     minVal=pageLineLight; 
+ //if( minVal == 0)     minVal=pageLineLight;
  //if( maxVal == 0 )    maxVal=pageLineBold;
 
  if( minVal == 0)
-     minVal=pageLight; 
+     minVal=pageLight;
  if( maxVal == 0)     // MAXTHICK )
      maxVal=pageBold;
 
@@ -650,7 +650,7 @@ static int GetOneBold(int thick,int prevBold,int prevThick)
 
  if( thick-minVal < maxVal - thick )
                         bold=P2_LIGHT;
- else if( thick-minVal > maxVal - thick) 
+ else if( thick-minVal > maxVal - thick)
                         bold=P2_BOLD;
  else
          bold=prevBold;
@@ -666,7 +666,7 @@ static int CompareBoldSosed(WORDThick *wthick,int prevThick,int prevBold,int sos
       if( prevThick && abs(prevThick-wthick->thick)< 3 )
                   return prevBold;
 
-      if( wthick->nLet > 1) 
+      if( wthick->nLet > 1)
           {
        if(BoundLIGHT && wthick->thick < BoundLIGHT)
                   return P2_LIGHT;
@@ -681,7 +681,7 @@ static int CompareBoldSosed(WORDThick *wthick,int prevThick,int prevBold,int sos
 
         if(  abs(prevThick-wthick->thick)<porog ||
                    sosedThick && abs(sosedThick-wthick->thick)<3
-                ) 
+                )
         bold=prevBold;
       else
         bold=GetOneBold(wthick->thick,prevBold,prevThick);
@@ -693,7 +693,7 @@ static int SetTestBold(int nWord,WORDThick *wthick,int maxWord,WORDThick *prevLi
 {
     int i;
     int bold;
-    int prevThick,prevBold; 
+    int prevThick,prevBold;
     int sosedThick;
 
     if(prevLine->bold &&
@@ -706,7 +706,7 @@ static int SetTestBold(int nWord,WORDThick *wthick,int maxWord,WORDThick *prevLi
    i=maxWord;
    if( snap_activity('j') && wthick[maxWord].bold!=bold )
          {
-          p2_TextWord(wthick[i].first,wthick[i].last,snapText,TRUE);           
+          p2_TextWord(wthick[i].first,wthick[i].last,snapText,TRUE);
           if(bold==P2_BOLD) strcat(snapText," - BOLD");
           else if(bold==P2_LIGHT) strcat(snapText," - LIGHT");
           else  strcat(snapText," - unknown");
@@ -725,7 +725,7 @@ static int SetTestBold(int nWord,WORDThick *wthick,int maxWord,WORDThick *prevLi
       SetBoldness(bold,wthick[i].first,wthick[i].last);
       if( snap_activity('j') && wthick[i].bold!=bold )
                 {
-          p2_TextWord(wthick[i].first,wthick[i].last,snapText,TRUE);           
+          p2_TextWord(wthick[i].first,wthick[i].last,snapText,TRUE);
                   if(bold==P2_BOLD) strcat(snapText," - BOLD");
                   else if(bold==P2_LIGHT) strcat(snapText," - LIGHT");
                   else  strcat(snapText," - unknown");
@@ -735,7 +735,7 @@ static int SetTestBold(int nWord,WORDThick *wthick,int maxWord,WORDThick *prevLi
 
           if( bold==prevBold)
                   sosedThick=wthick[i].thick;
-          else 
+          else
                   sosedThick=0;
 
           if( wthick[i].nLet >= 5)
@@ -756,7 +756,7 @@ static int SetTestBold(int nWord,WORDThick *wthick,int maxWord,WORDThick *prevLi
           SetBoldness(bold,wthick[i].first,wthick[i].last);
       if( snap_activity('j') && wthick[i].bold!=bold )
                 {
-          p2_TextWord(wthick[i].first,wthick[i].last,snapText,TRUE);           
+          p2_TextWord(wthick[i].first,wthick[i].last,snapText,TRUE);
                   if(bold==P2_BOLD) strcat(snapText," - BOLD");
                   else if(bold==P2_LIGHT) strcat(snapText," - LIGHT");
                   else  strcat(snapText," - unknown");
@@ -782,7 +782,7 @@ static int SetTestBold(int nWord,WORDThick *wthick,int maxWord,WORDThick *prevLi
 		for(i=0;i<nWord;i++)
 		  if( wthick[i].nLet >= 2 ) break;
         i++;
-#else 
+#else
 		i=1;
 #endif
         for(;i<nWord-1;i++)
@@ -796,44 +796,44 @@ static int SetTestBold(int nWord,WORDThick *wthick,int maxWord,WORDThick *prevLi
 
             bold=wthick[i].bold;
 
-#ifdef _NEW_SMALL_            
+#ifdef _NEW_SMALL_
 			for(k=i-1;k>=0;k--)
 				if(wthick[k].nLet >=2) break;
             if(k<0) k=i-1;
-#else    
+#else
             k=i-1;
-#endif			
+#endif
 
 			for(j=i+1;j<nWord;j++)
 				if(wthick[j].nLet >=3) break;
-            if(j>=nWord)  
+            if(j>=nWord)
 				j=i+1;
 
             if( wthick[k].bold != wthick[j].bold)
              {
-              if(abs(wthick[k].thick-wthick[i].thick) < 
+              if(abs(wthick[k].thick-wthick[i].thick) <
                  abs(wthick[j].thick-wthick[i].thick) ||
-                 abs(wthick[k].thick-wthick[i].thick) ==  
+                 abs(wthick[k].thick-wthick[i].thick) ==
                  abs(wthick[j].thick-wthick[i].thick) &&
-                 wthick[j].nLet <= wthick[k].nLet  
+                 wthick[j].nLet <= wthick[k].nLet
                 )
                         bold=wthick[k].bold;
-              else 
+              else
                         bold=wthick[j].bold;
 
              }
-        
-             else if(   wthick[k].bold!= bold && 
-                        wthick[j].bold!= bold 
+
+             else if(   wthick[k].bold!= bold &&
+                        wthick[j].bold!= bold
                    )
 			 {
 #ifdef _NEW_SMALL_
 				int porog=(wthick[i].nLet==1?8:5);
-                if( (bold==P2_LIGHT && 
-				     wthick[i].thick+porog >= MIN(wthick[i-1].thick,wthick[j].thick)) || 
-					 (bold==P2_BOLD && 
-				     wthick[i].thick <= MAX(wthick[i-1].thick,wthick[j].thick)+porog) 
-				   ) 
+                if( (bold==P2_LIGHT &&
+				     wthick[i].thick+porog >= MIN(wthick[i-1].thick,wthick[j].thick)) ||
+					 (bold==P2_BOLD &&
+				     wthick[i].thick <= MAX(wthick[i-1].thick,wthick[j].thick)+porog)
+				   )
 #endif
                  bold=wthick[k].bold;
 			 }
@@ -843,7 +843,7 @@ static int SetTestBold(int nWord,WORDThick *wthick,int maxWord,WORDThick *prevLi
                SetBoldness(bold,wthick[i].first,wthick[i].last);
                if( snap_activity('j') && wthick[i].bold!=bold )
                  {
-                  p2_TextWord(wthick[i].first,wthick[i].last,snapText,TRUE);           
+                  p2_TextWord(wthick[i].first,wthick[i].last,snapText,TRUE);
                   if(bold==P2_BOLD) strcat(snapText," - BOLD");
                   else if(bold==P2_LIGHT) strcat(snapText," - LIGHT");
                   else  strcat(snapText," - unknown");
@@ -855,11 +855,11 @@ static int SetTestBold(int nWord,WORDThick *wthick,int maxWord,WORDThick *prevLi
 
 
         // ïåðâûé îñîáûé ñèìâîë â ñòðîêå
-        if( wthick[0].nLet == 1 && 
-            wthick[0].thick > wthick[1].thick + 5 && 
+        if( wthick[0].nLet == 1 &&
+            wthick[0].thick > wthick[1].thick + 5 &&
             wthick[0].height*2 > wthick[1].height*3 )
         {
-                wthick[0].bold=P2_BOLD;  
+                wthick[0].bold=P2_BOLD;
                 SetBoldness(P2_BOLD,wthick[0].first,wthick[0].last);
         }
 
@@ -897,7 +897,7 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
            {
                    if( wthick[i].thick < minBold)
                            minBold=wthick[i].thick;
-           
+
                    pageBold =MIN(pageBold, wthick[i].thick);
                    isGoodStat=TRUE;
                    nBold++;
@@ -906,7 +906,7 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
            {
                     if( wthick[i].thick > maxLight)
                            maxLight=wthick[i].thick;
-                   
+
                     pageLight=MAX(pageLight,wthick[i].thick);
                         isGoodStat=TRUE;
                         nLight++;
@@ -921,10 +921,10 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
 
 
 #ifndef _OLD_TABL_VERSION_
-		 // åñëè òàáëèöà -   
-		 if( nCol > 0   && nCol <= MAXCOL && 
+		 // åñëè òàáëèöà -
+		 if( nCol > 0   && nCol <= MAXCOL &&
 			 nRow > 0   && nRow <= MAXROW &&
-			 nTabl >= 0 && nTabl < MAXTAB 
+			 nTabl >= 0 && nTabl < MAXTAB
 			)
 		 {
 			 Word8 colBold = thickCol[nTabl][nCol-1].bold;
@@ -980,12 +980,12 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
 
 
 			 // îöåíèì ïî êîëîíêå
-			 colBold = SetBoldByTable( nThick, 
-				 thickCol[nTabl][nCol-1].thick, colBold, 
+			 colBold = SetBoldByTable( nThick,
+				 thickCol[nTabl][nCol-1].thick, colBold,
 				 line->thick, minVal, maxVal);
 			 // ïî ñòðîêå
-			 rowBold = SetBoldByTable( nRowThick, 
-				 thickCol[nTabl][nRow-1].thick, rowBold, 
+			 rowBold = SetBoldByTable( nRowThick,
+				 thickCol[nTabl][nRow-1].thick, rowBold,
 				 line->thick, minVal, maxVal);
 
 			 if(snap_activity('j'))
@@ -1010,7 +1010,7 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
 			 {
               if( !rowBold || !colBold)
 			  {
-                 if(!colBold) 
+                 if(!colBold)
 					 colBold = rowBold;
 			     SetAllBoldness(nWord,wthick,colBold);
                  return colBold;
@@ -1034,7 +1034,7 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
 			  SetAllBoldness(nWord,wthick,colBold);
               return colBold;
 			 }
-			 
+
 			 if( minVal + POROG_ONECOL  >= maxVal )
 			 // åñòü îáùíîñòü ïî ÿ÷åéêå
 			 {
@@ -1047,7 +1047,7 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
 				}
 			 }
 
-           // åñëè íå âûøëî ïî òàáëèöå - òåïåðü ê îáùåé ïðîöåäóðå 
+           // åñëè íå âûøëî ïî òàáëèöå - òåïåðü ê îáùåé ïðîöåäóðå
 		 }
 #endif
 
@@ -1081,10 +1081,10 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
                  }
 
 #ifdef _OLD_TABL_VERSION_
-		 // åñëè òàáëèöà -   
+		 // åñëè òàáëèöà -
 		 // ñðàâíèì ñ ïðåäûäóùåé ñòðîêîé â ñòîëáöå
-		 if( nCol > 0   && nCol <= MAXCOL && 
-			 nTabl >= 0 && nTabl < MAXTAB 
+		 if( nCol > 0   && nCol <= MAXCOL &&
+			 nTabl >= 0 && nTabl < MAXTAB
 			)
 		 {
 			 Word8 colBold = thickCol[nTabl][nCol-1].bold;
@@ -1101,7 +1101,7 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
 
 			  if( abs(line->thick-nThick) <= POROG_INTERLINE ||
                  colBold == P2_LIGHT &&  line->thick < nThick ||
-                 colBold == P2_BOLD  &&  line->thick > nThick 
+                 colBold == P2_BOLD  &&  line->thick > nThick
 			   )
 			  {
                   SetAllBoldness(nWord,wthick,colBold);
@@ -1112,17 +1112,17 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
 #endif
 
 
-         if( BoundLIGHT && BoundBOLD && (BoundLIGHT == BoundBOLD) && 
+         if( BoundLIGHT && BoundBOLD && (BoundLIGHT == BoundBOLD) &&
                  (line->thick == BoundLIGHT) )
          {
-                if( prevLine->thick && 
+                if( prevLine->thick &&
                         prevLine->thick + POROG_INTERLINE <=  line->thick
                   )
                   {
                   SetAllBoldness(nWord,wthick,P2_BOLD);
                   return P2_BOLD;
                  }
-                if( prevLine->thick && 
+                if( prevLine->thick &&
                         prevLine->thick >= line->thick + POROG_INTERLINE
                   )
                   {
@@ -1187,9 +1187,9 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
         if(pageLineLight!=0 || pageLineBold!=MAXTHICK )
          {
                         int vMin=pageLineLight,vMax=pageLineBold;
-                        if(pageLineLight==0) 
+                        if(pageLineLight==0)
                                 vMin=pageLineBold-2*POROG_INTERLINE;
-                        if(pageLineBold==MAXTHICK) 
+                        if(pageLineBold==MAXTHICK)
                                 vMax=pageLineLight+2*POROG_INTERLINE;
 
                         if( line->thick-vMin < vMax-line->thick)
@@ -1212,24 +1212,24 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
                  return P2_LIGHT;
          }
 
-         if(pageBold==MAXTHICK) 
+         if(pageBold==MAXTHICK)
                         boundBold=pageLight+10;
          else
                         boundBold=pageBold;
 
-         if(pageLight==0) 
+         if(pageLight==0)
                         boundLight=pageBold-10;
          else
                         boundLight=pageLight;
 
-     if(minVal-boundLight < boundBold-maxVal)  
+     if(minVal-boundLight < boundBold-maxVal)
                         bb=P2_LIGHT;
          else
                         bb=P2_BOLD;
          SetAllBoldness(nWord,wthick,bb);
          return bb;
         }
-                  
+
         SetTestBold(nWord,wthick,maxWord,prevLine);
     return 3;
 }
@@ -1262,7 +1262,7 @@ static void PointsBoldness(CSTR_rast first,int nWord,WORDThick *wthick)
 
   for(i=0;i<nWord-1;i++)
   {
-    PutBoldness( wthick[i].last, wthick[i+1].first,(Word8)(attr.font & maska)); 
+    PutBoldness( wthick[i].last, wthick[i+1].first,(Word8)(attr.font & maska));
         CSTR_GetAttr (wthick[i+1].first, &attr);
   }
 
@@ -1297,7 +1297,7 @@ void p2_BoldInit(int p2)
 				TestColumnsThick();
 				TestAccordRowsColumns();
 		}
-    
+
         // ïðîèçâîäíûå âåëè÷èíû
         acceptLineLight=0;
         acceptLineBold =MAXTHICK;
@@ -1307,7 +1307,7 @@ void p2_BoldInit(int p2)
  {
      fbold=fopen("mybold.txt","at");
      nFile++;
-     if(fbold) 
+     if(fbold)
          {
              fprintf(fbold,"file %d\n",nFile);
 			 fprintf(fbold,"boundLight=%d,boundBold=%d\n",BoundLIGHT,BoundBOLD);
@@ -1317,7 +1317,7 @@ void p2_BoldInit(int p2)
  }
  else
          fbold=NULL;
-        
+
 #endif
 }
 //////////////////
@@ -1325,7 +1325,7 @@ int p2_SetBoldLine(CSTR_line line)
 {
  CSTR_rast first,last;
  CSTR_rast_attr  attr;
- RecVersions     rv; 
+ RecVersions     rv;
  WORDThick LineThick,*prevWord;
  int       nLet,nWord,i;
  int       bestHeight, addBestHeight = 0;
@@ -1379,7 +1379,7 @@ int p2_SetBoldLine(CSTR_line line)
          if(heiLitBuffer[i]>heiLitBuffer[bestHeight] ||
         heiLitBuffer[i] == heiLitBuffer[bestHeight] &&
                 heiAllBuffer[i] > heiAllBuffer[bestHeight]
-           ) 
+           )
                  bestHeight=i;
   }
  }
@@ -1389,9 +1389,9 @@ int p2_SetBoldLine(CSTR_line line)
   for(bestHeight=0,i=1;i<MAXHEI;i++)
   {
          if(heiAllBuffer[i]>heiAllBuffer[bestHeight] ||
-        heiAllBuffer[i]==heiAllBuffer[bestHeight] &&  
+        heiAllBuffer[i]==heiAllBuffer[bestHeight] &&
                 heiLitBuffer[i]>heiLitBuffer[bestHeight]
-           ) 
+           )
                  bestHeight=i;
   }
  }
@@ -1407,7 +1407,7 @@ int p2_SetBoldLine(CSTR_line line)
    int j;
    strcpy(snapText,"BoldLineGist.:");
    for(j=0;j<MAXTHICK;j++)
-           if( thickBuffer[j]>0 && strlen(snapText)<MAXSNAP-32 ) 
+           if( thickBuffer[j]>0 && strlen(snapText)<MAXSNAP-32 )
                    sprintf(snapText+strlen(snapText),"(%d,%d)",j,thickBuffer[j]);
    snap_show_text(snapText);
  }
@@ -1421,11 +1421,11 @@ int p2_SetBoldLine(CSTR_line line)
  else if(LineThick.thick < POROG_LIGHT )
  {
          LineThick.bold=P2_LIGHT;
-         if(LineThick.nLet > MIN_SIZE_LINE && LineThick.height > MIN_HEIGHT) 
+         if(LineThick.nLet > MIN_SIZE_LINE && LineThick.height > MIN_HEIGHT)
                  pageLineLight=MAX(pageLineLight,LineThick.thick);
  }
 
- prevWord=NULL;      // &prevLineThick;  
+ prevWord=NULL;      // &prevLineThick;
 
  for(nWord=0,first=CSTR_GetNext(CSTR_GetFirstRaster(line));first;first=CSTR_GetNext(first))
  { // scan all string
@@ -1437,7 +1437,7 @@ int p2_SetBoldLine(CSTR_line line)
    if( rv.lnAltCnt && strchr(bold_word_limits,rv.Alt[0].Code) )
            continue;
 
-   // last -  êîíåö 
+   // last -  êîíåö
    for(last=CSTR_GetNext(first);last; last=CSTR_GetNext(last))
    {
          if( !CSTR_GetAttr(last,&attr) )
@@ -1468,10 +1468,10 @@ int p2_SetBoldLine(CSTR_line line)
 
          sprintf(snapText,"nLet=%d,widLine=%d,hei=%d,thick=%d",
                  WordThick[nWord].nLet,WordThick[nWord].strih,WordThick[nWord].height,WordThick[nWord].thick);
-     
-         if(WordThick[nWord].bold==P2_BOLD) 
+
+         if(WordThick[nWord].bold==P2_BOLD)
                  strcat(snapText,"-BOLD");
-     else if(WordThick[nWord].bold==P2_LIGHT) 
+     else if(WordThick[nWord].bold==P2_LIGHT)
                  strcat(snapText,"-LIGHT");
 
          snap_show_text(snapText);
@@ -1483,7 +1483,7 @@ int p2_SetBoldLine(CSTR_line line)
         if( nWord < BOLDMAXWORD -1)
         {
                 if( WordThick[nWord].nLet > 4 )
-          prevWord=WordThick+nWord;  
+          prevWord=WordThick+nWord;
                 nWord++;
         }
     SetBoldness(i,first,last);
@@ -1504,7 +1504,7 @@ int p2_SetBoldLine(CSTR_line line)
 
   strcpy(snapText,"WordGist.:");
   for(jj=0;jj<MAXGISTHICK;jj++)
-           if( GistThickness[jj]>0 && strlen(snapText)<MAXSNAP-32 ) 
+           if( GistThickness[jj]>0 && strlen(snapText)<MAXSNAP-32 )
                    sprintf(snapText+strlen(snapText),"(%d,%d)",jj,GistThickness[jj]);
   snap_show_text(snapText);
   sprintf(snapText,"boundLight=%d,boundBold=%d",BoundLIGHT,BoundBOLD);
@@ -1535,16 +1535,16 @@ int p2_SetBoldLine(CSTR_line line)
            if(WordThick[i].bold==P2_BOLD) nb++;
            else if(WordThick[i].bold==P2_LIGHT) nl++;
    }
-   if(nl==0 && nb>0 ) 
+   if(nl==0 && nb>0 )
    {
       LineThick.bold=P2_BOLD;
-          if( corRet==P2_BOLD &&  p2_active && LineThick.nLet > MIN_SIZE_LINE) 
+          if( corRet==P2_BOLD &&  p2_active && LineThick.nLet > MIN_SIZE_LINE)
                   acceptLineBold=MIN(acceptLineBold,LineThick.thick);
    }
-   else  if(nl>0 && nb==0 )  
+   else  if(nl>0 && nb==0 )
    {
      LineThick.bold=P2_LIGHT;
-         if( corRet==P2_LIGHT && p2_active && LineThick.nLet > MIN_SIZE_LINE) 
+         if( corRet==P2_LIGHT && p2_active && LineThick.nLet > MIN_SIZE_LINE)
                  acceptLineLight=MAX(acceptLineLight,LineThick.thick);
    }
    else LineThick.bold=0;
@@ -1552,10 +1552,10 @@ int p2_SetBoldLine(CSTR_line line)
  }
 
  // çàïîìíèì ñòàòèñòèêó ïî ñòîëáöó êîëîíêè
- if( lineAttr.tab_column > 0 && 
+ if( lineAttr.tab_column > 0 &&
 	 lineAttr.tab_column <= MAXCOL &&
 	 lineAttr.tab_number > 0  &&
-     lineAttr.tab_number <= MAXTAB  
+     lineAttr.tab_number <= MAXTAB
    )
  {
 	 int nTab=lineAttr.tab_number-1;
@@ -1567,7 +1567,7 @@ int p2_SetBoldLine(CSTR_line line)
 	  if(  thickCol[nTab][nCol].nThick != 0  )
 	  {
        thickCol[nTab][nCol].nThick= (Word8)LineThick.thick;
-       thickCol[nTab][nCol].bold=    corRet; 
+       thickCol[nTab][nCol].bold=    corRet;
 	  }
 
 	  // çàïîìíèì ïîñëåäíåå ïî ñòðîêå
@@ -1627,7 +1627,7 @@ int p2_SetBoldLine(CSTR_line line)
  if(fbold)
  {
    int ii;
-   
+
    for(i=0;i<nWord;i++)
    {
        if(WordThick[i].bold !=P2_BOLD )
@@ -1666,9 +1666,9 @@ static int FindBounds(int *val,int size)
 
     BoundLIGHT=BoundBOLD=0;
 
-    minVal=MAX(pageLight,pageLineLight); 
+    minVal=MAX(pageLight,pageLineLight);
 
-        // ìîãóò ïëàâàòü ãðàíèöû pageLight,... 
+        // ìîãóò ïëàâàòü ãðàíèöû pageLight,...
 	while( minVal > 1 && val[minVal-1] && val[minVal-1] < val[minVal] )
        minVal--;
 
@@ -1743,8 +1743,8 @@ static int FindBounds(int *val,int size)
                 {
                         if(val[i] > val[minVal]*2)
                                 break;
-                        if(val[i] < val[minVal]) 
-                minVal  = i; 
+                        if(val[i] < val[minVal])
+                minVal  = i;
                 }
         }
 
@@ -1761,7 +1761,7 @@ static int FindBounds(int *val,int size)
                 if( val[maxVal] <= 1 )
                 {
 					// áîëäû ðàçìàçàíû
-                 if( val[bestMin]> 10 && val[maxVal] == 1 && val[minVal] == 0)  
+                 if( val[bestMin]> 10 && val[maxVal] == 1 && val[minVal] == 0)
 				 {
                    int sum=1,ss,mimi;
                    for( ss=maxVal-1;ss>minVal;ss--)
@@ -1773,29 +1773,29 @@ static int FindBounds(int *val,int size)
 					   else break;
                    if(sum > 4 && bestMin+POROG_INTERLINE < maxVal )
 				   {
-                      BoundLIGHT = minVal;  
-					  BoundBOLD  = mimi; 
+                      BoundLIGHT = minVal;
+					  BoundBOLD  = mimi;
 					  return 2;
 				   }
 				 }
 #ifdef _TEST_THIN_
 				 // ïðîïóñòèëè íà÷àëî?
-                 for(promMin=i=bestMin+1;i<maxVal;i++) 
+                 for(promMin=i=bestMin+1;i<maxVal;i++)
 				 {
-                      if(val[i]>val[promMin]*2) 
+                      if(val[i]>val[promMin]*2)
 						  break;
 					  if(val[i] < val[promMin])
 						  promMin=i;
 				 }
 				 for(i=promMax=promMin;i<maxVal;i++)
 				 {
-					 if(val[i]>val[promMax]) 
+					 if(val[i]>val[promMax])
 						 promMax=i;
 				 }
 
-				 if( promMax >= bestMin+10 && 
+				 if( promMax >= bestMin+10 &&
 					 val[promMax] > 10 &&
-                     val[bestMin] > 10 && 
+                     val[bestMin] > 10 &&
 					 val[bestMin] > val[promMin]*8 &&
                      val[promMax] > val[promMin]*8
 				   )
@@ -1803,11 +1803,11 @@ static int FindBounds(int *val,int size)
                      BoundLIGHT = BoundBOLD  = promMin;
                      return 1;
 				 }
-#endif			 
+#endif
 				 // nothing
-                 for(;maxVal<size;maxVal++) 
+                 for(;maxVal<size;maxVal++)
                   if(val[maxVal]==0) break;
-                 BoundLIGHT =   BoundBOLD  = maxVal; 
+                 BoundLIGHT =   BoundBOLD  = maxVal;
                  return 1;
                 }
 
@@ -1819,7 +1819,7 @@ static int FindBounds(int *val,int size)
                                 break;
                         if( val[i] < val[maxVal])
                                 maxVal=i;
-                } 
+                }
         }
 
 
@@ -1835,20 +1835,20 @@ static int FindBounds(int *val,int size)
 
         for(i=minVal;i>0;i--)
                         if(val[i-1]<val[i]) break;
-        bestMin=i; 
+        bestMin=i;
                 for(i=bestMin;i<maxVal;i++)
                         if(val[i]>val[i+1]) break;
-        bestMin=i; 
+        bestMin=i;
 
                 for(i=maxVal+1;i<size;i++)
                         if(val[i-1] > val[i]) break;
         bestMax=i-1;
                 for(i=bestMax;i>bestMin;i--)
                         if(val[i] > val[i-1]) break;
-        bestMax=i; 
+        bestMax=i;
 
-                if( bestMax <= minVal || 
-                        bestMin >= maxVal || 
+                if( bestMax <= minVal ||
+                        bestMin >= maxVal ||
                         bestMin+POROG_INTERLINE > bestMax
                  )
                  return 0;
@@ -1858,8 +1858,8 @@ static int FindBounds(int *val,int size)
                         if(val[i]<val[promMin])
                                 promMin=i;
 
-        if(val[promMin] +5 < val[bestMin] && 
-           val[promMin] +5 < val[bestMax]  
+        if(val[promMin] +5 < val[bestMin] &&
+           val[promMin] +5 < val[bestMax]
                   )
                 {
                         BoundLIGHT = promMin;
@@ -1954,7 +1954,7 @@ static int FindBounds(int *val,int size)
           for(;bestMax<size;bestMax++)
                           if(val[bestMax]==0) break;
 
-          BoundLIGHT = 
+          BoundLIGHT =
               BoundBOLD  = bestMax;
                   return 1;
         }
@@ -1965,7 +1965,7 @@ static int FindBounds(int *val,int size)
           for(;bestMin>0;bestMin--)
                           if(val[bestMin]==0) break;
 
-          BoundLIGHT = 
+          BoundLIGHT =
               BoundBOLD  = bestMin;
                   return 1;
         }
@@ -1976,11 +1976,11 @@ static int FindBounds(int *val,int size)
                         if(val[i]==0) {minVal=i;break;}
                 for(i=maxVal;i>=minVal;i--)
                         if(val[i]==0) {maxVal=i;break;}
-         
+
 						// 31.01,00
                 for(i=minVal+1,promMax=minVal; i< maxVal;i++)
 				{
-                        if(val[i] > val[promMax] ) 
+                        if(val[i] > val[promMax] )
 							promMax = i;
 				}
 				if( promMax > minVal)
@@ -1988,23 +1988,23 @@ static int FindBounds(int *val,int size)
 /*
 					if( val[promMax] > MIN(val[bestMin],val[bestMax]) )
 					{
-                       if(val[minVal] > val[maxVal]) 
+                       if(val[minVal] > val[maxVal])
 						   minVal = maxVal;
-					   else if(val[minVal] < val[maxVal]) 
-                           maxVal = minVal; 
+					   else if(val[minVal] < val[maxVal])
+                           maxVal = minVal;
 					}
 */
-                    if( val[promMax] > val[bestMin] && val[minVal] > val[maxVal]) 
+                    if( val[promMax] > val[bestMin] && val[minVal] > val[maxVal])
 						   minVal = maxVal;
-				    else if( val[promMax] > val[bestMax] && val[minVal] < val[maxVal]) 
-                           maxVal = minVal; 
+				    else if( val[promMax] > val[bestMax] && val[minVal] < val[maxVal])
+                           maxVal = minVal;
 				}
         }
 
         BoundLIGHT = minVal;
         BoundBOLD  = maxVal;
 
-   return 2;    
+   return 2;
 }
 //////////////////
 static int TestWidth(int *stats,int size,int midThick)
@@ -2016,11 +2016,11 @@ static int TestWidth(int *stats,int size,int midThick)
 			for(j=midThick-1,start=midThick;j>0;j--)
 				if( stats[j]>stats[start] )
 					start = j;
-            
+
             for(j=midThick+1,end=midThick;j<size;j++)
 				if( stats[j]>stats[end] )
 					end = j;
-			
+
             if( end - start <= porog )
 			  midThick = 0;
 
@@ -2108,8 +2108,8 @@ static void TestColumnsThick(void)
 			  thickCol[i][j].thick /= thickCol[i][j].nLet;
 
 
-		  maxLight = MAX(maxLight,thickCol[i][j].minThick); 
-		  minBold  = MIN(minBold,thickCol[i][j].maxThick); 
+		  maxLight = MAX(maxLight,thickCol[i][j].minThick);
+		  minBold  = MIN(minBold,thickCol[i][j].maxThick);
 
 		  maxs[MIN(MAXTHICK-1,thickCol[i][j].maxThick)]++;
 		  mins[MIN(MAXTHICK-1,thickCol[i][j].minThick)]++;
@@ -2148,7 +2148,7 @@ static void TestColumnsThick(void)
 				midThick = (BoundBOLD + BoundLIGHT)/2;
 			else if(pageLight !=0 && pageBold != MAXTHICK)
 				midThick = (pageBold + pageLight)/2;
-            else         
+            else
 				midThick = (POROG_BOLD + POROG_LIGHT)/2;
 
 			if( commonThick <= midThick )
@@ -2164,7 +2164,7 @@ static void TestColumnsThick(void)
 			 continue;
 
 #ifdef _OLD_TABL_VERSION_
-		 
+
          if(pageLight==0 || pageBold==MAXTHICK)
 		 {
 //           if(BoundLIGHT == 0 && BoundBOLD == 0 )
@@ -2273,7 +2273,7 @@ static int Progib(int *hhh,int GreyLev, int numAccord )
  best = 0;
  for(numPoi=0,dimPlato=0,lefth=-1,i=1;i<GreyLev;i++)
   {
-    
+
 	if(hhh[i] >= hhh[i-1])
 	  {
 	   if(spusk == 0 )
@@ -2285,16 +2285,16 @@ static int Progib(int *hhh,int GreyLev, int numAccord )
        if( prommin == -1 || hhh[i-1] <= hhh[prommin] )
 	     {
 		   int j,k;
-		   // count the same   
-		   for(j=i, k=1;j<GreyLev;j++,k++) 
+		   // count the same
+		   for(j=i, k=1;j<GreyLev;j++,k++)
 		     if( hhh[j] != hhh[i-1] ) break;
 
-           if(numAccord) 
+           if(numAccord)
 			   k = 100 - abs(numAccord - GetNumGreater(hhh,GreyLev,j));
-           
-		   if( prommin == -1 || 
-			   hhh[i-1] < hhh[prommin] || 
-		       hhh[i-1] == hhh[prommin] && k >= dimPlato 
+
+		   if( prommin == -1 ||
+			   hhh[i-1] < hhh[prommin] ||
+		       hhh[i-1] == hhh[prommin] && k >= dimPlato
              )
 		   {
 		     prommin = i-1;
@@ -2303,13 +2303,13 @@ static int Progib(int *hhh,int GreyLev, int numAccord )
 
            i=MAX(i,j-1);
 		   continue;
-		 } 
+		 }
 	  }
 	else
 	  {
 		if(spusk ) continue;
 		spusk = 0xFF;                /* local maximum */
-		if(lefth == -1 ) 
+		if(lefth == -1 )
 		{
 		   if( hhh[i-1] > 0 )
 		     lefth = i-1;
@@ -2336,7 +2336,7 @@ static int Progib(int *hhh,int GreyLev, int numAccord )
 			prommin=-1;
 			dimPlato = 0;
 		}
-	}   // end else 
+	}   // end else
   }
 		 // study last point
  if( prommin != -1  && lefth != -1 && hhh[GreyLev-1] > hhh[prommin] )
@@ -2363,7 +2363,7 @@ static void AddRowBold(int i,int midThick)
 				pageThick = (BoundBOLD + BoundLIGHT)/2;
 	 else if(pageLight !=0 && pageBold != MAXTHICK)
 				pageThick = (pageBold + pageLight)/2;
-     else         
+     else
 				pageThick = (POROG_BOLD + POROG_LIGHT)/2;
 
 	 midThick = pageThick;
@@ -2396,7 +2396,7 @@ static void TestRowsThick(void)
 	int maxs[MAXTHICK];
 	int stats[MAXTHICK];
 	int midThick;
-	
+
 	for(i=0;i<MAXTAB;AddRowBold(i,midThick),i++)
 	{
 		minBold = MAXTHICK;
@@ -2415,8 +2415,8 @@ static void TestRowsThick(void)
           if(  thickRow[i][j].nLet > 0 )
 			  thickRow[i][j].thick /= thickRow[i][j].nLet;
 
-		  maxLight = MAX(maxLight,thickRow[i][j].minThick); 
-		  minBold  = MIN(minBold,thickRow[i][j].maxThick); 
+		  maxLight = MAX(maxLight,thickRow[i][j].minThick);
+		  minBold  = MIN(minBold,thickRow[i][j].maxThick);
 
 		  maxs[MIN(MAXTHICK-1,thickRow[i][j].maxThick)]++;
 		  mins[MIN(MAXTHICK-1,thickRow[i][j].minThick)]++;
@@ -2462,15 +2462,15 @@ static void TestRowsThick(void)
 			 thickRow[i][j].thick > midThick
 		   )
 		 {
-			  thickRow[i][j].bold = P2_BOLD; 
+			  thickRow[i][j].bold = P2_BOLD;
 		 }
 
          else  if( thickRow[i][j].maxThick < minBold &&
-			 thickRow[i][j].minThick < maxLight && 
+			 thickRow[i][j].minThick < maxLight &&
 			 thickRow[i][j].thick < midThick
 			)
 		 {
-			  thickRow[i][j].bold = P2_LIGHT; 
+			  thickRow[i][j].bold = P2_LIGHT;
 		 }
 
 		}  // end j - rows
@@ -2482,29 +2482,29 @@ static void TestRowsThick(void)
 }
 /////////////////
 static Word8 SetBoldByTable(int nThick, int midThick,
-							Word8 colBold, 
-							int thick, 
+							Word8 colBold,
+							int thick,
 							int minVal, int maxVal)
 {
-// åñòü ïðåäûäóùèé 
-			 
+// åñòü ïðåäûäóùèé
+
 		// ñðàâíèì ñ ïðåäûäóùåé (ñðåäíåé) ñòðîêîé â ñòîëáöå
 	  if( colBold && abs(thick-nThick) < POROG_ONECOL ||
           colBold == P2_LIGHT &&  thick <= nThick ||
-          colBold == P2_BOLD  &&  thick >= nThick 
+          colBold == P2_BOLD  &&  thick >= nThick
 	    )
 		return colBold;
 
 	  if( minVal + POROG_ONECOL  >= maxVal )
 				 // åñòü îáùíîñòü ïî ÿ÷åéêå
 	  {
-                if( colBold == P2_BOLD && 
+                if( colBold == P2_BOLD &&
 					thick + POROG_ONECOL < nThick &&
-					thick <= midThick +1  
+					thick <= midThick +1
 				   )
                   return P2_LIGHT;
 
-				if( colBold == P2_LIGHT && 
+				if( colBold == P2_LIGHT &&
 					thick > POROG_ONECOL + nThick &&
 					thick >= midThick - 1
 				   )
@@ -2514,13 +2514,13 @@ static Word8 SetBoldByTable(int nThick, int midThick,
 
 	  else
 	  {
-                if( colBold == P2_BOLD && 
+                if( colBold == P2_BOLD &&
 					maxVal + POROG_ONECOL < nThick &&
-					thick <= midThick + 1 
+					thick <= midThick + 1
 				   )
                   return P2_LIGHT;
 
-				if( colBold == P2_LIGHT && 
+				if( colBold == P2_LIGHT &&
 					minVal > POROG_ONECOL + nThick &&
 					thick >= midThick - 1
 				   )

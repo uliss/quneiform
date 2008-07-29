@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,21 +43,21 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 ////////////////////////////////////////////////////////////
 // CONTAINER OF THE COMPONENTS                            //
 ////////////////////////////////////////////////////////////
-// O.Slavin                                               // 
+// O.Slavin                                               //
 ////////////////////////////////////////////////////////////
 // Creation     : 08 Jul 1998                             //
 ////////////////////////////////////////////////////////////
@@ -155,7 +155,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         CCOM_FNIMP_WRITE,
         CCOM_FNIMP_MAKELP
         };
-// 1    CCOM_FNNEW          создать новую компоненту       
+// 1    CCOM_FNNEW          создать новую компоненту
 typedef CCOM_comp  * (*FNCCOM_New)(CCOM_handle cont, Int32 upper, Int32 left, Int32 w, Int32 h);
 CCOM_FUNC(CCOM_comp*) CCOM_New(CCOM_handle cont,Int32 upper, Int32 left, Int32 w, Int32 h);
 // 2    CCOM_FNSTORE        записать в компоненту образ
@@ -172,22 +172,22 @@ CCOM_FUNC(Bool32)          CCOM_Store(CCOM_comp * comp,Int16 numcomp,
 // 3    CCOM_FNSTORE        записать в компоненту образ
 typedef Bool32         (*FNCCOM_Copy)(CCOM_comp * to,CCOM_comp *from);
 CCOM_FUNC(Bool32)          CCOM_Copy(CCOM_comp * to,CCOM_comp *from);
-// 4    CCOM_FNDELETE       удалить компоненту   
+// 4    CCOM_FNDELETE       удалить компоненту
 typedef Bool32       (*FNCCOM_Delete)(CCOM_handle cont, CCOM_comp * comp);
 CCOM_FUNC(Bool32)     CCOM_Delete(CCOM_handle cont, CCOM_comp * comp);
-// 5    CCOM_FNGETFIRST     дать первую компоненту из контейнера   
+// 5    CCOM_FNGETFIRST     дать первую компоненту из контейнера
 typedef CCOM_comp  * (*FNCCOM_GetFirst)(CCOM_handle ccom, Bool32 (*filtrate)(Int32 upper, Int32 left, Int32 w, Int32 h) );
 CCOM_FUNC(CCOM_comp*) CCOM_GetFirst(CCOM_handle ccom,Bool32 (*filtrate)(Int32 upper, Int32 left, Int32 w, Int32 h) );
-// 6    CCOM_FNGETNEXT      дать следующую компоненту    
+// 6    CCOM_FNGETNEXT      дать следующую компоненту
 typedef CCOM_comp  * (*FNCCOM_GetNext)(CCOM_comp * comp,Bool32 (*filtrate)(Int32 upper, Int32 left, Int32 w, Int32 h) );
 CCOM_FUNC(CCOM_comp*) CCOM_GetNext(CCOM_comp * comp, Bool32 (*filtrate)(Int32 upper, Int32 left, Int32 w, Int32 h));
-// 7    CCOM_FNGETLINE      получить интервальное представление   
+// 7    CCOM_FNGETLINE      получить интервальное представление
 typedef Bool32       (*FNCCOM_GetLine)(CCOM_comp * comp,CCOM_linerep  *lrep );
 CCOM_FUNC(Int16)     CCOM_GetLine(CCOM_comp * comp,CCOM_linerep  *lrep);
-// 8    CCOM_FNGETRASTER    получить рабочий растр компоненты  
+// 8    CCOM_FNGETRASTER    получить рабочий растр компоненты
 typedef Bool32       (*FNCCOM_GetRaster)(CCOM_comp * comp,RecRaster *rec );
 CCOM_FUNC(Bool32)     CCOM_GetRaster(CCOM_comp * comp, RecRaster *rec);
-// 9    CCOM_FNGETCOLLECTION  Получить коллекцию распознавания 
+// 9    CCOM_FNGETCOLLECTION  Получить коллекцию распознавания
 typedef Bool32       (*FNCCOM_GetCollection)(CCOM_comp * comp,RecVersions   *vers);
 CCOM_FUNC(Bool32)     CCOM_GetCollection(CCOM_comp * comp, RecVersions   *vers);
 // 10    CCOM_FNGETUSERBLOCK Получить пользовательский блок
@@ -212,7 +212,7 @@ CCOM_FUNC(Bool32)     CCOM_SetUserBlock(CCOM_comp * comp, CCOM_USER_BLOCK *ub);
 typedef Int32     (*FNCCOM_NewUserCode)(void);
 CCOM_FUNC(Int32)      CCOM_NewUserCode (void);
 // 17   CCOM_FNVERSION      Дать номер версии
-// 18   CCOM_FNBACKUP       сохранить контейнер на диск         
+// 18   CCOM_FNBACKUP       сохранить контейнер на диск
 typedef Bool32  (*FNCCOM_Backup)(CCOM_handle hcont);
 CCOM_FUNC(Bool32)   CCOM_Backup (CCOM_handle hcont);
 // 19   CCOM_FNRESTORE      восстановить контейнер с диска
@@ -239,7 +239,7 @@ CCOM_FUNC(Bool32)   CCOM_SetKilledAccess(Bool32 ShowEnable);
 // 26   CCOM_FNKILL               удалить без уничтожения
 typedef Bool32  (*FNCCOM_Kill)(CCOM_comp *c);
 CCOM_FUNC(Bool32)  CCOM_Kill(CCOM_comp *c);
-// 27   CCOM_FNGETEXTRASTER    получить рабочий растр компоненты  
+// 27   CCOM_FNGETEXTRASTER    получить рабочий растр компоненты
 typedef Bool32       (*FNCCOM_GetExtRaster)(CCOM_comp * comp,RecRaster *rec );
 CCOM_FUNC(Bool32)     CCOM_GetExtRaster(CCOM_comp * comp, RecRaster *rec);
 // 28   CCOM_FNCLEARCONTAINER    удалить все компоненты  в контейнере

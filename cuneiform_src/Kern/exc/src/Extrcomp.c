@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -118,31 +118,31 @@ static FNREXC_ProgressFinish fnProgressFinish_exc=NULL;
 //=========== Progress Monitor
 static  Word32 progress_vol=0, progress_rel=0;
 void    progress_start (Word32 volume)
-{ 
+{
 progress_vol=volume;
 if( fnProgressStart_exc )
-    fnProgressStart_exc();  
-return ; 
+    fnProgressStart_exc();
+return ;
 }
 
 void    progress_stop(void)
-{ 
+{
 progress_vol=0;
 progress_rel=0;
 if( fnProgressFinish_exc )
     fnProgressFinish_exc();
-return ; 
+return ;
 }
 
 Word32  progress_set_percent (Word32 step)
-{ 
+{
 Word32  rel = (step/progress_vol)*100;
 if( !progress_vol || rel<progress_rel+10 )
     return step;
 progress_rel = rel;
 if( fnProgressStep_exc )
     fnProgressStep_exc(rel);
-return step; 
+return step;
 }
  //------------------ Image attributes ---------------------
 Word16 image_disp_byte, image_disp_end;
@@ -299,7 +299,7 @@ if((rc=setjmp(jumper)) != 0)
         box_number *= 4;
         free(Q.boxstart);
         Q.boxstart=malloc(box_number * BOXSIZE);
-        if( Q.boxstart== NULL) 
+        if( Q.boxstart== NULL)
             return ExRc_MemAllocFail;
         if( !(ExControl & Ex_NoContainer) )
             CCOM_ClearContatiner(NumContainer);
@@ -307,37 +307,37 @@ if((rc=setjmp(jumper)) != 0)
     else
         return rc;
     }
-    
+
 Tiger_ImageOpen     = tio;
 Tiger_ImageClose    = tic;
 Tiger_ImageRead     = tir;
 Tiger_ProcessComp   = tipc;
 ExControl = ExCW.Control;
 
-if(ExControl & Ex_DumpFile) 
+if(ExControl & Ex_DumpFile)
     init_dump_file();
 
-if(ExCW.MaxCompWid > 0)  
+if(ExCW.MaxCompWid > 0)
     comp_max_w = ExCW.MaxCompWid;
-else 
+else
     comp_max_w = RASTER_MAX_WIDTH ;
 
-if(ExCW.MaxCompHei > 0)  
+if(ExCW.MaxCompHei > 0)
     comp_max_h = ExCW.MaxCompHei;
 else comp_max_h = RASTER_MAX_HEIGHT;
 
-if(ExCW.MinCompWid > 0)  
+if(ExCW.MinCompWid > 0)
     comp_min_w = ExCW.MinCompWid;
-else 
+else
     comp_min_w = 0;
 
-if(ExCW.MinCompHei > 0)  
+if(ExCW.MinCompHei > 0)
     comp_min_h = ExCW.MinCompHei;
-else 
+else
     comp_min_h = 0;
-if(ExCW.MaxScale > 0)    
+if(ExCW.MaxScale > 0)
     MaxScale = ExCW.MaxScale;
-else 
+else
     MaxScale = 5; //  for cuneiform pitures process
 
 image_file_open(); // call progress_start();
@@ -386,10 +386,10 @@ case    ExRc_IncorrectParam  :
     break;
 case    ExRc_NotEnoughMemory :
     wLowRC = REXC_ERR_NOTENOUGHTMEMORY;
-    break;    
+    break;
 default :
     wLowRC = REXC_ERR_INTERNAL;
-    break;    
+    break;
 }
 return FALSE;
 }
@@ -533,7 +533,7 @@ for(    g = (ExcBox*)pool, ge = (ExcBox*)((char*)pool+size)  ;
         g<ge ;
         g++)
         {
-//      push_box_to_container(g);        
+//      push_box_to_container(g);
         }
 
 return TRUE;
@@ -568,7 +568,7 @@ if( g->cs==255 )
         vers.Alt[i].Prob    = res[2*i+1];
         vers.Alt[i].Method  = 13;
         } // network collection
-        
+
     }
 else
     {
@@ -588,7 +588,7 @@ if( curr_comp  )
         ublock[0].code=CCOM_UB_DENSITY;
         ublock[0].size=4;
         ublock[0].data=(Word8*)&g->dens;
-        ublock[0].next_block=&ublock[1];            
+        ublock[0].next_block=&ublock[1];
         ublock[1].code=CCOM_UB_BEGENDS;
         ublock[1].size=1;
         ublock[1].data=(Word8*)&g->begends;
@@ -596,7 +596,7 @@ if( curr_comp  )
         }
     if( is_merge_frame )
         {
-        ublock[1].next_block=&ublock[2];            
+        ublock[1].next_block=&ublock[2];
         ublock[2].code=CCOM_UB_MERGEFRAME;
         ublock[2].size=sizeof(merge_frame);
         ublock[2].data=(Word8*)&merge_frame;
@@ -606,12 +606,12 @@ if( curr_comp  )
                         lth, lpool,  g->nl,
                         g->begs, g->ends,
                         &vers,
-                        g->scale ? ublock : NULL);                            
+                        g->scale ? ublock : NULL);
     curr_comp->scale= g->scale;
     curr_comp->type = g->type;
     if( g->type==ch_great && !vers.lnAltCnt )               // non dust
                 curr_comp->type=CCOM_CH_GREAT;
-    curr_comp->cs   = g->cs;            
+    curr_comp->cs   = g->cs;
     }
 return lth ;
 }
@@ -624,7 +624,7 @@ Word16          lth;
 for( g = (ExtComponent*)pool, ge = (ExtComponent*)((char*)pool+size);
 g<ge    ;
 g=(ExtComponent*)((char*)g+sizeof(Word16)+sizeof(ExtComponent)+lth+g->nvers))
-    {     
+    {
     lth = *((Word16*)((Word8*)g + sizeof(ExtComponent))); // size
        //push_comp_to_container(g);
     }
@@ -696,7 +696,7 @@ else
     if( ExCW.Control&Ex_ExtraComp )
         ret = Extracomp(ExCW,EXC_DIBOpen,EXC_DIBClose,EXC_DIBRead,AcceptComps);
     else
-        ret = Extracomp(ExCW,EXC_DIBOpen,EXC_DIBClose,EXC_DIBRead,AcceptBoxes);        
+        ret = Extracomp(ExCW,EXC_DIBOpen,EXC_DIBClose,EXC_DIBRead,AcceptBoxes);
     }
 switch (ret)
 {
@@ -732,7 +732,7 @@ case    ExRc_IncorrectParam  :
     break;
 case    ExRc_NotEnoughMemory :
     wLowRC = REXC_ERR_NOTENOUGHTMEMORY;
-    break;    
+    break;
 default:
     wLowRC = REXC_ERR_INTERNAL;
     break;
@@ -753,7 +753,7 @@ Int32 ret;
         wLowRC = REXC_ERR_INTERNAL;
         return FALSE;
         }
-    }    
+    }
 if( ExCW.Control&Ex_ExtraComp )
     ret = Extracomp(ExCW,tio,tic,tir,AcceptComps);
 else
@@ -793,10 +793,10 @@ case    ExRc_IncorrectParam  :
     break;
 case    ExRc_NotEnoughMemory :
     wLowRC = REXC_ERR_NOTENOUGHTMEMORY;
-    break;    
+    break;
 default :
     wLowRC = REXC_ERR_INTERNAL;
-    break;    
+    break;
 }
 return FALSE;
 }
@@ -831,10 +831,10 @@ return (Int32)NumContainer ;
 Bool extrcomp_setup_memory(void)
 {
 void * mem;
-if((mem = malloc(box_number * BOXSIZE)) == NULL) 
+if((mem = malloc(box_number * BOXSIZE)) == NULL)
     error_exit(ERR_comp,13);
 Q.boxstart     = (BOX*)mem;
-cache_end      = cache + CACHESIZE; 
+cache_end      = cache + CACHESIZE;
 reset_cache();
 
 return TRUE;
@@ -859,16 +859,16 @@ static Word8 start_line_mask_tab[8]=
 Bool image_file_open (void)
 {
  Tiger_ImageInfo p={0};
- 
+
 
  image_file_status = 1;
- if (!Tiger_ImageOpen (&p))     
+ if (!Tiger_ImageOpen (&p))
     error_exit (ERR_image,ExRc_ErrorInCallback);
  image_blth = p.wImageWidth;
- if (image_blth > WORLD_MAX_WIDTH) 
+ if (image_blth > WORLD_MAX_WIDTH)
     image_blth = WORLD_MAX_WIDTH-1;
  image_height = p.wImageHeight;
- if (image_height > WORLD_MAX_HEIGHT) 
+ if (image_height > WORLD_MAX_HEIGHT)
     image_height = WORLD_MAX_HEIGHT-1;
  image_lth = p.wImageByteWidth;
  if (image_blth <= 0)
@@ -910,9 +910,9 @@ Int16 source_read(Word8* start, Word8* ptr, Word8* end)
  l = Tiger_ImageRead (start, 0x4000);
  if (l < 0) error_exit (ERR_image,ExRc_ErrorInCallback);
 
- if (l && image_invert) 
+ if (l && image_invert)
     invert_tiff (start,l);
- if (l && matrix) 
+ if (l && matrix)
     matrix_read (start,l);
  return l;
 }
@@ -956,8 +956,8 @@ if( acc==OLEG_DEBUG )
         }
 #endif
  vs=ve; /* avoid warn */
- c->size = sizeof(ExtComponent)+sizeof(Word16)+lpl; 
- c->lines= sizeof(ExtComponent);                  
+ c->size = sizeof(ExtComponent)+sizeof(Word16)+lpl;
+ c->lines= sizeof(ExtComponent);
  if( lpl>sizeof(pool)-10 )
         {
         c->lines=0;
@@ -998,7 +998,7 @@ if(  c->scale<3 && (c->w>>c->scale)<comp_max_w && (c->h>>c->scale)<comp_max_h )
                     j+=2;
                     }
                 }
-        
+
             gra_res[j]=0;
             if( gra_res[0] )
                 {
@@ -1018,7 +1018,7 @@ if(  c->scale<3 && (c->w>>c->scale)<comp_max_w && (c->h>>c->scale)<comp_max_h )
     // restore sizes
     c->w=w;
     c->h=h;
-    c->rw=wb;        
+    c->rw=wb;
     }
 -*/
 if( c->scale )
@@ -1197,7 +1197,7 @@ return (*ori<4);
 -*/
 
 EXC_FUNC(Bool32) REXC_GetInvertion(Word8 *inv)
-{ 
+{
 if( !(ExControl & Ex_Background) )
     {
     *inv=2;
@@ -1283,7 +1283,7 @@ EXC_FUNC(Bool32) REXC_GetExportData(Word32 dwType, void * pData)
             break;
 /*-Andrey: moved to RRecCom (recognition) and RNorm (autorotate)
 //--------------------------------------------------------------
-        case    REXC_FNEXTGETRECRASTERORIENT: // ориентация рабочего растра 
+        case    REXC_FNEXTGETRECRASTERORIENT: // ориентация рабочего растра
             *(Word32*)pData =          (Word32)exc_get_rec_raster_orient;
             break;
         case    REXC_FNSETALLALPHAGRA: // алфавит нейронной сети
@@ -1310,8 +1310,8 @@ switch(dwType)
     CASE_DATA(REXC_Word16_ActualResolution,Word16,actual_resolution);
     CASE_PDATA(REXC_ProgressStart,      FNREXC_ProgressStart, fnProgressStart_exc);
         CASE_PDATA(REXC_ProgressStep,   FNREXC_ProgressStep,  fnProgressStep_exc);
-        CASE_PDATA(REXC_ProgressFinish, FNREXC_ProgressFinish,fnProgressFinish_exc);        
-//    CASE_PDATA(REXC_OcrPath,    Word8*, lnOcrPath);     
+        CASE_PDATA(REXC_ProgressFinish, FNREXC_ProgressFinish,fnProgressFinish_exc);
+//    CASE_PDATA(REXC_OcrPath,    Word8*, lnOcrPath);
     default:
             wLowRC = REXC_ERR_NOTIMPLEMENT;
             return FALSE;
@@ -1533,7 +1533,7 @@ flat_part:
    while ((nw < wcomp.w) && (W.sh[nw] == W.eh[nw-1]) && (W.sh[nw] == W.eh[nw]))
      nw++;
    if( nw>MAX_NUM_CUTPN )
-    return 0; 
+    return 0;
    if (nw >= wcomp.w-8) break;
    if (W.sh[nw-1] <= thick_b)
     {
@@ -1690,7 +1690,7 @@ Word8* raster;
 
      raster = frame_cut_MN(xl,xr);
      wm = LOC_CLocomp (raster, (xr - xl + 7)>>3, h, y0, (Int16)(x0 + xl));
-     
+
      while (wm && wm->mnfirstbox)
        {
        MN_to_line (wm);
@@ -1740,7 +1740,7 @@ static Int32 frame_cut(MN *mn)
     }
    else
        return 0;
-   
+
    if (ncp == 0)
     break;
    xl = W.cp[ncp].xr;
@@ -1751,21 +1751,21 @@ return cutn;
 
 void picture_process(MN *mn)
 {
- if( (mn->mnflag & mnpicture) || (ExControl&Ex_DisableCut) || 
+ if( (mn->mnflag & mnpicture) || (ExControl&Ex_DisableCut) ||
      ( wcomp.h < comp_max_h && wcomp.w>2*comp_max_w )
      )    // fotograph ?
         { // old loop of Vald
         tech_pict:
         tech_picture(mn);
         save_picture_scale(mn);
-        return;    
+        return;
         }
 
  if (wcomp.h < comp_max_h )
           // if not scalable component
         {
         frame_cut_MN_set (mn);
-        if (!big_merge(mn)) 
+        if (!big_merge(mn))
           goto tech_pict; // if not frame regard as big glued
         return;
         }
@@ -1814,7 +1814,7 @@ if( b==e )
     {
     if( b )
         b--;
-    else 
+    else
         e++;
     }
 WriteInterval ( &work_raster[(h>>scale)*bw] , e , e-b);
@@ -1824,7 +1824,7 @@ return;
 
 
 // compress MN to work_raster
-static Bool16 scaleMN2work_raster(  MN *mn,Int16 upper, Int16 left, Int16 w, Int16 h, 
+static Bool16 scaleMN2work_raster(  MN *mn,Int16 upper, Int16 left, Int16 w, Int16 h,
                         int     scale_2)
 {
 BOX    *pBox;
@@ -1852,15 +1852,15 @@ for (pBox = (BOX *) mn -> mnfirstbox, nBox = 0;
         y    = pLine -> y-wcomp.upper;
         if( y<hmin )    hmin=y;
         if( y>hmax )    hmax=y;
-        xBeg = MAX(xEnd - pLine -> l,0);        
-        WriteOneInterval ( y, xBeg, MIN(xEnd,right) ,wcomp.rw,scale_2);         
+        xBeg = MAX(xEnd - pLine -> l,0);
+        WriteOneInterval ( y, xBeg, MIN(xEnd,right) ,wcomp.rw,scale_2);
         pInts = (BOXINT *) ((Word8 *) pBox + sizeof (BOX) + sizeof (LNSTRT));
         }
     else
         { // continue BOX
         pInts = (BOXINT *) ((Word8 *) pBox + sizeof (BOX));
         }
-    
+
     pAfterInts = (BOXINT *) ((Word8 *) pBox + pBox -> boxptr);
 
     for (pInt = pInts;   ;     pInt++)
@@ -1872,7 +1872,7 @@ for (pBox = (BOX *) mn -> mnfirstbox, nBox = 0;
         y++;
         if( y<hmin )    hmin=y;
         if( y>hmax )    hmax=y;
-        xBeg  = MAX(xEnd - pInt -> l,0);        
+        xBeg  = MAX(xEnd - pInt -> l,0);
         WriteOneInterval (y, xBeg, MIN(xEnd,right), wcomp.rw,scale_2);
         }
     }
@@ -1891,13 +1891,13 @@ return 0;
 #endif
 }
 
-static store_MN(MN *locmn,Int16 upper, Int16 left, Int16 w, Int16 h, 
+static store_MN(MN *locmn,Int16 upper, Int16 left, Int16 w, Int16 h,
                         int     scale_2)
 {
 if( !locmn )
     return FALSE;
-if( 0 ) 
-    save_prot();    
+if( 0 )
+    save_prot();
 MN_to_line(locmn);
 
 
@@ -1919,7 +1919,7 @@ MN *locmn=(MN*)hmn;
 CCOM_handle hccom=(CCOM_handle)hCCOM;
 CCOM_comp   *curr_comp;
 if( ExControl & Ex_NoContainer )
-    return (CCOM_comp*)0;    
+    return (CCOM_comp*)0;
 if( !locmn )
     return (CCOM_comp*)0;
 MN_to_line(locmn);
@@ -1929,11 +1929,11 @@ if( wcomp.w>=comp_max_w && wcomp.h>=comp_max_h  )
 memcpy(&work_raster[0],&lpool_lth,2);
 memcpy(&work_raster[2],lpool,lpool_lth);
 
-curr_comp = CCOM_New(hccom,wcomp.upper, wcomp.left, 
+curr_comp = CCOM_New(hccom,wcomp.upper, wcomp.left,
                 wcomp.w, wcomp.h);
 if( !curr_comp  )
     return (CCOM_comp*)0;
-    
+
 CCOM_Store(curr_comp,0,  lpool_lth, work_raster,  wcomp.nl,
                     wcomp.begs, wcomp.ends,
                     NULL,  NULL);
@@ -1973,7 +1973,7 @@ for (pBox = (BOX *) mn -> mnfirstbox, nBox = 0;
             { // continue BOX
         pInts = (BOXINT *) ((Word8 *) pBox + sizeof (BOX));
         }
-    
+
     pAfterInts = (BOXINT *) ((Word8 *) pBox + pBox -> boxptr);
 
     for (pInt = pInts;     ;      pInt++)
@@ -2023,7 +2023,7 @@ for (s=0, pBox = (BOX *) mn -> mnfirstbox, nBox = 0;
         { // continue BOX
         pInts = (BOXINT *) ((Word8 *) pBox + sizeof (BOX));
         }
-    
+
     pAfterInts = (BOXINT *) ((Word8 *) pBox + pBox -> boxptr);
 
     for (pInt = pInts;      ;   pInt++)
@@ -2033,15 +2033,15 @@ for (s=0, pBox = (BOX *) mn -> mnfirstbox, nBox = 0;
             break;
         hh++;
         }
-        
-        
+
+
     }
 s+=2*4+4*(hh+1);
 return s;
 }
 
 // store long MN intervals to container
-static Bool16 longMN2container(  MN *mn,Int16 upper, Int16 left, Int16 w, Int16 h, 
+static Bool16 longMN2container(  MN *mn,Int16 upper, Int16 left, Int16 w, Int16 h,
                         int     scale_2)
 {
 BOX    *pBox;
@@ -2080,9 +2080,9 @@ for (pBox = (BOX *) mn -> mnfirstbox, nBox = 0;
         hh=1;
         xEnd = pLine -> x-wcomp.left;
         y0=y    = pLine -> y-wcomp.upper;
-        xBeg = MAX(xEnd - pLine -> l,0);        
-                    
-        CCOM_LargeNewLn(cmp,&lnh);    
+        xBeg = MAX(xEnd - pLine -> l,0);
+
+        CCOM_LargeNewLn(cmp,&lnh);
         lnh->lth=0;
         lnh->h  =0; // store actual line header
         lnh->row        =y;
@@ -2095,7 +2095,7 @@ for (pBox = (BOX *) mn -> mnfirstbox, nBox = 0;
         lnh->flg        |=pBox->boxflag;
         pInts = (BOXINT *) ((Word8 *) pBox + sizeof (BOX));
         }
-    
+
     pAfterInts = (BOXINT *) ((Word8 *) pBox + pBox -> boxptr);
 
     for (pInt = pInts;  ;  pInt++)
@@ -2106,7 +2106,7 @@ for (pBox = (BOX *) mn -> mnfirstbox, nBox = 0;
         xEnd += pInt -> d;
         y++;
         hh++;
-        CCOM_LargeNewInterval(cmp,(Int16)xEnd,(Int16)pInt -> l);    
+        CCOM_LargeNewInterval(cmp,(Int16)xEnd,(Int16)pInt -> l);
         }
 
     }
@@ -2152,7 +2152,7 @@ for (pBox = (BOX *) mn -> mnfirstbox, nBox = 0;
             { // continue BOX
         pInts = (BOXINT *) ((Word8 *) pBox + sizeof (BOX));
         }
-    
+
     pAfterInts = (BOXINT *) ((Word8 *) pBox + pBox -> boxptr);
 
     for (pInt = pInts;   ;    pInt++)
@@ -2216,10 +2216,10 @@ if( scale_2==0 )
         longMN2container(mn,wcomp.upper, wcomp.left, wcomp.w, wcomp.h, scale_2);
         return TRUE;
         }
-    return FALSE; 
+    return FALSE;
     }
 scale_2 = MIN(scale_2,MaxScale-1);
-scale = 1<<scale_2 ; 
+scale = 1<<scale_2 ;
 original_begends=(Word8)(MIN(wcomp.begs+wcomp.ends,255));
 // COMPRESSION PICTURES TO comp_max_w:comp_max_h
 sv_upper    =wcomp.upper;
@@ -2230,7 +2230,7 @@ wcomp.h =(wcomp.h+scale-1)>>scale_2;
 wcomp.w =(wcomp.w+scale-1)>>scale_2;
 wcomp.rw  =(wcomp.w+7)/8;
 if( wcomp.w>=comp_max_w || wcomp.h>=comp_max_h )
-    { 
+    {
     if( !(ExControl & Ex_PictureLarge) ||
          (ExControl & Ex_NoContainer) )
         return FALSE; // can't store scaling comp to sizes
@@ -2240,7 +2240,7 @@ if( wcomp.w>=comp_max_w || wcomp.h>=comp_max_h )
         return TRUE;
         }
     // store picture with long intervals;
-    
+
     if( check_long_intervals(mn, scale_2) )
         { // process large intervals
         if( scale_2 && wcomp.rw*wcomp.h<=sz_work_raster+sz_work_raster_1 )

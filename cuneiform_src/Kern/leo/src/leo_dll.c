@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -350,9 +350,9 @@ if( !leo_init_evn_prn  )
   }
 
 if( !leo_init_r35_prn )
-    { 
+    {
     if( R35InitPRN(mem) )
-        leo_init_r35_prn=TRUE;  
+        leo_init_r35_prn=TRUE;
     else
         {
         LEO_error_code=ER_LEO_NOINIT_R35;
@@ -450,7 +450,7 @@ leo_mem = mem ;
 if( !leo_init_all() )
     return FALSE;
 
-if( _access("C:\\method.txt",0)!=-1) // DEBUG 
+if( _access("C:\\method.txt",0)!=-1) // DEBUG
     fp_glob=fopen("D:\\method.txt","wb");
 return TRUE;
 }
@@ -579,7 +579,7 @@ nIsPrint = isPrint;
 return LEOSetAlphabet( al );
 }
 
-  
+
 Word8 leo_register_alphabet(char alphabet[])
 {
 Int32 i;
@@ -776,7 +776,7 @@ LEO_FUNC(Bool32)  LEORecogPrintChar( RecObject*  object )
 RecVersions ver;
 int small_wid=7, i,n, id_rast, id_alph, pen_prop=0, pen_size=0;
 Word8 let_narrow[]="()|1";
-              
+
 if( no_init_prn )
     {
     if( !leo_init_prn() )
@@ -912,7 +912,7 @@ if( prop<33 || pen_prop>10 )
         if( ver.Alt[0].Prob==1 )
             ver.lnAltCnt=0;
         }
-    
+
     object->recResults = ver;
     if (!SnpSkip(&stnCharRecog) || leo_Snp_In_Rect )
         SnpLog("LEO BAD PROPORT MONUS: ");
@@ -1073,7 +1073,7 @@ return;
 
 
 // выбор и рспознавание
-#define POROG_NICE    250  
+#define POROG_NICE    250
 #define VERY_GOOD_FON 245
 //////////////////
 // установить новую оценку
@@ -1101,7 +1101,7 @@ static int GetNewProb(int oldRec,int newRec,int nice)
 	return MIN(254,MAX(newRec,oldRec+addRec));
 }
 ///////////
-// надо взять иную первую альтернативу ? 
+// надо взять иную первую альтернативу ?
 // (уже знаем, что новая - неплохая, иначе сюда и не идем)
 static Bool32 FonIsBetter(int newProb,int oldProb)
 {
@@ -1125,7 +1125,7 @@ Word8   oldprob;
   {
 //	  fprintf(basOut," MISS");
 // Новая альтернатива достойна внимания ?
-	  if( ( verNew->lnAltCnt == 1 || 
+	  if( ( verNew->lnAltCnt == 1 ||
 		   verNew->lnAltCnt > 1 && verNew->Alt[0].Prob > verOld->Alt[1].Prob + 40 ) &&
 		   FonIsBetter(verNew->Alt[0].Prob, verOld->Alt[0].Prob) // data[14]
         )
@@ -1145,7 +1145,7 @@ Word8   oldprob;
     ret=TRUE;
   return ret;
 }
-///////////// 
+/////////////
 
 
 
@@ -1157,7 +1157,7 @@ RecRaster	r;
 Word8		data[CTB_DATA_SIZE], let;
 RecVersions ver={0}, old={0};
 FontInfo	fontinfo;
-Bool32		enable_let, enable_correct_case, local_snap;   
+Bool32		enable_let, enable_correct_case, local_snap;
 Int32		old_case ;
 FonSpecInfo specInfo = {0};
 Rect16		r16;
@@ -1174,7 +1174,7 @@ n=hnd.num;
 for(i=0;i<n;i++)
 	{
     if( CTB_ReadRecRaster(&hnd, i , &let,&r, data ) )
-        {         
+        {
         if( !(data[15]&LEO_VALID_FINAL) )
             {
             data[3]='~';
@@ -1212,7 +1212,7 @@ for(i=0;i<n;i++)
             memset((Word8*)&specInfo,0,sizeof(specInfo));
             specInfo.nInCTB    = i+1;
             specInfo.nFieldRow = data[25];
-            specInfo.nLet      = data[3]; 
+            specInfo.nLet      = data[3];
             specInfo.wFonFlags = 0;
             ver.lnAltCnt=0;
             FONRecogOkr(&r,&ver,&specInfo,2,70);
@@ -1229,7 +1229,7 @@ for(i=0;i<n;i++)
 				    SnpDrawRaster( &r );
 				    Leo_SnpWaitUserInput(&stnReRecog);
                     }
-                }                
+                }
             else if (!SnpSkip(&stnReRecog)|| local_snap)
                 {
                 leo_snapChar(&ver,"PASS1.51 FNT UNKNOWN CASE FOR DIGITAL HAND : ",TRUE);
@@ -1249,7 +1249,7 @@ for(i=0;i<n;i++)
 					SnpDrawRaster( &r );
 					Leo_SnpWaitUserInput(&stnReRecog);
 					}
-            if( data[26] ) 
+            if( data[26] )
                 FONSetAlphabet(leo_alpha_reg[data[26]]);
             else
                 FONSetAlphabet(alphabet_all);
@@ -1259,12 +1259,12 @@ for(i=0;i<n;i++)
             memset((Word8*)&specInfo,0,sizeof(specInfo));
             specInfo.nInCTB    = i+1;
             specInfo.nFieldRow = data[25];
-            specInfo.nLet      = data[3]; 
+            specInfo.nLet      = data[3];
             specInfo.wFonFlags = 0;
             ver.lnAltCnt=0;
-            
+
             FONRecogChar(&r,&ver,&specInfo);
-            
+
 			   if (!SnpSkip(&stnReRecog)|| local_snap)
 				   {
 				   leo_snapChar(&ver,"PASS1.5 FNT COLLECTION : ",TRUE);
@@ -1274,12 +1274,12 @@ for(i=0;i<n;i++)
 				   }
             if( FONGetFontCount()==1 )
                 enable_correct_case = FALSE;
-                
+
             if( // best recog
                 ver.lnAltCnt &&
                 leo_choise_fon_or_leo(ver.Alt[0].Prob,data[14]) &&
                 !(ver.lnAltCnt>1 && ver.Alt[0].Prob>253 && data[14]>253 && leo_comp_codes(ver.Alt[1].Code,data[3])) && // high prop
-                (enable_let||leo_choise_fon_or_leo_absent(ver.Alt[0].Prob,data[14])) && 
+                (enable_let||leo_choise_fon_or_leo_absent(ver.Alt[0].Prob,data[14])) &&
                 !leo_near_letters(&ver,data[3]) )
                 { // storing FON collection
                 old_case = stdLeoIsCase(data[3]);
@@ -1310,7 +1310,7 @@ for(i=0;i<n;i++)
                             }
                         for(k=1;k<ver.lnAltCnt;k++)
                             {
-                            ver.Alt[k].Prob--;    
+                            ver.Alt[k].Prob--;
                             }
                         }
 
@@ -1331,11 +1331,11 @@ for(i=0;i<n;i++)
                         if( ver.Alt[k].Prob>1 )
                             ver.Alt[k].Prob--;
                     }
-                
+
                 if( old.lnAltCnt && ver.lnAltCnt &&
                     old.Alt[0].Prob>ver.Alt[0].Prob )
                     leo_set_max_vers(&old,ver.Alt[0].Prob-1);
-                    				
+
                 leo_add_vers(&ver,&old);
                 leo_sort_vers_prob( &ver );
                 leo_compress(&ver);
@@ -1359,7 +1359,7 @@ for(i=0;i<n;i++)
                 }
             else if( data[14]>253 && ver.lnAltCnt && //leo_comp_codes(ver.Alt[0].Code,data[3]) )
                      ver.Alt[0].Code==data[3] && // LEO[0]==FON[0]
-                     !(ver.lnAltCnt>1 && ver.Alt[0].Prob-ver.Alt[1].Prob<15) )      
+                     !(ver.lnAltCnt>1 && ver.Alt[0].Prob-ver.Alt[1].Prob<15) )
 				   {
                data[14]=255;
                data[15] |= LEO_VALID_FONT;
@@ -1451,7 +1451,7 @@ if( ltr!='~' )
         }
 
    }
-   
+
 leo_Snp_In_Rect=leoSnpInRect(&rect, 0);
 if (!SnpSkip(&stnCharRecog)|| leo_Snp_In_Rect)
       {

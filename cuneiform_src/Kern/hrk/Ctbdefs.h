@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -74,7 +74,7 @@ typedef int                 Bool32;
 /***********************   header structure ****************************/
 #define CTB_DATA_SIZE    256
 
-#define CTB_PRINT_NONE      0x00      
+#define CTB_PRINT_NONE      0x00
 #define CTB_PRINT_FONT      0x01
 #define CTB_PRINT_ITALIC    0x02
 #define CTB_PRINT_BOLD      0x04
@@ -84,19 +84,19 @@ typedef int                 Bool32;
 #define CTB_PRINT_STRIGHT   0x40
 #define CTB_PRINT_LIGHT     0x80
 typedef struct  {
-	Word8   charset;        // 0) font charset             
-	Word8   width;          // 1) 0-255                    
-	Word8   height;         // 2) 0-127                    
-	Word8   let;            // 3) letters or ligature      
+	Word8   charset;        // 0) font charset
+	Word8   width;          // 1) 0-255
+	Word8   height;         // 2) 0-127
+	Word8   let;            // 3) letters or ligature
     Word8   typedface;      // 4) typeface. 0 for standart letter
     Word8   IsPrint;        // 5) print type of font (and others feats)
 	Word8   reserved[CTB_DATA_SIZE-6];
 	} CTB_data_standart;
 
 typedef struct  {
-	Word8   charset;        // 0) not free for version <=5       
-	Word8   width;          // 1) 0-255                    
-	Word8   height;         // 2) 0-127                    
+	Word8   charset;        // 0) not free for version <=5
+	Word8   width;          // 1) 0-255
+	Word8   height;         // 2) 0-127
 	Word8   let;            // 3) letters or ligature      Alt[0].Code
     Word8   nLns;           // 4) num of lines
     Word8   IsPrint;        // 5) print type of font (and others feats)
@@ -111,21 +111,21 @@ typedef struct  {
     Word8   Alt2Code;       // 21) Alt[2].Code
     Word8   Alt2Prob;       // 22) Alt[2].Prob
     Word8   Alt3Code;       // 23) Alt[3].Code
-    Word8   Alt3Prob;       // 24) Alt[3].Prob    
+    Word8   Alt3Prob;       // 24) Alt[3].Prob
     Word8   field_number;   // 25) number of recognized field
     Word8   alphabet;       // 26) number of alpha in local table
     Word8   CaseType;       // 27) control for case change
     Word8   Alt0Method;     // 28) Alt[0].Method
-    Word8   Alt1Method;     // 29) Alt[1].Method   
-    Word8   Alt2Method;     // 30) Alt[2].Method    
-    Word8   Alt3Method;     // 31) Alt[3].Method    
+    Word8   Alt1Method;     // 29) Alt[1].Method
+    Word8   Alt2Method;     // 30) Alt[2].Method
+    Word8   Alt3Method;     // 31) Alt[3].Method
 	} CTB_data_container5;
 
 
 typedef struct  {
-	Word8   charset;        // 0) not free for version <=5       
-	Word8   width;          // 1) 0-255                    
-	Word8   height;         // 2) 0-127                    
+	Word8   charset;        // 0) not free for version <=5
+	Word8   width;          // 1) 0-255
+	Word8   height;         // 2) 0-127
 	Word8   let;            // 3) letters or ligature      Alt[0].Code
     Word8   typedface;      // 4) typeface. 0 for standart letter
     Word8   IsPrint;        // 5) print type of font (and others feats)
@@ -140,22 +140,22 @@ typedef struct  {
     Word8   Alt2Code;       // 21) Alt[2].Code
     Word8   Alt2Prob;       // 22) Alt[2].Prob
     Word8   Alt3Code;       // 23) Alt[3].Code
-    Word8   Alt3Prob;       // 24) Alt[3].Prob    
+    Word8   Alt3Prob;       // 24) Alt[3].Prob
     Word8   field_number;   // 25) number of recognized field
     Word8   alphabet;       // 26) number of alpha in local table
     Word8   CaseType;       // 27) control for case change
     Word8   Alt0Method;     // 28) Alt[0].Method
-    Word8   Alt1Method;     // 29) Alt[1].Method   
-    Word8   Alt2Method;     // 30) Alt[2].Method    
-    Word8   Alt3Method;     // 31) Alt[3].Method    
+    Word8   Alt1Method;     // 29) Alt[1].Method
+    Word8   Alt2Method;     // 30) Alt[2].Method
+    Word8   Alt3Method;     // 31) Alt[3].Method
     Word8   nLns;           // 32) num of lines
     Word8   res;            // 33) num of lines
 	} CTB_data_container7;
 
 typedef struct  {
-	Word8   charset;        // 0)    not free for version <=5       
-	Word8   width;          // 1)    0-255                    
-	Word8   height;         // 2)    0-127                    
+	Word8   charset;        // 0)    not free for version <=5
+	Word8   width;          // 1)    0-255
+	Word8   height;         // 2)    0-127
 	Word8   let;            // 3)    letters or ligature      Alt[0].Code
     Word8   typedface;      // 4)    typeface. 0 for standart letter
     Word8   IsPrint;        // 5)    print type of font (and others feats)
@@ -178,20 +178,20 @@ typedef struct  {
 	} CTB_global_data;
 
 typedef struct 	{
-    Word8 sign[2];          // can be "CT"              
-    Int16 version;          // version number           
-    Int16 size_x, size_y;   // frame sizes              
+    Word8 sign[2];          // can be "CT"
+    Int16 version;          // version number
+    Int16 size_x, size_y;   // frame sizes
     Word8 dot_per_byte;
-    Int32 volume;           // number of images         
-    Word8 signums;          // special bits             
-    Word8 need_compress;    // need_comp-bit 1, sort -2 
-    Word8 attr_size;        // num of attributes        
-    Word8 data[CTB_DATA_SIZE]; // global attributes        
+    Int32 volume;           // number of images
+    Word8 signums;          // special bits
+    Word8 need_compress;    // need_comp-bit 1, sort -2
+    Word8 attr_size;        // num of attributes
+    Word8 data[CTB_DATA_SIZE]; // global attributes
     } H_CTB_file;
 
 
 
-// CTB-file types : WIDTH_HEIGHT_COLORS 
+// CTB-file types : WIDTH_HEIGHT_COLORS
 #define CTB_UNKNOWN     0
 #define CTB_128_96_2    1
 #define CTB_128_64_2    2
@@ -246,7 +246,7 @@ typedef FILE*          FFILE;
 
 //****************** MEMORY **********************
 
-#ifndef MEMSET 
+#ifndef MEMSET
 #define MEMCPY(a,b,c)   memcpy(a,b,c)
 #define MEMSET(a,b,c)   memset(a,b,c)
 #endif
@@ -260,16 +260,16 @@ typedef FILE*          FFILE;
 #define STRLEN          strlen
 
 typedef struct 	{
-	FFILE  bas,ndx;       // file desriptions           
-    Int32  num;           // number of images           
-    Int32  len;           // length of binary frame     
-    Int16  type;          // type : sizes & resolution  
+	FFILE  bas,ndx;       // file desriptions
+    Int32  num;           // number of images
+    Int32  len;           // length of binary frame
+    Int16  type;          // type : sizes & resolution
     Int16  width,height,colors,version,dpb;
-    Word8  signums;       // global attributes          
-    Word8  need_compress; // need call compress()       
-    Word8  attr;          // 'r' or 'w'                 
-    Word8  is_sort;       // base is sorted             
-    Word8  attr_size;     // number of attributes       
+    Word8  signums;       // global attributes
+    Word8  need_compress; // need call compress()
+    Word8  attr;          // 'r' or 'w'
+    Word8  is_sort;       // base is sorted
+    Word8  attr_size;     // number of attributes
     } CTB_handle;
 #define CTB_ANSI_CHARSET            0
 #define CTB_DEFAULT_CHARSET         1

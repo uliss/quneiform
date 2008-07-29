@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -74,9 +74,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "leo.h"
 #include "lang_def.h"
 #include "ccom.h"
-//#include "struct.h" 
-#include "fon.h" 
-#include "std.h" 
+//#include "struct.h"
+#include "fon.h"
+#include "std.h"
 
 #include "p2.h"
 #include "rstr_p2.h"
@@ -112,7 +112,7 @@ if( lang==LANG_ENGLISH && p2globals.multy_language )
       ver->Alt[i].Method    =  rver->Alt[i].Method;
       //ver->Alt[i].Charset   =  CodePages[lang]; // Oleg
 	  ver->Alt[i].Charset = RSTR_p2_GetCodePage(lang);
-      ver->Alt[i].Info      =  rver->Alt[i].Info; 
+      ver->Alt[i].Info      =  rver->Alt[i].Info;
       }
 
  return CSTR_StoreCollectionUni(rast,ver);
@@ -133,8 +133,8 @@ for(i=b;i<e;i++)
 return;
 }
 ////////////
-static Bool32 Lines2Raster(CCOM_lnhead *linerep, Int16 size, 
-                      Int16 w, Int16 h, 
+static Bool32 Lines2Raster(CCOM_lnhead *linerep, Int16 size,
+                      Int16 w, Int16 h,
                       RecRaster *rec)
 {
  int            ww, len, i;
@@ -157,7 +157,7 @@ return TRUE;
 }
 ///////////////
 // получить растр, возможно сжатый, из линейной компоненты
-// 
+//
 // Bool32 p2_Line2Raster(c_comp *comp, RecRaster *rec)
 //   lp = (Word8 *)(comp+1);
 //   lt = *(Int16*)lp;
@@ -181,7 +181,7 @@ Bool32 ret;
 // if( comp->scale )
 //    {
 //    rec->lnPixWidth  >>= comp->scale;
-//    rec->lnPixHeight >>= comp->scale;    
+//    rec->lnPixHeight >>= comp->scale;
 //    }
 
   if( rec->lnPixWidth  <= 0 ||
@@ -192,7 +192,7 @@ Bool32 ret;
 
 //  lp = (Word8 *)(comp+1);
 //  lt = *(Int16*)lp;
-// 
+//
   w=(Int16)rec->lnPixWidth;
   h=(Int16)rec->lnPixHeight;
 
@@ -202,7 +202,7 @@ Bool32 ret;
 //      lp += *lt;
 //      lt  = (Int16*)lp;
 //       }
-//  while( ret ); 
+//  while( ret );
 
   return ret;
 }
@@ -244,7 +244,7 @@ static int las1[256]=
 5,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,
 4,0,1,0,2,0,1,0,3,0,1,0,2,0,1,0} ;
 
-//////////////////////         
+//////////////////////
 ///////////////////////////////////
 static void MoveWindowRow0(BYTE *outrow,BYTE *inrow,int SizeByte,int fir)
 {
@@ -352,10 +352,10 @@ int p2_rotateRecRaster(RecRaster *rec,int ninc)
   int firCol,lasCol;
   int max_shift,outXbit,outXbyte;
 
-  if( ninc == 0 ) 
+  if( ninc == 0 )
           return 1;
 
-  //rec->lnPixWidth=erect_raster_value(tmpRaster,(INT)rec->lnPixWidth,(INT)yrow,(INT)ninc);  
+  //rec->lnPixWidth=erect_raster_value(tmpRaster,(INT)rec->lnPixWidth,(INT)yrow,(INT)ninc);
 
   max_shift=((long)(yrow-1)*ninc)/2048;
   if( max_shift < 0 )
@@ -363,40 +363,40 @@ int p2_rotateRecRaster(RecRaster *rec,int ninc)
 
   if( max_shift < 1 )
           return 1;
-            
+
 
   outXbit = rec->lnPixWidth + max_shift;
   outXbyte=(outXbit+7)>>3;
 
-  memset (tmpRaster, 0, outXbyte*yrow); 
+  memset (tmpRaster, 0, outXbyte*yrow);
 
         {
         int s1,s2,c;
         Word8 *rr;
 
-        for (tmpRas=tmpRaster,tmpBuf=rec->Raster,i=0; i < yrow ; 
-              i++, tmpRas+=outXbyte,  tmpBuf+=xbyte8 ) 
+        for (tmpRas=tmpRaster,tmpBuf=rec->Raster,i=0; i < yrow ;
+              i++, tmpRas+=outXbyte,  tmpBuf+=xbyte8 )
         {
                 if( ninc < 0)
                         c=((long)(i+1-yrow)*ninc)/2048;
                 else
                         c=max_shift- (((long)(yrow-1-i)*ninc)/2048);
 
-        rr = tmpRas + (c>>3) ; 
+        rr = tmpRas + (c>>3) ;
                 s1 = c&7;
                 s2 = 8 - s1;
 
                 rr[0]=(tmpBuf[0]>>s1);      // first
-                for( j=1; j<xbyte; j++) 
+                for( j=1; j<xbyte; j++)
                         rr[j] = (tmpBuf[j-1]<<s2) | (tmpBuf[j]>>s1);
-            
+
         if( outXbyte > xbyte )
             rr[j]=tmpBuf[j-1]<<s2;
          }
 
         }
 
-//  rec->lnPixWidth=erect_raster_value(tmpRaster,(INT)rec->lnPixWidth,(INT)yrow,(INT)ninc);  
+//  rec->lnPixWidth=erect_raster_value(tmpRaster,(INT)rec->lnPixWidth,(INT)yrow,(INT)ninc);
 
 // найти настоящие границы !
   for(i=0,firCol=outXbit;i<outXbyte;i++)
@@ -446,7 +446,7 @@ int p2_rotateRecRaster(RecRaster *rec,int ninc)
   firCol&=7;
   for (i =0; i < yrow; i++, tmpBuf+=outXbyte,tmpRas+=xbyte8)
     MoveWindowRow(tmpRas,tmpBuf,outByte,firCol);
- 
+
   return 1;
 }
 ///////////////
@@ -468,7 +468,7 @@ void p2_TextWord(CSTR_rast  c,CSTR_rast stop, char *intxt,BOOL ansi)
                 strcat(txt,vers.Alt[0].Code);
     }
 
-		
+
     for(txt=intxt;*txt;txt++)
          *txt=stdAnsiToAscii(*txt);
 
@@ -479,7 +479,7 @@ void p2_FillTxt(CSTR_line cc,char *intxt,BOOL ansi)
         CSTR_rast first=CSTR_GetFirstRaster(cc);
         CSTR_rast last=CSTR_GetLastRaster(cc);
         if(!first) return;
-    p2_TextWord(CSTR_GetNext(first),last,intxt,ansi);   
+    p2_TextWord(CSTR_GetNext(first),last,intxt,ansi);
 }
 //////////////////////////////
 Int32 p2_TextProb(CSTR_line cc,CSTR_rast  first,CSTR_rast last, char *intxt,int maxTxt)
@@ -509,7 +509,7 @@ Int32 p2_TextProb(CSTR_line cc,CSTR_rast  first,CSTR_rast last, char *intxt,int 
                 sprintf(txt+strlen(txt),"(%d)",vers.Alt[0].Prob);
         }
 
-        if( (int)strlen(txt) >= maxTxt) 
+        if( (int)strlen(txt) >= maxTxt)
                 break;
   }
 
@@ -583,8 +583,8 @@ Bool32 p2_is_lowerASCII(BYTE ch)
  {
    // for ASCII
    if((ch >=(BYTE)' ' && ch <=(BYTE)'Ї') ||
-      (ch >=(BYTE)'а' && ch <=(BYTE)'п') 
-     ) 
+      (ch >=(BYTE)'а' && ch <=(BYTE)'п')
+     )
 	 return TRUE;
  }
  if(ch >= 'a' && ch <= 'z') return TRUE;
@@ -613,7 +613,7 @@ Word8    p2_rsadd_get_alias_class(Word8 let,Word8 lang)
  else if( lang==LANG_ENGLISH )
     fa=eng_alias;
  else
-    return 0;    
+    return 0;
 
  if( strchr(fa,let) )
     return 1;

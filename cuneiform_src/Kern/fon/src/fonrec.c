@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,25 +43,25 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// если кластер маленький (< POROG_WEIGHT) 
+// если кластер маленький (< POROG_WEIGHT)
 // или с плохой оценкой ( < POROG_PROB )
 // понизить оценку распознавания
 #define _ADD_STRAF_SMALL_
 #define POROG_WEIGHT 2
 #define POROG_PROB   200
 
-// имена символов указаны правильно - 
+// имена символов указаны правильно -
 // а не с точностью до регистра
 #define _GOOD_BIG_SMALL_
 
@@ -72,12 +72,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define ParolBase "ClBas"  // in ctb - cluster
 #define POROG_GOOD 110     // if < POROG_GOOD - set unrecog
 
-#include "fon.h" 
+#include "fon.h"
 #include "ctb.h"
-#include "sfont.h" 
-#include "fonrec.h" 
+#include "sfont.h"
+#include "fonrec.h"
 
-//#include "frhdefs.h" 
+//#include "frhdefs.h"
 
 #include <memory.h>
 #include <string.h>
@@ -99,7 +99,7 @@ static FONBASE  fonbase={0,0,0,0,0};
 
 /////////////
  FON_FUNC(void)   FONDone(void)
- { 
+ {
   void   EndBounds(void);
   void   EndScale(void);
 
@@ -119,7 +119,7 @@ FONBASE *GetStaticFonbase(void)
 {
 	return &fonbase;
 }
- ////////////// 
+ //////////////
 // установим первые буквы,
 // используем next для последовательного указания
 static void SetFirstNext(void)
@@ -142,7 +142,7 @@ static void SetFirstNext(void)
           fonbase.first[wel->let]=i;
 	  else
 		  fonbase.start[tek[wel->let]-1].next=i;
-      tek[wel->let]=i;                   
+      tek[wel->let]=i;
 	}
 
     fonbase.isFirst=TRUE;
@@ -158,14 +158,14 @@ welet *end;
 
  if((fh=open(name,O_RDONLY|O_BINARY))==-1) return 10;
  ln = filelength(fh);
- if( ln < sizeof(access_tab) ) 
+ if( ln < sizeof(access_tab) )
  {
 	 close(fh);
 	 return 11;
  }
 
  lseek(fh,ln-sizeof(access_tab),SEEK_SET);
- if(read(fh,&act,sizeof(access_tab)) != sizeof(access_tab)) 
+ if(read(fh,&act,sizeof(access_tab)) != sizeof(access_tab))
  {
 	 close(fh);
 	 return 12;
@@ -173,7 +173,7 @@ welet *end;
 
  if( act.wlsize !=sizeof(welet) ||
      strcmp(act.sign,SIGNATURE) != 0
-   )  
+   )
  {
 	 close(fh);
 	 return 13;
@@ -181,8 +181,8 @@ welet *end;
 
  lseek(fh,0,SEEK_SET);
  if((mem = malloc(ln)) == NULL) {close(fh); return -2;}
- if(read(fh,mem,ln) != ln) 
-	{free(mem); close(fh); 
+ if(read(fh,mem,ln) != ln)
+	{free(mem); close(fh);
      return -3;
 	}
  close(fh);
@@ -199,7 +199,7 @@ welet *end;
 // return == 0 - error
 static int GetCTBasWelet(CTB_handle *CTBhandle,int num,welet *wel)
 {
-Word8     CTBdata[CTB_DATA_SIZE];  
+Word8     CTBdata[CTB_DATA_SIZE];
 Word16   *pword16;
 Int16    *pint16;
 Word32   *pword32;
@@ -207,15 +207,15 @@ Word32   *pword32;
 
   if( CTB_read(CTBhandle,num,wel->raster,CTBdata) == FALSE )
 	 return 0;
-  
+
     wel->let    = CTBdata[3];    // in ASCII
-	wel->w      = CTBdata[4]; 
-	wel->h      = CTBdata[5]; 
-	wel->weight = CTBdata[6];   // how many symbols make 
-	wel->porog  = CTBdata[7];   // threshold 
+	wel->w      = CTBdata[4];
+	wel->h      = CTBdata[5];
+	wel->weight = CTBdata[6];   // how many symbols make
+	wel->porog  = CTBdata[7];   // threshold
 	wel->mw     = CTBdata[8];   // medium width
 	wel->mh     = CTBdata[9];   //        height
-	wel->prob   = CTBdata[10];  // for CTB - probability  
+	wel->prob   = CTBdata[10];  // for CTB - probability
 	wel->attr   = CTBdata[11];
 
 	// now put words
@@ -224,19 +224,19 @@ Word32   *pword32;
 	wel->num    = pword16[1];
 	wel->invalid= pword16[2];
 
-	wel->valid  = CTBdata[18];   // for CTB - validity  
+	wel->valid  = CTBdata[18];   // for CTB - validity
 	wel->kegl   = CTBdata[19];
 
 	// now short int's
 	pint16=(Int16 *)(CTBdata+20);
 	wel->sr_col = pint16[0];
 	wel->sr_row = pint16[1];
-    
+
 	// now dword
 	pword32=(Word32 *)(CTBdata+24);
 	wel->summa  = pword32[0];
 	SetFields(wel->fields,(pword32+1));
-    
+
 	pint16=(Int16 *)(CTBdata+28+NFIELDDWORD*sizeof(Word32));
 	wel->nInCTB = pint16[0];
 	pword32=(Word32 *)(pint16+1);
@@ -254,7 +254,7 @@ static int LoadCTB(char *name)
  int  i;
  Int16 *pint16;
  Word32 *pword32;
- 
+
  // process CTB-file
  if( CTB_open(name,&ctbhan,"r") == FALSE )
  {	// MessageBox(GetActiveWindow(),name,"Error open CTB-base",MB_OK);
@@ -280,17 +280,17 @@ static int LoadCTB(char *name)
 
  num=CTB_volume(&ctbhan);
 
- if( (wel = (welet *)malloc(num*sizeof(welet))) == NULL) 
+ if( (wel = (welet *)malloc(num*sizeof(welet))) == NULL)
 	{CTB_close(&ctbhan); return -1;}
 
  for(i=0,twel=wel;i<num;i++,twel++)
  {
-    if( GetCTBasWelet(&ctbhan,i,twel) == 0 ) 
+    if( GetCTBasWelet(&ctbhan,i,twel) == 0 )
 		{CTB_close(&ctbhan); return -2;}
  }
  CTB_close(&ctbhan);
 
- // now to static 
+ // now to static
  memset(&fonbase,0,sizeof(FONBASE));
  pint16 =(Int16 *)(CTBdata+6);
  pword32=(Word32 *)(CTBdata+8);
@@ -314,7 +314,7 @@ static int LoadCTB(char *name)
 
 
  // was init - return old
- if(fonbase.start ) 
+ if(fonbase.start )
  {
 	 if(!fonbase.isFirst)
 		 SetFirstNext();
@@ -327,15 +327,15 @@ static int LoadCTB(char *name)
  if(name==NULL)
 	 return 0;
 
- if( (i=CheckFileClu(name)) < 0 ) 
+ if( (i=CheckFileClu(name)) < 0 )
 	  return i;   // clu-file, but  no memory or s.o.
- 
+
  if( i > 0 ) // not clu-file
    i=LoadCTB(name);
 
  if( i < 0 ) return i;
 
- for(i=0,j=0,wel=fonbase.start;i<fonbase.inBase;i++,wel++) 
+ for(i=0,j=0,wel=fonbase.start;i<fonbase.inBase;i++,wel++)
 	 if( wel->attr & FON_CLU_SOLID ) j=i;
  fonbase.inBase=j+1; // not need not-solid for recognition !
  FONCutOffClusters(fonbase.start,(SINT)fonbase.inBase);
@@ -366,7 +366,7 @@ static Int32 GetBaseField(Int16 nField,FONBASE *fbase,Word32 *field)
  {
   Word32 wField=1;
 
-  if(nField <= 0 || nField > MAXFIELD) 
+  if(nField <= 0 || nField > MAXFIELD)
              return 0;
   ClearFields(field);
   if( nField <= 32)
@@ -416,16 +416,16 @@ BOOL   isInField;
               specInfo->wFonFlags |=FFC_FON_ALERT;
 		return;
 	}
-     
-	if( specInfo->nLet == 0 ) 
+
+	if( specInfo->nLet == 0 )
 		 return;
 
 	// test reject
-    // translate to base fields	
+    // translate to base fields
 	if( GetBaseField(specInfo->nFieldRow,&fonbase,nField)==0 ||
 	    EmptyField(nField)
 	   )
-		  return; 
+		  return;
 	      // goto metkaAlert;
 
     isInField =FALSE;
@@ -435,16 +435,16 @@ BOOL   isInField;
 		if(!(wel->attr & FON_CLU_SOLID)) continue;
 
 		if( wel->let != specInfo->nLet)  continue;
-        
+
 		// из одного поля ?
-		if( !IntersectFields(nField, wel->fields) ) 
+		if( !IntersectFields(nField, wel->fields) )
 		// из одного шрифта ?
 		{
 			int k,all=MIN(fonbase.countFont,4);
 			for(k=0;k<all;k++)
-			{ 
+			{
                if( IntersectFields ( nField, fonbase.fontFields[k] ) &&
-                   IntersectFields ( wel->fields, fonbase.fontFields[k] ) 
+                   IntersectFields ( wel->fields, fonbase.fontFields[k] )
 				 ) break;
 			}
 			if(k>=all)
@@ -454,7 +454,7 @@ BOOL   isInField;
 		j=i+1;
            //  иных размеров ?
 		if( abs(recRast->lnPixWidth-wel->mw) > POROG_WID_REJECT ||
-                abs(recRast->lnPixHeight-wel->mh) > POROG_HEI_REJECT ) 
+                abs(recRast->lnPixHeight-wel->mh) > POROG_HEI_REJECT )
              isInField=TRUE;
 	}
 
@@ -480,7 +480,7 @@ RecAlt tmpAlt;
   {
 	  for(j=i+1;j<collection->lnAltCnt;j++)
 	  {
-		  if(collection->Alt[j].Prob > 
+		  if(collection->Alt[j].Prob >
 			 collection->Alt[i].Prob  )
 		  {
               tmpAlt=collection->Alt[i];
@@ -552,7 +552,7 @@ Int32 countRazmaz;
 #endif
 
   if( recRast->lnPixHeight > WR_MAX_HEIGHT-2 ||
-	  xbit > WR_MAX_WIDTH -2 ) 
+	  xbit > WR_MAX_WIDTH -2 )
 	  return 0;
 
   ret=RecogClu(recRast->Raster,(SINT)bytesx,(SINT)xbit,(SINT)recRast->lnPixHeight,
@@ -564,33 +564,33 @@ Int32 countRazmaz;
   for(xbit=0;xbit<ret;xbit++)
    {
     // очень слабые не нужны
-    if( recres[xbit].prob < 40 ) 
-		break;  
+    if( recres[xbit].prob < 40 )
+		break;
     collection->lnAltCnt++;
     collection->Alt[xbit].Code=recres[xbit].name;
     collection->Alt[xbit].Prob=recres[xbit].prob;
 
 #ifdef _ADD_STRAF_SMALL_
 	{
-     int nClus; 
+     int nClus;
      if( (nClus=recres[xbit].nClust) >= 0  &&
 		 nClus < fonbase.inBase &&
 		 ( fonbase.start[nClus].weight < POROG_WEIGHT ||
-		   fonbase.start[nClus].prob < POROG_PROB 
+		   fonbase.start[nClus].prob < POROG_PROB
 		 ) &&
-         collection->Alt[xbit].Prob>0 
+         collection->Alt[xbit].Prob>0
 	    )
-      collection->Alt[xbit].Prob--; 
+      collection->Alt[xbit].Prob--;
 	}
-#endif		
+#endif
    }
 #ifdef _ADD_STRAF_SMALL_
-  // могли испортить порядок 
+  // могли испортить порядок
   ReorderCollection(collection);
 #endif
   FineFONCollection(collection);
 
-  
+
   if(specInfo)
   {
 	  // расставим флажки
@@ -641,7 +641,7 @@ Int16 col,row;
   }
 
   if( recRast->lnPixHeight > WR_MAX_HEIGHT-2 ||
-	  xbit > WR_MAX_WIDTH -2 ) 
+	  xbit > WR_MAX_WIDTH -2 )
 	  return 0;
 
   ret=recog_raster(recRast->Raster,(WORD)bytesx,(WORD)xbit,(WORD)recRast->lnPixHeight,
@@ -657,26 +657,26 @@ Int16 col,row;
 
 #ifdef _ADD_STRAF_SMALL_
 	{
-     int nClus; 
+     int nClus;
      if( (nClus=recres[xbit].nClust) >= 0  &&
 		 nClus < fonbase.inBase &&
 		 ( fonbase.start[nClus].weight < POROG_WEIGHT ||
-		   fonbase.start[nClus].prob < POROG_PROB 
+		   fonbase.start[nClus].prob < POROG_PROB
 		 ) &&
-         collection->Alt[xbit].Prob>0 
+         collection->Alt[xbit].Prob>0
 	    )
-      collection->Alt[xbit].Prob--; 
+      collection->Alt[xbit].Prob--;
 	}
-#endif		
+#endif
   }
 
 #ifdef _ADD_STRAF_SMALL_
-  // могли испортить порядок 
+  // могли испортить порядок
   ReorderCollection(collection);
 #endif
   FineFONCollection(collection);
 
-  
+
   if(specInfo)
   {
 	  // расставим флажки
@@ -708,14 +708,14 @@ FON_FUNC(Bool32) FONCheckItself(Word8 let,Int32 num,Int16 col,Int16 row)
  for(i=0,wel=fonbase.start;i<fonbase.inBase;i++,wel++)
  {
 	 //  itself
-   if( !(wel->attr & FON_CLU_SOLID) ) 
+   if( !(wel->attr & FON_CLU_SOLID) )
 	   continue;
    if( wel->invalid)
 	   continue;
    if( wel->weight == 1 && (num == wel->nInCTB ||
-//	   col==wel->sr_col && row==wel->sr_row 
+//	   col==wel->sr_col && row==wel->sr_row
       abs(col-wel->sr_col)<=1 && abs(row-wel->sr_row)<=1 )
-	 ) 
+	 )
      return FALSE;
  }
  return TRUE;
@@ -724,7 +724,7 @@ FON_FUNC(Bool32) FONCheckItself(Word8 let,Int32 num,Int16 col,Int16 row)
 //
 //  return -2 - too big symbol
 //         -1 - no such letter
-//       >=0  - how many variants    
+//       >=0  - how many variants
 //
 FON_FUNC(Int32) FONTestChar(RecRaster *recRast,Word8 let,FonTestInfo *attr,Int16 nInCTB)
 {
@@ -736,7 +736,7 @@ SINT CheckClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
 
 
   if( recRast->lnPixHeight > WR_MAX_HEIGHT-2 ||
-	  xbit > WR_MAX_WIDTH -2 ) 
+	  xbit > WR_MAX_WIDTH -2 )
 	  return -2;
 
   ret=CheckClu(recRast->Raster,(SINT)bytesx,(SINT)xbit,(SINT)recRast->lnPixHeight,
@@ -755,7 +755,7 @@ int CheckRaster(PBYTE r,WORD fullBytes,WORD w,WORD h,
 
 
   if( recRast->lnPixHeight > WR_MAX_HEIGHT-2 ||
-	  xbit > WR_MAX_WIDTH -2 ) 
+	  xbit > WR_MAX_WIDTH -2 )
 	  return -2;
 
   ret=CheckRaster(recRast->Raster,(WORD)bytesx,(WORD)xbit,(WORD)recRast->lnPixHeight,
@@ -774,9 +774,9 @@ FON_FUNC(Int32) FONSetAlphabet(char *coll)
 
   if( fonbase.start )
   {
-    for(i=0,wel=fonbase.start;i<fonbase.inBase;i++,wel++) 
+    for(i=0,wel=fonbase.start;i<fonbase.inBase;i++,wel++)
 	{
-       if( wel->let < 0 || wel->let > 255 )  
+       if( wel->let < 0 || wel->let > 255 )
 		   continue;
 	   if( alphabet[wel->let] )
 		   wel->num=abs(wel->num);
@@ -814,8 +814,8 @@ FON_FUNC(Int32) FONFontInfo(FontInfo *fontinfo)
 
         fontinfo->numFont[i]++;
 
-			// was same - for big russian may be small 
-		if(  fontinfo->count[i] > 0 ) 
+			// was same - for big russian may be small
+		if(  fontinfo->count[i] > 0 )
 		{
 
 #ifndef _GOOD_BIG_SMALL_
@@ -830,7 +830,7 @@ FON_FUNC(Int32) FONFontInfo(FontInfo *fontinfo)
 				if( fontinfo->count[i] >= fontinfo->count[j] )
 					better=i;
 				else better=j;
-				if(wel->mh > fontinfo->height[better] || 
+				if(wel->mh > fontinfo->height[better] ||
 				   wel->mh == fontinfo->height[better] &&
 				   wel->mw > fontinfo->width[better] )
 					{
@@ -839,7 +839,7 @@ FON_FUNC(Int32) FONFontInfo(FontInfo *fontinfo)
 					 fontinfo->height[j]=fontinfo->height[better];
 					 fontinfo->number[j]=fontinfo->number[better];
 					}
-				else 
+				else
 					{
 					 fontinfo->count[i] =fontinfo->count[better];
 					 fontinfo->width[i] =fontinfo->width[better];
@@ -850,8 +850,8 @@ FON_FUNC(Int32) FONFontInfo(FontInfo *fontinfo)
 			}
 
 			else
-#endif				
-				if( wel->weight <= fontinfo->count[i] ) 
+#endif
+				if( wel->weight <= fontinfo->count[i] )
 			 continue;
 		}
 		else count++;
@@ -879,7 +879,7 @@ FON_FUNC(Int32) FONSizesInfo(SizesInfo *sizeinfo,int num)
 		if( wel->invalid ) continue;
 		if( (i=wel->let) < 0 || i > 255 ) continue;
 
-        sizeinfo[count].name =wel->let; 
+        sizeinfo[count].name =wel->let;
         sizeinfo[count].count=wel->weight;
 		sizeinfo[count].width=wel->mw;
 		sizeinfo[count].height=wel->mh;
@@ -933,7 +933,7 @@ int avr;
 	} // end if
    } // end cc
   }  // end j
- }   // end i 
+ }   // end i
 
   n = abs(n) - np * avr; // all points with dist 1
   n *= n;
@@ -942,7 +942,7 @@ int avr;
   return (SINT) (( ac <= 0 ) ? 0 : (ac * 255) / wl->summa);
 }
 ///////////////////////
-// _cmp = cmpMMX  - was in Tiger 
+// _cmp = cmpMMX  - was in Tiger
 static SINT  (*_cmp)(PBYTE r,WORD fullw,WORD w,WORD h,welet * wl,SINT xo,SINT yo)=cmp0;
 ///////////
 WORD cmp(PBYTE r,WORD fullwb,WORD w,WORD h,welet * wl)
@@ -953,40 +953,40 @@ WORD cmp(PBYTE r,WORD fullwb,WORD w,WORD h,welet * wl)
  best=east=west=north=south=center=lbest=0;
 
  best = (_cmp)(r,fullwb,w,h,wl, 0, 0);
-// wl->work = pack_coord( 0, 0); 
+// wl->work = pack_coord( 0, 0);
  center = best;
  if(best >= 240) return best;
 
  if(best == 0) return 0;  // test !  < 20 ?
 
  if((south = (_cmp)(r,fullwb,w,h,wl, 0, 1)) > best )
-    best = south; 
+    best = south;
  if((north = (_cmp)(r,fullwb,w,h,wl, 0,-1)) > best )
-   best = north; 
+   best = north;
  if((east = (_cmp)(r,fullwb,w,h,wl, 1, 0)) > best )
-    best = east; 
+    best = east;
  if((west = (_cmp)(r,fullwb,w,h,wl,-1, 0)) > best )
-    best = west; 
+    best = west;
 
  if( north >= center && east >= center )
  {
   if((lbest = (_cmp)(r,fullwb,w,h,wl,1,-1)) > best )
-    best = lbest; 
+    best = lbest;
  }
  else if(east >= center && south >= center )
  {
   if((lbest = (_cmp)(r,fullwb,w,h,wl,1, 1)) > best )
-    best = lbest; 
+    best = lbest;
  }
  else if(south >= center && west >= center)
  {
   if((lbest = (_cmp)(r,fullwb,w,h,wl,-1, 1)) > best )
-    best = lbest; 
+    best = lbest;
  }
  else if( west >= center && north >= center)
  {
   if((lbest = (_cmp)(r,fullwb,w,h,wl,-1,-1)) > best )
-    best = lbest; 
+    best = lbest;
  }
 
  return best;
@@ -995,10 +995,10 @@ WORD cmp(PBYTE r,WORD fullwb,WORD w,WORD h,welet * wl)
 ///////////////////////////
 int recogWelet(PBYTE r,WORD fullRow,WORD w,WORD h,welet * wl)
 {
-	 if(!(wl->attr & FON_CLU_SOLID))  
+	 if(!(wl->attr & FON_CLU_SOLID))
        return 0; // suspect cluster
 //   if(! can_compare(wl))          return ver; // prevent rec letter by itself
-    if(wl->invalid)                
+    if(wl->invalid)
        return 0; // suspect cluster
 //   if(shadow_clu(wl))		  return ver; //
 //   if( h >= WR_MAX_HEIGHT-1 ) return 0;
@@ -1018,9 +1018,9 @@ int AddVersion(RECRESULT *recres,BYTE let,BYTE rec,int nClust,
 {
 int j,k;
 
-   for(j=0;j<num;j++ ) 
-	 { 
-	   if( recres[j].name == let	) 
+   for(j=0;j<num;j++ )
+	 {
+	   if( recres[j].name == let	)
 	   {
         if( recres[j].prob < rec )
         {
@@ -1028,7 +1028,7 @@ int j,k;
          recres[j].nClust = nClust;
         }
 		  return num;
-		} // was better the same 
+		} // was better the same
 
 	   if(rec > recres[j].prob) break;
 	 }
@@ -1036,9 +1036,9 @@ int j,k;
    if( j>=maxNames ) return num;
 
 	  // was such name - to new position
-   for(k=j+1;k<num;k++ ) 
-	 { 
-      if( recres[k].name == let ) 
+   for(k=j+1;k<num;k++ )
+	 {
+      if( recres[k].name == let )
 	   {   memmove(recres+j+1,recres+j,sizeof(RECRESULT)*(k-j));
 			 recres[j].name=let;
           recres[j].prob=rec;
@@ -1047,14 +1047,14 @@ int j,k;
 	   }
 	 }
 
-   if(num<maxNames) num++; 
+   if(num<maxNames) num++;
    if( j < num-1)
     memmove(recres+j+1,recres+j,sizeof(RECRESULT)*(num-j-1));
-    
+
    recres[j].name=let;
    recres[j].prob=rec;
    recres[j].nClust=nClust;
-   
+
    return num;
 }
 //////////////
@@ -1072,16 +1072,16 @@ int rec;
  for(i=0,wel=fonba->start,num=0;i<fonba->inBase;i++,wel++)
  {
 	 // don't recog itself
-   if( wel->weight == 1 && 
+   if( wel->weight == 1 &&
 	   (wel->nInCTB == inCTB ||
-//	    wel->sr_col == col && wel->sr_row==row 
+//	    wel->sr_col == col && wel->sr_row==row
 		abs(col-wel->sr_col)<=1 && abs(row-wel->sr_row)<=1 )
 	)
 	   continue;
    if( wel->num < 0 )  // не из нашего алфавита
 	   continue;
-   if( (rec=recogWelet(r,fullBytes,w,h,wel)) < POROG_GOOD ) 
-      continue;  
+   if( (rec=recogWelet(r,fullBytes,w,h,wel)) < POROG_GOOD )
+      continue;
 
    num=AddVersion(recres,(BYTE)wel->let,(BYTE)rec,i,
 			    num, maxNames);
@@ -1114,8 +1114,8 @@ int AddTestAlt(Word8 prob,int numAlt,FonTestInfo *attr,
    if( !(wel->attr & FON_CLU_SOLID)  ) continue;
 
    num++;
-   if( (rec=recogWelet(r,fullBytes,w,h,wel)) <= POROG_GOOD ) 
-	   continue;  
+   if( (rec=recogWelet(r,fullBytes,w,h,wel)) <= POROG_GOOD )
+	   continue;
    nAlt = AddTestAlt( (Word8)rec,nAlt,attr,wel,i);
  }
  if( num <= 0 ) return -1;
@@ -1197,31 +1197,31 @@ int bytesx=((xbit+63)/64)*8;
 int ret;
 
   if( recRast->lnPixHeight > WR_MAX_HEIGHT-2 ||
-	  xbit > WR_MAX_WIDTH -2 ) 
+	  xbit > WR_MAX_WIDTH -2 )
 	  return 0;
 
   if(fonbase.inBase <= 0) return 0;
   if(!fonbase.start) return 0;
 
   if(numWelet < 0 || numWelet >= fonbase.inBase) return -20;
-   
+
   ret=CompareCluster(recRast->Raster,bytesx,xbit,recRast->lnPixHeight,
 	   fonbase.start+numWelet,movx,movy);
   return ret;
 }
 ///////////////////
-// 
+//
 //   [in] name   - from cluster with name == name (if name > 0)
-//   [in] number - & order number >= number  
+//   [in] number - & order number >= number
 //   [in] porog -  & use percent threshold  (0-100 ) (0 - default)
 //   [out]recRaster - make black/white raster, put to recRaster
 //
 //   Return  >=0 - actual cluster number
-//      < 0 - error 
+//      < 0 - error
 //       -10 - no base loaded
 //       -20 - invalid number  (<0 or > actual number of clusters)
 //       -21 - invalid name    (<0 or > 255)
-//       -22 - no correct cluster 
+//       -22 - no correct cluster
 //
 FON_FUNC(Int32) FONGetClusterAsBW(Int32 *name,Int32 number,Int32 porog,RecRaster *recRast)
 {
@@ -1235,7 +1235,7 @@ FON_FUNC(Int32) FONGetClusterAsBW(Int32 *name,Int32 number,Int32 porog,RecRaster
  BYTE *rr1,maska;
 
 
-  if( fonbase.inBase <= 0 || 
+  if( fonbase.inBase <= 0 ||
 	  fonbase.start == NULL  ) return -10;
   if(number < 0 || number >= fonbase.inBase )
 	  return -20;
@@ -1247,9 +1247,9 @@ FON_FUNC(Int32) FONGetClusterAsBW(Int32 *name,Int32 number,Int32 porog,RecRaster
   {
    for(wel=fonbase.start+number;number<fonbase.inBase;number++,wel++)
      if( wel->let == *name ) break;
-   if( number >= fonbase.inBase ) return -22; 
+   if( number >= fonbase.inBase ) return -22;
   }
-  else 
+  else
   {wel=fonbase.start+number;
    if(name) *name=wel->let;
   }
@@ -1274,13 +1274,13 @@ FON_FUNC(Int32) FONGetClusterAsBW(Int32 *name,Int32 number,Int32 porog,RecRaster
    int  lx=0;   // last  x
    int  fy=yrow;  // first y
    int  ly=0;   // last  y
-   
+
 
    // get new picture bounds from weighted
    for(i=0;i<yrow;i++,rr+=WR_MAX_WIDTH)
 	 {
 	  for(j=0;j<xbit;j++)
-		{ 
+		{
 		  if(rr[j] <= porog)   	  continue;
 			 // check new bounds
 		  if(j<fx) fx=j;
@@ -1323,13 +1323,13 @@ int  i;
 BOOL rett;
 RecVersions collect;
 
-  for(i=0,wel=fonbase.start; i< fonbase.inBase ; i++) 
+  for(i=0,wel=fonbase.start; i< fonbase.inBase ; i++)
   {
 		if( FONGetClusterAsBW(NULL,i,0,&myRaster) < 0 )
 			continue;
-		
+
 	    rett=DIFInit( &myRaster, TRUE, FALSE);
-        if(rett==FALSE) 
+        if(rett==FALSE)
 			continue;
 
 		memset(&collect,0,sizeof(RecVersions));
@@ -1337,7 +1337,7 @@ RecVersions collect;
 		collect.Alt[0].Code=(BYTE)wel->let;
 		collect.Alt[0].Prob=255;
 		rett = DIFPenaltyChar(&myRaster,&collect);
-		if(rett==FALSE) 
+		if(rett==FALSE)
 			 continue;
 
 		if(collect.Alt[0].Prob < 250)  // ??
@@ -1367,7 +1367,7 @@ BYTE probs[REC_MAX_VERS];
   memset(collection,0,sizeof(RecVersions));
 
   if( recRast->lnPixHeight > WR_MAX_HEIGHT-2 ||
-	  xbit > WR_MAX_WIDTH -2 ) 
+	  xbit > WR_MAX_WIDTH -2 )
 	  return 0;
 
   ret=RecogCluBound(recRast->Raster,(SINT)bytesx,(SINT)xbit,(SINT)recRast->lnPixHeight,
@@ -1401,7 +1401,7 @@ BYTE probs[REC_MAX_VERS];
   memset(collection,0,sizeof(RecVersions));
 
   if( recRast->lnPixHeight > WR_MAX_HEIGHT-2 ||
-	  xbit > WR_MAX_WIDTH -2 ) 
+	  xbit > WR_MAX_WIDTH -2 )
 	  return 0;
 
   ret=KleyRecog(recRast->Raster,(SINT)bytesx,(SINT)xbit,(SINT)recRast->lnPixHeight,
@@ -1424,7 +1424,7 @@ BYTE probs[REC_MAX_VERS];
 //
 // added 1.10.98
  // returns count (N) => numbers [1..N] can be used as indexes
-FON_FUNC(Int32) FONGetClustCount(void)  
+FON_FUNC(Int32) FONGetClustCount(void)
 {
   if(fonbase.start)
      return fonbase.inBase;
@@ -1440,8 +1440,8 @@ FON_FUNC(Int32) FONGetClustInfo( ClustInfo *clustinfo,
 
    memset(clustinfo,0,sizeof(ClustInfo));
 
-   if(fonbase.start == NULL || 
-      num <= 0              || 
+   if(fonbase.start == NULL ||
+      num <= 0              ||
       num > fonbase.inBase )
       return -1;
 
@@ -1457,7 +1457,7 @@ FON_FUNC(Int32) FONGetClustInfo( ClustInfo *clustinfo,
    }
 
    // fill - what need ...
-   clustinfo->let    = wel->let; 
+   clustinfo->let    = wel->let;
    clustinfo->weight = wel->weight;
    clustinfo->prob   = wel->prob;
    clustinfo->valid  = (Word8)wel->valid;
@@ -1483,27 +1483,27 @@ FON_FUNC(Int32) FONGetClustInfo( ClustInfo *clustinfo,
 FON_FUNC(Int32) FONGetNearestClusters( RecRaster* recRast,  // symbol
                                         ClustAlt result[],   // result table of K nearest klusters
                                         int nClustAltLen,    // length of table
-                                        int nDistLevel       // don't report about clusters with distance more than nDistLevel 
+                                        int nDistLevel       // don't report about clusters with distance more than nDistLevel
                                         )
 {
 
 int xbit=recRast->lnPixWidth;
 int bytesx=((xbit+63)/64)*8;
 int ret;
-RECRESULT recres[32]; // really 4 
+RECRESULT recres[32]; // really 4
 
 
-  if(nClustAltLen > 32) 
+  if(nClustAltLen > 32)
          nClustAltLen = 32;
 
   memset(result,0,sizeof(ClustAlt)*nClustAltLen);
 
   if( recRast->lnPixHeight > WR_MAX_HEIGHT-2 ||
-	  xbit > WR_MAX_WIDTH -2 ) 
+	  xbit > WR_MAX_WIDTH -2 )
 	  return 0;
 
   ret=RecogClu(recRast->Raster,(SINT)bytesx,(SINT)xbit,(SINT)recRast->lnPixHeight,
-	  recres,(SINT)nClustAltLen, 
+	  recres,(SINT)nClustAltLen,
      fonbase.start,fonbase.inBase,
      nDistLevel,0,-1024,-1024,1);
 
@@ -1525,7 +1525,7 @@ RECRESULT recres[32]; // really 4
 ////////////////////////
 //
 // test clusters - compare clusters
-//  
+//
 // сравнить - есть ли похожие среди кластеров с именами
 // name1 & name2
 //
@@ -1534,7 +1534,7 @@ RECRESULT recres[32]; // really 4
 //
 FON_FUNC(Int32) FONCompareClustNames(Int32 name1,Int32 name2)
 {
-	if(fonbase.start == NULL || 
+	if(fonbase.start == NULL ||
        fonbase.inBase <= 0 )
       return -10;
 
@@ -1544,17 +1544,17 @@ FON_FUNC(Int32) FONCompareClustNames(Int32 name1,Int32 name2)
 ///////////////
 //
 // найти кластеры, похожие на кластер с заданным номером
-// номера - c 1 
+// номера - c 1
 //
 FON_FUNC(Int32) FONGetSameClust(Int32 num,RecVersions *collect)
 {
  int i;
 
-   if(fonbase.start == NULL || 
-      num <= 0              || 
+   if(fonbase.start == NULL ||
+      num <= 0              ||
       num > fonbase.inBase )
       return -10;
- 
+
    i=GetNearestClusters (num-1, fonbase.start,fonbase.inBase ,
 	    collect );
 
@@ -1565,8 +1565,8 @@ FON_FUNC(Int32) FONSetClusterInvalid(Int32 num)
 {
  welet *wel;
 
-	if(fonbase.start == NULL || 
-      num <= 0              || 
+	if(fonbase.start == NULL ||
+      num <= 0              ||
       num > fonbase.inBase )
       return 0;
 
@@ -1585,7 +1585,7 @@ int SetTablDigitColumn(FONBASE *fonbase,int column,int onlyDigits)
 	Word8 isDigit[10];
 	welet *wel;
 
-    if(column <=0 || column > 32) 
+    if(column <=0 || column > 32)
 		return 0;
     column=1<<(column-1);
 
@@ -1614,8 +1614,8 @@ int SetTablDigitColumn(FONBASE *fonbase,int column,int onlyDigits)
 		// not our column
       if( !(wel->tablColumn & column) && wel->let != '+')
 	  {
-		  if( wel->let < '0' || wel->let >'9' 
-			  //  - old version  || isDigit[wel->let-'0'] 
+		  if( wel->let < '0' || wel->let >'9'
+			  //  - old version  || isDigit[wel->let-'0']
 			 )
 		  {
 			  wel->num=-abs(wel->num);
@@ -1629,7 +1629,7 @@ int SetTablDigitColumn(FONBASE *fonbase,int column,int onlyDigits)
 			  continue;
 		  }
 
-      wel->num=abs(wel->num); 
+      wel->num=abs(wel->num);
       alphabet[wel->let] = 1;
 	}
 
@@ -1687,7 +1687,7 @@ int RecogCluOkr(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
   }
 
   if( recRast->lnPixHeight > WR_MAX_HEIGHT-2 ||
-	  xbit > WR_MAX_WIDTH -2 ) 
+	  xbit > WR_MAX_WIDTH -2 )
 	  return 0;
 
   ret=RecogCluOkr(recRast->Raster,(SINT)bytesx,(SINT)xbit,(SINT)recRast->lnPixHeight,
@@ -1699,33 +1699,33 @@ int RecogCluOkr(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
   for(xbit=0;xbit<ret;xbit++)
    {
     // очень слабые не нужны
-    if( recres[xbit].prob < 40 ) 
-		break;  
+    if( recres[xbit].prob < 40 )
+		break;
     collection->lnAltCnt++;
     collection->Alt[xbit].Code=recres[xbit].name;
     collection->Alt[xbit].Prob=recres[xbit].prob;
 
 #ifdef _ADD_STRAF_SMALL_
 	{
-     int nClus; 
+     int nClus;
      if( (nClus=recres[xbit].nClust) >= 0  &&
 		 nClus < fonbase.inBase &&
 		 ( fonbase.start[nClus].weight < POROG_WEIGHT ||
-		   fonbase.start[nClus].prob < POROG_PROB 
+		   fonbase.start[nClus].prob < POROG_PROB
 		 ) &&
-         collection->Alt[xbit].Prob>0 
+         collection->Alt[xbit].Prob>0
 	    )
-      collection->Alt[xbit].Prob--; 
+      collection->Alt[xbit].Prob--;
 	}
-#endif		
+#endif
    }
 #ifdef _ADD_STRAF_SMALL_
-  // могли испортить порядок 
+  // могли испортить порядок
   ReorderCollection(collection);
 #endif
   FineFONCollection(collection);
 
-  
+
   if(specInfo)
   {
 	  // расставим флажки
@@ -1760,14 +1760,14 @@ int CompareClusterOkr(BYTE *rast,int xbyte,int xbit,int yrow,welet *wel,
 				   int *dist1,int *dist2);
 
   if( recRast->lnPixHeight > WR_MAX_HEIGHT-2 ||
-	  xbit > WR_MAX_WIDTH -2 ) 
+	  xbit > WR_MAX_WIDTH -2 )
 	  return 0;
 
   if(fonbase.inBase <= 0) return 0;
   if(!fonbase.start) return 0;
 
   if(numWelet < 0 || numWelet >= fonbase.inBase) return -20;
-   
+
   ret=CompareClusterOkr(recRast->Raster,bytesx,xbit,recRast->lnPixHeight,
 	   fonbase.start+numWelet,movx,movy,okr,proc,dist1,dist2);
   return ret;
@@ -1805,14 +1805,14 @@ int RecogCluInner(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
   }
 
   if( recRast->lnPixHeight > WR_MAX_HEIGHT-2 ||
-	  xbit > WR_MAX_WIDTH -2 ) 
+	  xbit > WR_MAX_WIDTH -2 )
 	  return 0;
 
   ret=RecogCluInner(recRast->Raster,(SINT)bytesx,(SINT)xbit,(SINT)recRast->lnPixHeight,
 	  recres,(SINT)REC_MAX_VERS, fonbase.start,fonbase.inBase,
 	  nInCTB,&col,&row );
 
-  if(ret < 0) 
+  if(ret < 0)
 	  return ret;
 
   collection->lnAltCnt=0;
@@ -1824,7 +1824,7 @@ int RecogCluInner(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
    }
 
   FineFONCollection(collection);
-  
+
   if(specInfo)
   {
 	  // расставим флажки

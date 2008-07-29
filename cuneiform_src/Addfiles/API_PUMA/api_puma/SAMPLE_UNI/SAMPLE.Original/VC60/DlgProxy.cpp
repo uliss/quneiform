@@ -20,8 +20,8 @@ IMPLEMENT_DYNCREATE(CSampleDlgAutoProxy, CCmdTarget)
 CSampleDlgAutoProxy::CSampleDlgAutoProxy()
 {
 	EnableAutomation();
-	
-	// To keep the application running as long as an automation 
+
+	// To keep the application running as long as an automation
 	//	object is active, the constructor calls AfxOleLockApp.
 	AfxOleLockApp();
 
@@ -69,7 +69,7 @@ BEGIN_DISPATCH_MAP(CSampleDlgAutoProxy, CCmdTarget)
 END_DISPATCH_MAP()
 
 // Note: we add support for IID_ISample to support typesafe binding
-//  from VBA.  This IID must match the GUID that is attached to the 
+//  from VBA.  This IID must match the GUID that is attached to the
 //  dispinterface in the .ODL file.
 
 // {A164B6A6-ADDC-4FAF-991A-98A608089E41}

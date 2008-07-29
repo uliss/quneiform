@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -110,7 +110,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #endif
 */
 #include "compat_defs.h"
-//      NEED 
+//      NEED
 //      1)      proceeding ED-file
 //      2)      setup language and alphabet
 //      3)      load vocabulare tables
@@ -155,7 +155,7 @@ static PWord8    auto_pool       = NULL;       /* boxes pool for auto & font tab
 static PWord8    box_pool        = NULL;       /* boxes pool for extr_comp */
 static PWord8    events_tree     = NULL;
 static PWord8    events_tree_rt  = NULL;       /* events tree memory start */
-static Word8     sv_lang         = 255; 
+static Word8     sv_lang         = 255;
 static PWord8    tableBOX        = NULL;       /* BOX table memory start */
 static Word8     all_loaded      = 0;
 static PWord8    fontBOX         = NULL;        /* BOX table for font  */
@@ -171,7 +171,7 @@ static Int8      txt_ext[16]           = {"txt"};
 static Int16     file_handle[16]       = { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
 static Int16     file_stream[16]       = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 static Int16     stream_op[10]         = {0,0,0,0,0,0,0,0,0,0};
-static Int8 *lang_suff[LANG_TOTAL] = 
+static Int8 *lang_suff[LANG_TOTAL] =
 {
 "","grm","frn","rus","swe","spa","ita","r&e","ukr","ser","cro","pol","dan","por","dut","dig",
 "uzb","kaz","kaz",			// 04.09.2000 E.P.
@@ -216,10 +216,10 @@ void TE_make_name (Int16 stream, PInt8 name, PInt8 wname)
 
         case ED_STREAM:
         case TX_STREAM:
-                
+
                 l = strlen (name);
                 pn = name + l;
-                
+
                 while (l--)
                 {
                         if (*(--pn) == '.')
@@ -228,26 +228,26 @@ void TE_make_name (Int16 stream, PInt8 name, PInt8 wname)
                                 return;
                         }
 
-                        if (*pn     == DIRSEP) 
+                        if (*pn     == DIRSEP)
                                 break;
                 }
                 strcpy (wname,name);
                 switch (stream)
                 {
                 case ED_STREAM:
-                
+
                         strcat (wname,".ed");
                         break;
 
                 case TX_STREAM:
-                        
+
                         strcat (wname,txt_ext);
                         break;
                 }
                 break;
 
         default:
-                
+
                 strcpy (wname, name);
                 break;
         }
@@ -270,7 +270,7 @@ Int16 to_voc()
                 ed_load();
                 if (!spelling(comp_file, comp_lth))
                         ed_flip();
-                
+
                 return 0;
         }
         return 1;
@@ -285,7 +285,7 @@ void append_by_lang (Int16 lang, PInt8 src, PInt8 dst)
         strcpy(dst,src);
 
         if ((lang >= 0) && (lang < LANG_TOTAL))
-        {     
+        {
                 strcat(dst,lang_suff[lang]);
         }
 /* Çàêîììåíòàðèë 09.07.2001 E.P.
@@ -294,7 +294,7 @@ void append_by_lang (Int16 lang, PInt8 src, PInt8 dst)
                 if( is_cen_language(language) && // 08.09.2000 E.P.
                         n>0 && n<4 )
                         strcat(dst,"CEN"); // rec1,rec2,rec3 for croatian
-     
+
                 strcat(dst,"R&E"); // rec1,rec2,rec3 for Rus/Eng mode
     }
 */
@@ -306,9 +306,9 @@ Int16 TE_open(Int16 Stream, PInt8 Name, Int16 Type, Int16 SubType)
         Int8 Wname[160];
         Int16 i;
         Int16 fn;
-  
+
         TE_make_name (Stream, Name, Wname);
-        
+
         for (fn = 1; fn < 16; fn++)
         {
                 if (file_handle[fn]==-1)
@@ -317,11 +317,11 @@ Int16 TE_open(Int16 Stream, PInt8 Name, Int16 Type, Int16 SubType)
 
                         if (i < 0)
                                 return -1;
-                        
+
                         file_handle[fn] = i;
                         file_stream[fn] = Stream;
                         stream_op [Stream] ++;
-                        
+
                         return fn;
                 }
         }
@@ -332,10 +332,10 @@ Int16 TE_open(Int16 Stream, PInt8 Name, Int16 Type, Int16 SubType)
 Int16 TE_write(Int16 File, PWord8 Data, Word32 Size)
 {
         Int16 i;
-        
+
         if ((i=file_handle[File]) < 0)
                 return -1;
-  
+
         return write(i, Data, Size);
 }
 ////////////////////////////////////////////////////////////////////////////////////
@@ -343,7 +343,7 @@ Int16 TE_write(Int16 File, PWord8 Data, Word32 Size)
 Int16 TE_table_op(Int16 Stream, Int16 Language, Int16 Type, Int16 SubType)
 {
         Int8 Wname[20];
-  
+
         GetRecFileName(Stream,Language,Wname);
         return TE_open (TB_STREAM, Wname, Type, SubType);
 }
@@ -351,10 +351,10 @@ Int16 TE_table_op(Int16 Stream, Int16 Language, Int16 Type, Int16 SubType)
 Int32 TE_read(Int16 File, PInt8 Buffer, Int32 Size)
 {
         Int16 i;
-        
+
         if ((i=file_handle[File]) < 0)
                 return -1;
-  
+
         return read (i, Buffer, Size);
 }
 
@@ -362,7 +362,7 @@ Int16 TE_close(Int16 File)
 {
         Int16 i, s;
 
-        if ((File < 0) || (File > 9)) 
+        if ((File < 0) || (File > 9))
                 return -1;
 
         if ((i=file_handle[File]) < 0)
@@ -382,38 +382,38 @@ PInt8 TE_handle_fgets  ( Int16 Handle, PInt8 Buff, Int16 Lenght )
         PInt8 ptr = Buff;
         Int16  ret;
 
-        if ( Handle <= 0 || Buff == NULL || Lenght < 1 ) 
+        if ( Handle <= 0 || Buff == NULL || Lenght < 1 )
         {
                 return NULL;
         }
 
-        while ( Lenght > 1 ) 
+        while ( Lenght > 1 )
         {
                 ret =(Int16)TE_read( Handle, &ch, 1L );
-                
-                if ( ret < 0  )   
+
+                if ( ret < 0  )
                 {
-                        return NULL; 
+                        return NULL;
                 }      /* ERROR */
-                
-                if ( ret == 0 )  
+
+                if ( ret == 0 )
                 {
-                        break; 
+                        break;
                 }            /* EOF   */
-                
+
                 if ( ch == '\r' ) /* JussiP: The data files have Windows line endings. */
                 {
                         TE_read(Handle, &ch, 1L); /* Skip the following \n. */
-                        break; 
+                        break;
                 }            /* EOL   */
-        
+
                 *(ptr++) = ch;
                 Lenght--;
         }
 
         *ptr = 0;
-        
-        if (ptr != Buff) 
+
+        if (ptr != Buff)
                 return Buff;
 
         return NULL;
@@ -436,7 +436,7 @@ void ed_out_write(PWord8 p, Word16 size)
         {
                 memcpy (ED_out_end, p, size);
         }
-        
+
         ED_out_end += size;
 }
 ///////////////////////////////////////////////////////////////////////////////////
@@ -444,7 +444,7 @@ void ed_out_write(PWord8 p, Word16 size)
 void trees_load_rling()
 {
         PWord8 oBOX=NULL;
-        
+
         // exeption
         //////////////////////////////////////////////////////////////////////
         // ãðóçèì òîëüêî ñëîâàðè, ïàìÿòü òîëüêî ïîä íèõ
@@ -467,10 +467,10 @@ void read_rec_file(Int16 fileno, PWord8 pool, PWord8 * end)
 
         if (h==-1)
                 ErrorExit(RLING_ERROR_CANT_OPEN_TABLE);
-        
+
         l=TGREAD(h,pool,0x100000);
         TGCLOSE(h);
-        l=(l+15) & -16; 
+        l=(l+15) & -16;
         *end=pool+l;
 }
 //////////////////////////////////////////////////////////////////////////////////////
@@ -492,7 +492,7 @@ void reload_lang_vocs()
         if (vocs_NOK)
                 box_pool = svbox_pool;
 
-        if ((memory_pool+SizeTables)<box_pool) 
+        if ((memory_pool+SizeTables)<box_pool)
                 ErrorExit(RLING_ERROR_MEMORY_FAULT);
         // Max size for recog tables storing
         box_pool = memory_pool + SizeTables;
@@ -501,7 +501,7 @@ void reload_lang_vocs()
 //      roots_lth = box_n;
 //      roots_lth *= BOXSIZE;
 //      root_file = (PROOT)((PWord8)box_pool + roots_lth);
-        
+
 //      if (memory_pool_end <= (PWord8)root_file)
 //              ErrorExit(9);
 }
@@ -510,7 +510,7 @@ void reload_lang_vocs()
 void    correct_let_tables(void) // ¢ë§ë¢ ¥âáï ¢ ä ©«¥ EMBBOX.C: load_BOX()
 {
         //
-        //  ïîêà íè÷åãî íåò  
+        //  ïîêà íè÷åãî íåò
         //
 }
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -518,6 +518,6 @@ void    correct_let_tables(void) // ¢ë§ë¢ ¥âáï ¢ ä ©«¥ EMBBOX.C: load_BOX()
 void correct_letters_pidx_table(void)
 {
         //
-        //  ïîêà íè÷åãî íåò  
+        //  ïîêà íè÷åãî íåò
         //
 }

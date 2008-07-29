@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -121,12 +121,12 @@ int det0 =1,     //draw step
 	   det18=0,     //межстрочное растояние
 				det19=0,     //отладка ошибок
 				det20=0,     //отладка realese version
-				det21=0,     //отладка realese version 
+				det21=0,     //отладка realese version
 				det22=0,     //отладка realese version--memory
 				det23=1,     //отладка realese version only name file
     dets =0;     //tmp break points
 
-     
+
 
 short FlagGraphic1=0,Graphic1Color=0;
 std::vector <tagRECT>         *pTheGeomStep=NULL;
@@ -169,7 +169,7 @@ extern  Int16 SizeYGlobUpp;
 extern  SUB_ALLOC SubZn;
 extern  Int16 MonoSpaceAllPage;
 extern  Int16 HeiStrAllPage;
-extern  Word32   RtfWriteMode; 
+extern  Word32   RtfWriteMode;
 
 /*
 util     - memory alloc
@@ -317,7 +317,7 @@ int statis(TYPE *arr,int n,TYPE *ave1,TYPE *sig1,TYPE *med,TYPE *mod,int regim)
 */ // !!! Art - устарело
 //==
 void bound_frm(FRAME **frm,int k_frm,BOUND *bnd)
-{ 
+{
 	int ymin=32000,ymax=-32000,xmin=32000,xmax=-32000,i;
 	do0(i,0,k_frm)
 	{
@@ -331,7 +331,7 @@ void bound_frm(FRAME **frm,int k_frm,BOUND *bnd)
 
 //==
 void TestKNOTT1(KNOTT *ptr,LINE_KNOT *LineVK,LINE_KNOT *LineHK,Int16 NumFrm,Int16 NumVK,Int16 NumHK)
-{ 
+{
 	RECT r1=ptr->Rect; KNOTT *up=ptr->up;
 	if(r1.left >= r1.right || r1.top == r1.bottom ||
      r1.left < 0 || r1.left >= NumVK || r1.right < 0 || r1.right >= NumVK ||
@@ -393,24 +393,24 @@ int statis2(TYPE *arr,int n,TYPE *med,TYPE *mod,int SizeWin,int *NumMod)
 	//---Расчет моды,медианы по гистограмме---
 	int medd=-32000; char *err="statis2";
 
-	mi=MinArr(arr,n,&PosExtr); 
+	mi=MinArr(arr,n,&PosExtr);
 	ma=MaxArr(arr,n,&PosExtr);
 	ki=ma-mi; num=ki+SizeWin;
-	if((his=(int*)malloc_m(num*sizeof(int)))==NULL) 
+	if((his=(int*)malloc_m(num*sizeof(int)))==NULL)
 		return NOT_ALLOC;
 	memset(his,0,num*sizeof(int));
 	if(SizeWin == 1) //стандарт.гистограмма
 	{
-		do0(i,0,n) 
+		do0(i,0,n)
 			++his[arr[i]-mi];
 	}
 	else if(SizeWin > 1) //огрубление гистограммы
 	{
 		if(SizeWin > 2)
 			return -1; //!пока!
-		do0(i,0,n) 
+		do0(i,0,n)
 		{
-			++his[arr[i]-mi]; 
+			++his[arr[i]-mi];
 			++his[arr[i]-mi+1];
 		}
 	}
@@ -421,10 +421,10 @@ int statis2(TYPE *arr,int n,TYPE *med,TYPE *mod,int SizeWin,int *NumMod)
 		do0(i,0,ki)
 			if(modd < his[i])
 			{
-				modd=his[i]; 
+				modd=his[i];
 				nmax=i;
 			}
-		*mod=nmax+mi; 
+		*mod=nmax+mi;
 		*NumMod=his[nmax];
 	}
 	if(med)
@@ -434,7 +434,7 @@ int statis2(TYPE *arr,int n,TYPE *med,TYPE *mod,int SizeWin,int *NumMod)
 			{
 				medd=mi+i;
 				break;
-			} 
+			}
 		*med=medd;
 	}
 	free_m(his);
@@ -676,7 +676,7 @@ Int16 CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
 	LINE_KNOT *LineVK,*LineHK;
 	STAT_CELL *StatCell=(STAT_CELL*)malloc_m(sizeof(STAT_CELL));
 	char      *err="CreateTreePlainTxt1";
-	
+
 	CONS_MESS1("===  CreateTreePlainTxt1  === ");
 
 	//LineVK, LineHK - виртуальные либо натуральные линии разграфки,
@@ -696,7 +696,7 @@ Int16 CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
 	LineVK[0].Thick=LineVK[1].Thick=LineHK[0].Thick=LineHK[1].Thick=0;
 	LineVK[0].TypeLine=LineVK[1].TypeLine=LineHK[0].TypeLine=LineHK[1].TypeLine=HIDDEN_LINE;
 	nV=nH=2;
-	
+
 	colt=  (KNOTT**)malloc_m(NumMax*sizeof(PTR));
 	colnt= (KNOTT**)malloc_m(NumMax*sizeof(PTR));
 	colnt1=(KNOTT**)malloc_m(NumMax*sizeof(PTR));
@@ -972,7 +972,7 @@ Int16 CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
 								LineHK[top].beg -10 >= LineHK[bottom].beg)  //LineHK[top].beg >= LineHK[bottom].beg)
 						LDPUMA_Console(" Неправильные координаты фрагмента!!! ");
 
-					
+
 					if(LineVK[left].beg-30 >= LineVK[right].beg ||
 							 LineHK[top].beg -10 >  LineHK[bottom].beg)  //LineHK[top].beg >= LineHK[bottom].beg)
 					{
@@ -985,10 +985,10 @@ Int16 CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
 					FillFieldKNOTT1(Child,left,right,top,bottom,
 						InBegFrm,NumF,IN_NO,UNSORT,CELL,TRUE,ALG_BEG,ALG_BEG,NULL);
 					if(fl)
-					{ 
+					{
 						if(++k_colnt1 >= NumMax)
-						{ 
-							Int16 old=NumMax; 
+						{
+							Int16 old=NumMax;
 							NumMax=(Int16)(NumMax*1.5);
 							if(Realloc2(&colt,&colnt,&colnt1,&begI,&endI,&intr,old,NumMax) == NOT_ALLOC)
 		                	{
@@ -1008,7 +1008,7 @@ Int16 CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
 				CONS_MESS1("Обнаружена терминал. колонка");
 				CONS_MESS1("beg------------------2.1");
 				if(++k_colt >= NumMax)
-				{ 
+				{
 					Int16 old=NumMax;
 					NumMax=(Int16)(NumMax*1.5);
 					if(Realloc2(&colt,&colnt,&colnt1,&begI,&endI,&intr,old,NumMax)
@@ -1116,10 +1116,10 @@ Int16 AddLine1(LINE_KNOT **Line1,Int16 *nCurr,Int16 *nMax,Int16 Coor,Int16 Thres
 
 	n=*nCurr;//Add new Line
 	if(n >= *nMax) //обработка переполнение массива линий
-	{ 
+	{
 		*nMax=(Int16)(*nMax*1.5);
 		if((Line=(LINE_KNOT*)realloc_m(Line,n*sizeof(LINE_KNOT),*nMax*sizeof(LINE_KNOT))
-		)==NULL) 
+		)==NULL)
 			return NOT_ALLOC;
 		*Line1=Line;
 	}
@@ -1152,9 +1152,9 @@ Int16 SearchColHist1(HFRAME **frm,Int16 k_frm,BOUND *bnd,Int16 ave_x,Int16 ave_y
 	int k_bloc;
 	Int16 *intr=*intr1;
 	KNOT4 *Free,**knot,**beg=(KNOT4**)malloc_m(*NumMax*sizeof(PTR)),*ptr;
-	
+
 	CONS_MESS3("===beg    SearchColHist1   ===");
-	
+
 	if(reg==HOR)
 	{
 		ave_dir=ave_x;ave_ort=ave_y;
@@ -1170,31 +1170,31 @@ Int16 SearchColHist1(HFRAME **frm,Int16 k_frm,BOUND *bnd,Int16 ave_x,Int16 ave_y
       <= 0)
 	{
 		CONS_MESS3("!!!!! SearchInterval1 return<0");
-		free_m(beg); 
+		free_m(beg);
 		return fl;
 	}
 	if(MaxOld != *NumMax)
-	{ 
+	{
 		if((intr=(Int16*)realloc_m(intr,MaxOld*sizeof(Int16),*NumMax*sizeof(Int16)))==NULL ||
 		(beg=(KNOT4**)realloc_m(beg,MaxOld*sizeof(PTR),*NumMax*sizeof(PTR)))==NULL)
 			return NOT_ALLOC;
 	}
 	kcol=*k_int+1;
 	CONS_MESS3("kcol=%d",kcol);
-	
+
 	do0(i,0,kcol) beg[i]=NULL;
-	
+
 	for(i=0; i < kcol; ++i) intr[i]=((*begI)[i]+(*endI)[i])>>1;
-	
+
 	k_bloc=-1;
-	
+
 	if((fl=init_lst((KNOT***)&knot,&k_bloc,k_frm+2,(KNOT**)&Free,
       sizeof(KNOT4)))!=0)
 		return -fl-50;
 
 	CONS_MESS3("k_frm=%d",k_frm);
 	do0(i,0,k_frm) /*занесение рамок в списки колонок*/
-	{ 
+	{
 		x=(reg==HOR) ? frm[i]->left: frm[i]->up;
 		if(kcol < 2)
 			in=(x < intr[0]) ? 0 : 1;
@@ -1206,7 +1206,7 @@ Int16 SearchColHist1(HFRAME **frm,Int16 k_frm,BOUND *bnd,Int16 ave_x,Int16 ave_y
 	kf=-1;
 	ki=-1;
 	do0(i,0,kcol)
-	{ 
+	{
 		ptr=beg[i];
 		if(ptr==NULL)
 			continue;
@@ -1265,12 +1265,12 @@ Int16 SearchInterval1(FRAME **frm,Int16 k_frm,Int16 **beg1,Int16 **end1,
 	minh   =1;//Мин.допустимая высота гистограммы в колонке-критерий обнаруж.начала колонки
             //после настоящего интервала и с левого края листа
 
-	if(reg==HOR) 
+	if(reg==HOR)
 		min_int=5;/*ave_dir * 1.5*/;  //~~~
 
 	CONS_MESS2("=== begin SearchInterval1===");
 	CONS_MESS2("min_int= %d",min_int);
-	
+
 	if(reg==HOR)
 	{
 		Home=bnd->left; Fin=bnd->right;
@@ -1296,7 +1296,7 @@ Int16 SearchInterval1(FRAME **frm,Int16 k_frm,Int16 **beg1,Int16 **end1,
 
 	if(reg==VER)
 	{
-		if(len_group<0) 
+		if(len_group<0)
 		{
    			CONS_MESS21("begin len_group=%d ",len_group);
 			len_group=0;
@@ -1329,14 +1329,14 @@ Int16 SearchInterval1(FRAME **frm,Int16 k_frm,Int16 **beg1,Int16 **end1,
 	#endif
 
 		if(reg==HOR)
-		{ 
+		{
 			mi=frm[i]->left-Home; ma=frm[i]->right-Home;
 		    CONS_MESS2("reg==HOR: frm[i]->left=%d,frm[i]->right=%d, mi=%d, ma=%d",
 			                     frm[i]->left,frm[i]->right,mi,ma);
 		}
 		else
-		{ 
-			mi=frm[i]->up-Home;   
+		{
+			mi=frm[i]->up-Home;
 			ma=frm[i]->down-Home;
 		    CONS_MESS2("reg==VER: frm[i]->up=%d,frm[i]->down=%d,mi=%d,ma=%d",
 			                     frm[i]->up,frm[i]->down,mi,ma);
@@ -1399,10 +1399,10 @@ Int16 SearchInterval1(FRAME **frm,Int16 k_frm,Int16 **beg1,Int16 **end1,
 		ave_h=sumh/(pos-beg_int+1);
 		CONS_MESS2("ave_h=%d",ave_h);
 		if(ave_h <= midh)/*интервал найден, ищем его конец*/
-		{ 
+		{
 			while((Int16)his[++pos] <= maxh)
-			{ 
-				sumh+=his[pos]; 
+			{
+				sumh+=his[pos];
 				ave_h=sumh/(pos-beg_int+1);
 				if(ave_h > midh || pos >= len-min_col)
 					break; /*Обнаружен конец интервала*/
@@ -1427,8 +1427,8 @@ Int16 SearchInterval1(FRAME **frm,Int16 k_frm,Int16 **beg1,Int16 **end1,
 		#endif
 
 			if(pos < len-min_col) //не тривиальный интервал - т.е. еще не правая граница
-			{ 
-				Beg[++k_int]=beg_int+Home; 
+			{
+				Beg[++k_int]=beg_int+Home;
 				End[k_int]=end_int+Home;
         //Фиксируем интервал лишь в случае достаточной длины колонки
 				if((k_int > 0 && Beg[k_int] - End[k_int-1] < min_col) ||
@@ -1440,7 +1440,7 @@ Int16 SearchInterval1(FRAME **frm,Int16 k_frm,Int16 **beg1,Int16 **end1,
 				}
 				last_real_line=end_int;
 				if(k_int > *NumMax-2)
-				{ 
+				{
 					Int16 MaxOld=*NumMax;
 					*NumMax=(Int16)(*NumMax*1.5);
 					if((Beg=(Int16*)realloc_m(Beg,MaxOld*sizeof(Int16),*NumMax*sizeof(Int16)))==NULL ||
@@ -1813,7 +1813,7 @@ Int16 CalcNumDau(KNOTT *Knot)
 //         Секторы на горизантальные колонки
 //         Горизантальные колонки на вертикальные колонки
 //         Определение терминальности вертикальных колонок
-//  Запольнение RtfPage.        
+//  Запольнение RtfPage.
 BOOL PageTree( char* InFileName, CRtfPage* RtfPage, char* OutFileName)
 {
 	Int16  nc,ns,nw,nz,fl,i,i_ns1,i_nsb,i_nse,j,ih,iv,iv1,kp,kp1,kp2,
@@ -1825,7 +1825,7 @@ BOOL PageTree( char* InFileName, CRtfPage* RtfPage, char* OutFileName)
 	COLH   **ColH,**ColH_New;
 	INF_TREE Inf;
 	FRAME **frm;
-	BOOL  FlagBadBad = FALSE; 
+	BOOL  FlagBadBad = FALSE;
 	KNOTT *RootUdal=NULL;
 
 
@@ -1843,7 +1843,7 @@ BOOL PageTree( char* InFileName, CRtfPage* RtfPage, char* OutFileName)
 	RootUdal=pRoot;
 
 	ArrFrm  = NULL;
-	frm     = NULL; 
+	frm     = NULL;
 	K_Hor=NULL;
 	K_Ver=NULL;
 	K_Ver_Flag_Term=NULL;
@@ -1852,7 +1852,7 @@ BOOL PageTree( char* InFileName, CRtfPage* RtfPage, char* OutFileName)
 	Colt=NULL;
 	ColH=NULL;
 	ColH_New=NULL;
-		
+
 	CONS_MESS23("Begin FileName=%s ",OutFileName);
 	#ifdef alDebug
 		FlagGraphic1=0;
@@ -1872,10 +1872,10 @@ BOOL PageTree( char* InFileName, CRtfPage* RtfPage, char* OutFileName)
 	{
 #ifdef alDebug
 		free_m((KNOT**)Inf.Tree.Root);
-  		if(det20 || det23)	
-		{	ConsMess("Formatter End "); 
+  		if(det20 || det23)
+		{	ConsMess("Formatter End ");
 			if(RtfWriteMode)
- 			ConsMess("*************************************************************"); 
+ 			ConsMess("*************************************************************");
 		}
 #endif
 		return TRUE;
@@ -1900,7 +1900,7 @@ BOOL PageTree( char* InFileName, CRtfPage* RtfPage, char* OutFileName)
 	}
 	CONS_MESS22("GenerateTreeByFragm ");
 	 //---объединяем результаты распознавания текстовых фрагментов в колонки---
-	if( Inf.NumT ) 
+	if( Inf.NumT )
 		FlagOdinSectorOdnaColonka=FALSE;
 	for(i=0; i <= Inf.NumT; ++i)
 	{
@@ -1951,7 +1951,7 @@ BOOL PageTree( char* InFileName, CRtfPage* RtfPage, char* OutFileName)
    //многофрагментная колонка => объединяем строки фрагментов
 		if( num>1 && (Inf.ColT[i]->Type  || ( FlagOdinSectorOdnaColonka && !Inf.NumT ) ))
 		{
-			TotalNumStr=0;		 
+			TotalNumStr=0;
 			m=0;
 			RectFragm[inCol].left=Inf.bnd_col[i].left;
 			RectFragm[inCol].right=Inf.bnd_col[i].right;
@@ -1971,14 +1971,14 @@ BOOL PageTree( char* InFileName, CRtfPage* RtfPage, char* OutFileName)
 			tS=(TITLE_STR*  )Submalloc(TotalNumStr*sizeof(TITLE_STR),&SubZn);
 			tW=(TITLE_WORD**)Submalloc(TotalNumStr*sizeof(PTR),&SubZn);
 			Z =(ZN***)       Submalloc(TotalNumStr*sizeof(PTR),&SubZn);
-			if(!tS || !tW || !Z)	
+			if(!tS || !tW || !Z)
 				return NOT_ALLOC;
 
 			for(j=0; j<num; ++j)
 			{
 				nc = (Int16)frm[n_beg+j]->start_pos;  //прибавить строки колонки nc к inCol
-				if(j) 
-					TitleStr[nc][0].S_Attr=1; 
+				if(j)
+					TitleStr[nc][0].S_Attr=1;
 			#ifdef alDebug
 				if(dets && det6) ConsMess("nc=%d ",NumCol-nc);
 			#endif
@@ -1992,7 +1992,7 @@ BOOL PageTree( char* InFileName, CRtfPage* RtfPage, char* OutFileName)
 				NumStr[nc]=-1; //для неосвобождения повторно их памяти или уплотнени
 			}
 
-			if(FlagOdinSectorOdnaColonka) 
+			if(FlagOdinSectorOdnaColonka)
 				inCol=0;
 			TitleStr[inCol]  = tS;
 			TitleWord[inCol] = tW;
@@ -2009,11 +2009,11 @@ BOOL PageTree( char* InFileName, CRtfPage* RtfPage, char* OutFileName)
 	Inf.k_str=NumStr;
 
 	 //---Заполнение структуры колонок K_Sect,K_Hor,K_Ver,Colt,ColH---***********************
-	k_lev=MaxLev-1;  
+	k_lev=MaxLev-1;
 	--NumCol;
-	if(FlagOdinSectorOdnaColonka) 
+	if(FlagOdinSectorOdnaColonka)
 	{
-		OldNumCol=NumCol;  
+		OldNumCol=NumCol;
 		NumCol=0;
 	}
 
@@ -2055,7 +2055,7 @@ BOOL PageTree( char* InFileName, CRtfPage* RtfPage, char* OutFileName)
 				{
 					if(ptr->NumFrm>1 && !ptr->Type)
 					{
-						K_Ver[0][ih]=ptr->NumFrm-1; 
+						K_Ver[0][ih]=ptr->NumFrm-1;
 						K_Ver_Flag_Term[0][ih]=2;
 					}
 					else
@@ -2156,15 +2156,15 @@ BOOL PageTree( char* InFileName, CRtfPage* RtfPage, char* OutFileName)
 					if(K_Ver[i]==NULL||K_Ver_Flag_Term[i]==NULL||Colt[i]==NULL)
      					return NOT_ALLOC;
 
-					if(ptr->NumFrm>1 && !ptr->Type)				
-					{	
-						K_Ver[i][0]=ptr->NumFrm-1; 
-						K_Ver_Flag_Term[i][0]=2;	
+					if(ptr->NumFrm>1 && !ptr->Type)
+					{
+						K_Ver[i][0]=ptr->NumFrm-1;
+						K_Ver_Flag_Term[i][0]=2;
 					}
-					else	                         				 
-					{ 
-						K_Ver[i][0]=0;             
-						K_Ver_Flag_Term[i][0]=0; 
+					else
+					{
+						K_Ver[i][0]=0;
+						K_Ver_Flag_Term[i][0]=0;
 					}
 
 					if((Colt[i][0]=(Int16*)malloc_m((K_Ver[i][0]+1)*sizeof(Int16)))==NULL)
@@ -2208,12 +2208,12 @@ BOOL PageTree( char* InFileName, CRtfPage* RtfPage, char* OutFileName)
 						{
 							if(ptr1->NumFrm>1 && !ptr1->Type)
 							{
-								K_Ver[i][ih]=ptr1->NumFrm-1; 
+								K_Ver[i][ih]=ptr1->NumFrm-1;
 								K_Ver_Flag_Term[i][ih]=2;
 							}
 							else
 							{
-								K_Ver[i][ih]=0;              
+								K_Ver[i][ih]=0;
 								K_Ver_Flag_Term[i][ih]=0;
 							}
 
@@ -2272,7 +2272,7 @@ BOOL PageTree( char* InFileName, CRtfPage* RtfPage, char* OutFileName)
 									}
 									else
 									{
-										if(!K_Ver_Flag_Term[i][ih]) 
+										if(!K_Ver_Flag_Term[i][ih])
 											K_Ver_Flag_Term[i][ih]=1;
 										Colt[i][ih][iv]=ptr2->InBegFrm;
 										CONS_MESS4(" #term=%d",NumCol+1-Colt[i][ih][iv]);
@@ -2359,9 +2359,9 @@ BadReturn:
 	do0(i,0,K_Sect)
 	{
 		do0(ih,0,K_Hor[i])
-		{ 
+		{
 			do0(iv,0,K_Ver[i][ih])
-			{ 
+			{
 				nc=Colt[i][ih][iv];
  				RectFragm[nc].left   = (Int16)(RectFragm[nc].left   * Twips);
 	 			RectFragm[nc].right  = (Int16)(RectFragm[nc].right  * Twips);
@@ -2374,14 +2374,14 @@ BadReturn:
 
 //////////////////////////////////////////////////////////////////////////////////////////
 //  Создание массива укрупненных колонок Colh--*****************************************//
-//  преобр-ние из 3-уровневой в 2-уровневую систему колонок  (ideal size)               // 
+//  преобр-ние из 3-уровневой в 2-уровневую систему колонок  (ideal size)               //
 //////////////////////////////////////////////////////////////////////////////////////////
 	if((ColH=(COLH**)malloc_m((K_Sect+1)*sizeof(COLH*)))==NULL)
 		return -3;
 
 	K_Ver_Add_On = (Int16**)malloc_m((K_Sect+1)*sizeof(Int16*));
 	K_Ver_Offset = (Int16**)malloc_m((K_Sect+1)*sizeof(Int16*));
-	if(K_Ver_Add_On==NULL||K_Ver_Offset==NULL)	
+	if(K_Ver_Add_On==NULL||K_Ver_Offset==NULL)
 		return NOT_ALLOC;
 
 	do0(i,0,K_Sect)
@@ -2390,17 +2390,17 @@ BadReturn:
 		if((ColH[i]=(COLH*)malloc_m((K_Hor[i]+1)*sizeof(COLH)))==NULL)return -3;
 		K_Ver_Add_On[i]=(Int16*)malloc_m((K_Hor[i]+1)*sizeof(Int16));
 		K_Ver_Offset[i]=(Int16*)malloc_m((K_Hor[i]+1)*sizeof(Int16));
-		if(K_Ver_Add_On[i]==NULL||K_Ver_Offset[i]==NULL)	
+		if(K_Ver_Add_On[i]==NULL||K_Ver_Offset[i]==NULL)
 			return NOT_ALLOC;
 
 		do0(ih,0,K_Hor[i])
-		{ 
+		{
 			K_Ver_Add_On[i][ih]=0;
 			K_Ver_Offset[i][ih]=0;
 			if(K_Ver_Flag_Term[i][ih]>=2)
 				flag_vse_term=0;
 			do0(iv,0,K_Ver[i][ih])
-			{ 
+			{
 				nc=Colt[i][ih][iv];
 				if(!iv)
 					ConvertRect16ToBnd(&RectFragm[nc],&bnd); //!! или берем по линиям с выравниванием
@@ -2410,14 +2410,14 @@ BadReturn:
 					MyUnionRect(&bnd,&BndTmp,&bnd);
 				}
 			}
-			ColH[i][ih].bnd.left   = bnd.left;  
+			ColH[i][ih].bnd.left   = bnd.left;
 			ColH[i][ih].bnd.right  = bnd.right;
 			ColH[i][ih].bnd.top    = bnd.top;
 			ColH[i][ih].bnd.bottom = bnd.bottom;
 		}
 	}
 
-	CONS_MESS20("Подсчет реалных размеров кеглей "); 
+	CONS_MESS20("Подсчет реалных размеров кеглей ");
 /////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                     //
 //                  Подсчет реалных размеров кеглей                                    //
@@ -2436,26 +2436,26 @@ BadReturn:
 				RtfPage->m_arFragments.push_back( new CRtfFragment() );
 				RtfPage->Count.RtfTextFragments++;
 				j = RtfPage->m_arFragments.size();
-				pRtfFragment = RtfPage->m_arFragments[j-1]; 
+				pRtfFragment = RtfPage->m_arFragments[j-1];
 				pRtfFragment->m_wStringsCount = NumStr[nc]+1;
 				pRtfFragment->m_wType         = FT_TEXT;
-				pRtfFragment->m_rect.left     = RectFragm[nc].left;				
-				pRtfFragment->m_rect.right    = RectFragm[nc].right;				
-				pRtfFragment->m_rect.top      = RectFragm[nc].top;				
-				pRtfFragment->m_rect.bottom   = RectFragm[nc].bottom;	
+				pRtfFragment->m_rect.left     = RectFragm[nc].left;
+				pRtfFragment->m_rect.right    = RectFragm[nc].right;
+				pRtfFragment->m_rect.top      = RectFragm[nc].top;
+				pRtfFragment->m_rect.bottom   = RectFragm[nc].bottom;
 				pRtfFragment->m_Flag          = FragFlag [nc]; //nega_str сделать цикл и занести в массив RtfString признаки негативности
-   
+
 				do0(ns,0,NumStr[nc])
 				{	//str. begin
 					if(TitleStr[nc][ns].S_Gen.S_NumWord<=0)
 						continue;
 					pRtfFragment->m_arStrings.push_back( new CRtfString() );
 
-					pRtfString=pRtfFragment->m_arStrings[ns]; 
+					pRtfString=pRtfFragment->m_arStrings[ns];
 					pRtfString->m_wWordsCount = TitleStr[nc][ns].S_Gen.S_NumWord;//nega_str добавить m_Flag в RtfString и занести туда признак NEGATIVE
 					pRtfString->S_Flags       = TitleStr[nc][ns].S_Flags; //NEGA_STR
 
-					do0(nw,0,TitleStr[nc][ns].S_Gen.S_NumWord-1)           
+					do0(nw,0,TitleStr[nc][ns].S_Gen.S_NumWord-1)
 					{//word begin
 						if(TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0)
 						{
@@ -2464,17 +2464,17 @@ BadReturn:
 						}
 						pRtfString->m_arWords.push_back( new CRtfWord() );
 						index_word = pRtfString->m_arWords.size();
-						pRtfWord=pRtfString->m_arWords[index_word-1]; 
+						pRtfWord=pRtfString->m_arWords[index_word-1];
 						pRtfWord->m_wCharsCount = TitleWord[nc][ns][nw].W_Gen.W_NumSym;
 						pRtfWord->m_wIdealFontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
-						pRtfWord->m_wFontNumber         = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber; 
-								
-						do0(nz,0,TitleWord[nc][ns][nw].W_Gen.W_NumSym-1)      
+						pRtfWord->m_wFontNumber         = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
+
+						do0(nz,0,TitleWord[nc][ns][nw].W_Gen.W_NumSym-1)
 						{	//char begin
 							pRtfWord->m_arChars.push_back( new CRtfChar() );
-							pRtfChar=pRtfWord->m_arChars[nz]; 
-						
-						 
+							pRtfChar=pRtfWord->m_arChars[nz];
+
+
 							pRtfChar->m_wCountAlt=MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt,REC_MAX_VERS);
 							for (int alt=0;alt<Zn[nc][ns][nw][nz].Title.Z_Num_Alt&&alt<REC_MAX_VERS;alt++)
 							{
@@ -2490,8 +2490,8 @@ BadReturn:
 
 							RtfAssignRect_CRect_SRect( &pRtfChar->m_Realrect,  &Zn[nc][ns][nw][nz].Title.Z_RealRect );
 							RtfAssignRect_CRect_SRect( &pRtfChar->m_Idealrect, &Zn[nc][ns][nw][nz].Title.Z_Rect );
-						}//char end																																															
-					}//word end                                                      
+						}//char end
+					}//word end
 				}//str end
 			}//vert.end
 		}//hor.end
@@ -2530,15 +2530,15 @@ BadReturn:
 		do0(ih,0,K_Hor[i])
 		{//hor. col.  begin
 			pRtfSector->m_arHorizontalColumns.push_back( new CRtfHorizontalColumn() );
-			pRtfHorizontalColumn	= pRtfSector->m_arHorizontalColumns[ih]; 
+			pRtfHorizontalColumn	= pRtfSector->m_arHorizontalColumns[ih];
 
-			RtfUnionRect_CRect_SRect(&pRtfHorizontalColumn->m_rectReal, &ColH_New[i][ih].bnd);   
-			RtfUnionRect_CRect_CRect(&pRtfSector->m_rectReal, &pRtfHorizontalColumn->m_rectReal);   
-			RtfUnionRect_CRect_CRect(&RtfPage->m_rectReal, &pRtfSector->m_rectReal);   
+			RtfUnionRect_CRect_SRect(&pRtfHorizontalColumn->m_rectReal, &ColH_New[i][ih].bnd);
+			RtfUnionRect_CRect_CRect(&pRtfSector->m_rectReal, &pRtfHorizontalColumn->m_rectReal);
+			RtfUnionRect_CRect_CRect(&RtfPage->m_rectReal, &pRtfSector->m_rectReal);
 
-			RtfUnionRect_CRect_SRect(&pRtfHorizontalColumn->m_rect, &ColH[i][ih].bnd);   
-			RtfUnionRect_CRect_CRect(&pRtfSector->m_rect, &pRtfHorizontalColumn->m_rect);   
-			RtfUnionRect_CRect_CRect(&RtfPage->m_rect, &pRtfSector->m_rect);   
+			RtfUnionRect_CRect_SRect(&pRtfHorizontalColumn->m_rect, &ColH[i][ih].bnd);
+			RtfUnionRect_CRect_CRect(&pRtfSector->m_rect, &pRtfHorizontalColumn->m_rect);
+			RtfUnionRect_CRect_CRect(&RtfPage->m_rect, &pRtfSector->m_rect);
 
 			pRtfHorizontalColumn->m_wVerticalColumnsCount	= K_Ver[i][ih];
 			pRtfHorizontalColumn->m_wType 	= K_Ver_Flag_Term[i][ih];
@@ -2551,9 +2551,9 @@ BadReturn:
 
 				if( K_Hor[i]==0 && K_Ver[i][ih]==0 && NumStr[nc]==0 )
 					pRtfSector->m_FlagOneString = TRUE;
-				
+
 				pRtfHorizontalColumn->m_arVerticalColumns.push_back( new CRtfVerticalColumn() );
-				pRtfVerticalColumn	= pRtfHorizontalColumn->m_arVerticalColumns[iv]; 
+				pRtfVerticalColumn	= pRtfHorizontalColumn->m_arVerticalColumns[iv];
 
 				pRtfVerticalColumn->m_wFragmentsCount = 1;
 				pRtfVerticalColumn->m_arFragments.push_back( new CRtfFragment() );
@@ -2567,27 +2567,27 @@ BadReturn:
 
 				pRtfFragment->m_wStringsCount = NumStr[nc]+1;
 				pRtfFragment->m_Flag          = FragFlag[nc]; //nega
- 
-				do0(ns,0,NumStr[nc])                             
+
+				do0(ns,0,NumStr[nc])
 				{	//str. begin
 					if(TitleStr[nc][ns].S_Gen.S_NumWord<=0)
 						continue;
 
 					pRtfFragment->m_arStrings.push_back( new CRtfString() );
-					pRtfString=pRtfFragment->m_arStrings[ns]; 
-     
-					if(TitleStr[nc][ns].S_Attr) 
+					pRtfString=pRtfFragment->m_arStrings[ns];
+
+					if(TitleStr[nc][ns].S_Attr)
 					{
-						pRtfFragment->m_Attr=1; 
+						pRtfFragment->m_Attr=1;
 						pRtfString->m_Attr=TRUE;
-					}    
-					else   
+					}
+					else
 						pRtfString->m_Attr=FALSE;
 
 					pRtfString->m_wWordsCount = TitleStr[nc][ns].S_Gen.S_NumWord;
 					pRtfString->S_Flags       = TitleStr[nc][ns].S_Flags; //NEGA_STR
 
-					do0(nw,0,TitleStr[nc][ns].S_Gen.S_NumWord-1)           
+					do0(nw,0,TitleStr[nc][ns].S_Gen.S_NumWord-1)
 					{	//word begin
 						if(TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0)
 						{
@@ -2596,7 +2596,7 @@ BadReturn:
 						}
 						pRtfString->m_arWords.push_back( new CRtfWord() );
 						index_word = pRtfString->m_arWords.size();
-						pRtfWord=pRtfString->m_arWords[index_word-1]; 
+						pRtfWord=pRtfString->m_arWords[index_word-1];
 
 						pRtfWord->m_wCharsCount        = TitleWord[nc][ns][nw].W_Gen.W_NumSym;
 						pRtfWord->m_wFontNumber        = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
@@ -2607,12 +2607,12 @@ BadReturn:
 						else
 							pRtfWord->m_wRealFontPointSize = RtfPage->GetNewKegl(pRtfWord->m_wIdealFontPointSize);
 
-						do0(nz,0,TitleWord[nc][ns][nw].W_Gen.W_NumSym-1)      
+						do0(nz,0,TitleWord[nc][ns][nw].W_Gen.W_NumSym-1)
 						{
 							pRtfWord->m_arChars.push_back( new CRtfChar() );
-							pRtfChar=pRtfWord->m_arChars[nz]; 
+							pRtfChar=pRtfWord->m_arChars[nz];
 
-					
+
 							pRtfChar->m_wCountAlt=MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt,REC_MAX_VERS);
 							for (int alt=0;alt<Zn[nc][ns][nw][nz].Title.Z_Num_Alt&&alt<REC_MAX_VERS;alt++)
 							{
@@ -2628,18 +2628,18 @@ BadReturn:
 
 							RtfAssignRect_CRect_SRect( &pRtfChar->m_Realrect,  &Zn[nc][ns][nw][nz].Title.Z_RealRect );
 							RtfAssignRect_CRect_SRect( &pRtfChar->m_Idealrect, &Zn[nc][ns][nw][nz].Title.Z_Rect );
-						}																																															
-					}//word end                                                      
+						}
+					}//word end
 				}//str end
 			}//vert.end
 		}//hor.end
 	}//sec.end
 
 #ifdef alDebug
-	if(det20 || det23)	
-	{ ConsMess("Formatter End "); 
+	if(det20 || det23)
+	{ ConsMess("Formatter End ");
 	  if(RtfWriteMode)
-	  ConsMess("*************************************************************"); 
+	  ConsMess("*************************************************************");
 	}
 #endif
 	do0(i,0,K_Sect)
@@ -2665,14 +2665,14 @@ BadReturn:
 	if(ColH_New)		       free_m(ColH_New);
 	if(RootUdal)	        free_m((KNOT**)RootUdal);
 	if(ArrFrm)    	      free_m(ArrFrm);
-	if(frm)              free_m(frm);    
+	if(frm)              free_m(frm);
 
-	if(FlagOdinSectorOdnaColonka) 
+	if(FlagOdinSectorOdnaColonka)
 	{
 		Int16 tmpNumCol;
 		tmpNumCol = NumCol;
 		NumCol    = OldNumCol;
-		if(NumStr)           
+		if(NumStr)
 			FreeStructFull();
 		NumCol    = tmpNumCol;
 	}
@@ -2692,7 +2692,7 @@ BadReturn:
 
 	if(FlagBadBad)
 		return TRUE;
-	
+
 	free_m((KNOT**)Inf.Tree.Root);
 	free_m((KNOT**)Inf.Tree.ArrSeg);
 	free_m((KNOT**)Inf.LineVK);
@@ -2820,7 +2820,7 @@ void RtfUnionRect_CRect_CRect(tagRECT *s1,tagRECT *s2)
 
 void	RtfCalcRectSizeInTwips(tagRECT *s1, float Twips)
 {
- s1->left   = (Int32)(s1->left   * Twips);  
+ s1->left   = (Int32)(s1->left   * Twips);
  s1->right  = (Int32)(s1->right  * Twips);
  s1->top    = (Int32)(s1->top    * Twips);
  s1->bottom = (Int32)(s1->bottom * Twips);

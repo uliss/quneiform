@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -77,7 +77,7 @@ INT recogij(cell *C, cell **org_cells, INT N, BYTE cut_fl,
 extern BYTE mwInput[];
 extern B_LINES my_bases;
 
-#define LINE_WIDTH 8000            //line length in pixels   
+#define LINE_WIDTH 8000            //line length in pixels
 #define LINE_HEIGHT RASTER_HEIGHT
 #define MAXINT16 0x7FFF
 #define MAXWORD32 0xFFFFFFFF
@@ -88,7 +88,7 @@ extern B_LINES my_bases;
 
 #define debug_on ( db_status && snap_activity('a') )
 
-//cut point - graph node in dynamic matching 
+//cut point - graph node in dynamic matching
 typedef struct tagCutPoint
 {
   WORD    x;  //position
@@ -174,8 +174,8 @@ static struct
 {
   BYTE d[4];
   BYTE m[3];
-  BYTE u[4]; 
-  BYTE z[3]; 
+  BYTE u[4];
+  BYTE z[3];
   BYTE a[3];
   BYTE e2[3];
   BYTE E2[3];
@@ -183,12 +183,12 @@ static struct
 } eq_list=
 {
   {(BYTE)'¤',r_cu_d,r_cu_g,0},    //   r_cu_d  0xf0     cursiv d tail up
-                                  //   r_cu_g  0xf1     cursiv d tail down    
-  {(BYTE)'в',r_cu_m,0},           //   r_cu_m  0xf5     cursiv t              
-  {(BYTE)'Ё',(BYTE)'©',r_cu_u,0}, //   r_cu_u  0xf7     cursiv ee           
-  {(BYTE)'Ј',r_cu_z,0},           //   r_cu_z  0xf8     cursiv g              
-  {(BYTE)' ',r_cu_a,0},           //   r_cu_a  0xfd     a                                 
-  {(BYTE)'с',r_e_2dot,0},         //   r_e_2dot   0xC0  russian e ..  = 192                                          
+                                  //   r_cu_g  0xf1     cursiv d tail down
+  {(BYTE)'в',r_cu_m,0},           //   r_cu_m  0xf5     cursiv t
+  {(BYTE)'Ё',(BYTE)'©',r_cu_u,0}, //   r_cu_u  0xf7     cursiv ee
+  {(BYTE)'Ј',r_cu_z,0},           //   r_cu_z  0xf8     cursiv g
+  {(BYTE)' ',r_cu_a,0},           //   r_cu_a  0xfd     a
+  {(BYTE)'с',r_e_2dot,0},         //   r_e_2dot   0xC0  russian e ..  = 192
   {(BYTE)'р',r_EE_2dot,0},        //   r_EE_2dot  0xC8  russian E ..  = 200
   {(BYTE)'€',(BYTE)'‰',0}
 };
@@ -214,7 +214,7 @@ CHAR eq_let[256]=
   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,   // 7
   -1, -1, -1, -1, -1,
                      EQU_E2,
-                          -1, -1, 
+                          -1, -1,
                                 EQU_ii,
                                      EQU_ii,
                                           -1, -1, -1, -1, -1, -1,   // 8
@@ -248,8 +248,8 @@ CHAR eq_let[256]=
                                                      EQU_a,
                                                           -1, -1    // F
   };
-/*                                    
-//stubs                                
+/*
+//stubs
 
 static void  CBS_Init() {}
 static void  CBS_Calc() {}
@@ -260,16 +260,16 @@ static void StrRec(BYTE *alphabet, LONG mode) {}
 
 LONG match_word(CSTR_rast wb, CSTR_rast we, BYTE *word, MatchWordPar *param)
 //match word to line fragment from wb to we (not include)
-//returns weight ( < 0, if error occur 
+//returns weight ( < 0, if error occur
 {
   set_param(param);
   alphabet=make_alphabet(word);
   if (*alphabet==0)
     return -1;
-  
+
   if (!make_cell_string(wb,we))
     return -1;
-  
+
   if (!param->bases)
   {
     CBS_Init(); // init base lines
@@ -337,7 +337,7 @@ Weight      w;
 MatchWordPar param={0};
 int rc;
 
-param.monitors=*((DWORD*)points);   
+param.monitors=*((DWORD*)points);
 param.p2_active=1;  //call while p2 pass
 param.language=3;	// LANG_RUSSIAN
 
@@ -419,7 +419,7 @@ static BYTE *make_alphabet(BYTE *word)
 {
   static BYTE alphabet[257];
   BYTE *a=alphabet,*w;
-  
+
   *a=0;
   do
   {
@@ -452,7 +452,7 @@ static void make_alphabet(BYTE *word)
     if (add<0)
       alpha[*w]=1;
     else
-      for (l=&eq_list.d[add]; *l; l++)  
+      for (l=&eq_list.d[add]; *l; l++)
 		  alpha[*l]=1;
   }
 }
@@ -553,7 +553,7 @@ static BOOL calc_cut_points(cell *wb, cell *we, INT rastlc, INT rastdr)
   vers_list[0]=&vers_pool.pool[0];
 
   cur_layer=layer1;  prev_layer=layer2;  nodei=prev_layer+1;
-  
+
   ncut=1;     //®ЎйҐҐ зЁб«® бҐзҐ­Ё©
 
 /* dust-секция формируется, если:
@@ -774,7 +774,7 @@ static INT cut_by_alpha(INT n, version vers[])
 
   if (n==0)
     return 0;
-  for (i=0; i<n; i++,vo++)   
+  for (i=0; i<n; i++,vo++)
     if (alpha[vo->let])
       *vn++=*vo;
   *vn=*vo;                 //terminating zero
@@ -790,7 +790,7 @@ static Weight match(BYTE *word)
   GraphNode *nodei;
 
   templ=word;
-  
+
 //first step - cutout possible dirt in the begin (width up to PS)
   for (i=0,nodei=prev_layer; i<ncut; i++,nodei++)
   {
@@ -799,7 +799,7 @@ static Weight match(BYTE *word)
     nodei->monitors=0;
   }
 
-//main loop 
+//main loop
   for (l=0; templ[l] && l<256; l++)
   {
     GraphNode *layer=prev_layer;
@@ -835,7 +835,7 @@ static Weight match(BYTE *word)
         if (ir>ire)  i0=il--;
         else
         if (x-cut_list[il].x < cut_list[ir].x-x)  i0=il--;
-        else                                      i0=ir++;                              
+        else                                      i0=ir++;
         if (test_set(i0,curh,(BYTE)l,RELY,rerecog,&imax,&pmax))  break;
       }
     }
@@ -1045,7 +1045,7 @@ static LONG add_sect(LONG il, LONG ir, BYTE nlet, BOOL rerecog, BYTE *p)
     left_let=lc->vers[0].let;
     lc->vers[0].let=(BYTE)'м';
   }
-  
+
   memset(&vers,0,sizeof(SVERS));
   ro=recogij(lc,cells,(INT)n,cut_fl,0,com_inc,roi,&gvar,&vers,&width);
   take_kit_addr(kit);
@@ -1083,7 +1083,7 @@ result:
       show_and_wait(msg);
 */
     }
-                   
+
   return 0;
 }
 
@@ -1255,7 +1255,7 @@ static void mw_show_rast()
   r.top =(INT)str_raster.top;   r.w=(INT)str_raster.w;
   r.left=(INT)str_raster.left;  r.h=(INT)str_raster.h;
   memcpy(&r.pict,&str_raster.pict,str_raster.h*(str_raster.w+7)/8);
-    
+
   for (i=0; i<ncut; i++)
   {
     struct cut_elm *ce=cut_el+i;

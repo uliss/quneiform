@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -96,9 +96,9 @@ static CHAR txg6[]={"n,a,m,e,l"};
 	10,11 for UKR_I,II
 	12,13 for turkish palka
 */
-static BYTE sticks_left_to_bad[]  =  {"  /l1IJ)}]  11"}; 
-                                                         
-                                                         
+static BYTE sticks_left_to_bad[]  =  {"  /l1IJ)}]  11"};
+
+
 static BYTE letters_left_to_bad[] =  {" nrvtcC(u<>мњЇ|б‘Ј"}; // 0th pos for sticks
 
 static CHAR ltmp0[] = "kDPbhЏЇ "; /* stick */
@@ -115,7 +115,7 @@ static CHAR ltmp10[] = "xXе"; /* > */
 static CHAR ltmp11[] = "л"; /* м */
 static CHAR ltmp12[] = "›"; /* › */
 static CHAR ltmp13[] = "ий"; /* Ї */
-static CHAR ltmp14[] = "­ЌЁ€ЇЏЄЉ¬Њ"; /* | */ 
+static CHAR ltmp14[] = "­ЌЁ€ЇЏЄЉ¬Њ"; /* | */
 static CHAR ltmp15[] = "®"; /* б */
 static CHAR ltmp16[] = "Ћ"; /* ‘ */
 static CHAR ltmp17[] = "Ї"; /* Ј */
@@ -127,7 +127,7 @@ static CHAR *results_left_to_bad[] = {
 
 /*
 	0 pos reserved for liga_i
-	6-7 pos for turkish II_dot_accent, i_sans_accent 21.05.2002 E.P. 
+	6-7 pos for turkish II_dot_accent, i_sans_accent 21.05.2002 E.P.
 */
 static BYTE sticks_right_to_bad[] =  {" /l1I]11"};  // 1st pos reserved for liga_i
 static BYTE letters_right_to_bad[] = {" nvt)u><бж–®ЋЄч"}; // 0th pos for sticks
@@ -136,7 +136,7 @@ static CHAR rtmp0[] = "d­ЁЇЏ";
 static CHAR rtmp1[] = "m"; /* n */
 static CHAR rtmp2[] = "w"; /* v */
 static CHAR rtmp3[] = "u"; /* t */
-static CHAR rtmp4[] = "o"; /* ) */ 
+static CHAR rtmp4[] = "o"; /* ) */
 static CHAR rtmp5[] = "w"; /* u */
 static CHAR rtmp6[] = "bop6D®"; /* < */
 static CHAR rtmp7[] = "kXxЄ¦"; /* > */
@@ -584,13 +584,13 @@ passfb:
     gtofl = 0;
     BC=BP->nextl;
     EC=BC->nextl;
-    if( !EC ) break; //. Oleg : 23mar00 
+    if( !EC ) break; //. Oleg : 23mar00
     if(language==LANG_RUSSIAN)
     {/* Valdemar patch some special cases */
     if( ((c2=='>' && c3=='>') || (c2=='<' && c3=='<')) &&
        BC->vers[0].prob > 200 && EC->vers[0].prob > 200 )
        continue; // stay till punctuation
-     if(memchr("мњљ",c2,3) && 
+     if(memchr("мњљ",c2,3) &&
         !is_russian_baltic_conflict(c2) &&	// 17.07.2001 E.P.
 		!is_russian_turkish_conflict(c2)&&	// 21.05.2002 E.P.
 		 (memchr("/1!()ш",c3,6) || c3==liga_exm) && // 10.09.2000 E.P.
@@ -599,7 +599,7 @@ passfb:
 	) /*to paste л */
      { rus_iee = is_lower(c2) ? 1 : 2;   goto asif2bad; }
 
-       if(memchr("мњљ",c2,3) && 
+       if(memchr("мњљ",c2,3) &&
           !is_russian_baltic_conflict(c2) &&	// 17.07.2001 E.P.
 		  !is_russian_turkish_conflict(c2)&&	// 21.05.2002 E.P.
 		   c3=='|' && BC->vers[0].prob < 150
@@ -607,9 +607,9 @@ passfb:
          goto asif2bad; /* bad 'м' try to paste л */
     }
     if (memchr("lI1/J)!",c2,7) ||         // stick character ?
-		c2==liga_i || 
+		c2==liga_i ||
 		   language==LANG_TURKISH &&  // 30.05.2002 E.P.
-			(c2==i_sans_accent||c2==II_dot_accent) 
+			(c2==i_sans_accent||c2==II_dot_accent)
 			||
 		c2==liga_exm
 		)
@@ -619,7 +619,7 @@ passfb:
             goto asif2bad;
           }
     if (memchr("lI1/J)!",c3,7) ||         // stick character ?
-		c3==liga_i || 
+		c3==liga_i ||
 		   language==LANG_TURKISH &&  // 30.05.2002 E.P.
 			(c3==i_sans_accent||c3==II_dot_accent)
 			||
@@ -663,7 +663,7 @@ backg:
     if (BD!=EC) fgd=1;                   // dust inside
 	if (!fgd) // Is it dust between comps
 		{
-		if(BD->flg & c_f_fict) 
+		if(BD->flg & c_f_fict)
 			continue; // Oleg 26-07-99
 		}
   // if ((BC->flg & c_f_bad) || (BC->cg_flag & c_cg_rqdot))
@@ -747,7 +747,7 @@ trygl:
    if(memchr("мњљ",BC->vers[0].let,3) &&
       !is_russian_baltic_conflict(BC->vers[0].let) &&	// 17.07.2001 E.P.
 	  !is_russian_turkish_conflict(BC->vers[0].let)		// 21.05.2002 E.P.
-	 ) 
+	 )
 	   ndist += BC->h/10 + 1;
    else if(BC->stick_inc && EC->stick_inc )
    {  ndist += BC->h/6; broken_ii=1; ltoi=NULL;}
@@ -885,7 +885,7 @@ fingb:
   if (!ltoi)                           // not a  restricted result
     goto accel;
   cw = BC->vers[0].let;
-	
+
   if (strchr(ltoi,cw) &&
       !is_russian_baltic_conflict(cw) &&	// 17.07.2001 E.P.
 	  !is_russian_turkish_conflict(cw)&&	// 21.05.2002 E.P.
@@ -1414,7 +1414,7 @@ return;
 // 27.06.2002 E.P.
 INT is_bad_turkish_glue(BYTE c1, BYTE c2, BYTE c3)
 {
-/* 
+/*
 	Определение неудачной турецкой склейки. 27.06.2002 E.P.
 
 	с1 - левая половина

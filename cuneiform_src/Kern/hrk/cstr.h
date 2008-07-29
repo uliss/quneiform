@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,21 +43,21 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 ////////////////////////////////////////////////////////////
 // CONTAINER OF THE STRING                                //
 ////////////////////////////////////////////////////////////
-// O.Slavin                                               // 
+// O.Slavin                                               //
 ////////////////////////////////////////////////////////////
 // Creation     : 20 Jul 1998                             //
 ////////////////////////////////////////////////////////////
@@ -69,7 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #ifndef __GLOBUS_H
    #include "globus.h"
    #endif
-   
+
    #include "ccomdefs.h"
    #include "cstrdefs.h"
 
@@ -114,7 +114,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         CSTR_FNSETSTRATTR,
         CSTR_FNGETSTRATTR,
         CSTR_FNGETFIRST,
-        CSTR_FNGETLAST,        
+        CSTR_FNGETLAST,
         CSTR_FNGETNEXT,
         CSTR_FNGETPREV,
         CSTR_FNGETLINE,
@@ -221,7 +221,7 @@ CSTR_FUNC(CSTR_rast)    CSTR_GetPrevRaster (CSTR_rast  curr_raster, Word32 type_
 // 9    CSTR_FNGETLINE      дать хэндл строки, сопряжённой с растром
 typedef CSTR_line       (*FNCSTR_GetLine)(CSTR_rast  curr_raster);
 CSTR_FUNC(CSTR_line)    CSTR_GetLine (CSTR_rast  curr_raster);
-// 10   CSTR_FNSTORELINE    придать растру строку 
+// 10   CSTR_FNSTORELINE    придать растру строку
 typedef Bool32          (*FNCSTR_StoreLine)(CSTR_rast  curr_raster, CSTR_line line);
 CSTR_FUNC(Bool32)               CSTR_StoreLine (CSTR_rast  curr_raster, CSTR_line line);
 // 11   CSTR_FNNEWRASTER    создать новый растр в текущей строке
@@ -233,7 +233,7 @@ CSTR_FUNC(Bool32)               CSTR_StoreRaster (CSTR_rast  curr_raster, RecRas
 // 13   CSTR_FNSTORECOMP запомнить растр как компоненту с интервальным представлением
 typedef Bool32          (*FNCSTR_StoreComp)(CSTR_rast  curr_raster, Word8 *lp, Bool32 raster_init, Word8 scale);
 CSTR_FUNC(Bool32)               CSTR_StoreComp (CSTR_rast  curr_raster, Word8 *lp, Bool32 raster_init, Word8 scale);
-// 14   CSTR_FNSTORECOLLECTION запомнить коллекцию 
+// 14   CSTR_FNSTORECOLLECTION запомнить коллекцию
 typedef Bool32          (*FNCSTR_StoreCollection)(CSTR_rast  curr_raster, RecVersions *collect);
 CSTR_FUNC(Bool32)                   CSTR_StoreCollection (CSTR_rast  curr_raster, RecVersions *collect);
 // 15   CSTR_FNDELRASTER    удалить растр
@@ -248,10 +248,10 @@ CSTR_FUNC(Bool32)               CSTR_GetImage (CSTR_rast  curr_raster, Word8 *ou
 // 18   CSTR_FNGETATTR      получить атрибуты растра
 typedef Bool32          (*FNCSTR_GetAttr)(CSTR_rast  curr_raster, CSTR_rast_attr * attr);
 CSTR_FUNC(Bool32)           CSTR_GetAttr (CSTR_rast  curr_raster, CSTR_rast_attr * attr);
-// 19   CSTR_FNGETCOLLECT   получить коллекцию  
+// 19   CSTR_FNGETCOLLECT   получить коллекцию
 typedef Bool32          (*FNCSTR_GetCollection)(CSTR_rast  curr_raster, RecVersions *result_collect);
 CSTR_FUNC(Bool32)                   CSTR_GetCollection (CSTR_rast  curr_raster, RecVersions *result_collect);
-// 20   CSTR_FNSETUSER      записать в растр пользовательские данные 
+// 20   CSTR_FNSETUSER      записать в растр пользовательские данные
 typedef Bool32          (*FNCSTR_SetUserAttr)(CSTR_rast raster, CCOM_USER_BLOCK  *ub);
 CSTR_FUNC(Bool32)               CSTR_SetUserAttr (CSTR_rast raster, CCOM_USER_BLOCK  *ub);
 // 21   CSTR_FNGETUSER      прочитать из растра пользовательские данные
@@ -269,7 +269,7 @@ CSTR_FUNC(CSTR_line )   CSTR_GetLineHandle (Int32 line_no, Int32 version);
 // 25   CSTR_FNGETCOMP      получить компонентy растра
 typedef CCOM_comp *     (*FNCSTR_GetComp)(CSTR_rast  curr_raster);
 CSTR_FUNC(CCOM_comp *)      CSTR_GetComp (CSTR_rast  curr_raster);
-// 26   CSTR_FNNEWUSERCODE  получить доступный код пользовательского блока 
+// 26   CSTR_FNNEWUSERCODE  получить доступный код пользовательского блока
 typedef Int32      (*FNCSTR_NewUserCode) (void);
 CSTR_FUNC(Int32)       CSTR_NewUserCode (void);
 // 27   CSTR_FNVERSION      версия библиотеки
@@ -378,7 +378,7 @@ CSTR_FUNC(Bool32)               CSTR_StoreCompOriginal (CSTR_rast  curr_raster, 
 // 62   CSTR_FNGETMAXFRAGMENT   максимальный номер фрагмента
 typedef Int32    (*FNCSTR_GetMaxFragment)(Int32 version);
 CSTR_FUNC(Int32)    CSTR_GetMaxFragment(Int32 version);
-// 63   CSTR_SAVECONT           сохранить контейнер на диске 
+// 63   CSTR_SAVECONT           сохранить контейнер на диске
 typedef Bool32 (*FNCSTR_SaveCont)(char *filename);
 CSTR_FUNC(Bool32) CSTR_SaveCont(char *filename);
 // 64   CSTR_RESTORECONT        воостановить контейнер с диска

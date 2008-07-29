@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -82,24 +82,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "linedefs.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 Bool32 LineKiller(PRSPreProcessImage Image)
 {
 	LinesTotalInfo LTInfo;
 	LineInfo       LHorLineInfo[2];
 	LineInfo       LVerLineInfo[2];
-	
+
 	LTInfo.Hor.Lns = LHorLineInfo;
 	LTInfo.Ver.Lns = LVerLineInfo;
 
 	return SearchAndKill( Image, &LTInfo );
-	
+
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 Bool32 SearchAndKill ( PRSPreProcessImage Image, LinesTotalInfo *LTInfo )
 {
-	Bool32         bRet = TRUE;	
+	Bool32         bRet = TRUE;
 	Word32         nTagSize;
 	Int32          j;
 	char           str[255];
@@ -139,7 +139,7 @@ Bool32 SearchAndKill ( PRSPreProcessImage Image, LinesTotalInfo *LTInfo )
 	 {
 		bShowLineDebugData = bShowStepLineDebug = bShowLineDebug = FALSE;
 	 }
-	
+
 	 if ( !LDPUMA_Skip(hDebugKillLinesShowComponentsBefore) )
 	 {
 		DebugDPumaShowComponents( Image, hLineKillerWindow,0xfefe00, 1, 314);
@@ -181,12 +181,12 @@ Bool32 SearchAndKill ( PRSPreProcessImage Image, LinesTotalInfo *LTInfo )
 					LDPUMA_WaitUserInput( NULL, hLineKillerWindow );
 					//LDPUMA_DeleteRects(hLineKillerWindow, 316);
 				}
-				
+
 				if ( bShowLineDebug || bShowStepLineDebug)
 				{
 					HalfThickness = cpdata->Line.Wid10/20;
 					HalfThicknessB = (cpdata->Line.Wid10/10 + 1) / 2;
-				
+
 					LinePoints[0].x = (Int16)(cpdata->Line.Beg_X);
 					LinePoints[0].y = (Int16)(cpdata->Line.Beg_Y) - (Int16)HalfThickness;
 					LinePoints[1].x = (Int16)(cpdata->Line.End_X);
@@ -196,15 +196,15 @@ Bool32 SearchAndKill ( PRSPreProcessImage Image, LinesTotalInfo *LTInfo )
 					LinePoints[3].x = (Int16)(cpdata->Line.Beg_X);
 					LinePoints[3].y = (Int16)(cpdata->Line.Beg_Y) + (Int16)HalfThicknessB;
 
-					j = sprintf( str, "LineKiller: - Линия:< %4.4i, %4.4i > < %4.4i, %4.4i > x %3.3i", 
-								 cpdata->Line.Beg_X, 
-								 cpdata->Line.Beg_Y, 
-								 cpdata->Line.End_X, 
-								 cpdata->Line.End_Y, 
+					j = sprintf( str, "LineKiller: - Линия:< %4.4i, %4.4i > < %4.4i, %4.4i > x %3.3i",
+								 cpdata->Line.Beg_X,
+								 cpdata->Line.Beg_Y,
+								 cpdata->Line.End_X,
+								 cpdata->Line.End_Y,
 								 cpdata->Line.Wid10/10);
 
-					j += sprintf ( str + j, "\n");		
-					
+					j += sprintf ( str + j, "\n");
+
 					if ( bShowLineDebugData )
 						LDPUMA_Console(str);
 
@@ -261,12 +261,12 @@ Bool32 SearchAndKill ( PRSPreProcessImage Image, LinesTotalInfo *LTInfo )
 					LDPUMA_WaitUserInput( NULL, hLineKillerWindow );
 					//LDPUMA_DeleteRects(hLineKillerWindow, 316);
 				}
-				
+
 				if ( bShowLineDebug || bShowStepLineDebug)
 				{
 					HalfThickness = cpdata->Line.Wid10 / 20;
 					HalfThicknessB = (cpdata->Line.Wid10/10 + 1) / 2;
-				
+
 					LinePoints[0].x = (Int16)(cpdata->Line.Beg_X) + (Int16)HalfThicknessB;
 					LinePoints[0].y = (Int16)(cpdata->Line.Beg_Y);
 					LinePoints[1].x = (Int16)(cpdata->Line.End_X) + (Int16)HalfThicknessB;
@@ -276,16 +276,16 @@ Bool32 SearchAndKill ( PRSPreProcessImage Image, LinesTotalInfo *LTInfo )
 					LinePoints[3].x = (Int16)(cpdata->Line.Beg_X) - (Int16)HalfThickness;
 					LinePoints[3].y = (Int16)(cpdata->Line.Beg_Y);
 
-					j = sprintf( str, "LineKiller: | Линия: < %4.4i, %4.4i > < %4.4i, %4.4i > x %3.3i", 
-								 cpdata->Line.Beg_X, 
-								 cpdata->Line.Beg_Y, 
-								 cpdata->Line.End_X, 
-								 cpdata->Line.End_Y, 
+					j = sprintf( str, "LineKiller: | Линия: < %4.4i, %4.4i > < %4.4i, %4.4i > x %3.3i",
+								 cpdata->Line.Beg_X,
+								 cpdata->Line.Beg_Y,
+								 cpdata->Line.End_X,
+								 cpdata->Line.End_Y,
 								 cpdata->Line.Wid10/10);
 
-				
-					j += sprintf ( str + j, "\n");		
-					
+
+					j += sprintf ( str + j, "\n");
+
 					if ( bShowLineDebugData )
 						LDPUMA_Console(str);
 
@@ -330,8 +330,8 @@ Bool32 SearchAndKill ( PRSPreProcessImage Image, LinesTotalInfo *LTInfo )
 		LDPUMA_DeleteRects(hLineKillerWindow, 316);
 		ZoomRect.top    = 0;
 		ZoomRect.bottom = 0;
-		
-		//if ( bShowStepLineDebug ) 
+
+		//if ( bShowStepLineDebug )
 			//LDPUMA_ZoomToRect(NULL, &ZoomRect);
 	 }
 	 if ( !LDPUMA_Skip(hDebugKillLinesShowComponentsAfter) )
@@ -344,7 +344,7 @@ Bool32 SearchAndKill ( PRSPreProcessImage Image, LinesTotalInfo *LTInfo )
 	return TRUE;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 Bool32 ComponentFilter( PRSPreProcessImage Image, LineInfo *Line)
 {
 	CCOM_comp * pcomp;
@@ -390,13 +390,13 @@ Bool32 ComponentFilter( PRSPreProcessImage Image, LineInfo *Line)
 		Rl.top -= Thick;
 		Rl.top = Rl.top < 0 ? 0 : Rl.top;
 	}
-	
+
 	pdeadcom = CCOM_GetFirst ((Int32)(*Image->phCCOM), NULL);
 	do
 	{
 		pcomp = CCOM_GetNext (pdeadcom, NULL);
 		GoodComp = true;//CompIsGood (pcomp, Filter);
-		
+
 		if (GoodComp)
 		{
 			Rc.left   = pdeadcom->left;
@@ -416,14 +416,14 @@ Bool32 ComponentFilter( PRSPreProcessImage Image, LineInfo *Line)
 
 					if ( bShowLineDebug || bShowStepLineDebug )
 					{
-						j = sprintf( str, "LineKiller: компоненту под ней нашли: < %4.4i, %4.4i > < %4.4i, %4.4i >", Rc.left, Rc.top, Rc.right, Rc.bottom ); 
+						j = sprintf( str, "LineKiller: компоненту под ней нашли: < %4.4i, %4.4i > < %4.4i, %4.4i >", Rc.left, Rc.top, Rc.right, Rc.bottom );
 
 						if ( bDieComponent )
 							j += sprintf( str + j, " +dead+" );
 
 						j += sprintf( str + j, "\n" );
-						
-						if ( bShowLineDebugData ) 
+
+						if ( bShowLineDebugData )
 							LDPUMA_Console(str);
 
 						LDPUMA_DrawRect(hLineKillerWindow, &Rc, 0, 0xff0000, -50, 316);
@@ -432,16 +432,16 @@ Bool32 ComponentFilter( PRSPreProcessImage Image, LineInfo *Line)
 				}
 			}
 		}
-		
+
 		pdeadcom = pcomp;
 	} while( pcomp != NULL );
-	
+
 	return TRUE;
 }
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 Bool32 IsRectIntersect(Rect16 *A, Rect16 *B)
 {
 	Bool32 rc = FALSE;
@@ -466,11 +466,11 @@ Bool32 IsRectIntersect(Rect16 *A, Rect16 *B)
 	{
 		rc = TRUE;
 	}
-	
+
 	return rc;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 Bool32 TuneFilter(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 {
 	Bool32 bRet;
@@ -483,7 +483,7 @@ Bool32 TuneFilter(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 	return bRet;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 Bool32 ChekComponentAndLine(LineInfo *Line, Rect16 *Rect, Word32 KillZone)
 {
 	Int32 A0, B0, A1, B1;              // начало и конец линии
@@ -511,7 +511,7 @@ Bool32 ChekComponentAndLine(LineInfo *Line, Rect16 *Rect, Word32 KillZone)
 		pPoints[1].y = pPoints[0].y = Rect->top;
 		pPoints[2].x = pPoints[1].x = Rect->right;
 		pPoints[3].y = pPoints[2].y = Rect->bottom;
-		
+
 		wN = wP = wZ = 0;
 
 		do
@@ -569,7 +569,7 @@ Bool32 ChekComponentAndLine(LineInfo *Line, Rect16 *Rect, Word32 KillZone)
 	return bRet;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 {
 	Bool32 bRet = FALSE;
@@ -609,7 +609,7 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 
 		S.left = Line->A.x - KillZone;
 		S.right = Line->B.x + KillZone;
-		
+
 		if ( Line->A.y > Line->B.y )
 		{
 			S.top = Line->B.y - Thick;
@@ -639,8 +639,8 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 			S.right  = Rect->right;
 		if (S.right <= S.left)
 			S.right  = S.left; //End Almi
-		
-		
+
+
 		S.bottom = S.top = B0 - (Int32)( ( (Float32)Bs / (Float32)As ) * (Float32)(A0 - S.left) );
 		iTemp = B0 - (Int32)( ( (Float32)Bs / (Float32)As ) * (Float32)(A0 - S.right) );
 
@@ -689,11 +689,11 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 		}
 	}
 	else
-	{ 
+	{
 		// вертикальные линии
 		S.top = Line->A.y - KillZone;
 		S.bottom = Line->B.y + KillZone;
-		
+
 		if ( Line->A.x > Line->B.x )
 		{
 			S.left = Line->B.x - Thick;
@@ -723,7 +723,7 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 			S.bottom  = Rect->bottom;
 		if (S.bottom <= S.top)
 			S.bottom  = S.top; //End Almi
-		
+
 		S.left = S.right = A0 - (Int32)( ( (Float32)As / (Float32)Bs ) * (Float32)(B0 - S.top) );
 		iTemp = A0 - (Int32)( ( (Float32)As / (Float32)Bs ) * (Float32)(B0 - S.bottom) );
 
@@ -775,7 +775,7 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 	return bRet;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 void DebugDPumaDrawRect(Handle hWindow, Point16 * Points, Word32 Color, Int32 Thickness, Word32 Group)
 {
 	LDPUMA_DrawLine(hWindow, &Points[0], &Points[1], 0, Color, (Int16)Thickness, Group );
@@ -784,7 +784,7 @@ void DebugDPumaDrawRect(Handle hWindow, Point16 * Points, Word32 Color, Int32 Th
 	LDPUMA_DrawLine(hWindow, &Points[3], &Points[0], 0, Color, (Int16)Thickness, Group );
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 void DebugDPumaShowComponents(PRSPreProcessImage Image, Handle hWindow, Word32 Color, Int32 Thickness, Word32 Group)
 {
 	CCOM_comp * pcomp;
@@ -793,7 +793,7 @@ void DebugDPumaShowComponents(PRSPreProcessImage Image, Handle hWindow, Word32 C
 	pcomp = CCOM_GetFirst ((Int32)(*Image->phCCOM), NULL);
 	if(!pcomp)
 		return;
-	
+
 	do
 	{
 		Rc.left   = pcomp->left;
@@ -802,9 +802,9 @@ void DebugDPumaShowComponents(PRSPreProcessImage Image, Handle hWindow, Word32 C
 		Rc.bottom = pcomp->upper + pcomp->h /*- 1*/;
 
 		LDPUMA_DrawRect(hWindow, &Rc, 0, Color, (Int16)Thickness, Group);
-	
+
 		pcomp = CCOM_GetNext (pcomp, NULL);
-		
+
 	} while( pcomp != NULL );
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////

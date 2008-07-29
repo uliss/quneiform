@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -58,45 +58,45 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define NO_SIZES0
 //
-//  Получение размеров - стандартная высота больших.маленьких букв 
+//  Получение размеров - стандартная высота больших.маленьких букв
 //                     стандартная ширина
-//  Получение размеров любого символа 
+//  Получение размеров любого символа
 //        ( размеров большой,маленькой букв)
 //
 //  ClearStat();  начать работу, закончить работу,
 //                очистить статистику,освободить память
 //
-//  AddStat(int name,int width,int height,int valid); 
+//  AddStat(int name,int width,int height,int valid);
 //      добавить символ с именем name,размерами,валидностью
 //      в общую статистику
-//   return - сколько всего символов стало 
+//   return - сколько всего символов стало
 //
 //  GetCommonStat(int *sizes,int *probs);
 //      получить статистику
-//      sizes[0] >0 - высота большой буквы  
+//      sizes[0] >0 - высота большой буквы
 //      probs[0] - "процент" (0-255) (оценка надежности)
 //      sizes[1] >0 - высота маленькой буквы
 //      probs[1] - "процент" (0-255) (оценка  надежности)
 //      sizes[2] >0 - ширина
 //      probs[2] - "процент" (0-255) (оценка  надежности)
-// 
-//  AddStatLetter(int name,int width,int height,int valid); 
+//
+//  AddStatLetter(int name,int width,int height,int valid);
 //      добавить символ с именем name,размерами,валидностью
 //      в статистику для символа name
-//   return - сколько всего символов name стало 
+//   return - сколько всего символов name стало
 //
 //  GetLetStat(int name,int *sizes,int *probs);
-//      получить статистику для символа 
+//      получить статистику для символа
 //  return < 0 - error ( no memory )
 //         >=0 - сколько символов с именем name использовалось
 //
-//      sizes[0] >0 - высота большой буквы  
+//      sizes[0] >0 - высота большой буквы
 //      sizes[1] >0 - ширина большой буквы
 //      probs[0] - "процент" (0-255) (оценка  надежности)
 //      sizes[2] >0 - высота маленькой буквы
 //      sizes[3] >0 - ширина маленькой буквы
 //      probs[1] - "процент" (0-255) (оценка  надежности)
-// 
+//
 //
 //  Пример использования
 /*
@@ -108,17 +108,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	  if(NextSymbol(&name,&width,&height,&valid) == 0)  break; // условно
       NumAll=AddStat(int name,int width,int height,int valid);
 	  // if(NumAll > ... ) break;
-      NumLet=AddStatLetter(int name,int width,int height,int valid);	  
+      NumLet=AddStatLetter(int name,int width,int height,int valid);
 	}
 
-    
+
     GetCommonStat(comSize,prob);
 	if( comSize[0] == 0) printf("Мало данных");
     else if( comSize[1] == 0) printf("Высота =%d,ширина=%d\n",
 	       comSize[0],comSize[2]);
 	else printf("Высота большой=%d,высота маленькой=%d,ширина=%d\n",
 	       comSize[0],comSize[1],comSize[2]);
-    
+
     for(i=1;i<256;i++)
 	{
 	 printf("\nСимвол %c ",(char)i);
@@ -130,11 +130,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	 else printf("Высота большой=%d,ширина большой %d;Высота маленькой=%d,ширина=%d",
 	       comSize[0],comSize[1],comSize[2],comSize[3]);
     }
- 
-        // можно повторять при желании 
+
+        // можно повторять при желании
     ...
 	{
-     NumLet=AddStatLetter(int name,int width,int height,int valid);	  
+     NumLet=AddStatLetter(int name,int width,int height,int valid);
 	}
 	....
 	GetLetStat(int name,int *sizes4,int *ocenka2);
@@ -205,10 +205,10 @@ static char *nonStandard="\x84\xA4\x96\xE6\x99\xE9";
 LEO_FUNC(Int32) LEO_AddStat(Int32 name,Int32 width,Int32 height,Int32 valid)
 {
 	  // add only good
-	if( ( valid & LEO_VALID_FINAL ) == 0)  
+	if( ( valid & LEO_VALID_FINAL ) == 0)
 		 return allCount;
     //name = stdAnsiToAscii((Word8)name);
-	if( width  < 0 || width  >= MAX_WIDTH ||	
+	if( width  < 0 || width  >= MAX_WIDTH ||
 		height < 0 || height >= MAX_HEIGHT   )
           return allCount;
 
@@ -239,11 +239,11 @@ LEO_FUNC(Int32) LEO_AddStat(Int32 name,Int32 width,Int32 height,Int32 valid)
 //
 //  output heights of big,small letters
 //  output width
-//   if  sizes[i] = 0 -> not found 
+//   if  sizes[i] = 0 -> not found
 //
 //  sizes[0]=heightBig sizes[1]=heightSmall
 //  size[2]=width
-// 
+//
 //  return - how many analize
 //
 int GetStat(int *sizes,int allCount,int *allWidthes,int *allHeights,int *ocenka)
@@ -258,35 +258,35 @@ int GetStat(int *sizes,int allCount,int *allWidthes,int *allHeights,int *ocenka)
 	memset(ocenka,0,3*sizeof(int));
 	if( allCount < MIN_STAT ) return allCount;
 
-	for(i=1,bWidth=0;i<MAX_WIDTH;i++) 
+	for(i=1,bWidth=0;i<MAX_WIDTH;i++)
 	 if(allWidthes[i] > allWidthes[bWidth]) bWidth=i;
 
-	for(i=1,bSize=0;i<MAX_HEIGHT;i++) 
+	for(i=1,bSize=0;i<MAX_HEIGHT;i++)
 	 if(allHeights[i] > allHeights[bSize]) bSize=i;
- 
+
 	for(j=bSize-POROG_HEIGHT;j>1;j--) if( allHeights[j] > allHeights[j+1] ) break;
-	for(bSizeLeft=j,j--;j>1;j--) 
+	for(bSizeLeft=j,j--;j>1;j--)
 	 if(allHeights[j] > allHeights[bSizeLeft]) bSizeLeft=j;
 
 	for(j=bSize+POROG_HEIGHT;j<MAX_HEIGHT;j++) if( allHeights[j] > allHeights[j-1] ) break;
-	for(;j<MAX_HEIGHT;j++) 
+	for(;j<MAX_HEIGHT;j++)
 	 if(allHeights[j] > allHeights[bSizeLeft]) bSizeLeft=j;
 
     sizeLit=0;
-	if( allHeights[bSizeLeft] < MIN_STAT ) 
+	if( allHeights[bSizeLeft] < MIN_STAT )
 	  sizeBig=bSize ;
 	else
 	{
      sizeBig=bSize;
-	 if(bSize < bSizeLeft && 
+	 if(bSize < bSizeLeft &&
         ( allMetka[bSize]& METKA_LETTER )   &&          // 6.10.98
           (( allMetka[bSize]& METKA_DIGIT) == 0 )  // 6.10.98
-       ) 
+       )
        {sizeLit=bSize;sizeBig=bSizeLeft;}
-	 else if (  bSizeLeft < bSize && 
+	 else if (  bSizeLeft < bSize &&
                ( allMetka[bSizeLeft]& METKA_LETTER ) &&        // 6.10.98
                (( allMetka[bSizeLeft]& METKA_DIGIT) == 0 )     // 6.10.98
-             ) 
+             )
       {sizeBig=bSize;sizeLit=bSizeLeft;}
 	}
 
@@ -294,13 +294,13 @@ int GetStat(int *sizes,int allCount,int *allWidthes,int *allHeights,int *ocenka)
 	sizes[1]=sizeLit;
 	sizes[2]=bWidth;
 
-	if( sizeBig > 0) 
+	if( sizeBig > 0)
 		ocenka[0]=((allHeights[sizeBig-1]+allHeights[sizeBig]+
 		  allHeights[sizeBig+1])*255) / allCount;
-	if( sizeLit > 0) 
+	if( sizeLit > 0)
 		ocenka[1]=((allHeights[sizeLit-1]+allHeights[sizeLit]+
 		  allHeights[sizeLit+1])*255) / allCount;
-	if( bWidth > 0) 
+	if( bWidth > 0)
 		ocenka[2]=((allWidthes[bWidth-1]+allWidthes[bWidth]+
 		  allWidthes[bWidth+1])*255) / allCount;
 	return allCount;
@@ -319,10 +319,10 @@ LEO_FUNC(Int32) LEO_AddStatLetter(Int32 name,Int32 width,Int32 height,Int32 vali
 	if(name < 0 || name > 255 ) return 0;
 //name = stdAnsiToAscii((Word8)name);
 	  // add only good
-	if( ( valid & LEO_VALID_FINAL ) == 0)  
+	if( ( valid & LEO_VALID_FINAL ) == 0)
 		 return letCount[name];
 
-	if( width  < 0 || width  >= MAX_WIDTH ||	
+	if( width  < 0 || width  >= MAX_WIDTH ||
 		height < 0 || height >= MAX_HEIGHT   )
           return letCount[name];
 
@@ -334,7 +334,7 @@ LEO_FUNC(Int32) LEO_AddStatLetter(Int32 name,Int32 width,Int32 height,Int32 vali
 		allLetter=0;
 	}
 
-	if( allLetter >= allSize ) 
+	if( allLetter >= allSize )
 	{void *tmp;
 		tmp=realloc(letInfo,(allSize+STEP_SIZE)*sizeof(LetInfo));
 		if( tmp==NULL) return -1;
@@ -360,7 +360,7 @@ static int ClusterAnalyze(int name,int count,int all,LetInfo *lInfo,
  int i,j,jj;
  int hei,wid;
  int *hh,*ww;    // cluster width,height
- 
+
  if(NumClus <= 0) return 0;
  memset(mysteck,0,3*NumClus*sizeof(int));
  ww=mysteck+NumClus;
@@ -430,7 +430,7 @@ static int ClusterAnalyze(int name,int count,int all,LetInfo *lInfo,
   size[0]=hh[jj];
   ocenka[0]=(mysteck[jj]*255)/count;
  }
- 
+
  return 2;
 }
 /////////////////
@@ -444,7 +444,7 @@ static int ClusterSet(int name,int all,LetInfo *lInfo,
  int wid,hei;
  int porogWid=1;           // ???
  int porogHei=1;
- 
+
  for(i=0,fir=-1;i<all;i++)
  {
 	 if(lInfo[i].name!=name) continue;
@@ -464,11 +464,11 @@ static int ClusterSet(int name,int all,LetInfo *lInfo,
 
 	for(IsNew=-1;j<last;j++)
 	{
-     if(lInfo[j].name != name) continue;		 
+     if(lInfo[j].name != name) continue;
 	 if(lInfo[j].cluster >= 0 ) continue;    // already tested
 
-	 if( abs(lInfo[j].width -wid) > porogWid || 
-		 abs(lInfo[j].height-hei) > porogHei 
+	 if( abs(lInfo[j].width -wid) > porogWid ||
+		 abs(lInfo[j].height-hei) > porogHei
 		)
 	 {	if( IsNew < 0 )  IsNew=j; }
 
@@ -513,8 +513,8 @@ int *mysteck;
 	 //  symbols not enouph ?
     if( letCount[name] < MIN_STAT_ONE ) return 0;
 	if( letInfo == NULL ) return 0;
-   
-    mysteck=malloc(3*letCount[name]*sizeof(int));  	
+
+    mysteck=malloc(3*letCount[name]*sizeof(int));
 	if(mysteck==NULL) return -1;
 	// set clusters
 	i=ClusterSet(name,allLetter,letInfo,mysteck);
@@ -523,7 +523,7 @@ int *mysteck;
 		i,sizes4,ocenka2);
 
     free(mysteck);
-	return letCount[name]; 
+	return letCount[name];
 }
 //////////
 
@@ -533,37 +533,37 @@ int *mysteck;
 typedef struct { int pmin,pmax;} PROP_STR;
 
 static PROP_STR letters_prop_table_rus[256]={
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
         1,127, // 0x00
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
-        1,127,  
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
+        1,127,
         1,127, // 0x01
         1,127,
         2, 34,// ! some italic
@@ -706,7 +706,7 @@ static PROP_STR letters_prop_table_rus[256]={
        41, 82,// Є changed 45,82 26-12-1994 for RUS_ENG
        45, 75,// «
        55, 75,// ¬
-       33, 75,// ­ 
+       33, 75,// ­
        41, 85,// ®
        33, 75,// Ї
         1,127,// °
@@ -820,21 +820,21 @@ if( let )
         name=let;
     pmin=letters_prop_table_rus[name].pmin;
     pmax=letters_prop_table_rus[name].pmax;
-    if( LEO_GetLetStat((Int32)let, comSizes,prob)>=0 && comSizes[0] && comSizes[2]) 
+    if( LEO_GetLetStat((Int32)let, comSizes,prob)>=0 && comSizes[0] && comSizes[2])
         { //   normal statistic                             && not empty
         hei = MIN(comSizes[0],comSizes[2]);
         wid = MAX(comSizes[1],comSizes[3]);
         pr = MIN(prob[0],prob[1]); // continued after all "else"
         }
     else
-        { // statistic is not ready    
+        { // statistic is not ready
         if( h>w )
             pr= (64*w)/h         ;
         else if( h==w )
             pr=64                ;
         else if( h<w )
-            pr=128 - (64*h)/w    ;        
-        
+            pr=128 - (64*h)/w    ;
+
         if( pr>=pmin && pr<=pmax )
             {
             if( pr<pmin+3 )
@@ -848,7 +848,7 @@ if( let )
             {
             if( pr<=pmin/2 || pr>=pmax*3/2)
                 return 255;
-            
+
             if( prolet>230 && pr>pmin-5 && pr<pmin )
                 {
                 leo_narrow_pen++;
@@ -859,7 +859,7 @@ if( let )
                     hei = comSizes[0];
                     wid = comSizes[2];
                     prop= MIN( prob[0], prob[2]);
-            
+
                     if( prop>64 && hei>wid)
                         {
                         prop= (64*wid)/hei     ;
@@ -900,7 +900,7 @@ else
         wid = comSizes[2];
         pr  = MIN( pr, prob[2]);
         }
-    
+
     }
 
 if( !hei || !wid )
@@ -926,16 +926,16 @@ if( !let && prp<79 && prp>32 || (pmax!=255 && prp>=pmin && prp<=pmax ))
 if( !let && prp<96 && prp>32 )
 if( prp<62 && prop>66 || prop<62 && prp>66 )
     return 0;
-    
+
 pr1 = ( abs( prp-prop )*100/prop );
 if( pr1>100 )
     pr1=100;
 
-if( h>=w && prp>=pmin && prp<=pmax || 
+if( h>=w && prp>=pmin && prp<=pmax ||
     h<w &&pr1<45 && !( pmax && w>wid && w*100/wid>120 && prp>pmax) )
     return 0;
 
-return (Word8)((pr1*255)/100);  // large prop    
+return (Word8)((pr1*255)/100);  // large prop
 }
 
 
@@ -946,7 +946,7 @@ Int32 comSizes[4], prob[4], wid, hei, pr;
 return 0;
 #endif
 
-    
+
     LEO_GetCommonStat(comSizes,prob);
 
     if( comSizes[0]==0 )
@@ -961,7 +961,7 @@ return 0;
         { // different Capital & Small
         hei = MIN(comSizes[0],comSizes[1]);
         pr  = MIN( prob[0], prob[1]);
-        
+
         if( pr>=64 )
             {
             if( h*2<=hei  )
@@ -978,10 +978,10 @@ return 0;
                 return (Word8)(50*(hei*wid*3-4*h*w)/(hei*wid));
             }
         }
-    
-    
 
-return 0;    
+
+
+return 0;
 }
 
 

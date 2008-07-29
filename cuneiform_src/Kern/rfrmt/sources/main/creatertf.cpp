@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -261,7 +261,7 @@ void CRtfPage::Rtf_CED_CreatePage(void)
 	pageBordersInTwips.right  = MargR;
 	pageBordersInTwips.bottom = MargB;
 
-	if(FlagMode & /*==*/ USE_NONE) //VMK1 
+	if(FlagMode & /*==*/ USE_NONE) //VMK1
 		resizeToFit = FALSE;
 	else
 		resizeToFit = TRUE;
@@ -835,7 +835,7 @@ void CRtfPage::CorrectKegl(void)
 			//Выделяем буфер под неё
 			char* TmpString=new char[len+1];
 			TmpString[0]=0;
-			
+
 			//Формируем полную строку
 			for(int nw=0; nw<CountWords; nw++)
 			{
@@ -852,7 +852,7 @@ void CRtfPage::CorrectKegl(void)
 				if(nw <CountWords-1)
 					tmp_str[nz++]=' ';
 				tmp_str[nz]=0;
-				
+
 				strcat(TmpString,tmp_str);
 			}
 
@@ -1756,7 +1756,7 @@ BOOL CRtfSector::Write(void)
 	playout.h     = -1;
 
 	align = TP_LEFT_ALLIGN;
-	hParagraph = CED_CreateParagraph( SectorInfo.hEDSector, SectorInfo.hColumn, 
+	hParagraph = CED_CreateParagraph( SectorInfo.hEDSector, SectorInfo.hColumn,
 		align, indent,SectorInfo.userNum, -1, interval, playout, -1, /*0*/ -1, -1, -1, FALSE );
 	if(m_bFlagLine==TRUE)
 	{
@@ -2593,7 +2593,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminal
 					SectorInfo->OffsetFromColumn.x = pRtfFragment->m_rect.left - m_rect.left;
 				else//!!!Art
 					SectorInfo->OffsetFromColumn.x = pRtfFragment->m_rect.left - SectorInfo->MargL;//!!!Art
-		 
+
 				SectorInfo->OffsetFromColumn.y = pRtfFragment->m_wOffsetFromPrevTextFragment;
 #ifdef EdWrite
 				if(!RtfWriteMode)
@@ -2828,7 +2828,7 @@ void CRtfHorizontalColumn::SortFragments()
 		}
 	}
 	//Надо оттестировать
-/*	//Выставляем расстояние для картинок и таблиц, которые пойдут 
+/*	//Выставляем расстояние для картинок и таблиц, которые пойдут
 	//во фреймы после последнго текстового фрагмента
 	for( int m=m_arOrderingNumber.size()-1; m>=0; m-- )
 	{
@@ -3218,7 +3218,7 @@ BOOL CRtfFragment::FWriteText(Int16 NumberCurrentFragment,RtfSectorInfo *SectorI
  boPrevNega = false; //NEGA_STR
  for( int ns=0; ns < m_wStringsCount; ns++ )
  {
-  pRtfString = (CRtfString*)m_arStrings[ns];	
+  pRtfString = (CRtfString*)m_arStrings[ns];
   pRtfWord   = (CRtfWord*)pRtfString->m_arWords[0];
   pRtfChar   = (CRtfChar*)pRtfWord->m_arChars[0];
   if(pRtfChar->m_bFlg_cup_drop==TRUE) //заносим буквицы во frame
@@ -3293,15 +3293,15 @@ BOOL CRtfFragment::FWriteText(Int16 NumberCurrentFragment,RtfSectorInfo *SectorI
 			{
 				colWidth=curSect->m_arWidthTerminalColumns[curSect->m_VTerminalColumnNumber-1];
 			}
-			
+
 		}
 		//Если ничего не помогло
 		if (!colWidth)
 			colWidth=m_rectReal.right - m_rectReal.left;
-		
+
 		if(!pRtfChar->m_bFlg_cup_drop )
 			hParagraph = Rtf_CED_CreateParagraph( m_fi, m_li, m_ri, m_sb, SectorInfo, m_wvid_parag, /*m_Flag*/ pRtfString->S_Flags, pRtfString->m_LengthStringInTwips, colWidth); //NEGA_STR
-       
+
 	}
 #endif
   }
@@ -3593,7 +3593,7 @@ BOOL CRtfFragment::FWriteText(Int16 NumberCurrentFragment,RtfSectorInfo *SectorI
 //--- Конец цикла по словам
   if( pRtfString->m_bLineTransfer == TRUE )
    Put("\\line ");
-  
+
   boPrevNega = boNega; //NEGA_STR
 }
 //--- Конец цикла по строкам
@@ -4252,7 +4252,7 @@ Handle Rtf_CED_CreateParagraph(Int16 FirstIndent, Int16 LeftIndent,Int16 RightIn
 	playout.w   = -1;
 	playout.y   = -1;
 	playout.h   = -1;
- 
+
 	align = AlignParagraph;
 	if(align == RTF_TP_ONE)
 	  align = RTF_TP_LEFT_ALLIGN;
@@ -4474,7 +4474,7 @@ BOOL CheckLines(RECT* Rect, BOOL FlagVer, RtfSectorInfo *SectorInfo)
    hBlock = CPAGE_GetBlockNext( hPage, hBlock, RLINE_BLOCK_TYPE );
 		}
    }
-*/ 
+*/
  return FALSE;
 }
 

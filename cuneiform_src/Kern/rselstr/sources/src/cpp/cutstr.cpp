@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -79,7 +79,7 @@ typedef DWORD   COLORREF;
 # define ROOTS_QUANTUM			1024
 #define k_cut 1.8
 int count_cut_let;
-Rect16 oldRoot; 
+Rect16 oldRoot;
 
 extern int inf_let_h;
 int inf_dust_h=4;
@@ -164,7 +164,7 @@ void UndoCutInRect(Handle hCPAGE,CCOM_handle hCCOM,Rect32* Rc)
  Int16 right=(Int16)Rc->right;
  CCOM_USER_BLOCK ub;
 
- 
+
  for(comp=CCOM_GetFirst(hCCOM,NULL);comp;comp=CCOM_GetNext(comp,NULL))
  {
   int size=sizeof(Word32);
@@ -214,7 +214,7 @@ int CutStrings(POLY_* pBlock)
  PAGEINFO info={0};
  GetPageInfo(HCPAGE,&info);
  int nIncline=info.Incline2048;
- 
+
  Point16 pLeftTop;
  Point16 pRightTop;
  Point16 pLeftBottom;
@@ -335,7 +335,7 @@ int CutStrings(POLY_* pBlock)
 				pRoot->bType=pRoot->u1.pNext->bType=ROOT_LETTER;
 				(pBlock2->nRoots)++;
 				(pBlock2->nLetters)++;
-				
+
 				//óäàëèì
 			    if(pCutRoot!=pRoot)
 				{
@@ -386,7 +386,7 @@ int CutStrings(POLY_* pBlock)
 			}
 		}
     }
-  } 
+  }
  return 1;
 
   */
@@ -494,7 +494,7 @@ int GetMediumHeight(POLY_* pBlock)
  PAGEINFO info={0};
  GetPageInfo(HCPAGE,&info);
  int nIncline=info.Incline2048;
- 
+
  for(comp=CCOM_GetFirst((CCOM_handle)HCCOM,NULL);comp;comp=CCOM_GetNext(comp,NULL))
  {
   if(comp->h<inf_let_h)
@@ -688,11 +688,11 @@ BOOL CutRoot(ROOT* pRoot,BLOCK* pBlock)
 	 return FALSE;
  }
  comp1->scale=comp2->scale=comp->scale;
- 
- 
+
+
  Word8* lp=NULL;
  lp=new Word8[256*256-1];
- Word8* old=lp; 
+ Word8* old=lp;
  if(!lp)
  {
   CCOM_Delete((CCOM_handle)HCCOM,comp1);
@@ -749,9 +749,9 @@ BOOL CutRoot(ROOT* pRoot,BLOCK* pBlock)
   delete[] lp;
   return FALSE;
  }
- 
+
  ROOT* pNewRoot=&pRoots[nRoots-1];
- 
+
  pRoot->nHeight=comp1->h;
  pRoot->nWidth=comp1->w;
  pRoot->pComp=comp1;
@@ -766,7 +766,7 @@ BOOL CutRoot(ROOT* pRoot,BLOCK* pBlock)
  if(f_cut_str)
  {
   int max_count=6;
-	 
+
 //  if(oldRoot.top>comp->upper||oldRoot.bottom<comp->upper+comp->h-1||oldRoot.left>comp->left||oldRoot.right<comp->left+comp->w-1)
 //  {
 	 fprintf(f_cut_str,"Top:%d",comp1->upper);
@@ -807,11 +807,11 @@ BOOL CutRoot(ROOT* pRoot,BLOCK* pBlock)
   }
   *-/
  }
- 
+
  if(f_temp_cut)
  {
   int max_count=6;
-	 
+
 //  if(oldRoot.top>comp->upper||oldRoot.bottom<comp->upper+comp->h-1||oldRoot.left>comp->left||oldRoot.right<comp->left+comp->w-1)
 //  {
 	 fprintf(f_temp_cut,"Top:%d",comp1->upper);
@@ -862,7 +862,7 @@ BOOL CutRoot(ROOT* pRoot,BLOCK* pBlock)
       StrDrawRect(MainWindowD,code_str_cut_d,RGB(255,0,0),comp2->upper,comp2->upper+comp2->h-1,comp2->left,comp2->left+comp2->w-1);
  }
  CCOM_Delete((CCOM_handle)HCCOM,comp);
- 
+
  delete[] lp;
  return TRUE;
 }
@@ -872,18 +872,18 @@ BOOL MyAddRoot(CCOM_comp * comp)
 {
  ROOT   RootRecord = {0};
 
-   
+
 		//***************Rom********************
-		
+
 		if ( (comp->h/comp->w > 20) || (comp->w/comp->h > 20))
 			return FALSE;// Piter
-		
+
 		//**************************************
 
 		//***************Rom********************
 		if ( comp->h*comp->w < 6 )
 			return FALSE;// Piter
-		
+
 		//**************************************
 
         RootRecord.bReached   = FALSE;
@@ -909,7 +909,7 @@ BOOL MyAddRoot(CCOM_comp * comp)
 
         if (nRoots % ROOTS_QUANTUM == 0)
               return FALSE;
-        
+
         pRoots [nRoots] = RootRecord;
         nRoots++;
  return TRUE;
@@ -1133,7 +1133,7 @@ int GetNearDist(BLOCK* pBlock,ROOT* pRoot)
 					min_dist=pDobRoot->xColumn-right;
 					pMinDistRoot=pDobRoot;
 				}
-					
+
 			}
             else
 			{
@@ -1219,7 +1219,7 @@ int GetCountCutLetters(CCOM_comp* comp)
  if(comp->h/medium_h<=2)
 	 return 2;
 
- 
+
  Rc.top=comp->upper;
  Rc.bottom=comp->upper+comp->h-1;
  Rc.left=comp->left;
@@ -1242,7 +1242,7 @@ int GetCountCutLetters(CCOM_comp* comp)
  int count_black=0;
  int i;
  int k;
- 
+
  for(int j=h-1;j>=0;j--)
  {
   newstr=j*bytewide;
@@ -1250,23 +1250,23 @@ int GetCountCutLetters(CCOM_comp* comp)
   for(i=(bytewide-2);i>=0;i--)
   {
 	  bytep=pmasp[newstr+i];
-     
-	   if( (bytep&128)==0 ) count_black++; 
-	   if( (bytep&64)==0 ) count_black++; 
-	   if( (bytep&32)==0 ) count_black++; 
-	   if( (bytep&16)==0 ) count_black++; 
-	   if( (bytep&8)==0 ) count_black++; 
-	   if( (bytep&4)==0 ) count_black++; 
-	   if( (bytep&2)==0 ) count_black++; 
-	   if( (bytep&1)==0 ) count_black++; 
- 
+
+	   if( (bytep&128)==0 ) count_black++;
+	   if( (bytep&64)==0 ) count_black++;
+	   if( (bytep&32)==0 ) count_black++;
+	   if( (bytep&16)==0 ) count_black++;
+	   if( (bytep&8)==0 ) count_black++;
+	   if( (bytep&4)==0 ) count_black++;
+	   if( (bytep&2)==0 ) count_black++;
+	   if( (bytep&1)==0 ) count_black++;
+
   }
   bytep=pmasp[newstr+bytewide-1];
   for(k=128;k>=rect;k=k>>1)
    if( (bytep&k)==0 ) count_black++;
   proc_black[j]=(double)(count_black)/(double)(w);
  }
- 
+
  i=comp->h/medium_h-1;
  int* min_black=new int[i];
  if(!min_black)
@@ -1274,7 +1274,7 @@ int GetCountCutLetters(CCOM_comp* comp)
 	 delete[] proc_black;
      return comp->h/medium_h;
  }
- 
+
  double proc=1.;
  for(k=i-1;k>=0;k--)
  {
@@ -1336,7 +1336,7 @@ BOOL GetMasP(Handle hCPage,Rect16 Rc,Word8** ppmasp)
 	Bool ret;
 	int i;
 
-	//  1. Ïîäãîòîâêà ê çàïðîñó ÷àñòè èçîáðàæåíèÿ.  
+	//  1. Ïîäãîòîâêà ê çàïðîñó ÷àñòè èçîáðàæåíèÿ.
 	DataInto.dwHeight   = (Word32)(h);
 	DataInto.dwWidth    = (Word32)(prewide);
 	DataInto.wByteWidth = (Word16)(prewide/8);
@@ -1352,7 +1352,7 @@ BOOL GetMasP(Handle hCPage,Rect16 Rc,Word8** ppmasp)
 	DataOut.byBit      = (Word16)info.BitPerPixel;
 	DataOut.lpData     = *ppmasp;
 
-//	  5. ×òåíèå ÷àñòè èçîáðàæåíèÿ.  
+//	  5. ×òåíèå ÷àñòè èçîáðàæåíèÿ.
 	ret = CIMAGE_GetData (Name, &DataInto, &DataOut);
 	if (!ret)
 		return FALSE;
@@ -1387,7 +1387,7 @@ BOOL Increase2(RecRaster* rast,CCOM_comp* comp)
 
 	for(k=REC_MAX_RASTER_SIZE-1;k>=0;k--)
 		str[k]=0;
-	
+
 	int i;
 	for(i=rast->lnPixHeight-1;i>=0;i--)
 	{
@@ -1496,7 +1496,7 @@ BOOL Increase2(RecRaster* rast,CCOM_comp* comp)
 	  nowbyte++;
 	 }
 	}
-	 
+
 	Word8* raster=rast->Raster;
     for(i=REC_MAX_RASTER_SIZE - 1;i>=0;i--)
 		raster[i]=str[i];
@@ -1633,7 +1633,7 @@ void CleanRaster(RecRaster* rast,Rect16* rect,int scale)
  j=rast->lnPixHeight;
  if(new_count<count)
  {
-  int h=rast->lnPixHeight; 
+  int h=rast->lnPixHeight;
   int nowbyte2=0;
   int endbyte;
   for(i=0;i<h;i++)
@@ -1797,7 +1797,7 @@ BOOL IfHightLetters(CCOM_comp* comp,BOOL Up,int real_left,int real_right)
 					return TRUE;
 			}
 		}
-	  } 
+	  }
    }
    co=CCOM_GetNext(co,NULL);
  }
@@ -1817,14 +1817,14 @@ int GetCountNumbers(int num)
 
 void StrDrawRect(Handle wnd,Word32 OperCode,Word32 color,int top,int bottom,int left,int right)
 {
-	
+
 	Rect16 Rect;
-	
+
 		Rect.bottom=bottom;
 		Rect.left=left;
 		Rect.right=right+1;
 		Rect.top=top-1;
-	
+
 		LDPUMA_DrawRect (wnd, &(Rect),0, color, -100,OperCode );
 
 }
@@ -1877,7 +1877,7 @@ int ExBound(CCOM_comp* comp,int bound)
 		right_bound--;
    }
    if(right_bound-left_bound+1<mini_w)
-   {	 
+   {
 	   mini_w=right_bound-left_bound+1;
 	   new_rast_bound_up=i;
    }
@@ -1904,7 +1904,7 @@ int ExBound(CCOM_comp* comp,int bound)
 
  int rast_str_bound=(str_bound-comp->upper+1)>>(comp->scale);
  int bound_ret=bound;
- 
+
    left_bound=0;
    i=rast_str_bound;
    for(j=0;j<rast.lnPixWidth;j++)
@@ -1966,7 +1966,7 @@ void NotCutDownLetter(RecRaster* rast,int& bound,int rast_bound,int new_rast_bou
  int max_wide=0;
  int i;
  int j;
-  
+
    for(oldleft=0;oldleft<rast->lnPixWidth;oldleft++)
    {
 	if(!(oldleft%8))
@@ -2039,7 +2039,7 @@ void NotCutDownLetter(RecRaster* rast,int& bound,int rast_bound,int new_rast_bou
    if(fl_break)
 	   break;
  }
- 
+
  //äûðêà?
 
  left_bound=0;
@@ -2199,7 +2199,7 @@ void IfDifCut(void)
  if(!fgets(buf1,10000,f_temp_cut))
     fl_empty=TRUE;
 
- 
+
  while((buf1[1]!=':')&&(buf1[2]!='\\')&&(!fl_empty))
  {
 	 i=4;
@@ -2274,7 +2274,7 @@ void IfDifCut(void)
  }
 
 }
- 
+
 BOOL IfEqv(char* buf1,char* buf2)
 {
 	int i=0;

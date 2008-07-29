@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -145,7 +145,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
    int nfrag =0;
 /// --------------------
 
-	for ( BEntry comp	= 0; comp <= last_comp; comp++ ) 
+	for ( BEntry comp	= 0; comp <= last_comp; comp++ )
    {
       dash = rb_->firstEntryMember( comp );
 		if (dash ==NULLBHandle)
@@ -172,7 +172,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 
       puanso.atOwnCoords();
 
-      /////////////// VP: 15 jul 98 : cutting a line   
+      /////////////// VP: 15 jul 98 : cutting a line
       Bool isLine = puanso.isALine();
 
 /// 10.02.99, VP ------- registering fragments for external usage
@@ -192,12 +192,12 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 		      frg->Xc      =puanso.Xc     ;
 	         frg->Yc      =puanso.Yc     ;
 	         frg->Phi     =puanso.Phi    ;
-            frg->aveW    =puanso.aveW   ;   
+            frg->aveW    =puanso.aveW   ;
 		      frg->mainMxx =puanso.mainMxx;
 	         frg->mainMyy =puanso.mainMyy;
-//		      frg->relMxx  =puanso.relMxx ;	
-//		      frg->relMxy  =puanso.relMxy ;	
-//		      frg->relMyy  =puanso.relMyy ;	
+//		      frg->relMxx  =puanso.relMxx ;
+//		      frg->relMxy  =puanso.relMxy ;
+//		      frg->relMyy  =puanso.relMyy ;
 
 			   frg->A.x 	= puanso.left;
 			   frg->B.x 	= puanso.right - 1;
@@ -215,12 +215,12 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
          // 1. find zone with bad line width
             int wdt[512]={0};
             dash = rb_->firstEntryMember( comp );
-		      do 
+		      do
             {
                TDash& dd = (*rb_)[ dash ];
                seg = dd.firstSegHandle;   assert( seg != NULLBHandle );
                row = dd.firstSegEntry;
-			      do 
+			      do
                {
                   TBlackSeg& bs = (*sb_)[ seg ];
                   if (bs.right < 4000) // 4096, if more presize
@@ -232,14 +232,14 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
                } while ( seg != NULLBHandle );
 		      } while ((dash = rb_->nextMember( dash ))!=NULLBHandle);
 
-            for (int i=1; i<512; i++) 
+            for (int i=1; i<512; i++)
                wdt[i] += wdt[i-1];
 
             int sum=0; int sumsq=0; int len=0; int max_width = 40;
 
             for (int pass=0; pass<2; pass++)
             {  sum=0; int sumsq=0; int len=0;
-               for (int i=1; i<512; i++) 
+               for (int i=1; i<512; i++)
                {
                   if (wdt[i] > 0 && wdt[i] < max_width)
                   {
@@ -255,7 +255,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 
                double ave_width = ((double)sum) / len;
                double dispers =  ( double(sumsq)/len) - ave_width*ave_width;
-            
+
                max_width = (int)(ave_width + sqrt(dispers) + 1);
             }// pass
 
@@ -264,13 +264,13 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
             int good_left[512]={0};  // index [i]=> left  end of good good segment with i
             Bool outside = TRUE;
             for (int i=511; i>=0; i--)  // compute good_right[]
-            {  
+            {
                if (wdt[i] && wdt[i] <= max_width) // good point
-               {            
+               {
                   if (outside)   // good segment started
                   {  good_right[i] = i;
                      last_good = i;
-                     outside = FALSE;                        
+                     outside = FALSE;
                   }
                   else // inside
                      good_right[i] = last_good;
@@ -285,13 +285,13 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
             }
             outside = TRUE;
             for (int i=0; i < 512; i++)  // compute good_left[]
-            {  
+            {
                if (wdt[i] && wdt[i] <= max_width) // good point
-               {            
+               {
                   if (outside)   // good segment started
                   {  good_left[i] = i;
                      last_good = i;
-                     outside = FALSE;                        
+                     outside = FALSE;
                   }
                   else // inside
                      good_left[i] = last_good;
@@ -308,12 +308,12 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
             {  // find longmost zone
                int maxzonelen=0; int maxzonestart = 0;
                for (int i=0; i < 512; i++)  // compute good_left[]
-               {  
+               {
                   if (!good_right[i])
                      continue;
                   // reach start of zone
                   if (good_right[i]-i > maxzonelen)
-                  {  
+                  {
                      maxzonelen = good_right[i]-i;
                      maxzonestart = i;
                      i+= maxzonelen+1;
@@ -346,17 +346,17 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
                continue;
 		      // compute tenzor of inertia...
 		      puanso.flashPuanso();
-		      do 
+		      do
             {
                TDash& dd = (*rb_)[ dash ];
                seg = dd.firstSegHandle;   assert( seg != NULLBHandle );
                row = dd.firstSegEntry;
-			      do 
+			      do
                {
                   TBlackSeg& bs = (*sb_)[ seg ];
                   int n_goodright = good_right[bs.left>>3];
                   if ( (bs.right>>3) <= n_goodright) // entire segment inside good zone
-                  {  
+                  {
                      puanso.increase( bs.left,bs.right,row);
                   }
                   else  // segment broken
@@ -392,12 +392,12 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
                   continue;
 		         // compute tenzor of inertia...
 		         puanso.flashPuanso();
-		         do 
+		         do
                {
                   TDash& dd = (*rb_)[ dash ];
                   seg = dd.firstSegHandle;   assert( seg != NULLBHandle );
                   row = dd.firstSegEntry;
-			         do 
+			         do
                   {
 
                      TBlackSeg& bs = (*sb_)[ seg ];
@@ -420,7 +420,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
       }
 
 /////////////////////////////////////////////////////////////////////////////////
-#if 0         
+#if 0
          int center = (puanso.right+puanso.left)>>1;
 
          // test left part of line
@@ -472,7 +472,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
                } while ( seg != NULLBHandle );
 		      } while ((dash = rb_->nextMember( dash ))!=NULLBHandle);
 
-		      puanso.atOwnCoords();         
+		      puanso.atOwnCoords();
          }
 
          if (puanso.isALine()) // wow - one of parts treated as line...
@@ -543,7 +543,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
       /// Check for black squares:
       int height = up - down + 1;
       int width  = puanso.right-puanso.left;
-      if ( height > 24 && abs(height + 2 - width) < 4 ) 
+      if ( height > 24 && abs(height + 2 - width) < 4 )
          // box is about square - diff between height and width less than 4 pels!
          // note: two pels addition for for height slightly compensates horisontal filtration
       {  double square = height* (double)width;
@@ -559,7 +559,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
    int nhl = HLiner_GetCount();
    for (int i=0; i<nhl; i++)
    {
-      // array is allocated of count_of_rasters + count_of_hliner_lines, 
+      // array is allocated of count_of_rasters + count_of_hliner_lines,
       // so we can add them without test
 
       Line16& li = *HLiner_GetLine(i);
@@ -605,9 +605,9 @@ void TLinesBambuk::computeVRasters( TRasterBambuk* rb, TSegBambuk* sb ){
    int nfrag=0;
 /// --------------------
 
-	for ( BEntry comp	= 0; comp <= last_comp; comp++ ) 
+	for ( BEntry comp	= 0; comp <= last_comp; comp++ )
    {  dash = rb_->firstEntryMember( comp );
-      
+
 		if (dash ==NULLBHandle)
          continue;
 
@@ -633,7 +633,7 @@ void TLinesBambuk::computeVRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 
 		puanso.atOwnCoords();
 
-      /////////////// VP: 15 jul 98 : cutting a line   
+      /////////////// VP: 15 jul 98 : cutting a line
       Bool isLine = puanso.isALine();
 
 /// 10.02.99, VP ------- registering fragments for external usage
@@ -646,7 +646,7 @@ void TLinesBambuk::computeVRasters( TRasterBambuk* rb, TSegBambuk* sb ){
             else
                frg->frag_handle = -1; // else will set below
 
-            frg->rc.left  = left; 
+            frg->rc.left  = left;
             frg->rc.right = right-1;
             frg->rc.top = puanso.left;
             frg->rc.bottom = puanso.right+1;
@@ -655,12 +655,12 @@ void TLinesBambuk::computeVRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 		      frg->Xc      =puanso.Yc     ;
 	         frg->Yc      =puanso.Xc     ;
 	         frg->Phi     =puanso.Phi    ;//???   transp?
-            frg->aveW    =puanso.aveW   ;   
+            frg->aveW    =puanso.aveW   ;
 		      frg->mainMxx =puanso.mainMxx;//???   transp?
 	         frg->mainMyy =puanso.mainMyy;//???
-//		      frg->relMxx  =puanso.relMxx ;//???	
-//		      frg->relMxy  =puanso.relMxy ;//???	
-//		      frg->relMyy  =puanso.relMyy ;//???	
+//		      frg->relMxx  =puanso.relMxx ;//???
+//		      frg->relMxy  =puanso.relMxy ;//???
+//		      frg->relMyy  =puanso.relMyy ;//???
             frg->A.y     = puanso.left;
             frg->B.y     = puanso.right + 1;
             frg->A.x     = (Int16)( puanso.Yc + (puanso.left-puanso.Xc)*puanso.Phi );
@@ -722,7 +722,7 @@ void TLinesBambuk::computeVRasters( TRasterBambuk* rb, TSegBambuk* sb ){
                } while ( seg != NULLBHandle );
 		      } while ((dash = rb_->nextMember( dash ))!=NULLBHandle);
 
-		      puanso.atOwnCoords();         
+		      puanso.atOwnCoords();
          }
 
          if (puanso.isALine()) // wow - one of parts treated as line...
@@ -1000,19 +1000,19 @@ Bool  has_H_linked(  PLine  line, PLine  frag )
 
    if ( abs( line->width10 - frag->width10 ) > 15 ) // more than 1.5 pels width diff!
    {
-      if (!(line->flags & LF_HLINER || frag->flags & LF_HLINER)) // currently, 04 jun 99, HLiner reports not correct width 
+      if (!(line->flags & LF_HLINER || frag->flags & LF_HLINER)) // currently, 04 jun 99, HLiner reports not correct width
          return FALSE;
    }
 
    if (frag->start.x > line->end.x) // fragment is on right side of the line
    {
       gap = frag->start.x - line->end.x;
-      if (  gap < LINK_FRAGMENTS_GAP 
+      if (  gap < LINK_FRAGMENTS_GAP
             &&
             (gap * LINK_FRAGMENTS_RATIO < sum_len )
 			   &&
 			   ( abs(frag->start.y - line->end.y) < LINK_FRAGMENTS_DELTA )
-		   ) 
+		   )
       {
 		   line->end = frag->end;
 		   return (TRUE);
@@ -1023,12 +1023,12 @@ Bool  has_H_linked(  PLine  line, PLine  frag )
    if (line->start.x > frag->end.x) // fragment is on left side of the line
    {
       gap = line->start.x - frag->end.x;
-      if (  gap < LINK_FRAGMENTS_GAP 
+      if (  gap < LINK_FRAGMENTS_GAP
             &&
-            gap * LINK_FRAGMENTS_RATIO < sum_len 
+            gap * LINK_FRAGMENTS_RATIO < sum_len
 			   &&
-			   abs(line->start.y - frag->end.y) < LINK_FRAGMENTS_DELTA 
-		   ) 
+			   abs(line->start.y - frag->end.y) < LINK_FRAGMENTS_DELTA
+		   )
       {
 		   line->start = frag->start;
 		   return (TRUE);
@@ -1128,7 +1128,7 @@ Bool  has_V_linked(  PLine  line, PLine  frag ){
 
    Int32 sum_len = (line->end.y - line->start.y) + (frag->end.y - frag->start.y);
 
-	PLine fst = frag->start.y < line->start.y ? frag : line; 
+	PLine fst = frag->start.y < line->start.y ? frag : line;
 	PLine sec = frag->start.y < line->start.y ? line : frag;
 
 	int min_len = MIN( line_length(fst), line_length(sec) );
@@ -1146,13 +1146,13 @@ Bool  has_V_linked(  PLine  line, PLine  frag ){
 		return FALSE;
    if ( gap * LINK_FRAGMENTS_RATIO > sum_len )
 		return FALSE;
-	
+
 	// make connection
 	if (frag->start.y < line->start.y)
 		line->start = frag->start;
 	else
 		line->end = frag->end;
-	
+
 	return (TRUE);
 };
 
@@ -1161,8 +1161,8 @@ Bool  has_V_linked(  PLine  line, PLine  frag ){
 #define HV_LENGTH_DELTA 6     //  <= | checkbox height-width |
 #define VV_LENGTH_DELTA 3     //  <= | left_len - right_len  |
 
-#define MAX_CHBOX_SIZE  80   
-#define MIN_CHBOX_SIZE  20    
+#define MAX_CHBOX_SIZE  80
+#define MIN_CHBOX_SIZE  20
 
 static TLineFragment* _curr = NULL;
 int cdecl byStartY( const void *int1, const void *int2)
@@ -1193,8 +1193,8 @@ int cdecl byStrokes( const void *int1, const void *int2)
 */
 static
 void _RegisterCheckBox( Line& left,
-                        Line& top, 
-                        Line& right, 
+                        Line& top,
+                        Line& right,
                         Line& bottom
                       )
 {
@@ -1217,12 +1217,12 @@ void _RegisterCheckBox( Line& left,
 
 inline Bool OutRect( Point32& pt, Rect32& rc )
 {
-   return (pt.x < rc.left) || (pt.x > rc.right) || (pt.y < rc.top) || (pt.y > rc.bottom); 
+   return (pt.x < rc.left) || (pt.x > rc.right) || (pt.y < rc.top) || (pt.y > rc.bottom);
 }
 
 inline Bool OutRange( int x, int minim, int maxim )
 {
-   return (x < minim) || (x > maxim); 
+   return (x < minim) || (x > maxim);
 }
 
 inline void Point2Rect( Rect32& rc, Point32& pt, int delta )
@@ -1251,7 +1251,7 @@ Bool AnalyzeFragments( TLinesBambuk& hLB, TLinesBambuk& vLB)
 
    int vv[ MAX_V_RASTERS_COUNT ] = {0};
    int hh[ MAX_H_RASTERS_COUNT ] = {0};
-   
+
    for (int i=0; i < nv; i++ ) vv[i]=i;
    for (int i=0; i < nh; i++ ) hh[i]=i;
 
@@ -1264,9 +1264,9 @@ Bool AnalyzeFragments( TLinesBambuk& hLB, TLinesBambuk& vLB)
    /////////////////////////////
    // start checkbox search
 
-   int prev_ver = 0; 
-   for ( int top_hor=0; top_hor < nh; top_hor++ ) 
-   {  // by all horisontal fragments, 
+   int prev_ver = 0;
+   for ( int top_hor=0; top_hor < nh; top_hor++ )
+   {  // by all horisontal fragments,
       // in order up to down (start.y increases)
       Line& top = _lf_hor[hh[top_hor]].fragmentAsIs; // potential top of checkbox
       int top_len = top.end.x - top.start.x;
@@ -1286,31 +1286,31 @@ Bool AnalyzeFragments( TLinesBambuk& hLB, TLinesBambuk& vLB)
          break;   // finished
 
       // we at start of test zone (prev_ver - is first vertical segment)
-     
+
       for ( int left_ver = prev_ver; left_ver < nv; left_ver++ )
       {
          Line& left = _lf_ver[vv[left_ver]].fragmentAsIs;
          if (left.start.y > zone_finish)
             break; // out of zone
-         
+
          if ( OutRect(left.start, corner0 ) )
             continue; // no connection
-         
+
          int left_len = left.end.y - left.start.y;
          if ( abs(left_len - top_len) > HV_LENGTH_DELTA )
             continue;   // diff length!
          /////////////////////////////////////////////////////////////////////
          // now we have left-top corner; try to make bottom and right parts
-         
+
          for ( int right_ver = prev_ver; right_ver < nv; right_ver++ )
-         {  
+         {
             Line& right = _lf_ver[vv[right_ver]].fragmentAsIs;
             if (right.start.y > zone_finish)
                break; // out of zone
 
             if ( OutRect( right.start, corner1 ) )
                continue; // no connection
-         
+
             int right_len = right.end.y - right.start.y;
             if ( abs(right_len - left_len) > VV_LENGTH_DELTA )
                continue;   // diff length!
@@ -1334,7 +1334,7 @@ Bool AnalyzeFragments( TLinesBambuk& hLB, TLinesBambuk& vLB)
 
                if ( OutRect( bottom.end, corner3 ) )
                   continue; // no connection
-      
+
                /////////////////////////////////////////////////////////////////////
                // now we have connected rect - register checkbox
                _RegisterCheckBox(left, top, right, bottom);
@@ -1344,7 +1344,7 @@ Bool AnalyzeFragments( TLinesBambuk& hLB, TLinesBambuk& vLB)
          /////////////////////////////////////////////////////////////////////
       }
    }
-   
+
 
 #endif   //0
    return TRUE;
@@ -1374,8 +1374,8 @@ inline int yproj_frag( LnsFrag& hor_lf, int* phi ) // computes angle of fragment
    return yproj_pt( hor_lf.B, *phi );
 }
 
-static int yproject( LnsFrag& lf1, LnsFrag& lf2 ) 
-{ 
+static int yproject( LnsFrag& lf1, LnsFrag& lf2 )
+{
    assert(lf1.B.y > lf1.A.y);
    assert(lf2.B.y > lf2.A.y); // end point has larger y coord
 
@@ -1391,7 +1391,7 @@ static int yproject( LnsFrag& lf1, LnsFrag& lf2 )
    int b = MIN(lf1.B.y,lf2.B.y);
 
    assert(b >= a);
-   
+
    return (100*(b-a))/minh;
 };
 
@@ -1431,7 +1431,7 @@ Bool AnalyzeFragmentsII( TLinesBambuk& hLB, TLinesBambuk& vLB)
       return WRONG();
    int vv[ MAX_V_RASTERS_COUNT ] = {0};
 
- 
+
    for (int i=0; i < nv; i++ ) vv[i]=i;
 
    vfrags = LnsGetFragments(FALSE);
@@ -1440,7 +1440,7 @@ Bool AnalyzeFragmentsII( TLinesBambuk& hLB, TLinesBambuk& vLB)
    /////////////////////
    // start text linkage
 
-   for ( int cur =0; cur < nv; cur++ ) 
+   for ( int cur =0; cur < nv; cur++ )
    {  // by all vertical fragments
       // in order left to right (start.x + end.x increases)
       LnsFrag& lf1 = vfrags[vv[cur]];
@@ -1476,7 +1476,7 @@ Bool AnalyzeFragmentsII( TLinesBambuk& hLB, TLinesBambuk& vLB)
    }
 
    ///////////////////////////////////
-   // now vertical sticks are marked - 
+   // now vertical sticks are marked -
    // let test horisontal near sticks
    // to prevent extracting false line
    // from text fragments
@@ -1492,21 +1492,21 @@ Bool AnalyzeFragmentsII( TLinesBambuk& hLB, TLinesBambuk& vLB)
       return WRONG();
    int hh[ MAX_H_RASTERS_COUNT ] = {0};
 
- 
+
    for (int i=0; i < nh; i++ ) hh[i]=i;
 
    hfrags = LnsGetFragments(TRUE);
 
    qsort(&hh, nh, sizeof(hh[0]), comp_hfrags_byYLevel);
-   qsort(&vv, nv, sizeof(vv[0]), comp_vfrags_byYLevel); 
+   qsort(&vv, nv, sizeof(vv[0]), comp_vfrags_byYLevel);
 
 
    /////////////////////////////////////////////////////////
-   // for each horisontal fragment test count of vertical 
+   // for each horisontal fragment test count of vertical
    // sticks touching it
 
    int vcur_start = 0; // current start of zone for vertical segments
-   for ( int hcur =0; hcur < nh; hcur++ ) 
+   for ( int hcur =0; hcur < nh; hcur++ )
    {  // by all horisontal fragments
       // in order up to down (start.y + end.y increases)
       LnsFrag& hor_lf = hfrags[hh[hcur]];
@@ -1518,7 +1518,7 @@ Bool AnalyzeFragmentsII( TLinesBambuk& hLB, TLinesBambuk& vLB)
       int ylev_hor = ylevel( hor_lf );
 
       int phi=0;
-      int yproj_hor = yproj_frag( hor_lf, &phi );  
+      int yproj_hor = yproj_frag( hor_lf, &phi );
 
       //////////////////////////////
       // update vcur_start position
@@ -1540,7 +1540,7 @@ Bool AnalyzeFragmentsII( TLinesBambuk& hLB, TLinesBambuk& vLB)
       int nsticks_near = 0;      // count of sticks intersected this line
       int nsticks_intersect = 0; // count of sticks intersected this line
       int left    =  10000;
-      int right   = -10000; 
+      int right   = -10000;
 
       for ( int vcur = vcur_start; vcur < nv; vcur++)
       {
@@ -1555,12 +1555,12 @@ Bool AnalyzeFragmentsII( TLinesBambuk& hLB, TLinesBambuk& vLB)
             continue;
 
          if (yheight(vlf) > MAX_STICK_HEIGHT)   // not a stick - continue
-            continue;         
+            continue;
 
          // we have vertical segment near  if (ylev > ylev_hor - MAX_STICK_HEIGHT) // reach zone
          int ya = yproj_pt( vlf.A, phi );
          int yb = yproj_pt( vlf.B, phi );
-         if (ya > yproj_hor +5 || yb < yproj_hor-5) 
+         if (ya > yproj_hor +5 || yb < yproj_hor-5)
             // stick not intersectes nor touches horisontal fragment
             continue;
 
@@ -1569,9 +1569,9 @@ Bool AnalyzeFragmentsII( TLinesBambuk& hLB, TLinesBambuk& vLB)
          left = MIN(left, xlev);
          right = MAX(right, xlev);
 
-         if (ya > yproj_hor || yb < yproj_hor) 
+         if (ya > yproj_hor || yb < yproj_hor)
             // stick not intersectes nor touches horisontal fragment
-            nsticks_intersect++;         
+            nsticks_intersect++;
       };
 
 #define MIN_FREE_LINE_END 30   // 30 pels should be free from vertical sticks at the end of line

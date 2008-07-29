@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -159,7 +159,7 @@ static void EndHausdorfDLL2(void);
 static SINT FindBestClusterMemory(SINT let,SINT w,SINT h,BYTE *buf,BYTE *bufrazmaz,
 		      SINT NumClus, SINT porog,SINT xcen,SINT ycen,CHAR *movxy);
 
-typedef struct tagPOSXY 
+typedef struct tagPOSXY
 	{SINT sr_col,sr_row; }     // source row,col
 		POSXY;
 static SINT NumClusRecog=0;
@@ -456,7 +456,7 @@ SINT FindBestClusterMemory(SINT let,SINT w,SINT h,BYTE *buf,BYTE *bufrazmaz,
 
   if( dist < bestdist)
       { bestdist=dist; best=i;
-	    if(bxy) 
+	    if(bxy)
 			{*bxy=(char)x;	 *(bxy+1)=(char)y;}
 	    if(let!=0  || dist==0)
 		    return (best+1);
@@ -481,7 +481,7 @@ SINT i,j;
     {
      close(fclu);
      return -3;
-   }  
+   }
 
    if(welBuf->invalid) continue;
 
@@ -496,7 +496,7 @@ SINT i,j;
 static SINT GetSwel(PCHAR cluname,SINT nclus,SWEL *sw,clu_info *cin,
 			SINT AllCount,BYTE size)
 {
-SINT i; 
+SINT i;
 SINT fclu;
 SINT ret=0;
 SINT CurCount=0;
@@ -523,10 +523,10 @@ SINT x,y;
    x=welBuf->w;   // full size
    y=welBuf->h;
 
-   
+
    if(welBuf->invalid)
     {
-     if( size > 0) continue;  
+     if( size > 0) continue;
      cin->ninvalid++;
 	 sw[i].invalid=welBuf->invalid;
 	 sw[i].let=welBuf->let;
@@ -544,7 +544,7 @@ SINT x,y;
 
    // make ideal picture,set distances
    // get NewFx, NewFy
-   FONCutOffClusters(welBuf,1);  
+   FONCutOffClusters(welBuf,1);
 
    sw[i].let=welBuf->let;
    if( welBuf->let < 256 && FirLet[welBuf->let] < 0) FirLet[welBuf->let]=i;
@@ -567,7 +567,7 @@ SINT x,y;
     sw[i].xcen=(CHAR)x;
     sw[i].ycen=(CHAR)y;
    #endif
-    
+
 	if(size > 0) {posXY[i].sr_col=welBuf->sr_col;
 	              posXY[i].sr_row=welBuf->sr_row;
 	}
@@ -660,7 +660,7 @@ SINT SaveAddCluster(SINT fh,SINT clus,SINT firCl,SINT lastCl,welet *wel,welet *d
 
  wel->attr &= ~FON_CLU_FIXED;
 
- if(wei >= MAXINCLUS ) 
+ if(wei >= MAXINCLUS )
  {j=0; /*wel->attr &= ~FON_CLU_UPDATE;*/ goto lsave;}
 
  startx=(WR_MAX_WIDTH-wel->w)/2;
@@ -758,24 +758,24 @@ SINT NumClus; // how many clusters
    {
     close(fh);
     return ret;
-   }  
+   }
 
   NumClus=size/sizeof(welet);
   if( sizeCluster > 0) NumClus= GetNumSwelWeight(fh,NumClus,(BYTE)sizeCluster);
   close(fh);
-  
+
   if(NumClus <= 0)   return -4;
 
   NumClus=MIN(NumClus,MAXWELSYM);
   size=StartHausdorfDLL2(NumClus,extern_buf,size_extern);
   if(size < 0) return -1;
   cin->memused=size;
-  if(size > 0) 
+  if(size > 0)
 	{posXY=malloc(NumClus*sizeof(POSXY));
      if(posXY==NULL) return -1;
      cin->memused+= NumClus*sizeof(POSXY);
 	}
-  
+
 
      // put weighted clusters to memory, get some statistics
   if( (i=GetSwel(nameClu,NumClus,swel,cin,(SINT)(NumClus/SIGNAL_START),(BYTE)(sizeCluster<=0?0:sizeCluster))) < 0 )
@@ -871,7 +871,7 @@ SINT AddClusterHausdorf(CHAR  *NameWr,CHAR  *szOutName,
  cl3=clock();
 #endif
 	// look first not-added to old clusters
-  for(i=0;i<NumAll;i++) 
+  for(i=0;i<NumAll;i++)
 	  if(nClus[i]==0) break;
      // set clusters numbers (from NumClus+1) for not-added
   CurClus=MakeClusters(i,NumAll,(SINT)(NumClus+1),2,0);
@@ -922,7 +922,7 @@ SINT AddClusterHausdorf(CHAR  *NameWr,CHAR  *szOutName,
       else if( k > cin->nsolid) nClus[i]+=NewSolid;
      }
     else if (k<=NumClus+NewNotInvalid) // new not-invalid cluster
-      nClus[i]=newclus[nClus[i]];       
+      nClus[i]=newclus[nClus[i]];
    }
 
 

@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define _NEW_POROG_
 //#define _TEST_FAT_
 #define _POROG_FAT_ 70  // 70 - good for cten42, very bad cten100
-                        // 80 - better for cten100, bad cten42  
+                        // 80 - better for cten100, bad cten42
 
   // add symbols to clusters (if exist)
   // or create new clusters always
@@ -122,16 +122,16 @@ typedef LONG (* MKFAM) (raster_header * rh,WORD nclu);
 // number in one weighted raster <= MAXINCLUS (127)
 // must be MAXINCLUS*3 < MAXSYM ! (used in SaveCluster)
 // must be sizeof(welet) >= MAXSYM*sizeof(SINT)
-//  -use dist_wel as mysteck 
+//  -use dist_wel as mysteck
 //   (now 128*64+... > 8192)
 //
 // working buffer
 static CHAR  mybuffer[MAX( 2*MAXSYM*sizeof(SINT),max(2*sizeof(welet),sizeof(access_tab)))];
    welet *welBuf=(welet *)mybuffer;
-   welet *dist_wel=(welet *)(mybuffer+MAX(MAXSYM*sizeof(SINT),sizeof(welet)));   // use as 
-   
+   welet *dist_wel=(welet *)(mybuffer+MAX(MAXSYM*sizeof(SINT),sizeof(welet)));   // use as
+
 // union twins with solid? - tiger
-//             remove week? - CTB   
+//             remove week? - CTB
 static BYTE p2_active=4;
 static SINT porogCluster=2;
 static SINT IsCTBBase =1;  // load from b/w CTB
@@ -371,7 +371,7 @@ static SINT MakeBitmapsDLL(Nraster_header  *rhh, BYTE *pp,
  {
   rhh->xbyte=sxbyte=(sx>>3)+1;
   sizebitmap=sxbyte*sy;
-  if( (rhh->pHau=AddBuffer(2*sizebitmap+sxbyte)) == NULL ) 
+  if( (rhh->pHau=AddBuffer(2*sizebitmap+sxbyte)) == NULL )
 	  return -1;
 
   pic=rhh->pHau;
@@ -401,7 +401,7 @@ static SINT MakeBitmapsDLL(Nraster_header  *rhh, BYTE *pp,
   rhh->sr_col=*(movxy+2*num);
   rhh->sr_row=*(movxy+2*num+1);
  }
- 
+
  return 0;
 }
 /////////////////////
@@ -467,7 +467,7 @@ SINT ReadAllFromWr(CHAR  *name,BYTE *buf,SINT size,SINT *nClu,CHAR *movxy,
  raster_header *rhh;
  SINT CurCount=0;
 
- if( IsCTBBase ) 
+ if( IsCTBBase )
 	 return ReadAllFromBase(name,nClu,movxy,AllCount);
 
  if( (fh=open(name,O_RDWR|O_BINARY))==-1)	  return -2;
@@ -527,7 +527,7 @@ SINT  csize;
 raster_header *rh;
 LONG position=0;
 
- if( IsCTBBase ) return 0; 
+ if( IsCTBBase ) return 0;
 
  fh=open(NameWr,O_RDWR|O_BINARY);
  if(fh < 0) return(-10);
@@ -681,7 +681,7 @@ static SINT ClusterHausdorfDLL(CHAR  *NameWr,SINT porog,
  CTB_handle CTBfile,CTBsnap,*CTBpointer=NULL;
  Int16 countFont=0;
 
- 
+
  if(NameWr==NULL)
  {
    if( (NumAll=(SINT)GetNumMemory()) <=0 )
@@ -768,7 +768,7 @@ static SINT ClusterHausdorfDLL(CHAR  *NameWr,SINT porog,
 
      // fill cluster results - some when ReOrderCluster
      // not more clusters - for Vladimir
- if(CurClus > MAXWEICLUS && IsCTBBase == 0) 
+ if(CurClus > MAXWEICLUS && IsCTBBase == 0)
 	 CurClus=MAXWEICLUS;
 
  cin->totclu=CurClus;
@@ -778,7 +778,7 @@ static SINT ClusterHausdorfDLL(CHAR  *NameWr,SINT porog,
  //ret=CurClus;  // if return - good, return as in prev.version
 
  // если чтение было из файла .r - записать туда номера кластеров
- if(  NameWr != NULL ) 
+ if(  NameWr != NULL )
  {
 	// call external function && write numbers to file .r
   i=SaveSym(NameWr,NumAll,(BYTE *)mysteck,MAXSYM*sizeof(SINT),
@@ -795,9 +795,9 @@ static SINT ClusterHausdorfDLL(CHAR  *NameWr,SINT porog,
  // study clusters
  if( IsCTBBase )
  {
-	if( CurClus > MAXWEICLUS) 
+	if( CurClus > MAXWEICLUS)
 	{metkaGood=malloc(CurClus*2);
-	 if(!metkaGood) 
+	 if(!metkaGood)
 	 {metkaGood=metkaGoodStat;
 	  CurClus=MAXWEICLUS;
 	 }
@@ -807,10 +807,10 @@ static SINT ClusterHausdorfDLL(CHAR  *NameWr,SINT porog,
 	metkaValid = metkaGood+CurClus;
 
 // stay only good clusters from fonts?
-    if(saveOnlyBest) 
+    if(saveOnlyBest)
 		countFont=FindBestClusters(NumAll,CurClus,rh,nClus,metkaGood,metkaValid,4,&allFields[0][0]);
-    else 
-	{   
+    else
+	{
 	 if(p2_active == 4)   // only remove week clusters ?
 	  MultiFindBestClusters(NumAll,CurClus,rh,nClus,metkaGood,metkaValid);
      else  // only fill metki
@@ -823,18 +823,18 @@ static SINT ClusterHausdorfDLL(CHAR  *NameWr,SINT porog,
  j=AllCount*(SIGNAL_SAVE-(CurClus%SIGNAL_SAVE));
 
  if(szOutName==NULL)
- { 
+ {
   StartAddMemCluster(metkaValid,CurClus,countFont,&allFields[0][0]);
   OutCTBBase=1;
   CTBpointer=NULL;
-  fh=1; 
+  fh=1;
  }
  else
  {
   CTBpointer=&CTBfile;
   if( OutCTBBase == 0)
      fh=open(szOutName,O_RDWR|O_BINARY|O_CREAT|O_TRUNC,S_IREAD|S_IWRITE);
-  else 
+  else
 	 fh=StartCTB(szOutName,&CTBfile,countFont,&allFields[0][0]);
  }
 
@@ -852,7 +852,7 @@ static SINT ClusterHausdorfDLL(CHAR  *NameWr,SINT porog,
    for(i=1,ret=0,CurCount=0;i<=CurClus;i++)
 	 {
 	  if( IsCTBBase==0 ||  (metkaValid[i-1]&METKA_VALID)!=0 ||
-		  fhSnap > 0) 
+		  fhSnap > 0)
 	  {
 	   if( SaveCluster(fh,CTBpointer,fhSnap,&CTBsnap,i,NumAll,metkaGood,metkaValid) < 0)
 		{   ret=-11;
@@ -891,7 +891,7 @@ static SINT ClusterHausdorfDLL(CHAR  *NameWr,SINT porog,
 		if ( IsCTBBase==0 || (metkaValid[nClus[i]-1]&METKA_VALID)!=0  )
 		 clusBuffer[rh[i].nInCTB-1]=nClus[i];
 		else
-         clusBuffer[rh[i].nInCTB-1]=-nClus[i];   
+         clusBuffer[rh[i].nInCTB-1]=-nClus[i];
 	 }
  }
 
@@ -922,7 +922,7 @@ void init11(void)
 //  not put first bytes
   for(i=1,curtab=tabl+8;i<255;i++,curtab+=8)
   {
-	for(k=0,j=0;k<8;k++) 
+	for(k=0,j=0;k<8;k++)
 		if(i&mas00[k]) 	curtab[j++]=k;
   }
  WasInit11=1;
@@ -1019,7 +1019,7 @@ SINT SaveCluster(SINT fh,CTB_handle *CTBfile,
 
 	// first symbol - as etalon
  etalon= rh[i].pHau;
- xbyte = rh[i].xbyte; 
+ xbyte = rh[i].xbyte;
  yrow  = rh[i].h;
 
  MakeDWORDField(rh[i].nField,fields);
@@ -1027,7 +1027,7 @@ SINT SaveCluster(SINT fh,CTB_handle *CTBfile,
  movex[0] =0;  // sdvigx
  movey[0] =0;  // sdvigy
  fx=fy=0;
- tmpbuf=(BYTE *)welBuf;  
+ tmpbuf=(BYTE *)welBuf;
 
   // study maximal sizes and move position
   for(++i,j=1;i<NumAll;i++)
@@ -1091,15 +1091,15 @@ SINT SaveCluster(SINT fh,CTB_handle *CTBfile,
     welBuf->summa+=fat;
 
 	AddDWORDField(rh[i].nField,fields);
-	if(rh[i].italic) 
+	if(rh[i].italic)
 		nItalic++;
-	if(rh[i].bold) 
+	if(rh[i].bold)
 		nBold++;
-	if(rh[i].serif) 
+	if(rh[i].serif)
 		nSerif++;
-	if(rh[i].gelv) 
+	if(rh[i].gelv)
 		nGelv++;
-	if(rh[i].narrow) 
+	if(rh[i].narrow)
 		nArrow++;
     keglBuffer[MIN(rh[i].kegl,MAXKEGL)]++;
 	if( rh[i].tablColumn && rh[i].tablColumn <= 32)
@@ -1110,7 +1110,7 @@ SINT SaveCluster(SINT fh,CTB_handle *CTBfile,
   }
 
  j=welBuf->weight;
- 
+
  if( (nBold<<1) >= j)
  {
 	 welBuf->attr |= FON_CLU_BOLD;
@@ -1136,7 +1136,7 @@ SINT SaveCluster(SINT fh,CTB_handle *CTBfile,
 	     welBuf->invalid=rh[fir].num-NumAll;
 	 else  // main
 	 {
-	  if(rh[fir].solid==0 && rh[rh[fir].num-1].let==rh[fir].let) 
+	  if(rh[fir].solid==0 && rh[rh[fir].num-1].let==rh[fir].let)
 		  welBuf->attr |= FON_CLU_TWIN;
 	  else welBuf->invalid=nClus[rh[fir].num-1];
 	 }
@@ -1148,7 +1148,7 @@ SINT SaveCluster(SINT fh,CTB_handle *CTBfile,
 
  if(IsCTBBase)
  {
-    if( (metkaValid[clus-1]&METKA_VALID)!=0 ) 
+    if( (metkaValid[clus-1]&METKA_VALID)!=0 )
 		welBuf->attr |= FON_CLU_SOLID;
     welBuf->nInCTB=rh[fir].nInCTB; // accord first symbol in CTB
  }
@@ -1182,14 +1182,14 @@ SINT SaveCluster(SINT fh,CTB_handle *CTBfile,
 #else
     welBuf->porog=welBuf->weight/POROG_IDEAL;
 #endif
- 
+
 
 //#ifdef _IDEAL_
 // if(wel->weight >= POROG_IDEAL) MakeIdeal(wel,wel->weight/POROG_IDEAL);
 // wel->fill=FindDistanceWr(wel,dist_wel);
 //#else
 
- for(i=0;i<j;i++) 
+ for(i=0;i<j;i++)
 	 if(welBuf->raster[i]) welBuf->fill++;
  for(j=0,i=1;i<=MAXKEGL;i++)
 	 if(keglBuffer[i]>keglBuffer[j]) j=i;
@@ -1201,25 +1201,25 @@ SINT SaveCluster(SINT fh,CTB_handle *CTBfile,
  welBuf->num=clus;
 
  // Oleg portit welBuf !?
- if( fhSnap > 0) 
+ if( fhSnap > 0)
 	  memcpy(dist_wel,welBuf,sizeof(welet));
 
  if(OutCTBBase == 0)
- {if( write(fh,welBuf,sizeof(welet)) !=sizeof(welet)) 
+ {if( write(fh,welBuf,sizeof(welet)) !=sizeof(welet))
    return -11;
  }
  // save main ctb-base
  else if( (metkaValid[clus-1]&METKA_VALID)!=0 )
  {
 	 // поместить в память ?
-  if(CTBfile==NULL) 
-	  AddClusterMemFont(welBuf);  
+  if(CTBfile==NULL)
+	  AddClusterMemFont(welBuf);
   else if( SaveWeletAsCTB( welBuf,CTBfile ) == 0)
 	  return -11;
  }
 
  // save for snap
- if( fhSnap > 0) 
+ if( fhSnap > 0)
 	 SaveWeletAsCTB( dist_wel,CTBsnap );
 
  return 0;
@@ -1271,7 +1271,7 @@ SINT dist;
  return 0;
 }
 /////////////////
-#ifdef _UNION_ONEONE_ 
+#ifdef _UNION_ONEONE_
 //
 // try union symbols - move centers
 //
@@ -1330,20 +1330,20 @@ static SINT TestUnionOne(SINT porog,SINT NumAll,SINT NumClus)
   for(i=1;i< NumClus;i++)
   {
    CurName=rh[LasIn[i]].let;
-   if( CurName < 0 || CurName >=256 ) 
+   if( CurName < 0 || CurName >=256 )
 	  continue;
-    	 
+
    // tested name already ?
    if( maxClusName[CurName] != 0 ) continue;
 
    maxClusName[CurName]=NumIn[i];
-   if( maxClusName[CurName] > 1) 
+   if( maxClusName[CurName] > 1)
          continue;
-   
+
    for(j=i+1;j<NumClus;j++)
 	{
 	 if(rh[LasIn[j]].let != CurName) continue;
-	 if( NumIn[j] > 1 ) 
+	 if( NumIn[j] > 1 )
 	 {   maxClusName[CurName]=NumIn[j];
 		 break;
 	 }
@@ -1384,7 +1384,7 @@ static SINT TestUnionOne(SINT porog,SINT NumAll,SINT NumClus)
 	}
 
   	  // if only one with the name - stay ( not go to _RENAME_ ) ?
-  if(best == -1) 
+  if(best == -1)
 	 continue;     // ???
 
 	// can union ?
@@ -1498,11 +1498,11 @@ SINT TestUnionSolid(SINT porog,SINT NumAll,SINT Clus2,SINT NumClus)
 
 		 // if already found some alternative - try only find twin
 	  if( IsTwin[CurClus]>=0 && rh[j].let != CurName) continue;
-      
+
 	  if(rh[k].fat || rh[j].fat ) porog1=0;
 	  else if( rh[j].let != CurName ) porog1=(yrow<=18?porog>>2:porog>>1);
 	  else porog1=porog;
-	  
+
 
 	  dist=DistanceHausDLL(buf,xbyte,yrow,rh[j].pHaur,rh[j].xbyte,
 						(SINT)(rh[j].h+1),porog1);
@@ -1519,14 +1519,14 @@ SINT TestUnionSolid(SINT porog,SINT NumAll,SINT Clus2,SINT NumClus)
 
  if( p2_active >=4 )
  {
-    // really union with solid 
+    // really union with solid
   for(j=0;j<NumAll;j++)
   {
 	  if( (CurClus=nClus[j]) < Clus2) continue;
 	  if( (k=IsTwin[CurClus])==-1) continue;  // not twin
 	  if( rh[k].let != rh[j].let ) 	    // invalid !
 		  rh[FirIn[CurClus]].num=k+1; // +1 - to mark that was union
-	  else 
+	  else
 	  {nClus[j]=nClus[k];  // new cluster
 	   rh[j].solid=1;
 	  }
@@ -1548,13 +1548,13 @@ SINT TestUnionSolid(SINT porog,SINT NumAll,SINT Clus2,SINT NumClus)
   // set new numbers for not-twins
   for(j=0;j<NumAll;j++)
   {
-	  if( (CurClus=nClus[j]) >= Clus2) 
+	  if( (CurClus=nClus[j]) >= Clus2)
 	     nClus[j]=FirIn[CurClus];
   }
   return dist-1;
- } 
+ }
 
-    // set only marks   
+    // set only marks
 	// results - to first from cluster
  for(k=Clus2,j=0;k<NumClus;k++)
 	{
@@ -1722,9 +1722,9 @@ int GetSymbolFromBase(int i,Nraster_header *rh,BYTE **pBuf);
  {
 	 // bad symbol ?
 
-	  if( GetSymbolFromBase(i,rh+allnum,&pp) == 0 ) continue; 
-      
-	  if( MakeBitmapsDLL(rh+allnum,pp,(SINT)allnum,nClu,movxy) < 0) 
+	  if( GetSymbolFromBase(i,rh+allnum,&pp) == 0 ) continue;
+
+	  if( MakeBitmapsDLL(rh+allnum,pp,(SINT)allnum,nClu,movxy) < 0)
 		  break;
 
   	  allnum++;
@@ -1759,10 +1759,10 @@ BYTE SetHand(BYTE val);
  else                       SetHand(0);
 
  if( (param & FONCLU_MultiFontRow) != 0 )  SetFillAll(0);
- else                       SetFillAll(1);  
- 
+ else                       SetFillAll(1);
+
  if( (param & FONCLU_SaveAsClu) != 0 )  OutCTBBase=0;
- else                       OutCTBBase=1; 
+ else                       OutCTBBase=1;
 
  if( (param & FONCLU_NotFonts) != 0 ) saveOnlyBest=0;
  else                     saveOnlyBest=1;
@@ -1785,9 +1785,9 @@ BYTE SetHand(BYTE val);
  else porogCluster--;
 
  // make font only from CTB !
- if(IsCTBBase==0) 
+ if(IsCTBBase==0)
 	 saveOnlyBest=0;
- 
+
  memset(clusBuffer,0,sizeof(clusBuffer));
  memset(allFields,0,sizeof(allFields));
 

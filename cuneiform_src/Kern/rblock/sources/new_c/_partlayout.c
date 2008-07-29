@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -74,7 +74,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "exc.h"
 # include "excdefs.h"
 # include "dpuma.h"
-# include "ctp.h" 
+# include "ctp.h"
 # include "pic&table.h"
 */
 # include "new_c.h"
@@ -127,8 +127,8 @@ Word32 NumberOfLettersInArea(Rect32 rect, int Number)
 			(pRoot->yRow >= rect.top) &&
 			(pRoot->nBlock == Number) )
 		   	  Result++;
-		
-		
+
+
 	}
 
 	return Result;
@@ -257,7 +257,7 @@ Bool32 InsertRight(POLY_ * rectangle, POLY_ * poly)
 			return TRUE;
 		}
 	}
-	
+
 	if( (poly->com.Vertex[poly->com.count-1].x < rectangle->com.Vertex[2].x)&&
 		(poly->com.Vertex[poly->com.count-1].y > rectangle->com.Vertex[2].y)&&
 		(poly->com.Vertex[0].y < rectangle->com.Vertex[1].y))
@@ -326,7 +326,7 @@ Bool32 CrossedBy1 (POLY_ * poly, POLY_ * rectangle)
 	int i;
 	Point32 point;
 
-	
+
 	for (i=0;i<poly->com.count-2; i++)
 	{                   //STEPA_AM |
 		if( (poly->com.Vertex[i].x > rectangle->com.Vertex[1].x)&&
@@ -360,7 +360,7 @@ Bool32 CrossedBy1 (POLY_ * poly, POLY_ * rectangle)
 		//InsertVertex(poly, poly->com.count-1, point);
 		return TRUE;
 	}
-	
+
 
 	return TRUE;
 }
@@ -370,7 +370,7 @@ Bool32 CrossedBy2 (POLY_ * poly, POLY_ * rectangle)
 	int i;
 	Point32 point;
 
-	
+
 	for (i=0;i<poly->com.count-2; i++)
 	{
 		if( (poly->com.Vertex[i].y > rectangle->com.Vertex[2].y)&&
@@ -403,10 +403,10 @@ Bool32 CrossedBy2 (POLY_ * poly, POLY_ * rectangle)
 		InsertVertex(poly, 1, rectangle->com.Vertex[2]);
 		poly->com.Vertex[0] = point;
 		//poly->com.Vertex[0] = rectangle->com.Vertex[2];
-		
+
 		return TRUE;
 	}
-	
+
 
 	return TRUE;
 }
@@ -477,7 +477,7 @@ Bool32 PolysIsCrossed (POLY_ * poly1, POLY_ * poly2,Bool32 pic)
 			return TRUE;
 	}
 
-//	if(NumberOfLettersInArea(rect, poly1) < NumberOfLettersInArea(rect, poly2)) 
+//	if(NumberOfLettersInArea(rect, poly1) < NumberOfLettersInArea(rect, poly2))
 //		return TRUE;
 
 	if (IsInPoly(poly2->com.Vertex[0], poly1))
@@ -495,7 +495,7 @@ Bool32 PolysIsCrossed (POLY_ * poly1, POLY_ * poly2,Bool32 pic)
 		CrossedBy2(poly1, poly2);
 		return TRUE;
 	}
-	if (IsInPoly(poly2->com.Vertex[3], poly1)) 
+	if (IsInPoly(poly2->com.Vertex[3], poly1))
 	{
 		CrossedBy3(poly1, poly2);
 		return TRUE;
@@ -549,10 +549,10 @@ Bool32 PageRoatateBlocks (Handle hPage)
 		 }
 //		}
 		/*********************/
-		
+
 		for (i=0; i<block.com.count-1; i++)
 		{
-			//if(abs(block.com.Vertex[i].x - block.com.Vertex[i+1].x) < 
+			//if(abs(block.com.Vertex[i].x - block.com.Vertex[i+1].x) <
 			//	abs(block.com.Vertex[i].y - block.com.Vertex[i+1].y))
 			d1 = div (i,2);
 			if(d1.rem == 0)
@@ -564,14 +564,14 @@ Bool32 PageRoatateBlocks (Handle hPage)
 			{
 			  if(block.com.Vertex[i].x!=block.com.Vertex[i+1].x)
 				block.com.Vertex[i].x=block.com.Vertex[i+1].x;
-				
+
 			}
 		}
 		if(block.com.Vertex[0].x!=block.com.Vertex[block.com.count-1].x)
 			block.com.Vertex[block.com.count-1].x = block.com.Vertex[0].x;
 		/*********************/
-		sprintf(tmp_str, "  <4 Î 1 %4d %4d %4d %4d %d \n", 
-			block.com.Vertex[0].x, block.com.Vertex[0].y, 
+		sprintf(tmp_str, "  <4 Î 1 %4d %4d %4d %4d %d \n",
+			block.com.Vertex[0].x, block.com.Vertex[0].y,
 			block.com.Vertex[1].x, block.com.Vertex[1].y,
 			block.com.Vertex[2].y - block.com.Vertex[1].y);
 		LDPUMA_FPuts(resFile_pict,tmp_str);
@@ -656,13 +656,13 @@ Bool32 BlockAnalyse()
 	{
 		nAverageHeight += pRoots[i].nHeight;
 	}
-	nAverageHeight /= nRoots; 
-  
+	nAverageHeight /= nRoots;
+
 
 
 	//r = malloc(sizeof(BLOCK));
 	//r->pNext = pBlocksList;
-		
+
 AGAIN_PQ:
 	//for (p = r; p->pNext != NULL; p = p -> pNext)
 	for (p = pBlocksList; p != NULL; p = p -> pNext)
@@ -707,7 +707,7 @@ AGAIN_PQ:
 				while(pRoot!=NULL)
 				{
 					/*
-					if(p->pRoots[i].pComp == 0xcdcdcdcd) 
+					if(p->pRoots[i].pComp == 0xcdcdcdcd)
 						continue;
 					*/
 					if(!CCOM_GetRaster(pRoot->pComp, &rec)) continue;
@@ -753,7 +753,7 @@ Bool32 OutputFragments(Handle hPage)
 	//BLOCK * tmp = NULL; // *** Rom 07-03-99
 	//Bool32 Crossed; // *** Rom 07-03-99
 	Bool32 rc = TRUE;
-	int    count; 
+	int    count;
 	Word32 BlockNumber;
 	Int32  Min, PrevMin;
 	Handle hBlock = NULL; // ***** Rom 01-03-99
@@ -765,8 +765,8 @@ Bool32 OutputFragments(Handle hPage)
 	//POLY_  pPics[100];
 	POLY_  * pPics;
 	Bool32 Same;
-	
-	
+
+
 	POLY_	block;
 	POLY_	* all_polys;
 	//POLY_	all_polys[100];
@@ -787,7 +787,7 @@ Bool32 OutputFragments(Handle hPage)
 
 	BlocksBuildLeftAndRightLists ();
 	BlocksBuildTopAndBottomLists ();
-	
+
 
 //*************************************************
 	count = 0;
@@ -800,7 +800,7 @@ Bool32 OutputFragments(Handle hPage)
 			CPAGE_SetBlockUserNum(hPage, p->pHystogram, ++BlockNumber);
 			continue;
 		}
-		
+
 		if (i % COMPS_QUANTUM == 0)
 				{
 					all_polys = realloc (all_polys,
@@ -812,7 +812,7 @@ Bool32 OutputFragments(Handle hPage)
 		//all_polys[i].com.number = ++count;//ïîðÿäêîâûé íîìåð
 		all_polys[i].com.number = p->nNumber;//ïîðÿäêîâûé íîìåð
 		all_polys[i].com.Color = 0;
-		all_polys[i].com.count = 4;	
+		all_polys[i].com.count = 4;
 		all_polys[i].com.Vertex[0].x = p->Rect.xLeft;
 		all_polys[i].com.Vertex[0].y = p->Rect.yTop;
 		all_polys[i].com.Vertex[1].x = p->Rect.xRight;
@@ -823,8 +823,8 @@ Bool32 OutputFragments(Handle hPage)
 		all_polys[i].com.Vertex[3].y = p->Rect.yBottom;
 		all_polys[i].alphabet = 0;
 
-		sprintf(tmp_str, "  <4 Î 1 %4d %4d %4d %4d %d \n", 
-			all_polys[i].com.Vertex[0].x, all_polys[i].com.Vertex[0].y, 
+		sprintf(tmp_str, "  <4 Î 1 %4d %4d %4d %4d %d \n",
+			all_polys[i].com.Vertex[0].x, all_polys[i].com.Vertex[0].y,
 			all_polys[i].com.Vertex[1].x, all_polys[i].com.Vertex[1].y,
 			all_polys[i].com.Vertex[2].y - all_polys[i].com.Vertex[1].y);
 		LDPUMA_FPuts(resFile_blocks,tmp_str);
@@ -928,14 +928,14 @@ Bool32 OutputFragments(Handle hPage)
 			if(IsInPoly(block.com.Vertex[1], &all_polys[i])) count++;
 			if(IsInPoly(block.com.Vertex[2], &all_polys[i])) count++;
 			if(IsInPoly(block.com.Vertex[3], &all_polys[i])) count++;
-			
+
 			switch(count)
 			{
-			case 1: 
+			case 1:
 				//PolysIsCrossed(&block, &all_polys[i]);
 				PolysIsCrossed(&all_polys[i], &block,TRUE);
 				break;
-			case 2: 
+			case 2:
 				InsertRectangleInPoly(&block, &all_polys[i]);
 				break;
 			case 3: break;
@@ -944,7 +944,7 @@ Bool32 OutputFragments(Handle hPage)
 			}
 		}
 	}
-	
+
 
 	// ******** Processing crossed bloks ************
 AGAIN:
@@ -1001,17 +1001,17 @@ AGAIN:
 			if(IsInPoly(block.com.Vertex[1], &all_polys[i])) count++;
 			if(IsInPoly(block.com.Vertex[2], &all_polys[i])) count++;
 			if(IsInPoly(block.com.Vertex[3], &all_polys[i])) count++;
-			
+
 			switch(count)
 			{
-			case 1: 
+			case 1:
 				//PolysIsCrossed(&block, &all_polys[i]);
 				if(!LDPUMA_Skip(hNotUseAntonCross))
 					PolysIsCrossed(&all_polys[i], &block,TRUE);
 				else
 				    PolysIsCrossed(&all_polys[i], &block,FALSE);
 				break;
-			case 2: 
+			case 2:
 				if(all_polys[i].alphabet != block.com.number)
 				{
 					InsertRectangleInPoly(&block, &all_polys[i]);
@@ -1063,7 +1063,7 @@ AGAIN:
 
 	j = 0;
 	for ( i=0; i<max; i++)
-    {	
+    {
 		all_polys[i].alphabet = 0;//Rom
 		BlockNumber = all_polys[i].com.number;
 		all_polys[i].com.number = 0;
@@ -1073,12 +1073,12 @@ AGAIN:
 		if(all_polys[i].com.count == 4)
 		{
 			j++;
-			sprintf(tmp_str, "  <4 Î 1 %4d %4d %4d %4d %d \n", 
-				all_polys[i].com.Vertex[0].x, all_polys[i].com.Vertex[0].y, 
+			sprintf(tmp_str, "  <4 Î 1 %4d %4d %4d %4d %d \n",
+				all_polys[i].com.Vertex[0].x, all_polys[i].com.Vertex[0].y,
 				all_polys[i].com.Vertex[1].x, all_polys[i].com.Vertex[1].y,
 				all_polys[i].com.Vertex[2].y - all_polys[i].com.Vertex[1].y);
 			LDPUMA_FPuts(resFile_blocks,tmp_str);
-			
+
 		}
 
 		hBlock = CPAGE_CreateBlock(hPage, TYPE_TEXT,0,0,&all_polys[i],sizeof(POLY_));
@@ -1098,7 +1098,7 @@ AGAIN:
 	LDPUMA_FPuts(resFile_blocks, "  <2 Ê Ñòðàíèöà \n");
 
 
-	
+
 	/*Numeraciya Kartinok*/
 	PrevMin = -2000;
 	Min = -1000;
@@ -1173,7 +1173,7 @@ AGAIN:
 
 
 
-	
+
 
 LT_FreeAllData ();
 
@@ -1186,7 +1186,7 @@ return rc;
 //#######################################################
 void CalculatePageIncline(Handle hCCOM, Int32 * lpNominator, Int32 * lpDenominator)
 {
-//  PageLayoutBlocks((Int32)hCCOM);	
+//  PageLayoutBlocks((Int32)hCCOM);
 
   *lpDenominator = INCLINE_FACTOR;
   *lpNominator   = nIncline;
@@ -1214,7 +1214,7 @@ int IsInPoly(Point32 a, POLY_ * p)
 		}
 		if((y== a.y)&&(p->com.Vertex[ind].x >= a.x))
 			Count++;
-		else if(MIN(p->com.Vertex[i].y,p->com.Vertex[j].y)== a.y) 
+		else if(MIN(p->com.Vertex[i].y,p->com.Vertex[j].y)== a.y)
 				continue;
 		else
 		{

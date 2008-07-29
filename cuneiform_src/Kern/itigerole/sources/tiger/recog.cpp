@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -72,7 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define _IMAGE_ROTATE	"RotateImage"
 
 typedef struct
-	{ 
+	{
 	Word32 dwBeg;   // Начало текущего диапозона
 	Word32 dwEnd;	// Конец
 
@@ -81,7 +81,7 @@ typedef struct
 	} PRGTIME;
 
 extern PRGTIME g_PrgTime;
-// Функции прогресс индикатора. 
+// Функции прогресс индикатора.
 // 1. Для инициализации внутреннего счетчика надо вызвать InitPRGTIME.
 // 2. Внутри одной функции разбиение идет всегда от 0 до 100 процентов
 // 3. Перед вызовом функции надо установить диапозон прогресса для этой функции в масштабе 0 - 100
@@ -214,7 +214,7 @@ void _Unload()
 
 short  _EnumLanguage(short PrevLang)
 {
-	short rc; 
+	short rc;
 		rc = Tiger_EnumLanguage(PrevLang);
 	return rc;
 }
@@ -224,7 +224,7 @@ BOOL _Open(char * hDIB, char * FileName)
 	BOOL rc = FALSE;
 
 	if(g_hPage)
-		_Close( ); 
+		_Close( );
 
 	if(hDIB==0)
 	{
@@ -234,7 +234,7 @@ BOOL _Open(char * hDIB, char * FileName)
 
 	g_pDIB = hDIB;
 	strcpy(g_strFileName,FileName);
-	
+
 	//
 	// Запишем изображение
 	//
@@ -309,8 +309,8 @@ BOOL rc = FALSE;
 	}
 
 	DonePRGTIME();
-	
-return rc;	
+
+return rc;
 }
 
 BOOL _Save(void * hEdPage,char * lpFileName,long format, long code, Bool32 bAppend)
@@ -326,9 +326,9 @@ BOOL _Save(void * hEdPage,char * lpFileName,long format, long code, Bool32 bAppe
 	#define NOFORMAT	0x0008
 	#define NOSIZE		0x0010
 
-	WORD wOptions = (int)!g_bBold   & NOBOLD | 
-			   (int)!g_bItalic & NOCURSIV | 
-			   (int)!g_bSize   & NOSIZE | 
+	WORD wOptions = (int)!g_bBold   & NOBOLD |
+			   (int)!g_bItalic & NOCURSIV |
+			   (int)!g_bSize   & NOSIZE |
 			   (int)!g_bFormat & NOFORMAT;
 
 	rc = Tiger_SetEdSaveRtfOptions(wOptions,
@@ -387,7 +387,7 @@ BOOL _PageAnalysis(BOOL bUpdateCPAGE)
 			TIGER_LAYOUTSTRIP * pStrip = NULL;
 			TIGER_LAYOUTSTRIPHANDLE * pStripHandle = NULL;
 
-			
+
 			int i = 0;
 			while( i < nBlocks )
 			{
@@ -414,7 +414,7 @@ BOOL _PageAnalysis(BOOL bUpdateCPAGE)
 				i++;
 				// ВНИМАНИЕ! Эта версия не поддерживает картинки !
 				if(lpBlocks -> Type == BLOCK_PICTURE)
-				  continue; 
+				  continue;
 				switch(lpBlocks -> Type)
 				{
 				case BLOCK_PICTURE:
@@ -446,7 +446,7 @@ BOOL _PageAnalysis(BOOL bUpdateCPAGE)
 
 					block.com.number = i;//порядковый номер
 					block.com.Color = 0;
-					block.com.count = 4;	
+					block.com.count = 4;
 					block.com.Vertex[0] = lt;
 					block.com.Vertex[1] = rt;
 					block.com.Vertex[2] = rb;
@@ -471,13 +471,13 @@ BOOL _PageAnalysis(BOOL bUpdateCPAGE)
 BOOL _FinalRecognition()
 {
 	BOOL rc = TRUE;
-	
+
 	int number_blocks = CPAGE_GetCountBlock(g_hPage);
 
 	InitPRGTIME();
 
 	if(number_blocks==0)
-	{	// Фрагменты не выделены. 
+	{	// Фрагменты не выделены.
 		// Распознаем по полной программе
 		rc = _Recognition();
 	}
@@ -601,18 +601,18 @@ BOOL _FinalRecognition()
 	return rc;
 }
 
-static struct 
+static struct
 {
 	int format;
 	int code[10];
 }
  enumFormatCode[] = {
-	 TIGER_TOEDNATIVE		,      
+	 TIGER_TOEDNATIVE		,
 	 {
 			 TIGER_CODE_UNKNOWN         ,
 			-1
 	 },
-			TIGER_TOASCII           ,   
+			TIGER_TOASCII           ,
 	 {
 			 TIGER_CODE_ASCII           ,
 			 TIGER_CODE_ANSI            ,
@@ -620,7 +620,7 @@ static struct
 			 TIGER_CODE_ISO             ,
 			-1
 	 },
-			TIGER_TOSMARTASCII       ,  
+			TIGER_TOSMARTASCII       ,
 	 {
 			 TIGER_CODE_ASCII           ,
 			 TIGER_CODE_ANSI            ,
@@ -628,7 +628,7 @@ static struct
 			 TIGER_CODE_ISO             ,
 			-1
 	 },
-			TIGER_TORTF               , 
+			TIGER_TORTF               ,
 	 {
 			 TIGER_CODE_ANSI            ,
 			-1
@@ -694,7 +694,7 @@ return rc;
 
 long	_EnumFormats(long prev)
 {
-	
+
 	long rc = -1;
 	if(prev<0)
 		rc = enumFormatCode[0].format;
@@ -709,7 +709,7 @@ long	_EnumFormats(long prev)
 
 long	_EnumCodes(long f,long prev)
 {
-	
+
 	long rc = -1;
 	int format = _SearchFormat(f);
 	if(format>=0)
@@ -732,7 +732,7 @@ long	_EnumCodes(long f,long prev)
 	return rc;
 }
 
-static long enumFormatMode[] = 
+static long enumFormatMode[] =
 {
 	PUMA_FORMAT_NONE,
 	PUMA_FORMAT_ALL,
@@ -758,7 +758,7 @@ long _EnumFormatMode(long prev)
 	return rc;
 }
 
-static long enumTable[] = 
+static long enumTable[] =
 {
 	PUMA_TABLE_NONE,
 	-1
@@ -783,7 +783,7 @@ long _EnumTableMode(long prev)
 	return rc;
 }
 
-static long enumPicture[] = 
+static long enumPicture[] =
 {
 	PUMA_PICTURE_NONE,
 	-1
@@ -841,7 +841,7 @@ BOOL _GetRotateDIB(long * phDIB,long * x0,long * y0)
 			g_pRecognition->SetError((char *)RIMAGE_GetReturnString(RIMAGE_GetReturnCode()));
 			rc = FALSE;
 		}
-	
+
 	}
 
 	if(rc)

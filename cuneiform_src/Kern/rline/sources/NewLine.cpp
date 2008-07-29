@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -165,7 +165,7 @@ extern Bool32 gbRSLT;
 //     Handle hCCOM;
 //     Handle hCPAGE;
 //     PBool32 pneed_clean;
-//     Bool32 bCheck; 
+//     Bool32 bCheck;
 // };
 
 #define RSL_HANDLE 1;
@@ -255,16 +255,16 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
  LDPUMA_Skip(MainWork2);
 
 // Int32 CountLines = CLINE_GetLineCount(/*linecontainer*/hCLINE);
- 
+
  if(!CountLines)
 	 return TRUE;
 
  CLINE_handle* linesmass = new CLINE_handle[CountLines];
  CLINE_handle currentline, hLinePrev = NULL, hLineNext;
-/* for(i = 0, currentline = CLINE_GetFirstLine(linecontainer); i < CountLines; i++, currentline = CLINE_GetNextLine(currentline)) 
+/* for(i = 0, currentline = CLINE_GetFirstLine(linecontainer); i < CountLines; i++, currentline = CLINE_GetNextLine(currentline))
      linesmass[i] = currentline;
 */
- for(i = 0, currentline = CLINE_GetFirstLine(hCLINE); i < CountLines; currentline = CLINE_GetNextLine(currentline)) 
+ for(i = 0, currentline = CLINE_GetFirstLine(hCLINE); i < CountLines; currentline = CLINE_GetNextLine(currentline))
  {
 	 CPDLine pLine = CLINE_GetLineData(currentline);
 	 if (!pLine) continue;
@@ -280,7 +280,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
  CPDLine clinedata;
  i = 0;
  /*****************  горизонтальные линии  ******************************/
- 
+
 	while (currentline)
 	{
         clinedata = CLINE_GetLineData(currentline);
@@ -302,7 +302,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
         if (i>CountLines) break;
 
 //        clinedata = CLINE_GetLineData(currentline);
-        if (clinedata->Dir != LD_Horiz) 
+        if (clinedata->Dir != LD_Horiz)
         {
             currentline = CLINE_GetNextLine(currentline);
             continue;
@@ -338,7 +338,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
                 linesmass[i-1] = NULL;
                 delete work_line;
 	        }
-/*          else 
+/*          else
             {
                 linesmass[i-1] = currentline;
             }
@@ -373,7 +373,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
         if (i>CountLines) break;
 
 //        clinedata = CLINE_GetLineData(currentline);
-        if (clinedata->Dir != LD_Verti) 
+        if (clinedata->Dir != LD_Verti)
         {
             currentline = CLINE_GetNextLine(currentline);
             continue;
@@ -389,12 +389,12 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
 //      return FALSE;
             }
 	    }
-        
+
         currentline = CLINE_GetNextLine(currentline);
 	}
 
 /*****************  search dot lines  II проход ******************************/
-    if (sdl) 
+    if (sdl)
     {
 //        LDPUMA_Console("in \n");
         FindDotLines(hCCOM, hCPage, /*linecontainer*/hCLINE);
@@ -511,7 +511,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
 
 //        clinedata = CLINE_GetLineData(currentline);
 /*        int CountEvents = CLINE_GetEventCount(currentline);
-        if (CountEvents>0) 
+        if (CountEvents>0)
         {
             currentline = CLINE_GetNextLine(currentline);
             continue;
@@ -590,7 +590,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
 
 //delete unknown lines
   for(i = 0; i < CountLines; i++)
-      if (linesmass[i]) 
+      if (linesmass[i])
 	  {
 		  CLINE_DelLine(/*linecontainer*/hCLINE, linesmass[i]);
 		  linesmass[i] = NULL;
@@ -603,7 +603,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
   Int32 cross_point[MAX_CROSS_POINTS];
   DCutPoint cut_point_obj;
   CLINE_handle hCutPoint;
-  
+
   if (!LDPUMA_Skip(hDebugShortLinesPrint)) debug_flags |= 1;
 
   for(currentline = CLINE_GetFirstLine(/*linecontainer*/hCLINE); currentline; currentline = CLINE_GetNextLine(currentline))
@@ -640,7 +640,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
 					{
 						cut_point_obj.Level = cross_point[i];
 						hCutPoint = CLINE_AddNewCutPoint(currentline);
-					  
+
 						if (hCutPoint) CLINE_SetCutPointData(hCutPoint, &cut_point_obj);
 					}
 					else break;//cross points array is filled consequently
@@ -675,7 +675,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
 					{
 						cut_point_obj.Level = cross_point[i];
 						hCutPoint = CLINE_AddNewCutPoint(currentline);
-					  
+
 						if (hCutPoint) CLINE_SetCutPointData(hCutPoint, &cut_point_obj);
 					}
 					else break;
@@ -716,7 +716,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
 
  }
 
- if (sdl) 
+ if (sdl)
      DeleteBadDotLine(hCLINE,(CCOM_handle)hCCOM,hCPage);
 
 // LDPUMA_ConsoleN("Складка в контейнер %d",clock()-time);
@@ -761,7 +761,7 @@ CLINE_handle FindLine(CLINE_handle hContainer, CLINE_handle processedline,BOOL v
      pCLine->Dir  = LD_Unknown;
 /*     pCLine->Dens = (pLns->Quality*100)/255;
      pCLine->Flags=pLns->Flags;
-     pCLine->PathNumber = SecondPath;    
+     pCLine->PathNumber = SecondPath;
 */
      CLINE_SetLineData(processedline, pCLine);
 /*
@@ -807,7 +807,7 @@ CLINE_handle FindLine(CLINE_handle hContainer, CLINE_handle processedline,BOOL v
 	   return NULL;
 	 }
      else
-     {//take'em away!	   
+     {//take'em away!
        Bool32 IsSeparationPoints = CheckSeparationPoints(processedline);
        if(IsSeparationPoints && pCLine->Tail==0)
        {/*
@@ -1046,7 +1046,7 @@ BOOL MyPutLines(CLINE_handle hContainerOut,CLINE_handle hCLINE,BOOL dotline)
  while (del_line)
  {
      CPDLine del_line_data = CLINE_GetLineData(del_line);
-     if (!(del_line_data->Flags&LI_Pointed)) 
+     if (!(del_line_data->Flags&LI_Pointed))
      {
          CLINE_handle next_line = CLINE_GetNextLine(del_line);
          CLINE_DelLine(hCLINE, del_line);
@@ -1555,7 +1555,7 @@ BOOL MyGetLines(CPageLines* PLines,CLINE_handle hCLINE)
 	}
 	line->Status=cpdline->Status;
 	line->Tail=cpdline->Tail;
- 
+
     //Ивенты
     for(hevent=CLINE_GetFirstEvent(hline);hevent;hevent=CLINE_GetNextEvent(hevent))
 	{
@@ -1638,7 +1638,7 @@ BOOL MyGetLines(CPageLines* PLines,CLINE_handle hCLINE)
 */
 void DeleteBadDotLine(CLINE_handle hCLINE,CCOM_handle hCCOM,Handle hCPAGE)
 {
- 
+
  int count_comp=0;
  const int My_False=~((int)LI_IsTrue);
  const BOOL fl_show=!LDPUMA_Skip(hDotKilledD);
@@ -1691,7 +1691,7 @@ void DeleteBadDotLine(CLINE_handle hCLINE,CCOM_handle hCCOM,Handle hCPAGE)
 			  fl_break=FALSE;
 
               for(comp=CCOM_GetFirst(hCCOM,NULL);comp;comp=CCOM_GetNext(comp,NULL))
-			  {			
+			  {
 	            if(comp->h<=min_letter_h)
 				   continue;
 
@@ -1975,7 +1975,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass2(Handle hCCOM,void* phCLINE, Handle hCPAGE)
 
 	PAGEINFO info = {0};
 
-	if(!GetPageInfo(hCPAGE,&info)) 
+	if(!GetPageInfo(hCPAGE,&info))
 		return FALSE;
 
 	Bool32 ret = TRUE;
@@ -2002,7 +2002,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass2(Handle hCCOM,void* phCLINE, Handle hCPAGE)
 
 		nOldLines3 = CLINE_GetLineCount(hCLINE);
 
-		if (ret) 
+		if (ret)
 		{
 			if (!LDPUMA_Skip(hShowCPLines))
 				DrowAllLines(hCLINE, hShowCPLines);
@@ -2159,10 +2159,10 @@ Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM)
 			{
 				if (pLine->Flags&LI_Pointed || pLine->Flags == LI_IsFalse) continue;
 
-				if (pLine->Dir == LD_Horiz) 
+				if (pLine->Dir == LD_Horiz)
 				{
 					CountLines++;
-					if (!NeedNextLoop && max_line_width < pLine->Line.Wid10) 
+					if (!NeedNextLoop && max_line_width < pLine->Line.Wid10)
 						max_line_width = pLine->Line.Wid10;
 				}
 			}
@@ -2170,7 +2170,7 @@ Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM)
 
 		if (!CountLines) break;
 
-		if (!NeedNextLoop) 
+		if (!NeedNextLoop)
 		{
 			CountComps = getLineComps(&pCompMass, 0, max_line_width/10 + 2, hCCOM);
 			if (CountComps) qsort(pCompMass, CountComps, sizeof(CCOM_comp), CompareCompByLeft);
@@ -2193,7 +2193,7 @@ Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM)
 
 		qsort(hLinesMass, CountLines, sizeof(CLINE_handle), CompareByX);
 
-		if (!FindExtLines(hLinesMass, CountLines, hExtContainer, TRUE, pCompMass, CountComps, hContainer)) 
+		if (!FindExtLines(hLinesMass, CountLines, hExtContainer, TRUE, pCompMass, CountComps, hContainer))
 		{
 			delete[] hLinesMass;
 			CLINE_DeleteContainer(hExtContainer);
@@ -2212,7 +2212,7 @@ Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM)
 		}
 	} while(NeedNextLoop);
 
-	if (hLinesMass) 
+	if (hLinesMass)
 	{
 		CLINE_CleanContainer(hExtContainer);
 		delete[] hLinesMass;
@@ -2221,7 +2221,7 @@ Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM)
 
 	NeedNextLoop = FALSE;
 	max_line_width = 0;
-	if (pCompMass) 
+	if (pCompMass)
 	{
 		delete[] pCompMass;
 		pCompMass = NULL;
@@ -2238,10 +2238,10 @@ Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM)
 			{
 				if (pLine->Flags&LI_Pointed || pLine->Flags == LI_IsFalse) continue;
 
-				if (pLine->Dir != LD_Horiz) 
+				if (pLine->Dir != LD_Horiz)
 				{
 					CountLines++;
-					if (!NeedNextLoop && max_line_width < pLine->Line.Wid10) 
+					if (!NeedNextLoop && max_line_width < pLine->Line.Wid10)
 						max_line_width = pLine->Line.Wid10;
 				}
 			}
@@ -2249,7 +2249,7 @@ Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM)
 
 		if (!CountLines) break;
 
-		if (!NeedNextLoop) 
+		if (!NeedNextLoop)
 		{
 			CountComps = getLineComps(&pCompMass, max_line_width/10 + 2, 0, hCCOM);
 			if (CountComps) qsort(pCompMass, CountComps, sizeof(CCOM_comp), CompareCompByUpper);
@@ -2272,7 +2272,7 @@ Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM)
 
 		qsort(hLinesMass, CountLines, sizeof(CLINE_handle), CompareByY);
 
-		if (!FindExtLines(hLinesMass, CountLines, hExtContainer, FALSE, pCompMass, CountComps, hContainer)) 
+		if (!FindExtLines(hLinesMass, CountLines, hExtContainer, FALSE, pCompMass, CountComps, hContainer))
 		{
 			delete[] hLinesMass;
 			CLINE_DeleteContainer(hExtContainer);
@@ -2324,7 +2324,7 @@ Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM)
 
 	CLINE_handle hExtContainer = CLINE_CreateContainer(FALSE);
 
-	if (!FindExtLines(hHorLines, CountHor, hExtContainer, TRUE)) 
+	if (!FindExtLines(hHorLines, CountHor, hExtContainer, TRUE))
 	{
 		delete[] hHorLines;
 		delete[] hVertLines;
@@ -2356,7 +2356,7 @@ Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM)
 }
 
 /**********************************************************************************************/
-Bool32 FindExtLines(CLINE_handle* hLinesMass, Int32 CountLines, CLINE_handle hExtContainer, Bool32 IsHor, 
+Bool32 FindExtLines(CLINE_handle* hLinesMass, Int32 CountLines, CLINE_handle hExtContainer, Bool32 IsHor,
 					CCOM_comp *pCompMass, Int32 CountMass, CLINE_handle hContainer)
 {
 	CPDLine pLine, pLineExt;
@@ -2396,7 +2396,7 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, Int32 CountLines, CLINE_handle hEx
 		else
 		{
 			LineBeg = pLine->Line.Beg_Y;
-			LineEnd = pLine->Line.End_Y;  
+			LineEnd = pLine->Line.End_Y;
 			LineBegS = pLine->Line.Beg_X;
 			LineEndS= pLine->Line.End_X;
 		}
@@ -2410,13 +2410,13 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, Int32 CountLines, CLINE_handle hEx
 
 			//отсекаем по углу
 			if (pLine->Degree - pLineExt->Degree > maxdegreediff ||
-				pLineExt->Degree - pLine->Degree > maxdegreediff) 
+				pLineExt->Degree - pLine->Degree > maxdegreediff)
 				continue;
 
 			//отсекаем по уровню
 			if (LineBeg >= pLineExt->rect.left && LineEnd <= pLineExt->rect.right) continue;
 
-			if (LineBeg < pLineExt->rect.left) 
+			if (LineBeg < pLineExt->rect.left)
 			{
 				spread = pLineExt->rect.left - LineEnd;
 				simple_shift = abs(pLineExt->rect.top - LineEndS);
@@ -2428,7 +2428,7 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, Int32 CountLines, CLINE_handle hEx
 			}
 
 			if (spread > max_interval || spread < 0 && abs(spread) > min_interval
-				|| simple_shift > max_interval) 
+				|| simple_shift > max_interval)
 				continue;
 
 //считаем сдвиг между линиями = расстоянию между серединой pLine и прямой, задаваемой pLineExt
@@ -2440,7 +2440,7 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, Int32 CountLines, CLINE_handle hEx
 
 			Int32 temp = delta.x*(Int32)pLineExt->poly.Vertex[0].y - delta.y*(Int32)pLineExt->poly.Vertex[0].x;
 			Int32 squareshift = (Int32)(temp*((double)temp/pLineExt->LineEventsLength));
-			
+
 			//отсекаем по сдвигу
 			if (squareshift > max_shift) continue;
 
@@ -2456,7 +2456,7 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, Int32 CountLines, CLINE_handle hEx
 
 				break;
 			}
-			
+
 			if (spread <= first_interval && LineLen < long_line)
 			{
 				Rect32 CurrLine;
@@ -2479,13 +2479,13 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, Int32 CountLines, CLINE_handle hEx
 			}
 
 			Int32 CountBlack = -1, CountBlackR = -1;
-			
+
 			if (spread <= second_interval)
 			{
 				CountBlack = countCompLen(pCompMass, CountMass, pLine, pLineExt, IsHor);
 				//CountBlack = CountBlackRaster(pLine, pLineExt, IsHor, hRastDelta, hDrawCrRast);
 
-				Bool32 IfMerge = 2*CountBlack >= spread || 
+				Bool32 IfMerge = 2*CountBlack >= spread ||
 								 spread - CountBlack <= first_interval && LineLen >= long_line ||
 								 spread - CountBlack <= min_interval && LineLen >= small_line;
 
@@ -2499,7 +2499,7 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, Int32 CountLines, CLINE_handle hEx
 				{
 				}
 */
-				if (IfMerge) 
+				if (IfMerge)
 				{
 					if (!LDPUMA_Skip(hPrint3Cr))
 					{
@@ -2510,7 +2510,7 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, Int32 CountLines, CLINE_handle hEx
 					break;
 				}
 			}
-			
+
 			if (spread <= max_interval)
 			{
 				Rect32 CurrLine;
@@ -2522,7 +2522,7 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, Int32 CountLines, CLINE_handle hEx
 
 				if (CheckAllLines(&CurrLine, &pLineExt->rect, IsHor, page_info.Incline2048, hLinesMass, CountLines, min_interval, long_line))
 				{
-					if (CountBlack == -1) 
+					if (CountBlack == -1)
 						CountBlack = countCompLen(pCompMass, CountMass, pLine, pLineExt, IsHor);
 						//CountBlack = CountBlackRaster(pLine, pLineExt, IsHor, hRastDelta, hDrawCrRast);
 
@@ -2710,7 +2710,7 @@ void MergeLines(CLINE_handle hLine, CLINE_handle hLineExt, CLINE_handle hContain
 }
 
 /************************************************************************************************/
-Bool32 CheckAllLines(Rect32* CurrLine, const Rect32* pLine, Bool32 IsHor, Int32 nIncline, 
+Bool32 CheckAllLines(Rect32* CurrLine, const Rect32* pLine, Bool32 IsHor, Int32 nIncline,
 					 CLINE_handle* hLinesMass, Int32 CountLines, Int32 interval, Int32 long_line)
 {
 	Rect32 tempRect;
@@ -2779,7 +2779,7 @@ Bool32 CheckAllLines(Rect32* CurrLine, const Rect32* pLine, Bool32 IsHor, Int32 
 
 		if (tempRect.right - tempRect.left + 1 < long_line) continue;
 /*
-		if (tempRect.left > Level1 - interval && tempRect.left < Level1 + interval) 
+		if (tempRect.left > Level1 - interval && tempRect.left < Level1 + interval)
 		{
 			CountAllLines++;
 			if (tempRect.right > Level4 - interval && tempRect.right < Level4 + interval)
@@ -2834,7 +2834,7 @@ Int32 getLineComps(CCOM_comp** pCompMass, Int32 max_width, Int32 max_height, Han
 }
 
 /**********************************************************************************************/
-Int32 countCompLen(CCOM_comp* pCompMass, Int32 CountComp, CPDLine pLine, CPDLine pLineExt, 
+Int32 countCompLen(CCOM_comp* pCompMass, Int32 CountComp, CPDLine pLine, CPDLine pLineExt,
 				   Bool32 IsHor)
 {
 	Rect32 RastRect;
@@ -3087,7 +3087,7 @@ Bool32 Compress(char * lpData, Word32 Size, char ** compressedData, Word32 * com
 	if (Size==0)
 		return FALSE;
 
-   char *newData = new char[Size+sizeof(CompressHeader)]; //размер станет таким, если уплотнить не получилось, 
+   char *newData = new char[Size+sizeof(CompressHeader)]; //размер станет таким, если уплотнить не получилось,
    if (!newData)										  //иначе - не больше исходного
 	   return FALSE;
    char *lpNewData = newData;
@@ -3143,7 +3143,7 @@ Bool32 mywrite(void* of, const void* lpdata, Int32 size)
 {
 	ofstream *ofile = (ofstream*)of;
 
-	if (ofile->write((char*)lpdata, size).fail()) 
+	if (ofile->write((char*)lpdata, size).fail())
 		return FALSE;
 
 	return TRUE;
@@ -3172,17 +3172,17 @@ Bool32 writeBin(char* file_name, Int32 nIncline, Rect16* aRect, Word32* aType, W
 	int count = 1;//number of pages
 	Word32 flags = 0;
 
-	if (rc) 
+	if (rc)
 		rc = mywrite(&bin_file, &count, sizeof(count));
 
 	count = 0;//something from BACKUPPAGE
 
-	if (rc) 
+	if (rc)
 		rc = mywrite(&bin_file, &count, sizeof(count));
 
 	count = aCount;//number of blocks
 
-	if (rc) 
+	if (rc)
 		rc = mywrite(&bin_file, &count, sizeof(count));
 
 	for (Int32 i = 0; i < aCount && rc; i++)

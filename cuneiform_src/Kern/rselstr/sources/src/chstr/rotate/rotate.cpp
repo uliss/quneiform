@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -59,10 +59,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rotate.h"
 #include "rselstr.h"
 
-/*    èç-çà ÷åãî-òî ïðîèñçîäèò çàëåçàíèå ïðè ÷òåíèè íà ãðàíèöû pmasp, 
-      êîòîðîå ïðîÿâëÿåòñÿ òîëüêî â ðåëèçå è ðàç íà ðàç íå ïðèõîäèòñÿ... 
-      Ïðîÿâëÿåòñÿ òîëüêî òîãäà, êîãäà ïîñëå ïàìÿòè, âûäåëåííîé ïîä pmasp, 
-	  íàõîäèòñÿ íåîïðåäåëåííàÿ ïàìÿòü (âèäà ???????). Îøèáêà íå èñïðàâëåíà, 
+/*    èç-çà ÷åãî-òî ïðîèñçîäèò çàëåçàíèå ïðè ÷òåíèè íà ãðàíèöû pmasp,
+      êîòîðîå ïðîÿâëÿåòñÿ òîëüêî â ðåëèçå è ðàç íà ðàç íå ïðèõîäèòñÿ...
+      Ïðîÿâëÿåòñÿ òîëüêî òîãäà, êîãäà ïîñëå ïàìÿòè, âûäåëåííîé ïîä pmasp,
+	  íàõîäèòñÿ íåîïðåäåëåííàÿ ïàìÿòü (âèäà ???????). Îøèáêà íå èñïðàâëåíà,
 	  ïîñòàâëåíà òîëüêî ïðîñòåéøàÿ ïðîâåðêà. Îøèáêó åùå íóæíî èñêàòü â ëîãèêå!!!!!!!!!
 */
 #ifdef _DEBUG
@@ -105,11 +105,11 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(Word8* pmasp,int skew,Rect16* Rc,Int16
 	 return FALSE;
  int w;
  int h;
- 
+
 	 w=Rc->right-Rc->left+1;
 	 h=Rc->bottom-Rc->top+1;
  int size_pmasp = h*((w+7)/8);
- 
+
  if((double)(w*skew)/2048.<(double)(inf_betw_str_h))
 	 return FALSE;
 
@@ -126,7 +126,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(Word8* pmasp,int skew,Rect16* Rc,Int16
  c-=((double)(h*h)*2048.*2048.)/(double)(skew*skew);
  c+=((double)(w*h)*4096.)/(double)(skew); //c<=0
  double D=b*b-4.*a*c;
- 
+
  int x;
  if(D<0)
 	 return FALSE;
@@ -147,20 +147,20 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(Word8* pmasp,int skew,Rect16* Rc,Int16
 // if(y==0)
 //    y++;
 // end insert by tanya 2003.09.15
- y++; // not delete by tanya 2003.09.15, 
-   /* íå èç-çà ýòîãî ïðîèñçîäèò çàëåçàíèå ïðè ÷òåíèè íà ãðàíèöû pmasp, 
-      êîòîðîå ïðîÿâëÿåòñÿ òîëüêî â ðåëèçå è ðàç íà ðàç íå ïðèõîäèòñÿ... 
-      Ïðîÿâëÿåòñÿ òîëüêî òîãäà, êîãäà ïîñëå ïàìÿòè, âûäåëåííîé ïîä pmasp, 
+ y++; // not delete by tanya 2003.09.15,
+   /* íå èç-çà ýòîãî ïðîèñçîäèò çàëåçàíèå ïðè ÷òåíèè íà ãðàíèöû pmasp,
+      êîòîðîå ïðîÿâëÿåòñÿ òîëüêî â ðåëèçå è ðàç íà ðàç íå ïðèõîäèòñÿ...
+      Ïðîÿâëÿåòñÿ òîëüêî òîãäà, êîãäà ïîñëå ïàìÿòè, âûäåëåííîé ïîä pmasp,
 	  íàõîäèòñÿ íåîïðåäåëåííàÿ ïàìÿòü (âèäà ???????)
    */
- 
- 
+
+
  Int16 i,j;
  int numstr,newnumstr;
  Int16 bytewide,newbytewide;
  int nowbyte=0;
- 
- 
+
+
  Int16 newh;
  Int16 neww;
 
@@ -172,7 +172,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(Word8* pmasp,int skew,Rect16* Rc,Int16
    movey[i]=okrug((double)(skew*(i-x-1))/2048.);
   for(i=x-1;i>=0;i--)
    movey[i]=okrug((double)(2048*(x-1-i))/(double)(skew));
-  
+
   for(i=x;i<w;i++)
   {
 	  if(movey[i]-movey[i-1])
@@ -217,7 +217,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(Word8* pmasp,int skew,Rect16* Rc,Int16
       begx[movey[0]+k]=0;
   for(i=movey[0]+k+1;i<=h;i++)
 	  begx[i]=0;
-   
+
   neww=w-x+1;
   newh=h-movey[neww-1];
   if(neww<=0||newh<=0)
@@ -229,11 +229,11 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(Word8* pmasp,int skew,Rect16* Rc,Int16
 
   if(!(safe=new Word8[(int)(newbytewide)*(int)(newh)]))
 	 return FALSE;
-  
+
   nowbyte=0;
 
   newbytewide=(neww+7)/8-1;
-  
+
   int realpj;
   numstr=begx[0]>>3;
   newnumstr=0;
@@ -250,8 +250,8 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(Word8* pmasp,int skew,Rect16* Rc,Int16
 	for(j=0;j<newbytewide;j++)
 	{
 		safe[newnumstr]=0;
-		
-		
+
+
 	//k=0
           CHECK_PMASP(nowbyte)
           safe[newnumstr]|=( 128 & (((128>>realrect)&pmasp[nowbyte])<<realrect) );
@@ -261,7 +261,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(Word8* pmasp,int skew,Rect16* Rc,Int16
 			  nowbyte++;
 		  if(flmovey[realpj])
 			  nowbyte+=bytewide;
-         
+
 	//k=1
           CHECK_PMASP(nowbyte)
 		  safe[newnumstr]|=( ( 128 & (((128>>realrect)&pmasp[nowbyte])<<realrect) ) >>1 );
@@ -390,14 +390,14 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(Word8* pmasp,int skew,Rect16* Rc,Int16
 		  flmovey[i]=0;
   }
   flmovey[0]=0;
-  
+
   Int16 k=0;
-  
+
   flmovey[w]=0;
 
   if(neww<=0)
 	  return FALSE;
- 
+
   newh=1;
   begx[0]=0;
   while(newh-k+y-1<h&&newh<h)
@@ -429,7 +429,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(Word8* pmasp,int skew,Rect16* Rc,Int16
 	 return FALSE;
 
   int my_temp_size = (int)(newbytewide)*(int)(newh);
-  
+
   nowbyte=0;
 
   newbytewide=(neww+7)/8-1;
@@ -448,7 +448,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(Word8* pmasp,int skew,Rect16* Rc,Int16
 	realrect=realpj%8;
 	for(j=0;j<newbytewide;j++)
 	{
-		
+
 //		if (newnumstr < 0 || newnumstr >= my_temp_size)
 //		{
 //#ifdef _DEBUG
@@ -456,7 +456,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(Word8* pmasp,int skew,Rect16* Rc,Int16
 //#endif
 //			return FALSE;
 //		}
-		
+
 		safe[newnumstr]=0;
 
 	//k=0
@@ -469,7 +469,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(Word8* pmasp,int skew,Rect16* Rc,Int16
 			  nowbyte++;
 		  if(flmovey[realpj])
 			  nowbyte-=bytewide;
-         
+
 	//k=1
           CHECK_PMASP(nowbyte)
 		  safe[newnumstr]|=( ( 128 & (((128>>realrect)&pmasp[nowbyte])<<realrect) ) >>1 );
@@ -591,7 +591,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(Word8* pmasp,int skew,Rect16* Rc,Int16
   return TRUE;
  }
 
- 
+
  return FALSE;
 }
 
@@ -737,7 +737,7 @@ RSELSTR_FUNC(void) RSELSTR_CleanStr(Rect16* pN,CCOM_comp** pC,int& nN,int top,in
    if(cont)
 	   continue;
    if(vertical)
-   {   
+   {
       x=top+w-1-pN[i].bottom;
       y=(pN[i].right+pN[i].left)/2-left-h+1;
    }
@@ -789,7 +789,7 @@ RSELSTR_FUNC(void) RSELSTR_CleanStr(Rect16* pN,CCOM_comp** pC,int& nN,int top,in
    if(cont)
 	   continue;
    if(vertical)
-   {   
+   {
       x=top-pN[i].top;
       y=(pN[i].right+pN[i].left)/2-left-h+1;
    }

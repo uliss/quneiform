@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
- 
+
 #include "nt_types.h"
 //#include "struct.h"
 #include "cstr.h"
@@ -90,7 +90,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifdef UFA
 #undef MULTI
-#endif 
+#endif
 
 //IGOR
 extern Word8 language;
@@ -184,8 +184,8 @@ make:
  Nb3 = (fl_defb & CSTR_db_b3)? bsp->n3 : -1;
  Nb4 = (fl_defb & CSTR_db_b4)? bsp->n4 : -1;
  if (Nb1==0) Nb1=-1;
- if (Nb2==0) Nb2=-1; 
- if (Nb3==0) Nb3=-1; 
+ if (Nb2==0) Nb2=-1;
+ if (Nb3==0) Nb3=-1;
  if (Nb4==0) Nb4=-1;
  all_caps = fl_defb & c_fdef_cap;
 retps:
@@ -261,9 +261,9 @@ INT obtain_diff(INT arg)
  C=cell_f();
  C=CSTR_GetNextRaster(C,f_letter);
  //while ((C=C->nextl)->nextl)
- for(;C;C=CSTR_GetNextRaster(C,f_letter))   
+ for(;C;C=CSTR_GetNextRaster(C,f_letter))
  {
-  CSTR_GetAttr(C,&attr); 
+  CSTR_GetAttr(C,&attr);
   if (!(attr.difflg & 4))                // base was not defined here ?
    continue;
   wl=attr.bdiff;
@@ -321,9 +321,9 @@ bbsm=(bbs2+bbs3)>>1;
  for(B1=CSTR_GetNextRaster(B1,f_letter);B1;
      B1=CSTR_GetNextRaster(B1,f_letter) )
  {
-   CSTR_GetAttr(B1,&attr); 
+   CSTR_GetAttr(B1,&attr);
    attr.difflg &= ~64;
-   CSTR_SetAttr(B1,&attr); 
+   CSTR_SetAttr(B1,&attr);
  }
 
  if (db_status)
@@ -627,7 +627,7 @@ void add_hist(CSTR_rast a, INT flg, BYTE *begs)
 
   CSTR_GetAttr(a,&attr);
   hcell = attr.row - minrow;
-  if ((rowd = -attr.bdiff) == -127) 
+  if ((rowd = -attr.bdiff) == -127)
 	  rowd = 0;
   rowd = rowd + hcell + 32;
   //cp1 = a->env;
@@ -642,12 +642,12 @@ void add_hist(CSTR_rast a, INT flg, BYTE *begs)
   {  INT th;
     //Lp2=(lnhead *) ((CHAR *)Lp1+Lp1->lth);   // next line
 	Lp2=(CCOM_lnhead *) ((CHAR *)Lp1+Lp1->lth);   // next line
-    if (!(Lp1->flg & l_fbeg)) 
+    if (!(Lp1->flg & l_fbeg))
 		continue;
     hbeg = Lp1->row;
     th = MIN(hcell+attr.h, bbs3) - hcell;      // part of cell above bs3
     //  part of cell above bs3
-    if (5*hbeg >= 3*th) 
+    if (5*hbeg >= 3*th)
 		continue;    // line must begin above 2/5 of
                      // the part of cell height
                      // which is above bs3
@@ -659,8 +659,8 @@ void add_hist(CSTR_rast a, INT flg, BYTE *begs)
 void hist_bot (INT x1, INT x2)
 {
  //cell      *a;
- CSTR_rast a; 
- CSTR_rast_attr attr; 
+ CSTR_rast a;
+ CSTR_rast_attr attr;
 
  INT       hcell, hend;
  //lnhead    *Lp1, *Lp2;
@@ -671,7 +671,7 @@ void hist_bot (INT x1, INT x2)
  CCOM_interval  *int1, *int2;
  int il;
 
- if (hist_done & 1) 
+ if (hist_done & 1)
 	 return;
  hist_done |= 1;
  //glsnap('d',cell_f()->nextl,"make bases by histogram");
@@ -685,16 +685,16 @@ void hist_bot (INT x1, INT x2)
    {
     cp1=CSTR_GetComp(a);
 	CSTR_GetAttr(a,&attr);
-	
-	//if (a->env == NULL) 
+
+	//if (a->env == NULL)
     if( !cp1 )
 	  continue;
-	if (attr.col < x1) 
+	if (attr.col < x1)
 	  continue;
-	if (attr.col >= x2) 
+	if (attr.col >= x2)
 	  break;
 	hcell = attr.row - minrow;
-	if ((rowd = -attr.bdiff) == -127) 
+	if ((rowd = -attr.bdiff) == -127)
 	  rowd = 0;
 	rowd = rowd + hcell + 32;
 	//cp1 = a->env;
@@ -705,13 +705,13 @@ void hist_bot (INT x1, INT x2)
 	for (lc1=0; lc1 < Lc1; lc1++,Lp1=Lp2)
        {
 		Lp2=(CCOM_lnhead *) ((CHAR *)Lp1+Lp1->lth);                // next line
-		if (!(Lp1->flg & l_fend)) 
+		if (!(Lp1->flg & l_fend))
 			continue;                                         // free ends only
 		hend = Lp1->row + Lp1->h;
 		//if (3*hend < 2*a->h)
 		if (3*hend < 2*attr.h)
 			continue;                                         //  ignore stalagmites
-		if (Lp1->h < 4 ) 	
+		if (Lp1->h < 4 )
 			continue;	                                      // hair Valdemar 10-14-94 01:37pm
 		hend += rowd;
 		if ((attr.flg & CSTR_f_let) && (attr.basflg & CSTR_bs_round))   // all versions - round
@@ -735,8 +735,8 @@ void hist_bot (INT x1, INT x2)
 void hist_top(INT x1, INT x2)
 {
  //cell *a;
- CSTR_rast a; 
- CSTR_rast_attr attr; 
+ CSTR_rast a;
+ CSTR_rast_attr attr;
  INT hcell, hbeg;
  //lnhead *Lp1, *Lp2;
  CCOM_lnhead *Lp1, *Lp2;
@@ -745,7 +745,7 @@ void hist_top(INT x1, INT x2)
  INT  Lc1, lc1, rowd;
  int il;
 
- if (hist_done & 2) 
+ if (hist_done & 2)
 	 return;
  hist_done |= 2;
 //AK add loop memset(lin_begs,0,sizeof(lin_begs));
@@ -763,7 +763,7 @@ void hist_top(INT x1, INT x2)
   if (attr.col < x1) continue;
   if (attr.col >= x2) break;
   hcell = attr.row - minrow;
-  if ((rowd = -attr.bdiff) == -127) 
+  if ((rowd = -attr.bdiff) == -127)
 	  rowd = 0;
   rowd = rowd + hcell + 32;
   //cp1 = a->env;
@@ -781,10 +781,10 @@ void hist_top(INT x1, INT x2)
     if (2*hbeg >= th) continue;  // line must begin above 1/2 of
                                      // the part of cell height
                                      // which is above bs3
-    if ((attr.flg & CSTR_f_let) && (hbeg > 2)) 
+    if ((attr.flg & CSTR_f_let) && (hbeg > 2))
 		continue;
     // for recognized letters use upper edge only
-    if (2*Lp1->h < attr.h) 
+    if (2*Lp1->h < attr.h)
 		continue;        //  Valdemar 09-21-94 04:53pm
     if (((ih=rowd+hbeg) > 0) && (ih < 191))
       lin_begs[ih] ++;
@@ -833,11 +833,11 @@ void histb(INT x1, INT x2, INT flg, BYTE *begs)
  for(;a;a=CSTR_GetNextRaster(a, f_letter))
  {
   //if (a->env == NULL) continue;
-  if( !CSTR_GetComp(a)) 
+  if( !CSTR_GetComp(a))
 	  continue;
 
   CSTR_GetAttr(a,&attr);
-  
+
   if (attr.col < x1) continue;
   if (attr.col >= x2) break;
   add_hist(a,flg,begs);
@@ -880,7 +880,7 @@ void discrim_pos();
 INT defbas(INT filter)
 {
   INT mb1, i, bbh, mult;
-  //cell *B1; 
+  //cell *B1;
   CSTR_rast B1;
   CSTR_rast_attr attr;
   BYTE ret;
@@ -1095,7 +1095,7 @@ void diffs_by_cells()
  CSTR_rast B1, P, N;
  CSTR_rast_attr attr;
 
- if (diffs_made) 
+ if (diffs_made)
 	 return;
 
  B1=cell_f();
@@ -1103,10 +1103,10 @@ void diffs_by_cells()
  {
    for(B1=CSTR_GetNext(B1);B1;B1=CSTR_GetNext(B1))
    //while((B1=B1->next)->next)
-   { 
+   {
 	   CSTR_GetAttr(B1,&attr);
-	   attr.bdiff = 0; 
-	   attr.difflg = 0; 
+	   attr.bdiff = 0;
+	   attr.difflg = 0;
 	   CSTR_SetAttr(B1,&attr);
    }
    return;
@@ -1121,7 +1121,7 @@ void diffs_by_cells()
  for(B1=CSTR_GetNext(B1);B1;B1=CSTR_GetNext(B1))
  {
    CSTR_GetAttr(B1,&attr);
-   if (attr.difflg & 64) 
+   if (attr.difflg & 64)
 	   continue;       // rejected earlier
    if (attr.difflg & 4)                  // had defined main base ?
    {
@@ -1130,7 +1130,7 @@ void diffs_by_cells()
 	 df=attr.bdiff;
      df=smart_diff(B1);
 	 CSTR_GetAttr(B1,&attr);
-     ndif++; 
+     ndif++;
 	 mdif+=abs(df);
      attr.difflg &= ~(CSTR_db_up | CSTR_db_down);     // reset bdiff corr flags
    }
@@ -1146,12 +1146,12 @@ void diffs_by_cells()
      B1=CSTR_GetNextRaster(B1, f_letter))
  {
    CSTR_GetAttr(B1,&attr);
-   if (attr.difflg & 64) 
+   if (attr.difflg & 64)
 	   continue;       // rejected earlier
    if (attr.difflg & 4)                  // defines baseline ?
    {
      j++;
-     if (abs(attr.bdiff) > (mdif+difet)) 
+     if (abs(attr.bdiff) > (mdif+difet))
 		 i++;
    }
  }
@@ -1164,7 +1164,7 @@ void diffs_by_cells()
        B1=CSTR_GetNextRaster(B1, f_letter))
    {
      CSTR_GetAttr(B1,&attr);
-     if (attr.difflg & 64) 
+     if (attr.difflg & 64)
 		 continue;      // rejected earlier
      if (attr.difflg & 4)                 //  defines baseline ?
      {
@@ -1199,15 +1199,15 @@ void diffs_by_cells()
      {
        //B1=B1->next;
        B1=CSTR_GetNext(B1);
-       if (!B1 || B1==N) 
+       if (!B1 || B1==N)
 		   break;
        interdif(P,N,B1);
 	 }
      P=N;
    }
-   
+
    //if (N->flg & c_f_fict) break;
-   if (attr.flg & CSTR_f_fict) 
+   if (attr.flg & CSTR_f_fict)
 	   break;
  }  // while let_bad
 }
@@ -1276,13 +1276,13 @@ void hist_max(CSTR_rast a)
     Lp2=(CCOM_lnhead *) ((CHAR *)Lp1+Lp1->lth);   // next line
     if (!(Lp1->flg & l_fbeg)) continue;
     hbeg = Lp1->row;
-    if (hbeg == 0) 
+    if (hbeg == 0)
 		continue;  // ignore upper scan lines
 
     th = MIN(hcell+attr.h, bbs3) - hcell;      // part of cell above bs3
 
     //  part of cell above bs3
-    if (5*hbeg >= 3*th) 
+    if (5*hbeg >= 3*th)
 		continue;    // line must begin above 2/5 of
                                      // the part of cell height
                                      // which is above bs3
@@ -1325,7 +1325,7 @@ void hist_max(CSTR_rast a)
        { m2 = ba1->cnt[0]; pa2=ba1; }
 
   if (pa2 == NULL) // no more maximums
-  { 
+  {
 	// a->bas1 = (CHAR)pa1->row;
 	attr.bas1 = (CHAR)pa1->row;
 	CSTR_SetAttr(a,&attr);
@@ -1333,7 +1333,7 @@ void hist_max(CSTR_rast a)
   }
 
   if (pa1->row > pa2->row)    // pa1 - upper of 2 max
-  { 
+  {
 	  ba1=pa1; pa1=pa2; pa2=ba1;
   }
 
@@ -1368,9 +1368,9 @@ void make_difbas(CSTR_rast B1, INT filter)
   attr.basflg = 0;
   CSTR_SetAttr(B1,&attr);
 
-  if(language != LANG_RUSSIAN) 
+  if(language != LANG_RUSSIAN)
 	  set_difflg    (B1,filter);
-  else                        
+  else
 	  set_rus_difflg(B1,filter);
 }
 
@@ -1499,7 +1499,7 @@ INT dbsum(INT filter)
 	char ww[256];//IGOR
 	INT jl = 0, i_method = 0;//IGOR
 	CSTR_attr m_attr;//IGOR
-	
+
 	hi_ac *ha;
 	draft_cut_12=draft_cut_3=0;
 	disable_twins=0;	// enable all
@@ -1509,7 +1509,7 @@ INT dbsum(INT filter)
 	nab1=sbs1=sbs2=sbs3=sbs4=sbst=sbsu=sbsd=0;
 	max_height=sum_maxrow=sum_cellth=sum_letlth=0;
 	old_minrow = min_crow; old_maxrow = max_crow;
-	max_crow = -32000; 
+	max_crow = -32000;
 	min_crow = 32000;
 	out_of_minmax = 0;
 	memset(hi_beg,0,sizeof(hi_beg));
@@ -1523,18 +1523,18 @@ INT dbsum(INT filter)
 		BYTE ww;
 
 		CSTR_GetAttr(B1,&attr);
-		
-		if (max_height < (ww=(CHAR)attr.h)) 
+
+		if (max_height < (ww=(CHAR)attr.h))
 			max_height = ww;
 		top = attr.row-minrow;
 		bot = top + ww;
-		if (old_minrow > top) 
+		if (old_minrow > top)
 			out_of_minmax ++;
-		if (old_maxrow < bot) 
+		if (old_maxrow < bot)
 			out_of_minmax ++;
-		if (min_crow > top) 
+		if (min_crow > top)
 			min_crow=top;
-		if (max_crow < bot) 
+		if (max_crow < bot)
 			max_crow=bot;
 		nctot++;
 		ww=(CHAR)attr.w;
@@ -1554,13 +1554,13 @@ INT dbsum(INT filter)
 		if (attr.flg & (CSTR_f_let))
 		{
 			INT i, d;
-			
+
 			ncletrs++;
 			sum_letlth += ww;
 			fl1 = attr.difflg;
 			fls = attr.basflg;
 			wr=attr.row-minrow;
-			if ((d=attr.bdiff) != 127) 
+			if ((d=attr.bdiff) != 127)
 				wr-=d;
 			i=wr+32;
 			// 940415
@@ -1569,45 +1569,45 @@ INT dbsum(INT filter)
 			ha = hi_beg + i;
 			(*ha).all++;
 			if (t_type == 1)   // 't' versions only
-			{ 
-				Nst++; 
-				sbst += wr; 
+			{
+				Nst++;
+				sbst += wr;
 			}
 			if ((fl1 & 3) != 3)
 			{
 				if (fl1 & 1)                        // upper defined
-				{ 
-					Ns1++; 
+				{
+					Ns1++;
 					sbs1+=wr;
 					(*ha).b1++;
 					if (fls & CSTR_bs_cap)
 						(*ha).bc++;
 				}
 				if (fl1 & 2)                        // small defined
-				{ 
-					Ns2++; 
+				{
+					Ns2++;
 					sbs2+=wr;
 					(*ha).b2++;
 				}
 			}
 			if (fls & CSTR_bs_b1a)
-			{ 
-				nab1++; 
-				(*ha).a1++; 
+			{
+				nab1++;
+				(*ha).a1++;
 			}
-			if (fls & CSTR_bs_b2a) 
+			if (fls & CSTR_bs_b2a)
 				(*ha).a2++;
 			if (fl1 & 4)                        // base defined
-			{ 
-				Ns3++; 
-				sbs3=sbs3+wr+attr.h; 
+			{
+				Ns3++;
+				sbs3=sbs3+wr+attr.h;
 				if ((wr+attr.h) < RASTER_MAX_HEIGHT*2 && (wr+attr.h) >= 0 )
-					hist_b3[wr+attr.h]++; 
+					hist_b3[wr+attr.h]++;
 			}
 			if (fl1 & 8)                        // lowest defined
-			{ 
-				Ns4++; 
-				sbs4=sbs4+wr+attr.h; 
+			{
+				Ns4++;
+				sbs4=sbs4+wr+attr.h;
 			}
 		}   // If  letter
 	}    // while letter or bad cell
@@ -1618,7 +1618,7 @@ INT dbsum(INT filter)
 		if(stable_b3)
 		{
 			draft_cut_3 = 1;
-			if( draft_cut_hyps(3,0) ) 
+			if( draft_cut_hyps(3,0) )
 				goto recalc;
 		}
 	}
@@ -1626,7 +1626,7 @@ INT dbsum(INT filter)
 	// собственно поиск БЛ
 	//IGOR
 	if(snap_baselines_rbal('c')) i_method = 3;
-	else 
+	else
 		if(snap_baselines_rbal('b')) i_method = 2;
 		else
 			if(snap_baselines_rbal('a')) i_method = 1;
@@ -1635,9 +1635,9 @@ INT dbsum(INT filter)
 	{
 		rz =  calc_base();
 		if (db_status && snap_is_marked_rbal(lin_str))//IGOR
-		{ 
-			jl += sprintf(ww + jl, "line %d, lin_pass %d, language %d\nBsl: %d %d %d %d (PUMA)\n", 
-						  line_number, lin_pass, language, 
+		{
+			jl += sprintf(ww + jl, "line %d, lin_pass %d, language %d\nBsl: %d %d %d %d (PUMA)\n",
+						  line_number, lin_pass, language,
 						  minrow + bbs1, minrow + bbs2, minrow + bbs3, minrow + bbs4);
 		}
 	}
@@ -1647,7 +1647,7 @@ INT dbsum(INT filter)
 		Int16 n1 = 0, n2 = 0, n3 = 0, n4 = 0;
 		m_attr.row = minrow;
 		m_attr.language = language; //IGOR
- 
+
 		StatSearchBL(lin_str, &m_attr, &n1, &n2, &n3, &n4);
 
 		if(i_method == 1)
@@ -1677,18 +1677,18 @@ INT dbsum(INT filter)
 		}
 
 		if (db_status && snap_is_marked_rbal(lin_str))//IGOR
-		{ 
+		{
 			if(jl > 0)
 			{
 				jl += sprintf(ww + jl, "Bsl: %d %d %d %d (STAT)\n",
-							  minrow + m_attr.bs1, minrow + m_attr.bs2, 
+							  minrow + m_attr.bs1, minrow + m_attr.bs2,
 							  minrow + m_attr.bs3, minrow + m_attr.bs4);
 			}
 			else
 			{
 				jl += sprintf(ww, "line %d, lin_pass %d, language %d\nBsl: %d %d %d %d (STAT)\n",
-							  line_number, lin_pass, language, 
-							  minrow + m_attr.bs1, minrow + m_attr.bs2, 
+							  line_number, lin_pass, language,
+							  minrow + m_attr.bs1, minrow + m_attr.bs2,
 							  minrow + m_attr.bs3, minrow + m_attr.bs4);
 			}
 		}
@@ -1701,31 +1701,31 @@ INT dbsum(INT filter)
 		{
 			draft_cut_3 = 1;
 			disable_twins = 2;        // pPyY
-			if(draft_cut_hyps(3,0)) 
+			if(draft_cut_hyps(3,0))
 				goto recalc;          // if Some cuttings was made - recalc
         }                             // Valdemar 11.12.93
 		if( rz>=10 && (page_stat || HIST_STATISTIC) && !draft_cut_12)
 		{                             // set b1/b2 by page statistics
 			draft_cut_12 = 1;
 			disable_twins =1;         // disable all twins
-			if(draft_cut_hyps((INT)(rz/10) /* == 2 ? 1 : 2*/,0)) 
+			if(draft_cut_hyps((INT)(rz/10) /* == 2 ? 1 : 2*/,0))
 				goto recalc;
 		}
 		if( (draft_cut_12 || draft_cut_3) && lin_pass == 3 )
 			all_cell_levcut(1); // reject some hyps
 	}
-	
+
 	Ps=bbs3-bbs2;
 	if (Ps <= 0)
 	{
 		Ps = 1;
 		bbs2=bbs3-1;
 	}
- 
+
  	//IGOR
 	if (db_status || (db_status && i_method == 3 && lin_pass == 3 &&
 		(bbs1 != m_attr.bs1 || bbs2 != m_attr.bs2 || bbs3 != m_attr.bs3 || bbs4 != m_attr.bs4)))
-	{ 
+	{
 		Point16 rs, re, rsm, rem;
 		Int16 startx, endx, mc;
 		Word32 rgb;
@@ -1747,33 +1747,33 @@ INT dbsum(INT filter)
 				Int16 ic = 0;
 				rgb = wRGB(64,128,128);
 				rs.x = startx; re.x = startx + MIN(80, endx - startx);
-				while(rs.x <= endx && re.x <= endx) 	
+				while(rs.x <= endx && re.x <= endx)
 				{
 					draw_puma_bl(1,3);
-					if(ic == 0) 
+					if(ic == 0)
 					{
-						draw_bl_marking(1,3); 
+						draw_bl_marking(1,3);
 					}
 					draw_puma_bl(2,3);
 					if(ic == 0)
 					{
-						draw_bl_marking(2,3); 
+						draw_bl_marking(2,3);
 					}
 					draw_puma_bl(3,3);
-					if(ic == 0) 
+					if(ic == 0)
 					{
-						draw_bl_marking(3,3); 
+						draw_bl_marking(3,3);
 					}
 					if(bbs4 != -1)
 					{
 						draw_puma_bl(4,3);
-						if(ic == 0) 
+						if(ic == 0)
 						{
-							draw_bl_marking(4,3); 
+							draw_bl_marking(4,3);
 						}
 					}
 					rs.x = re.x + 5;
-					re.x = rs.x + MIN(80, abs(endx - rs.x)); 
+					re.x = rs.x + MIN(80, abs(endx - rs.x));
 					ic = 1;
 				}
 			}
@@ -1783,15 +1783,15 @@ INT dbsum(INT filter)
 				rs.x = startx; re.x = endx;
 				rgb = wRGB(128,0,128);
 				draw_stat_bl(1,3);
-				draw_bl_marking(1,3); 
+				draw_bl_marking(1,3);
 				draw_stat_bl(2,3);
-				draw_bl_marking(2,3); 
+				draw_bl_marking(2,3);
 				draw_stat_bl(3,3);
-				draw_bl_marking(3,3); 
-				if(m_attr.bs4 != -1) 
+				draw_bl_marking(3,3);
+				if(m_attr.bs4 != -1)
 				{
 					draw_stat_bl(4,3);
-					draw_bl_marking(4,3); 
+					draw_bl_marking(4,3);
 				}
 			}
 		}
@@ -1805,19 +1805,19 @@ INT dbsum(INT filter)
 				while(rs.x <= endx && re.x <= endx)
 				{
 					draw_puma_bl(1,0);
-					if(ic == 0) 
+					if(ic == 0)
 					{
-						draw_bl_marking(1,0); 
+						draw_bl_marking(1,0);
 					}
 					draw_puma_bl(2,0);
-					if(ic == 0) 
+					if(ic == 0)
 					{
-						draw_bl_marking(2,0); 
+						draw_bl_marking(2,0);
 					}
 					draw_puma_bl(3,0);
 					if(ic == 0)
 					{
-						draw_bl_marking(3,0); 
+						draw_bl_marking(3,0);
 					}
 					if(bbs4 != -1)
 					{
@@ -1858,7 +1858,7 @@ INT dbsum(INT filter)
 			glsnap ('d',cell_f()->next,ww);
 		}
 
-		if(db_status && snap_is_marked_rbal(lin_str)) 
+		if(db_status && snap_is_marked_rbal(lin_str))
 		{
 			CSTR_line ln[] = {lin_str};
 			char txt[] = "Press any key...\n";
@@ -1896,9 +1896,9 @@ INT calc_base()
  iret = 0;
 
  if ((lin_pass > 1) && (out_of_minmax > 2) && (3*max_height < 2*(max_crow-min_crow)))
- { 
-	 CSTR_rast C;  
-	 CSTR_rast_attr attr;  
+ {
+	 CSTR_rast C;
+	 CSTR_rast_attr attr;
 	 INT top, middle;
 
  all_wrong:
@@ -1952,15 +1952,15 @@ INT calc_base()
      bbs3=sbsd/ncbs;
      bbs1=sbsu/ncbs;
      }
-     else 
+     else
 	 {
-      if(HIST_STATISTIC) 
-	  { 
-		  Nb3=128; Nb1=128; 
+      if(HIST_STATISTIC)
+	  {
+		  Nb3=128; Nb1=128;
 	  }
-      else 
-	  { 
-		  bbs3=sbsd/ncbs; bbs1=sbsu/ncbs; 
+      else
+	  {
+		  bbs3=sbsd/ncbs; bbs1=sbsu/ncbs;
 	  }
       goto page_stat;
      }
@@ -2005,13 +2005,13 @@ INT calc_base()
    }
  }
 
- if (Ns1 > 0) 
-	 bbs1=(sbs1+(Ns1>>1))/Ns1; 
- else 
+ if (Ns1 > 0)
+	 bbs1=(sbs1+(Ns1>>1))/Ns1;
+ else
 	 Nb1=-1;
- if (Ns4 > 0) 
-	 bbs4=(sbs4+(Ns4>>1))/Ns4; 
- else 
+ if (Ns4 > 0)
+	 bbs4=(sbs4+(Ns4>>1))/Ns4;
+ else
 	 Nb4=-1;
 
  if( language == LANG_RUSSIAN && (stable_b3 || Ns3<5))
@@ -2071,7 +2071,7 @@ page_stat:
    goto iret0;
    }
 #else
- if((tmp=setup_let_case(0))) 
+ if((tmp=setup_let_case(0)))
 	 return tmp*10;
 #endif
  }

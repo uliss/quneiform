@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -178,7 +178,7 @@ static void MatrixUpdate
     int x, y;
     int nFactor;
     static char OldMask [8];
-    //1000 0001, 0100 0010, 0010 0100, 0001 1000, -//-  
+    //1000 0001, 0100 0010, 0010 0100, 0001 1000, -//-
     // - такая построчная развертка битовой буквы 'X':
     static char Mask [8] = { 0x81, 0x42, 0x24, 0x18, 0x18, 0x24, 0x42, 0x81 };
 
@@ -212,7 +212,7 @@ static void MatrixUpdate
                     {
                         continue;
                     }
-                    
+
                     // NUMBER_TO_COLOR -- это отображение в 1..7
                     // (что как раз покрывает комбинацию PMC-флагов: root,dust,picture (1;2;4))
                     _setcolor
@@ -222,13 +222,13 @@ static void MatrixUpdate
 //                        (y       * nFactor - yTop)  / nScaling,
 //                        ((x + 1) * nFactor - xLeft) / nScaling,
 //                        ((y + 1) * nFactor - yTop)  / nScaling);
-                    // точка -- это рез-т сжатия пр-ка 
+                    // точка -- это рез-т сжатия пр-ка
                     // в PAGE_COMP_FACTOR раз (XY_(UN)COMPRESS)
                     _rectangle (_GBORDER,
                         XY_UNCOMPRESS( (x       * nFactor - xLeft) / nScaling ),
                         XY_UNCOMPRESS( (y       * nFactor - yTop)  / nScaling ),
                         XY_UNCOMPRESS( ((x + 1) * nFactor - xLeft) / nScaling ),
-                        XY_UNCOMPRESS( ((y + 1) * nFactor - yTop)  / nScaling ) 
+                        XY_UNCOMPRESS( ((y + 1) * nFactor - yTop)  / nScaling )
                                );
                         // nFactor обычно (всегда?) == 1
                 }
@@ -340,7 +340,7 @@ static void BlockRectangle (BLOCK *p, short fill,
             break;
     }
 }
- 
+
 # define SEPOUT_LINE     0
 # define SEPOUT_DASH_1   1
 # define SEPOUT_DASH_2   2
@@ -525,7 +525,7 @@ static void PageMatrixUpdate (int xLeft, int yTop, int nScaling)
         yTop,
         nScaling,
         PageMatrix,
-        PAGE_MATRIX_WIDTH,  // 1024 
+        PAGE_MATRIX_WIDTH,  // 1024
         PAGE_MATRIX_HEIGHT, // 1024 (квадрат такой)
         FALSE, // BOOL bGrid
         MATRIX_DRAWING_NATIVE_MODE // режим рисования, один из двух (18.10.01)
@@ -609,15 +609,15 @@ static void HystogramUpdate (int xLeft, int yTop, int nScaling)
 		if(pRoot->nBlock == pDebugBlock->nNumber)
 		{
 			int nColor = 8;
-			
+
 			if (pRoot -> bType & ROOT_LETTER)       nColor |= 1;
 			if (pRoot -> bType & ROOT_RECOGNIZED)   nColor |= 2;
 			if (IS_LAYOUT_DUST (*pRoot))            nColor |= 4;
-			
+
 			if (pRoot -> bType & ROOT_DEBUG)        nColor = 14;
-			
+
 			_setcolor (nColor);
-			
+
 			_rectangle (_GFILLINTERIOR,
 				(pRoot -> xColumn - xLeft) / nScaling,
 				(pRoot -> yRow    - yTop)  / nScaling,
@@ -2063,8 +2063,8 @@ char c;
 
 static int yCurrentTop  = 0;
 static int xCurrentLeft = 0;
-static int nCurrentScaling = MAX_SCALING; 
-//так как MAX_SCALING, как и MIN_SCALING, ==1, 
+static int nCurrentScaling = MAX_SCALING;
+//так как MAX_SCALING, как и MIN_SCALING, ==1,
 // можно смело считать, что nCurrentScaling==1
 
 static void ScreenOutput (char *pTitle,

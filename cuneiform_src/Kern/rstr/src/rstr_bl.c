@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -91,9 +91,9 @@ INT     bs_got=0;     // in baton.c - LONG - error!?
 INT			  bbs0,bbs1, bbs2, bbs3, bbs4, bbsm;  // bbst,
 INT           bsdust_upper, bsdust_lower, bsdust_ps;
 INT           Nb1, Nb2, Nb3, Nb4, Nbt, Ps, Psf;
-BYTE          multi_bas; 
+BYTE          multi_bas;
 
-INT           Ns1=0,Ns2=0;        // in Iot.c   only  !!! 
+INT           Ns1=0,Ns2=0;        // in Iot.c   only  !!!
 //INT           pen_up;         // for otladka 't' in St_tools.c
 
 BYTE          let_to_dust=0;
@@ -163,8 +163,8 @@ make:
  Nb3 = (fl_defb & c_db_b3)? bsp->n3 : -1;
  Nb4 = (fl_defb & c_db_b4)? bsp->n4 : -1;
  if (Nb1==0) Nb1=-1;
- if (Nb2==0) Nb2=-1; 
- if (Nb3==0) Nb3=-1; 
+ if (Nb2==0) Nb2=-1;
+ if (Nb3==0) Nb3=-1;
  if (Nb4==0) Nb4=-1;
  all_caps = fl_defb & c_fdef_cap;
 
@@ -288,10 +288,10 @@ INT is_english(BYTE ch)
 {
 return (ch >= 'a' && ch <= 'z')||(ch >= 'A' && ch <= 'Z')||
        (
-//	   ch>=ligas_beg && ch<=ligas_end && 
+//	   ch>=ligas_beg && ch<=ligas_end &&
 	   is_liga(ch) &&  // 14.09.2000 E.P.
 
-	   ch!=liga_exm && ch!=liga_qm ) 
+	   ch!=liga_exm && ch!=liga_qm )
 	   ;
 }
 
@@ -323,20 +323,20 @@ return (ch == POLISH_SS  ||   ch == POLISH_s  ||
 INT is_czech_special(BYTE let)
 {
 return (
-     let == AA_right_accent || let == a_right_accent	|| 
-     let == CC_inv_roof		|| let == c_inv_roof		|| 
-     let == DD_inv_roof		|| let == d_inv_roof		|| 
-     let == EE_right_accent || let == e_right_accent	|| 
-     let == EE_inv_roof		|| let == e_inv_roof		|| 
-     let == II_right_accent || let == i_right_accent	|| 
-     let == NN_inv_roof		|| let == n_inv_roof		|| 
-     let == OO_right_accent || let == o_right_accent	|| 
-     let == RR_inv_roof		|| let == r_inv_roof		|| 
-     let == SS_inv_roof_latin	|| let == s_inv_roof_latin	|| 
-     let == TT_inv_roof		|| let == t_inv_roof		|| 
-     let == UU_right_accent || let == u_right_accent	|| 
-     let == UU_circle_accent|| let == u_circle_accent	|| 
-     let == YY_right_accent || let == y_right_accent	|| 
+     let == AA_right_accent || let == a_right_accent	||
+     let == CC_inv_roof		|| let == c_inv_roof		||
+     let == DD_inv_roof		|| let == d_inv_roof		||
+     let == EE_right_accent || let == e_right_accent	||
+     let == EE_inv_roof		|| let == e_inv_roof		||
+     let == II_right_accent || let == i_right_accent	||
+     let == NN_inv_roof		|| let == n_inv_roof		||
+     let == OO_right_accent || let == o_right_accent	||
+     let == RR_inv_roof		|| let == r_inv_roof		||
+     let == SS_inv_roof_latin	|| let == s_inv_roof_latin	||
+     let == TT_inv_roof		|| let == t_inv_roof		||
+     let == UU_right_accent || let == u_right_accent	||
+     let == UU_circle_accent|| let == u_circle_accent	||
+     let == YY_right_accent || let == y_right_accent	||
      let == ZZ_inv_roof_latin		|| let == z_inv_roof_latin
     );
 }
@@ -355,19 +355,19 @@ return (
 INT is_hungar_special(BYTE let)
 {
 return (
-     let == AA_right_accent || 		let == a_right_accent || 
-     let == EE_right_accent || 		let == e_right_accent || 
-     let == II_right_accent || 		let == i_right_accent || 
-     let == OO_right_accent || 		let == o_right_accent || 
-     let == OO_2dot_accent  || 		let == o_2dot_accent  || 
+     let == AA_right_accent || 		let == a_right_accent ||
+     let == EE_right_accent || 		let == e_right_accent ||
+     let == II_right_accent || 		let == i_right_accent ||
+     let == OO_right_accent || 		let == o_right_accent ||
+     let == OO_2dot_accent  || 		let == o_2dot_accent  ||
      let == OO_double_right || 		let == o_double_right
     );
 }
 INT is_slovenian_special(BYTE let)
 {
 return (
-     let == CC_inv_roof			|| let == c_inv_roof		|| 
-     let == SS_inv_roof_latin	|| let == s_inv_roof_latin	|| 
+     let == CC_inv_roof			|| let == c_inv_roof		||
+     let == SS_inv_roof_latin	|| let == s_inv_roof_latin	||
      let == ZZ_inv_roof_latin	|| let == z_inv_roof_latin
     );
 }
@@ -375,9 +375,9 @@ return (
 INT isnot_slovenian(BYTE let)
 {
 return (
-     let == 'Q' || let == 'q' || 
-     let == 'W' || let == 'w' || 
-     let == 'X' || let == 'x' || 
+     let == 'Q' || let == 'q' ||
+     let == 'W' || let == 'w' ||
+     let == 'X' || let == 'x' ||
      let == 'Y' || let == 'y'
     );
 }
@@ -389,7 +389,7 @@ INT is_baltic_palka(BYTE c)
 	if (!is_baltic_language(language))
 		return 0;
 
-	return ( 
+	return (
 			c==II_macron		|| c==i_macron ||
 			c==II_bottom_accent || c==i_bottom_accent ||
 			c==LL_bottom_accent || c==l_bottom_accent ||
@@ -400,16 +400,16 @@ INT is_baltic_palka(BYTE c)
 INT is_latvian_special(BYTE let)
 {
 return (
-     let == AA_macron			||let == a_macron			|| 
-     let == CC_inv_roof			||let == c_inv_roof			|| 
-     let == EE_macron			||let == e_macron			|| 
-     let == GG_bottom_accent	||let == LATVIAN_g			|| 
-     let == II_macron			||let == i_macron			|| 
-     let == KK_bottom_accent	||let == k_bottom_accent	|| 
-     let == LL_bottom_accent	||let == l_bottom_accent	|| 
-     let == NN_bottom_accent	||let == n_bottom_accent	|| 
-     let == SS_inv_roof_baltic	||let == s_inv_roof_baltic	|| 
-     let == UU_macron			||let == u_macron			|| 
+     let == AA_macron			||let == a_macron			||
+     let == CC_inv_roof			||let == c_inv_roof			||
+     let == EE_macron			||let == e_macron			||
+     let == GG_bottom_accent	||let == LATVIAN_g			||
+     let == II_macron			||let == i_macron			||
+     let == KK_bottom_accent	||let == k_bottom_accent	||
+     let == LL_bottom_accent	||let == l_bottom_accent	||
+     let == NN_bottom_accent	||let == n_bottom_accent	||
+     let == SS_inv_roof_baltic	||let == s_inv_roof_baltic	||
+     let == UU_macron			||let == u_macron			||
      let == ZZ_inv_roof_baltic	||let == z_inv_roof_baltic	||
 	 0
     );
@@ -418,9 +418,9 @@ return (
 INT isnot_latvian(BYTE let)
 {
 return (
-     let == 'Q' || let == 'q' || 
-     let == 'W' || let == 'w' || 
-     let == 'X' || let == 'x' || 
+     let == 'Q' || let == 'q' ||
+     let == 'W' || let == 'w' ||
+     let == 'X' || let == 'x' ||
      let == 'Y' || let == 'y'
     );
 }
@@ -428,15 +428,15 @@ return (
 INT is_lithuanian_special(BYTE let)
 {
 return (
-     let == AA_bottom_accent	|| 	let == a_bottom_accent	||  
-     let == CC_inv_roof			|| 	let == c_inv_roof		||  
-     let == EE_bottom_accent	|| 	let == e_bottom_accent	||  
-     let == EE_dot_accent		|| 	let == e_dot_accent		||  
-     let == II_bottom_accent	|| 	let == i_bottom_accent	||  
-     let == SS_inv_roof_baltic	|| 	let == s_inv_roof_baltic||  
-     let == UU_bottom_accent	|| 	let == u_bottom_accent	||  
-     let == UU_macron			|| 	let == u_macron			||  
-     let == ZZ_inv_roof_baltic	|| 	let == z_inv_roof_baltic|| 
+     let == AA_bottom_accent	|| 	let == a_bottom_accent	||
+     let == CC_inv_roof			|| 	let == c_inv_roof		||
+     let == EE_bottom_accent	|| 	let == e_bottom_accent	||
+     let == EE_dot_accent		|| 	let == e_dot_accent		||
+     let == II_bottom_accent	|| 	let == i_bottom_accent	||
+     let == SS_inv_roof_baltic	|| 	let == s_inv_roof_baltic||
+     let == UU_bottom_accent	|| 	let == u_bottom_accent	||
+     let == UU_macron			|| 	let == u_macron			||
+     let == ZZ_inv_roof_baltic	|| 	let == z_inv_roof_baltic||
 	 0
     );
 }
@@ -444,21 +444,21 @@ return (
 INT isnot_lithuanian(BYTE let)
 {
 return (
-     let == 'Q' || let == 'q' || 
-     let == 'W' || let == 'w' || 
-     let == 'X' || let == 'x' 
+     let == 'Q' || let == 'q' ||
+     let == 'W' || let == 'w' ||
+     let == 'X' || let == 'x'
     );
 }
 
 INT is_estonian_special(BYTE let)
 {
 return (
-     let == AA_2dot_accent		|| 	let == a_2dot_accent		||  
-     let == OO_tild_accent		|| 	let == o_tild_accent		||  
-     let == OO_2dot_accent		|| 	let == o_2dot_accent		||  
-     let == SS_inv_roof_baltic	|| 	let == s_inv_roof_baltic	||  
-     let == UU_2dot_accent		|| 	let == u_2dot_accent		||  
-     let == ZZ_inv_roof_baltic	|| 	let == z_inv_roof_baltic	|| 
+     let == AA_2dot_accent		|| 	let == a_2dot_accent		||
+     let == OO_tild_accent		|| 	let == o_tild_accent		||
+     let == OO_2dot_accent		|| 	let == o_2dot_accent		||
+     let == SS_inv_roof_baltic	|| 	let == s_inv_roof_baltic	||
+     let == UU_2dot_accent		|| 	let == u_2dot_accent		||
+     let == ZZ_inv_roof_baltic	|| 	let == z_inv_roof_baltic	||
 	 0
     );
 }
@@ -466,11 +466,11 @@ return (
 INT isnot_estonian(BYTE let)
 {
 return (
-     let == 'C' || let == 'c' || 
-     let == 'Q' || let == 'q' || 
-     let == 'W' || let == 'w' || 
+     let == 'C' || let == 'c' ||
+     let == 'Q' || let == 'q' ||
+     let == 'W' || let == 'w' ||
      let == 'X' || let == 'x' ||
-     let == 'Y' || let == 'y' 
+     let == 'Y' || let == 'y'
     );
 }
 
@@ -482,7 +482,7 @@ return (
      let == GG_semicircle			|| 	let == g_semicircle				||
      let == II_dot_accent			|| 	let == i_sans_accent			||
      let == II_roof_accent			|| 	let == i_roof_accent			||
-     let == OO_2dot_accent			|| 	let == o_2dot_accent			||  
+     let == OO_2dot_accent			|| 	let == o_2dot_accent			||
      let == SS_bottom_accent_turkish|| 	let == s_bottom_accent_turkish	||
      let == UU_2dot_accent			|| 	let == u_2dot_accent			||
      let == UU_roof_accent			|| 	let == u_roof_accent			||
@@ -508,7 +508,7 @@ INT is_turkish_palka(BYTE c)
 	if (!is_turkish_language(language))
 		return 0;
 
-	return ( 
+	return (
 			c == II_roof_accent	|| c == i_roof_accent ||
 			c == II_dot_accent	|| c == i_sans_accent ||
 			0
@@ -517,14 +517,14 @@ INT is_turkish_palka(BYTE c)
 
 INT is_russian_turkish_conflict(BYTE c)
 {
-/* 
-	Определение конфликта между русскими 
+/*
+	Определение конфликта между русскими
 	и турецкими буквами. 21.05.2002 E.P.
 
 	Список конфликтных русских букв:
 
 		- ХЩйо - выглядят как •, ™, ©, ®
-		- украинские UKR_ii, UKR_G, UKR_g - выглядят как 
+		- украинские UKR_ii, UKR_G, UKR_g - выглядят как
 			русские буквы В,З,Ц
 		- тчю - выглядят как русские буквы в, з, о
 		- r_cu_a, r_cu_d  - выглядят как русские буквы р,э
@@ -559,10 +559,10 @@ INT isnot_turkish(BYTE let)
 {
 extern  char    alphabet[256];
 
-return ( 
+return (
 	 !alphabet[let] || // Отсекаю французские акценты. 09.06.2002 E.P.
-     let == 'Q' || let == 'q' || 
-     let == 'W' || let == 'w' || 
+     let == 'Q' || let == 'q' ||
+     let == 'W' || let == 'w' ||
      let == 'X' || let == 'x'
     );
 }
@@ -771,9 +771,9 @@ INT rast_is_BOX_solid (CSTR_rast B1);
 
 	rstrGlob->language = language;
 	rstrGlob->line_number = line_number;
-	rstrGlob->fax1x2 =fax1x2; 
-	rstrGlob->actual_resolution = actual_resolution; 
-    rstrGlob->fEdCode   = fEdCode ; // ASCII         
+	rstrGlob->fax1x2 =fax1x2;
+	rstrGlob->actual_resolution = actual_resolution;
+    rstrGlob->fEdCode   = fEdCode ; // ASCII
     rstrGlob->line_BL   = line_BL;
     rstrGlob->spec_camera = spec_camera;
     rstrGlob->no_linpen   = no_linpen;
@@ -782,9 +782,9 @@ INT rast_is_BOX_solid (CSTR_rast B1);
 	rstrGlob->prop_r_delta  = prop_r_delta;
 
 	rstrGlob->let_lindef3 = let_lindef3;
-    rstrGlob->let_lindef = let_lindef; 
-    rstrGlob->let_linpos = let_linpos ; 
-    rstrGlob->let_linshape = let_linshape ; 
+    rstrGlob->let_lindef = let_lindef;
+    rstrGlob->let_linpos = let_linpos ;
+    rstrGlob->let_linshape = let_linshape ;
     rstrGlob->let_sans_acc =  let_sans_acc;
     rstrGlob->letters_pidx_table =    letters_pidx_table ;
 	rstrGlob->decode_ASCII_to_ = &decode_ASCII_to_[0][0];
@@ -799,7 +799,7 @@ INT rast_is_BOX_solid (CSTR_rast B1);
 	rstrGlob->snap_show_text= snap_show_text;
 	rstrGlob->snap_monitor_ori= snap_monitor_ori;//IGOR
 	rstrGlob->snap_is_marked= snap_is_marked;//IGOR
-	rstrGlob->snap_baselines= snap_baselines;//IGOR	  
+	rstrGlob->snap_baselines= snap_baselines;//IGOR
 	rstrGlob->snap_draw_line= snap_draw_line;//IGOR
 	rstrGlob->snap_del_line = snap_del_line;//IGOR
 }
@@ -886,8 +886,8 @@ static Word16 SetNoScaleLine(CSTR_line ln )
     llRaw = (CSTR_head *)ln;
 
 	CSTR_GetLineAttr(ln,&lattr);
-	if( !(lattr.Flags & CSTR_STR_SCALED) || 
-		!lattr.scale 
+	if( !(lattr.Flags & CSTR_STR_SCALED) ||
+		!lattr.scale
 	  )
 		return 0;
 
@@ -921,7 +921,7 @@ static Word16 SetNoScaleLine(CSTR_line ln )
 	lattr.Flags &= ~CSTR_STR_SCALED;
 
 	lattr.scale = 0;
-    CSTR_SetLineAttr(ln,&lattr);    
+    CSTR_SetLineAttr(ln,&lattr);
 
 	return scale;
 }
@@ -940,7 +940,7 @@ static Word16 RestoreScaleLine(CSTR_line ln , Word16 scale)
 	CSTR_GetLineAttr(ln,&lattr);
 	lattr.Flags |= CSTR_STR_SCALED;
 	lattr.scale  = (Word8)scale;
-	CSTR_SetLineAttr(ln,&lattr);    
+	CSTR_SetLineAttr(ln,&lattr);
 
 	for(rast=CSTR_GetNext(CSTR_GetFirstRaster(ln));rast;
 	    rast = CSTR_GetNext(rast) )
@@ -957,7 +957,7 @@ static Word16 RestoreScaleLine(CSTR_line ln , Word16 scale)
 			CSTR_SetAttr(rast,&attr);
 
 			cmp = CSTR_GetComp(rast);
-			
+
 			if( cmp )
 			{
 				cmp->w <<= lattr.scale;
@@ -1001,9 +1001,9 @@ void basedraft(CSTR_line ln)
     if( !line_bal )
 	 return;
 
-	// переведем cell_f()-> в нашу линию, используя 
+	// переведем cell_f()-> в нашу линию, используя
 	// атрибуты ln
-	{ 
+	{
 	  BOOL old_ready = SetFontReady(TRUE);
       Cells2CSTR( ln, line_bal, NULL, 1);
 	  SetFontReady(old_ready);
@@ -1012,13 +1012,13 @@ void basedraft(CSTR_line ln)
     SetRstrGlobals(&rstrGlob);
 	SetBalGlobals(&balGlob);
 
-	// установим - как будто не было шкалирования - 
+	// установим - как будто не было шкалирования -
 	// как в версии с cell()
 	saveScale = SetNoScaleLine( line_bal );
 
-	// установим row,hei как у исходной - чтобы было совпадение с 
+	// установим row,hei как у исходной - чтобы было совпадение с
 	// старой версией для skew_corr()
-	// 
+	//
 	CSTR_GetLineAttr(line_bal,&lattr_bal);
 	lattr_bal.row=lattr.row;
 	lattr_bal.hei=lattr.hei;
@@ -1031,7 +1031,7 @@ void basedraft(CSTR_line ln)
 	if( saveScale )
 		 RestoreScaleLine( line_bal, saveScale );
 
-	GetBalGlobals(&balGlob); 
+	GetBalGlobals(&balGlob);
 
 	// переведем в cell
     clear_cells();
@@ -1040,42 +1040,42 @@ void basedraft(CSTR_line ln)
     // добавим мусор
 	dust_ini(ln); //bring_dust(0);
 	dust_in = 1;
-	
+
     // очистим нашу линию
 	for(rast=CSTR_GetNext(CSTR_GetFirstRaster(line_bal));
 	    rast; rast=CSTR_DelRaster(rast) );
 
-    // переведем cell_f()-> в нашу линию, используя 
+    // переведем cell_f()-> в нашу линию, используя
 	// атрибуты ln
-    { 
+    {
 	  BOOL old_ready = SetFontReady(TRUE);
       Cells2CSTR( ln, line_bal, NULL, 1);
 	  SetFontReady(old_ready);
 	}
 
-	// установим - как будто не было шкалирования - 
+	// установим - как будто не было шкалирования -
 	// как в версии с cell()
 	saveScale = SetNoScaleLine( line_bal );
 
 	SetBalGlobals(&balGlob);
 
-	// установим row,hei как у исходной - чтобы было совпадение с 
+	// установим row,hei как у исходной - чтобы было совпадение с
 	// старой версией для skew_corr()
-	// 
+	//
 	CSTR_GetLineAttr(line_bal,&lattr_bal);
 	lattr_bal.row=lattr.row;
 	lattr_bal.hei=lattr.hei;
 	CSTR_SetLineAttr(line_bal,&lattr_bal);
 
 	retBaseDraft = BAL_basedraft(line_bal, 1, &rstrGlob, &balGlob, all_bases);
-	GetBalGlobals(&balGlob); 
+	GetBalGlobals(&balGlob);
     //  вернем истину
 	if( saveScale )
 		 RestoreScaleLine( line_bal, saveScale );
 
     // переведем в cell
     clear_cells();
-    ret = p2_Cstr2Cell( line_bal,NULL,NULL,TRUE, CSTR_f_space ); 
+    ret = p2_Cstr2Cell( line_bal,NULL,NULL,TRUE, CSTR_f_space );
 
 	// есть сомнения (и есть дополнительные возможности)
     if( !retBaseDraft )
@@ -1083,26 +1083,26 @@ void basedraft(CSTR_line ln)
 	// добавим мусор
 	 dust_ini(ln); //bring_dust(0);
 	 dust_in = 1;
-	
+
     // очистим нашу линию
 	 for(rast=CSTR_GetNext(CSTR_GetFirstRaster(line_bal));
 	    rast; rast=CSTR_DelRaster(rast) );
 
-    // переведем cell_f()-> в нашу линию, используя 
+    // переведем cell_f()-> в нашу линию, используя
 	// атрибуты ln
-     { 
+     {
 	  BOOL old_ready = SetFontReady(TRUE);
       Cells2CSTR( ln, line_bal, NULL, 1);
 	  SetFontReady(old_ready);
 	}
 
-	// установим - как будто не было шкалирования - 
+	// установим - как будто не было шкалирования -
 	// как в версии с cell()
 	 saveScale = SetNoScaleLine( line_bal );
 
-	 // установим row,hei как у исходной - чтобы было совпадение с 
+	 // установим row,hei как у исходной - чтобы было совпадение с
 	// старой версией для skew_corr()
-	// 
+	//
 	 CSTR_GetLineAttr(line_bal,&lattr_bal);
 	 lattr_bal.row=lattr.row;
 	 lattr_bal.hei=lattr.hei;
@@ -1110,14 +1110,14 @@ void basedraft(CSTR_line ln)
 
 	 SetBalGlobals(&balGlob);
 	 retBaseDraft = BAL_basedraft(line_bal, 2, &rstrGlob, &balGlob, all_bases);
-	 GetBalGlobals(&balGlob); 
+	 GetBalGlobals(&balGlob);
     //  вернем истину
 	 if( saveScale )
 		 RestoreScaleLine( line_bal, saveScale );
 
     // переведем в cell
      clear_cells();
-     ret = p2_Cstr2Cell( line_bal,NULL,NULL,TRUE, CSTR_f_space ); 
+     ret = p2_Cstr2Cell( line_bal,NULL,NULL,TRUE, CSTR_f_space );
 	}
 
 	CSTR_DeleteLine(line_bal);
@@ -1145,9 +1145,9 @@ void basefin(CSTR_line ln)
     if( !line_bal )
 	 return;
 
-	// переведем cell_f()-> в нашу линию, используя 
+	// переведем cell_f()-> в нашу линию, используя
 	// атрибуты ln
-    { 
+    {
 	  BOOL old_ready = SetFontReady(TRUE);
       Cells2CSTR( ln, line_bal, NULL, 1);
 	  SetFontReady(old_ready);
@@ -1156,12 +1156,12 @@ void basefin(CSTR_line ln)
     SetRstrGlobals(&rstrGlob);
 	SetBalGlobals(&balGlob);
 
-	// установим - как будто не было шкалирования - 
+	// установим - как будто не было шкалирования -
 	// как в версии с cell()
 	saveScale = SetNoScaleLine( line_bal );
 
 	BAL_basefin(line_bal, &rstrGlob, &balGlob, all_bases);
-	GetBalGlobals(&balGlob); 
+	GetBalGlobals(&balGlob);
 	    //  вернем истину
 	if( saveScale )
 		 RestoreScaleLine( line_bal, saveScale );
@@ -1196,9 +1196,9 @@ void linpos(CSTR_line ln)
     if( !line_bal )
 	 return;
 
-	// переведем cell_f()-> в нашу линию, используя 
+	// переведем cell_f()-> в нашу линию, используя
 	// атрибуты ln
-    { 
+    {
 	  BOOL old_ready = SetFontReady(TRUE);
       Cells2CSTR( ln, line_bal, NULL, 1);
 	  SetFontReady(old_ready);
@@ -1207,12 +1207,12 @@ void linpos(CSTR_line ln)
     SetRstrGlobals(&rstrGlob);
 	SetBalGlobals(&balGlob);
 
-	// установим - как будто не было шкалирования - 
+	// установим - как будто не было шкалирования -
 	// как в версии с cell()
 	saveScale = SetNoScaleLine( line_bal );
 
 	BAL_linpos(line_bal, &rstrGlob, &balGlob, all_bases);
-	GetBalGlobals(&balGlob); 
+	GetBalGlobals(&balGlob);
 	    //  вернем истину
 	if( saveScale )
 		 RestoreScaleLine( line_bal, saveScale );

@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -59,7 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ////////////////////////////////////////////////////////////
 // A.Talalay   (for Tiger32.DLL & MAC version)            //
 // V.Troyanker (Cuneiform 96, FormReader     )            //
-// O.Slavin    (for Cuneifrom2000            )            // 
+// O.Slavin    (for Cuneifrom2000            )            //
 ////////////////////////////////////////////////////////////
 // Creation     : 08 Jul 1998                             //
 ////////////////////////////////////////////////////////////
@@ -143,7 +143,7 @@ enum    REXCParametrs
 //-    REXC_FNEXTGETRECRASTERORIENT,
 //-    REXC_FNSETALLALPHAGRA
     };
-  
+
 
    EXC_FUNC(Bool32) ExtrcompInit( void);
     // Start initialization. TRUE if OK
@@ -159,7 +159,7 @@ enum    REXCParametrs
 
 // 1    REXC_FNEVNPROPERT   установить опции для эвент
 // setup condition for recognition all comps without Event-algoriphm
-//       and alphabet (256 ANSI indicators for any letter)   
+//       and alphabet (256 ANSI indicators for any letter)
 /*-Andrey: moved to RRecCom (recognition) and RNorm (autorotate)
 //--------------------------------------------------------------
 typedef Bool32   (*FNREXC_SetEVNProperties)(ExcControl ExCW,char *spath, Word8 lang);
@@ -175,20 +175,20 @@ EXC_FUNC(Int32)  Extracomp(ExcControl Control,
 // 3    REXC_FNEXTRA        найти компоненты в растре
 typedef Bool32 (*FNREXC_Exc)(ExcControl Control,
     Word8 *lpRaster, Int32 BWid, Bool32 ReverseOrder,
-    Int32 Wid, Int32 Hei, 
-    Int32 HRes, Int32 VRes, 
+    Int32 Wid, Int32 Hei,
+    Int32 HRes, Int32 VRes,
     Int32 TemplCol, Int32 TemplRow, Int32 TemplWid, Int32 TemplHei);
 EXC_FUNC(Bool32)  REXCExtra(ExcControl Control,
     Word8 *lpRaster, Int32 BWid, Bool32 ReverseOrder,
-    Int32 Wid, Int32 Hei, 
-    Int32 HRes, Int32 VRes, 
+    Int32 Wid, Int32 Hei,
+    Int32 HRes, Int32 VRes,
     Int32 TemplCol, Int32 TemplRow, Int32 TemplWid, Int32 TemplHei, Bool32 FotoMetr);
-// 4    REXC_FNEXTRADIB     найти компоненты в ДИБе    
+// 4    REXC_FNEXTRADIB     найти компоненты в ДИБе
 typedef Bool32 (*FNREXC_ExcDIB)(ExcControl ExCW,
-    Word8 *lpDIB, 
+    Word8 *lpDIB,
     Int32 TemplCol, Int32 TemplRow, Int32 TemplWid, Int32 TemplHei);
 EXC_FUNC(Bool32)  REXCExtraDIB(ExcControl ExCW,
-    Word8 *lpDIB, 
+    Word8 *lpDIB,
     Int32 TemplCol, Int32 TemplRow, Int32 TemplWid, Int32 TemplHei);
 // 5    REXC_FNGETCONTAINER   Получить код контейнера с компонентами
 typedef  Int32 (*FNREXC_GetContainer)(void);
@@ -230,7 +230,7 @@ EXC_FUNC(Bool32)  REXCExtracomp3CB(ExcControl ExCW,TImageOpen tio,
                                 TImageClose tic, TImageRead tir);
 /*-Andrey: moved to RRecCom (recognition) and RNorm (autorotate)
 //--------------------------------------------------------------
-// 14   REXC_FNEXTGETRECRASTERORIENT ориентация рабочего растра 
+// 14   REXC_FNEXTGETRECRASTERORIENT ориентация рабочего растра
 typedef Bool32 (*FNexc_get_rec_raster_orient)(RecRaster   *rs,Int32 *res);
 EXC_FUNC(Bool32) exc_get_rec_raster_orient(RecRaster   *rs,Int32 *res);
 // 15   REXC_FNSETALLALPHAGRA   алфавит нейронной сети
@@ -247,7 +247,7 @@ EXC_FUNC(Bool32) exc_set_all_alphabet_gra(void);
 #define REXC_ERR_NOTOPERATE         2049
 #define REXC_ERR_NOMEMORY           2050
 #define REXC_ERR_NOTIMPLEMENT       2051
-#define REXC_ERR_INTERNAL           2052   
+#define REXC_ERR_INTERNAL           2052
 #define REXC_ERR_DUMPOPEN           2053
 #define REXC_ERR_DUMPWRITE          2054
 #define REXC_ERR_CALLBACK           2055

@@ -133,9 +133,9 @@ BOOL CSampleDlg::OnInitDialog()
 	//  when the application's main window is not a dialog
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
-	
+
 	// TODO: Add extra initialization here
-	
+
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -156,7 +156,7 @@ void CSampleDlg::OnSysCommand(UINT nID, LPARAM lParam)
 //  to draw the icon.  For MFC applications using the document/view model,
 //  this is automatically done for you by the framework.
 
-void CSampleDlg::OnPaint() 
+void CSampleDlg::OnPaint()
 {
 	if (IsIconic())
 	{
@@ -194,19 +194,19 @@ HCURSOR CSampleDlg::OnQueryDragIcon()
 //  then the UI is hidden but the dialog remains around if it
 //  is dismissed.
 
-void CSampleDlg::OnClose() 
+void CSampleDlg::OnClose()
 {
 	if (CanExit())
 		CDialog::OnClose();
 }
 
-void CSampleDlg::OnOK() 
+void CSampleDlg::OnOK()
 {
 	if (CanExit())
 		CDialog::OnOK();
 }
 
-void CSampleDlg::OnCancel() 
+void CSampleDlg::OnCancel()
 {
 	if (CanExit())
 		CDialog::OnCancel();
@@ -231,18 +231,18 @@ BOOL CSampleDlg::CanExit()
 #include "events.h"
 const IID DIID__IRecognitionEvents = {0x229C1071,0x829F,0x11D2,{0xBA,0x6E,0x00,0x00,0xE8,0xD9,0xFD,0xF6}};
 
-void CSampleDlg::OnButton1() 
+void CSampleDlg::OnButton1()
 {
     UpdateData();
     IRecognition Puma;
-    
+
     if(Puma.CreateDispatch("Cognitive.Puma"))
     {
-        // CT: Делаем необходимые действия для получения событий. 
+        // CT: Делаем необходимые действия для получения событий.
         LPDISPATCH lpDispatch = Puma.m_lpDispatch;
         IConnectionPointContainer * lpContainer = NULL;
         Events events(this);
-        
+
         if(lpDispatch->QueryInterface(IID_IConnectionPointContainer,(void**)&lpContainer)==S_OK)
         {
             IConnectionPoint * lpPoint;
@@ -256,21 +256,21 @@ void CSampleDlg::OnButton1()
         }
         Puma.Load();
         Puma.SetLanguage(7);        // CT: РУССКО-АНГЛИЙСКИЙ ЯЗЫК
-        Puma.SetSpeller(m_spell);   // CT: ВКЛ/ВЫКЛ СЛОВАРНОГО ДОРАСПОЗНАВАНИЯ 
-       
+        Puma.SetSpeller(m_spell);   // CT: ВКЛ/ВЫКЛ СЛОВАРНОГО ДОРАСПОЗНАВАНИЯ
+
 		///работа функции RecogDIBtoMemory
 
 		HANDLE hDIB = 0;
 		//HGLOBAL buffer = 0;
-		
+
 		/*
 		получаем hDIB
 		*/
 		typedef HANDLE (__cdecl *delegate_BitmapToDIB)(HBITMAP, HPALETTE);
 		typedef HANDLE (__cdecl *delegate_LoadDIB)(LPCSTR filename);
 		typedef HANDLE (__cdecl *delegate_CopyScreenToDIB)(RECT* );
-		typedef int (__cdecl *delegate_SaveDIB)(HANDLE hdib,LPCSTR filename); 
- 
+		typedef int (__cdecl *delegate_SaveDIB)(HANDLE hdib,LPCSTR filename);
+
 		HMODULE hDibApiDll = LoadLibrary("c:\\dibapi.dll");
 
 		delegate_BitmapToDIB BitmapToDIB = (delegate_BitmapToDIB)GetProcAddress(hDibApiDll,"BitmapToDIB");
@@ -290,9 +290,9 @@ void CSampleDlg::OnButton1()
 		long buf = 0;
 		short format = 2;
 		short code = 2;
-	
+
 	    if(hDIB != 0)
-		{                               
+		{
 			long hd = reinterpret_cast<long>(hDIB);
 
 			Puma.RecogDIBtoMemory(hd, &buf, format, code);
@@ -306,6 +306,6 @@ void CSampleDlg::OnButton1()
 		}
 
 		Puma.Unload();
-    }	
+    }
 }
 

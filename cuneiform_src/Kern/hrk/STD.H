@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -154,9 +154,9 @@ typedef struct tagStdMemInfo
    STD_FUNC( Int32 ) stdAccess( const char *path, Int32 mode);
 
 #ifdef __cplusplus
-   inline bool stdFileExists(const char* path) 
+   inline bool stdFileExists(const char* path)
       {  return (stdAccess(path, 00) != -1); };
-   inline bool stdFileReadable(const char* path) 
+   inline bool stdFileReadable(const char* path)
       {  return (stdAccess(path, 04) != -1); };
 #endif //__cplusplus
 
@@ -185,7 +185,7 @@ typedef struct tagStdMemInfo
    STD_FUNC( Bool32 ) stdSetCurrentDirectory(
       const char * lpBuffer   // address of buffer for current directory
       ); // Win32 ::SetCurrentDirectory() analog
-    
+
    STD_FUNC( Int32 ) stdGetDirectoryInfo(
       const char * lpBuffer, // current directory name buffer
       Int32 nFlags,
@@ -223,7 +223,7 @@ typedef struct tagStdMemInfo
 #ifndef wchar_t
 #define wchar_t Int16
 #endif
-	
+
 STD_FUNC( Bool32 ) stdCheckFile(const char * lpFileName );
 
 STD_FUNC( Bool32 ) stdMoveFile(
@@ -233,7 +233,7 @@ STD_FUNC( Bool32 ) stdMoveFile(
 #define STD_MOVEFILE_FL_DEFAULT        STD_MOVEFILE_FL_OVERWRITE                    -1
       Int32 nFlags
 #ifdef __cplusplus
-      =STD_MOVEFILE_FL_OVERWRITE 
+      =STD_MOVEFILE_FL_OVERWRITE
 #endif
                               );
 
@@ -272,7 +272,7 @@ STD_FUNC( Bool32 ) stdMoveFile(
     STD_FUNC(void) stdStrUnicodeToAnsi(char* pAnsi,const wchar_t* pUnicode);
 
     STD_FUNC( Word8 ) stdUpperAscii ( Word8 Code);
-    STD_FUNC( Word8 ) stdLowerAscii ( Word8 Code); 
+    STD_FUNC( Word8 ) stdLowerAscii ( Word8 Code);
 	//String WIN<->DOS converters
 	STD_FUNC(void) stdStrAsciiToAnsi( char* Str);
 	STD_FUNC(void) stdStrAnsiToAscii( char* Str);
@@ -293,7 +293,7 @@ STD_FUNC( Bool32 ) stdMoveFile(
     STD_FUNC( Int32 ) stdLeoIsCase(Word8 Code);
       // upper, lower or nondefined
     STD_FUNC( Word8)  stdLeoSetUpperCase(Word8 Code);
-      // 'A'lat => 'A'lat, 'o'rus => 'O'rus, 'e'rus => 'e'rus 
+      // 'A'lat => 'A'lat, 'o'rus => 'O'rus, 'e'rus => 'e'rus
     STD_FUNC( Word8)  stdLeoSetLowerCase(Word8 Code);
       // 'C'lat => 'C'lat, 'O'rus => 'o'rus, 'A'rus => 'A'rus
     STD_FUNC(Word8 *) stdLeoGetTypeface(Word8 c);
@@ -348,7 +348,7 @@ STD_FUNC( Bool32 ) stdSetProfileInt(Int32 nValue,const char* szIniFileName,const
 // property bag DLL can use prop bags for info exchange
 STD_FUNC(Bool32) stdSetProperty(const char* pKey,const char* pValue);
 STD_FUNC(const char*) stdGetProperty(const char* pKey);
-//standard key prefixes : 
+//standard key prefixes :
 	//SK-System Key
 	//AK-Application Key
 	//EK-sEssion Key
@@ -378,7 +378,7 @@ STD_FUNC(const char*) stdGetProperty(const char* pKey);
       Int32 lData;
    } StdError;
 
-   STD_FUNC( Int32 ) stdSetError( Int32 nErrorCode, char* cond, char* file, 
+   STD_FUNC( Int32 ) stdSetError( Int32 nErrorCode, char* cond, char* file,
       Int32 nline, Int32 lData
 #ifdef __cplusplus
 	  = 0

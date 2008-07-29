@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -82,7 +82,7 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
     CEDSection* sect;
 
 //	BOOL inFrm=FALSE;
-	
+
 //	BOOL result;
 //    UINT AllocType;
 //    OFSTRUCT OpenBuf;
@@ -91,9 +91,9 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
 //       WriteBegCol=0;
 //       WriteEndRow=TotalLines-1;
 //       WriteEndCol=LineLen(WriteEndRow);     // last BYTE not included
-    
+
     // allocate space for the Strrtf info structure
-    if (NULL==(rtf=new StrRtfOut)) 
+    if (NULL==(rtf=new StrRtfOut))
 	{
 		SetReturnCode_ced(IDS_ERR_NO_MEMORY);
 //       PrintError(w,MSG_OUT_OF_MEM,"RtfWrite");
@@ -127,11 +127,11 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
 		//open new rtf
 		rtf->hFile=Open(0, (PInt8)fileName,OSF_CREATE|OSF_BINARY);
 
-		if (!rtf->hFile) 	
+		if (!rtf->hFile)
 		{
 			SetReturnCode_ced(CFIO_GetReturnCode());
 			return FALSE;
-		} 	
+		}
     }
 	// initialize global variables
     rtf->RtfInHdrFtr=0;
@@ -147,7 +147,7 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
 	memset(rtf->table,-1,sizeof(int)*rtf->page->fontsUsed);
 
 	//    rtf->output=output;                         // output type
-    /*if (rtf->output==RTF_FILE)*/ 
+    /*if (rtf->output==RTF_FILE)*/
 /*    else {
        rtf->BufLen=0;                // calculate estimated text size
        for (l=WriteBegRow;l<=WriteEndRow;l++) rtf->BufLen=rtf->BufLen+LineLen(l)+2;
@@ -165,7 +165,7 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
     }
 */
     // allocate color table
-    if (NULL==(color=rtf->color=new StrRtfColor[MAX_RTF_COLORS])) 
+    if (NULL==(color=rtf->color=new StrRtfColor[MAX_RTF_COLORS]))
 	{
        return 0;//PrintError(w,MSG_OUT_OF_MEM,"RtfRead(color)");
     }
@@ -191,7 +191,7 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
 	}
 	else
 	{
-		if (!WriteRtfMergedHeader(rtf,fileName)) 
+		if (!WriteRtfMergedHeader(rtf,fileName))
 		{
 			if (rtf->hFile) goto WRITE_END; //write default margin and paper information
 
@@ -205,8 +205,8 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
 /*    if (cid(WriteBegRow)>0) {
        PrevPfmt=DEFAULT_PFMT;    // force writing of cell data
        PrevCell=PrevFID=0;
-       if (!CellCharIncluded(w,WriteBegRow,WriteBegCol,WriteEndRow,WriteEndCol)) 
-          rtf->flags|=ROFLAG_IGNORE_TABLE; 
+       if (!CellCharIncluded(w,WriteBegRow,WriteBegCol,WriteEndRow,WriteEndCol))
+          rtf->flags|=ROFLAG_IGNORE_TABLE;
     }
     else if (ParaCharIncluded(w,WriteBegRow,WriteBegCol,WriteEndRow,WriteEndCol)) {
        PrevPfmt=DEFAULT_PFMT;    // force writing of frame data
@@ -225,7 +225,7 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
 			BOOL firstParaGraph=TRUE;//process first element in a row - for correct paragraph convertation
 			CEDParagraph* para=col->GetFirstObject();
 			while (para)
-			{				
+			{
 				if (para->type&FICTIVE)
 				{
 					if (para->type==TAB_BEGIN)
@@ -343,14 +343,14 @@ WRITE_END:
 FINAL:
     // flush text buffer
     FlushRtfLine(rtf);             // flush the rtf line to the output
-    
+
 	Close(rtf->hFile,CSF_SAVEDISK);
 
     if (rtf->table)   delete[] rtf->table;          // free rtf control area
     if (merge&&rtf->oldFile)   Free(rtf->oldFile);          // free old rtf
     if (rtf)   delete rtf;          // free rtf control area
     if (color) delete[] color;        // free the rtf color table
-    
+
 //    if (output==RTF_FILE || output==RTF_BUF) TerArg.modified=PageModifyCount=0;       // reset modification flag
 
     return ret;
@@ -419,7 +419,7 @@ BOOL WriteRtfPara(struct StrRtfOut far *rtf,CEDParagraph* p, BOOL brk)
 		rtf->PrevPfmt=p;
 //         PrevCell=cid(l);
 //         PrevFID=fid(l);
-         
+
          // reset font as fonts could have changed in a higher group
 //         if (!WriteRtfControl(w,rtf,"plain",PARAM_NONE,0)) goto WRITE_END;
 //         if (!WriteRtfControl(w,rtf,"fs",PARAM_INT,2*TerFont[0].PointSize)) goto WRITE_END;  // write because pointsize can be intepretted differently on 'plain'
@@ -448,7 +448,7 @@ BOOL WriteRtfPara(struct StrRtfOut far *rtf,CEDParagraph* p, BOOL brk)
        for (j=0;j<=LastCol;j++)
 	   {
 		   chr=l->GetChar(j);//this construction is correct
-			//!!Warning  - cycle is longer then a line (length of line +1), so be careful	
+			//!!Warning  - cycle is longer then a line (length of line +1), so be careful
 		   //this one is also correct
 		   CEDChar * prvCh=&(rtf->PrevChar);//chr?chr->prev:0;
 		   //in the next if we primarily need last call check
@@ -458,12 +458,12 @@ BOOL WriteRtfPara(struct StrRtfOut far *rtf,CEDParagraph* p, BOOL brk)
 			  prvCh->fontAttribs!=chr->fontAttribs||
 			  prvCh->fontNum!=chr->fontNum))
 /*            || ptr[j]==ParaChar || ptr[j]==CellChar || ptr[j]==LINE_CHAR
-            || ptr[j]==ROW_CHAR*/ || CED_IsPicture(chr)/*TerFont[fmt[j]].style&PICT*/) 
+            || ptr[j]==ROW_CHAR*/ || CED_IsPicture(chr)/*TerFont[fmt[j]].style&PICT*/)
 		  {
              if (!WriteRtfText(rtf,ptr,len)) return FALSE; // write text
              if (j<LastCol&&prvCh&&(!CED_IsPicture(chr))&&(prvCh->fontHeight!=chr->fontHeight||
 			  prvCh->fontAttribs!=chr->fontAttribs||
-			  prvCh->fontNum!=chr->fontNum)) 
+			  prvCh->fontNum!=chr->fontNum))
 			 {          // write font change
                if (!WriteRtfCharFmt(rtf,chr)) return FALSE;
 //               PrevFont=CurFont;
@@ -472,9 +472,9 @@ BOOL WriteRtfPara(struct StrRtfOut far *rtf,CEDParagraph* p, BOOL brk)
              len=0;                           // reset line segment length
           }
 //          CurFont=fmt[j];
-          
+
           // write picture and parabreak
-		   if(chr&&CED_IsPicture(chr))	
+		   if(chr&&CED_IsPicture(chr))
 			{
 				for (int pict=0;pict<rtf->page->picsUsed;pict++)
 				{
@@ -498,7 +498,7 @@ BOOL WriteRtfPara(struct StrRtfOut far *rtf,CEDParagraph* p, BOOL brk)
                 result=WriteRtfControl(w,rtf,"subpictid",PARAM_INT,CurFont);
              }
              else if (TerFont[CurFont].ObjectType==OBJ_NONE || TerFont[CurFont].ObjectType==OBJ_EMBED_TEMP) {
-                if (TerFont[CurFont].LinkFile && !(TerFlags&TFLAG_IGNORE_PICT_LINK)) 
+                if (TerFont[CurFont].LinkFile && !(TerFlags&TFLAG_IGNORE_PICT_LINK))
                    result=WriteRtfLinkedPicture(w,rtf,CurFont);
                 else {
                    if      (TerFont[CurFont].PictType==PICT_METAFILE) result=WriteRtfMetafile(w,rtf,CurFont);
@@ -512,7 +512,7 @@ BOOL WriteRtfPara(struct StrRtfOut far *rtf,CEDParagraph* p, BOOL brk)
              if (!result) goto WRITE_END;
           }
 */
-		if(!CED_IsPicture(chr))	
+		if(!CED_IsPicture(chr))
 		{
 			ptr[len]=chr->alternatives[0].alternative;
 			len++;
@@ -654,7 +654,7 @@ BOOL WriteRtfControl(struct StrRtfOut far *rtf,char* control,int type, double va
 BOOL FlushRtfLine(struct StrRtfOut far *rtf)
 {
     if (rtf->TextLen==0) return TRUE;    // nothing to flush
-    
+
     // add cr/lf to the line
     rtf->text[rtf->TextLen]=0xd;
     rtf->TextLen++;
@@ -671,7 +671,7 @@ BOOL FlushRtfLine(struct StrRtfOut far *rtf)
        if (rtf->BufIndex+rtf->TextLen>rtf->BufLen) { // expand the buffer
           rtf->BufLen=rtf->BufLen + (rtf->BufLen/4); // expand 25 percent
           if (rtf->BufLen<(rtf->BufIndex+rtf->TextLen)) rtf->BufLen=rtf->BufIndex+rtf->TextLen;
-       
+
           GlobalUnlock(rtf->hBuf);
           if ( NULL==(rtf->hBuf=GlobalReAlloc(rtf->hBuf,rtf->BufLen+1, 0))
             || NULL==(rtf->buf=(BYTE huge *)GlobalLock(rtf->hBuf)) ){
@@ -709,7 +709,7 @@ BOOL WriteRtfFont(struct StrRtfOut far *rtf, BOOL head)
 	CEDPage* page=rtf->page;
 
 	for (int q=0;q<page->fontsUsed;q++)
-	{	
+	{
 		if (rtf->table[q]<=rtf->maxFntNum) continue;
 		page->GetFont(q,&(fond.fontNumber),&(fond.fontPitchAndFamily),
 			&(fond.fontCharset),&ch);
@@ -772,11 +772,11 @@ BOOL WriteRtfFont(struct StrRtfOut far *rtf, BOOL head)
 		{
 		case 204:// Cyrillic
 			if (memcmp(ch+lstrlen(ch)-strlen(" Cyr")," Cyr",strlen(" Cyr"))!=0)
-			if (!WriteRtfText(rtf," Cyr",4)) return FALSE;  
+			if (!WriteRtfText(rtf," Cyr",4)) return FALSE;
 			  break;
 		case 238:// Central Europe
 			if (memcmp(ch+lstrlen(ch)-strlen(" CE")," CE",strlen(" CE"))!=0)
-		      if (!WriteRtfText(rtf," CE",3)) return FALSE; 
+		      if (!WriteRtfText(rtf," CE",3)) return FALSE;
 			  break;
 		case 0:// Default
 		default:	;
@@ -816,7 +816,7 @@ BOOL WriteRtfMargin(struct StrRtfOut far *rtf)
 	    if (!WriteRtfControl(rtf,"margt",PARAM_INT,page->pageBordersInTwips.top)) return FALSE;
 	if (page->pageBordersInTwips.bottom>=0)
 	    if (!WriteRtfControl(rtf,"margb",PARAM_INT,page->pageBordersInTwips.bottom)) return FALSE;
-    
+
     return TRUE;
 }
 
@@ -827,18 +827,18 @@ BOOL WriteRtfMargin(struct StrRtfOut far *rtf)
 BOOL WriteRtfSection(struct StrRtfOut far *rtf, CEDSection* sect)
 {
     if (!WriteRtfControl(rtf,"sectd",PARAM_NONE,0)) return FALSE;  // set to default
-  
+
 	// write the landscape and paper dimensions
-    if (sect->orientation==ED_ORIENT_LANDSCAPE) 
+    if (sect->orientation==ED_ORIENT_LANDSCAPE)
 	{
        if (!WriteRtfControl(rtf,"lndscpsxn",PARAM_NONE,0)) return FALSE;
 	}
-       
+
 	if (sect->width>=0)
 		if (!WriteRtfControl(rtf,"pgwsxn",PARAM_INT,sect->width)) return FALSE;
 	if (sect->height>=0)
 		if (!WriteRtfControl(rtf,"pghsxn",PARAM_INT,sect->height)) return FALSE;
-    
+
     // write margins
     if(sect->borders.left>=0)
 		if (!WriteRtfControl(rtf,"marglsxn",PARAM_INT,sect->borders.left)) return FALSE;
@@ -848,12 +848,12 @@ BOOL WriteRtfSection(struct StrRtfOut far *rtf, CEDSection* sect)
 		if (!WriteRtfControl(rtf,"margtsxn",PARAM_INT,sect->borders.top)) return FALSE;
     if(sect->borders.bottom>=0)
 		if (!WriteRtfControl(rtf,"margbsxn",PARAM_INT,sect->borders.bottom)) return FALSE;
-    
+
     if(sect->headerY>=0)
 		if (!WriteRtfControl(rtf,"headery",PARAM_INT,sect->headerY)) return FALSE;
     if(sect->footerY>=0)
 		if (!WriteRtfControl(rtf,"footery",PARAM_INT,sect->footerY)) return FALSE;
-    
+
     // write break
     if (sect->sectionBreak==ED_SECT_CONTINUE) if (!WriteRtfControl(rtf,"sbknone",PARAM_NONE,0)) return FALSE;
     if (sect->sectionBreak==ED_SECT_NEW_PAGE) if (!WriteRtfControl(rtf,"sbkpage",PARAM_NONE,0)) return FALSE;
@@ -861,7 +861,7 @@ BOOL WriteRtfSection(struct StrRtfOut far *rtf, CEDSection* sect)
 	if (sect->lineBetCol)
 		if (!WriteRtfControl(rtf,"linebetcol",PARAM_NONE,0)) return FALSE;
     // write columns
-    if (sect->numSnakeCols>1) 
+    if (sect->numSnakeCols>1)
 	{
 	int i;
 		if (!WriteRtfControl(rtf,"cols",PARAM_INT,sect->numSnakeCols)) return FALSE;
@@ -953,7 +953,7 @@ BOOL WriteRtfCharFmt(struct StrRtfOut far *rtf,CEDChar* curChar)
 //       if (!EndRtfGroup(w,rtf)) return FALSE;        // end current field group
 //
 //       WriteRtfControl(w,rtf,"plain",PARAM_NONE,0);  // turnoff formatting
-//       lstrcpy(PrevTypeFace,"");                     // force writing of font information 
+//       lstrcpy(PrevTypeFace,"");                     // force writing of font information
 //       PrevFamily=FF_DONTCARE;
 //       PrevStyle=0;
 //       PrevTextColor=0;
@@ -974,7 +974,7 @@ BOOL WriteRtfCharFmt(struct StrRtfOut far *rtf,CEDChar* curChar)
 //       if (!EndRtfGroup(w,rtf)) return FALSE;        // close field group
 //
 //       WriteRtfControl(w,rtf,"plain",PARAM_NONE,0);  // turnoff formatting
-//       lstrcpy(PrevTypeFace,"");                     // force writing of font information 
+//       lstrcpy(PrevTypeFace,"");                     // force writing of font information
 //       PrevFamily=FF_DONTCARE;
 //       PrevStyle=0;
 //       PrevTextColor=0;
@@ -998,7 +998,7 @@ BOOL WriteRtfCharFmt(struct StrRtfOut far *rtf,CEDChar* curChar)
 //    if (!(PrevStyle&FNOTE) && CurStyle&FNOTE) if (!BeginRtfGroup(w,rtf)) return FALSE;      // begin footnote reference group
 //    if (PrevStyle&FNOTE && CurStyle&FNOTETEXT) {
 //       if (!BeginRtfGroup(w,rtf)) return FALSE;      // begin footnote reference group
-//       if (!WriteRtfControl(w,rtf,"footnote",PARAM_NONE,0)) return FALSE;   
+//       if (!WriteRtfControl(w,rtf,"footnote",PARAM_NONE,0)) return FALSE;
 //    }
 
 
@@ -1007,22 +1007,22 @@ BOOL WriteRtfCharFmt(struct StrRtfOut far *rtf,CEDChar* curChar)
       && CurPointSize==24
       && (CurTextColor==0||CurTextColor==-1)
       && (CurTextBkColor==TextDefBkColor||CurTextBkColor==-1)
-      && CurStyle/*&(~((UINT)(FNOTEALL)))*/==0 
-//      && CurFieldId==0 
-//      && CurCharSID==1 
-/*	  && CurCharSet==0*/) 
+      && CurStyle/*&(~((UINT)(FNOTEALL)))*/==0
+//      && CurFieldId==0
+//      && CurCharSID==1
+/*	  && CurCharSet==0*/)
 	  { // Piter CharSet
          if (!WriteRtfControl(rtf,"plain",PARAM_NONE,0)) return FALSE;
          return WriteRtfControl(rtf,"fs",PARAM_INT,CurPointSize);  // other RTF reader may interpret different default pointsize on 'plain', so write here
 	}
-    
+
     //write the character style id
 //    if (CurCharSID!=PrevCharSID) {
 //      if (!WriteRtfControl(w,rtf,"cs",PARAM_INT,CurCharSID)) return FALSE;
 //    }
 
     //write typeface/family
-    if (CurFamily!=PrevFamily) { 
+    if (CurFamily!=PrevFamily) {
       if (!WriteRtfControl(rtf,"f",PARAM_INT,CurFamily)) return FALSE;  // write font number
     }
 
@@ -1083,13 +1083,13 @@ BOOL WriteRtfCharFmt(struct StrRtfOut far *rtf,CEDChar* curChar)
        else                  result=WriteRtfControl(rtf,"protect",PARAM_INT,0);  // turn off
        if (!result) return FALSE;
     }
-    
+
 /*    if (CurStyle&CHAR_BOX && !(PrevStyle&CHAR_BOX)) {
        if (!BeginRtfGroup(w,rtf)) return FALSE;      // begin field group
-       if (!WriteRtfControl(w,rtf,"field",PARAM_NONE,0)) return FALSE;   
+       if (!WriteRtfControl(w,rtf,"field",PARAM_NONE,0)) return FALSE;
        if (!BeginRtfGroup(w,rtf)) return FALSE;      // begin instruction group
-       if (!WriteRtfControl(w,rtf,"fldinst",PARAM_NONE,0)) return FALSE;   
-    
+       if (!WriteRtfControl(w,rtf,"fldinst",PARAM_NONE,0)) return FALSE;
+
        if (!WriteRtfText(w,rtf,"EQ \\X(",6)) return FALSE;
     }
 */
@@ -1098,10 +1098,10 @@ BOOL WriteRtfCharFmt(struct StrRtfOut far *rtf,CEDChar* curChar)
     // Check for the beginning of new field group
 /*    if (CurFieldId>0 && CurFieldId!=PrevFieldId) {
        if (!BeginRtfGroup(w,rtf)) return FALSE;      // begin field group
-       if (!WriteRtfControl(w,rtf,"field",PARAM_NONE,0)) return FALSE;   
+       if (!WriteRtfControl(w,rtf,"field",PARAM_NONE,0)) return FALSE;
        if (!BeginRtfGroup(w,rtf)) return FALSE;      // begin instruction group
-       if (!WriteRtfControl(w,rtf,"fldinst",PARAM_NONE,0)) return FALSE;   
-    
+       if (!WriteRtfControl(w,rtf,"fldinst",PARAM_NONE,0)) return FALSE;
+
        if (CurFieldId==FIELD_ID_PAGE) if (!WriteRtfText(w,rtf,"PAGE",4)) return FALSE;
        // !!! Stas begins
        if (CurFieldId==FIELD_ID_DATE) if (!WriteRtfText(w,rtf,"DATE",4)) return FALSE;
@@ -1110,8 +1110,8 @@ BOOL WriteRtfCharFmt(struct StrRtfOut far *rtf,CEDChar* curChar)
        // !!! Stas ends
        if (!EndRtfGroup(w,rtf)) return FALSE;        // end the instruction group
        if (!BeginRtfGroup(w,rtf)) return FALSE;      // begin the result group
-       if (!WriteRtfControl(w,rtf,"fldrslt",PARAM_NONE,0)) return FALSE;   
-    } 
+       if (!WriteRtfControl(w,rtf,"fldrslt",PARAM_NONE,0)) return FALSE;
+    }
 */
     // begin superscript/subscript groups
 /*    if ((CurStyle&SUPSCR)!=(PrevStyle&SUPSCR) && CurStyle&SUPSCR) rtf->flags|=ROFLAG_IN_SUPSCR;
@@ -1236,10 +1236,10 @@ BOOL WriteRtfParaFmt(struct StrRtfOut far *rtf,CEDParagraph* NewPfmt,CEDParagrap
 //    }
 
     // check for default para
-    if ( CurLeftIndent==0 && CurRightIndent==0 && CurFirstIndent==0 
+    if ( CurLeftIndent==0 && CurRightIndent==0 && CurFirstIndent==0
       /*&& CurFlags==0 && CurTabId==0 && CurCellId==0 */
       && CurShading==0 /*&& CurParaFID==0 && PrevParaFID==0 */
-      && CurSpaceBefore==0 && CurSpaceAfter==0 && CurSpaceBetween==0 
+      && CurSpaceBefore==0 && CurSpaceAfter==0 && CurSpaceBetween==0
       /*&& CurParaSID==0*/&&!rtf->RtfInFrame&&!rtf->RtfInTable&&CurAlignment==0 ) {
        return WriteRtfControl(rtf,"pard",PARAM_NONE,0);
     }
@@ -1247,12 +1247,12 @@ BOOL WriteRtfParaFmt(struct StrRtfOut far *rtf,CEDParagraph* NewPfmt,CEDParagrap
     // do we need to reset the paragraph?
 //    NoValueFlags=PARA_KEEP|PARA_KEEP_NEXT|PARA_BOX_ATTRIB|BULLET;  // para flags which do not have turn on/off values
 
-    if (  rtf->reset) 
+    if (  rtf->reset)
 	{  // reset para id
 
 //do this by hands before the call
 //       WriteRtfControl(rtf,"pard",PARAM_NONE,0);   // reset para information as tab stops are not incremental
-       if (rtf->RtfInTable) 
+       if (rtf->RtfInTable)
           WriteRtfControl(rtf,"intbl",PARAM_NONE,0);   // indicate that we are in a table now
 
        // reset previous variable to force write any changes
@@ -1263,13 +1263,13 @@ BOOL WriteRtfParaFmt(struct StrRtfOut far *rtf,CEDParagraph* NewPfmt,CEDParagrap
 //       PrevParaSID=0;
     }
 
-    
+
 //    // check if style id needs to be written
 //    if (CurParaSID!=PrevParaSID || reset) {
 //       if (!WriteRtfControl(w,rtf,"s",PARAM_INT,CurParaSID)) return FALSE;
 //    }
 
-    
+
     // check if tab id needs to be written
 //    if (CurTabId!=PrevTabId || reset) {
 //       // write tab position
@@ -1287,18 +1287,18 @@ BOOL WriteRtfParaFmt(struct StrRtfOut far *rtf,CEDParagraph* NewPfmt,CEDParagrap
 //    }
 
     // check if para border specification need to be written
-    if (rtf->reset ||CurLbt!=PrevLbt ||CurRbt!=PrevRbt ||CurTbt!=PrevTbt 
-		||CurBbt!=PrevBbt ||CurLbw!=PrevLbw ||CurRbw!=PrevRbw 
-		||CurTbw!=PrevTbw ||CurBbw!=PrevBbw) 
+    if (rtf->reset ||CurLbt!=PrevLbt ||CurRbt!=PrevRbt ||CurTbt!=PrevTbt
+		||CurBbt!=PrevBbt ||CurLbw!=PrevLbw ||CurRbw!=PrevRbw
+		||CurTbw!=PrevTbw ||CurBbw!=PrevBbw)
 	{
 
        if (!WriteRtfParaBorder(rtf,NewPfmt)) return FALSE;
-       
+
        // force writing of other parameters
        PrevFirstIndent=PrevLeftIndent=PrevRightIndent=PrevSpaceBetweenMult=0;
 //       PrevFlags=0;
     }
-    
+
     // check if para frame specification need to be written
 /*    if ((reset || CurParaFID!=PrevParaFID) && CurParaFID>0) {
        if (ParaFrame[CurParaFID].flags&PARA_FRAME_OBJECT) {
@@ -1376,19 +1376,19 @@ BOOL WriteRtfParaFmt(struct StrRtfOut far *rtf,CEDParagraph* NewPfmt,CEDParagrap
 	if (CurAlignment==TP_RIGHT_ALLIGN){
           result=WriteRtfControl(rtf,"qr",PARAM_NONE,0);
           if (!result) return FALSE;
-    } 
+    }
     else if (CurAlignment==TP_CENTER){
           result=WriteRtfControl(rtf,"qc",PARAM_NONE,0);
           if (!result) return FALSE;
-    } 
+    }
     else if (CurAlignment==(TP_LEFT_ALLIGN|TP_RIGHT_ALLIGN) ){
           result=WriteRtfControl(rtf,"qj",PARAM_NONE,0);
           if (!result) return FALSE;
-    } 
+    }
     else if (CurAlignment==TP_LEFT_ALLIGN){
           result=WriteRtfControl(rtf,"ql",PARAM_NONE,0);
           if (!result) return FALSE;
-    } 
+    }
 	}
     // compare and write double spacing
     if (PrevSpaceBetweenMult!=CurSpaceBetweenMult/* && CurSpaceBetween==PrevSpaceBetween*/) {
@@ -1396,7 +1396,7 @@ BOOL WriteRtfParaFmt(struct StrRtfOut far *rtf,CEDParagraph* NewPfmt,CEDParagrap
 //           result=WriteRtfControl(w,rtf,"sl",PARAM_INT,480);
            result=WriteRtfControl(rtf,"slmult",PARAM_INT,1);
        }
-       else                         
+       else
 		   result=WriteRtfControl(rtf,"sl",PARAM_INT,0);
        if (!result) return FALSE;
     }
@@ -1416,7 +1416,7 @@ BOOL WriteRtfParaFmt(struct StrRtfOut far *rtf,CEDParagraph* NewPfmt,CEDParagrap
     }
 
 	rtf->reset=FALSE;
-    return TRUE; 
+    return TRUE;
 }
 
 /*****************************************************************************
@@ -1434,7 +1434,7 @@ BOOL WriteRtfText(struct StrRtfOut far *rtf,char* text,int TextLen)
 
     for (i=0;i<TextLen;i++) {
         CurChar=text[i];
-        if ((CurChar=='\\' && !IgnoreSlash) || CurChar=='{' || CurChar=='}' /*|| CurChar==NBSPACE_CHAR*/) 
+        if ((CurChar=='\\' && !IgnoreSlash) || CurChar=='{' || CurChar=='}' /*|| CurChar==NBSPACE_CHAR*/)
 		{
             if (!FlushRtfLine(rtf)) return FALSE;    // ensure that prefix and character are in one line
             if (!PutRtfChar(rtf,'\\')) return FALSE; // write prefix
@@ -1461,7 +1461,7 @@ BOOL WriteRtfRow(struct StrRtfOut far *rtf, CEDParagraph* NewCell,CEDParagraph *
     BOOL result,CellFound=FALSE;
     CEDParagraph*  CellId,*PrevCellId;
 	int c;
-    
+
 	EDROWDESCR* td=(EDROWDESCR*)NewCell->descriptor;
 	EDROWDESCR* prvtd=prevRow?(EDROWDESCR*)prevRow->descriptor:0;
 
@@ -1474,7 +1474,7 @@ BOOL WriteRtfRow(struct StrRtfOut far *rtf, CEDParagraph* NewCell,CEDParagraph *
 
     // check if row formatting is identical to the previous row
 //    PrevRowId=TableRow[CurRowId].PrevRow;
-    if ( prvtd==0 
+    if ( prvtd==0
       || prvtd->gaph!=td->gaph
       || prvtd->left!=td->left
       || prvtd->numOfCells!=td->numOfCells
@@ -1544,7 +1544,7 @@ BOOL WriteRtfRow(struct StrRtfOut far *rtf, CEDParagraph* NewCell,CEDParagraph *
     if (td->header && !WriteRtfControl(rtf,"trhdr",PARAM_NONE,0)) return FALSE;
 
     // write border
-//dont write borders, since they overlap with information about cell boundaries. even in a quite strange manner. 
+//dont write borders, since they overlap with information about cell boundaries. even in a quite strange manner.
 //(if we put all boundaries near every line, they will appear near table only
 /*    if (td->topBrdrType>0) {
        if (!WriteRtfControl(rtf,"trbrdrt",PARAM_NONE,0)) return FALSE;
@@ -1667,7 +1667,7 @@ BOOL WriteRtfCell(struct StrRtfOut far *rtf, CEDParagraph* NewCell)
 	//write direction of text
 	if (cd->flag&ED_TDIR_UP&& !WriteRtfControl(rtf,"cltxbtlr",PARAM_NONE,0)) return FALSE;
 	if (cd->flag&ED_TDIR_DOWN&& !WriteRtfControl(rtf,"cltxtbrl",PARAM_NONE,0)) return FALSE;
-	
+
     // write ending x position
     if (!WriteRtfControl(rtf,"cellx",PARAM_INT,cd->cellX)) return FALSE;
 
@@ -1694,12 +1694,12 @@ BOOL WriteFrmPos(struct StrRtfOut far *rtf, CEDParagraph* frm,BOOL writeWidth)
 	if ((fd->position&0xf0)==HPOS_MRG && !WriteRtfControl(rtf,"phmrg",PARAM_NONE,0)) return FALSE;
 	else if ((fd->position&0xf0)==HPOS_PAGE && !WriteRtfControl(rtf,"phpg",PARAM_NONE,0)) return FALSE;
 	else if ((fd->position&0xf0)==HPOS_COL && !WriteRtfControl(rtf,"phcol",PARAM_NONE,0)) return FALSE;
-	
+
 	if (bx.x!=0)
 		if (!WriteRtfControl(rtf,"posx",PARAM_INT,bx.x)) return FALSE;
 	if (bx.y!=0)
 		if (!WriteRtfControl(rtf,"posy",PARAM_INT,bx.y)) return FALSE;
-	
+
 	if (writeWidth)
 	{
 		if (bx.h!=0)
@@ -1724,13 +1724,13 @@ BOOL WriteFrmPos(struct StrRtfOut far *rtf, CEDParagraph* frm,BOOL writeWidth)
 
 /*****************************************************************************
     WriteRtfDIB:
-    Write the device independent bitmap group and picture data for the 
+    Write the device independent bitmap group and picture data for the
     specified picture. When the DIB_TO_METAFILE global constant is defined
     (see ter_def.h), the function imbeds the DIB into a metafile, and
     then writes the metafile to the rtf file.
 ******************************************************************************/
 BOOL WriteRtfDIB(struct StrRtfOut far *rtf,int pict)
-{  
+{
    BOOL result=TRUE;
 
    #if defined(DIB_TO_METAFILE)
@@ -1740,14 +1740,14 @@ BOOL WriteRtfDIB(struct StrRtfOut far *rtf,int pict)
    SaveTerObject=rtf->page->picsTable[pict];
    DIB2Metafile(rtf->page,pict,FALSE);
    result=WriteRtfMetafile(rtf,pict);
-   if (rtf->page->picsTable[pict].data)  
-	   free(rtf->page->picsTable[pict].data); // delete metafile 
+   if (rtf->page->picsTable[pict].data)
+	   free(rtf->page->picsTable[pict].data); // delete metafile
    rtf->page->picsTable[pict]=SaveTerObject;              // restore the object
    return result;
-   
+
    #else
    // Write the actual DIB to the rtf file
-                                                                                                     
+
    long l,height,width;
    BYTE *pMem;
 
@@ -1775,7 +1775,7 @@ BOOL WriteRtfDIB(struct StrRtfOut far *rtf,int pict)
 
    for (l=0;l<(long)rtf->page->picsTable[pict].len;l++) {
       if (!(result=PutRtfHexChar(rtf,pMem[l]))) break;
-   }    
+   }
 
    if (!EndRtfGroup(rtf)) return FALSE;       // end current picture
    return result;
@@ -1862,18 +1862,18 @@ BOOL WriteRtfMetafile(struct StrRtfOut far *rtf,int pict)
       if (!WriteRtfControl(rtf,"picscaley",PARAM_INT,100)) return FALSE;
    }
 */
-   
+
    // write picture alignment
    if (!WriteRtfControl(rtf,"sspicalign",PARAM_INT,rtf->page->picsTable[pict].pictAlign )) return FALSE;  // write picture format
 
-   
+
    // retrieve picture handle
 	pMem=(BYTE *)rtf->page->picsTable[pict].data;
 
 	for (l=0;l<(long)rtf->page->picsTable[pict].len;l++) {
       result=PutRtfHexChar(rtf,pMem[l]);
       if (!result) break;
-   }    
+   }
 
    // recreate the metafile, this calls unlocks and releases the buffer
 //   GlobalUnlock(hMem);
@@ -1905,15 +1905,15 @@ BOOL DIB2Metafile(CEDPage* page, int pict, BOOL delOldData)
 	if (page->picsTable[pict].type==2) return TRUE;
 	if (page->picsTable[pict].type!=1) return FALSE;
 
-    if (NULL==(hMetaDC=CreateMetaFile(NULL))) 
+    if (NULL==(hMetaDC=CreateMetaFile(NULL)))
 	{
 //		LoadString(hTerInst,IDS_ERR_META_CREATE,TempString,300);
-//		MessageBox( hTerWnd, TempString, "Rtf error", MB_OK | MB_ICONEXCLAMATION ); 
+//		MessageBox( hTerWnd, TempString, "Rtf error", MB_OK | MB_ICONEXCLAMATION );
 		return NULL;
     }
 
     // blast the bitmap
-    pInfo=(LPBITMAPINFO)page->picsTable[pict].data; 
+    pInfo=(LPBITMAPINFO)page->picsTable[pict].data;
 	int len=sizeof(BITMAPINFOHEADER);
    //************ calculate image and info structure sizes **
 	if      (pInfo->bmiHeader.biBitCount==1)       len+=2*sizeof(RGBQUAD);
@@ -2018,7 +2018,7 @@ BOOL WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
 	int lvl=0;
 	int i;
 	for (i=0;i<len-(int)strlen("\\fonttbl");i++)
-		if (memcmp(ptr+i,"\\fonttbl",strlen("\\fonttbl"))==0) 
+		if (memcmp(ptr+i,"\\fonttbl",strlen("\\fonttbl"))==0)
 			if (i==0||ptr[i-1]!='\\')
 				break;
 	if (i==len-(int)strlen("\\fonttbl"))
@@ -2029,7 +2029,7 @@ BOOL WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
 	i+=strlen("\\fonttbl");
 	rtf->TextIndex=i;
 	int m;
-	if (ReadRtfFontTable(rtf,&m)) 
+	if (ReadRtfFontTable(rtf,&m))
 	{
 		SetReturnCode_ced(IDS_ERR_NOT_RTF);
 		return FALSE;
@@ -2057,7 +2057,7 @@ BOOL WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
 	oldIndex=rtf->TextIndex;
 
 	for (i=rtf->TextIndex-1;i<len-(int)strlen("\\colortbl");i++)
-		if (memcmp(ptr+i,"\\colortbl",strlen("\\colortbl"))==0) 
+		if (memcmp(ptr+i,"\\colortbl",strlen("\\colortbl"))==0)
 			if (i==0||ptr[i-1]!='\\')
 				break;
 	if (i!=len-(int)strlen("\\colortbl"))
@@ -2066,7 +2066,7 @@ BOOL WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
 		while (ptr[i]==' ')
 			i++;
 		rtf->TextIndex=i;
-		if (ReadRtfColorTable(rtf)) 
+		if (ReadRtfColorTable(rtf))
 		{
 			SetReturnCode_ced(IDS_ERR_NOT_RTF);
 			return FALSE;
@@ -2081,7 +2081,7 @@ BOOL WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
     if (HFILE_ERROR==(HFILE)Write(rtf->hFile,((Int8*)rtf->oldFile)+oldIndex-1,rtf->TextIndex-oldIndex)) goto END_HDR;
 	if (!WriteRtfColor(rtf,head)) goto END_HDR;
     if (!FlushRtfLine(rtf)) goto END_HDR;    // flush the rtf line to the output
-	
+
     if (HFILE_ERROR==(HFILE)Write(rtf->hFile,((Int8*)rtf->oldFile)+rtf->TextIndex-1,rtf->oldFileLen-(rtf->TextIndex+2))) goto END_HDR;
 
 	// end the previous section
@@ -2124,7 +2124,7 @@ int ReadRtfFontTable(struct StrRtfOut far *rtf,int * maxFontNum)//PTERWND w,stru
 
        if (rtf->GroupBegin) continue;
        if (rtf->GroupEnd) {
-          if (rtf->GroupLevel<ControlGroupLevel) 
+          if (rtf->GroupLevel<ControlGroupLevel)
 		  {
 				if(	maxNum<font.FontId) maxNum=font.FontId;
 				for (int i=0;i<rtf->page->fontsUsed;i++)
@@ -2285,7 +2285,7 @@ BOOL GetRtfWord(struct StrRtfOut far *rtf)
     len=0;
     while (GetRtfChar(rtf)) {
        CurChar=rtf->CurChar;
-       
+
        // check for delimiters before accepting the character
        if (len>0 && line[len-1]!='\\') {
           if (  CurChar=='{'
@@ -2297,14 +2297,14 @@ BOOL GetRtfWord(struct StrRtfOut far *rtf)
        }
 
        line[len]=CurChar;         // build string
-       len++; 
+       len++;
        // check for these delimiters after accepting the characters
        if (len==1) {              // first character
           if (CurChar=='{' || CurChar=='}') break;
        }
        else if (len==2 && line[len-2]=='\\' && line[len-1]=='\\') break;
        else if (CurChar==' ' ) break;
-       
+
        if (len==MAX_WIDTH) break; // break this long word
     }
     if (rtf->eof) return FALSE;   // end of stream
@@ -2312,7 +2312,7 @@ BOOL GetRtfWord(struct StrRtfOut far *rtf)
 
     // process group begin and end
     if (len==1 && line[0]=='{') { // new group
-       
+
        if (rtf->GroupLevel>=MAX_RTF_GROUPS) return FALSE;//PrintError(w,MSG_OUT_OF_GROUP,"GetRtfWord");
 
        rtf->GroupBegin=TRUE;
@@ -2322,9 +2322,9 @@ BOOL GetRtfWord(struct StrRtfOut far *rtf)
 
     if (len==1 && line[0]=='}') {   // end group
        GroupLevel=rtf->GroupLevel;
-        
+
        rtf->GroupEnd=TRUE;
-       
+
        rtf->GroupLevel--;
        if (rtf->GroupLevel<=0) return FALSE;   // end of rtf data
        else                    return TRUE;
@@ -2358,7 +2358,7 @@ BOOL GetRtfWord(struct StrRtfOut far *rtf)
                  rtf->CurWord[j]+=(char)temp;
 
                  i=i+2;
-                 j++; 
+                 j++;
               }
               break;
 
@@ -2408,10 +2408,10 @@ BOOL GetRtfWord(struct StrRtfOut far *rtf)
                    }
 
                 // check if current character is a number
-                if (CurChar=='.' || CurChar=='-' || (CurChar>='0' && CurChar<='9')) 
+                if (CurChar=='.' || CurChar=='-' || (CurChar>='0' && CurChar<='9'))
                       NumFound=TRUE;
                 else  NumFound=FALSE;
-                
+
                 // terminate this control word, if the next one starts
                 if (!NumFound && !isalpha(CurChar) && CurChar!=' ') {// control word ends without a numeric parameter
                    // Push remaining characters including the current character
@@ -2437,14 +2437,14 @@ BOOL GetRtfWord(struct StrRtfOut far *rtf)
                 // check if numeric parameter for a control word is found
                 if (NumFound) NumParamFound=TRUE;
              }
-             
+
              // incorporate current character into current word
              if (CurChar != 10 &&  CurChar !=13) {
                rtf->CurWord[j]=CurChar;  // ordinary character
                j++;
              }
           }
-       } 
+       }
     }
     rtf->WordLen=len=j;          //current word length
     rtf->CurWord[len]=0;
@@ -2482,7 +2482,7 @@ BOOL GetRtfWord(struct StrRtfOut far *rtf)
        rtf->IntParam=1;                         // a TRUE value
 //       rtf->DoubleParam=1;
     }
-    
+
     // increment number of control words in the group
 //    (rtf->group[rtf->GroupLevel].ControlCount)++;
 
@@ -2542,7 +2542,7 @@ BOOL GetRtfChar(struct StrRtfOut far *rtf)
 //       rtf->FilePos++;       // advance file position
        return TRUE;
     }
-    
+
     // read from the file
     rtf->eof=FALSE;
 //    if (rtf->hFile) {
@@ -2556,8 +2556,8 @@ BOOL GetRtfChar(struct StrRtfOut far *rtf)
        // read more characters from the file
 //       rtf->TextLen=_lread(rtf->hFile,rtf->text,MAX_WIDTH);
 //       if (rtf->TextLen==HFILE_ERROR) return PrintError(w,MSG_ERR_FILE_READ,"RTF input file.");
-    
-//       if (rtf->TextLen==0) 
+
+//       if (rtf->TextLen==0)
 	   else
 	   {
           rtf->eof=TRUE;
@@ -2605,7 +2605,7 @@ BOOL WriteRtfParaBorder(struct StrRtfOut far *rtf, CEDParagraph * para)
 		para->leftBrdrType==para->rightBrdrType&&para->rightBrdrType==para->topBrdrType&&
 		para->topBrdrType==para->bottomBrdrType
 		&&para->leftBrdrWidth==para->rightBrdrWidth&&para->rightBrdrWidth==para->topBrdrWidth
-		&&para->topBrdrWidth==para->bottomBrdrWidth) 
+		&&para->topBrdrWidth==para->bottomBrdrWidth)
 	{
        if (!WriteRtfControl(rtf,"box",PARAM_NONE,0)) return FALSE;
        if (para->topBrdrWidth>=0)
@@ -2640,7 +2640,7 @@ BOOL WriteRtfParaBorder(struct StrRtfOut far *rtf, CEDParagraph * para)
 		   if (!WriteRtfControl(rtf,"brdrw",PARAM_INT,4)) return FALSE;
        if (!WriteRtfControl(rtf,GetLiteralBorderType(para->bottomBrdrType),PARAM_NONE,0)) return FALSE;
        }
-       
+
 	   if (para->leftBrdrType>0) {
           if (!WriteRtfControl(rtf,"brdrl",PARAM_NONE,0)) return FALSE;
        if (para->leftBrdrWidth>=0)
@@ -2651,7 +2651,7 @@ BOOL WriteRtfParaBorder(struct StrRtfOut far *rtf, CEDParagraph * para)
 		   if (!WriteRtfControl(rtf,"brdrw",PARAM_INT,4)) return FALSE;
        if (!WriteRtfControl(rtf,GetLiteralBorderType(para->leftBrdrType),PARAM_NONE,0)) return FALSE;
        }
-       
+
 	   if (para->rightBrdrType>0) {
           if (!WriteRtfControl(rtf,"brdrr",PARAM_NONE,0)) return FALSE;
        if (para->rightBrdrWidth>=0)
@@ -2684,13 +2684,13 @@ BOOL WriteRtfColor(struct StrRtfOut far *rtf,BOOL head)
 		TotalColors=1;
 	else
 	    TotalColors=rtf->TotalColors;                           // total number of colors in the table
-    
+
     // scan the font table
-    for (CEDChar * ch=rtf->page->GetChar(0);ch;ch=ch->next) 
+    for (CEDChar * ch=rtf->page->GetChar(0);ch;ch=ch->next)
 	{
        // fill the text foreground color
        for (j=0;j<TotalColors;j++) {                        // scan the color table
-          if (ch->foregroundColor==(int)color[j].color) break;  // color found 
+          if (ch->foregroundColor==(int)color[j].color) break;  // color found
        }
        if (j==TotalColors && TotalColors<MAX_RTF_COLORS) {
           color[TotalColors].color=ch->foregroundColor;
@@ -2698,7 +2698,7 @@ BOOL WriteRtfColor(struct StrRtfOut far *rtf,BOOL head)
        }
        // fill the text background color
        for (j=0;j<TotalColors;j++) {                         // scan the color table
-          if (ch->backgroundColor==(int)color[j].color) break; // color found 
+          if (ch->backgroundColor==(int)color[j].color) break; // color found
        }
        if (j==TotalColors && TotalColors<MAX_RTF_COLORS) {
           color[TotalColors].color=ch->backgroundColor;
@@ -2709,7 +2709,7 @@ BOOL WriteRtfColor(struct StrRtfOut far *rtf,BOOL head)
 /*    for (i=0;i<TotalSID;i++) {
        // fill the text foreground color
        for (j=0;j<TotalColors;j++) {                        // scan the color table
-          if (StyleId[i].TextColor==color[j].color) break;  // color found 
+          if (StyleId[i].TextColor==color[j].color) break;  // color found
        }
        if (j==TotalColors && TotalColors<MAX_RTF_COLORS) {
           color[TotalColors].color=StyleId[i].TextColor;
@@ -2717,14 +2717,14 @@ BOOL WriteRtfColor(struct StrRtfOut far *rtf,BOOL head)
        }
        // fill the text foreground color
        for (j=0;j<TotalColors;j++) {                         // scan the color table
-          if (StyleId[i].TextBkColor==color[j].color) break; // color found 
+          if (StyleId[i].TextBkColor==color[j].color) break; // color found
        }
        if (j==TotalColors && TotalColors<MAX_RTF_COLORS) {
           color[TotalColors].color=StyleId[i].TextBkColor;
           TotalColors++;
        }
     }
-*/    
+*/
     rtf->TotalColors=TotalColors;                           // total number of colors in the table
 
     // write the color table
@@ -2734,7 +2734,7 @@ BOOL WriteRtfColor(struct StrRtfOut far *rtf,BOOL head)
 		if (!WriteRtfControl(rtf,"colortbl",PARAM_NONE,0)) return FALSE;
 //		if (!WriteRtfText(rtf,";",1)) return FALSE; // write the default color
 	}
-    for (i=oldColors;i<TotalColors;i++) 
+    for (i=oldColors;i<TotalColors;i++)
 	{                  // write colors from the font table
 		if (color[i].color!=-1)
 		{
@@ -2779,7 +2779,7 @@ int ReadRtfColorTable(struct StrRtfOut far *rtf)
 
        if (rtf->GroupBegin) continue;
        if (rtf->GroupEnd) {
-          if (rtf->GroupLevel<ControlGroupLevel) 
+          if (rtf->GroupLevel<ControlGroupLevel)
 		  {
 			  rtf->TotalColors=CurColor;
 			  break;    // color group ended

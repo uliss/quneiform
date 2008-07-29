@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -99,7 +99,7 @@ Int32 CGRAPH_GetCompCount(CSTR_rast rast)
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//	DESC:	Получить стоповый растр	
+//	DESC:	Получить стоповый растр
 //	ARGS:	rast	- текущий растр
 //	RETS:	Стоповый растр
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -241,7 +241,7 @@ Bool32 CGRAPH_GetLoopData(CSTR_rast curr_rast, CSTR_rast next_rast, LoopData *ld
 /////////////////////////////////////////////////////////////////////////////////////////
 //	DESC:	Получить число петлей и инициализировать Aloop
 //	ARGS:	al		- указатель на ALoop
-//			rast	- растр	
+//			rast	- растр
 //	RETS:	TRUE	- OK
 //			FALSE	- ошибка
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -251,7 +251,7 @@ Bool32 CGRAPH_GetLoopCount(ALoop *al, CSTR_rast rast)
 	Int32 i, *ptr;
 	CSTR_rast	curr_rst;
 	CSTR_rast	next_rst;
-	
+
 	curr_rst = rast;
 	next_rst = rast;
 
@@ -298,7 +298,7 @@ Bool32 CGRAPH_GetLoopCount(ALoop *al, CSTR_rast rast)
 		ptr = SetPtr(al->loop, ++i);
 		curr_level	= *(ptr);
 		curr_rst	= next_rst;
-		
+
 		++curr_level;
 
 		while(next_rst)
@@ -410,7 +410,7 @@ Bool32 CGRAPH_SaveCSTR(CSTR_rast rast, CSTR_attr *attr, FILE *out)
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//	DESC:	Сохранить альтернативные ветви	
+//	DESC:	Сохранить альтернативные ветви
 //	ARGS:	rast	- объект CSTR_rast
 //			attr	- указатель на структуру CSTR_attr
 //			out		- указатель на FILE
@@ -429,7 +429,7 @@ Bool32 CGRAPH_SaveLoop(CSTR_rast rast, CSTR_attr *attr, FILE *out)
 		wLowRC = CGRAPH_ERR_PARAM;
 		return FALSE;
 	}
-	
+
 	i = al.n / 3;
 	fwrite(&i, sizeof(i), 1, out);
 
@@ -437,7 +437,7 @@ Bool32 CGRAPH_SaveLoop(CSTR_rast rast, CSTR_attr *attr, FILE *out)
 	{
 		ptr = SetPtr(al.loop, i);
 		curr_rst = (CSTR_rast)*ptr;
-		
+
 		ptr = SetPtr(al.loop, ++i);
 		next_rst = (CSTR_rast)*ptr;
 
@@ -486,10 +486,10 @@ CSTR_FUNC(Bool32) CSTR_SaveCont(char *filename)
 
 	fData.FileVer	 = FILE_VER;
 	fData.MaxLineVer = LINE_VER;
-	
+
 	count = CSTR_GetMaxNumber();
 
-	fwrite(IDtext, sizeof(IDtext), 1, out);		
+	fwrite(IDtext, sizeof(IDtext), 1, out);
 	fwrite(&fData, sizeof(fData), 1, out);
 	fwrite(&count, sizeof(count), 1, out);
 
@@ -539,7 +539,7 @@ CSTR_FUNC(Bool32) CSTR_SaveCont(char *filename)
 			}
 		}
 	}
-	
+
 	fclose(out);
 	return TRUE;
 }
@@ -585,7 +585,7 @@ Bool32 CGRAPH_RestoreLoop(CSTR_rast rast, FILE *in)
 
 		if(curr_level < ld.level)
 			flg = TRUE;
-		
+
 		if(flg)
 		{
 			ptr = SetPtr(al.loop, rcount);
@@ -610,7 +610,7 @@ Bool32 CGRAPH_RestoreLoop(CSTR_rast rast, FILE *in)
 
 		if(!beg || !end)
 			return FALSE;
-		
+
 		if(!(curr_rst = CSTR_InsertRasterDown(beg, end)))
 		{
 			wLowRC = CGRAPH_ERR_PARAM;
@@ -799,7 +799,7 @@ Bool32 CGRAPH_RestoreCSTR(CSTR_line *lin, FILE *in)
 			wLowRC = CGRAPH_ERR_PARAM;
 			return FALSE;
 		}
-		
+
 		if(cstr.env)
 		{
 			if(!CSTR_StoreComp(rst, (Word8*)((Word8*)lp), 1, cstr.scale))

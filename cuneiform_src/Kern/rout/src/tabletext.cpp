@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -81,19 +81,19 @@ static BOOL AfterColumn(long col);
 //********************************************************************
 BOOL MakeTableText()
 {
-/* 
+/*
 	Формат TableText.
 
 	Обрабатывается одна таблица.
 	Концы строк сохраняются, если gPreserveLineBreaks = TRUE.
 
-    Сначала формируется построчное представление таблицы на правой 
+    Сначала формируется построчное представление таблицы на правой
 	половине памяти при помощи функции TableText_Prepare().
 
 	Затем дополнительно рассчитываются координаты колонок текста
 	при помощи функции TableText_Columns().
 
-	Для финальной сборки табличного текста используется 
+	Для финальной сборки табличного текста используется
 	левая половина памяти.
 
 */
@@ -127,7 +127,7 @@ BOOL MakeTableText()
 	// Восстановить конец памяти
 	gMemEnd = saveMemEnd;
 
-	// Удалить построчное представление 
+	// Удалить построчное представление
 	TableText_Delete();
 
 	return good;
@@ -135,7 +135,7 @@ BOOL MakeTableText()
 //********************************************************************
 BOOL TableText_Prepare()
 {
-/* 
+/*
 	Выложить таблицу построчно.
 	Применяется для всех табличных форматов.
 
@@ -155,38 +155,38 @@ BOOL TableText_Prepare()
 		gTableRowTops - массив верхних координат строк таблицы
 		gTableRowBottoms - массив нижних координат строк таблицы
 
-	Оба массива измеряются количеством текстовых строк от верха 
+	Оба массива измеряются количеством текстовых строк от верха
 	таблицы.
 
 		Замечание 1: предполагается, что "лишних" строк и колонок
 		в таблице нет, то есть:
 
-			1) каждая строка таблицы является верхней строкой 
+			1) каждая строка таблицы является верхней строкой
 			   для некоторой логической ячейки и нижней строкой для
 			   некоторой (быть может отличной) логической ячейки.
 
-			2) каждая колонка таблицы является левой колонкой 
+			2) каждая колонка таблицы является левой колонкой
 			   для некоторой логической ячейки и правой колонкой для
 			   некоторой (быть может отличной) логической ячейки.
 
-		Замечание 2: в процессе обхода таблицы нижняя координата 
+		Замечание 2: в процессе обхода таблицы нижняя координата
 		строки может определиться прежде, чем верхняя координата.
 		Это объясняется тем, что:
 
 			1)обход совершается в порядке перечисления
 			  логических ячеек таблицы и
 
-			2)одна ячейка может простираться сверху вниз 
+			2)одна ячейка может простираться сверху вниз
 			  на несколько строк таблицы.
 
 		Замечание 3: массивы
-			gTableColLefts - массив левых координат колонок таблицы 
+			gTableColLefts - массив левых координат колонок таблицы
 		  и gTableColRights - массив правых координат колонок таблицы
 
-		 - только аллоцируются, но не заполняются. 
+		 - только аллоцируются, но не заполняются.
 		 Это вызвано тем, что:
 
-			1) Для расчета колонок порядок обхода таблицы должен 
+			1) Для расчета колонок порядок обхода таблицы должен
 			   отличаться (не по строкам таблицы, а по колонкам);
 
 			2) Координаты колонок нужны только для формата TableText;
@@ -197,7 +197,7 @@ BOOL TableText_Prepare()
 	Для колонок таблицы вычисляется:
 		gTableColWidths - массив "ширин колонок" таблицы.
 
-	Ширина колонки таблицы вычисляется как максимум ширины ячеек, 
+	Ширина колонки таблицы вычисляется как максимум ширины ячеек,
 	начинающихся в данной колонке таблицы.
 
 */
@@ -277,7 +277,7 @@ BOOL TableText_Delete()
 {
 // Удалить построчное представление
 
-// Удалить временные массивы, созданные 
+// Удалить временные массивы, созданные
 // в функции TableText_Prepare().
 	gBegLineText = NULL;
 	gEndLineText = NULL;
@@ -289,14 +289,14 @@ BOOL TableText_Delete()
 	gTableColLefts = NULL;
 	gTableColRights = NULL;
 	gTableText = NULL;
-	
+
 	gCellText = NULL;
 
 	return TRUE;
 }
 //********************************************************************
 BOOL Static_TableText_Prepare(
-			Handle hObject, 
+			Handle hObject,
 			long reason	// См. enum BROWSE_REASON
 			)
 {
@@ -332,7 +332,7 @@ BOOL Static_TableText_Prepare(
 				// Количество строк в ячейке
 				gCellText->lines++;
 				}
-					
+
 			break;
 
 		case BROWSE_LINE_START:
@@ -340,7 +340,7 @@ BOOL Static_TableText_Prepare(
 
 			if ( (gPreserveLineBreaks || gEdLineHardBreak ||
 				 !gCellText->lines			// 21.03.2000
-				 ) 
+				 )
 				 && !gCurLineText->text		// 21.03.2000
 			   )
 				{
@@ -371,7 +371,7 @@ BOOL Static_TableText_Prepare(
 			// Дескриптор ячейки
 			gCellText = &gTableText[gIndexTableCell];
 
-			// Занести адрес свободного дескриптора строки 
+			// Занести адрес свободного дескриптора строки
 			gCellText->line = gCurLineText;
 
 			// Занести строку и колонку таблицы
@@ -386,11 +386,11 @@ BOOL Static_TableText_Prepare(
 			pl = &gTableColWidths[gIndexTableCol];
 			*pl = MAX(*pl,gCellText->width);
 
-			// Координата низа строки таблицы для строки таблицы, 
+			// Координата низа строки таблицы для строки таблицы,
 			// в которой заканчивается текущая ячейка
 			pl = &gTableRowBottoms[BottomRow()];
 			*pl = MAX(*pl,
-					gTableRowTops[gIndexTableRow] + 
+					gTableRowTops[gIndexTableRow] +
 						gCellText->lines);
 
 			gCellText = NULL;
@@ -403,7 +403,7 @@ BOOL Static_TableText_Prepare(
 				{
 				// Координата верха строки таблицы
 				// по предыдущей строке таблицы
-				gTableRowTops[gIndexTableRow] = 
+				gTableRowTops[gIndexTableRow] =
 					gTableRowBottoms[gIndexTableRow - 1] +
 						gTableTextIntervalBetweenCellsYY;
 				}
@@ -456,15 +456,15 @@ static BOOL LineEnd()
 //********************************************************************
 static BOOL TableText_Columns()
 {
-/* 
+/*
 	Рассчитать координаты колонок таблицы:
-		gTableColLefts - массив левых координат колонок таблицы 
+		gTableColLefts - массив левых координат колонок таблицы
 		gTableColRights - массив правых координат колонок таблицы
 
 	Для расчета колонок совершается обход дескрипторов ячеек
 	таблицы по колонкам и по строкам таблицы.
 
-	Дескрипторы ячеек должны быть созданы предварительно 
+	Дескрипторы ячеек должны быть созданы предварительно
 	с помощью функции TableText_Prepare().
 */
 
@@ -474,8 +474,8 @@ static BOOL TableText_Columns()
 	memset(&sprav,0,sizeof(sprav));
 
 	// Цикл по колонкам таблицы
-	for (gIndexTableCol = 0; 
-		gIndexTableCol < gTableCols; 
+	for (gIndexTableCol = 0;
+		gIndexTableCol < gTableCols;
 		gIndexTableCol++
 		)
 		{
@@ -483,8 +483,8 @@ static BOOL TableText_Columns()
 		if ( gIndexTableCol > 0 )
 			{
 			// Интервал между колонками
-			gTableColLefts[gIndexTableCol] = 
-				gTableColRights[gIndexTableCol-1] + 
+			gTableColLefts[gIndexTableCol] =
+				gTableColRights[gIndexTableCol-1] +
 					gTableTextIntervalBetweenCellsXX;
 
 			// Разделитель между колонками
@@ -502,31 +502,31 @@ static BOOL TableText_Columns()
 			}
 
 		// Цикл по строкам таблицы
-		for (gIndexTableRow = 0; 
-			gIndexTableRow < gTableRows; 
+		for (gIndexTableRow = 0;
+			gIndexTableRow < gTableRows;
 			gIndexTableRow++
 			)
 			{
 			// Логический номер ячейки
 			gIndexTableCell = gLogicalCells[
-								gIndexTableRow * gTableCols + 
+								gIndexTableRow * gTableCols +
 								gIndexTableCol];
 
 			// Проверить по справочной
 			if(sprav[gIndexTableCell])
 				continue;	// В этой логической ячейке уже были
-			
+
 			sprav[gIndexTableCell] = 1;
 
 			// Дескриптор ячейки
 			gCellText = &gTableText[gIndexTableCell];
 
-			// Координата правой границы колонки таблицы 
-			// для самой правой колонки таблицы, 
+			// Координата правой границы колонки таблицы
+			// для самой правой колонки таблицы,
 			// в которой заканчивается текущая ячейка
 			long *pl = &gTableColRights[RightmostCol()];
 			*pl = MAX(*pl,
-					gTableColLefts[gIndexTableCol] + 
+					gTableColLefts[gIndexTableCol] +
 						gCellText->width);
 
 			} // Конец строки таблицы
@@ -548,8 +548,8 @@ static BOOL TableText_CellWidths()
 // Рассчитать ширины ячеек с учетом охваченных колонок
 
 	// Цикл по ячейкам таблицы
-	for (gIndexTableCell = 0; 
-		gIndexTableCell < gTableCells; 
+	for (gIndexTableCell = 0;
+		gIndexTableCell < gTableCells;
 		gIndexTableCell++
 		)
 		{
@@ -561,7 +561,7 @@ static BOOL TableText_CellWidths()
 		long col2 = RightmostCol();
 
 		// Ширина ячейки с учетом охваченных колонок
-		long w = gTableColRights[col2] - 
+		long w = gTableColRights[col2] -
 				 gTableColLefts[gIndexTableCol];
 
 
@@ -574,12 +574,12 @@ static BOOL TableText_CellWidths()
 }
 //********************************************************************
 BOOL BrowseTableText(
-			FNROUT_BrowseTableTextFunction 
+			FNROUT_BrowseTableTextFunction
 				BrowseTableTextFunction
 			)
 {
-/* 
-	Обход построчного представления таблицы, 
+/*
+	Обход построчного представления таблицы,
 	сформированного функцией TableText_Prepare.
 
 	Для каждой строки текста вызывается заданная функция
@@ -588,9 +588,9 @@ BOOL BrowseTableText(
 		gCurLineText - дескриптор строки текста,
 		gCellText - дескриптор ячейки,
 		gIndexTableCell - номер ячейки,
-		gIndexTableRow - номер строки таблицы, 
+		gIndexTableRow - номер строки таблицы,
 		gIndexTableCol - номер столбца таблицы,
-		gYpos - текущая Y-координата (расчетное количество 
+		gYpos - текущая Y-координата (расчетное количество
 			    строк текста от верха таблицы)
 		gXpos - левая координата текста колонки (расчетное
 			    смещение от левого края таблицы)
@@ -616,7 +616,7 @@ BOOL BrowseTableText(
 	BROWSE_TABLE_TEXT_FUNCTION(BROWSE_TABLE_TEXT_TABLE_START);
 
 	// Первая ячейка, в которой есть текст
-	if ( FirstCell() ) 
+	if ( FirstCell() )
 		{
 	// Цикл по уровням текста сверху вниз.
 		do
@@ -652,7 +652,7 @@ BOOL BrowseTableText(
 			// Конец уровня
 			BROWSE_TABLE_TEXT_FUNCTION(BROWSE_TABLE_TEXT_RECORD_END);
 
-			// Переход к самой левой ячейке 
+			// Переход к самой левой ячейке
 			// на следующем уровне текста
 			empty_line = !NextLevel();
 
@@ -680,7 +680,7 @@ static long BottomRow()
 		 )
 		row++;
 
-	return row-1;	
+	return row-1;
 }
 //********************************************************************
 static long RightmostCol()
@@ -697,14 +697,14 @@ static long RightmostCol()
 		 )
 		col++;
 
-	return col-1;	
+	return col-1;
 }
 //********************************************************************
 static BOOL SearchTable(
 			long fromCol	// Левая колонка области поиска
 			)
 {
-/* 
+/*
 	Поиск самой левой ячейки начиная от заданной колонки,
 	содержащей текст на текущем уровне текста gYpos.
 
@@ -715,14 +715,14 @@ static BOOL SearchTable(
 		gYpos - текущий уровень текста (не меняется),
 		gXpos - устанавливается,
 		gIndexTableCell - номер ячейки,
-		gIndexTableRow - номер строки таблицы, 
+		gIndexTableRow - номер строки таблицы,
 		gIndexTableCol - номер столбца таблицы,
 		gCellText - дескриптор ячейки.
 
-   		Замечание: между ячейками могут быть рассчитаны интервалы, 
+   		Замечание: между ячейками могут быть рассчитаны интервалы,
 		а некоторые ячейки могут не содержать текста.
 
-  	Использую монотонность возрастания левых координат 
+  	Использую монотонность возрастания левых координат
 	колонок таблицы и верхних координат строк таблицы.
 
 	Возвращает FALSE, если ячейка не найдена, при этом
@@ -779,12 +779,12 @@ static BOOL SearchTable(
 	gIndexTableCol =  gCellText->col;
 	gXpos = gTableColLefts[gIndexTableCol];
 	return TRUE;
-	
+
 }
 //********************************************************************
 static BOOL CellRight()
 {
-/* 
+/*
 	Переход к ячейке справа от текущей ячейки
 	на том же уровне текста.
 
@@ -803,7 +803,7 @@ static BOOL CellRight()
 
 	// Искать справа на том же уровне текста
 	return SearchTable(fromCol);
-	
+
 }
 //********************************************************************
 static BOOL FirstCell()
@@ -851,7 +851,7 @@ static BOOL TableText_Finish(
 			long reason // См. enum BROWSE_TABLE_TEXT_REASON
 			)
 {
-/* 
+/*
 	Выкладывание строк текста в процессе обхода построчного
 	представления таблицы с помощью функции BrowseTableText().
 
@@ -860,9 +860,9 @@ static BOOL TableText_Finish(
 		gCurLineText - дескриптор строки текста,
 		gCellText - дескриптор ячейки,
 		gIndexTableCell - номер ячейки,
-		gIndexTableRow - номер строки таблицы, 
+		gIndexTableRow - номер строки таблицы,
 		gIndexTableCol - номер столбца таблицы,
-		gYpos - текущая Y-координата (расчетное количество 
+		gYpos - текущая Y-координата (расчетное количество
 			    строк текста от верха таблицы)
 		gXpos - левая координата текста колонки (расчетное
 			    смещение от левого края таблицы)
@@ -903,7 +903,7 @@ static BOOL TableText_Finish(
 				*gMemCur++ = gTableTextSeparators[0];
 
 			break;
-			
+
 
 		case BROWSE_TABLE_TEXT_RECORD_END:
 			// Конец уровня текста
@@ -930,7 +930,7 @@ static BOOL TableText_Finish(
 			PUT_STRING(gCurLineText->text);
 
 			// Добавить пробелов до ширины ячейки,
-			// с учетом всех охваченных ячейкой колонок 
+			// с учетом всех охваченных ячейкой колонок
 			// и интервалов между ними
 			if ( gTableTextOptions & ROUT_TABLE_TEXT_ALIGN_COLUMNS )
 				PUT_SPACES( gCellText->width -

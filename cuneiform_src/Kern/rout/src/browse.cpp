@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -84,7 +84,7 @@ BOOL BrowsePage(
 /* Обход страницы.
 
    Для каждого объекта вызывается функция "BrowseFunction"
-   Если функция "BrowseFunction" возвращает FALSE, то 
+   Если функция "BrowseFunction" возвращает FALSE, то
    обход страницы прекращается и BrowsePage также возвращает FALSE.
 
    На обход страницы влияют флаги обхода:
@@ -148,7 +148,7 @@ BOOL BrowsePage(
 			BROWSE_FUNCTION(gColumnHandle,BROWSE_COLUMN_START);
 
 			// Обход абзацев, таблиц и фреймов внутри колонки
-			if (!BrowseParagraphs(gColumnHandle, 
+			if (!BrowseParagraphs(gColumnHandle,
 							BrowseFunction,
 							wantSkipTableCells,
 							wantSkipParagraphs
@@ -206,13 +206,13 @@ BOOL BrowseParagraphs(Handle hParentObject,
 	BOOL wantSkipParagraphs		// Пропускать абзацы
 	)
 {
-/* 
-   Обход абзацев, таблиц и фреймов в заданном 
+/*
+   Обход абзацев, таблиц и фреймов в заданном
    объекте hParentObject (колонке, фрейме, ячейке)
 
-   Для каждого абзаца, картинки, таблицы вызывается 
-   функция "BrowseFunction", а если она возвращает FALSE, то 
-   обход прекращается, при этом BrowseParagraphs также 
+   Для каждого абзаца, картинки, таблицы вызывается
+   функция "BrowseFunction", а если она возвращает FALSE, то
+   обход прекращается, при этом BrowseParagraphs также
    возвращает FALSE.
 
    На обход влияют флаги обхода:
@@ -352,7 +352,7 @@ BOOL BrowseParagraphs(Handle hParentObject,
 						gHitChars++;
 
 						// Скрытый ли символ
-						gEdCharHidden = 
+						gEdCharHidden =
 								CED_GetCharFontAttribs(charHandle) &
 								ED_HIDDEN;
 
@@ -387,7 +387,7 @@ BOOL BrowseCells(FNROUT_BrowseFunction BrowseFunction)
    и кроме того, для обхода абзацев в ячейке
    вызывается функция BrowseParagraphs().
 
-   Если одна из этих функций возвращает FALSE, то 
+   Если одна из этих функций возвращает FALSE, то
    обход прекращается и BrowseCells также возвращает FALSE.
 */
 
@@ -397,8 +397,8 @@ BOOL BrowseCells(FNROUT_BrowseFunction BrowseFunction)
 	memset(&sprav,0,sizeof(sprav));
 
 	// Цикл по строкам таблицы
-	for (gIndexTableRow = 0; 
-		gIndexTableRow < gTableRows; 
+	for (gIndexTableRow = 0;
+		gIndexTableRow < gTableRows;
 		gIndexTableRow++
 		)
 		{
@@ -407,14 +407,14 @@ BOOL BrowseCells(FNROUT_BrowseFunction BrowseFunction)
 		BROWSE_FUNCTION((Handle)gIndexTableRow, BROWSE_ROW_START);
 
 		// Цикл по столбцам таблицы
-		for (gIndexTableCol = 0; 
-			gIndexTableCol < gTableCols; 
+		for (gIndexTableCol = 0;
+			gIndexTableCol < gTableCols;
 			gIndexTableCol++
 			)
 			{
 			// Логический номер ячейки
 			gIndexTableCell = gLogicalCells[
-								gIndexTableRow * gTableCols + 
+								gIndexTableRow * gTableCols +
 								gIndexTableCol];
 
 			// Проверить по справочной
@@ -424,14 +424,14 @@ BOOL BrowseCells(FNROUT_BrowseFunction BrowseFunction)
 				{
 				// В этой логической ячейке уже были
 				gCellHandle = NULL;
-				continue;	
+				continue;
 				}
 
 			sprav[gIndexTableCell] = 1;
 
 			// Начало ячейки
 			gCellHandle = CED_GetLogicalCell(
-							gTableHandle, 
+							gTableHandle,
 							gIndexTableCell);
 			ASSERT(gCellHandle);
 
@@ -470,7 +470,7 @@ BOOL BrowseTable(FNROUT_BrowseFunction BrowseFunction)
 
 	// Начало таблицы
 	BROWSE_FUNCTION(gTableHandle,BROWSE_TABLE_START);
-	
+
 	// Обход ячеек таблицы
 	if ( !BrowseCells(BrowseFunction) )
 		return FALSE;

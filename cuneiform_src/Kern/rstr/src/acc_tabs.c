@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -359,11 +359,11 @@ BYTE let_tbdf[]={ 0, 0x40,0,0x40,0x40,1,5,0,0x40,0x40,0,0,0,0,0,0x40,
    0x14,0x14,0x14,0x14,0x14,0x14,0x16,0x0a,0x16,0x16,0x16,0x16,6,6,6,6,   // a, e, i
 // a accents  a    a    a    a    ae   c,   e    e    e    e    i i i i
    0, 4,0x34,0x34,0x34,0x34,0x34, 0, 0,0x34,0x34,0x34,0x34,0x0a, 0,0x0a      //  n, o, u, y^ y:
-// f0 n o accents                      u accents   
+// f0 n o accents                      u accents
    };
 
 // Nick 25/01/2001 äëÿ ðóññêîãî ìàëåíüêîãî 'î' èçìåíåíî ñ 0x34 íà 0x36
-//                 äëÿ i ñ 6 íà 4 
+//                 äëÿ i ñ 6 íà 4
    static BYTE let_lindef_rus[256] = {
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 // 0
@@ -382,13 +382,13 @@ BYTE let_tbdf[]={ 0, 0x40,0,0x40,0x40,1,5,0,0x40,0x40,0,0,0,0,0,0x40,
    0x22,0x0a,6,0x36,0x44,0x36,0x26,0x26,0x26,0x0a,0x26,0,0,0,0,0,
 // p    q    r s    t    u    v    w    x    y    z
    5 ,5 ,0x25,0x25,0x21,5,0x25,0x25,0x25,0x64,0x21,0x25,0x25,0x25,0x35,0x25,
-// À  Á   Â    Ã     Ä  Å  Æ    Ç    È    É    Ê    Ë    Ì    Í    Î     Ï    
+// À  Á   Â    Ã     Ä  Å  Æ    Ç    È    É    Ê    Ë    Ì    Í    Î     Ï
 // €    ‚  ƒ  „  …  †  ‡  ˆ  ‰   Š  ‹  Œ    Ž  
    0x25,0x35,0x25,0x25,5 ,0x25,0x21,0x25,0x25,0x21,0x25,0x25,0x25,0x25,0x25,0x21,
-// Ð     Ñ    Ò    Ó   Ô   Õ    Ö    ×    Ø    Ù    Ú    Û    Ü    Ý    Þ    ß 
+// Ð     Ñ    Ò    Ó   Ô   Õ    Ö    ×    Ø    Ù    Ú    Û    Ü    Ý    Þ    ß
 //   ‘  ’  “  ”  •  –  —  ˜  ™   š  ›  œ    ž  Ÿ
    0x16 ,5 ,0x26,0x26,0x22,6,0x26,0x26,0x26,0x64,0x26,0x26,0x26,0x26,0x36,0x26,
-// à     á   â    ã     ä  å  æ    ç    è    é    ê    ë    ì    í    î     ï    
+// à     á   â    ã     ä  å  æ    ç    è    é    ê    ë    ì    í    î     ï
 //    ¡  ¢  £  ¤  ¥  ¦  §  ¨  ©   ª  «  ¬  ­  ®  ¯
    0x00,0x01,0x01,0x01,0x01,0x44,0x06,0x01,0x01,0x01,0x44,0x48,40,40,00,00,
 // b0   b1   b2   b3   b4   b5   b6   b7   b8   b9   ba   ba   bc bd be bf
@@ -398,7 +398,7 @@ BYTE let_tbdf[]={ 0, 0x40,0,0x40,0x40,1,5,0,0x40,0x40,0,0,0,0,0,0x40,
    0, 0, 5, 5, 5, 5, 5, 0, 0, 5, 5, 5, 5, 5, 0, 0,
 // d0
    0x2a,0x36,0x26,0x2a,0xC0,0x26,0x22,0x26,0x26,0x22,0x26,0x26,0x26,0x26,0x26,0x26,
-// ð     ñ    ò    ó    ô     õ    ö    ÷    ø    ù    ú    û    ü    ý    þ    ÿ 
+// ð     ñ    ò    ó    ô     õ    ö    ÷    ø    ù    ú    û    ü    ý    þ    ÿ
 // à     á    â    ã    ä     å    æ    ç    è    é    ê    ë    ì    í    î    ï
    5,0xA,0,0,0,6,0,6,6,0,0,0,0,6,0,0
 // d  g        m   u z         a
@@ -801,12 +801,12 @@ alph_english        , // LANG_PORTUGUESE 13
 alph_english        , // LANG_DUTCH      14
 alph_digital        ,  // LANG_DIG        15
 alph_russian        , // LANG_UZBEK      16
-alph_russian        , // LANG_KAZ        17  
-alph_russian        , // LANG_KAZ_ENG    18  
-alph_ce             , // LANG_CZECH      19  
-alph_ce             , // LANG_ROMAN      20  
-alph_ce             , // LANG_HUNGAR     21  
-alph_russian        , // LANG_BULGAR     22  
+alph_russian        , // LANG_KAZ        17
+alph_russian        , // LANG_KAZ_ENG    18
+alph_ce             , // LANG_CZECH      19
+alph_ce             , // LANG_ROMAN      20
+alph_ce             , // LANG_HUNGAR     21
+alph_russian        , // LANG_BULGAR     22
 alph_ce             , // LANG_SLOVENIAN  23
 alph_english        , // LANG_LATVIAN	 24
 alph_english        , // LANG_LITHUANIAN 25
@@ -849,17 +849,17 @@ if(language==LANG_RUSSIAN){
         let_sans_acc= let_sans_acc_rus;
         let_lindef3 = let_lindef3_rus;
 
-        alphabet[r_cu_d]=1; 
-        alphabet[r_cu_g]=1; 
-        alphabet[r_cu_m]=1; 
-        alphabet[r_cu_u]=1; 
-        alphabet[r_cu_z]=1;  
-        alphabet[r_cu_a]=1; 
+        alphabet[r_cu_d]=1;
+        alphabet[r_cu_g]=1;
+        alphabet[r_cu_m]=1;
+        alphabet[r_cu_u]=1;
+        alphabet[r_cu_z]=1;
+        alphabet[r_cu_a]=1;
 
-        alphabet[liga_exm]=1; 
-        alphabet[liga_qm]=1; 
-        alphabet[liga_uperc]=1; 
-        alphabet[liga_lperc]=1; 
+        alphabet[liga_exm]=1;
+        alphabet[liga_qm]=1;
+        alphabet[liga_uperc]=1;
+        alphabet[liga_lperc]=1;
         if( multy_language )
             {
             strcpy(decode_ASCII_to_[(BYTE)liga_i      ],   "_i_");
@@ -878,8 +878,8 @@ if(language==LANG_RUSSIAN){
             }
 if( !langUkr && !langSer && !langBul )	// 31.08.2000 E.P.
      {
-     alphabet[r_EE_2dot]=1; 
-     alphabet[r_e_2dot]=1; 
+     alphabet[r_EE_2dot]=1;
+     alphabet[r_e_2dot]=1;
      // base lines for diskrim
      let_linpos[r_EE_2dot]= 0x11;
      let_linpos[r_e_2dot]= 0x21; //0x21
@@ -906,18 +906,18 @@ if( !langUkr && !langSer && !langBul )	// 31.08.2000 E.P.
      }
 
   if( langUkr ){
-        alphabet[UKR_I ]=1; 
-        alphabet[UKR_i ]=1; 
-        alphabet[liga_i]=1; 
+        alphabet[UKR_I ]=1;
+        alphabet[UKR_i ]=1;
+        alphabet[liga_i]=1;
 
-        alphabet['I' ]=1; 
-        alphabet['i' ]=1; 
-        alphabet[UKR_II]=1; 
-        alphabet[UKR_ii]=1; 
-        alphabet[UKR_E ]=1; 
-        alphabet[UKR_e ]=1; 
-        alphabet[UKR_G ]=1; 
-        alphabet[UKR_g ]=1; 
+        alphabet['I' ]=1;
+        alphabet['i' ]=1;
+        alphabet[UKR_II]=1;
+        alphabet[UKR_ii]=1;
+        alphabet[UKR_E ]=1;
+        alphabet[UKR_e ]=1;
+        alphabet[UKR_G ]=1;
+        alphabet[UKR_g ]=1;
 
         alphabet[SERB_hh]=0;
         alphabet[SERB_h ]=0;
@@ -968,7 +968,7 @@ if( !langUkr && !langSer && !langBul )	// 31.08.2000 E.P.
 
      let_linshape[UKR_I] = 0;  // shape of letter
      let_linshape[UKR_i] = 0;
-     let_linshape['I'] = 0; 
+     let_linshape['I'] = 0;
      let_linshape['i'] = 0;
      let_linshape[UKR_II]= 0;
      let_linshape[UKR_ii]= 0;
@@ -1001,22 +1001,22 @@ if( !langUkr && !langSer && !langBul )	// 31.08.2000 E.P.
      let_lindef3[UKR_g] = 0;
   }
   if( langSer ){
-        alphabet[SERB_HH]=1; 
-        alphabet[SERB_hh]=1; 
-        alphabet[SERB_L ]=1; 
-        alphabet[SERB_l ]=1; 
-        alphabet[SERB_N ]=1; 
-        alphabet[SERB_n ]=1; 
-        alphabet[SERB_H ]=1; 
-        alphabet[SERB_h ]=1; 
+        alphabet[SERB_HH]=1;
+        alphabet[SERB_hh]=1;
+        alphabet[SERB_L ]=1;
+        alphabet[SERB_l ]=1;
+        alphabet[SERB_N ]=1;
+        alphabet[SERB_n ]=1;
+        alphabet[SERB_H ]=1;
+        alphabet[SERB_h ]=1;
         alphabet[SERB_U ]=1;
-        alphabet[SERB_u ]=1; 
-        alphabet[SERB_J ]=1;  
-        alphabet[SERB_j ]=1; 
-        alphabet['J' ]=1;  
-        alphabet['j' ]=1; 
-        alphabet[liga_j]=1; 
- 
+        alphabet[SERB_u ]=1;
+        alphabet[SERB_J ]=1;
+        alphabet[SERB_j ]=1;
+        alphabet['J' ]=1;
+        alphabet['j' ]=1;
+        alphabet[liga_j]=1;
+
      strcpy(decode_ASCII_to_[SERB_HH], "\x80");
      strcpy(decode_ASCII_to_[SERB_hh], "\x90");
      strcpy(decode_ASCII_to_[SERB_L ], "\x8A");
@@ -1120,7 +1120,7 @@ if( !langUkr && !langSer && !langBul )	// 31.08.2000 E.P.
      let_lindef3['J']=  0;
      let_lindef3['j']=  0;
   }
-  if( langBul ){ // Â Áîëãàðñêîì íåò òðåõ ðóññêèõ áóêâ. 31.08.2000 E.P. 
+  if( langBul ){ // Â Áîëãàðñêîì íåò òðåõ ðóññêèõ áóêâ. 31.08.2000 E.P.
 	  // Û=155, û=235, Ý= 157, ý=237
 		// BULGAR
 		alphabet[r_EE_2dot]=0;		alphabet[r_e_2dot]=0;
@@ -1184,32 +1184,32 @@ if(is_cen_language(language))
     alphabet[liga_CR]=1;
     alphabet[liga_bull]=1;
 
-    accent_tab[liga_i]=			accent_tab[liga_i_usual]		;	
-    accent_tab[liga_exm]=		accent_tab[liga_exm_usual]		;	
+    accent_tab[liga_i]=			accent_tab[liga_i_usual]		;
+    accent_tab[liga_exm]=		accent_tab[liga_exm_usual]		;
     accent_tab[liga_inv_exm]=	accent_tab[liga_inv_exm_usual]	;
     accent_tab[right_quocket]=	accent_tab[right_quocket_usual]	;
     accent_tab[liga_CC]=		accent_tab[liga_CC_usual]		;
     accent_tab[liga_CR]=		accent_tab[liga_CR_usual]		;
-    accent_tab[liga_bull]=		accent_tab[liga_bull_usual]		;	
+    accent_tab[liga_bull]=		accent_tab[liga_bull_usual]		;
 
-    let_linpos[liga_i]=			let_linpos[liga_i_usual]		;	
-    let_linpos[liga_exm]=		let_linpos[liga_exm_usual]		;	
+    let_linpos[liga_i]=			let_linpos[liga_i_usual]		;
+    let_linpos[liga_exm]=		let_linpos[liga_exm_usual]		;
     let_linpos[liga_inv_exm]=	let_linpos[liga_inv_exm_usual]	;
     let_linpos[right_quocket]=	let_linpos[right_quocket_usual]	;
     let_linpos[liga_CC]=		let_linpos[liga_CC_usual]		;
     let_linpos[liga_CR]=		let_linpos[liga_CR_usual]		;
     let_linpos[liga_bull]=		let_linpos[liga_bull_usual]		;
 
-    let_lindef[liga_i]=			let_lindef[liga_i_usual]		;	
-    let_lindef[liga_exm]=		let_lindef[liga_exm_usual]		;	
+    let_lindef[liga_i]=			let_lindef[liga_i_usual]		;
+    let_lindef[liga_exm]=		let_lindef[liga_exm_usual]		;
     let_lindef[liga_inv_exm]=	let_lindef[liga_inv_exm_usual]	;
     let_lindef[right_quocket]=	let_lindef[right_quocket_usual]	;
     let_lindef[liga_CC]=		let_lindef[liga_CC_usual]		;
     let_lindef[liga_CR]=		let_lindef[liga_CR_usual]		;
     let_lindef[liga_bull]=		let_lindef[liga_bull_usual]		;
 
-    let_lincomp[liga_i]=		let_lincomp[liga_i_usual]		;	
-    let_lincomp[liga_exm]=		let_lincomp[liga_exm_usual]		;	
+    let_lincomp[liga_i]=		let_lincomp[liga_i_usual]		;
+    let_lincomp[liga_exm]=		let_lincomp[liga_exm_usual]		;
     let_lincomp[liga_inv_exm]=	let_lincomp[liga_inv_exm_usual]	;
     let_lincomp[right_quocket]=	let_lincomp[right_quocket_usual];
     let_lincomp[liga_CC]=		let_lincomp[liga_CC_usual]		;
@@ -1217,15 +1217,15 @@ if(is_cen_language(language))
     let_lincomp[liga_bull]=		let_lincomp[liga_bull_usual]	;
 
     let_linshape[liga_i]=		let_linshape[liga_i_usual]		;
-    let_linshape[liga_exm]=		let_linshape[liga_exm_usual]	;	
+    let_linshape[liga_exm]=		let_linshape[liga_exm_usual]	;
     let_linshape[liga_inv_exm]=	let_linshape[liga_inv_exm_usual];
     let_linshape[right_quocket]=let_linshape[right_quocket_usual];
     let_linshape[liga_CC]=		let_linshape[liga_CC_usual]		;
     let_linshape[liga_CR]=		let_linshape[liga_CR_usual]		;
     let_linshape[liga_bull]=	let_linshape[liga_bull_usual]	;
 
-    let_lindef3[liga_i]=		let_lindef3[liga_i_usual]		;	
-    let_lindef3[liga_exm]=		let_lindef3[liga_exm_usual]		;	
+    let_lindef3[liga_i]=		let_lindef3[liga_i_usual]		;
+    let_lindef3[liga_exm]=		let_lindef3[liga_exm_usual]		;
     let_lindef3[liga_inv_exm]=	let_lindef3[liga_inv_exm_usual]	;
     let_lindef3[right_quocket]=	let_lindef3[right_quocket_usual];
     let_lindef3[liga_CC]=		let_lindef3[liga_CC_usual]		;
@@ -1311,16 +1311,16 @@ if(is_baltic_language(language))
 	}
 
   if(language==LANG_CROATIAN){
-     alphabet[CROAT_D ]=1; 
-     alphabet[CROAT_d ]=1; 
-     alphabet[CROAT_SR]=1; 
-     alphabet[CROAT_sr]=1; 
-     alphabet[CROAT_CA]=1; 
-     alphabet[CROAT_ca]=1; 
-     alphabet[CROAT_ZR]=1; 
-     alphabet[CROAT_zr]=1; 
-     alphabet[CROAT_CR]=1; 
-     alphabet[CROAT_cr]=1; 
+     alphabet[CROAT_D ]=1;
+     alphabet[CROAT_d ]=1;
+     alphabet[CROAT_SR]=1;
+     alphabet[CROAT_sr]=1;
+     alphabet[CROAT_CA]=1;
+     alphabet[CROAT_ca]=1;
+     alphabet[CROAT_ZR]=1;
+     alphabet[CROAT_zr]=1;
+     alphabet[CROAT_CR]=1;
+     alphabet[CROAT_cr]=1;
 
      let_linpos[CROAT_D ]= 0x11;   // base lines for diskrim
      let_linpos[CROAT_d ]= 0x11;
@@ -1398,24 +1398,24 @@ if(is_baltic_language(language))
      accent_tab[CROAT_cr]=ACC_ROOF_INV  ;
   }
   else if(language == LANG_POLISH ){
-    alphabet[POLISH_SS ]=1; 
-    alphabet[POLISH_s  ]=1; 
-    alphabet[POLISH_ZZR]=1; 
-    alphabet[POLISH_zr ]=1; 
-    alphabet[POLISH_ZZD]=1; 
-    alphabet[POLISH_zd ]=1; 
-    alphabet[POLISH_CC ]=1; 
-    alphabet[POLISH_c  ]=1; 
-    alphabet[POLISH_EE ]=1; 
-    alphabet[POLISH_e  ]=1; 
-    alphabet[POLISH_NN ]=1; 
-    alphabet[POLISH_n  ]=1; 
-    alphabet[POLISH_OO ]=1; 
-    alphabet[POLISH_o  ]=1; 
-    alphabet[POLISH_LL ]=1; 
-    alphabet[POLISH_l  ]=1; 
-    alphabet[POLISH_AA ]=1; 
-    alphabet[POLISH_a  ]=1; 
+    alphabet[POLISH_SS ]=1;
+    alphabet[POLISH_s  ]=1;
+    alphabet[POLISH_ZZR]=1;
+    alphabet[POLISH_zr ]=1;
+    alphabet[POLISH_ZZD]=1;
+    alphabet[POLISH_zd ]=1;
+    alphabet[POLISH_CC ]=1;
+    alphabet[POLISH_c  ]=1;
+    alphabet[POLISH_EE ]=1;
+    alphabet[POLISH_e  ]=1;
+    alphabet[POLISH_NN ]=1;
+    alphabet[POLISH_n  ]=1;
+    alphabet[POLISH_OO ]=1;
+    alphabet[POLISH_o  ]=1;
+    alphabet[POLISH_LL ]=1;
+    alphabet[POLISH_l  ]=1;
+    alphabet[POLISH_AA ]=1;
+    alphabet[POLISH_a  ]=1;
      // top accents: s, z(acute), z(dot), c, n, o.
      accent_tab[POLISH_SS ] = 0x82;
      accent_tab[POLISH_s  ] = 2;
@@ -1456,7 +1456,7 @@ if(is_baltic_language(language))
      // base lines for its determination
      let_lindef[POLISH_SS] = 0x15;
      let_lindef[POLISH_s ] = 0x36;
-     let_lindef[POLISH_ZZR]= 0x25;   // not round, as Z 
+     let_lindef[POLISH_ZZR]= 0x25;   // not round, as Z
      let_lindef[POLISH_zr ]= 0x26;   // not round, as z
      let_lindef[POLISH_LL ]=    5;   // as L
      let_lindef[POLISH_l  ]=    5;   // as l
@@ -1556,38 +1556,38 @@ if(is_baltic_language(language))
 	if(language==LANG_CZECH){
 
 	 // CZECH 31.08.2000 E.P.
-     alphabet[AA_right_accent]=		alphabet[a_right_accent]=1; 
-     alphabet[CC_inv_roof]=			alphabet[c_inv_roof]=1; 
-     alphabet[DD_inv_roof]=			alphabet[d_inv_roof]=1; 
-     alphabet[EE_right_accent]=		alphabet[e_right_accent]=1; 
-     alphabet[EE_inv_roof]=			alphabet[e_inv_roof]=1; 
-     alphabet[II_right_accent]=		alphabet[i_right_accent]=1; 
-     alphabet[NN_inv_roof]=			alphabet[n_inv_roof]=1; 
-     alphabet[OO_right_accent]=		alphabet[o_right_accent]=1; 
-     alphabet[RR_inv_roof]=			alphabet[r_inv_roof]=1; 
-	 alphabet[SS_inv_roof_latin]=	alphabet[s_inv_roof_latin]=1; 
-     alphabet[TT_inv_roof]=			alphabet[t_inv_roof]=1; 
-     alphabet[UU_right_accent]=		alphabet[u_right_accent]=1; 
-     alphabet[UU_circle_accent]=	alphabet[u_circle_accent]=1; 
-     alphabet[YY_right_accent]=		alphabet[y_right_accent]=1; 
-     alphabet[ZZ_inv_roof_latin]=			alphabet[z_inv_roof_latin]=1; 
+     alphabet[AA_right_accent]=		alphabet[a_right_accent]=1;
+     alphabet[CC_inv_roof]=			alphabet[c_inv_roof]=1;
+     alphabet[DD_inv_roof]=			alphabet[d_inv_roof]=1;
+     alphabet[EE_right_accent]=		alphabet[e_right_accent]=1;
+     alphabet[EE_inv_roof]=			alphabet[e_inv_roof]=1;
+     alphabet[II_right_accent]=		alphabet[i_right_accent]=1;
+     alphabet[NN_inv_roof]=			alphabet[n_inv_roof]=1;
+     alphabet[OO_right_accent]=		alphabet[o_right_accent]=1;
+     alphabet[RR_inv_roof]=			alphabet[r_inv_roof]=1;
+	 alphabet[SS_inv_roof_latin]=	alphabet[s_inv_roof_latin]=1;
+     alphabet[TT_inv_roof]=			alphabet[t_inv_roof]=1;
+     alphabet[UU_right_accent]=		alphabet[u_right_accent]=1;
+     alphabet[UU_circle_accent]=	alphabet[u_circle_accent]=1;
+     alphabet[YY_right_accent]=		alphabet[y_right_accent]=1;
+     alphabet[ZZ_inv_roof_latin]=			alphabet[z_inv_roof_latin]=1;
 
 	 // base lines for diskrim (CZECH)
      let_linpos[AA_right_accent]=1;	let_linpos[a_right_accent]=0x11;
-     let_linpos[CC_inv_roof]=1;		let_linpos[c_inv_roof]=0x11; 
-     let_linpos[DD_inv_roof]=1;		let_linpos[d_inv_roof]=0x11; 
-     let_linpos[EE_right_accent]=1;	let_linpos[e_right_accent]=0x11; 
-     let_linpos[EE_inv_roof]=1;		let_linpos[e_inv_roof]=0x11; 
-     let_linpos[II_right_accent]=1;	let_linpos[i_right_accent]=0x11; 
-     let_linpos[NN_inv_roof]=1;		let_linpos[n_inv_roof]=0x11; 
-     let_linpos[OO_right_accent]=1;	let_linpos[o_right_accent]=0x11; 
-     let_linpos[RR_inv_roof]=1;		let_linpos[r_inv_roof]=0x11; 
-     let_linpos[SS_inv_roof_latin]=1;		let_linpos[s_inv_roof_latin]=0x11; 
+     let_linpos[CC_inv_roof]=1;		let_linpos[c_inv_roof]=0x11;
+     let_linpos[DD_inv_roof]=1;		let_linpos[d_inv_roof]=0x11;
+     let_linpos[EE_right_accent]=1;	let_linpos[e_right_accent]=0x11;
+     let_linpos[EE_inv_roof]=1;		let_linpos[e_inv_roof]=0x11;
+     let_linpos[II_right_accent]=1;	let_linpos[i_right_accent]=0x11;
+     let_linpos[NN_inv_roof]=1;		let_linpos[n_inv_roof]=0x11;
+     let_linpos[OO_right_accent]=1;	let_linpos[o_right_accent]=0x11;
+     let_linpos[RR_inv_roof]=1;		let_linpos[r_inv_roof]=0x11;
+     let_linpos[SS_inv_roof_latin]=1;		let_linpos[s_inv_roof_latin]=0x11;
      let_linpos[TT_inv_roof]=1;		let_linpos[t_inv_roof]=0x31;	// Êàê t
-     let_linpos[UU_right_accent]=1;	let_linpos[u_right_accent]=0x11; 
-     let_linpos[UU_circle_accent]=1;let_linpos[u_circle_accent]=0x11; 
-     let_linpos[YY_right_accent]=1;	let_linpos[y_right_accent]=0x11; 
-     let_linpos[ZZ_inv_roof_latin]=1;		let_linpos[z_inv_roof_latin]=0x11; 
+     let_linpos[UU_right_accent]=1;	let_linpos[u_right_accent]=0x11;
+     let_linpos[UU_circle_accent]=1;let_linpos[u_circle_accent]=0x11;
+     let_linpos[YY_right_accent]=1;	let_linpos[y_right_accent]=0x11;
+     let_linpos[ZZ_inv_roof_latin]=1;		let_linpos[z_inv_roof_latin]=0x11;
 
 	 	 // base lines for its determination (CZECH)
      let_lindef[AA_right_accent]=		4;		// Òîëüêî bs3
@@ -1622,55 +1622,55 @@ if(is_baltic_language(language))
 	 let_lindef[z_inv_roof_latin]=		5;
 
      // detems klasres for 3x5 (CZECH)
-     let_lincomp[AA_right_accent]=		let_lincomp[a_right_accent]=2; 
-     let_lincomp[CC_inv_roof]=			let_lincomp[c_inv_roof]=2; 
-     let_lincomp[DD_inv_roof]=			let_lincomp[d_inv_roof]=2; 
-     let_lincomp[EE_right_accent]=		let_lincomp[e_right_accent]=2; 
-     let_lincomp[EE_inv_roof]=			let_lincomp[e_inv_roof]=2; 
-     let_lincomp[II_right_accent]=		let_lincomp[i_right_accent]=2; 
-     let_lincomp[NN_inv_roof]=			let_lincomp[n_inv_roof]=2; 
-     let_lincomp[OO_right_accent]=		let_lincomp[o_right_accent]=2; 
-     let_lincomp[RR_inv_roof]=			let_lincomp[r_inv_roof]=2; 
-     let_lincomp[SS_inv_roof_latin]=			let_lincomp[s_inv_roof_latin]=2; 
-     let_lincomp[TT_inv_roof]=			let_lincomp[t_inv_roof]=2; 
-     let_lincomp[UU_right_accent]=		let_lincomp[u_right_accent]=2; 
-     let_lincomp[UU_circle_accent]=		let_lincomp[u_circle_accent]=2; 
-     let_lincomp[YY_right_accent]=		let_lincomp[y_right_accent]=2; 
-     let_lincomp[ZZ_inv_roof_latin]=			let_lincomp[z_inv_roof_latin]=2; 
+     let_lincomp[AA_right_accent]=		let_lincomp[a_right_accent]=2;
+     let_lincomp[CC_inv_roof]=			let_lincomp[c_inv_roof]=2;
+     let_lincomp[DD_inv_roof]=			let_lincomp[d_inv_roof]=2;
+     let_lincomp[EE_right_accent]=		let_lincomp[e_right_accent]=2;
+     let_lincomp[EE_inv_roof]=			let_lincomp[e_inv_roof]=2;
+     let_lincomp[II_right_accent]=		let_lincomp[i_right_accent]=2;
+     let_lincomp[NN_inv_roof]=			let_lincomp[n_inv_roof]=2;
+     let_lincomp[OO_right_accent]=		let_lincomp[o_right_accent]=2;
+     let_lincomp[RR_inv_roof]=			let_lincomp[r_inv_roof]=2;
+     let_lincomp[SS_inv_roof_latin]=			let_lincomp[s_inv_roof_latin]=2;
+     let_lincomp[TT_inv_roof]=			let_lincomp[t_inv_roof]=2;
+     let_lincomp[UU_right_accent]=		let_lincomp[u_right_accent]=2;
+     let_lincomp[UU_circle_accent]=		let_lincomp[u_circle_accent]=2;
+     let_lincomp[YY_right_accent]=		let_lincomp[y_right_accent]=2;
+     let_lincomp[ZZ_inv_roof_latin]=			let_lincomp[z_inv_roof_latin]=2;
 
      // shape of letter (CZECH)
-     let_linshape[AA_right_accent]=1;	let_linshape[a_right_accent]=8; 
-     let_linshape[CC_inv_roof]=1;		let_linshape[c_inv_roof]=8; 
-     let_linshape[DD_inv_roof]=1;		let_linshape[d_inv_roof]=8; 
-     let_linshape[EE_right_accent]=1;	let_linshape[e_right_accent]=8; 
-     let_linshape[EE_inv_roof]=1;		let_linshape[e_inv_roof]=8; 
+     let_linshape[AA_right_accent]=1;	let_linshape[a_right_accent]=8;
+     let_linshape[CC_inv_roof]=1;		let_linshape[c_inv_roof]=8;
+     let_linshape[DD_inv_roof]=1;		let_linshape[d_inv_roof]=8;
+     let_linshape[EE_right_accent]=1;	let_linshape[e_right_accent]=8;
+     let_linshape[EE_inv_roof]=1;		let_linshape[e_inv_roof]=8;
      let_linshape[II_right_accent]=1;	let_linshape[i_right_accent]=0x0e; // as i
-     let_linshape[NN_inv_roof]=1;		let_linshape[n_inv_roof]=8; 
-     let_linshape[OO_right_accent]=1;	let_linshape[o_right_accent]=8; 
-     let_linshape[RR_inv_roof]=1;		let_linshape[r_inv_roof]=8; 
-     let_linshape[SS_inv_roof_latin]=1;		let_linshape[s_inv_roof_latin]=8; 
-     let_linshape[TT_inv_roof]=1;		let_linshape[t_inv_roof]=8; 
-     let_linshape[UU_right_accent]=1;	let_linshape[u_right_accent]=8; 
-     let_linshape[UU_circle_accent]=1;	let_linshape[u_circle_accent]=8; 
-     let_linshape[YY_right_accent]=1;	let_linshape[y_right_accent]=8; 
-     let_linshape[ZZ_inv_roof_latin]=1;		let_linshape[z_inv_roof_latin]=8; 
+     let_linshape[NN_inv_roof]=1;		let_linshape[n_inv_roof]=8;
+     let_linshape[OO_right_accent]=1;	let_linshape[o_right_accent]=8;
+     let_linshape[RR_inv_roof]=1;		let_linshape[r_inv_roof]=8;
+     let_linshape[SS_inv_roof_latin]=1;		let_linshape[s_inv_roof_latin]=8;
+     let_linshape[TT_inv_roof]=1;		let_linshape[t_inv_roof]=8;
+     let_linshape[UU_right_accent]=1;	let_linshape[u_right_accent]=8;
+     let_linshape[UU_circle_accent]=1;	let_linshape[u_circle_accent]=8;
+     let_linshape[YY_right_accent]=1;	let_linshape[y_right_accent]=8;
+     let_linshape[ZZ_inv_roof_latin]=1;		let_linshape[z_inv_roof_latin]=8;
 
      // for accent is used in abris (CZECH)
-     let_sans_acc[AA_right_accent]='A';	let_sans_acc[a_right_accent]='a'; 
-     let_sans_acc[CC_inv_roof]='C';		let_sans_acc[c_inv_roof]='c'; 
-     let_sans_acc[DD_inv_roof]='D';		let_sans_acc[d_inv_roof]='d'; 
-     let_sans_acc[EE_right_accent]='E';	let_sans_acc[e_right_accent]='e'; 
-     let_sans_acc[EE_inv_roof]='E';		let_sans_acc[e_inv_roof]='e'; 
-     let_sans_acc[II_right_accent]='I';	let_sans_acc[i_right_accent]='i'; 
-     let_sans_acc[NN_inv_roof]='N';		let_sans_acc[n_inv_roof]='n'; 
-     let_sans_acc[OO_right_accent]='O';	let_sans_acc[o_right_accent]='o'; 
-     let_sans_acc[RR_inv_roof]='R';		let_sans_acc[r_inv_roof]='r'; 
-     let_sans_acc[SS_inv_roof_latin]='S';		let_sans_acc[s_inv_roof_latin]='s'; 
-     let_sans_acc[TT_inv_roof]='T';		let_sans_acc[t_inv_roof]='t'; 
-     let_sans_acc[UU_right_accent]='U';	let_sans_acc[u_right_accent]='u'; 
-     let_sans_acc[UU_circle_accent]='U';let_sans_acc[u_circle_accent]='u'; 
-     let_sans_acc[YY_right_accent]='Y';	let_sans_acc[y_right_accent]='y'; 
-     let_sans_acc[ZZ_inv_roof_latin]='Z';		let_sans_acc[z_inv_roof_latin]='z'; 
+     let_sans_acc[AA_right_accent]='A';	let_sans_acc[a_right_accent]='a';
+     let_sans_acc[CC_inv_roof]='C';		let_sans_acc[c_inv_roof]='c';
+     let_sans_acc[DD_inv_roof]='D';		let_sans_acc[d_inv_roof]='d';
+     let_sans_acc[EE_right_accent]='E';	let_sans_acc[e_right_accent]='e';
+     let_sans_acc[EE_inv_roof]='E';		let_sans_acc[e_inv_roof]='e';
+     let_sans_acc[II_right_accent]='I';	let_sans_acc[i_right_accent]='i';
+     let_sans_acc[NN_inv_roof]='N';		let_sans_acc[n_inv_roof]='n';
+     let_sans_acc[OO_right_accent]='O';	let_sans_acc[o_right_accent]='o';
+     let_sans_acc[RR_inv_roof]='R';		let_sans_acc[r_inv_roof]='r';
+     let_sans_acc[SS_inv_roof_latin]='S';		let_sans_acc[s_inv_roof_latin]='s';
+     let_sans_acc[TT_inv_roof]='T';		let_sans_acc[t_inv_roof]='t';
+     let_sans_acc[UU_right_accent]='U';	let_sans_acc[u_right_accent]='u';
+     let_sans_acc[UU_circle_accent]='U';let_sans_acc[u_circle_accent]='u';
+     let_sans_acc[YY_right_accent]='Y';	let_sans_acc[y_right_accent]='y';
+     let_sans_acc[ZZ_inv_roof_latin]='Z';		let_sans_acc[z_inv_roof_latin]='z';
 
 	 // (CZECH)
      let_lindef3[AA_right_accent]=		let_lindef3['A'];
@@ -1706,99 +1706,99 @@ if(is_baltic_language(language))
 
 	 // (CZECH)
      accent_tab[AA_right_accent]=		ACC_RIGHT|ACC_SUPERUP;
-	 accent_tab[a_right_accent]=		ACC_RIGHT; 
+	 accent_tab[a_right_accent]=		ACC_RIGHT;
      accent_tab[CC_inv_roof]=			ACC_ROOF_INV|ACC_SUPERUP;
-	 accent_tab[c_inv_roof]=			ACC_ROOF_INV; 
+	 accent_tab[c_inv_roof]=			ACC_ROOF_INV;
      accent_tab[DD_inv_roof]=			ACC_ROOF_INV|ACC_SUPERUP;
-	 accent_tab[d_inv_roof]= 0; // Íå ïûòàòüñÿ îòðåçàòü ACC_ROOF_INV; 
-     accent_tab[EE_right_accent]=		ACC_RIGHT|ACC_SUPERUP;	
-	 accent_tab[e_right_accent]=		ACC_RIGHT; 
+	 accent_tab[d_inv_roof]= 0; // Íå ïûòàòüñÿ îòðåçàòü ACC_ROOF_INV;
+     accent_tab[EE_right_accent]=		ACC_RIGHT|ACC_SUPERUP;
+	 accent_tab[e_right_accent]=		ACC_RIGHT;
      accent_tab[EE_inv_roof]=			ACC_ROOF_INV|ACC_SUPERUP;
 	 accent_tab[e_inv_roof]=			ACC_ROOF_INV;
-     accent_tab[II_right_accent]=		ACC_RIGHT|ACC_SUPERUP;	
-	 accent_tab[i_right_accent]=		ACC_RIGHT; 
+     accent_tab[II_right_accent]=		ACC_RIGHT|ACC_SUPERUP;
+	 accent_tab[i_right_accent]=		ACC_RIGHT;
      accent_tab[NN_inv_roof]=			ACC_ROOF_INV|ACC_SUPERUP;
-	 accent_tab[n_inv_roof]=			ACC_ROOF_INV; 
-     accent_tab[OO_right_accent]=		ACC_RIGHT|ACC_SUPERUP;	
-	 accent_tab[o_right_accent]=		ACC_RIGHT; 
+	 accent_tab[n_inv_roof]=			ACC_ROOF_INV;
+     accent_tab[OO_right_accent]=		ACC_RIGHT|ACC_SUPERUP;
+	 accent_tab[o_right_accent]=		ACC_RIGHT;
      accent_tab[RR_inv_roof]=			ACC_ROOF_INV|ACC_SUPERUP;
-	 accent_tab[r_inv_roof]=			ACC_ROOF_INV; 
+	 accent_tab[r_inv_roof]=			ACC_ROOF_INV;
      accent_tab[SS_inv_roof_latin]=			ACC_ROOF_INV|ACC_SUPERUP;
 	 accent_tab[s_inv_roof_latin]=			ACC_ROOF_INV;
      accent_tab[TT_inv_roof]=			ACC_ROOF_INV|ACC_SUPERUP;
-	 accent_tab[t_inv_roof]=			ACC_ROOF_INV; 
-     accent_tab[UU_right_accent]=		ACC_RIGHT|ACC_SUPERUP;	
-	 accent_tab[u_right_accent]=		ACC_RIGHT; 
-     accent_tab[UU_circle_accent]=		ACC_CIR|ACC_SUPERUP;	
-	 accent_tab[u_circle_accent]=		ACC_CIR; 
+	 accent_tab[t_inv_roof]=			ACC_ROOF_INV;
+     accent_tab[UU_right_accent]=		ACC_RIGHT|ACC_SUPERUP;
+	 accent_tab[u_right_accent]=		ACC_RIGHT;
+     accent_tab[UU_circle_accent]=		ACC_CIR|ACC_SUPERUP;
+	 accent_tab[u_circle_accent]=		ACC_CIR;
      accent_tab[YY_right_accent]=		ACC_RIGHT|ACC_SUPERUP;
-	 accent_tab[y_right_accent]=		ACC_RIGHT; 
+	 accent_tab[y_right_accent]=		ACC_RIGHT;
      accent_tab[ZZ_inv_roof_latin]=		ACC_ROOF_INV|ACC_SUPERUP;
-	 accent_tab[z_inv_roof_latin]=		ACC_ROOF_INV; 
+	 accent_tab[z_inv_roof_latin]=		ACC_ROOF_INV;
 
   } // CZECH
 
 	if(language==LANG_ROMAN){
 
 	 // ROMAN 31.08.2000 E.P.
-     alphabet[AA_semicircle]=			alphabet[a_semicircle]=1; 
-     alphabet[AA_roof_accent]=			alphabet[a_roof_accent]=1; 
-     alphabet[II_roof_accent]=			alphabet[i_roof_accent]=1; 
-     alphabet[SS_bottom_accent_latin]=	alphabet[s_bottom_accent_latin]=1; 
-     alphabet[TT_bottom_accent]=		alphabet[t_bottom_accent]=1; 
+     alphabet[AA_semicircle]=			alphabet[a_semicircle]=1;
+     alphabet[AA_roof_accent]=			alphabet[a_roof_accent]=1;
+     alphabet[II_roof_accent]=			alphabet[i_roof_accent]=1;
+     alphabet[SS_bottom_accent_latin]=	alphabet[s_bottom_accent_latin]=1;
+     alphabet[TT_bottom_accent]=		alphabet[t_bottom_accent]=1;
 
 	 // base lines for diskrim (ROMAN)
-     let_linpos[AA_semicircle]=1;				
-	 let_linpos[a_semicircle]=0x11; 
-     let_linpos[AA_roof_accent]=1;				
-	 let_linpos[a_roof_accent]=0x11; 
-     let_linpos[II_roof_accent]=1;				
-	 let_linpos[i_roof_accent]=0x11; 
-     let_linpos[SS_bottom_accent_latin]=0x16;	
-	 let_linpos[s_bottom_accent_latin]=0x22; 
-     let_linpos[TT_bottom_accent]=0x16;			
+     let_linpos[AA_semicircle]=1;
+	 let_linpos[a_semicircle]=0x11;
+     let_linpos[AA_roof_accent]=1;
+	 let_linpos[a_roof_accent]=0x11;
+     let_linpos[II_roof_accent]=1;
+	 let_linpos[i_roof_accent]=0x11;
+     let_linpos[SS_bottom_accent_latin]=0x16;
+	 let_linpos[s_bottom_accent_latin]=0x22;
+     let_linpos[TT_bottom_accent]=0x16;
 	 let_linpos[t_bottom_accent]=0x32; // 22->32 05.07.2002 E.P.
 
 	 // base lines for its determination (ROMAN)
      let_lindef[AA_semicircle]=			4;		// 4 - bs3
-	 let_lindef[a_semicircle]=			0x84;	// 40-agrees to be b1, 4 - bs3 
-     let_lindef[AA_roof_accent]=		4;	
-	 let_lindef[a_roof_accent]=			0x84; 
-     let_lindef[II_roof_accent]=		4;	
-	 let_lindef[i_roof_accent]=			0x84; 
+	 let_lindef[a_semicircle]=			0x84;	// 40-agrees to be b1, 4 - bs3
+     let_lindef[AA_roof_accent]=		4;
+	 let_lindef[a_roof_accent]=			0x84;
+     let_lindef[II_roof_accent]=		4;
+	 let_lindef[i_roof_accent]=			0x84;
      let_lindef[SS_bottom_accent_latin]=0x31;	// 20 - åñòü áëèçíåö, 10 - êðóãëàÿ, 1 - bs1
 	 let_lindef[s_bottom_accent_latin]=	0x32;	// 20 - åñòü áëèçíåö, 10 - êðóãëàÿ, 2 - bs2
-     let_lindef[TT_bottom_accent]=		0;	
+     let_lindef[TT_bottom_accent]=		0;
 	 let_lindef[t_bottom_accent]=		0x40;	// 40-agrees to be b1, êàê t
 
      // detems klasres for 3x5 (ROMAN)
-     let_lincomp[AA_semicircle]=		let_lincomp[a_semicircle]=2; 
-     let_lincomp[AA_roof_accent]=		let_lincomp[a_roof_accent]=2; 
-     let_lincomp[II_roof_accent]=		let_lincomp[i_roof_accent]=2; 
+     let_lincomp[AA_semicircle]=		let_lincomp[a_semicircle]=2;
+     let_lincomp[AA_roof_accent]=		let_lincomp[a_roof_accent]=2;
+     let_lincomp[II_roof_accent]=		let_lincomp[i_roof_accent]=2;
      let_lincomp[SS_bottom_accent_latin]=0x0e;	// 2 - capital, 4 - low, 8 - other
 	 let_lincomp[s_bottom_accent_latin]=0x0d;	// 1 - small,   4 - low, 8 - other
-     let_lincomp[TT_bottom_accent]=0x0e;let_lincomp[t_bottom_accent]=0x0d; 
+     let_lincomp[TT_bottom_accent]=0x0e;let_lincomp[t_bottom_accent]=0x0d;
 
      // shape of letter (ROMAN)
-     let_linshape[AA_semicircle]=1;			let_linshape[a_semicircle]=8; 
-     let_linshape[AA_roof_accent]=1;		let_linshape[a_roof_accent]=8; 
-     let_linshape[II_roof_accent]=1;		let_linshape[i_roof_accent]=8; 
-     let_linshape[SS_bottom_accent_latin]=1;let_linshape[s_bottom_accent_latin]=8; 
-     let_linshape[TT_bottom_accent]=1;		let_linshape[t_bottom_accent]=8; 
+     let_linshape[AA_semicircle]=1;			let_linshape[a_semicircle]=8;
+     let_linshape[AA_roof_accent]=1;		let_linshape[a_roof_accent]=8;
+     let_linshape[II_roof_accent]=1;		let_linshape[i_roof_accent]=8;
+     let_linshape[SS_bottom_accent_latin]=1;let_linshape[s_bottom_accent_latin]=8;
+     let_linshape[TT_bottom_accent]=1;		let_linshape[t_bottom_accent]=8;
 
      // for accent is used in abris (ROMAN)
-     let_sans_acc[AA_semicircle]='A';			let_sans_acc[a_semicircle]='a'; 
-     let_sans_acc[AA_roof_accent]='A';			let_sans_acc[a_roof_accent]='a'; 
-     let_sans_acc[II_roof_accent]='I';			let_sans_acc[i_roof_accent]='i'; 
-     let_sans_acc[SS_bottom_accent_latin]='S';	let_sans_acc[s_bottom_accent_latin]='s'; 
-     let_sans_acc[TT_bottom_accent]='T';		let_sans_acc[t_bottom_accent]='t'; 
+     let_sans_acc[AA_semicircle]='A';			let_sans_acc[a_semicircle]='a';
+     let_sans_acc[AA_roof_accent]='A';			let_sans_acc[a_roof_accent]='a';
+     let_sans_acc[II_roof_accent]='I';			let_sans_acc[i_roof_accent]='i';
+     let_sans_acc[SS_bottom_accent_latin]='S';	let_sans_acc[s_bottom_accent_latin]='s';
+     let_sans_acc[TT_bottom_accent]='T';		let_sans_acc[t_bottom_accent]='t';
 
 	 //  (ROMAN)
-     let_lindef3[AA_semicircle]=			let_lindef3[a_semicircle]=0; 
-     let_lindef3[AA_roof_accent]=			let_lindef3[a_roof_accent]=0; 
-     let_lindef3[II_roof_accent]=			let_lindef3[i_roof_accent]=0; 
-     let_lindef3[SS_bottom_accent_latin]=	let_lindef3[s_bottom_accent_latin]=0; 
-     let_lindef3[TT_bottom_accent]		=	let_lindef3[t_bottom_accent]=0; 
+     let_lindef3[AA_semicircle]=			let_lindef3[a_semicircle]=0;
+     let_lindef3[AA_roof_accent]=			let_lindef3[a_roof_accent]=0;
+     let_lindef3[II_roof_accent]=			let_lindef3[i_roof_accent]=0;
+     let_lindef3[SS_bottom_accent_latin]=	let_lindef3[s_bottom_accent_latin]=0;
+     let_lindef3[TT_bottom_accent]		=	let_lindef3[t_bottom_accent]=0;
 
 	 //  (ROMAN)
      accent_tab[AA_semicircle]=			ACC_ROOF_INV|ACC_SUPERUP;
@@ -1808,22 +1808,22 @@ if(is_baltic_language(language))
      accent_tab[II_roof_accent]=		ACC_ROOF|ACC_SUPERUP;
 	 accent_tab[i_roof_accent]=			ACC_ROOF;
      accent_tab[SS_bottom_accent_latin]=0;
-	 accent_tab[s_bottom_accent_latin]=0; 
-     accent_tab[TT_bottom_accent]=0;		
-	 accent_tab[t_bottom_accent]=0; 
+	 accent_tab[s_bottom_accent_latin]=0;
+     accent_tab[TT_bottom_accent]=0;
+	 accent_tab[t_bottom_accent]=0;
 
 	} // ROMAN
 
 	if(language==LANG_HUNGAR){ // 31.08.2000 E.P.
-     alphabet[AA_right_accent]=		alphabet[a_right_accent]=1; 
-     alphabet[EE_right_accent]=		alphabet[e_right_accent]=1; 
-     alphabet[II_right_accent]=		alphabet[i_right_accent]=1; 
-     alphabet[OO_right_accent]=		alphabet[o_right_accent]=1; 
-     alphabet[OO_2dot_accent]=		alphabet[o_2dot_accent]=1; 
-     alphabet[OO_double_right]=		alphabet[o_double_right]=1; 
-     alphabet[UU_right_accent]=		alphabet[u_right_accent]=1; 
-     alphabet[UU_2dot_accent]=		alphabet[u_2dot_accent]=1; 
-     alphabet[UU_double_right]=		alphabet[u_double_right]=1; 
+     alphabet[AA_right_accent]=		alphabet[a_right_accent]=1;
+     alphabet[EE_right_accent]=		alphabet[e_right_accent]=1;
+     alphabet[II_right_accent]=		alphabet[i_right_accent]=1;
+     alphabet[OO_right_accent]=		alphabet[o_right_accent]=1;
+     alphabet[OO_2dot_accent]=		alphabet[o_2dot_accent]=1;
+     alphabet[OO_double_right]=		alphabet[o_double_right]=1;
+     alphabet[UU_right_accent]=		alphabet[u_right_accent]=1;
+     alphabet[UU_2dot_accent]=		alphabet[u_2dot_accent]=1;
+     alphabet[UU_double_right]=		alphabet[u_double_right]=1;
 
 	 // base lines for diskrim (HUNGAR)
      let_linpos[AA_right_accent]=1;		let_linpos[a_right_accent]=0x11;
@@ -1837,13 +1837,13 @@ if(is_baltic_language(language))
      let_linpos[UU_double_right]=1;		let_linpos[u_double_right]=0x11;
 
 	 // base lines for its determination (HUNGAR)
-     let_lindef[AA_right_accent]=		4;		// Òîëüêî bs3		
+     let_lindef[AA_right_accent]=		4;		// Òîëüêî bs3
 	 let_lindef[a_right_accent]=		4;
-     let_lindef[EE_right_accent]=		4;		
+     let_lindef[EE_right_accent]=		4;
 	 let_lindef[e_right_accent]=		4;
-     let_lindef[II_right_accent]=		4;		
+     let_lindef[II_right_accent]=		4;
 	 let_lindef[i_right_accent]=		6;		// 2 - bs2, 3 - bs3 (like i)
-     let_lindef[OO_right_accent]=		0x14;	// 10-êðóãëàÿ, 4 - bs3	
+     let_lindef[OO_right_accent]=		0x14;	// 10-êðóãëàÿ, 4 - bs3
 	 let_lindef[o_right_accent]=		0x14;
      let_lindef[OO_2dot_accent]=		0x14;
 	 let_lindef[o_2dot_accent]=			0x14;
@@ -1857,13 +1857,13 @@ if(is_baltic_language(language))
 	 let_lindef[u_double_right]=		0x14;
 
      // detems klasres for 3x5 (HUNGAR)
-     let_lincomp[AA_semicircle]=		let_lincomp[a_semicircle]=2; 
-     let_lincomp[AA_roof_accent]=		let_lincomp[a_roof_accent]=2; 
-     let_lincomp[II_roof_accent]=		let_lincomp[i_roof_accent]=2; 
+     let_lincomp[AA_semicircle]=		let_lincomp[a_semicircle]=2;
+     let_lincomp[AA_roof_accent]=		let_lincomp[a_roof_accent]=2;
+     let_lincomp[II_roof_accent]=		let_lincomp[i_roof_accent]=2;
      let_lincomp[SS_bottom_accent_latin]=0x0e;	// 2 - capital, 4 - low, 8 - other
 	 let_lincomp[s_bottom_accent_latin]=0x0d;	// 1 - small,   4 - low, 8 - other
      let_lincomp[TT_bottom_accent]=0x0e;
-	 let_lincomp[t_bottom_accent]=0x0d; 
+	 let_lincomp[t_bottom_accent]=0x0d;
      let_lincomp[OO_right_accent]=		let_lincomp[o_right_accent]=2;
      let_lincomp[OO_2dot_accent]=		let_lincomp[o_2dot_accent]=2;
      let_lincomp[OO_double_right]=		let_lincomp[o_double_right]=2;
@@ -1872,10 +1872,10 @@ if(is_baltic_language(language))
      let_lincomp[UU_double_right]=		let_lincomp[u_double_right]=2;
 
      // shape of letter (HUNGAR)
-     let_linshape[AA_semicircle]=1;				let_linshape[a_semicircle]=8; 
-     let_linshape[AA_roof_accent]=1;			let_linshape[a_roof_accent]=8; 
-     let_linshape[II_roof_accent]=1;			let_linshape[i_roof_accent]=8; 
-     let_linshape[SS_bottom_accent_latin]=1;	let_linshape[s_bottom_accent_latin]=8; 
+     let_linshape[AA_semicircle]=1;				let_linshape[a_semicircle]=8;
+     let_linshape[AA_roof_accent]=1;			let_linshape[a_roof_accent]=8;
+     let_linshape[II_roof_accent]=1;			let_linshape[i_roof_accent]=8;
+     let_linshape[SS_bottom_accent_latin]=1;	let_linshape[s_bottom_accent_latin]=8;
      let_linshape[TT_bottom_accent]=1;			let_linshape[t_bottom_accent]=0x0a; // sticky as t
      let_linshape[OO_right_accent]=1;			let_linshape[o_right_accent]=8;
      let_linshape[OO_2dot_accent]=1;			let_linshape[o_2dot_accent]=8;
@@ -1885,11 +1885,11 @@ if(is_baltic_language(language))
      let_linshape[UU_double_right]=1;			let_linshape[u_double_right]=8;
 
      // for accent is used in abris (HUNGAR)
-     let_sans_acc[AA_semicircle]='A';			let_sans_acc[a_semicircle]='a'; 
-     let_sans_acc[AA_roof_accent]='A';			let_sans_acc[a_roof_accent]='a'; 
-     let_sans_acc[II_roof_accent]='I';			let_sans_acc[i_roof_accent]='i'; 
-     let_sans_acc[SS_bottom_accent_latin]='S';	let_sans_acc[s_bottom_accent_latin]='s'; 
-     let_sans_acc[TT_bottom_accent]='S';		let_sans_acc[t_bottom_accent]='t'; 
+     let_sans_acc[AA_semicircle]='A';			let_sans_acc[a_semicircle]='a';
+     let_sans_acc[AA_roof_accent]='A';			let_sans_acc[a_roof_accent]='a';
+     let_sans_acc[II_roof_accent]='I';			let_sans_acc[i_roof_accent]='i';
+     let_sans_acc[SS_bottom_accent_latin]='S';	let_sans_acc[s_bottom_accent_latin]='s';
+     let_sans_acc[TT_bottom_accent]='S';		let_sans_acc[t_bottom_accent]='t';
      let_sans_acc[OO_right_accent]='O';			let_sans_acc[o_right_accent]='o';
      let_sans_acc[OO_2dot_accent]='O';			let_sans_acc[o_2dot_accent]='o';
      let_sans_acc[OO_double_right]='O';			let_sans_acc[o_double_right]='o';
@@ -1898,11 +1898,11 @@ if(is_baltic_language(language))
      let_sans_acc[UU_double_right]='U';			let_sans_acc[u_double_right]='u';
 
 	 // (HUNGAR)
-     let_lindef3[AA_semicircle]=			let_lindef3[a_semicircle]=0; 
-     let_lindef3[AA_roof_accent]=			let_lindef3[a_roof_accent]=0; 
-     let_lindef3[II_roof_accent]=			let_lindef3[i_roof_accent]=0; 
-     let_lindef3[SS_bottom_accent_latin]=	let_lindef3[s_bottom_accent_latin]=0; 
-     let_lindef3[TT_bottom_accent]=			let_lindef3[t_bottom_accent]=0; 
+     let_lindef3[AA_semicircle]=			let_lindef3[a_semicircle]=0;
+     let_lindef3[AA_roof_accent]=			let_lindef3[a_roof_accent]=0;
+     let_lindef3[II_roof_accent]=			let_lindef3[i_roof_accent]=0;
+     let_lindef3[SS_bottom_accent_latin]=	let_lindef3[s_bottom_accent_latin]=0;
+     let_lindef3[TT_bottom_accent]=			let_lindef3[t_bottom_accent]=0;
      let_lindef3[OO_right_accent]=			let_lindef3[o_right_accent]=0;
      let_lindef3[OO_2dot_accent]=			let_lindef3[o_2dot_accent]=0;
      let_lindef3[OO_double_right]=			let_lindef3[o_double_right]=0;
@@ -1918,10 +1918,10 @@ if(is_baltic_language(language))
      accent_tab[II_roof_accent]=		ACC_ROOF|ACC_SUPERUP;
 	 accent_tab[i_roof_accent]=			ACC_ROOF;
      accent_tab[SS_bottom_accent_latin]=0;
-	 accent_tab[s_bottom_accent_latin]=0; 
-     accent_tab[TT_bottom_accent]=0;		
-	 accent_tab[t_bottom_accent]=0; 
-     accent_tab[OO_right_accent]=		ACC_RIGHT|ACC_SUPERUP;		
+	 accent_tab[s_bottom_accent_latin]=0;
+     accent_tab[TT_bottom_accent]=0;
+	 accent_tab[t_bottom_accent]=0;
+     accent_tab[OO_right_accent]=		ACC_RIGHT|ACC_SUPERUP;
 	 accent_tab[o_right_accent]=		ACC_RIGHT;
      accent_tab[OO_2dot_accent]=		ACC_2DOT|ACC_SUPERUP;
 	 accent_tab[o_2dot_accent]=			ACC_2DOT;
@@ -1939,19 +1939,19 @@ if(is_baltic_language(language))
 	if(language==LANG_SLOVENIAN){
 
 	 // SLOVENIAN 25.05.2001 E.P.
-     alphabet[CC_inv_roof]=			alphabet[c_inv_roof]=1; 
-     alphabet[SS_inv_roof_latin]=			alphabet[s_inv_roof_latin]=1; 
+     alphabet[CC_inv_roof]=			alphabet[c_inv_roof]=1;
+     alphabet[SS_inv_roof_latin]=			alphabet[s_inv_roof_latin]=1;
      alphabet[ZZ_inv_roof_latin]=			alphabet[z_inv_roof_latin]=1;
-	 
+
      alphabet[(BYTE)'Q'] = alphabet[(BYTE)'q'] = 0;
      alphabet[(BYTE)'W'] = alphabet[(BYTE)'w'] = 0;
      alphabet[(BYTE)'X'] = alphabet[(BYTE)'x'] = 0;
      alphabet[(BYTE)'Y'] = alphabet[(BYTE)'y'] = 0;
 
 	 // base lines for diskrim (SLOVENIAN)
-     let_linpos[CC_inv_roof]=1;		let_linpos[c_inv_roof]=0x11; 
-     let_linpos[SS_inv_roof_latin]=1;		let_linpos[s_inv_roof_latin]=0x11; 
-     let_linpos[ZZ_inv_roof_latin]=1;		let_linpos[z_inv_roof_latin]=0x11; 
+     let_linpos[CC_inv_roof]=1;		let_linpos[c_inv_roof]=0x11;
+     let_linpos[SS_inv_roof_latin]=1;		let_linpos[s_inv_roof_latin]=0x11;
+     let_linpos[ZZ_inv_roof_latin]=1;		let_linpos[z_inv_roof_latin]=0x11;
 
 	 // base lines for its determination (SLOVENIAN)
      let_lindef[CC_inv_roof]=			0x14;	// 10-êðóãëàÿ, 4 - bs3
@@ -1962,19 +1962,19 @@ if(is_baltic_language(language))
 	 let_lindef[z_inv_roof_latin]=		5;
 
      // detems klasres for 3x5 (SLOVENIAN)
-     let_lincomp[CC_inv_roof]=			let_lincomp[c_inv_roof]=2; 
-     let_lincomp[SS_inv_roof_latin]=			let_lincomp[s_inv_roof_latin]=2; 
-     let_lincomp[ZZ_inv_roof_latin]=			let_lincomp[z_inv_roof_latin]=2; 
+     let_lincomp[CC_inv_roof]=			let_lincomp[c_inv_roof]=2;
+     let_lincomp[SS_inv_roof_latin]=			let_lincomp[s_inv_roof_latin]=2;
+     let_lincomp[ZZ_inv_roof_latin]=			let_lincomp[z_inv_roof_latin]=2;
 
      // shape of letter (SLOVENIAN)
-     let_linshape[CC_inv_roof]=1;		let_linshape[c_inv_roof]=8; 
-     let_linshape[SS_inv_roof_latin]=1;		let_linshape[s_inv_roof_latin]=8; 
-     let_linshape[ZZ_inv_roof_latin]=1;		let_linshape[z_inv_roof_latin]=8; 
+     let_linshape[CC_inv_roof]=1;		let_linshape[c_inv_roof]=8;
+     let_linshape[SS_inv_roof_latin]=1;		let_linshape[s_inv_roof_latin]=8;
+     let_linshape[ZZ_inv_roof_latin]=1;		let_linshape[z_inv_roof_latin]=8;
 
      // for accent is used in abris (SLOVENIAN)
-     let_sans_acc[CC_inv_roof]='C';		let_sans_acc[c_inv_roof]='c'; 
-     let_sans_acc[SS_inv_roof_latin]='S';		let_sans_acc[s_inv_roof_latin]='s'; 
-     let_sans_acc[ZZ_inv_roof_latin]='Z';		let_sans_acc[z_inv_roof_latin]='z'; 
+     let_sans_acc[CC_inv_roof]='C';		let_sans_acc[c_inv_roof]='c';
+     let_sans_acc[SS_inv_roof_latin]='S';		let_sans_acc[s_inv_roof_latin]='s';
+     let_sans_acc[ZZ_inv_roof_latin]='Z';		let_sans_acc[z_inv_roof_latin]='z';
 
 	 // (SLOVENIAN)
      let_lindef3[CC_inv_roof]=			let_lindef3['C'];
@@ -1986,56 +1986,56 @@ if(is_baltic_language(language))
 
 	 // (SLOVENIAN)
      accent_tab[CC_inv_roof]=			ACC_ROOF_INV|ACC_SUPERUP;
-	 accent_tab[c_inv_roof]=			ACC_ROOF_INV; 
+	 accent_tab[c_inv_roof]=			ACC_ROOF_INV;
      accent_tab[SS_inv_roof_latin]=			ACC_ROOF_INV|ACC_SUPERUP;
 	 accent_tab[s_inv_roof_latin]=			ACC_ROOF_INV;
      accent_tab[ZZ_inv_roof_latin]=			ACC_ROOF_INV|ACC_SUPERUP;
-	 accent_tab[z_inv_roof_latin]=			ACC_ROOF_INV; 
+	 accent_tab[z_inv_roof_latin]=			ACC_ROOF_INV;
 
   } // SLOVENIAN
 
 //  Êîíåö ôèãóðíîé ñêîáêè RUSSIAN ïåðåíåñ íèæå  01.09.2000 E.P.
 if( language==LANG_GERMAN )
     {
-    alphabet[AA_2dot_accent ]=1;  
+    alphabet[AA_2dot_accent ]=1;
     alphabet[a_2dot_accent  ]=1;
-    alphabet[UU_2dot_accent ]=1;  
+    alphabet[UU_2dot_accent ]=1;
     alphabet[u_2dot_accent  ]=1;
-    alphabet[OO_2dot_accent ]=1;  
+    alphabet[OO_2dot_accent ]=1;
     alphabet[o_2dot_accent  ]=1;
     alphabet[0xDF  ]=1;  // ??? small S-cet
     }
 if( language==LANG_FRENCH )
     {
-    alphabet[AA_left_accent ]=1;  
+    alphabet[AA_left_accent ]=1;
     alphabet[AA_roof_accent ]=1;
-    alphabet[CC_bottom_accent ]=1;  
+    alphabet[CC_bottom_accent ]=1;
     alphabet[EE_left_accent ]=1;
-    alphabet[EE_right_accent ]=1;  
+    alphabet[EE_right_accent ]=1;
     alphabet[EE_roof_accent ]=1;
-    alphabet[EE_2dot_accent ]=1;  
+    alphabet[EE_2dot_accent ]=1;
     alphabet[II_roof_accent ]=1;
-    alphabet[II_2dot_accent ]=1;  
+    alphabet[II_2dot_accent ]=1;
     alphabet[OO_roof_accent ]=1;
-    alphabet[OE_cap_deaf_sound ]=1;  
+    alphabet[OE_cap_deaf_sound ]=1;
     alphabet[AE_cap_deaf_sound ]=1;
-    alphabet[UU_left_accent ]=1;  
+    alphabet[UU_left_accent ]=1;
     alphabet[UU_roof_accent ]=1;
     alphabet[UU_2dot_accent ]=1;
 
-    alphabet[a_left_accent ]=1;  
+    alphabet[a_left_accent ]=1;
     alphabet[a_roof_accent ]=1;
-    alphabet[c_bottom_accent ]=1;  
+    alphabet[c_bottom_accent ]=1;
     alphabet[e_left_accent ]=1;
-    alphabet[e_right_accent ]=1;  
+    alphabet[e_right_accent ]=1;
     alphabet[e_roof_accent ]=1;
-    alphabet[e_2dot_accent ]=1;  
+    alphabet[e_2dot_accent ]=1;
     alphabet[i_roof_accent ]=1;
-    alphabet[i_2dot_accent ]=1;  
+    alphabet[i_2dot_accent ]=1;
     alphabet[o_roof_accent ]=1;
-    alphabet[oe_deaf_sound ]=1;  
+    alphabet[oe_deaf_sound ]=1;
     alphabet[ae_deaf_sound ]=1;
-    alphabet[u_left_accent ]=1;  
+    alphabet[u_left_accent ]=1;
     alphabet[u_roof_accent ]=1;
     alphabet[u_2dot_accent ]=1;
     }
@@ -2174,16 +2174,16 @@ if( language==LANG_DUTCH )
 if( language==LANG_LATVIAN )
 	{
 	 // LATVIAN 09.07.2001 E.P.
-     alphabet[AA_macron]=			alphabet[a_macron]=1; 
-     alphabet[CC_inv_roof]=			alphabet[c_inv_roof]=1; 
-     alphabet[EE_macron]=			alphabet[e_macron]=1; 
-     alphabet[GG_bottom_accent]=	alphabet[LATVIAN_g]=1; 
-     alphabet[II_macron]=			alphabet[i_macron]=1; 
-     alphabet[KK_bottom_accent]=	alphabet[k_bottom_accent]=1; 
-     alphabet[LL_bottom_accent]=	alphabet[l_bottom_accent]=1; 
-     alphabet[NN_bottom_accent]=	alphabet[n_bottom_accent]=1; 
-     alphabet[SS_inv_roof_baltic]=	alphabet[s_inv_roof_baltic]=1; 
-     alphabet[UU_macron]=			alphabet[u_macron]=1; 
+     alphabet[AA_macron]=			alphabet[a_macron]=1;
+     alphabet[CC_inv_roof]=			alphabet[c_inv_roof]=1;
+     alphabet[EE_macron]=			alphabet[e_macron]=1;
+     alphabet[GG_bottom_accent]=	alphabet[LATVIAN_g]=1;
+     alphabet[II_macron]=			alphabet[i_macron]=1;
+     alphabet[KK_bottom_accent]=	alphabet[k_bottom_accent]=1;
+     alphabet[LL_bottom_accent]=	alphabet[l_bottom_accent]=1;
+     alphabet[NN_bottom_accent]=	alphabet[n_bottom_accent]=1;
+     alphabet[SS_inv_roof_baltic]=	alphabet[s_inv_roof_baltic]=1;
+     alphabet[UU_macron]=			alphabet[u_macron]=1;
      alphabet[ZZ_inv_roof_baltic]=	alphabet[z_inv_roof_baltic]=1;
 
      alphabet[(BYTE)'Q'] = alphabet[(BYTE)'q'] = 0;
@@ -2192,17 +2192,17 @@ if( language==LANG_LATVIAN )
      alphabet[(BYTE)'Y'] = alphabet[(BYTE)'y'] = 0;
 
 	 // base lines for diskrim (LATVIAN)
-     let_linpos[AA_macron			]=1;		let_linpos[a_macron			]=0x11; 
-     let_linpos[CC_inv_roof			]=1;		let_linpos[c_inv_roof		]=0x11; 
-     let_linpos[EE_macron			]=1;		let_linpos[e_macron			]=0x11; 
-     let_linpos[GG_bottom_accent	]=0x16;		let_linpos[LATVIAN_g		]=0x52; 
-     let_linpos[II_macron			]=1;		let_linpos[i_macron			]=0x11; 
-     let_linpos[KK_bottom_accent	]=0x16;		let_linpos[k_bottom_accent	]=0x12; 
-     let_linpos[LL_bottom_accent	]=0x16;		let_linpos[l_bottom_accent	]=0x12; 
-     let_linpos[NN_bottom_accent	]=0x16;		let_linpos[n_bottom_accent	]=0x22; 
-     let_linpos[SS_inv_roof_baltic	]=1;		let_linpos[s_inv_roof_baltic]=0x11; 
-     let_linpos[UU_bottom_accent	]=0x16;		let_linpos[u_bottom_accent	]=0x22; 
-     let_linpos[ZZ_inv_roof_baltic	]=1;		let_linpos[z_inv_roof_baltic]=0x11; 
+     let_linpos[AA_macron			]=1;		let_linpos[a_macron			]=0x11;
+     let_linpos[CC_inv_roof			]=1;		let_linpos[c_inv_roof		]=0x11;
+     let_linpos[EE_macron			]=1;		let_linpos[e_macron			]=0x11;
+     let_linpos[GG_bottom_accent	]=0x16;		let_linpos[LATVIAN_g		]=0x52;
+     let_linpos[II_macron			]=1;		let_linpos[i_macron			]=0x11;
+     let_linpos[KK_bottom_accent	]=0x16;		let_linpos[k_bottom_accent	]=0x12;
+     let_linpos[LL_bottom_accent	]=0x16;		let_linpos[l_bottom_accent	]=0x12;
+     let_linpos[NN_bottom_accent	]=0x16;		let_linpos[n_bottom_accent	]=0x22;
+     let_linpos[SS_inv_roof_baltic	]=1;		let_linpos[s_inv_roof_baltic]=0x11;
+     let_linpos[UU_bottom_accent	]=0x16;		let_linpos[u_bottom_accent	]=0x22;
+     let_linpos[ZZ_inv_roof_baltic	]=1;		let_linpos[z_inv_roof_baltic]=0x11;
 /*
 	 base lines for its determination (LATVIAN)
 
@@ -2210,31 +2210,31 @@ if( language==LANG_LATVIAN )
 	 Ìëàäøàÿ öèôðà: îïðåäåëåíèå áàçîâûõ ëèíèé 1-bs1, 2-bs2, 4-bs3, 8-bs4
 
 */
-     let_lindef[AA_macron			]=4;	let_lindef[a_macron			]=4; 
+     let_lindef[AA_macron			]=4;	let_lindef[a_macron			]=4;
      let_lindef[CC_inv_roof			]=0x34;	let_lindef[c_inv_roof		]=0x35;
      let_lindef[EE_macron			]=4;	let_lindef[e_macron			]=0x14;
-     let_lindef[GG_bottom_accent	]=0x11;	let_lindef[LATVIAN_g		]=0; 
-     let_lindef[II_macron			]=4;	let_lindef[i_macron			]=4; 
-     let_lindef[KK_bottom_accent	]=1;	let_lindef[k_bottom_accent	]=1; 
-     let_lindef[LL_bottom_accent	]=1;	let_lindef[l_bottom_accent	]=1; 
-     let_lindef[NN_bottom_accent	]=1;	let_lindef[n_bottom_accent	]=2; 
-     let_lindef[SS_inv_roof_baltic	]=0x24;	let_lindef[s_inv_roof_baltic]=0x25; 
-     let_lindef[UU_bottom_accent	]=0x31;	let_lindef[u_bottom_accent	]=0x32; 
+     let_lindef[GG_bottom_accent	]=0x11;	let_lindef[LATVIAN_g		]=0;
+     let_lindef[II_macron			]=4;	let_lindef[i_macron			]=4;
+     let_lindef[KK_bottom_accent	]=1;	let_lindef[k_bottom_accent	]=1;
+     let_lindef[LL_bottom_accent	]=1;	let_lindef[l_bottom_accent	]=1;
+     let_lindef[NN_bottom_accent	]=1;	let_lindef[n_bottom_accent	]=2;
+     let_lindef[SS_inv_roof_baltic	]=0x24;	let_lindef[s_inv_roof_baltic]=0x25;
+     let_lindef[UU_bottom_accent	]=0x31;	let_lindef[u_bottom_accent	]=0x32;
      let_lindef[ZZ_inv_roof_baltic	]=0x24;	let_lindef[z_inv_roof_baltic]=0x25;
 
      // detems klasres for 3x5 (LATVIAN)
 	 // 1 - small, 2 - capital, 4 - low, 8 - other
-     let_lincomp[AA_macron			]=2;	let_lincomp[a_macron			]=2; 
+     let_lincomp[AA_macron			]=2;	let_lincomp[a_macron			]=2;
      let_lincomp[CC_inv_roof		]=2;	let_lincomp[c_inv_roof			]=2;
-     let_lincomp[EE_macron			]=2;	let_lincomp[e_macron			]=2; 
-     let_lincomp[GG_bottom_accent	]=0x0e;	let_lincomp[LATVIAN_g			]=0x0e; 
-     let_lincomp[II_macron			]=2;	let_lincomp[i_macron			]=2; 
-     let_lincomp[KK_bottom_accent	]=0x0e;	let_lincomp[k_bottom_accent		]=0x0e; 
-     let_lincomp[LL_bottom_accent	]=0x0e;	let_lincomp[l_bottom_accent		]=0x0e; 
-     let_lincomp[NN_bottom_accent	]=0x0e;	let_lincomp[n_bottom_accent		]=0x0d; 
-     let_lincomp[SS_inv_roof_baltic	]=2;	let_lincomp[s_inv_roof_baltic	]=2; 
-     let_lincomp[UU_bottom_accent	]=0x0e;	let_lincomp[u_bottom_accent		]=0x0d; 
-     let_lincomp[ZZ_inv_roof_baltic	]=2;	let_lincomp[z_inv_roof_baltic	]=2; 
+     let_lincomp[EE_macron			]=2;	let_lincomp[e_macron			]=2;
+     let_lincomp[GG_bottom_accent	]=0x0e;	let_lincomp[LATVIAN_g			]=0x0e;
+     let_lincomp[II_macron			]=2;	let_lincomp[i_macron			]=2;
+     let_lincomp[KK_bottom_accent	]=0x0e;	let_lincomp[k_bottom_accent		]=0x0e;
+     let_lincomp[LL_bottom_accent	]=0x0e;	let_lincomp[l_bottom_accent		]=0x0e;
+     let_lincomp[NN_bottom_accent	]=0x0e;	let_lincomp[n_bottom_accent		]=0x0d;
+     let_lincomp[SS_inv_roof_baltic	]=2;	let_lincomp[s_inv_roof_baltic	]=2;
+     let_lincomp[UU_bottom_accent	]=0x0e;	let_lincomp[u_bottom_accent		]=0x0d;
+     let_lincomp[ZZ_inv_roof_baltic	]=2;	let_lincomp[z_inv_roof_baltic	]=2;
 /*
 	shape of letter (LATVIAN)
 
@@ -2245,76 +2245,76 @@ if( language==LANG_LATVIAN )
 	0x10 - may be above b1 ($)
 	0x20 - d,b,h (may be above b1)
 */
-     let_linshape[AA_macron			]=0x11;	let_linshape[a_macron			]=1; 
+     let_linshape[AA_macron			]=0x11;	let_linshape[a_macron			]=1;
      let_linshape[CC_inv_roof		]=0x11;	let_linshape[c_inv_roof			]=1;
-     let_linshape[EE_macron			]=0x11;	let_linshape[e_macron			]=1; 
-     let_linshape[GG_bottom_accent	]=1;	let_linshape[LATVIAN_g			]=0x11; 
-     let_linshape[II_macron			]=0x17;	let_linshape[i_macron			]=0x0e; 
-     let_linshape[KK_bottom_accent	]=1;	let_linshape[k_bottom_accent	]=8; 
-     let_linshape[LL_bottom_accent	]=1;	let_linshape[l_bottom_accent	]=0x0e; 
-     let_linshape[NN_bottom_accent	]=1;	let_linshape[n_bottom_accent	]=8; 
-     let_linshape[SS_inv_roof_baltic]=0x11;	let_linshape[s_inv_roof_baltic	]=1; 
-     let_linshape[UU_bottom_accent	]=1;	let_linshape[u_bottom_accent	]=8; 
-     let_linshape[ZZ_inv_roof_baltic]=0x11;	let_linshape[z_inv_roof_baltic	]=1; 
+     let_linshape[EE_macron			]=0x11;	let_linshape[e_macron			]=1;
+     let_linshape[GG_bottom_accent	]=1;	let_linshape[LATVIAN_g			]=0x11;
+     let_linshape[II_macron			]=0x17;	let_linshape[i_macron			]=0x0e;
+     let_linshape[KK_bottom_accent	]=1;	let_linshape[k_bottom_accent	]=8;
+     let_linshape[LL_bottom_accent	]=1;	let_linshape[l_bottom_accent	]=0x0e;
+     let_linshape[NN_bottom_accent	]=1;	let_linshape[n_bottom_accent	]=8;
+     let_linshape[SS_inv_roof_baltic]=0x11;	let_linshape[s_inv_roof_baltic	]=1;
+     let_linshape[UU_bottom_accent	]=1;	let_linshape[u_bottom_accent	]=8;
+     let_linshape[ZZ_inv_roof_baltic]=0x11;	let_linshape[z_inv_roof_baltic	]=1;
 
      // for accent is used in abris (LATVIAN)
-     let_sans_acc[AA_macron			]='A';	let_sans_acc[a_macron			]='a'; 
+     let_sans_acc[AA_macron			]='A';	let_sans_acc[a_macron			]='a';
      let_sans_acc[CC_inv_roof		]='C';	let_sans_acc[c_inv_roof			]='c';
-     let_sans_acc[EE_macron			]='E';	let_sans_acc[e_macron			]='e'; 
-     let_sans_acc[GG_bottom_accent	]='G';	let_sans_acc[LATVIAN_g			]='g'; 
-     let_sans_acc[II_macron			]='I';	let_sans_acc[i_macron			]='i'; 
-     let_sans_acc[KK_bottom_accent	]='K';	let_sans_acc[k_bottom_accent	]='k'; 
-     let_sans_acc[LL_bottom_accent	]='L';	let_sans_acc[l_bottom_accent	]='l'; 
-     let_sans_acc[NN_bottom_accent	]='N';	let_sans_acc[n_bottom_accent	]='n'; 
-     let_sans_acc[SS_inv_roof_baltic]='S';	let_sans_acc[s_inv_roof_baltic	]='s'; 
-     let_sans_acc[UU_bottom_accent	]='U';	let_sans_acc[u_bottom_accent	]='u'; 
-     let_sans_acc[ZZ_inv_roof_baltic]='Z';	let_sans_acc[z_inv_roof_baltic	]='z'; 
+     let_sans_acc[EE_macron			]='E';	let_sans_acc[e_macron			]='e';
+     let_sans_acc[GG_bottom_accent	]='G';	let_sans_acc[LATVIAN_g			]='g';
+     let_sans_acc[II_macron			]='I';	let_sans_acc[i_macron			]='i';
+     let_sans_acc[KK_bottom_accent	]='K';	let_sans_acc[k_bottom_accent	]='k';
+     let_sans_acc[LL_bottom_accent	]='L';	let_sans_acc[l_bottom_accent	]='l';
+     let_sans_acc[NN_bottom_accent	]='N';	let_sans_acc[n_bottom_accent	]='n';
+     let_sans_acc[SS_inv_roof_baltic]='S';	let_sans_acc[s_inv_roof_baltic	]='s';
+     let_sans_acc[UU_bottom_accent	]='U';	let_sans_acc[u_bottom_accent	]='u';
+     let_sans_acc[ZZ_inv_roof_baltic]='Z';	let_sans_acc[z_inv_roof_baltic	]='z';
 
 	 // LATVIAN
 	 // lindef3 == lindef when b3 made, so twins could be resolved (as pP, yY)
 
-     let_lindef3[AA_macron			]=let_lindef[AA_macron			];	
-	 let_lindef3[a_macron			]=let_lindef[a_macron			]; 
-     let_lindef3[CC_inv_roof		]=let_lindef[CC_inv_roof		];	
+     let_lindef3[AA_macron			]=let_lindef[AA_macron			];
+	 let_lindef3[a_macron			]=let_lindef[a_macron			];
+     let_lindef3[CC_inv_roof		]=let_lindef[CC_inv_roof		];
 	 let_lindef3[c_inv_roof			]=let_lindef[c_inv_roof			];
-     let_lindef3[EE_macron			]=let_lindef[EE_macron			];	
-	 let_lindef3[e_macron			]=let_lindef[e_macron			]; 
-     let_lindef3[GG_bottom_accent	]=let_lindef[GG_bottom_accent	];	
-	 let_lindef3[LATVIAN_g			]=let_lindef[LATVIAN_g			]; 
-     let_lindef3[II_macron			]=let_lindef[II_macron			];	
-	 let_lindef3[i_macron			]=let_lindef[i_macron			]; 
-     let_lindef3[KK_bottom_accent	]=let_lindef[KK_bottom_accent	];	
-	 let_lindef3[k_bottom_accent	]=let_lindef[k_bottom_accent	]; 
-     let_lindef3[LL_bottom_accent	]=let_lindef[LL_bottom_accent	];	
-	 let_lindef3[l_bottom_accent	]=let_lindef[l_bottom_accent	]; 
-     let_lindef3[NN_bottom_accent	]=let_lindef[NN_bottom_accent	];	
-	 let_lindef3[n_bottom_accent	]=let_lindef[n_bottom_accent	]; 
-     let_lindef3[SS_inv_roof_baltic	]=let_lindef[SS_inv_roof_baltic	];	
-	 let_lindef3[s_inv_roof_baltic	]=let_lindef[s_inv_roof_baltic	]; 
-     let_lindef3[UU_bottom_accent	]=let_lindef[UU_bottom_accent	];	
-	 let_lindef3[u_bottom_accent	]=let_lindef[u_bottom_accent	]; 
-     let_lindef3[ZZ_inv_roof_baltic	]=let_lindef[ZZ_inv_roof_baltic	];	
-	 let_lindef3[z_inv_roof_baltic	]=let_lindef[z_inv_roof_baltic	]; 
+     let_lindef3[EE_macron			]=let_lindef[EE_macron			];
+	 let_lindef3[e_macron			]=let_lindef[e_macron			];
+     let_lindef3[GG_bottom_accent	]=let_lindef[GG_bottom_accent	];
+	 let_lindef3[LATVIAN_g			]=let_lindef[LATVIAN_g			];
+     let_lindef3[II_macron			]=let_lindef[II_macron			];
+	 let_lindef3[i_macron			]=let_lindef[i_macron			];
+     let_lindef3[KK_bottom_accent	]=let_lindef[KK_bottom_accent	];
+	 let_lindef3[k_bottom_accent	]=let_lindef[k_bottom_accent	];
+     let_lindef3[LL_bottom_accent	]=let_lindef[LL_bottom_accent	];
+	 let_lindef3[l_bottom_accent	]=let_lindef[l_bottom_accent	];
+     let_lindef3[NN_bottom_accent	]=let_lindef[NN_bottom_accent	];
+	 let_lindef3[n_bottom_accent	]=let_lindef[n_bottom_accent	];
+     let_lindef3[SS_inv_roof_baltic	]=let_lindef[SS_inv_roof_baltic	];
+	 let_lindef3[s_inv_roof_baltic	]=let_lindef[s_inv_roof_baltic	];
+     let_lindef3[UU_bottom_accent	]=let_lindef[UU_bottom_accent	];
+	 let_lindef3[u_bottom_accent	]=let_lindef[u_bottom_accent	];
+     let_lindef3[ZZ_inv_roof_baltic	]=let_lindef[ZZ_inv_roof_baltic	];
+	 let_lindef3[z_inv_roof_baltic	]=let_lindef[z_inv_roof_baltic	];
 
 	 // LATVIAN
      accent_tab[AA_macron			]=ACC_MACRON|ACC_SUPERUP;
-	 accent_tab[a_macron			]=ACC_MACRON; 
+	 accent_tab[a_macron			]=ACC_MACRON;
      accent_tab[CC_inv_roof			]=ACC_ROOF_INV|ACC_SUPERUP;
 	 accent_tab[c_inv_roof			]=ACC_ROOF_INV;
      accent_tab[EE_macron			]=ACC_MACRON|ACC_SUPERUP;
-	 accent_tab[e_macron			]=ACC_MACRON; 
-     accent_tab[GG_bottom_accent	]=0;	
-	 accent_tab[LATVIAN_g			]=ACC_DOT|ACC_LEFT|ACC_RIGHT; 
-     accent_tab[II_macron			]=ACC_MACRON|ACC_SUPERUP;	
-	 accent_tab[i_macron			]=ACC_MACRON;  
-     accent_tab[KK_bottom_accent	]=0;	accent_tab[k_bottom_accent		]=0; 
-     accent_tab[LL_bottom_accent	]=0;	accent_tab[l_bottom_accent		]=0; 
-     accent_tab[NN_bottom_accent	]=0;	accent_tab[n_bottom_accent		]=0; 
+	 accent_tab[e_macron			]=ACC_MACRON;
+     accent_tab[GG_bottom_accent	]=0;
+	 accent_tab[LATVIAN_g			]=ACC_DOT|ACC_LEFT|ACC_RIGHT;
+     accent_tab[II_macron			]=ACC_MACRON|ACC_SUPERUP;
+	 accent_tab[i_macron			]=ACC_MACRON;
+     accent_tab[KK_bottom_accent	]=0;	accent_tab[k_bottom_accent		]=0;
+     accent_tab[LL_bottom_accent	]=0;	accent_tab[l_bottom_accent		]=0;
+     accent_tab[NN_bottom_accent	]=0;	accent_tab[n_bottom_accent		]=0;
      accent_tab[SS_inv_roof_baltic	]=ACC_ROOF_INV|ACC_SUPERUP;
 	 accent_tab[s_inv_roof_baltic	]=ACC_ROOF_INV;
-     accent_tab[UU_bottom_accent	]=0;	accent_tab[u_bottom_accent		]=0; 
-     accent_tab[ZZ_inv_roof_baltic	]=ACC_ROOF_INV|ACC_SUPERUP;	
-	 accent_tab[z_inv_roof_baltic	]=ACC_ROOF_INV; 
+     accent_tab[UU_bottom_accent	]=0;	accent_tab[u_bottom_accent		]=0;
+     accent_tab[ZZ_inv_roof_baltic	]=ACC_ROOF_INV|ACC_SUPERUP;
+	 accent_tab[z_inv_roof_baltic	]=ACC_ROOF_INV;
 
 	}	// LATVIAN
 
@@ -2322,30 +2322,30 @@ if( language==LANG_LITHUANIAN )
 	{
 
 	 // LITHUANIAN 09.07.2001 E.P.
-     alphabet[AA_bottom_accent	]=1;	alphabet[a_bottom_accent	]=1; 
-     alphabet[CC_inv_roof		]=1;	alphabet[c_inv_roof			]=1; 
-     alphabet[EE_bottom_accent	]=1;	alphabet[e_bottom_accent	]=1; 
-     alphabet[EE_dot_accent		]=1;	alphabet[e_dot_accent		]=1; 
-     alphabet[II_bottom_accent	]=1;	alphabet[i_bottom_accent	]=1; 
-     alphabet[SS_inv_roof_baltic]=1;	alphabet[s_inv_roof_baltic	]=1; 
-     alphabet[UU_bottom_accent	]=1;	alphabet[u_bottom_accent	]=1; 
-     alphabet[UU_macron			]=1;	alphabet[u_macron			]=1; 
+     alphabet[AA_bottom_accent	]=1;	alphabet[a_bottom_accent	]=1;
+     alphabet[CC_inv_roof		]=1;	alphabet[c_inv_roof			]=1;
+     alphabet[EE_bottom_accent	]=1;	alphabet[e_bottom_accent	]=1;
+     alphabet[EE_dot_accent		]=1;	alphabet[e_dot_accent		]=1;
+     alphabet[II_bottom_accent	]=1;	alphabet[i_bottom_accent	]=1;
+     alphabet[SS_inv_roof_baltic]=1;	alphabet[s_inv_roof_baltic	]=1;
+     alphabet[UU_bottom_accent	]=1;	alphabet[u_bottom_accent	]=1;
+     alphabet[UU_macron			]=1;	alphabet[u_macron			]=1;
      alphabet[ZZ_inv_roof_baltic]=1;	alphabet[z_inv_roof_baltic	]=1;
-	 
+
      alphabet[(BYTE)'Q'] = alphabet[(BYTE)'q'] = 0;
      alphabet[(BYTE)'W'] = alphabet[(BYTE)'w'] = 0;
      alphabet[(BYTE)'X'] = alphabet[(BYTE)'x'] = 0;
 
 	 // base lines for diskrim (LITHUANIAN)
-     let_linpos[AA_bottom_accent	]=0x16;	let_linpos[a_bottom_accent	]=0x22; 
+     let_linpos[AA_bottom_accent	]=0x16;	let_linpos[a_bottom_accent	]=0x22;
      let_linpos[CC_inv_roof			]=1;		let_linpos[c_inv_roof		]=0x11;
-     let_linpos[EE_bottom_accent	]=0x16;		let_linpos[e_bottom_accent	]=0x22; 
-     let_linpos[EE_dot_accent		]=1;		let_linpos[e_dot_accent		]=0x11; 
+     let_linpos[EE_bottom_accent	]=0x16;		let_linpos[e_bottom_accent	]=0x22;
+     let_linpos[EE_dot_accent		]=1;		let_linpos[e_dot_accent		]=0x11;
      let_linpos[II_bottom_accent	]=0x16;		let_linpos[i_bottom_accent	]=0x22;
-     let_linpos[SS_inv_roof_baltic	]=1;		let_linpos[s_inv_roof_baltic]=0x11; 
+     let_linpos[SS_inv_roof_baltic	]=1;		let_linpos[s_inv_roof_baltic]=0x11;
      let_linpos[UU_bottom_accent	]=0x16;		let_linpos[u_bottom_accent	]=0x22;
-     let_linpos[UU_macron			]=1;		let_linpos[u_macron			]=0x11; 
-     let_linpos[ZZ_inv_roof_baltic	]=1;		let_linpos[z_inv_roof_baltic]=0x11; 
+     let_linpos[UU_macron			]=1;		let_linpos[u_macron			]=0x11;
+     let_linpos[ZZ_inv_roof_baltic	]=1;		let_linpos[z_inv_roof_baltic]=0x11;
 
 /*
 	 base lines for its determination (LITHUANIAN)
@@ -2363,7 +2363,7 @@ if( language==LANG_LITHUANIAN )
      let_lindef[SS_inv_roof_baltic	]=0x34;		let_lindef[s_inv_roof_baltic]=0x35;
      let_lindef[UU_bottom_accent	]=0x31;		let_lindef[u_bottom_accent	]=0x32;
      let_lindef[UU_macron			]=0x34;		let_lindef[u_macron			]=0x34;
-     let_lindef[ZZ_inv_roof_baltic	]=0x24;		let_lindef[z_inv_roof_baltic]=0x25; 
+     let_lindef[ZZ_inv_roof_baltic	]=0x24;		let_lindef[z_inv_roof_baltic]=0x25;
 
 
      // detems klasres for 3x5 (LITHUANIAN)
@@ -2399,56 +2399,56 @@ if( language==LANG_LITHUANIAN )
      let_linshape[ZZ_inv_roof_baltic]=0x11;	let_linshape[z_inv_roof_baltic	]=1;
 
      // for accent is used in abris (LITHUANIAN)
-     let_sans_acc[AA_bottom_accent	]='A';		let_sans_acc[a_bottom_accent	]='a'; 
+     let_sans_acc[AA_bottom_accent	]='A';		let_sans_acc[a_bottom_accent	]='a';
      let_sans_acc[CC_inv_roof		]='C';		let_sans_acc[c_inv_roof			]='c';
-     let_sans_acc[EE_bottom_accent	]='E';		let_sans_acc[e_bottom_accent	]='e'; 
-     let_sans_acc[EE_dot_accent		]='E';		let_sans_acc[e_dot_accent		]='e'; 
-     let_sans_acc[II_bottom_accent	]='I';		let_sans_acc[i_bottom_accent	]='i'; 
-     let_sans_acc[SS_inv_roof_baltic]='S';		let_sans_acc[s_inv_roof_baltic	]='s'; 
-     let_sans_acc[UU_bottom_accent	]='U';		let_sans_acc[u_bottom_accent	]='u'; 
-     let_sans_acc[UU_macron			]='U';		let_sans_acc[u_macron			]='u'; 
-     let_sans_acc[ZZ_inv_roof_baltic]='Z';		let_sans_acc[z_inv_roof_baltic	]='z'; 
+     let_sans_acc[EE_bottom_accent	]='E';		let_sans_acc[e_bottom_accent	]='e';
+     let_sans_acc[EE_dot_accent		]='E';		let_sans_acc[e_dot_accent		]='e';
+     let_sans_acc[II_bottom_accent	]='I';		let_sans_acc[i_bottom_accent	]='i';
+     let_sans_acc[SS_inv_roof_baltic]='S';		let_sans_acc[s_inv_roof_baltic	]='s';
+     let_sans_acc[UU_bottom_accent	]='U';		let_sans_acc[u_bottom_accent	]='u';
+     let_sans_acc[UU_macron			]='U';		let_sans_acc[u_macron			]='u';
+     let_sans_acc[ZZ_inv_roof_baltic]='Z';		let_sans_acc[z_inv_roof_baltic	]='z';
 
 	 // LITHUANIAN
 	 // lindef3 == lindef when b3 made, so twins could be resolved (as pP, yY)
-     let_lindef3[AA_bottom_accent	]=let_lindef[AA_bottom_accent	];	
-	 let_lindef3[a_bottom_accent	]=let_lindef[a_bottom_accent	]; 
-     let_lindef3[CC_inv_roof		]=let_lindef[CC_inv_roof		];	
+     let_lindef3[AA_bottom_accent	]=let_lindef[AA_bottom_accent	];
+	 let_lindef3[a_bottom_accent	]=let_lindef[a_bottom_accent	];
+     let_lindef3[CC_inv_roof		]=let_lindef[CC_inv_roof		];
 	 let_lindef3[c_inv_roof			]=let_lindef[c_inv_roof			];
-     let_lindef3[EE_bottom_accent	]=let_lindef[EE_bottom_accent	];	
-	 let_lindef3[e_bottom_accent	]=let_lindef[e_bottom_accent	]; 
-     let_lindef3[EE_dot_accent		]=let_lindef[EE_dot_accent		];	
-	 let_lindef3[e_dot_accent		]=let_lindef[e_dot_accent		]; 
-     let_lindef3[II_bottom_accent	]=let_lindef[II_bottom_accent	];	
-	 let_lindef3[i_bottom_accent	]=let_lindef[i_bottom_accent	]; 
-     let_lindef3[SS_inv_roof_baltic	]=let_lindef[SS_inv_roof_baltic	];	
-	 let_lindef3[s_inv_roof_baltic	]=let_lindef[s_inv_roof_baltic	]; 
-     let_lindef3[UU_bottom_accent	]=let_lindef[UU_bottom_accent	];	
-	 let_lindef3[u_bottom_accent	]=let_lindef[u_bottom_accent	]; 
-     let_lindef3[UU_macron			]=let_lindef[UU_macron			];	
-	 let_lindef3[u_macron			]=let_lindef[u_macron			]; 
-     let_lindef3[ZZ_inv_roof_baltic	]=let_lindef[ZZ_inv_roof_baltic	];	
-	 let_lindef3[z_inv_roof_baltic	]=let_lindef[z_inv_roof_baltic	]; 
+     let_lindef3[EE_bottom_accent	]=let_lindef[EE_bottom_accent	];
+	 let_lindef3[e_bottom_accent	]=let_lindef[e_bottom_accent	];
+     let_lindef3[EE_dot_accent		]=let_lindef[EE_dot_accent		];
+	 let_lindef3[e_dot_accent		]=let_lindef[e_dot_accent		];
+     let_lindef3[II_bottom_accent	]=let_lindef[II_bottom_accent	];
+	 let_lindef3[i_bottom_accent	]=let_lindef[i_bottom_accent	];
+     let_lindef3[SS_inv_roof_baltic	]=let_lindef[SS_inv_roof_baltic	];
+	 let_lindef3[s_inv_roof_baltic	]=let_lindef[s_inv_roof_baltic	];
+     let_lindef3[UU_bottom_accent	]=let_lindef[UU_bottom_accent	];
+	 let_lindef3[u_bottom_accent	]=let_lindef[u_bottom_accent	];
+     let_lindef3[UU_macron			]=let_lindef[UU_macron			];
+	 let_lindef3[u_macron			]=let_lindef[u_macron			];
+     let_lindef3[ZZ_inv_roof_baltic	]=let_lindef[ZZ_inv_roof_baltic	];
+	 let_lindef3[z_inv_roof_baltic	]=let_lindef[z_inv_roof_baltic	];
 
 	 // LITHUANIAN
-     accent_tab[AA_bottom_accent	]=0;	
+     accent_tab[AA_bottom_accent	]=0;
 	 accent_tab[a_bottom_accent		]=0;
      accent_tab[CC_inv_roof			]=ACC_ROOF_INV|ACC_SUPERUP;
      accent_tab[c_inv_roof			]=ACC_ROOF_INV;
      accent_tab['E']= ACC_DOT|ACC_SUPERUP;  // don't discrim upper dust, like ij. See discrid() in DM1.C
      accent_tab['e']= ACC_DOT;				// don't discrim upper dust, like ij. See discrid() in DM1.C
-     accent_tab[EE_bottom_accent	]=0;	
+     accent_tab[EE_bottom_accent	]=0;
 	 accent_tab[e_bottom_accent		]=0;
      accent_tab[EE_dot_accent		]=ACC_DOT|ACC_SUPERUP;
      accent_tab[e_dot_accent		]=ACC_DOT;
-     accent_tab[II_bottom_accent	]=0;    
+     accent_tab[II_bottom_accent	]=0;
 	 accent_tab[i_bottom_accent		]=0;
      accent_tab[SS_inv_roof_baltic	]=ACC_ROOF_INV|ACC_SUPERUP;
      accent_tab[s_inv_roof_baltic	]=ACC_ROOF_INV;
-     accent_tab[UU_bottom_accent	]=0;    
+     accent_tab[UU_bottom_accent	]=0;
 	 accent_tab[u_bottom_accent		]=0;
      accent_tab[UU_macron			]=ACC_MACRON|ACC_SUPERUP;
-     accent_tab[u_macron			]=ACC_MACRON;  
+     accent_tab[u_macron			]=ACC_MACRON;
      accent_tab[ZZ_inv_roof_baltic	]=ACC_ROOF_INV|ACC_SUPERUP;
      accent_tab[z_inv_roof_baltic	]=ACC_ROOF_INV;
 
@@ -2458,13 +2458,13 @@ if( language==LANG_ESTONIAN )
 	{
 
 	 // ESTONIAN 09.07.2001 E.P.
-     alphabet[AA_2dot_accent	]=1;	alphabet[a_2dot_accent		]=1; 
-     alphabet[OO_tild_accent	]=1;	alphabet[o_tild_accent		]=1; 
-     alphabet[OO_2dot_accent	]=1;	alphabet[o_2dot_accent		]=1; 
-     alphabet[SS_inv_roof_baltic]=1;	alphabet[s_inv_roof_baltic	]=1; 
-     alphabet[UU_2dot_accent	]=1;	alphabet[u_2dot_accent		]=1; 
+     alphabet[AA_2dot_accent	]=1;	alphabet[a_2dot_accent		]=1;
+     alphabet[OO_tild_accent	]=1;	alphabet[o_tild_accent		]=1;
+     alphabet[OO_2dot_accent	]=1;	alphabet[o_2dot_accent		]=1;
+     alphabet[SS_inv_roof_baltic]=1;	alphabet[s_inv_roof_baltic	]=1;
+     alphabet[UU_2dot_accent	]=1;	alphabet[u_2dot_accent		]=1;
      alphabet[ZZ_inv_roof_baltic]=1;	alphabet[z_inv_roof_baltic	]=1;
-	 
+
      alphabet[(BYTE)'C'] = alphabet[(BYTE)'c'] = 0;
      alphabet[(BYTE)'Q'] = alphabet[(BYTE)'q'] = 0;
      alphabet[(BYTE)'W'] = alphabet[(BYTE)'w'] = 0;
@@ -2530,18 +2530,18 @@ if( language==LANG_ESTONIAN )
 
 	 // ESTONIAN
 	 // lindef3 == lindef when b3 made, so twins could be resolved (as pP, yY)
-     let_lindef3[AA_2dot_accent		]=let_lindef[AA_2dot_accent		];	
-     let_lindef3[a_2dot_accent		]=let_lindef[a_2dot_accent		];	
-     let_lindef3[OO_tild_accent		]=let_lindef[OO_tild_accent		];	
-     let_lindef3[o_tild_accent		]=let_lindef[o_tild_accent		];	
-     let_lindef3[OO_2dot_accent		]=let_lindef[OO_2dot_accent		];	
-     let_lindef3[o_2dot_accent		]=let_lindef[o_2dot_accent		];	
-     let_lindef3[SS_inv_roof_baltic	]=let_lindef[SS_inv_roof_baltic	];	
-     let_lindef3[s_inv_roof_baltic	]=let_lindef[s_inv_roof_baltic	];	
-     let_lindef3[UU_2dot_accent		]=let_lindef[UU_2dot_accent		];	
-     let_lindef3[u_2dot_accent		]=let_lindef[u_2dot_accent		];	
-     let_lindef3[ZZ_inv_roof_baltic	]=let_lindef[ZZ_inv_roof_baltic	];	
-     let_lindef3[z_inv_roof_baltic	]=let_lindef[z_inv_roof_baltic	];	
+     let_lindef3[AA_2dot_accent		]=let_lindef[AA_2dot_accent		];
+     let_lindef3[a_2dot_accent		]=let_lindef[a_2dot_accent		];
+     let_lindef3[OO_tild_accent		]=let_lindef[OO_tild_accent		];
+     let_lindef3[o_tild_accent		]=let_lindef[o_tild_accent		];
+     let_lindef3[OO_2dot_accent		]=let_lindef[OO_2dot_accent		];
+     let_lindef3[o_2dot_accent		]=let_lindef[o_2dot_accent		];
+     let_lindef3[SS_inv_roof_baltic	]=let_lindef[SS_inv_roof_baltic	];
+     let_lindef3[s_inv_roof_baltic	]=let_lindef[s_inv_roof_baltic	];
+     let_lindef3[UU_2dot_accent		]=let_lindef[UU_2dot_accent		];
+     let_lindef3[u_2dot_accent		]=let_lindef[u_2dot_accent		];
+     let_lindef3[ZZ_inv_roof_baltic	]=let_lindef[ZZ_inv_roof_baltic	];
+     let_lindef3[z_inv_roof_baltic	]=let_lindef[z_inv_roof_baltic	];
 
 	 // ESTONIAN
      accent_tab[AA_2dot_accent		]=ACC_2DOT|ACC_SUPERUP;
@@ -2605,13 +2605,13 @@ if(language == LANG_TURKISH)
 	alphabet[II_dot_accent				]=1;
 	alphabet[i_sans_accent				]=1;
 	alphabet[SS_bottom_accent_turkish	]=1;
-	alphabet[s_bottom_accent_turkish	]=1; 
+	alphabet[s_bottom_accent_turkish	]=1;
 	alphabet[(BYTE)'Q'] = alphabet[(BYTE)'q'] = 0;
 	alphabet[(BYTE)'W'] = alphabet[(BYTE)'w'] = 0;
 	alphabet[(BYTE)'X'] = alphabet[(BYTE)'x'] = 0;
 
 	 // Äëÿ ëèíåéíîãî êðèòåðèÿ (TURKISH)
-	let_linpos[GG_semicircle			]=    1;	
+	let_linpos[GG_semicircle			]=    1;
 	let_linpos[g_semicircle				]= 0x52; // 27.06.2002 E.P.
 	let_linpos[II_dot_accent			]= 0x11; // 27.06.2002 E.P.
 	let_linpos[i_sans_accent			]= 0x21;
@@ -2620,10 +2620,10 @@ if(language == LANG_TURKISH)
 
 	// Äëÿ îïðåäåëåíèÿ áàçîâûõ ëèíèé (TURKISH)
 	// Ñòàðøàÿ öèôðà: 20 - åñòü áëèçíåö, 10-êðóãëàÿ
-	// Ìëàäøàÿ öèôðà: îïðåäåëåíèå áàçîâûõ ëèíèé 
+	// Ìëàäøàÿ öèôðà: îïðåäåëåíèå áàçîâûõ ëèíèé
 	// 1-bs1, 2-bs2, 4-bs3, 8-bs4
 	let_lindef[GG_semicircle]=	0x14;	// 10 - êðóãëàÿ, 4 - bs3
-	let_lindef[g_semicircle]=	0;		// 
+	let_lindef[g_semicircle]=	0;		//
 	let_lindef[II_dot_accent]=	0x24;	// 20 - åñòü áëèçíåö 'i', 4 - bs3 // 27.06.2002 E.P.
 	let_lindef[i_sans_accent]=	0x26;	// 20 - åñòü áëèçíåö 'I', 2 - bs2, 4 - bs3
 	let_lindef['I']=	0x25;	// 20 - åñòü áëèçíåö i_sans_accent, 1 - bs1, 4 - bs3
@@ -2633,14 +2633,14 @@ if(language == LANG_TURKISH)
 
 	// Äîïóñòèìûé ðàçìåð áóêâû, îïðåäåëÿåò êëàñòåð äëÿ 3x5 (TURKISH)
 	// 1 - small; 2 - capital, 4 - low (like 'y'), 8 - other
-	let_lincomp[GG_semicircle]=		2;			
+	let_lincomp[GG_semicircle]=		2;
 	let_lincomp[g_semicircle]=		0x0e;	// 2 - capital, 4 - low, 8 - other
 	let_lincomp[II_dot_accent]=		2;
 	let_lincomp[i_sans_accent]=		1;
 	let_lincomp[SS_bottom_accent_turkish]=0x0e;	// 2 - capital, 4 - low, 8 - other
 	let_lincomp[s_bottom_accent_turkish] =0x0d;	// 1 - small,   4 - low, 8 - other
 
-/* 
+/*
 	Ôîðìà áóêâû (TURKISH):
 	   1 - ïðîïèñíàÿ
 	   2 - ïàëêà
@@ -2651,17 +2651,17 @@ if(language == LANG_TURKISH)
 */
 
 	let_linshape[GG_semicircle]= 0x11;	// 10 - ìîæåò áûòü âûøå b1, 1 - ïðîïèñíàÿ
-	let_linshape[g_semicircle]=	8;		// 8 - ñòðî÷íàÿ	
+	let_linshape[g_semicircle]=	8;		// 8 - ñòðî÷íàÿ
 
-	// 10 - ìîæåò áûòü âûøå b1, 1 - ïðîïèñíàÿ, 2 - ïàëêà, 
+	// 10 - ìîæåò áûòü âûøå b1, 1 - ïðîïèñíàÿ, 2 - ïàëêà,
 	// 4 - ïàëêà ïîçâîëÿåò îïðåäåëèòü bs1
-	let_linshape[II_dot_accent]= 0x17;	
+	let_linshape[II_dot_accent]= 0x17;
 
 	// 8 - ñòðî÷íàÿ, 2 - ïàëêà, 4 - ïàëêà ïîçâîëÿåò îïðåäåëèòü bs1
-	let_linshape[i_sans_accent]= 0x0e;	
+	let_linshape[i_sans_accent]= 0x0e;
 
 	let_linshape[SS_bottom_accent_turkish]=1;	// 1 - ïðîïèñíàÿ
-	let_linshape[s_bottom_accent_turkish]= 8;	// 8 - ñòðî÷íàÿ	
+	let_linshape[s_bottom_accent_turkish]= 8;	// 8 - ñòðî÷íàÿ
 
 	// Áóêâà áåç àêöåíòà (TURKISH)
 	let_sans_acc[GG_semicircle]	= 'G';
@@ -2736,7 +2736,7 @@ if( CodePages[language]==CSTR_ANSI_CHARSET    )
     strcpy(decode_ASCII_to_[(BYTE)AA_tild_accent    ],   "\xC3");
     strcpy(decode_ASCII_to_[(BYTE)a_tild_accent     ],   "\xE3");
     strcpy(decode_ASCII_to_[(BYTE)AA_2dot_accent    ],   "\xC4");
-    strcpy(decode_ASCII_to_[(BYTE)a_2dot_accent     ],   "\xE4");    
+    strcpy(decode_ASCII_to_[(BYTE)a_2dot_accent     ],   "\xE4");
     strcpy(decode_ASCII_to_[(BYTE)AA_circle_accent  ],   "\xC5");
     strcpy(decode_ASCII_to_[(BYTE)a_circle_accent   ],   "\xE5");
     strcpy(decode_ASCII_to_[(BYTE)EE_left_accent    ],   "\xC8");
@@ -2746,7 +2746,7 @@ if( CodePages[language]==CSTR_ANSI_CHARSET    )
     strcpy(decode_ASCII_to_[(BYTE)EE_roof_accent    ],   "\xCA");
     strcpy(decode_ASCII_to_[(BYTE)e_roof_accent     ],   "\xEA");
     strcpy(decode_ASCII_to_[(BYTE)EE_2dot_accent    ],   "\xCB");
-    strcpy(decode_ASCII_to_[(BYTE)e_2dot_accent     ],   "\xEB");    
+    strcpy(decode_ASCII_to_[(BYTE)e_2dot_accent     ],   "\xEB");
     strcpy(decode_ASCII_to_[(BYTE)II_left_accent    ],   "\xCC");
     strcpy(decode_ASCII_to_[(BYTE)i_left_accent     ],   "\xEC");
     strcpy(decode_ASCII_to_[(BYTE)II_right_accent   ],   "\xCD");
@@ -2756,7 +2756,7 @@ if( CodePages[language]==CSTR_ANSI_CHARSET    )
     strcpy(decode_ASCII_to_[(BYTE)II_2dot_accent    ],   "\xCF");
     strcpy(decode_ASCII_to_[(BYTE)i_2dot_accent     ],   "\xEF");
     strcpy(decode_ASCII_to_[(BYTE)NN_tild_accent    ],   "\xD1");
-    strcpy(decode_ASCII_to_[(BYTE)n_tild_accent     ],   "\xF1");    
+    strcpy(decode_ASCII_to_[(BYTE)n_tild_accent     ],   "\xF1");
     strcpy(decode_ASCII_to_[(BYTE)OO_left_accent    ],   "\xD2");
     strcpy(decode_ASCII_to_[(BYTE)o_left_accent     ],   "\xF2");
     strcpy(decode_ASCII_to_[(BYTE)OO_right_accent   ],   "\xD3");
@@ -2766,7 +2766,7 @@ if( CodePages[language]==CSTR_ANSI_CHARSET    )
     strcpy(decode_ASCII_to_[(BYTE)OO_tild_accent    ],   "\xD5");
     strcpy(decode_ASCII_to_[(BYTE)o_tild_accent     ],   "\xF5");
     strcpy(decode_ASCII_to_[(BYTE)OO_2dot_accent    ],   "\xD6");
-    strcpy(decode_ASCII_to_[(BYTE)o_2dot_accent     ],   "\xF6");    
+    strcpy(decode_ASCII_to_[(BYTE)o_2dot_accent     ],   "\xF6");
     strcpy(decode_ASCII_to_[(BYTE)UU_left_accent    ],   "\xD9");
     strcpy(decode_ASCII_to_[(BYTE)u_left_accent     ],   "\xF9");
     strcpy(decode_ASCII_to_[(BYTE)UU_right_accent   ],   "\xDA");
@@ -2776,7 +2776,7 @@ if( CodePages[language]==CSTR_ANSI_CHARSET    )
     strcpy(decode_ASCII_to_[(BYTE)UU_2dot_accent    ],   "\xDC");
     strcpy(decode_ASCII_to_[(BYTE)u_2dot_accent     ],   "\xFC");
     strcpy(decode_ASCII_to_[(BYTE)AE_cap_deaf_sound ],   "AE");
-    strcpy(decode_ASCII_to_[(BYTE)ae_deaf_sound     ],   "ae");    
+    strcpy(decode_ASCII_to_[(BYTE)ae_deaf_sound     ],   "ae");
     strcpy(decode_ASCII_to_[(BYTE)OE_cap_deaf_sound ],   "OE");
     strcpy(decode_ASCII_to_[(BYTE)oe_deaf_sound     ],   "oe");
     strcpy(decode_ASCII_to_[(BYTE)ss_deaf_sound     ],   "\xDF");
@@ -2939,7 +2939,7 @@ switch( language )
 BOOL    is_russian_language(BYTE lang)
 {
 return (lang==LANG_RUSSIAN ||lang==LANG_UKRAINIAN ||
-		lang==LANG_SERBIAN ||lang==LANG_UZBEK || 
+		lang==LANG_SERBIAN ||lang==LANG_UZBEK ||
 		lang==LANG_BULGAR	// 01.09.2000 E.P.
 		);
 }
@@ -2950,42 +2950,42 @@ void list_latin_letters()	// 05.09.2000 E.P.
 
 BYTE tab[] = {
 
-	CROAT_D ,				CROAT_d ,			
-	POLISH_LL,				POLISH_l,			
+	CROAT_D ,				CROAT_d ,
+	POLISH_LL,				POLISH_l,
 
-	AA_right_accent,		a_right_accent,	
-	AA_2dot_accent,			a_2dot_accent,		
-	AA_bottom_accent_latin,	a_bottom_accent_latin,	
-	AA_semicircle,			a_semicircle,		
-	AA_roof_accent,			a_roof_accent,		
-	CC_right_accent,		c_right_accent,	
-	CC_inv_roof,			c_inv_roof,		
-	DD_inv_roof,			d_inv_roof,		
-	EE_right_accent,		e_right_accent,	
-	EE_bottom_accent_latin,	e_bottom_accent_latin,	
-	EE_inv_roof,			e_inv_roof,		
-	II_right_accent,		i_right_accent,	
-	II_roof_accent,			i_roof_accent,		
-	NN_right_accent,		n_right_accent,	
-	NN_inv_roof,			n_inv_roof,		
-	OO_right_accent,		o_right_accent,	
-	OO_roof_accent,			o_roof_accent,		
-	OO_2dot_accent,			o_2dot_accent,		
-	OO_double_right,		o_double_right,	
-	RR_inv_roof,			r_inv_roof,		
-	SS_right_accent,		s_right_accent,	
-	SS_inv_roof_latin,		s_inv_roof_latin,		
-	SS_bottom_accent_latin,	s_bottom_accent_latin,	
-	TT_inv_roof,			t_inv_roof,		
-	TT_bottom_accent,		t_bottom_accent,	
-	UU_right_accent,		u_right_accent,	
-	UU_2dot_accent,			u_2dot_accent,		
-	UU_double_right,		u_double_right,	
-	UU_circle_accent,		u_circle_accent,	
-	YY_right_accent,		y_right_accent,	
-	ZZ_right_accent,		z_right_accent,	
-	ZZ_dot_accent,			z_dot_accent,		
-	ZZ_inv_roof_latin,		z_inv_roof_latin,		
+	AA_right_accent,		a_right_accent,
+	AA_2dot_accent,			a_2dot_accent,
+	AA_bottom_accent_latin,	a_bottom_accent_latin,
+	AA_semicircle,			a_semicircle,
+	AA_roof_accent,			a_roof_accent,
+	CC_right_accent,		c_right_accent,
+	CC_inv_roof,			c_inv_roof,
+	DD_inv_roof,			d_inv_roof,
+	EE_right_accent,		e_right_accent,
+	EE_bottom_accent_latin,	e_bottom_accent_latin,
+	EE_inv_roof,			e_inv_roof,
+	II_right_accent,		i_right_accent,
+	II_roof_accent,			i_roof_accent,
+	NN_right_accent,		n_right_accent,
+	NN_inv_roof,			n_inv_roof,
+	OO_right_accent,		o_right_accent,
+	OO_roof_accent,			o_roof_accent,
+	OO_2dot_accent,			o_2dot_accent,
+	OO_double_right,		o_double_right,
+	RR_inv_roof,			r_inv_roof,
+	SS_right_accent,		s_right_accent,
+	SS_inv_roof_latin,		s_inv_roof_latin,
+	SS_bottom_accent_latin,	s_bottom_accent_latin,
+	TT_inv_roof,			t_inv_roof,
+	TT_bottom_accent,		t_bottom_accent,
+	UU_right_accent,		u_right_accent,
+	UU_2dot_accent,			u_2dot_accent,
+	UU_double_right,		u_double_right,
+	UU_circle_accent,		u_circle_accent,
+	YY_right_accent,		y_right_accent,
+	ZZ_right_accent,		z_right_accent,
+	ZZ_dot_accent,			z_dot_accent,
+	ZZ_inv_roof_latin,		z_inv_roof_latin,
 
 0};
 
@@ -3056,7 +3056,7 @@ BYTE tab[] = {
 	GG_semicircle			,g_semicircle			,
 	II_dot_accent			,i_sans_accent			,
 	SS_bottom_accent_turkish,s_bottom_accent_turkish,
-	
+
 0};
 
 BYTE *p;

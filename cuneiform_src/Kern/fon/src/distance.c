@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,19 +43,19 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#define _NOT_ALL_      // íå äåëàòü ïîëíûé ïîèñê 
-// #define _NEED_SCALE_   // ìàñøòàáèðîâàòü ïîä ñòàíäàðòíóþ âûñîòó   
+#define _NOT_ALL_      // íå äåëàòü ïîëíûé ïîèñê
+// #define _NEED_SCALE_   // ìàñøòàáèðîâàòü ïîä ñòàíäàðòíóþ âûñîòó
 #define STANDARD_HEIGHT 38  // ñòàíäàðòíàÿ âûñîòà
 
 //#define _TEST_ADD_FAT_
@@ -65,12 +65,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#define CHECK_EQUAL
 
 // ðàçìàçûâàòü ìåëêèõ íà ïîëïèêñåëà
-//#define _USE_HALF_   
+//#define _USE_HALF_
 
 #define MAX_ALT              5
 
-#define POROG_HALF_WIDTH    4      // 21 
-#define POROG_HALF_HEIGHT   13     // 23 
+#define POROG_HALF_WIDTH    4      // 21
+#define POROG_HALF_HEIGHT   13     // 23
 
 #include "c_types.h"
 
@@ -101,7 +101,7 @@ SINT RazmazHalf(BYTE *bSource,BYTE *bDest,SINT xbit,SINT yrow);
 // øòðàôóåì äàëüíèå òî÷êè
 //
 
-#ifdef OLEG_ACC 
+#ifdef OLEG_ACC
 static int sign_tab[513]={
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2, // 0
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2, // 1
@@ -146,7 +146,7 @@ static int DistToWelet(PBYTE r,int fullByte,int w,int h,welet * wl,
 PCHAR   curr, currn,currh;
 int     rbyte;
 PBYTE   rr,rn;
-int		dist; 
+int		dist;
 
 
 curr = wl->raster + WR_MAX_WIDTH*((WR_MAX_HEIGHT-h)/2) +
@@ -162,8 +162,8 @@ for(dist=0; curr<currh;curr += WR_MAX_WIDTH,r+=fullByte)
     for(currn=curr,rr=r,rn=r+rbyte;rr!=rn; rr++, currn+=8)
         {
         dist += bit_distance[*rr](currn);
-    
-        if( dist > porog ) 
+
+        if( dist > porog )
             return dist;
         }  // end rr
     }
@@ -172,28 +172,28 @@ for(dist=0; curr<currh;curr += WR_MAX_WIDTH,r+=fullByte)
         switch( rbyte )
             {
             case    1:
-                dist += bit_distance[*r](curr);        
+                dist += bit_distance[*r](curr);
                 break;
             case    2:
-                dist += bit_distance[*r](curr)+bit_distance[*(r+1)](curr+8);        
+                dist += bit_distance[*r](curr)+bit_distance[*(r+1)](curr+8);
                 break;
             case    3:
                 dist += bit_distance[*r](curr)+bit_distance[*(r+1)](curr+8)+
-                        bit_distance[*(r+2)](curr+16);        
+                        bit_distance[*(r+2)](curr+16);
                 break;
             case    4:
                 dist += bit_distance[*r](curr)+bit_distance[*(r+1)](curr+8)+
-                        bit_distance[*(r+2)](curr+16)+bit_distance[*(r+3)](curr+24);        
+                        bit_distance[*(r+2)](curr+16)+bit_distance[*(r+3)](curr+24);
                 break;
             default:
                 for(currn=curr,rr=r,rn=r+rbyte;rr!=rn; rr++, currn+=8)
                     {
-                    dist += bit_distance[*rr](currn);    
+                    dist += bit_distance[*rr](currn);
                     }  // end rr
                 break;
             }
         }
-    }   // end currh 
+    }   // end currh
 
 return (dist);
 }
@@ -253,7 +253,7 @@ int lasty,lastx,lastx8;
 BYTE maskaStart,maskaHvost;
 BYTE *rr;
 
- // test 
+ // test
  // wei=(wl->weight)/3;  // better on sb0_037
   //bit_dist_level=wei;
   sign=&sig_tab[256]-wei;
@@ -274,9 +274,9 @@ BYTE *rr;
 
   if( starty < sty) r+=(sty-starty)*fullByte;
 
-  if(startx < stx)  
+  if(startx < stx)
   {
-   j=(stx-startx)>>3;  
+   j=(stx-startx)>>3;
    r+=j;
    startx+=j;
    maskaStart = 0xFF<<(8-stx+startx);
@@ -288,18 +288,18 @@ BYTE *rr;
 
   if( lastx < lastx8+8)
     maskaHvost=0xFF<<(lastx8+8-lastx);
-  else 
+  else
     maskaHvost=0xFF;
 
    // now - start inside frame
   for(; i < lasty;i++,curr +=WR_MAX_WIDTH,r+=fullByte)
   {
-        for(j=stx;j<startx;j++) 
+        for(j=stx;j<startx;j++)
             {
-            if(curr[j] > wei ) 
+            if(curr[j] > wei )
                 dist++;
             }
-        if(dist > porog ) 
+        if(dist > porog )
             return dist;
 
         rr=r;
@@ -307,10 +307,10 @@ BYTE *rr;
 
         for(j=startx;j<lastx8;j+=8)
         {
-            dist += bit_distance[cbyte](curr+j);   
+            dist += bit_distance[cbyte](curr+j);
             cbyte=~(*(++rr));
         }  // end j
-		if(dist > porog) 
+		if(dist > porog)
                 return dist;
 
 		//  ðåàëüíî ëèøíåå (>lastx) íå èñïîëüçóåòñÿ - maska!
@@ -318,19 +318,19 @@ BYTE *rr;
 		if(lastx8 < lastx)
 		{
          cbyte &= maskaHvost;
-		 dist += bit_distance[cbyte](curr+j);   
-			if(dist > porog) 
+		 dist += bit_distance[cbyte](curr+j);
+			if(dist > porog)
                 return dist;
-         j+=8; 
+         j+=8;
 		}
 
         // last points in row
-        for(;j<lastx;j++) 
+        for(;j<lastx;j++)
             {
-            if(curr[j] > wei ) 
+            if(curr[j] > wei )
                 dist++;
             }
-        if(dist > porog) 
+        if(dist > porog)
             return dist;
   }   // end i
 
@@ -368,18 +368,18 @@ int dist;
 
    for(cc=128;cc;cc>>=1,jj++)
    {
-    if( cbyte & cc ) 
+    if( cbyte & cc )
 	{
-		if( curr[jj] < dist1 ) 
+		if( curr[jj] < dist1 )
 			dist+=2;
-        else if( curr[jj] == dist1 )  
+        else if( curr[jj] == dist1 )
 			dist++;
 	}
    } // end cc
 
    if( dist > porog ) return dist;
   }  // end j
- }   // end i 
+ }   // end i
 
   return (dist);
 }
@@ -405,7 +405,7 @@ int lasty,lastx;
 BYTE initCC;
 BYTE *rr;
 
- // test 
+ // test
 //  wei=(wl->weight)/3;  // better on sb0_037
  // wei=wl->weight>>1;     // old version
 
@@ -425,9 +425,9 @@ BYTE *rr;
  lastx=MIN(startx+w,stx+ww);
  if( starty < sty) r+=(sty-starty)*fullByte;
 
- if(startx < stx)  
+ if(startx < stx)
  {initCC=128>>((stx-startx)&7);
-  r+=(stx-startx)>>3; 
+  r+=(stx-startx)>>3;
  }
  else initCC=128;   // from first bit
 
@@ -479,18 +479,18 @@ int w2,h2;
 
 		dist1 = wel->summa/wel->fill;
 
-		// not-weighted distance == 2 
+		// not-weighted distance == 2
 		//if(dist1 < 64 ) dist1 *=2;
 		// else dist1=127;
 
 		dist1 = -dist1;
-		
+
 
 		wei = 	wel->weight/3;	 //  /10
 		w2 = w + 1;
 		h2 = h + 1;
 
-//		wei = 	wel->weight/3;	
+//		wei = 	wel->weight/3;
 //		bufrazmaz = buf;
 //		w2 = w;
 //		h2 = h;
@@ -502,7 +502,7 @@ int w2,h2;
   {
 	dist1 = wel->summa/wel->fill;
 
-	// not-weighted distance == 2 
+	// not-weighted distance == 2
 	if(dist1 < 64 ) dist1 *=2;
 	else dist1=127;
 
@@ -516,7 +516,7 @@ int w2,h2;
 
 
   dist=DistToWelet(buf,(w+7)>>3,w,h,wel,x,y,bestdist-1,dist1);
-  if(dist >= bestdist) 
+  if(dist >= bestdist)
 	  return dist;
 
   if(countRazmaz <= 0)
@@ -554,11 +554,11 @@ int distWelet(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int porog,int countR
  if(best < porog) porog=best;
 
  if((south = distOne(buf,bufraz,w,h,porog,wl, 0, 1,countRazmaz)) < best )
-    best = south; 
+    best = south;
  if(best==0) return best;
  if(best < porog) porog=best;
  if((north = distOne(buf,bufraz,w,h,porog,wl, 0,-1,countRazmaz)) < best )
-   best = north; 
+   best = north;
  if(best==0) return best;
  if(best < porog) porog=best;
  if((east = distOne(buf,bufraz,w,h,porog,wl, 1, 0,countRazmaz)) < best )
@@ -566,7 +566,7 @@ int distWelet(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int porog,int countR
  if(best==0) return best;
  if(best < porog) porog=best;
  if((west = distOne(buf,bufraz,w,h,porog,wl,-1, 0,countRazmaz)) < best )
-    best = west; 
+    best = west;
 
  if(best==0) return best;
  if(best < porog) porog=best;
@@ -575,7 +575,7 @@ int distWelet(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int porog,int countR
 	 return best;
 
  // nothing good ?
- if( best >= initPorog) 
+ if( best >= initPorog)
 	 return best;
 
  center=best;  // to save old best for compare
@@ -584,7 +584,7 @@ int distWelet(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int porog,int countR
  {
   if((lbest = distOne(buf,bufraz,w,h,porog,wl,1,-1,countRazmaz)) < best )
   {
-    best = lbest; 
+    best = lbest;
 	if(best < porog) porog=best;
   }
  }
@@ -592,7 +592,7 @@ int distWelet(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int porog,int countR
  {
   if((lbest = distOne(buf,bufraz,w,h,porog,wl,1, 1,countRazmaz)) < best )
   {
-    best = lbest; 
+    best = lbest;
 	if(best < porog) porog=best;
   }
  }
@@ -600,14 +600,14 @@ int distWelet(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int porog,int countR
  {
   if((lbest = distOne(buf,bufraz,w,h,porog,wl,-1, 1,countRazmaz)) < best )
   {
-    best = lbest; 
+    best = lbest;
 	if(best < porog) porog=best;
   }
  }
  if( west == center || north == center)
  {
   if((lbest = distOne(buf,bufraz,w,h,porog,wl,-1,-1,countRazmaz)) < best )
-    best = lbest; 
+    best = lbest;
  }
 
  return best;
@@ -633,7 +633,7 @@ static int LookBestClusters(int w,int h,BYTE *buf,BYTE *bufrazmaz,
   if( !(wel->attr & FON_CLU_SOLID)  ) continue;
 
   // íå ðàñïîçíàâàòü ñåáÿ ?
-  if( wel->weight == 1 &&  
+  if( wel->weight == 1 &&
 	  (wel->nInCTB ==nInCTB ||
 	   //wel->sr_col == col && wel->sr_row==row
 	   abs(col-wel->sr_col)<=1 && abs(row-wel->sr_row)<=1
@@ -649,37 +649,37 @@ static int LookBestClusters(int w,int h,BYTE *buf,BYTE *bufrazmaz,
   // check for height likeness
   j=abs(wel->mh-h);
 
-  if( strchr(Palki,wel->let) || 
+  if( strchr(Palki,wel->let) ||
 	  wel->let == liga_i ||
 	  (language == LANG_TURKISH &&  // 30.05.2002 E.P.
-		(wel->let==i_sans_accent||wel->let==II_dot_accent) 
+		(wel->let==i_sans_accent||wel->let==II_dot_accent)
 	  )
 	)
   {
-	 if(  j*5 >  MIN(h,wel->mh)  ) 
-	   continue; 
+	 if(  j*5 >  MIN(h,wel->mh)  )
+	   continue;
   }
   else
   {
-   if( j > 2 && j*4 >  MAX(h,wel->mh)  ) 
-	   continue; 
+   if( j > 2 && j*4 >  MAX(h,wel->mh)  )
+	   continue;
   }
 
   j=abs(wel->mw-w);
   if( j > 3 && j*3 >= MAX(w,wel->mw) ) continue;
-  
+
   dist=distWelet(buf,bufrazmaz,w,h,wel,porog+1,countRazmaz);
 
-  if(dist <= porog) 
+  if(dist <= porog)
   { num=AddVersion( recres,(BYTE)wel->let,(BYTE)(255-dist),i,
                     num,maxNames);
-    if(num>=maxNames) 
+    if(num>=maxNames)
 	 {porog=255-recres[maxNames-1].prob-1;
 	  if(porog < 0) break;
 	 }
 //	if(dist==0) break;
   }
-  
+
  }
 
  for(i=0;i<num;i++)
@@ -700,24 +700,24 @@ static int LookBestClusters(int w,int h,BYTE *buf,BYTE *bufrazmaz,
 
 int AddTestAlt(Word8 prob,int numAlt,FonTestInfo *attr,
 			   welet *wel,int nClust)
-{ 
+{
     Word8 flg =CTB_PRINT_FONT;
 	int j,k;
 
-	if(wel->attr & FON_CLU_ITALIC) 
+	if(wel->attr & FON_CLU_ITALIC)
 	   flg|=CTB_PRINT_ITALIC;
-	if(wel->attr & FON_CLU_BOLD) 
+	if(wel->attr & FON_CLU_BOLD)
 	   flg|=CTB_PRINT_BOLD;
-    if(wel->attr & FON_CLU_SERIF) 
+    if(wel->attr & FON_CLU_SERIF)
 	   flg|=CTB_PRINT_SERIFIC;
-	if(wel->attr & FON_CLU_GELV) 
+	if(wel->attr & FON_CLU_GELV)
 	   flg|=CTB_PRINT_GELV;
-	if(wel->attr & FON_CLU_NARROW) 
+	if(wel->attr & FON_CLU_NARROW)
 	   flg|=CTB_PRINT_NARROW;
-	
-    for(j=0;j<numAlt;j++ ) 
-	 { 
-	   if( attr[j].flag == flg	) 
+
+    for(j=0;j<numAlt;j++ )
+	 {
+	   if( attr[j].flag == flg	)
 	   {
         if( attr[j].prob < prob )
 		{
@@ -730,13 +730,13 @@ int AddTestAlt(Word8 prob,int numAlt,FonTestInfo *attr,
 	   if(prob > attr[j].prob) break;
 	 }
 
-   if( j >= MAXCHECKALT ) 
+   if( j >= MAXCHECKALT )
 	   return numAlt;
 
 	  // was such attr ?
-   for(k=j+1;k<numAlt;k++ ) 
-   { 
-      if( attr[k].flag == flg ) 
+   for(k=j+1;k<numAlt;k++ )
+   {
+      if( attr[k].flag == flg )
 		  break;
    }
    if(k==MAXCHECKALT )
@@ -746,7 +746,7 @@ int AddTestAlt(Word8 prob,int numAlt,FonTestInfo *attr,
 
    if( j < k )
     memmove(attr+j+1,attr+j,sizeof(FonTestInfo)*(k-j));
-    
+
    attr[j].prob   = prob;
    attr[j].flag   = flg;
    attr[j].kegl   = wel->kegl;
@@ -762,7 +762,7 @@ static SINT CheckLetter(SINT w,SINT h,BYTE *buf,BYTE *bufrazmaz,
  int num=0,i;
  int numAlt=0;
  welet *wel;
- 
+
  if( let<0 || let > 255)
 	 return -1;
 
@@ -780,12 +780,12 @@ static SINT CheckLetter(SINT w,SINT h,BYTE *buf,BYTE *bufrazmaz,
   num++;
   dist=distWelet(buf,bufrazmaz,w,h,wel,porog+1,1);
 
-  if(dist <= porog) 
+  if(dist <= porog)
   {
-   Word8 prob=MAX(0,255-STRAFPOINT*dist);  
+   Word8 prob=MAX(0,255-STRAFPOINT*dist);
    numAlt = AddTestAlt( prob,numAlt,attr,wel,i);
   }
-  
+
  }
 
  if(num <= 0) return -1;   // no such letter
@@ -807,7 +807,7 @@ SINT RecogClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
  int rbyte=(xbit+7)>>3;
  BYTE *b1;
  BYTE hvost=mask0[xbit&7];
- 
+
 
  if(wl==NULL || numWel <= 0) return 0;
  if(xbyte*yrow > REC_MAX_RASTER_SIZE) yrow=REC_MAX_RASTER_SIZE/xbyte;
@@ -823,19 +823,19 @@ SINT RecogClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
   RazmazHalf(buf,bufrazmaz,xbit,yrow);
  else
 #endif
-  Razmaz2(buf,bufrazmaz,xbit,yrow, 0,POROG_ANGLES); 
+  Razmaz2(buf,bufrazmaz,xbit,yrow, 0,POROG_ANGLES);
 
-  if(porog < 0) 
+  if(porog < 0)
 	  porog=MIN(50,xbit+yrow+4);
 
-  if(maxNames > MAX_ALT ) 
+  if(maxNames > MAX_ALT )
       maxNames=MAX_ALT;
 
   i=LookBestClusters(xbit,yrow,buf,bufrazmaz,
 		      numWel,porog,wl,recres, maxNames,nInCTB,col,row,countRazmaz);
 
 #ifdef CHECK_EQUAL
-  if( i > 1 && 
+  if( i > 1 &&
 	  recres[0].prob - 3 <= recres[1].prob )
   {
    int CheckRaster(PBYTE r,WORD fullBytes,WORD w,WORD h,
@@ -848,12 +848,12 @@ SINT RecogClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
       RECRESULT tmpRec=recres[0];
 	  recres[0]=recres[1];
       recres[1]=tmpRec;
- 
+
    }
 
-   if(prob1 != prob0 ) 
+   if(prob1 != prob0 )
    { int j=1;
-     for(;j<i;j++) 
+     for(;j<i;j++)
 		  recres[j].prob--;
    }
   }
@@ -868,7 +868,7 @@ SINT RecogClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
   }
 #endif
 
-  return i; 
+  return i;
 }
 ///////////////////////////
 SINT CheckClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
@@ -880,7 +880,7 @@ SINT CheckClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
  int porog;
  BYTE hvost=mask0[xbit&7];
 
- if( fbase==NULL || fbase->inBase <= 0) 
+ if( fbase==NULL || fbase->inBase <= 0)
 	 return -1;
  if(xbyte*yrow > REC_MAX_RASTER_SIZE) yrow=REC_MAX_RASTER_SIZE/xbyte;
 
@@ -899,12 +899,12 @@ SINT CheckClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
   Razmaz2(buf,bufrazmaz,xbit,yrow,
     0,(SINT)POROG_ANGLES );
 
-  //porog=MAX(xbit,yrow);   
+  //porog=MAX(xbit,yrow);
   porog=MIN(50,xbit+yrow);
 
   i=CheckLetter(xbit,yrow,buf,bufrazmaz,
 		        fbase, porog, let, attr,nInCTB);
-  return i; 
+  return i;
 }
 ///////////////////////////
 int CompareCluster(BYTE *rast,int xbyte,int xbit,int yrow,welet *wel,
@@ -930,10 +930,10 @@ int CompareCluster(BYTE *rast,int xbyte,int xbit,int yrow,welet *wel,
  else
 #endif
   Razmaz2(buf,bufrazmaz,(SINT)xbit,(SINT)yrow,
-   (SINT)0,(SINT)POROG_ANGLES); 
+   (SINT)0,(SINT)POROG_ANGLES);
 
   i=distOne(buf,bufrazmaz,xbit,yrow,85,wel,movex,movey,1);
-  return MAX(0,255-STRAFPOINT*i); 
+  return MAX(0,255-STRAFPOINT*i);
 }
 ///////////////////////////
 #ifdef _TEST_ADD_FAT_
@@ -964,9 +964,9 @@ int dist;
 
    for(cc=128;cc;cc>>=1,jj++)
    {
-    if( cbyte & cc ) 
+    if( cbyte & cc )
 	{
-		if( curr[jj] < 0 ) 
+		if( curr[jj] < 0 )
 			dist+=2;
 	}
 	else
@@ -975,14 +975,14 @@ int dist;
 
    if( dist > porog ) return dist;
   }  // end j
- }   // end i 
+ }   // end i
 
   return (dist);
 }
 
 ///////////////////////
 static int AddTestRecogCollection( BYTE *rast,int xbit,int yrow,
-                int num,RECRESULT *recres, 
+                int num,RECRESULT *recres,
                 welet *wl,int numWel )
 {
  int rbyte=(xbit+7)>>3;
@@ -998,7 +998,7 @@ static int AddTestRecogCollection( BYTE *rast,int xbit,int yrow,
 
 	if(recres[1].prob < recres[0].prob)
 		return num;
-    
+
 	for(iSame=0,best=0;iSame<num;iSame++)
 	{
 		if(iSame >= 16)
@@ -1039,7 +1039,7 @@ static int AddTestRecogCollection( BYTE *rast,int xbit,int yrow,
 			i++;
 		// else - new recres[i]
 	}
-    
+
 	for(i=iSame;i<num;i++)
 		recres[i].prob=MIN(recres[i].prob,recres[iSame-1].prob-1);
 
@@ -1052,8 +1052,8 @@ static int AddTestRecogCollection( BYTE *rast,int xbit,int yrow,
 /////////////////
 //
 // íå øòðàôîâàòü òî÷êè íà ðàññòîÿíèè <= bound
-// 
-#define STRAF_NOTFAR 2	
+//
+#define STRAF_NOTFAR 2
 #define STRAF_FAR    4
 #define STRAF_CLUFAR 1
 
@@ -1071,7 +1071,7 @@ int dist;
  dist1*=bound;
  if( dist1 > 127) dist1=127;
 
- // not-weighted distance 
+ // not-weighted distance
  if(dist1 < 64 ) dist2 =dist1*2;
  else dist2=127;
 
@@ -1093,19 +1093,19 @@ int dist;
 
    for(cc=128;cc;cc>>=1,jj++)
    {
-    if( cbyte & cc ) 
+    if( cbyte & cc )
 	{
-		if( curr[jj] < dist2 ) 
+		if( curr[jj] < dist2 )
 			dist+=STRAF_FAR;
-        else if( curr[jj] < dist1 )  
+        else if( curr[jj] < dist1 )
 			dist+=STRAF_NOTFAR;
 	}
    } // end cc
 
-   if( dist > porog ) 
+   if( dist > porog )
 	   return dist;
   }  // end j
- }   // end i 
+ }   // end i
 
   return (dist);
 }
@@ -1133,7 +1133,7 @@ int lasty,lastx;
 BYTE initCC;
 BYTE *rr;
 
-  wei= wl->weight;  
+  wei= wl->weight;
   wei=(wei*proc)/100;
 
 
@@ -1153,9 +1153,9 @@ BYTE *rr;
  lastx=MIN(startx+w,stx+ww);
  if( starty < sty) r+=(sty-starty)*rbyte;
 
- if(startx < stx)  
+ if(startx < stx)
  {initCC=128>>((stx-startx)&7);
-  r+=(stx-startx)>>3; 
+  r+=(stx-startx)>>3;
  }
  else initCC=128;   // from first bit
 
@@ -1222,11 +1222,11 @@ static int distWeletOkr(BYTE *buf,BYTE *razmaz,int w,int h,welet * wl,int porog,
  if(best < porog) porog=best;
 
  if((south = distOneOkr(buf,razmaz,w,h,porog,wl, 0, 1,okr,proc)) < best )
-    best = south; 
+    best = south;
  if(best==0) return best;
  if(best < porog) porog=best;
  if((north = distOneOkr(buf,razmaz,w,h,porog,wl, 0,-1,okr,proc)) < best )
-   best = north; 
+   best = north;
  if(best==0) return best;
  if(best < porog) porog=best;
  if((east = distOneOkr(buf,razmaz,w,h,porog,wl, 1, 0,okr,proc)) < best )
@@ -1234,7 +1234,7 @@ static int distWeletOkr(BYTE *buf,BYTE *razmaz,int w,int h,welet * wl,int porog,
  if(best==0) return best;
  if(best < porog) porog=best;
  if((west = distOneOkr(buf,razmaz,w,h,porog,wl,-1, 0,okr,proc)) < best )
-    best = west; 
+    best = west;
 
  if(best==0) return best;
  if(best < porog) porog=best;
@@ -1243,7 +1243,7 @@ static int distWeletOkr(BYTE *buf,BYTE *razmaz,int w,int h,welet * wl,int porog,
 //	 return best;
 
  // nothing good ?
- if( best >= initPorog) 
+ if( best >= initPorog)
  {
 	 north=south=east=west=best;
 //	 return best;
@@ -1268,7 +1268,7 @@ static int distWeletOkr(BYTE *buf,BYTE *razmaz,int w,int h,welet * wl,int porog,
  {
   if((lbest = distOneOkr(buf,razmaz,w,h,porog,wl,1, 1,okr,proc)) < best )
   {
-    best = lbest; 
+    best = lbest;
 	if(best < porog) porog=best;
 	ne=0;
 	es=1;
@@ -1278,7 +1278,7 @@ static int distWeletOkr(BYTE *buf,BYTE *razmaz,int w,int h,welet * wl,int porog,
  {
   if((lbest = distOneOkr(buf,razmaz,w,h,porog,wl,-1, 1,okr,proc)) < best )
   {
-    best = lbest; 
+    best = lbest;
 	if(best < porog) porog=best;
 	ne=es=0;
 	sw=1;
@@ -1288,7 +1288,7 @@ static int distWeletOkr(BYTE *buf,BYTE *razmaz,int w,int h,welet * wl,int porog,
  {
   if((lbest = distOneOkr(buf,razmaz,w,h,porog,wl,-1,-1,okr,proc)) < best )
   {
-    best = lbest; 
+    best = lbest;
 	wn=1;
 	ne=es=sw=0;
   }
@@ -1304,9 +1304,9 @@ static int distWeletOkr(BYTE *buf,BYTE *razmaz,int w,int h,welet * wl,int porog,
   else if( north == best ) movY=-2;
   else if( east == best ) movX=2;
   else if( west == best ) movX=-2;
- 
+
   if((lbest = distOneOkr(buf,razmaz,w,h,porog,wl,movX,movY,okr,proc)) < best )
-    best = lbest; 
+    best = lbest;
  }
  return best;
 }
@@ -1331,7 +1331,7 @@ static int LookBestOkr(int w,int h,BYTE *buf,BYTE *razmaz,
   if( !(wel->attr & FON_CLU_SOLID)  ) continue;
 
   // íå ðàñïîçíàâàòü ñåáÿ ?
-  if( wel->weight == 1 &&  
+  if( wel->weight == 1 &&
 	  (wel->nInCTB ==nInCTB ||
 	   //wel->sr_col == col && wel->sr_row==row
 	   abs(col-wel->sr_col)<=1 && abs(row-wel->sr_row)<=1
@@ -1346,25 +1346,25 @@ static int LookBestOkr(int w,int h,BYTE *buf,BYTE *razmaz,
 
   // check for height likeness
   j=abs(wel->mh-h);
-  if( j > 2 && j*3 >  MAX(h,wel->mh)  ) 
-	   continue; 
+  if( j > 2 && j*3 >  MAX(h,wel->mh)  )
+	   continue;
 
   j=abs(wel->mw-w);
-  if( j > 3 && j*3 >= MAX(w,wel->mw) ) 
+  if( j > 3 && j*3 >= MAX(w,wel->mw) )
 	  continue;
-  
+
   dist=distWeletOkr(buf,razmaz,w,h,wel,porog+1,okr,proc);
 
-  if(dist <= porog) 
+  if(dist <= porog)
   { num=AddVersion( recres,(BYTE)wel->let,(BYTE)(255-dist),i,
                     num,maxNames);
-    if(num>=maxNames) 
+    if(num>=maxNames)
 	 {porog=255-recres[maxNames-1].prob-1;
 	  if(porog < 0) break;
 	 }
 //	if(dist==0) break;
   }
-  
+
  }
 
  return num;
@@ -1381,7 +1381,7 @@ int RecogCluOkr(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
  int rbyte=(xbit+7)>>3;
  BYTE *b1;
  BYTE hvost=mask0[xbit&7];
- 
+
 
  if(wl==NULL || numWel <= 0) return 0;
  if(xbyte*yrow > REC_MAX_RASTER_SIZE) yrow=REC_MAX_RASTER_SIZE/xbyte;
@@ -1392,17 +1392,17 @@ int RecogCluOkr(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
 	 b1[rbyte-1]&=hvost;
  }
 
-  Razmaz2(buf,bufrazmaz,xbit,yrow,0,POROG_ANGLES); 
+  Razmaz2(buf,bufrazmaz,xbit,yrow,0,POROG_ANGLES);
 
-  //porog=MAX(xbit,yrow);   
+  //porog=MAX(xbit,yrow);
   if(porog < 0) porog= 200;
 
-  if(maxNames > MAX_ALT ) 
+  if(maxNames > MAX_ALT )
               maxNames=MAX_ALT;
   i=LookBestOkr(xbit,yrow,buf,bufrazmaz,
 		      numWel,porog,wl,recres, maxNames,nInCTB,col,row,okr,proc);
 
-  return i; 
+  return i;
 }
 ///////////////////////////
 int CompareClusterOkr(BYTE *rast,int xbyte,int xbit,int yrow,welet *wel,
@@ -1422,12 +1422,12 @@ int CompareClusterOkr(BYTE *rast,int xbyte,int xbit,int yrow,welet *wel,
  {memcpy(b1,rast,rbyte);
   b1[rbyte-1]&=hvost;
  }
- Razmaz2(buf,bufrazmaz,(SINT)xbit,(SINT)yrow,0,POROG_ANGLES); 
+ Razmaz2(buf,bufrazmaz,(SINT)xbit,(SINT)yrow,0,POROG_ANGLES);
 
  i=distOneOkr(buf,bufrazmaz,xbit,yrow,250,wel,movex,movey,okr,proc);
  *dist1=distOkr1(buf,xbit,yrow,wel,movex,movey,250,okr);
  *dist2 =distOkr2(bufrazmaz,xbit+2,yrow+2,wel,movex,movey,250,proc);
- return 255-i; 
+ return 255-i;
 }
 ///////////////////////////
 // ñêîëüêî òî÷åê âûëàçèò
@@ -1455,17 +1455,17 @@ int dist;
 
    for(cc=128;cc;cc>>=1,jj++)
    {
-    if( cbyte & cc ) 
+    if( cbyte & cc )
 	{
-		if( curr[jj] < 0 ) 
+		if( curr[jj] < 0 )
 			dist++;
 	}
    } // end cc
 
-   if( dist > porog ) 
+   if( dist > porog )
 	   return dist;
   }  // end j
- }   // end i 
+ }   // end i
 
   return (dist);
 }
@@ -1517,7 +1517,7 @@ static int LookBestInner(int w,int h,BYTE *buf,BYTE *razmaz,
    for(x=-1;x<=1;x++,k++)
    {
     dist=(int)(distOkr(buf,w,h,wel,x,y,(int)(porog*KOEFF))/KOEFF);
-    if(dist >= porog) 
+    if(dist >= porog)
 	  continue;
     j = distOkr2(razmaz,w+2,h+2,wel,x,y,porog-dist,30);
 	dist += j;
@@ -1535,8 +1535,8 @@ static int LookBestInner(int w,int h,BYTE *buf,BYTE *razmaz,
    }
   }
 
-  if( porog == 0 ) 
-	   goto addvers; 
+  if( porog == 0 )
+	   goto addvers;
 
   switch(best)
   {
@@ -1601,8 +1601,8 @@ static int LookBestInner(int w,int h,BYTE *buf,BYTE *razmaz,
 	   stepy = 1;
        lastx = 5;
 	   lasty = 5;
-	   break; 
-   default:	   
+	   break;
+   default:
 	   continue;
   }
 #else
@@ -1619,7 +1619,7 @@ static int LookBestInner(int w,int h,BYTE *buf,BYTE *razmaz,
    for(y=starty;y!=lasty;y+=stepy)
    {
     dist=(int)(distOkr(buf,w,h,wel,x,y,(int)(porog*KOEFF))/KOEFF);
-    if(dist >= porog) 
+    if(dist >= porog)
 	  continue;
     j = distOkr2(razmaz,w+2,h+2,wel,x,y,porog-dist,30);
 	dist += j;
@@ -1631,7 +1631,7 @@ static int LookBestInner(int w,int h,BYTE *buf,BYTE *razmaz,
 		if( porog == 0 ) break;
 	}
    }
-   if( porog == 0 ) 
+   if( porog == 0 )
 	   break;
   } //  end x
 
@@ -1648,7 +1648,7 @@ addvers:
   num=AddVersion( recres,(BYTE)wel->let,(BYTE)(255-porog),i,
                     num,maxNames);
 
-  
+
  }
 
  return num;
@@ -1667,17 +1667,17 @@ int RecogCluInner(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
  BYTE *b1;
  BYTE hvost=mask0[xbit&7];
  Bool32 needCopy=TRUE;
- 
 
- if(wl==NULL || numWel <= 0) 
+
+ if(wl==NULL || numWel <= 0)
 	 return 0;
  if( xbit <= 0 || yrow <= 0 )
 	 return 0;
 
- if(xbyte*yrow > REC_MAX_RASTER_SIZE) 
+ if(xbyte*yrow > REC_MAX_RASTER_SIZE)
 	 yrow=REC_MAX_RASTER_SIZE/xbyte;
 
-#ifdef _NEED_SCALE_ 
+#ifdef _NEED_SCALE_
  // need scale ?
  if( *col > 0 || *row > 0 )
  {
@@ -1690,7 +1690,7 @@ int RecogCluInner(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
 		return 0;
 
 // our symbol inside full frame must be STANDARD_HEIGHT
-// STANDARD_WIDTH - don't use 
+// STANDARD_WIDTH - don't use
 	newX = (xbit*STANDARD_HEIGHT)/newY;
 	newY = (yrow*STANDARD_HEIGHT)/newY;
 
@@ -1719,14 +1719,14 @@ int RecogCluInner(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
   }
  }
 
-  Razmaz2(buf,bufrazmaz,xbit,yrow,0,POROG_ANGLES); 
+  Razmaz2(buf,bufrazmaz,xbit,yrow,0,POROG_ANGLES);
 
-  if(maxNames > MAX_ALT ) 
+  if(maxNames > MAX_ALT )
               maxNames=MAX_ALT;
   i=LookBestInner(xbit,yrow,buf,bufrazmaz,
 		      numWel,wl,recres, maxNames,nInCTB,col,row);
 
-  return i; 
+  return i;
 }
 ///////////////////////////
 static BYTE *tmpBufScale=NULL;
@@ -1757,7 +1757,7 @@ static int ScaleSymbol(BYTE *inbuf,int fullByte,int allSizeX, int allSizeY,BYTE 
 
 	xbyte=(newX+7)>>3;
 
-    if(xbyte*newY > REC_MAX_RASTER_SIZE) 
+    if(xbyte*newY > REC_MAX_RASTER_SIZE)
 	    newY=REC_MAX_RASTER_SIZE/xbyte;
 
 	allSize = allSizeX*newX*allSizeY*newY;

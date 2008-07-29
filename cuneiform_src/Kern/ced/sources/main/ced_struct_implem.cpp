@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -203,7 +203,7 @@ CEDSection * CEDPage::DeleteSection(Bool32 _deleteSubItems)
 		for(CEDSection * sect=curSect->next;sect;sect=sect->next)
 			sect->internalNumber--;
 */
-		
+
 CEDSection * CEDPage::SetCurSection(CEDSection* _sect)
 {
 	return curSect=_sect;
@@ -271,7 +271,7 @@ CEDChar * CEDPage::GetChar(int _num)
 	for (ss=qq?qq->chars:0;ss&&num!=_num;ss=ss->next)
 		num++;
 	return ss;
-}	
+}
 
 Bool32	CEDPage::GoToNextSection()
 {
@@ -312,7 +312,7 @@ Bool32	CEDPage::GoToNextParagraph(Bool32 NonFictiveOnly)
 	else
 		return FALSE;
 }
-	
+
 Bool32	CEDPage::GoToNextLine()
 {
 	CEDLine * aa;
@@ -328,7 +328,7 @@ Bool32	CEDPage::GoToNextLine()
 	}
 	else
 		return FALSE;
-}	
+}
 
 Bool32	CEDPage::GoToNextChar()
 {
@@ -347,7 +347,7 @@ Bool32	CEDPage::GoToNextChar()
 	}
 	else
 		return FALSE;
-}	
+}
 
 int	CEDPage::GetNumberOfSections()
 {
@@ -503,7 +503,7 @@ CEDParagraph * CEDSection::CreateColumn()
 {
 	if(!columnsBeg)
 	{
-//		if (framesEnd) 
+//		if (framesEnd)
 //			SetCurParagraph(framesEnd);
 		//start column
 		CEDParagraph * para =InsertParagraph();
@@ -534,7 +534,7 @@ CEDParagraph * CEDSection::CreateColumn()
 	numberOfColumns++;
 	return	curPara;
 }
-	
+
 CEDParagraph * CEDSection::GetColumn( int _num)
 {
 	if (_num>numberOfColumns)
@@ -558,7 +558,7 @@ CEDParagraph * CEDSection::GetColumn( int _num)
 */
 CEDParagraph * CEDSection::CreateFrame(CEDParagraph* hObject, edBox rect, char position, int borderSpace, int dxfrtextx, int dxfrtexty)
 {
-	if (hObject->type!=COLUMN_BEGIN) 
+	if (hObject->type!=COLUMN_BEGIN)
 	{
 #ifdef _DEBUG
 		MessageBox(0,"Attempt of frame creation outside of table","CED error",MB_OK);
@@ -584,7 +584,7 @@ CEDParagraph * CEDSection::CreateFrame(CEDParagraph* hObject, edBox rect, char p
 		else
 			return 0;
 	}
-//		if (columnsEnd) 
+//		if (columnsEnd)
 //			SetCurParagraph(columnsEnd);
 		//start frame
 		CEDParagraph * para =InsertParagraph();
@@ -621,7 +621,7 @@ CEDParagraph * CEDSection::CreateFrame(CEDParagraph* hObject, edBox rect, char p
 
 CEDParagraph * CEDSection::CreateTable(CEDParagraph * hObject)
 {
-	if (hObject->type==TAB_BEGIN||hObject->type==TAB_CELL_BEGIN) 
+	if (hObject->type==TAB_BEGIN||hObject->type==TAB_CELL_BEGIN)
 	{
 #ifdef _DEBUG
 		MessageBox(0,"Attempt of table creation in a table","CED error",MB_OK);
@@ -679,15 +679,15 @@ CEDParagraph * CEDSection::CreateTable(CEDParagraph * hObject)
 	SetCurParagraph(para);
 	return	curPara;
 }
-CEDParagraph * CEDSection::CreateTableRow(CEDParagraph * hTable, 
-		int left, int rowHeight, 
-		int leftBrdrType, int leftBrdrWidth, 
-		int rightBrdrType, int rightBrdrWidth, 
-		int topBrdrType, int topBrdrWidth, 
-		int bottomBrdrType, int bottomBrdrWidth, 
+CEDParagraph * CEDSection::CreateTableRow(CEDParagraph * hTable,
+		int left, int rowHeight,
+		int leftBrdrType, int leftBrdrWidth,
+		int rightBrdrType, int rightBrdrWidth,
+		int topBrdrType, int topBrdrWidth,
+		int bottomBrdrType, int bottomBrdrWidth,
 		int gaph, int position, Bool32 header)
 {
-	if (hTable->type!=TAB_BEGIN) 
+	if (hTable->type!=TAB_BEGIN)
 	{
 #ifdef _DEBUG
 		MessageBox(0,"Attempt to create table row outside of table","CED error",MB_OK);
@@ -747,7 +747,7 @@ CEDParagraph * CEDSection::CreateTableRow(CEDParagraph * hTable,
 	return para;
 }
 /*
-CEDParagraph * CEDSection::ReCreateTable(CEDParagraph * hTable,EDSIZE sz, int * cx,int * cy, int * table, 
+CEDParagraph * CEDSection::ReCreateTable(CEDParagraph * hTable,EDSIZE sz, int * cx,int * cy, int * table,
 				   Bool32 * bHorShow,Bool32 * bVerShow)
 {
 
@@ -773,15 +773,15 @@ CEDParagraph * CEDSection::ReCreateTable(CEDParagraph * hTable,EDSIZE sz, int * 
 }
 */
 
-CEDParagraph * CEDSection::CreateCell(CEDParagraph* hRow, 
-			int cellX, int merging, int vertTextAlign, 
-			int leftBrdrType, int leftBrdrWidth, 
-			int rightBrdrType, int rightBrdrWidth, 
-			int topBrdrType, int topBrdrWidth, 
-			int bottomBrdrType, int bottomBrdrWidth, 
+CEDParagraph * CEDSection::CreateCell(CEDParagraph* hRow,
+			int cellX, int merging, int vertTextAlign,
+			int leftBrdrType, int leftBrdrWidth,
+			int rightBrdrType, int rightBrdrWidth,
+			int topBrdrType, int topBrdrWidth,
+			int bottomBrdrType, int bottomBrdrWidth,
 			EDBOX layout, int shading, int color)
 {
-	if (hRow->type!=TAB_ROW_BEGIN) 
+	if (hRow->type!=TAB_ROW_BEGIN)
 	{
 #ifdef _DEBUG
 		MessageBox(0,"Attempt to create cell of table outside of table's row","CED error",MB_OK);
@@ -820,11 +820,11 @@ CEDParagraph * CEDSection::CreateCell(CEDParagraph* hRow,
 	return para;
 }
 
-CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject,int align, EDRECT indent, int UserNum,int FlagBorder,EDSIZE interval, edBox layout, int  color, int  shading, 
-						   int spaceBetweenLines, char spcBtwLnsMult, 
+CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject,int align, EDRECT indent, int UserNum,int FlagBorder,EDSIZE interval, edBox layout, int  color, int  shading,
+						   int spaceBetweenLines, char spcBtwLnsMult,
 						   char  keep)
 {
-	if (hObject->type!=TAB_CELL_BEGIN&&hObject->type!=FRAME_BEGIN&&hObject->type!=COLUMN_BEGIN) 
+	if (hObject->type!=TAB_CELL_BEGIN&&hObject->type!=FRAME_BEGIN&&hObject->type!=COLUMN_BEGIN)
 	{
 #ifdef _DEBUG
 		MessageBox(0,"Attempt to create paragraph in table's row or in table or in ordinary paragraph\n(not in column or frame or table's cell","CED error",MB_OK);
@@ -925,7 +925,7 @@ CEDParagraph * CEDSection::InsertParagraph(Bool32 AfterCurrent)
 	curPara=para;
 	return para;
 }
-		
+
 CEDParagraph * CEDSection::SetCurParagraph(CEDParagraph* _para)
 {
 	curPara=_para;
@@ -1065,7 +1065,7 @@ CEDLine * CEDParagraph::InsertLine()
 	curLine=line;
 	return line;
 }
-		
+
 void CEDParagraph::SetCurLine(CEDLine* _line)
 {
 	curLine=_line;
@@ -1177,7 +1177,7 @@ int comp( const void *arg1, const void *arg2 )
 {
 		return ((quant*)arg1)->x-((quant*)arg2)->x;
 }
-void CEDParagraph::CreateTableOfCells()	
+void CEDParagraph::CreateTableOfCells()
 {
 	int numOfC=0;
 	int cx,cy;
@@ -1300,11 +1300,11 @@ void CEDParagraph::CreateTableOfCells()
 	delete[] x;
 	return;
 }
-	
+
 CEDParagraph* CEDParagraph::GetLogicalCell(int number)
 {
-	int cx=((EDTABDESCR*)descriptor)->size.cx; 
-	int cy=((EDTABDESCR*)descriptor)->size.cy; 
+	int cx=((EDTABDESCR*)descriptor)->size.cx;
+	int cy=((EDTABDESCR*)descriptor)->size.cy;
 	int* table=((EDTABDESCR*)descriptor)->table;
 	int i;
 	for(i=0;i<cx*cy;i++)
@@ -1332,8 +1332,8 @@ CEDParagraph* CEDParagraph::GetLogicalCell(int number)
 int CEDParagraph::GetCountLogicalCell()
 {
 	int i=0;
-	int cx=((EDTABDESCR*)descriptor)->size.cx; 
-	int cy=((EDTABDESCR*)descriptor)->size.cy; 
+	int cx=((EDTABDESCR*)descriptor)->size.cx;
+	int cy=((EDTABDESCR*)descriptor)->size.cy;
 	int* table=((EDTABDESCR*)descriptor)->table;
 	for (int q=0;q<cx*cy;q++)
 		if(i<table[q])
@@ -1429,7 +1429,7 @@ CEDChar * CEDLine::InsertChar()
 	curChar=chr;
 	return chr;
 }
-		
+
 void CEDLine::SetCurChar(CEDChar* _char)
 {
 	curChar=_char;

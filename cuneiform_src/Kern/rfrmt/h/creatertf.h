@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // Written by Shahverdiev  Alik
 // This file cration date: 12.08.99
 //
-// CreateRtf.h 
+// CreateRtf.h
 //
 // ============================================================================
 
@@ -78,13 +78,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //Fragment types
 #define FT_TEXT               0
-#define FT_FRAME              1  
+#define FT_FRAME              1
 #define FT_TABLE              2
 #define FT_PICTURE            3
 
 //HorizontalColumn types
 #define HC_SingleTerminal     0
-#define HC_AllTerminal        1  
+#define HC_AllTerminal        1
 #define HC_FrameAndColumn     2
 #define HC_AllFrame           3
 #define HC_ONLY_PICTURE_TABLE 4
@@ -92,7 +92,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define MaxFontSize           72
 #define DefFontSize           24
 #define MAX_BUFFER_SIZE       2048
-#define ChangedKeglSize       6  
+#define ChangedKeglSize       6
 
 //       wFont bits
 #define TG_EDW_SERIF          1      //ñåðèô.
@@ -102,23 +102,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define TG_EDW_UNDERLINE      64
 #define TG_EDW_NARROW         128     // user defined
 
-#define NOBOLD                0x0004           
-#define NOCURSIV              0x0008           
-#define NOSIZE                0x0020           
+#define NOBOLD                0x0004
+#define NOCURSIV              0x0008
+#define NOSIZE                0x0020
 
 // Formatting Mode
 #define USE_NONE              0x0040   // no formatting
 #define USE_FRAME_AND_COLUMN  0x0001   // use columns & frames
-#define USE_FRAME             0x0002   // use only frames  
+#define USE_FRAME             0x0002   // use only frames
 
-// Size A4 
+// Size A4
 #define DefaultWidthPage      11906
 #define DefaultHeightPage     16838
 
-#define DefMargL              1800 // Left   margin in twips    (the default is 1800). 
-#define DefMargR              1800 // Right  margin in twips    (the default is 1800). 
-#define DefMargT              1440 // Top    margin in twips    (the default is 1440). 
-#define DefMargB              1440 // Bottom margin in twips    (the default is 1440). 
+#define DefMargL              1800 // Left   margin in twips    (the default is 1800).
+#define DefMargR              1800 // Right  margin in twips    (the default is 1800).
+#define DefMargT              1440 // Top    margin in twips    (the default is 1440).
+#define DefMargB              1440 // Bottom margin in twips    (the default is 1440).
 
 #define RTF_TP_LEFT_ALLIGN           0 //- âûðàâíèâàåíèå ïî ëåâîìó êðàþ
 #define	RTF_TP_RIGHT_ALLIGN          1 //- âûðàâíèâàíèå ïî ïðàâîìó êðàþ
@@ -145,7 +145,7 @@ struct RtfPageElementCount
  WORD  RtfTableFragments;
  WORD  RtfStrings;
  WORD  RtfWords;
- WORD  RtfChars; 
+ WORD  RtfChars;
 };
 
 typedef struct tagKEGL {
@@ -155,8 +155,8 @@ typedef struct tagKEGL {
 } KEGL;
 
 #define FONT struct h_font
-FONT { char *family; 
-       char *name;   
+FONT { char *family;
+       char *name;
        Int16 Bold,Italic,Underline;
      };
 typedef struct hfont_cod {char *name,*family;} FONT_COD;
@@ -164,7 +164,7 @@ typedef struct hfont_cod {char *name,*family;} FONT_COD;
 typedef struct RTFLETTER
 {
 	    		unsigned char    alternative;          //  ASCII code.  >= ' '.
-	    		unsigned char    probability;          
+	    		unsigned char    probability;
 } RTF_LETTER;
 
 /////////////////////////////////////////////////////////////////////////////
@@ -182,14 +182,14 @@ public:
 		void                 CloseOutputFile(void);
   void                 SetTwips(void);
 		BOOL                 FindPageTree(char* FileNameIn,char* FileNameOut);
-	 void                 ReCalcPageWidthAndHeight(); 
+	 void                 ReCalcPageWidthAndHeight();
 		BOOL                 WriteHeaderRtf(void);
 	 void                 CorrectKegl(void);
   void                 ChangeKegl(void);
 		void                 AddNewKegl( Int16 OldKegl, Int16 NewKegl );
   Int16                GetNewKegl( Int16 OldKegl );
   Int16                GetMinKegl( Int16 OldKegl );
-		void                 AddPictures(void); 
+		void                 AddPictures(void);
 		void                 AddTables(void);
 		void                 AddLines(void);
 		void                 SortUserNumber(void);
@@ -210,9 +210,9 @@ public:
   /*CObArray*/std::vector<CRtfSector*>	            m_arSectors;
   /*CArray <KEGL,KEGL>*/std::vector<KEGL>   arKegls;
 
-		RtfPageElementCount  Count;      
+		RtfPageElementCount  Count;
 	 WORD                 m_wDpi;
-		float                m_fTwips;                
+		float                m_fTwips;
   RECT	               m_rect;
   RECT	               m_rectReal;
   Int32                PaperW;
@@ -229,8 +229,8 @@ public:
 
 		BYTE                 FlagBadColumn;
   int		                m_nIndex;
-  int                  m_nCurSectorNumber;  
-  int                  m_nPrevSectorNumber;  
+  int                  m_nCurSectorNumber;
+  int                  m_nPrevSectorNumber;
   Handle               m_hED;
 };
 
@@ -301,21 +301,21 @@ public:
   RECT	               m_rectReal;
   RECT                m_rectFree;
   WORD	               m_wType;
-  DWORD                m_wInternalNumber;  
-  DWORD                m_wUserNumber;  
-  DWORD                m_wUserNumberForFormattedMode;  
-  LONG                 m_LeftOffsetFragmentFromVerticalColumn; 
-  LONG                 m_RightOffsetFragmentFromVerticalColumn; 
+  DWORD                m_wInternalNumber;
+  DWORD                m_wUserNumber;
+  DWORD                m_wUserNumberForFormattedMode;
+  LONG                 m_LeftOffsetFragmentFromVerticalColumn;
+  LONG                 m_RightOffsetFragmentFromVerticalColumn;
   WORD                 m_wOffsetFromPrevTextFragment;
 
   WORD                 m_wBegStr;
   WORD                 m_wEndStr;
 
-  BOOL                 m_bFlagObjectInColumn; 
+  BOOL                 m_bFlagObjectInColumn;
   BOOL                 m_bFlagUsed;
   BOOL                 m_bOutPutType;
-  BOOL                 m_bflag_new_column; 
-  BOOL                 m_bflag_new_parag; 
+  BOOL                 m_bflag_new_column;
+  BOOL                 m_bflag_new_parag;
   BOOL                 m_bflag_new_str;
   BOOL                 m_bflag_new_line;
   BOOL                 m_bflag_change;
@@ -354,14 +354,14 @@ public:
   Int16                m_sa;
   Int16                m_sl;
 
-  Int16                m_max_dist; 
+  Int16                m_max_dist;
   BYTE                 m_Attr;
   BYTE                 m_FlagCarry;
   BYTE                 m_FlagLeft;
   BYTE                 m_FlagStrongLeft;
   BYTE                 m_FlagRight;
   BYTE                 m_FlagBigSpace;
-  DWORD                m_Flag; 
+  DWORD                m_Flag;
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -372,7 +372,7 @@ public:
 	 CRtfSector();
  ~CRtfSector();
 
-	 CRtfPage             *m_PagePtr; 
+	 CRtfPage             *m_PagePtr;
 
   BOOL	                Write(void);
   void                 WriteTerminalColumns(void);
@@ -382,7 +382,7 @@ public:
   Int32                GetCountAndRightBoundVTerminalColumns(void);
   void                 ToPlacePicturesAndTables(CRtfFragment* Frament);
   void                 FillingSectorInfo(void);
-	
+
   /*CObArray*/std::vector<CRtfHorizontalColumn*>	            m_arHorizontalColumns;
 		vectorWord/*CWordArray*/           m_arHTerminalColumnsIndex;
 		vectorWord/*CWordArray*/           m_arRightBoundTerminalColumns;
@@ -390,17 +390,17 @@ public:
   RtfSectorInfo        SectorInfo;
 
   WORD     	           m_wHorizontalColumnsCount;
-  WORD     	           m_wFragmentsCount; 
+  WORD     	           m_wFragmentsCount;
   WORD     	           m_wTextFragmentsCount;
   WORD     	           m_wPictureFragmentsCount;
   WORD     	           m_wTableFragmentsCount;
   WORD	                m_wIndex;
-  RECT	               m_rect;   
+  RECT	               m_rect;
   RECT	               m_rectReal;
   WORD	                m_wType;
   Handle               m_hEDSector;
-		BOOL                 m_FlagOneString;   
-		BOOL                 m_bFlagLine; 
+		BOOL                 m_FlagOneString;
+		BOOL                 m_bFlagLine;
 	Int32			m_VTerminalColumnNumber;
 };
 
@@ -412,10 +412,10 @@ public:
 	 CRtfHorizontalColumn();
  ~CRtfHorizontalColumn();
 
-	 CRtfPage             *m_PagePtr; 
+	 CRtfPage             *m_PagePtr;
 
   BOOL	                Write(/*CWordArray*/vectorWord* arRightBoundTerminalColumns, Int32* VTerminalColumnNumber);
-  void                 WriteTerminalColumns(/*CWordArray*/vectorWord* arRightBoundTerminalColumns, 
+  void                 WriteTerminalColumns(/*CWordArray*/vectorWord* arRightBoundTerminalColumns,
 		                                          Int32* VTerminalColumnNumber,
 																																												Int32  CountVTerminalColumns,
 																																												RtfSectorInfo* SectorInfo);
@@ -439,7 +439,7 @@ public:
   /*CObArray*/std::vector<vectorWord*>	            m_arVTerminalColumnsGroup;
   /*CObArray*/std::vector<vectorWord*>	            m_arVTerminalColumnsIndex;
   /*CWordArray*/vectorWord           m_arSpacePlace;
-		/*CByteArray*/std::vector<BYTE>           m_arOrderingNumber; 
+		/*CByteArray*/std::vector<BYTE>           m_arOrderingNumber;
 
   WORD     	           m_wVerticalColumnsCount;
   WORD	                m_wIndex;
@@ -460,15 +460,15 @@ public:
   void                 SetSpaceRect(CRtfFragment* CurrentFragment, RtfSectorInfo* SectorInfo);
 
   /*CObArray*/std::vector<CRtfFragment*>	            m_arFragments;
-	 CRtfPage             *m_PagePtr; 
+	 CRtfPage             *m_PagePtr;
 
   WORD     	           m_wFragmentsCount;
   WORD	                m_wIndex;
-		BOOL                 m_bSortFlag; 
+		BOOL                 m_bSortFlag;
   RECT	               m_rect;
   RECT	               m_rectReal;
   WORD	                m_wType;
-  BOOL                 m_bFlagObjectInColumn; 
+  BOOL                 m_bFlagObjectInColumn;
 		BOOL                 m_bFlagSmall;
 };
 
@@ -482,7 +482,7 @@ public:
 
   CRtfWord*            GetFirstWord           (void);
   CRtfWord*            GetNextWord            (void);
-  BOOL	               Write                  (void);  
+  BOOL	               Write                  (void);
   WORD                 get_max_font_size      (void);
   Int16                GetStringSizeInTwips   (void);
   WORD                 GetRealStringSize      (void);
@@ -490,14 +490,14 @@ public:
   /*CObArray*/std::vector<CRtfWord*>             m_arWords;
 
   WORD  	           m_wWordsCount;
-  WORD	               m_wIndex;    
+  WORD	               m_wIndex;
   CRtfFragment*        m_Frag;
   RECT	               m_rect;
   WORD	               m_wType;
 
 
-  Int32                m_LeftBorder; 
-  Int32                m_RightBorder; 
+  Int32                m_LeftBorder;
+  Int32                m_RightBorder;
   WORD	               m_wLeftIndent;
   WORD	               m_wRightIndent;
   WORD	               m_wCentre;
@@ -510,10 +510,10 @@ public:
   BYTE                 m_wLeftBorderEqual;
   BYTE                 m_wRightBorderEqual;
   BYTE                 m_wCentreEqual;
-  BYTE                 m_bLineTransfer; 
+  BYTE                 m_bLineTransfer;
   BYTE                 m_LastChar;
   BYTE                 m_FirstChar;
-  BYTE                 m_Attr; 
+  BYTE                 m_Attr;
   BYTE                 m_FlagCarry;
   Word32               S_Flags; //NEGA_STR vmk 10-06-2001
 };
@@ -570,8 +570,8 @@ public:
 		BYTE                 m_bFlg_spell;
 		BYTE                 m_bFlg_spell_nocarrying;
 		BYTE                 m_bFlg_cup_drop;
-	 WORD                 m_wCountAlt; 
-	 WORD                 m_wFontNumber; 
+	 WORD                 m_wCountAlt;
+	 WORD                 m_wFontNumber;
   WORD                 m_wFontPointSize;
   WORD	                m_wIndex;
  };

@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -70,7 +70,7 @@ static FNPUMA_GetReturnString   GetReturnString = NULL;
 static FNPUMA_GetExportData             GetExportData = NULL;
 static FNPUMA_SetImportData             SetImportData = NULL;
 /*
-static FNPUMA_Recognition               Recognition = NULL; 
+static FNPUMA_Recognition               Recognition = NULL;
 static FNPUMA_PartLayout                PartLayout = NULL;
 static FNPUMA_PartRecognition   PartRecognition = NULL;
 static FNPUMA_GetLanguage               GetLanguage = NULL;
@@ -98,7 +98,7 @@ static FNPUMA_GetSpecialBuffer			fnGetSpecialBuffer = NULL;  // OLEG for Consist
 static FNPUMA_SetSpecialProject			fnSetSpecialProject = NULL;     // OLEG for GiP
 
 static HINSTANCE        s_hLib  = NULL;
- 
+
 Bool32 LPUMA_Load(char * lpPath)
 {
         Bool32 rc = FALSE;
@@ -122,7 +122,7 @@ Bool32 LPUMA_Load(char * lpPath)
 
   _RPT1(_CRT_WARN, "APUMA.DLL: Puma.dll LoadLibrary %s!\n", (s_hLib ? "succeded" : "failed"));
 #ifdef _DEBUG
-  if(!s_hLib)  
+  if(!s_hLib)
   {
       LPTSTR lpMsgBuf;
       FormatMessage(
@@ -299,7 +299,7 @@ void LPUMA_SetLanguage(Word32 lang)
 Bool32  LPUMA_GetSpeller()
 {
         Bool32 rc = FALSE;
-        if(s_hLib && GetExportData && 
+        if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Bool32_Speller,&rc))
         {
                 // Ок!
@@ -319,7 +319,7 @@ void    LPUMA_SetSpeller(Bool32 nNewValue)
 Bool32  LPUMA_GetOneColumn()
 {
         Bool32 rc = FALSE;
-        if(s_hLib && GetExportData && 
+        if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Bool32_OneColumn,&rc))
         {
                 // Ок!
@@ -339,7 +339,7 @@ void    LPUMA_SetOneColumn(Bool32 nNewValue)
 Bool32  LPUMA_GetFax100()
 {
         Bool32 rc = FALSE;
-        if(s_hLib && GetExportData && 
+        if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Bool32_Fax100,&rc))
         {
                 // Ок!
@@ -359,7 +359,7 @@ void    LPUMA_SetFax100(Bool32 nNewValue)
 Bool32  LPUMA_GetDotMatrix()
 {
         Bool32 rc = FALSE;
-        if(s_hLib && GetExportData && 
+        if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Bool32_DotMatrix,&rc))
         {
                 // Ок!
@@ -379,7 +379,7 @@ void    LPUMA_SetDotMatrix(Bool32 nNewValue)
 char *  LPUMA_GetUserDictName()
 {
         char * rc = "";
-        if(s_hLib && GetExportData && 
+        if(s_hLib && GetExportData &&
                 GetExportData(PUMA_pchar_UserDictName,&rc))
         {
                 // Ок!
@@ -399,7 +399,7 @@ void    LPUMA_SetUserDictName(char * lpszNewValue)
 Bool32  LPUMA_GetBold()
 {
         Bool32 rc = FALSE;
-        if(s_hLib && GetExportData && 
+        if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Bool32_Bold,&rc))
         {
                 // Ок!
@@ -419,7 +419,7 @@ void    LPUMA_SetBold(Bool32 nNewValue)
 Bool32  LPUMA_GetItalic()
 {
         Bool32 rc = FALSE;
-        if(s_hLib && GetExportData && 
+        if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Bool32_Italic,&rc))
         {
                 // Ок!
@@ -439,7 +439,7 @@ void    LPUMA_SetItalic(Bool32 nNewValue)
 Bool32  LPUMA_GetSize()
 {
         Bool32 rc = FALSE;
-        if(s_hLib && GetExportData && 
+        if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Bool32_Size,&rc))
         {
                 // Ок!
@@ -459,7 +459,7 @@ void    LPUMA_SetSize(Bool32 nNewValue)
 Bool32  LPUMA_GetFormat()
 {
         Bool32 rc = FALSE;
-        if(s_hLib && GetExportData && 
+        if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Bool32_Format,&rc))
         {
                 // Ок!
@@ -479,7 +479,7 @@ void    LPUMA_SetFormat(Bool32 nNewValue)
 char *  LPUMA_GetSerifName()
 {
         char * rc = "";
-        if(s_hLib && GetExportData && 
+        if(s_hLib && GetExportData &&
                 GetExportData(PUMA_pchar_SerifName,&rc))
         {
                 // Ок!
@@ -499,7 +499,7 @@ void    LPUMA_SetSerifName(char * lpszNewValue)
 char *  LPUMA_GetSansSerifName()
 {
         char * rc = "";
-        if(s_hLib && GetExportData && 
+        if(s_hLib && GetExportData &&
                 GetExportData(PUMA_pchar_SansSerifName,&rc))
         {
                 // Ок!
@@ -519,7 +519,7 @@ void    LPUMA_SetSansSerifName(char * lpszNewValue)
 char *  LPUMA_GetCourierName()
 {
         char * rc = "";
-        if(s_hLib && GetExportData && 
+        if(s_hLib && GetExportData &&
                 GetExportData(PUMA_pchar_CourierName,&rc))
         {
                 // Ок!
@@ -548,7 +548,7 @@ void    LPUMA_SetPictures(Word32 nNewValue)
 Word32  LPUMA_GetPictures( void )
 {
         Word32 rc = FALSE;
-        if(s_hLib && GetExportData && 
+        if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Word32_Pictures,&rc))
         {
                 // Ок!
@@ -568,7 +568,7 @@ void    LPUMA_SetTables(Word32 nNewValue)
 Word32  LPUMA_GetTables( void )
 {
         Word32 rc = FALSE;
-        if(s_hLib && GetExportData && 
+        if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Word32_Tables,&rc))
         {
                 // Ок!
@@ -579,7 +579,7 @@ return rc;
 char *  LPUMA_GetVersion()
 {
         char * rc = "";
-        if(s_hLib && GetExportData && 
+        if(s_hLib && GetExportData &&
                 GetExportData(PUMA_pchar_Version,&rc))
         {
                 // Ок!
@@ -638,7 +638,7 @@ Int32  LPUMA_EnumPicture(Int32 nPrev )
 Word32  LPUMA_GetFormatMode()
 {
         Word32 rc = 0;
-        if(s_hLib && GetExportData && 
+        if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Word32_Format,&rc))
         {
                 // Ок!
@@ -667,7 +667,7 @@ void    LPUMA_SetUnrecogChar(Word8 nNewValue)
 Word8   LPUMA_GetUnrecogChar()
 {
         Word8 rc = 0;
-        if(s_hLib && GetExportData && 
+        if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Word8_Format,&rc))
         {
                 // Ок!
@@ -678,10 +678,10 @@ return rc;
 Bool32  LPUMA_SetProgressFunction(FNPUMA_ProgressStart fnStart,FNPUMA_ProgressStep fnStep,FNPUMA_ProgressFinish fnFinish)
 {
         Bool32 rc = FALSE;
-        if(s_hLib && SetImportData && 
-                SetImportData(PUMA_FNPUMA_ProgressStart,fnStart) && 
-                SetImportData(PUMA_FNPUMA_ProgressStep,fnStep) && 
-                SetImportData(PUMA_FNPUMA_ProgressFinish,fnFinish) 
+        if(s_hLib && SetImportData &&
+                SetImportData(PUMA_FNPUMA_ProgressStart,fnStart) &&
+                SetImportData(PUMA_FNPUMA_ProgressStep,fnStep) &&
+                SetImportData(PUMA_FNPUMA_ProgressFinish,fnFinish)
                 )
         {
                 rc = TRUE;      // Ок!
@@ -693,7 +693,7 @@ Bool32  LPUMA_SetProgressFunction(FNPUMA_ProgressStart fnStart,FNPUMA_ProgressSt
 Bool32  LPUMA_XGetRotateDIB(void ** lpDIB, Point32 * p)
 {
         Bool32 rc = FALSE;
-        if(s_hLib && XGetRotateDIB) 
+        if(s_hLib && XGetRotateDIB)
                 rc = XGetRotateDIB(lpDIB,p);
 
         return rc;
@@ -711,7 +711,7 @@ void    LPUMA_SetAutoRotate(Bool32 b)
 Bool32  LPUMA_GetAutoRotate( void )
 {
         Bool32 rc = 0;
-        if(s_hLib && GetExportData && 
+        if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Bool32_AutoRotate,&rc))
         {
                 // Ок!
@@ -770,7 +770,7 @@ void    LPUMA_SetCurrentEdPage(Handle hEdPage)
 Handle  LPUMA_GetCurrentEdPage()
 {
         Handle rc = 0;
-        if(s_hLib && GetExportData && 
+        if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Handle_CurrentEdPage,&rc))
         {
                 // Ок!

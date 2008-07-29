@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -76,7 +76,7 @@ CED_FUNC(Handle) CED_CreatePage(char * _imageName,EDSIZE _sizeOfImage,EDSIZE _dp
 	if (logStream)
 	{
 		fprintf(logStream,"\n\nCreatePage params: %s,(%d,%d),(%d,%d),%d,%d,(%d,%d),(%d,%d,%d,%d),%c,%d\n",_imageName,_sizeOfImage.cx,_sizeOfImage.cy,_dpi.cx,_dpi.cy,_turn,
-					  _pageNumber,_sizeInTwips.cx,_sizeInTwips.cy, _pageBordersInTwips.left, _pageBordersInTwips.top, _pageBordersInTwips.right, _pageBordersInTwips.bottom, 
+					  _pageNumber,_sizeInTwips.cx,_sizeInTwips.cy, _pageBordersInTwips.left, _pageBordersInTwips.top, _pageBordersInTwips.right, _pageBordersInTwips.bottom,
 					  _unrecogChar, _resizeToFit);
 		fflush(logStream);
 	}
@@ -141,13 +141,13 @@ CED_FUNC(Bool32) CED_CreatePicture(Handle hEdPage, int pictNumber, EDSIZE pictSi
 }
 //create section
 
-CED_FUNC(Handle) CED_CreateSection(Handle hEdPage,EDRECT border, int colInterval, int numOfCols, 
-								   EDCOL* colInfo, char sectionBreak, int width, int height, 
+CED_FUNC(Handle) CED_CreateSection(Handle hEdPage,EDRECT border, int colInterval, int numOfCols,
+								   EDCOL* colInfo, char sectionBreak, int width, int height,
 								   char orientation, int headerY, int footerY)
 {
 	if (logStream)
 	{
-		fprintf(logStream,"CreateSection params: %x,(%i,%i,%i,%i),%i,%i,%x,%hd,%i,%i,%hd,%i,%i\n", hEdPage, border.left, border.top, border.right, border.bottom, 
+		fprintf(logStream,"CreateSection params: %x,(%i,%i,%i,%i),%i,%i,%x,%hd,%i,%i,%hd,%i,%i\n", hEdPage, border.left, border.top, border.right, border.bottom,
 			colInterval, numOfCols, colInfo, sectionBreak, width, height, orientation, headerY, footerY);
 		fflush(logStream);
 	}
@@ -208,12 +208,12 @@ CED_FUNC(Handle) CED_CreateColumn( Handle hEdSection)
 }
 
 //create frame
-CED_FUNC(Handle) CED_CreateFrame(Handle hEdSection, Handle hEdColumn, edBox rect, 
+CED_FUNC(Handle) CED_CreateFrame(Handle hEdSection, Handle hEdColumn, edBox rect,
 								 char position, int borderSpace, int dxfrtextx, int dxfrtexty)
 {
 	if (logStream)
 	{
-		fprintf(logStream,"CreateFrame params: %x,%x,(%i,%i,%i,%i),%hd,%i,%i,%i\n", hEdSection,hEdColumn, rect.x, rect.y, rect.w, rect.h, 
+		fprintf(logStream,"CreateFrame params: %x,%x,(%i,%i,%i,%i),%hd,%i,%i,%i\n", hEdSection,hEdColumn, rect.x, rect.y, rect.w, rect.h,
 								 position, borderSpace, dxfrtextx, dxfrtexty);
 		fflush(logStream);
 	}
@@ -259,25 +259,25 @@ CED_FUNC(Handle) CED_CreateTable(  Handle hEdSection, Handle hObject)
 	return ret;
 }
 
-CED_FUNC(Handle) CED_CreateTableRow(Handle hEdSection, Handle hEdTable, 
-	int left, int rowHeight, 
-	int leftBrdrType, int leftBrdrWidth, 
-	int rightBrdrType, int rightBrdrWidth, 
-	int topBrdrType, int topBrdrWidth, 
-	int bottomBrdrType, int bottomBrdrWidth, 
+CED_FUNC(Handle) CED_CreateTableRow(Handle hEdSection, Handle hEdTable,
+	int left, int rowHeight,
+	int leftBrdrType, int leftBrdrWidth,
+	int rightBrdrType, int rightBrdrWidth,
+	int topBrdrType, int topBrdrWidth,
+	int bottomBrdrType, int bottomBrdrWidth,
 	int gaph, int position, Bool32 header)
 {
 	if (logStream)
 	{
-		fprintf(logStream,"CreateTableRow params: %x,%x,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i\n", hEdSection,hEdTable, 
+		fprintf(logStream,"CreateTableRow params: %x,%x,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i\n", hEdSection,hEdTable,
 		left, rowHeight, leftBrdrType, leftBrdrWidth, rightBrdrType,
-		rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType, 
+		rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType,
 		bottomBrdrWidth, gaph, position, header);
 		fflush(logStream);
 	}
-	Handle ret=(Handle)(((CEDSection*)hEdSection)->CreateTableRow((CEDParagraph*)hEdTable, 
+	Handle ret=(Handle)(((CEDSection*)hEdSection)->CreateTableRow((CEDParagraph*)hEdTable,
 	left, rowHeight, leftBrdrType, leftBrdrWidth, rightBrdrType,
-	rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType, 
+	rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType,
 	bottomBrdrWidth, gaph, position, header));
 
 	if (logStream)
@@ -289,18 +289,18 @@ CED_FUNC(Handle) CED_CreateTableRow(Handle hEdSection, Handle hEdTable,
 }
 
 // create table's cell
-CED_FUNC(Handle) CED_CreateCell(Handle hEdSection,Handle hEdRow, int cellX, int merging, int vertTextAlign, 
-					  int leftBrdrType, int leftBrdrWidth, 
-					  int rightBrdrType, int rightBrdrWidth, 
-					  int topBrdrType, int topBrdrWidth, 
-					  int bottomBrdrType, int bottomBrdrWidth, 
+CED_FUNC(Handle) CED_CreateCell(Handle hEdSection,Handle hEdRow, int cellX, int merging, int vertTextAlign,
+					  int leftBrdrType, int leftBrdrWidth,
+					  int rightBrdrType, int rightBrdrWidth,
+					  int topBrdrType, int topBrdrWidth,
+					  int bottomBrdrType, int bottomBrdrWidth,
 					  EDBOX layout, int shading, int color)
 {
 	if (logStream)
 	{
-		fprintf(logStream,"CreateCell params: %x,%x,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,(%i,%i,%i,%i),%i,%i\n", hEdSection,hEdRow, 
-			cellX, merging, vertTextAlign, leftBrdrType, leftBrdrWidth, 
-			rightBrdrType, rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType, 
+		fprintf(logStream,"CreateCell params: %x,%x,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,(%i,%i,%i,%i),%i,%i\n", hEdSection,hEdRow,
+			cellX, merging, vertTextAlign, leftBrdrType, leftBrdrWidth,
+			rightBrdrType, rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType,
 			bottomBrdrWidth, layout.x, layout.y, layout.w, layout.h, shading, color);
 		fflush(logStream);
 	}
@@ -330,16 +330,16 @@ CED_FUNC(Bool32) CED_SetCellFlag(Handle hEdCell, int flag)
 }
 //create paragraph
 
-CED_FUNC(Handle) CED_CreateParagraph(Handle hEdSection, Handle hObject, 
+CED_FUNC(Handle) CED_CreateParagraph(Handle hEdSection, Handle hObject,
 						   int align, EDRECT indent, int UserNum,
-						   int FlagBorder, EDSIZE interval, 
-						   EDBOX layout, int  color, int  shading, 
-						   int spaceBetweenLines, char spcBtwLnsMult, 
+						   int FlagBorder, EDSIZE interval,
+						   EDBOX layout, int  color, int  shading,
+						   int spaceBetweenLines, char spcBtwLnsMult,
 						   char  keep)
 {
 	if (logStream)
 	{
-		fprintf(logStream,"CreateParagraph params: %x,%x,%i,(%i,%i,%i,%i),%i,%i,(%i,%i),(%i,%i,%i,%i),%i,%i,%i,%hd,%hd\n", 
+		fprintf(logStream,"CreateParagraph params: %x,%x,%i,(%i,%i,%i,%i),%i,%i,(%i,%i),(%i,%i,%i,%i),%i,%i,%i,%hd,%hd\n",
 			hEdSection,hObject,align,indent.left,indent.top,indent.right,indent.bottom,UserNum,FlagBorder,interval.cx,interval.cy,layout.x,layout.y,layout.w,layout.h, color, shading, spaceBetweenLines, spcBtwLnsMult, keep);
 		fflush(logStream);
 	}
@@ -354,16 +354,16 @@ CED_FUNC(Handle) CED_CreateParagraph(Handle hEdSection, Handle hObject,
 
 //set boundary of paragraph
 CED_FUNC(Bool32) CED_SetParaBorders(Handle hEdParagraph,
-					  int leftBrdrType, int leftBrdrWidth, 
-					  int rightBrdrType, int rightBrdrWidth, 
-					  int topBrdrType, int topBrdrWidth, 
+					  int leftBrdrType, int leftBrdrWidth,
+					  int rightBrdrType, int rightBrdrWidth,
+					  int topBrdrType, int topBrdrWidth,
 					  int bottomBrdrType, int bottomBrdrWidth,int brdrBtw)
 {
 	if (logStream)
 	{
-		fprintf(logStream,"SetParaBorders params: %x,%i,%i,%i,%i,%i,%i,%i,%i,%i\n", hEdParagraph, 
-			leftBrdrType, leftBrdrWidth, 
-			rightBrdrType, rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType, 
+		fprintf(logStream,"SetParaBorders params: %x,%i,%i,%i,%i,%i,%i,%i,%i,%i\n", hEdParagraph,
+			leftBrdrType, leftBrdrWidth,
+			rightBrdrType, rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType,
 			bottomBrdrWidth,brdrBtw);
 		fflush(logStream);
 	}
@@ -390,7 +390,7 @@ CED_FUNC(Handle) CED_CreateLine(Handle hEdParagraph, Bool32 hardBreak, int defCh
 {
 	if (logStream)
 	{
-		fprintf(logStream,"CreateLine params: %x,%i,%i\n", 
+		fprintf(logStream,"CreateLine params: %x,%i,%i\n",
 			hEdParagraph, hardBreak, defChrFontHeight);
 		fflush(logStream);
 	}
@@ -409,7 +409,7 @@ CED_FUNC(Bool32) CED_SetLineParams(Handle hEdLine, Bool32 hardBreak, int defChrF
 {
 	if (logStream)
 	{
-		fprintf(logStream,"SetLineParams params: %x,%i,%i\n", 
+		fprintf(logStream,"SetLineParams params: %x,%i,%i\n",
 			hEdLine, hardBreak, defChrFontHeight);
 		fflush(logStream);
 	}
@@ -426,10 +426,10 @@ CED_FUNC(Bool32) CED_SetLineParams(Handle hEdLine, Bool32 hardBreak, int defChrF
 }
 
 //create symbol
-CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, EDRECT layout, 
-								letterEx* alternatives, int fontHeight, 
+CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, EDRECT layout,
+								letterEx* alternatives, int fontHeight,
 								int fontNum, int fontAttribs, int fontLang,
-								int foregroundColor, 
+								int foregroundColor,
 								int backgroundColor)
 {
 	CEDChar *chr=((CEDLine*)hEdLine)->InsertChar();
@@ -455,7 +455,7 @@ CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, EDRECT layout,
 	}
 	else
 	{
-		chr->numOfAltern=1;	
+		chr->numOfAltern=1;
 		chr->alternatives=new letterEx [1];
 		chr->alternatives[0].alternative=' ';
 		chr->alternatives[0].probability=254;
@@ -583,7 +583,7 @@ CED_FUNC(Bool32) CED_GetPicture(Handle hEdPage,int number, int* pictNumber, EDSI
 	if (pictNumber)
 		*pictNumber=tmp->pictNumber;
 	if (pictSize)
-		*pictSize=tmp->pictSize; 
+		*pictSize=tmp->pictSize;
 	if(pictGoal)
 		*pictGoal=tmp->pictGoal;
 	if(pictAlign)
@@ -616,10 +616,10 @@ CED_FUNC(EDRECT) CED_GetSectionBorder(Handle hEdSection)
 	return ((CEDSection*)hEdSection)->borders;
 }
 
-CED_FUNC(Bool32) CED_GetSectionParams(Handle hEdSection,EDRECT* border, 
-									  int* colInterval, char* sectionBreak, 
-									  int* width, int* height, 
-									  char* orientation, int* headerY, 
+CED_FUNC(Bool32) CED_GetSectionParams(Handle hEdSection,EDRECT* border,
+									  int* colInterval, char* sectionBreak,
+									  int* width, int* height,
+									  char* orientation, int* headerY,
 									  int* footerY)
 {
 	if (!hEdSection)
@@ -760,12 +760,12 @@ CED_FUNC(Handle) CED_GetTableRow(Handle hEdTable, int num)
 {
 	return (Handle)((CEDParagraph*)hEdTable)->GetRow(num);
 }
-CED_FUNC(Bool32) CED_GetTableRowParams(Handle hEdRow, 
-	int* left, int* rowHeight, 
-	int* leftBrdrType, int* leftBrdrWidth, 
-	int* rightBrdrType, int* rightBrdrWidth, 
-	int* topBrdrType, int* topBrdrWidth, 
-	int* bottomBrdrType, int* bottomBrdrWidth, 
+CED_FUNC(Bool32) CED_GetTableRowParams(Handle hEdRow,
+	int* left, int* rowHeight,
+	int* leftBrdrType, int* leftBrdrWidth,
+	int* rightBrdrType, int* rightBrdrWidth,
+	int* topBrdrType, int* topBrdrWidth,
+	int* bottomBrdrType, int* bottomBrdrWidth,
 	int* gaph, int* position, Bool32* header)
 {
 	EDROWDESCR* td=((EDROWDESCR*)((CEDParagraph*)hEdRow)->descriptor);
@@ -799,7 +799,7 @@ CED_FUNC(Bool32) CED_GetTableRowParams(Handle hEdRow,
 		*header=          td->header			;
 	return TRUE;
 }
-	
+
 Word32 CED_GetCountCell(Handle hEdRow)
 {
 	return ((EDROWDESCR*)((CEDParagraph*)hEdRow)->descriptor)->numOfCells;
@@ -927,8 +927,8 @@ CED_FUNC(EDSIZE) CED_GetInterval(Handle hEdParagraph)
 	return ((CEDParagraph*)hEdParagraph)->interval;
 }
 
-CED_FUNC(Bool32) CED_GetParaParams(Handle hEdParagraph,int*  color, int*  shading, 
-						   int* spaceBetweenLines, char* spcBtwLnsMult, 
+CED_FUNC(Bool32) CED_GetParaParams(Handle hEdParagraph,int*  color, int*  shading,
+						   int* spaceBetweenLines, char* spcBtwLnsMult,
 						   char*  keep)
 {
 	CEDParagraph* para=(CEDParagraph*)hEdParagraph;
@@ -946,9 +946,9 @@ CED_FUNC(Bool32) CED_GetParaParams(Handle hEdParagraph,int*  color, int*  shadin
 }
 //obtain boundary of paragraph
 CED_FUNC(Bool32) CED_GetParaBorders(Handle hEdParagraph,
-					  int* leftBrdrType, int* leftBrdrWidth, 
-					  int* rightBrdrType, int* rightBrdrWidth, 
-					  int* topBrdrType, int* topBrdrWidth, 
+					  int* leftBrdrType, int* leftBrdrWidth,
+					  int* rightBrdrType, int* rightBrdrWidth,
+					  int* topBrdrType, int* topBrdrWidth,
 					  int* bottomBrdrType, int* bottomBrdrWidth,int* brdrBtw)
 {
 	if (leftBrdrType)

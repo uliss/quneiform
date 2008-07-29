@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -349,12 +349,12 @@ switch( let )
   case (Word8)')':
     dis=dis_circle_brace(l,r, s,0);
     break;
-  case (Word8)']': 
+  case (Word8)']':
     dis_r_sq_brace(l,r, s);
-    break; 
-  case (Word8)'[': 
+    break;
+  case (Word8)'[':
     dis_l_sq_brace(l,r, s);
-    break; 
+    break;
   default :
     break;
   }
@@ -757,7 +757,7 @@ if (wid*2+1>=dy &&	// k11/31 "PERFORMERCE", last 'E' 21*11, wid=10
 
 	return(dis);
 }
-Int16 dis_slash (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, Int16 typ_add)  
+Int16 dis_slash (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, Int16 typ_add)
 {
 Int16 dis=0;            // 13.12.1993
 ////Int16 wid = s->stick_width; NOT USED NOW
@@ -861,8 +861,8 @@ if( lmu<=t )				/* no left upper flag */
 //if( multy_language )
 #endif
 if( !( dif_typ_of_font&LEO_FONT_TW ) )
-if( lmd<1 && rmd<1 || 
-    rmu>2 && lmd<2 && rmd<2 || 
+if( lmd<1 && rmd<1 ||
+    rmu>2 && lmd<2 && rmd<2 ||
     rmu>8 && lmd<4 && rmd<4 ||
     abs(rmu-lmu)<2 && rmd+1<rmu && lmd+1<lmu ) // for russian only
 {
@@ -870,11 +870,11 @@ if( rmu>1 && !inc || rmu>2 && inc)	/* exist right upper flag */
 	{	/* different nonlinear (dis=f(rmu)) discrim */
 	if( rmu<3 )
 		dis += tab_1[1]*(rmu-1);				// *2
-	else 
+	else
         {
         if( digit_mode )
             {
-            if( rmu>6 && rmu>(rmd+lmd)/2  || 
+            if( rmu>6 && rmu>(rmd+lmd)/2  ||
                 rmu>4 && lmd==0 && rmd==0 && abs(rmu-lmu)<2 ||
                 rmu>4 && lmd==0 && rmd==0 && lmu>4 )
                 dis += tab_1[1]*6*(rmu-1);
@@ -884,7 +884,7 @@ if( rmu>1 && !inc || rmu>2 && inc)	/* exist right upper flag */
             if( rmu<6 )
 		        dis += tab_1[1]*12*(rmu-1);				// *2
 	        else
-		        dis += tab_1[1]*20*(rmu-1);				// *2 
+		        dis += tab_1[1]*20*(rmu-1);				// *2
             }
         }
 	}
@@ -1016,7 +1016,7 @@ if ( (lmu==1) && (dy<22) ) 	// 28.07.1993	SNOWA PROBA ##############
 if( s->dis_nose_1 )
     {
     if( !digit_mode )
-	    dis += s->dis_nose_1;						
+	    dis += s->dis_nose_1;
     else
         {
         if( typ_add )
@@ -1141,17 +1141,17 @@ if( typ )
         dis += tab_circle_brace[2];   /* similar '1' */
     if( !r->mount[3] && !r->mount[4] && r->mount[0]<2 && r->mount[1]<2 )
         dis += tab_circle_brace[2];   /* similar '1' */
-    if( l->conc[1]==0 && l->conc[3]==0 && 
+    if( l->conc[1]==0 && l->conc[3]==0 &&
         l->conc[2]>(s->stick_width>2?2:1) )
         dis += tab_circle_brace[6]; /* bad bugles in 1,3 zones  */
-	if( !inc && r->mount[0]>2 && r->mount[4]>2 && 
+	if( !inc && r->mount[0]>2 && r->mount[4]>2 &&
 		abs(r->mount[0] - r->mount[4])>MIN(r->mount[0],r->mount[4]) )
 		dis += tab_circle_brace[6]; /* differnets mounts  */
     if( s->width>6 &&
-        l->conc[0]<2 && l->conc[1]<2 && 
+        l->conc[0]<2 && l->conc[1]<2 &&
         r->mount[0]<2 && r->mount[1]<2 )
         dis += tab_circle_brace[2]; /* no objects in 1,2 zones  */
-    if( s->stick_width>=s->width/2 && 
+    if( s->stick_width>=s->width/2 &&
         r->mount[0]<s->width/2 &&
         r->mount[4]<s->width/2 )
         dis += tab_circle_brace[2]; /* no objects in 1,2 zones  */
@@ -1164,17 +1164,17 @@ else
         dis += tab_circle_brace[2];   /* similar '1' */
     if( !l->mount[3] && !l->mount[4] && l->mount[0]<2 && l->mount[1]<2 )
         dis += tab_circle_brace[2];   /* similar '1' */
-    if( r->conc[1]==0 && r->conc[3]==0 && 
+    if( r->conc[1]==0 && r->conc[3]==0 &&
         r->conc[2]>(s->stick_width>2?2:1) )
         dis += tab_circle_brace[6]; /* bad bugles in 1,3 zones  */
-	if( !inc && l->mount[0]>2 && l->mount[4]>2 && 
+	if( !inc && l->mount[0]>2 && l->mount[4]>2 &&
 		abs(l->mount[0] - l->mount[4])>MIN(l->mount[0],l->mount[4]) )
 		dis += tab_circle_brace[6]; /* differnets mounts  */
     if( s->width>6 &&
-        r->conc[0]<2 && r->conc[1]<2 && 
+        r->conc[0]<2 && r->conc[1]<2 &&
         l->mount[0]<2 && l->mount[1]<2 )
         dis += tab_circle_brace[2]; /* no objects in 1,2 zones  */
-    if( s->stick_width>=s->width/2 && 
+    if( s->stick_width>=s->width/2 &&
         l->mount[0]<s->width/2 &&
         l->mount[4]<s->width/2 )
         dis += tab_circle_brace[2]; /* no objects in 1,2 zones  */
@@ -1236,7 +1236,7 @@ else    /* right */
 return(dis);
 }
 
-static Int16 dis_l (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  
+static Int16 dis_l (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 {
 							// 17.01.1994
 Int16	dis=0, t, lmu, rmu, lmd, rmd, num_l, num_z, dy=s->height;
@@ -1334,8 +1334,8 @@ if ( (num_l==1) &&				// 09.07.1993, 12.10.1993
      (rmd>MAX(wid,4)) && (l->conc[4]*2<wid))	// stdg19/8(11) 'l' (3:4)
 		dis += tab_l[11];	// similar 'L'		// 48
 
-if ( num_l==3 && lmu>0 && s->typ_nose_1==1 &&	
-     (  (l->m_pos[0]>=MAX(wid,5)-1) ) &&	
+if ( num_l==3 && lmu>0 && s->typ_nose_1==1 &&
+     (  (l->m_pos[0]>=MAX(wid,5)-1) ) &&
      lmu >= lmd)					// 31.05.1993
 	dis += tab_l[11];	// similar '1'			// 48
 
@@ -1379,14 +1379,14 @@ if (s->cut_r &&		// 09.06.1993 PROBA for CUT. "The" (stdj10);
 }
 /*......................................................................*/
 else    {						// EMPTY ANGLES:
-	
+
 	if (s->neck==3)				// 15.12.1993 EDITION:
 		dis += 100;						// 100
 	else if ( s->neck==2  &&  dy<27 )	// "NO ZIRAFA"
 		dis += tab_l[12];					// 20
 	else if ( s->neck==1 )
 		FOUR_CONC(l,r,tab_l[12]);				// 20
-	
+
 	}
 /*......................................................................*/
 /* N.B. in group macros (CENTER_FLAG) used ->c_meandr.	*/
@@ -1483,7 +1483,7 @@ if (wid*2+1>=dy &&	// k11/31 "PERFORMERCE", last 'E' 21*11, wid=10
 	return(dis);
 }
 
-static Int16 dis_l_stroked (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  
+static Int16 dis_l_stroked (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 {
 Int16	dis=0, t, lmu, rmu, lmd, rmd, num_l, num_z, dy=s->height;
 Int16	sl=l->num_flags, sr=r->num_flags;
@@ -2188,10 +2188,10 @@ Int16 similar_l_stroked (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
 return(dis_l_stroked(l,r,s)<MAX_ADD_DIS);
 }
 //////////////////////////////////////////////////////////////////////
-// typ_thin_stick : study thin stick (width<=4) for EVENTS-pass		
-//     *lin - list of intervals, dy - height, dx - width of c_comp	
-//     return : propabilites letters 'f','r','t'  ( 0b00ttrrff or 0 )	
-//              tt,rr,ff = 01(bad),10(good),11(verybad)			
+// typ_thin_stick : study thin stick (width<=4) for EVENTS-pass
+//     *lin - list of intervals, dy - height, dx - width of c_comp
+//     return : propabilites letters 'f','r','t'  ( 0b00ttrrff or 0 )
+//              tt,rr,ff = 01(bad),10(good),11(verybad)
 //////////////////////////////////////////////////////////////////////
 Word16 typ_thin_stick(lnhead *lin,Int16 dy,Int16 dx)
 {
@@ -2204,7 +2204,7 @@ memset(GL_left0, 0xFF, dy );
 memset(GL_right0,0xFF, dy );
 
 if( (nc = lnhead_to_centers(lin,dx,GL_center,GL_left0,GL_right0))==0 )
-    return(0);  // too many intervals 
+    return(0);  // too many intervals
 
 if ( num_of_lines (GL_center, nc, dy, GL_hist_int) )
 	return(0); // non stick:>1lines
@@ -2218,15 +2218,15 @@ if( make_center_line_dif(GL_center, (Int16)(nc-(GL_center[nc-1].len==1)),
 		     GL_left0, GL_right0,dy, dx,
 		     &stick_inc[f_a], num_angles, GL_tab_angle,
          0, 0, 1, 0, &wide, GL_hooks, &inc_v, 1) ) // with correct
-	return(0); // abnormal set of ceneters : silmular to (,) or 
-		       // not exist center-line                         
+	return(0); // abnormal set of ceneters : silmular to (,) or
+		       // not exist center-line
 
 opt = ((MAX( GL_tab_angle[0], GL_tab_angle[dy-1] ))>>1)<<1;
 abris_expansion (GL_left0, GL_right0, dy, dx, GL_tab_angle);
 
 set_stick_char (GL_left0, GL_right0, GL_hooks, dy, dx, opt, wide,
 		(Int16)(opt - MIN ( GL_tab_angle[0], GL_tab_angle[dy-1] )),
-		0, 0, 0, 0,  0,		
+		0, 0, 0, 0,  0,
 		&left_chars, &right_chars, &signums,
 		&left_mode, &right_mode);
 

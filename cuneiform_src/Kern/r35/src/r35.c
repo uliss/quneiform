@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -1041,7 +1041,7 @@ r35_error_code = ER_R35_NO_ERROR;
 if( f==-1 )
   {
   r35_error_code = ER_R35_OPEN;
-  return 0; 
+  return 0;
   }
 
 if( write(f,header3x5this,1024)!=1024 )
@@ -1053,7 +1053,7 @@ if( write(f,header3x5this,1024)!=1024 )
 
 for(i=0;i<num;i++)
 //    if( tab3x5this[i].ltr )
-        { 
+        {
         if( write( f, &tab3x5this[i], sizeof(elm3x5))!=(int)(sizeof(elm3x5)) )
           {
           close(f);
@@ -1140,13 +1140,13 @@ curr        =   &tab3x5[0];
 for(i=0;i<num_learn;i++,curr++)
     {
     if( curr->list==num_del )
-        curr->list = no_next ; 
+        curr->list = no_next ;
     }
 for(i=0;i<256;i++)
     if( header3x5[ i ].ltr )
         { // for all classes
         for(j=0,fin=&tab3x5 [ header3x5[i].numel ];;fin=&tab3x5 [ fin->list ])
-            {        
+            {
             j++;
             if( !fin->list )
                 break;
@@ -1161,9 +1161,9 @@ for(i=0;i<256;i++)
             header3x5[ i ].ltr    = 0;
             }
 
-        
+
         }
-        
+
 return TRUE;
 }
 
@@ -1637,9 +1637,9 @@ Word8   tab16x256[16]={0x00,0x03,0x0C,0x0F,
                        0xF0,0xF3,0xFC,0xFF };
 
 Bool32   R35Pack_resize(
-        RecRaster*  raster,          
+        RecRaster*  raster,
         Word16* Image3x5,
-		Int32 to_x, Int32 to_y, Bool32 proport)      
+		Int32 to_x, Int32 to_y, Bool32 proport)
 {
 Int32   w, h, wb, i,ii,iii, swb, w0,h0, ret;
 Word8   *rast;
@@ -1674,7 +1674,7 @@ if( h<to_y )
             }
         h = h*2;
         rast = double_raster;
-        }    
+        }
     }
 
 if( w<to_x && w*4>=to_x )
@@ -1846,7 +1846,7 @@ R35_FUNC(Bool32)   R35Pack(
         Word16* Image3x5,
 		Int32 to_x, Int32 to_y)      // image 3x5
 {
-return (raster->lnRasterBufSize&1) ? 
+return (raster->lnRasterBufSize&1) ?
     R35PackGray_resize(   raster, Image3x5, to_x, to_y,0):
     R35Pack_resize(   raster, Image3x5, to_x, to_y,0);
 }
@@ -1862,9 +1862,9 @@ return R35Pack_resize(   raster, Image3x5, to_x, to_y,1);
 }
 
 R35_FUNC(Bool32)   R35PackProportHor16(
-        RecRaster*  raster,          
+        RecRaster*  raster,
         Word16* Image3x5,
-		Int32 *to_x, Int32 *to_y)    
+		Int32 *to_x, Int32 *to_y)
 {
 int w = raster->lnPixWidth, h = raster->lnPixHeight;
 *to_y = 16;
@@ -1874,8 +1874,8 @@ return R35Pack_resize(   raster, Image3x5, *to_x, *to_y, 0);
 
 // RECOGNIZING
 R35_FUNC(Bool32)  R35RecogCharIm3x5(
-			Word16* Im3x5,       
-			RecVersions* res  )  
+			Word16* Im3x5,
+			RecVersions* res  )
 {
 VERSION vers[16];
 Int32   nvers, i;
@@ -2066,8 +2066,8 @@ return TRUE;
 
 
 R35_FUNC(Bool32)  R35RecogPrintCharIm3x5_expert(
-			Word16* Im3x5,       
-			RecVersions* res, Bool32 r5x3  )  
+			Word16* Im3x5,
+			RecVersions* res, Bool32 r5x3  )
 {
 VERSION vers[16];
 Int32   nvers, i;
@@ -2115,7 +2115,7 @@ typedef struct Cluster_
 {
 Word8   ltr;        // Name of Cluster
 Word32   num;        // number of accepted images
-Word16  vect[16];   // ideal image 
+Word16  vect[16];   // ideal image
 double  vsum[16];   // sum of all images
 struct  Cluster_ * next;
 }Cluster;
@@ -2127,7 +2127,7 @@ Word8   ClusterRecogOneLet(Word16 vect[],Word8 ltr,VERSION *v);
 Int32   ClusterRecogFull(Word16 vect[],VERSION v[],Int32 *nvers);
 void    ClusterFree(void);
 Bool32  ClusterTo3x5(Int32 FontType);
-// 
+//
 static  Cluster *First3x5=NULL, *Last3x5=NULL;
 static  Word8   alpha_clust[256]={0};
 Cluster * ClusterNew(Word8 ltr)
@@ -2192,7 +2192,7 @@ if( !First3x5 )
     {
     v->let  =0;
     v->prob =0;
-    v->num  =-1;   
+    v->num  =-1;
     return 0;
     }
 
@@ -2208,7 +2208,7 @@ for(jm=-1,j=rm=0,curr=First3x5;curr/*->next*/;curr=curr->next,j++)
         }
 v->let  =ltr;
 v->prob =rm;
-v->num  =jm;   
+v->num  =jm;
 return rm>0;
 }
 
@@ -2272,11 +2272,11 @@ if( curr->num>lim )
     header3x5[ curr->ltr ].vnum  = 1;
 
     tab3x5[num_learn].ltr   = curr->ltr;
-    tab3x5[num_learn].fnt   = r35_fnt;               
-    tab3x5[num_learn].list  = 0;                
-    tab3x5[num_learn].bnd   = 0;                  
+    tab3x5[num_learn].fnt   = r35_fnt;
+    tab3x5[num_learn].list  = 0;
+    tab3x5[num_learn].bnd   = 0;
     memcpy(&tab3x5[num_learn].vect[0], curr->vect, 30);
-    
+
     num_learn++;
     }
   }
@@ -2310,28 +2310,28 @@ for(num=0,curr=First3x5; curr; curr=curr->next)
     }
 return num;
 }
-// end CLUSTER SECTION 
+// end CLUSTER SECTION
 
 R35_FUNC(Bool32)  R35Init_learn( Int32 num, Word8 level, Int32 FontType )
 {
 switch(FontType)
-    {    
+    {
     case    0:
-        
+
         if( !r35_init(NAME,       &tab3x5all,  &header3x5all) )
             {
             r35_error_code = ER_R35_MEMORY;
-	        return FALSE; 
+	        return FALSE;
 	        }
         header3x5 =	header3x5all;
         tab3x5    =	tab3x5all;
         break;
     case    1:
-        
+
         if( !r35_init(NAME_PRINT,       &tab3x5print,  &header3x5print) )
             {
             r35_error_code = ER_R35_MEMORY;
-	        return FALSE; 
+	        return FALSE;
 	        }
         header3x5 =	header3x5print;
         tab3x5    =	tab3x5print;
@@ -2344,7 +2344,7 @@ r35_learn_level=level;
 num_learn=_msize(tab3x5)/sizeof(elm3x5);
 max_learn=num_learn+num;
 switch(FontType)
-    {    
+    {
     case    0:
 		tab3x5all=realloc(tab3x5all,(max_learn)*sizeof(elm3x5));
 		tab3x5   = tab3x5all;
@@ -2357,7 +2357,7 @@ switch(FontType)
 if( !tab3x5 )
     {
     r35_error_code = ER_R35_MEMORY;
-	return FALSE; 
+	return FALSE;
 	}
 
 return TRUE;
@@ -2367,13 +2367,13 @@ R35_FUNC(void)  R35Done_learn(Int32 FontType)
 {
 if(FontType!=0&&FontType!=1)
         return ;
-   
+
 if( num_learn||ClusterNumber() && tab3x5 )
     {
     ClusterTo3x5(FontType);
     ClusterFree();
     switch(FontType)
-    {    
+    {
     case    0:
         r35_save(NAME,tab3x5all, header3x5all,num_learn);
         break;
@@ -2387,9 +2387,9 @@ num_learn=0;
 return ;
 }
 
-R35_FUNC(Bool32)  R35RecogCharIm3x5_learn( 
-            Word8 Code,Word16* Im3x5/*,       
-			Bool32 r5x3*/, Int32 FontType  )  
+R35_FUNC(Bool32)  R35RecogCharIm3x5_learn(
+            Word8 Code,Word16* Im3x5/*,
+			Bool32 r5x3*/, Int32 FontType  )
 {
 VERSION vers[R35_MAX_VERS];
 Int32   nvers;
@@ -2409,7 +2409,7 @@ if( !alpha[Code] )
 
 memset(vers,0,sizeof(vers));
 switch(FontType)
-    {    
+    {
     case    0:
         header3x5 =	header3x5all;
         tab3x5    =	tab3x5all;
@@ -2441,10 +2441,10 @@ if( header3x5[ Code ].vnum )
         r35_recog_full_prn(Im3x5, vers, &nvers);
         break;
     }
-    if( vers[0].let!=Code || 
+    if( vers[0].let!=Code ||
         vers[0].let==Code && vers[0].prob<r35_learn_level )
       { // error or too small prob
-      ClusterRecogFull(Im3x5, vers, &nvers);         
+      ClusterRecogFull(Im3x5, vers, &nvers);
       if( vers[0].let!=Code || !nvers ||
         vers[0].let==Code && vers[0].prob<r35_learn_level )
         { // error or too small prob
@@ -2459,7 +2459,7 @@ if( header3x5[ Code ].vnum )
     }
 else
     { //  class absent
-    ClusterRecogFull(Im3x5, vers, &nvers);         
+    ClusterRecogFull(Im3x5, vers, &nvers);
     if( vers[0].let!=Code || !nvers ||
         vers[0].let==Code && vers[0].prob<r35_learn_level )
         { // error or too small prob
@@ -2468,13 +2468,13 @@ else
     else
         {
         ClusterAdd( ClusterNum(vers[0].num), Im3x5 );
-        } 
+        }
     }
 return TRUE;
 }
 
-R35_FUNC(Bool32)  R35RecogCharIm3x5_learn_expert( 
-            Word8 Code,Word16* Im3x5)  
+R35_FUNC(Bool32)  R35RecogCharIm3x5_learn_expert(
+            Word8 Code,Word16* Im3x5)
 {
 VERSION vers[R35_MAX_VERS];
 Int32   nvers;
@@ -2507,7 +2507,7 @@ if( header3x5[ Code ].vnum )
     r35_recog(Im3x5,   vers, 1, 0);
     if( vers[0].prob<r35_learn_level )
       { // error or too small prob
-      nvers = ClusterRecogOneLet(Im3x5, Code, vers);         
+      nvers = ClusterRecogOneLet(Im3x5, Code, vers);
       if( !nvers || vers[0].prob<r35_learn_level )
         { // error or too small prob
         ClusterAdd( ClusterNew(Code), Im3x5 );
@@ -2521,7 +2521,7 @@ if( header3x5[ Code ].vnum )
     }
 else
     { // store first class
-    nvers = ClusterRecogOneLet(Im3x5, Code, vers);         
+    nvers = ClusterRecogOneLet(Im3x5, Code, vers);
     if( !nvers || vers[0].prob<r35_learn_level )
         { // error or too small prob
         ClusterAdd( ClusterNew(Code), Im3x5 );
@@ -2534,7 +2534,7 @@ else
 return TRUE;
 }
 
-R35_FUNC(void)  R35SetMTR(int fnt) 
+R35_FUNC(void)  R35SetMTR(int fnt)
 {
 r35_fnt = fnt;
 return;
@@ -2556,7 +2556,7 @@ if( num_learn==max_learn )
 	return FALSE; /* not enough memory */
 	}
 switch(FontType)
-    {    
+    {
     case    0:
         header3x5 =	header3x5all;
         tab3x5    =	tab3x5all;
@@ -2574,10 +2574,10 @@ tab3x5[num_learn].fnt   = fnt|r35_fnt;
 tab3x5[num_learn].list  = 0;
 tab3x5[num_learn].bnd   = bnd;
 memcpy(&tab3x5[num_learn].vect[0], Im3x5, 30);
-  
+
 if( header3x5[ let ].vnum )
     { // add to 3x5 class
-    
+
     for(curr = &tab3x5 [ header3x5[ let ].numel ]; ; curr = &tab3x5[ curr->list ])
         {
 	    if( !curr->list )
@@ -2592,7 +2592,7 @@ else
     header3x5[ let ].numel = num_learn;
     header3x5[ let ].vnum  = 1;
     }
-    
+
 num_learn++;
 return TRUE;
 }

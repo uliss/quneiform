@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,20 +43,20 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 // StatSearchBL.cpp : implementation file
 //
-#include <memory.h> 
+#include <memory.h>
 /*#include <windows.h>
 #include <Winbase.h>*/
 #include <string.h>
@@ -86,12 +86,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 INT minrow;
 
-void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr, 
+void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr,
 			   Int16 *p_Y2Arr, Int16 *p_FreqY2Arr, Int16 *Ns3, Int16 *Ns4)
 {
 	if(line == 0 || p_attr == NULL || p_Y2Arr == NULL || p_FreqY2Arr == NULL) return;
 
-	ROW_STRUCT row_str;	
+	ROW_STRUCT row_str;
 
 	Int16 sz_FreqY2Arr = malloc_usable_size(p_FreqY2Arr) / sizeof(Int16);
 	Int16     sz_Y2Arr = malloc_usable_size(p_Y2Arr) / sizeof(Int16);
@@ -101,7 +101,7 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr,
 	Int16      min_Y2Arr = p_Y2Arr[stat_index_GlobMin(p_Y2Arr,sz_Y2Arr)];
 	Int16  max_FreqY2Arr = stat_index_GlobMax(p_FreqY2Arr,sz_FreqY2Arr, G);
 
-	row_str.globMax = min_Y2Arr + max_FreqY2Arr;	
+	row_str.globMax = min_Y2Arr + max_FreqY2Arr;
 	row_str.ValGM   = p_FreqY2Arr[max_FreqY2Arr];
 
 	//правый максимум (относительно главного максимума)
@@ -109,14 +109,14 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr,
 
 	right_diff = MAX(3, right_diff);
 
-	Int16 rightMax_FreqY2Arr = stat_index_RightLocMax(p_FreqY2Arr, sz_FreqY2Arr, 
+	Int16 rightMax_FreqY2Arr = stat_index_RightLocMax(p_FreqY2Arr, sz_FreqY2Arr,
 													max_FreqY2Arr + right_diff);
-	//проверка уровня полуопущенных букв 
+	//проверка уровня полуопущенных букв
 	if(p_attr->language != 0 && rightMax_FreqY2Arr != -1 &&
 		stat_control_semilevel(line, p_attr->row, min_Y2Arr + rightMax_FreqY2Arr))
 	{
 		Int16 itmp = rightMax_FreqY2Arr + 1;
-		if(itmp < sz_FreqY2Arr) 
+		if(itmp < sz_FreqY2Arr)
 			rightMax_FreqY2Arr = stat_index_RightLocMax(p_FreqY2Arr, sz_FreqY2Arr, itmp);
 		else rightMax_FreqY2Arr = sz_FreqY2Arr;
 	}
@@ -196,20 +196,20 @@ BOOL stat_control_semilevel(CSTR_line line, Int16 ln_row, Int16 b4)
 
 		if(start == NULL || stop == NULL) return FALSE;
 
-		for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let); 
+		for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let);
 		curr_raster && curr_raster!=stop;
 		curr_raster = CSTR_GetNextRaster(curr_raster, CSTR_f_let))
-		{		
+		{
 			CSTR_rast_attr rast_attr;
 			UniVersions vers;
 
 			if(CSTR_GetAttr(curr_raster, &rast_attr) &&
 			   CSTR_GetCollectionUni(curr_raster, &vers))
 			{
-				if(vers.lnAltCnt <= 0 || 
-					rast_attr.flg == CSTR_f_space) 
+				if(vers.lnAltCnt <= 0 ||
+					rast_attr.flg == CSTR_f_space)
 				{
-					continue; 
+					continue;
 				}
 
 				Int16 drow4 = rast_attr.row + rast_attr.h - ln_row - b4;
@@ -217,13 +217,13 @@ BOOL stat_control_semilevel(CSTR_line line, Int16 ln_row, Int16 b4)
 				Bool16 b = FALSE;
 
 				if(abs(drow4) <= 2)
-				{		
+				{
 					for(int i = 0; i < vers.lnAltCnt; i++)
 					{
 						char c = vers.Alt[i].Code[0];
 						char *p = strchr(buff, c);
 
-						if(p) 
+						if(p)
 						{
 							b = TRUE;
 							break;
@@ -246,7 +246,7 @@ BOOL stat_interp_bsl_by_boxes(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, 
 {
 	CSTR_attr line_attr;
 	if(!CSTR_GetLineAttr(line,&line_attr)) return FALSE;
-	
+
 	char buff[] = "\\/|<>йЙдДщЩцЦ";
 
 	Int16 countLLM1 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0;
@@ -282,7 +282,7 @@ BOOL stat_interp_bsl_by_boxes(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, 
 
 	if(start == NULL || stop == NULL) return FALSE;
 
-	for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let| CSTR_f_bad); //отладка 
+	for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let| CSTR_f_bad); //отладка
 	curr_raster && curr_raster!=stop;
 	curr_raster = CSTR_GetNextRaster(curr_raster, CSTR_f_let | CSTR_f_bad)) //
 	{
@@ -290,8 +290,8 @@ BOOL stat_interp_bsl_by_boxes(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, 
 
 		if(CSTR_GetAttr(curr_raster, &rast_attr))
 		{
-			if(rast_attr.flg != CSTR_f_dust && 
-			   rast_attr.flg != CSTR_f_punct && 
+			if(rast_attr.flg != CSTR_f_dust &&
+			   rast_attr.flg != CSTR_f_punct &&
 			   rast_attr.flg != CSTR_f_space)
 			{
 				BOOL flg = TRUE;
@@ -304,7 +304,7 @@ BOOL stat_interp_bsl_by_boxes(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, 
 						char c = vers.Alt[i].Code[0];
 						char *p = strchr(buff, c);
 
-						if(p) 
+						if(p)
 						{
 							flg = FALSE;
 							break;
@@ -313,17 +313,17 @@ BOOL stat_interp_bsl_by_boxes(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, 
 				}
 
 				if(!flg) continue;
-			
+
 				Int16 drow = rast_attr.row - ln_row;
 				Int16  db3 = drow + rast_attr.h - b3;
 				Int16  db4 = b4 != -1 ? drow + rast_attr.h - b4 : -1;
 
 				if(!(abs(db3) <= 3 || (abs(db4) <= 3 && b4 != -1))) continue;
 
-				if(pnt1 <= drow && drow < pnt2) 
+				if(pnt1 <= drow && drow < pnt2)
 				{
 					if(row_str->AltGM == 1) countGM1++;
-					else countGM2++; 
+					else countGM2++;
 				}
 				else
 				{
@@ -374,7 +374,7 @@ Int16 stat_control_b3_by_recog(CSTR_line line, Int16 ln_row, ROW_STRUCT *row_str
 	char buff_rus_high[]= "АБВГЕЖЗИЙКЛМНОПСТХЧЫЪЬЭЮЯ";
 	char buff_rus_low[] = "абвгежзийклмнопстхчыъьэюя";
 
-	Int16 countLLM3 = 0, countGM3 = 0, countGM4 = 0, countRLM4 = 0, countRLM3 = 0; 
+	Int16 countLLM3 = 0, countGM3 = 0, countGM4 = 0, countRLM4 = 0, countRLM3 = 0;
 //		  countWarn1 = 0, countHighL1 = 0, countWarn2 = 0, countHighL2 = 0;
 
 	//интервалы
@@ -391,7 +391,7 @@ Int16 stat_control_b3_by_recog(CSTR_line line, Int16 ln_row, ROW_STRUCT *row_str
 			pnt1 = (Int16)(row_str->globMax - 0.5 * (row_str->rightLocMax - row_str->globMax));
 		else
 			pnt1 = (Int16)(row_str->globMax - 0.5 * (row_str->globMax));
-		pnt0 = pnt1; 
+		pnt0 = pnt1;
 	}
 
 	if(row_str->rightLocMax != -1)
@@ -412,10 +412,10 @@ Int16 stat_control_b3_by_recog(CSTR_line line, Int16 ln_row, ROW_STRUCT *row_str
 
 		if(start == NULL || stop == NULL) return -1;
 
-		for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let); 
+		for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let);
 		curr_raster && curr_raster!=stop;
 		curr_raster = CSTR_GetNextRaster(curr_raster, CSTR_f_let))
-		{		
+		{
 			CSTR_rast_attr rast_attr;
 			UniVersions vers;
 
@@ -425,9 +425,9 @@ Int16 stat_control_b3_by_recog(CSTR_line line, Int16 ln_row, ROW_STRUCT *row_str
 				BOOL flg = TRUE;
 				Int16 iNl = 0, iWl = 0;
 
-				if(vers.lnAltCnt == 0) 
+				if(vers.lnAltCnt == 0)
 				{
-					continue; 
+					continue;
 				}
 
 				for(int i = 0; i < vers.lnAltCnt; i++)
@@ -446,7 +446,7 @@ Int16 stat_control_b3_by_recog(CSTR_line line, Int16 ln_row, ROW_STRUCT *row_str
 					char *peng_high = strchr(buff_eng_high, c);
 					char *prus_high = strchr(buff_rus_high, c);
 
-					if(peng_low == NULL && prus_low == NULL && 
+					if(peng_low == NULL && prus_low == NULL &&
 					   pfig == NULL && peng_high == NULL && prus_high == NULL)
 					{
 /*						flg = FALSE;
@@ -461,14 +461,14 @@ Int16 stat_control_b3_by_recog(CSTR_line line, Int16 ln_row, ROW_STRUCT *row_str
 
 				if(iWl > 0)
 				{
-					if((Float32)iNl / (Float32)iWl <= 2) flg = FALSE;					
+					if((Float32)iNl / (Float32)iWl <= 2) flg = FALSE;
 				}
 
 				if(flg)
 				{
 					Int16 d = rast_attr.row + rast_attr.h - ln_row;
 
-					if(pnt1 <= d && d <= pnt2) 
+					if(pnt1 <= d && d <= pnt2)
 					{
 						countGM3++;
 						continue;
@@ -493,7 +493,7 @@ Int16 stat_control_b3_by_recog(CSTR_line line, Int16 ln_row, ROW_STRUCT *row_str
 		}
 	}
 
-	if(countLLM3 > 0 && countGM3 == 0) iret = 4; 
+	if(countLLM3 > 0 && countGM3 == 0) iret = 4;
 
 	if(countRLM3 > 0 && countGM3 >= 0 && row_str->ValRLM == row_str->ValGM)
 	{
@@ -538,7 +538,7 @@ BOOL stat_interp_bsl(CSTR_line line, CSTR_attr *p_attr, ROW_STRUCT *row_str)
 
 	if(!bret)
 	{
-		if(p_attr->Nb4 > 0) 
+		if(p_attr->Nb4 > 0)
 		{
 			if(stat_interp_bsl_by_b4(line, p_attr->row, p_attr->bs3, p_attr->bs4, row_str))
 			{
@@ -561,12 +561,12 @@ BOOL stat_interp_bsl(CSTR_line line, CSTR_attr *p_attr, ROW_STRUCT *row_str)
 		{
 			if(row_str->AltGM == -1 && row_str->leftLocMax == -1 && row_str->rightLocMax != -1)
 			{
-				rGM[1]++; rRLM[2]++;	
+				rGM[1]++; rRLM[2]++;
 			}
 
 			if(row_str->AltGM == -1 && row_str->rightLocMax == -1 && row_str->leftLocMax != -1)
 			{
-				rGM[2]++; rLLM[1]++;	
+				rGM[2]++; rLLM[1]++;
 			}
 
 			if(row_str->AltGM == -1 && row_str->rightLocMax == -1 && row_str->leftLocMax == -1)
@@ -599,17 +599,17 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 	char buff_eng_low1[]  = "aeimnr";
 	char buff_eng_low2[]  = "cosuvwxz";//q
 
-	char buff_rus_high1[] = "АБЕбФфРрУу0О23З456789"; 
+	char buff_rus_high1[] = "АБЕбФфРрУу0О23З456789";
 	char buff_rus_high2[] = "ВГЖИКЛМНОПСТХЧШЪЫЬЭЮЯ";
 	char buff_rus_low1[]  = "ае";
 	char buff_rus_low2[]  = "вгжзиклмнопстхчшъыьэюя";
 	char buff_rus_unk[]   = "д"; //отладка
 
-	char buff_warning[] = "\\/|<>(){}[]йЙ"; 
+	char buff_warning[] = "\\/|<>(){}[]йЙ";
 
 	Int16 iLow1 = 0, iHigh1 = 0, iLow2 = 0, iHigh2 = 0, iLvlt = 0, iWarn = 0, iUnk = 0;
 
-	Int16 countLLM1 = 0, countLLM2 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0, countRLM1 = 0, 
+	Int16 countLLM1 = 0, countLLM2 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0, countRLM1 = 0,
 		  countWarn1 = 0, countHighL1 = 0, countWarn2 = 0, countHighL2 = 0;
 
 	//интервалы
@@ -626,7 +626,7 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 			pnt1 = (Int16)(row_str->globMax - 0.5 * (row_str->rightLocMax - row_str->globMax));
 		else
 			pnt1 = (Int16)(row_str->globMax - 0.5 * (b3 - row_str->globMax));
-		pnt0 = pnt1; 
+		pnt0 = pnt1;
 	}
 
 	if(row_str->rightLocMax != -1)
@@ -646,7 +646,7 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 
 		if(start == NULL || stop == NULL) return FALSE;
 
-		for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let); 
+		for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let);
 		curr_raster && curr_raster!=stop;
 		curr_raster = CSTR_GetNextRaster(curr_raster, CSTR_f_let))
 		{
@@ -656,23 +656,23 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 			if(CSTR_GetAttr(curr_raster, &rast_attr) &&
 			   CSTR_GetCollectionUni(curr_raster, &vers))
 			{
-				if(vers.lnAltCnt <= 0 || rast_attr.flg == CSTR_f_space) 
+				if(vers.lnAltCnt <= 0 || rast_attr.flg == CSTR_f_space)
 				{
-					continue; 
+					continue;
 				}
 
 				iWarn = 0; iUnk = 0, iHigh1 = 0; iLow1  = 0; iHigh2 = 0; iLow2  = 0, iLvlt = 0;
 
 				for(int i = 0; i < vers.lnAltCnt; i++)
 				{
-					char *peng_low1, *prus_low1, *peng_high1, *prus_high1, 
-						 *peng_low2, *prus_low2, *peng_high2, *prus_high2, 
+					char *peng_low1, *prus_low1, *peng_high1, *prus_high1,
+						 *peng_low2, *prus_low2, *peng_high2, *prus_high2,
 						 *peng_t, *prus_unk, *p_warning;
 
-					peng_low1 = prus_low1 = peng_high1 = prus_high1 = 
-					peng_low2 = prus_low2 = peng_high2 = prus_high2 = 
+					peng_low1 = prus_low1 = peng_high1 = prus_high1 =
+					peng_low2 = prus_low2 = peng_high2 = prus_high2 =
 					peng_t = prus_unk  = p_warning = NULL;
-				
+
 					for(Int16 j = 0; j < 3; j++)
 					{
 						char c = vers.Alt[i].Code[j];
@@ -734,13 +734,13 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 
 						if(prus_low2 != NULL || peng_low2 != NULL)
 						{
-							iLow2++;							
+							iLow2++;
 							continue;
 						}
 
 						if(prus_unk != NULL)
 						{
-							iUnk++;							
+							iUnk++;
 							continue;
 						}
 					}
@@ -750,11 +750,11 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 
 				if(abs(db3) <= 2 || iWarn > 0)
 				{
-					Int16 drow = rast_attr.row - ln_row; 
+					Int16 drow = rast_attr.row - ln_row;
 
 					if(iLow1 > 0 && iHigh1 + iHigh2 == 0 && iUnk == 0)
 					{
-						if(pnt1 <= drow && drow <= pnt2) 
+						if(pnt1 <= drow && drow <= pnt2)
 						{
 							countGM2++;
 							continue;
@@ -774,12 +774,12 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 									continue;
 								}
 							}
-						}				
+						}
 					}
 
 					if(iLow1 + iLow2 == 0 && iHigh1 > 0 && iLvlt == 0)
 					{
-						if(pnt1 <= drow && drow <= pnt2) 
+						if(pnt1 <= drow && drow <= pnt2)
 						{
 							countGM1++;
 							continue;
@@ -801,12 +801,12 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 							}
 						}
 					}
-					
+
 					if(iLow1 + iLow2 == 0 && iHigh1 >= 0 && iLvlt > 0)
 					{
 						if(iHigh1 == 0) drow -= 2;
 
-						if(pnt1 <= drow && drow <= pnt2) 
+						if(pnt1 <= drow && drow <= pnt2)
 						{
 							countGM1++;
 							continue;
@@ -828,24 +828,24 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 							}
 						}
 					}
-					
-					if(row_str->leftLocMax != -1 && pnt0 <= drow && drow < pnt1) 
+
+					if(row_str->leftLocMax != -1 && pnt0 <= drow && drow < pnt1)
 					{
 						if(iWarn > 0) countWarn1++;
-						else countHighL1++;					
+						else countHighL1++;
 					}
 
 					if(pnt1 <= drow && drow < pnt2)
 					{
 						if(iWarn > 0) countWarn2++;
-						else countHighL2++;					
+						else countHighL2++;
 					}
 				}
 			}
 		}
 
-		if(countGM1 + countRLM2 > 0 || 
-			(countLLM1 + countGM2 > 0 && 
+		if(countGM1 + countRLM2 > 0 ||
+			(countLLM1 + countGM2 > 0 &&
 			(countLLM2 == 0 || row_str->globMax - row_str->leftLocMax >= 4)))
 		{
 			if(countGM1 + countRLM2 > countLLM1 + countGM2 ||
@@ -874,14 +874,14 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 					{
 						row_str->AltGM  =  2;
 						row_str->AltRLM = -1;
-						row_str->AltLLM = countLLM1 > 0 ? 1 : -1;		
+						row_str->AltLLM = countLLM1 > 0 ? 1 : -1;
 					}
 				}
 				else
 				{
 					row_str->AltGM  =  2;
 					row_str->AltRLM = -1;
-					row_str->AltLLM = countLLM1 > 0 ? 1 : -1;				 
+					row_str->AltLLM = countLLM1 > 0 ? 1 : -1;
 				}
 			}
 		}
@@ -891,27 +891,27 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 				row_str->AltRLM = 1;
 		}
 
-		if((countHighL1 == 0 && countWarn1 > 0) || (countHighL2 == 0 && countWarn2 > 0) || 
+		if((countHighL1 == 0 && countWarn1 > 0) || (countHighL2 == 0 && countWarn2 > 0) ||
 			(countLLM2 > 0 && row_str->globMax - row_str->leftLocMax < 4))
 		{
 			if((countHighL1 == 0 && countWarn1 > 0) || (countHighL2 == 0 && countWarn2 > 0))
 			{
 				countWarn1 = 0, countHighL1 = 0, countWarn2 = 0, countHighL2 = 0;
-				for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let | CSTR_f_bad); 
+				for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let | CSTR_f_bad);
 				curr_raster && curr_raster!=stop;
 				curr_raster = CSTR_GetNextRaster(curr_raster, CSTR_f_let | CSTR_f_bad))
 				{
 					CSTR_rast_attr rast_attr;
 					UniVersions vers;
 
-					char *p_warning; 
+					char *p_warning;
 
 					if(CSTR_GetAttr(curr_raster, &rast_attr) &&
 					   CSTR_GetCollectionUni(curr_raster, &vers))
 					{
-						if(rast_attr.flg == CSTR_f_space) continue; 
+						if(rast_attr.flg == CSTR_f_space) continue;
 
-						p_warning = NULL;	
+						p_warning = NULL;
 
 						for(int i = 0; i < vers.lnAltCnt; i++)
 						{
@@ -926,18 +926,18 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 
 						if(abs(db3) <= 2 || p_warning)
 						{
-							Int16 drow = rast_attr.row - ln_row; 
+							Int16 drow = rast_attr.row - ln_row;
 
-							if(row_str->leftLocMax != -1 && pnt0 <= drow && drow < pnt1) 
+							if(row_str->leftLocMax != -1 && pnt0 <= drow && drow < pnt1)
 							{
 								if(p_warning) countWarn1++;
-								else countHighL1++;					
+								else countHighL1++;
 							}
 
 							if(pnt1 <= drow && drow < pnt2)
 							{
 								if(p_warning) countWarn2++;
-								else countHighL2++;					
+								else countHighL2++;
 							}
 						}
 					}
@@ -951,7 +951,7 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 			{
 				if(countLLM2 > 0)
 				{
-					row_str->AltGM = 2;	
+					row_str->AltGM = 2;
 					row_str->globMax = row_str->leftLocMax;
 					row_str->ValGM   = row_str->ValLLM;
 				}
@@ -964,7 +964,7 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 				bdel = TRUE;
 			}
 
-			if(!bdel && row_str->leftLocMax == -1 && row_str->AltGM == -1 && 
+			if(!bdel && row_str->leftLocMax == -1 && row_str->AltGM == -1 &&
 				row_str->rightLocMax != -1 &&
 				row_str->ValGM <= countWarn2 && countHighL2 == 0)
 			{
@@ -980,7 +980,7 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 		}
 	}
 	else return FALSE;
-	
+
 	return TRUE;
 }
 
@@ -996,19 +996,19 @@ BOOL stat_control_t_level(CSTR_line line, Int16 ln_row, Int16 b3, Int16 bl)
 
 		if(start == NULL || stop == NULL) return FALSE;
 
-		for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let); 
+		for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let);
 		curr_raster && curr_raster!=stop;
 		curr_raster = CSTR_GetNextRaster(curr_raster, CSTR_f_let))
-		{		
+		{
 			CSTR_rast_attr rast_attr;
 			UniVersions vers;
 
 			if(CSTR_GetAttr(curr_raster, &rast_attr) &&
 			   CSTR_GetCollectionUni(curr_raster, &vers))
 			{
-				if(vers.lnAltCnt != 1)  
+				if(vers.lnAltCnt != 1)
 				{
-					continue; 
+					continue;
 				}
 
 				BOOL flg = FALSE;
@@ -1026,10 +1026,10 @@ BOOL stat_control_t_level(CSTR_line line, Int16 ln_row, Int16 b3, Int16 bl)
 					Int16 drow3 = rast_attr.row + rast_attr.h - ln_row - b3;
 
 					if(vers.Alt[0].Prob >= 230 && abs(drow3) <= 2)
-					{		
+					{
 						Int16 drowbl = rast_attr.row - ln_row - bl;// + drow3
-					
-						if(abs(drowbl) <= 1) 
+
+						if(abs(drowbl) <= 1)
 						{
 							i1++;
 						}
@@ -1053,7 +1053,7 @@ BOOL stat_interp_bsl_by_b4(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, ROW
 	char buff1[] = "фФ";
 	char buff2[] = "дДщЩцЦ";
 	char buff_warning[] = "1\\|/(){}[]";
-	
+
 
 	Int16 countLLM1 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0, countWarn = 0;
 	Int16 drowWarn = 0;
@@ -1088,27 +1088,27 @@ BOOL stat_interp_bsl_by_b4(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, ROW
 
 	if(start == NULL || stop == NULL) return FALSE;
 
-	for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let); 
+	for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let);
 	curr_raster && curr_raster!=stop;
 	curr_raster = CSTR_GetNextRaster(curr_raster, CSTR_f_let))
-	{		
+	{
 		CSTR_rast_attr rast_attr;
 		UniVersions vers;
 
 		if(CSTR_GetAttr(curr_raster, &rast_attr) &&
 		   CSTR_GetCollectionUni(curr_raster, &vers))
 		{
-			if(vers.lnAltCnt <= 0 || rast_attr.flg == CSTR_f_space) //отладка 
+			if(vers.lnAltCnt <= 0 || rast_attr.flg == CSTR_f_space) //отладка
 			{
-				continue; 
+				continue;
 			}
 
 			Int16  db4 = rast_attr.row + rast_attr.h - ln_row - b4;
-			Int16 drow = rast_attr.row - ln_row; 
+			Int16 drow = rast_attr.row - ln_row;
 			Int16 pnt = b3 != 0 ? (b4 - b3) / 2 : 3;
 
-			if(-pnt <= db4 && db4 <= 3)//отладка vers.Alt[0].Prob >= 230 && 
-			{		
+			if(-pnt <= db4 && db4 <= 3)//отладка vers.Alt[0].Prob >= 230 &&
+			{
 				BOOL flg1 = FALSE, flg2 = FALSE, flg_warning = FALSE;
 
 				for(int i = 0; i < vers.lnAltCnt; i++)
@@ -1118,19 +1118,19 @@ BOOL stat_interp_bsl_by_b4(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, ROW
 					char *p2 = strchr(buff2, c);
 					char *p_warning = strchr(buff_warning, c);
 
-					if(p1) 
+					if(p1)
 					{
 						flg1 = TRUE;
 						break;
 					}
 
-					if(p2 || c == 0) 
+					if(p2 || c == 0)
 					{
 						flg2 = TRUE;
 						break;
 					}
 
-					if(p_warning) 
+					if(p_warning)
 					{
 						flg_warning = TRUE;
 						break;
@@ -1138,10 +1138,10 @@ BOOL stat_interp_bsl_by_b4(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, ROW
 				}
 
 				if(flg2) continue;
-								
+
 				if(!flg1)
 				{
-					if(pnt1 <= drow && drow < pnt2) 
+					if(pnt1 <= drow && drow < pnt2)
 					{
 						if(row_str->AltGM == 1 || flg_warning) countGM1++;//отладка && row_str->leftLocMax == -1
 						else countGM2++;
@@ -1163,11 +1163,11 @@ BOOL stat_interp_bsl_by_b4(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, ROW
 						{
 							countRLM2++;
 						}
-					}	
+					}
 				}
 				else
 				{
-					if(pnt1 <= drow && drow < pnt2) 
+					if(pnt1 <= drow && drow < pnt2)
 					{
 						countGM1++;
 					}
@@ -1177,7 +1177,7 @@ BOOL stat_interp_bsl_by_b4(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, ROW
 						{
 							countLLM1++;
 						}
-					}						
+					}
 				}
 			}
 		}
@@ -1196,7 +1196,7 @@ BOOL stat_interp_bsl_by_b4(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, ROW
 			if(countGM2 > 0 || row_str->rightLocMax == -1) row_str->AltGM = 2;
 			row_str->AltRLM = -1;
 			row_str->AltLLM = countLLM1 > 0 ? 1 : -1;
-				
+
 		}
 	}
 
@@ -1231,7 +1231,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 {
 	if(line == 0 || p_attr == NULL || p_Y1Arr == NULL ||p_Y2Arr == NULL || p_FreqY1Arr == NULL) return;
 
-	ROW_STRUCT row_str;	
+	ROW_STRUCT row_str;
 
 	Int16 sz_FreqY1Arr = malloc_usable_size(p_FreqY1Arr) / sizeof(Int16);
 	Int16     sz_Y1Arr = malloc_usable_size(p_Y1Arr) / sizeof(Int16);
@@ -1250,13 +1250,13 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 /*	switch(hipothesis)
 	{
 		case -1:  //похожая строка не найдена;
-				
+
 		case 12:  //найдены похожие строки, и
-		          //глобальный максимум может быть как и первой БЛ, так и второй БЛ;				  
-		case  1:  //похожая строка(и) найдена(ы), 
+		          //глобальный максимум может быть как и первой БЛ, так и второй БЛ;
+		case  1:  //похожая строка(и) найдена(ы),
 				  //и, предположительно, глобальный максимум - первая БЛ;
 		case  2:
-		default: //похожая строка(и) найдена(ы), 
+		default: //похожая строка(и) найдена(ы),
 				 //и, предположительно, глобальный максимум - вторая БЛ.
 	}
 */
@@ -1266,7 +1266,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 	left_diff = MAX(left_diff, 3);
 
 	Int16 leftMax_FreqY1Arr = stat_index_LeftLocMax(p_FreqY1Arr, max_FreqY1Arr - left_diff);
-	//проверка t-уровня  
+	//проверка t-уровня
 	if(p_attr->language == 0 && leftMax_FreqY1Arr != -1)
 	{
 		if(stat_control_t_level(line, p_attr->row, p_attr->bs3, min_Y1Arr + leftMax_FreqY1Arr)
@@ -1282,11 +1282,11 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 
 	row_str.leftLocMax		= leftMax_FreqY1Arr != -1 ?  min_Y1Arr + leftMax_FreqY1Arr : -1;
 	row_str.ValLLM			= leftMax_FreqY1Arr != -1 ? p_FreqY1Arr[leftMax_FreqY1Arr] : -1;
-	diff_leftLocMax_GlobMax = leftMax_FreqY1Arr != -1 ?  
+	diff_leftLocMax_GlobMax = leftMax_FreqY1Arr != -1 ?
 												  row_str.globMax - row_str.leftLocMax : -1;
 
 	//пропорции (b2-b1)/(b3-b2)
-	if(diff_leftLocMax_GlobMax != -1 && diff_b3_GlobMax != 0) 
+	if(diff_leftLocMax_GlobMax != -1 && diff_b3_GlobMax != 0)
 		row_str.leftCoeff = (Float32) diff_leftLocMax_GlobMax / diff_b3_GlobMax;
 
 	if(row_str.leftCoeff != -1 && row_str.leftCoeff < 0.15)
@@ -1312,8 +1312,8 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 
 
 	//пропорции (b2-b1)/(b3-b2)
-	if(diff_GlobMax_rightLocMax != -1 && diff_b3_GlobMax - diff_GlobMax_rightLocMax != 0) 
-		row_str.rightCoeff = (Float32) 
+	if(diff_GlobMax_rightLocMax != -1 && diff_b3_GlobMax - diff_GlobMax_rightLocMax != 0)
+		row_str.rightCoeff = (Float32)
 				diff_GlobMax_rightLocMax / (diff_b3_GlobMax - diff_GlobMax_rightLocMax);
 
 	if(row_str.rightCoeff != -1 && row_str.rightCoeff < 0.2)
@@ -1339,16 +1339,16 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 		{
 			case 1:	p_attr->bs1 = row_str.globMax;
  					Ns1[0] = row_str.ValGM;
-					p_attr->Nb1 = (Int16)MIN(100, 
+					p_attr->Nb1 = (Int16)MIN(100,
 									(Float32)100 * row_str.ValGM/(Float32)(sz_Y1Arr * Pb1));
 
-					if(row_str.ValRLM != -1 && 
+					if(row_str.ValRLM != -1 &&
 						0.2 <= row_str.rightCoeff && row_str.rightCoeff <= 1)
 					{
 						p_attr->bs2 = row_str.rightLocMax;
 						Ns2[0] = row_str.ValRLM;
-						p_attr->Nb2 = (Int16)MIN(100, 
-								   (Float32)100 * row_str.ValRLM/(Float32)(sz_Y1Arr * Pb2));																	
+						p_attr->Nb2 = (Int16)MIN(100,
+								   (Float32)100 * row_str.ValRLM/(Float32)(sz_Y1Arr * Pb2));
 					}
 					else
 					{
@@ -1360,16 +1360,16 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 			case 2:	;
 			default:p_attr->bs2 = row_str.globMax;
  					Ns2[0] = row_str.ValGM;
-					p_attr->Nb2 = (Int16)MIN(100, 
+					p_attr->Nb2 = (Int16)MIN(100,
 									(Float32)100 * row_str.ValGM/(Float32)(sz_Y1Arr * Pb2));
 
-					if(row_str.ValLLM != -1 && 
+					if(row_str.ValLLM != -1 &&
 						0.2 <= row_str.leftCoeff && row_str.leftCoeff <= 1)
 					{
 						p_attr->bs1 = row_str.leftLocMax;
 						Ns1[0] = row_str.ValLLM;
-						p_attr->Nb1 = (Int16)MIN(100, 
-								   (Float32)100 * row_str.ValLLM/(Float32)(sz_Y1Arr * Pb1));																	
+						p_attr->Nb1 = (Int16)MIN(100,
+								   (Float32)100 * row_str.ValLLM/(Float32)(sz_Y1Arr * Pb1));
 					}
 					else
 					{
@@ -1393,7 +1393,7 @@ Int16 stat_LineLength(CSTR_line line)
 
 		if(start == NULL || stop == NULL) return i;
 
-		for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let | CSTR_f_bad); 
+		for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let | CSTR_f_bad);
 		curr_raster && curr_raster!=stop;
 		curr_raster = CSTR_GetNextRaster(curr_raster, CSTR_f_let | CSTR_f_bad))
 		{
@@ -1402,17 +1402,17 @@ Int16 stat_LineLength(CSTR_line line)
 			{
 				if(rast_attr.flg != CSTR_f_dust && rast_attr.flg != CSTR_f_punct)
 				{
-					CCOM_comp *comp;			
-					if((comp = CSTR_GetComp(curr_raster)) == NULL) continue; 
+					CCOM_comp *comp;
+					if((comp = CSTR_GetComp(curr_raster)) == NULL) continue;
 					if(comp->type == CSTR_f_dust || comp->type == CSTR_f_punct) continue;
 
 					i++;
 				}
 			}
-		}		
+		}
 	}
 
-	return i;	
+	return i;
 }
 
 void stat_FormArrays(CSTR_line line, Int16 row, Int16 *p_Y1Array, Int16 *p_Y2Array)
@@ -1427,7 +1427,7 @@ void stat_FormArrays(CSTR_line line, Int16 row, Int16 *p_Y1Array, Int16 *p_Y2Arr
 	CSTR_attr line_attr;
 	if(CSTR_GetLineAttr(line,&line_attr))
 	{
-		Int16 line_row = row; 
+		Int16 line_row = row;
 
 		CSTR_rast  start = CSTR_GetFirstRaster(line), stop = CSTR_GetLastRaster(line);
 
@@ -1449,8 +1449,8 @@ void stat_FormArrays(CSTR_line line, Int16 row, Int16 *p_Y1Array, Int16 *p_Y2Arr
 			{
 				if(rast_attr.flg != CSTR_f_dust && rast_attr.flg != CSTR_f_punct)
 				{
-					CCOM_comp *comp;			
-					if((comp = CSTR_GetComp(curr_raster)) == NULL) continue; 
+					CCOM_comp *comp;
+					if((comp = CSTR_GetComp(curr_raster)) == NULL) continue;
 					if(comp->type == CSTR_f_dust || comp->type == CSTR_f_punct) continue;
 
 //					p_Y1Array = (Int16 *)realloc(p_Y1Array, (i+1) * sizeof(Int16));
@@ -1477,7 +1477,7 @@ void stat_FormArrays(CSTR_line line, Int16 row, Int16 *p_Y1Array, Int16 *p_Y2Arr
 	}
 }
 
-void StatSearchBL(CSTR_line line, CSTR_attr *p_attr, 
+void StatSearchBL(CSTR_line line, CSTR_attr *p_attr,
 				  Int16 *Ns1, Int16 *Ns2, Int16 *Ns3, Int16 *Ns4)
 {
 	Int16  n = stat_LineLength(line);  //malloc_usable_size(pY1Array) / sizeof(Int16) - размерность pY1Array и pY2Array
@@ -1491,15 +1491,15 @@ void StatSearchBL(CSTR_line line, CSTR_attr *p_attr,
 	}
 
 //	DebugBreak();
-	stat_FormArrays(line, p_attr->row, pY1Array, pY2Array);  
-	
+	stat_FormArrays(line, p_attr->row, pY1Array, pY2Array);
+
 	if(pY1Array == NULL || pY2Array == NULL)
 	{
 		p_attr = (CSTR_attr *) NULL;
 		return;
 	}
 
-	//значения гистограммы	
+	//значения гистограммы
 	Int16 *pFrequencyY1Array = 	stat_gistoGramma(pY1Array, n);
 	Int16 *pFrequencyY2Array =	stat_gistoGramma(pY2Array, n);
 
@@ -1517,7 +1517,7 @@ void StatSearchBL(CSTR_line line, CSTR_attr *p_attr,
 
 			//собственно поиск БЛ
 			stat_def_b3_b4(line, p_attr, pY2Array, pFrequencyY2Array, Ns3, Ns4);
-			stat_def_b1_b2(line, p_attr, pY1Array, 
+			stat_def_b1_b2(line, p_attr, pY1Array,
 				pY2Array, pFrequencyY1Array, Ns1, Ns2);
 			stat_def_imaginary_bl(p_attr, Ns1, Ns2, Ns4);
 		}
@@ -1528,7 +1528,7 @@ void StatSearchBL(CSTR_line line, CSTR_attr *p_attr,
 		}
 
 		free(pFrequencyY1Array);
-		free(pY1Array);	
+		free(pY1Array);
 
 		free(pFrequencyY2Array);
 		free(pY2Array);
@@ -1543,7 +1543,7 @@ Int16 stat_Hypothesis(Int32 line_number, Int16 diff_b3_bsl)
 
 	if(line_number <= CSTR_GetMaxNumber())
 	{
-		Int32 line_start = MAX(1, line_number - LNCNST); 
+		Int32 line_start = MAX(1, line_number - LNCNST);
 
 		CSTR_attr *pCSTR_attrArray = (CSTR_attr *)malloc((line_number - line_start) * sizeof(CSTR_attr));
 
@@ -1664,7 +1664,7 @@ Int16 stat_Mode_diff_b2_b1(Int32 line_number, Int16 diff_b3_b2)
 
 	if(line_number <= CSTR_GetMaxNumber())
 	{
-		Int32 line_start = MAX(1, line_number - LNCNST); 
+		Int32 line_start = MAX(1, line_number - LNCNST);
 
 		CSTR_attr *pCSTR_attrArray = (CSTR_attr *)malloc((line_number - line_start) * sizeof(CSTR_attr));
 
@@ -1686,16 +1686,16 @@ Int16 stat_Mode_diff_b2_b1(Int32 line_number, Int16 diff_b3_b2)
 						{
 							if(pCSTR_attrArray[l].Nb1 != -1 && pCSTR_attrArray[l].Nb2 != -1)
 							{
-								p_diff[jCount] = 
+								p_diff[jCount] =
 											pCSTR_attrArray[l].bs2 - pCSTR_attrArray[l].bs1;
-								jCount++;	
+								jCount++;
 							}
 						}
 					}
 
 					if(jCount !=0)
 					{
-						p_diff = (Int16 *) realloc(p_diff, jCount * sizeof(Int16));	
+						p_diff = (Int16 *) realloc(p_diff, jCount * sizeof(Int16));
 						Int16 *pFrequencyArray = stat_gistoGramma(p_diff, jCount);
 						if(pFrequencyArray != NULL)
 						{
@@ -1703,10 +1703,10 @@ Int16 stat_Mode_diff_b2_b1(Int32 line_number, Int16 diff_b3_b2)
 							Int16          minArray = p_diff[stat_index_GlobMin(p_diff,jCount)];
 							Int16 maxFrequencyArray = stat_index_GlobMax(pFrequencyArray,szFrequencyArray, G);
 							if(szFrequencyArray != 0) free(pFrequencyArray);
-							iMode = minArray + maxFrequencyArray;	
+							iMode = minArray + maxFrequencyArray;
 							bFound_mode = TRUE;
 						}
-					}			
+					}
 				}
 
 				free(p_diff);
@@ -1736,7 +1736,7 @@ Int16 stat_Left_diff_from_max(Int16 *p_FrequencyArray, Int16 max_FrequencyArray)
 		}
 	}
 
-	if(jret == -1) 
+	if(jret == -1)
 	{
 		for(i = max_FrequencyArray - 1; i >= 0; i--)
 		{
@@ -1746,7 +1746,7 @@ Int16 stat_Left_diff_from_max(Int16 *p_FrequencyArray, Int16 max_FrequencyArray)
 			{
 				jret = max_FrequencyArray - i + 1;
 				break;
-			}		
+			}
 		}
 	}
 
@@ -1793,7 +1793,7 @@ Int16 stat_Mode_diff_b3_b4(Int32 line_number, Int16 diff_b3_b2)
 
 	if(line_number <= CSTR_GetMaxNumber())
 	{
-		Int32 line_start = MAX(1, line_number - LNCNST); 
+		Int32 line_start = MAX(1, line_number - LNCNST);
 
 		CSTR_attr *pCSTR_attrArray = (CSTR_attr *)malloc((line_number - line_start) * sizeof(CSTR_attr));
 
@@ -1815,27 +1815,27 @@ Int16 stat_Mode_diff_b3_b4(Int32 line_number, Int16 diff_b3_b2)
 						{
 							if(pCSTR_attrArray[l].Nb4 != -1)
 							{
-								p_diff[jCount] = 
+								p_diff[jCount] =
 											pCSTR_attrArray[l].bs4 - pCSTR_attrArray[l].bs3;
-								jCount++;	
+								jCount++;
 							}
 						}
 					}
 
 					if(jCount !=0)
 					{
-						p_diff = (Int16 *) realloc(p_diff, jCount * sizeof(Int16));	
+						p_diff = (Int16 *) realloc(p_diff, jCount * sizeof(Int16));
 						Int16  *pFrequencyArray = stat_gistoGramma(p_diff, jCount);
 						if(pFrequencyArray != NULL)
-						{						
+						{
 							Int16  szFrequencyArray = malloc_usable_size(pFrequencyArray) / sizeof(Int16);
 							Int16          minArray = p_diff[stat_index_GlobMin(p_diff,jCount)];
 							Int16 maxFrequencyArray = stat_index_GlobMax(pFrequencyArray,szFrequencyArray, G);
 							if(szFrequencyArray != 0) free(pFrequencyArray);
-							iMode = minArray + maxFrequencyArray;	
+							iMode = minArray + maxFrequencyArray;
 							bFound_mode = TRUE;
 						}
-					}			
+					}
 				}
 
 				free(p_diff);
@@ -1857,7 +1857,7 @@ Int16 stat_Mode_diff_b2_b3(Int32 line_number, Int16 diff, Int16 fl_b2_or_b1)
 
 	if(line_number <= CSTR_GetMaxNumber())
 	{
-		Int32 line_start = MAX(1, line_number - LNCNST); 
+		Int32 line_start = MAX(1, line_number - LNCNST);
 
 		CSTR_attr *pCSTR_attrArray = (CSTR_attr *)malloc((line_number - line_start) * sizeof(CSTR_attr));
 
@@ -1886,25 +1886,25 @@ Int16 stat_Mode_diff_b2_b3(Int32 line_number, Int16 diff, Int16 fl_b2_or_b1)
 
 						if(pCSTR_attrArray[l].Nb1 != -1 && pCSTR_attrArray[l].Nb2 != -1 && pCSTR_attrArray[l].bs2 != -1 && b)//отладка
 						{//
-							p_diff[jCount] = 
+							p_diff[jCount] =
 										pCSTR_attrArray[l].bs3 - pCSTR_attrArray[l].bs2;
-							jCount++;	
+							jCount++;
 						}
 					}
 					if(jCount !=0)
 					{
-						p_diff = (Int16 *) realloc(p_diff, jCount * sizeof(Int16));	
+						p_diff = (Int16 *) realloc(p_diff, jCount * sizeof(Int16));
 						Int16  *pFrequencyArray = stat_gistoGramma(p_diff, jCount);
 						if(pFrequencyArray != NULL)
-						{						
+						{
 							Int16  szFrequencyArray = malloc_usable_size(pFrequencyArray) / sizeof(Int16);
 							Int16          minArray = p_diff[stat_index_GlobMin(p_diff,jCount)];
 							Int16 maxFrequencyArray = stat_index_GlobMax(pFrequencyArray,szFrequencyArray, G);
 							if(szFrequencyArray != 0) free(pFrequencyArray);
-							iMode = minArray + maxFrequencyArray;	
+							iMode = minArray + maxFrequencyArray;
 							bFound_mode = TRUE;
 						}
-					}			
+					}
 				}
 
 				free(p_diff);
@@ -1930,16 +1930,16 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 	char buff_eng_high2[] = "ABDEFGHIKLMNRTbdfgklpPtyYjJ0OpPyYjJg23456789";
 	char buff_eng_low[]   = "aeimnr";//
 
-	char buff_rus_high[]  = "АБЕбФфРУу"; 
-	char buff_rus_high2[] = "АБЕбФфРрУу0О23З456789"; 
+	char buff_rus_high[]  = "АБЕбФфРУу";
+	char buff_rus_high2[] = "АБЕбФфРрУу0О23З456789";
 	char buff_rus_low[]   = "ае";
 
 	char buff_warning[] = "\\/|<>(){}[]йЙ"; //дДщЩцЦ
 
-	char *peng_low, *prus_low, *pfig, *peng_high, *prus_high, 
+	char *peng_low, *prus_low, *pfig, *peng_high, *prus_high,
 		 *p_high1, *p_high2, *p_low1, *p_low2, *p_warning;
 
-	Int16 countLLM1 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0, countRLM1 = 0, 
+	Int16 countLLM1 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0, countRLM1 = 0,
 		  countWarn1 = 0, countHighL1 = 0, countWarn2 = 0, countHighL2 = 0;
 
 	//интервалы
@@ -1956,7 +1956,7 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 			pnt1 = (Int16)(row_str->globMax - 0.5 * (row_str->rightLocMax - row_str->globMax));
 		else
 			pnt1 = (Int16)(row_str->globMax - 0.5 * (b3 - row_str->globMax));
-		pnt0 = pnt1; 
+		pnt0 = pnt1;
 	}
 
 	if(row_str->rightLocMax != -1)
@@ -1976,7 +1976,7 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 
 		if(start == NULL || stop == NULL) return FALSE;
 
-		for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let); 
+		for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let);
 		curr_raster && curr_raster!=stop;
 		curr_raster = CSTR_GetNextRaster(curr_raster, CSTR_f_let))
 		{
@@ -1986,16 +1986,16 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 			if(CSTR_GetAttr(curr_raster, &rast_attr) &&
 			   CSTR_GetCollectionUni(curr_raster, &vers))
 			{
-				if(vers.lnAltCnt <= 0 || rast_attr.flg == CSTR_f_space) 
+				if(vers.lnAltCnt <= 0 || rast_attr.flg == CSTR_f_space)
 				{
-					continue; 
+					continue;
 				}
 
-				peng_low = prus_low = pfig = peng_high = 
+				peng_low = prus_low = pfig = peng_high =
 					prus_high = p_high1 = p_high2 = p_low1 = p_low2 = p_warning = NULL;
 
 				for(int i = 0; i < vers.lnAltCnt; i++)
-				{			
+				{
 					char c = vers.Alt[i].Code[0];
 
 					p_warning = strchr(buff_warning, c);
@@ -2007,7 +2007,7 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 
 				if(abs(db3) <= 2 || p_warning)
 				{
-					Int16 drow = rast_attr.row - ln_row; 
+					Int16 drow = rast_attr.row - ln_row;
 
 					if(vers.lnAltCnt == 1)
 					{
@@ -2044,7 +2044,7 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 							p_high1 = strchr(buff_rus_high2, c1);
 							p_high2 = strchr(buff_rus_high2, c2);
 
-							if(!p_high1) p_high1 = strchr(buff_eng_high2, c1);							
+							if(!p_high1) p_high1 = strchr(buff_eng_high2, c1);
 							if(!p_high2) p_high2 = strchr(buff_eng_high2, c2);
 
 							if(p_high1 == NULL && p_high2)
@@ -2052,7 +2052,7 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 								p_low1 = strchr(buff_rus_low, c1);
 								p_low2 = strchr(buff_rus_low, c2);
 
-								if(!p_low1) p_low1 = strchr(buff_eng_low, c1);							
+								if(!p_low1) p_low1 = strchr(buff_eng_low, c1);
 								if(!p_low2) p_low2 = strchr(buff_eng_low, c2);
 							}
 						}
@@ -2061,7 +2061,7 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 					if(peng_low != NULL || prus_low != NULL ||
 						(p_low1 != NULL && p_low2 != NULL))
 					{
-						if(pnt1 <= drow && drow <= pnt2) 
+						if(pnt1 <= drow && drow <= pnt2)
 						{
 							countGM2++;
 							continue;
@@ -2073,13 +2073,13 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 								countRLM2++;
 								continue;
 							}
-						}				
+						}
 					}
 
 					if(pfig != NULL || peng_high != NULL || prus_high != NULL ||
 						(p_high1 != NULL && p_high2 != NULL))
 					{
-						if(pnt1 <= drow && drow <= pnt2) 
+						if(pnt1 <= drow && drow <= pnt2)
 						{
 							countGM1++;
 							continue;
@@ -2101,17 +2101,17 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 							}
 						}
 					}
-					
-					if(row_str->leftLocMax != -1 && pnt0 <= drow && drow < pnt1) 
+
+					if(row_str->leftLocMax != -1 && pnt0 <= drow && drow < pnt1)
 					{
 						if(p_warning) countWarn1++;
-						else countHighL1++;					
+						else countHighL1++;
 					}
 
 					if(pnt1 <= drow && drow < pnt2)
 					{
 						if(p_warning) countWarn2++;
-						else countHighL2++;					
+						else countHighL2++;
 					}
 				}
 			}
@@ -2130,21 +2130,21 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 			{
 				row_str->AltGM  =  2;
 				row_str->AltRLM = -1;
-				row_str->AltLLM = countLLM1 > 0 ? 1 : -1;				 
+				row_str->AltLLM = countLLM1 > 0 ? 1 : -1;
 			}
 		}
 		else
 		{
 			if(countGM1 == 0 && countRLM1 > 0)
 			{
-				row_str->AltRLM = 1;				
+				row_str->AltRLM = 1;
 			}
 		}
 
 		if((countHighL1 == 0 && countWarn1 > 0) || (countHighL2 == 0 && countWarn2 > 0))
 		{
 			countWarn1 = 0, countHighL1 = 0, countWarn2 = 0, countHighL2 = 0;
-			for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let | CSTR_f_bad); 
+			for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let | CSTR_f_bad);
 			curr_raster && curr_raster!=stop;
 			curr_raster = CSTR_GetNextRaster(curr_raster, CSTR_f_let | CSTR_f_bad))
 			{
@@ -2154,9 +2154,9 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 				if(CSTR_GetAttr(curr_raster, &rast_attr) &&
 				   CSTR_GetCollectionUni(curr_raster, &vers))
 				{
-					if(rast_attr.flg == CSTR_f_space) continue; 
+					if(rast_attr.flg == CSTR_f_space) continue;
 
-					p_warning = NULL;	
+					p_warning = NULL;
 
 					for(int i = 0; i < vers.lnAltCnt; i++)
 					{
@@ -2171,18 +2171,18 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 
 					if(abs(db3) <= 2 || p_warning)
 					{
-						Int16 drow = rast_attr.row - ln_row; 
+						Int16 drow = rast_attr.row - ln_row;
 
-						if(row_str->leftLocMax != -1 && pnt0 <= drow && drow < pnt1) 
+						if(row_str->leftLocMax != -1 && pnt0 <= drow && drow < pnt1)
 						{
 							if(p_warning) countWarn1++;
-							else countHighL1++;					
+							else countHighL1++;
 						}
 
 						if(pnt1 <= drow && drow < pnt2)
 						{
 							if(p_warning) countWarn2++;
-							else countHighL2++;					
+							else countHighL2++;
 						}
 					}
 				}
@@ -2199,7 +2199,7 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 				bdel = TRUE;
 			}
 
-			if(!bdel && row_str->leftLocMax == -1 && row_str->AltGM == -1 && 
+			if(!bdel && row_str->leftLocMax == -1 && row_str->AltGM == -1 &&
 				row_str->rightLocMax != -1 &&
 				row_str->ValGM <= countWarn2 && countHighL2 == 0)
 			{
@@ -2215,7 +2215,7 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 		}
 	}
 	else return FALSE;
-	
+
 	return TRUE;
 }
 */

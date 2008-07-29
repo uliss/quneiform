@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -89,19 +89,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // DIB version 3 header (lenght - 40 bytes)
 typedef struct tagCTDIBBITMAPINFOHEADER
-{ // bmih     
-	Word32        biSize; 
-    Int32         biWidth;   
-	Int32         biHeight;  
-	Word16        biPlanes; 
+{ // bmih
+	Word32        biSize;
+    Int32         biWidth;
+	Int32         biHeight;
+	Word16        biPlanes;
     Word16        biBitCount;
-    Word32        biCompression; 
+    Word32        biCompression;
     Word32        biSizeImage;
-    Int32         biXPelsPerMeter;     
-	Int32         biYPelsPerMeter;     
-	Word32        biClrUsed; 
-    Word32        biClrImportant; 
-} CTDIBBITMAPINFOHEADER, *PCTDIBBITMAPINFOHEADER, **PPCTDIBBITMAPINFOHEADER; 
+    Int32         biXPelsPerMeter;
+	Int32         biYPelsPerMeter;
+	Word32        biClrUsed;
+    Word32        biClrImportant;
+} CTDIBBITMAPINFOHEADER, *PCTDIBBITMAPINFOHEADER, **PPCTDIBBITMAPINFOHEADER;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 typedef Int32     CTDIBPOINTCOORDINATE, *PCTDIBPOINTCOORDINATE;
@@ -120,65 +120,65 @@ typedef struct tagCTDIBICEXYZTRIPLE
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // DIB version 4 header (lenght - 108 bytes)
 typedef struct tagCTDIBBITMAPV4HEADER
-{   Word32             bV4Size;    
+{   Word32             bV4Size;
 	Int32              bV4Width;
-    Int32              bV4Height;   
+    Int32              bV4Height;
 	Word16             bV4Planes;
-    Word16             bV4BitCount;    
+    Word16             bV4BitCount;
 	Word32             bV4V4Compression;
-    Word32             bV4SizeImage;    
+    Word32             bV4SizeImage;
 	Int32              bV4XPelsPerMeter;
-    Int32              bV4YPelsPerMeter;    
+    Int32              bV4YPelsPerMeter;
 	Word32             bV4ClrUsed;
-    Word32             bV4ClrImportant;    
+    Word32             bV4ClrImportant;
 	Word32             bV4RedMask;
-    Word32             bV4GreenMask;    
+    Word32             bV4GreenMask;
 	Word32             bV4BlueMask;
-    Word32             bV4AlphaMask;    
+    Word32             bV4AlphaMask;
 	Word32             bV4CSType;
-    CTDIBICEXYZTRIPLE  bV4Endpoints;    
+    CTDIBICEXYZTRIPLE  bV4Endpoints;
 	Word32             bV4GammaRed;
-    Word32             bV4GammaGreen;    
+    Word32             bV4GammaGreen;
 	Word32             bV4GammaBlue;
-} CTDIBBITMAPV4HEADER, *PCTDIBBITMAPV4HEADER, **PPCTDIBBITMAPV4HEADER; 
+} CTDIBBITMAPV4HEADER, *PCTDIBBITMAPV4HEADER, **PPCTDIBBITMAPV4HEADER;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // DIB version 5 header (lenght - 124 bytes)
 typedef struct tagCTDIBBITMAPV5HEADER
-{     
-	Word32             bV5Size;     
-	Int32              bV5Width; 
-    Int32              bV5Height;     
-	Word16             bV5Planes; 
-    Word16             bV5BitCount;     
-	Word32             bV5Compression; 
-    Word32             bV5SizeImage;     
-	Int32              bV5XPelsPerMeter; 
-    Int32              bV5YPelsPerMeter;     
-	Word32             bV5ClrUsed; 
-    Word32             bV5ClrImportant;     
-	Word32             bV5RedMask; 
-    Word32             bV5GreenMask;     
-	Word32             bV5BlueMask; 
-    Word32             bV5AlphaMask;     
-	Word32             bV5CSType; 
-    CTDIBICEXYZTRIPLE  bV5Endpoints;     
-	Word32             bV5GammaRed; 
-    Word32             bV5GammaGreen;     
-	Word32             bV5GammaBlue; 
-    Word32             bV5Intent;     
-	Word32             bV5ProfileData; 
-    Word32             bV5ProfileSize;     
-	Word32             bV5Reserved; 
+{
+	Word32             bV5Size;
+	Int32              bV5Width;
+    Int32              bV5Height;
+	Word16             bV5Planes;
+    Word16             bV5BitCount;
+	Word32             bV5Compression;
+    Word32             bV5SizeImage;
+	Int32              bV5XPelsPerMeter;
+    Int32              bV5YPelsPerMeter;
+	Word32             bV5ClrUsed;
+    Word32             bV5ClrImportant;
+	Word32             bV5RedMask;
+    Word32             bV5GreenMask;
+	Word32             bV5BlueMask;
+    Word32             bV5AlphaMask;
+	Word32             bV5CSType;
+    CTDIBICEXYZTRIPLE  bV5Endpoints;
+	Word32             bV5GammaRed;
+    Word32             bV5GammaGreen;
+	Word32             bV5GammaBlue;
+    Word32             bV5Intent;
+	Word32             bV5ProfileData;
+    Word32             bV5ProfileSize;
+	Word32             bV5Reserved;
 } CTDIBBITMAPV5HEADER, *PCTDIBBITMAPV5HEADER, **PPCTDIBBITMAPV5HEADER;
  #define CTDIB_BI_JPEG  4L
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-typedef struct tagCTDIBRGBQUAD 
-{ // rgbq     
-	Word8    rgbBlue;     
-	Word8    rgbGreen; 
-    Word8    rgbRed;     
-	Word8    rgbReserved; 
+typedef struct tagCTDIBRGBQUAD
+{ // rgbq
+	Word8    rgbBlue;
+	Word8    rgbGreen;
+    Word8    rgbRed;
+	Word8    rgbReserved;
 } CTDIBRGBQUAD, *PCTDIBRGBQUAD, **PPCTDIBRGBQUAD;
 #endif //   !defined(WIN32) | !defined(CTDIB_USE_WIN32_API)
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -189,22 +189,22 @@ typedef struct tagCTDIBRGBQUAD
 	typedef void   (*PCTDIBMemUnlock)(Handle);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-class CTDIB  
+class CTDIB
 {
 	// macros etc.
-	// CTDIBBITMAPINFOHEADER alloced: 
-	enum CTDIBALLOC 
+	// CTDIBBITMAPINFOHEADER alloced:
+	enum CTDIBALLOC
 	{
-		noAlloc, 
-		crtAlloc, 
+		noAlloc,
+		crtAlloc,
 		heapAlloc
 	};
 	// DIB Version: 3, 4 or 5
-	enum CTDIBVersion 
+	enum CTDIBVersion
 	{
 		UnknownVersion = 0,
-		WindowsVersion = 3, 
-		FourthVersion, 
+		WindowsVersion = 3,
+		FourthVersion,
 		FifhtVersion
 	};
 	enum CTDIBDirection
@@ -282,7 +282,7 @@ public:
 	RDIB_FUNC()    CTDIB(Handle hDIB);
 	// destructor	virtual
 	RDIB_FUNC()    ~CTDIB();
-#pragma warning( pop ) 
+#pragma warning( pop )
 
 public:
 	// return black pixel RGBQuad index or 00-00-00
@@ -348,9 +348,9 @@ public:
 	// Get number of used colors
 	// if 0 - DIB is JPEG format
 	RDIB_FUNC(Word32) GetActualColorNumber();
-	// get resolution of DIB: x,[y] 
+	// get resolution of DIB: x,[y]
 	RDIB_FUNC(Bool32) GetResolutionDPM(PWord32 pX_Dpm, PWord32 pY_Dpm = 0x0);
-	// get resolution of DIB: x,[y] 
+	// get resolution of DIB: x,[y]
 	RDIB_FUNC(Bool32) GetResolutionDPI(PWord32 pX_Dpi, PWord32 pY_Dpi = 0x0);
 	// set resolution of DIB: x,[y]. available if DIB constructed by CTDIB
 	RDIB_FUNC(Bool32) SetResolutionDPM(Word32 X_Dpm, Word32 Y_DPM = 0);

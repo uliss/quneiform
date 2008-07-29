@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -120,24 +120,24 @@ void p_prot(INT x)
 
 void li_snap(CHAR *t)
 {
- int n1, n2, n3, n4; 
- CSTR_rast C; 
+ int n1, n2, n3, n4;
+ CSTR_rast C;
  CHAR ww[128];
 
  C=cell_f();
  //C=C->nextl;
  C=CSTR_GetNextRaster(C,f_letter);
- n1=Ns1; 
- if (Nb1==-1) 
+ n1=Ns1;
+ if (Nb1==-1)
 	 n1=-Ns1;
- n2=Ns2; 
- if (Nb2==-1) 
+ n2=Ns2;
+ if (Nb2==-1)
 	 n2=-Ns2;
- n3=Ns3; 
- if (Nb3==-1) 
+ n3=Ns3;
+ if (Nb3==-1)
 	 n3=-Ns3;
- n4=Ns4; 
- if (Nb4==-1) 
+ n4=Ns4;
+ if (Nb4==-1)
 	 n4=-Ns4;
  sprintf(ww, "%s cv=%d, min=%d (%d) \nPs=%d Bs: %d %d %d %d  Nb: %d %d %d %d ",
               t, ncut_vers, minrow, bbs0, Ps,
@@ -148,7 +148,7 @@ void li_snap(CHAR *t)
 void cell_by_base()
 {
  CSTR_rast c;
- 
+
  c = CSTR_GetNextRaster(cell_f(), f_letter );
  for (; c != NULL; c = CSTR_GetNextRaster(c, f_letter ))
   cell_position(c);
@@ -199,7 +199,7 @@ static void cell_position(CSTR_rast c)
   }
   else
    {
-	attr.cpos-=CSTR_p_large+CSTR_p_Q+CSTR_p_Ql+CSTR_p_ex; 
+	attr.cpos-=CSTR_p_large+CSTR_p_Q+CSTR_p_Ql+CSTR_p_ex;
 	f=1;
 #ifdef __POS_PROT__
     p_prot(3);
@@ -210,15 +210,15 @@ static void cell_position(CSTR_rast c)
  if (!f && Nb2!=-1)
  {
   if ((w=row-bbs2)>-2)
-  { 
+  {
 	  attr.cpos &= CSTR_p_small+CSTR_p_low;
 #ifdef __POS_PROT__
 	  p_prot(4);
 #endif
   }
   else
-   if (w<-4) 
-   { 
+   if (w<-4)
+   {
 	   attr.cpos &= CSTR_p_all-CSTR_p_small-CSTR_p_low;
 #ifdef __POS_PROT__
 		p_prot(5);
@@ -238,15 +238,15 @@ static void cell_position(CSTR_rast c)
   }
   else
   {
-    if (w>2) 
-	{ 
+    if (w>2)
+	{
 		attr.cpos &= CSTR_p_all-CSTR_p_low-CSTR_p_Ql-CSTR_p_ex;
 #ifdef __POS_PROT__
         p_prot(7);
 #endif
     }
-    else 
-	{ 
+    else
+	{
 		attr.cpos &= CSTR_p_large+CSTR_p_small+CSTR_p_t;
 #ifdef __POS_PROT__
         p_prot(8);
@@ -257,8 +257,8 @@ static void cell_position(CSTR_rast c)
    }
   else
   {
-   if (w>=-2) 
-   { 
+   if (w>=-2)
+   {
 	   attr.cpos &= CSTR_p_large+CSTR_p_small+CSTR_p_t;
 #ifdef __POS_PROT__
    p_prot(9);
@@ -266,15 +266,15 @@ static void cell_position(CSTR_rast c)
    }
    else
    {
-    if (w>=-4) 
-	{ 
+    if (w>=-4)
+	{
 		attr.cpos &= CSTR_p_large+CSTR_p_small+CSTR_p_t+CSTR_p_ex;
 #ifdef __POS_PROT__
 		p_prot(10);
 #endif
     }
-    else 
-	{ 
+    else
+	{
 		attr.cpos &= CSTR_p_ex;
 #ifdef __POS_PROT__
 		p_prot(11);
@@ -289,23 +289,23 @@ static void cell_position(CSTR_rast c)
 #ifdef __POS_PROT__
    p_prot(121);
 #endif
-   if (row+attr.h-bbs4>-3) 
-   { 
+   if (row+attr.h-bbs4>-3)
+   {
 	   attr.cpos &= CSTR_p_low+CSTR_p_Ql+CSTR_p_bra;
 #ifdef __POS_PROT__
 		p_prot(122);
 #endif
    }
-   else 
-   { 
+   else
+   {
 	   attr.cpos &= CSTR_p_all-CSTR_p_Ql-CSTR_p_low;
 #ifdef __POS_PROT__
 		p_prot(13);
 #endif
    }
   }
-  if (!attr.cpos) 
-  { 
+  if (!attr.cpos)
+  {
 	  attr.cpos=CSTR_p_large;
 #ifdef __POS_PROT__
 	  p_prot(14);
@@ -473,7 +473,7 @@ static unsigned char ptd7[8]={140,20,0,0,0,0,0,0}; //  ж й ¤
 static INT  top, bot, db, bs1, bs2, bs3, bs4;
 
 // возвращается новая оценка для chr. Старая - wp
-// С - только для атрибутов! 
+// С - только для атрибутов!
 INT cut_by_posu(CSTR_rast C, BYTE chr, INT wp, BYTE flg, BYTE arg)
 {
   INT  dps;
@@ -486,7 +486,7 @@ INT cut_by_posu(CSTR_rast C, BYTE chr, INT wp, BYTE flg, BYTE arg)
   CSTR_GetAttr(C, &attr);
 
   // Nick 31.01.2001
-  // Если базовые линии - совершенно ненадежны, ничего по 
+  // Если базовые линии - совершенно ненадежны, ничего по
   // ним не резать !
   if( (Nb1 == 128 || Nb1 <=0) && (Nb2 == 128 || Nb2 <=0) &&
 	  (Nb3 == 128 || Nb3 <=0)
@@ -495,7 +495,7 @@ INT cut_by_posu(CSTR_rast C, BYTE chr, INT wp, BYTE flg, BYTE arg)
 
   if (flg==1)
   {
-    top=attr.row-minrow; 
+    top=attr.row-minrow;
 	bot=top+attr.h;
     db=attr.bdiff;
     def_locbas(C);
@@ -509,7 +509,7 @@ INT cut_by_posu(CSTR_rast C, BYTE chr, INT wp, BYTE flg, BYTE arg)
   up = let_linpos[chr];
   if (up==0)
   {
-    if ((chr=='<' || chr=='>') && (bot<=(b2+b3)/2 || 
+    if ((chr=='<' || chr=='>') && (bot<=(b2+b3)/2 ||
 		9*attr.h>10*(b3-b1)) ||
         chr=='@' && attr.h<b3-b2
 		)
@@ -523,21 +523,21 @@ INT cut_by_posu(CSTR_rast C, BYTE chr, INT wp, BYTE flg, BYTE arg)
    if (all_caps)
    {
      // letters with twins --> penalize to allow context to overrule
-     if (is_lower(chr) && twin(chr)) 
-	 { 
-		 pen_up=12; 
-		 goto decide; 
+     if (is_lower(chr) && twin(chr))
+	 {
+		 pen_up=12;
+		 goto decide;
 	 }
 
      // p is less solid
-     if (chr=='p') 
-	 { 
-		 pen_up = 24; 
-		 goto decide; 
+     if (chr=='p')
+	 {
+		 pen_up = 24;
+		 goto decide;
 	 }
 
      // smalls are forbidden
-     if (let_linshape[chr] & 8) 
+     if (let_linshape[chr] & 8)
 		 pen_up = 140;   // small - penalize deadly
     /*******************************************
      // 940125  not too small
@@ -561,18 +561,18 @@ INT cut_by_posu(CSTR_rast C, BYTE chr, INT wp, BYTE flg, BYTE arg)
     pen_dn=ptd1[j];
     break;
    case 2:
-    if (Nb3>0 )            // OLEG for under cells 
-    { 
-		if (cpsau(bot-b3+((attr.flg_new & CSTR_fn_under)?1:0)) < 3) 
-	     goto cut; 
+    if (Nb3>0 )            // OLEG for under cells
+    {
+		if (cpsau(bot-b3+((attr.flg_new & CSTR_fn_under)?1:0)) < 3)
+	     goto cut;
 	}
-    if (Nb4<=0) 
+    if (Nb4<=0)
 		break;
-    if ((i=cpsu(b4-bot)) < 0) 
+    if ((i=cpsu(b4-bot)) < 0)
 		break;
-    if (i > 7) 
+    if (i > 7)
 		goto cut;
-    pen_dn=ptd2[i]; 
+    pen_dn=ptd2[i];
 	break;
    case 3:
    case 5:
@@ -583,7 +583,7 @@ INT cut_by_posu(CSTR_rast C, BYTE chr, INT wp, BYTE flg, BYTE arg)
      i++;
     pen_dn=ptd3[i]; break;
    case 4:
-    if (Nb3>0)           
+    if (Nb3>0)
      { if (cpsau(bot-b3) > 3) goto cut; }
     if (Nb4>0)
      { if (cpsu(b4-bot) < 4) goto cut; }
@@ -597,15 +597,15 @@ INT cut_by_posu(CSTR_rast C, BYTE chr, INT wp, BYTE flg, BYTE arg)
     pen_dn=ptd6[j];
     break;
    case 7: // Valdemar slightly lower bbs3 ж ¤ й
-   if (Nb3<=0) 
+   if (Nb3<=0)
 	   break;
-   if ((i=cpsu(bot-b3)) < 0) 
+   if ((i=cpsu(bot-b3)) < 0)
 	   goto cut;
    if (i > 7) break;
    pen_dn=ptd7[i]; break;
   } // switch DOWN
 
-  if ((Nb1 <= 0) && (Nb2 <= 0)) 
+  if ((Nb1 <= 0) && (Nb2 <= 0))
 	  goto decide;
 
    switch (up)
@@ -663,15 +663,15 @@ INT cut_by_posu(CSTR_rast C, BYTE chr, INT wp, BYTE flg, BYTE arg)
     } // NB1 known
 
     if (Nb2<=0) break;
-    if ((i=cpsu(top-b2)+4) <= 0) 
+    if ((i=cpsu(top-b2)+4) <= 0)
 		break;  // Valdemar: what is bsi ?
-    if (bsi > 0 && language != LANG_RUSSIAN)  
+    if (bsi > 0 && language != LANG_RUSSIAN)
 		i=cpsu(top-b2-bsi)+4;
-    if (i <= 0) 
+    if (i <= 0)
 		break;
-    if (i > 5) 
+    if (i > 5)
 		goto cut;
-    pen_up=ptu12[i]; 
+    pen_up=ptu12[i];
 	break;
 
    case 2:
@@ -699,10 +699,10 @@ INT cut_by_posu(CSTR_rast C, BYTE chr, INT wp, BYTE flg, BYTE arg)
     }
     if (Nb2<=0)
     {
-      if ((b3-(b3-b1)*2/5) <= top) 
-	  { 
-		  pen_up=120; 
-		  break; 
+      if ((b3-(b3-b1)*2/5) <= top)
+	  {
+		  pen_up=120;
+		  break;
 	  }
 
       i = b3-top;   // compare to Ps
@@ -883,7 +883,7 @@ static unsigned char ftu3[6][4] =
 
 // для факса
 // возвращается новая оценка для chr. Старая - wp
-// С - только для атрибутов! 
+// С - только для атрибутов!
 INT cut_by_posf(CSTR_rast C, BYTE chr, INT wp, BYTE flg, BYTE arg)
 {
   INT  dps;
@@ -891,21 +891,21 @@ INT cut_by_posf(CSTR_rast C, BYTE chr, INT wp, BYTE flg, BYTE arg)
   unsigned char pen_upr;
   INT  up, dn;
   INT  i, j, bsi, b1, b2, b3, b4;
-  CSTR_rast_attr attr; 
+  CSTR_rast_attr attr;
 
   CSTR_GetAttr(C,&attr);
 
   if (flg==1)
   {
-    top=attr.row-minrow; 
+    top=attr.row-minrow;
 	bot=top+attr.h;
     db=attr.bdiff;
     def_locbas(C);
     b1=bbs1+db; b2=bbs2+db; b3=bbs3+db; b4=bbs4+db;
   }
   else
-  { 
-	  b1=bs1; b2=bs2; b3=bs3; b4=bs4; 
+  {
+	  b1=bs1; b2=bs2; b3=bs3; b4=bs4;
   }
 
   up = let_linpos[chr];
@@ -980,7 +980,7 @@ INT cut_by_posf(CSTR_rast C, BYTE chr, INT wp, BYTE flg, BYTE arg)
     break;
    } // switch DOWN
 
-  if ((Nb1 <= 0) && (Nb2 <= 0)) 
+  if ((Nb1 <= 0) && (Nb2 <= 0))
 	  goto decide;
 
   switch (up)
@@ -1173,8 +1173,8 @@ INT cut_by_pos(CSTR_rast C, BYTE chr, INT wp, BYTE flg, BYTE arg)
     if( DPsf<1 ) DPsf=1;
   }
   else
-  { 
-	  DPs = Ps; DPsf = Psf; 
+  {
+	  DPs = Ps; DPsf = Psf;
   }
 
   if( no_linpen )
@@ -1198,7 +1198,7 @@ INT levcut(CSTR_rast C, INT arg)
 
  CSTR_GetAttr(C,&attr);
 
- top=attr.row-minrow; 
+ top=attr.row-minrow;
  bot=top+attr.h;
  db=attr.bdiff;
 
@@ -1206,7 +1206,7 @@ INT levcut(CSTR_rast C, INT arg)
  nalive=ncut=0;
 
 // v0=C->vers;
-// if (v0->let == bad_char) 
+// if (v0->let == bad_char)
 //	 return 0;  // bad cell
  CSTR_GetCollectionUni(C,&vers);
  if( vers.lnAltCnt <= 0 )
@@ -1216,7 +1216,7 @@ INT levcut(CSTR_rast C, INT arg)
  attr.bas_acc &= ~CSTR_ba_killed;
  CSTR_SetAttr(C,&attr);
 
- if( arg && (attr.flg & CSTR_f_solid)) 
+ if( arg && (attr.flg & CSTR_f_solid))
 	 return 0; // Valdemar 12-21-95 08:35pm
 
  def_locbas(C);
@@ -1225,15 +1225,15 @@ INT levcut(CSTR_rast C, INT arg)
 // for (; v0->let != 0;  v0++)
  for(i=0;i<vers.lnAltCnt;i++)
  {
-   //chr=v0->let; 
-   //wp=v0->prob; 
+   //chr=v0->let;
+   //wp=v0->prob;
    chr = vers.Alt[i].Liga;
    wp  = vers.Alt[i].Prob;
 
-   pold = wp & 1; 
+   pold = wp & 1;
    wp &= 0xfe;
 
-//   if (chr==bad_char) 
+//   if (chr==bad_char)
 //	   return 0;
 
    np = cut_by_pos(C,chr,wp,0,(BYTE)arg);
@@ -1255,7 +1255,7 @@ INT levcut(CSTR_rast C, INT arg)
    }
    else
    {
-     if (pold==0) 
+     if (pold==0)
 		 ncut++;
      pnew = 1;
      if (arg)
@@ -1286,8 +1286,8 @@ INT levcut(CSTR_rast C, INT arg)
      ((nalive==1) && (surviver == invers_exm) && language != LANG_RUSSIAN)
     )
  // entirely killed cell
- { 
-// version *v0; 
+ {
+// version *v0;
    BYTE chr;
 
    CSTR_GetCollectionUni(C,&vers);
@@ -1295,9 +1295,9 @@ INT levcut(CSTR_rast C, INT arg)
    for(i=0;i<vers.lnAltCnt;i++)
    {
      chr = vers.Alt[i].Liga;
-     if(! memchr("LTJ()<>[]trI1l!/",chr,16) && (chr!=liga_i) && 
+     if(! memchr("LTJ()<>[]trI1l!/",chr,16) && (chr!=liga_i) &&
 		 !(language == LANG_TURKISH &&  // 30.05.2002 E.P.
-			(chr==i_sans_accent||chr==II_dot_accent) 
+			(chr==i_sans_accent||chr==II_dot_accent)
 		  ) &&
 		 (chr!=liga_inv_exm)
 	   )
@@ -1337,7 +1337,7 @@ void gen_reset()
  {
    CSTR_GetAttr(C,&attr);
 
-   if (attr.flg & CSTR_f_space) 
+   if (attr.flg & CSTR_f_space)
 	   continue;
 
    CSTR_GetCollectionUni(C,&vers);
@@ -1346,11 +1346,11 @@ void gen_reset()
    wr=attr.row;
 
    if (minrow > wr) minrow=wr;
-   if (maxrow < (wr+attr.h)) 
+   if (maxrow < (wr+attr.h))
 	   maxrow=wr+attr.h;
-   if (mincol > wc) 
+   if (mincol > wc)
 	   mincol=wc;
-   if (maxcol < wc) 
+   if (maxcol < wc)
 	   maxcol=wc;       // min & max s_t_a_r_t !!!  COLs
 
    attr.bas_acc &=~(CSTR_ba_chance);
@@ -1396,7 +1396,7 @@ void gen_reset()
 // Для новой	 версии :
 // Или 2 строки - наша новая вмеcто cell и ln - как была,
 // оттуда брать dust
-// Или специально пометить dust в ln 
+// Или специально пометить dust в ln
 // Или пересмотреть defbas()
 // Или ??
 
@@ -1406,13 +1406,13 @@ void basedraft(CSTR_line ln)
  INT i;
  CSTR_rast C;
 
- //if (line_number == 0) 
- if ( line_number <= 1 ) 
+ //if (line_number == 0)
+ if ( line_number <= 1 )
 	 oldPs2 = -1;
  else
  {
-   oldPs2=bbs3-bbs2; 
-   oldPs1=bbs3-bbs1; 
+   oldPs2=bbs3-bbs2;
+   oldPs1=bbs3-bbs1;
    oldPs4=bbs3-bbs4;
    oldn1=Nb1; oldn2=Nb2; oldn4=Nb4;
    oldmult = multi_bas;
@@ -1481,12 +1481,12 @@ again_for_dust:
    trans_total = forbiset;
    hist_done = 0;
 
-//   add dust from lin_str (riter1==0), 
+//   add dust from lin_str (riter1==0),
 //   check dust-letter
    bring_dust(riter1);
 
-   
-//   if (cell_f()->nextl->next == NULL) 
+
+//   if (cell_f()->nextl->next == NULL)
    if( !CSTR_GetNextRaster(cell_f(),f_letter) )
    	   goto drfin;  // line emptied
 
@@ -1499,12 +1499,12 @@ again_for_dust:
    for(C=CSTR_GetNext(C);C;C=CSTR_GetNext(C))
      ideal_rc(C);
 
-   if (!trans_total) 
+   if (!trans_total)
 	   break;
-   if (riter0) 
+   if (riter0)
 	   goto again_for_dust;
 
-   if (fl_artifact > 1) 
+   if (fl_artifact > 1)
 	   break;
 
    // уточнить БЛ
@@ -1513,14 +1513,14 @@ again_for_dust:
  }
 
 drfin:
- if (db_status) 
+ if (db_status)
 	 li_snap("draft fin");
  bbs0 = min_crow;
 }
 */
 /****************************************************/
 void approve_bases()
-{ 
+{
   INT appr;
   appr = 0;
 
@@ -1541,15 +1541,15 @@ void approve_bases()
 // уточнить БЛ, обрезать версии, противоречащие БЛ
 void linpos(CSTR_line ln)
 {
- INT riter1; 
- LONG sumbox; 
+ INT riter1;
+ LONG sumbox;
  INT sum_n, finCSTR_n, dead_cells=0,v_prom;
 
  lin_str = ln;
 
 //  iterate dust_to_let AND let_to_dust
 
-// if (cell_f()->nextl->next == NULL) 
+// if (cell_f()->nextl->next == NULL)
  if( !CSTR_GetNextRaster(cell_f(),f_letter) )
 	 return;  // line emptied
 
@@ -1573,7 +1573,7 @@ all_again:
  it_done=riter1 = 0;
  while (riter1 < 10)
  {
-//   if (cell_f()->nextl->next == NULL) 
+//   if (cell_f()->nextl->next == NULL)
    if( !CSTR_GetNextRaster(cell_f(),f_letter) )
 	 return;  // line emptied
 
@@ -1588,11 +1588,11 @@ all_again:
 // найти БЛ
    defbas(f_cut);          // histogramms allowed now
 
-   if (multi_bas)   
+   if (multi_bas)
 	   break; // 1:b1 split; 2:b2 split
-   if (histofl > 1) 
+   if (histofl > 1)
 	   break; // multiple base case
-   if (page_stat)   
+   if (page_stat)
 	   break; // Valdemar: base lines defined by page statistic
    it_done++;
    all_cell_levcut(0);   // forbid versions
@@ -1618,14 +1618,14 @@ p_prot (11001);
        if (attr.bas_acc & CSTR_ba_killed)
        {
          if ( (attr.basflg & (CSTR_bs_b1a | CSTR_bs_b2a)) == (CSTR_bs_b1a | CSTR_bs_b2a))
-         { 
-		   ncut_mult++; 
-		   continue; 
+         {
+		   ncut_mult++;
+		   continue;
 		 }
          // agrees to stay as cap and as small --- killed by unstable (splitted) lines
          if ( (attr.bas_acc & CSTR_ba_chance) || language != LANG_RUSSIAN )
          {
-           CSTR_rast wd; 
+           CSTR_rast wd;
 		   CSTR_rast_attr attr2;
 		   INT weight;
 		   UniVersions vers;
@@ -1662,7 +1662,7 @@ p_prot (11001);
         else
         {
          WORD iI,nv_o;
-         INT pidx; 
+         INT pidx;
 		 BYTE let;
 		 UniVersions vers;
 
@@ -1683,16 +1683,16 @@ p_prot (11001);
 
           //let = wc->vers[iI].let;
           let = vers.Alt[iI].Liga;
-          if(!(attr.flg & CSTR_f_let) || !isletter(let)) 
+          if(!(attr.flg & CSTR_f_let) || !isletter(let))
 			  continue;
-          if(!twin(let)) 
+          if(!twin(let))
 			  continue;
           let = is_lower(let) ? to_upper(let) : to_lower(let);
-          if( !el_pidx_crit((WORD)let,pidx) ) 
+          if( !el_pidx_crit((WORD)let,pidx) )
 			  continue;
 
 		  // версия вставляется и переупорядочивается!
-		  // 
+		  //
           promote(0,wc,let,0); // insvers
 
 		  // возможно, иные значения !
@@ -1701,8 +1701,8 @@ p_prot (11001);
           // wc->vers[wc->nvers].let=wc->vers[wc->nvers].prob=0;
          } // loop on vers
 
-         if( vers.lnAltCnt > nv_o ) 
-		 { 
+         if( vers.lnAltCnt > nv_o )
+		 {
 			 v_prom++;
              CSTR_StoreCollectionUni(wc,&vers);
 		 }
@@ -1710,7 +1710,7 @@ p_prot (11001);
        }
      }
 
-     if (sum_n) 
+     if (sum_n)
 		 killed_box = sumbox/sum_n;
 
      if(v_prom > 0)
@@ -1769,9 +1769,9 @@ p_prot (killed_box);
    if ((killed_box > 32000) && (dead_cells > 1))
  {
  try_multi:
-   if(language == LANG_RUSSIAN && !stable_b3) 
+   if(language == LANG_RUSSIAN && !stable_b3)
 	   goto no_multi;  // gleb
-   if (multi_bas == 0) 
+   if (multi_bas == 0)
 	   multi_bas = 4;
    histofl = 3;
    obs1=bbs1; obs2=bbs2; obs3=bbs3; obs4=bbs4; oPs=Ps; obsm=bbsm;
@@ -1846,7 +1846,7 @@ p_prot(11003);
 ///////////////
 static INT influate(CSTR_rast c, CSTR_rast b)
 {
-  BYTE in_flag, cc, bc, dfc, dfb; 
+  BYTE in_flag, cc, bc, dfc, dfb;
   INT wp, dp, dp2;
   //version  *v0;
   UniVersions vers;
@@ -1857,7 +1857,7 @@ static INT influate(CSTR_rast c, CSTR_rast b)
   CSTR_GetCollectionUni(c,&vers);
   if( vers.lnAltCnt > 0 )
 	  cc = vers.Alt[0].Liga;
-  else 
+  else
 	  cc = 0;
 
 //  dfc = let_lindef[(cc = c->vers[0].let)];
@@ -1871,7 +1871,7 @@ static INT influate(CSTR_rast c, CSTR_rast b)
   {
     //bc = v0->let;
     bc = vers.Alt[i].Liga;
-    if (bc == 't') 
+    if (bc == 't')
 		continue;   // don't touch  't'
     //wp = v0->prob;
 	wp = vers.Alt[i].Prob;
@@ -1909,7 +1909,7 @@ static INT influate(CSTR_rast c, CSTR_rast b)
   add_dp:
     in_flag = 1;
     wp += dp;
-    if (wp > 254) 
+    if (wp > 254)
 		wp = 254;
     //v0->prob = wp & 0xfe;
     vers.Alt[i].Prob = wp & 0xfe;
@@ -1942,7 +1942,7 @@ static INT influate(CSTR_rast c, CSTR_rast b)
 
  INT influ_cap(CSTR_rast b)
 {
-  BYTE in_flag, bc; 
+  BYTE in_flag, bc;
   INT wp;
 //  version  *v0;
   UniVersions vers;
@@ -1956,27 +1956,27 @@ static INT influate(CSTR_rast c, CSTR_rast b)
   for (i=0; i<vers.lnAltCnt;  i++)
   {
     //bc = v0->let;
-    bc = vers.Alt[i].Liga; 
+    bc = vers.Alt[i].Liga;
     //wp = v0->prob;
-	wp = vers.Alt[i].Prob; 
+	wp = vers.Alt[i].Prob;
 
     // letters with twins --> penalized 12 to allow context to overrule
-    if (is_lower(bc) && twin(bc)) 
-	{ 
-		wp += 128; 
-		goto make_dp; 
+    if (is_lower(bc) && twin(bc))
+	{
+		wp += 128;
+		goto make_dp;
 	}
 
     // p is less solid
-    if (bc=='p')  
-	{ 
-		wp += 24; goto make_dp; 
+    if (bc=='p')
+	{
+		wp += 24; goto make_dp;
 	}
 
     // letters with twins --> penalized 12 to allow context to overrule
-    if (is_upper(bc) && twin(bc)) 
-	{ 
-		wp -= 100; goto make_dp; 
+    if (is_upper(bc) && twin(bc))
+	{
+		wp -= 100; goto make_dp;
 	}
 
   make_dp:
@@ -1986,7 +1986,7 @@ static INT influate(CSTR_rast c, CSTR_rast b)
     if (wp < 0) wp = 0;
 
     //v0->prob = wp & 0xfe;
-	vers.Alt[i].Prob = wp & 0xfe; 
+	vers.Alt[i].Prob = wp & 0xfe;
     continue;
   }  // FOR all versions
 
@@ -2002,7 +2002,7 @@ static INT influate(CSTR_rast c, CSTR_rast b)
 
 static INT influ_b1b2(CSTR_rast b)
 {
-  BYTE in_flag, bc; 
+  BYTE in_flag, bc;
   INT wp, top, db, b1, b2, b12, d12;
 //  version  *v0;
   UniVersions vers;
@@ -2031,23 +2031,23 @@ static INT influ_b1b2(CSTR_rast b)
     bc = vers.Alt[i].Liga;
     //wp = v0->prob;
 	wp = vers.Alt[i].Prob;
-    if (d12 <= 0 )  
+    if (d12 <= 0 )
 		continue;   // like capital -- wasn't penalized
-    if (is_upper(bc) && twin(bc)) 
-	{ 
-	  wp -= 48; 
-	  goto make_dp; 
+    if (is_upper(bc) && twin(bc))
+	{
+	  wp -= 48;
+	  goto make_dp;
 	}
     // letters with twins --> penalized 12 to allow context to overrule
-    if (is_lower(bc) && twin(bc)) 
-	{ 
-		wp += 12; 
-		goto make_dp; 
+    if (is_lower(bc) && twin(bc))
+	{
+		wp += 12;
+		goto make_dp;
 	}
     // p is less solid
-    if (bc=='p')  
-	{ 
-		wp += 24; goto make_dp; 
+    if (bc=='p')
+	{
+		wp += 24; goto make_dp;
 	}
 
     if (3*attr.h > 2*Ps)
@@ -2125,14 +2125,14 @@ static void mutual_influence()
 	 for(;B;B=CSTR_GetPrevRaster(B,f_letter))
      {
 	   CSTR_GetAttr(B,&attrb);
-       if (!(attrb.flg & CSTR_f_let)) 
+       if (!(attrb.flg & CSTR_f_let))
 		   continue;
 
 	   // вынести ?
-       if ( attr.difflg & CSTR_db_b4) 
+       if ( attr.difflg & CSTR_db_b4)
 		   continue; // already influented
 
-       if (attrb.difflg & CSTR_db_solid) 
+       if (attrb.difflg & CSTR_db_solid)
 		   break;
        brow = attrb.row - attrb.bdiff;
        if (abs(crow-brow) < 2)
@@ -2169,7 +2169,7 @@ static void mutual_influence()
      for(;C;C=CSTR_GetNextRaster(C,f_letter))
      {
        CSTR_GetAttr(C,&attr);
-       if (!(attr.flg & CSTR_f_let)) 
+       if (!(attr.flg & CSTR_f_let))
 		   continue;
        suminfl += influ_b1b2(C);
      }
@@ -2192,20 +2192,20 @@ void basefin(CSTR_line ln)
  lin_str = ln;
 
  it_done=0;
- if (multi_bas & 0x40) 
+ if (multi_bas & 0x40)
 	 return;
  // if (all_bases[0].endcol != 32000) return;  // array of bases
- if (fl_artifact > 1) 
+ if (fl_artifact > 1)
 	 return;
 
-// if (cell_f()->nextl->next == NULL) 
+// if (cell_f()->nextl->next == NULL)
  if( !CSTR_GetNextRaster(cell_f(),f_letter) )
 	 return;  // line emptied
 
- if(language == LANG_RUSSIAN) 
+ if(language == LANG_RUSSIAN)
 	 count_line_hi(); // collect some info about line
  mutual_influence();
- 
+
  lin_pass = 3;
  obs1=bbs1; obs2=bbs2; obs3=bbs3; obs4=bbs4; oPs=Ps; obsm=bbsm;
  oNb1=Ns1;  oNb2=Ns2;  oNb3=Ns3;  oNb4=Ns4;
@@ -2255,7 +2255,7 @@ void interdif(CSTR_rast P, CSTR_rast N, CSTR_rast B1)
  bsp=attrP.h+attrP.row-minrow;
  bsn=attrN.h+attrN.row-minrow;
 
- clp=attrP.col; 
+ clp=attrP.col;
  cln=attrN.col;
 
  wdp=attrP.bdiff;
@@ -2274,10 +2274,10 @@ void interdif(CSTR_rast P, CSTR_rast N, CSTR_rast B1)
  if (attrP.flg & CSTR_f_fict)
  {
    wdp = 0;
-   if (attrN.flg & CSTR_f_fict) 
-   { 
-	   attrB.bdiff=0; wdn = 0; 
-	   goto retcv; 
+   if (attrN.flg & CSTR_f_fict)
+   {
+	   attrB.bdiff=0; wdn = 0;
+	   goto retcv;
    }
 
    attrB.bdiff = (CHAR)wdn  ;
@@ -2285,11 +2285,11 @@ void interdif(CSTR_rast P, CSTR_rast N, CSTR_rast B1)
    {
      switch (bsn-bsc)
      {
-       case  1: attrB.bdiff--; 
-		   attrB.difflg |= CSTR_db_up; 
+       case  1: attrB.bdiff--;
+		   attrB.difflg |= CSTR_db_up;
 		   break;
-       case -1: attrB.bdiff++; 
-		   attrB.difflg |= CSTR_db_down; 
+       case -1: attrB.bdiff++;
+		   attrB.difflg |= CSTR_db_down;
 		   break;
        default:   //jump letter
                  break;
@@ -2306,11 +2306,11 @@ void interdif(CSTR_rast P, CSTR_rast N, CSTR_rast B1)
    {
      switch (bsp-bsc)
      {
-       case  1: attrB.bdiff = wdp-1; 
-		   attrB.difflg |= CSTR_db_up; 
+       case  1: attrB.bdiff = wdp-1;
+		   attrB.difflg |= CSTR_db_up;
 		   break;
-       case -1: attrB.bdiff = wdp+1; 
-		   attrB.difflg |= CSTR_db_down; 
+       case -1: attrB.bdiff = wdp+1;
+		   attrB.difflg |= CSTR_db_down;
 		   break;
        default:   //jump letter
            break;
@@ -2320,39 +2320,39 @@ void interdif(CSTR_rast P, CSTR_rast N, CSTR_rast B1)
  }
 
  /* both P, N -- usual cells; defined baseline */
- if ((attrB.flg & (CSTR_f_let|CSTR_f_bad)) == 0) 
+ if ((attrB.flg & (CSTR_f_let|CSTR_f_bad)) == 0)
 	 goto interpol;  // dust - from nearest
 
  switch (bsp-bsc)
  {
-   case  1: attrB.bdiff = wdp-1; 
-	   attrB.difflg |= CSTR_db_up; 
+   case  1: attrB.bdiff = wdp-1;
+	   attrB.difflg |= CSTR_db_up;
 	   goto retcv;
-   case -1: attrB.bdiff = wdp+1; 
-	   attrB.difflg |= CSTR_db_down; 
+   case -1: attrB.bdiff = wdp+1;
+	   attrB.difflg |= CSTR_db_down;
 	   goto retcv;
-   case  0: attrB.bdiff = (CHAR)wdp  ; 
+   case  0: attrB.bdiff = (CHAR)wdp  ;
 	   goto retcv;
  }
 
  switch (bsn-bsc)
  {
-   case  1: attrB.bdiff = wdn-1; 
-	   attrB.difflg |= CSTR_db_up; 
+   case  1: attrB.bdiff = wdn-1;
+	   attrB.difflg |= CSTR_db_up;
 	   goto retcv;
-   case -1: attrB.bdiff = wdn+1; 
-	   attrB.difflg |= CSTR_db_down; 
+   case -1: attrB.bdiff = wdn+1;
+	   attrB.difflg |= CSTR_db_down;
 	   goto retcv;
-   case  0: attrB.bdiff = (CHAR)wdn  ; 
+   case  0: attrB.bdiff = (CHAR)wdn  ;
 	   goto retcv;
  }
-  
+
 
 interpol:
- if (wdp==wdn) 
+ if (wdp==wdn)
  {
-	 attrB.bdiff=(CHAR)wdn; 
-	 goto retcv; 
+	 attrB.bdiff=(CHAR)wdn;
+	 goto retcv;
  }
 
  // set diff of whoever is closer to cell
@@ -2363,8 +2363,8 @@ interpol:
 
 retcv:
   CSTR_SetAttr(B1,&attrB);
-  
-  if(Ns1+Ns2 > 0 && attrB.bdiff != 0) 
+
+  if(Ns1+Ns2 > 0 && attrB.bdiff != 0)
   {
 	  smart_diff( B1 ); // Valdemar
 	  CSTR_GetAttr(B1,&attrB);
@@ -2399,9 +2399,9 @@ void inter_diff(CSTR_rast B1)
   if( !N )
 	  break;
   CSTR_GetAttr(N,&attr);
-  if (attr.flg & CSTR_f_fict) 
+  if (attr.flg & CSTR_f_fict)
 	  break;
-  if (!(attr.flg & (CSTR_f_let | CSTR_f_bad))) 
+  if (!(attr.flg & (CSTR_f_let | CSTR_f_bad)))
 	  continue;
   if ((attr.difflg & 4) && (!(attr.difflg & 64))) /* defines base */
     break;
@@ -2413,9 +2413,9 @@ void inter_diff(CSTR_rast B1)
   P=CSTR_GetPrev(P);
   CSTR_GetAttr(P,&attr);
 
-  if (attr.flg & CSTR_f_fict) 
+  if (attr.flg & CSTR_f_fict)
 	  break;
-  if (!(attr.flg & (CSTR_f_let | CSTR_f_bad))) 
+  if (!(attr.flg & (CSTR_f_let | CSTR_f_bad)))
 	  continue;
   if ((attr.difflg & 4) && (!(attr.difflg & 64))) /* defines base */
     break;
@@ -2441,7 +2441,7 @@ static INT fincells()
  B1=CSTR_GetNextRaster(B1,f_letter);
 // while((B1=B1->nextl)->nextl)
  for(;B1;B1=CSTR_GetNextRaster(B1,f_letter))
- { 
+ {
    INT b2m, bm3, h;
 //   CSTR_rast wc;
 
@@ -2495,8 +2495,8 @@ static INT fincells()
        p1=vers.Alt[0].Prob;
        p2=vers.Alt[1].Prob;
        if ((p1 > 248) && (p2 < 128))
-       {  vers.lnAltCnt=1; 
-	      vers.Alt[1].Liga=vers.Alt[1].Prob=0; 
+       {  vers.lnAltCnt=1;
+	      vers.Alt[1].Liga=vers.Alt[1].Prob=0;
 		  CSTR_StoreCollectionUni(B1,&vers);
 	   }
      }
@@ -2523,7 +2523,7 @@ void all_cell_levcut(INT arg) // Valdemar makes func global
   CSTR_GetAttr(C,&attr);
   attr.bas_acc &= ~CSTR_ba_killed;
 
-  if (!(attr.flg & CSTR_f_let)) 
+  if (!(attr.flg & CSTR_f_let))
   {
 	  CSTR_SetAttr(C,&attr);
 	  continue;
@@ -2531,19 +2531,19 @@ void all_cell_levcut(INT arg) // Valdemar makes func global
 
   CSTR_GetCollectionUni(C,&vers);
 
-//  no scaling in RSTR_rast_is_BOX_solid for attr.h,w,... 
+//  no scaling in RSTR_rast_is_BOX_solid for attr.h,w,...
 //  - we scaled on input to BAL !
   if ( arg &&
        (vers.lnAltCnt==1) &&
        (memchr("4ERAFMbm",vers.Alt[0].Liga,8)) &&
-       ( RSTR_rast_is_BOX_solid(C,0) > 31500) 
+       ( RSTR_rast_is_BOX_solid(C,0) > 31500)
 	 )
-  { 
-	  vers.Alt[0].Prob &= 0xfe; 
-	  attr.difflg |= CSTR_db_solid; 
+  {
+	  vers.Alt[0].Prob &= 0xfe;
+	  attr.difflg |= CSTR_db_solid;
 	  CSTR_StoreCollectionUni(C,&vers);
 	  CSTR_SetAttr(C,&attr);
-	  continue; 
+	  continue;
   }
 
   CSTR_SetAttr(C,&attr);
@@ -2562,9 +2562,9 @@ void discrim_by_dust()
   {
     CSTR_GetAttr(c,&attr);
 
-    if (attr.difflg & 0x40) 
+    if (attr.difflg & 0x40)
 		continue;
-    if (attr.flg & CSTR_f_bad) 
+    if (attr.flg & CSTR_f_bad)
 		continue;
 
     //d=c->prev;
@@ -2601,7 +2601,7 @@ void discrim_by_dust()
 
 void all_cell_ledust()
 {
- CSTR_rast C; 
+ CSTR_rast C;
  CSTR_rast_attr attr;
  INT df;
 
@@ -2630,7 +2630,7 @@ void all_cell_ledust()
 ///////////////
 
 INT if_dust(CSTR_rast C)
-{ 
+{
  INT rb, w1, wh, wps;
  CSTR_rast_attr attr;
 
@@ -2644,9 +2644,9 @@ INT if_dust(CSTR_rast C)
  /////////  931230 if (5*C->h > 3*wps) rb |= 16;    // indicate LARGE
  w1=(attr.row - minrow)-bbsm-attr.bdiff;
  if (w1 >= 0)
- { 
-   rb |= 1; 
-   goto chks; 
+ {
+   rb |= 1;
+   goto chks;
  }
 
  w1=w1+1+attr.h+((fax1x2)?2:0);
@@ -2671,7 +2671,7 @@ INT get_bsm()
 
 /////////////
 LONG get_size()                                                   //16.01.97
- { 
+ {
    if (multi_bas & 128)
       def_locbas(NULL);
    return (LONG) Ps;                                              //16.01.97
@@ -2685,7 +2685,7 @@ LONG get_size()                                                   //16.01.97
 INT dust_to_let()
 {
  INT n;
- CSTR_rast c; 
+ CSTR_rast c;
  CSTR_rast_attr attr;
  int line_scale = 0;
 
@@ -2716,9 +2716,9 @@ INT dust_to_let()
    }
 */
 
-   CSTR_GetAttr(c,&attr); 
+   CSTR_GetAttr(c,&attr);
    if ( attr.flg & CSTR_f_dust)   // brought as dust
-   { 
+   {
 	 INT wr;
 
      if ((((wr=if_dust(c)) & 7) == 0) || (wr & 16))
@@ -2732,15 +2732,15 @@ INT dust_to_let()
        // AL 940411
        trans_total++;
 
-//       (c->next)->prev=c->prev; 
+//       (c->next)->prev=c->prev;
 //  	 (cp=c->prev)->next=c->next;
 
        set_bad_cell(c);
        short_recog_cell(c,line_scale);
 //       insert_cell(c,cp);
 
-	   CSTR_GetAttr(c,&attr); 
-       if ( attr.flg & CSTR_f_let) 
+	   CSTR_GetAttr(c,&attr);
+       if ( attr.flg & CSTR_f_let)
 		   n++;
      }
    } // if dust

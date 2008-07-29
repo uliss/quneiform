@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 void ClearAll( void )
 {
-	PAGEINFO           PInfo = {0};  
+	PAGEINFO           PInfo = {0};
 //
 // Сохраним последенне состояние и очистим контейнер
 //
@@ -76,7 +76,7 @@ void ClearAll( void )
 	if(hCPAGE)
 		GetPageInfo(hCPAGE,&PInfo);
 
-    CSTR_DeleteAll(); 
+    CSTR_DeleteAll();
 	CPAGE_DeleteAll(); hCPAGE = CreateEmptyPage();
 
 	strcpy((char*)PInfo.szImageName, PUMA_IMAGE_USER);
@@ -90,8 +90,8 @@ void ClearAll( void )
 	CIMAGE_DeleteImage((PWord8)PUMA_IMAGE_DELLINE	);
 //  Повернутое изображение ( PUMA_IMAGE_ROTATE) удалять нельзя, как и исходное,
 //  поскольку оно отображается в интерфейсе. Его нужно удалять
-//  либо при получении нового довернутого изображения, либо при 
-//  закрытии файла 
+//  либо при получении нового довернутого изображения, либо при
+//  закрытии файла
 	CIMAGE_DeleteImage((PWord8)PUMA_IMAGE_TURN		);
 	/*
 	if(hCPAGE && CPAGE_GetCountBlock(hCPAGE))
@@ -136,7 +136,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name)
 	}
 
 	// будет распознавания эвентами
-	exc.Control  = Ex_ExtraComp|/*Ex_EvnRecog|*/Ex_Picture; 
+	exc.Control  = Ex_ExtraComp|/*Ex_EvnRecog|*/Ex_Picture;
     //exc.Control |= Ex_NetRecog;
 
 	//Andrey: orientation is obtained from new library RNORM
@@ -152,10 +152,10 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name)
 	else
 */
 	{
-		Word8 w8 = (Word8)gbDotMatrix;		
+		Word8 w8 = (Word8)gbDotMatrix;
 			REXC_SetImportData(REXC_Word8_Matrix,&w8);
 
-		w8 = (Word8)gbFax100;				
+		w8 = (Word8)gbFax100;
 			REXC_SetImportData(REXC_Word8_Fax1x2,&w8);
 	}
 /*
@@ -169,14 +169,14 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name)
     }
     if( rc && !REXCExtracomp3CB(exc, // поиск компонент by 3CallBacks
         (TImageOpen)clbk.CIMAGE_ImageOpen,
-        (TImageClose)clbk.CIMAGE_ImageClose, 
-        (TImageRead)clbk.CIMAGE_ImageRead) 
+        (TImageClose)clbk.CIMAGE_ImageClose,
+        (TImageRead)clbk.CIMAGE_ImageRead)
         )
 		{
 		SetReturnCode_puma(REXC_GetReturnCode());
 		rc = FALSE;
 		}
-			
+
 	if(rc)
 	{
 		hCCOM = (Handle)REXCGetContainer();
@@ -185,7 +185,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name)
 			SetReturnCode_puma(REXC_GetReturnCode());
 			rc = FALSE;
 		}
-		
+
 	}
 	if(rc)
 	{
@@ -205,17 +205,17 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name)
 Bool32  comp_over(CCOM_comp *sour,CCOM_comp *cur)
 {
 	Int32   le,ri,up,dn,w,h;
-	
+
 	if( sour->left+sour->w<=cur->left || cur->left+cur->w<=sour->left )
 		return FALSE;
 	if( sour->upper+sour->h<=cur->upper || cur->upper+cur->h<=sour->upper )
 		return FALSE;
-	
+
 	if( sour->left<cur->left )
 		le = cur->left;
 	else
 		le = sour->left;
-	
+
 	if( sour->left+sour->w<cur->left+cur->w )
 		ri = sour->left+sour->w;
 	else
@@ -225,13 +225,13 @@ Bool32  comp_over(CCOM_comp *sour,CCOM_comp *cur)
 		up = cur->upper;
 	else
 		up = sour->upper;
-	
+
 	if( sour->upper+sour->h<cur->upper+cur->h )
 		dn = cur->upper+cur->h;
 	else
 		dn = sour->upper+sour->h;
 	h=dn-up;
-	
+
 	if( w>0 && h>0 && cur->w<2*sour->w && cur->h<2*sour->h &&
 		w*2>cur->w && h*2>cur->h )
 		return TRUE;
@@ -315,17 +315,17 @@ Bool32 RemoveLines(Handle hccom,Handle hcpage,PWord8 * lppDIB)
     CCOM_comp   *victim[100];
     Int32       nvict,i;
     Bool32      yes_victim = FALSE;
-//	
+//
 //	 Удалим линии
-//	
+//
 	if(rc && !RLINE_DeleteLines(hcpage,PUMA_IMAGE_DELLINE))
 	{
 		SetReturnCode_puma(RLINE_GetReturnCode());
 		rc = FALSE;
 	}
-//	
+//
 //	 Получим изображение с удаленными линиями
-//	
+//
 	if(rc && !CIMAGE_ReadDIB((PWord8)PUMA_IMAGE_DELLINE,(Handle*)&hDIB,TRUE))
 	{
 		SetReturnCode_puma(CIMAGE_GetReturnCode());
@@ -333,13 +333,13 @@ Bool32 RemoveLines(Handle hccom,Handle hcpage,PWord8 * lppDIB)
 	}
 	if(hDIB)
 	{
-//		
+//
 //		 Удалим компоненты и выделим их заново.
-//		
+//
 		*lppDIB = (PWord8)hDIB;
 		if(rc)
 		{
-        if( CCOM_GetContainerVolume((CCOM_handle)hCCOM)<60000 && 
+        if( CCOM_GetContainerVolume((CCOM_handle)hCCOM)<60000 &&
             MyGetZher ((void**)victim, &nvict, 100, hcpage) && nvict )
             yes_victim = TRUE;
 
@@ -363,7 +363,7 @@ Bool32 RemoveLines(Handle hccom,Handle hcpage,PWord8 * lppDIB)
 
 		if(rc)
 		{
-        
+
 			hCCOM = (Handle)REXCGetContainer();
 			if(hCCOM==0)
 			{
@@ -373,16 +373,16 @@ Bool32 RemoveLines(Handle hccom,Handle hcpage,PWord8 * lppDIB)
 			hccom = hCCOM;
             if( hLinesCCOM )
                 {
-//                
+//
 //                 Refersh CCOM
-//                
+//
                 CCOM_comp   *exa=CCOM_GetFirst((CCOM_handle)hLinesCCOM,NULL);
-                
+
                 if( yes_victim )
                 {
                 /*
                 Rect16 rect1;
-	            Word32 key = 111; 
+	            Word32 key = 111;
                 for(i=0;i<nvict;i++)
                     {
                     exa = victim[i];
@@ -392,7 +392,7 @@ Bool32 RemoveLines(Handle hccom,Handle hcpage,PWord8 * lppDIB)
 		            rect1.right = exa->left+exa->w;
 		            LDPUMA_DrawRect(NULL, &rect1, 0, 23635, 1, key);
                     }
-                    
+
                 if(!LDPUMA_Skip(hShowCheckLetters))
 	                {
 		                LDPUMA_Console("Puma_Коробки жертв  \n");
@@ -409,7 +409,7 @@ Bool32 RemoveLines(Handle hccom,Handle hcpage,PWord8 * lppDIB)
                         if( dup )
                             {
                             CCOM_Store(dup,0,
-                                exa->size_linerep, 
+                                exa->size_linerep,
                                 exa->linerep,  exa->nl,
                                 exa->begs, exa->ends,
                                 exa->vers,   NULL);
@@ -417,7 +417,7 @@ Bool32 RemoveLines(Handle hccom,Handle hcpage,PWord8 * lppDIB)
                             dup->type = exa->type;
                             dup->cs   = exa->cs;
                             }
-                        }                  
+                        }
                     }
                 }
                 CCOM_DeleteContainer((CCOM_handle)hLinesCCOM);
@@ -507,7 +507,7 @@ void ProgressStart()
 		fnProgressStart();
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 void ProgressFinish()
 {
 	LDPUMA_ProgressFinish();
@@ -515,7 +515,7 @@ void ProgressFinish()
 		fnProgressFinish();
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 Bool32 ProgressStep(Word32 step,char*name,Word32 percent)
 {
 	Bool32 rc = TRUE;
@@ -534,19 +534,19 @@ Bool32 ProgressStep(Word32 step,char*name,Word32 percent)
 	return rc;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 Bool32 ProgressStepLayout(Word32 step,Word32 percent)
 {
 	return ProgressStep(step, GetResourceString(IDS_PRG_OPEN), percent);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 Bool32 ProgressStepLines(Word32 step,Word32 percent)
 {
 	return ProgressStep(step, GetResourceString(IDS_REMOVELINE), percent);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 Bool32 ProgressStepTables(Word32 step,Word32 percent)
 {
 	return ProgressStep(step, GetResourceString(IDS_REMOVELINE), percent);
@@ -568,7 +568,7 @@ void ResetPRGTIME()
 	bInitPrgTime = 0;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 Bool32  DonePRGTIME()
 {
 	Bool32 rc = FALSE;
@@ -577,9 +577,9 @@ Bool32  DonePRGTIME()
 	if(!bInitPrgTime)
 		rc = TRUE;
 return rc;
-} 
+}
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 Bool32  InitPRGTIME()
 {
 	Bool32 rc = FALSE;
@@ -595,7 +595,7 @@ Bool32  InitPRGTIME()
 	return rc;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 PRGTIME	 StorePRGTIME(Word32 beg, Word32 end)
 {
 	PRGTIME rc = g_PrgTime;
@@ -606,10 +606,10 @@ PRGTIME	 StorePRGTIME(Word32 beg, Word32 end)
 	g_PrgTime.dwBeg = newBeg;
 	g_PrgTime.dwEnd = newEnd;
 
-return rc;	
+return rc;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 void RestorePRGTIME(PRGTIME	prev)
 {
 	g_PrgTime  = prev;
@@ -623,22 +623,22 @@ Bool32 PrintResult(int num,CSTR_line lout,Handle hCPAGE)
 	UniVersions     vers;
 	CSTR_rast_attr  attr;
 	CSTR_attr		line_attr = {0};
-	
+
 	Bool32 bold = 0;
 	Bool32 italic = 0;
 	Bool32 strikeout = 0;
 	Bool32 underline = 0;
-	Int32 height = 0;	
-	Int32 offset = 0;	
+	Int32 height = 0;
+	Int32 offset = 0;
 	Word32 textcolor = 0;
-	int charset = RUSSIAN_CHARSET;	
+	int charset = RUSSIAN_CHARSET;
 	char * name = NULL;
 	static Int32  nFragment = -1;
 	static Word32 deftextcolor = 0;
 	Bool32 bOutputKegl = TRUE;
-	
+
 	CSTR_GetLineAttr (lout,&line_attr);
-	
+
 	if(line_attr.fragment != nFragment)
 	{
 		nFragment = -1;
@@ -657,11 +657,11 @@ Bool32 PrintResult(int num,CSTR_line lout,Handle hCPAGE)
 lNext:
 	if(nFragment<0)
 		deftextcolor = 254L + (127L<<8);
-	
-	
+
+
 	LDPUMA_SetConsoleProperty(0,0,0,0,0,0,deftextcolor,RUSSIAN_CHARSET,"Courier New");
 	LDPUMA_Console("Фр.%2i Стр.%3i: <",line_attr.fragment,num);
-	
+
 	if( start && stop )
 	{
 		c=CSTR_GetNextRaster (start,CSTR_f_all);
@@ -672,25 +672,25 @@ lNext:
 				continue;
 			if( CSTR_GetCollectionUni(c, &vers) )
 			{
-				
+
 				if(LDPUMA_Skip(hDebugCancelPropertyConsole))
 				{
 					if(attr.font&CSTR_fp_bold)
 						bold = TRUE;
 					else
 						bold = FALSE;
-					
+
 					if(attr.font&CSTR_fp_it)
 						italic = TRUE;
 					else
 						italic = FALSE;
-					
+
 					if(attr.font&CSTR_fp_undrln)
 						underline = TRUE;
 					else
 						underline = FALSE;
-					
-					height = attr.keg*10*2; 
+
+					height = attr.keg*10*2;
                     switch( attr.font_spec )
 					{
 					case    CSTR_fs_none:
@@ -707,32 +707,32 @@ lNext:
 						name = "Courier New";
 						break;
 					}
-					
-					
-					textcolor = 0;	
+
+
+					textcolor = 0;
 					if(attr.flg_spell & CSTR_fa_spell_reject)
 						textcolor |= 200<<16;// RGB
                     if(attr.flg_spell & CSTR_fa_spell_nocarrying)
 						textcolor |= 200<<8;
-					
+
 					if(!vers.lnAltCnt || vers.Alt[0].Prob<70)
 						textcolor |= 200;
 				}
-				
+
 				charset = vers.Alt[0].Charset;
 				LDPUMA_SetConsoleProperty(bold,italic,strikeout,
 					underline,height,offset,textcolor,charset,name);
-				
+
 				if( !vers.lnAltCnt )
 					LDPUMA_Console("%c",'~');
-				else 
+				else
 				{
                     if( vers.Alt[0].Code[0]=='%' )
                         LDPUMA_Console((char *)"%%");
                     else
 						LDPUMA_Console((char *)vers.Alt[0].Code);
 				}
-				
+
 				if(bOutputKegl && !LDPUMA_Skip(hDebugCancelConsoleKeglOutput))
 				{
 					LDPUMA_SetConsoleProperty(0,0,0,0,0,0,150L<<8,RUSSIAN_CHARSET,NULL);
@@ -745,20 +745,20 @@ lNext:
 	}
 	LDPUMA_SetConsoleProperty(0,0,0,0,0,0,deftextcolor,RUSSIAN_CHARSET,NULL);
 	LDPUMA_Console(">\n");
-	
+
 	if(deftextcolor)
 		LDPUMA_SetConsoleProperty(0,0,0,0,0,0,0,RUSSIAN_CHARSET,NULL);
-	
+
 	return rc;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 Bool32  HL_TableExtractEx( Handle hPAGE, Word32 perc, Rect32 rect )
 {
 	return RMARKER_SearchTableInZone(hPAGE,hCCOM,perc,rect);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 Bool32 IsUpdate(Word32 flg)
 {
 	return (g_flgUpdate & flg) > 0;

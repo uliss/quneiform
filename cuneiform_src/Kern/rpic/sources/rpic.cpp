@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -188,15 +188,15 @@ Bool32 LastCheck(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 		my_bottom = pic.upper + pic.h;
 		my_right  = pic.left + pic.w;
 
-				
-		//Additional parameter - local distribution of heights 
+
+		//Additional parameter - local distribution of heights
 		//in case of local fragment with different (from main) height
 		nLocalComps = 0;
 		for(j=0;j<MaxHeightOfLetter;j++)
 		{
 			pLocalHystogram[j] = 0;
 		}
-		
+
 		/* Filling the hystogram of local letter's heights */
 
 //stepa_am
@@ -222,7 +222,7 @@ Bool32 LastCheck(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 			}
 			comp = CCOM_GetNext(comp, &MyFiltrateIn);
 		}
-		
+
 		/* if there is comonents in the picture, check picture for containing text blocks,
 		   if result is sucsessful, delete it from pictures */
 		if (nLocalComps!=0)
@@ -236,7 +236,7 @@ Bool32 LastCheck(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 					nMaxLocal = j;
 				}
 			}
-			
+
 			Result1 = 0;
 			Result2 = 0;
 
@@ -275,7 +275,7 @@ Bool32 LastCheck(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 			Result1 = Result1/10;
 			Result2 = Result2/20;
 
-			
+
 			if(Result1 + Result2 > 2*CONDITION1)
 			{
 				DeleteFromPics(i);
@@ -320,7 +320,7 @@ Bool32 MyFiltrateIn (Int32 upper, Int32 left, Int32 w, Int32 h)
 	{
 		return FALSE;
 	}
-	
+
 	return TRUE;
 };
 ////////////////////////////////////////////////////////////////////////////////
@@ -365,8 +365,8 @@ RPIC_FUNC(Bool32) RPIC_SearchPictures (Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE
 	Word32 i,j;
 
 	Rect16 rect;
-	Word32 key; 
-	Word32 color; 
+	Word32 key;
+	Word32 color;
 	Word32 tmp_comp=0;
 
 	Handle MainWindowD=NULL;
@@ -381,7 +381,7 @@ RPIC_FUNC(Bool32) RPIC_SearchPictures (Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE
 	color = 200;
 	key = 111;
 	nPics = 0;
-	if(pPics) 
+	if(pPics)
 	{
 		free(pPics);
 		pPics = NULL;
@@ -413,22 +413,22 @@ RPIC_FUNC(Bool32) RPIC_SearchPictures (Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE
 	while (comp)
 	{
 		tmp_comp++;
-		
+
 		if((comp->h > MinHeightOfLetter) && (comp->h < MaxHeightOfLetter))
 		{
 			nComps++;
 			pHystogram[comp->h]++;
 		}
-		if( comp->scale < 1 ) 
+		if( comp->scale < 1 )
 			goto lNextComp_big;
 			/*
-			if( comp->cs == 255) 
+			if( comp->cs == 255)
 			{
 			comp->type = CCOM_CH_LETTER;
 			goto lNextComp;
 			}
 		*/
-		if( IsNotGoodComp(pInfo, comp) ) 
+		if( IsNotGoodComp(pInfo, comp) )
 		{
 			if(!LDPUMA_Skip(hShowAllCancelledGreat))
 			{
@@ -440,18 +440,18 @@ RPIC_FUNC(Bool32) RPIC_SearchPictures (Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE
 			}
 			goto lNextComp_big;
 		}
-		
+
 		if (nPics % PICS_QUANTUM == 0)
 		{
 			pPics = (CCOM_comp *) realloc (pPics,
 				(size_t) ((nPics / PICS_QUANTUM + 1)* PICS_QUANTUM * sizeof (CCOM_comp)));
 		}
-		
+
 		pPics[nPics++] = *comp;
-		
+
 lNextComp_big:
 		comp = CCOM_GetNext(comp,NULL);
-		
+
 	}
 //end stepa_am
 
@@ -459,22 +459,22 @@ lNextComp_big:
 	while (comp)
 	{
 		tmp_comp++;
-		
+
 		if((comp->h > MinHeightOfLetter) && (comp->h < MaxHeightOfLetter))
 		{
 			nComps++;
 			pHystogram[comp->h]++;
 		}
-		if( /*comp->scale < */1 ) 
+		if( /*comp->scale < */1 )
 			goto lNextComp;
 			/*
-			if( comp->cs == 255) 
+			if( comp->cs == 255)
 			{
 			comp->type = CCOM_CH_LETTER;
 			goto lNextComp;
 			}
 		*/
-		if( IsNotGoodComp(pInfo, comp) ) 
+		if( IsNotGoodComp(pInfo, comp) )
 		{
 			if(!LDPUMA_Skip(hShowAllCancelledGreat))
 			{
@@ -486,18 +486,18 @@ lNextComp_big:
 			}
 			goto lNextComp;
 		}
-		
+
 		if (nPics % PICS_QUANTUM == 0)
 		{
 			pPics = (CCOM_comp *) realloc (pPics,
 				(size_t) ((nPics / PICS_QUANTUM + 1)* PICS_QUANTUM * sizeof (CCOM_comp)));
 		}
-		
+
 		pPics[nPics++] = *comp;
-		
+
 lNextComp:
 		comp = CCOM_GetNext(comp,NULL);
-		
+
 	}
 
 	if(!LDPUMA_Skip(hShowAllCancelledGreat))
@@ -547,7 +547,7 @@ lNextComp:
 
 
 
-	
+
 	for (i=0; i<nPics; i++)
 	{
 		for (j=0; j<nPics; j++)
@@ -559,13 +559,13 @@ lNextComp:
 				 (pPics[i].upper + pPics[i].h + VER_BOUND_SIZE > pPics[j].upper) )
 			{
 				common = pPics[i];
-				if (pPics[i].upper >= pPics[j].upper) 
+				if (pPics[i].upper >= pPics[j].upper)
 					common.upper = pPics[j].upper;
-				if (pPics[i].left >= pPics[j].left) 
+				if (pPics[i].left >= pPics[j].left)
 					common.left = pPics[j].left;
-				if (pPics[i].upper + pPics[i].h < pPics[j].upper + pPics[j].h) 
+				if (pPics[i].upper + pPics[i].h < pPics[j].upper + pPics[j].h)
 					common.h = pPics[j].upper + pPics[j].h - pPics[i].upper;
-				if (pPics[i].left  + pPics[i].w < pPics[j].left + pPics[j].w) 
+				if (pPics[i].left  + pPics[i].w < pPics[j].left + pPics[j].w)
 					common.w = pPics[j].left + pPics[j].w - pPics[i].left;
 				common.h += pPics[i].upper - common.upper;
 				common.w += pPics[i].left  - common.left;
@@ -608,7 +608,7 @@ lNextComp:
 	LDPUMA_FPuts(resFile_comp, file_name);
 	LDPUMA_FPuts(resFile_comp, " \n");
 	//LDPUMA_FPuts(resFile_comp, "  <2 Н Страница \n");
-	LDPUMA_FPuts(resFile_comp, "  <3 Н Компоненты \n");	
+	LDPUMA_FPuts(resFile_comp, "  <3 Н Компоненты \n");
 	sprintf(tmp_str, "  <4 П Перед выделением линий \n", nComps);
 	LDPUMA_FPuts(resFile_comp,tmp_str);
 	sprintf(tmp_str, "  <4 Р %d \n", nComps);
@@ -617,14 +617,14 @@ lNextComp:
 	LDPUMA_FPuts(logFile_comp,tmp_str);
 
 	/*******************************************************************/
-	if(LDPUMA_Skip(hRectanglePictures)) 
+	if(LDPUMA_Skip(hRectanglePictures))
 		SearchRectanglePictures(hCCOM,hCCOM_big, hCPAGE);
-	if(LDPUMA_Skip(hPolyPictures)) 
+	if(LDPUMA_Skip(hPolyPictures))
 		SearchPolyPictures(hCCOM, hCPAGE);
 	/*******************************************************************/
 
 	/************** final union all crossed and included pictures ******************/
-	
+
 	for (i=0; i<nPics; i++)
 	{
 		if(pPics[i].large & CCOM_LR_KILLED)
@@ -658,7 +658,7 @@ lNextComp:
 
 
 
-	
+
 	for (i=0; i<nPics; i++)
 	{
 		if(pPics[i].large & CCOM_LR_KILLED)
@@ -678,13 +678,13 @@ lNextComp:
 				 (pPics[i].upper + pPics[i].h + VER_BOUND_SIZE > pPics[j].upper) )
 			{
 				common = pPics[i];
-				if (pPics[i].upper >= pPics[j].upper) 
+				if (pPics[i].upper >= pPics[j].upper)
 					common.upper = pPics[j].upper;
-				if (pPics[i].left >= pPics[j].left) 
+				if (pPics[i].left >= pPics[j].left)
 					common.left = pPics[j].left;
-				if (pPics[i].upper + pPics[i].h < pPics[j].upper + pPics[j].h) 
+				if (pPics[i].upper + pPics[i].h < pPics[j].upper + pPics[j].h)
 					common.h = pPics[j].upper + pPics[j].h - pPics[i].upper;
-				if (pPics[i].left  + pPics[i].w < pPics[j].left + pPics[j].w) 
+				if (pPics[i].left  + pPics[i].w < pPics[j].left + pPics[j].w)
 					common.w = pPics[j].left + pPics[j].w - pPics[i].left;
 				common.h += pPics[i].upper - common.upper;
 				common.w += pPics[i].left  - common.left;
@@ -701,9 +701,9 @@ lNextComp:
 			}
 		}
 	}
-	
+
 	/***********************************************************************************/
-	
+
 	/**/
 	/* rom
 	for (i=0; i<nPics; i++)
@@ -715,7 +715,7 @@ lNextComp:
 		}
 	}
 	*/
-	
+
 	LastCheck( hCCOM,hCCOM_big, hCPAGE);
 
 	LDPUMA_FPuts(resFile_pict, "  <2 Н Страница =");
@@ -734,11 +734,11 @@ lNextComp:
 		if(pPics[i].large & CCOM_LR_KILLED && !(pPics[i].large & CCOM_LR_TAKEN))
 		{
 			continue;
-		}	
+		}
 		block.com.type = TYPE_TEXT;//Текст, Картинка, Таблица;
 		block.com.number = 0;//порядковый номер
 		block.com.Color = 0;
-		block.com.count = 4;	
+		block.com.count = 4;
 		block.com.Flags = 0;
 		block.com.Vertex[0].x = pPics[i].left;
 		block.com.Vertex[0].y = pPics[i].upper;
@@ -750,7 +750,7 @@ lNextComp:
 		block.com.Vertex[3].y = pPics[i].upper + pPics[i].h;
 		block.alphabet = 0;
 
-		sprintf(tmp_str, "  <4 О 1 %4d %4d %4d %4d %d \n", 
+		sprintf(tmp_str, "  <4 О 1 %4d %4d %4d %4d %d \n",
 			pPics[i].left, pPics[i].upper, pPics[i].left + pPics[i].w, pPics[i].upper, pPics[i].h);
 		LDPUMA_FPuts(resFile_pict,tmp_str);
 
@@ -778,7 +778,7 @@ lNextComp:
 		free(pPics);
 		pPics = NULL;
 	}
-	nPics = 0;	
+	nPics = 0;
 
 	CloseLogRes();
 
@@ -832,7 +832,7 @@ lNextComp:
 		LDPUMA_DeleteRects(MainWindowD, key);
 	 }
 	}
-     
+
     Word32 BlockType = CPAGE_GetInternalType("pic's to letters boxes");
     RPIC_Comp_Rect CompRect;
     if(!LDPUMA_Skip(hShowBigLetters))

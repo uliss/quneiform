@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -217,7 +217,7 @@ Bool32 MyFiltrateIn (Int32 upper, Int32 left, Int32 w, Int32 h)
 	{
 		return FALSE;
 	}
-	
+
 	return TRUE;
 };
 ////////////////////////////////////////////////////////////////////////////////
@@ -226,7 +226,7 @@ Bool32 MyFiltrateIn (Int32 upper, Int32 left, Int32 w, Int32 h)
 Bool32 PicturesSecondStage(Int32 hCCOM,Handle hCPAGE)
 {
 	/************** final union all crossed and included pictures ******************/
-	
+
 	CCOM_comp common;
 	POLY_	block;
 	Handle h = NULL;
@@ -254,16 +254,16 @@ Bool32 PicturesSecondStage(Int32 hCCOM,Handle hCPAGE)
 		my_left   = pic.left;
 		my_bottom = pic.upper + pic.h;
 		my_right  = pic.left + pic.w;
-		
-		
-		//Additional parameter - local distribution of heights 
+
+
+		//Additional parameter - local distribution of heights
 		//in case of local fragment with different (from main) height
 		nLocalComps = 0;
 		for(j=0;j<MaxHeightOfLetter;j++)
 		{
 			pLocalHystogram[j] = 0;
 		}
-		
+
 		comp = CCOM_GetFirst(hCCOM, &MyFiltrateIn);
 		while(comp)
 		{
@@ -274,7 +274,7 @@ Bool32 PicturesSecondStage(Int32 hCCOM,Handle hCPAGE)
 			}
 			comp = CCOM_GetNext(comp, &MyFiltrateIn);
 		}
-		
+
 		if (nLocalComps!=0)
 		{
 			MaxLocal = pLocalHystogram[0];
@@ -286,7 +286,7 @@ Bool32 PicturesSecondStage(Int32 hCCOM,Handle hCPAGE)
 					nMaxLocal = j;
 				}
 			}
-			
+
 			Result1 = 0;
 			Result2 = 0;
 			sprintf(tmp_str, " %i Result1 (must be 0)\n", Result1);
@@ -295,7 +295,7 @@ Bool32 PicturesSecondStage(Int32 hCCOM,Handle hCPAGE)
 			LDPUMA_FPuts(logFile_comp,tmp_str);
 			sprintf(tmp_str, " %i (nComps)\n", nComps);
 			LDPUMA_FPuts(logFile_comp,tmp_str);
-			
+
 			comp = CCOM_GetFirst(hCCOM, &MyFiltrateIn);
 			while(comp)
 			{
@@ -303,13 +303,13 @@ Bool32 PicturesSecondStage(Int32 hCCOM,Handle hCPAGE)
 				//LDPUMA_FPuts(hFile,tmp_str);
 				if( (comp->h < MaxHeightOfLetter) && (comp->h > MinHeightOfLetter) )
 				{
-					
+
 					sprintf(tmp_str, " %i  (comp->h)\n", comp->h);
 					LDPUMA_FPuts(logFile_comp,tmp_str);
 					sprintf(tmp_str, " %i  (pBlockHystogram[comp->h])\n", pBlockHystogram[comp->h]);
 					LDPUMA_FPuts(logFile_comp,tmp_str);
-					
-					
+
+
 					//Result1 += OVERALL*pBlockHystogram[comp->h];
 					Result1 += pBlockHystogram[comp->h]/20+
 						pBlockHystogram[comp->h-1]/20+pBlockHystogram[comp->h+1]/20;
@@ -321,21 +321,21 @@ Bool32 PicturesSecondStage(Int32 hCCOM,Handle hCPAGE)
 				}
 				comp = CCOM_GetNext(comp, &MyFiltrateIn);
 			}
-			
+
 			//Result1 = Result1/nComps;
 			//Result1 = Result1/10;
 			Result1 = Result1/20;
 			//Result2 = Result2/nLocalComps;
 			//Result2 = Result2/20;
 			Result2 = Result2/40;
-			
+
 			sprintf(tmp_str , " Picture %i (i)\n", i);
 			LDPUMA_FPuts(logFile_comp,tmp_str);
 			sprintf(tmp_str, " %i (Result1)\n", Result1);
 			LDPUMA_FPuts(logFile_comp,tmp_str);
 			sprintf(tmp_str, " %i (Result2)\n", Result2);
 			LDPUMA_FPuts(logFile_comp,tmp_str);
-			
+
 			if(Result1 + Result2 > CONDITION1)
 			{
 				DeleteFromPics(i);
@@ -346,7 +346,7 @@ Bool32 PicturesSecondStage(Int32 hCCOM,Handle hCPAGE)
 	}
 
 	/***********/
-	/* Добавляем картинки, выделенные на первом шаге и производим 
+	/* Добавляем картинки, выделенные на первом шаге и производим
 	   финальное объединение */
 	/***********/
 	for(h = CPAGE_GetBlockFirst(hCPAGE,TYPE_IMAGE);
@@ -364,8 +364,8 @@ Bool32 PicturesSecondStage(Int32 hCCOM,Handle hCPAGE)
 			pPics = (CCOM_comp *) realloc (pPics,
 				(size_t) ((nPics / PICS_QUANTUM + 1)* PICS_QUANTUM * sizeof (CCOM_comp)));
 		}
-		
-		
+
+
 		comp = &pPics[nPics++];
 		comp->upper = block.com.Vertex[0].y;
 		comp->left  = block.com.Vertex[0].x;
@@ -401,7 +401,7 @@ Bool32 PicturesSecondStage(Int32 hCCOM,Handle hCPAGE)
 				if(NPFArbitr(&(pPics[j]),&(pPics[i]),0))
 				{
 				 DeleteFromPics (i);
-				 j=0; 
+				 j=0;
 				}
 				else
 				{
@@ -411,14 +411,14 @@ Bool32 PicturesSecondStage(Int32 hCCOM,Handle hCPAGE)
 				 //end NPF
 				 DeleteFromPics (j);
 				 j--;
-				}	
+				}
 			}
 			if(i==nPics)
 				break;
 		}
 	}
 
-	
+
 	for (i=0; i<nPics; i++)
 	{
 		for (j=0; j<nPics; j++)
@@ -434,13 +434,13 @@ Bool32 PicturesSecondStage(Int32 hCCOM,Handle hCPAGE)
                else
 			   {
 				common = pPics[i];
-				if (pPics[i].upper >= pPics[j].upper) 
+				if (pPics[i].upper >= pPics[j].upper)
 					common.upper = pPics[j].upper;
-				if (pPics[i].left >= pPics[j].left) 
+				if (pPics[i].left >= pPics[j].left)
 					common.left = pPics[j].left;
-				if (pPics[i].upper + pPics[i].h < pPics[j].upper + pPics[j].h) 
+				if (pPics[i].upper + pPics[i].h < pPics[j].upper + pPics[j].h)
 					common.h = pPics[j].upper + pPics[j].h - pPics[i].upper;
-				if (pPics[i].left  + pPics[i].w < pPics[j].left + pPics[j].w) 
+				if (pPics[i].left  + pPics[i].w < pPics[j].left + pPics[j].w)
 					common.w = pPics[j].left + pPics[j].w - pPics[i].left;
 				common.h += pPics[i].upper - common.upper;
 				common.w += pPics[i].left  - common.left;
@@ -452,10 +452,10 @@ Bool32 PicturesSecondStage(Int32 hCCOM,Handle hCPAGE)
 			}
 		}
 	}
-	
+
 	/***********************************************************************************/
-	
-	
+
+
 //	LastCheck( hCCOM, hCPAGE);
 
 	LDPUMA_FPuts(resFile_pict, "  <4 Н После второго прохода \n");
@@ -513,7 +513,7 @@ Bool32 PicturesSecondStage(Int32 hCCOM,Handle hCPAGE)
 			block.negative=TYPE_POSITIVE;
 		}
 
-		sprintf(tmp_str, "  <4 О 1 %4d %4d %4d %4d %d \n", 
+		sprintf(tmp_str, "  <4 О 1 %4d %4d %4d %4d %d \n",
 			pPics[i].left, pPics[i].upper, pPics[i].left + pPics[i].w, pPics[i].upper, pPics[i].h);
 		LDPUMA_FPuts(resFile_pict,tmp_str);
 
@@ -547,7 +547,7 @@ Bool32 FillBigLetters (Int32 hCCOM,Handle hCPAGE)
 
 		//CPAGE_GetBlockData,(Handle page,Handle block,Word32 Type, void * lpData, Word32 Size));
 		CPAGE_GetBlockData(hCPAGE, pBlock, BlockType, &CompRect, sizeof(CompRect));
-		nBigLetters++;				
+		nBigLetters++;
 		pBigLetters[nBigLetters-1] = CompRect;
 
 		pBlock = CPAGE_GetBlockNext(hCPAGE, pBlock, BlockType);
@@ -587,8 +587,8 @@ Bool32 FillPicsInTables (Int32 hCCOM,Handle hCPAGE)
 			pPics = (CCOM_comp *) realloc (pPics,
 				(size_t) ((nPics / PICS_QUANTUM + 1)* PICS_QUANTUM * sizeof (CCOM_comp)));
 		}
-		
-		
+
+
 		comp = &pPics[nPics++];
 		comp->upper = block.com.Vertex[0].y;
 		comp->left  = block.com.Vertex[0].x;
@@ -635,7 +635,7 @@ Bool32 ReadRoots(Int32 hCCOM, Bool32 BLOCKS)
 
 	if (BLOCKS)
 	{
-		if(pPics) 
+		if(pPics)
 		{
 			free(pPics);
 			pPics = NULL;
@@ -648,7 +648,7 @@ Bool32 ReadRoots(Int32 hCCOM, Bool32 BLOCKS)
 
 	nBigLetters = 0;
 	pBigLetters = NULL;
-	FillBigLetters(hCCOM, pPage); // ну, hCCOM здесь ни при чем.. 
+	FillBigLetters(hCCOM, pPage); // ну, hCCOM здесь ни при чем..
                              //и вообще непонятно, что он делает в этом вызове
 	FillPicsInTables(hCCOM, pPage);
 
@@ -679,7 +679,7 @@ Bool32 ReadRoots(Int32 hCCOM, Bool32 BLOCKS)
 		if((comp->h > MinHeightOfLetter) && (comp->h < MaxHeightOfLetter))
 		{
 			nComps++;
-			pBlockHystogram[comp->h]++; // т.е., строим гистограмму высот 
+			pBlockHystogram[comp->h]++; // т.е., строим гистограмму высот
 		}                             // компонент hCCOM
 
 
@@ -697,18 +697,18 @@ Bool32 ReadRoots(Int32 hCCOM, Bool32 BLOCKS)
 							pPics = (CCOM_comp *) realloc (pPics,
 								(size_t) ((nPics / PICS_QUANTUM + 1)* PICS_QUANTUM * sizeof (CCOM_comp)));
 						}
-						
+
 						pPics[nPics++] = *comp; // составляем перечень картинок
 					}
 				}
 			}
 			goto lNextComp;
 		}
-		
+
         AddRoot(comp, TRUE)
 			;
 	lNextComp:
-			comp = CCOM_GetNext(comp,NULL);	   
+			comp = CCOM_GetNext(comp,NULL);
     }
 
 
@@ -719,7 +719,7 @@ Bool32 ReadRoots(Int32 hCCOM, Bool32 BLOCKS)
 		LDPUMA_FPuts(resFile_comp,tmp_str);
 		sprintf(tmp_str, "  <4 Р %d \n", i);
 		LDPUMA_FPuts(resFile_comp, tmp_str);
-		LDPUMA_FPuts(resFile_comp, "  <3 К Компоненты \n");	
+		LDPUMA_FPuts(resFile_comp, "  <3 К Компоненты \n");
 		LDPUMA_FPuts(resFile_comp, "  <2 К Страница \n");
 
 		PicturesSecondStage(hCCOM, pPage); // объединить все картинки (теоретически)
@@ -729,7 +729,7 @@ Bool32 ReadRoots(Int32 hCCOM, Bool32 BLOCKS)
 			DeleteRootsFromTables();
 			DeleteRootsFromPictures();
 			/*
-			if (bSearchPicture) 
+			if (bSearchPicture)
             {
                 CarefulPicturesAllotment(hCCOM);
             }
@@ -747,7 +747,7 @@ Bool32 ReadRoots(Int32 hCCOM, Bool32 BLOCKS)
 
 	if (BLOCKS)
 	{
-		if(pPics!=NULL) 
+		if(pPics!=NULL)
 		{
 			free(pPics);
 			pPics = NULL;
@@ -769,19 +769,19 @@ ROOT   RootRecord = {0};
 
 
 		//***************Rom********************
-		
+
 		if ( (comp->h/comp->w > 20) || (comp->w/comp->h > 20))
 			return FALSE;// Piter
-		
+
 		//**************************************
 
 		//***************Rom********************
-		
+
 		//if ( ((comp->h <= 2) && (comp->w <= 3)) || ((comp->h <= 3) && (comp->w <= 2)) )
 		//if ( (comp->h <= 3) && (comp->w <= 3) )
 		if ( comp->h*comp->w < 6 )
 			return FALSE;// Piter
-		
+
 		//**************************************
 
         RootRecord.bReached   = FALSE;
@@ -837,7 +837,7 @@ return TRUE;
 Bool32 NPFArbitr(CCOM_comp* in,CCOM_comp* big,Bool32 flag)
 {
 
- 
+
  switch(flag)
  {
   case 0:
@@ -871,7 +871,7 @@ Bool32 NPFArbitr(CCOM_comp* in,CCOM_comp* big,Bool32 flag)
 int NPFGetBD()
 {
 	return 10;
-} 
+}
 
 /*
 static void create_root(c_comp *c, WORD siz, version * vs, version * ve)

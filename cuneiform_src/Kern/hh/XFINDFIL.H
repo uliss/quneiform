@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -83,22 +83,22 @@ class XFindFile   // xff
 public:
    XFindFile( void ): hFind(-1), can_reply(FALSE){};
    XFindFile( const char* name_template ): hFind(-1), can_reply(FALSE){ Restart(name_template); };
-   
+
    const char* GetSource () { return xpTpl; } /*VMK*/
-   
+
    Bool Restart( const char* name_template=NULL )
-   {  
+   {
       if (name_template)
          xpTpl = name_template;
       if (hFind != -1)
          _findclose(hFind);
       hFind = _findfirst( xpTpl, &fileinfo );
-      can_reply = (hFind != -1); 
+      can_reply = (hFind != -1);
       return can_reply;
    }
 
    XFindFile& operator ++(void) // prefix form:  use '++xff' to get next file
-   { 
+   {
       can_reply = (_findnext(hFind, &fileinfo)==0);
       return *this;
    }
@@ -139,7 +139,7 @@ public:
       { Init(); Restart(name_template, options); };
 
    void Restart( const char* name_template, int options = 0  )
-   {  
+   {
       nOptions = options;
       if (hFind != -1)
       {
@@ -150,9 +150,9 @@ public:
 
       hFind = _findfirst( name_template, &fileinfo );
       if (hFind != -1)
-      {  
+      {
          while (!IsAcceptable())
-         {  
+         {
             if (_findnext(hFind, &fileinfo)!=0)
                return; // with can_reply == FALSE;
          }
@@ -175,9 +175,9 @@ public:
    }
 
    XEnumDirs& operator ++(void) // prefix form:  use '++xed' to get next subdirectory
-   { 
+   {
       can_reply = FALSE;
-      do 
+      do
       {  if (_findnext(hFind, &fileinfo)!=0)
             return *this; // with can_reply == FALSE;
       }  while (!IsAcceptable());
@@ -207,11 +207,11 @@ static char szNameTpl[260];       // шаблон имени, напр. "*.*"
 static char szDir[260];           // обследуемая директория без слэша на конце
 
 
-   void Restart(void)                // на входе: в szDir - директория которую нужно обследовать, 
+   void Restart(void)                // на входе: в szDir - директория которую нужно обследовать,
                                      //           в szNameTpl - шаблон имени директории
    {
       char tpl[260];
-      sprintf(tpl, "%s\\%s", szDir, szNameTpl); 
+      sprintf(tpl, "%s\\%s", szDir, szNameTpl);
       xed.Restart( tpl, XED_ONLY_SUBDIR );
       if (xed)
       {
@@ -226,20 +226,20 @@ public:
    XEnumDirsRecursive(void): pxedr(NULL){};
    XEnumDirsRecursive(                // конструктор для стартового вызова
       const char* root_dir,   // например "C:\WINDOWS" или "\\server\d\backup\" или "..\.."
-      const char* name_tpl = "*.*" 
+      const char* name_tpl = "*.*"
                      ):
       pxedr(NULL)
-   { 
+   {
       Restart(root_dir, name_tpl);
    }
 
    void Restart(
       const char* root_dir,   // например "C:\WINDOWS" или "\\server\d\backup\" или "..\.."
-      const char* name_tpl = "*.*" 
+      const char* name_tpl = "*.*"
                )
    {
       szReply[0]=0;
-      strcpy( szNameTpl, name_tpl ); 
+      strcpy( szNameTpl, name_tpl );
       strcpy( szDir, root_dir);
       int n=strlen(szDir);
       if (n && szDir[n-1]=='\\')
@@ -272,7 +272,7 @@ public:
       }
 
       if (pxedr)
-      {  // перечисление ЭТОЙ поддиректории закончилось 
+      {  // перечисление ЭТОЙ поддиректории закончилось
          delete pxedr;
          pxedr = NULL;
          szDir[nDir] = 0; // восстанавливаем имя директории
@@ -281,7 +281,7 @@ public:
       if (!xed) // перечисление в текущей завершено
          return *this;
 
-      // итак, перечисление в текущей не было завершено 
+      // итак, перечисление в текущей не было завершено
       ++xed; // берем следующую поддиректорию в текущей
       if (!xed) // больше ничего нет
       {
@@ -289,7 +289,7 @@ public:
          return *this;
       }
 
-      // итак, имеем новую поддиректорию на данном уровне, 
+      // итак, имеем новую поддиректорию на данном уровне,
       // кладем ее в ответ
       sprintf(szReply, "%s\\%s", szDir, xed.SafeStr());
       return *this;

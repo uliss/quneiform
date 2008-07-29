@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -310,7 +310,7 @@ for(c=be;c&&c!=e;c=CSTR_GetNext(c))
             }
         }
     }
-    
+
 return TRUE;
 }
 
@@ -351,7 +351,7 @@ for(c=CSTR_GetNextRaster (start,CSTR_f_all); c && c!=stop; c=CSTR_GetNextRaster 
         if( !CSTR_StoreScale(cnew,comp->scale) )
          return FALSE;
         }
-        
+
     if( (CSTR_cell*)c->next_down )
         { //  start of bracnh
         newdn=cnew;
@@ -361,7 +361,7 @@ for(c=CSTR_GetNextRaster (start,CSTR_f_all); c && c!=stop; c=CSTR_GetNextRaster 
         { // end of branch
         cstr_copy_branch(dn,c,newdn,cnew);
         }
-        
+
     }
 
 
@@ -406,7 +406,7 @@ for(c=CSTR_GetNextRaster (start,CSTR_f_all); c && c!=stop; c=CSTR_GetNext(c))
     cc=(CSTR_cell*)c;
     if( cc->next_down  )
         {
-        cstr_delete_branch(cc->next_down);        
+        cstr_delete_branch(cc->next_down);
         }
     }
 
@@ -430,7 +430,7 @@ for(c=CSTR_GetNextRaster (start,CSTR_f_all); c && c!=stop; )
     cc=(CSTR_cell*)c;
     if( cc->next_down  )
         {
-        cstr_delete_branch(cc->next_down);        
+        cstr_delete_branch(cc->next_down);
         }
     c = CSTR_DelRaster (c);
     }
@@ -483,7 +483,7 @@ return TRUE;
 
 static Bool32 cstr_CCOM2raster(CCOM_comp *comp, CSTR_cell *cell)
 {
-Int32       len; 
+Int32       len;
 RecRaster   rs;
 
 rs.lnPixWidth   = comp->w;
@@ -491,7 +491,7 @@ rs.lnPixHeight  = comp->h;
 if( comp->scale )
     {
     rs.lnPixWidth  =(rs.lnPixWidth +(1<<comp->scale)-1)>> comp->scale;
-    rs.lnPixHeight =(rs.lnPixHeight+(1<<comp->scale)-1)>> comp->scale;    
+    rs.lnPixHeight =(rs.lnPixHeight+(1<<comp->scale)-1)>> comp->scale;
     }
 len = REC_GW_WORD8(rs.lnPixWidth)*rs.lnPixHeight;
 memset(rs.Raster,0,len);
@@ -1075,7 +1075,7 @@ rs.lnPixHeight  = comp->h;
 if( comp->scale )
     {
     rs.lnPixWidth  =(rs.lnPixWidth +(1<<comp->scale)-1)>> comp->scale;
-    rs.lnPixHeight =(rs.lnPixHeight+(1<<comp->scale)-1)>> comp->scale;    
+    rs.lnPixHeight =(rs.lnPixHeight+(1<<comp->scale)-1)>> comp->scale;
     }
 if( REC_GW_WORD8(rs.lnPixWidth)*rs.lnPixHeight <REC_MAX_RASTER_SIZE )
     {
@@ -1089,7 +1089,7 @@ else
     {
     // can be warning about large comp
     rs.lnPixWidth  = 0;
-    rs.lnPixHeight = 0;    
+    rs.lnPixHeight = 0;
     }
 RecRaster2rst(&rs,cell);
 return TRUE;
@@ -1116,7 +1116,7 @@ rs.lnPixHeight  = comp->h;
 if( comp->scale )
     {
     rs.lnPixWidth  =(rs.lnPixWidth +(1<<comp->scale)-1)>> comp->scale;
-    rs.lnPixHeight =(rs.lnPixHeight+(1<<comp->scale)-1)>> comp->scale;    
+    rs.lnPixHeight =(rs.lnPixHeight+(1<<comp->scale)-1)>> comp->scale;
     }
 if( REC_GW_WORD8(rs.lnPixWidth)*rs.lnPixHeight <REC_MAX_RASTER_SIZE )
     {
@@ -1130,7 +1130,7 @@ else
     {
     // can be warning about large comp
     rs.lnPixWidth  = 0;
-    rs.lnPixHeight = 0;    
+    rs.lnPixHeight = 0;
     }
 RecRaster2rst(&rs,cell);
 return TRUE;
@@ -1180,7 +1180,7 @@ switch( type_image )
             wLowRC=CSTR_ERR_NULL       ;
             return FALSE;
             }
-        if( cell->env && 
+        if( cell->env &&
             !cell->recRaster && cell->lnPixWidth && cell->lnPixHeight )
             {
             if( !cstr_CCOM2raster(cell->env, cell) )
@@ -1195,7 +1195,7 @@ switch( type_image )
             wLowRC=CSTR_ERR_NULL       ;
             return FALSE;
             }
-        if( cell->env && 
+        if( cell->env &&
             !cell->recRaster && cell->lnPixWidth && cell->lnPixHeight )
             {
             if( !cstr_CCOM2raster(cell->env, cell) )
@@ -1316,7 +1316,7 @@ if( !cell->vers )
     }
 uvs.lnAltMax=REC_MAX_VERS;
 memcpy(cell->vers,&uvs,sizeof(UniVersions));
-    
+
 cell->attr.flg_new|=CSTR_fn_initvers;
 return TRUE;
 }
@@ -1341,7 +1341,7 @@ if( !cell->vers )
     }
 collect->lnAltMax=REC_MAX_VERS;
 memcpy(cell->vers,collect,sizeof(UniVersions));
-    
+
 cell->attr.flg_new|=CSTR_fn_initvers;
 return TRUE;
 }
@@ -1356,13 +1356,13 @@ if( curr_raster==(CSTR_rast)0 )
     wLowRC=CSTR_ERR_NULL       ;
     return FALSE;
     }
-    
+
 if( !cell->vers )
     {
     vs.lnAltCnt=0;
     }
 else
-    
+
     {
     vs.lnAltCnt=cell->vers->lnAltCnt;
     for(i=0;i<cell->vers->lnAltCnt;i++)
@@ -1376,7 +1376,7 @@ else
     }
 if( !vs.lnAltCnt )
     {
-    if( (cell->attr.flg_new&CSTR_fn_initvers) 
+    if( (cell->attr.flg_new&CSTR_fn_initvers)
     && cell->vers    )
         {
         vs.Alt[0].Code      =   cell->vers->Alt[0].Liga;
@@ -1407,7 +1407,7 @@ if( curr_raster==(CSTR_rast)0 )
     wLowRC=CSTR_ERR_NULL       ;
     return FALSE;
     }
-    
+
 if( !cell->vers )
     {
     result_collect->lnAltCnt = 0;
@@ -1418,7 +1418,7 @@ if( !cell->vers )
     result_collect->Alt[0].Prob      =0;
     result_collect->Alt[0].Info      =0;
     }
-else    
+else
     memcpy(result_collect,cell->vers,sizeof(UniVersions));
 result_collect->lnAltMax=REC_MAX_VERS;
 return TRUE;
@@ -1615,7 +1615,7 @@ if( !cell->vers )
     wLowRC=CSTR_ERR_NOMEMORY        ;
     return (CSTR_rast)NULL;
     }
-cell->attr.flg_new |= CSTR_fn_down ; 
+cell->attr.flg_new |= CSTR_fn_down ;
 return (CSTR_rast)cell;
 }
 
@@ -1964,12 +1964,12 @@ return TRUE;
 
 Bool32 cstr_unpack_cell(CSTR_cell *cell)
 {
-if( cell->env && 
+if( cell->env &&
         !cell->recRaster && cell->lnPixWidth && cell->lnPixHeight )
     {
     if( !cstr_CCOM2raster(cell->env, cell) )
                 return FALSE;
-        }        
+        }
 if( !cell->vers )
     {
     cell->vers=my_alloc(sizeof(UniVersions));
@@ -1979,13 +1979,13 @@ return TRUE;
 
 Bool32 cstr_pack_cell(CSTR_cell *cell)
 {
-if( cell->env && 
+if( cell->env &&
     cell->recRaster && cell->lnPixWidth && cell->lnPixHeight )
     {
     if( !cstr_delete_raster(cell) )
         return FALSE;
     }
-    
+
 if( cell->vers && cell->vers->lnAltCnt<1 )
     {
     my_free(cell->vers,0);
@@ -2026,7 +2026,7 @@ for(rast=CSTR_GetNext(CSTR_GetFirstRaster(line));rast;rast=CSTR_GetNext(rast))
                 {
                 if( !cstr_pack_unpack_branch(cell->next_down, cstr_pack_cell) )
                         return FALSE;
-                }    
+                }
     }
 return TRUE;
 }
@@ -2051,7 +2051,7 @@ for(rast=CSTR_GetNext(CSTR_GetFirstRaster(line));rast;rast=CSTR_GetNext(rast))
                 {
                 if( cstr_pack_unpack_branch(cell->next_down, cstr_unpack_cell) )
                         return FALSE;
-                }    
+                }
        // }
 
     }
@@ -2075,7 +2075,7 @@ FragmMax[0]=FragmMax[1]=-1;
 num_fragments1=num_fragments0=0;
 if( version )
     {
-    
+
     for(line=head.next; line!=&tail ; line=line->next)
         {
         if( line->version==version )
@@ -2088,7 +2088,7 @@ if( version )
                 num_fragments1      = line->attr.fragment;
             if( !FragmFirst1[line->attr.fragment] )
                 {
-                FragmFirst1[line->attr.fragment]=(CSTR_line)line;            
+                FragmFirst1[line->attr.fragment]=(CSTR_line)line;
                 }
             else
                 {
@@ -2112,7 +2112,7 @@ else
                 num_fragments0      = line->attr.fragment;
             if( !FragmFirst0[line->attr.fragment] )
                 {
-                FragmFirst0[line->attr.fragment]=(CSTR_line)line;            
+                FragmFirst0[line->attr.fragment]=(CSTR_line)line;
                 }
             else
                 {
@@ -2180,12 +2180,12 @@ if(  CSTR_GetImage (src, (Word8 *)&rs, CSTR_TYPE_IMAGE_RS) &&
         }
 
 if( CSTR_GetCollectionUni(src,&vr)  )
-    {    
+    {
     if( !CSTR_StoreCollectionUni (trg, &vr) )
         return FALSE;
-    
+
     }
-        
+
 return TRUE;
 }
 
@@ -2328,14 +2328,14 @@ CSTR_FUNC(Bool32) CSTR_GetExportData(Word32 dwType, void * pData)
         break;
     case    CSTR_GETLENGTH:                        // длина нужного текстового буфера
         EXPORT(CSTR_GetLength);
-        break;    
-    case    CSTR_FNSAVE:       // 
+        break;
+    case    CSTR_FNSAVE:       //
         EXPORT(CSTR_SaveRaster);
         break;
-    case    CSTR_FNGETLIST :       // 
+    case    CSTR_FNGETLIST :       //
         EXPORT(CSTR_GetComplist);
         break;
-    case    CSTR_FNSETLIST :       // 
+    case    CSTR_FNSETLIST :       //
         EXPORT(CSTR_SetComplist);
         break;
         case    CSTR_FNGETCOLLECTIONUNI :       // убить образ в растре
@@ -2410,7 +2410,7 @@ CSTR_FUNC(Bool32) CSTR_GetExportData(Word32 dwType, void * pData)
         case    CSTR_GETPREVUP:                        // ссылка из петли назад
         EXPORT(CSTR_GetPrevUp);
         break;
-    default:    
+    default:
         wLowRC = CSTR_ERR_NOTIMPLEMENT;
                 rc = FALSE;
         break;

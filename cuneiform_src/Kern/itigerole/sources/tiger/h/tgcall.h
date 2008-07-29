@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -134,10 +134,10 @@ extern "C"
 //////////////////////////////////////////////////////////////////////////////
 //  Load and reset TIGER.DLL and TGCALL.DLL                                 //
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          Tiger_Load            (HANDLE hApplicationInstance, 
+TIGERLOC(BOOL16)          Tiger_Load            (HANDLE hApplicationInstance,
 												 LPSTR lpTigerPathName);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          BCR_Load              (HANDLE hApplicationInstance, 
+TIGERLOC(BOOL16)          BCR_Load              (HANDLE hApplicationInstance,
 												 LPSTR lpTigerPathName);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          Tiger_Unload          (void);
@@ -153,8 +153,8 @@ TIGERLOC(BOOL16)          Tiger_SetRecognitionOptions (WORD wOptions);
 # define TSRO_NOFORMAT           4
 # define TSRO_FAX100             8
 # define TSRO_DOTMATRIX          16
-# define TSRO_BCR                32 
-# define TSRO_RECOGLANG          64 
+# define TSRO_BCR                32
+# define TSRO_RECOGLANG          64
 # define TSRO_CUT_LEFT_EDGE      128
 # define TSRO_CUT_RIGHT_EDGE     256
 # define TSRO_PICTURES_NO        512
@@ -191,7 +191,7 @@ TIGERLOC(BOOL16)          Tiger_SetLanguage      (WORD wLanguage);
 #define LANG_ENGLISH                0
 #define LANG_GERMAN                 1
 #define LANG_FRENCH                 2
-#define LANG_RUSSIAN                3 
+#define LANG_RUSSIAN                3
 #define LANG_SWEDISH                4
 #define LANG_SPANISH                5
 #define LANG_ITALIAN                6
@@ -201,15 +201,15 @@ TIGERLOC(BOOL16)          Tiger_SetLanguage      (WORD wLanguage);
 //////////////////////////////////////////////////////////////////////////////
 //   Convertion of ED-file to text file                                     //
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          Tiger_EdToText        (LPSTR lpEdFileName, 
-												 LPSTR lpTextFileName, 
-												 WORD wOptions, 
+TIGERLOC(BOOL16)          Tiger_EdToText        (LPSTR lpEdFileName,
+												 LPSTR lpTextFileName,
+												 WORD wOptions,
 												 WORD wBadChar);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          Tiger_ExtEdToText     (LPSTR lpEdFileName, 
-												 LPSTR lpTextFileName, 
-												 WORD wOptions, 
-												 WORD wCodePage, 
+TIGERLOC(BOOL16)          Tiger_ExtEdToText     (LPSTR lpEdFileName,
+												 LPSTR lpTextFileName,
+												 WORD wOptions,
+												 WORD wCodePage,
 												 WORD wBadChar);
 //////////////////////////////////////////////////////////////////////////////
 //      wOptions values                                                     //
@@ -252,7 +252,7 @@ struct  Tiger_LayoutBlock
 	INT16 Type;
 };
 //////////////////////////////////////////////////////////////////////////////
-struct Tiger_LayoutStripHandle 
+struct Tiger_LayoutStripHandle
 {
 	INT16   top;
 	INT16   left;
@@ -260,7 +260,7 @@ struct Tiger_LayoutStripHandle
 	INT16   handle;
 };
 //////////////////////////////////////////////////////////////////////////////
-struct Tiger_LayoutStrip 
+struct Tiger_LayoutStrip
 {
 	INT16   len;
 	INT16   col;
@@ -277,43 +277,43 @@ typedef struct Tiger_LayoutStrip         TIGER_LAYOUTSTRIP;
 typedef TIGER_LAYOUTBLOCK TIGERFAR *     LPTIGER_LAYOUTBLOCK;
 typedef LPTIGER_LAYOUTBLOCK TIGERFAR *   LPLPTIGER_LAYOUTBLOCK;
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)   TigerLayout_GetPageIncline (LPINT16 lpnNumerator, 
+TIGERLOC(BOOL16)   TigerLayout_GetPageIncline (LPINT16 lpnNumerator,
 											   LPINT16 lpnDenominator);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)   TigerLayout_UpdateBlocks   (LPINT16 lpnBlocks, 
+TIGERLOC(BOOL16)   TigerLayout_UpdateBlocks   (LPINT16 lpnBlocks,
 											   LPLPTIGER_LAYOUTBLOCK lplpBlocks);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)   TigerLayout_HorzSplitBlocks(POINT Begin, 
-											   POINT End, 
+TIGERLOC(BOOL16)   TigerLayout_HorzSplitBlocks(POINT Begin,
+											   POINT End,
 											   LPBOOL16 lpbSuccess);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)   TigerLayout_VertSplitBlocks(POINT Begin, 
-											   POINT End, 
+TIGERLOC(BOOL16)   TigerLayout_VertSplitBlocks(POINT Begin,
+											   POINT End,
 											   LPBOOL16 lpbSuccess);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)   TigerLayout_ExtractRectBlock(RECT r, 
+TIGERLOC(BOOL16)   TigerLayout_ExtractRectBlock(RECT r,
 											   LPBOOL16 lpbSuccess);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)   TigerLayout_GlueBlocks     (WORD iBlock1, 
-											   WORD iBlock2, 
+TIGERLOC(BOOL16)   TigerLayout_GlueBlocks     (WORD iBlock1,
+											   WORD iBlock2,
 											   LPBOOL16 lpbSuccess);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)   TigerLayout_DeleteBlock    (WORD iBlock, 
+TIGERLOC(BOOL16)   TigerLayout_DeleteBlock    (WORD iBlock,
 											   LPBOOL16 lpbSuccess);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)   TigerLayout_EnglishBlock   (WORD iBlock, 
+TIGERLOC(BOOL16)   TigerLayout_EnglishBlock   (WORD iBlock,
 											   LPBOOL16 lpbSuccess);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)   TigerLayout_ExtractPicture (RECT r, 
+TIGERLOC(BOOL16)   TigerLayout_ExtractPicture (RECT r,
 											   LPBOOL16 lpbSuccess);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)   Layout_UpdatePictures      (LPSTR lpPictures, 
+TIGERLOC(BOOL16)   Layout_UpdatePictures      (LPSTR lpPictures,
 											   WORD wLength);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)   TigerLayout_UpdateSheets   (WORD FuncNumber, 
+TIGERLOC(BOOL16)   TigerLayout_UpdateSheets   (WORD FuncNumber,
 											   LPINT16 * lplpSheets);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)   Tiger_RW_Options           (WORD FuncNumber, 
+TIGERLOC(BOOL16)   Tiger_RW_Options           (WORD FuncNumber,
 											   LPSTR lpData);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)   TigerLayout_Backup         (LPBOOL16 lpbBackupStackOverflow);
@@ -376,13 +376,13 @@ typedef LPED_FRAGMENT TIGERFAR * LPLPED_FRAGMENT;
 //////////////////////////////////////////////////////////////////////////////
 struct ED_String
 {
-    WORD    wStringNumber; // String number                           
-    ED_RECT rFrame;        // Frame of the string                     
-    WORD    wWordCount;    // Number of words within string           
-    WORD    wType;         // Type of the string                      
-    INT16   nIndent;       // Indent of the string                    
-                           //  (relative to the fragment's base)      
-    WORD    wBulletIndent; // Additional indent for bullet            
+    WORD    wStringNumber; // String number
+    ED_RECT rFrame;        // Frame of the string
+    WORD    wWordCount;    // Number of words within string
+    WORD    wType;         // Type of the string
+    INT16   nIndent;       // Indent of the string
+                           //  (relative to the fragment's base)
+    WORD    wBulletIndent; // Additional indent for bullet
     INT16   nBaseLine;     // Y-coordinate for base line of the string
 };
 //////////////////////////////////////////////////////////////////////////////
@@ -398,11 +398,11 @@ typedef LPED_STRING TIGERFAR * LPLPED_STRING;
 //////////////////////////////////////////////////////////////////////////////
 struct ED_Word
 {
-    WORD    wWordNumber;      // Word number                     
-    ED_RECT rFrame;           // Frame of the word               
+    WORD    wWordNumber;      // Word number
+    ED_RECT rFrame;           // Frame of the word
     WORD    wCharacterCount;  // Number of characters in the word
-    WORD    wFont;            // Font characteristics            
-    WORD    wPointSize;       // Point size                      
+    WORD    wFont;            // Font characteristics
+    WORD    wPointSize;       // Point size
 };
 //////////////////////////////////////////////////////////////////////////////
 typedef struct ED_Word  ED_WORD;
@@ -421,7 +421,7 @@ typedef LPED_WORD TIGERFAR * LPLPED_WORD;
 struct ED_Character
 {
     WORD    wCharNumber;  // Character number
-    ED_RECT rFrame;       // Character frame 
+    ED_RECT rFrame;       // Character frame
     BYTE    bCharacter;   // Character itself
     BYTE    bProbability; // Character recognition quality
 };
@@ -433,22 +433,22 @@ typedef LPED_CHARACTER TIGERFAR * LPLPED_CHARACTER;
 # define TG_EDC_BAD_SYMBOL    176  // Unrecognized character
 # define TG_EDC_BULLET_SYMBOL 254  // Bullet
 # define TG_EDC_BIG_SUSPECT   70   // Pay attention if probability less
-                                   // than this value                  
+                                   // than this value
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          Tiger_OpenEdFile      (LPSTR lpFilename);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          Tiger_GetEdPage       (LPED_PAGE lpEdPage);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          Tiger_GetEdFragment   (WORD wFragmentID, 
+TIGERLOC(BOOL16)          Tiger_GetEdFragment   (WORD wFragmentID,
 												 LPED_FRAGMENT lpEdFragment);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          Tiger_GetEdString     (WORD wStringID, 
+TIGERLOC(BOOL16)          Tiger_GetEdString     (WORD wStringID,
 												 LPED_STRING lpEdString);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          Tiger_GetEdWord       (WORD wWordID, 
+TIGERLOC(BOOL16)          Tiger_GetEdWord       (WORD wWordID,
 												 LPED_WORD lpEdWord);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          Tiger_GetEdCharacter  (WORD wCharacterID, 
+TIGERLOC(BOOL16)          Tiger_GetEdCharacter  (WORD wCharacterID,
 												 LPED_CHARACTER lpEdCharacter);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          Tiger_CloseEdFile     (void);

@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -79,13 +79,13 @@ Bool32 BinariseImage()
 	//char * lpRecogName = NULL;
 
 	if(InitPRGTIME())
-		ProgressStart(); 
+		ProgressStart();
 	//
 	// Бинаризуем изображение
 	//
 	gpRecogDIB = gpInputDIB;
 	glpRecogName = PUMA_IMAGE_USER;
-	
+
 	if(!ProgressStep(1,GetResourceString(IDS_PRG_OPEN),10))
 		rc = FALSE;
 
@@ -96,10 +96,10 @@ Bool32 BinariseImage()
 		SetReturnCode_puma(CIMAGE_GetReturnCode());
 		rc = FALSE;
 	}
-	
+
 	if(!ProgressStep(2,GetResourceString(IDS_PRG_OPEN),100))
 		rc = FALSE;
-	
+
 	LDPUMA_Console("The image depth is %d at this point.\n", (int)info.biBitCount);
 	if(rc && LDPUMA_Skip(hDebugCancelBinarize) && info.biBitCount>1)
 	{
@@ -127,7 +127,7 @@ Bool32 BinariseImage()
 
 			glpRecogName = PUMA_IMAGE_BINARIZE;
 		}
-		
+
 		//              RCOLOR_SetProgress(rcolorStart,rcolorStep,rcolorFinish);
 		//              if(!RCOLOR_Convert(gpInputDIB,&gpRecogDIB))
 		//              {
@@ -136,7 +136,7 @@ Bool32 BinariseImage()
 		//              }
 		//              else
 		//                      LDPUMA_CreateWindow(PUMA_IMAGE_BINARIZE,gpRecogDIB);
-		
+
 		RestorePRGTIME(prev);
 	}
 	else
@@ -160,35 +160,35 @@ Bool32 PreProcessImage()
 	Bool32 rc = TRUE;
 	char * lpRecogName = NULL;
 	Word32 Angle = 0;
-	
+
 	if(InitPRGTIME())
-		ProgressStart(); 
-	
+		ProgressStart();
+
 	if(!ProgressStep(1,GetResourceString(IDS_PRG_OPEN),5))
 		rc = FALSE;
-	
+
 //	////////////////////////////////////////////////////////////////////Allex
 //	// 07.07.2000 Allex
 //	// вызывается уровнем выше перед вызовом PreProcessImage
 //	//ClearAll();
-//	// далее перенесено в наверх 
+//	// далее перенесено в наверх
 //	/*
 //	//
 //	// Бинаризуем изображение
 //	//
 //	gpRecogDIB = gpInputDIB;
 //	lpRecogName = PUMA_IMAGE_USER;
-//	
+//
 //	CIMAGEBITMAPINFOHEADER info;
 //	if(!CIMAGE_GetImageInfo((PWord8)PUMA_IMAGE_USER,&info))
 //	{
 //		SetReturnCode_puma(CIMAGE_GetReturnCode());
 //		rc = FALSE;
 //	}
-//	
+//
 //	if(!ProgressStep(2,GetResourceString(IDS_PRG_OPEN),10))
 //		rc = FALSE;
-//	
+//
 //	LDPUMA_Console("Изображение имеет %i бит на точку.\n",info.biBitCount);
 //	if(rc && LDPUMA_Skip(hDebugCancelBinarize) && info.biBitCount>1)
 //	{
@@ -209,7 +209,7 @@ Bool32 PreProcessImage()
 //				LDPUMA_CreateWindow(PUMA_IMAGE_BINARIZE,gpRecogDIB);
 //			lpRecogName = PUMA_IMAGE_BINARIZE;
 //		}
-//		
+//
 //		//              RCOLOR_SetProgress(rcolorStart,rcolorStep,rcolorFinish);
 //		//              if(!RCOLOR_Convert(gpInputDIB,&gpRecogDIB))
 //		//              {
@@ -218,7 +218,7 @@ Bool32 PreProcessImage()
 //		//              }
 //		//              else
 //		//                      LDPUMA_CreateWindow(PUMA_IMAGE_BINARIZE,gpRecogDIB);
-//		
+//
 //		RestorePRGTIME(prev);
 //	}
 //	else
@@ -242,13 +242,13 @@ Bool32 PreProcessImage()
 //	//                      rc = FALSE;
 //	//              }
 //	//      }
-	
+
 	//
 	// Выделим компоненты
 	//
 	if(!ProgressStep(2,GetResourceString(IDS_PRG_OPEN),65))
 		rc = FALSE;
-	
+
 	if(rc)
 	{
 		if(LDPUMA_Skip(hDebugCancelComponent))
@@ -259,7 +259,7 @@ Bool32 PreProcessImage()
 
 			if(!ProgressStep(2,NULL,100))
 				rc = FALSE;
-			
+
 		}
 		else
 			LDPUMA_Console("Пропущен этап выделения компонент.\n");
@@ -269,7 +269,7 @@ Bool32 PreProcessImage()
 	//
 	if(rc)
 	{
-		PAGEINFO           PInfo = {0};  
+		PAGEINFO           PInfo = {0};
 		GetPageInfo(hCPAGE,&PInfo);
 		strcpy((char*)PInfo.szImageName, glpRecogName);
 		PInfo.BitPerPixel = info.biBitCount;
@@ -284,20 +284,20 @@ Bool32 PreProcessImage()
 		PInfo.Incline2048 = 0;
 		PInfo.Page = 1;
 		PInfo.Angle = Angle;
-		
+
 		SetPageInfo(hCPAGE,PInfo);
 	}
-	
+
 	if(DonePRGTIME())
 		ProgressFinish();
-	
+
 	return rc;
 }
 //////////////////////////////////////////////////
 static Int32 s_ConsoleLine = 0;
 static Bool32 PreOpenInitialize(const char * lpFileName)
 {
-Bool32 rc = TRUE;	
+Bool32 rc = TRUE;
 #ifdef _DEBUG// Piter
 	if(nDebugAllocMemory>0)
 		_CrtSetBreakAlloc(nDebugAllocMemory);
@@ -318,19 +318,19 @@ Bool32 rc = TRUE;
 	hRemWnd= LDPUMA_GetWindowHandle(NAME_IMAGE_ORTOMOVE);
 	if(hRemWnd)
 		LDPUMA_DestroyWindow(hRemWnd);
-	
+
 	PUMA_XClose();
 	ResetPRGTIME();
 	if(LDPUMA_Skip(hDebugRoot))
 	{
-		if(s_ConsoleLine)		
+		if(s_ConsoleLine)
 			LDPUMA_ConsoleClear(s_ConsoleLine);
 		s_ConsoleLine = LDPUMA_ConsoleGetCurLine();
 	}
 	else
 	{
 #ifdef _DEBUG
-		// Память не должна накапливаться. К этой точке вся память 
+		// Память не должна накапливаться. К этой точке вся память
 		// должна быть почищена!!
 		/*
 		_CrtMemState dbgMemState,dbgMemDiff;
@@ -338,7 +338,7 @@ Bool32 rc = TRUE;
 		static bInitMemState = TRUE;
 
  		_CrtMemCheckpoint( &dbgMemState );
-		if ( !bInitMemState && _CrtMemDifference( &dbgMemDiff, &dbgPrevMemState, &dbgMemState ) )      
+		if ( !bInitMemState && _CrtMemDifference( &dbgMemDiff, &dbgPrevMemState, &dbgMemState ) )
 		{
 
 			_CrtMemDumpAllObjectsSince(&dbgMemDiff);
@@ -352,7 +352,7 @@ Bool32 rc = TRUE;
 		//LDPUMA_Console("Press any key...\n");
 		//LDPUMA_WaitUserInput(NULL,NULL);
 		_CrtMemCheckpoint( &g_dbgMemState );
-		
+
 		_CrtDbgReport(_CRT_WARN, NULL, 0, NULL, "OPEN FILE <%s>\n",lpFileName);
 #endif
 	}
@@ -390,7 +390,7 @@ static Bool32  PostOpenInitialize(const char * lpFileName)
 		}
 		else
 			szInputFileName[0]='\0';
-		hCPAGE = CreateEmptyPage();	
+		hCPAGE = CreateEmptyPage();
 		return rc;
 }
 /////////////////////////////////////////////////
@@ -427,9 +427,9 @@ PUMA_FUNC(Bool32) PUMA_XOpenClbk(PUMAIMAGECALLBACK CallBack,const char * lpFileN
 	PUMAIMAGECALLBACK * lpCallBack = &CallBack;
 
 	PreOpenInitialize(lpFileName);
-	if( lpCallBack == NULL || 
-		lpCallBack->CIMAGE_ImageClose==NULL || 
-		lpCallBack->CIMAGE_ImageOpen ==NULL || 
+	if( lpCallBack == NULL ||
+		lpCallBack->CIMAGE_ImageClose==NULL ||
+		lpCallBack->CIMAGE_ImageOpen ==NULL ||
 		lpCallBack->CIMAGE_ImageRead==NULL )
 	{
 		SetReturnCode_puma(IDS_ERR_IMAGE);
@@ -466,12 +466,12 @@ PUMA_FUNC(Bool32) PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p)
 	//
 	// Определим угол поворота страницы
 	//
-	PAGEINFO    PInfo = {0};         
-	
+	PAGEINFO    PInfo = {0};
+
 	IS_VALID(p);
 	IS_VALID(lpDIB);
-	
-	
+
+
 	if(!CPAGE_GetPageData(hCPAGE,PT_PAGEINFO,(void*)&PInfo,sizeof(PInfo)))
 	{
 		SetReturnCode_puma(CPAGE_GetReturnCode());
@@ -482,7 +482,7 @@ PUMA_FUNC(Bool32) PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p)
 		CIMAGEBITMAPINFOHEADER info;
 		if(PInfo.BitPerPixel>1)
 			lpImage = (PWord8)PUMA_IMAGE_BINARIZE;
-		
+
 		if(CIMAGE_GetImageInfo(lpImage,&info))
         {
 			if(PInfo.Incline2048>0)
@@ -507,9 +507,9 @@ PUMA_FUNC(Bool32) PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p)
 	//
 	if(rc)
 	{
-		PAGEINFO           PInfo = {0};  
+		PAGEINFO           PInfo = {0};
 		GetPageInfo(hCPAGE,&PInfo);
-		
+
 		CIMAGE_DeleteImage((PWord8)PUMA_IMAGE_ROTATE	);
 
 		CIMAGE_EnableMask(lpImage,(PWord8)"r",FALSE);
@@ -520,7 +520,7 @@ PUMA_FUNC(Bool32) PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p)
 			SetReturnCode_puma(RIMAGE_GetReturnCode());
 			rc = FALSE;
 		}
-        
+
 		if(rc)
 		{
 			if(!CIMAGE_ReadDIB((PWord8)PUMA_IMAGE_ROTATE,lpDIB,TRUE))
@@ -539,18 +539,18 @@ PUMA_FUNC(Bool32) PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p)
 PUMA_FUNC(Bool32) PUMA_XClose()
 {
 	Bool32 rc = TRUE;
-	
+
 	CLINE_Reset();
 	ClearAll();
 	// очистим
 	CIMAGE_Reset();
-	CPAGE_DeleteAll(); 
+	CPAGE_DeleteAll();
 	RIMAGE_Reset();
 	hCPAGE=NULL;
-	
+
 	gpRecogDIB = gpInputDIB = NULL;
 	//memset(szInputFileName,0,sizeof(szInputFileName));
-	
+
 	return rc;
 }
 //////////////////////////////////////////////////
@@ -564,12 +564,12 @@ PUMA_FUNC(Bool32) PUMA_XPageAnalysis( )
 
 #ifdef _DEBUG
 	_CrtMemState checkPt1;
-	_CrtMemCheckpoint( &checkPt1 );   
+	_CrtMemCheckpoint( &checkPt1 );
 	_CrtMemDumpStatistics( &checkPt1 );
 	_CrtDbgReport(_CRT_WARN, NULL, 0, NULL, "WARNING: Page Analysis.\n");
 	//	_CrtMemDumpAllObjectsSince(NULL);
 #endif
-		
+
 	rc = Layout(gpRecogDIB);
 	if(DonePRGTIME())
 		ProgressFinish();
@@ -582,7 +582,7 @@ PUMA_FUNC(Bool32) PUMA_XFinalRecognition( )
 	ResetPRGTIME();
 	if(InitPRGTIME())
 		ProgressStart();
-	// Проверим: выделены ли фрагменты. 
+	// Проверим: выделены ли фрагменты.
 	if(!CPAGE_GetCountBlock(hCPAGE) || IsUpdate(FLG_UPDATE_CPAGE))
 	{
 		PRGTIME prev = StorePRGTIME(0,20);
@@ -606,7 +606,7 @@ PUMA_FUNC(Bool32) PUMA_XFinalRecognition( )
 	}
 	if(DonePRGTIME())
 		ProgressFinish();
-	
+
 	return rc;
 }
 //////////////////////////////////////////////////
@@ -617,13 +617,13 @@ PUMA_FUNC(Bool32) PUMA_Save(Handle hEdPage, const char * lpOutFileName, Int32 ln
 {
 	Bool32 rc = TRUE;
 	Handle prevEdPage = ghEdPage;
-	
+
 	if(hEdPage == NULL)
 		hEdPage = ghEdPage;
-	
+
 	ghEdPage = hEdPage;
 
-	if(ghEdPage==NULL)	
+	if(ghEdPage==NULL)
 	{
 		SetReturnCode_puma(IDS_ERR_PARAM);
 		return FALSE;
@@ -665,7 +665,7 @@ PUMA_FUNC(Bool32) PUMA_Save(Handle hEdPage, const char * lpOutFileName, Int32 ln
 		case PUMA_TOTABLETXT:
 		case PUMA_TOTABLEDBF:
 		case PUMA_TOHTML:
-			rc = ConverROUT((char *)lpOutFileName, lnFormat, lnCode, bAppend);                
+			rc = ConverROUT((char *)lpOutFileName, lnFormat, lnCode, bAppend);
 			break;
 		default:
 			SetReturnCode_puma(IDS_ERR_NOTIMPLEMENT);
@@ -675,7 +675,7 @@ PUMA_FUNC(Bool32) PUMA_Save(Handle hEdPage, const char * lpOutFileName, Int32 ln
 	LDPUMA_Skip(hDebugCancelFictive);
 	if(DonePRGTIME())
 		ProgressFinish();
-	
+
 	ghEdPage = prevEdPage;
 	return rc;
 }
@@ -684,13 +684,13 @@ PUMA_FUNC(Word32) PUMA_SaveToMemory(Handle hEdPage, Int32 lnFormat, Int32 lnCode
 {
 	Bool32 rc = 0;
 	Handle prevEdPage = ghEdPage;
-	
+
 	if(hEdPage == NULL)
 		hEdPage = ghEdPage;
-	
+
 	ghEdPage = hEdPage;
 
-	if(ghEdPage==NULL)	
+	if(ghEdPage==NULL)
 	{
 		SetReturnCode_puma(IDS_ERR_PARAM);
 		return rc;
@@ -716,7 +716,7 @@ PUMA_FUNC(Word32) PUMA_SaveToMemory(Handle hEdPage, Int32 lnFormat, Int32 lnCode
 	LDPUMA_Skip(hDebugCancelFictive);
 	if(DonePRGTIME())
 		ProgressFinish();
-	
+
 	ghEdPage = prevEdPage;
 	return rc;
 }
@@ -770,11 +770,11 @@ PUMA_FUNC(Bool32) PUMA_XSetTemplate(Rect32 rect)
 	Rect32 old_rect = gRectTemplate;
 	Bool32 rc = FALSE;
 	CIMAGEBITMAPINFOHEADER info = {0};
-	
+
 	if(CIMAGE_GetImageInfo((PWord8)PUMA_IMAGE_USER,&info))
 	{
 		CIMAGE_Rect full = {0,0,info.biWidth,info.biHeight};
-		PAGEINFO           PInfo = {0};  
+		PAGEINFO           PInfo = {0};
 
 		GetPageInfo(hCPAGE,&PInfo);
 //		PInfo.status &= ~(PINFO_USERTEMPLATE | PINFO_AUTOTEMPLATE);
@@ -803,7 +803,7 @@ PUMA_FUNC(Bool32) PUMA_XSetTemplate(Rect32 rect)
 			if(rect.left>=0 && rect.top>=0 &&
 				(rect.right-rect.left)<=info.biWidth &&
 				(rect.bottom - rect.top)<=info.biHeight)
-                
+
 			{
 				CIMAGE_Rect r = {rect.left,rect.top,rect.right-rect.left,rect.bottom-rect.top};
 				rc = CIMAGE_RemoveReadCloseRects((PWord8)PUMA_IMAGE_USER,1, &r);
@@ -828,8 +828,8 @@ PUMA_FUNC(Bool32) PUMA_XSetTemplate(Rect32 rect)
 //OLEG fot Consistent
 PUMA_FUNC(void) PUMA_GetSpecialBuffer(char * szResult,Int32 *nResultLength)
 {
-    extern char    global_buf[]; 
-    extern Int32   global_buf_len;  
+    extern char    global_buf[];
+    extern Int32   global_buf_len;
 
     if( nResultLength )
         *nResultLength = global_buf_len;
@@ -848,6 +848,6 @@ PUMA_FUNC(Bool32) PUMA_SetSpecialProject(Word8 nSpecialProject)
 	gnSpecialProject = nSpecialProject;
 	RSTUFF_RSSetSpecPrj(nSpecialProject);
 	RSTR_SetSpecPrj(nSpecialProject);
-		
+
 	return TRUE;
 }

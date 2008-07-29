@@ -6,28 +6,28 @@ All rights reserved.
 так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
       * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий 
-        отказ от гарантий. 
-      * При повторном распространении двоичного кода в документации и/или в 
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
         других материалах, поставляемых при распространении, должны сохраняться
         указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.  
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут 
-        быть использованы в качестве средства поддержки и/или продвижения 
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
         продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения. 
+        разрешения.
 
 ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, 
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
 ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ 
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ 
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ 
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ 
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ, 
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ 
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ, 
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ 
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
 ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -93,18 +93,18 @@ static BOOL IfNearLetters(CCOM_comp* cutting,CCOM_comp* comp);
 static void NotCutDownLetter(RecRaster* rast,int& bound,int rast_bound,int new_rast_bound,int delta,int mini_w,int scale);
 static BOOL IfWhiteRow(RecRaster* rast,int row);
 /*********************************************************************************************/
-RCUTP_FUNC(Bool32) RCUTP_RSelStr_SetEnv(/*char* szImageName,*/ int _medium_h, int _inf_let_w, 
-										int _inf_dust_h, int _inf_let_h, Handle hCCOM, 
-										int _sup_dust_w, int _min_cut_down_let_w, 
+RCUTP_FUNC(Bool32) RCUTP_RSelStr_SetEnv(/*char* szImageName,*/ int _medium_h, int _inf_let_w,
+										int _inf_dust_h, int _inf_let_h, Handle hCCOM,
+										int _sup_dust_w, int _min_cut_down_let_w,
 										int _sup_prob_w, const Word16 biBit)
 {
-	if (_medium_h < 0 || _inf_let_w < 0 || _inf_dust_h < 0 || _inf_let_h < 0 || 
-		_sup_dust_w < 0 || _min_cut_down_let_w < 0 || _sup_prob_w < 0 || !hCCOM) 
+	if (_medium_h < 0 || _inf_let_w < 0 || _inf_dust_h < 0 || _inf_let_h < 0 ||
+		_sup_dust_w < 0 || _min_cut_down_let_w < 0 || _sup_prob_w < 0 || !hCCOM)
 		return FALSE;
 
 //	if (!GetPageInfo(HCPAGE,&info)) return FALSE;
 //	memcpy(&info, pInfo, sizeof(PAGEINFO));
-	
+
 //	image_name = szImageName;
 	biBitCount = biBit;
 	medium_h = _medium_h;
@@ -146,7 +146,7 @@ int GetCountCutLetters(CCOM_comp* comp, Word8* pmasp)
  if(comp->h < 3*medium_h)
 	 return 2;
 
- 
+
  Rc.top=comp->upper;
  Rc.bottom=comp->upper+comp->h-1;
  Rc.left=comp->left;
@@ -172,7 +172,7 @@ int GetCountCutLetters(CCOM_comp* comp, Word8* pmasp)
  int i;
  int k;
  int j;
- 
+
  for(j=h-1;j>=0;j--)
  {
   newstr=j*bytewide;
@@ -180,23 +180,23 @@ int GetCountCutLetters(CCOM_comp* comp, Word8* pmasp)
   for(i=(bytewide-2);i>=0;i--)
   {
 	  bytep=pmasp[newstr+i];
-     
-	   if( (bytep&128)==0 ) count_black++; 
-	   if( (bytep&64)==0 ) count_black++; 
-	   if( (bytep&32)==0 ) count_black++; 
-	   if( (bytep&16)==0 ) count_black++; 
-	   if( (bytep&8)==0 ) count_black++; 
-	   if( (bytep&4)==0 ) count_black++; 
-	   if( (bytep&2)==0 ) count_black++; 
-	   if( (bytep&1)==0 ) count_black++; 
- 
+
+	   if( (bytep&128)==0 ) count_black++;
+	   if( (bytep&64)==0 ) count_black++;
+	   if( (bytep&32)==0 ) count_black++;
+	   if( (bytep&16)==0 ) count_black++;
+	   if( (bytep&8)==0 ) count_black++;
+	   if( (bytep&4)==0 ) count_black++;
+	   if( (bytep&2)==0 ) count_black++;
+	   if( (bytep&1)==0 ) count_black++;
+
   }
   bytep=pmasp[newstr+bytewide-1];
   for(k=128;k>=rect;k=k>>1)
    if( (bytep&k)==0 ) count_black++;
   proc_black[j]=(double)(count_black)/(double)(w);
  }
- 
+
  i=comp->h/medium_h-1;
  int* min_black=new int[i];
  if(!min_black)
@@ -204,7 +204,7 @@ int GetCountCutLetters(CCOM_comp* comp, Word8* pmasp)
 	 delete[] proc_black;
      return comp->h/medium_h;
  }
- 
+
  double proc=1.;
  for(k=i-1;k>=0;k--)
  {
@@ -312,7 +312,7 @@ BOOL GetMasP(Rect16 Rc,Word8** ppmasp)
 	Bool ret;
 //	int i;
 
-	//*  1. Подготовка к запросу части изображения.  
+	//*  1. Подготовка к запросу части изображения.
 	DataInto.dwHeight   = (Word32)(h);
 	DataInto.dwWidth    = (Word32)(prewide);
 	DataInto.wByteWidth = (Word16)(prewide/8);
@@ -328,7 +328,7 @@ BOOL GetMasP(Rect16 Rc,Word8** ppmasp)
 	DataOut.byBit      = biBitCount;
 	DataOut.lpData     = *ppmasp;
 
-	//*  5. Чтение части изображения.  
+	//*  5. Чтение части изображения.
 	ret = CIMAGE_GetData ((Word8*)image_name, &DataInto, &DataOut);
 	if (!ret)
 		return FALSE;
@@ -553,7 +553,7 @@ int ExBound(CCOM_comp* comp,int bound)
 		right_bound--;
    }
    if(right_bound-left_bound+1<mini_w)
-   {	 
+   {
 	   mini_w=right_bound-left_bound+1;
 	   new_rast_bound_up=i;
    }
@@ -580,7 +580,7 @@ int ExBound(CCOM_comp* comp,int bound)
 
  int rast_str_bound=(str_bound-comp->upper+1)>>(comp->scale);
  int bound_ret=bound;
- 
+
    left_bound=0;
    i=rast_str_bound;
    for(j=0;j<rast.lnPixWidth;j++)
@@ -695,7 +695,7 @@ BOOL IfHightLetters(CCOM_comp* comp,BOOL Up,int real_left,int real_right)
 					return TRUE;
 			}
 		}
-	  } 
+	  }
    }
    co=CCOM_GetNext(co,NULL);
  }
@@ -771,7 +771,7 @@ void NotCutDownLetter(RecRaster* rast,int& bound,int rast_bound,int new_rast_bou
  int max_wide=0;
  int i;
  int j;
-  
+
    for(oldleft=0;oldleft<rast->lnPixWidth;oldleft++)
    {
 	if(!(oldleft%8))
@@ -844,7 +844,7 @@ void NotCutDownLetter(RecRaster* rast,int& bound,int rast_bound,int new_rast_bou
    if(fl_break)
 	   break;
  }
- 
+
  //дырка?
 
  left_bound=0;

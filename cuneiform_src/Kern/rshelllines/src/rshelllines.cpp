@@ -6,28 +6,28 @@ All rights reserved.
 òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
       * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé 
-        îòêàç îò ãàðàíòèé. 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â 
+        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+        îòêàç îò ãàðàíòèé.
+      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
         äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
         óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.  
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò 
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ 
+        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
         ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ. 
+        ðàçðåøåíèÿ.
 
 ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ, 
+ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
 ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ 
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ 
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ 
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ 
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ, 
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ 
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ, 
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ 
+ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
 ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -43,14 +43,14 @@ are permitted provided that the following conditions are met:
       software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE 
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -73,11 +73,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cttypes.h"
 #include "linedefs.h"
 #include "pumadef.h"
-#include "cpage.h"  
+#include "cpage.h"
 #include "ctiimage.h"
 #include "dpuma.h"
 #include "rshelllinescom.h"
-#include "rshelllines.h"  
+#include "rshelllines.h"
 #include "rsl.h"
 #include "rverline.h"
 #include "un_buff.h"
@@ -158,8 +158,8 @@ typedef struct tagRSPreProcessImage
 
 Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, Int32 *ScanQual);
 
-//  BOOL APIENTRY DllMain( HANDLE hModule, 
-//                         DWORD  ul_reason_for_call, 
+//  BOOL APIENTRY DllMain( HANDLE hModule,
+//                         DWORD  ul_reason_for_call,
 //                         LPVOID lpReserved
 //  				  )
 //  {
@@ -175,16 +175,16 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, Int32 *ScanQual);
 //  }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                     FindLineFrag                                       
-RSHELLLINES_API Bool32 FindLineFrag(CLINE_handle processedline, Bool32 OnlyPosyAndStat, 
-									Bool32 Is2ndPath, CLINE_handle hContainer, 
+//                     FindLineFrag
+RSHELLLINES_API Bool32 FindLineFrag(CLINE_handle processedline, Bool32 OnlyPosyAndStat,
+									Bool32 Is2ndPath, CLINE_handle hContainer,
 									Bool32 IfNeedFragment, Bool32 IfStraightFrag)
 {
     return TRUE;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                     FindLineAttr                                       
+//                     FindLineAttr
 RSHELLLINES_API Bool32 FindLineAttr(CLINE_handle line, DLine* pCLine, Bool32 AbleSeeOldAttr)
 {
     //SetWidth(line, pCLine);
@@ -243,9 +243,9 @@ RSL_FUNC(Bool32) RSL_Init(Word16 wHeightCode,HANDLE hStorage)
     LDPUMA_Registry(&hDebugAttrOwner,"Êîíòðîëü ïîèñêà àòðèáóòîâ ëèíèè",hDebugAttr);
 	LDPUMA_Registry(&hDebugTypeWidth,"Âûâîä íà Consol øèðèíû ëèíèè",hDebugAttrOwner);
 	LDPUMA_Registry(&hDebugTypeDegree,"Âûâîä íà Consol óãëà íàêëîíà ëèíèè",hDebugAttrOwner);
-    
+
     gwHeightRC = wHeightCode;
-    
+
     return RESULT;
 }
 
@@ -322,13 +322,13 @@ RSL_FUNC(Bool32) RSL_SetImportData(Word32 dwType, void * pData)
 //     Word32 err32 = CPAGE_GetReturnCode ();
 //     if (err32)
 //         return FALSE;
-    
+
     if( *Image->pgrc_line )
     {
         if(LDPUMA_Skip(Image->hDebugCancelVerifyLines))
         {
             Regime_VerifyLines val = Image->gnTables ? RVL_FutuTablCorr:RVL_Default;
-            
+
             if( !RVERLINE_SetImportData(RVERLINE_DTRVERLINE_RegimeOfVerifyLines,&val)||
                 !RVERLINE_MarkLines(*Image->phCCOM, Image->hCPAGE))
             {
@@ -341,14 +341,14 @@ RSL_FUNC(Bool32) RSL_SetImportData(Word32 dwType, void * pData)
                 Int32  ScanQual= 0;
                 AboutLines(Image, &BadScan, &ScanQual);
             }
-            
+
             if(!*Image->pgneed_clean_line)
                 LDPUMA_Console("Warning: RSL said that the lines do not have to withdraw.\n");
         }
         else
             LDPUMA_Console("Missing stage of the evaluation lines.\n");
-    }  
-    
+    }
+
     //CPAGE_DeleteBlock(&phCPage, VerifyN);
 
     return rc;
@@ -359,54 +359,54 @@ RSL_FUNC(Bool32) RSL_SetImportData(Word32 dwType, void * pData)
 void *	RSLAlloc(Word32 stAllocateBlock)
 {
     char * mem = NULL;
-    
+
 #ifdef _NO_CFIO
-    
+
 #ifdef  RSL_USE_GLOBAL_MEM
-    
+
     mem = (char *)GlobalAlloc(GPTR, stAllocateBlock);
-    
+
 #else
-    
+
     mem = ::new char[stAllocateBlock];
     memset(mem, 0, stAllocateBlock );
-    
+
 #endif
-    
+
     if(!mem)
         SetReturnCode_rshelllines((Word16)RSL_ERR_NO_MEMORY);
 #else
-    
+
     mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(Int8*)"RSL", (Int8*)cCommentBuffer);
-    
+
     if(!mem)
         SetReturnCode_rshelllines((Word16)RSL_ERR_NO_MEMORY);
-    
+
 #endif
-    
+
     return mem;
 }
 
 void	RSLFree(void * mem)
 {
 #ifdef _NO_CFIO
-    
+
 #ifdef  RSL_USE_GLOBAL_MEM
-    
+
     GlobalFree(mem);
-    
+
 #else
-    
+
     ::delete []	mem;
-    
+
 #endif
 #else
-    
+
     CFIO_FreeMemory(mem);
-    
+
 #endif
 }
- 
+
 Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, Int32 *ScanQual)
 {
 	int SizeMain, SizeWork;
@@ -416,7 +416,7 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, Int32 *ScanQual)
 	void *vMain;
 	char *cWork;
 	Bool32 bRc = TRUE;
-	
+
 	//////////////////////////////////////////////////////////////////////////////////
 	Buffer  = (char *)RSLAlloc(RSL_AboutLines_SizeMyBuff);
 	WorkMem = (char *)RSLAlloc(RSL_AboutLines_SizeWorkMem);
@@ -426,7 +426,7 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, Int32 *ScanQual)
 		SetReturnCode_rshelllines((Word16)RSL_ERR_NO_MEMORY);
 		bRc =  FALSE;
 	}
-	
+
 	if ( bRc )
 		do
 		{
@@ -435,7 +435,7 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, Int32 *ScanQual)
 			if ((Image->pgneed_clean_line==NULL)&&(BadScan!=NULL))
 				break;
 				//return TRUE;
-			
+
 			/*  2. Èíèöèàëèçàöèÿ.  */
 			vMain = Buffer;
 			SizeMain = RSL_AboutLines_SizeMyBuff;
@@ -445,7 +445,7 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, Int32 *ScanQual)
 			MainBuff.SizeCurr = MainBuff.SizeBuff;
 			cWork = WorkMem;
 			SizeWork = RSL_AboutLines_SizeWorkMem;
-			
+
 
 			if (Image->pgneed_clean_line!=NULL)
 			{
@@ -540,7 +540,7 @@ struct FictInterval
 
 static int _cdecl mycompare( const void *elem1, const void *elem2 )
 {
-  
+
   FictInterval *a = (FictInterval*) elem1;
   FictInterval *b = (FictInterval*) elem2;
 
@@ -591,7 +591,7 @@ int SL_IsInPoly(Point32* a, CLINE_SL_POLY* p)
 }
 
 BOOL SL_IsPointInAB(Point32 *P,Point32 *A,Point32 *B)
-{    
+{
     return FALSE;
 }
 
@@ -632,7 +632,7 @@ void   Transpose_bit_matrixes(PCHAR buf_in,PCHAR buf_out, Rect32* rect)
 }
 
 BOOL GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, PCHAR  pRaster, BOOL FlagVerticalLine)
-{  
+{
     return TRUE;
 }
 
@@ -665,22 +665,22 @@ Handle DrawLineFragments(CLINE_handle line, CPDLine pCLine, Handle HndMyWindow, 
 RSHELLLINES_API void DrawFriendLines(CLINE_handle hContainer, GLM* friendlinesmass)
 {
 }
-                                      
+
 void DrawGroupOfExtensibleLines(CLINE_handle hContainer, GLM* hGroup, int CountLines)
 {
 }
-                                   
+
 RSHELLLINES_API void DrawLosedVerticalLines(GLM* friendlinesmass, int CountLines)
 {
 }
-                                     
+
 RSHELLLINES_API void DrowAllLines(CLINE_handle hContainer, Handle hDrowAllLines)
 {
 }
-                                     
+
 RSHELLLINES_API void DrawBigComps(CLINE_handle hContainer)
 {
-} 
+}
 
 RSHELLLINES_API void DrawFragsForAllLines(CLINE_handle hContainer, Handle hDebugDrawAllLineFragments)
 {
@@ -710,11 +710,11 @@ RSHELLLINES_API void SetLinesAndCompsRelationship(CLINE_handle hContainer, CLINE
 
 RSHELLLINES_API void FindFriendLines(CLINE_handle hContainer, GLM* friendlinesmass)
 {
-} 
+}
 
 RSHELLLINES_API void FindGroupOfExtensibleLines(CLINE_handle hContainer, GLM* friendlinesmass, Bool32 IfDrawResult)
 {
-} 
+}
 
 RSHELLLINES_API Int32 RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, Word8 lang, Word8 debug_flags, Int32 *cross_point)
 {
@@ -726,7 +726,7 @@ RSHELLLINES_API Bool32 GetNextPartOfLine(CLINE_handle hContainer, CLINE_handle h
     return FALSE;
 }
 
-Bool32 SetExtLines(CLINE_handle hExtContainer, CLINE_handle hContainer, CLINE_handle* hLinesMass, 
+Bool32 SetExtLines(CLINE_handle hExtContainer, CLINE_handle hContainer, CLINE_handle* hLinesMass,
                    Int32 CountLines)
 {
     return FALSE;
