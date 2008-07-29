@@ -60,13 +60,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "sys_prog.h"
 
 
-#ifndef PPS_MAC
-/*	#include <dos.h>*/
-#endif
 /*#include <io.h>*/
-#ifndef PPS_MAC
-	#include <sys/types.h>
-#endif
+#include <sys/types.h>
 #if defined (MSC_MOD) && defined (DOS_MOD)
   #include <graph.h>
 #endif
@@ -153,14 +148,6 @@ typedef TYPE (*DistFrame)(FRAME*,FRAME*);
   //#define CPP
 #endif
 
-/*
-#ifndef WIN_MOD
-  typedef uint HWND;
-  #ifndef PPS_MAC
-	  typedef char far* LPCSTR;
-  #endif
-#endif
-*/
 //Если установлено ID4, ID_SYM длиной 4 байта, иначе - 8
 #ifndef BLANK
   //#define ID4
@@ -200,11 +187,7 @@ typedef struct hFRM_ARR {FRAME **FrmArr,**frm; int NumArr,NumFrm,AllFrm;} FRM_AR
 BOUND { int left,up,right,down; };
 #define POS_STR struct h_pos_str
 
-#ifndef PPS_MAC
-	POS_STR {uint HeadLine:1,buf:15;};
-#else
-	POS_STR {uint buf:15,HeadLine:1;};
-#endif
+POS_STR {uint HeadLine:1,buf:15;};
 
 #define STAT_STR struct h_stat_str
 STAT_STR { int dx,dy,dsym,down_line; POS_STR PosStr;};
@@ -301,85 +284,47 @@ PAR {
 #define POS_BIT struct h_pos_bit
 POS_BIT
 {
-	#ifndef PPS_MAC
 		uint pos1;
 		uint pos:8,word:1,sym:1,comma:1,parag:1,JoinComp:1,
 	       Index:1,Fract:1,MultiPoint:1;
-	#else
-		uint MultiPoint:1,Fract:1,Index:1,
-				 JoinComp:1,parag:1,comma:1,sym:1,word:1,pos:8;
-		uint pos1;
-	#endif
-
 };
 #define POS_BIT8 struct h_pos_bit8
 POS_BIT8
 {
-	#ifndef PPS_MAC
 		uint pos1,pos2,pos3;
 		uint pos:8,word:1,sym:1,comma:1,parag:1,JoinComp:1,Index:1,Fract:1,
 	       MultiPoint:1;
-	#else
-		uint MultiPoint:1,Fract:1,Index:1,
-				 JoinComp:1,parag:1,comma:1,sym:1,word:1,pos:8;
-		uint pos1,pos2,pos3;
-	#endif
-
 };
 #define POS1_BIT struct h_pos1_bit
 POS1_BIT
 {
-#ifndef PPS_MAC
 	int DownL;
 	uint pos:8,cut_comp:2,buf:6;
-#else
-	uint buf:6,cut_comp:2,pos:8;
-	int DownL;
-#endif
 };
 //POS1_BIT { uint pos:8,cut_comp:2,buf:6; uint pos1; };
 #define POS_INT struct h_pos_int
 POS_INT
 {
-#ifndef PPS_MAC
 	uint pos:8,word:1,sym:1,comma:1,parag:1,JoinComp:1,
        Index:1,Fract:1,MultiPoint:1;
-#else
-	uint MultiPoint:1,Fract:1,Index:1,
-			 JoinComp:1,parag:1,comma:1,sym:1,word:1,pos:8;
-#endif
 };
 #define POS2_BIT struct h_pos_bit2
 POS2_BIT
 {
-#ifndef PPS_MAC
 	uint pos1;
 	uint pos:8;
   uint AveCrossInt:4;  //Целая часть сред.сложности символа(числа пересечений)
   uint AveCrossFloat:4;//Дроб. часть сред.сложности символа(ЦМР - 1/16)
-#else
-  uint AveCrossFloat:4;
-  uint AveCrossInt:4;
-	uint pos:8;
-	uint pos1;
-#endif
 };
 
 #define AVE_CROSS(arg) ((POS2_BIT*)&arg)->AveCrossInt+(((POS2_BIT*)&arg)->AveCrossFloat)/16.
 #define POS3_BIT struct h_pos_bit3
 POS3_BIT
 {
-#ifndef PPS_MAC
 	uint pos1;
 	uint pos:8;
   uint NumHole:4; //Число дыр
   uint MaxDepth:4;//Макс. глубина(ЦМР - 1/16 высоты рамки)
-#else
-  uint MaxDepth:4;
-  uint NumHole:4;
-	uint pos:8;
-	uint pos1;
-#endif
 };
 
 #define NUM_HOLE(arg) ((POS3_BIT*)&arg)->NumHole
@@ -398,25 +343,15 @@ POS3_BIT
  buf - резерв */
 #define KNOTG struct h_knotg
 KNOTG {
-#ifndef PPS_MAC
 	KNOTG *next,*back,*up,*down;
 	FRML *f;
 	uint reg:1,typ:4,lev:4,end:1,buf:6;
-#else
-	uint buf:6,end:1,lev:4,typ:4,reg:1;
-	KNOTG *next,*back,*up,*down;
-	FRML *f;
-#endif
       };
 
 #pragma pack(2)
 typedef struct h_spec
 {
-#ifndef PPS_MAC
 	uint reg:1,typ:4,lev:4,end:1,buf:6;
-#else
-	uint buf:6,end:1,lev:4,typ:4,reg:1;
-#endif
 } SPEC;
 
 #define ORDER(arg)  ((SPEC*) &arg) -> typ
@@ -449,14 +384,7 @@ extern "C" {
 #ifndef BITS32
 	#define MAX_FRAME 16300
 #else
-	#ifndef PPS_MAC
-		//////////////  T M P ///////////////////////
 		#define MAX_FRAME 32000
-		//#define MAX_FRAME 16300
-		///////////////////////////////////////////
-	#else
-		#define MAX_FRAME 32000
-	#endif
 #endif
 
 #define ENDFILE 0
@@ -591,24 +519,15 @@ extern int Esc,Enter,Del,Delete,Tab,Home,End1,Ins,Up,Down,Left,Right,PgUp,PgDown
 //#ifdef INTEL
 //Вариации описания pole_bit
   #ifdef PRS_T
-		//#ifdef PPS_MAC
     	typedef unsigned short PRS_ONE;
-		//#else
-    //	typedef WORD PRS_ONE;
-		//#endif
     #define WIDTH_PRS 2
   #else
     #define PRS_ONE struct h_prs_one
     PRS_ONE1 {BYTE code; WORD metri; };
     PRS_ONE
 		{
-			#ifndef PPS_MAC
 					uint typ:2, het:1, scob:1, dummi:12;
 					BYTE dummi1;
-			#else
-					BYTE dummi1;
-					uint dummi:12, scob:1, het:1, typ:2;
-			#endif
 		};
     #define WIDTH_PRS 3
   #endif
@@ -655,11 +574,7 @@ int compF(float *a,float *b);
 int compare(TYPE *a,TYPE *b);
 int comp_long(DWORD *a,DWORD *b);
 
-//#ifndef PPS_MAC
 //	void  u4sort(void *base, int  num, int  width, int  (*compare)());
-//#else
-//	void  u4sort(void *base, int  num, int  width, COMP_FUN pCompFunc);
-//#endif
 
 int search_int(int *x,int n,int a);
 #define TYPE int /*тип сортируемых данных*/
@@ -1118,12 +1033,7 @@ int   EstIntrvlHor(FRAME **frm,int num,BOUND *bnd,int dxAS,int dyAS,
          RECT *Limit,int MinVol,float MinPerc,int limDX,int limDY,
          int *dsym,int *AveX,int *AveY);
 
-#ifdef PPS_MAC
-	#pragma align
-#else
 	#pragma pack()
-#endif /*PPS_MAC*/
-
 
 #ifndef CPP
 #ifdef __cplusplus
@@ -1131,11 +1041,7 @@ int   EstIntrvlHor(FRAME **frm,int num,BOUND *bnd,int dxAS,int dyAS,
 #endif
 #endif
 
-	 #ifdef PPS_MAC
-			#define STRUCT_INI ":bin:struct.ini"
-	 #else
 			#define STRUCT_INI "struct.ini"
-	 #endif
 
 
 

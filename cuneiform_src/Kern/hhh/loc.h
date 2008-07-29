@@ -77,10 +77,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    extern "C" {
    #endif
 
-#ifdef PPS_MAC
-   #pragma export on
-#endif
-
    LOC_FUNC(Bool32) LOCInit( MemFunc* mem );
    LOC_FUNC(void)   LOCDone(void);
    LOC_FUNC(Int16)  LOCGetErr(void);
@@ -88,10 +84,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    LOC_FUNC(MN *)   LOC_CLocomp (Word8* raster, Int32 bw, Int32 h,
         Int16 upper,Int16 left);
    LOC_FUNC(Word8*) LOC_GetSegmentPool(void);
-#ifdef PPS_MAC
-   #pragma export off
-#endif
-
 
 // error code
 #define ER_LOC_NO_ERROR 0

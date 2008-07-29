@@ -76,10 +76,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 
-#ifdef PPS_MAC
-   #pragma export on
-#endif
-
 #pragma pack (push,8)
 
 
@@ -116,11 +112,6 @@ struct _RPIC_Comp_Rect
 	Int16 w;                       // width of component
 };
 typedef struct _RPIC_Comp_Rect RPIC_Comp_Rect;
-
-#ifdef PPS_MAC
-   #pragma export off
-#endif
-// error code
 
 
 #pragma pack (pop)

@@ -77,10 +77,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 
-#ifdef PPS_MAC
-   #pragma export on
-#endif
-//
 #pragma pack (push,8)
 
 #define PUMA_MAXNAME 260
@@ -336,12 +332,6 @@ DEC_FUN(Bool32,	PUMA_SetSpecialProject,(Word8 nSpecPrj));
 
 	# define PUMA_PICTURE_NONE			0
 	# define PUMA_PICTURE_ALL			1
-
-
-
-#ifdef PPS_MAC
-   #pragma export off
-#endif
 
 #pragma pack (pop)
 

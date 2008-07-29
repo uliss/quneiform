@@ -83,10 +83,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 
-#ifdef PPS_MAC
-   #pragma export on
-#endif
-
 #pragma pack (push,8)
 
 #ifndef Byte
@@ -354,10 +350,6 @@ typedef enum {
 	ROUT_RETURN_POSSIBLE_LOSS_OF_DATA = 9
 	} ROUT_RETURN_CODES;
 //*****************************************************************
-#ifdef PPS_MAC
-   #pragma export off
-#endif
-// error code
 
 #pragma pack (pop)
 

@@ -86,10 +86,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         extern "C" {
 #endif
 
-#ifdef PPS_MAC
-   #pragma export on
-#endif
-
 #pragma pack (push,8)
 /*
 #ifndef Handle
@@ -192,10 +188,6 @@ DEC_FUN(Bool32, RSLayout,            (PRSPreProcessImage));
 DEC_FUN(Bool32, RSSetSpecPrj,          (Word8 NoSpecPrj));
 #undef DEC_FUN
 
-
-#ifdef PPS_MAC
-   #pragma export off
-#endif
 
 #pragma pack (pop)
 

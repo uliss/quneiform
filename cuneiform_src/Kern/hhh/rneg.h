@@ -89,10 +89,6 @@ struct NegTemp
         extern "C" {
 #endif
 
-#ifdef PPS_MAC
-   #pragma export on
-#endif
-
 #pragma pack (push,8)
 
 
@@ -125,13 +121,6 @@ DEC_FUN(void, RNEG_RecogNeg, (CCOM_handle hCComp, Handle hCPage,Word8* pImageNam
 DEC_FUN(Bool32, RNEG_TestForNegative, (CCOM_handle hCComp, Handle hCPage,Word8* pImageName,Rect16 Rc));
 
 #undef DEC_FUN
-
-
-
-#ifdef PPS_MAC
-   #pragma export off
-#endif
-// error code
 
 
 #pragma pack (pop)

@@ -84,10 +84,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 
-#ifdef PPS_MAC
-   #pragma export on
-#endif
-//
 #pragma pack (push,8)
 
 #define CED_MAXNAME 260
@@ -553,11 +549,6 @@ DEC_FUN(void, CED_SetLogFileName,(const char * name));
 
 #undef DEC_FUN
 
-
-#ifdef PPS_MAC
-   #pragma export off
-#endif
-// error code
 
 
 #pragma pack (pop)

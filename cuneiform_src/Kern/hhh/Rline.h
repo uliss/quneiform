@@ -76,10 +76,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         extern "C" {
 #endif
 
-#ifdef PPS_MAC
-   #pragma export on
-#endif
-
 #define __XTYPES_H
 #define RLINE_BLOCK_TYPE CPAGE_GetInternalType("RLINE_BLOCK_TYPE")
 
@@ -119,14 +115,6 @@ DEC_FUN();
 DEC_FUN();
 */
 #undef DEC_FUN
-
-
-
-#ifdef PPS_MAC
-   #pragma export off
-#endif
-// error code
-
 
 
 #ifdef __cplusplus

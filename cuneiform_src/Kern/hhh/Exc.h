@@ -115,9 +115,6 @@ typedef Bool  (* Tiger_ProcComp)    (void * pool,Word32 size);
 typedef void * Handle ;
 #endif
 */
-#ifdef PPS_MAC
- #pragma export on
-#endif
 enum    REXCParametrs
     {
 //-    REXC_FNEVNPROPERT,
@@ -237,9 +234,6 @@ EXC_FUNC(Bool32) exc_get_rec_raster_orient(RecRaster   *rs,Int32 *res);
 typedef Bool32 (*FNexc_set_all_alphabet_gra)(void);
 EXC_FUNC(Bool32) exc_set_all_alphabet_gra(void);
 -*/
-#ifdef PPS_MAC
- #pragma export off
-#endif
 
 // error codes (moved 30.07.01 from "exc\src\resource.h")
 #define REXC_ERR_MIN                2048

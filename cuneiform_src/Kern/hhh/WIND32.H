@@ -58,10 +58,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#define BITS32
 #endif
 
-#ifdef PPS_MAC
-	#define __int16 short
-#endif
-
 //--COMMON types--
 typedef unsigned short intU;
 typedef unsigned long intLU;

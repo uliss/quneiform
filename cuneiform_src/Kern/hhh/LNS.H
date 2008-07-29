@@ -54,10 +54,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef PPS_MAC
-#pragma message(__FILE__)
-#endif
-
 #ifndef __LNS_H
    #define __LNS_H
 
@@ -91,9 +87,6 @@ typedef struct tagLnsSetupStr
    #ifdef __cplusplus
       extern "C" {
    #endif
-	#ifdef PPS_MAC
-		#pragma export on
-	#endif
 
    LNS_FUNC( void )            LnsPageStart( TImageAccess* img );
 
@@ -153,9 +146,6 @@ typedef struct tagLnsSetupStr
                               );
 
 
-	#ifdef PPS_MAC
-		#pragma export off
-	#endif
    #ifdef __cplusplus
                }
    #endif

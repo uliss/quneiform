@@ -199,11 +199,7 @@ typedef struct tagExtInterval
 
 //  Pass parameters to extrcomp
 
-#ifndef PPS_MAC
    #define EXC_DUMP_FILE "hardcopy.cmp" // TODO: "tmp\\hardcopy.cmp"
-#else
-   #define EXC_DUMP_FILE "hardcopy.cmp" // TODO: ":tmp:hardcopy.cmp"
-#endif
 
 typedef struct tagExcControl
 {
@@ -290,10 +286,6 @@ struct big_merge_struct
 
 typedef struct big_merge_struct BM;
 */
-#ifdef PPS_MAC
-      #pragma align
-#else
       #pragma pack(pop)
-#endif
 
 #endif // __EXCSTRUC_H

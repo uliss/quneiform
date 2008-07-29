@@ -59,9 +59,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 #ifdef BITS32
-	#ifdef PPS_MAC
-		#undef __int16
-	#endif
 
 	// ‚ undef32.h undef int
   #undef int

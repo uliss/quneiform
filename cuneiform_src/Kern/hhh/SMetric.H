@@ -74,10 +74,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         extern "C" {
 #endif
 
-#ifdef PPS_MAC
-   #pragma export on
-#endif
-
 #pragma pack (push,8)
 
 #ifndef Handle
@@ -107,12 +103,6 @@ typedef enum
 DEC_FUN(Bool32, SMetric_FindMainSkew, (void *vB, char *cWork, int SizeWork, Int32 *pSkew, Int32 *pSkewLocVerLin, Rect16 *pRcReg, Int32 SkewReg, char *pStr, Bool CalcMuchSkew, Bool TalkMuchSkew));
 
 #undef DEC_FUN
-
-
-#ifdef PPS_MAC
-   #pragma export off
-#endif
-// error code
 
 
 #pragma pack (pop)

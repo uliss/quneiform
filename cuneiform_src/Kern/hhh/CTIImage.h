@@ -90,10 +90,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 ///////////////////////////////////////////////////////////////////////////////////////////////
-#ifdef PPS_MAC
-   #pragma export on
-#endif
-///////////////////////////////////////////////////////////////////////////////////////////////
 #pragma pack (push,8)
 ///////////////////////////////////////////////////////////////////////////////////////////////
 #define CIMAGE_MAXNAME 260
@@ -295,11 +291,6 @@ DEC_CB_FUN(CIMAGEWORD,   Callback_ImageRead,  (PInt8  lpImage, Word16 wMaxSize))
 DEC_CB_FUN(CIMAGEBOOL16, Callback_ImageClose, (void));
 
 #undef DEC_CB_FUN
-
-#ifdef PPS_MAC
-   #pragma export off
-#endif
-// error code
 
 
 #pragma pack (pop)

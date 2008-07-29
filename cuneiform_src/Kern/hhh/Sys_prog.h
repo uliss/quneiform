@@ -62,28 +62,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define far
 #endif
 
-#ifdef PPS_MAC
-	#include "split.h"
-	#define GLOB
-	#define FIND_NDX
-	#define FIND_DOT
-	#define FIND_BOX
-	#define __NDX__
-	#define __MRK__
-	#define __DOT__
-	#define PRS_T
-#endif
-
 #define CT_SKEW
 
-#if defined (WIN32) || defined (PPS_MAC)
+#if defined (WIN32)
 	#define BITS32
-#endif
-
-#ifdef PPS_MAC
-	#include <unix.h>
-	#include <fcntl.h>
-	#define wsprintf sprintf
 #endif
 
 #ifdef BITS32
@@ -113,12 +95,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#define DOS_MOD
 #endif
 
-#if !defined (WIN_MOD) && !defined(PPS_MAC)
+#if !defined (WIN_MOD)
 	#define QWIN
 #endif
 
 
-#if defined (_DEBUG) || defined (PPS_MAC)
+#if defined (_DEBUG)
 	// Отладочный заказ/освобождение памяти
 	#define DEBUG_MEM
 #endif
@@ -155,9 +137,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdio.h>
 #include <stdlib.h>
-#ifndef PPS_MAC
-	#include <sys/stat.h>
-#endif
+#include <sys/stat.h>
 
 #include <string.h>
 #include <fcntl.h>
@@ -237,10 +217,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #endif
   int PutMyMessage(HWND,int,char *);
 #else
-	#ifndef PPS_MAC
-  	/*#include <conio.h>*/
-
-	#endif
   #define PASC
   #define WINAPI
   #define CALLBACK
@@ -256,9 +232,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   typedef struct {int left,top,right,bottom;} RECT;
   typedef struct h_point { int x,y; } POINT ;
 
-	#ifndef PPS_MAC
-		int UnionRect(RECT *out,RECT *in1,RECT *in2);
-	#endif
+  int UnionRect(RECT *out,RECT *in1,RECT *in2);
   int SetRectEmpty(RECT *r);
   int CopyRect(RECT *out,RECT *in);
   */
@@ -284,17 +258,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	  #define _MAX_DIR    100
 	  #define _MAX_FNAME  9
 	  #define _MAX_EXT    4
-	#else
-		#ifdef PPS_MAC
-
-			#define	_MAX_DRIVE		32
-			#define	_MAX_DIR		128
-			#define	_MAX_FNAME		32
-			#define	_MAX_EXT		32
-
-			#define	LPCSTR			char*
-
-		#endif
 	#endif
 #endif
 
@@ -328,10 +291,8 @@ extern "C" {
   #else
      #define malloc_m  malloc
      #define free_m    free
-     #ifndef PPS_MAC
-     		#define halloc_m  halloc
-		#define hfree_m   hfree
-     #endif
+     #define halloc_m  halloc
+     #define hfree_m   hfree
   #endif
 
      #define    strlen_m  strlen
@@ -385,9 +346,6 @@ int  GetERR(char *NameFunc);
 	int GetPrivateProfileString(char *section, char *key, char *Default,
 			char *result,int maxsize, char *name);
 */
-#endif
-#ifdef PPS_MAC
-	short strcmpi(const char* s1, const char *s2);
 #endif
 
 #ifdef __cplusplus

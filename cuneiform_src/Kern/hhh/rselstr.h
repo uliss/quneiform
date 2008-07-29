@@ -74,10 +74,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 
-#ifdef PPS_MAC
-   #pragma export on
-#endif
-//
 #pragma pack (push,8)
 
 #define RSELSTR_MAXNAME 260
@@ -137,12 +133,6 @@ DEC_FUN(void, RSELSTR_CutCompInTableZones, (Handle hCPAGE,CCOM_handle hCCOM));
 typedef void   (*FNRSELSTR_ProgressStart)( void );
 typedef	Bool32 (*FNRSELSTR_ProgressStep)(Word32 perc);
 typedef	void   (*FNRSELSTR_ProgressFinish)( void );
-
-
-#ifdef PPS_MAC
-   #pragma export off
-#endif
-// error code
 
 
 #pragma pack (pop)

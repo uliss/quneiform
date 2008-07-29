@@ -77,10 +77,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 
-#ifdef PPS_MAC
-   #pragma export on
-#endif
-//
 #pragma pack (push,8)
 
 #define CPAGE_MAXNAME 260
@@ -294,14 +290,6 @@ DEC_FUN();
 VRT_FUN(Bool32,  CPAGE_HL_TableExtract,(  Handle hPAGE, Word32 type, Rect32 rect ));
 
 #undef DEC_FUN
-
-
-
-
-#ifdef PPS_MAC
-   #pragma export off
-#endif
-// error code
 
 
 #pragma pack (pop)

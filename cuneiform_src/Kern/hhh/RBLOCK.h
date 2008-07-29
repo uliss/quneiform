@@ -76,10 +76,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 
-#ifdef PPS_MAC
-   #pragma export on
-#endif
-//
 #pragma pack (push,8)
 
 #define RBLOCK_MAXNAME 260
@@ -120,13 +116,6 @@ DEC_FUN(Bool32, RBLOCK_GetAnglePage,(Handle hCCOM,Int32 * lpNominator,Int32 * lp
 typedef void   (*FNRBLOCK_ProgressStart)( void );
 typedef	Bool32 (*FNRBLOCK_ProgressStep)(Word32 perc);
 typedef	void   (*FNRBLOCK_ProgressFinish)( void );
-
-
-
-#ifdef PPS_MAC
-   #pragma export off
-#endif
-// error code
 
 
 #pragma pack (pop)
