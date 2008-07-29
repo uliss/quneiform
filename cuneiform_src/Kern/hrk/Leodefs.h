@@ -164,10 +164,6 @@ typedef struct tagLeoFieldSetup
 #define  LEO_CONTROL_FON_CHANGE     0x20
 //#define  FFC_FON_CHANGE       0x0800  // произвел замену первой альтернативы
 
-#ifdef PPS_MAC
-	#pragma align
-#else
-	#pragma pack()
-#endif /*PPS_MAC*/
+#pragma pack()
 
 #endif

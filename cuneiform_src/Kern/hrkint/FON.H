@@ -56,9 +56,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "sfont.h"
 
-#ifndef PPS_MAC
-#pragma message(__FILE__)
-#endif
 #ifndef __FON_H
    #define __FON_H
 
@@ -81,9 +78,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #ifdef __cplusplus
    extern "C" {
    #endif
-#ifdef PPS_MAC
-        #pragma export on
-#endif
 
 	// return < 0 - error
     // FonSpecInfo *fonSpecInfo может быть NULL
@@ -260,10 +254,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define ER_FON_OPEN      2
 #define ER_FON_READ      3
 #define ER_FON_MEMORY    4
-
-#ifdef PPS_MAC
-        #pragma export off
-#endif
 
    #ifdef __cplusplus
             }

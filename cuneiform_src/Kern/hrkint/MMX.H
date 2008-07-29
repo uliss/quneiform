@@ -76,10 +76,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    extern "C" {
    #endif
 
-#ifdef PPS_MAC
-   #pragma export on
-#endif
-
 // for R35.dll
 MMX_FUNC(Word32)    MMX_scalar(Word32 _EAX, Word32 _EDX);
 MMX_FUNC(Word32)    MMX_scalar16_(Word32  _EAX, Word32 _EDX);

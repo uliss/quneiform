@@ -92,10 +92,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    extern "C" {
    #endif
 
-#ifdef PPS_MAC
-   #pragma export on
-#endif
-
 #include "cttypext.h"
 
    RPSTR_FUNC(Bool32)  RPSTR_Init( Word16 wHeightCode , Handle hStorage);
@@ -152,12 +148,6 @@ RPSTR_FUNC(void) RPSTR_NormalizeVertStr(void);
 //7 RPSTR_FNCORRECTLINESPELL      spelling checker for given line
 typedef Bool32 (*FNRPSTR_CorrectLineSpell)(CSTR_line line, Int32 line_num, CSTR_rast* re, CSTR_rast* rb, Int32* rf);
 RPSTR_FUNC(Bool32) RPSTR_CorrectLineSpell(CSTR_line line, Int32 line_num, CSTR_rast* re, CSTR_rast* rb, Int32* rf);
-
-#ifdef PPS_MAC
-   #pragma export off
-#endif
-// error code
-
 
 
    #ifdef __cplusplus

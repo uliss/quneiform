@@ -85,10 +85,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    extern "C" {
    #endif
 
-#ifdef PPS_MAC
-   #pragma export on
-#endif
-
 enum RSADDFunctionsExt
         {
         RSADD_TAKE,

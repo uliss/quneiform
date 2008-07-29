@@ -55,9 +55,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-#ifndef PPS_MAC
-#pragma message(__FILE__)
-#endif
 #ifndef __BAL_H
    #define __BAL_H
 
@@ -80,9 +77,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #ifdef __cplusplus
    extern "C" {
    #endif
-#ifdef PPS_MAC
-        #pragma export on
-#endif
 
 
   BAL_FUNC(Bool32) BAL_basedraft(CSTR_line ln, Word8 isDust,
@@ -106,10 +100,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // error code
 #define ER_BAL_NO_ERROR  0
 #define ER_BAL_MEMORY    4
-
-#ifdef PPS_MAC
-        #pragma export off
-#endif
 
    #ifdef __cplusplus
             }

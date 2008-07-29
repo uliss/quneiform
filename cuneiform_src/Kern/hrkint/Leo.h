@@ -86,9 +86,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #ifdef __cplusplus
    extern "C" {
    #endif
-		#ifdef PPS_MAC
-			#pragma export on
-		#endif
 
    LEO_FUNC(Bool32)  LEOInit( MemFunc* mem );
    LEO_FUNC(Bool32)  LEOInitPass2( void );
@@ -185,9 +182,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    LEO_FUNC(Bool32) LEO_StoreCollection(RecVersions *ver);
    // store ANSI(Windows) collection
    LEO_FUNC(void)  LEOFreeAlphabets(void);
-		#ifdef PPS_MAC
-         #pragma export off
-		#endif
 
    #ifdef __cplusplus
             }

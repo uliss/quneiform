@@ -115,12 +115,6 @@ typedef struct tagSaveString  // str in H\struct.h OLD TIGER
 }  SaveString;
 */
 
-#ifdef PPS_MAC
-	#pragma align
-#else
-	#pragma pack()
-#endif /*PPS_MAC*/
-
-
+#pragma pack()
 
 #endif

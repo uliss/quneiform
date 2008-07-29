@@ -86,9 +86,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    extern "C" {
    #endif
 
-#ifdef PPS_MAC
-   #pragma export on
-#endif
 /////////////////////////////////
 // AK 22.02.99
 //#ifndef Handle
@@ -273,9 +270,6 @@ CCOM_FUNC(Bool32)  CCOM_Reanimate(CCOM_comp *c);
 // Добавить ЛП к растру -- исправленный вариант
 typedef Bool32      (*FNCCOM_AddCompToRaster)(CCOM_comp * comp, Int16 relleft, Int16 relupper, RecRaster *rec);
 CCOM_FUNC(Bool32)      CCOM_AddCompToRaster(CCOM_comp * comp, Int16 relleft, Int16 relupper, RecRaster *rec);
-#ifdef PPS_MAC
-   #pragma export off
-#endif
 // error code
 
 

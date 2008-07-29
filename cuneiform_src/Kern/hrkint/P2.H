@@ -55,9 +55,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-#ifndef PPS_MAC
-#pragma message(__FILE__)
-#endif
 #ifndef __p2_H
    #define __p2_H
 
@@ -80,9 +77,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #ifdef __cplusplus
    extern "C" {
    #endif
-#ifdef PPS_MAC
-        #pragma export on
-#endif
 
 	// return < 0 - error
     P2_FUNC(Int32)  p2_proc(CSTR_line lineRaw,CSTR_line lineOne,P2GLOBALS *P2globals);
@@ -113,9 +107,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define ER_P2_NO_RECOG  1
 #define ER_P2_MEMORY    4
 
-#ifdef PPS_MAC
-        #pragma export off
-#endif
 
    #ifdef __cplusplus
             }

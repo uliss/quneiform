@@ -78,10 +78,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    extern "C" {
    #endif
 
-#ifdef PPS_MAC
-   #pragma export on
-#endif
-
    EVN_FUNC(Bool32)  EVNInitHND( MemFunc* mem );
    EVN_FUNC(Bool32)  EVNInitPRN( MemFunc* mem );
    EVN_FUNC(Bool32)  EVNInit( MemFunc* mem );
@@ -118,10 +114,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    EVN_FUNC(Word8*) EVN_GetSegmentPool(void);
    EVN_FUNC(Bool32) EVNInitLanguage( char *tabevn1, char *tabevn2,Word8 lang);
    EVN_FUNC(Bool32) EVNSetLanguage( Word8 lang);
-#ifdef PPS_MAC
-   #pragma export off
-#endif
-
 
 // error code
 #define ER_EVN_NO_ERROR 0

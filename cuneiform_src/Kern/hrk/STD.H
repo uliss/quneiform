@@ -87,10 +87,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #define DEFAULT_NULL
    #endif
 
-   #ifdef PPS_MAC
-      #pragma export on
-   #endif
-
 /////////////////////////////////
 // INITIALIZATION
 	STD_FUNC( Bool32 ) StdLoad(void);
@@ -410,11 +406,6 @@ STD_FUNC(const char*) stdGetProperty(const char* pKey);
 );
    // false - количество ошибок == 0
 
-
-
-   #ifdef PPS_MAC
-      #pragma export off
-   #endif
 
    #ifdef __cplusplus
             }

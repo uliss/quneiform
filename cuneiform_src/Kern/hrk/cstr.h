@@ -88,10 +88,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    extern "C" {
    #endif
 
-#ifdef PPS_MAC
-   #pragma export on
-#endif
-
 /////////////////////////////////
 // AK 22.02.99
 //#ifndef Handle
@@ -411,11 +407,6 @@ CSTR_FUNC(Int32)        CSTR_GetLength (CSTR_line   lin);
 // 73   CSTR_FNTOTXT_COORD              получить текстовый обрах строки с координатами
 typedef Bool32       (*FNCSTR_LineToTxt_Coord)(CSTR_line lin, char *txt, Int32 len);
 CSTR_FUNC(Bool32)       CSTR_LineToTxt_Coord (CSTR_line     lin, char *txt, Int32 len);
-#ifdef PPS_MAC
-   #pragma export off
-#endif
-// error code
-
 
 
    #ifdef __cplusplus

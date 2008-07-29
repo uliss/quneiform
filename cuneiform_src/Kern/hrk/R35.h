@@ -76,9 +76,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    extern "C" {
    #endif
 
-#ifdef PPS_MAC
-        #pragma export on
-#endif
    R35_FUNC(Bool32)  R35InitNDX( MemFunc* mem);
    R35_FUNC(Bool32)  R35InitHND( MemFunc* mem);
    R35_FUNC(Bool32)  R35InitPRN( MemFunc* mem);
@@ -150,9 +147,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   R35_FUNC(Bool32) R35Delete(Word8    let, Int32 num_del);
   R35_FUNC(Bool32) R35Add(Word8    let,Word16* Im3x5, Int32 FontType);
   R35_FUNC(void)   R35SetMTR(int fnt) ;
-#ifdef PPS_MAC
-        #pragma export off
-#endif
 
 // error code
 #define ER_R35_NO_ERROR  0

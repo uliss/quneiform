@@ -72,9 +72,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  #else
      #define VEC_FUNC  FUN_IMPO
    #endif
-#ifdef PPS_MAC
- #pragma export on
-#endif
 
    #ifdef __cplusplus
    extern "C" {
@@ -100,10 +97,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifdef __cplusplus
             }
-#endif
-
-#ifdef PPS_MAC
- #pragma export off
 #endif
 
 #endif
