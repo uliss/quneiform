@@ -12,4 +12,6 @@ cimage
 cpage
 lns32
 rshelllines
-)    
+)
+
+install(TARGETS rline LIBRARY DESTINATION lib)

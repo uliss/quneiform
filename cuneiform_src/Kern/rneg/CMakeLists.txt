@@ -19,3 +19,5 @@ rselstr
 exc
 rstr
 )
+
+install(TARGETS rneg LIBRARY DESTINATION lib)

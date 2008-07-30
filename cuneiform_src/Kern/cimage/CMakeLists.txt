@@ -14,3 +14,5 @@ sources/main/dll.cpp
 )
 
 target_link_libraries(cimage cfio rdib)
+
+install(TARGETS cimage LIBRARY DESTINATION lib)

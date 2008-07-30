@@ -23,3 +23,5 @@ msk
 r35
 std32
 )
+
+install(TARGETS leo LIBRARY DESTINATION lib)

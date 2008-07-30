@@ -12,3 +12,5 @@ src/ugol.cpp
 )
 
 target_link_libraries(smetric windummy)
+
+install(TARGETS smetric LIBRARY DESTINATION lib)

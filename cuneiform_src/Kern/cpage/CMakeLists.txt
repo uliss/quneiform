@@ -20,3 +20,5 @@ sources/cpp/tableclass.cpp
 )
 
 target_link_libraries(cpage windummy)
+
+install(TARGETS cpage LIBRARY DESTINATION lib)

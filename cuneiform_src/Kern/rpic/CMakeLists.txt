@@ -14,3 +14,5 @@ sources/rpic.cpp
 )
 
 target_link_libraries(rpic cpage ccom rstr)
+
+install(TARGETS rpic LIBRARY DESTINATION lib)

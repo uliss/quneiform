@@ -24,3 +24,5 @@ rneg
 rpic
 rselstr
 )
+
+install(TARGETS rmarker LIBRARY DESTINATION lib)

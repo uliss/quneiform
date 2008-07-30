@@ -19,3 +19,5 @@ cpage
 cline
 ccom
 )
+
+install(TARGETS rverline LIBRARY DESTINATION lib)

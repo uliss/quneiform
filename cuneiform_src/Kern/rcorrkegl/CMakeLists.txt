@@ -8,3 +8,5 @@ src/cpp/stdafx.cpp
 )
 
 target_link_libraries(rcorrkegl cstr cpage)
+
+install(TARGETS rcorrkegl LIBRARY DESTINATION lib)

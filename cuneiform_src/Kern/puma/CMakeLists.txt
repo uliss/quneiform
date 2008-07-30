@@ -34,4 +34,5 @@ exc
 rreccom
 rpstr
 )
-    
+
+install(TARGETS puma LIBRARY DESTINATION lib)

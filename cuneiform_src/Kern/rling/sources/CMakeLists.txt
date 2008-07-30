@@ -33,3 +33,5 @@ c/udictuti.c
 )
 
 target_link_libraries(rlings cstr windummy)
+
+install(TARGETS rlings LIBRARY DESTINATION lib)

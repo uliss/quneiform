@@ -10,3 +10,5 @@ src/ctb_tool.c
 )
 
 target_link_libraries(ctb32 windummy)
+
+install(TARGETS ctb32 LIBRARY DESTINATION lib)

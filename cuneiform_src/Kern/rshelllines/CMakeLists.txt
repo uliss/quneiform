@@ -16,3 +16,5 @@ cimage
 cpage
 rverline
 )
+
+install(TARGETS rshelllines LIBRARY DESTINATION lib)

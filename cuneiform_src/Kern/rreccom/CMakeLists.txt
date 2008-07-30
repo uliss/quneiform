@@ -7,3 +7,5 @@ src/cpp/rreccom.cpp
 )
 
 target_link_libraries(rreccom ccom evn32 windummy)
+
+install(TARGETS rreccom LIBRARY DESTINATION lib)

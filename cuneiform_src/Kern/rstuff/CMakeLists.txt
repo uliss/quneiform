@@ -37,3 +37,5 @@ smetric
 rreccom
 exc
 )
+
+install(TARGETS rstuff LIBRARY DESTINATION lib)

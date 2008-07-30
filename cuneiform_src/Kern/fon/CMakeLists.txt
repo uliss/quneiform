@@ -17,3 +17,5 @@ src/utilctb.c
 )
 
 target_link_libraries(fon cstr ctb32)
+
+install(TARGETS fon LIBRARY DESTINATION lib)

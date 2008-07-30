@@ -28,4 +28,6 @@ rdib
 rimage
 cline
 cstr
-)    
+)
+
+install(TARGETS rfrmt LIBRARY DESTINATION lib)

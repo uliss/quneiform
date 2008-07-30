@@ -19,3 +19,5 @@ src/stdwapi.cpp
 )
 
 target_link_libraries(std32 windummy)
+
+install(TARGETS std32 LIBRARY DESTINATION lib)

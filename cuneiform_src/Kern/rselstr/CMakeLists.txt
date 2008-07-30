@@ -51,3 +51,5 @@ cline
 cstr
 rcutp
 )
+
+install(TARGETS rselstr LIBRARY DESTINATION lib)

@@ -8,3 +8,5 @@ src/sticchar.c
 src/sticdif.c
 src/stictool.c
 )
+
+install(TARGETS dif LIBRARY DESTINATION lib)

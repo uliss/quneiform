@@ -22,3 +22,5 @@ cfio
 cimage
 rdib
 )
+
+install(TARGETS rimage LIBRARY DESTINATION lib)

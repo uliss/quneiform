@@ -106,3 +106,5 @@ rsadd
 std32
 leo
 )
+
+install(TARGETS rstr LIBRARY DESTINATION lib)

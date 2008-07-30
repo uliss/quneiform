@@ -16,3 +16,5 @@ rling
 rstr
 std32
 )
+
+install(TARGETS rpstr LIBRARY DESTINATION lib)

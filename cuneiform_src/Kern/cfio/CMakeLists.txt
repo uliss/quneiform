@@ -10,3 +10,5 @@ sources/cpp/dll_main.cpp
 )
 
 target_link_libraries(cfio windummy)
+
+install(TARGETS cfio LIBRARY DESTINATION lib)

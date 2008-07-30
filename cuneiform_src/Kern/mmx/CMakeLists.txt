@@ -7,3 +7,5 @@ src/mmx_net.c
 src/mmx_r35.c
 src/mmxmain.c
 )
+
+install(TARGETS mmx LIBRARY DESTINATION lib)

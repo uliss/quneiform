@@ -12,3 +12,5 @@ sources/main/wrapper.cpp
 )
 
 target_link_libraries(ced cfio windummy)
+
+install(TARGETS ced LIBRARY DESTINATION lib)

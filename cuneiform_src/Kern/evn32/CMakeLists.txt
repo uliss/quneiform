@@ -14,3 +14,5 @@ src/v0comprq.c
 )
 
 target_link_libraries(evn32 dif windummy)
+
+install(TARGETS evn32 LIBRARY DESTINATION lib)
