@@ -274,7 +274,7 @@ public:
       {
          hnd = CreateFile(spath,GENERIC_READ|GENERIC_WRITE,0,
             NULL,CREATE_NEW,FILE_ATTRIBUTE_NORMAL,NULL);
-         Sleep(30);
+         sleep(30);
        };
       ::CloseHandle(hnd);
       file = fopen((char*)file_name, "at+");
@@ -301,8 +301,8 @@ public:
       fflush(file);
       fclose(file);
       file = NULL;
-      while(!DeleteFile(spath.buf))
-          Sleep(30);
+      while(!unlink(spath.buf))
+          sleep(30);
       if (n < 0)
          RET_FALSE;
 

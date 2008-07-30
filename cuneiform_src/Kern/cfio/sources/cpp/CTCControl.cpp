@@ -526,7 +526,7 @@ Handle CTCControl::ReAlloc(Handle hMemory, Word32 wNewSize, Word32 wFlag)
 		{
 			Desc = Lock(hNewMemory);
 			Sorc = Lock(hMemory);
-			CopyMemory(Desc, Sorc,(wOldSize < wNewSize ? wOldSize : wNewSize));
+			memcpy(Desc, Sorc,(wOldSize < wNewSize ? wOldSize : wNewSize));
 			Unlock(hNewMemory);
 			Unlock(hMemory);
 			Free(hMemory);

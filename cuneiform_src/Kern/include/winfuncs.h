@@ -38,7 +38,6 @@ int LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax);
 
 int CreateDirectory(const char *dir, void *dummy);
 char *_fullpath(char *absPath, const char *relPath, int maxLength);
-void CopyMemory(void *Destination, const void* Source, int length); // memcpy
 DWORD GetTempPath(DWORD nBufferLength, LPTSTR lpBuffer);
 int RemoveDirectory(const char *d);
 void* GlobalAlloc(UINT uFlags, int dwBytes);
@@ -56,9 +55,7 @@ DWORD dwShareMode, void* lpSecurityAttributes,
 DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile);
 
 HWND FindWindow(LPCTSTR lpClassName, LPCTSTR lpWindowName);
-BOOL DeleteFile(LPCTSTR lpFileName);
 UINT RegisterWindowMessage(LPCTSTR lpString);
-void Sleep(int );
 
 int _findclose(long handle);
 long _findfirst(const char *filespec, struct _finddata_t *fileinfo);
@@ -94,7 +91,6 @@ int _access(const char *filename, int mode);
 BOOL SetWindowText(HWND hWnd,LPCTSTR lpString);
 int ReleaseDC(HWND hWnd, HDC hDC);
 BOOL IsIconic(HWND hWnd);
-int _chdir(const char *dirname);
 HDC GetDC(HWND hWnd);
 BOOL EndPaint(HWND hWnd, ...);
 HDC BeginPaint(HWND hwnd,...);

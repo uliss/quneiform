@@ -61,6 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*********************************************************************************************/
 /*#include <windows.h>
 #include <direct.h>*/
+#include <unistd.h>
 #include <string.h>
 
 #include "rreccom.h"
@@ -127,7 +128,7 @@ Bool32 rec_init(RRecComControl control, char *spath, Word8 lang)
 	else MaxScale = 5; //  for cuneiform pitures process
 
 	if (control.flags & RECOG_EVN)
-		if (_chdir(spath) == 0)
+		if (chdir(spath) == 0)
 		{
 			if (!rec_is_language(lang))
 			{
@@ -298,7 +299,7 @@ void getExtComp(CCOM_comp* pcomp, /*ExtComponent*/CCOM_comp* ec)
 /*********************************************************************************************/
 RRECCOM_FUNC(Bool32) RRECCOM_IsLanguage(Word8 language)
 {
-	_chdir((char*)lnOcrPath);
+	chdir((char*)lnOcrPath);
 
 	return rec_is_language(language);
 }

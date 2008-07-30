@@ -213,7 +213,7 @@ RtfFragRect.m_Step                        = 0;
  if( !FullRtf(lpInternalFileName, NULL, PtrEdTree) )
 	return FALSE;
 
- if (!::DeleteFile(lpInternalFileName))
+ if (!unlink(lpInternalFileName))
  {
 	char ch[500];
 	sprintf(ch,"File %s cannot be removed\n",lpInternalFileName);
@@ -354,7 +354,7 @@ RFRMT_FUNC(Bool32)  RFRMT_SaveRtf(char* lpOutputFileName,Word32 code)
 	return FALSE;
  }
 
- if (!::DeleteFile(lpInternalFileName))
+ if (!unlink(lpInternalFileName))
  {
 	char ch[500];
 	sprintf(ch,"File %s cannot be removed\n",lpInternalFileName);

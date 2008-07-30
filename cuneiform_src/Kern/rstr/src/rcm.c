@@ -463,7 +463,7 @@ RSTR_FUNC(Bool32) RSTR_IsLanguage(Word8 language)
 {
 if( language<LANG_ENGLISH || language>=LANG_TOTAL )
     return FALSE;
-_chdir(lnOcrPath);
+chdir(lnOcrPath);
 if( _access(tabevn1[language],0)==-1 )
     return FALSE;
 if( _access(tabevn2[language],0)==-1 )
@@ -587,7 +587,7 @@ if(0) // דמעמגûי רנטפע
         //return FALSE;
         }
 #endif
-_chdir(lnOcrPath);
+chdir(lnOcrPath);
 #ifdef     _USE_SPELLING_
 if (!RLING_Init( 102, NULL ))
     {
@@ -2033,7 +2033,7 @@ if( mmx )
     set_MMX_addr();
 else
     set_all_addr();
-_chdir(lnOcrPath);
+chdir(lnOcrPath);
 multy_language=FALSE;
 slanguage=language;
 

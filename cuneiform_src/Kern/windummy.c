@@ -73,10 +73,6 @@ char *_fullpath(char *absPath, const char *relPath, int maxLength) {
     return NULL;
 }
 
-void CopyMemory(void *Destination, const void* Source, int length) {
-  memcpy(Destination, Source, length);
-}
-
 DWORD GetTempPath(DWORD nBufferLength, LPTSTR lpBuffer) {
     return 0;
 }
@@ -133,16 +129,8 @@ HWND FindWindow(LPCTSTR lpClassName, LPCTSTR lpWindowName) {
     return 0;
 }
 
-BOOL DeleteFile(LPCTSTR lpFileName) {
-  return unlink(lpFileName);
-}
-
 UINT RegisterWindowMessage(LPCTSTR lpString) {
     return 0;
-}
-
-void Sleep(int s) {
-    sleep(s);
 }
 
 int _findclose(long handle);
@@ -207,6 +195,11 @@ long _filelength(int fd) {
     return foo.st_size;
 }
 
+long filelength(int fd) {
+        return _filelength(fd);
+}
+
+
 long _msize(void *memblock) {
     return malloc_usable_size(memblock);
 }
@@ -230,10 +223,6 @@ int ReleaseDC(HWND hWnd, HDC hDC) {
 
 BOOL IsIconic(HWND hWnd) {
     return 0;
-}
-
-int _chdir(const char *dirname) {
-    return chdir(dirname);
 }
 
 HDC GetDC(HWND hWnd) {
@@ -520,12 +509,6 @@ HMODULE GetModuleHandle(LPCTSTR lpModuleName) {
 
 HICON LoadIcon(HINSTANCE hInstance, LPCTSTR lpIconName) {
 	return NULL;
-}
-
-long filelength(int fd) {
-	struct stat buf;
-	fstat(fd, &buf);
-	return buf.st_size;
 }
 
 int LoadCursor(HINSTANCE hInstance, LPCTSTR lpCursorName) {
