@@ -186,4 +186,11 @@ BOOL Rectangle(HDC hdc,
   int nLeftRect, int nTopRect, int nRightRect, int nBottomRect);
 char* _strupr(char*s);
 
+/* These are not windows compat functions, but general helper functions.
+ * I had no other place to put it.
+ */
+
+int open_data_file(const char *basename, int mode);
+int data_file_exists(const char *basename);
+
 #endif

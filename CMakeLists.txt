@@ -12,5 +12,8 @@ if(PROJECT_BINARY_DIR STREQUAL PROJECT_SOURCE_DIR)
    message(FATAL_ERROR "In-tree build attempt detected, aborting. Set your build dir outside your source dir and try again.")
 endif()
 
+set(RELATIVE_DATADIR "share/cuneiform")
+set(INSTALL_DATADIR "${CMAKE_INSTALL_PREFIX}/${RELATIVE_DATADIR}")
+
 add_subdirectory(datafiles)
 add_subdirectory(cuneiform_src)

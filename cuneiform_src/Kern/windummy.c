@@ -43,6 +43,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 #include "compat_defs.h"
+#include "config.h"
 
 int HFILE_ERROR;
 
@@ -524,4 +525,70 @@ BOOL Rectangle(HDC hdc,
 
 char* _strupr(char*s) {
   return s;
+}
+
+/* General helper functions. */
+
+/* We try to locate data files in two locations:
+ *
+ * 1. At the directory pointed to by environment variable CF_DATADIR
+ * 2. At install prefix.
+ *
+ * Caller's responsibility is to ensure *e1 and *e2 are large enough.
+ *
+ * Porting note: on Windows it probably makes sense to use the function
+ * that tells the current code module's path and go from there.
+ *
+ * The same probably goes for OS X, if you want to go the GUI route.
+ *
+ */
+
+static void build_name_estimates(const char *base_name, char *env_name, char *prefix_name) {
+    const char *separator = "/"; /* Change to backslash on Windows. */
+    const char *env_prefix;
+    const char *varname = "CF_DATADIR";
+    int len;
+
+    env_name[0] = '\0';
+    prefix_name[0] = '\0';
+
+    env_prefix = getenv(varname);
+    len = strlen(env_prefix);
+    if(len > 0) {
+        strcat(env_name, env_prefix);
+        if(strcmp(env_prefix + len-1, separator) != 0) {
+            strcat(env_name, separator);
+        }
+        strcat(env_name, base_name);
+    }
+
+    len = strlen(INSTALL_DATADIR);
+    if(len > 0) {
+        strcat(prefix_name, INSTALL_DATADIR);
+        strcat(prefix_name, separator);
+        strcat(prefix_name, base_name);
+    }
+
+}
+
+int open_data_file(const char *basename, int mode) {
+    char ename[1024];
+    char pname[1024];
+    int i;
+
+    build_name_estimates(basename, ename, pname);
+    i = open(ename, mode);
+    if(i != -1)
+        return i;
+    return open(pname, mode);
+}
+
+int data_file_exists(const char *basename) {
+    char ename[1024];
+    char pname[1024];
+
+    build_name_estimates(basename, ename, pname);
+    if(_access(ename, 0) == 0)
+        return 0;
+    return _access(pname, 0);
 }
