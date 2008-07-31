@@ -696,22 +696,22 @@ static char *tabevn2[LANG_TOTAL]={
 "rec2blt.dat",      // LANG_ESTONIAN	26
 "rec2tur.dat"       // LANG_TURKISH		27
 };
-Bool16 rec_load_tables(Word8 language)
-{
-if( language>=LANG_TOTAL )
-    return FALSE;
-if( !EVNInitLanguage( tabevn1[language], tabevn2[language], language) )
-    return FALSE;
-return TRUE;
-}
-Bool16    rec_is_language(Word8 language)
-{
-if( language<LANG_ENGLISH || language>=LANG_TOTAL )
-    return FALSE;
-if( _access(tabevn1[language],0)==-1 )
-    return FALSE;
-if( _access(tabevn2[language],0)==-1 )
-    return FALSE;
 
-return TRUE;
+Bool16 rec_load_tables(Word8 language) {
+    if (language >= LANG_TOTAL)
+        return FALSE;
+    if (!EVNInitLanguage(tabevn1[language], tabevn2[language], language))
+        return FALSE;
+    return TRUE;
+}
+
+Bool16 rec_is_language(Word8 language) {
+    if (language < LANG_ENGLISH || language >= LANG_TOTAL)
+        return FALSE;
+    if (data_file_exists(tabevn1[language]) == -1)
+        return FALSE;
+    if (data_file_exists(tabevn2[language]) == -1)
+        return FALSE;
+
+    return TRUE;
 }

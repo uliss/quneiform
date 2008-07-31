@@ -313,7 +313,7 @@ Int16 TE_open(Int16 Stream, PInt8 Name, Int16 Type, Int16 SubType)
         {
                 if (file_handle[fn]==-1)
                 {
-                        i = open (Wname, Type, SubType);
+                        i = open_data_file(Name, Type); /*, SubType); */
 
                         if (i < 0)
                                 return -1;

@@ -34,13 +34,21 @@ mkdir builddir
 cd builddir
 cmake -DCMAKE_BUILD_TYPE=debug ..
 make
+make install 
 
+By default Cuneiform installs to /usr/local. You can specify a different prefix
+by giving a command line switch "-DCMAKE_INSTALL_PREFIX=/what/ever/you/want"
+to CMake.
+
+If you have ImageMagick++ on your system, Cuneiform autodetects and builds
+against it. Then Cuneiform can process any image that ImageMagick knows how
+to open. Otherwise it can only read uncompressed BMP images.
 
 Running
 
-You MUST be in the root of the build directory. Then just do
+After install you simply run.
 
-./cuneiform [-l language -o result_file] <image_file>
+cuneiform [-l language -o result_file] <image_file>
 
 Output is written to pumaout.txt. Cuneiform assumes that your image contains
 only a single column of text.
@@ -52,9 +60,10 @@ supported languages type "./cuneiform -l".
 If you do not define an output file with the -o switch, Cuneiform
 writes the result to a file "cuneiform-out.txt".
 
-If you have ImageMagick++ on your system, Cuneiform autodetects and builds
-against it. Then Cuneiform can process any image that ImageMagick knows how
-to open. Otherwise it can only read uncompressed BMP images.
+If you want to run Cuneiform without installing it on your system, you
+have to point the CF_DATADIR environment variable to a directory
+containing the .dat files. These can be found in the "datafiles"
+directory of the source package.
 
 Contact information
 

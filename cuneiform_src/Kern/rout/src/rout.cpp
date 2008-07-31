@@ -65,6 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // By Eugene Pliskin pliskin@cs.isa.ac.ru
 //********************************************************************
 
+#include <fcntl.h>
 #include <string.h>
 #include "stdafx.h"
 #include "rout_own.h"
@@ -895,18 +896,17 @@ Bool32 ROUT_LoadRec6List(
 
 	ClearError();
 
-	// Список файлов из rec6all.dat
-	char drive[_MAX_DRIVE],dir[_MAX_PATH],
-		 name[_MAX_PATH],ext[_MAX_EXT];
-
-	// Разложить путь на составляющие
-	_splitpath(rec6AllFilename,drive,dir,name,ext);
-
 	// Открыть файл со списком таблиц
 	FILE *f = NULL;
 	char buf[256] = "";
+	int fd;
 
-	f = fopen(rec6AllFilename,"rt");
+	fd = open_data_file(rec6AllFilename, O_RDONLY); // Was "rt".
+	if(fd == -1) {
+	    ERR_LOAD_REC6LIST;
+	    return FALSE;
+	}
+	f = fdopen(fd, "rt");
 	if (!f)
 		{
 		ERR_LOAD_REC6LIST;
@@ -917,7 +917,6 @@ Bool32 ROUT_LoadRec6List(
 		{
 		long language=-1;
 		char theName[_MAX_PATH] = "";
-		char rec6xxxFilename[_MAX_PATH] = "";
 
 		// Пустые строки и строки комментариев,
 		// начинающиеся с точки с запятой, пропускать
@@ -932,13 +931,9 @@ Bool32 ROUT_LoadRec6List(
 		// Номер языка и имя таблицы rec6xxx.dat
 		sscanf(buf,"%d%s", &language, &theName[0]);
 
-		// Полный путь
-		sprintf(rec6xxxFilename, "%s%s%s",
-				drive,dir,theName);
-
 		if (language <0 || language >= LANG_TOTAL ||
 			!theName[0] ||
-			!LoadAlphabet(language,rec6xxxFilename)
+			!LoadAlphabet(language, theName)
 			)
 			{
 			fclose(f);
@@ -957,6 +952,7 @@ static BOOL LoadAlphabet(
 {
 // Загрузка файла REC6.DAT
 	FILE *f = NULL;
+	int fd;
 	char buf[256] = "";
 #ifdef WIN32
 	const char line_end = '\n';
@@ -968,7 +964,10 @@ static BOOL LoadAlphabet(
 
 	long sizeAlphabet = 0;
 
-	f = fopen(rec6xxxFilename,"rt");
+	fd = open_data_file(rec6xxxFilename, O_RDONLY);
+	if(fd == -1)
+	    return FALSE;
+	f = fdopen(fd, "rt");
 	if (!f)
 		return FALSE;
 

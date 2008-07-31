@@ -647,7 +647,7 @@ int tch_in(const char *NameFile)
 
 	initiated++;
 	Hnd_abc_n[initiated]=0;
-	if( (hnd=open(NameFile,O_RDONLY|O_BINARY))> 0 )
+	if((hnd = open_data_file(NameFile, O_RDONLY|O_BINARY)) > 0)
 	{	read(hnd,NameTab,32*sizeof(char));
 		read(hnd,(Word16 *)&Hnd_abc_n[initiated],sizeof(short));
 		read(hnd,(Word16 *)&num_mask,sizeof(short));

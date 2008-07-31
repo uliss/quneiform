@@ -194,7 +194,7 @@ Int32 evn_tab_init_prn( char *file1, char *file2 )
 
   evn_error_code = ER_EVN_NO_ERROR;
 
-  h=open(file1, O_BINARY| O_RDONLY);
+  h = open_data_file(file1, O_BINARY| O_RDONLY);
   strcpy(load_tab1, file1);
   if( h==-1 )
     {
@@ -219,7 +219,7 @@ Int32 evn_tab_init_prn( char *file1, char *file2 )
 
   close( h );
 
-  h=open( file2, O_BINARY| O_RDONLY );
+  h = open_data_file(file2, O_BINARY| O_RDONLY);
   strcpy(load_tab2, file2);
   if( h==-1 )
     {

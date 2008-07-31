@@ -547,13 +547,14 @@ static void build_name_estimates(const char *base_name, char *env_name, char *pr
     const char *separator = "/"; /* Change to backslash on Windows. */
     const char *env_prefix;
     const char *varname = "CF_DATADIR";
-    int len;
+    int len = 0;
 
     env_name[0] = '\0';
     prefix_name[0] = '\0';
 
     env_prefix = getenv(varname);
-    len = strlen(env_prefix);
+    if(env_prefix)
+        len = strlen(env_prefix);
     if(len > 0) {
         strcat(env_name, env_prefix);
         if(strcmp(env_prefix + len-1, separator) != 0) {
@@ -568,7 +569,6 @@ static void build_name_estimates(const char *base_name, char *env_name, char *pr
         strcat(prefix_name, separator);
         strcat(prefix_name, base_name);
     }
-
 }
 
 int open_data_file(const char *basename, int mode) {

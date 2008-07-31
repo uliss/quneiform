@@ -89,6 +89,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include "LineDefs.h"
 #include "cline.h"
 
+#include "compat_defs.h"
+
 #define LOCAL_GREY_CTB "page6666"
 #define LOCAL_CTB_NAME "ct666666"
 unsigned char    alpha_used_mode=0;
@@ -401,7 +403,7 @@ Bool32 read_rec_file(INT lang, PBYTE pool, PBYTE * end)
 #define O_BINARY 0
 #endif
 
- h=open (tab3x5[lang],O_RDONLY|O_BINARY);
+ h=open_data_file(tab3x5[lang], O_RDONLY|O_BINARY);
  if (h==-1)
         {
         return FALSE;
@@ -461,16 +463,16 @@ return TRUE;
 
 RSTR_FUNC(Bool32) RSTR_IsLanguage(Word8 language)
 {
-if( language<LANG_ENGLISH || language>=LANG_TOTAL )
+if(language<LANG_ENGLISH || language>=LANG_TOTAL )
     return FALSE;
 chdir(lnOcrPath);
-if( _access(tabevn1[language],0)==-1 )
+if(data_file_exists(tabevn1[language])==-1 )
     return FALSE;
-if( _access(tabevn2[language],0)==-1 )
+if(data_file_exists(tabevn2[language])==-1 )
     return FALSE;
-if( _access(tab3x5[language],0)==-1 )
+if(data_file_exists(tab3x5[language])==-1 )
     return FALSE;
-if( language==LANG_RUSSIAN || language==LANG_RUSENG )
+if(language==LANG_RUSSIAN || language==LANG_RUSENG )
     {
     if( 0 )
         return FALSE;
