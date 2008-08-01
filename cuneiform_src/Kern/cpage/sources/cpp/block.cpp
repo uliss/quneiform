@@ -73,7 +73,7 @@ BLOCK::~BLOCK()
 {
 }
 //##############################
-Bool32  BLOCK::Create(Word32 type, Word32 usernum , Word32 flags ,void * lpdata , Word32 size )
+Bool32  BLOCK::Create(Handle type, Word32 usernum , Word32 flags ,void * lpdata , Word32 size )
 {
 	UserNum = usernum;
 	Flags = flags;
@@ -161,7 +161,7 @@ CPAGE_CONVERTOR SetConvertorBlocks(CPAGE_CONVERTOR convertor)
 	return old;
 }
 //#################################
-Word32 BLOCK::Convert(Word32 type,void * lpdata,Word32 size)
+Word32 BLOCK::Convert(Handle type,void * lpdata,Word32 size)
 {
 	Word32 rc = 0;
 	rc = (*s_ConvertorBlocks.fnConvertor)(s_ConvertorBlocks.dwContext,

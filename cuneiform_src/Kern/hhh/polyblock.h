@@ -119,7 +119,7 @@ typedef struct tagVertex
 
 typedef struct tagCommon
 {
-	Word32 type;//Текст, Картинка, Таблица;
+	Handle type;//Текст, Картинка, Таблица;
 	Int16 number;//порядковый номер
 	Int16 Color;
 	Bool Select;//

@@ -96,13 +96,13 @@ public:
 
 void DefConvertInit();
 Word32 DefConvertBlock( Word32 dwContext,
-					Word32 TypeIn,void * lpDataIn,Word32 SizeIn,
-					Word32 TypeOut,void * LpDataOut, Word32 SizeOut);
+					Handle TypeIn,void * lpDataIn,Word32 SizeIn,
+					Handle TypeOut,void * LpDataOut, Word32 SizeOut);
 Word32 DefConvertPage( Word32 dwContext,
-					Word32 TypeIn,void * lpDataIn,Word32 SizeIn,
-					Word32 TypeOut,void * LpDataOut, Word32 SizeOut);
-void CleanData(Word32 Type,void * lpData,Word32 Size);
-Bool32 ComplianceVersions(Word32 Type, char ** lpData, Word32 *Size);
+					Handle TypeIn,void * lpDataIn,Word32 SizeIn,
+					Handle TypeOut,void * LpDataOut, Word32 SizeOut);
+void CleanData(Handle Type,void * lpData,Word32 Size);
+Bool32 ComplianceVersions(Handle Type, char ** lpData, Word32 *Size);
 Bool32 Compress(char * lpData, Word32 Size, char ** compressedData, Word32 * compressedSize);
 Bool32 Decompress(char * lpData, Word32 Size, char ** decomData, Word32 * decomSize);
 

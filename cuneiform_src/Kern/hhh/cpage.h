@@ -94,8 +94,8 @@ CPAGE_FUNC(Bool32) CPAGE_SetImportData(Word32 dwType, void * pData);
 /////////////////////////////////////////////////////////////
 
 typedef Word32 (*CPAGE_ExtConvert)(Word32 dwContext,
-								   Word32 TypeIn ,void * lpDataIn,Word32 SizeIn,
-								   Word32 TypeOut,void * LpDataOut, Word32 SizeOut);
+								   Handle TypeIn ,void * lpDataIn,Word32 SizeIn,
+								   Handle TypeOut,void * LpDataOut, Word32 SizeOut);
 typedef struct {
 	Word32				dwContext;		// Контекст конвертора
 	CPAGE_ExtConvert	fnConvertor;	// Функция конвертировани
@@ -200,7 +200,7 @@ enum CPAGE_EXPORT_ENTRIES
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; CPAGE_FUNC(a) b c
 
-DEC_FUN(Handle,  CPAGE_CreatePage,(Word32 Type, void * lpData, Word32 Size));
+DEC_FUN(Handle,  CPAGE_CreatePage,(Handle Type, void * lpData, Word32 Size));
 DEC_FUN(void,    CPAGE_DeletePage,(Handle hPage));
 DEC_FUN(Word32,  CPAGE_GetCountPage,());
 DEC_FUN(Handle,  CPAGE_GetHandlePage,(Word32 number));
@@ -212,22 +212,22 @@ DEC_FUN(Bool32,  CPAGE_SavePage,(Handle page,Int8 * lpName));
 DEC_FUN(Handle,  CPAGE_RestorePage,(Bool32 remove,Int8 * lpName));
 
 
-DEC_FUN(Word32,  CPAGE_GetPageType,(Handle hPage));
-DEC_FUN(Bool32,  CPAGE_SetPageData,(Handle page ,Word32 Type, void * lpData, Word32 Size));
-DEC_FUN(Word32,  CPAGE_GetPageData,(Handle page ,Word32 Type, void * lpData, Word32 Size));
+DEC_FUN(Handle,  CPAGE_GetPageType,(Handle hPage));
+DEC_FUN(Bool32,  CPAGE_SetPageData,(Handle page, Handle Type, void * lpData, Word32 Size));
+DEC_FUN(Word32,  CPAGE_GetPageData,(Handle page, Handle Type, void * lpData, Word32 Size));
 
 DEC_FUN(void,    CPAGE_ClearBackUp,(Handle page));   //Paul 19-01-2001
 DEC_FUN(Handle,  CPAGE_BackUp,(Handle page));
 DEC_FUN(Bool32,  CPAGE_Undo,(Handle page,Handle backup));
 DEC_FUN(Bool32,  CPAGE_Redo,(Handle page,Handle backup));
 
-DEC_FUN(Handle,   CPAGE_CreateBlock,(Handle page, Word32 Type, Word32 UserNum , Word32 Flags,void * lpData, Word32 Size));
+DEC_FUN(Handle,   CPAGE_CreateBlock,(Handle page, Handle Type, Word32 UserNum , Word32 Flags,void * lpData, Word32 Size));
 DEC_FUN(void  ,  CPAGE_DeleteBlock,(Handle page,Handle block));
 
 DEC_FUN(Word32,  CPAGE_GetCountBlock,(Handle page));
 DEC_FUN(Handle,  CPAGE_GetHandleBlock,(Handle page, Word32 number));
 
-DEC_FUN(Word32,  CPAGE_GetBlockType,(Handle page,Handle block));
+DEC_FUN(Handle,  CPAGE_GetBlockType,(Handle page,Handle block));
 DEC_FUN(Word32,  CPAGE_GetBlockUserNum,(Handle page,Handle block));
 DEC_FUN(void  ,  CPAGE_SetBlockUserNum,(Handle page,Handle block,Word32 user));
 
@@ -237,25 +237,25 @@ DEC_FUN(void  ,  CPAGE_SetBlockFlags,(Handle page,Handle block,Word32 flags));
 #define CPAGE_BLOCK_USER       0x1  //выделен пользователем
 #define CPAGE_BLOCK_UNCERTAIN  0x2  //грязь или нет ?
 //
-DEC_FUN(Bool32,  CPAGE_SetBlockData,(Handle page,Handle block,Word32 Type, void * lpData, Word32 Size));
-DEC_FUN(Word32,  CPAGE_GetBlockData,(Handle page,Handle block,Word32 Type, void * lpData, Word32 Size));
+DEC_FUN(Bool32,  CPAGE_SetBlockData,(Handle page,Handle block, Handle Type, void * lpData, Word32 Size));
+DEC_FUN(Word32,  CPAGE_GetBlockData,(Handle page,Handle block, Handle Type, void * lpData, Word32 Size));
 
 DEC_FUN(CPAGE_CONVERTOR,  CPAGE_SetConvertorPages,(CPAGE_CONVERTOR func));
 DEC_FUN(CPAGE_CONVERTOR,  CPAGE_SetConvertorBlocks,(Handle page,CPAGE_CONVERTOR func));
 
-DEC_FUN(Word32,  CPAGE_GetUserPageType,());
-DEC_FUN(Word32,  CPAGE_GetUserBlockType,());
+DEC_FUN(Handle,  CPAGE_GetUserPageType,());
+DEC_FUN(Handle,  CPAGE_GetUserBlockType,());
 DEC_FUN(Word32, CPAGE_GetBuckUpCount,(Handle page));
 DEC_FUN(Handle, CPAGE_GetBuckUpHandle,(Handle page,Word32 number));
 DEC_FUN(Word32, CPAGE_GetBuckUpCurPos,(Handle page));
 
-DEC_FUN(Handle,  CPAGE_GetPageFirst,(Word32 type));
-DEC_FUN(Handle,  CPAGE_GetPageNext,(Handle page,Word32 type));
-DEC_FUN(Handle,  CPAGE_GetBlockFirst,(Handle page, Word32 type));
-DEC_FUN(Handle,  CPAGE_GetBlockNext,(Handle page,Handle block, Word32 type));
+DEC_FUN(Handle,  CPAGE_GetPageFirst,(Handle type));
+DEC_FUN(Handle,  CPAGE_GetPageNext,(Handle page, Handle type));
+DEC_FUN(Handle,  CPAGE_GetBlockFirst,(Handle page, Handle type));
+DEC_FUN(Handle,  CPAGE_GetBlockNext,(Handle page,Handle block, Handle type));
 DEC_FUN(Bool32,  CPAGE_DeleteAll,());
 
-DEC_FUN(Bool32,  CPAGE_UpdateBlocks,( Handle hPage, Word32 type ));
+DEC_FUN(Bool32,  CPAGE_UpdateBlocks,( Handle hPage, Handle type ));
 
 DEC_FUN(Handle,  CPAGE_PictureGetFirst,		(Handle hPage));
 DEC_FUN(Handle,  CPAGE_PictureGetNext,		(Handle hPage,Handle hPicture));
@@ -264,10 +264,10 @@ DEC_FUN(Bool32,  CPAGE_PictureGetMask,			(Handle hPage,Handle hPicture,Int32 Ske
 
 DEC_FUN(Word32,  CPAGE_GetBlockInterNum,	(Handle page,Handle block));
 DEC_FUN(void,    CPAGE_SetBlockInterNum,	(Handle page,Handle block,Word32 inter));
-DEC_FUN(Bool32,  CPAGE_GetBlockDataPtr,		(Handle page,Handle block,Word32 Type, void ** lpData));
+DEC_FUN(Bool32,  CPAGE_GetBlockDataPtr,		(Handle page, Handle block, Handle Type, void ** lpData));
 
-DEC_FUN(Word32,  CPAGE_GetInternalType,		(char * name));
-DEC_FUN(char *,  CPAGE_GetNameInternalType,	(Word32 type));
+DEC_FUN(Handle,  CPAGE_GetInternalType,		(char * name));
+DEC_FUN(char *,  CPAGE_GetNameInternalType,	(Handle type));
 
 /*
 DEC_FUN();

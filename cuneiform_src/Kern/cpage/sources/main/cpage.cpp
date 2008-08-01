@@ -81,7 +81,7 @@ extern PtrList<NAMEDATA>	NameData;
 #define BLOCK_N_N(page,block) _BLOCK_N(PAGE_N(page),block)
 
 //###########################################
-CPAGE_FUNC(Handle) CPAGE_CreatePage(Word32 type,void * lpdata, Word32 size)
+CPAGE_FUNC(Handle) CPAGE_CreatePage(Handle type,void * lpdata, Word32 size)
 {
 	PROLOG;
 	BACKUPPAGE tail;
@@ -106,11 +106,11 @@ CPAGE_FUNC(Handle) CPAGE_CreatePage(Word32 type,void * lpdata, Word32 size)
   return hPage;
 }
 //###########################################
-CPAGE_FUNC(Word32)  CPAGE_GetPageType(Handle page)
+CPAGE_FUNC(Handle)  CPAGE_GetPageType(Handle page)
 {
 	PROLOG;
 	SetReturnCode_cpage(IDS_ERR_NO);
-	Word32 rc = PAGE_H(page).GetType();
+	Handle rc = PAGE_H(page).GetType();
 	EPILOG;
 	return rc;
 }
@@ -225,7 +225,7 @@ CPAGE_FUNC(Word32) CPAGE_GetBuckUpCurPos(Handle page)
 	return rc;
 }
 //###########################################
-CPAGE_FUNC(Handle)	CPAGE_CreateBlock(Handle page, Word32 Type, Word32 UserNum , Word32 Flags,void * lpData, Word32 Size)
+CPAGE_FUNC(Handle)	CPAGE_CreateBlock(Handle page, Handle Type, Word32 UserNum , Word32 Flags,void * lpData, Word32 Size)
 {
 	PROLOG;
 	SetReturnCode_cpage(IDS_ERR_NO);
@@ -239,7 +239,7 @@ CPAGE_FUNC(Handle)	CPAGE_CreateBlock(Handle page, Word32 Type, Word32 UserNum , 
 	return rc;
 }
 //###########################################
-CPAGE_FUNC(Bool32) CPAGE_SetPageData(Handle page ,Word32 type,void * lpdata, Word32 size)
+CPAGE_FUNC(Bool32) CPAGE_SetPageData(Handle page, Handle type, void * lpdata, Word32 size)
 {
 	PROLOG;
 	SetReturnCode_cpage(IDS_ERR_NO);
@@ -251,7 +251,7 @@ CPAGE_FUNC(Bool32) CPAGE_SetPageData(Handle page ,Word32 type,void * lpdata, Wor
 	return rc;
 }
 //###########################################
-CPAGE_FUNC(Word32) CPAGE_GetPageData(Handle page ,Word32 type,void * lpdata, Word32 size)
+CPAGE_FUNC(Word32) CPAGE_GetPageData(Handle page, Handle type, void * lpdata, Word32 size)
 {
 	PROLOG;
 	SetReturnCode_cpage(IDS_ERR_NO);
@@ -266,11 +266,11 @@ CPAGE_FUNC(Word32) CPAGE_GetPageData(Handle page ,Word32 type,void * lpdata, Wor
 	return rc;
 }
 //###########################################
-CPAGE_FUNC(Word32)  CPAGE_GetBlockType(Handle page,Handle block)
+CPAGE_FUNC(Handle)  CPAGE_GetBlockType(Handle page,Handle block)
 {
 	PROLOG;
 	SetReturnCode_cpage(IDS_ERR_NO);
-	Word32 rc = BLOCK_H_H(page,block).GetType();
+	Handle rc = BLOCK_H_H(page,block).GetType();
 	EPILOG;
 	return rc;
 }
@@ -309,7 +309,7 @@ CPAGE_FUNC(void)    CPAGE_SetBlockFlags(Handle page,Handle block,Word32 flags)
 	EPILOG;
 }
 //###########################################
-CPAGE_FUNC(Bool32)  CPAGE_SetBlockData(Handle page,Handle block,Word32 Type, void * lpData, Word32 Size)
+CPAGE_FUNC(Bool32)  CPAGE_SetBlockData(Handle page, Handle block, Handle Type, void * lpData, Word32 Size)
 {
 	PROLOG;
 	SetReturnCode_cpage(IDS_ERR_NO);
@@ -321,7 +321,7 @@ CPAGE_FUNC(Bool32)  CPAGE_SetBlockData(Handle page,Handle block,Word32 Type, voi
 	return rc;
 }
 //###########################################
-CPAGE_FUNC(Word32)  CPAGE_GetBlockData(Handle page,Handle block,Word32 Type, void * lpData, Word32 Size)
+CPAGE_FUNC(Word32)  CPAGE_GetBlockData(Handle page, Handle block, Handle Type, void * lpData, Word32 Size)
 {
 	PROLOG;
 	SetReturnCode_cpage(IDS_ERR_NO);
@@ -490,30 +490,30 @@ CPAGE_CONVERTOR rc = SetConvertorBlocks(data);
 	return rc;
 }
 //###########################################
-CPAGE_FUNC(Word32)  CPAGE_GetUserPageType()
+CPAGE_FUNC(Handle)  CPAGE_GetUserPageType()
 {
 	PROLOG;
 	/*
 	static Word32 number = 0x10000000;
 	return number++;
 	*/
-	Word32 rc = CPAGE_GetUserBlockType();
+	Handle rc = CPAGE_GetUserBlockType();
 	EPILOG;
 	return rc;
 }
 //###########################################
-CPAGE_FUNC(Word32)  CPAGE_GetUserBlockType()
+CPAGE_FUNC(Handle)  CPAGE_GetUserBlockType()
 {
 	PROLOG;
 	static Word32 number = 1;
 	char Name[260];
 	sprintf(Name,"UserType:%i",number++);
-	Word32 rc = CPAGE_GetInternalType(Name);
+	Handle rc = CPAGE_GetInternalType(Name);
 	EPILOG;
 	return rc;
 }
 //###########################################
-CPAGE_FUNC(Handle)  CPAGE_GetPageFirst(Word32 type)
+CPAGE_FUNC(Handle)  CPAGE_GetPageFirst(Handle type)
 {
 	PROLOG;
 	int count = Page.GetCount();
@@ -534,7 +534,7 @@ CPAGE_FUNC(Handle)  CPAGE_GetPageFirst(Word32 type)
 	return rc;
 }
 //###########################################
-CPAGE_FUNC(Handle)  CPAGE_GetPageNext(Handle page,Word32 type)
+CPAGE_FUNC(Handle)  CPAGE_GetPageNext(Handle page, Handle type)
 {
 	PROLOG;
 	int count = Page.GetCount();
@@ -557,7 +557,7 @@ CPAGE_FUNC(Handle)  CPAGE_GetPageNext(Handle page,Word32 type)
 	return rc;
 }
 //###########################################
-CPAGE_FUNC(Handle)  CPAGE_GetBlockFirst(Handle page, Word32 type)
+CPAGE_FUNC(Handle)  CPAGE_GetBlockFirst(Handle page, Handle type)
 {
 	PROLOG;
 	int count = PAGE_H(page).Block.GetCount();
@@ -580,7 +580,7 @@ CPAGE_FUNC(Handle)  CPAGE_GetBlockFirst(Handle page, Word32 type)
 	return rc;
 }
 //###########################################
-CPAGE_FUNC(Handle)  CPAGE_GetBlockNext(Handle page,Handle block, Word32 type)
+CPAGE_FUNC(Handle)  CPAGE_GetBlockNext(Handle page,Handle block, Handle type)
 {
 	PROLOG;
 	int count = PAGE_H(page).Block.GetCount();
@@ -655,13 +655,13 @@ CPAGE_FUNC(Word32)  CPAGE_GetNumberPage( Handle hPage )
 // Если блоки конвертируемы один в другой, тогда имеет смысл оставить только один,
 // наиболее полный тип. Именно это и делает эта функция.
 //
-CPAGE_FUNC(Bool32)  CPAGE_UpdateBlocks( Handle hPage, Word32 type )
+CPAGE_FUNC(Bool32)  CPAGE_UpdateBlocks( Handle hPage, Handle type )
 {
 	PROLOG;
 	Bool32  rc = TRUE;
 	Word32	size = 0;
 	char *	lpData = NULL;
-	Word32  temporaray = 0;
+	Handle  temporaray = 0;
 
 	SetReturnCode_cpage(IDS_ERR_NO);
 #ifdef _DEBUG
@@ -682,7 +682,7 @@ CPAGE_FUNC(Bool32)  CPAGE_UpdateBlocks( Handle hPage, Word32 type )
 	while(hBlock)
 	{
 		Handle hNextBlock = CPAGE_GetBlockNext(hPage,hBlock,type);// type - запрашиваемый тип блока
-		Word32 dwType	  = CPAGE_GetBlockType(hPage,hBlock); // dwType - Реальный тип блока
+		Handle dwType	  = CPAGE_GetBlockType(hPage,hBlock); // dwType - Реальный тип блока
 		if(dwType != type) // Была произведена конвертация из типа dwType !
 		{
 			Word32 UserNum = CPAGE_GetBlockUserNum(hPage,hBlock);
@@ -752,7 +752,7 @@ CPAGE_FUNC(void)    CPAGE_SetBlockInterNum(Handle page,Handle block,Word32 inter
 	EPILOG;
 }
 //###########################################
-CPAGE_FUNC(Bool32)  CPAGE_GetBlockDataPtr(Handle page,Handle block,Word32 Type, void ** lpData)
+CPAGE_FUNC(Bool32)  CPAGE_GetBlockDataPtr(Handle page, Handle block, Handle Type, void ** lpData)
 {
 	PROLOG;
 	SetReturnCode_cpage(IDS_ERR_NO);
@@ -764,27 +764,27 @@ CPAGE_FUNC(Bool32)  CPAGE_GetBlockDataPtr(Handle page,Handle block,Word32 Type, 
 	return rc;
 }
 //###########################################
-CPAGE_FUNC(Word32)  CPAGE_GetInternalType(char * name)
+CPAGE_FUNC(Handle)  CPAGE_GetInternalType(char * name)
 {
 	PROLOG;
-	Word32 rc = 0;
+	Handle rc = 0;
 	NAMEDATA nd(name);
 	SetReturnCode_cpage(IDS_ERR_NO);
-	rc = (Word32)NameData.FindFirst(nd);
+	rc = NameData.FindFirst(nd);
 	if(!rc)
-		rc = (Word32)NameData.AddTail(nd);
+		rc = NameData.AddTail(nd);
 	EPILOG;
 	return rc;
 }
 //###########################################
-CPAGE_FUNC(char *)  CPAGE_GetNameInternalType(Word32 type)
+CPAGE_FUNC(char *)  CPAGE_GetNameInternalType(Handle type)
 {
 	char * rc = NULL;
 	PROLOG;
 	SetReturnCode_cpage(IDS_ERR_NO);
 
 	if(type != NULL)
-		rc = NameData.GetItem((Handle)type);
+		rc = NameData.GetItem(type);
 	EPILOG;
 	return rc;
 }

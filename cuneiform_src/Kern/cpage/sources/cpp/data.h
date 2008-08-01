@@ -71,7 +71,7 @@ typedef struct tagCompressHeader
 
 class DATA {
 public:
-	Word32 Type;
+	Handle Type;
 	Word32 Size;
 	char * lpData;
 
@@ -79,12 +79,12 @@ public:
 	DATA();
 	~DATA();
 
-	Bool32  SetData(Word32 type, void * lpData, Word32 Size);
-	Word32  GetData(Word32 type, void * lpData, Word32 Size);
-	inline Bool32  GetDataPtr(Word32 type, void ** lpdata){ Bool32 rc = FALSE; _ASSERT(lpdata); if(type == Type ){ *lpdata=lpData; rc = TRUE; } return rc;}
+	Bool32  SetData(Handle type, void * lpData, Word32 Size);
+	Word32  GetData(Handle type, void * lpData, Word32 Size);
+	inline Bool32  GetDataPtr(Handle type, void ** lpdata){ Bool32 rc = FALSE; _ASSERT(lpdata); if(type == Type ){ *lpdata=lpData; rc = TRUE; } return rc;}
 
-	inline Word32  GetType(){ return Type;};
-	inline Word32  SetType(Word32 dwType) { Word32 old = Type; Type = dwType; return old;};
+	inline Handle GetType(){ return Type;};
+	inline Handle SetType(Handle dwType) { Handle old = Type; Type = dwType; return old;};
 
 	DATA & operator = (DATA & data);
 	Bool32 operator == (DATA & data);
@@ -95,7 +95,7 @@ private:
 
 
 public:
-	virtual Word32 Convert(Word32 type,void * lpdata, Word32 size) = 0;
+	virtual Word32 Convert(Handle type,void * lpdata, Word32 size) = 0;
 
 	Bool32 Save(Handle to);
 	Bool32 Restore(Handle from);

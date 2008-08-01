@@ -73,9 +73,9 @@ public:
 	BLOCK();
 	~BLOCK();
 
-	Bool32  Create(Word32 Type, Word32 UserNum = 0, Word32 Flags = 0,void * lpData = NULL, Word32 Size = 0);
+	Bool32  Create(Handle Type, Word32 UserNum = 0, Word32 Flags = 0,void * lpData = NULL, Word32 Size = 0);
 
-	Word32  GetType() { return DATA::GetType();};
+	Handle  GetType() { return DATA::GetType();};
 	Word32  GetUserNum() { return UserNum;};
 	void    SetUserNum(Word32 user) { UserNum = user;};
 	Word32  GetFlags() { return Flags;};
@@ -91,7 +91,7 @@ public:
 	Bool32 SaveCompress(Handle to);
 	Bool32 RestoreCompress(Handle from);
 
-	virtual Word32 Convert(Word32 type,void * lpdata,Word32 size);
+	virtual Word32 Convert(Handle type,void * lpdata,Word32 size);
 };
 
 	CPAGE_CONVERTOR SetConvertorBlocks(CPAGE_CONVERTOR convertor);

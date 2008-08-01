@@ -75,7 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 template<class TYPE> class PtrName
 {
 protected:
-	Word32  m_Type;
+	Handle  m_Type;
 	Word32  m_Size;
 	TYPE *	m_Ptr;
 	Bool32  m_bAttach;

@@ -193,7 +193,7 @@ void	TableClass::Delete()
 TableClass * TableClass::Attach(Handle hPage,Handle hBlock)
 {
 	TableClass * rc = NULL;
-	Word32 Type = CPAGE_GetInternalType("TableClass");
+	Handle Type = CPAGE_GetInternalType("TableClass");
 	if( CPAGE_GetBlockDataPtr(hPage,hBlock,Type,(void**)&rc) &&
 		rc->m_lpVerLines.GetSize() &&
 		rc->m_lpHorLines.GetSize())
@@ -216,7 +216,7 @@ TableClass * TableClass::Attach(Handle hPage,Handle hBlock)
 Handle	TableClass::Store(Handle hPage)
 {
 	Bool32 res = FALSE;
-	Word32 Type = CPAGE_GetInternalType("TableClass");
+	Handle Type = CPAGE_GetInternalType("TableClass");
 
 	m_hBlock = CPAGE_CreateBlock(hPage,Type,0,0,this,sizeof(*this));
 	if( m_hBlock &&
@@ -268,7 +268,7 @@ void    TableClass::Remove()
 //////////////////////////////////////////////////////////////////////
 TableClass * TableClass::GetNext()
 {
-	Word32 Type = CPAGE_GetInternalType("TableClass");
+	Handle Type = CPAGE_GetInternalType("TableClass");
 	TableClass * rc = NULL;
 
 	Handle hBlock = CPAGE_GetBlockNext(m_hPage,m_hBlock, Type);

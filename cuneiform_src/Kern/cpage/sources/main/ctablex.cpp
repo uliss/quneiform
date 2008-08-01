@@ -98,7 +98,7 @@ CPAGE_FUNC(Handle)  CPAGE_ExTableGetFirst		(Handle hPage)
 	Handle rc = NULL;
 	Handle hBlock = NULL;
   SetReturnCode_cpage(IDS_ERR_NO);
-	Word32 Type = CPAGE_GetInternalType("TableClass");
+	Handle Type = CPAGE_GetInternalType("TableClass");
 	if(!CPAGE_UpdateBlocks( hPage, Type ))
 	{
 		rc = NULL;

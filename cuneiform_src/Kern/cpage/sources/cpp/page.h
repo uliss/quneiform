@@ -70,7 +70,7 @@ public:
 	PtrList<BLOCK>  Block;
 
 public:
-	Handle	CreateBlock(Word32 Type, Word32 UserNum = 0, Word32 Flags = 0,void * lpData = NULL, Word32 Size = 0);
+	Handle	CreateBlock(Handle Type, Word32 UserNum = 0, Word32 Flags = 0,void * lpData = NULL, Word32 Size = 0);
 
 public:
 	PAGE ();
@@ -83,7 +83,7 @@ public:
 	Bool32 SaveCompress(Handle to);
 	Bool32 RestoreCompress(Handle from);
 
-	virtual Word32 Convert(Word32 type,void * lpdata,Word32 size);
+	virtual Word32 Convert(Handle type,void * lpdata,Word32 size);
 private:
 	void * operator new ( size_t stAllocateBlock );
 	void   operator delete( void * mem );
