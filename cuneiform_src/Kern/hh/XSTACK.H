@@ -83,9 +83,9 @@ class XStack : private XPool
       T*       GetPtr()  const {  return (T*)(GetData()); };
       Int32    GetCurCnt() const { return CurCnt; };
       Int32    GetMaxCnt() const { return MaxCnt; };
-      T*       Push( Int32* no=NULL ); // fix space for new element
-      Bool     Push( T* t, Int32* no=NULL );
-      Bool     Push( T& t, Int32* no=NULL ){ return Push(&t, no); };
+      T*       Push( Int32* no ); // fix space for new element
+      Bool     Push( T* t, Int32* no );
+      Bool     Push( T& t, Int32* no ){ return Push(&t, no); };
 		T*       Pop();
 
 		T*       Top(); // returns temporary pointer to last element;
@@ -114,7 +114,7 @@ class XStack : private XPool
 		T      & GetLast(void)          {  return (*this)[(Indx)(CurCnt -1)];}
 **/
 };
- 
+
 template < class T >
 Bool     XStack< T >::Create( Int32 max_cnt, Int32 cur_cnt )
 	{  assert(max_cnt>=cur_cnt);
@@ -124,21 +124,21 @@ Bool     XStack< T >::Create( Int32 max_cnt, Int32 cur_cnt )
 		MaxCnt = max_cnt;
 		return TRUE;
 	};
- 
+
 template < class T >
 void     XStack< T >::SetCurCnt( Int32 new_cnt ) // does not resize!
 	{
 		assert( new_cnt <= MaxCnt );
 		CurCnt = new_cnt;
 	};
- 
+
 template < class T >
 void     XStack< T >::Destroy()
    {  XPool::Destroy();
 		CurCnt = MaxCnt = 0;
 	};
 
- 
+
 template < class T >
 Bool     XStack< T >::Resize( Int32 new_max_cnt )
 	{
@@ -148,7 +148,7 @@ Bool     XStack< T >::Resize( Int32 new_max_cnt )
       CurCnt =  MIN( CurCnt, new_max_cnt );
 		return TRUE;
 	};
- 
+
 template < class T >
 T*       XStack< T >::Push( Int32* no ) // fix space for new element
 {
@@ -188,7 +188,7 @@ Bool     XStack< T >::Push( T* t, Int32* no )
 		CurCnt++;
 		return TRUE;
 	};
- 
+
 template < class T >
 T*       XStack< T >::Pop(void)
 	{
@@ -199,7 +199,7 @@ T*       XStack< T >::Pop(void)
 		pt+=(Indx)CurCnt;
 		return pt;
 	};
- 
+
 template < class T >
 T*       XStack< T >::Top(void)
 	{
@@ -210,7 +210,7 @@ T*       XStack< T >::Top(void)
 		pt+=(Indx)(CurCnt-1);
 		return pt;
 	};
- 
+
 template < class T >
 Err16 XStack< T >::Read( XFile & bf, Bool32 swap_bytes )
 	{
@@ -221,7 +221,7 @@ Err16 XStack< T >::Read( XFile & bf, Bool32 swap_bytes )
 		assert(!!*this);
       return ER_NONE;
 	};
- 
+
 template < class T >
 Bool     XStack< T >::Write( XFile & bf ) const
 	{

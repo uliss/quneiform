@@ -732,7 +732,7 @@ Int32 ReadEventString(FILE* fl, char* str)
       if(ch=='\r')
          ch=0;
       if(ch)
-         xsString.Push(ch);
+         xsString.Push(ch, NULL);
    };
    str = new char[xsString.GetCurCnt()+1];
    memset(str,0,(xsString.GetCurCnt()+1)*sizeof(char));
@@ -782,13 +782,13 @@ Int32 ParseEventString(char* evn_str,Int32 iEvnSize)
    while(*str)
    {
       if(*str!='\t')
-         xString.Push(*str);
+         xString.Push(*str, NULL);
       else
       {
          Int32 shift = k+1;
          xsParamsShift.Push(&shift);
          char ch = 0;
-         xString.Push(ch);
+         xString.Push(ch, NULL);
       }
       str++;
       k++;

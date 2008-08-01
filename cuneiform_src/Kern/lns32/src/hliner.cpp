@@ -277,7 +277,7 @@ Int32    HLiner_Analyze(void) // returns count of extracted lines
          {  // start new line
             if (!_TraceLine(i,j,ln))
                continue;
-            if (!xsLines.Push(&ln))
+            if (!xsLines.Push(&ln, NULL))
                break;
          }
       }
