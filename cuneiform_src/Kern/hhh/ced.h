@@ -120,16 +120,6 @@ typedef struct edCol
 } EDCOL;
 
 
-//#ifndef BOOL
-//typedef int                 BOOL;
-//#endif
-#ifndef DWORD
-typedef unsigned long       DWORD;
-#endif
-#ifndef BYTE
-typedef unsigned char       BYTE;
-#endif
-
 #ifndef _WINGDI_
 
 #define DEFAULT_PITCH           0

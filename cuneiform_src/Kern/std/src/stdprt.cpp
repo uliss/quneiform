@@ -627,7 +627,7 @@ STD_FUNC(Bool32) stdPrtStartTransaction(char* user_name,char* prog_id)
    pTransactionBuffer->Start();
    gl_iTransaction++;
    char comp_name[MAX_COMPUTERNAME_LENGTH+1];
-	DWORD sz=sizeof(comp_name);
+	long unsigned int sz=sizeof(comp_name);
 	GetComputerName(comp_name,&sz);
    stdSysPrt(3,"Начало",comp_name,prog_id,user_name);
    return TRUE;
@@ -651,8 +651,8 @@ STD_FUNC(Bool32) stdPrtEndTransaction(char* user_name,char* prog_id)
    if(gl_iTransaction)
    {
       char comp_name[MAX_COMPUTERNAME_LENGTH+1];
-      DWORD sz=sizeof(comp_name);
-	   GetComputerName(comp_name,&sz);
+      long unsigned int sz=sizeof(comp_name);
+      GetComputerName(comp_name,&sz);
       stdSysPrt(3,"Завершение",comp_name,prog_id,user_name);
       if(!pTransactionBuffer->Finish())
          RET_FALSE;

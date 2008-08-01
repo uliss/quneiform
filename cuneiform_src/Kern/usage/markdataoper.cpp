@@ -97,7 +97,7 @@ Bool FullRotatedRects_rv (void *vB, UN_DATAAIMS OldAim, UN_DATAAIMS NewAim
 	return RV_TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool CompIsGood (CCOM_comp * pcomp, int Filter)
+Bool CompIsGood (CCOM_comp * pcomp, int16_t Filter)
 {
 	switch (Filter)
 	{

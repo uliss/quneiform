@@ -67,7 +67,7 @@ static char szCompName[MAX_COMPUTERNAME_LENGTH + 1]={0};
 
 STD_FUNC(const char*) stdGetComputerName()
 {
-	Word32 nSize=MAX_COMPUTERNAME_LENGTH;
+	long unsigned int nSize=MAX_COMPUTERNAME_LENGTH;
 	Bool32 bRes=::GetComputerName(szCompName,&nSize);
 	return bRes ? szCompName : NULL;
 }

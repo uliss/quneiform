@@ -57,6 +57,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __CTTYPES_H
 #define __CTTYPES_H
 
+#include <stdint.h>
+
 #if _MSC_VER > 1000
    #pragma once
 #endif // _MSC_VER > 1000
@@ -82,19 +84,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #endif
 
 /*** Base types ***/
-   typedef unsigned int           Indx   ;    _SETTYPES( Indx   )
-   typedef signed long int        Int32  ;   _SETTYPES( Int32  )
-   typedef unsigned long int      Word32 ;   _SETTYPES( Word32 )
-   typedef signed short int       Int16  ;   _SETTYPES( Int16  )
-   typedef unsigned short int     Word16 ;   _SETTYPES( Word16 )
+   typedef unsigned int           Indx   ;   _SETTYPES( Indx   )
+   typedef int32_t                Int32  ;   _SETTYPES( Int32  )
+   typedef uint32_t               Word32 ;   _SETTYPES( Word32 )
+   typedef int16_t                Int16  ;   _SETTYPES( Int16  )
+   typedef uint16_t               Word16 ;   _SETTYPES( Word16 )
    typedef char                   Int8   ;   _SETTYPES( Int8   )
    typedef unsigned char          Word8  ;   _SETTYPES( Word8  )
    typedef float                  Float32;   _SETTYPES( Float32 )
    typedef double                 Float64;   _SETTYPES( Float64 )
    typedef long double            Float80;   _SETTYPES( Float80 )
    typedef int                    Bool   ;   _SETTYPES( Bool   )
-   typedef signed short int       Bool16 ;   _SETTYPES( Bool16 )
-   typedef signed long int        Bool32 ;   _SETTYPES( Bool32 )
+   typedef int16_t                Bool16 ;   _SETTYPES( Bool16 )
+   typedef int32_t                Bool32 ;   _SETTYPES( Bool32 )
 
    #ifndef   FALSE
       #define FALSE               0
@@ -157,31 +159,31 @@ extern "C"
  * Consolidating them all here.
  */
 
-typedef int             BOOL;
+typedef int BOOL;
 
-typedef char     CHAR;
-typedef char *   PCHAR;
+typedef char CHAR;
+typedef char * PCHAR;
 
 typedef unsigned char   BYTE;
 typedef unsigned char * PBYTE;
 
-typedef signed   short int  SINT;
-typedef unsigned short int  WORD;
+typedef int16_t  SINT;
+typedef uint16_t  WORD;
 
-typedef signed   long int   LONG;
-typedef unsigned long int   DWORD;
+typedef int32_t  LONG;
+typedef uint32_t DWORD;
 
-typedef signed long int  *          PLONG;
-typedef unsigned long int  *        PDWORD;
+typedef int32_t  * PLONG;
+typedef uint32_t * PDWORD;
 
-typedef signed short int                _INT;
-typedef signed short int  *         _PINT;
+typedef int16_t _INT;
+typedef int16_t * _PINT;
 #define INT  _INT
 #define PINT _PINT
-typedef unsigned short int  *       PWORD;
+typedef uint16_t * PWORD;
 
 typedef BYTE* LPBYTE;
-typedef unsigned long int * LPDWORD;
+typedef uint32_t * LPDWORD;
 typedef BOOL* LPBOOL;
 typedef LONG* LPLONG;
 typedef void* LPVOID;
