@@ -119,7 +119,7 @@ Bool MyInit_CPage ()
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage, Word32 *pHoriType, Word32 *pVertType, char *pStr)
+Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle *hCPage, Handle *pHoriType, Handle *pVertType, char *pStr)
 {
 	int i;
 	Word32 err32, nTeor, nReal;
@@ -166,9 +166,9 @@ Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage, Word32 *pHo
 	for (i=0; i<pLti->Hor.Cnt; i++)
 	{
 		if (i==0)
-			hBlockLineHor = CPAGE_GetBlockFirst (hCPage, (Word32)(pLti->Hor.Lns));
+			hBlockLineHor = CPAGE_GetBlockFirst (hCPage, (pLti->Hor.Lns));
 		else
-			hBlockLineHor = CPAGE_GetBlockNext (hCPage, hBlockLinePrev, (Word32)(pLti->Hor.Lns));
+			hBlockLineHor = CPAGE_GetBlockNext (hCPage, hBlockLinePrev, (pLti->Hor.Lns));
 		err32 = CPAGE_GetReturnCode ();
 		if (err32!=0)
 		{
@@ -179,7 +179,7 @@ Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage, Word32 *pHo
 			return FALSE;
 		}
 		nTeor = sizeof (LineInfo);
-		nReal = CPAGE_GetBlockData (hCPage, hBlockLineHor, (Word32)(pLti->Hor.Lns), (void *)&(pLHor[i]), nTeor);
+		nReal = CPAGE_GetBlockData (hCPage, hBlockLineHor, (pLti->Hor.Lns), (void *)&(pLHor[i]), nTeor);
 		err32 = CPAGE_GetReturnCode ();
 		if ((nReal!=nTeor)||(err32!=0))
 		{
@@ -192,9 +192,9 @@ Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage, Word32 *pHo
 	for (i=0; i<pLti->Ver.Cnt; i++)
 	{
 		if (i==0)
-			hBlockLineVer = CPAGE_GetBlockFirst (hCPage, (Word32)(pLti->Ver.Lns));
+			hBlockLineVer = CPAGE_GetBlockFirst (hCPage, (pLti->Ver.Lns));
 		else
-			hBlockLineVer = CPAGE_GetBlockNext (hCPage, hBlockLinePrev, (Word32)(pLti->Ver.Lns));
+			hBlockLineVer = CPAGE_GetBlockNext (hCPage, hBlockLinePrev, (pLti->Ver.Lns));
 		err32 = CPAGE_GetReturnCode ();
 		if (err32!=0)
 		{
@@ -205,7 +205,7 @@ Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage, Word32 *pHo
 			return FALSE;
 		}
 		nTeor = sizeof (LineInfo);
-		nReal = CPAGE_GetBlockData (hCPage, hBlockLineVer, (Word32)(pLti->Ver.Lns), (void *)&(pLVer[i]), nTeor);
+		nReal = CPAGE_GetBlockData (hCPage, hBlockLineVer, (pLti->Ver.Lns), (void *)&(pLVer[i]), nTeor);
 		err32 = CPAGE_GetReturnCode ();
 		if ((nReal!=nTeor)||(err32!=0))
 		{
@@ -215,8 +215,8 @@ Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage, Word32 *pHo
 		hBlockLinePrev = hBlockLineVer;
 	}
 	/***    ***/
-	*pHoriType = (Word32)pLti->Hor.Lns;
-	*pVertType = (Word32)pLti->Ver.Lns;
+	*pHoriType = pLti->Hor.Lns;
+	*pVertType = pLti->Ver.Lns;
 	pLti->Hor.Lns = pLHor;
 	pLti->Ver.Lns = pLVer;
 	return TRUE;
@@ -289,7 +289,7 @@ Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin,CLINE_handle hCLINE,char *p
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Word32 HoriType, Word32 VertType)
+Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType, Handle VertType)
 {
 	int i;
 	Word32 err32, nTeor;//, nReal;
@@ -498,7 +498,7 @@ Bool MyGetComp (Handle hCCOM, Rect16 *pRc, int *nRC, int MyMaxC, int Filter)
 {
 	CCOM_comp * pcomp;
 	Bool GoodComp;
-	pcomp = CCOM_GetFirst ((Int32)hCCOM, NULL);
+	pcomp = CCOM_GetFirst (hCCOM, NULL);
 	*nRC = 0;
 	GoodComp = CompIsGood (pcomp, Filter);
 	if (GoodComp)
@@ -542,7 +542,7 @@ Bool MyFormZhertvy (Handle hCCOM, void **vvZher, int *iZher, int nZher, int Filt
 		if (nZ==nZher)
 			break;
 		if (nX==0)
-			pcomp = CCOM_GetFirst ((Int32)hCCOM, NULL);
+			pcomp = CCOM_GetFirst (hCCOM, NULL);
 		else
 			pcomp = CCOM_GetNext (pcomp, NULL);
 		if (pcomp==NULL)

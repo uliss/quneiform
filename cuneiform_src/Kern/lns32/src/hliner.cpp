@@ -288,10 +288,10 @@ Int32    HLiner_Analyze(void) // returns count of extracted lines
       for (int i=0; i<xsLines.GetCurCnt(); i++)
       {
          Line16& li= xsLines[i];
-         SnpDrawLine( &li.A,&li.B,0,wRGB(255,0,255),2,(Word32)&stnHLiner);
+         SnpDrawLine( &li.A,&li.B,0,wRGB(255,0,255),2, &stnHLiner);
       }
       SnpWaitUserInput(&stnHLiner);
-      SnpHideLines((Word32)&stnHLiner);
+      SnpHideLines(&stnHLiner);
    }
 
    xmImageMap.Destroy(); // free, currently not used later

@@ -78,7 +78,7 @@ struct NegTemp
   int top;
   int w;
   int h;
-  Int32 hStrCCOM;
+  Handle hStrCCOM;
   Rect16 prc[Max_Str_Count];
   int nRc;
   int fl_rotate;

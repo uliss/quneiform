@@ -265,7 +265,10 @@ int ConsMess( const char* str, ... )
    cd.dwData = 1354235;
    cd.lpData = strbuf;
    cd.cbData = count+10;
-   SendMessage( h_found, WM_COPYDATA, (WPARAM)0, (LPARAM)&cd );
+
+#ifdef _WIN32
+   SendMessage( h_found, WM_COPYDATA, (WPARAM)0, (&cd) );
+#endif
    return count;
 }
 

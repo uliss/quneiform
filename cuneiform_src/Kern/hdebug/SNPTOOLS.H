@@ -286,7 +286,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    static void   SnpHideRects(Word32 key){;};
    static void   SnpDrawLine(Point16* start, Point16* end, Int32 skew,
       Word32 rgb_color,Int16 pen_width,Word32 key ){;};
-   static void   SnpHideLines(Word32 key){;};
+   static void   SnpHideLines(Handle key){;};
    static void   SnpDrawFocusRect(Rect16* rc){;};
    static Word32 SnpSetZoneOn(Rect16*  zone_rect,
       Word32   rgb_color,char* status_line_comment,
@@ -323,8 +323,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
          Int32 pen_width,Word32 key);
        void   SnpHideRects(Word32 key);
        void   SnpDrawLine(Point16* start, Point16* end, Int32 skew,
-         Word32 rgb_color,Int16 pen_width,Word32 key );
-       void   SnpHideLines(Word32 key);
+         Word32 rgb_color,Int16 pen_width, Handle key );
+       void   SnpHideLines(Handle key);
        void   SnpDrawFocusRect(Rect16* rc);
        Word32 SnpSetZoneOn(Rect16*  zone_rect,
          Word32   rgb_color,char* status_line_comment,
@@ -366,8 +366,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       Int32 pen_width,Word32 key);
    void   SnpHideRects(Word32 key);
    void   SnpDrawLine(Point16* start, Point16* end, Int32 skew,
-      Word32 rgb_color,Int16 pen_width,Word32 key );
-   void   SnpHideLines(Word32 key);
+      Word32 rgb_color, Int16 pen_width, Handle key );
+   void   SnpHideLines(Handle key);
    void   SnpDrawFocusRect(Rect16* rc);
    Word32 SnpSetZoneOn(Rect16*  zone_rect,
       Word32   rgb_color,char* status_line_comment,

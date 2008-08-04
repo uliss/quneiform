@@ -976,11 +976,11 @@ void SnpRasterHeader(char * lpText,Word32 num)
 	LDPUMA_RasterHeader(lpText,num);
 };
 void   SnpDrawLine(Point16* start, Point16* end, Int32 skew,
-      Word32 rgb_color,Int16 pen_width,Word32 key )
+      Word32 rgb_color, Int16 pen_width, Handle key )
 {
 	LDPUMA_DrawLine(NULL,start,end,skew,rgb_color,pen_width,key );
 };
-void   SnpHideLines(Word32 key)
+void   SnpHideLines(Handle key)
 {
 	LDPUMA_DeleteLines(NULL,key);
 };

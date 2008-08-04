@@ -143,7 +143,7 @@ typedef struct Line_Data_struct
   Bool32          ProcessingType;          // тип обработки линии(гор. или верт.)
   Int32           LineEventsLength;        // сумма черных точек линии
   double          Degree;
-  Int32           RelationshipIndex;       // индекс коробки компонент
+  Handle           RelationshipIndex;       // индекс коробки компонент
   Bool32          FlagCalculatedWidth;
   Bool32          FlagExtensible;
   Bool32          FlagDot;                 // устанавливается когда линия точечная

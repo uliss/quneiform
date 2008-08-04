@@ -79,7 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /* FIXME: JussiP, I added this here to make it link. Don't know if it's correct. */
 #define c_locomp(a, b, c, d, e)        EVN_CLocomp((a), (b), (c), (d), (e))
 
-extern Int32 exthCCOM;
+extern Handle exthCCOM;
 
 BYTE *pRaster;
 int   nRasterWidth;
@@ -119,7 +119,7 @@ static int nQuantityOfOnes [256] =
     3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7,
     4, 5, 5, 6, 5, 6, 6, 7, 5, 6, 6, 7, 6, 7, 7, 8
 };
-
+
 void FormOneRootString (int iRoot)
 {
     StringNewDescriptor ();
@@ -136,7 +136,7 @@ void FormOneRootString (int iRoot)
 
     StringAddToList ();
 }
-
+
 BOOL IsInterStringsComponent (ROOT *pRoot)
 {
     int yTop    = pRoot -> yRow;
@@ -181,7 +181,7 @@ BOOL IsInterStringsComponent (ROOT *pRoot)
 
     return (FALSE);
 }
-
+
 BOOL IsGluedComponent (STRING *pString, ROOT *pRoot)
 {
     STRING *pUp, *pDown;
@@ -235,7 +235,7 @@ BOOL IsGluedComponent (STRING *pString, ROOT *pRoot)
 
     return (TRUE);
 }
-
+
 void RasterHystogramBuild (void)
 {
     int y, o, i;
@@ -248,7 +248,7 @@ void RasterHystogramBuild (void)
             aRasterHystogram [y] += nQuantityOfOnes [pRaster [o + i]];
     }
 }
-
+
 BOOL GluedLettersProcess (ROOT *pRoot)
 {
     int oBreakLine, oAfterBreakLine;
@@ -396,12 +396,12 @@ BOOL GluedLettersProcess (ROOT *pRoot)
 
     return (TRUE);
 }
-
+
 void AddAllCuttedComponentsToStrings (void)
 {
     return;
 }
-
+
 void StringsProcessSpecials (void)
 {
     STRING *pString;
