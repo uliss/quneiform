@@ -160,9 +160,12 @@ int main(int argc, char **argv) {
     char *dib;
     const char *infilename = NULL;
     Word32 langcode = PUMA_LANG_ENGLISH; // By default recognize plain english text.
-    const char *outfilename = "cuneiform-out.txt";
+    const char *defaulttextname = "cuneiform-out.txt";
+    const char *defaulthtmlname = "cuneiform-out.html";
+    const char *outfilename = NULL;
+    Int32 outputformat = PUMA_TOTEXT;
 
-    printf("Cuneiform for Linux 0.2\n");
+    printf("Cuneiform for Linux %s\n", CF_VERSION);
 
     for(int i=1; i<argc; i++) {
         /* Changing language. */
@@ -188,14 +191,24 @@ int main(int argc, char **argv) {
                 return 1;
             }
             outfilename = argv[i];
+        } else if(strcmp(argv[i], "--html") == 0) {
+            outputformat = PUMA_TOHTML;
         } else {
         /* No switches, so set input file. */
         infilename = argv[i];
         }
     }
 
+    if(outfilename == NULL) {
+        // Use default output name.
+        switch(outputformat) {
+            case PUMA_TOHTML : outfilename = defaulthtmlname; break;
+            default : outfilename = defaulttextname; break;
+        }
+    }
+
     if(infilename == NULL) {
-        printf("Usage: %s [-l languagename -o result_file] imagefile\n", argv[0]);
+        printf("Usage: %s [-l languagename --html -o result_file] imagefile\n", argv[0]);
         return 0;
     }
 
@@ -245,7 +258,7 @@ int main(int argc, char **argv) {
     }
     //printf("PUMA_XFinalRecognition succeeded.\n");
 
-    if(!PUMA_XSave(outfilename, PUMA_TOTEXT, 0)) {
+    if(!PUMA_XSave(outfilename, outputformat, 0)) {
         printf("PUMA_XSave failed.\n");
         return 1;
     }
