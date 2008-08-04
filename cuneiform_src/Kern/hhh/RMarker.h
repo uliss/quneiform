@@ -111,7 +111,7 @@ typedef struct tagRMPreProcessImage
 	Word32  gnTables;
 	Handle	hCPAGE;
 	Handle  hCCOM;
-	Word32  hCLINE;
+	Handle  hCLINE;
 	Handle  hDebugCancelSearchPictures;
 	Handle  hDebugCancelComponent;
 	Handle  hDebugCancelTurn;

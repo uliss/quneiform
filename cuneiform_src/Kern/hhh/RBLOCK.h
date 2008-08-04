@@ -108,7 +108,7 @@ typedef enum
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RBLOCK_FUNC(a) b c
 
-DEC_FUN(Bool32, RBLOCK_ExtractTextBlocks,(Handle hCCOM,Handle hCPAGE,Word32 hCLINE));
+DEC_FUN(Bool32, RBLOCK_ExtractTextBlocks,(Handle hCCOM, Handle hCPAGE, Handle hCLINE));
 DEC_FUN(Bool32, RBLOCK_ExtractTextStrings,(Handle hCCOM,Handle hCPAGE));
 DEC_FUN(Bool32, RBLOCK_GetAnglePage,(Handle hCCOM,Int32 * lpNominator,Int32 * lpDenominator));
 #undef DEC_FUN

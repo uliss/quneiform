@@ -95,7 +95,7 @@ typedef enum
 
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RPIC_FUNC(a) b c
-DEC_FUN(Bool32, RPIC_SearchPictures,(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE));
+DEC_FUN(Bool32, RPIC_SearchPictures,(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE));
 #undef DEC_FUN
 
 /*

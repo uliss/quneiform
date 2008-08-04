@@ -473,7 +473,7 @@ Bool32 SVLComponentFilter(LineInfo *Line, PRMPreProcessImage Image)
 		Rl.right -= Thick;
 	}
 
-	pcomp = CCOM_GetFirst ((Int32)(Image->hCCOM), NULL);
+	pcomp = CCOM_GetFirst(Image->hCCOM, NULL);
 
 	do
 	{
@@ -493,7 +493,7 @@ Bool32 SVLComponentFilter(LineInfo *Line, PRMPreProcessImage Image)
 				{
 					pdeadcom = pcomp;
 					pcomp = CCOM_GetNext (pcomp, NULL);
-					bDieComponent = CCOM_Delete((Int32)(Image->hCCOM), pdeadcom);
+					bDieComponent = CCOM_Delete(Image->hCCOM, pdeadcom);
 				}
 
 				if ( bShowDebug || bShowStepDebug )
