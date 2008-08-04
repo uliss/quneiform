@@ -93,9 +93,9 @@ typedef struct CGRAPH_FileData
 
 typedef struct ALoop
 {
-	Int32	n;
-	Int32	*loop;
-}aloop;
+	Int32     n;
+	intptr_t *loop;
+} aloop;
 
 typedef struct LoopData
 {

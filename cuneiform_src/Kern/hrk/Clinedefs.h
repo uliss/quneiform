@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define CLINE_MaxVerticsNumber        4
 
-typedef Word32 CLINE_handle;
+typedef void* CLINE_handle;
 
 typedef union
 {

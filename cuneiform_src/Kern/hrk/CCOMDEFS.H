@@ -165,7 +165,7 @@ typedef struct _CCOM_cont
     Bool16                kill_dust_mode,language,style_new;
     } CCOM_cont;
 
-typedef Int32  CCOM_handle;
+typedef void*  CCOM_handle;
 #pragma pack (pop)
 #endif
 

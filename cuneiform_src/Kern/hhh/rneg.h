@@ -113,7 +113,7 @@ typedef enum
 				RNEG_FNRNEG_TestForNegative
 } RNEG_EXPORT_ENTRIES;
 
-typedef Int32  CCOM_handle;
+typedef void*  CCOM_handle;
 
 /*  Описание функций  */
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RNEG_FUNC(a) b c

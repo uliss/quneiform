@@ -116,7 +116,7 @@ RBLOCK_FUNC(Bool32) RBLOCK_ExtractTextBlocks(Handle hCCOM,Handle hCPAGE,CLINE_ha
 	}
 
   EnableDebug();
-  PageLayoutBlocks((Int32)hCCOM);
+  PageLayoutBlocks(hCCOM);
   OutputFragments(hCPAGE);
   Close_Res_Log();
 
