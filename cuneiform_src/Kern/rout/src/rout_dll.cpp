@@ -225,7 +225,7 @@ ROUT_FUNC(Bool32) ROUT_SetImportData(Word32 dwType, void * pData)
 
 		// Сохранение концов строк
 		case ROUT_BOOL_PreserveLineBreaks:
-			gPreserveLineBreaks = (BOOL)pData;
+			gPreserveLineBreaks = (pData!=0);
 			break;
 
 		// Нераспознанный символ

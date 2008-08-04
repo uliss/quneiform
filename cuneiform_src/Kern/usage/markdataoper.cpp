@@ -149,7 +149,7 @@ Bool LoadComps_rv (Handle hC, void *vB, char *pStr, int Filter)
 		/*  ключ к данным  */
 		if (Fir)
 		{
-			pcomp = CCOM_GetFirst ((Int32)hC, NULL);
+			pcomp = CCOM_GetFirst(hC, NULL);
 			Fir = FALSE;
 		}
 		else

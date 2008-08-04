@@ -84,6 +84,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "line_vp_util.h" //own functions
 #include "puma_err.h"
 /*----------------------------------------------------------------------------*/
+/* JussiP: this function is never called and the signature clashes with
+ * the next one with the same name.
+ */
+#if 0
 Bool LoadLinesVP_rv (Handle hC, int Type, void *vB, char *pStr, Word16 *pCode)
 {
 	Bool ret;
@@ -141,6 +145,7 @@ Bool LoadLinesVP_rv (Handle hC, int Type, void *vB, char *pStr, Word16 *pCode)
 			return RV_FALSE;
 	}
 }
+#endif
 /*---------------------------------------------------------------------------*/
 Bool LoadLinesVP_rv (CLINE_handle hC, int Type, void *vB, char *pStr, Word16 *pCode)
 {
@@ -178,15 +183,15 @@ Bool LoadLinesVP_rv (CLINE_handle hC, int Type, void *vB, char *pStr, Word16 *pC
 	}
 }
 /*---------------------------------------------------------------------------*/
-void GetKeysPumaVP (void *vLti, Word32 *pKeyHor, Word32 *pKeyVer)
+void GetKeysPumaVP (void *vLti, Handle *pKeyHor, Handle *pKeyVer)
 {
 	LinesTotalInfo *pLti;
 	pLti = (LinesTotalInfo *)vLti;
-	*pKeyHor = (Word32)(pLti->Hor.Lns);
-	*pKeyVer = (Word32)(pLti->Ver.Lns);
+	*pKeyHor = pLti->Hor.Lns;
+	*pKeyVer = pLti->Ver.Lns;
 }
 /*---------------------------------------------------------------------------*/
-Bool GetSomeKeys_rv (void *vB, Word32 *pKeyHor, Word32 *pKeyVer
+Bool GetSomeKeys_rv (void *vB, Handle *pKeyHor, Handle *pKeyVer
 					 , int *pCntHor, int *pCntVer, char *pStr)
 {
 	UN_BUFF *pB;
@@ -205,8 +210,8 @@ Bool GetSomeKeys_rv (void *vB, Word32 *pKeyHor, Word32 *pKeyVer
 		sprintf (pStr, "Линии выделялись, но ни одной не выделено.");
 		return RV_EMPTY;
 	}
-	*pKeyHor = (Word32)(pLti->Hor.Lns);
-	*pKeyVer = (Word32)(pLti->Ver.Lns);
+	*pKeyHor = pLti->Hor.Lns;
+	*pKeyVer = pLti->Ver.Lns;
 	*pCntHor = pLti->Hor.Cnt;
 	*pCntVer = pLti->Ver.Cnt;
 	return RV_TRUE;
@@ -291,7 +296,7 @@ Bool LoadLinesInfo_rv (CLINE_handle hC, void *vB, char *pStr,Bool Hori)
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool LoadLinesSpecInfo (Handle hC, void *vB, Word32 Key, int Cnt)
+Bool LoadLinesSpecInfo (Handle hC, void *vB, Handle Key, int Cnt)
 {
 	int i;
 	Word32 err32, nTeor, nReal;
@@ -337,8 +342,8 @@ Bool LoadLinesSpecInfo (Handle hC, void *vB, Word32 Key, int Cnt)
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Word32 HoriType
-				   , Word32 VertType, char *pStr)
+Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType
+				   , Handle VertType, char *pStr)
 {
 	int i;
 	Word32 err32, nTeor;//, nReal;
@@ -435,7 +440,7 @@ Bool MyReSetLines(void* vLines,int count,CLINE_handle hCLINE,char *pStr)
 	Word32 nTeor;
 	nTeor=sizeof(DLine);
 	DLine* pbeg=(DLine*)vLines;
-	DLine* pend=(DLine*)((int)pbeg+nTeor*count);
+	DLine* pend=&(pbeg[count]);
 	DLine* p;
 	CPDLine cpdata;
 	int Beg_X;
