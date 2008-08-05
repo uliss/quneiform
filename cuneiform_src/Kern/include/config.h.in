@@ -1,4 +1,11 @@
+#ifndef CONFIG_H_CF
+#define CONFIG_H_CF
+
 #cmakedefine USE_MAGICK
+
+#define CF_VERSION "@CF_VERSION@"
 
 #define INSTALL_PREFIX "@CMAKE_INSTALL_PREFIX@"
 #define INSTALL_DATADIR "@INSTALL_DATADIR@"
+
+#endif

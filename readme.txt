@@ -20,7 +20,6 @@ This port is has several limitations. Among the biggest ones are:
 
 - it has been tested only on Linux and OS X
 - it only works on 32 bit x86 processors
-- it only works if you run it in the build directory
 - layout analysis is disabled
 
 Patches to fix any of these issues are gladly accepted.
@@ -48,7 +47,7 @@ Running
 
 After install you simply run.
 
-cuneiform [-l language -o result_file] <image_file>
+cuneiform [-l language -o result_file --html] <image_file>
 
 Output is written to pumaout.txt. Cuneiform assumes that your image contains
 only a single column of text.
@@ -57,8 +56,12 @@ By default Cuneiform recognizes english text. To change the language use the
 command line switch -l followed by your language string. To get a list of
 supported languages type "./cuneiform -l".
 
+By default Cuneiform outputs plain text. You can specify the "--html" switch
+to make it output in HTML format.
+
 If you do not define an output file with the -o switch, Cuneiform
-writes the result to a file "cuneiform-out.txt".
+writes the result to a file "cuneiform-out.[format]". The file extension
+is either "txt" or "html" depending on your output format.
 
 If you want to run Cuneiform without installing it on your system, you
 have to point the CF_DATADIR environment variable to a directory

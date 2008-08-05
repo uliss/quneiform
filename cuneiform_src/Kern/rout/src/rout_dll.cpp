@@ -404,7 +404,7 @@ Handle MyOpen(char * lpName, Word32 dwFlag)
 		if (dwFlag & OSF_BINARY)
 			mode |= _O_BINARY;
 
-		f = (Handle)_open(lpName, mode, _S_IREAD | _S_IWRITE);
+		f = (Handle)open(lpName, mode, _S_IREAD | _S_IWRITE);
 		if ( (long)f == -1 )
 			{
 			ERR_OPEN_FILE;
@@ -442,7 +442,7 @@ Word32 MyWrite(Handle hFile,
 {
 	ULONG bytesWritten =  CFIO_Write?
 		CFIO_Write(hFile, (PInt8)lpData, dwSize):
-		_write((int)hFile, lpData, dwSize);
+		write((int)hFile, lpData, dwSize);
 
 	if ( bytesWritten != dwSize )
 		ERR_WRITING_TO_FILE;
@@ -474,7 +474,7 @@ Word32 MySeek(Handle hFile, Word32 dwBytes, Word32 dwFrom)
 				return -1;
 			}
 
-		pos = _lseek((int)hFile,dwBytes, mode);
+		pos = lseek((int)hFile,dwBytes, mode);
 		}
 
 	if (pos == -1 )

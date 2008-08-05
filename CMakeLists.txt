@@ -12,6 +12,12 @@ if(PROJECT_BINARY_DIR STREQUAL PROJECT_SOURCE_DIR)
    message(FATAL_ERROR "In-tree build attempt detected, aborting. Set your build dir outside your source dir and try again.")
 endif()
 
+set(CF_VERSION_MAJOR "0")
+set(CF_VERSION_MINOR "3")
+set(CF_VERSION_PATCH "0")
+
+set(CF_VERSION "${CF_VERSION_MAJOR}.${CF_VERSION_MINOR}.${CF_VERSION_PATCH}")
+
 set(RELATIVE_DATADIR "share/cuneiform")
 set(INSTALL_DATADIR "${CMAKE_INSTALL_PREFIX}/${RELATIVE_DATADIR}")
 
