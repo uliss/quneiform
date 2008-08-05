@@ -432,12 +432,6 @@ Handle MyLock(Handle hMem);
 Bool32 MyUnlock(Handle hMem);
 Bool32 MyFree(Handle hMem);
 
-Handle MyOpen(char * lpName, Word32 dwFlag);
-Bool32 MyClose(Handle hFile, Word32 dwFlag=0);
-Word32 MyWrite(Handle hFile,
-			   char * lpData,
-			   Word32 dwSize);
-Word32 MySeek(Handle hFile, Word32 dwBytes, Word32 dwFrom);
 void MyDebugPrint(char *format,...);
 void ClearError();
 void NotImplemented(char *file, long line);
