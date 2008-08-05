@@ -117,7 +117,7 @@ Bool32 SearchAndKill ( PRSPreProcessImage Image, LinesTotalInfo *LTInfo )
 	LineInfo linfo;
 	CLINE_handle* pCLINE=(CLINE_handle*)(Image->phCLINE);
 
-	int count_comp=CCOM_GetContainerVolume(*((Int32*)Image->phCCOM));
+	int count_comp=CCOM_GetContainerVolume(*(Image->phCCOM));
 	int count_line=CLINE_GetLineCount(*pCLINE);
 	if(count_comp>10000||count_line>600)
 		return TRUE;
@@ -391,7 +391,7 @@ Bool32 ComponentFilter( PRSPreProcessImage Image, LineInfo *Line)
 		Rl.top = Rl.top < 0 ? 0 : Rl.top;
 	}
 
-	pdeadcom = CCOM_GetFirst ((Int32)(*Image->phCCOM), NULL);
+	pdeadcom = CCOM_GetFirst (*Image->phCCOM, NULL);
 	do
 	{
 		pcomp = CCOM_GetNext (pdeadcom, NULL);
@@ -411,7 +411,7 @@ Bool32 ComponentFilter( PRSPreProcessImage Image, LineInfo *Line)
 				{
 					if ( gKillComponents )
 					{
-						bDieComponent = CCOM_Delete((Int32)(*Image->phCCOM), pdeadcom);
+						bDieComponent = CCOM_Delete(*Image->phCCOM, pdeadcom);
 					}
 
 					if ( bShowLineDebug || bShowStepLineDebug )
@@ -790,7 +790,7 @@ void DebugDPumaShowComponents(PRSPreProcessImage Image, Handle hWindow, Word32 C
 	CCOM_comp * pcomp;
 	Rect16 Rc;
 
-	pcomp = CCOM_GetFirst ((Int32)(*Image->phCCOM), NULL);
+	pcomp = CCOM_GetFirst (*Image->phCCOM, NULL);
 	if(!pcomp)
 		return;
 
