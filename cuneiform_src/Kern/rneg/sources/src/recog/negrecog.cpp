@@ -55,6 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <string.h>
+#include <stdlib.h>
 #include "negrecog.h"
 #include "rneg.h"
 //-------------------------------------------
@@ -320,10 +321,10 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
                Palette2.rgbRed       = 0;
                Palette2.rgbReserved  = 0;
 
-               hDIB = (HANDLE) ::GlobalAlloc(GMEM_MOVEABLE | GMEM_ZEROINIT, bfSize);
+               hDIB = calloc(1, bfSize);
  	           if (hDIB != 0)
                {
-                    pDIB = (Word8*) ::GlobalLock((HGLOBAL) hDIB);
+                    pDIB = static_cast<Word8*> (hDIB);
                     pTmpDIB = pDIB;
 
                     /////////  filling Dib   ///////////////////////////////////////////////////////////
@@ -353,8 +354,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
                     pText = turn ? "Component up-down" : "Component down-up";
                     comp_window = LDPUMA_CreateWindow(pText, pDIB);
 //                    LDPUMA_WaitUserInput(hShowNegComps, comp_window);
-		            ::GlobalUnlock((HGLOBAL) hDIB);
-		            ::GlobalFree((HGLOBAL) hDIB);
+                    free(hDIB);
                }
             }
 //----------------------------------------------------------------------

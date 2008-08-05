@@ -252,6 +252,20 @@ int main(int argc, char **argv) {
     rc = LPUMA_XFinalRecognition();
     */
 
+    /* This seems to work (at least not crash). But since it is untested and
+     * I am not sure what is the proper function calling convention, it
+     * is disabled.
+     */
+    /*
+    Bool32 singlecolumn = FALSE;
+    PUMA_SetImportData(PUMA_Bool32_OneColumn, &foo);
+
+    if(!PUMA_XPageAnalysis()) {
+        printf("PUMA_XPageAnalysis failed.\n");
+        return 1;
+    }
+    //printf("PUMA_XPageAnalysis succeeded.\n");
+    */
     if(!PUMA_XFinalRecognition()) {
         printf("PUMA_XFinalrecognition failed.\n");
         return 1;

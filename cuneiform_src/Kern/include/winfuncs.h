@@ -28,12 +28,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef WINFUNCS_H_
 #define WINFUNCS_H_
 
-#define _chsize(a, b) ftruncate((a), (b))
-#define _close(a) close(a)
-#define _lseek(a, b, c) lseek((a), (b), (c))
-#define _open(a, b, c) open((a), (b), (c))
-#define _write(a, b, c) write((a), (b), (c))
-
 int LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax);
 
 int CreateDirectory(const char *dir, void *dummy);
@@ -187,7 +181,7 @@ BOOL Rectangle(HDC hdc,
 char* _strupr(char*s);
 
 /* These are not windows compat functions, but general helper functions.
- * I had no other place to put it.
+ * I had no other place to put them.
  */
 
 int open_data_file(const char *basename, int mode);
