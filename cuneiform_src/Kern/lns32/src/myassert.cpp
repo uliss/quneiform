@@ -70,9 +70,7 @@ void   __assertfail( char  *__msg,
                                    char  *__file,
                                    int __line);
 
-void   my_assert_fail(   char  *__cond,
-                                       char  *__file,
-													int __line	);
+void   my_assert_fail(const char  *__cond, const char  *__file, int __line);
 
 
 #ifdef  __cplusplus
@@ -85,9 +83,7 @@ void   my_assert_fail(   char  *__cond,
    #define __ASM asm
 #endif
 
-void   my_assert_fail(   char  *__cond,
-                                       char  *__file,
-													int __line	){
+void my_assert_fail(const char  *__cond, const char  *__file, int __line	){
 
    char c;
 #if defined( _Windows ) || defined( WIN32 )

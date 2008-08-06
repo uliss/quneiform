@@ -67,16 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       #include <stdio.h>
 #endif
 
-#if defined( WIN16 )
-   #include "__mmove.h"
-   #define MEMMOVE   __mmove   // long blocks copy
-#else
-   #define MEMMOVE	memmove
-#endif
-
    #include <stdlib.h>
-   #define MALLOC 	malloc
-   #define FREE   	free
 
    #include "globus.h"
    #include "myassert.h"

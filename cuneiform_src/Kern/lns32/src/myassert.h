@@ -84,9 +84,7 @@ extern "C" {
                                       char  *__file,
          	                          int __line);
 #else
-   void   my_assert_fail(   char  * cond,
-                                    char  *__file,
-         		                       	int __line);
+   void   my_assert_fail(const char *cond, const char *__file, int __line);
 #endif
 
 

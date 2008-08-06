@@ -915,7 +915,7 @@ Bool32 ROUT_LoadRec6List(
 
 	while (	fgets(buf,sizeof(buf)-1,f) )
 		{
-		long language=-1;
+		int language=-1;
 		char theName[_MAX_PATH] = "";
 
 		// Пустые строки и строки комментариев,
@@ -929,7 +929,7 @@ Bool32 ROUT_LoadRec6List(
 			continue;
 
 		// Номер языка и имя таблицы rec6xxx.dat
-		sscanf(buf,"%d%s", &language, &theName[0]);
+		sscanf(buf, "%d%s", &language, &theName[0]);
 
 		if (language <0 || language >= LANG_TOTAL ||
 			!theName[0] ||
