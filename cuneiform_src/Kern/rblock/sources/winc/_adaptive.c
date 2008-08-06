@@ -194,15 +194,9 @@ void online_comp(c_comp *w)
 return;
 
 }
-/* FIXME: PROOT does not have a pComp. Don't know what should be done, so
- * I disabled this.
-*/
-CCOM_comp *get_CCOM_comp(PROOT r)
-{
-    /*return (CCOM_comp *)r->pComp;*/
 
-    printf("ERROR: get_CCOM_comp (rblock) was called. Now is the time to fix this bug.");
-    exit(1);
+CCOM_comp *get_CCOM_comp(PROOT r) {
+    return (CCOM_comp *)r->pComp;
 }
 
 BOOL save_MN(MN *mn)
