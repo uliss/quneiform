@@ -258,9 +258,7 @@ extern "C" {
 #endif
 
 #ifdef WIN_MOD
-     char      *  PASC malloc_m(unsigned long size);
      char *  PASC halloc_m(long n, uint size);
-     void         PASC free_m(void *ptr);
      void         PASC hfree_m(void *ptr);
 
      #define    strlen_m  lstrlen
@@ -274,11 +272,8 @@ extern "C" {
 
   #ifdef DEBUG_MEM
      void        heapstat(char * mess);
-     char      * malloc_m(unsigned long size);
      void        free_m(void *ptr);
   #else
-     #define malloc_m  malloc
-     #define free_m    free
      #define halloc_m  halloc
      #define hfree_m   hfree
   #endif

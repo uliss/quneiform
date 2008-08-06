@@ -142,7 +142,7 @@ int init_lst(KNOT ***knot,int *k_bloc,int max_knot,KNOT **beg_free,int size_item
   /* ===переписывание указателей в выходные массивы ===*/
   if( (fl=alloc_seg(kn,&kb,max_knot,size_item,size_bloc)) ) return fl-10;
   if(*k_bloc == -1) /*первый  захват памяти для данного списка*/
-    {if( (*knot=(KNOT**)malloc_m((MAX_BLOC+2)*sizeof(KNOT*))) == NULL) return -3;}
+    {if( (*knot=(KNOT**)malloc((MAX_BLOC+2)*sizeof(KNOT*))) == NULL) return -3;}
   do0(i,0,kb) (*knot)[i+(*k_bloc+1)]=kn[i];
   /*===собственно инициализация ссылок===*/
   if(*k_bloc == -1) /*первый  захват памяти для данного списка*/
@@ -184,16 +184,16 @@ int alloc_seg(KNOT **kn,int *kb,int max_kn,uint size_item,int *size_bloc)
   k_knot=(int)(SIZE_SEG/size_item); //max_kn=max_knot;
   while(max_kn > -2)
   { uint k=MAX(MIN(k_knot,max_kn+2),1);
-    if( (kn[++(*kb)]=(KNOT*)malloc_m(k*size_item)) != NULL) /*смогли взять*/
+    if( (kn[++(*kb)]=(KNOT*)malloc(k*size_item)) != NULL) /*смогли взять*/
        { max_kn-=k; size_bloc[*kb]=k-1; }
     else
     { --(*kb); size=determine_free_memory(k*size_item);
       if(size < (uint)MIN_KNOT*size_item) /*памяти явно не хватает*/
-        { do0(i,0,*kb) free_m(kn[i]); return -3; }
+        { do0(i,0,*kb) free(kn[i]); return -3; }
       k_knot=size/size_item;
     }
     if((*kb) > MAX_BLOC-2) /*очень много мелких кусочков памяти*/
-      { do0(i,0,*kb) free_m((char*)kn[i]); return -4; }
+      { do0(i,0,*kb) free((char*)kn[i]); return -4; }
   }
   return 0;
 }
@@ -205,16 +205,16 @@ uint determine_free_memory(uint size1)
   ная в хип malloc-a по free, для этого используется функция прохождения по
   списку malloc-ов
   max_size=MIN(MAX_BLOC,(long)max_size*16);*/
-  while( (ptr=(char*)malloc_m(size)) == NULL )
+  while( (ptr=(char*)malloc(size)) == NULL )
     if((size=((size>>1)+(size>>2))) < 100) {size=0;break;}
-  if(size) free_m(ptr);
+  if(size) free(ptr);
   return size;
 }
 /*===========освобождение памяти списка*/
 void free_lst(KNOT **knot,int k_bloc)
 { int i;
   if(k_bloc < 0 || knot == NULL) return;
-  doi(i,k_bloc,0) free_m((char*)knot[i]); free_m((char*)knot);
+  doi(i,k_bloc,0) free((char*)knot[i]); free((char*)knot);
 }
 #ifndef CLUST1
 
@@ -294,8 +294,8 @@ int read_frm(char *file_frm,FRAME ***frm_arr,int *k_arr_frm,FRAME ***frm,
 				SnpLog("***read_frm too many of frames %d, we'll be reduce",kf);
 		#endif
 
-		buf=(PRMTR*)malloc_m(KBUF*sizeof(PRMTR));
-    his=(long*)malloc_m(KHIS*sizeof(long));
+		buf=(PRMTR*)malloc(KBUF*sizeof(PRMTR));
+    his=(long*)malloc(KHIS*sizeof(long));
     kf1=kf; for(i=0; i <= kh; ++i) his[i]=0;
     while(kf1 > 0)
     {
@@ -316,25 +316,19 @@ int read_frm(char *file_frm,FRAME ***frm_arr,int *k_arr_frm,FRAME ***frm,
       if(kf1 >= MAX_FRAME)
       	{SizeMin=MAX(SizeMin,i); kf=kf1-his[i]; break;}
     }
-    fseek_m(rb,0L,SEEK_SET); free_m(buf); free_m(his);
+    fseek_m(rb,0L,SEEK_SET); free(buf); free(his);
   }
   *k_arr_frm=-1;
-  if( (*frm_arr=(FRAME**)malloc_m((MAX_BLOC+2)*sizeof(FRAME*))) == NULL)
+  if( (*frm_arr=(FRAME**)malloc((MAX_BLOC+2)*sizeof(FRAME*))) == NULL)
  		return -3;
   if((fl=alloc_seg((KNOT**)*frm_arr,k_arr_frm,(int)kf+3,SizeItem,size_bloc)))
   	return fl-20;
 
-  if((*frm=(FRAME**)
-  	#ifndef PPS_BIG_ARR_NEWPTR
-  		malloc_m
-  	#else
-  		MyNewPtrClear
-  	#endif
-  					(((int)kf+3)*sizeof(FRAME*))) == NULL)
-  							return -3;
+  if((*frm=(FRAME**) malloc(((int)kf+3)*sizeof(FRAME*))) == NULL)
+      return -3;
 
   f=*frm;
-  if((buf=(PRMTR*)malloc_m(KBUF*sizeof(PRMTR))) == NULL)
+  if((buf=(PRMTR*)malloc(KBUF*sizeof(PRMTR))) == NULL)
 		return -3;
   kf1=file_len/sizeof(PRMTR); k=-1; ptr=(OLD_FRAME*)(*frm_arr)[kk=0]; j=-1;
   while(kf1 > 0)
@@ -376,9 +370,9 @@ int read_frm(char *file_frm,FRAME ***frm_arr,int *k_arr_frm,FRAME ***frm,
     }
   }
   for(i=kk+1; i <= *k_arr_frm; ++i)
-		free_m((*frm_arr)[i]);
+		free((*frm_arr)[i]);
   *k_arr_frm=kk;
-  free_m(buf); *k_frm=k;
+  free(buf); *k_frm=k;
 
 	fclose_m(rb);
   return 0;
@@ -489,15 +483,8 @@ void RestoreOldCoorRect(FRAME *f,RECT *fo)
 void PASC free_frm(FRAME **frm_arr,int k_arr_frm,FRAME **frm)
 /*==*/
 {
-
-	#ifndef PPS_BIG_ARR_NEWPTR
-		free_m((char*)frm);
-	#else
-		//DisposPtr((char*)frm);
-		MyDisposeHandle ( HandleFrmAll );
-	#endif
-
-	free_lst((KNOT**)frm_arr,k_arr_frm);
+    free((char*)frm);
+    free_lst((KNOT**)frm_arr,k_arr_frm);
 }
 
 long time(void)
@@ -515,14 +502,14 @@ long time(void)
 //==конструктор
 int NewStack(int size,STACK *St)
 //==
-{ if((St->arr=(KNOTT**)malloc_m(size*sizeof(PTR)))==NULL) return NOT_ALLOC;
+{ if((St->arr=(KNOTT**)malloc(size*sizeof(PTR)))==NULL) return NOT_ALLOC;
   St->size=size; St->pos=0;
   return 0;
 }
 //==деструктор
 void DelStack(STACK *St)
 //==
-{ if(St->arr != NULL) free_m(St->arr); }
+{ if(St->arr != NULL) free(St->arr); }
 //Parameters:ptr - заносимый объект
 //Return: 0 - OK, NOT_ALLOC - переполнение стека
 //==занести в стек
@@ -607,13 +594,13 @@ int InitSubAlloc(long Size,SUB_ALLOC *Sub)
 //==
 { int NumPtr=(int)(Size/SIZE_SEGL),in; long k;
   if((long)NumPtr*SIZE_SEGL  < Size) ++NumPtr;
-  Sub->Ptr=(char**)malloc_m(NumPtr*sizeof(PTR));           //ml
-  Sub->SizePtr=(long*)malloc_m(NumPtr*sizeof(long));       //ml
+  Sub->Ptr=(char**)malloc(NumPtr*sizeof(PTR));           //ml
+  Sub->SizePtr=(long*)malloc(NumPtr*sizeof(long));       //ml
   Sub->NumPtr=NumPtr; Sub->CurrPtr=0; Sub->CurrPos=0; Sub->Size=Size;
   in=-1;
   while(Size > 0)
   { k=MIN(SIZE_SEGL,Size);
-    if((Sub->Ptr[++in]=(char*)malloc_m((uint)k))==NULL)return NOT_ALLOC;
+    if((Sub->Ptr[++in]=(char*)malloc((uint)k))==NULL)return NOT_ALLOC;
     Sub->SizePtr[in]=k; Size-=k;
   }
   return 0;
@@ -635,7 +622,7 @@ char *Submalloc(uint size,SUB_ALLOC *s)
         (s->NumPtr+1)*sizeof(PTR));
       s->SizePtr=(long*)realloc_m(s->SizePtr,s->NumPtr*sizeof(long),
         (s->NumPtr+1)*sizeof(long));
-      if((s->Ptr[s->NumPtr]=(char*)malloc_m((uint)SIZE_SEGL))==NULL)return NULL;
+      if((s->Ptr[s->NumPtr]=(char*)malloc((uint)SIZE_SEGL))==NULL)return NULL;
       s->SizePtr[s->NumPtr]=SIZE_SEGL; s->Size+=SIZE_SEGL;
       s->CurrPtr=s->NumPtr++;
     }
@@ -649,8 +636,8 @@ char *Submalloc(uint size,SUB_ALLOC *s)
 void DeleteSubAlloc(SUB_ALLOC *s)
 //==
 { int i;
-  for(i=0; i < s->NumPtr; ++i) free_m(s->Ptr[i]);
-  free_m(s->Ptr); free_m(s->SizePtr);
+  for(i=0; i < s->NumPtr; ++i) free(s->Ptr[i]);
+  free(s->Ptr); free(s->SizePtr);
 }
 //==Позиционироваться к началу SubAllocator-a без очистки памяти под него
 void ClearSubAlloc(SUB_ALLOC *s)
@@ -690,50 +677,11 @@ int GetTypeDoc(void)
 
 //Функция memmove_m, настраиваемая с помощью #define HUGE_MOD
 //на far или huge-указатели
-int memmove_m(void HUGE_P *out,void HUGE_P *in,long size)
-{
-  #ifdef WIN_MOD
-    #ifdef HUGE_MOD
-    { char HUGE_P *BegIn=(char HUGE_P *)in,HUGE_P *BegOut=(char HUGE_P *)out;
-      long len=64000;
-      while(size > 0)
-      { len=MIN(len,size);
-        memmove(/*normptr*/(char far *)BegOut,/*normptr*/(char far *)BegIn,(uint)len);
-        size-=len; BegIn+=len; BegOut+=len;
-      }
-    }
-    #else
-      if(size > 64000) {/*printf("\nERR");*/exit(99);} //ERR(1,"memmove_m");
-      memmove(out,in,(uint)size);
-    #endif
-  #else
-    #ifdef HUGE_MOD
-    { char HUGE_P *BegIn=(char HUGE_P *)in,HUGE_P *BegOut=(char HUGE_P *)out;
-      long len=64000;
-      while(size > 0)
-      { len=MIN(len,size);
-        memmove(normptr(BegOut),normptr(BegIn),(uint)len);
-        size-=len; BegIn+=len; BegOut+=len;
-      }
-    }
-    #else
-      if(size > 64000) {/*printf("\nERR");*/exit(99);} //ERR(1,"memmove_m");
-      memmove(out,in,(uint)size);
-    #endif
-  #endif
-  return 0;
+int memmove_m(void HUGE_P *out,void HUGE_P *in,long size) {
+    memmove(out, in, (uint)size);
+    return 0;
 }
-void *normptr(void *p)
-{
-  #ifdef DOS_MOD
-  #ifndef QWIN
-  #ifdef HUGE_MOD
-   return (void far *)(((unsigned long)(FP_SEG(p)+(FP_OFF(p) >> 4)) << 16)  | ((FP_OFF(p) & 0x000f)));
-  #endif
-  #endif
-  #endif
-  return p;
-}
+
 /*
 //==
 int ProjectFrm(FRAME **frm,int NumFrm,float tg_ang)
@@ -831,7 +779,7 @@ int EstIntrvlHor(FRAME **frm,int num,BOUND *bnd,int dxAS,int dyAS,
               (KNOT**)&List.free,sizeof(KNOT3))) != 0) return -100-fl;
   if(fl=GenAS(frm,num-1,dxAS,dyAS,bnd,(KNOT3*)List.free,-1,&As,Rect))return fl-10;
   n=0; ky=As.ky-1,kx=As.kx-1; beg_as=As.beg_as;
-  if((arr=(int*)malloc_m(MaxNum*sizeof(int)))==NULL)
+  if((arr=(int*)malloc(MaxNum*sizeof(int)))==NULL)
 		return NOT_ALLOC;
   do0(iy,1,ky) do0(ix,1,kx)
   { inX[0]=ix; inX[1]=ix-1; inX[2]=ix+1;
@@ -866,7 +814,7 @@ int EstIntrvlHor(FRAME **frm,int num,BOUND *bnd,int dxAS,int dyAS,
   if(NumMod < (int)(MinPerc*n)) {*dsym=INDEF;goto RET;}
   //*dsym=-*dsym;
   //--оценка AveX,AveY--
-  if((arrY=(int*)malloc_m(MaxNum*sizeof(int)))==NULL)return NOT_ALLOC;
+  if((arrY=(int*)malloc(MaxNum*sizeof(int)))==NULL)return NOT_ALLOC;
   nn=0;
   do0(iy,1,ky) do0(ix,1,kx)
   { for(pp=beg_as[iy][ix]; pp; pp=pp->next)
@@ -889,11 +837,11 @@ int EstIntrvlHor(FRAME **frm,int num,BOUND *bnd,int dxAS,int dyAS,
   { if(statis2(arr, nn-1,NULL,AveX,1,&NumMod)) {ret=-21;goto RET;}
     if(statis2(arrY,nn-1,NULL,AveY,1,&NumMod)) {ret=-21;goto RET;}
   }
-  free_m(arrY);
+  free(arrY);
 RET:
-  free_m(arr);
+  free(arr);
   free_lst(List.ArrSeg,List.NumSeg);
-  do0(i,0,As.ky) free_m(As.beg_as[i]); free_m(As.beg_as);
+  do0(i,0,As.ky) free(As.beg_as[i]); free(As.beg_as);
   return ret;
 }
 //== считываем разрешение сканера и длину PRS-кода

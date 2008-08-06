@@ -64,25 +64,25 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*========mode=OF_READ||OF_READWRITE||OF_WRITE*/
 FILE1 *fopen_m(char *name,int mode)
 {
-   FILE1 *f=(FILE1*)malloc_m(sizeof(FILE1));
+   FILE1 *f=(FILE1*)malloc(sizeof(FILE1));
    if(mode == OF_READ)
    { if( (f->hFile =_lopen(name,mode)) <= 0)
-     { free_m(f); /*ErrorHandler();*/ return NULL; }
+     { free(f); /*ErrorHandler();*/ return NULL; }
    }
    else
    { if( (f->hFile=_lcreat(name,0)) <= 0)
-     { free_m(f); /*ErrorHandler();*/ return NULL; }
+     { free(f); /*ErrorHandler();*/ return NULL; }
    }
    return f;
 }
 
 FILE1* myfopen(char *name,LONG* len)
 {
-   FILE1 *f=(FILE1*)malloc_m(sizeof(FILE1));
+   FILE1 *f=(FILE1*)malloc(sizeof(FILE1));
     if( (f->hFile=_lopen(name,OF_WRITE)) <= 0)
      {
 			if( (f->hFile=_lcreat(name,0)) <= 0)
-			 {free_m(f);
+			 {free(f);
 			  return NULL;
 			 }
 			*len=0;
@@ -111,7 +111,7 @@ int hread_m(void *buf,int size,int count,FILE1 *stream)
 int fclose_m(FILE1 *f)
 {
 	int fl=_lclose(f->hFile);
-  free_m(f);
+  free(f);
 	return fl;
 }
 
@@ -194,10 +194,10 @@ char get1_kod(FILE1 *f)
 /*=========*/
 { static char *b; static int len=-1,pos=-1;
   if(f==NULL)
-   { if(len!=-1 || pos!=-1) free_m(b); len=-1,pos=-1; return 0; }
+   { if(len!=-1 || pos!=-1) free(b); len=-1,pos=-1; return 0; }
   if(pos >= len)
-  { if(pos == -1) b=(char*)malloc_m(SIZE_BLOC);
-    if((len=fread_m(b,1,SIZE_BLOC,f)) == 0) {free_m(b);return 0;/*END FILE*/}
+  { if(pos == -1) b=(char*)malloc(SIZE_BLOC);
+    if((len=fread_m(b,1,SIZE_BLOC,f)) == 0) {free(b);return 0;/*END FILE*/}
     pos=0;
   }
   return b[pos++];
