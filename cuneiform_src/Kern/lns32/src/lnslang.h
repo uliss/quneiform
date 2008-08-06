@@ -83,14 +83,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #define SWAPLONG(l)     \
       ((( (Int32)SWAPBYTES(_LOWORD(l))) <<16) | ( (Int32)SWAPBYTES(_HIWORD(l))) )
 
-#ifndef HUGE
-   #define HUGE
-#endif
-
-#ifndef FAR
-   #define FAR
-#endif
-
 #ifndef FALSE
    #define FALSE 0
 #endif

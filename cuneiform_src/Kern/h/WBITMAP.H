@@ -69,7 +69,7 @@ typedef struct tagBitmap
     Int32   bmWidthBytes;
     Word16  bmPlanes;
     Word16  bmBitsPixel;
-    void FAR * bmBits;
-  } Bitmap, *PBitmap, NEAR *NPBitmap, FAR *LPBitmap;
+    void * bmBits;
+  } Bitmap, *PBitmap, *NPBitmap, *LPBitmap;
 
 #endif

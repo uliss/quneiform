@@ -74,7 +74,7 @@ TFltBuf::TFltBuf( int width_dword )
 			return;
 		};
 
-      x16 = (Int32 HUGE*)(malloc( (Int32)32 * (Int32)sizeof(Int32) * (Int32)width_dword  ));
+      x16 = (Int32 *)(malloc( (Int32)32 * (Int32)sizeof(Int32) * (Int32)width_dword  ));
 		if (x16 == NULL) {
 			return;
 		};

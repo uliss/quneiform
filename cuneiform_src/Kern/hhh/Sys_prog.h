@@ -57,11 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef SYS_PROG_DEFINED
 #define SYS_PROG_DEFINED
 
-#ifndef WIN32
-#define huge
-#define far
-#endif
-
 #define CT_SKEW
 
 #if defined (WIN32)
@@ -69,10 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 #ifdef BITS32
-  #define huge
   #define _pascal
-  #define far
-  #define _far
 #endif
 
 //=====Секция настройки на среду=====
@@ -208,9 +200,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #endif
   #ifndef WIN32
     #ifdef DLL_MOD
-      #define PASC FAR PASCAL _export
+      #define PASC PASCAL _export
     #else
-      #define PASC FAR PASCAL _export
+      #define PASC PASCAL _export
     #endif
   #else
     #define PASC
@@ -222,10 +214,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #define CALLBACK
   #define _export
   #define pascal
-
-  #ifndef FAR
-  #define FAR far
-  #endif
 
   #define COM
   /*
@@ -271,18 +259,18 @@ extern "C" {
 
 #ifdef WIN_MOD
      char      *  PASC malloc_m(unsigned long size);
-     char huge *  PASC halloc_m(long n, uint size);
+     char *  PASC halloc_m(long n, uint size);
      void         PASC free_m(void *ptr);
-     void         PASC hfree_m(void huge *ptr);
+     void         PASC hfree_m(void *ptr);
 
      #define    strlen_m  lstrlen
      #define    strcpy_m  lstrcpy
      #define    strcmp_m  lstrcmp
-     #define    memcpy_m(s1,s2,n)   hmemcopy((void huge *)s1,(const void huge *)s2,(long)n)
-     #define    memset_m(s1,n,len)  hmemset((void huge *)s1,n,(long)len)
+     #define    memcpy_m(s1,s2,n)   hmemcopy((void *)s1,(const void *)s2,(long)n)
+     #define    memset_m(s1,n,len)  hmemset((void *)s1,n,(long)len)
 #else
-     char huge * halloc_m(long n, uint size);
-     void        hfree_m(void huge *ptr);
+     char * halloc_m(long n, uint size);
+     void        hfree_m(void *ptr);
 
   #ifdef DEBUG_MEM
      void        heapstat(char * mess);
@@ -304,13 +292,13 @@ extern "C" {
 void free_c(void *ptr);
 
 /* Функции общие для WINDOWS & DOS */
-void    hmemmove(void huge * out, const void huge * in, long size),
-        hmemcopy(void huge *, const void huge *, long),
-        hmemset(void huge *, uint , long);
+void    hmemmove(void * out, const void * in, long size),
+        hmemcopy(void *, const void *, long),
+        hmemset(void *, uint , long);
 
 void * realloc_m(void *ptr_old, uint size_old,
                       uint size_new);
-void huge * hrealloc_m(void *ptr_old, long size_old, long size_new);
+void * hrealloc_m(void *ptr_old, long size_old, long size_new);
 
 
 //------  Common functions for mrk.dll, dot.dll, ndx.dll --------

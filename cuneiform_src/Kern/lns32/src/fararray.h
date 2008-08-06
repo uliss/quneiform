@@ -57,8 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __FARARRAY_H
 	#define __FARARRAY_H
 
-#undef HUGE
-#define HUGE
 /*
 	#ifndef __DOS_H
 	#	include <dos.h>
@@ -67,17 +65,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #ifndef __LNSLANG_H
    #  include "lnslang.h"
 	#endif
-template <class Type> class HUGE THugeArray //: public TFarHeap
+template <class Type> class THugeArray //: public TFarHeap
 {
 	protected:
-      Type HUGE * data;
+      Type * data;
       long int last;                     // == len - 1
 	public:
-Type HUGE & operator[](Int32 i) {
+Type & operator[](Int32 i) {
 			assert( i <= last );
 			return (*(data+i));
 		};
-Type HUGE * ptr( Int32 num ) {
+Type * ptr( Int32 num ) {
 			assert( num <= last );
 			return (data+num);
 		};
@@ -86,12 +84,12 @@ THugeArray( void ){ data = NULL; };
 THugeArray( Int32 of_count ){ create( of_count); };
 ~THugeArray( void ){ flash(); };
 
-Type HUGE * lastPtr(void){
+Type * lastPtr(void){
 			assert(!isEmpty());
 			return (data + last);
 		};
 
-Type HUGE * firstPtr(void){
+Type * firstPtr(void){
 			//?assert(!isEmpty());
 			return (data);
 		};
@@ -99,9 +97,9 @@ Type HUGE * firstPtr(void){
 Bool create( Int32 of_count )
    {
          if ( of_count != 0 )
-            data = (Type HUGE *)(malloc( (Int32)(of_count*(Int32)sizeof(Type)) ));
+            data = (Type *)(malloc( (Int32)(of_count*(Int32)sizeof(Type)) ));
          else
-            data = (Type HUGE *)(malloc( sizeof(Type) ));
+            data = (Type *)(malloc( sizeof(Type) ));
          if (data!=NULL)
             last = (of_count-1);
 			return (data!=NULL);
@@ -117,7 +115,7 @@ Bool Grow( Int32 of_count = -1 )
       if ( of_count <= 0)
          of_count = 1;
 
-      Type HUGE * new_data = (Type HUGE *)(malloc( (Int32)(of_count*(Int32)sizeof(Type)) ));
+      Type * new_data = (Type *)(malloc( (Int32)(of_count*(Int32)sizeof(Type)) ));
       if (new_data!=NULL)
       {
          if (data != NULL)
@@ -158,7 +156,7 @@ Bool shrink( Int32 el_count )
          if (new_data == NULL)
             return WRONG();  // can't shrink ??
          else {
-            data = (Type HUGE *)new_data;
+            data = (Type *)new_data;
             last = el_count -1;
          };
          return TRUE;
@@ -168,7 +166,7 @@ Bool shrink( Int32 el_count )
          if (new_data == NULL)
             return WRONG();  // can't shrink ??
          else {
-            data = (Type HUGE *)new_data;
+            data = (Type *)new_data;
             last = -1;
          };
          return TRUE;

@@ -86,21 +86,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #if 0
  #ifndef ___WIN386_INCLUDED__
 
-  #ifdef _IBMC_
-   #define near
-   #define far
-  #endif
-
-  #ifdef __MAC__
-   #define near
-   #define far
-  #endif
-
-  #ifdef  PC_MS
-   #define near
-   #define far
-  #endif
-
   #pragma warning( disable : 4244 4245 4018 )
   #pragma warning( disable : 4761 4305 )
 

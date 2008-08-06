@@ -85,11 +85,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 EXTERN HWND             hAppWnd;
 #define BUFSZ   0x4000
 
-EXTERN BYTE FAR         * BufZone; // [BUFSZ];
-EXTERN BYTE FAR         * aBufPass;
-EXTERN HANDLE           hBufPass;
+EXTERN BYTE         * BufZone; // [BUFSZ];
+EXTERN BYTE         * aBufPass;
+EXTERN HANDLE       hBufPass;
 
-EXTERN  BYTE FAR     szTempTiffName [144];
+EXTERN  BYTE         szTempTiffName [144];
 EXTERN  char         szScanFullName[144];
 EXTERN  char         szScanDriverName[16];
 EXTERN  char         Main_Dir_Name [128];       // H:\CUNEI  (see zB SCANTAB.C)

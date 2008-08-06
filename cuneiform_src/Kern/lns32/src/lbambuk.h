@@ -113,7 +113,7 @@ struct TLineFragment {
 	BEntry 	rasterBambukEntry;    // pointer to proper raster
     int		level;
 };
-typedef TLineFragment HUGE * PTLineFragment;
+typedef TLineFragment * PTLineFragment;
 
 class TLinesBambuk :
 	public TBambuk< TLineFragment >,

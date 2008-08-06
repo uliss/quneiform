@@ -112,7 +112,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //(до 65000 пар PRS-кодов), иначе - far-буфер (до 16200 пар)
 #define HUGE_MOD
 #if defined (HUGE_MOD) && !defined (HUGE_P)
-  #define HUGE_P huge
+  #define HUGE_P /*huge*/
 #else
   #define HUGE_P
 #endif
@@ -120,7 +120,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //(до 32000 пар рамок), иначе - far-буфер (до 16200 штук)
 //#define HFRM
 #ifdef HFRM
-  #define HFRAME FRAME huge
+  #define HFRAME FRAME /*huge*/
 #else
   #define HFRAME FRAME
 #endif
@@ -181,7 +181,7 @@ typedef void *** PTR3;
 //Структура структуры в памяти
 #define PIECE  struct h_piece
 PIECE { int up,down; };
-#define POINT_H POINT huge *
+#define POINT_H POINT *
 typedef struct hFRM_ARR {FRAME **FrmArr,**frm; int NumArr,NumFrm,AllFrm;} FRM_ARR;
 #define BOUND struct h_bound
 BOUND { int left,up,right,down; };
@@ -542,9 +542,9 @@ KNOT *inc_after_lst(KNOT *ptr,KNOT **beg,KNOT **beg_free);
 void del_lst(KNOT *ptr,KNOT **beg,KNOT **beg_free);
 KNOT* DelLstNext(KNOT *ptr,KNOT **beg,KNOT **beg_free);
 void free_lst(KNOT **knot,int k_bloc);
-void far *normptr(void far *);
+void *normptr(void *);
 int memmove_m(void HUGE_P *out,void HUGE_P *in,long size);
-void far *normptr(void far *p);
+void *normptr(void *p);
 int alloc_seg(KNOT **kn,int *kb,int max_knot,uint size_item,int *size_bloc);
 uint determine_free_memory(uint size);
 void print_ptr(KNOT *beg);
@@ -659,7 +659,7 @@ int calc_frm_str(FRAME **str,int ksym,BOUND *bnd);
 void corr_title_prs(char *file_prs_out);
 uint mark_term(uint typ_term,uint param);
 void image_prs_str(uint *sym,int len,int col);
-char far *getpath(char far *buf);
+char *getpath(char *buf);
 //Резка рамок компонент
 int CutComp(FRAME ***str,int *ksym,int k_str,FRAME **frms,FRAME **frm,int *k_frm);
 int FindCutComp(FRAME ***str,int *ksym,int k_str,FRAME **frms,int SizeY);
@@ -757,7 +757,7 @@ LONG filelength_m(FILE1 *stream);
   #define ftell_m       ftell
   #define setvbuf_m     setvbuf
 #endif
-int hread_m(void huge *buf,int size,int count,FILE1 *stream);
+int hread_m(void *buf,int size,int count,FILE1 *stream);
 int CopyFile_my(char *NameIn,char *NameOut);
 int fgets_m(char *str,int max_len,FILE1 *f);
 char get_kod(FILE1 *f);
@@ -1008,13 +1008,13 @@ int PASC DetectStringRECT(RECT *Rect,int NumFrm,float tg_ang,
     RECT ***StrRect1,int **NumSym1,int *NumStr1);
 //=== P R A F A X ===
 int PASC InitExtrSym
-  (char *FileRb,int WidthPRS,FRAME ***frm,int *NumFrm,int Reg,FRAME huge *kramki);
+  (char *FileRb,int WidthPRS,FRAME ***frm,int *NumFrm,int Reg,FRAME *kramki);
 void PASC CloseExtrSym(FRAME **frm);
 int PASC DetectLineRaster(char *file_pcx,char *FileOut,STRET **Stret1,
          int *NumStretchAll1);
 int PASC SaveLine(int flPRA,STRET *Stret,int NumStret);
-int PASC ExtractComp(PRS_ONE *sym1,long *LenSym,FRAME *ff,char huge **symH1);
-int PASC ExtractComp3(PRS_ONE *sym1,long *LenSym,FRAME *ff,char huge **symH1);
+int PASC ExtractComp(PRS_ONE *sym1,long *LenSym,FRAME *ff,char **symH1);
+int PASC ExtractComp3(PRS_ONE *sym1,long *LenSym,FRAME *ff,char **symH1);
 //=== Library ===
 int PASC EstAnglePlainImage(char *File,float *tg_ang);
 int PASC DeSkewlePlainImage(char *FileIn,char *FileOut,float tg_ang);

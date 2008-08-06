@@ -101,7 +101,7 @@ LONG filelength_m(FILE1 *stream)
 }
 
 /*========*/
-int hread_m(void huge *buf,int size,int count,FILE1 *stream)
+int hread_m(void *buf,int size,int count,FILE1 *stream)
 {
    WORD len=(WORD)(size*count);
    return (int)(_hread(stream->hFile,buf,len)/size);

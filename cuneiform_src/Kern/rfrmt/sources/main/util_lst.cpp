@@ -723,7 +723,7 @@ int memmove_m(void HUGE_P *out,void HUGE_P *in,long size)
   #endif
   return 0;
 }
-void far *normptr(void far *p)
+void *normptr(void *p)
 {
   #ifdef DOS_MOD
   #ifndef QWIN

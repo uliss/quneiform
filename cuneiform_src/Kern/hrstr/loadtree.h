@@ -83,8 +83,8 @@ struct hyp_point
   int y;
 
   int dot;
-  char /*far*/ * lower;
-  char /*far*/ * upper;
+  char *lower;
+  char *upper;
  };
 
 
