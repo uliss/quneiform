@@ -238,13 +238,13 @@ Bool THVSegBambuk::makeIt(   TigerReader * reader,
          errCode = ER_NOMEMORY;
 			return WRONG();
 		};
+
 		filter->updateByLine( new_line );
 
 #ifdef SMOOTH98
       smooth_start(width_dword_);
       _smooth_height = smooth_get_height();
 #endif
-
 		/* main loop */
 		for (cur_row = bottom + 17; cur_row <= top  ; cur_row++)
       {
