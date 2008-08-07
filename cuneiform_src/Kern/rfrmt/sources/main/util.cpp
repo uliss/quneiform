@@ -312,15 +312,15 @@ void * realloc_m(void *ptr_old, uint size_old, uint size_new)
     ERR(1,"realloc_m");
   #else
     /* Так требует стандарт realloc'а */
-    return malloc_m(size_new);
+    return malloc(size_new);
   #endif
 
   if (size_new <= size_old) return ptr_old;
-  if ( ptr_new = malloc_m(size_new) )
+  if ( ptr_new = malloc(size_new) )
   {
     //memcpy_m(ptr_new,ptr_old,size_old);
     memmove(ptr_new,ptr_old,size_old);
-    free_m(ptr_old);
+    free(ptr_old);
   }
   return ptr_new;
 }

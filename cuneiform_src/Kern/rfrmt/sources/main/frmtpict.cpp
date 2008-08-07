@@ -385,7 +385,7 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 					LDPUMA_Skip(hTestGetMaskDIB);
 					if(CPAGE_PictureGetMask (h_Page,h_Pict,0,NULL,&nSize))
 					{
-						char * lpMask = (char*)malloc_m(sizeof(in) + nSize );
+						char * lpMask = (char*)malloc(sizeof(in) + nSize );
 						if(lpMask)
 						{// Получаем маску
 							*(PCIMAGE_InfoDataInGet)lpMask = in;

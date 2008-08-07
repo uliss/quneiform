@@ -1384,29 +1384,29 @@ BOOL CRtfPage::WriteHeaderRtf(void)
 		"Arial Narrow"         , "fswiss"     // NonSerif
 		};
 
-		Font=(FONT*)malloc_m(NumFont*sizeof(FONT));
+		Font=(FONT*)malloc(NumFont*sizeof(FONT));
 		if(!Font)
 			return FALSE;
 		for(i=0; i < NumFont; ++i)
 		{
-			Font[i].family=(char*)malloc_m(strlen_m(FontCod[i].family)+1);
+			Font[i].family=(char*)malloc(strlen_m(FontCod[i].family)+1);
 			strcpy_m(Font[i].family,FontCod[i].family);
  		switch(i)
 			{
 				case 0:
-								Font[i].name=(char*)malloc_m(strlen_m((const char*)lpMyNameNonSerif)+1);
+								Font[i].name=(char*)malloc(strlen_m((const char*)lpMyNameNonSerif)+1);
 											strcpy_m(Font[i].name,(char*)lpMyNameNonSerif);
 	  					break;
 				case 1:
-								Font[i].name=(char*)malloc_m(strlen_m((char*)lpMyNameSerif)+1);
+								Font[i].name=(char*)malloc(strlen_m((char*)lpMyNameSerif)+1);
 											strcpy_m(Font[i].name,(char*)lpMyNameSerif);
 			  			break;
 				case 2:
-								Font[i].name=(char*)malloc_m(strlen_m((char*)lpMyNameMono)+1);
+								Font[i].name=(char*)malloc(strlen_m((char*)lpMyNameMono)+1);
 											strcpy_m(Font[i].name,(char*)lpMyNameMono);
 								break;
 				case 3:
-								Font[i].name=(char*)malloc_m(strlen_m("Arial Narrow")+1);
+								Font[i].name=(char*)malloc(strlen_m("Arial Narrow")+1);
 											strcpy_m(Font[i].name,"Arial Narrow");
 	  					break;
 			}
@@ -1457,10 +1457,10 @@ BOOL CRtfPage::WriteHeaderRtf(void)
 
 		for(i=0; i < NumFont; ++i)
 		{
- 		free_m(Font[i].family);
- 		free_m(Font[i].name);
+ 		free(Font[i].family);
+ 		free(Font[i].name);
 		}
-		free_m(Font);
+		free(Font);
 
  //WRITE IMAGE INFORMATION
 	Put("{\\*\\imagename \"");
@@ -1574,7 +1574,7 @@ void CRtfPage::WriteSectorsHeader(Int16 i)
 	EDCountHTerminalColumns = CountHTerminalColumns;
 	if(!EDCountHTerminalColumns)
 		EDCountHTerminalColumns = 1;
-	pEDColumnFirst = pEDColumn = (EDCOL*)malloc_m( EDCountHTerminalColumns * sizeof(EDCOL) );
+	pEDColumnFirst = pEDColumn = (EDCOL*)malloc( EDCountHTerminalColumns * sizeof(EDCOL) );
 	if(!pEDColumn)
 		return;
 	if(!CountHTerminalColumns)
@@ -1609,7 +1609,7 @@ void CRtfPage::WriteSectorsHeader(Int16 i)
 	pRtfSector->SectorInfo.hColumn      = pRtfSector->SectorInfo.hFirstColumn;
 	pRtfSector->SectorInfo.hObject      = pRtfSector->SectorInfo.hFirstColumn;
 
-	free_m( pEDColumnFirst );
+	free( pEDColumnFirst );
 #endif
 
 }
@@ -4099,9 +4099,9 @@ void PutC(char sym)
 	if(RtfWriteMode == FALSE)
   return;
   if(sym==0)
-    {b=(char*)malloc_m(SIZE_BLOC);pos=-1;return;} //Init
+    {b=(char*)malloc(SIZE_BLOC);pos=-1;return;} //Init
   if(sym==1) //Вывод буферов
-    {if(pos>=0) fwrite_m(b,pos+1,1,out); free_m(b); return;}
+    {if(pos>=0) fwrite_m(b,pos+1,1,out); free(b); return;}
   if(pos == SIZE_BLOC-1)
     {fwrite_m(b,SIZE_BLOC,1,out);pos=-1;}
   b[++pos]=sym;

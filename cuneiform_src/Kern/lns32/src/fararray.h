@@ -57,8 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __FARARRAY_H
 	#define __FARARRAY_H
 
-#undef HUGE
-#define HUGE
 /*
 	#ifndef __DOS_H
 	#	include <dos.h>
@@ -67,17 +65,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #ifndef __LNSLANG_H
    #  include "lnslang.h"
 	#endif
-template <class Type> class HUGE THugeArray //: public TFarHeap
+template <class Type> class THugeArray //: public TFarHeap
 {
 	protected:
-      Type HUGE * data;
+      Type * data;
       long int last;                     // == len - 1
 	public:
-Type HUGE & operator[](Int32 i) {
+Type & operator[](Int32 i) {
 			assert( i <= last );
 			return (*(data+i));
 		};
-Type HUGE * ptr( Int32 num ) {
+Type * ptr( Int32 num ) {
 			assert( num <= last );
 			return (data+num);
 		};
@@ -86,12 +84,12 @@ THugeArray( void ){ data = NULL; };
 THugeArray( Int32 of_count ){ create( of_count); };
 ~THugeArray( void ){ flash(); };
 
-Type HUGE * lastPtr(void){
+Type * lastPtr(void){
 			assert(!isEmpty());
 			return (data + last);
 		};
 
-Type HUGE * firstPtr(void){
+Type * firstPtr(void){
 			//?assert(!isEmpty());
 			return (data);
 		};
@@ -99,9 +97,9 @@ Type HUGE * firstPtr(void){
 Bool create( Int32 of_count )
    {
          if ( of_count != 0 )
-            data = (Type HUGE *)(MALLOC( (Int32)(of_count*(Int32)sizeof(Type)) ));
+            data = (Type *)(malloc( (Int32)(of_count*(Int32)sizeof(Type)) ));
          else
-            data = (Type HUGE *)(MALLOC( sizeof(Type) ));
+            data = (Type *)(malloc( sizeof(Type) ));
          if (data!=NULL)
             last = (of_count-1);
 			return (data!=NULL);
@@ -117,13 +115,13 @@ Bool Grow( Int32 of_count = -1 )
       if ( of_count <= 0)
          of_count = 1;
 
-      Type HUGE * new_data = (Type HUGE *)(MALLOC( (Int32)(of_count*(Int32)sizeof(Type)) ));
+      Type * new_data = (Type *)(malloc( (Int32)(of_count*(Int32)sizeof(Type)) ));
       if (new_data!=NULL)
       {
          if (data != NULL)
          {
             memcpy( new_data, data, (last+1)*sizeof(Type) );
-            FREE(data);
+            free(data);
             data = new_data;
             new_data = NULL;
             last = (of_count-1);
@@ -134,7 +132,7 @@ Bool Grow( Int32 of_count = -1 )
 
 void flash( void ){
          if (data!=NULL)
-            FREE( (void*)data );
+            free( (void*)data );
 			data = NULL;
 		};
 
@@ -158,7 +156,7 @@ Bool shrink( Int32 el_count )
          if (new_data == NULL)
             return WRONG();  // can't shrink ??
          else {
-            data = (Type HUGE *)new_data;
+            data = (Type *)new_data;
             last = el_count -1;
          };
          return TRUE;
@@ -168,7 +166,7 @@ Bool shrink( Int32 el_count )
          if (new_data == NULL)
             return WRONG();  // can't shrink ??
          else {
-            data = (Type HUGE *)new_data;
+            data = (Type *)new_data;
             last = -1;
          };
          return TRUE;
@@ -200,145 +198,6 @@ void copy( THugeArray<Type>  * arr, Int32 count )
 		for (from=from; from<=last; from++) data[from]=(*value);
 	};
 
-/*
-* TFarArray<>
-*/
-template <class Type> class HUGE TFarArray //: public TFarHeap
-{
-	protected:
-      Type FAR *  data;
-      long int    last;                     // == len - 1
-	public:
-Type FAR & operator[](Int32 i) {
-			assert( i <= last );
-			return (*(data+i));
-		};
-Type FAR * ptr( Int32 num ) {
-			assert( num <= last );
-			return (data+num);
-		};
-
-TFarArray( void ){ data = NULL; };
-TFarArray( Int32 of_count ){ create( of_count); };
-~TFarArray( void ){ flash(); };
-
-Type FAR * lastPtr(void){
-			assert(!isEmpty());
-			return (data + last);
-		};
-
-Type FAR * firstPtr(void){
-			//?assert(!isEmpty());
-			return (data);
-		};
-
-Bool create( Int32 of_count ){
-         if ( of_count != 0 )
-            data = (Type FAR *)(MALLOC( (Int32)(of_count*(Int32)sizeof(Type)) ));
-         else
-            data = (Type FAR *)(MALLOC( sizeof(Type) ));
-
-         if (data!=NULL)
-         {  last = (of_count-1);
-			};
-			return (data!=NULL);
-		};
-
-Bool Grow( Int32 of_count = -1 )
-   {
-      if (of_count == -1)
-      {
-         of_count = (last+1)*2;
-      }
-
-      if ( of_count <= 0)
-         of_count = 1;
-
-      Type HUGE * new_data = (Type HUGE *)(MALLOC( (Int32)(of_count*(Int32)sizeof(Type)) ));
-      if (new_data!=NULL)
-      {
-         if (data != NULL)
-         {
-            memcpy( new_data, data, (last+1)*sizeof(Type) );
-            FREE(data);
-            data = new_data;
-            new_data = NULL;
-            last = (of_count-1);
-         }
-      }
-	   return (data!=NULL);
-	};
-
-void flash( void )
-{
-   if (data!=NULL)
-      FREE( (void*)data );
-	data = NULL;
-};
-void flush( void ){ flash(); };
-
-
-int volume( void ) 		{ assert(data!=NULL); return (last+1);};
-int lastHandle( void ) 	{ assert(data!=NULL); return (last);};
-Bool isEmpty( void )    { return (data==NULL); };
-Bool isOk( void )       { return (data!=NULL); };
-
-
-void fill( Type  * value, Int32 from = 0 );
-
-Bool shrink( Int32 el_count )
-{
-   return TRUE;
-/*
-		assert(el_count < volume() );
-      if (el_count > 0)
-      {  void* new_data = TFarHeap::shrinkMemBlock( data, sizeof(Type)*(Int32)el_count );
-         if (new_data == NULL)
-            return WRONG();  // can't shrink ??
-         else {
-            data = (Type FAR *)new_data;
-            last = el_count -1;
-         };
-         return TRUE;
-      }
-      else
-      {  void* new_data = TFarHeap::shrinkMemBlock( data, (Int32)sizeof(Type) );
-         if (new_data == NULL)
-            return WRONG();  // can't shrink ??
-         else {
-            data = (Type FAR *)new_data;
-            last =  -1;
-         };
-         return TRUE;
-      };
-*/
-};
-
-void copy( TFarArray<Type>  * arr )
-	{ 	assert( arr != NULL );
-		assert( arr->isOk() );
-		assert( isOk() );
-		assert( arr->volume() <= volume() );
-      MEMMOVE( data, arr->data, (arr->volume())*(Int32)(sizeof(Type)) );
-	};
-
-void copy( TFarArray<Type>  * arr, Int32 count )
-	{ 	assert( arr != NULL );
-		assert( arr->isOk() );
-		assert( isOk() );
-		assert( count <= arr->volume() );
-		assert( count <= volume() );
-      MEMMOVE( data, arr->data, count*(Int32)(sizeof(Type)) );
-	};
-
-};
-
-	template< class Type >
-   void TFarArray< Type >::fill( Type  * value, Int32 from ){
-      //assert((signed long int)from <= last);
-      for (from=from; (signed long int)from<=last; from++)
-   		data[from]=(*value);
-	};
-
+#define TFarArray THugeArray
 
 #endif // __FARARRAY_H

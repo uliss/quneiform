@@ -213,9 +213,9 @@ int CalcStatTiger(void)
   BYTE a;
 	//SRECT rr;
 
-	Upp  =(int*)malloc_m(maxU*sizeof(int));
-	Low  =(int*)malloc_m(maxL*sizeof(int));
-  arrB1=(int*)malloc_m(maxB1*sizeof(int));
+	Upp  =(int*)malloc(maxU*sizeof(int));
+	Low  =(int*)malloc(maxL*sizeof(int));
+  arrB1=(int*)malloc(maxB1*sizeof(int));
   if(Upp==NULL || Low==NULL || arrB1==NULL)
 		return NOT_ALLOC;
   // -- Расчет глобал.размеров с учетом OCR --
@@ -314,7 +314,7 @@ int CalcStatTiger(void)
   { int Dif_b1b2;//признак различия линеек b1 и b2
     ThrDif_b1b2=NORM_SCAN(3);
     ThrDif_b1b2=MAX(ThrDif_b1b2,(StatCol[nc].dy_Upp - StatCol[nc].dy_Low)/2);
-    if((StatCol[nc].stat_str=(STAT_STR*)malloc_m((NumStr[nc]+1)*sizeof(STAT_STR)))==NULL)
+    if((StatCol[nc].stat_str=(STAT_STR*)malloc((NumStr[nc]+1)*sizeof(STAT_STR)))==NULL)
 			return NOT_ALLOC;
     for(ns=0; ns <= NumStr[nc]; ++ns)
     { SRECT *rS=&TitleStr[nc][ns].S_Rect;
@@ -404,10 +404,10 @@ int CalcStatTiger(void)
       }
     }
   }
-  free_m(Upp);
-	free_m(Low);
-	free_m(arrB1);
-	return 0;
+  free(Upp);
+  free(Low);
+  free(arrB1);
+  return 0;
 }
 
 //Формат файла:
@@ -484,8 +484,8 @@ short __cdecl  OpenFullOutTiger(char *FileName)
 // Twips = (float)((int)(Twips+0.5));
 	if(NumCol)
 	{
-		NumStr    = (Int16*)malloc_m(NumCol*sizeof(Int16));
-		StatCol   = (STAT_COL*)malloc_m(NumCol*sizeof(STAT_COL));
+		NumStr    = (Int16*)malloc(NumCol*sizeof(Int16));
+		StatCol   = (STAT_COL*)malloc(NumCol*sizeof(STAT_COL));
 		if(NumStr==NULL||StatCol==NULL)
 		{
 
@@ -505,11 +505,11 @@ short __cdecl  OpenFullOutTiger(char *FileName)
   goto BadReturn;
 	}
 
- BndCol     = (SRECT*)malloc_m(NumCol * sizeof(SRECT));
- UserNumber = (Word32*)malloc_m(NumCol*sizeof(Word32));
- FragFlag   = (Word32*)malloc_m(NumCol*sizeof(Word32));
+ BndCol     = (SRECT*)malloc(NumCol * sizeof(SRECT));
+ UserNumber = (Word32*)malloc(NumCol*sizeof(Word32));
+ FragFlag   = (Word32*)malloc(NumCol*sizeof(Word32));
 
- RectFragm = (Rect16*)malloc_m(NumCol*sizeof(Rect16));
+ RectFragm = (Rect16*)malloc(NumCol*sizeof(Rect16));
 
  if(BndCol==NULL||UserNumber==NULL||RectFragm==NULL)
 	{
@@ -696,7 +696,7 @@ void GenArrAnsiOem(void)
 int PASC CorrTiger(char *FileNameFul,char *FileNameOut,char *FilePar,int fl_cor)
 //==
 { int fl;
-  AnsiOem=(BYTE*)malloc_m(257); OemAnsi=(BYTE*)malloc_m(257);
+  AnsiOem=(BYTE*)malloc(257); OemAnsi=(BYTE*)malloc(257);
   GenArrAnsiOem();
   #ifdef DRAW
     if(viz) viz=fl_cor;
@@ -715,7 +715,7 @@ int PASC CorrTiger(char *FileNameFul,char *FileNameOut,char *FilePar,int fl_cor)
 	//	return fl-200;
   //Генерация выход.файла Full-формата и текста
   SaveFullOutTiger(FileNameOut);
-  free_m(AnsiOem); free_m(OemAnsi);
+  free(AnsiOem); free(OemAnsi);
   return 0;
 }
 */
@@ -730,67 +730,67 @@ int FreeStructFull(void)
   #ifdef SUB_ZN
    do0(nc,0,NumCol)
    {
-		if(StatCol[nc].stat_str) free_m(StatCol[nc].stat_str);
+		if(StatCol[nc].stat_str) free(StatCol[nc].stat_str);
 
    }
-	 free_m(StatCol);
+	 free(StatCol);
 	 DeleteSubAlloc(&SubZn);
   #else
    //---Секция знакомест---
    do0(nc,0,NumCol)
    {
-		 if(StatCol[nc].stat_str) free_m(StatCol[nc].stat_str);
+		 if(StatCol[nc].stat_str) free(StatCol[nc].stat_str);
 		 do0(ns,0,NumStr[nc])
      { kw=TitleStr[nc][ns].S_Gen.S_NumWord-1;
        do0(nw,0,kw)
-       { free_m(Zn[nc][ns][nw]);
+       { free(Zn[nc][ns][nw]);
          if((sp=TitleWord[nc][ns][nw].W_Gen.W_Spell) == SPELL_CORR)
          {
            #ifndef FUL
              ERR(1,err);
            #endif
            if((num=TitleWord[nc][ns][nw].NumAltSpell) <= 0) ERR(1,err);
-           do0(i,0,num-1) free_m(TitleWord[nc][ns][nw].AltSpell[i].Alt);
-           free_m(TitleWord[nc][ns][nw].AltSpell);
+           do0(i,0,num-1) free(TitleWord[nc][ns][nw].AltSpell[i].Alt);
+           free(TitleWord[nc][ns][nw].AltSpell);
          }
        }
-       free_m(Zn[nc][ns]);
-			 free_m(TitleWord[nc][ns]);
+       free(Zn[nc][ns]);
+			 free(TitleWord[nc][ns]);
      }
-     free_m(Zn[nc]);
-		 free_m(TitleWord[nc]);
-		 free_m(TitleStr[nc]);
+     free(Zn[nc]);
+		 free(TitleWord[nc]);
+		 free(TitleStr[nc]);
    }
-   free_m(Zn);
-	 free_m(TitleWord);
-	 free_m(TitleStr);
+   free(Zn);
+	 free(TitleWord);
+	 free(TitleStr);
   #endif
 
   #ifdef CMP
-    free_m(CoorComp);
+    free(CoorComp);
   #endif
   #ifndef PROF_COL
-  	free_m(BndCol);
+  	free(BndCol);
   #else
   	//---Секция колонок---
-  	free_m(BndCol);
-		free_m(NumStr);
-		free_m(StatCol);
+  	free(BndCol);
+		free(NumStr);
+		free(StatCol);
 	  #ifndef TIGER_CORR
 	  { int nlev; //Освобождение памяти под иерархию колонок
 	    do0(nlev,0,k_lev)
 	    { do0(nc,0,k_col[nlev])
 	        if(knot[nlev][nc].kp >= 0)
-						free_m(knot[nlev][nc].Addr);
-	      free_m(knot[nlev]);
+						free(knot[nlev][nc].Addr);
+	      free(knot[nlev]);
 	    }
-	    free_m(knot);
+	    free(knot);
 	  }
 		#endif
   #endif //PROF_COL
   //---Секция имен баз---
   #ifndef TIGER_CORR
-  	free_m(FntName);
+  	free(FntName);
   #endif
   return 0;
 }
@@ -928,7 +928,7 @@ int OpenFullOut(char *FileName)
   //ВВОД ЗАГОЛОВКА ФАЙЛА .ful
   fread_m(&TitleFul,sizeof(TITLE_FUL),1,in);
   #ifdef CMP
-    CoorComp=(COOR_COMP*)malloc_m((K_MultiComp+1)*sizeof(COOR_COMP));
+    CoorComp=(COOR_COMP*)malloc((K_MultiComp+1)*sizeof(COOR_COMP));
     NumComp=-1L;
   #endif
   #ifdef PROF_COL
@@ -938,9 +938,9 @@ int OpenFullOut(char *FileName)
   fread_m(&SizeSectionCol,sizeof(int),1,in);
   fread_m(&NumCol,sizeof(int),1,in);
   ++NumCol;
-  BndCol=(SRECT*)malloc_m(NumCol*sizeof(SRECT));
-  NumStr=(int*)malloc_m(NumCol*sizeof(int));
-  StatCol=(STAT_COL*)malloc_m(NumCol*sizeof(STAT_COL));
+  BndCol=(SRECT*)malloc(NumCol*sizeof(SRECT));
+  NumStr=(int*)malloc(NumCol*sizeof(int));
+  StatCol=(STAT_COL*)malloc(NumCol*sizeof(STAT_COL));
   if(BndCol==NULL||NumStr==NULL||StatCol==NULL)return -3;
   fread_m(BndCol,NumCol*sizeof(SRECT),1,in);
   fread_m(NumStr,NumCol*sizeof(int),1,in);
@@ -963,15 +963,15 @@ int OpenFullOut(char *FileName)
     fread_m(&k_frm,sizeof(int),1,in); fread_m(&space,sizeof(int),1,in);
     fread_m(&SizeXGlob,sizeof(int),1,in); fread_m(&SizeYGlob,sizeof(int),1,in);
     //k_colt1=-1;//счетчик терминал. колонок
-    knot=(LEV**)malloc_m((k_lev+1)*sizeof(LEV*));
+    knot=(LEV**)malloc((k_lev+1)*sizeof(LEV*));
     do0(nlev,0,k_lev) //чтение дерева колонок
-    { knot[nlev]=(LEV*)malloc_m((k_col[nlev]+1)*sizeof(LEV));
+    { knot[nlev]=(LEV*)malloc((k_col[nlev]+1)*sizeof(LEV));
       do0(nc,0,k_col[nlev])
       { fread_m(&knot[nlev][nc].bnd,sizeof(SRECT),1,in);
         fread_m(&knot[nlev][nc].SpecInt,sizeof(WORD),1,in);
         fread_m(&knot[nlev][nc].kp,sizeof(int),1,in);
         if(knot[nlev][nc].kp >= 0)
-        { knot[nlev][nc].Addr=(ADDR*)malloc_m((knot[nlev][nc].kp+1)*sizeof(ADDR));
+        { knot[nlev][nc].Addr=(ADDR*)malloc((knot[nlev][nc].kp+1)*sizeof(ADDR));
           do0(i,0,knot[nlev][nc].kp)
           { fread_m(&knot[nlev][nc].Addr[i].ind,sizeof(int),1,in);
             fread_m(&knot[nlev][nc].Addr[i].lev,sizeof(int),1,in);
@@ -984,7 +984,7 @@ int OpenFullOut(char *FileName)
   //ВВОД СЕКЦИИ ИМЕН БАЗ
   fseek_m(in,TitleFul.FntNameOffset,SEEK_SET);
   SizeSectionFntName=(int)(TitleFul.ColOffset-TitleFul.FntNameOffset);//начиная с 1
-  if((FntName=malloc_m(SizeSectionFntName))==NULL) return NOT_ALLOC;
+  if((FntName=malloc(SizeSectionFntName))==NULL) return NOT_ALLOC;
   fread_m(FntName,SizeSectionFntName,1,in);
   //ВВОД СЕКЦИИ ЗНАКОМЕСТ
   fseek_m(in,TitleFul.ZOffset,SEEK_SET);
@@ -1000,9 +1000,9 @@ int OpenFullOut(char *FileName)
    TitleStr=(TITLE_STR**)Submalloc((NumCol+1)*sizeof(TITLE_STR*),&SubZn);
    TitleWord=(TITLE_WORD***)Submalloc((NumCol+1)*sizeof(TITLE_WORD**),&SubZn);
   #else
-   Zn=(ZN****)malloc_m((NumCol+1)*sizeof(ZN***));
-   TitleStr=(TITLE_STR**)malloc_m((NumCol+1)*sizeof(TITLE_STR*));
-   TitleWord=(TITLE_WORD***)malloc_m((NumCol+1)*sizeof(TITLE_WORD**));
+   Zn=(ZN****)malloc((NumCol+1)*sizeof(ZN***));
+   TitleStr=(TITLE_STR**)malloc((NumCol+1)*sizeof(TITLE_STR*));
+   TitleWord=(TITLE_WORD***)malloc((NumCol+1)*sizeof(TITLE_WORD**));
   #endif
   if(Zn==NULL||TitleStr==NULL||TitleWord==NULL)return -3;
   NumW=NumS=NumZ=0;
@@ -1013,9 +1013,9 @@ int OpenFullOut(char *FileName)
      TitleStr[nc]=(TITLE_STR*)Submalloc((NumStr[nc]+1)*sizeof(TITLE_STR),&SubZn);
      TitleWord[nc]=(TITLE_WORD**)Submalloc((NumStr[nc]+1)*sizeof(TITLE_WORD*),&SubZn);
     #else
-     Zn[nc]=(ZN***)malloc_m((NumStr[nc]+1)*sizeof(ZN**));
-     TitleStr[nc]=(TITLE_STR*)malloc_m((NumStr[nc]+1)*sizeof(TITLE_STR));
-     TitleWord[nc]=(TITLE_WORD**)malloc_m((NumStr[nc]+1)*sizeof(TITLE_WORD*));
+     Zn[nc]=(ZN***)malloc((NumStr[nc]+1)*sizeof(ZN**));
+     TitleStr[nc]=(TITLE_STR*)malloc((NumStr[nc]+1)*sizeof(TITLE_STR));
+     TitleWord[nc]=(TITLE_WORD**)malloc((NumStr[nc]+1)*sizeof(TITLE_WORD*));
     #endif
     if(Zn[nc]==NULL||TitleStr[nc]==NULL||TitleWord[nc]==NULL)return -3;
     do0(ns,0,NumStr[nc])
@@ -1039,9 +1039,9 @@ int OpenFullOut(char *FileName)
            TitleStr[nci]=(TITLE_STR*)Submalloc((NumStr[nci]+1)*sizeof(TITLE_STR),&SubZn);
            TitleWord[nci]=(TITLE_WORD**)Submalloc((NumStr[nci]+1)*sizeof(TITLE_WORD*),&SubZn);
           #else
-           Zn[nci]=(ZN***)malloc_m((NumStr[nci]+1)*sizeof(ZN**));
-           TitleStr[nci]=(TITLE_STR*)malloc_m((NumStr[nci]+1)*sizeof(TITLE_STR));
-           TitleWord[nci]=(TITLE_WORD**)malloc_m((NumStr[nci]+1)*sizeof(TITLE_WORD*));
+           Zn[nci]=(ZN***)malloc((NumStr[nci]+1)*sizeof(ZN**));
+           TitleStr[nci]=(TITLE_STR*)malloc((NumStr[nci]+1)*sizeof(TITLE_STR));
+           TitleWord[nci]=(TITLE_WORD**)malloc((NumStr[nci]+1)*sizeof(TITLE_WORD*));
           #endif
           if(Zn[nci]==NULL||TitleStr[nci]==NULL||TitleWord[nci]==NULL)return -3;
           ts->Z_Code=2;ts->S_Gen.S_NumWord=1;ts->S_Rect=BndCol[nci];
@@ -1051,8 +1051,8 @@ int OpenFullOut(char *FileName)
            Zn[nci][0]=(ZN**)Submalloc((k_word+1)*sizeof(ZN*),&SubZn);
            TitleWord[nci][0]=(TITLE_WORD*)Submalloc((k_word+1)*sizeof(TITLE_WORD),&SubZn);
           #else
-           Zn[nci][0]=(ZN**)malloc_m((k_word+1)*sizeof(ZN*));
-           TitleWord[nci][0]=(TITLE_WORD*)malloc_m((k_word+1)*sizeof(TITLE_WORD));
+           Zn[nci][0]=(ZN**)malloc((k_word+1)*sizeof(ZN*));
+           TitleWord[nci][0]=(TITLE_WORD*)malloc((k_word+1)*sizeof(TITLE_WORD));
           #endif
           if(Zn[nci][0]==NULL||TitleWord[nci][0]==NULL)return -3;
           tw->Z_Code=1;tw->W_Gen.W_NumSym=1;tw->W_Gen.W_Spell=SPELL_NOT;
@@ -1060,7 +1060,7 @@ int OpenFullOut(char *FileName)
           #ifdef SUB_ZN
            if((Zn[nci][0][0]=(ZN*)Submalloc(sizeof(ZN),&SubZn))==NULL)return -3;
           #else
-           if((Zn[nci][0][0]=(ZN*)malloc_m(sizeof(ZN)))==NULL)return -3;
+           if((Zn[nci][0][0]=(ZN*)malloc(sizeof(ZN)))==NULL)return -3;
           #endif
           tz->Z_Code=0;tz->Z_Id.col=(CONV)(nci+1);tz->Z_Id.str=(CONV)1;
           tz->Z_Id.comp=(CONV)1;tz->Z_Id.word=(CONV)1;tz->Z_Rect=BndCol[nci];
@@ -1109,8 +1109,8 @@ int OpenFullOut(char *FileName)
        Zn[nc][ns]=(ZN**)Submalloc((k_word+1)*sizeof(ZN*),&SubZn);
        TitleWord[nc][ns]=(TITLE_WORD*)Submalloc((k_word+1)*sizeof(TITLE_WORD),&SubZn);
       #else
-       Zn[nc][ns]=(ZN**)malloc_m((k_word+1)*sizeof(ZN*));
-       TitleWord[nc][ns]=(TITLE_WORD*)malloc_m((k_word+1)*sizeof(TITLE_WORD));
+       Zn[nc][ns]=(ZN**)malloc((k_word+1)*sizeof(ZN*));
+       TitleWord[nc][ns]=(TITLE_WORD*)malloc((k_word+1)*sizeof(TITLE_WORD));
       #endif
       if(Zn[nc][ns]==NULL||TitleWord[nc][ns]==NULL)return -3;
       do0(nw,0,k_word)
@@ -1143,7 +1143,7 @@ int OpenFullOut(char *FileName)
         if((sp=tw->W_Gen.W_Spell) == SPELL_CORR)
         { if((num=tw->NumAltSpell) <= 0) return -11;
           #ifndef SUB_ZN
-           if((tw->AltSpell=(ALT_SPELL*)malloc_m(num*sizeof(ALT_SPELL)))==NULL)return -3;
+           if((tw->AltSpell=(ALT_SPELL*)malloc(num*sizeof(ALT_SPELL)))==NULL)return -3;
           #else
            if((tw->AltSpell=(ALT_SPELL*)Submalloc(num*sizeof(ALT_SPELL),&SubZn))==NULL)return -3;
           #endif
@@ -1153,7 +1153,7 @@ int OpenFullOut(char *FileName)
             fread_m(&w,sizeof(BYTE),1,in);fread_m(&AltS->Penalty,sizeof(WORD),1,in);
             Len=(int)AltS->Len;
             #ifndef SUB_ZN
-             if((AltS->Alt=(char*)malloc_m(Len))==NULL)return NOT_ALLOC;
+             if((AltS->Alt=(char*)malloc(Len))==NULL)return NOT_ALLOC;
             #else
              if((AltS->Alt=(char*)Submalloc(Len,&SubZn))==NULL)return NOT_ALLOC;
             #endif
@@ -1178,7 +1178,7 @@ int OpenFullOut(char *FileName)
         #ifdef SUB_ZN
          if((Zn[nc][ns][nw]=(ZN*)Submalloc((k_z+1)*sizeof(ZN),&SubZn))==NULL)return -3;
         #else
-         if((Zn[nc][ns][nw]=(ZN*)malloc_m((k_z+1)*sizeof(ZN)))==NULL)return -3;
+         if((Zn[nc][ns][nw]=(ZN*)malloc((k_z+1)*sizeof(ZN)))==NULL)return -3;
         #endif
         do0(nz,0,k_z)
         { ZN *z=&Zn[nc][ns][nw][nz]; TITLE_ZN *tz=&z->Title;
@@ -1218,10 +1218,10 @@ int OpenFullOut(char *FileName)
               printf("\nBegin Middle");
               #endif
               do0(j,0,ns)
-              { do0(i,0,k_word) free_m(Zn[nc][j][i]);
-                free_m(Zn[nc][j]); free_m(TitleWord[nc][j]);
+              { do0(i,0,k_word) free(Zn[nc][j][i]);
+                free(Zn[nc][j]); free(TitleWord[nc][j]);
               }
-              free_m(Zn[nc]); free_m(TitleWord[nc]); free_m(TitleStr[nc]);
+              free(Zn[nc]); free(TitleWord[nc]); free(TitleStr[nc]);
               do0(nci,0,nc1-1)//Генерация пропущ.колонок
               { TITLE_STR *ts=&TitleStr[nci][0];TITLE_WORD *tw=&TitleWord[nci][0][0];
                 TITLE_ZN *tz=&Zn[nci][0][0][0].Title;ALT_ZN *Alt=&Zn[nci][0][0][0].Alt[0];
@@ -1231,9 +1231,9 @@ int OpenFullOut(char *FileName)
                  TitleStr[nci]=(TITLE_STR*)Submalloc((NumStr[nci]+1)*sizeof(TITLE_STR),&SubZn);
                  TitleWord[nci]=(TITLE_WORD**)Submalloc((NumStr[nci]+1)*sizeof(TITLE_WORD*),&SubZn);
                 #else
-                 Zn[nci]=(ZN***)malloc_m((NumStr[nci]+1)*sizeof(ZN**));
-                 TitleStr[nci]=(TITLE_STR*)malloc_m((NumStr[nci]+1)*sizeof(TITLE_STR));
-                 TitleWord[nci]=(TITLE_WORD**)malloc_m((NumStr[nci]+1)*sizeof(TITLE_WORD*));
+                 Zn[nci]=(ZN***)malloc((NumStr[nci]+1)*sizeof(ZN**));
+                 TitleStr[nci]=(TITLE_STR*)malloc((NumStr[nci]+1)*sizeof(TITLE_STR));
+                 TitleWord[nci]=(TITLE_WORD**)malloc((NumStr[nci]+1)*sizeof(TITLE_WORD*));
                 #endif
                 if(Zn[nci]==NULL||TitleStr[nci]==NULL||TitleWord[nci]==NULL)return -3;
                 ts->Z_Code=2;ts->S_Gen.S_NumWord=1;ts->S_Rect=BndCol[nci];
@@ -1242,8 +1242,8 @@ int OpenFullOut(char *FileName)
                  Zn[nci][0]=(ZN**)Submalloc((k_word+1)*sizeof(ZN*),&SubZn);
                  TitleWord[nci][0]=(TITLE_WORD*)Submalloc((k_word+1)*sizeof(TITLE_WORD),&SubZn);
                 #else
-                 Zn[nci][0]=(ZN**)malloc_m((k_word+1)*sizeof(ZN*));
-                 TitleWord[nci][0]=(TITLE_WORD*)malloc_m((k_word+1)*sizeof(TITLE_WORD));
+                 Zn[nci][0]=(ZN**)malloc((k_word+1)*sizeof(ZN*));
+                 TitleWord[nci][0]=(TITLE_WORD*)malloc((k_word+1)*sizeof(TITLE_WORD));
                 #endif
                 if(Zn[nci][0]==NULL||TitleWord[nci][0]==NULL)return -3;
                 tw->Z_Code=1;tw->W_Gen.W_NumSym=1;tw->W_Gen.W_Spell=SPELL_NOT;
@@ -1251,7 +1251,7 @@ int OpenFullOut(char *FileName)
                 #ifdef SUB_ZN
                  if((Zn[nci][0][0]=(ZN*)Submalloc(sizeof(ZN),&SubZn))==NULL)return -3;
                 #else
-                 if((Zn[nci][0][0]=(ZN*)malloc_m(sizeof(ZN)))==NULL)return -3;
+                 if((Zn[nci][0][0]=(ZN*)malloc(sizeof(ZN)))==NULL)return -3;
                 #endif
                 tz->Z_Code=0;tz->Z_Id.col=(CONV)(nci+1);tz->Z_Id.str=(CONV)1;
                 tz->Z_Id.comp=(CONV)1;tz->Z_Id.word=(CONV)1;tz->Z_Rect=BndCol[nci];
@@ -1263,9 +1263,9 @@ int OpenFullOut(char *FileName)
                TitleStr[nc1]=(TITLE_STR*)Submalloc((NumStr[nc1]+1)*sizeof(TITLE_STR),&SubZn);
                TitleWord[nc1]=(TITLE_WORD**)Submalloc((NumStr[nc1]+1)*sizeof(TITLE_WORD*),&SubZn);
               #else
-               Zn[nc1]=(ZN***)malloc_m((NumStr[nc1]+1)*sizeof(ZN**));
-               TitleStr[nc1]=(TITLE_STR*)malloc_m((NumStr[nc1]+1)*sizeof(TITLE_STR));
-               TitleWord[nc1]=(TITLE_WORD**)malloc_m((NumStr[nc1]+1)*sizeof(TITLE_WORD*));
+               Zn[nc1]=(ZN***)malloc((NumStr[nc1]+1)*sizeof(ZN**));
+               TitleStr[nc1]=(TITLE_STR*)malloc((NumStr[nc1]+1)*sizeof(TITLE_STR));
+               TitleWord[nc1]=(TITLE_WORD**)malloc((NumStr[nc1]+1)*sizeof(TITLE_WORD*));
               #endif
               if(Zn[nc1]==NULL||TitleStr[nc1]==NULL||TitleWord[nc1]==NULL)return -3;
               do0(nsi,0,ns1-1)//генерация пропущ. строк текущ. колонки
@@ -1277,8 +1277,8 @@ int OpenFullOut(char *FileName)
                  Zn[nc1][nsi]=(ZN**)Submalloc((k_word+1)*sizeof(ZN*),&SubZn);
                  TitleWord[nc1][nsi]=(TITLE_WORD*)Submalloc((k_word+1)*sizeof(TITLE_WORD),&SubZn);
                 #else
-                 Zn[nc1][nsi]=(ZN**)malloc_m((k_word+1)*sizeof(ZN*));
-                 TitleWord[nc1][nsi]=(TITLE_WORD*)malloc_m((k_word+1)*sizeof(TITLE_WORD));
+                 Zn[nc1][nsi]=(ZN**)malloc((k_word+1)*sizeof(ZN*));
+                 TitleWord[nc1][nsi]=(TITLE_WORD*)malloc((k_word+1)*sizeof(TITLE_WORD));
                 #endif
                 if(Zn[nc1][nsi]==NULL||TitleWord[nc1][nsi]==NULL)return -3;
                 tw->Z_Code=1;tw->W_Gen.W_NumSym=1;tw->W_Gen.W_Spell=SPELL_NOT;
@@ -1286,7 +1286,7 @@ int OpenFullOut(char *FileName)
                 #ifdef SUB_ZN
                  if((Zn[nc1][nsi][0]=(ZN*)Submalloc(sizeof(ZN),&SubZn))==NULL)return -3;
                 #else
-                 if((Zn[nc1][nsi][0]=(ZN*)malloc_m(sizeof(ZN)))==NULL)return -3;
+                 if((Zn[nc1][nsi][0]=(ZN*)malloc(sizeof(ZN)))==NULL)return -3;
                 #endif
                 tz->Z_Code=0;tz->Z_Id.col=(CONV)(nc1+1);tz->Z_Id.str=(CONV)(nsi+1);
                 tz->Z_Id.comp=(CONV)1;tz->Z_Id.word=(CONV)1;tz->Z_Rect=BndCol[nc1];
@@ -1323,8 +1323,8 @@ int OpenFullOut(char *FileName)
                      Zn[nc][nsi]=(ZN**)Submalloc(sizeof(ZN*),&SubZn);
                      TitleWord[nc][nsi]=(TITLE_WORD*)Submalloc(sizeof(TITLE_WORD),&SubZn);
                     #else
-                     Zn[nc][nsi]=(ZN**)malloc_m(sizeof(ZN*));
-                     TitleWord[nc][nsi]=(TITLE_WORD*)malloc_m(sizeof(TITLE_WORD));
+                     Zn[nc][nsi]=(ZN**)malloc(sizeof(ZN*));
+                     TitleWord[nc][nsi]=(TITLE_WORD*)malloc(sizeof(TITLE_WORD));
                     #endif
                     if(Zn[nc][nsi]==NULL||TitleWord[nc][nsi]==NULL)return -3;
                     tw->Z_Code=1;tw->W_Gen.W_NumSym=1;tw->W_Gen.W_Spell=SPELL_NOT;
@@ -1332,7 +1332,7 @@ int OpenFullOut(char *FileName)
                     #ifdef SUB_ZN
                      if((Zn[nc][nsi][0]=(ZN*)Submalloc(sizeof(ZN),&SubZn))==NULL)return -3;
                     #else
-                     if((Zn[nc][nsi][0]=(ZN*)malloc_m(sizeof(ZN)))==NULL)return -3;
+                     if((Zn[nc][nsi][0]=(ZN*)malloc(sizeof(ZN)))==NULL)return -3;
                     #endif
                     tz->Z_Code=0;tz->Z_Id.col=(CONV)(nc+1);tz->Z_Id.str=(CONV)(nsi+1);
                     tz->Z_Id.comp=(CONV)1;tz->Z_Id.word=(CONV)1;tz->Z_Rect=BndCol[nc];
@@ -1346,7 +1346,7 @@ int OpenFullOut(char *FileName)
               --NumStr[nc];
               fseek_m(in,-3L*(long)(TitleFul.wZHSize),SEEK_CUR);
               #ifndef SUB_ZN
-               free_m(Zn[nc][ns][nw]);free_m(Zn[nc][ns]);free_m(TitleWord[nc][ns]);
+               free(Zn[nc][ns][nw]);free(Zn[nc][ns]);free(TitleWord[nc][ns]);
               #endif
               goto end_col;
             }
@@ -1612,7 +1612,7 @@ int InsertWord(int nc,int ns,int nw,ZN *zi,int kz)
   t[nw+1].Z_Code=1;t[nw+1].W_Gen.W_NumSym=kz+1;
   t[nw+1].W_Gen.W_Spell=SPELL_NOT;t[nw+1].NumAltSpell=0;
   #ifndef SUB_ZN
-   if((z[nw+1]=(ZN*)malloc_m((kz+1)*sizeof(ZN)))==NULL)return -3;
+   if((z[nw+1]=(ZN*)malloc((kz+1)*sizeof(ZN)))==NULL)return -3;
   #else
    if((z[nw+1]=(ZN*)Submalloc((kz+1)*sizeof(ZN),&SubZn))==NULL)return -3;
   #endif
@@ -1632,7 +1632,7 @@ int InsertWord(int nc,int ns,int nw,ZN *zi,int kz)
   //---Контроль входа---
   if(nc < 0 || nc > NumCol || ns < 0 || ns > NumStr[nc] ||
      nw < -1 || nw > TitleStr[nc][ns].S_Gen.S_NumWord-1) return -1;
-  zi=(ZN*)malloc_m(kz*sizeof(ZN));
+  zi=(ZN*)malloc(kz*sizeof(ZN));
   --kz; comp=0; ns_curr=Zn[nc][ns][0][0].Title.Z_Id.str;
   if(nw >= 0)//Вставляем не в начало строки
   { num=TitleWord[nc][ns][nw].W_Gen.W_NumSym-1;
@@ -1654,7 +1654,7 @@ int InsertWord(int nc,int ns,int nw,ZN *zi,int kz)
     do0(i,0,TitleWord[nc][ns][nw1].W_Gen.W_NumSym-1)
       Zn[nc][ns][nw1][i].Title.Z_Id.comp+=(CONV)(kz+1);
   fl=InsertWord(nc,ns,nw,zi,kz);
-  free_m(zi); return fl;
+  free(zi); return fl;
 }*/// !!! Art - устарело
 //Удалить слово из ful-структур
 //============Return= 0 - слово удалено
@@ -1667,23 +1667,23 @@ int DelWordFul(int nc,int ns,int nw)
   if(nc < 0 || nc > NumCol || ns < 0 || ns > NumStr[nc] ||
      nw < 0 || nw > TitleStr[nc][ns].S_Gen.S_NumWord-1) return -1;
   if(t1.NumAltSpell > 0 && t1.W_Gen.W_Spell == SPELL_CORR) //---освобождение подсказок Spell---
-  { do0(i,0,t1.NumAltSpell-1) free_m(t1.AltSpell[i].Alt);
-    free_m(t1.AltSpell);
+  { do0(i,0,t1.NumAltSpell-1) free(t1.AltSpell[i].Alt);
+    free(t1.AltSpell);
   }
-  free_m(z[nw]);
+  free(z[nw]);
   do0(i,nw,k_word-1) { t[i]=t[i+1]; z[i]=z[i+1]; }
   if(k_word  > 0) TitleStr[nc][ns].S_Gen.S_NumWord=k_word;
   else  //Del String
   { TITLE_STR  *s=TitleStr[nc];
     TITLE_WORD **t=TitleWord[nc];
     ZN         ***z=Zn[nc];
-    free_m(z[ns]); free_m(t[ns]);
+    free(z[ns]); free(t[ns]);
     do0(i,ns,NumStr[nc]-1) { s[i]=s[i+1]; t[i]=t[i+1]; z[i]=z[i+1]; }
     if((--NumStr[nc]) < 0 && NumCol > 0) //Del Column
     { TITLE_STR  **s=TitleStr;
       TITLE_WORD ***t=TitleWord;
       ZN         ****z=Zn;
-      free_m(z[nc]); free_m(t[nc]); free_m(s[nc]);
+      free(z[nc]); free(t[nc]); free(s[nc]);
       do0(i,nc,NumCol-1)
       { s[i]=s[i+1]; t[i]=t[i+1]; z[i]=z[i+1];
         NumStr[i]=NumStr[i+1]; BndCol[i]=BndCol[i+1]; StatCol[i]=StatCol[i+1];
@@ -1717,11 +1717,11 @@ int TstNameOwr(uchar LastCod,uchar FirstCod)
 WORD Penalty1LenWord(int n)
 { static WORD Pen[16]={ 0,2,3,3,3,6,6,8,8,8,8,8,8,8,8,8 },ii=1,i;
   if(n < 0)
-  { char *str=malloc_m(250),param[MAX_LEN+1],*s,*err="Penalty1LenWord";
+  { char *str=malloc(250),param[MAX_LEN+1],*s,*err="Penalty1LenWord";
     ii=0; s=str;
     GetPrivateProfileString("orfo","REMAX","",s,100,FileParSpel);
     do0(i,0,15) {s=get_param(s,param,MAX_LEN-1); Pen[i]=(WORD)atoi(param);}
-    free_m(str); return 0;
+    free(str); return 0;
   }
   return Pen[MIN(n,15)];
 }
@@ -1740,14 +1740,14 @@ FUNC_GEN_FULWORD FuncGenFulWord;
 /* // !!! Art - устарело
 int PASC InitOneSpell(FUNC_GEN_FULWORD AddrFuncGenFulWord)
 //===
-{ if((zBuf=(ZN*)malloc_m(MaxZn*sizeof(ZN)))==NULL) return NOT_ALLOC;
+{ if((zBuf=(ZN*)malloc(MaxZn*sizeof(ZN)))==NULL) return NOT_ALLOC;
   ExtSettings=1;//Режим внешних настроек штрафов for FindWord
   FuncGenFulWord=AddrFuncGenFulWord;  return 0;
 }
 */ // !!! Art - устарело
 /* // !!! Art - устарело
 void PASC CloseOneSpell(void)
-  { free_m(zBuf); }
+  { free(zBuf); }
 */ // !!! Art - устарело
 #else
  //int InitSpell(char *PAthName,int cod,int TypeDoc1) {return 0;}
@@ -1798,7 +1798,7 @@ int PASC InitSpell(char *PathName,int cod,int TypeDoc)
   #ifdef WIN_MOD
   //  SetRegimDelta(par_ful.IndexDelta);
   #endif
-//  free_m(f03);    //mycorr
+//  free(f03);    //mycorr
   return 0;
 }
 */// !!! Art - устарело
@@ -1859,8 +1859,8 @@ void close_f03(void)
 //       char *LoIn,*UpIn,*Lo,*Up;
 //       if(pl==NULL) return -5;
 //       LoIn=pl->Ltablet; UpIn=pl->Ltabletl;
-//       Lo=malloc_m(strlen_m(LoIn)+2); strcpy_m(Lo,LoIn); LmUnWord(Lo);
-//       Up=malloc_m(strlen_m(UpIn)+2); strcpy_m(Up,UpIn); LmUnWord(Up);
+//       Lo=malloc(strlen_m(LoIn)+2); strcpy_m(Lo,LoIn); LmUnWord(Lo);
+//       Up=malloc(strlen_m(UpIn)+2); strcpy_m(Up,UpIn); LmUnWord(Up);
 //      #endif
 //      while(*Lo != 0)
 //      { if(*Up != '-' && *Up != '\'')
@@ -1875,12 +1875,12 @@ void close_f03(void)
 //      }
 //      ++p;
 //      #ifdef SPELL_NEW
-//        free_m(Lo); free_m(Up);
+//        free(Lo); free(Up);
 //      #endif
 //    }
 //  #else
-//    { BYTE *loR=(BYTE*)malloc_m(40),*upR=(BYTE*)malloc_m(40),*Lo,*Up;
-//      BYTE *loE=(BYTE*)malloc_m(40),*upE=(BYTE*)malloc_m(40),*bLo[2],*bUp[2];
+//    { BYTE *loR=(BYTE*)malloc(40),*upR=(BYTE*)malloc(40),*Lo,*Up;
+//      BYTE *loE=(BYTE*)malloc(40),*upE=(BYTE*)malloc(40),*bLo[2],*bUp[2];
 //      k=-1; bLo[0]=loR; bUp[0]=upR; bLo[1]=loE; bUp[1]=upE;
 //      strcpy_m((char*)loR,"абвгдежзийклмнопрстуфхцчшщъыьэюя-");
 //      strcpy_m((char*)upR,"АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ-");
@@ -1900,7 +1900,7 @@ void close_f03(void)
 //          ++Lo;++Up;
 //        }
 //      }
-//      free_m(loR); free_m(upR); free_m(loE); free_m(upE);
+//      free(loR); free(upR); free(loE); free(upE);
 //    }
 //  #endif
 //  k=strlen_m((char*)UpLine)-1;   do0(i,0,k) FeatLet[UpLine[i]].PosUpLine=UPP;
@@ -1910,20 +1910,20 @@ void close_f03(void)
 //  k=strlen_m((char*)DelimSubWord)-1;
 //  do0(i,0,k) FeatLet[DelimSubWord[i]].DelimSubWord=1;
 //  //---Чтение кластеров перепутывания---
-//  { BYTE *str=(BYTE*)malloc_m(50);
-//    BYTE *NameCl=(BYTE*)malloc_m(20);
-//    BYTE *NameClOne=(BYTE*)malloc_m(20);
+//  { BYTE *str=(BYTE*)malloc(50);
+//    BYTE *NameCl=(BYTE*)malloc(20);
+//    BYTE *NameClOne=(BYTE*)malloc(20);
 //    int in,k,*act;
 //    STATIC BYTE *s;
 //    strcpy_m((char*)NameCl,"Clust0");
 //    strcpy_m((char*)NameClOne,"ClustOneSym0");
-//    ClustOCR=(BYTE**)malloc_m(MAX_CLUST*sizeof(BYTE*));
-//    act=(int*)malloc_m(MAX_CLUST*sizeof(int));
+//    ClustOCR=(BYTE**)malloc(MAX_CLUST*sizeof(BYTE*));
+//    act=(int*)malloc(MAX_CLUST*sizeof(int));
 //    K_Clust=-1;
 //    for(;;) //Common Cluster
 //    { GetPrivateProfileString("corr_word",(char *)NameCl,"",(char *)str,49,(char *)FileParSpel);
 //      if(str[0] == 0) break;//Список кластеров исчерпан
-//      ClustOCR[++K_Clust]=(BYTE*)malloc_m(((k=strlen_m((char*)str))+1));
+//      ClustOCR[++K_Clust]=(BYTE*)malloc(((k=strlen_m((char*)str))+1));
 //      --k; strcpy_m((char *)ClustOCR[K_Clust],(char *)str);
 //      do0(i,0,k)
 //        FeatLet[(BYTE)str[i]].IndCl=K_Clust+1;
@@ -1939,13 +1939,13 @@ void close_f03(void)
 //      do0(i,0,k)
 //      { in=FeatLet[(BYTE)str[i]].IndCl-1;//Индекс old-cluster
 //        if(in < 0) //Letter not found Cluster
-//        { ClustOCR[++K_Clust]=(BYTE*)malloc_m(strlen_m((char*)s)+1);
+//        { ClustOCR[++K_Clust]=(BYTE*)malloc(strlen_m((char*)s)+1);
 //          strcpy_m((char *)ClustOCR[K_Clust],(char *)s);
 //          in=K_Clust;
 //        }
 //        else if(act[in] == 0) //Create new Cluster
 //        {
-//					ClustOCR[++K_Clust]=(BYTE*)malloc_m(strlen_m((char*)s)+strlen_m((char*)ClustOCR[in])+2);
+//					ClustOCR[++K_Clust]=(BYTE*)malloc(strlen_m((char*)s)+strlen_m((char*)ClustOCR[in])+2);
 //          strcpy_m((char*)ClustOCR[K_Clust],(char*)ClustOCR[in]);
 //					strcat((char*)ClustOCR[K_Clust],(char*)s);
 //          act[in]=K_Clust; in=K_Clust;
@@ -1968,13 +1968,13 @@ void close_f03(void)
 //
 //		if(K_Clust>=0)
 //		{
-//		  do0(i,0,K_Clust) free_m(ClustOCR[i]);
+//		  do0(i,0,K_Clust) free(ClustOCR[i]);
 //    }
-//    free_m(ClustOCR);
-//    free_m(str);
-//		free_m(act);
-//		free_m(NameCl);
-//		free_m(NameClOne);
+//    free(ClustOCR);
+//    free(str);
+//		free(act);
+//		free(NameCl);
+//		free(NameClOne);
 //  }
 //  //---Чтение режимов использования внеш. Alt---
 //  par_ful.AllowTestChifCl=GetPrivateProfileInt("corr_word","AllowTestChifCl",0,FileParSpel);
@@ -2027,8 +2027,8 @@ int init_ful()
        char *LoIn,*UpIn,*Lo,*Up;
        if(pl==NULL) return -5;
        LoIn=pl->Ltablet; UpIn=pl->Ltabletl;
-       Lo=malloc_m(strlen_m(LoIn)+2); strcpy_m(Lo,LoIn); LmUnWord(Lo);
-       Up=malloc_m(strlen_m(UpIn)+2); strcpy_m(Up,UpIn); LmUnWord(Up);
+       Lo=malloc(strlen_m(LoIn)+2); strcpy_m(Lo,LoIn); LmUnWord(Lo);
+       Up=malloc(strlen_m(UpIn)+2); strcpy_m(Up,UpIn); LmUnWord(Up);
       #endif
       while(*Lo != 0)
       { Upper[(BYTE)(*Up)]=1; Lower[(BYTE)(*Lo)]=1;
@@ -2037,12 +2037,12 @@ int init_ful()
       }
       ++p;
       #ifdef SPELL_NEW
-        free_m(Lo); free_m(Up);
+        free(Lo); free(Up);
       #endif
     }
   #else
-    { BYTE *loR=(BYTE*)malloc_m(40),*upR=(BYTE*)malloc_m(40),*Lo,*Up;
-      BYTE *loE=(BYTE*)malloc_m(40),*upE=(BYTE*)malloc_m(40),*bLo[2],*bUp[2];
+    { BYTE *loR=(BYTE*)malloc(40),*upR=(BYTE*)malloc(40),*Lo,*Up;
+      BYTE *loE=(BYTE*)malloc(40),*upE=(BYTE*)malloc(40),*bLo[2],*bUp[2];
       k=-1; bLo[0]=loR; bUp[0]=upR; bLo[1]=loE; bUp[1]=upE;
       strcpy_m((char*)loR,"абвгдежзийклмнопрстуфхцчшщъыьэюя-");
       strcpy_m((char*)upR,"АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ-");
@@ -2056,7 +2056,7 @@ int init_ful()
           ++Lo;++Up;
         }
       }
-      free_m(loR); free_m(upR); free_m(loE); free_m(upE);
+      free(loR); free(upR); free(loE); free(upE);
     }
   #endif
   do0(i,0,k)  {UppLow[(int)Upp[i]]=Low[i]; UppLow[(int)Low[i]]=Upp[i];}
@@ -2070,7 +2070,7 @@ int init_ful()
      ParSpell=b_charg();
      par_ful.KodNoRecog=ParSpell->unknow;
     #else
-     ParSpell=(svocabg*)malloc_m(sizeof(svocabg));
+     ParSpell=(svocabg*)malloc(sizeof(svocabg));
      GetPrivateProfileString("b_dll","UNKNOW","@",s,20,FileParSpel);
      par_ful.KodNoRecog=s[0];
      { char *p=&s[2],*pp=p;
@@ -2166,8 +2166,8 @@ int FormatStr(int nc,SRECT *Bnd,char ***Str,int **Ksym,int ncO)
    Str[ncO]=(char**)Submalloc((ks+1)*sizeof(char*),&SubFrm);
    Ksym[ncO]=(int*)Submalloc((ks+1)*sizeof(int),&SubFrm);
   #else
-   Str[ncO]=(char**)malloc_m((ks+1)*sizeof(char*));
-   Ksym[ncO]=(int*)malloc_m((ks+1)*sizeof(int));
+   Str[ncO]=(char**)malloc((ks+1)*sizeof(char*));
+   Ksym[ncO]=(int*)malloc((ks+1)*sizeof(int));
   #endif
   if(Str[ncO]==NULL||Ksym[ncO]==NULL)
 		return NOT_ALLOC;
@@ -2244,7 +2244,7 @@ int FormatStr(int nc,SRECT *Bnd,char ***Str,int **Ksym,int ncO)
     #ifdef SUB_FRM
      if((Str[ncO][ns]=(char*)Submalloc(ksy+1,&SubFrm))==NULL)return NOT_ALLOC;
     #else
-     if((Str[ncO][ns]=(char*)malloc_m(ksy+1))==NULL)return NOT_ALLOC;
+     if((Str[ncO][ns]=(char*)malloc(ksy+1))==NULL)return NOT_ALLOC;
     #endif
     Ksym[ncO][ns]=ksy; memcpy(Str[ncO][ns],buf,ksy+1);
   }
@@ -2344,7 +2344,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
   //Новая интерпретация знач. полей KNOTT
   //InBegFrm - номер терминал.ячейки в массивах Zn,...
   //NumFrm - индекс в массиве AllT
-  AllT=(KNOTT**)malloc_m(nT*sizeof(PTR));
+  AllT=(KNOTT**)malloc(nT*sizeof(PTR));
   Curr=Root; nT=-1;
   while(Curr != NULL)
   { if(Curr->down == NULL && Curr->Type != HIER_H)
@@ -2364,7 +2364,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
   //  if(AllT[i]->NumFrm > nT || AllT[i]->NumFrm < 0) ERR(6,err);
   //}
   NumStr=Inf->k_str; StatCol=Inf->StatCol;
-  BndCol=(SRECT*)malloc_m((NumCol+1)*sizeof(SRECT));
+  BndCol=(SRECT*)malloc((NumCol+1)*sizeof(SRECT));
   for(i=0;i<=NumCol;++i)
   { BndCol[i].left=Inf->bnd_col[i].left;BndCol[i].right=Inf->bnd_col[i].right;
     BndCol[i].top=Inf->bnd_col[i].up;   BndCol[i].bottom=Inf->bnd_col[i].down;
@@ -2384,7 +2384,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
 		//~	return fl-100;
 	#endif
   //!!!для бланков nT - общее число TERM-ячеек, NumCol - лишь AllowOcr
-  BndColTxt=(SRECT*)malloc_m(nT*sizeof(SRECT));
+  BndColTxt=(SRECT*)malloc(nT*sizeof(SRECT));
   #ifdef SUB_FRM
    { long Num=nT*2*sizeof(PTR)+(TitleFul.nStr+(nT-NumCol)*2)*
           (sizeof(PTR) + sizeof(int)) + (TitleFul.dNumZ+500);
@@ -2393,8 +2393,8 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
      Ksym=(int**)Submalloc(nT*sizeof(int*),&SubFrm);
    }
   #else
-    Str=(char***)malloc_m(nT*sizeof(char**));
-    Ksym=(int**)malloc_m(nT*sizeof(int*));
+    Str=(char***)malloc(nT*sizeof(char**));
+    Ksym=(int**)malloc(nT*sizeof(int*));
   #endif
   if(BndColTxt==NULL||Str==NULL||Ksym==NULL)
 		return NOT_ALLOC;
@@ -2456,15 +2456,15 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
   BndPage.left=LineV[0].BegTxt; BndPage.right=LineV[nV-1].BegTxt;
   BndPage.top =LineH[0].BegTxt; BndPage.bottom=LineH[nH-1].BegTxt;
   K_Col=BndPage.right-BndPage.left; K_Rows=BndPage.bottom-BndPage.top;
-  if((Txt=(char**)malloc_m((K_Rows+1)*sizeof(char*)))==NULL)return NOT_ALLOC;
+  if((Txt=(char**)malloc((K_Rows+1)*sizeof(char*)))==NULL)return NOT_ALLOC;
   do0(ns,0,K_Rows)
   {
-		if((Txt[ns]=(char*)malloc_m((K_Col+1)))==NULL)
+		if((Txt[ns]=(char*)malloc((K_Col+1)))==NULL)
 			return NOT_ALLOC;
     memset(Txt[ns],' ',K_Col+1);
   }
   if(Inf->TypeDoc==NORV)
-		MultiPoint=(BYTE*)malloc_m(100);
+		MultiPoint=(BYTE*)malloc(100);
   for(i=0; i < nT; ++i)
   { KNOTT *Kn=AllT[i];
     int l,nci,nw,NumAdd,dx1;
@@ -2526,7 +2526,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
           Txt[ns+dy][nz]='.';
     }
   }
-  if(Inf->TypeDoc==NORV)free_m(MultiPoint);
+  if(Inf->TypeDoc==NORV)free(MultiPoint);
   //--Вывод выход. текста в файл--
   { FILE1 *out=fopen_m(FileNameOut,OF_WRITE);
     char Lf[2];
@@ -2540,20 +2540,20 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
   for(i=0; i <= Inf->NumT; ++i)
     if(Inf->ColT[i]->NumFrm == 0) Inf->ColT[i]->NumFrm=1;
   //--Освобождение памяти--
-  do0(ns,0,K_Rows) free_m(Txt[ns]); free_m(Txt);
+  do0(ns,0,K_Rows) free(Txt[ns]); free(Txt);
   #ifdef SUB_FRM
    DeleteSubAlloc(&SubFrm);
   #else
    for(i=0; i < nT; ++i)
    { nc=AllT[i]->NumFrm; in=BndColTxt[nc].bottom;
-     free_m(Ksym[nc]); do0(ns,0,in) free_m(Str[nc][ns]); free_m(Str[nc]);
+     free(Ksym[nc]); do0(ns,0,in) free(Str[nc][ns]); free(Str[nc]);
    }
-   free_m(Ksym); free_m(Str);
+   free(Ksym); free(Str);
   #endif
-  free_m(BndColTxt);
+  free(BndColTxt);
 //END:
   FreeStructFull();
-  free_m(AllT);
+  free(AllT);
   #ifdef FUL
    #ifndef DLL_MOD
     b_close();
@@ -2586,8 +2586,8 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
 //       str=(char**)Submalloc(kstr*sizeof(PTR),&SubFrm);
 //       ks=(int*)Submalloc(kstr*sizeof(int),&SubFrm);
 //      #else
-//       str=(char**)malloc_m(kstr*sizeof(PTR));
-//       ks=(int*)malloc_m(kstr*sizeof(int));
+//       str=(char**)malloc(kstr*sizeof(PTR));
+//       ks=(int*)malloc(kstr*sizeof(int));
 //      #endif
 //      kstr=-1;  len=-32000; ksy=-1;
 //      if(*s == '\\' && *(s+1) == 'v') //Вертикал.надпись
@@ -2597,7 +2597,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
 //          #ifdef SUB_FRM
 //           str[++kstr]=(char*)Submalloc(1,&SubFrm);
 //          #else
-//           str[++kstr]=(char*)malloc_m(1);
+//           str[++kstr]=(char*)malloc(1);
 //          #endif
 //          str[kstr][0]=*s;
 //          ks[kstr]=0; ++s;
@@ -2611,7 +2611,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
 //              #ifdef SUB_FRM
 //               str[++kstr]=(char*)Submalloc(ksy+1,&SubFrm);
 //              #else
-//               str[++kstr]=(char*)malloc_m(ksy+1);
+//               str[++kstr]=(char*)malloc(ksy+1);
 //              #endif
 //              memcpy(str[kstr],buf,ksy+1); ks[kstr]=ksy;
 //              ksy=-1;
@@ -2625,7 +2625,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
 //          #ifdef SUB_FRM
 //           str[++kstr]=(char*)Submalloc(ksy+1,&SubFrm);
 //          #else
-//           str[++kstr]=(char*)malloc_m(ksy+1);
+//           str[++kstr]=(char*)malloc(ksy+1);
 //          #endif
 //          memcpy(str[kstr],buf,ksy+1); ks[kstr]=ksy;
 //        }
@@ -2638,9 +2638,9 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
 //       str[0]=(char*)Submalloc(1,&SubFrm);
 //       ks=(int*)Submalloc(sizeof(int),&SubFrm);
 //      #else
-//       str=(char**)malloc_m(sizeof(PTR));
-//       str[0]=(char*)malloc_m(1);
-//       ks=(int*)malloc_m(sizeof(int));
+//       str=(char**)malloc(sizeof(PTR));
+//       str[0]=(char*)malloc(1);
+//       ks=(int*)malloc(sizeof(int));
 //      #endif
 //      str[0][0]=' '; kstr=0; ks[0]=0; len=0;
 //    }

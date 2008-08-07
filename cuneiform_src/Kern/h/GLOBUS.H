@@ -100,21 +100,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       #define CLA_IMPO    _huge
       #define CLA_EXPO    _export
       #define FUN_IMPO__
-      #define __FUN_IMPO            _far
+      #define __FUN_IMPO            
       #define FUN_EXPO__
-      #define __FUN_EXPO            _far _export
+      #define __FUN_EXPO            _export
       #ifndef PASCAL
          #define PASCAL _pascal
       #endif
-      #ifndef FAR
-         #define FAR _far
-      #endif
-      #ifndef HUGE
-         #define HUGE huge
-      #endif
-   	#ifndef NEAR
-         #define NEAR      _near
-        #endif
       #ifndef CDECL
          #define CDECL      _cdecl
       #endif
@@ -132,26 +123,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
          #define PASCAL _pascal
          #ifdef DEBUG_HDRS
             #pragma message( "PASCAL->pascal")
-         #endif
-      #endif
-      #ifndef FAR
-         #define far
-         #define FAR far
-         #ifdef DEBUG_HDRS
-            #pragma message( "FAR->far-><none>")
-         #endif
-      #endif
-      #ifndef NEAR
-         #define near
-         #define NEAR near
-         #ifdef DEBUG_HDRS
-            #pragma message( "NEAR->near-><none>")
-         #endif
-	   #endif
-      #ifndef HUGE
-         #define HUGE
-         #ifdef DEBUG_HDRS
-            #pragma message( "HUGE-><none>")
          #endif
       #endif
      #endif
@@ -172,26 +143,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                #pragma message( "PASCAL->__stdcall")
             #endif
          #endif
-         #ifndef FAR
-            #define far
-            #define FAR far
-            #ifdef DEBUG_HDRS
-               #pragma message( "FAR->far-><none>")
-            #endif
-         #endif
-      	#ifndef NEAR
-            #define near
-            #define NEAR near
-            #ifdef DEBUG_HDRS
-               #pragma message( "NEAR->near-><none>")
-            #endif
-	      #endif
-         #ifndef HUGE
-            #define HUGE
-            #ifdef DEBUG_HDRS
-               #pragma message( "HUGE-><none>")
-            #endif
-         #endif
       #elif _MSC_VER == 800  /* MSVC 1.5 *********************************/
          /* ??
          #define CLA_IMPO    __declspec( dllimport )
@@ -204,17 +155,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
          #ifndef PASCAL
             #define PASCAL _pascal
          #endif
-         #ifndef FAR
-            #define FAR     __far
-         #endif
-         #ifndef NEAR
-            #define NEAR    __near
-         #endif
-         /*
-         #ifndef HUGE
-         #define HUGE
-         #endif
-         */
       #else    /* common definitions for all MS compilers */
          #ifndef CDECL
             #define CDECL      __cdecl
@@ -229,12 +169,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
          #define __FUN_EXPO
          #ifndef PASCAL
             #define PASCAL
-         #endif
-         #ifndef FAR
-            #define FAR
-         #endif
-         #ifndef HUGE
-            #define HUGE
          #endif
          #ifndef CDECL
             #define CDECL

@@ -66,7 +66,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef __NT__
   // for Windows NT
 
-  #undef FAR
   #undef PASCAL
   #undef EXPORT
   #if defined( _MSC_VER ) && _MSC_VER > 800
@@ -98,8 +97,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     #define EXPORT _export
   #endif
 
-  #define TIGERFAR            FAR
-  #define TIGERFUN(typ)       typ FAR PASCAL
+  #define TIGERFAR            
+  #define TIGERFUN(typ)       typ PASCAL
   #define TIGERAPI(typ)       TIGERFUN(typ) EXPORT
   #define TIGERCALLBACK(typ)  TIGERAPI(typ)
 #endif

@@ -79,15 +79,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "swabytes.h"
 #endif
 
-#undef HUGE
-#define HUGE
-
 #include <cstring>
 
 class XPool
 {
 protected:
-   void HUGE *    	Data;
+   void *    	Data;
    Int32      		Volume;
 
 public:

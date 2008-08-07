@@ -73,13 +73,13 @@ class TFltBuf
 		private:
          Int32  nCurLine;
          Int32  widthDWord;
-         Int32 HUGE * x16;
-         Int32 HUGE * x8;
-         Int32 HUGE * x4;
-         Int32 HUGE * x2;
+         Int32 * x16;
+         Int32 * x8;
+         Int32 * x4;
+         Int32 * x2;
       public:
-         Int32 HUGE * cur16;        // disjunct of last 16 lines
-         Int32 HUGE * last16;       // disjunct of last 16 lines
+         Int32 * cur16;        // disjunct of last 16 lines
+         Int32 * last16;       // disjunct of last 16 lines
 
 public:
 TFltBuf		( int width_dword );

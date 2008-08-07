@@ -67,16 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       #include <stdio.h>
 #endif
 
-#if defined( WIN16 )
-   #include "__mmove.h"
-   #define MEMMOVE   __mmove   // long blocks copy
-#else
-   #define MEMMOVE	memmove
-#endif
-
    #include <stdlib.h>
-   #define MALLOC 	malloc
-   #define FREE   	free
 
    #include "globus.h"
    #include "myassert.h"
@@ -91,14 +82,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #define SWAPBYTES(w)    ((Word16)(((w)<<8) | (((Word16)(w))>>8)))
    #define SWAPLONG(l)     \
       ((( (Int32)SWAPBYTES(_LOWORD(l))) <<16) | ( (Int32)SWAPBYTES(_HIWORD(l))) )
-
-#ifndef HUGE
-   #define HUGE
-#endif
-
-#ifndef FAR
-   #define FAR
-#endif
 
 #ifndef FALSE
    #define FALSE 0

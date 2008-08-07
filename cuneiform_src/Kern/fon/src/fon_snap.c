@@ -288,7 +288,7 @@ int all;
 /*
  * Handle messages for the application window
  */
-LONG FAR PASCAL GluFonWindowProc(HWND win, UINT msg, WPARAM wparam, LPARAM lparam)
+LONG PASCAL GluFonWindowProc(HWND win, UINT msg, WPARAM wparam, LPARAM lparam)
 {
  PAINTSTRUCT ps;
 

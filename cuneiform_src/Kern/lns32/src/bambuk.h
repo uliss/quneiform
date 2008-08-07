@@ -85,7 +85,7 @@ struct  EntryInfo
 		BHandle count;
 	};
 
-template <class T> class /*HUGE*/ TBambuk //: public TFarHeap
+template <class T> class TBambuk //: public TFarHeap
 {
 public :
 
@@ -200,7 +200,7 @@ void        appendMemberList( BEntry senior, BEntry junior )
 			entries[ junior ].count	= 0;
 		};
 
-T HUGE & operator [] ( BHandle cur_member)
+T & operator [] ( BHandle cur_member)
 		{ return members[cur_member];};
 
 Bool        shrinkBambuk(  BHandle new_members_count,
@@ -300,7 +300,7 @@ void  TBambuk<T>::cleanLinks( Int32 from )
 	};
 
 /* HUGE version for large member count */
-template <class T> class HUGE THugeBambuk //: public TFarHeap
+template <class T> class THugeBambuk //: public TFarHeap
 {
 
 public :
@@ -435,7 +435,7 @@ void        appendMemberList( BEntry senior, BEntry junior )
 			entries[ junior ].count	= 0;
 		};
 
-T HUGE & operator [] ( BHandle cur_member)
+T & operator [] ( BHandle cur_member)
 		{ return members[cur_member];};
 
 Bool        shrinkBambuk(  BHandle new_members_count,

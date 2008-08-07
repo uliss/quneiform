@@ -199,7 +199,11 @@ EXTERN BOOL langUzbek	VAL(FALSE);
 EXTERN BOOL langKaz		VAL(FALSE);
 
 // Конец строки
+#if defined(_WIN32)
 EXTERN char gEOL[4]		VAL2(0x0d,0x0a);
+#else
+EXTERN char gEOL[4]             VAL2(0x0a, 0x00);
+#endif
 
 // Имя страницы без расширения .tif или .fed;
 // может включать или не включать путь

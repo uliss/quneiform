@@ -119,7 +119,7 @@ BHandle nLower;		// link to lower segments in raster line
 							// this is indexes of proper Bambuk array elements
 	};
 
-typedef TBlackSeg FAR * FarBlackSeg;
+typedef TBlackSeg * FarBlackSeg;
 
 /*
 * TSegBambuk **********************************************

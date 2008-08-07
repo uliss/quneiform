@@ -167,7 +167,7 @@ typedef struct tagBITMAPINFOHEADER{
         LONG       biYPelsPerMeter;
         DWORD      biClrUsed;
         DWORD      biClrImportant;
-} BITMAPINFOHEADER, FAR *LPBITMAPINFOHEADER, *PBITMAPINFOHEADER;
+} BITMAPINFOHEADER, *LPBITMAPINFOHEADER, *PBITMAPINFOHEADER;
 
 void _gettextsettings (struct textsettings *ts)
 {

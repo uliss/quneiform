@@ -927,7 +927,7 @@ Bool32 ROUT_LoadRec6List(
 			continue;
 
 		// Номер языка и имя таблицы rec6xxx.dat
-		sscanf(buf,"%d%s", &language, &theName[0]);
+		sscanf(buf, "%d%s", &language, &theName[0]);
 
 		if (language <0 || language >= LANG_TOTAL ||
 			!theName[0] ||

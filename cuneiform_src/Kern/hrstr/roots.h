@@ -122,6 +122,7 @@ struct _Root
         BYTE  bReached;
         INT   nBlock;
 	INT   nUserNum;
+	void *pComp;
     };
 
 struct _RootExt;

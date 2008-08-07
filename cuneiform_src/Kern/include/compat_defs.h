@@ -94,10 +94,6 @@ typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int)
 #define HGDIOBJ int
 #endif
 
-#ifndef HUGE
-#define HUGE
-#endif
-
 #ifndef DECLARE_HANDLE
 #define DECLARE_HANDLE(a)
 #endif
