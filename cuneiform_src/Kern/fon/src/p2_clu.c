@@ -59,8 +59,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //   for use in cl_bcwin   #define _WINEDIT_
 //   for non-flat model    #define _NONFLAT_
-//   for cl_dos.exe        #define _SIMPLDOS_
-//   for DOS - get time    #define _GETTIME_
 
 
 #define _UNION_ONEONE_    // union 1-1 clusters
@@ -1393,9 +1391,7 @@ static SINT TestUnionOne(SINT porog,SINT NumAll,SINT NumClus)
 				 best,
 				 (SINT)(rh[k].h<20?porog*2:rh[k].h<30?porog*3:porog*4)) )
 	 {
-#ifdef _SIMPLDOS_
-	  printf(" union %d with %d %c \n",i,best,(char)rh[k].let);
-#endif
+	   /*printf(" union %d with %d %c \n",i,best,(char)rh[k].let);*/
 	  nClus[k]=best;
 	  NumIn[best]++;
 	  for(j=0;j<NumAll;j++)  if(nClus[j] > i ) nClus[j]--;
@@ -1413,9 +1409,7 @@ static SINT TestUnionOne(SINT porog,SINT NumAll,SINT NumClus)
 				 rh[k].h, CurName,(SINT)( porog>>2),NumIn) ) != -1 )
 	 {
 	  rh[k].num=j+1;  // symbol number+1 - to mark ! ( > 0 - was union)
-	  #ifdef _SIMPLDOS_
-	  printf(" union N=%d %c with %c (N=%d)\n",i,(char)rh[k].let,(char)rh[j].let,j);
-	  #endif
+	  /*printf(" union N=%d %c with %c (N=%d)\n",i,(char)rh[k].let,(char)rh[j].let,j);*/
 	 }
   #endif
  }
@@ -1559,10 +1553,10 @@ SINT TestUnionSolid(SINT porog,SINT NumAll,SINT Clus2,SINT NumClus)
  for(k=Clus2,j=0;k<NumClus;k++)
 	{
 	 if(IsTwin[k]==-1) continue;
-	 #ifdef _SIMPLDOS_
+	 /*
 	 if(rh[IsTwin[k]].let != rh[FirIn[k]].let )
 		printf(" Union %c with solid %c \n",(BYTE)rh[FirIn[k]].let,(BYTE)rh[IsTwin[k]].let);
-	 #endif
+	 */
 	 rh[FirIn[k]].num=IsTwin[k]+1; // +1 - to mark that was union
 	 j++;
 	}

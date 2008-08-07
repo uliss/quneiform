@@ -57,7 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define _ADDCLU_
 
 #ifdef _ADDCLU_
-//#define _GETTIME_ - if printf time (DOS)
 
  // mov on +- 1 on x & y
 #define _MOVE_
@@ -199,19 +198,12 @@ SINT AddToClusters(CHAR  *rname,SINT NumClus,SINT porog,SINT porog2,SINT *nClus,
 
  if( (fh=open(rname,O_RDWR|O_BINARY))==-1)
    {
-    #ifdef _SIMPLDOS
-     printf( " Error open file %s ",rname);
-    #endif
      return -2;
    }
 
  memset(IsAdd,0,NumClus*sizeof(SINT));
  for(allnum=0;allnum<MAXSYM;allnum++,movxy+=2)
  {
-  #ifdef _SIMPLDOS_
-   if( (allnum&127)==0 ) printf("\r%d",allnum);
-  #endif
-
   if( read(fh,&rh,sizeof(raster_header))!=sizeof(raster_header))
 	 break;
 
@@ -249,9 +241,9 @@ SINT AddToClusters(CHAR  *rname,SINT NumClus,SINT porog,SINT porog2,SINT *nClus,
    {
     nClus[allnum]=-i;  // mark invalid
     NumBad++;
-    #ifdef _SIMPLDOS_
+    /*
     printf(" Invalid - %c with %c (%d)!\n",(BYTE)rh.let,(BYTE)swel[i-1].let,i);
-    #endif
+    */
    }
    else
     {NumGood++;
@@ -267,11 +259,11 @@ SINT AddToClusters(CHAR  *rname,SINT NumClus,SINT porog,SINT porog2,SINT *nClus,
 
  close(fh);
 
-#ifdef _SIMPLDOS_
+ /*
  for(i=0,fh=0;i< NumClus;i++) if(IsAdd[i]) fh++;
  printf( " Bad symbol=%d ,Good symbol=%d Not-add %d\n",  NumBad,NumGood,NotClus);
  printf("allnum=%d  init cluster=%d  updated %d\n",allnum,NumClus,fh);
-#endif
+ */
  return allnum;
 }
 //////////////////////////
@@ -388,9 +380,9 @@ SINT stx,sty;
  for(i=0;i<wl->w;i++) if(rr[i]>=0 && rr[i+1]<0)
 	 {sw->dist1=rr[i+1];break;}
 
-#ifdef _SIMPLDOS_
+ /*
  if(i >= wl->w ) printf("Invalid dist1 %d \n",(SINT)sw->dist1);
-#endif
+ */
 
  rr=sw->raster=WelHau[NumWelHau-1]+LastWel;
  for(i=0;i<h;i++,ras+=WR_MAX_WIDTH,rr+=w) memcpy(rr,ras,w);
@@ -954,10 +946,10 @@ SINT AddClusterHausdorf(CHAR  *NameWr,CHAR  *szOutName,
  if( (fold=open(tmpname,O_RDWR|O_BINARY)) <=0 )
     { EndHausdorfDLL();return -10;}
 
-#ifdef _SIMPLDOS_
+ /*
  printf("Clus=%d NewSolid=%d NewGood=%d NewInvalid=%d\n",
 	  CurClus,NewSolid,NewNotInvalid,NewInvalid);
-#endif
+ */
 
  AllCount=CurClus/SIGNAL_SAVE;
  k=AllCount*(SIGNAL_SAVE-CurClus%SIGNAL_SAVE);

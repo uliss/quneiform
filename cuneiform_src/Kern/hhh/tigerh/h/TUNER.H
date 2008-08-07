@@ -78,7 +78,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define   stendREON
 #define   SPEC_SYMBOLS          // Andrew
 #define   noPRIMAX              // Chinese manufacturer
-//#define   DOS_VERSION         // for create DOS version
 
 #define  noINTERSEPTOR
 #define  noHPLE_VERSION1

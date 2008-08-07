@@ -57,11 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __FARARRAY_H
 	#define __FARARRAY_H
 
-/*
-	#ifndef __DOS_H
-	#	include <dos.h>
-	#endif
-*/
    #ifndef __LNSLANG_H
    #  include "lnslang.h"
 	#endif

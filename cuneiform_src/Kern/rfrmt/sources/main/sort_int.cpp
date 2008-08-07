@@ -188,9 +188,7 @@ static void quick_sort(char *base1,int num1)
  //
 	  if (base_ptr > base_end_ptr)
    {
-     #ifdef DOS_MOD
       printf("\n Sorting Buffer Overflow") ;
-     #endif
      return ;
    } ;
    num_ptr++ ;

@@ -65,7 +65,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #ifndef __CTC_TECH_
 #define __CTC_TECH_
-#define __DOSWIN_
 #define PC_TYPE
 #define PC_MS
 #endif

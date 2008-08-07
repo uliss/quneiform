@@ -83,8 +83,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       #define DLL_MOD
     #endif
   #endif
-#else
-	#define DOS_MOD
 #endif
 
 #if !defined (WIN_MOD)
@@ -238,15 +236,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #define FL_NATUR 1
 #else
   #define FL_NATUR 0
-#endif
-
-#ifndef _MAX_DRIVE
-	#ifdef DOS_MOD
-	  #define _MAX_DRIVE  4
-	  #define _MAX_DIR    100
-	  #define _MAX_FNAME  9
-	  #define _MAX_EXT    4
-	#endif
 #endif
 
 // --------- Работа с памятью и обработка ошибок. Large Model ONLY!!! ----------

@@ -83,8 +83,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         #define Edef extern
         #define VAL(a)
 #endif
-//--------------- System information ---------------------
-Edef CHAR dos_tiger_dir[160]  VAL("..\\bin\\"); // system directory
 
 //------------------ Name fields -------------------------
 Edef  CHAR group_name[5]      VAL("PAGE");  // group of files name
@@ -222,5 +220,4 @@ Edef Ecom Q;
 extern BYTE Q[];
 #endif
 ///////////////////////////////////////////////////////////////////////////////////////////////
-#define OPTIONS_LTH &db_end_parm - dos_tiger_dir
 #endif	// _STATUS_H_

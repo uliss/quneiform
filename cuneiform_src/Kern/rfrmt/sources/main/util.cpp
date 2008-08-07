@@ -62,8 +62,7 @@ char NameFuncErr[100],Buff[60]; short NumErr;
 
 void heapstat(char *mess)
 {
- #ifdef DOS_MOD
- #ifdef MSC_MOD
+ #ifdef __MSVC__
   #ifndef __cplusplus
     int   status = _heapchk(), n;
   #else
@@ -94,7 +93,6 @@ void heapstat(char *mess)
   }
 
   ERR(n, "Heapstat");
- #endif
  #endif
 }
 
@@ -178,21 +176,7 @@ char huge * PASC  halloc_m(long n, uint size)
       #endif
     #endif
   #else
-    #ifdef DOS_MOD
- 	   #ifdef DEBUG_MEM
-   	   char huge* p;
-   	   if(!size)
-				ERR(1,err);
-   	   heapstat("halloc_m bef");
-  	    p=(char*)halloc(n,size);
-   	   heapstat("halloc_m aft");
- 	   return p;
-  	  #else
-  	   return halloc(n, size);
- 	   #endif
-    #else /*DOS_MOD*/
     	return  (char*)malloc(n*size);
-    #endif /*DOS_MOD*/
   #endif
 }
 //=================
@@ -264,19 +248,8 @@ void   PASC hfree_m(void huge *ptr)
       #endif
     #endif
   #else //WIN_MOD
-		#ifdef DOS_MOD
-	   #ifdef DEBUG_MEM
-	    if(ptr == NULL)
-				ERR(2,"hfree_m");
-	    heapstat("hfree_m bef");
-	    hfree(ptr);
-	    heapstat("hfree_m aft");
-	   #else
-	    hfree(ptr);
-	   #endif
-    #else //DOS_MOD
      free(ptr);
-		#endif
+
   #endif //WIN_MOD
 }
 #endif /* defined (WIN_MOD) || defined (DEBUG_MEM) */
@@ -353,13 +326,6 @@ void ERR(int num, char  *str)
     #ifndef DLL_MOD
       FatalExit(num);
     #endif
-  #else
-		#ifdef DOS_MOD
-    fprintf(stderr,"\nERR=%d %s",num,str);
-  	exit(num);
-		#else	// Mac
-   			 printf("\nERR=%d %s",num,str);
-		#endif
   #endif
 }
 
@@ -374,12 +340,8 @@ void ERRO(int num,char *str)
       FatalExit(num);
     #endif
   #else
-		#ifdef DOS_MOD
         fprintf(stderr,"\nERR=%d %s",num,str);
     	exit(num);
-    	#else		// Mac
-        printf( "\nERR=%d %s",num,str);
-  	#endif
   #endif
 }
 

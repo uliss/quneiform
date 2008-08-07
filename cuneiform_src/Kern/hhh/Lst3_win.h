@@ -62,9 +62,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*#include <io.h>*/
 #include <sys/types.h>
-#if defined (MSC_MOD) && defined (DOS_MOD)
-  #include <graph.h>
-#endif
 
 #include "compat_defs.h"
 #include "minmax.h"

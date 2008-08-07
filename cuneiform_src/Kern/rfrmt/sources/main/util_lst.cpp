@@ -201,10 +201,6 @@ int alloc_seg(KNOT **kn,int *kb,int max_kn,uint size_item,int *size_bloc)
 uint determine_free_memory(uint size1)
 /*===========================*/
 { char *ptr; uint size=size1;
-  /*_dos_allocmem(0xFFFF,&max_size); Этой функции недоступна память, возвращен-
-  ная в хип malloc-a по free, для этого используется функция прохождения по
-  списку malloc-ов
-  max_size=MIN(MAX_BLOC,(long)max_size*16);*/
   while( (ptr=(char*)malloc(size)) == NULL )
     if((size=((size>>1)+(size>>2))) < 100) {size=0;break;}
   if(size) free(ptr);
@@ -489,11 +485,7 @@ void PASC free_frm(FRAME **frm_arr,int k_arr_frm,FRAME **frm)
 
 long time(void)
 {
-  #ifdef DOS_MOD
-    return (*(long far *) 0x0046cL);
-  #else
     return 0L;
-  #endif
 }
 #endif
 //*****стек-массив*****
