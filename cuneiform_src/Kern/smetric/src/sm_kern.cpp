@@ -334,10 +334,10 @@ SMetric_FUNC(Bool32) SMetric_SetImportData(Word32 dwType, void *pData)
 				memset (&MainRegime, 0, sizeof (Regime_VerifyLines));
 			break;**/
 		case SMetric_ResolX:
-			SMetric_SetResolX(*static_cast<Int32*>(pData));
+			SMetric_SetResolX(reinterpret_cast<intptr_t>(pData));
 			break;
 		case SMetric_ResolY:
-			SMetric_SetResolY(*static_cast<Int32*>(pData));
+			SMetric_SetResolY(reinterpret_cast<intptr_t>(pData));
 			break;
 		case 1 :
 		default :

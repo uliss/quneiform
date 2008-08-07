@@ -65,6 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // By Eugene Pliskin pliskin@cs.isa.ac.ru
 //********************************************************************
 
+#include <errno.h>
 #include <fcntl.h>
 #include <string.h>
 #include "stdafx.h"
@@ -218,8 +219,6 @@ Bool32 ROUT_SaveObject(
 				}
 			}
 		}
-	else
-		pos = fseek(f, 0, SEEK_SET);
 
 	if ( pos == -1 )
 		{
@@ -230,7 +229,7 @@ Bool32 ROUT_SaveObject(
 
 	// Записать данные из памяти
 	ULONG lth = gMemCur - gMemStart;
-	if (fwrite((char*)gMemStart, lth, 1, f) != lth)
+	if ( fwrite((char*)gMemStart, 1, lth, f) != lth)
 		{
 		fclose(f);
 		FreeWorkMem();
@@ -241,6 +240,7 @@ Bool32 ROUT_SaveObject(
 	if ( !fclose(f))
 		{
 		ERR_CLOSE_FILE;
+		printf( "Error closing file: %s\n", strerror( errno ) );
 		FreeWorkMem();
 		return FALSE;
 		}
@@ -913,7 +913,7 @@ Bool32 ROUT_LoadRec6List(
 
 	while (	fgets(buf,sizeof(buf)-1,f) )
 		{
-		long language=-1;
+		int language=-1;
 		char theName[_MAX_PATH] = "";
 
 		// Пустые строки и строки комментариев,
