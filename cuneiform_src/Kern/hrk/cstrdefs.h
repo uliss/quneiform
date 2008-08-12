@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define     CSTR_VERSION_CODE  2
 
-typedef Int32 CSTR_line;
+typedef Handle CSTR_line;
 
 typedef struct tagCSTR_stick
  {
