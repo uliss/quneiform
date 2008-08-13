@@ -58,7 +58,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define H_ccomdef_h
 
 #include "recdefs.h"
-#pragma pack (push,8)
 
 #define CCOM_VERSION_CODE   1
 #define CCOM_DUST_SIZE      8
@@ -165,8 +164,7 @@ typedef struct _CCOM_cont
     Bool16                kill_dust_mode,language,style_new;
     } CCOM_cont;
 
-typedef Int32  CCOM_handle;
-#pragma pack (pop)
+typedef void*  CCOM_handle;
 #endif
 
 

@@ -86,7 +86,7 @@ Bool32 ReadRoots();
 void PageLayoutPart1 (void);
 void PageLayoutPart2 (void);
 
-void PageLayoutBlocks(Int32 hCCOM);
+void PageLayoutBlocks(Handle hCCOM);
 void PageLayoutStrings(Handle hCCOM,Handle hCPAGE);
 
 void SetReturnCode_rblock(Word32 rc);

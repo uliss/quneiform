@@ -76,8 +76,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 
-#pragma pack (push,8)
-
 #define RBLOCK_MAXNAME 260
 
 
@@ -108,7 +106,7 @@ typedef enum
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RBLOCK_FUNC(a) b c
 
-DEC_FUN(Bool32, RBLOCK_ExtractTextBlocks,(Handle hCCOM,Handle hCPAGE,Word32 hCLINE));
+DEC_FUN(Bool32, RBLOCK_ExtractTextBlocks,(Handle hCCOM, Handle hCPAGE, Handle hCLINE));
 DEC_FUN(Bool32, RBLOCK_ExtractTextStrings,(Handle hCCOM,Handle hCPAGE));
 DEC_FUN(Bool32, RBLOCK_GetAnglePage,(Handle hCCOM,Int32 * lpNominator,Int32 * lpDenominator));
 #undef DEC_FUN
@@ -117,8 +115,6 @@ typedef void   (*FNRBLOCK_ProgressStart)( void );
 typedef	Bool32 (*FNRBLOCK_ProgressStep)(Word32 perc);
 typedef	void   (*FNRBLOCK_ProgressFinish)( void );
 
-
-#pragma pack (pop)
 
 #ifdef __cplusplus
             }

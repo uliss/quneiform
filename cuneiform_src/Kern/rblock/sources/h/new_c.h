@@ -138,7 +138,7 @@ EXTERN char tmp_str[200];
 EXTERN Word32 nComps;
 EXTERN Word32 page_count VAL1(0);
 EXTERN char* file_name;
-EXTERN Int32 exthCCOM;
+EXTERN Handle exthCCOM;
 ////////////////////////////////////////////////////////////////////////////////
 
 

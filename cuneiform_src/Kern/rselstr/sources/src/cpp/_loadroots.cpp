@@ -216,9 +216,9 @@ Bool32 Close_Res_Log( void )
 }
 
 
-Bool32 FillBigLetters (Int32 hCCOM,Handle hCPAGE)
+Bool32 FillBigLetters (Handle hCCOM,Handle hCPAGE)
 {
-	Word32 BlockType;
+	Handle BlockType;
 	Handle pBlock;
 	RPIC_Comp_Rect CompRect;
 
@@ -245,7 +245,7 @@ Bool32 FillBigLetters (Int32 hCCOM,Handle hCPAGE)
 }
 
 
-Bool32 FillPicsInTables (Int32 hCCOM,Handle hCPAGE)
+Bool32 FillPicsInTables(Handle hCCOM, Handle hCPAGE)
 {
 	POLY_	block;
 	Handle h = NULL;
@@ -299,7 +299,7 @@ Bool32 IsNotBigLetter (CCOM_comp *comp)
 
 /************************************************************************/
 
-Bool32 ReadRoots(Int32 hCCOM)
+Bool32 ReadRoots(Handle hCCOM)
 {
 	CCOM_comp * comp = NULL;
 	Handle		pPage;

@@ -105,13 +105,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       #define TRUE                1
    #endif
 
-#pragma pack(4)
 /*** Derived types ***/
    typedef struct tagPoint16 { Int16 x,y; } Point16; _SETTYPES( Point16 )
    typedef struct tagPoint32 { Int32 x,y; } Point32; _SETTYPES( Point32 )
    typedef struct tagRect16 { Int16 left,top,right,bottom; } Rect16; _SETTYPES( Rect16 )
    typedef struct tagRect32 { Int32 left,top,right,bottom; } Rect32; _SETTYPES( Rect32 )
-#pragma pack()
    //////////////////////////////
    // some of generic callbacks:
 typedef void   (* FTVoid   )  ( void );
@@ -197,7 +195,7 @@ typedef char* LPTSTR;
 typedef const char* LPCSTR;
 typedef const char* LPCWSTR;
 typedef const char* LPCTSTR;
-typedef unsigned int UINT;
+typedef uint32_t UINT;
 typedef unsigned long ULONG;
 
 #include "cttypext.h"

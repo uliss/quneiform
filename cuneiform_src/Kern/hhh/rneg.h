@@ -78,7 +78,7 @@ struct NegTemp
   int top;
   int w;
   int h;
-  Int32 hStrCCOM;
+  Handle hStrCCOM;
   Rect16 prc[Max_Str_Count];
   int nRc;
   int fl_rotate;
@@ -88,8 +88,6 @@ struct NegTemp
 #ifdef __cplusplus
         extern "C" {
 #endif
-
-#pragma pack (push,8)
 
 
 //#ifndef Handle
@@ -113,7 +111,7 @@ typedef enum
 				RNEG_FNRNEG_TestForNegative
 } RNEG_EXPORT_ENTRIES;
 
-typedef Int32  CCOM_handle;
+typedef void*  CCOM_handle;
 
 /*  Описание функций  */
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RNEG_FUNC(a) b c
@@ -122,8 +120,6 @@ DEC_FUN(Bool32, RNEG_TestForNegative, (CCOM_handle hCComp, Handle hCPage,Word8* 
 
 #undef DEC_FUN
 
-
-#pragma pack (pop)
 
 #ifdef __cplusplus
             }

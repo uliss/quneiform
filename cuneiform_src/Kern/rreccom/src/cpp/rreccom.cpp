@@ -76,6 +76,8 @@ BOOL APIENTRY DllMain( HANDLE hModule,
     return TRUE;
 }
 /*********************************************************************************************/
+// JussiP: This function is never called anywhere.
+#if 0
 RRECCOM_FUNC(Bool32) RRECCOM_GetExportData(Word32 dwType, void * pData)
 {
 #define CASE_DATA(a,b,c)        case a: *(b *)pData = c; break
@@ -147,6 +149,7 @@ RRECCOM_FUNC(Bool32) RRECCOM_GetExportData(Word32 dwType, void * pData)
 
 	return TRUE;
 }
+#endif
 /*********************************************************************************************/
 RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(Word32 dwType, void * pData)
 {

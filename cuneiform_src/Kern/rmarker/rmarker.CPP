@@ -295,7 +295,7 @@ Bool32 SearchPictures ( PRMPreProcessImage Image, BIG_IMAGE big_Image )
 	{
 		if( Image->gnPictures )
 		{
-			if(!RPIC_SearchPictures((Int32)(Image->hCCOM),big_Image.hCCOM,Image->hCPAGE))
+			if(!RPIC_SearchPictures(Image->hCCOM, big_Image.hCCOM, Image->hCPAGE))
 			{
 				Word32 RPicRetCode = RPIC_GetReturnCode();
 

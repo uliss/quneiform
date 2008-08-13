@@ -812,9 +812,9 @@ return REXCExtra(ExCW,
     TemplCol, TemplRow, TemplWid, TemplHei, foto_metric );
 }
 
-Int32  REXCGetContainer(void)
+Handle  REXCGetContainer(void)
 {
-return (Int32)NumContainer ;
+return NumContainer ;
 }
 
 

@@ -80,10 +80,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "un_buff.h"
 #include "un_err.h"
 /*------------extern functions------------------------------------------------*/
-Bool GetSomeKeys_rv (void *vB, Word32 *pKeyHor, Word32 *pKeyVer
+Bool GetSomeKeys_rv (void *vB, Handle *pKeyHor, Handle *pKeyVer
 					 , int *pCntHor, int *pCntVer, char *pStr);
 Bool LoadLinesTotalInfo_rv (Handle hC, void *vB, char *pStr);
-Bool LoadLinesSpecInfo (Handle hC, void *vB, Word32 Key, int Cnt);
+Bool LoadLinesSpecInfo (Handle hC, void *vB, Handle Key, int Cnt);
 Bool LoadComps_rv (Handle hC, void *vB, char *pStr, int Filter);
 Bool ReferForLinesAM (void *vLinePool, void *vB, int Aim);
 Bool ReferForLinesVP (void *vLti, void *vB);
@@ -119,7 +119,7 @@ Bool GetComplexData_rv (int Type, int Aim, void *vB, void **vvData)
 Bool LoadData_rv (Handle hC, int Type, void *vB, char *pStr, int Filter)
 {
 	Bool ret;
-	Word32 KeyHor, KeyVer; //// а ключи надо бы запомнить!
+	Handle KeyHor, KeyVer; //// а ключи надо бы запомнить!
 	int CntHor, CntVer;
 	UN_BUFF *pB;
 	pB = (UN_BUFF *)vB;

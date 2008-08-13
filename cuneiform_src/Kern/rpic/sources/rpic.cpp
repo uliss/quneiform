@@ -156,7 +156,7 @@ Bool32 ClearLogRes(void)
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
-Bool32 LastCheck(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
+Bool32 LastCheck(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 {
 	Word32 i,j;
 	CCOM_comp pic;
@@ -356,7 +356,7 @@ Bool32 IsNotGoodComp (PAGEINFO	pInfo, CCOM_comp *comp)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-RPIC_FUNC(Bool32) RPIC_SearchPictures (Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
+RPIC_FUNC(Bool32) RPIC_SearchPictures (Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 {
 	CCOM_comp * comp =	NULL;
 	CCOM_comp common;
@@ -833,7 +833,7 @@ lNextComp:
 	 }
 	}
 
-    Word32 BlockType = CPAGE_GetInternalType("pic's to letters boxes");
+    Handle BlockType = CPAGE_GetInternalType("pic's to letters boxes");
     RPIC_Comp_Rect CompRect;
     if(!LDPUMA_Skip(hShowBigLetters))
 	{

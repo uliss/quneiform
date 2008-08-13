@@ -1255,7 +1255,7 @@ void NegInvert(RecRaster* rec,Rect16 N)
 
 
 
-Int32 GetNegCCOM(Handle hCPage,Rect16* pRc,int i)
+Handle GetNegCCOM(Handle hCPage,Rect16* pRc,int i)
 {
  int min_h,min_w,max_h,max_w;
  ExcControl Control;
@@ -1477,7 +1477,7 @@ void NegSetAlf(char* buf)
 	buf[size]='\0';
 }
 
-void NegMoveMas(Int32* hCCOM,int n,int num)
+void NegMoveMas(Handle* hCCOM,int n,int num)
 {
  int i;
  CCOM_DeleteContainer(hCCOM[num]);

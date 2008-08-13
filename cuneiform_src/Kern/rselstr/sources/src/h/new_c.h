@@ -115,7 +115,7 @@ EXTERN Word32 nPics;
 EXTERN CCOM_comp * pPics VAL1(NULL);
 EXTERN Word16 pBlockHystogram[MaxHeightOfLetter];
 EXTERN Word32 nComps;
-EXTERN Int32 exthCCOM;
+EXTERN Handle exthCCOM;
 ////////////////////////////////////////////////////////////////////////////////
 
 

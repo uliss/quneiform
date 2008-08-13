@@ -71,7 +71,7 @@ extern Handle hShowCheckLetters;
 
 
 ////////////////////////////////////////////////////////////////////////////////
-Bool32 CheckAreaForComps(Int32 hCCOM,Int32 hCCOM_big, Rect32 rect, Int32 Height, Word32 *Result1, Word32 *Result2)
+Bool32 CheckAreaForComps(Handle hCCOM, Handle hCCOM_big, Rect32 rect, Int32 Height, Word32 *Result1, Word32 *Result2)
 {
 	CCOM_comp * comp;
 	Word32 i;
@@ -220,7 +220,7 @@ lNextComp:
 
 
 ////////////////////////////////////////////////////////////////////////////////
-Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
+Bool32 SearchRectanglePictures(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 {
 	Word32 i,j;
 	CCOM_comp pic;
@@ -231,7 +231,7 @@ Bool32 SearchRectanglePictures(Int32 hCCOM,Int32 hCCOM_big,Handle hCPAGE)
 	Word32 Result1, Result2, Result3, Result4, tmp1, tmp2;
 	Rect32 rect;
 	Int32 LengthTotal,LengthByIntervals;
-	Word32 BlockType;
+	Handle BlockType;
 	RecRaster rec;
 	RecVersions vs;
 	Int16 Language;

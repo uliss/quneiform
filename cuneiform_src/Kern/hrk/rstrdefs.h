@@ -57,7 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __RSTRDEFS_H
 #define __RSTRDEFS_H
 
-#pragma pack(1)
 /*
 #ifndef __EXCSTRUC_H
    #include "excdefs.h"
@@ -115,6 +114,5 @@ typedef struct tagSaveString  // str in H\struct.h OLD TIGER
 }  SaveString;
 */
 
-#pragma pack()
 
 #endif

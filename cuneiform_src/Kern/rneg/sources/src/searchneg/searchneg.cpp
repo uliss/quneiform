@@ -476,7 +476,7 @@ BOOL SearchNegBySize(CCOM_handle hCCOM, Handle hCPage,NegList** ROOT,int& nRC)
  NegList* temp=NULL;
  Rect16 Rc;
  CCOM_comp * pcomp;
- pcomp = CCOM_GetFirst ((Int32)hCCOM, NULL);
+ pcomp = CCOM_GetFirst (hCCOM, NULL);
  if(pcomp==NULL)
 	 return FALSE;
  PAGEINFO info = {0};

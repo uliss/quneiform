@@ -339,7 +339,7 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
   }
 
 
-  Int32 hStrCCOM;
+  Handle hStrCCOM;
   CCOM_comp * pcomp;
   oldleft=my_str->left;
   Rect16* pN = NULL;
@@ -369,7 +369,7 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
    if(!my_prep_str)
    {
     if(my_str->neg)
-       hStrCCOM=GetStrCCOM(hCPage,ImageName,Rc,my_str->neg,my_str->vertical);
+       hStrCCOM=GetStrCCOM(hCPage, ImageName, Rc, my_str->neg, my_str->vertical);
     else
 	   hStrCCOM=(CCOM_handle)hCCOM;
    }

@@ -123,9 +123,9 @@ CSTR_rast CGRAPH_GetStopRaster(CSTR_rast rast)
 //			n	- позиция
 //	RETS:	Указатель на затребованную позицию
 /////////////////////////////////////////////////////////////////////////////////////////
-Int32 *SetPtr(Int32 *ptr, Int32 n)
+intptr_t *SetPtr(intptr_t *ptr, Int32 n)
 {
-	Int32 i;
+	intptr_t i;
 	for(i = 0; i < n; i++)
 		ptr++;
 	return ptr;
@@ -141,14 +141,14 @@ Int32 *SetPtr(Int32 *ptr, Int32 n)
 Bool32 AddLoop(ALoop *al, CSTR_rast rast)
 {
 	CSTR_rast	rst = rast;
-	Int32 *ptr = SetPtr(al->loop, al->n);
-	*(ptr) = (Int32)rst;
+	intptr_t *ptr = SetPtr(al->loop, al->n);
+	*(ptr) = reinterpret_cast<intptr_t> (rst);
 	al->n++;
 
 	if(al->n == memsize)
 	{
 		memsize *= 2;
-		al->loop = (Int32 *)realloc(al->loop, sizeof(Int32) * memsize);
+		al->loop = static_cast<intptr_t*>(realloc(al->loop, sizeof(intptr_t) * memsize));
 		if(!al->loop)
 			return FALSE;
 	}
@@ -163,16 +163,16 @@ Bool32 AddLoop(ALoop *al, CSTR_rast rast)
 //	RETS:	TRUE	- ОК
 //			FALSE	- нет памяти
 /////////////////////////////////////////////////////////////////////////////////////////
-Bool32 AddLevel(ALoop *al, Int32 level)
+Bool32 AddLevel(ALoop *al, intptr_t level)
 {
-	Int32 *ptr = SetPtr(al->loop, al->n);
+	intptr_t *ptr = SetPtr(al->loop, al->n);
 	*(ptr) = level;
 	al->n++;
 
 	if(al->n == memsize)
 	{
 		memsize *= 2;
-		al->loop = (Int32 *)realloc(al->loop, sizeof(Int32) * memsize);
+		al->loop = static_cast<intptr_t*> (realloc(al->loop, sizeof(intptr_t) * memsize));
 		if(!al->loop)
 			return FALSE;
 	}
@@ -248,7 +248,8 @@ Bool32 CGRAPH_GetLoopData(CSTR_rast curr_rast, CSTR_rast next_rast, LoopData *ld
 Bool32 CGRAPH_GetLoopCount(ALoop *al, CSTR_rast rast)
 {
 	Int32	curr_level = 1;
-	Int32 i, *ptr;
+	Int32 i;
+	intptr_t *ptr;
 	CSTR_rast	curr_rst;
 	CSTR_rast	next_rst;
 
@@ -256,7 +257,7 @@ Bool32 CGRAPH_GetLoopCount(ALoop *al, CSTR_rast rast)
 	next_rst = rast;
 
 	al->n = 0;
-	al->loop = (Int32 *)malloc(sizeof(Int32) * memsize);
+	al->loop = static_cast<intptr_t*> (malloc(sizeof(intptr_t) * memsize));
 
 	if(!al->loop)
 	{
@@ -419,7 +420,8 @@ Bool32 CGRAPH_SaveCSTR(CSTR_rast rast, CSTR_attr *attr, FILE *out)
 /////////////////////////////////////////////////////////////////////////////////////////
 Bool32 CGRAPH_SaveLoop(CSTR_rast rast, CSTR_attr *attr, FILE *out)
 {
-	Int32	i, *ptr;
+	Int32 i;
+	intptr_t *ptr;
 	CSTR_rast	curr_rst = rast, next_rst = rast;
 	ALoop		al;
 	LoopData	ld;
@@ -554,7 +556,8 @@ CSTR_FUNC(Bool32) CSTR_SaveCont(char *filename)
 Bool32 CGRAPH_RestoreLoop(CSTR_rast rast, FILE *in)
 {
 	Int32	count, lcount, rcount, curr_level = 1;
-	Int32	i, j, *ptr;
+	Int32	i, j;
+	intptr_t *ptr;
 	Int32	count_rast;
 	Bool32	flg = FALSE;
 
@@ -572,7 +575,7 @@ Bool32 CGRAPH_RestoreLoop(CSTR_rast rast, FILE *in)
 	ALoop		al;
 
 	al.n = 0;
-	al.loop = (Int32 *)malloc(sizeof(Int32) * memsize);
+	al.loop = static_cast<intptr_t *>(malloc(sizeof(intptr_t) * memsize));
 
 	if(!al.loop)
 		return FALSE;

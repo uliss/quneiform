@@ -60,8 +60,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "globus.h"
 
-#pragma pack(1)
-
 #define  RD_UNRECOG_CHAR   '~'
 /////////////////////////////////////////////////////////
 // RecRaster - rectangular peace of black/white image
@@ -191,8 +189,6 @@ typedef struct tagRecObject
 #define LS_HAND      1   // handprinted letters
 #define LS_INDEX     2   // post-indexes
 #define LS_PRINT     4   // printed lettres
-
-#pragma pack()
 
 #endif   // __RECDEFS_H
 

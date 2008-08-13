@@ -100,175 +100,51 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #endif
 
 MEMOPS_INLINE
-void CopyOR(         void*             dst,
-                     void*             src,
-							unsigned short    dword_cnt
-           )
-   {
-      register long* ldst = (long*)dst;
-      register long* lsrc = (long*)src;
-      int cnt = dword_cnt >> 3;
-      while ( cnt-- )
-      {
-         *ldst++ |= *lsrc++;  *ldst++ |= *lsrc++;
-         *ldst++ |= *lsrc++;  *ldst++ |= *lsrc++;
-         *ldst++ |= *lsrc++;  *ldst++ |= *lsrc++;
-         *ldst++ |= *lsrc++;  *ldst++ |= *lsrc++;
-      };
-      cnt = dword_cnt & 7;
-      while ( cnt-- )
-      {
-         *ldst++ |= *lsrc++;
-      };
-   };
+void __CopyOR(Word8* dst, const Word8* src, const int bytes_cnt) {
+	for(int i=0; i<bytes_cnt; i++) {
+		*dst++ |= *src++;
+	}
+}
 
 MEMOPS_INLINE
-void CopyAND(         void*             dst,
-                     void*             src,
-							unsigned short    dword_cnt
-           )
-   {
-      register long* ldst = (long*)dst;
-      register long* lsrc = (long*)src;
-      int cnt = dword_cnt >> 3;
-      while ( cnt-- )
-      {
-         *ldst++ &= *lsrc++;  *ldst++ &= *lsrc++;
-         *ldst++ &= *lsrc++;  *ldst++ &= *lsrc++;
-         *ldst++ &= *lsrc++;  *ldst++ &= *lsrc++;
-         *ldst++ &= *lsrc++;  *ldst++ &= *lsrc++;
-      };
-      cnt = dword_cnt & 7;
-      while ( cnt-- )
-      {
-         *ldst++ &= *lsrc++;
-      };
-   };
+void CopyOR(void* dst, const void* src, const unsigned short dword_cnt) {
+	__CopyOR((Word8*)dst, (Word8*)src, 4*(int)dword_cnt);
+}
 
 MEMOPS_INLINE
-void __CopyAND(      Word8*            dst,
-                     Word8*            src,
-							int               bytes_cnt
-           )
-   {
-      register long* ldst = (long*)dst;
-      register long* lsrc = (long*)src;
-      int cnt = bytes_cnt >> 5;
-      while ( cnt-- )
-      {
-         *ldst++ &= *lsrc++;  *ldst++ &= *lsrc++;
-         *ldst++ &= *lsrc++;  *ldst++ &= *lsrc++;
-         *ldst++ &= *lsrc++;  *ldst++ &= *lsrc++;
-         *ldst++ &= *lsrc++;  *ldst++ &= *lsrc++;
-      };
-      dst += bytes_cnt & ~31;
-      src += bytes_cnt & ~31;
-      cnt = bytes_cnt & 31;
-      while ( cnt-- )
-      {
-         *dst++ &= *src++;
-      };
-   };
+void __CopyAND(Word8* dst, const Word8* src, const int bytes_cnt) {
+	for(int i=0; i<bytes_cnt; i++) {
+		*dst++ &= *src++;
+	}
+}
 
 MEMOPS_INLINE
-void __CopyOR(       Word8*            dst,
-                     Word8*            src,
-							int               bytes_cnt
-             )
-   {
-      register long* ldst = (long*)dst;
-      register long* lsrc = (long*)src;
-      int cnt = bytes_cnt >> 5;
-      while ( cnt-- )
-      {
-         *ldst++ |= *lsrc++;  *ldst++ |= *lsrc++;
-         *ldst++ |= *lsrc++;  *ldst++ |= *lsrc++;
-         *ldst++ |= *lsrc++;  *ldst++ |= *lsrc++;
-         *ldst++ |= *lsrc++;  *ldst++ |= *lsrc++;
-      };
-      dst += bytes_cnt & ~31;
-      src += bytes_cnt & ~31;
-      cnt = bytes_cnt & 31;
-      while ( cnt-- )
-      {
-         *dst++ |= *src++;
-      };
-   };
-
-
-   /* if NO_ASM - use standart memcpy()
-   #undef memcpy
-   void* memcpy( void*          dst,
-                 const void*    src,
-                 unsigned int   byte_cnt
-               );
-   */
+void CopyAND(void* dst, const void* src, const unsigned short dword_cnt) {
+	__CopyAND((Word8*)dst, (Word8*)src, 4*(int)dword_cnt);
+}
 
 MEMOPS_INLINE
-void InvertTo( void*   dst,
-					void*   src,
-					unsigned short dword_cnt
-             )
-   {
-      register long* ldst = (long*)dst;
-      register long* lsrc = (long*)src;
-      int cnt = dword_cnt >> 3;
-      while ( cnt-- )
-      {
-         *ldst++ = ~*lsrc++;  *ldst++ = ~*lsrc++;
-         *ldst++ = ~*lsrc++;  *ldst++ = ~*lsrc++;
-         *ldst++ = ~*lsrc++;  *ldst++ = ~*lsrc++;
-         *ldst++ = ~*lsrc++;  *ldst++ = ~*lsrc++;
-      };
-      cnt = dword_cnt & 7;
-      while ( cnt-- )
-      {
-         *ldst++ = ~*lsrc++;
-      };
-   };
+void __InvertSelf(Word8* dst, const int bytes_cnt) {
+	for(int i=0; i<bytes_cnt; i++) {
+		*dst++ = ~*dst;
+	}
+}
 
 MEMOPS_INLINE
-void InvertSelf(  void*   dst,
-						unsigned short dword_cnt
-               )
-   {
-      register long* ldst = (long*)dst;
-      int cnt = dword_cnt >> 3;
-      while ( cnt-- )
-      {
-         *ldst++ = ~*ldst;  *ldst++ = ~*ldst;
-         *ldst++ = ~*ldst;  *ldst++ = ~*ldst;
-         *ldst++ = ~*ldst;  *ldst++ = ~*ldst;
-         *ldst++ = ~*ldst;  *ldst++ = ~*ldst;
-      };
-      cnt = dword_cnt & 7;
-      while ( cnt-- )
-      {
-         *ldst++ = ~*ldst;
-      };
-   };
+void InvertSelf(void* dst, const unsigned short dword_cnt) {
+	__InvertSelf((Word8*)dst, 4*(int)dword_cnt);
+}
 
 MEMOPS_INLINE
-void __InvertSelf(   Word8*   dst,
-						   int bytes_cnt
-                 )
-   {
-      register long* ldst = (long*)dst;
-      int cnt = bytes_cnt >> 5;
-      while ( cnt-- )
-      {
-         *ldst++ = ~*ldst;  *ldst++ = ~*ldst;
-         *ldst++ = ~*ldst;  *ldst++ = ~*ldst;
-         *ldst++ = ~*ldst;  *ldst++ = ~*ldst;
-         *ldst++ = ~*ldst;  *ldst++ = ~*ldst;
-      };
-      dst += bytes_cnt & ~31;
-      cnt = bytes_cnt & 31;
-      while ( cnt-- )
-      {
-         *dst++ = ~*dst;
-      };
-   };
+void InvertTo(void* dst, const void* src, const unsigned short dword_cnt) {
+	unsigned char *ldst = (unsigned char*)dst;
+	unsigned char *lsrc = (unsigned char*)src;
+	for(int i=0; i<4*(int)dword_cnt; i++) {
+		*ldst++ = ~*lsrc++;
+	}
+}
+
+
 
 #endif
 #endif

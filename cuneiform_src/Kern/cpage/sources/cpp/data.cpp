@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //##############################
 DATA::DATA()
 {
-	Type = -1;
+	Type = reinterpret_cast<void*> (-1);
 	Size = 0;
 	lpData = NULL;
 }
@@ -79,7 +79,7 @@ DATA::~DATA()
 		delete lpData;
 }
 //##############################
-Bool32   DATA::SetData(Word32 type, void * lpdata, Word32 size)
+Bool32   DATA::SetData(Handle type, void * lpdata, Word32 size)
 {
 	Type = type;
 	Size = size;
@@ -103,7 +103,7 @@ Bool32   DATA::SetData(Word32 type, void * lpdata, Word32 size)
 return TRUE;
 }
 //##############################
-Word32   DATA::GetData(Word32 type, void * lpdata,Word32 size)
+Word32   DATA::GetData(Handle type, void * lpdata,Word32 size)
 {
 	if(type==Type)
 	{

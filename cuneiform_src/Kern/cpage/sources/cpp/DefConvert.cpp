@@ -64,8 +64,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "polyblock.h"
 #include "resource.h"
 
-static Word32 varTYPE_CPAGE_TABLE = 0;
-static Word32 varTYPE_CPAGE_PICTURE = 0;
+static Handle varTYPE_CPAGE_TABLE = 0;
+static Handle varTYPE_CPAGE_PICTURE = 0;
 
 void DefConvertInit()
 {
@@ -76,8 +76,8 @@ void DefConvertInit()
 #undef TYPE_CPAGE_PICTURE
 
 Word32 DefConvertBlock(Word32 dwContext,
-				  Word32 TypeIn,void * lpDataIn,Word32 SizeIn,
-				  Word32 TypeOut,void * LpDataOut, Word32 SizeOut)
+				  Handle TypeIn,void * lpDataIn,Word32 SizeIn,
+				  Handle TypeOut,void * LpDataOut, Word32 SizeOut)
 {
 	Word32 rc = 0;
 	SetReturnCode_cpage(IDS_ERR_NO);
@@ -106,8 +106,8 @@ Word32 DefConvertBlock(Word32 dwContext,
 }
 
 Word32 DefConvertPage(Word32 dwContext,
-				  Word32 TypeIn,void * lpDataIn,Word32 SizeIn,
-				  Word32 TypeOut,void * LpDataOut, Word32 SizeOut)
+				  Handle TypeIn,void * lpDataIn,Word32 SizeIn,
+				  Handle TypeOut,void * LpDataOut, Word32 SizeOut)
 {
 	Word32 rc = 0;
 	SetReturnCode_cpage(IDS_ERR_NO);

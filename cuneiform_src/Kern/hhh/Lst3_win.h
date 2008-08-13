@@ -212,8 +212,6 @@ typedef struct hTITLE_PRS
 { char Name[4],ScanResX,ScanResY,Thick,Reserv;int SizeX,SizeY;} TITLE_PRS;
 
 
-#pragma pack(1)
-
 #define PAR struct h_par
 PAR {
  float ax,ay,percent_kgv; int xmin_abs,ymin_abs; /*параметры filtr_size*/
@@ -345,7 +343,6 @@ KNOTG {
 	uint reg:1,typ:4,lev:4,end:1,buf:6;
       };
 
-#pragma pack(2)
 typedef struct h_spec
 {
 	uint reg:1,typ:4,lev:4,end:1,buf:6;
@@ -511,7 +508,6 @@ extern int Esc,Enter,Del,Delete,Tab,Home,End1,Ins,Up,Down,Left,Right,PgUp,PgDown
     ShiftEsc,ShiftEnter,ShiftDel,ShiftDelete,ShiftTab,ShiftHome,ShiftEnd,
     ShiftIns,ShiftUp,ShiftDown,ShiftLeft,ShiftRight,ShiftPgUp,ShiftPgDown;
 #endif
-#pragma pack(1)
   #define PRS_ONE1 struct h_prs_one1
 //#ifdef INTEL
 //Вариации описания pole_bit
@@ -531,7 +527,6 @@ extern int Esc,Enter,Del,Delete,Tab,Home,End1,Ins,Up,Down,Left,Right,PgUp,PgDown
 //#else
 
 //#endif
-#pragma pack(2)
 /*-------------Прототипы ф-ций-------------*/
 int init_lst(KNOT ***knot,int *k_bloc,int max_knot,KNOT **beg_free,int size_item);
 KNOT *inc_lst(KNOT **beg,KNOT **beg_free);
@@ -909,8 +904,6 @@ void union1_frm(FRAME **frm,int k_frm,BOUND *bnd);
   #define MIN_TANG .001
 
 
-	#pragma pack(1)
-
   typedef struct hSTRET
   { short xn,xk,yn,yk;//Stretch-Coordinate
     float k;          //Тангенс наклон линии y=kx+b
@@ -1028,7 +1021,6 @@ int   EstIntrvlHor(FRAME **frm,int num,BOUND *bnd,int dxAS,int dyAS,
          RECT *Limit,int MinVol,float MinPerc,int limDX,int limDY,
          int *dsym,int *AveX,int *AveY);
 
-	#pragma pack()
 
 #ifndef CPP
 #ifdef __cplusplus

@@ -1284,7 +1284,7 @@ void checkResolution(Handle hCCOM, Handle hCPAGE)
 
 	for (i=0; i<100; i++) Masx[i] = Masy[i] = 0;
 
-	pcomp = CCOM_GetFirst((Int32)hCCOM, NULL);
+	pcomp = CCOM_GetFirst(hCCOM, NULL);
 
 	while (pcomp)
 	{

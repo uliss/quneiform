@@ -115,7 +115,7 @@ int GetMediumH(CCOM_handle hCCOM);
 void IfDifCutComp(void);
 BOOL IfEqv(char* buf1,char* buf2);
 BOOL IfEqv(Rect16 r1,Rect16 r2);
-Int32 GetStrCCOM(Handle hCPage,Word8* ImageName,Rect16 Rc,BOOL neg,BOOL vertical,RecRaster* rast,int min_h);
+Handle GetStrCCOM(Handle hCPage,Word8* ImageName,Rect16 Rc,BOOL neg,BOOL vertical,RecRaster* rast,int min_h);
 void MyKillComp(CCOM_comp* comp);
 void MyCreateComp(CCOM_comp* comp);
 
@@ -671,7 +671,7 @@ void IfDifCutComp(void)
 }
 
 
-Int32 GetStrCCOM(Handle hCPage,Word8* ImageName,Rect16 Rc,BOOL neg,BOOL vertical,RecRaster* rast,int min_h)
+Handle GetStrCCOM(Handle hCPage,Word8* ImageName,Rect16 Rc,BOOL neg,BOOL vertical,RecRaster* rast,int min_h)
 {
  int min_w,max_h,max_w;
 // int j;

@@ -93,7 +93,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern Handle hNotUseAntonCross;
 static int IsInPoly(Point32 a, POLY_ * pPoly);
 
-Int32 hCcom;
+Handle hCcom;
 
 ////////////////////////////////////
 Word32 NumberOfLettersInArea(Rect32 rect, int Number)
@@ -589,7 +589,7 @@ Bool32 PageRoatateBlocks (Handle hPage)
 }
 
 ////////////////////////////////////
-void PageLayoutBlocks(Int32 hCCOM)
+void PageLayoutBlocks(Handle hCCOM)
 {
 	Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage( ));
 	file_name = LDPUMA_GetFileName(NULL);

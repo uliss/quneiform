@@ -121,7 +121,7 @@ STD_FUNC( Int32 ) stdRead( Int32 handle, void *buffer, Int32 count )
 
    if (handle==-1 || buffer == NULL || count < 0)
    {  stdConsole("=>stdRead(%ld, %ld, %ld) {%ld}",
-         handle, (Int32)buffer, count, _stdReadCounter);
+         handle, (intptr_t)buffer, count, _stdReadCounter);
       return -1;
    };
 
@@ -150,7 +150,7 @@ STD_FUNC( Int32 ) stdRead( Int32 handle, void *buffer, Int32 count )
 
    if (res!=count)
    {  stdConsole("stdRead(%ld, %ld, %ld)=>%ld {%ld}",
-         handle, (Int32)buffer, count, res, _stdReadCounter);
+         handle, (intptr_t)buffer, count, res, _stdReadCounter);
    };
    return res;
 }
@@ -161,7 +161,7 @@ STD_FUNC( Int32 ) stdWrite( Int32 handle, void *buffer, Int32 count )
 
    if (handle==-1 || buffer == NULL || count < 0)
    {  stdConsole("=>stdWrite(%ld, %ld, %ld) {%ld}",
-         handle, (Int32)buffer, count, _stdWriteCounter);
+         handle, (intptr_t)buffer, count, _stdWriteCounter);
       return -1;
    };
 
@@ -189,7 +189,7 @@ STD_FUNC( Int32 ) stdWrite( Int32 handle, void *buffer, Int32 count )
 
    if (res!=count)
    {  stdConsole("stdWrite(%ld, %ld, %ld)=>%ld {%ld}",
-         handle, (Int32)buffer, count, res, _stdWriteCounter);
+         handle, (intptr_t)buffer, count, res, _stdWriteCounter);
    };
    return res;
 }

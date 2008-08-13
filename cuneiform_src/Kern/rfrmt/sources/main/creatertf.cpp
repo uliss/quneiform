@@ -467,10 +467,8 @@ BOOL ReadInternalFileRelease(char *FileNameIn, CRtfPage* RtfPage)
 				for(nz=0; nz < pRtfWord->m_wCharsCount; ++nz)
 				{
 					WORD num;
-     #pragma pack(1)
        struct ALT_TIGER1  {unsigned char let, prob;} alt1;
        struct ALT_TIGER2  {unsigned char language, spellnocarrying, FlagCapDrop, spell, base;} alt2;
-     #pragma pack()
 
 					pRtfChar = pRtfWord->GetNextChar();
 					fread_m(&SRect,sizeof(Rect16),1,in);     //Ideal BOX

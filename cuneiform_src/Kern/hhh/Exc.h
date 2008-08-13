@@ -189,7 +189,7 @@ EXC_FUNC(Bool32)  REXCExtraDIB(ExcControl ExCW,
     Int32 TemplCol, Int32 TemplRow, Int32 TemplWid, Int32 TemplHei);
 // 5    REXC_FNGETCONTAINER   Получить код контейнера с компонентами
 typedef  Int32 (*FNREXC_GetContainer)(void);
-EXC_FUNC(Int32)  REXCGetContainer(void);
+EXC_FUNC(Handle)  REXCGetContainer(void);
 // 6    REXC_FNGETLENEREP     Получить интервальное представление
 typedef  Bool32  (*FNREXC_MakeLP)( RecRaster   *rRaster , Word8 *lp, Int16 *lp_size, Int16 *numcomp);
 EXC_FUNC(Bool32)     REXCMakeLP  ( RecRaster   *rRaster , Word8 *lp, Int16 *lp_size, Int16 *numcomp);

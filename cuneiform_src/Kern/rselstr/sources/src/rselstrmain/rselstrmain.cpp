@@ -132,7 +132,7 @@ void RotatePageToReal (void);
 void LayoutPart2 (void);
 void LayoutPart1 (void);
 void BlocksExtract (void);
-Bool32 ReadRoots(Int32 hCCOM);
+Bool32 ReadRoots(Handle hCCOM);
 void EnableDebug(void);
 void progress_finish(void);
 void DrawRect(Handle wnd,Word32 OperCode,Word32 color,int top,int bottom,int left,int right);
@@ -198,7 +198,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_ExtractTextStrings(Handle hCCOM,Handle hCPAGE)
 
 void PageLayoutStrings(Handle hCCOM,Handle hCPAGE)
 {
-	if(ReadRoots((Int32)hCCOM))
+	if(ReadRoots(hCCOM))
 	{
 		run_options = FORCE_ONE_COLUMN;
 

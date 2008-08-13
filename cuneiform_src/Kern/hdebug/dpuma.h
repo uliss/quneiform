@@ -77,7 +77,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 
-#pragma pack (push,8)
 ////////////////////////////////////
 
 #define  DPUMA_REC_MAX_RASTER_SIZE   4*1024  // 256*128
@@ -486,8 +485,6 @@ DEC_FUNC(Int32,  DPUMA_FPuts,(Handle hFile,const char * lpString));
 
 
 ////////////////////////////////////
-
-#pragma pack (pop)
 
 #ifdef __cplusplus
       }

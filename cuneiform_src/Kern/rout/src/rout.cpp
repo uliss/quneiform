@@ -65,6 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // By Eugene Pliskin pliskin@cs.isa.ac.ru
 //********************************************************************
 
+#include <errno.h>
 #include <fcntl.h>
 #include <string.h>
 #include "stdafx.h"
@@ -190,11 +191,9 @@ Bool32 ROUT_SaveObject(
 		}
 
 	// Открыть файл
-	Handle f = NULL;
 	ULONG pos = 0;
 
-	f = MyOpen(path,OSF_CREATE | OSF_OPEN |
-				     OSF_WRITE | OSF_BINARY );
+	FILE* f = fopen(path, "wb");
 	if (!f)
 		{
 		ERR_OPEN_FILE;
@@ -208,41 +207,40 @@ Bool32 ROUT_SaveObject(
 				   gFormat == ROUT_FMT_TableText ||
 				   0))
 		{
-		pos = MySeek(f,0,FS_END);
+		pos = fseek(f, 0, SEEK_END);
 		if ( pos > 0 )
 			{
 			// Вставить пустую строку
-			if (MyWrite(f,gEOL,strlen(gEOL)) != strlen(gEOL))
+			if (fwrite(gEOL, strlen(gEOL), 1, f) != strlen(gEOL))
 				{
-				MyClose(f,0);
+				fclose(f);
 				FreeWorkMem();
 				return FALSE;
 				}
 			}
 		}
-	else
-		pos = MySeek(f,0,FS_BEGIN);
 
 	if ( pos == -1 )
 		{
-		MyClose(f,0);
+		fclose(f);
 		FreeWorkMem();
 		return FALSE;
 		}
 
 	// Записать данные из памяти
 	ULONG lth = gMemCur - gMemStart;
-	if (MyWrite(f, (char*)gMemStart, lth) != lth)
+	if ( fwrite((char*)gMemStart, 1, lth, f) != lth)
 		{
-		MyClose(f,0);
+		fclose(f);
 		FreeWorkMem();
 		return FALSE;
 		}
 
 	// Закрыть файл
-	if ( !MyClose(f,CSF_SAVEDISK))
+	if ( !fclose(f))
 		{
 		ERR_CLOSE_FILE;
+		printf( "Error closing file: %s\n", strerror( errno ) );
 		FreeWorkMem();
 		return FALSE;
 		}

@@ -63,8 +63,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "cttypes.h"
 
-#pragma pack(4)
-
 typedef struct tagImxs_ImageInfo
 {
     Word16  wImageHeight;           /* Height of the image in lines       */
@@ -81,7 +79,6 @@ typedef struct tagImxs_ImageInfo
     Word16  wAddY;
 } Imxs_ImageInfo;
 
-#pragma pack()
 
 	#ifdef __cplusplus
 	extern "C"  {

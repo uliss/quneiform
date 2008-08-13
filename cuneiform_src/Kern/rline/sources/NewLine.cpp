@@ -1131,7 +1131,7 @@ BOOL MyPutLines(CLINE_handle hContainerOut,CLINE_handle hCLINE,BOOL dotline)
 	data_line.rect.top=line->rect.top;
 	data_line.rect.left=line->rect.left;
 	data_line.rect.right=line->rect.right;
-	data_line.RelationshipIndex=-1;
+	data_line.RelationshipIndex=reinterpret_cast<Handle> (-1);
 //	if(line->Specline)
 //	{
 	 if(line->Type==NR_DT_LinePointed)
@@ -2547,7 +2547,7 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, Int32 CountLines, CLINE_handle hEx
 			DLine pNewExt, pCurrLine;
 
 			memcpy(&pCurrLine, pLine, sizeof(DLine));
-			pCurrLine.RelationshipIndex = (Int32)hNewExt;
+			pCurrLine.RelationshipIndex = hNewExt;
 			CLINE_SetLineData(hLinesMass[i], &pCurrLine);
 
 			memcpy(&pNewExt.Line, &pLine->Line, sizeof(pNewExt.Line));
@@ -2592,7 +2592,7 @@ void MergeLines(CLINE_handle hLine, CLINE_handle hLineExt, CLINE_handle hContain
 	memcpy(&pLine, CLINE_GetLineData(hLine), size_DLine);
 	memcpy(&pLineExt, CLINE_GetLineData(hLineExt), size_DLine);
 
-	pLine.RelationshipIndex = (Int32)hLineExt;
+	pLine.RelationshipIndex = hLineExt;
 	CLINE_SetLineData(hLine, &pLine);
 
 	pLineExt.n_event++;
@@ -2671,7 +2671,7 @@ void MergeLines(CLINE_handle hLine, CLINE_handle hLineExt, CLINE_handle hContain
 		else
 		{
 			memcpy(&pLine, CLINE_GetLineData(hLine), sizeof(DLine));
-			pLine.RelationshipIndex = (Int32)hLineExt;
+			pLine.RelationshipIndex = hLineExt;
 			CLINE_SetLineData(hLine, &pLine);
 		}
 	}
@@ -2816,7 +2816,7 @@ Int32 getLineComps(CCOM_comp** pCompMass, Int32 max_width, Int32 max_height, Han
 	CCOM_comp *hcomp;
 	const int size_comp = sizeof(CCOM_comp);
 
-	for (hcomp = CCOM_GetFirst((Int32)hCCOM, NULL); hcomp; hcomp = CCOM_GetNext(hcomp, NULL))
+	for (hcomp = CCOM_GetFirst(hCCOM, NULL); hcomp; hcomp = CCOM_GetNext(hcomp, NULL))
 		if (hcomp->w > 0 && hcomp->h > 0 && (!max_width || hcomp->w <= max_width) &&
 			(!max_height || hcomp->h <= max_height))
 			CountComps++;
@@ -2825,7 +2825,7 @@ Int32 getLineComps(CCOM_comp** pCompMass, Int32 max_width, Int32 max_height, Han
 
 	*pCompMass = new CCOM_comp[CountComps];
 	CountComps = 0;
-	for (hcomp = CCOM_GetFirst((Int32)hCCOM, NULL); hcomp; hcomp = CCOM_GetNext(hcomp, NULL))
+	for (hcomp = CCOM_GetFirst(hCCOM, NULL); hcomp; hcomp = CCOM_GetNext(hcomp, NULL))
 		if (hcomp->w > 0 && hcomp->h > 0 && (!max_width || hcomp->w <= max_width) &&
 			(!max_height || hcomp->h <= max_height))
 			memcpy(&((*pCompMass)[CountComps++]), hcomp, size_comp);

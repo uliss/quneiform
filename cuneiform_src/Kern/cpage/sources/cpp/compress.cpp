@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "polyblock.h"
 #include "resource.h"
 
-void CleanData(Word32 Type,void * lpData,Word32 Size)
+void CleanData(Handle Type,void * lpData,Word32 Size)
 // Ќеиспользуемые части массивов заполн€ем нул€ми дл€ лучшей упаковки
 {
     if(Type == TYPE_TEXT || Type == TYPE_IMAGE)
@@ -92,7 +92,7 @@ void CleanData(Word32 Type,void * lpData,Word32 Size)
 	}
 }
 
-Bool32 ComplianceVersions(Word32 Type, char ** lpData, Word32 *Size)
+Bool32 ComplianceVersions(Handle Type, char ** lpData, Word32 *Size)
 //—равнивает размер блока данных с размером структуры;
 // если структура больше - дополн€етс€ нул€ми, если меньше - ошибка
 {

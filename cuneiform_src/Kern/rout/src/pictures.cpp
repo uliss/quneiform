@@ -162,8 +162,7 @@ BOOL WritePictureToBMP_File(
     BITMAPFILEHEADER   bf = {0}; // Заголовок BMP-файла.
 
 	// Создать файл
-	Handle f = MyOpen(filename,OSF_CREATE | OSF_OPEN |
-				     OSF_WRITE | OSF_BINARY );
+	FILE* f = fopen(filename, "wb");
 
 	if (!f)
 		{
@@ -179,23 +178,23 @@ BOOL WritePictureToBMP_File(
 	bf.bfOffBits = sizeof(BITMAPFILEHEADER) +
 					sizeof(BITMAPINFOHEADER);
 
-	if (MyWrite(f,(char*)&bf,sizeof(bf)) != sizeof(bf))
+	if(fwrite((char*)&bf,sizeof(bf), 1, f) != sizeof(bf))
 		{
-		MyClose(f,0);
+		fclose(f);
 		ERR_WRITING_TO_FILE;
 		return FALSE;
 		}
 
 	// Записать DIB включая заголовок
-	if (MyWrite(f,(char*)pDIB,lenDIB) != (ULONG)lenDIB)
+	if(fwrite((char*)pDIB, lenDIB, 1, f) != (size_t)lenDIB)
 		{
-		MyClose(f,0);
+		fclose(f);
 		ERR_WRITING_TO_FILE;
 		return FALSE;
 		}
 
 	// Закрыть файл
-	if ( !MyClose(f,CSF_SAVEDISK))
+	if(!fclose(f))
 		{
 		ERR_CLOSE_FILE;
 		return FALSE;

@@ -262,26 +262,13 @@ BYTE * load_stat_dict ( CHAR  *point )
 
 
     /* -- Get data section sizes. -- */
-  memcpy( nearBuf, dictHdr->treeLength,
-                          sizeof(dictHdr->treeLength) );
-  sscanf( nearBuf,"%lu", &treeLength );
-
-  memcpy( nearBuf, dictHdr->tailsLength,
-                          sizeof(dictHdr->tailsLength) );
-  sscanf( nearBuf,"%lu", &tailsLength );
-
-  memcpy( nearBuf, dictHdr->rulesLength,
-                          sizeof(dictHdr->rulesLength) );
-  sscanf( nearBuf,"%lu", &rulesLength );
-
-  memcpy( nearBuf, dictHdr->hushLength,
-                          sizeof(dictHdr->hushLength) );
-  sscanf( nearBuf,"%lu", &hushLength );
-
+  treeLength = strtoul(dictHdr->treeLength, NULL, 10);
+  tailsLength = strtoul(dictHdr->tailsLength, NULL, 10);
+  rulesLength = strtoul(dictHdr->rulesLength, NULL, 10);
+  hushLength = strtoul(dictHdr->hushLength, NULL, 10);
 
     /* -- Get alphabet size. -- */
-  memcpy( nearBuf, dictHdr->abcSize, sizeof(dictHdr->abcSize) );
-  sscanf( nearBuf,"%lu", &size );
+  size = strtoul(dictHdr->abcSize, NULL, 10);
   if ( size > 64 ) {
     return (BYTE  *)dict;
   }

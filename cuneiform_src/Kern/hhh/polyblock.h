@@ -56,7 +56,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef __POLYBLOCK_H__
 #define __POLYBLOCK_H__
-#pragma pack (push,8)
 
 #include "table.h"
 
@@ -119,7 +118,7 @@ typedef struct tagVertex
 
 typedef struct tagCommon
 {
-	Word32 type;//Текст, Картинка, Таблица;
+	Handle type;//Текст, Картинка, Таблица;
 	Int16 number;//порядковый номер
 	Int16 Color;
 	Bool Select;//
@@ -178,5 +177,4 @@ typedef struct tagLINE
 
 } LINE_;
 */
-#pragma pack (pop)
 #endif

@@ -158,7 +158,7 @@ void recog(Handle hCCOM, Word32 flags)
 {
 	CCOM_comp* pcomp;
 
-	pcomp = CCOM_GetFirst((Int32)hCCOM, NULL);
+	pcomp = CCOM_GetFirst(hCCOM, NULL);
 
 	while (pcomp)
 	{
