@@ -19,8 +19,7 @@ Caveats
 This port is has several limitations. Among the biggest ones are:
 
 - it has been tested only on Linux and OS X
-- it only works on 32 bit x86 processors
-- layout analysis is disabled
+- it only works on x86 and amd64 processors
 
 Patches to fix any of these issues are gladly accepted.
 

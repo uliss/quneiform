@@ -65,7 +65,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // By Eugene Pliskin pliskin@cs.isa.ac.ru
 //********************************************************************
 
-#include <errno.h>
 #include <fcntl.h>
 #include <string.h>
 #include "stdafx.h"
@@ -237,10 +236,9 @@ Bool32 ROUT_SaveObject(
 		}
 
 	// Закрыть файл
-	if ( !fclose(f))
+	if (fclose(f))
 		{
 		ERR_CLOSE_FILE;
-		printf( "Error closing file: %s\n", strerror( errno ) );
 		FreeWorkMem();
 		return FALSE;
 		}
