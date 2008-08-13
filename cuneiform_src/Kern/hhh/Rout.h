@@ -83,7 +83,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 
-#pragma pack (push,8)
 
 #ifndef Byte
 	typedef unsigned char Byte;
@@ -350,8 +349,6 @@ typedef enum {
 	ROUT_RETURN_POSSIBLE_LOSS_OF_DATA = 9
 	} ROUT_RETURN_CODES;
 //*****************************************************************
-
-#pragma pack (pop)
 
 #ifdef __cplusplus
 	}

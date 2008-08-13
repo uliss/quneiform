@@ -67,7 +67,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define SS_EXTENTION	0x1C
 
-#pragma pack(push,1)
 struct edExtention
 {
 	Word8/*unsigned char   */  	code;   /* always SS_EXTENTION <0x1C> */
@@ -129,5 +128,4 @@ typedef struct sTable
 } edTable;
 
 #define EDEXT_SIZE_FILENAME 256
-#pragma pack(pop)
 #endif

@@ -74,8 +74,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 
-#pragma pack (push,8)
-
 #define RSELSTR_MAXNAME 260
 
 
@@ -134,8 +132,6 @@ typedef void   (*FNRSELSTR_ProgressStart)( void );
 typedef	Bool32 (*FNRSELSTR_ProgressStep)(Word32 perc);
 typedef	void   (*FNRSELSTR_ProgressFinish)( void );
 
-
-#pragma pack (pop)
 
 #ifdef __cplusplus
             }

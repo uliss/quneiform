@@ -76,8 +76,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 
-#pragma pack (push,8)
-
 
 RPIC_FUNC(Bool32) RPIC_Init(Word16 wHeightCode,Handle hStorage);
 RPIC_FUNC(Bool32) RPIC_Done();
@@ -113,8 +111,6 @@ struct _RPIC_Comp_Rect
 };
 typedef struct _RPIC_Comp_Rect RPIC_Comp_Rect;
 
-
-#pragma pack (pop)
 
 #ifdef __cplusplus
             }

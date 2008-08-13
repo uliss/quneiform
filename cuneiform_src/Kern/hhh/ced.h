@@ -84,8 +84,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 
-#pragma pack (push,8)
-
 #define CED_MAXNAME 260
 
 #ifndef Handle
@@ -540,8 +538,6 @@ DEC_FUN(void, CED_SetLogFileName,(const char * name));
 #undef DEC_FUN
 
 
-
-#pragma pack (pop)
 
 #ifdef __cplusplus
             }

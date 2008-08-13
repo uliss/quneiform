@@ -77,8 +77,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 
-#pragma pack (push,8)
-
 #define CPAGE_MAXNAME 260
 
 #ifndef _Not_Cpagetyps  // Almi 30.08.00
@@ -291,8 +289,6 @@ VRT_FUN(Bool32,  CPAGE_HL_TableExtract,(  Handle hPAGE, Word32 type, Rect32 rect
 
 #undef DEC_FUN
 
-
-#pragma pack (pop)
 
 #ifdef __cplusplus
             }

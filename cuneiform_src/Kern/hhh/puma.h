@@ -77,8 +77,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 
-#pragma pack (push,8)
-
 #define PUMA_MAXNAME 260
 
 typedef void (*FNPUMA_ProgressStart)( void );
@@ -332,8 +330,6 @@ DEC_FUN(Bool32,	PUMA_SetSpecialProject,(Word8 nSpecPrj));
 
 	# define PUMA_PICTURE_NONE			0
 	# define PUMA_PICTURE_ALL			1
-
-#pragma pack (pop)
 
 #ifdef __cplusplus
             }

@@ -63,7 +63,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	лл                                                              лл
 	лллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллл
 */
-#pragma pack(1)                                          //AK 30.04.97
 
 #include "nt_types.h"
 
@@ -111,4 +110,3 @@ void  errorExit( PCHAR str );
 INT  recog( void );
 INT  rec_without_halo( void );
 
-#pragma pack()                                           //AK 30.04.97

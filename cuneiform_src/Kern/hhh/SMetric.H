@@ -74,8 +74,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         extern "C" {
 #endif
 
-#pragma pack (push,8)
-
 #ifndef Handle
         #define Handle void *
 #endif
@@ -104,8 +102,6 @@ DEC_FUN(Bool32, SMetric_FindMainSkew, (void *vB, char *cWork, int SizeWork, Int3
 
 #undef DEC_FUN
 
-
-#pragma pack (pop)
 
 #ifdef __cplusplus
             }

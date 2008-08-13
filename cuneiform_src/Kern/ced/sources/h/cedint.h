@@ -73,7 +73,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 //
-#pragma pack (push,8)
 
 #define CED_MAXNAME 260
 
@@ -225,7 +224,6 @@ DEC_FUN(EDBOX, CED_GetCharLayout,(Handle hEdChar));
 
 CEDPage * Formattedload_96(char * file,Bool32 readFromFile, Word32 bufLen);
 
-#pragma pack(1)
 struct pageDescr
 {
 	DWORD paperw;
@@ -238,7 +236,6 @@ struct pageDescr
 	BYTE  recogLang;
 };
 
-#pragma pack(1)
 struct fontDiscr
 {
 	WORD size;
@@ -247,7 +244,6 @@ struct fontDiscr
     BYTE fontCharset;
 };
 
-#pragma pack(1)
 struct pictDescr
 {
 	DWORD size;
@@ -259,7 +255,6 @@ struct pictDescr
 	DWORD len;
 };
 
-#pragma pack(1)
 struct originalImageDesc
 {
 	WORD resolutionX;
@@ -271,7 +266,6 @@ struct originalImageDesc
 	BYTE unrecogSymbol;
 };
 
-#pragma pack(1)
 struct sectParams1
 {
     DWORD topMargin;
@@ -282,7 +276,6 @@ struct sectParams1
 	BYTE numSnakeCols;
     DWORD colInterval;
 };
-#pragma pack(1)
 struct sectParams2
 {
 	BYTE sectionBreak;
@@ -294,7 +287,6 @@ struct sectParams2
 	BYTE lineBetCol;
 };
 
-#pragma pack(1)
 struct frameParam
 {
 	BYTE position;
@@ -308,7 +300,6 @@ struct frameParam
 	BYTE flag;
 };
 
-#pragma pack(1)
 struct rowParam
 {
 	DWORD left;
@@ -326,7 +317,6 @@ struct rowParam
 	BYTE header;
 };
 
-#pragma pack(1)
 struct cellParam
 {
 	DWORD cellX;
@@ -346,7 +336,6 @@ struct cellParam
 	BYTE flag;
 };
 
-#pragma pack(1)
 struct paraParams
 {
 	DWORD firstIndent;
@@ -372,14 +361,12 @@ struct paraParams
 	BYTE brdrBtw;
 };
 
-#pragma pack(1)
 struct charParams
 {
 	DWORD fontNumber;
 	DWORD foregroundColor;
 	DWORD backgroundColor;
 };
-#pragma pack()
 
 #define MAX_WIDTH 300
 #define MAX_RTF_GROUPS     50
@@ -489,8 +476,6 @@ extern FILE *logStream;
 
 // error code
 
-
-#pragma pack (pop)
 
 #ifdef __cplusplus
             }

@@ -83,8 +83,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 ///////////////////////////////////////////////////////////////////////////////////////////////
-#pragma pack (push,8)
-///////////////////////////////////////////////////////////////////////////////////////////////
 # define	RIMAGE_MAXNAME 260
 # define	RIMAGE_TURN_90        1
 # define	RIMAGE_TURN_270       2
@@ -156,8 +154,6 @@ DEC_FUN(Bool32,  RotatePoint,          (PWord8 , Int32, Int32, PInt32, PInt32));
 #undef DEC_FUN
 //////////////////////////////////////////////////////////////////////////////////////////
 //
-#pragma pack (pop)
-
 #ifdef __cplusplus
             }
 #endif

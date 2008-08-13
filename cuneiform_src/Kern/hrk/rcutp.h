@@ -85,8 +85,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 
-#pragma pack (push,8)
-
 #define RCUTP_MAXNAME 260
 
 RCUTP_FUNC(Bool32) RCUTP_Init(Word16 wHeightCode,Handle hStorage);
@@ -113,8 +111,6 @@ DEC_FUN(int, RCUTP_RSelStr_CP, (CCOM_comp* comp, BOOL* type_let, Word8* pmasp));
 DEC_FUN(Bool32, RCUTP_RSelStr_SetEnv, (/*char *szImageName,*/ int _medium_h, int _inf_let_w, int _inf_dust_h, int _inf_let_h, Handle hCCOM, int _sup_dust_w, int _min_cut_down_let_w, int _sup_prob_w, const Word16 biBit));
 DEC_FUN(void, RCUTP_RSelStr_UnsetEnv, ());
 #undef DEC_FUN
-
-#pragma pack (pop)
 
 #ifdef __cplusplus
             }

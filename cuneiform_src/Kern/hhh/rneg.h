@@ -89,8 +89,6 @@ struct NegTemp
         extern "C" {
 #endif
 
-#pragma pack (push,8)
-
 
 //#ifndef Handle
  //       #define Handle void *
@@ -122,8 +120,6 @@ DEC_FUN(Bool32, RNEG_TestForNegative, (CCOM_handle hCComp, Handle hCPage,Word8* 
 
 #undef DEC_FUN
 
-
-#pragma pack (pop)
 
 #ifdef __cplusplus
             }
