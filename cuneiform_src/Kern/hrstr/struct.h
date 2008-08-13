@@ -92,17 +92,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 struct mn_struc
  {
  void *mnfirstbox;              // address of the first box
- INT mncounter;                 // (was INT) number of living lines in the component
+ Int16 mncounter;                 // (was INT) number of living lines in the component
 #define mnfree  mnfirstbox      // reference to next free main number
- INT mnupper;                   // upper bound of component
- INT mnlower;                   // lower bound of component
- INT mnboxcnt;                  // number of boxes in component
+ Int16 mnupper;                   // upper bound of component
+ Int16 mnlower;                   // lower bound of component
+ Int16 mnboxcnt;                  // number of boxes in component
 #define usual_box_count 20      // heuristic of number of lines in a letter
 #define great_box_count 200     // heuristic for number of boxes in a picture
- BYTE mnlines;                  // number of lines in the component
- BYTE mnbegs;                   // number of free line begins
- BYTE mnends;                   // number of free line ends
- BYTE mnflag;                   // flag byte for main number
+ Word8 mnlines;                  // number of lines in the component
+ Word8 mnbegs;                   // number of free line begins
+ Word8 mnends;                   // number of free line ends
+ Word8 mnflag;                   // flag byte for main number
 #define mnpicture 1             // component is a picture
  struct mn_struc *mnnext;       // address of next dead component
  };
@@ -114,18 +114,18 @@ struct box_struct
  {
  struct box_struct *boxnext;    // chain address (zero if no next box)
  MN *               boxmain;    // component main number pointer
- WORD               boxptr;     // ptr to the empty place in the box
- INT                boxleft;    // left boundary for line envelope
- INT                boxright;   // right boundary for line envelope
- INT                boxey;      // row of line end+1 ( if line ends within
+ Word16             boxptr;     // ptr to the empty place in the box
+ Int16              boxleft;    // left boundary for line envelope
+ Int16              boxright;   // right boundary for line envelope
+ Int16              boxey;      // row of line end+1 ( if line ends within
                                 //    box)
- INT                boxel;      // length of the last segment (if line ends
+ Int16              boxel;      // length of the last segment (if line ends
                                 //    within box)
- INT                boxex;      // coordinate of last segment end (if line
+ Int16              boxex;      // coordinate of last segment end (if line
                                 //    ends within box)
- BYTE               boxflag;    // byte for box attributes flags
- BYTE               boxwf;      // working flag (for picture compress)
- WORD               boxresw;    // reserved word (for *4 arround)
+ Word8              boxflag;    // byte for box attributes flags
+ Word8              boxwf;      // working flag (for picture compress)
+ Word16             boxresw;    // reserved word (for *4 arround)
  };
 typedef struct box_struct BOX;
 

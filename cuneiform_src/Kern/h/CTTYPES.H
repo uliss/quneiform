@@ -197,7 +197,7 @@ typedef char* LPTSTR;
 typedef const char* LPCSTR;
 typedef const char* LPCWSTR;
 typedef const char* LPCTSTR;
-typedef unsigned int UINT;
+typedef uint32_t UINT;
 typedef unsigned long ULONG;
 
 #include "cttypext.h"
