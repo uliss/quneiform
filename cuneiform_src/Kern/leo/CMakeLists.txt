@@ -24,4 +24,4 @@ r35
 std32
 )
 
-install(TARGETS leo LIBRARY DESTINATION lib)
+install(TARGETS leo LIBRARY DESTINATION ${LIBDIR})

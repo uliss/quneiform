@@ -38,4 +38,4 @@ rreccom
 exc
 )
 
-install(TARGETS rstuff LIBRARY DESTINATION lib)
+install(TARGETS rstuff LIBRARY DESTINATION ${LIBDIR})

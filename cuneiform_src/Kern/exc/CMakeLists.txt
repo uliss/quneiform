@@ -13,4 +13,4 @@ src/v0compmn.c
 
 target_link_libraries(exc loc ccom evn32)
 
-install(TARGETS exc LIBRARY DESTINATION lib)
+install(TARGETS exc LIBRARY DESTINATION ${LIBDIR})

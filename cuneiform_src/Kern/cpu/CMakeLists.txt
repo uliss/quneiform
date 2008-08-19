@@ -3,4 +3,4 @@ src/cpu.c
 src/cpu32.c
 )
 
-install(TARGETS cpu LIBRARY DESTINATION lib)
+install(TARGETS cpu LIBRARY DESTINATION ${LIBDIR})

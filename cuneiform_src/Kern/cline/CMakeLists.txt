@@ -11,4 +11,4 @@ sources/src/cpp/lcline.cpp
 
 target_link_libraries(cline windummy)
 
-install(TARGETS cline LIBRARY DESTINATION lib)
+install(TARGETS cline LIBRARY DESTINATION ${LIBDIR})

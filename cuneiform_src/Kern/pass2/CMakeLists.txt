@@ -10,4 +10,4 @@ src/p2_tools.c
 
 target_link_libraries(pass2 cstr fon std32)
 
-install(TARGETS pass2 LIBRARY DESTINATION lib)
+install(TARGETS pass2 LIBRARY DESTINATION ${LIBDIR})

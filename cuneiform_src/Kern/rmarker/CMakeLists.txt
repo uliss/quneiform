@@ -25,4 +25,4 @@ rpic
 rselstr
 )
 
-install(TARGETS rmarker LIBRARY DESTINATION lib)
+install(TARGETS rmarker LIBRARY DESTINATION ${LIBDIR})

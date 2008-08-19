@@ -107,4 +107,4 @@ std32
 leo
 )
 
-install(TARGETS rstr LIBRARY DESTINATION lib)
+install(TARGETS rstr LIBRARY DESTINATION ${LIBDIR})

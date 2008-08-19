@@ -103,5 +103,5 @@ add_executable(cuneiform cuneiform-cli.cpp)
 target_link_libraries(cuneiform puma ${MAGICK_LIBRARIES} ${DL_LIB})
 #${PUMA_LIBS} ${RPSTR_LIBS} ${SNP_LIBS} dl)
 
-install(TARGETS windummy LIBRARY DESTINATION lib)
+install(TARGETS windummy LIBRARY DESTINATION ${LIBDIR})
 install(TARGETS cuneiform RUNTIME DESTINATION bin)
