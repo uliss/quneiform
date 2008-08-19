@@ -72,7 +72,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define err_pnlet(c)  ((c))->nextl=((c))->prevl=(cell*)(0xffff0000);
 // AL 900318
 //-------------------- conectivity component ---------------------
-#pragma pack(1)
 
 
 struct mn_struc
@@ -279,7 +278,6 @@ struct frame_struct
  {struct POINT topleft,topright,botleft,botright;};
 typedef struct frame_struct FRAME;
 
-#pragma pack()
 
 #endif
 
