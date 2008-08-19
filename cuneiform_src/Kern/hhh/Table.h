@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef __TABLE_H__
 #define __TABLE_H__
-
+#pragma pack (push,8)
 /*---------------------------------------------------------------------------*/
 #include "cttypes.h"
 /*---------------------------------------------------------------------------*/
@@ -158,4 +158,5 @@ typedef struct tagTABLE_DESC
 	char    reserv[253];
 } TABLE_DESC;
 /*---------------------------------------------------------------------------*/
+#pragma pack (pop)
 #endif

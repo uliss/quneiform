@@ -60,6 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "table.h"
 #include "polyblock.h"
 
+#pragma pack (push,8)
 
 // PAGES
 #define PT_EMPTY    CPAGE_GetInternalType("__Page__")
@@ -138,4 +139,5 @@ typedef struct tagCPAGE_PICTURE
 
 } CPAGE_PICTURE;
 
+#pragma pack (pop)
 #endif

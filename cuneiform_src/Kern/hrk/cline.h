@@ -73,6 +73,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         extern "C" {
 #endif
 
+#pragma pack (push,8)
+
 #define CLINE_MAXNAME 260
 
 //#ifndef Handle
@@ -221,6 +223,8 @@ DEC_FUN(Bool32, CLINE_CopyData, (void* to,const void* from,int size));
 
 
 
+
+#pragma pack (pop)
 
 #ifdef __cplusplus
             }

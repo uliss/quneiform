@@ -56,6 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef __POLYBLOCK_H__
 #define __POLYBLOCK_H__
+#pragma pack (push,8)
 
 #include "table.h"
 
@@ -177,4 +178,5 @@ typedef struct tagLINE
 
 } LINE_;
 */
+#pragma pack (pop)
 #endif

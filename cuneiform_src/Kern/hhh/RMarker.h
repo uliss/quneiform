@@ -82,6 +82,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         extern "C" {
 #endif
 
+#pragma pack (push,8)
+
 #ifndef Handle
         #define Handle void *
 #endif
@@ -167,6 +169,8 @@ DEC_FUN(Bool32, SearchTableInZone,    (Handle hPage,Handle hCCOM,Word32 perc,Rec
 #undef DEC_FUN
 
 ///////////////
+
+#pragma pack (pop)
 
 #ifdef __cplusplus
             }

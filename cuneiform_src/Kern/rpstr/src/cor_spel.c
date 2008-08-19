@@ -70,6 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rstr.h"
 #include "dpuma.h"
 
+#pragma pack(1)
 #include "cor_spel.h"
 #include "lang_def.h"
 

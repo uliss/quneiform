@@ -71,6 +71,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         extern "C" {
 #endif
 
+#pragma pack (push,8)
+
 #define RVERLINE_MAXNAME 260
 
 #ifndef Handle
@@ -113,6 +115,8 @@ typedef int  Regime_VerifyLines;
 
 
 
+
+#pragma pack (pop)
 
 #ifdef __cplusplus
             }

@@ -3015,6 +3015,7 @@ typedef ATL::_DialogSplitHelper::DLGTEMPLATEEX DLGTEMPLATEEX;
 typedef ATL::_DialogSplitHelper::DLGITEMTEMPLATEEX DLGITEMTEMPLATEEX;
 #else // (_ATL_VER >= 0x800)
 typedef ATL::_DialogSizeHelper::_ATL_DLGTEMPLATEEX DLGTEMPLATEEX;
+#pragma pack(push, 4)
 struct DLGITEMTEMPLATEEX
 {
 	DWORD helpID;
@@ -3026,6 +3027,7 @@ struct DLGITEMTEMPLATEEX
 	short cy;
 	WORD id;
 };
+#pragma pack(pop)
 #endif // (_ATL_VER >= 0x800)
 
 

@@ -68,6 +68,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "globus.h"
 #include "cstr.h"
 #include "recdefs.h"
+////////////////////////////////////////////////////////////
+
+#pragma pack( push, 1 )
 
 //////////////////////////////////////////////////////////////
 // структурки взяты мной из модуля rpstr файл cor_spel.h 7.09.99
@@ -124,6 +127,8 @@ struct FragmDiskDescr
     Word8  language;
     Word8  type_underl;
 };
+
+#pragma pack ( pop )
 
 ///////////////////////////////////////////////////////////////////
 #define CRL_ED_BUFFER_SIZE                     32000

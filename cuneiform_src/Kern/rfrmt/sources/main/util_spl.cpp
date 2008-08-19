@@ -619,9 +619,11 @@ short __cdecl  OpenFullOutTiger(char *FileName)
 					ZN        *z  = &Zn[nc][ns][nw][nz];
 					TITLE_ZN  *tz = &z->Title;
 					Int16     num;
+#pragma pack(1)
 					//   struct RECT_TIGER {int top,left,bottom,right;} rect;
 					struct ALT_TIGER1  {unsigned char let, prob;} alt1;
 					struct ALT_TIGER2  {unsigned char language, spellnocarrying, FlagCapDrop, spell, base;} alt2;
+#pragma pack()
 
 					//fread_m(&tz->Z_Rect,sizeof(SRECT),1,in); // BOX
 					readSRECT(&tz->Z_Rect, in);

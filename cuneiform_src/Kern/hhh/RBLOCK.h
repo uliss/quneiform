@@ -76,6 +76,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 
+#pragma pack (push,8)
+
 #define RBLOCK_MAXNAME 260
 
 
@@ -115,6 +117,8 @@ typedef void   (*FNRBLOCK_ProgressStart)( void );
 typedef	Bool32 (*FNRBLOCK_ProgressStep)(Word32 perc);
 typedef	void   (*FNRBLOCK_ProgressFinish)( void );
 
+
+#pragma pack (pop)
 
 #ifdef __cplusplus
             }

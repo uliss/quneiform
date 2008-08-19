@@ -65,6 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "evndefs.h"
 #endif
 */
+#pragma pack(push,1) // Byte align
 
 #define REXC_VERSION_CODE   1
 // c_comp in H\struct.h OLD TIGER
@@ -285,5 +286,6 @@ struct big_merge_struct
 
 typedef struct big_merge_struct BM;
 */
+      #pragma pack(pop)
 
 #endif // __EXCSTRUC_H
