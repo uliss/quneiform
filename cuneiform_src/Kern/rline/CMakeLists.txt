@@ -14,4 +14,4 @@ lns32
 rshelllines
 )
 
-install(TARGETS rline LIBRARY DESTINATION lib)
+install(TARGETS rline LIBRARY DESTINATION ${LIBDIR})

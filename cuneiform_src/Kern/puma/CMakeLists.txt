@@ -35,4 +35,4 @@ rreccom
 rpstr
 )
 
-install(TARGETS puma LIBRARY DESTINATION lib)
+install(TARGETS puma LIBRARY DESTINATION ${LIBDIR})

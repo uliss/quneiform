@@ -23,4 +23,4 @@ cimage
 rdib
 )
 
-install(TARGETS rimage LIBRARY DESTINATION lib)
+install(TARGETS rimage LIBRARY DESTINATION ${LIBDIR})

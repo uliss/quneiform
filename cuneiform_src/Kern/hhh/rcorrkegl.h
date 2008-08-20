@@ -71,6 +71,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 
+#pragma pack (push,8)
+
     enum RCORRKEGLImp
         {
         RCORRKEGL_FNIMP_LANGUAGE,
@@ -84,6 +86,8 @@ RCK_FUNC(Int8 *) RCORRKEGL_GetReturnString(Word32 dwError);
 RCK_FUNC(Bool32) RCORRKEGL_SetImportData(Word32 dwType, void * pData);
 
 RCK_FUNC(Bool32) RCORRKEGL_CorrectKegl(Int32 version);
+
+#pragma pack (pop)
 
 #ifdef __cplusplus
             }

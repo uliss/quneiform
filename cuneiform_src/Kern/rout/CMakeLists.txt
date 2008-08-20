@@ -16,4 +16,4 @@ src/words.cpp
 
 target_link_libraries(rout ced cfio)
 
-install(TARGETS rout LIBRARY DESTINATION lib)
+install(TARGETS rout LIBRARY DESTINATION ${LIBDIR})

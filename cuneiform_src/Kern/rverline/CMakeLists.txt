@@ -20,4 +20,4 @@ cline
 ccom
 )
 
-install(TARGETS rverline LIBRARY DESTINATION lib)
+install(TARGETS rverline LIBRARY DESTINATION ${LIBDIR})

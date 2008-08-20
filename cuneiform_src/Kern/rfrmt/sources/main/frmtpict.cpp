@@ -548,6 +548,7 @@ BOOL SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
 {
 	BOOL rc = FALSE;
 
+#pragma pack (push,1)
 	struct MF_header {
 		WORD 	mtType;
 		WORD 	mtHeaderSize; // in words
@@ -575,6 +576,7 @@ BOOL SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
 		WORD	dstY;
 		WORD	dstX;
 	}  MF_SI;
+#pragma pack (pop)
 
 	// Заголовок картинки
 	CString text;

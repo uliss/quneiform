@@ -62,6 +62,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "globus.h"
 #endif
 
+#pragma pack(4)
+
 //
 // Palette entry descriptor:
 
@@ -273,6 +275,8 @@ typedef struct tagTiger_ImageInfo
     Word16  wAddX;
     Word16  wAddY;
 } Tiger_ImageInfo;
+
+#pragma pack()
 
 
 typedef Tiger_ImageInfo TIGER_IMAGEINFO;

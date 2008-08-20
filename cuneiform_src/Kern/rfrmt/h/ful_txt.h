@@ -101,6 +101,8 @@ extern "C" {
 
 #define MAX_VALUE 10
 
+#pragma pack(1)
+
 //#define ID_SYM struct h_id_sym /*Идентификатор символа*/
 #define SRECT struct h_srect
 #define ZN struct h_zn
@@ -223,7 +225,7 @@ TITLE_FUL
   BYTE Reserv[26];
   //BYTE *Reserv;//malloc(size=wFHSize-46)
 };
-
+#pragma pack(2)
 #define PAR_FUL struct h_par_ful
 PAR_FUL
 { char KodNoRecog;//Код нераспознан. символа для b_find
@@ -408,6 +410,7 @@ int AllowRelDistAltOCR(ZN *z,int alt1,int alt2);
 //int FullRtf(char *FileNameFul,char *FileNameOut);
 void MyUnionRect(SRECT *s1,SRECT *s2,SRECT *u);
 
+#pragma pack(1)
 //#ifdef FUL
 
 #ifndef V_LOCK
@@ -417,6 +420,7 @@ void MyUnionRect(SRECT *s1,SRECT *s2,SRECT *u);
 #endif
 
 //#endif
+#pragma pack(2)
 #ifdef MAIN2
 /* Moved all these to util_spl.cpp.
   //---Из секции колонок---

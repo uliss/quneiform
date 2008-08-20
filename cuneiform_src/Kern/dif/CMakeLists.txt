@@ -9,4 +9,4 @@ src/sticdif.c
 src/stictool.c
 )
 
-install(TARGETS dif LIBRARY DESTINATION lib)
+install(TARGETS dif LIBRARY DESTINATION ${LIBDIR})

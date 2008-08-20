@@ -52,4 +52,4 @@ cstr
 rcutp
 )
 
-install(TARGETS rselstr LIBRARY DESTINATION lib)
+install(TARGETS rselstr LIBRARY DESTINATION ${LIBDIR})

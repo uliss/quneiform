@@ -278,6 +278,7 @@ struct frame_struct
  {struct POINT topleft,topright,botleft,botright;};
 typedef struct frame_struct FRAME;
 
+
 #endif
 
 

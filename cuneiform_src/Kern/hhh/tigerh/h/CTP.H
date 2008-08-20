@@ -57,6 +57,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef	_C_T_P_
 #define _C_T_P_
 
+#pragma pack (push,8)
+
 #define CTP_FILE_NAME	"cunei$.ctp"
 
 struct ctp_hdr {
@@ -105,5 +107,7 @@ typedef struct {
 	WORD n_strip;
 	WORD handle;
 	 } strip_header;
+
+#pragma pack (pop)
 
 #endif  // _C_T_P_

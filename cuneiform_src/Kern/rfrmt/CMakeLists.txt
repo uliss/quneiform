@@ -30,4 +30,4 @@ cline
 cstr
 )
 
-install(TARGETS rfrmt LIBRARY DESTINATION lib)
+install(TARGETS rfrmt LIBRARY DESTINATION ${LIBDIR})

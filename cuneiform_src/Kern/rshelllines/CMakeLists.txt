@@ -17,4 +17,4 @@ cpage
 rverline
 )
 
-install(TARGETS rshelllines LIBRARY DESTINATION lib)
+install(TARGETS rshelllines LIBRARY DESTINATION ${LIBDIR})

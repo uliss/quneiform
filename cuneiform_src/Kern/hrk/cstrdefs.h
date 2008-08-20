@@ -60,6 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "recdefs.h"
 #include "ccomdefs.h"
 //#include "lang.h"
+#pragma pack (push,8)
 #define DEBUG_MODE 1
 
 #define     CSTR_VERSION_CODE  2
@@ -441,4 +442,5 @@ typedef Int32 CSTR_rast;
 // для базовых линий
 #define CSTR_LINVERS_BAL         8
 
+#pragma pack (pop)
 #endif

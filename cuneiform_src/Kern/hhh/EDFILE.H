@@ -60,6 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __EDFILE__
 
 #include "globus.h"
+#pragma pack(push,1)
 
 #define SS_BITMAP_REF 0x00
 #define SS_TEXT_REF 0x01
@@ -392,6 +393,8 @@ typedef struct letterEx
 #define TP_DEL           (TP_NOT_RECOG|TP_BORDER)
 #define TP_FICT_FR_FLAGS (TP_BORDER|TP_BRACKET)
 
+
+#pragma pack(pop)
 
 #include "edext.h"
 #endif

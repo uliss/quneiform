@@ -17,4 +17,4 @@ rstr
 std32
 )
 
-install(TARGETS rpstr LIBRARY DESTINATION lib)
+install(TARGETS rpstr LIBRARY DESTINATION ${LIBDIR})

@@ -8,4 +8,4 @@ src/mmx_r35.c
 src/mmxmain.c
 )
 
-install(TARGETS mmx LIBRARY DESTINATION lib)
+install(TARGETS mmx LIBRARY DESTINATION ${LIBDIR})

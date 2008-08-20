@@ -52,4 +52,4 @@ sources/c/sevbreak.c
 
 target_link_libraries(rblock cpage loc exc cstr cline rstr)
 
-install(TARGETS rblock LIBRARY DESTINATION lib)
+install(TARGETS rblock LIBRARY DESTINATION ${LIBDIR})

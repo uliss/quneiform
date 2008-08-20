@@ -20,4 +20,4 @@ exc
 rstr
 )
 
-install(TARGETS rneg LIBRARY DESTINATION lib)
+install(TARGETS rneg LIBRARY DESTINATION ${LIBDIR})

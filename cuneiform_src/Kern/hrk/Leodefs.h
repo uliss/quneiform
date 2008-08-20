@@ -60,6 +60,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "recdefs.h"
 
+#pragma pack(8)
+
 #define LEO_CONT_STD_PAGE_ID 999999
 
 typedef struct tagLeoPageSetup
@@ -161,5 +163,7 @@ typedef struct tagLeoFieldSetup
 //#define  FFC_FON_REJECT       0x1000  // результат сегментации и распознавания знакоместа забракован шрифтом
 #define  LEO_CONTROL_FON_CHANGE     0x20
 //#define  FFC_FON_CHANGE       0x0800  // произвел замену первой альтернативы
+
+#pragma pack()
 
 #endif

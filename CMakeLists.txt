@@ -21,5 +21,13 @@ set(CF_VERSION "${CF_VERSION_MAJOR}.${CF_VERSION_MINOR}.${CF_VERSION_PATCH}")
 set(RELATIVE_DATADIR "share/cuneiform")
 set(INSTALL_DATADIR "${CMAKE_INSTALL_PREFIX}/${RELATIVE_DATADIR}")
 
+include(CheckTypeSize)
+check_type_size("void*" PTRSIZE)
+if(PTRSIZE EQUAL 8)
+    set(LIBDIR "lib64")
+else()
+    set(LIBDIR "lib")
+endif()
+
 add_subdirectory(datafiles)
 add_subdirectory(cuneiform_src)

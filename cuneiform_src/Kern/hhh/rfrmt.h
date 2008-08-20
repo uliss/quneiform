@@ -71,6 +71,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 
+#pragma pack (push,8)
+
 #define RFRMT_MAXNAME 260
 
 RFRMT_FUNC(Bool32) RFRMT_Init(Word16 wHeightCode,Handle hStorage);
@@ -106,6 +108,8 @@ DEC_FUN(Bool32,  RFRMT_SaveRtf,(char * lpOutputFileName,Word32 code));
 #undef DEC_FUN
 
 
+
+#pragma pack (pop)
 
 #ifdef __cplusplus
             }

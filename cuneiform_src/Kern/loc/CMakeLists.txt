@@ -10,4 +10,4 @@ src/v0compgl.c
 
 target_link_libraries(loc windummy)
 
-install(TARGETS loc LIBRARY DESTINATION lib)
+install(TARGETS loc LIBRARY DESTINATION ${LIBDIR})

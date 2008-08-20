@@ -13,4 +13,4 @@ src/statsearchbl.cpp
 
 target_link_libraries(rbal cstr evn32)
 
-install(TARGETS rbal LIBRARY DESTINATION lib)
+install(TARGETS rbal LIBRARY DESTINATION ${LIBDIR})
