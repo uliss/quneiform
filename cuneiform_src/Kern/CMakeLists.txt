@@ -25,7 +25,10 @@ endif()
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/include/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/include/config.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/include)
 
+# dl* functions are already in libc
+if(NOT CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
 find_library(DL_LIB dl)
+endif()
 
 # Emulate Windows DLL symbol resolve order.
 if(UNIX AND NOT APPLE)

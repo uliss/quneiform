@@ -79,6 +79,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*--------------------- Include standart h-files -----------------------*/
 
  #include <stdio.h>
+
+ /* solves conflict with bsd <strings.h> */
+ #if defined(__FreeBSD__)
+ #undef __BSD_VISIBLE
+ #endif
+ 
  #include <string.h>
 
 #include "cttypes.h"
