@@ -72,10 +72,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define MTR_LEARN1
 
 #ifndef WIN32
-	#define NAME        ".\\bin\\hnd3rus.dat"
-	#define NAME_NDX    ".\\bin\\hnd3ind.dat"
-    #define NAME_PRINT  ".\\bin\\rec3r&e.dat"
-    #define NAME_OUT    ".\\bin\\rec3r&e.dat"
+	#define NAME        "hnd3rus.dat"
+	#define NAME_NDX    "hnd3ind.dat"
+    #define NAME_PRINT  "rec3r&e.dat"
+    #define NAME_OUT    "rec3r&e.dat"
 
 	#define PC_TYPE 0
     #define R35_DEBUG
@@ -946,7 +946,7 @@ return;
 
 Bool32 r35_init(char *name,elm3x5 **tab3x5this, ind3x5 **header3x5this)
 {
-Int32 f=open(name, O_BINARY|O_RDONLY, S_IREAD);
+Int32 f=open_data_file(name, O_BINARY|O_RDONLY); /* , S_IREAD */
 Word32 num;
 
 r35_error_code = ER_R35_NO_ERROR;
@@ -998,8 +998,8 @@ Bool32 r35_save(char *name,elm3x5 *tab3x5this, ind3x5 *header3x5this, int num)
 {
 Int32 f,i;
 
-remove(name);
-f=open(name,O_BINARY|O_WRONLY|O_CREAT|O_TRUNC ,S_IWRITE );
+// remove(name);
+f=open_data_file(name,O_BINARY|O_WRONLY|O_CREAT|O_TRUNC ); /* S_IWRITE */
 r35_error_code = ER_R35_NO_ERROR;
 if( f==-1 )
   {
