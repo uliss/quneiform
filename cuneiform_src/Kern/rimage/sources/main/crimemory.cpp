@@ -67,6 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef RIMAGE_USE_GLOBAL_MEM
 #include <windows.h>
 #endif
+#include <stdlib.h>
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #include "resource.h"
@@ -134,106 +135,22 @@ void *	RIMAGEDAlloc(Word32 stAllocateBlock, PChar8 Comment)
 	return RIMAGEAlloc(stAllocateBlock);
 }
 
-void *	RIMAGEAlloc(Word32 stAllocateBlock)
-{
-	char * mem = NULL;
-
-#ifdef _NO_CFIO
-
-	#ifdef  RIMAGE_USE_GLOBAL_MEM
-
-		mem = (char *)GlobalAlloc(GPTR, stAllocateBlock);
-
-	#else
-
-		mem = ::new char[stAllocateBlock];
-
-	#endif
-
-	if(!mem)
-		SetReturnCode_rimage(IDS_RIMAGE_ERR_NO_MEMORY);
-#else
-
-	mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(Int8*)"RImage", (Int8*)cCommentBuffer);
-
-	if(!mem)
-		SetReturnCode_rimage(IDS_RIMAGE_ERR_NO_MEMORY);
-
-#endif
-
+void *	RIMAGEAlloc(Word32 stAllocateBlock) {
+	return malloc(stAllocateBlock);
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//
+void	RIMAGEFree(void * mem) {
+	free(mem);
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//
+void *    RIMAGELock( void * mem ) {
 	return mem;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //
-void	RIMAGEFree(void * mem)
-{
-#ifdef _NO_CFIO
-
-	#ifdef  RIMAGE_USE_GLOBAL_MEM
-
-		GlobalFree(mem);
-
-	#else
-
-		::delete []	mem;
-
-	#endif
-#else
-
-	CFIO_FreeMemory(mem);
-
-#endif
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//
-void *    RIMAGELock( void * mem )
-{
-	void * pMem;
-#ifdef _NO_CFIO
-
-	#ifdef  RIMAGE_USE_GLOBAL_MEM
-
-		return GlobalLock(mem);
-
-	#else
-
-		return mem;
-
-	#endif
-
-#else
-
-	pMem = CFIO_LockMemory(mem);
-
-	if ( pMem == NULL && mem != NULL )
-		return mem;
-
-	return pMem;
-
-#endif
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//
-void     RIMAGEUnlock( void * mem )
-{
-#ifdef _NO_CFIO
-
-	#ifdef  RIMAGE_USE_GLOBAL_MEM
-
-		GlobalUnlock(mem);
-
-	#else
-
-		return;
-
-	#endif
-
-#else
-
-	CFIO_UnlockMemory(mem);
-	return;
-
-#endif
+void     RIMAGEUnlock( void * mem ) {
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

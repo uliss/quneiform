@@ -570,7 +570,7 @@ WORD	n1, n2;
 	n1 = N_tek_Line_in_MBIT * N_Bytes_in_MBIT_Line;
 	n2 = N_Bytes_in_all_MBIT - n1;
 
-	memcpy (pMBIT, pMBIT + n1, n2);	// SHIFT to begin
+	memmove (pMBIT, pMBIT + n1, n2);	// SHIFT to begin
 	memset (pMBIT + n2, 0, n1);		// ZERO to end
 	if (Flag_Draw)	memset (pMBIT + n2,  0x24,  16); // * * * * * *
 	pMBIT_tek = pMBIT;
@@ -2073,7 +2073,7 @@ void	memory_allocation ()
 		PR_BEG "MEM.ALL ERR: hPPMEM = %04X", hPPMEM);  PR_END
 //////	hPPMEM = GlobalAlloc (GHND, MAX_NI*4);		// MAX_NI far *
 
-	hPPMEM = KRONROD_ALLOC(NI*4); //GlobalAlloc (GHND, NI*4); // NI *****
+	hPPMEM = KRONROD_ALLOC(NI*sizeof(char**)); //GlobalAlloc (GHND, NI*4); // NI *****
 
 	if (hPPMEM==0)
 		PR_BEG "hPPMEM = %04X", hPPMEM);  PR_END

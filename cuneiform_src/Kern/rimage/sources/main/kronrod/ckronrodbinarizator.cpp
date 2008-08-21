@@ -2470,7 +2470,7 @@ void CKronrodBinarizator::memory_alloc_from_body()
 			"hMREF = %04X", hMREF);
 		PR_END
 
-	hPPMEM = KRONROD_ALLOC(MaxNI*4); //GlobalAlloc (GHND, MAX_NI*4);		// MAX_NI far *
+	hPPMEM = KRONROD_ALLOC(MaxNI*sizeof(char**)); //GlobalAlloc (GHND, MAX_NI*4);		// MAX_NI far *
 	//////	hPPMEM = GlobalAlloc (GHND, NI*4);		// NI far *
 	if (hPPMEM==0)
 		PR_BEG
