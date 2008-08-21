@@ -76,7 +76,7 @@ DATA::DATA()
 DATA::~DATA()
 {
 	if(lpData)
-		delete lpData;
+		delete []lpData;
 }
 //##############################
 Bool32   DATA::SetData(Handle type, void * lpdata, Word32 size)
@@ -86,7 +86,7 @@ Bool32   DATA::SetData(Handle type, void * lpdata, Word32 size)
 
 	if(lpData)
 	{
-		delete lpData;
+		delete [] lpData;
 		lpData = NULL;
 	}
 
@@ -177,7 +177,7 @@ Bool32 DATA::Restore(Handle from)
 		   {
 			   if(lpData)
 			   {
-				   delete lpData;
+				   delete [] lpData;
 				   lpData = NULL;
 			   }
 			   lpData = new char[Size];
@@ -204,7 +204,7 @@ Bool32 DATA::SaveCompress(Handle to)
 	lpData=compressedData; 	Size=compressedSize;
 	rv=Save(to);
 	lpData=lpDataSave; 	Size=SizeSave;
-	delete 	compressedData;
+	delete []compressedData;
 	return rv;
 }
 
@@ -221,7 +221,7 @@ Bool32 DATA::RestoreCompress(Handle from)
 	if (!Decompress(lpData,Size,&decomData,&decomSize))
 		return FALSE;
 
-	if(lpData)	delete lpData;
+	if(lpData)	delete [] lpData;
 	lpData=decomData;  Size=decomSize;
 
 	if (!ComplianceVersions(Type,&lpData,&Size))
