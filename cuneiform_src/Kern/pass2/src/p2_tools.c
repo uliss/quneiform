@@ -146,7 +146,7 @@ static Bool32 Lines2Raster(CCOM_lnhead *linerep, Int16 size,
 
  ww = REC_GW_WORD8(rec->lnPixWidth);
 
- for(line=linerep,len=0; len<size && line->lth; len+=line->lth,line=(CCOM_lnhead *)((int)line+line->lth))
+ for(line=linerep,len=0; len<size && line->lth; len+=line->lth,line=(CCOM_lnhead *)((intptr_t)line+line->lth))
   {
    Word8 *buf=&rec->Raster[ line->row*ww ];
    for(inter = (CCOM_interval*)(line+1), i=0; i<line->h; i++, inter++,buf+=ww)
