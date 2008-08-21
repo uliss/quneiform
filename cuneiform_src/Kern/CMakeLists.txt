@@ -101,10 +101,10 @@ cimage loc rdib cfio)
 #target_link_libraries(rpstrtest ${RPSTR_LIBS})
 
 add_library(windummy ${LIBTYPE} windummy.c)
+target_link_libraries(windummy ${DL_LIB})
 
 add_executable(cuneiform cuneiform-cli.cpp)
 target_link_libraries(cuneiform puma ${MAGICK_LIBRARIES} ${DL_LIB})
-#${PUMA_LIBS} ${RPSTR_LIBS} ${SNP_LIBS} dl)
 
 install(TARGETS windummy LIBRARY DESTINATION ${LIBDIR})
 install(TARGETS cuneiform RUNTIME DESTINATION bin)
