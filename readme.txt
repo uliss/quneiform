@@ -1,4 +1,4 @@
-Cuneiform for Linux 0.3
+Cuneiform for Linux 0.3.1
 
 Cuneiform is an multi-language OCR system originally developed
 and open sourced by Cognitive Technologies. Cuneiform was
@@ -19,7 +19,7 @@ Caveats
 
 This port is has several limitations. Among the biggest ones are:
 
-- it has been tested only on Linux and OS X
+- it has been tested only on Linux and OS X (FreeBSD should also work)
 - it only works on x86 and amd64 processors
 
 Patches to fix any of these issues are gladly accepted.
