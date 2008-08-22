@@ -41,8 +41,7 @@ struct langlist {
     const char *name;
 };
 
-/* Language codes according to ISO 639-2. Most of these don't seem to have
- * corresponding data files. A bug?
+/* Language codes according to ISO 639-2.
  */
 static const langlist langs[] = {
         {PUMA_LANG_ENGLISH,   "eng"},
@@ -60,10 +59,10 @@ static const langlist langs[] = {
         {PUMA_LANG_DANISH,    "dan"},
         {PUMA_LANG_PORTUGUESE,"por"},
         {PUMA_LANG_DUTCH,     "dut"},
-        {PUMA_LANG_DIG,       "dig"}, // What is this language?
-        {PUMA_LANG_UZBEK,     "uzb"},
-        {PUMA_LANG_KAZ,       "kaz"},
-        {PUMA_LANG_KAZ_ENG,   "kazeng"},
+//        {PUMA_LANG_DIG,       "dig"}, // These four languages don't seem to have data files.
+//        {PUMA_LANG_UZBEK,     "uzb"}, // Thus they are disabled.
+//        {PUMA_LANG_KAZ,       "kaz"},
+//        {PUMA_LANG_KAZ_ENG,   "kazeng"},
         {PUMA_LANG_CZECH,     "cze"},
         {PUMA_LANG_ROMAN,     "rum"},
         {PUMA_LANG_HUNGAR,    "hun"},
