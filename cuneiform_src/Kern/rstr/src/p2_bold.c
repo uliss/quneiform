@@ -230,7 +230,7 @@ static void FillFromLine(CCOM_lnhead *linerep,int size,int *thickBuf,int add)
  CCOM_interval  * inter;
  int len,i,j;
 
- for(line=linerep,len=0; len<size && line->lth; len+=line->lth,line=(CCOM_lnhead *)((int)line+line->lth))
+ for(line=linerep,len=0; len<size && line->lth; len+=line->lth,line=(CCOM_lnhead *)((intptr_t)line+line->lth))
   {
          // начало линии (line->row) - нам не важно
    for(inter = (CCOM_interval*)(line+1), i=0; i<line->h; i++, inter++)

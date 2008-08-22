@@ -87,7 +87,7 @@ Bool32 Linerep2Raster(CCOM_lnhead *linerep, Int16 size,
 
     if (bChangeSize) // one should change a size of raster
      {
-       for(line=linerep,wmax=len=0; len<size && line->lth; len+=line->lth,line=(CCOM_lnhead    *)((int)line+line->lth))
+       for(line=linerep,wmax=len=0; len<size && line->lth; len+=line->lth,line=(CCOM_lnhead    *)((intptr_t)line+line->lth))
        {
            for(inter = (CCOM_interval*)(line+1), i=0; i<line->h; i++, inter++)
            {
@@ -106,7 +106,7 @@ Bool32 Linerep2Raster(CCOM_lnhead *linerep, Int16 size,
      }
     else //bChangeSize==false one should not change a size of raster
      {
-       for(line=linerep,wmax=len=0; len<size && line->lth; len+=line->lth,line=(CCOM_lnhead    *)((int)line+line->lth))
+       for(line=linerep,wmax=len=0; len<size && line->lth; len+=line->lth,line=(CCOM_lnhead    *)((intptr_t)line+line->lth))
        {
            for(inter = (CCOM_interval*)(line+1), i=0; i<line->h; i++, inter++)
            {
@@ -133,7 +133,7 @@ if( !w || !h || c+w>rec->lnPixWidth || r+h>rec->lnPixHeight )
   return FALSE;
 ww = REC_GW_WORD8(rec->lnPixWidth);
 
-for(line=linerep,len=0; len<size && line->lth; len+=line->lth,line=(CCOM_lnhead    *)((int)line+line->lth))
+for(line=linerep,len=0; len<size && line->lth; len+=line->lth,line=(CCOM_lnhead    *)((intptr_t)line+line->lth))
   {
   for(inter = (CCOM_interval*)(line+1), i=0; i<line->h; i++, inter++)
     {
@@ -175,7 +175,7 @@ if( !w || !h || c+w>(rec->lnPixWidth<<scale) || r+h>(rec->lnPixHeight<<scale) )
   return FALSE;
 ww = REC_GW_WORD8(rec->lnPixWidth);
 
-for(line=linerep,len=0; len<size && line->lth; len+=line->lth,line=(CCOM_lnhead    *)((int)line+line->lth))
+for(line=linerep,len=0; len<size && line->lth; len+=line->lth,line=(CCOM_lnhead    *)((intptr_t)line+line->lth))
   {
   for(inter = (CCOM_interval*)(line+1), i=0; i<line->h; i++, inter++)
     {

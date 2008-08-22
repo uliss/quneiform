@@ -58,4 +58,4 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 Bool32 DeleteRootsFromTables (void);
 Bool32 DeleteRootsFromPictures (void);
 Bool32 CarefulPicturesAllotment(Int32);
-Bool32 SearchPicturesSecond (Int32 hCCOM, Bool32 BLOCKS, CCOM_comp * comp);
+Bool32 SearchPicturesSecond (Handle hCCOM, Bool32 BLOCKS, CCOM_comp * comp);

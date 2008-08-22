@@ -202,7 +202,7 @@ Bool32 DeleteRootsFromPictures (void)
 	return TRUE;
 }
 
-Bool32 SearchPicturesSecond (Int32 hCCOM, Bool32 BLOCKS, CCOM_comp * comp)
+Bool32 SearchPicturesSecond (Handle hCCOM, Bool32 BLOCKS, CCOM_comp * comp)
 {
 	return TRUE;
 }

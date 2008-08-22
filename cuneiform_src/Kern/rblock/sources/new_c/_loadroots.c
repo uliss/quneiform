@@ -223,7 +223,7 @@ Bool32 MyFiltrateIn (Int32 upper, Int32 left, Int32 w, Int32 h)
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
-Bool32 PicturesSecondStage(Int32 hCCOM,Handle hCPAGE)
+Bool32 PicturesSecondStage(Handle hCCOM,Handle hCPAGE)
 {
 	/************** final union all crossed and included pictures ******************/
 
@@ -527,9 +527,9 @@ Bool32 PicturesSecondStage(Int32 hCCOM,Handle hCPAGE)
 	return TRUE;
 }
 
-Bool32 FillBigLetters (Int32 hCCOM,Handle hCPAGE)
+Bool32 FillBigLetters (Handle hCCOM,Handle hCPAGE)
 {
-	Word32 BlockType;
+	Handle BlockType;
 	Handle pBlock;
 	RPIC_Comp_Rect CompRect; // типичный Rect16
 
@@ -557,7 +557,7 @@ Bool32 FillBigLetters (Int32 hCCOM,Handle hCPAGE)
 }
 
 
-Bool32 FillPicsInTables (Int32 hCCOM,Handle hCPAGE)
+Bool32 FillPicsInTables (Handle hCCOM,Handle hCPAGE)
 {
 	//CCOM_comp common;
 	POLY_	block;
@@ -622,7 +622,7 @@ Bool32 IsNotBigLetter (CCOM_comp *comp)
 
 /************************************************************************/
 
-Bool32 ReadRoots(Int32 hCCOM, Bool32 BLOCKS)
+Bool32 ReadRoots(Handle hCCOM, Bool32 BLOCKS)
 {
 	CCOM_comp * comp = NULL;
 	Handle		pPage;
