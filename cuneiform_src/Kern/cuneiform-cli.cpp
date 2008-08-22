@@ -171,6 +171,7 @@ int main(int argc, char **argv) {
     for(int i=1; i<argc; i++) {
         /* Changing language. */
         if(strcmp(argv[i], "-l") == 0) {
+            langcode = -1;
             if(++i >= argc) {
                 print_supported_languages();
                 return 1;
