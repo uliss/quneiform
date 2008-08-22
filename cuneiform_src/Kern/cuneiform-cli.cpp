@@ -159,6 +159,8 @@ int main(int argc, char **argv) {
     char *dib;
     const char *infilename = NULL;
     Word32 langcode = PUMA_LANG_ENGLISH; // By default recognize plain english text.
+    Bool32 dotmatrix = FALSE;
+    Bool32 fax = FALSE;
     const char *defaulttextname = "cuneiform-out.txt";
     const char *defaulthtmlname = "cuneiform-out.html";
     const char *outfilename = NULL;
@@ -192,6 +194,10 @@ int main(int argc, char **argv) {
             outfilename = argv[i];
         } else if(strcmp(argv[i], "--html") == 0) {
             outputformat = PUMA_TOHTML;
+        } else if(strcmp(argv[i], "--dotmatrix") == 0) {
+            dotmatrix = TRUE;
+        } else if(strcmp(argv[i], "--fax") == 0) {
+            fax = TRUE;
         } else {
         /* No switches, so set input file. */
         infilename = argv[i];
@@ -207,7 +213,7 @@ int main(int argc, char **argv) {
     }
 
     if(infilename == NULL) {
-        printf("Usage: %s [-l languagename --html -o result_file] imagefile\n", argv[0]);
+        printf("Usage: %s [-l languagename --html --dotmatrix --fax -o result_file] imagefile\n", argv[0]);
         return 0;
     }
 
@@ -223,6 +229,8 @@ int main(int argc, char **argv) {
 
     // Set the language.
     PUMA_SetImportData(PUMA_Word32_Language, &langcode);
+    PUMA_SetImportData(PUMA_Bool32_DotMatrix, &dotmatrix);
+    PUMA_SetImportData(PUMA_Bool32_Fax100, &fax);
 
     if(!PUMA_XOpen(dib, "none.txt")) {
         printf("PUMA_Xopen failed.\n");

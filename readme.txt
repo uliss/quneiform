@@ -54,7 +54,7 @@ Running
 
 After install you simply run.
 
-cuneiform [-l language -o result_file --html] <image_file>
+cuneiform [-l language -o result_file --html --dotmatrix --fax] <image_file>
 
 Output is written to pumaout.txt. Cuneiform assumes that your image contains
 only a single column of text.
@@ -74,4 +74,4 @@ is either "txt" or "html" depending on your output format.
 Contact information
 
 Project home page: https://launchpad.net/cuneiform-linux
-Email: jpakkane at gmail
+Mailing list: https://launchpad.net/~cuneiform
