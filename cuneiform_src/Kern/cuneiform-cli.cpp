@@ -30,6 +30,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include"ctiimage.h" // Must be first, or else you get compile errors.
 
 #include<iostream>
+#include<sstream>
+#include<iomanip>
 #include<stdio.h>
 #include<stdint.h>
 #include<stdlib.h>
@@ -78,11 +80,39 @@ static const langlist langs[] = {
         {-1, NULL}
 };
 
-static void print_supported_languages() {
-    printf("Supported languages:");
+struct formatlist {
+    int puma_number;
+    const char * name;
+    const char * descr;
+};
+
+static const formatlist formats[] = {
+    {PUMA_TOTABLEDBF,   "dbf",       "DBF format"},
+    {PUMA_TOHTML,       "html",      "HTML format"},
+    {PUMA_TOEDNATIVE,   "native",    "Cuneiform 2000 format"},
+    {PUMA_TORTF,        "rtf",       "RTF format"},
+    {PUMA_TOSMARTTEXT,  "smarttext", "plain text with TeX paragraphs"},
+    {PUMA_TOTEXT,       "text",       "plain text"},
+    {PUMA_TOTABLETXT,   "tabletxt",  ""},
+    {-1, NULL}
+};
+
+
+static string supported_languages() {
+    ostringstream os;
+    os << "Supported languages:";
     for(const langlist *l = langs; l->puma_number >= 0; l++)
-        cout << " " << l->name;
-    cout << ".\n";
+        os << " " << l->name;
+    os << ".\n";
+    return os.str();
+}
+
+static string supported_formats() {
+    ostringstream os;
+    os << "Supported formats:\n";
+    for(const formatlist * f = formats; f->puma_number >= 0; f++)
+        os << "    " << setiosflags(ios::left) << setw(12) << f->name << " " << f->descr << "\n";
+    return os.str();
 }
 
 /**
@@ -163,19 +193,19 @@ int main(int argc, char **argv) {
     Word32 langcode = PUMA_LANG_ENGLISH; // By default recognize plain english text.
     Bool32 dotmatrix = FALSE;
     Bool32 fax = FALSE;
-    const char *defaulttextname = "cuneiform-out.txt";
-    const char *defaulthtmlname = "cuneiform-out.html";
-    const char *outfilename = NULL;
+    const char *defaultnamestem = "cuneiform-out.";
+    string outfilename;
     Int32 outputformat = PUMA_TOTEXT;
 
-    printf("Cuneiform for Linux %s\n", CF_VERSION);
+    cout << "Cuneiform for Linux " << CF_VERSION << "\n";
 
+    /* Parsing command line parameters. */
     for(int i=1; i<argc; i++) {
         /* Changing language. */
         if(strcmp(argv[i], "-l") == 0) {
             langcode = -1;
             if(++i >= argc) {
-                print_supported_languages();
+                cout << supported_languages();
                 return 1;
             }
             for(int j=0; langs[j].puma_number >= 0; j++) {
@@ -185,8 +215,25 @@ int main(int argc, char **argv) {
                 }
             }
             if(langcode == -1) {
-                printf("Unknown language %s.\n", argv[i]);
-                print_supported_languages();
+                cerr << "Unknown language " << argv[i] << ".\n";
+                cerr << supported_languages();
+                return 1;
+            }
+        } else if(strcmp(argv[i], "-f") == 0) {
+            outputformat = -1;
+            if(++i >= argc) {
+                cout << supported_formats();
+                return 1;
+            }
+            for(int j=0; formats[j].puma_number >= 0; j++) {
+                if(strcmp(formats[j].name, argv[i]) == 0) {
+                    outputformat = formats[j].puma_number;
+                    break;
+                }
+            }
+            if(outputformat == -1) {
+                cerr << "Unknown format " << argv[i] << ".\n";
+                cerr << supported_formats();
                 return 1;
             }
         } else if(strcmp(argv[i], "-o") == 0) {
@@ -207,16 +254,39 @@ int main(int argc, char **argv) {
         }
     }
 
-    if(outfilename == NULL) {
-        // Use default output name.
-        switch(outputformat) {
-            case PUMA_TOHTML : outfilename = defaulthtmlname; break;
-            default : outfilename = defaulttextname; break;
+    if (outfilename.empty()) {
+        outfilename = defaultnamestem;
+        switch (outputformat) {
+            case PUMA_TOHTML:
+                outfilename += "htm";
+                break;
+
+            case PUMA_TORTF:
+                outfilename += "rtf";
+                break;
+
+            case PUMA_TOTEXT:
+            case PUMA_TOSMARTTEXT:
+            case PUMA_TOTABLETXT:
+                outfilename += "txt";
+                break;
+
+            case PUMA_TOEDNATIVE:
+                outfilename += "cf";
+                break;
+
+            case PUMA_TOTABLEDBF:
+                outfilename += "dbf";
+                break;
+
+            default:
+                outfilename += "buginprogram";
+                break;
         }
     }
 
     if(infilename == NULL) {
-        cout << "Usage: " << argv[0] << "[-l languagename --html --dotmatrix --fax -o result_file] imagefile\n";
+        cout << "Usage: " << argv[0] << "[-l languagename -f format --dotmatrix --fax -o result_file] imagefile\n";
         return 0;
     }
 
@@ -228,7 +298,6 @@ int main(int argc, char **argv) {
         cerr << "PUMA_Init failed.\n";
         return 1;
     }
-    //printf("Puma initialized.\n");
 
     // Set the language.
     PUMA_SetImportData(PUMA_Word32_Language, &langcode);
@@ -239,7 +308,6 @@ int main(int argc, char **argv) {
         cerr << "PUMA_Xopen failed.\n";
         return 1;
     }
-    //printf("PUMA_XOpen succeeded.\n");
 
     /* From recogpuma.cpp
     LPUMA_SetSpeller(g_bSpeller);
@@ -274,31 +342,27 @@ int main(int argc, char **argv) {
         printf("PUMA_XPageAnalysis failed.\n");
         return 1;
     }
-    //printf("PUMA_XPageAnalysis succeeded.\n");
     */
     if(!PUMA_XFinalRecognition()) {
         cerr << "PUMA_XFinalrecognition failed.\n";
         return 1;
     }
-    //printf("PUMA_XFinalRecognition succeeded.\n");
 
-    if(!PUMA_XSave(outfilename, outputformat, 0)) {
+    if(!PUMA_XSave(outfilename.c_str(), outputformat, 0)) {
         cerr << "PUMA_XSave failed.\n";
         return 1;
     }
-    //printf("PUMA_XSave succeeded.\n");
 
     if(!PUMA_XClose()) {
         cerr << "PUMA_XClose failed.\n";
         return 1;
     }
-    //printf("PUMA_XClose succeeded.\n");
 
     if(!PUMA_Done()) {
         cerr << "PUMA_Done failed.\n";
         return 1;
     }
-    //printf("PUMA_Done succeeded.\nAll done.\n");
+
     delete []dib;
     return 0;
 }
