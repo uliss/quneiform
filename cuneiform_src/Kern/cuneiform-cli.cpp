@@ -29,12 +29,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include"ctiimage.h" // Must be first, or else you get compile errors.
 
+#include<iostream>
 #include<stdio.h>
 #include<stdint.h>
 #include<stdlib.h>
 #include<cstring>
 #include"puma.h"
 #include"config.h"
+
+using namespace std;
 
 struct langlist {
     int puma_number;
@@ -78,13 +81,13 @@ static const langlist langs[] = {
 static void print_supported_languages() {
     printf("Supported languages:");
     for(const langlist *l = langs; l->puma_number >= 0; l++)
-        printf(" %s", l->name);
-    printf(".\n");
+        cout << " " << l->name;
+    cout << ".\n";
 }
 
 /**
  * Read file and return it as a BMP DIB entity. On failure write an error
- * and return NULL. Caller free()'s the returned result.
+ * and return NULL. Caller delete[]'s the returned result.
  */
 static char* read_file(const char *fname);
 
@@ -99,13 +102,13 @@ static char* read_file(const char *fname) {
     try {
         Image image(fname);
         // Write to BLOB in BMP format
-        image.write( &blob, "DIB" );
+        image.write(&blob, "DIB");
     } catch(Exception &error_) {
-        printf("ImageMagick error: %s\n", error_.what());
+        cerr << error_.what() << "\n";
         return NULL;
     }
     data_size = blob.length();
-    dib = static_cast<char*> (malloc(data_size));
+    dib = new char[data_size];
     memcpy(dib, blob.data(), data_size);
     return dib;
 }
@@ -120,12 +123,12 @@ static char* read_file(const char *fname) {
 
     f = fopen(fname, "rb");
     if (!f) {
-        printf("Could not open file %s.\n", fname);
+        cerr << "Could not open file " << fname << ".\n";
         return NULL;
     }
     fread(bmpheader, 1, 2, f);
     if (bmpheader[0] != 'B' || bmpheader[1] != 'M') {
-        printf("%s is not a BMP file.\n", fname);
+        cerr << fname << " is not a BMP file.\n";
         return NULL;
     }
     fread(&dibsize, sizeof(int32_t), 1, f);
@@ -134,20 +137,19 @@ static char* read_file(const char *fname) {
     fread(&offset, sizeof(int32_t), 1, f);
 
     dibsize -= ftell(f);
-    dib = static_cast<char*> (malloc(dibsize));
+    dib = new char[dibsize];
     fread(dib, dibsize, 1, f);
     fclose(f);
 
     if (*((int32_t*)dib) != 40) {
-        printf("BMP is not of type \"Windows V3\", which is the only supported format.\n");
-        printf("Please convert your BMP to uncompressed V3 format and try again.");
+        cerr << "BMP is not of type \"Windows V3\", which is the only supported format.\n";
+        cerr << "Please convert your BMP to uncompressed V3 format and try again.\n";
         return NULL;
     }
 
     if (*((int32_t*) (dib+16)) != 0) {
-        printf("%s is a compressed BMP. Only uncompressed BMP files are supported.\n",
-               fname);
-        printf("Please convert your BMP to uncompressed V3 format and try again.");
+        cerr << fname << "is a compressed BMP. Only uncompressed BMP files are supported.\n";
+        cerr << "Please convert your BMP to uncompressed V3 format and try again.";
         return NULL;
     }
     return dib;
@@ -189,7 +191,7 @@ int main(int argc, char **argv) {
             }
         } else if(strcmp(argv[i], "-o") == 0) {
             if(++i >= argc) {
-                printf("Missing output file name.\n");
+                cerr << "Missing output file name.\n";
                 return 1;
             }
             outfilename = argv[i];
@@ -214,7 +216,7 @@ int main(int argc, char **argv) {
     }
 
     if(infilename == NULL) {
-        printf("Usage: %s [-l languagename --html --dotmatrix --fax -o result_file] imagefile\n", argv[0]);
+        cout << "Usage: " << argv[0] << "[-l languagename --html --dotmatrix --fax -o result_file] imagefile\n";
         return 0;
     }
 
@@ -223,7 +225,7 @@ int main(int argc, char **argv) {
         return 1;
 
     if(!PUMA_Init(0, 0)) {
-        printf("PUMA_Init failed.\n");
+        cerr << "PUMA_Init failed.\n";
         return 1;
     }
     //printf("Puma initialized.\n");
@@ -234,7 +236,7 @@ int main(int argc, char **argv) {
     PUMA_SetImportData(PUMA_Bool32_Fax100, &fax);
 
     if(!PUMA_XOpen(dib, "none.txt")) {
-        printf("PUMA_Xopen failed.\n");
+        cerr << "PUMA_Xopen failed.\n";
         return 1;
     }
     //printf("PUMA_XOpen succeeded.\n");
@@ -275,28 +277,28 @@ int main(int argc, char **argv) {
     //printf("PUMA_XPageAnalysis succeeded.\n");
     */
     if(!PUMA_XFinalRecognition()) {
-        printf("PUMA_XFinalrecognition failed.\n");
+        cerr << "PUMA_XFinalrecognition failed.\n";
         return 1;
     }
     //printf("PUMA_XFinalRecognition succeeded.\n");
 
     if(!PUMA_XSave(outfilename, outputformat, 0)) {
-        printf("PUMA_XSave failed.\n");
+        cerr << "PUMA_XSave failed.\n";
         return 1;
     }
     //printf("PUMA_XSave succeeded.\n");
 
     if(!PUMA_XClose()) {
-        printf("PUMA_XClose failed.\n");
+        cerr << "PUMA_XClose failed.\n";
         return 1;
     }
     //printf("PUMA_XClose succeeded.\n");
 
     if(!PUMA_Done()) {
-        printf("PUMA_Done failed.\n");
+        cerr << "PUMA_Done failed.\n";
         return 1;
     }
     //printf("PUMA_Done succeeded.\nAll done.\n");
- //   free(dib);
+    delete []dib;
     return 0;
 }
