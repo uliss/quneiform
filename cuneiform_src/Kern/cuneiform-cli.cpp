@@ -258,7 +258,7 @@ int main(int argc, char **argv) {
         outfilename = defaultnamestem;
         switch (outputformat) {
             case PUMA_TOHTML:
-                outfilename += "htm";
+                outfilename += "html";
                 break;
 
             case PUMA_TORTF:

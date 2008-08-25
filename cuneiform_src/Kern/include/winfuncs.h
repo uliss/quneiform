@@ -187,4 +187,9 @@ char* _strupr(char*s);
 int open_data_file(const char *basename, int mode);
 int data_file_exists(const char *basename);
 
+void split_path(const char *fname,
+        char *file_path,
+        char *basename,
+        char *ext);
+
 #endif

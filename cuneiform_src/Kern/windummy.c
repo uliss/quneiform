@@ -25,6 +25,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <errno.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -59,12 +60,15 @@ int LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax) {
 }
 
 int CreateDirectory(const char *dir, void *dummy) {
-    return 0;
+       if(!mkdir(dir,0755)) return TRUE;
+       else return FALSE;
 }
 
 void _makepath(char *f,const char *drive,const char *dir,const char *fname,const char *ext) {
 
 }
+
+/* These should use split_path instead. It is portable. */
 
 void _splitpath(/*const*/ char *f,char *drive,char *dir,char *fname,char *ext) {
     drive[0] = '\0';
@@ -105,7 +109,7 @@ int GetTempFileName(LPCTSTR lpPathName, LPCTSTR lpPrefixString,
 }
 
 int GetLastError() {
-    return 0;
+    return errno;
 }
 
 
@@ -594,4 +598,51 @@ int data_file_exists(const char *basename) {
     if(_access(ename, 0) == 0)
         return 0;
     return _access(pname, 0);
+}
+
+/* Split a file name in three: path, base file name, and extension.
+ * All internal file names use / as path separator, even on Windows.
+ */
+
+void split_path(const char *fname, char *file_path, char *basename, char *ext) {
+    int last_path = -1;
+    int suff = -1;
+    size_t l = strlen(fname);
+    int path_end, base_start, base_end, ext_start;
+    int i;
+
+    file_path[0] = '\0';
+    basename[0] = '\0';
+
+    for (i = 0; i < l; i++) {
+        if (fname[i] == '.')
+            suff = i;
+        if (fname[i] == '/')
+            last_path = i;
+    }
+
+    path_end = 0;
+    base_start = 0;
+    if (last_path == 0) { // File in root.
+        path_end = 1;
+        base_start = 1;
+    }
+    if (last_path > 0) {
+        path_end = last_path;
+        base_start = last_path + 1;
+    }
+
+    if (suff > last_path) {
+        ext_start = suff + 1;
+        base_end = suff;
+    } else {
+        base_end = ext_start = l;
+    }
+
+    memcpy(file_path, fname, path_end);
+    file_path[path_end] = '\0';
+    memcpy(basename, fname + base_start, base_end - base_start);
+    basename[base_end - base_start] = '\0';
+    memcpy(ext, fname + ext_start, l - ext_start);
+    ext[l - ext_start] = '\0';
 }

@@ -355,23 +355,20 @@ static BOOL Picture()
 	char buf[256] = "";
 	char absPicFileName[256] = "";
 	char relPicFileName[256] = "";
-	char drive[_MAX_DRIVE],dir[_MAX_PATH],
-		 name[_MAX_PATH],ext[_MAX_EXT]/*,
-		 path[_MAX_PATH]*/;
+	char dir[_MAX_PATH], name[_MAX_PATH], ext[_MAX_EXT];
 
 	// Создать подпапку для картинок gPageFilesFolder.
 	if ( !CreatePageFilesFolder() )
 		return FALSE;
 
 	// Изготовить имя файла
-	_splitpath(gPageName,drive,dir,name,ext);
+	split_path(gPageName, dir, name, ext);
 
 	// Записать картинку в BMP-файл
-	sprintf (absPicFileName,"%s%s%s\\%d.bmp",
-		drive,dir,
+	sprintf (absPicFileName,"%s/%s/%d.bmp", dir,
 		gPageFilesFolder, gPictureNumber);
 
-	sprintf (relPicFileName,"%s\\%d.bmp",
+	sprintf (relPicFileName,"%s/%d.bmp",
 		gPageFilesFolder, gPictureNumber);
 
 	if ( !WritePictureToBMP_File(
@@ -395,40 +392,33 @@ static BOOL Picture()
 	return TRUE;
 }
 //********************************************************************
-static BOOL CreatePageFilesFolder()
-{
-// Создать подпапку для картинок gPageFilesFolder.
 
-	char drive[_MAX_DRIVE],dir[_MAX_PATH],
-		 name[_MAX_PATH],ext[_MAX_EXT],
-		 path[_MAX_PATH];
+/**
+ * Create a subdirectory to hold image files for html document.
+ */
+static BOOL CreatePageFilesFolder() {
+    // Создать подпапку для картинок gPageFilesFolder.
+    char dir[_MAX_PATH], name[_MAX_PATH], ext[_MAX_EXT], path[_MAX_PATH];
 
-	// Задано ли имя страницы?
-	if ( !gPageName[0] )
-		return FALSE;
+    // Задано ли имя страницы?
+    if (!gPageName[0])
+        return FALSE;
 
-	// Изготовить имя подпапки
-	_splitpath(gPageName,drive,dir,name,ext);
-	memset (gPageFilesFolder,0,sizeof(gPageFilesFolder));
-	sprintf(gPageFilesFolder,"%s_files",name);
+    // Изготовить имя подпапки
+    split_path(gPageName, dir, name, ext);
+    memset(gPageFilesFolder, 0, sizeof(gPageFilesFolder));
+    sprintf(gPageFilesFolder, "%s_files", name);
 
-	// По умолчанию используется текущая директория.
-	if ( !dir[0] )
-		strcpy(dir,".\\");
+    // Создать подпапку
+    sprintf(path, "%s/%s", dir, gPageFilesFolder);
+    if (CreateDirectory(&path[0], 0) == FALSE) {
+        DWORD err = GetLastError();
+        if (err != ERROR_ALREADY_EXISTS) {
+            DEBUG_PRINT("CreatePageFilesFolder error = %d",err);
+            return FALSE;
+        }
+    }
 
-	// Создать подпапку
-	sprintf (path,"%s%s%s", drive, dir, gPageFilesFolder);
-	if (CreateDirectory(&path[0],0) == FALSE )
-		{
-		DWORD err = GetLastError();
-		if ( err != ERROR_ALREADY_EXISTS )
-			{
-			DEBUG_PRINT ("CreatePageFilesFolder error = %d",err);
-			return FALSE;
-			}
-		}
-
-
-	return TRUE;
+    return TRUE;
 }
 //********************************************************************

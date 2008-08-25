@@ -58,7 +58,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __PUMA__
 //#include <windows.h>
 //#include <stdio.h>
-#include <string.h>
+#include <string>
+#include <cstring>
 #include "mpuma.h"
 
 extern "C"
@@ -610,8 +611,18 @@ PUMA_FUNC(Bool32) PUMA_XFinalRecognition( )
 	return rc;
 }
 //////////////////////////////////////////////////
-PUMA_FUNC(Bool32) PUMA_XSave(const char * lpOutFileName, Int32 lnFormat, Int32 lnCode )
-{ return PUMA_Save(ghEdPage,lpOutFileName, lnFormat, lnCode,FALSE ); }
+PUMA_FUNC(Bool32) PUMA_XSave(const char * lpOutFileName, Int32 lnFormat, Int32 lnCode ) {
+    std::string fname = lpOutFileName;
+#ifdef WIN32
+    /* Windows understands a slash as a path separator, so we use it internally.
+     * However someone might pass us a file name with backslashes, so we fix them here.
+     */
+    for(size_t i=0; i<strlen(lpOutFileName); i++)
+        if(fname[i] == '\\')
+            fname[i] = '/';
+#endif
+    return PUMA_Save(ghEdPage, fname.c_str(), lnFormat, lnCode,FALSE );
+}
 //////////////////////////////////////////////////
 PUMA_FUNC(Bool32) PUMA_Save(Handle hEdPage, const char * lpOutFileName, Int32 lnFormat, Int32 lnCode, Bool32 bAppend )
 {

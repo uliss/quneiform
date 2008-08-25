@@ -178,7 +178,7 @@ BOOL WritePictureToBMP_File(
 	bf.bfOffBits = sizeof(BITMAPFILEHEADER) +
 					sizeof(BITMAPINFOHEADER);
 
-	if(fwrite((char*)&bf,sizeof(bf), 1, f) != sizeof(bf))
+	if(fwrite((char*)&bf,1,sizeof(bf), f) != sizeof(bf))
 		{
 		fclose(f);
 		ERR_WRITING_TO_FILE;
@@ -186,7 +186,7 @@ BOOL WritePictureToBMP_File(
 		}
 
 	// Записать DIB включая заголовок
-	if(fwrite((char*)pDIB, lenDIB, 1, f) != (size_t)lenDIB)
+	if(fwrite((char*)pDIB, 1, lenDIB, f) != (size_t)lenDIB)
 		{
 		fclose(f);
 		ERR_WRITING_TO_FILE;
@@ -194,7 +194,7 @@ BOOL WritePictureToBMP_File(
 		}
 
 	// Закрыть файл
-	if(!fclose(f))
+	if(fclose(f))
 		{
 		ERR_CLOSE_FILE;
 		return FALSE;

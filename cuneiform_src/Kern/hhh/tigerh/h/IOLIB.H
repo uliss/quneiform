@@ -91,10 +91,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define BO_RDWR_FL    O_RDWR|O_BINARY
 #define BO_I_FL       S_IREAD|S_IWRITE
 #define BO_WRITE      O_WRONLY|O_BINARY
-#define DIRSEP        '\\'
+#define DIRSEP        '/'
 
 # else
-
 
 #include <stdlib.h>
 #include <fcntl.h>

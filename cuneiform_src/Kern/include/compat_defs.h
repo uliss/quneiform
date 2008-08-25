@@ -44,6 +44,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "filestuff.h"
 #include "cttypes.h" /* Most type definitions are here. */
 #include "minmax.h"
+#include <errno.h>
 
 #ifdef __cplusplus
     extern "C" {
@@ -137,6 +138,8 @@ typedef struct {
      char *cbWndExtra;
 } WNDCLASS;
 
+#pragma pack(push, 2)
+
 typedef struct tagBITMAPINFOHEADER{
   DWORD  biSize;
   LONG   biWidth;
@@ -158,6 +161,8 @@ typedef struct tagBITMAPCOREHEADER {
   WORD    bcPlanes;
   WORD    bcBitCount;
 } BITMAPCOREHEADER, *PBITMAPCOREHEADER;
+
+#pragma pack(pop)
 
 struct _finddata_t {
     unsigned    attrib;
@@ -242,6 +247,7 @@ typedef struct  tagSIZE{
     LONG cy;
 } SIZE;
 
+#pragma pack(push, 2)
 typedef struct tagBITMAPFILEHEADER {
   WORD    bfType;
   DWORD   bfSize;
@@ -249,6 +255,8 @@ typedef struct tagBITMAPFILEHEADER {
   WORD    bfReserved2;
   DWORD   bfOffBits;
 } BITMAPFILEHEADER, *PBITMAPFILEHEADER;
+
+#pragma pack(pop)
 
 typedef struct tagCOPYDATASTRUCT {
     ULONG dwData;
@@ -496,7 +504,7 @@ typedef int REGSAM;
 #endif
 
 #ifndef ERROR_ALREADY_EXISTS
-#define ERROR_ALREADY_EXISTS 1000
+#define ERROR_ALREADY_EXISTS EEXIST
 #endif
 
 #ifndef OUT_DEFAULT_PRECIS
