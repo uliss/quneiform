@@ -866,7 +866,7 @@ void CRtfPage::CorrectKegl(void)
       // adjust kegl to the text line real width (Microsoft function)
 			Real_Size_Kegl = GetRealSizeKegl( TmpString, LenghtStr,	pFirstChar->m_wFontPointSize, pFirstChar->m_wFontNumber );
 			AddNewKegl(pLastChar->m_wFontPointSize,Real_Size_Kegl);
-			delete TmpString;
+			delete []TmpString;
 		}
 	}
 }
