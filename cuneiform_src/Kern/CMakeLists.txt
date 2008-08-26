@@ -11,6 +11,8 @@ fon/src
 usage
 )
 
+add_definitions(-D_USE_RVERLINE_)
+
 # CMake does not currently have direct support for ImageMagick.
 include(FindPkgConfig)
 pkg_check_modules(MAGICK ImageMagick++)
