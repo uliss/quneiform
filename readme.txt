@@ -23,6 +23,8 @@ This port is has several limitations. Among the biggest ones are:
 
 - it has been tested only on Linux and OS X (FreeBSD should also work)
 - it only works on x86 and amd64 processors
+- there is no table recognition, because of
+  https://bugs.launchpad.net/cuneiform-linux/+bug/260327
 
 Patches to fix any of these issues are gladly accepted.
 
