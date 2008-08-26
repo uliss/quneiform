@@ -34,6 +34,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <stdio.h>
 #include <dlfcn.h>
+#include <stdarg.h>
 
 #if defined(__APPLE__) && defined(__MACH__)
 #include <malloc/malloc.h>
@@ -289,7 +290,15 @@ LPTSTR lstrcpy(LPTSTR lpString1, LPTSTR lpString2) {
 }
 
 int wsprintf(LPTSTR lpOut, LPCTSTR lpFmt, ...) {
-    return sprintf(lpOut, "WSPRINTF-FUNCTION");
+    char buffer[256];
+    int ret;
+    va_list args;
+    va_start (args, lpFmt);
+    ret = vsprintf(lpOut,lpFmt, args);
+    if(ret < 0)
+        perror(buffer);
+    va_end(args);
+    return ret;
 }
 
 int lstrcmpi(LPCTSTR lpString1, LPCTSTR lpString2) {
