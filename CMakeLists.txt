@@ -23,7 +23,7 @@ set(INSTALL_DATADIR "${CMAKE_INSTALL_PREFIX}/${RELATIVE_DATADIR}")
 
 include(CheckTypeSize)
 check_type_size("void*" PTRSIZE)
-if(PTRSIZE EQUAL 8 AND NOT APPLE)
+if(PTRSIZE EQUAL 8 AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
     set(LIBDIR "lib64")
 else()
     set(LIBDIR "lib")
