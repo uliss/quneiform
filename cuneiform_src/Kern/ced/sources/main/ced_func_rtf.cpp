@@ -64,7 +64,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 #define MAX_LEN 500
-#define DIB_TO_METAFILE
+#ifdef WIN32
+    #define DIB_TO_METAFILE
+#endif
 #define MAX_RTF_COLORS     200
 #define TextDefBkColor	RGB(255,255,255)
 
@@ -1740,24 +1742,35 @@ BOOL WriteRtfDIB(struct StrRtfOut far *rtf,int pict)
    SaveTerObject=rtf->page->picsTable[pict];
    DIB2Metafile(rtf->page,pict,FALSE);
    result=WriteRtfMetafile(rtf,pict);
-   if (rtf->page->picsTable[pict].data)
-	   free(rtf->page->picsTable[pict].data); // delete metafile
+// avoid double free on page destroy
+   /*   if (rtf->page->picsTable[pict].data)
+	   free(rtf->page->picsTable[pict].data); // delete metafile */
    rtf->page->picsTable[pict]=SaveTerObject;              // restore the object
    return result;
 
    #else
    // Write the actual DIB to the rtf file
 
-   long l,height,width;
+   long l,height,width,width_bytes;
    BYTE *pMem;
+   LPBITMAPINFO pInfo;
 
    // get picture height/width
    height=rtf->page->picsTable[pict].pictGoal.cy;             // picture height in pointsize
    width=rtf->page->picsTable[pict].pictGoal.cx;               // picture width in pointsize
+   pInfo=(LPBITMAPINFO)rtf->page->picsTable[pict].data;
 
-   if (!BeginRtfGroup(rtf)) return FALSE;     // begin current picture
+   int len=sizeof(BITMAPINFOHEADER);
+   width_bytes = ((width * pInfo->bmiHeader.biBitCount + 31) / 32) * 4;
+
+    if (!BeginRtfGroup(rtf)) return FALSE;     // begin current picture
    if (!WriteRtfControl(rtf,"pict",PARAM_NONE,0)) return FALSE;     // write picture group control
    if (!WriteRtfControl(rtf,"dibitmap",PARAM_INT,0)) return FALSE;  // write picture format
+
+   if (!WriteRtfControl(rtf,"wbmbitspixel",PARAM_INT,pInfo->bmiHeader.biBitCount)) return FALSE;  // bit count
+ if (!WriteRtfControl(rtf,"wbmplanes",PARAM_INT,1)) return FALSE;  // Number of bitmap color planes (must equal 1).
+ if (!WriteRtfControl(rtf,"wbmwidthbytes",PARAM_INT,width_bytes)) return FALSE;  // write picture format
+
 
    // write picture height/width in HIMETRIC
    if (!WriteRtfControl(rtf,"picw",PARAM_INT,rtf->page->picsTable[pict].pictSize.cx)) return FALSE;  // write picture format
@@ -1770,10 +1783,9 @@ BOOL WriteRtfDIB(struct StrRtfOut far *rtf,int pict)
    // write picture alignment
    if (!WriteRtfControl(rtf,"sspicalign",PARAM_INT,(int)(rtf->page->picsTable[pict].pictAlign) )) return FALSE;  // write picture format
 
+  pMem=(BYTE *)rtf->page->picsTable[pict].data;
    // write the picture information
-   pMem=(BYTE *)(rtf->page->picsTable[pict].data);
-
-   for (l=0;l<(long)rtf->page->picsTable[pict].len;l++) {
+   for (l=0;l<rtf->page->picsTable[pict].len;l++) {
       if (!(result=PutRtfHexChar(rtf,pMem[l]))) break;
    }
 
