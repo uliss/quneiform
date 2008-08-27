@@ -410,7 +410,10 @@ static BOOL CreatePageFilesFolder() {
     sprintf(gPageFilesFolder, "%s_files", name);
 
     // Создать подпапку
-    sprintf(path, "%s/%s", dir, gPageFilesFolder);
+    if(dir[0])
+        sprintf(path, "%s/%s", dir, gPageFilesFolder);
+    else
+        sprintf(path, "%s", gPageFilesFolder);
     if (CreateDirectory(&path[0], 0) == FALSE) {
         DWORD err = GetLastError();
         if (err != ERROR_ALREADY_EXISTS) {
