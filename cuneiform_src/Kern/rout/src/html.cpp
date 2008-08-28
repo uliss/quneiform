@@ -344,9 +344,9 @@ static BOOL Picture()
 {
 /* Картинка.
 
-	gPictureNumber - Номер картинки от 1
-	gPictureData   - Адрес DIB включая заголовок
-	gPictureLength - Длина DIB включая заголовок
+	gPictureNumber - img number 1
+	gPictureData   - DIB address, wiith header
+	gPictureLength - DIB length, with header
 
 	1. Создать подпапку для картинок "<page>_files"
 	2. Записать картинку в BMP-файл <номер>.bmp.
@@ -357,16 +357,20 @@ static BOOL Picture()
 	char relPicFileName[256] = "";
 	char dir[_MAX_PATH], name[_MAX_PATH], ext[_MAX_EXT];
 
-	// Создать подпапку для картинок gPageFilesFolder.
+	// create folder for images gPageFilesFolder.
 	if ( !CreatePageFilesFolder() )
 		return FALSE;
 
-	// Изготовить имя файла
+	// create file name
 	split_path(gPageName, dir, name, ext);
 
-	// Записать картинку в BMP-файл
-	sprintf (absPicFileName,"%s/%s/%d.bmp", dir,
-		gPageFilesFolder, gPictureNumber);
+	// write picture to bmp file
+	if(dir[0])
+	    sprintf(absPicFileName,"%s/%s/%d.bmp", dir,
+	            gPageFilesFolder, gPictureNumber);
+	else
+	    sprintf(absPicFileName,"%s/%d.bmp",
+	            gPageFilesFolder, gPictureNumber);
 
 	sprintf (relPicFileName,"%s/%d.bmp",
 		gPageFilesFolder, gPictureNumber);
@@ -378,7 +382,7 @@ static BOOL Picture()
 		)
 		return FALSE;
 
-	// Записать тег "img" со ссылкой на файл картинки.
+	// write img html tag.
 	sprintf (buf,"<img src=%s "
 "width=%d height=%d "
 "alt=\"%s\">",
