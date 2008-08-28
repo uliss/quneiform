@@ -111,27 +111,8 @@ int lstrcmp(LPCTSTR lpString1, LPCTSTR lpString2);
 LPTSTR lstrcpy(LPTSTR lpString1, LPTSTR lpString2);
 int wsprintf(LPTSTR lpOut, LPCTSTR lpFmt, ...);
 int lstrcmpi(LPCTSTR lpString1, LPCTSTR lpString2);
-HDC CreateMetaFile(LPCTSTR lpszFile);
-HMETAFILE CloseMetaFile(HDC hdc);
-BOOL SetWindowOrgEx(HDC hdc, int X, int Y, LPPOINT lpPoint);
-BOOL SetWindowExtEx(HDC hdc, int nXExtent, int nYExtent,
-LPSIZE lpSize);
-COLORREF SetTextColor(HDC hdc, COLORREF crColor);
-COLORREF SetBkColor(HDC hdc, COLORREF crColor);
-int SetStretchBltMode(HDC hdc, int iStretchMode);
-HPALETTE CreatePalette(const LOGPALETTE *lplgpl);
-HPALETTE SelectPalette(HDC hdc, HPALETTE hpal, BOOL bForceBackground);
-UINT RealizePalette(HDC hdc);
 
-int StretchDIBits(HDC hdc, int XDest, int YDest, int nDestWidth,
-int nDestHeight, int XSrc, int YSrc, int nSrcWidth, int nSrcHeight,
-const void *lpBits, const BITMAPINFO *lpBitsInfo, UINT iUsage,
-DWORD dwRop);
-
-BOOL UnrealizeObject(HGDIOBJ hgdiobj);
 BOOL DeleteObject(HGDIOBJ hObject);
-BOOL DeleteMetaFile(HMETAFILE hmf);
-UINT GetMetaFileBitsEx(HMETAFILE hmf, UINT nSize, LPVOID lpvData);
 
 BYTE GetRValue(DWORD rgb);
 BYTE GetGValue(DWORD rgb);

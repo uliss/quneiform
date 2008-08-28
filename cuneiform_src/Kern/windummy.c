@@ -305,67 +305,7 @@ int lstrcmpi(LPCTSTR lpString1, LPCTSTR lpString2) {
     return strcasecmp(lpString1, lpString2);
 }
 
-HDC CreateMetaFile(LPCTSTR lpszFile) {
-    return NULL;
-}
-
-HMETAFILE CloseMetaFile(HDC hdc) {
-    return 0;
-}
-
-BOOL SetWindowOrgEx(HDC hdc, int X, int Y, LPPOINT lpPoint) {
-    return 0;
-}
-
-BOOL SetWindowExtEx(HDC hdc, int nXExtent, int nYExtent,
-LPSIZE lpSize) {
-    return 0;
-}
-
-COLORREF SetTextColor(HDC hdc, COLORREF crColor) {
-    return NULL;
-}
-
-COLORREF SetBkColor(HDC hdc, COLORREF crColor) {
-    return NULL;
-}
-
-int SetStretchBltMode(HDC hdc, int iStretchMode) {
-    return 0;
-}
-
-HPALETTE CreatePalette(const LOGPALETTE *lplgpl) {
-    return NULL;
-}
-
-HPALETTE SelectPalette(HDC hdc, HPALETTE hpal, BOOL bForceBackground) {
-    return hpal;
-}
-
-UINT RealizePalette(HDC hdc) {
-    return 0;
-}
-
-int StretchDIBits(HDC hdc, int XDest, int YDest, int nDestWidth,
-int nDestHeight, int XSrc, int YSrc, int nSrcWidth, int nSrcHeight,
-const void *lpBits, const BITMAPINFO *lpBitsInfo, UINT iUsage,
-DWORD dwRop) {
-    return -1;
-}
-
-BOOL UnrealizeObject(HGDIOBJ hgdiobj) {
-    return 0;
-}
-
 BOOL DeleteObject(HGDIOBJ hObject) {
-    return 0;
-}
-
-BOOL DeleteMetaFile(HMETAFILE hmf) {
-    return 0;
-}
-
-UINT GetMetaFileBitsEx(HMETAFILE hmf, UINT nSize, LPVOID lpvData) {
     return 0;
 }
 

@@ -292,7 +292,6 @@ CED_FUNC(Bool32) CED_GetExportData(Word32 dwType, void * pData)
 	CASE_FUNCTION(CED_GetCharLayout);
 	CASE_FUNCTION(CED_WriteFormattedRtf);
 	CASE_FUNCTION(CED_MergeFormattedRtf);
-	CASE_FUNCTION(CED_DIB2Metafile);
 	CASE_FUNCTION(CED_SetLogFileName);
 #ifdef _DEBUG
 	CASE_FUNCTION(CED_ShowTree);

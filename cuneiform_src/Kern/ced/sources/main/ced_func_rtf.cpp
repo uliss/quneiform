@@ -64,9 +64,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 #define MAX_LEN 500
-#ifdef WIN32
-    #define DIB_TO_METAFILE
-#endif
 #define MAX_RTF_COLORS     200
 #define TextDefBkColor	RGB(255,255,255)
 
@@ -1735,20 +1732,6 @@ BOOL WriteRtfDIB(struct StrRtfOut far *rtf,int pict)
 {
    BOOL result=TRUE;
 
-   #if defined(DIB_TO_METAFILE)
-   // Convert the DIB to metafile to write to the rtf file
-   pictEntry SaveTerObject;
-
-   SaveTerObject=rtf->page->picsTable[pict];
-   DIB2Metafile(rtf->page,pict,FALSE);
-   result=WriteRtfMetafile(rtf,pict);
-// avoid double free on page destroy
-   /*   if (rtf->page->picsTable[pict].data)
-	   free(rtf->page->picsTable[pict].data); // delete metafile */
-   rtf->page->picsTable[pict]=SaveTerObject;              // restore the object
-   return result;
-
-   #else
    // Write the actual DIB to the rtf file
 
    long l,height,width,width_bytes;
@@ -1792,7 +1775,6 @@ BOOL WriteRtfDIB(struct StrRtfOut far *rtf,int pict)
    if (!EndRtfGroup(rtf)) return FALSE;       // end current picture
    return result;
 
-   #endif
 }
 /*****************************************************************************
     PutRtfHexChar:
@@ -1895,128 +1877,6 @@ BOOL WriteRtfMetafile(struct StrRtfOut far *rtf,int pict)
 
    if (!EndRtfGroup(rtf)) return FALSE;       // end current picture
    return result;
-}
-
-/*******************************************************************************
-    DIB2Metafile:
-    This function embeds the DIB intoa metafile and return the handle of the
-    metafile.
-*******************************************************************************/
-BOOL DIB2Metafile(CEDPage* page, int pict, BOOL delOldData)
-{
-    HDC hMetaDC;
-    char  *pImage;
-    LPBITMAPINFO pInfo;
-    long width,height;
-    HMETAFILE hMeta;
-    METAHEADER far *hdr;         // metafile header
-    int i,ColorsUsed;
-    LOGPALETTE far * pPal=NULL;
-    HPALETTE hPal,hOldPal;
-
-	if (page->picsTable[pict].type==2) return TRUE;
-	if (page->picsTable[pict].type!=1) return FALSE;
-
-    if (NULL==(hMetaDC=CreateMetaFile(NULL)))
-	{
-//		LoadString(hTerInst,IDS_ERR_META_CREATE,TempString,300);
-//		MessageBox( hTerWnd, TempString, "Rtf error", MB_OK | MB_ICONEXCLAMATION );
-		return NULL;
-    }
-
-    // blast the bitmap
-    pInfo=(LPBITMAPINFO)page->picsTable[pict].data;
-	int len=sizeof(BITMAPINFOHEADER);
-   //************ calculate image and info structure sizes **
-	if      (pInfo->bmiHeader.biBitCount==1)       len+=2*sizeof(RGBQUAD);
-	else if (pInfo->bmiHeader.biBitCount==4) len+=16*sizeof(RGBQUAD);
-	else if (pInfo->bmiHeader.biBitCount==8) len+=256*sizeof(RGBQUAD);
-	else								 len=len;  // 24 bit colors
-
-	pImage=(char*)(page->picsTable[pict].data)+len;
-
-        width=pInfo->bmiHeader.biWidth;
-        height=pInfo->bmiHeader.biHeight;
-
-        // initialize the metafile
-        SetWindowOrgEx(hMetaDC,0,0,NULL);
-        SetWindowExtEx(hMetaDC,(int)(width),(int)height,NULL);
-        SetTextColor(hMetaDC,(COLORREF)0);
-        SetBkColor(hMetaDC,(COLORREF)0xFFFFFF);
-        SetStretchBltMode(hMetaDC,COLORONCOLOR);  // same as STRETCH_DELETESCANS
-
-        // create a palette for 256 color bitmaps
-		if (pInfo->bmiHeader.biClrUsed>16) {       // use default palette
-           // build logical palette
-           ColorsUsed=(WORD)pInfo->bmiHeader.biClrUsed;
-           if (NULL==(pPal=(LOGPALETTE*) new char[sizeof(LOGPALETTE)+ColorsUsed*sizeof(PALETTEENTRY)])) return FALSE;
-           pPal->palVersion=0x300;
-           pPal->palNumEntries=(WORD)ColorsUsed;
-           for (i=0;i<(int)(pPal->palNumEntries);i++) {
-             pPal->palPalEntry[i].peRed=pInfo->bmiColors[i].rgbRed;
-             pPal->palPalEntry[i].peGreen=pInfo->bmiColors[i].rgbGreen;
-             pPal->palPalEntry[i].peBlue=pInfo->bmiColors[i].rgbBlue;
-              pPal->palPalEntry[i].peFlags=0;
-           }
-           hPal=CreatePalette(pPal);
-           delete []pPal;
-
-           hOldPal=SelectPalette(hMetaDC,hPal,0);   // select new palette
-           RealizePalette(hMetaDC);
-        }
-
-        // draw the picture
-        StretchDIBits(hMetaDC,0,0,(int)width,(int)height,
-          0,0,(int)width,(int)height,pImage,pInfo,DIB_RGB_COLORS,SRCCOPY);
-
-        if (pInfo->bmiHeader.biClrUsed>16 ) {       // use default palette
-            SelectPalette(hMetaDC,hOldPal,0);    // reset to old palette
-            UnrealizeObject(hPal);
-            DeleteObject(hPal);                  // delete the palette
-        }
-
-    hMeta=CloseMetaFile(hMetaDC);  // get the metafile handle
-
-    // set the font array
-	if (delOldData)
-		free(page->picsTable[pict].data);
-    page->picsTable[pict].data=TerGetMetaFileBits(hMeta);
-    // Get the metafile size
-	if ( NULL==page->picsTable[pict].data)    // convert to handler
-    {
-//        PrintError(w,MSG_ERR_META_ACCESS,NULL);
-        return NULL;
-    }
-	hdr=(METAHEADER far *)page->picsTable[pict].data;
-    page->picsTable[pict].len=hdr->mtSize*2;         // size specified in words
-
-    page->picsTable[pict].type=2;
-
-    return TRUE;
-}
-
-/*****************************************************************************
-    TerGetMetaFileBits:
-    A common routine for 16 and 32 bit windows to retrieve the metafile data
-******************************************************************************/
-void* TerGetMetaFileBits(HMETAFILE hMeta)
-{
-
-      void* pMem;
-
-      // allocate the memory to receive the data
-      UINT size=GetMetaFileBitsEx(hMeta,0,NULL);   // get the size of the buffer to allocate
-      if (size==0) return NULL;
-
-      if (NULL==(pMem=malloc(size+1))) return NULL;
-
-      // retrieve the metafile bits
-      if (size!=GetMetaFileBitsEx(hMeta,size,pMem)) return NULL;
-
-      // delete the input metafile handle
-      DeleteMetaFile(hMeta);
-
-    return pMem;
 }
 
 int ReadRtfFontTable(struct StrRtfOut far *rtf, int * maxFontNum);

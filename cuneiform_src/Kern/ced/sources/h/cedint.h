@@ -475,8 +475,6 @@ BOOL WriteFrmPos(/*PTERWND w,*/struct StrRtfOut *rtf, CEDParagraph* frm, BOOL wr
 BOOL WriteRtfDIB(/*PTERWND w,*/struct StrRtfOut *rtf,int pict);
 BOOL PutRtfHexChar(/*PTERWND w,*/struct StrRtfOut *rtf,BYTE CurChar);
 BOOL WriteRtfMetafile(/*PTERWND w,*/struct StrRtfOut *rtf,int pict);
-BOOL DIB2Metafile(CEDPage* page, int pict,BOOL delOldData);
-void* TerGetMetaFileBits(HMETAFILE hMeta);
 BOOL WriteRtfMergedHeader(struct StrRtfOut *rtf, const char * name);
 BOOL WriteRtfParaBorder(struct StrRtfOut *rtf, CEDParagraph * para);
 BOOL WriteRtfColor(struct StrRtfOut *rtf,BOOL head = TRUE);

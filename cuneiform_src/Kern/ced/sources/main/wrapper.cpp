@@ -1056,11 +1056,6 @@ CED_FUNC(Bool32) CED_MergeFormattedRtf(const char * fileName, Handle hEdPage)
 	return ((CEDPage*)hEdPage)->FormattedWriteRtf(fileName,TRUE);
 }
 
-CED_FUNC(Bool32) CED_DIB2Metafile(Handle hEdPage, int pict)
-{
-	return DIB2Metafile((CEDPage*)hEdPage, pict, TRUE);
-}
-
 CED_FUNC(void) CED_SetLogFileName(const char * name)
 {
 	strcpy(logName,name);

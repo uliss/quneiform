@@ -401,7 +401,6 @@ typedef enum
 		CED_FNCED_GetCountLogicalCell,
 		CED_FNCED_GetLineDefChrFontHeight,
 		CED_FNCED_WriteFormattedRtf,
-		CED_FNCED_DIB2Metafile,
 		CED_FNCED_SetLogFileName,
 		CED_FNCED_MergeFormattedRtf,
 		CED_FNCED_SetLineParams,
@@ -530,7 +529,6 @@ DEC_FUN(Int32, CED_GetCharForegroundColor,(Handle hEdChar));
 
 DEC_FUN(Bool32, CED_WriteFormattedRtf,(const char * fileName, Handle hEdPage));
 DEC_FUN(Bool32, CED_MergeFormattedRtf,(const char * fileName, Handle hEdPage));
-DEC_FUN(Bool32, CED_DIB2Metafile,(Handle hEdPage, int pict));
 #ifdef _DEBUG
 DEC_FUN(void, CED_ShowTree,(char * name, Handle hEdPage));
 #endif
