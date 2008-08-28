@@ -143,25 +143,13 @@ BOOL WritePictureToBMP_File(
 					char *filename // Имя файла
 					)
 {
-/* Создает BMP-файл и записывает в него картинку
-
- Формат BMP-файла:
-
-	1) Вначале идет заголовок BMP-файла: структура BITMAPFILEHEADER.
-		bfType - здесь должно быть 'BM' (0x4d42).
-		bfSize - размер файла в байтах.
-		bfOffBits - смещение от начала файла до начала битов
-				    изображения. Включает длину заголовка BMP
-					и длину заголовка DIB.
-
-	2) Затем идет заголовок DIB: структура BITMAPINFOHEADER.
-
-	3) Затем идут биты изображения.
-
+/* store dib as bmp file
+ bmp file format description could be found at 
+ http://www.fortunecity.com/skyscraper/windows/364/bmpffrmt.html
 */
-    BITMAPFILEHEADER   bf = {0}; // Заголовок BMP-файла.
-
-	// Создать файл
+    	BITMAPFILEHEADER   bf = {0}; //  bmp fileheader
+	BITMAPINFOHEADER  * bfinfo;
+	// crete output file
 	FILE* f = fopen(filename, "wb");
 
 	if (!f)
@@ -169,14 +157,15 @@ BOOL WritePictureToBMP_File(
 		ERR_OPEN_FILE;
 		return FALSE;
 		}
-
-	// Записать заголовок BMP-файла
+	
+	// BMP file header
+	bfinfo =  (BITMAPINFOHEADER *)pDIB;
 	bf.bfType = 0x4d42; // 'BM'
 
 	bf.bfSize = sizeof(BITMAPFILEHEADER) + lenDIB;
-
+	// fileheader + infoheader + palette
 	bf.bfOffBits = sizeof(BITMAPFILEHEADER) +
-					sizeof(BITMAPINFOHEADER);
+					sizeof(BITMAPINFOHEADER)+ bfinfo->biClrUsed* sizeof(RGBQUAD);
 
 	if(fwrite((char*)&bf,1,sizeof(bf), f) != sizeof(bf))
 		{
@@ -185,7 +174,7 @@ BOOL WritePictureToBMP_File(
 		return FALSE;
 		}
 
-	// Записать DIB включая заголовок
+	// write dib, including file header
 	if(fwrite((char*)pDIB, 1, lenDIB, f) != (size_t)lenDIB)
 		{
 		fclose(f);
@@ -193,7 +182,6 @@ BOOL WritePictureToBMP_File(
 		return FALSE;
 		}
 
-	// Закрыть файл
 	if(fclose(f))
 		{
 		ERR_CLOSE_FILE;
