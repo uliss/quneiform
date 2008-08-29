@@ -87,13 +87,13 @@ struct formatlist {
 };
 
 static const formatlist formats[] = {
-    {PUMA_TOTABLEDBF,   "dbf",       "DBF format"},
+// Does not work.    {PUMA_TOTABLEDBF,   "dbf",       "DBF format"},
     {PUMA_TOHTML,       "html",      "HTML format"},
     {PUMA_TOEDNATIVE,   "native",    "Cuneiform 2000 format"},
     {PUMA_TORTF,        "rtf",       "RTF format"},
     {PUMA_TOSMARTTEXT,  "smarttext", "plain text with TeX paragraphs"},
     {PUMA_TOTEXT,       "text",       "plain text"},
-    {PUMA_TOTABLETXT,   "tabletxt",  ""},
+// Table code is missing. {PUMA_TOTABLETXT,   "tabletxt",  ""},
     {-1, NULL}
 };
 
