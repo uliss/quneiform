@@ -421,10 +421,10 @@ typedef struct cell_struc cell;
 //      line header
 struct ln_head
  {
- INT lth;       // length of one line representation
- INT h;         // height of line
- INT row;       // relative row of line start
- BYTE flg;      // flags of free beg and free end
+ Int16 lth;       // length of one line representation
+ Int16 h;         // height of line
+ Int16 row;       // relative row of line start
+ Word16 flg;      // flags of free beg and free end
 #define l_fbeg          0x20
 #define l_fend          0x80
 #define l_cbeg          0x02
