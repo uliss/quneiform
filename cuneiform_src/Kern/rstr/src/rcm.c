@@ -94,8 +94,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define LOCAL_GREY_CTB "page6666"
 #define LOCAL_CTB_NAME "ct666666"
 unsigned char    alpha_used_mode=0;
-char    local_grey_ctb[256]="TMP/page6666";
-char    local_ctb_name[256]="TMP/ct666666";
+char    local_grey_ctb[256]="page6666";
+char    local_ctb_name[256]="ct666666";
 Word8 * (*local_ret_error_str)(Word32 dwError);
 Word32  local_ret_error_code=0;
 typedef Word8 *(*fun_error)(Word32);
@@ -2582,12 +2582,12 @@ switch(dwType)
 			}
 
 			strcpy(tmp_ctb, tmp_ctb_name);
-			strcpy(local_ctb_name, tmp_dir);
-			strcat(local_ctb_name, tmp_ctb);
+			// strcpy(local_ctb_name, tmp_dir);
+			// strcat(local_ctb_name, tmp_ctb);
 
 			strcpy(tmp_gray, tmp_gray_name);
-			strcpy(local_grey_ctb, tmp_dir);
-			strcat(local_grey_ctb, tmp_gray);
+			// strcpy(local_grey_ctb, tmp_dir);
+			// strcat(local_grey_ctb, tmp_gray);
 /*
         strcpy(local_ctb_name,(char *)pData);
         if( local_ctb_name[strlen(local_ctb_name)-1]!='\\' )

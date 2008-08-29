@@ -3268,8 +3268,8 @@ static void p2_initCTB(char *nickName)
 
           { // save bases - i(nit) ctb
         //              f(ont) ctb
-       char loc_name[256]=".\\tmp\\ct666666";
-           char gre_name[256]=".\\tmp\\page6666";
+       char loc_name[256]="ct666666";
+           char gre_name[256]="page6666";
        nickName[7]='i';
            nickName[8]=0;
        CTB_copy(nickName,loc_name);

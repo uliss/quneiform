@@ -115,6 +115,9 @@ Bool32  CTB_files_init(char *file_name,Word8 *data,Int16 maxX,Int16 maxY,
 //************ global data : *****************************************
 //********************************************************************
 Int32   ctb_err_code = CTB_ERR_NONE;   // error code
+char * ctb_tmp_dir=NULL;
+extern char  local_grey_ctb[];
+extern char  local_ctb_name[];
 //********************************************************************
 //***********  EXPORT functions from CTB_pack ************************
 //********************************************************************
@@ -132,7 +135,32 @@ Bool32  conv_bits_to_bytes( Int16 colors, Word8 *text,Word8 *bin, Int16 len);
 //********************************************************************
 CTB_FUNC(void)   CTB_done(void )
 {
+if(ctb_tmp_dir) {
+char tmpname[MAXPATH]={0};
+snprintf(tmpname,sizeof(tmpname),"%s/%s",ctb_tmp_dir,local_ctb_name);
+CTB_unlink(tmpname);
+snprintf(tmpname,sizeof(tmpname),"%s/%s",ctb_tmp_dir,local_grey_ctb);
+CTB_unlink(tmpname);
+rmdir(ctb_tmp_dir);
+free(ctb_tmp_dir);
+}
 return;
+}
+
+CTB_FUNC(Int32) CTB_gettmpdirname(void) {
+#ifdef WIN32
+    char tmp[] = "c:/winnt/temp/cuneiform-XXXXXX";
+#else
+    char tmp[] = "/tmp/cuneiform-XXXXXXX";
+#endif
+    ctb_tmp_dir = malloc(strlen(tmp) + 1);
+    strncpy(ctb_tmp_dir, tmp, strlen(tmp) + 1);
+    ctb_tmp_dir = mkdtemp(ctb_tmp_dir);
+
+    if(!ctb_tmp_dir)
+        return 1;
+    else
+        return 0;
 }
 
 CTB_FUNC(Int32) CTB_get_error(void)
@@ -150,14 +178,13 @@ CTB_FUNC(Bool32)  CTB_open(char *filename, CTB_handle *hnd, char *attr)
 {
 char lin[MAXPATH],file_name[MAXPATH],*p;
 H_CTB_file HCTB;
-
 ctb_err_code = CTB_ERR_NONE;
 strcpy(file_name,filename);
 p=ctb_last_punct(file_name);
 strlwr(attr);
 memset(hnd,0,sizeof(CTB_handle));
 if( p ) *p='\0';
-SPRINTF(lin,"%s.CTB",file_name);
+SPRINTF(lin,"%s/%s.CTB",ctb_tmp_dir,file_name);
 
 hnd->bas = fopen(lin,*attr=='r' ? R_B : R_B_PLUS);
 if( hnd->bas==BAD_FOPEN )
@@ -221,7 +248,7 @@ if( fseek(hnd->bas,0,SEEK_END) )  // ???? //
         return 0;
         }
 
-SPRINTF(lin,"%s.IND",file_name);
+SPRINTF(lin,"%s/%s.IND",ctb_tmp_dir,file_name);
 hnd->ndx = fopen(lin,*attr=='r' ? R_B : R_B_PLUS);
 if( hnd->ndx==BAD_FOPEN )
         {
@@ -297,7 +324,7 @@ if( fread(&HCTB,sizeof(HCTB),1,fp)!=RET_FREAD(sizeof(HCTB),1) )
         }
 fclose(fp); // exist CTB file //
 
-SPRINTF(s,"%s.IND",file_name);
+SPRINTF(s,"%s/%s.IND",ctb_tmp_dir,file_name);
 fp=fopen(s,R_B);
 if( fp==BAD_FOPEN )
         {
@@ -319,6 +346,14 @@ return FALSE;
 CTB_FUNC(Bool32)  CTB_create(char *file_name,Word8 *data)
 {
 Word8   attr_size=32+2; // version 7
+
+if(!ctb_tmp_dir) {
+    if(CTB_gettmpdirname()){
+        ctb_err_code = CTB_ERR_OPEN_CTB;
+        return 0;    // error on creating temporary directory
+    }
+}
+
 if( data && data[0] )
     attr_size=data[0];
 return  CTB_files_init(file_name,data,256,128,8,CTB_NON_SIGNUMS,attr_size);
@@ -505,7 +540,7 @@ strcpy(file_name,filename);
 p=ctb_last_punct(file_name);
 if( p )
     *p='\0';
-SPRINTF(lin,"%s.IND",file_name);
+SPRINTF(lin,"%s/%s.IND",ctb_tmp_dir,file_name);
 if( STAT(lin,&sts)==-1 )
         return 0;
 
@@ -1285,7 +1320,7 @@ FFILE fp;
 strcpy(file_name,filename);
 p=ctb_last_punct(file_name);
 if( p ) *p='\0';
-SPRINTF(lin,"%s.IND",file_name);
+SPRINTF(lin,"%s/%s.IND",ctb_tmp_dir,file_name);
 if( STAT(lin,&sts)==-1 )
         return 0;
 
@@ -1342,7 +1377,7 @@ strcpy(file_name,filename);
 p=ctb_last_punct(file_name);
 ctb_err_code = CTB_ERR_NONE;
 if( p ) *p='\0';
-SPRINTF(s,"%s.CTB",file_name);
+SPRINTF(s,"%s/%s.CTB",ctb_tmp_dir,file_name);
 UNLINK(s);
 fp = FCREAT(s,0);
 if( fp==BAD_FOPEN )
@@ -1371,7 +1406,7 @@ if( fwrite( data?data:zero_data,CTB_DATA_SIZE,1,fp)!=RET_FWRITE(CTB_DATA_SIZE,1)
         }
 fclose(fp);
 
-SPRINTF(s,"%s.IND",file_name);
+SPRINTF(s,"%s/%s.IND",ctb_tmp_dir,file_name);
 fp = FCREAT(s, 0);
 if( fp==BAD_FOPEN )
         {
