@@ -90,7 +90,7 @@ BWSS *extrcomp_seglist(Word8* raster, BWSS *bwsp, BWSS *bwe, Int16 width)
 #define nextb goto after_black
 #define commw goto comm_after_white
 #define commb goto comm_after_black
-#define setp(b,w) *((int*)p)=(w<<16)|b;
+#define setp(b,w) *((int16_t*)p)=(w<<16)|b;
 #define setpo(b,w) p->b=b;p->w=w;
 static void make_seg_line(Word8* raster, Int16 width)
 {

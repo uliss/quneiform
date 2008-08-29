@@ -249,7 +249,7 @@ static BYTE let_stick[256] = {
    0,0,0,0,0,3,0,2,0,0,0,0,0,0,0,0,
 // Ё g       m   u z         a
    };
-
+
  /*============= Source codes ===================*/
 
 /*********************************************************start r_criteria*/
@@ -683,7 +683,7 @@ if( comp_versions(c->vers,save,c->nvers,snvers) )
 }
 /************************************************end r_criteria**/
 /*=============== Discriminators for letters =====================*/
-
+
 WORD check_xX(cell * c)
 {
 lnhead *line;
@@ -816,7 +816,7 @@ if( dens > 210 ) return 80;
 else if( dens >= BOLD ) return 60;
 return 0;
 }
-
+
 /* Analize '<<' and '>>' abris */
 static BYTE dh1[8]={ 0,0,0,1,1,2,2,3 };
 static BYTE dh2[8]={ 0,0,1,1,1,2,2,3 };
@@ -1036,7 +1036,7 @@ WORD check_ya( cell * c)
    if( gaps == 0 && dens > BOLD ) pen += 60;
     return pen;
 }
-
+
 // Andrew zone
 static STICK st[30],*stickLP;
 static INT nstickLP;
@@ -1546,7 +1546,7 @@ if( !(c->pos_inc&erect_rot) )
   }
   return pen;
 }
-
+
 // Oleg zone
 
 BOOL check_uple_hook_cell( cell * c )
@@ -2423,7 +2423,7 @@ for(s2=ss=0;i < h;i++)
   return dis;
 }
 
-
+
 // a, cursiv a and o heuristic
 
 WORD check_oa( cell * c,BYTE let,struct rst * const rst)
@@ -2775,7 +2775,7 @@ ret:
      default 	: return 0;
     }
 }
-
+
 static WORD check_ee( cell * c)
 {
 INT    i, num;
@@ -2786,7 +2786,7 @@ for(num=0,i=0;i<c->h; i++)
 return( (num>(c->h*3)/4)?100:0 );
 }
 
-
+
 
 WORD check_nn(cell * c)
 {
@@ -2876,7 +2876,7 @@ while((seg_pool++)->segwhite != 0x9000);
 return seg_pool;
 }
 /* ------------ Discrimination for russian letters ------------------*/
-
+
 
 #define DB_TEXT_ROW 16          // first row for text window
 #define DB_TEXT_COL 1		// first column in text window
@@ -3163,7 +3163,7 @@ WORD check_I_dot(cell * c,BYTE let)
  }
 return 0;
 }
-
+
 //  Dust study section (Oleg zone)
 
 /* dust_in_glue : есть ли дуст в отмеченной области ?			*/
@@ -3264,7 +3264,7 @@ return ( dw<2 && dh<2 && c->h<(cc->h+2)/3) ;
 }
 
 
-
+
 //  Final Rus_Eng decsriminators (Oleg zone)
 
 void final_descriminate(cell *b, cell *e)
