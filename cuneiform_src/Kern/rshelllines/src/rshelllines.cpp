@@ -343,7 +343,7 @@ RSL_FUNC(Bool32) RSL_SetImportData(Word32 dwType, void * pData)
             }
 
             if(!*Image->pgneed_clean_line)
-                LDPUMA_Console("Warning: RSL said that the lines do not have to withdraw.\n");
+                LDPUMA_Console("Warning: RSL said that the lines don't need to be erased from the picture.\n");
         }
         else
             LDPUMA_Console("Missing stage of the evaluation lines.\n");
