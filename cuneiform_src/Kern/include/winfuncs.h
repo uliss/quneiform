@@ -117,9 +117,9 @@ int lstrcmpi(LPCTSTR lpString1, LPCTSTR lpString2);
 
 BOOL DeleteObject(HGDIOBJ hObject);
 
-BYTE GetRValue(DWORD rgb);
-BYTE GetGValue(DWORD rgb);
-BYTE GetBValue(DWORD rgb);
+#define GetGValue(rgb) ((BYTE) (((WORD) (rgb)) >> 8))
+#define GetBValue(rgb) ((BYTE) ((rgb) >> 16))
+#define GetRValue(rgb) ((BYTE) (rgb))
 
 HWND GetFocus();
 int MessageBox(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType);

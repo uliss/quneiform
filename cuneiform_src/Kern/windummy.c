@@ -27,6 +27,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef WIN32
 
+/* Minimal implementations of win32-functionality.
+ * Eventually these should be rewritten in standard POSIX.
+ *
+ * At the end of the file are some helper functions, which should be used
+ * on Windows too.
+ */
+
 #include <errno.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -53,10 +60,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "config.h"
 
 int HFILE_ERROR;
-
-/* Stub functions for Windows functions. These do nothing and will get
- * removed eventually.
- */
 
 int LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax) {
     return 0;
@@ -285,18 +288,6 @@ int lstrcmpi(LPCTSTR lpString1, LPCTSTR lpString2) {
 }
 
 BOOL DeleteObject(HGDIOBJ hObject) {
-    return 0;
-}
-
-BYTE GetRValue(DWORD rgb) {
-    return 0;
-}
-
-BYTE GetGValue(DWORD rgb) {
-    return 0;
-}
-
-BYTE GetBValue(DWORD rgb) {
     return 0;
 }
 
@@ -610,6 +601,8 @@ void winpath_to_internal(char *p) {
     }
 #endif
 }
+
+/* Get current working directory. */
 
 unsigned int curr_dir(unsigned int bsize, char* buf) {
     getcwd(buf, bsize);
