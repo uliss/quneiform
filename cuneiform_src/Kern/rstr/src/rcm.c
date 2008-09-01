@@ -94,8 +94,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define LOCAL_GREY_CTB "page6666"
 #define LOCAL_CTB_NAME "ct666666"
 unsigned char    alpha_used_mode=0;
-char    local_grey_ctb[256]="page6666";
-char    local_ctb_name[256]="ct666666";
+extern char    local_grey_ctb[];
+extern char    local_ctb_name[];
 Word8 * (*local_ret_error_str)(Word32 dwError);
 Word32  local_ret_error_code=0;
 typedef Word8 *(*fun_error)(Word32);
