@@ -78,10 +78,6 @@ void _splitpath(/*const*/ char *f,char *drive,char *dir,char *fname,char *ext) {
     strcpy(fname, f);
 }
 
-char *_fullpath(char *absPath, const char *relPath, int maxLength) {
-    return NULL;
-}
-
 DWORD GetTempPath(DWORD nBufferLength, LPTSTR lpBuffer) {
     return 0;
 }

@@ -1286,6 +1286,9 @@ Handle CTCControl::OpenCompliteStorage(PChar8 lpName, Word32 Flag)
 //
 Handle CTCControl::OpenNewStorage(PChar8 lpName, Word32 Flag)
 {
+    /* JussiP: This function is never called from within PUMA or TIGER. I disabled it
+     * because it uses Win32 api.
+
 	CTCGlobalFile * pNewStorage = NULL;
 	Handle          hOpened;
 
@@ -1302,7 +1305,8 @@ Handle CTCControl::OpenNewStorage(PChar8 lpName, Word32 Flag)
 	}
 
 	return NULL;
-
+*/
+    return NULL;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Закрываем хранилище (если сборка не проводилась), иначе только файлы

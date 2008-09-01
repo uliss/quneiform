@@ -31,7 +31,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 int LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax);
 
 int CreateDirectory(const char *dir, void *dummy);
-char *_fullpath(char *absPath, const char *relPath, int maxLength);
 DWORD GetTempPath(DWORD nBufferLength, LPTSTR lpBuffer);
 int RemoveDirectory(const char *d);
 void* GlobalAlloc(UINT uFlags, int dwBytes);
