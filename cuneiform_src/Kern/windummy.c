@@ -66,7 +66,8 @@ int CreateDirectory(const char *dir, void *dummy) {
 }
 
 DWORD GetTempPath(DWORD nBufferLength, LPTSTR lpBuffer) {
-    return 0;
+    strcpy(lpBuffer, "/tmp");
+    return strlen(lpBuffer);
 }
 
 int RemoveDirectory(const char *d) {
@@ -105,10 +106,6 @@ DWORD GetModuleFileName(HMODULE hModule, LPTSTR lpFilename, DWORD nSize) {
 
 BOOL CloseHandle(HANDLE hObject) {
     return FALSE;
-}
-
-DWORD GetCurrentDirectory(DWORD nBufferLength, LPTSTR lpBuffer) {
-    return 0;
 }
 
 HANDLE CreateFile(LPCTSTR lpFileName, DWORD dwDesiredAccess,
@@ -599,4 +596,22 @@ void make_path(char *opath, const char *dir, const char *basename, const char *e
             strcat(opath, ".");
         strcat(opath, ext);
     }
+}
+
+/**
+ * Convert backslashes to slashes. No-op on UNIX.
+ */
+void winpath_to_internal(char *p) {
+#if WIN32
+    for(int i=0; p[i] != '\0'; i++) {
+        if(p[i] == '\\')
+            p[i] = '/';
+    }
+#endif
+}
+
+unsigned int curr_dir(unsigned int bsize, char* buf) {
+    getcwd(buf, bsize);
+    winpath_to_internal(buf);
+    return strlen(buf);
 }

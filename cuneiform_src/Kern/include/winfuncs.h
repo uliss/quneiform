@@ -42,7 +42,6 @@ int GetLastError();
 
 DWORD GetModuleFileName(HMODULE hModule, LPTSTR lpFilename, DWORD nSize);
 BOOL CloseHandle(HANDLE hObject);
-DWORD GetCurrentDirectory(DWORD nBufferLength, LPTSTR lpBuffer);
 HANDLE CreateFile(LPCTSTR lpFileName, DWORD dwDesiredAccess,
 DWORD dwShareMode, void* lpSecurityAttributes,
 DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile);
@@ -176,5 +175,9 @@ void make_path(char *opath,
         const char *dir,
         const char *basename,
         const char *ext);
+
+void winpath_to_internal(char *p);
+
+unsigned int curr_dir(unsigned int bsize, char* buf);
 
 #endif

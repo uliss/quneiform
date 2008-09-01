@@ -100,7 +100,7 @@ public:
 
    XPath& GetCurrentDirectory(void)
    {
-      ::GetCurrentDirectory( sizeof(buf), buf );
+      curr_dir( sizeof(buf), buf );
       return *this;
    };
 
