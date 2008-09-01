@@ -1,4 +1,4 @@
-Cuneiform for Linux 0.3.1
+Cuneiform for Linux 0.4.0
 
 Cuneiform is an multi-language OCR system originally developed
 and open sourced by Cognitive Technologies. Cuneiform was
