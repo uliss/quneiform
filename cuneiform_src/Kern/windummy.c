@@ -132,11 +132,8 @@ long _tell(int handle) {
 }
 
 BOOL GetComputerName(LPTSTR lpBuffer, long unsigned int *lpnSize) {
-    return 0;
-}
-
-UINT GetDriveType(LPCTSTR lpRootPathName) {
-    return 0;
+    strncpy(lpBuffer, "CompName", *lpnSize);
+    *lpnSize = strlen(lpBuffer);
 }
 
 LONG RegOpenKeyEx(HKEY hKey, LPCTSTR lpSubKey, DWORD ulOptions,

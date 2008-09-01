@@ -652,6 +652,8 @@ STD_FUNC( Bool32 ) stdDeleteFile(
 #include "Windows.h"*/
 #include "xpath.h"
 
+#if WIN32
+
 Bool32 stdNetPathFromLocal(char* pszNetPath,Int32 nNetPathSize,const char* pszLocalPath)
 {
     if(strlen(pszLocalPath)>=2 && !strncmp(pszLocalPath,"\\\\",2))
@@ -698,3 +700,5 @@ Bool32 stdNetPathFromLocal(char* pszNetPath,Int32 nNetPathSize,const char* pszLo
     sprintf(pszNetPath,"%s%s",szValData,xpPathWoDrv.buf);
     return TRUE;
 }
+
+#endif /* WIN32 */

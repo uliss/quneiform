@@ -61,7 +61,6 @@ int _findnext(long handle, struct _finddata_t *fileinfo);
 long _tell(int handle);
 
 BOOL GetComputerName(LPTSTR lpBuffer, long unsigned int *lpnSize);
-UINT GetDriveType(LPCTSTR lpRootPathName);
 
 LONG RegOpenKeyEx(HKEY hKey, LPCTSTR lpSubKey, DWORD ulOptions,
   REGSAM samDesired, PHKEY phkResult);
