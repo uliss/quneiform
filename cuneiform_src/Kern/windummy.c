@@ -25,6 +25,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifndef WIN32
+
 #include <errno.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -462,6 +464,8 @@ BOOL Rectangle(HDC hdc,
 char* _strupr(char*s) {
   return s;
 }
+
+#endif /* WIN32 */
 
 /* General helper functions. */
 

@@ -28,6 +28,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef WINFUNCS_H_
 #define WINFUNCS_H_
 
+#if WIN32
+
+#include<windows.h>
+
+#else
+
 int LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax);
 
 int CreateDirectory(const char *dir, void *dummy);
@@ -179,5 +185,7 @@ void make_path(char *opath,
 void winpath_to_internal(char *p);
 
 unsigned int curr_dir(unsigned int bsize, char* buf);
+
+#endif /* not WIN32 */
 
 #endif

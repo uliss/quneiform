@@ -39,6 +39,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef compat_typedefs_h_
 #define compat_typedefs_h_
 
+#if WIN32
+
+#include<windows.h>
+
+#else
+
 #include <time.h>
 #include "minmax.h"
 #include "filestuff.h"
@@ -529,5 +535,7 @@ typedef int REGSAM;
 #ifdef __cplusplus
     }
 #endif
+
+#endif /* not WIN32 */
 
 #endif
