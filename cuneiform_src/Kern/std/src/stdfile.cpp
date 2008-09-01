@@ -662,7 +662,7 @@ Bool32 stdNetPathFromLocal(char* pszNetPath,Int32 nNetPathSize,const char* pszLo
     pszNetPath[0]=0;
     char szDrv[128]={0};
     XPath xpLocPath(pszLocalPath);
-    xpLocPath.Split(szDrv,NULL,NULL,NULL);
+    xpLocPath.Split(szDrv, NULL, NULL);
     if(strlen(szDrv)!=2 || szDrv[1]!=':')
     {
        // VVA
@@ -682,7 +682,7 @@ Bool32 stdNetPathFromLocal(char* pszNetPath,Int32 nNetPathSize,const char* pszLo
     {
         char szComputer[128]={0}; ULONG nSize=sizeof(szComputer);
         ::GetComputerName(szComputer,&nSize);
-        sprintf((char*)szValData,"\\\\%s\\%c",szComputer,szDrv[0]);
+        sprintf((char*)szValData,"//%s/%c",szComputer,szDrv[0]);
     }
     else
     {

@@ -89,13 +89,12 @@ public:
       ::GetModuleFileName(NULL,path_name,_MAX_PATH);
       if(path_name[0]!=0)
       {
-         char drive[_MAX_DRIVE]={0};
          char dir[_MAX_DIR]={0};
          char name[_MAX_FNAME]={0};
          char ext[_MAX_EXT]={0};
-         _splitpath(path_name,drive,dir,name,ext);
+         split_path(path_name, dir,name,ext);
          stdGoToHomeDirectory();
-         XPath xFname = "tmp\\";
+         XPath xFname = "tmp/";
          xFname += name;
          xFname += ".prt";
          hfile=fopen( (char*)xFname, opts );
@@ -105,7 +104,7 @@ public:
    {
       XPath xstdPrtPath;
       xstdPrtPath = stdGetHomeDirectory();
-      xstdPrtPath += "\\";
+      xstdPrtPath += "/";
       xstdPrtPath +=name;
       hfile=fopen( (char*)(xstdPrtPath), opts );
    };

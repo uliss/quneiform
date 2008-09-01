@@ -110,13 +110,12 @@ Bool32 ROUT_LoadEd
 	// Установить имя страницы без расширения
 	if(readFromFile)
 		{
-		char drive[_MAX_DRIVE],dir[_MAX_PATH],
+		char dir[_MAX_PATH],
 			 name[_MAX_PATH],ext[_MAX_EXT];
-		_splitpath(lpEdFile,drive,dir,name,ext);
+		split_path(lpEdFile, dir, name, ext);
 
-		strcpy(gPageName,drive);
-		strcat(gPageName,dir);
-		strcat(gPageName,name);
+		strcpy(gPageName, dir);
+		strcat(gPageName, name);
 		}
 
 	//DEBUG_PRINT("ROUT_LoadEd successful");

@@ -65,19 +65,6 @@ int CreateDirectory(const char *dir, void *dummy) {
        else return FALSE;
 }
 
-void _makepath(char *f,const char *drive,const char *dir,const char *fname,const char *ext) {
-
-}
-
-/* These should use split_path instead. It is portable. */
-
-void _splitpath(/*const*/ char *f,char *drive,char *dir,char *fname,char *ext) {
-    drive[0] = '\0';
-    dir[0] = '\0';
-    ext[0] = '\0';
-    strcpy(fname, f);
-}
-
 DWORD GetTempPath(DWORD nBufferLength, LPTSTR lpBuffer) {
     return 0;
 }
@@ -590,4 +577,26 @@ void split_path(const char *fname, char *file_path, char *basename, char *ext) {
     basename[base_end - base_start] = '\0';
     memcpy(ext, fname + ext_start, l - ext_start);
     ext[l - ext_start] = '\0';
+}
+
+void make_path(char *opath, const char *dir, const char *basename, const char *ext) {
+    const char dirsep = '/';
+    const char *dirseps = "/";
+    opath[0] = '\0';
+
+    if(dir) {
+        strcat(opath, dir);
+        if(opath[strlen(opath) - 1] != dirsep) {
+            strcat(opath, dirseps);
+        }
+    }
+
+    if(basename)
+        strcat(opath, basename);
+
+    if(ext) {
+        if(ext[0] != '.')
+            strcat(opath, ".");
+        strcat(opath, ext);
+    }
 }

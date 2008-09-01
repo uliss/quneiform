@@ -180,7 +180,7 @@ PChar8 CTCControl::MakeNameForStorage(PChar8 FileName, CTCStorageHeader * hStora
 		GetFolder(CFIO_STORAGE_FOLDER, &szBuffer[0]);
 	}
 	//разделяем на компоненты
-	CFIO_GETFOLDERSITEMS(szBuffer, SDisk, SFolder, SFile, SExtension);
+	CFIO_GETFOLDERSITEMS(szBuffer, SFolder, SFile, SExtension);
 	// только путь в буфере
 	CFIO_STRCPY(szBuffer,SFolder);
 	// глупый пингвин не знает, что там был только путь
@@ -189,14 +189,14 @@ PChar8 CTCControl::MakeNameForStorage(PChar8 FileName, CTCStorageHeader * hStora
 	i = &szBuffer[CFIO_STRLEN(szBuffer) - 1];
 
 	i++;
-	*i = '\\';
+	*i = '/';
 	*(i+1) = 0x0;
 
-	CFIO_GETFOLDERSITEMS(FileName, SDisk, SFolder, SFile, SExtension);
+	CFIO_GETFOLDERSITEMS(FileName, SFolder, SFile, SExtension);
 
 	//  для хранилища оставляем только имя файла с расширением
 
-	CFIO_MAKEPATH(SOut, NULL, NULL, SFile, SExtension);
+	CFIO_MAKEPATH(SOut, NULL, SFile, SExtension);
 
 	return SOut;
 

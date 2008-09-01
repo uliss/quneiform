@@ -84,7 +84,6 @@ CTCStorageHeader::CTCStorageHeader():CTCGlobalHeader()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-	static char ShDisk[_MAX_PATH];
 	static char ShFolder[_MAX_PATH];
 	static char ShFile[_MAX_PATH + 4];
 	static char ShExtension[_MAX_PATH];
@@ -104,11 +103,11 @@ CTCStorageHeader::CTCStorageHeader(CTCGlobalFile * pNewStorage,
 
 	if ( pcNewStorageFolder && pcNewStorageFolder[0] != 0x0)
 	{
-		CFIO_GETFOLDERSITEMS(pcNewStorageFolder,ShDisk,ShFolder,ShFile,ShExtension);
+		CFIO_GETFOLDERSITEMS(pcNewStorageFolder, ShFolder, ShFile, ShExtension);
 		// берем временную директорию
 		Control_ctc->GetFolder(CFIO_TEMP_FOLDER, ShFolder);
 		// отписываем туда
-		CFIO_MAKEPATH(pcFolder,ShDisk,ShFolder,ShFile,ShExtension);
+		CFIO_MAKEPATH(pcFolder, ShFolder, ShFile, ShExtension);
 	}
 	else
 	{
@@ -119,8 +118,8 @@ CTCStorageHeader::CTCStorageHeader(CTCGlobalFile * pNewStorage,
 		{
 			unlink(ShFile);
 			CFIO_STRCPY(ShBuffer, ShFile);
-			CFIO_GETFOLDERSITEMS(ShBuffer,ShDisk,ShFolder,ShFile,ShExtension);
-			CFIO_MAKEPATH(pcFolder,ShDisk,ShFolder,ShFile,NULL);
+			CFIO_GETFOLDERSITEMS(ShBuffer, ShFolder, ShFile, ShExtension);
+			CFIO_MAKEPATH(pcFolder, ShFolder, ShFile, NULL);
 			//CFIO_STRCPY(pcFolder, ShFile);
 		}
 		else

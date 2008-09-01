@@ -194,8 +194,8 @@ public:
 #define                CFIO_STRCAT(a,b)                 strcat(a,b)
 #define                CFIO_STRCPY(a,b)                 strcpy(a,b)
 #define                CFIO_STRLEN(a)                   strlen(a)
-#define                CFIO_GETFOLDERSITEMS             _splitpath
-#define                CFIO_MAKEPATH                    _makepath
+#define                CFIO_GETFOLDERSITEMS             split_path
+#define                CFIO_MAKEPATH                    make_path
 #define                CFIO_MAKEFULLPATH                _fullpath
 #define                CFIO_MAKEFOLDER(a)               CreateDirectory(a,NULL)      //_mkdir(a) //
 #define                CFIO_DELETEFOLDER                RemoveDirectory         //_rmdir          //

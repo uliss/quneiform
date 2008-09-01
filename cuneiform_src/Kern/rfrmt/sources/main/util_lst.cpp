@@ -839,10 +839,10 @@ RET:
 //== считываем разрешение сканера и длину PRS-кода
 Bool16 GetScanRes_LenPrs(char *ImageName)
 //==
-{ _splitpath(ImageName,drive,dir,fname,ext);
+{ split_path(ImageName, dir, fname, ext);
 	ScanResolution=300;
 	{ TITLE_PRS TitlePRS; float sx,sy;
-		_makepath(Fullpath,drive,dir,fname,"pr1");
+		make_path(Fullpath, dir, fname,"pr1");
 		if( (fip=fopen_m(Fullpath,OF_READ)) == NULL)
 			return FALSE;
 		fread_m(&TitlePRS,sizeof(TITLE_PRS),1,fip);

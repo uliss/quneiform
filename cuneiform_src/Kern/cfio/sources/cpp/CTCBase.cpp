@@ -533,7 +533,6 @@ Word32 CTCGlobalFile::GetFileLenght()
 //////////////////////////////////////////////////////////////////////////////////
 //
 static char FullPath[CFIO_MAX_PATH];
-static char Disk[CFIO_MAX_PATH];
 static char Folder[CFIO_MAX_PATH];
 static char File[CFIO_MAX_PATH];
 static char Extension[CFIO_MAX_PATH];
@@ -549,8 +548,8 @@ Bool32 CTCGlobalFile::ProvideFileFolder(char * lpFileName)
 		return FALSE;
 
 	//MAKEFULLPATH(FullPath, lpFileName, _MAX_PATH);
-	CFIO_GETFOLDERSITEMS(lpFileName, Disk, Folder, File, Extension);
-	CFIO_MAKEPATH ( Out, Disk, Folder, NULL, NULL);
+	CFIO_GETFOLDERSITEMS(lpFileName, Folder, File, Extension);
+	CFIO_MAKEPATH ( Out, Folder, NULL, NULL);
 
 	if ( Out[0] == 0x0 )
 		return TRUE;
@@ -558,7 +557,7 @@ Bool32 CTCGlobalFile::ProvideFileFolder(char * lpFileName)
 	CFIO_MAKEFOLDER(Out);
 	//CreateDirectory(Out, NULL);
 
-	CFIO_MAKEPATH(Out, Disk, Folder, File, Extension);
+	CFIO_MAKEPATH(Out, Folder, File, Extension);
 
 	return TRUE;
 }

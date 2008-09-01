@@ -64,24 +64,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 char* ChangEx( char* szPath, char* szEx )
 {
-   char drive[_MAX_DRIVE];
    char dir[_MAX_DIR];
    char fname[_MAX_FNAME];
    char ext[_MAX_EXT];
 
-   _splitpath(szPath, drive, dir, fname, ext);
-   _makepath(szPath, drive,dir,fname, szEx);
+   split_path(szPath, dir, fname, ext);
+   make_path(szPath, dir, fname, szEx);
    return szPath;
 }
 char* ChangNameEx( char* szPath, char* szNameEx )
 {
-   char drive[_MAX_DRIVE];
    char dir[_MAX_DIR];
    char fname[_MAX_FNAME];
    char ext[_MAX_EXT];
 
-   _splitpath(szPath, drive, dir, fname, ext);
-   _makepath(szPath, drive,dir,szNameEx,NULL);
+   split_path(szPath, dir, fname, ext);
+   make_path(szPath, dir, szNameEx, NULL);
    return szPath;
 }
 

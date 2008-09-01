@@ -172,4 +172,9 @@ void split_path(const char *fname,
         char *basename,
         char *ext);
 
+void make_path(char *opath,
+        const char *dir,
+        const char *basename,
+        const char *ext);
+
 #endif

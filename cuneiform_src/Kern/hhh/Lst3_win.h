@@ -775,7 +775,7 @@ char *get1_param(char *str,char *param,int max_len);
   extern int dx_prs,dy_prs;
   extern int k_prop,k_mono;
   extern int upi;
-  extern char drive[_MAX_DRIVE],dir[_MAX_DIR],fname[_MAX_FNAME],ext[_MAX_EXT];
+  extern char dir[_MAX_DIR], fname[_MAX_FNAME], ext[_MAX_EXT];
   extern char Fullpath[255];
   extern int SizeXGlob,SizeYGlob;
   extern REFER HUGE_P *fiv;
