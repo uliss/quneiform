@@ -123,7 +123,7 @@ CTCMemoryHeader::~CTCMemoryHeader()
 #ifdef CFIO_USE_GLOBAL_MEMORY
 		CFIO_FREE(GetHandle());
 #else
-		::delete[] hToDelete;
+		delete[] static_cast<char*>(hToDelete);
 #endif //CFIO_USE_GLOBAL_MEMORY
 	}
 }
