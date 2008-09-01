@@ -60,6 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include <stdio.h>
 #include <string>
 #include <cstring>
+#include <stdlib.h>
 #include "mpuma.h"
 #include "compat_defs.h"
 
