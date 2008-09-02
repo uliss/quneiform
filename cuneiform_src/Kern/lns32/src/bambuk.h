@@ -251,9 +251,9 @@ void        cleanEntries( Int32 from = 0 );
 
 private :
 
-	TFarArray<T> 	 	   	members;      	// members data
-	TFarArray<BHandle>  		links;        	// next member links
-	TFarArray<EntryInfo>		entries;      	// entries info (first, last, count);
+	TArray<T> 	 	   	members;      	// members data
+	TArray<BHandle>  		links;        	// next member links
+	TArray<EntryInfo>		entries;      	// entries info (first, last, count);
 	BHandle						nextHandle;   	// next free member handle
    Bool                    ok;            // FALSE if object is not correct
 
@@ -486,9 +486,9 @@ void        cleanEntries( Int32 from = 0 );
 
 private :
 
-	THugeArray<T> 	 	   	members;      	// members data
-	TFarArray<BHandle>  		links;        	// next member links
-	TFarArray<EntryInfo>		entries;      	// entries info (first, last, count);
+	TArray<T> 	 	   	members;      	// members data
+	TArray<BHandle>  		links;        	// next member links
+	TArray<EntryInfo>		entries;      	// entries info (first, last, count);
 	BHandle						nextHandle;   	// next free member handle
    Bool                    ok;            // FALSE if object is not correct
 

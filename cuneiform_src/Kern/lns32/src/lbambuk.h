@@ -106,7 +106,7 @@ struct TLineInfo {
 	int 		level;                // line intersection with 0 axis
 };
 
-typedef THugeArray< TLineInfo > TLineInfoArray;
+typedef TArray< TLineInfo > TLineInfoArray;
 
 struct TLineFragment {
 	Line		fragmentAsIs;
