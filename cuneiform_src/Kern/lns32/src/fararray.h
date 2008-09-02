@@ -100,9 +100,9 @@ public:
 
     Bool create(Int32 of_count) {
         if (of_count != 0)
-            data = (Type *) (malloc((Int32) (of_count * (Int32) sizeof(Type))));
+            data = (Type *) malloc(of_count * sizeof(Type));
         else
-            data = (Type *) (malloc(sizeof(Type)));
+            data = (Type *) malloc(sizeof(Type));
         if (data != NULL)
             last = (of_count - 1);
         return (data != NULL);
@@ -207,9 +207,13 @@ public:
 
 template<class Type>
 void TArray<Type>::fill(Type * value, Int32 from) {
-    assert(from <= last);
-    for (from = from; from <= last; from++)
-        data[from] = (*value);
+    if(from == 0 && last < 0) // Cleaning function calls this even for a zero-sized array.
+        data[0] = *value;
+    else {
+        assert(from <= last);
+        for (from = from; from <= last; from++)
+            data[from] = (*value);
+    }
 }
 
 #endif // __FARARRAY_H
