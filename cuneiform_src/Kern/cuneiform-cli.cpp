@@ -190,7 +190,7 @@ static char* read_file(const char *fname) {
 int main(int argc, char **argv) {
     char *dib;
     const char *infilename = NULL;
-    Word32 langcode = PUMA_LANG_ENGLISH; // By default recognize plain english text.
+    int langcode = PUMA_LANG_ENGLISH; // By default recognize plain english text.
     Bool32 dotmatrix = FALSE;
     Bool32 fax = FALSE;
     const char *defaultnamestem = "cuneiform-out.";
@@ -348,7 +348,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    if(!PUMA_XSave(outfilename.c_str(), outputformat, 0)) {
+    if(!PUMA_XSave(outfilename.c_str(), outputformat, PUMA_CODE_UTF8)) {
         cerr << "PUMA_XSave failed.\n";
         return 1;
     }

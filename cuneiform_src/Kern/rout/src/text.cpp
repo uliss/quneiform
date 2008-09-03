@@ -165,20 +165,20 @@ BOOL NewLine()
 //********************************************************************
 BOOL OneChar(Handle charHandle)
 {
-// Записать в ответ один символ
-
+	// write one symbol
+	char sCodePageName[200]={0};
 	CHECK_MEMORY(10);
 
 	struct letterEx *alt = CED_GetAlternatives(charHandle);
 	ASSERT(alt);
+	long codePage = GetCodePage();
 
-	// Исходный символ
+	// source symbol
 	Byte c1 = alt->alternative;
 
-	// Перекодированный символ
 	Byte c2 = gActiveCodeTable[c1];
 
-	// Запомнить для модуля Words.cpp
+	// remember for the  Words.cpp module
 	gCharHandle = charHandle;
 	gAlt = alt;
 	gCharCode = c1;
@@ -204,34 +204,18 @@ BOOL OneChar(Handle charHandle)
 				c2=с1;
 			break;
 #endif
-		// Нераспознанный символ
+		// unknows symbol
 		case bad_char:
 			c2 = gBadChar;
 			break;
 
-/*
-	21.01.2000 Закомментарил атавизм - перекодировку
-		подчеркивания в два минуса. Е.П.
-
-
-		case '_':
-			// Подчеркивание переходит в дефис
-			// и удваивается кроме SmartText и HTML
-			c2 = '-';
-			if (gFormat != ROUT_FMT_SmartText &&
-				gFormat != ROUT_FMT_HTML
-				)
-				*gMemCur++ = '-';
-			break;
-*/
-
 		case 0x97:
-			// Длинное тире переходит в дефис
-			// и удваивается кроме SmartText и HTML
+			//  long dash -> double hyphen
+			// except SmartText и HTML
 			// 29.02.2000
-			if (gFormat == ROUT_FMT_HTML)
+			if (gFormat == ROUT_FMT_HTML || gActiveCode==ROUT_CODE_UTF8)
 				{
-				// В HTML есть длинное тире
+				// there is long dash in html and unicode
 				c2 = c1;
 				}
 			else
@@ -304,9 +288,9 @@ BOOL OneChar(Handle charHandle)
 			break;
 
 #endif
-		// 0x99 ™ -> (TM) кроме ANSI
+		// 0x99 ™ -> (TM) except ANSI and UTF8
 		case  0x99:
-			if( gActiveCode!=ROUT_CODE_ANSI)
+			if( gActiveCode!=ROUT_CODE_ANSI && gActiveCode!=ROUT_CODE_UTF8)
 				{
 				*gMemCur++ = '(';
 				*gMemCur++ = c2;	// 'T'
@@ -318,8 +302,17 @@ BOOL OneChar(Handle charHandle)
 			break;
 
 		}	// switch(c1)
-
-	*gMemCur++ = c2;
+		if(gActiveCode!=ROUT_CODE_UTF8){
+				*gMemCur++ = c2;
+		}
+		else {
+			const char *utfchar;
+			utfchar = getUTF8Str((char )c2, GetCodePage());
+			int i;
+			for(i=0; utfchar[i] != '\0' ;i++){
+				*gMemCur++ = utfchar[i];
+			}
+		}
 	return TRUE;
 }
 //********************************************************************

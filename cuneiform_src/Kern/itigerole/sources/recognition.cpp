@@ -1000,6 +1000,7 @@ STDMETHODIMP CRecognition::GetCodeString(long code, BSTR *lpstr)
 	CASE_CODE( _CODE_ANSI  );
 	CASE_CODE( _CODE_KOI8  );
 	CASE_CODE( _CODE_ISO   );
+	CASE_CODE( _CODE_UTF8   );
 #undef CASE_CODE
 	default:
 			SetError(IDS_ERROR_NORESOURCE);

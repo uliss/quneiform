@@ -81,6 +81,7 @@ static struct
 			 PUMA_CODE_ANSI            ,
 			 PUMA_CODE_KOI8            ,
 			 PUMA_CODE_ISO             ,
+			 PUMA_CODE_UTF8            ,
 			-1
 	 },
 			PUMA_TOSMARTTEXT       ,
@@ -89,6 +90,7 @@ static struct
 			 PUMA_CODE_ANSI            ,
 			 PUMA_CODE_KOI8            ,
 			 PUMA_CODE_ISO             ,
+			 PUMA_CODE_UTF8            ,
 			-1
 	 },
 			PUMA_TORTF               ,
@@ -122,6 +124,7 @@ static struct
 			 PUMA_CODE_ANSI            ,
 			 PUMA_CODE_KOI8            ,
 			 PUMA_CODE_ISO             ,
+			 PUMA_CODE_UTF8            ,
 			-1
 	 },
 	 -1,

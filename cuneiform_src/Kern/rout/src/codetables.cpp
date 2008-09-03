@@ -671,16 +671,15 @@ BOOL UpdateActiveCodeTable()
 		case ROUT_CODE_ANSI:  indexCodeTable  = 1; break;
 		case ROUT_CODE_KOI8R: indexCodeTable  = 2; break;
 		case ROUT_CODE_ISO:   indexCodeTable  = 3; break;
+		case ROUT_CODE_UTF8:   indexCodeTable  = 1; break; // use ansi code table, convert to utf8 later
 		}
 
 	gActiveCodeTable = code_table[indexCodeTable ][gLanguage];
-
 	if ( !gActiveCodeTable )
 		{
 		NOT_IMPLEMENTED;
 		return FALSE;
 		}
-
 	// Специальная настройка ASCIII для Узбекского и Казахского
 	if (gActiveCode == ROUT_CODE_ASCII)
 		{
@@ -929,3 +928,21 @@ CP_TO_CP tab[] = {
 
 }
 //*************************************************************************
+
+#include "utf8-tables.h"
+
+/* 
+ * Return a NULL terminated string of UTF-8 characters
+ * corresponding to the given character and Windows
+ * codepage.
+ */
+
+const char * getUTF8Str(const char in, const int codepage) {
+  switch(codepage) {
+  case 1250 : return win1250_to_utf8[in];
+  case 1251 : return win1251_to_utf8[in];
+  case 1254 : return win1254_to_utf8[in];
+  case 1257 : return win1257_to_utf8[in];
+  default : return "?";
+  }
+}
