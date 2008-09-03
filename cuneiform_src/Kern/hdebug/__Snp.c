@@ -503,7 +503,7 @@ Word32 LDPUMA_WaitUserInput(Handle cur_node,Handle wnd)
 	return rc;
 };
 //////////////////////////////////////////////
-void LDPUMA_Registry( Handle node, char * name,Handle parent )
+void LDPUMA_Registry( Handle node, const char * name,Handle parent )
 {
 	if(Registry)
 		Registry(node,name,parent);
@@ -556,7 +556,7 @@ void   LDPUMA_DrawFocusRect(Handle wnd,Rect16* rc)
 		fnDrawFocusRect(wnd,rc);
 };
 //////////////////////////////////////////////
-Bool32 LDPUMA_RegVariable(Handle owner, char * lpText,void * lpData,char * lpType)
+Bool32 LDPUMA_RegVariable(Handle owner, const char * lpText,void * lpData, const char * lpType)
 {
 	BOOL rc = FALSE;
 	if(RegVariable)
@@ -739,7 +739,7 @@ Bool32 LDPUMA_LockImage( Handle wnd, Bool32 bLock )
 return rc;
 }
 //////////////////////////////////////////////
-void LDPUMA_RegistryHelp( Handle owner, char * lpstrHelp,Bool32 bAppend )
+void LDPUMA_RegistryHelp( Handle owner, const char * lpstrHelp,Bool32 bAppend )
 {
 	if(RegistryHelp)
 		RegistryHelp(owner,lpstrHelp,bAppend);
@@ -836,7 +836,7 @@ Handle LDPUMA_TimeStamp(const char * name,Handle hTimer)
 return (Handle) clock1;
 }
 //////////////////////////////////////////////
-Handle LDPUMA_GetWindowHandle(char * name)
+Handle LDPUMA_GetWindowHandle(const char * name)
 {
 	Handle rc = NULL;
 	if(fGetWindowHandle)

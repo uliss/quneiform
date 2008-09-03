@@ -706,7 +706,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 
 
 
-Bool32 RLINE_DeleteLines(void* lpInPage , char* lpOutDIB)
+Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 {
 
 //	LinesTotalInfo        lti;		 // Структура хранения линий

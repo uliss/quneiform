@@ -188,7 +188,7 @@ DEC_FUNC(void, DPUMA_DestroySnap,());
 DEC_FUNC(void, DPUMA_Stop,());
 DEC_FUNC(Bool32, DPUMA_IsActive,());
 DEC_FUNC(Word32, DPUMA_FN,());
-DEC_FUNC(void, DPUMA_Registry,(Handle owner,char * lpName, Handle parent));
+DEC_FUNC(void, DPUMA_Registry,(Handle owner, const char * lpName, Handle parent));
 DEC_FUNC(Bool16, DPUMA_Skip,(Handle owner));
 DEC_FUNC(void, DPUMA_StartLoop,(Handle owner,Word32 inter_total));
 DEC_FUNC(void, DPUMA_LoopNext,(Handle owner));
@@ -207,7 +207,7 @@ DEC_FUNC(void,  DPUMA_RasterText,(char * lpText));
 DEC_FUNC(void,  DPUMA_ZoomToRect,(Handle wnd,Rect16 * rect));
 DEC_FUNC(void,  DPUMA_RasterHeader,(char * lpText,Word32 num));
 DEC_FUNC(void,  DPUMA_DrawFocusRect,(Handle wnd,Rect16 * lpRect));
-DEC_FUNC(Bool32,  DPUMA_RegVariable,(Handle owner,char * lpName,void * lpData,char * lpType));
+DEC_FUNC(Bool32,  DPUMA_RegVariable,(Handle owner, const char * lpName,void * lpData, const char * lpType));
 DEC_FUNC(void,  DPUMA_UnregVariable,(void * lpData));
 DEC_FUNC(void *,DPUMA_GetDIBptr,(Handle wnd));
 DEC_FUNC(void,  DPUMA_DrawString,(Handle wnd,Point16 * start,char * string, Int32 align, Word32 rgb, Int16 size, Word32 key));
@@ -251,7 +251,7 @@ DEC_FUNC(char *, DPUMA_GetFileName,(Handle wnd));
 DEC_FUNC(void *, DPUMA_HandLayout,( void * pDIB, Word32 flags ,Point32 * p));
 DEC_FUNC(Bool32, DPUMA_LockImage,(Handle wnd,Bool32 bLock));
 
-DEC_FUNC(void,   DPUMA_RegistryHelp,(Handle owner,char * lpName, Bool32 bAppend));
+DEC_FUNC(void,   DPUMA_RegistryHelp,(Handle owner, const char * lpName, Bool32 bAppend));
 DEC_FUNC(Bool32, DPUMA_SaveFile,(void * lpDIB,char * lpFileName,Word32 nFormat));
 // Image Gear constants
 #define PUMA_SAVE_BMP_UNCOMP       (2)
@@ -268,7 +268,7 @@ DEC_FUNC(void,	 DPUMA_AddPointToHistogramm,(Handle hDlg, Word32 point));
 DEC_FUNC(Bool32, DPUMA_DoHistogramm,(Handle hDlg, PWord32 lpCurpos));
 DEC_FUNC(void,	 DPUMA_DestroyHistogramm,(Handle hDlg));
 DEC_FUNC(Handle, DPUMA_TimeStamp,(const char * name,Handle hTimer));
-DEC_FUNC(Handle, DPUMA_GetWindowHandle,(char * name));
+DEC_FUNC(Handle, DPUMA_GetWindowHandle,(const char * name));
 DEC_FUNC(Handle, DPUMA_GetPrevSkipOwner,());
 DEC_FUNC(Int32,  DPUMA_AllocHook,( Int32 allocType, Handle userData, Word32 size, Word32 prevSize,
 		 Int32 blockType, Int32 requestNumber, PWord8 filename, Int32 lineNumber));

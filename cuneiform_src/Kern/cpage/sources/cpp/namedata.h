@@ -73,7 +73,7 @@ class NAMEDATA
 private:
 	char Name[260];
 public:
-	NAMEDATA(char * name=NULL);
+	NAMEDATA(const char * name=NULL);
 	virtual ~NAMEDATA();
 
 	Bool32 operator==(NAMEDATA & nd);

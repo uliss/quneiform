@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////////
 PtrList<NAMEDATA> NameData;
 
-NAMEDATA::NAMEDATA(char * name)
+NAMEDATA::NAMEDATA(const char * name)
 {
 	if(name)
 		strcpy(Name,name);

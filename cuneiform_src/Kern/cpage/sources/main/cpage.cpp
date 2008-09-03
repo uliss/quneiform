@@ -764,7 +764,7 @@ CPAGE_FUNC(Bool32)  CPAGE_GetBlockDataPtr(Handle page, Handle block, Handle Type
 	return rc;
 }
 //###########################################
-CPAGE_FUNC(Handle)  CPAGE_GetInternalType(char * name)
+CPAGE_FUNC(Handle)  CPAGE_GetInternalType(const char * name)
 {
 	PROLOG;
 	Handle rc = 0;

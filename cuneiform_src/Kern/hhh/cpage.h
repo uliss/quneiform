@@ -266,7 +266,7 @@ DEC_FUN(Word32,  CPAGE_GetBlockInterNum,	(Handle page,Handle block));
 DEC_FUN(void,    CPAGE_SetBlockInterNum,	(Handle page,Handle block,Word32 inter));
 DEC_FUN(Bool32,  CPAGE_GetBlockDataPtr,		(Handle page, Handle block, Handle Type, void ** lpData));
 
-DEC_FUN(Handle,  CPAGE_GetInternalType,		(char * name));
+DEC_FUN(Handle,  CPAGE_GetInternalType,		(const char * name));
 DEC_FUN(char *,  CPAGE_GetNameInternalType,	(Handle type));
 
 /*

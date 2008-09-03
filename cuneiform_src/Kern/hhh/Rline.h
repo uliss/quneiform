@@ -103,7 +103,7 @@ typedef enum
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RLINE_FUNC(a) b c
 
 DEC_FUN(Bool32,  RLINE_SearchLines,(void* lpInPage,void* hpCLINE));
-DEC_FUN(Bool32,  RLINE_DeleteLines,(void* lpInPage , char* lpOutDIB));
+DEC_FUN(Bool32,  RLINE_DeleteLines,(void* lpInPage, const char* lpOutDIB));
 DEC_FUN(Bool32,  RLINE_LinesPass1, (Handle hCPage,Handle hCCOM,void* phCLINE,PBool32 pgneed_clean_line, Bool32 sdl, Word8 lang));
 DEC_FUN(Bool32,  RLINE_LinesPass2, (Handle hCCOM,void* phCLINE, Handle hCPAGE));
 DEC_FUN(Bool32,  RLINE_LinesPass3, (Handle hCPage, Handle hCLINE, Handle hCCOM, Word8 lang));
