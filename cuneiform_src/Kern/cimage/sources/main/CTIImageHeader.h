@@ -87,16 +87,16 @@ private:
 
 public:
 	CTIImageHeader();
-	CTIImageHeader(PChar8  lpName, Handle hImagehandle, Word32 Flag);
-	CTIImageHeader(PChar8  lpName, PCIMAGEBITMAPINFOHEADER lpInfo, void * lpImage, Word32 wFlag);
+	CTIImageHeader(const char *lpName, Handle hImagehandle, Word32 Flag);
+	CTIImageHeader(const char *lpName, PCIMAGEBITMAPINFOHEADER lpInfo, void * lpImage, Word32 wFlag);
 	~CTIImageHeader();
 
 private:
 
 public:
-	Bool32                    IsMaskEnabled(PChar8 MaskType);
-	Bool32                    EnableMask(PChar8 cMaskType, Bool32 mEnabled);
-	Bool32                    CheckName(PChar8  Name);
+	Bool32                    IsMaskEnabled(const char *MaskType);
+	Bool32                    EnableMask(const char *cMaskType, Bool32 mEnabled);
+	Bool32                    CheckName(const char *Name);
 	CTIImageHeader *          GetNext(void) { return pNext; };
 	CTIImageHeader *          SetNext(CTIImageHeader * pSet ) { return (pNext = pSet); };
 	void *                    GetImage(void) { return Image; };

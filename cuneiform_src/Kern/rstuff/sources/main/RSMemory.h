@@ -102,9 +102,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //Word16 GetReturnCode_rstuff();
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-void    RSTUFFComment(PChar8 Comment);
+void    RSTUFFComment(const char * Comment);
 void *	RSTUFFAlloc(Word32 stAllocateBlock);
-void *	RSTUFFDAlloc(Word32 stAllocateBlock, PChar8 Comment);
+void *	RSTUFFDAlloc(Word32 stAllocateBlock, const char * Comment);
 void	RSTUFFFree(void * mem);
 void *  RSTUFFLock(void * mem);
 void    RSTUFFUnlock(void * mem);

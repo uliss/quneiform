@@ -105,7 +105,7 @@ Bool32 OrtoMove(PRSPreProcessImage Image)
  for(int i=0;i<CPAGE_MAXNAME;i++)
 	 OldImage[i]=info.szImageName[i];
 
- char* ImageName=PUMA_IMAGE_ORTOMOVE;
+ const char* ImageName=PUMA_IMAGE_ORTOMOVE;
 
 
  Handle lpDIB;

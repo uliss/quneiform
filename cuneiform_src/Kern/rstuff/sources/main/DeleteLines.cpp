@@ -103,7 +103,7 @@ BOOL DelLineFromInside(Word8* pmasp,const int bytewide,int num_str,CLINE_handle 
 
 
 
-Bool32 DeleteLines(Handle hCPage,void* phCLINE, char* ImageDelLines)
+Bool32 DeleteLines(Handle hCPage,void* phCLINE, const char* ImageDelLines)
 {
 //	LDPUMA_ConsoleN("Активизируется функция тривиального удаления линий");
 	int time=clock();
@@ -1581,7 +1581,7 @@ BOOL DelLineFromInside(Word8* pmasp,const int bytewide,int num_str,CLINE_handle 
 }
 
 /************************************************************************************************/
-Bool32 DeleteDotLines(void* phCLINE, char* ImageDelLines)
+Bool32 DeleteDotLines(void* phCLINE, const char* ImageDelLines)
 {
 	CLINE_handle* pCLINE=(CLINE_handle*)phCLINE;
 

@@ -90,8 +90,8 @@ void DebugDPumaShowComponents(PRSPreProcessImage, Handle, Word32, Int32, Word32)
 Bool32    Binarise( void );
 Bool32    Normalise( PRSPreProcessImage );
 Bool32    VerifyN( PRSPreProcessImage );
-Bool32    DeleteLines(Handle hCPage,void* phCLINE,char* ImageDelLines);
-Bool32    DeleteDotLines(void* phCLINE, char* ImageDelLines);
+Bool32    DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines);
+Bool32    DeleteDotLines(void* phCLINE, const char* ImageDelLines);
 
 Bool32    KillLinesN( PRSPreProcessImage );
 Bool32    Layout( PRSPreProcessImage );

@@ -96,9 +96,9 @@ Word16 GetReturnCode_cimage();
 /////////////////////////////////////////////////////////////////////////////////////////
 //
 Bool32  InitCFIOInterface(Bool32 Status);
-void    CIMAGEComment(PChar8 Comment);
+void    CIMAGEComment(const char *Comment);
 void *	CIMAGEAlloc(Word32 stAllocateBlock);
-void *	CIMAGEDAlloc(Word32 stAllocateBlock, PChar8 Comment);
+void *	CIMAGEDAlloc(Word32 stAllocateBlock, const char *Comment);
 void	CIMAGEFree(void * mem);
 void *  CIMAGELock(void * mem);
 void    CIMAGEUnlock(void * mem);

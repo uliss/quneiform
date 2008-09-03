@@ -104,13 +104,13 @@ public:
 private:
 	Bool32                    ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm, Word32 wLine, Word32 wAtX, Word32 wAtY);
 	Bool32                    ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, Word32 wAtX = 0, Word32 wAtY = 0);
-	Bool32                    RemoveRectsFromMask(PChar8 lpName, Word32 wNumber, PCIMAGE_Rect pFirstRect, PChar8 pcType);
-	Bool32                    AddRectsToMask(PChar8 lpName, Word32 wNumber, PCIMAGE_Rect pFirstRect, PChar8 pcType);
-	Bool32                    OpenDIBFromList(PChar8 lpName, PCTDIB pDIB);
+	Bool32                    RemoveRectsFromMask(const char *lpName, Word32 wNumber, PCIMAGE_Rect pFirstRect, const char*pcType);
+	Bool32                    AddRectsToMask(const char *lpName, Word32 wNumber, PCIMAGE_Rect pFirstRect, const char *pcType);
+	Bool32                    OpenDIBFromList(const char *lpName, PCTDIB pDIB);
 	Bool32                    SetMaskToList(PChar8 pName, PCTIMask pMask, PChar8 pcType);
-	Bool32                    OpenMaskFromList(PChar8 lpName, PPCTIMask ppMask, PBool32 pEnMask, PChar8 pcType);
+	Bool32                    OpenMaskFromList(const char *lpName, PPCTIMask ppMask, PBool32 pEnMask, const char *pcType);
 	Bool32                    OpenDIBFromList(PChar8 lpName, PHandle phImage);
-	Bool32                    WriteDIBtoBMP(PChar8 cName, PCTDIB pDIB);
+	Bool32                    WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
 	Bool32                    SetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInReplace pIn);
 	Bool32                    ApplayBitMaskToFrame(PCIMAGE_InfoDataInGet pIn, PCIMAGE_InfoDataOutGet pOut);
 	Bool32                    ApplayBitMaskToDIB(PWord8 pMask, PCTDIB pDIB);

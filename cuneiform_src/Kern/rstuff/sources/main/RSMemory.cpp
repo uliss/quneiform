@@ -137,13 +137,13 @@ Bool32 InitCFIOInterface(Bool32 Status)
 #define RSTUFF
 Char8 cCommentBuffer[CFIO_MAX_COMMENT];
 
-void    RSTUFFComment(PChar8 Comment)
+void    RSTUFFComment(const char *Comment)
 {
 	Word32 Len = strlen(Comment);
 	strncpy(cCommentBuffer, Comment, (Len < CFIO_MAX_COMMENT ? Len : CFIO_MAX_COMMENT - 1 ) );
 }
 
-void *	RSTUFFDAlloc(Word32 stAllocateBlock, PChar8 Comment)
+void *	RSTUFFDAlloc(Word32 stAllocateBlock, const char *Comment)
 {
 	RSTUFFComment(Comment);
 	return RSTUFFAlloc(stAllocateBlock);

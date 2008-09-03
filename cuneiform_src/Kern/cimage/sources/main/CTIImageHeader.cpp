@@ -77,7 +77,7 @@ CTIImageHeader::CTIImageHeader()
 	mbEnableWriteMask = TRUE;
 }
 
-CTIImageHeader::CTIImageHeader(PChar8  lpName, Handle hImageHandle, Word32 wFlag)
+CTIImageHeader::CTIImageHeader(const char *lpName, Handle hImageHandle, Word32 wFlag)
 {
 	if( CIMAGE_STRING_LENGHT(lpName) < CIMAGE_MAX_IMAGE_NAME )
 		CIMAGE_STRING_COPY((PChar8)ImageName, lpName);
@@ -94,7 +94,7 @@ CTIImageHeader::CTIImageHeader(PChar8  lpName, Handle hImageHandle, Word32 wFlag
 	mbEnableWriteMask = TRUE;
 }
 
-CTIImageHeader::CTIImageHeader(PChar8  lpName, PCIMAGEBITMAPINFOHEADER lpInfo, void * lpImage, Word32 wFlag)
+CTIImageHeader::CTIImageHeader(const char *lpName, PCIMAGEBITMAPINFOHEADER lpInfo, void * lpImage, Word32 wFlag)
 {
 	if( CIMAGE_STRING_LENGHT(lpName) < CIMAGE_MAX_IMAGE_NAME )
 		CIMAGE_STRING_COPY((PChar8)ImageName, lpName);
@@ -129,7 +129,7 @@ CTIImageHeader::~CTIImageHeader()
 
 }
 
-Bool32 CTIImageHeader::CheckName(PChar8  Name)
+Bool32 CTIImageHeader::CheckName(const char *Name)
 {
 	Bool32 Check = FALSE;
 
@@ -141,7 +141,7 @@ Bool32 CTIImageHeader::CheckName(PChar8  Name)
 	return Check;
 }
 
-Bool32 CTIImageHeader::EnableMask(PChar8 cMaskType, Bool32 mEnabled)
+Bool32 CTIImageHeader::EnableMask(const char *cMaskType, Bool32 mEnabled)
 {
 	if ( cMaskType[0] == 'w' )
 	{
@@ -158,7 +158,7 @@ Bool32 CTIImageHeader::EnableMask(PChar8 cMaskType, Bool32 mEnabled)
 	return FALSE;
 }
 
-Bool32 CTIImageHeader::IsMaskEnabled(PChar8 cMaskType)
+Bool32 CTIImageHeader::IsMaskEnabled(const char *cMaskType)
 {
 	if ( cMaskType[0] == 'w' )
 		return mbEnableWriteMask;

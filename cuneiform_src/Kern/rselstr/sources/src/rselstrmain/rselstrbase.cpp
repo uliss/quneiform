@@ -244,7 +244,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_Init(Word16 wHeightCode,HANDLE hStorage)
 // prelist=new CLPrepHstr;
 
  LDPUMA_Registry (&Root_CHSTR,"Выделитель строк в нестандартных объектах", Root);
- char *pText;
+ const char *pText;
 
  /*  Корневая вершина  */
  pText = "<Ответственный тов. Степаненков> \

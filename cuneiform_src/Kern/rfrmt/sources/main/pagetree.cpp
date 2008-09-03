@@ -678,7 +678,7 @@ Int16 CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
 	KNOTT     **colt,**colnt,**colnt1,*ptr;
 	LINE_KNOT *LineVK,*LineHK;
 	STAT_CELL *StatCell=(STAT_CELL*)malloc(sizeof(STAT_CELL));
-	char      *err="CreateTreePlainTxt1";
+	const char*err="CreateTreePlainTxt1";
 
 	CONS_MESS1("===  CreateTreePlainTxt1  === ");
 

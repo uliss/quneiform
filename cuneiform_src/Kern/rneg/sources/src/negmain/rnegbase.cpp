@@ -135,7 +135,7 @@ RNEG_FUNC(Bool32) RNEG_Init(Word16 wHeightCode,Handle parent)
 
 
  LDPUMA_Registry (&NegRoot,"Поиск и распознование негативов", parent);
- char *pText;
+ const char *pText;
  /*  Корневая вершина  */
  pText = "<Ответственный тов. Степаненков> \
  \n Корневая вершина отладки поиска и распознавания негативов.";

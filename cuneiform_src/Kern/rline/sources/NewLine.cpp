@@ -191,7 +191,7 @@ void DeleteBadDotLine(CLINE_handle hCLINE,CCOM_handle hCCOM,Handle hCPAGE);
 void SetLineDegree(DLine* line);
 //void DeletePLines(CPageLines* PLines);
 BOOL MyGetLines(/*CLINE_handle linecontainer,Handle hCPage,*/CLINE_handle hCLINE, Int32* CountLines);
-void PrintLines(CLINE_handle hContainer, char* FileName);
+void PrintLines(CLINE_handle hContainer, const char* FileName);
 Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM);
 Bool32 FindExtLines(CLINE_handle* hLinesMass, Int32 CountLines, CLINE_handle hExtContainer, Bool32 IsHor, CCOM_comp *pCompMass, Int32 CountMass, CLINE_handle hContainer);
 void MergeLines(CLINE_handle hLine, CLINE_handle hLineExt, CLINE_handle hContainer);
@@ -1835,7 +1835,7 @@ void DeleteBadDotLine(CLINE_handle hCLINE,CCOM_handle hCCOM,Handle hCPAGE)
 */
 
 /***********************************************************************************************/
-void PrintLines(CLINE_handle hContainer, char* FileName)
+void PrintLines(CLINE_handle hContainer, const char* FileName)
 {
 	std::ofstream outfile;
 	outfile.open(FileName, std::ios::out|std::ios::binary|std::ios::app);

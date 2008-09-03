@@ -1391,7 +1391,7 @@ Bool32 CTIControl::CheckInData(PCTDIB pDIB, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 	return TRUE;
 }
 
-Bool32 CTIControl::WriteDIBtoBMP(PChar8 cName, PCTDIB pDIB)
+Bool32 CTIControl::WriteDIBtoBMP(const char *cName, PCTDIB pDIB)
 {
 #ifdef CIMAGE_DUMP_ENABLE
 
@@ -1449,7 +1449,7 @@ Bool32 CTIControl::OpenDIBFromList(PChar8 lpName, PHandle phImage)
 	return TRUE;
 }
 
-Bool32 CTIControl::OpenMaskFromList(PChar8 lpName, PPCTIMask ppMask, PBool32 pEnMask, PChar8 pcType)
+Bool32 CTIControl::OpenMaskFromList(const char *lpName, PPCTIMask ppMask, PBool32 pEnMask, const char *pcType)
 {
 	Bool32 bRet;
 
@@ -1481,7 +1481,7 @@ Bool32 CTIControl::SetMaskToList(PChar8 pName, PCTIMask pMask, PChar8 pcType)
 	return bRet;
 }
 
-Bool32 CTIControl::OpenDIBFromList(PChar8 lpName, PCTDIB pcDIB)
+Bool32 CTIControl::OpenDIBFromList(const char *lpName, PCTDIB pcDIB)
 {
 	Handle hDIB;
 
@@ -1512,7 +1512,7 @@ Bool32 CTIControl::CloseDIBFromList(PCTDIB pDIB)
 	return TRUE;
 }
 
-Bool32 CTIControl::AddRectsToMask(PChar8 lpName, Word32 wNumber, PCIMAGE_Rect pFirstRect, PChar8 pcType)
+Bool32 CTIControl::AddRectsToMask(const char *lpName, Word32 wNumber, PCIMAGE_Rect pFirstRect, const char *pcType)
 {
 	Bool32 bRet = FALSE;
 	PCTIMask pMask;
@@ -1555,7 +1555,7 @@ Bool32 CTIControl::AddRectsToMask(PChar8 lpName, Word32 wNumber, PCIMAGE_Rect pF
 	return bRet;
 }
 
-Bool32 CTIControl::RemoveRectsFromMask(PChar8 lpName, Word32 wNumber, PCIMAGE_Rect pFirstRect, PChar8 pcType)
+Bool32 CTIControl::RemoveRectsFromMask(const char *lpName, Word32 wNumber, PCIMAGE_Rect pFirstRect, const char *pcType)
 {
 	Bool32 bRet = true;
 	PCTIMask pMask;

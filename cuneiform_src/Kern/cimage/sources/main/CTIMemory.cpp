@@ -117,13 +117,13 @@ Bool32 InitCFIOInterface(Bool32 Status)
 	return bRet;
 }
 
-void    CIMAGEComment(PChar8 Comment)
+void    CIMAGEComment(const char * Comment)
 {
 	Word32 Len = strlen(Comment);
 	strncpy(cCommentBuffer, Comment, (Len < CFIO_MAX_COMMENT ? Len : CFIO_MAX_COMMENT - 1 ) );
 }
 
-void *	CIMAGEDAlloc(Word32 stAllocateBlock, PChar8 Comment)
+void *	CIMAGEDAlloc(Word32 stAllocateBlock, const char *Comment)
 {
 	CIMAGEComment(Comment);
 	return CIMAGEAlloc(stAllocateBlock);

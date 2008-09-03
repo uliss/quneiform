@@ -78,9 +78,9 @@ private:
 	CTIImageHeader           mhFirst;
 	CTIImageHeader           mhLast;
 public:
-	Bool32 DeleteImage(PChar8  lpName);
-	Bool32 GetImage(PChar8  lpName, PHandle phDIB);
-	Bool32 AddImage(PChar8  lpName, Handle hDIB, Word32 wFlag);
+	Bool32 DeleteImage(const char * lpName);
+	Bool32 GetImage(const char *lpName, PHandle phDIB);
+	Bool32 AddImage(const char *lpName, Handle hDIB, Word32 wFlag);
 	Bool32           FindHandle(Handle hImage);
 	CTIImageList();
 	~CTIImageList();
@@ -88,14 +88,14 @@ public:
 private:
 	CTIImageHeader * Begin(void) { return &mhFirst; };
 	CTIImageHeader * End(void)   { return &mhLast; };
-	CTIImageHeader * FindImage(PChar8  lpName, CTIImageHeader ** Prev = NULL);
+	CTIImageHeader * FindImage(const char *lpName, CTIImageHeader ** Prev = NULL);
 
 public:
-	Bool32 EnableMask(PChar8 pName, PChar8 pType, Bool32 Type);
-	Bool32 GetImageReadMask(PChar8 lpName, PPCTIMask ppMask, PBool32 pEnMask);
-	Bool32 GetImageWriteMask(PChar8 lpNmae, PPCTIMask ppWMask, PBool32 pEnMask);
-	Bool32 SetImageReadMask(PChar8 lpName, PCTIMask pAMask);
-	Bool32 SetImageWriteMask(PChar8 lpName, PCTIMask pWMask);
+	Bool32 EnableMask(const char *pName, PChar8 pType, Bool32 Type);
+	Bool32 GetImageReadMask(const char *lpName, PPCTIMask ppMask, PBool32 pEnMask);
+	Bool32 GetImageWriteMask(const char *lpNmae, PPCTIMask ppWMask, PBool32 pEnMask);
+	Bool32 SetImageReadMask(const char *lpName, PCTIMask pAMask);
+	Bool32 SetImageWriteMask(const char *lpName, PCTIMask pWMask);
 
 };
 # endif    //__CTI_LIST_H_
