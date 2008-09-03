@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 /*========mode=OF_READ||OF_READWRITE||OF_WRITE*/
-FILE1 *fopen_m(char *name,int mode)
+FILE1 *fopen_m(const char *name,int mode)
 {
    FILE1 *f=(FILE1*)malloc(sizeof(FILE1));
    if(mode == OF_READ)

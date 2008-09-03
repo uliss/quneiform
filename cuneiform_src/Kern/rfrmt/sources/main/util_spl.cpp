@@ -448,7 +448,7 @@ extern Rect16  *RectFragm;
 extern float    Twips;
 extern Int16   K_TwipsInInch;
 
-short __cdecl  OpenFullOutTiger(char *FileName)
+short __cdecl  OpenFullOutTiger(const char *FileName)
 {
 	FILE1 *in;
 	int nc,ns,nw,nz,k_word,k_z,i;

@@ -632,7 +632,7 @@ Bool32 PrintResult(int num,CSTR_line lout,Handle hCPAGE)
 	Int32 offset = 0;
 	Word32 textcolor = 0;
 	int charset = RUSSIAN_CHARSET;
-	char * name = NULL;
+	const char * name = NULL;
 	static Int32  nFragment = -1;
 	static Word32 deftextcolor = 0;
 	Bool32 bOutputKegl = TRUE;

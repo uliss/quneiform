@@ -137,7 +137,7 @@ extern Handle hDebugAlign;
 RFRMT_FUNC(Bool32)  RFRMT_Formatter(char* lpInputImageName , Handle* PtrEdTree )
 {
 #ifdef New
- char* lpInternalFileName = "internal.vit";
+ const char* lpInternalFileName = "internal.vit";
  LDPUMA_Skip(hDebugProfStart);
 
  FlagMode = 0;
@@ -271,7 +271,7 @@ RtfFragRect.m_Step                        = 0;
 //###########################################
 RFRMT_FUNC(Bool32)  RFRMT_SaveRtf(char* lpOutputFileName,Word32 code)
 {
- char* lpInternalFileName = "internal.vit";
+ const char* lpInternalFileName = "internal.vit";
  LDPUMA_Skip(hDebugProfStart);
 
  FlagMode = 0;

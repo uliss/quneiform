@@ -187,7 +187,7 @@ static RecStat recstat[FRAG_PAGE];
 
 static PageWord cur_word;
 
-int Snap_Console(char *text)
+int Snap_Console(const char *text)
 {
 	return LDPUMA_Console(text);
 }
@@ -232,7 +232,7 @@ static Int32 rect_dist(Rect32 *main, Rect32 *test);
 static Int32 dist_border(Rect32 *rect);
 static Bool add2list(LineNumber **frag_lines, Int32 fn, Int32 ln);
 
-static void draw_keg(char *str);
+static void draw_keg(const char *str);
 static void draw_rect(Rect32 *rect, Word32 color, Word32 key);
 
 static void kegl_by_frag();
@@ -1631,7 +1631,7 @@ static Bool add2list(LineNumber **frag_lines_list, Int32 fn, Int32 ln)
   return FALSE;
 }
 
-static void draw_keg(char *str)
+static void draw_keg(const char *str)
 {
   if( snap_enable &&
       ( !LDPUMA_SkipEx(hSnapMain,FALSE,TRUE,1) || !LDPUMA_SkipEx(hSnapEndPage,FALSE,TRUE,1) )

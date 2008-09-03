@@ -82,9 +82,9 @@ Bool32     gbSize     = TRUE;
 Word32     gnFormat	  = 1;    // 0 - не форматировать
 							  // 1 - форматировать с фреймами и  колонками
 							  // 2 - только фреймы
-char * gpSerifName	  = "MS Serif Cyr";
-char * gpSansSerifName= "MS Sans Serif Cyr";
-char * gpCourierName  = "Courier Cyr";
+const char * gpSerifName	  = "MS Serif Cyr";
+const char * gpSansSerifName= "MS Sans Serif Cyr";
+const char * gpCourierName  = "Courier Cyr";
 char   UnRecogSymbol  = '~';
 Word32 gnLanguage = LANG_RUSENG;
 

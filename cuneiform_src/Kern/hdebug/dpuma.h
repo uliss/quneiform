@@ -259,10 +259,10 @@ DEC_FUNC(Bool32, DPUMA_SaveFile,(void * lpDIB,char * lpFileName,Word32 nFormat))
 #define PUMA_SAVE_TIF_G4           (40|(4L << 16))
 DEC_FUNC(void,	 DPUMA_ProgressStart	,( void ));
 DEC_FUNC(void,	 DPUMA_ProgressFinish	,( void ));
-DEC_FUNC(Bool32, DPUMA_ProgressStep		,(Word32 step,char * name, Word32 percent));
+DEC_FUNC(Bool32, DPUMA_ProgressStep		,(Word32 step, const char * name, Word32 percent));
 DEC_FUNC(Bool32, DPUMA_SetConsoleProperty,(	Bool32 bold,Bool32 italic,
 	Bool32 strikeout,Bool32 underline,Int32 height,	Int32 offset,	Word32 textcolor,
-	Int32 charset,	char * name ));
+	Int32 charset,	const char * name ));
 DEC_FUNC(Handle, DPUMA_CreateHistogramm,(const char *, Word32 size, PInt32 lpVal));
 DEC_FUNC(void,	 DPUMA_AddPointToHistogramm,(Handle hDlg, Word32 point));
 DEC_FUNC(Bool32, DPUMA_DoHistogramm,(Handle hDlg, PWord32 lpCurpos));

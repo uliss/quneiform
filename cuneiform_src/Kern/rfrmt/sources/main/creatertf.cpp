@@ -83,8 +83,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "minmax.h"
 
-extern "C" BOOL  FullRtf( char *FileNameIn,char *FileNameOut ,Handle* hEdTree);
-extern "C" BOOL  PageTree( char *FileNameIn, CRtfPage* RtfPage , char *FileNameOut);
+extern "C" BOOL  FullRtf( const char *FileNameIn, const char *FileNameOut ,Handle* hEdTree);
+extern "C" BOOL  PageTree(const char *FileNameIn, CRtfPage* RtfPage, const char *FileNameOut);
 extern "C" BOOL	 WriteTable( Word32 IndexTable, RtfSectorInfo* SectorInfo, /*CString* TableString ,*/BOOL OutPutMode);
 extern "C" BOOL	 WritePict( Word32 IndexPict, RtfSectorInfo* SectorInfo/*, CString* PictString*/, BOOL OutPutTypeFrame);
 extern "C" { void GetTableRect( Word32 NumberTable , Rect16* RectTable,Word32* UserNumber ); }
@@ -96,14 +96,14 @@ extern  void RtfAssignRect_CRect_CRect(RECT *s1,RECT *s2);
 
 Int16   CreateEmptyRtfFile(void);
 void    PutC(char sym);
-void    PutCom(char *Command,Int32 value,Int16 space);
-void    Put(char *Data);
+void    PutCom(const char *Command, Int32 value, Int16 space);
+void    Put(const char *Data);
 void    PutChar(BYTE sym);
 Int16   get_font_name(Int16 FontNumber);
 
 Int16   GetRealSizeKegl( const char * /*CString**/ str, Int16 width, Int16 FontPointSize, Int16 FontNumber );
 Int16   GetRealSize( char* str,Int16 len,Int16 FontSize ,Int16 FontNumber,Int16* strHeight);
-BOOL    ReadInternalFileRelease(char *FileNameIn, CRtfPage* RtfPage);
+BOOL    ReadInternalFileRelease(const char *FileNameIn, CRtfPage* RtfPage);
 Handle  Rtf_CED_CreateParagraph(Int16 FirstIndent,Int16 LeftIndent,Int16 RightIndent,Int16 IntervalBefore, RtfSectorInfo *SectorInfo, int AlignParagraph,int shad, int LenthStringInTwips, int LengthFragmInTwips);
 void    Rtf_CED_CreateChar( EDRECT* slayout, letterEx* Letter, CRtfChar* pRtfChar );
 void    WriteCupDrop(CRtfChar* pRtfChar,Int16 font);
@@ -137,7 +137,7 @@ extern  POINT  TemplateOffset;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 FullRtf                                                        //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL FullRtf( char* FileNameIn, char* FileNameOut, Handle* hEdTree )
+BOOL FullRtf(const char* FileNameIn, const char* FileNameOut, Handle* hEdTree)
 {
 	CRtfPage RtfPage;
 
@@ -279,7 +279,7 @@ void CRtfPage::Rtf_CED_CreatePage(void)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 Rtf_CED_WriteFormattedEd                                       //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfPage::Rtf_CED_WriteFormattedEd( char* RtfFileName, Handle* hEdTree )
+void CRtfPage::Rtf_CED_WriteFormattedEd(const char* RtfFileName, Handle* hEdTree)
 {
 #ifdef EdWrite
 CHAR lpEdFileName[MAX_PATH];
@@ -335,7 +335,7 @@ CRtfFragment* CRtfPage::GetNextFragment()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 OpenOutputFile                                                 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfPage::OpenOutputFile(char* FileNameOut)
+BOOL CRtfPage::OpenOutputFile(const char* FileNameOut)
 {
  BOOL Bisy  = TRUE;
 	int  Count = 0;
@@ -384,7 +384,7 @@ void CRtfPage::CloseOutputFile(void)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 ReadInternalFile                                               //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfPage::ReadInternalFile(char *FileNameIn)
+BOOL CRtfPage::ReadInternalFile(const char *FileNameIn)
 {
 	if(ReadInternalFileRelease( FileNameIn, this ))
 	 return TRUE;
@@ -394,7 +394,7 @@ BOOL CRtfPage::ReadInternalFile(char *FileNameIn)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 ReadInternalFileRelease                                        //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL ReadInternalFileRelease(char *FileNameIn, CRtfPage* RtfPage)
+BOOL ReadInternalFileRelease(const char *FileNameIn, CRtfPage* RtfPage)
 {
 	FILE1  *in;
 	CRtfFragment*   pRtfFragment;
@@ -672,7 +672,7 @@ void	CRtfPage::SortUserNumber(void)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 FindPageTree                                                   //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfPage::FindPageTree(char* FileNameIn,char* FileNameOut)
+BOOL CRtfPage::FindPageTree(const char* FileNameIn, const char* FileNameOut)
 {
 	return	PageTree( FileNameIn, this ,FileNameOut);
 }
@@ -1007,7 +1007,7 @@ Int16 CRtfPage::GetMinKegl( Int16 OldKegl )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 Write                                                          //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfPage::Write( char *FileNameOut )
+BOOL CRtfPage::Write(const char *FileNameOut)
 {
 	if(RtfWriteMode)
 	{
@@ -1361,7 +1361,8 @@ BOOL CRtfPage::WriteHeaderRtf(void)
 {
  Int16  NumFont = 4, i;
 	WORD cr=13/*0x0d*/,lf=10/*0x0a*/;
-	char *TitleRtf="\\rtf1\\ansi\\deff0\\deflang1024",*NameStyle="PUMA", Eol[3],Nname[260];
+	const char *TitleRtf="\\rtf1\\ansi\\deff0\\deflang1024",*NameStyle="PUMA";
+	char  Eol[3],Nname[260];
 
 #ifdef EdWrite
 	BYTE fontPitchAndFamily;
@@ -4048,7 +4049,7 @@ Int16 GetRealSizeKegl( /*CString**/const char* str, Int16 width, Int16 FontPoint
 }
 
 //==Command - сама команда, value - числовой аргумент (-1 - нет)
-void PutCom(char *Command,Int32 value,Int16 space)
+void PutCom(const char *Command,Int32 value,Int16 space)
 //==
 { char Num[10]; Int16 i,len;
 	if(RtfWriteMode == FALSE)
@@ -4061,7 +4062,7 @@ void PutCom(char *Command,Int32 value,Int16 space)
   if(space) PutChar(' ');
 }
 //==
-void Put(char *Data)
+void Put(const char *Data)
 //==
 { Int16 i,len;
 	if(RtfWriteMode == FALSE)

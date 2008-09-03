@@ -73,7 +73,7 @@ typedef struct
 	Word32 dwEnd;	// Конец
 
 	Word32 dwStep;  // текущий номер шага
-	char * name;	// текущее название шага
+	const char * name;	// текущее название шага
 	} PRGTIME;
 
 
@@ -226,13 +226,13 @@ FNBOOL16 Tiger_Callback_ImageClose (void)
 	}
     return (TRUE);
 }
-
+
 FNVOID Tiger_Callback_ReportError (WORD wStatus, LPSTR lpMessage)
 {
     wStatus = wStatus;
 //	g_pRecognition->SetError(lpMessage);
 }
-
+
 static WORD swPercent = 0;
 static WORD swStageNumber = 0;
 static char StageName[256];
@@ -253,7 +253,7 @@ FNBOOL16 Tiger_Callback_ProgressStart (void)
 
 	return rc;
 }
-
+
 FNBOOL16 Tiger_Callback_ProgressFinish (void)
 {
 	BOOL16 rc = TRUE;
@@ -264,7 +264,7 @@ FNBOOL16 Tiger_Callback_ProgressFinish (void)
 //		rc = fnProgressStop() & (BOOL16)g_pRecognition->Fire_ProgressFinish();
 return rc;
 }
-
+
 
 FNBOOL16 Tiger_Callback_ProgressSetPerc (WORD wPercent)
 {
@@ -276,7 +276,7 @@ FNBOOL16 Tiger_Callback_ProgressSetPerc (WORD wPercent)
     return fnProgressStep(swStageNumber,StageName,perc) &
 		(BOOL16)g_pRecognition->Fire_ProgressStep((long)swStageNumber,T2OLE(StageName),(long)perc);
 }
-
+
 FNBOOL16 Tiger_Callback_ProgressSetStage
 (
     WORD wStageNumber,

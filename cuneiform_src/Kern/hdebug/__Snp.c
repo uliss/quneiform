@@ -765,7 +765,7 @@ void LDPUMA_ProgressFinish( void )
 		fProgressFinish();
 }
 //////////////////////////////////////////////
-Bool32 LDPUMA_ProgressStep(Word32 step,char * name, Word32 percent)
+Bool32 LDPUMA_ProgressStep(Word32 step, const char * name, Word32 percent)
 {
 	Bool32 rc = TRUE;
 	if(fProgressStep)
@@ -775,7 +775,7 @@ Bool32 LDPUMA_ProgressStep(Word32 step,char * name, Word32 percent)
 //////////////////////////////////////////////
 Bool32 LDPUMA_SetConsoleProperty(Bool32 bold,Bool32 italic,
 	Bool32 strikeout,Bool32 underline,Int32 height,	Int32 offset,	Word32 textcolor,
-	Int32 charset,	char * name )
+	Int32 charset,	const char * name )
 {
 	Bool32 rc = TRUE;
 

@@ -65,7 +65,7 @@ typedef struct
 	Word32 dwEnd;	//  онец
 
 	Word32 dwStep;  // текущий номер шага
-	char * name;	// текущее название шага
+	const char * name;	// текущее название шага
 	} PRGTIME;
 
 // ‘лаги обновлени€ контейнеров

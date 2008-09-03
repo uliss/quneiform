@@ -177,11 +177,11 @@ public:
 
 		void                 CRtfPageDelFragments(void);
   CRtfFragment*        GetNextFragment();
-  BOOL                 ReadInternalFile(char* FileNameIn);
-		BOOL                 OpenOutputFile(char* FileNameOut);
+  BOOL                 ReadInternalFile(const char* FileNameIn);
+		BOOL                 OpenOutputFile(const char* FileNameOut);
 		void                 CloseOutputFile(void);
   void                 SetTwips(void);
-		BOOL                 FindPageTree(char* FileNameIn,char* FileNameOut);
+		BOOL                 FindPageTree(const char* FileNameIn, const char* FileNameOut);
 	 void                 ReCalcPageWidthAndHeight();
 		BOOL                 WriteHeaderRtf(void);
 	 void                 CorrectKegl(void);
@@ -193,7 +193,7 @@ public:
 		void                 AddTables(void);
 		void                 AddLines(void);
 		void                 SortUserNumber(void);
-  BOOL	                Write( char* FileNameOut );
+  BOOL	                Write(const char* FileNameOut );
 	 BOOL	                Write_USE_NONE( void );
 	 BOOL	                Write_USE_FRAME( void );
 	 BOOL	                Write_USE_FRAME_AND_COLUMN( void );
@@ -201,7 +201,7 @@ public:
   void                 WriteSectorsHeader(Int16 i);
   void                 ToPlacePicturesAndTables(void);
   void                 Rtf_CED_CreatePage(void);
-  void                 Rtf_CED_WriteFormattedEd( char* FileNameOut, Handle* );
+  void                 Rtf_CED_WriteFormattedEd( const char* FileNameOut, Handle* );
   WORD                 GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector* pRtfNextSector);
   void                 SetPaperSize(Int32 LeftPos,Int32 RightPos,Int32 TopPos,Int32 BottomPos,Int32* PaperW,Int32* PaperH,
 																												        Int32* MargL,Int32* MargR,Int32* MargT,Int32* MargB);
@@ -291,7 +291,7 @@ public:
   BOOL                 GetFlagBigSpace(int beg, int end);
   BOOL                 CheckNumber(BYTE FirstChar);
 
-  void                 PrintTheResult(char*);
+  void                 PrintTheResult(const char*);
 
   /*CObArray*/std::vector<CRtfString*>	           m_arStrings;
 

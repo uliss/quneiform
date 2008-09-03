@@ -72,7 +72,7 @@ BOOL CreateInternalFileForFormatter(void);
 	extern "C" {
 #endif
 
- BOOL FullRtf(char *FileNameIn,char *FileNameOut,Handle* hEdTree);
+ BOOL FullRtf(const char *FileNameIn, const char *FileNameOut, Handle* hEdTree);
 #ifdef __cplusplus
 	}
 #endif

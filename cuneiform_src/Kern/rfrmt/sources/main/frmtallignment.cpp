@@ -535,7 +535,7 @@ void CRtfFragment::SetFlagBeginParagraphForLeftRightJustification(int beg, int e
 BOOL CRtfFragment::CheckNumber(BYTE FirstChar)
 {
  char* result=NULL;
- char* MasNumber="0123456789";
+ const char* MasNumber="0123456789";
 
 	 result = strchr( MasNumber, FirstChar );
   if(result==NULL)
@@ -1503,7 +1503,7 @@ void CRtfFragment::SetLineTransfer(int beg, int end)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                   PrintTheResult
 
-void CRtfFragment::PrintTheResult(char* header_str)
+void CRtfFragment::PrintTheResult(const char* header_str)
 {
 /*	CRtfString  *pRtfString;
 	CRtfWord    *pRtfWord;

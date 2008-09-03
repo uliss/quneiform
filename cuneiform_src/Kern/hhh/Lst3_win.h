@@ -727,7 +727,7 @@ int na,int beg,int end);
 #endif
 
 #ifndef V_LOCK
-FILE1 *fopen_m(char *name,int mode);
+FILE1 *fopen_m(const char *name,int mode);
 FILE1 *myfopen(char *name,LONG* len);
 LONG filelength_m(FILE1 *stream);
 #ifndef WIN32
@@ -798,7 +798,7 @@ char *get1_param(char *str,char *param,int max_len);
   void *low; /*нижняя граница загрузки программы - для контроля*/
   char *s1="Esc - continue;",*s2="Up,Down,Left,Right - Move image;",
        *s3="Ctrl/<Up,Down,Left,Right> - Scale image";
-  char *abcd="|\\-/";
+  const char *abcd="|\\-/";
   int count=0,rou=0;
   int h_term;/*Счетчик текущей высоты PRS-линии(для записи в терминатор)*/
   STAT_COL stat_col;/*Статистика по строкам текущей колонки*/
