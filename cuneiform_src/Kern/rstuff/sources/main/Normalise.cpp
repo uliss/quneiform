@@ -308,7 +308,7 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 	Bool32 gbAutoRotate          = Image->gbAutoRotate;
 	PWord8 *gpRecogDIB           = Image->pgpRecogDIB;
 	Handle hCPAGE                = Image->hCPAGE;
-	char * glpRecogName          = *Image->pglpRecogName;
+	const char * glpRecogName    = *Image->pglpRecogName;
 	PCIMAGEBITMAPINFOHEADER info = (PCIMAGEBITMAPINFOHEADER)Image->pinfo;
 	/////////////////////////////////
 	Bool32 rc = TRUE;

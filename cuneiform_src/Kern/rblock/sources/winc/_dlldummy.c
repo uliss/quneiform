@@ -2067,7 +2067,7 @@ static int nCurrentScaling = MAX_SCALING;
 //так как MAX_SCALING, как и MIN_SCALING, ==1,
 // можно смело считать, что nCurrentScaling==1
 
-static void ScreenOutput (char *pTitle,
+static void ScreenOutput (const char *pTitle,
                      void (*pProcUpdate) (int xLeft, int yTop, int nScaling))
 {
     int nWidth   = 3000;
@@ -2168,7 +2168,7 @@ static void ScreenOutput (char *pTitle,
     }
 }
 
-void LT_GraphicsRootsOutput (char *pTitle)
+void LT_GraphicsRootsOutput (const char *pTitle)
 {
     ScreenOutput (pTitle, RootsUpdate);
 }
@@ -2193,7 +2193,7 @@ void LT_GraphicsBlocksOutput (const char *pTitle)
 //      BlocksSetRandomRootsNumbers ();
 }
 
-void LT_GraphicsHystogramOutput (char *pTitle)
+void LT_GraphicsHystogramOutput (const char *pTitle)
 {
     ScreenOutput (pTitle, HystogramUpdate);
 }
@@ -2300,42 +2300,42 @@ void LT_GraphicsBlocksOrderOutput (char *pTitle)
     ScreenOutput (pTitle, BlocksOrderUpdate);
 }
 
-void LT_GraphicsCurrentStringOutput (char *pTitle)
+void LT_GraphicsCurrentStringOutput (const char *pTitle)
 {
     ScreenOutput (pTitle, CurrentStringUpdate);
 }
 
-void LT_GraphicsStringsOutput (char *pTitle)
+void LT_GraphicsStringsOutput (const char *pTitle)
 {
     ScreenOutput (pTitle, StringsUpdate);
 }
 
-void LT_GraphicsStringsForwardOrderOutput (char *pTitle)
+void LT_GraphicsStringsForwardOrderOutput (const char *pTitle)
 {
     ScreenOutput (pTitle, StringsForwardOrderUpdate);
 }
 
-void LT_GraphicsStringsBackwardOrderOutput (char *pTitle)
+void LT_GraphicsStringsBackwardOrderOutput (const char *pTitle)
 {
     ScreenOutput (pTitle, StringsBackwardOrderUpdate);
 }
 
-void LT_GraphicsStringsUpOrderOutput (char *pTitle)
+void LT_GraphicsStringsUpOrderOutput (const char *pTitle)
 {
     ScreenOutput (pTitle, StringsUpOrderUpdate);
 }
 
-void LT_GraphicsStringsDownOrderOutput (char *pTitle)
+void LT_GraphicsStringsDownOrderOutput (const char *pTitle)
 {
     ScreenOutput (pTitle, StringsDownOrderUpdate);
 }
 
-void LT_GraphicsRasterOutput (char *pTitle)
+void LT_GraphicsRasterOutput (const char *pTitle)
 {
     ScreenOutput (pTitle, RasterUpdate);
 }
 
-void LT_GraphicsBreakingOutput (char *pTitle)
+void LT_GraphicsBreakingOutput (const char *pTitle)
 {
     ScreenOutput (pTitle, BreakingUpdate);
 }

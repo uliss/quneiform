@@ -62,9 +62,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 static HINSTANCE hSJTL = 0;
 
-typedef int (*FSJTL_1)(char*);
-typedef int (*FSJTL_2)(char*,CSTR_line,int);
-typedef int (*FSJTL_3)(char*, char*);
+typedef int (*FSJTL_1)(const char*);
+typedef int (*FSJTL_2)(const char*, CSTR_line, int);
+typedef int (*FSJTL_3)(const char*, const char*);
 typedef void (*FSJTL_4)(void);
 
 static FSJTL_1 fSJTL_save = NULL;
@@ -88,7 +88,7 @@ void My_SJTL_Init()
 	}
 }
 
-int My_SJTL_save(char* filename)
+int My_SJTL_save(const char* filename)
 {
 	if(fSJTL_save!=NULL)
 		return fSJTL_save(filename);
@@ -104,7 +104,7 @@ int My_SJTL_save_old(char *filename, CSTR_line lino,int nfield)
 		return 0;
 }
 
-int My_SJTL_open(char *frmname, char *jtlname)
+int My_SJTL_open(const char *frmname, const char *jtlname)
 {
 	if(fSJTL_open!=NULL)
 		return fSJTL_open(frmname,jtlname);

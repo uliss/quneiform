@@ -113,7 +113,7 @@ typedef struct tagRSPreProcessImage
 	Handle  hDebugCancelSearchTables;
 	Handle  hDebugCancelAutoTemplate;
 	Handle  hDebugEnableSearchSegment;
-	char ** pglpRecogName;
+	const char ** pglpRecogName;
 	Handle* phCCOM;
 	void *  pinfo;
 	Handle* phLinesCCOM;

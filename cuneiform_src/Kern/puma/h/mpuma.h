@@ -242,7 +242,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     EXTERN Word32					g_prgStep						VAL(0);
     //Allex  при разделении бинаризации и обработки сырь
     //имя картинки 'lpRecogName' сделано глабольной переменной
-    EXTERN char *					glpRecogName					VAL(NULL);
+    EXTERN const char *					glpRecogName					VAL(NULL);
     EXTERN Bool32                   grc_line                        VAL(TRUE);
     EXTERN Bool32                   gneed_clean_line                VAL(FALSE);
     EXTERN Bool32                   gKillVSLComponents              VAL(TRUE);
@@ -307,9 +307,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     	extern "C" {
     #endif
     void My_SJTL_Init(void);
-    int My_SJTL_save(char* filename);
+    int My_SJTL_save(const char* filename);
     int My_SJTL_save_old(char *filename, CSTR_line lino,int nfield);
-    int My_SJTL_open(char *frmname, char *jtlname);
+    int My_SJTL_open(const char *frmname, const char *jtlname);
     int My_SJTL_mkfrm(char *frmname);
     void My_SJTL_close(void);
     void My_SJTL_Done(void);

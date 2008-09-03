@@ -451,7 +451,7 @@ int GenAS(HFRAME **frm,int k_frm,int dx,int dy,BOUND *bnd,KNOT3 *beg_free,
 {
 	int xmin,xmax,ymin,ymax,kx,ky,nx,ny,i,delx,dely;
   KNOT3 ***beg,*ptr; FRAME *f;
-  char *err="GenAS";
+  const char *err="GenAS";
 
 	/*оконтуривание решетки пустой полосой*/
   xmin=bnd->left;xmax=bnd->right;ymin=bnd->up;ymax=bnd->down;
