@@ -152,7 +152,7 @@ BOOL CreateInternalFileForFormatter(void)
  WORD  DistanceBetweenTopMargin  =  5;
  Page.m_wDpi             = (WORD)PageInfo.DPIX;
  PageIncline2048         = PageInfo.Incline2048;
- char* pInternalFileName = "internal.vit";
+ const char* pInternalFileName = "internal.vit";
  FILE* pIFName;
 
  if( (pIFName=fopen(pInternalFileName, "wb"))==NULL)
@@ -500,7 +500,7 @@ void CFString::ExtractWordsFromString( CSTR_line* Comingline , PageElementCount*
  CSTR_line	      line;
  CSTR_attr       line_attr;
  CWord*          CurrentWord;
- char*           SeparatorsWord=" ";
+ const char*           SeparatorsWord=" ";
  char*           result=NULL;
  INT             FlagWord;
  BOOL            FlagString,FlagCapDrop;

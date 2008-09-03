@@ -4183,7 +4183,8 @@ Int16 get_font_name(Int16 FontNumber)
 
 Int16 CreateEmptyRtfFile(void)
 {
- char  *TitleRtf="\\rtf1\\ansi \\deff0\\deflang1024", Eol[3],Nname[260];
+ const char  *TitleRtf="\\rtf1\\ansi \\deff0\\deflang1024";
+ char Eol[3],Nname[260];
  Int16 i;
  FONT_COD  FontCod[9]={
  	"Arial Cyr"            , "fswiss",     // NonSerif

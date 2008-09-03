@@ -179,7 +179,7 @@ DEC_FUN(Bool32, ROUT_SetAlphabet,(
 
 // Функция для загрузки списка таблиц из файла rec6all.dat
 DEC_FUN(Bool32, ROUT_LoadRec6List,(
-		char *rec6AllFilename
+		const char *rec6AllFilename
 		));
 
 // Загрузка ED-файла

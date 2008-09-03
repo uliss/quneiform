@@ -91,7 +91,7 @@ void  q_sort( char *, size_t, size_t,
                             fprintf (f, "%s: %d\n", __FILE__, __LINE__); \
                             fclose (f);                                  \
                         }
-
+
 /****************************************************************************
  *   Common structures                                                      *
  ***************************************************************************/
@@ -111,7 +111,7 @@ typedef struct
     } RECTANGLE;
 
 # define EXCHANGE_INTS(a, b) { int temp; temp = a; a = b; b = temp; }
-
+
 /****************************************************************************
  *   Declarations                                                           *
  ***************************************************************************/
@@ -140,7 +140,7 @@ typedef struct _RootBackup ROOT_BACKUP;
 struct _BackupCopy;
 typedef struct _BackupCopy BACKUP_COPY;
 
-
+
 /****************************************************************************
  *   Working with roots                                                     *
  ***************************************************************************/
@@ -178,7 +178,7 @@ void RootsFreeData (void);
 extern int nRootSpaceWidth;
 extern int nRootSpaceHeight;
 extern RECTANGLE rRootSpace;
-
+
 /****************************************************************************
  *   Inclines accounting                                                    *
  ***************************************************************************/
@@ -210,7 +210,7 @@ void RotatePageToIdeal (void);
              y = (INT) (y + (LONG) x * nIncline / INCLINE_FACTOR);\
              x = (INT) (x - (LONG) y * nIncline / INCLINE_FACTOR);\
          }
-
+
 /****************************************************************************
  ****************************************************************************
  **                                                                        **
@@ -240,7 +240,7 @@ void IntervalsInit (void);
 void IntervalsBuild (int y);
 void IntervalsStep (int y);
 void IntervalsFreeData (void);
-
+
 /****************************************************************************
  *   Strips                                                                 *
  ***************************************************************************/
@@ -263,7 +263,7 @@ extern STRIP *pFreeStripsList;
 
 STRIP *StripNew (void);
 void StripDelete (STRIP *pStrip);
-
+
 /****************************************************************************
  *   Components                                                             *
  ***************************************************************************/
@@ -313,7 +313,7 @@ void CompsBuild
 );
 
 void CompsFreeData (void);
-
+
 /****************************************************************************
  ****************************************************************************
  **                                                                        **
@@ -382,7 +382,7 @@ void PageMatrixFreeData (void);
 
 void InitialBreakingProceed (void);
 void InitialBreakingFreeData (void);
-
+
 /****************************************************************************
  *   Working with separators                                                *
  ***************************************************************************/
@@ -411,7 +411,7 @@ extern int nSeps;
 
 void SeparatorsGet (void);
 void SeparatorsFreeData (void);
-
+
 /****************************************************************************
  *   Working with blocks                                                    *
  ***************************************************************************/
@@ -532,7 +532,7 @@ void BlocksFreeData (void);
 void BlocksBuildEmbeddingLists (void);
 void BlocksBuildLeftAndRightLists (void);
 void BlocksBuildTopAndBottomLists (void);
-
+
 /****************************************************************************
  *   Hystogram                                                              *
  ***************************************************************************/
@@ -550,7 +550,7 @@ extern int  nHystColumnWidth;
 BOOL HystogramAllocateBody (void);
 void HystogramMakeIntegral (int *pInt, int *p, int nWidth);
 void HystogramFreeData (void);
-
+
 /****************************************************************************
  ****************************************************************************
  **                                                                        **
@@ -599,7 +599,7 @@ void SmartBreakingFreeData (void);
  **                                                                        **
  ****************************************************************************
  ***************************************************************************/
-
+
 /****************************************************************************
  *                                                                          *
  *                   White Strips Breaking                                  *
@@ -634,7 +634,7 @@ BOOL WSB_BreakBlock (BLOCK * p, WSB_POINT Point);
 BOOL WSB_CutUpperLine (BLOCK * p, WSB_POINT Point);
 void WhiteStripsBreaking (void);
 void WSB_FreeData (void);
-
+
 /****************************************************************************
  *   Graphics output                                                        *
  ***************************************************************************/
@@ -642,13 +642,13 @@ void WSB_FreeData (void);
 # if defined (LT_DEBUG) || defined (SE_DEBUG)
 void LT_GraphicsOpen (void);
 void LT_GraphicsClearScreen (void);
-void LT_GraphicsTitle (char *pTitle);
+void LT_GraphicsTitle (const char *pTitle);
 int  LT_Getch (void);
 
 void LT_GraphicsRootsOutput (char *pTitle);
 void LT_GraphicsRootStripsOutput (char *pTitle);
 void LT_GraphicsPageMatrixOutput (char *pTitle);
-void LT_GraphicsBlocksOutput (char *pTitle);
+void LT_GraphicsBlocksOutput (const char *pTitle);
 void LT_GraphicsHystogramOutput (char *pTitle);
 void LT_GraphicsSpecialCuttingOutput (char *pTitle);
 void LT_GraphicsSB_MatrixOutput (char *pTitle);
@@ -686,7 +686,7 @@ extern BLOCK *pDebugBlock;
 extern RECTANGLE rDebugRect;
 extern int xDebugVertLine;
 # endif
-
+
 /****************************************************************************
  *   Blocks processing tools                                                *
  ***************************************************************************/
@@ -699,7 +699,7 @@ BOOL BlockBreakByRectangle (BLOCK *p, BLOCK **pq, BLOCK **pr,
                             int xBegin, int yBegin, int xEnd, int yEnd);
 BLOCK *BlocksGlueTwo (BLOCK *p, BLOCK *q);
 void BlockRemove (BLOCK *p);
-
+
 /****************************************************************************
  *   Layout backup / restore procedures                                     *
  ***************************************************************************/
@@ -737,13 +737,13 @@ void LayoutBackup (void);
 void LayoutUndo (void);
 void LayoutRedo (void);
 void LayoutBackupFreeData (void);
-
+
 /****************************************************************************
  *   Hand layout functions                                                  *
  ***************************************************************************/
 
 void HandLayoutFreeData (void);
-
+
 /****************************************************************************
  *   Main subroutines                                                       *
  ***************************************************************************/

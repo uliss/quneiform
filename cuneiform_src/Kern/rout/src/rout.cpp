@@ -870,7 +870,7 @@ Word32 ROUT_GetObjectSize(
 }
 //********************************************************************
 Bool32 ROUT_LoadRec6List(
-		char *rec6AllFilename
+		const char *rec6AllFilename
 		)
 {
 /* Загрузка файла rec6all.dat, в котором

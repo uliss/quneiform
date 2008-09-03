@@ -125,7 +125,7 @@ RECTANGLE rDebugRect;
 int       xDebugVertLine = -1;
 
 static BOOL bGraphicsModeWasChanged = FALSE;
-
+
 void LT_GraphicsOpen (void)
 {
     if (! bGraphicsModeWasChanged)
@@ -134,7 +134,7 @@ void LT_GraphicsOpen (void)
         _setvideomode (_VRES16COLOR);
     }
 }
-
+
 void LT_GraphicsClose (void)
 {
     if (bGraphicsModeWasChanged)
@@ -143,12 +143,12 @@ void LT_GraphicsClose (void)
         bGraphicsModeWasChanged = FALSE;
     }
 }
-
+
 void LT_GraphicsClearScreen (void)
 {
     _clearscreen (_GCLEARSCREEN);
 }
-
+
 # define VIEW_LEFT      (MAX_SCALING * 50)
 # define VIEW_TOP       (MAX_SCALING * 50)
 # define VIEW_RIGHT     (MAX_SCALING * (SCREEN_WIDTH  - 50))
@@ -204,7 +204,7 @@ static void BlockRectangle (BLOCK *p, short fill,
             break;
     }
 }
-
+
 # define SEPOUT_LINE     0
 # define SEPOUT_DASH_1   1
 # define SEPOUT_DASH_2   2
@@ -249,12 +249,12 @@ static void SeparatorOutput (SEPARATOR *pSep,
 
     _setlinestyle (0xffff);
 }
-
+
 static void SeparatorsOutput (int xLeft, int yTop, int nScaling)
 {
 
 }
-
+
 static void RootsUpdate (int xLeft, int yTop, int nScaling)
 {
     ROOT *pRoot;
@@ -282,7 +282,7 @@ static void RootsUpdate (int xLeft, int yTop, int nScaling)
 
     SeparatorsOutput (xLeft, yTop, nScaling);
 }
-
+
 static void BlocksUpdate (int xLeft, int yTop, int nScaling)
 {
     BLOCK *p;
@@ -328,7 +328,7 @@ static void BlocksUpdate (int xLeft, int yTop, int nScaling)
         }
     }
 }
-
+
 static void HystogramUpdate (int xLeft, int yTop, int nScaling)
 {
     char szBuffer [32];
@@ -451,7 +451,7 @@ static void HystogramUpdate (int xLeft, int yTop, int nScaling)
 
     _setcharsize (ts.height, ts.width);
 }
-
+
 static void CurrentStringUpdate (int xLeft, int yTop, int nScaling)
 {
     ROOT *pRoot;
@@ -517,7 +517,7 @@ static void CurrentStringUpdate (int xLeft, int yTop, int nScaling)
     _lineto ((String.xRight        - xLeft) / nScaling,
              (String.yMiddleBottom - yTop)  / nScaling);
 }
-
+
 static void StringsUpdate (int xLeft, int yTop, int nScaling)
 {
     STRING *pString;
@@ -630,7 +630,7 @@ static void StringsUpdate (int xLeft, int yTop, int nScaling)
 
     SeparatorsOutput (xLeft, yTop, nScaling);
 }
-
+
 static void StringsForwardOrderUpdate (int xLeft, int yTop, int nScaling)
 {
     STRING *p;
@@ -665,7 +665,7 @@ static void StringsForwardOrderUpdate (int xLeft, int yTop, int nScaling)
 
     _setcharsize (ts.height, ts.width);
 }
-
+
 static void StringsBackwardOrderUpdate (int xLeft, int yTop, int nScaling)
 {
     STRING *p;
@@ -700,7 +700,7 @@ static void StringsBackwardOrderUpdate (int xLeft, int yTop, int nScaling)
 
     _setcharsize (ts.height, ts.width);
 }
-
+
 static void StringsUpOrderUpdate (int xLeft, int yTop, int nScaling)
 {
     STRING *p;
@@ -735,7 +735,7 @@ static void StringsUpOrderUpdate (int xLeft, int yTop, int nScaling)
 
     _setcharsize (ts.height, ts.width);
 }
-
+
 static void StringsDownOrderUpdate (int xLeft, int yTop, int nScaling)
 {
     STRING *p;
@@ -770,7 +770,7 @@ static void StringsDownOrderUpdate (int xLeft, int yTop, int nScaling)
 
     _setcharsize (ts.height, ts.width);
 }
-
+
 static void RasterUpdate (int xLeft, int yTop, int nScaling)
 {
     int x, y;
@@ -824,7 +824,7 @@ static void RasterUpdate (int xLeft, int yTop, int nScaling)
                  (y * nStep            - yTop)  / nScaling);
     }
 }
-
+
 static void BreakingUpdate (int xLeft, int yTop, int nScaling)
 {
     int x, y;
@@ -895,14 +895,14 @@ static void BreakingUpdate (int xLeft, int yTop, int nScaling)
             ((y + 1)            * nStep - yTop)  / nScaling);
     }
 }
-
-void LT_GraphicsTitle (char *pTitle)
+
+void LT_GraphicsTitle (const char *pTitle)
 {
     _setcolor (15);
     _settextalign (_CENTER, _HALF);
     _grtext (320, 450, pTitle);
 }
-
+
 
 int LT_Getch (void)
 {
@@ -918,12 +918,12 @@ char c;
     return ((int)c);
 }
 
-
+
 static int yCurrentTop  = 0;
 static int xCurrentLeft = 0;
 static int nCurrentScaling = MAX_SCALING;
 
-static void ScreenOutput (char *pTitle,
+static void ScreenOutput (const char *pTitle,
                      void (*pProcUpdate) (int xLeft, int yTop, int nScaling))
 {
     int nWidth   = 3000;
@@ -1023,13 +1023,13 @@ static void ScreenOutput (char *pTitle,
         while (!bNeedUpdateScreen);
     }
 }
-
+
 void LT_GraphicsRootsOutput (char *pTitle)
 {
     ScreenOutput (pTitle, RootsUpdate);
 }
 
-void LT_GraphicsBlocksOutput (char *pTitle)
+void LT_GraphicsBlocksOutput (const char *pTitle)
 {
     BlocksSetRootsNumbers ();
 
@@ -1081,7 +1081,7 @@ void LT_GraphicsBreakingOutput (char *pTitle)
 {
     ScreenOutput (pTitle, BreakingUpdate);
 }
-
+
 
 # endif
 

@@ -303,9 +303,9 @@ Bool16 GetScanRes_LenPrs(char *ImageName);
 extern char NameFuncErr[100],Buff[60]; extern short NumErr;
 void PutMess(int num, char *str),
      ClearERR(void),
-     WAR(int num, char *str),
+     WAR(int num, const char *str),
      ERRO(int num,char *str);
-void ERR(int num,char *str);
+void ERR(int num, const char *str);
 int  GetERR(char *NameFunc);
 
 #include "undef32.h"

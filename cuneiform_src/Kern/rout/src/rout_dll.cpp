@@ -375,7 +375,7 @@ Bool32 MyFree(Handle hMem)
 }
 
 //*********************************************************************/
-void MyDebugPrint(char *format,...)
+void MyDebugPrint(const char *format,...)
 {
 // Отладочная печать. См. макру DEBUG_PRINT.
 
@@ -403,7 +403,7 @@ void ClearError()
 	gwLowRC_rout = 0;
 }
 //********************************************************************
-void NotImplemented(char *file, long line)
+void NotImplemented(const char *file, long line)
 {
 	gFile = file;
 	gLine = line;
@@ -412,7 +412,7 @@ void NotImplemented(char *file, long line)
 	gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;
 }
 //********************************************************************
-void WrongArgument(char *file, long line)
+void WrongArgument(const char *file, long line)
 {
 	gFile = file;
 	gLine = line;
@@ -421,7 +421,7 @@ void WrongArgument(char *file, long line)
 	gwLowRC_rout = IDS_ERR_WRONG_ARGUMENT;
 }
 //********************************************************************
-void NoMemory(char *file, long line)
+void NoMemory(const char *file, long line)
 {
 	gFile = file;
 	gLine = line;
@@ -430,7 +430,7 @@ void NoMemory(char *file, long line)
 	gwLowRC_rout = IDS_ERR_NO_MEMORY;
 }
 //********************************************************************
-void ErrOpenFile(char *file, long line)
+void ErrOpenFile(const char *file, long line)
 {
 	gFile = file;
 	gLine = line;
@@ -439,7 +439,7 @@ void ErrOpenFile(char *file, long line)
 	gwLowRC_rout = IDS_ERR_OPEN_FILE;
 }
 //********************************************************************
-void ErrWritingToFile(char *file, long line)
+void ErrWritingToFile(const char *file, long line)
 {
 	gFile = file;
 	gLine = line;
@@ -448,7 +448,7 @@ void ErrWritingToFile(char *file, long line)
 	gwLowRC_rout = IDS_ERR_WRITING_TO_FILE;
 }
 //********************************************************************
-void ErrCloseFile(char *file, long line)
+void ErrCloseFile(const char *file, long line)
 {
 	gFile = file;
 	gLine = line;
@@ -466,7 +466,7 @@ void ErrCreateDirectory(char *file, long line)
 	gwLowRC_rout = IDS_ERR_CREATE_DIRECTORY;
 }
 //********************************************************************
-void ErrPageNotLoaded(char *file, long line)
+void ErrPageNotLoaded(const char *file, long line)
 {
 	gFile = file;
 	gLine = line;
@@ -475,7 +475,7 @@ void ErrPageNotLoaded(char *file, long line)
 	gwLowRC_rout = IDS_ERR_PAGE_NOT_LOADED;
 }
 //********************************************************************
-void ErrObjectNotFound(char *file, long line)
+void ErrObjectNotFound(const char *file, long line)
 {
 	gFile = file;
 	gLine = line;
@@ -484,7 +484,7 @@ void ErrObjectNotFound(char *file, long line)
 	gwLowRC_rout = IDS_ERR_OBJECT_NOT_FOUND;
 }
 //********************************************************************
-void ErrPossibleLossOfData(char *file, long line)
+void ErrPossibleLossOfData(const char *file, long line)
 {
 	gFile = file;
 	gLine = line;
@@ -493,7 +493,7 @@ void ErrPossibleLossOfData(char *file, long line)
 	gwLowRC_rout = IDS_ERR_POSSIBLE_LOSS_OF_DATA;
 }
 //********************************************************************
-void ErrPictureData(char *file, long line)
+void ErrPictureData(const char *file, long line)
 {
 	gFile = file;
 	gLine = line;
@@ -502,7 +502,7 @@ void ErrPictureData(char *file, long line)
 	gwLowRC_rout = IDS_ERR_PICTURE_DATA;
 }
 //********************************************************************
-void ErrLoadAlphabet(char *file, long line)
+void ErrLoadAlphabet(const char *file, long line)
 {
 	gFile = file;
 	gLine = line;
@@ -511,7 +511,7 @@ void ErrLoadAlphabet(char *file, long line)
 	gwLowRC_rout = IDS_ERR_LOAD_ALPHABET;
 }
 //********************************************************************
-void ErrLoadRec6List(char *file, long line)
+void ErrLoadRec6List(const char *file, long line)
 {
 	gFile = file;
 	gLine = line;
@@ -520,7 +520,7 @@ void ErrLoadRec6List(char *file, long line)
 	gwLowRC_rout = IDS_ERR_LOAD_REC6LIST;
 }
 //********************************************************************
-void ErrUpdateActiveAlphabet(char *file, long line)
+void ErrUpdateActiveAlphabet(const char *file, long line)
 {
 	gFile = file;
 	gLine = line;

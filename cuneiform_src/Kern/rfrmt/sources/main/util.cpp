@@ -317,7 +317,7 @@ void * realloc_m(void *ptr_old, uint size_old, uint size_new)
 //}
 
 //== ‘™…ˆŸ  ˜ˆŠ€• ==
-void ERR(int num, char  *str)
+void ERR(int num, const char  *str)
 { char str1[60];
   WAR(num,str);
   #ifdef WIN_MOD
@@ -347,7 +347,7 @@ void ERRO(int num,char *str)
 
 extern char NameFuncErr[100]; extern  short NumErr;
 
-void WAR(int num, char *str)
+void WAR(int num, const char *str)
 {
   strcpy_m(NameFuncErr,str); NumErr=num;
 }

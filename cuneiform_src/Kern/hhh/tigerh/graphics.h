@@ -86,7 +86,7 @@ void _gettextsettings (struct textsettings *ts);
 #define _HALF 3
 void _settextalign (int right,int top);
 void _setcharsize (int n1, int n2);
-void _grtext (int x,int y,char * text);
+void _grtext (int x, int y, const char * text);
 unsigned _getlinestyle ();
 void break_point_data (char * c);
 void write_prot ();

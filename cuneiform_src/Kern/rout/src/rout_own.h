@@ -145,7 +145,7 @@ EXTERN FNCFIOSeekFilePointer	CFIO_Seek		VAL(0);
 
 //*****************************************************************
 // Для отладочной печати
-EXTERN char *gFile	VAL(0);	// Имя файла CPP из __FILE__
+EXTERN const char *gFile	VAL(0);	// Имя файла CPP из __FILE__
 EXTERN long gLine	VAL(0);	// Номер строки из __LINE
 
 // Отладочная опция для проверки межмодульных связей
@@ -436,22 +436,22 @@ Handle MyLock(Handle hMem);
 Bool32 MyUnlock(Handle hMem);
 Bool32 MyFree(Handle hMem);
 
-void MyDebugPrint(char *format,...);
+void MyDebugPrint(const char *format,...);
 void ClearError();
-void NotImplemented(char *file, long line);
-void WrongArgument(char *file, long line);
-void NoMemory(char *file, long line);
+void NotImplemented(const char *file, long line);
+void WrongArgument(const char *file, long line);
+void NoMemory(const char *file, long line);
 
-void ErrOpenFile(char *file, long line);
-void ErrWritingToFile(char *file, long line);
-void ErrCloseFile(char *file, long line);
-void ErrPageNotLoaded(char *file, long line);
-void ErrObjectNotFound(char *file, long line);
-void ErrPossibleLossOfData(char *file, long line);
-void ErrPictureData(char *file, long line);
-void ErrLoadAlphabet(char *file, long line);
-void ErrLoadRec6List(char *file, long line);
-void ErrUpdateActiveAlphabet(char *file, long line);
+void ErrOpenFile(const char *file, long line);
+void ErrWritingToFile(const char *file, long line);
+void ErrCloseFile(const char *file, long line);
+void ErrPageNotLoaded(const char *file, long line);
+void ErrObjectNotFound(const char *file, long line);
+void ErrPossibleLossOfData(const char *file, long line);
+void ErrPictureData(const char *file, long line);
+void ErrLoadAlphabet(const char *file, long line);
+void ErrLoadRec6List(const char *file, long line);
+void ErrUpdateActiveAlphabet(const char *file, long line);
 
 BOOL InitMemory(Byte *memStart, long sizeMem);
 BOOL SetTableTextSeparators(char* s);

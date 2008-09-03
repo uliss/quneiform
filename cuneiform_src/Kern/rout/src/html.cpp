@@ -228,7 +228,7 @@ return TRUE;
 //********************************************************************
 static BOOL BeginParagraph(ULONG alignment)
 {
-	char *p = 0;
+	const char *p = 0;
 	char buf[80] = "";
 
 switch ( alignment & ALIGN_MASK)

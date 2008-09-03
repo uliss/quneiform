@@ -248,7 +248,7 @@ return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RFRMT_FUNC(Bool32) RFRMT_SetImportData(Word32 dwType, void * pData)
+RFRMT_FUNC(Bool32) RFRMT_SetImportData(Word32 dwType, const void * pData)
 {
  Bool32 rc = TRUE;
 
@@ -262,9 +262,9 @@ RFRMT_FUNC(Bool32) RFRMT_SetImportData(Word32 dwType, void * pData)
 	CASE_DATA(RFRMT_Bool32_Italic,Bool32,gbItalic);
 	CASE_DATA(RFRMT_Bool32_Size,Bool32,gbSize);
 	CASE_DATA(RFRMT_Word32_Format,Word32,gnFormat);
-	CASE_PDATA(RFRMT_char_SerifName,char *,gpSerifName);
-	CASE_PDATA(RFRMT_char_SansSerifName,char *,gpSansSerifName);
-	CASE_PDATA(RFRMT_char_CourierName,char *,gpCourierName);
+	CASE_PDATA(RFRMT_char_SerifName,const char *,gpSerifName);
+	CASE_PDATA(RFRMT_char_SansSerifName,const char *,gpSansSerifName);
+	CASE_PDATA(RFRMT_char_CourierName,const char *,gpCourierName);
 	CASE_DATA(RFRMT_Word8_UnRecogSymbol,Word8,UnRecogSymbol);
 	CASE_DATA(RFRMT_Word32_Language,Word32,gnLanguage);// !!!Art - язык распознавания понадобился для умолчания в редактор
 	 default:

@@ -2480,7 +2480,7 @@ RSTR_FUNC(Bool32)  RSTR_GetExportData (Word32 dwType, void * pData)
 return rc;
 }
 
-RSTR_FUNC(Bool32)  RSTR_SetImportData (Word32 dwType, void * pData)
+RSTR_FUNC(Bool32)  RSTR_SetImportData (Word32 dwType, const void * pData)
 {
         wLowRC = RSTR_ERR_NO;
 #define CASE_DATA(a,b,c)        case a: c = *(b *)pData; break

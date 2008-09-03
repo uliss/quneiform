@@ -158,7 +158,7 @@ RSTR_FUNC(Bool32)  RSTR_Done(void);
 RSTR_FUNC(Word32)  RSTR_GetReturnCode(void);
 RSTR_FUNC(Word8 *) RSTR_GetReturnString(Word32 dwError);
 RSTR_FUNC(Bool32)  RSTR_GetExportData (Word32 dwType, void * pData);
-RSTR_FUNC(Bool32)  RSTR_SetImportData (Word32 dwType, void * pData);
+RSTR_FUNC(Bool32)  RSTR_SetImportData (Word32 dwType, const void * pData);
 ///
 enum RSTRFunctions
     {

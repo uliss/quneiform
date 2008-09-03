@@ -128,7 +128,7 @@ void LT_GraphicsOpen (void) // "bGraphicsModeWasChanged=ON"
         _setvideomode (_VRES16COLOR); //_setvideomode=={}; :)
     }
 }
-
+
 void LT_GraphicsClose (void) // "bGraphicsModeWasChanged=OFF"
 {
     if (bGraphicsModeWasChanged)
@@ -137,12 +137,12 @@ void LT_GraphicsClose (void) // "bGraphicsModeWasChanged=OFF"
         bGraphicsModeWasChanged = FALSE;
     }
 }
-
+
 void LT_GraphicsClearScreen (void)
 {
     _clearscreen (_GCLEARSCREEN); // аргумент фиктивен
 }
-
+
 
 // окошечко для просмотра: отступим на 50 пикс. от границ
 # define VIEW_LEFT      (MAX_SCALING * 50)
@@ -385,7 +385,7 @@ static void SeparatorOutput (SEPARATOR *pSep,
 
     _setlinestyle (0xffff);
 }
-
+
 static void SeparatorsOutput (int xLeft, int yTop, int nScaling)
 {
     int i;
@@ -587,7 +587,7 @@ static void BlocksUpdate (int xLeft, int yTop, int nScaling)
         }
     }
 }
-
+
 static void HystogramUpdate (int xLeft, int yTop, int nScaling)
 {
     char szBuffer [32];
@@ -722,7 +722,7 @@ static void HystogramUpdate (int xLeft, int yTop, int nScaling)
 
     _setcharsize (ts.height, ts.width);
 }
-
+
 static void SpecialCuttingUpdate (int xLeft, int yTop, int nScaling)
 {
     int i;
@@ -767,7 +767,7 @@ static void SpecialCuttingUpdate (int xLeft, int yTop, int nScaling)
         );
     }
 }
-
+
 static void SB_MatrixUpdate (int xLeft, int yTop, int nScaling)
 {
     int nFactor;
@@ -806,7 +806,7 @@ static void SB_MatrixUpdate (int xLeft, int yTop, int nScaling)
                 - yTop)  / nScaling);
     }
 }
-
+
 static void WSB_HystogramUpdate
 (
     int xLeft,
@@ -982,12 +982,12 @@ static void WSB_Hystogram_1_Update (int xLeft, int yTop, int nScaling)
 
     WSB_HystogramUpdate (xLeft, yTop, nScaling, pWSB_Hyst1, nMaxValue);
 }
-
+
 static void WSB_Hystogram_2_Update (int xLeft, int yTop, int nScaling)
 {
     WSB_HystogramUpdate (xLeft, yTop, nScaling, pWSB_Hyst2, nPageHeight);
 }
-
+
 static void WSB_PointsUpdate (int xLeft, int yTop, int nScaling)
 {
     int i;
@@ -1011,7 +1011,7 @@ static void WSB_PointsUpdate (int xLeft, int yTop, int nScaling)
         );
     }
 }
-
+
 static void PictureRemovingConditionsUpdate (int xLeft, int yTop, int nScaling)
 {
     int nFactor;
@@ -1212,7 +1212,7 @@ static void PictureRemovingConditionsUpdate (int xLeft, int yTop, int nScaling)
 
     free (pMatrix);
 }
-
+
 void ColumnChart
 (
     int xLeft,
@@ -1289,7 +1289,7 @@ void ColumnChart
 
     _setcharsize (ts.height, ts.width);
 }
-
+
 # define B2SX(x) (((x) * nFactor - xLeft) / nScaling)
 # define B2SY(y) (((y) * nFactor - yTop)  / nScaling)
 
@@ -1471,7 +1471,7 @@ static void ShowBlock (int xLeft, int yTop, int nScaling)
 
 
 }
-
+
 static BLOCK *pBlocksListBegin;
 static int    oBlockNext;
 
@@ -1510,7 +1510,7 @@ static void BlocksListUpdate (int xLeft, int yTop, int nScaling)
     _setcharsize (ts.height, ts.width);
 }
 /************** ATAL 940414
-
+
 static void TreeUpdate (int xLeft, int yTop, int nScaling)
 {
     BLOCK *p, *q;
@@ -1557,7 +1557,7 @@ static void TreeUpdate (int xLeft, int yTop, int nScaling)
     _setcharsize (ts.height, ts.width);
 }
 *************************/
-
+
 static void BlocksOrderUpdate (int xLeft, int yTop, int nScaling)
 {
     BLOCK *p;
@@ -1592,7 +1592,7 @@ static void BlocksOrderUpdate (int xLeft, int yTop, int nScaling)
 
     _setcharsize (ts.height, ts.width);
 }
-
+
 static void CurrentStringUpdate (int xLeft, int yTop, int nScaling)
 {
     ROOT *pRoot;
@@ -1658,7 +1658,7 @@ static void CurrentStringUpdate (int xLeft, int yTop, int nScaling)
     _lineto ((String.xRight        - xLeft) / nScaling,
              (String.yMiddleBottom - yTop)  / nScaling);
 }
-
+
 static void StringsUpdate (int xLeft, int yTop, int nScaling)
 {
     STRING *pString;
@@ -1771,7 +1771,7 @@ static void StringsUpdate (int xLeft, int yTop, int nScaling)
 
     SeparatorsOutput (xLeft, yTop, nScaling);
 }
-
+
 static void StringsForwardOrderUpdate (int xLeft, int yTop, int nScaling)
 {
     STRING *p;
@@ -1806,7 +1806,7 @@ static void StringsForwardOrderUpdate (int xLeft, int yTop, int nScaling)
 
     _setcharsize (ts.height, ts.width);
 }
-
+
 static void StringsBackwardOrderUpdate (int xLeft, int yTop, int nScaling)
 {
     STRING *p;
@@ -1841,7 +1841,7 @@ static void StringsBackwardOrderUpdate (int xLeft, int yTop, int nScaling)
 
     _setcharsize (ts.height, ts.width);
 }
-
+
 static void StringsUpOrderUpdate (int xLeft, int yTop, int nScaling)
 {
     STRING *p;
@@ -1876,7 +1876,7 @@ static void StringsUpOrderUpdate (int xLeft, int yTop, int nScaling)
 
     _setcharsize (ts.height, ts.width);
 }
-
+
 static void StringsDownOrderUpdate (int xLeft, int yTop, int nScaling)
 {
     STRING *p;
@@ -1911,7 +1911,7 @@ static void StringsDownOrderUpdate (int xLeft, int yTop, int nScaling)
 
     _setcharsize (ts.height, ts.width);
 }
-
+
 static void RasterUpdate (int xLeft, int yTop, int nScaling)
 {
     int x, y;
@@ -1965,7 +1965,7 @@ static void RasterUpdate (int xLeft, int yTop, int nScaling)
                  (y * nStep            - yTop)  / nScaling);
     }
 }
-
+
 static void BreakingUpdate (int xLeft, int yTop, int nScaling)
 {
     int x, y;
@@ -2183,7 +2183,7 @@ void LT_GraphicsPageMatrixOutput (char *pTitle)
     ScreenOutput (pTitle, PageMatrixUpdate);
 }
 
-void LT_GraphicsBlocksOutput (char *pTitle)
+void LT_GraphicsBlocksOutput (const char *pTitle)
 {
     BlocksSetRootsNumbers ();
 
@@ -2370,7 +2370,7 @@ void LT_GraphicsBlockOutput2 (char *pTitle)
 
     LT_GraphicsTitle (pTitle);
 }
-
+
 void LT_GraphicsPictureRemovingConditionsOutput2 (char *pTitle)
 {
     PictureRemovingConditionsUpdate (0, 0, MAX_SCALING);
@@ -2381,13 +2381,13 @@ void LT_ShowBlock (char *pTitle)
     ShowBlock(0, 0, MAX_SCALING);
     LT_GraphicsTitle (pTitle);
 }
-
+
 void LT_GraphicsDD_RemovingConditionsOutput2 (char *pTitle)
 {
     DD_RemovingConditionsUpdate (0, 0, MAX_SCALING);
     LT_GraphicsTitle (pTitle);
 }
-
+
 void LT_GraphicsLinearRemovingConditionsOutput2 (char *pTitle)
 {
     int xLeft, yTop, nScaling;

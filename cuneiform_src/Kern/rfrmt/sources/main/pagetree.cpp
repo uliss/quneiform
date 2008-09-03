@@ -161,7 +161,7 @@ typedef struct tagSETUP_GENERATE_TREE
 
 Int16   FlagOdinSectorOdnaColonka = FALSE;
 Int16   MaxLev,NumColTrue,RegimExt;
-char    *errRtf="ED_RTF";
+const char    *errRtf="ED_RTF";
 Rect16  *RectFragm;
 FRAME   *ArrFrm;
 
@@ -394,7 +394,7 @@ int statis2(TYPE *arr,int n,TYPE *med,TYPE *mod,int SizeWin,int *NumMod)
 	int i,PosExtr,num; long ave=0,sig=0;
 	int *his,mi=32000,ma=-32000,nmax,modd=-32000,ki,sum=0,k=(n+1)>>1;
 	//---Расчет моды,медианы по гистограмме---
-	int medd=-32000; char *err="statis2";
+	int medd=-32000; const char *err="statis2";
 
 	mi=MinArr(arr,n,&PosExtr);
 	ma=MaxArr(arr,n,&PosExtr);

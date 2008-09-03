@@ -215,7 +215,7 @@ void _settextalign (int right,int top)
 	}
 };
 void _setcharsize (int n1, int n2){};
-void _grtext (int x,int y,char * text)
+void _grtext (int x, int y, const char * text)
 {
 	Point16 p = {x,y};
 	LDPUMA_DrawString(NULL,&p,text,swAlign,swColor,120/*12*/,PUMA_MODULE_RBLOCK);

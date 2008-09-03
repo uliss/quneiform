@@ -129,10 +129,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     EXTERN Word32 gnPictures			VAL(1);
     EXTERN Word32 gnTables				VAL(1);
 
-    EXTERN char * gpUserDictName		VAL("");
-    EXTERN char * gpSerifName			VAL("Times New Roman");
-    EXTERN char * gpSansSerifName		VAL("Arial");
-    EXTERN char * gpCourierName			VAL("Courier New");
+    EXTERN const char * gpUserDictName		VAL("");
+    EXTERN const char * gpSerifName			VAL("Times New Roman");
+    EXTERN const char * gpSansSerifName		VAL("Arial");
+    EXTERN const char * gpCourierName			VAL("Courier New");
 
     EXTERN char	  szInputFileName[260];
     EXTERN PWord8 gpInputDIB			VAL(NULL);

@@ -210,7 +210,7 @@ DEC_FUNC(void,  DPUMA_DrawFocusRect,(Handle wnd,Rect16 * lpRect));
 DEC_FUNC(Bool32,  DPUMA_RegVariable,(Handle owner, const char * lpName,void * lpData, const char * lpType));
 DEC_FUNC(void,  DPUMA_UnregVariable,(void * lpData));
 DEC_FUNC(void *,DPUMA_GetDIBptr,(Handle wnd));
-DEC_FUNC(void,  DPUMA_DrawString,(Handle wnd,Point16 * start,char * string, Int32 align, Word32 rgb, Int16 size, Word32 key));
+DEC_FUNC(void,  DPUMA_DrawString,(Handle wnd, Point16 * start, const char * string, Int32 align, Word32 rgb, Int16 size, Word32 key));
 DEC_FUNC(void,  DPUMA_DeleteStrings,(Handle wnd, Word32 key));
 DEC_FUNC(void,  DPUMA_DrawLineTip,(Handle wnd,Point16 * start, Point16 * end, Int32 skew, Word32 rgb, Int16 pen, Word32 key, const char *pTip));
 DEC_FUNC(void,  DPUMA_DrawRectTip,(Handle wnd,Rect16 * rect, Int32 skew, Word32 rgb, Int16 pen, Word32 key, const char *pTip));

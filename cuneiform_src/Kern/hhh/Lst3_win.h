@@ -796,7 +796,7 @@ char *get1_param(char *str,char *param,int max_len);
   long na=0,ko=-1,pos1; FILE1 *fip,*out,*out_rb;
   long PRSMAX;
   void *low; /*нижн€€ граница загрузки программы - дл€ контрол€*/
-  char *s1="Esc - continue;",*s2="Up,Down,Left,Right - Move image;",
+  const char *s1="Esc - continue;",*s2="Up,Down,Left,Right - Move image;",
        *s3="Ctrl/<Up,Down,Left,Right> - Scale image";
   const char *abcd="|\\-/";
   int count=0,rou=0;

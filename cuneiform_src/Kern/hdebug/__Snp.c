@@ -577,7 +577,7 @@ void * LDPUMA_GetDIBptr(Handle wnd)
 return NULL;
 };
 //////////////////////////////////////////////
-void  LDPUMA_DrawString(Handle wnd,Point16* start,char * string, Int32 align,
+void  LDPUMA_DrawString(Handle wnd,Point16* start, const char * string, Int32 align,
       Word32 rgb_color,Int16 size,Word32 key )
 {
 	if(DrawString)

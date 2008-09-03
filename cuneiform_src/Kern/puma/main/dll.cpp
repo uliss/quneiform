@@ -204,10 +204,10 @@ PUMA_FUNC(Bool32) PUMA_GetExportData(Word32 dwType, void * pData)
 	CASE_DATA(PUMA_Bool32_Italic,Bool32,gbItalic);
 	CASE_DATA(PUMA_Bool32_Size,Bool32,gbSize);
 	CASE_DATA(PUMA_Bool32_Format,Bool32,gbFormat);
-	CASE_DATA(PUMA_pchar_UserDictName,char *,gpUserDictName);
-	CASE_DATA(PUMA_pchar_SerifName,char *,gpSerifName);
-	CASE_DATA(PUMA_pchar_SansSerifName,char *,gpSansSerifName);
-	CASE_DATA(PUMA_pchar_CourierName,char *,gpCourierName);
+	CASE_DATA(PUMA_pchar_UserDictName,const char *,gpUserDictName);
+	CASE_DATA(PUMA_pchar_SerifName,const char *,gpSerifName);
+	CASE_DATA(PUMA_pchar_SansSerifName,const char *,gpSansSerifName);
+	CASE_DATA(PUMA_pchar_CourierName,const char *,gpCourierName);
 	CASE_DATA(PUMA_Word32_Pictures,Word32,gnPictures);
 	CASE_DATA(PUMA_Word32_Tables,Word32,gnTables);
 	CASE_DATA(PUMA_pchar_Version,char *,s_szVersion);
