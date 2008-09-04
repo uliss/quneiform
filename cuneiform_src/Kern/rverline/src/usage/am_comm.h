@@ -70,9 +70,9 @@ typedef int (*FN_AM_Console) (const char * lpFormat,...);
 typedef int (*FN_AM_ConsolN) (const char * lpFormat,...);
 typedef void (*FN_AM_MessageBoxOk) (const char * lpFormat,...);
 /*------------own functions---------------------------------------------------*/
-int AM_OpenRes_rv_fte (int Code, char *pFile);
-int AM_SaveRes_rv_fte (int Code, char *pFile);
-int AM_WriteRes_rv_fte (int Code, char *pStr);
+int AM_OpenRes_rv_fte (int Code, const char *pFile);
+int AM_SaveRes_rv_fte (int Code, const char *pFile);
+int AM_WriteRes_rv_fte (int Code, const char *pStr);
 void CloseAllRes ();
 Bool   AM_InitComm (Word16 wRltOwnCode);
 void AM_DoneComm ();

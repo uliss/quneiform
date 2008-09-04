@@ -78,7 +78,7 @@ static Word32 wRltMainCode;
 static FILE *fRes[MaxResCodes];
 static int   cRes[MaxResCodes];
 /*----------------------------------------------------------------------------*/
-FILE * MyOpenFile (int k, char *pFile)
+FILE * MyOpenFile (int k, const char *pFile)
 {
 	char Name[256], a[256];
 	strcpy (Name, pFile);
@@ -90,7 +90,7 @@ FILE * MyOpenFile (int k, char *pFile)
 	return fopen (Name, "a");
 }
 /*----------------------------------------------------------------------------*/
-int AM_OpenRes_rv_fte (int Code, char *pFile)
+int AM_OpenRes_rv_fte (int Code, const char *pFile)
 {
 	int i, k;
 	for (i=0, k=-1; i<MaxResCodes; i++)
@@ -111,7 +111,7 @@ int AM_OpenRes_rv_fte (int Code, char *pFile)
 	return RV_TRUE;
 }
 /*----------------------------------------------------------------------------*/
-int AM_SaveRes_rv_fte (int Code, char *pFile)
+int AM_SaveRes_rv_fte (int Code, const char *pFile)
 {
 	int i, k;
 	for (i=0, k=-1; i<MaxResCodes; i++)
@@ -130,7 +130,7 @@ int AM_SaveRes_rv_fte (int Code, char *pFile)
 	return RV_TRUE;
 }
 /*----------------------------------------------------------------------------*/
-int AM_WriteRes_rv_fte (int Code, char *pStr)
+int AM_WriteRes_rv_fte (int Code, const char *pStr)
 {
 	int i, k;
 	for (i=0, k=-1; i<MaxResCodes; i++)

@@ -636,7 +636,7 @@ if( language==LANG_TURKISH )
 return TRUE;
 }
 
-static char *tabevn1[LANG_TOTAL]={
+static const char *tabevn1[LANG_TOTAL]={
 "rec1.dat",         // LANG_ENGLISH		0
 "rec1.dat",         // LANG_GERMAN		1
 "rec1.dat",         // LANG_FRENCH		2
@@ -666,7 +666,8 @@ static char *tabevn1[LANG_TOTAL]={
 "rec1blt.dat",      // LANG_ESTONIAN	26
 "rec1tur.dat"       // LANG_TURKISH		27
 };
-static char *tabevn2[LANG_TOTAL]={
+
+static const char *tabevn2[LANG_TOTAL]={
 "rec2.dat",         // LANG_ENGLISH		0
 "rec2.dat",         // LANG_GERMAN		1
 "rec2.dat",         // LANG_FRENCH		2

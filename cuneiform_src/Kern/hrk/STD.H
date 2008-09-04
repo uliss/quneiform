@@ -374,7 +374,7 @@ STD_FUNC(const char*) stdGetProperty(const char* pKey);
       Int32 lData;
    } StdError;
 
-   STD_FUNC( Int32 ) stdSetError( Int32 nErrorCode, char* cond, char* file,
+   STD_FUNC( Int32 ) stdSetError( Int32 nErrorCode, const char* cond, const char* file,
       Int32 nline, Int32 lData
 #ifdef __cplusplus
 	  = 0

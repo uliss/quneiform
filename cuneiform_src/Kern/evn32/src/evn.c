@@ -187,7 +187,7 @@ Int32 evn_tab_init( void )
 }
 
 
-Int32 evn_tab_init_prn( char *file1, char *file2 )
+Int32 evn_tab_init_prn(const char *file1, const char *file2 )
 {
   Int32  h;
   Int32  size;
@@ -288,7 +288,7 @@ return ( EVNInitPRN(mem) & EVNInitHND(mem) );
 }
 
 
-EVN_FUNC(Bool32) EVNInitLanguage( char *tabevn1, char *tabevn2, Word8 lang)
+EVN_FUNC(Bool32) EVNInitLanguage(const char *tabevn1, const char *tabevn2, Word8 lang)
 {
 
 if( evn_active_prn && language!=lang &&

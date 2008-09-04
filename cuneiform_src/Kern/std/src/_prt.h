@@ -82,7 +82,7 @@ class stdPrtFILE
 public:
    operator FILE* (void) const { return hfile; };
    stdPrtFILE() {hfile = NULL;};
-   stdPrtFILE(char* opts)
+   stdPrtFILE(const char* opts)
    {
       hfile = NULL;
       char path_name[_MAX_PATH] = {0};
@@ -100,7 +100,7 @@ public:
          hfile=fopen( (char*)xFname, opts );
       };
    };
-   stdPrtFILE(char* name, char* opts)
+   stdPrtFILE(const char* name, const char* opts)
    {
       XPath xstdPrtPath;
       xstdPrtPath = stdGetHomeDirectory();
@@ -113,7 +113,7 @@ public:
       if (hfile)
          fclose(hfile);
    };
-   void Open(char* name)
+   void Open(const char* name)
    {
       if(name)
          hfile=fopen( name, "rt" );

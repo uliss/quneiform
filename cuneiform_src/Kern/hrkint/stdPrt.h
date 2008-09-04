@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 typedef Int32 HEvent32;
 typedef struct tagStdPrtEvent
 {
-   char*  szFormat;  // printf like format
+   char  *szFormat;  // printf like format
    Int32    nFlags;
 #define SPE_PUBLIC   0x0001 // отметить в общем протоколе
 #define SPE_WAIT     0x0002 // дождаться завершения записи события

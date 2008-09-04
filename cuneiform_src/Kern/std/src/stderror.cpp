@@ -86,7 +86,7 @@ static _StdErrorEx __er_loop[_LoopLen]={0}; // помним подробности про n последни
 static StdError __er_missed={ER_FORGOTTEN, "<...no details...>",0};
 
 STD_FUNC( Int32 ) stdSetError(
-   Int32 nErrorCode, char* cond, char* file,
+   Int32 nErrorCode, const char* cond, const char* file,
    Int32 nline, Int32 lData )
 {
    _StdErrorEx& see =  __er_loop[nErrCount % _LoopLen];

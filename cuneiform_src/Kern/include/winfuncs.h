@@ -111,7 +111,7 @@ HGDIOBJ SelectObject(HDC hdc, HGDIOBJ hgdiobj);
 LPTSTR lstrcat(LPTSTR lpString1, LPTSTR lpString2);
 int lstrlen(LPCTSTR lpString);
 int lstrcmp(LPCTSTR lpString1, LPCTSTR lpString2);
-LPTSTR lstrcpy(LPTSTR lpString1, LPTSTR lpString2);
+LPTSTR lstrcpy(LPTSTR lpString1, LPCTSTR lpString2);
 int wsprintf(LPTSTR lpOut, LPCTSTR lpFmt, ...);
 int lstrcmpi(LPCTSTR lpString1, LPCTSTR lpString2);
 

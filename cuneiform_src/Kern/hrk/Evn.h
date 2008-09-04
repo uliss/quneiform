@@ -112,7 +112,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    EVN_FUNC(Int32)  EVNRecog_lp( /* ExtComponent*/CCOM_comp *ec, Word8   *lp,
         Word16 lth, Word8   *res);
    EVN_FUNC(Word8*) EVN_GetSegmentPool(void);
-   EVN_FUNC(Bool32) EVNInitLanguage( char *tabevn1, char *tabevn2,Word8 lang);
+   EVN_FUNC(Bool32) EVNInitLanguage(const char *tabevn1, const char *tabevn2, Word8 lang);
    EVN_FUNC(Bool32) EVNSetLanguage( Word8 lang);
 
 // error code

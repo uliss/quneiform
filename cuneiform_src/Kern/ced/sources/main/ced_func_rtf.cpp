@@ -613,7 +613,7 @@ BOOL PutRtfChar(struct StrRtfOut far *rtf,BYTE CurChar)
     Write the rtf control text to rtf output device.  The control text should
     be NULL terminated.  The next argument provide control parameter type.
 ******************************************************************************/
-BOOL WriteRtfControl(struct StrRtfOut far *rtf,char* control,int type, double val)
+BOOL WriteRtfControl(struct StrRtfOut far *rtf, const char* control, int type, double val)
 {
     char string[20];
 
@@ -1423,7 +1423,7 @@ BOOL WriteRtfParaFmt(struct StrRtfOut far *rtf,CEDParagraph* NewPfmt,CEDParagrap
     Write the rtf text to output.  This routine scans the text stream. If
     any special character are found, they are preceede with a '\' character.
 ******************************************************************************/
-BOOL WriteRtfText(struct StrRtfOut far *rtf,char* text,int TextLen)
+BOOL WriteRtfText(struct StrRtfOut far *rtf, const char* text, int TextLen)
 {
     int i;
     BYTE CurChar;

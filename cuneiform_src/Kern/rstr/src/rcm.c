@@ -138,7 +138,7 @@ void    correct_let_tables(void);
 extern void DFon_NewPage(char*);
 extern void DFON_Done(void);
 // from EVN.DLL
-extern Bool32   EVNInitLanguage( char *tabevn1, char *tabevn2, Word8 lang);
+extern Bool32   EVNInitLanguage(const char *tabevn1, const char *tabevn2, Word8 lang);
 extern Bool32   EVNSetLanguage( Word8 lang);
 extern Bool32   EVNSetAlphabet(   char*     char_tbl_put_to   );
 // from PROP.C

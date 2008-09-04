@@ -457,7 +457,7 @@ struct StrRtfFont {                       // font table in an rtf file
 #define ROFLAG_IN_SUBSCR      0x8      // in subscript group
 
 BOOL BeginRtfGroup(/*PTERWND w,*/struct StrRtfOut *rtf);
-BOOL WriteRtfControl(/*PTERWND w,*/struct StrRtfOut *rtf,char* control,int type, double val);
+BOOL WriteRtfControl(/*PTERWND w,*/struct StrRtfOut *rtf, const char* control,int type, double val);
 BOOL WriteRtfFont(struct StrRtfOut *rtf, BOOL head);
 BOOL WriteRtfMargin(/*PTERWND w,*/struct StrRtfOut *rtf);
 BOOL WriteRtfSection(/*PTERWND w,*/struct StrRtfOut *rtf, CEDSection* sect);
@@ -466,7 +466,7 @@ BOOL EndRtfGroup(/*PTERWND w,*/struct StrRtfOut *rtf);
 BOOL WriteRtfParaFmt(/*PTERWND w,*/struct StrRtfOut *rtf,CEDParagraph* NewPfmt,CEDParagraph* PrevPfmt/*, int NewCell, int PrevCell, int NewFID, int PrevFID*/);
 BOOL FlushRtfLine(/*PTERWND w,*/struct StrRtfOut *rtf);
 BOOL PutRtfChar(/*PTERWND w,*/struct StrRtfOut *rtf,BYTE CurChar);
-BOOL WriteRtfText(/*PTERWND w,*/struct StrRtfOut *rtf,char* text,int TextLen);
+BOOL WriteRtfText(/*PTERWND w,*/struct StrRtfOut *rtf, const char* text, int TextLen);
 BOOL WriteRtfRow(/*PTERWND w,*/struct StrRtfOut *rtf, CEDParagraph* NewCell,CEDParagraph * prevRow);
 BOOL WriteRtfCell(/*PTERWND w,*/struct StrRtfOut *rtf, CEDParagraph* NewCell);
 

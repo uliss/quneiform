@@ -92,7 +92,7 @@ CTCStorageHeader::CTCStorageHeader():CTCGlobalHeader()
 //
 CTCStorageHeader::CTCStorageHeader(CTCGlobalFile * pNewStorage,
 								   Word32 wNewFlag,
-								   PChar8 pcNewStorageFolder )
+								   const char *pcNewStorageFolder )
 								   :CTCGlobalHeader(pNewStorage,NULL,0,wNewFlag)//, Contents()
 {
 	extern CTCControl * Control_ctc;

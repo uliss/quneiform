@@ -218,7 +218,7 @@ public:
 	CTCStorageHeader();
 	CTCStorageHeader( CTCGlobalFile * pNewStorage,
 	                  Word32 Flag = CFIO_FILE_READ|CFIO_FILE_WRITE,
-					  PChar8 pcNewStorageFolder = NULL );
+					  const char* pcNewStorageFolder = NULL );
 	~CTCStorageHeader();
 
 public:

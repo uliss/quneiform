@@ -267,7 +267,7 @@ int lstrcmp(LPCTSTR lpString1, LPCTSTR lpString2) {
     return strcmp(lpString1, lpString2);
 }
 
-LPTSTR lstrcpy(LPTSTR lpString1, LPTSTR lpString2) {
+LPTSTR lstrcpy(LPTSTR lpString1, LPCTSTR lpString2) {
     return strcpy(lpString1, lpString2);
 }
 

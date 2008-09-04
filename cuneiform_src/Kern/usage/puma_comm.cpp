@@ -130,7 +130,7 @@ int AM_SaveRes_rv_fte (int Code, char *pFile)
 	return RV_TRUE;
 }
 /*----------------------------------------------------------------------------*/
-int AM_WriteRes_rv_fte (int Code, char *pStr)
+int AM_WriteRes_rv_fte (int Code, const char *pStr)
 {
 	int i, k;
 	for (i=0, k=-1; i<MaxResCodes; i++)
