@@ -641,4 +641,4 @@ case 0xff: *p+=0x80000;                                             go_bl;//1111
    if (*p & 0xffff0000) // last black interval done
       p++;
    return p-pIntervals;
-};
+}

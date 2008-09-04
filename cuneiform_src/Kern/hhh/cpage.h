@@ -287,7 +287,7 @@ DEC_FUN();
 #define CPAGE_TABLE_LINE	0x1
 #define CPAGE_TABLE_TEXT	0x2
 
-VRT_FUN(Bool32,  CPAGE_HL_TableExtract,(  Handle hPAGE, Word32 type, Rect32 rect ));
+VRT_FUN(Bool32,  CPAGE_HL_TableExtract,(  Handle hPAGE, Word32 type, Rect32 rect ))
 
 #undef DEC_FUN
 

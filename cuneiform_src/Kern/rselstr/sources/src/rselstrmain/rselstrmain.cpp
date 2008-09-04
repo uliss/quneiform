@@ -575,7 +575,7 @@ if( s->nDust > s->nLetters*1 )
         CSTR_PackLine(lin_in);
         }
 
-};
+}
 
 int IsInPoly(Point16 a, void * pPoly)
 {

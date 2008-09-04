@@ -68,7 +68,7 @@ extern "C"
 {
 	Bool32 rcolorStart( void )      { return TRUE; }
 	Bool32 rcolorStep(Word32 perc)  {return ProgressStep(1,NULL,perc); }
-	void rcolorFinish( void ) {};
+	void rcolorFinish( void ) {}
 }
 //////////////////////////////////////////////////////////////////
 // 07.07,2000 Allex

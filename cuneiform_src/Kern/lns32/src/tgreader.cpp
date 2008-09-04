@@ -85,7 +85,7 @@ void  InitLNS( TImageOpen   f_op,
 		__f_cl = f_cl;
 		InitSweeperCallbacks(f_op,f_rd,f_cl);
       ExtrLinesInitLNS();
-	};
+	}
 
 #define Tiger_Callback_ImageOpen       (*__f_op)
 #define Tiger_Callback_ImageRead       (*__f_rd)
@@ -131,7 +131,7 @@ TigerReader::TigerReader(void)
       }
 
       FillGap3_Init(wImageByteWidth);
-	};
+	}
 
 TigerReader::~TigerReader(void)
 	{
@@ -141,7 +141,7 @@ TigerReader::~TigerReader(void)
       Tiger_Callback_ImageClose();
 		if (line_buf != NULL)
          free( (void*)line_buf );
-	};
+	}
 
 void*   TigerReader::getLine(void)
    {
@@ -276,5 +276,5 @@ void*   TigerReader::getLine(void)
 
 
       return res_line;
-	};
+	}
 

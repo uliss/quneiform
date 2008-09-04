@@ -137,7 +137,7 @@ return rc;
 #define MAXDIFF 0 // максимальное расхождение в координатах при определении верт или гор.
 //При значениях >0 работает неверно при заполнении массивов lpVer и lpHor при коротких линиях !!! Art
 
-static int _cdecl CompareLong( const void *arg1, const void *arg2 ){return (*(long*)arg1-*(long*)arg2);};
+static int _cdecl CompareLong( const void *arg1, const void *arg2 ){return (*(long*)arg1-*(long*)arg2);}
 static int GetIndex(long * lpLong,long nLong,long n)
 {
 	int i = 0;

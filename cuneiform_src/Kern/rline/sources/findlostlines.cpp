@@ -172,7 +172,7 @@ static int _cdecl CompareX( const void *elem1, const void *elem2 )
   Point32 *b = (Point32*) elem2;
 
   return a->x - b->x;
-};
+}
 
 static int _cdecl CompareY( const void *elem1, const void *elem2 )
 {
@@ -181,7 +181,7 @@ static int _cdecl CompareY( const void *elem1, const void *elem2 )
   Point32 *b = (Point32*) elem2;
 
   return a->y - b->y;
-};
+}
 
 static int _cdecl CompareAsc( const void *elem1, const void *elem2 )
 {
@@ -190,7 +190,7 @@ static int _cdecl CompareAsc( const void *elem1, const void *elem2 )
   Int32 *b = (Int32*) elem2;
 
   return *a - *b;
-};
+}
 
 static int _cdecl CompareDesc( const void *elem1, const void *elem2 )
 {
@@ -199,7 +199,8 @@ static int _cdecl CompareDesc( const void *elem1, const void *elem2 )
   Int32 *b = (Int32*) elem2;
 
   return *b - *a;
-};
+}
+
 /***********************************************************************************************/
 Bool32 findLostLines(CLINE_handle hCLINE, PAGEINFO* info)
 {

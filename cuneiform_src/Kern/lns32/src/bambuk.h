@@ -284,20 +284,20 @@ void  TBambuk<T>::cleanEntries( Int32 from )
 	{	assert( isOk() );
 		EntryInfo zeroEntry = { NULLBHandle, NULLBHandle, 0 };
 		entries.fill( &zeroEntry, from );
-	};
+	}
 
 template <class T>
 void  TBambuk<T>::cleanMembers( T  * zero_member, Int32 from )
 	{	assert( isOk() );
 		members.fill(  zero_member, from );
-	};
+	}
 
 template <class T>
 void  TBambuk<T>::cleanLinks( Int32 from )
 	{	assert( isOk() );
    	BHandle handle = NULLBHandle;
 		links.fill( &handle, from );
-	};
+	}
 
 /* HUGE version for large member count */
 template <class T> class THugeBambuk //: public TFarHeap
@@ -519,19 +519,19 @@ void  THugeBambuk<T>::cleanEntries( Int32 from )
 	{	assert( isOk() );
 		EntryInfo zeroEntry = { NULLBHandle, NULLBHandle, 0 };
 		entries.fill( &zeroEntry, from );
-	};
+	}
 
 template <class T>
 void  THugeBambuk<T>::cleanMembers( T  * zero_member, Int32 from )
 	{	assert( isOk() );
 		members.fill(  zero_member, from );
-	};
+	}
 
 template <class T>
 void  THugeBambuk<T>::cleanLinks( Int32 from )
 	{	assert( isOk() );
    	BHandle handle = NULLBHandle;
 		links.fill( &handle, from );
-	};
+	}
 
 #endif

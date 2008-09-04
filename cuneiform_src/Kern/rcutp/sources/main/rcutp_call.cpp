@@ -87,7 +87,7 @@ Nb2   =Nb20    ;
 Nb3   =Nb30    ;
 language=language0;
 return TRUE;
-};
+}
 
 
 RCUTP_FUNC(Bool32)  RCUTP_CutPoints(Word8 *raster,struct own_cut *ans, Int16 w, Int16 h, Int16 row)
@@ -95,4 +95,4 @@ RCUTP_FUNC(Bool32)  RCUTP_CutPoints(Word8 *raster,struct own_cut *ans, Int16 w, 
   Alik_define_cut_points((PCHAR)raster, ans, w, h, row);
 
  return TRUE;
-};
+}

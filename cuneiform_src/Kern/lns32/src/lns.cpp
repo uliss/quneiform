@@ -142,7 +142,7 @@ LNS_FUNC( Bool16 )          LnsExtractLines( Int32   min_h_len,
    lnserr = ExtrLinesUnderTigerStatic( min_h_len,   min_v_len,
                                     *result_h_count, *result_v_count );
 	return lnserr == 0;
-};
+}
 LNS_FUNC( Bool16 )			ExtractAllEvents(CLINE_handle hCLINE, LinesTotalInfo  *lti)
 {
 	return ExtractEvents(hCLINE, lti);
@@ -265,7 +265,7 @@ void  __RejectNearBound(LinesTotalInfo* plti)
          };
       };
    };
-};
+}
 //////////////
 LNS_FUNC( Bool16 )          LnsUpload( LinesTotalInfo* lti,
                                        Int32   min_h_len,
@@ -301,7 +301,7 @@ extern "C" {
    LNS_FUNC(Bool16)  LnsImageOpen(Tiger_ImageInfo* lpImageInfo);
    LNS_FUNC(Int16)   LnsImageRead(Word8* lpImage, Word16 wMaxSize);
    LNS_FUNC(Bool16)  LnsImageClose(void);
-};
+}
 
 LNS_FUNC(Bool16)  LnsImageOpen(Tiger_ImageInfo* lpImageInfo)
 {  return Sweeper_ImageOpen(lpImageInfo); }
@@ -323,7 +323,7 @@ LNS_FUNC( TImageAccess* )   LnsGetSweepedImage( LinesTotalInfo* lti )
 }
 /////////////////////////////////////////////////
 LNS_FUNC( Err16 )           LnsGetError()
-   {  return lnserr; };
+   {  return lnserr; }
 
 LNS_FUNC( void )            LnsPageFinish()
 {
@@ -331,7 +331,7 @@ LNS_FUNC( void )            LnsPageFinish()
    ExtrLinesDoneLNS();
    Frag_VFree();
    Frag_HFree();
-};
+}
 
 LnsSetupStr lnsSetup = {0};
 

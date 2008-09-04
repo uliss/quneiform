@@ -117,7 +117,7 @@ static void _destroy_lines(void)
    DELETE_PTR( hLB  );
    DELETE_PTR( vRB  );
    DELETE_PTR( vLB  );
-};
+}
 
 void ExtrLinesInitLNS(void)
 { _destroy_lines();
@@ -132,7 +132,7 @@ void ExtrLinesInitLNS(void)
    Romi =0 ;
    //******************************************
 
-};
+}
 
 void ExtrLinesDoneLNS(void)
 {  _destroy_lines();
@@ -146,7 +146,7 @@ void ExtrLinesDoneLNS(void)
 	   delete(RBlockPrev);
 	   RBlockPrev = RBlockCurrent;
    }
-};
+}
 
 static void _squeezeIfTooMany(  Int32 & hor_len, Int32 & ver_len,
 								Int32 & hor_cnt, Int32 & ver_cnt
@@ -163,7 +163,7 @@ static void _squeezeIfTooMany(  Int32 & hor_len, Int32 & ver_len,
       if (ver_cnt > max_cnt)
          ver_len++;
    };
-};
+}
 
 //******************************* Rom 8-2-99 **************
 static void FillFragmentsCount( Int32 hnd, Bool hor, Int16* cnt, Word8* quality)
@@ -201,7 +201,8 @@ static void FillFragmentsCount( Int32 hnd, Bool hor, Int16* cnt, Word8* quality)
 	}
 	*cnt = Romii;
    *quality = ((TotalLength-SpacesLength)*255)/TotalLength;
-};
+}
+
 //**********************************************************
 #define LOG_TIME
 #ifdef LOG_TIME
@@ -375,7 +376,7 @@ ErrorExit :
    _destroy_lines();
 
    return err_code; // Bad exit
-};
+}
 
 Bool ExtrLinesGetCount(   Int32  hor_len, Int32  ver_len,
 								  Int32 &hor_cnt, Int32 &ver_cnt
@@ -514,7 +515,7 @@ Bool ExtrLinesGetInfo(  LinesTotalInfo * lti,
 	};
 
    return TRUE;
-};
+}
 
 Bool ExtrLinesIsOk(void)
 {
@@ -525,7 +526,7 @@ Bool ExtrLinesIsOk(void)
 	if ((vLB  == NULL) || (!vLB->isOk() ))  return WRONG();
 
    return TRUE;
-};
+}
 
 static Bool _PreSwp( LnsInfoArray& larr, Bool hor )
 {
@@ -1124,7 +1125,7 @@ Bool ExtrLinesPrepearToSweep( LinesTotalInfo * lti )
 
    InitSweeperData( hvSB );
    return TRUE;
-};
+}
 
 //**********************Rom***************
 Bool  SortList ( RomBubble* rptr)

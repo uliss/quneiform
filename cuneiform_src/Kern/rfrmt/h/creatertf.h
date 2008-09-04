@@ -159,7 +159,7 @@ FONT { char *family;
        char *name;
        Int16 Bold,Italic,Underline;
      };
-typedef struct hfont_cod {char *name,*family;} FONT_COD;
+typedef struct hfont_cod {const char *name,*family;} FONT_COD;
 
 typedef struct RTFLETTER
 {

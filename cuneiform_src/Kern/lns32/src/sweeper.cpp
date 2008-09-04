@@ -101,13 +101,13 @@ void  InitSweeperCallbacks(
       __f_op = f_op;
 		__f_rd = f_rd;
 		__f_cl = f_cl;
-	};
+	}
 
 static THVSegBambuk* hvSB = NULL;
 void InitSweeperData( THVSegBambuk* sb )
    {
       hvSB=sb;
-   };
+   }
 
 static Bool MustCloseImage = FALSE;
 static Tiger_ImageInfo ImageInfo;
@@ -332,7 +332,7 @@ Int16 Sweeper_ImageRead (Word8* lpImage, Word16 wMaxSize)
 */
 
 	return (Int16)size_read;
-};
+}
 
 Bool  Sweeper_ImageClose (void)
 {  //...
@@ -348,4 +348,4 @@ Bool  Sweeper_ImageClose (void)
 		MustCloseImage = FALSE;
 	}
 	return ret;
-};
+}

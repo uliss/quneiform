@@ -143,7 +143,7 @@ THVSegBambuk::THVSegBambuk( TigerReader  & reader )
          {  errCode = BERROR( ER_NOMEMORY ); };
 	******/
 
- };
+ }
 
 Bool THVSegBambuk::makeIt(   TigerReader * reader,
                              TFltBuf* filter )
@@ -300,7 +300,7 @@ Bool THVSegBambuk::makeIt(   TigerReader * reader,
 			assert( started_ == 0 );
 		#endif
 		return TRUE;
-	};
+	}
 
 #endif // __TGREADER_H
 
@@ -374,7 +374,7 @@ Bool TSegBambuk::vUpdate(  Int32* new_line,
 		prev_byte++;
 	}; // for
 	return TRUE;
-}; // vUpdate()
+} // vUpdate()
 
 Bool TSegBambuk::vUpdateFirst(   Int32* new_line,
                                  Int32* cur16,
@@ -548,7 +548,7 @@ Bool TSegBambuk::vUpdateFirst(   Int32* new_line,
 			cur16++;
 		}; // for
 		return TRUE;
-	}; // vUpdateFirst()
+	} // vUpdateFirst()
 
 Bool TSegBambuk::vUpdateLast(    Int32* cur16,
                                  Int32* last16,
@@ -723,4 +723,4 @@ Bool TSegBambuk::vUpdateLast(    Int32* cur16,
 			cur16++;
 		}; // for
 		return TRUE;
-	}; // vUpdateLast()
+	} // vUpdateLast()

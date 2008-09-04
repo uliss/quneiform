@@ -92,7 +92,7 @@ CEDPage::CEDPage()
 	picsTable=0;			//pointer to picture table
 	resizeToFit=0;
 	recogLang=LANG_RUSENG;
-};
+}
 
 CEDPage::~CEDPage()
 {
@@ -485,7 +485,7 @@ CEDSection::CEDSection()
 	internalNumber=0;
 	prev=next=0;
 	/*framesEnd=framesBeg=framesCur=*/columnsBeg=columnsEnd=columnsCur=0;
-};
+}
 
 CEDSection::~CEDSection()
 {
@@ -999,7 +999,7 @@ CEDParagraph::CEDParagraph()
 	parentNumber=0;
 	prev=next=0;
 	numOfLines=0;
-};
+}
 
 CEDParagraph::~CEDParagraph()
 {
@@ -1368,7 +1368,7 @@ CEDLine::CEDLine()
 	numOfChars=0;
 	hardBreak=FALSE;
 	defChrFontHeight=-1;
-};
+}
 
 CEDLine::~CEDLine()
 {
@@ -1509,7 +1509,7 @@ CEDChar::CEDChar()
 //	internalNumber=0;
 	parentNumber=0;
 	prev=next=0;
-};
+}
 
 CEDChar::~CEDChar()
 {

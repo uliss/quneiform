@@ -70,4 +70,4 @@ CRomBabble::CRomBabble(  )
 		Current = 0;
 		next = NULL;
       memset( Data, 0, sizeof(Data) );
-	};
+	}

@@ -84,7 +84,7 @@ inline Point32& Deskew( Point32& pt, Int32 skew1024)
    pt.y += dy;
    pt.y -= ddy;
    return pt;
-};
+}
 
 inline Point16& Deskew( Point16& pt, Int32 skew1024)
 {
@@ -98,7 +98,7 @@ inline Point16& Deskew( Point16& pt, Int32 skew1024)
    pt.y += (Int16)dy;
    pt.y -= (Int16)ddy;
    return pt;
-};
+}
 
 inline Point32& DeskewRel( Point32& pt, Int32 skew1024, Point32& rel )
 {
@@ -138,12 +138,13 @@ inline Point32& Copy(Point32& dst, Point16& src)
 {
    dst.x=src.x; dst.y=src.y;
    return dst;
-};
+}
+
 inline Point16& Copy(Point16& dst, Point32& src)
 {
    dst.x=(Int16)src.x; dst.y=(Int16)src.y;
    return dst;
-};
+}
 
 inline Rect32& Copy(Rect32& dst, Rect16& src)
 {
@@ -248,7 +249,7 @@ inline Rect32& DeskewCenter( Rect32& rc, Int32 skew1024)
    center -= old_center;   // diff
    rc += center;
    return rc;
-};
+}
 
 inline Rect16& DeskewCenter( Rect16& rc, Int32 skew1024)
 {
@@ -258,7 +259,7 @@ inline Rect16& DeskewCenter( Rect16& rc, Int32 skew1024)
    center -= old_center;   // diff
    rc += center;
    return rc;
-};
+}
 
 inline Rect16& Expand( Rect16& rc, Int16 delta )
 {
@@ -306,7 +307,7 @@ inline Rect32& GetBounding( Rect32& rc_src, Rect32& rc_dest, Int32 skew1024 )
       rc_dest.bottom= rb.y;
    };
    return rc_dest;
-};
+}
 
 inline Rect16& GetBounding(  Rect16& rc_src, Rect16& rc_dest, Int32 skew1024 )
    // dest rect can be the same as source
@@ -330,14 +331,14 @@ inline Rect16& GetBounding(  Rect16& rc_src, Rect16& rc_dest, Int32 skew1024 )
       rc_dest.bottom= rb.y;
    };
    return rc_dest;
-};
+}
 
 ///////////////////////////////////////////////////////////////
 // 22.03.97 17:48, V.P
-inline Bool operator !(const Rect16 & r)  { return (r.left > r.right)||(r.top > r.bottom); };
-inline Bool operator !(const Rect32 & r)  { return (r.left > r.right)||(r.top > r.bottom); };
-inline Bool Not(const Rect16 & r)  { return (r.left > r.right)||(r.top > r.bottom); };
-inline Bool Not(const Rect32 & r)  { return (r.left > r.right)||(r.top > r.bottom); };
+inline Bool operator !(const Rect16 & r)  { return (r.left > r.right)||(r.top > r.bottom); }
+inline Bool operator !(const Rect32 & r)  { return (r.left > r.right)||(r.top > r.bottom); }
+inline Bool Not(const Rect16 & r)  { return (r.left > r.right)||(r.top > r.bottom); }
+inline Bool Not(const Rect32 & r)  { return (r.left > r.right)||(r.top > r.bottom); }
 
 #define SetMax( a, b ) { if ((a) < (b)) (a) = (b); }
 #define SetMin( a, b ) { if ((a) > (b)) (a) = (b); }

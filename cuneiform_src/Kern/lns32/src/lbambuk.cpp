@@ -87,7 +87,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    static TRasterBambuk*   rb_ = NULL;
    static TSegBambuk*      sb_ = NULL;
 
-static int Dummy(int x) { return x+1;};
+static int Dummy(int x) { return x+1;}
 
 Bool TLinesBambuk::makeIt( TRasterBambuk* rb, TSegBambuk* sb, Bool isVertical ){
 
@@ -108,7 +108,7 @@ Bool TLinesBambuk::makeIt( TRasterBambuk* rb, TSegBambuk* sb, Bool isVertical ){
 */
 	};
    return TRUE;
-};
+}
 
 /// 10.02.99, VP ------- registering fragments for external usage
 #include "frag.h"
@@ -578,7 +578,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 	}
    else
       averagePhi = 1.;  // sign off
-};
+}
 
 void TLinesBambuk::computeVRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 
@@ -792,7 +792,7 @@ void TLinesBambuk::computeVRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 	}
    else
       averagePhi = 1.; // sign off
-};
+}
 
 Bool TLinesBambuk::linkHFragments( void ){
 	// compute fragments levels
@@ -867,7 +867,7 @@ Bool TLinesBambuk::linkHFragments( void ){
 	// second pass - try link lines ... (???)
 	// <...>
    return TRUE;
-};
+}
 
 Bool TLinesBambuk::linkVFragments( void ){
 	// compute fragments levels
@@ -942,14 +942,14 @@ Bool TLinesBambuk::linkVFragments( void ){
 	// second pass - try link lines ... (???)
 	// <...>
    return TRUE;
-};
+}
 
 /********************************************************/
 int cdecl compFragLevels( const void *frag1, const void *frag2 ){
 	return 	( (*(TLineFragment*)frag1).level -
 				  (*(TLineFragment*)frag2).level
 				);
-};
+}
 
 #if 0  // old, before 04 jun 99
 Bool  has_H_linked(  PLine  line, PLine  frag ){
@@ -984,7 +984,7 @@ Bool  has_H_linked(  PLine  line, PLine  frag ){
 	};
 
 	return (FALSE);
-};
+}
 #else // 04 jun 99 - join overlapped too
 Bool  has_H_linked(  PLine  line, PLine  frag )
 {
@@ -1103,14 +1103,14 @@ Bool  has_H_linked(  PLine  line, PLine  frag )
    }
 
 	return (TRUE);
-};
+}
 
 #endif
 
 inline int   line_length( PLine line )
 {
 	return MAX(abs(line->end.x-line->start.x), abs(line->end.y-line->start.y));
-};
+}
 
 
 Bool  has_V_linked(  PLine  line, PLine  frag ){
@@ -1150,7 +1150,7 @@ Bool  has_V_linked(  PLine  line, PLine  frag ){
 		line->end = frag->end;
 
 	return (TRUE);
-};
+}
 
 /////////////////////////////////////
 #define CORNER_DELTA    3     //  <= | ver...start.x - hor...start.x | ; y also
@@ -1165,7 +1165,7 @@ int cdecl byStartY( const void *int1, const void *int2)
 {
    return   _curr[*(int*)int1].fragmentAsIs.start.y -
             _curr[*(int*)int2].fragmentAsIs.start.y;
-};
+}
 
 /*
 #define MAX_LETTER_HEIGHT 70
@@ -1353,11 +1353,11 @@ Bool AnalyzeFragments( TLinesBambuk& hLB, TLinesBambuk& vLB)
 static LnsFrag* vfrags = NULL;
 static LnsFrag* hfrags = NULL;
 
-inline int xlevel( LnsFrag& lf1) { return (lf1.A.x + lf1.B.x) >> 1; };
-inline int ylevel( LnsFrag& lf1) { return (lf1.A.y + lf1.B.y) >> 1; };
+inline int xlevel( LnsFrag& lf1) { return (lf1.A.x + lf1.B.x) >> 1; }
+inline int ylevel( LnsFrag& lf1) { return (lf1.A.y + lf1.B.y) >> 1; }
 
-inline int yheight( LnsFrag& lf1) { return (lf1.B.y - lf1.A.y); };
-inline int xheight( LnsFrag& lf1) { return (lf1.B.x - lf1.A.x); };
+inline int yheight( LnsFrag& lf1) { return (lf1.B.y - lf1.A.y); }
+inline int xheight( LnsFrag& lf1) { return (lf1.B.x - lf1.A.x); }
 
 inline int yproj_pt( Point16& pt, int phi ) // computes projection of point by angle phi to Y-axis
 {
@@ -1389,27 +1389,27 @@ static int yproject( LnsFrag& lf1, LnsFrag& lf2 )
    assert(b >= a);
 
    return (100*(b-a))/minh;
-};
+}
 
 int cdecl comp_vfrags_byXLevel( const void *int1, const void *int2)
 {
    LnsFrag & lf1 = vfrags[*(int*)int1];
    LnsFrag & lf2 = vfrags[*(int*)int2];
    return   xlevel(lf1) - xlevel(lf2);
-};
+}
 
 int cdecl comp_vfrags_byYLevel( const void *int1, const void *int2)
 {
    LnsFrag & lf1 = vfrags[*(int*)int1];
    LnsFrag & lf2 = vfrags[*(int*)int2];
    return   ylevel(lf1) - ylevel(lf2);
-};
+}
 int cdecl comp_hfrags_byYLevel( const void *int1, const void *int2)
 {
    LnsFrag & lf1 = hfrags[*(int*)int1];
    LnsFrag & lf2 = hfrags[*(int*)int2];
    return   ylevel(lf1) - ylevel(lf2);
-};
+}
 
 
 #define CONSOLE(str) OutputDebugString(str)

@@ -84,12 +84,13 @@ DWORD progress_set_percent (DWORD volume)
 	if(fnProgressStep_rsel)
 		rc  = !fnProgressStep_rsel(volume);
 	return rc;
-};
+}
+
 void progress_finish(void)
 {
 	if(fnProgressFinish_rsel)
 		fnProgressFinish_rsel();
-};
+}
 
 #undef malloc
 #undef realloc
@@ -99,29 +100,33 @@ void * DebugMalloc(size_t size)
 {
 	char * buf = (char*)malloc(size);
 	return buf;
-};
+}
+
 void * DebugRealloc(void * old_blk,size_t size)
 {
 	char *buf = (char*)realloc(old_blk,size);
 	return buf;
-};
+}
+
 void   DebugFree(void * p)
 {
 	free(p);
-};
+}
 
 void * TigerAllocateMemory(DWORD size)
 {
 	return DebugMalloc(size);
-};
+}
+
 void TigerFreeMemory(void * mem)
 {
 	DebugFree(mem);
-};
+}
+
 void * TigerReallocateMemory(void * mem,DWORD size)
 {
 	return DebugRealloc(mem,size);
-};
+}
 
 
 extern BYTE work_raster[], work_raster_1[];

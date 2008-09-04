@@ -87,7 +87,7 @@ TFltBuf::TFltBuf( int width_dword )
 
 		nCurLine = 0;
 
-	};
+	}
 
 void TFltBuf::destroy( void )
 	{
@@ -95,13 +95,13 @@ void TFltBuf::destroy( void )
          free( (void*)x16 );
 			x16 = NULL;
 		};
-	};
+	}
 
 void TFltBuf::addLine( void* new_line )
 	{
       memmove( (void*)(x16+widthDWord*nCurLine), new_line, widthDWord*4 );
 		nCurLine++;
-	};
+	}
 
 /***********************/
 #define  A_B_to_AB() {  memcpy(curAB, curA, wdw<<2);  CopyOR(curAB, curB, wdw); }
@@ -151,7 +151,7 @@ void TFltBuf::preBuffer( void )
       A_B_to_AB();
 
 		nCurLine = 0;
-	};
+	}
 
 void TFltBuf::updateByLine( void* new_line )
 	{
@@ -201,4 +201,4 @@ void TFltBuf::updateByLine( void* new_line )
 		nCurLine++;
 		if (nCurLine > 15)
 			nCurLine = 0;
-	};
+	}

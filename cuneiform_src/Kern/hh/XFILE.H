@@ -181,12 +181,12 @@ public:
 template <class T>
 Bool32  TagRead( XFile& xf, T& t )
    {  return xf.Read( (void*)&t, sizeof(t) );
-   };
+   }
 
 template <class T>
 Bool32  TagWrite( XFile& xf, T& t )
    {  return xf.Write( (void*)&t, sizeof(t) );
-   };
+   }
 
 #endif // NO_OMNITAG_IO
 

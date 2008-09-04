@@ -85,7 +85,7 @@ void TPuanso::flashPuanso( void ){
 	right = 0;
 //		down = 0x7FF0;
 //		up = 0;
-};
+}
 
 void TPuanso::increase( int x1, int x2, int y ){
 
@@ -118,7 +118,7 @@ void TPuanso::increase( int x1, int x2, int y ){
 	Mxx   += delta1 * yy * yy;
 	Mxy_2 += delta2 * yy;
 	Myy_6	+= delta3;
-};
+}
 
 void TPuanso::atOwnCoords( void ){
 	if (mass <=0)
@@ -149,7 +149,7 @@ void TPuanso::atOwnCoords( void ){
       aveW = mass / (1 + right-left);
    else
       aveW = 1.;
-};
+}
 
 Bool TPuanso::isALine( void )
 {
@@ -190,4 +190,4 @@ Bool TPuanso::isALine( void )
 */
    /////////////////////////
    return TRUE;
-};
+}

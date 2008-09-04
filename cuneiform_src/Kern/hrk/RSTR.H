@@ -283,7 +283,7 @@ RSTR_FUNC(Bool32)  RSTRRecognizePostMain(CSTR_line lin, CSTR_line lino);
    }  IRstr;
 
 #else
-   _SETCLASS(IRstr);
+   _SETCLASS(IRstr)
    class RSTR_CLASS IRstr
    {
       public:
@@ -374,5 +374,5 @@ RSTR_FUNC(Bool32)  RSTRRecognizePostMain(CSTR_line lin, CSTR_line lino);
          };
    };
 #endif // __cplusplus
-_SETTYPES(IRstr);
+_SETTYPES(IRstr)
 #endif

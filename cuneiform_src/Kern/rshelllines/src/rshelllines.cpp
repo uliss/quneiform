@@ -549,7 +549,7 @@ static int _cdecl mycompare( const void *elem1, const void *elem2 )
 	   return a->Pos - b->Pos;
    }
    return a->Level - b->Level;
-};
+}
 
 // struct TieComp
 // {

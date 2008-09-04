@@ -70,14 +70,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ////////////////////////////////////////////////
 
-void _setvideomode (int mode){};
+void _setvideomode (int mode){}
+
 void _clearscreen (int mode)
 {
 	LDPUMA_DeleteRects(NULL,PUMA_MODULE_RBLOCK);
 	LDPUMA_DeleteLines(NULL,PUMA_MODULE_RBLOCK);
 	LDPUMA_DeleteStrings(NULL,PUMA_MODULE_RBLOCK);
-};
+}
+
 static Word32 swColor = 0;
+
 void _setcolor (int color)
 {
 	#define __RGB__(r,g,b)          ((Word32)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((DWORD)(BYTE)(b))<<16)))
@@ -102,7 +105,8 @@ void _setcolor (int color)
 	};
 	swColor = clr[color];
 	#undef __RGB__
-};
+}
+
 void _rectangle (int t,int left,int top,int right,int bottom)
 {
 	Rect16 rect = {left,top,right,bottom};
@@ -114,22 +118,28 @@ void _rectangle (int t,int left,int top,int right,int bottom)
 	default:
 		LDPUMA_DrawRect(NULL,&rect,0,swColor,-16,PUMA_MODULE_RBLOCK);
 	}
-};
-void _getfillmask (char * OldMask){};
-void _setfillmask (char * OldMask){};
+}
+
+void _getfillmask (char * OldMask) {}
+
+void _setfillmask (char * OldMask) {}
+
 static Point16 sBeg = {0,0};
+
 void _moveto (int x,int y)
 {
 	sBeg.x = x;
 	sBeg.y = y;
-};
+}
+
 void _lineto (int x,int y)
 {
 	Point16 end = {x,y};
 	LDPUMA_DrawLine(NULL,&sBeg,&end,0,swColor,-16,PUMA_MODULE_RBLOCK);
 	sBeg = end;
-};
-void _setlinestyle (int style){};
+}
+
+void _setlinestyle (int style) {}
 
 typedef struct tagBITMAPINFOHEADER{
         DWORD      biSize;
@@ -153,7 +163,7 @@ void _gettextsettings (struct textsettings *ts)
 		ts->height = lp->biHeight;
 		ts->width = lp->biWidth;
 	}
-};
+}
 
 static Word32 swAlign = 0;
 void _settextalign (int right,int top)
@@ -189,15 +199,21 @@ void _settextalign (int right,int top)
 			swAlign |= TA_CENTER;
 			break;
 	}
-};
-void _setcharsize (int n1, int n2){};
+}
+
+void _setcharsize (int n1, int n2) {}
+
 void _grtext (int x, int y, const char * text)
 {
 	Point16 p = {x,y};
 	LDPUMA_DrawString(NULL,&p,text,swAlign,swColor,120/*12*/,PUMA_MODULE_RBLOCK);
-};
-unsigned _getlinestyle (){return 0;};
-void break_point_data (char * c){};
-void write_prot () {};
+}
+
+unsigned _getlinestyle (){return 0;}
+
+void break_point_data (char * c){}
+
+void write_prot () {}
+
 BOOL snapAutofont(BYTE a){ a=a; return TRUE; } // Andrew Theer
 ////////////////////////////////////////////////

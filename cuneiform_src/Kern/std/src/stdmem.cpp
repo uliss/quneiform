@@ -116,7 +116,7 @@ STD_FUNC( void* ) stdMalloc( Int32 size )
    return res;
 #endif
    return malloc(size);
-};
+}
 
 STD_FUNC( void* )  stdRealloc( void* old_ptr, Int32 new_size, Int32 old_size )
 {
@@ -146,7 +146,7 @@ STD_FUNC( void  ) stdFree( void* ptr )
 #ifdef _DEBUG
    _stdFreeCounter++;
 #endif
-};
+}
 
 STD_FUNC( void  ) stdFreeX( void** pptr )
 {

@@ -119,7 +119,7 @@ void SetupHConverter( int 			left,
 
 	bambuk_ptr_ = bambuk;
 	filter_len_ = filter_len;
- };
+ }
 
 #define NO_DOTMATRIX
 static int prev_left=0;
@@ -170,7 +170,7 @@ static inline void new_segment( int left, int right )
 
 #endif // NO_DOTMATRIX
 
- };
+ }
 
 inline Word16 GetWord16( Word16* pw )
 #ifndef BIG_ENDIAN

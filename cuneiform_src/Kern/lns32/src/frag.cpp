@@ -69,14 +69,14 @@ Bool Frag_HAlloc( int nitems )
       return FALSE;
    hFrag.MemSet(0);
    return TRUE;
-};
+}
 
 LnsFrag* Frag_HGet( int nfrag )
 {
    if (!hFrag)
       return NULL;
    return &(hFrag[nfrag]);
-};
+}
 
 int      Frag_HCount(void)
 {
@@ -86,7 +86,7 @@ int      Frag_HCount(void)
 void Frag_HFree(void)
 {
    hFrag.Destroy();
-};
+}
 
 Bool Frag_VAlloc( int nitems )
 {
@@ -94,14 +94,14 @@ Bool Frag_VAlloc( int nitems )
       return FALSE;
    vFrag.MemSet(0);
    return TRUE;
-};
+}
 
 LnsFrag* Frag_VGet( int nfrag )
 {
    if (!vFrag)
       return NULL;
    return &(vFrag[nfrag]);
-};
+}
 
 int      Frag_VCount(void)
 {
@@ -111,5 +111,5 @@ int      Frag_VCount(void)
 void Frag_VFree(void)
 {
    vFrag.Destroy();
-};
+}
 

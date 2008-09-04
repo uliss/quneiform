@@ -188,7 +188,7 @@ public:
 		};
 */
 };
-
+
 inline Err16 XPool::Read( XFile& bf, Bool32 swap_bytes )
    {
       if (!bf)
@@ -203,8 +203,8 @@ inline Err16 XPool::Read( XFile& bf, Bool32 swap_bytes )
       if ((Data!=NULL)&& (!bf.Read( Data, Volume )))
          {  assert(0); return ER_CANTREAD; };
       return ER_NONE;
-   };
-
+   }
+
 inline Bool XPool::Write( XFile& bf, Int32 size ) const
    {
       if (size==-1) size = Volume;
@@ -215,6 +215,6 @@ inline Bool XPool::Write( XFile& bf, Int32 size ) const
          RETFALSE;
       if (size==0) return TRUE;
       return bf.Write(Data, size);
-   };
+   }
 
 #endif   // __XPOOL_H

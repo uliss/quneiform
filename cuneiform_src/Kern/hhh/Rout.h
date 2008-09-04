@@ -136,7 +136,7 @@ typedef enum {
 ROUT_TABLE_TEXT_INCLUDED = 1,
 
 // 2 - выравнивание колонок
-ROUT_TABLE_TEXT_ALIGN_COLUMNS = 2,
+ROUT_TABLE_TEXT_ALIGN_COLUMNS = 2
 
 	} ROUT_TABLE_TEXT_OPTIONS;
 //*****************************************************************

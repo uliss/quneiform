@@ -123,20 +123,20 @@ Bool     XStack< T >::Create( Int32 max_cnt, Int32 cur_cnt )
 		CurCnt = cur_cnt;
 		MaxCnt = max_cnt;
 		return TRUE;
-	};
+	}
 
 template < class T >
 void     XStack< T >::SetCurCnt( Int32 new_cnt ) // does not resize!
 	{
 		assert( new_cnt <= MaxCnt );
 		CurCnt = new_cnt;
-	};
+	}
 
 template < class T >
 void     XStack< T >::Destroy()
    {  XPool::Destroy();
 		CurCnt = MaxCnt = 0;
-	};
+	}
 
 
 template < class T >
@@ -147,7 +147,7 @@ Bool     XStack< T >::Resize( Int32 new_max_cnt )
 		MaxCnt = new_max_cnt;
       CurCnt =  MIN( CurCnt, new_max_cnt );
 		return TRUE;
-	};
+	}
 
 template < class T >
 T*       XStack< T >::Push( Int32* no ) // fix space for new element
@@ -187,7 +187,7 @@ Bool     XStack< T >::Push( T* t, Int32* no )
          *no = CurCnt;
 		CurCnt++;
 		return TRUE;
-	};
+	}
 
 template < class T >
 T*       XStack< T >::Pop(void)
@@ -198,7 +198,7 @@ T*       XStack< T >::Pop(void)
 		CurCnt--;
 		pt+=(Indx)CurCnt;
 		return pt;
-	};
+	}
 
 template < class T >
 T*       XStack< T >::Top(void)
@@ -209,7 +209,7 @@ T*       XStack< T >::Top(void)
 		assert(pt!=NULL);
 		pt+=(Indx)(CurCnt-1);
 		return pt;
-	};
+	}
 
 template < class T >
 Err16 XStack< T >::Read( XFile & bf, Bool32 swap_bytes )
@@ -220,7 +220,7 @@ Err16 XStack< T >::Read( XFile & bf, Bool32 swap_bytes )
 		CurCnt = MaxCnt = (GetVolume() / sizeof(T));
 		assert(!!*this);
       return ER_NONE;
-	};
+	}
 
 template < class T >
 Bool     XStack< T >::Write( XFile & bf ) const

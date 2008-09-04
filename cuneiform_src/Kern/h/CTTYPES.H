@@ -75,7 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
       #define _SETCLASS( cls )       \
          class cls;                 \
-         _SETTYPES( cls );
+         _SETTYPES( cls )
    #else   /* not __cplusplus */
       #define _SETTYPES( name )                        \
          typedef const name         C##name;           \

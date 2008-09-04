@@ -1911,7 +1911,7 @@ static int _cdecl CompareByY( const void *elem1, const void *elem2 )
 	Int32 length2 = pLine2->Line.End_Y - pLine2->Line.Beg_Y;
 
   return length2 - length1;
-};
+}
 
 /**********************************************************************************************/
 static int _cdecl CompareByX( const void *elem1, const void *elem2 )
@@ -1923,7 +1923,7 @@ static int _cdecl CompareByX( const void *elem1, const void *elem2 )
 	Int32 length2 = pLine2->Line.End_X - pLine2->Line.Beg_X;
 
   return length2 - length1;
-};
+}
 
 /**********************************************************************************************/
 static int _cdecl CompareByTop( const void *elem1, const void *elem2 )
@@ -1933,7 +1933,7 @@ static int _cdecl CompareByTop( const void *elem1, const void *elem2 )
 	CPDLine pLine2 = CLINE_GetLineData(*(CLINE_handle*)elem2);
 
   return pLine1->Line.Beg_Y - pLine2->Line.Beg_Y;
-};
+}
 
 /**********************************************************************************************/
 static int _cdecl CompareByLeft( const void *elem1, const void *elem2 )
@@ -1943,7 +1943,7 @@ static int _cdecl CompareByLeft( const void *elem1, const void *elem2 )
 	CPDLine pLine2 = CLINE_GetLineData(*(CLINE_handle*)elem2);
 
   return pLine1->Line.Beg_X - pLine2->Line.Beg_X;
-};
+}
 
 /**********************************************************************************************/
 static int _cdecl CompareCompByLeft( const void *elem1, const void *elem2 )
@@ -1953,7 +1953,7 @@ static int _cdecl CompareCompByLeft( const void *elem1, const void *elem2 )
 	CCOM_comp* pcomp2 = (CCOM_comp*)elem2;
 
   return pcomp1->left - pcomp2->left;
-};
+}
 
 /**********************************************************************************************/
 static int _cdecl CompareCompByUpper( const void *elem1, const void *elem2 )
@@ -1963,7 +1963,7 @@ static int _cdecl CompareCompByUpper( const void *elem1, const void *elem2 )
 	CCOM_comp* pcomp2 = (CCOM_comp*)elem2;
 
   return pcomp1->upper - pcomp2->upper;
-};
+}
 
 /***********************************************************************************************/
 RLINE_FUNC(Bool32) RLINE_LinesPass2(Handle hCCOM,void* phCLINE, Handle hCPAGE)

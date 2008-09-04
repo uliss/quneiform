@@ -58,25 +58,25 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __SWABYTES
 
    inline   Word16   __SwapWord16( Word16 w)
-      {  return (w>>8) | (w<<8); };
+      {  return (w>>8) | (w<<8); }
 
    inline   Word32   __SwapWord32( Word32 ww)
       {  return   ( Word32(__SwapWord16( Word16(ww >> 16) ))  )  |
                   ( Word32(__SwapWord16( Word16(ww) )) << 16  );
-      };
+      }
 
    #define __SWAP16(x) x=__SwapWord16((Word16)x)
    #define __SWAP32(x) x=__SwapWord32((Word32)x)
 
-   inline void SwapWord16(Word16 & x)  { __SWAP16(x); };
-   inline void SwapWord32(Word32 & x)  { __SWAP32(x); };
-   inline void SwapInt16(Int16 & x)    { __SWAP16(x); };
-   inline void SwapInt32(Int32 & x)    { __SWAP32(x); };
+   inline void SwapWord16(Word16 & x)  { __SWAP16(x); }
+   inline void SwapWord32(Word32 & x)  { __SWAP32(x); }
+   inline void SwapInt16(Int16 & x)    { __SWAP16(x); }
+   inline void SwapInt32(Int32 & x)    { __SWAP32(x); }
    inline void SwapRect16(Rect16 & x)
-      { __SWAP16(x.left); __SWAP16(x.top); __SWAP16(x.right); __SWAP16(x.bottom); };
+      { __SWAP16(x.left); __SWAP16(x.top); __SWAP16(x.right); __SWAP16(x.bottom); }
    inline void SwapRect32(Rect32 & x)
-      { __SWAP32(x.left); __SWAP32(x.top); __SWAP32(x.right); __SWAP32(x.bottom); };
-   inline void SwapPoint16(Point16 & x)  { __SWAP16(x.x); __SWAP16(x.y); };
-   inline void SwapPoint32(Point32 & x)  { __SWAP32(x.x); __SWAP32(x.y); };
+      { __SWAP32(x.left); __SWAP32(x.top); __SWAP32(x.right); __SWAP32(x.bottom); }
+   inline void SwapPoint16(Point16 & x)  { __SWAP16(x.x); __SWAP16(x.y); }
+   inline void SwapPoint32(Point32 & x)  { __SWAP32(x.x); __SWAP32(x.y); }
 
 #endif

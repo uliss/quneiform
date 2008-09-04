@@ -83,7 +83,7 @@ inline Point32& Deskew( Point32& pt, Int32 skew1024)
    pt.y += dy;
    pt.y -= ddy;
    return pt;
-};
+}
 
 inline Point16& Deskew( Point16& pt, Int32 skew1024)
 {
@@ -97,7 +97,7 @@ inline Point16& Deskew( Point16& pt, Int32 skew1024)
    pt.y += (Int16)dy;
    pt.y -= (Int16)ddy;
    return pt;
-};
+}
 
 inline Point32& DeskewRel( Point32& pt, Int32 skew1024, Point32& rel )
 {
@@ -137,12 +137,13 @@ inline Point32& Copy(Point32& dst, Point16 const & src)
 {
    dst.x=src.x; dst.y=src.y;
    return dst;
-};
+}
+
 inline Point16& Copy(Point16& dst, Point32 const & src)
 {
    dst.x=(Int16)src.x; dst.y=(Int16)src.y;
    return dst;
-};
+}
 
 inline Rect32& Copy(Rect32& dst, Rect16 const & src)
 {
@@ -150,6 +151,7 @@ inline Rect32& Copy(Rect32& dst, Rect16 const & src)
    dst.top  = src.top;  dst.bottom = src.bottom;
    return dst;
 }
+
 inline Rect16& Copy(Rect16& dst, Rect32 const & src)
 {
    dst.left = (Int16)src.left; dst.right  = (Int16)src.right;
@@ -305,22 +307,22 @@ inline Bool operator == ( const Rect16& r1, const Rect16& r2 )
          && r1.top   == r2.top
          && r1.right == r2.right
          && r1.bottom== r2.bottom;
-   };
+   }
 
 inline Bool operator == ( const Rect32& r1, const Rect32& r2 )
    { return r1.left  == r2.left
          && r1.top   == r2.top
          && r1.right == r2.right
          && r1.bottom== r2.bottom;
-   };
+   }
 
 inline Bool operator == ( const Point16& p1, const Point16& p2 )
    { return p1.x == p2.x && p1.y == p2.y;
-   };
+   }
 
 inline Bool operator == ( const Point32& p1, const Point32& p2 )
    { return p1.x == p2.x && p1.y == p2.y;
-   };
+   }
 
 
 //////////////////////////////////////////////////
@@ -332,7 +334,7 @@ inline Rect32& DeskewCenter( Rect32& rc, Int32 skew1024)
    center -= old_center;   // diff
    rc += center;
    return rc;
-};
+}
 
 inline Rect16& DeskewCenter( Rect16& rc, Int32 skew1024)
 {
@@ -342,7 +344,7 @@ inline Rect16& DeskewCenter( Rect16& rc, Int32 skew1024)
    center -= old_center;   // diff
    rc += center;
    return rc;
-};
+}
 
 inline Rect32& DeskewCenterRel( Rect32& rc, Int32 skew1024, Point32& pt)
 {
@@ -352,7 +354,7 @@ inline Rect32& DeskewCenterRel( Rect32& rc, Int32 skew1024, Point32& pt)
    center -= old_center;   // diff
    rc += center;
    return rc;
-};
+}
 
 inline Rect16& DeskewCenterRel( Rect16& rc, Int32 skew1024, Point16& pt)
 {
@@ -362,7 +364,7 @@ inline Rect16& DeskewCenterRel( Rect16& rc, Int32 skew1024, Point16& pt)
    center -= old_center;   // diff
    rc += center;
    return rc;
-};
+}
 
 inline Rect16& Expand( Rect16& rc, Int16 delta )
 {
@@ -410,7 +412,7 @@ inline Rect32& GetBounding( Rect32& rc_src, Rect32& rc_dest, Int32 skew1024 )
       rc_dest.bottom= rb.y;
    };
    return rc_dest;
-};
+}
 
 inline Rect16& GetBounding(  Rect16& rc_src, Rect16& rc_dest, Int32 skew1024 )
    // dest rect can be the same as source
@@ -434,30 +436,30 @@ inline Rect16& GetBounding(  Rect16& rc_src, Rect16& rc_dest, Int32 skew1024 )
       rc_dest.bottom= rb.y;
    };
    return rc_dest;
-};
+}
 //////////////////////////////////////////////////////////
 // inequality
 #define RC_NOTEQ_RC  { return       r1.left != r2.left   || r1.top != r2.top       \
                                  || r1.right != r2.right || r1.bottom!= r2.bottom; }
 
-inline Bool operator != ( const Rect16& r1, const Rect16& r2) RC_NOTEQ_RC;
-inline Bool operator != ( const Rect16& r1, const Rect32& r2) RC_NOTEQ_RC;
-inline Bool operator != ( const Rect32& r1, const Rect16& r2) RC_NOTEQ_RC;
-inline Bool operator != ( const Rect32& r1, const Rect32& r2) RC_NOTEQ_RC;
+inline Bool operator != ( const Rect16& r1, const Rect16& r2) RC_NOTEQ_RC
+inline Bool operator != ( const Rect16& r1, const Rect32& r2) RC_NOTEQ_RC
+inline Bool operator != ( const Rect32& r1, const Rect16& r2) RC_NOTEQ_RC
+inline Bool operator != ( const Rect32& r1, const Rect32& r2) RC_NOTEQ_RC
 
 #define PT_NOTEQ_PT  { return    pt1.x != pt2.x || pt1.y != pt2.y; }
 
-inline Bool operator != ( const Point16& pt1, const Point16& pt2) PT_NOTEQ_PT;
-inline Bool operator != ( const Point16& pt1, const Point32& pt2) PT_NOTEQ_PT;
-inline Bool operator != ( const Point32& pt1, const Point16& pt2) PT_NOTEQ_PT;
-inline Bool operator != ( const Point32& pt1, const Point32& pt2) PT_NOTEQ_PT;
+inline Bool operator != ( const Point16& pt1, const Point16& pt2) PT_NOTEQ_PT
+inline Bool operator != ( const Point16& pt1, const Point32& pt2) PT_NOTEQ_PT
+inline Bool operator != ( const Point32& pt1, const Point16& pt2) PT_NOTEQ_PT
+inline Bool operator != ( const Point32& pt1, const Point32& pt2) PT_NOTEQ_PT
 
 ///////////////////////////////////////////////////////////////
 // 22.03.97 17:48, V.P
-inline Bool operator !(const Rect16 & r)  { return (r.left > r.right)||(r.top > r.bottom); };
-inline Bool operator !(const Rect32 & r)  { return (r.left > r.right)||(r.top > r.bottom); };
-inline Bool Not(const Rect16 & r)  { return (r.left > r.right)||(r.top > r.bottom); };
-inline Bool Not(const Rect32 & r)  { return (r.left > r.right)||(r.top > r.bottom); };
+inline Bool operator !(const Rect16 & r)  { return (r.left > r.right)||(r.top > r.bottom); }
+inline Bool operator !(const Rect32 & r)  { return (r.left > r.right)||(r.top > r.bottom); }
+inline Bool Not(const Rect16 & r)  { return (r.left > r.right)||(r.top > r.bottom); }
+inline Bool Not(const Rect32 & r)  { return (r.left > r.right)||(r.top > r.bottom); }
 
 #define SetMax( a, b ) { if ((a) < (b)) (a) = (b); }
 #define SetMin( a, b ) { if ((a) > (b)) (a) = (b); }

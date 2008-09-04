@@ -82,7 +82,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    Bool    LCEXPORT   LC_Done( LinesTotalInfo* lti );
 
 	#if defined( __cplusplus )
-		};
+		}
 	#endif
 
 #endif

@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
    typedef signed short int       Err16 ;
    #ifdef _SETTYPES
-      _SETTYPES( Err16  );
+      _SETTYPES( Err16  )
    #endif
 
    // common use error codes

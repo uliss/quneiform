@@ -76,7 +76,7 @@ static XStack<StdPrtEventData> xsEventTypeData;
 void CPrtTransactionBuffer::FreeBuffer()
 {
    m_buffer.clear();
-};
+}
 
 static CPrtTransactionBuffer* pTransactionBuffer = NULL;
 
@@ -199,7 +199,7 @@ CTableEvnFiller::CTableEvnFiller()
       };
       fclose(fl);
    };
-};
+}
 
 CTableEvnFiller::~CTableEvnFiller()
 {
@@ -213,7 +213,8 @@ CTableEvnFiller::~CTableEvnFiller()
          xsTblEventData[i].szFormat = NULL;
       }
    }
-};
+}
+
 bool CTableEvnFiller::OpenEvnTable(char *TableName)
 {
 //   return ReadFromEvnTable(TableName);
@@ -258,7 +259,7 @@ bool CTableEvnFiller::OpenEvnTable(char *TableName)
    };
    fclose(fl);
    return true;
-};
+}
 
 
 Bool32 stdPrtConsole::SendTextToConsole(char *text, int len)
@@ -280,7 +281,7 @@ Bool32 stdPrtConsole::SendTextToConsole(char *text, int len)
    return TRUE;
 #endif
    printf(text);
-};
+}
 
 Bool32 stdPrtConsole::AllocPrtConsole()
 {
@@ -292,7 +293,7 @@ Bool32 stdPrtConsole::AllocPrtConsole()
    if(hConsoleOutput)
       return TRUE;
    return FALSE;
-};
+}
 
 
 
@@ -331,7 +332,7 @@ Bool32 EvnParseFormat(char* in, char* out)
    };
    strcpy(out,out_str);
    return k;
-};
+}
 
 bool CPrtTransactionBuffer::FlushToDisk()
 {
@@ -349,7 +350,7 @@ bool CPrtTransactionBuffer::FlushToDisk()
       return Clear();
    else
       RET_FALSE;
-};
+}
 
 bool CPrtTransactionBuffer::Finish()
 {
@@ -358,12 +359,12 @@ bool CPrtTransactionBuffer::Finish()
    if(!FlushToDisk())
       RET_FALSE;
    return Clear();
-};
+}
 
 bool CPrtTransactionBuffer::Rollback()
 {
    return Clear();
-};
+}
 
 bool CPrtTransactionBuffer::Start()
 {
@@ -371,7 +372,7 @@ bool CPrtTransactionBuffer::Start()
       RET_FALSE;
    m_bStart = true;
    return m_bStart;
-};
+}
 
 bool CPrtTransactionBuffer::Add(char *str)
 {
@@ -379,7 +380,7 @@ bool CPrtTransactionBuffer::Add(char *str)
    m_buffer_len += strlen(str);
    m_buffer_len++;
    return true;
-};
+}
 
 
 bool CPrtTransactionBuffer::Clear()
@@ -388,7 +389,8 @@ bool CPrtTransactionBuffer::Clear()
    m_buffer_len = 0;
    m_bStart = false;
    return true;
-};
+}
+
 Bool32 GetTimeString(char* tm_string)
 {
    if(!tm_string)
@@ -408,6 +410,7 @@ Bool32 GetTimeString(char* tm_string)
       );
    return TRUE;
 }
+
 Bool32 CPrtEventSender::SendEvent(StdPrtEvent* pspe, va_list& List)
 {
 
@@ -475,7 +478,7 @@ Bool32 CPrtEventSender::SendEvent(char* EventText,Int32 EvnType)
       break;
    }
    return res1;//(res1&&res2&&res2);
-};
+}
 
 Bool32 CPrtSysEventSender::SendSysEvent(Int32 SysEvnNo,...)
 {
@@ -494,7 +497,7 @@ Bool32 CPrtSysEventSender::SendSysEvent(Int32 SysEvnNo,...)
    }
    va_end( List );
    return res;
-};
+}
 
 Bool32 CPrtSysEventSender::SendSysEvent(Int32 SysEvnNo, va_list& List)
 {
@@ -510,7 +513,7 @@ Bool32 CPrtSysEventSender::SendSysEvent(Int32 SysEvnNo, va_list& List)
    }
    //return EventSender.SendEvent(&szStdPrtSysEventList[SysEvnNo-1], List);
    RET_FALSE;
-};
+}
 
 Bool32 CPrtSysEventSender::SendEvent(StdPrtEvent* pspe)
 {
@@ -520,7 +523,7 @@ Bool32 CPrtSysEventSender::SendEvent(StdPrtEvent* pspe)
       SendEnvRegistrationEvent(pspe);
    };
    return TRUE;
-};
+}
 
 Bool32 CPrtSysEventSender::SendEnvRegistrationEvent(StdPrtEvent* pspe)
 {
@@ -535,7 +538,7 @@ Bool32 CPrtSysEventSender::SendEnvRegistrationEvent(StdPrtEvent* pspe)
    //pspe->hEvent = xsEventTypeData.GetCurCnt();//xsEventTypeData.size();
    //pspe->hEvent++;
    return SendSysEvent(0, szEvnData.iEvnNo ,res , pspe->szFormat);
-};
+}
 
 Bool32 CPrtSysEventSender::SendTimerEvent()
 {
@@ -552,7 +555,7 @@ Bool32 CPrtSysEventSender::SendTimerEvent()
       gl_szOldTime = new_time;
    };
    return TRUE;
-};
+}
 
 void CPrtSysEventSender::Destroy()
 {
@@ -564,19 +567,19 @@ void CPrtSysEventSender::Destroy()
       m_TableEvnCreator = NULL;
    }
 
-};
+}
 
 
 STD_FUNC(Bool32) stdPrtStartConsole()
 {
    Bool32 res = stdPrtConsole.AllocPrtConsole();
    return res;
-};
+}
 
 STD_FUNC(void) stdPrtStopConsole()
 {
    stdPrtConsole.FreePrtConsole();
-};
+}
 
 STD_FUNC(Int32) stdPrt( StdPrtEvent* pspe, ... )
 {
@@ -588,7 +591,7 @@ STD_FUNC(Int32) stdPrt( StdPrtEvent* pspe, ... )
    Int32 res = Event(pspe,List);
    va_end( List );
    return res;
-};
+}
 
 static CPrtSysEventSender SysEvent;
 
@@ -602,7 +605,7 @@ STD_FUNC(Int32) stdSysPrt( Int32 EvnNo, ... )
    Int32 res = SysEvent.SendSysEvent(EvnNo,List);
    va_end( List );
    return res;
-};
+}
 
 STD_FUNC(Int32) stdSysPrt( Int32 EvnNo, va_list& List )
 {
@@ -611,7 +614,7 @@ STD_FUNC(Int32) stdSysPrt( Int32 EvnNo, va_list& List )
 // CPrtSysEventSender Event;
    Int32 res = SysEvent.SendSysEvent(EvnNo,List);
    return res;
-};
+}
 
 STD_FUNC(Int32) stdPrt( StdPrtEvent* pspe,  va_list& List)
 {
@@ -620,7 +623,7 @@ STD_FUNC(Int32) stdPrt( StdPrtEvent* pspe,  va_list& List)
    CPrtSendEvent Event;
    Int32 res = Event(pspe,List);
    return res;
-};
+}
 
 STD_FUNC(Bool32) stdPrtStartTransaction(char* user_name,char* prog_id)
 {
@@ -631,7 +634,7 @@ STD_FUNC(Bool32) stdPrtStartTransaction(char* user_name,char* prog_id)
 	GetComputerName(comp_name,&sz);
    stdSysPrt(3,"Начало",comp_name,prog_id,user_name);
    return TRUE;
-};
+}
 
 STD_FUNC(Bool32) stdPrtRollback()
 {
@@ -644,7 +647,7 @@ STD_FUNC(Bool32) stdPrtRollback()
    }
    else
       RET_FALSE;
-};
+}
 
 STD_FUNC(Bool32) stdPrtEndTransaction(char* user_name,char* prog_id)
 {
@@ -661,7 +664,7 @@ STD_FUNC(Bool32) stdPrtEndTransaction(char* user_name,char* prog_id)
    }
    else
       RET_FALSE;
-};
+}
 
 static char*   pParamsString = NULL;
 static int     iParamsStringLen = 0;
@@ -700,7 +703,8 @@ bool PrtLoad()
    for(i = 0; i < CUR_SYS_EVN_COUNT; i++)
       xsEventTypeData[i] = szStdPrtSysEventDataList[i];
    return true;
-};
+}
+
 void PrtUnload()
 {
 //   xsEventTypeData.erase(xsEventTypeData.begin(),xsEventTypeData.end());
@@ -714,7 +718,7 @@ void PrtUnload()
    SysEvent.Destroy();
    delete theFile;
    theFile = NULL;
-};
+}
 
 
 
@@ -738,7 +742,7 @@ Int32 ReadEventString(FILE* fl, char* str)
    memset(str,0,(xsString.GetCurCnt()+1)*sizeof(char));
    strcpy(str,xsString.GetPtr());
    return xsString.GetCurCnt();
-};
+}
 
 Int32 GetNextEvnFld(char *evn_str,char* str)
 {
@@ -798,7 +802,7 @@ Int32 ParseEventString(char* evn_str,Int32 iEvnSize)
    memset(pParamsString ,0 ,iParamsStringLen*sizeof(char));
    memcpy(pParamsString ,xString.GetPtr() ,xString.GetCurCnt());
    return iEvnNo;
-};
+}
 
 STD_FUNC(Int32) stdPrtStartParsePrt(char *file_name)
 {
@@ -813,7 +817,7 @@ STD_FUNC(Int32) stdPrtStartParsePrt(char *file_name)
       iParamsStringLen = 0;
    };
    return 1;
-};
+}
 
 STD_FUNC(Int32) stdPrtGetNextEvent(StdPrtEvent* pspe)
 {
@@ -825,7 +829,7 @@ STD_FUNC(Int32) stdPrtGetNextEvent(StdPrtEvent* pspe)
       iParamsStringLen = 0;
    };
    RET_ZERO;
-};
+}
 
 
 #ifdef __PRTTEST__

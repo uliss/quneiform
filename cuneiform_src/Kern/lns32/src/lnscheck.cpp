@@ -116,42 +116,42 @@ LinesTotalInfo* Lti;
 int  HLength(XSEGM* S)
 {
 return ( ((S->B).x)-((S->A).x) );
-};
+}
 
 int  VLength(XSEGM* S)
 {
 return ( ((S->B).y)-((S->A).y) );
-};
+}
 
 int cdecl HLengthCompare(const void* S1, const void* S2)
 {
 return ( HLength((XSEGM*)S2)-HLength((XSEGM*)S1) );
-};
+}
 
 int cdecl VLengthCompare(const void* S1, const void* S2)
 {
 return ( VLength((XSEGM*)S2)-VLength((XSEGM*)S1) );
-};
+}
 
 int  MapCoord( XSEGM* S )
 {
 return ( (S->B).x );
-};
+}
 
 int cdecl MappingCompare(const void* S1, const void* S2)
 {
 return ( MapCoord((XSEGM*)S1)-MapCoord((XSEGM*)S2) );
-};
+}
 
 int  StrLCoord( XPoint16* S )
 {
 return ( S->y );
-};
+}
 
 int cdecl StrLCompare(const void* S1, const void* S2)
 {
 return ( StrLCoord((XPoint16*)S1)-StrLCoord((XPoint16*)S2) );
-};
+}
 
 void Rotate( int sk )
 {
@@ -205,7 +205,7 @@ for(int i=0; i<h_count; i++)
        Deskew( v_lns[j].A, skew );
        Deskew( v_lns[j].B, skew );
    };
-};
+}
 
 void
 CorrectDirection()
@@ -234,7 +234,7 @@ for( int j = 0; j<v_count; j++)
      v_lns[j].A = U;
      };
    };
-};
+}
 
 
 void
@@ -242,7 +242,7 @@ LengthSort()
 {
 ::qsort(&(h_lns[0]), h_count, sizeof(h_lns[0]), HLengthCompare);
 ::qsort(&(v_lns[0]), v_count, sizeof(v_lns[0]), VLengthCompare);
-};
+}
 
 void
 InitMapping()
@@ -283,7 +283,7 @@ for(int m=v_count; m<(v_count+h_count); m++)
    (XMapping[s+1].A).y = d;
    (XMapping[s+1].B).x = (h_lns[d].B).x;
    };
-};
+}
 
 void
 SortMapping()
@@ -292,7 +292,7 @@ SortMapping()
 	MappingCompare);
 ::qsort(&(XMapping[0]), v_count+(h_count<<1), sizeof(XMapping[0]),
 	MappingCompare);
-};
+}
 
 void
 InitMappingInverse()
@@ -334,7 +334,7 @@ for(int j=0; j<v_count+(h_count<<1); j++)
       case 2:   XpBRank[l]  = m-1;
       };
    };
-};
+}
 
 Bool
 IsHCloseCovering(XPoint16 S, int n)        // expanding S1 covers S2
@@ -369,7 +369,7 @@ else
        ((S2Ay>S1By-D) && (S2By>S1By-D) && (S2Ax>S1Bx))  )) return TRUE;
   };
 return FALSE;
-};
+}
 
 Bool
 IsVCloseCovering(XPoint16 S, int n)        // expanding S1 covers S2
@@ -405,7 +405,7 @@ else
        ((S2Ax>S1Bx-D) && (S2Bx>S1Bx-D) && (S2Ay>S1By))  )) return TRUE;
   };
 return FALSE;
-};
+}
 
 void
 InitMarkedNoise()
@@ -418,7 +418,7 @@ for(int j=0; j<v_count; j++)
    {
    VMarkedNoise[j] = TRUE;
    };
-};
+}
 
 Bool
 HExp(int& counter, int nl)
@@ -525,7 +525,7 @@ if(StripCount>1)
   else return FALSE;
   }
 else   return FALSE;
-};
+}
 
 
 Bool
@@ -632,7 +632,7 @@ if(StripCount>1)
   else return FALSE;
   }
 else   return FALSE;
-};
+}
 
 Bool
 HBound(int& counter, int i)
@@ -767,7 +767,7 @@ while(r<NVL)
     };
 
 return FALSE;
-};
+}
 
 
 Bool
@@ -902,7 +902,7 @@ while(r<NHL)
     };
 
 return FALSE;
-};
+}
 
 
 void
@@ -973,7 +973,7 @@ for(int j=0; j<v_count; j++)
 
 //CONSOLE("exp h lines:  %d", h1_count);
 //CONSOLE("exp v lines:  %d", v1_count);
-};
+}
 
 //-***************** calculate the skew ******************
 
@@ -1008,7 +1008,7 @@ else
    return 0;
 CONSOLE("skew:  %d", skew);
 return skew;
-};
+}
 
 int
 RectSkew()
@@ -1045,7 +1045,7 @@ if(h_count>0)
 else  return 0;
 CONSOLE("rect skew:  %d", skew);
 return skew;
-};
+}
 
 //-************************************************
 
@@ -1074,7 +1074,7 @@ for(int j=0; j<v_count; j++)
    L.ltiFirst = -1;
    L.ltiLast  = -1;
    };
-};
+}
 
 
 
@@ -1117,7 +1117,7 @@ NoiseSelect();
 
 SkewCalc();
 
-};
+}
 
 //-***********************   Lti filling   ************************
 
@@ -1144,7 +1144,7 @@ FillFlag()
 //				Lti->Ver.NoiseCnt ++;
       	};
       };
-};
+}
 
 void
 FillRotatedCoord()
@@ -1178,7 +1178,7 @@ for( int i=0; i<v_count; i++)
      L.Br = v_lns[i].A;
      };
    };
-};
+}
 
 Bool
 FillAdjacent()
@@ -1334,7 +1334,7 @@ for( int k=0; k<v_count; k++)
 
 ADJA.flush();
 return TRUE;
-};
+}
 //-********************   Library functions   *************************
 
 // --------------------   LNSCheck functions  -------------------------
@@ -1373,7 +1373,7 @@ Bool x = YMapping.create(hcn+(vcn<<1))   &&
 	if (!x) CONSOLE("Cannot create PPS arrays");
 
 return x;
-};
+}
 
 Bool LCEXPORT  LC_Done( LinesTotalInfo* lti )
 {
@@ -1396,7 +1396,7 @@ Bool LCEXPORT  LC_Done( LinesTotalInfo* lti )
 	 vlink.flush();
 
 return TRUE;
-};
+}
 
 Bool LCEXPORT  LC_MarkBadLines( LinesTotalInfo* lti )
 {
@@ -1425,7 +1425,7 @@ FillFlag();
 FillRotatedCoord();
 FillAdjacent();
 return TRUE;
-};
+}
 
 Bool LCEXPORT  LC_CorrectSkew( LinesTotalInfo* lti )
 {
@@ -1483,5 +1483,5 @@ FillRotatedCoord();
 h_lns.flush();
 v_lns.flush();
 return TRUE;
-};
+}
 

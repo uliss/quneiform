@@ -58,8 +58,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __SAFESTR_H
 #define __SAFESTR_H
 
-inline const char* SafeStr(const char* ss){ return ss ? ss : ""; };
-inline char* SafeStr(const void* ss){ return ss ? (char*)ss : (char*)""; };
+inline const char* SafeStr(const char* ss){ return ss ? ss : ""; }
+inline char* SafeStr(const void* ss){ return ss ? (char*)ss : (char*)""; }
 
 #endif
 

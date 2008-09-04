@@ -81,8 +81,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "un_buff.h"
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-static char *Buffer = NULL;/*[SizeMyBuff]*/;
-static char *WorkMem = NULL;/*[SizeWorkMem]*/;
+static char *Buffer = NULL;/*[SizeMyBuff];*/
+static char *WorkMem = NULL;/*[SizeWorkMem];*/
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, Int32 *ScanQual)

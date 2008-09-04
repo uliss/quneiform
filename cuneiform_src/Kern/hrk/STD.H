@@ -151,9 +151,9 @@ typedef struct tagStdMemInfo
 
 #ifdef __cplusplus
    inline bool stdFileExists(const char* path)
-      {  return (stdAccess(path, 00) != -1); };
+      {  return (stdAccess(path, 00) != -1); }
    inline bool stdFileReadable(const char* path)
-      {  return (stdAccess(path, 04) != -1); };
+      {  return (stdAccess(path, 04) != -1); }
 #endif //__cplusplus
 
    #define stdUnlink unlink

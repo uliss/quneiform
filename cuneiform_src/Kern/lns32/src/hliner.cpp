@@ -114,7 +114,7 @@ Bool32   HLiner_Init( void )
 {
    HLiner_Done();
    return TRUE;
-};
+}
 
 void     HLiner_Done( void )
 {
@@ -122,7 +122,7 @@ void     HLiner_Done( void )
    xmImageMap.Destroy();
    Set0(ImageInfo);
    nLine=0;
-};
+}
 
 inline Word8* GetMapLine( int n )
 {
@@ -302,11 +302,11 @@ Int32    HLiner_Analyze(void) // returns count of extracted lines
 Int32  HLiner_GetCount(void)
 {
    return  xsLines.GetCurCnt();
-};
+}
 
 Line16*  HLiner_GetLine( Int32 nLineIndex )
 {
    return &(xsLines[nLineIndex]);
-}; // 0..count-1
+} // 0..count-1
    // NULL - wrong index or not ready
 

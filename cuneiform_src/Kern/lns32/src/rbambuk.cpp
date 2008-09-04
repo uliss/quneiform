@@ -301,7 +301,7 @@ Bool        TRasterBambuk::makeIt( TSegBambuk* sb ) //build rasters by segbambuk
 		};
 
       return TRUE;
-	};
+	}
 
 void TRasterBambuk::joinRasters( BEntry first, BEntry second ){
 			if ( first != second ){
@@ -317,4 +317,4 @@ void TRasterBambuk::joinRasters( BEntry first, BEntry second ){
 				appendMemberList( first, second );
 				count--;
 			};
-		};
+		}

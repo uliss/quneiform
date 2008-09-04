@@ -139,20 +139,20 @@ Bool32    SetCBProgressPoints(void *);
 //
 #define DEC_CB_TYPE(a)  PF##a
 #define DEC_CB_FUN(a,b,c) typedef a (*DEC_CB_TYPE(b))c; a b c;
-DEC_CB_FUN(void,    ProgressStart,      (void));
-DEC_CB_FUN(Bool32,  ProgressStep,       (Word32,  Word32));
-DEC_CB_FUN(Bool32,  ProgressStepLines,  (Word32,  Word32));
-DEC_CB_FUN(Bool32,  ProgressStepTables, (Word32,  Word32));
-DEC_CB_FUN(void,    ProgressFinish,     (void));
-DEC_CB_FUN(Bool32,  InitPRGTIME,        (void));
-DEC_CB_FUN(PRGTIME, StorePRGTIME,       (Word32, Word32));
-DEC_CB_FUN(void,    RestorePRGTIME,     (PRGTIME));
-DEC_CB_FUN(Bool32,  DonePRGTIME,        (void));
-DEC_CB_FUN(Bool32,  DPumaSkipComponent, (void));
-DEC_CB_FUN(Bool32,  DPumaSkipTurn,      (void));
-DEC_CB_FUN(Bool32,  rexcProgressStep,   (Word32));
-DEC_CB_FUN(void,    SetUpdate,          (Word32, Word32));
-DEC_CB_FUN(char *,  GetModulePath,      (void));
+DEC_CB_FUN(void,    ProgressStart,      (void))
+DEC_CB_FUN(Bool32,  ProgressStep,       (Word32,  Word32))
+DEC_CB_FUN(Bool32,  ProgressStepLines,  (Word32,  Word32))
+DEC_CB_FUN(Bool32,  ProgressStepTables, (Word32,  Word32))
+DEC_CB_FUN(void,    ProgressFinish,     (void))
+DEC_CB_FUN(Bool32,  InitPRGTIME,        (void))
+DEC_CB_FUN(PRGTIME, StorePRGTIME,       (Word32, Word32))
+DEC_CB_FUN(void,    RestorePRGTIME,     (PRGTIME))
+DEC_CB_FUN(Bool32,  DonePRGTIME,        (void))
+DEC_CB_FUN(Bool32,  DPumaSkipComponent, (void))
+DEC_CB_FUN(Bool32,  DPumaSkipTurn,      (void))
+DEC_CB_FUN(Bool32,  rexcProgressStep,   (Word32))
+DEC_CB_FUN(void,    SetUpdate,          (Word32, Word32))
+DEC_CB_FUN(char *,  GetModulePath,      (void))
 #undef DEC_CB_FUN
 #endif //_RS_FUNC_H_
 ////////////////////////////////////////////////////////////////////////////////

@@ -95,7 +95,7 @@ STD_FUNC( Int32 ) stdOpen( const char *filename, Int32 oflag, Int32 pmode )
          CONSOLE("stdOpen('%s') failed {%ld}", filename, _stdOpenCounter);
       };
       return hnd;
-};
+}
 
 STD_FUNC( Int32 ) stdClose( Int32 handle ) // ret: 0 -success, -1 -failed
 {
@@ -212,7 +212,7 @@ STD_FUNC( Int32 ) stdTell( Int32 handle )
       stdConsole("stdTell(%ld)=>%ld {%ld}", handle, res, _stdTellCounter);
    }
    return res;
-};
+}
 
 STD_FUNC( Int32 ) stdSeek( Int32 handle, Int32 offset, Int32 origin  )
 {
@@ -231,7 +231,7 @@ STD_FUNC( Int32 ) stdSeek( Int32 handle, Int32 offset, Int32 origin  )
       stdConsole("stdSeek(%ld, %ld, %ld)=>%ld {%ld}", handle, offset, origin, res, _stdSeekCounter);
    }
    return res;
-};
+}
 
 STD_FUNC( Int32 ) stdFileLength( Int32 hnd )
 {
