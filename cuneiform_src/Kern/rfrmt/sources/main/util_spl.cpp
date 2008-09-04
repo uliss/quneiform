@@ -726,7 +726,7 @@ int PASC CorrTiger(char *FileNameFul,char *FileNameOut,char *FilePar,int fl_cor)
 int FreeStructFull(void)
 //================
 { int kw=0,nc,ns=0,nw=0,sp=0,num=0,i=0;
-  char *err="FreeStructFull";
+  const char *err="FreeStructFull";
   #ifdef SUB_ZN
    do0(nc,0,NumCol)
    {

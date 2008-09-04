@@ -117,7 +117,7 @@ private:
 	Bool32          mbMarginsFlag;
 
 private:
-	Bool32          WriteDIBtoBMP(PChar8 cName, PCTDIB pDIB);
+	Bool32          WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
 	Bool32          GetDIB(PChar8   cDIB, PHandle phDIB);
 	Bool32          CloseSourceDIB();
 	Bool32          CreateDestinatonDIB(Word32 BitCount);

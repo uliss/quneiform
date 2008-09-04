@@ -79,7 +79,7 @@ void AM_DoneComm ();
 Word32 AM_GetOperCode (Word16 wLocCode);
 void   AM_RegiVert (Handle owner, char *lpName, Handle parent);
 void   AM_RegiVari (Handle owner, char *lpName, void *lpData, char *lpType);
-void AM_RegiHelp (Handle owner, char *lpName, Bool32 bAppend);
+void AM_RegiHelp (Handle owner, const char *lpName, Bool32 bAppend);
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 Word32 AM_WaitUserInput (Handle owner, Handle wnd);
 void   AM_DrawLine (Handle wnd, Point16 *start, Point16 *end, Int32 skew, Word32 rgb, Int16 pen, Word32 key);
@@ -97,6 +97,6 @@ Bool16 AM_Skip (Handle owner);
 	extern FN_AM_MessageBoxOk AM_MessageBoxOk;
 #endif
 Handle AM_CreateWindow (const char *lpTitle, void *lpDib);
-Handle AM_GetWindowHandle (char *name);
+Handle AM_GetWindowHandle (const char *name);
 char * AM_GetFileName (Handle wnd);
 /*----------------------------------------------------------------------------*/

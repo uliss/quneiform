@@ -256,7 +256,7 @@ void RLTDraw_I_PrimBoxes (Rect16 *pRc, int *pNote, int nRc, Handle myWindow, int
 	AM_DeleteRects (myWindow, OperCode);
 }
 /*---------------------------------------------------------------------------*/
-void MyErrorNoMem (char *pStr)
+void MyErrorNoMem (const char *pStr)
 {
 	Handle myKeyErr;
 	Word8  err8;

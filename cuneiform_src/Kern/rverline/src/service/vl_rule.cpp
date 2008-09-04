@@ -94,7 +94,7 @@ static Handle VL_D_WrResLine;
 /*----------------------------------------------------------------------------*/
 void AM_MakeTreeRules_VerifLines (Handle parent)
 {
-	char *pText;
+	const char *pText;
 /*  Корневая вершина  */
 pText = " \
 \n Корневая вершина первой половины [верификация линий] библиотеки 'RLTABLE'. \

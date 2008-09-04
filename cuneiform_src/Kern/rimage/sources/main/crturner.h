@@ -88,7 +88,7 @@ public:
 	virtual   ~CRTurner();
 
 private:
-	Bool32    WriteDIBtoBMP(PChar8 cName, PCTDIB pDIB);
+	Bool32    WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
 	Bool32    Turn270GC(PCTDIB pIn, PCTDIB pOut);
 	Bool32    Turn180GC(PCTDIB pIn, PCTDIB pOut);
 	Bool32    Turn90GC(PCTDIB pIn, PCTDIB pOut);

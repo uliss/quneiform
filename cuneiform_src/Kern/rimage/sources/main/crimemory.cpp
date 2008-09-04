@@ -121,7 +121,7 @@ Bool32 InitCFIOInterface(Bool32 Status)
 #define RIMAGE
 Char8 cCommentBuffer[CFIO_MAX_COMMENT];
 
-void    RIMAGEComment(PChar8 Comment)
+void    RIMAGEComment(const char *Comment)
 {
 	Word32 Len = strlen(Comment);
     Len = Len < CFIO_MAX_COMMENT ? Len : CFIO_MAX_COMMENT - 1 ;
@@ -129,7 +129,7 @@ void    RIMAGEComment(PChar8 Comment)
     cCommentBuffer[Len] = 0x0;
 }
 
-void *	RIMAGEDAlloc(Word32 stAllocateBlock, PChar8 Comment)
+void *	RIMAGEDAlloc(Word32 stAllocateBlock, const char *Comment)
 {
 	RIMAGEComment(Comment);
 	return RIMAGEAlloc(stAllocateBlock);

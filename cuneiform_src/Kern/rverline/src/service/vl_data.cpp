@@ -83,13 +83,13 @@ FNCPAGE_GetBlockFirst GetBlockFirst;
 FNCPAGE_GetBlockNext GetBlockNext;
 FNCPAGE_GetBlockData GetBlockData;
 /*------------extern functions------------------------------------------------*/
-void MyErrorNoMem (char* str);
+void MyErrorNoMem (const char* str);
 void   SetReturnCode_rverline (Word16 rc);
 /*------------own functions---------------------------------------------------*/
 Bool MyInit_CPage ();
 Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage, Word32 *pHoriType, Word32 *pVertType, char *pStr);
 Bool MyGetComp (Handle hCCOM, Rect16 *pRc, int *nRC, int MyMaxC, int Filter);
-void Error_CPage (char *str);
+void Error_CPage (const char *str);
 Bool MyFormZhertvy (Handle hCCOM, void **vvZher, int *iZher, int nZher, int Filter);
 Bool MySetZher (void **vvZher, int nZher, Handle hCPage);
 Bool MyGetZher (void **vvZher, int *nZher, int MaxZher, Handle hCPage);
@@ -449,7 +449,7 @@ Bool MyReSetLines (void *vLti, int MaxNumLin, CLINE_handle hCLINE)
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-void Error_CPage (char *str)
+void Error_CPage (const char *str)
 {
 	Word8  err8;
 	Word16 Code;

@@ -762,7 +762,7 @@ Bool32 CRIControl::RotatePoint(PChar8 cDIB, Int32 iX, Int32 iY, PInt32 prX, PInt
 	return bRet;
 }
 
-Bool32 CRIControl::WriteDIBtoBMP(PChar8 cName, PCTDIB pDIB)
+Bool32 CRIControl::WriteDIBtoBMP(const char *cName, PCTDIB pDIB)
 {
 #ifdef RIMAGE_DUMP_ENABLE
 

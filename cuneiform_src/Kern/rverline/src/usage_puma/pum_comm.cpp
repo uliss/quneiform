@@ -187,7 +187,7 @@ Word32 AM_GetOperCode (Word16 wLocCode)
 	return (wRltMainCode|(wLocCode<<16));
 }
 /*----------------------------------------------------------------------------*/
-void AM_RegiVert (Handle owner, char *lpName, Handle parent)
+void AM_RegiVert (Handle owner, const char *lpName, Handle parent)
 {
 	LDPUMA_Registry (owner, lpName, parent);
 }
@@ -197,7 +197,7 @@ void AM_RegiVari (Handle owner, char *lpName, void *lpData, char *lpType)
 	LDPUMA_RegVariable (owner, lpName, lpData, lpType);
 }
 /*----------------------------------------------------------------------------*/
-void AM_RegiHelp (Handle owner, char *lpName, Bool32 bAppend)
+void AM_RegiHelp (Handle owner, const char *lpName, Bool32 bAppend)
 {
 	LDPUMA_RegistryHelp (owner, lpName, bAppend);
 }
@@ -237,7 +237,7 @@ Handle AM_CreateWindow (const char *lpTitle, void *lpDib)
 	return LDPUMA_CreateWindow (lpTitle, lpDib);
 }
 /*----------------------------------------------------------------------------*/
-Handle AM_GetWindowHandle (char *name)
+Handle AM_GetWindowHandle (const char *name)
 {
 	return LDPUMA_GetWindowHandle (name);
 }

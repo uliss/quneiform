@@ -758,7 +758,7 @@ Bool32 CRTurner::Turn270GC(PCTDIB pIn, PCTDIB pOut)
 	return bRet;
 }
 
-Bool32 CRTurner::WriteDIBtoBMP(PChar8 cName, PCTDIB pDIB)
+Bool32 CRTurner::WriteDIBtoBMP(const char *cName, PCTDIB pDIB)
 {
 #ifdef RIMAGE_DUMP_TO_FILE
 	Word32  wBMPSize = pDIB->GetDIBSize() + 14;
