@@ -72,7 +72,7 @@ char* ChangEx( char* szPath, char* szEx )
    make_path(szPath, dir, fname, szEx);
    return szPath;
 }
-char* ChangNameEx( char* szPath, char* szNameEx )
+char* ChangNameEx( char* szPath, const char* szNameEx )
 {
    char dir[_MAX_DIR];
    char fname[_MAX_FNAME];
@@ -91,7 +91,7 @@ LNS_FUNC( void )   LnsSetSection( char* _szSection ) // 63 chars max
    strncpy(szSection, _szSection, sizeof(szSection)-1);
 }
 
-LNS_FUNC( Word32 ) LnsGetProfileInt( char* szKey, int nDefault )
+LNS_FUNC( Word32 ) LnsGetProfileInt(const char* szKey, int nDefault)
 {
    if (szIniFileName[0]==0)
    {

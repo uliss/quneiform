@@ -943,7 +943,7 @@ Word32 SnpWaitUserInput(SnpTreeNode* cur_node)
 {
 	return LDPUMA_WaitUserInput(cur_node ? *(Handle *)cur_node:NULL,NULL);
 };
-void SnpAddNode( SnpTreeNode *  node, char * name,SnpTreeNode * parent )
+void SnpAddNode( SnpTreeNode *  node, const char * name,SnpTreeNode * parent )
 {
 	LDPUMA_Registry( node, name,parent ? *(Handle *)parent:NULL );
 };

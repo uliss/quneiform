@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #include <winuser.h>
 #endif
 
-STD_FUNC( void ) stdAssert(   char *__cond,char *__file,int __line  )
+STD_FUNC( void ) stdAssert(const char *__cond, const char *__file, int __line)
 {
 
 #if defined( _WINDOWS )||defined( _Windows )

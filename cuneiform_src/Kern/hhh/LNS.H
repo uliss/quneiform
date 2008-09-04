@@ -132,7 +132,7 @@ typedef struct tagLnsSetupStr
    //////////////////////////////////////////////////////////////////////
    // set-get options from lns32.ini (located at the same place as .exe)
    LNS_FUNC( void )   LnsSetSection( char* szSection ); // 63 chars max
-   LNS_FUNC( Word32 ) LnsGetProfileInt( char* szKey, int nDefault );
+   LNS_FUNC( Word32 ) LnsGetProfileInt(const char* szKey, int nDefault );
    LNS_FUNC( Word32 ) LnsGetProfileString( char* szKey,
                             char* szResult, int nResult,
                             char* szDefault// = NULL

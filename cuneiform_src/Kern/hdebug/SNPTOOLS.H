@@ -122,7 +122,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    /*static            // SnpTreeNode construction and connection;*/
    void SnpAddNode(  // should be called from dll's XxxRegisterSnpTree();
          SnpTreeNode *  node, // on module's static data segment
-         char *         name, // user readable
+         const char  *  name, // user readable
          SnpTreeNode *  parent
          // eliminated, 21 oct 96:
          // SnpTreeNode *  elder_brother
@@ -343,7 +343,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
        void SnpNotifyAppl(SnpTreeNode* cur_node);
       // tree manipulation
        void   SnpRasterText(char *Text);
-      void SnpAddNode( SnpTreeNode *  node, char * name,
+      void SnpAddNode( SnpTreeNode *  node, const char * name,
          SnpTreeNode * parent ) ;
    void    __SnpIterParent( SnpTreeNode* node, Bool activate );
    void    SnpStartLoop( SnpTreeNode* node, Word32 iter_total );
@@ -388,7 +388,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    void   SnpRasterText(char *Text);
    void   SnpDrawRaster(RecRaster * raster);
 
-   void		SnpAddNode( SnpTreeNode*  node, char * name,SnpTreeNode* parent );
+   void		SnpAddNode( SnpTreeNode*  node, const char * name,SnpTreeNode* parent );
    void    __SnpIterParent( SnpTreeNode* node, Bool activate );
    void    SnpStartLoop( SnpTreeNode* node, Word32 iter_total );
    void    SnpLoopNext( SnpTreeNode* node );

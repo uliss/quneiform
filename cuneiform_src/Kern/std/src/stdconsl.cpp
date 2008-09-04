@@ -81,7 +81,7 @@ STD_FUNC( void ) stdSetConsoleFile( char * file_name )
       strcpy( _ConsoleFileName, file_name );
 }
 
-STD_FUNC( int ) stdConsole( char* str, ... )
+STD_FUNC( int ) stdConsole(const char* str, ... )
 {
    if (str==NULL) return 0;
    int count=0;
@@ -151,7 +151,7 @@ STD_FUNC( int ) stdConsole( char* str, ... )
    return count;
 } // stdConsole()
 
-STD_FUNC( int ) stdConsole_( char* str, ... )   // без перевода строки
+STD_FUNC( int ) stdConsole_(const char* str, ...)   // без перевода строки
 {
    if (str==NULL) return 0;
    int count=0;

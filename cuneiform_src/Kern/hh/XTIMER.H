@@ -73,7 +73,7 @@ private:
    };
 
 public:
-   XTimer(char* proc_id=NULL)
+   XTimer(const char* proc_id=NULL)
    {
       if (proc_id)
          strncpy(proc,proc_id, sizeof(proc));

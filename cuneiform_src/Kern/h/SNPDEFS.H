@@ -123,7 +123,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                         // SnpTreeNode construction and connection;
       void SnpAddNode(  // should be called from dll's XxxRegisterSnpTree();
             SnpTreeNode *  node, // on module's static data segment
-            char *         name, // user readable
+            const char  *  name, // user readable
             SnpTreeNode *  parent
                      );
 

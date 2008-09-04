@@ -602,7 +602,7 @@ int InitSubAlloc(long Size,SUB_ALLOC *Sub)
 //==
 char *Submalloc(uint size,SUB_ALLOC *s)
 //==
-{ long pos; char *err="Submalloc";
+{ long pos; const char *err="Submalloc";
   #ifdef DEBUG_MEM
    if(size == 0 || size > SIZE_SEGL) ERR(2,err);
   #endif
@@ -754,7 +754,7 @@ int EstIntrvlHor(FRAME **frm,int num,BOUND *bnd,int dxAS,int dyAS,
       dx,dy,ddx,ddy,inX[3],iix,l,r,u,d,dxMax,NumMod,nn;
   int MaxNum=MAX(300,MinVol);
   int *arr,*arrY;
-	char *err="EstIntrvlHor";
+  const char *err="EstIntrvlHor";
   *dsym=*AveX=*AveY=INDEF; ret=0;
   if(Limit) //--Форм-е массива допустимых рамок--
   { int MinX=Limit->left,MaxX=Limit->right,MinY=Limit->top,MaxY=Limit->bottom;

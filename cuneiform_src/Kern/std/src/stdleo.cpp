@@ -841,7 +841,7 @@ static Int32 leo_case[]={
 };
 
 /* ASCII */
-static char *leo_typeface_class[]={
+static const char *leo_typeface_class[]={
 /* 000 */ "",
 /* 001 */ "",
 /* 002 */ "",
@@ -1101,7 +1101,7 @@ static char *leo_typeface_class[]={
 };
 
 /* ASCII */
-static char *leo_typeface_one[]={
+static const char *leo_typeface_one[]={
 /* 000 */ "",
 /* 001 */ "",
 /* 002 */ "",
@@ -1360,7 +1360,7 @@ static char *leo_typeface_one[]={
 /*  (255,0xff) */ " "
 };
 
-static unsigned char std_ASCII_to_ANSI[256]=
+static unsigned const char std_ASCII_to_ANSI[256]=
 {
 /*       0    1    2    3    4    5    6    7   8    9    a    b    c    d    e    f  */
 /* 0*/ 0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0a,0x0b,0x0c,0x0d,0x0e,0x0f,
@@ -1381,7 +1381,7 @@ static unsigned char std_ASCII_to_ANSI[256]=
 /* f*/ 0xe4,0xe4,0x20,0x20,0x20,0xf2,0x20,0xe8,0xe3,0x20,0x20,0x20,0x20,0xe0,0x95,0x20
 };
 
-static char std_ANSI_to_ASCII[257]={
+static const char std_ANSI_to_ASCII[257]={
 /*0*/    "0000000000000000"     // Эти коды не изображаются
 /*1*/    "0000000000000000"     //
 /*2*/    " !\"#$%&'()*+,-./"
@@ -1490,7 +1490,7 @@ STD_FUNC(void) stdStrUnicodeToAnsi(char* pAnsi,const wchar_t* pUnicode)
 
 STD_FUNC(Bool32) stdLeoCompareChar(Word8 c1, Word8 c2)
 {
-char *p=leo_typeface_class[c1];
+const char *p=leo_typeface_class[c1];
 Word8   c;
 while( *p )
     {

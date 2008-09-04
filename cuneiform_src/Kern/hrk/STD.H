@@ -94,8 +94,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //////////////////////////////////
 // CONSOLE()
-   STD_FUNC( int  )  stdConsole( char* str, ... );  // с переводом строки
-   STD_FUNC( int )   stdConsole_( char* str, ... ); // без перевода строки
+   STD_FUNC( int  )  stdConsole( const char* str, ... );  // с переводом строки
+   STD_FUNC( int )   stdConsole_( const char* str, ... ); // без перевода строки
    typedef int (*FTConsole)( const char* str, ... );
    STD_FUNC( void )  stdSetConsoleHandler( FTConsole handler );
    STD_FUNC( void )  stdSetConsoleFile( char * file );
@@ -113,7 +113,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ////////////////////////////////////
 // assert() redefinition
 #ifndef STD_NO_ASSERT_REDEFINITION
-   STD_FUNC( void ) stdAssert(   char * cond,char *__file,int __line);
+   STD_FUNC( void ) stdAssert(const char * cond, const char *__file,int __line);
 #endif
 
 //////////////////////////////////
