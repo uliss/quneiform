@@ -146,7 +146,7 @@ BOOL Static_MakeHTML(
 		case BROWSE_PAGE_START:
 			// Начало страницы
 			FontStyle(0);
-			PUT_STRING("<html><body>");
+			PUT_STRING("<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"></head><body>");
 			break;
 
 		case BROWSE_PAGE_END:
