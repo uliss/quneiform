@@ -937,7 +937,7 @@ CP_TO_CP tab[] = {
  * codepage.
  */
 
-const char * getUTF8Str(const char in, const int codepage) {
+const char * getUTF8Str(const unsigned char in, const int codepage) {
   switch(codepage) {
   case 1250 : return win1250_to_utf8[in];
   case 1251 : return win1251_to_utf8[in];
