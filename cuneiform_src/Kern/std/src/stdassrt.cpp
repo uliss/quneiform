@@ -89,10 +89,10 @@ STD_FUNC( void ) stdAssert(const char *__cond, const char *__file, int __line)
         if (c == 27)
                 exit(0);
 if ( c == 13){
-#ifdef __GNUC__
-           asm("int $0x03");
-#else
+#if defined (__MSVC__)
            _asm int 3
+#else
+           abort();
 #endif
                }
   printf("..OK");

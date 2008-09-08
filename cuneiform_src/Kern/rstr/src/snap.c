@@ -970,10 +970,10 @@ switch(message)
                 }
             else
                 {   // F7 : debug
-#if defined (__GNUC__) /* FIXME: only works on 32 bit x86. */
-                asm("int $0x03");
-#else
+#if defined (__MSVC__)
                 __asm  int 03h;
+#else
+                abort();
 #endif
                 }
             break;
