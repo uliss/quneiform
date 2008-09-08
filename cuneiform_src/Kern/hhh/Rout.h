@@ -65,7 +65,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // This file creation date: 18.05.99
 // By Eugene Pliskin pliskin@cs.isa.ac.ru
 //********************************************************************
-#pragma message(__FILE__"(1)")
 
 #ifndef __ROUT_H
 #define __ROUT_H

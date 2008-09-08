@@ -56,7 +56,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 // ROUT_OWN.H
-#pragma message(__FILE__"(1)")
 
 #pragma once
 

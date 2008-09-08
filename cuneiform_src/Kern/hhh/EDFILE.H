@@ -54,7 +54,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-  #pragma message(__FILE__"(1)")  // BC doesn't understand it somewhy...
 
 #ifndef __EDFILE__
 #define __EDFILE__

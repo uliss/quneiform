@@ -54,7 +54,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#pragma message(__FILE__"(1)  :")
 /////////////////////////////////////////////////////////////////
 // class XMemFile - utility to put/get misc data into binary pool,
 // read/write it to disk

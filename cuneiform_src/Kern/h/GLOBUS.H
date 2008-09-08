@@ -54,14 +54,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef __BORLANDC__
-  #pragma message(__FILE__"(1)")  // BC doesn't understand it somewhy...
-
-  #ifdef DEBUG_HDRS
-     #pragma message(__FILE__"(1) : START ")
-  #endif
-#endif
-
 #ifndef __GLOBUS_H
 #define __GLOBUS_H
 
@@ -100,7 +92,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       #define CLA_IMPO    _huge
       #define CLA_EXPO    _export
       #define FUN_IMPO__
-      #define __FUN_IMPO            
+      #define __FUN_IMPO
       #define FUN_EXPO__
       #define __FUN_EXPO            _export
       #ifndef PASCAL
@@ -178,8 +170,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #define FUN_IMPO( ret_type )  FUN_IMPO__ ret_type __FUN_IMPO
    #define FUN_EXPO( ret_type )  FUN_EXPO__ ret_type __FUN_EXPO
    /*********************************************************/
-   #ifdef DEBUG_HDRS
-      #pragma message(__FILE__"(1) : FINISH ")
-   #endif
 
 #endif /* __GLOBUS_H */

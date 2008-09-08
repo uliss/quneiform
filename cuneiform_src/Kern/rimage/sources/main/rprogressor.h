@@ -65,10 +65,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma once
 #endif // _MSC_VER > 1000
 
-# if defined (_DEBUG)
-# pragma message( __FILE__" : progress indicator")
-# endif // (_DEBUG)
-
 #include "globus.h"
 
 typedef void   (*CRPStart)(void);

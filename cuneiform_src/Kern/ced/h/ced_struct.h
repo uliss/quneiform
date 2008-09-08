@@ -57,8 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //Filename: ced_struct.h
 //Created 7.12.98 by Bozhenov Artem, (C)CT inc.
 
-#pragma message(__FILE__"(1)")  // BC doesn't understand it somewhy...
-
 #ifndef _CED_STRUCT_
 #define _CED_STRUCT_
 

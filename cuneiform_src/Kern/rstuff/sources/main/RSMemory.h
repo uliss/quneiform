@@ -64,13 +64,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #undef _NO_CFIO
 
-# if defined (_DEBUG)
- #ifdef _NO_CFIO
-  # pragma message( __FILE__" : RSTUFF memory manager")
- #else
-  # pragma message( __FILE__" : RSTUFF memory manager (CFIO)")
- #endif
-# endif // (_DEBUG)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 

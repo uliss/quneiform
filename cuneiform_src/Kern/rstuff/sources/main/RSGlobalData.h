@@ -68,14 +68,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define _RSGLOBALDATA_H_
 
 ////////////////////////////////////////////////////////////////////////////////
-# if defined (_DEBUG)
- # ifdef __RSTUFF_CPP__
-  # pragma message( __FILE__" : RStuff global variables definition")
- # else
-  # pragma message( __FILE__" : RStuff global variables declardtion")
- # endif
-# endif // (_DEBUG)
-////////////////////////////////////////////////////////////////////////////////
 #include "globus.h"
 #include "rsdefines.h"
 #include "lnsdefs.h"

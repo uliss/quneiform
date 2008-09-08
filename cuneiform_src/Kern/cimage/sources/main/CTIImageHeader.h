@@ -61,10 +61,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma once
 #endif // _MSC_VER > 1000
 
-# if defined (_DEBUG)
-# pragma message( __FILE__" : Image header")
-# endif // (_DEBUG)
-
 #include "resource.h"
 #include "ctidefines.h"
 #include "ctiimage.h"
