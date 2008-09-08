@@ -85,7 +85,7 @@ void   my_assert_fail(const char  *__cond, const char  *__file, int __line);
 
 void my_assert_fail(const char  *__cond, const char  *__file, int __line	){
 
-   char c;
+   int c;
 #if defined( _Windows ) || defined( WIN32 )
 	char mess[500];
 	sprintf( mess,
@@ -112,7 +112,7 @@ void my_assert_fail(const char  *__cond, const char  *__file, int __line	){
 
 	do {
 		c = getchar();
-	} while ((c != 32)&&( c != 27 ));
+	} while((c != 32) && (c != 27) && (c != EOF));
 	if (c == 27)
 		exit(0);
 	printf("..OK");
