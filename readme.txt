@@ -59,7 +59,7 @@ Running
 
 After install you simply run.
 
-cuneiform [-l language -o result_file --html --dotmatrix --fax] <image_file>
+cuneiform [-l language -o result_file -f [outputformat] --dotmatrix --fax] <image_file>
 
 Output is written to pumaout.txt. Cuneiform assumes that your image contains
 only a single column of text.
@@ -68,12 +68,12 @@ By default Cuneiform recognizes English text. To change the language use the
 command line switch -l followed by your language string. To get a list of
 supported languages type "cuneiform -l".
 
-By default Cuneiform outputs plain text. You can specify the "--html" switch
-to make it output in HTML format.
+By default Cuneiform outputs plain text. There are several other output formats.
+To get a list run the command "cuneiform -f".
 
 If you do not define an output file with the -o switch, Cuneiform
 writes the result to a file "cuneiform-out.[format]". The file extension
-is either "txt" or "html" depending on your output format.
+depends on your output format.
 
 
 Contact information
