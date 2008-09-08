@@ -244,14 +244,26 @@ BOOL OneChar(Handle charHandle)
 
 		// ”гловые скобки в HTML замен€ютс€ на круглые
 		case '<':
-			if (gFormat == ROUT_FMT_HTML)
-				c2 = '(';
+		case '>':
+			if (gFormat == ROUT_FMT_HTML) {
+				*gMemCur++ = '&';
+				*gMemCur++ = (c1 == '<' ? 'l' : 'g');
+				*gMemCur++ = 't';
+				*gMemCur++ = ';';
+				return TRUE;
+			}
 			break;
 
-		case '>':
-			if (gFormat == ROUT_FMT_HTML)
-				c2 = ')';
-			break;
+		case '&':
+                        if(gFormat == ROUT_FMT_HTML) {
+                            *gMemCur++ = '&';
+                            *gMemCur++ = 'a';
+                            *gMemCur++ = 'm';
+                            *gMemCur++ = 'p';
+                            *gMemCur++ = ';';
+                            return TRUE;
+                        }
+                        break;
 
 		// ƒифтонг oe / OE
 		case oe_deaf_sound:
