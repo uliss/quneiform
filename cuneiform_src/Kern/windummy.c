@@ -25,6 +25,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <stdio.h>
+#include "config.h"
+
 #ifndef WIN32
 
 /* Minimal implementations of win32-functionality.
@@ -41,7 +44,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <unistd.h>
 #include <assert.h>
 #include <string.h>
-#include <stdio.h>
 #include <dlfcn.h>
 #include <stdarg.h>
 
@@ -57,7 +59,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 #include "compat_defs.h"
-#include "config.h"
 
 int HFILE_ERROR;
 
@@ -595,7 +596,8 @@ void make_path(char *opath, const char *dir, const char *basename, const char *e
  */
 void winpath_to_internal(char *p) {
 #if WIN32
-    for(int i=0; p[i] != '\0'; i++) {
+    int i;
+    for(i=0; p[i] != '\0'; i++) {
         if(p[i] == '\\')
             p[i] = '/';
     }
