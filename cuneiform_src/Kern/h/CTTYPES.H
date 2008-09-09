@@ -159,6 +159,25 @@ extern "C"
  * Consolidating them all here.
  */
 
+#ifdef WIN32
+
+#include <windows.h>
+
+#else
+
+/* These elements are defined in Windows headers. */
+
+typedef int32_t  LONG;
+typedef uint32_t DWORD;
+
+typedef char* LPSTR;
+typedef char* LPTSTR;
+typedef const char* LPCSTR;
+typedef const char* LPCWSTR;
+typedef const char* LPCTSTR;
+
+#endif
+
 typedef int BOOL;
 
 typedef char CHAR;
@@ -170,20 +189,17 @@ typedef unsigned char * PBYTE;
 typedef int16_t  SINT;
 typedef uint16_t  WORD;
 
-typedef int32_t  LONG;
-typedef uint32_t DWORD;
-
-typedef int32_t  * PLONG;
-typedef uint32_t * PDWORD;
+typedef LONG  * PLONG;
+typedef DWORD * PDWORD;
 
 typedef int16_t _INT;
 typedef int16_t * _PINT;
 #define INT  _INT
 #define PINT _PINT
-typedef uint16_t * PWORD;
+typedef WORD * PWORD;
 
 typedef BYTE* LPBYTE;
-typedef uint32_t * LPDWORD;
+typedef DWORD * LPDWORD;
 typedef BOOL* LPBOOL;
 typedef LONG* LPLONG;
 typedef void* LPVOID;
@@ -192,11 +208,6 @@ typedef void* LPVOID;
 #define TCHUGE
 #define TCFAR
 
-typedef char* LPSTR;
-typedef char* LPTSTR;
-typedef const char* LPCSTR;
-typedef const char* LPCWSTR;
-typedef const char* LPCTSTR;
 typedef uint32_t UINT;
 typedef unsigned long ULONG;
 
