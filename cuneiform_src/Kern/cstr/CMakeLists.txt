@@ -6,4 +6,9 @@ src/cstr.c)
 
 target_link_libraries(cstr ccom)
 
-install(TARGETS cstr LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS cstr ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS cstr LIBRARY DESTINATION ${LIBDIR})
+endif()
+

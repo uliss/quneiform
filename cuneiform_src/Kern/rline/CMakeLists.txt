@@ -14,4 +14,9 @@ lns32
 rshelllines
 )
 
-install(TARGETS rline LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS rline ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS rline LIBRARY DESTINATION ${LIBDIR})
+endif()
+

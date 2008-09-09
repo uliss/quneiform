@@ -17,4 +17,8 @@ cpage
 rverline
 )
 
-install(TARGETS rshelllines LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS rshelllines ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS rshelllines LIBRARY DESTINATION ${LIBDIR})
+endif()

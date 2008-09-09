@@ -11,4 +11,8 @@ sources/src/cpp/lcline.cpp
 
 target_link_libraries(cline windummy)
 
-install(TARGETS cline LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS cline ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS cline LIBRARY DESTINATION ${LIBDIR})
+endif()

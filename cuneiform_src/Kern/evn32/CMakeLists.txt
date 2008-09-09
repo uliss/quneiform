@@ -15,4 +15,9 @@ src/v0comprq.c
 
 target_link_libraries(evn32 dif windummy)
 
-install(TARGETS evn32 LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS evn32 ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS evn32 LIBRARY DESTINATION ${LIBDIR})
+endif()
+

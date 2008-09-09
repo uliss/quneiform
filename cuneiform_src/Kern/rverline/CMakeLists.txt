@@ -20,4 +20,9 @@ cline
 ccom
 )
 
-install(TARGETS rverline LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS rverline ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS rverline LIBRARY DESTINATION ${LIBDIR})
+endif()
+

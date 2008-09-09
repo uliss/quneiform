@@ -11,4 +11,8 @@ sources/cpp/dll_main.cpp
 
 target_link_libraries(cfio windummy)
 
-install(TARGETS cfio LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS cfio ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS cfio LIBRARY DESTINATION ${LIBDIR})
+endif()

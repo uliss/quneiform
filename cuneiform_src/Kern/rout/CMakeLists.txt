@@ -16,4 +16,8 @@ src/words.cpp
 
 target_link_libraries(rout ced cfio)
 
-install(TARGETS rout LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS rout ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS rout LIBRARY DESTINATION ${LIBDIR})
+endif()

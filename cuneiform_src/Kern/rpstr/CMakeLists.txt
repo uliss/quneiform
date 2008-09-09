@@ -17,4 +17,9 @@ rstr
 std32
 )
 
-install(TARGETS rpstr LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS rpstr ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS rpstr LIBRARY DESTINATION ${LIBDIR})
+endif()
+

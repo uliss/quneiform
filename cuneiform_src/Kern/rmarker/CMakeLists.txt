@@ -25,4 +25,9 @@ rpic
 rselstr
 )
 
-install(TARGETS rmarker LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS rmarker ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS rmarker LIBRARY DESTINATION ${LIBDIR})
+endif()
+

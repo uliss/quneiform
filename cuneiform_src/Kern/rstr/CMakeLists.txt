@@ -107,4 +107,8 @@ std32
 leo
 )
 
-install(TARGETS rstr LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS rstr ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS rstr LIBRARY DESTINATION ${LIBDIR})
+endif()
