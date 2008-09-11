@@ -480,11 +480,13 @@ typedef struct baseline_struct B_LINES;
 //AK:  without collision when snap.dll creating
 #ifndef _SNAP_
 
+#ifndef WIN32
 struct POINT {INT row,col;} ;
+#endif
 
 struct rule_struct
  {
- struct POINT beg,end;
+ POINT beg,end;
  BYTE width;
  BYTE type;
 #define VERT_LN  0

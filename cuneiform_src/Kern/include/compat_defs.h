@@ -47,7 +47,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include<crtdbg.h>
 #else
 #define _ASSERT(a) assert(a)
+typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int);
 #endif
+
+#include "winfuncs.h"
 
 #else
 

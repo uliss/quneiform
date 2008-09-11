@@ -83,6 +83,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "loc.h"
 #include "excdefs.h"
 //#include "rcutp.h"
+#include "minmax.h"
 
 #include "resource.h"
 //static  Word8*  lnOcrPath;
