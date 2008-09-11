@@ -43,13 +43,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include<windows.h>
 
+#ifdef __MSVC__
+#include<crtdbg.h>
+#else
+#define _ASSERT(a) assert(a)
+#endif
+
 #else
 
 #include <time.h>
 #include "minmax.h"
 #include "filestuff.h"
 #include "cttypes.h" /* Most type definitions are here. */
-#include "minmax.h"
 #include <errno.h>
 
 #ifdef __cplusplus
