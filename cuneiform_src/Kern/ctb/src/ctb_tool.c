@@ -147,9 +147,16 @@ free(ctb_tmp_dir);
 return;
 }
 
+static char * mkdtemp(const char *foo) {
+	char fobo[10];
+	printf("Add missing mkdtemp functionality, ctb_tool.c\n");
+	exit(2);
+	return fobo;
+}
+
 CTB_FUNC(Int32) CTB_gettmpdirname(void) {
 #ifdef WIN32
-    char tmp[] = "c:/winnt/temp/cuneiform-XXXXXX";
+    char tmp[] = "c:/windows/temp/cuneiform-XXXXXX";
 #else
     char tmp[] = "/tmp/cuneiform-XXXXXXX";
 #endif

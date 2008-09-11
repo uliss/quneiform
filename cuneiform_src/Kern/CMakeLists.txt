@@ -37,6 +37,10 @@ if(UNIX AND NOT APPLE)
   set(CMAKE_SHARED_LINKER_FLAGS "-Wl,-Bsymbolic")
 endif()
 
+if(MINGW)
+  set(LINK_FLAGS "${LINK_FLAGS} -mwindows -mconsole")
+endif()
+
 include_directories(itigerole/sources/tiger/h)
 
 set(LIBTYPE SHARED CACHE STRING "STATIC or SHARED")

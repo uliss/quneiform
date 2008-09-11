@@ -518,7 +518,7 @@ STD_FUNC( Int32 ) stdGetDirectoryInfo(const char * lpBuffer,
         char szRootDir[256]={0};
         char szComputerNameThis[256]={0};
         char szComputerName[256]={0};
-        Word32 wBuffSize=256;
+        DWORD wBuffSize=256;
         Int32 nLen=strlen(lpBuffer);
         if(nLen<2)
             return 0;
