@@ -941,6 +941,7 @@ const char * getUTF8Str(const unsigned char in, const int codepage) {
   switch(codepage) {
   case 1250 : return win1250_to_utf8[in];
   case 1251 : return win1251_to_utf8[in];
+  case 1252 : return win1252_to_utf8[in];
   case 1254 : return win1254_to_utf8[in];
   case 1257 : return win1257_to_utf8[in];
   default : return "?";
