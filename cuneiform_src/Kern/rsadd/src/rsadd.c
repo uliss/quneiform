@@ -1238,20 +1238,20 @@ Bool32  rsadd_bl_conflict(CSTR_rast eng,CSTR_rast enge,Int32 BL_small)
 CSTR_rast       c;
 CSTR_rast_attr  attr;
 UniVersions     u;
-Int32           all, small;
+Int32           all, small_;
 
-for(all=small=0,c=eng;c && c!=enge;c=CSTR_GetNext(c))
+for(all=small_=0,c=eng;c && c!=enge;c=CSTR_GetNext(c))
     {
     CSTR_GetCollectionUni(c,&u);
     if( u.lnAltCnt && isupper(u.Alt[0].Code[0]) )
         {
         CSTR_GetAttr(c,&attr);
         if( (attr.h-BL_small)<2 )
-            small++;
+            small_++;
         all++;
         }
     }
-return (small==all || all>2 && small*3>=all*2);
+return (small_==all || all>2 && small_*3>=all*2);
 }
 
 // Nick 11.03.2001

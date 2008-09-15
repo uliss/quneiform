@@ -38,7 +38,7 @@ if(UNIX AND NOT APPLE)
 endif()
 
 if(MINGW)
-  set(LINK_FLAGS "${LINK_FLAGS} -mwindows -mconsole")
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -mwindows")
 endif()
 
 include_directories(itigerole/sources/tiger/h)
