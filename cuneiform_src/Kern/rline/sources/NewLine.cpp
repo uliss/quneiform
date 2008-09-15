@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <math.h>
 #include <fstream>
 #include <cstring>
-
+#include <time.h>
 
 #include "stdafx.h"
 #include "linedefs.h"
