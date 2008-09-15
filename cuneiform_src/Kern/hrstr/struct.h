@@ -481,7 +481,7 @@ typedef struct baseline_struct B_LINES;
 #ifndef _SNAP_
 
 #ifndef WIN32
-struct POINT {INT row,col;} ;
+struct POINT {INT x, y;} ;
 #endif
 
 struct rule_struct

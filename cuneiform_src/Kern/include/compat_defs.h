@@ -42,6 +42,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #if WIN32
 
 #include<windows.h>
+#include"minmax.h"
 
 #ifdef __MSVC__
 #include<crtdbg.h>

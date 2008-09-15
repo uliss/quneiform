@@ -32,10 +32,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * code use them without proper includes which lead to link errors.
  */
 
+#ifndef MIN
 #define MIN(a,b) (((a)>(b))?(b):(a))
+#endif
+#ifndef MAX
 #define MAX(a,b) (((a)>(b))?(a):(b))
+#endif
 
+#ifndef min
 #define min(a,b) (((a)>(b))?(b):(a))
+#endif
+#ifndef max
 #define max(a,b) (((a)>(b))?(a):(b))
+#endif
 
 #endif

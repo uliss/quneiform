@@ -1110,10 +1110,10 @@ extern Int32 num_of_lines;
   {
   if (lines[i].type&FRM_LN || !(lines[i].type&HOR_LN))
     continue;
-  bx=lines[i].beg.col>>line_scale;
-  by=lines[i].beg.row>>line_scale;
-  ex=lines[i].end.col>>line_scale;
-  ey=lines[i].end.row>>line_scale;
+  bx=lines[i].beg.x>>line_scale;
+  by=lines[i].beg.y>>line_scale;
+  ex=lines[i].end.x>>line_scale;
+  ey=lines[i].end.y>>line_scale;
   by-=(INT)((LONG)nIncline*bx/2048);
   ey-=(INT)((LONG)nIncline*ex/2048);
   if (MIN(by,ey)<bl.b3 || MAX(by,ey)>bl.b3+bl.ps/2 ||

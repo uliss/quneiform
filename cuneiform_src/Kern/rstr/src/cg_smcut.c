@@ -90,7 +90,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  static INT iemax;       //яЁртр  уЁрэшЎр
  static CHAR right_dust; //Їыру: ёяЁртр dust (тюьюцэю Єюўър шыш чря Єр )
  static CHAR fl_b;       //Їыру: яЁш фтшцхэшш ёыхтр тёЄЁхЄшыё  "№"
- static BYTE connect;    //Їыру Ёхцшьр яю ёт чэ√ь ъюьяюэхэЄрь
+ static BYTE connect_;    //Їыру Ёхцшьр яю ёт чэ√ь ъюьяюэхэЄрь
 
  static INT w1,w2,h2;
 
@@ -132,7 +132,7 @@ void dp_pass0(cell *CP, raster *rp, struct cut_elm *cutp,
 
   if ((ncut=n)<2)  return;
   LC=CP; r=rp; cut_list=cutp; vers_list=versp;
-  iemax=ncut-1;  right_dust=0;  fl_b=0;  connect=1;
+  iemax=ncut-1;  right_dust=0;  fl_b=0;  connect_=1;
   ie1=iemax;  vers=&cut_list[ie1].versm;
   ie2=ir=(let(vers) || dust(vers)) ? ie1-1 : ie1;
   ib1=ib2=0;      vers=&cut_list[1].versm;
@@ -267,7 +267,7 @@ void dp_pass0(cell *CP, raster *rp, struct cut_elm *cutp,
     {
       version *vers0;
       CHAR *ilet;
-      if (connect && cut_list[il].dh==0)
+      if (connect_ && cut_list[il].dh==0)
       {
         addij(LC,r,cut_list,vers_list,ncut,ib2,ie2,0);
         if (cut_list[ie2].versm.vers[0].prob>trs2)  goto finish;
@@ -321,9 +321,9 @@ void dp_pass0(cell *CP, raster *rp, struct cut_elm *cutp,
 //    if (il>ir)  break;
 //    if (iec==iemax || ibc==0 || iec<ibc)  break;
     if (iec==iemax && ibc==0)  break;
-    connect = 1-connect;
+    connect_ = 1-connect_;
   }
-  while (!connect);
+  while (!connect_);
 
   if (right_dust)
     if (glue_right_dust())
@@ -455,7 +455,7 @@ static CHAR l2r(INT *ib1, INT *ib2, INT *il)
   ib2p=*ib1;  *il=iec=*ib2;  cute=cut_list+iec;
   while (iec < iemax)
   {
-    if (connect)
+    if (connect_)
     {
     //выбираем компоненту, добавляя узкие куски, лежащие недалеко
       x0=cut_list[*ib2].x;
@@ -686,7 +686,7 @@ static CHAR r2l(INT *ir, INT *ie2, INT *ie1, INT mode)
   ie2p=*ie1;  *ir=ibc=*ie2;  cutb=cut_list+ibc;
   while (ibc > 0)
   {
-    if (connect)
+    if (connect_)
     {
     //выбираем компоненту, добавляя узкие куски, лежащие недалеко
       x0=cut_list[*ie2].x;

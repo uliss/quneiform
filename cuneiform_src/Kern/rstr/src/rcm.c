@@ -695,10 +695,10 @@ if( myPage )
              abs(cpdata->Line.Beg_Y-cpdata->Line.End_Y)) &&
 			 (cpdata->Dir==LD_Horiz)  )
         {
-                page_lines[num_of_lines].beg.row=(Int16)(cpdata->Line.Beg_Y);
-                page_lines[num_of_lines].beg.col=(Int16)(cpdata->Line.Beg_X);
-                page_lines[num_of_lines].end.row=(Int16)(cpdata->Line.End_Y);
-                page_lines[num_of_lines].end.col=(Int16)(cpdata->Line.End_X);
+                page_lines[num_of_lines].beg.y=(Int16)(cpdata->Line.Beg_Y);
+                page_lines[num_of_lines].beg.x=(Int16)(cpdata->Line.Beg_X);
+                page_lines[num_of_lines].end.y=(Int16)(cpdata->Line.End_Y);
+                page_lines[num_of_lines].end.x=(Int16)(cpdata->Line.End_X);
                 page_lines[num_of_lines].type=HOR_LN;
                 page_lines[num_of_lines].width=cpdata->Line.Wid10/10;
                 num_of_lines++;
@@ -766,10 +766,10 @@ INT i;
 for (i=0; i<num_of_lines; i++)
   {
   if(   (page_lines[i].type&UNDRLN) &&
-        page_lines[i].beg.col==Ax &&
-        page_lines[i].beg.row==Ay &&
-        page_lines[i].end.col==Bx &&
-        page_lines[i].end.row==By )
+        page_lines[i].beg.x==Ax &&
+        page_lines[i].beg.y==Ay &&
+        page_lines[i].end.x==Bx &&
+        page_lines[i].end.y==By )
         return TRUE;
   }
 return FALSE;

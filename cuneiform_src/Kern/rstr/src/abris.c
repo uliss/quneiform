@@ -75,7 +75,7 @@ static CHAR let_mind[80] = {
 // 60  a b c d e f g h i j k l m n o p q r s t u v w x y z
 // 60                                70
 
-
+
 void apply_monus(cell *cl)
 {
  INT i, j;
@@ -84,7 +84,7 @@ void apply_monus(cell *cl)
    if ((j=let_mon[i]))
       promote(0,cl,let_mol[i],j);
 }
-
+
 
 INT abris(s_glue *GL, cell *cl, BYTE Let, INT prob)
 {
@@ -153,7 +153,7 @@ INT abris(s_glue *GL, cell *cl, BYTE Let, INT prob)
  return prob;
 
 }
-
+
 BYTE s_filt(cell *cl)
 {
 
@@ -268,7 +268,7 @@ SF_Bidx:
     { mon +=  i * PNL_BINT_INDX; scl->reasno = c_rn_bint_idx; }
  return new_prob( mon );
 }
-
+
 BYTE D_filt()
 {
  INT  pen;
@@ -294,7 +294,7 @@ BYTE D_filt()
 DF_Ret:
     return new_prob( pen );
 }
-
+
 BYTE B_filt()
 {
  INT  pen;
@@ -342,7 +342,7 @@ BYTE B_filt()
 BF_Ret:
     return new_prob( pen );
 }
-
+
 #define MAX_PEN_FOR_ONE_LEG  100
 BYTE A_filt()
 {
@@ -361,7 +361,7 @@ BYTE A_filt()
     pen = MAX_PEN_FOR_ONE_LEG * pen / ( (midh>>1) - 1 );
     return new_prob( pen );
 }
-
+
 BYTE c_filt()
 {
  INT  pen, top_bot_delta, ww1, ww2;
@@ -540,7 +540,7 @@ CF_BotAndTop:
 CF_Ret:
  return new_prob( pen );
 }
-
+
 BYTE a_filt()
 {
  INT i, pen;
@@ -615,7 +615,7 @@ AF_BintIndexTest:
     return a_rb_corner(new_prob( pen ));
  }
 }
-
+
 
 BYTE M_filt()
 {
@@ -716,7 +716,7 @@ MF_Ret:
  return new_prob( pen );
 }
 
-
+
 BYTE R_filt()
 {
  INT pen;
@@ -750,7 +750,7 @@ RF_Ret:
  return new_prob( pen );
 
 }
-
+
 BYTE HH_filt()
 {
  INT  pen;
@@ -828,7 +828,7 @@ BYTE HH_filt()
  return new_prob( pen );
 }
 
-
+
 #define PNL_JMP_RS 20
 BYTE w_filt()
 {
@@ -1084,7 +1084,7 @@ WF_Ret:
  return new_prob( pen );
 }
 
-
+
 BYTE o_filt(INT f)
 {
  INT pen, fl, i, i1, i2, i3, i4, j1, j2, j3, j4;
@@ -1115,7 +1115,7 @@ BYTE o_filt(INT f)
   }
  if ( pen > 0 ) cv = (BYTE)pen;
  else           cv = 0;
- if (fullh < 18) goto small;
+ if (fullh < 18) goto small_;
  if (f & 1)
   {
    fl=0;
@@ -1229,7 +1229,7 @@ BYTE o_filt(INT f)
  dv4: if (!(f & 0x40)) pen+=20;
  ac5:
  goto getout;
-small:
+small_:
  if (f & 1)
   {
    fl=0;
@@ -1359,7 +1359,7 @@ getout:
  }
  return new_prob( pen );
 }
-
+
 BYTE left_angle_braket_filt()
 {
 INT     pen;
@@ -1403,7 +1403,7 @@ LAB_Ret:
     return  new_prob(pen);
 }
 
-
+
 BYTE right_angle_braket_filt()
 {
 INT     pen;
@@ -1444,7 +1444,7 @@ BYTE    tresh;
 RAB_Ret:
     return  new_prob(pen);
 }
-
+
 BYTE ss_filt()
 {
 BYTE wi, wi1, wi2;
@@ -1489,7 +1489,7 @@ INT pen, degree;
         pen += 120;
     return new_prob( pen );
 }
-
+
 BYTE k_filt()
 {
 BYTE wi, wi1, fl;
@@ -1532,7 +1532,7 @@ INT pen, degree, numi_mode_val;
 KF_Ret:
    return new_prob( pen );
 }
-
+
 #define PNL_X_NOSIM 40
 #define PNL_X_FLAT_SIDE 40
 BYTE x_filt()
@@ -1562,7 +1562,7 @@ INT pnl;
 XF_Ret:
  return new_prob( pnl );
 }
-
+
 BYTE d_filt()
 {
 INT twoint, lgap, i;
@@ -1649,7 +1649,7 @@ DF_around:
  DF_Ret:
  return new_prob( pnl );
 }
-
+
 BYTE v_filt()
 {
 INT   pen;
@@ -1660,7 +1660,7 @@ BYTE  wi1, wi2;
     return (BYTE)cprob;
     //return new_prob( pen );
 }
-
+
 BYTE q_filt()
 {
 INT pnl, wi;
@@ -1696,7 +1696,7 @@ BYTE  i, extr_min, extr_min_pos, dif, wpos;
 
  return new_prob( pnl );
 }
-
+
 BYTE Dig_6_filt()
 {
   INT   pen;
@@ -1739,7 +1739,7 @@ BYTE Dig_6_filt()
 D6F_Ret:
   return new_prob( pen );
 }
-
+
 BYTE E_filt()
 {
 BYTE tbc;
@@ -1759,7 +1759,7 @@ INT pen;
     }
     return new_prob( pen );
 }
-
+
 INT h_filt(cell *c, INT prob, s_glue *GL, BYTE h_or_b_Let)
 {
  lnhead *Lp1, *Lp2;
@@ -1871,7 +1871,7 @@ UpperGap:
  return new_prob( pnl );
 }
 
-
+
 BYTE CR_filt()
 {
  INT  pen;
