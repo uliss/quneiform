@@ -324,7 +324,7 @@ STD_FUNC( Bool32 ) stdDeleteDirectory(
        while(xffFile)
        {
            XPath xpName=xffFile.SafeStr();
-           XPath xpCurrFileName=xpPath+xffFile.SafeStr();
+           XPath xpCurrFileName=(char*)(xpPath+xffFile.SafeStr());
            Bool32 bCurrUppDir=xpName=="." || xpName=="..";
            Bool32 bIsDirectory=xffFile.FileAttrib() & _A_SUBDIR;
            if(bIsDirectory)
@@ -372,8 +372,8 @@ STD_FUNC( Bool32 ) stdMoveDirectory(
        while(xffFile)
        {
            XPath xpName=xffFile.SafeStr();
-           XPath xpCurrFileNameDst=xpPathDst+xffFile.SafeStr();
-           XPath xpCurrFileNameSrc=xpPathSrc+xffFile.SafeStr();
+           XPath xpCurrFileNameDst=(char*)(xpPathDst+xffFile.SafeStr());
+           XPath xpCurrFileNameSrc=(char*)(xpPathSrc+xffFile.SafeStr());
            Bool32 bCurrUppDir=xpName=="." || xpName=="..";
            Bool32 bIsDirectory=xffFile.FileAttrib() & _A_SUBDIR;
            if(bIsDirectory)
@@ -420,8 +420,8 @@ STD_FUNC( Bool32 ) stdCopyDirectory(
        while(xffFile)
        {
            XPath xpName=xffFile.SafeStr();
-           XPath xpCurrFileNameDst=xpPathDst+xffFile.SafeStr();
-           XPath xpCurrFileNameSrc=xpPathSrc+xffFile.SafeStr();
+           XPath xpCurrFileNameDst = (char*)(xpPathDst+xffFile.SafeStr());
+           XPath xpCurrFileNameSrc = (char*)(xpPathSrc+xffFile.SafeStr());
            Bool32 bCurrUppDir=xpName=="." || xpName=="..";
            Bool32 bIsDirectory=xffFile.FileAttrib() & _A_SUBDIR;
            if(bIsDirectory)

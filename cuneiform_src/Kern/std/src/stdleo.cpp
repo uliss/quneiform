@@ -1485,7 +1485,7 @@ STD_FUNC(void) stdStrNAnsiToUnicode(wchar_t* pUnicode,const char* pAnsi,Int32 nL
 
 STD_FUNC(void) stdStrUnicodeToAnsi(char* pAnsi,const wchar_t* pUnicode)
 {
-    WideCharToMultiByte(CP_ACP,NULL,(const char*)pUnicode,lstrlenW(pUnicode),pAnsi,lstrlenW(pUnicode),NULL,NULL);
+  WideCharToMultiByte(CP_ACP,NULL,/*(const char*)*/pUnicode,lstrlenW(pUnicode),pAnsi,lstrlenW(pUnicode),NULL,NULL);
 }
 
 STD_FUNC(Bool32) stdLeoCompareChar(Word8 c1, Word8 c2)
