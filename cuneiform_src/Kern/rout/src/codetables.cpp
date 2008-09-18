@@ -840,21 +840,21 @@ static long cp_ascii[LANG_TOTAL]={
 };
 
 static long cp_ansi[LANG_TOTAL]={
-	1251,	// LANG_ENGLISH    0
-	1251,	// LANG_GERMAN     1
-	1251,  	// LANG_FRENCH     2
+	1252,	// LANG_ENGLISH    0
+	1252,	// LANG_GERMAN     1
+	1252,  	// LANG_FRENCH     2
 	1251,  	// LANG_RUSSIAN    3
-	1251,  	// LANG_SWEDISH    4
-	1251,  	// LANG_SPANISH    5
-	1251,  	// LANG_ITALIAN    6
+	1252,  	// LANG_SWEDISH    4
+	1252,  	// LANG_SPANISH    5
+	1252,  	// LANG_ITALIAN    6
 	1251, 	// LANG_RUS/ENG    7
 	1251,  	// LANG_UKRAINIAN  8
 	1251,  	// LANG_SERBIAN    9
 	1250,  	// LANG_CROATIAN   10
 	1250,  	// LANG_POLISH     11
-	1251,  	// LANG_DANISH     12
-	1251,  	// LANG_PORTUGUESE 13
-	1251,  	// LANG_DUTCH      14
+	1252,  	// LANG_DANISH     12
+	1252,  	// LANG_PORTUGUESE 13
+	1252,  	// LANG_DUTCH      14
 	1251,  	// LANG_DIG		   15
 	1251,  	// LANG_UZBEK      16
 	1251,  	// LANG_KAZ        17
