@@ -126,8 +126,11 @@ ROUT_CODE_KOI8R = PUMA_CODE_KOI8,
 // 8 - ISO (text, formatted text, html)
 ROUT_CODE_ISO = PUMA_CODE_ISO,
 
-	ROUT_CODE_COUNT  = 4,	// Количество кодировок
-	ROUT_CODE_MAX  = 8		// Максимальная кодировка
+// 10 - UTF8 (text, formatted text, html)
+ROUT_CODE_UTF8 = PUMA_CODE_UTF8,
+
+	ROUT_CODE_COUNT  = 5,	// Количество кодировок
+	ROUT_CODE_MAX  = 16		// Максимальная кодировка
 	} ROUT_CODE;
 //*****************************************************************
 // Опции табличного текста

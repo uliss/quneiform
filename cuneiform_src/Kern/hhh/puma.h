@@ -320,6 +320,7 @@ DEC_FUN(Bool32,	PUMA_SetSpecialProject,(Word8 nSpecPrj));
 	# define PUMA_CODE_ANSI       0x0002
 	# define PUMA_CODE_KOI8       0x0004
 	# define PUMA_CODE_ISO        0x0008
+	# define PUMA_CODE_UTF8       0x0010
 
 	# define PUMA_FORMAT_NONE			  0x0040
 	# define PUMA_FORMAT_ALL				  0x0001

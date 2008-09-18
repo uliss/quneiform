@@ -681,7 +681,6 @@ char *ROUT_GetDefaultObjectName(
 			//strcpy(suffix,"");
 			strcpy(ext,".txt");
 			break;
-
 		case ROUT_FMT_SmartText:
 			strcpy(suffix,"_s");
 			strcpy(ext,".txt");
@@ -770,6 +769,20 @@ char *ROUT_GetDefaultObjectName(
 				}
 
 			strcat(suffix,"_i");
+			break;
+
+		case ROUT_CODE_UTF8:
+			if ( gFormat != ROUT_FMT_Text &&
+				 gFormat != ROUT_FMT_SmartText &&
+				 gFormat != ROUT_FMT_TableText &&
+				 gFormat != ROUT_FMT_HTML
+				)
+				{
+				NOT_IMPLEMENTED;
+				return NULL;
+				}
+
+			strcat(suffix,"_u");
 			break;
 
 		default:

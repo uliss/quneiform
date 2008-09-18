@@ -163,9 +163,14 @@ BOOL Static_MakeHTML(
 			break;
 
 		case BROWSE_PAGE_START:
-			// Начало страницы
+			// Start of page.
 			FontStyle(0);
-			PUT_STRING("<html><body>");
+			PUT_STRING("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"   \"http://www.w3.org/TR/html4/loose.dtd\">\n");
+			PUT_STRING("<html><head><title></title>");
+			if (gActiveCode==ROUT_CODE_UTF8) 
+				 PUT_STRING("<meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\" >");
+			PUT_STRING("</head><body>");
+
 			break;
 
 		case BROWSE_PAGE_END:
