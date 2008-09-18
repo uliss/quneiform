@@ -111,6 +111,7 @@ BOOL convert_to_text
 #define SAVE_TABLE_ODBC 	0x0800
 #define SAVE_TABLE_WKS		0x1000
 #define SAVE_HTML               0x2000
+#define SAVE_HOCR               0x4000
 
 // wCodePage options... Piter
 #define SAVE_TEXT               SAVE_TEXT_ASCII

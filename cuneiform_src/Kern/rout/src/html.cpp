@@ -73,7 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 static BOOL Static_MakeHTML(Handle hObject, long reason);
 
 static BOOL FontStyle(ULONG newStyle);
-static BOOL BeginParagraph(ULONG alignment);
+static BOOL BeginParagraph(Handle hObject);
 static BOOL CellStart();
 static BOOL CalcCellSpan();
 static BOOL OptimizeTags();
@@ -82,6 +82,7 @@ static BOOL CreatePageFilesFolder();
 
 static ULONG sFontStyle = 0;		// Стиль шрифта
 static long rowspan = 0, colspan = 0;
+static BOOL hocrmode = FALSE; // If true, print hOCR tags to output.
 
 //********************************************************************
 BOOL MakeHTML()
@@ -92,6 +93,7 @@ BOOL MakeHTML()
    Концы строк сохраняются, если gPreserveLineBreaks = TRUE.
 */
 	sFontStyle = 0;			// Стиль шрифта
+	hocrmode = FALSE;
 
 	return BrowsePage(Static_MakeHTML,
 				FALSE,		// wantSkipTableCells
@@ -99,11 +101,19 @@ BOOL MakeHTML()
 
 }
 //********************************************************************
+BOOL MakeHOCR() {
+    sFontStyle = 0;
+    hocrmode = TRUE;
+    return BrowsePage(Static_MakeHTML, FALSE, FALSE);
+}
+//********************************************************************
 BOOL Static_MakeHTML(
 			Handle hObject,
 			long reason	// См. enum BROWSE_REASON
 			)
 {
+    char buf[256] = "";
+    edRect r;
 // В конце вызывается WordControl
 
 	switch(reason)
@@ -120,8 +130,17 @@ BOOL Static_MakeHTML(
 			// Стиль шрифта
 			FontStyle(CED_GetCharFontAttribs(hObject));
 
+			r = CED_GetCharLayout(hObject);
 			// Записать символ
-			ONE_CHAR(hObject);
+                        if(r.left != -1 && hocrmode) {
+                            sprintf(buf, "<span title=\"bbox %d %d %d %d\">", r.left,
+                            r.top, r.right, r.bottom);
+                            PUT_STRING(buf);
+                        }
+
+                        ONE_CHAR(hObject);
+                        if(r.left != -1 && hocrmode)
+                            PUT_STRING("</span>");
 
 			break;
 
@@ -134,7 +153,7 @@ BOOL Static_MakeHTML(
 		case BROWSE_PARAGRAPH_START:
 			// Начало абзаца
 			FontStyle(0);
-			BeginParagraph(CED_GetAlignment(hObject));
+			BeginParagraph(hObject);
 			break;
 
 		case BROWSE_PARAGRAPH_END:
@@ -226,13 +245,14 @@ sFontStyle = newStyle;
 return TRUE;
 }
 //********************************************************************
-static BOOL BeginParagraph(ULONG alignment)
+static BOOL BeginParagraph(Handle hObject)
 {
-	const char *p = 0;
+	const char *p = NULL;
 	char buf[80] = "";
+        edBox b = CED_GetLayout(hObject);
+        ULONG alignment = CED_GetAlignment(hObject);
 
-switch ( alignment & ALIGN_MASK)
-	{
+        switch (alignment & ALIGN_MASK)	{
 	case ALIGN_CENTER:
 		p = "center";
 		break;
@@ -244,14 +264,23 @@ switch ( alignment & ALIGN_MASK)
 	case ALIGN_LEFT:
 	default:
 		// "left" by default
-		PUT_STRING("<p>");
-		return TRUE;
-	}
+	    ;
+    }
 
-sprintf(buf,"<p align=%s>",p);
-PUT_STRING(buf);
+    PUT_STRING("<p");
+    if (p) {
+        sprintf(buf, " align=%s", p);
+        PUT_STRING(buf);
+    }
 
-return TRUE;
+    if (b.x != -1 && hocrmode) {
+        sprintf(buf, " title=\"bbox %d %d %d %d\"", b.x, b.y, b.x + b.w, b.y
+                + b.h);
+        PUT_STRING(buf);
+    }
+    PUT_STRING(">");
+
+    return TRUE;
 }
 //********************************************************************
 static BOOL CellStart()

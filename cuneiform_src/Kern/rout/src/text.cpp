@@ -229,7 +229,7 @@ BOOL OneChar(Handle charHandle)
 			// Длинное тире переходит в дефис
 			// и удваивается кроме SmartText и HTML
 			// 29.02.2000
-			if (gFormat == ROUT_FMT_HTML)
+			if (gFormat == ROUT_FMT_HTML || gFormat == ROUT_FMT_HOCR)
 				{
 				// В HTML есть длинное тире
 				c2 = c1;
@@ -245,7 +245,7 @@ BOOL OneChar(Handle charHandle)
 		// Угловые скобки в HTML заменяются на круглые
 		case '<':
 		case '>':
-			if (gFormat == ROUT_FMT_HTML) {
+			if (gFormat == ROUT_FMT_HTML || gFormat == ROUT_FMT_HOCR) {
 				*gMemCur++ = '&';
 				*gMemCur++ = (c1 == '<' ? 'l' : 'g');
 				*gMemCur++ = 't';
@@ -255,7 +255,7 @@ BOOL OneChar(Handle charHandle)
 			break;
 
 		case '&':
-                        if(gFormat == ROUT_FMT_HTML) {
+                        if(gFormat == ROUT_FMT_HTML || gFormat == ROUT_FMT_HOCR) {
                             *gMemCur++ = '&';
                             *gMemCur++ = 'a';
                             *gMemCur++ = 'm';
@@ -273,7 +273,7 @@ BOOL OneChar(Handle charHandle)
 					gLanguage==LANG_FRENCH &&
 					gActiveCode==ROUT_CODE_ANSI
 					) ||
-					gFormat == ROUT_FMT_HTML
+					gFormat == ROUT_FMT_HTML || gFormat == ROUT_FMT_HOCR
 				)
 				{
 				*gMemCur++ = 'o';
@@ -288,7 +288,7 @@ BOOL OneChar(Handle charHandle)
 					gLanguage==LANG_FRENCH &&
 					gActiveCode==ROUT_CODE_ANSI
 					) ||
-					gFormat == ROUT_FMT_HTML
+					gFormat == ROUT_FMT_HTML || gFormat == ROUT_FMT_HOCR
 				)
 				{
 				*gMemCur++ = 'O';

@@ -275,6 +275,10 @@ Bool32 ROUT_GetObject
 			MakeText();
 			break;
 
+		case ROUT_FMT_HOCR:
+ 		    MakeHOCR();
+		    break;
+
 		case ROUT_FMT_HTML:
 			MakeHTML();
 			break;
@@ -350,6 +354,7 @@ BOOL SetFormat(long format)
 		 format == ROUT_FMT_DBF ||
 		 format == ROUT_FMT_WKS ||
 		 format == ROUT_FMT_HTML ||
+		 format == ROUT_FMT_HOCR ||
 		 0)
 		{
 		gFormat = format;
@@ -457,6 +462,7 @@ long ROUT_ListCodes(PWord8 buf, ULONG sizeBuf)
 			break;
 
 		case ROUT_FMT_HTML:
+		case ROUT_FMT_HOCR:
 			ITEM(ANSI);
 			ITEM(KOI8R);
 			ITEM(ISO);
@@ -525,6 +531,7 @@ long ROUT_CountObjects()
 		case ROUT_FMT_Text:
 		case ROUT_FMT_SmartText:
 		case ROUT_FMT_HTML:
+		case ROUT_FMT_HOCR:
 			return 1;
 			break;
 
@@ -571,6 +578,7 @@ BOOL Static_GetTargetObject(
 		case ROUT_FMT_Text:
 		case ROUT_FMT_SmartText:
 		case ROUT_FMT_HTML:
+		case ROUT_FMT_HOCR:
 			gTargetObjectHandle = gPageHandle;
 			return FALSE;	// Закончить поиск
 			break;
@@ -700,6 +708,7 @@ char *ROUT_GetDefaultObjectName(
 			break;
 
 		case ROUT_FMT_HTML:
+		case ROUT_FMT_HOCR:
 			//strcpy(suffix,"");
 			strcpy(ext,".htm");
 			break;
@@ -736,7 +745,8 @@ char *ROUT_GetDefaultObjectName(
 				 gFormat != ROUT_FMT_SmartText &&
 				 gFormat != ROUT_FMT_TableText &&
 				 gFormat != ROUT_FMT_DBF &&
-				 gFormat != ROUT_FMT_HTML
+				 gFormat != ROUT_FMT_HTML &&
+				 gFormat != ROUT_FMT_HOCR
 				)
 				{
 				NOT_IMPLEMENTED;
@@ -751,7 +761,8 @@ char *ROUT_GetDefaultObjectName(
 				 gFormat != ROUT_FMT_SmartText &&
 				 gFormat != ROUT_FMT_TableText &&
 				 gFormat != ROUT_FMT_DBF &&
-				 gFormat != ROUT_FMT_HTML
+				 gFormat != ROUT_FMT_HTML &&
+				 gFormat != ROUT_FMT_HOCR
 				)
 				{
 				NOT_IMPLEMENTED;

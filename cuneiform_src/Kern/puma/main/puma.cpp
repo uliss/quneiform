@@ -674,6 +674,7 @@ PUMA_FUNC(Bool32) PUMA_Save(Handle hEdPage, const char * lpOutFileName, Int32 ln
 		case PUMA_TOTABLETXT:
 		case PUMA_TOTABLEDBF:
 		case PUMA_TOHTML:
+		case PUMA_TOHOCR:
 			rc = ConverROUT((char *)lpOutFileName, lnFormat, lnCode, bAppend);
 			break;
 		default:

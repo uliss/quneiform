@@ -89,10 +89,11 @@ struct formatlist {
 static const formatlist formats[] = {
 // Does not work.    {PUMA_TOTABLEDBF,   "dbf",       "DBF format"},
     {PUMA_TOHTML,       "html",      "HTML format"},
+    {PUMA_TOHOCR,       "hocr",      "hOCR HTML format"},
     {PUMA_TOEDNATIVE,   "native",    "Cuneiform 2000 format"},
     {PUMA_TORTF,        "rtf",       "RTF format"},
     {PUMA_TOSMARTTEXT,  "smarttext", "plain text with TeX paragraphs"},
-    {PUMA_TOTEXT,       "text",       "plain text"},
+    {PUMA_TOTEXT,       "text",      "plain text"},
 // Table code is missing. {PUMA_TOTABLETXT,   "tabletxt",  ""},
     {-1, NULL}
 };
@@ -242,8 +243,6 @@ int main(int argc, char **argv) {
                 return 1;
             }
             outfilename = argv[i];
-        } else if(strcmp(argv[i], "--html") == 0) {
-            outputformat = PUMA_TOHTML;
         } else if(strcmp(argv[i], "--dotmatrix") == 0) {
             dotmatrix = TRUE;
         } else if(strcmp(argv[i], "--fax") == 0) {
@@ -257,6 +256,7 @@ int main(int argc, char **argv) {
     if (outfilename.empty()) {
         outfilename = defaultnamestem;
         switch (outputformat) {
+            case PUMA_TOHOCR:
             case PUMA_TOHTML:
                 outfilename += "html";
                 break;

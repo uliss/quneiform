@@ -309,6 +309,7 @@ DEC_FUN(Bool32,	PUMA_SetSpecialProject,(Word8 nSpecPrj));
 	# define PUMA_TOTABLEODBC     0x0800
 	# define PUMA_TOTABLEWKS      0x1000
 	# define PUMA_TOHTML          0x2000
+        # define PUMA_TOHOCR          0x4000
 #ifdef _DEBUG
 	# define PUMA_DEBUG_TOTEXT	  0x12
 #endif

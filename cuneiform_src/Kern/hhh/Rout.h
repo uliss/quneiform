@@ -105,6 +105,7 @@ ROUT_FMT_CSV = PUMA_TOTABLECSV, // 0x200 - Table CSV (comma separated)
 ROUT_FMT_DBF = PUMA_TOTABLEDBF,	// 0x400 - Table DBF
 ROUT_FMT_WKS = PUMA_TOTABLEWKS,	// 0x1000 - Table WKS (Lotus)
 ROUT_FMT_HTML = PUMA_TOHTML,	// 0x2000 - HTML
+ROUT_FMT_HOCR = PUMA_TOHOCR,
 
 ROUT_FMT_COUNT  = 7,	// Количество форматов
 ROUT_FMT_MAX  = 0x2000	// Максимальный формат
