@@ -30,6 +30,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /* Windows has a __declpec macro for various things. We don't use that. */
 
+#ifndef __MSVC__
+
+#undef __declspec
 #define __declspec(a)
 
 #ifndef cdecl
@@ -48,5 +51,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __stdcall
 #endif
 
+#endif /* MSVC */
 
 #endif
