@@ -170,7 +170,7 @@ UINT GetPrivateProfileInt(LPCTSTR lpAppName,
     return 0;
 }
 
-int WideCharToMultiByte(UINT CodePage, DWORD dwFlags,LPCWSTR lpWideCharStr,
+int WideCharToMultiByte(UINT CodePage, DWORD dwFlags, const wchar_t *lpWideCharStr,
   int cchWideChar, LPSTR lpMultiByteStr, int cbMultiByte,
   LPCSTR lpDefaultChar, LPBOOL lpUsedDefaultChar) {
     return 0;
@@ -460,7 +460,7 @@ char* _strupr(char*s) {
 #include <windows.h>
 
 char * mkdtemp(char *tmpl) {
-    static const char charset[] = 
+    static const char charset[] =
         "=#abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     static const unsigned int charset_len = sizeof(charset) - 1;
 
@@ -468,7 +468,7 @@ char * mkdtemp(char *tmpl) {
     if (len < 6)
         return NULL;
     char* x_tail = tmpl + len - 6;
-    if(memcmp(x_tail, "XXXXXX", 6)) 
+    if(memcmp(x_tail, "XXXXXX", 6))
         return NULL;
 
     LARGE_INTEGER rand_seed;

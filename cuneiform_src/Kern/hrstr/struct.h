@@ -480,9 +480,7 @@ typedef struct baseline_struct B_LINES;
 //AK:  without collision when snap.dll creating
 #ifndef _SNAP_
 
-#ifndef WIN32
-struct POINT {INT x, y;} ;
-#endif
+#include "compat_defs.h"
 
 struct rule_struct
  {

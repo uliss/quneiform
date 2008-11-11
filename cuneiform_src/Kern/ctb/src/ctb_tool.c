@@ -166,7 +166,7 @@ static void free_tmp_pattern(char* tmp) {
 static char* get_tmp_pattern() {
   return "/tmp/cuneiform-XXXXXXX";
 }
-static void free_tmp_pattern(char*) {
+static void free_tmp_pattern(char* dummy) {
 }
 #endif
 

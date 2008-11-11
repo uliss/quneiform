@@ -34,6 +34,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #else
 
+#include<wchar.h>
+
 int LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax);
 
 int CreateDirectory(const char *dir, void *dummy);
@@ -76,7 +78,7 @@ LPCTSTR lpDefault, LPTSTR lpReturnedString, DWORD nSize, LPCTSTR lpFileName);
 UINT GetPrivateProfileInt(LPCTSTR lpAppName,
   LPCTSTR lpKeyName, INT nDefault, LPCTSTR lpFileName);
 
-int WideCharToMultiByte(UINT CodePage, DWORD dwFlags,LPCWSTR lpWideCharStr,
+int WideCharToMultiByte(UINT CodePage, DWORD dwFlags, const wchar_t *lpWideCharStr,
   int cchWideChar, LPSTR lpMultiByteStr, int cbMultiByte,
   LPCSTR lpDefaultChar, LPBOOL lpUsedDefaultChar);
 
