@@ -454,6 +454,46 @@ char* _strupr(char*s) {
   return s;
 }
 
+#else /* WIN32 */
+
+#include <stdint.h>
+#include <windows.h>
+
+char * mkdtemp(char *tmpl) {
+    static const char charset[] = 
+        "=#abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    static const unsigned int charset_len = sizeof(charset) - 1;
+
+    const int len = strlen (tmpl);
+    if (len < 6)
+        return NULL;
+    char* x_tail = tmpl + len - 6;
+    if(memcmp(x_tail, "XXXXXX", 6)) 
+        return NULL;
+
+    LARGE_INTEGER rand_seed;
+    QueryPerformanceCounter(&rand_seed);
+    uint64_t value = rand_seed.QuadPart ^ GetCurrentThreadId();
+
+    unsigned int cnt = 0;
+    do {
+        uint64_t val = value;
+        char* x_char = x_tail;
+        while(*x_char) {
+            *x_char++ = charset[val % charset_len];
+            val /= charset_len;
+        }
+        if (CreateDirectory (tmpl, NULL))
+            return tmpl;
+        if (ERROR_ALREADY_EXISTS != GetLastError())
+            return NULL;
+        value += 65537;
+        ++cnt;
+    } while (cnt < TMP_MAX);
+
+    return NULL;
+}
+
 #endif /* WIN32 */
 
 /* General helper functions. */
