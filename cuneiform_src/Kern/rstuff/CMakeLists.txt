@@ -38,4 +38,9 @@ rreccom
 exc
 )
 
-install(TARGETS rstuff LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS rstuff ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS rstuff LIBRARY DESTINATION ${LIBDIR})
+endif()
+

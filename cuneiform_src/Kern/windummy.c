@@ -25,6 +25,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <stdio.h>
+#include "config.h"
+
 #ifndef WIN32
 
 /* Minimal implementations of win32-functionality.
@@ -41,7 +44,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <unistd.h>
 #include <assert.h>
 #include <string.h>
-#include <stdio.h>
 #include <dlfcn.h>
 #include <stdarg.h>
 
@@ -57,7 +59,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 #include "compat_defs.h"
-#include "config.h"
 
 int HFILE_ERROR;
 
@@ -453,6 +454,46 @@ char* _strupr(char*s) {
   return s;
 }
 
+#else /* WIN32 */
+
+#include <stdint.h>
+#include <windows.h>
+
+char * mkdtemp(char *tmpl) {
+    static const char charset[] = 
+        "=#abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    static const unsigned int charset_len = sizeof(charset) - 1;
+
+    const int len = strlen (tmpl);
+    if (len < 6)
+        return NULL;
+    char* x_tail = tmpl + len - 6;
+    if(memcmp(x_tail, "XXXXXX", 6)) 
+        return NULL;
+
+    LARGE_INTEGER rand_seed;
+    QueryPerformanceCounter(&rand_seed);
+    uint64_t value = rand_seed.QuadPart ^ GetCurrentThreadId();
+
+    unsigned int cnt = 0;
+    do {
+        uint64_t val = value;
+        char* x_char = x_tail;
+        while(*x_char) {
+            *x_char++ = charset[val % charset_len];
+            val /= charset_len;
+        }
+        if (CreateDirectory (tmpl, NULL))
+            return tmpl;
+        if (ERROR_ALREADY_EXISTS != GetLastError())
+            return NULL;
+        value += 65537;
+        ++cnt;
+    } while (cnt < TMP_MAX);
+
+    return NULL;
+}
+
 #endif /* WIN32 */
 
 /* General helper functions. */
@@ -595,7 +636,8 @@ void make_path(char *opath, const char *dir, const char *basename, const char *e
  */
 void winpath_to_internal(char *p) {
 #if WIN32
-    for(int i=0; p[i] != '\0'; i++) {
+    int i;
+    for(i=0; p[i] != '\0'; i++) {
         if(p[i] == '\\')
             p[i] = '/';
     }

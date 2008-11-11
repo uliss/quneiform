@@ -147,16 +147,35 @@ free(ctb_tmp_dir);
 return;
 }
 
-CTB_FUNC(Int32) CTB_gettmpdirname(void) {
 #ifdef WIN32
-    char tmp[] = "c:/winnt/temp/cuneiform-XXXXXX";
+extern char* mkdtemp(char*);
+
+static char* get_tmp_pattern() {
+  const int len = GetTempPath(0, 0);
+  const char pattrn[] = "cuneiform-XXXXXX";
+  char* tmp = malloc(len + sizeof(pattrn) + 2);
+  const int len2 = GetTempPath(len, tmp);
+  tmp[len2] = '\\';
+  strncpy(tmp + len2 + 1, pattrn, sizeof(pattrn) + 1);
+  return tmp;
+}
+static void free_tmp_pattern(char* tmp) {
+  free(tmp);
+}
 #else
-    char tmp[] = "/tmp/cuneiform-XXXXXXX";
+static char* get_tmp_pattern() {
+  return "/tmp/cuneiform-XXXXXXX";
+}
+static void free_tmp_pattern(char*) {
+}
 #endif
+
+CTB_FUNC(Int32) CTB_gettmpdirname(void) {
+    char* tmp = get_tmp_pattern();
     ctb_tmp_dir = malloc(strlen(tmp) + 1);
     strncpy(ctb_tmp_dir, tmp, strlen(tmp) + 1);
     ctb_tmp_dir = mkdtemp(ctb_tmp_dir);
-
+    free_tmp_pattern(tmp);
     if(!ctb_tmp_dir)
         return 1;
     else

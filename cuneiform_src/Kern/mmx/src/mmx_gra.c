@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 MMX_FUNC(void) MMX_addshab_cykl(int * src, int cg, signed char * dst, int num)
 {
-#ifdef WIN32
+#ifdef __MSVC__
 _asm    {
 		mov         edx,        cg
 		movd        mm6,        edx
@@ -121,7 +121,7 @@ return;
 
 MMX_FUNC(void) MMX_addshab(int * src, int cg, signed char * dst)
 {
-#ifdef WIN32
+#ifdef __MSVC__
 _asm    {
 		mov		edx,	cg
 		movd	mm6,	edx

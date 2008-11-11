@@ -260,7 +260,7 @@ struct vers_struct      // versions with probabilities
  };
 typedef struct vers_struct version;
 
-struct POINT {Int16 row,col;} ;
+struct POINT {Int16 x,y;} ;
 
 struct rule_struct
  {

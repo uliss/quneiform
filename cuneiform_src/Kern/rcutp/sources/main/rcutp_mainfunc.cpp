@@ -70,6 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "alik_rec.h"
 #include "lang_def.h"
 #include "recdefs.h"
+#include "minmax.h"
 
 extern  Int16      minrow,bbs1,bbs2,bbs3,bbs4,Nb1,Nb2,Nb3;
 extern  Word8      language;
@@ -88,7 +89,7 @@ BYTE ForRaster3[R_S];
 extern BYTE  db_status;  // snap presence byte
 void snap_clear_screen(void);
 
-
+
 static INT GDE_KAK[13][3] = {{1,0,0} ,{4,0,0}  ,{8,0,0} ,
                             {1,8,0} ,{8,1,0} ,{8,8,0},
                             {1,8,8},{8,8,1},{8,1,8},{8,8,8},
@@ -428,7 +429,7 @@ INT  max_h,h_h,tret_h,dve_tret_h,chetvert_h,two_min_dh,begin[3],end[3];
     end[i]   = begin[i] + (ans+i)->dh;
    }
 
-
+
  switch(CountGrupElem)
   {
    /******************** одна точка*******************************/

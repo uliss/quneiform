@@ -24,4 +24,8 @@ r35
 std32
 )
 
-install(TARGETS leo LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS leo ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS leo LIBRARY DESTINATION ${LIBDIR})
+endif()

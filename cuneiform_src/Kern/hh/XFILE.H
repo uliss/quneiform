@@ -77,9 +77,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifdef WIN32
 #define PPS_WIN32
+#include<windows.h>
+#define sleep(a) Sleep(1000*a)
+#define fsync(a)
 #endif
 
+#ifndef O_BINARY
 #define O_BINARY 0
+#endif
 
 enum XFileOpenMode
 {  XF_UNDEFINED = 0,

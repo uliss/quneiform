@@ -132,9 +132,9 @@ BYTE buf[1024],buf1[1024];
  * They are processed as 32-bit integers here, so we need to convert.
  */
 
-static void readSRECT(SRECT *r, FILE1 *f) {
+static void readSRECT(SRECT *r, FILE *f) {
     Rect16 r16;
-    fread_m(&r16, sizeof(Rect16), 1, f);
+    fread(&r16, sizeof(Rect16), 1, f);
     r->left = r16.left;
     r->top = r16.top;
     r->right = r16.right;
@@ -450,12 +450,14 @@ extern Int16   K_TwipsInInch;
 
 short __cdecl  OpenFullOutTiger(const char *FileName)
 {
-	FILE1 *in;
+	FILE *in;
 	int nc,ns,nw,nz,k_word,k_z,i;
 #ifdef alDebug
 	if(dets)	{ ConsMess("OpenFullOutTiger Begin "); }
 #endif
-	if((in=fopen_m(FileName,OF_READ)) == NULL)
+	// Open the file in binary mode
+	//if((in=fopen_m(FileName,OF_READ)) == NULL)
+	if((in=fopen(FileName, "rb")) == NULL)
 	{
 #ifdef alDebug
 		if(dets)	{ ConsMess("OpenFullOutTiger Internal file -- can not open "); }
@@ -463,11 +465,11 @@ short __cdecl  OpenFullOutTiger(const char *FileName)
 		return FALSE;
 	}
 
- fread_m(&ScanResolution,sizeof(WORD),1,in);
- fread_m(&NumCol,sizeof(WORD),1,in);
- fread_m(&NumZ,sizeof(WORD),1,in);
- fread_m(&NumW,sizeof(WORD),1,in);
- fread_m(&NumS,sizeof(WORD),1,in);
+ fread(&ScanResolution,sizeof(WORD),1,in);
+ fread(&NumCol,sizeof(WORD),1,in);
+ fread(&NumZ,sizeof(WORD),1,in);
+ fread(&NumW,sizeof(WORD),1,in);
+ fread(&NumS,sizeof(WORD),1,in);
 
 #ifdef alDebug
 		if(dets)	{ ConsMess("OpenFullOutTiger ScanResolution=%d ",ScanResolution); }
@@ -477,8 +479,8 @@ short __cdecl  OpenFullOutTiger(const char *FileName)
 		if(dets)	{ ConsMess("OpenFullOutTiger NumS=%d ",NumS); }
 #endif
 
- fread_m(&MonoSpaceAllPage,2,1,in);
- fread_m(&HeiStrAllPage,2,1,in);
+ fread(&MonoSpaceAllPage,2,1,in);
+ fread(&HeiStrAllPage,2,1,in);
 
  Twips = ((float)K_TwipsInInch)/ScanResolution;
 // Twips = (float)((int)(Twips+0.5));
@@ -554,11 +556,11 @@ short __cdecl  OpenFullOutTiger(const char *FileName)
 
  for(nc=0; nc < NumCol; ++nc)
 	{
-  fread_m(&RectFragm[nc],1,sizeof(Rect16),in);
+  fread(&RectFragm[nc],1,sizeof(Rect16),in);
 	 // *********** ÐÀÑ×ÅÒ ÊÎËÎÍÍÎÉ ÑÒÀÒÈÑÒÈÊÈ *************
-  fread_m(&NumStr[nc],sizeof(Int16),1,in);
-  fread_m(&UserNumber[nc],sizeof(Word32),1,in);
-  fread_m(&FragFlag[nc],sizeof(Word32),1,in);
+  fread(&NumStr[nc],sizeof(Int16),1,in);
+  fread(&UserNumber[nc],sizeof(Word32),1,in);
+  fread(&FragFlag[nc],sizeof(Word32),1,in);
 
   Zn[nc]=(ZN***)Submalloc((NumStr[nc])*sizeof(ZN**),&SubZn);
   TitleStr[nc]=(TITLE_STR*)Submalloc((NumStr[nc])*sizeof(TITLE_STR),&SubZn);
@@ -584,10 +586,10 @@ short __cdecl  OpenFullOutTiger(const char *FileName)
 			//Ðåàëüíûå êîîð. ñòðîêè!
 			//fread_m(&t->S_Real_Rect,sizeof(SRECT),1,in);
 			readSRECT(&t->S_Real_Rect, in);
-			fread_m(&tmp,2,1,in);
+			fread(&tmp,2,1,in);
 			t->S_Gen.S_NumWord = tmp;               // NumWrd
 
-			fread_m(&t->S_Flags,sizeof(t->S_Flags),1,in); //NEGA_STR
+			fread(&t->S_Flags,sizeof(t->S_Flags),1,in); //NEGA_STR
 
 			t->S_Gen.HeadLine = 0; // zero HeadLine
 			k_word            = TitleStr[nc][ns].S_Gen.S_NumWord-1;
@@ -601,14 +603,14 @@ short __cdecl  OpenFullOutTiger(const char *FileName)
 				TITLE_WORD *tw=&TitleWord[nc][ns][nw];
 
 				tw->Z_Code=1;
-				fread_m(&tmp, sizeof(Int16), 1, in);
+				fread(&tmp, sizeof(Int16), 1, in);
 				tw->W_Gen.W_NumSym=tmp;// NumZn
 				k_z=tw->W_Gen.W_NumSym-1;
 
-				fread_m(&tmp, sizeof(Int16), 1, in);
+				fread(&tmp, sizeof(Int16), 1, in);
 				tw->W_Gen.FontNumber=(WORD)tmp;
 
-				fread_m(&tmp, sizeof(Int16), 1, in);
+				fread(&tmp, sizeof(Int16), 1, in);
 				tw->W_Gen.FontSize=(WORD)tmp;
 
 				if((Zn[nc][ns][nw]=(ZN*)Submalloc((k_z+1)*sizeof(ZN),&SubZn))==NULL)
@@ -630,7 +632,7 @@ short __cdecl  OpenFullOutTiger(const char *FileName)
 					//fread_m(&tz->Z_RealRect,sizeof(SRECT),1,in); // Real BOX
 					readSRECT(&tz->Z_RealRect, in);
 
-					fread_m(&num, sizeof(Int16), 1, in);  tz->Z_Num_Alt=(BYTE)MIN(num,REC_MAX_VERS); //NumAlt
+					fread(&num, sizeof(Int16), 1, in);  tz->Z_Num_Alt=(BYTE)MIN(num,REC_MAX_VERS); //NumAlt
 //					if(num > 1)
 //						num = 1;
 
@@ -641,7 +643,7 @@ short __cdecl  OpenFullOutTiger(const char *FileName)
 					tz->Z_Id.word  = 0;
 					for ( i = 0; i < num; i++ )
 					{
-						fread_m(&alt1,sizeof(struct ALT_TIGER1),1,in);
+						fread(&alt1,sizeof(struct ALT_TIGER1),1,in);
 						if(i < REC_MAX_VERS)
 						{
 							ALT_ZN *Alt =&z->Alt[i];
@@ -650,7 +652,7 @@ short __cdecl  OpenFullOutTiger(const char *FileName)
 							Alt->a_Dist=(float)(alt1.prob/256.);
 						}
 					}
-					fread_m(&alt2,sizeof(struct ALT_TIGER2),1,in);
+					fread(&alt2,sizeof(struct ALT_TIGER2),1,in);
 					for ( i=0; i<tz->Z_Num_Alt;i++)
 					{
 						ALT_ZN *Alt =&z->Alt[i];
@@ -664,14 +666,14 @@ short __cdecl  OpenFullOutTiger(const char *FileName)
 			}
 		}
 	}
-	fclose_m(in);
+	fclose(in);
 	--NumCol;
 #ifdef alDebug
 	if(dets)	{ ConsMess("OpenFullOutTiger  End"); }
 #endif
  return TRUE;
 BadReturn:
-	fclose_m(in);
+	fclose(in);
 #ifdef alDebug
 	if(dets)	{ ConsMess("OpenFullOutTiger  End"); }
 #endif

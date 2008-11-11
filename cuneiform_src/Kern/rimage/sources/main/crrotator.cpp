@@ -65,6 +65,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "crrotator.h"
 #include "crimemory.h"
 #include "resource.h"
+#include "minmax.h"
+
 //////////////////////////////////////////////////////////////////////
 
 static Word32 BitsInHalfByte[16] =

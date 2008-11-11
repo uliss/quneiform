@@ -13,4 +13,9 @@ src/ugol.cpp
 
 target_link_libraries(smetric windummy)
 
-install(TARGETS smetric LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS smetric ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS smetric LIBRARY DESTINATION ${LIBDIR})
+endif()
+

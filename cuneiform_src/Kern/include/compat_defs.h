@@ -42,6 +42,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #if WIN32
 
 #include<windows.h>
+#include"minmax.h"
+
+#ifdef __MSVC__
+#include<crtdbg.h>
+#else
+#define _ASSERT(a) assert(a)
+typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int);
+#endif
+
+#include "winfuncs.h"
 
 #else
 
@@ -49,7 +59,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 #include "filestuff.h"
 #include "cttypes.h" /* Most type definitions are here. */
-#include "minmax.h"
 #include <errno.h>
 
 #ifdef __cplusplus

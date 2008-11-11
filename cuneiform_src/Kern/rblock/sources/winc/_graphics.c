@@ -155,6 +155,7 @@ void _lineto (int x,int y)
 };
 void _setlinestyle (int style){};
 
+#ifndef WIN32
 typedef struct tagBITMAPINFOHEADER{
         DWORD      biSize;
         LONG       biWidth;
@@ -168,6 +169,7 @@ typedef struct tagBITMAPINFOHEADER{
         DWORD      biClrUsed;
         DWORD      biClrImportant;
 } BITMAPINFOHEADER, *LPBITMAPINFOHEADER, *PBITMAPINFOHEADER;
+#endif
 
 void _gettextsettings (struct textsettings *ts)
 {

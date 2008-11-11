@@ -30,4 +30,9 @@ cline
 cstr
 )
 
-install(TARGETS rfrmt LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS rfrmt ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS rfrmt LIBRARY DESTINATION ${LIBDIR})
+endif()
+

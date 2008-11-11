@@ -59,6 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*#include <windows.h>*/
 #include <stdlib.h>
 
+#include "minmax.h"
 #include "resource.h"
 #include "mymem.h"
 #include "cpage.h"

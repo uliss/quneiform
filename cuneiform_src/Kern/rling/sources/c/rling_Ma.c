@@ -400,7 +400,14 @@ PInt8 TE_handle_fgets  ( Int16 Handle, PInt8 Buff, Int16 Lenght )
                 {
                         break;
                 }            /* EOF   */
-
+		
+		/* MinGW file io seems to turn windows file endings into \n
+                  so break -- no skip as when the \r is passed through */
+#ifdef __MINGW32__
+                if ( ch == '\n' ) {
+                       break;
+		}
+#endif
                 if ( ch == '\r' ) /* JussiP: The data files have Windows line endings. */
                 {
                         TE_read(Handle, &ch, 1L); /* Skip the following \n. */

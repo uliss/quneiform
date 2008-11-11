@@ -27,4 +27,9 @@ src/tgreader.cpp
 
 target_link_libraries(lns32 cline std32 windummy)
 
-install(TARGETS lns32 LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS lns32 ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS lns32 LIBRARY DESTINATION ${LIBDIR})
+endif()
+

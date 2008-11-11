@@ -1374,7 +1374,10 @@ int  heiY;
 #ifdef _USE_CSTR_
 
 #include "cstr.h"
+
+#ifndef WIN32
 typedef struct tagRECT {int left,top,right,bottom;} RECT;
+#endif
 
 // return - bytes in row
 static int GetCommonSize(CSTR_rast fir,CSTR_rast last,RECT *rect)

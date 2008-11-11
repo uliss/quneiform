@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 MMX_FUNC(Word32) MMX_scalar(Word32 _EAX, Word32 _EDX)
 {
-#ifdef WIN32
+#ifdef __MSVC__
 _asm{
     mov eax, _EAX
     mov edx, _EDX
@@ -101,7 +101,7 @@ _asm{
 
 MMX_FUNC(Word32) MMX_scalar16_(Word32  _EAX, Word32 _EDX)
 {
-#ifdef WIN32
+#ifdef __MSVC__
 _asm{
     mov edx, _EDX
 
@@ -132,7 +132,7 @@ _asm{
 
 MMX_FUNC(void) MMX_open_image(Word16 *_EAX)
 {
-#ifdef WIN32
+#ifdef __MSVC__
 _asm{
     mov eax, _EAX
 
@@ -148,7 +148,7 @@ _asm{
 
 MMX_FUNC(void) MMX_close_image(void)
 {
-#ifdef WIN32
+#ifdef __MSVC__
 _asm{
 
     EMMS
@@ -160,7 +160,7 @@ _asm{
 
 MMX_FUNC(Word32) MMX_scalar_sq(Word16 *_EAX,Int32 _ECX)
 {
-#ifdef WIN32
+#ifdef __MSVC__
 _asm{
     mov		eax,	_EAX
 	mov		ecx,	_ECX
@@ -199,7 +199,7 @@ cykl:
 
 MMX_FUNC(void) MMX_scale( Word16 *_EAX, Int32 _ECX, Int32 _EDX)
 {
-#ifdef WIN32
+#ifdef __MSVC__
 _asm{
 	mov		eax,	_EAX
 	mov		ecx,	_ECX
@@ -233,7 +233,7 @@ cykl:
 
 MMX_FUNC(void) MMX_binarize_16x16(Word16 *rin,Word8 *rout)
 {
-#ifdef WIN32
+#ifdef __MSVC__
 _asm{
     mov     eax,    rin
 

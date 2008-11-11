@@ -212,7 +212,7 @@ typedef struct tagStdMemInfo
 #define STD_CMPFILETIME_ERR                        -2
 
 /* On Windows wchar_t is 16 bit. On Unix it is 32 bit. */
-#ifndef wchar_t
+#ifndef WIN32
 #define wchar_t Int16
 #endif
 

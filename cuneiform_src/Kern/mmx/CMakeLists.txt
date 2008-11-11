@@ -8,4 +8,8 @@ src/mmx_r35.c
 src/mmxmain.c
 )
 
-install(TARGETS mmx LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS mmx ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS mmx LIBRARY DESTINATION ${LIBDIR})
+endif()

@@ -52,4 +52,9 @@ cstr
 rcutp
 )
 
-install(TARGETS rselstr LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS rselstr ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS rselstr LIBRARY DESTINATION ${LIBDIR})
+endif()
+

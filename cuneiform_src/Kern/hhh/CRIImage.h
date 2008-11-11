@@ -71,9 +71,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 ///////////////////////////////////////////////////////////////////////////////////////////////
 #ifdef __RIMAGE__
-  #define RIMAGE_FUNC  FUN_EXPO
+  #define RIMAGE_FUNC(a)  FUN_EXPO(a)
 #else
-  #define RIMAGE_FUNC  FUN_IMPO
+  #define RIMAGE_FUNC(a)  FUN_IMPO(a)
 #endif
 ///////////////////////////////////////////////////////////////////////////////////////////////
 //#define     CIMAGE_CALLBACK_FUNC(a)         CIMAGE_FUNC(a)

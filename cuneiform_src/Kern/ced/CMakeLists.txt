@@ -13,4 +13,8 @@ sources/main/wrapper.cpp
 
 target_link_libraries(ced cfio windummy)
 
-install(TARGETS ced LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS ced ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS ced LIBRARY DESTINATION ${LIBDIR})
+endif()

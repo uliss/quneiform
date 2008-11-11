@@ -23,4 +23,8 @@ cimage
 rdib
 )
 
-install(TARGETS rimage LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS rimage ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS rimage LIBRARY DESTINATION ${LIBDIR})
+endif()

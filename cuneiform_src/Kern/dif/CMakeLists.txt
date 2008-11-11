@@ -9,4 +9,9 @@ src/sticdif.c
 src/stictool.c
 )
 
-install(TARGETS dif LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS dif ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS dif LIBRARY DESTINATION ${LIBDIR})
+endif()
+

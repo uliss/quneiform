@@ -164,9 +164,15 @@ BOOL Rectangle(HDC hdc,
   int nLeftRect, int nTopRect, int nRightRect, int nBottomRect);
 char* _strupr(char*s);
 
+#endif /* not WIN32 */
+
 /* These are not windows compat functions, but general helper functions.
  * I had no other place to put them.
  */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 int open_data_file(const char *basename, int mode);
 int data_file_exists(const char *basename);
@@ -185,6 +191,8 @@ void winpath_to_internal(char *p);
 
 unsigned int curr_dir(unsigned int bsize, char* buf);
 
-#endif /* not WIN32 */
+#ifdef __cplusplus
+}
+#endif
 
 #endif

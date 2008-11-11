@@ -10,4 +10,9 @@ src/v0compgl.c
 
 target_link_libraries(loc windummy)
 
-install(TARGETS loc LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS loc ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS loc LIBRARY DESTINATION ${LIBDIR})
+endif()
+

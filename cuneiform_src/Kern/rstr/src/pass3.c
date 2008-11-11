@@ -1677,10 +1677,10 @@ void letters_ini(CSTR_line lin, BOOL enable_scaling)
         {
         if( cmp->h*10<cmp->w )
             {
-            page_lines[num_of_lines].beg.row=cmp->upper+cmp->h/2;
-            page_lines[num_of_lines].beg.col=cmp->left;
-            page_lines[num_of_lines].end.row=cmp->upper+cmp->h/2;
-            page_lines[num_of_lines].end.col=cmp->left+cmp->w;
+            page_lines[num_of_lines].beg.y=cmp->upper+cmp->h/2;
+            page_lines[num_of_lines].beg.x=cmp->left;
+            page_lines[num_of_lines].end.y=cmp->upper+cmp->h/2;
+            page_lines[num_of_lines].end.x=cmp->left+cmp->w;
             page_lines[num_of_lines].type=HOR_LN;
             page_lines[num_of_lines].width=(BYTE)cmp->h;
             num_of_lines++;
@@ -2888,18 +2888,18 @@ INT up, uploc;
 
 for(i=0;i<num_of_lines;i++)
     {
-    up=MIN(page_lines[i].beg.row,page_lines[i].end.row) - page_lines[i].width/2;
+    up=MIN(page_lines[i].beg.y, page_lines[i].end.y) - page_lines[i].width/2;
     if( abs(up-maxrow)<10 )
         {
         for(c=b;c!=e;c=c->next)
             {
-            dx=page_lines[i].end.col-page_lines[i].beg.col;
-            dy=page_lines[i].end.row-page_lines[i].beg.row;
-            if( c->r_col>=page_lines[i].beg.col &&
-                c->r_col+c->w<=page_lines[i].end.col )
+            dx=page_lines[i].end.x-page_lines[i].beg.x;
+            dy=page_lines[i].end.y-page_lines[i].beg.y;
+            if( c->r_col>=page_lines[i].beg.x &&
+                c->r_col+c->w<=page_lines[i].end.x )
                 {
-                uploc = ((c->r_col-page_lines[i].beg.col)*dy)/dx+
-                        page_lines[i].beg.row;
+                uploc = ((c->r_col-page_lines[i].beg.x)*dy)/dx+
+                        page_lines[i].beg.y;
                 if( abs(uploc-c->r_row-c->h)<5 )
                     c->flg_new |= c_fn_under;
                 }

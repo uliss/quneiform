@@ -75,7 +75,7 @@ CPUID0 MACRO
 //;;
 int get_CPU(void)
 {
-#ifdef WIN32
+#ifdef __MSVC__
 short int retu;
 _asm{
 ;
@@ -213,7 +213,7 @@ return 386;
 
 int get_CPUID_EDX_BIT(int mask)
 {
-#ifdef WIN32
+#ifdef __MSVC__
 int retu=0;
 _asm{
 ;

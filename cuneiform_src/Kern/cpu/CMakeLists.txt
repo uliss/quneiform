@@ -3,4 +3,8 @@ src/cpu.c
 src/cpu32.c
 )
 
-install(TARGETS cpu LIBRARY DESTINATION ${LIBDIR})
+if(WIN32)
+  install(TARGETS cpu ARCHIVE DESTINATION ${LIBDIR})
+else()
+  install(TARGETS cpu LIBRARY DESTINATION ${LIBDIR})
+endif()
