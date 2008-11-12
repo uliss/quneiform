@@ -1,9 +1,17 @@
-Cuneiform for Linux 0.4.0
+Cuneiform for Linux 0.5.0
 
 Cuneiform is an multi-language OCR system originally developed
 and open sourced by Cognitive Technologies. Cuneiform was
 originally a Windows program, which was ported to Linux
 by Jussi Pakkanen. 
+
+This version of Cuneiform has been tested to work on the following
+platforms.
+
+Linux
+FreeBSD
+OS X
+Windows XP
 
 The following people have sent patches or have otherwise helped the
 project. If someone is missing, please let me know, so I can add them.
@@ -25,7 +33,8 @@ Caveats
 
 This port is has several limitations. Among the biggest ones are:
 
-- it has been tested only on Linux and OS X (FreeBSD should also work)
+- Windows version compiles only with MinGW and requires some gymnastics
+  to get working
 - it only works on x86 and amd64 processors
 - there is no table recognition, because of
   https://bugs.launchpad.net/cuneiform-linux/+bug/260327
@@ -64,8 +73,9 @@ After install you simply run.
 
 cuneiform [-l language -o result_file -f [outputformat] --dotmatrix --fax] <image_file>
 
-Output is written to pumaout.txt. Cuneiform assumes that your image contains
-only a single column of text.
+If you do not define an output file with the -o switch, Cuneiform
+writes the result to a file "cuneiform-out.[format]". The file extension
+depends on your output format.
 
 By default Cuneiform recognizes English text. To change the language use the
 command line switch -l followed by your language string. To get a list of
@@ -74,9 +84,6 @@ supported languages type "cuneiform -l".
 By default Cuneiform outputs plain text. There are several other output formats.
 To get a list run the command "cuneiform -f".
 
-If you do not define an output file with the -o switch, Cuneiform
-writes the result to a file "cuneiform-out.[format]". The file extension
-depends on your output format.
 
 
 Contact information
