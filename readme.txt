@@ -33,8 +33,7 @@ Caveats
 
 This port is has several limitations. Among the biggest ones are:
 
-- Windows version compiles only with MinGW and requires some gymnastics
-  to get working
+- Windows version compiles only with MinGW
 - it only works on x86 and amd64 processors
 - there is no table recognition, because of
   https://bugs.launchpad.net/cuneiform-linux/+bug/260327
@@ -66,6 +65,10 @@ have to point the CF_DATADIR environment variable to a directory
 containing the .dat files. These can be found in the "datafiles"
 directory of the source package.
 
+WINDOWS NOTE: Cuneiform tries to access its data files in the
+directory that contains cuneiform.exe. You can place Cuneiform
+anywhere you want on your hard drive, just put the .dat files
+in the same directory.
 
 Running
 

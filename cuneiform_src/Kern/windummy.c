@@ -27,6 +27,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdio.h>
 #include "config.h"
+#include "winfuncs.h"
 
 #ifndef WIN32
 
@@ -498,22 +499,42 @@ char * mkdtemp(char *tmpl) {
 
 /* General helper functions. */
 
+static const char *separator = "/"; /* Yes, on Windows too. */
+
+#ifdef WIN32
+
+static void get_install_path(char *path) {
+	const int psize = 128;
+	char modulepath[psize];
+	char fname[50];
+	char suffix[10];
+
+	/* NOTE: GetModuleFileName gets the path of the main exe file.
+	 * It will break if Cuneiform is used as a library.
+	 */
+	GetModuleFileName(NULL, modulepath, psize);
+	winpath_to_internal(modulepath);
+	split_path(modulepath, path, fname, suffix);
+}
+
+#else
+
+static void get_install_path(char *path) {
+	strcat(path, INSTALL_DATADIR);
+}
+
+#endif
+
 /* We try to locate data files in two locations:
  *
  * 1. At the directory pointed to by environment variable CF_DATADIR
- * 2. At install prefix.
+ * 2. At a platform-dependent install location
  *
  * Caller's responsibility is to ensure *e1 and *e2 are large enough.
- *
- * Porting note: on Windows it probably makes sense to use the function
- * that tells the current code module's path and go from there.
- *
- * The same probably goes for OS X, if you want to go the GUI route.
  *
  */
 
 static void build_name_estimates(const char *base_name, char *env_name, char *prefix_name) {
-    const char *separator = "/"; /* Change to backslash on Windows. */
     const char *env_prefix;
     const char *varname = "CF_DATADIR";
     int len = 0;
@@ -532,11 +553,10 @@ static void build_name_estimates(const char *base_name, char *env_name, char *pr
         strcat(env_name, base_name);
     }
 
-    len = strlen(INSTALL_DATADIR);
-    if(len > 0) {
-        strcat(prefix_name, INSTALL_DATADIR);
-        strcat(prefix_name, separator);
-        strcat(prefix_name, base_name);
+    get_install_path(prefix_name);
+    if(strlen(prefix_name) > 0) {
+    	strcat(prefix_name, separator);
+    	strcat(prefix_name, base_name);
     }
 }
 
