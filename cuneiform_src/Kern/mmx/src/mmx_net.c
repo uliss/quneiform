@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //		return  0 if num<=0
 MMX_FUNC(Word32)   MMX_scalarUni (Int16 * _EAX, Int16 * _EDX, Int32 num)
 {
-#ifdef __MSVC__
+#ifdef _MSC_VER
 _asm{
 	mov eax, _EAX
 	mov edx, _EDX
@@ -115,7 +115,7 @@ save_res:
 //
 MMX_FUNC(Word32) MMX_scalar16 (Int16 * _EAX, Int16 * _EDX)
 {
-#ifdef __MSVC__
+#ifdef _MSC_VER
 _asm{
 	mov eax, _EAX
 	mov edx, _EDX
@@ -154,7 +154,7 @@ _asm{
 //
 MMX_FUNC(Word32) MMX_scalar36 (Int16 * _EAX, Int16 * _EDX)
 {
-#ifdef __MSVC__
+#ifdef _MSC_VER
 _asm{
 	mov eax, _EAX
 	mov edx, _EDX

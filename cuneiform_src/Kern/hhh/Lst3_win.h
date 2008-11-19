@@ -720,7 +720,7 @@ int na,int beg,int end);
   #define OF_WRITE     0x0002
 #endif
 
-#ifdef __MSVC__
+#ifdef _MSC_VER
    typedef FILE FILE1;
 #else
    typedef struct h_file { int hFile; } FILE1;
@@ -730,7 +730,7 @@ int na,int beg,int end);
 FILE1 *fopen_m(const char *name,int mode);
 FILE1 *myfopen(char *name,LONG* len);
 LONG filelength_m(FILE1 *stream);
-#ifndef __MSVC__
+#ifndef _MSC_VER
   int fclose_m(FILE1 *f);
   int fread_m(void *buf,int size,int count,FILE1 *stream);
   int fwrite_m(void *buf,int size,int count,FILE1 *stream);

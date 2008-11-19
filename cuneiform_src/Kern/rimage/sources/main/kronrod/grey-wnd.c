@@ -132,7 +132,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 typedef short int  Int16;
 typedef		 long  Int32;
 */
-#ifdef __MSVC__
+#ifdef _MSC_VER
 	#define EXPORT(a) __declspec(dllexport) a
 #else
 	#define EXPORT(a)  a _export

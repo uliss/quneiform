@@ -155,7 +155,7 @@ FNWORD                    Swp_ImageRead         (LPSTR lpImage,
 //////////////////////////////////////////////////////////////////////////////
 FNBOOL16                  Swp_ImageClose        (void);
 //////////////////////////////////////////////////////////////////////////////
-#ifndef __MSVC__
+#ifndef _MSC_VER
 FNBOOL16                  Tiger_FindLinesInTiff (LPSTR name,
 												 WORD x,
 												 WORD y,

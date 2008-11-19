@@ -62,7 +62,7 @@ char NameFuncErr[100],Buff[60]; short NumErr;
 
 void heapstat(char *mess)
 {
- #ifdef __MSVC__
+ #ifdef _MSC_VER
   #ifndef __cplusplus
     int   status = _heapchk(), n;
   #else

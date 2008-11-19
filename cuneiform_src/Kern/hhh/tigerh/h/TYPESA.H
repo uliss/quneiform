@@ -82,7 +82,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /////////////////////////////////////////////////////////////////////////////////////
 // Wicrosoft Dev Studio
 //AK 11.03.97 added for msd
-#ifdef __MSVC__
+#ifdef _MSC_VER
   #undef __WATCOM__
   #include <io.h>
   #include <time.h>

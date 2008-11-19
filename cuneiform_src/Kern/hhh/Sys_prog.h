@@ -59,7 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define CT_SKEW
 
-#if defined (__MSVC__)
+#if defined (_MSC_VER)
 	#define BITS32
 #endif
 

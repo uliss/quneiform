@@ -44,7 +44,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include<windows.h>
 #include"minmax.h"
 
-#ifdef __MSVC__
+#ifdef _MSC_VER
 #include<crtdbg.h>
 #else
 #define _ASSERT(a) assert(a)

@@ -266,7 +266,7 @@ int ConsMess( const char* str, ... )
    cd.lpData = strbuf;
    cd.cbData = count+10;
 
-#ifdef __MSVC__
+#ifdef _MSC_VER
    SendMessage( h_found, WM_COPYDATA, (WPARAM)0, (&cd) );
 #endif
    return count;

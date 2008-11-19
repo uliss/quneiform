@@ -970,7 +970,7 @@ switch(message)
                 }
             else
                 {   // F7 : debug
-#if defined (__MSVC__)
+#if defined (_MSC_VER)
                 __asm  int 03h;
 #else
                 abort();

@@ -63,7 +63,7 @@ extern   Word32 bit_cnt_mmx[];
 //
 MMX_FUNC(Bool32) MMX_anding(Int32 *image,Word16 *etalons,Int32 L)
 {
-#ifdef __MSVC__
+#ifdef _MSC_VER
 _asm    {
 
         mov     edx,    etalons
@@ -350,7 +350,7 @@ retur:
 
 MMX_FUNC(void) MMX_open( Int32 *image)
 {
-#ifdef __MSVC__
+#ifdef _MSC_VER
 _asm    {
 		mov     edx,    image
 		movq	mm2,	[edx]	     ;   MM2 = (image   = iobraz)
@@ -365,7 +365,7 @@ _asm    {
 
 MMX_FUNC(void) MMX_close(void)
 {
-#ifdef __MSVC__
+#ifdef _MSC_VER
 _asm		EMMS
 #endif
 }

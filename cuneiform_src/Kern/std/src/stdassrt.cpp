@@ -89,7 +89,7 @@ STD_FUNC( void ) stdAssert(const char *__cond, const char *__file, int __line)
         if (c == 27)
                 exit(0);
 if ( c == 13){
-#if defined (__MSVC__)
+#if defined (_MSC_VER)
            _asm int 3
 #else
            abort();
