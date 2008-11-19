@@ -57,7 +57,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __CTTYPES_H
 #define __CTTYPES_H
 
+#ifdef _MSC_VER
+
+/*
+MSVC does not come with stdint.h, even though it was standardized
+way back in 1999. But what would you expect from the company that brought
+you Internet Explorer?
+*/
+
+typedef __int8 int8_t;
+typedef unsigned __int8 uint8_t;
+typedef __int16 int16_t;
+typedef unsigned __int16 uint16_t;
+typedef __int32 int32_t;
+typedef unsigned __int32 uint32_t;
+
+#else
 #include <stdint.h>
+#endif
 
 #if _MSC_VER > 1000
    #pragma once

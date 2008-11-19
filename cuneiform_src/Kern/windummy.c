@@ -456,7 +456,7 @@ char* _strupr(char*s) {
 
 #else /* WIN32 */
 
-#include <stdint.h>
+#include "cttypes.h"
 #include <windows.h>
 
 char * mkdtemp(char *tmpl) {
