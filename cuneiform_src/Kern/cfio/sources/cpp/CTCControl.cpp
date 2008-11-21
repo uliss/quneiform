@@ -67,7 +67,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //                    started at 25 may 1998                                    //
 //                                                                              //
 //////////////////////////////////////////////////////////////////////////////////
+#ifndef _MSC_VER
 #include <unistd.h>
+#endif
 #include "ctccontrol.h"
 #include "compat_defs.h"
 void SetReturnCode_cfio(Word16 rc);

@@ -1,4 +1,5 @@
 include_directories(src)
+add_definitions(-D__EVN__)
 
 add_library(evn32 ${LIBTYPE}
 src/compdata.c

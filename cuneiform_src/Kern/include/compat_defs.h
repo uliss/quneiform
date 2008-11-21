@@ -46,9 +46,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifdef _MSC_VER
 #include<crtdbg.h>
+
+#include <io.h>
+#define open(a, b, c) _open(a, b, c)
+#define close(a) _close(a)
+#define read(a, b, c) _read(a, b, c)
+#define write(a, b, c) _write(a, b, c)
+#define filelength(a) _filelength(a)
+#define lseek(a, b, c) _lseek(a, b, c)
 #else
 #define _ASSERT(a) assert(a)
 typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int);
+
 #endif
 
 #include "winfuncs.h"

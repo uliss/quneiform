@@ -71,7 +71,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#define CFIO_USE_WIN32_API
 #include "ctccontrol.h"
 //#undef  CFIO_USE_WIN32_API
+#ifndef  _MSC_VER
 #include <unistd.h>
+#endif
 #include "compat_defs.h"
 //////////////////////////////////////////////////////////////////////////////////
 //

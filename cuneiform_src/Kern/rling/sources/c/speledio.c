@@ -90,10 +90,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "nt_types.h"
   #include <stdlib.h>
   #include <stdio.h>
-#if _MSC_VER
-  #include <io.h>
-  #define lseek(a, b, c) _lseek(a, b, c)
-#endif
   #include <string.h>
   #include <ctype.h>
   #include <setjmp.h>
@@ -103,6 +99,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "spelfunc.h"
   #include  "tigeremulate.h"
 
+  #include "compat_defs.h"
 // --------------------------------------------------------------------
   void	ErrorExit(int Code);
   void ed_out_write(PBYTE p, WORD size);
