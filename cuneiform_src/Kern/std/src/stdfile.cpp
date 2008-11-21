@@ -57,7 +57,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "internal.h"
 #pragma hdrstop
 
+#ifdef _MSC_VER
+#include<io.h>
+#else
 #include <unistd.h>
+#endif
 #include <sys/stat.h>
 
 #include "std.h"

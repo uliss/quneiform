@@ -66,8 +66,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __XFILE_H
 #define __XFILE_H
 
-/*#include <io.h>*/
+#if _MSC_VER
+#include <io.h>
+#else
 #include <unistd.h>
+#endif
 #include <fcntl.h>
 #include <assert.h>
 #include <sys/stat.h>
@@ -114,7 +117,11 @@ public:
    XFile( XFile & xf ) { if (xf.hnd != -1){ assert(0); }; }; // no copy for opened files!
    ~XFile(void) { Close(); };
 
+#if _MSC_VER
+   Int32  Commit(void) { return (hnd != -1) ? FlushFileBuffers((HANDLE) _get_osfhandle(hnd)) : -1; };
+#else
    Int32  Commit(void) { return (hnd != -1) ? fsync(hnd) : -1; };
+#endif
    Bool32 Open(char* name, XFileOpenMode mode_)
    {
       assert(hnd==-1);

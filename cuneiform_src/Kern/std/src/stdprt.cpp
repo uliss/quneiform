@@ -278,9 +278,9 @@ Bool32 stdPrtConsole::SendTextToConsole(char *text, int len)
    strcpy((char*)lpText,text);
    ::GlobalUnlock(hMessageText);
    ::PostMessage(hConsoleOutput,uiMesasageHandle,reinterpret_cast<unsigned int>(hMessageText),len);
-   return TRUE;
 #endif
    printf(text);
+   return TRUE;
 }
 
 Bool32 stdPrtConsole::AllocPrtConsole()

@@ -1,5 +1,7 @@
 include_directories(src)
 
+add_definitions(-D__STD__) # Function import/export.
+
 add_library(std32 ${LIBTYPE}
 src/std.cpp
 #src/Std.rc
