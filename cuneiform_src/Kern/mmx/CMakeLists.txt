@@ -1,4 +1,5 @@
 include_directories(BEFORE src)
+add_definitions(-D__MMX__)
 
 add_library(mmx ${LIBTYPE}
 src/mmx_gra.c

@@ -1,4 +1,5 @@
 include_directories(BEFORE src)
+add_definitions(-D__DIF__)
 
 add_library(dif ${LIBTYPE}
 src/dif.c
