@@ -26,6 +26,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include "config.h"
 
 #ifndef WIN32
@@ -465,17 +468,18 @@ char * mkdtemp(char *tmpl) {
     static const unsigned int charset_len = sizeof(charset) - 1;
 
     const int len = strlen (tmpl);
-    if (len < 6)
-        return NULL;
     char* x_tail = tmpl + len - 6;
+    LARGE_INTEGER rand_seed;
+    uint64_t value = rand_seed.QuadPart ^ GetCurrentThreadId();
+    unsigned int cnt = 0;
+
+	if (len < 6)
+        return NULL;
     if(memcmp(x_tail, "XXXXXX", 6))
         return NULL;
 
-    LARGE_INTEGER rand_seed;
     QueryPerformanceCounter(&rand_seed);
-    uint64_t value = rand_seed.QuadPart ^ GetCurrentThreadId();
 
-    unsigned int cnt = 0;
     do {
         uint64_t val = value;
         char* x_char = x_tail;
@@ -502,9 +506,13 @@ static const char *separator = "/"; /* Yes, on Windows too. */
 
 #ifdef WIN32
 
+#include<io.h>
+#include<direct.h>
+#include"winfuncs.h"
+
 static void get_install_path(char *path) {
 	const int psize = 128;
-	char modulepath[psize];
+	char modulepath[128]; /* MSVC fails when psize is put in these brackets. */
 	char fname[50];
 	char suffix[10];
 
@@ -590,7 +598,7 @@ void split_path(const char *fname, char *file_path, char *basename, char *ext) {
     int suff = -1;
     size_t l = strlen(fname);
     int path_end, base_start, base_end, ext_start;
-    int i;
+    size_t i;
 
     file_path[0] = '\0';
     basename[0] = '\0';
@@ -666,7 +674,11 @@ void winpath_to_internal(char *p) {
 /* Get current working directory. */
 
 unsigned int curr_dir(unsigned int bsize, char* buf) {
+#ifdef _MSC_VER
+	_getcwd(buf, bsize);
+#else
     getcwd(buf, bsize);
+#endif
     winpath_to_internal(buf);
     return strlen(buf);
 }
