@@ -66,9 +66,10 @@ containing the .dat files. These can be found in the "datafiles"
 directory of the source package.
 
 WINDOWS NOTE: Cuneiform tries to access its data files in the
-directory that contains cuneiform.exe. You can place Cuneiform
+directory that contains the DLLs. You can place Cuneiform
 anywhere you want on your hard drive, just put the .dat files
-in the same directory.
+in the same directory. This works also when using Cuneiform
+as a library.
 
 Running
 

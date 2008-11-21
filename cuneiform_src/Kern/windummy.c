@@ -462,6 +462,14 @@ char* _strupr(char*s) {
 #include "cttypes.h"
 #include <windows.h>
 
+static HMODULE thismod;
+
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
+	thismod = (HMODULE) hinstDLL;
+	return TRUE;
+}
+
+
 char * mkdtemp(char *tmpl) {
     static const char charset[] =
         "=#abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -516,10 +524,7 @@ static void get_install_path(char *path) {
 	char fname[50];
 	char suffix[10];
 
-	/* NOTE: GetModuleFileName gets the path of the main exe file.
-	 * It will break if Cuneiform is used as a library.
-	 */
-	GetModuleFileName(NULL, modulepath, psize);
+	GetModuleFileName(thismod, modulepath, psize);
 	winpath_to_internal(modulepath);
 	split_path(modulepath, path, fname, suffix);
 }
