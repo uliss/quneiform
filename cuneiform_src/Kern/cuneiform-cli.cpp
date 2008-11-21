@@ -33,9 +33,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include<sstream>
 #include<iomanip>
 #include<stdio.h>
-#include<stdint.h>
 #include<stdlib.h>
 #include<cstring>
+#include"cttypes.h"
 #include"puma.h"
 #include"config.h"
 
