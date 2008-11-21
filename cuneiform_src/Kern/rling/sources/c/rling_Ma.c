@@ -56,7 +56,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <assert.h>
 #include <stdio.h>
-/*#include <io.h>*/
+#if _MSC_VER
+#include <io.h>
+#define close(a) _close(a)
+#define write(a, b, c) _write(a, b, c)
+#define read(a, b, c) _read(a, b, c)
+#define filelength(a) _filelength(a)
+#endif
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>

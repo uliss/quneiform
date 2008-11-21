@@ -56,11 +56,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <assert.h>
 #include <stdio.h>
-/*#include <io.h>*/
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
 #include <stdlib.h>
+#if _MSC_VER
+#include <io.h>
+#define filelength(a) _filelength(a)
+#define open(a, b, c) _open(a, b, c)
+#define close(a) _close(a)
+#define read(a, b, c) _read(a, b, c)
+#define write(a, b, c) _write(a, b, c)
+#endif
 /*************************************************************************/
 /* tg_spell.c -  general spelling loop. It scans ED-file,
    reads objects, i.e. info between reliable spaces (don't confuse
