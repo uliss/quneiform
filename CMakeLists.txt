@@ -26,5 +26,10 @@ else()
     set(LIBDIR "lib")
 endif()
 
+# Stop MSVC complaints about POSIX functions.
+if(MSVC)
+    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+endif()
+
 add_subdirectory(datafiles)
 add_subdirectory(cuneiform_src)

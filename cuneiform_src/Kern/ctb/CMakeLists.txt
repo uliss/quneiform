@@ -1,3 +1,5 @@
+add_definitions(-D__CTB__)
+
 add_library(ctb32 ${LIBTYPE}
 src/ctb_aln.c
 src/ctb_cnvm.c
