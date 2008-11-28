@@ -1,3 +1,5 @@
+add_definitions(-D__FON__)
+
 add_library(fon ${LIBTYPE}
 src/clu_best.c
 src/clu_div.c

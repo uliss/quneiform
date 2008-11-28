@@ -1,5 +1,6 @@
 include_directories(BEFORE src)
 
+add_definitions(-D__LOC__)
 add_library(loc ${LIBTYPE}
 src/compdata.c
 src/compkit.c

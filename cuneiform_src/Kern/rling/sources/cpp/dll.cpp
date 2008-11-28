@@ -94,8 +94,10 @@ Word16 GetReturnCode_rling();
 ///////////////////////////////////////////////////////////////////////////////////
 
 // FIXME: temp hack
+#ifndef _MSC_VERS
 #undef APIENTRY
 #define APIENTRY
+#endif
 
 BOOL APIENTRY DllMain( HINSTANCE hModule,
                         DWORD ul_reason_for_call,

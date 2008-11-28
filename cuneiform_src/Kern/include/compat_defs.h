@@ -48,7 +48,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include<crtdbg.h>
 
 #include <io.h>
-#define open(a, b, c) _open(a, b, c)
+/*#define open(a, b, c) _open(a, b, c)*/
 #define close(a) _close(a)
 #define read(a, b, c) _read(a, b, c)
 #define write(a, b, c) _write(a, b, c)
