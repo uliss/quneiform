@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _LANGDEF_INCLUDED_
  #define _LANGDEF_INCLUDED_
 
- #if defined (__NT__) || defined (_WINNT_) // 06.09.00 E.P.
+ #if defined (__NT__) || defined (_WINNT_) || defined(__MINGW32__) // 06.09.00 E.P.
   #undef LANG_ENGLISH
   #undef LANG_GERMAN
   #undef LANG_FRENCH

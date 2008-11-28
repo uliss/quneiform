@@ -356,7 +356,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       #define  SNP_END        26
       #define  SNP_GRAY_ENTER 27
 #else
-#ifndef _WINUSER_
+#if !defined(_WINUSER_) && !defined(WINUSERAPI)
 		#define VK_LBUTTON        0x01
 		#define VK_RBUTTON        0x02
 		#define VK_CANCEL         0x03

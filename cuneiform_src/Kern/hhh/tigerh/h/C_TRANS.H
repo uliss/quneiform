@@ -75,8 +75,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       #define __WATCOM__   1050
     #endif
     #ifdef WIN32
-      #define __WIN32__
-     #else
+      #ifndef __WIN32__
+        #define __WIN32__
+      #endif
+    #else
       #define __WIN16__
     #endif
   #endif
