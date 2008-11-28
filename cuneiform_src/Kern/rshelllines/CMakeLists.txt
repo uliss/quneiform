@@ -3,6 +3,8 @@ h
 src
 )
 
+add_definitions(-DRSHELLLINES_EXPORTS)
+
 add_library(rshelllines ${LIBTYPE}
 ${SNP_SRC}
 src/rshelllines.cpp

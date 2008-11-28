@@ -1,5 +1,7 @@
 include_directories(BEFORE src/h)
 
+add_definitions(-D__RCORRKEGL__)
+
 add_library(rcorrkegl ${LIBTYPE}
 ${SNP_SRC}
 src/cpp/cor_kegl.cpp

@@ -1,5 +1,7 @@
 include_directories(h sources/h)
 
+add_definitions(-D__CED__)
+
 add_library(ced ${LIBTYPE}
 sources/main/ced.cpp
 sources/main/ced_func.cpp

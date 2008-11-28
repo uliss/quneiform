@@ -1,6 +1,6 @@
 #include_subdirectories(src)
 add_definitions(-DDPUMA_SNAP)
-
+add_definitions(-D__RSTR__)
 add_library(rstr ${LIBTYPE}
 ${SNP_SRC}
 src/abris.c

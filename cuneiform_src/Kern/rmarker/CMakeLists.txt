@@ -1,3 +1,5 @@
+add_definitions(-D__RMARKER__)
+
 add_library(rmarker ${LIBTYPE}
 ${SNP_SRC}
 dll.cpp

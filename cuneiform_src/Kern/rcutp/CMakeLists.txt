@@ -1,5 +1,7 @@
 include_directories(sources/main)
 
+add_definitions(-D__RCUTP__)
+
 add_library(rcutp ${LIBTYPE}
 ${SNP_SRC}
 sources/main/rcut_4rselstr.cpp
