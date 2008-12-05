@@ -697,58 +697,24 @@ int SplitCol(FRAME **frm,int *k_frm1,int SizeXGlob,int SizeYGlob,BOUND *bndc,
 int CalcHistVert(FRAME ***f1,int k_str,int *ksym1,BOUND *bnds1);
 int OrtFoure(float *y,float *Re,float *Im,float *ys,float *Err,int k,int p,
 int na,int beg,int end);
-//--ќписание универсал. (DOS - Windows) файл. интерфейса--
-#ifndef OF_READ
-  #define OF_READ      0x0000
-  #define OF_READWRITE 0x0001
-  #define OF_WRITE     0x0002
-#endif
-
-#ifdef _MSC_VER
-   typedef FILE FILE1;
-#else
-   typedef struct h_file { int hFile; } FILE1;
-#endif
 
 #ifndef V_LOCK
-FILE1 *fopen_m(const char *name,int mode);
-FILE1 *myfopen(char *name,LONG* len);
-LONG filelength_m(FILE1 *stream);
-#ifndef _MSC_VER
-  int fclose_m(FILE1 *f);
-  int fread_m(void *buf,int size,int count,FILE1 *stream);
-  int fwrite_m(void *buf,int size,int count,FILE1 *stream);
-  int fseek_m(FILE1 *stream, long offset, int origin);
-  LONG ftell_m(FILE1 *stream);
-  int setvbuf_m(FILE1 *stream,char *buf,int type,int size);
-#define _hread(a, b, c) read(a, b, c)
-#define _lclose(a) close(a)
-#define _lcreat(a, b) creat(a, b)
-#define _llseek(a, b, c) lseek(a, b, c)
-#define _lopen(a, b) open(a, b)
-#define _lread(a, b, c) read(a, b, c)
-#define _lwrite(a, b, c) write(a, b, c)
-#else
-  #define fclose_m      fclose
-  #define fread_m       fread
-  #define fwrite_m      fwrite
-  #define fseek_m       fseek
-  #define ftell_m       ftell
-  #define setvbuf_m     setvbuf
-#endif
-int hread_m(void *buf,int size,int count,FILE1 *stream);
+LONG filelength_m(FILE *stream);
+
+int hread_m(void *buf,int size,int count,FILE *stream);
 int CopyFile_my(char *NameIn,char *NameOut);
-int fgets_m(char *str,int max_len,FILE1 *f);
-char get_kod(FILE1 *f);
-int fgets1_m(char *str,int max_len,FILE1 *f);
-char get1_kod(FILE1 *f);
+int fgets_m(char *str,int max_len,FILE *f);
+char get_kod(FILE *f);
+int fgets1_m(char *str,int max_len,FILE *f);
+char get1_kod(FILE *f);
 char *get_param(char *str,char *param,int max_len);
 char *get1_param(char *str,char *param,int max_len);
 #endif
+
 #ifndef MAIN
   extern PAR par;
   extern int viz,extr;
-  extern long na,ko,pos1; extern FILE1 *fip,*out,*out_rb;
+  extern long na,ko,pos1; extern FILE *fip,*out,*out_rb;
   extern long PRSMAX;
   extern void *low; /*нижн€€ граница загрузки программы - дл€ контрол€*/
   extern char *s1,*s2,*s3; /*—ообщени€ дл€ интерактива*/
@@ -777,7 +743,7 @@ char *get1_param(char *str,char *param,int max_len);
 #else
   PAR par;
   int viz=0,extr=0;
-  long na=0,ko=-1,pos1; FILE1 *fip,*out,*out_rb;
+  long na=0,ko=-1,pos1; FILE *fip,*out,*out_rb;
   long PRSMAX;
   void *low; /*нижн€€ граница загрузки программы - дл€ контрол€*/
   const char *s1="Esc - continue;",*s2="Up,Down,Left,Right - Move image;",

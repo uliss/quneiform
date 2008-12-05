@@ -239,7 +239,7 @@ Rect16 RectCut;
 int read_frm(char *file_frm,FRAME ***frm_arr,int *k_arr_frm,FRAME ***frm,
              int *k_frm)
 {
-	FILE1 *rb;
+	FILE *rb;
 	long file_len;
 	int fl,k,i,j,size_bloc[MAX_BLOC];
 	OLD_FRAME *ptr;
@@ -255,7 +255,7 @@ int read_frm(char *file_frm,FRAME ***frm_arr,int *k_arr_frm,FRAME ***frm,
   #endif
   //  SizeMin=par.AllowLine ? 0 : par.xmin_abs;
   SizeMin=0;
-  if( (rb=fopen_m(file_frm,OF_READ)) == NULL)
+  if( (rb=fopen(file_frm, "rb")) == NULL)
   	return -1;
   file_len= filelength_m(rb);
   kf=file_len/sizeof(PRMTR);
@@ -296,9 +296,9 @@ int read_frm(char *file_frm,FRAME ***frm_arr,int *k_arr_frm,FRAME ***frm,
     while(kf1 > 0)
     {
     	if(kf1 > KBUF)
-    		{fread_m(buf,KBUF*sizeof(PRMTR),1,rb); kb1=KBUF;}
+    		{fread(buf,KBUF*sizeof(PRMTR),1,rb); kb1=KBUF;}
       else
-      	 kb1=fread_m(buf,sizeof(PRMTR),KBUF,rb);
+      	 kb1=fread(buf,sizeof(PRMTR),KBUF,rb);
       kf1-=kb1; --kb1;
       for(i=0; i <= kb1; ++i)
       {
@@ -312,7 +312,7 @@ int read_frm(char *file_frm,FRAME ***frm_arr,int *k_arr_frm,FRAME ***frm,
       if(kf1 >= MAX_FRAME)
       	{SizeMin=MAX(SizeMin,i); kf=kf1-his[i]; break;}
     }
-    fseek_m(rb,0L,SEEK_SET); free(buf); free(his);
+    fseek(rb,0L,SEEK_SET); free(buf); free(his);
   }
   *k_arr_frm=-1;
   if( (*frm_arr=(FRAME**)malloc((MAX_BLOC+2)*sizeof(FRAME*))) == NULL)
@@ -330,9 +330,9 @@ int read_frm(char *file_frm,FRAME ***frm_arr,int *k_arr_frm,FRAME ***frm,
   while(kf1 > 0)
   {
 		if(kf1 > KBUF)
-  		{fread_m(buf,KBUF*sizeof(PRMTR),1,rb); kb1=KBUF;}
+  		{fread(buf,KBUF*sizeof(PRMTR),1,rb); kb1=KBUF;}
     else
-    	 kb1=fread_m(buf,sizeof(PRMTR),KBUF,rb);
+    	 kb1=fread(buf,sizeof(PRMTR),KBUF,rb);
     kf1-=kb1; --kb1;
     for(i=0; i <= kb1; ++i)
     {
@@ -370,7 +370,7 @@ int read_frm(char *file_frm,FRAME ***frm_arr,int *k_arr_frm,FRAME ***frm,
   *k_arr_frm=kk;
   free(buf); *k_frm=k;
 
-	fclose_m(rb);
+	fclose(rb);
   return 0;
 }
 //Выдача исходных коор-т old верхнего левого угла рамки f:
@@ -433,7 +433,7 @@ void RestoreOldCoorRect(FRAME *f,RECT *fo)
 ////==========
 //int read_frmW(char *file_frm,POINT_H *CentrW,int *SizeX_W,int *SizeY_W,
 //    long *k_frm)
-//{ FILE1 *rw; long kf,k; long ave_x,ave_y;
+//{ FILE *rw; long kf,k; long ave_x,ave_y;
 //  int kb=1000,kb1,i,x,y,dx,dy,sig,med,mod,ave;
 //  STATIC POINT_H c; STATIC int *sx,*sy; STATIC FRAME *b;
 //
@@ -841,14 +841,14 @@ Bool16 GetScanRes_LenPrs(char *ImageName)
 	ScanResolution=300;
 	{ TITLE_PRS TitlePRS; float sx,sy;
 		make_path(Fullpath, dir, fname,"pr1");
-		if( (fip=fopen_m(Fullpath,OF_READ)) == NULL)
+		if( (fip=fopen(Fullpath, "rb")) == NULL)
 			return FALSE;
-		fread_m(&TitlePRS,sizeof(TITLE_PRS),1,fip);
+		fread(&TitlePRS,sizeof(TITLE_PRS),1,fip);
 		sx=(float)TitlePRS.ScanResX; sy=(float)TitlePRS.ScanResY;
 		if(TitlePRS.ScanResX!=0 && TitlePRS.ScanResY!=0 && sx/sy < 3. && sx/sy > .3
 				&& sx > 9. && sy > 9.) ScanResolution=TitlePRS.ScanResX*10;
 		WidthPRS= (TitlePRS.Name[3] == 'T' || TitlePRS.Name[3] == 't') ? 2 : 3;
-		fclose_m(fip);
+		fclose(fip);
 	}
 	MulScanRes=(float)((ScanResolution+.05)/300.);
 	if(WidthPRS != 2) return FALSE;

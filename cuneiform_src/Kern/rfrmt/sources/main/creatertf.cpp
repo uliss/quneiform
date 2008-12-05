@@ -356,7 +356,7 @@ BOOL CRtfPage::OpenOutputFile(const char* FileNameOut)
 			return FALSE;
  }
 #else
- if((out=fopen_m(FileNameOut,OF_WRITE)) == NULL)
+ if((out=fopen(FileNameOut, "w")) == NULL)
 		return FALSE;
 #endif
 
@@ -367,7 +367,7 @@ BOOL CRtfPage::OpenOutputFile(const char* FileNameOut)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CRtfPage::CloseOutputFile(void)
 {
- fclose_m(out);
+ fclose(out);
 }
 
 //********* Чтение internal.vit
@@ -396,7 +396,7 @@ BOOL CRtfPage::ReadInternalFile(const char *FileNameIn)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 BOOL ReadInternalFileRelease(const char *FileNameIn, CRtfPage* RtfPage)
 {
-	FILE1  *in;
+	FILE  *in;
 	CRtfFragment*   pRtfFragment;
 	CRtfString*     pRtfString;
 	CRtfWord*       pRtfWord;
@@ -408,23 +408,23 @@ BOOL ReadInternalFileRelease(const char *FileNameIn, CRtfPage* RtfPage)
 	Rect16 RectFragm;
 	Rect16  SRect;
 
-	if((in=fopen_m(FileNameIn,OF_READ)) == NULL)
+	if((in=fopen(FileNameIn, "r")) == NULL)
 		return FALSE;
 
-	fread_m(&tmp,2,1,in);
+	fread(&tmp,2,1,in);
 	RtfPage->m_wDpi = tmp;
 	if(tmp)
 	{
 		Twips = ((float)K_TwipsInInch)/tmp;
 		Twips = (float)((int)(Twips+0.5));
 	}
-	fread_m(&tmp,2,1,in);
+	fread(&tmp,2,1,in);
 	RtfPage->Count.RtfTextFragments = tmp;
-	fread_m(&tmp,2,1,in);
-	fread_m(&tmp,2,1,in);
-	fread_m(&tmp,2,1,in);
-	fread_m(&tmp,2,1,in);
-	fread_m(&tmp,2,1,in);
+	fread(&tmp,2,1,in);
+	fread(&tmp,2,1,in);
+	fread(&tmp,2,1,in);
+	fread(&tmp,2,1,in);
+	fread(&tmp,2,1,in);
 	RtfPage->Count.RtfFrameTextFragments = 0;
 
 	for(nc=0; nc < RtfPage->Count.RtfTextFragments; ++nc)
@@ -433,35 +433,35 @@ BOOL ReadInternalFileRelease(const char *FileNameIn, CRtfPage* RtfPage)
 		pRtfFragment->pRtfParent = RtfPage;
 		pRtfFragment->m_wType = FT_TEXT;
 
-		fread_m(&RectFragm,1,sizeof(Rect16),in);
+		fread(&RectFragm,1,sizeof(Rect16),in);
 		pRtfFragment->m_rect.left  = (Int32)(RectFragm.left*Twips);
 		pRtfFragment->m_rect.top   = (Int32)(RectFragm.top*Twips);
 		pRtfFragment->m_rect.right = (Int32)(RectFragm.right*Twips);
 		pRtfFragment->m_rect.bottom= (Int32)(RectFragm.bottom*Twips);
-		fread_m(&tmp,2,1,in);
+		fread(&tmp,2,1,in);
 		pRtfFragment->m_wStringsCount = tmp;
-		fread_m(&wtmp,4,1,in);
+		fread(&wtmp,4,1,in);
 		pRtfFragment->m_wUserNumber = wtmp;
-		fread_m(&wtmp,4,1,in);
+		fread(&wtmp,4,1,in);
 
 		for(ns=0; ns < pRtfFragment->m_wStringsCount; ++ns)
 		{
 			pRtfString = pRtfFragment->GetNextString();
-			fread_m(&SRect,sizeof(Rect16),1,in);
+			fread(&SRect,sizeof(Rect16),1,in);
 			//Реальные коор. строки!
-			fread_m(&SRect,sizeof(Rect16),1,in);
-			fread_m(&tmp,2,1,in);
+			fread(&SRect,sizeof(Rect16),1,in);
+			fread(&tmp,2,1,in);
 			pRtfString->m_wWordsCount = tmp;
 
-			fread_m(&tmp,sizeof(Word32),1,in);//NEGA_STR
+			fread(&tmp,sizeof(Word32),1,in);//NEGA_STR
  			for(nw=0; nw < pRtfString->m_wWordsCount; ++nw)
 			{
 				pRtfWord = pRtfString->GetNextWord();
-				fread_m(&tmp,2,1,in);
+				fread(&tmp,2,1,in);
 				pRtfWord->m_wCharsCount=tmp;
-				fread_m(&tmp,2,1,in);
+				fread(&tmp,2,1,in);
 				pRtfWord->m_wFontNumber = (WORD)tmp;
-				fread_m(&tmp,2,1,in);
+				fread(&tmp,2,1,in);
 				pRtfWord->m_wIdealFontPointSize = (WORD)tmp;
 
 				for(nz=0; nz < pRtfWord->m_wCharsCount; ++nz)
@@ -473,31 +473,31 @@ BOOL ReadInternalFileRelease(const char *FileNameIn, CRtfPage* RtfPage)
      #pragma pack()
 
 					pRtfChar = pRtfWord->GetNextChar();
-					fread_m(&SRect,sizeof(Rect16),1,in);     //Ideal BOX
+					fread(&SRect,sizeof(Rect16),1,in);     //Ideal BOX
 					pRtfChar->m_Idealrect.left           = SRect.left;
 					pRtfChar->m_Idealrect.top            = SRect.top;
 					pRtfChar->m_Idealrect.right          = SRect.right;
 					pRtfChar->m_Idealrect.bottom         = SRect.bottom;
 
-  					fread_m(&SRect,sizeof(Rect16),1,in);     //Real BOX
+  					fread(&SRect,sizeof(Rect16),1,in);     //Real BOX
 					pRtfChar->m_Realrect.left            = SRect.left;
 					pRtfChar->m_Realrect.top             = SRect.top;
 					pRtfChar->m_Realrect.right           = SRect.right;
 					pRtfChar->m_Realrect.bottom          = SRect.bottom;
 
-					fread_m(&num,sizeof(WORD),1,in);
+					fread(&num,sizeof(WORD),1,in);
 					assert(num<=REC_MAX_VERS);
 					pRtfChar->m_wCountAlt=MIN(num,REC_MAX_VERS);
 					for(i=0; i<num; i++)
 					{
-						fread_m(&alt1,sizeof(struct ALT_TIGER1),1,in);
+						fread(&alt1,sizeof(struct ALT_TIGER1),1,in);
 						if (i<REC_MAX_VERS)
 						{
 							pRtfChar->m_chrVersions[i].m_bChar = alt1.let;
 							pRtfChar->m_chrVersions[i].m_bProbability = alt1.prob;
 						}
 					}
-					fread_m(&alt2,sizeof(struct ALT_TIGER2),1,in);
+					fread(&alt2,sizeof(struct ALT_TIGER2),1,in);
 					pRtfChar->m_blanguage             = alt2.language;
 					pRtfChar->m_bFlg_spell_nocarrying = alt2.spellnocarrying;
 					pRtfChar->m_bFlg_cup_drop         = alt2.FlagCapDrop;
@@ -509,7 +509,7 @@ BOOL ReadInternalFileRelease(const char *FileNameIn, CRtfPage* RtfPage)
 			}
 		}
 	}
-	fclose_m(in);
+	fclose(in);
 	return TRUE;
 }
 
@@ -4102,9 +4102,9 @@ void PutC(char sym)
   if(sym==0)
     {b=(char*)malloc(SIZE_BLOC);pos=-1;return;} //Init
   if(sym==1) //Вывод буферов
-    {if(pos>=0) fwrite_m(b,pos+1,1,out); free(b); return;}
+    {if(pos>=0) fwrite(b,pos+1,1,out); free(b); return;}
   if(pos == SIZE_BLOC-1)
-    {fwrite_m(b,SIZE_BLOC,1,out);pos=-1;}
+    {fwrite(b,SIZE_BLOC,1,out);pos=-1;}
   b[++pos]=sym;
 }
 
@@ -4195,7 +4195,7 @@ Int16 CreateEmptyRtfFile(void)
  if(RtfWriteMode)
  {
 	Eol[0]=(char)cr; Eol[1]=(char)lf; Eol[2]=0;
-	if((out=fopen_m((char*)RtfFileName,OF_WRITE)) == NULL) 	return -6;
+	if((out=fopen((char*)RtfFileName, "w")) == NULL) 	return -6;
  PutChar(0);
 
   Put("{");
@@ -4231,7 +4231,7 @@ Int16 CreateEmptyRtfFile(void)
  Put("}");
 
  PutChar(1);
-  fclose_m(out);
+  fclose(out);
 	}
 return TRUE;
 }
