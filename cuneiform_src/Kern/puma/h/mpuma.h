@@ -250,7 +250,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     //allex
     #ifdef _DEBUG
-
+#ifdef _MSC_VER
+#include<crtdbg.h>
+#endif
     EXTERN _CrtMemState				g_dbgMemState;
 
     #endif

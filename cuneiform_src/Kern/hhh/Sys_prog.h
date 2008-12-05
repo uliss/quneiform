@@ -135,7 +135,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef MSC_MOD
   #include <memory.h>
   #include <malloc.h>
-  #define MAXINT      0x7FFF
+/*  #define MAXINT      0x7FFF*/
   #ifndef WIN32
     #define MAXSHORT    0x7FFF
     #define MAXLONG     0x7FFFFFFFL
