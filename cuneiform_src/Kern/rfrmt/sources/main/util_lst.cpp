@@ -667,9 +667,7 @@ int GetTypeDoc(void)
 */ // !!! Art - устарело
 #endif /*__STR__ */
 
-//Функция memmove_m, настраиваемая с помощью #define HUGE_MOD
-//на far или huge-указатели
-int memmove_m(void HUGE_P *out,void HUGE_P *in,long size) {
+int memmove_m(void *out,void *in,long size) {
     memmove(out, in, (uint)size);
     return 0;
 }

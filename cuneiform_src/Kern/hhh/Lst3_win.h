@@ -105,22 +105,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define WORK 0
 #define EDIT 1
 
-//Если установлено HUGE_MOD, захватывается huge-буфер PRS-строки
-//(до 65000 пар PRS-кодов), иначе - far-буфер (до 16200 пар)
-#define HUGE_MOD
-#if defined (HUGE_MOD) && !defined (HUGE_P)
-  #define HUGE_P /*huge*/
-#else
-  #define HUGE_P
-#endif
-//Если установлено HFRM, захватывается huge-буфер под массив указателей на рамки
-//(до 32000 пар рамок), иначе - far-буфер (до 16200 штук)
-//#define HFRM
-#ifdef HFRM
-  #define HFRAME FRAME /*huge*/
-#else
-  #define HFRAME FRAME
-#endif
 //#define INTEL
 //#define AU
 //ext - .prn or .prc
@@ -539,7 +523,7 @@ KNOT *inc_after_lst(KNOT *ptr,KNOT **beg,KNOT **beg_free);
 void del_lst(KNOT *ptr,KNOT **beg,KNOT **beg_free);
 KNOT* DelLstNext(KNOT *ptr,KNOT **beg,KNOT **beg_free);
 void free_lst(KNOT **knot,int k_bloc);
-int memmove_m(void HUGE_P *out,void HUGE_P *in,long size);
+int memmove_m(void *out,void *in,long size);
 int alloc_seg(KNOT **kn,int *kb,int max_knot,uint size_item,int *size_bloc);
 uint determine_free_memory(uint size);
 void print_ptr(KNOT *beg);
@@ -697,17 +681,17 @@ int class_frm_col(FRAME **frm,int k_frm,BOUND *bnd,int ave_x,int ave_y,int reg,
     int *intr,int *k_int);
 int calc_stat_col(FRAME ***str,int *ksym,int k_str,BOUND *bnd_str);
 //---Колонизация "снизу-вверх"----
-long DistMinFrm(HFRAME *f1,HFRAME *f2);
-int DistFrmCol(HFRAME *f1,HFRAME *f2,int ph,int pv);
-int GenAS(HFRAME **frm,int k_frm,int dx,int dy,BOUND *bnd,KNOT3 *beg_free,
+long DistMinFrm(FRAME *f1,FRAME *f2);
+int DistFrmCol(FRAME *f1,FRAME *f2,int ph,int pv);
+int GenAS(FRAME **frm,int k_frm,int dx,int dy,BOUND *bnd,KNOT3 *beg_free,
     int value,AS *As,RECT Rect);
 int EstBetwLine(AS *As,int *BetwLine,int k_frm);
-int ClassFrmEnv(HFRAME **frm,int *k_frm1,int *k_izo1,AS *As,int BetwLine,
+int ClassFrmEnv(FRAME **frm,int *k_frm1,int *k_izo1,AS *As,int BetwLine,
     int AveX,int AveY);
-int ClassFrmOther(HFRAME **frm, int *k_frm1,int k_other,KNOT3 **beg_cl,int k_cl,
+int ClassFrmOther(FRAME **frm, int *k_frm1,int k_other,KNOT3 **beg_cl,int k_cl,
     KNOT3 *beg_free,int AveX,int AveY,int BetwLine,BOUND *bnd,
     int *intr,int *k_col);
-int SplitCol(HFRAME **frm,int *k_frm1,int SizeXGlob,int SizeYGlob,BOUND *bndc,
+int SplitCol(FRAME **frm,int *k_frm1,int SizeXGlob,int SizeYGlob,BOUND *bndc,
     KNOT3 **beg_free1,int **intr1,int *kcol,int *NumMax);
 //--Отделение текста от графики--
 int CalcHistVert(FRAME ***f1,int k_str,int *ksym1,BOUND *bnds1);
@@ -778,7 +762,7 @@ char *get1_param(char *str,char *param,int max_len);
   extern char dir[_MAX_DIR], fname[_MAX_FNAME], ext[_MAX_EXT];
   extern char Fullpath[255];
   extern int SizeXGlob,SizeYGlob;
-  extern REFER HUGE_P *fiv;
+  extern REFER *fiv;
   extern int NumCut; extern FRAME *Cut;
   extern int SizeX_W,SizeY_W;
   extern float AveNumCrossCol,AveNumCross1Col,AveThickCol,AveThick1Col;
@@ -809,7 +793,7 @@ char *get1_param(char *str,char *param,int max_len);
   char Fullpath[255];
   //char NameFuncErr[100],Buff[60]; int NumErr;
   int SizeXGlob,SizeYGlob;
-  REFER HUGE_P *fiv;
+  REFER *fiv;
   int NumCut; FRAME *Cut; //Счетчик и буфер разрезанных компонент
   int SizeX_W,SizeY_W;
   float AveNumCrossCol,AveNumCross1Col,AveThickCol,AveThick1Col;

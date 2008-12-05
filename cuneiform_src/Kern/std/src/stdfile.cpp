@@ -130,27 +130,10 @@ STD_FUNC( Int32 ) stdRead( Int32 handle, void *buffer, Int32 count )
    };
 
    Int32 res=0;
-#ifndef BITS_16
+
    if (count>0)
    {  res = read(handle, (char*)buffer, count); // char* - for Macintosh
    };
-#else // BITS_16
-   Word8 HUGE * scn = (Word8 HUGE *)buffer;
-   Int32 _count = count;
-   while (_count > 0)
-   {
-      Int32 xx = 0x7ff0;   //-FP_OFF(scn);
-      xx = mini(_count, xx);
-      Int32 yy = read(handle, (char*)scn, xx);    // char* - for Macintosh
-      if (yy <= 0)
-         break;
-      scn += yy;
-      _count -= yy;
-      res += yy;
-      if (yy != xx)
-         break;
-   };
-#endif
 
    if (res!=count)
    {  stdConsole("stdRead(%ld, %ld, %ld)=>%ld {%ld}",
@@ -170,26 +153,8 @@ STD_FUNC( Int32 ) stdWrite( Int32 handle, void *buffer, Int32 count )
    };
 
    Int32 res=0;
-#ifndef BITS_16
    if (count>0)
       res = write(handle, (char*)buffer, count);  // char* - for Macintosh
-#else // BITS_16
-   Word8 HUGE * scn = (Word8 HUGE *)buffer;
-   Int32 _count = count;
-   while (_count > 0)
-   {
-      Int32 xx = 0x7ff0;   //-FP_OFF(scn);
-      xx = mini(_count, xx);
-      Int32 yy = write(handle, (char*)scn, xx);   // char* - for Macintosh
-      if (yy <= 0)
-         break;
-      scn += yy;
-      _count -= yy;
-      res += yy;
-      if (yy != xx)
-         break;
-   };
-#endif
 
    if (res!=count)
    {  stdConsole("stdWrite(%ld, %ld, %ld)=>%ld {%ld}",

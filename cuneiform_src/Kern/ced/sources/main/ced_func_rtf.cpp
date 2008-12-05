@@ -156,7 +156,7 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
        if (output==RTF_BUF) AllocType=GMEM_MOVEABLE;
        else                 AllocType=GMEM_MOVEABLE|GMEM_DDESHARE;   // clipboard data needs to be shareable
        if ( NULL==(rtf->hBuf=GlobalAlloc(AllocType,rtf->BufLen))
-         || NULL==(rtf->buf=(BYTE huge *)GlobalLock(rtf->hBuf)) ){
+         || NULL==(rtf->buf=(BYTE *)GlobalLock(rtf->hBuf)) ){
           PrintError(w,MSG_OUT_OF_MEM,"RtfWrite(buf)");
           return FALSE;
        }
@@ -673,7 +673,7 @@ BOOL FlushRtfLine(struct StrRtfOut far *rtf)
 
           GlobalUnlock(rtf->hBuf);
           if ( NULL==(rtf->hBuf=GlobalReAlloc(rtf->hBuf,rtf->BufLen+1, 0))
-            || NULL==(rtf->buf=(BYTE huge *)GlobalLock(rtf->hBuf)) ){
+            || NULL==(rtf->buf=(BYTE *)GlobalLock(rtf->hBuf)) ){
              return PrintError(w,MSG_OUT_OF_MEM,"FlushRtfLine");
           }
        }

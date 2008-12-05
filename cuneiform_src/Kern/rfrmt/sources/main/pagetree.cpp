@@ -190,9 +190,9 @@ void   GetFirstIndexFragm(Rect16 *RectFragm,Int16 NumCol,Int16 *nc,FRAME **frm);
 Int16  CreateTreePlainTxt1(BOUND BndTxt,STRET *LineV,Int16 NumLV,STRET *LineH,
                           Int16 NumLH,FRAME **frm,Int16 NumFrm,INF_TREE *Inf,Int16 size_x,Int16 size_y);
 Int16  AddLine1(LINE_KNOT **Line1,Int16 *nCurr,Int16 *nMax,Int16 Coor,Int16 Thres);
-Int16  SearchColHist1(HFRAME **frm,Int16 k_frm,BOUND *bnd,Int16 ave_x,Int16 ave_y,
+Int16  SearchColHist1(FRAME **frm,Int16 k_frm,BOUND *bnd,Int16 ave_x,Int16 ave_y,
                      Int16 reg,Int16 *k_int,Int16 **intr1,Int16 **begI,Int16 **endI,Int16 *NumMax);
-Int16  SearchInterval1(HFRAME **frm,Int16 k_frm,Int16 **beg1,Int16 **end1,
+Int16  SearchInterval1(FRAME **frm,Int16 k_frm,Int16 **beg1,Int16 **end1,
                       Int16 *k_int1,BOUND *bnd,Int16 ave_dir,Int16 ave_ort,Int16 reg,Int16 *NumMax);
 KNOTT* IncKnot(KNOTT *up,KNOTT *after,KNOTT **free);
 void   FillFieldKNOTT1(KNOTT *ptr,Int16 Left,Int16 Right,Int16 Top,Int16 Bottom,
@@ -446,7 +446,7 @@ int statis2(TYPE *arr,int n,TYPE *med,TYPE *mod,int SizeWin,int *NumMod)
 
 //Память под beg_as[][] захват-тся внутри, память под списк.пр-во KNOT3 снаружи
 //==Генерация плоской АС на двусвязных списках
-int GenAS(HFRAME **frm,int k_frm,int dx,int dy,BOUND *bnd,KNOT3 *beg_free,
+int GenAS(FRAME **frm,int k_frm,int dx,int dy,BOUND *bnd,KNOT3 *beg_free,
     int value,AS *As,RECT Rect)
 {
 	int xmin,xmax,ymin,ymax,kx,ky,nx,ny,i,delx,dely;
@@ -1147,7 +1147,7 @@ Return:
    < 0 - ERR*/
 
 //==
-Int16 SearchColHist1(HFRAME **frm,Int16 k_frm,BOUND *bnd,Int16 ave_x,Int16 ave_y,
+Int16 SearchColHist1(FRAME **frm,Int16 k_frm,BOUND *bnd,Int16 ave_x,Int16 ave_y,
     Int16 reg,Int16 *k_int,Int16 **intr1,Int16 **begI,Int16 **endI,Int16 *NumMax)
 //==
 {

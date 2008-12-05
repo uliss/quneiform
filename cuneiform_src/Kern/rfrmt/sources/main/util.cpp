@@ -155,7 +155,7 @@ char * PASC malloc_m(unsigned long size)
 }
 
 //=================
-char huge * PASC  halloc_m(long n, uint size)
+char * PASC  halloc_m(long n, uint size)
 { char *err="halloc_m";
 
   #ifdef WIN_MOD
@@ -165,7 +165,7 @@ char huge * PASC  halloc_m(long n, uint size)
       return GlobalLock(h);
     #else
       #ifdef DEBUG_MEM
-        char huge* p;
+        char * p;
         if(!size)ERR(1,err);
         heapstat("halloc_m bef");
         p=(char*)malloc(n*size);
@@ -299,8 +299,8 @@ void * realloc_m(void *ptr_old, uint size_old, uint size_new)
 }
 
 //=================
-//void huge * hrealloc_m(void *ptr_old, long size_old, long size_new)
-//{ void huge *ptr_new;
+//void * hrealloc_m(void *ptr_old, long size_old, long size_new)
+//{ void *ptr_new;
 //  if(!size_old)
 //  #ifdef DEBUG_MEM
 //    ERR(1,"hrealloc_m");
