@@ -72,6 +72,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <fstream>
 #endif
 
+using namespace std;
+
 #include "compat_defs.h"
 
 /***********************************************************************************************/

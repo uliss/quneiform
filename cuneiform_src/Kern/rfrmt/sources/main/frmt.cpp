@@ -65,8 +65,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include <afxtempl.h>
 //#include <afxwin.h>
 //#include <windows.h>
-#include <stdlib.h>
+#ifdef _MSC_VER
+#include<windows.h>
+#else
 #include <unistd.h>
+#endif
+#include <stdlib.h>
 #include "stdafx.h"
 #include "resource.h"
 #define __RFRMT__

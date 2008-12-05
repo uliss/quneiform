@@ -58,16 +58,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "wind32.h"
 
+#ifdef _MSC_VER
+#include<malloc.h>
+#endif
+
 char NameFuncErr[100],Buff[60]; short NumErr;
 
 void heapstat(char *mess)
 {
  #ifdef _MSC_VER
-  #ifndef __cplusplus
     int   status = _heapchk(), n;
-  #else
-    int   status = _fheapchk(), n;
-  #endif
   switch (status)
   {
     case _HEAPOK:       // heap is fine
