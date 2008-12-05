@@ -59,9 +59,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //#define _USE_GRA_ 1
 /*********************************************************************************************/
-/*#include <windows.h>
-#include <direct.h>*/
+#ifdef _MSC_VER
+#include <windows.h>
+#include <direct.h>
+#else
 #include <unistd.h>
+#endif
 #include <string.h>
 
 #include "rreccom.h"
