@@ -73,12 +73,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "resource.h"
 
-/*
+#ifdef MSC_VER
 #include <crtdbg.h>
 #include <io.h>
-*/
-#include <stdio.h>
+#else
 #include <unistd.h>
+#endif
+
+#include <stdio.h>
 #include <string.h>
 #include <fcntl.h>
 #include <sys/stat.h>

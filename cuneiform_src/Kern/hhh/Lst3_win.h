@@ -714,7 +714,7 @@ int CalcHistVert(FRAME ***f1,int k_str,int *ksym1,BOUND *bnds1);
 int OrtFoure(float *y,float *Re,float *Im,float *ys,float *Err,int k,int p,
 int na,int beg,int end);
 //--Описание универсал. (DOS - Windows) файл. интерфейса--
-#ifndef WIN_MOD
+#ifndef OF_READ
   #define OF_READ      0x0000
   #define OF_READWRITE 0x0001
   #define OF_WRITE     0x0002

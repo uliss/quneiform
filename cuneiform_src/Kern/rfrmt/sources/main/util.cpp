@@ -221,7 +221,7 @@ void PASC free_m(void *ptr)
   #endif
 }
 //=================
-void   PASC hfree_m(void huge *ptr)
+void   PASC hfree_m(void *ptr)
 {
 
   #ifdef WIN_MOD

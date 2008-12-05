@@ -69,7 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "pumadef.h"
 
 #ifdef _DEBUG
-#include <fstream.h>
+#include <fstream>
 #endif
 
 #include "compat_defs.h"

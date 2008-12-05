@@ -72,8 +72,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "garbage.h"
 #include "ligas.h"
 
+#ifndef MAXINT32
 #define  MAXINT32  0x7FFFFFFF
+#endif
+#ifndef MAXINT16
 #define  MAXINT16  0x7FFF
+#endif
 #define  INCLINE_FACTOR  2048
 #define  RELY_LET  220
 #define  V_SIZE  10000  //макс. размер страницы по вертикали
