@@ -56,6 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifdef _MSC_VER
 #include <windows.h>
+#include <crtdbg.h>
 #else
 #include <unistd.h>
 #endif

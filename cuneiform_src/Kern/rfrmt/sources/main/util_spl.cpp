@@ -56,6 +56,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define TIGER_CORR       //alik
 
+#ifdef _MSC_VER
+#include<crtdbg.h>
+#endif
+
 #include "lst3_win.h"
 #ifdef SPELL_NEW
   #include "b_open.h"
