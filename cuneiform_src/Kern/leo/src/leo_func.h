@@ -100,7 +100,6 @@ void    leo_set_sticks_group(   RecVersions *v, Int32 ret,
                                 unsigned char alph[], Int32 simple_st, Int32 nose_1);
 Int32   leo_recog_stick(Word16 *lpool, int w, int h);
 void    leo_diskrim_stick(RecVersions *ver);
-Int32   leo_int_sqrt (Word32 n);
 
 /// functions from module leo_cont
 void    leo_close_cont(void);

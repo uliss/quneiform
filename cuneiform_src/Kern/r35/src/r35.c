@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*#include <io.h>*/
 #include <sys/stat.h>
 #include <stdio.h>
-
+#include <math.h>
 
 #include "r35.h"
 #include "mmx.h"
@@ -173,7 +173,6 @@ static void r35_recog(Word16 Im3x5[],VERSION vers[], Int32 nvers, Bool32 r5x3);
 static void   ALL_normalize_res(Word32 res_comp[],Word16 res[],Int32 numx);
 static void   normalize_res_3x5(Word32 res_comp[],Word16 res[],Int32 numx);
 static void   (*normalize_res)(Word32 res_comp[],Word16 res[],Int32 numx)=ALL_normalize_res;
-static Int32  int_sqrt(Word32 N);
 static Bool32 delete_elm3x5(Word8 let, Int32   num_del);
 static Int32  MakeScale(Int32 Xcut[],Int32 Xval[],Int32 L,Int32 dL);
 
@@ -222,25 +221,6 @@ static Word32 bit_cnt[]  ={
 4,5,5,6,5,6,6,7,	2,3,3,4,3,4,4,5,	3,4,4,5,4,5,5,6,	3,4,4,5,4,5,5,6,
 4,5,5,6,5,6,6,7,	3,4,4,5,4,5,5,6,	4,5,5,6,5,6,6,7,	4,5,5,6,5,6,6,7,
 5,6,6,7,6,7,7,8};
-
-static Word8 sqrt_tab[] = {
- 0,
- 1, 1, 1,
- 2, 2, 2, 2, 2,
- 3, 3, 3, 3, 3, 3, 3,
- 4, 4, 4, 4, 4, 4, 4, 4, 4,
- 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
- 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
- 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
- 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
- 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
-10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
-11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,
-12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
-13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,
-14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,
-15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
-};
 
 /************************************/
 /************** RECOG ***************/
@@ -642,45 +622,6 @@ res_comp[15] += 16*buf_comp[15];
 return;
 }
 
-Int32 int_sqrt (Word32 n)
-{
-Word16 w;
-Word32 d, step, lw;
-Word8 sh;
-
-if ((w = (Word16)(n >> 16)) != 0)
-    sh = 8;
-else
-    {
-    w = (Word16)n;
-    sh = 0;
-    }
-
-if( w & 0xff00 )
-    {
-    sh +=4;
-    w = w >> 8;
-    }
-d = sqrt_tab[w]+1;
-d = d << sh;
-if( (d & 0xffff)==0 )
-    {
-    if( n )
-        d=0xFFFF;
-    else
-        return 0;
-    }
-
-do  {
-    d -= (step = (lw = (d * d - n))/ (2*d));
-    }while(step);
-
-if (lw >= d-1)
-    d--;
-
-return (Int32) d;
-}
-
 void ALL_normalize_res(Word32 res_comp[],Word16 res[],Int32 numx)
 {
 Int32 i;
@@ -691,7 +632,7 @@ for(i=0;i<numx;i++)
         amax += res_comp[i]*res_comp[i];
 if( !amax )
 	return;
-amax = int_sqrt(amax);
+amax = sqrt(amax);
 div  = 32767l/amax;
     memset(res,0,numx*sizeof(res[0]));
 for(i=0;i<numx;i++)
@@ -716,7 +657,7 @@ for(i=0;i<numx;i++)
         amax += res_comp[i]*res_comp[i];
 if( !amax )
 	return;
-amax = int_sqrt(amax);
+amax = sqrt(amax);
 div  = 32767l/amax;
 mod  = (32767l-div*amax)*256l/amax ;
 for(i=0;i<numx;i++)
@@ -739,7 +680,7 @@ amax = MMX_scalar_sq(res, numx);
 if( !amax )
 	return;
 
-amax = int_sqrt(amax);
+amax = sqrt(amax);
 div  = 32767l/amax;
 
 MMX_scale(res, numx, div);
@@ -2099,7 +2040,7 @@ for(i=0;i<15;i++)
     clu->vect[i]   = (Word16)(clu->vsum[i] / clu->num);
 // accuracy normalize
 sq=scalar_all(clu->vect,clu->vect);
-sq = int_sqrt (sq);
+sq = sqrt (sq);
 for(i=0;i<15;i++)
     clu->vect[i]   = (Word16)((((int)(clu->vect[i]))*32767l)/sq);
 return;

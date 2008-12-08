@@ -59,6 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <ctype.h>
 #include <assert.h>
+#include <math.h>
 
 #define ERECT_ENABLE 0
 
@@ -676,46 +677,6 @@ for(n=i=0;i<Cnt;i++)
 return n;
 }
 
-
-Int32 leo_int_sqrt (Word32 n)
-{
-Word16 w;
-Word32 d, step, lw;
-Word8 sh;
-
-if ((w = (Word16)(n >> 16)) != 0)
-    sh = 8;
-else
-    {
-    w = (Word16)n;
-    sh = 0;
-    }
-
-if( w & 0xff00 )
-    {
-    sh +=4;
-    w = w >> 8;
-    }
-d = sqrt_tab[w]+1;
-d = d << sh;
-if( (d & 0xffff)==0 )
-    {
-    if( n )
-        d=0xFFFF;
-    else
-        return 0;
-    }
-
-do  {
-    d -= (step = (lw = (d * d - n))/ (2*d));
-    }while(step);
-
-if (lw >= d-1)
-    d--;
-
-return (Int32) d;
-}
-
 static Bool32 leo_wide_stick(RecVector *vSticks,int Cnt, int h, int w)
 {
 int i,n, s;
@@ -723,7 +684,7 @@ for(n=i=0;i<Cnt;i++)
     if( vSticks[i].len*3 > h*2 )
         {
         s = vSticks[i].len*vSticks[i].My /                       \
-            leo_int_sqrt(vSticks[i].Mx*vSticks[i].Mx+vSticks[i].My*vSticks[i].My);
+            sqrt(vSticks[i].Mx*vSticks[i].Mx+vSticks[i].My*vSticks[i].My);
         if( s>w/2 ) // Oleg : 06-08-1998 : wide, but not small
             return TRUE;
         }
