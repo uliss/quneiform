@@ -343,7 +343,7 @@ BOOL CRtfPage::OpenOutputFile(const char* FileNameOut)
 #ifdef _DEBUG
 	while(Bisy)
 	{
-	 if((out=fopen_m(FileNameOut,OF_WRITE)) == NULL)
+	 if((out=fopen(FileNameOut, "w")) == NULL)
 		{
 		 MessageBoxA(NULL, "Can not open RTF file.\nPlease close file.",
 		 "RTF", MB_ICONSTOP|MB_OK);

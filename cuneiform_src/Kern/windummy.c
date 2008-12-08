@@ -461,6 +461,7 @@ char* _strupr(char*s) {
 
 #include "cttypes.h"
 #include <windows.h>
+#include <malloc.h>
 
 static HMODULE thismod;
 

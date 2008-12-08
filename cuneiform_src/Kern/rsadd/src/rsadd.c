@@ -63,6 +63,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <ctype.h>
 
+#ifdef _MSC_VER
+#define strcasecmp(a, b) _stricmp(a, b)
+#endif
+
 #include "cstr.h"
 #include "rsadd.h"
 #include "resource.h"

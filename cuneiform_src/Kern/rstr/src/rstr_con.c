@@ -55,7 +55,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <string.h>
-/*#include <direct.h>*/
+#ifdef _MSC_VER
+#include <direct.h>
+#define mkdir(a, b) _mkdir(a)
+#endif
 #include <sys/stat.h>
 #include "leo.h"
 #include "std.h"
