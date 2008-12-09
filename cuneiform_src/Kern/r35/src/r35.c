@@ -202,16 +202,16 @@ static void   (*addcomp)(Word32 res_comp[],Int32 buf_comp[],
 						 Int32 numx,Int32 numy)=ALL_addcomp;
 
 /* ******************************* */
-static Word32 mask_word32[] =
+static const Word32 mask_word32[] =
 	{128,     64,   32,   16,    8,    4,    2,   1};
-static Word8 mask_byte[]   =
+static const Word8 mask_byte[]   =
 	{128,     64,   32,   16,    8,    4,    2,   1};
-static Word32 mask_l[]     =
+static const Word32 mask_l[]     =
 	{255,    127,   63,   31,   15,    7,    3,   1};
-static Word32 mask_r[]     =
+static const Word32 mask_r[]     =
 	{  0,    128,  192,  224,  240,  248,  252,  254};
 
-static Word32 bit_cnt[]  ={
+static const Word32 bit_cnt[]  ={
 0,1,1,2,1,2,2,3,    1,2,2,3,2,3,3,4,    1,2,2,3,2,3,3,4,
 2,3,3,4,3,4,4,5,	1,2,2,3,2,3,3,4,	2,3,3,4,3,4,4,5,	2,3,3,4,3,4,4,5,
 3,4,4,5,4,5,5,6,	1,2,2,3,2,3,3,4,	2,3,3,4,3,4,4,5,	2,3,3,4,3,4,4,5,
