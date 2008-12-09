@@ -2557,7 +2557,7 @@ BadReturn:
 					pRtfSector->m_FlagOneString = TRUE;
 
 				pRtfHorizontalColumn->m_arVerticalColumns.push_back( new CRtfVerticalColumn() );
-				pRtfVerticalColumn	= pRtfHorizontalColumn->m_arVerticalColumns[iv];
+				pRtfVerticalColumn	= pRtfHorizontalColumn->m_arVerticalColumns.back();
 
 				pRtfVerticalColumn->m_wFragmentsCount = 1;
 				pRtfVerticalColumn->m_arFragments.push_back( new CRtfFragment() );
