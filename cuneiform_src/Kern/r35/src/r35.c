@@ -343,21 +343,8 @@ return;
 }
 
 
-Int32 C3_SumBits(Word8 *str,Int32 start, Int32 stop)
-{
-Int32 l, r, i, res;
-
-l=start>>3, r=stop>>3;
-if( l==r )
-	return 3*bit_cnt[ mask_l[start&7] & str[r] & mask_r[stop&7] ];
-
-res = 3*bit_cnt[ str[l] & mask_l[start&7] ] +
-      3*bit_cnt[ str[r] & mask_r[stop&7] ];
-
-for( i=l+1;i<r;i++)
-	res += 3*bit_cnt[str[i]];
-
-return res;
+Int32 C3_SumBits(Word8 *str,Int32 start, Int32 stop) {
+    return 3*ALL_SumBits(str, start, stop);
 }
 
 #define MACRO_C3_compr(k)                              \
@@ -384,40 +371,12 @@ buf_comp[2] += C3_SumBits(lin,Xc+1,nx);
 return;
 }
 
-Int32 C12_SumBits(Word8 *str,Int32 start, Int32 stop)
-{
-Int32 l, r, i, res;
-
-l=start>>3, r=stop>>3;
-if( l==r )
-	return 12*bit_cnt[ mask_l[start&7] & str[r] & mask_r[stop&7] ];
-
-res = 12*bit_cnt[ str[l] & mask_l[start&7] ] +
-      12*bit_cnt[ str[r] & mask_r[stop&7] ];
-
-for( i=l+1;i<r;i++)
-	res += 12*bit_cnt[str[i]];
-
-return res;
+Int32 C12_SumBits(Word8 *str,Int32 start, Int32 stop) {
+    return 12*ALL_SumBits(str, start, stop);
 }
 
-Int32 C16_SumBits(Word8 *str,Int32 start, Int32 stop)
-{
-Int32 l, r, i, res;
-
-if( start==stop )
-        return 0;
-l=start>>3, r=stop>>3;
-if( l==r )
-    return 16*bit_cnt[ mask_l[start&7] & str[r] & mask_r[stop&7] ];
-
-res = 16*bit_cnt[ str[l] & mask_l[start&7] ] +
-      16*bit_cnt[ str[r] & mask_r[stop&7] ];
-
-for( i=l+1;i<r;i++)
-	res += 16*bit_cnt[str[i]];
-
-return res;
+Int32 C16_SumBits(Word8 *str,Int32 start, Int32 stop) {
+    return 16*ALL_SumBits(str, start, stop);
 }
 
 #define MACRO_C12_compr(k)                              \
@@ -887,12 +846,12 @@ return 1;
 /************** RECOG ***************/
 /************************************/
 
-Int32 scalar_all(Int16 Im3x5_1[],Int16 Im3x5_2[]) {
-	Word32 s=0;
-	int i;
-	for(i=0; i<3*5; i++)
-		s += Im3x5_1[i]*Im3x5_2[i];
-	return s;
+Int32 scalar_all(Int16 Im3x5_1[], Int16 Im3x5_2[]) {
+    Word32 s = 0;
+    int i;
+    for (i = 0; i < 3 * 5; i++)
+        s += Im3x5_1[i] * Im3x5_2[i];
+    return s;
 }
 
 void   ALL_open_image(Word16 Im3x5[])
