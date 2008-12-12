@@ -494,85 +494,12 @@ return;
 }
 
 
-void ALL_addcomp(Word32 res_comp[],Int32 buf_comp[],Int32 numx,Int32 numy)
-{
-Int32 i;
-switch( numy )
-    {
-    case    0:
-        break;
-    case    1:
-        for(i=0;i<numx;i++)
-	        res_comp[i] += 1*buf_comp[i];
-        break;
-    case    2:
-        for(i=0;i<numx;i++)
-	        res_comp[i] += 2*buf_comp[i];
-        break;
-    case    3:
-        for(i=0;i<numx;i++)
-	        res_comp[i] += 3*buf_comp[i];
-        break;
-    case    4:
-        for(i=0;i<numx;i++)
-	        res_comp[i] += 4*buf_comp[i];
-        break;
-    case    5:
-        for(i=0;i<numx;i++)
-	        res_comp[i] += 5*buf_comp[i];
-        break;
-    case    6:
-        for(i=0;i<numx;i++)
-	        res_comp[i] += 6*buf_comp[i];
-        break;
-    case    7:
-        for(i=0;i<numx;i++)
-	        res_comp[i] += 7*buf_comp[i];
-        break;
-    case    8:
-        for(i=0;i<numx;i++)
-	        res_comp[i] += 8*buf_comp[i];
-        break;
-    case    9:
-        for(i=0;i<numx;i++)
-	        res_comp[i] += 9*buf_comp[i];
-        break;
-    case    10:
-        for(i=0;i<numx;i++)
-	        res_comp[i] += 10*buf_comp[i];
-        break;
-    case    11:
-        for(i=0;i<numx;i++)
-	        res_comp[i] += 11*buf_comp[i];
-        break;
-    case    12:
-        for(i=0;i<numx;i++)
-	        res_comp[i] += 12*buf_comp[i];
-        break;
-    case    13:
-        for(i=0;i<numx;i++)
-	        res_comp[i] += 13*buf_comp[i];
-        break;
-    case    14:
-        for(i=0;i<numx;i++)
-	        res_comp[i] += 14*buf_comp[i];
-        break;
-    case    15:
-        for(i=0;i<numx;i++)
-	        res_comp[i] += 15*buf_comp[i];
-        break;
-    case    16:
-        for(i=0;i<numx;i++)
-	        res_comp[i] += 16*buf_comp[i];
-        break;
+void ALL_addcomp(Word32 res_comp[],Int32 buf_comp[],Int32 numx,Int32 numy) {
+	Int32 i;
 
-    default:
-        for(i=0;i<numx;i++)
-	        res_comp[i] += numy*buf_comp[i];
-        break;
-    }
-
-return;
+	for(i=0;i<numx;i++)
+		res_comp[i] += numy*buf_comp[i];
+	return;
 }
 
 
