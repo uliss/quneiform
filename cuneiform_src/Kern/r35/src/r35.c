@@ -887,29 +887,12 @@ return 1;
 /************** RECOG ***************/
 /************************************/
 
-Int32 scalar_all(Int16 Im3x5_1[],Int16 Im3x5_2[])
-{
-Word32 s;
-s = (Int32)Im3x5_1[0]*Im3x5_2[0]+
-    (Int32)Im3x5_1[1]*Im3x5_2[1]+
-    (Int32)Im3x5_1[2]*Im3x5_2[2]+
-    (Int32)Im3x5_1[3]*Im3x5_2[3]+
-
-    (Int32)Im3x5_1[4]*Im3x5_2[4]+
-    (Int32)Im3x5_1[5]*Im3x5_2[5]+
-    (Int32)Im3x5_1[6]*Im3x5_2[6]+
-    (Int32)Im3x5_1[7]*Im3x5_2[7]+
-
-    (Int32)Im3x5_1[8]*Im3x5_2[8]+
-    (Int32)Im3x5_1[9]*Im3x5_2[9]+
-    (Int32)Im3x5_1[10]*Im3x5_2[10]+
-    (Int32)Im3x5_1[11]*Im3x5_2[11]+
-
-    (Int32)Im3x5_1[12]*Im3x5_2[12]+
-    (Int32)Im3x5_1[13]*Im3x5_2[13]+
-    (Int32)Im3x5_1[14]*Im3x5_2[14];
-
-return s;
+Int32 scalar_all(Int16 Im3x5_1[],Int16 Im3x5_2[]) {
+	Word32 s=0;
+	int i;
+	for(i=0; i<3*5; i++)
+		s += Im3x5_1[i]*Im3x5_2[i];
+	return s;
 }
 
 void   ALL_open_image(Word16 Im3x5[])
