@@ -4,9 +4,6 @@ Cuneiform uses Windows' wchar_t, which is 16 bit. On Unix it is 32 bit.
 
 vertstr.cpp does GUI drawing or somesuch. Disabled everything.
 
-BYTE and CHAR are used interchangeably. Subtracting BYTE* from CHAR* gives
-"invalid operands to binary -" error message.
-
 Disabled use of dfon library. It seems to be some external dll file.
 I have no idea what it's supposed to do.
 
@@ -21,8 +18,7 @@ The RLING subdirectory seems to be compiled twice with slightly different
 definitions.
 
 There are a lot of duplicate definitions of some functions and variables.
-Maybe MSVC is just lax and tries to "do what I mean". It may also have
-something to do with Windows DLL symbol resolving rules.
+Every dynamic library should use its own version of them.
 
 Basic datatypes were multiply defined all over the tree (cttypes.h, 
 c_types.h, nt_types.h). Now they are all in h/cttypes.h. Any multiple
@@ -31,13 +27,6 @@ definitions should be considered bugs.
 Snp is problematic. snptools.h uses e.g. __SnpIterParent static but also
 uses it as a friend for class SnpTreeNode. Gcc does not allow the second
 kind to be static.
-
-Cuneiform reads its data files as if it was installed on Windows. Meaning
-like "\\BIN\\rec4cour.dat". Eventually this should be turned into nice
-unix-style $PREFIX/rec4cour.dat. But to get started I just dump all
-built items and data files to the root of the build directory. This means
-that you must run pumatest in the build root directory. Otherwise
-it will NOT work.
 
 The dat files that come with Cuneiform have binary stuff mixed with
 Windows line ending strings. When read in Unix they become '\r\n'.
