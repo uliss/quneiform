@@ -43,4 +43,6 @@ larger than 127.
 There is a call to a swab_my function, which is not defined anywhere. It seems
 to be used inside PPS_MAC #defines. If it has something to do with endianness
 swapping, then people working on that might look at commit 207 to find out
-where they were originally.
+where they were originally. Other endianness problem is the x86 "bswap"
+asm directive used. Also note that BMP files are little endian, but
+Cuneiform handles them as if they were native endian.
