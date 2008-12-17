@@ -188,16 +188,7 @@ static void   (*compress_line)(Word8 *lin,Int32 nx,
 							   Int32 Xcut[],Int32 Xval[])=
 							   ALL_compress_line;
 
-static Int32  C3_SumBits(Word8 *str,Int32 start, Int32 stop);
-static Int32  C12_SumBits(Word8 *str,Int32 start, Int32 stop);
-static Int32  C16_SumBits(Word8 *str,Int32 start, Int32 stop);
-static Int32  (*SumBits)(Word8 *str,Int32 start, Int32 stop)=
-                               ALL_SumBits;
-
 static void   ALL_addcomp(Word32 res_comp[],Int32 buf_comp[],Int32 numx,Int32 numy);
-static void   C35_addcomp(Word32 res_comp[],Int32 buf_comp[],Int32 numx,Int32 numy);
-static void   C1212_addcomp(Word32 res_comp[],Int32 buf_comp[],Int32 numx,Int32 numy);
-static void   C1616_addcomp(Word32 res_comp[],Int32 buf_comp[],Int32 numx,Int32 numy);
 static void   (*addcomp)(Word32 res_comp[],Int32 buf_comp[],
 						 Int32 numx,Int32 numy)=ALL_addcomp;
 
@@ -328,7 +319,7 @@ memset(buf_comp,0,sizeof(Int32)*numx);
 for(k=0;k<numx-1;k++)
 		{
 		Xc           = Xcut[k+1];
-		buf_comp[k] += SumBits(lin,Xcut[k]+1,Xc)*numx;
+		buf_comp[k] += ALL_SumBits(lin,Xcut[k]+1,Xc)*numx;
 
 		if( (lin[Xc>>3])&mask_byte[Xc&7] )
 			{
@@ -338,19 +329,14 @@ for(k=0;k<numx-1;k++)
 			}
 		}
 
-buf_comp[k] += SumBits(lin,Xc+1,nx)*numx;
+buf_comp[k] += ALL_SumBits(lin,Xc+1,nx)*numx;
 return;
-}
-
-
-Int32 C3_SumBits(Word8 *str,Int32 start, Int32 stop) {
-    return 3*ALL_SumBits(str, start, stop);
 }
 
 #define MACRO_C3_compr(k)                              \
         {                                               \
 		Xc = Xcut[k+1];                                 \
-		buf_comp[k] += C3_SumBits(lin,Xcut[k]+1,Xc);   \
+		buf_comp[k] += 3*ALL_SumBits(lin,Xcut[k]+1,Xc);     \
         if( lin[Xc>>3]&mask_word32[Xc&7] )              \
 			{                                           \
 			Xv = Xval[k+1];                             \
@@ -367,7 +353,7 @@ Int32 Xc,Xv;
 memset(buf_comp,0,sizeof(Int32)*3);
 MACRO_C3_compr(0) ;
 MACRO_C3_compr(1) ;
-buf_comp[2] += C3_SumBits(lin,Xc+1,nx);
+buf_comp[2] += 3*ALL_SumBits(lin,Xc+1,nx);
 return;
 }
 
@@ -382,7 +368,7 @@ Int32 C16_SumBits(Word8 *str,Int32 start, Int32 stop) {
 #define MACRO_C12_compr(k)                              \
         {                                               \
 		Xc = Xcut[k+1];                                 \
-		buf_comp[k] += C12_SumBits(lin,Xcut[k]+1,Xc);   \
+		buf_comp[k] += 12*ALL_SumBits(lin,Xcut[k]+1,Xc);    \
         if( lin[Xc>>3]&mask_word32[Xc&7] )              \
 			{                                           \
 			Xv = Xval[k+1];                             \
@@ -417,7 +403,7 @@ return;
 #define MACRO_C16_compr(k)                              \
         {                                               \
 		Xc = Xcut[k+1];                                 \
-		buf_comp[k] += C16_SumBits(lin,Xcut[k]+1,Xc);   \
+		buf_comp[k] += 16*ALL_SumBits(lin,Xcut[k]+1,Xc);    \
         if( lin[Xc>>3]&mask_word32[Xc&7] )              \
 			{                                           \
 			Xv = Xval[k+1];                             \
@@ -459,53 +445,6 @@ void ALL_addcomp(Word32 res_comp[],Int32 buf_comp[],Int32 numx,Int32 numy) {
 	for(i=0;i<numx;i++)
 		res_comp[i] += numy*buf_comp[i];
 	return;
-}
-
-
-void C35_addcomp(Word32 res_comp[],Int32 buf_comp[],Int32 numx,Int32 numy)
-{
-res_comp[0] += 5*buf_comp[0];
-res_comp[1] += 5*buf_comp[1];
-res_comp[2] += 5*buf_comp[2];
-return;
-}
-
-void C1212_addcomp(Word32 res_comp[],Int32 buf_comp[],Int32 numx,Int32 numy)
-{
-res_comp[0]  += 12*buf_comp[0];
-res_comp[1]  += 12*buf_comp[1];
-res_comp[2]  += 12*buf_comp[2];
-res_comp[3]  += 12*buf_comp[3];
-res_comp[4]  += 12*buf_comp[4];
-res_comp[5]  += 12*buf_comp[5];
-res_comp[6]  += 12*buf_comp[6];
-res_comp[7]  += 12*buf_comp[7];
-res_comp[8]  += 12*buf_comp[8];
-res_comp[9]  += 12*buf_comp[9];
-res_comp[10] += 12*buf_comp[10];
-res_comp[11] += 12*buf_comp[11];
-return;
-}
-
-void C1616_addcomp(Word32 res_comp[],Int32 buf_comp[],Int32 numx,Int32 numy)
-{
-res_comp[0]  += 16*buf_comp[0];
-res_comp[1]  += 16*buf_comp[1];
-res_comp[2]  += 16*buf_comp[2];
-res_comp[3]  += 16*buf_comp[3];
-res_comp[4]  += 16*buf_comp[4];
-res_comp[5]  += 16*buf_comp[5];
-res_comp[6]  += 16*buf_comp[6];
-res_comp[7]  += 16*buf_comp[7];
-res_comp[8]  += 16*buf_comp[8];
-res_comp[9]  += 16*buf_comp[9];
-res_comp[10] += 16*buf_comp[10];
-res_comp[11] += 16*buf_comp[11];
-res_comp[12] += 16*buf_comp[12];
-res_comp[13] += 16*buf_comp[13];
-res_comp[14] += 16*buf_comp[14];
-res_comp[15] += 16*buf_comp[15];
-return;
 }
 
 void ALL_normalize_res(Word32 res_comp[],Word16 res[],Int32 numx)
@@ -600,34 +539,35 @@ switch( TO_X )
 	{
 	case	3:
 		compress_line = C3_compress_line;
-		SumBits       = C3_SumBits;
+/*		SumBits       = C3_SumBits;
 		if( TO_Y==5 )
 			addcomp   = C35_addcomp;
 		else
-			addcomp   = ALL_addcomp;
+			addcomp   = ALL_addcomp;*/
 		break;
 	case	12:
 		compress_line = C12_compress_line;
-		SumBits       = C12_SumBits;
+/*		SumBits       = C12_SumBits;
 		if( TO_Y==12 )
 			addcomp   = C1212_addcomp;
 		else
-			addcomp   = ALL_addcomp;
+			addcomp   = ALL_addcomp;*/
 		break;
     case	16:
 		compress_line = C16_compress_line;
-		SumBits       = C16_SumBits;
+/*		SumBits       = C16_SumBits;
 		if( TO_Y==16 )
 			addcomp   = C1616_addcomp;
 		else
-			addcomp   = ALL_addcomp;
+			addcomp   = ALL_addcomp;*/
 		break;
 	default	:
 		compress_line = ALL_compress_line;
-		SumBits       = ALL_SumBits;
-		addcomp       = ALL_addcomp;
+/*		SumBits       = ALL_SumBits;
+		addcomp       = ALL_addcomp;*/
 		break;
 	}
+addcomp = ALL_addcomp;
 rast = raster + d_x*SY + (SX>>3);
 MakeScale(Ycut,Yval,dy,TO_Y);
 MakeScale(Xcut,Xval,dx,TO_X);
