@@ -547,24 +547,12 @@ switch( TO_X )
 		break;
 	case	12:
 		compress_line = C12_compress_line;
-/*		SumBits       = C12_SumBits;
-		if( TO_Y==12 )
-			addcomp   = C1212_addcomp;
-		else
-			addcomp   = ALL_addcomp;*/
 		break;
     case	16:
 		compress_line = C16_compress_line;
-/*		SumBits       = C16_SumBits;
-		if( TO_Y==16 )
-			addcomp   = C1616_addcomp;
-		else
-			addcomp   = ALL_addcomp;*/
 		break;
 	default	:
 		compress_line = ALL_compress_line;
-/*		SumBits       = ALL_SumBits;
-		addcomp       = ALL_addcomp;*/
 		break;
 	}
 addcomp = ALL_addcomp;
