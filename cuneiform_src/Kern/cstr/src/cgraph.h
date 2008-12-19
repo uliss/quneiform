@@ -61,7 +61,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cstrdefs.h"
 #include "resource.h"
 
+/* FIXME: to compile in MS VC++ */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern Word16 wLowRC;
+
+#ifdef __cplusplus
+}
+#endif
 
 //32
 typedef struct CGRAPH_Data

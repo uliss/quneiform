@@ -50,7 +50,7 @@ sources/c/sestring.c
 sources/c/sevbreak.c
 )
 
-target_link_libraries(rblock cpage loc exc cstr cline rstr)
+target_link_libraries(rblock cpage loc exc cstr cline rstr evn32)
 
 if(WIN32)
   install(TARGETS rblock ARCHIVE DESTINATION ${LIBDIR})

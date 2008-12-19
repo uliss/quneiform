@@ -468,7 +468,7 @@ void MyUnionRect(SRECT *s1,SRECT *s2,SRECT *u);
 */
 #else
   //---Из секции колонок---
-  extern WORD NumCol;
+  extern Int16 NumCol;
   extern int SizeSectionCol;
   extern Int16 *NumStr;//[nc]
   extern Word32 *UserNumber;//[nc]

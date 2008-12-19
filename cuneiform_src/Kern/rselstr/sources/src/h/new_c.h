@@ -102,6 +102,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
+/* FIXME: to build in MS VC++*/
+#ifdef __cplusplus
+extern "C" {
+#endif //__cplusplus
+	
 EXTERN Handle resFile_comp;
 EXTERN Handle logFile_comp;
 EXTERN Handle resFile_pict;
@@ -116,6 +121,9 @@ EXTERN CCOM_comp * pPics VAL1(NULL);
 EXTERN Word16 pBlockHystogram[MaxHeightOfLetter];
 EXTERN Word32 nComps;
 EXTERN Handle exthCCOM;
+#ifdef __cplusplus
+}
+#endif // __cplusplus
 ////////////////////////////////////////////////////////////////////////////////
 
 

@@ -27,6 +27,7 @@ René Rebe
 Aleks Kuzemko
 Tonal
 Mike Ladwig
+Dmitri Polevoy
 
 
 Caveats

@@ -288,10 +288,12 @@ int read_frm(char *file_frm,FRAME ***frm_arr,int *k_arr_frm,FRAME ***frm,
 	//==Если рамок много, корректируем порог SizeMin при первом проходе по файлу
   if(kf > MAX_FRAME)
   {
+		/* FIXME: to build in MS VC++
 		#ifdef _MSC_VER
 			if(SnpIsActive())
 				SnpLog("***read_frm too many of frames %d, we'll be reduce",kf);
 		#endif
+		*/
 
 		buf=(PRMTR*)malloc(KBUF*sizeof(PRMTR));
     his=(long*)malloc(KHIS*sizeof(long));

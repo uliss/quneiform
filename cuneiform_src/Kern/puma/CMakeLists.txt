@@ -1,6 +1,7 @@
 include_directories(h)
 
 add_library(puma ${LIBTYPE}
+${SNP_SRC}
 c/common.cpp 
 c/debug.cpp 
 c/enum.cpp

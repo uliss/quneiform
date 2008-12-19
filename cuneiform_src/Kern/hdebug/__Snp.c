@@ -1040,6 +1040,11 @@ void   SnpSetZoneOff( Word32 zone_handle ){;};
 void SnpNotifyAppl(SnpTreeNode* cur_node){;};
 // tree manipulation
 void __SnpIterParent( SnpTreeNode* node, Bool activate ){;};
+#else
+int  SnpLog(const char * message,...)
+{
+	return 0;
+}
 #endif
 //////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////

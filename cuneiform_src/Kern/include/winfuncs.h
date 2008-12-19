@@ -32,9 +32,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include<windows.h>
 
-#else
+#else // WIN32
 
 #include<wchar.h>
+#include "compat_defs.h"
 
 int LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax);
 
@@ -172,24 +173,37 @@ char* _strupr(char*s);
  * I had no other place to put them.
  */
 
+#ifdef _MSC_VER
+#define strcasecmp(a, b) _stricmp(a, b)
+#endif
+
+#if ((__WINDUMMY__) && (_MSC_VER))
+#   define WINDUMMY_FUNC(A)  __declspec(dllexport) A
+#else
+#   define WINDUMMY_FUNC(A)  A
+#endif // __WINDUMMY__
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-int open_data_file(const char *basename, int mode);
-int data_file_exists(const char *basename);
+WINDUMMY_FUNC(int)
+open_data_file(const char *basename, int mode);
 
-void split_path(const char *fname,
+WINDUMMY_FUNC(int)
+data_file_exists(const char *basename);
+
+WINDUMMY_FUNC(void) split_path(const char *fname,
         char *file_path,
         char *basename,
         char *ext);
 
-void make_path(char *opath,
+WINDUMMY_FUNC(void) make_path(char *opath,
         const char *dir,
         const char *basename,
         const char *ext);
 
-void winpath_to_internal(char *p);
+WINDUMMY_FUNC(void) winpath_to_internal(char *p);
 
 unsigned int curr_dir(unsigned int bsize, char* buf);
 

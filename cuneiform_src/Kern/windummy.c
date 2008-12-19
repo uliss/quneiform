@@ -31,6 +31,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <fcntl.h>
 #include "config.h"
 
+#include "winfuncs.h"
+
 #ifndef WIN32
 
 /* Minimal implementations of win32-functionality.
@@ -465,13 +467,14 @@ char* _strupr(char*s) {
 
 static HMODULE thismod;
 
-BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
+WINDUMMY_FUNC(BOOL)
+WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
 	thismod = (HMODULE) hinstDLL;
 	return TRUE;
 }
 
-
-char * mkdtemp(char *tmpl) {
+WINDUMMY_FUNC(char*)
+mkdtemp(char *tmpl) {
     static const char charset[] =
         "=#abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     static const unsigned int charset_len = sizeof(charset) - 1;
@@ -573,7 +576,9 @@ static void build_name_estimates(const char *base_name, char *env_name, char *pr
     }
 }
 
-int open_data_file(const char *basename, int mode) {
+
+WINDUMMY_FUNC(int)
+open_data_file(const char *basename, int mode) {
     char ename[1024];
     char pname[1024];
     int i;
@@ -585,7 +590,9 @@ int open_data_file(const char *basename, int mode) {
     return open(pname, mode);
 }
 
-int data_file_exists(const char *basename) {
+
+WINDUMMY_FUNC(int)
+data_file_exists(const char *basename) {
     char ename[1024];
     char pname[1024];
 
@@ -598,8 +605,8 @@ int data_file_exists(const char *basename) {
 /* Split a file name in three: path, base file name, and extension.
  * All internal file names use / as path separator, even on Windows.
  */
-
-void split_path(const char *fname, char *file_path, char *basename, char *ext) {
+WINDUMMY_FUNC(void)
+split_path(const char *fname, char *file_path, char *basename, char *ext) {
     int last_path = -1;
     int suff = -1;
     size_t l = strlen(fname);
@@ -642,7 +649,9 @@ void split_path(const char *fname, char *file_path, char *basename, char *ext) {
     ext[l - ext_start] = '\0';
 }
 
-void make_path(char *opath, const char *dir, const char *basename, const char *ext) {
+
+WINDUMMY_FUNC(void)
+make_path(char *opath, const char *dir, const char *basename, const char *ext) {
     const char dirsep = '/';
     const char *dirseps = "/";
     opath[0] = '\0';
@@ -667,7 +676,8 @@ void make_path(char *opath, const char *dir, const char *basename, const char *e
 /**
  * Convert backslashes to slashes. No-op on UNIX.
  */
-void winpath_to_internal(char *p) {
+WINDUMMY_FUNC(void)
+winpath_to_internal(char *p) {
 #if WIN32
     int i;
     for(i=0; p[i] != '\0'; i++) {

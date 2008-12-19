@@ -106,6 +106,7 @@ cimage loc rdib cfio)
 #add_executable(rpstrtest rpstrtest.c windummy.c)
 #target_link_libraries(rpstrtest ${RPSTR_LIBS})
 
+add_definitions(-D__WINDUMMY__) # Function import/export.
 add_library(windummy ${LIBTYPE} windummy.c)
 target_link_libraries(windummy ${DL_LIB})
 

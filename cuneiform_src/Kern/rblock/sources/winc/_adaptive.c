@@ -201,7 +201,7 @@ CCOM_comp *get_CCOM_comp(PROOT r) {
 
 BOOL save_MN(MN *mn)
 {
-extern Int32 exthCCOM;
+extern Handle exthCCOM;
 CCOM_comp * p=REXC_MN2CCOM((Handle)exthCCOM,(Handle)mn);
 if( !p )
     return FALSE;

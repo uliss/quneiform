@@ -59,6 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*                   Spelling checker for ContainerSTR              */
 /*                                                                  */
 /********************************************************************/
+#include <stddef.h>
 #include <string.h>
 #include <stdio.h>
 #include "cstr.h"
@@ -70,14 +71,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rstr.h"
 #include "dpuma.h"
 
-#pragma pack(1)
+#pragma pack(push, 1)
 #include "cor_spel.h"
 #include "lang_def.h"
+#pragma pack(pop)
 
 // проверять альтернативы ?
 #define _TEST_ALTER_
 
 #include "minmax.h"
+
+#include "compat_defs.h"
 
 #define SS_NEG_HALF_SPACE 0x1e
 #define SS_POS_HALF_SPACE 0x1f

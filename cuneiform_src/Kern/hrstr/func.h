@@ -64,8 +64,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef KERNEL_H_INCLUDE
 #define KERNEL_H_INCLUDE
 
-/*#define c_locomp(a, b, c, d, e)        EVN_CLocomp((a), (b), (c), (d), (e))*/
-
 #include <setjmp.h>
 
 #include "struct.h"
@@ -73,6 +71,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "stick.h"
 #include "cstr.h"
 #include "alphabet.h"
+
+/* FIXME: to compile in MS VC++ */
+#define c_locomp EVN_CLocomp
+
 extern BYTE    *let_linpos,    *let_lindef,
                *let_lincomp,   *let_linshape,
                *let_sans_acc,  *let_lindef3;
@@ -252,7 +254,7 @@ INT compare_vect(v_val *,v_val *);
 INT cell_is_BOX_solid (cell*);
 
 // module locomp.asm
-MN *c_locomp(PBYTE,LONG,LONG,INT,INT);
+MN* c_locomp(PBYTE,LONG,LONG,INT,INT);
 
 // module v0compgl.asm
 void invert_tiff(PBYTE c, WORD lth);

@@ -1,6 +1,7 @@
 include_directories(BEFORE sources/main)
 
 add_library(cimage ${LIBTYPE}
+${SNP_SRC}
 sources/main/cticontrol.cpp
 sources/main/ctiimage.cpp
 #sources/main/ctiimage.RC

@@ -54,16 +54,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/*
-  лллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллл
-  лл                                                              лл
-  лл     Copyright (C) 1990 Cognitive Technology Corporation.     лл
-  лл	 All rights reserved. This program is proprietary and     лл
-  лл     a trade secret of Cognitive Technology Corporation.      лл
-  лл                                                              лл
-  лллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллл
-*/
-
 /********************************************************************/
 /*                                                                  */
 /*                common functions prototypes                       */

@@ -72,6 +72,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "layout.h"
 
+#include "new_c.h" /* FIXME: to compile in MS VC++, Handle exthCCOM */
+
 extern INT nIncline;
 
 PROOT root_file = NULL;
@@ -183,7 +185,6 @@ CCOM_comp *get_CCOM_comp(PROOT r) {
 
 BOOL save_MN(MN *mn)
 {
-extern Int32 exthCCOM;
 CCOM_comp * p=REXC_MN2CCOM((Handle)exthCCOM,(Handle)mn);
 if( !p )
     return FALSE;

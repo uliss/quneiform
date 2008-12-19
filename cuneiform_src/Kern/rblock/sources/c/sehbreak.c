@@ -75,10 +75,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include	"evn.h"
 #include	"newfunc.h"
 #include "minmax.h"
+
+#include "new_c.h" /* FIXME: to build in MS VC++ */
+
 # define EXTENDED_RASTER_MAX_WIDTH  RASTER_MAX_WIDTH
 # define EXTENDED_RASTER_MAX_HEIGHT (RASTER_MAX_HEIGHT * 2)
-
-extern Int32 exthCCOM;
 
 BYTE *pRaster;
 int   nRasterWidth;
@@ -310,7 +311,7 @@ BOOL GluedLettersProcess (ROOT *pRoot)
     oAfterBreakLine = (yRasterBreakLine + 1) * nRasterByteWidth;
 
     memset (pRaster + oBreakLine, 0, oAfterBreakLine - oBreakLine);
-    mn = c_locomp (pRaster, nRasterByteWidth, nRasterHeight,
+    mn = EVN_CLocomp (pRaster, nRasterByteWidth, nRasterHeight,
                    yRealRow     /* pRoot -> yRow    */,
                    xRealColumn  /* pRoot -> xColumn */);
 

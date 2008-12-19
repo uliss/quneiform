@@ -94,7 +94,6 @@ typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int)
 
 typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int);
 
-
 #ifndef HINSTANCE
 #define HINSTANCE void*
 #endif

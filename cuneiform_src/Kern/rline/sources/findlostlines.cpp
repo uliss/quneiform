@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define SOURCE_FILE_NAME "FindLostLines.cpp"
 #endif
 /***********************************************************************************************/
-#include <stdlib.h>
+#include <cstdlib>
 #include <string.h>
 #include "stdafx.h"
 #include "rshelllinescom.h"

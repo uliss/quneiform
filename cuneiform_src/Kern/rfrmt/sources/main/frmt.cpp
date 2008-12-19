@@ -108,9 +108,9 @@ extern   Bool32   gbBold		;
 extern   Bool32   gbItalic;
 extern   Bool32   gbSize		;
 extern   Word32   gnFormat;
-extern   char*    gpSerifName;
-extern   char*    gpSansSerifName;
-extern   char*    gpCourierName;
+extern   const char*    gpSerifName;
+extern   const char*    gpSansSerifName;
+extern   const char*    gpCourierName;
 extern   Word32   CountTable;
 
 // extern functions
