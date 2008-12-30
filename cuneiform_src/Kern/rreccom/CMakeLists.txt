@@ -8,9 +8,4 @@ src/cpp/rreccom.cpp
 
 target_link_libraries(rreccom ccom evn32 windummy)
 
-if(WIN32)
-  install(TARGETS rreccom ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS rreccom LIBRARY DESTINATION ${LIBDIR})
-endif()
-
+install_dll(rreccom)

@@ -34,9 +34,4 @@ c/udictuti.c
 
 target_link_libraries(rlings cstr windummy)
 
-if(WIN32)
-  install(TARGETS rlings ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS rlings LIBRARY DESTINATION ${LIBDIR})
-endif()
-
+install_dll(rlings)

@@ -11,6 +11,11 @@ fon/src
 usage
 )
 
+# Stop MSVC complaints about POSIX functions.
+if(MSVC)
+    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+endif()
+
 add_definitions(-D_USE_RVERLINE_)
 
 # CMake does not currently have direct support for ImageMagick.
@@ -113,10 +118,5 @@ target_link_libraries(windummy ${DL_LIB})
 add_executable(cuneiform cuneiform-cli.cpp)
 target_link_libraries(cuneiform puma ${MAGICK_LIBRARIES} ${DL_LIB})
 
-if(WIN32)
-  install(TARGETS windummy ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS windummy LIBRARY DESTINATION ${LIBDIR})
-endif()
-
-install(TARGETS cuneiform RUNTIME DESTINATION bin)
+install_dll(windummy)
+install_exe(cuneiform)

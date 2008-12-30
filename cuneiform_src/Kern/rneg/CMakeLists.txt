@@ -20,9 +20,4 @@ exc
 rstr
 )
 
-if(WIN32)
-  install(TARGETS rneg ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS rneg LIBRARY DESTINATION ${LIBDIR})
-endif()
-
+install_dll(rneg)

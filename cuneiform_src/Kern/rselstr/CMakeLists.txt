@@ -52,9 +52,4 @@ cstr
 rcutp
 )
 
-if(WIN32)
-  install(TARGETS rselstr ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS rselstr LIBRARY DESTINATION ${LIBDIR})
-endif()
-
+install_dll(rselstr)

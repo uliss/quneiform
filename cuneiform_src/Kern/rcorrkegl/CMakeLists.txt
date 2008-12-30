@@ -11,9 +11,4 @@ src/cpp/stdafx.cpp
 
 target_link_libraries(rcorrkegl cstr cpage)
 
-if(WIN32)
-  install(TARGETS rcorrkegl ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS rcorrkegl LIBRARY DESTINATION ${LIBDIR})
-endif()
-
+install_dll(rcorrkegl)

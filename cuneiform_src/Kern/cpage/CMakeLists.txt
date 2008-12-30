@@ -21,9 +21,4 @@ sources/cpp/tableclass.cpp
 
 target_link_libraries(cpage windummy)
 
-if(WIN32)
-  install(TARGETS cpage ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS cpage LIBRARY DESTINATION ${LIBDIR})
-endif()
-
+install_dll(cpage)

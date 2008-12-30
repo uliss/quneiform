@@ -20,9 +20,4 @@ cline
 ccom
 )
 
-if(WIN32)
-  install(TARGETS rverline ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS rverline LIBRARY DESTINATION ${LIBDIR})
-endif()
-
+install_dll(rverline)

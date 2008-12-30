@@ -15,21 +15,7 @@ set(CF_VERSION_PATCH "0")
 
 set(CF_VERSION "${CF_VERSION_MAJOR}.${CF_VERSION_MINOR}.${CF_VERSION_PATCH}")
 
-set(RELATIVE_DATADIR "share/cuneiform")
-set(INSTALL_DATADIR "${CMAKE_INSTALL_PREFIX}/${RELATIVE_DATADIR}")
-
-include(CheckTypeSize)
-check_type_size("void*" PTRSIZE)
-if(PTRSIZE EQUAL 8 AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    set(LIBDIR "lib64")
-else()
-    set(LIBDIR "lib")
-endif()
-
-# Stop MSVC complaints about POSIX functions.
-if(MSVC)
-    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
-endif()
+include(install_files.cmake)
 
 add_subdirectory(datafiles)
 add_subdirectory(cuneiform_src)

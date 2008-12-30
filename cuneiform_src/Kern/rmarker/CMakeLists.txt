@@ -27,9 +27,4 @@ rpic
 rselstr
 )
 
-if(WIN32)
-  install(TARGETS rmarker ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS rmarker LIBRARY DESTINATION ${LIBDIR})
-endif()
-
+install_dll(rmarker)

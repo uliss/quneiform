@@ -30,9 +30,4 @@ cline
 cstr
 )
 
-if(WIN32)
-  install(TARGETS rfrmt ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS rfrmt LIBRARY DESTINATION ${LIBDIR})
-endif()
-
+install_dll(rfrmt)

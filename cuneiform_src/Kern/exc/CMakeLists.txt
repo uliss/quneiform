@@ -15,9 +15,4 @@ src/v0compmn.c
 
 target_link_libraries(exc loc ccom evn32)
 
-if(WIN32)
-  install(TARGETS exc ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS exc LIBRARY DESTINATION ${LIBDIR})
-endif()
-
+install_dll(exc)

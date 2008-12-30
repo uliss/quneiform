@@ -1,4 +1,5 @@
 include_directories(BEFORE src)
+
 add_definitions(-D__DIF__)
 
 add_library(dif ${LIBTYPE}
@@ -10,9 +11,4 @@ src/sticdif.c
 src/stictool.c
 )
 
-if(WIN32)
-  install(TARGETS dif ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS dif LIBRARY DESTINATION ${LIBDIR})
-endif()
-
+install_dll(dif)

@@ -13,8 +13,4 @@ src/ctb_tool.c
 
 target_link_libraries(ctb32 windummy)
 
-if(WIN32)
-  install(TARGETS ctb32 ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS ctb32 LIBRARY DESTINATION ${LIBDIR})
-endif()
+install_dll(ctb32)

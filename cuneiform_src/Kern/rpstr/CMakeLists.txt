@@ -5,7 +5,6 @@ include_directories(src/capdrop)
 add_definitions(-D__RPSTR__)
 
 add_library(rpstr ${LIBTYPE}
-${SNP_SRC}
 src/capdrop/cap_drop.c 
 src/incl/cor_incl.c 
 src/cor_spel.c 
@@ -20,9 +19,4 @@ rstr
 std32
 )
 
-if(WIN32)
-  install(TARGETS rpstr ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS rpstr LIBRARY DESTINATION ${LIBDIR})
-endif()
-
+install_dll(rpstr)

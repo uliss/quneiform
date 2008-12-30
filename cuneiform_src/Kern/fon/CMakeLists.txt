@@ -20,8 +20,4 @@ src/utilctb.c
 
 target_link_libraries(fon cstr ctb32)
 
-if(WIN32)
-  install(TARGETS fon ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS fon LIBRARY DESTINATION ${LIBDIR})
-endif()
+install_dll(fon)

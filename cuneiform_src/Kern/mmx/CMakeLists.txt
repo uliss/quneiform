@@ -1,4 +1,5 @@
 include_directories(BEFORE src)
+
 add_definitions(-D__MMX__)
 
 add_library(mmx ${LIBTYPE}
@@ -9,8 +10,4 @@ src/mmx_r35.c
 src/mmxmain.c
 )
 
-if(WIN32)
-  install(TARGETS mmx ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS mmx LIBRARY DESTINATION ${LIBDIR})
-endif()
+install_dll(mmx)

@@ -14,9 +14,4 @@ sources/main/rcutp_mainfunc.cpp
 
 target_link_libraries(rcutp ccom windummy)
 
-if(WIN32)
-  install(TARGETS rcutp ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS rcutp LIBRARY DESTINATION ${LIBDIR})
-endif()
-
+install_dll(rcutp)

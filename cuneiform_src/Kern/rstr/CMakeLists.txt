@@ -1,6 +1,7 @@
 #include_subdirectories(src)
 add_definitions(-DDPUMA_SNAP)
 add_definitions(-D__RSTR__)
+
 add_library(rstr ${LIBTYPE}
 ${SNP_SRC}
 src/abris.c
@@ -107,8 +108,4 @@ std32
 leo
 )
 
-if(WIN32)
-  install(TARGETS rstr ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS rstr LIBRARY DESTINATION ${LIBDIR})
-endif()
+install_dll(rstr)

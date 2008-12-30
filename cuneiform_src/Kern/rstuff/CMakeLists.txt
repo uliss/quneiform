@@ -38,9 +38,4 @@ rreccom
 exc
 )
 
-if(WIN32)
-  install(TARGETS rstuff ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS rstuff LIBRARY DESTINATION ${LIBDIR})
-endif()
-
+install_dll(rstuff)

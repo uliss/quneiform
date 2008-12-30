@@ -15,8 +15,4 @@ sources/rpic.cpp
 
 target_link_libraries(rpic cpage ccom rstr)
 
-if(WIN32)
-  install(TARGETS rpic ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS rpic LIBRARY DESTINATION ${LIBDIR})
-endif()
+install_dll(rpic)

@@ -36,9 +36,4 @@ rreccom
 rpstr
 )
 
-if(WIN32)
-  install(TARGETS puma ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS puma LIBRARY DESTINATION ${LIBDIR})
-endif()
-
+install_dll(puma)

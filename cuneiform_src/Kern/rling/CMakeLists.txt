@@ -40,8 +40,4 @@ sources/c/udictuti.c
 
 target_link_libraries(rling cstr rlings)
 
-if(WIN32)
-  install(TARGETS rling ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS rling LIBRARY DESTINATION ${LIBDIR})
-endif()
+install_dll(rling)

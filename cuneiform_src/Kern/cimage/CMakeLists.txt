@@ -16,9 +16,4 @@ sources/main/dll.cpp
 
 target_link_libraries(cimage cfio rdib)
 
-if(WIN32)
-  install(TARGETS cimage ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS cimage LIBRARY DESTINATION ${LIBDIR})
-endif()
-
+install_dll(cimage)

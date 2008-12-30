@@ -22,8 +22,4 @@ src/stdwapi.cpp
 
 target_link_libraries(std32 windummy)
 
-if(WIN32)
-  install(TARGETS std32 ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS std32 LIBRARY DESTINATION ${LIBDIR})
-endif()
+install_dll(std32)

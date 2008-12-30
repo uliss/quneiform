@@ -15,8 +15,4 @@ src/statsearchbl.cpp
 
 target_link_libraries(rbal cstr evn32)
 
-if(WIN32)
-  install(TARGETS rbal ARCHIVE DESTINATION ${LIBDIR})
-else()
-  install(TARGETS rbal LIBRARY DESTINATION ${LIBDIR})
-endif()
+install_dll(rbal)
