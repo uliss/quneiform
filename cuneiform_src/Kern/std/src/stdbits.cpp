@@ -1,644 +1,106 @@
 /*
-Copyright (c) 1993-2008, Cognitive Technologies
-All rights reserved.
+ Copyright (c) 1993-2008, Cognitive Technologies
+ All rights reserved.
 
-Ðàçðåøàåòñÿ ïîâòîðíîå ðàñïðîñòðàíåíèå è èñïîëüçîâàíèå êàê â âèäå èñõîäíîãî êîäà,
-òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
+ Ðàçðåøàåòñÿ ïîâòîðíîå ðàñïðîñòðàíåíèå è èñïîëüçîâàíèå êàê â âèäå èñõîäíîãî êîäà,
+ òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
-        îòêàç îò ãàðàíòèé.
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
-        äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
-        óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
-        ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ.
+ * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
+ âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
+ îòêàç îò ãàðàíòèé.
+ * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
+ äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
+ óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
+ ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
+ * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
+ áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
+ ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
+ ðàçðåøåíèÿ.
 
-ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
-ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
-ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
+ ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
+ ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
+ ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
+ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
+ ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
+ ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
+ ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
+ ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
+ ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
+ ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
+ ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
+ ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
 
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation
-      and/or other materials provided with the distribution.
-    * Neither the name of the Cognitive Technologies nor the names of its
-      contributors may be used to endorse or promote products derived from this
-      software without specific prior written permission.
+ * Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ * Neither the name of the Cognitive Technologies nor the names of its
+ contributors may be used to endorse or promote products derived from this
+ software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #include "internal.h"
 #pragma hdrstop
-
 #include "std.h"
-/////////////////////////////////////////////////////////////////////
-#define go_wh goto after_white
-#define go_bl goto after_black
 
-STD_FUNC(int) stdBits2Ints(
-   Word8*   pBits,
-   int      nByteWidth,
-   Int32*   pIntervals  // pointer to intervals buffer,
-                        // should have length (in bytes) == (nByteWidth*4)*4
-                                  )
-{
-   register Int32*   p = pIntervals;
-   register Word8    b = 0;
+/* This function transforms the black-white image into a sequence of intervals.
+ Example: 0000000100000001 is transformed into 00000007 00010007 00010000. So, we have 0 blacks, 7 whites, 1 black, 7 whites and 1 black.
 
-   *p = 0;
+ Clearly, this function will not work properly if there is 64K (or more) of consecutive whites (or blacks).
+ */
 
-///////////////////////////////////////////////////////////////////////////////
-after_white:
-   while ( nByteWidth )
-   {
-		nByteWidth--;
-      switch ( b=*pBits++ )
-{
-case 0x00: *p+=8;                                                    go_wh;//00000000
-case 0x01: *p+=7;*++p=0x10000;                                       go_bl;//00000001
-case 0x02: *p+=6;*++p=0x10001;                                       go_wh;//00000010
-case 0x03: *p+=6;*++p=0x20000;                                       go_bl;//00000011
-case 0x04: *p+=5;*++p=0x10002;                                       go_wh;//00000100
-case 0x05: *p+=5;*++p=0x10001;*++p=0x10000;                          go_bl;//00000101
-case 0x06: *p+=5;*++p=0x20001;                                       go_wh;//00000110
-case 0x07: *p+=5;*++p=0x30000;                                       go_bl;//00000111
-case 0x08: *p+=4;*++p=0x10003;                                       go_wh;//00001000
-case 0x09: *p+=4;*++p=0x10002;*++p=0x10000;                          go_bl;//00001001
-case 0x0a: *p+=4;*++p=0x10001;*++p=0x10001;                          go_wh;//00001010
-case 0x0b: *p+=4;*++p=0x10001;*++p=0x20000;                          go_bl;//00001011
-case 0x0c: *p+=4;*++p=0x20002/*0x20000*/;                            go_wh;//00001100
-case 0x0d: *p+=4;*++p=0x20001;*++p=0x10000;                          go_bl;//00001101
-case 0x0e: *p+=4;*++p=0x30001;                                       go_wh;//00001110
-case 0x0f: *p+=4;*++p=0x40000;                                       go_bl;//00001111
+STD_FUNC(int) stdBits2Ints(Word8* pBits, int nByteWidth, Int32* pIntervals) {
 
-case 0x10: *p+=3;*++p=0x10004;                                       go_wh;//00010000
-case 0x11: *p+=3;*++p=0x10003;*++p=0x10000;                          go_bl;//00010001
-case 0x12: *p+=3;*++p=0x10002;*++p=0x10001;                          go_wh;//00010010
-case 0x13: *p+=3;*++p=0x10002;*++p=0x20000;                          go_bl;//00010011
-case 0x14: *p+=3;*++p=0x10001;*++p=0x10002;                          go_wh;//00010100
-case 0x15: *p+=3;*++p=0x10001;*++p=0x10001;*++p=0x10000;             go_bl;//00010101
-case 0x16: *p+=3;*++p=0x10001;*++p=0x20001;                          go_wh;//00010110
-case 0x17: *p+=3;*++p=0x10001;*++p=0x30000;                          go_bl;//00010111
-case 0x18: *p+=3;*++p=0x20003;                                       go_wh;//00011000
-case 0x19: *p+=3;*++p=0x20002;*++p=0x10000;                          go_bl;//00011001
-case 0x1a: *p+=3;*++p=0x20001;*++p=0x10001;                          go_wh;//00011010
-case 0x1b: *p+=3;*++p=0x20001;*++p=0x20000;                          go_bl;//00011011
-case 0x1c: *p+=3;*++p=0x30002;                                       go_wh;//00011100
-case 0x1d: *p+=3;*++p=0x30001;*++p=0x10000;                          go_bl;//00011101
-case 0x1e: *p+=3;*++p=0x40001;                                       go_wh;//00011110
-case 0x1f: *p+=3;*++p=0x50000;                                       go_bl;//00011111
+    /* Here, pIntervals is a pointer to the interval buffer. It should have length (in bytes) == (nByteWidth*4)*4 */
 
-case 0x20: *p+=2;*++p=0x10005;                                       go_wh;//00100000
-case 0x21: *p+=2;*++p=0x10004;*++p=0x10000;                          go_bl;//00100001
-case 0x22: *p+=2;*++p=0x10003;*++p=0x10001;                          go_wh;//00100010
-case 0x23: *p+=2;*++p=0x10003;*++p=0x20000;                          go_bl;//00100011
-case 0x24: *p+=2;*++p=0x10002;*++p=0x10002;                          go_wh;//00100100
-case 0x25: *p+=2;*++p=0x10002;*++p=0x10001;*++p=0x10000;             go_bl;//00100101
-case 0x26: *p+=2;*++p=0x10002;*++p=0x20001;                          go_wh;//00100110
-case 0x27: *p+=2;*++p=0x10002;*++p=0x30000;                          go_bl;//00100111
-case 0x28: *p+=2;*++p=0x10001;*++p=0x10003;                          go_wh;//00101000
-case 0x29: *p+=2;*++p=0x10001;*++p=0x10002;*++p=0x10000;             go_bl;//00101001
-case 0x2a: *p+=2;*++p=0x10001;*++p=0x10001;*++p=0x10001;             go_wh;//00101010
-case 0x2b: *p+=2;*++p=0x10001;*++p=0x10001;*++p=0x20000;             go_bl;//00101011
-case 0x2c: *p+=2;*++p=0x10001;*++p=0x20002/*0x20000*/;               go_wh;//00101100
-case 0x2d: *p+=2;*++p=0x10001;*++p=0x20001;*++p=0x10000;             go_bl;//00101101
-case 0x2e: *p+=2;*++p=0x10001;*++p=0x30001;                          go_wh;//00101110
-case 0x2f: *p+=2;*++p=0x10001;*++p=0x40000;                          go_bl;//00101111
+    Int32* p = pIntervals;
+    Word8 b = 0;
 
-case 0x30: *p+=2;*++p=0x20004;                                       go_wh;//00110000
-case 0x31: *p+=2;*++p=0x20003;*++p=0x10000;                          go_bl;//00110001
-case 0x32: *p+=2;*++p=0x20002;*++p=0x10001;                          go_wh;//00110010
-case 0x33: *p+=2;*++p=0x20002;*++p=0x20000;                          go_bl;//00110011
-case 0x34: *p+=2;*++p=0x20001;*++p=0x10002;                          go_wh;//00110100
-case 0x35: *p+=2;*++p=0x20001;*++p=0x10001;*++p=0x10000;             go_bl;//00110101
-case 0x36: *p+=2;*++p=0x20001;*++p=0x20001;                          go_wh;//00110110
-case 0x37: *p+=2;*++p=0x20001;*++p=0x30000;                          go_bl;//00110111
-case 0x38: *p+=2;*++p=0x30003;                                       go_wh;//00111000
-case 0x39: *p+=2;*++p=0x30002;*++p=0x10000;                          go_bl;//00111001
-case 0x3a: *p+=2;*++p=0x30001;*++p=0x10001;                          go_wh;//00111010
-case 0x3b: *p+=2;*++p=0x30001;*++p=0x20000;                          go_bl;//00111011
-case 0x3c: *p+=2;*++p=0x40002;                                       go_wh;//00111100
-case 0x3d: *p+=2;*++p=0x40001;*++p=0x10000;                          go_bl;//00111101
-case 0x3e: *p+=2;*++p=0x50001;                                       go_wh;//00111110
-case 0x3f: *p+=2;*++p=0x60000;                                       go_bl;//00111111
+    *p = 0;
 
-case 0x40: *p+=1;*++p=0x10006;                                       go_wh;//01000000
-case 0x41: *p+=1;*++p=0x10005;*++p=0x10000;                          go_bl;//01000001
-case 0x42: *p+=1;*++p=0x10004;*++p=0x10001;                          go_wh;//01000010
-case 0x43: *p+=1;*++p=0x10004;*++p=0x20000;                          go_bl;//01000011
-case 0x44: *p+=1;*++p=0x10003;*++p=0x10002;                          go_wh;//01000100
-case 0x45: *p+=1;*++p=0x10003;*++p=0x10001;*++p=0x10000;             go_bl;//01000101
-case 0x46: *p+=1;*++p=0x10003;*++p=0x20001;                          go_wh;//01000110
-case 0x47: *p+=1;*++p=0x10003;*++p=0x30000;                          go_bl;//01000111
-case 0x48: *p+=1;*++p=0x10002;*++p=0x10003;                          go_wh;//01001000
-case 0x49: *p+=1;*++p=0x10002;*++p=0x10002;*++p=0x10000;             go_bl;//01001001
-case 0x4a: *p+=1;*++p=0x10002;*++p=0x10001;*++p=0x10001;             go_wh;//01001010
-case 0x4b: *p+=1;*++p=0x10002;*++p=0x10001;*++p=0x20000;             go_bl;//01001011
-case 0x4c: *p+=1;*++p=0x10002;*++p=0x20002/*0x20000*/;               go_wh;//01001100
-case 0x4d: *p+=1;*++p=0x10002;*++p=0x20001;*++p=0x10000;             go_bl;//01001101
-case 0x4e: *p+=1;*++p=0x10002;*++p=0x30001;                          go_wh;//01001110
-case 0x4f: *p+=1;*++p=0x10002;*++p=0x40000;                          go_bl;//01001111
+    bool c, current_color = 0;
+    int length;
 
-case 0x50: *p+=1;*++p=0x10001;*++p=0x10004;                          go_wh;//01010000
-case 0x51: *p+=1;*++p=0x10001;*++p=0x10003;*++p=0x10000;             go_bl;//01010001
-case 0x52: *p+=1;*++p=0x10001;*++p=0x10002;*++p=0x10001;             go_wh;//01010010
-case 0x53: *p+=1;*++p=0x10001;*++p=0x10002;*++p=0x20000;             go_bl;//01010011
-case 0x54: *p+=1;*++p=0x10001;*++p=0x10001;*++p=0x10002;             go_wh;//01010100
-case 0x55: *p+=1;*++p=0x10001;*++p=0x10001;*++p=0x10001;*++p=0x10000;go_bl;//01010101
-case 0x56: *p+=1;*++p=0x10001;*++p=0x10001;*++p=0x20001;             go_wh;//01010110
-case 0x57: *p+=1;*++p=0x10001;*++p=0x10001;*++p=0x30000;             go_bl;//01010111
-case 0x58: *p+=1;*++p=0x10001;*++p=0x20003;                          go_wh;//01011000
-case 0x59: *p+=1;*++p=0x10001;*++p=0x20002;*++p=0x10000;             go_bl;//01011001
-case 0x5a: *p+=1;*++p=0x10001;*++p=0x20001;*++p=0x10001;             go_wh;//01011010
-case 0x5b: *p+=1;*++p=0x10001;*++p=0x20001;*++p=0x20000;             go_bl;//01011011
-case 0x5c: *p+=1;*++p=0x10001;*++p=0x30002;                          go_wh;//01011100
-case 0x5d: *p+=1;*++p=0x10001;*++p=0x30001;*++p=0x10000;             go_bl;//01011101
-case 0x5e: *p+=1;*++p=0x10001;*++p=0x40001;                          go_wh;//01011110
-case 0x5f: *p+=1;*++p=0x10001;*++p=0x50000;                          go_bl;//01011111
+    while (nByteWidth) {
+        nByteWidth--;
 
-case 0x60: *p+=1;*++p=0x20005;                                       go_wh;//01100000
-case 0x61: *p+=1;*++p=0x20004;*++p=0x10000;                          go_bl;//01100001
-case 0x62: *p+=1;*++p=0x20003;*++p=0x10001;                          go_wh;//01100010
-case 0x63: *p+=1;*++p=0x20003;*++p=0x20000;                          go_bl;//01100011
-case 0x64: *p+=1;*++p=0x20002;*++p=0x10002;                          go_wh;//01100100
-case 0x65: *p+=1;*++p=0x20002;*++p=0x10001;*++p=0x10000;             go_bl;//01100101
-case 0x66: *p+=1;*++p=0x20002;*++p=0x20001;                          go_wh;//01100110
-case 0x67: *p+=1;*++p=0x20002;*++p=0x30000;                          go_bl;//01100111
-case 0x68: *p+=1;*++p=0x20001;*++p=0x10003;                          go_wh;//01101000
-case 0x69: *p+=1;*++p=0x20001;*++p=0x10002;*++p=0x10000;             go_bl;//01101001
-case 0x6a: *p+=1;*++p=0x20001;*++p=0x10001;*++p=0x10001;             go_wh;//01101010
-case 0x6b: *p+=1;*++p=0x20001;*++p=0x10001;*++p=0x20000;             go_bl;//01101011
-case 0x6c: *p+=1;*++p=0x20001;*++p=0x20002/*0x20000*/;               go_wh;//01101100
-case 0x6d: *p+=1;*++p=0x20001;*++p=0x20001;*++p=0x10000;             go_bl;//01101101
-case 0x6e: *p+=1;*++p=0x20001;*++p=0x30001;                          go_wh;//01101110
-case 0x6f: *p+=1;*++p=0x20001;*++p=0x40000;                          go_bl;//01101111
+        length = 8;
+        b = *pBits++;
 
-case 0x70: *p+=1;*++p=0x30004;                                       go_wh;//01110000
-case 0x71: *p+=1;*++p=0x30003;*++p=0x10000;                          go_bl;//01110001
-case 0x72: *p+=1;*++p=0x30002;*++p=0x10001;                          go_wh;//01110010
-case 0x73: *p+=1;*++p=0x30002;*++p=0x20000;                          go_bl;//01110011
-case 0x74: *p+=1;*++p=0x30001;*++p=0x10002;                          go_wh;//01110100
-case 0x75: *p+=1;*++p=0x30001;*++p=0x10001;*++p=0x10000;             go_bl;//01110101
-case 0x76: *p+=1;*++p=0x30001;*++p=0x20001;                          go_wh;//01110110
-case 0x77: *p+=1;*++p=0x30001;*++p=0x30000;                          go_bl;//01110111
-case 0x78: *p+=1;*++p=0x40003;                                       go_wh;//01111000
-case 0x79: *p+=1;*++p=0x40002;*++p=0x10000;                          go_bl;//01111001
-case 0x7a: *p+=1;*++p=0x40001;*++p=0x10001;                          go_wh;//01111010
-case 0x7b: *p+=1;*++p=0x40001;*++p=0x20000;                          go_bl;//01111011
-case 0x7c: *p+=1;*++p=0x50002;                                       go_wh;//01111100
-case 0x7d: *p+=1;*++p=0x50001;*++p=0x10000;                          go_bl;//01111101
-case 0x7e: *p+=1;*++p=0x60001;                                       go_wh;//01111110
-case 0x7f: *p+=1;*++p=0x70000;                                       go_bl;//01111111
+        while (length > 0) {
+            if (b > 127)
+                c = 1;
+            if (b < 128)
+                c = 0;
+            if (c == 0)
+                *p += 0x1;
+            if (c == 1 && current_color == 1)
+                *p += 0x10000;
+            if (c == 1 && current_color == 0)
+                *++p = 0x10000;
+            current_color = c;
+            b = (b - 128 * c) * 2;
+            length = length - 1;
+        }
 
-case 0x80: *++p=0x10007;                                             go_wh;//10000000
-case 0x81: *++p=0x10006;*++p=0x10000;                                go_bl;//10000001
-case 0x82: *++p=0x10005;*++p=0x10001;                                go_wh;//10000010
-case 0x83: *++p=0x10005;*++p=0x20000;                                go_bl;//10000011
-case 0x84: *++p=0x10004;*++p=0x10002;                                go_wh;//10000100
-case 0x85: *++p=0x10004;*++p=0x10001;*++p=0x10000;                   go_bl;//10000101
-case 0x86: *++p=0x10004;*++p=0x20001;                                go_wh;//10000110
-case 0x87: *++p=0x10004;*++p=0x30000;                                go_bl;//10000111
-case 0x88: *++p=0x10003;*++p=0x10003;                                go_wh;//10001000
-case 0x89: *++p=0x10003;*++p=0x10002;*++p=0x10000;                   go_bl;//10001001
-case 0x8a: *++p=0x10003;*++p=0x10001;*++p=0x10001;                   go_wh;//10001010
-case 0x8b: *++p=0x10003;*++p=0x10001;*++p=0x20000;                   go_bl;//10001011
-case 0x8c: *++p=0x10003;*++p=0x20002/*0x20000*/;                     go_wh;//10001100
-case 0x8d: *++p=0x10003;*++p=0x20001;*++p=0x10000;                   go_bl;//10001101
-case 0x8e: *++p=0x10003;*++p=0x30001;                                go_wh;//10001110
-case 0x8f: *++p=0x10003;*++p=0x40000;                                go_bl;//10001111
+    };
 
-case 0x90: *++p=0x10002;*++p=0x10004;                                go_wh;//10010000
-case 0x91: *++p=0x10002;*++p=0x10003;*++p=0x10000;                   go_bl;//10010001
-case 0x92: *++p=0x10002;*++p=0x10002;*++p=0x10001;                   go_wh;//10010010
-case 0x93: *++p=0x10002;*++p=0x10002;*++p=0x20000;                   go_bl;//10010011
-case 0x94: *++p=0x10002;*++p=0x10001;*++p=0x10002;                   go_wh;//10010100
-case 0x95: *++p=0x10002;*++p=0x10001;*++p=0x10001;*++p=0x10000;      go_bl;//10010101
-case 0x96: *++p=0x10002;*++p=0x10001;*++p=0x20001;                   go_wh;//10010110
-case 0x97: *++p=0x10002;*++p=0x10001;*++p=0x30000;                   go_bl;//10010111
-case 0x98: *++p=0x10002;*++p=0x20003;                                go_wh;//10011000
-case 0x99: *++p=0x10002;*++p=0x20002;*++p=0x10000;                   go_bl;//10011001
-case 0x9a: *++p=0x10002;*++p=0x20001;*++p=0x10001;                   go_wh;//10011010
-case 0x9b: *++p=0x10002;*++p=0x20001;*++p=0x20000;                   go_bl;//10011011
-case 0x9c: *++p=0x10002;*++p=0x30002;                                go_wh;//10011100
-case 0x9d: *++p=0x10002;*++p=0x30001;*++p=0x10000;                   go_bl;//10011101
-case 0x9e: *++p=0x10002;*++p=0x40001;                                go_wh;//10011110
-case 0x9f: *++p=0x10002;*++p=0x50000;                                go_bl;//10011111
-
-case 0xa0: *++p=0x10001;*++p=0x10005;                                go_wh;//10100000
-case 0xa1: *++p=0x10001;*++p=0x10004;*++p=0x10000;                   go_bl;//10100001
-case 0xa2: *++p=0x10001;*++p=0x10003;*++p=0x10001;                   go_wh;//10100010
-case 0xa3: *++p=0x10001;*++p=0x10003;*++p=0x20000;                   go_bl;//10100011
-case 0xa4: *++p=0x10001;*++p=0x10002;*++p=0x10002;                   go_wh;//10100100
-case 0xa5: *++p=0x10001;*++p=0x10002;*++p=0x10001;*++p=0x10000;      go_bl;//10100101
-case 0xa6: *++p=0x10001;*++p=0x10002;*++p=0x20001;                   go_wh;//10100110
-case 0xa7: *++p=0x10001;*++p=0x10002;*++p=0x30000;                   go_bl;//10100111
-case 0xa8: *++p=0x10001;*++p=0x10001;*++p=0x10003;                   go_wh;//10101000
-case 0xa9: *++p=0x10001;*++p=0x10001;*++p=0x10002;*++p=0x10000;      go_bl;//10101001
-case 0xaa: *++p=0x10001;*++p=0x10001;*++p=0x10001;*++p=0x10001;      go_wh;//10101010
-case 0xab: *++p=0x10001;*++p=0x10001;*++p=0x10001;*++p=0x20000;      go_bl;//10101011
-case 0xac: *++p=0x10001;*++p=0x10001;*++p=0x20002/*0x20000*/;        go_wh;//10101100
-case 0xad: *++p=0x10001;*++p=0x10001;*++p=0x20001;*++p=0x10000;      go_bl;//10101101
-case 0xae: *++p=0x10001;*++p=0x10001;*++p=0x30001;                   go_wh;//10101110
-case 0xaf: *++p=0x10001;*++p=0x10001;*++p=0x40000;                   go_bl;//10101111
-
-case 0xb0: *++p=0x10001;*++p=0x20004;                                go_wh;//10110000
-case 0xb1: *++p=0x10001;*++p=0x20003;*++p=0x10000;                   go_bl;//10110001
-case 0xb2: *++p=0x10001;*++p=0x20002;*++p=0x10001;                   go_wh;//10110010
-case 0xb3: *++p=0x10001;*++p=0x20002;*++p=0x20000;                   go_bl;//10110011
-case 0xb4: *++p=0x10001;*++p=0x20001;*++p=0x10002;                   go_wh;//10110100
-case 0xb5: *++p=0x10001;*++p=0x20001;*++p=0x10001;*++p=0x10000;      go_bl;//10110101
-case 0xb6: *++p=0x10001;*++p=0x20001;*++p=0x20001;                   go_wh;//10110110
-case 0xb7: *++p=0x10001;*++p=0x20001;*++p=0x30000;                   go_bl;//10110111
-case 0xb8: *++p=0x10001;*++p=0x30003;                                go_wh;//10111000
-case 0xb9: *++p=0x10001;*++p=0x30002;*++p=0x10000;                   go_bl;//10111001
-case 0xba: *++p=0x10001;*++p=0x30001;*++p=0x10001;                   go_wh;//10111010
-case 0xbb: *++p=0x10001;*++p=0x30001;*++p=0x20000;                   go_bl;//10111011
-case 0xbc: *++p=0x10001;*++p=0x40002;                                go_wh;//10111100
-case 0xbd: *++p=0x10001;*++p=0x40001;*++p=0x10000;                   go_bl;//10111101
-case 0xbe: *++p=0x10001;*++p=0x50001;                                go_wh;//10111110
-case 0xbf: *++p=0x10001;*++p=0x60000;                                go_bl;//10111111
-
-case 0xc0: *++p=0x20006;                                             go_wh;//11000000
-case 0xc1: *++p=0x20005;*++p=0x10000;                                go_bl;//11000001
-case 0xc2: *++p=0x20004;*++p=0x10001;                                go_wh;//11000010
-case 0xc3: *++p=0x20004;*++p=0x20000;                                go_bl;//11000011
-case 0xc4: *++p=0x20003;*++p=0x10002;                                go_wh;//11000100
-case 0xc5: *++p=0x20003;*++p=0x10001;*++p=0x10000;                   go_bl;//11000101
-case 0xc6: *++p=0x20003;*++p=0x20001;                                go_wh;//11000110
-case 0xc7: *++p=0x20003;*++p=0x30000;                                go_bl;//11000111
-case 0xc8: *++p=0x20002;*++p=0x10003;                                go_wh;//11001000
-case 0xc9: *++p=0x20002;*++p=0x10002;*++p=0x10000;                   go_bl;//11001001
-case 0xca: *++p=0x20002;*++p=0x10001;*++p=0x10001;                   go_wh;//11001010
-case 0xcb: *++p=0x20002;*++p=0x10001;*++p=0x20000;                   go_bl;//11001011
-case 0xcc: *++p=0x20002;*++p=0x20002/*0x20000*/;                     go_wh;//11001100
-case 0xcd: *++p=0x20002;*++p=0x20001;*++p=0x10000;                   go_bl;//11001101
-case 0xce: *++p=0x20002;*++p=0x30001;                                go_wh;//11001110
-case 0xcf: *++p=0x20002;*++p=0x40000;                                go_bl;//11001111
-
-case 0xd0: *++p=0x20001;*++p=0x10004;                                go_wh;//11010000
-case 0xd1: *++p=0x20001;*++p=0x10003;*++p=0x10000;                   go_bl;//11010001
-case 0xd2: *++p=0x20001;*++p=0x10002;*++p=0x10001;                   go_wh;//11010010
-case 0xd3: *++p=0x20001;*++p=0x10002;*++p=0x20000;                   go_bl;//11010011
-case 0xd4: *++p=0x20001;*++p=0x10001;*++p=0x10002;                   go_wh;//11010100
-case 0xd5: *++p=0x20001;*++p=0x10001;*++p=0x10001;*++p=0x10000;      go_bl;//11010101
-case 0xd6: *++p=0x20001;*++p=0x10001;*++p=0x20001;                   go_wh;//11010110
-case 0xd7: *++p=0x20001;*++p=0x10001;*++p=0x30000;                   go_bl;//11010111
-case 0xd8: *++p=0x20001;*++p=0x20003;                                go_wh;//11011000
-case 0xd9: *++p=0x20001;*++p=0x20002;*++p=0x10000;                   go_bl;//11011001
-case 0xda: *++p=0x20001;*++p=0x20001;*++p=0x10001;                   go_wh;//11011010
-case 0xdb: *++p=0x20001;*++p=0x20001;*++p=0x20000;                   go_bl;//11011011
-case 0xdc: *++p=0x20001;*++p=0x30002;                                go_wh;//11011100
-case 0xdd: *++p=0x20001;*++p=0x30001;*++p=0x10000;                   go_bl;//11011101
-case 0xde: *++p=0x20001;*++p=0x40001;                                go_wh;//11011110
-case 0xdf: *++p=0x20001;*++p=0x50000;                                go_bl;//11011111
-
-case 0xe0: *++p=0x30005;                                             go_wh;//11100000
-case 0xe1: *++p=0x30004;*++p=0x10000;                                go_bl;//11100001
-case 0xe2: *++p=0x30003;*++p=0x10001;                                go_wh;//11100010
-case 0xe3: *++p=0x30003;*++p=0x20000;                                go_bl;//11100011
-case 0xe4: *++p=0x30002;*++p=0x10002;                                go_wh;//11100100
-case 0xe5: *++p=0x30002;*++p=0x10001;*++p=0x10000;                   go_bl;//11100101
-case 0xe6: *++p=0x30002;*++p=0x20001;                                go_wh;//11100110
-case 0xe7: *++p=0x30002;*++p=0x30000;                                go_bl;//11100111
-case 0xe8: *++p=0x30001;*++p=0x10003;                                go_wh;//11101000
-case 0xe9: *++p=0x30001;*++p=0x10002;*++p=0x10000;                   go_bl;//11101001
-case 0xea: *++p=0x30001;*++p=0x10001;*++p=0x10001;                   go_wh;//11101010
-case 0xeb: *++p=0x30001;*++p=0x10001;*++p=0x20000;                   go_bl;//11101011
-case 0xec: *++p=0x30001;*++p=0x20002/*0x20000*/;                     go_wh;//11101100
-case 0xed: *++p=0x30001;*++p=0x20001;*++p=0x10000;                   go_bl;//11101101
-case 0xee: *++p=0x30001;*++p=0x30001;                                go_wh;//11101110
-case 0xef: *++p=0x30001;*++p=0x40000;                                go_bl;//11101111
-
-case 0xf0: *++p=0x40004;                                             go_wh;//11110000
-case 0xf1: *++p=0x40003;*++p=0x10000;                                go_bl;//11110001
-case 0xf2: *++p=0x40002/*0x40004*/;*++p=0x10001;                     go_wh;//11110010
-case 0xf3: *++p=0x40002/*0x40004*/;*++p=0x20000;                     go_bl;//11110011
-case 0xf4: *++p=0x40001/*0x40004*/;*++p=0x10002;                     go_wh;//11110100
-case 0xf5: *++p=0x40001/*0x40004*/;*++p=0x10001;*++p=0x10000;        go_bl;//11110101
-case 0xf6: *++p=0x40001/*0x40004*/;*++p=0x20001;                     go_wh;//11110110
-case 0xf7: *++p=0x40001/*0x40004*/;*++p=0x30000;                     go_bl;//11110111
-case 0xf8: *++p=0x50003/*0x50004*/;                                  go_wh;//11111000
-case 0xf9: *++p=0x50002/*0x50004*/;*++p=0x10000;                     go_bl;//11111001
-case 0xfa: *++p=0x50001/*0x50004*/;*++p=0x10001;                     go_wh;//11111010
-case 0xfb: *++p=0x50001/*0x50004*/;*++p=0x20000;                     go_bl;//11111011
-case 0xfc: *++p=0x60002/*0x60004*/;                                  go_wh;//11111100
-case 0xfd: *++p=0x60001;*++p=0x10000;                                go_bl;//11111101
-case 0xfe: *++p=0x70001;                                             go_wh;//11111110
-case 0xff: *++p=0x80000;                                             go_bl;//11111111
-}; // switch;
-   }; // after_white loop
-
-
-//////////////////////////////////////////////////////////////////////////////
-after_black:
-   while ( nByteWidth )
-   {
-		nByteWidth--;
-      //b=*pBits; pBits++;
-      switch ( b=*pBits++ )
-{
-case 0x00: *p+=8;                                                    go_wh;//00000000
-case 0x01: *p+=7;*++p=0x10000;                                       go_bl;//00000001
-case 0x02: *p+=6;*++p=0x10001;                                       go_wh;//00000010
-case 0x03: *p+=6;*++p=0x20000;                                       go_bl;//00000011
-case 0x04: *p+=5;*++p=0x10002;                                       go_wh;//00000100
-case 0x05: *p+=5;*++p=0x10001;*++p=0x10000;                          go_bl;//00000101
-case 0x06: *p+=5;*++p=0x20001;                                       go_wh;//00000110
-case 0x07: *p+=5;*++p=0x30000;                                       go_bl;//00000111
-case 0x08: *p+=4;*++p=0x10003;                                       go_wh;//00001000
-case 0x09: *p+=4;*++p=0x10002;*++p=0x10000;                          go_bl;//00001001
-case 0x0a: *p+=4;*++p=0x10001;*++p=0x10001;                          go_wh;//00001010
-case 0x0b: *p+=4;*++p=0x10001;*++p=0x20000;                          go_bl;//00001011
-case 0x0c: *p+=4;*++p=0x20002/*0x20000*/;                            go_wh;//00001100
-case 0x0d: *p+=4;*++p=0x20001;*++p=0x10000;                          go_bl;//00001101
-case 0x0e: *p+=4;*++p=0x30001;                                       go_wh;//00001110
-case 0x0f: *p+=4;*++p=0x40000;                                       go_bl;//00001111
-
-case 0x10: *p+=3;*++p=0x10004;                                       go_wh;//00010000
-case 0x11: *p+=3;*++p=0x10003;*++p=0x10000;                          go_bl;//00010001
-case 0x12: *p+=3;*++p=0x10002;*++p=0x10001;                          go_wh;//00010010
-case 0x13: *p+=3;*++p=0x10002;*++p=0x20000;                          go_bl;//00010011
-case 0x14: *p+=3;*++p=0x10001;*++p=0x10002;                          go_wh;//00010100
-case 0x15: *p+=3;*++p=0x10001;*++p=0x10001;*++p=0x10000;             go_bl;//00010101
-case 0x16: *p+=3;*++p=0x10001;*++p=0x20001;                          go_wh;//00010110
-case 0x17: *p+=3;*++p=0x10001;*++p=0x30000;                          go_bl;//00010111
-case 0x18: *p+=3;*++p=0x20003;                                       go_wh;//00011000
-case 0x19: *p+=3;*++p=0x20002;*++p=0x10000;                          go_bl;//00011001
-case 0x1a: *p+=3;*++p=0x20001;*++p=0x10001;                          go_wh;//00011010
-case 0x1b: *p+=3;*++p=0x20001;*++p=0x20000;                          go_bl;//00011011
-case 0x1c: *p+=3;*++p=0x30002;                                       go_wh;//00011100
-case 0x1d: *p+=3;*++p=0x30001;*++p=0x10000;                          go_bl;//00011101
-case 0x1e: *p+=3;*++p=0x40001;                                       go_wh;//00011110
-case 0x1f: *p+=3;*++p=0x50000;                                       go_bl;//00011111
-
-case 0x20: *p+=2;*++p=0x10005;                                       go_wh;//00100000
-case 0x21: *p+=2;*++p=0x10004;*++p=0x10000;                          go_bl;//00100001
-case 0x22: *p+=2;*++p=0x10003;*++p=0x10001;                          go_wh;//00100010
-case 0x23: *p+=2;*++p=0x10003;*++p=0x20000;                          go_bl;//00100011
-case 0x24: *p+=2;*++p=0x10002;*++p=0x10002;                          go_wh;//00100100
-case 0x25: *p+=2;*++p=0x10002;*++p=0x10001;*++p=0x10000;             go_bl;//00100101
-case 0x26: *p+=2;*++p=0x10002;*++p=0x20001;                          go_wh;//00100110
-case 0x27: *p+=2;*++p=0x10002;*++p=0x30000;                          go_bl;//00100111
-case 0x28: *p+=2;*++p=0x10001;*++p=0x10003;                          go_wh;//00101000
-case 0x29: *p+=2;*++p=0x10001;*++p=0x10002;*++p=0x10000;             go_bl;//00101001
-case 0x2a: *p+=2;*++p=0x10001;*++p=0x10001;*++p=0x10001;             go_wh;//00101010
-case 0x2b: *p+=2;*++p=0x10001;*++p=0x10001;*++p=0x20000;             go_bl;//00101011
-case 0x2c: *p+=2;*++p=0x10001;*++p=0x20002/*0x20000*/;               go_wh;//00101100
-case 0x2d: *p+=2;*++p=0x10001;*++p=0x20001;*++p=0x10000;             go_bl;//00101101
-case 0x2e: *p+=2;*++p=0x10001;*++p=0x30001;                          go_wh;//00101110
-case 0x2f: *p+=2;*++p=0x10001;*++p=0x40000;                          go_bl;//00101111
-
-case 0x30: *p+=2;*++p=0x20004;                                       go_wh;//00110000
-case 0x31: *p+=2;*++p=0x20003;*++p=0x10000;                          go_bl;//00110001
-case 0x32: *p+=2;*++p=0x20002;*++p=0x10001;                          go_wh;//00110010
-case 0x33: *p+=2;*++p=0x20002;*++p=0x20000;                          go_bl;//00110011
-case 0x34: *p+=2;*++p=0x20001;*++p=0x10002;                          go_wh;//00110100
-case 0x35: *p+=2;*++p=0x20001;*++p=0x10001;*++p=0x10000;             go_bl;//00110101
-case 0x36: *p+=2;*++p=0x20001;*++p=0x20001;                          go_wh;//00110110
-case 0x37: *p+=2;*++p=0x20001;*++p=0x30000;                          go_bl;//00110111
-case 0x38: *p+=2;*++p=0x30003;                                       go_wh;//00111000
-case 0x39: *p+=2;*++p=0x30002;*++p=0x10000;                          go_bl;//00111001
-case 0x3a: *p+=2;*++p=0x30001;*++p=0x10001;                          go_wh;//00111010
-case 0x3b: *p+=2;*++p=0x30001;*++p=0x20000;                          go_bl;//00111011
-case 0x3c: *p+=2;*++p=0x40002;                                       go_wh;//00111100
-case 0x3d: *p+=2;*++p=0x40001;*++p=0x10000;                          go_bl;//00111101
-case 0x3e: *p+=2;*++p=0x50001;                                       go_wh;//00111110
-case 0x3f: *p+=2;*++p=0x60000;                                       go_bl;//00111111
-
-case 0x40: *p+=1;*++p=0x10006;                                       go_wh;//01000000
-case 0x41: *p+=1;*++p=0x10005;*++p=0x10000;                          go_bl;//01000001
-case 0x42: *p+=1;*++p=0x10004;*++p=0x10001;                          go_wh;//01000010
-case 0x43: *p+=1;*++p=0x10004;*++p=0x20000;                          go_bl;//01000011
-case 0x44: *p+=1;*++p=0x10003;*++p=0x10002;                          go_wh;//01000100
-case 0x45: *p+=1;*++p=0x10003;*++p=0x10001;*++p=0x10000;             go_bl;//01000101
-case 0x46: *p+=1;*++p=0x10003;*++p=0x20001;                          go_wh;//01000110
-case 0x47: *p+=1;*++p=0x10003;*++p=0x30000;                          go_bl;//01000111
-case 0x48: *p+=1;*++p=0x10002;*++p=0x10003;                          go_wh;//01001000
-case 0x49: *p+=1;*++p=0x10002;*++p=0x10002;*++p=0x10000;             go_bl;//01001001
-case 0x4a: *p+=1;*++p=0x10002;*++p=0x10001;*++p=0x10001;             go_wh;//01001010
-case 0x4b: *p+=1;*++p=0x10002;*++p=0x10001;*++p=0x20000;             go_bl;//01001011
-case 0x4c: *p+=1;*++p=0x10002;*++p=0x20002/*0x20000*/;                          go_wh;//01001100
-case 0x4d: *p+=1;*++p=0x10002;*++p=0x20001;*++p=0x10000;             go_bl;//01001101
-case 0x4e: *p+=1;*++p=0x10002;*++p=0x30001;                          go_wh;//01001110
-case 0x4f: *p+=1;*++p=0x10002;*++p=0x40000;                          go_bl;//01001111
-
-case 0x50: *p+=1;*++p=0x10001;*++p=0x10004;                          go_wh;//01010000
-case 0x51: *p+=1;*++p=0x10001;*++p=0x10003;*++p=0x10000;             go_bl;//01010001
-case 0x52: *p+=1;*++p=0x10001;*++p=0x10002;*++p=0x10001;             go_wh;//01010010
-case 0x53: *p+=1;*++p=0x10001;*++p=0x10002;*++p=0x20000;             go_bl;//01010011
-case 0x54: *p+=1;*++p=0x10001;*++p=0x10001;*++p=0x10002;             go_wh;//01010100
-case 0x55: *p+=1;*++p=0x10001;*++p=0x10001;*++p=0x10001;*++p=0x10000;go_bl;//01010101
-case 0x56: *p+=1;*++p=0x10001;*++p=0x10001;*++p=0x20001;             go_wh;//01010110
-case 0x57: *p+=1;*++p=0x10001;*++p=0x10001;*++p=0x30000;             go_bl;//01010111
-case 0x58: *p+=1;*++p=0x10001;*++p=0x20003;                          go_wh;//01011000
-case 0x59: *p+=1;*++p=0x10001;*++p=0x20002;*++p=0x10000;             go_bl;//01011001
-case 0x5a: *p+=1;*++p=0x10001;*++p=0x20001;*++p=0x10001;             go_wh;//01011010
-case 0x5b: *p+=1;*++p=0x10001;*++p=0x20001;*++p=0x20000;             go_bl;//01011011
-case 0x5c: *p+=1;*++p=0x10001;*++p=0x30002;                          go_wh;//01011100
-case 0x5d: *p+=1;*++p=0x10001;*++p=0x30001;*++p=0x10000;             go_bl;//01011101
-case 0x5e: *p+=1;*++p=0x10001;*++p=0x40001;                          go_wh;//01011110
-case 0x5f: *p+=1;*++p=0x10001;*++p=0x50000;                          go_bl;//01011111
-
-case 0x60: *p+=1;*++p=0x20005;                                       go_wh;//01100000
-case 0x61: *p+=1;*++p=0x20004;*++p=0x10000;                          go_bl;//01100001
-case 0x62: *p+=1;*++p=0x20003;*++p=0x10001;                          go_wh;//01100010
-case 0x63: *p+=1;*++p=0x20003;*++p=0x20000;                          go_bl;//01100011
-case 0x64: *p+=1;*++p=0x20002;*++p=0x10002;                          go_wh;//01100100
-case 0x65: *p+=1;*++p=0x20002;*++p=0x10001;*++p=0x10000;             go_bl;//01100101
-case 0x66: *p+=1;*++p=0x20002;*++p=0x20001;                          go_wh;//01100110
-case 0x67: *p+=1;*++p=0x20002;*++p=0x30000;                          go_bl;//01100111
-case 0x68: *p+=1;*++p=0x20001;*++p=0x10003;                          go_wh;//01101000
-case 0x69: *p+=1;*++p=0x20001;*++p=0x10002;*++p=0x10000;             go_bl;//01101001
-case 0x6a: *p+=1;*++p=0x20001;*++p=0x10001;*++p=0x10001;             go_wh;//01101010
-case 0x6b: *p+=1;*++p=0x20001;*++p=0x10001;*++p=0x20000;             go_bl;//01101011
-case 0x6c: *p+=1;*++p=0x20001;*++p=0x20002/*0x20000*/;               go_wh;//01101100
-case 0x6d: *p+=1;*++p=0x20001;*++p=0x20001;*++p=0x10000;             go_bl;//01101101
-case 0x6e: *p+=1;*++p=0x20001;*++p=0x30001;                          go_wh;//01101110
-case 0x6f: *p+=1;*++p=0x20001;*++p=0x40000;                          go_bl;//01101111
-
-case 0x70: *p+=1;*++p=0x30004;                                       go_wh;//01110000
-case 0x71: *p+=1;*++p=0x30003;*++p=0x10000;                          go_bl;//01110001
-case 0x72: *p+=1;*++p=0x30002;*++p=0x10001;                          go_wh;//01110010
-case 0x73: *p+=1;*++p=0x30002;*++p=0x20000;                          go_bl;//01110011
-case 0x74: *p+=1;*++p=0x30001;*++p=0x10002;                          go_wh;//01110100
-case 0x75: *p+=1;*++p=0x30001;*++p=0x10001;*++p=0x10000;             go_bl;//01110101
-case 0x76: *p+=1;*++p=0x30001;*++p=0x20001;                          go_wh;//01110110
-case 0x77: *p+=1;*++p=0x30001;*++p=0x30000;                          go_bl;//01110111
-case 0x78: *p+=1;*++p=0x40003;                                       go_wh;//01111000
-case 0x79: *p+=1;*++p=0x40002;*++p=0x10000;                          go_bl;//01111001
-case 0x7a: *p+=1;*++p=0x40001;*++p=0x10001;                          go_wh;//01111010
-case 0x7b: *p+=1;*++p=0x40001;*++p=0x20000;                          go_bl;//01111011
-case 0x7c: *p+=1;*++p=0x50002;                                       go_wh;//01111100
-case 0x7d: *p+=1;*++p=0x50001;*++p=0x10000;                          go_bl;//01111101
-case 0x7e: *p+=1;*++p=0x60001;                                       go_wh;//01111110
-case 0x7f: *p+=1;*++p=0x70000;                                       go_bl;//01111111
-
-case 0x80: *p+=0x10007;                                             go_wh;//10000000
-case 0x81: *p+=0x10006;*++p=0x10000;                                go_bl;//10000001
-case 0x82: *p+=0x10005;*++p=0x10001;                                go_wh;//10000010
-case 0x83: *p+=0x10005;*++p=0x20000;                                go_bl;//10000011
-case 0x84: *p+=0x10004;*++p=0x10002;                                go_wh;//10000100
-case 0x85: *p+=0x10004;*++p=0x10001;*++p=0x10000;                   go_bl;//10000101
-case 0x86: *p+=0x10004;*++p=0x20001;                                go_wh;//10000110
-case 0x87: *p+=0x10004;*++p=0x30000;                                go_bl;//10000111
-case 0x88: *p+=0x10003;*++p=0x10003;                                go_wh;//10001000
-case 0x89: *p+=0x10003;*++p=0x10002;*++p=0x10000;                   go_bl;//10001001
-case 0x8a: *p+=0x10003;*++p=0x10001;*++p=0x10001;                   go_wh;//10001010
-case 0x8b: *p+=0x10003;*++p=0x10001;*++p=0x20000;                   go_bl;//10001011
-case 0x8c: *p+=0x10003;*++p=0x20002/*0x20000*/;                     go_wh;//10001100
-case 0x8d: *p+=0x10003;*++p=0x20001;*++p=0x10000;                   go_bl;//10001101
-case 0x8e: *p+=0x10003;*++p=0x30001;                                go_wh;//10001110
-case 0x8f: *p+=0x10003;*++p=0x40000;                                go_bl;//10001111
-
-case 0x90: *p+=0x10002;*++p=0x10004;                                go_wh;//10010000
-case 0x91: *p+=0x10002;*++p=0x10003;*++p=0x10000;                   go_bl;//10010001
-case 0x92: *p+=0x10002;*++p=0x10002;*++p=0x10001;                   go_wh;//10010010
-case 0x93: *p+=0x10002;*++p=0x10002;*++p=0x20000;                   go_bl;//10010011
-case 0x94: *p+=0x10002;*++p=0x10001;*++p=0x10002;                   go_wh;//10010100
-case 0x95: *p+=0x10002;*++p=0x10001;*++p=0x10001;*++p=0x10000;      go_bl;//10010101
-case 0x96: *p+=0x10002;*++p=0x10001;*++p=0x20001;                   go_wh;//10010110
-case 0x97: *p+=0x10002;*++p=0x10001;*++p=0x30000;                   go_bl;//10010111
-case 0x98: *p+=0x10002;*++p=0x20003;                                go_wh;//10011000
-case 0x99: *p+=0x10002;*++p=0x20002;*++p=0x10000;                   go_bl;//10011001
-case 0x9a: *p+=0x10002;*++p=0x20001;*++p=0x10001;                   go_wh;//10011010
-case 0x9b: *p+=0x10002;*++p=0x20001;*++p=0x20000;                   go_bl;//10011011
-case 0x9c: *p+=0x10002;*++p=0x30002;                                go_wh;//10011100
-case 0x9d: *p+=0x10002;*++p=0x30001;*++p=0x10000;                   go_bl;//10011101
-case 0x9e: *p+=0x10002;*++p=0x40001;                                go_wh;//10011110
-case 0x9f: *p+=0x10002;*++p=0x50000;                                go_bl;//10011111
-
-case 0xa0: *p+=0x10001;*++p=0x10005;                                go_wh;//10100000
-case 0xa1: *p+=0x10001;*++p=0x10004;*++p=0x10000;                   go_bl;//10100001
-case 0xa2: *p+=0x10001;*++p=0x10003;*++p=0x10001;                   go_wh;//10100010
-case 0xa3: *p+=0x10001;*++p=0x10003;*++p=0x20000;                   go_bl;//10100011
-case 0xa4: *p+=0x10001;*++p=0x10002;*++p=0x10002;                   go_wh;//10100100
-case 0xa5: *p+=0x10001;*++p=0x10002;*++p=0x10001;*++p=0x10000;      go_bl;//10100101
-case 0xa6: *p+=0x10001;*++p=0x10002;*++p=0x20001;                   go_wh;//10100110
-case 0xa7: *p+=0x10001;*++p=0x10002;*++p=0x30000;                   go_bl;//10100111
-case 0xa8: *p+=0x10001;*++p=0x10001;*++p=0x10003;                   go_wh;//10101000
-case 0xa9: *p+=0x10001;*++p=0x10001;*++p=0x10002;*++p=0x10000;      go_bl;//10101001
-case 0xaa: *p+=0x10001;*++p=0x10001;*++p=0x10001;*++p=0x10001;      go_wh;//10101010
-case 0xab: *p+=0x10001;*++p=0x10001;*++p=0x10001;*++p=0x20000;      go_bl;//10101011
-case 0xac: *p+=0x10001;*++p=0x10001;*++p=0x20002/*0x20000*/;        go_wh;//10101100
-case 0xad: *p+=0x10001;*++p=0x10001;*++p=0x20001;*++p=0x10000;      go_bl;//10101101
-case 0xae: *p+=0x10001;*++p=0x10001;*++p=0x30001;                   go_wh;//10101110
-case 0xaf: *p+=0x10001;*++p=0x10001;*++p=0x40000;                   go_bl;//10101111
-
-case 0xb0: *p+=0x10001;*++p=0x20004;                                go_wh;//10110000
-case 0xb1: *p+=0x10001;*++p=0x20003;*++p=0x10000;                   go_bl;//10110001
-case 0xb2: *p+=0x10001;*++p=0x20002;*++p=0x10001;                   go_wh;//10110010
-case 0xb3: *p+=0x10001;*++p=0x20002;*++p=0x20000;                   go_bl;//10110011
-case 0xb4: *p+=0x10001;*++p=0x20001;*++p=0x10002;                   go_wh;//10110100
-case 0xb5: *p+=0x10001;*++p=0x20001;*++p=0x10001;*++p=0x10000;      go_bl;//10110101
-case 0xb6: *p+=0x10001;*++p=0x20001;*++p=0x20001;                   go_wh;//10110110
-case 0xb7: *p+=0x10001;*++p=0x20001;*++p=0x30000;                   go_bl;//10110111
-case 0xb8: *p+=0x10001;*++p=0x30003;                                go_wh;//10111000
-case 0xb9: *p+=0x10001;*++p=0x30002;*++p=0x10000;                   go_bl;//10111001
-case 0xba: *p+=0x10001;*++p=0x30001;*++p=0x10001;                   go_wh;//10111010
-case 0xbb: *p+=0x10001;*++p=0x30001;*++p=0x20000;                   go_bl;//10111011
-case 0xbc: *p+=0x10001;*++p=0x40002;                                go_wh;//10111100
-case 0xbd: *p+=0x10001;*++p=0x40001;*++p=0x10000;                   go_bl;//10111101
-case 0xbe: *p+=0x10001;*++p=0x50001;                                go_wh;//10111110
-case 0xbf: *p+=0x10001;*++p=0x60000;                                go_bl;//10111111
-
-case 0xc0: *p+=0x20006;                                             go_wh;//11000000
-case 0xc1: *p+=0x20005;*++p=0x10000;                                go_bl;//11000001
-case 0xc2: *p+=0x20004;*++p=0x10001;                                go_wh;//11000010
-case 0xc3: *p+=0x20004;*++p=0x20000;                                go_bl;//11000011
-case 0xc4: *p+=0x20003;*++p=0x10002;                                go_wh;//11000100
-case 0xc5: *p+=0x20003;*++p=0x10001;*++p=0x10000;                   go_bl;//11000101
-case 0xc6: *p+=0x20003;*++p=0x20001;                                go_wh;//11000110
-case 0xc7: *p+=0x20003;*++p=0x30000;                                go_bl;//11000111
-case 0xc8: *p+=0x20002;*++p=0x10003;                                go_wh;//11001000
-case 0xc9: *p+=0x20002;*++p=0x10002;*++p=0x10000;                   go_bl;//11001001
-case 0xca: *p+=0x20002;*++p=0x10001;*++p=0x10001;                   go_wh;//11001010
-case 0xcb: *p+=0x20002;*++p=0x10001;*++p=0x20000;                   go_bl;//11001011
-case 0xcc: *p+=0x20002;*++p=0x20002/*0x20000*/;                     go_wh;//11001100
-case 0xcd: *p+=0x20002;*++p=0x20001;*++p=0x10000;                   go_bl;//11001101
-case 0xce: *p+=0x20002;*++p=0x30001;                                go_wh;//11001110
-case 0xcf: *p+=0x20002;*++p=0x40000;                                go_bl;//11001111
-
-case 0xd0: *p+=0x20001;*++p=0x10004;                                go_wh;//11010000
-case 0xd1: *p+=0x20001;*++p=0x10003;*++p=0x10000;                   go_bl;//11010001
-case 0xd2: *p+=0x20001;*++p=0x10002;*++p=0x10001;                   go_wh;//11010010
-case 0xd3: *p+=0x20001;*++p=0x10002;*++p=0x20000;                   go_bl;//11010011
-case 0xd4: *p+=0x20001;*++p=0x10001;*++p=0x10002;                   go_wh;//11010100
-case 0xd5: *p+=0x20001;*++p=0x10001;*++p=0x10001;*++p=0x10000;      go_bl;//11010101
-case 0xd6: *p+=0x20001;*++p=0x10001;*++p=0x20001;                   go_wh;//11010110
-case 0xd7: *p+=0x20001;*++p=0x10001;*++p=0x30000;                   go_bl;//11010111
-case 0xd8: *p+=0x20001;*++p=0x20003;                                go_wh;//11011000
-case 0xd9: *p+=0x20001;*++p=0x20002;*++p=0x10000;                   go_bl;//11011001
-case 0xda: *p+=0x20001;*++p=0x20001;*++p=0x10001;                   go_wh;//11011010
-case 0xdb: *p+=0x20001;*++p=0x20001;*++p=0x20000;                   go_bl;//11011011
-case 0xdc: *p+=0x20001;*++p=0x30002;                                go_wh;//11011100
-case 0xdd: *p+=0x20001;*++p=0x30001;*++p=0x10000;                   go_bl;//11011101
-case 0xde: *p+=0x20001;*++p=0x40001;                                go_wh;//11011110
-case 0xdf: *p+=0x20001;*++p=0x50000;                                go_bl;//11011111
-
-case 0xe0: *p+=0x30005;                                             go_wh;//11100000
-case 0xe1: *p+=0x30004;*++p=0x10000;                                go_bl;//11100001
-case 0xe2: *p+=0x30003;*++p=0x10001;                                go_wh;//11100010
-case 0xe3: *p+=0x30003;*++p=0x20000;                                go_bl;//11100011
-case 0xe4: *p+=0x30002;*++p=0x10002;                                go_wh;//11100100
-case 0xe5: *p+=0x30002;*++p=0x10001;*++p=0x10000;                   go_bl;//11100101
-case 0xe6: *p+=0x30002;*++p=0x20001;                                go_wh;//11100110
-case 0xe7: *p+=0x30002;*++p=0x30000;                                go_bl;//11100111
-case 0xe8: *p+=0x30001;*++p=0x10003;                                go_wh;//11101000
-case 0xe9: *p+=0x30001;*++p=0x10002;*++p=0x10000;                   go_bl;//11101001
-case 0xea: *p+=0x30001;*++p=0x10001;*++p=0x10001;                   go_wh;//11101010
-case 0xeb: *p+=0x30001;*++p=0x10001;*++p=0x20000;                   go_bl;//11101011
-case 0xec: *p+=0x30001;*++p=0x20002/*0x20000*/;                     go_wh;//11101100
-case 0xed: *p+=0x30001;*++p=0x20001;*++p=0x10000;                   go_bl;//11101101
-case 0xee: *p+=0x30001;*++p=0x30001;                                go_wh;//11101110
-case 0xef: *p+=0x30001;*++p=0x40000;                                go_bl;//11101111
-
-case 0xf0: *p+=0x40004;                                             go_wh;//11110000
-case 0xf1: *p+=0x40003;*++p=0x10000;                                go_bl;//11110001
-case 0xf2: *p+=0x40002/*0x40004*/;*++p=0x10001;                     go_wh;//11110010
-case 0xf3: *p+=0x40002/*0x40004*/;*++p=0x20000;                     go_bl;//11110011
-case 0xf4: *p+=0x40001/*0x40004*/;*++p=0x10002;                     go_wh;//11110100
-case 0xf5: *p+=0x40001/*0x40004*/;*++p=0x10001;*++p=0x10000;        go_bl;//11110101
-case 0xf6: *p+=0x40001/*0x40004*/;*++p=0x20001;                     go_wh;//11110110
-case 0xf7: *p+=0x40001/*0x40004*/;*++p=0x30000;                     go_bl;//11110111
-case 0xf8: *p+=0x50003/*0x50004*/;                                  go_wh;//11111000
-case 0xf9: *p+=0x50002/*0x50004*/;*++p=0x10000;                     go_bl;//11111001
-case 0xfa: *p+=0x50001/*0x50004*/;*++p=0x10001;                     go_wh;//11111010
-case 0xfb: *p+=0x50001/*0x50004*/;*++p=0x20000;                     go_bl;//11111011
-case 0xfc: *p+=0x60002/*0x60004*/;                                  go_wh;//11111100
-case 0xfd: *p+=0x60001;*++p=0x10000;                                go_bl;//11111101
-case 0xfe: *p+=0x70001;                                             go_wh;//11111110
-case 0xff: *p+=0x80000;                                             go_bl;//11111111
-}; // switch;
-   }; // after_black loop
-//////////////////////////////////////////////////////////////////////////////
-   if (*p & 0xffff0000) // last black interval done
-      p++;
-   return p-pIntervals;
+    if (*p & 0xffff0000)
+        p++;
+    return p - pIntervals;
 }
