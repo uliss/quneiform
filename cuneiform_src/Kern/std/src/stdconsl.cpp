@@ -88,33 +88,14 @@ STD_FUNC( int ) stdConsole(const char* str, ... )
 
    char strbuf[4096];   // string to be put
    strbuf[0]='\n';
-   //////////////////////////////////
-   // external handler? - make string and pass it to handler
-   if (_ConsoleHandler != NULL)
-   {
-      #if defined(__BORLANDC__)
-         count=vsprintf( strbuf, str, (...) );
-      #else
-         {  va_list list;
-            va_start(list, str );
-            count=vsprintf( strbuf+1, str, list );
-            va_end( list );
-         }
-      #endif
-      return (*_ConsoleHandler)( strbuf );
-   };
-
-   //////////////////////////////////
-   // internal handling
-#if defined(__BORLANDC__)
-   count=vsprintf( strbuf+1, str, (...) );
-#else
-   {  va_list list;
+      va_list list;
       va_start(list, str );
       count=vsprintf( strbuf+1, str, list );
       va_end( list );
-   }
-#endif
+      if (_ConsoleHandler != NULL)  return (*_ConsoleHandler)( strbuf );
+
+
+
    char* res_str = strbuf[1]=='\n' ? strbuf+1 : strbuf;
 
 #if defined( WIN32 )
@@ -125,22 +106,11 @@ STD_FUNC( int ) stdConsole(const char* str, ... )
    }
 #endif
 
-#if defined(__BORLANDC__)
-      {  // send message to special window
-			UINT mn = RegisterWindowMessage(CONSOLE_MESSAGE);
-         SendMessage( HWND_BROADCAST,
-                      mn,0,
-                      (LONG)(res_str[0]=='\n' ?  res_str+1 : res_str )
-						  );
-      }
-#endif
+
 
    if (_ConsoleFileName[0]!=0)
    {  // drop message to file
 	   FILE *ff;
-      #ifdef PPS_WIN
-         AnsiToOem (res_str, res_str);
-      #endif
       ff  = fopen (_ConsoleFileName, "a");
       if (ff)
       {  strcat(res_str,"\n");
@@ -158,33 +128,11 @@ STD_FUNC( int ) stdConsole_(const char* str, ...)   // без перевода строки
 
    char strbuf[4096];   // string to be put
    strbuf[0]=0;
-   //////////////////////////////////
-   // external handler? - make string and pass it to handler
-   if (_ConsoleHandler != NULL)
-   {
-      #if defined(__BORLANDC__)
-         count=vsprintf( strbuf, str, (...) );
-      #else
-         {  va_list list;
-            va_start(list, str );
-            count=vsprintf( strbuf, str, list );
-            va_end( list );
-         }
-      #endif
-      return (*_ConsoleHandler)( strbuf );
-   };
-
-   //////////////////////////////////
-   // internal handling
-#if defined(__BORLANDC__)
-   count=vsprintf( strbuf, str, (...) );
-#else
-   {  va_list list;
+      va_list list;
       va_start(list, str );
       count=vsprintf( strbuf, str, list );
       va_end( list );
-   }
-#endif
+      if (_ConsoleHandler != NULL)  return (*_ConsoleHandler)( strbuf );
    char* res_str = strbuf;
 
 #if defined( WIN32 )
@@ -195,22 +143,11 @@ STD_FUNC( int ) stdConsole_(const char* str, ...)   // без перевода строки
    }
 #endif
 
-#if defined(__BORLANDC__)
-      {  // send message to special window
-			UINT mn = RegisterWindowMessage(CONSOLE_MESSAGE);
-         SendMessage( HWND_BROADCAST,
-                      mn,0,
-                      (LONG)(res_str[0]=='\n' ?  res_str+1 : res_str )
-						  );
-      }
-#endif
+
 
    if (_ConsoleFileName[0]!=0)
    {  // drop message to file
 	   FILE *ff;
-      #ifdef PPS_WIN
-         AnsiToOem (res_str, res_str);
-      #endif
       ff  = fopen (_ConsoleFileName, "a");
       if (ff)
       {  strcat(res_str,"\n");
