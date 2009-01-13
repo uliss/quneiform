@@ -74,6 +74,7 @@ typedef unsigned __int32 uint32_t;
 typedef __int64 int64_t;
 typedef unsigned __int64 uint64_t;
 
+typedef unsigned long intptr_t;
 
 #else
 #include <stdint.h>
@@ -190,6 +191,9 @@ extern "C"
 typedef int32_t  LONG;
 typedef uint32_t DWORD;
 
+typedef uint16_t  WORD;
+typedef uint32_t UINT;
+
 typedef char* LPSTR;
 typedef char* LPTSTR;
 typedef const char* LPCSTR;
@@ -207,7 +211,6 @@ typedef unsigned char   BYTE;
 typedef unsigned char * PBYTE;
 
 typedef int16_t  SINT;
-typedef uint16_t  WORD;
 
 typedef LONG  * PLONG;
 typedef DWORD * PDWORD;
@@ -228,7 +231,6 @@ typedef void* LPVOID;
 #define TCHUGE
 #define TCFAR
 
-typedef uint32_t UINT;
 typedef unsigned long ULONG;
 
 #include "cttypext.h"
