@@ -65,8 +65,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "nt_types.h"
 
 //---------------------Turbo large pointers---------------------------
-#define TCFAR
-#define TCHUGE
 #define V_OFF(a,b) (int)((long int)a-(long int)b)
 #define V_POINT(a,b) (BYTE *)(a+b)
 #define TEST_PRPH(a) 0

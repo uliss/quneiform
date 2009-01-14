@@ -680,7 +680,7 @@ INT insert_symb(cur_segm, cur_symb,new_symb)
    flag_b=YES;
     create_segm(cur_segm,SIZE_NEW_SEGM,2);
     SPQ.ns_segm=SPQ.new_segm;
-    SPQ.ns_symb=(CHAR TCFAR *)(SPQ.ns_segm->string);
+    SPQ.ns_symb=(CHAR *)(SPQ.ns_segm->string);
     SPQ.ns_symb+=0;
     flag_n=YES;
     shift_flag=NO;

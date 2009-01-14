@@ -228,8 +228,6 @@ typedef LONG* LPLONG;
 typedef void* LPVOID;
 
 #define PSTR  PCHAR
-#define TCHUGE
-#define TCFAR
 
 typedef unsigned long ULONG;
 

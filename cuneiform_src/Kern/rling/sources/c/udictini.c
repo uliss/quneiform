@@ -119,8 +119,8 @@ DWORD        LoadUserDict( CHAR      *DictName,
       }
   return MAX_VOC_SIZE;
   }
-
-DWORD InitializeNewUserDict ( CHAR TCFAR *pool, DWORD pool_size, voc_state *user_dict)
+
+DWORD InitializeNewUserDict ( CHAR *pool, DWORD pool_size, voc_state *user_dict)
 {
 #ifdef TURBO_C
  if(TEST_PRPH(pool))
@@ -134,7 +134,7 @@ DWORD InitializeNewUserDict ( CHAR TCFAR *pool, DWORD pool_size, voc_state *user
 
   return MAX_VOC_SIZE;
 }
-
+
  void ResetUserDict(voc_state * user_dict)
  {
   user_dict ->lev = -1;

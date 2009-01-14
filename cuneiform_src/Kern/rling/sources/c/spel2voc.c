@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*              decoding & search word in dictionary                     */
 /*************************************************************************/
 INT look_through_voc(INT * currw,LTIMG * wrddef[],
-	      voc_state * voc,INT vocmode,INT incr,WTOKEN TCFAR *TCFAR*wtoken)
+	      voc_state * voc,INT vocmode,INT incr,WTOKEN **wtoken)
 { INT resp;
 
    voc->lev=-1;

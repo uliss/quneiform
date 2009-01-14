@@ -69,7 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                             DWORD     pool_size,
                             voc_state *user_dict);
 
- DWORD InitializeNewUserDict ( CHAR TCFAR *    pool,
+ DWORD InitializeNewUserDict ( CHAR *    pool,
                                DWORD      pool_size,
                                voc_state *user_dict);
  void  ResetUserDict(voc_state * user_dict);
