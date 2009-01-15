@@ -74,7 +74,9 @@ typedef unsigned __int32 uint32_t;
 typedef __int64 int64_t;
 typedef unsigned __int64 uint64_t;
 
+#if _MSC_VER <= 1200
 typedef unsigned long intptr_t;
+#endif
 
 #else
 #include <stdint.h>

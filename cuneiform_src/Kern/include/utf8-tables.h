@@ -33,6 +33,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef UTF8_TABLES_H_
 #define UTF8_TABLES_H_
 
+// FIXME: MSVC++
+#if _MSC_VER
+#pragma warning (disable : 4305)
+#pragma warning (disable : 4309)
+#endif
+
 
 const char win1250_to_utf8[][4] = {
   {0, 0, 0, 0},
