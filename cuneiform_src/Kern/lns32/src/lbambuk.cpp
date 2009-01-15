@@ -131,6 +131,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
    Int32 sum_len = 0;
 
 	int down, up;
+    int i(0);
 /*
    #ifndef NDEBUG
       Bool lets_draw = FALSE;       // set true to look each raster - TRUE;
@@ -228,7 +229,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
                } while ( seg != NULLBHandle );
 		      } while ((dash = rb_->nextMember( dash ))!=NULLBHandle);
 
-            for (int i=1; i<512; i++)
+            for (i=1; i<512; i++)
                wdt[i] += wdt[i-1];
 
             int sum=0; int sumsq=0; int len=0; int max_width = 40;
@@ -259,7 +260,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
             int good_right[512]={0}; // index [i]=> right end of good good segment with i
             int good_left[512]={0};  // index [i]=> left  end of good good segment with i
             Bool outside = TRUE;
-            for (int i=511; i>=0; i--)  // compute good_right[]
+            for (i=511; i>=0; i--)  // compute good_right[]
             {
                if (wdt[i] && wdt[i] <= max_width) // good point
                {
@@ -280,7 +281,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
                }
             }
             outside = TRUE;
-            for (int i=0; i < 512; i++)  // compute good_left[]
+            for (i=0; i < 512; i++)  // compute good_left[]
             {
                if (wdt[i] && wdt[i] <= max_width) // good point
                {
@@ -303,7 +304,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 // 04 oct ////////////////
             {  // find longmost zone
                int maxzonelen=0; int maxzonestart = 0;
-               for (int i=0; i < 512; i++)  // compute good_left[]
+               for (i=0; i < 512; i++)  // compute good_left[]
                {
                   if (!good_right[i])
                      continue;
@@ -317,18 +318,18 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
                }
                if ( maxzonelen > 30 ) //  we demand 240 pels of line
                {
-                  for (int i=0; i<maxzonestart; i++)
+                  for (i=0; i<maxzonestart; i++)
                   {
                      good_left[i]=good_right[i]=0;
                   }
-                  for (int i=maxzonestart+maxzonelen+1; i<512; i++)
+                  for (i=maxzonestart+maxzonelen+1; i<512; i++)
                   {
                      good_left[i]=good_right[i]=0;
                   }
                }
                else
                {
-                  for (int i=0; i<512; i++)
+                  for (i=0; i<512; i++)
                   {
                      good_left[i]=good_right[i]=0;
                   }
@@ -553,7 +554,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 ////////////////////
 // add fragments from HLiner
    int nhl = HLiner_GetCount();
-   for (int i=0; i<nhl; i++)
+   for (i=0; i<nhl; i++)
    {
       // array is allocated of count_of_rasters + count_of_hliner_lines,
       // so we can add them without test
@@ -1248,8 +1249,9 @@ Bool AnalyzeFragments( TLinesBambuk& hLB, TLinesBambuk& vLB)
    int vv[ MAX_V_RASTERS_COUNT ] = {0};
    int hh[ MAX_H_RASTERS_COUNT ] = {0};
 
-   for (int i=0; i < nv; i++ ) vv[i]=i;
-   for (int i=0; i < nh; i++ ) hh[i]=i;
+   int i(0);
+   for (i=0; i < nv; i++ ) vv[i]=i;
+   for (i=0; i < nh; i++ ) hh[i]=i;
 
    TLineFragment* _lf_hor = &(hLB[0]);
    TLineFragment* _lf_ver = &(vLB[0]);
@@ -1428,7 +1430,8 @@ Bool AnalyzeFragmentsII( TLinesBambuk& hLB, TLinesBambuk& vLB)
    int vv[ MAX_V_RASTERS_COUNT ] = {0};
 
 
-   for (int i=0; i < nv; i++ ) vv[i]=i;
+   int i(0);
+   for (i=0; i < nv; i++ ) vv[i]=i;
 
    vfrags = LnsGetFragments(FALSE);
    qsort(&vv, nv, sizeof(vv[0]), comp_vfrags_byXLevel);
@@ -1489,7 +1492,7 @@ Bool AnalyzeFragmentsII( TLinesBambuk& hLB, TLinesBambuk& vLB)
    int hh[ MAX_H_RASTERS_COUNT ] = {0};
 
 
-   for (int i=0; i < nh; i++ ) hh[i]=i;
+   for (i=0; i < nh; i++ ) hh[i]=i;
 
    hfrags = LnsGetFragments(TRUE);
 

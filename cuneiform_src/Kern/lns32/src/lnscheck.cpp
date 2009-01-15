@@ -929,7 +929,8 @@ for(int i=0; i<h_count; i++)
      };
    };
 
-for(int j=0; j<v_count; j++)
+int j(0);
+for(j=0; j<v_count; j++)
    {
    if(VMarkedNoise[j])
      {
@@ -959,7 +960,7 @@ for(int l=0; l<h_count; l++)
      };
    };
 
-for(int j=0; j<v_count; j++)
+for(j=0; j<v_count; j++)
    {
    if(!VMarkedNoise[j])  continue;
    if(VBound(h1_count, j))
@@ -1128,7 +1129,8 @@ FillFlag()
    LineInfo* va = Lti->Ver.Lns;
 //	Lti->Hor.NoiseCnt = 0;
 //	Lti->Ver.NoiseCnt = 0;
-   for(int i=0; i<h_count; i++)
+    int i(0);
+   for(i=0; i<h_count; i++)
       {
       	if(HMarkedNoise[i])
       	{
@@ -1137,7 +1139,7 @@ FillFlag()
 			};
       };
 
-   for( int i=0; i<v_count; i++)
+   for(i=0; i<v_count; i++)
       {
       	if(VMarkedNoise[i])
          {	va[(v_lns[i]).C].Flags |= LI_NOISE;
@@ -1149,7 +1151,8 @@ FillFlag()
 void
 FillRotatedCoord()
 {
-for(int i=0; i<h_count; i++)
+int i(0);
+for(i=0; i<h_count; i++)
    {
    LineInfo& L = ((Lti->Hor).Lns)[(h_lns[i].C)];
    if( L.TmpUsage == 0 )
@@ -1164,7 +1167,7 @@ for(int i=0; i<h_count; i++)
      };
    };
 
-for( int i=0; i<v_count; i++)
+for(i=0; i<v_count; i++)
    {
    LineInfo& L = ((Lti->Ver).Lns)[(v_lns[i].C)];
    if( L.TmpUsage == 0 )
@@ -1185,13 +1188,16 @@ FillAdjacent()
 {
 int next = -1;
 int l, f, lC, fC, cur, curC, Init, adnum;
+int i(0);
+int s(0);
+int k(0);
 
 if( (h_count==0) && (v_count==0) )  return TRUE;
 
 Bool x = ADJA.create(maxi(h_count, v_count));
 if(!x)  return FALSE;
 
-for(int s=0; s<h_count; s++)
+for(s=0; s<h_count; s++)
    {
    ADJA[s].first = -1;
    ADJA[s].last  = -1;
@@ -1199,7 +1205,7 @@ for(int s=0; s<h_count; s++)
    ADJA[s].next  = -1;
    };
 
-for(int i=0; i<h1_count; i++)
+for(i=0; i<h1_count; i++)
    {
    l = h1_lns[i].y;
    f = h1_lns[i].x;
@@ -1254,7 +1260,7 @@ for(int i=0; i<h1_count; i++)
    if( Init != 0 )  ADJA[adnum].next = /*  L.ltiNext */  h_lns[next].C;
    };
 
-for( int k=0; k<h_count; k++)
+for(k=0; k<h_count; k++)
    {
    AdjacentLst& L = (((Lti->Hor).Lns)[k]).Adj;
    L.ltiLast  = ADJA[k].last;
@@ -1263,14 +1269,14 @@ for( int k=0; k<h_count; k++)
    L.ltiPrev  = ADJA[k].prev;
    };
 
-for( int s=0; s<v_count; s++)
+for(s=0; s<v_count; s++)
    {
    ADJA[s].first = -1;
    ADJA[s].last  = -1;
    ADJA[s].prev  = -1;
    ADJA[s].next  = -1;
    };
-for( int i=0; i<v1_count; i++)
+for(i=0; i<v1_count; i++)
    {
    l = v1_lns[i].y;
    f = v1_lns[i].x;
@@ -1322,7 +1328,7 @@ for( int i=0; i<v1_count; i++)
    if( Init != 0 )   ADJA[adnum].next = /* L.ltiNext */ v_lns[next].C;
    };
 
-for( int k=0; k<v_count; k++)
+for(k=0; k<v_count; k++)
    {
    AdjacentLst& L = (((Lti->Ver).Lns)[k]).Adj;
    L.ltiLast  = ADJA[k].last;
@@ -1405,14 +1411,15 @@ DD = (lti->LCS).MaxCornerGap;
 if(D ==0) D = 5;
 if(DD==0) DD = 20;
 
-for(int i=0; i<h_count; i++)
+int i(0);
+for(i=0; i<h_count; i++)
    {
    (h_lns[i]).A = (((lti->Hor).Lns)[i]).A;
    (h_lns[i]).B = (((lti->Hor).Lns)[i]).B;
    (h_lns[i]).C = i;
    };
 
-for( int i=0; i<v_count; i++)
+for(i=0; i<v_count; i++)
    {
    (v_lns[i]).A = (((lti->Ver).Lns)[i]).A;
    (v_lns[i]).B = (((lti->Ver).Lns)[i]).B;
@@ -1445,14 +1452,15 @@ if(v_count>0)  x = v_lns.create(v_count);
 if(!x)         return FALSE;
 
 Lti = lti;
-for(int i=0; i<h_count; i++)
+int i(0);
+for(i=0; i<h_count; i++)
    {
    (h_lns[i]).A = (((lti->Hor).Lns)[i]).A;
    (h_lns[i]).B = (((lti->Hor).Lns)[i]).B;
    (h_lns[i]).C = i;
    };
 
-for(int i=0; i<v_count; i++)
+for(i=0; i<v_count; i++)
    {
    (v_lns[i]).A = (((lti->Ver).Lns)[i]).A;
    (v_lns[i]).B = (((lti->Ver).Lns)[i]).B;

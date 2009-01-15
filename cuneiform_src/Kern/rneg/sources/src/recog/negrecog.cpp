@@ -1151,8 +1151,10 @@ void TurnRaster(RecRaster* rec)
     TurnOverNeg(*rec, rec->Raster);
 
     //переворачиваем растр вокруг вертикальной оси
-    for(int i=0; i<bytewide/2; i++)
-        for(int j=0; j<hwide; j++)
+    int i(0);
+    int j(0);
+    for(i=0; i<bytewide/2; i++)
+        for(j=0; j<hwide; j++)
         {
             Word8 temp1 = (*rec).Raster[j*bytewide+i];
             Word8 temp2 = (*rec).Raster[j*bytewide+bytewide-i-1];
@@ -1169,10 +1171,10 @@ void TurnRaster(RecRaster* rec)
         }
     //сдвиг влево
     int rest = wide*8-wideinp-2;
-    for(int i=0; i<hwide; i++)
+    for(i=0; i<hwide; i++)
     {
-        for(int j=0; j<wide; j++) (*rec).Raster[i*bytewide+j] = (*rec).Raster[i*bytewide+j+bytewide-wide];
-        for(int j=wide; j<bytewide; j++) (*rec).Raster[i*bytewide+j] = 0;
+        for(j=0; j<wide; j++) (*rec).Raster[i*bytewide+j] = (*rec).Raster[i*bytewide+j+bytewide-wide];
+        for(j=wide; j<bytewide; j++) (*rec).Raster[i*bytewide+j] = 0;
         if (rest > 0)
             for(int j=0; j<wide; j++)
             {
@@ -1501,7 +1503,8 @@ void PutTempToCPAGE(Handle hCPage,NegList* root)
    fl_cont=FALSE;
    if((now->neg).p<=inf_prob)
 	   continue;
-   for(int i=1;i<now->neg.nRc;i++)
+   int i(0);
+   for(i=1;i<now->neg.nRc;i++)
    {
 	if(!UnifCont(now->neg.hCCOM[0],now->neg.hCCOM[i]))
 		fl_cont=TRUE;
@@ -1523,7 +1526,7 @@ void PutTempToCPAGE(Handle hCPage,NegList* root)
   else
 	  temp.fl_rotate=FALSE;
 
-  for(int i=temp.nRc;i>=0;i--)
+  for(i=temp.nRc;i>=0;i--)
   {
 	 temp.prc[i].bottom=now->neg.pRc[i].bottom;
 	 temp.prc[i].top=now->neg.pRc[i].top;

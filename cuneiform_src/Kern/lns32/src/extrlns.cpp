@@ -389,14 +389,15 @@ Bool ExtrLinesGetCount(   Int32  hor_len, Int32  ver_len,
    if (!vLB->isOk()) return WRONG();
 
    hor_cnt = 0;
-   for ( int i = 0; i < hLB->linesCount; i++)
+   int i(0);
+   for (i = 0; i < hLB->linesCount; i++)
    {  if (  (hLB->linesRoot[i].lineAsIs.end.x -
              hLB->linesRoot[i].lineAsIs.start.x
             )  >  hor_len
          ) hor_cnt++;
    };
    ver_cnt = 0;
-   for ( int i = 0; i < vLB->linesCount; i++)
+   for (i = 0; i < vLB->linesCount; i++)
    {  if (  (vLB->linesRoot[i].lineAsIs.end.y -
              vLB->linesRoot[i].lineAsIs.start.y
             )  >  ver_len
@@ -428,8 +429,9 @@ Bool ExtrLinesGetInfo(  LinesTotalInfo * lti,
    Int32 max_cnt = 0xFFF0 / sizeof( LineInfo );
    _squeezeIfTooMany( hor_len, ver_len, hor_cnt, ver_cnt );
 
+   int i(0);
    hor_cnt = 0;
-   for ( int i = 0; i < hLB->linesCount; i++)
+   for (i = 0; i < hLB->linesCount; i++)
 	{  if (  (hLB->linesRoot[i].lineAsIs.end.x -
 				 hLB->linesRoot[i].lineAsIs.start.x
 				)  >  hor_len
@@ -456,7 +458,7 @@ Bool ExtrLinesGetInfo(  LinesTotalInfo * lti,
 			};
 	};
 	ver_cnt = 0;
-	for ( int i = 0; i < vLB->linesCount; i++)
+	for (i = 0; i < vLB->linesCount; i++)
 	{  if (  (vLB->linesRoot[i].lineAsIs.end.y -
 				 vLB->linesRoot[i].lineAsIs.start.y
 				)  >  ver_len
@@ -501,13 +503,13 @@ Bool ExtrLinesGetInfo(  LinesTotalInfo * lti,
    }
 
    int skew = lti->Skew1024;
-   for ( int i = 0; i < hor_cnt; i++)
+   for (i = 0; i < hor_cnt; i++)
 	{
 		LineInfo& li = lti->Hor.Lns[i];
       li.Ar = li.A; Deskew(li.Ar, skew);
       li.Br = li.B; Deskew(li.Br, skew);
 	};
-   for ( int i = 0; i < ver_cnt; i++)
+   for (i = 0; i < ver_cnt; i++)
 	{
 		LineInfo& li = lti->Ver.Lns[i];
       li.Ar = li.A; Deskew(li.Ar, skew);

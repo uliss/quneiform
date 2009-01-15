@@ -2493,7 +2493,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminal
 													Int32  CountVTerminalColumns,
 													RtfSectorInfo *SectorInfo)
 {
-	int                 colsr,i,colw,CountInGroup ;
+	int                 colsr(0),i(0),j(0),colw(0),CountInGroup(0);
 	Int32               CountTerminalColumns,NextColumnsLeft,CountFrameInTerminalColumn,Left,Right;
 	CRtfVerticalColumn *pRtfVerticalColumn;
 	CRtfFragment       *pRtfFragment;
@@ -2623,7 +2623,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminal
 
  			pGroup = m_arVTerminalColumnsIndex[i];
  			CountInGroup = pGroup->size();
-			for(int j=0; j<CountInGroup; j++ ) //~ V-columns in one H-col
+			for(j=0; j<CountInGroup; j++ ) //~ V-columns in one H-col
 			{
 				int index = (*pGroup)[j];
 				pRtfVerticalColumn = (CRtfVerticalColumn*)m_arVerticalColumns[index];
@@ -2662,7 +2662,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminal
 	if(!i) //noisy fragment or picture are made as frame,frames привязаны к первой терминал. колонке сектора
  	  WriteFramesInTerminalColumn(SectorInfo, FlagFirstTerminalFragment, TopPositionFirstTerminalFragment);
 
-	for(int j=0; j<CountInGroup; j++ )
+	for(j=0; j<CountInGroup; j++ )
 	{
 		int index = (*pGroup)[j];
 		pRtfVerticalColumn = (CRtfVerticalColumn*)m_arVerticalColumns[index];

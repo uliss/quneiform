@@ -214,7 +214,8 @@ Int32    HLiner_Analyze(void) // returns count of extracted lines
    int nHeight = xmImageMap.GetHeight();
    int nWidth  = xmImageMap.GetWidth();
 
-   for (int i=gap; i<nHeight-gap-1; i++)  // by lines
+   int i(0);
+   for (i=gap; i<nHeight-gap-1; i++)  // by lines
    {
       Word8* line_hi = GetMapLine(i - gap);
       Word8* line_on = GetMapLine(i);
@@ -238,7 +239,7 @@ Int32    HLiner_Analyze(void) // returns count of extracted lines
    }
 
    // замазываем дырки и убиваем одиночек
-   for (int i=gap; i<nHeight-gap-1; i++)  // by lines
+   for (i=gap; i<nHeight-gap-1; i++)  // by lines
    {
       Word8* line_on = GetMapLine(i);
       for (int j=wid; j<nWidth-wid-1; j++)  // first column
@@ -262,7 +263,7 @@ Int32    HLiner_Analyze(void) // returns count of extracted lines
    //
    Word8* line_on = NULL;
    Line16 ln={0};
-   for ( int i=gap; i<nHeight-gap-1; i++)  // by lines
+   for (i=gap; i<nHeight-gap-1; i++)  // by lines
    {
       Word8* line_on = GetMapLine(i);
       for (int j=wid; j<nWidth-wid-1; j++)  // first column
@@ -285,7 +286,7 @@ Int32    HLiner_Analyze(void) // returns count of extracted lines
 
    if (!SnpSkip(&stnHLiner))
    {
-      for (int i=0; i<xsLines.GetCurCnt(); i++)
+      for (i=0; i<xsLines.GetCurCnt(); i++)
       {
          Line16& li= xsLines[i];
          SnpDrawLine( &li.A,&li.B,0,wRGB(255,0,255),2, &stnHLiner);

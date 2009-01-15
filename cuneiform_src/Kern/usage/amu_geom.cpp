@@ -176,7 +176,8 @@ void FindMinimIdealRegion (const int nRc, const int *pDo, const Rect16 *pRcIdeal
 {
     /*  находим первую стоящую компоненту  */
     int iFirst = -1;
-    for (int i = 0; i < nRc; i++)
+    int i(0);
+    for (i = 0; i < nRc; i++)
     {
         if (pDo[i] != 1)
             continue;
@@ -197,7 +198,7 @@ void FindMinimIdealRegion (const int nRc, const int *pDo, const Rect16 *pRcIdeal
     int MinLef = pRcIdeal[iFirst].left;
     int MaxRig = pRcIdeal[iFirst].right;
     /*  Пределы по всем компонентам  */
-    for (int i = iFirst; i < nRc; i++)
+    for (i = iFirst; i < nRc; i++)
     {
         if (pDo[i] != 1)
             continue;

@@ -947,7 +947,8 @@ BOOL MainVertDiagnostic(Handle hCPage,CCOM_handle hCCOM,CPrepHstr* temp,Rect16* 
  Recstr.top=Rect.top;
  Recstr.bottom=Rect.bottom;
 
- for(int i=0;i<temp->nRc;i++)
+ int i(0);
+ for(i=0;i<temp->nRc;i++)
  {
 	 GetStrBounds(HCCOM,temp->pRc,temp->nRc,i,&(v_top[i]),&(v_bottom[i]),TRUE,Rc);
      Recstr.left=v_top[i];
@@ -966,7 +967,7 @@ BOOL MainVertDiagnostic(Handle hCPage,CCOM_handle hCCOM,CPrepHstr* temp,Rect16* 
  Recstr.left=Rect.left;
  Recstr.right=Rect.right;
 
- for(int i=0;i<nRc;i++)
+ for(i=0;i<nRc;i++)
  {
 	 GetStrBounds(HCCOM,pRc,nRc,i,&(h_top[i]),&(h_bottom[i]),FALSE,Rc);
      Recstr.top=h_top[i];
@@ -983,7 +984,7 @@ BOOL MainVertDiagnostic(Handle hCPage,CCOM_handle hCCOM,CPrepHstr* temp,Rect16* 
 
 
 
- for(int i=0;i<temp->nRc;i++)
+ for(i=0;i<temp->nRc;i++)
  {
   if(v_bottom[i]-v_top[i]>2*max_size_v)
   {
@@ -995,7 +996,7 @@ BOOL MainVertDiagnostic(Handle hCPage,CCOM_handle hCCOM,CPrepHstr* temp,Rect16* 
   }
  }
 
- for(int i=0;i<nRc;i++)
+ for(i=0;i<nRc;i++)
  {
   if(h_bottom[i]-h_top[i]>2*max_size_h)
   {
@@ -1009,7 +1010,7 @@ BOOL MainVertDiagnostic(Handle hCPage,CCOM_handle hCCOM,CPrepHstr* temp,Rect16* 
 
 
  int medium_betw_h=0;
- for(int i=nRc-2;i>=0;i--)
+ for(i=nRc-2;i>=0;i--)
  {
 	 if(h_top[i]-h_bottom[i+1]>=0)
         medium_betw_h+=h_top[i]-h_bottom[i+1];
@@ -1018,7 +1019,7 @@ BOOL MainVertDiagnostic(Handle hCPage,CCOM_handle hCCOM,CPrepHstr* temp,Rect16* 
  medium_betw_h+=2*incl_h;
 
  int medium_betw_v=0;
- for(int i=temp->nRc-2;i>=0;i--)
+ for(i=temp->nRc-2;i>=0;i--)
  {
 	 if(v_top[i]-v_bottom[i+1]>=0)
         medium_betw_v+=v_top[i]-v_bottom[i+1];
@@ -1230,9 +1231,10 @@ BOOL NotInAll(CCOM_handle hCCOM,Rect16 Rc,Rect16* pRc,int& nRc,BOOL vert)
 	int top;
 	int bottom;
 	CCOM_comp* comp;
+	int i(0);
 
 	BOOL* fl_in = new BOOL[nRc];
-	for(int i=0;i<nRc;i++)
+	for(i=0;i<nRc;i++)
         fl_in[i]=FALSE;
 
    if(!vert)
@@ -1242,7 +1244,7 @@ BOOL NotInAll(CCOM_handle hCCOM,Rect16 Rc,Rect16* pRc,int& nRc,BOOL vert)
 	{
 		if(comp->w>(inf_let_h>>1)&&comp->h>inf_let_h)
 		{
-		 for(int i=0;i<nRc;i++)
+		 for(i=0;i<nRc;i++)
 		 {
 		  top=pRc[i].top;
 		  bottom=pRc[i].bottom;
@@ -1264,7 +1266,7 @@ BOOL NotInAll(CCOM_handle hCCOM,Rect16 Rc,Rect16* pRc,int& nRc,BOOL vert)
 	{
 		if(comp->w>inf_let_h&&comp->h>(inf_let_h>>1))
 		{
-		 for(int i=0;i<nRc;i++)
+		 for(i=0;i<nRc;i++)
 		 {
           left=pRc[i].top;
 	      top=Rc.top;
@@ -1281,7 +1283,7 @@ BOOL NotInAll(CCOM_handle hCCOM,Rect16 Rc,Rect16* pRc,int& nRc,BOOL vert)
    }
 
  BOOL ret=FALSE;
- for(int i=nRc-1;i>=0;i--)
+ for(i=nRc-1;i>=0;i--)
  {
 	 if(fl_in[i]==FALSE)
 		 StrMoveMas(pRc,nRc,i);

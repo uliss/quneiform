@@ -183,7 +183,8 @@ void  __RejectNearBound(LinesTotalInfo* plti)
 
    int hcnt=0, vcnt=0;  ltiGetNotNoise( plti, hcnt, vcnt );
 
-   for ( int i=0; i< plti->Hor.Cnt; i++ )
+    int i(0);
+   for (i=0; i< plti->Hor.Cnt; i++ )
    {  LineInfo & li = plti->Hor.Lns[i];
       if (hcnt < 5)
          break;   // keep lines, if lack
@@ -206,7 +207,7 @@ void  __RejectNearBound(LinesTotalInfo* plti)
          { li.Flags |= LI_NOISE;  hcnt--;continue; };
       }
    };
-   for ( int i=0; i< plti->Ver.Cnt; i++ )
+   for (i=0; i< plti->Ver.Cnt; i++ )
    {  LineInfo & li = plti->Ver.Lns[i];
       if (li.Flags & LI_NOISE)
          continue;
