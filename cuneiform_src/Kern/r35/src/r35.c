@@ -180,9 +180,6 @@ static void   ALL_compress_line(Word8 *lin,Int32 nx,Int32 *buf_comp,Int32 numx,I
 static void   ALL_compress_gray_line(Word8 *lin,Int32 nx,Int32 *buf_comp,Int32 numx,Int32 Xcut[],Int32 Xval[]);
 static Int32  ALL_SumBits(Word8 *str,Int32 start, Int32 stop);
 static Int32  ALL_SumGray(Word8 *str,Int32 start, Int32 stop);
-static void   C3_compress_line(Word8 *lin,Int32 nx,Int32 *buf_comp,Int32 numx,Int32 Xcut[],Int32 Xval[]);
-static void   C12_compress_line(Word8 *lin,Int32 nx,Int32 *buf_comp,Int32 numx,Int32 Xcut[],Int32 Xval[]);
-static void   C16_compress_line(Word8 *lin,Int32 nx,Int32 *buf_comp,Int32 numx,Int32 Xcut[],Int32 Xval[]);
 static void   (*compress_line)(Word8 *lin,Int32 nx,
 							   Int32 *buf_comp,Int32 numx,
 							   Int32 Xcut[],Int32 Xval[])=
@@ -333,111 +330,6 @@ buf_comp[k] += ALL_SumBits(lin,Xc+1,nx)*numx;
 return;
 }
 
-#define MACRO_C3_compr(k)                              \
-        {                                               \
-		Xc = Xcut[k+1];                                 \
-		buf_comp[k] += 3*ALL_SumBits(lin,Xcut[k]+1,Xc);     \
-        if( lin[Xc>>3]&mask_word32[Xc&7] )              \
-			{                                           \
-			Xv = Xval[k+1];                             \
-			buf_comp[k]   += Xv;                        \
-			buf_comp[k+1] += 3-Xv;                     \
-			}                                           \
-		}
-
-void C3_compress_line( Word8 *lin, Int32 nx, Int32 *buf_comp, Int32 numx,
-                 Int32 Xcut[],Int32 Xval[])
-{
-Int32 Xc,Xv;
-
-memset(buf_comp,0,sizeof(Int32)*3);
-MACRO_C3_compr(0) ;
-MACRO_C3_compr(1) ;
-buf_comp[2] += 3*ALL_SumBits(lin,Xc+1,nx);
-return;
-}
-
-Int32 C12_SumBits(Word8 *str,Int32 start, Int32 stop) {
-    return 12*ALL_SumBits(str, start, stop);
-}
-
-Int32 C16_SumBits(Word8 *str,Int32 start, Int32 stop) {
-    return 16*ALL_SumBits(str, start, stop);
-}
-
-#define MACRO_C12_compr(k)                              \
-        {                                               \
-		Xc = Xcut[k+1];                                 \
-		buf_comp[k] += 12*ALL_SumBits(lin,Xcut[k]+1,Xc);    \
-        if( lin[Xc>>3]&mask_word32[Xc&7] )              \
-			{                                           \
-			Xv = Xval[k+1];                             \
-			buf_comp[k]   += Xv;                        \
-			buf_comp[k+1] += 12-Xv;                     \
-			}                                           \
-		}
-
-void C12_compress_line( Word8 *lin, Int32 nx, Int32 *buf_comp, Int32 numx,
-                 Int32 Xcut[],Int32 Xval[])
-{
-Int32 Xc,Xv;
-
-memset(buf_comp,0,sizeof(Int32)*12);
-MACRO_C12_compr(0) ;
-MACRO_C12_compr(1) ;
-MACRO_C12_compr(2) ;
-MACRO_C12_compr(3) ;
-MACRO_C12_compr(4) ;
-MACRO_C12_compr(5) ;
-MACRO_C12_compr(6) ;
-MACRO_C12_compr(7) ;
-MACRO_C12_compr(8) ;
-MACRO_C12_compr(9) ;
-MACRO_C12_compr(10);
-
-buf_comp[11] += C12_SumBits(lin,Xc+1,nx);
-return;
-}
-
-
-#define MACRO_C16_compr(k)                              \
-        {                                               \
-		Xc = Xcut[k+1];                                 \
-		buf_comp[k] += 16*ALL_SumBits(lin,Xcut[k]+1,Xc);    \
-        if( lin[Xc>>3]&mask_word32[Xc&7] )              \
-			{                                           \
-			Xv = Xval[k+1];                             \
-			buf_comp[k]   += Xv;                        \
-			buf_comp[k+1] += 16-Xv;                     \
-			}                                           \
-		}
-
-void C16_compress_line( Word8 *lin, Int32 nx, Int32 *buf_comp, Int32 numx,
-                 Int32 Xcut[],Int32 Xval[])
-{
-Int32 Xc,Xv;
-
-memset(buf_comp,0,sizeof(Int32)*16);
-MACRO_C16_compr(0) ;
-MACRO_C16_compr(1) ;
-MACRO_C16_compr(2) ;
-MACRO_C16_compr(3) ;
-MACRO_C16_compr(4) ;
-MACRO_C16_compr(5) ;
-MACRO_C16_compr(6) ;
-MACRO_C16_compr(7) ;
-MACRO_C16_compr(8) ;
-MACRO_C16_compr(9) ;
-MACRO_C16_compr(10) ;
-MACRO_C16_compr(11) ;
-MACRO_C16_compr(12) ;
-MACRO_C16_compr(13) ;
-MACRO_C16_compr(14) ;
-
-buf_comp[15] += C16_SumBits(lin,Xc+1,nx);
-return;
-}
-
 
 void ALL_addcomp(Word32 res_comp[],Int32 buf_comp[],Int32 numx,Int32 numy) {
 	Int32 i;
@@ -535,26 +427,7 @@ if( len>SIZE_TO )
     return 0;
 
 memset(res_comp,0,sizeof(res_comp[0])*len8);
-switch( TO_X )
-	{
-	case	3:
-		compress_line = C3_compress_line;
-/*		SumBits       = C3_SumBits;
-		if( TO_Y==5 )
-			addcomp   = C35_addcomp;
-		else
-			addcomp   = ALL_addcomp;*/
-		break;
-	case	12:
-		compress_line = C12_compress_line;
-		break;
-    case	16:
-		compress_line = C16_compress_line;
-		break;
-	default	:
-		compress_line = ALL_compress_line;
-		break;
-	}
+compress_line=ALL_compress_line;
 addcomp = ALL_addcomp;
 rast = raster + d_x*SY + (SX>>3);
 MakeScale(Ycut,Yval,dy,TO_Y);
