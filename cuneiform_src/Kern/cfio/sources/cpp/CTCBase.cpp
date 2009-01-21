@@ -532,7 +532,6 @@ Word32 CTCGlobalFile::GetFileLenght()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-static char FullPath[CFIO_MAX_PATH];
 static char Folder[CFIO_MAX_PATH];
 static char File[CFIO_MAX_PATH];
 static char Extension[CFIO_MAX_PATH];

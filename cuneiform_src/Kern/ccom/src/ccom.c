@@ -1165,7 +1165,7 @@ return TRUE;
 CCOM_FUNC(CCOM_handle)   CCOM_Restore(void)
 {
 FILE            *fp;
-CCOM_comp        cur, *comp_old=NULL, *real_comp;
+CCOM_comp        cur, *real_comp;
 CCOM_handle      hnd;
 CCOM_USER_BLOCK *ub ;
 Int32            zub;

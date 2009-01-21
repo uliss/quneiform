@@ -266,7 +266,6 @@ Handle CTCFileList::FindFile(PChar8 lpFileName)
 	CTCGlobalFile * pFile;
 	CTCFileHeader * pCurrent;
 	Word32          wComp;
-	Word32          wiComp;
 
 	for ( pCurrent = pFirst(); pCurrent != pLast(); pCurrent = pCurrent->GetNext())
 	{

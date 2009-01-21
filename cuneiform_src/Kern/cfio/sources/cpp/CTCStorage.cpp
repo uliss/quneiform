@@ -126,9 +126,9 @@ CTCStorageHeader::CTCStorageHeader(CTCGlobalFile * pNewStorage,
 		}
 		else
 		{
-			Word32 Err = GetLastError();
-			// попробуем сообщить об ошибке  №№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№
 #ifdef _DEBUG
+            Word32 Err = GetLastError();
+            // попробуем сообщить об ошибке  №№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№
 			LPVOID lpMsgBuf;
 
 			FormatMessage(

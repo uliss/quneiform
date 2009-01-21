@@ -92,8 +92,6 @@ CTCControl::~CTCControl()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-static char SFullPath[CFIO_MAX_PATH];
-static char SDisk[CFIO_MAX_PATH];
 static char SFolder[CFIO_MAX_PATH];
 static char SFile[CFIO_MAX_PATH];
 static char SExtension[CFIO_MAX_PATH];
@@ -274,9 +272,6 @@ Handle CTCControl::OpenStorage( PChar8 lpName, Word32 wFlag )
 //
 Bool32 CTCControl::CloseStorage(Handle  hStorage, Word32  wFlag)
 {
-	Word32   wCompliteFlag = 0;
-	Word32   wCloseFlag = 0;
-
 	if ( wFlag & CS_WITHOUT_SAVE ||
 		 wFlag & CS_DELETE          )
 	{
@@ -1060,7 +1055,6 @@ char  CopyBuffer[COPYBUFFER];
 Word32 CTCControl::WriteFileToStorage(CTCStorageHeader * Storage, CTCFileHeader * File)
 {
 	CTCFileHeader *    pItemHeader = File;
-	CTCGlobalFile *    pStorage = Storage->GetStorage();
 	CTCGlobalFile *    pItem;
 	STORAGEITEM        ItemInfo;
 	Word32 FileSize =          0;
@@ -1221,7 +1215,6 @@ Word32 CTCControl::DecompileStorage(Handle Storage)
 	Word32               ItemSize;
 	Word32               NextItem = 0;
 	Word32               ReadItem;
-	Word32               SFolderSize = 0;
 	Handle               hExtractFile;
 
 	StorageSize = pStorage->Seek(0,CFIO_GF_SEEK_END);

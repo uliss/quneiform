@@ -245,8 +245,6 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 				FrameToReplace.lpData     = (PWord8)mCBWSourceDIB->GetPtrToLine(0);
 				FrameToReplace.MaskFlag   = 0;
 
-				PWord8 toRstr = (PWord8)mCBWSourceDIB->GetPtrToLine(0);
-
 				// Заполняем его
 				for ( i = 0; i < ImageInfo.wImageHeight; i++ )
 				{
@@ -740,7 +738,6 @@ Bool32 CTIControl::CopyFromFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDat
 {
 	Word32 StartY = pFrameIn->dwY;
 	Word32 EndY   = StartY + pFrameIn->dwHeight;
-	Word32 StartX = pFrameIn->dwX;
 	Word32 nLine;
 	Word32 dLine = 0;
 

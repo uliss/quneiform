@@ -931,7 +931,6 @@ CED_FUNC(Bool32) CED_GetParaParams(Handle hEdParagraph,int*  color, int*  shadin
 						   int* spaceBetweenLines, char* spcBtwLnsMult,
 						   char*  keep)
 {
-	CEDParagraph* para=(CEDParagraph*)hEdParagraph;
 	if (color)
 		*color=((CEDParagraph*)hEdParagraph)->color;
 	if (shading)

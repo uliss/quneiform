@@ -76,7 +76,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 static Word16            gwHeightRC = 0;
 static Word16            gwLowRC =    0;
-static Handle            ghStorage =  NULL;
 static HINSTANCE         ghInst =     NULL;
 CTIControl *      Control_cti =    NULL;
 static Int32             InitCount =  0;

@@ -76,8 +76,7 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, BOOL merge)
     struct StrRtfColor far *color=NULL;
 //    long WriteBegRow,WriteEndRow;
 //    LPBYTE ptr,fmt;
-    int  j/*,CurFont,PrevFont/*,PrevPfmt/*,WriteBegCol,WriteEndCol*///,
-         /*PrevCell,PrevFID*/;
+    int  j;
     CEDSection* sect;
 
 //	BOOL inFrm=FALSE;
@@ -1172,7 +1171,7 @@ BOOL WriteRtfParaFmt(struct StrRtfOut far *rtf,CEDParagraph* NewPfmt,CEDParagrap
 	int CurLbw,PrevLbw=0;
 	int CurBrdrBtw,PrevBrdrBtw=0;
 
-    BOOL result,reset=FALSE;
+    BOOL result;
 
     if (!NewPfmt) return TRUE;
 
@@ -1457,7 +1456,7 @@ BOOL WriteRtfText(struct StrRtfOut far *rtf, const char* text, int TextLen)
 ******************************************************************************/
 BOOL WriteRtfRow(struct StrRtfOut far *rtf, CEDParagraph* NewCell,CEDParagraph * prevRow)
 {
-    BOOL result,CellFound=FALSE;
+    BOOL result;
     CEDParagraph*  CellId,*PrevCellId;
 	int c;
 
@@ -1743,7 +1742,6 @@ BOOL WriteRtfDIB(struct StrRtfOut far *rtf,int pict)
    width=rtf->page->picsTable[pict].pictGoal.cx;               // picture width in pointsize
    pInfo=(LPBITMAPINFO)rtf->page->picsTable[pict].data;
 
-   int len=sizeof(BITMAPINFOHEADER);
    width_bytes = ((width * pInfo->bmiHeader.biBitCount + 31) / 32) * 4;
 
     if (!BeginRtfGroup(rtf)) return FALSE;     // begin current picture
@@ -1887,7 +1885,6 @@ BOOL WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
 	BOOL head;
 	char * ptr=rtf->oldFile;
 	int len=rtf->oldFileLen;
-	int lvl=0;
 	int i;
 	for (i=0;i<len-(int)strlen("\\fonttbl");i++)
 		if (memcmp(ptr+i,"\\fonttbl",strlen("\\fonttbl"))==0)

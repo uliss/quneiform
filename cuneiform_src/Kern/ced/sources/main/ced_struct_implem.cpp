@@ -1437,7 +1437,6 @@ void CEDLine::SetCurChar(CEDChar* _char)
 
 CEDChar * CEDLine::SetCurChar(int _number)
 {
-	int i=0;
 	int num=0;
 //	if (chars)
 //		i=chars->internalNumber;
@@ -1481,7 +1480,6 @@ CEDChar * CEDLine::PrevChar(Bool32 _goThroughLines)
 
 CEDChar*	CEDLine::GetChar(int _num)
 {
-	int i=0;
 	int num=0;
 //	if (chars)
 //		i=chars->internalNumber;

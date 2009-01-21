@@ -1059,7 +1059,6 @@ Bool32 WriteTiffDescr(HANDLE hFile, CEDPage* page)
 
 Bool32 WritePictTable(HANDLE hFile, CEDPage* page)
 {
-	char* ch=0;
 	//define sum of lengths of all pictures
 	int len=0;
 	int q;

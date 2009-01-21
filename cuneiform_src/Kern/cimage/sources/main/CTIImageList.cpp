@@ -89,10 +89,6 @@ Bool32 CTIImageList::AddImage(const char *lpName, Handle hDIB, Word32 wFlag)
 	CTIImageHeader * NewImage = NULL;
 	CTIImageHeader * LastImage = NULL;
 
-	Word32 ImageSizeInPixels = 0;
-	Word32 ImageSizeInBytes  = 0;
-	Word32 HederSize = 0;
-
 /* commented by Andrey
     if ( FindImage(lpName, &LastImage) )
 	{

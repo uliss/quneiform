@@ -72,7 +72,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 static Word16            gwHeightRC = 0;
 static Word32            gwRC = 0;
 //static Word32			length=0;		//length of current block
-static HANDLE            ghStorage = NULL;
 static HINSTANCE            ghInst =  NULL;
 /////////////////////////////////////////
 Bool32 APIENTRY DllMain( HINSTANCE hModule,
@@ -379,7 +378,6 @@ return rc;
 
 char * GetModulesString(Word32 dwError)
 {
-	Word16 low = (Word16)(dwError &  0xFFFF);
 	Word16 hei = (Word16)(dwError >> 16);
 	static char szString[512] ;
 	sprintf(szString,"Unknown code error 0x%X",dwError);
