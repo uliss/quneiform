@@ -420,7 +420,6 @@ void dust_ini(CSTR_line lin)
  CSTR_attr        attr;
  CSTR_rast        curr, last;
  CCOM_comp       *cmp;
- RecVersions      zer={0};
  INT              cmpscale;
 
  CSTR_GetLineAttr(lin,&attr);

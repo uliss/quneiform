@@ -1377,7 +1377,6 @@ if( ver.Alt[0].Prob>150 && ver.Alt[0].Method==REC_METHOD_3X5 &&
     { // kill unique alt from 3x5
     Word8 first=per.Alt[0].Code;
     Int32 i_msk=leo_exist_code(&msk,first);
-    Int32 i_r35=leo_exist_code(&r35,first);
 
     if( i_msk==0 || i_msk==1 && msk.Alt[0].Prob==msk.Alt[1].Prob && per.Alt[0].Prob>100)
         {

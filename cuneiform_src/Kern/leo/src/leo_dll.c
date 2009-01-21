@@ -402,7 +402,6 @@ return TRUE;
 
 static Bool32 leo_init_all(void)
 {
-MemFunc* mem = leo_mem;
 //LEOInitPass2( ); // DEBUG mode
 return TRUE;
 }

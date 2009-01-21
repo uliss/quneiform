@@ -121,7 +121,6 @@ Bool32 TestFontProtocol(void)
  Int32          name;
  int            i; //,j;
  int            nClust;
- int            porog=0; // test !!!
  int            numCourier,nC;
  FILE          *fp;
  LeoFieldSetup  fs={0};
@@ -190,7 +189,6 @@ Bool32 TestFontCourier(void)
  RecVersions    MSKres;
  ClustInfo      clustinfo;
  Int32          nf=FONGetFontCount();
- int            en_prot=1;
 
   if( nf<1 || nf>2)
     return FALSE;

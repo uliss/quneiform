@@ -894,7 +894,7 @@ INT dmBOX(cell *BC, s_glue *GL)
 {INT ret=0;
 if(pass4_in)
   {// OLEG : SERBIAN PASS4
-  extern BYTE langUkr , langSer;
+  extern BYTE langSer;
   ret =estletter(BC,GL);
   if( language==LANG_RUSSIAN && langSer &&
       BC->nvers && BC->vers[0].let==SERB_j && ij_dot(BC)<=0 )

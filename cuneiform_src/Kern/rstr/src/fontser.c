@@ -279,7 +279,7 @@ static LONG new_serif(cell *c)
 {
   BYTE let=let_sans_acc[c->vers[0].let];
   WORD map=tabserif[let];
-  LONG meas=0,nfoot=0,np=0,nm=0;
+  LONG meas=0,np=0,nm=0;
 
   if (map==0)
     return 0;
@@ -530,10 +530,9 @@ static void find_serif(cell *c, WORD map, LONG *meas, LONG *np, LONG *nm)
 
 static LONG downserif(c_comp *env, BYTE shape, INT H, STICK *st)
 {
-  INT h,H4=H/4,H8=H/8,H3=H/3;
+  INT h,H8=H/8,H3=H/3;
   lnhead *line;
-  CHAR w2=st->w/2;
-  LONG rv=0,sum=0;
+  LONG rv=0;
 
   for (line=(lnhead *)((PCHAR)(env)+env->lines+sizeof(INT));
 			 line->lth>0;
@@ -633,10 +632,9 @@ static LONG downserif(c_comp *env, BYTE shape, INT H, STICK *st)
 
 static LONG upserif(c_comp *env, BYTE shape, INT H, STICK *st)
 {
-  INT h,H4=H/4,H8=H/8,H3=H/3;
+  INT h,H8=H/8,H3=H/3;
   lnhead *line;
-  CHAR w2=st->w/2,w3=env->w/3;
-  LONG rv=0,lsum=0,rsum=0;
+  LONG rv=0;
 
   for (line=(lnhead *)((PCHAR)(env)+env->lines+sizeof(INT));
 			 line->lth>0;

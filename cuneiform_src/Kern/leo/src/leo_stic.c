@@ -208,7 +208,7 @@ return s;
 
 static Bool32 leo_stick_thin_prop(RecRaster *r,int ang[],int num, int den)
 {
-int w=r->lnPixWidth, h=r->lnPixHeight, i, le, ri;
+int h=r->lnPixHeight, i, le, ri;
 for(le=32000,ri=-32000,i=1;i<h-1;i++)
     {
     if( hist_le [ i ]!=-1 && le>hist_le[i]+ang[i] )

@@ -2162,7 +2162,7 @@ INT find_bottom_accent(cell *c)
 
  for (fld=0,e=c->col+c->w,cc=c->prevl->next; cc&&cc->col<=e; cc=cc->next)
  {
-  int ccx=cc->col, ccy=cc->row, ccw=cc->w, cch=cc->h;	// Отладка 05.07.2002 E.P.
+  int ccx=cc->col;
   ccx=ccx;	// Отладка 05.07.2002 E.P.
 
   if ( (cc->flg&(c_f_dust|c_f_punct) && cc->env) && // dust

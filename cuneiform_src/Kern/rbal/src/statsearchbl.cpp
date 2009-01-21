@@ -383,8 +383,7 @@ Int16 stat_control_b3_by_recog(CSTR_line line, Int16 ln_row, ROW_STRUCT *row_str
 	char buff_rus_high[]= "ÀÁÂÃÅÆÇÈÉÊËÌÍÎÏÑÒÕ×ÛÚÜÝÞß";
 	char buff_rus_low[] = "àáâãåæçèéêëìíîïñòõ÷ûúüýþÿ";
 
-	Int16 countLLM3 = 0, countGM3 = 0, countGM4 = 0, countRLM4 = 0, countRLM3 = 0;
-//		  countWarn1 = 0, countHighL1 = 0, countWarn2 = 0, countHighL2 = 0;
+	Int16 countLLM3 = 0, countGM3 = 0, countRLM3 = 0;
 
 	//èíòåðâàëû
 	Int16 pnt0, pnt1, pnt2, pnt3;
@@ -1064,8 +1063,7 @@ BOOL stat_interp_bsl_by_b4(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, ROW
 	char buff_warning[] = "1\\|/(){}[]";
 
 
-	Int16 countLLM1 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0, countWarn = 0;
-	Int16 drowWarn = 0;
+	Int16 countLLM1 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0;
 	//èíòåðâàëû
 	Int16 pnt0, pnt1, pnt2, pnt3;
 
@@ -1244,7 +1242,6 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 
 	Int16 sz_FreqY1Arr = malloc_usable_size(p_FreqY1Arr) / sizeof(Int16);
 	Int16     sz_Y1Arr = malloc_usable_size(p_Y1Arr) / sizeof(Int16);
-	Int16     sz_Y2Arr = malloc_usable_size(p_Y2Arr) / sizeof(Int16);
 	Int16    min_Y1Arr = p_Y1Arr[stat_index_GlobMin(p_Y1Arr, sz_Y1Arr)];
 
 // 	if(p_attr->number == 161) DebugBreak(); // && p_attr->language == 0

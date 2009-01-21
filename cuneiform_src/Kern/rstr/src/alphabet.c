@@ -1000,15 +1000,6 @@ return;
 void save_alphabet_information_pass2(str_info *str,INT column,CSTR_line ln)
 {
 BYTE            buf[256]={0};
-//cell *          c;
-RecObject       ro={0};
-//CSTR_rast       rst;
-//RecRaster       rrst;
-//RecVersions     ver;
-LeoFieldSetup   fs={0};
-//CSTR_attr       lattr;
-//CSTR_rast_attr  attr;
-//UniVersions     uvs;
 
 if( db_status && snap_activity('n') )
  {

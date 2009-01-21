@@ -1909,11 +1909,9 @@ static BYTE  leftlig[]={"ffffrr./fij!?ба"},
 static BYTE  leftlig_cen[]={"ff"},
             rightlig_cen[]={"fl"};
 
-static BYTE  leftlig_baltic[]={"ffffrr./frj!?"},
-            rightlig_baltic[]={"ilfiti/.lrj!?"};
+static BYTE rightlig_baltic[]={"ilfiti/.lrj!?"};
 
-static BYTE  leftlig_turkish[]={"ffffrr./frj!?"},
-            rightlig_turkish[]={"ilfiti/.lrj!?"};
+static BYTE rightlig_turkish[]={"ilfiti/.lrj!?"};
 
   // Different codes for some ligas in Central Europe languages.
   if (is_cen_language(language))

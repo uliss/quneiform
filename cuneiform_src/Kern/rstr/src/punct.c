@@ -576,7 +576,6 @@ static INT exclam(cell *c1,cell *c2,B_LINES *bl)
 static cell *let_gl(cell *c1,cell *c2,cell *c3,cell *c4,B_LINES *bl)
  {
  cell *c, *cp;
- extern INT nIncline;
  INT r,n;
 #define MBI 1
 #define MBE 2

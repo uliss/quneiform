@@ -88,7 +88,7 @@ extern P2GLOBALS p2globals;
 ////////////////
 Bool32 p2_StoreVersions(CSTR_rast rast,RecVersions *rver)
 {
-INT i, ret=0;
+INT i;
 UniVersions cver,*ver;
 Word8 let;
 INT lang=p2globals.language;

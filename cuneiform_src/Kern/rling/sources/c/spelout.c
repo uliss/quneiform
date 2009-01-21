@@ -767,8 +767,7 @@ INT  getpos_bel (SOBJ * obj, INT pos,
 CHAR suppress_voc = 0;
  INT setobj_blue(SOBJ *obj)
  {
-  extern FILE *dbg_f;
-  register i;
+  int i;
   if (suppress_voc) return (OK);	/* no paintings */
   for(i=0;i<obj->pos_part[obj->pos_part_nmb];i++)
     {

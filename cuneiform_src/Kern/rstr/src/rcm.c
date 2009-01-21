@@ -95,7 +95,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define LOCAL_CTB_NAME "ct666666"
 unsigned char    alpha_used_mode=0;
 /* FIXME: to compile under MS VC++, look at /ctb/src/ctb_tool.c */
-/* 
+/*
 extern char    local_grey_ctb[];
 extern char    local_ctb_name[];
 */
@@ -666,15 +666,7 @@ if( !rstr_open_cont() )
 #ifdef _USE_CPAGE_
 if( myPage )
   {
-//   LinesTotalInfo     lti;              // Структура хранения линий
-//   Handle myHor;
-//   Handle myBlock;
-//   Word32 size;
-//   LineInfo lineinfo;
-//   extern Handle hUseCLine;
-   Handle hPage=myPage;
    CLINE_handle hCLINE=CLINE_GetMainContainer();
-   Word32 size_line_com=sizeof(LINE_COM);
 
 //	if(!LDPUMA_Skip(hUseCLine))
 //    {
@@ -849,13 +841,6 @@ if( !p2_disable )
 #ifdef _USE_CPAGE_
 if( myPage )
     {
-//   LinesTotalInfo     lti;              // Структура хранения линий
-//   Handle myHor;
-//   Handle myBlock;
-//   Word32 size;
-//   LineInfo lineinfo;
-//   extern Handle hUseCLine;
-   Handle hPage=myPage;
    Word32 size_line_com=sizeof(LINE_COM);
    int size_line_data=sizeof(DLine);
    CLINE_handle hCLINE=CLINE_GetMainContainer();
@@ -1703,7 +1688,6 @@ if( (lattr.Flags & CSTR_STR_PlusMinus) ||
     }
 else
     {
-    CSTR_head *lnhead =(CSTR_head *)lin;
     step_pass3:
     pass3( lin, lino ); // recognize
     if( (lattr.Flags &  (CSTR_STR_Digital |CSTR_STR_DigitalFuzzy )) &&

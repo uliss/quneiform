@@ -420,7 +420,6 @@ int leo_expert_recog_prn(Word8 Code, RecRaster *raster,Word16 *v3x5, Word8 prob_
         Bool32 enable5x3)
 {
 RecVersions loc;
-Word8       alphabet0[256] = {0};
 Word8       wide_letters[] = {  134,140,148,152,153,155,158,
                                 166,172,228,232,233,235,238
                              };// æ   ì   ô   ø   ù   û   þ

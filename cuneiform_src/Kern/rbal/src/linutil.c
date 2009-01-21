@@ -1150,7 +1150,6 @@ static BYTE BracketsList[]="<>()[]";
 
 BYTE BracketIn(UniVersions *v)
 {
-  BYTE ret=0;
   int i;
 
   for(i=0 ; i<v->lnAltCnt; i++)

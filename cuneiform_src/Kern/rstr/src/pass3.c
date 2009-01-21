@@ -2918,8 +2918,6 @@ BOOL pass3BL(CSTR_line ln)
     BOOL    ret;
 	Int16   minr,maxr;
 
-	CSTR_head *lnh=(CSTR_head *)ln;
-
     pass_start();
     snap_is_active();
     font_ready=FALSE;
@@ -3048,8 +3046,7 @@ BOOL match_word_prepare(CSTR_line ln, BYTE *alphabet, MatchWordPar *param)
     INT     lsq;
     BYTE    Lang;
     INT     Step=0,no_crit;
-    INT     eng=0;
-    BOOL    snap_active=FALSE,line_scale0=0;
+    BOOL    line_scale0=0;
     extern BOOL pass4_in;
 
     line_scale=0;

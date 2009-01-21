@@ -85,7 +85,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 static Word16            gwHeightRC = 0;
 static Word16            gwLowRC = 0;
-static Handle            ghStorage = NULL;
 static Handle            ghInst =  NULL;
 CRLControl *      Control_crl = NULL;
 ///////////////////////////////////////////////////////////////////////////////////

@@ -200,7 +200,6 @@ void ErrorExit(int Code)
 void TE_make_name (Int16 stream, PInt8 name, PInt8 wname)
 {
   PInt8 pn;
-  PInt8 an;
   Int16 l;
 
         switch (stream)
@@ -280,8 +279,6 @@ Int16 to_voc()
 //
 void append_by_lang (Int16 lang, PInt8 src, PInt8 dst)
 {
-        Int16 n = src[3]-'0';
-
         strcpy(dst,src);
 
         if ((lang >= 0) && (lang < LANG_TOTAL))
@@ -400,7 +397,7 @@ PInt8 TE_handle_fgets  ( Int16 Handle, PInt8 Buff, Int16 Lenght )
                 {
                         break;
                 }            /* EOF   */
-		
+
 		/* MinGW file io seems to turn windows file endings into \n
                   so break -- no skip as when the \r is passed through */
 #ifdef WIN32
@@ -450,8 +447,6 @@ void ed_out_write(PWord8 p, Word16 size)
 // протащено
 void trees_load_rling()
 {
-        PWord8 oBOX=NULL;
-
         // exeption
         //////////////////////////////////////////////////////////////////////
         // грузим только словари, память только под них

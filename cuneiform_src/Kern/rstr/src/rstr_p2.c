@@ -282,7 +282,7 @@ Int32 p2_Cstr2Cell( CSTR_line lin,CSTR_rast first,CSTR_rast last,Bool32 needVers
  CSTR_rast       curr;
  CCOM_comp      *cmp;
  INT             i;
- UniVersions     evn,zer={0};
+ UniVersions     evn;
  Int32           numCell;
 
  if( first == NULL )

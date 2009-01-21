@@ -403,7 +403,6 @@ Int32 p2_leoMixture(CSTR_rast rast,RecVersions *old,RecVersions *ver,
                                                 FontInfo *fontinfo )
 {
 Bool32   enable_let=TRUE;
-Bool32   enable_correct_case=FALSE;
 //Int32    old_case ;
 Word8    oldProb;  //  = data[14]
 Word8    oldName;  //  = data[3]
