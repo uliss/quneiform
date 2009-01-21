@@ -93,6 +93,7 @@ void* GlobalAlloc(UINT uFlags, int dwBytes) {
 
 HGLOBAL GlobalFree(void *f) {
   free(f);
+  return NULL;
 }
 
 void* GlobalReAlloc(void* hMem, int dwBytes, UINT uFlags) {
@@ -143,6 +144,7 @@ long _tell(int handle) {
 BOOL GetComputerName(LPTSTR lpBuffer, long unsigned int *lpnSize) {
     strncpy(lpBuffer, "CompName", *lpnSize);
     *lpnSize = strlen(lpBuffer);
+    return TRUE;
 }
 
 LONG RegOpenKeyEx(HKEY hKey, LPCTSTR lpSubKey, DWORD ulOptions,
