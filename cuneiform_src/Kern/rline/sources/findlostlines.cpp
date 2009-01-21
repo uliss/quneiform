@@ -70,9 +70,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifdef _DEBUG
 #include <fstream>
-#endif
-
 using namespace std;
+#endif
 
 #include "compat_defs.h"
 
