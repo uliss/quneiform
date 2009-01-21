@@ -411,7 +411,6 @@ CPAGE_FUNC(Handle)  CPAGE_RestorePage(Bool32 remove,Int8 * lpName)
 {
 	PROLOG;
 	Handle rc = NULL;
-	Word32 nCurPage = (Word32)-1;
 	Bool decompress=FALSE;
 
 	SetReturnCode_cpage(IDS_ERR_NO);

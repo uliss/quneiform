@@ -1090,7 +1090,6 @@ static int FindFirstClusterPorog(int w,int h,
 {
  SINT i,j;
  SINT dist;
- int num=0;
  int xbyte=(w+7)>>3;
  int xbyteRazmaz=(w+9)>>3;
  int yStart,yHeight;
@@ -1509,7 +1508,6 @@ static int GetAsRecRaster(BYTE *inBuf,int xbit,int yrow,
  int xbyte=(xbit+7)>>3;
  int startX;
  int outByte,outBit;
- int maxWidth=REC_MAX_RASTER_SIZE/MAX(1,yrow);
  int xbyte8;
  BYTE *bb;
  int  yFir,yHei;
@@ -1608,7 +1606,7 @@ TURKISH_CHARSET				   // LANG_TURKISH	  27
 //////////////////////
 Bool32 p2_StoreVersions(CSTR_rast rast,RecVersions *rver,int lang)
 {
-int  i, ret=0;
+int  i;
 UniVersions cver,*ver;
 Word8 let;
 

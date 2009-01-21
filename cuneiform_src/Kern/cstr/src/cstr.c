@@ -393,8 +393,6 @@ CSTR_FUNC(Bool32)                   CSTR_DeleteLoops(CSTR_line  lin)
 {
 CSTR_rast start = CSTR_GetFirstRaster (lin),stop = CSTR_GetLastRaster (lin), c;
 CSTR_cell   *cc;
-CSTR_head *line = (CSTR_head *)lin;
-
 if( !start || !stop )
     {
     wLowRC=CSTR_ERR_NULL       ;
@@ -1885,7 +1883,6 @@ return line->container;
 CSTR_FUNC(Bool32) CSTR_ClearLine(CSTR_line lin,Int16 left, Int16 right)
 {
 CSTR_rast start = CSTR_GetFirstRaster (lin),stop = CSTR_GetLastRaster (lin), c;
-CSTR_head *line = (CSTR_head *)lin;
 CSTR_rast_attr  attr;
 
 if( !start || !stop )

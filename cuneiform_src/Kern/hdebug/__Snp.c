@@ -74,8 +74,6 @@ HINSTANCE hDPuma = NULL;
 
 static FNDPUMA_Init			Init = NULL;
 static FNDPUMA_Done			Done = NULL;
-static FNDPUMA_GetErrorCode GetErrorCode = NULL;
-static FNDPUMA_GetErrorString GetErrorString = NULL;
 static FNDPUMA_SetImportData SetImportData = NULL;
 static FNDPUMA_GetExportData GetExportData = NULL;
 

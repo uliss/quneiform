@@ -156,7 +156,6 @@ template<class TYPE> void PtrName<TYPE>::Delete()
 ///////////////////////////////////////////////////////////
 template<class TYPE> Bool32		PtrName<TYPE>::Attach(Handle hPage)
 {
-	Bool32 rc = FALSE;
 	_ASSERT(m_Ptr);
 	Handle hBlock = CPAGE_GetBlockFirst(hPage,m_Type);
 	if(!hBlock)

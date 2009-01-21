@@ -259,7 +259,6 @@ int TestMoveRaster(int start,Nraster_header *rh,int NumAll,
  int  maxSize=sizeof(welet);
  int i,j,k;
  int xbyte=(rh[start].w+9)>>3; // for razmaz2
- int rbyte=(rh[start].w+7)>>3; // real bytes
  int numAdded=0;
  int xmove,ymove;
 
@@ -344,7 +343,6 @@ int TestFromGoodRaster(int start,Nraster_header *rh,int NumAll,
  int  maxSize=sizeof(welet);
  int i,j;
  int xbyte=(rh[start].w+9)>>3; // for razmaz2
- int rbyte=(rh[start].w+7)>>3; // real bytes
  int xmove,ymove;
 
  if( (i=xbyte*(rh[start].h+2)) >= maxSize)
@@ -424,7 +422,6 @@ static int TestSymbolGood(  Nraster_header *rh,
  int  maxSize=sizeof(welet);
  int i,j;
  int xbyte=(rh[start].w+9)>>3; // for razmaz2
- int rbyte=(rh[start].w+7)>>3; // real bytes
  int xmove,ymove;
  BYTE twin1=0,twin2=0;
  char *qq;
@@ -679,7 +676,6 @@ static void TestCommonFields(FONTFIELD *f1,FONTFIELD *f2,
   int i;
   Word32 ff1[NFIELDDWORD],ff2[NFIELDDWORD];
   Word32 tField[NFIELDDWORD];
-  Word32 odin=1;
   Word32 onlyf1[NFIELDDWORD]={0,0},onlyf2[NFIELDDWORD]={0,0};
 
   GetStatField(f1,infoC,cou1);

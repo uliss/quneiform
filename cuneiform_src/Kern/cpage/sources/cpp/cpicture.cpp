@@ -158,9 +158,6 @@ CPAGE_FUNC(Bool32)  CPAGE_PictureGetMask(Handle hPage, Handle hPicture, Int32 Sk
 
 	SetReturnCode_cpage(IDS_ERR_NO);
 
-	Point32 lt = {0};
-	Point32 wh = {0};
-
 	_ASSERT(lpSize);
 /*
 	if(CPAGE_PictureGetPlace(hPage,hPicture,Skew2048, &lt, &wh))

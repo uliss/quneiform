@@ -87,7 +87,6 @@ Word32 TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn,Word32 SizeIn,CPAGE_TABLE 
 		lpDataIn->nHorLines>0)
 	{
 		int c_current = 0;
-		int number = 0;
 		Point32 p = {0,0};
 
 		for(int c_row = 0; c_row < lpDataIn->nHorLines - 1; c_row++)

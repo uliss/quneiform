@@ -364,8 +364,6 @@ static int LoadCTB(char *name)
  // получить поле в виде DWORD[2]
 static Int32 GetBaseField(Int16 nField,FONBASE *fbase,Word32 *field)
  {
-  Word32 wField=1;
-
   if(nField <= 0 || nField > MAXFIELD)
              return 0;
   ClearFields(field);
@@ -1096,7 +1094,6 @@ int i;
 int num=0;
 int rec;
 int nAlt=0;
-int inBase=fonbase.inBase;
 welet *wel;
 int AddTestAlt(Word8 prob,int numAlt,FonTestInfo *attr,
 			   welet *wel,int nClust);

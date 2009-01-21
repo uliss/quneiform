@@ -283,11 +283,11 @@ STD_FUNC( Bool32 ) stdCheckDirectory( const char* name, Bool32 bCreateIfNone )
 STD_FUNC( Bool32 ) stdDeleteDirectory(
       const char * lpDirName)
 {
-    Bool32 bDeleteOK=TRUE;
     XPath xpPath((char*)lpDirName);
     xpPath.CheckSlash();
     XPath xpFileMask=(char*)(xpPath+"*.*");
 #ifdef WIN32
+    Bool32 bDeleteOK=TRUE;
     {
        XFindFile xffFile(xpFileMask);
        while(xffFile)
@@ -326,7 +326,6 @@ STD_FUNC( Bool32 ) stdDeleteDirectory(
 STD_FUNC( Bool32 ) stdMoveDirectory(
       const char * lpDirNameDst,const char * lpDirNameSrc)
 {
-    Bool32 bMoveOK=TRUE;
     XPath xpPathDst((char*)lpDirNameDst);
     XPath xpPathSrc((char*)lpDirNameSrc);
     xpPathSrc.CheckSlash(); xpPathDst.CheckSlash();
@@ -334,6 +333,7 @@ STD_FUNC( Bool32 ) stdMoveDirectory(
         return TRUE;
     XPath xpFileMask=(char*)(xpPathSrc+"*.*");
 #ifdef WIN32
+    Bool32 bMoveOK=TRUE;
     {
        if(!stdCheckDirectory(xpPathDst,TRUE))
            bMoveOK=FALSE;
@@ -374,7 +374,6 @@ STD_FUNC( Bool32 ) stdMoveDirectory(
 STD_FUNC( Bool32 ) stdCopyDirectory(
       const char * lpDirNameDst,const char * lpDirNameSrc)
 {
-    Bool32 bCopyOK=TRUE;
     XPath xpPathDst((char*)lpDirNameDst);
     XPath xpPathSrc((char*)lpDirNameSrc);
     xpPathSrc.CheckSlash(); xpPathDst.CheckSlash();
@@ -382,6 +381,7 @@ STD_FUNC( Bool32 ) stdCopyDirectory(
         return TRUE;
     XPath xpFileMask=(char*)(xpPathSrc+"*.*");
 #ifdef WIN32
+    Bool32 bCopyOK=TRUE;
     {
        if(!stdCheckDirectory(xpPathDst,TRUE))
            bCopyOK=FALSE;

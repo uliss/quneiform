@@ -566,7 +566,6 @@ Bool32 CGRAPH_RestoreLoop(CSTR_rast rast, FILE *in)
 	CSTR_attr		attr = {0};
 	CSTR_rast_attr  rast_attr = {0};
 
-	RecVersions		vers = {0};
 	UniVersions		uvers = {0};
 	CGRAPH_Data		cstr = {0};
 
@@ -737,7 +736,6 @@ Bool32 CGRAPH_RestoreCSTR(CSTR_line *lin, FILE *in)
 	CSTR_rast		rst;
 	CSTR_rast_attr  rast_attr = {0};
 	CSTR_attr		attr = {0};
-	RecVersions		vers = {0};
 	UniVersions		uvers = {0};
 	CGRAPH_Data		cstr = {0};
 	Word8			*lp = NULL;
