@@ -94,6 +94,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
+static void accept_Cell(cell *ce,CSTR_rast_attr*co, CCOM_comp *cmp, BOOL sca);
+
 // P2_COUR.C
 Bool32 RecogLEO(RecRaster *Rs,Word8 Language,UniVersions *Vs);
 // ERECTION.C
