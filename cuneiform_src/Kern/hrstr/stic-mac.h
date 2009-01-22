@@ -123,13 +123,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	    (L->conc[0]<3 || L->ce_pos[0]<4) )			\
 		dis += (tab)*(R->mount[0] + R->mount[4] - 2);	\
 	}
-	    // NOTA BENE: Last Condition was for BUMERANG 'l'
-
-				// from DIS_BRACE 25.02.1993:
-//////	    R->m_meandr==0  &&					\
-//////	    L->conc[0]<2  &&  L->ce_pos[0]<4 )	/*BUMERANG*/	\
-//////	    (L->conc[0]<4 || L->ce_pos[0]<4) )	*** Variant 26.02 - ERR for dx=4
-
 
 #define DIS_BRACES_CIRCLE(L,R,wid,tab)  \
 	{                               \

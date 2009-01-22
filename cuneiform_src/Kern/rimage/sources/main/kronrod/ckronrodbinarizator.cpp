@@ -126,12 +126,7 @@ CKronrodBinarizator::~CKronrodBinarizator()
 
 void CKronrodBinarizator::grey_open(Word32 H, Word32 N)
 {
-	// 28.10.1992
 	Word32 k;
-	//////extern char auto_flag;
-
-	///PR_BEG	"grey_open: Flag_GREY = %02X", Flag_GREY);	PR_END
-	///PR_BEG	"grey_open: NI=%d NJ=%d auto_flag=%d", H, N, auto_flag);  PR_END
 	/*......................................................................*/
 	grey_open_init_flags ();
 	/*......................................................................*/
@@ -227,69 +222,8 @@ void CKronrodBinarizator::grey_open_init_flags()
 	Flag_STAT = FALSE;		// Statistic
 	Flag_FactPR = Flag_grHist = FALSE;
 	Flag_OTL  = FALSE;
-	return; ////////// AL.
-/*......................................................................*/
-//////	handle_MK_TEMP_IMG = open ("MK-TEMP.IMG", 0x8302);
-//////	// 8000=O_BYNARY  200=O_TRUNC  100=O_CREAT  02=O_WRONLY	//////////
-/*......................................................................*/
-//////	mkFile_GREY_INI = fopen ("GREY.INI", "rb");
-/*
-	mkFile_GREY_INI = fopen (Full_Name_GREY_INI, "rb");
-	if (mkFile_GREY_INI==NULL)  {
-//////		PR_BEG	"GREY: NO OPEN FILE\n%s\nUse default Parametrs",
-//////		(LPSTR) Full_Name_GREY_INI);	PR_END
-		return;
-		}
-/*......................................................................*/
+	return;
 
-
-/*
-	n = fread (buf, 1, 888, mkFile_GREY_INI);
-	if (n>=888)  PR_BEG "GREY.INI too Int32 [%d]", n);	PR_END
-	for (k=1; k<n; k++)  {
-	    b1 = buf [k - 1];
-	    b2 = buf [k];
-	    if ((b1=='-') || (b1=='+'))  {
-//////		bb = (b1=='-') ? FALSE : TRUE;
-		if (b1=='-')  bb = FALSE;  else  bb = TRUE;
-		cc = (BYTE) '-' - bb - bb;	// '-' or '+'
-		if (b2=='K')  { mk_Key    = bb;	KEY_ERR_1 ("%cKey",  cc); }
-
-//////		if (b2=='C')  { Flag_Cont = bb;	KEY_ERR_1 ("%cCont", cc); }
-
-		if (b2=='3')  { Flag_3x3  = bb;	KEY_ERR_1 ("%c3x3",  cc); }
-		if (b2=='5')  { Flag_5work= bb;	KEY_ERR_1 ("%c5work",cc); }
-		if (b2=='d')  { Flag_d8P  = bb;	KEY_ERR_1 ("%cd8P",  cc); }
-		if (b2=='X')  { Flag_Xverb= bb;	KEY_ERR_1 ("%cXverb",cc); }
-		if (b2=='V')  { Flag_VERB = bb;	KEY_ERR_1 ("%cVERB", cc); }
-		if (b2=='W')  { Flag_WrKor= bb;	KEY_ERR_1 ("%cWrKor",cc); }
-
-		if (b2=='L') { Flag_Lapl  = bb;	KEY_ERR_1 ("%cLapl", cc); }
-		if (b2=='P') { Flag_PLAN  = bb;	KEY_ERR_1 ("%cPlan", cc); }
-		if (b2=='h') { Flag_Hor   = bb;	KEY_ERR_1 ("%chor",  cc); }
-		if (b2=='v') { Flag_Vert  = bb;	KEY_ERR_1 ("%cvert", cc); }
-
-		if (b2=='T')  { Flag_T    = bb;	KEY_ERR_1 ("%cT",    cc); }
-		if (b2=='Z')  { Flag_Z    = bb;	KEY_ERR_1 ("%cZ",    cc); }
-		if (b2=='G')  { Flag_GLUE = bb;	KEY_ERR_1 ("%cGlue", cc); }
-
-//////		if (b2=='M')  { Flag_MMM  = bb;	KEY_ERR_1 ("%cMMM",  cc); }
-		if (b2=='M')  { Flag_MAX  = bb;	KEY_ERR_1 ("%cMAX",  cc); }
-		if (b2=='0')  { Flag_0musor=bb;	KEY_ERR_1 ("%c0musor",cc); }
-		if (b2=='m')  { Flag_musor= bb;	KEY_ERR_1 ("%cmusor",cc); }
-
-		if (b2=='s')  { Flag_see  = bb;	KEY_ERR_1 ("%csee",  cc); }
-		if (b2=='S')  { Flag_STAT = bb;	KEY_ERR_1 ("%cStat", cc); }
-//////		if (b2=='W')  { Flag_Write= bb;	KEY_ERR_1 ("%cWrit", cc); }
-		if (b2=='D')  { Flag_Draw = bb;	KEY_ERR_1 ("%cDraw", cc); }
-		if (b2=='F')  { Flag_FactPR=bb;	KEY_ERR_1 ("%cFactPR",cc); }
-		if (b2=='g')  { Flag_grHist=bb;	KEY_ERR_1 ("%cgraphH",cc); }
-		if (b2=='O')  { Flag_OTL  =bb;	KEY_ERR_1 ("%cOTL",   cc); }
-		}
-	    }
-//......................................................................
-	//fclose (mkFile_GREY_INI); // Commented by D.L. 3.4.94 as unreachable code
-*/
 }
 
 void CKronrodBinarizator::grey_open_init_MEM()
@@ -335,7 +269,6 @@ void CKronrodBinarizator::grey_open_init_MEM()
 
 Word32 CKronrodBinarizator::grey_to(PWord8 pKogo)
 {
-	// 30.10.1992
 	Word32	n_acc, n_from;	// really it is N_lines_will_be_ready;
 
 	if (Flag_OPEN==FALSE)
@@ -388,7 +321,6 @@ m1:
 
 void CKronrodBinarizator::grey_to_memory_monitor()
 {
-	//29.08.1992
 	//see GREY.C: grey_read_monitor
 	/*......................................................................*/
 	ppMem [I_to] = pMem_kuda;
@@ -427,8 +359,6 @@ void CKronrodBinarizator::grey_to_monitor_MBIT(Word32 n_from)
 
 void CKronrodBinarizator::grey_from(PWord8 pKuda)
 {
-	// 29.08.1992
-
 	if (Flag_OPEN==FALSE)
 		return;	////////////	really ERROR
 	if (Itek>=I_to)
@@ -452,8 +382,6 @@ void CKronrodBinarizator::grey_from(PWord8 pKuda)
 
 Word32 CKronrodBinarizator::grey_close()
 {
-	// 02.11.1992
-
 	if (Flag_STAT)
 		Korob_statistic_print ();
 
@@ -479,8 +407,6 @@ Word32 CKronrodBinarizator::grey_close()
 
 void CKronrodBinarizator::grey_quant_KOROB()
 {
-	// 03.11.1992
-
 	if (Flag_Draw)
 		grey_quant_KOROB_draw_RAMKA ();
 	//////	if (Flag_grHist) grey_quant_KOROB_graph_Hist ();
@@ -516,7 +442,6 @@ void CKronrodBinarizator::grey_quant_KOROB()
 
 void CKronrodBinarizator::grey_quant_KOROB_1x1()
 {
-	// 29.08.1992
 	Word32	i, i1, i2;					// SIMPLE VARIANT
 	Word32	j, j1, nj, j7;
 	Int32	porog_tek;
@@ -562,7 +487,6 @@ void CKronrodBinarizator::grey_quant_KOROB_1x1()
 
 void CKronrodBinarizator::grey_quant_KOROB_1x3_MAX()
 {
-	// 14.09.1992
 	Word32	i, i1, i2;					// SPECIAL VARIANT
 	Word32	j, j1, nj, j7;				// Vers-33: begin;
 	Word32	nj_8;					// Vers-34: NO for 8 El. L/R
@@ -668,8 +592,8 @@ void CKronrodBinarizator::grey_quant_KOROB_1x5work()
 	    pkogo = ppMem [i] + j1;
 	    nL = *pkogo++;	// next LL
 	    nC = *pkogo++;	// next L
-	    nR = *pkogo++;	// next C
 	    nRR= *pkogo++;	// next R
+	    nR = *pkogo++;	// next C
 
 			// FIRST ELEMENT:
 	    if (nL>=porog_tek)
@@ -739,7 +663,6 @@ m2:
 
 void CKronrodBinarizator::grey_quant_KOROB_3x3()
 {
-	// 29.08.1992
 	Word32	i, i1, i2;
 	Word32	j, j1, nj;
 	Int32	n, x, y, porog_tek, porog_min, porog_max;
@@ -929,7 +852,6 @@ m_mask:
 
 void CKronrodBinarizator::grey_quant_KOROB_3x3_VERB()
 {
-	// 25.09.1992
 	Word32	i, i1, i2;				// LAPLAS to BLACK ONLY
 	Word32	j, j1, nj;
 	Int32	n, y, porog_tek, porog_min;
@@ -964,13 +886,6 @@ void CKronrodBinarizator::grey_quant_KOROB_3x3_VERB()
 		pU = ppMem [i - 1] + j1 - 1;	// UP
 		pC = ppMem [i]     + j1 - 1;	// CENTRE
 		pD = ppMem [i + 1] + j1 - 1;	// DOWN
-
-		///if (ppMem[i-1]==NULL) {
-		///PR_BEG "pU: i=%d %lX, %lX", i, ppMem[i-1], pU);  PR_END	return; }
-		///if (ppMem[i+1]==NULL) {
-		///PR_BEG "pD: i=%d %lX, %lX\n%d-%d %d,%d",
-		///	    i, ppMem[i+1], pD,
-		///	    i1,i2, j1,nj);  PR_END	return; }
 
 		nU = *pU++;
 		nUR = *pU++;
@@ -1026,7 +941,6 @@ m_mask:
 
 void CKronrodBinarizator::grey_quant_KOROB_draw_RAMKA()
 {
-	// 29.08.1992
 	Word32	i, i1, i2;
 	Word32	j, j1, nj, j2;
 	Word8	mask, mask_L, mask_R;
@@ -1079,7 +993,6 @@ void CKronrodBinarizator::grey_quant_KOROB_draw_RAMKA()
 
 void CKronrodBinarizator::grey_quant_KOROB_graph_Hist()
 {
-	// 22.09.1992
 	Word32	i = Itek + N_Lines_per_1_MEM - 8;
 
 	grey_PR_BYTE (i, 16, (BYTE)((Itek >> 8) & 0xFF));	// HIGH
@@ -1090,7 +1003,6 @@ void CKronrodBinarizator::grey_quant_KOROB_graph_Hist()
 
 void CKronrodBinarizator::grey_quant_KOROB_PR_Factor()
 {
-	// 27.10.1992
 	Word32	ibeg, jbeg;
 
 	ibeg = Korob_i2 + 2;
@@ -1111,7 +1023,6 @@ void CKronrodBinarizator::grey_quant_KOROB_PR_Factor()
 
 void CKronrodBinarizator::grey_PR_BYTE(Word32 ibeg, Word32 jbeg, Word32 value)
 {
-	// 22.09.1992
 	Word32	i, j, k;
 	Word32	cifra, scale;
 	Word8	mask;
@@ -1148,7 +1059,6 @@ void CKronrodBinarizator::grey_PR_BYTE(Word32 ibeg, Word32 jbeg, Word32 value)
 
 void CKronrodBinarizator::hist_add(PWord8 p, Word32 N_Lines)
 {
-	// 01.09.1992
 	Word32	k, n;
 	Word32	Hist_WORD [256];
 
@@ -1171,7 +1081,6 @@ void CKronrodBinarizator::hist_add(PWord8 p, Word32 N_Lines)
 
 void CKronrodBinarizator::hist_glad_8_121()
 {
-	// 26.08.1992
 	Int32	k, n;
 	Int32	LnL, LnC, LnR;
 
@@ -1194,7 +1103,6 @@ void CKronrodBinarizator::hist_glad_8_121()
 
 void CKronrodBinarizator::hist_MIN_MAX()
 {
-	// 27.09.1992
 	/*旼컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�*/
 	/*�	It works with Hist_glad;			�*/
 	/*� maxR - right max: move from FF to left side, find	�*/
@@ -1354,7 +1262,6 @@ void CKronrodBinarizator::Korobs_init()
 
 void CKronrodBinarizator::Korobs()
 {
-	// 23.10.1992
 	Word32	i2, j1, nj, j2m; /*i1,*/ 	// 旼컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴커
 	Word32	j;			// � Current line contain a number of [)�
 	Word32	a, aaa;	// LAST for BASE// � intervals. Used NON-FULL reference	�
@@ -1558,7 +1465,6 @@ mrs1:
 
 void CKronrodBinarizator::Korobs_CLEAR_and_GLUE()
 {
-	// 30.08.1992
 	Word32	b, bbb;	// BASE
 	Word32	c, ccc;	// NEXT for BASE
 	Word32	d;	// NEXT for NEXT
@@ -1596,7 +1502,6 @@ m1:
 
 void CKronrodBinarizator::Korob_add(Word32 j)
 {
-	// 27.10.1992
 
 	Korob_calc_BOX (j);
 	if (Flag_Korob_OK==FALSE)
@@ -1632,7 +1537,6 @@ void CKronrodBinarizator::Korob_add(Word32 j)
 
 void CKronrodBinarizator::Korob_calc_BOX(Word32 j)
 {
-	// 27.10.1992 +MK 27.09.1993
 	Word32	ii, jj;					/* NB: U+ -> +2  R & L	*/
 	Word32	i1,i2, ni, i_down;
 	Word32	j1,j2, nj;
@@ -1797,7 +1701,6 @@ m_ex:
 
 void CKronrodBinarizator::Korob_calc_Factor()
 {
-	// 07.09.1992
 	/* Calculation of Factor by Ndiff and Nblack:	*/
 	/*..............................................*/
 	/*	NEW: Var-2 27.07.1992:			*/
@@ -1891,7 +1794,6 @@ void CKronrodBinarizator::Korob_calc_Factor()
 
 void CKronrodBinarizator::Korob_calc_TdP()
 {
-	// 01.09.1992
 	Int32	i1,i2, j1,nj, Factor;				/* OTLADKA ONLY	*/
 	Int32	i, j;
 	Word8	mkMax, nn/*, dd*/;
@@ -1927,7 +1829,6 @@ void CKronrodBinarizator::Korob_calc_TdP()
 
 void CKronrodBinarizator::Korob_calc_porog_x_y()
 {
-	// 27.10.1992
 	Int32	Factor;
 	Int32	porog_tek, xx, yy;
 
@@ -2083,76 +1984,7 @@ m_Verblud:
 			yy = (0xA0 - Factor) / 4;
 		else
 			yy = 0;
-	/*......................................................................*/
-	/************************************************************************
-	// VARIANT-1 10.09.1002 (GOOD):
-	// Factor    Porog   Divider
-	// 00 - 60   3/8......	----
-	// 60 - 90   3/8 - 6/8	0x10
-	// 90 - B0   6/8 - 7/8	0x20
-	// B0 - C0   7/8......	----
-	// C0 - D2   7/8 - 4/8	0x06
-	// D2 - FF   4/8......	----
 
-	if (Factor<=0x60)
-		porog_tek = Porog_38;
-	else if (Factor<0x90)
-		porog_tek = Porog_38 + (Factor - 0x60)*Diapazon_8 / 0x10;
-	else if (Factor<0xB0)
-		porog_tek = Porog_34 + (Factor - 0x90)*Diapazon_8 / 0x20;
-	else if (Factor<=0xC0)		// C0; C8; C8; C0;
-		porog_tek = Porog_78;
-	else if (Factor<0xD2)		// E0; E8; D8; D2;
-		porog_tek = Porog_78 - (Factor - 0xC0)*Diapazon_8 / 0x06;
-	else	porog_tek = Porog_12;
-	*****************************************************************/
-	/*......................................................................*/
-	/************************************************************************
-	// VARIANT-2 10.09.1002 (BAD):
-	// Factor    Porog   Divider
-	// 00 - 50   3/8 - 5/8  0x28
-	// 50 - 80   5/8 - 6/8  0x30
-	// 80 - B0   6/8 - 7/8  0x30
-	// B0 - C0   7/8......  ----
-	// C0 - D2   7/8 - 4/8  0x06
-	// D2 - FF   4/8......  ----
-	if (Factor<0x50)
-		porog_tek = Porog_38 + (Factor - 0x00) * Diapazon_8 / 0x28;
-	else if (Factor<0x80)
-		porog_tek = Porog_38 + (Factor - 0x50) * Diapazon_8 / 0x30;
-	else if (Factor<0xB0)
-		porog_tek = Porog_34 + (Factor - 0x80) * Diapazon_8 / 0x30;
-	else if (Factor<=0xC0)
-		porog_tek = Porog_78;	// ================================
-	else if (Factor<0xD2)
-		porog_tek = Porog_78 - (Factor - 0xC0) * Diapazon_8 / 0x06;
-	else	porog_tek = Porog_12;	// ================================
-	*****************************************************************/
-	/*......................................................................*/
-	/************************************************************************
-	// VARIANT-3 13.09.1002 (????):
-	// Factor    Porog   Divider
-	// 00 - 60   3/8......	----
-	// 60 - 80   3/8 - 4/8	0x20
-	// 80 - B0   4/8 - 7/8	0x10
-	// B0 - C0   7/8......	----
-	// C0 - D8   7/8 - 6/8	0x18
-	// D8 - E0   6/8 - 5/8	0x08
-	// E0 - FF   5/8......	----
-	if (Factor<=0x60)
-		porog_tek = Porog_38;
-	else if (Factor<0x80)
-		porog_tek = Porog_38 + (Factor - 0x60)*Diapazon_8 / 0x20;
-	else if (Factor<0xB0)
-		porog_tek = Porog_34 + (Factor - 0x80)*Diapazon_8 / 0x10;
-	else if (Factor<=0xC0)
-		porog_tek = Porog_78;
-	else if (Factor<0xD8)
-		porog_tek = Porog_78 - (Factor - 0xC0)*Diapazon_8 / 0x18;
-	else if (Factor<0xE0)
-		porog_tek = Porog_34 - (Factor - 0xD8)*Diapazon_8 / 0x08;
-	else	porog_tek = Porog_12;
-	*****************************************************************/
 	/*......................................................................*/
 	// VARIANT-4 22.09.1002 (????):
 	// Factor    Porog   Divider
@@ -2193,8 +2025,6 @@ m_ex:
 
 void CKronrodBinarizator::Korob_Files_Open()
 {
-	// 06.10.1992
-
 	Flag_ERR_DISK = FALSE;
 	mkFile_KOROBS_HEADS = fopen ("\\CUNEI\\KOROBS\\kor-head.img", "wb");
 	mkFile_KOROBS_BODIES= fopen ("\\CUNEI\\KOROBS\\kor-body.img", "wb");
@@ -2207,10 +2037,7 @@ void CKronrodBinarizator::Korob_Files_Open()
 
 void CKronrodBinarizator::Korob_Files_Write()
 {
-	// 06.10.1992
 	Word32	n, ni, i;
-	//Word32	buf_H [8];     is class member
-	//Word32	buf_B [2550];  is class member
 	//////////////////////////////////////////////////
 
 	if (Flag_ERR_DISK)  return;
@@ -2247,7 +2074,6 @@ void CKronrodBinarizator::Korob_Files_Write()
 
 void CKronrodBinarizator::Korob_Files_Close()
 {
-	// 06.10.1992
 	if (Flag_ERR_DISK)
 		return;
 	fclose (mkFile_KOROBS_HEADS);
@@ -2256,7 +2082,6 @@ void CKronrodBinarizator::Korob_Files_Close()
 
 void CKronrodBinarizator::Korob_see()
 {
-	// 04.09.1992
 	if ((Korob_i1>I_see) || (Korob_i2<I_see)  ||
 	    (Korob_j1>J_see) || (Korob_j1 + Korob_nj <= J_see))
 		return;
@@ -2274,7 +2099,6 @@ void CKronrodBinarizator::Korob_see()
 
 void CKronrodBinarizator::Korob_statistic()
 {
-	// 11.09.1992
 	Word32	i1,i2, j1,nj, nj_1;
 	Word32	i, j;
 	Int32	nC, nL, nR;
@@ -2330,7 +2154,6 @@ void CKronrodBinarizator::Korob_statistic()
 
 void CKronrodBinarizator::Korob_statistic_print()
 {
-	// 11.09.1992
 	Word32	percent;
 
 	percent = (WORD) (LS_Korobs * 100L / (NI * (Int32) NJ));
@@ -2346,10 +2169,7 @@ void CKronrodBinarizator::Korob_statistic_print()
 
 void CKronrodBinarizator::memory_allocation()
 {
-	// 11.02.1992
 	Word32	k;
-	//////	hMem  = GlobalAlloc (GHND, bufl);
-	//////	lpMem = GlobalLock (hMem);
 
 	if (Flag_OTL)
 		PR_BEG  "N.B.p.O.M=%04X", N_Bytes_per_ONE_MEM); PR_END
@@ -2379,16 +2199,15 @@ void CKronrodBinarizator::memory_allocation()
 	if (hMREF)
 		PR_BEG "MEM.ALL ERR: hMREF = %04X", hMREF);	PR_END
 
-	hMREF = KRONROD_ALLOC(NJ*6); //GlobalAlloc (GHND, NJ*6);		// NJ*3 Int16
+	hMREF = KRONROD_ALLOC(NJ*6);
 
 	if (hMREF==0)
 		PR_BEG "hMREF = %04X", hMREF);	PR_END
 
 	if (hPPMEM)
 		PR_BEG "MEM.ALL ERR: hPPMEM = %04X", hPPMEM);  PR_END
-	//////	hPPMEM = GlobalAlloc (GHND, MAX_NI*4);		// MAX_NI far *
 
-	hPPMEM = KRONROD_ALLOC(NI*4); //GlobalAlloc (GHND, NI*4); // NI *****
+	hPPMEM = KRONROD_ALLOC(NI*4);
 
 	if (hPPMEM==0)
 		PR_BEG "hPPMEM = %04X", hPPMEM);  PR_END
@@ -2423,20 +2242,11 @@ void CKronrodBinarizator::memory_allocation()
 			pMem08[0], pMem08[1], pMem08[2], pMem08[3],
 			pMem08[4], pMem08[5], pMem08[6], pMem08[7]);
 		PR_END
-	//	MKPR "MEM ALL MemK h,p %X %lX", hMemK, pMemK);	MMM_NP;
-	//	MKPR "MEM ALL Mem1 h,p %X %lX", hMem1, pMem1);	MMM_NP;
-	//	MKPR "MEM ALL Mem2 h,p %X %lX", hMem2, pMem2);	MMM_NP;
-	//	MKPR "MEM ALL Mem3 h,p %X %lX", hMem3, pMem3);	MMM_NP;
-	//	MKPR "MEM ALL MBIT h,p %X %lX", hMBIT, pMBIT);	MMM_NP;
-	//	MKPR "MEM ALL MBNK h,p %X %lX", hMBNK, pMBNK);	MMM_NP;
-	//	MKPR "MEM ALL BufQ h,p %X %lX", hBufQ, pBufQ);	MMM_NP;
 }
 
 void CKronrodBinarizator::memory_alloc_from_body()
 {
-	// 11.02.1992
 	Word32	k;
-	//Word8	Virginity = TRUE; - member
 
 	if (!Virginity)  return;
 
@@ -2518,47 +2328,38 @@ void CKronrodBinarizator::memory_alloc_from_body()
 			pMem08[4], pMem08[5], pMem08[6], pMem08[7]);
 		PR_END
 
-	//	MKPR "MEM ALL MemK h,p %X %lX", hMemK, pMemK);	MMM_NP;
-	//	MKPR "MEM ALL Mem1 h,p %X %lX", hMem1, pMem1);	MMM_NP;
-	//	MKPR "MEM ALL Mem2 h,p %X %lX", hMem2, pMem2);	MMM_NP;
-	//	MKPR "MEM ALL Mem3 h,p %X %lX", hMem3, pMem3);	MMM_NP;
-	//	MKPR "MEM ALL MBIT h,p %X %lX", hMBIT, pMBIT);	MMM_NP;
-	//	MKPR "MEM ALL MBNK h,p %X %lX", hMBNK, pMBNK);	MMM_NP;
-	//	MKPR "MEM ALL BufQ h,p %X %lX", hBufQ, pBufQ);	MMM_NP;
 }
 
 void CKronrodBinarizator::memory_free()
 {
-	// 03.11.1992
 	Word32	k;
 				//for 8 MEMs
 	for (k=0; k<8; k++)
 	{
 		if (hMem08[k])
-			KRONROD_FREE( hMem08[k] ); //GlobalFree (hMem08 [k]);
+			KRONROD_FREE( hMem08[k] );
 
 		hMem08[k] = 0;
 	}
 
 	if (hMBIT)
-		KRONROD_FREE(hMBIT); //GlobalFree (hMBIT);
+		KRONROD_FREE(hMBIT);
 
 	hMBIT = 0;
 
 	if (hMREF)
-		KRONROD_FREE(hMREF); //GlobalFree (hMREF);
+		KRONROD_FREE(hMREF);
 
 	hMREF = 0;
 
 	if (hPPMEM)
-		KRONROD_FREE(hPPMEM); //GlobalFree (hPPMEM);
+		KRONROD_FREE(hPPMEM);
 
 	hPPMEM = 0;
 }
 
 void CKronrodBinarizator::pr_ERR(PInt8 text)
 {
-	//12.08.1992
 	wsprintf ((char *)(mkText), (char *)text);
 	MMM;
 	//////	MessageBox (GetFocus(), mkText, 0, MB_SYSTEMMODAL);
@@ -2566,7 +2367,6 @@ void CKronrodBinarizator::pr_ERR(PInt8 text)
 
 void CKronrodBinarizator::pr_ERR_1(PInt8 text, Int32 n1)
 {
-	//12.08.1992
 	//////	wsprintf (mkText, "MK GREY MESSAGE [1] %s %d", text, n1);
 	wsprintf ((char *)mkText, (char *)text, n1);
 	MMM;
@@ -2574,7 +2374,6 @@ void CKronrodBinarizator::pr_ERR_1(PInt8 text, Int32 n1)
 
 void CKronrodBinarizator::pr_ERR_2(PInt8 text, Int32 n1, Int32 n2)
 {
-	//12.08.1992
 	//////	wsprintf (mkText, "MK GREY MESSAGE [2] %s %d,%d", text, n1, n2);
 	wsprintf ((char *)mkText, (char *)text, n1, n2);
 	MMM;
@@ -2582,14 +2381,12 @@ void CKronrodBinarizator::pr_ERR_2(PInt8 text, Int32 n1, Int32 n2)
 
 void CKronrodBinarizator::pr_ERR_3(PInt8 text, Int32 n1, Int32 n2, Int32 n3)
 {
-	//12.08.1992
 	wsprintf ((char *)mkText, (char *)text, n1, n2, n3);
 	MMM;
 }
 
 void CKronrodBinarizator::pr_MES(PInt8 text)
 {
-	//14.08.1992
 	wsprintf ((char *)mkText, (char *)text);
 	MMM_NP;
 	//////	MessageBox (GetFocus(), mkText, 0, 0);
@@ -2597,7 +2394,6 @@ void CKronrodBinarizator::pr_MES(PInt8 text)
 
 void CKronrodBinarizator::pr_MES_1(PInt8 text, Int32 n1)
 {
-	//14.08.1992
 	//////	wsprintf (mkText, "MK GREY MESSAGE [1] %s %d", text, n1);
 	wsprintf ((char *)mkText, (char *)text, n1);
 	MMM_NP;
@@ -2605,7 +2401,6 @@ void CKronrodBinarizator::pr_MES_1(PInt8 text, Int32 n1)
 
 void CKronrodBinarizator::pr_MES_2(PInt8 text, Int32 n1, Int32 n2)
 {
-	//14.08.1992
 	//////	wsprintf (mkText, "MK GREY MESSAGE [2] %s %d,%d", text, n1, n2);
 	wsprintf ((char *)mkText, (char *)text, n1, n2);
 	MMM_NP;
@@ -2613,7 +2408,6 @@ void CKronrodBinarizator::pr_MES_2(PInt8 text, Int32 n1, Int32 n2)
 
 void CKronrodBinarizator::pr_MES_3(PInt8 text, Int32 n1, Int32 n2, Int32 n3)
 {
-	//14.08.1992
 	wsprintf ((char *)mkText, (char *)text, n1, n2, n3);
 	MMM_NP;
 }

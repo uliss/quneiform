@@ -63,57 +63,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define	mkA0	0xA0
 #define	par_Q	0x80
-/*----------------------------------------------------------------------*/
-// 11.08.1992	begin it in H:\MK\SCAN;  see read.c, F:...grey.c
-// 14.08.1992	work with KOROBS; see above; see Buf_TdP;
-// 16.08.1992	rename  GREY-BW.C  to  GREY-WIN.C
-// 18.08.1992	Flaf_ERR_Hist
-// 19.08.1992	DRAW RAMKA OPTION (see QUANT)
-//		Korob_delete: DELETE SWOJ ONLY !!!!!!
-//		work with FILE mkFile_TEMP_IMG;  #include <stdio.h>
-// 24.08.1992	Work with GREY.INI (see H:\CUNEI and HERE !!!)
-// 25.08.1992	Flag_GREY (extern in BODY.C, ZONE.C)
-//		mkwin12e - Etalon;  begin work with my BITMAP
-// 26.08.1992	NOTA BENE: need BLOCK of LEFT and RIGHT COLUMNS !!!
-// 27.08.1992	PLAN (MMM only) - modern and /3 (oslabil)
-// 28.08.1992	Etalon mkwin19e & sdrv19.exe
-// 29.08.1992	Last (102%) Error;  Flag_Pd8; Etalon mkwin20k & sdrv20;
-//		Begin new Work with Korobs; Kor_REFERENCES;
-// 31.08.1992	NEW VERSION (mkwin24m.zip);  Begin MKASM.ASM !!!
-// 01.09.1992	VERSION	mkwin27v.zip - for LEMAN !!!
-// 04.09.1992	Flag_WERB: +Werblud: new work, Porog with GORB !!!
-// 09.09.1992   Work with FAX and "GREY" button	(BODY,READ,ZONE,SCANWND.H)
-// 11.09.1992	Version-32 for LEMAN !!!!!!
-// 13.09.1992	+MAX for Porog (Diapazon-16): mkwin-33
-// 14.09.1992	NOWORK +MAX for 8 Elements from LEFT or RIGHT
-// 22.09.1992	NO SPACE; => include grey-kor.c (PART-2)
-//		hist_MIN_MAX: a) more then  (LmaxR / 2) => LmaxR*3/4;
-//		NEW VARIANT for POROG (60-80-BO: 3-4-7)
-// 25.09.1992	WERB => VERB;  +WrKor
-// 26.09.1992	Work with \CUNEI\KOROBS\kor-head,body.img
-// 06.10.1992	use Flag_MAX (it was ERR: NOT USED BEFORE !!!)
-//		OTRABOTKA Flag_ERR_DISK
-// 13.10.1992	"Last Error" - use Flag_WrKor by WRITE FILES
-// 14.10.1992	Flag_Musor - DELETE small Korobs 1x5 (2x6)
-// 22/23.10.92	OTLADKA Grey ERRORS
-// 26.10.1992	grey_open : TOO MANY LINES : 3333 ==> 6602 (BBB)
-//	LINK : error L2028: automatic data segment plus heap exceed 64K
-//		memory_allocation: Work with ppMem [MAX_NI==6602]
-// 27.10.1992	OTLADKA - Print NI*NJ
-//		+Xverblud - for TIMES ROMAN
-// 27.10.1992	use const 16 (instead old 32) in hist_MIN_MAX for LEFT MAX
-//		+0musor Delete Korobs more 8*8 with Factor=0 (PROBA 27.10)
-// 28.10.1992	RIKOH: Experiments with  memory_alloc_from_body ();
-// 30.10.1992	grey_to: +OLADKA -> some print of GREY Pixels (for RIKOH)
-// 02.11.1992	Init (0000) for Memory Alloc / Free;
-// 02/03.11.92	+5work - Work with 5x, 5y
-// 27.09.1993   MK: mod. Korob_calc_BOX: 2 places: (jj==NJ_1) => (jj>=NJ_1);
-/*----------------------------------------------------------------------*/
-/*#include <windows.h>*/
+
 #include <stdio.h>
 #include <string.h>
-		//// ###FileOpen, FileClose: HANDLES - windowsh
-		//// OpenFile
 #include "gdata.h"
 ////////////////////////////////////////////////////////////////////////////
 //AK память через RIMAGE
@@ -126,12 +78,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ///////////////////////////////////////////////////////////////////////////////
 
-
-//#define G_DEBUG        // D.L. 3.4.94 // uncomment to debug
-/*
-typedef short int  Int16;
-typedef		 long  Int32;
-*/
 #ifdef _MSC_VER
 	#define EXPORT(a) __declspec(dllexport) a
 #else
@@ -150,7 +96,6 @@ void	grey_to_memory_monitor (void);
 void	grey_to_monitor_MBIT (WORD n_from);
 EXPORT(void) grey_from (BYTE far *pKuda);
 EXPORT(WORD) grey_close (void);      //returns n_lines_ready
-//////void	grey_quant_OLD_NOT_USED (void);	////// DELETE <= 13.09.92
 void	grey_quant_KOROB (void);
 void	grey_quant_KOROB_1x1 (void);
 void	grey_quant_KOROB_1x3_MAX (void);
@@ -198,17 +143,8 @@ void	mk_hist_WORD (WORD *Hist_WORD, LPBYTE p, WORD n);
 //int	abs (int value);
 /*----------------------------------------------------------------------*/
 							//DEFINES
-//////	BYTES_KOROBS...	see below
-//////#define	MAX_NI	8192
-//////#define	MAX_NI	2222
 #define	KEY		if (mk_Key)
 #define	KEY_ERR_1	if (mk_Key)  pr_ERR_1
-//////#define	MAX_NI	3333	////// 300 dpi ==> 3300
-//////#define	MAX_NI	4400	////// 400 dpi ==> 4400
-//////#define	MAX_NI	6600	////// 600 dpi ==> 6600
-	// NB:  4096 - really IGOR FARADJEV Limit:
-    // Allex 8192 - при таком идиотском способе чтения картинки приходится идти на такие жертвы
-    // ради редких случаев действительно больших картинок... делать надо по человечески!
 #define	MAX_NI	8192//4096
 #define	MAX_NJ	8192//4096
 #define	MKPR	wsprintf (mkText,	// "qwer=%d", qwer);   MMM;
@@ -241,10 +177,8 @@ WORD	N_Lines_in_TEK_MEM;
 WORD	N_tek_Line_in_MBIT;
 
 BYTE	IER;
-// BYTE    Flag_GREY=0x55; // extern in BODY.C, ZONE.C;    formed in BODY.C
 BYTE	Flag_ERR_Hist_L, Flag_ERR_Hist_R;
 BYTE	mk_Key;		// -Key		MK KEY for OTLADKA PRINTS
-///BYTE	Flag_Cont = 1;	// from 25.08.1992:  0 - SIMPLE, 1 - AUTO;
 BYTE	Flag_3x3;	// +3x3		enable any work 3*3;
 BYTE	Flag_5work;	// +5work	Work with 5x, 5y;
 BYTE	Flag_d8P;	// +d8P		Porog +- Diapazon_8 (for Speed)
@@ -254,7 +188,6 @@ BYTE	Flag_Lapl;	// +Laplas	Laplas 3*3 Contour
 BYTE	Flag_MAX;	// +MAX		for new POROG QUANT 1x3 (use D_16)
 BYTE	Flag_musor;	// +musor1x5	DELETE small Korobs
 BYTE	Flag_0musor;	// +0musor	DELETE Korobs more 8*8 with F=0
-///BYTE	Flag_MMM;	// +MMM		old quant (-) or  new quant_Korob (+)
 BYTE	Flag_PLAN;	// +Plan	"Plan" 3*3 Contour
 BYTE	Flag_T;		// -T		SHAVE (not used now);
 BYTE	Flag_Vert;	// +Vert        Vert. SEDLO;
@@ -294,9 +227,7 @@ LPBYTE	pMem08 [8];	// ARRAY for 8 MEMs			//POINTERs
 LPBYTE	pMBIT, pMBIT_tek;
 LPBYTE	pMREF;		// for KOROBS REFERENCES
 LPBYTE	pMem_TEK, pMem_kuda;
-//////BYTE far *ppMem [MAX_NI];	//Array of FAR Pointers
 BYTE far * far * ppMem;	//Array of FAR Pointers
-//////BYTE far *(far *ppMem);		//Array of FAR Pointers
 /*----------------------------------------------------------------------*/
 							// KOROB VARIABLES
 WORD	Korob_i1;		// ==Itek !!!
@@ -327,8 +258,6 @@ EXPORT(void) grey_open (WORD H, WORD N)  {           // 28.10.1992
 WORD	k;
 //////extern char auto_flag;
 
-///PR_BEG	"grey_open: Flag_GREY = %02X", Flag_GREY);	PR_END
-///PR_BEG	"grey_open: NI=%d NJ=%d auto_flag=%d", H, N, auto_flag);  PR_END
 /*......................................................................*/
     grey_open_init_flags ();
 /*......................................................................*/
@@ -382,8 +311,6 @@ char	buf [888];
 
 			//DEFAULT:
 	mk_Key = FALSE;
-///////////////////////	Flag_Cont = 1;		// before 02.09.1992
-///////////////////////	Flag_MMM  = TRUE;	// before 02.09.1992
 	Flag_3x3  = TRUE;
 	Flag_5work= FALSE;		// NEW from 02.11.1992
 	Flag_GLUE = TRUE;
@@ -402,20 +329,8 @@ char	buf [888];
 	Flag_STAT = FALSE;		// Statistic
 	Flag_FactPR = Flag_grHist = FALSE;
 	Flag_OTL  = FALSE;
-	return; ////////// AL.
-/*......................................................................*/
-//////	handle_MK_TEMP_IMG = open ("MK-TEMP.IMG", 0x8302);
-//////	// 8000=O_BYNARY  200=O_TRUNC  100=O_CREAT  02=O_WRONLY	//////////
-/*......................................................................*/
-//////	mkFile_GREY_INI = fopen ("GREY.INI", "rb");
-/*
-	mkFile_GREY_INI = fopen (Full_Name_GREY_INI, "rb");
-	if (mkFile_GREY_INI==NULL)  {
-//////		PR_BEG	"GREY: NO OPEN FILE\n%s\nUse default Parametrs",
-//////		(LPSTR) Full_Name_GREY_INI);	PR_END
-		return;
-		}
-/*......................................................................*/
+	return;
+
 	n = fread (buf, 1, 888, mkFile_GREY_INI);
 	if (n>=888)  PR_BEG "GREY.INI too Int32 [%d]", n);	PR_END
 	for (k=1; k<n; k++)  {
@@ -475,12 +390,9 @@ if (N_Bytes_FROM==0)  pr_ERR ("GREY: NBF==0");
 
 	N_Bytes_in_MBIT_Line = (NJ + 7) / 8;	// 2550 -> 319 => 63800
 	N_Bytes_in_all_MBIT = N_Bytes_in_MBIT_Line * N_Lines_per_8_MEMs;
-//////PR_BEG	"N.B.MB.L=%d N.B.MBIT=%do",
-//////		N_Bytes_in_MBIT_Line, N_Bytes_in_all_MBIT/10);	PR_END
 
 	memory_allocation ();
 
-//////	for (k=0; k<MAX_NI; k++)  ppMem [k] = NULL;	// OLD
 	for (k=0; k<NI; k++)  ppMem [k] = NULL;		// NEW
 
 	memset (pMBIT, 0, N_Bytes_in_all_MBIT);	// ZERO to MBIT
@@ -488,15 +400,11 @@ if (N_Bytes_FROM==0)  pr_ERR ("GREY: NBF==0");
 	N_tek_Line_in_MBIT = 0;
 
 	N_of_TEK_MEM = 0;
-//////	Flag_Mem_AB = 0;
 	pMem_TEK = pMem_kuda = pMem08 [0];	// first of 8 MEMs
 	N_Lines_in_TEK_MEM = 0;
-/////////////	N_Lines_ACC = 0;
-//////	I_mem_A = I_mem_B = 0;
 
 	Itek = 0;	// for  grey_from  (really it is "I_from")
 	I_to = 0;	// for  grey_to
-//////	I_beg = I_end = 0;
 }
 /*----------------------------------------------------------------------*/
 EXPORT(WORD) grey_to (BYTE far *pKogo)   {       // 30.10.1992
@@ -1685,8 +1593,6 @@ LPBYTE	pU, pC, pD;	/* Up, Centre, Down */
 	    }	/* FOR I */
 /*......................................................................*/
 	LNinter = LNblack - LNdiff;
-//////	if (LNblack==0)  pr_ERR ("GREY: Korob EMPTY");	/* BBB	*/
-//////	if (LNblack==0)	 Korob_Factor = 0x80;	/* BBB	*/
 	if (LNblack==0)	 Korob_Factor = 0;	// ???????????????????
 		   else  Korob_Factor = (WORD) (LNinter*255L/LNblack);
 /*......................................................................*/
@@ -1711,11 +1617,6 @@ BYTE	mkMax, nn/*, dd*/;
 		nn = ppMem [i1 + i] [j1 + j];
 		if (nn>mkMax)  mkMax = nn;		/* VERT MAXIMUM	*/
 		}
-///////	    dd = (mkMax>=Porog_34)  ?  0 : (Porog_34 - mkMax)/8;  ???????????
-//	    if (mkMax>=Porog_34)                          // commented by D.L.3.4.94 as never used
-//		  dd = (BYTE) (((WORD) (Porog_34 - mkMax) / 8));// commented by D.L.3.4.94 as never used
-//	    else  dd = 0;// commented by D.L.3.4.94 as never used
-///////	    Buf_TdP [j1 + j] = dd;
 	    }
 }
 /*----------------------------------------------------------------------*/
@@ -1806,7 +1707,7 @@ m_TIMES_ROMAN:		// more soft Analog of Verblud (must be +X, +V):
 	else	porog_tek = Porog_12;
 	goto m_ex;
 /*......................................................................*/
-m_Verblud:	//			6/8   -
+m_Verblud:/*			6/8   -
 		//			    /	\
 		//			  /   B	  \
 		//			/   A	C   - -  4/8
@@ -1814,81 +1715,13 @@ m_Verblud:	//			6/8   -
 		// 3/8	- - - - - - /   8	    E F
 		//	............. 7
 		//	0 1 2 3 4 5 6
-
+*/
 	Factor = Korob_Factor;
 	xx = 0;		// BBB
 	if (Factor<=0x40)	yy = 24;
 	else if (Factor<0xA0)	yy = (0xA0 - Factor) / 4;
 	else			yy = 0;
-/*......................................................................*/
-/************************************************************************
-					// VARIANT-1 10.09.1002 (GOOD):
-					// Factor    Porog   Divider
-					// 00 - 60   3/8......	----
-					// 60 - 90   3/8 - 6/8	0x10
-					// 90 - B0   6/8 - 7/8	0x20
-					// B0 - C0   7/8......	----
-					// C0 - D2   7/8 - 4/8	0x06
-					// D2 - FF   4/8......	----
-	if (Factor<=0x60)
-		porog_tek = Porog_38;
-	else if (Factor<0x90)
-		porog_tek = Porog_38 + (Factor - 0x60)*Diapazon_8 / 0x10;
-	else if (Factor<0xB0)
-		porog_tek = Porog_34 + (Factor - 0x90)*Diapazon_8 / 0x20;
-	else if (Factor<=0xC0)		// C0; C8; C8; C0;
-		porog_tek = Porog_78;
-	else if (Factor<0xD2)		// E0; E8; D8; D2;
-		porog_tek = Porog_78 - (Factor - 0xC0)*Diapazon_8 / 0x06;
-	else	porog_tek = Porog_12;
-	*****************************************************************/
-/*......................................................................*/
-/************************************************************************
-					// VARIANT-2 10.09.1002 (BAD):
-					// Factor    Porog   Divider
-					// 00 - 50   3/8 - 5/8  0x28
-					// 50 - 80   5/8 - 6/8  0x30
-					// 80 - B0   6/8 - 7/8  0x30
-					// B0 - C0   7/8......  ----
-					// C0 - D2   7/8 - 4/8  0x06
-					// D2 - FF   4/8......  ----
-	if (Factor<0x50)
-		porog_tek = Porog_38 + (Factor - 0x00) * Diapazon_8 / 0x28;
-	else if (Factor<0x80)
-		porog_tek = Porog_38 + (Factor - 0x50) * Diapazon_8 / 0x30;
-	else if (Factor<0xB0)
-		porog_tek = Porog_34 + (Factor - 0x80) * Diapazon_8 / 0x30;
-	else if (Factor<=0xC0)
-		porog_tek = Porog_78;	// ================================
-	else if (Factor<0xD2)
-		porog_tek = Porog_78 - (Factor - 0xC0) * Diapazon_8 / 0x06;
-	else	porog_tek = Porog_12;	// ================================
-	*****************************************************************/
-/*......................................................................*/
-/************************************************************************
-					// VARIANT-3 13.09.1002 (????):
-					// Factor    Porog   Divider
-					// 00 - 60   3/8......	----
-					// 60 - 80   3/8 - 4/8	0x20
-					// 80 - B0   4/8 - 7/8	0x10
-					// B0 - C0   7/8......	----
-					// C0 - D8   7/8 - 6/8	0x18
-					// D8 - E0   6/8 - 5/8	0x08
-					// E0 - FF   5/8......	----
-	if (Factor<=0x60)
-		porog_tek = Porog_38;
-	else if (Factor<0x80)
-		porog_tek = Porog_38 + (Factor - 0x60)*Diapazon_8 / 0x20;
-	else if (Factor<0xB0)
-		porog_tek = Porog_34 + (Factor - 0x80)*Diapazon_8 / 0x10;
-	else if (Factor<=0xC0)
-		porog_tek = Porog_78;
-	else if (Factor<0xD8)
-		porog_tek = Porog_78 - (Factor - 0xC0)*Diapazon_8 / 0x18;
-	else if (Factor<0xE0)
-		porog_tek = Porog_34 - (Factor - 0xD8)*Diapazon_8 / 0x08;
-	else	porog_tek = Porog_12;
-	*****************************************************************/
+
 /*......................................................................*/
 					// VARIANT-4 22.09.1002 (????):
 					// Factor    Porog   Divider

@@ -285,59 +285,7 @@ LDPUMA_ConsoleN("bound=%d", bound);
 
  return bound;
 }
-/*********************************************************************************************/
-/*
-BOOL GetMasP(Rect16 Rc,Word8** ppmasp)
-{
-	if (!image_name)
-		return FALSE;
 
-    int prewide;
-	int left=Rc.left;
-	int h=Rc.bottom-Rc.top+1;
-	int w=Rc.right-Rc.left+1;
-	int upper=Rc.top-1;
-	if( (w%8)==0)
-		prewide=w;
-	else
-	{prewide=w/8+1;
-	 prewide*=8;
-	}
-
-//	PAGEINFO info = {0};
-	CIMAGEInfoDataInGet DataInto = {0};
-	CIMAGEInfoDataOutGet DataOut = {0};
-
-//	Word8 Name[CPAGE_MAXNAME];
-	Bool ret;
-//	int i;
-
-	//*  1. Подготовка к запросу части изображения.
-	DataInto.dwHeight   = (Word32)(h);
-	DataInto.dwWidth    = (Word32)(prewide);
-	DataInto.wByteWidth = (Word16)(prewide/8);
-	DataInto.dwX        = left;
-	DataInto.dwY        = upper;
-	DataInto.MaskFlag   = 0x00;
-//    GetPageInfo(hCPage,&info);
-//	for (i=0; i<CPAGE_MAXNAME; i++)
-//		Name[i] = info.szImageName[i];
-	DataOut.dwWidth    = DataInto.dwWidth;
-	DataOut.dwHeight   = DataInto.dwHeight;
-	DataOut.wByteWidth = DataInto.wByteWidth;
-	DataOut.byBit      = biBitCount;
-	DataOut.lpData     = *ppmasp;
-
-	//*  5. Чтение части изображения.
-	ret = CIMAGE_GetData ((Word8*)image_name, &DataInto, &DataOut);
-	if (!ret)
-		return FALSE;
-	if (DataOut.lpData==NULL)
-		return FALSE;
-	*ppmasp = DataOut.lpData;
-	return TRUE;
-}
-*/
 /*********************************************************************************************/
 BOOL JNotInMas2(int j,int* mas,int size,int bound)
 {

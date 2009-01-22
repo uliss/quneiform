@@ -4,7 +4,6 @@ add_library(rstuff ${LIBTYPE}
 ${SNP_SRC}
 sources/main/aboutlines.aboutlin.cpp
 sources/main/aboutlines.buffer.cpp
-sources/main/autotemplate.cpp
 sources/main/binarise.cpp
 sources/main/deletelines.cpp
 sources/main/dll.cpp

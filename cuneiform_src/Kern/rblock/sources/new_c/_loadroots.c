@@ -94,29 +94,6 @@ extern Handle hDebugCancelGreatComp;
 extern Handle hDebugCancelPicturesAndTables;
 #define POSSIBLE_PICTURES CPAGE_GetInternalType("possible pictures")
 
-//extern Handle logFile_comp;
-/////////////////////////////////
-/*
-BYTE *CellsPage = NULL; //Rom 08-02-99
-RPIC_Comp_Rect * pBigLetters = NULL;
-int nBigLetters = 0;
-Word32 nPics;
-CCOM_comp * pPics = NULL;
-Word16 pBlockHystogram[MaxHeightOfLetter];
-int my_upper, my_left, my_bottom, my_right;
-char tmp_str[200];
-Word32 nComps;
-*/
-
-
-
-//CCOM_comp * pComps = NULL;
-//int nComps = 0;
-//Word32 TotalX, TotalY;
-//INT nRootsNotDust = 0;
-
-
-
 Bool32 Open_Res_Log( void )
 {
 
@@ -375,15 +352,6 @@ Bool32 PicturesSecondStage(Handle hCCOM,Handle hCPAGE)
 		comp->nl	= block.com.Flags;
         if (block.orient == TYPE_DOWNUP) comp->nl |= FROMDOWN;
 
-		/*
-		common = pPics[nPics];
-		common.upper = block.com.Vertex[0].y;
-		common.left  = block.com.Vertex[0].x;
-		common.w     = block.com.Vertex[1].x - block.com.Vertex[0].x;
-		common.h     = block.com.Vertex[2].y - block.com.Vertex[1].y;
-		*/
-
-		//pPics[nPics++] = *comp;
 	}
 	/***********/
 
@@ -495,13 +463,6 @@ Bool32 PicturesSecondStage(Handle hCCOM,Handle hCPAGE)
 			block.negative=TYPE_NEGATIVE;
 			if(pPics[i].nl&VERTICA)
 			{
-//commented by Andrey 9.08.01
-/*
-                block.orient=TYPE_DOWNUP;
-				//Almi 10.07.01
-				if (block.com.Vertex[0].x >4*PageWidth/5)
-					block.orient=TYPE_UPDOWN;
-*/
                 if (pPics[i].nl&FROMDOWN) block.orient = TYPE_DOWNUP;
                 else block.orient = TYPE_UPDOWN;
             }
@@ -559,22 +520,13 @@ Bool32 FillBigLetters (Handle hCCOM,Handle hCPAGE)
 
 Bool32 FillPicsInTables (Handle hCCOM,Handle hCPAGE)
 {
-	//CCOM_comp common;
 	POLY_	block;
 	Handle h = NULL;
 
-	//Word32 i,j;
-	//CCOM_comp pic;
 	CCOM_comp * comp;
-	//Word16 pLocalHystogram[MaxHeightOfLetter];
-	//Word32 nLocalComps;
-	//Word32 MaxLocal, nMaxLocal;
-	//Word32 Result1, Result2;
-
 
 	for(h = CPAGE_GetBlockFirst(hCPAGE,POSSIBLE_PICTURES);
 	h!=NULL;
-//	h = CPAGE_GetBlockNext(hCPAGE,h,POSSIBLE_PICTURES)	 Paul 02-04-2002
 	)
 	{
 		Handle hNext = CPAGE_GetBlockNext(hCPAGE,h,POSSIBLE_PICTURES);	 // Paul 02-04-2002
@@ -728,13 +680,6 @@ Bool32 ReadRoots(Handle hCCOM, Bool32 BLOCKS)
 		{
 			DeleteRootsFromTables();
 			DeleteRootsFromPictures();
-			/*
-			if (bSearchPicture)
-            {
-                CarefulPicturesAllotment(hCCOM);
-            }
-			*/
-			//DeleteRootsFromPictures();
 		}
 	}
 
@@ -872,35 +817,3 @@ int NPFGetBD()
 {
 	return 10;
 }
-
-/*
-static void create_root(c_comp *c, WORD siz, version * vs, version * ve)
-{
- BYTE w;
- //******************* Create root *********************************
- root_curr->yRow = c->upper; root_curr->xColumn = c->left;
- root_curr->nHeight = c->h; root_curr->nWidth = c->w;
- root_curr->u1.u2.wSegmentPtr=(comp_curr-comp_file)>>4;
- root_curr->u1.u2.wLength=siz;
-
- root_curr->bReached = 0;
- root_curr->nBlock=0;
- root_curr->nUserNum=0;
-
- if (vs==ve || (c->type & (ch_punct+ch_dust)))
-  root_curr->bType = (siz==1) ? ROOT_DUST : 0;
- else
-  {
-   for (w=ROOT_LETTER | ROOT_RECOGNIZED; vs != ve ; vs++)
-    if (vs->prob == 254) w &= letters_sf_table[vs->let];
-   root_curr->bType=w;
-  }
- root_curr++;
- comp_curr += siz << 4;
- // Oleg : new struct ROOT not aligned to paragraph
- if (root_curr > (PROOT) (memory_pool_end-sizeof(ROOT)))
-  {
-     if (!sweeper(0))     error_exit(ERR_comp,5);
-  }
-}
-*/

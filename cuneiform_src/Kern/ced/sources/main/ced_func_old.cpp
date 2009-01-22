@@ -176,54 +176,6 @@ CEDPage * Formattedload_96(char * file,Bool32 readFromFile, Word32 bufLen)
 	return mainPage;
 }
 
-//Puts non-recognized codes to the corresponding field of extData
-void ExtDataProc(Word8* _ptr, Word32 lth)
-{
-/*	int*	lengthPtr;
-	char ** ptr;
-	switch(level)
-	{
-		case 0:
-		{
-			lengthPtr=&(mainPage->extDataLen);
-			ptr=&(mainPage->extData);
-			break;
-		}
-		case 1:
-		{
-			lengthPtr=&(mainPage->GetCurSection()->extDataLen);
-			ptr=&(mainPage->GetCurSection()->extData);
-			break;
-		}
-		case 2:
-		{
-			lengthPtr=&(mainPage->GetCurSection()->GetCurParagraph()->extDataLen);
-			ptr=&(mainPage->GetCurSection()->GetCurParagraph()->extData);
-			break;
-		}
-		case 3:
-		{
-			lengthPtr=&(mainPage->GetCurSection()->GetCurParagraph()->GetCurLine()->extDataLen);
-			ptr=&(mainPage->GetCurSection()->GetCurParagraph()->GetCurLine()->extData);
-			break;
-		}
-		case 4:
-		{
-			lengthPtr=&(mainPage->GetCurSection()->GetCurParagraph()->GetCurLine()->GetCurChar()->extDataLen);
-			ptr=&(mainPage->GetCurSection()->GetCurParagraph()->GetCurLine()->GetCurChar()->extData);
-			break;
-		}
-	}
-	char * lpData = (char *)malloc(*lengthPtr+lth);
-	if(*ptr!=0)
-	{
-		memcpy(lpData,*ptr,*lengthPtr);
-	}
-	memcpy(lpData+(*lengthPtr),_ptr,lth);
-	free((HANDLE)*ptr);
-	*ptr=lpData;
-	*lengthPtr+=lth;
-*/}
 
 void FormattedLang(const EdTagLanguage* pt)
 {
@@ -401,21 +353,7 @@ void FormattedTR(const text_ref* pt)
 
 void FormattedFD(const fragm_disk* pt)
 {
-/*	if (pt->fragm_numb<mainPage->GetCurSection()->numberOfFrames)
-	{
-		CEDParagraph*para=mainPage->GetCurSection()->GetFrame(pt->fragm_numb);
-		mainPage->GetCurSection()->SetCurParagraph(para);
-		mainPage->GetCurSection()->InsertParagraph();
-	}*/
-/*	if(mainPage->GoToNextParagraph(TRUE))
-		return;
-	else
-	{
-		if (!mainPage->GetCurSection())
-			mainPage->InsertSection()->CreateColumn(0,0);
-		mainPage->GetCurSection()->InsertParagraph();
-	}
-*/
+
 }
 
 void FormattedLB(const line_beg* pt)
@@ -560,16 +498,8 @@ void RecreateFrames()
 		if (TRarray[i].type==SSR_FRAG_TYPE&&(TRarray[i].object==TP_TAB_BEG))
 		{
 			inTable=TRUE;
-//			edSize sz;
 			edBox bx;
 			bx.h=bx.w=bx.x=bx.y=-1;
-/*			sz.cx=1;
-			sz.cy=1;
-			int * q1=new int[2];
-			int * q2=new int[2];
-			int * q3=new int;
-			Bool32 * q4=new Bool32[2];
-			Bool32 * q5=new Bool32[2];*/
 //			if (!mainPage->GetCurSection())
 			//new table is always in a new section
 				mainPage->InsertSection()->CreateColumn();
@@ -578,11 +508,6 @@ void RecreateFrames()
 			row=mainPage->GetCurSection()->CreateTableRow(table,0, 0, -1, -1, -1,-1,-1, -1,-1,-1,-1,0, FALSE);
 			cell=mainPage->GetCurSection()->CreateCell(row,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,bx,-1,-1);
 			firstCell=TRUE;//in order to change its width
-		/*	delete[]q1;
-			delete[]q2;
-			delete q3;
-			delete[]q4;
-			delete[]q5;*/
 			numOfCols=-1;//this means: when we find relevant amount of columns, we memorize them
 		}
 		if (TRarray[i].type==SSR_FRAG_PNUM&&numOfCols==-1)

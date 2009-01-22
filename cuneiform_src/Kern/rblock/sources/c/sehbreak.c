@@ -119,7 +119,7 @@ static int nQuantityOfOnes [256] =
     3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7,
     4, 5, 5, 6, 5, 6, 6, 7, 5, 6, 6, 7, 6, 7, 7, 8
 };
-
+
 void FormOneRootString (int iRoot)
 {
     StringNewDescriptor ();
@@ -136,7 +136,7 @@ void FormOneRootString (int iRoot)
 
     StringAddToList ();
 }
-
+
 BOOL IsInterStringsComponent (ROOT *pRoot)
 {
     int yTop    = pRoot -> yRow;
@@ -181,7 +181,7 @@ BOOL IsInterStringsComponent (ROOT *pRoot)
 
     return (FALSE);
 }
-
+
 BOOL IsGluedComponent (STRING *pString, ROOT *pRoot)
 {
     STRING *pUp, *pDown;
@@ -235,7 +235,7 @@ BOOL IsGluedComponent (STRING *pString, ROOT *pRoot)
 
     return (TRUE);
 }
-
+
 void RasterHystogramBuild (void)
 {
     int y, o, i;
@@ -248,7 +248,7 @@ void RasterHystogramBuild (void)
             aRasterHystogram [y] += nQuantityOfOnes [pRaster [o + i]];
     }
 }
-
+
 BOOL GluedLettersProcess (ROOT *pRoot)
 {
     int oBreakLine, oAfterBreakLine;
@@ -279,14 +279,11 @@ BOOL GluedLettersProcess (ROOT *pRoot)
 
     if (pComp -> scale == 0)
     {
-        //online_comp (pComp);
-        //pRaster = make_raster ();
         pRaster = make_raster_CCOM( pComp);
 
     }
     else
     {
-        //pRaster = make_extended_raster_CCOM (pComp);
         pRaster = make_extended_raster_CCOM( pComp );
     }
 
@@ -327,8 +324,6 @@ BOOL GluedLettersProcess (ROOT *pRoot)
 	}
 
 
-	//RootShift = (pRoots - pRoot)/sizeof(pRoot);
-	//RootShift = pRoot - pRoots;
     for (; mn != NULL; mn = mn -> mnnext)
     {
         if( save_MN (mn) )
@@ -342,13 +337,11 @@ BOOL GluedLettersProcess (ROOT *pRoot)
 
            }
     }
-	//pRoot = pRoots + RootShift;
 
 	CCOM_Delete(exthCCOM, pRoot->pComp);
 
 	if (pCurrentBlock -> pRoots == pRoot)
 	{
-		//pTmpRoot = pRoot-> u1.pNext;
 		pCurrentBlock -> pRoots = pRoot-> u1.pNext;
 	}
 
@@ -361,17 +354,6 @@ BOOL GluedLettersProcess (ROOT *pRoot)
 				 pTmpRoot->u1.pNext = pTmpRoot->u1.pNext->u1.pNext;
 			 }
 	}
-
-
-	/** It's right **/
-	/*
-	BlocksHystogramsFreeData ();// Piter
-	BlocksAccessTableFree ();// Piter
-    BlocksExtract (); // Piter
-    BlocksAccessTableBuild ();// Piter
-    BlocksHystogramsBuild ();// Piter
-	pCurrentBlock = pBlockPointer [nCurrentBlock];
-	/******************************/
 
 	pPreviousAfterRoots = pAfterRoots - nMN;// Piter
 
@@ -400,13 +382,10 @@ BOOL GluedLettersProcess (ROOT *pRoot)
 
             if (pComp -> scale == 0)
             {
-                //online_comp (pComp);
-                //pRaster = make_raster ();
                 pRaster = make_raster_CCOM( pComp );
             }
             else
             {
-                //pRaster = make_extended_raster (pComp);
                 pRaster = make_raster_CCOM( pComp );
             }
 
@@ -417,35 +396,12 @@ BOOL GluedLettersProcess (ROOT *pRoot)
 
     return (TRUE);
 }
-
+
 void AddAllCuttedComponentsToStrings (void)
 {
     return;
-/*
-    ROOT *pRoot;
-    STRING *pString;
-    int yMiddleLine;
-
-    for (pRoot = pOldAfterRoots; pRoot < pAfterRoots; pRoot++)
-    {
-        for (pString = pStringsList;
-                 pString != NULL;
-                     pString = pString -> pNext)
-        {
-            yMiddleLine = (pString -> yMiddleTop + pString -> yMiddleBottom)/2;
-
-            if (yMiddleLine >= pRoot -> yRow &&
-                yMiddleLine <= pRoot -> yRow + pRoot -> nHeight)
-            {
-                break;
-            }
-        }
-
-        pString -> bNeedUpdate = TRUE;
-    }
-*/
 }
-
+
 void StringsProcessSpecials (void)
 {
     STRING *pString;

@@ -413,23 +413,6 @@ Bool32 SearchRectanglePictures(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 
 	}
 
-	/***********************************************************************************/
-	/*
-	{
-	Rect16 rect1;
-	for (i=0; i<nPics; i++)
-	{
-	rect1.left = pPics[i].left;
-	rect1.top = pPics[i].upper;
-	rect1.right = pPics[i].left + pPics[i].w;
-	rect1.bottom = pPics[i].upper + pPics[i].h;
-	LDPUMA_DrawRect(NULL, &rect1, 0, 200, 2, 111);
-	}
-	LDPUMA_Console("RPIC_Before \n");
-	LDPUMA_WaitUserInput(NULL, NULL);
-	LDPUMA_DeleteRects(NULL, 111);
-	}
-	/***********************************************************************************/
 	/************** final union all crossed and included pictures ******************/
 	CCOM_comp common;
 	for (i=0; i<nPics; i++)
@@ -458,24 +441,6 @@ Bool32 SearchRectanglePictures(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 			}
 		}
 	}
-
-	/***********************************************************************************/
-	/*
-	{
-	Rect16 rect1;
-	for (i=0; i<nPics; i++)
-	{
-	rect1.left = pPics[i].left;
-	rect1.top = pPics[i].upper;
-	rect1.right = pPics[i].left + pPics[i].w;
-	rect1.bottom = pPics[i].upper + pPics[i].h;
-	LDPUMA_DrawRect(NULL, &rect1, 0, 200, 2, 111);
-	}
-	LDPUMA_Console("RPIC_middle \n");
-	LDPUMA_WaitUserInput(NULL, NULL);
-	LDPUMA_DeleteRects(NULL, 111);
-	}
-	/***********************************************************************************/
 
 
 	for (i=0; i<nPics; i++)
@@ -521,23 +486,6 @@ Bool32 SearchRectanglePictures(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 			}
 		}
 	}
-	/***********************************************************************************/
-	/*
-	{
-	Rect16 rect1;
-	for (i=0; i<nPics; i++)
-	{
-	rect1.left = pPics[i].left;
-	rect1.top = pPics[i].upper;
-	rect1.right = pPics[i].left + pPics[i].w;
-	rect1.bottom = pPics[i].upper + pPics[i].h;
-	LDPUMA_DrawRect(NULL, &rect1, 0, 200, 2, 111);
-	}
-	LDPUMA_Console("RPIC_after \n");
-	LDPUMA_WaitUserInput(NULL, NULL);
-	LDPUMA_DeleteRects(NULL, 111);
-	}
-	/***********************************************************************************/
 
 
 	for(i=0; i<nPics; i++)

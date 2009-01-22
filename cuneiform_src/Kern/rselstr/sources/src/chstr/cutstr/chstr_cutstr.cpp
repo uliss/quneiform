@@ -281,11 +281,6 @@ void ToHorizont(Rect16* pRc,Word8* Raster,Word8* pmasp)
 
 RSELSTR_FUNC(Bool32) RSELSTR_CutStr(Rect16** ppRc,int& nRc,int& len_mas,Word8* pmasp,int DPIX,int DPIY,int str_w)
 {
-// MainWindowD=NULL;
-// MainWindowD=LDPUMA_GetWindowHandle ("Изображение после разворота");
-// if(!MainWindowD)
-//    MainWindowD=LDPUMA_GetWindowHandle ("Main");
-
  inf_str_h=15;
  if(str_w<=0)
 	 inf_str_w=8;
@@ -370,17 +365,6 @@ RSELSTR_FUNC(Bool32) RSELSTR_CutStr(Rect16** ppRc,int& nRc,int& len_mas,Word8* p
       if( (bytep&k)==0 ) count_black++;
    }
    proc=((double)(W-count_black))/((double)(W));
-/*   if(!(LDPUMA_Skip (StrPix)) )
-   {
-	Rect16 rect;
-	rect.top=top;
-	rect.bottom=top;
-	rect.left=pRc[i].left+leftbyte*8;
-	rect.right=pRc[i].left+rightbyte*8;
-    StrDrawRect(MainWindowD,3,RGB(0,0,255),rect);
-    LDPUMA_WaitUserInput (StrPix,MainWindowD);
-    LDPUMA_DeleteRects (MainWindowD,3);
-   }*/
    if(white==TRUE)
    {
 	 if(proc<=cut_str)
@@ -441,10 +425,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_CutStr(Rect16** ppRc,int& nRc,int& len_mas,Word8* p
 
  if(pRc[nRc-1].top<up-inf_let_h)
 	 pRc[nRc-1].top=up-inf_let_h;
-/* Andrey 19.09.01
- if(pRc[0].bottom>oldtop+inf_let_h && white && oldtop!=up)
-	 pRc[0].bottom=oldtop+inf_let_h;
-*/
+
  for(i=nRc-1;i>=0;i--)
  {
 	 if(pRc[i].bottom-pRc[i].top+1<inf_str_h)
@@ -782,19 +763,6 @@ BOOL InitStrMas(Rect16** ppRc,int len)
 	return TRUE;
 }
 
-/** /
-// так было
-BOOL InitStrMas(Rect16** ppRc,int len)
-{
-	(*ppRc)=NULL;
-	if(!((*ppRc)=new Rect16[len]))
-		return FALSE;
-	return TRUE;
-}
-/**/
-// <---== GF // 2004/01/29
-//////////////////////////////////////////////////////////////////////////
-
 BOOL InitStrMas(CCOM_comp*** ppRc,int len)
 {
 	(*ppRc)=NULL;
@@ -810,17 +778,6 @@ void DelStrMas(Rect16** pmasp)
 	delete[] (*pmasp);
   (*pmasp) = NULL;
 }
-
-/** /
-// так было
-void DelStrMas(Rect16 *masp)
-{
-	delete[] masp;
-}
-/**/
-// <---== GF // 2004/01/29
-//////////////////////////////////////////////////////////////////////////
-
 
 void DelStrMas(CCOM_comp** masp)
 {

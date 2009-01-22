@@ -394,10 +394,8 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 	LinesTotalInfo          lti;		 // Структура хранения линий
 	PAGEINFO                PInfo;  	 // Описание страницы
 	char*		            pImage;	     // Указатель на изображение
-//	Handle				    pBlock;		 // Указатель на блок
 	LnsSetupStr				ls;
 
-//	Word32 tmpw32;
 	Int32  result_h_count,
 		   result_v_count;
 
@@ -415,26 +413,6 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 
 	min_h_len = (Word16)(PInfo.DPIX*40/300);
 	min_v_len = (Word16)(PInfo.DPIY*40/300);
-
-///////////////////////////////////////////////////////////////////////////////////////////////
-    /*
-	LDPUMA_MessageBoxOk (" Please load DIB in MAIN window \n and set all settings");
-	if (!(hTmpDIB = LDPUMA_GetDIBptr( NULL )))
-	{
-		LDPUMA_Console( " Can't get ptr from MAIN window (error) " );
-		//rc32 = DPUMA_GetErrorCode();
-		SetReturnCode( rc32 );
-		return FALSE;
-	}
-
-	if (!CIMAGE_WriteDIB( pImage, hTmpDIB, 0 ))
-	{
-		LDPUMA_Console( " Error in WriteDIB " );
-		rc32 = CIMAGE_GetReturnCode();
-		SetReturnCode( rc32 );
-		return FALSE;
-	}*/
-///////////////////////////////////////////////////////////////////////////////////////////////
 
 	if (!CIMAGE_GetCallbackImage( (PWord8)pImage, &cbk))
 	{
@@ -561,8 +539,6 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 ///////////////////////////////////////////////////////////////////////////////////////////////////
    int i;
 
-//   if(!LDPUMA_Skip(hUseCLine))
-//   {
 	CLINE_handle hCLINE=CLINE_CreateContainer(TRUE);
 	if(!hCLINE)
 		return FALSE;
@@ -639,57 +615,6 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 	if(lti.Hor.Lns) free(lti.Hor.Lns);
 	if(lti.Ver.Lns) free(lti.Ver.Lns);
 
-/*   }
-   else
-   {
-	// Создаем блоки
-	HorType = CPAGE_GetUserBlockType();
-	VerType = CPAGE_GetUserBlockType();
-
-	tmpw32 = sizeof(LineInfo);
-	for(i=0;i<lti.Hor.Cnt;i++)
-	{
-		pBlock = CPAGE_CreateBlock( lpInPage, HorType, 0, 0, (void**)&lti.Hor.Lns[i] , tmpw32);
-		if (!pBlock)
-		{
-			LDPUMA_Console( " Error in CreateBlock " );
-			rc32 = CPAGE_GetReturnCode();
-			SetReturnCode( rc32 );
-			return FALSE;
-		}
-	}
-
-	for(i=0;i<lti.Ver.Cnt;i++)
-	{
-		pBlock = CPAGE_CreateBlock( lpInPage, VerType, 0, 0, (void**)&lti.Ver.Lns[i] , tmpw32);
-		if (!pBlock)
-		{
-			LDPUMA_Console( " Error in CreateBlock " );
-			rc32 = CPAGE_GetReturnCode();
-			SetReturnCode_rline( rc32 );
-			return FALSE;
-		}
-	}
-
-	if(lti.Hor.Lns) free(lti.Hor.Lns);
-	if(lti.Ver.Lns) free(lti.Ver.Lns);
-
-
-	lti.Hor.Lns = (LineInfo*)HorType;
-	lti.Ver.Lns = (LineInfo*)VerType;
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-	tmpw32 = sizeof(LinesTotalInfo);
-	pBlock = CPAGE_CreateBlock( lpInPage, RLINE_BLOCK_TYPE, 0, 0, (void**)&lti , tmpw32);
-	if (!pBlock)
-	{
-		LDPUMA_Console( " Error in CreateBlock " );
-		rc32 = CPAGE_GetReturnCode();
-		SetReturnCode_rline( rc32 );
-		return FALSE;
-	}
-   }
-*/
 	// Завершаем работу со страницей
 	LnsPageFinish();
 
@@ -708,14 +633,10 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 
 Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 {
-
-//	LinesTotalInfo        lti;		 // Структура хранения линий
 	LinesTotalInfo		  lti2;
 	PAGEINFO              PInfo;	 // Описание страницы
 	char*		          pImage;	 // Указатель на изображение
 	LnsSetupStr			  ls;
-//	Handle                pBlock;
-//	Word32				  size32;
 	int					  i;
 
 
@@ -724,9 +645,6 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 	Bool DelAllLines;
 	DelAllLines = FALSE;
 	CLINE_handle hCLINE=CLINE_GetMainContainer();
-	//DelAllLines = !LDPUMA_Skip(RLINE_DeleteAll);
-
-
 
 	// Получаем PAGEINFO текущей страницы
 	if (!CPAGE_GetPageData( lpInPage,PT_PAGEINFO,(void*)&PInfo,sizeof(PInfo)))
@@ -744,29 +662,6 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 	min_h_len = (Word16)(PInfo.DPIX*40/300);
 	min_v_len = (Word16)(PInfo.DPIY*40/300);
 
-/*   if(LDPUMA_Skip(hUseCLine))
-   {
-	pBlock = CPAGE_GetBlockFirst ( lpInPage, RLINE_BLOCK_TYPE );
-	if ( pBlock == NULL)
-	{
-		LDPUMA_Console( " Error in GetBlockFirst " );
-		rc32 = CPAGE_GetReturnCode();
-		SetReturnCode_rline( rc32 );
-		return FALSE;
-	}
-
-	size32 = CPAGE_GetBlockData( lpInPage, pBlock, RLINE_BLOCK_TYPE, &lti, sizeof(LinesTotalInfo));
-	if (size32 != sizeof(LinesTotalInfo) )
-	{
-		rc32 = CPAGE_GetReturnCode();
-		SetReturnCode_rline( rc32 );
-		return FALSE;
-	}
-
-	HorType = (Word32)lti.Hor.Lns;
-	VerType = (Word32)lti.Ver.Lns;
-   }
-*/
 	if (!CIMAGE_GetCallbackImage((PWord8) pImage, &cbk))
 	{
 		LDPUMA_Console( " Error in GetCallbackImage " );
@@ -855,9 +750,6 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 		return FALSE;
 	}
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-//   if(!LDPUMA_Skip(hUseCLine))
-//   {
 	CLINE_handle hline;
 	if(DelAllLines)
 	{
@@ -917,97 +809,6 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 	  }
 	 }
 	}
-/*   }
-   else
-   {
-	LineInfo			  lInfo;
-	pBlock = CPAGE_GetBlockFirst ( lpInPage, HorType );
-
-	while ( pBlock )
-	{
-		size32 = CPAGE_GetBlockData( lpInPage, pBlock, HorType, &lInfo, sizeof(LineInfo));
-		if (size32 != sizeof(LineInfo) )
-		{
-			rc32 = CPAGE_GetReturnCode();
-			SetReturnCode_rline( rc32 );
-			return FALSE;
-		}
-
-		for (i=0; i<lti2.Hor.Cnt; i++)
-		{
-			if (DelAllLines)
-			{
-				lti2.Hor.Lns[i].Flags = LI_SWEEP;
-			}
-			else
-			{
-				if( (lti2.Hor.Lns[i].A.x == lInfo.A.x) && (lti2.Hor.Lns[i].B.x == lInfo.B.x) &&
-					(lti2.Hor.Lns[i].A.y == lInfo.A.y) && (lti2.Hor.Lns[i].B.y == lInfo.B.y) )
-				{
-					if (lInfo.Flags &  LI_IsTrue)
-						lInfo.Flags |= LI_SWEEP;
-					//************
-					if (lInfo.Flags & LI_NOTWHOLE)
-					{
-					lti2.Hor.Lns[i].Anew = lInfo.Anew;
-					lti2.Hor.Lns[i].Bnew = lInfo.Bnew;
-					}
-					//************
-					lti2.Hor.Lns[i].Flags = lInfo.Flags;
-
-				}
-			}
-		}
-
-		pBlock = CPAGE_GetBlockNext( lpInPage, pBlock, HorType );
-
-	}
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-	pBlock = CPAGE_GetBlockFirst ( lpInPage, VerType );
-
-	while ( pBlock )
-	{
-		size32 = CPAGE_GetBlockData( lpInPage, pBlock, VerType, &lInfo, sizeof(LineInfo));
-		if (size32 != sizeof(LineInfo) )
-		{
-			rc32 = CPAGE_GetReturnCode();
-			SetReturnCode_rline( rc32 );
-			return FALSE;
-		}
-
-		for (i=0; i<lti2.Ver.Cnt; i++)
-		{
-			if (DelAllLines)
-			{
-				lti2.Ver.Lns[i].Flags = LI_SWEEP;
-			}
-			else
-			{
-				if( (lti2.Ver.Lns[i].A.x == lInfo.A.x) && (lti2.Ver.Lns[i].B.x == lInfo.B.x) &&
-					(lti2.Ver.Lns[i].A.y == lInfo.A.y) && (lti2.Ver.Lns[i].B.y == lInfo.B.y) )
-				{
-					if (lInfo.Flags &  LI_IsTrue)
-						lInfo.Flags |= LI_SWEEP;
-					//************
-					if (lInfo.Flags & LI_NOTWHOLE)
-					{
-					lti2.Ver.Lns[i].Anew = lInfo.Anew;
-					lti2.Ver.Lns[i].Bnew = lInfo.Bnew;
-					}
-					//************
-					lti2.Ver.Lns[i].Flags = lInfo.Flags;
-
-				}
-			}
-		}
-
-		pBlock = CPAGE_GetBlockNext( lpInPage, pBlock, VerType );
-
-	}
-   }
-*/
 /////////////////////////////////////////////////////////////////////////////////////////////
 	swp_imxs = LnsGetSweepedImage( &lti2 );
 
@@ -1058,5 +859,3 @@ void CleanLineData(void* pdata,int size)
 		mas[i]=0;
 	}
 }
-/////////////////////////////////////////////////////////////////////////////////////////////
-//end of file
