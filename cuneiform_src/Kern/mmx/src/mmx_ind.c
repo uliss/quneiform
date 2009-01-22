@@ -344,6 +344,8 @@ retur:
 		add		eax,	L
         }
 
+#else
+    return 0;
 #endif
 }
 

@@ -107,6 +107,8 @@ save_res:
 
 	EMMS
     }
+#else
+    return 0;
 #endif
 }
 
@@ -146,6 +148,8 @@ _asm{
 
 	EMMS
     }
+#else
+    return 0;
 #endif
 }
 
@@ -211,6 +215,8 @@ _asm{
 
 	EMMS
     }
+#else
+    return 0;
 #endif
 }
 

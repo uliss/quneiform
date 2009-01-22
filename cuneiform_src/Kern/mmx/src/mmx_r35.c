@@ -93,6 +93,8 @@ _asm{
 
     //RET
 	}
+#else
+    return 0;
 #endif
 }
 
@@ -127,6 +129,8 @@ _asm{
 
     //RET
     }
+#else
+    return 0;
 #endif
 }
 
@@ -194,6 +198,8 @@ cykl:
 	EMMS
 
     }
+#else
+    return 0;
 #endif
 }
 
