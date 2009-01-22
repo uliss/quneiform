@@ -77,7 +77,7 @@ public:
 
 public:
 	DATA();
-	~DATA();
+	virtual ~DATA();
 
 	Bool32  SetData(Handle type, void * lpData, Word32 Size);
 	Word32  GetData(Handle type, void * lpData, Word32 Size);
@@ -88,11 +88,6 @@ public:
 
 	DATA & operator = (DATA & data);
 	Bool32 operator == (DATA & data);
-
-private:
-	void * operator new ( size_t stAllocateBlock );
-	void   operator delete( void * mem );
-
 
 public:
 	virtual Word32 Convert(Handle type,void * lpdata, Word32 size) = 0;

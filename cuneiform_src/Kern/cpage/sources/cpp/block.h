@@ -71,7 +71,7 @@ public:
 
 public:
 	BLOCK();
-	~BLOCK();
+	virtual ~BLOCK();
 
 	Bool32  Create(Handle Type, Word32 UserNum = 0, Word32 Flags = 0,void * lpData = NULL, Word32 Size = 0);
 

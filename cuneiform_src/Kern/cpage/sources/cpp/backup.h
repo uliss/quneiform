@@ -70,7 +70,7 @@ public:
 
 public:
 	BACKUPPAGE();
-	~BACKUPPAGE();
+	virtual ~BACKUPPAGE();
 
 	void Clear();
 	Handle BackUp(Handle backup = NULL);
@@ -84,6 +84,7 @@ public:
 
 	BACKUPPAGE & operator = (BACKUPPAGE & Page);
 	inline Word32 GetCurPos(){ return BackUpPage.GetPos(hCurBackUp);};
+
 
 };
 

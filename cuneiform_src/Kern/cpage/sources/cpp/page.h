@@ -74,7 +74,7 @@ public:
 
 public:
 	PAGE ();
-	~PAGE();
+	virtual ~PAGE();
 
 	PAGE & operator = (PAGE & Page);
 
@@ -84,9 +84,7 @@ public:
 	Bool32 RestoreCompress(Handle from);
 
 	virtual Word32 Convert(Handle type,void * lpdata,Word32 size);
-private:
-	void * operator new ( size_t stAllocateBlock );
-	void   operator delete( void * mem );
+
 };
 
 	CPAGE_CONVERTOR SetConvertorPages(CPAGE_CONVERTOR convertor);

@@ -118,16 +118,6 @@ Word32   DATA::GetData(Handle type, void * lpdata,Word32 size)
 return Size;
 }
 //#################################
-void * DATA:: operator new ( size_t stAllocateBlock )
-{
-	return myAlloc(stAllocateBlock);
-}
-//#################################
-void   DATA::operator delete( void * mem )
-{
-	myFree(mem);
-}
-//#################################
 DATA & DATA::operator = (DATA & data)
 {
 	SetData(data.Type,data.lpData,data.Size);
