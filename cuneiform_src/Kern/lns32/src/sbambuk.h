@@ -87,7 +87,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #ifndef __TGREADER_H    // under windows tiger lib
    #  include "tgreader.h"
    #endif
-
+
    #ifndef __PROCLINE_H
 	#	include "procline.h"
 	#endif
@@ -147,16 +147,16 @@ TSegBambuk( void ):
 				THugeBambuk< TBlackSeg >(),
 				//TBambuk< TBlackSeg >(),
 				curHEntry(0),
-				segCount(0),
-				segLimit(0)
+				segLimit(0),
+				segCount(0)
 				{};
 
 TSegBambuk( BHandle max_members, BEntry max_entries ):
 				THugeBambuk< TBlackSeg >(max_members, max_entries),
 				//TBambuk< TBlackSeg >(max_members, max_entries),
 				curHEntry(0),
-				segCount(0),
-				segLimit(0)
+				segLimit(0),
+				segCount(0)
 				{};
 
 Bool isOk( void )

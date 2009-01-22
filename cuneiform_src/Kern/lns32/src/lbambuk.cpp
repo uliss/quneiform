@@ -87,32 +87,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    static TRasterBambuk*   rb_ = NULL;
    static TSegBambuk*      sb_ = NULL;
 
-static int Dummy(int x) { return x+1;}
-
 Bool TLinesBambuk::makeIt( TRasterBambuk* rb, TSegBambuk* sb, Bool isVertical ){
 
    *((TXYDim*)this) = *((TXYDim*)sb);         // 11-04-93 07:56pm
 
 	if (isVertical){
 		computeVRasters( rb, sb );
-/*
-      if (!linkVFragments())
-         return WRONG();
-*/
 	}
 	else {
 		computeHRasters( rb, sb );
-/*
-      if (!linkHFragments())
-         return WRONG();
-*/
 	};
    return TRUE;
 }
 
-/// 10.02.99, VP ------- registering fragments for external usage
 #include "frag.h"
-/// --------------------
 
 void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 
@@ -132,12 +120,6 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 
 	int down, up;
     int i(0);
-/*
-   #ifndef NDEBUG
-      Bool lets_draw = FALSE;       // set true to look each raster - TRUE;
-   #endif
-*/
-/// 10.02.99, VP ------- registering fragments for external usage
    Frag_HAlloc( rb->totalRasterCount());
    int nfrag =0;
 /// --------------------
@@ -172,7 +154,6 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
       /////////////// VP: 15 jul 98 : cutting a line
       Bool isLine = puanso.isALine();
 
-/// 10.02.99, VP ------- registering fragments for external usage
       LnsFrag* frg = Frag_HGet( nfrag ); nfrag++;
       {
          if (frg)
@@ -192,9 +173,6 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
             frg->aveW    =puanso.aveW   ;
 		      frg->mainMxx =puanso.mainMxx;
 	         frg->mainMyy =puanso.mainMyy;
-//		      frg->relMxx  =puanso.relMxx ;
-//		      frg->relMxy  =puanso.relMxy ;
-//		      frg->relMyy  =puanso.relMyy ;
 
 			   frg->A.x 	= puanso.left;
 			   frg->B.x 	= puanso.right - 1;
@@ -206,7 +184,6 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 
       if (!isLine && (puanso.right-puanso.left) > 600)
       {  // try to recover long line with glued dust
-         int initial_comp_width = puanso.right-puanso.left;
 /////////////////////////////////////////////////////////////////////////////////
          {
          // 1. find zone with bad line width
@@ -232,7 +209,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
             for (i=1; i<512; i++)
                wdt[i] += wdt[i-1];
 
-            int sum=0; int sumsq=0; int len=0; int max_width = 40;
+            int sum=0; int max_width = 40;
 
             for (int pass=0; pass<2; pass++)
             {  sum=0; int sumsq=0; int len=0;
@@ -1168,26 +1145,6 @@ int cdecl byStartY( const void *int1, const void *int2)
             _curr[*(int*)int2].fragmentAsIs.start.y;
 }
 
-/*
-#define MAX_LETTER_HEIGHT 70
-int cdecl byStrokes( const void *int1, const void *int2)
-{
-   Line & ln1 = _curr[*(int*)int1].fragmentAsIs;
-   Line & ln2 = _curr[*(int*)int2].fragmentAsIs;
-
-   int islong1 = line_length(&ln1) > MAX_LETTER_HEIGHT;
-   int islong2 = line_length(&ln2) > MAX_LETTER_HEIGHT;
-
-   if ( islong1 || islong2 )
-      return islong2 - islong1; // drop long lines to the end of list
-
-   // get centers
-   Point32 c1 = { ln1.start.x + ln1.end.x, ln1.start.y + ln1.end.y};
-   Point32 c2 = { ln2.start.x + ln2.end.x, ln2.start.y + ln2.end.y};
-
-   return (c1.x - c2.x) + 5 * (c1.y - c2.y);
-};
-*/
 static
 void _RegisterCheckBox( Line& left,
                         Line& top,
@@ -1200,9 +1157,6 @@ void _RegisterCheckBox( Line& left,
    rcb.right   = (short)(( right.start.x  +   right.end.x  ) >> 1);
    rcb.top     = (short)(( top.start.y    +   top.end.y    ) >> 1);
    rcb.bottom  = (short)(( bottom.start.y +   bottom.end.y ) >> 1);
-
-   int width  = rcb.right  - rcb.left;
-   int height = rcb.bottom - rcb.top;
 
    left.flags |= LF_DONTLINK;
    right.flags |= LF_DONTLINK;

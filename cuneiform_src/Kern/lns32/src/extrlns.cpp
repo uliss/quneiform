@@ -171,7 +171,6 @@ static void FillFragmentsCount( Int32 hnd, Bool hor, Int16* cnt, Word8* quality)
 	Int16 Romii;
    Int16 SpacesLength, TotalLength;
 	TLinesBambuk* lb = hor ? hLB : vLB;
-	TRasterBambuk* rb = hor ? hRB : vRB;
 
 	TLineInfo & li = lb->linesRoot[hnd];
 	BEntry   lbe = li.linesBambukEntry;

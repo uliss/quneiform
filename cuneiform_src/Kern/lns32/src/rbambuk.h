@@ -90,9 +90,9 @@ class TRasterBambuk : public TBambuk< TDash > {
 	public:
 TRasterBambuk( TSegBambuk* sb, BHandle max_dashes, BEntry max_rasters ):
 	TBambuk< TDash >(max_dashes, max_rasters),
-	ok( FALSE ),
+	count(0),
 	nextRasterEntry(0),
-	count(0)
+	ok( FALSE )
 	{
 		if (TBambuk< TDash >::isOk())
 			ok = makeIt( sb );      // false if too many dashes or rasters

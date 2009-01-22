@@ -131,9 +131,9 @@ TBambuk< TLineFragment >( rb->totalRasterCount()
                            max_lines
                         ),
 	linesRoot(max_lines),
-	ok( FALSE ),
 	fragmentsCount(0),
-	linesCount(0)
+	linesCount(0),
+	ok( FALSE )
 	{
 		if (linesRoot.isOk() && TBambuk< TLineFragment >::isOk()){
          ok = makeIt( rb, sb, isVertical );      // false if too many lines or rasters
