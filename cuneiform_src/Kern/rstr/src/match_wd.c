@@ -869,7 +869,7 @@ static BOOL test_set(LONG prev, LONG h0, BYTE nlet, LONG tol, BOOL rerecog, LONG
   LONG xb=cut_list[prev].x,x0=xb+w0;
   LONG set,cc;
   LONG  il,ir;
-  BYTE p,alpha[]={let,0};
+  BYTE p;
   BOOL rv=FALSE;
 
 //  set_user_alphbet(alpha);

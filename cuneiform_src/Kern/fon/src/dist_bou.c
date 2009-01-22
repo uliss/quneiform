@@ -1865,7 +1865,7 @@ FON_FUNC(Int32) FONRecog2Glue(CSTR_rast firLeo,CSTR_rast lasLeo,
 						    int lang,
 							int porog, int nNaklon, int countRazmaz)
 {
- int  startX=0,startY=0;
+ int  startX=0;
  int  outByte,outBit;
  FONBASE *fonbase = GetStaticFonbase();
  welet *wl;

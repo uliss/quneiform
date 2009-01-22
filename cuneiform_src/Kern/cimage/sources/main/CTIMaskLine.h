@@ -99,10 +99,10 @@ public:
 	virtual ~CTIMaskLine();
 
 protected:
+    Word32 mwLenght;
+    Word32 mwSegments;
+    PCTIMaskLine mpNext;
 	Int32 mwLine;
-	PCTIMaskLine mpNext;
-	Word32 mwSegments;
-	Word32 mwLenght;
 	CTIMaskLineSegment mcFirst;
 private:
 	Bool32 CheckSegments(void);

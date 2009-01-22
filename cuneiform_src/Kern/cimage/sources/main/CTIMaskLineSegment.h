@@ -115,8 +115,8 @@ public:
 
 protected:
 	PCTIMaskLineSegment mpNext;
+    Int32 mwStart;
 	Int32 mwEnd;
-	Int32 mwStart;
 };
 
 #endif // !defined(_CTIMASKLINESEGMENT_H_)

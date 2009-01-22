@@ -763,11 +763,10 @@ Int32 GetNextEvnFld(char *evn_str,char* str)
 
 Int32 ParseEventString(char* evn_str,Int32 iEvnSize)
 {
-
    char *str = evn_str;
    Int32 iEvnSqNo = 0;
    char buf[256] = {0};
-   int i = 0;
+
    // выделение номера собития в протоколе
    GetNextEvnFld(str,buf);
    iEvnSqNo = atoi(buf);

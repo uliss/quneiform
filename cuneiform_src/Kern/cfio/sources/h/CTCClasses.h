@@ -242,8 +242,8 @@ class CTCMemoryList
 {
 private:
 	Word32               wListSize;
-	CTCMemoryHeader      mhLastItem;
 	CTCMemoryHeader      mhFirstItem;
+    CTCMemoryHeader      mhLastItem;
 	Word32               wMemoryCounter;
 	Word32               wItemCounter;
 

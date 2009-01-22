@@ -250,7 +250,6 @@ static void keg_frag_stats();
 
 Bool32 CorrectKegl(Int32 ver)
 {
-  CSTR_line       line = CSTR_GetLineHandle (1, ver);
   Word32 key=1;
 
   hCPAGE = CPAGE_GetHandlePage( CPAGE_GetCurrentPage());
@@ -1319,7 +1318,7 @@ static void garbage_fragments()
 
     if (rsti->flag & RS_ADD)
     {
-      Int32 j,hmin=MAXINT16,hmax=0;
+      Int32 j, hmax=0;
 
       rsti->flag = RS_GOOD;
 
@@ -1426,9 +1425,6 @@ static Bool condition34(RecStat *rsti, Int32 ngood)
 
 static void draw_fragments(Word32 color)
 {
-  Int32 i=0;
-  CSTR_line line = CSTR_GetLineHandle (1, version);
-//	Handle hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
 	if(hCPAGE)
   {
 	  Handle hBlock = CPAGE_GetBlockFirst(hCPAGE,TYPE_TEXT);

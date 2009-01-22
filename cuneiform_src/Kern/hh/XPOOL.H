@@ -84,8 +84,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class XPool
 {
 protected:
-   void *    	Data;
-   Int32      		Volume;
+   Int32 Volume;
+   void * Data;
 
 public:
    XPool(const XPool& x)

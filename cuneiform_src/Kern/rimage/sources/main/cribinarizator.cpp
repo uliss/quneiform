@@ -276,7 +276,6 @@ Bool32 CRIBinarizator::OnBinarizeLoop()
 	Bool32 bRet = FALSE;
 	Int32  i;
 	PWord8 pLALine;
-	Word32 BitComplite = 0;
 	Int32 NumberBWLines = 0;
 	Int32 CurGreyLine = 0;
 	Word32  nLines = mpOutcomeDIB->GetLinesNumber();

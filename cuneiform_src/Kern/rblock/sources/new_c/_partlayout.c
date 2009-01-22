@@ -749,9 +749,6 @@ Bool32 OutputFragments(Handle hPage)
 {
 	extern BLOCK *pBlocksList;
 	BLOCK * p = NULL;
-	BLOCK * ptr = NULL;
-	//BLOCK * tmp = NULL; // *** Rom 07-03-99
-	//Bool32 Crossed; // *** Rom 07-03-99
 	Bool32 rc = TRUE;
 	int    count;
 	Word32 BlockNumber;
@@ -762,14 +759,12 @@ Bool32 OutputFragments(Handle hPage)
 
 	//Point16 Point;
 	int i,j,max,nPics;
-	//POLY_  pPics[100];
 	POLY_  * pPics;
 	Bool32 Same;
 
 
 	POLY_	block;
 	POLY_	* all_polys;
-	//POLY_	all_polys[100];
 
 	LDPUMA_FPuts(resFile_blocks, "  <2 Н Страница =");
 	LDPUMA_FPuts(resFile_blocks, file_name);

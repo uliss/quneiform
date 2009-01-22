@@ -740,7 +740,7 @@ static void  improve_proN()
   cell *BC=gpt->BC,*cl=BC->prev,*cr=BC->next;
   INT p=BC->vers[gpt->n_ver_perc].prob;
   INT w3=(5*BC->w+6)/12,h8=BC->h/8;
-  INT top=BC->r_row,bot=BC->r_row+BC->h,right=BC->r_col+BC->w;
+  INT bot=BC->r_row+BC->h,right=BC->r_col+BC->w;
 
   BC->complist=NULL;   //single
   while (cl->flg & c_f_dust &&

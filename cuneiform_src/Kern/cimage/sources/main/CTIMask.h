@@ -87,10 +87,10 @@ public:
 	virtual ~CTIMask();
 
 protected:
-	CTIMaskLine mcLine;
+    Word32 mwMaskWidth;
 	Word32 mwMaskHeight;
-	Word32 mwMaskWidth;
 	Word32 mwSegments;
+    CTIMaskLine mcLine;
 	Word32 mwLines;
 private:
 	Bool32 SetPtrToPrevLine(Word32 wLine, PPCTIMaskLine ppLine);

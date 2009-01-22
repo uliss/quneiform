@@ -347,7 +347,7 @@ static void snap_recogEVN(CSTR_rast r,cell * cl)
  INT    i;
  RecRaster  rRaster;
  char       evn[256], evnr[256],evnw[256], evnrw[256], buf[256];
- BYTE       alph[256]={0};
+
  RecVersions rv;
  if (!(cl->flg & (c_f_bad | c_f_let)))
   return;
@@ -460,7 +460,6 @@ static void snap_sticks(cell *c, char *str)
 static void store_spell(cell *c)
 {
 Word8       wrd[80],buf[160],*w=wrd;
-Bool32      nonrec=FALSE;
 FILE       *fp=fopen("frh.txt","at");
 int         num_ln=0;
 cell       *b, *e;

@@ -266,7 +266,7 @@ Word8 lnhead_stick_center_study(lnhead *lin,Int16 dy,Int16 dx,
         STICK_SIGNUMS *res_signums)
 {
 Int16 wide,opt,left_mode,right_mode,inc_v, nc, num_angles,f_a;
-Word8 ret=0, ret_br=0;
+Word8 ret_br=0;
 STICK_CHARS left_chars,right_chars;
 STICK_SIGNUMS signums;
 
@@ -368,7 +368,6 @@ return ret;
 Int32 lnhead_stick_get_incline(lnhead *lin,Int16 dy,Int16 dx)
 {
 Int16 wide,opt,left_mode,right_mode,inc_v, nc, num_angles,f_a;
-Word8 ret=0;
 STICK_CHARS left_chars,right_chars;
 STICK_SIGNUMS signums;
 

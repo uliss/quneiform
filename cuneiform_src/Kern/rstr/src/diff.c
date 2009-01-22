@@ -1272,7 +1272,6 @@ Word32 check_letter(cell *c, Word8 let)
 {
 // Проверяет наличие версии. 18.06.2002 E.P.
 version *p = c->vers;
-int n=0;
 
 while ( p < c->vers + c->nvers)
 	{
