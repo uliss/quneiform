@@ -56,36 +56,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # ifndef __CTIMAGE_DEFINES_H_
 # define __CTIMAGE_DEFINES_H_
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-#undef _SETTYPES
-#if defined( __cplusplus )
-      #define _SETTYPES( name )                       \
-         typedef const name         C##name;         \
-         typedef name            *  P##name;         \
-         typedef const name      *  PC##name;        \
-         typedef name            &  R##name;         \
-         typedef const name      &  RC##name;
 
-      #define _SETCLASS( cls )       \
-         class cls;                 \
-         _SETTYPES( cls );
-#else   /* not __cplusplus */
-      #define _SETTYPES( name )                        \
-         typedef const name         C##name;           \
-         typedef name            *  P##name;           \
-         typedef const name      *  PC##name;
-#endif
+#include "cttypes.h"
 
-typedef char                   Char8  ;   _SETTYPES( Char8  )
-//      unicode char
-typedef unsigned short         Char16 ;   _SETTYPES( Char16 )
-
-#undef  _SETTYPES
-/*
-# define    CTIBOOL16          Bool16
-# define    CTIWORD            Word16
-*/
 #define     CIMAGE_MAX_IMAGE_NAME           256
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
