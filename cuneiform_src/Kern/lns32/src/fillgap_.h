@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // table fills gaps 1 white pel - always
 // table fills gaps 3 and 2 -  if total white pels count less than black
 
-static int FillGap3_Tbl[4096] = {
+static const int FillGap3_Tbl[4096] = {
  0, //  0: 000000000000 <= 000000000000
  1, //  1: 000000000001 <= 000000000001
  0, //  2: 000000000000 <= 000000000010 ***
