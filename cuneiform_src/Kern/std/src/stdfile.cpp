@@ -447,6 +447,10 @@ STD_FUNC( Bool32 ) stdSetCurrentDirectory(
  * running is located.
  */
 
+#ifdef WIN32
+static char _HomeDirectory[256]={0};
+#endif
+
 STD_FUNC( const char* ) stdGetHomeDirectory(void)
 {
 #ifdef WIN32
