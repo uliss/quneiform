@@ -229,30 +229,24 @@ static Int16  r35_error_code=ER_R35_NO_ERROR;
 /***********************************/
 /************* COMPRESS ************/
 /***********************************/
-Int32 MakeScale(Int32 Xcut[],Int32 Xval[],Int32 L,Int32 dL)
-{
-Int32 i,nu,LL;
-Word32 I,U;
+Int32 MakeScale(Int32 Xcut[], Int32 Xval[], Int32 L, Int32 dL) {
+    Int32 i=0;
+    Int32 nu=0;
+    if (dL > L)
+        return 0;
 
-U = L-1;
-I = dL-1;
-Xcut[0]=-1;
-Xval[0]=0;
-for(nu=i=0;i<L;i++,I+=dL)
-	if( I>U )
-		{								/* new interval */
-		LL = I - U;     nu++;
-		if( LL<=dL )
-			{        /* overlay intervals                */
-			Xcut[nu] = i;
-			Xval[nu]= dL - LL;
-			}
-		U += L;
-		}
-
-Xcut[dL]=L;
-Xval[dL]=0;
-return(1);
+    Xcut[0] = -1;
+    Xval[0] = 0;
+    while (i < L) {
+        if ((i + 1) * dL > (nu + 1) * L) {
+            nu++;
+            Xcut[nu] = i, Xval[nu] = nu * L - i * dL;
+        };
+        i++;
+    }
+    Xcut[dL] = L;
+    Xval[dL] = 0;
+    return 1;
 }
 
 Int32 ALL_SumBits(Word8 *str,Int32 start, Int32 stop)
