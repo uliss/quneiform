@@ -61,12 +61,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 // dll_cpage.cpp :
 // ============================================================================
-#define __PUMA__
 
 /*#include <windows.h>*/
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
+
+#include "puma.h"
 
 #include "resource.h"
 #include "mpuma.h"

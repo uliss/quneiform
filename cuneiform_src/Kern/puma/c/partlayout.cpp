@@ -58,11 +58,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#include <windows.h>
 #endif
 
-#define __PUMA__
-
 #include <stdio.h>
 #include <string.h>
 
+#include "puma.h"
 #include "mpuma.h"
 #include "cfio.h"
 

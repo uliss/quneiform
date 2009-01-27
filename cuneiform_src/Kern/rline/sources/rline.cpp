@@ -58,7 +58,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 // ============================================================================
 
-#define __RLINE__
 
 #include <stdlib.h>
 /*#include <windows.h>*/

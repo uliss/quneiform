@@ -54,7 +54,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#define __RLINE__
 
 #ifdef _DEBUG
 #define SOURCE_FILE_NAME "FindLostLines.cpp"
@@ -166,7 +165,7 @@ Bool32 checkCross(const Rect32* rect1, const Rect32* rect2, bool is_horiz);
 void PrintErrorString(char* errstring);
 #endif
 
-static int _cdecl CompareX( const void *elem1, const void *elem2 )
+static int CompareX( const void *elem1, const void *elem2 )
 {
 
   Point32 *a = (Point32*) elem1;
@@ -175,7 +174,7 @@ static int _cdecl CompareX( const void *elem1, const void *elem2 )
   return a->x - b->x;
 }
 
-static int _cdecl CompareY( const void *elem1, const void *elem2 )
+static int CompareY( const void *elem1, const void *elem2 )
 {
 
   Point32 *a = (Point32*) elem1;
@@ -184,7 +183,7 @@ static int _cdecl CompareY( const void *elem1, const void *elem2 )
   return a->y - b->y;
 }
 
-static int _cdecl CompareAsc( const void *elem1, const void *elem2 )
+static int CompareAsc( const void *elem1, const void *elem2 )
 {
 
   Int32 *a = (Int32*) elem1;
@@ -193,7 +192,7 @@ static int _cdecl CompareAsc( const void *elem1, const void *elem2 )
   return *a - *b;
 }
 
-static int _cdecl CompareDesc( const void *elem1, const void *elem2 )
+static int CompareDesc( const void *elem1, const void *elem2 )
 {
 
   Int32 *a = (Int32*) elem1;

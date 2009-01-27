@@ -57,15 +57,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef CPU_H_
 #define CPU_H_
 
-#include "decl.h"
+#include "globus.h"
+
+#ifdef __CPU__
+#   define CPU_FUNC  FUN_EXPO
+#else
+#   define CPU_FUNC  FUN_IMPO
+#endif
 
 #ifdef __cplusplus
     extern "C" {
 #endif
 
-__declspec( dllimport ) int GetCPUName(void);
-__declspec( dllimport ) int Get_MMX(void);
-__declspec( dllimport ) int Get_XMM(void);
+CPU_FUNC(int) GetCPUName(void);
+CPU_FUNC(int) Get_MMX(void);
+CPU_FUNC(int) Get_XMM(void);
+
 #ifdef __cplusplus
     }
 #endif

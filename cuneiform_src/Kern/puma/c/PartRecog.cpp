@@ -61,6 +61,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 #include <stdio.h>
 #include <string.h>
+
+#include "puma.h"
 #include "mpuma.h"
 #include "specprj.h"
 #include "ligas.h"		// 12.06.2002 E.P.

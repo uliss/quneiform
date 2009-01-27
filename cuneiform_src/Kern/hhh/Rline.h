@@ -57,9 +57,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __RLINE_H
 #define __RLINE_H
 
-#ifndef __GLOBUS_H
 #include "globus.h"
-#endif
+
 /*
 #ifndef __RECDEFS_H
    #include "recdefs.h"

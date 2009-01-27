@@ -1,5 +1,7 @@
 include_directories(BEFORE sources)
 
+add_definitions(-D__RLINE__)
+
 add_library(rline ${LIBTYPE}
 ${SNP_SRC}
 sources/dll.cpp

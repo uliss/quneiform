@@ -54,8 +54,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#define __RLINE__
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -68,8 +66,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lnsdefs.h"
 #include "cpage.h"
 #include "ctiimage.h"
+
 #include "rshelllinescom.h"
 #include "rline.h"
+
 #include "dpuma.h"
 #include "cline.h"
 #include "ccom.h"
@@ -1902,7 +1902,7 @@ void PrintLines(CLINE_handle hContainer, const char* FileName)
 }
 
 /**********************************************************************************************/
-static int _cdecl CompareByY( const void *elem1, const void *elem2 )
+static int CompareByY( const void *elem1, const void *elem2 )
 {
 //compare vertical lines by length
 	CPDLine pLine1 = CLINE_GetLineData(*(CLINE_handle*)elem1);
@@ -1914,7 +1914,7 @@ static int _cdecl CompareByY( const void *elem1, const void *elem2 )
 }
 
 /**********************************************************************************************/
-static int _cdecl CompareByX( const void *elem1, const void *elem2 )
+static int CompareByX( const void *elem1, const void *elem2 )
 {
 //compare horizontal lines by length
 	CPDLine pLine1 = CLINE_GetLineData(*(CLINE_handle*)elem1);
@@ -1926,7 +1926,7 @@ static int _cdecl CompareByX( const void *elem1, const void *elem2 )
 }
 
 /**********************************************************************************************/
-static int _cdecl CompareByTop( const void *elem1, const void *elem2 )
+static int CompareByTop( const void *elem1, const void *elem2 )
 {
 //compare vertical lines by length
 	CPDLine pLine1 = CLINE_GetLineData(*(CLINE_handle*)elem1);
@@ -1936,7 +1936,7 @@ static int _cdecl CompareByTop( const void *elem1, const void *elem2 )
 }
 
 /**********************************************************************************************/
-static int _cdecl CompareByLeft( const void *elem1, const void *elem2 )
+static int CompareByLeft( const void *elem1, const void *elem2 )
 {
 //compare vertical lines by length
 	CPDLine pLine1 = CLINE_GetLineData(*(CLINE_handle*)elem1);
@@ -1946,7 +1946,7 @@ static int _cdecl CompareByLeft( const void *elem1, const void *elem2 )
 }
 
 /**********************************************************************************************/
-static int _cdecl CompareCompByLeft( const void *elem1, const void *elem2 )
+static int CompareCompByLeft( const void *elem1, const void *elem2 )
 {
 //compare components by left side
 	CCOM_comp* pcomp1 = (CCOM_comp*)elem1;
@@ -1956,7 +1956,7 @@ static int _cdecl CompareCompByLeft( const void *elem1, const void *elem2 )
 }
 
 /**********************************************************************************************/
-static int _cdecl CompareCompByUpper( const void *elem1, const void *elem2 )
+static int CompareCompByUpper( const void *elem1, const void *elem2 )
 {
 //compare components by upper side
 	CCOM_comp* pcomp1 = (CCOM_comp*)elem1;

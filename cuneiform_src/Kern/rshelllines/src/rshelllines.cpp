@@ -176,7 +176,7 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, Int32 *ScanQual);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                     FindLineFrag
-RSHELLLINES_API Bool32 FindLineFrag(CLINE_handle processedline, Bool32 OnlyPosyAndStat,
+RSHELLLINES_FUNC(Bool32) FindLineFrag(CLINE_handle processedline, Bool32 OnlyPosyAndStat,
 									Bool32 Is2ndPath, CLINE_handle hContainer,
 									Bool32 IfNeedFragment, Bool32 IfStraightFrag)
 {
@@ -185,7 +185,7 @@ RSHELLLINES_API Bool32 FindLineFrag(CLINE_handle processedline, Bool32 OnlyPosyA
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                     FindLineAttr
-RSHELLLINES_API Bool32 FindLineAttr(CLINE_handle line, DLine* pCLine, Bool32 AbleSeeOldAttr)
+RSHELLLINES_FUNC(Bool32) FindLineAttr(CLINE_handle line, DLine* pCLine, Bool32 AbleSeeOldAttr)
 {
     //SetWidth(line, pCLine);
     return TRUE;
@@ -538,7 +538,7 @@ struct FictInterval
 	Int32 RelIndex;
 };
 
-static int _cdecl mycompare( const void *elem1, const void *elem2 )
+static int mycompare( const void *elem1, const void *elem2 )
 {
 
   FictInterval *a = (FictInterval*) elem1;
@@ -575,12 +575,12 @@ Bool32 CompareRasterParts(CPDLine pLine, LPSTR pSourceRaster, Bool32 CheckSerif)
     return TRUE;
 }
 
-RSHELLLINES_API Bool32 RSL_CorrectDoubleLines(CLINE_handle hLine1, CLINE_handle hLine2)
+RSHELLLINES_FUNC( Bool32) RSL_CorrectDoubleLines(CLINE_handle hLine1, CLINE_handle hLine2)
 {
 	return TRUE;
 }
 
-RSHELLLINES_API Bool32     RSL_SplitLine(CLINE_handle hLine, CLINE_handle hContainer)
+RSHELLLINES_FUNC( Bool32)     RSL_SplitLine(CLINE_handle hLine, CLINE_handle hContainer)
 {
 	return TRUE;
 }
@@ -662,7 +662,7 @@ Handle DrawLineFragments(CLINE_handle line, CPDLine pCLine, Handle HndMyWindow, 
     return NULL;
 }
 
-RSHELLLINES_API void DrawFriendLines(CLINE_handle hContainer, GLM* friendlinesmass)
+RSHELLLINES_FUNC( void) DrawFriendLines(CLINE_handle hContainer, GLM* friendlinesmass)
 {
 }
 
@@ -670,58 +670,58 @@ void DrawGroupOfExtensibleLines(CLINE_handle hContainer, GLM* hGroup, int CountL
 {
 }
 
-RSHELLLINES_API void DrawLosedVerticalLines(GLM* friendlinesmass, int CountLines)
+RSHELLLINES_FUNC( void) DrawLosedVerticalLines(GLM* friendlinesmass, int CountLines)
 {
 }
 
-RSHELLLINES_API void DrowAllLines(CLINE_handle hContainer, Handle hDrowAllLines)
+RSHELLLINES_FUNC( void) DrowAllLines(CLINE_handle hContainer, Handle hDrowAllLines)
 {
 }
 
-RSHELLLINES_API void DrawBigComps(CLINE_handle hContainer)
+RSHELLLINES_FUNC( void) DrawBigComps(CLINE_handle hContainer)
 {
 }
 
-RSHELLLINES_API void DrawFragsForAllLines(CLINE_handle hContainer, Handle hDebugDrawAllLineFragments)
+RSHELLLINES_FUNC( void) DrawFragsForAllLines(CLINE_handle hContainer, Handle hDebugDrawAllLineFragments)
 {
 }
 
-RSHELLLINES_API void InitLine(DLine* linedata)
+RSHELLLINES_FUNC( void) InitLine(DLine* linedata)
 {
 }
 
-RSHELLLINES_API void FindDotLines(Handle hCCOM,Handle hCPAGE, CLINE_handle hContainer)
+RSHELLLINES_FUNC( void) FindDotLines(Handle hCCOM,Handle hCPAGE, CLINE_handle hContainer)
 {
 }
 
-RSHELLLINES_API Bool32 CheckSeparationPoints(CLINE_handle hLine, CLINE_handle hComp)
+RSHELLLINES_FUNC( Bool32) CheckSeparationPoints(CLINE_handle hLine, CLINE_handle hComp)
 {
     return FALSE;
 }
 
-RSHELLLINES_API Bool SL_GetRaster(Rect32* rect, Word8** ppData, PAGEINFO* page_info)
+RSHELLLINES_FUNC( Bool) SL_GetRaster(Rect32* rect, Word8** ppData, PAGEINFO* page_info)
 {
     return TRUE;
 }
 
-RSHELLLINES_API void SetLinesAndCompsRelationship(CLINE_handle hContainer, CLINE_handle hFictContainer)
+RSHELLLINES_FUNC( void) SetLinesAndCompsRelationship(CLINE_handle hContainer, CLINE_handle hFictContainer)
 {
 }
 
-RSHELLLINES_API void FindFriendLines(CLINE_handle hContainer, GLM* friendlinesmass)
+RSHELLLINES_FUNC(void) FindFriendLines(CLINE_handle hContainer, GLM* friendlinesmass)
 {
 }
 
-RSHELLLINES_API void FindGroupOfExtensibleLines(CLINE_handle hContainer, GLM* friendlinesmass, Bool32 IfDrawResult)
+RSHELLLINES_FUNC(void) FindGroupOfExtensibleLines(CLINE_handle hContainer, GLM* friendlinesmass, Bool32 IfDrawResult)
 {
 }
 
-RSHELLLINES_API Int32 RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, Word8 lang, Word8 debug_flags, Int32 *cross_point)
+RSHELLLINES_FUNC(Int32) RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, Word8 lang, Word8 debug_flags, Int32 *cross_point)
 {
     return 0;
 }
 
-RSHELLLINES_API Bool32 GetNextPartOfLine(CLINE_handle hContainer, CLINE_handle hLine)
+RSHELLLINES_FUNC(Bool32) GetNextPartOfLine(CLINE_handle hContainer, CLINE_handle hLine)
 {
     return FALSE;
 }

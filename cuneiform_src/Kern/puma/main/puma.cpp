@@ -55,12 +55,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #define __PUMA_CPP__
-#define __PUMA__
+
 //#include <windows.h>
 //#include <stdio.h>
 #include <string>
 #include <cstring>
 #include <stdlib.h>
+
+#include "puma.h"
+
 #include "mpuma.h"
 #include "compat_defs.h"
 

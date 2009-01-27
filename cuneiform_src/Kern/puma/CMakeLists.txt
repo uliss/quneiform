@@ -1,5 +1,7 @@
 include_directories(h)
 
+add_definitions(-D__PUMA__)
+
 add_library(puma ${LIBTYPE}
 ${SNP_SRC}
 c/common.cpp 
