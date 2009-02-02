@@ -66,10 +66,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //
 
-#ifdef RSHELLLINES_EXPORTS
-#define RSHELLLINES_API __declspec(dllexport)
+#include "globus.h"
+
+#ifdef __RSHELLLINES_EXPORTS__
+  #define RSHELLLINES_FUNC  FUN_EXPO
+  #define RSHELLLINES_CLASS CLASS_EXPO
 #else
-#define RSHELLLINES_API __declspec(dllimport)
+  #define RSHELLLINES_FUNC  FUN_IMPO
+  #define RSHELLLINES_CLASS CLASS_IMPO
 #endif
 
 #define step             8

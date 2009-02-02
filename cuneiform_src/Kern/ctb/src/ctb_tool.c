@@ -116,8 +116,8 @@ Bool32  CTB_files_init(char *file_name,Word8 *data,Int16 maxX,Int16 maxY,
 //********************************************************************
 Int32   ctb_err_code = CTB_ERR_NONE;   // error code
 char * ctb_tmp_dir=NULL;
-char local_grey_ctb[256] = "page6666";
-char local_ctb_name[256] = "ct666666";
+CTB_FUNC(char) local_grey_ctb[256] = "page6666";
+CTB_FUNC(char) local_ctb_name[256] = "ct666666";
 //********************************************************************
 //***********  EXPORT functions from CTB_pack ************************
 //********************************************************************

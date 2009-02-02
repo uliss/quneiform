@@ -1,5 +1,3 @@
-add_definitions(-D__CTB__)
-
 add_library(ctb32 ${LIBTYPE}
 src/ctb_aln.c
 src/ctb_cnvm.c
@@ -10,6 +8,7 @@ src/ctb_prot.c
 src/ctb_recr.c
 src/ctb_tool.c
 )
+set_property(TARGET ctb32 PROPERTY COMPILE_DEFINITIONS __CTB__)
 
 target_link_libraries(ctb32 windummy)
 

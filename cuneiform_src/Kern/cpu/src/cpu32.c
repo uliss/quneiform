@@ -54,11 +54,11 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-//#include "cpu.h"
+#include "cpu.h"
 #include "decl.h"
 #define PC_TYPE
 
-__declspec( dllexport ) int GetCPUName(void)
+CPU_FUNC(int) GetCPUName(void)
 {
 #ifdef PC_TYPE
 
@@ -69,7 +69,7 @@ __declspec( dllexport ) int GetCPUName(void)
 #endif
 }
 
-__declspec( dllexport ) int Get_MMX(void)
+CPU_FUNC(int) Get_MMX(void)
 {
 #ifdef PC_TYPE
 
@@ -80,7 +80,7 @@ __declspec( dllexport ) int Get_MMX(void)
 #endif
 }
 
-__declspec( dllexport ) int Get_XMM(void)
+CPU_FUNC(int) Get_XMM(void)
 {
 #ifdef PC_TYPE
 

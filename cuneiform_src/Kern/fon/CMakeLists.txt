@@ -1,5 +1,3 @@
-add_definitions(-D__FON__)
-
 add_library(fon ${LIBTYPE}
 src/clu_best.c
 src/clu_div.c
@@ -17,6 +15,7 @@ src/p2_mem.c
 src/p2_thick.c
 src/utilctb.c
 )
+set_property(TARGET fon PROPERTY COMPILE_DEFINITIONS __FON__)
 
 target_link_libraries(fon cstr ctb32)
 

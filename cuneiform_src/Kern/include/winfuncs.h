@@ -34,69 +34,78 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #else // WIN32
 
+#include "globus.h"
+
+#ifdef __WINDUMMY__
+  #define WINDUMMY_FUNC  FUN_EXPO
+#else
+  #define WINDUMMY_FUNC  FUN_IMPO
+#endif
+
+
 #include<wchar.h>
 #include "compat_defs.h"
 
-int LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax);
+WINDUMMY_FUNC(int) LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax);
 
-int CreateDirectory(const char *dir, void *dummy);
-DWORD GetTempPath(DWORD nBufferLength, LPTSTR lpBuffer);
-int RemoveDirectory(const char *d);
-void* GlobalAlloc(UINT uFlags, int dwBytes);
-HGLOBAL GlobalFree(void *f);
-void* GlobalReAlloc(void* hMem, int dwBytes, UINT uFlags);
-int GetTempFileName(LPCTSTR lpPathName, LPCTSTR lpPrefixString,
+WINDUMMY_FUNC(int) CreateDirectory(const char *dir, void *dummy);
+WINDUMMY_FUNC(DWORD) GetTempPath(DWORD nBufferLength, LPTSTR lpBuffer);
+WINDUMMY_FUNC(int) RemoveDirectory(const char *d);
+WINDUMMY_FUNC(void*) GlobalAlloc(UINT uFlags, int dwBytes);
+WINDUMMY_FUNC(HGLOBAL) GlobalFree(void *f);
+WINDUMMY_FUNC(void*) GlobalReAlloc(void* hMem, int dwBytes, UINT uFlags);
+WINDUMMY_FUNC(int) GetTempFileName(LPCTSTR lpPathName, LPCTSTR lpPrefixString,
                     UINT uUnique, LPTSTR lpTempFileName);
-int GetLastError();
+WINDUMMY_FUNC(int) GetLastError();
 
-DWORD GetModuleFileName(HMODULE hModule, LPTSTR lpFilename, DWORD nSize);
-BOOL CloseHandle(HANDLE hObject);
-HANDLE CreateFile(LPCTSTR lpFileName, DWORD dwDesiredAccess,
+WINDUMMY_FUNC(DWORD) GetModuleFileName(HMODULE hModule, LPTSTR lpFilename, DWORD nSize);
+WINDUMMY_FUNC(BOOL) CloseHandle(HANDLE hObject);
+WINDUMMY_FUNC(HANDLE) CreateFile(LPCTSTR lpFileName, DWORD dwDesiredAccess,
 DWORD dwShareMode, void* lpSecurityAttributes,
 DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile);
 
-HWND FindWindow(LPCTSTR lpClassName, LPCTSTR lpWindowName);
-UINT RegisterWindowMessage(LPCTSTR lpString);
+WINDUMMY_FUNC(HWND) FindWindow(LPCTSTR lpClassName, LPCTSTR lpWindowName);
+WINDUMMY_FUNC(UINT) RegisterWindowMessage(LPCTSTR lpString);
 
-int _findclose(long handle);
-long _findfirst(const char *filespec, struct _finddata_t *fileinfo);
-int _findnext(long handle, struct _finddata_t *fileinfo);
-long _tell(int handle);
+WINDUMMY_FUNC(int) _findclose(long handle);
+WINDUMMY_FUNC(long) _findfirst(const char *filespec, struct _finddata_t *fileinfo);
+WINDUMMY_FUNC(int) _findnext(long handle, struct _finddata_t *fileinfo);
+WINDUMMY_FUNC(long) _tell(int handle);
 
-BOOL GetComputerName(LPTSTR lpBuffer, long unsigned int *lpnSize);
+WINDUMMY_FUNC(BOOL) GetComputerName(LPTSTR lpBuffer, long unsigned int *lpnSize);
 
-LONG RegOpenKeyEx(HKEY hKey, LPCTSTR lpSubKey, DWORD ulOptions,
+WINDUMMY_FUNC(LONG) RegOpenKeyEx(HKEY hKey, LPCTSTR lpSubKey, DWORD ulOptions,
   REGSAM samDesired, PHKEY phkResult);
-LONG RegQueryValueEx(HKEY hKey, LPCTSTR lpValueName,
+WINDUMMY_FUNC(LONG) RegQueryValueEx(HKEY hKey, LPCTSTR lpValueName,
 LPDWORD lpReserved, LPDWORD lpType, LPBYTE lpData,
 LPDWORD lpcbData);
 
-BOOL GetClientRect(HWND hWnd, LPRECT lpRect);
-BOOL WritePrivateProfileString(LPCTSTR lpAppName,
+WINDUMMY_FUNC(BOOL) GetClientRect(HWND hWnd, LPRECT lpRect);
+WINDUMMY_FUNC(BOOL) WritePrivateProfileString(LPCTSTR lpAppName,
         LPCTSTR lpKeyName, LPCTSTR lpString, LPCTSTR lpFileName);
-DWORD GetPrivateProfileString(LPCTSTR lpAppName, LPCTSTR lpKeyName,
+WINDUMMY_FUNC(DWORD) GetPrivateProfileString(LPCTSTR lpAppName, LPCTSTR lpKeyName,
 LPCTSTR lpDefault, LPTSTR lpReturnedString, DWORD nSize, LPCTSTR lpFileName);
-UINT GetPrivateProfileInt(LPCTSTR lpAppName,
+WINDUMMY_FUNC(UINT) GetPrivateProfileInt(LPCTSTR lpAppName,
   LPCTSTR lpKeyName, INT nDefault, LPCTSTR lpFileName);
 
-int WideCharToMultiByte(UINT CodePage, DWORD dwFlags, const wchar_t *lpWideCharStr,
+WINDUMMY_FUNC(int) WideCharToMultiByte(UINT CodePage, DWORD dwFlags, const wchar_t *lpWideCharStr,
   int cchWideChar, LPSTR lpMultiByteStr, int cbMultiByte,
   LPCSTR lpDefaultChar, LPBOOL lpUsedDefaultChar);
 
-BOOL ShowWindow(HWND hWnd, int nCmdShow);
+WINDUMMY_FUNC(BOOL) ShowWindow(HWND hWnd, int nCmdShow);
 
-long _filelength(int fd);
-long _msize(void *memblock);
-int _access(const char *filename, int mode);
-BOOL SetWindowText(HWND hWnd,LPCTSTR lpString);
-int ReleaseDC(HWND hWnd, HDC hDC);
-BOOL IsIconic(HWND hWnd);
-HDC GetDC(HWND hWnd);
-BOOL EndPaint(HWND hWnd, ...);
-HDC BeginPaint(HWND hwnd,...);
-LRESULT SendMessage(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
-void strlwr(char *foo);
-HWND CreateWindow(
+WINDUMMY_FUNC(long) _filelength(int fd);
+WINDUMMY_FUNC(long) _msize(void *memblock);
+WINDUMMY_FUNC(int) _access(const char *filename, int mode);
+WINDUMMY_FUNC(BOOL) SetWindowText(HWND hWnd,LPCTSTR lpString);
+WINDUMMY_FUNC(int) ReleaseDC(HWND hWnd, HDC hDC);
+WINDUMMY_FUNC(BOOL) IsIconic(HWND hWnd);
+WINDUMMY_FUNC(HDC) GetDC(HWND hWnd);
+WINDUMMY_FUNC(BOOL) EndPaint(HWND hWnd, ...);
+WINDUMMY_FUNC(HDC) BeginPaint(HWND hwnd,...);
+WINDUMMY_FUNC(LRESULT) SendMessage(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
+WINDUMMY_FUNC(void) strlwr(char *foo);
+WINDUMMY_FUNC(HWND) CreateWindow(
     LPCTSTR lpClassName,
     LPCTSTR lpWindowName,
     DWORD dwStyle,
@@ -110,62 +119,62 @@ HWND CreateWindow(
     LPVOID lpParam
 );
 
-HGDIOBJ SelectObject(HDC hdc, HGDIOBJ hgdiobj);
-LPTSTR lstrcat(LPTSTR lpString1, LPTSTR lpString2);
-int lstrlen(LPCTSTR lpString);
-int lstrcmp(LPCTSTR lpString1, LPCTSTR lpString2);
-LPTSTR lstrcpy(LPTSTR lpString1, LPCTSTR lpString2);
-int wsprintf(LPTSTR lpOut, LPCTSTR lpFmt, ...);
-int lstrcmpi(LPCTSTR lpString1, LPCTSTR lpString2);
+WINDUMMY_FUNC(HGDIOBJ) SelectObject(HDC hdc, HGDIOBJ hgdiobj);
+WINDUMMY_FUNC(LPTSTR) lstrcat(LPTSTR lpString1, LPTSTR lpString2);
+WINDUMMY_FUNC(int) lstrlen(LPCTSTR lpString);
+WINDUMMY_FUNC(int) lstrcmp(LPCTSTR lpString1, LPCTSTR lpString2);
+WINDUMMY_FUNC(LPTSTR) lstrcpy(LPTSTR lpString1, LPCTSTR lpString2);
+WINDUMMY_FUNC(int) wsprintf(LPTSTR lpOut, LPCTSTR lpFmt, ...);
+WINDUMMY_FUNC(int) lstrcmpi(LPCTSTR lpString1, LPCTSTR lpString2);
 
-BOOL DeleteObject(HGDIOBJ hObject);
+WINDUMMY_FUNC(BOOL) DeleteObject(HGDIOBJ hObject);
 
 #define GetGValue(rgb) ((BYTE) (((WORD) (rgb)) >> 8))
 #define GetBValue(rgb) ((BYTE) ((rgb) >> 16))
 #define GetRValue(rgb) ((BYTE) (rgb))
 
-HWND GetFocus();
-int MessageBox(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType);
+WINDUMMY_FUNC(HWND) GetFocus();
+WINDUMMY_FUNC(int) MessageBox(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType);
 
-int WINAPI GlobalSize(HGLOBAL hMem);
-LPVOID GlobalLock(HGLOBAL hMem);
-BOOL GlobalUnlock(HGLOBAL hMem);
-BOOL IsBadWritePtr(LPVOID lp, int ucb);
-void OutputDebugString(LPCTSTR lpOutputString);
-BOOL SetRect(LPRECT lprc, int xLeft, int yTop,
+WINDUMMY_FUNC(int) WINAPI GlobalSize(HGLOBAL hMem);
+WINDUMMY_FUNC(LPVOID) GlobalLock(HGLOBAL hMem);
+WINDUMMY_FUNC(BOOL) GlobalUnlock(HGLOBAL hMem);
+WINDUMMY_FUNC(BOOL) IsBadWritePtr(LPVOID lp, int ucb);
+WINDUMMY_FUNC(void) OutputDebugString(LPCTSTR lpOutputString);
+WINDUMMY_FUNC(BOOL) SetRect(LPRECT lprc, int xLeft, int yTop,
 int xRight, int yBottom);
-BOOL PtInRect(const RECT *lprc, POINT pt);
-BOOL IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2);
-BOOL UnionRect(LPRECT lprcDst, const RECT *lprcSrc1,const RECT *lprcSrc2);
+WINDUMMY_FUNC(BOOL) PtInRect(const RECT *lprc, POINT pt);
+WINDUMMY_FUNC(BOOL) IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2);
+WINDUMMY_FUNC(BOOL) UnionRect(LPRECT lprcDst, const RECT *lprcSrc1,const RECT *lprcSrc2);
 
-HWND GetActiveWindow();
-HFONT CreateFont(int nHeight, int nWidth, int nEscapement,
+WINDUMMY_FUNC(HWND) GetActiveWindow();
+WINDUMMY_FUNC(HFONT) CreateFont(int nHeight, int nWidth, int nEscapement,
 int nOrientation, int fnWeight, DWORD fdwItalic, DWORD fdwUnderline,
 DWORD fdwStrikeOut, DWORD fdwCharSet, DWORD fdwOutputPrecision,
 DWORD fdwClipPrecision, DWORD fdwQuality, DWORD fdwPitchAndFamily,
 LPCTSTR lpszFace);
-BOOL GetTextExtentPoint32(HDC hdc, LPCTSTR lpString, int c, LPSIZE lpSize);
-BOOL EnumWindows(WNDENUMPROC lpEnumFunc, LPARAM lParam);
-int GetWindowText(HWND hWnd, LPTSTR lpString, int nMaxCount);
+WINDUMMY_FUNC(BOOL) GetTextExtentPoint32(HDC hdc, LPCTSTR lpString, int c, LPSIZE lpSize);
+WINDUMMY_FUNC(BOOL) EnumWindows(WNDENUMPROC lpEnumFunc, LPARAM lParam);
+WINDUMMY_FUNC(int) GetWindowText(HWND hWnd, LPTSTR lpString, int nMaxCount);
 
-HMODULE LoadLibrary(LPCTSTR lpFileName);
-BOOL FreeLibrary(HMODULE hModule);
-void* GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
+WINDUMMY_FUNC(HMODULE) LoadLibrary(LPCTSTR lpFileName);
+WINDUMMY_FUNC(BOOL) FreeLibrary(HMODULE hModule);
+WINDUMMY_FUNC(void*) GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 
-HGDIOBJ GetStockObject(int fnObject);
-BOOL IsWindowVisible(HWND hWnd);
-LRESULT DefWindowProc(HWND hWnd, UINT Msg, WPARAM wParam,
+WINDUMMY_FUNC(HGDIOBJ) GetStockObject(int fnObject);
+WINDUMMY_FUNC(BOOL) IsWindowVisible(HWND hWnd);
+WINDUMMY_FUNC(LRESULT) DefWindowProc(HWND hWnd, UINT Msg, WPARAM wParam,
     LPARAM lParam);
-LONG GetWindowLong(HWND hWnd, int nIndex);
-BOOL RegisterClass(const WNDCLASS *lpWndClass);
-HMODULE GetModuleHandle(LPCTSTR lpModuleName);
-HICON LoadIcon(HINSTANCE hInstance, LPCTSTR lpIconName);
+WINDUMMY_FUNC(LONG) GetWindowLong(HWND hWnd, int nIndex);
+WINDUMMY_FUNC(BOOL) RegisterClass(const WNDCLASS *lpWndClass);
+WINDUMMY_FUNC(HMODULE) GetModuleHandle(LPCTSTR lpModuleName);
+WINDUMMY_FUNC(HICON) LoadIcon(HINSTANCE hInstance, LPCTSTR lpIconName);
 
-long filelength(int fd);
-int LoadCursor(HINSTANCE hInstance, LPCTSTR lpCursorName);
-BOOL Rectangle(HDC hdc,
+WINDUMMY_FUNC(long) filelength(int fd);
+WINDUMMY_FUNC(int) LoadCursor(HINSTANCE hInstance, LPCTSTR lpCursorName);
+WINDUMMY_FUNC(BOOL) Rectangle(HDC hdc,
   int nLeftRect, int nTopRect, int nRightRect, int nBottomRect);
-char* _strupr(char*s);
+WINDUMMY_FUNC(char*) _strupr(char*s);
 
 #endif /* not WIN32 */
 
@@ -176,12 +185,6 @@ char* _strupr(char*s);
 #ifdef _MSC_VER
 #define strcasecmp(a, b) _stricmp(a, b)
 #endif
-
-#if ((__WINDUMMY__) && (_MSC_VER))
-#   define WINDUMMY_FUNC(A)  __declspec(dllexport) A
-#else
-#   define WINDUMMY_FUNC(A)  A
-#endif // __WINDUMMY__
 
 #ifdef __cplusplus
 extern "C" {

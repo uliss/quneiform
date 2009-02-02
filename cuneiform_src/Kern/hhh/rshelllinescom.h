@@ -149,7 +149,7 @@ typedef struct group_lines_mass
 
 /////////////////////////////////////////////////////////////////////////////
 // Interval's class
-/*class RSHELLLINES_API CInterval:public CObject
+/*class RSHELLLINES_CLASS CInterval:public CObject
 {
 public:
   CInterval(){}
@@ -161,7 +161,7 @@ public:
 */
 /////////////////////////////////////////////////////////////////////////////
 // Rect32's class
-/*class RSHELLLINES_API CPRect32:public CObject
+/*class RSHELLLINES_CLASS CPRect32:public CObject
 {
 public:
   CPRect32(){m_flag=TRUE;};
@@ -174,7 +174,7 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 // Event's class
-/*class RSHELLLINES_API CEvent:public CObject
+/*class RSHELLLINES_CLASS CEvent:public CObject
 {
 public:
   CEvent();
@@ -219,7 +219,7 @@ public:
 //#define DirecteDownwards      1
 //#define DirectedForBothSides  2
 /*
-class RSHELLLINES_API CCutPoint:public CObject
+class RSHELLLINES_CLASS CCutPoint:public CObject
 {
 public:
   CCutPoint();
@@ -387,7 +387,7 @@ RSHELLLINES_FUNC(Bool32)          CheckSeparationPoints(CLINE_handle hLine, CLIN
 */
 /////////////////////////////////////////////////////////////////////////////
 // CGroupOfFriendLines class
-/*class RSHELLLINES_API CGroupOfFriendLines:public CObject
+/*class RSHELLLINES_CLASS CGroupOfFriendLines:public CObject
 {
 public:
   CGroupOfFriendLines();
@@ -409,7 +409,7 @@ public:
 */
 /////////////////////////////////////////////////////////////////////////////
 // CGroupOfExtensibleLines class
-/*class RSHELLLINES_API CGroupOfExtensibleLines:public CObject
+/*class RSHELLLINES_CLASS CGroupOfExtensibleLines:public CObject
 {
 public:
   CGroupOfExtensibleLines();
@@ -424,7 +424,7 @@ public:
 */
 /////////////////////////////////////////////////////////////////////////////
 // PageLine's class
-/*class RSHELLLINES_API CPageLines:public CObject
+/*class RSHELLLINES_CLASS CPageLines:public CObject
 {
 public:
   CPageLines();

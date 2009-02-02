@@ -177,7 +177,7 @@ static int __DPUMA__AllocHook__( int allocType, void *userData, size_t size, int
 }
 
 //////////////////////////////////////////////
-Bool32   LDPUMA_Init(Word16 wHightCode, Handle hStorage)
+DPUMA_FUNC(Bool32)   LDPUMA_Init(Word16 wHightCode, Handle hStorage)
 {
 Bool32 rc = FALSE;
 #ifdef _DEBUG
@@ -288,7 +288,7 @@ Bool32 rc = FALSE;
 	return rc;
 }
 //////////////////////////////////////////////
-Bool32 LDPUMA_Done()
+DPUMA_FUNC(Bool32) LDPUMA_Done()
 {
 	Bool32 rc = FALSE;
 #ifdef _DEBUG
@@ -344,25 +344,25 @@ Word32   LDPUMA_CreateSnap()
 	return rc;
 }
 //////////////////////////////////////////////
-void LDPUMA_Stop()
+DPUMA_FUNC(void) LDPUMA_Stop()
 {
 	if(Stop)
 		 Stop();
 }
 //////////////////////////////////////////////
-Handle LDPUMA_CreateWindow(const char * lpName, void * lpDIB)
+DPUMA_FUNC(Handle) LDPUMA_CreateWindow(const char * lpName, void * lpDIB)
 {
 	if(fCreateWindow)
 		return fCreateWindow(lpName,lpDIB);
 	return NULL;
 }
 //////////////////////////////////////////////
-Bool32 LDPUMA_IsActive(void)
+DPUMA_FUNC(Bool32) LDPUMA_IsActive(void)
 {
 	return IsActive ? IsActive():FALSE;
 };
 //////////////////////////////////////////////
-void   LDPUMA_DrawRect(Handle wnd,Rect16* rc, Int32 skew, Word32 rgb_color,
+DPUMA_FUNC(void)   LDPUMA_DrawRect(Handle wnd,Rect16* rc, Int32 skew, Word32 rgb_color,
       Int16 pen_width,Word32 key)
 {
 	if(DrawRect)
@@ -376,13 +376,13 @@ void   LDPUMA_DrawRectTip(Handle wnd,Rect16* rc, Int32 skew, Word32 rgb_color,
 		DrawRectTip(wnd,rc,skew,rgb_color,(Int16)pen_width,key,pTip);
 }
 //////////////////////////////////////////////
-void   LDPUMA_DeleteRects(Handle wnd, Word32 key)
+DPUMA_FUNC(void)   LDPUMA_DeleteRects(Handle wnd, Word32 key)
 {
 	if(DeleteRects)
 		DeleteRects(wnd,key);
 };
 //////////////////////////////////////////////
-void  LDPUMA_DrawLine(Handle wnd,Point16* start, Point16* end, Int32 skew,
+DPUMA_FUNC(void)  LDPUMA_DrawLine(Handle wnd,Point16* start, Point16* end, Int32 skew,
       Word32 rgb_color,Int16 pen_width,Word32 key )
 {
 	if(DrawLine)
@@ -396,7 +396,7 @@ void  LDPUMA_DrawLineTip(Handle wnd,Point16* start, Point16* end, Int32 skew,
 		DrawLineTip(wnd,start,end,skew,rgb_color,pen_width,key,pTip);
 };
 //////////////////////////////////////////////
-void   LDPUMA_DeleteLines(Handle wnd,Word32 key)
+DPUMA_FUNC(void)   LDPUMA_DeleteLines(Handle wnd,Word32 key)
 {
 	if(DeleteLines)
 		DeleteLines(wnd,key);
@@ -408,7 +408,7 @@ void   LDPUMA_UpdateView(Handle wnd)
 		UpdateView(wnd);
 }
 //////////////////////////////////////////////
-Int32 LDPUMA_Console(const char * message,...)
+DPUMA_FUNC(Int32) LDPUMA_Console(const char * message,...)
 {
     va_list marker;
     va_start(marker, message);
@@ -428,7 +428,8 @@ Int32 LDPUMA_Console(const char * message,...)
 	*/
 
 }
-Int32 LDPUMA_ConsoleN(const char * message,...)
+
+DPUMA_FUNC(Int32) LDPUMA_ConsoleN(const char * message,...)
 {
 	Int32 rc = 0;
 	if(Console)
@@ -493,7 +494,7 @@ Bool16 LDPUMA_GetUserPoint(Handle wnd,Point16* pnt)
 	return rc;
 };
 //////////////////////////////////////////////
-Word32 LDPUMA_WaitUserInput(Handle cur_node,Handle wnd)
+DPUMA_FUNC(Word32) LDPUMA_WaitUserInput(Handle cur_node,Handle wnd)
 {
 	Word32 rc = 0;
 	if(WaitUserInput)
@@ -501,19 +502,19 @@ Word32 LDPUMA_WaitUserInput(Handle cur_node,Handle wnd)
 	return rc;
 };
 //////////////////////////////////////////////
-void LDPUMA_Registry( Handle node, const char * name,Handle parent )
+DPUMA_FUNC(void) LDPUMA_Registry( Handle node, const char * name,Handle parent )
 {
 	if(Registry)
 		Registry(node,name,parent);
 };
 //////////////////////////////////////////////
-void LDPUMA_StartLoop( Handle node, Word32 iter_total )
+DPUMA_FUNC(void) LDPUMA_StartLoop( Handle node, Word32 iter_total )
 {
 	if(StartLoop)
 		StartLoop(node,iter_total);
 };
 //////////////////////////////////////////////
-void LDPUMA_LoopNext( Handle node )
+DPUMA_FUNC(void) LDPUMA_LoopNext( Handle node )
 {
 	if(LoopNext)
 		LoopNext(node);
@@ -524,13 +525,13 @@ Bool16  LDPUMA_Skip( Handle node )
 	return Skip ? Skip(node):TRUE;
 };
 //////////////////////////////////////////////
-void LDPUMA_DrawRaster(DPUMA_RecRaster * raster)
+DPUMA_FUNC(void) LDPUMA_DrawRaster(DPUMA_RecRaster * raster)
 {
 	if(DrawRaster)
 		DrawRaster((DPUMA_RecRaster *)raster);
 };
 //////////////////////////////////////////////
-void LDPUMA_RasterText(char * lpText)
+DPUMA_FUNC(void) LDPUMA_RasterText(char * lpText)
 {
 	if(RasterText)
 		RasterText(lpText);
@@ -554,7 +555,7 @@ void   LDPUMA_DrawFocusRect(Handle wnd,Rect16* rc)
 		fnDrawFocusRect(wnd,rc);
 };
 //////////////////////////////////////////////
-Bool32 LDPUMA_RegVariable(Handle owner, const char * lpText,void * lpData, const char * lpType)
+DPUMA_FUNC(Bool32) LDPUMA_RegVariable(Handle owner, const char * lpText,void * lpData, const char * lpType)
 {
 	BOOL rc = FALSE;
 	if(RegVariable)
@@ -562,7 +563,7 @@ Bool32 LDPUMA_RegVariable(Handle owner, const char * lpText,void * lpData, const
 	return rc;
 };
 
-void LDPUMA_UnregVariable(void * lpData)
+DPUMA_FUNC(void) LDPUMA_UnregVariable(void * lpData)
 {
 	if(UnregVariable)
 		UnregVariable(lpData);
@@ -614,7 +615,7 @@ DPUMA_Callback_WindowProc   LDPUMA_SetCallbackMainFrameWindowProc(DPUMA_Callback
 	return NULL;
 };
 //////////////////////////////////////////////
-void  LDPUMA_DestroyWindow(Handle wnd)
+DPUMA_FUNC(void)  LDPUMA_DestroyWindow(Handle wnd)
 {
 	if(fDestroyWindow)
 		fDestroyWindow( wnd );
@@ -636,7 +637,7 @@ Word32  LDPUMA_SendMainWnd(Word32 message, Word32 wParam, Word32 lParam)
 	return rc;
 };
 //////////////////////////////////////////////
-Word32 LDPUMA_CSTR_Monitor(Handle owner, Word32 cstr_line, Word32 pos,
+DPUMA_FUNC(Word32) LDPUMA_CSTR_Monitor(Handle owner, Word32 cstr_line, Word32 pos,
 									  DPUMA_Callback_WindowProc lpproc)
 {
 	Word32 rc = 0;
@@ -645,7 +646,7 @@ Word32 LDPUMA_CSTR_Monitor(Handle owner, Word32 cstr_line, Word32 pos,
 return rc;
 }
 //////////////////////////////////////////////
-Word32 LDPUMA_CSTR_GetPosition(Word32 * cstr_raster)
+DPUMA_FUNC(Word32) LDPUMA_CSTR_GetPosition(Word32 * cstr_raster)
 {
 	Word32 rc = 0;
 	if(cstr_GetPosition)
@@ -660,7 +661,7 @@ void LDPUMA_CSTR_SetPosition(Word32 pos)
 		cstr_SetPosition(pos);
 }
 //////////////////////////////////////////////
-void LDPUMA_DestroyRasterWnd()
+DPUMA_FUNC(void) LDPUMA_DestroyRasterWnd()
 {
 	if(DestroyRasterWnd)
 		DestroyRasterWnd();
@@ -695,7 +696,7 @@ void LDPUMA_CSTR_Update( )
 }
 
 //////////////////////////////////////////////
-Bool32 LDPUMA_SkipEx(Handle owner, Bool32 bIter, Bool32 bParent, Int32 nSign )
+DPUMA_FUNC(Bool32) LDPUMA_SkipEx(Handle owner, Bool32 bIter, Bool32 bParent, Int32 nSign )
 {
 	Bool32 rc = TRUE;
 	if(SkipEx)
@@ -703,7 +704,7 @@ Bool32 LDPUMA_SkipEx(Handle owner, Bool32 bIter, Bool32 bParent, Int32 nSign )
 return rc;
 }
 //////////////////////////////////////////////
-Bool32 LDPUMA_OpenFile(Handle wnd, char * name )
+DPUMA_FUNC(Bool32) LDPUMA_OpenFile(Handle wnd, char * name )
 {
 	Bool32 rc = FALSE;
 	if(fOpenFile)
@@ -719,7 +720,7 @@ char * LDPUMA_GetFileName(Handle wnd)
 	return rc;
 }
 //////////////////////////////////////////////
-void *  LDPUMA_HandLayout( void * lpDIB, Word32 flags ,Point32 * p)
+DPUMA_FUNC(void *)  LDPUMA_HandLayout( void * lpDIB, Word32 flags ,Point32 * p)
 {
 	void * rc = NULL;
 	if(fHandLayout)
@@ -737,7 +738,7 @@ Bool32 LDPUMA_LockImage( Handle wnd, Bool32 bLock )
 return rc;
 }
 //////////////////////////////////////////////
-void LDPUMA_RegistryHelp( Handle owner, const char * lpstrHelp,Bool32 bAppend )
+DPUMA_FUNC(void) LDPUMA_RegistryHelp( Handle owner, const char * lpstrHelp,Bool32 bAppend )
 {
 	if(RegistryHelp)
 		RegistryHelp(owner,lpstrHelp,bAppend);
@@ -751,19 +752,19 @@ Bool32 LDPUMA_SaveFile( void * lpDIB,char * lpFileName,Word32 nFormat )
 	return rc;
 }
 //////////////////////////////////////////////
-void LDPUMA_ProgressStart( void )
+DPUMA_FUNC(void) LDPUMA_ProgressStart( void )
 {
 	if(fProgressStart)
 		fProgressStart();
 }
 //////////////////////////////////////////////
-void LDPUMA_ProgressFinish( void )
+DPUMA_FUNC(void) LDPUMA_ProgressFinish( void )
 {
 	if(fProgressFinish)
 		fProgressFinish();
 }
 //////////////////////////////////////////////
-Bool32 LDPUMA_ProgressStep(Word32 step, const char * name, Word32 percent)
+DPUMA_FUNC(Bool32) LDPUMA_ProgressStep(Word32 step, const char * name, Word32 percent)
 {
 	Bool32 rc = TRUE;
 	if(fProgressStep)
@@ -771,7 +772,7 @@ Bool32 LDPUMA_ProgressStep(Word32 step, const char * name, Word32 percent)
 	return rc;
 }
 //////////////////////////////////////////////
-Bool32 LDPUMA_SetConsoleProperty(Bool32 bold,Bool32 italic,
+DPUMA_FUNC(Bool32) LDPUMA_SetConsoleProperty(Bool32 bold,Bool32 italic,
 	Bool32 strikeout,Bool32 underline,Int32 height,	Int32 offset,	Word32 textcolor,
 	Int32 charset,	const char * name )
 {
@@ -834,7 +835,7 @@ Handle LDPUMA_TimeStamp(const char * name,Handle hTimer)
 return (Handle) clock1;
 }
 //////////////////////////////////////////////
-Handle LDPUMA_GetWindowHandle(const char * name)
+DPUMA_FUNC(Handle) LDPUMA_GetWindowHandle(const char * name)
 {
 	Handle rc = NULL;
 	if(fGetWindowHandle)
@@ -850,13 +851,13 @@ Handle LDPUMA_GetPrevSkipOwner()
 	return rc;
 }
 //////////////////////////////////////////////
-void LDPUMA_ConsoleClear(Int32 beforeline)
+DPUMA_FUNC(void) LDPUMA_ConsoleClear(Int32 beforeline)
 {
 	if(fConsoleClear)
 		fConsoleClear(beforeline);
 }
 //////////////////////////////////////////////
-Int32 LDPUMA_ConsoleGetCurLine()
+DPUMA_FUNC(Int32) LDPUMA_ConsoleGetCurLine()
 {
 	Int32 rc = -1;
 	if(fConsoleGetCurLine)
@@ -864,7 +865,7 @@ Int32 LDPUMA_ConsoleGetCurLine()
 return rc;
 }
 //////////////////////////////////////////////
-Bool32 LDPUMA_SetFileName(Handle wnd,char * lpName)
+DPUMA_FUNC(Bool32) LDPUMA_SetFileName(Handle wnd,char * lpName)
 {
 	Bool32 rc = FALSE;
 	if(fSetFileName)
