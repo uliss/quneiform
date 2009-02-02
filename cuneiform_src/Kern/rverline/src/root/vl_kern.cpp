@@ -61,7 +61,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Содержание :  Содержательные функции библиотеки "RVERLINE"                */
 /*  Назначение :  Стандартный диалог с другими библиотеками                   */
 /*----------------------------------------------------------------------------*/
-#define __RVERLINE__
 
 #include <stdio.h>
 /*#include <windows.h>*/

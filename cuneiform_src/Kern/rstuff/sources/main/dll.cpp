@@ -64,7 +64,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Содержание :  Интерфейс библиотеки                                        */
 /*  Назначение :                                                              */
 /*----------------------------------------------------------------------------*/
-#define __RSTUFF__
 
 /*#include <windows.h>*/
 #include "resource.h"

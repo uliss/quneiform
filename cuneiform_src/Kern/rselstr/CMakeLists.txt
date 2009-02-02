@@ -40,6 +40,7 @@ sources/src/cpp/sestring.cpp
 sources/src/cpp/sevbreak.cpp
 sources/src/chstr/vertical/testforvertical.cpp
 )
+set_property(TARGET rselstr PROPERTY COMPILE_DEFINITIONS __RSELSTR__)
 
 target_link_libraries(rselstr
 cimage

@@ -9,6 +9,7 @@ sources/src/negmain/recnegmain.cpp
 sources/src/negmain/rnegbase.cpp
 sources/src/searchneg/searchneg.cpp
 )
+set_property(TARGET rneg PROPERTY COMPILE_DEFINITIONS __RNEG__)
 
 target_link_libraries(rneg
 cimage

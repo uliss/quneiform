@@ -12,6 +12,7 @@ src/service/vl_data.cpp
 src/service/vl_rule.cpp
 src/service/vl_snap.cpp
 )
+set_property(TARGET rverline PROPERTY COMPILE_DEFINITIONS __RVERLINE__)
 
 target_link_libraries(rverline
 cimage

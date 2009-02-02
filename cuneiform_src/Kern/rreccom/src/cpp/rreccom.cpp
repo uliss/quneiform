@@ -55,8 +55,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /*********************************************************************************************/
-#define __RRECCOM__
-/*********************************************************************************************/
 #include <string.h>
 #include "stdafx.h"
 #include "rreccom.h"

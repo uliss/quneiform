@@ -1,7 +1,5 @@
 include_directories(src)
 
-add_definitions(-D__STD__) # Function import/export.
-
 add_library(std32 ${LIBTYPE}
 src/std.cpp
 #src/Std.rc
@@ -19,6 +17,7 @@ src/stdprt.cpp
 src/stdsort.cpp
 src/stdwapi.cpp
 )
+set_property(TARGET std32 PROPERTY COMPILE_DEFINITIONS __STD__)
 
 target_link_libraries(std32 windummy)
 

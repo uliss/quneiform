@@ -1,5 +1,3 @@
-add_definitions(-D__RMARKER__)
-
 add_library(rmarker ${LIBTYPE}
 ${SNP_SRC}
 dll.cpp
@@ -15,6 +13,7 @@ shortverticallinesfilter.cpp
 ../usage/puma_err.cpp
 ../usage/un_buff.cpp
 )
+set_property(TARGET rmarker PROPERTY COMPILE_DEFINITIONS __RMARKER__)
 
 target_link_libraries(rmarker
 cfio

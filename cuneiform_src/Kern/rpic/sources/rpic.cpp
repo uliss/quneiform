@@ -58,8 +58,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 // ============================================================================
 
-#define __RPIC__
-
 #define __RPIC_CPP__
 
 /*#include <windows.h>*/

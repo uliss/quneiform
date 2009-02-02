@@ -54,12 +54,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef RLING_SECONDARY
-  #define __RLING__
-#else
-  #define __RLINGS__
-#endif
-
 #include "resource.h"
 #include "rlcontrol.h"
 #include "crling.h"

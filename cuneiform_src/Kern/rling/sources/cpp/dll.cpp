@@ -61,13 +61,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 // dll_cpage.cpp :
 // ============================================================================
-#ifndef RLING_SECONDARY
-  #define __RLING__
-#else
-  #define __RLINGS__
-#endif
-
-/*#include <windows.h>*/
 
 #include "resource.h"
 #include "rlcontrol.h"

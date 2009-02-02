@@ -54,17 +54,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#define __RSELSTR__
-
-
 #include "rselstr.h"
 #include "puttocont.h"
-
-
-
-
-
-
 
 RSELSTR_FUNC(Bool32) RSELSTR_PutObjects (Handle hCPage,Handle hCCOM,CHSTR_Objects* pObjects,int nObjects)
 {

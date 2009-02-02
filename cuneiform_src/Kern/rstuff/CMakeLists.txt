@@ -24,6 +24,7 @@ sources/main/rstuff.cpp
 ../usage/puma_err.cpp
 ../usage/un_buff.cpp
 )
+set_property(TARGET rstuff PROPERTY COMPILE_DEFINITIONS __RSTUFF__)
 
 target_link_libraries(rstuff
 cfio

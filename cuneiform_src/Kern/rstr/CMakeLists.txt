@@ -1,6 +1,5 @@
 #include_subdirectories(src)
 add_definitions(-DDPUMA_SNAP)
-add_definitions(-D__RSTR__)
 
 add_library(rstr ${LIBTYPE}
 ${SNP_SRC}
@@ -89,6 +88,7 @@ src/sweeper.c
 src/tm.c
 src/tools.c
 src/ukr.c)
+set_property(TARGET rstr PROPERTY COMPILE_DEFINITIONS __RSTR__)
 
 target_link_libraries(rstr
 ccom

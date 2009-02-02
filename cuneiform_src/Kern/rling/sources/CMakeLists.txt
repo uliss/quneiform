@@ -1,4 +1,4 @@
-add_definitions(-DRLINSG_EXPORTS -DRLING_SECONDARY)
+add_definitions(-DRLINGS_EXPORTS -DRLING_SECONDARY)
 
 add_library(rlings ${LIBTYPE}
 cpp/crled.cpp
@@ -31,6 +31,7 @@ c/spelspec.c
 c/udictini.c
 c/udictuti.c
 )
+set_property(TARGET rlings PROPERTY COMPILE_DEFINITIONS __RLINGS__)
 
 target_link_libraries(rlings cstr windummy)
 

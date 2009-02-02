@@ -37,6 +37,7 @@ sources/c/spelspec.c
 sources/c/udictini.c
 sources/c/udictuti.c
 )
+set_property(TARGET rling PROPERTY COMPILE_DEFINITIONS __RLING__)
 
 target_link_libraries(rling cstr rlings)
 
