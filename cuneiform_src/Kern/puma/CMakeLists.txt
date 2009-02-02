@@ -1,7 +1,5 @@
 include_directories(h)
 
-add_definitions(-D__PUMA__)
-
 add_library(puma ${LIBTYPE}
 ${SNP_SRC}
 c/common.cpp 
@@ -16,6 +14,7 @@ main/mymem.cpp
 main/puma.cpp 
 main/dll.cpp 
 )
+set_property(TARGET puma PROPERTY COMPILE_DEFINITIONS __PUMA__)
 
 target_link_libraries(puma
 ced

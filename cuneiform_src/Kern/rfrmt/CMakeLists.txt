@@ -19,6 +19,7 @@ sources/main/util.cpp
 sources/main/util_lst.cpp
 sources/main/util_spl.cpp
 )
+set_property(TARGET rfrmt PROPERTY COMPILE_DEFINITIONS __RFRMT__)
 
 target_link_libraries(rfrmt
 ced

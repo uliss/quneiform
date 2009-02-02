@@ -73,7 +73,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include "stdafx.h"
 #include "resource.h"
-#define __RFRMT__
 #include "rfrmt.h"
 #include "mymem.h"
 #include "rtffragrect.h"

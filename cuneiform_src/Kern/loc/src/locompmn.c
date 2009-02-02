@@ -59,6 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include "struct.h"
 #include "v1comp.h"
+#include "loc.h"
 
 BWSS *locomp_seglist(Word8* raster, BWSS *bwsp, BWSS *bwe, Int32 height, Int32 width);
 MN * c_locomp (Word8* raster, Int32 bw, Int32 h, Int16 upper, Int16 left);
@@ -101,7 +102,7 @@ static void new_line_cont();
 static void merge_line();
 static void dead_line();
 
-MN * c_locomp (Word8* raster, Int32 bw, Int32 h, Int16 upper, Int16 left)
+LOC_FUNC(MN *) c_locomp (Word8* raster, Int32 bw, Int32 h, Int16 upper, Int16 left)
 {
  lineno = upper-1; rast_lc = left;
  if (setjmp(locomp_err)) return NULL;

@@ -63,7 +63,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*#include <windows.h>*/
 #include "resource.h"
-#define __RFRMT__
 #define __RFRMT_EXTERN__
 #include "rfrmt.h"
 #include "dpuma.h"

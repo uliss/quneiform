@@ -1,6 +1,5 @@
 include_directories(BEFORE src)
 
-add_definitions(-D__LNS__)
 add_definitions(-DDPUMA_SNAP) # See warning below.
 
 add_library(lns32 ${LIBTYPE}
@@ -25,6 +24,7 @@ src/smooth.cpp
 src/sweeper.cpp
 src/tgreader.cpp
 )
+set_property(TARGET lns32 PROPERTY COMPILE_DEFINITIONS __LNS__)
 
 target_link_libraries(lns32 cline std32 windummy)
 

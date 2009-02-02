@@ -16,6 +16,7 @@ sources/main/crturner.cpp
 sources/main/dll.cpp
 sources/main/rprogressor.cpp
 )
+set_property(TARGET rimage PROPERTY COMPILE_DEFINITIONS __RIMAGE__)
 
 target_link_libraries(rimage
 cfio

@@ -60,9 +60,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 // dll_cpage.cpp :
 // ============================================================================
-#define __RIMAGE__
-
-/*#include <windows.h>*/
 
 #include "resource.h"
 #include "cridefines.h"
