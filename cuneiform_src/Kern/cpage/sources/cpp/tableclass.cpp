@@ -57,8 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // TableClass.cpp: implementation of the TableClass class.
 //
 //////////////////////////////////////////////////////////////////////
-#define __CPAGE__
-
 #include "mymem.h"
 #include "tableclass.h"
 //////////////////////////////////////////////////////////////////////

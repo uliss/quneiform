@@ -57,9 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __BACKUP_H__
 #define __BACKUP_H__
 
-#define __CPAGE__
-//#define DPUMA_ON 1
-
 #include "page.h"
 
 class BACKUPPAGE : public PAGE

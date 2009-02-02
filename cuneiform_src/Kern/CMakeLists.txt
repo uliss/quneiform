@@ -11,6 +11,13 @@ fon/src
 usage
 )
 
+# Hide non exported functions/variables
+include(CheckCCompilerFlag)
+check_c_compiler_flag("-fvisibility=hidden -DHAVE_GCCVISIBILITY" HAVE_GCCVISIBILITY)
+if (HAVE_GCCVISIBILITY)
+	add_definitions("-fvisibility=hidden -DHAVE_GCCVISIBILITY")
+endif()
+
 # Stop MSVC complaints about POSIX functions.
 if(MSVC)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)

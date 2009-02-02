@@ -152,7 +152,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             #define CDECL      __cdecl
          #endif
       #endif
-   #else /* unknown compiler ******************************************/
+    #elif    defined( __GNUC_MINOR__ ) && defined(HAVE_GCCVISIBILITY) /* GNU Compiler Suite ******/
+         #define CLA_IMPO
+         #define CLA_EXPO __attribute__ ((visibility("default")))
+         #define FUN_IMPO__
+         #define __FUN_IMPO
+         #define FUN_EXPO__ __attribute__ ((visibility("default")))
+         #define __FUN_EXPO
+         #ifndef PASCAL
+            #define PASCAL __attribute__ ((stdcall))
+         #endif
+         #ifndef CDECL
+            #define CDECL __attribute__ ((cdecl))
+         #endif
+    #else /* unknown compiler ******************************************/
 	     #define CLA_IMPO
          #define CLA_EXPO
          #define FUN_IMPO__

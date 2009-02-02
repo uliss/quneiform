@@ -8,6 +8,7 @@ sources/src/main/clinemain.cpp
 sources/src/cpp/debug.cpp
 sources/src/cpp/lcline.cpp
 )
+set_property(TARGET cline PROPERTY COMPILE_DEFINITIONS __CLINE__)
 
 target_link_libraries(cline windummy)
 

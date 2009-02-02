@@ -58,8 +58,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <memory.h>
 #include <string.h>
 
-#define __CPAGE__
-
 #include "cpage.h"
 #include "data.h"
 #include "mymem.h"

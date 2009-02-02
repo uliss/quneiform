@@ -61,9 +61,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 // dll_cpage.cpp :
 // ============================================================================
-#define __CIMAGE__
-
-/*#include <windows.h>*/
 
 #include "resource.h"
 #include "ctidefines.h"

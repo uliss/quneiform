@@ -18,6 +18,7 @@ sources/cpp/picture.cpp
 sources/cpp/table.cpp
 sources/cpp/tableclass.cpp
 )
+set_property(TARGET cpage PROPERTY COMPILE_DEFINITIONS __CPAGE__)
 
 target_link_libraries(cpage windummy)
 

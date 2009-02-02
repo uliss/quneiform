@@ -62,10 +62,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // dll_cpage.cpp :
 // ============================================================================
 
-/*#include <windows.h>*/
-
-#define __CPAGE__
-
 #include "resource.h"
 #include "cpage.h"
 #include "backup.h"
