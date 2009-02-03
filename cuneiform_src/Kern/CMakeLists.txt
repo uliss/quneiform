@@ -7,7 +7,6 @@ hrk
 hrkint
 hrstr
 fon/src
-#rout
 usage
 )
 
@@ -116,9 +115,6 @@ fon msk std32 evn32 cstr ctb32 dif rcutp ccom)
 set(PUMA_LIBS puma rcorrkegl rmarker rstuff rpic rline rneg smetric rreccom
 lns32 rshelllines rfrmt rselstr rblock rout rverline rimage exc ced cpage
 cimage loc rdib cfio)
-
-#add_executable(rpstrtest rpstrtest.c windummy.c)
-#target_link_libraries(rpstrtest ${RPSTR_LIBS})
 
 add_definitions(-D__WINDUMMY__) # Function import/export.
 add_library(windummy ${LIBTYPE} windummy.c)

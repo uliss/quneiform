@@ -175,12 +175,14 @@ static char* read_file(const char *fname) {
     if (*((int32_t*)dib) != 40) {
         cerr << "BMP is not of type \"Windows V3\", which is the only supported format.\n";
         cerr << "Please convert your BMP to uncompressed V3 format and try again.\n";
+        delete[] dib;
         return NULL;
     }
 
     if (*((int32_t*) (dib+16)) != 0) {
         cerr << fname << "is a compressed BMP. Only uncompressed BMP files are supported.\n";
         cerr << "Please convert your BMP to uncompressed V3 format and try again.";
+        delete[] dib;
         return NULL;
     }
     return dib;
