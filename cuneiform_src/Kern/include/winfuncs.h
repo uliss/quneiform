@@ -28,12 +28,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef WINFUNCS_H_
 #define WINFUNCS_H_
 
-#if WIN32
-
-#include<windows.h>
-
-#else // WIN32
-
 #include "globus.h"
 
 #ifdef __WINDUMMY__
@@ -41,6 +35,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #else
   #define WINDUMMY_FUNC  FUN_IMPO
 #endif
+
+#if WIN32
+
+#include<windows.h>
+
+#else // WIN32
+
 
 
 #include<wchar.h>
