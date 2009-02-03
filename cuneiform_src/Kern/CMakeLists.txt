@@ -13,9 +13,11 @@ usage
 
 # Hide non exported functions/variables
 include(CheckCCompilerFlag)
-check_c_compiler_flag("-fvisibility=hidden -DHAVE_GCCVISIBILITY" HAVE_GCCVISIBILITY)
-if (HAVE_GCCVISIBILITY)
-	add_definitions("-fvisibility=hidden -DHAVE_GCCVISIBILITY")
+if(CMAKE_COMPILER_IS_GNUCC)
+    check_c_compiler_flag("-fvisibility=hidden -DHAVE_GCCVISIBILITY" HAVE_GCCVISIBILITY)
+    if (HAVE_GCCVISIBILITY)
+	    add_definitions("-fvisibility=hidden -DHAVE_GCCVISIBILITY")
+    endif()
 endif()
 
 # Stop MSVC complaints about POSIX functions.
