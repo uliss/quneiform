@@ -1,4 +1,5 @@
-Cuneiform for Linux 0.5.0
+Cuneiform for Linux
+
 
 Cuneiform is an multi-language OCR system originally developed
 and open sourced by Cognitive Technologies. Cuneiform was
@@ -34,9 +35,8 @@ Sven Eckelmann
 
 Caveats
 
-This port is has several limitations. Among the biggest ones are:
+There are known limitations in this port. Among these are the following:
 
-- Windows version compiles only with MinGW
 - it only works on x86 and amd64 processors
 - there is no table recognition, because of
   https://bugs.launchpad.net/cuneiform-linux/+bug/260327
@@ -44,7 +44,7 @@ This port is has several limitations. Among the biggest ones are:
 Patches to fix any of these issues are gladly accepted.
 
 
-Compiling
+Compiling on unix
 
 Extract the source and go to the root folder (the one this file is in).
 Then type the following commands:
@@ -58,6 +58,31 @@ make install
 By default Cuneiform installs to /usr/local. You can specify a different prefix
 by giving a command line switch "-DCMAKE_INSTALL_PREFIX=/what/ever/you/want"
 to CMake.
+
+
+Compiling on OSX
+
+Follow the instructions for unix above. You can also try the Xcode project
+generator. It works but is not maintained.
+
+
+Compiling with MSVC or MinGW
+
+Run CMake. Point it to the directory you extracted the source to. 
+Select a different directory for your build tree, You can not build inside
+your source tree.
+
+Select "Visual studio [the version you are using] project files".
+For MinGW select "MinGW makefiles." Click "config", then "generate".
+
+In your selected build tree, there are now project files for Visual
+Studio, open them by double clicking or via file->open from VS.
+Select "Build solution (F7)".
+
+For MinGW go to your build tree and run "mingw32-make". 
+
+
+Further info on configuration and running
 
 If you have ImageMagick++ on your system, Cuneiform autodetects and builds
 against it. Then Cuneiform can process any image that ImageMagick knows how
