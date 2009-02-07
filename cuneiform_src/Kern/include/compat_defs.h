@@ -57,7 +57,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define lseek(a, b, c) _lseek(a, b, c)
 */
 #else
+#ifndef _ASSERT
 #define _ASSERT(a) assert(a)
+#endif
 typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int);
 
 #endif
