@@ -15,6 +15,12 @@ set(CF_VERSION_PATCH "0")
 
 set(CF_VERSION "${CF_VERSION_MAJOR}.${CF_VERSION_MINOR}.${CF_VERSION_PATCH}")
 
+if(BUILD_TESTING)
+  enable_testing()
+  include(CTest)
+  include(Dart)
+endif(BUILD_TESTING)
+
 include(install_files.cmake)
 
 add_subdirectory(datafiles)
