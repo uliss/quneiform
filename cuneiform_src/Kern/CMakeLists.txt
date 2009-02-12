@@ -116,9 +116,9 @@ set(PUMA_LIBS puma rcorrkegl rmarker rstuff rpic rline rneg smetric rreccom
 lns32 rshelllines rfrmt rselstr rblock rout rverline rimage exc ced cpage
 cimage loc rdib cfio)
 
-add_definitions(-D__WINDUMMY__) # Function import/export.
 add_library(windummy ${LIBTYPE} windummy.c)
 target_link_libraries(windummy ${DL_LIB})
+set_property(TARGET windummy PROPERTY COMPILE_DEFINITIONS __WINDUMMY__)
 
 add_executable(cuneiform cuneiform-cli.cpp)
 target_link_libraries(cuneiform puma ${MAGICK_LIBRARIES} ${DL_LIB})
