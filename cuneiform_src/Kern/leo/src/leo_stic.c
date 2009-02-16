@@ -1104,7 +1104,7 @@ return( (i<<3)+last_pos[*r] );
 static int leo_shift_raster(   Word8 *raster, int dx, int dy,
                         int tab_angle[])
 {
-int  i, ii, j, Dx, d, dd, c, db;
+int  i = 0, ii = 0, j = 0, Dx = 0, d = 0, dd = 0, c = 0, db = 0;
 Word8     *r, *rr, s1, s2, s3;
 int max_shift,left;
 int dir = tab_angle[0];

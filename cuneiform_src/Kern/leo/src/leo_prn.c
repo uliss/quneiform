@@ -151,7 +151,7 @@ return;
 
 static Int32 leo_no_hist_leader(Word8 over[],RecVersions *ver)
 {
-int i,m;Word8 c;
+int i = 0, m = 0;Word8 c = 0;
 for(m=i=0;i<256;i++)
     if( over[i]>m )
         {

@@ -605,7 +605,7 @@ return iva->lnAltCnt;
 
 void leo_add_aux(RecVersions *ver,RecVersions *sav)
 {
-int i,j,c;
+int i = 0, j = 0, c = 0;
 if( !ver->lnAltCnt || !sav->lnAltCnt )
     return;
 for(i=0,j=ver->lnAltCnt;i<sav->lnAltCnt;i++)
