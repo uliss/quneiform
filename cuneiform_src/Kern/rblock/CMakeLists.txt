@@ -51,6 +51,6 @@ sources/c/sevbreak.c
 )
 set_property(TARGET rblock PROPERTY COMPILE_DEFINITIONS __RBLOCK__)
 
-target_link_libraries(rblock cpage loc exc cstr cline rstr evn32)
+target_link_libraries(rblock cpage loc32 exc cstr cline rstr evn32)
 
 install_dll(rblock)

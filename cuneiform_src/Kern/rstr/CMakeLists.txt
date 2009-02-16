@@ -96,16 +96,16 @@ cline
 cstr
 ctb32
 evn32
-fon
-mmx
-msk
+fon32
+mmx32
+msk32
 pass2
 rbal
 rcutp
 rling
 rsadd
 std32
-leo
+leo32
 )
 
 install_dll(rstr)

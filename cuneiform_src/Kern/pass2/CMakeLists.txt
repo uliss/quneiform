@@ -9,6 +9,6 @@ src/p2_tools.c
 )
 set_property(TARGET pass2 PROPERTY COMPILE_DEFINITIONS __P2__)
 
-target_link_libraries(pass2 cstr fon std32)
+target_link_libraries(pass2 cstr fon32 std32)
 
 install_dll(pass2)

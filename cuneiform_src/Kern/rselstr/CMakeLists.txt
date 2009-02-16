@@ -45,9 +45,9 @@ set_property(TARGET rselstr PROPERTY COMPILE_DEFINITIONS __RSELSTR__)
 target_link_libraries(rselstr
 cimage
 cpage
-loc
+loc32
 rimage
-exc
+exc  
 cline
 cstr
 rcutp

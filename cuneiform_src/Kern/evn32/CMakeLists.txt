@@ -14,6 +14,6 @@ src/v0comprq.c
 )
 set_property(TARGET evn32 PROPERTY COMPILE_DEFINITIONS __EVN__)
 
-target_link_libraries(evn32 dif windummy)
+target_link_libraries(evn32 dif32 windummy)
 
 install_dll(evn32)

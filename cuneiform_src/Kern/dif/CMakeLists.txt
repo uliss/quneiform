@@ -1,6 +1,6 @@
 include_directories(BEFORE src)
 
-add_library(dif ${LIBTYPE}
+add_library(dif32 ${LIBTYPE}
 src/dif.c
 src/diffr.c
 src/diffrb.c
@@ -8,6 +8,6 @@ src/sticchar.c
 src/sticdif.c
 src/stictool.c
 )
-set_property(TARGET dif PROPERTY COMPILE_DEFINITIONS __DIF__)
+set_property(TARGET dif32 PROPERTY COMPILE_DEFINITIONS __DIF__)
 
-install_dll(dif)
+install_dll(dif32)
