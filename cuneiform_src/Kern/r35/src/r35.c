@@ -71,19 +71,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define MTR_LEARN1
 
-#ifndef WIN32
-	#define NAME        "hnd3rus.dat"
-	#define NAME_NDX    "hnd3ind.dat"
-    #define NAME_PRINT  "rec3r&e.dat"
-    #define NAME_OUT    "rec3r&e.dat"
+#define NAME        "hnd3rus.dat"
+#define NAME_NDX    "hnd3ind.dat"
+#define NAME_PRINT  "rec3r&e.dat"
 
-	#define PC_TYPE 0
-    #define R35_DEBUG
-#else
-	#define NAME        "hnd3rus.dat"
-	#define NAME_NDX    "hnd3ind.dat"
-    #define NAME_PRINT  "rec3rus.dat"
-#endif
+#define PC_TYPE 0
+#define R35_DEBUG
 
 #ifdef PC_TYPE
 
