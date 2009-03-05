@@ -150,7 +150,7 @@ Bool32 Close_Res_Log( void )
 
 Bool32 DeleteFromPics(Word32 position)
 {
-	int i;
+	Word32 i = 0;
 	nPics--;
 	for(i=position;i<nPics;i++)
 	{

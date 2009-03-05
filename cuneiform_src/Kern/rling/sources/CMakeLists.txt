@@ -31,7 +31,7 @@ c/spelspec.c
 c/udictini.c
 c/udictuti.c
 )
-set_property(TARGET rlings PROPERTY COMPILE_DEFINITIONS __RLINGS__)
+set_property(TARGET rlings PROPERTY COMPILE_DEFINITIONS RLING_SECONDARY)
 
 target_link_libraries(rlings cstr windummy)
 

@@ -70,7 +70,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cttypes.h"
 #include "cpage.h"
 
-#define _ASSERT assert
+#ifndef _ASSERT
+#    define _ASSERT assert
+#endif // _ASSERT
 
 template<class TYPE> class PtrName
 {

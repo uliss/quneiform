@@ -64,12 +64,30 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-#define _A_ARCH 1
-#define _A_HIDDEN 2
-#define _A_NORMAL 4
-#define _A_RDONLY 8
-#define _A_SUBDIR 16
-#define _A_SYSTEM 32
+// TODO: check formats, Microsoft io.h defines other values
+#ifndef _A_ARCH
+#   define _A_ARCH 1
+#endif // _A_ARCH
+
+#ifndef _A_HIDDEN
+#   define _A_HIDDEN 2
+#endif // _A_HIDDEN
+
+#ifndef _A_NORMAL
+#   define _A_NORMAL 4
+#endif // _A_NORMAL
+
+#ifndef _A_RDONLY
+#   define _A_RDONLY 8
+#endif // _A_RDONLY
+
+#ifndef _A_SUBDIR
+#   define _A_SUBDIR 16
+#endif // _A_SUBDIR
+
+#ifndef _A_SYSTEM
+#    define _A_SYSTEM 32
+#endif // _A_SYSTEM
 
 
 class XFindFile   // xff

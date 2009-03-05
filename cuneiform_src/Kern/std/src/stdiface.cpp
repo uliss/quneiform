@@ -292,8 +292,8 @@ static Bool32 GetDlgUnitsScale(float& fXScale,float& fYScale,HWND hDlg)
 {
     RECT rc={0};
     ::GetClientRect(hDlg,&rc);
-    fXScale=1000*(rc.right-rc.left)/RPD_DLG_DU_WIDTH;
-    fYScale=1000*(rc.bottom-rc.top)/RPD_DLG_DU_HEIGHT;
+    fXScale=static_cast<float>(1000.0 * (rc.right - rc.left) / RPD_DLG_DU_WIDTH);
+    fYScale=static_cast<float>(1000.0 * (rc.bottom-rc.top) / RPD_DLG_DU_HEIGHT);
     fXScale/=1000;
     fYScale/=1000;
     return TRUE;

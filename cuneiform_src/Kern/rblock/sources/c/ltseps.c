@@ -95,7 +95,7 @@ int nSeps       = 0;
 # ifdef LT_STAND_ALONE
 Bool32 DeleteSeps (int n)
 {
-	Word32 i;
+	Int32 i;
 
 	for (i = n; i < nSeps-1; i++)
 	{
@@ -128,7 +128,7 @@ void SeparatorsGet (void)
 	Word32 key;
 	Word32 color;
 
-	Word32 nPics;
+	Int32 nPics;
 	POLY_  *pPics;
 //	extern Handle hUseCLine;
     Word32 size_line_com=sizeof(LINE_COM);
@@ -313,8 +313,8 @@ void SeparatorsGet (void)
 		{
 			if(pSeps [i].Type == SEP_VERT && pSeps [j].Type == SEP_VERT)
 			{
-				if((abs(pSeps[i].xBegin - pSeps[j].xEnd  ) < ResolutionCoeff/2) &&
-				   (abs(pSeps[i].xEnd   - pSeps[j].xBegin) < ResolutionCoeff/2) &&
+				if((Word32)(abs(pSeps[i].xBegin - pSeps[j].xEnd  ) < ResolutionCoeff/2) &&
+				   (Word32)(abs(pSeps[i].xEnd   - pSeps[j].xBegin) < ResolutionCoeff/2) &&
 				   (pSeps[i].yBegin < pSeps[j].yBegin)	           &&
 				   (pSeps[i].yEnd   > pSeps[j].yEnd))
 				{
@@ -335,7 +335,7 @@ void SeparatorsGet (void)
 			{
 				if((abs(pSeps[i].xBegin - pSeps[j].xEnd) < ABS1) &&
 				   (pSeps[i].yBegin > pSeps[j].yEnd)			 &&
-				   (pSeps[i].yBegin - pSeps[j].yEnd) < ResolutionCoeff/2)
+				   (Word32)(pSeps[i].yBegin - pSeps[j].yEnd) < ResolutionCoeff/2)
 				{
 					pSeps[i].xBegin = MIN(pSeps[i].xBegin, pSeps[j].xBegin);
 					pSeps[i].xEnd = MAX(pSeps[i].xEnd, pSeps[j].xEnd);

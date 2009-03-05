@@ -446,7 +446,7 @@ static void set_after_word_flag(INT Let)
 /******************************************/
 static void check_vers( cell *curc )	   //AK 04.07.97
 {
-INT i, Let, fl;
+INT i = 0, Let = 0, fl = 0;
 
   fl = 0;
   for ( i=0; i < curc->nvers; i++ )

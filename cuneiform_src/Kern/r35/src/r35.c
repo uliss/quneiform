@@ -697,8 +697,8 @@ return TRUE;
 
 Bool32 recog_cluster(Word16 Im3x5[], Word8 let, VERSION *v)
 {
-int jm, rm, res, jold;
-elm3x5 *curr;
+int jm = 0, rm = 0, res = 0, jold = 0;
+elm3x5 *curr = 0;
 
 curr = &tab3x5 [ (jm=header3x5[ let ].numel) ];
 

@@ -2011,7 +2011,7 @@ CSTR_cell  *cell;
 if( line==(CSTR_line)0)
     {
     wLowRC=CSTR_ERR_NULL       ;
-    return (CSTR_line)0;
+    return 0;
     }
 
 for(rast=CSTR_GetNext(CSTR_GetFirstRaster(line));rast;rast=CSTR_GetNext(rast))
@@ -2036,7 +2036,7 @@ CSTR_cell  *cell;
 if( line==(CSTR_line)0)
     {
     wLowRC=CSTR_ERR_NULL       ;
-    return (CSTR_line)0;
+    return 0;
     }
 
 for(rast=CSTR_GetNext(CSTR_GetFirstRaster(line));rast;rast=CSTR_GetNext(rast))

@@ -156,7 +156,7 @@ FILE *pfListing;
 
 void PageStrings1 (void)
 {
-    int i;
+    DWORD i;
 
 # ifdef MA_DEBUG
     AllocationsAccountingOpen ();

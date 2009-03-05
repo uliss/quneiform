@@ -1733,7 +1733,7 @@ BOOL WriteRtfDIB(struct StrRtfOut far *rtf,int pict)
 
    // Write the actual DIB to the rtf file
 
-   long l,height,width,width_bytes;
+   long height,width,width_bytes;
    BYTE *pMem;
    LPBITMAPINFO pInfo;
 
@@ -1766,7 +1766,7 @@ BOOL WriteRtfDIB(struct StrRtfOut far *rtf,int pict)
 
   pMem=(BYTE *)rtf->page->picsTable[pict].data;
    // write the picture information
-   for (l=0;l<rtf->page->picsTable[pict].len;l++) {
+   for (DWORD l(0); l < rtf->page->picsTable[pict].len; ++l) {
       if (!(result=PutRtfHexChar(rtf,pMem[l]))) break;
    }
 

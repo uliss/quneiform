@@ -85,28 +85,17 @@ void   my_assert_fail(const char  *__cond, const char  *__file, int __line);
 
 void my_assert_fail(const char  *__cond, const char  *__file, int __line	){
 
-   int c;
 #if defined( _Windows ) || defined( WIN32 )
 	char mess[500];
 	sprintf( mess,
         " %s file %s, line %d\n Continue (Yes),Breakpoint(No) or Cancel?",
 				__cond, __file, __line);
    OutputDebugString(mess);
-/*
-	switch( MessageBox(	NULL,
-							mess,
-								"Assertion failed:",
-                MB_YESNOCANCEL )
-			)
-   {  case 0         :
-      case IDCANCEL  :     exit(0);
-      case IDNO      :     __ASM int 3; break;
-      case IDYES     :     break;
-   };
-*/
+
    return;
 
 #else
+	int c(0);
 	printf( "\nAssertion failed: %s file %s, line %d\n", __cond, __file, __line );
 	printf( "\nPress <Space> to continue execution, <Esc> to abort" );
 

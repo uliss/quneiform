@@ -155,7 +155,7 @@ CTableEvnFiller::CTableEvnFiller()
    //xsTblEventData.reserve(100);
    xsTblEventData.resize(100);
    //for(int i = 0 ; i < xsTblEventData.GetCurCnt(); i++)
-   for(int i = 0 ; i < xsTblEventData.size(); i++)
+   for(size_t i = 0 ; i < xsTblEventData.size(); i++)
    {
       xsTblEventData[i].szFormat = new char[256];
       if(xsTblEventData[i].szFormat)
@@ -204,7 +204,7 @@ CTableEvnFiller::CTableEvnFiller()
 CTableEvnFiller::~CTableEvnFiller()
 {
 //   for(int i = 0 ; i < xsTblEventData.GetCurCnt(); i++)
-   for(int i = 0 ; i < xsTblEventData.size(); i++)
+   for(size_t i = 0 ; i < xsTblEventData.size(); i++)
    {
       char *p = xsTblEventData[i].szFormat;
       if(p)
@@ -226,7 +226,7 @@ bool CTableEvnFiller::OpenEvnTable(char *TableName)
    char r_string[1024*4+256] = {0}; // 1024*4 - макс. размер строки в таблице
    int i = 99;
 //   for(int ii = 0 ; ii < xsTblEventData.GetCurCnt(); ii++)
-   for(int ii = 0 ; ii < xsTblEventData.size(); ii++)
+   for(size_t ii = 0 ; ii < xsTblEventData.size(); ii++)
       memset(xsTblEventData[ii].szFormat,0,256);
 
    while(fgets(r_string,(1024*4+256-1),fl))

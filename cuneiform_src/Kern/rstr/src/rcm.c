@@ -1324,7 +1324,7 @@ if( vrs.lnAltCnt && strchr("+-",vrs.Alt[0].Code) )
 return FALSE;
 }
 
-void rstr_set_kegl(lino)
+void rstr_set_kegl(CSTR_line lino)
 {
 CSTR_rast       rst;
 CSTR_rast_attr  attr;
@@ -2593,13 +2593,13 @@ switch(dwType)
 
 		}
     case    RSTR_FNIMP_FREE:
-        my_free=pData;
+        my_free=(void*)pData;
         break;
     case    RSTR_FNIMP_ALLOC:
-        my_alloc=pData;
+        my_alloc=(void*)pData;
         break;
     case    RSTR_FNIMP_GETCOLORS:
-        my_get_colors=pData;
+        my_get_colors=(void*)pData;
         break;
 	case	RSTR_CTB_BASE_NAME:
 		if (strlen((char*)pData) > 256)

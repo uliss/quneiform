@@ -118,9 +118,9 @@ BOOL RootsLoadFile (PSTR pFilename)
 
     RootsFreeData ();
 
-    hFile = open (pFilename, O_RDONLY | O_BINARY);
+    hFile = (HANDLE)open (pFilename, O_RDONLY | O_BINARY);
 
-    if (hFile == -1)
+    if (hFile == (HANDLE)(-1))
     {
         ErrorFile ();
         return (FALSE);

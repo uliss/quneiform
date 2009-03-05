@@ -85,7 +85,7 @@ INT long_sqrt (DWORD n)
  DWORD d, step, lw;
  BYTE sh;
  if ((w = n >> 16) != 0) sh = 8;
- else { w = n; sh = 0; }
+ else { w = (WORD)n; sh = 0; }
 
  if ( w & 0xff00 ) { sh +=4; w = w >> 8; }
  d = sqrt_tab[w]+1; d = d << sh; if ((d & 0xffff) == 0) return 0;

@@ -647,7 +647,8 @@ Bool32 BlockAnalyse()
 	Int16 Language;
 
 
-	int i, nRealLetters;
+	DWORD i = 0;
+	int nRealLetters = 0;
 	nAverageHeight = 0;
 
   if(nRoots == 0) return TRUE;
@@ -679,7 +680,7 @@ AGAIN_PQ:
 			goto AGAIN_PQ;
 		}
 
-		if(p->Rect.xRight-p->Rect.xLeft < nAverageHeight)
+		if((DWORD)(p->Rect.xRight-p->Rect.xLeft) < nAverageHeight)
 		{
 			/*
 			q = p -> pNext;

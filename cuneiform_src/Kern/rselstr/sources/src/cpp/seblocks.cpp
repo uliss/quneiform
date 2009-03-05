@@ -80,7 +80,8 @@ BLOCK *pCurrentBlock;
 
 void BlocksAccessTableBuild (void)
 {
-    int i, w;
+    DWORD i(0);
+	INT w(0);
     BLOCK *p;
 
 	int PrevMin, CurrMin;

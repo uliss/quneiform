@@ -110,9 +110,7 @@ static int nLetterRepresentativeHeight;
 
 void RotatePageToIdeal (void)
 {
-    int i;
-
-    for (i = 0; i < nRoots; i++)
+    for (DWORD i = 0; i < nRoots; i++)
     {
         IDEAL_XY (pRoots [i].xColumn, pRoots [i].yRow);
     }
@@ -120,9 +118,7 @@ void RotatePageToIdeal (void)
 
 void RotatePageToReal(void)
 {
-    int i;
-
-    for (i = 0; i < nRoots; i++)
+    for (DWORD i = 0; i < nRoots; i++)
     {
         REAL_XY (pRoots [i].xColumn, pRoots [i].yRow);
     }
