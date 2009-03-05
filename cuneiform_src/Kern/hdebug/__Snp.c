@@ -410,23 +410,25 @@ void   LDPUMA_UpdateView(Handle wnd)
 //////////////////////////////////////////////
 Int32 LDPUMA_Console(const char * message,...)
 {
+#ifdef WIN32
+    int rc = 0;
+    if(Console)
+    {
+        va_list marker;
+        va_start( marker, message);
+        rc = Console(message,marker);
+        va_end(marker);
+    }
+    return rc;
+#else	
+    #ifdef _DEBUG // console output only in debug mode
     va_list marker;
     va_start(marker, message);
     vprintf(message, marker);
     va_end(marker);
+    #endif // _DEBUG
     return 1;
-    /*
-    int rc = 0;
-	if(Console)
-	{
-		va_list marker;
-		va_start( marker, message);
-		rc = Console(message,marker);
-		va_end(marker);
-	}
-	return rc;
-	*/
-
+#endif
 }
 Int32 LDPUMA_ConsoleN(const char * message,...)
 {
