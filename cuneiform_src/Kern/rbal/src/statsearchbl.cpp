@@ -67,11 +67,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define malloc_usable_size(a) malloc_size(a)
 
 #elif defined(__FreeBSD__)
-/* freebsd system malloc don`t work correctly with malloc_usable_size in c++ */
-#include <dlmalloc/malloc.h>
+#include <malloc_np.h>
 
 #elif defined(WIN32)
-#include<malloc.h>
+#include <malloc.h>
 #define malloc_usable_size(a) _msize(a)
 
 #else
