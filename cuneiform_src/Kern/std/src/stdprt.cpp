@@ -345,7 +345,7 @@ bool CPrtTransactionBuffer::FlushToDisk()
       strcat(buffer,p->c_str());
    CPrtSendEventToPublic sender;
    Bool32 res = sender(buffer);
-   delete buffer;
+   delete[] buffer;
    if(res)
       return Clear();
    else
