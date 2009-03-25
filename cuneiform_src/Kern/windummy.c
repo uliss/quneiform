@@ -692,7 +692,7 @@ winpath_to_internal(char *p) {
 
 /* Get current working directory. */
 
-unsigned int curr_dir(unsigned int bsize, char* buf) {
+WINDUMMY_FUNC(unsigned int) curr_dir(unsigned int bsize, char* buf) {
 #ifdef _MSC_VER
 	_getcwd(buf, bsize);
 #else

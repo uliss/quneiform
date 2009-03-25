@@ -209,7 +209,7 @@ WINDUMMY_FUNC(void) make_path(char *opath,
 
 WINDUMMY_FUNC(void) winpath_to_internal(char *p);
 
-unsigned int curr_dir(unsigned int bsize, char* buf);
+WINDUMMY_FUNC(unsigned int) curr_dir(unsigned int bsize, char* buf);
 
 #ifdef __cplusplus
 }
