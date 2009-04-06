@@ -305,7 +305,7 @@ HWND GetFocus() {
 }
 
 int MessageBox(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType) {
-    printf("lpText");
+    fprintf(stderr, "MessageBox %s: %s\n", lpCaption, lpText);
     return 0;
 }
 
