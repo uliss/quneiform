@@ -796,17 +796,17 @@ void font_str()
 					fnt|=c_fp_str;
 
 					{
-						CHAR snap[80],sg[30];
+						CHAR snap[80], sg[30], tmps[30];
 
 						if( ni1 == 0 && ni2 == 0 )
-							strcpy(sg," NO ");
+							strcpy(tmps," NO ");
 						else
 							if( ni1 > ni2 )
-								strcpy(sg," ITA");
+								strcpy(tmps, " ITA");
 							else
-								strcpy(sg," STR");
+								strcpy(tmps," STR");
 
-						sprintf(sg,"%s  it = %3d st = %3d",sg,ni1,ni2);
+						sprintf(sg, "%s  it = %3d st = %3d", tmps, ni1, ni2);
 
 						if( snap_activity('i') )
 						{
