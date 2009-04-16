@@ -183,8 +183,10 @@ ev = fopen(prot,"at");
 if( ev==NULL )
     return FALSE;  // can't open
 
-if( w>BASE_MAX_W || h>BASE_MAX_H || wb*h>PROTOCOL_BUFFER_SIZE/2  )
+if( w>BASE_MAX_W || h>BASE_MAX_H || wb*h>PROTOCOL_BUFFER_SIZE/2  ) {
+    fclose(ev);
     return 0;
+}
 fprintf(ev,"%c %d %d\n",let,w,h);
 
 memset(&buffer[0],'0',wb8*2);
