@@ -63,6 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ============================================================================
 //#include <afxtempl.h>
 //#include <afxwin.h>
+#include <stdio.h>
 #include "stdafx.h"
 #include "globus.h"
 #include "creatertf.h"
@@ -83,8 +84,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "minmax.h"
 
-extern "C" BOOL  FullRtf( const char *FileNameIn, const char *FileNameOut ,Handle* hEdTree);
-extern "C" BOOL  PageTree(const char *FileNameIn, CRtfPage* RtfPage, const char *FileNameOut);
+extern "C" BOOL  FullRtf( FILE *fpFileNameIn, const char *FileNameOut ,Handle* hEdTree);
+extern "C" BOOL  PageTree(FILE *fpFileNameIn, CRtfPage* RtfPage, const char *FileNameOut);
 extern "C" BOOL	 WriteTable( Word32 IndexTable, RtfSectorInfo* SectorInfo, /*CString* TableString ,*/BOOL OutPutMode);
 extern "C" BOOL	 WritePict( Word32 IndexPict, RtfSectorInfo* SectorInfo/*, CString* PictString*/, BOOL OutPutTypeFrame);
 extern "C" { void GetTableRect( Word32 NumberTable , Rect16* RectTable,Word32* UserNumber ); }
@@ -103,7 +104,7 @@ Int16   get_font_name(Int16 FontNumber);
 
 Int16   GetRealSizeKegl( const char * /*CString**/ str, Int16 width, Int16 FontPointSize, Int16 FontNumber );
 Int16   GetRealSize( char* str,Int16 len,Int16 FontSize ,Int16 FontNumber,Int16* strHeight);
-BOOL    ReadInternalFileRelease(const char *FileNameIn, CRtfPage* RtfPage);
+BOOL    ReadInternalFileRelease(FILE *fpFileNameIn, CRtfPage* RtfPage);
 Handle  Rtf_CED_CreateParagraph(Int16 FirstIndent,Int16 LeftIndent,Int16 RightIndent,Int16 IntervalBefore, RtfSectorInfo *SectorInfo, int AlignParagraph,int shad, int LenthStringInTwips, int LengthFragmInTwips);
 void    Rtf_CED_CreateChar( EDRECT* slayout, letterEx* Letter, CRtfChar* pRtfChar );
 void    WriteCupDrop(CRtfChar* pRtfChar,Int16 font);
@@ -137,7 +138,7 @@ extern  POINT  TemplateOffset;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 FullRtf                                                        //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL FullRtf(const char* FileNameIn, const char* FileNameOut, Handle* hEdTree)
+BOOL FullRtf(FILE *fpFileNameIn, const char* FileNameOut, Handle* hEdTree)
 {
 	CRtfPage RtfPage;
 
@@ -146,14 +147,14 @@ BOOL FullRtf(const char* FileNameIn, const char* FileNameOut, Handle* hEdTree)
 
 	if(FlagMode & USE_FRAME_AND_COLUMN)
 	{
-		if(!RtfPage.FindPageTree(FileNameIn,FileNameOut))
+		if(!RtfPage.FindPageTree(fpFileNameIn,FileNameOut))
 			return FALSE;
 
 		RtfPage.SetTwips();
 	}
 	else
 	{
- 		if(!RtfPage.ReadInternalFile(FileNameIn))
+ 		if(!RtfPage.ReadInternalFile(fpFileNameIn))
 			return FALSE;
 
 		RtfPage.SetTwips();
@@ -384,9 +385,9 @@ void CRtfPage::CloseOutputFile(void)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 ReadInternalFile                                               //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfPage::ReadInternalFile(const char *FileNameIn)
+BOOL CRtfPage::ReadInternalFile(FILE *fpFileNameIn)
 {
-	if(ReadInternalFileRelease( FileNameIn, this ))
+	if(ReadInternalFileRelease( fpFileNameIn, this ))
 	 return TRUE;
  return FALSE;
 }
@@ -394,9 +395,8 @@ BOOL CRtfPage::ReadInternalFile(const char *FileNameIn)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 ReadInternalFileRelease                                        //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL ReadInternalFileRelease(const char *FileNameIn, CRtfPage* RtfPage)
+BOOL ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage)
 {
-	FILE  *in;
 	CRtfFragment*   pRtfFragment;
 	CRtfString*     pRtfString;
 	CRtfWord*       pRtfWord;
@@ -408,8 +408,7 @@ BOOL ReadInternalFileRelease(const char *FileNameIn, CRtfPage* RtfPage)
 	Rect16 RectFragm;
 	Rect16  SRect;
 
-	if((in=fopen(FileNameIn, "r")) == NULL)
-		return FALSE;
+	rewind(in);
 
 	fread(&tmp,2,1,in);
 	RtfPage->m_wDpi = tmp;
@@ -509,7 +508,6 @@ BOOL ReadInternalFileRelease(const char *FileNameIn, CRtfPage* RtfPage)
 			}
 		}
 	}
-	fclose(in);
 	return TRUE;
 }
 
@@ -672,9 +670,9 @@ void	CRtfPage::SortUserNumber(void)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 FindPageTree                                                   //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfPage::FindPageTree(const char* FileNameIn, const char* FileNameOut)
+BOOL CRtfPage::FindPageTree(FILE *fpFileNameIn, const char* FileNameOut)
 {
-	return	PageTree( FileNameIn, this ,FileNameOut);
+	return	PageTree( fpFileNameIn, this ,FileNameOut);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////

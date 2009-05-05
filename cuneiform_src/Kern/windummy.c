@@ -464,6 +464,9 @@ char* _strupr(char*s) {
 
 #else /* WIN32 */
 
+#include<io.h>
+#include<direct.h>
+#include"winfuncs.h"
 #include "cttypes.h"
 #include <windows.h>
 #include <malloc.h>
@@ -520,10 +523,6 @@ mkdtemp(char *tmpl) {
 static const char *separator = "/"; /* Yes, on Windows too. */
 
 #ifdef WIN32
-
-#include<io.h>
-#include<direct.h>
-#include"winfuncs.h"
 
 static void get_install_path(char *path) {
 	const int psize = 128;
@@ -701,3 +700,49 @@ WINDUMMY_FUNC(unsigned int) curr_dir(unsigned int bsize, char* buf) {
     winpath_to_internal(buf);
     return strlen(buf);
 }
+
+#if WIN32
+
+#define BUFSIZE 100
+
+WINDUMMY_FUNC (FILE*)
+create_temp_file(void) {
+    char temppath[BUFSIZE];
+    char tempfname[BUFSIZE];
+    DWORD retval;
+
+    retval = GetTempPath(BUFSIZE, temppath);
+    if(retval >= BUFSIZE || retval == 0)
+        return NULL;
+
+    if(GetTempFileName(temppath, "CF", 0, tempfname) == 0)
+        return NULL;
+
+    return fopen(tempfname, "w+b");
+}
+
+#else
+
+WINDUMMY_FUNC (FILE*)
+create_temp_file(void) {
+	FILE *tmp_file;
+	int tmp_fd;
+	char* pattrn = malloc(100);
+	strcpy(pattrn, "/tmp/CF.XXXXXX");
+
+	tmp_fd = mkstemp(pattrn);
+
+	/* unlink file immediatly, it gets unlinked when file descriptor is closed */
+	unlink(pattrn);
+    free(pattrn);
+
+	if (tmp_fd == -1)
+		return NULL;
+
+	if (!(tmp_file = fdopen(tmp_fd, "w+b"))) {
+		return NULL;
+	}
+
+	return tmp_file;
+}
+#endif

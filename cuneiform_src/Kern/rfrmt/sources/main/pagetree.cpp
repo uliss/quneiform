@@ -179,8 +179,8 @@ util_spl:
 	OpenFullOutTiger  - RTF
 	CalcStatTiger     - статистика об интервалах (внутри- и меж- словные и т.п.)
 */
-extern "C" BOOL PageTree(const char* InFileName, CRtfPage* RtfPage, const char* OutFileName);
-extern short __cdecl OpenFullOutTiger(const char *FileName);
+extern "C" BOOL PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName);
+extern short __cdecl OpenFullOutTiger(FILE *FileName);
 void   show_frm(Int16 NumFragm,FRAME **frm);
 Bool   Alik_sort_function( const void *a, const void *b);
 int    CalcStatTiger(void);
@@ -1818,7 +1818,7 @@ Int16 CalcNumDau(KNOTT *Knot)
 //         Горизантальные колонки на вертикальные колонки
 //         Определение терминальности вертикальных колонок
 //  Запольнение RtfPage.
-BOOL PageTree( const char* InFileName, CRtfPage* RtfPage, const char* OutFileName)
+BOOL PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 {
 	Int16  nc,ns,nw,nz,fl,i,i_ns1,i_nsb,i_nse,j,ih,iv,iv1,kp,kp1,kp2,
 		      n_beg,dist_hor_col=240,dist_sec=360,flag_vse_term=1,OldNumCol;

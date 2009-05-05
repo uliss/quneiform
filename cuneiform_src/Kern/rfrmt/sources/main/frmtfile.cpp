@@ -99,7 +99,7 @@ extern  Word32      ExFlagMode;
 
 /////////////////////////////////////////////////////////////////////////////
 //                    CreateInternalFileForFormatter
-BOOL CreateInternalFileForFormatter(void)
+BOOL CreateInternalFileForFormatter(FILE *pIFName)
 {
  BOOL         FReturnCode = TRUE;
  CSTR_line    line;
@@ -152,16 +152,6 @@ BOOL CreateInternalFileForFormatter(void)
  WORD  DistanceBetweenTopMargin  =  5;
  Page.m_wDpi             = (WORD)PageInfo.DPIX;
  PageIncline2048         = PageInfo.Incline2048;
- const char* pInternalFileName = "internal.vit";
- FILE* pIFName;
-
- if( (pIFName=fopen(pInternalFileName, "wb"))==NULL)
- {
-   #ifdef _DEBUG
-	 OutputDebugString("InternalFile could not be opened\n");
-   #endif
-   return FALSE;
- }
 
  InternalRect VRect;
  fwrite(&Page.m_wDpi,              sizeof(WORD),1,pIFName); // ScanResolution
@@ -226,8 +216,6 @@ BOOL CreateInternalFileForFormatter(void)
       }
    }
  }
-
- fclose(pIFName);
 
  return	FReturnCode;
 }

@@ -29,6 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define WINFUNCS_H_
 
 #include "globus.h"
+#include <stdio.h>
 
 #ifdef __WINDUMMY__
   #define WINDUMMY_FUNC  FUN_EXPO
@@ -210,6 +211,8 @@ WINDUMMY_FUNC(void) make_path(char *opath,
 WINDUMMY_FUNC(void) winpath_to_internal(char *p);
 
 WINDUMMY_FUNC(unsigned int) curr_dir(unsigned int bsize, char* buf);
+
+WINDUMMY_FUNC(FILE*) create_temp_file(void);
 
 #ifdef __cplusplus
 }

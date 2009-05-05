@@ -29,6 +29,7 @@ rdib
 rimage
 cline
 cstr
+windummy
 )
 
 install_dll(rfrmt)

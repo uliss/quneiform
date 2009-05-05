@@ -71,6 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <unistd.h>
 #endif
 #include <stdlib.h>
+#include <stdio.h>
 #include "stdafx.h"
 #include "resource.h"
 #include "rfrmt.h"
@@ -140,7 +141,11 @@ extern Handle hDebugAlign;
 RFRMT_FUNC(Bool32)  RFRMT_Formatter(char* lpInputImageName , Handle* PtrEdTree )
 {
 #ifdef New
- const char* lpInternalFileName = "internal.vit";
+ FILE *fpInternalFile = create_temp_file();
+ if ( fpInternalFile == NULL) {
+	assert ("Could not create tmpfile\n");
+ }
+
  LDPUMA_Skip(hDebugProfStart);
 
  FlagMode = 0;
@@ -177,8 +182,10 @@ RtfFragRect.m_Step                        = 0;
 #endif
 
  SetReturnCode_rfrmt(IDS_ERR_NO);
- if(CreateInternalFileForFormatter() == FALSE)
+ if(CreateInternalFileForFormatter(fpInternalFile) == FALSE){
+   fclose(fpInternalFile);
    return FALSE;
+ }
 
  if( !gbBold )      FlagMode |= NOBOLD;
  if( !gbItalic )    FlagMode |= NOCURSIV;
@@ -214,13 +221,15 @@ RtfFragRect.m_Step                        = 0;
  else
     FlagDebugAlign=FALSE;
 
- if( !FullRtf(lpInternalFileName, NULL, PtrEdTree) )
-	return FALSE;
+ if( !FullRtf(fpInternalFile, NULL, PtrEdTree) ){
+   fclose(fpInternalFile);
+   return FALSE;
+ }
 
- if (!unlink(lpInternalFileName))
+ if (fclose(fpInternalFile) != 0)
  {
 	char ch[500];
-	sprintf(ch,"File %s cannot be removed\n",lpInternalFileName);
+	sprintf(ch,"File %s cannot be closed\n",fpInternalFile);
 	assert (ch);
  }
 
@@ -274,7 +283,11 @@ RtfFragRect.m_Step                        = 0;
 //###########################################
 RFRMT_FUNC(Bool32)  RFRMT_SaveRtf(char* lpOutputFileName,Word32 code)
 {
- const char* lpInternalFileName = "internal.vit";
+ FILE *fpInternalFile = create_temp_file();
+ if ( fpInternalFile== NULL) {
+	assert ("Could not create tmpfile\n");
+ }
+
  LDPUMA_Skip(hDebugProfStart);
 
  FlagMode = 0;
@@ -314,8 +327,9 @@ RFRMT_FUNC(Bool32)  RFRMT_SaveRtf(char* lpOutputFileName,Word32 code)
 #endif
 
  SetReturnCode_rfrmt(IDS_ERR_NO);
- if(CreateInternalFileForFormatter() == FALSE){
+ if(CreateInternalFileForFormatter(fpInternalFile) == FALSE){
  	LDPUMA_Skip(hDebugProfEnd);
+	fclose(fpInternalFile);
 	return FALSE;
  }
 
@@ -353,15 +367,16 @@ RFRMT_FUNC(Bool32)  RFRMT_SaveRtf(char* lpOutputFileName,Word32 code)
  else
     FlagDebugAlign=FALSE;
 
- if(!FullRtf(lpInternalFileName,lpOutputFileName,NULL) ){
+ if(!FullRtf(fpInternalFile,lpOutputFileName,NULL) ){
 	LDPUMA_Skip(hDebugProfEnd);
+	fclose(fpInternalFile);
 	return FALSE;
  }
 
- if (!unlink(lpInternalFileName))
+ if (fclose(fpInternalFile) != 0)
  {
 	char ch[500];
-	sprintf(ch,"File %s cannot be removed\n",lpInternalFileName);
+	sprintf(ch,"File %s cannot be closed\n",fpInternalFile);
 	assert (ch);
  }
 

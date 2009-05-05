@@ -66,13 +66,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __frmt_prot_h__
 
 #include <stddef.h>
+#include <stdio.h>
 
-BOOL CreateInternalFileForFormatter(void);
+BOOL CreateInternalFileForFormatter(FILE *fpInternalFileName);
 #ifdef __cplusplus
 	extern "C" {
 #endif
 
- BOOL FullRtf(const char *FileNameIn, const char *FileNameOut, Handle* hEdTree);
+ BOOL FullRtf(FILE *fpFileNameIn, const char *FileNameOut, Handle* hEdTree);
 #ifdef __cplusplus
 	}
 #endif

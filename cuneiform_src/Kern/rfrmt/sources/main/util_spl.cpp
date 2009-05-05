@@ -457,22 +457,14 @@ extern Rect16  *RectFragm;
 extern float    Twips;
 extern Int16   K_TwipsInInch;
 
-short __cdecl  OpenFullOutTiger(const char *FileName)
+short __cdecl  OpenFullOutTiger(FILE *in)
 {
-	FILE *in;
 	int nc,ns,nw,nz,k_word,k_z,i;
 #ifdef alDebug
 	if(dets)	{ ConsMess("OpenFullOutTiger Begin "); }
 #endif
-	// Open the file in binary mode
-	//if((in=fopen_m(FileName,OF_READ)) == NULL)
-	if((in=fopen(FileName, "rb")) == NULL)
-	{
-#ifdef alDebug
-		if(dets)	{ ConsMess("OpenFullOutTiger Internal file -- can not open "); }
-#endif
-		return FALSE;
-	}
+
+	rewind(in);
 
  fread(&ScanResolution,sizeof(WORD),1,in);
  fread(&NumCol,sizeof(WORD),1,in);
@@ -675,7 +667,6 @@ short __cdecl  OpenFullOutTiger(const char *FileName)
 			}
 		}
 	}
-	fclose(in);
 	--NumCol;
 #ifdef alDebug
 	if(dets)	{ ConsMess("OpenFullOutTiger  End"); }

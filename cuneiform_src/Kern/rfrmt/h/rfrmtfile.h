@@ -64,9 +64,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef __frmtfile_h__
 #define __frmtfile_h__
+#include <stdio.h>
 #include "cstrdefs.h"
 
-BOOL CreateInternalFileForFormatter(void);
+BOOL CreateInternalFileForFormatter(FILE *fpInternalFileName);
 BOOL CheckComingLine( CSTR_line* Comingline );
 BOOL CheckLineForFilling( CSTR_line* Comingline );
 

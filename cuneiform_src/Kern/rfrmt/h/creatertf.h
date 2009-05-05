@@ -177,11 +177,11 @@ public:
 
 		void                 CRtfPageDelFragments(void);
   CRtfFragment*        GetNextFragment();
-  BOOL                 ReadInternalFile(const char* FileNameIn);
+  BOOL                 ReadInternalFile(FILE *FileNameIn);
 		BOOL                 OpenOutputFile(const char* FileNameOut);
 		void                 CloseOutputFile(void);
   void                 SetTwips(void);
-		BOOL                 FindPageTree(const char* FileNameIn, const char* FileNameOut);
+		BOOL                 FindPageTree(FILE *FileNameIn, const char* FileNameOut);
 	 void                 ReCalcPageWidthAndHeight();
 		BOOL                 WriteHeaderRtf(void);
 	 void                 CorrectKegl(void);

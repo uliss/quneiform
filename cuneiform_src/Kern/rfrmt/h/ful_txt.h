@@ -407,7 +407,7 @@ int EstRectWordFul(int nc,int ns);
 int EstRectWord(SRECT *frm,int ksym,SRECT *bnd);
 int AllowRelDistAltOCR(ZN *z,int alt1,int alt2);
 //---------RTF-converter----------
-//int FullRtf(char *FileNameFul,char *FileNameOut);
+//int FullRtf(FILE *fpFileNameFul,char *FileNameOut);
 void MyUnionRect(SRECT *s1,SRECT *s2,SRECT *u);
 
 #pragma pack(1)
