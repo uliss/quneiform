@@ -718,7 +718,7 @@ create_temp_file(void) {
     if(GetTempFileName(temppath, "CF", 0, tempfname) == 0)
         return NULL;
 
-    return fopen(tempfname, "w+b");
+    return fopen(tempfname, "w+bD");
 }
 
 #else
