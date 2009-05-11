@@ -24,7 +24,7 @@ Alexander Schlegel
 Alex Samorukov
 yaleks
 Serj Poltavskiy
-René Rebe
+RenÃ© Rebe
 Aleks Kuzemko
 Tonal
 Mike Ladwig
