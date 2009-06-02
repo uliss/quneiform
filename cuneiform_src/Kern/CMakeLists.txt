@@ -60,8 +60,4 @@ cimage loc32 rdib cfio)
 
 include_directories(itigerole/sources/tiger/h)
 
-add_library(windummy ${LIBTYPE} windummy.c)
-target_link_libraries(windummy ${DL_LIB})
-set_property(TARGET windummy PROPERTY COMPILE_DEFINITIONS __WINDUMMY__)
-
-install_dll(windummy)
+add_subdirectory(cfcompat)

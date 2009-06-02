@@ -10,6 +10,6 @@ src/ctb_tool.c
 )
 set_property(TARGET ctb32 PROPERTY COMPILE_DEFINITIONS __CTB__)
 
-target_link_libraries(ctb32 windummy)
+target_link_libraries(ctb32 cfcompat)
 
 install_dll(ctb32)

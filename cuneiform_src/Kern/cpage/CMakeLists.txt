@@ -20,6 +20,6 @@ sources/cpp/tableclass.cpp
 )
 set_property(TARGET cpage PROPERTY COMPILE_DEFINITIONS __CPAGE__)
 
-target_link_libraries(cpage windummy)
+target_link_libraries(cpage cfcompat)
 
 install_dll(cpage)

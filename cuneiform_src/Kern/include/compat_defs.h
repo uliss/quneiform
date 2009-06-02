@@ -415,7 +415,7 @@ typedef int REGSAM;
 
 #define HMENU int
 
-#include "winfuncs.h"
+#include "cfcompat.h"
 /* A bunch of windows DLL initialisation values. I don't know the
  * real values of these, so I just put in random values. They are not
  * used anyway, so no harm.

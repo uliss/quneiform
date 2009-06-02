@@ -25,8 +25,10 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef WINFUNCS_H_
-#define WINFUNCS_H_
+/* Definitions needed for platform portability. */
+
+#ifndef CFCOMPAT_H_
+#define CFCOMPAT_H_
 
 #include "globus.h"
 #include <stdio.h>

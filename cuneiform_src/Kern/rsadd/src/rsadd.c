@@ -74,7 +74,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ligas.h"
 #include "minmax.h"
 
-#include "winfuncs.h"
+#include "cfcompat.h"
 static Int16   crsadd_rus1=10;
 static Int16   crsadd_rus2=10;
 static Int16   crsadd_eng1=10;

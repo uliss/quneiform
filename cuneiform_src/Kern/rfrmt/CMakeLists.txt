@@ -29,7 +29,7 @@ rdib
 rimage
 cline
 cstr
-windummy
+cfcompat
 )
 
 install_dll(rfrmt)

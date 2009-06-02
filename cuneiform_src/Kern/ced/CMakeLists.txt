@@ -13,6 +13,6 @@ sources/main/stdafx.cpp
 sources/main/wrapper.cpp
 )
 
-target_link_libraries(ced cfio windummy)
+target_link_libraries(ced cfio cfcompat)
 
 install_dll(ced)

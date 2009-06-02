@@ -26,6 +26,6 @@ src/tgreader.cpp
 )
 set_property(TARGET lns32 PROPERTY COMPILE_DEFINITIONS __LNS__)
 
-target_link_libraries(lns32 cline std32 windummy)
+target_link_libraries(lns32 cline std32 cfcompat)
 
 install_dll(lns32)

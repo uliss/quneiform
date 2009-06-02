@@ -9,6 +9,6 @@ sources/cpp/ctcstorage.cpp
 sources/cpp/dll_main.cpp
 )
 
-target_link_libraries(cfio windummy)
+target_link_libraries(cfio cfcompat)
 
 install_dll(cfio)

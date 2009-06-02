@@ -59,7 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <fcntl.h>
 #include "config.h"
 
-#include "winfuncs.h"
+#include "cfcompat.h"
 
 #ifndef WIN32
 

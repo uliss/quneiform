@@ -10,6 +10,6 @@ sources/src/cpp/lcline.cpp
 )
 set_property(TARGET cline PROPERTY COMPILE_DEFINITIONS __CLINE__)
 
-target_link_libraries(cline windummy)
+target_link_libraries(cline cfcompat)
 
 install_dll(cline)

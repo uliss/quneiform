@@ -19,6 +19,6 @@ src/stdwapi.cpp
 )
 set_property(TARGET std32 PROPERTY COMPILE_DEFINITIONS __STD__)
 
-target_link_libraries(std32 windummy)
+target_link_libraries(std32 cfcompat)
 
 install_dll(std32)
