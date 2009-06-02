@@ -94,7 +94,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-WINDUMMY_FUNC(int) HFILE_ERROR;
+CFCOMPAT_FUNC(int) HFILE_ERROR;
 
 int LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax) {
     return 0;
@@ -501,13 +501,13 @@ char* _strupr(char*s) {
 
 static HMODULE thismod;
 
-WINDUMMY_FUNC(BOOL)
+CFCOMPAT_FUNC(BOOL)
 WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
 	thismod = (HMODULE) hinstDLL;
 	return TRUE;
 }
 
-WINDUMMY_FUNC(char*)
+CFCOMPAT_FUNC(char*)
 mkdtemp(char *tmpl) {
     static const char charset[] =
         "=#abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -607,7 +607,7 @@ static void build_name_estimates(const char *base_name, char *env_name, char *pr
 }
 
 
-WINDUMMY_FUNC(int)
+CFCOMPAT_FUNC(int)
 open_data_file(const char *basename, int mode) {
     char ename[1024];
     char pname[1024];
@@ -621,7 +621,7 @@ open_data_file(const char *basename, int mode) {
 }
 
 
-WINDUMMY_FUNC(int)
+CFCOMPAT_FUNC(int)
 data_file_exists(const char *basename) {
     char ename[1024];
     char pname[1024];
@@ -635,7 +635,7 @@ data_file_exists(const char *basename) {
 /* Split a file name in three: path, base file name, and extension.
  * All internal file names use / as path separator, even on Windows.
  */
-WINDUMMY_FUNC(void)
+CFCOMPAT_FUNC(void)
 split_path(const char *fname, char *file_path, char *basename, char *ext) {
     int last_path = -1;
     int suff = -1;
@@ -680,7 +680,7 @@ split_path(const char *fname, char *file_path, char *basename, char *ext) {
 }
 
 
-WINDUMMY_FUNC(void)
+CFCOMPAT_FUNC(void)
 make_path(char *opath, const char *dir, const char *basename, const char *ext) {
     const char dirsep = '/';
     const char *dirseps = "/";
@@ -706,7 +706,7 @@ make_path(char *opath, const char *dir, const char *basename, const char *ext) {
 /**
  * Convert backslashes to slashes. No-op on UNIX.
  */
-WINDUMMY_FUNC(void)
+CFCOMPAT_FUNC(void)
 winpath_to_internal(char *p) {
 #if WIN32
     int i;
@@ -719,7 +719,7 @@ winpath_to_internal(char *p) {
 
 /* Get current working directory. */
 
-WINDUMMY_FUNC(unsigned int) curr_dir(unsigned int bsize, char* buf) {
+CFCOMPAT_FUNC(unsigned int) curr_dir(unsigned int bsize, char* buf) {
 #ifdef _MSC_VER
 	_getcwd(buf, bsize);
 #else
@@ -733,7 +733,7 @@ WINDUMMY_FUNC(unsigned int) curr_dir(unsigned int bsize, char* buf) {
 
 #define BUFSIZE 100
 
-WINDUMMY_FUNC (FILE*)
+CFCOMPAT_FUNC (FILE*)
 create_temp_file(void) {
     char temppath[BUFSIZE];
     char tempfname[BUFSIZE];
@@ -751,7 +751,7 @@ create_temp_file(void) {
 
 #else
 
-WINDUMMY_FUNC (FILE*)
+CFCOMPAT_FUNC (FILE*)
 create_temp_file(void) {
 	FILE *tmp_file;
 	int tmp_fd;
