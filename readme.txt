@@ -60,6 +60,11 @@ By default Cuneiform installs to /usr/local. You can specify a different prefix
 by giving a command line switch "-DCMAKE_INSTALL_PREFIX=/what/ever/you/want"
 to CMake.
 
+Note that this does not use any optimizations. To enable them, replace
+-DCMAKE_BUILD_TYPE=debug with -DCMAKE_BUILD_TYPE=release or with
+-DCMAKE_BUILD_TYPE=relwithdebinfo. The latter builds with both optimization
+and debug flags.
+
 
 Compiling on OSX
 
