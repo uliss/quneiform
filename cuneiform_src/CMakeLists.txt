@@ -30,14 +30,13 @@ endif()
 
 add_definitions(-D_USE_RVERLINE_)
 
-# CMake does not currently have direct support for ImageMagick.
-include(FindPkgConfig)
-pkg_check_modules(MAGICK ImageMagick++)
-if(MAGICK_FOUND)
+find_package(ImageMagick COMPONENTS Magick++)
+if(ImageMagick_Magick++_FOUND)
     set(USE_MAGICK TRUE)
-    include_directories(${MAGICK_INCLUDE_DIRS})
-    link_directories(${MAGICK_LIBRARY_DIRS})
+    include_directories(${ImageMagick_Magick++_INCLUDE_DIR})
+    message(STATUS "ImageMagick++ found at ${ImageMagick_Magick++_INCLUDE_DIR}.")
 else()
+    set(USE_MAGICK FALSE)
     message(STATUS "ImageMagick++ not found. Only uncompressed BMP images supported.")
 endif()
 
