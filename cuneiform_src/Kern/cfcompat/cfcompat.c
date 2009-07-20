@@ -494,7 +494,7 @@ char* _strupr(char*s) {
 
 #include<io.h>
 #include<direct.h>
-#include"winfuncs.h"
+#include"cfcompat.h"
 #include "cttypes.h"
 #include <windows.h>
 #include <malloc.h>

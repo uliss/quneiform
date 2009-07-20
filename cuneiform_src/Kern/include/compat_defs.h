@@ -92,7 +92,7 @@ typedef int (* _CRT_ALLOC_HOOK) (int, void *, int, int, long, const char *, int)
 
 #endif
 
-#include "winfuncs.h"
+#include "cfcompat.h"
 
 #else
 
