@@ -673,7 +673,6 @@ short __cdecl  OpenFullOutTiger(FILE *in)
 #endif
  return TRUE;
 BadReturn:
-	fclose(in);
 #ifdef alDebug
 	if(dets)	{ ConsMess("OpenFullOutTiger  End"); }
 #endif
