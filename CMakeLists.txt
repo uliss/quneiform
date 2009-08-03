@@ -21,7 +21,7 @@ if(BUILD_TESTING)
   enable_testing()
   include(CTest)
   include(Dart)
-endif(BUILD_TESTING)
+endif()
 
 include(install_files.cmake)
 
