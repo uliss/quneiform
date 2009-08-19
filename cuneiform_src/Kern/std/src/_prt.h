@@ -60,6 +60,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string>
 #include <list>
 #include <vector>
+#ifdef __CYGWIN__
+#include <stdarg.h>
+#endif
 #include "stdprt.h"
 #include "xstack.h"
 #include "xpath.h"

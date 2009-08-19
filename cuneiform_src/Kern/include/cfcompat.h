@@ -108,7 +108,9 @@ CFCOMPAT_FUNC(HDC) GetDC(HWND hWnd);
 CFCOMPAT_FUNC(BOOL) EndPaint(HWND hWnd, ...);
 CFCOMPAT_FUNC(HDC) BeginPaint(HWND hwnd,...);
 CFCOMPAT_FUNC(LRESULT) SendMessage(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
+#ifndef __CYGWIN__
 CFCOMPAT_FUNC(void) strlwr(char *foo);
+#endif
 CFCOMPAT_FUNC(HWND) CreateWindow(
     LPCTSTR lpClassName,
     LPCTSTR lpWindowName,
