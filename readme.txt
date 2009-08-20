@@ -12,7 +12,7 @@ platforms.
 Linux
 FreeBSD
 OS X
-Windows XP
+Windows using MSVC, MinGW, and Cygwin
 
 The following people have sent patches or have otherwise helped the
 project. If someone is missing, please let me know, so I can add them.
@@ -32,6 +32,7 @@ Dmitri Polevoy
 Steven Van Ingelgem
 Sven Eckelmann
 Benjamin Kluck
+raff
 
 
 Caveats
@@ -72,20 +73,21 @@ Follow the instructions for unix above. You can also try the Xcode project
 generator. It works but is not maintained.
 
 
-Compiling with MSVC or MinGW
+Compiling on Windows
 
 Run CMake. Point it to the directory you extracted the source to. 
 Select a different directory for your build tree, You can not build inside
 your source tree.
 
-Select "Visual studio [the version you are using] project files".
-For MinGW select "MinGW makefiles." Click "config", then "generate".
+Select "Visual studio [the version you are using] project files", 
+"MinGW makefiles", or "Cygwin makefiles" depending on your environment.
+If you are using MinGW or Cygwin, set CMAKE_BUILD_TYPE to what you want
+(probaly "debug" as above). Click "config", then "generate".
 
-In your selected build tree, there are now project files for Visual
-Studio, open them by double clicking or via file->open from VS.
-Select "Build solution (F7)".
+For Visual Studio, open the generated project files.
+Then select "Build solution (F7)".
 
-For MinGW go to your build tree and run "mingw32-make". 
+For MinGW and Cygwin, cd into your build tree and run "mingw32-make" or "make". 
 
 
 Further info on configuration and running
@@ -105,6 +107,7 @@ anywhere you want on your hard drive, just put the .dat files
 in the same directory. This works also when using Cuneiform
 as a library.
 
+
 Running
 
 After install you simply run.
@@ -121,7 +124,6 @@ supported languages type "cuneiform -l".
 
 By default Cuneiform outputs plain text. There are several other output formats.
 To get a list run the command "cuneiform -f".
-
 
 
 Contact information
