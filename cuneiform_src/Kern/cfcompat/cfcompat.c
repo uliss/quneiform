@@ -269,9 +269,11 @@ LRESULT SendMessage(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
     return 0;
 }
 
+#ifndef __CYGWIN__
 void strlwr(char *foo) {
     // FIXME: this is probably actually used somewhere.
 }
+#endif
 
 HWND CreateWindow(
     LPCTSTR lpClassName,

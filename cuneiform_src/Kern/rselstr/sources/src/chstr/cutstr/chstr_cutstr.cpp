@@ -711,6 +711,12 @@ void InitRc(Rect16* pRc,int nRC,CCOM_comp * pcomp)
 			 // для DebugBreakEx() (см. ниже);
 			 // существует только в Windows старше W98 (W98 годится)
 			 // или старше NT 4.0 (NT 4.0 годится)
+			 #ifndef WINBASEAPI
+			 #define WINBASEAPI
+			 #endif
+			 #ifndef VOID
+			 #define VOID
+			 #endif
 			 extern "C" {
 			 WINBASEAPI BOOL WINAPI IsDebuggerPresent(VOID);
 			 }

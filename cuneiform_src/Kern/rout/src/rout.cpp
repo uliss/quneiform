@@ -973,7 +973,7 @@ static BOOL LoadAlphabet(
 	FILE *f = NULL;
 	int fd;
 	char buf[256] = "";
-#ifdef WIN32
+#if defined(WIN32) || defined(__CYGWIN__)
 	const char line_end = '\n';
 #else
 	const char line_end = '\r';
