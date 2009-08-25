@@ -88,7 +88,7 @@ static void SetFullName(char* szFullFileName,const char* szIniFileName,Int32 nFl
     strcpy(szFullFileName,szIniFileName);
     if(!IsFullName(szIniFileName) && !(nFlags & STD_SETPROF_DIR_WINDOWS))
     {
-       sprintf(szFullFileName,"%s\\%s",stdGetHomeDirectory(),szIniFileName);
+       sprintf(szFullFileName,"%s/%s",stdGetHomeDirectory(),szIniFileName);
        XPath xpini = szFullFileName; XPath xpfl = szFullFileName;
 	   xpini.CutPath().CheckSlash();
 	   if(!(nFlags & STD_SETPROF_DIR_VERSION))
