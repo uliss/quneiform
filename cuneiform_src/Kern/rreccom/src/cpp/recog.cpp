@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <unistd.h>
 #endif
 #include <string.h>
-
+#include <stdlib.h>
 #include "rreccom.h"
 #include "evn.h"
 #include "ccom.h"
@@ -209,7 +209,7 @@ void recog_evn(CCOM_comp* pcomp, bool if_use_gra)
 	{
 		if (!pcomp->vers)
 		{
-			pcomp->vers = new RecVersions[1];
+			pcomp->vers = (RecVersions*)malloc(sizeof(RecVersions));
 			memset(pcomp->vers, 0, sizeof(RecVersions));
 		}
 
