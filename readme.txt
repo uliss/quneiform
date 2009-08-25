@@ -112,7 +112,17 @@ Running
 
 After install you simply run.
 
-cuneiform [-l language -o result_file -f [outputformat] --dotmatrix --fax] <image_file>
+cuneiform [-l language -o result_file -f [outputformat] extra_options ] <image_file>
+
+Optional arguments are the following.
+
+--dotmatrix uses a recognition mode optimised for text printed with a
+dot matrix printer.
+
+--fax uses a recognition mode optimised for text that has been faxed.
+
+--singlecolumn disables page layout analysis and assumes that your
+image consists of only one column of text.
 
 If you do not define an output file with the -o switch, Cuneiform
 writes the result to a file "cuneiform-out.[format]". The file extension

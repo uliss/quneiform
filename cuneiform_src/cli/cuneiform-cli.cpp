@@ -224,6 +224,7 @@ int main(int argc, char **argv) {
     int langcode = PUMA_LANG_ENGLISH; // By default recognize plain english text.
     Bool32 dotmatrix = FALSE;
     Bool32 fax = FALSE;
+    Bool32 onecolumn = FALSE;
     const char *defaultnamestem = "cuneiform-out.";
     string outfilename;
     Int32 outputformat = PUMA_TOTEXT;
@@ -277,6 +278,8 @@ int main(int argc, char **argv) {
             dotmatrix = TRUE;
         } else if(strcmp(argv[i], "--fax") == 0) {
             fax = TRUE;
+        } else if(strcmp(argv[i], "--singlecolumn") == 0) {
+            onecolumn = TRUE;
         } else {
         /* No switches, so set input file. */
         infilename = argv[i];
@@ -333,6 +336,7 @@ int main(int argc, char **argv) {
     PUMA_SetImportData(PUMA_Word32_Language, &langcode);
     PUMA_SetImportData(PUMA_Bool32_DotMatrix, &dotmatrix);
     PUMA_SetImportData(PUMA_Bool32_Fax100, &fax);
+    PUMA_SetImportData(PUMA_Bool32_OneColumn, &onecolumn);
 
     if(!PUMA_XOpen(dib, "none.txt")) {
         cerr << "PUMA_Xopen failed.\n";
@@ -365,8 +369,6 @@ int main(int argc, char **argv) {
      * is disabled.
      */
     /*
-    Bool32 singlecolumn = FALSE;
-    PUMA_SetImportData(PUMA_Bool32_OneColumn, &foo);
 
     if(!PUMA_XPageAnalysis()) {
         printf("PUMA_XPageAnalysis failed.\n");
