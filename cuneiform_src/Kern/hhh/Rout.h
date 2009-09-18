@@ -300,7 +300,7 @@ typedef enum
 	ROUT_BOOL_PreserveLineBreaks = 6,
 
 	// Нераспознанный символ
-	ROUT_PCHAR_BAD_CHAR = 7,
+	ROUT_PCHAR_BAD_char = 7,
 
 	// Количество подстановок из REC6.DAT
 	ROUT_LONG_CountTigerToUserCharSet = 8,

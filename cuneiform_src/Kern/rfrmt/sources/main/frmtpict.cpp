@@ -95,7 +95,7 @@ extern   uint32_t FlagMode;
 extern   uint32_t RtfWriteMode;
 extern   POINT  TemplateOffset;
 
-extern	  CHAR   RtfFileName[MAX_PATH];
+extern	  char   RtfFileName[MAX_PATH];
 //Bool SaveMetafile(CString * str, /*CIMAGE*/BITMAPINFOHEADER * lpDIB);
 
 /*

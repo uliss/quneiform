@@ -68,7 +68,7 @@ typedef signed short int  *         _PINT;
 #define INT  _INT
 #define PINT _PINT
 typedef unsigned short int  *       PWORD;
-#define PSTR  PCHAR
+#define PSTR  char *
 
 typedef signed long int  *          PLONG;
 */
@@ -84,14 +84,14 @@ typedef signed long int  *          PLONG;
 /*----------------- Signed and unsigned integer types ------------------*/
 
 /*                      Byte size data                                */
-        typedef signed char             _CHAR;
-        typedef signed char  *      _PCHAR;
+        typedef signed char             _char;
+        typedef signed char  *      _char *;
 		typedef unsigned char           _BYTE;
         typedef unsigned char  *    _PBYTE;
 
-        #define CHAR  _CHAR
-        #define PCHAR _PCHAR
-		#define PSTR  _PCHAR
+        #define char  _char
+        #define char * _char *
+		#define PSTR  _char *
 		#define BYTE  _BYTE
         #define PBYTE _PBYTE
 

@@ -2345,13 +2345,13 @@ int16_t NumIntersect2(c_comp *cmp, int mHei)
 
  memset(numint,0,mHei*sizeof(int));
 
- line=(lnhead *)((PCHAR)cmp+cmp->lines+sizeof(INT));
+ line=(lnhead *)((char *)cmp+cmp->lines+sizeof(INT));
 
  // test all lines
- for (; (len=line->lth)>0; line=(lnhead *)((PCHAR)line+len))
+ for (; (len=line->lth)>0; line=(lnhead *)((char *)line+len))
  {
   // current line
-  for (vint=(interval *)((PCHAR)line+sizeof(lnhead)),
+  for (vint=(interval *)((char *)line+sizeof(lnhead)),
 	   crow = line->row,i=0; i < line->h; i++, crow++ )
   {
 	  if( crow < 0 )
@@ -2385,13 +2385,13 @@ static int16_t FindAngles(cell *c, int *lUAngle, int *rUAngle,
  *lUAngle = *rUAngle = c->h + c->w;
  *lDAngle = *rDAngle = c->h + c->w;
 
- line=(lnhead *)((PCHAR)cmp+cmp->lines+sizeof(INT));
+ line=(lnhead *)((char *)cmp+cmp->lines+sizeof(INT));
 
  // test all lines
- for (; (len=line->lth)>0; line=(lnhead *)((PCHAR)line+len))
+ for (; (len=line->lth)>0; line=(lnhead *)((char *)line+len))
  {
   // current line
-  for (vint=(interval *)((PCHAR)line+sizeof(lnhead)),
+  for (vint=(interval *)((char *)line+sizeof(lnhead)),
 	   crow = line->row,i=0; i < line->h; i++, crow++, vint++ )
   {
 	  if( crow < 0 )
@@ -2448,16 +2448,16 @@ static int16_t Test2Cell2(cell *c1,cell *c2,
 
  for(j=0, cmp=cmp1;j<2;j++,cmp=cmp2)
  {
-  line=(lnhead *)((PCHAR)cmp+cmp->lines+sizeof(INT));
+  line=(lnhead *)((char *)cmp+cmp->lines+sizeof(INT));
 
   startRow = (j==0?c1->row:c2->row)-minRow;
   startCol = (j==0?c1->col:c2->col)-minCol;
 
  // test all lines
-  for (; (len=line->lth)>0; line=(lnhead *)((PCHAR)line+len))
+  for (; (len=line->lth)>0; line=(lnhead *)((char *)line+len))
   {
   // current line
-   for (vint=(interval *)((PCHAR)line+sizeof(lnhead)),
+   for (vint=(interval *)((char *)line+sizeof(lnhead)),
 	   crow = line->row,i=0; i < line->h; i++, crow++, vint++ )
    {
 	  if( crow < 0 )

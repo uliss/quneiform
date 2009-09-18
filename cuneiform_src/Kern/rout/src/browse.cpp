@@ -356,7 +356,7 @@ Bool BrowseParagraphs(Handle hParentObject,
 								CED_GetCharFontAttribs(charHandle) &
 								ED_HIDDEN;
 
-						BROWSE_FUNCTION(charHandle,BROWSE_CHAR);
+						BROWSE_FUNCTION(charHandle,BROWSE_char);
 						}
 					}
 

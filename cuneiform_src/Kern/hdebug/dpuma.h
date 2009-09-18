@@ -333,12 +333,12 @@ DEC_FUNC(int32_t,  DPUMA_FPuts,(Handle hFile,const char * lpString));
 	#define WM_KEYFIRST                     0x0100
 	#define WM_KEYDOWN                      0x0100
 	#define WM_KEYUP                        0x0101
-	#define WM_CHAR                         0x0102
-	#define WM_DEADCHAR                     0x0103
+	#define WM_char                         0x0102
+	#define WM_DEADchar                     0x0103
 	#define WM_SYSKEYDOWN                   0x0104
 	#define WM_SYSKEYUP                     0x0105
-	#define WM_SYSCHAR                      0x0106
-	#define WM_SYSDEADCHAR                  0x0107
+	#define WM_SYSchar                      0x0106
+	#define WM_SYSDEADchar                  0x0107
 	#define WM_KEYLAST                      0x0108
 
 

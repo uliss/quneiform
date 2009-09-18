@@ -85,6 +85,10 @@ typedef int Bool; _SETTYPES( Bool )
 typedef int16_t Bool16;_SETTYPES( Bool16 )
 typedef int32_t Bool32;_SETTYPES( Bool32 )
 
+typedef unsigned long ulong;
+typedef unsigned char uchar;
+typedef char * pchar;
+
 #ifndef   FALSE
 #define FALSE               0
 #endif
@@ -169,9 +173,6 @@ typedef const char* LPCTSTR;
 
 #endif
 
-typedef char CHAR;
-typedef char * PCHAR;
-
 typedef unsigned char BYTE;
 typedef unsigned char * PBYTE;
 
@@ -192,10 +193,7 @@ typedef Bool* LPBool;
 typedef LONG* LPLONG;
 typedef void* LPVOID;
 
-#define PSTR  PCHAR
-
-typedef unsigned long ulong;
-typedef unsigned char uchar;
+#define PSTR  char *
 
 #include "cttypext.h"
 

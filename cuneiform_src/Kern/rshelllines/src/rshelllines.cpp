@@ -627,11 +627,11 @@ void   DrowVerticalLineRaster(DLine* pCLine, LPSTR Buffer, CIMAGEBITMAPINFOHEADE
 {
 }
 
-void   Transpose_bit_matrixes(PCHAR buf_in,PCHAR buf_out, Rect32* rect)
+void   Transpose_bit_matrixes(char * buf_in,char * buf_out, Rect32* rect)
 {
 }
 
-Bool GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, PCHAR  pRaster, Bool FlagVerticalLine)
+Bool GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, char *  pRaster, Bool FlagVerticalLine)
 {
     return TRUE;
 }

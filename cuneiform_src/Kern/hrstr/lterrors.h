@@ -73,7 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "nt_types.h"
 
 void FreeAllData (void);
-void ErrorNoEnoughMemory (PBYTE /*CHAR**/);
+void ErrorNoEnoughMemory (PBYTE /*char**/);
 void ErrorInternal (PSTR s);
 void ErrorFile (void);
 # endif

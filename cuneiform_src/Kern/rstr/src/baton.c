@@ -171,8 +171,8 @@ INT sticks_in_letter(cell *c,INT mode,STICK **res)
  memset(hist,0,horsz*NINCL*sizeof(*hist));
  memset(raster,0,lr*H*sizeof(*raster));
 
- for (nval=0,cmp=c->env,line=(lnhead *)((PCHAR)cmp+cmp->lines+sizeof(INT));
-                           (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
+ for (nval=0,cmp=c->env,line=(lnhead *)((char *)cmp+cmp->lines+sizeof(INT));
+                           (l=line->lth)>0; line=(lnhead *)((char *)line+l))
   if (!line_to_hist(line)) return -3;
 
  *res=cane;
@@ -193,7 +193,7 @@ static LONG line_to_hist(lnhead *line)
  PLONG ph/* ,pr */;                                               //20.02.97
  PLONG pt;
 
- for (v=(interval *)((PCHAR)line+sizeof(lnhead)),
+ for (v=(interval *)((char *)line+sizeof(lnhead)),
                            ym=(y=H-1-line->row)-line->h;
                                                    y>ym; y--,v++)
   {

@@ -224,8 +224,8 @@ typedef struct
     INT     turn;           // Turn of page: turn=(xideal-xreal)/yreal*2048=
                             //                   =(yreal-yideal)/xreal*2048
     // Symbol substitutions
-    CHAR    subst_bad;      // Subst. for not recognized character
-    CHAR    subst_dash[3];  // Subst. for dash
+    char    subst_bad;      // Subst. for not recognized character
+    char    subst_dash[3];  // Subst. for dash
 
     // E	D
     INT     edfile;         // ED-file handle

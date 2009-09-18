@@ -305,7 +305,7 @@ uint32_t wdCookie;
 		pBU = (LPOLESTR)CoTaskMemAlloc(len * 2);
 		::MultiByteToWideChar(CP_ACP, 0, pBufText, len, pBU, len);
 
-		WCHAR x_unicode = *pBU;
+		Wchar x_unicode = *pBU;
 		CString str(pBU);
 		//MessageBox(str);
 

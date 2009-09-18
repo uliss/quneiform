@@ -141,7 +141,7 @@ void save_vers(cell *C, SVERS *S)
  S->nvers  = C->nvers;
  S->source = C->recsource;
  S->pos = C->cpos;
- S->flg = (CHAR)C->flg;
+ S->flg = (char)C->flg;
  S->broken_II = C->broken_II;
  S->cg_flag_fine  = C->cg_flag_fine;
  S->accent_leader = C->accent_leader;
@@ -205,12 +205,12 @@ INT signif_line_count (cell *a)
   nl = 0;
   cp1 = a->env;
   Lc1=cp1->nl;	    // number of lines in component
-  Lp1=(lnhead *) ( (CHAR *)cp1 + cp1->lines + 2); // beginning of first line
+  Lp1=(lnhead *) ( (char *)cp1 + cp1->lines + 2); // beginning of first line
   Lp2=Lp1;
   for (lc1=0; lc1 < Lc1; lc1++)
   {
     if (Lp1->h > 1)  nl++;
-    Lp2=Lp1=(lnhead *) ((CHAR *)Lp2+Lp2->lth);
+    Lp2=Lp1=(lnhead *) ((char *)Lp2+Lp2->lth);
   }
  return nl;
 }
@@ -255,7 +255,7 @@ void save_rast_vers(CSTR_rast C, SVERS *S)
  S->nvers  = (int16_t)vers.lnAltCnt;
  S->source = attr.recsource;
  S->pos = attr.cpos;
- S->flg = (CHAR)attr.flg;
+ S->flg = (char)attr.flg;
  S->broken_II = attr.broken_II;
  S->cg_flag_fine  = attr.cg_flag_fine;
  S->accent_leader = attr.accent_leader;

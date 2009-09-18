@@ -1710,7 +1710,7 @@ void letters_ini(CSTR_line lin, Bool enable_scaling)
 /* еще не построены bsdust_upper и т.п. ! Nick 16.03.2001
     if( cur.flg==CSTR_f_dust )
         {
-        INT c2bdiff=(CHAR)(obtain_diff(cmp->left));
+        INT c2bdiff=(char)(obtain_diff(cmp->left));
         if( cmp->upper+cmp->h < bsdust_upper + c2bdiff ||
            (cmp->upper+(cmp->h+1)/2>bsdust_lower+c2bdiff) &&
           !(cmp->h<bsdust_ps/2 && cmp->w>=bsdust_ps) ||
@@ -2085,7 +2085,7 @@ void dust_ini(CSTR_line lin)
   c2->env->scale=0;
   c2->env->large |= ch_taken;
   c2->reasno=0;
-  c2->bdiff=(CHAR)(obtain_diff(c2->col));
+  c2->bdiff=(char)(obtain_diff(c2->col));
   c2->dupstart=(LONG)CSTR_GetDup(curr);
   c2->dupend  =(LONG)CSTR_GetDupEnd(curr);
 
@@ -2689,7 +2689,7 @@ void accept_cell(cell *c,c_comp *cmp)
  c->col=cmp->left+(INT)((LONG)nIncline*cmp->upper/2048);
  if ((c->nvers=cmp->nvers)>0)
   {
-  memcpy(c->vers,(PCHAR)cmp+cmp->records,c->nvers*sizeof(version));
+  memcpy(c->vers,(char *)cmp+cmp->records,c->nvers*sizeof(version));
   c->vers[c->nvers].let=0;
   c->recsource = c_rs_ev;   // events done
   c->history   = c_rs_ev;
@@ -3244,18 +3244,18 @@ switch( c->vers[0].let )
 		if(is_russian_turkish_conflict(c->vers[0].let)) // 21.05.2002 E.P.
 			break;
 
-        add_stick_vers(c,(CHAR)'г', pr ) ;
+        add_stick_vers(c,(char)'г', pr ) ;
         ret = TRUE;
         break;
     case    (BYTE)'Ё':
-        add_stick_vers(c,(CHAR)'ж', pr ) ;
-        add_stick_vers(c,(CHAR)'г', (BYTE)MAX((INT)pr-10,2) ) ;
+        add_stick_vers(c,(char)'ж', pr ) ;
+        add_stick_vers(c,(char)'г', (BYTE)MAX((INT)pr-10,2) ) ;
         ret = TRUE;
         break;
     case    (BYTE)'®':
  		if(is_russian_turkish_conflict(c->vers[0].let)) // 21.05.2002 E.P.
 			break;
-       add_stick_vers(c,(CHAR)'а', pr ) ;
+       add_stick_vers(c,(char)'а', pr ) ;
         ret = TRUE;
         break;
     default:
@@ -3271,16 +3271,16 @@ BYTE    pr = (BYTE)(MAX((INT)c->vers[0].prob-10,2));
 switch( c->vers[0].let )
     {
     case    (BYTE)'v':
-        add_stick_vers(c,(CHAR)'y',pr ) ;
+        add_stick_vers(c,(char)'y',pr ) ;
         ret = TRUE;
         break;
     case    (BYTE)'o':
-        add_stick_vers(c,(CHAR)'p',pr ) ;
+        add_stick_vers(c,(char)'p',pr ) ;
         ret = TRUE;
         break;
     case    (BYTE)'a':
-        add_stick_vers(c,(CHAR)'q',pr ) ;
-        add_stick_vers(c,(CHAR)'g',pr ) ;
+        add_stick_vers(c,(char)'q',pr ) ;
+        add_stick_vers(c,(char)'g',pr ) ;
         ret = TRUE;
         break;
     default:

@@ -85,12 +85,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define DIRSEP        '\\'
 
-INT    TE_open          (INT, CHAR *, INT, INT);    /* / stream, name, ... */
+INT    TE_open          (INT, char *, INT, INT);    /* / stream, name, ... */
 int16_t    TE_write         (int16_t, uchar *, uint32_t);    /* / stream, name, ... */
 INT    TE_table_op      (INT, INT, INT, INT);      /* / table #, ...          */
 int32_t   TE_read          (int16_t, char *, int32_t);        /* / handle, addr, lth */
 INT    TE_close         (INT);                      /* / handle            */
-CHAR * TE_handle_fgets  ( INT handle, CHAR * s, INT len );
+char * TE_handle_fgets  ( INT handle, char * s, INT len );
 int32_t   TE_file_length   (int16_t);
 
 #define TGOPEN(a,b,c,d)        TE_open(a,b,c,d)

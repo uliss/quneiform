@@ -2642,7 +2642,7 @@ public:
 		if(nLen == 0)
 			return FALSE;
 
-		CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
+		CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
 		LPTSTR lpszText = buff.Allocate(nLen);
 		if(lpszText == NULL)
 			return FALSE;
@@ -3483,7 +3483,7 @@ public:
 // Data members
 	HENHMETAFILE m_hEMF;
 	BYTE* m_pBits;
-	TCHAR* m_pDesc;
+	Tchar* m_pDesc;
 	ENHMETAHEADER m_header;
 	PIXELFORMATDESCRIPTOR m_pfd;
 
@@ -3516,7 +3516,7 @@ public:
 		UINT nLen = ::GetEnhMetaFileDescription(m_hEMF, 0, NULL);
 		delete [] m_pDesc;
 		m_pDesc = NULL;
-		ATLTRY(m_pDesc = new TCHAR[nLen]);
+		ATLTRY(m_pDesc = new Tchar[nLen]);
 		if (m_pDesc != NULL)
 			nLen = ::GetEnhMetaFileDescription(m_hEMF, nLen, m_pDesc);
 		return m_pDesc;

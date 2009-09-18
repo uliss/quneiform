@@ -157,7 +157,7 @@ static BYTE *ndptr; /* pointer to current vertex in  */
 #define VERTV_SIZE      1
 #define VERTV_CONT(p)   ((WORD)((*(p))&0x01))       /* Boolean */
 #define VERTV_NOTERM(p) ((WORD)((*(p))&0x02))       /* Boolean */
-#define VERTV_KEY(p)    ((CHAR)((*(p)) >> 2))       /* CHAR */
+#define VERTV_KEY(p)    ((char)((*(p)) >> 2))       /* char */
 
 /* -- Positional tree node fields. ---------------------------------- */
 
@@ -203,7 +203,7 @@ static BYTE *ndptr; /* pointer to current vertex in  */
 /* -- Tailset element fields. --------------------------------------- */
 
 #define TAILSET_SIZE 1
-#define TAILSET_CH(p)       ((CHAR)((*(p))&0x3F))   /* CHAR */
+#define TAILSET_CH(p)       ((char)((*(p))&0x3F))   /* char */
 #define TAILSET_TAILEND(p)  ((WORD)((*(p))&0x80))   /* Boolean */
 
 /*************************************************************************/

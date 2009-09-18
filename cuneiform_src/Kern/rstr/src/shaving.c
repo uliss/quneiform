@@ -78,9 +78,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*			Byte size data					*/
 
-typedef signed char		CHAR;
+typedef signed char		char;
 typedef	unsigned char		BYTE;
-typedef signed char near *	PCHAR;
+typedef signed char near *	char *;
 typedef unsigned char near *	PBYTE;
 
 /*			Word size data					*/
@@ -151,8 +151,8 @@ static void putch_cell                  (INT);
 static void update_screen               (void);
 static void goto_status                 (void);
 static void clear_status                (void);
-static void message                     (PCHAR);
-static void smessage                    (PCHAR, PCHAR);
+static void message                     (char *);
+static void smessage                    (char *, char *);
 static void clear_buffer                (void);
 static void load_field                  (void);
 static void save_field                  (void);
@@ -171,7 +171,7 @@ static INT Guo_and_Hall_algorithm       (void);
 static INT skin                         (INT, INT);
 static INT Karzanov_and_Komissarchik_algorithm (void);
 static INT is_internal                  (INT, INT);
-static INT check_shape                  (INT, INT, PCHAR, INT);
+static INT check_shape                  (INT, INT, char *, INT);
 static INT check_picture                (INT, INT);
 static INT Talalai_algorithm            (void);
 
@@ -226,7 +226,7 @@ static INT color_to_symbol (INT c)
 }
 
 
-CHAR field [FIELD_WIDTH][FIELD_HEIGHT];
+char field [FIELD_WIDTH][FIELD_HEIGHT];
 INT  white_color;
 
 static void init_field (void)
@@ -280,7 +280,7 @@ static void clear_status (void)
 }
 
 
-static void message (PCHAR s)
+static void message (char * s)
 {
     clear_status ();
     goto_status ();
@@ -288,7 +288,7 @@ static void message (PCHAR s)
 }
 
 
-static void smessage (PCHAR format, PCHAR s)
+static void smessage (char * format, char * s)
 {
     clear_status ();
     goto_status ();
@@ -304,7 +304,7 @@ static void clear_buffer (void)
 
 static void load_field (void)
 {
-    CHAR buffer[FILENAME_LENGTH + 3], *filename;
+    char buffer[FILENAME_LENGTH + 3], *filename;
     FILE *f;
     INT  x, y;
     INT  c;
@@ -356,7 +356,7 @@ static void load_field (void)
 
 static void save_field (void)
 {
-    CHAR buffer[FILENAME_LENGTH + 3], *filename;
+    char buffer[FILENAME_LENGTH + 3], *filename;
     FILE *f;
     INT  x, y;
     INT  c;
@@ -395,7 +395,7 @@ INT Talalai_algorithm (void);
 
 struct {
       INT (*algorithm) (void);
-      CHAR *method_name;
+      char *method_name;
        }  method_desc [METHODS] =
 {
  Hall_algorithm,
@@ -478,7 +478,7 @@ static void make_new (void)
 }
 
 /****************************************************/
-void main (INT argc, CHAR **argv)
+void main (INT argc, char **argv)
 {
     INT x, y;
     INT c;
@@ -899,7 +899,7 @@ typedef struct
       {
       INT   max_neighbors;
       INT   min_neighbors;
-      PCHAR string;
+      char * string;
       } SHAPE;
 
 SHAPE picture_shape [] =
@@ -923,7 +923,7 @@ static INT is_internal (INT x, INT y)
 }
 
 
-static INT check_shape (INT x, INT y, PCHAR sh_string, INT offset)
+static INT check_shape (INT x, INT y, char * sh_string, INT offset)
 {
     INT i, j;
 

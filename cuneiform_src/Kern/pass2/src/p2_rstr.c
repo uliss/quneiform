@@ -90,7 +90,7 @@ Bool32  mySetupPage(void *info) {return FALSE;};
 Bool32  mySpecRecog(RecObject *ro) {return FALSE;};
 ///////////////
 // проверка по словарю
-Bool    my_p2_spell(PCHAR s,BYTE lang) {return FALSE;};
+Bool    my_p2_spell(char * s,BYTE lang) {return FALSE;};
 
 ///////////////////////////////
 // распознать с разрезанием/склейкой кусок - от first до last,
@@ -112,7 +112,7 @@ Bool16	(*RSTR_p2_snap_activity)(uchar a)=my_snap_activity;
 Bool16	(*RSTR_p2_snap_show_text)(uchar *txt)=my_snap_show_text;
 ///////////////
 // проверка по словарю
-Bool    (*RSTR_p2_spell)(PCHAR s,BYTE lang)=my_p2_spell;
+Bool    (*RSTR_p2_spell)(char * s,BYTE lang)=my_p2_spell;
 
 // дополнительное распознавание (LEO)
 Bool32  (*ADDREC_SetupField)(void *letInfo,int32_t nFont,void* fontInfo)=mySetupField;

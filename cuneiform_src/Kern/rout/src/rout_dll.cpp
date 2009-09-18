@@ -231,7 +231,7 @@ ROUT_FUNC(Bool32) ROUT_SetImportData(uint32_t dwType, void * pData)
 			break;
 
 		// Нераспознанный символ
-		case ROUT_PCHAR_BAD_CHAR:
+		case ROUT_PCHAR_BAD_char:
 			gBadChar = *(char*) pData;
 			break;
 

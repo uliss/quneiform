@@ -90,7 +90,7 @@ void AddDWORDField(int i, uint32_t *fifi);
 #define FON_CLU_TWIN   128
 
 typedef struct tag_welet {
-	CHAR raster[WR_MAX_HEIGHT * WR_MAX_WIDTH];
+	char raster[WR_MAX_HEIGHT * WR_MAX_WIDTH];
 	WORD w;
 	WORD h; // actual width and height
 	uint32_t summa; // summa of all weighted points
@@ -118,7 +118,7 @@ typedef struct tag_welet {
 	BYTE mh; // medium width,height
 	BYTE prob; // probability
 	BYTE weight; // number of pattern were placed to raster
-	CHAR porog; // threshold level for cluster
+	char porog; // threshold level for cluster
 	BYTE valid; // validity - CTB
 	BYTE kegl; // tipical kegl
 	uint32_t tablColumn; // from what columns
@@ -155,7 +155,7 @@ typedef struct tag_access_tab {
 	WORD access_tab[NCELL][ENTRIES];
 	WORD all_access[256];
 	SINT wlsize; // size of cluster in bytes for external utilities
-	CHAR sign[20];
+	char sign[20];
 } access_tab;
 
 typedef struct tag_version {

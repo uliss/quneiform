@@ -112,7 +112,7 @@ INT	dis_figa_left (STICK_SIGNUMS *s);
 INT	dis_figa_right(STICK_SIGNUMS *s);
 
 INT	dis_slash(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
-INT	dis_vert(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s, INT add_flag, CHAR type);
+INT	dis_vert(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s, INT add_flag, char type);
 /*......................................................................*/
 static BYTE config_f( STICK_CHARS *l,STICK_CHARS *r);
 static BYTE config_r( STICK_CHARS *l,STICK_CHARS *r);
@@ -916,7 +916,7 @@ return(dis);
 /* letter '!'								*/
 /*      add_flag = 1 - put '!' to list of versions - delicate discrim	*/
 INT dis_vert(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *signums,
-		    INT add_flag, CHAR typ)
+		    INT add_flag, char typ)
 {
 INT dis=0,l_beam = add_flag ? 3 : 5;
 INT inc = signums->inc;
@@ -1025,7 +1025,7 @@ return(dis_vert(l,r,s,1,'!')<MIN_ADD_DIS);
 /*----------------------------------------------------------------------*/
 INT similar_excl_with_dot(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
 {
-return(dis_vert(l,r,s,1,(CHAR)liga_exm)<MIN_ADD_DIS+2 );
+return(dis_vert(l,r,s,1,(char)liga_exm)<MIN_ADD_DIS+2 );
 }
 /*----------------------------------------------------------------------*/
 /* similar left circle brance */

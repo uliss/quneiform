@@ -74,36 +74,36 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  snap globals
 extern BYTE db_status;      // snap presence byte
 extern BYTE db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
-extern CHAR db_pass;
+extern char db_pass;
 
 extern BYTE *ForRaster1;
 
 static void begin(INT,INT);
 static void allcuts();
 static void interlines();
-static void minlincut(CHAR);
+static void minlincut(char);
 static void fixcut(INT,INT,INT,INT);
 static INT scamin(INT,INT,INT);
-static void regmin(CHAR);
+static void regmin(char);
 static void make_limits();
 static void findbotbnd();
-static INT bot_serif(CHAR);
-// static INT verifh(PCHAR,CHAR,CHAR);
+static INT bot_serif(char);
+// static INT verifh(char *,char,char);
 static INT walltest(INT,INT,INT,INT,INT);
-static INT middle_puso(CHAR);
-static INT lower_gap(CHAR);
-static void lower_pen(CHAR);
+static INT middle_puso(char);
+static INT lower_gap(char);
+static void lower_pen(char);
 static void findtopbnd();
-static INT top_serif(CHAR);
-static INT upper_gap(CHAR);
-// static INT lower_gap2(CHAR);
-static void define_cat(struct extrem_elem *,CHAR);
+static INT top_serif(char);
+static INT upper_gap(char);
+// static INT lower_gap2(char);
+static void define_cat(struct extrem_elem *,char);
 static void make_func();
-static INT make_extrem(PCHAR,struct extrem_elem *);
-static INT make_absextr(CHAR,struct extrem_elem *);
+static INT make_extrem(char *,struct extrem_elem *);
+static INT make_absextr(char,struct extrem_elem *);
 static void make_info();
-static CHAR bodyes[128], cut_place[128];
-static CHAR foots[128], heads[128];
+static char bodyes[128], cut_place[128];
+static char foots[128], heads[128];
 static struct extrem_elem exbody[MAX_HOR/2];
 static struct extrem_elem exfoot[MAX_HOR/2];
 static struct extrem_elem exhead[MAX_HOR/2];
@@ -139,7 +139,7 @@ static void allcuts()
 //
  {
  INT  cline;
- CHAR svbest, svbestx;
+ char svbest, svbestx;
  struct extrem_elem *Extrc;
  INT  pnt;
 
@@ -167,7 +167,7 @@ static void allcuts()
   if ((cline==path[0]) || (cline==path[path_lth-1])) goto try;
   if (less_vertices[cline].n_connect == 1) continue;
 try:
-  svbestx=bestx=(CHAR)pnt; svbest=best=Extrc->val;
+  svbestx=bestx=(char)pnt; svbest=best=Extrc->val;
   // TRY TO AVOID ALL semantic - just take minbody
  if (svbest < 3) { regmin(4); continue; }
 /****************************************************************
@@ -205,8 +205,8 @@ try:
 
  lower_pen(3);
 
- Eahn=(CHAR)make_absextr(0,exhead);
- Eafn=(CHAR)make_absextr(1,exfoot);
+ Eahn=(char)make_absextr(0,exhead);
+ Eafn=(char)make_absextr(1,exfoot);
 
  extrc=&exhead[2];
  extrp=&exhead[1];
@@ -252,7 +252,7 @@ static void interlines()
 {  // NOT USED YET      analyze points at lines
 }
 
-static void minlincut(CHAR arg)
+static void minlincut(char arg)
 //
 //    This procedure builds graphics and finds all reasonable cutting points.
 //
@@ -372,14 +372,14 @@ static void fixcut(INT fl,INT x1,INT x2,INT arg)
   }
  if (fl>1)
   if (! scamin(x1,-1,ctf))
-   { bestx=(CHAR)x1; regmin((CHAR)ctf); }
+   { bestx=(char)x1; regmin((char)ctf); }
  if (fl<127)
   if (! scamin(x2,1,ctf))
-   { bestx=(CHAR)x1; regmin((CHAR)ctf); }
+   { bestx=(char)x1; regmin((char)ctf); }
  if ((fl>1) && (fl<127))
   {
   bestx=(x1+x2)>>1;
-  regmin((CHAR)ctf);
+  regmin((char)ctf);
   }
  }
 
@@ -394,17 +394,17 @@ static INT scamin(INT a,INT d,INT r)
   while ((nx>4) && (nx <(t_height-4)) &&  ((points[nx].sumb-y) <= 1));
  if (abs(m-a) > 2)
   {
-  bestx=(CHAR)m;
-  regmin((CHAR)r);
+  bestx=(char)m;
+  regmin((char)r);
   return 1;
   }
  return 0;
  }
 
-static void regmin(CHAR c)
+static void regmin(char c)
 // cut in x=bestx, method=c;
  {
- INT v, line_num; CHAR rept, full, w, wx, ww, dh, h, vr;
+ INT v, line_num; char rept, full, w, wx, ww, dh, h, vr;
  struct info_elm *inf;
  struct own_cut *ad;
 
@@ -416,7 +416,7 @@ static void regmin(CHAR c)
 
  if (full)
   {
-  h=dh=(CHAR)t_width;
+  h=dh=(char)t_width;
   if (inf->lnum==1)
    {
    if ((3*inf->sumb) > (t_width<<1))
@@ -437,7 +437,7 @@ static void regmin(CHAR c)
 
  line_num = linumsx[wx];
  if (line_num==0)
- { h=dh=(CHAR)t_width;}
+ { h=dh=(char)t_width;}
  else
  {
    struct short_line_header *l_ptr;
@@ -494,13 +494,13 @@ proc:
 
 static void make_limits()
  {
- CHAR nx, min, max, w;
+ char nx, min, max, w;
 
- Exbn=(CHAR)make_extrem(bodyes,exbody);
+ Exbn=(char)make_extrem(bodyes,exbody);
  ExbM=ExtreM; Exbm=Extrem; Exbx=Extrex;
- Exfn=(CHAR)make_extrem(foots,exfoot);
+ Exfn=(char)make_extrem(foots,exfoot);
  ExfM=ExtreM; Exfm=Extrem;
- Exhn=(CHAR)make_extrem(heads,exhead);
+ Exhn=(char)make_extrem(heads,exhead);
  ExhM=ExtreM; Exhm=Extrem;
  define_cat(exbody,Exbn);
  define_cat(exfoot,Exfn);
@@ -528,7 +528,7 @@ static void make_limits()
 
 static void findbotbnd()
  {
- CHAR nm, nx, v1, lr;
+ char nm, nx, v1, lr;
 
 		   // find two BIG Maxima; point-candidate between them
  extrc=&exhead[0];
@@ -578,7 +578,7 @@ lrdo:;
   if ((bodyes[rbnd]<<2)  < 3*v1) break;
   rbnd++;
   }
- if (rbnd > (totalh-3)) rbnd=(CHAR)totalh;
+ if (rbnd > (totalh-3)) rbnd=(char)totalh;
 
  v1=bodyes[rwpnt];
  lr=MIN(rwpnt+4,totalh);
@@ -601,11 +601,11 @@ lrdo:;
  return;
  }
 
-static INT bot_serif(CHAR ret)
+static INT bot_serif(char ret)
  {
  INT  nx, x, x1, x2 /*, ty, cy*/;
- CHAR *cf, maxf, minf;
- CHAR *ch, maxh, minh;
+ char *cf, maxf, minf;
+ char *ch, maxh, minh;
 
 				   // are there two maxima around ?
  if ((nmax1 | nmax2) & 0x80) return 0;
@@ -636,12 +636,12 @@ static INT bot_serif(CHAR ret)
 				   // serif-to-vertical-wall
  if (((foots[Rbnd-1]-foots[Rbnd]) > 3) ||
      ((foots[Lbnd]-foots[Lbnd-1]) > 3))
-  { bestx=(CHAR)x; regmin(ret); return 1; }
+  { bestx=(char)x; regmin(ret); return 1; }
 
 				   // serif-to-vertical-wall
  if (((heads[Rbnd]-heads[Rbnd-1]) > 3) &&
      ((foots[Rbnd-1]-foots[Rbnd]) < 2))
-  { bestx=(CHAR)x; regmin(ret); return 1; }
+  { bestx=(char)x; regmin(ret); return 1; }
 
 				   // test significant Max between
  if ((nmax2-nmax1) > 2) return 0;
@@ -702,7 +702,7 @@ static INT walltest(INT flg, INT dn1, INT dn2, INT k1, INT k2)
  return 0;
  }
 
-static INT middle_puso(CHAR ret)
+static INT middle_puso(char ret)
  {
  INT nm;
 
@@ -738,9 +738,9 @@ static INT middle_puso(CHAR ret)
   }
  }
 
-static INT lower_gap(CHAR ret)
+static INT lower_gap(char ret)
  {
- CHAR  nm, x1, x2;
+ char  nm, x1, x2;
  INT line_num;
 
  extrp = &exfoot[0];
@@ -785,9 +785,9 @@ static INT lower_gap(CHAR ret)
  }
 
 
-static void lower_pen(CHAR ret)
+static void lower_pen(char ret)
  {
- CHAR  dx1, dx2, dy1, dy2, a1, a2, v;
+ char  dx1, dx2, dy1, dy2, a1, a2, v;
 
  extrc=&exhead[2];
  extrp=&exhead[1];
@@ -827,7 +827,7 @@ static void lower_pen(CHAR ret)
 
 static void findtopbnd()
  {
- CHAR nm, nx, v1;
+ char nm, nx, v1;
 
 		      // find two BIG Maxima; point-candidate between them
  extrc=&exfoot[0];
@@ -868,7 +868,7 @@ lbnd++;
   if ((bodyes[rbnd]<<2)  < 3*v1) break;
   rbnd++;
   }
- if (rbnd > (totalh-3)) rbnd=(CHAR)totalh;
+ if (rbnd > (totalh-3)) rbnd=(char)totalh;
 
 		      // define minima area as "about the same value of body"
  nx=bestx+1;
@@ -881,11 +881,11 @@ lbnd++;
  }
 
 
-static INT top_serif(CHAR ret)
+static INT top_serif(char ret)
  {
  INT nx;
  INT x, x1, x2, v1, v2, v3, v4;
- CHAR cmin, cmax;
+ char cmin, cmax;
 
 				 // serif has not to be too thick
  if (best>4) return 0;           // ?????????? Etalon=4 IS RUBBISH !!!!!!
@@ -902,15 +902,15 @@ static INT top_serif(CHAR ret)
  for (nx=bestx; nx<totalh; nx++)
   {
   if ((bodyes[nx]-v1) > 1) break;
-  Rbnd=(CHAR)nx;
+  Rbnd=(char)nx;
   }
 
  for (nx=bestx; nx>=0; nx--)
   {
   v4=bodyes[nx]-v1;
-  if(!v4) { Lbnd=(CHAR)nx; continue; }
+  if(!v4) { Lbnd=(char)nx; continue; }
   if (v4 < 0) { v1=v4; continue; }
-  if (v4 < 2) { Lbnd=(CHAR)nx; continue; }
+  if (v4 < 2) { Lbnd=(char)nx; continue; }
   break;
   }
 				 // not beside MAxbody
@@ -940,16 +940,16 @@ static INT top_serif(CHAR ret)
  for (nx=bestx; nx<totalh; nx++)
   {
   if ( ((v2=bodyes[nx])-v1) > 1) break;
-  cmax=(CHAR)nx;
+  cmax=(char)nx;
   if (v2==0)
-   rbnd=(CHAR)nx;
+   rbnd=(char)nx;
   }
  for (nx=bestx; nx>=0; nx--)
   {
   if (((v2=bodyes[nx])-v1) > 1) break;
-  cmin=(CHAR)nx;
+  cmin=(char)nx;
   if (v2==0)
-   lbnd=(CHAR)nx;
+   lbnd=(char)nx;
   }
 
 				  // 1. isn't this a circle
@@ -962,7 +962,7 @@ static INT top_serif(CHAR ret)
   if (v2<v1) break;              // till end of rising bridge
   if ((v2-v3)>3) break;          // 'r' and other upper bridges not
 				 //    to rise too much
-  cmax=(CHAR)nx;
+  cmax=(char)nx;
   v1=v2;
 
   }
@@ -973,7 +973,7 @@ static INT top_serif(CHAR ret)
   if (nx < Lbnd) goto ok;
   v2=heads[nx];
   if (v2<v3) break;
-  if (cmin > nx) cmin=(CHAR)nx;
+  if (cmin > nx) cmin=(char)nx;
 
   }
 ok:
@@ -988,9 +988,9 @@ rt:
  }
 
 
-static INT upper_gap(CHAR ret)
+static INT upper_gap(char ret)
  {
- CHAR nx, y;
+ char nx, y;
  INT line_num;
 
 				       // not beside MAxbody
@@ -1018,7 +1018,7 @@ static INT upper_gap(CHAR ret)
  }
 
 
-static void define_cat(struct extrem_elem *fun, CHAR N)
+static void define_cat(struct extrem_elem *fun, char N)
  {
  INT nm;
 
@@ -1044,13 +1044,13 @@ static void make_func()
  struct short_line_header *l_ptr;
  struct segment  *s_ptr;
  INT n,x,y,z,bd,bn, cps,cpn, u,p;
- CHAR *h1, *h2, *h3, *f1, *f2, *f3, *cb, *cp;
+ char *h1, *h2, *h3, *f1, *f2, *f3, *cb, *cp;
 
  totalh=0;
  for (n=0; n < t_height; n++)
  {
-   heads[n]=(CHAR)t_width;
-   bodyes[n]=(CHAR)t_width;
+   heads[n]=(char)t_width;
+   bodyes[n]=(char)t_width;
    foots[n]=0;
    linums[n]=0;
  }
@@ -1097,7 +1097,7 @@ static void make_func()
      if (y > z ) { bd=x-y+1; goto back; }
      bd=x-z; goto back;
   back:
-   if (n==0) { *cp=(CHAR)cps; *cb=(CHAR)bd; continue; }
+   if (n==0) { *cp=(char)cps; *cb=(char)bd; continue; }
    if ((u=*h3) > (x=*h1))
     {
      cpn=x; y=*f3;
@@ -1121,18 +1121,18 @@ static void make_func()
      bn=x-z; goto compl;
   compl:
    if (bn <= bd)
-     { *cp=(CHAR)cpn; *cb=(CHAR)bn; }
+     { *cp=(char)cpn; *cb=(char)bn; }
    else
-     {*cp=(CHAR)cps; *cb=(CHAR)bd;}
+     {*cp=(char)cps; *cb=(char)bd;}
   } // loop end
  }
 
 
-static INT make_extrem( CHAR func[], struct extrem_elem extr[])
+static INT make_extrem( char func[], struct extrem_elem extr[])
  {
  INT N,n;
- CHAR prevx, prevf, prevd;
- CHAR curf, curd;
+ char prevx, prevf, prevd;
+ char curf, curd;
  struct extrem_elem *el;
 
  ExtreM=0; Extrem=127;
@@ -1171,24 +1171,24 @@ static INT make_extrem( CHAR func[], struct extrem_elem extr[])
    }
 jump:
   prevf = curf;
-  prevx = (CHAR)n;
+  prevx = (char)n;
   prevd = curd;
   }
 
  N++; el++;
  el->val=curf;
  el->type=0;  /*-prevd;*/              // no extrem on right bound
- el->end = (CHAR)totalh;
+ el->end = (char)totalh;
  el->beg = prevx;
  N++;
  return(N);
  }
 
-static INT make_absextr( CHAR f, struct extrem_elem extr[])
+static INT make_absextr( char f, struct extrem_elem extr[])
  {
  INT N,n;
- CHAR prevx, prevf, prevd;
- CHAR curf, curd;
+ char prevx, prevf, prevd;
+ char curf, curd;
  struct extrem_elem *el;
 
  ExtreM=0; Extrem=127;
@@ -1233,14 +1233,14 @@ static INT make_absextr( CHAR f, struct extrem_elem extr[])
    }
   jump:
   prevf = curf;
-  prevx = (CHAR)n;
+  prevx = (char)n;
   prevd = curd;
   }
 
  N++; el++;
  el->val=curf;
  el->type=0 /*-prevd*/ ;                 // no extrem on right bound
- el->end = (CHAR)t_height /*totalh*/;
+ el->end = (char)t_height /*totalh*/;
  el->beg = prevx;
  N++;
  return(N);
@@ -1274,13 +1274,13 @@ static void make_info()
     {
     inf->topf=s_ptr->end-s_ptr->lth;
     inf->toph=s_ptr->end;
-    inf->topline=(CHAR)nl;
+    inf->topline=(char)nl;
     }
    if (s_ptr->end <= inf->botf)
     {
     inf->botf=s_ptr->end-s_ptr->lth;
     inf->both=s_ptr->end;
-    inf->botline=(CHAR)nl;
+    inf->botline=(char)nl;
     }
    }
   }
@@ -1288,7 +1288,7 @@ static void make_info()
 
 INT cut_points(INT width,INT height,BYTE *r,struct cut_elm *ans)
  {
- CHAR n, a, i;
+ char n, a, i;
  struct cut_elm *a1;
  struct own_cut oct[STK_H], *oc1;
  Z=&string;
@@ -1307,7 +1307,7 @@ INT cut_points(INT width,INT height,BYTE *r,struct cut_elm *ans)
  t_line_ptr=c_boxln(t_comp_ptr);
 			      // box presentation of a component ->
 			      //   line presentation of the component
- if ((i=(CHAR)make_graph()) <= 0)   // make graph of shortened lines for
+ if ((i=(char)make_graph()) <= 0)   // make graph of shortened lines for
 			      //   turned raster
   return i;
  if (i==1)
@@ -1353,7 +1353,7 @@ ret:;
 /////////////////////
 INT Alik_cut_points(INT width,INT height,BYTE *r,struct cut_elm *ans,INT row)
  {
- CHAR n,a,i;
+ char n,a,i;
  struct cut_elm *a1;
  struct own_cut oct[STK_H+1];
  struct own_cut *oc1;
@@ -1372,11 +1372,11 @@ INT Alik_cut_points(INT width,INT height,BYTE *r,struct cut_elm *ans,INT row)
  t_comp_ptr=c_locomp(t_raster(),t_width_b,t_height,0,(INT)(-t_left_shift)); // extraction components from t_raster
  if (t_comp_ptr == NULL)     return -1;
  t_line_ptr=c_boxln(t_comp_ptr);                  // box presentation of a component ->  line presentation of the component
- if ((i=(CHAR)make_graph()) <= 0 && width<20)  return i;        // make graph of shortened lines for  turned raster
+ if ((i=(char)make_graph()) <= 0 && width<20)  return i;        // make graph of shortened lines for  turned raster
 
- //Alik_define_cut_points((PCHAR)ForRaster1,&oct[1],width,height,row);
+ //Alik_define_cut_points((char *)ForRaster1,&oct[1],width,height,row);
  RCUTP_SetBL_for_CutPoints(minrow,bbs1,bbs2,bbs3,bbs4,Nb1,Nb2,Nb3,language);
- RCUTP_CutPoints((PCHAR)ForRaster1, &oct[1], width, height, row);
+ RCUTP_CutPoints((char *)ForRaster1, &oct[1], width, height, row);
 
  for (a1=&ans[1],oc1=&oct[1],n=0, a=0; n<STK_H-1; n++)
   {
@@ -1393,11 +1393,11 @@ INT Alik_cut_points(INT width,INT height,BYTE *r,struct cut_elm *ans,INT row)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // AK changed 26.03.98
 MN  *cut_rast(PBYTE r,INT width, INT height,INT upper, INT left,
-	      struct cut_elm *cuts, CHAR p, CHAR flg, CHAR *svp, cut_pos *cpos)
+	      struct cut_elm *cuts, char p, char flg, char *svp, cut_pos *cpos)
 {
 	BYTE *c, *s;
 	BYTE b, bt, bs;
-	CHAR x, h, dh, fl;
+	char x, h, dh, fl;
 	INT totc, dx, y, r0, tr1, tr2, r1, r2, f1;
 	//  flg - request type :
 	//  0 -  glue back

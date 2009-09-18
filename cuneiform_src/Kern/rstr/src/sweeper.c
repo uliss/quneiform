@@ -82,7 +82,7 @@ static void stat_garb(PWORD);
 static WORD delete(PWORD);
 static WORD to_file();
 static void open_comp_file();
-static void write_comp(PCHAR,LONG);
+static void write_comp(char *,LONG);
 
 #define ROK       50
 #define NBOXMAX   4096

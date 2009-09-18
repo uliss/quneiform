@@ -306,7 +306,7 @@ Bool Static_TableText_Prepare(
 
 	switch(reason)
 		{
-		case BROWSE_CHAR:
+		case BROWSE_char:
 			// Символ
 			// Установить язык
 			{
@@ -316,7 +316,7 @@ Bool Static_TableText_Prepare(
 			}
 
 			// Записать символ
-			ONE_CHAR(hObject);
+			ONE_char(hObject);
 			break;
 
 		case BROWSE_PARAGRAPH_START:

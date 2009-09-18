@@ -118,7 +118,7 @@ Bool Static_MakeHTML(
 
 	switch(reason)
 		{
-		case BROWSE_CHAR:
+		case BROWSE_char:
 			// Символ
 			// Установить язык
 			{
@@ -138,7 +138,7 @@ Bool Static_MakeHTML(
                             PUT_STRING(buf);
                         }
 
-                        ONE_CHAR(hObject);
+                        ONE_char(hObject);
                         if(r.left != -1 && hocrmode)
                             PUT_STRING("</span>");
 

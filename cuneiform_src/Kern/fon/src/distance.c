@@ -143,7 +143,7 @@ static int DistToWelet(PBYTE r,int fullByte,int w,int h,welet * wl,
 					   int xo,int yo,int porog,
 					   int dist1)
 {
-PCHAR   curr, currn,currh;
+char *   curr, currn,currh;
 int     rbyte;
 PBYTE   rr,rn;
 int		dist;
@@ -241,7 +241,7 @@ SINT DistWeletRazmaz(PBYTE r,int fullByte,int  w,int  h,welet * wl,
 					 int  xo,int  yo, int porog, int wei)
 {
 int  ww=wl->w, hh=wl->h;
-PCHAR curr;
+char * curr;
 int i,j;
 BYTE  cbyte;
 int dist;
@@ -346,7 +346,7 @@ BYTE *rr;
 static int DistToWelet(PBYTE r,int fullByte,int w,int h,welet * wl,
 					   int xo,int yo,int porog,int dist1)
 {
-PCHAR curr;
+char * curr;
 int   i,j,jj;
 BYTE  cbyte,cc;
 int rbyte;
@@ -392,7 +392,7 @@ SINT DistWeletRazmaz(PBYTE r,int fullByte,int  w,int  h,welet * wl,
 					 int  xo,int  yo, int porog,int wei)
 {
 SINT ww=wl->w, hh=wl->h;
-PCHAR curr;
+char * curr;
 SINT i,j;
 BYTE  cbyte,cc;
 SINT rbyte;
@@ -941,7 +941,7 @@ int CompareCluster(BYTE *rast,int xbyte,int xbit,int yrow,welet *wel,
 static int DistToWeletReal(PBYTE r,int fullByte,int w,int h,welet * wl,
 					   int xo,int yo,int porog)
 {
-PCHAR curr;
+char * curr;
 int   i,j,jj;
 BYTE  cbyte,cc;
 int rbyte;
@@ -1060,7 +1060,7 @@ static int AddTestRecogCollection( BYTE *rast,int xbit,int yrow,
 static int distOkr1(PBYTE r,int w,int h,welet * wl,
 				   int xo,int yo,int porog,int bound)
 {
-PCHAR curr;
+char * curr;
 int   i,j,jj;
 BYTE  cbyte,cc;
 int rbyte;
@@ -1119,7 +1119,7 @@ SINT distOkr2(PBYTE r,int  w,int  h,welet * wl,
 			  int  xo,int  yo, int porog,int proc)
 {
 SINT ww=wl->w, hh=wl->h;
-PCHAR curr;
+char * curr;
 SINT i,j;
 BYTE  cbyte,cc;
 SINT rbyte;
@@ -1434,7 +1434,7 @@ int CompareClusterOkr(BYTE *rast,int xbyte,int xbit,int yrow,welet *wel,
 static int distOkr(PBYTE r,int w,int h,welet * wl,
 				   int xo,int yo,int porog)
 {
-PCHAR curr;
+char * curr;
 int   i,j,jj;
 BYTE  cbyte,cc;
 int rbyte;

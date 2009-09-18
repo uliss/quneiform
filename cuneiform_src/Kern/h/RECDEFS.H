@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #pragma pack(1)
 
-#define  RD_UNRECOG_CHAR   '~'
+#define  RD_UNRECOG_char   '~'
 /////////////////////////////////////////////////////////
 // RecRaster - rectangular peace of black/white image
 // Black pixel is 1

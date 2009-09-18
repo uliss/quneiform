@@ -81,7 +81,7 @@ typedef long signed int LONG;
 
 #include "compat_defs.h"
 
-uint32_t LoadUserDict(CHAR *DictName, CHAR *pool, uint32_t pool_size,
+uint32_t LoadUserDict(char *DictName, char *pool, uint32_t pool_size,
 		voc_state *user_dict) {
 	LONG size;
 	pool_size = pool_size;
@@ -97,7 +97,7 @@ uint32_t LoadUserDict(CHAR *DictName, CHAR *pool, uint32_t pool_size,
 
 	{
 		INT Fh;
-		CHAR nm[128];
+		char nm[128];
 		strcpy(nm, DictName);
 		Fh = TGOPEN(VC_STREAM, nm, (INT)(O_RDONLY | O_BINARY), S_IREAD);
 		if (Fh == -1)
@@ -118,7 +118,7 @@ uint32_t LoadUserDict(CHAR *DictName, CHAR *pool, uint32_t pool_size,
 	return MAX_VOC_SIZE;
 }
 
-uint32_t InitializeNewUserDict(CHAR *pool, uint32_t pool_size, voc_state *user_dict) {
+uint32_t InitializeNewUserDict(char *pool, uint32_t pool_size, voc_state *user_dict) {
 #ifdef TURBO_C
 	if(TEST_PRPH(pool))
 	pool=ALI_PR(pool);

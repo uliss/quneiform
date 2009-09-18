@@ -328,7 +328,7 @@ CExceptionReport::CreateExceptionRecordNode(MSXML::IXMLDOMDocument* pDoc,
    //
    // Set module name attribute
    //
-   TCHAR szModName[_MAX_FNAME + 1];
+   Tchar szModName[_MAX_FNAME + 1];
    GetModuleFileName(NULL, szModName, _MAX_FNAME);
    m_sModule = szModName;
    V_VT(&v)    = VT_BSTR;

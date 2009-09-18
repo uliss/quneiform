@@ -98,7 +98,7 @@
 int OpenBase(char *);
 void CloseBase(void);
 
-static SINT ReadAllFromBase(CHAR *name, SINT *nClu, CHAR *movxy, SINT AllCount);
+static SINT ReadAllFromBase(char *name, SINT *nClu, char *movxy, SINT AllCount);
 
 #define memmove memmove
 #define MAXINCLUS 127
@@ -121,7 +121,7 @@ typedef LONG (* MKFAM)(raster_header * rh, WORD nclu);
 //   (now 128*64+... > 8192)
 //
 // working buffer
-static CHAR mybuffer[MAX(2*MAXSYM * sizeof(SINT), max(2*sizeof (welet ),sizeof(access_tab)))];
+static char mybuffer[MAX(2*MAXSYM * sizeof(SINT), max(2*sizeof (welet ),sizeof(access_tab)))];
 welet *welBuf = (welet *) mybuffer;
 welet *dist_wel = (welet *) (mybuffer + MAX(MAXSYM * sizeof(SINT),
 		sizeof(welet))); // use as
@@ -150,7 +150,7 @@ int MultiFindBestClusters(int numSymbol, int numCluster, Nraster_header *rh,
 		SINT *nClus, BYTE *metka, BYTE *metkaValid);
 int GetProbValid(int numSymbol, int numCluster, Nraster_header *rh,
 		SINT *nClus, BYTE *metkaGood, BYTE *metkaValid);
-SINT AddClusterHausdorf(CHAR *NameWr, CHAR *szOutName, SINT porog, SINT porog2,
+SINT AddClusterHausdorf(char *NameWr, char *szOutName, SINT porog, SINT porog2,
 		MKFAM accept, PBYTE extern_buf, LONG size_extern, clu_info *cin);
 SINT SetAccessTab(SINT fl, void *buf);
 SINT CheckAccessTab(SINT fh, void *buf);
@@ -351,7 +351,7 @@ SINT DistanceHausDLL(BYTE *b1, SINT xbyte1, SINT yrow1, BYTE *b2, SINT xbyte2,
 // if nClu != NULL && nClu[num] > 0 ( already set cluster)
 // make only good picture
 static SINT MakeBitmapsDLL(Nraster_header *rhh, BYTE *pp, SINT num, SINT *nClu,
-		CHAR *movxy) {
+		char *movxy) {
 	SINT j, i;
 	SINT sx = rhh->w, sy = rhh->h, sxbyte;
 	LONG sizebitmap;
@@ -398,7 +398,7 @@ static SINT MakeBitmapsDLL(Nraster_header *rhh, BYTE *pp, SINT num, SINT *nClu,
 /////////////////////
 // how many symbols ?
 // use nClus as buffer
-SINT GetNumSym(CHAR *NameWr) {
+SINT GetNumSym(char *NameWr) {
 	SINT fh;
 	SINT i;
 	SINT num;
@@ -452,7 +452,7 @@ SINT GetNumSym(CHAR *NameWr) {
 /***********************/
 // use buf as buffer for reading
 // must :size of picture + sizeof(raster_header) <= size) !
-SINT ReadAllFromWr(CHAR *name, BYTE *buf, SINT size, SINT *nClu, CHAR *movxy,
+SINT ReadAllFromWr(char *name, BYTE *buf, SINT size, SINT *nClu, char *movxy,
 		SINT NumAll, SINT AllCount) {
 	SINT allnum;
 	SINT fh, i;
@@ -518,7 +518,7 @@ SINT ReadAllFromWr(CHAR *name, BYTE *buf, SINT size, SINT *nClu, CHAR *movxy,
 /////////////////////
 // save symbols & call function
 // use mysteck as buffer
-SINT SaveSym(CHAR *NameWr, SINT NumAll, BYTE *buf, SINT size, MKFAM accept) {
+SINT SaveSym(char *NameWr, SINT NumAll, BYTE *buf, SINT size, MKFAM accept) {
 	SINT fh;
 	SINT i;
 	SINT num;
@@ -666,7 +666,7 @@ SINT MakeClusters(SINT fir, SINT NumAll, SINT CurClus, SINT porog,
 // save clusters
 // NumAll - number of symbols
 // results - in nClus ,
-static SINT ClusterHausdorfDLL(CHAR *NameWr, SINT porog, CHAR *szOutName,
+static SINT ClusterHausdorfDLL(char *NameWr, SINT porog, char *szOutName,
 		MKFAM accept, PBYTE extern_buf, LONG size_extern, clu_info *cin) {
 	SINT i;
 	SINT CurClus = 0;
@@ -1089,7 +1089,7 @@ SINT SaveCluster(SINT fh, CTB_handle *CTBfile, SINT fhSnap,
 
 	// collect all symbols to raster
 	memset(welBuf, 0, sizeof(welet));
-	welBuf->weight = (CHAR) j;
+	welBuf->weight = (char) j;
 	welBuf->w = maxx;
 	welBuf->h = maxy;
 
@@ -1248,7 +1248,7 @@ SINT SaveCluster(SINT fh, CTB_handle *CTBfile, SINT fhSnap,
 }
 ////////////////////
 /*************************/
-void MakRas(CHAR *inp, CHAR *ras, SINT point) {
+void MakRas(char *inp, char *ras, SINT point) {
 	register SINT i;
 	SINT j = MIN(3, strlen(ras));
 	SINT lens = strlen(inp);
@@ -1701,8 +1701,8 @@ SINT SetAccessTab(SINT fh, void *buf) {
 //
 //       >=0 - number of clusters
 //
-clu_info make_font(PCHAR rname, MKFAM accept, PBYTE extern_buf, LONG size) {
-	CHAR szOutName[144];
+clu_info make_font(char * rname, MKFAM accept, PBYTE extern_buf, LONG size) {
+	char szOutName[144];
 	SINT ret;
 	clu_info cin;
 
@@ -1745,7 +1745,7 @@ FON_FUNC(int32_t) FONGetNumCluster(int32_t nInCTB)
 }
 ////////////////
 // fill static Nraster_header rh !!!
-static SINT ReadAllFromBase(CHAR *name, SINT *nClu, CHAR *movxy, SINT AllCount) {
+static SINT ReadAllFromBase(char *name, SINT *nClu, char *movxy, SINT AllCount) {
 	int GetSymbolFromBase(int i, Nraster_header *rh, BYTE **pBuf);
 
 	int allnum; // really read

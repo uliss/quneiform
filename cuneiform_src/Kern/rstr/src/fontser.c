@@ -534,9 +534,9 @@ static LONG downserif(c_comp *env, BYTE shape, INT H, STICK *st)
   lnhead *line;
   LONG rv=0;
 
-  for (line=(lnhead *)((PCHAR)(env)+env->lines+sizeof(INT));
+  for (line=(lnhead *)((char *)(env)+env->lines+sizeof(INT));
 			 line->lth>0;
-       line=(lnhead *)((PCHAR)line+line->lth))
+       line=(lnhead *)((char *)line+line->lth))
     if (line->flg&l_fend && (h=line->h) > H3 && line->row+h+2 >= H)
     {
       INT x1,x2,i,i0=h-H3-1,in,begl=0,begr=0;
@@ -636,9 +636,9 @@ static LONG upserif(c_comp *env, BYTE shape, INT H, STICK *st)
   lnhead *line;
   LONG rv=0;
 
-  for (line=(lnhead *)((PCHAR)(env)+env->lines+sizeof(INT));
+  for (line=(lnhead *)((char *)(env)+env->lines+sizeof(INT));
 			 line->lth>0;
-       line=(lnhead *)((PCHAR)line+line->lth))
+       line=(lnhead *)((char *)line+line->lth))
     if (line->flg&l_fbeg && (h=line->h) > H3 && line->row <= 2)
     {
       INT x1,x2,i,i0=MIN(H3,h),begl=0,begr=0;
@@ -757,7 +757,7 @@ static interval *interval_fit(INT i, lnhead *line, INT H, STICK *st)
 {
   INT h0=H-(line->row+i);    //from raster bottom
   INT x0=st->x+(h0-st->y)*st->incl/INCL_FAC;
-  interval *intv=(interval *)((PCHAR)line+sizeof(lnhead))+i;
+  interval *intv=(interval *)((char *)line+sizeof(lnhead))+i;
   if (x0 > intv->e || x0 < intv->e-intv->l)  intv=NULL;
   return intv;
 }

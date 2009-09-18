@@ -161,7 +161,7 @@ typedef struct din_var
                              // for vowel letter after 'I'
 #define TITLE_JMP        25      // after dot small letter penalty
 
-#define BON_DIG_CHAR     50
+#define BON_DIG_char     50
 
 #define FRANCH_ART_BONUS   30
 #define GER_DOUBLE_S_MONUS 40
@@ -211,11 +211,11 @@ void test_irish_name_cur_sym    ( INT Let );
 #ifdef MAIN_CONTEXT_MODULE
 static INT find_dig_chr_var         ();
 static void make_dig_chr_chain      ();
-static void up_substr               ( PCHAR substr );
+static void up_substr               ( char * substr );
 static void up_rest_str             ();
-static INT get_est_substr_in_word   ( PCHAR );
+static INT get_est_substr_in_word   ( char * );
 static INT est_rest_dig             ( dv *);
-static INT test_var                 ( PCHAR );
+static INT test_var                 ( char * );
 /*****************/
 static dv * cdv, *last_dv, *last_dig_dv, *beg_dv;
 static INT best_l, num_v, admvar = 0, maxest;
@@ -249,7 +249,7 @@ static void make_roma_num    (void);
 static INT best_estimation  (void);
 static void estimate_chain  (INT);
 static void estimate_letter (cell *, INT);
-static INT class_of_letter  (CHAR);
+static INT class_of_letter  (char);
 static void setup_complex   (void);
 static INT make_best_choice (INT);
 /*******************

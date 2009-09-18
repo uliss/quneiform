@@ -90,7 +90,7 @@ ArtFH  *        SpABCroot;
 
 /* ------------------------------------------------------------------ */
 
-extern LONG read_all_vtab(INT,CHAR  *);
+extern LONG read_all_vtab(INT,char  *);
 
 BYTE  * load_specABC (BYTE  *point, INT Country)
 {
@@ -103,7 +103,7 @@ BYTE  * load_specABC (BYTE  *point, INT Country)
 
 // 08-14-93 03:03pm, Mike
 // Reading *.art file ( art-dictionary ).
-  size = read_all_vtab( 8, (CHAR *)SpABCroot );
+  size = read_all_vtab( 8, (char *)SpABCroot );
   if (size == -1L ) {
     #ifdef SYSPR_ERROR
       PRINTF("Unable to open %s \n", w);
@@ -152,15 +152,15 @@ BYTE  * load_specABC (BYTE  *point, INT Country)
 
 /* ------------------------------------------------------------------ */
 
-INT check_art_dict (CHAR word[], INT * wordlth, INT * vockind)
+INT check_art_dict (char word[], INT * wordlth, INT * vockind)
 {
 
-      CHAR                      no;
-      CHAR                    pref;
-      CHAR                   postf;
-      CHAR  CapWord[MAX_WORD_SIZE];
- register PCHAR             body_b;
-      PCHAR                 body_e;
+      char                      no;
+      char                    pref;
+      char                   postf;
+      char  CapWord[MAX_WORD_SIZE];
+ register char *             body_b;
+      char *                 body_e;
  register BYTE             *p;
   word[*wordlth+1]=0;
 
@@ -183,7 +183,7 @@ INT check_art_dict (CHAR word[], INT * wordlth, INT * vockind)
       if( (!*p) && (*body_b) )
       {
         for(postf=0; (p=SpABC[no].postf[postf]) != 0 ;postf++)
-        { CHAR lth;
+        { char lth;
           for(body_e=CapWord+(*wordlth), lth=*wordlth+1;
                 *p && lth ; p++,body_e--,lth--)
           {
@@ -219,7 +219,7 @@ INT test_apppostrof (BYTE word[],SWORD *wrd, INT *l, INT *r)
  {
   INT       i, pref, apf, postf;
   BYTE       *p,  *pp;
-  CHAR   CapWord[MAX_WORD_SIZE];
+  char   CapWord[MAX_WORD_SIZE];
 
   for ( p =word, pp = CapWord ; (*p) != 0  ; p++, pp++)
                          *pp = _2cap (*p);

@@ -210,7 +210,7 @@ void set_bad_cell(CSTR_rast c)
 ////////////////////////////////////////////
 //////////
 // dm2.c
-void glsnap(CHAR I, CSTR_rast C, CHAR *txt)
+void glsnap(char I, CSTR_rast C, char *txt)
  {
 
  if (!db_status) return;
@@ -360,7 +360,7 @@ void promote (BYTE sn, CSTR_rast cl, BYTE let, INT delta)
  sort_vers(cl);
 
  if (sn)
-   glsnap((CHAR)(sn>'a'?sn:'a'),cl,"insvers");
+   glsnap((char)(sn>'a'?sn:'a'),cl,"insvers");
 }
 
 ////////////////////////////
@@ -526,7 +526,7 @@ static void test_dust(void)     // INT arg)
 //
 static int basedraft(CSTR_line ln, uchar isDust)
 {
-// CHAR riter1, riter0;
+// char riter1, riter0;
  int riter1;
  INT i;
  CSTR_rast C;

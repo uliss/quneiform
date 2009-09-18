@@ -231,7 +231,7 @@ int *bou;
 static int DistToWeletBound(PBYTE r,int fullByte,int w,int h,welet * wl,
 					   int xo,int yo,int porog,int *bou )
 {
-PCHAR curr;
+char * curr;
 int   i,j,jj;
 BYTE  cbyte,cc;
 int rbyte;
@@ -293,7 +293,7 @@ static int DistWeletRazmazBound(PBYTE r,int fullByte,int  w,int  h,welet * wl,
 					 int  xo,int  yo, int porog,int *bou)
 {
 SINT ww=wl->w, hh=wl->h;
-PCHAR curr;
+char * curr;
 SINT i,j;
 BYTE  cbyte,cc;
 SINT rbyte;

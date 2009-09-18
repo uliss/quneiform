@@ -79,7 +79,7 @@ static BYTE can_glue;
 static INT gi2l,gi2e,gh2;
 static INT gs1l,gs1e,sh1;
 static INT gs2l,gs2e,sh2;
-static CHAR fgl1,fgl2;
+static char fgl1,fgl2;
 static INT rastur,rastlc;
 static INT maxh, maxw;
 static INT c1ur,c1lc;
@@ -177,17 +177,17 @@ MN *glue(c_comp **cp, INT flag_dist)
      if (c2ur > c1ur+cp1->h+3) goto fin; // too far
      if (c2ur+cp2->h+3 < c1ur) goto fin; // too far
      Lc1=cp1->nl;                    // number of lines in component
-     lp1=(lnhead *) ( (CHAR *)cp1 + cp1->lines + 2); // beginning of first line
+     lp1=(lnhead *) ( (char *)cp1 + cp1->lines + 2); // beginning of first line
      for (lc1=0; lc1 < Lc1; lc1++)
      {
        Lc2=cp2->nl;                // number of lines in component
-       lp2=(lnhead *) ( (CHAR *)cp2 + cp2->lines + 2); // beginning of first line
+       lp2=(lnhead *) ( (char *)cp2 + cp2->lines + 2); // beginning of first line
        for (lc2=0; lc2 < Lc2; lc2++)
        {
           glueline();                    // glue, if possible
-          lp2=(lnhead *) ((CHAR *)lp2+lp2->lth);   // next line
+          lp2=(lnhead *) ((char *)lp2+lp2->lth);   // next line
        }
-       lp1=(lnhead *) ((CHAR *)lp1+lp1->lth);   // next line
+       lp1=(lnhead *) ((char *)lp1+lp1->lth);   // next line
      }
 fin:
      j++;
@@ -210,14 +210,14 @@ static void comptorast(c_comp *cp1)
  INT Lc1,lc1;
 
  Lc1=cp1->nl;			       // number of lines in component
- lp1=(lnhead *) ( (CHAR *)cp1 + cp1->lines + 2); // beginning of first line
+ lp1=(lnhead *) ( (char *)cp1 + cp1->lines + 2); // beginning of first line
  for (lc1=0; lc1 < Lc1; lc1++)
  {
    h1=lp1->row+c1ur-rastur;
    int1=(interval *)(lp1+1);       // ptr to current interval
    for (y1=0; y1 < lp1->h; y1++, int1++, h1++)
      inttorast(h1,(INT)(int1->e+c1lc-rastlc),int1->l);
-   lp1=(lnhead *) ((CHAR *)lp1+lp1->lth);   // next line
+   lp1=(lnhead *) ((char *)lp1+lp1->lth);   // next line
  }
 }
 

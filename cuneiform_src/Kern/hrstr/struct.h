@@ -206,7 +206,7 @@ typedef struct vers_struct version;
 //----------------------- stick -------------------------------
 
 struct stick_struct {
-	CHAR x, y, l, w, top, bot;
+	char x, y, l, w, top, bot;
 	INT incl;
 };
 typedef struct stick_struct STICK;
@@ -223,7 +223,7 @@ struct cell_struc {
 	struct cell_struc *nextl; // next letter ( only for letters )
 	struct cell_struc *prevl; // prev letter ( only for letters )
 	// 28
-	CHAR bdiff; // local base line corrective displacement
+	char bdiff; // local base line corrective displacement
 	BYTE difflg; // local correction flg
 	// baseline defined by cell:
 #define c_db_b1         1
@@ -243,11 +243,11 @@ struct cell_struc {
 #define c_bs_round  32
 #define c_bs_cap    64     // capital shape
 #define c_bs_done   128
-	CHAR bas1;
+	char bas1;
 	// 32
-	CHAR bas2;
-	CHAR bas3;
-	CHAR bas4;
+	char bas2;
+	char bas3;
+	char bas4;
 	BYTE cg_flag; // cut-to-glue message
 #define c_cg_noglue     1   // don't glue to ... ( just cut )
 #define c_cg_noenv      2       // envelope address obsolete

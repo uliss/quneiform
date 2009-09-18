@@ -455,8 +455,8 @@ Bool WriteRtfPara(struct StrRtfOut far *rtf,CEDParagraph* p, Bool brk)
 			  (prvCh&&(prvCh->fontHeight!=chr->fontHeight||
 			  prvCh->fontAttribs!=chr->fontAttribs||
 			  prvCh->fontNum!=chr->fontNum))
-/*            || ptr[j]==ParaChar || ptr[j]==CellChar || ptr[j]==LINE_CHAR
-            || ptr[j]==ROW_CHAR*/ || CED_IsPicture(chr)/*TerFont[fmt[j]].style&PICT*/)
+/*            || ptr[j]==ParaChar || ptr[j]==CellChar || ptr[j]==LINE_char
+            || ptr[j]==ROW_char*/ || CED_IsPicture(chr)/*TerFont[fmt[j]].style&PICT*/)
 		  {
              if (!WriteRtfText(rtf,ptr,len)) return FALSE; // write text
              if (j<LastCol&&prvCh&&(!CED_IsPicture(chr))&&(prvCh->fontHeight!=chr->fontHeight||
@@ -516,15 +516,15 @@ Bool WriteRtfPara(struct StrRtfOut far *rtf,CEDParagraph* p, Bool brk)
 			len++;
 		}
 
-/*          else if (ptr[j]==CellChar || ptr[j]==LINE_CHAR) { // write cell or line break
+/*          else if (ptr[j]==CellChar || ptr[j]==LINE_char) { // write cell or line break
              if (CurFont!=PrevFont) {        // write the font change
                 if (!WriteRtfCharFmt(w,rtf,CurFont,PrevFont)) goto WRITE_END; // write the font change
                 PrevFont=CurFont;
              }
              if (ptr[j]==CellChar  && !WriteRtfControl(w,rtf,"cell",PARAM_NONE,0)) goto WRITE_END;
-             if (ptr[j]==LINE_CHAR && !WriteRtfControl(w,rtf,"line",PARAM_NONE,0)) goto WRITE_END;
+             if (ptr[j]==LINE_char && !WriteRtfControl(w,rtf,"line",PARAM_NONE,0)) goto WRITE_END;
           }
-          else if (ptr[j]==ROW_CHAR) {       // write row break
+          else if (ptr[j]==ROW_char) {       // write row break
              if (CurFont!=PrevFont) {        // write the font change
                 if (!WriteRtfCharFmt(w,rtf,CurFont,PrevFont)) goto WRITE_END; // write the font change
                 PrevFont=CurFont;
@@ -1432,7 +1432,7 @@ Bool WriteRtfText(struct StrRtfOut far *rtf, const char* text, int TextLen)
 
     for (i=0;i<TextLen;i++) {
         CurChar=text[i];
-        if ((CurChar=='\\' && !IgnoreSlash) || CurChar=='{' || CurChar=='}' /*|| CurChar==NBSPACE_CHAR*/)
+        if ((CurChar=='\\' && !IgnoreSlash) || CurChar=='{' || CurChar=='}' /*|| CurChar==NBSPACE_char*/)
 		{
             if (!FlushRtfLine(rtf)) return FALSE;    // ensure that prefix and character are in one line
             if (!PutRtfChar(rtf,'\\')) return FALSE; // write prefix
@@ -1440,10 +1440,10 @@ Bool WriteRtfText(struct StrRtfOut far *rtf, const char* text, int TextLen)
 /*        if (CurChar==TAB) {
             if (!WriteRtfControl(rtf,"tab",PARAM_NONE,0)) return FALSE;
         }
-        else if (CurChar==NBSPACE_CHAR) {
+        else if (CurChar==NBSPACE_char) {
             if (!PutRtfChar(w,rtf,'~')) return FALSE; // write non-break char suffix
         }
-        else if (CurChar==PAGE_CHAR) {
+        else if (CurChar==PAGE_char) {
             if (!WriteRtfControl(rtf,"page",PARAM_NONE,0)) return FALSE;
         }
         else*/ if (!PutRtfChar(rtf,CurChar)) return FALSE;  // write character

@@ -104,7 +104,7 @@ void full_snap (cell *c,
 		INT tab_angle[],
 		INT left_mode, INT right_mode, INT opt, INT wide,
 		INT inc_v, INT t);
-void short_snap (CHAR *s, INT t);
+void short_snap (char *s, INT t);
 /*----------------------------------------------------------------------*/
 						// STIC_MAK.C MODULES:
 
@@ -593,7 +593,7 @@ INT	let_0=c->vers[0].let;
 		prob_new = (l->conc[2] + r->conc[2]) >= ((wid+1)>>1) ?
 			   MIN (prob_0+2, 254) : MAX (prob_0-2, 2);
 //////		add_stick_vers (c, liga_exm, 254);	// ST_TOOLS.C
-		add_stick_vers (c, (CHAR)liga_exm, (BYTE)prob_new);
+		add_stick_vers (c, (char)liga_exm, (BYTE)prob_new);
 //////		sort_vers (c);
 		}
 					// NOTA BENE: without TEST of LINEAR;
@@ -1061,15 +1061,15 @@ static INT cell_to_centers(cell *c, INT nc,
  BYTE l,r,h;
  center_interval *p_center=&center[nc];
 
-for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-		(ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
+for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
+		(ll=line->lth)>0; line=(lnhead *)((char *)line+ll))
 	{
 	h=(BYTE)line->h;
 	n += h;
 	if( n>=LIMIT_CENTER )
 		return( 0 );
 	for( ind=off_str+line->row,
-	     inter=(interval *)((PCHAR)line+sizeof(lnhead));
+	     inter=(interval *)((char *)line+sizeof(lnhead));
 	     h ;ind++,h--,inter++)     		/* one line     */
 		{
 		BYTE inter_e = inter->e, inter_l = inter->l;
@@ -1101,13 +1101,13 @@ static INT lnhead_to_centers(lnhead *lin, INT wid,
  BYTE l,r,h;
  center_interval *p_center=&center[0];
 
-for (n=0,line=lin; (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
+for (n=0,line=lin; (ll=line->lth)>0; line=(lnhead *)((char *)line+ll))
 	{
 	h=(BYTE)line->h;
 	n += h;
 	if( n>=LIMIT_CENTER )
 		return( 0 );
-	for( ind=line->row,inter=(interval *)((PCHAR)line+sizeof(lnhead));
+	for( ind=line->row,inter=(interval *)((char *)line+sizeof(lnhead));
 			h ;ind++,h--,inter++)     /* one line    */
 		{
 		BYTE inter_e = inter->e, inter_l = inter->l;

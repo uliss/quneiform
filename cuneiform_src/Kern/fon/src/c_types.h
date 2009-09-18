@@ -65,8 +65,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #if 0
 typedef int             Bool;
 
-typedef signed char		CHAR;
-typedef signed char *	PCHAR;
+typedef signed char		char;
+typedef signed char *	char *;
 
 typedef unsigned char	BYTE;
 typedef unsigned char *	PBYTE;

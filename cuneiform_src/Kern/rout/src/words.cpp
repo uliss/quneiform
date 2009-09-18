@@ -138,7 +138,7 @@ Bool WordsControl(
 			}
 			break;
 
-		case BROWSE_CHAR:
+		case BROWSE_char:
 			// Символ
 
 			// Буква

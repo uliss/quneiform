@@ -399,7 +399,7 @@ public:
    {
       const int MAX_FILE_SIZE          = 32768; // 32k file preview max
 uint32_t dwBytesRead                = 0;
-      TCHAR buffer[MAX_FILE_SIZE + 1]  = _T("");
+      Tchar buffer[MAX_FILE_SIZE + 1]  = _T("");
 
       // Sanity check
       if (iItem < 0 || (int)m_pUDFiles->size() < iItem)

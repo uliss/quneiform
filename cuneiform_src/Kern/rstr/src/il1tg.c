@@ -121,8 +121,8 @@ static BYTE *hist[N_HIST]; // histograms:
 
 static BYTE *funcs[MAX_NEW_FUNC];
 static INT  nfunc=1;
-static CHAR recog_res[10];
-static CHAR *R;
+static char recog_res[10];
+static char *R;
 static INT  dx,dy;
 static cell * ec_c;
 static INT  oaprop;
@@ -132,8 +132,8 @@ static INT  ecprop;
 static INT bon_a,mon_c;
 static INT  gmax_y, gmin_y;
 static BYTE maxprob;
-static CHAR text_string  [256];
-static CHAR text_string1 [256];
+static char text_string  [256];
+static char text_string1 [256];
 struct nose_struct
 {
     INT peak;
@@ -152,7 +152,7 @@ static void NHdiff                  (cell *);
 static void TYcell                  (cell *);
 static void GCcell                  (cell *);
 static void set_mem                 (void);
-static INT  check_two_case          (cell *, PCHAR);
+static INT  check_two_case          (cell *, char *);
 static void comptorast              (PBYTE, cell *);
 static void make_hor_vert           (cell *);
 static void make_hist               (void);
@@ -170,7 +170,7 @@ static INT  valley                  (PBYTE, INT, INT, INT);
 static Bool fill                    (PBYTE, INT, INT, INT);
 static void oarecog                 (cell *);
 static void TYrecog                 (void);
-//static void put_two_case            (cell *, PCHAR);
+//static void put_two_case            (cell *, char *);
 static void put_oa_case             (cell *);
 static void put_ec_case             (cell *);
 static void make_hor_vert_ec        (void);
@@ -408,8 +408,8 @@ static void eccell (cell *C)
     }
  }
 
-static CHAR vrot[] = {0, 0, 0, 0, 1, 2, 2, 3, 3};
-static CHAR vrot_small[] =
+static char vrot[] = {0, 0, 0, 0, 1, 2, 2, 3, 3};
+static char vrot_small[] =
    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 2, 3, 3};
 //  0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17
 static void NHcell (cell *C)
@@ -524,7 +524,7 @@ static void GCcell( cell * C )
 extern  servBOX SBOX;
 s_glue  GL;
 WORD wup, wbot;
-CHAR wc;
+char wc;
 INT pnl, wd, op;
 
     pnl = 0;  op = 0;
@@ -701,18 +701,18 @@ TY_noshift:
 static void set_mem ()
 {
     INT   i;
-    PCHAR c;
+    char * c;
 
     R    = t_raster ();
     hor  = (struct statist *) il1_pool_ptr ();
     vert = hor + MAX_HOR_IL1;
-    c    = (PCHAR) (vert + MAX_VERT_IL1);
+    c    = (char *) (vert + MAX_VERT_IL1);
     for (i = 0; i < N_HIST; i++, c += MAX_HOR_IL1)          hist      [i] = c;
     for (i = 0; i < MAX_NEW_FUNC; i++, c += MAX_HOR_IL1)    funcs     [i] = c;
     for (i = 0; i < NFUNC; i++, c += MAX_HOR_IL1 / 4)       peak_vect [i] = c;
 }
 
-static INT check_two_case (cell *C, PCHAR c)
+static INT check_two_case (cell *C, char * c)
 {
     INT     i, n;
     version *v;
@@ -909,12 +909,12 @@ static Bool not_AvanGard_a()
  }
 
 /***********
-static void put_two_case(cell *C, PCHAR pair)
+static void put_two_case(cell *C, char * pair)
 {
     INT     i, m, n;
     version *v, *v1;
     version vers [16];
-    PCHAR   c;
+    char *   c;
 
     n = strlen (recog_res);
     if (!n) goto end;             // no ideas - left old versions
@@ -1294,7 +1294,7 @@ WORD wup, wbot;
 
 static void cell_versions_to_text (cell *C)
 {
-    PCHAR t;
+    char * t;
     INT   i;
 
     t  = text_string;

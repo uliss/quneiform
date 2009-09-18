@@ -88,7 +88,7 @@ extern BYTE multy_language ;
 extern FILE *dbg_f;
 extern dQ SPQ;              //SPQ;                        /* ED-file access common structure */
 
-static CHAR trm_flag=0;  /* turns to 1 if .?! are occured    */
+static char trm_flag=0;  /* turns to 1 if .?! are occured    */
 
 /*NEW*/
 extern STD std;
@@ -535,7 +535,7 @@ INT truncobj (SOBJ * obj, INT * npos)
  if (!(obj->pos_part_nmb))         /* is any object partitioning ?        */
   { register i;                   /* No 		                  */
    for(i=MAX_VIEW_SIZE-1;i;i--)
-    if(symcode((CHAR *)&(obj->pos[i].orig))==E_DL)
+    if(symcode((char *)&(obj->pos[i].orig))==E_DL)
       { *npos=i;
        goto Restore;
       };
@@ -570,7 +570,7 @@ Restore:
 INT nextinobj (SOBJ * obj, INT npos, INT nalt)
 
 {
-	CHAR  * symb;                   /* variables to save ED-file last point */
+	char  * symb;                   /* variables to save ED-file last point */
 	struct segm  * segm;
 
 	symb=SPQ.ns_symb;
@@ -645,7 +645,7 @@ INT trytruncobj (SOBJ * obj, INT * npos)
 
 {
  INT i=0;
- CHAR  * symb;                /* variables to save ED-file last point */
+ char  * symb;                /* variables to save ED-file last point */
  struct segm  * segm;
 
  symb=SPQ.ns_symb;
@@ -666,7 +666,7 @@ INT trytruncobj (SOBJ * obj, INT * npos)
 
  for (i=(*npos)-1; i>=0; i--)
   {
-   switch ( symcode ( (CHAR  *)(&(obj->pos[i].orig.code)) )  )
+   switch ( symcode ( (char  *)(&(obj->pos[i].orig.code)) )  )
     {
      /* ------------ ordinary symbols' analysis : ---------------- */
      case  R_OD:                  /* Russian ordinary letter               */

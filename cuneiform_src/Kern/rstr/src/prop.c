@@ -109,7 +109,7 @@ typedef struct prop_struct
       n_mrgwid;             /* the number of the marginal wide letters */
   PBYTE   ptab;
   BYTE    npass;             /* the pass number on  the string */
-  CHAR wstr[260];            /* the string to information snaping */
+  char wstr[260];            /* the string to information snaping */
   BYTE nlet,                 /* the letter number in  the string */
       f_nar,              /* the flag of the narrow letters */
       f_wide,             /* the flag of the wide letters */

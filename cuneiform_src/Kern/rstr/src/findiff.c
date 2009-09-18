@@ -659,7 +659,7 @@ static void final_Il_1(cell *c)
  servBOX *s;
  indBOX *h;
  elmBOX *elm;
- extern PCHAR tableBOX;
+ extern char * tableBOX;
  WORD max,prob;
  INT i;
 

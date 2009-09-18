@@ -80,8 +80,8 @@ static void snap_sticks(cell *,char *);
 
 
 // from module PASSE
-Bool _spell(PCHAR s,BYTE lang);
-Bool _spell_agressive(PCHAR s,BYTE lang);
+Bool _spell(char * s,BYTE lang);
+Bool _spell_agressive(char * s,BYTE lang);
 Bool short_spell(BYTE *wrd,BYTE language );
 Bool short_spell_re(BYTE *wrd,BYTE language );
 
@@ -105,7 +105,7 @@ extern LONG  EVNRecogCharPRN(   RecRaster  * rRaster,
 // from RCM.C
 extern  void    ErrorExit(int Code);
 extern  BYTE    decode_ASCII_to_[256][4];
-extern  CHAR    StopPoint;
+extern  char    StopPoint;
 extern  BYTE    CodePages[];
 //extern  INT     gbCol1,gbCol2;
 
@@ -1469,7 +1469,7 @@ return;
 
 // knot for Alik debug. Absent pass 'j'
 Bool Alik_snap_show_raster(PBYTE raster,PBYTE raster1,PBYTE buf,INT height,
-                           INT width,PCHAR product,PCHAR product_two,
+                           INT width,char * product,char * product_two,
                            PINT penalty)
 
 {

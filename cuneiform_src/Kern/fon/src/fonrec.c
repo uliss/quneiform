@@ -871,7 +871,7 @@ FON_FUNC(int32_t) FONSizesInfo(SizesInfo *sizeinfo,int num)
 ///////////////////////
 SINT cmp0(PBYTE r, WORD fullByte, WORD w, WORD h, welet * wl, SINT xo, SINT yo) {
 	LONG n, ac, np;
-	PCHAR curr;
+	char * curr;
 	SINT i, j, jj;
 	BYTE cbyte, cc;
 	SINT rbyte;
@@ -1186,7 +1186,7 @@ FON_FUNC(int32_t) FONGetClusterAsBW(int32_t *name,int32_t number,int32_t porog,R
 {
 	int xbit,yrow;
 	int bytesx;
-	CHAR *rr;
+	char *rr;
 	int startx;
 	int starty;
 	int i,j;

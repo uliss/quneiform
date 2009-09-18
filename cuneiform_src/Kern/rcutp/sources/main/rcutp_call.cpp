@@ -92,7 +92,7 @@ return TRUE;
 
 RCUTP_FUNC(Bool32)  RCUTP_CutPoints(uchar *raster,struct own_cut *ans, int16_t w, int16_t h, int16_t row)
 {
-  Alik_define_cut_points((PCHAR)raster, ans, w, h, row);
+  Alik_define_cut_points((char *)raster, ans, w, h, row);
 
  return TRUE;
 }

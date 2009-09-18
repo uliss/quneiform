@@ -204,14 +204,14 @@ Bool CreateInternalFileForFormatter(FILE *pIFName)
             fwrite( &cChar->m_wCountAlt ,    sizeof( WORD ),1,pIFName);
 			for (int iAlt=0;iAlt<cChar->m_wCountAlt&&iAlt<REC_MAX_VERS;iAlt++)
 			{
-				fwrite( &cChar->m_chrVersions[iAlt].m_bChar ,sizeof( CHAR ),1,pIFName);
-				fwrite( &cChar->m_chrVersions[iAlt].m_bProbability , sizeof( CHAR ),1,pIFName);
+				fwrite( &cChar->m_chrVersions[iAlt].m_bChar ,sizeof( char ),1,pIFName);
+				fwrite( &cChar->m_chrVersions[iAlt].m_bProbability , sizeof( char ),1,pIFName);
 			}
-            fwrite( &cChar->m_blanguage ,    sizeof( CHAR ),1,pIFName);
-            fwrite( &cChar->m_bFlg_spell_nocarrying, sizeof( CHAR ),1,pIFName);
-            fwrite( &cChar->m_bFlg_cup_drop ,sizeof( CHAR ),1,pIFName);
-            fwrite( &cChar->m_bFlg_spell,    sizeof( CHAR ),1,pIFName);
-            fwrite( &cChar->m_wFontNumber ,  sizeof( CHAR ),1,pIFName);
+            fwrite( &cChar->m_blanguage ,    sizeof( char ),1,pIFName);
+            fwrite( &cChar->m_bFlg_spell_nocarrying, sizeof( char ),1,pIFName);
+            fwrite( &cChar->m_bFlg_cup_drop ,sizeof( char ),1,pIFName);
+            fwrite( &cChar->m_bFlg_spell,    sizeof( char ),1,pIFName);
+            fwrite( &cChar->m_wFontNumber ,  sizeof( char ),1,pIFName);
          }
       }
    }

@@ -259,7 +259,7 @@ inline int WINAPI lstrlenA(LPCSTR lpszString)
 	if(lpstrDest == NULL || lpstrSrc == NULL || nLength <= 0)
 		return NULL;
 	int nLen = min(lstrlen(lpstrSrc), nLength - 1);
-	LPTSTR lpstrRet = (LPTSTR)memcpy(lpstrDest, lpstrSrc, nLen * sizeof(TCHAR));
+	LPTSTR lpstrRet = (LPTSTR)memcpy(lpstrDest, lpstrSrc, nLen * sizeof(Tchar));
 	lpstrDest[nLen] = 0;
 	return lpstrRet;
   }

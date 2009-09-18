@@ -102,8 +102,8 @@ Bool isLikeDigit(BYTE c)
 Bool digital_last_context(void)
 {
   cell *curr,*tmp;
-  CHAR punct_list[]="'\"=:";
-  CHAR sign_list[]="+-_";
+  char punct_list[]="'\"=:";
+  char sign_list[]="+-_";
   INT  l = strlen(punct_list),num,num_dig,num_bad,num_broken;
   BYTE c,p;
 
@@ -366,10 +366,10 @@ void setup_digital_mode_pass2(str_info *str, INT first_pass)
 {
 cell *curr;
 INT  num_dig,num_let,num_bad,num_all, num_dig_let;
-///CHAR dig_list[]="|1234567890¡Ž®‡§‚ø¢", 21.05.2002 E.P.
-CHAR dig_let_list[]="036",let_dig_list[]="‚¢ø";
+///char dig_list[]="|1234567890¡Ž®‡§‚ø¢", 21.05.2002 E.P.
+char dig_let_list[]="036",let_dig_list[]="‚¢ø";
 // letters_ini ïóíêòóàöèþ ïåðåâîäèò â letter !!!
-CHAR punct_list[]="'\"=:!¼?\\.,-"; // remove (){}[]/
+char punct_list[]="'\"=:!¼?\\.,-"; // remove (){}[]/
 BYTE c,p;
 
 digital_mode=0;
@@ -435,11 +435,11 @@ void setup_digital_mode(str_info *str, INT first_pass)
 cell *curr;
 INT  num_dig,num_let,num_bad,num_all, num_dig_let;
 INT  num_asOne;
-//CHAR dig_list[]="|1234567890¡Ž®‡§‚ø¢",
-CHAR   dig_let_list[]="036",let_dig_list[]="‚¢ø";
-//CHAR punct_list[]="'\"=:!(){}[]!¼?\\/";
-CHAR punct_list[]="'\"=:;";
-CHAR asOne_list[]="1[]/!|";
+//char dig_list[]="|1234567890¡Ž®‡§‚ø¢",
+char   dig_let_list[]="036",let_dig_list[]="‚¢ø";
+//char punct_list[]="'\"=:!(){}[]!¼?\\/";
+char punct_list[]="'\"=:;";
+char asOne_list[]="1[]/!|";
 BYTE c,p;
 
 digital_mode=0;
@@ -872,7 +872,7 @@ return col;
 
 void make_simples_diff(INT lang)
 {
-extern CHAR db_pass;
+extern char db_pass;
 cell *c,*e=cell_l();
 INT  dbp = db_pass;
 
@@ -940,8 +940,8 @@ INT ll, pos_n;
 
 if( !c->env )
   return 0;
-for (pos_n=nl=0,inter_l=255,line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
-		(ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
+for (pos_n=nl=0,inter_l=255,line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
+		(ll=line->lth)>0; line=(lnhead *)((char *)line+ll))
 	{
 	h=(BYTE)line->h;
   if( nl>1 )
@@ -949,7 +949,7 @@ for (pos_n=nl=0,inter_l=255,line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof
   if( h>1 )
     nl ++;
 
-  for( inter=(interval *)((PCHAR)line+sizeof(lnhead));
+  for( inter=(interval *)((char *)line+sizeof(lnhead));
        h ;h--,inter++)        /* one line     */
 		{
     if( nl && inter_l > inter->l && h<line->h-3 && h>line->h/2 )

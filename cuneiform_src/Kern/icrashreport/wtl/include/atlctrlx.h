@@ -253,7 +253,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
             }
 
             int cchLen = lstrlen(lpstrText) + 1;
-            ATLTRY(m_lpstrToolTipText = new TCHAR[cchLen]);
+            ATLTRY(m_lpstrToolTipText = new Tchar[cchLen]);
             if(m_lpstrToolTipText == NULL)
                 return false;
 
@@ -909,7 +909,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
         delete [] m_lpstrLabel;
         m_lpstrLabel = NULL;
         int cchLen = lstrlen(lpstrLabel) + 1;
-        ATLTRY(m_lpstrLabel = new TCHAR[cchLen]);
+        ATLTRY(m_lpstrLabel = new Tchar[cchLen]);
         if(m_lpstrLabel == NULL)
             return false;
 
@@ -941,7 +941,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
         delete [] m_lpstrHyperLink;
         m_lpstrHyperLink = NULL;
         int cchLen = lstrlen(lpstrLink) + 1;
-        ATLTRY(m_lpstrHyperLink = new TCHAR[cchLen]);
+        ATLTRY(m_lpstrHyperLink = new Tchar[cchLen]);
         if(m_lpstrHyperLink == NULL)
             return false;
 
@@ -1173,7 +1173,7 @@ uint32_t dwStyle = GetStyle();
 #endif // !_WIN32_WCE
             MESSAGE_HANDLER(WM_LBUTTONDOWN, OnLButtonDown)
             MESSAGE_HANDLER(WM_LBUTTONUP, OnLButtonUp)
-            MESSAGE_HANDLER(WM_CHAR, OnChar)
+            MESSAGE_HANDLER(WM_char, OnChar)
             MESSAGE_HANDLER(WM_GETDLGCODE, OnGetDlgCode)
             MESSAGE_HANDLER(WM_SETCURSOR, OnSetCursor)
             MESSAGE_HANDLER(WM_ENABLE, OnEnable)
@@ -1397,7 +1397,7 @@ uint32_t dwStyle = GetStyle();
 
         // Check if we should paint a label
         const int cchBuff = 8;
-        TCHAR szBuffer[cchBuff] = { 0 };
+        Tchar szBuffer[cchBuff] = { 0 };
         if(::GetClassName(m_hWnd, szBuffer, cchBuff))
         {
             if(lstrcmpi(szBuffer, _T("static")) == 0)
@@ -1458,7 +1458,7 @@ uint32_t dwStyle = GetStyle() & 0x000000FF;
             int nLen = GetWindowTextLength();
             if(nLen > 0)
             {
-                CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
+                CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
                 LPTSTR lpstrText = buff.Allocate(nLen + 1);
                 ATLASSERT(lpstrText != NULL);
                 if((lpstrText != NULL) && (GetWindowText(lpstrText, nLen + 1) > 0))
@@ -1491,12 +1491,12 @@ uint32_t dwStyle = GetStyle() & 0x000000FF;
             if(lRet == 0)
             {
                 const int cchValue = 12;
-                TCHAR szValue[cchValue] = { 0 };
+                Tchar szValue[cchValue] = { 0 };
 #if (_ATL_VER >= 0x0700)
                 ulong ulCount = cchValue;
                 lRet = rk.QueryStringValue(_T("Anchor Color"), szValue, &ulCount);
 #else
-uint32_t dwCount = cchValue * sizeof(TCHAR);
+uint32_t dwCount = cchValue * sizeof(Tchar);
                 lRet = rk.QueryValue(szValue, _T("Anchor Color"), &dwCount);
 #endif
                 if(lRet == 0)
@@ -1511,7 +1511,7 @@ uint32_t dwCount = cchValue * sizeof(TCHAR);
                 ulCount = cchValue;
                 lRet = rk.QueryStringValue(_T("Anchor Color Visited"), szValue, &ulCount);
 #else
-                dwCount = cchValue * sizeof(TCHAR);
+                dwCount = cchValue * sizeof(Tchar);
                 lRet = rk.QueryValue(szValue, _T("Anchor Color Visited"), &dwCount);
 #endif
                 if(lRet == 0)
@@ -1813,7 +1813,7 @@ uint32_t dwStyle = GetStyle();
         return ((m_dwExtendedStyle & HLINK_NOTOOLTIP) == 0);
     }
 
-    static int _xttoi(const TCHAR* nptr)
+    static int _xttoi(const Tchar* nptr)
     {
 #ifndef _ATL_MIN_CRT
         return _ttoi(nptr);
@@ -1821,20 +1821,20 @@ uint32_t dwStyle = GetStyle();
         while(*nptr == _T(' '))   // skip spaces
             ++nptr;
 
-        int c = (int)(_TUCHAR)*nptr++;
+        int c = (int)(_TUchar)*nptr++;
         int sign = c;   // save sign indication
         if (c == _T('-') || c == _T('+'))
-            c = (int)(_TUCHAR)*nptr++;   // skip sign
+            c = (int)(_TUchar)*nptr++;   // skip sign
 
         int total = 0;
-        while((TCHAR)c >= _T('0') && (TCHAR)c <= _T('9'))
+        while((Tchar)c >= _T('0') && (Tchar)c <= _T('9'))
         {
-            total = 10 * total + ((TCHAR)c - _T('0'));   // accumulate digit
-            c = (int)(_TUCHAR)*nptr++;        // get next char
+            total = 10 * total + ((Tchar)c - _T('0'));   // accumulate digit
+            c = (int)(_TUchar)*nptr++;        // get next char
         }
 
         // return result, negated if necessary
-        return ((TCHAR)sign != _T('-')) ? total : -total;
+        return ((Tchar)sign != _T('-')) ? total : -total;
 #endif // _ATL_MIN_CRT
     }
 };
@@ -1961,7 +1961,7 @@ public:
     HWND Create(HWND hWndParent, UINT nTextID = ATL_IDS_IDLEMESSAGE, DWORD dwStyle = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | SBARS_SIZEGRIP, UINT nID = ATL_IDW_STATUS_BAR)
     {
         const int cchMax = 128;   // max text length is 127 for status bars (+1 for null)
-        TCHAR szText[cchMax];
+        Tchar szText[cchMax];
         szText[0] = 0;
         ::LoadString(ModuleHelper::GetResourceInstance(), nTextID, szText, cchMax);
         return Create(hWndParent, szText, dwStyle, nID);
@@ -1998,7 +1998,7 @@ public:
         GetBorders(arrBorders);
 
         const int cchBuff = 128;
-        TCHAR szBuff[cchBuff] = { 0 };
+        Tchar szBuff[cchBuff] = { 0 };
         SIZE size = { 0, 0 };
         int cxLeft = arrBorders[0];
 
@@ -2293,7 +2293,7 @@ public:
     CToolBarCtrl m_tb;
     ATL::CWindow m_wndClient;
     int m_cxyHeader;
-    TCHAR m_szTitle[m_cchTitle];
+    Tchar m_szTitle[m_cchTitle];
 uint32_t m_dwExtendedStyle;   // Pane container specific extended styles
 
 
@@ -3030,7 +3030,7 @@ uint32_t dwPrevStyle = m_dwSortLVExtendedStyle;
         LVCompareParam* pParam = NULL;
         ATLTRY(pParam = new LVCompareParam[nCount]);
         PFNLVCOMPARE pFunc = NULL;
-        TCHAR pszTemp[pT->m_cchCmpTextMax];
+        Tchar pszTemp[pT->m_cchCmpTextMax];
         bool bStrValue = false;
 
         switch(wType)
@@ -3049,7 +3049,7 @@ uint32_t dwPrevStyle = m_dwSortLVExtendedStyle;
                 {
                     pParam[i].iItem = i;
                     pParam[i].dwItemData = pT->GetItemData(i);
-                    pParam[i].pszValue = new TCHAR[pT->m_cchCmpTextMax];
+                    pParam[i].pszValue = new Tchar[pT->m_cchCmpTextMax];
                     pT->GetItemText(i, iCol, (LPTSTR)pParam[i].pszValue, pT->m_cchCmpTextMax);
                     pT->SetItemData(i, (DWORD_PTR)&pParam[i]);
                 }
@@ -3129,7 +3129,7 @@ uint32_t dwFlags = LOCALE_NOUSEROVERRIDE;
             LVCompareParam* p = (LVCompareParam*)dwItemData;
             ATLASSERT(p != NULL);
             if(bStrValue)
-                delete [] (TCHAR*)p->pszValue;
+                delete [] (Tchar*)p->pszValue;
             pT->SetItemData(i, p->dwItemData);
         }
         delete [] pParam;
@@ -3896,7 +3896,7 @@ public:
             return;
 
         int cchLen = m_wndTitleBar.GetWindowTextLength() + 1;
-        ATLTRY(m_lpstrTitleBarBase = new TCHAR[cchLen]);
+        ATLTRY(m_lpstrTitleBarBase = new Tchar[cchLen]);
         if(m_lpstrTitleBarBase != NULL)
         {
             m_wndTitleBar.GetWindowText(m_lpstrTitleBarBase, cchLen);
@@ -3940,7 +3940,7 @@ public:
 
         int cchBuff = lstrlen(lpstrTitle) + 1;
         LPTSTR lpstrBuff = NULL;
-        ATLTRY(lpstrBuff = new TCHAR[cchBuff]);
+        ATLTRY(lpstrBuff = new Tchar[cchBuff]);
         if(lpstrBuff == NULL)
             return false;
 
@@ -3950,7 +3950,7 @@ public:
         if(m_tab.GetItem(nPage, tcix) == FALSE)
             return false;
 
-        CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
+        CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
         LPTSTR lpstrTabText = buff.Allocate(m_cchTabTextLength + 1);
         if(lpstrTabText == NULL)
             return false;
@@ -4042,13 +4042,13 @@ public:
 
         int cchBuff = lstrlen(lpstrTitle) + 1;
         LPTSTR lpstrBuff = NULL;
-        ATLTRY(lpstrBuff = new TCHAR[cchBuff]);
+        ATLTRY(lpstrBuff = new Tchar[cchBuff]);
         if(lpstrBuff == NULL)
             return false;
 
         SecureHelper::strcpy_x(lpstrBuff, cchBuff, lpstrTitle);
 
-        CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
+        CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
         LPTSTR lpstrTabText = buff.Allocate(m_cchTabTextLength + 1);
         if(lpstrTabText == NULL)
             return false;
@@ -4252,7 +4252,7 @@ public:
             {
                 LPCTSTR lpstrTitle = GetPageTitle(i);
                 int nLen = lstrlen(lpstrTitle);
-                CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
+                CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
                 LPTSTR lpstrText = buff.Allocate(cchPrefix + nLen + 1);
                 ATLASSERT(lpstrText != NULL);
                 if(lpstrText != NULL)
@@ -4570,7 +4570,7 @@ public:
         if(nMovePage == nInsertBeforePage)
             return true;   // nothing to do
 
-        CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
+        CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
         LPTSTR lpstrTabText = buff.Allocate(m_cchTabTextLength + 1);
         if(lpstrTabText == NULL)
             return false;
@@ -4681,7 +4681,7 @@ public:
             LPCTSTR lpstrTitle = pT->GetPageTitle(m_nActivePage);
             LPCTSTR lpstrDivider = pT->GetTitleDividerText();
             int cchBuffer = m_cchTitleBarLength + lstrlen(lpstrDivider) + lstrlen(m_lpstrTitleBarBase) + 1;
-            CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
+            CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
             LPTSTR lpstrPageTitle = buff.Allocate(cchBuffer);
             ATLASSERT(lpstrPageTitle != NULL);
             if(lpstrPageTitle != NULL)

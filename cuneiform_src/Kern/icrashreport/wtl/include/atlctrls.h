@@ -664,7 +664,7 @@ public:
 		if(nLen == LB_ERR)
 			return FALSE;
 
-		CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
+		CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
 		LPTSTR lpstrText = buff.Allocate(nLen + 1);
 		if(lpstrText == NULL)
 			return FALSE;
@@ -1005,7 +1005,7 @@ public:
 		if(nLen == CB_ERR)
 			return FALSE;
 
-		CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
+		CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
 		LPTSTR lpstrText = buff.Allocate(nLen + 1);
 		if(lpstrText == NULL)
 			return FALSE;
@@ -1328,7 +1328,7 @@ public:
 	POINT PosFromChar(UINT nChar) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		DWORD dwRet = (DWORD)::SendMessage(m_hWnd, EM_POSFROMCHAR, nChar, 0);
+		DWORD dwRet = (DWORD)::SendMessage(m_hWnd, EM_POSFROMchar, nChar, 0);
 		POINT point = { GET_X_LPARAM(dwRet), GET_Y_LPARAM(dwRet) };
 		return point;
 	}
@@ -1356,16 +1356,16 @@ public:
 		return (int)::SendMessage(m_hWnd, EM_GETLINE, nIndex, (LPARAM)lpszBuffer);
 	}
 
-	TCHAR GetPasswordChar() const
+	Tchar GetPasswordChar() const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (TCHAR)::SendMessage(m_hWnd, EM_GETPASSWORDCHAR, 0, 0L);
+		return (Tchar)::SendMessage(m_hWnd, EM_GETPASSWORDchar, 0, 0L);
 	}
 
-	void SetPasswordChar(TCHAR ch)
+	void SetPasswordChar(Tchar ch)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		::SendMessage(m_hWnd, EM_SETPASSWORDCHAR, ch, 0L);
+		::SendMessage(m_hWnd, EM_SETPASSWORDchar, ch, 0L);
 	}
 
 #ifndef _WIN32_WCE
@@ -1454,7 +1454,7 @@ public:
 	int LineFromChar(int nIndex = -1) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (int)::SendMessage(m_hWnd, EM_LINEFROMCHAR, nIndex, 0L);
+		return (int)::SendMessage(m_hWnd, EM_LINEFROMchar, nIndex, 0L);
 	}
 
 	int LineIndex(int nLine = -1) const
@@ -2963,7 +2963,7 @@ public:
 		int nRes = 0;
 		for(int nLen = 256; ; nLen *= 2)
 		{
-			ATLTRY(lpstrText = new TCHAR[nLen]);
+			ATLTRY(lpstrText = new Tchar[nLen]);
 			if(lpstrText == NULL)
 				break;
 			lpstrText[0] = NULL;
@@ -4107,7 +4107,7 @@ public:
 		Bool bRet = FALSE;
 		for(int nLen = 256; ; nLen *= 2)
 		{
-			ATLTRY(lpstrText = new TCHAR[nLen]);
+			ATLTRY(lpstrText = new Tchar[nLen]);
 			if(lpstrText == NULL)
 				break;
 			lpstrText[0] = NULL;
@@ -5765,7 +5765,7 @@ public:
 		int nLength = (int)(short)LOWORD(::SendMessage(m_hWnd, TB_GETSTRING, MAKEWPARAM(0, nString), NULL));
 		if(nLength != -1)
 		{
-			CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
+			CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
 			LPTSTR lpstrText = buff.Allocate(nLength + 1);
 			if(lpstrText != NULL)
 			{
@@ -6035,7 +6035,7 @@ public:
 		return (Bool)::SendMessage(m_hWnd, TB_INSERTMARKHITTEST, (WPARAM)&pt, (LPARAM)lptbim);
 	}
 
-	Bool MapAccelerator(TCHAR chAccel, int& nID) const
+	Bool MapAccelerator(Tchar chAccel, int& nID) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (Bool)::SendMessage(m_hWnd, TB_MAPACCELERATOR, (WPARAM)chAccel, (LPARAM)&nID);
@@ -6138,7 +6138,7 @@ public:
 		if(nLength == 0)
 			return FALSE;
 
-		CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
+		CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
 		LPTSTR lpstrText = buff.Allocate(nLength + 1);
 		if(lpstrText == NULL)
 			return FALSE;
@@ -7475,7 +7475,7 @@ public:
 		::SendMessage(m_hWnd, EM_EXGETSEL, 0, (LPARAM)&cr);
 
 #if (_RICHEDIT_VER >= 0x0200)
-		CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
+		CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
 		LPTSTR lpstrText = buff.Allocate(cr.cpMax - cr.cpMin + 1);
 		if(lpstrText == NULL)
 			return FALSE;
@@ -7779,7 +7779,7 @@ public:
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		GETTEXTEX gte = { 0 };
-		gte.cb = nTextLen * sizeof(TCHAR);
+		gte.cb = nTextLen * sizeof(Tchar);
 		gte.codepage = uCodePage;
 		gte.flags = dwFlags;
 		gte.lpDefaultChar = lpDefaultChar;
@@ -7885,14 +7885,14 @@ public:
 	int LineFromChar(LONG nIndex) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (int)::SendMessage(m_hWnd, EM_EXLINEFROMCHAR, 0, nIndex);
+		return (int)::SendMessage(m_hWnd, EM_EXLINEFROMchar, 0, nIndex);
 	}
 
 	POINT PosFromChar(LONG nChar) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		POINT point = { 0, 0 };
-		::SendMessage(m_hWnd, EM_POSFROMCHAR, (WPARAM)&point, nChar);
+		::SendMessage(m_hWnd, EM_POSFROMchar, (WPARAM)&point, nChar);
 		return point;
 	}
 
@@ -8898,7 +8898,7 @@ public:
 		Bool bRet = FALSE;
 		for(int nLen = 256; ; nLen *= 2)
 		{
-			ATLTRY(lpstrText = new TCHAR[nLen]);
+			ATLTRY(lpstrText = new Tchar[nLen]);
 			if(lpstrText == NULL)
 				break;
 			lpstrText[0] = NULL;

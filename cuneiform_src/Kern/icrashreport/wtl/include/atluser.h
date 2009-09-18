@@ -105,7 +105,7 @@ inline int AtlMessageBox(HWND hWndOwner, ATL::_U_STRINGorID message, ATL::_U_STR
 	{
 		for(int nLen = 256; ; nLen *= 2)
 		{
-			ATLTRY(lpstrMessage = new TCHAR[nLen]);
+			ATLTRY(lpstrMessage = new Tchar[nLen]);
 			if(lpstrMessage == NULL)
 			{
 				ATLASSERT(FALSE);
@@ -126,7 +126,7 @@ inline int AtlMessageBox(HWND hWndOwner, ATL::_U_STRINGorID message, ATL::_U_STR
 	{
 		for(int nLen = 256; ; nLen *= 2)
 		{
-			ATLTRY(lpstrTitle = new TCHAR[nLen]);
+			ATLTRY(lpstrTitle = new Tchar[nLen]);
 			if(lpstrTitle == NULL)
 			{
 				ATLASSERT(FALSE);
@@ -442,7 +442,7 @@ public:
 		}
 
 		nLen++;   // increment to include terminating NULL char
-		CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
+		CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
 		LPTSTR lpszText = buff.Allocate(nLen);
 		if(lpszText == NULL)
 			return FALSE;

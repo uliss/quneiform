@@ -125,7 +125,7 @@ extern	INT dis_figa_left (STICK_SIGNUMS *s);
 extern	INT dis_figa_right(STICK_SIGNUMS *s);
 extern	INT dis_slash(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
 extern	INT dis_vert(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s,
-		INT add_flag, CHAR type);
+		INT add_flag, char type);
 /*----------------------------------------------------------------------*/
 						// to STIC_FRT.C:
 extern	INT dis_f (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
@@ -237,12 +237,12 @@ switch( let )
   // 31.08.2000 E.P.
   case liga_exm_usual :   /*  '!' */        /* 0xBC <-> ! + point */
 	if (liga_exm_usual==liga_exm)
-		 dis = dis_vert(l,r,s,0,(CHAR)liga_exm);
+		 dis = dis_vert(l,r,s,0,(char)liga_exm);
 	break;
 
   case liga_exm_latin :   /*  '!' */        /* 0xBC <-> ! + point */
 	if (liga_exm_latin==liga_exm)
-		 dis = dis_vert(l,r,s,0,(CHAR)liga_exm);
+		 dis = dis_vert(l,r,s,0,(char)liga_exm);
 	break;
 
   case CROAT_d :

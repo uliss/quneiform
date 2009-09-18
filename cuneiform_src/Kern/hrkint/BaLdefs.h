@@ -123,9 +123,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // буква была переведена в dust
    BYTE          let_to_dust;
 // все буквы в строке заглавные
-   CHAR          all_caps;
+   char          all_caps;
 // посчитаны и заполнены в растры ->bdiff, ->difflg.
-   CHAR          all_diffs_made;
+   char          all_diffs_made;
   }
  BAL_INOUT_GLOBALS;
 

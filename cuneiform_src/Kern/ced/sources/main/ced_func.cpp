@@ -334,7 +334,7 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 			fd->flag=fp->flag;
 		break;
 	}
-	case EDEXT_CHAR:
+	case EDEXT_char:
 	{
 		charParams* chp=(charParams*)ptExt;
 		fontNum=chp->fontNumber;
@@ -922,7 +922,7 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 		chp.fontNumber=fontNum=tmpChr->fontNum;
 		chp.foregroundColor=foregroundColor=tmpChr->foregroundColor;
 		chp.backgroundColor=backgroundColor=tmpChr->backgroundColor;
-		if (!WriteExtCode(hFile,EDEXT_CHAR,&chp,sizeof(chp))) goto ED_WRITE_END;
+		if (!WriteExtCode(hFile,EDEXT_char,&chp,sizeof(chp))) goto ED_WRITE_END;
 		EdTagLanguage fl;
 		fl.code=SS_LANGUAGE;
 		fl.language=lang=tmpChr->fontLang;
@@ -966,7 +966,7 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 						chp.fontNumber=fontNum=chr->fontNum;
 						chp.foregroundColor=foregroundColor=chr->foregroundColor;
 						chp.backgroundColor=backgroundColor=chr->backgroundColor;
-						if (!WriteExtCode(hFile,EDEXT_CHAR,&chp,sizeof(chp))) goto ED_WRITE_END;
+						if (!WriteExtCode(hFile,EDEXT_char,&chp,sizeof(chp))) goto ED_WRITE_END;
 					}
 					if(chr->fontLang!=lang)
 					{

@@ -83,7 +83,7 @@ Bool32 ConverROUT(char * lpOutFileName, int32_t lnFormat, int32_t lnCode,Bool32 
 		!ROUT_SetImportData(ROUT_HANDLE_PageHandle,ghEdPage)||
 		!ROUT_SetImportData(ROUT_LONG_Format,(void*)lnFormat)||
 		!ROUT_SetImportData(ROUT_LONG_Code,(void*)lnCode)||
-		!ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR,&gnUnrecogChar))
+		!ROUT_SetImportData(ROUT_PCHAR_BAD_char,&gnUnrecogChar))
 	{
 		SetReturnCode_puma(ROUT_GetReturnCode());
 		return FALSE;
@@ -148,7 +148,7 @@ uint32_t rc = 0;
 		!ROUT_SetImportData(ROUT_HANDLE_PageHandle,hEd)||
 		!ROUT_SetImportData(ROUT_LONG_Format,(void*)lnFormat)||
 		!ROUT_SetImportData(ROUT_LONG_Code,(void*)lnCode)||
-		!ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR,&gnUnrecogChar))
+		!ROUT_SetImportData(ROUT_PCHAR_BAD_char,&gnUnrecogChar))
 	{
 		SetReturnCode_puma(ROUT_GetReturnCode());
 		return rc;

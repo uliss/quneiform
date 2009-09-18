@@ -202,7 +202,7 @@ static struct
 #define EQU_E2  EQU_e2+sizeof(eq_list.e2)
 #define EQU_ii  EQU_E2+sizeof(eq_list.E2)
 
-CHAR eq_let[256]=
+char eq_let[256]=
   {
   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,   // 0
   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,   // 1
@@ -503,14 +503,14 @@ static void comptorast(c_comp *cp1, StrRaster *str_raster)
  lnhead *lp1;
  interval *int1;
 
- lp1=(lnhead *) ( (CHAR *)cp1 + cp1->lines + 2); // beginning of first line
+ lp1=(lnhead *) ( (char *)cp1 + cp1->lines + 2); // beginning of first line
  for (lc1=0; lc1 < Lc1; lc1++)
  {
    h1=lp1->row+cp1->upper-str_raster->top;
    int1=(interval *)(lp1+1);       // ptr to current interval
    for (y1=0; y1 < (LONG)lp1->h; y1++, int1++, h1++)
      inttorast(str_raster,h1,(LONG)(int1->e+cp1->left-str_raster->left),int1->l);
-   lp1=(lnhead *) ((CHAR *)lp1+lp1->lth);   // next line
+   lp1=(lnhead *) ((char *)lp1+lp1->lth);   // next line
  }
 }
 
@@ -537,7 +537,7 @@ static void inttorast( StrRaster *r, LONG h, LONG end, LONG lth)
 
 static Bool calc_cut_points(cell *wb, cell *we, INT rastlc, INT rastdr)
 {
-  CHAR x;
+  char x;
   INT i,j,ro,wide=MAXINT;
   INT  nc;        //количество сечений cell'а
   INT dust_sect=0;//флаг: сечение из dust'ов
@@ -949,7 +949,7 @@ static LONG inc(CutPoint **cutp, LONG i, LONG ie, LONG set)
   (*cutp)++; i++;
   while (1)
   {
-    CHAR var=(*cutp)->var & 0x7F;
+    char var=(*cutp)->var & 0x7F;
     if (i==ie || in_set(var,set))  return i;
     (*cutp)++; i++;
   }
@@ -962,7 +962,7 @@ static LONG dec(CutPoint **cutp, LONG i, LONG ie, LONG set)
   (*cutp)--; i--;
   while (1)
   {
-    CHAR var=(*cutp)->var & 0x7F;
+    char var=(*cutp)->var & 0x7F;
     if (i==ie || in_set(var,set))  return i;
     (*cutp)--; i--;
   }
@@ -1260,10 +1260,10 @@ static void mw_show_rast()
   {
     struct cut_elm *ce=cut_el+i;
     CutPoint *cp=cut_list+i;
-    ce->x  =(CHAR)cp->x;
-    ce->dh =(CHAR)cp->dh;
-    ce->h  =(CHAR)cp->h;
-    ce->var=(CHAR)cp->var;
+    ce->x  =(char)cp->x;
+    ce->dh =(char)cp->dh;
+    ce->h  =(char)cp->h;
+    ce->var=(char)cp->var;
   }
   cut_el[ncut].x=127;
 
@@ -1312,7 +1312,7 @@ void test_match_cell_word(B_LINES *my_bases, INT cut_width)
   LONG m,n;
   cell *wb=cell_f()->next,*we;
   MatchWordPar  param;
-  CHAR wascii[80];
+  char wascii[80];
   uint32_t mon;
 
   strcpy(mwInput,"");

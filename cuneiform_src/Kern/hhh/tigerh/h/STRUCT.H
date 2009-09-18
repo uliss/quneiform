@@ -250,7 +250,7 @@ typedef struct vers_struct version;
 
 struct stick_struct
  {
- CHAR x,y,l,w,top,bot;
+ char x,y,l,w,top,bot;
  INT incl;
  };
 typedef struct stick_struct STICK;
@@ -266,7 +266,7 @@ struct cell_struc
  struct cell_struc *prev; 	// prev in all string
  struct cell_struc *nextl; 	// next letter ( only for letters )
  struct cell_struc *prevl; 	// prev letter ( only for letters )
- CHAR bdiff;    // local base line corrective displacement
+ char bdiff;    // local base line corrective displacement
  BYTE difflg;   // local correction flg
 // baseline defined by cell:
 #define c_db_b1 1
@@ -287,10 +287,10 @@ struct cell_struc
 #define c_bs_round  32
 #define c_bs_cap    64     // capital shape
 #define c_bs_done   128
- CHAR bas1;
- CHAR bas2;
- CHAR bas3;
- CHAR bas4;
+ char bas1;
+ char bas2;
+ char bas3;
+ char bas4;
  INT r_row;     // real row of cell
  INT r_col; 	// real collumn of cell
  INT nvers; 	// number of versions

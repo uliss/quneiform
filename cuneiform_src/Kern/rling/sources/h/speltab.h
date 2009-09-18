@@ -105,8 +105,8 @@ typedef struct
 
 typedef struct
  {
-  CHAR pref_no;
-  CHAR post_no;
+  char pref_no;
+  char post_no;
   BYTE relabty;                       // INT
   BYTE  _unused;
  } ArtVH;

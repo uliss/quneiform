@@ -327,7 +327,7 @@ void initcode( void )
 
 /* ------------------------------------------------------------------ */
 
-INT symcode(CHAR  *ed)
+INT symcode(char  *ed)
 {
   return all_lt[ (BYTE)*ed ];
 }
@@ -355,7 +355,7 @@ void initstdn(void)
 /**********************************************************************/
 /* This procedure converts STD symbol code to it number in STD-list   */
 /**********************************************************************/
-INT getstdn ( CHAR  *ed)
+INT getstdn ( char  *ed)
 {
   return tabstdn[ (BYTE)*ed ];
 }

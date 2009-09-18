@@ -164,7 +164,7 @@ Bool32  enable_pass2=TRUE;
 static  Bool32  stop_user = FALSE;
 uchar   valid_word_number=0;
 version * start_rec, *rec_ptr;
-INT  text_findstat(CHAR * w);
+INT  text_findstat(char * w);
 BYTE db_pass;
 BYTE string[8192];
 WORD lpool_lth;
@@ -2650,7 +2650,7 @@ void store_colors(CSTR_line lino)
 }
 
 
-INT  text_findstat(CHAR * w)
+INT  text_findstat(char * w)
 {
 #ifdef     _USE_SPELLING_
     int32_t                      Check = 0;
@@ -2664,7 +2664,7 @@ INT  text_findstat(CHAR * w)
 #endif
 }
 
-INT  text_findstat_aux(CHAR * w)
+INT  text_findstat_aux(char * w)
 {
 #ifdef     _USE_SPELLING_
     int32_t                      Check = 0;
@@ -2678,7 +2678,7 @@ INT  text_findstat_aux(CHAR * w)
 #endif
 }
 
-INT  text_findstat_agressive(CHAR * w)
+INT  text_findstat_agressive(char * w)
 {
     return 0;
 }

@@ -260,7 +260,7 @@ public:
            m_sEmail.ReverseFind(_T('.')) < m_sEmail.Find(_T('@'))))
       {
          // alert user
-         TCHAR szBuf[256];
+         Tchar szBuf[256];
 		   ::LoadString(_Module.GetResourceInstance(), IDS_INVALID_EMAIL, szBuf, 255);
          MessageBox(szBuf, CUtility::getAppName(), MB_OK);
          // select email

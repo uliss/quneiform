@@ -63,14 +63,14 @@
 #include "cttypes.h"
 #include "udictest.h"
 
-uint32_t LoadUserDict(CHAR *DictName, CHAR *pool, uint32_t pool_size,
+uint32_t LoadUserDict(char *DictName, char *pool, uint32_t pool_size,
 		voc_state *user_dict);
 
-uint32_t InitializeNewUserDict(CHAR * pool, uint32_t pool_size,
+uint32_t InitializeNewUserDict(char * pool, uint32_t pool_size,
 		voc_state *user_dict);
 void ResetUserDict(voc_state * user_dict);
 
-INT _IsUserDict(CHAR *FileName);
+INT _IsUserDict(char *FileName);
 
 Bool CloseUserDictionary(BYTE * DictName, voc_state *user_dict);
 INT AddWordToUserDictionary(BYTE * word, INT weight, voc_state * user_dict);

@@ -116,7 +116,7 @@ typedef struct edExtention EDEXT;
 //SS_EXTENTION может быть 16 и 32 битно длинным - здесь 32
 #define EDEXT_PICS		(0x306|0x8000)
 #define EDEXT_TABLE_CELL 0x307
-#define EDEXT_CHAR		0x308
+#define EDEXT_char		0x308
 typedef struct sTable
 {
  EDEXT 	  head;

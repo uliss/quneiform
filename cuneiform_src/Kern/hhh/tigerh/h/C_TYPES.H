@@ -99,9 +99,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*			Byte size data                                */
 
-  typedef signed char           CHAR;
+  typedef signed char           char;
   typedef unsigned char         BYTE;
-  typedef signed char near *	PCHAR;
+  typedef signed char near *	char *;
   typedef unsigned char near *	PBYTE;
   typedef unsigned char near *	PSTR;
 
@@ -134,8 +134,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*			Byte size data */
 
-  typedef signed char		CHAR;
-  typedef signed char *		PCHAR;
+  typedef signed char		char;
+  typedef signed char *		char *;
 
 /*			Word size data */
 

@@ -149,7 +149,7 @@ void make_abris(s_glue *GL, cell *cl)
   cold=a->col - gl_mincol;  // cell_to_box_relative col
   cp1 = a->env;
   Lc1=cp1->nl;        // number of lines in component
-  Lp1=(lnhead *) ( (CHAR *)cp1 + cp1->lines + 2); // beginning of first line
+  Lp1=(lnhead *) ( (char *)cp1 + cp1->lines + 2); // beginning of first line
   Lp2=Lp1;
   for (lc1=0; lc1 < Lc1; lc1++)
   {
@@ -187,7 +187,7 @@ void make_abris(s_glue *GL, cell *cl)
       }
       if (Lp1->h > 1)  total_num_black_int += Lp1->h;
 
-      Lp2=Lp1=(lnhead *) ((CHAR *)Lp2+Lp2->lth);   // next line
+      Lp2=Lp1=(lnhead *) ((char *)Lp2+Lp2->lth);   // next line
   }  // for all lines
  }  // while all cells
 
@@ -641,7 +641,7 @@ BYTE  shift_from_top;
  return retpen;
 }
 
- INT Let_bint_index( CHAR Let )
+ INT Let_bint_index( char Let )
 {
  switch (Let)
   {

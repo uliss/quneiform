@@ -1814,7 +1814,7 @@ INT get_space_size(void)
 //
 void set_space_size(INT spn)
 {
-	CHAR str[80];
+	char str[80];
 
 	sp=spn;
 	spmin=sp-1;

@@ -98,11 +98,11 @@ INT           Ns1=0,Ns2=0;        // in Iot.c   only  !!!
 
 BYTE          let_to_dust=0;
 
-CHAR          all_caps=0;
-CHAR          all_diffs_made=0;
+char          all_caps=0;
+char          all_diffs_made=0;
 CSTR_line     lin_str=(CSTR_line)NULL;     // pass3.c only
 
-CHAR          dust_in = 0;
+char          dust_in = 0;
 
 static BAL_bas_ln all_bases[32];
 
