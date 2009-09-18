@@ -80,7 +80,7 @@ static void ProgressFinish( void )
     fnProgressStop();
 	g_pRecognition->Fire_ProgressFinish();
 }
-static Bool32 ProgressStep( Word32 swStageNumber,const char* StageName, Word32 swPercent )
+static Bool32 ProgressStep( uint32_t swStageNumber,const char* StageName, uint32_t swPercent )
 {
 	USES_CONVERSION;
     return fnProgressStep(swStageNumber,(char *)StageName,swPercent) &
@@ -113,7 +113,7 @@ Bool32 _SetSpecialProject(long nSpecPrj)
 
 void _SetLanguage(short newVal)
 {
-	LPUMA_SetLanguage((Word32)newVal);
+	LPUMA_SetLanguage((uint32_t)newVal);
 }
 
 long _Status()
@@ -126,7 +126,7 @@ long _Status()
 char * _ErrorMessage(long rc)
 {
 	static char szStr[2048];
-	sprintf(szStr,"<0x%08X>: %s",rc,LPUMA_GetReturnString((Word32)rc ));
+	sprintf(szStr,"<0x%08X>: %s",rc,LPUMA_GetReturnString((uint32_t)rc ));
 	return szStr;
 }
 
@@ -204,7 +204,7 @@ BOOL _Save(void * hEdPage, char * lpFileName,long format, long code, Bool32 bApp
 	return rc;
 }
 
-Word32 _SaveToMemory(Handle hEdPage, int32_t format, int32_t code, char * lpMem, Word32 size )
+uint32_t _SaveToMemory(Handle hEdPage, int32_t format, int32_t code, char * lpMem, uint32_t size )
 {
 	BOOL rc = 0;
 

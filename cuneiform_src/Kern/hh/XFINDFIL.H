@@ -122,7 +122,7 @@ public:
 
    operator char * (void) { return can_reply ? (char*)fileinfo.name : NULL; }
    char* SafeStr(void)    { return can_reply ? (char*)fileinfo.name : (char*)"";   }
-   Word32 FileAttrib(void)    { return can_reply ? (Word32)fileinfo.attrib : 0;   }
+   uint32_t FileAttrib(void)    { return can_reply ? (uint32_t)fileinfo.attrib : 0;   }
    Bool  IsArchive (void) { return fileinfo.attrib & _A_ARCH  ; };//  Archive. Set whenever the file is changed, and cleared by the BACKUP command. Value: 0x20
    Bool  IsHidden  (void) { return fileinfo.attrib & _A_HIDDEN; };//  Hidden file. Not normally seen with the DIR command, unless the /AH option is used. Returns information about normal files as well as files with this attribute. Value: 0x02
    Bool  IsNormal  (void) { return fileinfo.attrib & _A_NORMAL; };//  Normal. File can be read or written to without restriction. Value: 0x00

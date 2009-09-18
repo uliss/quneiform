@@ -68,7 +68,7 @@ typedef Bool   ( *TPrgStart     )  (void);
 typedef Bool   ( *TPrgFinish    )  (void);
 typedef Bool   ( *TPrgNewStage  )  (Int16 StageId, char * szStage, Int16 stage_volume);
 typedef Bool   ( *TPrgSetPercent)  (Int16 prc);
-typedef Bool   ( *TPrgMessageBox)  (char  * szMessage, Word32 *flags); // use "wmb.h" to obtain flags
+typedef Bool   ( *TPrgMessageBox)  (char  * szMessage, uint32_t *flags); // use "wmb.h" to obtain flags
 
 typedef struct tagPrgSet
  {
@@ -103,7 +103,7 @@ _SETTYPES(TPrgSet);
 //               TRUE - if all is OK or
 //               FALSE - if user interrupted process.
 //
-//5. Bool   ProgressMessageBox  (char  * szMessage, Word32 *flags) -
+//5. Bool   ProgressMessageBox  (char  * szMessage, uint32_t *flags) -
 //                       frankly speaking it is not progress function,
 //                       it is just Win like MessageBox.
 //        Parameters:

@@ -115,7 +115,7 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, const char* ImageDelLines)
 	int len_hor_mas=0;
 	int len_ver_mas=0;
 	int add_len_mas=50;
-	Word32 size_lineinfo=sizeof(LineInfo);
+	uint32_t size_lineinfo=sizeof(LineInfo);
 	if(!LDPUMA_Skip(NotKillPointed))
 		fl_not_kill_pointed=TRUE;
 	else
@@ -129,10 +129,10 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, const char* ImageDelLines)
 //	LineInfo			  linfo;     // собственно, что и надо
 	PAGEINFO              info = {0};	 // Описание страницы
 //	Handle                pBlock;
-//	Word32				  size32;
+//	uint32_t				  size32;
 	int					  i;
-//	Word32    HorType;
-//    Word32    VerType;
+//	uint32_t    HorType;
+//    uint32_t    VerType;
 	BOOL fl_cont;
     Word8 ImageName[CPAGE_MAXNAME];
 	// Получаем PAGEINFO текущей страницы
@@ -177,7 +177,7 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, const char* ImageDelLines)
 //	Word8* pos=(Word8*)(ctdib->GetPtrToPixel (pHorLines[0].begx,pHorLines[0].begy));
 //	Word8* pos2=(Word8*)(ctdib->GetPtrToPixel (pHorLines[0].begx,pHorLines[0].begy));
 
-	Word32 size_line_com=sizeof(LINE_COM);
+	uint32_t size_line_com=sizeof(LINE_COM);
 	CLINE_handle hline;
 
    if(LDPUMA_Skip(ObvKillLines))
@@ -293,8 +293,8 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, const char* ImageDelLines)
 		 return FALSE;
 	  }
 
-	 HorType = (Word32)lti.Hor.Lns;
-	 VerType = (Word32)lti.Ver.Lns;
+	 HorType = (uint32_t)lti.Hor.Lns;
+	 VerType = (uint32_t)lti.Ver.Lns;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -1067,8 +1067,8 @@ BOOL GetMasP(Handle hCPage,Word8* ImageName,int x1,int y1,int x2,int y2,Word8** 
 
 	Bool ret;
 
-	DataInto.dwHeight   = (Word32)(h);
-	DataInto.dwWidth    = (Word32)(prewide);
+	DataInto.dwHeight   = (uint32_t)(h);
+	DataInto.dwWidth    = (uint32_t)(prewide);
 	DataInto.wByteWidth = (Word16)(prewide/8);
 	DataInto.dwX        = left;
 	DataInto.dwY        = upper;

@@ -79,7 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 /////////////////////////////////
 
-# define __RGB__(r,g,b)          ((Word32)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
+# define __RGB__(r,g,b)          ((uint32_t)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
 
 /////////////////////////////////
 extern jmp_buf fatal_error_exit;	// For error handling
@@ -121,9 +121,9 @@ void PageLayoutStrings(Handle hCCOM,Handle hCPAGE)
 }
 /////////////////////////////////
 /*
-Word32 myMonitorProc(Handle wnd,Handle hwnd,Word32 message,Word32 wParam,Word32 lParam)
+uint32_t myMonitorProc(Handle wnd,Handle hwnd,uint32_t message,uint32_t wParam,uint32_t lParam)
 {
-	Word32 rc = 0; // если обработка не состоялась
+	uint32_t rc = 0; // если обработка не состоялась
 	switch(message)
 	{
 	case WM_LBUTTONDBLCLK:
@@ -316,7 +316,7 @@ static void LayoutFromCPAGE(Handle hCPAGE)
 	int nBlocks = FIRST_REGULAR_BLOCK_NUMBER;
 	Point16 pLeftTop, pRightTop, pLeftBottom, pRightBottom;
 	ROOT * pRoot = NULL;
-	Word32 BlockNumber;
+	uint32_t BlockNumber;
     // piter 08.07.99
 	PAGEINFO    PInfo = {0};
 
@@ -345,7 +345,7 @@ static void LayoutFromCPAGE(Handle hCPAGE)
 	h!=NULL;
 	h = CPAGE_GetBlockNext(hCPAGE,h,TYPE_TEXT))
 	{
-        Word32 f = CPAGE_GetBlockFlags(hCPAGE,h);
+        uint32_t f = CPAGE_GetBlockFlags(hCPAGE,h);
 		//BlockNumber = CPAGE_GetBlockUserNum(hCPAGE,h)*64000;// Piter 030399
 		if(CPAGE_GetBlockData(hCPAGE,h,TYPE_TEXT, &block, sizeof(block))!=sizeof(block))
 		{

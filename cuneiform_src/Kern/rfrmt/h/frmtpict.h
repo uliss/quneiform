@@ -70,9 +70,9 @@ extern   float      Twips;
 	extern "C" {
 #endif
 
-Word32 GetPictCount  ( void );
-BOOL		 WritePict     ( Word32   IndexPict, RtfSectorInfo* SectorInfo /*,  CString* PictString*/, BOOL OutPutType);
-BYTE   GetPictRect   ( Word32   NumberPict , Rect16* RectPict ,Word32* UserNumber);
+uint32_t GetPictCount  ( void );
+BOOL		 WritePict     ( uint32_t   IndexPict, RtfSectorInfo* SectorInfo /*,  CString* PictString*/, BOOL OutPutType);
+BYTE   GetPictRect   ( uint32_t   NumberPict , Rect16* RectPict ,uint32_t* UserNumber);
 void   GetBmpFileName( char* BmpFileName, char* RtfFileName, int IndexPict );
 
 #ifdef __cplusplus

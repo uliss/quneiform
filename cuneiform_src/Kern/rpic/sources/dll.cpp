@@ -110,15 +110,15 @@ RPIC_FUNC(Bool32) RPIC_Done()
 	return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////
-RPIC_FUNC(Word32) RPIC_GetReturnCode()
+RPIC_FUNC(uint32_t) RPIC_GetReturnCode()
 {
-	Word32 rc = 0;
+	uint32_t rc = 0;
 	if(gwLowRC && (gwLowRC - IDS_ERR_NO)> 0 )
-		rc = (Word32)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
+		rc = (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
 	return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
-RPIC_FUNC(Int8 *) RPIC_GetReturnString(Word32 dwError)
+RPIC_FUNC(Int8 *) RPIC_GetReturnString(uint32_t dwError)
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
 	static Int8 szBuffer[512];
@@ -134,7 +134,7 @@ RPIC_FUNC(Int8 *) RPIC_GetReturnString(Word32 dwError)
 	return szBuffer;
 }
 //////////////////////////////////////////////////////////////////////////////////
-RPIC_FUNC(Bool32) RPIC_GetExportData(Word32 dwType, void * pData)
+RPIC_FUNC(Bool32) RPIC_GetExportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -162,7 +162,7 @@ RPIC_FUNC(Bool32) RPIC_GetExportData(Word32 dwType, void * pData)
 return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
-RPIC_FUNC(Bool32) RPIC_SetImportData(Word32 dwType, void * pData)
+RPIC_FUNC(Bool32) RPIC_SetImportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -182,7 +182,7 @@ return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 
-void SetReturnCode_rpic(Word32 rc)
+void SetReturnCode_rpic(uint32_t rc)
 {
 Word16 low = (Word16)(rc &  0xFFFF);
 Word16 hei = (Word16)(rc >> 16);
@@ -192,15 +192,15 @@ Word16 hei = (Word16)(rc >> 16);
 	else
 	{
 		if(low - IDS_ERR_NO)
-			gwLowRC = (Word16)((Word32)(gwHeightRC<<16)|(low - IDS_ERR_NO));
+			gwLowRC = (Word16)((uint32_t)(gwHeightRC<<16)|(low - IDS_ERR_NO));
 		else
 			gwLowRC = 0;
 	}
 }
 
-Word32 GetReturnCode_rpic()
+uint32_t GetReturnCode_rpic()
 {
-Word32 rc = gwLowRC;
+uint32_t rc = gwLowRC;
 Word16 low = (Word16)(gwLowRC &  0xFFFF);
 Word16 hei = (Word16)(gwLowRC >> 16);
 

@@ -81,10 +81,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 RPIC_FUNC(Bool32) RPIC_Init(Word16 wHeightCode,Handle hStorage);
 RPIC_FUNC(Bool32) RPIC_Done();
-RPIC_FUNC(Word32) RPIC_GetReturnCode();
-RPIC_FUNC(Int8 *) RPIC_GetReturnString(Word32 dwError);
-RPIC_FUNC(Bool32) RPIC_GetExportData(Word32 dwType, void * pData);
-RPIC_FUNC(Bool32) RPIC_SetImportData(Word32 dwType, void * pData);
+RPIC_FUNC(uint32_t) RPIC_GetReturnCode();
+RPIC_FUNC(Int8 *) RPIC_GetReturnString(uint32_t dwError);
+RPIC_FUNC(Bool32) RPIC_GetExportData(uint32_t dwType, void * pData);
+RPIC_FUNC(Bool32) RPIC_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////
 
 
@@ -100,7 +100,7 @@ DEC_FUN(Bool32, RPIC_SearchPictures,(Handle hCCOM, Handle hCCOM_big,Handle hCPAG
 
 /*
 typedef void   (*FNRPIC_ProgressStart)( void );
-typedef	Bool32 (*FNRPIC_ProgressStep)(Word32 perc);
+typedef	Bool32 (*FNRPIC_ProgressStep)(uint32_t perc);
 typedef	void   (*FNRPIC_ProgressFinish)( void );
 */
 

@@ -168,26 +168,26 @@ RVERLINE_FUNC(Bool32) RVERLINE_Done()
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-RVERLINE_FUNC(Word32) RVERLINE_GetReturnCode()
+RVERLINE_FUNC(uint32_t) RVERLINE_GetReturnCode()
 {
 	Word8  err8;
-	Word32 err32;
+	uint32_t err32;
 	if (gwHeightRC_rver==0)
 	{
-		err32 = (Word32)(0);
+		err32 = (uint32_t)(0);
 		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
 		gwLowRC_rver = (Word16)(err8<<8);
 		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
 		gwLowRC_rver |= (Word16)err8;
-		err32 |= (Word32)gwLowRC_rver;
+		err32 |= (uint32_t)gwLowRC_rver;
 		return err32;
 	}
 	if (gwLowRC_rver==ER_ROUGH_NONE)
-		return (Word32)(0);
-	return (Word32)(gwHeightRC_rver<<16)|(gwLowRC_rver);
+		return (uint32_t)(0);
+	return (uint32_t)(gwHeightRC_rver<<16)|(gwLowRC_rver);
 }
 /*----------------------------------------------------------------------------*/
-RVERLINE_FUNC(Int8 *) RVERLINE_GetReturnString(Word32 dwError)
+RVERLINE_FUNC(Int8 *) RVERLINE_GetReturnString(uint32_t dwError)
 {
 	Word8  err8, err8_1;
 	Word16 err16;
@@ -289,7 +289,7 @@ RVERLINE_FUNC(Int8 *) RVERLINE_GetReturnString(Word32 dwError)
 	return szBuffer;
 }
 /*----------------------------------------------------------------------------*/
-RVERLINE_FUNC(Bool32) RVERLINE_GetExportData(Word32 dwType, void * pData)
+RVERLINE_FUNC(Bool32) RVERLINE_GetExportData(uint32_t dwType, void * pData)
 {
 	Word8 err8;
 	if (gwHeightRC_rver==0)

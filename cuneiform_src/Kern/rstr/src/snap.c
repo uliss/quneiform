@@ -118,7 +118,7 @@ static  BYTE    db_skip_client;
 static  CSTR_line   snap_line;
 static  cell        currcell;//,*db_stopcell;
 static  Point32 cutpoints_show[128];
-static  Word32  numpoints_show;
+static  uint32_t  numpoints_show;
 static  cell *  cutpoints_cell=NULL;
 static  int32_t   select_line=0, num_select_lines=0;
 cell   *stopcell=NULL;
@@ -186,7 +186,7 @@ static int Lang_Console(char *text, Word8 lang)
 {
 char    buf[1024];
 //LDPUMA_SetConsoleProperty(Bool32 bold,Bool32 italic,
-//      Bool32 strikeout,Bool32 underline,int32_t height, int32_t offset,   Word32 textcolor,
+//      Bool32 strikeout,Bool32 underline,int32_t height, int32_t offset,   uint32_t textcolor,
 //      int charset,    char * name )
 LDPUMA_SetConsoleProperty(0,0,
         0,0,0,  0,      0,
@@ -264,9 +264,9 @@ return (CSTR_rast)NULL;
 }
 
 // позиция cell-a
-static Word32 snap_cell2pos(cell *cl)
+static uint32_t snap_cell2pos(cell *cl)
 {
-Word32 pos;
+uint32_t pos;
 cell    *c,*e;
 for(pos=0,c=cell_f()->next,e=cell_l();c!=e;c=c->next,pos++)
     {
@@ -620,11 +620,11 @@ return -1;
 
 #ifdef _USE_DFON_
   int (*DFon_SendRaster)(RecRaster* rr, Handle pPaintWnd, Word8 let);
-  void (*DFon_Terminated)(Word32 wParam);
+  void (*DFon_Terminated)(uint32_t wParam);
 #endif
 
 // обработчик  сообщений
-Word32 myMonitorProc(Handle wnd,Handle hwnd,Word32 message,Word32 wParam,Word32 lParam)
+uint32_t myMonitorProc(Handle wnd,Handle hwnd,uint32_t message,uint32_t wParam,uint32_t lParam)
 {
 int             ret=0;
 CSTR_rast       r=(CSTR_rast)0;
@@ -637,7 +637,7 @@ BYTE            str[1200];
 static CSTR_rast s_r = (CSTR_rast)0;
 unsigned int    i,ii;
 static BOOL     no_process=TRUE;
-Word32          pos;
+uint32_t          pos;
 char            buf[256];
 
 pos=LDPUMA_CSTR_GetPosition((int *)&r);
@@ -1079,7 +1079,7 @@ switch(message)
                 break;
         }
 
-return (Word32)(ret);
+return (uint32_t)(ret);
 }
 
 // режим мониторинга строки и ожидания клавиши
@@ -1501,13 +1501,13 @@ BOOL snap_baselines(BYTE a)
 	return !LDPUMA_Skip(hSnapLineBL[a - 'a']);
 }
 
-void snap_draw_line(Handle wnd, Point16 *start, Point16 *end, int32_t skew, Word32 rgb, Int16 pen, Word32 key)//IGOR
+void snap_draw_line(Handle wnd, Point16 *start, Point16 *end, int32_t skew, uint32_t rgb, Int16 pen, uint32_t key)//IGOR
 {
 	LDPUMA_DrawLine(wnd,start, end, skew, rgb, pen, key);
 	return;
 }
 
-void snap_del_line(Handle wnd, Word32 key)
+void snap_del_line(Handle wnd, uint32_t key)
 {
 	LDPUMA_DeleteLines(wnd, key);
 	return;

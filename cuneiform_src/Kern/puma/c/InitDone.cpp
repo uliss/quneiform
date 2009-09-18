@@ -282,7 +282,7 @@ if( !LDPUMA_Skip(hDebugEnableSaveJtl) )
 }
 //////////////////////////////////////////
 #ifdef _DEBUG
-char * GetModulesString(Word32 dwError)
+char * GetModulesString(uint32_t dwError)
 {
 	Word16 low = (Word16)(dwError &  0xFFFF);
 	Word16 hei = (Word16)(dwError >> 16);
@@ -367,12 +367,12 @@ char * GetModulesString(Word32 dwError)
 
 #else
 //////////////////////////////////////////////////////////////////////
-char * GetModulesString(Word32 dwError)
+char * GetModulesString(uint32_t dwError)
 {
 	Word16 low = (Word16)(dwError &  0xFFFF);
 	Word16 hei = (Word16)(dwError >> 16);
 	static char szString[512];
-	Word32 	id = IDS_ERR_UNKNOWN;
+	uint32_t 	id = IDS_ERR_UNKNOWN;
 
 
 		switch(hei)

@@ -148,9 +148,9 @@ RLINGS_FUNC(Bool32)RLINGS_Done()
 //////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Word32) RLING_GetReturnCode()
+RLING_FUNC(uint32_t) RLING_GetReturnCode()
 #else
-RLINGS_FUNC(Word32) RLINGS_GetReturnCode()
+RLINGS_FUNC(uint32_t) RLINGS_GetReturnCode()
 #endif
 {
 	if ( !gwLowRC )
@@ -161,14 +161,14 @@ RLINGS_FUNC(Word32) RLINGS_GetReturnCode()
 	return RLINGS_GetReturnCode();
 #endif
 
-	return (Word32)(gwHeightRC<<16)|(gwLowRC - IDS_RLING_ERR_NO);
+	return (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_RLING_ERR_NO);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Int8 *) RLING_GetReturnString(Word32 dwError)
+RLING_FUNC(Int8 *) RLING_GetReturnString(uint32_t dwError)
 #else
-RLINGS_FUNC(Int8 *) RLINGS_GetReturnString(Word32 dwError)
+RLINGS_FUNC(Int8 *) RLINGS_GetReturnString(uint32_t dwError)
 #endif
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_RLING_ERR_NO;
@@ -194,9 +194,9 @@ RLINGS_FUNC(Int8 *) RLINGS_GetReturnString(Word32 dwError)
 //////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_GetExportData(Word32 dwType, void * pData)
+RLING_FUNC(Bool32) RLING_GetExportData(uint32_t dwType, void * pData)
 #else
-RLINGS_FUNC(Bool32) RLINGS_GetExportData(Word32 dwType, void * pData)
+RLINGS_FUNC(Bool32) RLINGS_GetExportData(uint32_t dwType, void * pData)
 #endif
 {
 	Bool32 rc = TRUE;
@@ -239,9 +239,9 @@ RLINGS_FUNC(Bool32) RLINGS_GetExportData(Word32 dwType, void * pData)
 //////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_SetImportData(Word32 dwType, void * pData)
+RLING_FUNC(Bool32) RLING_SetImportData(uint32_t dwType, void * pData)
 #else
-RLINGS_FUNC(Bool32) RLINGS_SetImportData(Word32 dwType, void * pData)
+RLINGS_FUNC(Bool32) RLINGS_SetImportData(uint32_t dwType, void * pData)
 #endif
 {
 	BOOL rc = FALSE;

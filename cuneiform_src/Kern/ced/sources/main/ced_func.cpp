@@ -73,13 +73,13 @@ static int		font,kegl,lang;
 static int foregroundColor,backgroundColor,fontNum;
 static char * verInfo;
 
-static void ExtDataProc(Word8* _ptr, Word32 lth);
+static void ExtDataProc(Word8* _ptr, uint32_t lth);
 void NewFormattedSDD(const sheet_disk_descr* pt);
 void NewFormattedFDD(const fragm_disk_descr* pt);
 void NewFormattedTR(const text_ref* pt);
 //void NewFormattedFD(const fragm_disk* pt);
 void NewFormattedLB(const line_beg* pt);
-void NewFormattedL(const letter* pt,const Word32 alternatives);
+void NewFormattedL(const letter* pt,const uint32_t alternatives);
 void NewFormattedBMR(const bit_map_ref * pt);
 void NewFormattedFK(const font_kegl * pt);
 void NewFormattedE(const edExtention* pt,const void* ptExt);
@@ -93,13 +93,13 @@ void CED_DeleteTree(CEDPage * pg)
 
 void RepairStructure();
 
-CEDPage * CED_FormattedLoad (char * file,Bool32 readFromFile, Word32 bufLen)
+CEDPage * CED_FormattedLoad (char * file,Bool32 readFromFile, uint32_t bufLen)
 {
 	CED_SetRawDataProc(ExtDataProc);
 	if (CED_IsEdFile(file,readFromFile,bufLen)==96)
 	{
 		return 0;
-//		return Formattedload_96(char * file,Bool32 readFromFile, Word32 bufLen);
+//		return Formattedload_96(char * file,Bool32 readFromFile, uint32_t bufLen);
 	}
 	else if (CED_IsEdFile(file,readFromFile,bufLen)!=2000)
 		return 0;
@@ -131,7 +131,7 @@ CEDPage * CED_FormattedLoad (char * file,Bool32 readFromFile, Word32 bufLen)
 }
 
 //Put non-recognized codes to the corresponding field of extData
-void ExtDataProc(Word8* _ptr, Word32 lth)
+void ExtDataProc(Word8* _ptr, uint32_t lth)
 {}
 
 void NewFormattedSDD(const sheet_disk_descr* pt)
@@ -442,7 +442,7 @@ void NewFormattedLang(const EdTagLanguage* pt)
 {
 	lang=pt->language;
 }
-void NewFormattedL(const letter* pt,const Word32 alternatives)
+void NewFormattedL(const letter* pt,const uint32_t alternatives)
 {
 	if (!curEdLine)
 		return;
@@ -1154,10 +1154,10 @@ Bool32 WriteRemark(HANDLE hFile,int type, int object)
 }
 
 
-Word32 CED_IsEdFile (char * file,Bool32 readFromFile, Word32 bufLen)
+uint32_t CED_IsEdFile (char * file,Bool32 readFromFile, uint32_t bufLen)
 {
 	HANDLE PedHandle;
-	Word32 len;
+	uint32_t len;
 	PWord8 start;
 
 	if (readFromFile)

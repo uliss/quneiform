@@ -94,7 +94,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	  Int16  nFieldRow;   // вход > 0 - номер строки (поля?)
       Int16  col;         // вход - координаты
 	  Int16  row;         //
-	  Word32 wFonFlags;   // возврат - флаги frhdefs.h
+	  uint32_t wFonFlags;   // возврат - флаги frhdefs.h
 
 //Andrey - 20030620 - flags from frhdefs.h
 //----------------------------------------
@@ -201,10 +201,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		Word8  kegl;
         Int16  sr_col;
 		Int16  sr_row;
-		Word32 summa;
-		Word32 fields[2]; // [NFIELDDWORD]
+		uint32_t summa;
+		uint32_t fields[2]; // [NFIELDDWORD]
 		Int16  nInCTB;
-		Word32 tablColumn;
+		uint32_t tablColumn;
 	} FonClusterBase;
 
 	/////////

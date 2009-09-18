@@ -107,8 +107,8 @@ static FNREXC_ProgressStart  fnProgressStart_exc =NULL;
 static FNREXC_ProgressStep   fnProgressStep_exc  =NULL;
 static FNREXC_ProgressFinish fnProgressFinish_exc=NULL;
 //=========== Progress Monitor
-static  Word32 progress_vol=0, progress_rel=0;
-void    progress_start (Word32 volume)
+static  uint32_t progress_vol=0, progress_rel=0;
+void    progress_start (uint32_t volume)
 {
 progress_vol=volume;
 if( fnProgressStart_exc )
@@ -125,9 +125,9 @@ if( fnProgressFinish_exc )
 return ;
 }
 
-Word32  progress_set_percent (Word32 step)
+uint32_t  progress_set_percent (uint32_t step)
 {
-Word32  rel = (step/progress_vol)*100;
+uint32_t  rel = (step/progress_vol)*100;
 if( !progress_vol || rel<progress_rel+10 )
     return step;
 progress_rel = rel;
@@ -183,7 +183,7 @@ extern void matrix_close();
 extern void matrix_reset();
 //========== Local func ==========
 static void save_gcomp(ExtComponent *c);
-static Bool process_comp(void * pool,Word32 size);
+static Bool process_comp(void * pool,uint32_t size);
 static Bool flush_cache(void);
 static void reset_cache(void);
 static Bool init_dump_file(void);
@@ -516,7 +516,7 @@ CCOM_New(NumContainer ,g->row, g->col, g->w, g->h);
 return 1;
 }
 
-Bool    AcceptBoxes(void * pool, Word32 size)
+Bool    AcceptBoxes(void * pool, uint32_t size)
 {
 ExcBox* g , *ge;
 
@@ -607,7 +607,7 @@ if( curr_comp  )
 return lth ;
 }
 
-Bool    AcceptComps(void * pool, Word32 size)
+Bool    AcceptComps(void * pool, uint32_t size)
 {
 ExtComponent *  g , *ge;
 Word16          lth;
@@ -1054,7 +1054,7 @@ if( ExControl & Ex_NoContainer )
  process_comp(&g,sizeof(gcomp));
 }
 
-Bool process_comp(void * pool,Word32 size)
+Bool process_comp(void * pool,uint32_t size)
 {
  assert(size < CACHESIZE);
  assert(pool && cache);
@@ -1133,7 +1133,7 @@ if( !ori )
 if (*ori == 5)
 {
 	const double formatA4 = 1.4;
-	Word32 PageNumber = CPAGE_GetCurrentPage();
+	uint32_t PageNumber = CPAGE_GetCurrentPage();
 	Handle h_Page = CPAGE_GetHandlePage(PageNumber);
 	PAGEINFO page_info = {0};
     if(GetPageInfo(h_Page,&page_info))
@@ -1173,7 +1173,7 @@ else
 return TRUE;
 }
 
-EXC_FUNC(Bool32) REXC_GetExportData(Word32 dwType, void * pData)
+EXC_FUNC(Bool32) REXC_GetExportData(uint32_t dwType, void * pData)
 {
 #define CASE_DATA(a,b,c)        case a: *(b *)pData = c; break
         Bool32 rc = TRUE;
@@ -1187,60 +1187,60 @@ EXC_FUNC(Bool32) REXC_GetExportData(Word32 dwType, void * pData)
 /*-Andrey: moved to RRecCom (recognition) and RNorm (autorotate)
 //--------------------------------------------------------------
         case REXC_FNEVNPROPERT:
-            *(Word32*)pData =          (Word32)REXC_SetEVNProperties;
+            *(uint32_t*)pData =          (uint32_t)REXC_SetEVNProperties;
             break;
 -*/
         case REXC_FNEXTRACOMP :
-            *(Word32*)pData =          (Word32)REXCExtracomp;
+            *(uint32_t*)pData =          (uint32_t)REXCExtracomp;
             break;
         case REXC_FNEXTRA :
-            *(Word32*)pData =          (Word32)REXCExtra;
+            *(uint32_t*)pData =          (uint32_t)REXCExtra;
             break;
         case REXC_FNEXTRADIB:
-            *(Word32*)pData =          (Word32)REXCExtraDIB;
+            *(uint32_t*)pData =          (uint32_t)REXCExtraDIB;
             break;
 
         case    REXC_FNGETCONTAINER:
-            *(Word32*)pData =          (Word32)REXCGetContainer;
+            *(uint32_t*)pData =          (uint32_t)REXCGetContainer;
             break;
 
         case    REXC_FNGETLENEREP:
-            *(Word32*)pData =          (Word32)REXCMakeLP;
+            *(uint32_t*)pData =          (uint32_t)REXCMakeLP;
             break;
         case    REXC_FNVERSION:
-            *(Word32*)pData =          (Word32)REXC_VERSION_CODE;
+            *(uint32_t*)pData =          (uint32_t)REXC_VERSION_CODE;
             break;
 /*-Andrey: moved to RRecCom (recognition) and RNorm (autorotate)
 //--------------------------------------------------------------
         case    REXC_FNREX_ISLANGUAGE:
-            *(Word32*)pData =          (Word32)REXC_IsLanguage;
+            *(uint32_t*)pData =          (uint32_t)REXC_IsLanguage;
             break;
         case    REXC_FNGETORIENT:
-            *(Word32*)pData =          (Word32)REXC_GetOrient;
+            *(uint32_t*)pData =          (uint32_t)REXC_GetOrient;
             break;
 -*/
         case    REXC_FNMN2CCOM:
-            *(Word32*)pData =          (Word32)REXC_MN2CCOM;
+            *(uint32_t*)pData =          (uint32_t)REXC_MN2CCOM;
             break;
         case    REXC_FNGETINVERTION:
-            *(Word32*)pData =          (Word32)REXC_GetInvertion;
+            *(uint32_t*)pData =          (uint32_t)REXC_GetInvertion;
             break;
 /*-Andrey: moved to RRecCom (recognition) and RNorm (autorotate)
 //--------------------------------------------------------------
         case    REXC_FNEVNALPHABET:     // установка алфавита для евент
-            *(Word32*)pData =          (Word32)REXC_SetEVNAlphabet;
+            *(uint32_t*)pData =          (uint32_t)REXC_SetEVNAlphabet;
             break;
 -*/
         case    REXC_FNEXTRACOMP3CB:    // 3 коллбэка
-            *(Word32*)pData =          (Word32)REXCExtracomp3CB;
+            *(uint32_t*)pData =          (uint32_t)REXCExtracomp3CB;
             break;
 /*-Andrey: moved to RRecCom (recognition) and RNorm (autorotate)
 //--------------------------------------------------------------
         case    REXC_FNEXTGETRECRASTERORIENT: // ориентация рабочего растра
-            *(Word32*)pData =          (Word32)exc_get_rec_raster_orient;
+            *(uint32_t*)pData =          (uint32_t)exc_get_rec_raster_orient;
             break;
         case    REXC_FNSETALLALPHAGRA: // алфавит нейронной сети
-            *(Word32*)pData =          (Word32)exc_set_all_alphabet_gra;
+            *(uint32_t*)pData =          (uint32_t)exc_set_all_alphabet_gra;
             break;
 -*/
         default:
@@ -1251,7 +1251,7 @@ EXC_FUNC(Bool32) REXC_GetExportData(Word32 dwType, void * pData)
 return rc;
 }
 
-EXC_FUNC(Bool32) REXC_SetImportData(Word32 dwType, void * pData)
+EXC_FUNC(Bool32) REXC_SetImportData(uint32_t dwType, void * pData)
 {
 #define CASE_DATA(a,b,c)        case a: c = *(b *)pData; break
 #define CASE_PDATA(a,b,c)       case a: c = (b)pData;    break
@@ -1274,14 +1274,14 @@ switch(dwType)
 return TRUE;
 }
 
-EXC_FUNC(Word32)   REXC_GetReturnCode(void)
+EXC_FUNC(uint32_t)   REXC_GetReturnCode(void)
 {
 if( wLowRC == REXC_ERR_NO )
   return 0;
 return (wHeightRC<<16)|(wLowRC-REXC_ERR_MIN);
 }
 
-EXC_FUNC(char*)   REXC_GetReturnString(Word32 dwError)
+EXC_FUNC(char*)   REXC_GetReturnString(uint32_t dwError)
 {
         Word16 rc = (Word16)((dwError & 0xFFFF) );
         static char szBuffer[512];

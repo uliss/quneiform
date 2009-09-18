@@ -1008,12 +1008,12 @@ return nv;
 
 Bool32  rpstr_normal_spell(char *sec_wrd)
 {
-Word32          sizeout;
+uint32_t          sizeout;
 int32_t                   Check = 0;
 if( !language && multy_language )
     { // second dict
     if( !RLING_CheckSecED((PInt8)ed_buffer,(PInt8)edo_buffer,
-            (Word32)(MED_file_end-ed_buffer), &sizeout,
+            (uint32_t)(MED_file_end-ed_buffer), &sizeout,
             &Check) )
         {
         sp_err=RLING_GetReturnString(RLING_GetReturnCode());
@@ -1023,7 +1023,7 @@ if( !language && multy_language )
 else
     { // first dict
     if( !RLING_CheckED((PInt8)ed_buffer,(PInt8)edo_buffer,
-            (Word32)(MED_file_end-ed_buffer), &sizeout,
+            (uint32_t)(MED_file_end-ed_buffer), &sizeout,
             &Check) )
         {
         sp_err=RLING_GetReturnString(RLING_GetReturnCode());
@@ -1755,7 +1755,7 @@ if( !u.lnAltCnt || !rpstr_is_lower(u.Alt[0].Code[0]) )
 return TRUE;
 }
 
-Word32 myMonitorProc(Handle wnd,Handle hwnd,Word32 message,Word32 wParam,Word32 lParam);
+uint32_t myMonitorProc(Handle wnd,Handle hwnd,uint32_t message,uint32_t wParam,uint32_t lParam);
 static void unis2word(UniVersions *uvs,int32_t n,Word8 *str)
 {
 int32_t   i;

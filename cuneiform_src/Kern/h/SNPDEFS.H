@@ -91,7 +91,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    ////////////////////////////////////////////////
    // Public Attributes
    CppPublic
-      Word32         Status;
+      uint32_t         Status;
          // zero - not active node
          #define STN_DRAW           0x00000001L  // some drawing permitted by user
          #define STN_STOP           0x00000002L  // stopping permitted by user
@@ -104,10 +104,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
      char           Name[64];
 
-      Word32         UserLocal;
+      uint32_t         UserLocal;
          // for local usage
 
-      Word32         hTreeCtrl;
+      uint32_t         hTreeCtrl;
          // handle of proper TreeCtrl item, don't touch!
 
    /////////////////////////////////////////////////
@@ -143,23 +143,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    // Iterability
 
    CppPrivate
-      Word32         IterTotal;
+      uint32_t         IterTotal;
          // set in dll when node is used inside loop
          // (if count of iteration is known);
          // does not control execution and nodes activation
          // used simply to bring information for user
 
-      Word32         IterCur;
+      uint32_t         IterCur;
          // used when node is located inside loop
          // should be set (in dll) to 0 at start of loop
          // and incremented at start of each iteration
 
-      Word32         IterParent;
+      uint32_t         IterParent;
          // if nonzero - node not activated;
          // increased by iterated parent node
          // to temporary disable activation
    CppPublic
-      Word32         IterStop;
+      uint32_t         IterStop;
          // normally set by user to activate
          // node when IterStop == IterCur
          // first iteration correspond to 1 (but not 0)
@@ -168,12 +168,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #if defined( __cplusplus ) && !defined( DPUMA_SNAP)
       public:
-         Word32 GetIterTotal() { return IterTotal; };
-         Word32 GetIterCur()   { return IterCur; };
-         Word32 GetIterParent(){ return IterParent; };
-         Word32 GetIterStop()  { return IterStop; };
+         uint32_t GetIterTotal() { return IterTotal; };
+         uint32_t GetIterCur()   { return IterCur; };
+         uint32_t GetIterParent(){ return IterParent; };
+         uint32_t GetIterStop()  { return IterStop; };
    friend        void   __SnpIterParent( SnpTreeNode* node, Bool activate );
-   friend        void    SnpStartLoop( SnpTreeNode* node, Word32 iter_total );
+   friend        void    SnpStartLoop( SnpTreeNode* node, uint32_t iter_total );
    friend        void    SnpLoopNext( SnpTreeNode* node );
    friend        Bool16  SnpSkip( SnpTreeNode* node );
 #endif
@@ -194,9 +194,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
          // in image real coords
       Rect16* zone_rect,
          // in image real coords
-      Word32   users_zone_handle,
+      uint32_t   users_zone_handle,
          // one of the SetZoneOn() parameters
-      Word32   apps_zone_handle
+      uint32_t   apps_zone_handle
          // SetZoneOn() returned value
                         );
 
@@ -226,21 +226,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
          // in image ideal coords
       int32_t  skew,
          // ideal-to-real coords skew (Tangens/1024)
-      Word32 rgb_color,
+      uint32_t rgb_color,
          // rect color, use "wrgb.h" if windows.h invisible
       int32_t pen_width,
          // positive - absolute pen width in screen pixels
          // if zero - fills all rect
          // negative means final pen width == zoom*100/(-width),
          // f.e. -100 means one real image pixel width
-      Word32 key
+      uint32_t key
          // some unique nonzero number to be used later on call HideRects;
-         // usially address of proper SnpTreeNode casted to Word32
+         // usially address of proper SnpTreeNode casted to uint32_t
                      );
 
    typedef
    void (*FTHideRects)( // hides rects with specified key, 0-hides all
-      Word32 key
+      uint32_t key
                      );
 
    typedef
@@ -249,21 +249,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
          // in image ideal coords
       int32_t  skew,
          // ideal-to-real coords skew (Tangens/1024)
-      Word32 rgb_color,
+      uint32_t rgb_color,
          // rect color, use "wrgb.h" if windows.h invisible
       Int16 pen_width,
          // positive - absolute pen width in screen pixels
          // if zero - no drawing
          // negative means: final pen width == zoom*100/(-width),
          // f.e. -100 means one real image pixel width
-      Word32 key
+      uint32_t key
          // some unique nonzero number to be used later on call HideLines
-         // usially address of proper SnpTreeNode casted to Word32
+         // usially address of proper SnpTreeNode casted to uint32_t
                      );
 
    typedef
    void (*FTHideLines)( // hides lines with specified key, 0-hides all
-      Word32 key
+      uint32_t key
                      );
 
    typedef
@@ -273,14 +273,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                           );
 
    typedef
-   Word32 (*FTSetZoneOn)(   // setup zone expected mouse input:
+   uint32_t (*FTSetZoneOn)(   // setup zone expected mouse input:
       Rect16*  zone_rect,
          // in image real coords
-      Word32   rgb_color,
+      uint32_t   rgb_color,
          // zone color, use "wrgb.h" if "windows.h" invisible
       char*    status_line_comment,
          // to be shown in status line when mouse moves in; may be NULL
-      Word32   users_zone_handle,
+      uint32_t   users_zone_handle,
          // user defined handle to be passed back by on_mouse_down(..user_zone_handle...)
       FTOnMouseDown  on_mouse_down
          // user's handler of "mouse down" event; may be NULL
@@ -289,7 +289,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
    typedef
    void (*FTSetZoneOff)( // turns zone off
-      Word32 zone_handle
+      uint32_t zone_handle
          // result of SetZoneOn
                        );
 
@@ -300,7 +300,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    typedef Bool16 (*FTGetUserString)( // runs dialog to accept single string
       char * static_text,
       char * result_string,         // in - on start, out - result
-      Word32 result_string_length   // max length
+      uint32_t result_string_length   // max length
                                     );
       // returns FALSE if user cancel
       // in this case *result_long is not changed
@@ -322,7 +322,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
          // point to be returned in image real coords
                                    );
 
-   typedef Word32 (*FTWaitUserInput)( // starts input loop
+   typedef uint32_t (*FTWaitUserInput)( // starts input loop
       SnpTreeNode* cur_node
          // current SnpTreeNode, used to correct following navigation
 									 );

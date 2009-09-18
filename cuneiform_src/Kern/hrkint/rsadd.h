@@ -96,10 +96,10 @@ enum RSADDFunctionsExt
 
 RSADD_FUNC(Bool32)  RSADD_Init( Word16 wHeightCode, Handle hStorage );
 RSADD_FUNC(void)    RSADD_Done(void);
-RSADD_FUNC(Word32)  RSADD_GetReturnCode(void);
-RSADD_FUNC(char*)   RSADD_GetReturnString(Word32 dwError);
-RSADD_FUNC(Bool32)  RSADD_SetImportData(Word32 dwType, void * pData);
-RSADD_FUNC(Bool32)  RSADD_GetExportData(Word32 dwType, void * pData);
+RSADD_FUNC(uint32_t)  RSADD_GetReturnCode(void);
+RSADD_FUNC(char*)   RSADD_GetReturnString(uint32_t dwError);
+RSADD_FUNC(Bool32)  RSADD_SetImportData(uint32_t dwType, void * pData);
+RSADD_FUNC(Bool32)  RSADD_GetExportData(uint32_t dwType, void * pData);
 
 // 1	RSADD_TAKE			главная функция слияния двух строк
 typedef Bool32  (*FNRSADD_take)(CSTR_line lrus,CSTR_line leng);

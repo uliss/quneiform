@@ -96,10 +96,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
    CCOM_FUNC(Bool32)  CCOM_Init( Word16 wHeightCode, Handle hStorage );
    CCOM_FUNC(void)    CCOM_Done(void);
-   CCOM_FUNC(Word32)  CCOM_GetReturnCode(void);
-   CCOM_FUNC(char*)   CCOM_GetReturnString(Word32 dwError);
-   CCOM_FUNC(Bool32)  CCOM_SetImportData(Word32 dwType, void * pData);
-   CCOM_FUNC(Bool32)  CCOM_GetExportData(Word32 dwType, void * pData);
+   CCOM_FUNC(uint32_t)  CCOM_GetReturnCode(void);
+   CCOM_FUNC(char*)   CCOM_GetReturnString(uint32_t dwError);
+   CCOM_FUNC(Bool32)  CCOM_SetImportData(uint32_t dwType, void * pData);
+   CCOM_FUNC(Bool32)  CCOM_GetExportData(uint32_t dwType, void * pData);
 
     enum CCOMFunctionsExt
         {

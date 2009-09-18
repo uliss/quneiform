@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //memory Allocator for RLING module
-void *	RLINGAlloc(Word32 stAllocateBlock)
+void *	RLINGAlloc(uint32_t stAllocateBlock)
 {
     /* JussiP: disabled all this, since it seems to be legacy from Win16 days. Just use malloc.
 	char * mem = NULL;
@@ -182,7 +182,7 @@ Handle  RLINGOpenRestore(char * lpName)
 //
 unsigned int  RLINGWrite(Handle h,void * lpdata,unsigned int size)
 {
-	Word32 rc = 0;
+	uint32_t rc = 0;
 #ifdef _NO_CFIO
 	rc = fwrite(lpdata,1,size,(FILE*)h);
 #endif
@@ -192,7 +192,7 @@ unsigned int  RLINGWrite(Handle h,void * lpdata,unsigned int size)
 //
 unsigned int  RLINGRead(Handle h,void * lpdata,unsigned int size)
 {
-	Word32 rc = 0;
+	uint32_t rc = 0;
 #ifdef _NO_CFIO
 	rc = fread(lpdata,1,size,(FILE *)h);
 #endif

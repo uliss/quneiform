@@ -78,7 +78,7 @@ template<class TYPE> class PtrName
 {
 protected:
 	Handle  m_Type;
-	Word32  m_Size;
+	uint32_t  m_Size;
 	TYPE *	m_Ptr;
 	Bool32  m_bAttach;
 
@@ -88,7 +88,7 @@ public:
 
 	Bool32		operator==(PtrName & pn);
 	PtrName &	operator=(PtrName & pn);
-	TYPE	&	operator[](Word32 n);
+	TYPE	&	operator[](uint32_t n);
 
 	Bool32		Create(size_t nItem);
 	void		Delete();
@@ -96,7 +96,7 @@ public:
 	Bool32		Attach(Handle hPage);
 	Bool32		Store(Handle hPage);
 	void        Remove(Handle hPage);
-	inline Word32		GetSize(){ return m_Size/sizeof(TYPE);};
+	inline uint32_t		GetSize(){ return m_Size/sizeof(TYPE);};
 
 };
 ///////////////////////////////////////////////////////////
@@ -127,7 +127,7 @@ template<class TYPE> PtrName<TYPE> & PtrName<TYPE>::operator=(PtrName & pn)
 }
 
 ///////////////////////////////////////////////////////////
-template<class TYPE> TYPE & PtrName<TYPE>::operator[](Word32 n)
+template<class TYPE> TYPE & PtrName<TYPE>::operator[](uint32_t n)
 {
 	return m_Ptr[n];
 }

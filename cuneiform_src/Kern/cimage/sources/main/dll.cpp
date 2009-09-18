@@ -146,16 +146,16 @@ CIMAGE_FUNC(Bool32) CIMAGE_Done()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Word32) CIMAGE_GetReturnCode()
+CIMAGE_FUNC(uint32_t) CIMAGE_GetReturnCode()
 {
 	if ( !gwLowRC )
 		return 0;
 
-	return (Word32)(gwHeightRC<<16)|(gwLowRC - IDS_CIMAGE_ERR_NO);
+	return (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_CIMAGE_ERR_NO);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(PInt8) CIMAGE_GetReturnString(Word32 dwError)
+CIMAGE_FUNC(PInt8) CIMAGE_GetReturnString(uint32_t dwError)
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_CIMAGE_ERR_NO;
 	static Char8 szBuffer[512];
@@ -175,7 +175,7 @@ CIMAGE_FUNC(PInt8) CIMAGE_GetReturnString(Word32 dwError)
 #define CASE_FUNCTION(a)	case CIMAGE_FN_##a:	*(FNCIMAGE##a *)pData = CIMAGE_##a; break
 //////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_GetExportData(Word32 dwType, void * pData)
+CIMAGE_FUNC(Bool32) CIMAGE_GetExportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -211,7 +211,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_GetExportData(Word32 dwType, void * pData)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_SetImportData(Word32 dwType, void * pData)
+CIMAGE_FUNC(Bool32) CIMAGE_SetImportData(uint32_t dwType, void * pData)
 {
 	BOOL rc = FALSE;
 	gwLowRC = IDS_CIMAGE_ERR_NOTIMPLEMENT;

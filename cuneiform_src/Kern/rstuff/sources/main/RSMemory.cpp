@@ -93,8 +93,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //Word16 GetReturnCode_rstuff();
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //CFIO Entries
-static void* (*pDAlloc)(Word32, Word32, PWord8, PWord8) = NULL;
-static void* (*pAlloc)(Word32, Word32)                  = NULL;
+static void* (*pDAlloc)(uint32_t, uint32_t, PWord8, PWord8) = NULL;
+static void* (*pAlloc)(uint32_t, uint32_t)                  = NULL;
 static void  (*pFree)(void *)                           = NULL;
 static void* (*pLock)(void *)                           = NULL;
 static void  (*pUnlock)(void *)                         = NULL;
@@ -139,17 +139,17 @@ Char8 cCommentBuffer[CFIO_MAX_COMMENT];
 
 void    RSTUFFComment(const char *Comment)
 {
-	Word32 Len = strlen(Comment);
+	uint32_t Len = strlen(Comment);
 	strncpy(cCommentBuffer, Comment, (Len < CFIO_MAX_COMMENT ? Len : CFIO_MAX_COMMENT - 1 ) );
 }
 
-void *	RSTUFFDAlloc(Word32 stAllocateBlock, const char *Comment)
+void *	RSTUFFDAlloc(uint32_t stAllocateBlock, const char *Comment)
 {
 	RSTUFFComment(Comment);
 	return RSTUFFAlloc(stAllocateBlock);
 }
 
-void *	RSTUFFAlloc(Word32 stAllocateBlock)
+void *	RSTUFFAlloc(uint32_t stAllocateBlock)
 {
 	char * mem = NULL;
 
@@ -280,7 +280,7 @@ Handle  RSTUFFOpenRestore(char * lpName)
 //
 unsigned int  RSTUFFWrite(Handle h,void * lpdata,unsigned int size)
 {
-	Word32 rc = 0;
+	uint32_t rc = 0;
 #ifdef _NO_CFIO
 	rc = fwrite(lpdata,1,size,(FILE*)h);
 #else
@@ -292,7 +292,7 @@ unsigned int  RSTUFFWrite(Handle h,void * lpdata,unsigned int size)
 //
 unsigned int  RSTUFFRead(Handle h,void * lpdata,unsigned int size)
 {
-	Word32 rc = 0;
+	uint32_t rc = 0;
 #ifdef _NO_CFIO
 	rc = fread(lpdata,1,size,(FILE *)h);
 #else

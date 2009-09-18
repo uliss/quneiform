@@ -82,17 +82,17 @@ extern std::vector<RECT>   *pInputArray;
 #endif
 
 int32_t	PageIncline2048 = 2048;
-Word32  CountPict=0,CountTable=0;
+uint32_t  CountPict=0,CountTable=0;
 void    SetReturnCode_rfrmt(Word16 rc);
 POINT   TemplateOffset;
 
-extern "C" Word32   GetPictCount(void);
-extern "C" Word32   GetTablCount(void);
+extern "C" uint32_t   GetPictCount(void);
+extern "C" uint32_t   GetTablCount(void);
 extern  Word8       Frmt_CharSet;
 extern  Int16       CreateEmptyRtfFile(void);
 extern  char        UnRecogSymbol;
-extern  Word32      FlagMode;
-extern  Word32      ExFlagMode;
+extern  uint32_t      FlagMode;
+extern  uint32_t      ExFlagMode;
 
 #define HalfDefMargL   900 // Left margin in twips    (the default is 1800).
 #define HalfDefMargT   720 // Top  margin in twips    (the default is 1440).
@@ -186,7 +186,7 @@ BOOL CreateInternalFileForFormatter(FILE *pIFName)
       VCopyRect( &VRect, &cString->m_rectString );
       fwrite( &VRect, sizeof( InternalRect ),1,pIFName);
       fwrite( &cString->m_wWordsCount,  sizeof( WORD ),1,pIFName);
-	  fwrite( &cString->S_Flags,  sizeof( Word32 ),1,pIFName); //NEGA_STR
+	  fwrite( &cString->S_Flags,  sizeof( uint32_t ),1,pIFName); //NEGA_STR
       // Processing Words
       for(int iString=0; iString < cString->m_wWordsCount; iString++){
          cWord = (CWord*)cString->m_arWords[iString];
@@ -249,7 +249,7 @@ void CFPage::CreateArray_For_TextFragments( )
  while( hBlock )
  {
     if(CPAGE_GetBlockType( hPage , hBlock ) == TYPE_TEXT){
-       Word32 BlockNumber = CPAGE_GetBlockInterNum( hPage, hBlock);
+       uint32_t BlockNumber = CPAGE_GetBlockInterNum( hPage, hBlock);
        FragmentsArray.push_back( BlockNumber );
     }
 	hBlock = CPAGE_GetBlockNext( hPage , hBlock , 0);
@@ -314,7 +314,7 @@ void CFPage::ProcessingComingLine( CSTR_line* Comingline )
 
 	while(hBlock)
     {
-		if(CPAGE_GetBlockInterNum(hCPAGE,hBlock)==(Word32)m_nCurFragNumber){
+		if(CPAGE_GetBlockInterNum(hCPAGE,hBlock)==(uint32_t)m_nCurFragNumber){
 		   Fragment->m_wUserNumber = (uint32_t)CPAGE_GetBlockUserNum( hCPAGE, hBlock  );
            Fragment->m_Flags = attr.Flags; //nega
            if(attr.Flags == CSTR_STR_NEGATIVE){ //nega_str

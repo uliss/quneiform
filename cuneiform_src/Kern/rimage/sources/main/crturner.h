@@ -76,9 +76,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class CRTurner
 {
 public:
-	Bool32    TurnDIB(PCTDIB pInDIB, PCTDIB pOutDIB, Word32 wAngle);
+	Bool32    TurnDIB(PCTDIB pInDIB, PCTDIB pOutDIB, uint32_t wAngle);
 	Bool32    FreeDIB(void * pDIB);
-	void *    TurnDIB( void * pDIB, Word32 wAngle);
+	void *    TurnDIB( void * pDIB, uint32_t wAngle);
 	CRTurner();
 	virtual   ~CRTurner();
 
@@ -98,7 +98,7 @@ private:
 	Bool32    Turn180LA(PCTDIB pInDIB, PCTDIB pOutDIB);
 
 protected:
-	Word32    wRightShift[8];// { 7, 6, 5, 4, 3, 2, 1, 0};
+	uint32_t    wRightShift[8];// { 7, 6, 5, 4, 3, 2, 1, 0};
 	Word8     wRightMask[8]; // { 11111110b, 11111100b, 11111000b, 11110000b, 11100000b, 11000000b, 10000000b, 00000000b };
 	Word8     wLeftMask[8];  // { 11111110b, 11111100b, 11111000b, 11110000b, 11100000b, 11000000b, 10000000b, 00000000b };
 	Word8     wBitMask[8];  //  { 10000000b, 01000000b, 00100000b, 00010000b, 00001000b, 00000100b, 00000010b, 00000001b };

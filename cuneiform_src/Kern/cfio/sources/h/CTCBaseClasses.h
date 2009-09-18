@@ -124,37 +124,37 @@ protected:
 	Handle                      hGlobalHandle;
 	PChar8                      pcMemoryBlock;
 	CTCGlobalHeader *           pNext;
-	Word32                      wSize;
-	Word32                      wHeaderSize;
-	Word32                      wFlag;
+	uint32_t                      wSize;
+	uint32_t                      wHeaderSize;
+	uint32_t                      wFlag;
 
 public:
 	CTCGlobalHeader();
 	CTCGlobalHeader(Handle NewHandle,
 		            void * NewData = NULL,
-					Word32 NewSize = 0,
-					Word32 NewFlag = 0,
+					uint32_t NewSize = 0,
+					uint32_t NewFlag = 0,
 					CTCGlobalHeader * NewNext = NULL);
 	~CTCGlobalHeader();
 
 public:
 	Handle              GetHandle(void)                   { return hGlobalHandle; };
 	void *              GetData(void)                     { return (void *)pcMemoryBlock; };
-	Word32              GetFlag(void)                     { return wFlag; };
-	Word32              GetSize(void)                     { return wSize; };
-	Word32              GetHeaderSize(void)               { return wHeaderSize; };
+	uint32_t              GetFlag(void)                     { return wFlag; };
+	uint32_t              GetSize(void)                     { return wSize; };
+	uint32_t              GetHeaderSize(void)               { return wHeaderSize; };
 	CTCGlobalHeader *   GetNext(void)                     { return pNext; };
 
 public:
 	Handle              SetHandle(Handle GlobalHandle)    { return (hGlobalHandle = GlobalHandle); };
 	void *              SetData(void * Data)              { return (void *)(pcMemoryBlock = (PChar8)Data); };
 	CTCGlobalHeader *   SetNext(CTCGlobalHeader * Next)   { return (pNext = Next); };
-	Word32              SetSize(Word32 Size)              { return (wSize = Size); };
-	Word32              SetHeaderSize(Word32 Size)        { return (wHeaderSize = Size ); };
-	Word32              SetFlag(Word32 Flag)              { return (wFlag = Flag ); };
-	Bool32              IsFlag(Word32 Flag)               { return (wFlag&Flag) ; };
-	Bool32              AddFlag(Word32 Flag)              { return (IsFlag( wFlag |= Flag )); };
-	Bool32              RemoveFlag(Word32 Flag)           { return (!IsFlag( wFlag &= ~Flag )); };
+	uint32_t              SetSize(uint32_t Size)              { return (wSize = Size); };
+	uint32_t              SetHeaderSize(uint32_t Size)        { return (wHeaderSize = Size ); };
+	uint32_t              SetFlag(uint32_t Flag)              { return (wFlag = Flag ); };
+	Bool32              IsFlag(uint32_t Flag)               { return (wFlag&Flag) ; };
+	Bool32              AddFlag(uint32_t Flag)              { return (IsFlag( wFlag |= Flag )); };
+	Bool32              RemoveFlag(uint32_t Flag)           { return (!IsFlag( wFlag &= ~Flag )); };
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -214,11 +214,11 @@ struct CTC_mem_cluster
 	struct CTC_mem_cluster *  mcNext;
 	Handle                    mcHandle;
 	void *                    mcPtr;
-	Word32                    mcSize;
-	Word32                    mcMemoryFlag;
+	uint32_t                    mcSize;
+	uint32_t                    mcMemoryFlag;
 	Bool32                    mcLocked;
-	Word32                    mcFill;
-	Word32                    mcNumber;
+	uint32_t                    mcFill;
+	uint32_t                    mcNumber;
 };
 
 typedef    struct CTC_mem_cluster      CFIOMCLUSTER, *PCFIOMCLUSTER, **PPCFIOMCLUSTER;
@@ -229,28 +229,28 @@ private:
 	HandleFILE          hFile;
 	//LPOFSTRUCT          pOpenFile;
 	char                cFileName[CFIO_MAX_PATH];
-	Word32              wSeeker;
+	uint32_t              wSeeker;
 	char                cFlag[32];
 	Bool32              Deleted;
 	Bool32              InMemory;
 	Bool32              MoveToFile;
-	Word32              wClusterCounter;
-	Word32              wMemorySize;
+	uint32_t              wClusterCounter;
+	uint32_t              wMemorySize;
 	CFIOMCLUSTER        mcFirst;
 
 public:
 	CTCGlobalFile();
-	CTCGlobalFile(PChar8 Name, Word32 Flag);
+	CTCGlobalFile(PChar8 Name, uint32_t Flag);
 	~CTCGlobalFile();
 
 public:
-	Word32              Read(void * pData, Word32 wDataSize, Word32 wDataCounter);
-	Word32              Write(void * pData, Word32 wDataSize, Word32 wDataCounter);
-	Word32              Flush();
-	Word32              Tell();
-	Word32              Seek(Word32 Position, Word32 Flag);
+	uint32_t              Read(void * pData, uint32_t wDataSize, uint32_t wDataCounter);
+	uint32_t              Write(void * pData, uint32_t wDataSize, uint32_t wDataCounter);
+	uint32_t              Flush();
+	uint32_t              Tell();
+	uint32_t              Seek(uint32_t Position, uint32_t Flag);
 	PChar8              GetFileName(PChar8 lpName = NULL);
-	Word32              GetFileLenght();
+	uint32_t              GetFileLenght();
 	PChar8              SetFileName(PChar8 pcFileName );
 	Bool32              Close();
 
@@ -259,8 +259,8 @@ public:
 	HandleFILE          GetHandle()                     { return hFile; };
 	PChar8              GetFlagString(void)             { return cFlag; };
 	Bool32              IsInString(const char* Flag );
-	Word32              GetFileSize();
-	Word32              GetHeaderSize()                 { return(sizeof(class CTCGlobalFile)); };
+	uint32_t              GetFileSize();
+	uint32_t              GetHeaderSize()                 { return(sizeof(class CTCGlobalFile)); };
 	Bool32              SetDelete()                     { return ( Deleted = TRUE ); };
 	Bool32              KeepOnDisk()                    { return !( Deleted = FALSE ); };
 	Bool32              IsDeleted()                     { return ( Deleted); };
@@ -271,7 +271,7 @@ protected:
 	Bool32              ProvideFileFolder( PChar8 lpFileFuelName );
 
 public:
-	void                TranslateFlagToString(Word32 Flag);
+	void                TranslateFlagToString(uint32_t Flag);
 	void                ClearFlagString(void);
 	void                AddFlagToString(const char*Flag);
 
@@ -285,8 +285,8 @@ private:
 	Handle              GetSeekedCluster(PPCFIOMCLUSTER pmcCluster = NULL);
 	void *              GetPtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pCluster = NULL);
 	Bool32              ClosePtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pCluster = NULL);
-	Word32              WriteToMemory(void * pData, Word32 wDataSwze, Word32 wDataCounter);
-	Word32              ReadFromMemory(void * pData, Word32 wDataSize, Word32 wDataCounter);
+	uint32_t              WriteToMemory(void * pData, uint32_t wDataSwze, uint32_t wDataCounter);
+	uint32_t              ReadFromMemory(void * pData, uint32_t wDataSize, uint32_t wDataCounter);
 	Bool32              MoveFromMemory(Handle dFile);
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////

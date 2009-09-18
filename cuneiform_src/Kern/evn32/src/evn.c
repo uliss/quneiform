@@ -101,12 +101,12 @@ extern int32_t recog_letter(void);
 extern int32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, Word8 *lp,Word16 lth);
 
 
-static void *EvnAlloc(Word32 len) { return malloc(len); }
-static void  EvnFree(void *ptr,Word32 len) { free(ptr); }
+static void *EvnAlloc(uint32_t len) { return malloc(len); }
+static void  EvnFree(void *ptr,uint32_t len) { free(ptr); }
 static int32_t GetFileLength(int32_t handle) { return filelength(handle);}
 
-static void* (*my_alloc)(Word32 len)=EvnAlloc;
-static void  (*my_free)(void *ptr,Word32 len)=EvnFree;
+static void* (*my_alloc)(uint32_t len)=EvnAlloc;
+static void  (*my_free)(void *ptr,uint32_t len)=EvnFree;
 int32_t evn_close(void)
 {
 if( events_treeh )

@@ -74,11 +74,11 @@ static int DFon_SendRasterStat(RecRaster* rr, Handle pPaintWnd, Word8 let)
 	return 0;
 }
 
-static void DFon_TerminatedStat(Word32 wParam)
+static void DFon_TerminatedStat(uint32_t wParam)
 { }
 //////////
 int  (*DFon_SendRaster)(RecRaster* rr, Handle pPaintWnd, Word8 let)=DFon_SendRasterStat;
-void (*DFon_Terminated)(Word32 wParam)=DFon_TerminatedStat;
+void (*DFon_Terminated)(uint32_t wParam)=DFon_TerminatedStat;
 
 ////////////
 void DFon_NewPage(char *name)

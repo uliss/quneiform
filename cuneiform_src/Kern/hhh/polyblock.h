@@ -129,7 +129,7 @@ typedef struct tagCommon
 #define POS_NEGTABCAP   0x00000001 // Вероятный негативный заголовок таблицы
 #define POS_NEGTXTCAP   0x00000002 // Вероятный негативный заголовок текста
 #define POS_MATCH       0x00000004 // Используется в программе сравнения фрагментации
-	Word32 Flags;
+	uint32_t Flags;
 } COMMON;
 
 typedef struct tagPOLY

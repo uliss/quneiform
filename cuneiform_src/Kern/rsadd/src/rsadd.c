@@ -1805,14 +1805,14 @@ RSADD_FUNC(void)    RSADD_Done(void)
 return;
 }
 
-RSADD_FUNC(Word32)  RSADD_GetReturnCode(void)
+RSADD_FUNC(uint32_t)  RSADD_GetReturnCode(void)
 {
 if( wLowRC==RSADD_ERR_NO)
   return 0;
 return (wHeightRC<<16)|(wLowRC-RSADD_ERR_MIN);
 }
 
-RSADD_FUNC(char*)   RSADD_GetReturnString(Word32 dwError)
+RSADD_FUNC(char*)   RSADD_GetReturnString(uint32_t dwError)
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF + RSADD_ERR_MIN);
 	static char szBuffer[512];
@@ -1828,7 +1828,7 @@ RSADD_FUNC(char*)   RSADD_GetReturnString(Word32 dwError)
 	return szBuffer;
 }
 
-RSADD_FUNC(Bool32)  RSADD_SetImportData(Word32 dwType, void * pData)
+RSADD_FUNC(Bool32)  RSADD_SetImportData(uint32_t dwType, void * pData)
 {
 
   wLowRC = RSADD_ERR_NO;
@@ -1842,11 +1842,11 @@ RSADD_FUNC(Bool32)  RSADD_SetImportData(Word32 dwType, void * pData)
 return TRUE;
 }
 
-RSADD_FUNC(Bool32)  RSADD_GetExportData(Word32 dwType, void * pData)
+RSADD_FUNC(Bool32)  RSADD_GetExportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
-#define EXPORT(a) *(Word32*)(pData)=          (Word32)a;
+#define EXPORT(a) *(uint32_t*)(pData)=          (uint32_t)a;
   wLowRC = RSADD_ERR_NO;
 	switch(dwType)
 	{

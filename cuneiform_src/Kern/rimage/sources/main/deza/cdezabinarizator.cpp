@@ -82,7 +82,7 @@ CDezaBinarizator::~CDezaBinarizator()
 
 }
 
-Word32 CDezaBinarizator::OpenTrackBin(PCTBINTigerImageInfo Info, CRIBinarizator *pCaller, Word32 tip1)
+uint32_t CDezaBinarizator::OpenTrackBin(PCTBINTigerImageInfo Info, CRIBinarizator *pCaller, uint32_t tip1)
 {
 	int32_t lenpor;
 	int32_t i;
@@ -136,7 +136,7 @@ Word32 CDezaBinarizator::OpenTrackBin(PCTBINTigerImageInfo Info, CRIBinarizator 
 
 PWord8 CDezaBinarizator::Black_file(PWord8 anPblack, int32_t stry)
 {
-	Word32 ir = 0;
+	uint32_t ir = 0;
 	PWord8 regPtb = ptb;
 	PWord8 ptbend;
 	PWord8 pblack = anPblack;
@@ -577,14 +577,14 @@ void CDezaBinarizator::Raspred(int32_t str)
 {
 	PWord8 regPtb;
 	Word8 regLg0 = lg0;
-	Word32 i, lineCount;
+	uint32_t i, lineCount;
 	int32_t l;
 
 	l = chet_color[lg0i];
 
-	for ( lineCount = 0, regPtb=ptgrey; lineCount < (Word32)str ; lineCount++ )
+	for ( lineCount = 0, regPtb=ptgrey; lineCount < (uint32_t)str ; lineCount++ )
 	{
-		for( i = 0 ; i <= (Word32)spx2 ; i++, regPtb++ )
+		for( i = 0 ; i <= (uint32_t)spx2 ; i++, regPtb++ )
 		{
 			if ( *regPtb < regLg0 )
 				*regPtb=regLg0;
@@ -592,7 +592,7 @@ void CDezaBinarizator::Raspred(int32_t str)
 			chet_color[*regPtb]++;
 		}
 
-		for( ; i < (Word32)spx ; i++, regPtb++ )
+		for( ; i < (uint32_t)spx ; i++, regPtb++ )
 		{
 			if ( *regPtb < regLg0 )
 				*regPtb=regLg0;
@@ -643,7 +643,7 @@ void CDezaBinarizator::Ras1_pred(int32_t str)
 	*/
 }
 
-int32_t CDezaBinarizator::GetBinarized(PWord8 ptbl, Word32 lenbl)
+int32_t CDezaBinarizator::GetBinarized(PWord8 ptbl, uint32_t lenbl)
 {
 	int32_t spybr, ret, nstrb1;
 	PWord8 ptbend;

@@ -77,7 +77,7 @@ CTIImageHeader::CTIImageHeader()
 	mbEnableWriteMask = TRUE;
 }
 
-CTIImageHeader::CTIImageHeader(const char *lpName, Handle hImageHandle, Word32 wFlag)
+CTIImageHeader::CTIImageHeader(const char *lpName, Handle hImageHandle, uint32_t wFlag)
 {
 	if( CIMAGE_STRING_LENGHT(lpName) < CIMAGE_MAX_IMAGE_NAME )
 		CIMAGE_STRING_COPY((PChar8)ImageName, lpName);
@@ -94,7 +94,7 @@ CTIImageHeader::CTIImageHeader(const char *lpName, Handle hImageHandle, Word32 w
 	mbEnableWriteMask = TRUE;
 }
 
-CTIImageHeader::CTIImageHeader(const char *lpName, PCIMAGEBITMAPINFOHEADER lpInfo, void * lpImage, Word32 wFlag)
+CTIImageHeader::CTIImageHeader(const char *lpName, PCIMAGEBITMAPINFOHEADER lpInfo, void * lpImage, uint32_t wFlag)
 {
 	if( CIMAGE_STRING_LENGHT(lpName) < CIMAGE_MAX_IMAGE_NAME )
 		CIMAGE_STRING_COPY((PChar8)ImageName, lpName);

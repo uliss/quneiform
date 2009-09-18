@@ -187,19 +187,19 @@ CLINE_FUNC(Bool32) CLINE_Done()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CLINE_FUNC(Word32) CLINE_GetReturnCode()
+CLINE_FUNC(uint32_t) CLINE_GetReturnCode()
 {
 	return 0;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CLINE_FUNC(Int8 *) CLINE_GetReturnString(Word32 dwError)
+CLINE_FUNC(Int8 *) CLINE_GetReturnString(uint32_t dwError)
 {
 	return NULL;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CLINE_FUNC(Bool32) CLINE_GetExportData(Word32 dwType, void * pData)
+CLINE_FUNC(Bool32) CLINE_GetExportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -272,13 +272,13 @@ CLINE_FUNC(Bool32) CLINE_GetExportData(Word32 dwType, void * pData)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CLINE_FUNC(Bool32) CLINE_SetImportData(Word32 dwType, void * pData)
+CLINE_FUNC(Bool32) CLINE_SetImportData(uint32_t dwType, void * pData)
 {
 	return FALSE;
 }
 
-CLINE_FUNC(Word32) CLINE_SetReturnCode(Word32 rc)
+CLINE_FUNC(uint32_t) CLINE_SetReturnCode(uint32_t rc)
 {
-	return (Word32)(0);
+	return (uint32_t)(0);
 }
 

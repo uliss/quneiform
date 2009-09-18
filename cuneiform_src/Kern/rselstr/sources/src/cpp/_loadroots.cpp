@@ -304,7 +304,7 @@ Bool32 ReadRoots(Handle hCCOM)
 	CCOM_comp * comp = NULL;
 	Handle		pPage;
 	PAGEINFO	pInfo;
-	Word32 i;
+	uint32_t i;
 	int max_h=50;
 
 	exthCCOM = hCCOM;

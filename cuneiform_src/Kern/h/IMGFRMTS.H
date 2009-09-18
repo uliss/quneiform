@@ -84,7 +84,7 @@ struct TFormatDescriptor
 #define   FD_FORCEBWNEGATIVE	0x0400  // Format supports negative fotometric only B&W
 #define   FD_FORCEGRAYNEGATIVE	0x0800  // Format supports negative fotometric only B&W
 
- Word32	iWLEntry;				  // Reserved for internal use
+ uint32_t	iWLEntry;				  // Reserved for internal use
 
 }; _SETTYPES( TFormatDescriptor )
 

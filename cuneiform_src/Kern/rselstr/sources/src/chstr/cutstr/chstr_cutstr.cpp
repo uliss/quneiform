@@ -86,7 +86,7 @@ int IfStr(Rect16* pN,int nN,BOOL vertical)
  return 0;
 }
 
-void StrDrawRect(Handle wnd,Word32 OperCode,Word32 color,Rect16 *pRc,int nRc,BOOL vert,Rect16 Rc)
+void StrDrawRect(Handle wnd,uint32_t OperCode,uint32_t color,Rect16 *pRc,int nRc,BOOL vert,Rect16 Rc)
 {
 	int i;
 	Rect16 Rect;
@@ -112,7 +112,7 @@ void StrDrawRect(Handle wnd,Word32 OperCode,Word32 color,Rect16 *pRc,int nRc,BOO
 }
 
 
-void StrDrawRect(Handle wnd,Word32 OperCode,Word32 color,Rect16 Rc)
+void StrDrawRect(Handle wnd,uint32_t OperCode,uint32_t color,Rect16 Rc)
 {
 
 	Rect16 Rect;
@@ -668,8 +668,8 @@ BOOL GetMasP(Handle hCPage,Word8* ImageName,Rect16 Rc,Word8** ppmasp)
 	}
 
 	/*  1. Подготовка к запросу части изображения.  */
-	DataInto.dwHeight   = (Word32)(h);
-	DataInto.dwWidth    = (Word32)(prewide);
+	DataInto.dwHeight   = (uint32_t)(h);
+	DataInto.dwWidth    = (uint32_t)(prewide);
 	DataInto.wByteWidth = (Word16)(prewide/8);
 	DataInto.dwX        = left;
 	DataInto.dwY        = upper;

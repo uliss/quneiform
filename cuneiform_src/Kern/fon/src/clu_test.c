@@ -536,7 +536,7 @@ static int cou1[MAXFIELD];
 static int cou2[MAXFIELD];
 static void GetStatField(FONTFIELD *ff,InfoCluster *infoC,int *cou)
 {
- Word32 fil;
+ uint32_t fil;
  int i,j,k,best;
 
  memset(cou,0,sizeof(cou1));
@@ -553,9 +553,9 @@ static void GetStatField(FONTFIELD *ff,InfoCluster *infoC,int *cou)
 
 }
 /////////////
-static int SummaCifr(Word32 *ww1,Word32 *ww2)
+static int SummaCifr(uint32_t *ww1,uint32_t *ww2)
 {
-	Word32 odin,ww;
+	uint32_t odin,ww;
 	int summa=0,k;
 
     for(k=0;k<NFIELDDWORD;k++)
@@ -567,10 +567,10 @@ static int SummaCifr(Word32 *ww1,Word32 *ww2)
     return summa;
 }
 ///////////////
-static void AddCountFields(Word32 *fifi,int *cou)
+static void AddCountFields(uint32_t *fifi,int *cou)
 {
  int i,k;
- Word32 fil;
+ uint32_t fil;
 
  for(k=0;k<NFIELDDWORD;k++)
  {
@@ -582,12 +582,12 @@ static void AddCountFields(Word32 *fifi,int *cou)
 ///////////////
 static void fillExclusiv(FONTFIELD *fil1,FONTFIELD *fil2,
 						 InfoCluster *infoC,
-						 Word32 *ff1,Word32 *ff2,
+						 uint32_t *ff1,uint32_t *ff2,
 						 int *cou1,int *cou2)
 {
-Word32 f1[NFIELDDWORD],f2[NFIELDDWORD];
+uint32_t f1[NFIELDDWORD],f2[NFIELDDWORD];
 int    j;
-Word32 onlyf1[NFIELDDWORD], onlyf2[NFIELDDWORD];
+uint32_t onlyf1[NFIELDDWORD], onlyf2[NFIELDDWORD];
 
   SetFields(onlyf1,ff1);
   SetFields(onlyf2,ff2);
@@ -674,9 +674,9 @@ static void TestCommonFields(FONTFIELD *f1,FONTFIELD *f2,
 					 InfoCluster *infoC)
 {
   int i;
-  Word32 ff1[NFIELDDWORD],ff2[NFIELDDWORD];
-  Word32 tField[NFIELDDWORD];
-  Word32 onlyf1[NFIELDDWORD]={0,0},onlyf2[NFIELDDWORD]={0,0};
+  uint32_t ff1[NFIELDDWORD],ff2[NFIELDDWORD];
+  uint32_t tField[NFIELDDWORD];
+  uint32_t onlyf1[NFIELDDWORD]={0,0},onlyf2[NFIELDDWORD]={0,0};
 
   GetStatField(f1,infoC,cou1);
   GetStatField(f2,infoC,cou2);
@@ -764,7 +764,7 @@ int TestStayGood(int numCluster, int numSymbol,InfoCluster *infoC,
 	int sBig,sLit,numBig,numLit;
 	int countStay;
 	Bool32 BadCluster(InfoCluster *infoC);
-	Word32 ff[NFIELDDWORD]={0,0};
+	uint32_t ff[NFIELDDWORD]={0,0};
 	int porogSize;
 
 	memset(allStay,0,256*sizeof(int));
@@ -908,7 +908,7 @@ int TestStayGood(int numCluster, int numSymbol,InfoCluster *infoC,
 }
 ////////////////
 int TestAddFontGood(int numCluster, InfoCluster *infoC,
-				 int sBig,int sLit,int *maxC,int fromAll,Word32 *fifi)
+				 int sBig,int sLit,int *maxC,int fromAll,uint32_t *fifi)
 {
 	int i,let;
 	int numStay;

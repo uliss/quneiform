@@ -169,7 +169,7 @@ extern  Int16 SizeYGlobUpp;
 extern  SUB_ALLOC SubZn;
 extern  Int16 MonoSpaceAllPage;
 extern  Int16 HeiStrAllPage;
-extern  Word32   RtfWriteMode;
+extern  uint32_t   RtfWriteMode;
 
 /*
 util     - memory alloc

@@ -117,21 +117,21 @@ void SeparatorsGet (void)
 //	LinesTotalInfo        lti;
 //	Handle                pBlock;
 	Handle                pPage;
-//	Word32				  HorType;
-//	Word32				  VerType;
-	Word32				  ResolutionCoeff;
-	Word32 i,j;
+//	uint32_t				  HorType;
+//	uint32_t				  VerType;
+	uint32_t				  ResolutionCoeff;
+	uint32_t i,j;
 
 	Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage( ));
 	Handle hBlock;
 //	Point16 p_start, p_end;
-	Word32 key;
-	Word32 color;
+	uint32_t key;
+	uint32_t color;
 
 	int32_t nPics;
 	POLY_  *pPics;
 //	extern Handle hUseCLine;
-    Word32 size_line_com=sizeof(LINE_COM);
+    uint32_t size_line_com=sizeof(LINE_COM);
 	CLINE_handle hline;
 	extern CLINE_handle HCLINE;
 
@@ -176,8 +176,8 @@ void SeparatorsGet (void)
 	  pBlock = CPAGE_GetBlockFirst ( pPage, RLINE_BLOCK_TYPE );
 	  if(pBlock == NULL) return;
 	  CPAGE_GetBlockData( pPage, pBlock, RLINE_BLOCK_TYPE, &lti, sizeof(LinesTotalInfo));
-	  HorType = (Word32)lti.Hor.Lns;
-	  VerType = (Word32)lti.Ver.Lns;
+	  HorType = (uint32_t)lti.Hor.Lns;
+	  VerType = (uint32_t)lti.Ver.Lns;
 
 
 	  pBlock = CPAGE_GetBlockFirst ( pPage, HorType );
@@ -313,8 +313,8 @@ void SeparatorsGet (void)
 		{
 			if(pSeps [i].Type == SEP_VERT && pSeps [j].Type == SEP_VERT)
 			{
-				if((Word32)(abs(pSeps[i].xBegin - pSeps[j].xEnd  ) < ResolutionCoeff/2) &&
-				   (Word32)(abs(pSeps[i].xEnd   - pSeps[j].xBegin) < ResolutionCoeff/2) &&
+				if((uint32_t)(abs(pSeps[i].xBegin - pSeps[j].xEnd  ) < ResolutionCoeff/2) &&
+				   (uint32_t)(abs(pSeps[i].xEnd   - pSeps[j].xBegin) < ResolutionCoeff/2) &&
 				   (pSeps[i].yBegin < pSeps[j].yBegin)	           &&
 				   (pSeps[i].yEnd   > pSeps[j].yEnd))
 				{
@@ -335,7 +335,7 @@ void SeparatorsGet (void)
 			{
 				if((abs(pSeps[i].xBegin - pSeps[j].xEnd) < ABS1) &&
 				   (pSeps[i].yBegin > pSeps[j].yEnd)			 &&
-				   (Word32)(pSeps[i].yBegin - pSeps[j].yEnd) < ResolutionCoeff/2)
+				   (uint32_t)(pSeps[i].yBegin - pSeps[j].yEnd) < ResolutionCoeff/2)
 				{
 					pSeps[i].xBegin = MIN(pSeps[i].xBegin, pSeps[j].xBegin);
 					pSeps[i].xEnd = MAX(pSeps[i].xEnd, pSeps[j].xEnd);

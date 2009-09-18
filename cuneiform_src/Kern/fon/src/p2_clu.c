@@ -134,18 +134,18 @@ static SINT IsCTBBase = 1; // load from b/w CTB
 static SINT OutCTBBase = 1; // save as grey CTB
 static BYTE metkaGoodStat[MAXWEICLUS * 2];
 static BYTE saveOnlyBest = 0; // make one font ?
-static Word32 allFields[4][NFIELDDWORD];
+static uint32_t allFields[4][NFIELDDWORD];
 #define MAXKEGL 127
 static SINT keglBuffer[MAXKEGL + 1];
 ////////////////
 // ctb-functions
-int StartCTB(char *outname, CTB_handle *ccc, Int16 countFont, Word32 *allFil);
+int StartCTB(char *outname, CTB_handle *ccc, Int16 countFont, uint32_t *allFil);
 void EndCTB(CTB_handle *ccc);
 int SaveWeletAsCTB(welet *wel, CTB_handle *ccc);
 ///////////////////
 int FindBestClusters(int numSymbol, int numCluster, Nraster_header *rh,
 		SINT *nClus, BYTE *metka, BYTE *metkaValid, int maxOutFonts,
-		Word32 *ffFields);
+		uint32_t *ffFields);
 int MultiFindBestClusters(int numSymbol, int numCluster, Nraster_header *rh,
 		SINT *nClus, BYTE *metka, BYTE *metkaValid);
 int GetProbValid(int numSymbol, int numCluster, Nraster_header *rh,
@@ -1781,7 +1781,7 @@ static SINT ReadAllFromBase(CHAR *name, SINT *nClu, CHAR *movxy, SINT AllCount) 
 }
 /////////////////////
 FON_FUNC(int32_t) FONFontClusters(char *rname,char *cluname,void *accept,Word8 *extern_buf,int32_t size,
-		Word32 param,void *ShowProgress,Word8 lang)
+		uint32_t param,void *ShowProgress,Word8 lang)
 {
 	clu_info cin;
 	char szOutName[144];

@@ -79,7 +79,7 @@ extern struct main_memory_str Q;
 
 void analise();
 BWS *extrcomp_seglist(Word8* raster, BWS *bwsp, BWS *bwe, Int16 width);
-Word32 progress_set_percent (Word32 volume);
+uint32_t progress_set_percent (uint32_t volume);
 Int16 source_read(Word8* start, Word8* ptr, Word8* end);
 
 //---------------------- Internal working fields

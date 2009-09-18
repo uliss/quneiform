@@ -80,7 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 
 Int16 err;
-static Word32 bit_cnt_msk[66000];
+static uint32_t bit_cnt_msk[66000];
 Word16 Limii;
 short initiated=0;
 int nm, char_lst[16],number_lst[16],lst[16], ms[16];
@@ -88,7 +88,7 @@ char alphabet[256];
 int is_latin;
 
 Word16 iobraz[16],iobraz1[16],iobraz2[16];
-Word32 obraz[32*4];
+uint32_t obraz[32*4];
 
 Word16 abc_n, Hnd_abc_n[11];				//всего эт-ов
 MSK_abc_ind *abc_ind, *Hnd_abc_ind[11];
@@ -98,7 +98,7 @@ short *ptr_ind , *Hnd_ptr_ind[11];
 /***************************************************************/
 /***************************************************************/
 /***************************************************************/
-static void MMX_setup_obraz(Word32 *obraz, Word16 *iobraz,
+static void MMX_setup_obraz(uint32_t *obraz, Word16 *iobraz,
                             Word16 *iobraz2);
 
 Word8   *tmp_ptr;
@@ -116,8 +116,8 @@ static void all_close(void)
 
 static Bool32 all_anding(int32_t *image,Word16 *tmp,int32_t L);
 static Bool32 (*anding)(int32_t *image,Word16 *tmp,int32_t L)=all_anding;
-static void all_setup_obraz(Word32 *obraz, Word16 *iobraz, Word16 *iobraz2);
-static void (*setup_obraz)(Word32 *obraz, Word16 *iobraz, Word16 *iobraz2)=all_setup_obraz;
+static void all_setup_obraz(uint32_t *obraz, Word16 *iobraz, Word16 *iobraz2);
+static void (*setup_obraz)(uint32_t *obraz, Word16 *iobraz, Word16 *iobraz2)=all_setup_obraz;
 static void (*proc_open)(int32_t *image)=all_open;
 static void (*proc_close)(void)=all_close;
 
@@ -218,7 +218,7 @@ Bool32 all_anding(int32_t *image,Word16 *etalons,int32_t L)
 }
 
 
-void MMX_setup_obraz(Word32 *obraz, Word16 *iobraz, Word16 *iobraz2)
+void MMX_setup_obraz(uint32_t *obraz, Word16 *iobraz, Word16 *iobraz2)
 {
     Word16 iobraz3[16];
     int i;
@@ -232,7 +232,7 @@ void MMX_setup_obraz(Word32 *obraz, Word16 *iobraz, Word16 *iobraz2)
 }
 
 
-void all_setup_obraz(Word32 *obraz, Word16 *iobraz, Word16 *iobraz2)
+void all_setup_obraz(uint32_t *obraz, Word16 *iobraz, Word16 *iobraz2)
 {
     int i,j;
 
@@ -249,7 +249,7 @@ int det_sym_sort(short ptr_char, Word16 pri, Word16 abc_n1,
                  Word16 meas0[], Word16 proc)
 {
     int32_t	i,l,n1,m1;
-    Word32 ii,j,jj, meas[3],L, k = 0, k1,let;
+    uint32_t ii,j,jj, meas[3],L, k = 0, k1,let;
     int j1;
 
     memcpy(iobraz2,iobraz1,16*sizeof(short));
@@ -267,7 +267,7 @@ int det_sym_sort(short ptr_char, Word16 pri, Word16 abc_n1,
         { 	if( (ii = anding(obraz,abc[i].rst,L))<L )
             {	// store new result
                 for (n1=0;n1<nm;n1++)
-                    if (ii<(Word32)ms[n1])  break;
+                    if (ii<(uint32_t)ms[n1])  break;
                 if (nm)
                 {	if (double_alphabet(i,n1))
                     continue;
@@ -282,13 +282,13 @@ int det_sym_sort(short ptr_char, Word16 pri, Word16 abc_n1,
                 }
                 ms[n1]=ii;char_lst[n1]=let;lst[n1]=i;number_lst[n1]=i;
                 if (nm<MAX_NM)  nm++;
-                L=MIN(L,(Word32)(ms[0]+4));
+                L=MIN(L,(uint32_t)(ms[0]+4));
                 for (m1=nm-1;m1>0;m1--)
-                    if ((Word32)ms[m1]>=L)  nm--;
+                    if ((uint32_t)ms[m1]>=L)  nm--;
                 if (n1>=nm) continue;
                 k1=-1;
                 for (m1=0;m1<nm;m1++)
-                {	if ((Word32)char_lst[m1]!=let) continue;
+                {	if ((uint32_t)char_lst[m1]!=let) continue;
                     if (k1==-1)
                     {	k1=m1;k=1;
                         continue;
@@ -520,7 +520,7 @@ MSK_FUNC(Bool32)  MSKRecogCharExpPuma(
         int HndTab,
         RecRaster  *recraster, // raster description
         RecVersions *Indres,
-        Word32    Flags           )
+        uint32_t    Flags           )
 {
     Word8*    p1616=NULL, io_char;
     short i, hor, ver, lett_coo[4];

@@ -102,19 +102,19 @@ extern char    local_ctb_name[];
 char    local_grey_ctb[256]="page6666";
 char    local_ctb_name[256]="ct666666";
 
-Word8 * (*local_ret_error_str)(Word32 dwError);
-Word32  local_ret_error_code=0;
-typedef Word8 *(*fun_error)(Word32);
+Word8 * (*local_ret_error_str)(uint32_t dwError);
+uint32_t  local_ret_error_code=0;
+typedef Word8 *(*fun_error)(uint32_t);
 static  Word8 lnOcrPath[256],lnOcrLingPath[256];
 static void store_colors(CSTR_line lino);
-static void *   rstr_realloc(Word8*buf,Word32 len)    {    return realloc(buf,len);    }
-static void *   rstr_alloc(Word32 len)    {    return calloc(len,1);    }
-static void     rstr_free(void *ptr,Word32 len) { free(ptr);};
+static void *   rstr_realloc(Word8*buf,uint32_t len)    {    return realloc(buf,len);    }
+static void *   rstr_alloc(uint32_t len)    {    return calloc(len,1);    }
+static void     rstr_free(void *ptr,uint32_t len) { free(ptr);};
 static void     rstr_get_colors(Int16 row,Int16 col,Int16 w,Int16 h,
                                 int32_t *ColorLtr, int32_t *ColorBack)        {*ColorBack=0xFFFFFF;*ColorLtr=0;};
-static void * (*my_realloc)(Word8*buf,Word32 len)=rstr_realloc;
-static void * (*my_alloc)(Word32 len)=rstr_alloc;
-static void   (*my_free)(void *,Word32 len)=rstr_free;
+static void * (*my_realloc)(Word8*buf,uint32_t len)=rstr_realloc;
+static void * (*my_alloc)(uint32_t len)=rstr_alloc;
+static void   (*my_free)(void *,uint32_t len)=rstr_free;
 static void   (*my_get_colors)(Int16 row,Int16 col,Int16 w,Int16 h,
                                int32_t *ColorLrt, int32_t *ColorBack)=rstr_get_colors;
 static int32_t RemoveDustIfPointLine(CSTR_line lin);
@@ -717,10 +717,10 @@ RSTR_FUNC(Bool32)  RSTRNewPage(int32_t resolutiony, Handle myPage )
             return FALSE;
             }
 
-        myHor = CPAGE_GetBlockFirst ( myPage, (Word32)lti.Hor.Lns );
+        myHor = CPAGE_GetBlockFirst ( myPage, (uint32_t)lti.Hor.Lns );
         while(myHor)
             {
-            size = CPAGE_GetBlockData( myPage, myHor, (Word32)lti.Hor.Lns, &lineinfo, sizeof(lineinfo));
+            size = CPAGE_GetBlockData( myPage, myHor, (uint32_t)lti.Hor.Lns, &lineinfo, sizeof(lineinfo));
             if ( size!=sizeof(lineinfo) )
                 {
                 wLowRC  = RSTR_ERR_INTERNAL;
@@ -741,7 +741,7 @@ RSTR_FUNC(Bool32)  RSTRNewPage(int32_t resolutiony, Handle myPage )
                 num_of_lines++;
                 }
 
-            myHor = CPAGE_GetBlockNext ( myPage,myHor, (Word32)lti.Hor.Lns );
+            myHor = CPAGE_GetBlockNext ( myPage,myHor, (uint32_t)lti.Hor.Lns );
             }
         myBlock = CPAGE_GetBlockNext( myPage, myBlock, RLINE_BLOCK_TYPE );
         }
@@ -841,7 +841,7 @@ RSTR_FUNC(Bool32)  RSTR_EndPage(  Handle myPage )
 #ifdef _USE_CPAGE_
         if( myPage )
         {
-            Word32 size_line_com=sizeof(LINE_COM);
+            uint32_t size_line_com=sizeof(LINE_COM);
             int size_line_data=sizeof(DLine);
             CLINE_handle hCLINE=CLINE_GetMainContainer();
 
@@ -891,10 +891,10 @@ RSTR_FUNC(Bool32)  RSTR_EndPage(  Handle myPage )
             return FALSE;
             }
 
-        myHor = CPAGE_GetBlockFirst ( myPage, (Word32)lti.Hor.Lns );
+        myHor = CPAGE_GetBlockFirst ( myPage, (uint32_t)lti.Hor.Lns );
         while(myHor)
             {
-            size = CPAGE_GetBlockData( myPage, myHor, (Word32)lti.Hor.Lns, &lineinfo, sizeof(lineinfo));
+            size = CPAGE_GetBlockData( myPage, myHor, (uint32_t)lti.Hor.Lns, &lineinfo, sizeof(lineinfo));
             if ( size!=sizeof(lineinfo) )
                 {
                 wLowRC  = RSTR_ERR_INTERNAL;
@@ -909,10 +909,10 @@ RSTR_FUNC(Bool32)  RSTR_EndPage(  Handle myPage )
                          lineinfo.B.x,lineinfo.B.y) )
                 {
                 lineinfo.Flags |= LI_Used;
-                CPAGE_SetBlockData( myPage, myHor, (Word32)lti.Hor.Lns, &lineinfo, sizeof(lineinfo));
+                CPAGE_SetBlockData( myPage, myHor, (uint32_t)lti.Hor.Lns, &lineinfo, sizeof(lineinfo));
                 }
 
-            myHor = CPAGE_GetBlockNext ( myPage,myHor, (Word32)lti.Hor.Lns );
+            myHor = CPAGE_GetBlockNext ( myPage,myHor, (uint32_t)lti.Hor.Lns );
             }
         myBlock = CPAGE_GetBlockNext( myPage, myBlock, RLINE_BLOCK_TYPE );
         }
@@ -1908,7 +1908,7 @@ RSTR_FUNC(Bool32)  RSTR_Done(void)
     return TRUE;
 }
 
-RSTR_FUNC(Word32) RSTR_GetReturnCode(void)
+RSTR_FUNC(uint32_t) RSTR_GetReturnCode(void)
 {
     if( wLowRC == RSTR_ERR_NO )
         return 0;
@@ -1916,7 +1916,7 @@ RSTR_FUNC(Word32) RSTR_GetReturnCode(void)
     return (wHeightRC<<16)|(wLowRC-RSTR_ERR_MIN);
 }
 
-RSTR_FUNC(Word8 *) RSTR_GetReturnString(Word32 dwError)
+RSTR_FUNC(Word8 *) RSTR_GetReturnString(uint32_t dwError)
 {
     Word16 rc = (Word16)(dwError & 0xFFFF + RSTR_ERR_MIN);
     static Word8 szBuffer[512];
@@ -2384,11 +2384,11 @@ RSTR_FUNC(Bool32)  RSTR_SetSpecPrj(Word8 nSpecPrj)
     return TRUE;
 }
 
-RSTR_FUNC(Bool32)  RSTR_GetExportData (Word32 dwType, void * pData)
+RSTR_FUNC(Bool32)  RSTR_GetExportData (uint32_t dwType, void * pData)
 {
     Bool32 rc = TRUE;
     int32_t  vers = RSTR_VERSION_CODE;
-#define EXPORT(name) *(Word32*)(pData)=(Word32)name;
+#define EXPORT(name) *(uint32_t*)(pData)=(uint32_t)name;
 
 #define CASE_DATA(a,b,c)        case a: *(b *)pData = c; break
 
@@ -2470,7 +2470,7 @@ RSTR_FUNC(Bool32)  RSTR_GetExportData (Word32 dwType, void * pData)
     return rc;
 }
 
-RSTR_FUNC(Bool32)  RSTR_SetImportData (Word32 dwType, const void * pData)
+RSTR_FUNC(Bool32)  RSTR_SetImportData (uint32_t dwType, const void * pData)
 {
     wLowRC = RSTR_ERR_NO;
 #define CASE_DATA(a,b,c)        case a: c = *(b *)pData; break

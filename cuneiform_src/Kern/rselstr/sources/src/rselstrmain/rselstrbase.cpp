@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 static Word16 gwHeightRC = 0;
-static Word32 gwRC = 0;
+static uint32_t gwRC = 0;
 static HANDLE ghStorage = NULL;
 static HINSTANCE ghInst =  NULL;
 Handle Root;
@@ -305,19 +305,19 @@ RSELSTR_FUNC(Bool32) RSELSTR_Done()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSELSTR_FUNC(Word32) RSELSTR_GetReturnCode()
+RSELSTR_FUNC(uint32_t) RSELSTR_GetReturnCode()
 {
 	return gwRC;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSELSTR_FUNC(Int8 *) RSELSTR_GetReturnString(Word32 dwError)
+RSELSTR_FUNC(Int8 *) RSELSTR_GetReturnString(uint32_t dwError)
 {
 return NULL;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSELSTR_FUNC(Bool32) RSELSTR_GetExportData(Word32 dwType, void * pData)
+RSELSTR_FUNC(Bool32) RSELSTR_GetExportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -342,7 +342,7 @@ return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSELSTR_FUNC(Bool32) RSELSTR_SetImportData(Word32 dwType, void * pData)
+RSELSTR_FUNC(Bool32) RSELSTR_SetImportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -368,12 +368,12 @@ return rc;
 
 }
 
-RSELSTR_FUNC(Word32) RSELSTR_SetReturnCode(Word32 rc)
+RSELSTR_FUNC(uint32_t) RSELSTR_SetReturnCode(uint32_t rc)
 {
-return (Word32)(0);
+return (uint32_t)(0);
 }
 
-void SetReturnCode_rselstr(Word32 rc)
+void SetReturnCode_rselstr(uint32_t rc)
 {
 Word16 low = (Word16)(rc &  0xFFFF);
 Word16 hei = (Word16)(rc >> 16);
@@ -383,15 +383,15 @@ Word16 hei = (Word16)(rc >> 16);
 	else
 	{
 		if(low - IDS_ERR_NO)
-			gwRC = (Word32)(gwHeightRC<<16)|(low - IDS_ERR_NO);
+			gwRC = (uint32_t)(gwHeightRC<<16)|(low - IDS_ERR_NO);
 		else
 			gwRC = 0;
 	}
 }
 
-Word32 GetReturnCode_rselstr()
+uint32_t GetReturnCode_rselstr()
 {
-Word32 rc = gwRC;
+uint32_t rc = gwRC;
 Word16 low = (Word16)(gwRC &  0xFFFF);
 Word16 hei = (Word16)(gwRC >> 16);
 

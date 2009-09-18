@@ -127,33 +127,33 @@ private:
 	Int8                  Main_Dir_Name [128];    // H:\CUNEI  (see zB SCANTAB.C)
 	PInt8                 MainDir;
 	Word8                szValidNames[256];
-    Word32                MaxNI;
-    Word32                MaxNJ;
-//	Word32               Itek;                   /////////////////// OTLADKA ONLY
+    uint32_t                MaxNI;
+    uint32_t                MaxNJ;
+//	uint32_t               Itek;                   /////////////////// OTLADKA ONLY
 
 private:
 	int32_t				Ln_hist;
 	int32_t				Korob_Files_Address;
 
-	Word32				I_to;		//current Line "TO"
-	Word32				Itek;       //current Line "FROM"
-	Word32				NI;
-	Word32				NJ;
-	Word32				NI_1;
-	Word32				NJ_1;
-	Word32				NJ_2;
-	Word32				NJx3;
-	Word32				N_Bytes_FROM;
-	Word32				N_Bytes_per_ONE_MEM;    //= 64000;	// it was 0xC000: 48 Kb
-	Word32				N_Bytes_in_MBIT_Line;		// 2550 -> 319
-	Word32				N_Bytes_in_all_MBIT;		// 200 * 319 = 63 800
+	uint32_t				I_to;		//current Line "TO"
+	uint32_t				Itek;       //current Line "FROM"
+	uint32_t				NI;
+	uint32_t				NJ;
+	uint32_t				NI_1;
+	uint32_t				NJ_1;
+	uint32_t				NJ_2;
+	uint32_t				NJx3;
+	uint32_t				N_Bytes_FROM;
+	uint32_t				N_Bytes_per_ONE_MEM;    //= 64000;	// it was 0xC000: 48 Kb
+	uint32_t				N_Bytes_in_MBIT_Line;		// 2550 -> 319
+	uint32_t				N_Bytes_in_all_MBIT;		// 200 * 319 = 63 800
 
-	Word32				N_Lines_per_1_MEM;	// 64000 / 2550 = 25 (25.098)
-	Word32				N_Lines_per_4_MEMs;	// 4 * 25 = 100
-	Word32				N_Lines_per_8_MEMs;	// 8 * 25 = 200
-	Word32				N_of_TEK_MEM;		// 0 - 7;
-	Word32				N_Lines_in_TEK_MEM;
-	Word32				N_tek_Line_in_MBIT;
+	uint32_t				N_Lines_per_1_MEM;	// 64000 / 2550 = 25 (25.098)
+	uint32_t				N_Lines_per_4_MEMs;	// 4 * 25 = 100
+	uint32_t				N_Lines_per_8_MEMs;	// 8 * 25 = 200
+	uint32_t				N_of_TEK_MEM;		// 0 - 7;
+	uint32_t				N_Lines_in_TEK_MEM;
+	uint32_t				N_tek_Line_in_MBIT;
 
 	Word8				IER;
 	Word8				Flag_ERR_Hist_L;
@@ -218,16 +218,16 @@ private:
 	PWord8				*ppMem;	//Array of FAR Pointers
 	//----------------------------------------------------------------------
 								// KOROB VARIABLES
-	Word32				Korob_i1;		// ==Itek !!!
-	Word32				Korob_i2;		// include this Line
-	Word32				Korob_j1;
-	Word32				Korob_nj;
-	Word32				Korob_Factor;
+	uint32_t				Korob_i1;		// ==Itek !!!
+	uint32_t				Korob_i2;		// include this Line
+	uint32_t				Korob_j1;
+	uint32_t				Korob_nj;
+	uint32_t				Korob_Factor;
 	int32_t				Korob_x;
 	int32_t				Korob_y;
 	Word8				Korob_porog;
 	//----------------------------------------------------------------------
-	Word32				N_Korob;					// KOROBS STATISTIC
+	uint32_t				N_Korob;					// KOROBS STATISTIC
 	int32_t				LS_Korobs;
 	int32_t				LSH_Korobs;
 	int32_t				LSL_Korobs;
@@ -235,29 +235,29 @@ private:
 	int32_t				LNgreyD8;
 	int32_t				LNgrey08;
 	//----------------------------------------------------------------------*/
-	Word32				Hex_35[16];
+	uint32_t				Hex_35[16];
 
 private:
 	Bool32 Virginity;
-	Word32 buf_H[8];
-	Word32 buf_B[2550];
+	uint32_t buf_H[8];
+	uint32_t buf_B[2550];
 public:
 	/*
-	KRONROD_EXPORT(void)   grey_open (Word32 H, Word32 N);
-	KRONROD_EXPORT(Word32) grey_to   (PWord8 pKogo);        //returns n_lines_ready
+	KRONROD_EXPORT(void)   grey_open (uint32_t H, uint32_t N);
+	KRONROD_EXPORT(uint32_t) grey_to   (PWord8 pKogo);        //returns n_lines_ready
 	KRONROD_EXPORT(void)   grey_from (PWord8 pKuda);
-	KRONROD_EXPORT(Word32) grey_close (void);      //returns n_lines_ready
+	KRONROD_EXPORT(uint32_t) grey_close (void);      //returns n_lines_ready
 */
 public:
-	Word32	grey_close(void);
+	uint32_t	grey_close(void);
 	void	grey_from(PWord8 pKuda);
-	Word32	grey_to(PWord8 pKogo);
-	void	grey_open(Word32 H, Word32 N);
+	uint32_t	grey_to(PWord8 pKogo);
+	void	grey_open(uint32_t H, uint32_t N);
 	CKronrodBinarizator();
 	~CKronrodBinarizator();
 protected:
-	void mk_hist_WORD(PWord32 Hist_WORD, PWord8 p, Word32 n);
-	Word32 mk_1235(void);
+	void mk_hist_WORD(Puint32_t Hist_WORD, PWord8 p, uint32_t n);
+	uint32_t mk_1235(void);
 	void pr_MES_3(PInt8  text, int32_t n1, int32_t n2, int32_t n3);
 	void pr_MES_2(PInt8  text, int32_t n1, int32_t n2);
 	void pr_MES_1(PInt8  text, int32_t n1);
@@ -278,15 +278,15 @@ protected:
 	void Korob_calc_porog_x_y(void);
 	void Korob_calc_TdP(void);
 	void Korob_calc_Factor(void);
-	void Korob_calc_BOX(Word32 j);
-	void Korob_add(Word32 j);
+	void Korob_calc_BOX(uint32_t j);
+	void Korob_add(uint32_t j);
 	void Korobs_CLEAR_and_GLUE(void);
 	void Korobs(void);
 	void Korobs_init(void);
 	void hist_MIN_MAX(void);
 	void hist_glad_8_121(void);
-	void hist_add(PWord8 p, Word32 N_Lines);
-	void grey_PR_BYTE(Word32 ibeg, Word32 jbeg, Word32 value);
+	void hist_add(PWord8 p, uint32_t N_Lines);
+	void grey_PR_BYTE(uint32_t ibeg, uint32_t jbeg, uint32_t value);
 	void grey_quant_KOROB_PR_Factor(void);
 	void grey_quant_KOROB_graph_Hist(void);
 	void grey_quant_KOROB_draw_RAMKA(void);
@@ -296,7 +296,7 @@ protected:
 	void grey_quant_KOROB_1x3_MAX(void);
 	void grey_quant_KOROB_1x1(void);
 	void grey_quant_KOROB(void);
-	void grey_to_monitor_MBIT(Word32 n_from);
+	void grey_to_monitor_MBIT(uint32_t n_from);
 	void grey_to_memory_monitor(void);
 	void grey_open_init_MEM(void);
 	void grey_open_init_flags(void);

@@ -168,11 +168,11 @@ Word8 reserve[3];
 
 typedef struct tagRecData
 	{
-	Word32    lwStatus;
+	uint32_t    lwStatus;
 
 	RecRaster recRaster;       // basic raster. Can be not changed
 	Word16    v3x5[16];        // normalizeted image 3x5
-	Word32    lwCompCnt;       // number of components, 0 - not counted
+	uint32_t    lwCompCnt;       // number of components, 0 - not counted
 	Rect16    rect;
   RecVector    vSticks[MAX_VECT];
   Int16     lwSticksCnt;
@@ -182,7 +182,7 @@ typedef struct tagRecObject
 	{
 	RecData     recData;
 	RecVersions recResults;
-	Word32      lwStatusMethods; // indicator of used methods
+	uint32_t      lwStatusMethods; // indicator of used methods
 
 
 	} RecObject;

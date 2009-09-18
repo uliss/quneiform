@@ -73,10 +73,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef struct
 	{
-	Word32 dwBeg;   // Начало текущего диапозона
-	Word32 dwEnd;	// Конец
+	uint32_t dwBeg;   // Начало текущего диапозона
+	uint32_t dwEnd;	// Конец
 
-	Word32 dwStep;  // текущий номер шага
+	uint32_t dwStep;  // текущий номер шага
 	char * name;	// текущее название шага
 	} PRGTIME;
 
@@ -85,13 +85,13 @@ extern PRGTIME g_PrgTime;
 // 1. Для инициализации внутреннего счетчика надо вызвать InitPRGTIME.
 // 2. Внутри одной функции разбиение идет всегда от 0 до 100 процентов
 // 3. Перед вызовом функции надо установить диапозон прогресса для этой функции в масштабе 0 - 100
-//		Для этого надо выполнить StorePRGTIME(Word32 beg, Word32 end);
+//		Для этого надо выполнить StorePRGTIME(uint32_t beg, uint32_t end);
 // 4. После возврата из этой функции надо восстановить счетчик функцией RestorePRGTIME(PRGTIME prev)
 //		Параметром этой функции должно быть возвращаемое значение функции StorePRGTIME
 
 Bool32	InitPRGTIME();
 Bool32	DonePRGTIME();
-PRGTIME	StorePRGTIME(Word32 beg, Word32 end);// Устанавливает дапозон изменений, который учитывается в  ProgressStep
+PRGTIME	StorePRGTIME(uint32_t beg, uint32_t end);// Устанавливает дапозон изменений, который учитывается в  ProgressStep
 void 	RestorePRGTIME(PRGTIME prev);// Устанавливает дапозон изменений, который учитывается в  ProgressStep
 
 

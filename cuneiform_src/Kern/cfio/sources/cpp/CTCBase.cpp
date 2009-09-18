@@ -82,8 +82,8 @@ CTCGlobalHeader::CTCGlobalHeader()
 //
 CTCGlobalHeader::CTCGlobalHeader(Handle NewHandle,
 		                         void * NewData,
-					             Word32 NewSize,
-					             Word32 NewFlag,
+					             uint32_t NewSize,
+					             uint32_t NewFlag,
 					             CTCGlobalHeader * NewNext)
 {
 	SetHandle(NewHandle);
@@ -108,7 +108,7 @@ CTCGlobalFile::CTCGlobalFile()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCGlobalFile::CTCGlobalFile(char * Name, Word32 Flag)
+CTCGlobalFile::CTCGlobalFile(char * Name, uint32_t Flag)
 {
 	ProvideFileFolder(Name);
 	TranslateFlagToString(Flag);
@@ -167,7 +167,7 @@ Bool32 CTCGlobalFile::IsInString(const char * Flag)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Word32 CTCGlobalFile::Write(void * pData, Word32 wDataSize, Word32 wDataCounter)
+uint32_t CTCGlobalFile::Write(void * pData, uint32_t wDataSize, uint32_t wDataCounter)
 {
 	if ( IsInString(CFIO_GF_CWRITE) || IsInString(CFIO_GF_CWRITEREAD) ||
 		 IsInString(CFIO_GF_CREADWRITE) || IsInString(CFIO_GF_CAPPEND) ||
@@ -175,7 +175,7 @@ Word32 CTCGlobalFile::Write(void * pData, Word32 wDataSize, Word32 wDataCounter)
 	{
 		if ( !InMemory )
 		{
-			Word32 Writed = CFIO_WRITE(pData, wDataSize, wDataCounter, GetHandle());
+			uint32_t Writed = CFIO_WRITE(pData, wDataSize, wDataCounter, GetHandle());
 			Flush();
 			return Writed;
 		}
@@ -188,7 +188,7 @@ Word32 CTCGlobalFile::Write(void * pData, Word32 wDataSize, Word32 wDataCounter)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Word32 CTCGlobalFile::Read(void * pData, Word32 wDataSize, Word32 wDataCounter)
+uint32_t CTCGlobalFile::Read(void * pData, uint32_t wDataSize, uint32_t wDataCounter)
 {
 	if ( IsInString(CFIO_GF_CREAD) || IsInString(CFIO_GF_CWRITEREAD) ||
 		 IsInString(CFIO_GF_CREADWRITE) || IsInString(CFIO_GF_CAPPEND) ||
@@ -209,7 +209,7 @@ Word32 CTCGlobalFile::Read(void * pData, Word32 wDataSize, Word32 wDataCounter)
 //
 Bool32 CTCGlobalFile::Close()
 {
-	Word32 Closet;
+	uint32_t Closet;
 
 	if ( !InMemory )
 	{
@@ -252,9 +252,9 @@ Bool32 CTCGlobalFile::Close()
 //move file from memroy to disk and delete memory copy
 Bool32 CTCGlobalFile::MoveFromMemory(Handle dFile)
 {
-	Word32          DataLeft = wMemorySize;
-	Word32          wWriteCount = 0;
-	Word32          ReadFromCluster;
+	uint32_t          DataLeft = wMemorySize;
+	uint32_t          wWriteCount = 0;
+	uint32_t          ReadFromCluster;
 	PCFIOMCLUSTER  	pCurrentCluster = mcFirst.mcNext;
 	void *          lpData;
 
@@ -289,8 +289,8 @@ Bool32 CTCGlobalFile::MoveFromMemory(Handle dFile)
 /*
 Handle CTCGlobalFile::AssemblyToOne()
 {
-	Word32      DataLeft = wMemorySize;
-	Word32      ReadFromCluster;
+	uint32_t      DataLeft = wMemorySize;
+	uint32_t      ReadFromCluster;
 	MCLUSTER  *	pCurrentCluster = mcFirst.mcNext;
 	Handle      hMemoryBlock;
 	void *      lpData;
@@ -332,10 +332,10 @@ Handle CTCGlobalFile::AssemblyToOne()
 */
 //////////////////////////////////////////////////////////////////////////////////
 //
-Word32 CTCGlobalFile::Seek(Word32 Position, Word32 Flag)
+uint32_t CTCGlobalFile::Seek(uint32_t Position, uint32_t Flag)
 {
 	int Direction;
-	Word32 NewSeeker;
+	uint32_t NewSeeker;
 
 	switch(Flag)
 	{
@@ -395,7 +395,7 @@ Word32 CTCGlobalFile::Seek(Word32 Position, Word32 Flag)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Word32 CTCGlobalFile::Tell()
+uint32_t CTCGlobalFile::Tell()
 {
 	if ( InMemory )
 	{
@@ -408,7 +408,7 @@ Word32 CTCGlobalFile::Tell()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Word32 CTCGlobalFile::Flush()
+uint32_t CTCGlobalFile::Flush()
 {
 	if ( InMemory )
 	{
@@ -421,10 +421,10 @@ Word32 CTCGlobalFile::Flush()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Word32 CTCGlobalFile::GetFileSize()
+uint32_t CTCGlobalFile::GetFileSize()
 {
-	Word32 CurrentPosition = Tell();
-	Word32 Size;
+	uint32_t CurrentPosition = Tell();
+	uint32_t Size;
 
 	if ( Seek(0, CFIO_GF_SEEK_END) )
 	{
@@ -435,7 +435,7 @@ Word32 CTCGlobalFile::GetFileSize()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void CTCGlobalFile::TranslateFlagToString(Word32 Flag)
+void CTCGlobalFile::TranslateFlagToString(uint32_t Flag)
 {
 	ClearFlagString();
 
@@ -514,7 +514,7 @@ char * CTCGlobalFile::SetFileName(char * lpName )
 	return cFileName;
 }
 
-Word32 CTCGlobalFile::GetFileLenght()
+uint32_t CTCGlobalFile::GetFileLenght()
 {
 	if ( InMemory )
 	{
@@ -522,8 +522,8 @@ Word32 CTCGlobalFile::GetFileLenght()
 	}
 	else
 	{
-		Word32 wFileLenght;
-		Word32 wCurrentPos = Tell();
+		uint32_t wFileLenght;
+		uint32_t wCurrentPos = Tell();
 
 		wFileLenght = Seek(0, CFIO_GF_SEEK_END);
 		Seek(wCurrentPos, CFIO_GF_SEEK_BEG );
@@ -770,7 +770,7 @@ Bool32 CTCGlobalFile::ClosePtrToMemoryCluster(Handle hCluster, PCFIOMCLUSTER pCl
 //
 Handle CTCGlobalFile::GetSeekedCluster(PPCFIOMCLUSTER pmcCluster)
 {
-	Word32 FilledClusters = wSeeker/CFIO_GF_MEMORY_FILE_CLUSTER;
+	uint32_t FilledClusters = wSeeker/CFIO_GF_MEMORY_FILE_CLUSTER;
 	PCFIOMCLUSTER pCluster;
 
 	// if allright
@@ -814,13 +814,13 @@ Handle CTCGlobalFile::GetSeekedCluster(PPCFIOMCLUSTER pmcCluster)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Word32 CTCGlobalFile::WriteToMemory(void * pData, Word32 wDataSize, Word32 wDataCounter)
+uint32_t CTCGlobalFile::WriteToMemory(void * pData, uint32_t wDataSize, uint32_t wDataCounter)
 {
-	Word32 ClusterOffset;
-	Word32 wAllData = wDataSize * wDataCounter;
-	Word32 AvailableToWriteInCluster;
-	//Word32 i;
-	Word32 Counter = 0;
+	uint32_t ClusterOffset;
+	uint32_t wAllData = wDataSize * wDataCounter;
+	uint32_t AvailableToWriteInCluster;
+	//uint32_t i;
+	uint32_t Counter = 0;
 	char *     Sorc = (char *)pData;
 	char *     Desc;
 	PCFIOMCLUSTER pWritedCluster;
@@ -873,13 +873,13 @@ Word32 CTCGlobalFile::WriteToMemory(void * pData, Word32 wDataSize, Word32 wData
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Word32 CTCGlobalFile::ReadFromMemory(void * pData, Word32 wDataSize, Word32 wDataCounter)
+uint32_t CTCGlobalFile::ReadFromMemory(void * pData, uint32_t wDataSize, uint32_t wDataCounter)
 {
-	Word32 ClusterOffset;
-	Word32 wAllData = wDataSize * wDataCounter;
-	Word32 AvailableToReadInCluster;
-//	Word32 i;
-	Word32 Counter = 0;
+	uint32_t ClusterOffset;
+	uint32_t wAllData = wDataSize * wDataCounter;
+	uint32_t AvailableToReadInCluster;
+//	uint32_t i;
+	uint32_t Counter = 0;
 	char *     Sorc;
 	char *     Desc = (char *)pData;
 	PCFIOMCLUSTER pReadedCluster;

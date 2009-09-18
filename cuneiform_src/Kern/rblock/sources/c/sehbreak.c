@@ -258,7 +258,7 @@ BOOL GluedLettersProcess (ROOT *pRoot)
 	ROOT *pTmpRoot;
     INT  yRealRow, xRealColumn;
 	int nMN = 0;
-	//Word32 RootShift;
+	//uint32_t RootShift;
 
     if (pRoot -> nWidth  > EXTENDED_RASTER_MAX_WIDTH ||
         pRoot -> nHeight > EXTENDED_RASTER_MAX_HEIGHT)

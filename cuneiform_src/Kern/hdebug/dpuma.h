@@ -178,42 +178,42 @@ DPUMA_FNDPUMA_DrawRectTip
 
 DEC_FUNC(Bool32,  DPUMA_Init,(Word16 wHightCode, Handle hStorage));
 DEC_FUNC(Bool32,  DPUMA_Done,());
-DEC_FUNC(Word32,  DPUMA_GetErrorCode,(void));
-DEC_FUNC(Int8 *,  DPUMA_GetErrorString,(Word32 wError));
-DEC_FUNC(Bool32,  DPUMA_SetImportData,(Word32 wType, void * pData));
-DEC_FUNC(Bool32,  DPUMA_GetExportData,(Word32 wType, void * pData));
+DEC_FUNC(uint32_t,  DPUMA_GetErrorCode,(void));
+DEC_FUNC(Int8 *,  DPUMA_GetErrorString,(uint32_t wError));
+DEC_FUNC(Bool32,  DPUMA_SetImportData,(uint32_t wType, void * pData));
+DEC_FUNC(Bool32,  DPUMA_GetExportData,(uint32_t wType, void * pData));
 
-DEC_FUNC(Word32, DPUMA_CreateSnap,());
+DEC_FUNC(uint32_t, DPUMA_CreateSnap,());
 DEC_FUNC(void, DPUMA_DestroySnap,());
 DEC_FUNC(void, DPUMA_Stop,());
 DEC_FUNC(Bool32, DPUMA_IsActive,());
-DEC_FUNC(Word32, DPUMA_FN,());
+DEC_FUNC(uint32_t, DPUMA_FN,());
 DEC_FUNC(void, DPUMA_Registry,(Handle owner, const char * lpName, Handle parent));
 DEC_FUNC(Bool16, DPUMA_Skip,(Handle owner));
-DEC_FUNC(void, DPUMA_StartLoop,(Handle owner,Word32 inter_total));
+DEC_FUNC(void, DPUMA_StartLoop,(Handle owner,uint32_t inter_total));
 DEC_FUNC(void, DPUMA_LoopNext,(Handle owner));
 DEC_FUNC(Handle, DPUMA_CreateWindow,(const char * lpTitle, void * lpDib));
 DEC_FUNC(void,  DPUMA_DestroyWindow,(Handle wnd));
-DEC_FUNC(Word32,  DPUMA_WaitUserInput,(Handle owner,Handle wnd));
-DEC_FUNC(void,  DPUMA_DrawLine,(Handle wnd,Point16 * start, Point16 * end, int32_t skew, Word32 rgb, Int16 pen, Word32 key));
-DEC_FUNC(void,  DPUMA_DrawRect,(Handle wnd,Rect16 * rect, int32_t skew, Word32 rgb, Int16 pen, Word32 key));
-DEC_FUNC(void,  DPUMA_DeleteRects,(Handle wnd, Word32 key));
-DEC_FUNC(void,  DPUMA_DeleteLines,(Handle wnd, Word32 key));
+DEC_FUNC(uint32_t,  DPUMA_WaitUserInput,(Handle owner,Handle wnd));
+DEC_FUNC(void,  DPUMA_DrawLine,(Handle wnd,Point16 * start, Point16 * end, int32_t skew, uint32_t rgb, Int16 pen, uint32_t key));
+DEC_FUNC(void,  DPUMA_DrawRect,(Handle wnd,Rect16 * rect, int32_t skew, uint32_t rgb, Int16 pen, uint32_t key));
+DEC_FUNC(void,  DPUMA_DeleteRects,(Handle wnd, uint32_t key));
+DEC_FUNC(void,  DPUMA_DeleteLines,(Handle wnd, uint32_t key));
 DEC_FUNC(Bool16,  DPUMA_GetUserPoint,(Handle wnd,Point16 * point));
 DEC_FUNC(Bool16,  DPUMA_GetUserRect,(Handle wnd,Rect16 * rect));
 DEC_FUNC(void,  DPUMA_UpdateView,(Handle wnd));
 DEC_FUNC(void,  DPUMA_DrawRaster,(DPUMA_RecRaster * lpRaster));
 DEC_FUNC(void,  DPUMA_RasterText,(char * lpText));
 DEC_FUNC(void,  DPUMA_ZoomToRect,(Handle wnd,Rect16 * rect));
-DEC_FUNC(void,  DPUMA_RasterHeader,(char * lpText,Word32 num));
+DEC_FUNC(void,  DPUMA_RasterHeader,(char * lpText,uint32_t num));
 DEC_FUNC(void,  DPUMA_DrawFocusRect,(Handle wnd,Rect16 * lpRect));
 DEC_FUNC(Bool32,  DPUMA_RegVariable,(Handle owner, const char * lpName,void * lpData, const char * lpType));
 DEC_FUNC(void,  DPUMA_UnregVariable,(void * lpData));
 DEC_FUNC(void *,DPUMA_GetDIBptr,(Handle wnd));
-DEC_FUNC(void,  DPUMA_DrawString,(Handle wnd, Point16 * start, const char * string, int32_t align, Word32 rgb, Int16 size, Word32 key));
-DEC_FUNC(void,  DPUMA_DeleteStrings,(Handle wnd, Word32 key));
-DEC_FUNC(void,  DPUMA_DrawLineTip,(Handle wnd,Point16 * start, Point16 * end, int32_t skew, Word32 rgb, Int16 pen, Word32 key, const char *pTip));
-DEC_FUNC(void,  DPUMA_DrawRectTip,(Handle wnd,Rect16 * rect, int32_t skew, Word32 rgb, Int16 pen, Word32 key, const char *pTip));
+DEC_FUNC(void,  DPUMA_DrawString,(Handle wnd, Point16 * start, const char * string, int32_t align, uint32_t rgb, Int16 size, uint32_t key));
+DEC_FUNC(void,  DPUMA_DeleteStrings,(Handle wnd, uint32_t key));
+DEC_FUNC(void,  DPUMA_DrawLineTip,(Handle wnd,Point16 * start, Point16 * end, int32_t skew, uint32_t rgb, Int16 pen, uint32_t key, const char *pTip));
+DEC_FUNC(void,  DPUMA_DrawRectTip,(Handle wnd,Rect16 * rect, int32_t skew, uint32_t rgb, Int16 pen, uint32_t key, const char *pTip));
 
 DEC_VARG(void,		DPUMA_MessageBoxOk);
 DEC_VARG(void,		DPUMA_StatusLine);
@@ -222,55 +222,55 @@ DEC_VARG(int32_t,		DPUMA_Console);
 DEC_VARG(int32_t,		DPUMA_ConsoleN);
 
 /* callback functions */
-typedef Word32 (*DPUMA_Callback_WindowProc)(Handle wnd,Handle hWnd,Word32 message,Word32 wParam,Word32 lParam);
+typedef uint32_t (*DPUMA_Callback_WindowProc)(Handle wnd,Handle hWnd,uint32_t message,uint32_t wParam,uint32_t lParam);
 
 DEC_FUNC(DPUMA_Callback_WindowProc,  DPUMA_SetCallbackWindowProc,(Handle wnd, DPUMA_Callback_WindowProc func));
-DEC_FUNC(void,  DPUMA_DeviceToImage,(Handle wnd, Point32 * p, Word32 number));
-DEC_FUNC(void,  DPUMA_ImageToDevice,(Handle wnd, Point32 * p, Word32 number));
+DEC_FUNC(void,  DPUMA_DeviceToImage,(Handle wnd, Point32 * p, uint32_t number));
+DEC_FUNC(void,  DPUMA_ImageToDevice,(Handle wnd, Point32 * p, uint32_t number));
 DEC_FUNC(DPUMA_Callback_WindowProc,  DPUMA_SetCallbackMainFrameWindowProc,(DPUMA_Callback_WindowProc func));
 
 #define WM_DPUMA 0x0500 // WM_USER + 0x100
 
-DEC_FUNC(Word32,  DPUMA_SendWindow,(Handle wnd,Word32 message, Word32 wParam, Word32 lParam));
-DEC_FUNC(Word32,  DPUMA_SendMainWnd,(Word32 message, Word32 wParam, Word32 lParam));
+DEC_FUNC(uint32_t,  DPUMA_SendWindow,(Handle wnd,uint32_t message, uint32_t wParam, uint32_t lParam));
+DEC_FUNC(uint32_t,  DPUMA_SendMainWnd,(uint32_t message, uint32_t wParam, uint32_t lParam));
 
-DEC_FUNC(Word32,  DPUMA_CSTR_Monitor,(Handle owner, Word32 cstr_line, Word32 pos,
+DEC_FUNC(uint32_t,  DPUMA_CSTR_Monitor,(Handle owner, uint32_t cstr_line, uint32_t pos,
 									  DPUMA_Callback_WindowProc lpproc));
 
-DEC_FUNC(Word32, DPUMA_CSTR_GetPosition,( Word32 * cstr_rester ));
-DEC_FUNC(void,   DPUMA_CSTR_SetPosition,(Word32 pos));
+DEC_FUNC(uint32_t, DPUMA_CSTR_GetPosition,( uint32_t * cstr_rester ));
+DEC_FUNC(void,   DPUMA_CSTR_SetPosition,(uint32_t pos));
 DEC_FUNC(void,   DPUMA_DestroyRasterWnd,( void ));
-DEC_FUNC(Word32, DPUMA_CSTR_GetLength,( void ));
-DEC_FUNC(void,   DPUMA_ShowCutPoint,(Word32 lpcount, Point32 * lppoints ));
+DEC_FUNC(uint32_t, DPUMA_CSTR_GetLength,( void ));
+DEC_FUNC(void,   DPUMA_ShowCutPoint,(uint32_t lpcount, Point32 * lppoints ));
 DEC_FUNC(Point32,DPUMA_GetRasterPixel,(Handle wnd, Point32 point ));
 DEC_FUNC(void,   DPUMA_CSTR_Update,( void ));
 DEC_FUNC(Bool32, DPUMA_SkipEx,(Handle owner,Bool32 bIter,Bool32 bParent,int32_t nSign));
 
 DEC_FUNC(Bool32, DPUMA_OpenFile,(Handle wnd, char * lpFileName));
 DEC_FUNC(char *, DPUMA_GetFileName,(Handle wnd));
-DEC_FUNC(void *, DPUMA_HandLayout,( void * pDIB, Word32 flags ,Point32 * p));
+DEC_FUNC(void *, DPUMA_HandLayout,( void * pDIB, uint32_t flags ,Point32 * p));
 DEC_FUNC(Bool32, DPUMA_LockImage,(Handle wnd,Bool32 bLock));
 
 DEC_FUNC(void,   DPUMA_RegistryHelp,(Handle owner, const char * lpName, Bool32 bAppend));
-DEC_FUNC(Bool32, DPUMA_SaveFile,(void * lpDIB,char * lpFileName,Word32 nFormat));
+DEC_FUNC(Bool32, DPUMA_SaveFile,(void * lpDIB,char * lpFileName,uint32_t nFormat));
 // Image Gear constants
 #define PUMA_SAVE_BMP_UNCOMP       (2)
 #define PUMA_SAVE_TIF_UNCOMP       (40)
 #define PUMA_SAVE_TIF_G4           (40|(4L << 16))
 DEC_FUNC(void,	 DPUMA_ProgressStart	,( void ));
 DEC_FUNC(void,	 DPUMA_ProgressFinish	,( void ));
-DEC_FUNC(Bool32, DPUMA_ProgressStep		,(Word32 step, const char * name, Word32 percent));
+DEC_FUNC(Bool32, DPUMA_ProgressStep		,(uint32_t step, const char * name, uint32_t percent));
 DEC_FUNC(Bool32, DPUMA_SetConsoleProperty,(	Bool32 bold,Bool32 italic,
-	Bool32 strikeout,Bool32 underline,int32_t height,	int32_t offset,	Word32 textcolor,
+	Bool32 strikeout,Bool32 underline,int32_t height,	int32_t offset,	uint32_t textcolor,
 	int32_t charset,	const char * name ));
-DEC_FUNC(Handle, DPUMA_CreateHistogramm,(const char *, Word32 size, int32_t * lpVal));
-DEC_FUNC(void,	 DPUMA_AddPointToHistogramm,(Handle hDlg, Word32 point));
-DEC_FUNC(Bool32, DPUMA_DoHistogramm,(Handle hDlg, PWord32 lpCurpos));
+DEC_FUNC(Handle, DPUMA_CreateHistogramm,(const char *, uint32_t size, int32_t * lpVal));
+DEC_FUNC(void,	 DPUMA_AddPointToHistogramm,(Handle hDlg, uint32_t point));
+DEC_FUNC(Bool32, DPUMA_DoHistogramm,(Handle hDlg, Puint32_t lpCurpos));
 DEC_FUNC(void,	 DPUMA_DestroyHistogramm,(Handle hDlg));
 DEC_FUNC(Handle, DPUMA_TimeStamp,(const char * name,Handle hTimer));
 DEC_FUNC(Handle, DPUMA_GetWindowHandle,(const char * name));
 DEC_FUNC(Handle, DPUMA_GetPrevSkipOwner,());
-DEC_FUNC(int32_t,  DPUMA_AllocHook,( int32_t allocType, Handle userData, Word32 size, Word32 prevSize,
+DEC_FUNC(int32_t,  DPUMA_AllocHook,( int32_t allocType, Handle userData, uint32_t size, uint32_t prevSize,
 		 int32_t blockType, int32_t requestNumber, PWord8 filename, int32_t lineNumber));
 DEC_FUNC(void,	 DPUMA_ConsoleClear,(int32_t fromline));
 DEC_FUNC(int32_t,  DPUMA_ConsoleGetCurLine,());

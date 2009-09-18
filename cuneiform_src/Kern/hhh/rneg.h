@@ -98,10 +98,10 @@ struct NegTemp
 
 RNEG_FUNC(Bool32) RNEG_Init(Word16 wHeightCode,Handle parent);
 RNEG_FUNC(Bool32) RNEG_Done();
-RNEG_FUNC(Word32) RNEG_GetReturnCode();
-RNEG_FUNC(Int8 *) RNEG_GetReturnString(Word32 dwError);
-RNEG_FUNC(Bool32) RNEG_GetExportData(Word32 dwType, void * pData);
-RNEG_FUNC(Bool32) RNEG_SetImportData(Word32 dwType, void * pData);
+RNEG_FUNC(uint32_t) RNEG_GetReturnCode();
+RNEG_FUNC(Int8 *) RNEG_GetReturnString(uint32_t dwError);
+RNEG_FUNC(Bool32) RNEG_GetExportData(uint32_t dwType, void * pData);
+RNEG_FUNC(Bool32) RNEG_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////
 
 

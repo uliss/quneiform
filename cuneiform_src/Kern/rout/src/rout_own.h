@@ -425,10 +425,10 @@ EXTERN char gAT_vowels[LANG_TOTAL][kMaxSizeAlphabet+1] VAL({0});
 //*****************************************************************
 // Rout_DLL.cpp
 
-Handle MyAlloc(Word32 dwSize, Word32 dwFlag);
+Handle MyAlloc(uint32_t dwSize, uint32_t dwFlag);
 Handle MyReAlloc(Handle hMem,
-				Word32 dwSize,
-				Word32 dwFlag);
+				uint32_t dwSize,
+				uint32_t dwFlag);
 Handle MyLock(Handle hMem);
 Bool32 MyUnlock(Handle hMem);
 Bool32 MyFree(Handle hMem);

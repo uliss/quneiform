@@ -99,8 +99,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 extern FNRDProc RDProced;//pointer to function, which processes raw data
-void SetReturnCode_ced(Word32 rc);//set error code
-Word32 GetReturnCode_ced();
+void SetReturnCode_ced(uint32_t rc);//set error code
+uint32_t GetReturnCode_ced();
 
 //function, exported from CFIO
 extern	FNCFIOReadMemoryFromFile    MemFromFile;              //19
@@ -140,16 +140,16 @@ DEC_FUN(void, CED_ListOfFragments,(const list_of_fragments* pt));
 DEC_FUN(void, CED_Extention,(const edExtention* pt,const void* ptExt));
 DEC_FUN(void, CED_ExtentionNew,(const edExtentionNew* pt,const void* ptExt));
 DEC_FUN(void, CED_Aksant,(const aksant* pt));
-DEC_FUN(void, CED_Letter,(const letter* pt,const Word32 alternatives));
+DEC_FUN(void, CED_Letter,(const letter* pt,const uint32_t alternatives));
 
 #undef DEC_FUN
 
 
 #define DEC_FUN(a,b,c) a b c
 
-DEC_FUN(Word32, CED_ReadED,(char * file,Bool32 readFromFile, Word32 bufLen));
+DEC_FUN(uint32_t, CED_ReadED,(char * file,Bool32 readFromFile, uint32_t bufLen));
 DEC_FUN(void,CED_SetRawDataProc,(FNRDProc proc));
-DEC_FUN(CEDPage*,CED_FormattedLoad,(char * file,Bool32 readFromFile, Word32 bufLen));
+DEC_FUN(CEDPage*,CED_FormattedLoad,(char * file,Bool32 readFromFile, uint32_t bufLen));
 DEC_FUN(Bool32,CED_FormattedWrite,(char * fileName, CEDPage *page));
 DEC_FUN(void,CED_DeleteTree,(CEDPage * pg));
 /*
@@ -157,7 +157,7 @@ DEC_FUN(void,CED_DeleteTree,(CEDPage * pg));
 DEC_FUN(void, CED_ShowTree,(char * name, Handle hEdPage));
 #endif
 
-DEC_FUN(Bool32, CED_IsEdFile, (char * file,Bool32 readFromFile, Word32 bufLen));
+DEC_FUN(Bool32, CED_IsEdFile, (char * file,Bool32 readFromFile, uint32_t bufLen));
 
 DEC_FUN(Handle, CED_CreatePage,(char * _imageName,EDSIZE _sizeOfImage,EDSIZE _dpi,int _turn,int _pageNumber,EDSIZE _sizeInTwips, EDRECT _pageBordersInTwips, char _unrecogChar));
 DEC_FUN(Bool32, CED_CreateFont,(Handle hEdPage, BYTE fontNumber, BYTE fontPitchAndFamily, BYTE fontCharset,char* fontName));
@@ -171,26 +171,26 @@ DEC_FUN(Handle, CED_CreateFrame,(Handle hEdSection, Handle hObject, edBox rect, 
 DEC_FUN(Handle, CED_CreateCell,(Handle hEdSection,Handle hEdTable));
 DEC_FUN(Handle, CED_CreateTable,(  Handle hEdSection, Handle hObject,EDSIZE sz, int * cx,int * cy, int * table,Bool32 * bHorShow,Bool32 * bVerShow));
 DEC_FUN(void, CED_DeletePage,(Handle hEdPage));
-DEC_FUN(Handle, CED_ReadFormattedEd,(char * lpEdFile,Bool32 readFromFile, Word32 bufLen));
+DEC_FUN(Handle, CED_ReadFormattedEd,(char * lpEdFile,Bool32 readFromFile, uint32_t bufLen));
 DEC_FUN(Bool32, CED_WriteFormattedEd,(char * lpEdFileName, Handle hEdPage));
 DEC_FUN(char*, CED_GetPageImageName,(Handle hEdPage));
 DEC_FUN(EDSIZE, CED_GetPageImageSize,(Handle hEdPage));
 DEC_FUN(EDSIZE,CED_GetPageDpi,(Handle hEdPage));
-DEC_FUN(Word32, CED_GetPageTurn,(Handle hEdPage));
+DEC_FUN(uint32_t, CED_GetPageTurn,(Handle hEdPage));
 DEC_FUN(EDSIZE,CED_GetPageSize,(Handle hEdPage));
 DEC_FUN(char,CED_GetPageUnrecogChar,(Handle hEdPage));
-DEC_FUN(Word32,CED_GetNumberOfParagraphs,(Handle hEdPage));
+DEC_FUN(uint32_t,CED_GetNumberOfParagraphs,(Handle hEdPage));
 DEC_FUN(Handle, CED_GetParagraph,(Handle hEdPage,int _num));
 DEC_FUN(Bool32, CED_GetFont,(Handle hEdPage,int number, BYTE* fontNumber, BYTE* fontPitchAndFamily, BYTE* fontCharset,char* fontName));
 DEC_FUN(int, CED_GetNumOfFonts,(Handle hEdPage));
-DEC_FUN(Word32,CED_GetCountSection,(Handle hEdPage));
-DEC_FUN(Handle, CED_GetSection,(Handle hEdPage, Word32 number));
+DEC_FUN(uint32_t,CED_GetCountSection,(Handle hEdPage));
+DEC_FUN(Handle, CED_GetSection,(Handle hEdPage, uint32_t number));
 DEC_FUN(EDRECT, CED_GetSectionBorder,(Handle hEdSection));
-DEC_FUN(Word32, CED_GetCountColumn,(Handle hEdSection));
+DEC_FUN(uint32_t, CED_GetCountColumn,(Handle hEdSection));
 DEC_FUN(Handle, CED_GetColumn,(Handle hEdSection,int number));
-DEC_FUN(Word32, CED_GetColumnWidth,(Handle hEdColumn));
-DEC_FUN(Word32, CED_GetColumnSpacing,(Handle hEdColumn));
-//DEC_FUN(Word32, CED_GetCountFrame,(Handle hEdSection));
+DEC_FUN(uint32_t, CED_GetColumnWidth,(Handle hEdColumn));
+DEC_FUN(uint32_t, CED_GetColumnSpacing,(Handle hEdColumn));
+//DEC_FUN(uint32_t, CED_GetCountFrame,(Handle hEdSection));
 //DEC_FUN(Handle, CED_GetFrame,(Handle hEdSection,int number));
 DEC_FUN(edBox, CED_GetFrameRect,(Handle hEdFrame));
 DEC_FUN(Handle, CED_GetFirstObject,(Handle hObject));
@@ -200,30 +200,30 @@ DEC_FUN(Bool32, CED_IsPicture,(Handle hObject));
 DEC_FUN(Bool32, CED_IsFrame,(Handle hObject));
 DEC_FUN(Bool32, CED_IsParagraph,(Handle hObject));
 DEC_FUN(Bool32, CED_IsFictive,(Handle hEdParagraph));
-DEC_FUN(Word32, CED_GetCountCell,(Handle hEdTable));
+DEC_FUN(uint32_t, CED_GetCountCell,(Handle hEdTable));
 DEC_FUN(Handle, CED_GetCell,(Handle hEdTable, int number));
 DEC_FUN(int32_t*,CED_GetLinesX,(Handle hEdTable));
 DEC_FUN(int32_t *,CED_GetLinesY,(Handle hEdTable));
-DEC_FUN(Word32*,CED_GetTableOfCells,(Handle hEdTable));
+DEC_FUN(uint32_t*,CED_GetTableOfCells,(Handle hEdTable));
 DEC_FUN(EDSIZE, CED_GetSize,(Handle hEdTable));
 DEC_FUN(EDRECT, CED_GetIndent,(Handle hEdParagraph));
-DEC_FUN(Word32,CED_GetAlignment,(Handle hEdParagraph));
+DEC_FUN(uint32_t,CED_GetAlignment,(Handle hEdParagraph));
 DEC_FUN(EDBOX, CED_GetLayout,(Handle hEdParagraph));
-DEC_FUN(Word32, CED_GetUserNumber,(Handle hEdParagraph));
+DEC_FUN(uint32_t, CED_GetUserNumber,(Handle hEdParagraph));
 DEC_FUN(EDSIZE, CED_GetInterval,(Handle hEdParagraph));
-DEC_FUN(Word32, CED_GetCountLine,(Handle hEdParagraph));
+DEC_FUN(uint32_t, CED_GetCountLine,(Handle hEdParagraph));
 DEC_FUN(Handle, CED_GetLine,(Handle hEdParagraph,int number));
-DEC_FUN(Word32, CED_GetCountChar,(Handle hEdLine));
+DEC_FUN(uint32_t, CED_GetCountChar,(Handle hEdLine));
 DEC_FUN(Handle, CED_GetChar,(Handle hEdLine,int number));
 DEC_FUN(struct letterEx*, CED_GetAlternatives,(Handle hEdChar));
-DEC_FUN(Word32, CED_GetFontHeight,(Handle hEdChar));
-DEC_FUN(Word32, CED_GetFontStyle,(Handle hEdChar));
-DEC_FUN(Word32, CED_GetFontLang,(Handle hEdChar));
+DEC_FUN(uint32_t, CED_GetFontHeight,(Handle hEdChar));
+DEC_FUN(uint32_t, CED_GetFontStyle,(Handle hEdChar));
+DEC_FUN(uint32_t, CED_GetFontLang,(Handle hEdChar));
 DEC_FUN(EDBOX, CED_GetCharLayout,(Handle hEdChar));
 */
 #undef DEC_FUN
 
-CEDPage * Formattedload_96(char * file,Bool32 readFromFile, Word32 bufLen);
+CEDPage * Formattedload_96(char * file,Bool32 readFromFile, uint32_t bufLen);
 
 #pragma pack(1)
 struct pageDescr

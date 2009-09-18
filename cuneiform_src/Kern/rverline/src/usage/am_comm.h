@@ -76,16 +76,16 @@ int AM_WriteRes_rv_fte (int Code, const char *pStr);
 void CloseAllRes ();
 Bool   AM_InitComm (Word16 wRltOwnCode);
 void AM_DoneComm ();
-Word32 AM_GetOperCode (Word16 wLocCode);
+uint32_t AM_GetOperCode (Word16 wLocCode);
 void   AM_RegiVert (Handle owner, const char *lpName, Handle parent);
 void   AM_RegiVari (Handle owner, const char *lpName, void *lpData, const char *lpType);
 void AM_RegiHelp (Handle owner, const char *lpName, Bool32 bAppend);
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-Word32 AM_WaitUserInput (Handle owner, Handle wnd);
-void   AM_DrawLine (Handle wnd, Point16 *start, Point16 *end, int32_t skew, Word32 rgb, Int16 pen, Word32 key);
-void   AM_DrawRect (Handle wnd, Rect16 *pRc, int32_t skew, Word32 rgb, Int16 pen, Word32 key);
-void   AM_DeleteLines (Handle wnd, Word32 key);
-void   AM_DeleteRects (Handle wnd, Word32 key);
+uint32_t AM_WaitUserInput (Handle owner, Handle wnd);
+void   AM_DrawLine (Handle wnd, Point16 *start, Point16 *end, int32_t skew, uint32_t rgb, Int16 pen, uint32_t key);
+void   AM_DrawRect (Handle wnd, Rect16 *pRc, int32_t skew, uint32_t rgb, Int16 pen, uint32_t key);
+void   AM_DeleteLines (Handle wnd, uint32_t key);
+void   AM_DeleteRects (Handle wnd, uint32_t key);
 Bool16 AM_Skip (Handle owner);
 #ifdef _AM_Comm_
 	FN_AM_Console AM_Console;

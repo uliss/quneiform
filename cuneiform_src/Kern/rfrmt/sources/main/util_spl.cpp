@@ -96,8 +96,8 @@ extern "C" {
 Int16 NumCol;
 int SizeSectionCol;
 Int16 *NumStr;//[nc]
-Word32 *UserNumber;//[nc]
-Word32 *FragFlag;//[nc]
+uint32_t *UserNumber;//[nc]
+uint32_t *FragFlag;//[nc]
 SRECT *BndCol;//[nc]
 STAT_COL *StatCol;//[nc]
 int len_col,k_frm;
@@ -509,8 +509,8 @@ short __cdecl  OpenFullOutTiger(FILE *in)
 	}
 
  BndCol     = (SRECT*)malloc(NumCol * sizeof(SRECT));
- UserNumber = (Word32*)malloc(NumCol*sizeof(Word32));
- FragFlag   = (Word32*)malloc(NumCol*sizeof(Word32));
+ UserNumber = (uint32_t*)malloc(NumCol*sizeof(uint32_t));
+ FragFlag   = (uint32_t*)malloc(NumCol*sizeof(uint32_t));
 
  RectFragm = (Rect16*)malloc(NumCol*sizeof(Rect16));
 
@@ -560,8 +560,8 @@ short __cdecl  OpenFullOutTiger(FILE *in)
   fread(&RectFragm[nc],1,sizeof(Rect16),in);
 	 // *********** РАСЧЕТ КОЛОННОЙ СТАТИСТИКИ *************
   fread(&NumStr[nc],sizeof(Int16),1,in);
-  fread(&UserNumber[nc],sizeof(Word32),1,in);
-  fread(&FragFlag[nc],sizeof(Word32),1,in);
+  fread(&UserNumber[nc],sizeof(uint32_t),1,in);
+  fread(&FragFlag[nc],sizeof(uint32_t),1,in);
 
   Zn[nc]=(ZN***)Submalloc((NumStr[nc])*sizeof(ZN**),&SubZn);
   TitleStr[nc]=(TITLE_STR*)Submalloc((NumStr[nc])*sizeof(TITLE_STR),&SubZn);

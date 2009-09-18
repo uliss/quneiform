@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 extern Handle hDebugAutoTemplate;
 
-static Word32 key=2;                  //для snap'а
+static uint32_t key=2;                  //для snap'а
 static Word8 buffer[256];
 static char *message = (char *)buffer;
 

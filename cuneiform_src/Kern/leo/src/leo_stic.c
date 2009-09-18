@@ -722,10 +722,10 @@ Alt=*Alt2;
 return;
 }
 
-void Filtrate3Str(Word32 *po,Word32 *pc, int len32)
+void Filtrate3Str(uint32_t *po,uint32_t *pc, int len32)
 {
 int j;
-Word32 *pp=pc-len32, *pn=pc+len32;
+uint32_t *pp=pc-len32, *pn=pc+len32;
 
 for(j=0;j<len32;j++)
     po[j] = pc[j]|(pp[j]&pn[j]);
@@ -742,7 +742,7 @@ n = rout->lnPixHeight-1;
 
 for(pc=&rin->Raster[wb], po=&rout->Raster[wb], i=1;i<n;i++,po+=wb, pc+=wb )
     {
-    Filtrate3Str((Word32*)po,(Word32*)pc,wb/4);
+    Filtrate3Str((uint32_t*)po,(uint32_t*)pc,wb/4);
     }
 
 return;

@@ -80,7 +80,7 @@ public:
 	Bool32 RestoreCompress(Handle from);
 
 	BACKUPPAGE & operator = (BACKUPPAGE & Page);
-	inline Word32 GetCurPos(){ return BackUpPage.GetPos(hCurBackUp);};
+	inline uint32_t GetCurPos(){ return BackUpPage.GetPos(hCurBackUp);};
 
 
 };
@@ -93,21 +93,21 @@ public:
  Word16 GetReturnCode_cpage();
 
 void DefConvertInit();
-Word32 DefConvertBlock( Word32 dwContext,
-					Handle TypeIn,void * lpDataIn,Word32 SizeIn,
-					Handle TypeOut,void * LpDataOut, Word32 SizeOut);
-Word32 DefConvertPage( Word32 dwContext,
-					Handle TypeIn,void * lpDataIn,Word32 SizeIn,
-					Handle TypeOut,void * LpDataOut, Word32 SizeOut);
-void CleanData(Handle Type,void * lpData,Word32 Size);
-Bool32 ComplianceVersions(Handle Type, char ** lpData, Word32 *Size);
-Bool32 Compress(char * lpData, Word32 Size, char ** compressedData, Word32 * compressedSize);
-Bool32 Decompress(char * lpData, Word32 Size, char ** decomData, Word32 * decomSize);
+uint32_t DefConvertBlock( uint32_t dwContext,
+					Handle TypeIn,void * lpDataIn,uint32_t SizeIn,
+					Handle TypeOut,void * LpDataOut, uint32_t SizeOut);
+uint32_t DefConvertPage( uint32_t dwContext,
+					Handle TypeIn,void * lpDataIn,uint32_t SizeIn,
+					Handle TypeOut,void * LpDataOut, uint32_t SizeOut);
+void CleanData(Handle Type,void * lpData,uint32_t Size);
+Bool32 ComplianceVersions(Handle Type, char ** lpData, uint32_t *Size);
+Bool32 Compress(char * lpData, uint32_t Size, char ** compressedData, uint32_t * compressedSize);
+Bool32 Decompress(char * lpData, uint32_t Size, char ** decomData, uint32_t * decomSize);
 
-Word32 TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn,Word32 SizeIn,CPAGE_TABLE * LpDataOut,Word32 SizeOut);
-Word32 CPAGE_TABLE_to_TYPE_DESK( CPAGE_TABLE * lpDataIn,Word32 SizeIn,TABLE_DESC * LpDataOut,Word32 SizeOut);
-Word32 TYPE_PICTURE_to_CPAGE_PICTURE(POLY_ * lpDataIn,Word32 SizeIn,CPAGE_PICTURE * LpDataOut,Word32 SizeOut);
-Word32 CPAGE_PICTURE_to_TYPE_PICTURE( CPAGE_PICTURE * lpDataIn,Word32 SizeIn,POLY_ * LpDataOut,Word32 SizeOut);
+uint32_t TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn,uint32_t SizeIn,CPAGE_TABLE * LpDataOut,uint32_t SizeOut);
+uint32_t CPAGE_TABLE_to_TYPE_DESK( CPAGE_TABLE * lpDataIn,uint32_t SizeIn,TABLE_DESC * LpDataOut,uint32_t SizeOut);
+uint32_t TYPE_PICTURE_to_CPAGE_PICTURE(POLY_ * lpDataIn,uint32_t SizeIn,CPAGE_PICTURE * LpDataOut,uint32_t SizeOut);
+uint32_t CPAGE_PICTURE_to_TYPE_PICTURE( CPAGE_PICTURE * lpDataIn,uint32_t SizeIn,POLY_ * LpDataOut,uint32_t SizeOut);
 
 #ifdef DPUMA_ON
 	Handle	ProfileProlog();

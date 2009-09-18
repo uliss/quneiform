@@ -100,8 +100,8 @@ private:
 	char                       szFileFolder[CFIO_MAX_PATH];
 	char                       szStorageFolder[CFIO_MAX_PATH];
 	char                       szBuffer[CFIO_MAX_PATH];
-	//Word32                     wHeightRC;
-	//Word32                     wLowRC;
+	//uint32_t                     wHeightRC;
+	//uint32_t                     wLowRC;
 
 public:
 	CTCControl();
@@ -109,69 +109,69 @@ public:
 
 // import functions
 public:
-	Bool32 SetFolder(Word32 wFolder, PChar8 pcBuff);
-	Bool32 GetFolder(Word32 wFolder, PChar8 pcBuff);
+	Bool32 SetFolder(uint32_t wFolder, PChar8 pcBuff);
+	Bool32 GetFolder(uint32_t wFolder, PChar8 pcBuff);
 
 // import functions
 public:
-	Handle OpenStorage(PChar8 lpName, Word32 wTypes);
-	Bool32 CloseStorage(Handle  hStorage, Word32  dwFlag);
+	Handle OpenStorage(PChar8 lpName, uint32_t wTypes);
+	Bool32 CloseStorage(Handle  hStorage, uint32_t  dwFlag);
 	Bool32 DeleteStorage(PChar8 lpName);
 	Bool32 WriteFileToStorage(Handle hStorage, Handle hFile, PChar8 lpName);
 	Handle ReadFileFromStorage(Handle hStorage, PChar8 lpName);
-	Handle OpenFile(Handle hFile, PChar8 lpName, Word32 dwFlag);
-	Bool32 CloseFile(Handle hFile, Word32 dwFlag, Handle hStorage = NULL);
-	Word32 WriteFile(Handle hFile, PInt8 lpData, Word32 dwSize);
-	Word32 ReadFromFile(Handle hFile, PInt8 lpData, Word32 dwSize);
-	Word32 Seek(Handle hFile, Word32 dwBytes, Word32 dwFrom);
-	Word32 Tell(Handle hFile);
+	Handle OpenFile(Handle hFile, PChar8 lpName, uint32_t dwFlag);
+	Bool32 CloseFile(Handle hFile, uint32_t dwFlag, Handle hStorage = NULL);
+	uint32_t WriteFile(Handle hFile, PInt8 lpData, uint32_t dwSize);
+	uint32_t ReadFromFile(Handle hFile, PInt8 lpData, uint32_t dwSize);
+	uint32_t Seek(Handle hFile, uint32_t dwBytes, uint32_t dwFrom);
+	uint32_t Tell(Handle hFile);
 	Bool32 Flush(Handle hFile);
-	Handle Alloc(Word32 dwSize, Word32 dwFlag, const char *cOwner, const char *Coment);
-	Handle ReAlloc(Handle hMemory, Word32 wNewSize, Word32 wFlag);
+	Handle Alloc(uint32_t dwSize, uint32_t dwFlag, const char *cOwner, const char *Coment);
+	Handle ReAlloc(Handle hMemory, uint32_t wNewSize, uint32_t wFlag);
 	Bool32 Free(Handle hMem);
 	LPVOID Lock(Handle hMem);
 	Bool32 Unlock(Handle hMem);
-	Word32 WriteMemToFile(Handle hMem, PChar8 lpName);
-	Word32 ReadMemFromFile(PChar8 lpName, Handle * phMem, Word32 wFlag = MAF_GALL_GHND);
-	Word32 WriteMemToStorage(Handle hMem, Handle hStorage, PChar8 lpName);
-	Word32 ReadMemFromStorage(Handle hStorage, PChar8 lpName, Handle * phMem);
+	uint32_t WriteMemToFile(Handle hMem, PChar8 lpName);
+	uint32_t ReadMemFromFile(PChar8 lpName, Handle * phMem, uint32_t wFlag = MAF_GALL_GHND);
+	uint32_t WriteMemToStorage(Handle hMem, Handle hStorage, PChar8 lpName);
+	uint32_t ReadMemFromStorage(Handle hStorage, PChar8 lpName, Handle * phMem);
 
 private:
-	Handle AddFileInList(CTCGlobalFile * File, Word32 Flag, Handle Storage);
-	Handle OpenFileAndAttach(PChar8 lpNAme, Word32 Flag, Handle Storage = NULL);
-	Handle AllocNewMemory(Word32 wFlag, Word32 wSize, Bool32 Global, const char *cOwner, const char* Coment);
-	Bool32 AddNewMemoryInList( Handle hMemory, Word32 wSize, Word32 IsGlobal, const char *cOwner, const char *Coment);
-	Bool32 FreeMemory(Handle hMemory, Word32 wFlag = 0x0);
-	Bool32 TakeMemory(Handle hMemory, Word32 * wMemorySize, Word32 * wMemoryFlag);
+	Handle AddFileInList(CTCGlobalFile * File, uint32_t Flag, Handle Storage);
+	Handle OpenFileAndAttach(PChar8 lpNAme, uint32_t Flag, Handle Storage = NULL);
+	Handle AllocNewMemory(uint32_t wFlag, uint32_t wSize, Bool32 Global, const char *cOwner, const char* Coment);
+	Bool32 AddNewMemoryInList( Handle hMemory, uint32_t wSize, uint32_t IsGlobal, const char *cOwner, const char *Coment);
+	Bool32 FreeMemory(Handle hMemory, uint32_t wFlag = 0x0);
+	Bool32 TakeMemory(Handle hMemory, uint32_t * wMemorySize, uint32_t * wMemoryFlag);
 	Bool32 GetMemory(Handle hMemory, PPCTCMemoryHeader pHeader);
 	Bool32 DeleteMemoryFromList(Handle hMemory);
 	LPVOID LockMemory(Handle hMemory);
 	Bool32 UnlockMemory(Handle hMemory);
 	Bool32 LockatorMemoryInList(Handle hMemory, Bool32 bLock);
-	Bool32 AttachFileToStorage(Handle File, Handle Storage, Word32 Flag);
-	Bool32 DeleteFileFromList(Handle File, Word32 Flag, Handle Stotrage = NULL);
+	Bool32 AttachFileToStorage(Handle File, Handle Storage, uint32_t Flag);
+	Bool32 DeleteFileFromList(Handle File, uint32_t Flag, Handle Stotrage = NULL);
 	Bool32 FlushFile(Handle File);
-	Word32 TellFilePointer(Handle File);
-	Bool32 CloseFileAndAttach(Handle File, Word32 Flag, Handle Storage);
+	uint32_t TellFilePointer(Handle File);
+	Bool32 CloseFileAndAttach(Handle File, uint32_t Flag, Handle Storage);
 	Bool32 DeleteFileFromDisk(Handle File);
-	Word32 SeekFilePointer(Handle File, Word32 Position, Word32 From);
-	Word32 ReadDataFromFile(Handle File, void * lpData, Word32 Size);
-	Word32 WriteDataToFile(Handle File, void * lpData, Word32 Size);
-	Bool32 CloseFileAndDettach(Handle File, Word32 Flag, Handle Storage);
-	Handle CompliteStorage(Handle Storage, Word32 Flag);
-	Word32 WriteItemToStorage(CTCStorageHeader * Storage, void * pItem, Word32 Size);
-	Word32 WriteFileToStorage(CTCStorageHeader * Storage, CTCFileHeader * File);
-	Bool32 CloseStorageFile(Handle Storage, Word32 Flag = 0);
-	Bool32 CloseAllStorageFile(Handle Storage, Word32 Flag);
-	Word32 CompliteAllStorage(Handle Storage, Word32 Flag);
-	Word32 DecompileStorage(Handle Storage);
-	Handle AddStorageInList(CTCGlobalFile * lpNewStorageName, Word32 wNewFlag);
-	Handle OpenNewStorage(PChar8 lpName, Word32 wFlag);
-	Handle OpenCompliteStorage(PChar8 lpName, Word32 wFlag);
-	Word32 ReadFileFromStorage(CTCStorageHeader * Storage, STORAGEITEM * pInfo, CTCGlobalFile ** pFile);
-	Word32 ReadItemFromStorage(CTCStorageHeader * Storage, void * lpData, Word32 wSize);
+	uint32_t SeekFilePointer(Handle File, uint32_t Position, uint32_t From);
+	uint32_t ReadDataFromFile(Handle File, void * lpData, uint32_t Size);
+	uint32_t WriteDataToFile(Handle File, void * lpData, uint32_t Size);
+	Bool32 CloseFileAndDettach(Handle File, uint32_t Flag, Handle Storage);
+	Handle CompliteStorage(Handle Storage, uint32_t Flag);
+	uint32_t WriteItemToStorage(CTCStorageHeader * Storage, void * pItem, uint32_t Size);
+	uint32_t WriteFileToStorage(CTCStorageHeader * Storage, CTCFileHeader * File);
+	Bool32 CloseStorageFile(Handle Storage, uint32_t Flag = 0);
+	Bool32 CloseAllStorageFile(Handle Storage, uint32_t Flag);
+	uint32_t CompliteAllStorage(Handle Storage, uint32_t Flag);
+	uint32_t DecompileStorage(Handle Storage);
+	Handle AddStorageInList(CTCGlobalFile * lpNewStorageName, uint32_t wNewFlag);
+	Handle OpenNewStorage(PChar8 lpName, uint32_t wFlag);
+	Handle OpenCompliteStorage(PChar8 lpName, uint32_t wFlag);
+	uint32_t ReadFileFromStorage(CTCStorageHeader * Storage, STORAGEITEM * pInfo, CTCGlobalFile ** pFile);
+	uint32_t ReadItemFromStorage(CTCStorageHeader * Storage, void * lpData, uint32_t wSize);
 	PChar8 MakeNameForStorage(PChar8 FileName, CTCStorageHeader * phStorage = NULL, Bool32 KeepName = FALSE);
-	PChar8 FileNameToFolder(PChar8 Buffer, PChar8 FolderName, PChar8 FileName, Word32 Size);
+	PChar8 FileNameToFolder(PChar8 Buffer, PChar8 FolderName, PChar8 FileName, uint32_t Size);
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //

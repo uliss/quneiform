@@ -76,7 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 static Word16            gwHeightRC = 0;
-static Word32            gwRC = 0;
+static uint32_t            gwRC = 0;
 static HANDLE            ghStorage = NULL;
 static HINSTANCE         ghInst =  NULL;
 /////////////////////////////////////////
@@ -129,13 +129,13 @@ RBLOCK_FUNC(Bool32) RBLOCK_Done()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RBLOCK_FUNC(Word32) RBLOCK_GetReturnCode()
+RBLOCK_FUNC(uint32_t) RBLOCK_GetReturnCode()
 {
 	return gwRC;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RBLOCK_FUNC(Int8 *) RBLOCK_GetReturnString(Word32 dwError)
+RBLOCK_FUNC(Int8 *) RBLOCK_GetReturnString(uint32_t dwError)
 {
 	static char szBuffer[512];
 	Word16 low = (Word16)(dwError &  0xFFFF);
@@ -155,7 +155,7 @@ RBLOCK_FUNC(Int8 *) RBLOCK_GetReturnString(Word32 dwError)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RBLOCK_FUNC(Bool32) RBLOCK_GetExportData(Word32 dwType, void * pData)
+RBLOCK_FUNC(Bool32) RBLOCK_GetExportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -179,7 +179,7 @@ return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RBLOCK_FUNC(Bool32) RBLOCK_SetImportData(Word32 dwType, void * pData)
+RBLOCK_FUNC(Bool32) RBLOCK_SetImportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -213,7 +213,7 @@ RBLOCK_FUNC(Bool32) RBLOCK_SetImportData(Word32 dwType, void * pData)
 return rc;
 }
 
-void SetReturnCode_rblock(Word32 rc)
+void SetReturnCode_rblock(uint32_t rc)
 {
 Word16 low = (Word16)(rc &  0xFFFF);
 Word16 hei = (Word16)(rc >> 16);
@@ -223,15 +223,15 @@ Word16 hei = (Word16)(rc >> 16);
 	else
 	{
 		if(low - IDS_ERR_NO)
-			gwRC = (Word32)(gwHeightRC<<16)|(low - IDS_ERR_NO);
+			gwRC = (uint32_t)(gwHeightRC<<16)|(low - IDS_ERR_NO);
 		else
 			gwRC = 0;
 	}
 }
 
-Word32 GetReturnCode_rblock()
+uint32_t GetReturnCode_rblock()
 {
-Word32 rc = gwRC;
+uint32_t rc = gwRC;
 Word16 low = (Word16)(gwRC &  0xFFFF);
 Word16 hei = (Word16)(gwRC >> 16);
 

@@ -63,8 +63,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include "edfile.h"
 //#include "edext.h"
 
-Bool32 func_char(PWord8 p, Word32 lth);
-Bool32 func_spec(PWord8 p, Word32 lth);
+Bool32 func_char(PWord8 p, uint32_t lth);
+Bool32 func_spec(PWord8 p, uint32_t lth);
 
 FNCFIOReadMemoryFromFile    MemFromFile;
 FNCFIOLockMemory					Lock;
@@ -143,18 +143,18 @@ DEC_FUN(void, CED_ListOfFragments,(const list_of_fragments* pt));
 DEC_FUN(void, CED_Extention,(const edExtention* pt,const void* ptExt));
 DEC_FUN(void, CED_ExtentionNew,(const edExtentionNew* pt,const void* ptExt));
 DEC_FUN(void, CED_Aksant,(const aksant* pt));
-DEC_FUN(void, CED_Letter,(const letter* pt,const Word32 alternatives));
+DEC_FUN(void, CED_Letter,(const letter* pt,const uint32_t alternatives));
 
 #undef DEC_FUN
 
 RDProced=proc;
 }
 
-/*CED_FUNC(*/Word32/*)*/ CED_ReadED(char * file,Bool32 readFromFile, Word32 bufLen)
+/*CED_FUNC(*/uint32_t/*)*/ CED_ReadED(char * file,Bool32 readFromFile, uint32_t bufLen)
 {
 	Word8 code;
 	HANDLE PedHandle;
-	Word32 lth,ret;
+	uint32_t lth,ret;
 	PWord8 start,edscan_stop;
 
 	if (readFromFile)
@@ -233,7 +233,7 @@ char_proc:
 			if (!( (*(Word16*)(curr+1)) &0x8000))
 				lth=*(PWord16) (curr + (code & 0xf));
 			else
-				lth=*(PWord32) (curr + (code & 0xf));
+				lth=*(Puint32_t) (curr + (code & 0xf));
 		}
 	}
 	else
@@ -269,14 +269,14 @@ quit:
 }
 
 
-Bool32 func_char(PWord8 p, Word32 lth)
+Bool32 func_char(PWord8 p, uint32_t lth)
 {
 	const struct letter *pt= (struct letter*)p;
 	CED_Letter(pt,lth/2);
 	return TRUE;
 }
 
-Bool32 func_spec(PWord8 p, Word32 lth)
+Bool32 func_spec(PWord8 p, uint32_t lth)
 {
 
 	switch (*p)

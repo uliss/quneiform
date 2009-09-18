@@ -109,7 +109,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define ExRc_IncorrectParam     -20     // Compatible with Err16.h
 #define ExRc_NotEnoughMemory    4
 
-typedef Bool  (* Tiger_ProcComp)    (void * pool,Word32 size);
+typedef Bool  (* Tiger_ProcComp)    (void * pool,uint32_t size);
 /*
 #ifndef Handle
 typedef void * Handle ;
@@ -147,12 +147,12 @@ enum    REXCParametrs
     // Can new call after closing the library without ExtrcompDone
    EXC_FUNC(void)   ExtrcompDone(void);
     // Closing of the library.
-   EXC_FUNC(Word32) REXC_GetReturnCode(void);
-   EXC_FUNC(char*)  REXC_GetReturnString(Word32 dwError);
+   EXC_FUNC(uint32_t) REXC_GetReturnCode(void);
+   EXC_FUNC(char*)  REXC_GetReturnString(uint32_t dwError);
    EXC_FUNC(Bool32) REXC_Init(Word16 wHeightCode, Handle hStorage);
    EXC_FUNC(void)   REXC_Done(void);
-   EXC_FUNC(Bool32) REXC_GetExportData(Word32 dwType, void * pData);
-   EXC_FUNC(Bool32) REXC_SetImportData(Word32 dwType, void * pData);
+   EXC_FUNC(Bool32) REXC_GetExportData(uint32_t dwType, void * pData);
+   EXC_FUNC(Bool32) REXC_SetImportData(uint32_t dwType, void * pData);
 
 // 1    REXC_FNEVNPROPERT   установить опции для эвент
 // setup condition for recognition all comps without Event-algoriphm
@@ -212,7 +212,7 @@ EXC_FUNC(CCOM_comp*)   REXC_MN2CCOM(Handle hCCOM,Handle hmn);
 typedef Bool32 (*FNREXC_GetInvertion)(Word8 *inv);
 EXC_FUNC(Bool32) REXC_GetInvertion(Word8 *inv);
 typedef Bool32 (*FNREXC_ProgressStart )(void);
-typedef Bool32 (*FNREXC_ProgressStep  )(Word32 step);
+typedef Bool32 (*FNREXC_ProgressStep  )(uint32_t step);
 typedef Bool32 (*FNREXC_ProgressFinish)(void);
 /*-Andrey: moved to RRecCom (recognition) and RNorm (autorotate)
 //--------------------------------------------------------------

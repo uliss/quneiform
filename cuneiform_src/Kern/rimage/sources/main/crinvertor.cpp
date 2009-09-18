@@ -76,11 +76,11 @@ CRInvertor::~CRInvertor()
 
 Bool32 CRInvertor::Invert(PCTDIB Image)
 {
-	Word32   LineLen;
-	Word32   Lines;
-	Word32   x;
-	Word32   y;
-	PWord32  pData;
+	uint32_t   LineLen;
+	uint32_t   Lines;
+	uint32_t   x;
+	uint32_t   y;
+	Puint32_t  pData;
 
 	if ( !Image )
 	{
@@ -93,7 +93,7 @@ Bool32 CRInvertor::Invert(PCTDIB Image)
 
 	for (y = 0; y < Lines; y++ )
 	{
-		pData = (PWord32)Image->GetPtrToLine(y);
+		pData = (Puint32_t)Image->GetPtrToLine(y);
 
 		for ( x = 0; x < LineLen; x += 4 )
 		{
@@ -106,8 +106,8 @@ Bool32 CRInvertor::Invert(PCTDIB Image)
 
 Bool32 CRInvertor::Inverse(PCTDIB Image)
 {
-	Word32   Colors;
-	Word32   Color;
+	uint32_t   Colors;
+	uint32_t   Color;
 	CTDIBRGBQUAD  ctQuad;
 
 	if ( !Image )

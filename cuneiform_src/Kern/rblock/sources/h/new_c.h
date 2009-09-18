@@ -130,13 +130,13 @@ EXTERN Handle logFile_blocks;
 EXTERN BYTE *CellsPage VAL1(NULL); //Rom 08-02-99
 EXTERN RPIC_Comp_Rect * pBigLetters VAL1(NULL);
 EXTERN int nBigLetters  VAL1(0);
-EXTERN Word32 nPics;
+EXTERN uint32_t nPics;
 EXTERN CCOM_comp * pPics VAL1(NULL);
 EXTERN Word16 pBlockHystogram[MaxHeightOfLetter];
 EXTERN int my_upper, my_left, my_bottom, my_right;
 EXTERN char tmp_str[200];
-EXTERN Word32 nComps;
-EXTERN Word32 page_count VAL1(0);
+EXTERN uint32_t nComps;
+EXTERN uint32_t page_count VAL1(0);
 EXTERN char* file_name;
 EXTERN Handle exthCCOM;
 ////////////////////////////////////////////////////////////////////////////////

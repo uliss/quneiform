@@ -78,7 +78,7 @@ struct edExtentionNew
 {
 	Word8/*unsigned char   */  	code;   /* always SS_EXTENTION <0x1C> */
 	Word16/*unsigned short int*/      Ecode;  /* New extention code */
-	Word32/*unsigned short int*/      length; /* Length in bytes */
+	uint32_t/*unsigned short int*/      length; /* Length in bytes */
 };
 /* This structure is header all structs included in extention ED */
 typedef struct edExtention EDEXT;

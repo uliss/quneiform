@@ -63,8 +63,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #endif
 
 
-	 typedef void *(*FTAllocPtr)( Word32 );
-   typedef void (*FTFreePtr)( void *, Word32 );
+	 typedef void *(*FTAllocPtr)( uint32_t );
+   typedef void (*FTFreePtr)( void *, uint32_t );
 
    typedef struct    tagMemFunc {
       FTAllocPtr    alloc;

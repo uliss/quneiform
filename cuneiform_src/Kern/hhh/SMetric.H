@@ -82,10 +82,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 SMetric_FUNC(Bool32) SMetric_Init(Word16 wHeightCode,Handle hStorage);
 SMetric_FUNC(Bool32) SMetric_Done();
-SMetric_FUNC(Word32) SMetric_GetReturnCode();
-SMetric_FUNC(Int8 *) SMetric_GetReturnString(Word32 dwError);
-SMetric_FUNC(Bool32) SMetric_GetExportData(Word32 dwType, void * pData);
-SMetric_FUNC(Bool32) SMetric_SetImportData(Word32 dwType, void * pData);
+SMetric_FUNC(uint32_t) SMetric_GetReturnCode();
+SMetric_FUNC(Int8 *) SMetric_GetReturnString(uint32_t dwError);
+SMetric_FUNC(Bool32) SMetric_GetExportData(uint32_t dwType, void * pData);
+SMetric_FUNC(Bool32) SMetric_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////
 
 #define SMetric_BLOCK_TYPE CPAGE_GetInternalType("TYPE_DESC")

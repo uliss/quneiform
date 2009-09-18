@@ -133,12 +133,12 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
  if(!(LDPUMA_Skip (NegSearch)) )
 	 return;
 
- Word32 code_sersized=(512<<16);
- Word32 code_normd=(512<<17);
- Word32 code_colord=(512<<17)+(512<<16);
- Word32 code_cutd=(512<<18);
- Word32 code_cutstrd=(512<<18)+(512<<16);
- Word32 code_sized=(512<<18)+(512<<17);
+ uint32_t code_sersized=(512<<16);
+ uint32_t code_normd=(512<<17);
+ uint32_t code_colord=(512<<17)+(512<<16);
+ uint32_t code_cutd=(512<<18);
+ uint32_t code_cutstrd=(512<<18)+(512<<16);
+ uint32_t code_sized=(512<<18)+(512<<17);
 
  #define NEGA   1<<14
  #define VERTICA 1<<13
@@ -547,7 +547,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
  if(1/*!(LDPUMA_Skip (PutToCPage) )*/)
  {
  POLY_ block={0};
- Word32 size_poly=sizeof(POLY_);
+ uint32_t size_poly=sizeof(POLY_);
   while(now)
   {
    if((now->neg).p>inf_prob)

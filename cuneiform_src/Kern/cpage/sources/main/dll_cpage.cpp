@@ -136,17 +136,17 @@ CPAGE_FUNC(Bool32) CPAGE_Done()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CPAGE_FUNC(Word32) CPAGE_GetReturnCode()
+CPAGE_FUNC(uint32_t) CPAGE_GetReturnCode()
 {
-	Word32 rc = 0;
+	uint32_t rc = 0;
 	if((gwLowRC - IDS_ERR_NO)>0)
-	rc = (Word32)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
+	rc = (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
 
 	return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CPAGE_FUNC(Int8 *) CPAGE_GetReturnString(Word32 dwError)
+CPAGE_FUNC(Int8 *) CPAGE_GetReturnString(uint32_t dwError)
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
 	static Int8 szBuffer[512];
@@ -163,7 +163,7 @@ CPAGE_FUNC(Int8 *) CPAGE_GetReturnString(Word32 dwError)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CPAGE_FUNC(Bool32) CPAGE_GetExportData(Word32 dwType, void * pData)
+CPAGE_FUNC(Bool32) CPAGE_GetExportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -238,7 +238,7 @@ CPAGE_FUNC(Bool32) CPAGE_GetExportData(Word32 dwType, void * pData)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CPAGE_FUNC(Bool32) CPAGE_SetImportData(Word32 dwType, void * pData)
+CPAGE_FUNC(Bool32) CPAGE_SetImportData(uint32_t dwType, void * pData)
 {
 	BOOL rc = FALSE;
 	gwLowRC = IDS_ERR_NOTIMPLEMENT;
@@ -301,7 +301,7 @@ void ProfileEpilog(Handle prev)
 		if(!s_prolog && prev)
 		{
 #ifdef TIMECONTROL
-			Word32 c = clock() - s_tbeg;
+			uint32_t c = clock() - s_tbeg;
 			_ASSERT(c < 99);
 #endif
 			LDPUMA_Skip(prev);

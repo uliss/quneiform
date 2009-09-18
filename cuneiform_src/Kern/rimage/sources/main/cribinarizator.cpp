@@ -133,7 +133,7 @@ Bool32 CRIBinarizator::SetRasters(PCTDIB pSrcDIB, PCTDIB pDescDIB)
 	return FALSE;
 }
 
-Bool32 CRIBinarizator::Binarize(CTBinarize eBinType, Word32 wFlag)
+Bool32 CRIBinarizator::Binarize(CTBinarize eBinType, uint32_t wFlag)
 {
 	Bool32 bRet = FALSE;
 
@@ -157,7 +157,7 @@ Bool32 CRIBinarizator::Binarize(CTBinarize eBinType, Word32 wFlag)
 		bRet =  TRUE;
 	}
 
-	catch ( Word32 wExit)
+	catch ( uint32_t wExit)
 	{
 		if ( wExit = IDS_RIMAGE_EXIT_BY_USER)
 		{
@@ -174,7 +174,7 @@ Bool32 CRIBinarizator::Binarize(CTBinarize eBinType, Word32 wFlag)
 	return bRet;
 }
 
-Bool32 CRIBinarizator::OpenBinarizator(Word32 wFlag)
+Bool32 CRIBinarizator::OpenBinarizator(uint32_t wFlag)
 {
 	Bool32 bRet = FALSE;
 
@@ -278,7 +278,7 @@ Bool32 CRIBinarizator::OnBinarizeLoop()
 	PWord8 pLALine;
 	int32_t NumberBWLines = 0;
 	int32_t CurGreyLine = 0;
-	Word32  nLines = mpOutcomeDIB->GetLinesNumber();
+	uint32_t  nLines = mpOutcomeDIB->GetLinesNumber();
 
 	/////////////////////////////////////////////////////////////////////////
 	//   см. G2BW.cpp, дшту 67 - Binarize
@@ -357,7 +357,7 @@ Bool32 CRIBinarizator::OnBinarizeLoop()
 	#undef FUN_IMPO
 //////////////////////////////////////////////////////////
 //
-Bool32 CRIBinarizator::KronrodOpenBin(Word32 wHeight, Word32 wWeidth)
+Bool32 CRIBinarizator::KronrodOpenBin(uint32_t wHeight, uint32_t wWeidth)
 {
 	/*
 	if ( !mpKronrodBinarizator )
@@ -381,12 +381,12 @@ Int16 CRIBinarizator::KronrodImageRead(PWord8 lpImage, Int16 fstLine, Int16 nLin
 
 int32_t CRIBinarizator::KronrodImageRead(PWord8 lpImage, int32_t fstLine, int32_t nLines)
 {
-	Word32 i;
-	Word32 j;
-	Word32 ReadedPixelsperLine = 0;
-	Word32 ReadedLines = 0;
-	Word32 wFirstLine = fstLine;
-	Word32 wLines = nLines;
+	uint32_t i;
+	uint32_t j;
+	uint32_t ReadedPixelsperLine = 0;
+	uint32_t ReadedLines = 0;
+	uint32_t wFirstLine = fstLine;
+	uint32_t wLines = nLines;
 	Word8 gray;
 	Word8 halfgray;
 	PWord8 pIn;
@@ -471,8 +471,8 @@ int32_t CRIBinarizator::KronrodImageRead(PWord8 lpImage, int32_t fstLine, int32_
 
 Bool32 CRIBinarizator::KronrodGreyTo(PWord8 pGTo)
 {
-	Word32 Size = mwGreyBufferSize;
-	Word32 i;
+	uint32_t Size = mwGreyBufferSize;
+	uint32_t i;
 
 	if(mbKronrodInvert)
 	{
@@ -486,8 +486,8 @@ Bool32 CRIBinarizator::KronrodGreyTo(PWord8 pGTo)
 
 Bool32 CRIBinarizator::KronrodGreyFrom(PWord8 pGFrom)
 {
-	Word32 Size = mpOutcomeDIB->GetLineWidthInBytes();
-	Word32 i;
+	uint32_t Size = mpOutcomeDIB->GetLineWidthInBytes();
+	uint32_t i;
 
 	//mpKronrodBinarizator->grey_from(pGFrom);
 	grey_from(pGFrom);
@@ -507,9 +507,9 @@ Bool32 CRIBinarizator::KronrodCloseGray()
 
 	return TRUE;
 }
-Bool32 CRIBinarizator::DezaOpenBin(Word32 wDezaFlag)
+Bool32 CRIBinarizator::DezaOpenBin(uint32_t wDezaFlag)
 {
-	Word32  wDpiX, wDpiY;
+	uint32_t  wDpiX, wDpiY;
 	PVOID fGetGreyBlock;
 
 	fGetGreyBlock = (PVOID)this;
@@ -553,10 +553,10 @@ Bool32 CRIBinarizator::DezaCloseBin()
 }
 Bool32 CRIBinarizator::SupportedIndexColorImage(PCTDIB pImage)
 {
-    Word32 Colors = pImage->GetActualColorNumber();
-    Word32 PalletteSize = pImage->GetRGBPalleteSize();
+    uint32_t Colors = pImage->GetActualColorNumber();
+    uint32_t PalletteSize = pImage->GetRGBPalleteSize();
     CTDIBRGBQUAD Q, prQ;
-    Word32 i;
+    uint32_t i;
 
 	mbIndexColor = false;
 
@@ -585,10 +585,10 @@ Bool32 CRIBinarizator::SupportedIndexColorImage(PCTDIB pImage)
 
 Bool32 CRIBinarizator::PrepareIndexTable(PCTDIB pDIB)
 {
-	Word32 i;
+	uint32_t i;
 	CTDIBRGBQUAD Quad;
 	PWord8 pTable = NULL;
-	Word32 Colors = (pDIB->GetRGBPalleteSize())/4;
+	uint32_t Colors = (pDIB->GetRGBPalleteSize())/4;
 
 	switch ( pDIB->GetPixelSize() )
 	{

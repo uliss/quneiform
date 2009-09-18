@@ -95,7 +95,7 @@ static char *error_strings[]={
 "Align Error",
 "Can't saved to CTB with different version"
 };
-static Word32 mask_r[]={  255,    128,  192,  224,  240,  248,  252,  254, 255};
+static uint32_t mask_r[]={  255,    128,  192,  224,  240,  248,  252,  254, 255};
 //                        0      1      2    3      4    5     6     7     8
 //********************************************************************
 //********************* static function : ****************************

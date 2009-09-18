@@ -100,7 +100,7 @@ Bool32 LineKiller(PRSPreProcessImage Image)
 Bool32 SearchAndKill ( PRSPreProcessImage Image, LinesTotalInfo *LTInfo )
 {
 	Bool32         bRet = TRUE;
-	Word32         nTagSize;
+	uint32_t         nTagSize;
 	int32_t          j;
 	char           str[255];
 	Rect16         ZoomRect;
@@ -112,7 +112,7 @@ Bool32 SearchAndKill ( PRSPreProcessImage Image, LinesTotalInfo *LTInfo )
 
 	nTagSize = sizeof (LinesTotalInfo);
 
-	Word32 size_line_com=sizeof(LINE_COM);
+	uint32_t size_line_com=sizeof(LINE_COM);
 	Handle hCPage=Image->hCPAGE;
 	LineInfo linfo;
 	CLINE_handle* pCLINE=(CLINE_handle*)(Image->phCLINE);
@@ -471,7 +471,7 @@ Bool32 IsRectIntersect(Rect16 *A, Rect16 *B)
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 TuneFilter(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
+Bool32 TuneFilter(LineInfo *Line, Rect16 *Rect, uint32_t KillZone, uint32_t Rate)
 {
 	Bool32 bRet;
 
@@ -484,13 +484,13 @@ Bool32 TuneFilter(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 ChekComponentAndLine(LineInfo *Line, Rect16 *Rect, Word32 KillZone)
+Bool32 ChekComponentAndLine(LineInfo *Line, Rect16 *Rect, uint32_t KillZone)
 {
 	int32_t A0, B0, A1, B1;              // начало и конец линии
 	int32_t LineType;                    // Горизонтальная = 1 ( || > 1 ) или вертикальная = -1 ( || < 1 )
 	int32_t As, Bs, C;
 	Bool32 bRet = FALSE;
-	Word32 wN, wP, wZ;
+	uint32_t wN, wP, wZ;
 	Point16  pPoints[4];
 	int32_t Zone = KillZone;
 
@@ -503,7 +503,7 @@ Bool32 ChekComponentAndLine(LineInfo *Line, Rect16 *Rect, Word32 KillZone)
 	{
 		Float32 temp = (Float32)(Line->A.x - Line->B.x) / (Float32)(Line->A.y - Line->B.y);
 		int32_t iTemp;
-		Word32 SecondHand = 1;
+		uint32_t SecondHand = 1;
 
 		LineType = (temp > -1) && (temp < 1 ) ? -1 : 1;
 
@@ -570,7 +570,7 @@ Bool32 ChekComponentAndLine(LineInfo *Line, Rect16 *Rect, Word32 KillZone)
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
+Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, uint32_t KillZone, uint32_t Rate)
 {
 	Bool32 bRet = FALSE;
 
@@ -578,8 +578,8 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 	Float32 Halfs = 1.0;
 	int32_t LineType;
 	Rect32 S;
-	Word32 SRect;
-	Word32 SLine;
+	uint32_t SRect;
+	uint32_t SLine;
 	int32_t  iTemp;
 	int32_t A0 = Line->A.x;
 //	int32_t B0 = Line->B.y;
@@ -684,7 +684,7 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 			temp = (Float32) SLine / (Float32) SRect;
 			temp *= (Float32)255;
 
-			if ( (Word32)temp >= Rate )
+			if ( (uint32_t)temp >= Rate )
 				bRet = TRUE;
 		}
 	}
@@ -767,7 +767,7 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 			temp = (Float32) SLine / (Float32) SRect;
 			temp *= (Float32)255;
 
-			if ( (Word32)temp >= Rate )
+			if ( (uint32_t)temp >= Rate )
 				bRet = TRUE;
 		}
 	}
@@ -776,7 +776,7 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-void DebugDPumaDrawRect(Handle hWindow, Point16 * Points, Word32 Color, int32_t Thickness, Word32 Group)
+void DebugDPumaDrawRect(Handle hWindow, Point16 * Points, uint32_t Color, int32_t Thickness, uint32_t Group)
 {
 	LDPUMA_DrawLine(hWindow, &Points[0], &Points[1], 0, Color, (Int16)Thickness, Group );
 	LDPUMA_DrawLine(hWindow, &Points[1], &Points[2], 0, Color, (Int16)Thickness, Group );
@@ -785,7 +785,7 @@ void DebugDPumaDrawRect(Handle hWindow, Point16 * Points, Word32 Color, int32_t 
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-void DebugDPumaShowComponents(PRSPreProcessImage Image, Handle hWindow, Word32 Color, int32_t Thickness, Word32 Group)
+void DebugDPumaShowComponents(PRSPreProcessImage Image, Handle hWindow, uint32_t Color, int32_t Thickness, uint32_t Group)
 {
 	CCOM_comp * pcomp;
 	Rect16 Rc;

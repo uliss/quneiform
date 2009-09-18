@@ -103,18 +103,18 @@ RCUTP_FUNC(Bool32) RCUTP_Done()
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RCUTP_FUNC(Word32) RCUTP_GetReturnCode()
+RCUTP_FUNC(uint32_t) RCUTP_GetReturnCode()
 {
-Word32 rc = 0;
+uint32_t rc = 0;
 	if((gwLowRC - IDS_ERR_NO)>0)
-		rc = (Word32)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
+		rc = (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
 
 return rc;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RCUTP_FUNC(Int8 *) RCUTP_GetReturnString(Word32 dwError)
+RCUTP_FUNC(Int8 *) RCUTP_GetReturnString(uint32_t dwError)
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
 	static Int8 szBuffer[512];
@@ -132,7 +132,7 @@ RCUTP_FUNC(Int8 *) RCUTP_GetReturnString(Word32 dwError)
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RCUTP_FUNC(Bool32) RCUTP_GetExportData(Word32 dwType, void * pData)
+RCUTP_FUNC(Bool32) RCUTP_GetExportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -160,7 +160,7 @@ return rc;
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RCUTP_FUNC(Bool32) RCUTP_SetImportData(Word32 dwType, void * pData)
+RCUTP_FUNC(Bool32) RCUTP_SetImportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 return rc;

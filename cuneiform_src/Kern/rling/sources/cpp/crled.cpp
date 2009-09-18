@@ -351,7 +351,7 @@ Bool32 CRLEd::ExcludeToVers(int32_t size, PChar8 pStr)
 	return TRUE;
 }
 
-Rect16 CRLEd::GetRectElement(Word32 i)
+Rect16 CRLEd::GetRectElement(uint32_t i)
 {
 	Rect16 Out={0,0,0,0};
 
@@ -362,7 +362,7 @@ Rect16 CRLEd::GetRectElement(Word32 i)
 	return Out;
 }
 
-RecVersions CRLEd::GetVersElement(Word32 i, PWord32 wNVers)
+RecVersions CRLEd::GetVersElement(uint32_t i, Puint32_t wNVers)
 {
 	RecVersions Out ={0,0,0};
 

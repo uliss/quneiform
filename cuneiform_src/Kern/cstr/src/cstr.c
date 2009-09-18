@@ -73,7 +73,7 @@ static  CSTR_line *FragmFirst1=NULL, *FragmLast1=NULL;
 static  int32_t FragmMin[2], FragmMax[2];
 //int     mem=0;
 // memory funct
-static void *   cstr_alloc(Word32 len)
+static void *   cstr_alloc(uint32_t len)
     {
     void *ma = malloc(len);
     if( !ma )
@@ -82,11 +82,11 @@ static void *   cstr_alloc(Word32 len)
     //mem+=len;
     return ma;
     }
-static void     cstr_free(void *ptr,Word32 len) { free(ptr);};
-static void *   cstr_realloc(void *ptr,Word32 len) { return realloc(ptr,len);};
-static void * (*my_alloc)(Word32 len)=cstr_alloc;
-static void   (*my_free)(void *,Word32 len)=cstr_free;
-static void * (*my_realloc)(void *,Word32 len)=cstr_realloc;
+static void     cstr_free(void *ptr,uint32_t len) { free(ptr);};
+static void *   cstr_realloc(void *ptr,uint32_t len) { return realloc(ptr,len);};
+static void * (*my_alloc)(uint32_t len)=cstr_alloc;
+static void   (*my_free)(void *,uint32_t len)=cstr_free;
+static void * (*my_realloc)(void *,uint32_t len)=cstr_realloc;
 static Bool32 RecRaster2rst(RecRaster *recr,CSTR_cell  *cell);
 /////////////////////
 // common functions
@@ -157,14 +157,14 @@ return;
 }
 
 
-CSTR_FUNC(Word32)   CSTR_GetReturnCode(void)
+CSTR_FUNC(uint32_t)   CSTR_GetReturnCode(void)
 {
 if( wLowRC == CSTR_ERR_NO )
     return 0;
 return (wHeightRC<<16)|(wLowRC-CSTR_ERR_MIN);
 }
 
-CSTR_FUNC(char*)   CSTR_GetReturnString(Word32 dwError)
+CSTR_FUNC(char*)   CSTR_GetReturnString(uint32_t dwError)
 {
   Word16 rc = (Word16)(dwError & 0xFFFF + CSTR_ERR_MIN);
         static char szBuffer[512];
@@ -591,7 +591,7 @@ return (CSTR_rast)(&line->last);
 }
 
 
-CSTR_FUNC(CSTR_rast)    CSTR_GetNextRaster (CSTR_rast  curr_raster, Word32 type_raster)
+CSTR_FUNC(CSTR_rast)    CSTR_GetNextRaster (CSTR_rast  curr_raster, uint32_t type_raster)
 {
 CSTR_cell *cell=(CSTR_cell *)curr_raster;
 if( cell==(CSTR_cell *)0 )
@@ -606,7 +606,7 @@ return ( cell->attr.flg&type_raster ) ?
     (CSTR_rast)cell : (CSTR_rast)0;
 }
 
-CSTR_FUNC(CSTR_rast)    CSTR_GetPrevRaster (CSTR_rast  curr_raster, Word32 type_raster)
+CSTR_FUNC(CSTR_rast)    CSTR_GetPrevRaster (CSTR_rast  curr_raster, uint32_t type_raster)
 {
 CSTR_cell *cell=(CSTR_cell *)curr_raster;
 if( cell==(CSTR_cell *)0 )
@@ -852,7 +852,7 @@ return TRUE;
 CSTR_FUNC(Bool32)               CSTR_SetUserAttr (CSTR_rast raster, CCOM_USER_BLOCK  *ubl)
 {
 CCOM_USER_BLOCK  *ub;
-Word32      UserCode = ubl->code;
+uint32_t      UserCode = ubl->code;
 Word8   *   UserData = ubl->data;
 int32_t       UserSize = ubl->size;
 CSTR_cell *cell  ;
@@ -1154,7 +1154,7 @@ comp->scale = scale;
 return TRUE;
 }
 
-CSTR_FUNC(Bool32)               CSTR_GetImage (CSTR_rast  curr_raster, Word8 *out_res, Word32 type_image)
+CSTR_FUNC(Bool32)               CSTR_GetImage (CSTR_rast  curr_raster, Word8 *out_res, uint32_t type_image)
 {
 CSTR_cell   * cell = (CSTR_cell*)curr_raster;
 if( curr_raster==(CSTR_rast)0 )
@@ -2187,11 +2187,11 @@ return TRUE;
 }
 
 
-CSTR_FUNC(Bool32) CSTR_GetExportData(Word32 dwType, void * pData)
+CSTR_FUNC(Bool32) CSTR_GetExportData(uint32_t dwType, void * pData)
 {
         Bool32 rc = TRUE;
     int32_t  vers = CSTR_VERSION_CODE;
-#define EXPORT(name) *(Word32*)(pData)=(Word32)name;
+#define EXPORT(name) *(uint32_t*)(pData)=(uint32_t)name;
         wLowRC = CSTR_ERR_NO;
         switch(dwType)
         {
@@ -2416,7 +2416,7 @@ CSTR_FUNC(Bool32) CSTR_GetExportData(Word32 dwType, void * pData)
 return rc;
 }
 
-CSTR_FUNC(Bool32) CSTR_SetImportData(Word32 dwType, void * pData)
+CSTR_FUNC(Bool32) CSTR_SetImportData(uint32_t dwType, void * pData)
 {
 
         wLowRC = CSTR_ERR_NO;

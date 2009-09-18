@@ -1413,7 +1413,7 @@ STDMETHODIMP CRecognition::SaveToBSTR(long hEdPage, long format, long code, BSTR
 	__try {
 		char * lpMem = 0;
 		// определим сколько нужно памяти
-		Word32 nSize = _SaveToMemory((Handle)hEdPage, format, code, lpMem, 0);
+		uint32_t nSize = _SaveToMemory((Handle)hEdPage, format, code, lpMem, 0);
 		if(nSize)
 		{
 			lpMem = new char [nSize];

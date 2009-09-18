@@ -102,10 +102,10 @@ char  *leo_alpha_reg[256];
 Word8 leo_current_alpha_ndx=0;
 static int32_t fields_tab[MAX_FIELDS]={0};
 static MemFunc* leo_mem;
-static void* leo_alloc(Word32 len){return malloc(len);}
-static void  leo_free(void *ptr,Word32 len){ free(ptr);}
-static void* (*my_alloc)(Word32 len)=leo_alloc;
-static void  (*my_free)(void *,Word32 len)=leo_free;
+static void* leo_alloc(uint32_t len){return malloc(len);}
+static void  leo_free(void *ptr,uint32_t len){ free(ptr);}
+static void* (*my_alloc)(uint32_t len)=leo_alloc;
+static void  (*my_free)(void *,uint32_t len)=leo_free;
 static Bool32 leo_is_load = FALSE;
 static Word8 save_alpha_valid=0, save_isPrint=0;
 
@@ -248,7 +248,7 @@ void leo_snapSimpleKey(char *str, SnpTreeNode *stnRecog)
 SnpLog("%s",str);
 SnpLog("");
 Leo_SnpWaitUserInput(stnRecog); // pass control to user
-SnpHideRects((Word32)stnRecog);
+SnpHideRects((uint32_t)stnRecog);
 return;
 }
 
@@ -289,7 +289,7 @@ SnpDrawRect(&object->recData.rect,
      0, //Skew - zero to real coords
      wRGB(0,0,255),
      -16, // one image pixel width
-     (Word32)stnRecog    );
+     (uint32_t)stnRecog    );
 
 SnpDrawRaster( &object->recData.recRaster );
 return;
@@ -957,7 +957,7 @@ if (!SnpSkip(&stnCharRecog)|| leo_Snp_In_Rect)
          SnpLog("LEO PRN LTR : %s", buf);
          SnpLog("%s","");
          Leo_SnpWaitUserInput(&stnCharRecog);
-		 SnpHideRects( (Word32)&stnCharRecog );
+		 SnpHideRects( (uint32_t)&stnCharRecog );
       }
 
 if (!SnpSkip(&stnSnapCharProt))
@@ -1184,7 +1184,7 @@ for(i=0;i<n;i++)
                 if (/*!SnpSkip(&stnReRecog)||*/ local_snap)
 					{
 					leo_snapChar(&old,"PASS1.51 NICE LEO COLLECTION : ",TRUE);
-					SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(Word32)&stnReRecog    );
+					SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(uint32_t)&stnReRecog    );
 					SnpDrawRaster( &r );
 					Leo_SnpWaitUserInput(&stnReRecog);
 					}
@@ -1193,7 +1193,7 @@ for(i=0;i<n;i++)
             if (!SnpSkip(&stnReRecog)|| local_snap)
 					{
 					leo_snapChar(&old,"PASS1.51 LEO COLLECTION : ",TRUE);
-					SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(Word32)&stnReRecog    );
+					SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(uint32_t)&stnReRecog    );
 					SnpDrawRaster( &r );
 					Leo_SnpWaitUserInput(&stnReRecog);
 					}
@@ -1217,7 +1217,7 @@ for(i=0;i<n;i++)
                 if (!SnpSkip(&stnReRecog)|| local_snap)
                     {
                     leo_snapChar(&old,"PASS1.51 FNT RERECOG DIGITAL HAND : ",TRUE);
-				    SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(Word32)&stnReRecog    );
+				    SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(uint32_t)&stnReRecog    );
 				    SnpDrawRaster( &r );
 				    Leo_SnpWaitUserInput(&stnReRecog);
                     }
@@ -1225,7 +1225,7 @@ for(i=0;i<n;i++)
             else if (!SnpSkip(&stnReRecog)|| local_snap)
                 {
                 leo_snapChar(&ver,"PASS1.51 FNT UNKNOWN CASE FOR DIGITAL HAND : ",TRUE);
-				SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(Word32)&stnReRecog    );
+				SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(uint32_t)&stnReRecog    );
 				SnpDrawRaster( &r );
 				Leo_SnpWaitUserInput(&stnReRecog);
                 }
@@ -1237,7 +1237,7 @@ for(i=0;i<n;i++)
             if (!SnpSkip(&stnReRecog)|| local_snap)
 					{
 					leo_snapChar(&old,"PASS1.5 LEO COLLECTION : ",TRUE);
-					SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(Word32)&stnReRecog    );
+					SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(uint32_t)&stnReRecog    );
 					SnpDrawRaster( &r );
 					Leo_SnpWaitUserInput(&stnReRecog);
 					}
@@ -1260,7 +1260,7 @@ for(i=0;i<n;i++)
 			   if (!SnpSkip(&stnReRecog)|| local_snap)
 				   {
 				   leo_snapChar(&ver,"PASS1.5 FNT COLLECTION : ",TRUE);
-				   SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(Word32)&stnReRecog    );
+				   SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(uint32_t)&stnReRecog    );
 				   SnpDrawRaster( &r );
 				   Leo_SnpWaitUserInput(&stnReRecog);
 				   }
@@ -1343,7 +1343,7 @@ for(i=0;i<n;i++)
                            leo_snapChar(&ver,"PASS1.5 FNT+LEO CONFIRMING : ",TRUE);
 					   else
                            leo_snapChar(&ver,"PASS1.5 FNT+LEO CHANGING : ",TRUE);
-					   SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(Word32)&stnReRecog    );
+					   SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(uint32_t)&stnReRecog    );
 					   SnpDrawRaster( &r );
 					   Leo_SnpWaitUserInput(&stnReRecog);
 					   }
@@ -1468,7 +1468,7 @@ if (!SnpSkip(&stnCharRecog)|| leo_Snp_In_Rect)
          SnpLog("LEO PRN RERECOG FNT LTR (num=%d): %s", idr-1, buf);
          SnpLog("%s","");
          Leo_SnpWaitUserInput(&stnCharRecog); // pass control to user
-		 SnpHideRects( (Word32)&stnCharRecog );
+		 SnpHideRects( (uint32_t)&stnCharRecog );
       }
 return data[27]&(~LEO_CONTROL_CASE) ;
 }
@@ -1516,12 +1516,12 @@ if(object->recData.recRaster.lnPixWidth<5 ||
                       0, //Skew - zero to real coords
                      wRGB(255,0,0),
                      -16, // one image pixel width
-                     (Word32)&stnCharRecog
+                     (uint32_t)&stnCharRecog
                     );
 			SnpDrawRaster( &object->recData.recRaster );
 			SnpLog("%s","TOO SMALL RASTER");
 			Leo_SnpWaitUserInput(&stnCharRecog); // pass control to user
-			SnpHideRects((Word32)&stnCharRecog);
+			SnpHideRects((uint32_t)&stnCharRecog);
 			}
 	return FALSE;
 	}
@@ -1536,12 +1536,12 @@ if(object->recData.recRaster.lnPixWidth>150 ||
                       0, //Skew - zero to real coords
                      wRGB(255,0,0),
                      -16, // one image pixel width
-                     (Word32)&stnCharRecog
+                     (uint32_t)&stnCharRecog
                     );
 			SnpDrawRaster( &object->recData.recRaster );
 			SnpLog("%s","TOO BIG RASTER");
 			Leo_SnpWaitUserInput(&stnCharRecog); // pass control to user
-			SnpHideRects((Word32)&stnCharRecog);
+			SnpHideRects((uint32_t)&stnCharRecog);
 			}
 
 	return FALSE;
@@ -1563,7 +1563,7 @@ if (!SnpSkip(&stnCharRecog)|| leo_Snp_In_Rect)
          SnpLog("EXPERT PRN LTR : %s", buf);
          SnpLog("%s","");
          Leo_SnpWaitUserInput(&stnCharRecog); // pass control to user
-         SnpHideRects( (Word32)&stnCharRecog );
+         SnpHideRects( (uint32_t)&stnCharRecog );
       }
 
 return TRUE;

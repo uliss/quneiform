@@ -1011,7 +1011,7 @@ int32_t           retSelect=0;
   {
           lineFon=CSTR_NewLine(linNumber,linVers,-1);
           if( lineFon) break;
-//      Word32   cstrErr=CSTR_GetReturnCode();
+//      uint32_t   cstrErr=CSTR_GetReturnCode();
 //      cstrErr&=0xFFFF;
 //      if(cstrErr!=CSTR_ERR_DOUBLICATE) break;
   }

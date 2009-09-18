@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //-------------------- user blocks      --------------------------
 struct _USER_BLOCK
 {
-Word32  code;
+uint32_t  code;
 int32_t   size;
 Word8 * data;
 struct _USER_BLOCK * next_block;

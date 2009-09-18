@@ -128,7 +128,7 @@ typedef struct tagTABLE_DESC
 	/*  Пользователи таблицы  */
 		/*  Key[USER] - ключ пользователя "USER" от хранилища его связанных  */
 	    /*  с этой таблицей данных. Если равно 0 - хранилище не заведено.    */
-	Word32  Key[MaxTableUsers];
+	uint32_t  Key[MaxTableUsers];
 	/*  Общие свойства таблицы  */
 	Rect32  RectTable;         // это - избыточная информация
 	int32_t   SkewTable;         // at what units?

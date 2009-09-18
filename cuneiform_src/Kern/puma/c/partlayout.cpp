@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "mpuma.h"
 #include "cfio.h"
 
-static Bool32 rblockProgressStep(Word32 perc)
+static Bool32 rblockProgressStep(uint32_t perc)
 {
 	return ProgressStep(2,NULL,perc);
 }

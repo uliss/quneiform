@@ -177,7 +177,7 @@ static int32_t num_keg,num_keg_opt;     //количество кеглей на
 static KegStat  keg_stats;            //статистика кеглей на исходной странице
 static Word8 max_keg=0,min_keg=255;   //минимальный и максимальный кегли на страницы
 static int32_t version;                 //версия строки
-static Word32 key=1;                  //для snap'а
+static uint32_t key=1;                  //для snap'а
 static int32_t skew=0;                  //поворот страницы (или строки?)
 static int32_t num_frag=0;              //число фрагментов на странице
 static Bool fr_ovf;                   //на странице больше FRAG_PAGE фрагментов
@@ -209,9 +209,9 @@ static void  cor_gen_fragment();
 static Bool rtf_correct();
 
 static void  garbage_fragments();
-static void draw_fragments(Word32 color);
-static void draw_fragment(Handle hBlock, Word32 color, Word32 key);
-static void display_fragment(RecStat *rsti, Word32 color, Word32 key);
+static void draw_fragments(uint32_t color);
+static void draw_fragment(Handle hBlock, uint32_t color, uint32_t key);
+static void display_fragment(RecStat *rsti, uint32_t color, uint32_t key);
 static Bool in_gap(int32_t top, int32_t bottom, Word8 *proj);
 static Bool condition1(RecStat *rsti);
 static Bool condition2(RecStat *rsti);
@@ -219,7 +219,7 @@ static Bool condition3(RecStat *rsti);
 static Bool condition4(RecStat *rsti);
 static Bool condition34(RecStat *rsti, int32_t ngood);
 
-static void mark_word(Word32 color);
+static void mark_word(uint32_t color);
 static Bool set_cur_word(PageWord *pw);
 static Bool next_word_inline(CSTR_rast *beg, CSTR_rast *end);
 static Bool prev_word_inline(CSTR_rast *beg, CSTR_rast *end);
@@ -241,16 +241,16 @@ static int32_t dist_border(Rect32 *rect);
 static Bool add2list(LineNumber **frag_lines, int32_t fn, int32_t ln);
 
 static void draw_keg(const char *str);
-static void draw_rect(Rect32 *rect, Word32 color, Word32 key);
+static void draw_rect(Rect32 *rect, uint32_t color, uint32_t key);
 
 static void kegl_by_frag();
 static void keg_frag_stats();
 
-//Word32 myMonitorProc(Handle wnd,Handle hwnd,Word32 message,Word32 wParam,Word32 lParam);
+//uint32_t myMonitorProc(Handle wnd,Handle hwnd,uint32_t message,uint32_t wParam,uint32_t lParam);
 
 Bool32 CorrectKegl(int32_t ver)
 {
-  Word32 key=1;
+  uint32_t key=1;
 
   hCPAGE = CPAGE_GetHandlePage( CPAGE_GetCurrentPage());
 
@@ -774,7 +774,7 @@ static void  cor_gen_fragment()
   }
 }
 
-static void mark_word(Word32 color)
+static void mark_word(uint32_t color)
 {
   CSTR_rast_attr  attr;
   if( snap_enable && !LDPUMA_SkipEx(hSnapMain,FALSE,TRUE,1))
@@ -1091,7 +1091,7 @@ static void garbage_fragments()
   int32_t mainsize;
   Bool add=FALSE,ingap;
   Handle  hBlock;
-  Word32 k_cur=key+1;
+  uint32_t k_cur=key+1;
   Word8 vproj[V_SIZE]={0};
 
   min_keg=255,max_keg=0;
@@ -1110,7 +1110,7 @@ static void garbage_fragments()
   {
     int32_t j,hmax;
     Rect32 *rect=&rsti->rect;
-    Word32 bl_flg;
+    uint32_t bl_flg;
 
     if (!rsti->hBlock)  continue;
 
@@ -1198,7 +1198,7 @@ static void garbage_fragments()
 
     if (snap_enable && !LDPUMA_SkipEx(hSnapGarbage,FALSE,TRUE,1) )
     {
-      Word32 color=wRGB(255,0,255);
+      uint32_t color=wRGB(255,0,255);
       if (rsti->flag & RS_GOOD)  color=wRGB(0,255,0);
       else
       if (rsti->flag & RS_BAD)   color=wRGB(255,255,0);
@@ -1346,7 +1346,7 @@ static void garbage_fragments()
 	{
 		Handle hNext = CPAGE_GetBlockNext(hCPAGE,hBlock,TYPE_TEXT);
     int32_t i;
-    Word32 bl_flg=CPAGE_GetBlockFlags(hCPAGE,hBlock);
+    uint32_t bl_flg=CPAGE_GetBlockFlags(hCPAGE,hBlock);
     if (!(bl_flg & USER_FRAG) || rsti->flag==RS_STRANGE)
     {
       for (i=0,rsti=recstat; i<num_frag; i++,rsti++)
@@ -1423,7 +1423,7 @@ static Bool condition34(RecStat *rsti, int32_t ngood)
   return FALSE;
 }
 
-static void draw_fragments(Word32 color)
+static void draw_fragments(uint32_t color)
 {
 	if(hCPAGE)
   {
@@ -1438,7 +1438,7 @@ static void draw_fragments(Word32 color)
   }
 }
 
-static void display_fragment(RecStat *rsti, Word32 color, Word32 key)
+static void display_fragment(RecStat *rsti, uint32_t color, uint32_t key)
 {
   Word8 msg[90];
 
@@ -1457,10 +1457,10 @@ static void display_fragment(RecStat *rsti, Word32 color, Word32 key)
   }
 }
 
-static void draw_fragment(Handle hBlock, Word32 color, Word32 key)
+static void draw_fragment(Handle hBlock, uint32_t color, uint32_t key)
 {
 	POLY_ poly;
-  Word32  v;
+  uint32_t  v;
 
   if (!hBlock)
     return;
@@ -1608,7 +1608,7 @@ static void to_real16(Rect16 *rect)
   IDEAL_XY(rect->bottom, rect->right);
 }
 
-static void draw_rect(Rect32 *rect, Word32 color, Word32 key)
+static void draw_rect(Rect32 *rect, uint32_t color, uint32_t key)
 {
   Point16 v1,v2,v3,v4;
   v1.x=(Int16)rect->left;   v1.y=(Int16)rect->top;

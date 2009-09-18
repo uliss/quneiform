@@ -132,7 +132,7 @@ typedef struct tagImgInfo
                             // (final step of conversation)/
 //
 // Available:
-    Word32    avFlags;
+    uint32_t    avFlags;
 // Line numbering
 #define AV_LO_FIRSTFIRST      0x0001
 #define AV_LO_FIRSTLAST       0x0002

@@ -67,9 +67,9 @@ Word16 GetReturnCode_rling();
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(int32_t) RLING_IsDictonaryAvailable(Word32 wLang, PInt8 pPath)
+RLING_FUNC(int32_t) RLING_IsDictonaryAvailable(uint32_t wLang, PInt8 pPath)
 #else
-RLINGS_FUNC(int32_t) RLINGS_IsDictonaryAvailable(Word32 wLang, PInt8 pPath)
+RLINGS_FUNC(int32_t) RLINGS_IsDictonaryAvailable(uint32_t wLang, PInt8 pPath)
 #endif
 {
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
@@ -83,9 +83,9 @@ RLINGS_FUNC(int32_t) RLINGS_IsDictonaryAvailable(Word32 wLang, PInt8 pPath)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_LoadDictonary(Word32 wLang, PInt8 pPath)
+RLING_FUNC(Bool32) RLING_LoadDictonary(uint32_t wLang, PInt8 pPath)
 #else
-RLINGS_FUNC(Bool32) RLINGS_LoadDictonary(Word32 wLang, PInt8 pPath)
+RLINGS_FUNC(Bool32) RLINGS_LoadDictonary(uint32_t wLang, PInt8 pPath)
 #endif
 {
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
@@ -115,9 +115,9 @@ RLINGS_FUNC(Bool32) RLINGS_LoadUserDictonary(PInt8 pUserDictList, PInt8 pPath)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_LoadSecDictonary(Word32 wLang, PInt8 pPath)
+RLING_FUNC(Bool32) RLING_LoadSecDictonary(uint32_t wLang, PInt8 pPath)
 #else
-RLINGS_FUNC(Bool32) RLINGS_LoadSecDictonary(Word32 wLang, PInt8 pPath)
+RLINGS_FUNC(Bool32) RLINGS_LoadSecDictonary(uint32_t wLang, PInt8 pPath)
 #endif
 {
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
@@ -261,9 +261,9 @@ RLINGS_FUNC(Bool32) RLINGS_CheckFile(PInt8 pFile, int32_t * pOutCheck)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_CheckED(void * pEDPool, void * pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, int32_t * pOutCheck)
+RLING_FUNC(Bool32) RLING_CheckED(void * pEDPool, void * pEDOutPool, uint32_t wEDPoolSize, Puint32_t pwEDOutPoolSize, int32_t * pOutCheck)
 #else
-RLINGS_FUNC(Bool32) RLINGS_CheckED(void * pEDPool, void * pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, int32_t * pOutCheck)
+RLINGS_FUNC(Bool32) RLINGS_CheckED(void * pEDPool, void * pEDOutPool, uint32_t wEDPoolSize, Puint32_t pwEDOutPoolSize, int32_t * pOutCheck)
 #endif
 {
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
@@ -277,9 +277,9 @@ RLINGS_FUNC(Bool32) RLINGS_CheckED(void * pEDPool, void * pEDOutPool, Word32 wED
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_CheckSecED(void * pEDPool, void * pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, int32_t * pOutCheck)
+RLING_FUNC(Bool32) RLING_CheckSecED(void * pEDPool, void * pEDOutPool, uint32_t wEDPoolSize, Puint32_t pwEDOutPoolSize, int32_t * pOutCheck)
 #else
-RLINGS_FUNC(Bool32) RLINGS_CheckSecED(void * pEDPool, void * pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, int32_t * pOutCheck)
+RLINGS_FUNC(Bool32) RLINGS_CheckSecED(void * pEDPool, void * pEDOutPool, uint32_t wEDPoolSize, Puint32_t pwEDOutPoolSize, int32_t * pOutCheck)
 #endif
 {
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
@@ -293,9 +293,9 @@ RLINGS_FUNC(Bool32) RLINGS_CheckSecED(void * pEDPool, void * pEDOutPool, Word32 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_CorrectWord(void * Begin, void * End, PWord32 pLanguage, PInt8 pCorrWord)
+RLING_FUNC(Bool32) RLING_CorrectWord(void * Begin, void * End, Puint32_t pLanguage, PInt8 pCorrWord)
 #else
-RLINGS_FUNC(Bool32) RLINGS_CorrectWord(void * Begin, void * End, PWord32 pLanguage, PInt8 pCorrWord)
+RLINGS_FUNC(Bool32) RLINGS_CorrectWord(void * Begin, void * End, Puint32_t pLanguage, PInt8 pCorrWord)
 #endif
 {
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
@@ -309,9 +309,9 @@ RLINGS_FUNC(Bool32) RLINGS_CorrectWord(void * Begin, void * End, PWord32 pLangua
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_CorrectSecWord(void * Begin, void * End, PWord32 pLanguage, PInt8 pCorrWord)
+RLING_FUNC(Bool32) RLING_CorrectSecWord(void * Begin, void * End, Puint32_t pLanguage, PInt8 pCorrWord)
 #else
-RLINGS_FUNC(Bool32) RLINGS_CorrectSecWord(void * Begin, void * End, PWord32 pLanguage, PInt8 pCorrWord)
+RLINGS_FUNC(Bool32) RLINGS_CorrectSecWord(void * Begin, void * End, Puint32_t pLanguage, PInt8 pCorrWord)
 #endif
 {
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
@@ -325,9 +325,9 @@ RLINGS_FUNC(Bool32) RLINGS_CorrectSecWord(void * Begin, void * End, PWord32 pLan
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_CorrectHypWord(void * BeginF, void * EndF, PWord32 pLanguageF, void * BeginS, void * EndS, PWord32 pLanguageS, PInt8 pCorrWord)
+RLING_FUNC(Bool32) RLING_CorrectHypWord(void * BeginF, void * EndF, Puint32_t pLanguageF, void * BeginS, void * EndS, Puint32_t pLanguageS, PInt8 pCorrWord)
 #else
-RLINGS_FUNC(Bool32) RLINGS_CorrectHypWord(void * BeginF, void * EndF, PWord32 pLanguageF, void * BeginS, void * EndS, PWord32 pLanguageS, PInt8 pCorrWord)
+RLINGS_FUNC(Bool32) RLINGS_CorrectHypWord(void * BeginF, void * EndF, Puint32_t pLanguageF, void * BeginS, void * EndS, Puint32_t pLanguageS, PInt8 pCorrWord)
 #endif
 {
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
@@ -341,9 +341,9 @@ RLINGS_FUNC(Bool32) RLINGS_CorrectHypWord(void * BeginF, void * EndF, PWord32 pL
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_CorrectSecHypWord(void * BeginF, void * EndF, PWord32 pLanguageF, void * BeginS, void * EndS, PWord32 pLanguageS, PInt8 pCorrWord)
+RLING_FUNC(Bool32) RLING_CorrectSecHypWord(void * BeginF, void * EndF, Puint32_t pLanguageF, void * BeginS, void * EndS, Puint32_t pLanguageS, PInt8 pCorrWord)
 #else
-RLINGS_FUNC(Bool32) RLINGS_CorrectSecHypWord(void * BeginF, void * EndF, PWord32 pLanguageF, void * BeginS, void * EndS, PWord32 pLanguageS, PInt8 pCorrWord)
+RLINGS_FUNC(Bool32) RLINGS_CorrectSecHypWord(void * BeginF, void * EndF, Puint32_t pLanguageF, void * BeginS, void * EndS, Puint32_t pLanguageS, PInt8 pCorrWord)
 #endif
 {
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
@@ -357,9 +357,9 @@ RLINGS_FUNC(Bool32) RLINGS_CorrectSecHypWord(void * BeginF, void * EndF, PWord32
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Rect16) RLING_GetCorrectedRectElement(Word32 i)
+RLING_FUNC(Rect16) RLING_GetCorrectedRectElement(uint32_t i)
 #else
-RLINGS_FUNC(Rect16) RLINGS_GetCorrectedRectElement(Word32 i)
+RLINGS_FUNC(Rect16) RLINGS_GetCorrectedRectElement(uint32_t i)
 #endif
 {
 	Rect16 Empt = {0,0,0,0};
@@ -374,9 +374,9 @@ RLINGS_FUNC(Rect16) RLINGS_GetCorrectedRectElement(Word32 i)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Rect16) RLING_GetSecCorrectedRectElement(Word32 i)
+RLING_FUNC(Rect16) RLING_GetSecCorrectedRectElement(uint32_t i)
 #else
-RLINGS_FUNC(Rect16) RLINGS_GetSecCorrectedRectElement(Word32 i)
+RLINGS_FUNC(Rect16) RLINGS_GetSecCorrectedRectElement(uint32_t i)
 #endif
 {
 	Rect16 Empt = {0,0,0,0};
@@ -391,9 +391,9 @@ RLINGS_FUNC(Rect16) RLINGS_GetSecCorrectedRectElement(Word32 i)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(RecVersions) RLING_GetCorrectedVersElement(Word32 i, PWord32 pNVers)
+RLING_FUNC(RecVersions) RLING_GetCorrectedVersElement(uint32_t i, Puint32_t pNVers)
 #else
-RLINGS_FUNC(RecVersions) RLINGS_GetCorrectedVersElement(Word32 i, PWord32 pNVers)
+RLINGS_FUNC(RecVersions) RLINGS_GetCorrectedVersElement(uint32_t i, Puint32_t pNVers)
 #endif
 {
 	RecVersions Empt = {0,0,0};
@@ -408,9 +408,9 @@ RLINGS_FUNC(RecVersions) RLINGS_GetCorrectedVersElement(Word32 i, PWord32 pNVers
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(RecVersions) RLING_GetSecCorrectedVersElement(Word32 i, PWord32 pNVers)
+RLING_FUNC(RecVersions) RLING_GetSecCorrectedVersElement(uint32_t i, Puint32_t pNVers)
 #else
-RLINGS_FUNC(RecVersions) RLINGS_GetSecCorrectedVersElement(Word32 i, PWord32 pNVers)
+RLINGS_FUNC(RecVersions) RLINGS_GetSecCorrectedVersElement(uint32_t i, Puint32_t pNVers)
 #endif
 {
 	RecVersions Empt = {0,0,0};

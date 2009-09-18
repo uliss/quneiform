@@ -103,7 +103,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			int HndTab,
 			RecRaster  *recraster, // raster description
 			RecVersions *Indres,
-            Word32    Flags     );
+            uint32_t    Flags     );
 
   MSK_FUNC(Bool32)  MSKSetHndTab(int HndTab);
 

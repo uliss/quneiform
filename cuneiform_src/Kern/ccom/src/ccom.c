@@ -72,7 +72,7 @@ Word16              wLowRC         = CCOM_ERR_NO;
 #define     CCOM_DAT    "ccom.dat"
 
 // memory funct
-static void *   ccom_alloc(Word32 len)   {
+static void *   ccom_alloc(uint32_t len)   {
 //return malloc(len);
 void *ma = malloc(len);
     if( !ma )
@@ -80,14 +80,14 @@ void *ma = malloc(len);
     memset(ma,0,len);
     return ma;
 }
-static void     ccom_free(void *ptr,Word32 len) { free(ptr);};
+static void     ccom_free(void *ptr,uint32_t len) { free(ptr);};
 static FILE *   ccom_fopen(char *name,char *type) { return fopen(name,type);};
 static void     ccom_fclose(FILE *file) { fclose(file);};
 static int      ccom_fread(void *dst, int len , int num,FILE *file) { return fread(dst,len,num,file);};
 static int      ccom_fwrite(void *dst, int len, int num,FILE *file) { return fwrite(dst,len,num,file);};
 
-static void * (*my_alloc)(Word32 len)                 = ccom_alloc;
-static void   (*my_free )(void *,Word32 len)          = ccom_free;
+static void * (*my_alloc)(uint32_t len)                 = ccom_alloc;
+static void   (*my_free )(void *,uint32_t len)          = ccom_free;
 static FILE * (*my_fopen)(char *name,char *type) = ccom_fopen;
 static void   (*my_fclose)(FILE *file)           = ccom_fclose;
 static int    (*my_fread) (void *dst, int len, int num,FILE *file) = ccom_fread;
@@ -215,14 +215,14 @@ ccom_init=FALSE;
 return;
 }
 
-CCOM_FUNC(Word32)   CCOM_GetReturnCode(void)
+CCOM_FUNC(uint32_t)   CCOM_GetReturnCode(void)
 {
 if( wLowRC==CCOM_ERR_NO)
   return 0;
 return (wHeightRC<<16)|(wLowRC-CCOM_ERR_MIN);
 }
 
-CCOM_FUNC(char*)   CCOM_GetReturnString(Word32 dwError)
+CCOM_FUNC(char*)   CCOM_GetReturnString(uint32_t dwError)
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF + CCOM_ERR_MIN);
 	static char szBuffer[512];
@@ -1115,7 +1115,7 @@ Bool32 ccom_save_comp( CCOM_comp *cur)
 {
 FILE *fp=my_fopen(CCOM_DAT,"wb+");
 CCOM_USER_BLOCK *ub = cur->user_block;
-Word32 zub={0};
+uint32_t zub={0};
 
 if( !fp )
     return FALSE;
@@ -1375,12 +1375,12 @@ if( !hcont )
 return TRUE;
 }
 
-CCOM_FUNC(Bool32) CCOM_GetExportData(Word32 dwType, void * pData)
+CCOM_FUNC(Bool32) CCOM_GetExportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;
     int32_t  vers=CCOM_VERSION_CODE;
 
-#define EXPORT(a) *(Word32*)(pData)=          (Word32)a;
+#define EXPORT(a) *(uint32_t*)(pData)=          (uint32_t)a;
   wLowRC = CCOM_ERR_NO;
 	switch(dwType)
 	{
@@ -1501,7 +1501,7 @@ CCOM_FUNC(Bool32) CCOM_GetExportData(Word32 dwType, void * pData)
 return rc;
 }
 
-CCOM_FUNC(Bool32) CCOM_SetImportData(Word32 dwType, void * pData)
+CCOM_FUNC(Bool32) CCOM_SetImportData(uint32_t dwType, void * pData)
 {
 
   wLowRC = CCOM_ERR_NO;

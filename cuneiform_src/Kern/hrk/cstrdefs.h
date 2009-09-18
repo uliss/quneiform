@@ -84,7 +84,7 @@ typedef struct strucCSTR_attr{
     Int16  l_col, l_row     ;
     int32_t  wid, hei             ;
 // 32
-    Word32 Flags            ;
+    uint32_t Flags            ;
 #define CSTR_STR_No              0x00000000
 #define CSTR_STR_DotMatrix_RCM   0x00000001
 #define CSTR_STR_DotMatrix_LEO   0x00000002
@@ -284,7 +284,7 @@ typedef struct strucCSTR_rast_attr{
  CSTR_stick  save_baton[MAX_BATON]; // 8*3 bytes
 //// 68
 #define dup_default     ((cell*)0xffffffff)
-        Word32  RecogHistory        ;
+        uint32_t  RecogHistory        ;
 #define CSTR_hi_none        0x00000000
 #define CSTR_hi_evn         0x00000001
 #define CSTR_hi_3x5         0x00000002
@@ -293,7 +293,7 @@ typedef struct strucCSTR_rast_attr{
 #define CSTR_hi_fon         0x00000010
 #define CSTR_hi_leo         0x00000020
 //// 72
-        Word32  RecogPass                   ;
+        uint32_t  RecogPass                   ;
 //// 76
     Int16   clink               ; // link to cluster
     Word16  clu_attr            ; // cluster attributes
@@ -328,7 +328,7 @@ typedef struct strucCSTR_rast_attr{
 #define CSTR_fs_courier 1
     Int16   nClust;
 //// 96
-    Word32 flg_new;
+    uint32_t flg_new;
 #define CSTR_fn_shave       0x00000001 // shaved cell
 #define CSTR_fn_acccap      0x00000002 // aceent cap
 #define CSTR_fn_under       0x00000004 // shaved cell
@@ -378,7 +378,7 @@ typedef struct _strucCSTR_head{
 CSTR_attr   attr                ;
 CCOM_handle container           ;
 Bool32      private_container   ;
-Word32      Properties          ;
+uint32_t      Properties          ;
 #define CSTR_LN_NO          0x00000000
 #define CSTR_LN_FICT        0x00000001
 

@@ -105,7 +105,7 @@ typedef struct tagLineData
 {
 	CLINE_handle hLine;
 	Rect32 rect;
-	Word32 flag;
+	uint32_t flag;
 #define FL_GOOD 1
 #define FL_HAS_CP 2
 } LineData;
@@ -250,7 +250,7 @@ Bool32 findLostLines(CLINE_handle hCLINE, PAGEINFO* info)
 	//initializing
 	//------------
 	CPDLine pLine;
-	Word32 ignore_flags = LI_IsFalse | LI_Pointed;
+	uint32_t ignore_flags = LI_IsFalse | LI_Pointed;
 	Bool32 pc = TRUE;
 	int32_t nIncline = info->Incline2048;
 	int32_t hori_cp = 0, vert_cp = 0, bad_cp = 0;
@@ -469,7 +469,7 @@ Bool32 getLostLines(const FLLData *work_data, const LineData* aCPLines, const in
 	//fill cross points array
 	//-----------------------
 	const int32_t hyst_spread = is_horiz ? work_data->line_distance_x>>1 : work_data->line_distance_y>>1;
-	const Word32 good_line = FL_GOOD | FL_HAS_CP;
+	const uint32_t good_line = FL_GOOD | FL_HAS_CP;
 	CLINE_handle hCP;
 	CPDCutPoint pCP;
 	int32_t cp = 0, cp_level;

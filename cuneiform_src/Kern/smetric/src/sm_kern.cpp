@@ -158,26 +158,26 @@ SMetric_FUNC(Bool32) SMetric_Done()
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-SMetric_FUNC(Word32) SMetric_GetReturnCode()
+SMetric_FUNC(uint32_t) SMetric_GetReturnCode()
 {
 	Word8  err8;
-	Word32 err32;
+	uint32_t err32;
 	if (gwHeightRC==0)
 	{
-		err32 = (Word32)(0);
+		err32 = (uint32_t)(0);
 		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
 		gwLowRC = (Word16)(err8<<8);
 		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
 		gwLowRC |= (Word16)err8;
-		err32 |= (Word32)gwLowRC;
+		err32 |= (uint32_t)gwLowRC;
 		return err32;
 	}
 	if (gwLowRC==ER_ROUGH_NONE)
-		return (Word32)(0);
-	return (Word32)(gwHeightRC<<16)|(gwLowRC);
+		return (uint32_t)(0);
+	return (uint32_t)(gwHeightRC<<16)|(gwLowRC);
 }
 /*---------------------------------------------------------------------------*/
-SMetric_FUNC(Int8 *) SMetric_GetReturnString(Word32 dwError)
+SMetric_FUNC(Int8 *) SMetric_GetReturnString(uint32_t dwError)
 {
 	Word8  err8, err8_1;
 	Word16 err16;
@@ -279,7 +279,7 @@ SMetric_FUNC(Int8 *) SMetric_GetReturnString(Word32 dwError)
 	return szBuffer;
 }
 /*---------------------------------------------------------------------------*/
-SMetric_FUNC(Bool32) SMetric_GetExportData(Word32 dwType, void * pData)
+SMetric_FUNC(Bool32) SMetric_GetExportData(uint32_t dwType, void * pData)
 {
 	Word8 err8;
 	if (gwHeightRC==0)
@@ -314,7 +314,7 @@ SMetric_FUNC(Bool32) SMetric_GetExportData(Word32 dwType, void * pData)
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-SMetric_FUNC(Bool32) SMetric_SetImportData(Word32 dwType, void *pData)
+SMetric_FUNC(Bool32) SMetric_SetImportData(uint32_t dwType, void *pData)
 {
 	Word8 err8;
 	if (gwHeightRC==0)

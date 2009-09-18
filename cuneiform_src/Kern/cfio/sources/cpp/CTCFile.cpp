@@ -87,7 +87,7 @@ CTCFileHeader::~CTCFileHeader()
 //////////////////////////////////////////////////////////////////////////////////
 //
 CTCFileHeader::CTCFileHeader(CTCGlobalFile * pNewFile,
-							 Word32 Flag,
+							 uint32_t Flag,
 							 Handle Storage):CTCGlobalHeader(NULL,NULL,0)
 {
 	pFile = pNewFile;
@@ -156,7 +156,7 @@ CTCFileList::~CTCFileList()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Handle CTCFileList::AddItem(CTCGlobalFile * pNewFile, Word32 wNewFlag, Handle Storage)
+Handle CTCFileList::AddItem(CTCGlobalFile * pNewFile, uint32_t wNewFlag, Handle Storage)
 {
 	CTCFileHeader * Current, * NewBlock = NULL;
 	Handle          NewHandle = pNewFile->GetFileHandle();
@@ -179,10 +179,10 @@ Handle CTCFileList::AddItem(CTCGlobalFile * pNewFile, Word32 wNewFlag, Handle St
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTCFileList::DeleteItem(Handle File, Word32 Flag)
+Bool32 CTCFileList::DeleteItem(Handle File, uint32_t Flag)
 {
 	CTCFileHeader * Current, * Last, * EraseBlock;
-	Word32 IsOK    = 0;
+	uint32_t IsOK    = 0;
 
 	for ( Last = Current = pFirst(); Current != pLast(); Current = Current->GetNext() )
 	{
@@ -265,7 +265,7 @@ Handle CTCFileList::FindFile(PChar8 lpFileName)
 {
 	CTCGlobalFile * pFile;
 	CTCFileHeader * pCurrent;
-	Word32          wComp;
+	uint32_t          wComp;
 
 	for ( pCurrent = pFirst(); pCurrent != pLast(); pCurrent = pCurrent->GetNext())
 	{

@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef struct tagLeoPageSetup
 {
-   Word32     Options;
+   uint32_t     Options;
       // #define LEO_USEHISTORY 0x00000001
       // #define LEO_...        0x00000001
    int32_t      nResolutionX;
@@ -83,7 +83,7 @@ typedef struct tagLeoPageSetup
 
 typedef struct tagLeoFieldSetup
 {
-   Word32       nStyle;
+   uint32_t       nStyle;
    Point16     BoxSize;
    Word8       AlphaTable[256];  // AlphaTable[i]==0 <=> no such letter
    /// multi-passing:

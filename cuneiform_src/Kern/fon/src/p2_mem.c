@@ -177,7 +177,7 @@ FON_FUNC(int32_t) FONStoreRaster(RecRaster *r,Word8 let, Word8 IsPrint,
 }
 /////////////////////
 int32_t StartAddMemCluster(Word8 *metkaValid,int32_t CurClus,
-						 Int16 countFont,Word32 *allFields)
+						 Int16 countFont,uint32_t *allFields)
 {
  int i,CurCount;
  FONBASE *fBase;
@@ -202,7 +202,7 @@ int32_t StartAddMemCluster(Word8 *metkaValid,int32_t CurClus,
  fBase->countFont=countFont;
  // Информация о шрифтах в полях
  i=MIN(countFont,4);
- memcpy(fBase->fontFields,allFields,i*NFIELDDWORD*sizeof(Word32));
+ memcpy(fBase->fontFields,allFields,i*NFIELDDWORD*sizeof(uint32_t));
 
  return CurCount;
 }

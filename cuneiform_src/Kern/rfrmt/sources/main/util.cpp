@@ -430,10 +430,10 @@ void ProjectPoint1024(Point16 *r,int32_t Skew1024)
 
 #if defined (FIND_NDX) || defined (FIND_BOX) || defined (FIND_DOT)
 	extern MemFunc mem;
-	void* malloc_t(Word32 size)         { return (*mem.alloc)(size); }
-	void free_t(void *ptr, Word32 size) { (*mem.free)(ptr,size); }
-	void* malloc_u(Word32 size)         {return malloc_m((WORD)size);}
-	void free_u(void *ptr, Word32 size) {free_m(ptr);}
+	void* malloc_t(uint32_t size)         { return (*mem.alloc)(size); }
+	void free_t(void *ptr, uint32_t size) { (*mem.free)(ptr,size); }
+	void* malloc_u(uint32_t size)         {return malloc_m((WORD)size);}
+	void free_u(void *ptr, uint32_t size) {free_m(ptr);}
 #endif
 
 #ifndef WIN_MOD

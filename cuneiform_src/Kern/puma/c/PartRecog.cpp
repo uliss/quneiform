@@ -81,7 +81,7 @@ int32_t   global_buf_len=0;   // OLEG fot Consistent
 Bool32 PUMA_Save(Handle hEdPage, const char * lpOutFileName, int32_t lnFormat, int32_t lnCode, Bool32 bAppend );
 #endif
 
-static Bool32 rblockProgressStep(Word32 perc)
+static Bool32 rblockProgressStep(uint32_t perc)
 {
 	return ProgressStep(2,NULL,perc);
 }
@@ -89,7 +89,7 @@ static void   rblockProgressFinish( void )
 {
 	ProgressStep(2,NULL,100);
 }
-static Bool32 rselstrProgressStep(Word32 perc)
+static Bool32 rselstrProgressStep(uint32_t perc)
 {
 	return ProgressStep(2,NULL,perc);
 }
@@ -407,7 +407,7 @@ int             i;
         CSTR_rast       rst=CSTR_GetFirstRaster(lin_in);
         CSTR_rast_attr  attr;
         Point32         point,size;
-        Word32          lpColor[10];
+        uint32_t          lpColor[10];
         Word8           lpMask[4096];
 
 		  for(rst=CSTR_GetNext(rst);rst;rst=CSTR_GetNext(rst))

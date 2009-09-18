@@ -81,7 +81,7 @@ class cls;                 \
 
 /*** Base types ***/
 typedef unsigned int Indx;_SETTYPES( Indx )
-typedef uint32_t Word32;_SETTYPES( Word32 )
+//_SETTYPES( uint32_t )
 typedef int16_t Int16;  _SETTYPES( Int16 )
 typedef uint16_t Word16;_SETTYPES( Word16 )
 typedef char Int8;      _SETTYPES( Int8 )
@@ -131,11 +131,11 @@ typedef Bool (* FTBool_PVoid)(void*);
 typedef Bool16 (* FTBool16_PVoid)(void*);
 typedef Bool32 (* FTBool32_PVoid)(void*);
 
-typedef void (* FTVoid_Word32)(Word32);
-typedef void* (* FTPVoid_Word32)(Word32);
-typedef Bool (* FTBool_Word32)(Word32);
-typedef Bool16 (* FTBool16_Word32)(Word32);
-typedef Bool32 (* FTBool32_Word32)(Word32);
+typedef void (* FTVoid_uint32_t)(uint32_t);
+typedef void* (* FTPVoid_uint32_t)(uint32_t);
+typedef Bool (* FTBool_uint32_t)(uint32_t);
+typedef Bool16 (* FTBool16_uint32_t)(uint32_t);
+typedef Bool32 (* FTBool32_uint32_t)(uint32_t);
 
 #ifdef __cplusplus
 extern "C" {
@@ -151,11 +151,11 @@ typedef Bool (* CFTBool_PVoid)(void*);
 typedef Bool16 (* CFTBool16_PVoid)(void*);
 typedef Bool32 (* CFTBool32_PVoid)(void*);
 
-typedef void (* CFTVoid_Word32)(Word32);
-typedef void* (* CFTPVoid_Word32)(Word32);
-typedef Bool (* CFTBool_Word32)(Word32);
-typedef Bool16 (* CFTBool16_Word32)(Word32);
-typedef Bool32 (* CFTBool32_Word32)(Word32);
+typedef void (* CFTVoid_uint32_t)(uint32_t);
+typedef void* (* CFTPVoid_uint32_t)(uint32_t);
+typedef Bool (* CFTBool_uint32_t)(uint32_t);
+typedef Bool16 (* CFTBool16_uint32_t)(uint32_t);
+typedef Bool32 (* CFTBool32_uint32_t)(uint32_t);
 }
 #endif   // __cplusplus
 

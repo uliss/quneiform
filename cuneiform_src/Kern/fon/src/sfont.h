@@ -76,8 +76,8 @@
 #define NotEmptyField(sour) (sour[0]|sour[1])
 #define EmptyField(sour)    ((sour[0]|sour[1])==0)
 #define ClearFields(sour)   {sour[0]=sour[1]=0;}
-void MakeDWORDField(int i, Word32 *fifi);
-void AddDWORDField(int i, Word32 *fifi);
+void MakeDWORDField(int i, uint32_t *fifi);
+void AddDWORDField(int i, uint32_t *fifi);
 
 // маски параметров кластера
 #define FON_CLU_SOLID    1
@@ -219,7 +219,7 @@ typedef struct tag_Nraster_header {
 typedef struct tagInfoCluster {
 	int32_t mw;
 	int32_t mh;
-	Word32 fields[NFIELDDWORD];
+	uint32_t fields[NFIELDDWORD];
 	Int16 count;
 	Int16 first;
 	Int16 let;
@@ -233,12 +233,12 @@ typedef struct tagInfoCluster {
 	BYTE nBold;
 	BYTE attr; // attributes - italic,...
 	BYTE isSame; // working for test 0O6b
-	Word32 tablColumn;
+	uint32_t tablColumn;
 } InfoCluster;
 
 typedef struct tagFontField {
-	Word32 field[NFIELDDWORD];
-	Word32 testField[NFIELDDWORD];
+	uint32_t field[NFIELDDWORD];
+	uint32_t testField[NFIELDDWORD];
 	Int16 sBig;
 	Int16 sLit;
 	Word16 inFont[256];
@@ -257,7 +257,7 @@ void EndHausdorfDLL(void);
 int32_t GetNumMemory(void);
 void EndNumMemory(void);
 int32_t StartAddMemCluster(Word8 *metkaValid, int32_t CurClus, Int16 countFont,
-		Word32 *allFields);
+		uint32_t *allFields);
 int32_t AddClusterMemFont(welet *wel);
 SINT Razmaz(BYTE *bSource, BYTE *bDest, SINT xbyte, SINT xbit, SINT yrow,
 		BYTE bold);

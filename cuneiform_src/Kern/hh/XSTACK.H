@@ -110,7 +110,7 @@ class XStack : private XPool
 		void     flush  () {Destroy();};
 //		T      * ptr( Indx num )        { return &(*this)[num]; }
 		T      * firstPtr(void)         { return (T *)GetData();}
-		Word32   volume( void )         {  return MaxCnt;}
+		uint32_t   volume( void )         {  return MaxCnt;}
 		T      & GetLast(void)          {  return (*this)[(Indx)(CurCnt -1)];}
 **/
 };

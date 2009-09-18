@@ -203,7 +203,7 @@ typedef struct tagExtInterval
 
 typedef struct tagExcControl
 {
-        Word32 Control;
+        uint32_t Control;
          // Control flag (bitonal)
          #define Ex_ExtraComp            0x00000001
             // 1 - result -> ExtComponent+...
@@ -249,17 +249,17 @@ typedef struct tagExcBox
 
 typedef struct tagREXC_DIB
       {
-      Word32       biSize;
+      uint32_t       biSize;
       int32_t        biWidth;
       int32_t        biHeight;
       Word16        biPlanes;
       Word16        biBitCount;
-      Word32       biCompression;
-      Word32       biSizeImage;
+      uint32_t       biCompression;
+      uint32_t       biSizeImage;
       int32_t        biXPelsPerMeter;
       int32_t        biYPelsPerMeter;
-      Word32       biClrUsed;
-      Word32       biClrImportant;
+      uint32_t       biClrUsed;
+      uint32_t       biClrImportant;
       }
    REXC_DIB;
 typedef struct tagREXC_RGBQUAD { // rgbq

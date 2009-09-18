@@ -56,9 +56,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include"mmx.h"
 
-//       Word32   MMX_scalarUni (Int16 * _EAX, Int16 * _EDX, int32_t num)
+//       uint32_t   MMX_scalarUni (Int16 * _EAX, Int16 * _EDX, int32_t num)
 //		return  0 if num<=0
-MMX_FUNC(Word32)   MMX_scalarUni (Int16 * _EAX, Int16 * _EDX, int32_t num)
+MMX_FUNC(uint32_t)   MMX_scalarUni (Int16 * _EAX, Int16 * _EDX, int32_t num)
 {
 #ifdef _MSC_VER
 _asm{
@@ -113,9 +113,9 @@ save_res:
 }
 
 //
-//       Word32   MMX_scalar16 (Int16 * _EAX, Int16 * _EDX)
+//       uint32_t   MMX_scalar16 (Int16 * _EAX, Int16 * _EDX)
 //
-MMX_FUNC(Word32) MMX_scalar16 (Int16 * _EAX, Int16 * _EDX)
+MMX_FUNC(uint32_t) MMX_scalar16 (Int16 * _EAX, Int16 * _EDX)
 {
 #ifdef _MSC_VER
 _asm{
@@ -154,9 +154,9 @@ _asm{
 }
 
 //
-//     Word32   MMX_scalar36 (Int16 * _EAX, Int16 * _EDX)
+//     uint32_t   MMX_scalar36 (Int16 * _EAX, Int16 * _EDX)
 //
-MMX_FUNC(Word32) MMX_scalar36 (Int16 * _EAX, Int16 * _EDX)
+MMX_FUNC(uint32_t) MMX_scalar36 (Int16 * _EAX, Int16 * _EDX)
 {
 #ifdef _MSC_VER
 _asm{

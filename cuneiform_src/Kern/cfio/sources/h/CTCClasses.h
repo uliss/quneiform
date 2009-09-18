@@ -92,13 +92,13 @@ class CTCMemoryHeader : public CTCGlobalHeader
 {
 public:
 	CTCMemoryHeader();
-	CTCMemoryHeader(Handle hMemory, Word32 wBlockSize);
+	CTCMemoryHeader(Handle hMemory, uint32_t wBlockSize);
 	~CTCMemoryHeader();
 	PChar8 GetOwner(void) { return mcOwner; };
 	PChar8 GetComment(void) { return mcComment; };
 
 public:
-	CTCMemoryHeader(Handle hMemory, Word32 wBlockSize, const char *OwnerName, const char *Commentary);
+	CTCMemoryHeader(Handle hMemory, uint32_t wBlockSize, const char *OwnerName, const char *Commentary);
 	CTCMemoryHeader * GetNext()    { return (CTCMemoryHeader *)(CTCGlobalHeader::GetNext()); };
 private:
 	Char8 mcComment[CFIO_MAX_COMMENT];
@@ -128,7 +128,7 @@ class CTCFileHeader : public CTCGlobalHeader
 private:
 	CTCGlobalFile *      pFile;
 	Handle               hStorage;
-	Word32               wFlag;
+	uint32_t               wFlag;
 	Bool32 KeepFileName;
 
 public:
@@ -136,7 +136,7 @@ public:
 	Bool32 LockToStorage(void);
 	CTCFileHeader();
 	CTCFileHeader(CTCGlobalFile * pNewFile,
-		          Word32 Flag =CFIO_FILE_READ|CFIO_FILE_WRITE,
+		          uint32_t Flag =CFIO_FILE_READ|CFIO_FILE_WRITE,
 				  Handle hStorage = NULL);
 	~CTCFileHeader();
 
@@ -163,39 +163,39 @@ private:
 class  CTCStorageContents
 {
 private:
-	Word32               wContentsSize;
+	uint32_t               wContentsSize;
 	CTCStorageContents * pNext;
 	Handle               hItem;
-	Word32               wItemID;
-	Word32               wItemSize;
+	uint32_t               wItemID;
+	uint32_t               wItemSize;
 
 public:
 	CTCStorageContents():wItemID(3),wItemSize(0),wContentsSize( sizeof ( class CTCStorageContents))
 	{pNext = NULL; hItem = NULL;};
-	CTCStorageContents(Handle H, Word32 ID = 0, Word32 Size = 0, CTCStorageContents * Next = NULL): wItemID(ID),wItemSize(Size),wContentsSize( sizeof ( class CTCStorageContents) )
+	CTCStorageContents(Handle H, uint32_t ID = 0, uint32_t Size = 0, CTCStorageContents * Next = NULL): wItemID(ID),wItemSize(Size),wContentsSize( sizeof ( class CTCStorageContents) )
 	{ hItem = H;  pNext = Next;};
 	~CTCStorageContents() {};
 
 public:
 	Handle       GetHandle() { return hItem; };
-	Word32       GetID()     { return wItemID; };
-    Word32       GetSize()   { return wItemSize; };
-	Word32       GetContentsSize() { return wContentsSize; };
+	uint32_t       GetID()     { return wItemID; };
+    uint32_t       GetSize()   { return wItemSize; };
+	uint32_t       GetContentsSize() { return wContentsSize; };
 	CTCStorageContents * GetNext() { return pNext; };
 
 public:
 	Bool32     DeleteItemFromStorage(Handle Item);
 	void       SetHandle(Handle Item) { hItem = Item; };
-	void       SetID(Word32 ID)     { wItemID = ID; };
-    void       SetSize(Word32 Size)   { wItemSize = Size; };
+	void       SetID(uint32_t ID)     { wItemID = ID; };
+    void       SetSize(uint32_t Size)   { wItemSize = Size; };
 	void       SetNext(CTCStorageContents * Next) {  pNext = Next; };
 };
 */
 typedef struct
 {
-	Word32    siHeaderSize;
-	Word32    siItemSize;
-	Word32    siFlag;
+	uint32_t    siHeaderSize;
+	uint32_t    siItemSize;
+	uint32_t    siFlag;
 	char      siName[CFIO_MAX_PATH];
 }   STORAGEITEM;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -207,27 +207,27 @@ private:
 	char                 pcName[CFIO_MAX_PATH];
 	char                 pcFolder[CFIO_MAX_PATH];
 //	CTCStorageContents   Contents;
-	Word32               wContensCounter;
+	uint32_t               wContensCounter;
 
 //private:
 
 public:
 	CTCStorageHeader();
 	CTCStorageHeader( CTCGlobalFile * pNewStorage,
-	                  Word32 Flag = CFIO_FILE_READ|CFIO_FILE_WRITE,
+	                  uint32_t Flag = CFIO_FILE_READ|CFIO_FILE_WRITE,
 					  const char* pcNewStorageFolder = NULL );
 	~CTCStorageHeader();
 
 public:
 	CTCStorageHeader * GetNext(void) { return (CTCStorageHeader *)(CTCGlobalHeader::GetNext()); };
 	CTCGlobalFile *    GetStorageFile(void) { return pStorageFile; };
-	Word32             IncreaseContentsCounter() { return ++wContensCounter; };
-	Word32             DecreaseContentsCounter() { return --wContensCounter; };
+	uint32_t             IncreaseContentsCounter() { return ++wContensCounter; };
+	uint32_t             DecreaseContentsCounter() { return --wContensCounter; };
 	CTCGlobalFile *    GetStorage() { return pStorageFile; };
 	PChar8             GetStorageFolder() { return pcFolder; };
 //	Handle             EnumItemContents(Handle Item = NULL);
 //	Bool32             DeleteItemFromStorage(Handle Item);
-//	Bool32             AddItemToStorage(Handle hNewItem, Word32 wID = 0, Word32 wNewSize = 0);
+//	Bool32             AddItemToStorage(Handle hNewItem, uint32_t wID = 0, uint32_t wNewSize = 0);
 
 private:
 	Handle             AcceptFile(CTCGlobalFile * File) { return (pStorageFile = File)->GetFileHandle(); };
@@ -241,39 +241,39 @@ private:
 class CTCMemoryList
 {
 private:
-	Word32               wListSize;
+	uint32_t               wListSize;
 	CTCMemoryHeader      mhFirstItem;
     CTCMemoryHeader      mhLastItem;
-	Word32               wMemoryCounter;
-	Word32               wItemCounter;
+	uint32_t               wMemoryCounter;
+	uint32_t               wItemCounter;
 
 public:
 	CTCMemoryList();
 	~CTCMemoryList();
 
 public:
-	Bool32 AddItem(Handle hMemory, Word32 wSize, Word32 wIsGlobal, const char *cOwner, const char *Coment);
+	Bool32 AddItem(Handle hMemory, uint32_t wSize, uint32_t wIsGlobal, const char *cOwner, const char *Coment);
 	CTCMemoryHeader * GetItem(Handle hMemory);
 	Bool32 LockUnlockItem(Handle hMemory, Bool32 bLock);
-	Bool32 TakeItem(Handle hMemory, Word32 * wSize, Word32 * wFlag);
-	Bool32 DeleteItem(Handle hMemory, Word32 wParam = 0x0);
+	Bool32 TakeItem(Handle hMemory, uint32_t * wSize, uint32_t * wFlag);
+	Bool32 DeleteItem(Handle hMemory, uint32_t wParam = 0x0);
 
 private:
 	Bool32 KillItem(PCTCMemoryHeader pItem, PCTCMemoryHeader pPrevItem);
 	CTCMemoryHeader * pFirst();
 	CTCMemoryHeader * pLast();
-	Word32 IncreaseMemoryCounter(Word32 wSize);
-	Word32 DecreaseMemoryCounter(Word32 wSize);
+	uint32_t IncreaseMemoryCounter(uint32_t wSize);
+	uint32_t DecreaseMemoryCounter(uint32_t wSize);
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 class CTCFileList
 {
 private:
-	Word32               wListSize;
+	uint32_t               wListSize;
 	CTCStorageHeader *   pList;
-	Word32               wFileCounter;
-	Word32               wSpaceCounter;
+	uint32_t               wFileCounter;
+	uint32_t               wSpaceCounter;
 	CTCFileHeader        mfFirstItem;
 	CTCFileHeader        mfLastItem;
 
@@ -283,8 +283,8 @@ public:
 	~CTCFileList();
 
 public:
-	Handle              AddItem(CTCGlobalFile * pNewFile, Word32 wNewFlag, Handle Storage);
-	Bool32              DeleteItem(Handle File, Word32 Flag = 0);
+	Handle              AddItem(CTCGlobalFile * pNewFile, uint32_t wNewFlag, Handle Storage);
+	Bool32              DeleteItem(Handle File, uint32_t Flag = 0);
 	Handle              GetAttachedFileHeader(Handle Storage, CTCFileHeader * File = NULL);
 	CTCFileHeader *     GetItemHeader(Handle File);
 	CTCGlobalFile *     GetItem(Handle File);
@@ -292,21 +292,21 @@ public:
 private:
 	CTCFileHeader *     pLast() { return &mfLastItem; };
 	CTCFileHeader *     pFirst() { return &mfFirstItem; };
-	Word32              IncreaseFileCounter(void)    { return ++wFileCounter; }
-	Word32              DecreaseFileCounter(void)    { return --wFileCounter; }
-	Word32              IncreaseSpaceCounter(void)   { return ++wSpaceCounter; }
-	Word32              DecreaseSpaceCounter(void)   { return --wSpaceCounter; }
+	uint32_t              IncreaseFileCounter(void)    { return ++wFileCounter; }
+	uint32_t              DecreaseFileCounter(void)    { return --wFileCounter; }
+	uint32_t              IncreaseSpaceCounter(void)   { return ++wSpaceCounter; }
+	uint32_t              DecreaseSpaceCounter(void)   { return --wSpaceCounter; }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 class CTCStorageList
 {
 private:
-	Word32               wHeaderSize;
+	uint32_t               wHeaderSize;
 	CTCStorageHeader     msFirstItem;
 	CTCStorageHeader     msLastItem;
 	CTCStorageHeader   * pList;
-	Word32               wItemCounter;
+	uint32_t               wItemCounter;
 
 public:
 	Handle FindStorage(PChar8 lpName);
@@ -314,8 +314,8 @@ public:
 	~CTCStorageList();
 
 public:
-	Handle             AddItem(CTCGlobalFile * NewStorage, Word32 wParametr);
-	Bool32             DeleteItem(Handle Storage, Word32 Flag = 0);
+	Handle             AddItem(CTCGlobalFile * NewStorage, uint32_t wParametr);
+	Bool32             DeleteItem(Handle Storage, uint32_t Flag = 0);
 	CTCGlobalFile *    GetItem(Handle Storage);
 	CTCStorageHeader * GetFirstItemHeader() { return pFirst()->GetNext(); };
 	CTCStorageHeader * GetItemHeader(Handle Storage);
@@ -324,9 +324,9 @@ public:
 private:
 	CTCStorageHeader * pFirst(void) { return &msFirstItem; };
 	CTCStorageHeader * pLast(void) { return &msLastItem; };
-	Word32 IncreaseItemCounter(void) { return ++wItemCounter; };
-	Word32 DecreaseItemCounter(void) { return --wItemCounter; };
-	Word32 HowItems(void) { return wItemCounter; };
+	uint32_t IncreaseItemCounter(void) { return ++wItemCounter; };
+	uint32_t DecreaseItemCounter(void) { return --wItemCounter; };
+	uint32_t HowItems(void) { return wItemCounter; };
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

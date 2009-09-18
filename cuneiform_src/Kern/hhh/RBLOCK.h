@@ -85,10 +85,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 RBLOCK_FUNC(Bool32) RBLOCK_Init(Word16 wHeightCode,Handle hStorage);
 RBLOCK_FUNC(Bool32) RBLOCK_Done();
-RBLOCK_FUNC(Word32) RBLOCK_GetReturnCode();
-RBLOCK_FUNC(Int8 *) RBLOCK_GetReturnString(Word32 dwError);
-RBLOCK_FUNC(Bool32) RBLOCK_GetExportData(Word32 dwType, void * pData);
-RBLOCK_FUNC(Bool32) RBLOCK_SetImportData(Word32 dwType, void * pData);
+RBLOCK_FUNC(uint32_t) RBLOCK_GetReturnCode();
+RBLOCK_FUNC(Int8 *) RBLOCK_GetReturnString(uint32_t dwError);
+RBLOCK_FUNC(Bool32) RBLOCK_GetExportData(uint32_t dwType, void * pData);
+RBLOCK_FUNC(Bool32) RBLOCK_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////
 
 
@@ -114,7 +114,7 @@ DEC_FUN(Bool32, RBLOCK_GetAnglePage,(Handle hCCOM,int32_t * lpNominator,int32_t 
 #undef DEC_FUN
 
 typedef void   (*FNRBLOCK_ProgressStart)( void );
-typedef	Bool32 (*FNRBLOCK_ProgressStep)(Word32 perc);
+typedef	Bool32 (*FNRBLOCK_ProgressStep)(uint32_t perc);
 typedef	void   (*FNRBLOCK_ProgressFinish)( void );
 
 

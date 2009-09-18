@@ -246,8 +246,8 @@ BOOL (*snap_monitor_ori_rbal)(CSTR_line *snap_line, int32_t num_lines);
 BOOL (*snap_is_marked_rbal)(CSTR_line ln);//IGOR
 BOOL (*snap_baselines_rbal)(BYTE a);//IGOR
 void (*snap_draw_line_rbal)(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
-										  Word32 rgb, Int16 pen, Word32 key);//IGOR
-void (*snap_del_line_rbal)(Handle wnd, Word32 key);
+										  uint32_t rgb, Int16 pen, uint32_t key);//IGOR
+void (*snap_del_line_rbal)(Handle wnd, uint32_t key);
 //IGOR
 BOOL (*snap_show_text_rbal)(BYTE *txt);
 BOOL (*snap_activity_rbal)(BYTE a);

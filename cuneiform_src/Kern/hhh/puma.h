@@ -85,7 +85,7 @@ extern "C" {
 
     typedef void (*FNPUMA_ProgressStart)( void );
     typedef void (*FNPUMA_ProgressFinish)( void );
-    typedef Bool32 (*FNPUMA_ProgressStep)( Word32 step,const char* name, Word32 percent );
+    typedef Bool32 (*FNPUMA_ProgressStep)( uint32_t step,const char* name, uint32_t percent );
     typedef struct
     {
         Word16    wImageHeight;
@@ -115,10 +115,10 @@ extern "C" {
 
     typedef Bool32 (*FNInit)(Word16 wHeightCode,Handle hStorage);
     typedef Bool32 (*FNDone)();
-    typedef Word32 (*FNGetReturnCode)();
-    typedef char * (*FNGetReturnString)(Word32 dwError);
-    typedef Bool32 (*FNGetExportData)(Word32 dwType, void * pData);
-    typedef Bool32 (*FNSetImportData)(Word32 dwType, void * pData);
+    typedef uint32_t (*FNGetReturnCode)();
+    typedef char * (*FNGetReturnString)(uint32_t dwError);
+    typedef Bool32 (*FNGetExportData)(uint32_t dwType, void * pData);
+    typedef Bool32 (*FNSetImportData)(uint32_t dwType, void * pData);
 
     typedef struct
     {
@@ -184,8 +184,8 @@ extern "C" {
     Bool32	LPUMA_Load( char * lpPath );
     void	LPUMA_Unload( void );
 
-    Word32	LPUMA_GetLanguage( void );
-    void	LPUMA_SetLanguage(Word32 lang);
+    uint32_t	LPUMA_GetLanguage( void );
+    void	LPUMA_SetLanguage(uint32_t lang);
     Bool32 	LPUMA_GetSpeller( void );
     void 	LPUMA_SetSpeller(Bool32 nNewValue);
     Bool32 	LPUMA_GetOneColumn( void );
@@ -211,15 +211,15 @@ extern "C" {
     char * 	LPUMA_GetCourierName( void );
     void 	LPUMA_SetCourierName(char * lpszNewValue);
 
-    void	LPUMA_SetPictures(Word32 nNewValue);
-    Word32	LPUMA_GetPictures( void );
-    void	LPUMA_SetTables(Word32 nNewValue);
-    Word32	LPUMA_GetTables( void );
+    void	LPUMA_SetPictures(uint32_t nNewValue);
+    uint32_t	LPUMA_GetPictures( void );
+    void	LPUMA_SetTables(uint32_t nNewValue);
+    uint32_t	LPUMA_GetTables( void );
 
     char * 	LPUMA_GetVersion( void );
 
-    Word32 	LPUMA_GetFormatMode( void );      // old
-    void 	LPUMA_SetFormatMode(Word32 nNewValue);// old
+    uint32_t 	LPUMA_GetFormatMode( void );      // old
+    void 	LPUMA_SetFormatMode(uint32_t nNewValue);// old
 
     void	LPUMA_SetUnrecogChar(Word8 nChar);
     Word8	LPUMA_GetUnrecogChar( void );
@@ -229,7 +229,7 @@ extern "C" {
     void    LPUMA_SetAutoRotate(Bool32 b);
     Bool32  LPUMA_GetAutoRotate( void );
 
-    void    LPUMA_SetPageSize(Word32 width,Word32 height);
+    void    LPUMA_SetPageSize(uint32_t width,uint32_t height);
 
     void    LPUMA_SetCurrentEdPage(Handle hEdPage);
     Handle  LPUMA_GetCurrentEdPage( void );
@@ -237,16 +237,16 @@ extern "C" {
     void    LPUMA_SetPreserveLineBreaks( Bool32 b );
     Bool32  LPUMA_GetPreserveLineBreaks( void );
 
-    Word32  LCED_DeletePage(Handle hEdPage);
+    uint32_t  LCED_DeletePage(Handle hEdPage);
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; PUMA_FUNC(a) b c; a L##b c
 
     DEC_FUN(Bool32, PUMA_Init,(Word16 wHeightCode,Handle hStorage));
     DEC_FUN(Bool32, PUMA_Done,());
-    DEC_FUN(Word32, PUMA_GetReturnCode,());
-    DEC_FUN(char *, PUMA_GetReturnString,(Word32 dwError));
-    DEC_FUN(Bool32, PUMA_GetExportData,(Word32 dwType, void * pData));
-    DEC_FUN(Bool32, PUMA_SetImportData,(Word32 dwType, void * pData));
+    DEC_FUN(uint32_t, PUMA_GetReturnCode,());
+    DEC_FUN(char *, PUMA_GetReturnString,(uint32_t dwError));
+    DEC_FUN(Bool32, PUMA_GetExportData,(uint32_t dwType, void * pData));
+    DEC_FUN(Bool32, PUMA_SetImportData,(uint32_t dwType, void * pData));
 
     DEC_FUN(bool,   PUMA_XOpen, (void * pDIB, const std::string& filename));
     DEC_FUN(bool,   PUMA_XClose, (void));
@@ -265,7 +265,7 @@ extern "C" {
     DEC_FUN(Bool32, PUMA_XGetTemplate,(Rect32 *pRect));
     DEC_FUN(Bool32, PUMA_Save,(Handle hEdPage, const char * lpOutFileName, int32_t lnFormat, int32_t lnCode, Bool32 bAppend ));
     DEC_FUN(Bool32, PUMA_XOpenClbk,(PUMAIMAGECALLBACK CallBack,const char * lpFileName));
-    DEC_FUN(Word32, PUMA_SaveToMemory,(Handle hEdPage, int32_t lnFormat, int32_t lnCode, char * lpMem, Word32 size ));
+    DEC_FUN(uint32_t, PUMA_SaveToMemory,(Handle hEdPage, int32_t lnFormat, int32_t lnCode, char * lpMem, uint32_t size ));
     DEC_FUN(void ,  PUMA_GetSpecialBuffer,(char * szResult,int32_t *nResultLength));
     DEC_FUN(Bool32, PUMA_SetSpecialProject,(Word8 nSpecPrj));
 

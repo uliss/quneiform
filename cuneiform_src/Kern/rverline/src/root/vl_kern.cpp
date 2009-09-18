@@ -97,8 +97,8 @@ void   SetReturnCode_rverline (Word16 rc);
 Word16 GetReturnCode_rverline ();
 Bool WasInitRVERLINE ();
 void GiveMemFor_FWP_Inst (int **ppWhatDo, int *nLimComp);
-Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage, Word32 *pHoriType, Word32 *pVertType, char *pStr);
-Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Word32 HoriType, Word32 VertType);
+Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage, uint32_t *pHoriType, uint32_t *pVertType, char *pStr);
+Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, uint32_t HoriType, uint32_t VertType);
 Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, CLINE_handle hCLINE, char *pStr);
 Bool MyReSetLines (void *vLti, int MaxNumLin, CLINE_handle hCLINE);
 void MySetNegative (void *vB, Handle hCPage);
@@ -115,7 +115,7 @@ RVERLINE_FUNC(Bool32) RVERLINE_MarkLines (Handle hCComp, Handle hCPage)
 {
 	Word8  err8;
 	Word16 Code;
-//	Word32 HoriType, VertType;
+//	uint32_t HoriType, VertType;
 	Bool ret, AbleShortVert;
 	LinesTotalInfo  lti = {0};  // Структура хранения линий
 	LineInfo LHor[MaxLines], LVer[MaxLines];
@@ -273,7 +273,7 @@ RVERLINE_FUNC(Bool32) RVERLINE_MarkLines (Handle hCComp, Handle hCPage)
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-RVERLINE_FUNC(Bool32) RVERLINE_SetImportData(Word32 dwType, void *pData)
+RVERLINE_FUNC(Bool32) RVERLINE_SetImportData(uint32_t dwType, void *pData)
 {
 	Word8 err8;
 	if (gwHeightRC_rver==0)

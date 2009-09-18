@@ -67,7 +67,7 @@ struct ctp_hdr {
 	};
 
 struct ctp_pic_hdr {
-Word32	pic_size;	// in bytes
+uint32_t	pic_size;	// in bytes
 Word16	x_off;		// in pixels
 Word16	y_off;		// in pixels
 Word16	w;		// in pixels

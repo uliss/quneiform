@@ -138,18 +138,18 @@ ROUT_FUNC(Bool32) ROUT_Done()
 	return TRUE;
 }
 //********************************************************************
-ROUT_FUNC(Word32) ROUT_GetReturnCode()
+ROUT_FUNC(uint32_t) ROUT_GetReturnCode()
 {
 // Возвращает 0 если нет ошибки
 // Добавляет в старшие 2 байта мой код модуля из gwHighRC_rout
-Word32 rc = 0;
+uint32_t rc = 0;
 	if(gwLowRC_rout)
-		rc = (Word32)(gwHighRC_rout<<16)|(gwLowRC_rout - IDS_ERR_NO);
+		rc = (uint32_t)(gwHighRC_rout<<16)|(gwLowRC_rout - IDS_ERR_NO);
 
 return rc;
 }
 //********************************************************************
-ROUT_FUNC(Int8 *) ROUT_GetReturnString(Word32 dwError)
+ROUT_FUNC(Int8 *) ROUT_GetReturnString(uint32_t dwError)
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
 	static Int8 szBuffer[512];
@@ -166,7 +166,7 @@ ROUT_FUNC(Int8 *) ROUT_GetReturnString(Word32 dwError)
 	return szBuffer;
 }
 //********************************************************************
-ROUT_FUNC(Bool32) ROUT_GetExportData(Word32 dwType, void * pData)
+ROUT_FUNC(Bool32) ROUT_GetExportData(uint32_t dwType, void * pData)
 {
 // Экспорт моих функций
 	Bool32 rc = TRUE;
@@ -196,7 +196,7 @@ ROUT_FUNC(Bool32) ROUT_GetExportData(Word32 dwType, void * pData)
 	return rc;
 }
 //********************************************************************
-ROUT_FUNC(Bool32) ROUT_SetImportData(Word32 dwType, void * pData)
+ROUT_FUNC(Bool32) ROUT_SetImportData(uint32_t dwType, void * pData)
 {
 // Импорт моих опций
 
@@ -339,7 +339,7 @@ Word16 GetReturnCode_rout()
 //********************************************************************
 // Далее идут мои переходники для CFIO.
 //
-Handle MyAlloc(Word32 dwSize, Word32 dwFlag)
+Handle MyAlloc(uint32_t dwSize, uint32_t dwFlag)
 {
 	return CFIO_Alloc?
 		CFIO_Alloc(dwSize, dwFlag):
@@ -347,8 +347,8 @@ Handle MyAlloc(Word32 dwSize, Word32 dwFlag)
 }
 //********************************************************************
 Handle MyReAlloc(Handle hMem,
-				Word32 dwSize,
-				Word32 dwFlag)
+				uint32_t dwSize,
+				uint32_t dwFlag)
 {
 	return CFIO_ReAlloc?
 		CFIO_ReAlloc(hMem, dwSize, dwFlag):

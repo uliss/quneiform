@@ -85,7 +85,7 @@ extern Word16 gwLowRC_rrec;
 extern Word8*  lnOcrPath;
 /*********************************************************************************************/
 Bool32 rec_init(RRecComControl control, char *spath, Word8 lang);
-void recog(Handle hCCOM, Word32 flags);
+void recog(Handle hCCOM, uint32_t flags);
 void recog_evn(CCOM_comp* pcomp, bool if_use_gra);
 void make_raster(CCOM_comp* pcomp);
 //void recog_gra(RecVersions *v, CCOM_comp* pcomp);
@@ -154,7 +154,7 @@ Bool32 rec_init(RRecComControl control, char *spath, Word8 lang)
 	return TRUE;
 }
 /*********************************************************************************************/
-void recog(Handle hCCOM, Word32 flags)
+void recog(Handle hCCOM, uint32_t flags)
 {
 	CCOM_comp* pcomp;
 

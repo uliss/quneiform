@@ -160,8 +160,8 @@ BOOL snap_show_text(PBYTE);
 BOOL snap_show_text1(PBYTE);
 BOOL snap_monitor(void);
 void snap_draw_line(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
-		Word32 rgb, Int16 pen, Word32 key);//IGOR
-void snap_del_line(Handle wnd, Word32 key);//IGOR
+		uint32_t rgb, Int16 pen, uint32_t key);//IGOR
+void snap_del_line(Handle wnd, uint32_t key);//IGOR
 BOOL snap_baselines(BYTE a);//IGOR
 BOOL snap_monitor_ori(CSTR_line *snap_line, int32_t nums);
 BOOL snap_newcell(cell *);

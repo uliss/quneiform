@@ -195,7 +195,7 @@ Word8* make_extended_raster(c_comp *cp)
  Word16 wd,w;
 
  memset (work_raster,0,cp->rw * cp->h); wd = cp->rw;
- lp = (lnhead *)((Word8*)cp + cp->lines + sizeof(Word32));
+ lp = (lnhead *)((Word8*)cp + cp->lines + sizeof(uint32_t));
  while (lp->lth)
   {
    pp = work_raster + lp->row * wd; ip = (large_interval *) (lp+1);

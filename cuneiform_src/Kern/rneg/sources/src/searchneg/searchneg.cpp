@@ -1088,8 +1088,8 @@ BOOL GetMasP(Handle hCPage,Rect16 Rc,Word8** ppmasp)
 	int i;
 
 	/*  1. Подготовка к запросу части изображения.  */
-	DataInto.dwHeight   = (Word32)(h);
-	DataInto.dwWidth    = (Word32)(prewide);
+	DataInto.dwHeight   = (uint32_t)(h);
+	DataInto.dwWidth    = (uint32_t)(prewide);
 	DataInto.wByteWidth = (Word16)(prewide/8);
 	DataInto.dwX        = left;
 	DataInto.dwY        = upper;

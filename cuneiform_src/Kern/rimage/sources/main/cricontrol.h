@@ -116,7 +116,7 @@ private:
 	Bool32          WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
 	Bool32          GetDIB(PChar8   cDIB, PHandle phDIB);
 	Bool32          CloseSourceDIB();
-	Bool32          CreateDestinatonDIB(Word32 BitCount);
+	Bool32          CreateDestinatonDIB(uint32_t BitCount);
 	Bool32          SetDestinationDIBtoStorage(PChar8  cDIBName);
 	Bool32          OpenDestinationDIBfromSource(PChar8  cSDIB);
 	Bool32          CloseDestinationDIB(PChar8   cDIBName);
@@ -130,11 +130,11 @@ public:
 	Bool32                    StartProgress(void);
 	Bool32                    SetProgressCallBacks(PRIMAGECBPRogressStart pcbStart, PRIMAGECBPRogressStep pcbStep, PRIMAGECBPRogressFinish pcbFinish);
 	Bool32                    SetMargins(PRIMAGEMARGINS pMargins);
-	Bool32                    Binarise(PChar8   cDIBIn, PChar8   cDIBOut, Word32 wFlag, Word32 UseMargins);
-	Bool32                    Rotate(PChar8   cDIBIn, PChar8   cDIBOut, int32_t High, int32_t Low, Word32 UseMargins);
-	Bool32                    Roll(PChar8 cDIBIn, PChar8 cDIBOut, int32_t Num, int32_t Denum, Word32 bUseMargins);
-	Bool32                    Turn(PChar8   cDIBIn, PChar8   cDIBOut, Word32 wFlag, Word32 UseMargins);
-	Bool32                    Inverse(PChar8   cDIBIn, PChar8   cDIBOut, Word32 UseMargins);
+	Bool32                    Binarise(PChar8   cDIBIn, PChar8   cDIBOut, uint32_t wFlag, uint32_t UseMargins);
+	Bool32                    Rotate(PChar8   cDIBIn, PChar8   cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins);
+	Bool32                    Roll(PChar8 cDIBIn, PChar8 cDIBOut, int32_t Num, int32_t Denum, uint32_t bUseMargins);
+	Bool32                    Turn(PChar8   cDIBIn, PChar8   cDIBOut, uint32_t wFlag, uint32_t UseMargins);
+	Bool32                    Inverse(PChar8   cDIBIn, PChar8   cDIBOut, uint32_t UseMargins);
 };
 # endif    //__CRI_CONTROL_H_
 //////////////////////////////////////////////////////////////////////////////////////////////////////////

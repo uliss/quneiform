@@ -99,9 +99,9 @@ EXTERN char g_strSerifName[_MAX_PATH]		VAL("Times New Roman");
 EXTERN char g_strSansSerifName[_MAX_PATH] VAL("Arial");
 EXTERN char g_strCourierName[_MAX_PATH]	VAL("Courier New");
 
-EXTERN Word32 g_nPicture				VAL(1);
-EXTERN Word32 g_nTable					VAL(1);
-EXTERN Word32 g_nFormat					VAL(1);
+EXTERN uint32_t g_nPicture				VAL(1);
+EXTERN uint32_t g_nTable					VAL(1);
+EXTERN uint32_t g_nFormat					VAL(1);
 
 EXTERN char g_strFileName[_MAX_PATH]	VAL("");
 EXTERN char g_strTempEdName[_MAX_PATH]	VAL("temp.ed");
@@ -144,7 +144,7 @@ long	_EnumFormats(long prev);
 long	_EnumCodes(long format,long prev);
 BOOL	_GetRotateDIB(long * phDIB, long * x0, long * y0);
 void	_RenameImageName(char * FileName);
-Word32	_SaveToMemory(Handle hEdPage, int32_t format, int32_t code, char * lpMem, Word32 size );
+uint32_t	_SaveToMemory(Handle hEdPage, int32_t format, int32_t code, char * lpMem, uint32_t size );
 
 
 

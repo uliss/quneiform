@@ -120,10 +120,10 @@ extern Handle hEnd;
 
 static HINSTANCE ghInst =  NULL;
 static Word16 gwHeightRC = 0;
-static Word32 gwRC = 0;
+static uint32_t gwRC = 0;
 BOOL dpDebugUpDown;
 
-static Bool32 rblockProgressStep(Word32 perc)
+static Bool32 rblockProgressStep(uint32_t perc)
 {
 	return ProgressStepAutoLayout(2, perc);
 }
@@ -262,12 +262,12 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
 	return rc;
 }
 
-void SetReturnCode_rmarker(Word32 rc)
+void SetReturnCode_rmarker(uint32_t rc)
 {
 	gwRC = rc;
 }
 
-Word32 GetReturnCode_rmarker(void)
+uint32_t GetReturnCode_rmarker(void)
 {
 	return gwRC;
 }
@@ -297,7 +297,7 @@ Bool32 SearchPictures ( PRMPreProcessImage Image, BIG_IMAGE big_Image )
 		{
 			if(!RPIC_SearchPictures(Image->hCCOM, big_Image.hCCOM, Image->hCPAGE))
 			{
-				Word32 RPicRetCode = RPIC_GetReturnCode();
+				uint32_t RPicRetCode = RPIC_GetReturnCode();
 
 				SetReturnCode_rmarker(RPicRetCode);
 				rc = FALSE;

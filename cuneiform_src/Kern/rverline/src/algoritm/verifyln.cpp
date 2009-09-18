@@ -92,7 +92,7 @@ int InvestShortLineWithRastr_rv_pne (Handle hCPage, LineInfo *pLns);
 void ChoiseQuasiLetters (Rect16 *pRc, int *pWhatDo, int nComp);
 void OldFormalVerification (LineInfo *pLns, int Lent);
 void FormalVerification (LineInfo *pLns, int Lent);
-void PutNewFlagOfLine (LineInfo *pLns, Word32 Flag);
+void PutNewFlagOfLine (LineInfo *pLns, uint32_t Flag);
 void GetAllZhertvy (LineInfo *pLns, AM_ZHERTVY *pZher, Rect16 *pRc
 					, int *pWhatDo, int nComp, int Near, Bool Hori);
 void MakeNormOrderForZher (LineInfo *pLns, AM_ZHERTVY *pZher);
@@ -187,9 +187,9 @@ void FormalVerification (LineInfo *pLns, int Lent)
 		pLns->Flags |= LI_IsFalse;
 }
 /*----------------------------------------------------------------------------*/
-void PutNewFlagOfLine (LineInfo *pLns, Word32 Flag)
+void PutNewFlagOfLine (LineInfo *pLns, uint32_t Flag)
 {
-	Word32 AntiFalse, AntiTrue;
+	uint32_t AntiFalse, AntiTrue;
 	AntiFalse = 0xFFFFFFFF;
 	AntiFalse ^= LI_IsFalse;
 	AntiTrue  = 0xFFFFFFFF;
@@ -357,7 +357,7 @@ void InvestLongLineWithBoxes (LineInfo *pLns, Rect16 *pRc, int *pWhatDo
 	Point16  LinBeg[MaxZherOnLine + 1];
 	Point16  LinEnd[MaxZherOnLine + 1];
 	int j, Near, nSimpParts;
-	Word32   Flag;
+	uint32_t   Flag;
 	Near = 0;
 	if (Hori)
 	{
@@ -519,7 +519,7 @@ void New_MarkVerifiedLines (void *vLti, Handle hCPage, Rect16 *pRc, int *pWhatDo
 	LineInfo *pLns;
 	LinesTotalInfo *pLti;
 	AM_ZHERTVY  ZherOfLine;
-	Word32 AntiFalse, AntiTrue, AntiPoin;
+	uint32_t AntiFalse, AntiTrue, AntiPoin;
 	Bool WasPointed, WasLongPointed;
 	AntiFalse = 0xFFFFFFFF;
 	AntiFalse ^= LI_IsFalse;

@@ -57,9 +57,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <memory.h>
 #include "mmx.h"
 
-Word32 bit_cnt_mmx[256*256];
+uint32_t bit_cnt_mmx[256*256];
 
-MMX_FUNC(void) MMX_ind_setup_table(Word32 *bit_cnt0) {
-    memcpy(bit_cnt_mmx, bit_cnt0, 256*256*sizeof(Word32));
+MMX_FUNC(void) MMX_ind_setup_table(uint32_t *bit_cnt0) {
+    memcpy(bit_cnt_mmx, bit_cnt0, 256*256*sizeof(uint32_t));
     return;
 }

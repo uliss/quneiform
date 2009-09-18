@@ -155,10 +155,10 @@ RSTR_FUNC(Bool32)  RSTR_RecogContainer (void);
 
 RSTR_FUNC(Bool32)  RSTR_Init(Word16 wHightCode, Handle hStorage);
 RSTR_FUNC(Bool32)  RSTR_Done(void);
-RSTR_FUNC(Word32)  RSTR_GetReturnCode(void);
-RSTR_FUNC(Word8 *) RSTR_GetReturnString(Word32 dwError);
-RSTR_FUNC(Bool32)  RSTR_GetExportData (Word32 dwType, void * pData);
-RSTR_FUNC(Bool32)  RSTR_SetImportData (Word32 dwType, const void * pData);
+RSTR_FUNC(uint32_t)  RSTR_GetReturnCode(void);
+RSTR_FUNC(Word8 *) RSTR_GetReturnString(uint32_t dwError);
+RSTR_FUNC(Bool32)  RSTR_GetExportData (uint32_t dwType, void * pData);
+RSTR_FUNC(Bool32)  RSTR_SetImportData (uint32_t dwType, const void * pData);
 ///
 enum RSTRFunctions
     {
