@@ -92,9 +92,9 @@ Bool32 CRLEd::MakeWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 	Word8           *l,p;
 	CSTR_rast       c;
 	UniVersions     uni;
-	Int16           k,i,n,h,wb, nlig, nl;
+	int16_t           k,i,n,h,wb, nlig, nl;
 	CSTR_rast_attr  a;
-	Int16           top,bottom,left,right;
+	int16_t           top,bottom,left,right;
 
 	Init();
 
@@ -144,7 +144,7 @@ Bool32 CRLEd::MakeWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 		mBmr.width   =a.w;
 		mBmr.height  =a.h;
 		CSTR_GetCollectionUni(c,&uni);
-		n=(Int16)uni.lnAltCnt;
+		n=(int16_t)uni.lnAltCnt;
 		if(n>7) n=7;
 		if(n<1) n=1;
 
@@ -197,7 +197,7 @@ Bool32 CRLEd::AddWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 	Word8           *l,p;
 	CSTR_rast       c;
 	UniVersions     uni;
-	Int16           k,i,n, nlig, nl;
+	int16_t           k,i,n, nlig, nl;
 	CSTR_rast_attr  a;
 
 	for(c=b;c && c!=e;c=CSTR_GetNext(c))
@@ -220,7 +220,7 @@ Bool32 CRLEd::AddWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 		mBmr.width   =a.w;
 		mBmr.height  =a.h;
 		CSTR_GetCollectionUni(c,&uni);
-		n=(Int16)uni.lnAltCnt;
+		n=(int16_t)uni.lnAltCnt;
 		if(n>7) n=7;
 		if(n<1) n=1;
 

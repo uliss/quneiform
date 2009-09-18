@@ -75,12 +75,12 @@ extern Word16 wLowRC;
 //32
 typedef struct CGRAPH_Data
 {
-        Int16	upper;
-        Int16	left;
-        Int16	h;
-        Int16	w;
-        Int16	numcomp;
-        Int16	size_linerep;
+        int16_t	upper;
+        int16_t	left;
+        int16_t	h;
+        int16_t	w;
+        int16_t	numcomp;
+        int16_t	size_linerep;
 
         Word8	scale;
 

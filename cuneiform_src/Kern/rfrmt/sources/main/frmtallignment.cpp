@@ -189,23 +189,23 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo)
 		pRtfString->m_RightBorder = pRtfCharLast->m_Idealrect.right;
 
 		CalculationLengthAndCount(pRtfString, &CountChars, &LengthChars);
-		m_l_fragment  = MIN(m_l_fragment, (Int16)pRtfCharFirst->m_Idealrect.left);
-		m_r_fragment  = MAX(m_r_fragment, (Int16)pRtfCharLast->m_Idealrect.right);
+		m_l_fragment  = MIN(m_l_fragment, (int16_t)pRtfCharFirst->m_Idealrect.left);
+		m_r_fragment  = MAX(m_r_fragment, (int16_t)pRtfCharLast->m_Idealrect.right);
 
 		if(pRtfCharLast->m_chrVersions[0].m_bChar=='-' && pRtfCharLast->m_bFlg_spell_nocarrying)
 			pRtfString->m_FlagCarry=TRUE;
 	}
 
-	if(CountChars) m_max_dist = (Int16)(LengthChars/CountChars);
+	if(CountChars) m_max_dist = (int16_t)(LengthChars/CountChars);
 	else           m_max_dist = 10;
 
   // Вычисляется отступ(m_wLeftIndent, m_wRightIndent) строки от краев фрагмента и центр строки
 	for( ns=0; ns < m_wStringsCount; ns++ )
 	{
 		pRtfString = (CRtfString*)m_arStrings[ns];
-		pRtfString->m_wLeftIndent  = (Int16)(pRtfString->m_LeftBorder - m_l_fragment);
-		pRtfString->m_wRightIndent = (Int16)(m_r_fragment - pRtfString->m_RightBorder);
-		pRtfString->m_wCentre      = (Int16)(pRtfString->m_LeftBorder + pRtfString->m_RightBorder)/2;
+		pRtfString->m_wLeftIndent  = (int16_t)(pRtfString->m_LeftBorder - m_l_fragment);
+		pRtfString->m_wRightIndent = (int16_t)(m_r_fragment - pRtfString->m_RightBorder);
+		pRtfString->m_wCentre      = (int16_t)(pRtfString->m_LeftBorder + pRtfString->m_RightBorder)/2;
 	}
 
   // Присваиваются признаки равенства концов и середины соседних строк
@@ -467,8 +467,8 @@ BOOL CRtfFragment::CheckStringForLeftRightJustification(int ns)
  CRtfString *pRtfString;
  CRtfString *pRtfStringPrev;
  CRtfString *pRtfStringNext;
- Int16       LeftFragm, RightFragm;
- Int16       LeftDif,RightDif;
+ int16_t       LeftFragm, RightFragm;
+ int16_t       LeftDif,RightDif;
 
  if(m_Attr)
  {
@@ -552,8 +552,8 @@ BOOL CRtfFragment::CheckNumber(BYTE FirstChar)
 void CRtfFragment::CorrectIndents(int beg, int end)
 {
  CRtfString*  pRtfString;
- Int16        MinLeftIndent;
- Int16        MinRightIndent;
+ int16_t        MinLeftIndent;
+ int16_t        MinRightIndent;
 
  	 int i(0);
      for(i=beg; i<end; i++ )
@@ -641,8 +641,8 @@ void CRtfFragment::SetFlagBeginParagraphForLeftJustification(int beg, int end)
  BYTE        FlagStringParagraph=FALSE;
  BYTE        FlagStringParagraphSoft=FALSE;
  WORD        Count=0;
- Int16       LeftFragm, RightFragm;
- Int16       LeftDif,RightDif;
+ int16_t       LeftFragm, RightFragm;
+ int16_t       LeftDif,RightDif;
 
  if(m_Attr)
  {
@@ -947,8 +947,8 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end)
 		pRtfString->m_LeftBorder  = pRtfCharFirst->m_Idealrect.left;
 		pRtfString->m_RightBorder = pRtfCharLast->m_Idealrect.right;
 
-		m_l_fragmentLocal  = MIN(m_l_fragmentLocal, (Int16)pRtfCharFirst->m_Idealrect.left);
-		m_r_fragmentLocal  = MAX(m_r_fragmentLocal, (Int16)pRtfCharLast->m_Idealrect.right);
+		m_l_fragmentLocal  = MIN(m_l_fragmentLocal, (int16_t)pRtfCharFirst->m_Idealrect.left);
+		m_r_fragmentLocal  = MAX(m_r_fragmentLocal, (int16_t)pRtfCharLast->m_Idealrect.right);
 
 	}
 
@@ -1142,20 +1142,20 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph()
 {
  CRtfString  *pRtfString;
  CRtfString  *pRtfStringNext;
- Int16       MinLeftIndent;
- Int16       MinRightIndent;
+ int16_t       MinLeftIndent;
+ int16_t       MinRightIndent;
  int         i;
  int         ns(0);
- Int16       twp_dist;
- Int16       Dif=0;
+ int16_t       twp_dist;
+ int16_t       Dif=0;
 
- twp_dist = (Int16)(3*m_max_dist * Twips);
+ twp_dist = (int16_t)(3*m_max_dist * Twips);
 	for(ns=0; ns<m_wStringsCount; ns++ )
 	{
 		pRtfString                         =(CRtfString*)m_arStrings[ns];
 		pRtfString->m_LengthStringInTwips  =pRtfString->GetRealStringSize();
-  pRtfString->m_wLeftIndent          =(Int16)((Int16)(pRtfString->m_wLeftIndent  * Twips)+m_LeftOffsetFragmentFromVerticalColumn);
-  pRtfString->m_wRightIndent         =(Int16)((Int16)(pRtfString->m_wRightIndent * Twips)+m_RightOffsetFragmentFromVerticalColumn);
+  pRtfString->m_wLeftIndent          =(int16_t)((int16_t)(pRtfString->m_wLeftIndent  * Twips)+m_LeftOffsetFragmentFromVerticalColumn);
+  pRtfString->m_wRightIndent         =(int16_t)((int16_t)(pRtfString->m_wRightIndent * Twips)+m_RightOffsetFragmentFromVerticalColumn);
 		pRtfString->m_wRightIndent         =MIN(pRtfString->m_wRightIndent,
 			m_WidthVerticalColumn - (pRtfString->m_LengthStringInTwips + pRtfString->m_wLeftIndent + pRtfString->m_wRightIndent));
 	}

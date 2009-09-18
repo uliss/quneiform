@@ -341,7 +341,7 @@ return 0;
 
 
 
-static int32_t leo_diskr3x5_H(Int16 *Im3x5)
+static int32_t leo_diskr3x5_H(int16_t *Im3x5)
 {
 int ret=1;
 
@@ -354,7 +354,7 @@ if( Im3x5[3*0+1]<(Im3x5[3*0+0]+Im3x5[3*0+2])/16 &&
 return ret;
 }
 
-static int32_t leo_diskr3x5_III(Int16 *Im3x5)
+static int32_t leo_diskr3x5_III(int16_t *Im3x5)
 {
 int ret=1;
 
@@ -366,26 +366,26 @@ if( Im3x5[3*1+1]<(Im3x5[3*1+0]+Im3x5[3*1+2])/6 &&
 return ret;
 }
 
-static Bool32 leo_diskr_left_up_hole(Int16 *Im3x5)
+static Bool32 leo_diskr_left_up_hole(int16_t *Im3x5)
 {
 int le = (Im3x5[0]+Im3x5[6]+Im3x5[12])/3;
 return (Im3x5[9]>le/2 && Im3x5[3]<le/4 );
 }
 
-static Bool32 leo_diskr_right_up_hole(Int16 *Im3x5)
+static Bool32 leo_diskr_right_up_hole(int16_t *Im3x5)
 {
 int le = (Im3x5[2]+Im3x5[8]+Im3x5[14])/3;
 return (Im3x5[5]>le/2 );
 }
 
-static Bool32 leo_diskr_center_hole(Int16 *Im3x5)
+static Bool32 leo_diskr_center_hole(int16_t *Im3x5)
 {
 int ce = (Im3x5[3*1+1]+Im3x5[3*2+1]+Im3x5[3*2+1]);
 int bn = (Im3x5[3*1+0]+Im3x5[3*2+0]+Im3x5[3*2+0]+Im3x5[3*1+2]+Im3x5[3*2+2]+Im3x5[3*2+2])/2;
 return (ce<bn );
 }
 
-int32_t LEO_DIFPenaltyCharMTR(RecRaster  *rr, Int16 *Im3x5, RecVersions *loc)
+int32_t LEO_DIFPenaltyCharMTR(RecRaster  *rr, int16_t *Im3x5, RecVersions *loc)
 {
 int i, num, pen, r;
 for(num=i=0;i<loc->lnAltCnt;i++)
@@ -1189,18 +1189,18 @@ rr_sm->lnPixWidth= rr->lnPixWidth;
 rr_sm->lnPixHeight=rr->lnPixHeight;
 rr_sm->lnRasterBufSize=rr->lnRasterBufSize;
 memset(rr_sm->Raster,0,16*8);
-c = *((Int16*)&rr->Raster[0]);
+c = *((int16_t*)&rr->Raster[0]);
 memcpy(&rr_sm->Raster[0],&c,2);
 for(ii=8,i=1;i<15;i++,ii+=8)
     {
-    p = *((Int16*)&rr->Raster[ii-16]);
-    c = *((Int16*)&rr->Raster[ii]);
-    n = *((Int16*)&rr->Raster[ii+16]);
+    p = *((int16_t*)&rr->Raster[ii-16]);
+    c = *((int16_t*)&rr->Raster[ii]);
+    n = *((int16_t*)&rr->Raster[ii+16]);
     if( !c )
         c = p|n;
     memcpy(&rr_sm->Raster[ii],&c,2);
     }
-c = *((Int16*)&rr->Raster[ii]);
+c = *((int16_t*)&rr->Raster[ii]);
 memcpy(&rr_sm->Raster[ii],&c,2);
 return;
 }

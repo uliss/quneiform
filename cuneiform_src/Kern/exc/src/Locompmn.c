@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "struct.h"
 #include "v1comp.h"
 
-BWS *locomp_seglist(Word8* raster, BWS *bwsp, BWS *bwe, Int16 height, Int16 width);
+BWS *locomp_seglist(Word8* raster, BWS *bwsp, BWS *bwe, int16_t height, int16_t width);
 
 //      Memory service
 #define MAX_BOX_NUMB            100*4
@@ -74,9 +74,9 @@ static MN * mainalloc;
 static MN * first_dead_comp;
 static BWS * segm_repr_end;
 static BWS * op, *np;
-static Int16 ol, nl;
-static Int16 rast_lc;
-static Int16 lineno;
+static int16_t ol, nl;
+static int16_t rast_lc;
+static int16_t lineno;
 
 
 static BWS lines[LINE_POOL_LENGTH+9];
@@ -102,7 +102,7 @@ static void new_line_cont();
 static void merge_line();
 static void dead_line();
 
-MN * c_locomp (Word8* raster, Int16 bw, Int16 h, Int16 upper, Int16 left)
+MN * c_locomp (Word8* raster, int16_t bw, int16_t h, int16_t upper, int16_t left)
 {
  lineno = upper-1; rast_lc = left;
  if (setjmp(locomp_err)) return NULL;
@@ -114,7 +114,7 @@ MN * c_locomp (Word8* raster, Int16 bw, Int16 h, Int16 upper, Int16 left)
 
 static void locomp_begin()
 {
- Int16 i;
+ int16_t i;
  MN * mn;
  first_dead_comp = NULL;
  segm_repr_end->b = 0; (segm_repr_end++)->w = -0x7000;
@@ -241,7 +241,7 @@ static void merge_line()
  MN *mn, *mno, *mnw;
  BOX *bp, *bpo;
  BOXINT *ip;
- Int16 n;
+ int16_t n;
 
  bpo = op->box; bpo->boxflag |= BOXEND;
  ip = (BOXINT *)((Word8*)bpo + bpo->boxptr); ip->l = 0; bpo->boxptr++;

@@ -149,15 +149,15 @@ struct RtfPageElementCount
 };
 
 typedef struct tagKEGL {
-   Int16 OldKegl;
-   Int16 NewKegl;
-			Int16 Count;
+   int16_t OldKegl;
+   int16_t NewKegl;
+			int16_t Count;
 } KEGL;
 
 #define FONT struct h_font
 FONT { char *family;
        char *name;
-       Int16 Bold,Italic,Underline;
+       int16_t Bold,Italic,Underline;
      };
 typedef struct hfont_cod {const char *name,*family;} FONT_COD;
 
@@ -186,9 +186,9 @@ public:
 		BOOL                 WriteHeaderRtf(void);
 	 void                 CorrectKegl(void);
   void                 ChangeKegl(void);
-		void                 AddNewKegl( Int16 OldKegl, Int16 NewKegl );
-  Int16                GetNewKegl( Int16 OldKegl );
-  Int16                GetMinKegl( Int16 OldKegl );
+		void                 AddNewKegl( int16_t OldKegl, int16_t NewKegl );
+  int16_t                GetNewKegl( int16_t OldKegl );
+  int16_t                GetMinKegl( int16_t OldKegl );
 		void                 AddPictures(void);
 		void                 AddTables(void);
 		void                 AddLines(void);
@@ -197,8 +197,8 @@ public:
 	 BOOL	                Write_USE_NONE( void );
 	 BOOL	                Write_USE_FRAME( void );
 	 BOOL	                Write_USE_FRAME_AND_COLUMN( void );
- 	Int16               	GetFlagAndNumberFragment( BYTE* FragmentType, Int16* CurrentSectorNumber );
-  void                 WriteSectorsHeader(Int16 i);
+ 	int16_t               	GetFlagAndNumberFragment( BYTE* FragmentType, int16_t* CurrentSectorNumber );
+  void                 WriteSectorsHeader(int16_t i);
   void                 ToPlacePicturesAndTables(void);
   void                 Rtf_CED_CreatePage(void);
   void                 Rtf_CED_WriteFormattedEd( const char* FileNameOut, Handle* );
@@ -249,9 +249,9 @@ public:
   void                 InitFragment(RtfSectorInfo* SectorInfo);
   void                 SetFragmentAlignment(RtfSectorInfo* SectorInfo);
   void                 new_paragraph( BOOL OutPutType );
-  BOOL                 FWriteText(Int16 NumberCurrentFragment,RtfSectorInfo* SectorInfo, BOOL OutPutType);
-  BOOL                 FWriteTable(Int16 NumberCurrentFragment,RtfSectorInfo* SectorInfo, BOOL OutPutType);
-  BOOL                 FWritePicture(Int16 NumberCurrentFragment,RtfSectorInfo* SectorInfo, BOOL OutPutType);
+  BOOL                 FWriteText(int16_t NumberCurrentFragment,RtfSectorInfo* SectorInfo, BOOL OutPutType);
+  BOOL                 FWriteTable(int16_t NumberCurrentFragment,RtfSectorInfo* SectorInfo, BOOL OutPutType);
+  BOOL                 FWritePicture(int16_t NumberCurrentFragment,RtfSectorInfo* SectorInfo, BOOL OutPutType);
 
   BOOL                 ProcessingUseNoneMode(void);
   void                 Init(RtfSectorInfo* SectorInfo);
@@ -333,28 +333,28 @@ uint32_t                m_wUserNumberForFormattedMode;
   WORD                 m_CountLeftRightEqual;
   WORD                 m_CountCentreEqual;
 
-  Int16                m_l_fragment;
-  Int16                m_r_fragment;
-  Int16                m_l_fragmentLocal;
-  Int16                m_r_fragmentLocal;
+  int16_t                m_l_fragment;
+  int16_t                m_r_fragment;
+  int16_t                m_l_fragmentLocal;
+  int16_t                m_r_fragmentLocal;
 
-  Int16                m_LengthStringInTwips;
-  Int16                m_WidthVerticalColumn;
+  int16_t                m_LengthStringInTwips;
+  int16_t                m_WidthVerticalColumn;
 
-  Int16                m_posx;
-  Int16                m_posy;
-  Int16                m_absw;
-  Int16                m_absh;
+  int16_t                m_posx;
+  int16_t                m_posy;
+  int16_t                m_absw;
+  int16_t                m_absh;
 
-  Int16                m_tmp_fi;
-  Int16                m_li;
-  Int16                m_ri;
-  Int16                m_fi;
-  Int16                m_sb;
-  Int16                m_sa;
-  Int16                m_sl;
+  int16_t                m_tmp_fi;
+  int16_t                m_li;
+  int16_t                m_ri;
+  int16_t                m_fi;
+  int16_t                m_sb;
+  int16_t                m_sa;
+  int16_t                m_sl;
 
-  Int16                m_max_dist;
+  int16_t                m_max_dist;
   BYTE                 m_Attr;
   BYTE                 m_FlagCarry;
   BYTE                 m_FlagLeft;
@@ -484,7 +484,7 @@ public:
   CRtfWord*            GetNextWord            (void);
   BOOL	               Write                  (void);
   WORD                 get_max_font_size      (void);
-  Int16                GetStringSizeInTwips   (void);
+  int16_t                GetStringSizeInTwips   (void);
   WORD                 GetRealStringSize      (void);
 
   /*CObArray*/std::vector<CRtfWord*>             m_arWords;
@@ -538,12 +538,12 @@ public:
   CRtfString*          m_String;
   RECT	               m_rect;
 
-  Int16                m_wcl;
-  Int16                m_wct;
-  Int16                m_wcr;
-  Int16                m_wcb;
-  Int16                m_wcs;
-  Int16                m_wcp;
+  int16_t                m_wcl;
+  int16_t                m_wct;
+  int16_t                m_wcr;
+  int16_t                m_wcb;
+  int16_t                m_wcs;
+  int16_t                m_wcp;
 
   WORD	                m_wFontNumber;
   WORD	                m_wIdealFontPointSize;

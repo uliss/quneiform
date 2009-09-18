@@ -2818,7 +2818,7 @@ int     palkiNew = 0;
 }
 //////////////////////
 //  remake from p2_proc.c
-static Int16 findWordBound( CSTR_rast *nextRast,
+static int16_t findWordBound( CSTR_rast *nextRast,
                                                     CSTR_rast endRaster, int bound )
 {
  CSTR_rast_attr  attr;
@@ -3160,8 +3160,8 @@ static int p2_getIncline(CSTR_rast first,CSTR_rast last)
 ///////////////
 // распознать компоненту в линейном представлении
 // возврат - номер лучшего кластера
-P2_FUNC(int32_t) p2_RecogCompLp(Int16 sizeLp,Word8 *lp,Int16 w,Int16 h,
-                                         Int16 col,Int16 row,
+P2_FUNC(int32_t) p2_RecogCompLp(int16_t sizeLp,Word8 *lp,int16_t w,int16_t h,
+                                         int16_t col,int16_t row,
                                      RecVersions *vers)
 {
  int32_t       i;

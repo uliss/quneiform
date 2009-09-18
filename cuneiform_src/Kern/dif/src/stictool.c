@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 struct  shift_inform   /* work struct for function find_opt_shift */
 	{
-  Int16 max,
+  int16_t max,
 	    imax,
 	    opt,
 	    wide,
@@ -73,66 +73,66 @@ extern  Word8 GL_hist [2*LIMIT_HEIGHT];  // array for histogramm
 extern	center_interval GL_cent [LIMIT_HEIGHT];	// center of intervals
 extern  Word8 GL_left1 [LIMIT_HEIGHT], // auxiliary left and
 	     GL_right1[LIMIT_HEIGHT];	//    right abris-arrays
-static Int16 inc_periods[LIMIT_HEIGHT];
+static int16_t inc_periods[LIMIT_HEIGHT];
 int inc_num_EEM ;
 Word8 inc_char_EEM;
 /////////////////////// Functions prototypes //////////////////////////
-Int16 make_center_line_dif (center_interval center[], Int16 nc,
+int16_t make_center_line_dif (center_interval center[], int16_t nc,
       Word8 left[], Word8 right[],
-      Int16  dy, Int16 dx, INC_BASE *angles[], Int16 num_angles,
-      Int16  tab_angle[],
+      int16_t  dy, int16_t dx, INC_BASE *angles[], int16_t num_angles,
+      int16_t  tab_angle[],
 			Bool16 comp_wide, Bool16 sig_T, Bool16 sig_f, Bool16 sig_r,
-      Int16  *wide, Int16 hooks[], Int16 *inc_v, Word8 enable_correct);
+      int16_t  *wide, int16_t hooks[], int16_t *inc_v, Word8 enable_correct);
 
-Int16 centers_len_to_hist(center_interval center[],Int16 nc,Int16 dy,Int16 dx,
+int16_t centers_len_to_hist(center_interval center[],int16_t nc,int16_t dy,int16_t dx,
         Word8 hist[]);
-static Int16 max_center_hist_new (Word8 fun[], Int16 n,
-    center_interval center[], Int16 nc, Int16 tab_angle[],
-    Int16 typ)  ;
-static Int16 calc_LENs_LIMITED (Word8 fun[], Int16 n, Int16 sum) ;
-static void make_tab_angles (const INC_BASE *angle, Int16 hei, Int16 ang[]);
-static void make_hist (center_interval center[],Int16 nc, Word8 hist[], Int16 ang[],
-          Int16 dx,Int16 len, Int16 typ);
-static void make_hist_centers_LIMITED (center_interval center[], Int16 nc,
-    Word8 hist[], Int16 ang[], Int16 dx, Int16 len_limit) ;
-static Int16 width_of_hist(Word8 hist[],Int16 len);
- Int16 overlay_interval(center_interval center[],Int16 nc, Int16 col,
-          Int16 typ,  Int16 tab_angle[]);
-void filtr_short(Word8 fun[],Int16 n,Int16 lev);
-static Int16 enable_shift(Word8 left[],Word8 right[],Int16 h,Int16 w,Int16 inc[]);
-Int16 abris_convexity(Word8 fun[],Int16 n,Int16 w);
-static Int16 num_of_short_int(center_interval center[],Int16 nc,Int16 lim);
-static Int16 find_opt_shift(INC_BASE *angles[],Int16 num_angles,
-        Int16 dy, Int16 dx, center_interval center[], Int16 nc,
-        Int16 wid,Bool16 sig_T,Bool16 sig_f,
-        Int16 tab_angle[],
+static int16_t max_center_hist_new (Word8 fun[], int16_t n,
+    center_interval center[], int16_t nc, int16_t tab_angle[],
+    int16_t typ)  ;
+static int16_t calc_LENs_LIMITED (Word8 fun[], int16_t n, int16_t sum) ;
+static void make_tab_angles (const INC_BASE *angle, int16_t hei, int16_t ang[]);
+static void make_hist (center_interval center[],int16_t nc, Word8 hist[], int16_t ang[],
+          int16_t dx,int16_t len, int16_t typ);
+static void make_hist_centers_LIMITED (center_interval center[], int16_t nc,
+    Word8 hist[], int16_t ang[], int16_t dx, int16_t len_limit) ;
+static int16_t width_of_hist(Word8 hist[],int16_t len);
+ int16_t overlay_interval(center_interval center[],int16_t nc, int16_t col,
+          int16_t typ,  int16_t tab_angle[]);
+void filtr_short(Word8 fun[],int16_t n,int16_t lev);
+static int16_t enable_shift(Word8 left[],Word8 right[],int16_t h,int16_t w,int16_t inc[]);
+int16_t abris_convexity(Word8 fun[],int16_t n,int16_t w);
+static int16_t num_of_short_int(center_interval center[],int16_t nc,int16_t lim);
+static int16_t find_opt_shift(INC_BASE *angles[],int16_t num_angles,
+        int16_t dy, int16_t dx, center_interval center[], int16_t nc,
+        int16_t wid,Bool16 sig_T,Bool16 sig_f,
+        int16_t tab_angle[],
         Word8 hist[], struct shift_inform *res);
-Bool16 bad_overlay(Int16 over,Int16 width,Int16 dy,Int16 wide,Bool16 c_f);
-static Int16 make_result (Int16 n, Int16 opt, Int16 res[]);
-static void compress_centers(center_interval center[],Int16 nc,Int16 ang[],Int16 n,
-          center_interval cent[],Int16 hooks[]);
-static Int16 correct_result (center_interval cent[], Int16 inc[], Int16 dy);
-Int16 find_minimum(Word8 fun[],Int16 n,Word8 *_imin);
-static Int16 calc_inc_periods (Int16 inc[], Int16 dy, Int16 inc_periods[]);
-Int16 max_center_hist (Word8 fun[], Int16 n,
-    center_interval center[], Int16 nc, Int16 tab_angle[], Int16 typ);
-static Int16 correct_result_BACK (center_interval cent[], Int16 inc[], Int16 dy);
-static Int16 abris_inc_line (Word8 fun[], Int16 n, Int16 inc[], Bool16 sig_left) ;
-static Int16 correct_result_MK (center_interval cent[], Int16 inc[], Int16 dy) ;
+Bool16 bad_overlay(int16_t over,int16_t width,int16_t dy,int16_t wide,Bool16 c_f);
+static int16_t make_result (int16_t n, int16_t opt, int16_t res[]);
+static void compress_centers(center_interval center[],int16_t nc,int16_t ang[],int16_t n,
+          center_interval cent[],int16_t hooks[]);
+static int16_t correct_result (center_interval cent[], int16_t inc[], int16_t dy);
+int16_t find_minimum(Word8 fun[],int16_t n,Word8 *_imin);
+static int16_t calc_inc_periods (int16_t inc[], int16_t dy, int16_t inc_periods[]);
+int16_t max_center_hist (Word8 fun[], int16_t n,
+    center_interval center[], int16_t nc, int16_t tab_angle[], int16_t typ);
+static int16_t correct_result_BACK (center_interval cent[], int16_t inc[], int16_t dy);
+static int16_t abris_inc_line (Word8 fun[], int16_t n, int16_t inc[], Bool16 sig_left) ;
+static int16_t correct_result_MK (center_interval cent[], int16_t inc[], int16_t dy) ;
 ////////////////////////////////////////////////////////////////////////
 
-Int16 make_center_line_dif (center_interval center[], Int16 nc,   // 22.11.1993
+int16_t make_center_line_dif (center_interval center[], int16_t nc,   // 22.11.1993
       Word8 left[], Word8 right[],
-      Int16  dy, Int16 dx, INC_BASE *angles[], Int16 num_angles,
-      Int16  tab_angle[],
+      int16_t  dy, int16_t dx, INC_BASE *angles[], int16_t num_angles,
+      int16_t  tab_angle[],
 			Bool16 comp_wide, Bool16 sig_T, Bool16 sig_f, Bool16 sig_r,
-      Int16  *wide, Int16 hooks[], Int16 *inc_v, Word8 enable_correct)
+      int16_t  *wide, int16_t hooks[], int16_t *inc_v, Word8 enable_correct)
 {
 struct shift_inform tmp;
-Int16 imax=-1;
-Int16 opt, wd, ov, wid, en, optmax, i, dop_opt, dop_opt_BBB_1, dop_opt_BBB_2;
-Int16 brace=0, ny;
-Int16 k, sum, len_hist_LENs, mk_len_limit;
+int16_t imax=-1;
+int16_t opt, wd, ov, wid, en, optmax, i, dop_opt, dop_opt_BBB_1, dop_opt_BBB_2;
+int16_t brace=0, ny;
+int16_t k, sum, len_hist_LENs, mk_len_limit;
 
 //////mkm1 = dx;
 //////mkm2 = dy;
@@ -168,7 +168,7 @@ make_tab_angles (angles[0], dy, tab_angle);	// NB: This is FIRST FORM!
 /*......................................................................*/
 					// CALCULATION for CENTER's:
 if (mk_len_limit==0)
-	make_hist (center,nc, GL_hist, tab_angle, dx, wid,(Int16) ( wid>4&&sig_T==0));
+	make_hist (center,nc, GL_hist, tab_angle, dx, wid,(int16_t) ( wid>4&&sig_T==0));
 else	make_hist_centers_LIMITED (center, nc, GL_hist, tab_angle,
 				dx, mk_len_limit);
 /* calc hist  for angle=0 */	// NB: really - FOR BEGIN ANGLE !!!
@@ -180,7 +180,7 @@ else	make_hist_centers_LIMITED (center, nc, GL_hist, tab_angle,
 					// BEFORE 14.10.1993:
 //////	opt=max_center_hist_new(hist_BBB,dx<<1,center,nc,tab_angle,(wid<<1)>dy);
 					// 14.10.1993: (k11/14, h14/1):
-	opt=max_center_hist_new(GL_hist,(Int16) (dx<<1),center,nc,tab_angle, 0); // ???
+	opt=max_center_hist_new(GL_hist,(int16_t) (dx<<1),center,nc,tab_angle, 0); // ???
 
 optmax = GL_hist [opt>>1];		// find maximum in hist
 //////dop_opt = MAX( hist_BBB[(opt>>1)-1],hist_BBB[(opt>>1)+1]);  MAC.ERROR
@@ -188,8 +188,8 @@ dop_opt_BBB_1 = (opt<=2)      ? 0 : GL_hist[(opt>>1)-1];	// 09.04.1993
 dop_opt_BBB_2 = (opt>=4*dx-2) ? 0 : GL_hist[(opt>>1)+1];
 dop_opt = MAX (dop_opt_BBB_1, dop_opt_BBB_2);
 /*......................................................................*/
-wd = width_of_hist (GL_hist,(Int16)( dx<<1 ));
-ov = overlay_interval (center, nc, (Int16) (opt>>2), (Int16) (opt%4==0), tab_angle) ;
+wd = width_of_hist (GL_hist,(int16_t)( dx<<1 ));
+ov = overlay_interval (center, nc, (int16_t) (opt>>2), (int16_t) (opt%4==0), tab_angle) ;
 
 			// here was DEBUG_GRAPH
 
@@ -218,18 +218,18 @@ en = enable_shift (GL_left1, GL_right1, ny, dx, &tab_angle[1]);
 							// 16.11.1993:
 if (en==3  &&			// LEFT or RIGHT vert Line
     angles[0]->num!=0)	{	// and a priory NONZERO INC
-  memset (tab_angle, 0, dy*sizeof(Int16));  // ZEROES to tab_angle and
+  memset (tab_angle, 0, dy*sizeof(int16_t));  // ZEROES to tab_angle and
 	if (mk_len_limit==0)		// repeat CALCULATION for CENTER's;
 		make_hist (center,nc, GL_hist, tab_angle, dx, wid,
-							(Int16) (wid>4&&sig_T==0));
+							(int16_t) (wid>4&&sig_T==0));
 	else	make_hist_centers_LIMITED (center, nc, GL_hist, tab_angle,dx, mk_len_limit);
-	opt=max_center_hist_new (GL_hist, (Int16) (dx<<1), center, nc, tab_angle, 0);
+	opt=max_center_hist_new (GL_hist, (int16_t) (dx<<1), center, nc, tab_angle, 0);
 	optmax = GL_hist [opt>>1];	// find maximum in hist
 	dop_opt_BBB_1 = (opt<=2)      ? 0 : GL_hist[(opt>>1)-1];
 	dop_opt_BBB_2 = (opt>=4*dx-2) ? 0 : GL_hist[(opt>>1)+1];
   dop_opt = MAX (dop_opt_BBB_1, dop_opt_BBB_2);
-	wd = width_of_hist (GL_hist,(Int16)( dx<<1) );
-	ov = overlay_interval (center, nc, (Int16) (opt>>2),(Int16) ( opt%4==0), tab_angle);
+	wd = width_of_hist (GL_hist,(int16_t)( dx<<1) );
+	ov = overlay_interval (center, nc, (int16_t) (opt>>2),(int16_t) ( opt%4==0), tab_angle);
 	}
 /*......................................................................*/
 if( en )  /* if en==0 - not similar braces or vert line */
@@ -342,10 +342,10 @@ return (0);	/* normal return */
 /* in  : center[0:nc-1]-array of centers  */
 /* out : hist[] - histogramm of length    */
 /* return : size of histogram             */
-Int16 centers_len_to_hist(center_interval center[],Int16 nc,Int16 dy,Int16 dx,
+int16_t centers_len_to_hist(center_interval center[],int16_t nc,int16_t dy,int16_t dx,
         Word8 hist[])
 {
-Int16 i;
+int16_t i;
 center_interval *p_center=&center[0],*p_end=&center[nc];	// OLEG OLD
 //////center_interval *p_center = (!fax1x2)  ?  &center[0]  :  &center[1];
 //////center_interval *p_end    = (!fax1x2)  ?  &center[nc] :  &center[nc-1];
@@ -359,12 +359,12 @@ for(i=dx;i>=0 && !hist[i] ;i--);
 return(++i);
 }
 
-static Int16 max_center_hist_new (Word8 fun[], Int16 n,  // 15.10.1993
-    center_interval center[], Int16 nc, Int16 tab_angle[],
-    Int16 typ)  {
-//////    Int16 wid)  {   // NEW PARAMETR 20.01.1993 (DELETED)
-////Int16 i, im=-1, maxim=-1, ov=-1, over, io, ic;  // OLEG: maxim=-1;
-Int16 i, im=-1, maxim=0,  ov=-1, over, io, ic;  // MK:   maxim=0;
+static int16_t max_center_hist_new (Word8 fun[], int16_t n,  // 15.10.1993
+    center_interval center[], int16_t nc, int16_t tab_angle[],
+    int16_t typ)  {
+//////    int16_t wid)  {   // NEW PARAMETR 20.01.1993 (DELETED)
+////int16_t i, im=-1, maxim=-1, ov=-1, over, io, ic;  // OLEG: maxim=-1;
+int16_t i, im=-1, maxim=0,  ov=-1, over, io, ic;  // MK:   maxim=0;
 Word8  ff;
 /*......................................................................*/
 if( typ )  {				// FOR WIDE LETTERS (UNUSED NOW ???)
@@ -376,7 +376,7 @@ for (i=0; i<n;)  {			// NB: this part - for CENTERs ONLY !!!
 	if( ff>maxim )  {
 //////	    if (......)  {	// MK VARIANT:
 		ic = i+io-1;
-		over = 	overlay_interval(center,nc,(Int16) (ic>>2),(Int16) (ic%4==0),tab_angle);
+		over = 	overlay_interval(center,nc,(int16_t) (ic>>2),(int16_t) (ic%4==0),tab_angle);
 		if( over>=ov )  {	/* num of over can be increase */
 			maxim = ff;
 			im=ic;
@@ -421,11 +421,11 @@ Word8  porog_2 = (nc - 1) >> 1;  // for 18 porog_2=8;
 return (im);
 }
 
-static Int16 calc_LENs_LIMITED (Word8 fun[], Int16 n, Int16 sum)  {  // 15.10.1993
+static int16_t calc_LENs_LIMITED (Word8 fun[], int16_t n, int16_t sum)  {  // 15.10.1993
 
 					// see max_center_hist_new (Part 2);
 
-Int16 i, im=-1, maxim=0;  // MK:   maxim=0;
+int16_t i, im=-1, maxim=0;  // MK:   maxim=0;
 Word8  fold, ftek, fnext;
 ///BYTE	porog_2 = (nc - 1) >> 1;	// for 18 porog_2=8;
 Word8  porog_2 = (sum - 1) >> 1; // for 18 porog_2=8;
@@ -451,13 +451,13 @@ Word8  porog_2 = (sum - 1) >> 1; // for 18 porog_2=8;
 return (im);
 }
 
-static void make_tab_angles (const INC_BASE *angle, Int16 hei, Int16 ang[])  {
+static void make_tab_angles (const INC_BASE *angle, int16_t hei, int16_t ang[])  {
 							// 09.12.1993
 							// case BACK NAKLON;
 			// here was DEBUG_GRAPH
-const Int16 *p_angle=&(angle->inc[0]);    // KOGO;
-Int16 *p_ang=&ang[hei],*p_beg=&ang[0];  // KUDA
-Int16 disp_for_BACK_NAKLON=0;
+const int16_t *p_angle=&(angle->inc[0]);    // KOGO;
+int16_t *p_ang=&ang[hei],*p_beg=&ang[0];  // KUDA
+int16_t disp_for_BACK_NAKLON=0;
 
 	if ( angle->tg!=0 )  {
 				// here was DEBUG_GRAPH
@@ -466,7 +466,7 @@ Int16 disp_for_BACK_NAKLON=0;
 
 	    /************************** BEFORE 09.12.1993 (CAN NOT BE H>64)
 	    if ( hei>128 )  {
-Int16 j;
+int16_t j;
 		for (j=0; p_ang>p_beg; j++)  {
 		    if ( j==128 )  j=0;
 		    *(--p_ang) = *(p_angle+j);
@@ -484,14 +484,14 @@ Int16 j;
       memset (ang, 0, hei<<1);
 
 //////return ( MAX (ang[0], ang[hei-1]) );  // 09.12.1993 DELETE IT
-            // ("Int16" => "void")
+            // ("int16_t" => "void")
 						// as UNUSED and UNKNOWN !!!
 }
 
-static void make_hist (center_interval center[],Int16 nc, Word8 hist[], Int16 ang[],
-          Int16 dx,Int16 len, Int16 typ)
+static void make_hist (center_interval center[],int16_t nc, Word8 hist[], int16_t ang[],
+          int16_t dx,int16_t len, int16_t typ)
 {
-Int16 k;
+int16_t k;
 center_interval *p_center=&center[0], *p_end=&center[nc];	// OLEG
 //////center_interval *p_center = (!fax1x2)  ?  &center[0]  :  &center[1];
 //////center_interval *p_end    = (!fax1x2)  ?  &center[nc] :  &center[nc-1];
@@ -523,10 +523,10 @@ for (; p_center!=p_end; p_center++)
 return ;
 }
 
-static void make_hist_centers_LIMITED (center_interval center[], Int16 nc,
-    Word8 hist[], Int16 ang[], Int16 dx, Int16 len_limit)  {
+static void make_hist_centers_LIMITED (center_interval center[], int16_t nc,
+    Word8 hist[], int16_t ang[], int16_t dx, int16_t len_limit)  {
 							// 15.10.1993
-Int16 k;              // see make_hist ();
+int16_t k;              // see make_hist ();
 center_interval *p_center=&center[0], *p_end=&center[nc];	// OLEG
 
 memset(hist,0,2*dx);
@@ -541,9 +541,9 @@ for (; p_center!=p_end; p_center++)  {
 return;
 }
 
-static Int16 width_of_hist(Word8 hist[],Int16 len)
+static int16_t width_of_hist(Word8 hist[],int16_t len)
 {
-Int16 num;
+int16_t num;
 Word8 *p_hist=&hist[0],*p_end=&hist[len];
 
 for(num=0;p_hist!=p_end;p_hist++)
@@ -553,10 +553,10 @@ for(num=0;p_hist!=p_end;p_hist++)
 return((num+1)>>1);
 }
 
-/*static*/ Int16 overlay_interval(center_interval center[],Int16 nc, Int16 col,
-          Int16 typ,  Int16 tab_angle[])
+/*static*/ int16_t overlay_interval(center_interval center[],int16_t nc, int16_t col,
+          int16_t typ,  int16_t tab_angle[])
 {
-Int16 num,c;
+int16_t num,c;
 center_interval *p_center=&center[0],*p_end=&center[nc];
 
 if( typ )
@@ -583,7 +583,7 @@ else
 return(num>>1);
 }
 
-void filtr_short(Word8 fun[],Int16 n,Int16 lev)
+void filtr_short(Word8 fun[],int16_t n,int16_t lev)
 {
 Word8 i;
 lev++;
@@ -593,8 +593,8 @@ for(i=1;i<n-1;i++)
 return;
 }
 
-static Int16 enable_shift(Word8 left[],Word8 right[],Int16 h,Int16 w,
-      Int16 inc[])
+static int16_t enable_shift(Word8 left[],Word8 right[],int16_t h,int16_t w,
+      int16_t inc[])
 {
 if( abris_convexity(left,h,w) )
 	{ inc_char_EEM = '(';  return(1); }	/* left arc         */
@@ -610,7 +610,7 @@ inc_char_EEM = ' ';
 return ( 0 );		/* no lines, no arcs */
 }
 
-Int16 abris_convexity(Word8 fun[],Int16 n,Int16 w)
+int16_t abris_convexity(Word8 fun[],int16_t n,int16_t w)
 {
 Word8 i,ff,fo,imin,num,minim,eq;
 
@@ -659,9 +659,9 @@ else
 	return (num<3) ;
 }
 
-static Int16 num_of_short_int(center_interval center[],Int16 nc,Int16 lim)
+static int16_t num_of_short_int(center_interval center[],int16_t nc,int16_t lim)
 {
-Int16 n;
+int16_t n;
 center_interval *p_center=&center[0],*p_end=&center[nc];
 
 for(n=0;p_center!=p_end;p_center++)
@@ -670,24 +670,24 @@ for(n=0;p_center!=p_end;p_center++)
 return(n);
 }
 
-static Int16 find_opt_shift(INC_BASE *angles[],Int16 num_angles,
-        Int16 dy, Int16 dx, center_interval center[], Int16 nc,
-        Int16 wid,Bool16 sig_T,Bool16 sig_f,
-        Int16 tab_angle[],
+static int16_t find_opt_shift(INC_BASE *angles[],int16_t num_angles,
+        int16_t dy, int16_t dx, center_interval center[], int16_t nc,
+        int16_t wid,Bool16 sig_T,Bool16 sig_f,
+        int16_t tab_angle[],
         Word8 hist[], struct shift_inform *res)
 {
 
-Int16 i, maxim=res->max, imax, over, ovmax, op, optmax, curr_max, pr;
-Int16 start_opt=res->opt, start_over=res->over, start_max=res->max;
+int16_t i, maxim=res->max, imax, over, ovmax, op, optmax, curr_max, pr;
+int16_t start_opt=res->opt, start_over=res->over, start_max=res->max;
 
 for (pr=1,curr_max=start_max,ovmax=start_over,imax=-1,i=0; i<num_angles; i++)
 	{
 	make_tab_angles (angles[i+1], dy, tab_angle);
-	make_hist (center, nc, hist, tab_angle, dx, wid,(Int16) ( wid>4 && !sig_T ));
-	op = max_center_hist (hist, (Int16) (dx<<1), center, nc, tab_angle, 0);
+	make_hist (center, nc, hist, tab_angle, dx, wid,(int16_t) ( wid>4 && !sig_T ));
+	op = max_center_hist (hist, (int16_t) (dx<<1), center, nc, tab_angle, 0);
 	curr_max = hist[op>>1];
 	if ( pr && curr_max!=start_max ) pr=0;
-	over = overlay_interval (center, nc,(Int16) ( op>>2),(Int16) ( op%4==0), tab_angle);
+	over = overlay_interval (center, nc,(int16_t) ( op>>2),(int16_t) ( op%4==0), tab_angle);
 	if( ( maxim<curr_max ||				  /* decrease max  */
 	    (maxim==curr_max && imax==-1 && i>0 && pr) )
 	    && !bad_overlay(over,wid,dy,res->wide,sig_f) )/* overlay is OK */
@@ -727,13 +727,13 @@ if( imax!=-1 && start_over-ovmax<=((dy>8?dy>>3:1)+1) &&
             }
         else
 		    make_tab_angles(angles[imax+1], dy,tab_angle);
-		make_hist(center,nc, hist, tab_angle,dx,wid,(Int16) (wid>4&&!sig_T));
+		make_hist(center,nc, hist, tab_angle,dx,wid,(int16_t) (wid>4&&!sig_T));
 		}
 	}
 else
 	{    /* restore 0 inc */
 	make_tab_angles(angles[0], dy,tab_angle);
-	make_hist(center,nc, hist, tab_angle,dx,wid,(Int16) (wid>4&&!sig_T));
+	make_hist(center,nc, hist, tab_angle,dx,wid,(int16_t) (wid>4&&!sig_T));
 	maxim  = start_max;
 	ovmax  = start_over;
 	optmax = start_opt;
@@ -748,7 +748,7 @@ res->opt  = optmax;	/* save result */
 return ( res->imax );
 }
 
-/*static*/ Bool16 bad_overlay(Int16 over,Int16 width,Int16 dy,Int16 wide,Bool16 c_f)
+/*static*/ Bool16 bad_overlay(int16_t over,int16_t width,int16_t dy,int16_t wide,Bool16 c_f)
 {
 Bool16 ret;
 if( width<3 )
@@ -758,9 +758,9 @@ else
 return(ret);
 }
 
-static Int16 make_result (Int16 n, Int16 opt, Int16 res[])
+static int16_t make_result (int16_t n, int16_t opt, int16_t res[])
 {
-Int16 *p_res=&res[0],*e_res=&res[n];
+int16_t *p_res=&res[0],*e_res=&res[n];
 
 for(; p_res<e_res; p_res++)
 	*p_res = ((*p_res)<<2) + opt;
@@ -768,10 +768,10 @@ for(; p_res<e_res; p_res++)
 return ( opt%4==0 );	/* return 1 if cut between two cells, else return 0 */
 }
 
-static void compress_centers(center_interval center[],Int16 nc,Int16 ang[],Int16 n,
-          center_interval cent[],Int16 hooks[])
+static void compress_centers(center_interval center[],int16_t nc,int16_t ang[],int16_t n,
+          center_interval cent[],int16_t hooks[])
 {
-Int16 r,D,L,en_cp;
+int16_t r,D,L,en_cp;
 center_interval *p_center=&center[0], *p_end=&center[nc];
 
 memset(cent,0,n*sizeof(center_interval));
@@ -791,7 +791,7 @@ for(;p_center!=p_end;p_center++)
 			en_cp=1; /* cent[r] is free or more length */
 		else
 		    {   /* hook-intervals */
-        Int16 ind;
+        int16_t ind;
 		    ind = (p_center->col>ang[r]>>1)?2:0; /* left or right */
 		    if( r>(n>>1) )
 			ind++;  /* down */
@@ -810,15 +810,15 @@ for(;p_center!=p_end;p_center++)
 return;
 }
 
-static Int16 correct_result (center_interval cent[], Int16 inc[], Int16 dy)  {
+static int16_t correct_result (center_interval cent[], int16_t inc[], int16_t dy)  {
 							// 15.01.1994
 						// NOTA BENE: see also
 						// corr_result_BACK for INC<0;
 /* step of incline = 4 */
-Int16 i, j, n1=dy>>2, n2=dy-(dy>>2), d, num_periods, pp;
-Int16 len_tek, len_old;
+int16_t i, j, n1=dy>>2, n2=dy-(dy>>2), d, num_periods, pp;
+int16_t len_tek, len_old;
 
-static  Int16 OTL_key_VARIANT=2;  // 0 RET, 1 OLD, or 2 NEW MK;
+static  int16_t OTL_key_VARIANT=2;  // 0 RET, 1 OLD, or 2 NEW MK;
 
 						// 15.01.1994 NEW EDITION:
 	if (OTL_key_VARIANT==0)  return (0);	////// OTLADKA # 0 //////
@@ -912,7 +912,7 @@ if ( cent[0].len==0 && inc[0]!=inc[1] )
 return(1);
 }
 
-Int16 find_minimum(Word8 fun[],Int16 n,Word8 *_imin)
+int16_t find_minimum(Word8 fun[],int16_t n,Word8 *_imin)
 {
 Word8 i, imin, minim, io, ff;
 
@@ -936,9 +936,9 @@ for(imin=0,minim=fun[0],i=1;i<n;)
 return(minim);
 }
 
-static Int16 calc_inc_periods (Int16 inc[], Int16 dy, Int16 inc_periods[])
+static int16_t calc_inc_periods (int16_t inc[], int16_t dy, int16_t inc_periods[])
 {
-Int16 *p_inc=&inc[0], *p_end=&inc[dy], *p_inc_per= &inc_periods[0],
+int16_t *p_inc=&inc[0], *p_end=&inc[dy], *p_inc_per= &inc_periods[0],
     iold=inc[0], i, k, k_old;
 
 for (k=k_old=0; p_inc!=p_end; k++,p_inc++)
@@ -955,10 +955,10 @@ if( k!=k_old )
 return ( p_inc_per - inc_periods );
 }
 
-Int16 max_center_hist (Word8 fun[], Int16 n,
-    center_interval center[], Int16 nc, Int16 tab_angle[], Int16 typ)
+int16_t max_center_hist (Word8 fun[], int16_t n,
+    center_interval center[], int16_t nc, int16_t tab_angle[], int16_t typ)
 {
-Int16 i,im=-1,maxim=-1,ov=-1,over,io,ic;       Word8 ff;
+int16_t i,im=-1,maxim=-1,ov=-1,over,io,ic;       Word8 ff;
 if( typ )
 {
 for (i=0; i<n;)
@@ -970,7 +970,7 @@ for (i=0; i<n;)
 	if( ff>maxim )
 		{
 		ic = i+io-1;
-		over = overlay_interval (center,nc,(Int16) (ic>>2),(Int16) (ic%4==0),tab_angle);
+		over = overlay_interval (center,nc,(int16_t) (ic>>2),(int16_t) (ic%4==0),tab_angle);
 		if( over>=ov )      /* num of over can be increase */
 			{
 			maxim = ff;
@@ -1001,16 +1001,16 @@ for (p_fun=b_fun; p_fun<e_fun;)
 return(im);
 }
 
-static Int16 correct_result_BACK (center_interval cent[], Int16 inc[], Int16 dy)
+static int16_t correct_result_BACK (center_interval cent[], int16_t inc[], int16_t dy)
 {							// 14.01.1994
 					// This is MODIFY of correct_result
 					// for BACK NAKLON (INC<0);
 					// Begin it 10.12.1993, very formalno;
 					// See comments "FORW INC", "BACK INC";
 /* step of incline = 4 */
-Int16 i, j, n1=dy>>2, n2=dy-(dy>>2), d, num_periods, pp;
-Int16 len_tek, len_old;
-static  Int16 OTL_key_RET=0;
+int16_t i, j, n1=dy>>2, n2=dy-(dy>>2), d, num_periods, pp;
+int16_t len_tek, len_old;
+static  int16_t OTL_key_RET=0;
 
 	if (OTL_key_RET)  return (0);	////// OTLADKA //////	stic_mak@530
 
@@ -1104,7 +1104,7 @@ if ( cent[0].len==0 && inc[0]!=inc[1] )
 return(1);
 }
 
-static Int16 abris_inc_line (Word8 fun[], Int16 n, Int16 inc[], Bool16 sig_left)  {
+static int16_t abris_inc_line (Word8 fun[], int16_t n, int16_t inc[], Bool16 sig_left)  {
 							// 27.10.1993
 					// MK EDITION:
 					// LEFT - Exactly 0;
@@ -1112,12 +1112,12 @@ static Int16 abris_inc_line (Word8 fun[], Int16 n, Int16 inc[], Bool16 sig_left)
 					// must be more 1/4 UP and RIGHT;
 					// NB: It was error about sig_left
 					//     (It was NEVER USED ???)
-Int16 i;    // OLD: hist=0;
-Int16 n2=(n+1)/2; // UPPER PART >= DOWN.PART (?)
-Int16 k, kU=0, kD=0;
-Int16 kmax, v, vmax;
+int16_t i;    // OLD: hist=0;
+int16_t n2=(n+1)/2; // UPPER PART >= DOWN.PART (?)
+int16_t k, kU=0, kD=0;
+int16_t kmax, v, vmax;
 #define	mk10	10
-Int16 hist_U[mk10], hist_D[mk10];
+int16_t hist_U[mk10], hist_D[mk10];
 
 	k = inc [0];	// fow NO WARNING, NOT USED NOW (All ZEROES);
 
@@ -1147,8 +1147,8 @@ else	{	// right abris : sub wide of stick for compare with inc line
 return( hist<= (n>16?n>>3:2) ? 1 : 0 );
 	***********************************/
 
-  memset (hist_U, 0, mk10*sizeof(Int16)); // 27.10.1993
-  memset (hist_D, 0, mk10*sizeof(Int16));
+  memset (hist_U, 0, mk10*sizeof(int16_t)); // 27.10.1993
+  memset (hist_D, 0, mk10*sizeof(int16_t));
 	for (i=0; i<n2; i++)  if (fun[i]<mk10)  hist_U[fun[i]]++;
 	for (i=n2; i<n; i++)  if (fun[i]<mk10)  hist_D[fun[i]]++;
 	for (k=kmax=vmax=0; k<mk10; k++)
@@ -1161,10 +1161,10 @@ return( hist<= (n>16?n>>3:2) ? 1 : 0 );
 	return (0);		// NOT RIGHT LINE;
 }
 
-static Int16 correct_result_MK (center_interval cent[], Int16 inc[], Int16 dy)  {
+static int16_t correct_result_MK (center_interval cent[], int16_t inc[], int16_t dy)  {
 
-Int16 i, n1=dy>>2, n2=dy-(dy>>2), num_periods;
-Int16 nper, per_inc, i_up, i_down;  // UP, DOWN for PERIOD, INCLUDE;
+int16_t i, n1=dy>>2, n2=dy-(dy>>2), num_periods;
+int16_t nper, per_inc, i_up, i_down;  // UP, DOWN for PERIOD, INCLUDE;
 
 for (i=n1; i<n2; i++)
 	if ((cent[i].col<<1)!=inc[i])

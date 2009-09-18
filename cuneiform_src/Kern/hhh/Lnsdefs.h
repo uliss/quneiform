@@ -90,22 +90,22 @@ typedef struct tagLnsFrag
 //   double relMxy ;// squared sum by Y axes
 //   double relMyy ;// mixed sum
 
-   Int16 frag_handle;   // internal usage - link to own data; 0xffff - undefined
+   int16_t frag_handle;   // internal usage - link to own data; 0xffff - undefined
    char  reserved[22];
 } LnsFrag;
 
 typedef struct tagAdjacentLst
 {
-	Int16          ltiNext;       // list of adjacent lines (left to right,
-	Int16          ltiPrev;       // top to bottom), -1 == None
-	Int16          ltiFirst;
-	Int16          ltiLast;
+	int16_t          ltiNext;       // list of adjacent lines (left to right,
+	int16_t          ltiPrev;       // top to bottom), -1 == None
+	int16_t          ltiFirst;
+	int16_t          ltiLast;
 }  AdjacentLst;
 
 typedef struct tagLnsCorner
 {
-   Int16          ltiStart;      // LTI index of perpendicular lines
-   Int16          ltiEnd;        // joined with proper end of this line
+   int16_t          ltiStart;      // LTI index of perpendicular lines
+   int16_t          ltiEnd;        // joined with proper end of this line
 }  LnsCorner;
 
 
@@ -157,7 +157,7 @@ typedef struct tagLineInfo
 	#define LI_IsNotAtTable 0x00000800
 */
 	/**********************************************/
-   Int16          SegCnt;        // число сегментов в составной линии, 0-неинициализировано
+   int16_t          SegCnt;        // число сегментов в составной линии, 0-неинициализировано
    Word8          Quality;       // 0-255; 255 == good line
    Word8          Thickness;     // средняя толщина линии/штриха
 
@@ -176,11 +176,11 @@ typedef struct tagLineInfo
       #define LI_UNION     3      // union of some set of dot & some set of solid lines
 
    //========= Определения, специфичные для пунктиров ===============
-   Int16          DotAveLen;     // Средняя длина штриха
-   Int16          DotAveGap;     // Средний интервал м/штрихами
+   int16_t          DotAveLen;     // Средняя длина штриха
+   int16_t          DotAveGap;     // Средний интервал м/штрихами
 
    //================================================================
-   Int16          IndCover;      // valid only for LI_COVERED-lines
+   int16_t          IndCover;      // valid only for LI_COVERED-lines
    uint32_t         pFrmLineAtom;  // link to form description
    Word8          __buf[32];      // Зарезервировано, заполнено 0
    int32_t          TmpUsage;      // поле для временного использования

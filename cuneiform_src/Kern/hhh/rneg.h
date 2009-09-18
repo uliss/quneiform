@@ -82,7 +82,7 @@ struct NegTemp
   Rect16 prc[Max_Str_Count];
   int nRc;
   int fl_rotate;
-  Int16 phi[Max_Str_Count];
+  int16_t phi[Max_Str_Count];
 };
 
 #ifdef __cplusplus

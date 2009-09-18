@@ -75,21 +75,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 
 #include "cfcompat.h"
-static Int16   crsadd_rus1=10;
-static Int16   crsadd_rus2=10;
-static Int16   crsadd_eng1=10;
-static Int16   crsadd_eng2=10;
-static Int16   crsadd_eng3 = 20;
-static Int16   crsadd_re1 =15;
-static Int16   crsadd_re2 =20;
-static Int16   crsadd_dup1=220;
-static Int16   crsadd_dup2=10;
-static Int16   crsadd_dup3=180;
-static Int16   crsadd_dup4r=150;
-static Int16   crsadd_dup5r=170;
-static Int16   crsadd_dup4e=150;
-static Int16   crsadd_equa1=100;
-static Int16   crsadd_equa2=100;
+static int16_t   crsadd_rus1=10;
+static int16_t   crsadd_rus2=10;
+static int16_t   crsadd_eng1=10;
+static int16_t   crsadd_eng2=10;
+static int16_t   crsadd_eng3 = 20;
+static int16_t   crsadd_re1 =15;
+static int16_t   crsadd_re2 =20;
+static int16_t   crsadd_dup1=220;
+static int16_t   crsadd_dup2=10;
+static int16_t   crsadd_dup3=180;
+static int16_t   crsadd_dup4r=150;
+static int16_t   crsadd_dup5r=170;
+static int16_t   crsadd_dup4e=150;
+static int16_t   crsadd_equa1=100;
+static int16_t   crsadd_equa2=100;
 #define MAX_LEN_WORD  68
 
 Word16              wHeightRC      = 0;
@@ -98,7 +98,7 @@ Word16              wLowRC         = RSADD_ERR_NO;
 typedef struct _RSADD_STAT
 {
 Word8   minp, maxp, minup, maxup;
-Int16   norec, nall, nh, nm, ns;
+int16_t   norec, nall, nh, nm, ns;
 Bool32  var_width, var_kegl, var_dig, case_up, case_dn, case_dig;
 } RSADD_STAT;
 
@@ -141,7 +141,7 @@ snap_show_text  = show_text;
 return;
 }
 
-extern  Int16   rec_versions_triad( char *w,Word8 lang);
+extern  int16_t   rec_versions_triad( char *w,Word8 lang);
 static  Bool32  tables=FALSE;
 
 static  void rsadd_clear_hide(CSTR_line lrus);
@@ -169,12 +169,12 @@ do{
 return (attr.flg&CSTR_f_fict)?(CSTR_rast)0:c;
 }
 
-static CSTR_rast rsadd_end_word(CSTR_rast cs,Word8 *str,Word8 *word_len,Int16 left_limit,Int16 right_limit, int32_t need_space,
+static CSTR_rast rsadd_end_word(CSTR_rast cs,Word8 *str,Word8 *word_len,int16_t left_limit,int16_t right_limit, int32_t need_space,
 								Bool32 rightTrue) //Nick 11.05.2001
 {
 CSTR_rast       c=cs, n;
 CSTR_rast_attr  attr, nattr;
-Int16           i, dif;
+int16_t           i, dif;
 RecVersions     vers;
 Bool32          solid=FALSE,prev_over=FALSE;
 
@@ -302,7 +302,7 @@ if( need_space==1 && c && !(attr.flg&CSTR_f_fict) &&
     CSTR_GetAttr(n,&nattr);
     if( /*attr.w &&*/ (nattr.flg&(CSTR_f_let|CSTR_f_bad|CSTR_f_punct)) )
         {
-        Int16   dist=16000;
+        int16_t   dist=16000;
         if( attr.h )    dist = MIN( dist, attr.h);
         if(nattr.h )    dist = MIN( dist,nattr.h);
         if( attr.w )    dist = MIN( dist, attr.w);
@@ -462,14 +462,14 @@ static Bool32 GoodWordBounds(CSTR_rast cs, CSTR_rast best, int32_t engCol, int32
     return TRUE;
 }
 ////////////////
-static Bool32   rsadd_over_segm(Int16 rr,Int16 rl,Int16 er,Int16 el,Int16  dr)
+static Bool32   rsadd_over_segm(int16_t rr,int16_t rl,int16_t er,int16_t el,int16_t  dr)
 {
 return (el>=rl-1 && er<=rr+dr && (rr-rl-er+el)*128<40*(rr-rl) );
 }
 
 static Bool32 rsadd_over_words(CSTR_rast rus, CSTR_rast ruse,CSTR_rast  eng,CSTR_rast  enge)
 {
-Int16           rr,rl,er,el, dr;
+int16_t           rr,rl,er,el, dr;
 CSTR_rast_attr  attr;
 Bool32  ret, rleftcut;
 if( spec_camera )
@@ -501,7 +501,7 @@ if( attr.flg&CSTR_f_space )
 er=attr.r_col+attr.w;///2; // 17.12.92
 ret = rsadd_over_segm(rr,rl,er,el,dr);
 if( !ret && rleftcut )
-    ret = rsadd_over_segm(rr,rl,(Int16)(attr.r_col+attr.w/2),el,dr);
+    ret = rsadd_over_segm(rr,rl,(int16_t)(attr.r_col+attr.w/2),el,dr);
 return ret;
 }
 
@@ -589,7 +589,7 @@ CSTR_rast_attr  a;
 CSTR_rast       r, re;
 UniVersions     u;
 Word16          minp, maxp, minup, maxup, minw, maxw;
-Int16           norec, ndig, ndig_first, nup, nup_first, nupall, nall;
+int16_t           norec, ndig, ndig_first, nup, nup_first, nupall, nall;
 Bool32          unilet;
 
 memset(s,0,sizeof(RSADD_STAT));
@@ -782,11 +782,11 @@ CSTR_SetDupEnd(ruse, enge);
 return TRUE;
 }
 
-static CSTR_rast rsadd_get_left_coord(CSTR_line ln,Int16 left, Int16 right)
+static CSTR_rast rsadd_get_left_coord(CSTR_line ln,int16_t left, int16_t right)
 {
 CSTR_rast       rst;
 CSTR_rast_attr  attr, pattr;
-Int16           leftn, rightn;
+int16_t           leftn, rightn;
 RecVersions     vers;
 
 rst = CSTR_GetFirstRaster(ln);
@@ -801,7 +801,7 @@ do  {
     rightn  =attr.col+attr.w;
     if( rightn>=left && right>=leftn )
         {
-        Int16   dist=MIN(attr.h,pattr.h);
+        int16_t   dist=MIN(attr.h,pattr.h);
         dist = MIN( dist, attr.w);
         dist = MIN( dist,pattr.w);
         if( !strchr(true_terms,vers.Alt[0].Code) &&
@@ -822,10 +822,10 @@ do  {
 return (CSTR_rast)0;
 }
 
-CSTR_rast rsadd_get_right_coord(CSTR_rast rst,Int16 left, Int16 right)
+CSTR_rast rsadd_get_right_coord(CSTR_rast rst,int16_t left, int16_t right)
 {
 CSTR_rast_attr  attr;
-Int16           leftn, rightn;
+int16_t           leftn, rightn;
 
 CSTR_GetAttr(rst,&attr);
 if( attr.col+attr.w>=right-1 )
@@ -1283,8 +1283,8 @@ CSTR_rast       rus, eng, ruse, enge;
 Word8           rlen,rwrd[MAX_LEN_WORD+40];
 Word8           elen,ewrd[MAX_LEN_WORD+40],*types[]={"no","rus","eng","rus-eng"};
 CSTR_rast_attr  eattr,rattr, attr, tmpattr;
-Int16           type = 0;
-//Int16           rtri, etri;
+int16_t           type = 0;
+//int16_t           rtri, etri;
 Word8           buf[256],buf1[256],buf2[256],buf3[256];
 CSTR_line       sln[2]={lrus, leng};
 Bool32          rsolid, esolid, verdict, aliases,
@@ -1339,7 +1339,7 @@ while(1)
         }
     nall++;
     CSTR_GetAttr(eng,&eattr);
-    rus  = rsadd_get_left_coord(lrus,eattr.col,(Int16)(eattr.col+eattr.w));
+    rus  = rsadd_get_left_coord(lrus,eattr.col,(int16_t)(eattr.col+eattr.w));
     if( !rus  )
         {
         strcpy(buf,"can't find russian for ");
@@ -1359,12 +1359,12 @@ while(1)
         CSTR_GetAttr(cn,&eattr);
         }
     pruse = ruse;
-    ruse = rsadd_end_word (rus,rwrd,&rlen,eattr.col,(Int16)(eattr.col+eattr.w),1,TRUE);
+    ruse = rsadd_end_word (rus,rwrd,&rlen,eattr.col,(int16_t)(eattr.col+eattr.w),1,TRUE);
 
     if( need_rus_coord )
          {
          CSTR_GetAttr(enge,&attr);
-         ruse=rsadd_get_right_coord(ruse,eattr.col,(Int16)(eattr.col+eattr.w));
+         ruse=rsadd_get_right_coord(ruse,eattr.col,(int16_t)(eattr.col+eattr.w));
          if( !ruse && (attr.flg&CSTR_f_fict) )
             ruse = CSTR_GetLastRaster(lrus);
          }
@@ -1381,7 +1381,7 @@ while(1)
         {
         if( end_eng_space ||
             rsadd_represent_word(eng, enge)  )
-            ruse=rsadd_get_right_coord(rus,eattr.col,(Int16)(eattr.col+eattr.w));
+            ruse=rsadd_get_right_coord(rus,eattr.col,(int16_t)(eattr.col+eattr.w));
         if( is_one_eword )
             ruse =  CSTR_GetPrev(CSTR_GetLastRaster(lrus));
 
@@ -1415,13 +1415,13 @@ while(1)
     if( !rsadd_over_words(rus, ruse, eng, enge) )
         {
         if( rsadd_represent_word(eng,enge) )
-            ruse=rsadd_get_right_coord(ruse,eattr.col,(Int16)(eattr.col+eattr.w));
+            ruse=rsadd_get_right_coord(ruse,eattr.col,(int16_t)(eattr.col+eattr.w));
         if( !rsadd_over_words(rus, ruse, eng, enge) )
-            ruse = rsadd_end_word (rus,rwrd,&rlen,eattr.col,(Int16)(eattr.col+eattr.w),2,TRUE);
+            ruse = rsadd_end_word (rus,rwrd,&rlen,eattr.col,(int16_t)(eattr.col+eattr.w),2,TRUE);
         if( !rsadd_over_words(rus, ruse, eng, enge))
             {
             hide = rsadd_eng_L(eng,enge,rus);
-            ruse = rsadd_end_word (rus,rwrd,&rlen,eattr.col,(Int16)(eattr.col+eattr.w),2,TRUE);
+            ruse = rsadd_end_word (rus,rwrd,&rlen,eattr.col,(int16_t)(eattr.col+eattr.w),2,TRUE);
             }
 
         }

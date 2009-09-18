@@ -84,7 +84,7 @@ Bool16 boxes_account()
 {
  MN *mn;
  BOX *bp;
- Int16 left, right, n;
+ int16_t left, right, n;
  memset (&wcomp,0,sizeof(wcomp));
  mn = main_number_ptr; bp = mn->mnfirstbox;
  left = bp->boxleft; right = bp->boxright; boxchain = bp;
@@ -121,7 +121,7 @@ static void boxes_to_line()
  LNSTRT *lsp;
  interval * ip;
  BOXINT * bip;
- Int16 x, n;
+ int16_t x, n;
 
  bp = boxchain; lnp = (lnhead *)lpool; goto enter_loop;
 next_line:
@@ -164,7 +164,7 @@ Word8* make_raster()
  lnhead * lp;
  interval *ip;
  Word8 *p,*pp;
- Int16 x, l, sh, h, new_h;
+ int16_t x, l, sh, h, new_h;
  Word16 w;
 
  memset (work_raster,0,wcomp.rw*wcomp.h);
@@ -197,7 +197,7 @@ Word8* make_extended_raster(c_comp *cp)
  lnhead * lp;
  large_interval *ip;
  Word8 *p, *pp;
- Int16 x, l, sh;
+ int16_t x, l, sh;
  Word16 wd,w;
 
  memset (work_raster,0,cp->rw * cp->h); wd = cp->rw;
@@ -225,7 +225,7 @@ lnhead *c_boxln(MN *mn)
  return (lnhead *)lpool;
 }
 
-Int16 MN_to_line(MN * mn)
+int16_t MN_to_line(MN * mn)
 {
  main_number_ptr = mn;
  boxes_account();

@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define LIMIT_CENTER     LIMIT_HEIGHT*3
 #define LIMIT_OF_ANGLES  8
 /*----------------------------------------------------------------------*/
-typedef struct { Int16 row,  /* row in c_comp */
+typedef struct { int16_t row,  /* row in c_comp */
 		     col,  /* column * 2  */
 		     len;  /* length      */
 		} center_interval;
@@ -95,7 +95,7 @@ typedef struct						// l->xxx, r->xxx;
 /*----------------------------------------------------------------------*/
 typedef struct							// s->xxx;
 	{
-  Int16     height,   // height of c_comp
+  int16_t     height,   // height of c_comp
 		width ,		// width  of c_comp
 		base_2,		// second base line
 		base_3,		// third  base line
@@ -138,24 +138,24 @@ typedef struct							// s->xxx;
 		inc_num,	// 10.12.1993 (from inc_num_EEM)
 		up_dot_dCOL;	// Displacement of DOT (use col)
   Word8    num_lines;      /* Number of with none single interval  */
-  Int16 incline;  /* Normal tg(stick)*2048 + line_incline */
+  int16_t incline;  /* Normal tg(stick)*2048 + line_incline */
 	} STICK_SIGNUMS;	// auxiliary information for
 				// stick diskrimination
 /*----------------------------------------------------------------------*/
 typedef struct
         {
-  Int16 tg;             /* tg = tangens*2048  */
-  Int16 num;      /* 15.11.1993 MK NEW  */
-  Int16 inc[256];       /* table of inc       */
+  int16_t tg;             /* tg = tangens*2048  */
+  int16_t num;      /* 15.11.1993 MK NEW  */
+  int16_t inc[256];       /* table of inc       */
 	} INC_BASE;         /* base tables of inc */
 /*----------------------------------------------------------------------*/
 #define ADD_PROB(c) (c->nvers ? (c->vers[0].prob - 4) : 254 )
 
 struct ln_head
  {
- Int16  lth; // length of one line representation
- Int16  h;   // height of line
- Int16  row; // relative row of line start
+ int16_t  lth; // length of one line representation
+ int16_t  h;   // height of line
+ int16_t  row; // relative row of line start
  Word16 flg;  // flags of free beg and free end
 #define l_fbeg		0x20
 #define l_fend		0x80
@@ -172,7 +172,7 @@ struct int_s
 typedef struct int_s interval;
 
 #define DIS_CENTER_FLAG(U,i,width,inc,t1,t2)             \
-  { Int16 t,dist=1;                                  \
+  { int16_t t,dist=1;                                  \
 	t = U->mount[i];                                 \
 	if( U->mount[0]>width || U->mount[4]>width )     \
 		dist++;                                  \
@@ -197,7 +197,7 @@ typedef struct int_s interval;
 
 #define DIS_DIFFERENT_SERIFS(L,R,i,dist,wid,tab)      \
 	{                                             \
-	Int16 t,m;                                      \
+	int16_t t,m;                                      \
 	t =  abs(L->mount[i]-R->mount[i]) ;           \
 	m =  MIN(L->mount[i],R->mount[i]) ;           \
 	if( t>MAX(((wid)>>1),dist) || m==0 )          \
@@ -206,7 +206,7 @@ typedef struct int_s interval;
 
 #define DIS_DIFFERENT_SERIFS(L,R,i,dist,wid,tab)      \
 	{                                             \
-	Int16 t,m;                                      \
+	int16_t t,m;                                      \
 	t =  abs(L->mount[i]-R->mount[i]) ;           \
 	m =  MIN(L->mount[i],R->mount[i]) ;           \
 	if( t>MAX(((wid)>>1),dist) || m==0 )          \
@@ -247,7 +247,7 @@ typedef struct int_s interval;
 		}
 
 #define DIS_CENTER_CONC(U,i,inc,t1,t2)              \
-	{ Int16 t,m;                                  \
+	{ int16_t t,m;                                  \
 	m = ((U->up_serif==0)&&(U->down_serif==0)); \
 	t = U->conc[i];                             \
 	if( t>1 )                                   \
@@ -297,7 +297,7 @@ typedef struct int_s interval;
 
 #define DIS_CURVE(L,R,i,lev,tab)         	   \
 	{                                          \
-	Int16 ll,rr;                                 \
+	int16_t ll,rr;                                 \
 	ll=L->mount[i]; rr=R->conc[i];             \
 	if( ll>lev && rr>lev && (ll>0||rr>0) )     \
 		dis += (ll+rr)*(tab);              \

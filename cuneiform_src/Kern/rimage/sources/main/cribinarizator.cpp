@@ -314,7 +314,7 @@ Bool32 CRIBinarizator::OnBinarizeLoop()
 			{
 				do
 				{
-					if(!KronrodImageRead(mpszGreyBuffer,(Int16)CurGreyLine++,(Int16)1))
+					if(!KronrodImageRead(mpszGreyBuffer,(int16_t)CurGreyLine++,(int16_t)1))
 						return 0;
 
 					if ( mpProgressor->SetStep( ((CurGreyLine / nLines ) * 50) ) )
@@ -370,13 +370,13 @@ Bool32 CRIBinarizator::KronrodOpenBin(uint32_t wHeight, uint32_t wWeidth)
 }
 
 
-Int16 CRIBinarizator::KronrodImageRead(PWord8 lpImage, Int16 fstLine, Int16 nLines)
+int16_t CRIBinarizator::KronrodImageRead(PWord8 lpImage, int16_t fstLine, int16_t nLines)
 {
 	/*
 	if ( !mpKronrodBinarizator )
 		return FALSE;
 	*/
-	return (Int16)KronrodImageRead(lpImage, (int32_t)fstLine, (int32_t)nLines );
+	return (int16_t)KronrodImageRead(lpImage, (int32_t)fstLine, (int32_t)nLines );
 }
 
 int32_t CRIBinarizator::KronrodImageRead(PWord8 lpImage, int32_t fstLine, int32_t nLines)

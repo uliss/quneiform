@@ -127,7 +127,7 @@ public:
   CSL_POLY(){count=4;}
  ~CSL_POLY(){}
 
- Int16   count;
+ int16_t   count;
  Point32 Vertex[MaxNumber];
 };
 */

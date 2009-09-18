@@ -300,14 +300,14 @@ static TImageAccess swpimg;
 
 extern "C" {
    LNS_FUNC(Bool16)  LnsImageOpen(Tiger_ImageInfo* lpImageInfo);
-   LNS_FUNC(Int16)   LnsImageRead(Word8* lpImage, Word16 wMaxSize);
+   LNS_FUNC(int16_t)   LnsImageRead(Word8* lpImage, Word16 wMaxSize);
    LNS_FUNC(Bool16)  LnsImageClose(void);
 }
 
 LNS_FUNC(Bool16)  LnsImageOpen(Tiger_ImageInfo* lpImageInfo)
 {  return Sweeper_ImageOpen(lpImageInfo); }
 
-LNS_FUNC(Int16)   LnsImageRead(Word8* lpImage, Word16 wMaxSize)
+LNS_FUNC(int16_t)   LnsImageRead(Word8* lpImage, Word16 wMaxSize)
 {  return Sweeper_ImageRead(lpImage, wMaxSize); }
 
 LNS_FUNC(Bool16)  LnsImageClose(void)

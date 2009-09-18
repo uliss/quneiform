@@ -1501,7 +1501,7 @@ BOOL snap_baselines(BYTE a)
 	return !LDPUMA_Skip(hSnapLineBL[a - 'a']);
 }
 
-void snap_draw_line(Handle wnd, Point16 *start, Point16 *end, int32_t skew, uint32_t rgb, Int16 pen, uint32_t key)//IGOR
+void snap_draw_line(Handle wnd, Point16 *start, Point16 *end, int32_t skew, uint32_t rgb, int16_t pen, uint32_t key)//IGOR
 {
 	LDPUMA_DrawLine(wnd,start, end, skew, rgb, pen, key);
 	return;

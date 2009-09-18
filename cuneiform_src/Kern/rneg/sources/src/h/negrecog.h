@@ -152,7 +152,7 @@ int NegGetCountOfStr(Rect16*,int);
 void NegPrintInFile(FILE*,NegList*,int);
 int NegCountNumbers(int);
 void NegSetAlf(char*);
-void DeleteRotateMas(Word8**,Int16**,Int16**,Word8**,int**);
+void DeleteRotateMas(Word8**,int16_t**,int16_t**,Word8**,int**);
 void NegMoveMas(Handle* hCCOM,int n,int num);
 BOOL UnifCont(CCOM_handle to,CCOM_handle from);
 void TurnRaster(RecRaster*);

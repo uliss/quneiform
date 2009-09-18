@@ -91,8 +91,8 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM,Handle hCPage,Rec
 // LDPUMA_ConsoleN("Активизируется CHSTR");
  int TIME=clock();
  int code_strd=1;
- Int16* begx=NULL;
- Int16* movey=NULL;
+ int16_t* begx=NULL;
+ int16_t* movey=NULL;
  int* hi=NULL;
  Word8* flmovey=NULL;
 

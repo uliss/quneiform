@@ -1230,9 +1230,9 @@ Bool32 CalcIncline(PRSPreProcessImage Image)
 	}
 
 	RcReg.left=0;
-	RcReg.right=(Int16)info.Width;
+	RcReg.right=(int16_t)info.Width;
 	RcReg.top=0;
-    RcReg.bottom=(Int16)info.Height;
+    RcReg.bottom=(int16_t)info.Height;
 	SkewReg=0;
 	Bool ContWarn = 0;
 	SkewLocVerLin = 0;

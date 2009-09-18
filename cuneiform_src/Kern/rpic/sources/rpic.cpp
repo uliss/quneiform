@@ -793,10 +793,10 @@ lNextComp:
 	 {
 	  nPics++;
 	  CPAGE_GetBlockData(hCPAGE,h,TYPE_IMAGE, &block, sizeof(block));
-       rect.left =(Int16)(block.com.Vertex[0].x);
-	   rect.top =(Int16)(block.com.Vertex[0].y);
-	   rect.right =(Int16)(block.com.Vertex[1].x);
-	   rect.bottom =(Int16)(block.com.Vertex[2].y);
+       rect.left =(int16_t)(block.com.Vertex[0].x);
+	   rect.top =(int16_t)(block.com.Vertex[0].y);
+	   rect.right =(int16_t)(block.com.Vertex[1].x);
+	   rect.bottom =(int16_t)(block.com.Vertex[2].y);
 	  LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 2, key);
 	 }
 	 if(nPics)
@@ -817,10 +817,10 @@ lNextComp:
 	 {
 	  nPics++;
 	  CPAGE_GetBlockData(hCPAGE,h,POSSIBLE_PICTURES, &block, sizeof(block));
-       rect.left =(Int16)(block.com.Vertex[0].x);
-	   rect.top =(Int16)(block.com.Vertex[0].y);
-	   rect.right =(Int16)(block.com.Vertex[1].x);
-	   rect.bottom =(Int16)(block.com.Vertex[2].y);
+       rect.left =(int16_t)(block.com.Vertex[0].x);
+	   rect.top =(int16_t)(block.com.Vertex[0].y);
+	   rect.right =(int16_t)(block.com.Vertex[1].x);
+	   rect.bottom =(int16_t)(block.com.Vertex[2].y);
 	  LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 2, key);
 	 }
 	 if(nPics)

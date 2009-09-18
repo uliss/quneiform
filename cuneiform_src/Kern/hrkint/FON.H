@@ -101,7 +101,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	//     атрибутами с непустыми оценками
 	//    в testInfo - результаты
 	//      атрибуты кластера Italic,Bold,Serif
-	FON_FUNC(int32_t) FONTestChar(RecRaster *recRast,Word8 let,FonTestInfo *testInfo,Int16 nInCTB);
+	FON_FUNC(int32_t) FONTestChar(RecRaster *recRast,Word8 let,FonTestInfo *testInfo,int16_t nInCTB);
 	FON_FUNC(int32_t) FONTestCharTiger(RecRaster *recRast,Word8 let,FonTestInfo *testInfo);
     // оценка по кластеру  numWelet
 	// movx,movy - смещение
@@ -167,7 +167,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	// поставить кластеру (num>=1) плохую метку
 	FON_FUNC(int32_t) FONSetClusterInvalid(int32_t num);
 
-    FON_FUNC(Int16) FONGetErr(void);
+    FON_FUNC(int16_t) FONGetErr(void);
       // Err16.h defined codes or one of the next
       //
 
@@ -178,7 +178,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	// <0 - ошибка (нет памяти)
 	//  0 - растр не взят по какой-то причине (плохой...)
 	FON_FUNC(int32_t) FONStoreRaster(RecRaster *r,Word8 let, Word8 IsPrint,
-		Word8 Prob, Word8 Valid, Int16 line_number, Word8 kegl,Rect16 *rect,Word8 column);
+		Word8 Prob, Word8 Valid, int16_t line_number, Word8 kegl,Rect16 *rect,Word8 column);
 
     //
 	// return < 0 - error
@@ -217,8 +217,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	//  standard usage (Puma) FONFontClusters(CTBname,cluname,NULL,NULL,0,0x2000,NULL);
     FON_FUNC(int32_t) FONFontClusters(char *CTBname,char *cluname,void *accept,Word8 *extern_buf,int32_t size,
 					 			    uint32_t param,void *ShowProgress,Word8 language);
-	FON_FUNC(int32_t) FONCutOffClusters(welet *ww,Int16 numWelet);
-    FON_FUNC(Bool32) FONCheckItself(Word8 let,int32_t num,Int16 col,Int16 row);
+	FON_FUNC(int32_t) FONCutOffClusters(welet *ww,int16_t numWelet);
+    FON_FUNC(Bool32) FONCheckItself(Word8 let,int32_t num,int16_t col,int16_t row);
 ////////////////////
 	// функции для разрезания
 	FON_FUNC(int32_t) FONRecogCharBound(RecRaster *recRast,RecVersions *collection,

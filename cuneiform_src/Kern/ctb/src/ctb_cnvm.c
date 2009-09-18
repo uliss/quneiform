@@ -60,32 +60,32 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "ctb.h"
 
-static void conv_bits_to_bytes8(Word8 *bits,   Word8 *bytes, Int16 l);
-static void conv_bytes_to_bits8(Word8 *bytes,  Word8 *bits, Int16 l);
-static void conv_bits_to_bytes4(Word8 *bits,   Word8 *bytes, Int16 l);
-static void conv_bytes_to_bits4(Word8 *bytes,  Word8 *bits, Int16 l);
-static void conv_bits_to_bytes2(Word8 *bits,   Word8 *bytes, Int16 l);
-static void conv_bits_to_bytes1(Word8 *bits,   Word8 *bytes, Int16 l);
-static void conv_bytes_to_bits2(Word8 *bytes,  Word8 *bits, Int16 l);
-static void conv_bytes_to_bits1(Word8 *bytes,  Word8 *bits, Int16 l);
-static void conv_bits_to_bytes4plane(Word8 *bits,  Word8 *bytes, Int16 l);
-static void conv_bytes_to_bits4plane(Word8 *bytes, Word8 *bits, Int16 l);
-static void conv_bits_to_bytes2plane(Word8 *bits,  Word8 *bytes, Int16 l);
-static void conv_bits_to_bytes1plane(Word8 *bits,  Word8 *bytes, Int16 l);
-static void conv_bytes_to_bits2plane(Word8 *bytes, Word8 *bits, Int16 l);
-static void conv_bytes_to_bits1plane(Word8 *bytes, Word8 *bits, Int16 l);
+static void conv_bits_to_bytes8(Word8 *bits,   Word8 *bytes, int16_t l);
+static void conv_bytes_to_bits8(Word8 *bytes,  Word8 *bits, int16_t l);
+static void conv_bits_to_bytes4(Word8 *bits,   Word8 *bytes, int16_t l);
+static void conv_bytes_to_bits4(Word8 *bytes,  Word8 *bits, int16_t l);
+static void conv_bits_to_bytes2(Word8 *bits,   Word8 *bytes, int16_t l);
+static void conv_bits_to_bytes1(Word8 *bits,   Word8 *bytes, int16_t l);
+static void conv_bytes_to_bits2(Word8 *bytes,  Word8 *bits, int16_t l);
+static void conv_bytes_to_bits1(Word8 *bytes,  Word8 *bits, int16_t l);
+static void conv_bits_to_bytes4plane(Word8 *bits,  Word8 *bytes, int16_t l);
+static void conv_bytes_to_bits4plane(Word8 *bytes, Word8 *bits, int16_t l);
+static void conv_bits_to_bytes2plane(Word8 *bits,  Word8 *bytes, int16_t l);
+static void conv_bits_to_bytes1plane(Word8 *bits,  Word8 *bytes, int16_t l);
+static void conv_bytes_to_bits2plane(Word8 *bytes, Word8 *bits, int16_t l);
+static void conv_bytes_to_bits1plane(Word8 *bytes, Word8 *bits, int16_t l);
 
 static void conv_bits2_to_bits2plane_one(Word8 *bout,Word8 *text,
-                       Word8 msk1,Word8 msk2,Word8 msk3,Word8 msk4,Int16 len);
+                       Word8 msk1,Word8 msk2,Word8 msk3,Word8 msk4,int16_t len);
 static void conv_bits4_to_bits4plane_one(Word8 *bout,Word8 *text,
-                                   Word8 mask1,Word8 mask2, Int16 len);
-static Bool32 conv_bits_to_bytes( Int16 colors,Word8 *bin,Word8 *text, Int16 len);
-static Bool32 conv_bytes_to_bits( Int16 colors, Word8 *text,Word8 *bin, Int16 len);
-static void   conv_bits4_to_bits4plane(Word8 *text,Word8 *bin,Int16 len,Int16 halftone8);
-static void   conv_bits2_to_bits2plane(Word8 *text,Word8 *bin,Int16 len);
+                                   Word8 mask1,Word8 mask2, int16_t len);
+static Bool32 conv_bits_to_bytes( int16_t colors,Word8 *bin,Word8 *text, int16_t len);
+static Bool32 conv_bytes_to_bits( int16_t colors, Word8 *text,Word8 *bin, int16_t len);
+static void   conv_bits4_to_bits4plane(Word8 *text,Word8 *bin,int16_t len,int16_t halftone8);
+static void   conv_bits2_to_bits2plane(Word8 *text,Word8 *bin,int16_t len);
 
 // can be EXPORT
-Bool32  conv_bits_to_bytes( Int16 colors,Word8 *bin,Word8 *text, Int16 len)
+Bool32  conv_bits_to_bytes( int16_t colors,Word8 *bin,Word8 *text, int16_t len)
 {
 switch( colors )
 	{
@@ -101,7 +101,7 @@ switch( colors )
 return 0;
 }
 // can be EXPORT
-Bool32  conv_bytes_to_bits( Int16 colors, Word8 *text,Word8 *bin, Int16 len)
+Bool32  conv_bytes_to_bits( int16_t colors, Word8 *text,Word8 *bin, int16_t len)
 {
 switch( colors )
 	{
@@ -118,21 +118,21 @@ return 0;
 }
 
 // 256 colors //
-void conv_bits_to_bytes1(Word8 *bin,Word8 *text, Int16 len)
+void conv_bits_to_bytes1(Word8 *bin,Word8 *text, int16_t len)
 {
 memcpy( text,bin, (Word16)len);
 return;
 }
-void conv_bytes_to_bits1(Word8 *text,Word8 *bin, Int16 len)
+void conv_bytes_to_bits1(Word8 *text,Word8 *bin, int16_t len)
 {
 memcpy( text,bin, (Word16)len);
 return;
 }
 
 // 16 colors - EGA //
-void conv_bits_to_bytes2(Word8 *bin,Word8 *text, Int16 len)
+void conv_bits_to_bytes2(Word8 *bin,Word8 *text, int16_t len)
 {
-Int16 i;
+int16_t i;
 Word8 c,*p;
 memset( text,0x0, (Word16)len<<1);
 for(p=text,i=0;i<len;i++)
@@ -145,10 +145,10 @@ for(p=text,i=0;i<len;i++)
 return;
 }
 
-void conv_bytes_to_bits2(Word8 *text,Word8 *bin, Int16 len)
+void conv_bytes_to_bits2(Word8 *text,Word8 *bin, int16_t len)
 {
 Word8 *p=bin,c;
-Int16 i;
+int16_t i;
 
 for(i=0;i<len;i++,text+=2)
 	{
@@ -169,9 +169,9 @@ return;
 #define SHIFT_SAVE1_6(mask )	if( c&mask )	*p |= 0x20;  p++;
 #define SHIFT_SAVE1_7(mask )	if( c&mask )	*p |= 0x40;  p++;
 #define SHIFT_SAVE1_8(mask )	if( c&mask )	*p |= 0x80;  p++;
-void conv_bits_to_bytes1plane(Word8 *bin,Word8 *text,Int16 len)
+void conv_bits_to_bytes1plane(Word8 *bin,Word8 *text,int16_t len)
 {
-Int16 i,len8=len/8,len0;
+int16_t i,len8=len/8,len0;
 Word8 c,*p;
 
 memset( text,0x0, (Word16)len);
@@ -293,9 +293,9 @@ return;
         if( text[ind]&0x40 ) c7 |= 1;    \
         if( text[ind]&0x80 ) c8 |= 1;
 
-void conv_bytes_to_bits1plane(Word8 *text,Word8 *bin,Int16 len)
+void conv_bytes_to_bits1plane(Word8 *text,Word8 *bin,int16_t len)
 {
-Int16   len8 = len/8;
+int16_t   len8 = len/8;
 Word8 *p1=bin+0*len8, *p2=bin+1*len8, *p3=bin+2*len8,  *p4=bin+3*len8;
 Word8 *p5=bin+4*len8, *p6=bin+5*len8, *p7=bin+6*len8,  *p8=bin+7*len8;
 Word8  c1, c2, c3, c4, c5, c6, c7, c8;
@@ -339,9 +339,9 @@ return;
 #define SHIFT_SAVE2_2(mask )	if( c&mask )	*p |= 0x2;  p++;
 #define SHIFT_SAVE2_3(mask )	if( c&mask )	*p |= 0x4;  p++;
 #define SHIFT_SAVE2_4(mask )	if( c&mask )	*p |= 0x8;  p++;
-void conv_bits_to_bytes2plane(Word8 *bin,Word8 *text,Int16 len)
+void conv_bits_to_bytes2plane(Word8 *bin,Word8 *text,int16_t len)
 {
-Int16 i,len4=len>>2,len2=len>>1,len3=len2+len4;
+int16_t i,len4=len>>2,len2=len>>1,len3=len2+len4;
 Word8 c,*p;
 
 memset( text,0x0, (Word16)len<<1);
@@ -402,7 +402,7 @@ return;
 												if( text[ind]&0x2 ) c2 |= 1;    \
 												if( text[ind]&0x4 ) c3 |= 1;    \
 												if( text[ind]&0x8 ) c4 |= 1;
-void conv_bytes_to_bits2plane(Word8 *text,Word8 *bin,Int16 len)
+void conv_bytes_to_bits2plane(Word8 *text,Word8 *bin,int16_t len)
 {
 Word8 *p1=bin, *p2=bin+(len>>2), *p3=bin+(len>>1),  *p4=bin+len-(len>>2);
 Word8  c1, c2, c3, c4, i;
@@ -431,7 +431,7 @@ return;
 }
 
 // 4 colors - CGA //
-void conv_bits_to_bytes4(Word8 *bin,Word8 *text,Int16 len)
+void conv_bits_to_bytes4(Word8 *bin,Word8 *text,int16_t len)
 {
 Word16 i;
 Word8 c,*p;
@@ -448,10 +448,10 @@ for(p=text,i=0;i<len;i++)
 return;
 }
 
-void conv_bytes_to_bits4(Word8 *text,Word8 *bin,Int16 len)
+void conv_bytes_to_bits4(Word8 *text,Word8 *bin,int16_t len)
 {
 Word8 *p=bin,c;
-Int16 i;
+int16_t i;
 
 for(i=0;i<len;i++,text+=4)
 	{
@@ -468,9 +468,9 @@ return;
 // -4 colors - planar CGA //
 #define SHIFT_SAVE4_1(mask )	if( c&mask )	*p=0x1;  p++;
 #define SHIFT_SAVE4_2(mask )	if( c&mask )	*p|=0x2; p++;
-void conv_bits_to_bytes4plane(Word8 *bin,Word8 *text,Int16 len)
+void conv_bits_to_bytes4plane(Word8 *bin,Word8 *text,int16_t len)
 {
-Int16 i,len2=len>>1;
+int16_t i,len2=len>>1;
 Word8 c,*p;
 
 memset( text,0x0, (Word16)len<<2);
@@ -505,7 +505,7 @@ return;
 #define SAVE_TEXT4(ind) c1<<=1; c2<<=1;              \
 												if( text[ind]&0x1 ) c1 |= 1; \
 												if( text[ind]&0x2 ) c2 |= 1;
-void conv_bytes_to_bits4plane(Word8 *text,Word8 *bin, Int16 len)
+void conv_bytes_to_bits4plane(Word8 *text,Word8 *bin, int16_t len)
 {
 Word8 *p1=bin, *p2=bin+(len>>1);
 Word8  c1, c2, i;
@@ -531,9 +531,9 @@ return;
 
 // 2 colors - Monochrom //
 #define SHIFT_SAVE8(mask )	if( c&mask )	*p=0x1; p++;
-void conv_bits_to_bytes8(Word8 *bin,Word8 *text, Int16 len)
+void conv_bits_to_bytes8(Word8 *bin,Word8 *text, int16_t len)
 {
-Int16 i;
+int16_t i;
 Word8 c,*p;
 memset( text,0x0, len*8);
 for(p=text,i=0;i<len;i++)
@@ -553,10 +553,10 @@ return;
 }
 
 #define SAVE_TEXT8(ind) c<<=1; if( text[ind]==0x1 )		c |= 1;
-void conv_bytes_to_bits8(Word8 *text,Word8 *bin, Int16 len)
+void conv_bytes_to_bits8(Word8 *text,Word8 *bin, int16_t len)
 {
 Word8 *p=bin,c;
-Int16 i;
+int16_t i;
 
 for(i=0;i<len;i++,text+=8)
 	{
@@ -574,7 +574,7 @@ for(i=0;i<len;i++,text+=8)
 return;
 }
 // can be EXPORT
-void conv_bits4_to_bits4plane(Word8 *txt,Word8 *bin,Int16 len, Int16 halftone8)
+void conv_bits4_to_bits4plane(Word8 *txt,Word8 *bin,int16_t len, int16_t halftone8)
 {
 
 {
@@ -593,7 +593,7 @@ return;
 
 
 // can be EXPORT
-void conv_bits2_to_bits2plane(Word8 *text,Word8 *bin,Int16 len)
+void conv_bits2_to_bits2plane(Word8 *text,Word8 *bin,int16_t len)
 {
 Word8 *p1=bin, *p2=bin+(len>>1);
 
@@ -605,9 +605,9 @@ return;
 }
 
 void conv_bits4_to_bits4plane_one(Word8 *bout,Word8 *text,
-                                   Word8 mask1,Word8 mask2, Int16 len)
+                                   Word8 mask1,Word8 mask2, int16_t len)
 {
-Int16  i;
+int16_t  i;
 Word8 c;
 for(i=0;i<len;i++,text+=4)
 	{
@@ -633,9 +633,9 @@ return ;
 
 void conv_bits2_to_bits2plane_one(Word8 *bout,Word8 *text,
                                    Word8 msk1,Word8 msk2,Word8 msk3,Word8 msk4,
-                                   Int16 len)
+                                   int16_t len)
 {
-Int16  i;
+int16_t  i;
 Word8 c;
 for(i=0;i<len;i++,text+=2)
 	{

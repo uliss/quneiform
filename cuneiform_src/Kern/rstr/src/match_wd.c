@@ -1243,8 +1243,8 @@ static void mw_show_rast()
     for (i=1; i<ncut-1; i++)
     {
       Point16 vh,vl;
-      vh.y=(Int16)str_raster.top;  vl.y=(Int16)(str_raster.top+str_raster.h);
-      vh.x=vl.x=(Int16)(str_raster.left+cut_list[i].x);
+      vh.y=(int16_t)str_raster.top;  vl.y=(int16_t)(str_raster.top+str_raster.h);
+      vh.x=vl.x=(int16_t)(str_raster.left+cut_list[i].x);
       LDPUMA_DrawLine(NULL,&vh,&vl,0,wRGB(255,0,0),1,key);
     }
     glsnap('a',c,"raster too big to show");

@@ -114,7 +114,7 @@ BYTE *AddBuffer(LONG sizebitmap);
 /////////////////////
 // fill static Nraster_header rh !!!
 FON_FUNC(int32_t) FONStoreRaster(RecRaster *r,Word8 let, Word8 IsPrint,
-		Word8 Prob, Word8 Valid, Int16 line_number,Word8 kegl,
+		Word8 Prob, Word8 Valid, int16_t line_number,Word8 kegl,
 		Rect16 *rect,Word8 column)
 {
  Nraster_header *rhh;
@@ -177,7 +177,7 @@ FON_FUNC(int32_t) FONStoreRaster(RecRaster *r,Word8 let, Word8 IsPrint,
 }
 /////////////////////
 int32_t StartAddMemCluster(Word8 *metkaValid,int32_t CurClus,
-						 Int16 countFont,uint32_t *allFields)
+						 int16_t countFont,uint32_t *allFields)
 {
  int i,CurCount;
  FONBASE *fBase;

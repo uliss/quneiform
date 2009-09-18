@@ -648,8 +648,8 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
 //Внимание!!! Здесь не должно останавливаться
     if((*Rc).top<5) top=TRUE;
     if((*Rc).left<5) left=TRUE;
-    if((*Rc).right>(Int16)(Width)-5) right=TRUE;
-    if((*Rc).bottom>(Int16)(Height)-5) bottom=TRUE;
+    if((*Rc).right>(int16_t)(Width)-5) right=TRUE;
+    if((*Rc).bottom>(int16_t)(Height)-5) bottom=TRUE;
     k=10;
     for(i=0;i<k;i++)
     {
@@ -991,7 +991,7 @@ void NegMoveMasR(Rect16* pRc,int& nRc,int num)
 }
 
 
-BOOL IsNegSize(Int16 h,Int16 w)
+BOOL IsNegSize(int16_t h,int16_t w)
 {
  if( (h<inf_neg_h) || (w<inf_neg_h) ) return FALSE;
  if( (h<inf_neg_w) && (w<inf_neg_w) ) return FALSE;

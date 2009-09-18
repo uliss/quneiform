@@ -187,14 +187,14 @@ Bool32 SearchAndKill ( PRSPreProcessImage Image, LinesTotalInfo *LTInfo )
 					HalfThickness = cpdata->Line.Wid10/20;
 					HalfThicknessB = (cpdata->Line.Wid10/10 + 1) / 2;
 
-					LinePoints[0].x = (Int16)(cpdata->Line.Beg_X);
-					LinePoints[0].y = (Int16)(cpdata->Line.Beg_Y) - (Int16)HalfThickness;
-					LinePoints[1].x = (Int16)(cpdata->Line.End_X);
-					LinePoints[1].y = (Int16)(cpdata->Line.End_Y) - (Int16)HalfThickness;
-					LinePoints[2].x = (Int16)(cpdata->Line.End_X);
-					LinePoints[2].y = (Int16)(cpdata->Line.End_Y) + (Int16)HalfThicknessB;
-					LinePoints[3].x = (Int16)(cpdata->Line.Beg_X);
-					LinePoints[3].y = (Int16)(cpdata->Line.Beg_Y) + (Int16)HalfThicknessB;
+					LinePoints[0].x = (int16_t)(cpdata->Line.Beg_X);
+					LinePoints[0].y = (int16_t)(cpdata->Line.Beg_Y) - (int16_t)HalfThickness;
+					LinePoints[1].x = (int16_t)(cpdata->Line.End_X);
+					LinePoints[1].y = (int16_t)(cpdata->Line.End_Y) - (int16_t)HalfThickness;
+					LinePoints[2].x = (int16_t)(cpdata->Line.End_X);
+					LinePoints[2].y = (int16_t)(cpdata->Line.End_Y) + (int16_t)HalfThicknessB;
+					LinePoints[3].x = (int16_t)(cpdata->Line.Beg_X);
+					LinePoints[3].y = (int16_t)(cpdata->Line.Beg_Y) + (int16_t)HalfThicknessB;
 
 					j = sprintf( str, "LineKiller: - Линия:< %4.4i, %4.4i > < %4.4i, %4.4i > x %3.3i",
 								 cpdata->Line.Beg_X,
@@ -213,22 +213,22 @@ Bool32 SearchAndKill ( PRSPreProcessImage Image, LinesTotalInfo *LTInfo )
 
 					if ( gKillZone > 0 )
 					{
-						KillPoints[0].x = LinePoints[0].x - (Int16)gKillZone;
-						KillPoints[0].y = LinePoints[0].y - (Int16)gKillZone;
-						KillPoints[1].x = LinePoints[1].x + (Int16)gKillZone;
-						KillPoints[1].y = LinePoints[1].y - (Int16)gKillZone;
-						KillPoints[2].x = LinePoints[2].x + (Int16)gKillZone;
-						KillPoints[2].y = LinePoints[2].y + (Int16)gKillZone;
-						KillPoints[3].x = LinePoints[3].x - (Int16)gKillZone;
-						KillPoints[3].y = LinePoints[3].y + (Int16)gKillZone;
+						KillPoints[0].x = LinePoints[0].x - (int16_t)gKillZone;
+						KillPoints[0].y = LinePoints[0].y - (int16_t)gKillZone;
+						KillPoints[1].x = LinePoints[1].x + (int16_t)gKillZone;
+						KillPoints[1].y = LinePoints[1].y - (int16_t)gKillZone;
+						KillPoints[2].x = LinePoints[2].x + (int16_t)gKillZone;
+						KillPoints[2].y = LinePoints[2].y + (int16_t)gKillZone;
+						KillPoints[3].x = LinePoints[3].x - (int16_t)gKillZone;
+						KillPoints[3].y = LinePoints[3].y + (int16_t)gKillZone;
 
 						DebugDPumaDrawRect(hLineKillerWindow, KillPoints, 0x0fef00, -25, 315 );
 					}
 				}
-				linfo.A.x=(Int16)(cpdata->Line.Beg_X);
-				linfo.A.y=(Int16)(cpdata->Line.Beg_Y);
-				linfo.B.x=(Int16)(cpdata->Line.End_X);
-				linfo.B.y=(Int16)(cpdata->Line.End_Y);
+				linfo.A.x=(int16_t)(cpdata->Line.Beg_X);
+				linfo.A.y=(int16_t)(cpdata->Line.Beg_Y);
+				linfo.B.x=(int16_t)(cpdata->Line.End_X);
+				linfo.B.y=(int16_t)(cpdata->Line.End_Y);
 				linfo.Thickness=cpdata->Line.Wid10/10;
 				ComponentFilter(Image, &linfo);
 			}
@@ -267,14 +267,14 @@ Bool32 SearchAndKill ( PRSPreProcessImage Image, LinesTotalInfo *LTInfo )
 					HalfThickness = cpdata->Line.Wid10 / 20;
 					HalfThicknessB = (cpdata->Line.Wid10/10 + 1) / 2;
 
-					LinePoints[0].x = (Int16)(cpdata->Line.Beg_X) + (Int16)HalfThicknessB;
-					LinePoints[0].y = (Int16)(cpdata->Line.Beg_Y);
-					LinePoints[1].x = (Int16)(cpdata->Line.End_X) + (Int16)HalfThicknessB;
-					LinePoints[1].y = (Int16)(cpdata->Line.End_Y);
-					LinePoints[2].x = (Int16)(cpdata->Line.End_X) - (Int16)HalfThickness;
-					LinePoints[2].y = (Int16)(cpdata->Line.End_Y);
-					LinePoints[3].x = (Int16)(cpdata->Line.Beg_X) - (Int16)HalfThickness;
-					LinePoints[3].y = (Int16)(cpdata->Line.Beg_Y);
+					LinePoints[0].x = (int16_t)(cpdata->Line.Beg_X) + (int16_t)HalfThicknessB;
+					LinePoints[0].y = (int16_t)(cpdata->Line.Beg_Y);
+					LinePoints[1].x = (int16_t)(cpdata->Line.End_X) + (int16_t)HalfThicknessB;
+					LinePoints[1].y = (int16_t)(cpdata->Line.End_Y);
+					LinePoints[2].x = (int16_t)(cpdata->Line.End_X) - (int16_t)HalfThickness;
+					LinePoints[2].y = (int16_t)(cpdata->Line.End_Y);
+					LinePoints[3].x = (int16_t)(cpdata->Line.Beg_X) - (int16_t)HalfThickness;
+					LinePoints[3].y = (int16_t)(cpdata->Line.Beg_Y);
 
 					j = sprintf( str, "LineKiller: | Линия: < %4.4i, %4.4i > < %4.4i, %4.4i > x %3.3i",
 								 cpdata->Line.Beg_X,
@@ -294,23 +294,23 @@ Bool32 SearchAndKill ( PRSPreProcessImage Image, LinesTotalInfo *LTInfo )
 
 					if ( gKillZone > 0 )
 					{
-						KillPoints[0].x = LinePoints[0].x + (Int16)gKillZone;
-						KillPoints[0].y = LinePoints[0].y - (Int16)gKillZone;
-						KillPoints[1].x = LinePoints[1].x + (Int16)gKillZone;
-						KillPoints[1].y = LinePoints[1].y + (Int16)gKillZone;
-						KillPoints[2].x = LinePoints[2].x - (Int16)gKillZone;
-						KillPoints[2].y = LinePoints[2].y + (Int16)gKillZone;
-						KillPoints[3].x = LinePoints[3].x - (Int16)gKillZone;
-						KillPoints[3].y = LinePoints[3].y - (Int16)gKillZone;
+						KillPoints[0].x = LinePoints[0].x + (int16_t)gKillZone;
+						KillPoints[0].y = LinePoints[0].y - (int16_t)gKillZone;
+						KillPoints[1].x = LinePoints[1].x + (int16_t)gKillZone;
+						KillPoints[1].y = LinePoints[1].y + (int16_t)gKillZone;
+						KillPoints[2].x = LinePoints[2].x - (int16_t)gKillZone;
+						KillPoints[2].y = LinePoints[2].y + (int16_t)gKillZone;
+						KillPoints[3].x = LinePoints[3].x - (int16_t)gKillZone;
+						KillPoints[3].y = LinePoints[3].y - (int16_t)gKillZone;
 
 						DebugDPumaDrawRect(hLineKillerWindow, KillPoints, 0x00ef00, 1, 315 );
 					}
 				}
 
-				linfo.A.x=(Int16)(cpdata->Line.Beg_X);
-				linfo.A.y=(Int16)(cpdata->Line.Beg_Y);
-				linfo.B.x=(Int16)(cpdata->Line.End_X);
-				linfo.B.y=(Int16)(cpdata->Line.End_Y);
+				linfo.A.x=(int16_t)(cpdata->Line.Beg_X);
+				linfo.A.y=(int16_t)(cpdata->Line.Beg_Y);
+				linfo.B.x=(int16_t)(cpdata->Line.End_X);
+				linfo.B.y=(int16_t)(cpdata->Line.End_Y);
 				linfo.Thickness=cpdata->Line.Wid10/10;
 				ComponentFilter(Image, &linfo);
 			}
@@ -356,7 +356,7 @@ Bool32 ComponentFilter( PRSPreProcessImage Image, LineInfo *Line)
 	int32_t Filter = 0;
 	int32_t j = 0;
 	char str[255];
-	Int16 Thick = ( Line->Thickness / 2 ) + (Int16)gKillZone;
+	int16_t Thick = ( Line->Thickness / 2 ) + (int16_t)gKillZone;
 	Bool32 bDieComponent = FALSE;
 
 
@@ -778,10 +778,10 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, uint32_t KillZone, uint32_t Rat
 //
 void DebugDPumaDrawRect(Handle hWindow, Point16 * Points, uint32_t Color, int32_t Thickness, uint32_t Group)
 {
-	LDPUMA_DrawLine(hWindow, &Points[0], &Points[1], 0, Color, (Int16)Thickness, Group );
-	LDPUMA_DrawLine(hWindow, &Points[1], &Points[2], 0, Color, (Int16)Thickness, Group );
-	LDPUMA_DrawLine(hWindow, &Points[2], &Points[3], 0, Color, (Int16)Thickness, Group );
-	LDPUMA_DrawLine(hWindow, &Points[3], &Points[0], 0, Color, (Int16)Thickness, Group );
+	LDPUMA_DrawLine(hWindow, &Points[0], &Points[1], 0, Color, (int16_t)Thickness, Group );
+	LDPUMA_DrawLine(hWindow, &Points[1], &Points[2], 0, Color, (int16_t)Thickness, Group );
+	LDPUMA_DrawLine(hWindow, &Points[2], &Points[3], 0, Color, (int16_t)Thickness, Group );
+	LDPUMA_DrawLine(hWindow, &Points[3], &Points[0], 0, Color, (int16_t)Thickness, Group );
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -801,7 +801,7 @@ void DebugDPumaShowComponents(PRSPreProcessImage Image, Handle hWindow, uint32_t
 		Rc.top    = pcomp->upper;
 		Rc.bottom = pcomp->upper + pcomp->h /*- 1*/;
 
-		LDPUMA_DrawRect(hWindow, &Rc, 0, Color, (Int16)Thickness, Group);
+		LDPUMA_DrawRect(hWindow, &Rc, 0, Color, (int16_t)Thickness, Group);
 
 		pcomp = CCOM_GetNext (pcomp, NULL);
 

@@ -77,7 +77,7 @@ typedef union
 
 typedef struct SL_POLOY_struct
 {
- Int16   count;
+ int16_t   count;
  Point16 Vertex[CLINE_MaxVerticsNumber];
 } CLINE_SL_POLY;
 

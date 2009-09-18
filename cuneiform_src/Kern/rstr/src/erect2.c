@@ -78,9 +78,9 @@ extern	Bool16	snap_activity(Word8 a);
 extern	Word8	db_status;
 extern	Bool16	snap_show_text(Word8 *txt);
 // ERECTION.C
-extern  Int16   erect_get_global(void);
-extern  Int16   erect_get_represent(void);
-extern  Int16   erect_get_words(void);
+extern  int16_t   erect_get_global(void);
+extern  int16_t   erect_get_represent(void);
+extern  int16_t   erect_get_words(void);
 // RCM.C
 extern Word8 decode_ASCII_to_[256][4];
 extern Word8 line_tabcell;
@@ -114,11 +114,11 @@ do{
 return (attr.flg&CSTR_f_fict)?(CSTR_rast)0:c;
 }
 
-static CSTR_rast erect_end_word(CSTR_rast cs,Word8 *str,Word8 *word_len,Int16 right_limit, Bool32 need_space)
+static CSTR_rast erect_end_word(CSTR_rast cs,Word8 *str,Word8 *word_len,int16_t right_limit, Bool32 need_space)
 {
 CSTR_rast       c=cs, n;
 CSTR_rast_attr  attr, nattr;
-Int16           i, dif;
+int16_t           i, dif;
 RecVersions     vers;
 
 dif=1;
@@ -157,7 +157,7 @@ if( need_space && c && !(attr.flg&CSTR_f_fict) )
     CSTR_GetAttr(n,&nattr);
     if( nattr.flg&(CSTR_f_let|CSTR_f_bad|CSTR_f_punct) )
         {
-        Int16   dist=MIN(attr.h,nattr.h);
+        int16_t   dist=MIN(attr.h,nattr.h);
         dist = MIN( dist, attr.w);
         dist = MIN( dist,nattr.w);
         if( nattr.col - (attr.col+attr.w)<dist/3 )
@@ -271,7 +271,7 @@ if( !small_inc )
 return FALSE;
 }
 
-static Bool32 erect_rotate(CSTR_rast beg,CSTR_rast  end, Int16 inc)
+static Bool32 erect_rotate(CSTR_rast beg,CSTR_rast  end, int16_t inc)
 {
 CSTR_rast       r;
 CSTR_rast_attr  a;
@@ -289,7 +289,7 @@ for(r=beg;r && r!=end; r=CSTR_GetNext(r))
 return TRUE;
 }
 
-static Bool32 erect_clear(CSTR_rast beg,CSTR_rast  end, Int16 inc)
+static Bool32 erect_clear(CSTR_rast beg,CSTR_rast  end, int16_t inc)
 {
 CSTR_rast       r;
 CSTR_rast_attr  a;
@@ -307,11 +307,11 @@ for(r=beg;r && r!=end; r=CSTR_GetNext(r))
 return TRUE;
 }
 
-static Int16 erect_min_inc(CSTR_rast beg)
+static int16_t erect_min_inc(CSTR_rast beg)
 {
 CSTR_rast       r;
 CSTR_rast_attr  a;
-Int16           mininc=NO_INCLINE;
+int16_t           mininc=NO_INCLINE;
 for(r=beg;r ; r=CSTR_GetNext(r))
     {
     CSTR_GetAttr(r,&a);
@@ -329,10 +329,10 @@ Bool32	cstr_erection_pass2(CSTR_line lout)
 Bool32      ret=FALSE;
 CSTR_rast   beg,end;
 Word8       len, wrd[MAX_LEN_WORD+40];
-Int16       ginc = erect_get_global();
-Int16       gninc= erect_get_represent();
-Int16       gall = erect_get_words();
-Int16       min_inc=erect_min_inc(CSTR_GetFirstRaster(lout));
+int16_t       ginc = erect_get_global();
+int16_t       gninc= erect_get_represent();
+int16_t       gall = erect_get_words();
+int16_t       min_inc=erect_min_inc(CSTR_GetFirstRaster(lout));
 
 if( gninc>1 )
 {

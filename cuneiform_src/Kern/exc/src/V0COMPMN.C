@@ -70,17 +70,17 @@ extern Word8 image_disp_mask;
 extern Word16 image_disp_end;
 extern Word16 image_disp_byte;
 
-extern Int16 image_blth    ;  // pixels per line
-extern Int16  image_height  ;  // lines in file number
-extern Int16 image_lth     ;  // bytes per line
+extern int16_t image_blth    ;  // pixels per line
+extern int16_t  image_height  ;  // lines in file number
+extern int16_t image_lth     ;  // bytes per line
 extern Word8 image_black   ;  // mask for black pixels adding
 extern Word8 image_white   ;  // mask for wite pixels adding
 extern struct main_memory_str Q;
 
 void analise();
-BWS *extrcomp_seglist(Word8* raster, BWS *bwsp, BWS *bwe, Int16 width);
+BWS *extrcomp_seglist(Word8* raster, BWS *bwsp, BWS *bwe, int16_t width);
 uint32_t progress_set_percent (uint32_t volume);
-Int16 source_read(Word8* start, Word8* ptr, Word8* end);
+int16_t source_read(Word8* start, Word8* ptr, Word8* end);
 
 //---------------------- Internal working fields
 // TGCV static LONG progress_next;
@@ -93,7 +93,7 @@ static void begin();
 static Word16 readline();
 static void exchangelines();
 static void fax_double();
-static Int16 fax_test();
+static int16_t fax_test();
 static void emptyline();
 /*
 static MN   * Cmnstart;
@@ -166,7 +166,7 @@ static void enough_memory()
 static void initdsect()
 {
  MN *p;
- Int16 i;
+ int16_t i;
  /*memset (&Q, 0, sizeof(Q));
 
  Q.mnstart    = Cmnstart;
@@ -216,7 +216,7 @@ static void exchangelines()
 static Word16 readline()
 {
  Word8* p;
- Int16 i;
+ int16_t i;
  p =  Q.dcodeptr + image_lth;
 after_read:
  if (p + image_lth > Q.dcodeend) goto rd_source;
@@ -235,7 +235,7 @@ rd_source:
  p = Q.scan_buffer;     goto after_read;
 }
 
-static Int16 fax_test()
+static int16_t fax_test()
 {
  BWS * old, * new;
  old = Q.oldline; new = Q.newline;

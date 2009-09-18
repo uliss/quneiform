@@ -86,12 +86,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define DIRSEP        '\\'
 
 INT    TE_open          (INT, CHAR *, INT, INT);    /* / stream, name, ... */
-Int16    TE_write         (Int16, PWord8, uint32_t);    /* / stream, name, ... */
+int16_t    TE_write         (int16_t, PWord8, uint32_t);    /* / stream, name, ... */
 INT    TE_table_op      (INT, INT, INT, INT);      /* / table #, ...          */
-int32_t   TE_read          (Int16, PInt8, int32_t);        /* / handle, addr, lth */
+int32_t   TE_read          (int16_t, PInt8, int32_t);        /* / handle, addr, lth */
 INT    TE_close         (INT);                      /* / handle            */
 CHAR * TE_handle_fgets  ( INT handle, CHAR * s, INT len );
-int32_t   TE_file_length   (Int16);
+int32_t   TE_file_length   (int16_t);
 
 #define TGOPEN(a,b,c,d)        TE_open(a,b,c,d)
 #define TBOPEN(a,b,c,d)        TE_table_op(a,b,c,d)
@@ -134,11 +134,11 @@ elmBOX;
 struct mn_struc
 {
 	void *mnfirstbox; 		// address of the first box
-	Int16 mncounter; 		// (was INT) number of living lines in the component
+	int16_t mncounter; 		// (was INT) number of living lines in the component
 #define mnfree	mnfirstbox	// reference to next free main number
-	Int16 mnupper;   		// upper bound of component
-	Int16 mnlower; 			// lower bound of component
-	Int16 mnboxcnt;  		// number of boxes in component
+	int16_t mnupper;   		// upper bound of component
+	int16_t mnlower; 			// lower bound of component
+	int16_t mnboxcnt;  		// number of boxes in component
 #define usual_box_count 20 	// heuristic of number of lines in a letter
 #define great_box_count	200	// heuristic for number of boxes in a picture
 	Word8 mnlines;                  // number of lines in the component
@@ -185,13 +185,13 @@ struct box_struct
 	struct box_struct *boxnext; 	// chain address (zero if no next box)
 	MN *		    boxmain; 	// component main number pointer
 	Word16		    boxptr; 	// ptr to the empty place in the box
-	Int16	        boxleft; 	// left boundary for line envelope
-	Int16		    boxright; 	// right boundary for line envelope
-	Int16 		    boxey; 	// row of line end+1 ( if line ends within
+	int16_t	        boxleft; 	// left boundary for line envelope
+	int16_t		    boxright; 	// right boundary for line envelope
+	int16_t 		    boxey; 	// row of line end+1 ( if line ends within
 				//    box)
-	Int16             boxel; 	// length of the last segment (if line ends
+	int16_t             boxel; 	// length of the last segment (if line ends
 				//    within box)
-	Int16	            boxex; 	// coordinate of last segment end (if line
+	int16_t	            boxex; 	// coordinate of last segment end (if line
 				//    ends within box)
 	Word8 		    boxflag; 	// byte for box attributes flags
 	Word8		    boxwf; 	// working flag (for picture compress)

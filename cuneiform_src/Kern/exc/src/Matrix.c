@@ -74,10 +74,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define LBUF 0x6000
 
 static Word8 *grim1 = NULL, *grim2;	// Pointer to internal buffer
-static Int16 ls, nsb1;		// Length of string and strings per buffer
+static int16_t ls, nsb1;		// Length of string and strings per buffer
 static Word16 rest;		// Length of rest in the buffer after previous read
 static Word8 reserv[2048];
-extern Int16 image_lth     ;  // bytes per line
+extern int16_t image_lth     ;  // bytes per line
 static void matrix_process ();
 
 
@@ -106,9 +106,9 @@ void matrix_reset ()
  matrix_close();
 }
 
-Int16 matrix_read(Word8 *buff, Word16 lth)
+int16_t matrix_read(Word8 *buff, Word16 lth)
  {
- Int16 lmax, l;
+ int16_t lmax, l;
  Word8 *pc, *pwr;
 
  // Read image cycle
@@ -190,7 +190,7 @@ static void matrix_process ()
 // Process bitmap of nbs1 lines, source in grim1, destinator - grim2. ls - length of line
  Word8 *bw1,*bw2,*p;
  Word8 a,x1,x2,x3,x4,x5,y1,y2,y3,y4,y5,z1,z2,z3,z4,z5;
- Int16 j,k;
+ int16_t j,k;
 
   memcpy(grim2,grim1,nsb1*ls);
   for (bw1=grim1+ls+1,bw2=grim2+ls+1,j=1; j<nsb1-1; j++, bw1+=2, bw2+=2)

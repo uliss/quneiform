@@ -86,9 +86,9 @@ typedef struct tagImxs_ImageInfo
 	#ifdef __cplusplus
 	extern "C"  {
 	#endif
-		typedef Int16  (*TImageGetBlock )(Word8* lpBuff, Int16 fstLine, Int16 nLines);
+		typedef int16_t  (*TImageGetBlock )(Word8* lpBuff, int16_t fstLine, int16_t nLines);
       typedef Bool16 (*TImageOpen     )(Imxs_ImageInfo* lpImageInfo);
-		typedef Int16  (*TImageRead     )(Word8* lpImage, Word16 wMaxSize);
+		typedef int16_t  (*TImageRead     )(Word8* lpImage, Word16 wMaxSize);
 		typedef Bool16 (*TImageClose    )(void);
 	#ifdef __cplusplus
 	}

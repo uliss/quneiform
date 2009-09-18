@@ -65,8 +65,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /// extern fuxntions and data
 extern char * ctb_last_punct(char *word);
-extern Bool32 CTB_files_init(char *file_name,Word8 *data,Int16 maxX,Int16 maxY,
-                    Int16 dpb,Word8 signums,Word8 attr_size);
+extern Bool32 CTB_files_init(char *file_name,Word8 *data,int16_t maxX,int16_t maxY,
+                    int16_t dpb,Word8 signums,Word8 attr_size);
 extern int32_t ctb_err_code ;   // error code                   //
 
 CTB_FUNC(int32_t)  CTB_compress(char *filename)
@@ -183,9 +183,9 @@ return 2;
 
 CTB_FUNC(int32_t)  CTB_move(char *new_name, char *old_name)
 {
-Int16 n;
+int16_t n;
 
-n = (Int16)CTB_copy(new_name, old_name);
+n = (int16_t)CTB_copy(new_name, old_name);
 CTB_unlink(old_name);
 return n;
 }
@@ -209,7 +209,7 @@ CTB_FUNC(int32_t)  CTB_copy(char *new_name, char *old_name)
 {
 char *p;
 CTB_handle hi,ho;
-Int16 i,n;
+int16_t i,n;
 Word8 dst[CTB_DATA_SIZE], buffer[256*128+2+CTB_DATA_SIZE];
 //size_t size;
 
@@ -225,7 +225,7 @@ CTB_read_global_data(&hi,dst);
 CTB_files_init(new_name,dst,hi.width,hi.height,
 					hi.dpb,hi.signums,hi.attr_size);
 
-n = (Int16)CTB_volume(&hi);
+n = (int16_t)CTB_volume(&hi);
 
 if( !CTB_open(new_name,&ho,"w") )
 	return 0;

@@ -79,7 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 #include "minmax.h"
 
-Int16 err;
+int16_t err;
 static uint32_t bit_cnt_msk[66000];
 Word16 Limii;
 short initiated=0;
@@ -453,7 +453,7 @@ MSK_FUNC(Bool32)  MSKRecogChar(
     buff_image=(Word16  *)(recraster->Raster);
 
     nm=0;
-    err=(Int16) recindex (0, (BYTE)(0), hor, ver, lett_coo, (BYTE)(0),
+    err=(int16_t) recindex (0, (BYTE)(0), hor, ver, lett_coo, (BYTE)(0),
                           buff_image, p1616, &io_char, TRUE );
 
     //Indres->lnAltCnt=nm;
@@ -503,7 +503,7 @@ MSK_FUNC(Bool32)  MSKRecogCharExp(
         if( abc_ind[let].vol == 0  ||  !alphabet[(Word8)let] )
             Indres->Alt[i].Prob = 1;
         else{
-            err=(Int16) recindex (257, (BYTE)(0) ,hor, ver, lett_coo,
+            err=(int16_t) recindex (257, (BYTE)(0) ,hor, ver, lett_coo,
                                   (BYTE)(0),buff_image, p1616, &io_char, TRUE );
             if( err!=-1 )
                 Indres->Alt[i].Prob = ((LIMI-ms[0])*255)/LIMI;
@@ -547,7 +547,7 @@ MSK_FUNC(Bool32)  MSKRecogCharExpPuma(
         if( abc_ind[let].vol == 0  ||  !alphabet[(Word8)let] )
             Indres->Alt[i].Prob = 1;
         else{
-            err=(Int16) recindex (257, (BYTE)(0) ,hor, ver, lett_coo,
+            err=(int16_t) recindex (257, (BYTE)(0) ,hor, ver, lett_coo,
                                   (BYTE)(0),buff_image, p1616, &io_char, (Word8)((Flags&1)?FALSE:TRUE) );
             if( err!=-1 )
                 Indres->Alt[i].Prob = ((LIMI-ms[0])*255)/LIMI;
@@ -610,7 +610,7 @@ MSK_FUNC(Bool32)  MSKRecogNDX(
     buff_image=(Bool16  *)(recraster->Raster);
 
     nm=0;
-    err=(Int16) recindexNDX(hor,ver,lett_coo,(BYTE)(0),
+    err=(int16_t) recindexNDX(hor,ver,lett_coo,(BYTE)(0),
                             buff_image);
     if (err!=0)
         return FALSE;
@@ -838,9 +838,9 @@ int new_reco(short ptr_char, short hor,Word16  *bgf,
 /**       k0,l0,k1,l1 - line&column start&final  **/
 /**       coordinates of output matrix.          **/
 /**************************************************/
-int chn_mat(Int16 coo,Word16  *bgf,BYTE bgf_col,
-            Int16 i1,Int16 j1,Int16 i2,Int16 j2,Word16 *ss,
-            Int16 co1,Int16 k0,Int16 l0,Int16 k1,Int16 l1)
+int chn_mat(int16_t coo,Word16  *bgf,BYTE bgf_col,
+            int16_t i1,int16_t j1,int16_t i2,int16_t j2,Word16 *ss,
+            int16_t co1,int16_t k0,int16_t l0,int16_t k1,int16_t l1)
 {
     int j,ii,ii1,jj;
     int co,n,m,i,k,iiold,jjold,pp;

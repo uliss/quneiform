@@ -134,10 +134,10 @@ Word8 *r=rs->Raster;
 wb=REC_GW_WORD8(rs->lnPixWidth);
 for(lem=rim=256,i=0;i<h;i++,r+=wb)
   {
-  le = DIFLeftDistance(r, (Int16)wb);
+  le = DIFLeftDistance(r, (int16_t)wb);
   if( le==-1 )
     break;
-  ri = rs->lnPixWidth-wb*8+DIFRightDistance(r, (Int16)wb);
+  ri = rs->lnPixWidth-wb*8+DIFRightDistance(r, (int16_t)wb);
   if( lem>le )
     lem = le;
   if( rim>ri )
@@ -233,7 +233,7 @@ return leo_stick_thin_prop(r,ang,num,den);
 static void leo_save_rl(Word16 *lpool)
 {
 Word16 *lp, *lop;
-Int16   len, hei, row, flg,  il_ie;
+int16_t   len, hei, row, flg,  il_ie;
 
 lop = save_pool;
 while(1)  {
@@ -274,7 +274,7 @@ return save_pool;
 //          5 - dark printed stick
 int32_t leo_recog_stick(Word16 *lpool, int w, int h)
 {
-Int16   len,hei,row,flg;
+int16_t   len,hei,row,flg;
 Word8   il, ie, *loc;
 Word16 *lp;
 int     i, n, ir, n_2, n_0, wa,wm,rm,wmm,rmm;
@@ -704,7 +704,7 @@ RecVersions loc;
 if( is_pool && ver->lnAltCnt )
     {
     loc = *ver;
-    if( DIFStick_expert( (Int16)save_w, (Int16)save_h, (Word8*)save_pool, &loc ) )
+    if( DIFStick_expert( (int16_t)save_w, (int16_t)save_h, (Word8*)save_pool, &loc ) )
         {
         *ver = loc;
         leo_sort_vers_prob(ver);
@@ -750,7 +750,7 @@ return;
 
 Bool32 leo_one_line(Word16*lpool)
 {
-Int16 len, num;
+int16_t len, num;
 Word16*lp;
 
 if( !lpool )
@@ -810,7 +810,7 @@ if( nIsPrint && w*4>=h*3 )
         r.Alt[r.lnAltCnt].Method=REC_METHOD_FINAL;
         r.Alt[r.lnAltCnt].CodeExt=0;
         r.lnAltCnt++;
-        if( DIFStick_expert( (Int16)w, (Int16)h, (Word8*)lpool, &r ))
+        if( DIFStick_expert( (int16_t)w, (int16_t)h, (Word8*)lpool, &r ))
             {
             if( r.Alt[0].Prob>240 )
                 {
@@ -894,7 +894,7 @@ if( ( (n==1 && (w*4<=h*3||!nIsPrint)) || (n==2 && w*2<=h) ) &&   lpool)
             r.lnAltCnt++;
             }
 
-        if( DIFStick_expert( (Int16)w, (Int16)h, (Word8*)lpool, &r ))
+        if( DIFStick_expert( (int16_t)w, (int16_t)h, (Word8*)lpool, &r ))
             {
 
             leo_sort_vers_prob( &r );
@@ -965,7 +965,7 @@ if( ( (n==1 && (w*4<=h*3||!nIsPrint)) || (n==2 && w*2<=h) ) &&   lpool)
             reg_lat=TRUE;
             }
 */
-        if( DIFStick_expert( (Int16)w, (Int16)h, (Word8*)lpool, &r ))
+        if( DIFStick_expert( (int16_t)w, (int16_t)h, (Word8*)lpool, &r ))
             {
             if( prn_roma_regim )
                 {

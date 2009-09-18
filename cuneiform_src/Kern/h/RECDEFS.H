@@ -134,7 +134,7 @@ typedef struct tagUniAlt
 
 typedef struct tagClustAlt
    {
-      Int16    nClust;         // cluster index; zero - structure is not initiated
+      int16_t    nClust;         // cluster index; zero - structure is not initiated
       Word8    nDist;          // distance
       Word8    nReserved;
    }  ClustAlt;
@@ -175,7 +175,7 @@ typedef struct tagRecData
 	uint32_t    lwCompCnt;       // number of components, 0 - not counted
 	Rect16    rect;
   RecVector    vSticks[MAX_VECT];
-  Int16     lwSticksCnt;
+  int16_t     lwSticksCnt;
 	} RecData;
 
 typedef struct tagRecObject

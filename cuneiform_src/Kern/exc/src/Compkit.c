@@ -87,7 +87,7 @@ Bool16 boxes_account()
 {
  MN *mn;
  BOX *bp;
- Int16 left, right, n;
+ int16_t left, right, n;
  memset (&wcomp,0,sizeof(wcomp));
  mn = main_number_ptr; bp = mn->mnfirstbox;
  left = bp->boxleft; right = bp->boxright; boxchain = bp;
@@ -135,7 +135,7 @@ static void boxes_to_line()
  LNSTRT *lsp;
  interval * ip;
  BOXINT * bip;
- Int16 x, n;
+ int16_t x, n;
 
  bp = boxchain; lnp = (lnhead *)lpool; goto enter_loop;
 next_line:
@@ -167,7 +167,7 @@ cont_box:
 static Word8 make_fill[] = {0, 1, 3, 7, 15, 31, 63, 127, 255};
 void WriteInterval ( Word8 *p, int end , int len)
 {
-Int16     sh;
+int16_t     sh;
 Word16    w;
 p = p + (end>>3);
 sh = end & 7;
@@ -181,7 +181,7 @@ Word8* make_raster()
  lnhead * lp;
  interval *ip;
  Word8 *p, *pp;
- Int16 x, l, sh;
+ int16_t x, l, sh;
  Word16 w;
 
  memset (work_raster,0,wcomp.rw*wcomp.h);
@@ -207,7 +207,7 @@ Word8* make_extended_raster(c_comp *cp)
  lnhead * lp;
  large_interval *ip;
  Word8 *p, *pp;
- Int16 x, l, sh;
+ int16_t x, l, sh;
  Word16 wd,w;
 
  memset (work_raster,0,cp->rw * cp->h); wd = cp->rw;
@@ -235,7 +235,7 @@ lnhead *c_boxln(MN *mn)
  return (lnhead *)lpool;
 }
 
-Int16 MN_to_line(MN * mn)
+int16_t MN_to_line(MN * mn)
 {
  if( !mn )
     return 0;
@@ -285,11 +285,11 @@ Word8 byte_seg_size[256] = {
 0x44,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x55,0x00,0x00,0x00,0x66,0x00,0x77,0x88         // f
 };
 
-Int16 read_dust_comp (dust_comp *cp, Word8 *p)
+int16_t read_dust_comp (dust_comp *cp, Word8 *p)
 {
  lnhead * lp;
  interval * ip;
- Int16 n, lth;
+ int16_t n, lth;
  Word8 *pp;
  Word8 b;
  lp = (lnhead *)p;

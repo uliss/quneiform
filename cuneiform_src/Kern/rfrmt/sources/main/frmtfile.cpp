@@ -89,7 +89,7 @@ POINT   TemplateOffset;
 extern "C" uint32_t   GetPictCount(void);
 extern "C" uint32_t   GetTablCount(void);
 extern  Word8       Frmt_CharSet;
-extern  Int16       CreateEmptyRtfFile(void);
+extern  int16_t       CreateEmptyRtfFile(void);
 extern  char        UnRecogSymbol;
 extern  uint32_t      FlagMode;
 extern  uint32_t      ExFlagMode;

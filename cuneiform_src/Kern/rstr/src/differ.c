@@ -601,8 +601,8 @@ static void dif_inv_roof(cell *c, Word8 letNoRoof, Word8 letRoof) // Nick 05.9.0
 {
  INT prob_t,prob_troof,i;
  BYTE let;
- Int16 nIntersect,hei3;
- extern Int16 NumIntersect2(c_comp *cmp, int mHei);
+ int16_t nIntersect,hei3;
+ extern int16_t NumIntersect2(c_comp *cmp, int mHei);
  Word8 goodLet,badLet;
 
  for (prob_t=prob_troof=0,i=c->nvers-1; i>=0; i--)

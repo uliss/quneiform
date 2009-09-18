@@ -105,9 +105,9 @@ typedef enum
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RCUTP_FUNC(a) b c
 
-DEC_FUN(Bool32,  RCUTP_CutPoints, (Word8 *raster,struct own_cut *ans, Int16 w,Int16 h,Int16 row));
-DEC_FUN(Bool32,  RCUTP_SetBL_for_CutPoints, (Int16  minrow0,Int16  bbs10,Int16  bbs20,
-        Int16  bbs30,Int16  bbs40, Int16  Nb10,Int16  Nb20,Int16  Nb30,Word8 language0));
+DEC_FUN(Bool32,  RCUTP_CutPoints, (Word8 *raster,struct own_cut *ans, int16_t w,int16_t h,int16_t row));
+DEC_FUN(Bool32,  RCUTP_SetBL_for_CutPoints, (int16_t  minrow0,int16_t  bbs10,int16_t  bbs20,
+        int16_t  bbs30,int16_t  bbs40, int16_t  Nb10,int16_t  Nb20,int16_t  Nb30,Word8 language0));
 //DEC_FUN(Bool32, RCUTP_RExc_CP, (void* m, BM* W, ExtComponent* wcomp, Word16 actual_resolution));
 DEC_FUN(int, RCUTP_RSelStr_CP, (CCOM_comp* comp, BOOL* type_let, Word8* pmasp));
 DEC_FUN(Bool32, RCUTP_RSelStr_SetEnv, (/*char *szImageName,*/ int _medium_h, int _inf_let_w, int _inf_dust_h, int _inf_let_h, Handle hCCOM, int _sup_dust_w, int _min_cut_down_let_w, int _sup_prob_w, const Word16 biBit));

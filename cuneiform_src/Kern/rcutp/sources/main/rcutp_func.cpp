@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "diskrtab.h"
 #include "recdefs.h"
 
-extern  Int16      minrow,bbs1,bbs2,bbs3,bbs4,Nb1,Nb2,Nb3;
+extern  int16_t      minrow,bbs1,bbs2,bbs3,bbs4,Nb1,Nb2,Nb3;
 
 #include "minmax.h"
 

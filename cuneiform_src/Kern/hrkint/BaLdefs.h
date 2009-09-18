@@ -75,8 +75,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       int32_t  spec_camera ;
       int32_t  no_linpen ;
 
-      Int16  prop_l_delta;
-	  Int16  prop_r_delta;
+      int16_t  prop_l_delta;
+	  int16_t  prop_r_delta;
 
 	  Word8 *let_lindef3;
       Word8 *let_lindef;
@@ -130,10 +130,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  BAL_INOUT_GLOBALS;
 
  typedef struct BLIN_bas_ln_type
- { Int16 startcol, endcol;
+ { int16_t startcol, endcol;
 //, startf, endf, ncells;
-   Int16 ps, b1, b2, b3, b4;
-   Int16 n1, n2, n3, n4;
+   int16_t ps, b1, b2, b3, b4;
+   int16_t n1, n2, n3, n4;
    BYTE fl_def;
 //   BYTE fl_ext;
 //   cell *c1, *c2, *cf1, *cf2;

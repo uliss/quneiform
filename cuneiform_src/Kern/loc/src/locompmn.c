@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "v1comp.h"
 
 BWSS *locomp_seglist(Word8* raster, BWSS *bwsp, BWSS *bwe, int32_t height, int32_t width);
-MN * c_locomp (Word8* raster, int32_t bw, int32_t h, Int16 upper, Int16 left);
+MN * c_locomp (Word8* raster, int32_t bw, int32_t h, int16_t upper, int16_t left);
 //      Memory service
 #define MAX_BOX_NUMB            100*2
 #define MAX_INT_NUMB            32*2
@@ -73,9 +73,9 @@ static MN * mainalloc;
 static MN * first_dead_comp;
 static BWSS * segm_repr_end;
 static BWSS * op, *np;
-static Int16 ol, nl;
-static Int16 rast_lc;
-static Int16 lineno;
+static int16_t ol, nl;
+static int16_t rast_lc;
+static int16_t lineno;
 
 
 static BWSS lines[LINE_POOL_LENGTH+9];
@@ -101,7 +101,7 @@ static void new_line_cont();
 static void merge_line();
 static void dead_line();
 
-MN * c_locomp (Word8* raster, int32_t bw, int32_t h, Int16 upper, Int16 left)
+MN * c_locomp (Word8* raster, int32_t bw, int32_t h, int16_t upper, int16_t left)
 {
  lineno = upper-1; rast_lc = left;
  if (setjmp(locomp_err)) return NULL;
@@ -113,7 +113,7 @@ MN * c_locomp (Word8* raster, int32_t bw, int32_t h, Int16 upper, Int16 left)
 
 static void locomp_begin()
 {
- Int16 i;
+ int16_t i;
  MN * mn;
  first_dead_comp = NULL;
  segm_repr_end->b = 0; (segm_repr_end++)->w = -0x7000;
@@ -241,7 +241,7 @@ static void merge_line()
  MN *mn, *mno, *mnw;
  BOX *bp, *bpo;
  BOXINT *ip;
- Int16 n;
+ int16_t n;
 
  bpo = op->box; bpo->boxflag |= BOXEND;
  ip = (BOXINT *)((Word8*)bpo + bpo->boxptr); ip->l = 0; bpo->boxptr++;

@@ -57,19 +57,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include<string.h>
 #include "dif.h"
 #include "stick.h"
-extern void init_diskrim(Word8* raster,Int16 height ,Int16 width);
-extern Int16 Diskrim(Word8 let,Word8* raster,
-      Int16 D_X,Int16 dx,Int16 dy,Word8, Int16 );
+extern void init_diskrim(Word8* raster,int16_t height ,int16_t width);
+extern int16_t Diskrim(Word8 let,Word8* raster,
+      int16_t D_X,int16_t dx,int16_t dy,Word8, int16_t );
 extern Word8   stick_recog(Word8 let, STICK_CHARS *l, STICK_CHARS *r,
                 STICK_SIGNUMS *s);
-extern Word8 lnhead_stick_center_study(lnhead *lin,Int16 dy,Int16 dx,
+extern Word8 lnhead_stick_center_study(lnhead *lin,int16_t dy,int16_t dx,
         STICK_CHARS *res_left_chars,STICK_CHARS *res_right_chars,
         STICK_SIGNUMS *res_signums);
 extern int32_t lnhead_stick_get_incline(lnhead *pool ,int dy, int dx );
-extern void  clear_right_bites(Word8 *RASTER, Int16 NWIDTH, Int16 WBYTE, Int16 NHEIGHT);
-extern  Word16 typ_thin_stick(lnhead *lin,Int16 dy,Int16 dx);
-extern  Int16 LeftDistance(Word8 *RASTER, Int16 NWIDTH);
-extern  Int16 RightDistance(Word8 *RASTER, Int16 NWIDTH);
+extern void  clear_right_bites(Word8 *RASTER, int16_t NWIDTH, int16_t WBYTE, int16_t NHEIGHT);
+extern  Word16 typ_thin_stick(lnhead *lin,int16_t dy,int16_t dx);
+extern  int16_t LeftDistance(Word8 *RASTER, int16_t NWIDTH);
+extern  int16_t RightDistance(Word8 *RASTER, int16_t NWIDTH);
 
 Word8   alphabet[256];
 Bool32  digit_mode = FALSE, dif_adding_mode ;
@@ -77,7 +77,7 @@ Word8   language;
 int32_t   dif_typ_of_font=0;
 #include "minmax.h"
 
-extern Int16 broken_ii;
+extern int16_t broken_ii;
 extern Word8 broken_flag;
 Word8  cutl_flag, cutr_flag;
 
@@ -90,11 +90,11 @@ return;
 DIF_FUNC(Bool32)  DIFInit( RecRaster *r, Bool32 broken, Bool32 broken_II,
     Bool32 cut_left, Bool32 cut_right)
 {
-   broken_ii = (Int16)(broken_II!=0);
+   broken_ii = (int16_t)(broken_II!=0);
    broken_flag=(Word8)broken;
    cutl_flag=(Word8)(cut_left!=0);
    cutr_flag=(Word8)(cut_right!=0);
-   init_diskrim(r->Raster,(Int16)r->lnPixHeight,(Int16)r->lnPixWidth);
+   init_diskrim(r->Raster,(int16_t)r->lnPixHeight,(int16_t)r->lnPixWidth);
    return TRUE;
 }
 
@@ -102,11 +102,11 @@ DIF_FUNC(Bool32)  DIFPenaltyChar( RecRaster*  r,
                                           RecVersions* res )
 {
  int i, pen;
- Int16  dx,dy ;
+ int16_t  dx,dy ;
  int    maxprob;
 
- dy=(Int16)r->lnPixHeight;
- dx=(Int16)r->lnPixWidth;
+ dy=(int16_t)r->lnPixHeight;
+ dx=(int16_t)r->lnPixWidth;
 
  for(maxprob=i=0;i<res->lnAltCnt;i++)
     if( res->Alt[i].Prob>maxprob )
@@ -115,7 +115,7 @@ DIF_FUNC(Bool32)  DIFPenaltyChar( RecRaster*  r,
  for(i=0;i<res->lnAltCnt;i++)
     {
 
-    pen = Diskrim((char)(res->Alt[i].Code),r->Raster,(Int16)REC_GW_WORD8(dx),(Int16)dx,(Int16)dy,0,0);
+    pen = Diskrim((char)(res->Alt[i].Code),r->Raster,(int16_t)REC_GW_WORD8(dx),(int16_t)dx,(int16_t)dy,0,0);
     if( pen<0 && broken_flag && broken_ii )
         { // broken II
         switch( pen )
@@ -150,12 +150,12 @@ else
 return prob;
 }
 
-DIF_FUNC(Bool32)  DIFStick_expert( Int16 dx,Int16 dy , Word8 *pool,
+DIF_FUNC(Bool32)  DIFStick_expert( int16_t dx,int16_t dy , Word8 *pool,
 								             RecVersions* res )
 {
 STICK_CHARS     res_left_chars={0},res_right_chars={0};
 STICK_SIGNUMS   res_signums={0};
-Int16           i ;
+int16_t           i ;
 Word8           ret=0, r;
 
 if( !pool)
@@ -315,10 +315,10 @@ return TRUE;
 
 DIF_FUNC(int32_t)  DIFGet_incline( RecRaster*  r, Word8 *pool)
 {
- Int16 dx,dy ;
+ int16_t dx,dy ;
 
- dy=(Int16)r->lnPixHeight;
- dx=(Int16)r->lnPixWidth;
+ dy=(int16_t)r->lnPixHeight;
+ dx=(int16_t)r->lnPixWidth;
 
  if(!pool) return -1;
 
@@ -330,23 +330,23 @@ return  lnhead_stick_get_incline((lnhead *)pool ,dy,dx );
    return;
  }
 
- DIF_FUNC(Int16) DIFGetErr(void)
+ DIF_FUNC(int16_t) DIFGetErr(void)
  {
    return TRUE;
  }
 
 
-DIF_FUNC(Int16) DIFLeftDistance(Word8 *RASTER, Int16 NWIDTH)
+DIF_FUNC(int16_t) DIFLeftDistance(Word8 *RASTER, int16_t NWIDTH)
 {
 return LeftDistance(RASTER, NWIDTH);
 }
 
-DIF_FUNC(Int16) DIFRightDistance(Word8 *RASTER, Int16 NWIDTH)
+DIF_FUNC(int16_t) DIFRightDistance(Word8 *RASTER, int16_t NWIDTH)
 {
 return RightDistance(RASTER, NWIDTH);
 }
 
-DIF_FUNC(void) DIFClearRightZone(Word8 *RASTER, Int16 NWIDTH, Int16 WBYTE, Int16 NHEIGHT)
+DIF_FUNC(void) DIFClearRightZone(Word8 *RASTER, int16_t NWIDTH, int16_t WBYTE, int16_t NHEIGHT)
 {
 clear_right_bites(RASTER, NWIDTH, WBYTE, NHEIGHT);
 return;
@@ -378,7 +378,7 @@ return TRUE;
 }
 
 
-DIF_FUNC(Word16) DIF_typ_thin_stick(Word8 *lin,Int16 dy,Int16 dx)
+DIF_FUNC(Word16) DIF_typ_thin_stick(Word8 *lin,int16_t dy,int16_t dx)
 {
 return  typ_thin_stick((lnhead *)lin, dy, dx);
 }

@@ -1700,8 +1700,8 @@ InfoCluster *infoCluster;
 //
 typedef struct tagKuchka
 {
-	Int16 start;
-	Int16 end;
+	int16_t start;
+	int16_t end;
 	int count;
 	uint32_t field[NFIELDDWORD];
 } KUCHKA;

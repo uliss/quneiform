@@ -82,11 +82,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 static void   MMX_normalize_res(uint32_t res_comp[],Word16 res[],int32_t numx);
 #endif
-static int32_t  scalar_all(Int16 Im3x5_1[],Int16 Im3x5_2[]);
+static int32_t  scalar_all(int16_t Im3x5_1[],int16_t Im3x5_2[]);
 static void   ALL_open_image(Word16 Im3x5[]);
 static void   ALL_close_image (void);
 
-static int32_t (*scalar)(Int16 Im3x5_1[],Int16 Im3x5_2[])=scalar_all;
+static int32_t (*scalar)(int16_t Im3x5_1[],int16_t Im3x5_2[])=scalar_all;
 static void  (*open_image)(Word16 Im3x5[])=ALL_open_image;
 static void  (*close_image)(void)=ALL_close_image;
 
@@ -217,7 +217,7 @@ static Word8 recode_prob( int32_t prob );
 static ind3x5 *header3x5,*header3x5ndx,*header3x5all,*header3x5print;
 static elm3x5 *tab3x5,*tab3x5ndx,*tab3x5all,*tab3x5print;
 static char   alpha[256];
-static Int16  r35_error_code=ER_R35_NO_ERROR;
+static int16_t  r35_error_code=ER_R35_NO_ERROR;
 
 /***********************************/
 /************* COMPRESS ************/
@@ -634,7 +634,7 @@ return 1;
 /************** RECOG ***************/
 /************************************/
 
-int32_t scalar_all(Int16 Im3x5_1[], Int16 Im3x5_2[]) {
+int32_t scalar_all(int16_t Im3x5_1[], int16_t Im3x5_2[]) {
     uint32_t s = 0;
     int i;
     for (i = 0; i < 3 * 5; i++)
@@ -966,7 +966,7 @@ return ;
 }
 
 
-R35_FUNC(Int16) R35GetErr(void)
+R35_FUNC(int16_t) R35GetErr(void)
 {
 return r35_error_code;
 }

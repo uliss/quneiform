@@ -136,7 +136,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    R35_FUNC(void)  R35Done(void);
       // Stop function. Call after R35Init()
 
-   R35_FUNC(Int16) R35GetErr(void);
+   R35_FUNC(int16_t) R35GetErr(void);
       // Err16.h defined codes or one of the next
   R35_FUNC(Bool32)  R35Init_learn( int32_t num, Word8 level, int32_t FontType );
   R35_FUNC(void)    R35Done_learn( int32_t FontType);

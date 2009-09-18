@@ -90,10 +90,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 	// информация о распознаваемом символе
 	typedef struct tagFonSpecInfo {
-      Int16  nInCTB;      // вход > 0 - номер в CTB
-	  Int16  nFieldRow;   // вход > 0 - номер строки (поля?)
-      Int16  col;         // вход - координаты
-	  Int16  row;         //
+      int16_t  nInCTB;      // вход > 0 - номер в CTB
+	  int16_t  nFieldRow;   // вход > 0 - номер строки (поля?)
+      int16_t  col;         // вход - координаты
+	  int16_t  row;         //
 	  uint32_t wFonFlags;   // возврат - флаги frhdefs.h
 
 //Andrey - 20030620 - flags from frhdefs.h
@@ -161,19 +161,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	      #define  FFC_DBT_END          0x10000000
             // конец сомнительного фрагмента
 
-	  Int16  nClust;      // возврат - номер лучшего кластера
-	  Int16  countRazmaz;
+	  int16_t  nClust;      // возврат - номер лучшего кластера
+	  int16_t  countRazmaz;
 	  Word8  nLet;        // вход > 0 - имя ASCII
 	  Word8  onlySelf;
-      Int16  h;          // вход - размеры
-	  Int16  w;          //
+      int16_t  h;          // вход - размеры
+	  int16_t  w;          //
 	  Word8  palkiLeo;   // вход != 0 - распознавать палки по ЛЕО
 	} FonSpecInfo;
 
 #define MAXCHECKALT 4
 	// информация о результатах проверки символа
 	typedef struct tagFonTestInfo {
-		Int16 nClust; // какой кластер
+		int16_t nClust; // какой кластер
 		Word8 prob;
 		Word8 flag;
 		Word8 kegl;
@@ -199,11 +199,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		Word16 invalid;
 		Word8  valid;
 		Word8  kegl;
-        Int16  sr_col;
-		Int16  sr_row;
+        int16_t  sr_col;
+		int16_t  sr_row;
 		uint32_t summa;
 		uint32_t fields[2]; // [NFIELDDWORD]
-		Int16  nInCTB;
+		int16_t  nInCTB;
 		uint32_t tablColumn;
 	} FonClusterBase;
 

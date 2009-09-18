@@ -133,8 +133,8 @@ for(i=b;i<e;i++)
 return;
 }
 ////////////
-static Bool32 Lines2Raster(CCOM_lnhead *linerep, Int16 size,
-                      Int16 w, Int16 h,
+static Bool32 Lines2Raster(CCOM_lnhead *linerep, int16_t size,
+                      int16_t w, int16_t h,
                       RecRaster *rec)
 {
  int            ww, len, i;
@@ -160,15 +160,15 @@ return TRUE;
 //
 // Bool32 p2_Line2Raster(c_comp *comp, RecRaster *rec)
 //   lp = (Word8 *)(comp+1);
-//   lt = *(Int16*)lp;
+//   lt = *(int16_t*)lp;
 //   w = comp->w
 //   h = comp->h
-P2_FUNC(Bool32) p2_Comp2Raster(Int16 lt,Word8 *lp,Int16 w,Int16 h,
+P2_FUNC(Bool32) p2_Comp2Raster(int16_t lt,Word8 *lp,int16_t w,int16_t h,
 					  RecRaster *rec)
 {
-//Int16  w, h;
+//int16_t  w, h;
 //Word8  *lp;
-//Int16  *lt;
+//int16_t  *lt;
 Bool32 ret;
 
 // if( !comp || !rec )
@@ -191,16 +191,16 @@ Bool32 ret;
   memset( rec->Raster, 0 , REC_GW_WORD8(rec->lnPixWidth)*rec->lnPixHeight);
 
 //  lp = (Word8 *)(comp+1);
-//  lt = *(Int16*)lp;
+//  lt = *(int16_t*)lp;
 //
-  w=(Int16)rec->lnPixWidth;
-  h=(Int16)rec->lnPixHeight;
+  w=(int16_t)rec->lnPixWidth;
+  h=(int16_t)rec->lnPixHeight;
 
 //  do  { // comps cycle - in CCOM_GetRaster if numcomp>1
 //          if( (*lt) <= 2 ) break;
-        ret = Lines2Raster((CCOM_lnhead*)&lp[2],(Int16)(lt-2), w, h ,rec);
+        ret = Lines2Raster((CCOM_lnhead*)&lp[2],(int16_t)(lt-2), w, h ,rec);
 //      lp += *lt;
-//      lt  = (Int16*)lp;
+//      lt  = (int16_t*)lp;
 //       }
 //  while( ret );
 

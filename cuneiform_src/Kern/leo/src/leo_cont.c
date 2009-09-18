@@ -137,7 +137,7 @@ return TRUE;
 }
 
 // save to current page = CTB_file_name
-Int16 leo_cont_store(RecRaster *r,Word8 let, Word8 nLns,Rect16 *rect,Word8 IsPrint,
+int16_t leo_cont_store(RecRaster *r,Word8 let, Word8 nLns,Rect16 *rect,Word8 IsPrint,
 		Word8	Prob, Word8 Valid, RecVersions *v,Word8 control)
 {
 int32_t       num;
@@ -187,10 +187,10 @@ if( !ret )
     return -1;
 num = this_ctb.num;
 
-return (Int16)num;  // id_rast = last sequentaly saved raster+1
+return (int16_t)num;  // id_rast = last sequentaly saved raster+1
 }
 
-Bool32 leo_cont_restore(RecRaster *r, int32_t id_page, Int16 id_rast, Word8 *nLns,Rect16 *rect,Word8 *IsPrint, Word8 *datao)
+Bool32 leo_cont_restore(RecRaster *r, int32_t id_page, int16_t id_rast, Word8 *nLns,Rect16 *rect,Word8 *IsPrint, Word8 *datao)
 {
 Word8       raster[4096],w,h,data[CTB_DATA_SIZE];
 int32_t       wb,ww,hh;
@@ -225,7 +225,7 @@ return ret;
 }
 
 
-Bool32 leo_cont_set_valid(int32_t id_page, Int16 id_rast, Word8 code, Word8 valid,Word8 control)
+Bool32 leo_cont_set_valid(int32_t id_page, int16_t id_rast, Word8 code, Word8 valid,Word8 control)
 {
 Word8       raster[4096],data[CTB_DATA_SIZE];
 Bool32      ret;
@@ -250,7 +250,7 @@ CTB_write_data(&this_ctb, id_rast-1, data);
 return ret;
 }
 
-Bool32 leo_cont_del_final(int32_t id_page, Int16 id_rast)
+Bool32 leo_cont_del_final(int32_t id_page, int16_t id_rast)
 {
 Word8       raster[4096],data[CTB_DATA_SIZE];
 Bool32      ret;
@@ -268,7 +268,7 @@ return ret;
 
 Bool32 leo_cont_store_collection(RecVersions *ver)
 {
-Int16       id_rast;
+int16_t       id_rast;
 int32_t       k;
 Word8       data[CTB_DATA_SIZE]={0};
 

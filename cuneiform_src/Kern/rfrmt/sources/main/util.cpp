@@ -377,10 +377,10 @@ void PutMess(int num, char *str)
 //==
 void ProjectPoint(Point16 *r,float tg_ang)
 //==
-{ Int16 xa,ya;
+{ int16_t xa,ya;
   float fi=(float)atan(tg_ang);
   float si=(float)sin(fi),co=(float)cos(fi);
-  xa=r->x; ya=r->y; r->x=(Int16)(xa*co+ya*si); r->y=(Int16)(-xa*si+ya*co);
+  xa=r->x; ya=r->y; r->x=(int16_t)(xa*co+ya*si); r->y=(int16_t)(-xa*si+ya*co);
 }
 */
 //#undef CT_SKEW
@@ -410,7 +410,7 @@ void ProjectRect1024(Rect16 *r,int32_t Skew1024)
 			Deskew(pt,-Skew1024);
 	    dx=pt.x-xa; dy=pt.y-ya;
 		#endif
-  	r->left+=(Int16)dx; r->right+=(Int16)dx; r->bottom+=(Int16)dy; r->top+=(Int16)dy;
+  	r->left+=(int16_t)dx; r->right+=(int16_t)dx; r->bottom+=(int16_t)dy; r->top+=(int16_t)dy;
   }
 }
 
@@ -419,10 +419,10 @@ void ProjectPoint1024(Point16 *r,int32_t Skew1024)
 //==
 {
 	#ifndef CT_SKEW
-		Int16 xa,ya;
+		int16_t xa,ya;
 	  xa=r->x; ya=r->y;
-	  r->x=xa + (Int16)(((int32_t)ya*Skew1024)/1024);
-	  r->y=ya - (Int16)(((int32_t)xa*Skew1024)/1024);
+	  r->x=xa + (int16_t)(((int32_t)ya*Skew1024)/1024);
+	  r->y=ya - (int16_t)(((int32_t)xa*Skew1024)/1024);
 	#else
 		Deskew(*r,-Skew1024);
 	#endif
@@ -455,7 +455,7 @@ void ProjectPoint1024(Point16 *r,int32_t Skew1024)
 	{
 		FILE *File;
 		BYTE buf03[255];
-		Int16 ret=0;
+		int16_t ret=0;
 
 		if((File=fopen(name,"rt")) == NULL) {
 			return 0;

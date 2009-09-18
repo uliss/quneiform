@@ -191,8 +191,8 @@ EXC_FUNC(Bool32)  REXCExtraDIB(ExcControl ExCW,
 typedef  int32_t (*FNREXC_GetContainer)(void);
 EXC_FUNC(Handle)  REXCGetContainer(void);
 // 6    REXC_FNGETLENEREP     Получить интервальное представление
-typedef  Bool32  (*FNREXC_MakeLP)( RecRaster   *rRaster , Word8 *lp, Int16 *lp_size, Int16 *numcomp);
-EXC_FUNC(Bool32)     REXCMakeLP  ( RecRaster   *rRaster , Word8 *lp, Int16 *lp_size, Int16 *numcomp);
+typedef  Bool32  (*FNREXC_MakeLP)( RecRaster   *rRaster , Word8 *lp, int16_t *lp_size, int16_t *numcomp);
+EXC_FUNC(Bool32)     REXCMakeLP  ( RecRaster   *rRaster , Word8 *lp, int16_t *lp_size, int16_t *numcomp);
 // 7    REXC_FNVERSION Дать версию библиотеки
 //
 //

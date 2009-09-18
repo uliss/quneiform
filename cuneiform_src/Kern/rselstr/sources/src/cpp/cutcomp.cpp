@@ -203,8 +203,8 @@ BOOL CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
 	CCOM_comp* comp2;
 	Word8* lp=NULL;
 	// Word8* old;
-			// Int16 lp_size;
-			// Int16 numcomp;
+			// int16_t lp_size;
+			// int16_t numcomp;
 
 
 			for(ii=rast_bound*8*((rast.lnPixWidth+63)/64);ii<j;ii++)

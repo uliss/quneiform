@@ -64,14 +64,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 //      Internal functions
-static void make_seg_line (Word8* raster, Int16 width);
+static void make_seg_line (Word8* raster, int16_t width);
 
 //      Internal variables
 static BWSS *bp,*bpe;
 static Word8 extrcomp_flag;
 #define SEG_DELIM -0x7000
 
-BWSS *locomp_seglist(Word8* raster, BWSS *bwsp, BWSS *bwe, Int16 height, Int16 width)
+BWSS *locomp_seglist(Word8* raster, BWSS *bwsp, BWSS *bwe, int16_t height, int16_t width)
 {
  bwsp->b = 0; bwsp->w = SEG_DELIM; bwsp++;
  bp = bwsp;  bpe = bwe;extrcomp_flag = 0;
@@ -79,7 +79,7 @@ BWSS *locomp_seglist(Word8* raster, BWSS *bwsp, BWSS *bwe, Int16 height, Int16 w
  return bp;
 }
 
-BWSS *extrcomp_seglist(Word8* raster, BWSS *bwsp, BWSS *bwe, Int16 width)
+BWSS *extrcomp_seglist(Word8* raster, BWSS *bwsp, BWSS *bwe, int16_t width)
 {
  bp = bwsp;  bpe = bwe; extrcomp_flag = 1;
  make_seg_line(raster,width);
@@ -91,7 +91,7 @@ BWSS *extrcomp_seglist(Word8* raster, BWSS *bwsp, BWSS *bwe, Int16 width)
 #define commw goto comm_after_white
 #define commb goto comm_after_black
 
-static void make_seg_line(Word8* raster, Int16 width)
+static void make_seg_line(Word8* raster, int16_t width)
 {
  BWSS *p = bp;
  Word8 b;

@@ -130,10 +130,10 @@ void RSELSTR_CutCompInTableZones(Handle hCPAGE, CCOM_handle hCCOM) {
 
 void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect32* Rc) {
 	CCOM_comp * comp;
-	Int16 top = (Int16) Rc->top;
-	Int16 bottom = (Int16) Rc->bottom;
-	Int16 left = (Int16) Rc->left;
-	Int16 right = (Int16) Rc->right;
+	int16_t top = (int16_t) Rc->top;
+	int16_t bottom = (int16_t) Rc->bottom;
+	int16_t left = (int16_t) Rc->left;
+	int16_t right = (int16_t) Rc->right;
 	CCOM_USER_BLOCK ub;
 
 	for (comp = CCOM_GetFirst(hCCOM, NULL); comp; comp = CCOM_GetNext(comp,

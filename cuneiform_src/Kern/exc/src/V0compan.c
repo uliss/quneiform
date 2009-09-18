@@ -77,7 +77,7 @@ void set_active_MN(MN * mnnew,MN * mnold); // pic_apx.c
 MN * accept_greate_picture(MN * mn);        // pic_apx.c
 
 static BWS *op, *np;    // pointers to segment representation
-static Int16 ol,nl;       // location counters
+static int16_t ol,nl;       // location counters
 
 static void simple_cont();
 static void dead_line();
@@ -322,7 +322,7 @@ static void no_box()
  BOX *bp, *bpp, *bww;
  MN *mn, *mmax;
  LNSTRT *lp;
- Int16 left, right;
+ int16_t left, right;
  Word16 n, i;
  //     Clear references to box in the new line
  bwp = np; do bwp->box = NULL; while ((bwp++)->w > 0);

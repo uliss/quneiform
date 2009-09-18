@@ -79,10 +79,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
    LOC_FUNC(Bool32) LOCInit( MemFunc* mem );
    LOC_FUNC(void)   LOCDone(void);
-   LOC_FUNC(Int16)  LOCGetErr(void);
+   LOC_FUNC(int16_t)  LOCGetErr(void);
 
    LOC_FUNC(MN *)   LOC_CLocomp (Word8* raster, int32_t bw, int32_t h,
-        Int16 upper,Int16 left);
+        int16_t upper,int16_t left);
    LOC_FUNC(Word8*) LOC_GetSegmentPool(void);
 
 // error code

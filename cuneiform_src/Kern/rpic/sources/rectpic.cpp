@@ -234,7 +234,7 @@ Bool32 SearchRectanglePictures(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 	Handle BlockType;
 	RecRaster rec;
 	RecVersions vs;
-	Int16 Language;
+	int16_t Language;
 	RPIC_Comp_Rect CompRect;
 
 

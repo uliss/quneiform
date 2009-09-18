@@ -160,7 +160,7 @@ BOOL snap_show_text(PBYTE);
 BOOL snap_show_text1(PBYTE);
 BOOL snap_monitor(void);
 void snap_draw_line(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
-		uint32_t rgb, Int16 pen, uint32_t key);//IGOR
+		uint32_t rgb, int16_t pen, uint32_t key);//IGOR
 void snap_del_line(Handle wnd, uint32_t key);//IGOR
 BOOL snap_baselines(BYTE a);//IGOR
 BOOL snap_monitor_ori(CSTR_line *snap_line, int32_t nums);
@@ -694,7 +694,7 @@ void c_rastror(PBYTE, PBYTE, WORD, WORD);
 lnhead *c_boxln(MN *);
 
 // rstr_con.c
-Int16 rstr_cont_store(RecRaster *r, Word8 let, Word8 nLns, Rect16 *rect,
+int16_t rstr_cont_store(RecRaster *r, Word8 let, Word8 nLns, Rect16 *rect,
 		Word8 IsPrint, Word8 Prob, Word8 Valid, RecVersions *v, Word8 control,
 		Word8 kegl, Word8 column, Word8 tabno);
 void rstr_close_cont(void);

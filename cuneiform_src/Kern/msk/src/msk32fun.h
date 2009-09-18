@@ -69,9 +69,9 @@ int det_sym_sort(short ptr_char,Word16 pri,Word16 abc_n1,
 				 Word16 iobraz[],Word16 iobraz1[],Word16 list[],
 				Word16 meas0[],	Word16 proc);
 
-int chn_mat(Int16 coo,Word16  *bgf,BYTE bgf_col,
-            Int16 i1,Int16 j1,Int16 i2,Int16 j2,Word16 *ss,
-            Int16 co1,Int16 k0,Int16 l0,Int16 k1,Int16 l1);
+int chn_mat(int16_t coo,Word16  *bgf,BYTE bgf_col,
+            int16_t i1,int16_t j1,int16_t i2,int16_t j2,Word16 *ss,
+            int16_t co1,int16_t k0,int16_t l0,int16_t k1,int16_t l1);
 
 int tch_in(const char *NameFile);
 

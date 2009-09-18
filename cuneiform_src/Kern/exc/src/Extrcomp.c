@@ -138,9 +138,9 @@ return step;
  //------------------ Image attributes ---------------------
 Word16 image_disp_byte, image_disp_end;
 Word8 image_disp_mask;
-Int16  image_blth    ;  // pixels per line
-Int16  image_height  ;  // lines in file number
-Int16  image_lth     ;  // bytes per line
+int16_t  image_blth    ;  // pixels per line
+int16_t  image_height  ;  // lines in file number
+int16_t  image_lth     ;  // bytes per line
 Word8 image_black   ;  // mask for black pixels adding
 Word8 image_white   ;  // mask for wite pixels adding
 
@@ -153,7 +153,7 @@ void save_component(ExtComponent *c, version *vs, version *ve,
 void invert_tiff (Word8 *p, Word16 lth);
 void image_file_close(void);
 Bool image_file_open (void);
-Int16 source_read(Word8 *start, Word8 *ptr, Word8 *end);
+int16_t source_read(Word8 *start, Word8 *ptr, Word8 *end);
 
 //========= Import func =========
 // from GRA_REC.c
@@ -164,7 +164,7 @@ extern void     exc_ori_add(void);
 extern Word8    exc_ori_result(void);
 -*/
 // from COMPKIT.C
-extern Int16   MN_to_line(MN * mn);
+extern int16_t   MN_to_line(MN * mn);
 //-extern Word8 * make_raster();
 // from ALPHABET.C
 /*-Andrey: moved to RRecCom (recognition) and RNorm (autorotate)
@@ -177,7 +177,7 @@ extern int32_t    rexc_gra_type_rec(Word8 lang);
 extern void     exc_ori_recog(RecVersions *v);
 -*/
 // from MATRIX.C
-extern Int16  matrix_read(Word8 *buff, Word16 lth);
+extern int16_t  matrix_read(Word8 *buff, Word16 lth);
 extern void matrix_open ();
 extern void matrix_close();
 extern void matrix_reset();
@@ -211,7 +211,7 @@ Word8   fax1x2=0,matrix=0;
 Word16  actual_resolution;
 Word16  comp_max_h, comp_max_w, comp_min_h, comp_min_w;
 Word8   alphabet[256];
-Int16   nBlack,nAll,nWid;
+int16_t   nBlack,nAll,nWid;
 int32_t ExControl;
 //========== Local data
 
@@ -219,7 +219,7 @@ int32_t ExControl;
 
 static Word8 cache[CACHESIZE],*cache_end,*cache_curr;
 static char dumpfile[]= EXC_DUMP_FILE;
-static Int16  MaxScale;
+static int16_t  MaxScale;
 static jmp_buf jumper;
 static Word16            wHeightRC =                         0;
 static Word16            wLowRC =                            REXC_ERR_NO;;
@@ -419,7 +419,7 @@ lpImageInfo -> bFotoMetrics       = (Word8)DIB_FM; // inverted tiff image
 return TRUE;
 }
 
-Int16   EXC_DIBRead(Word8 *lpImage, Word16 wMaxSize)
+int16_t   EXC_DIBRead(Word8 *lpImage, Word16 wMaxSize)
 {
 int     d = (DIB_Wid+7)/8, len;
 
@@ -464,7 +464,7 @@ else
 return len;
 }
 // reverse order of string. DIB
-Int16   EXC_DIBReadReverse(Word8 *lpImage, Word16 wMaxSize)
+int16_t   EXC_DIBReadReverse(Word8 *lpImage, Word16 wMaxSize)
 {
 int     d = (DIB_Wid+7)/8, len;
 if( !EnableTemplate )
@@ -891,9 +891,9 @@ Bool image_file_open (void)
 }
 
 
-Int16 source_read(Word8* start, Word8* ptr, Word8* end)
+int16_t source_read(Word8* start, Word8* ptr, Word8* end)
 {
- Int16 i, l;
+ int16_t i, l;
 
  i=end-ptr; /* length of rest of last string */
  if (i)  { memcpy (start,ptr,i); start += i; }
@@ -909,7 +909,7 @@ Int16 source_read(Word8* start, Word8* ptr, Word8* end)
 }
 
 
-void error_exit(Int16 group, Int16 element)
+void error_exit(int16_t group, int16_t element)
 {
 group=element;
 longjmp(jumper,element);
@@ -964,8 +964,8 @@ if(  c->scale<3 && (c->w>>c->scale)<comp_max_w && (c->h>>c->scale)<comp_max_h )
         c->h >>=c->scale;
         c->rw  =(c->w+7)/8;
         }
-    c->nvers=  (Int16)EVNRecog_lp(  (ExtComponent *)c, lp, lpl, evn_res   );
-    c->records = (Int16)(sizeof(ExtComponent)+sizeof(Word16)+lpl);
+    c->nvers=  (int16_t)EVNRecog_lp(  (ExtComponent *)c, lp, lpl, evn_res   );
+    c->records = (int16_t)(sizeof(ExtComponent)+sizeof(Word16)+lpl);
     mkrs=FALSE;
 
     if( ((ExControl & Ex_NetRecog)||c->scale) &&
@@ -990,7 +990,7 @@ if(  c->scale<3 && (c->w>>c->scale)<comp_max_w && (c->h>>c->scale)<comp_max_h )
             gra_res[j]=0;
             if( gra_res[0] )
                 {
-                c->nvers=(Int16)j;
+                c->nvers=(int16_t)j;
                 memcpy(evn_res, gra_res,j);
                 c->cs=255; // gra versions
                 }
@@ -1093,11 +1093,11 @@ int h;
  return close(h)==0;
 }
 
-EXC_FUNC(Bool32)  REXCMakeLP( RecRaster   *rRaster , Word8 *lp, Int16 *lp_size, Int16 *numcomp)
+EXC_FUNC(Bool32)  REXCMakeLP( RecRaster   *rRaster , Word8 *lp, int16_t *lp_size, int16_t *numcomp)
 {
 Word8  *l, *ls;
 int     len, numc;
-Int16  *llen;
+int16_t  *llen;
 ls=l=EVNMakeLine( rRaster , 2);
 if( !l )
     {
@@ -1106,15 +1106,15 @@ if( !l )
     }
 for(numc=len=0;;)
     {
-    llen = (Int16*)l;
+    llen = (int16_t*)l;
     len += *llen;
     if( *llen==0 )
         break;
     numc++;
     l+=*llen;
     }
-*lp_size = (Int16)len;
-*numcomp = (Int16)numc;
+*lp_size = (int16_t)len;
+*numcomp = (int16_t)numc;
 memcpy(lp,ls,len);
 return TRUE;
 }
@@ -1322,21 +1322,21 @@ return;
 
 struct cut_pnt
 {
- Int16 xl;
- Int16 xr;
- Int16 est;
- Int16 ref;
+ int16_t xl;
+ int16_t xr;
+ int16_t est;
+ int16_t ref;
 };
 
 typedef struct cut_pnt CP;
 #define MAX_NUM_CUTPN 2048
 struct big_merge_struct
 {
- Int16 vh[2*RASTER_MAX_HEIGHT+2];
+ int16_t vh[2*RASTER_MAX_HEIGHT+2];
  char eh[MAX_NUM_CUTPN];
  char sh[MAX_NUM_CUTPN];
  Word16 np;
- Int16 min_est;
+ int16_t min_est;
  CP cp[MAX_NUM_CUTPN];
 };
 
@@ -1345,14 +1345,14 @@ typedef struct big_merge_struct BM;
 BM W;
 
 static void frame_hist (MN *mn);
-Word8* frame_cut_MN(Int16, Int16);
+Word8* frame_cut_MN(int16_t, int16_t);
 static Bool32 frame_cut_points();
 static void frame_select();
 static Bool16 frame_check();
 static int32_t frame_cut(MN *mn);
 static Bool16 save_picture_scale (MN *mn);
 
-static Int16 big_merge(MN *mn)
+static int16_t big_merge(MN *mn)
 {
 
  if ((wcomp.h > comp_max_h) || (wcomp.w >= sizeof (W.eh)))
@@ -1380,7 +1380,7 @@ static void frame_hist (MN *mn)
  BOX *box;
  LNSTRT * ls;
  BOXINT * iv;
- Int16 i,j, row, end, lth;
+ int16_t i,j, row, end, lth;
  memset (&W,0,sizeof(W));
  i = mn->mnboxcnt;      box = (BOX *)(mn->mnfirstbox);
  while (--i >= 0)
@@ -1442,9 +1442,9 @@ reject:;
 
 static Bool32 frame_cut_points()
 {
- Int16 ncp,ndown,nups,nupe,nw,nstart;
- Int16 add_est;
- Int16 thick_b;
+ int16_t ncp,ndown,nups,nupe,nw,nstart;
+ int16_t add_est;
+ int16_t thick_b;
  W.min_est = 0x7fff; W.np = 1; thick_b = (wcomp.h < 34) ? 2 : 3;
 
 if( actual_resolution>400 )
@@ -1547,7 +1547,7 @@ return 1;
 }
 
 
-static Int16 dist_est (Int16 est)
+static int16_t dist_est (int16_t est)
 {
       if (est < 64) return 0;
       else
@@ -1560,7 +1560,7 @@ static Int16 dist_est (Int16 est)
 
 static void frame_select()
 {
- Int16 i, j, est, mest, ref, we, wr;
+ int16_t i, j, est, mest, ref, we, wr;
  if (W.np == 1) return;
  W.min_est--;
  W.cp[0].est = W.min_est;
@@ -1569,10 +1569,10 @@ static void frame_select()
     ref = 0;
     we = W.cp[i].est - W.min_est;
     wr = W.cp[i].xr;
-    mest = we + dist_est((Int16)(wcomp.w - wr));
+    mest = we + dist_est((int16_t)(wcomp.w - wr));
     for (j = i+1; j<W.np; j++)
      {
-      est = W.cp[j].est + we + dist_est((Int16)(W.cp[j].xl - wr));
+      est = W.cp[j].est + we + dist_est((int16_t)(W.cp[j].xl - wr));
       if (est < mest) { ref = j; mest = est; }
      }
     W.cp[i].est = mest; W.cp[i].ref = ref;
@@ -1581,9 +1581,9 @@ static void frame_select()
 //----------------------- Frame cut ---------------------------------------
 
 MN * frame_comp;
-Int16 frame_upper, frame_comp_col, frame_height;
+int16_t frame_upper, frame_comp_col, frame_height;
 BOX * frame_end;
-static void frame_put (Word8* p, Int16 x, Int16 l, Int16 from, Int16 to);
+static void frame_put (Word8* p, int16_t x, int16_t l, int16_t from, int16_t to);
 
 void frame_cut_MN_set (MN *mn)                  //AK 14.03.97 void
 {
@@ -1592,9 +1592,9 @@ void frame_cut_MN_set (MN *mn)                  //AK 14.03.97 void
  frame_height = wcomp.h;
 }
 
-Word8* frame_cut_MN (Int16 from, Int16 to)
+Word8* frame_cut_MN (int16_t from, int16_t to)
 {
- Int16 bw, col, x, cnt;
+ int16_t bw, col, x, cnt;
  BOX *bp;
  Word8* p;
  LNSTRT *lp;
@@ -1624,7 +1624,7 @@ box_cont:
 }
 static Word8 start_shift[] = {255, 127, 63, 31, 15, 7, 3 ,1};
 static Word8 end_shift[] = {0,0x80,0xc0,0xe0,0xf0,0xf8,0xfc,0xfe};
-static void frame_put (Word8* p, Int16 x, Int16 l, Int16 from, Int16 to)
+static void frame_put (Word8* p, int16_t x, int16_t l, int16_t from, int16_t to)
 {
  Word8 b;
  x -= l + from; if (x < 0) { if ((l+=x) < 0) return; x = 0; }
@@ -1634,7 +1634,7 @@ static void frame_put (Word8* p, Int16 x, Int16 l, Int16 from, Int16 to)
  b &= end_shift[l]; *p |= b;
 }
 
-static Bool16 exclude_one_piece(Int16 xl, Int16 xr, Int16 x0, Int16 y0, Int16 xmax, Int16 h)
+static Bool16 exclude_one_piece(int16_t xl, int16_t xr, int16_t x0, int16_t y0, int16_t xmax, int16_t h)
 {
 #ifdef _USE_LOC_
 MN * wm;
@@ -1642,7 +1642,7 @@ Word8* raster;
 
 
      raster = frame_cut_MN(xl,xr);
-     wm = LOC_CLocomp (raster, (xr - xl + 7)>>3, h, y0, (Int16)(x0 + xl));
+     wm = LOC_CLocomp (raster, (xr - xl + 7)>>3, h, y0, (int16_t)(x0 + xl));
 
      while (wm && wm->mnfirstbox)
        {
@@ -1660,8 +1660,8 @@ return FALSE;
 
 static int32_t frame_cut(MN *mn)
 {
- Int16 xl, xr, ncp,cutn;
- Int16 x0 = wcomp.left, y0=wcomp.upper, xmax = wcomp.w, h=wcomp.h;
+ int16_t xl, xr, ncp,cutn;
+ int16_t x0 = wcomp.left, y0=wcomp.upper, xmax = wcomp.w, h=wcomp.h;
 
 
  if (W.cp[0].ref == 0)
@@ -1685,9 +1685,9 @@ static int32_t frame_cut(MN *mn)
     }
    else if( xr - xl>=comp_max_w && xr - xl < 2*comp_max_w)
     {
-    if( !exclude_one_piece(xl, (Int16)((xl+xr)/2), x0, y0, xmax, h) )
+    if( !exclude_one_piece(xl, (int16_t)((xl+xr)/2), x0, y0, xmax, h) )
         break;
-    if( !exclude_one_piece((Int16)((xl+xr)/2), xr, x0, y0, xmax, h) )
+    if( !exclude_one_piece((int16_t)((xl+xr)/2), xr, x0, y0, xmax, h) )
         break;
     cutn++;
     }
@@ -1731,7 +1731,7 @@ return;
 static void save_prot(void)
         { // protocol for exernal viewer
          Word8* p;
-         Int16 l;
+         int16_t l;
          FILE *ev;
          Word8 wr_ltr;
          wr_ltr = 'c';
@@ -1777,7 +1777,7 @@ return;
 
 
 // compress MN to work_raster
-static Bool16 scaleMN2work_raster(  MN *mn,Int16 upper, Int16 left, Int16 w, Int16 h,
+static Bool16 scaleMN2work_raster(  MN *mn,int16_t upper, int16_t left, int16_t w, int16_t h,
                         int     scale_2)
 {
 BOX    *pBox;
@@ -1787,7 +1787,7 @@ BOXINT *pInts;
 BOXINT *pAfterInts;
 BOXINT *pInt;
 int             xEnd, xBeg, y, hmin, hmax;
-Int16     top=upper+h, right=left+w;
+int16_t     top=upper+h, right=left+w;
 
 
 memset( work_raster,0, wcomp.rw*wcomp.h);
@@ -1844,7 +1844,7 @@ return 0;
 #endif
 }
 
-static store_MN(MN *locmn,Int16 upper, Int16 left, Int16 w, Int16 h,
+static store_MN(MN *locmn,int16_t upper, int16_t left, int16_t w, int16_t h,
                         int     scale_2)
 {
 if( !locmn )
@@ -1994,7 +1994,7 @@ return s;
 }
 
 // store long MN intervals to container
-static Bool16 longMN2container(  MN *mn,Int16 upper, Int16 left, Int16 w, Int16 h,
+static Bool16 longMN2container(  MN *mn,int16_t upper, int16_t left, int16_t w, int16_t h,
                         int     scale_2)
 {
 BOX    *pBox;
@@ -2021,7 +2021,7 @@ for (pBox = (BOX *) mn -> mnfirstbox, nBox = 0;
         { // new line
         if( !start )
             {
-            CCOM_LargeNewInterval(cmp,(Int16)0,(Int16)0); // fictive interval
+            CCOM_LargeNewInterval(cmp,(int16_t)0,(int16_t)0); // fictive interval
             lnh->lth=4*2+4*(hh+1); // header + intervals + fictive interval
             lnh->h      =hh; // store actual line header
             }
@@ -2040,7 +2040,7 @@ for (pBox = (BOX *) mn -> mnfirstbox, nBox = 0;
         lnh->h  =0; // store actual line header
         lnh->row        =y;
         lnh->flg        =pBox->boxflag;
-        CCOM_LargeNewInterval(cmp,(Int16)xEnd,(Int16)pLine -> l);
+        CCOM_LargeNewInterval(cmp,(int16_t)xEnd,(int16_t)pLine -> l);
         pInts = (BOXINT *) ((Word8 *) pBox + sizeof (BOX) + sizeof (LNSTRT));
         }
     else
@@ -2059,11 +2059,11 @@ for (pBox = (BOX *) mn -> mnfirstbox, nBox = 0;
         xEnd += pInt -> d;
         y++;
         hh++;
-        CCOM_LargeNewInterval(cmp,(Int16)xEnd,(Int16)pInt -> l);
+        CCOM_LargeNewInterval(cmp,(int16_t)xEnd,(int16_t)pInt -> l);
         }
 
     }
-CCOM_LargeNewInterval(cmp,(Int16)0,(Int16)0); // fictive interval
+CCOM_LargeNewInterval(cmp,(int16_t)0,(int16_t)0); // fictive interval
 lnh->lth=4*2+4*(hh+1); // header + intervals + fictive interval
 lnh->h  =hh; // store actual line header
 CCOM_LargeClose(cmp);
@@ -2122,7 +2122,7 @@ return sum;
 Bool16 save_picture_scale (MN *mn)
 {
 int32_t     scale_2, scale;
-Int16     sv_upper, sv_left, sv_w, sv_h;
+int16_t     sv_upper, sv_left, sv_w, sv_h;
 MN      *locmn;
 
 if( !(ExControl&Ex_Picture) )

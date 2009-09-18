@@ -468,9 +468,9 @@ void MyUnionRect(SRECT *s1,SRECT *s2,SRECT *u);
 */
 #else
   //---Из секции колонок---
-  extern Int16 NumCol;
+  extern int16_t NumCol;
   extern int SizeSectionCol;
-  extern Int16 *NumStr;//[nc]
+  extern int16_t *NumStr;//[nc]
   extern uint32_t *UserNumber;//[nc]
   extern uint32_t *FragFlag;//[nc]
   extern SRECT *BndCol;//[nc]

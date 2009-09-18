@@ -100,22 +100,22 @@ extern MN *c_locomp(Word8 *,int32_t,int32_t,int32_t,int32_t);
 
 static void save_rot_comp();
 static void rest_rot_comp();
-static Int16 net_comp (MN *mn);
+static int16_t net_comp (MN *mn);
 static void ev_vector_cnt();
-static Int16 seek_events(Word8* ev);
-static Int16 first_var();
-static void upper_row(Int16 row);
-static void upper_col(Int16 col);
-static void lower_row(Int16 row);
-static void lower_col(Int16 col);
+static int16_t seek_events(Word8* ev);
+static int16_t first_var();
+static void upper_row(int16_t row);
+static void upper_col(int16_t col);
+static void lower_row(int16_t row);
+static void lower_col(int16_t col);
 void ev_lang_filter();
-static Int16 is_english(Word8 ch);
+static int16_t is_english(Word8 ch);
 
 extern Word8 ev_rt_num_ln;
-Int16 events_recog_rt()
+int16_t events_recog_rt()
 {
  MN *mn;
- Int16 n, k;
+ int16_t n, k;
  version * a,* b;
  ev_rt_num_ln = 0;
  save_rot_comp();
@@ -182,7 +182,7 @@ no_vers:
 
 static void ev_vector_cnt()
 {
- Int16 n, nd, x, y;
+ int16_t n, nd, x, y;
  Word8* ep;
  MN *mn;
  BOX *bp;
@@ -262,7 +262,7 @@ skip:		if (bp != dl_last_in_chain) {bp = bp->boxnext; goto loop;}
  evendvar = vp;
 }
 
-static void upper_row(Int16 row)
+static void upper_row(int16_t row)
 {
  if (row >= evrow_b2)
   {
@@ -282,7 +282,7 @@ static void upper_row(Int16 row)
  return;
 }
 
-static void upper_col(Int16 col)
+static void upper_col(int16_t col)
 {
  if (col >= evcol_b2)
   {
@@ -311,7 +311,7 @@ var_plus: vp->add = 1*16; (vp+1)->ln = vp->ln; vp++; return;
 var_minus: vp->add = -1*16; (vp+1)->ln = vp->ln; vp++; return;
 }
 
-static void lower_row(Int16 row)
+static void lower_row(int16_t row)
 {
  if (row >= evrow_b1)
   {
@@ -327,7 +327,7 @@ var_minus: vp->add = -1*5; (vp+1)->ln = vp->ln; vp++; return;
 
 }
 
-static void lower_col(Int16 col)
+static void lower_col(int16_t col)
 {
  if (col >= evcol_b2)
   {
@@ -360,7 +360,7 @@ extern Word8 tabb[], taba[];
 
 static Word16 rot(Word16 n) { return ((n<<3) + (n>>13)); }
 
-static Int16 seek_events(Word8* ep)
+static int16_t seek_events(Word8* ep)
 {
  Word16 hash,i,nl;
  uint32_t di;
@@ -398,12 +398,12 @@ for(i=0;i<n;i++)
 
 static Word8 var_answer[128];
 
-static Int16 first_var()
+static int16_t first_var()
 {
  VAR *p=evvars;
  Word8 *ev1, *ev2;
  Word16 nl,n;
- Int16 var_answer_cnt=0;
+ int16_t var_answer_cnt=0;
 
  if (p == evendvar) return -1;
  memcpy (evline1,evline,4);
@@ -445,10 +445,10 @@ static void rest_rot_comp()
  memcpy (&wcomp,&rot_save,sizeof(wcomp));
 }
 
-static Int16 net_comp (MN *mn)
+static int16_t net_comp (MN *mn)
 {
  BOX *bp;
- Int16 n, c;
+ int16_t n, c;
  bp = mn->mnfirstbox; n = mn->mnboxcnt; c=0;
  while (n--)
   {
@@ -498,7 +498,7 @@ void ev_lang_filter()
    rec_ptr=v2;
 }
 
-static Int16 is_english( Word8 ch )
+static int16_t is_english( Word8 ch )
 {
 return (ch >= 'a' && ch <= 'z')||(ch >= 'A' && ch <= 'Z')||
        (ch>=ligas_beg && ch<=ligas_end && ch!=liga_exm && ch!=liga_qm ) ;

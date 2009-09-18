@@ -205,8 +205,8 @@ RRECCOM_FUNC(Bool32)  RRECCOMExtraDIB(ExcControl ExCW,
 typedef  int32_t (*FNRRECCOM_GetContainer)(void);
 RRECCOM_FUNC(int32_t)  RRECCOMGetContainer(void);
 // 6    RRECCOM_FNGETLENEREP     Получить интервальное представление
-typedef  Bool32  (*FNRRECCOM_MakeLP)( RecRaster   *rRaster , Word8 *lp, Int16 *lp_size, Int16 *numcomp);
-RRECCOM_FUNC(Bool32)     RRECCOMMakeLP  ( RecRaster   *rRaster , Word8 *lp, Int16 *lp_size, Int16 *numcomp);
+typedef  Bool32  (*FNRRECCOM_MakeLP)( RecRaster   *rRaster , Word8 *lp, int16_t *lp_size, int16_t *numcomp);
+RRECCOM_FUNC(Bool32)     RRECCOMMakeLP  ( RecRaster   *rRaster , Word8 *lp, int16_t *lp_size, int16_t *numcomp);
 // 7    RRECCOM_FNVERSION Дать версию библиотеки
 //
 //

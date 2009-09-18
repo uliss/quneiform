@@ -88,7 +88,7 @@ typedef struct tagRLT_LINE
 	Point16  Beg;
 	Point16  End;
 	int      Wid;
-	Int16    nSeg;
+	int16_t    nSeg;
 	Word8    Plot;
 	/*  derivative values  */
 	int      Len;

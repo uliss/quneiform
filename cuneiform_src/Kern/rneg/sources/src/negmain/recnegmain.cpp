@@ -734,11 +734,11 @@ void NegCopy(Word8* from,Word8* to,int bytewide,int h)
 		to[i]=from[i];
 }
 
-BOOL InitRotateMas(int w,int h,Int16** ppbegx,Int16** ppmovey,Word8** ppflmovey,int** pphi)
+BOOL InitRotateMas(int w,int h,int16_t** ppbegx,int16_t** ppmovey,Word8** ppflmovey,int** pphi)
 {
-	if(!( (*ppbegx)=new Int16[h+1]))
+	if(!( (*ppbegx)=new int16_t[h+1]))
 		return FALSE;
-	if(!( (*ppmovey)=new Int16[w+1]))
+	if(!( (*ppmovey)=new int16_t[w+1]))
 	{
 		delete[] (*ppbegx);
 		(*ppbegx)=NULL;
@@ -765,7 +765,7 @@ BOOL InitRotateMas(int w,int h,Int16** ppbegx,Int16** ppmovey,Word8** ppflmovey,
 	return TRUE;
 }
 
-void DeleteRotateMas(Word8** pmasp,Int16** begx,Int16** movey,Word8** flmovey,int** hi)
+void DeleteRotateMas(Word8** pmasp,int16_t** begx,int16_t** movey,Word8** flmovey,int** hi)
 {
 	    delete[] (*pmasp);
 		*pmasp=NULL;
@@ -888,8 +888,8 @@ BOOL IfNeedGlobalRotate(NegList* root,int& skew)
 		  now->neg.pRc->left=0;
 	  if(now->neg.pRc->right>=pNegImage->Wide)
 		  now->neg.pRc->right=pNegImage->Wide-1;
-	  now->neg.pRc->top-=(Int16)((int)(now->neg.pRc->right)*nIncline/2048);
-	  now->neg.pRc->bottom-=(Int16)((int)(now->neg.pRc->left)*nIncline/2048);
+	  now->neg.pRc->top-=(int16_t)((int)(now->neg.pRc->right)*nIncline/2048);
+	  now->neg.pRc->bottom-=(int16_t)((int)(now->neg.pRc->left)*nIncline/2048);
 	  if(now->neg.pRc->top<0)
 		  now->neg.pRc->top=0;
 	  if(now->neg.pRc->bottom>=pNegImage->Height)
@@ -919,8 +919,8 @@ BOOL IfNeedGlobalRotate(NegList* root,int& skew)
 		  now->neg.pRc->left=0;
 	  if(now->neg.pRc->right>=pNegImage->Wide)
 		  now->neg.pRc->right=pNegImage->Wide-1;
-	  now->neg.pRc->top-=(Int16)((int)(now->neg.pRc->left)*nIncline/2048);
-	  now->neg.pRc->bottom-=(Int16)((int)(now->neg.pRc->right)*nIncline/2048);
+	  now->neg.pRc->top-=(int16_t)((int)(now->neg.pRc->left)*nIncline/2048);
+	  now->neg.pRc->bottom-=(int16_t)((int)(now->neg.pRc->right)*nIncline/2048);
 	  if(now->neg.pRc->top<0)
 		  now->neg.pRc->top=0;
 	  if(now->neg.pRc->bottom>=pNegImage->Height)
@@ -966,8 +966,8 @@ void UnRotateNeg(NegList* root,int& skew)
   {
 	  for(int i=0;i<now->neg.nRc;i++)
 	  {
-	   now->neg.pRc[i].top+=(Int16)((int)(now->neg.pRc[i].left)*nIncline/2048);
-	   now->neg.pRc[i].bottom+=(Int16)((int)(now->neg.pRc[i].right)*nIncline/2048);
+	   now->neg.pRc[i].top+=(int16_t)((int)(now->neg.pRc[i].left)*nIncline/2048);
+	   now->neg.pRc[i].bottom+=(int16_t)((int)(now->neg.pRc[i].right)*nIncline/2048);
 	   if(now->neg.pRc[i].left<0)
 		  now->neg.pRc[i].left=0;
 	   if(now->neg.pRc[i].right>pNegImage->rotate.Rc.right)
@@ -995,8 +995,8 @@ void UnRotateNeg(NegList* root,int& skew)
   {
 	  for(int i=0;i<now->neg.nRc;i++)
 	  {
-	   now->neg.pRc[i].top+=(Int16)((int)(now->neg.pRc[i].left)*nIncline/2048);
-	   now->neg.pRc[i].bottom+=(Int16)((int)(now->neg.pRc[i].right)*nIncline/2048);
+	   now->neg.pRc[i].top+=(int16_t)((int)(now->neg.pRc[i].left)*nIncline/2048);
+	   now->neg.pRc[i].bottom+=(int16_t)((int)(now->neg.pRc[i].right)*nIncline/2048);
 	   now->neg.pRc[i].left-=pNegImage->rotate.begx[now->neg.pRc[i].top];
 	   now->neg.pRc[i].right-=pNegImage->rotate.begx[now->neg.pRc[i].bottom];
 

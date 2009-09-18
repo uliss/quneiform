@@ -264,7 +264,7 @@ RSTR_FUNC(Bool32) RSTR_SetSpecPrj(Word8 nSpecPrj);
 
 //поделенный на части первый проход
 RSTR_FUNC(Bool32)  RSTRRecognizeMain(CSTR_line lin, CSTR_line lino);
-RSTR_FUNC(void) RSTR_Save2CTB(CSTR_line lino,int32_t type, Int16 line_num);
+RSTR_FUNC(void) RSTR_Save2CTB(CSTR_line lino,int32_t type, int16_t line_num);
 RSTR_FUNC(Bool32)  RSTRRecognizePostMain(CSTR_line lin, CSTR_line lino);
 
 #ifdef __cplusplus

@@ -194,7 +194,7 @@ static void unpack_segments( Word8* dstprev, Word8* dst, Word8* dstnext, int32_t
 	}
 }
 
-Int16 Sweeper_ImageRead (Word8* lpImage, Word16 wMaxSize)
+int16_t Sweeper_ImageRead (Word8* lpImage, Word16 wMaxSize)
 {
 	if (!Ready)
       return 0;
@@ -331,7 +331,7 @@ Int16 Sweeper_ImageRead (Word8* lpImage, Word16 wMaxSize)
 	memset( LinesBuf+ImageInfo.wImageByteWidth*2, 0 , size_read + ImageInfo.wImageByteWidth );
 */
 
-	return (Int16)size_read;
+	return (int16_t)size_read;
 }
 
 Bool  Sweeper_ImageClose (void)

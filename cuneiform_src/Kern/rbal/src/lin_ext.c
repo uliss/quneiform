@@ -71,22 +71,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 
 extern INT it_done;
-static Int16 skew_corr_stat(CSTR_line ln, INT pool_src);
-static Int16 rast_is_BOX_solid (CSTR_rast B1,Int16 scale);
+static int16_t skew_corr_stat(CSTR_line ln, INT pool_src);
+static int16_t rast_is_BOX_solid (CSTR_rast B1,int16_t scale);
 static BOOL snap_monitor_stat(void);
 static BOOL snap_monitor_ori_stat(CSTR_line *snap_line, int32_t num_lines);//IGOR
 static BOOL snap_is_marked_stat(CSTR_line ln);//IGOR
 static BOOL snap_baselines_stat(BYTE a);//IGOR
 static void snap_draw_line_stat(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
-					                               uint32_t rgb, Int16 pen, uint32_t key);//IGOR
+					                               uint32_t rgb, int16_t pen, uint32_t key);//IGOR
 static void snap_del_line_stat(Handle wnd, uint32_t key);//IGOR
 static BOOL snap_show_text_stat(BYTE *txt);
 static BOOL snap_activity_stat(BYTE a);
 
 static Word8 let_linempty[512]={0};
 
-Int16 (*RSTR_skew_corr)(CSTR_line ln, INT pool_src)=skew_corr_stat;
-Int16 (*RSTR_rast_is_BOX_solid) (CSTR_rast B1,Int16 scale) = rast_is_BOX_solid;
+int16_t (*RSTR_skew_corr)(CSTR_line ln, INT pool_src)=skew_corr_stat;
+int16_t (*RSTR_rast_is_BOX_solid) (CSTR_rast B1,int16_t scale) = rast_is_BOX_solid;
 BOOL (*snap_monitor_rbal)(void)=snap_monitor_stat;
 BOOL (*snap_show_text_rbal)(BYTE *txt)=snap_show_text_stat;
 BOOL (*snap_activity_rbal)(BYTE a)=snap_activity_stat;
@@ -94,14 +94,14 @@ BOOL (*snap_monitor_ori_rbal)(CSTR_line *snap_line, int32_t num_lines)=snap_moni
 BOOL (*snap_is_marked_rbal)(CSTR_line ln)=snap_is_marked_stat;//IGOR
 BOOL (*snap_baselines_rbal)(BYTE a)=snap_baselines_stat;//IGOR
 void (*snap_draw_line_rbal)(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
-					                   uint32_t rgb, Int16 pen, uint32_t key)
+					                   uint32_t rgb, int16_t pen, uint32_t key)
 							=snap_draw_line_stat;//IGOR
 void (*snap_del_line_rbal)(Handle wnd, uint32_t key) = snap_del_line_stat;//IGOR
 
 CSTR_line lin_str=(CSTR_line)NULL;
 
 Word8 language=3;
-Int16 line_number = 0;
+int16_t line_number = 0;
 
 Word8  fax1x2=0;
 Word16 actual_resolution=300;
@@ -110,7 +110,7 @@ BOOL   line_BL=FALSE;
 Word8  spec_camera = 0;
 int32_t  nIncline=0;
 Word8  no_linpen=0;
-Int16  prop_l_delta=0, prop_r_delta=0;
+int16_t  prop_l_delta=0, prop_r_delta=0;
 
 Word8 db_status=0;
 Word8 db_pass=0;
@@ -365,15 +365,15 @@ void promote (BYTE sn, CSTR_rast cl, BYTE let, INT delta)
 
 ////////////////////////////
 // skew.c
-static Int16 skew_corr_stat(CSTR_line ln, INT pool_src)
+static int16_t skew_corr_stat(CSTR_line ln, INT pool_src)
 {
-	return (Int16)nIncline;
+	return (int16_t)nIncline;
 }
 ////////////
 /////////////////////
 // dms.c
 // сделать B1->env   (и для CSTR_rast -> comp )
-static Int16 rast_is_BOX_solid (CSTR_rast B1,Int16 scale)
+static int16_t rast_is_BOX_solid (CSTR_rast B1,int16_t scale)
 {
 	return 0;
 }
@@ -474,7 +474,7 @@ BOOL snap_baselines_stat(BYTE a)//IGOR
 { return FALSE;}
 ///////
 void snap_draw_line_stat(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
-											uint32_t rgb, Int16 pen, uint32_t key)//IGOR
+											uint32_t rgb, int16_t pen, uint32_t key)//IGOR
 { return;}
 ///////
 void snap_del_line_stat(Handle wnd, uint32_t key)//IGOR
@@ -690,11 +690,11 @@ drfin:
 static void GetRstrGlobals(BAL_RSTR_GLOBALS  *rstrGlob)
 {
 	language    = (Word8)rstrGlob->language;
-	line_number = (Int16)rstrGlob->line_number;
+	line_number = (int16_t)rstrGlob->line_number;
 	fax1x2      = (Word8)rstrGlob->fax1x2;
 	actual_resolution = (Word16) rstrGlob->actual_resolution;
     fEdCode           = (Word8)rstrGlob->fEdCode;  // ASCII
-    line_BL           = (Int16)rstrGlob->line_BL;
+    line_BL           = (int16_t)rstrGlob->line_BL;
     spec_camera       = (Word8)rstrGlob->spec_camera;
     no_linpen         = (Word8)rstrGlob->no_linpen;
 

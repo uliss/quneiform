@@ -670,8 +670,8 @@ if( !cell )
     wLowRC=CSTR_ERR_NOMEMORY        ;
     return (CSTR_rast)NULL;
     }
-cell->attr.col = (Int16)col;
-cell->attr.row = (Int16)row;
+cell->attr.col = (int16_t)col;
+cell->attr.row = (int16_t)row;
 cell->attr.version = CSTR_VERSION_CODE;
 cell->attr.n_baton= CSTR_NO_BATONS;
 cell->attr.save_stick_inc= NO_INCLINE;
@@ -999,8 +999,8 @@ CSTR_FUNC(Bool32)               CSTR_StoreRaster (CSTR_rast curr_raster, RecRast
 CSTR_cell   * cell = (CSTR_cell*)curr_raster;
 CSTR_head   * line;
 Word8         lp[6000];
-Int16         lp_size;
-Int16         multy;
+int16_t         lp_size;
+int16_t         multy;
 
 if( curr_raster==(CSTR_rast)0 || recr==NULL )
     {
@@ -1030,8 +1030,8 @@ CSTR_cell   * cell = (CSTR_cell*)curr_raster;
 CCOM_comp   * comp;
 CSTR_head   * line;
 RecRaster     rs;
-Int16        len, numc,num_ln;
-Int16       *llen;
+int16_t        len, numc,num_ln;
+int16_t       *llen;
 Word8       *l=lp;
 CCOM_lnhead *ln;
 
@@ -1049,7 +1049,7 @@ if( !(comp=CCOM_New(line->container, cell->attr.row, cell->attr.col, cell->attr.
 
 for(num_ln=numc=len=0;;)
     {
-    llen = (Int16*)l;
+    llen = (int16_t*)l;
     len += *llen;
     if( *llen==0 )
         break;
@@ -1796,7 +1796,7 @@ return TRUE;
 CSTR_FUNC(CSTR_rast) CSTR_compose_Cell(int32_t n,CSTR_rast *clist, int32_t nIncline, Bool32 NeedDel)
 {
 CSTR_rast_attr attr;
-Int16   minrow, mincol, maxcol, maxrow;
+int16_t   minrow, mincol, maxcol, maxrow;
 RecRaster   rst;
 CCOM_comp   *comp;
 CSTR_cell   *cell;
@@ -1842,8 +1842,8 @@ attr.r_row = minrow;
 attr.r_col = mincol;
 attr.h   = maxrow;
 attr.w   = maxcol;
-attr.row=attr.r_row-(Int16)(nIncline*attr.r_col/2048);
-attr.col=attr.r_col+(Int16)(nIncline*attr.r_row/2048);
+attr.row=attr.r_row-(int16_t)(nIncline*attr.r_col/2048);
+attr.col=attr.r_col+(int16_t)(nIncline*attr.r_row/2048);
 memset(&rst.Raster[0],0,REC_MAX_RASTER_SIZE );
 rst.lnRasterBufSize=REC_MAX_RASTER_SIZE   ;
 rst.lnPixWidth  = maxcol;
@@ -1880,7 +1880,7 @@ CSTR_head       *line=(CSTR_head        *)ln;
 return line->container;
 }
 
-CSTR_FUNC(Bool32) CSTR_ClearLine(CSTR_line lin,Int16 left, Int16 right)
+CSTR_FUNC(Bool32) CSTR_ClearLine(CSTR_line lin,int16_t left, int16_t right)
 {
 CSTR_rast start = CSTR_GetFirstRaster (lin),stop = CSTR_GetLastRaster (lin), c;
 CSTR_rast_attr  attr;

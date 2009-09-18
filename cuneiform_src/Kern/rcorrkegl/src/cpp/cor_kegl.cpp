@@ -127,15 +127,15 @@ typedef struct tagFragStat   //для выявления мусора
 {
   Handle hBlock;
   Rect32 rect;     //охватывающий прямоугольник
-  Int16 nsym;      //всего символов во фрагменте
-  Int16 nbig;      //больших (буквы, цифры, "?" и т.д.)
-  Int16 nstick;    //палочных
-  Int16 nlet;      //всего распознанных
-  Int16 ndig;      // -"- цифр
-  Int16 nconf;     //по эвентам или подтвержденных
-  Int16 ngood;     //надежно распознанных
-  Int16 nhigh;     //высокая оценка
-  Int16 npunct;    //знаков препинани
+  int16_t nsym;      //всего символов во фрагменте
+  int16_t nbig;      //больших (буквы, цифры, "?" и т.д.)
+  int16_t nstick;    //палочных
+  int16_t nlet;      //всего распознанных
+  int16_t ndig;      // -"- цифр
+  int16_t nconf;     //по эвентам или подтвержденных
+  int16_t ngood;     //надежно распознанных
+  int16_t nhigh;     //высокая оценка
+  int16_t npunct;    //знаков препинани
   Word8 min_keg;
   Word8 max_keg;
   Word8 flag;
@@ -181,7 +181,7 @@ static uint32_t key=1;                  //для snap'а
 static int32_t skew=0;                  //поворот страницы (или строки?)
 static int32_t num_frag=0;              //число фрагментов на странице
 static Bool fr_ovf;                   //на странице больше FRAG_PAGE фрагментов
-static Int16 fragments[LINE_PAGE+FRAG_PAGE],*fragments_end=NULL,*cur_fragment;
+static int16_t fragments[LINE_PAGE+FRAG_PAGE],*fragments_end=NULL,*cur_fragment;
 /*     структура фрагментов на странице:
   n1    -  число строк в 1-ом фрагменте
   i[1]  -  номер первой строки
@@ -295,7 +295,7 @@ static Bool32 get_stats()
   LineList  frag_lines_pool;
 #define  frag_lines  frag_lines_pool.node
   int32_t total_size=0;
-  Int16 *fragj=fragments;
+  int16_t *fragj=fragments;
   FontStat font_stat[FRAG_PAGE]={0},*fsti;
   Word8 *ffi=fragfont;
   int32_t ser_fr=0,gelv_fr=0;
@@ -433,11 +433,11 @@ static Bool32 get_stats()
     if (size>=0)
     {
       LineNumber *cur_num=frag_lines[i];
-      *fragj=(Int16)size;
+      *fragj=(int16_t)size;
       fragj += size;
       while (cur_num)
       {
-        *fragj-- = (Int16)cur_num->n;
+        *fragj-- = (int16_t)cur_num->n;
         cur_num=cur_num->next;
       }
       fragj += size+1;
@@ -1223,7 +1223,7 @@ static void garbage_fragments()
   while(1)
   {
     int32_t maxsize=0;
-    Int16 *maxfrag;
+    int16_t *maxfrag;
     RecStat *maxrst;
     int32_t d;
     Rect32 *rect;
@@ -1473,13 +1473,13 @@ static void draw_fragment(Handle hBlock, uint32_t color, uint32_t key)
     Point32 p32=com->Vertex[0];
     Point16 cv,pv,v0;
     int32_t   i;
-    v0.x=(Int16)p32.x;  v0.y=(Int16)p32.y;
+    v0.x=(int16_t)p32.x;  v0.y=(int16_t)p32.y;
     cv=v0;
     for (i=1; i<com->count; i++)
     {
       Point32 p32=com->Vertex[i];
       pv=cv;
-      cv.x=(Int16)p32.x;  cv.y=(Int16)p32.y;
+      cv.x=(int16_t)p32.x;  cv.y=(int16_t)p32.y;
       LDPUMA_DrawLine(NULL,&pv,&cv,0,color,1,key);
     }
     LDPUMA_DrawLine(NULL,&v0,&cv,0,color,1,key);
@@ -1611,10 +1611,10 @@ static void to_real16(Rect16 *rect)
 static void draw_rect(Rect32 *rect, uint32_t color, uint32_t key)
 {
   Point16 v1,v2,v3,v4;
-  v1.x=(Int16)rect->left;   v1.y=(Int16)rect->top;
-  v2.x=(Int16)rect->right;  v2.y=(Int16)rect->top;
-  v3.x=(Int16)rect->right;  v3.y=(Int16)rect->bottom;
-  v4.x=(Int16)rect->left;   v4.y=(Int16)rect->bottom;
+  v1.x=(int16_t)rect->left;   v1.y=(int16_t)rect->top;
+  v2.x=(int16_t)rect->right;  v2.y=(int16_t)rect->top;
+  v3.x=(int16_t)rect->right;  v3.y=(int16_t)rect->bottom;
+  v4.x=(int16_t)rect->left;   v4.y=(int16_t)rect->bottom;
   LDPUMA_DrawLine(NULL,&v1,&v2,0,color,1,key);
   LDPUMA_DrawLine(NULL,&v2,&v3,0,color,1,key);
   LDPUMA_DrawLine(NULL,&v3,&v4,0,color,1,key);

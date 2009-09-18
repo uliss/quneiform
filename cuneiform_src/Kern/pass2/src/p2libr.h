@@ -69,7 +69,7 @@ BYTE   p2_to_lowerASCII( BYTE c );
 Bool32 p2_is_upperASCII( BYTE c );
 Bool32 p2_is_lowerASCII( BYTE c );
 Word8    p2_rsadd_get_alias_class(Word8 let,Word8 lang);
-//Int16   estletter	(cell * BC,s_glue * GL);
+//int16_t   estletter	(cell * BC,s_glue * GL);
 void	p2_init		(void);
 //int32_t   p2_rotate(RecRaster *recRast);
 

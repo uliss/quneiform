@@ -769,7 +769,7 @@ RecVersions vers;
 int32_t       i;
 c_comp *comp=BC->env;
 Word8 *lp;
-Int16 *lt;
+int16_t *lt;
 int nClust=0;
 
   vers.lnAltCnt = 0;
@@ -795,7 +795,7 @@ int nClust=0;
 	  goto endvers;
 
     lp = (Word8 *)(comp+1);
-    lt = (Int16*)lp;
+    lt = (int16_t*)lp;
 //   w = comp->w
 //   h = comp->h
 
@@ -1175,13 +1175,13 @@ Bool32 p2_Line2Raster(c_comp *comp, RecRaster *rec)
 {
 #ifdef _USE_PASS2_
 Word8 *lp;
-Int16 *lt;
+int16_t *lt;
 
   if( !comp )
 	  return FALSE;
 
    lp = (Word8 *)(comp+1);
-   lt = (Int16*)lp;
+   lt = (int16_t*)lp;
 //   w = comp->w
 //   h = comp->h
 

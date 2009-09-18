@@ -97,8 +97,8 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
 // LDPUMA_ConsoleN("Активизируется CHSTR");
  int TIME=clock();
  int code_strd=1;
- Int16* begx=NULL;
- Int16* movey=NULL;
+ int16_t* begx=NULL;
+ int16_t* movey=NULL;
  int* hi=NULL;
  Word8* flmovey=NULL;
 
@@ -974,11 +974,11 @@ BOOL MyRotateImage(Word8* ImageName,Word8* RotateImageName,int skew,Rect16* Rc,B
  int32_t x;
  int32_t y;
  RIMAGE_RotatePoint(RotateImageName,Rc->left,Rc->top,&x,&y);
- Rc->left=(Int16)(x);
- Rc->top=(Int16)(y);
+ Rc->left=(int16_t)(x);
+ Rc->top=(int16_t)(y);
  RIMAGE_RotatePoint(RotateImageName,Rc->right,Rc->bottom,&x,&y);
- Rc->right=(Int16)(x);
- Rc->bottom=(Int16)(y);
+ Rc->right=(int16_t)(x);
+ Rc->bottom=(int16_t)(y);
 
  return TRUE;
 }
@@ -1036,11 +1036,11 @@ void GetRasterRect(Word8* UnRotateImageName,Rect16 N,Rect16* Rc,CSTR_attr* attr,
 	 int32_t x;
 	 int32_t y;
   RIMAGE_RotatePoint(UnRotateImageName,N.left,N.top,&x,&y);
-  Rc->top=(Int16)(y);
-  Rc->left=(Int16)(x);
+  Rc->top=(int16_t)(y);
+  Rc->left=(int16_t)(x);
   RIMAGE_RotatePoint(UnRotateImageName,N.right,N.bottom,&x,&y);
-  Rc->right=(Int16)(x);
-  Rc->bottom=(Int16)(y);
+  Rc->right=(int16_t)(x);
+  Rc->bottom=(int16_t)(y);
  }
  else
  {
@@ -1088,13 +1088,13 @@ int GetStrScale(Rect16* pRc,int nRc,BOOL vertical)
  return max_scale;
 }
 
-BOOL InitRotateMas(Rect16 Rc,Int16** ppbegx,Int16** ppmovey,Word8** ppflmovey)
+BOOL InitRotateMas(Rect16 Rc,int16_t** ppbegx,int16_t** ppmovey,Word8** ppflmovey)
 {
 	int w=Rc.right-Rc.left+1;
 	int h=Rc.bottom-Rc.top+1;
-	if(!( (*ppbegx)=new Int16[h+1]))
+	if(!( (*ppbegx)=new int16_t[h+1]))
 		return FALSE;
-	if(!( (*ppmovey)=new Int16[w+1]))
+	if(!( (*ppmovey)=new int16_t[w+1]))
 	{
 		delete[] (*ppbegx);
 		(*ppbegx)=NULL;
@@ -1119,7 +1119,7 @@ BOOL InitRotateMas(int** pphi,int n)
 	    return TRUE;
 }
 
-void DeleteRotateMas(Int16* pbegx,Int16* pmovey,Word8* pflmovey,int* phi)
+void DeleteRotateMas(int16_t* pbegx,int16_t* pmovey,Word8* pflmovey,int* phi)
 {
 	delete[] pbegx;
 	pbegx=NULL;

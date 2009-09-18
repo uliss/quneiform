@@ -76,10 +76,10 @@ typedef struct tagExtComponent
                           // NOTE: in tiger.dll - in paragraphs >=3
                           // can be used to step to next comp
  /////////////////////////////////// in image coords, not ideal
- Int16 upper;             // upper boundary of component
- Int16 left;              // left boundary of component
- Int16 h;                 // height of component
- Int16 w;                 // width of component
+ int16_t upper;             // upper boundary of component
+ int16_t left;              // left boundary of component
+ int16_t h;                 // height of component
+ int16_t w;                 // width of component
  ///////////////////////////////////////////////////////////////
  Word8 rw;               // raster width in bytes  == (w+7)/8
  Word8 type;             // recognition type
@@ -93,11 +93,11 @@ typedef struct tagExtComponent
 #define ch_notltr   128     // not letter or punctuation
  Word8 cs;              // recognition case (see bellow)        *
  Word8 pidx;            // proportional index (ref.)            *
- Int16 nvers;           // number of alternative versions, 0 - none !!
- Int16 records;         // recognition records offset, 0 - none     !!
- Int16 lines;           // ptr to line representation, 0 - never
+ int16_t nvers;           // number of alternative versions, 0 - none !!
+ int16_t records;         // recognition records offset, 0 - none     !!
+ int16_t lines;           // ptr to line representation, 0 - never
                         // p_body == (char*)p_comp + lines;
- Int16 nl;               // number of lines
+ int16_t nl;               // number of lines
  Word8 begs;             // number of free begins
  Word8 ends;             // number of free ends
  Word8 reasno;           // proportional criteria messages
@@ -133,8 +133,8 @@ typedef struct tagExtComponent
 typedef struct tagExtCompDust // currently not used
 {
   Word16 size;            // =1
-  Int16  upper;
-  Int16  left;
+  int16_t  upper;
+  int16_t  left;
   Word8 h;               // >0
   Word8 w;               // >0
   Word8 raster[8];
@@ -151,10 +151,10 @@ typedef struct tagExtCompDust // currently not used
 //      line header
 typedef struct tagExtLnHead
 {
- Int16 lth;       // length of one line representation,
+ int16_t lth;       // length of one line representation,
                   // ==head+intervals size in bytes
- Int16 h;         // height of line == count of intervals
- Int16 row;       // relative row of line start
+ int16_t h;         // height of line == count of intervals
+ int16_t row;       // relative row of line start
                   // (offset in pixels from top bound of comp, 0 based)
  Word16 flg;       // flags of free beg and free end
 #define l_fbeg          0x20
@@ -188,8 +188,8 @@ typedef struct tagExtInterval
 //      <ExtLnHead>   // <= ln_head.lth == 0 ( terminator )
 // where:
 //       <c_comp>, <lnhead>, <interval> are structures from "struct.h"
-// count of  <lnhead>, <interval[]> pairs == c_comp->nl (Int16)
-// count of intervals == lnhead->h (Int16)
+// count of  <lnhead>, <interval[]> pairs == c_comp->nl (int16_t)
+// count of intervals == lnhead->h (int16_t)
 //
 // 2. else  array of <gcomp> structures from "struct.h"
 // size: pool size in bytes
@@ -238,10 +238,10 @@ typedef struct tagExcControl
 
 typedef struct tagExcBox
 {
- Int16   row;       // real row of comp
- Int16   col;       // real column of  comp
- Int16   h;         // height of  comp
- Int16   w;         // width of  comp
+ int16_t   row;       // real row of comp
+ int16_t   col;       // real column of  comp
+ int16_t   h;         // height of  comp
+ int16_t   w;         // width of  comp
  Word16  flag;     // some logical info
  int32_t   user;     // working var for user
 } ExcBox;
@@ -276,11 +276,11 @@ typedef struct tagREXC_RGBQUAD { // rgbq
 /*
 struct big_merge_struct
 {
- Int16 vh[2*RASTER_MAX_HEIGHT+2];
+ int16_t vh[2*RASTER_MAX_HEIGHT+2];
  char eh[MAX_NUM_CUTPN];
  char sh[MAX_NUM_CUTPN];
  Word16 np;
- Int16 min_est;
+ int16_t min_est;
  CP cp[MAX_NUM_CUTPN];
 };
 

@@ -209,7 +209,7 @@ Bool16 SampleImageClose ( void )
 
 Bool16 DibOpen (Imxs_ImageInfo* lpImageInfo)
 { return cbk.CIMAGE_ImageOpen( (CIMAGE_ImageInfo*)lpImageInfo ); }
-Int16  DibRead ( Word8* lpImage, Word16 wMaxSize)
+int16_t  DibRead ( Word8* lpImage, Word16 wMaxSize)
 { return cbk.CIMAGE_ImageRead( (PInt8)lpImage, wMaxSize ); }
 Bool16 DibClose ( void )
 { return cbk.CIMAGE_ImageClose( ); }

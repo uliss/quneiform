@@ -822,10 +822,10 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const int32_t nCP,
 
 						getLineIdealStrictRectangular(&aInterval[i].term, &r, !is_horiz, 0);
 
-						dr.top = (Int16)r.top;
-						dr.left = (Int16)r.left;
-						dr.bottom = (Int16)r.bottom;
-						dr.right = (Int16)r.right;
+						dr.top = (int16_t)r.top;
+						dr.left = (int16_t)r.left;
+						dr.bottom = (int16_t)r.bottom;
+						dr.right = (int16_t)r.right;
 						was_drawn = true;
 
 						LDPUMA_DrawRect(work_data->hWnd, &dr, 0, RGB(0, 255, 0), -100, 2);

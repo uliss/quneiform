@@ -475,8 +475,8 @@ if( s->nDust > s->nLetters*1 )
         if( com->w*com->h <15 )
             {
             CCOM_comp   com1=*com;
-            com1.upper=com1.upper-(Int16)(nIncline*com1.left /2048);
-            com1.left =com1.left +(Int16)(nIncline*com1.upper/2048);
+            com1.upper=com1.upper-(int16_t)(nIncline*com1.left /2048);
+            com1.left =com1.left +(int16_t)(nIncline*com1.upper/2048);
             if( com->left+com->w <= le )
                 {
                 nle++;
@@ -506,8 +506,8 @@ if( s->nDust > s->nLetters*1 )
                 if( filtr &&  com->w*com->h <15 )
                     {
                     CCOM_comp   com1=*com;
-                    com1.upper=com1.upper-(Int16)(nIncline*com1.left /2048);
-                    com1.left =com1.left +(Int16)(nIncline*com1.upper/2048);
+                    com1.upper=com1.upper-(int16_t)(nIncline*com1.left /2048);
+                    com1.left =com1.left +(int16_t)(nIncline*com1.upper/2048);
                     if( com1.upper>=left.top && com1.upper+com1.h<=left.bottom &&
                         com1.left>=left.left && com1.left+com1.w<=left.right )
                         continue;

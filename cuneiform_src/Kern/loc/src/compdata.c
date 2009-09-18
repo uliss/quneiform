@@ -68,5 +68,5 @@ version * start_rec, *rec_ptr;
 Word16 lpool_lth;
 Word8 lpool[6000];
 Word8 records_change;
-Int16 evfulln;
+int16_t evfulln;
 Word8 double_fax;

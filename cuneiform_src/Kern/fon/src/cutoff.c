@@ -513,7 +513,7 @@ SINT FindDistanceWr(welet *wel,welet *outwel)
 /////////////////
 #define POROG_IDEAL 10
 /**************/
-FON_FUNC(int32_t) FONCutOffClusters(welet *ww,Int16 num)
+FON_FUNC(int32_t) FONCutOffClusters(welet *ww,int16_t num)
 {
 SINT TestFat(welet *wel,SINT porog,SINT porog_fat);
 CHAR porog;

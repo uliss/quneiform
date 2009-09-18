@@ -86,9 +86,9 @@ MMX_FUNC(void)      MMX_scale( Word16 *_EAX, int32_t _ECX, int32_t _EDX);
 MMX_FUNC(void)      MMX_binarize_16x16(Word16 *rin,Word8 *rout);
 
 // for NET.dll
-MMX_FUNC(uint32_t)    MMX_scalarUni (Int16 * _EAX, Int16 * _EDX, int32_t num);
-MMX_FUNC(uint32_t)    MMX_scalar16 (Int16 * _EAX, Int16 * _EDX);
-MMX_FUNC(uint32_t)    MMX_scalar36 (Int16 * _EAX, Int16 * _EDX);
+MMX_FUNC(uint32_t)    MMX_scalarUni (int16_t * _EAX, int16_t * _EDX, int32_t num);
+MMX_FUNC(uint32_t)    MMX_scalar16 (int16_t * _EAX, int16_t * _EDX);
+MMX_FUNC(uint32_t)    MMX_scalar36 (int16_t * _EAX, int16_t * _EDX);
 
 // for  GRA.dll
 MMX_FUNC(void)      MMX_addshab_cykl(int * src, int cg, signed char * dst, int num);

@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef	__RECDEFS_H
 typedef unsigned char       Word8;
 typedef unsigned short int  Word16;
-typedef short int           Int16;
+typedef short int           int16_t;
 typedef int                 int32_t;
 typedef int                 Bool32;
 #endif
@@ -159,17 +159,17 @@ typedef struct  {
 	Word8   let;            // 3)    letters or ligature      Alt[0].Code
     Word8   typedface;      // 4)    typeface. 0 for standart letter
     Word8   IsPrint;        // 5)    print type of font (and others feats)
-    Int16   b0;             // 6,7
-    Int16   b1;             // 8,9   firts base lines
-    Int16   b2;             // 10,11 second base lines
-    Int16   b3;             // 12,13 third base lines
-    Int16   b4;             // 14,15 fourth base lines
-    Int16   bm;             // 16,17 middle line
-    Int16   ps;             // 18,19 point size
-    Int16   n1;             // 20,21
-    Int16   n2;             // 22,23
-    Int16   n3;             // 24,25
-    Int16   n4;             // 26,27
+    int16_t   b0;             // 6,7
+    int16_t   b1;             // 8,9   firts base lines
+    int16_t   b2;             // 10,11 second base lines
+    int16_t   b3;             // 12,13 third base lines
+    int16_t   b4;             // 14,15 fourth base lines
+    int16_t   bm;             // 16,17 middle line
+    int16_t   ps;             // 18,19 point size
+    int16_t   n1;             // 20,21
+    int16_t   n2;             // 22,23
+    int16_t   n3;             // 24,25
+    int16_t   n4;             // 26,27
     } CTB_data_container7_puma; // saved from PUMA-snap (key Alt_F8)
 
 typedef struct  {
@@ -179,8 +179,8 @@ typedef struct  {
 
 typedef struct 	{
     Word8 sign[2];          // can be "CT"
-    Int16 version;          // version number
-    Int16 size_x, size_y;   // frame sizes
+    int16_t version;          // version number
+    int16_t size_x, size_y;   // frame sizes
     Word8 dot_per_byte;
     int32_t volume;           // number of images
     Word8 signums;          // special bits
@@ -263,8 +263,8 @@ typedef struct 	{
 	FFILE  bas,ndx;       // file desriptions
     int32_t  num;           // number of images
     int32_t  len;           // length of binary frame
-    Int16  type;          // type : sizes & resolution
-    Int16  width,height,colors,version,dpb;
+    int16_t  type;          // type : sizes & resolution
+    int16_t  width,height,colors,version,dpb;
     Word8  signums;       // global attributes
     Word8  need_compress; // need call compress()
     Word8  attr;          // 'r' or 'w'

@@ -104,13 +104,13 @@ void    leo_diskrim_stick(RecVersions *ver);
 /// functions from module leo_cont
 void    leo_close_cont(void);
 Bool32  leo_cont_new_page(int32_t id_page);
-Int16   leo_cont_store(RecRaster *r,Word8 let, Word8 nLns,Rect16 *rect, Word8 IsPrn,
+int16_t   leo_cont_store(RecRaster *r,Word8 let, Word8 nLns,Rect16 *rect, Word8 IsPrn,
 		Word8 Prob, Word8 Valid, RecVersions *ver,Word8 control);
-Bool32  leo_cont_restore(RecRaster *r, int32_t id_page, Int16 id_rast, Word8 *nLns,Rect16 *rect, Word8 *IsPrn,Word8 *datao);
+Bool32  leo_cont_restore(RecRaster *r, int32_t id_page, int16_t id_rast, Word8 *nLns,Rect16 *rect, Word8 *IsPrn,Word8 *datao);
 void    leo_close_cont_temp(void);
 int     leo_open_cont_temp(void);
-Bool32  leo_cont_set_valid(int32_t id_page, Int16 id_rast,Word8 code, Word8 valid,Word8 control);
-Bool32  leo_cont_del_final(int32_t id_page, Int16 id_rast);
+Bool32  leo_cont_set_valid(int32_t id_page, int16_t id_rast,Word8 code, Word8 valid,Word8 control);
+Bool32  leo_cont_del_final(int32_t id_page, int16_t id_rast);
 Bool32  leo_cont_store_collection(RecVersions *ver);
 
 /// functions from module leo_prn

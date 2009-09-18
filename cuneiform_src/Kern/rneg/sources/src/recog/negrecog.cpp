@@ -249,7 +249,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
 	  continue;
 
    RecRaster rec;
-   Int16 Language;
+   int16_t Language;
    int turn;
 
   if(neg_str_control/2.>inf_prob-.5)
@@ -1334,10 +1334,10 @@ Handle GetNegCCOM(Handle hCPage,Rect16* pRc,int i)
 
 void SortLetter(Rect16 *pRc,int n,BOOL vert)
 {
- Int16 left;
- Int16 right;
- Int16 top;
- Int16 bottom;
+ int16_t left;
+ int16_t right;
+ int16_t top;
+ int16_t bottom;
  int j,i;
 
  if(vert)

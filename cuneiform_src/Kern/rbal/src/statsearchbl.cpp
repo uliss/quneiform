@@ -95,35 +95,35 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 INT minrow;
 
 void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr,
-			   Int16 *p_Y2Arr, Int16 *p_FreqY2Arr, Int16 *Ns3, Int16 *Ns4)
+			   int16_t *p_Y2Arr, int16_t *p_FreqY2Arr, int16_t *Ns3, int16_t *Ns4)
 {
 	if(line == 0 || p_attr == NULL || p_Y2Arr == NULL || p_FreqY2Arr == NULL) return;
 
 	ROW_STRUCT row_str;
 
-	Int16 sz_FreqY2Arr = malloc_usable_size(p_FreqY2Arr) / sizeof(Int16);
-	Int16     sz_Y2Arr = malloc_usable_size(p_Y2Arr) / sizeof(Int16);
+	int16_t sz_FreqY2Arr = malloc_usable_size(p_FreqY2Arr) / sizeof(int16_t);
+	int16_t     sz_Y2Arr = malloc_usable_size(p_Y2Arr) / sizeof(int16_t);
 //	if(p_attr->number == 39) DebugBreak();// && p_attr->language == 0
 
 	//главный максимум
-	Int16      min_Y2Arr = p_Y2Arr[stat_index_GlobMin(p_Y2Arr,sz_Y2Arr)];
-	Int16  max_FreqY2Arr = stat_index_GlobMax(p_FreqY2Arr,sz_FreqY2Arr, G);
+	int16_t      min_Y2Arr = p_Y2Arr[stat_index_GlobMin(p_Y2Arr,sz_Y2Arr)];
+	int16_t  max_FreqY2Arr = stat_index_GlobMax(p_FreqY2Arr,sz_FreqY2Arr, G);
 
 	row_str.globMax = min_Y2Arr + max_FreqY2Arr;
 	row_str.ValGM   = p_FreqY2Arr[max_FreqY2Arr];
 
 	//правый максимум (относительно главного максимума)
-	Int16 right_diff = stat_Right_diff_from_max(p_FreqY2Arr, max_FreqY2Arr);
+	int16_t right_diff = stat_Right_diff_from_max(p_FreqY2Arr, max_FreqY2Arr);
 
 	right_diff = MAX(3, right_diff);
 
-	Int16 rightMax_FreqY2Arr = stat_index_RightLocMax(p_FreqY2Arr, sz_FreqY2Arr,
+	int16_t rightMax_FreqY2Arr = stat_index_RightLocMax(p_FreqY2Arr, sz_FreqY2Arr,
 													max_FreqY2Arr + right_diff);
 	//проверка уровня полуопущенных букв
 	if(p_attr->language != 0 && rightMax_FreqY2Arr != -1 &&
 		stat_control_semilevel(line, p_attr->row, min_Y2Arr + rightMax_FreqY2Arr))
 	{
-		Int16 itmp = rightMax_FreqY2Arr + 1;
+		int16_t itmp = rightMax_FreqY2Arr + 1;
 		if(itmp < sz_FreqY2Arr)
 			rightMax_FreqY2Arr = stat_index_RightLocMax(p_FreqY2Arr, sz_FreqY2Arr, itmp);
 		else rightMax_FreqY2Arr = sz_FreqY2Arr;
@@ -133,10 +133,10 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr,
 	row_str.ValRLM = rightMax_FreqY2Arr != -1 ? p_FreqY2Arr[rightMax_FreqY2Arr] : -1;
 
 	//левый максимум (относительно главного максимума)
-	Int16  left_diff =  stat_Left_diff_from_max(p_FreqY2Arr, max_FreqY2Arr);
+	int16_t  left_diff =  stat_Left_diff_from_max(p_FreqY2Arr, max_FreqY2Arr);
 	left_diff = MAX(left_diff, 3);
 
-	Int16 leftMax_FreqY2Arr = stat_index_LeftLocMax(p_FreqY2Arr, max_FreqY2Arr - left_diff);
+	int16_t leftMax_FreqY2Arr = stat_index_LeftLocMax(p_FreqY2Arr, max_FreqY2Arr - left_diff);
 
 	row_str.leftLocMax = leftMax_FreqY2Arr != -1 ? min_Y2Arr + leftMax_FreqY2Arr : -1;
 	row_str.ValLLM     = leftMax_FreqY2Arr != -1 ? p_FreqY2Arr[leftMax_FreqY2Arr] : -1;
@@ -190,10 +190,10 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr,
 	}
 }
 
-BOOL stat_control_semilevel(CSTR_line line, Int16 ln_row, Int16 b4)
+BOOL stat_control_semilevel(CSTR_line line, int16_t ln_row, int16_t b4)
 {
 	CSTR_attr line_attr;
-	Int16 iret = 0, iret4 = 0;
+	int16_t iret = 0, iret4 = 0;
 
 	char buff[] = "\\/дДщЩцЦ";
 	BOOL flg = FALSE;
@@ -220,7 +220,7 @@ BOOL stat_control_semilevel(CSTR_line line, Int16 ln_row, Int16 b4)
 					continue;
 				}
 
-				Int16 drow4 = rast_attr.row + rast_attr.h - ln_row - b4;
+				int16_t drow4 = rast_attr.row + rast_attr.h - ln_row - b4;
 
 				Bool16 b = FALSE;
 
@@ -250,39 +250,39 @@ BOOL stat_control_semilevel(CSTR_line line, Int16 ln_row, Int16 b4)
 	return flg;
 }
 
-BOOL stat_interp_bsl_by_boxes(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, ROW_STRUCT *row_str)
+BOOL stat_interp_bsl_by_boxes(CSTR_line line, int16_t ln_row, int16_t b3, int16_t b4, ROW_STRUCT *row_str)
 {
 	CSTR_attr line_attr;
 	if(!CSTR_GetLineAttr(line,&line_attr)) return FALSE;
 
 	char buff[] = "\\/|<>йЙдДщЩцЦ";
 
-	Int16 countLLM1 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0;
+	int16_t countLLM1 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0;
 
 	//интервалы
-	Int16 pnt0, pnt1, pnt2, pnt3;
+	int16_t pnt0, pnt1, pnt2, pnt3;
 
 	if(row_str->leftLocMax != -1)
 	{
-		pnt0 = (Int16)(row_str->leftLocMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
-		pnt1 = (Int16)(row_str->globMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
+		pnt0 = (int16_t)(row_str->leftLocMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
+		pnt1 = (int16_t)(row_str->globMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
 	}
 	else
 	{
 		if(row_str->rightLocMax != -1)
-			pnt1 = (Int16)(row_str->globMax - 0.5 * (row_str->rightLocMax - row_str->globMax));
+			pnt1 = (int16_t)(row_str->globMax - 0.5 * (row_str->rightLocMax - row_str->globMax));
 		else
-			pnt1 = (Int16)(row_str->globMax - 0.5 * (b3 - row_str->globMax));
+			pnt1 = (int16_t)(row_str->globMax - 0.5 * (b3 - row_str->globMax));
 	}
 
 	if(row_str->rightLocMax != -1)
 	{
-		pnt2 = (Int16)(row_str->globMax + 0.5 * (row_str->rightLocMax - row_str->globMax));
-		pnt3 = (Int16)(row_str->rightLocMax + 0.5 * (b3 - row_str->rightLocMax));
+		pnt2 = (int16_t)(row_str->globMax + 0.5 * (row_str->rightLocMax - row_str->globMax));
+		pnt3 = (int16_t)(row_str->rightLocMax + 0.5 * (b3 - row_str->rightLocMax));
 	}
 	else
 	{
-		pnt2 = (Int16)(row_str->globMax + 0.5 * (b3 - row_str->globMax));
+		pnt2 = (int16_t)(row_str->globMax + 0.5 * (b3 - row_str->globMax));
 		pnt3 = pnt2;
 	}
 
@@ -322,9 +322,9 @@ BOOL stat_interp_bsl_by_boxes(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, 
 
 				if(!flg) continue;
 
-				Int16 drow = rast_attr.row - ln_row;
-				Int16  db3 = drow + rast_attr.h - b3;
-				Int16  db4 = b4 != -1 ? drow + rast_attr.h - b4 : -1;
+				int16_t drow = rast_attr.row - ln_row;
+				int16_t  db3 = drow + rast_attr.h - b3;
+				int16_t  db4 = b4 != -1 ? drow + rast_attr.h - b4 : -1;
 
 				if(!(abs(db3) <= 3 || (abs(db4) <= 3 && b4 != -1))) continue;
 
@@ -369,10 +369,10 @@ BOOL stat_interp_bsl_by_boxes(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, 
 	return TRUE;
 }
 
-Int16 stat_control_b3_by_recog(CSTR_line line, Int16 ln_row, ROW_STRUCT *row_str)
+int16_t stat_control_b3_by_recog(CSTR_line line, int16_t ln_row, ROW_STRUCT *row_str)
 {
 	CSTR_attr line_attr;
-	Int16 iret = -1;
+	int16_t iret = -1;
 
 	char buff_figure[] = "_0123456789";
 
@@ -382,33 +382,33 @@ Int16 stat_control_b3_by_recog(CSTR_line line, Int16 ln_row, ROW_STRUCT *row_str
 	char buff_rus_high[]= "АБВГЕЖЗИЙКЛМНОПСТХЧЫЪЬЭЮЯ";
 	char buff_rus_low[] = "абвгежзийклмнопстхчыъьэюя";
 
-	Int16 countLLM3 = 0, countGM3 = 0, countRLM3 = 0;
+	int16_t countLLM3 = 0, countGM3 = 0, countRLM3 = 0;
 
 	//интервалы
-	Int16 pnt0, pnt1, pnt2, pnt3;
+	int16_t pnt0, pnt1, pnt2, pnt3;
 
 	if(row_str->leftLocMax != -1)
 	{
-		pnt0 = (Int16)(row_str->leftLocMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
-		pnt1 = (Int16)(row_str->globMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
+		pnt0 = (int16_t)(row_str->leftLocMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
+		pnt1 = (int16_t)(row_str->globMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
 	}
 	else
 	{
 		if(row_str->rightLocMax != -1)
-			pnt1 = (Int16)(row_str->globMax - 0.5 * (row_str->rightLocMax - row_str->globMax));
+			pnt1 = (int16_t)(row_str->globMax - 0.5 * (row_str->rightLocMax - row_str->globMax));
 		else
-			pnt1 = (Int16)(row_str->globMax - 0.5 * (row_str->globMax));
+			pnt1 = (int16_t)(row_str->globMax - 0.5 * (row_str->globMax));
 		pnt0 = pnt1;
 	}
 
 	if(row_str->rightLocMax != -1)
 	{
-		pnt2 = (Int16)(row_str->globMax + 0.5 * (row_str->rightLocMax - row_str->globMax));
-		pnt3 = (Int16)(row_str->rightLocMax + 0.5 * (row_str->rightLocMax - row_str->globMax));
+		pnt2 = (int16_t)(row_str->globMax + 0.5 * (row_str->rightLocMax - row_str->globMax));
+		pnt3 = (int16_t)(row_str->rightLocMax + 0.5 * (row_str->rightLocMax - row_str->globMax));
 	}
 	else
 	{
-		pnt2 = (Int16)(row_str->globMax + 0.5 * (row_str->globMax));
+		pnt2 = (int16_t)(row_str->globMax + 0.5 * (row_str->globMax));
 		pnt3 = pnt2;
 	}
 
@@ -430,7 +430,7 @@ Int16 stat_control_b3_by_recog(CSTR_line line, Int16 ln_row, ROW_STRUCT *row_str
 			   CSTR_GetCollectionUni(curr_raster, &vers))
 			{
 				BOOL flg = TRUE;
-				Int16 iNl = 0, iWl = 0;
+				int16_t iNl = 0, iWl = 0;
 
 				if(vers.lnAltCnt == 0)
 				{
@@ -473,7 +473,7 @@ Int16 stat_control_b3_by_recog(CSTR_line line, Int16 ln_row, ROW_STRUCT *row_str
 
 				if(flg)
 				{
-					Int16 d = rast_attr.row + rast_attr.h - ln_row;
+					int16_t d = rast_attr.row + rast_attr.h - ln_row;
 
 					if(pnt1 <= d && d <= pnt2)
 					{
@@ -518,9 +518,9 @@ Int16 stat_control_b3_by_recog(CSTR_line line, Int16 ln_row, ROW_STRUCT *row_str
 
 BOOL stat_interp_bsl(CSTR_line line, CSTR_attr *p_attr, ROW_STRUCT *row_str)
 {
-	Int16  rGM[3] = {0, 0, 0};
-	Int16 rLLM[3] = {0, 0, 0};
-	Int16 rRLM[3] = {0, 0, 0};
+	int16_t  rGM[3] = {0, 0, 0};
+	int16_t rLLM[3] = {0, 0, 0};
+	int16_t rRLM[3] = {0, 0, 0};
 
 	BOOL bret = FALSE;
 
@@ -578,16 +578,16 @@ BOOL stat_interp_bsl(CSTR_line line, CSTR_attr *p_attr, ROW_STRUCT *row_str)
 
 			if(row_str->AltGM == -1 && row_str->rightLocMax == -1 && row_str->leftLocMax == -1)
 			{
-				Int16 hypothesis = stat_Hypothesis(p_attr->number, p_attr->bs3 - row_str->globMax);
+				int16_t hypothesis = stat_Hypothesis(p_attr->number, p_attr->bs3 - row_str->globMax);
 
 				if(hypothesis != -1) rGM[hypothesis]++;
 			}
 		}
 	}
 
-	Int16 resGM  = stat_index_GlobMax(rGM, 3, GE);
-	Int16 resRLM = stat_index_GlobMax(rRLM, 3, GE);
-	Int16 resLLM = stat_index_GlobMax(rLLM, 3, GE);
+	int16_t resGM  = stat_index_GlobMax(rGM, 3, GE);
+	int16_t resRLM = stat_index_GlobMax(rRLM, 3, GE);
+	int16_t resLLM = stat_index_GlobMax(rLLM, 3, GE);
 
 	row_str->AltLLM = rLLM[resLLM] > 0 ? resLLM : -1;
 	row_str->AltRLM = rRLM[resRLM] > 0 ? resRLM : -1;
@@ -596,7 +596,7 @@ BOOL stat_interp_bsl(CSTR_line line, CSTR_attr *p_attr, ROW_STRUCT *row_str)
 	return TRUE;
 }
 /**/
-BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_STRUCT *row_str)
+BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, int16_t ln_row, int16_t b3, ROW_STRUCT *row_str)
 {
 	CSTR_attr line_attr;
 
@@ -614,36 +614,36 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 
 	char buff_warning[] = "\\/|<>(){}[]йЙ";
 
-	Int16 iLow1 = 0, iHigh1 = 0, iLow2 = 0, iHigh2 = 0, iLvlt = 0, iWarn = 0, iUnk = 0;
+	int16_t iLow1 = 0, iHigh1 = 0, iLow2 = 0, iHigh2 = 0, iLvlt = 0, iWarn = 0, iUnk = 0;
 
-	Int16 countLLM1 = 0, countLLM2 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0, countRLM1 = 0,
+	int16_t countLLM1 = 0, countLLM2 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0, countRLM1 = 0,
 		  countWarn1 = 0, countHighL1 = 0, countWarn2 = 0, countHighL2 = 0;
 
 	//интервалы
-	Int16 pnt0, pnt1, pnt2, pnt3;
+	int16_t pnt0, pnt1, pnt2, pnt3;
 
 	if(row_str->leftLocMax != -1 || row_str->ValLLM != -1)
 	{
-		pnt0 = (Int16)(row_str->leftLocMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
-		pnt1 = (Int16)(row_str->globMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
+		pnt0 = (int16_t)(row_str->leftLocMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
+		pnt1 = (int16_t)(row_str->globMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
 	}
 	else
 	{
 		if(row_str->rightLocMax != -1)
-			pnt1 = (Int16)(row_str->globMax - 0.5 * (row_str->rightLocMax - row_str->globMax));
+			pnt1 = (int16_t)(row_str->globMax - 0.5 * (row_str->rightLocMax - row_str->globMax));
 		else
-			pnt1 = (Int16)(row_str->globMax - 0.5 * (b3 - row_str->globMax));
+			pnt1 = (int16_t)(row_str->globMax - 0.5 * (b3 - row_str->globMax));
 		pnt0 = pnt1;
 	}
 
 	if(row_str->rightLocMax != -1)
 	{
-		pnt2 = (Int16)(row_str->globMax + 0.5 * (row_str->rightLocMax - row_str->globMax));
-		pnt3 = (Int16)(row_str->rightLocMax + 0.5 * (b3 - row_str->rightLocMax));
+		pnt2 = (int16_t)(row_str->globMax + 0.5 * (row_str->rightLocMax - row_str->globMax));
+		pnt3 = (int16_t)(row_str->rightLocMax + 0.5 * (b3 - row_str->rightLocMax));
 	}
 	else
 	{
-		pnt2 = (Int16)(row_str->globMax + 0.5 * (b3 - row_str->globMax));
+		pnt2 = (int16_t)(row_str->globMax + 0.5 * (b3 - row_str->globMax));
 		pnt3 = pnt2;
 	}
 
@@ -680,7 +680,7 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 					peng_low2 = prus_low2 = peng_high2 = prus_high2 =
 					peng_t = prus_unk  = p_warning = NULL;
 
-					for(Int16 j = 0; j < 3; j++)
+					for(int16_t j = 0; j < 3; j++)
 					{
 						char c = vers.Alt[i].Code[j];
 						if(c == 0) break;
@@ -753,11 +753,11 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 					}
 				}
 
-				Int16  db3 = rast_attr.row + rast_attr.h - ln_row - b3;
+				int16_t  db3 = rast_attr.row + rast_attr.h - ln_row - b3;
 
 				if(abs(db3) <= 2 || iWarn > 0)
 				{
-					Int16 drow = rast_attr.row - ln_row;
+					int16_t drow = rast_attr.row - ln_row;
 
 					if(iLow1 > 0 && iHigh1 + iHigh2 == 0 && iUnk == 0)
 					{
@@ -870,7 +870,7 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 			{
 				if(countGM1 + countRLM2 == countLLM1 + countGM2)
 				{
-					Int16 iHyp = stat_Hypothesis(line_attr.number, b3 - row_str->globMax);
+					int16_t iHyp = stat_Hypothesis(line_attr.number, b3 - row_str->globMax);
 					if(iHyp == 1)
 					{
 						row_str->AltGM  = 1;
@@ -929,11 +929,11 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 							if(p_warning) break;
 						}
 
-						Int16  db3 = rast_attr.row + rast_attr.h - ln_row - b3;
+						int16_t  db3 = rast_attr.row + rast_attr.h - ln_row - b3;
 
 						if(abs(db3) <= 2 || p_warning)
 						{
-							Int16 drow = rast_attr.row - ln_row;
+							int16_t drow = rast_attr.row - ln_row;
 
 							if(row_str->leftLocMax != -1 && pnt0 <= drow && drow < pnt1)
 							{
@@ -991,11 +991,11 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 	return TRUE;
 }
 
-BOOL stat_control_t_level(CSTR_line line, Int16 ln_row, Int16 b3, Int16 bl)
+BOOL stat_control_t_level(CSTR_line line, int16_t ln_row, int16_t b3, int16_t bl)
 {
 	CSTR_attr line_attr;
 	BOOL bret = FALSE;
-	Int16 i1 = 0, i2 = 0;
+	int16_t i1 = 0, i2 = 0;
 
 	if(CSTR_GetLineAttr(line,&line_attr))
 	{
@@ -1030,11 +1030,11 @@ BOOL stat_control_t_level(CSTR_line line, Int16 ln_row, Int16 b3, Int16 bl)
 
 				if(flg)
 				{
-					Int16 drow3 = rast_attr.row + rast_attr.h - ln_row - b3;
+					int16_t drow3 = rast_attr.row + rast_attr.h - ln_row - b3;
 
 					if(vers.Alt[0].Prob >= 230 && abs(drow3) <= 2)
 					{
-						Int16 drowbl = rast_attr.row - ln_row - bl;// + drow3
+						int16_t drowbl = rast_attr.row - ln_row - bl;// + drow3
 
 						if(abs(drowbl) <= 1)
 						{
@@ -1052,7 +1052,7 @@ BOOL stat_control_t_level(CSTR_line line, Int16 ln_row, Int16 b3, Int16 bl)
 	return bret;
 }
 
-BOOL stat_interp_bsl_by_b4(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, ROW_STRUCT *row_str)
+BOOL stat_interp_bsl_by_b4(CSTR_line line, int16_t ln_row, int16_t b3, int16_t b4, ROW_STRUCT *row_str)
 {
 	CSTR_attr line_attr;
 	if(!CSTR_GetLineAttr(line,&line_attr)) return FALSE;
@@ -1062,31 +1062,31 @@ BOOL stat_interp_bsl_by_b4(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, ROW
 	char buff_warning[] = "1\\|/(){}[]";
 
 
-	Int16 countLLM1 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0;
+	int16_t countLLM1 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0;
 	//интервалы
-	Int16 pnt0, pnt1, pnt2, pnt3;
+	int16_t pnt0, pnt1, pnt2, pnt3;
 
 	if(row_str->leftLocMax != -1)
 	{
-		pnt0 = (Int16)(row_str->leftLocMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
-		pnt1 = (Int16)(row_str->globMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
+		pnt0 = (int16_t)(row_str->leftLocMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
+		pnt1 = (int16_t)(row_str->globMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
 	}
 	else
 	{
 		if(row_str->rightLocMax != -1)
-			pnt1 = (Int16)(row_str->globMax - 0.5 * (row_str->rightLocMax - row_str->globMax));
+			pnt1 = (int16_t)(row_str->globMax - 0.5 * (row_str->rightLocMax - row_str->globMax));
 		else
-			pnt1 = (Int16)(row_str->globMax - 0.2 * (b3 - row_str->globMax));//0.5
+			pnt1 = (int16_t)(row_str->globMax - 0.2 * (b3 - row_str->globMax));//0.5
 	}
 
 	if(row_str->rightLocMax != -1)
 	{
-		pnt2 = (Int16)(row_str->globMax + 0.5 * (row_str->rightLocMax - row_str->globMax));
-		pnt3 = (Int16)(row_str->rightLocMax + 0.5 * (b3 - row_str->rightLocMax));
+		pnt2 = (int16_t)(row_str->globMax + 0.5 * (row_str->rightLocMax - row_str->globMax));
+		pnt3 = (int16_t)(row_str->rightLocMax + 0.5 * (b3 - row_str->rightLocMax));
 	}
 	else
 	{
-		pnt2 = (Int16)(row_str->globMax + 0.5 * (b3 - row_str->globMax));
+		pnt2 = (int16_t)(row_str->globMax + 0.5 * (b3 - row_str->globMax));
 		pnt3 = pnt2;
 	}
 
@@ -1109,9 +1109,9 @@ BOOL stat_interp_bsl_by_b4(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, ROW
 				continue;
 			}
 
-			Int16  db4 = rast_attr.row + rast_attr.h - ln_row - b4;
-			Int16 drow = rast_attr.row - ln_row;
-			Int16 pnt = b3 != 0 ? (b4 - b3) / 2 : 3;
+			int16_t  db4 = rast_attr.row + rast_attr.h - ln_row - b4;
+			int16_t drow = rast_attr.row - ln_row;
+			int16_t pnt = b3 != 0 ? (b4 - b3) / 2 : 3;
 
 			if(-pnt <= db4 && db4 <= 3)//отладка vers.Alt[0].Prob >= 230 &&
 			{
@@ -1208,7 +1208,7 @@ BOOL stat_interp_bsl_by_b4(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, ROW
 
 /*	if(row_str->AltLLM == -1 && countWarn > 0 && row_str->ValLLM <= countWarn)
 	{
-		pnt1 = (Int16)(row_str->globMax - 0.3 * (b3 - row_str->globMax));
+		pnt1 = (int16_t)(row_str->globMax - 0.3 * (b3 - row_str->globMax));
 
 		if(pnt1 <= drowWarn)
 		{
@@ -1232,25 +1232,25 @@ BOOL stat_interp_bsl_by_b4(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, ROW
 	return TRUE;
 }
 
-void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
-			   Int16 *p_Y2Arr, Int16 *p_FreqY1Arr, Int16 *Ns1, Int16 *Ns2)
+void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, int16_t *p_Y1Arr,
+			   int16_t *p_Y2Arr, int16_t *p_FreqY1Arr, int16_t *Ns1, int16_t *Ns2)
 {
 	if(line == 0 || p_attr == NULL || p_Y1Arr == NULL ||p_Y2Arr == NULL || p_FreqY1Arr == NULL) return;
 
 	ROW_STRUCT row_str;
 
-	Int16 sz_FreqY1Arr = malloc_usable_size(p_FreqY1Arr) / sizeof(Int16);
-	Int16     sz_Y1Arr = malloc_usable_size(p_Y1Arr) / sizeof(Int16);
-	Int16    min_Y1Arr = p_Y1Arr[stat_index_GlobMin(p_Y1Arr, sz_Y1Arr)];
+	int16_t sz_FreqY1Arr = malloc_usable_size(p_FreqY1Arr) / sizeof(int16_t);
+	int16_t     sz_Y1Arr = malloc_usable_size(p_Y1Arr) / sizeof(int16_t);
+	int16_t    min_Y1Arr = p_Y1Arr[stat_index_GlobMin(p_Y1Arr, sz_Y1Arr)];
 
 // 	if(p_attr->number == 161) DebugBreak(); // && p_attr->language == 0
 	//глобальный максимум
-	Int16 max_FreqY1Arr = stat_index_GlobMax(p_FreqY1Arr,sz_FreqY1Arr, G);
+	int16_t max_FreqY1Arr = stat_index_GlobMax(p_FreqY1Arr,sz_FreqY1Arr, G);
 
 	row_str.globMax = min_Y1Arr + max_FreqY1Arr;
 	row_str.ValGM   = p_FreqY1Arr[max_FreqY1Arr];
 
-	Int16 diff_b3_GlobMax = p_attr->bs3 - row_str.globMax;
+	int16_t diff_b3_GlobMax = p_attr->bs3 - row_str.globMax;
 
 /*	switch(hipothesis)
 	{
@@ -1267,23 +1267,23 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 */
 
 	//левый (относительно глобального) максимум
-	Int16  left_diff =  stat_Left_diff_from_max(p_FreqY1Arr, max_FreqY1Arr);
+	int16_t  left_diff =  stat_Left_diff_from_max(p_FreqY1Arr, max_FreqY1Arr);
 	left_diff = MAX(left_diff, 3);
 
-	Int16 leftMax_FreqY1Arr = stat_index_LeftLocMax(p_FreqY1Arr, max_FreqY1Arr - left_diff);
+	int16_t leftMax_FreqY1Arr = stat_index_LeftLocMax(p_FreqY1Arr, max_FreqY1Arr - left_diff);
 	//проверка t-уровня
 	if(p_attr->language == 0 && leftMax_FreqY1Arr != -1)
 	{
 		if(stat_control_t_level(line, p_attr->row, p_attr->bs3, min_Y1Arr + leftMax_FreqY1Arr)
 			/* && leftMax_FreqY1Arr > 0*/)
 		{
-			Int16 itmp = leftMax_FreqY1Arr - 1;
+			int16_t itmp = leftMax_FreqY1Arr - 1;
 			if(itmp > 0) leftMax_FreqY1Arr = stat_index_LeftLocMax(p_FreqY1Arr, itmp);
 			else leftMax_FreqY1Arr = 0;
 		}
 	}
 
-	Int16 diff_leftLocMax_GlobMax;
+	int16_t diff_leftLocMax_GlobMax;
 
 	row_str.leftLocMax		= leftMax_FreqY1Arr != -1 ?  min_Y1Arr + leftMax_FreqY1Arr : -1;
 	row_str.ValLLM			= leftMax_FreqY1Arr != -1 ? p_FreqY1Arr[leftMax_FreqY1Arr] : -1;
@@ -1303,12 +1303,12 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 	}
 
 	//правый максимум
-	Int16 right_diff = stat_Right_diff_from_max(p_FreqY1Arr, max_FreqY1Arr);
+	int16_t right_diff = stat_Right_diff_from_max(p_FreqY1Arr, max_FreqY1Arr);
 	right_diff = MAX(right_diff, 3);
 
-	Int16 rightMax_FreqY1Arr = stat_index_RightLocMax(p_FreqY1Arr, sz_FreqY1Arr, max_FreqY1Arr + right_diff);
+	int16_t rightMax_FreqY1Arr = stat_index_RightLocMax(p_FreqY1Arr, sz_FreqY1Arr, max_FreqY1Arr + right_diff);
 
-	Int16 diff_GlobMax_rightLocMax;
+	int16_t diff_GlobMax_rightLocMax;
 
 	row_str.rightLocMax = rightMax_FreqY1Arr != -1 ?  min_Y1Arr + rightMax_FreqY1Arr : -1;
 	row_str.ValRLM      = rightMax_FreqY1Arr != -1 ? p_FreqY1Arr[rightMax_FreqY1Arr] : -1;
@@ -1331,7 +1331,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 /*	if(coeff > 1)
 	{
 		coeff = (Float32)0.2;
-		mode_diff_b2_b1 = (Int16) coeff * diff_b3_bsl;
+		mode_diff_b2_b1 = (int16_t) coeff * diff_b3_bsl;
 	}
 */
 	//интерпретация максимумов гистограммы
@@ -1344,7 +1344,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 		{
 			case 1:	p_attr->bs1 = row_str.globMax;
  					Ns1[0] = row_str.ValGM;
-					p_attr->Nb1 = (Int16)MIN(100,
+					p_attr->Nb1 = (int16_t)MIN(100,
 									(Float32)100 * row_str.ValGM/(Float32)(sz_Y1Arr * Pb1));
 
 					if(row_str.ValRLM != -1 &&
@@ -1352,7 +1352,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 					{
 						p_attr->bs2 = row_str.rightLocMax;
 						Ns2[0] = row_str.ValRLM;
-						p_attr->Nb2 = (Int16)MIN(100,
+						p_attr->Nb2 = (int16_t)MIN(100,
 								   (Float32)100 * row_str.ValRLM/(Float32)(sz_Y1Arr * Pb2));
 					}
 					else
@@ -1365,7 +1365,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 			case 2:	;
 			default:p_attr->bs2 = row_str.globMax;
  					Ns2[0] = row_str.ValGM;
-					p_attr->Nb2 = (Int16)MIN(100,
+					p_attr->Nb2 = (int16_t)MIN(100,
 									(Float32)100 * row_str.ValGM/(Float32)(sz_Y1Arr * Pb2));
 
 					if(row_str.ValLLM != -1 &&
@@ -1373,7 +1373,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 					{
 						p_attr->bs1 = row_str.leftLocMax;
 						Ns1[0] = row_str.ValLLM;
-						p_attr->Nb1 = (Int16)MIN(100,
+						p_attr->Nb1 = (int16_t)MIN(100,
 								   (Float32)100 * row_str.ValLLM/(Float32)(sz_Y1Arr * Pb1));
 					}
 					else
@@ -1387,9 +1387,9 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 	}
 }
 
-Int16 stat_LineLength(CSTR_line line)
+int16_t stat_LineLength(CSTR_line line)
 {
-	Int16 i = 0;
+	int16_t i = 0;
 
 	CSTR_attr line_attr;
 	if(CSTR_GetLineAttr(line,&line_attr))
@@ -1420,19 +1420,19 @@ Int16 stat_LineLength(CSTR_line line)
 	return i;
 }
 
-void stat_FormArrays(CSTR_line line, Int16 row, Int16 *p_Y1Array, Int16 *p_Y2Array)
+void stat_FormArrays(CSTR_line line, int16_t row, int16_t *p_Y1Array, int16_t *p_Y2Array)
 {
 	if(p_Y1Array == NULL || p_Y2Array == NULL) return;
 
-	Int16  sz_Y1Array = malloc_usable_size(p_Y1Array) / sizeof(Int16);
-	Int16  sz_Y2Array = malloc_usable_size(p_Y2Array) / sizeof(Int16);
+	int16_t  sz_Y1Array = malloc_usable_size(p_Y1Array) / sizeof(int16_t);
+	int16_t  sz_Y2Array = malloc_usable_size(p_Y2Array) / sizeof(int16_t);
 
 	if(sz_Y1Array == 0 || sz_Y2Array == 0) return;
 
 	CSTR_attr line_attr;
 	if(CSTR_GetLineAttr(line,&line_attr))
 	{
-		Int16 line_row = row;
+		int16_t line_row = row;
 
 		CSTR_rast  start = CSTR_GetFirstRaster(line), stop = CSTR_GetLastRaster(line);
 
@@ -1443,7 +1443,7 @@ void stat_FormArrays(CSTR_line line, Int16 row, Int16 *p_Y1Array, Int16 *p_Y2Arr
 			return;
 		}
 
-		Int16 i = 0;
+		int16_t i = 0;
 
 		for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let | CSTR_f_bad); //отладка | CSTR_f_fict
 		curr_raster && curr_raster!=stop;
@@ -1458,8 +1458,8 @@ void stat_FormArrays(CSTR_line line, Int16 row, Int16 *p_Y1Array, Int16 *p_Y2Arr
 					if((comp = CSTR_GetComp(curr_raster)) == NULL) continue;
 					if(comp->type == CSTR_f_dust || comp->type == CSTR_f_punct) continue;
 
-//					p_Y1Array = (Int16 *)realloc(p_Y1Array, (i+1) * sizeof(Int16));
-//					p_Y2Array = (Int16 *)realloc(p_Y2Array, (i+1) * sizeof(Int16));
+//					p_Y1Array = (int16_t *)realloc(p_Y1Array, (i+1) * sizeof(int16_t));
+//					p_Y2Array = (int16_t *)realloc(p_Y2Array, (i+1) * sizeof(int16_t));
 
 //					if(p_Y1Array == NULL || p_Y2Array == NULL)
 //						return;
@@ -1483,11 +1483,11 @@ void stat_FormArrays(CSTR_line line, Int16 row, Int16 *p_Y1Array, Int16 *p_Y2Arr
 }
 
 void StatSearchBL(CSTR_line line, CSTR_attr *p_attr,
-				  Int16 *Ns1, Int16 *Ns2, Int16 *Ns3, Int16 *Ns4)
+				  int16_t *Ns1, int16_t *Ns2, int16_t *Ns3, int16_t *Ns4)
 {
-	Int16  n = stat_LineLength(line);  //malloc_usable_size(pY1Array) / sizeof(Int16) - размерность pY1Array и pY2Array
-	Int16 *pY1Array = (Int16 *) malloc(sizeof(Int16) * n);
-	Int16 *pY2Array = (Int16 *) malloc(sizeof(Int16) * n);
+	int16_t  n = stat_LineLength(line);  //malloc_usable_size(pY1Array) / sizeof(int16_t) - размерность pY1Array и pY2Array
+	int16_t *pY1Array = (int16_t *) malloc(sizeof(int16_t) * n);
+	int16_t *pY2Array = (int16_t *) malloc(sizeof(int16_t) * n);
 
 	if(pY2Array == NULL || pY1Array == NULL)
 	{
@@ -1505,8 +1505,8 @@ void StatSearchBL(CSTR_line line, CSTR_attr *p_attr,
 	}
 
 	//значения гистограммы
-	Int16 *pFrequencyY1Array = 	stat_gistoGramma(pY1Array, n);
-	Int16 *pFrequencyY2Array =	stat_gistoGramma(pY2Array, n);
+	int16_t *pFrequencyY1Array = 	stat_gistoGramma(pY1Array, n);
+	int16_t *pFrequencyY2Array =	stat_gistoGramma(pY2Array, n);
 
 	if(pFrequencyY1Array != NULL && pFrequencyY2Array != NULL)
 	{
@@ -1542,9 +1542,9 @@ void StatSearchBL(CSTR_line line, CSTR_attr *p_attr,
 		p_attr = (CSTR_attr *) NULL;
 }
 
-Int16 stat_Hypothesis(int32_t line_number, Int16 diff_b3_bsl)
+int16_t stat_Hypothesis(int32_t line_number, int16_t diff_b3_bsl)
 {
-	Int16 iFound_b2 = 0, iFound_b1 = 0;
+	int16_t iFound_b2 = 0, iFound_b1 = 0;
 
 	if(line_number <= CSTR_GetMaxNumber())
 	{
@@ -1558,7 +1558,7 @@ Int16 stat_Hypothesis(int32_t line_number, Int16 diff_b3_bsl)
 
 			if(bRet)
 			{
-				for(Int16 l = 0; l < line_number - line_start ; l++)
+				for(int16_t l = 0; l < line_number - line_start ; l++)
 				{
 					BOOL b = abs(pCSTR_attrArray[l].bs3 - pCSTR_attrArray[l].bs2 - diff_b3_bsl) <= 2;//отладка 1
 					if(b && pCSTR_attrArray[l].Nb2 != -1)
@@ -1574,7 +1574,7 @@ Int16 stat_Hypothesis(int32_t line_number, Int16 diff_b3_bsl)
 		free(pCSTR_attrArray);
 	}
 
-	Int16 ret;
+	int16_t ret;
 
 	if(iFound_b1 != 0 || iFound_b2 != 0) ret = iFound_b1 > iFound_b2 ? 1 : 2;
 	else ret = -1;
@@ -1586,7 +1586,7 @@ BOOL stat_FormCSTR_attrArray(int32_t line_start, int32_t line_stop, CSTR_attr *p
 {
 	if(line_stop > CSTR_GetMaxNumber() || pCSTR_attrArray == NULL) return FALSE;
 
-	Int16 sz = malloc_usable_size(pCSTR_attrArray) / sizeof(CSTR_attr);
+	int16_t sz = malloc_usable_size(pCSTR_attrArray) / sizeof(CSTR_attr);
 	if(sz < line_stop - line_start) return FALSE;
 
 	for(int32_t l = 0; l < line_stop - line_start; l++)
@@ -1602,17 +1602,17 @@ BOOL stat_FormCSTR_attrArray(int32_t line_start, int32_t line_stop, CSTR_attr *p
 	return TRUE;
 }
 
-void stat_def_imaginary_bl(CSTR_attr *p_attr, Int16 *Ns1, Int16 *Ns2, Int16 *Ns4)
+void stat_def_imaginary_bl(CSTR_attr *p_attr, int16_t *Ns1, int16_t *Ns2, int16_t *Ns4)
 {
 	if(p_attr->number < 1) return;
 
 	if(p_attr->bs1 == -1 && p_attr->Nb1 == -1 && p_attr->bs2 != -1)
 	{
-		Int16 mode_diff_b2_b1 = stat_Mode_diff_b2_b1(p_attr->number, p_attr->bs3 - p_attr->bs2);
+		int16_t mode_diff_b2_b1 = stat_Mode_diff_b2_b1(p_attr->number, p_attr->bs3 - p_attr->bs2);
 
 		if(mode_diff_b2_b1 != -1)
 		{
-			Int16 bs1 = p_attr->bs2 - mode_diff_b2_b1;
+			int16_t bs1 = p_attr->bs2 - mode_diff_b2_b1;
 			//(Float32)(p_attr->bs2 - mode_diff_b2_b1)/(Float32)(p_attr->bs3 - p_attr->bs2)
 			p_attr->bs1 = bs1 != -1 ? bs1 : 0;
 		}
@@ -1624,7 +1624,7 @@ void stat_def_imaginary_bl(CSTR_attr *p_attr, Int16 *Ns1, Int16 *Ns2, Int16 *Ns4
 
 	if(p_attr->bs1 != -1 && p_attr->bs2 == -1)
 	{
-		Int16 diff_b2_b3 = stat_Mode_diff_b2_b3(p_attr->number, p_attr->bs3 - p_attr->bs1, 1);
+		int16_t diff_b2_b3 = stat_Mode_diff_b2_b3(p_attr->number, p_attr->bs3 - p_attr->bs1, 1);
 
 		if(diff_b2_b3 != -1)
 		{
@@ -1639,7 +1639,7 @@ void stat_def_imaginary_bl(CSTR_attr *p_attr, Int16 *Ns1, Int16 *Ns2, Int16 *Ns4
 	if(p_attr->bs4 != -1 && p_attr->bs2 != -1)
 	{
 		Float32 coeff = 0;
-		Int16 diff_b3_b2 = p_attr->bs3 - p_attr->bs2;
+		int16_t diff_b3_b2 = p_attr->bs3 - p_attr->bs2;
 		if(diff_b3_b2 != 0)
 			coeff = (Float32)(p_attr->bs4 - p_attr->bs3) / (Float32) (diff_b3_b2);
 		if(coeff < 0.2)
@@ -1648,7 +1648,7 @@ void stat_def_imaginary_bl(CSTR_attr *p_attr, Int16 *Ns1, Int16 *Ns2, Int16 *Ns4
 
 	if(p_attr->bs4 == -1 && p_attr->bs2 != -1)
 	{
-		Int16 diff_b3_b4 = stat_Mode_diff_b3_b4(p_attr->number, p_attr->bs3 - p_attr->bs2);
+		int16_t diff_b3_b4 = stat_Mode_diff_b3_b4(p_attr->number, p_attr->bs3 - p_attr->bs2);
 
 		if(diff_b3_b4 != -1)
 		{
@@ -1662,9 +1662,9 @@ void stat_def_imaginary_bl(CSTR_attr *p_attr, Int16 *Ns1, Int16 *Ns2, Int16 *Ns4
 	}
 }
 
-Int16 stat_Mode_diff_b2_b1(int32_t line_number, Int16 diff_b3_b2)
+int16_t stat_Mode_diff_b2_b1(int32_t line_number, int16_t diff_b3_b2)
 {
-	Int16 iMode = 0;
+	int16_t iMode = 0;
 	BOOL bFound_mode = FALSE;
 
 	if(line_number <= CSTR_GetMaxNumber())
@@ -1675,7 +1675,7 @@ Int16 stat_Mode_diff_b2_b1(int32_t line_number, Int16 diff_b3_b2)
 
 		if(pCSTR_attrArray != NULL)
 		{
-			Int16 *p_diff = (Int16 *)malloc((line_number - line_start) * sizeof(Int16));
+			int16_t *p_diff = (int16_t *)malloc((line_number - line_start) * sizeof(int16_t));
 
 			if(p_diff != NULL)
 			{
@@ -1683,9 +1683,9 @@ Int16 stat_Mode_diff_b2_b1(int32_t line_number, Int16 diff_b3_b2)
 
 				if(bRet)
 				{
-					Int16 jCount = 0;
+					int16_t jCount = 0;
 
-					for(Int16 l = 0; l < line_number - line_start; l++)
+					for(int16_t l = 0; l < line_number - line_start; l++)
 					{
 						if(abs(pCSTR_attrArray[l].bs3 - pCSTR_attrArray[l].bs2 - diff_b3_b2) <= 1)
 						{
@@ -1700,13 +1700,13 @@ Int16 stat_Mode_diff_b2_b1(int32_t line_number, Int16 diff_b3_b2)
 
 					if(jCount !=0)
 					{
-						p_diff = (Int16 *) realloc(p_diff, jCount * sizeof(Int16));
-						Int16 *pFrequencyArray = stat_gistoGramma(p_diff, jCount);
+						p_diff = (int16_t *) realloc(p_diff, jCount * sizeof(int16_t));
+						int16_t *pFrequencyArray = stat_gistoGramma(p_diff, jCount);
 						if(pFrequencyArray != NULL)
 						{
-							Int16 szFrequencyArray = malloc_usable_size(pFrequencyArray) / sizeof(Int16);
-							Int16          minArray = p_diff[stat_index_GlobMin(p_diff,jCount)];
-							Int16 maxFrequencyArray = stat_index_GlobMax(pFrequencyArray,szFrequencyArray, G);
+							int16_t szFrequencyArray = malloc_usable_size(pFrequencyArray) / sizeof(int16_t);
+							int16_t          minArray = p_diff[stat_index_GlobMin(p_diff,jCount)];
+							int16_t maxFrequencyArray = stat_index_GlobMax(pFrequencyArray,szFrequencyArray, G);
 							if(szFrequencyArray != 0) free(pFrequencyArray);
 							iMode = minArray + maxFrequencyArray;
 							bFound_mode = TRUE;
@@ -1726,11 +1726,11 @@ Int16 stat_Mode_diff_b2_b1(int32_t line_number, Int16 diff_b3_b2)
 	return iMode;
 }
 
-Int16 stat_Left_diff_from_max(Int16 *p_FrequencyArray, Int16 max_FrequencyArray)
+int16_t stat_Left_diff_from_max(int16_t *p_FrequencyArray, int16_t max_FrequencyArray)
 {
-	Int16 jret = -1;
-	Int16 derivative = 0;
-	Int16 i;
+	int16_t jret = -1;
+	int16_t derivative = 0;
+	int16_t i;
 
 	for(i = max_FrequencyArray - 1; i >= 0; i--)
 	{
@@ -1758,12 +1758,12 @@ Int16 stat_Left_diff_from_max(Int16 *p_FrequencyArray, Int16 max_FrequencyArray)
 	return jret;
 }
 
-Int16 stat_Right_diff_from_max(Int16 *p_FrequencyArray, Int16 max_FrequencyArray)
+int16_t stat_Right_diff_from_max(int16_t *p_FrequencyArray, int16_t max_FrequencyArray)
 {
-	Int16 sz = malloc_usable_size(p_FrequencyArray) / sizeof(Int16);
-	Int16 jret = sz - max_FrequencyArray + 1;
-	Int16 derivative = 0;
-	Int16 i;
+	int16_t sz = malloc_usable_size(p_FrequencyArray) / sizeof(int16_t);
+	int16_t jret = sz - max_FrequencyArray + 1;
+	int16_t derivative = 0;
+	int16_t i;
 
 	for(i = max_FrequencyArray + 1; i < sz; i++)
 	{
@@ -1791,9 +1791,9 @@ Int16 stat_Right_diff_from_max(Int16 *p_FrequencyArray, Int16 max_FrequencyArray
 	return jret;
 }
 
-Int16 stat_Mode_diff_b3_b4(int32_t line_number, Int16 diff_b3_b2)
+int16_t stat_Mode_diff_b3_b4(int32_t line_number, int16_t diff_b3_b2)
 {
-	Int16 iMode = 0;
+	int16_t iMode = 0;
 	BOOL bFound_mode = FALSE;
 
 	if(line_number <= CSTR_GetMaxNumber())
@@ -1804,7 +1804,7 @@ Int16 stat_Mode_diff_b3_b4(int32_t line_number, Int16 diff_b3_b2)
 
 		if(pCSTR_attrArray != NULL)
 		{
-			Int16 *p_diff = (Int16 *)malloc((line_number - line_start) * sizeof(Int16));
+			int16_t *p_diff = (int16_t *)malloc((line_number - line_start) * sizeof(int16_t));
 
 			if(p_diff != NULL)
 			{
@@ -1812,9 +1812,9 @@ Int16 stat_Mode_diff_b3_b4(int32_t line_number, Int16 diff_b3_b2)
 
 				if(bRet)
 				{
-					Int16 jCount = 0;
+					int16_t jCount = 0;
 
-					for(Int16 l = 0; l < line_number - line_start; l++)
+					for(int16_t l = 0; l < line_number - line_start; l++)
 					{
 						if(abs(pCSTR_attrArray[l].bs3 - pCSTR_attrArray[l].bs2 - diff_b3_b2) <= 1)
 						{
@@ -1829,13 +1829,13 @@ Int16 stat_Mode_diff_b3_b4(int32_t line_number, Int16 diff_b3_b2)
 
 					if(jCount !=0)
 					{
-						p_diff = (Int16 *) realloc(p_diff, jCount * sizeof(Int16));
-						Int16  *pFrequencyArray = stat_gistoGramma(p_diff, jCount);
+						p_diff = (int16_t *) realloc(p_diff, jCount * sizeof(int16_t));
+						int16_t  *pFrequencyArray = stat_gistoGramma(p_diff, jCount);
 						if(pFrequencyArray != NULL)
 						{
-							Int16  szFrequencyArray = malloc_usable_size(pFrequencyArray) / sizeof(Int16);
-							Int16          minArray = p_diff[stat_index_GlobMin(p_diff,jCount)];
-							Int16 maxFrequencyArray = stat_index_GlobMax(pFrequencyArray,szFrequencyArray, G);
+							int16_t  szFrequencyArray = malloc_usable_size(pFrequencyArray) / sizeof(int16_t);
+							int16_t          minArray = p_diff[stat_index_GlobMin(p_diff,jCount)];
+							int16_t maxFrequencyArray = stat_index_GlobMax(pFrequencyArray,szFrequencyArray, G);
 							if(szFrequencyArray != 0) free(pFrequencyArray);
 							iMode = minArray + maxFrequencyArray;
 							bFound_mode = TRUE;
@@ -1855,9 +1855,9 @@ Int16 stat_Mode_diff_b3_b4(int32_t line_number, Int16 diff_b3_b2)
 	return iMode;
 }
 
-Int16 stat_Mode_diff_b2_b3(int32_t line_number, Int16 diff, Int16 fl_b2_or_b1)
+int16_t stat_Mode_diff_b2_b3(int32_t line_number, int16_t diff, int16_t fl_b2_or_b1)
 {
-	Int16 iMode = 0;
+	int16_t iMode = 0;
 	BOOL bFound_mode = FALSE;
 
 	if(line_number <= CSTR_GetMaxNumber())
@@ -1868,7 +1868,7 @@ Int16 stat_Mode_diff_b2_b3(int32_t line_number, Int16 diff, Int16 fl_b2_or_b1)
 
 		if(pCSTR_attrArray != NULL)
 		{
-			Int16 *p_diff = (Int16 *)malloc((line_number - line_start) * sizeof(Int16));
+			int16_t *p_diff = (int16_t *)malloc((line_number - line_start) * sizeof(int16_t));
 
 			if(p_diff != NULL)
 			{
@@ -1876,9 +1876,9 @@ Int16 stat_Mode_diff_b2_b3(int32_t line_number, Int16 diff, Int16 fl_b2_or_b1)
 
 				if(bRet)
 				{
-					Int16 jCount = 0;
+					int16_t jCount = 0;
 					BOOL b;
-					for(Int16 l = 0; l < line_number - line_start; l++)
+					for(int16_t l = 0; l < line_number - line_start; l++)
 					{
 						switch(fl_b2_or_b1)
 						{
@@ -1898,13 +1898,13 @@ Int16 stat_Mode_diff_b2_b3(int32_t line_number, Int16 diff, Int16 fl_b2_or_b1)
 					}
 					if(jCount !=0)
 					{
-						p_diff = (Int16 *) realloc(p_diff, jCount * sizeof(Int16));
-						Int16  *pFrequencyArray = stat_gistoGramma(p_diff, jCount);
+						p_diff = (int16_t *) realloc(p_diff, jCount * sizeof(int16_t));
+						int16_t  *pFrequencyArray = stat_gistoGramma(p_diff, jCount);
 						if(pFrequencyArray != NULL)
 						{
-							Int16  szFrequencyArray = malloc_usable_size(pFrequencyArray) / sizeof(Int16);
-							Int16          minArray = p_diff[stat_index_GlobMin(p_diff,jCount)];
-							Int16 maxFrequencyArray = stat_index_GlobMax(pFrequencyArray,szFrequencyArray, G);
+							int16_t  szFrequencyArray = malloc_usable_size(pFrequencyArray) / sizeof(int16_t);
+							int16_t          minArray = p_diff[stat_index_GlobMin(p_diff,jCount)];
+							int16_t maxFrequencyArray = stat_index_GlobMax(pFrequencyArray,szFrequencyArray, G);
 							if(szFrequencyArray != 0) free(pFrequencyArray);
 							iMode = minArray + maxFrequencyArray;
 							bFound_mode = TRUE;
@@ -1925,7 +1925,7 @@ Int16 stat_Mode_diff_b2_b3(int32_t line_number, Int16 diff, Int16 fl_b2_or_b1)
 }
 
 /*
-BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_STRUCT *row_str)
+BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, int16_t ln_row, int16_t b3, ROW_STRUCT *row_str)
 {
 	CSTR_attr line_attr;
 
@@ -1944,34 +1944,34 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 	char *peng_low, *prus_low, *pfig, *peng_high, *prus_high,
 		 *p_high1, *p_high2, *p_low1, *p_low2, *p_warning;
 
-	Int16 countLLM1 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0, countRLM1 = 0,
+	int16_t countLLM1 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0, countRLM1 = 0,
 		  countWarn1 = 0, countHighL1 = 0, countWarn2 = 0, countHighL2 = 0;
 
 	//интервалы
-	Int16 pnt0, pnt1, pnt2, pnt3;
+	int16_t pnt0, pnt1, pnt2, pnt3;
 
 	if(row_str->leftLocMax != -1)
 	{
-		pnt0 = (Int16)(row_str->leftLocMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
-		pnt1 = (Int16)(row_str->globMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
+		pnt0 = (int16_t)(row_str->leftLocMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
+		pnt1 = (int16_t)(row_str->globMax - 0.5 * (row_str->globMax - row_str->leftLocMax));
 	}
 	else
 	{
 		if(row_str->rightLocMax != -1)
-			pnt1 = (Int16)(row_str->globMax - 0.5 * (row_str->rightLocMax - row_str->globMax));
+			pnt1 = (int16_t)(row_str->globMax - 0.5 * (row_str->rightLocMax - row_str->globMax));
 		else
-			pnt1 = (Int16)(row_str->globMax - 0.5 * (b3 - row_str->globMax));
+			pnt1 = (int16_t)(row_str->globMax - 0.5 * (b3 - row_str->globMax));
 		pnt0 = pnt1;
 	}
 
 	if(row_str->rightLocMax != -1)
 	{
-		pnt2 = (Int16)(row_str->globMax + 0.5 * (row_str->rightLocMax - row_str->globMax));
-		pnt3 = (Int16)(row_str->rightLocMax + 0.5 * (b3 - row_str->rightLocMax));
+		pnt2 = (int16_t)(row_str->globMax + 0.5 * (row_str->rightLocMax - row_str->globMax));
+		pnt3 = (int16_t)(row_str->rightLocMax + 0.5 * (b3 - row_str->rightLocMax));
 	}
 	else
 	{
-		pnt2 = (Int16)(row_str->globMax + 0.5 * (b3 - row_str->globMax));
+		pnt2 = (int16_t)(row_str->globMax + 0.5 * (b3 - row_str->globMax));
 		pnt3 = pnt2;
 	}
 
@@ -2008,17 +2008,17 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 					if(p_warning) break;
 				}
 
-				Int16  db3 = rast_attr.row + rast_attr.h - ln_row - b3;
+				int16_t  db3 = rast_attr.row + rast_attr.h - ln_row - b3;
 
 				if(abs(db3) <= 2 || p_warning)
 				{
-					Int16 drow = rast_attr.row - ln_row;
+					int16_t drow = rast_attr.row - ln_row;
 
 					if(vers.lnAltCnt == 1)
 					{
 						if(vers.Alt[0].Prob >= 230)
 						{
-							for(Int16 j = 0; j < 2; j++)
+							for(int16_t j = 0; j < 2; j++)
 							{
 								char c = vers.Alt[0].Code[j];
 								if(c == 0) break;
@@ -2172,11 +2172,11 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 						if(p_warning) break;
 					}
 
-					Int16  db3 = rast_attr.row + rast_attr.h - ln_row - b3;
+					int16_t  db3 = rast_attr.row + rast_attr.h - ln_row - b3;
 
 					if(abs(db3) <= 2 || p_warning)
 					{
-						Int16 drow = rast_attr.row - ln_row;
+						int16_t drow = rast_attr.row - ln_row;
 
 						if(row_str->leftLocMax != -1 && pnt0 <= drow && drow < pnt1)
 						{

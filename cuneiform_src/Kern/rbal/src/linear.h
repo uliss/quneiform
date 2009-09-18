@@ -246,7 +246,7 @@ BOOL (*snap_monitor_ori_rbal)(CSTR_line *snap_line, int32_t num_lines);
 BOOL (*snap_is_marked_rbal)(CSTR_line ln);//IGOR
 BOOL (*snap_baselines_rbal)(BYTE a);//IGOR
 void (*snap_draw_line_rbal)(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
-										  uint32_t rgb, Int16 pen, uint32_t key);//IGOR
+										  uint32_t rgb, int16_t pen, uint32_t key);//IGOR
 void (*snap_del_line_rbal)(Handle wnd, uint32_t key);
 //IGOR
 BOOL (*snap_show_text_rbal)(BYTE *txt);
@@ -271,5 +271,5 @@ BOOL (*snap_activity_rbal)(BYTE a);
 #define f_letter ( CSTR_f_let | CSTR_f_bad )
 
 // внешние функции
-Int16 (*RSTR_skew_corr)(CSTR_line ln, INT pool_src);
-Int16 (*RSTR_rast_is_BOX_solid) (CSTR_rast B1, Int16 scale);
+int16_t (*RSTR_skew_corr)(CSTR_line ln, INT pool_src);
+int16_t (*RSTR_rast_is_BOX_solid) (CSTR_rast B1, int16_t scale);

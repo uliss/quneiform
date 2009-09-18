@@ -78,7 +78,7 @@ extern Word16 actual_resolution;
 extern BOOL   line_BL;
 extern Word8  spec_camera;
 extern Word8  no_linpen;
-extern Int16  prop_l_delta, prop_r_delta;
+extern int16_t  prop_l_delta, prop_r_delta;
 extern Word8  db_pass;
 
 extern Word8 *letters_pidx_table;  // 512
@@ -836,7 +836,7 @@ static void GetBalGlobals(BAL_INOUT_GLOBALS  *balGlob)
 	Ps  = balGlob->Ps  ;
 	Psf = balGlob->Psf ;
 
-	nIncline = (Int16)balGlob->nIncline;
+	nIncline = (int16_t)balGlob->nIncline;
 }
 /////////////////////
 static void SetBalGlobals(BAL_INOUT_GLOBALS  *balGlob)

@@ -65,8 +65,8 @@ struct Rotating
 {
 	Rect16 Rc;
 	Word8* pmasp;
-	Int16* begx;
-	Int16* movey;
+	int16_t* begx;
+	int16_t* movey;
 	Word8* flmovey;
 	int* hi;
 	Rotating()
@@ -149,8 +149,8 @@ public:
 struct RotImageFlags
 {
 	Rect16 Rc;
-	Int16* begx;
-	Int16* movey;
+	int16_t* begx;
+	int16_t* movey;
 	Word8* fl_movey;
 	int* hi;
 	RotImageFlags()

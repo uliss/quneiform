@@ -99,13 +99,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    EVN_FUNC(void)  EVNDone(void);
       // Stop function. Call after EVNInit()
 
-   EVN_FUNC(Int16) EVNGetErr(void);
+   EVN_FUNC(int16_t) EVNGetErr(void);
       // Err16.h defined codes or one of the next
       //
 
    EVN_FUNC(Word8*) EVNMakeLine( RecRaster   *rRaster,int32_t parm);
    EVN_FUNC(MN *)   EVN_CLocomp (Word8* raster, int32_t bw, int32_t h,
-        Int16 upper,Int16 left);
+        int16_t upper,int16_t left);
    EVN_FUNC(int32_t)  EVNGetNumComp(   RecRaster   *rRaster  )  ;
    EVN_FUNC(int32_t)  EVNGetRepresent(  RecRaster   *rRaster,
         Word8 *evn, Word8 *evn_rot, int32_t font       );

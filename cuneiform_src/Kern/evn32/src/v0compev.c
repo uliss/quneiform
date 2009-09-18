@@ -83,13 +83,13 @@ extern void ev_lang_filter();
 static Word16 net_comp_count();
 static void ev_vector_cnt();
 static Word16 seek_events(Word8* ev);
-static Int16 first_var();
+static int16_t first_var();
 static void double_events(Word16 row, Word16 col);
 static void varset (Int8 add);
-static void upper_row(Int16 row);
-static void upper_col(Int16 col);
-static void lower_row(Int16 row);
-static void lower_col(Int16 col);
+static void upper_row(int16_t row);
+static void upper_col(int16_t col);
+static void lower_row(int16_t row);
+static void lower_col(int16_t col);
 
 
 //	Internal working fields
@@ -104,7 +104,7 @@ VAR evvars[64], * evendvar;
 Word16 evrow_b1, evrow_b2, evrow_b3, evrow_b4;
 Word16 evcol_b1, evcol_b2, evcol_b3, evcol_b4, evcol_b5;
 Word8* seek_responce;
-extern Int16 evfulln;
+extern int16_t evfulln;
 static Word8 ev;
 static VAR * vp;
 
@@ -116,7 +116,7 @@ static VAR * vp;
 
 Word16 events_recog()
 {
- Int16 nv;
+ int16_t nv;
  Word16 i,k;
  Word8* p;
  version *v;
@@ -251,7 +251,7 @@ static void varset (Int8 add)
  vp->add = add; (vp+1)->ln = vp->ln; vp++;
 }
 
-static void upper_row(Int16 row)
+static void upper_row(int16_t row)
 {
  if (row >= evrow_b2)
   {
@@ -274,7 +274,7 @@ static void upper_row(Int16 row)
   }
 }
 
-static void upper_col(Int16 col)
+static void upper_col(int16_t col)
 {
  if (col > evcol_b1)
   {
@@ -285,7 +285,7 @@ static void upper_col(Int16 col)
  if (col+1 == evcol_b1) varset(16); return;
 }
 
-static void lower_row(Int16 row)
+static void lower_row(int16_t row)
 {
  if (row >= evrow_b2)
   {
@@ -307,7 +307,7 @@ static void lower_row(Int16 row)
   }
 }
 
-static void lower_col(Int16 col)
+static void lower_col(int16_t col)
 {
  if (col > evcol_b1)
   {
@@ -391,7 +391,7 @@ for(i=0;i<n;i++)
 
 //-------------------- Variations process --------------------------
 
-static Int16 first_var()
+static int16_t first_var()
 {
  VAR *p=evvars;
  Word8 *ev1, *ev2;

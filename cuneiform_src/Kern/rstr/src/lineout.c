@@ -81,9 +81,9 @@ void ed_make_word(CSTR_rast b, CSTR_rast e)
 Word8           *l,p;
 CSTR_rast       c;
 UniVersions     uni;
-Int16           k,i,n,h,wb;
+int16_t           k,i,n,h,wb;
 CSTR_rast_attr  a;
-Int16           top,bottom,left,right;
+int16_t           top,bottom,left,right;
 /*
 struct fragm_disk
 {
@@ -182,7 +182,7 @@ wb= (right-left-1+7)/8;
     n   =a.h;           ed_write((Word8*)&n,2);
     n   =a.w;           ed_write((Word8*)&n,2);
     // stop bitmap ref
-    n=(Int16)uni.lnAltCnt;
+    n=(int16_t)uni.lnAltCnt;
     if(n>7) n=7;
     if(n<1) n=1;
     for(k=i=0;k<n;)
@@ -254,7 +254,7 @@ static CSTR_rast ed_end_word(CSTR_rast cs,Word8 *str,Word8 *word_len)
 {
 CSTR_rast       c=cs;
 CSTR_rast_attr  attr;
-Int16           i;
+int16_t           i;
 RecVersions     vers;
 
 CSTR_GetCollection(c,&vers);

@@ -88,11 +88,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 struct mn_struc
  {
  void *mnfirstbox; 		// address of the first box
- Int16 mncounter;     // number of living lines in the component
+ int16_t mncounter;     // number of living lines in the component
 #define mnfree	mnfirstbox	// reference to next free main number
- Int16 mnupper;       // upper bound of component
- Int16 mnlower;       // lower bound of component
- Int16 mnboxcnt;      // number of boxes in component
+ int16_t mnupper;       // upper bound of component
+ int16_t mnlower;       // lower bound of component
+ int16_t mnboxcnt;      // number of boxes in component
 #define usual_box_count 20 	// heuristic of number of lines in a letter
 #define great_box_count	200	// heuristic for number of boxes in a picture
  Word8 mnlines;                  // number of lines in the component
@@ -113,13 +113,13 @@ struct box_struct
  struct box_struct *boxnext; 	// chain address (zero if no next box)
  MN *		    boxmain; 	// component main number pointer
  Word16       boxptr;   // ptr to the empty place in the box
- Int16        boxleft;  // left boundary for line envelope
- Int16        boxright;   // right boundary for line envelope
- Int16        boxey;  // row of line end+1 ( if line ends within
+ int16_t        boxleft;  // left boundary for line envelope
+ int16_t        boxright;   // right boundary for line envelope
+ int16_t        boxey;  // row of line end+1 ( if line ends within
 				//    box)
- Int16                boxel;  // length of the last segment (if line ends
+ int16_t                boxel;  // length of the last segment (if line ends
 				//    within box)
- Int16              boxex;  // coordinate of last segment end (if line
+ int16_t              boxex;  // coordinate of last segment end (if line
 				//    ends within box)
  Word8         boxflag;  // byte for box attributes flags
  Word8       boxwf;  // working flag (for picture compress)
@@ -148,16 +148,16 @@ typedef struct box_struct BOX;
 
 struct ldescr_struct
  {
- Int16 y;   // y coord. of the first interval
- Int16 l;   // first interval length
- Int16 x;   // x coord. of the end of the first interval
+ int16_t y;   // y coord. of the first interval
+ int16_t l;   // first interval length
+ int16_t x;   // x coord. of the end of the first interval
  };
 typedef struct ldescr_struct LNSTRT;
 
 struct box_interval
  {
- Int16 l;   // length of interval
- Int16 d;   // displacement of the end of the current interval relative
+ int16_t l;   // length of interval
+ int16_t d;   // displacement of the end of the current interval relative
  };      	//      to the previous
 typedef struct box_interval BOXINT;
 
@@ -166,10 +166,10 @@ typedef struct box_interval BOXINT;
 struct comp_struc
  {
  Word16 size;       // size of component in paragraphs >=3
- Int16 upper;   // upper boundary of component
- Int16 left;    // left boundary of component
- Int16 h;     // height of component
- Int16 w;           // width of component
+ int16_t upper;   // upper boundary of component
+ int16_t left;    // left boundary of component
+ int16_t h;     // height of component
+ int16_t w;           // width of component
  Word8 rw;               // raster width in bytes
  Word8 type;       // recognition type
 #define ch_perfect    1	    // perfect type defined
@@ -182,10 +182,10 @@ struct comp_struc
 #define ch_notltr   128	    // not letter or punctuation
  Word8 cs;         // recognition case (see bellow)
  Word8 pidx;         // proportional index (ref.)
- Int16 nvers;   // number of alternative versions
- Int16 records;   // recognition records offset
- Int16 lines;   // ptr to line representation
- Int16 nl;    // number of lines
+ int16_t nvers;   // number of alternative versions
+ int16_t records;   // recognition records offset
+ int16_t lines;   // ptr to line representation
+ int16_t nl;    // number of lines
  Word8 begs;       // number of free begins
  Word8 ends;         // number of free ends
  Word8 reasno;           // proportional criteria messages
@@ -221,9 +221,9 @@ typedef struct vers_struct version;
 //	line header
 struct ln_head
  {
- Int16 lth; // length of one line representation
- Int16 h;   // height of line
- Int16 row; // relative row of line start
+ int16_t lth; // length of one line representation
+ int16_t h;   // height of line
+ int16_t row; // relative row of line start
  Word16 flg;  // flags of free beg and free end
 #define l_fbeg		0x20
 #define l_fend		0x80
@@ -235,8 +235,8 @@ typedef struct ln_head lnhead;
 //	one interval
 struct int_s
  {
- Word8 l;//Int16 l;  // length of interval
- Word8 e;//Int16 e;  // end of interval coordinates
+ Word8 l;//int16_t l;  // length of interval
+ Word8 e;//int16_t e;  // end of interval coordinates
  };
 typedef struct int_s interval;
 

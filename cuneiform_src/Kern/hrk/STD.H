@@ -213,7 +213,7 @@ typedef struct tagStdMemInfo
 
 /* On Windows wchar_t is 16 bit. On Unix it is 32 bit. */
 #ifndef WIN32
-#define wchar_t Int16
+#define wchar_t int16_t
 #endif
 
 STD_FUNC( Bool32 ) stdCheckFile(const char * lpFileName );

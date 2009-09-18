@@ -341,12 +341,12 @@ for(c=cp;i<ed_nvers;i++)
     c=CSTR_InsertRaster(c); // c - prev raster
     if( !c )
         continue;
-    attr.r_row  = (Int16)minrowr   ;
-    attr.r_col  = (Int16)(mincolr+i*avwidr)  ;
-    attr.row    = (Int16)minrow   ;
-    attr.col    = (Int16)(mincol+i*avwid)  ;
-    attr.h      = (Int16)(maxrow-minrow);
-    attr.w      = (Int16)avwid ;
+    attr.r_row  = (int16_t)minrowr   ;
+    attr.r_col  = (int16_t)(mincolr+i*avwidr)  ;
+    attr.row    = (int16_t)minrow   ;
+    attr.col    = (int16_t)(mincol+i*avwid)  ;
+    attr.h      = (int16_t)(maxrow-minrow);
+    attr.w      = (int16_t)avwid ;
     attr.font   = battr.font       ;
     attr.keg    = battr.keg        ;
     attr.language=(Word8)loc_language;
@@ -401,9 +401,9 @@ Bool32 ed_make_word(CSTR_rast b, CSTR_rast e,Word8 *language)
 Word8           *l,p;
 CSTR_rast       c;
 UniVersions     uni;
-Int16           k,i,n,h,wb, nlig, nl;
+int16_t           k,i,n,h,wb, nlig, nl;
 CSTR_rast_attr  a;
-Int16           top,bottom,left,right;
+int16_t           top,bottom,left,right;
 
 
 for(top=10000,bottom=0,left=10000,right=0,c=b;c&&c!=e;c=CSTR_GetNext(c))
@@ -452,7 +452,7 @@ wb= (right-left-1+7)/8;
     bmr.width   =a.w;
     bmr.height  =a.h;
     CSTR_GetCollectionUni(c,&uni);
-    n=(Int16)uni.lnAltCnt;
+    n=(int16_t)uni.lnAltCnt;
     if(n>7) n=7;
     if(n<1) n=1;
 
@@ -499,7 +499,7 @@ Bool32 ed_add_word(CSTR_rast b, CSTR_rast e,Word8 *language)
 Word8           *l,p;
 CSTR_rast       c;
 UniVersions     uni;
-Int16           k,i,n, nlig, nl;
+int16_t           k,i,n, nlig, nl;
 CSTR_rast_attr  a;
 
 for(c=b;c && c!=e;c=CSTR_GetNext(c))
@@ -522,7 +522,7 @@ for(c=b;c&&c!=e;c=CSTR_GetNext(c))
     bmr.width   =a.w;
     bmr.height  =a.h;
     CSTR_GetCollectionUni(c,&uni);
-    n=(Int16)uni.lnAltCnt;
+    n=(int16_t)uni.lnAltCnt;
     if(n>7) n=7;
     if(n<1) n=1;
 
@@ -588,7 +588,7 @@ static CSTR_rast rpstr_end_word(CSTR_rast cs,Word8 *str,Bool32 *hsp)
 {
 CSTR_rast       c=cs, nc;
 CSTR_rast_attr  attr, nattr;
-Int16           i;
+int16_t           i;
 UniVersions     vers, nuni;
 Bool32 halfspace=FALSE;	// 01.06.2001 E.P.
 
@@ -2190,7 +2190,7 @@ CSTR_rast_attr  attr;
 RecRaster       rs;
 UniVersions     vr;
 CCOM_comp    *  comp;
-Int16           left, right;
+int16_t           left, right;
 
 CSTR_GetLineAttr(ln,&lattr);
 CSTR_SetLineAttr(fln,&lattr);
@@ -2566,7 +2566,7 @@ static CSTR_rast rpstr_find_in_word(CSTR_rast cs,CSTR_rast ce,
 									CSTR_rast *last)
 {
  CSTR_rast       c;
- Int16           i;
+ int16_t           i;
  UniVersions     vers;
  int allLen = strlen(ewrd), oneLen;
  CSTR_rast first=NULL;
@@ -2697,12 +2697,12 @@ static int	ReplacePartWord(CSTR_rast eng, CSTR_rast enge,
 		if( !c )
 			continue;
 
-		attr.r_row  = (Int16)minrow   ;
-		attr.r_col  = (Int16)(mincolr+ii*avwidr)  ;
-		attr.row    = (Int16)minrow   ;
-		attr.col    = (Int16)(mincol+ii*avwid)  ;
-		attr.h      = (Int16)(maxrow-minrow);
-		attr.w      = (Int16)avwid ;
+		attr.r_row  = (int16_t)minrow   ;
+		attr.r_col  = (int16_t)(mincolr+ii*avwidr)  ;
+		attr.row    = (int16_t)minrow   ;
+		attr.col    = (int16_t)(mincol+ii*avwid)  ;
+		attr.h      = (int16_t)(maxrow-minrow);
+		attr.w      = (int16_t)avwid ;
 		attr.font   = battr.font       ;
 		attr.keg    = battr.keg        ;
 		attr.language=(Word8)lang;

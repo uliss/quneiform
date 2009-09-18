@@ -95,7 +95,7 @@ extern version* start_rec;   // ptr to answer
 extern Word8 lpool[];
 extern Word8 evline[], evline1[];
 
-extern MN * c_locomp (Word8* raster, int32_t bw, int32_t h, Int16 upper, Int16 left);
+extern MN * c_locomp (Word8* raster, int32_t bw, int32_t h, int16_t upper, int16_t left);
 extern void MN_to_line(MN *);
 extern int32_t recog_letter(void);
 extern int32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, Word8 *lp,Word16 lth);
@@ -331,7 +331,7 @@ if( evn_active_prn )
 return ;
 }
 
-EVN_FUNC(Int16) EVNGetErr(void)
+EVN_FUNC(int16_t) EVNGetErr(void)
 {
 return evn_error_code;
 }
@@ -625,7 +625,7 @@ res[ii]=0;
 return ii;
 }
 
-EVN_FUNC(MN *) EVN_CLocomp (Word8* raster, int32_t bw, int32_t h, Int16 upper, Int16 left)
+EVN_FUNC(MN *) EVN_CLocomp (Word8* raster, int32_t bw, int32_t h, int16_t upper, int16_t left)
 {
 MN *m;
 left = MAX(0,left);

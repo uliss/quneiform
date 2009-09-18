@@ -408,8 +408,8 @@ void InvestLongLineWithBoxes (LineInfo *pLns, Rect16 *pRc, int *pWhatDo
 		{//отладка нецелых линий
 			pLns->Anew.x = pLns->A.x;
 			pLns->Anew.y = pLns->Anew.y;
-			pLns->Bnew.x = (Int16)((pLns->A.x+pLns->B.x)*.5);
-			pLns->Bnew.y = (Int16)((pLns->A.y+pLns->B.y)*.5);
+			pLns->Bnew.x = (int16_t)((pLns->A.x+pLns->B.x)*.5);
+			pLns->Bnew.y = (int16_t)((pLns->A.y+pLns->B.y)*.5);
 			Flag = LI_NOTWHOLE;
 		}*/
 	}
