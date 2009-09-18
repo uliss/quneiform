@@ -148,11 +148,11 @@ void ExtrLinesDoneLNS(void)
    }
 }
 
-static void _squeezeIfTooMany(  Int32 & hor_len, Int32 & ver_len,
-								Int32 & hor_cnt, Int32 & ver_cnt
+static void _squeezeIfTooMany(  int32_t & hor_len, int32_t & ver_len,
+								int32_t & hor_cnt, int32_t & ver_cnt
                      )
 {
-   Int32 max_cnt = 0xFFF0 / sizeof( LineInfo );
+   int32_t max_cnt = 0xFFF0 / sizeof( LineInfo );
    while (TRUE)
    {
       ExtrLinesGetCount( hor_len, ver_len, hor_cnt, ver_cnt );
@@ -166,7 +166,7 @@ static void _squeezeIfTooMany(  Int32 & hor_len, Int32 & ver_len,
 }
 
 //******************************* Rom 8-2-99 **************
-static void FillFragmentsCount( Int32 hnd, Bool hor, Int16* cnt, Word8* quality)
+static void FillFragmentsCount( int32_t hnd, Bool hor, Int16* cnt, Word8* quality)
 {
 	Int16 Romii;
    Int16 SpacesLength, TotalLength;
@@ -211,8 +211,8 @@ static void FillFragmentsCount( Int32 hnd, Bool hor, Int16* cnt, Word8* quality)
 
 #include "hliner.h"
 
-Err16 ExtrLinesUnderTigerStatic(  Int32  hor_len, Int32  ver_len,
-														Int32 &hor_cnt, Int32 &ver_cnt )
+Err16 ExtrLinesUnderTigerStatic(  int32_t  hor_len, int32_t  ver_len,
+														int32_t &hor_cnt, int32_t &ver_cnt )
 {
 #ifdef LOG_TIME
    XTimer t("Lines Extraction");
@@ -368,8 +368,8 @@ ErrorExit :
    return err_code; // Bad exit
 }
 
-Bool ExtrLinesGetCount(   Int32  hor_len, Int32  ver_len,
-								  Int32 &hor_cnt, Int32 &ver_cnt
+Bool ExtrLinesGetCount(   int32_t  hor_len, int32_t  ver_len,
+								  int32_t &hor_cnt, int32_t &ver_cnt
                             )
 {
 
@@ -404,8 +404,8 @@ dst.y=(Int16)(src.y);
 
 
 Bool ExtrLinesGetInfo(  LinesTotalInfo * lti,
-								Int32  hor_len, Int32  ver_len,
-								Int32 &hor_cnt, Int32 &ver_cnt
+								int32_t  hor_len, int32_t  ver_len,
+								int32_t &hor_cnt, int32_t &ver_cnt
                      )
 {
 	Int16 cnt;//******************Rom
@@ -416,7 +416,7 @@ Bool ExtrLinesGetInfo(  LinesTotalInfo * lti,
 	if (!hLB->isOk()) return WRONG();
    if (!vLB->isOk()) return WRONG();
 
-   Int32 max_cnt = 0xFFF0 / sizeof( LineInfo );
+   int32_t max_cnt = 0xFFF0 / sizeof( LineInfo );
    _squeezeIfTooMany( hor_len, ver_len, hor_cnt, ver_cnt );
 
    int i(0);
@@ -532,7 +532,7 @@ static Bool _PreSwp( LnsInfoArray& larr, Bool hor )
    TSegBambuk* sb = hor ? &(hvSB->hBambuk) : &(hvSB->vBambuk);
 	if (sb == NULL) return WRONG();
 
-   Int32 root_len = lb->linesRoot.volume();
+   int32_t root_len = lb->linesRoot.volume();
    for ( int i =0; i<larr.Cnt; i++ )
    {
       if ((larr.Lns[i].Flags & LI_COVERED) != 0)
@@ -552,10 +552,10 @@ static Bool _PreSwp( LnsInfoArray& larr, Bool hor )
       // if here - this is noise line; let's delete it from bambuks!
 
 	  //******************Rom****************
-	  Int32 RightX = larr.Lns[i].B.x;        // set restrictions for case of sweeping
-	  Int32 LeftX = larr.Lns[i].A.x;         // not whole line; initially - full line
-	  Int32 TopY = larr.Lns[i].A.y;
-	  Int32 BottomY = larr.Lns[i].A.y;
+	  int32_t RightX = larr.Lns[i].B.x;        // set restrictions for case of sweeping
+	  int32_t LeftX = larr.Lns[i].A.x;         // not whole line; initially - full line
+	  int32_t TopY = larr.Lns[i].A.y;
+	  int32_t BottomY = larr.Lns[i].A.y;
 
 	  if(larr.Lns[i].A.y>larr.Lns[i].B.y)
 	  {
@@ -593,7 +593,7 @@ static Bool _PreSwp( LnsInfoArray& larr, Bool hor )
       }
 	  //*************************************
 ////////////////////
-      Int32 hnd = larr.Lns[i].ExtrDllHnd;
+      int32_t hnd = larr.Lns[i].ExtrDllHnd;
       if (hnd >= root_len ) return WRONG();
       TLineInfo & li = lb->linesRoot[hnd];
 		BEntry   lbe = li.linesBambukEntry;
@@ -785,7 +785,7 @@ Bool ExtractEvents(CLINE_handle hCLINE, LinesTotalInfo  *lti)
 		TRasterBambuk* rb = hor ? hRB : vRB;
 		if (rb == NULL) return WRONG();
 		TSegBambuk* sb = hor ? &(hvSB->hBambuk) : &(hvSB->vBambuk);
-		Int32 root_len = lb->linesRoot.volume();
+		int32_t root_len = lb->linesRoot.volume();
 		if (sb == NULL) return WRONG();
 
 		//вот это главная проблема. Здесь на руках имеем линия а ля Контейнер CLINE, как узнать
@@ -807,7 +807,7 @@ Bool ExtractEvents(CLINE_handle hCLINE, LinesTotalInfo  *lti)
 		}
 
 
-		Int32 hnd = larr.Lns[count_lines].ExtrDllHnd;     /// начинаем проход по линии Lns[i]
+		int32_t hnd = larr.Lns[count_lines].ExtrDllHnd;     /// начинаем проход по линии Lns[i]
 		count_lines++;
 		/*
 		if( hnd == 0 )

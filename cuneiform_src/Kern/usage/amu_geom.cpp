@@ -147,7 +147,7 @@ inline static int AverageRoundToBig (Int16 a, Int16 b)
     return static_cast<int>(HALF * (a + b + 1));
 }
 /*----------    Переходные функции    ------------------------------------------------------------*/
-void RotateRect (const Rect16 *pRcRe, Rect16 *pRcId, Int32 Skew)
+void RotateRect (const Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew)
 {
     Point32 DirIdeal = {0};
     /*  Координаты левого верхнего угла  */
@@ -221,7 +221,7 @@ void FindMinimIdealRegion (const int nRc, const int *pDo, const Rect16 *pRcIdeal
     pMIR->bottom = MaxBot;
 }
 /*------------------------------------------------------------------------------------------------*/
-bool HaveLinePartAtReg (Point16 *pA, Point16 *pB, const Rect16 *pRc, const Int32 Skew
+bool HaveLinePartAtReg (Point16 *pA, Point16 *pB, const Rect16 *pRc, const int32_t Skew
     , const int NearHor, const int NearVer)
 {
     Point16 Cur_A = {0}, Cur_B = {0};
@@ -282,7 +282,7 @@ bool IsRectsCross (const Rect16 *pRc1, const Rect16 *pRc2)
     return true;
 }
 /*------------------------------------------------------------------------------------------------*/
-bool MakeInternalRectId (const Rect16 *pRcRe, Rect16 *pRcId, Int32 Skew)
+bool MakeInternalRectId (const Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew)
 {
     Point32 LefTop = {0}, RigTop = {0}, LefBot = {0}, RigBot = {0};
     if ((Skew > MAX_ABS_SKEW) || (Skew < -MAX_ABS_SKEW))

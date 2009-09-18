@@ -74,7 +74,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     \note  Используется в RLTable и MZoning
 */
 bool MakeDingFromLine (RLT_DINGPOOL *pDingPool, const RLT_LINEPOOL *pLinePool
-    , const RLT_PARAM *pParam, const Int32 SkewReg);
+    , const RLT_PARAM *pParam, const int32_t SkewReg);
 /**
     \brief Функция летописи эволюции обобщённых линий
     \param pLinePool [in] - массив обобщённых линий

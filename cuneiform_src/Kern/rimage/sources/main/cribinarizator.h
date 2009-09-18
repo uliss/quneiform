@@ -114,7 +114,7 @@ private:
 
 public:
 	Int16  KronrodImageRead(PWord8, Int16 fstLine, Int16 nLines);
-	Int32  KronrodImageRead(PWord8, Int32 fstLine, Int32 nLines);
+	int32_t  KronrodImageRead(PWord8, int32_t fstLine, int32_t nLines);
 
 private:
 	Bool32 OnBinarizeLoop();

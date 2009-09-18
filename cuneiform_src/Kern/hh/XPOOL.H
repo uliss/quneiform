@@ -84,7 +84,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class XPool
 {
 protected:
-   Int32 Volume;
+   int32_t Volume;
    void * Data;
 
 public:
@@ -112,13 +112,13 @@ public:
 
 	Bool     operator !() const {  return ((Volume > 0) != (Data != NULL)); };
    void*    GetData(void) const    { return Data; };
-   Int32    GetVolume(void) const  { return Volume; };
+   int32_t    GetVolume(void) const  { return Volume; };
 
    XPool(void) : Volume(0), Data(NULL)     	{  };
-   XPool(Int32 size) :Volume(0),Data(NULL)   	{  Create(size); };
+   XPool(int32_t size) :Volume(0),Data(NULL)   	{  Create(size); };
    ~XPool()                                	{  Destroy(); };
 
-   Bool     Create(Int32 size)
+   Bool     Create(int32_t size)
       {
          if (size != Volume || (Data==NULL))
          {
@@ -136,7 +136,7 @@ public:
          Data=NULL; Volume=0;
       }
 
-   Bool     Realloc( Int32 new_size )
+   Bool     Realloc( int32_t new_size )
       {
          void* p=stdRealloc( Data, new_size, Volume );
          if (new_size && p==NULL)   // failure
@@ -152,23 +152,23 @@ public:
    //operator PVoid() const  {  return (PVoid)Data; };
    //PByte    operator + (Indx i) const { return ((PByte)Data)+i; };
 
-   void*    VPtr( Int32 i=0 ) const    { return (void*)(((Word8*)Data)+i);};
-   Word8*   BPtr( Int32 i=0 ) const    { return        (((Word8*)Data)+i);};
-   char*    CPtr( Int32 i=0 ) const    { return (char*)(((Word8*)Data)+i);};
+   void*    VPtr( int32_t i=0 ) const    { return (void*)(((Word8*)Data)+i);};
+   Word8*   BPtr( int32_t i=0 ) const    { return        (((Word8*)Data)+i);};
+   char*    CPtr( int32_t i=0 ) const    { return (char*)(((Word8*)Data)+i);};
 
    Err16 Read( XFile& bf, Bool32 swap_bytes = FALSE );
-   Bool  Write( XFile& bf, Int32 size=-1 ) const;
+   Bool  Write( XFile& bf, int32_t size=-1 ) const;
 
    //BINFILE_READ_FUNCS_PROTOTYPES
 
-   //Bool     Write( RBinFile bf, Int32 size = -1 ) const;
+   //Bool     Write( RBinFile bf, int32_t size = -1 ) const;
    void     MemSet( Word8 pattern )
    {
       if (Data)
          memset(Data, pattern, Volume );
    }
 /*
-   void     CopyFrom(const void* src, Int32 size = -1 )
+   void     CopyFrom(const void* src, int32_t size = -1 )
       {  assert(src);
          if (size == -1)
             size = Volume;
@@ -177,7 +177,7 @@ public:
             size = Volume;
          if (size) memcpy(Data, src, (Indx)size);
       };
-   void     CopyTo(void* dst, Int32 size = -1 )
+   void     CopyTo(void* dst, int32_t size = -1 )
       {  assert(dst);
          if (size == -1)
             size = Volume;
@@ -193,11 +193,11 @@ inline Err16 XPool::Read( XFile& bf, Bool32 swap_bytes )
    {
       if (!bf)
          { assert(0); return ER_CANTREAD; };
-      Int32 new_vol=0;
+      int32_t new_vol=0;
       if (!TagRead( bf, new_vol ))
          { assert(0); return ER_CANTREAD; };
       if (swap_bytes)
-         SwapInt32(new_vol);
+         Swapint32_t(new_vol);
       if (!Create(new_vol))
          { assert(0); return ER_NOMEMORY; };
       if ((Data!=NULL)&& (!bf.Read( Data, Volume )))
@@ -205,7 +205,7 @@ inline Err16 XPool::Read( XFile& bf, Bool32 swap_bytes )
       return ER_NONE;
    }
 
-inline Bool XPool::Write( XFile& bf, Int32 size ) const
+inline Bool XPool::Write( XFile& bf, int32_t size ) const
    {
       if (size==-1) size = Volume;
       assert(size <= Volume);

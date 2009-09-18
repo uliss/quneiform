@@ -95,7 +95,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //IGOR
 extern Word8 language;
 extern CSTR_line lin_str;
-extern Int32  nIncline;
+extern int32_t  nIncline;
 //IGOR
 
 INT obtain_diff(INT arg);

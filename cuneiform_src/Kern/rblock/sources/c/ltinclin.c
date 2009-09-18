@@ -448,7 +448,7 @@ BOOL InclinesAccount (void)
     BOOL bSuccess;
 	// *************** Rom
 	Handle h = NULL;
-	Int32 nNom,nDenom;
+	int32_t nNom,nDenom;
 	Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage( ));
 	h = CPAGE_TableGetFirst(hPage);
 	if (h!=NULL)

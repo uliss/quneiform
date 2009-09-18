@@ -147,7 +147,7 @@ for(line=linerep,len=0; len<size && line->lth; len+=line->lth,line=(CCOM_lnhead 
 return TRUE;
 }
 
-static Bool32 StoreOneScaleInterval (Word8 *p,  Int32 h, Int32 b, Int32 e, Int32 bw, Int32 scale,Word8*pe)
+static Bool32 StoreOneScaleInterval (Word8 *p,  int32_t h, int32_t b, int32_t e, int32_t bw, int32_t scale,Word8*pe)
 {
 b>>=scale;
 e>>=scale;
@@ -164,7 +164,7 @@ return StoreOneInterval ( &p[(h>>scale)*bw] , e , e-b,pe);
 
 Bool32 Linerep2ScaleRaster(CCOM_lnhead *linerep, Int16 size,
                       Int16 w, Int16 h, Int16 c, Int16 r,
-                      RecRaster *rec,Int32 scale)
+                      RecRaster *rec,int32_t scale)
 {
 int         ww, len, i;
 CCOM_lnhead    * line;

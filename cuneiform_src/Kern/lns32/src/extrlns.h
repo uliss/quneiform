@@ -65,14 +65,14 @@ void  ExtrLinesDoneLNS(void);
 
 Bool ExtractEvents(CLINE_handle hCLINE, LinesTotalInfo  *lti );
 
-Err16 ExtrLinesUnderTigerStatic( Int32  hor_len, Int32  ver_len,
-											Int32 &hor_cnt, Int32 &ver_cnt );
-Bool  ExtrLinesGetCount(   Int32  hor_len, Int32  ver_len,
-								  Int32 &hor_cnt, Int32 &ver_cnt
+Err16 ExtrLinesUnderTigerStatic( int32_t  hor_len, int32_t  ver_len,
+											int32_t &hor_cnt, int32_t &ver_cnt );
+Bool  ExtrLinesGetCount(   int32_t  hor_len, int32_t  ver_len,
+								  int32_t &hor_cnt, int32_t &ver_cnt
                        );
 Bool  ExtrLinesGetInfo(  LinesTotalInfo * lti,
-								Int32  hor_len, Int32  ver_len,
-								Int32 &hor_cnt, Int32 &ver_cnt
+								int32_t  hor_len, int32_t  ver_len,
+								int32_t &hor_cnt, int32_t &ver_cnt
                      );
 Bool  ExtrLinesIsOk(void);
 Bool  ExtrLinesPrepearToSweep( LinesTotalInfo * lti );

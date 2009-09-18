@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #define _HIWORD(l)      ((Word16)((Word32)(l) >> 16))
    #define SWAPBYTES(w)    ((Word16)(((w)<<8) | (((Word16)(w))>>8)))
    #define SWAPLONG(l)     \
-      ((( (Int32)SWAPBYTES(_LOWORD(l))) <<16) | ( (Int32)SWAPBYTES(_HIWORD(l))) )
+      ((( (int32_t)SWAPBYTES(_LOWORD(l))) <<16) | ( (int32_t)SWAPBYTES(_HIWORD(l))) )
 
 #ifndef FALSE
    #define FALSE 0
@@ -93,9 +93,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //*******************Rom*****************
 struct RomBubble{
-	Int32		Column;
-	Int32		Begin;
-	Int32		End;
+	int32_t		Column;
+	int32_t		Begin;
+	int32_t		End;
 	RomBubble* next;
 };
 //***************************************

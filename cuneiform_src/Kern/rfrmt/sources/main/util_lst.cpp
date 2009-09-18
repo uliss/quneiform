@@ -701,7 +701,7 @@ int ProjectFrm(FRAME **frm,int NumFrm,float tg_ang)
 #endif
 
 //==
-int ProjectFrm1024(FRAME **frm,int NumFrm,Int32 Skew1024)
+int ProjectFrm1024(FRAME **frm,int NumFrm,int32_t Skew1024)
 //==
 { FRAME *f; int i;
   int xa,ya
@@ -715,8 +715,8 @@ int ProjectFrm1024(FRAME **frm,int NumFrm,Int32 Skew1024)
 		f=frm[i]; xa=(f->right + f->left)>>1; ya=(f->up + f->down)>>1;
 
 		#ifndef CT_SKEW
-	    xc=xa + (int)(((Int32)ya*Skew1024)/1024);
-	    yc=ya - (int)(((Int32)xa*Skew1024)/1024);
+	    xc=xa + (int)(((int32_t)ya*Skew1024)/1024);
+	    yc=ya - (int)(((int32_t)xa*Skew1024)/1024);
 	    dx=xc-xa; dy=yc-ya;
 		#else
 			Point16 pt;

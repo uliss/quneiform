@@ -101,7 +101,7 @@ static  Word8   ed_buffer[32000], edo_buffer[32000], *MED_file_bound, *MED_file_
 static  RecVersions ed_vers[100];
 static  UniVersions rej_vers[100], rejo_vers[100];
 static  Rect16  ed_rect[100];
-static  Int32   ed_nvers, nrej_vers, nrejo_vers;
+static  int32_t   ed_nvers, nrej_vers, nrejo_vers;
 ;
 
 struct  vers_ref            ed_vrs;
@@ -113,9 +113,9 @@ struct  sheet_disk_descr    ed_sdd={0};
 static  Bool32 make_fictive_str(CSTR_line fln, CSTR_rast eng, CSTR_rast enge, CSTR_line ln, CSTR_line lnraw);
 // Nick 27.01.2001
 static int rpstr_case_notequal( Word8 *in,Word8 *out,
-        Int32 lenin, Int32 lenout,UniVersions *uvs );
+        int32_t lenin, int32_t lenout,UniVersions *uvs );
 // Nick 18.06.2001
-static  Int32 rpstr_test_spell_alter(CSTR_rast be,CSTR_rast en, Int32 nlim, UniVersions *uv);
+static  int32_t rpstr_test_spell_alter(CSTR_rast be,CSTR_rast en, int32_t nlim, UniVersions *uv);
 // Nick 8.01.2002
 static int  rpstr_test_21( CSTR_rast eng, CSTR_rast enge,
 						   char *ewrd, int lang );
@@ -131,12 +131,12 @@ memcpy (MED_file_end, p, size);
 MED_file_end += size;
 }
 
-static  Bool32    ed_exclude_to_vers(Int32 size, Word8 *str)
+static  Bool32    ed_exclude_to_vers(int32_t size, Word8 *str)
 {
 Word8  *p,*pe;
 struct  vers_ref     vf;
 struct  bit_map_ref  bm;
-Int32   i;
+int32_t   i;
 Bool32  new_bmp;
 
 //i=-1;
@@ -205,12 +205,12 @@ MED_file_end=ed_buffer;
 MED_file_bound=MED_file_end+sizeof(ed_buffer);
 }
 
-Bool32 correct_cstr(CSTR_rast b,CSTR_rast e, Int32 *start)
+Bool32 correct_cstr(CSTR_rast b,CSTR_rast e, int32_t *start)
 {
 CSTR_rast_attr  attr;
 CSTR_rast       c;
 UniVersions     vrs;
-Int32           i,j,n;
+int32_t           i,j,n;
 Bool32          change_rect;
 Word16          loc_language=35535, loc_charset=35535 ;
 
@@ -288,8 +288,8 @@ Bool32 restruct_cstr(CSTR_rast b,CSTR_rast e, Bool32 cd)
 CSTR_rast_attr  attr={0}, battr;
 CSTR_rast       c, cp;
 UniVersions     vrs={0};
-Int32           i,j,n,mincol,maxcol,minrow,maxrow,avwid ;
-Int32           mincolr,maxcolr,minrowr,maxrowr,avwidr ;
+int32_t           i,j,n,mincol,maxcol,minrow,maxrow,avwid ;
+int32_t           mincolr,maxcolr,minrowr,maxrowr,avwidr ;
 CSTR_line       line;
 Word16          loc_language=35535, loc_charset=35535, loc_battr=35535 ;
 
@@ -616,7 +616,7 @@ do{
 					sizeof(ed_right_limit_word)-1) &&
           !(attr.flg&CSTR_f_fict) && i<MAX_LEN_WORD-1))
     {
-    Int32 rus_break_ge=FALSE;
+    int32_t rus_break_ge=FALSE;
     if( vers.Alt[0].Code[0]=='>' )
         {
         if( (nc=CSTR_GetNext(c))!=0 )
@@ -686,9 +686,9 @@ return w;
 }
 
 Bool32  rpstr_correct_case_old(Word8 *in,Word8 *out,
-        Int32 lenin, Int32 lenout,UniVersions *uvs)
+        int32_t lenin, int32_t lenout,UniVersions *uvs)
 {
-Int32   nvers,i,n=(lenin<lenout)?lenin:lenout;
+int32_t   nvers,i,n=(lenin<lenout)?lenin:lenout;
 Bool32  ui,uo, lo, li;
 
 Bool32 isUnknown=FALSE;
@@ -739,9 +739,9 @@ return (nvers!=0);
 }
 /////////////////
 Bool32  rpstr_correct_case(Word8 *in,Word8 *out,
-        Int32 lenin, Int32 lenout,UniVersions *uvs, Word8 cpos)
+        int32_t lenin, int32_t lenout,UniVersions *uvs, Word8 cpos)
 {
-Int32   nvers,i,n=(lenin<lenout)?lenin:lenout;
+int32_t   nvers,i,n=(lenin<lenout)?lenin:lenout;
 Bool32  ui,uo, lo, li;
 
 Bool32 isUnknown = FALSE;
@@ -835,7 +835,7 @@ return (nvers!=0);
 
 Bool32 rpstr_alphabet_mixed( Word8 *s )
 {
-Int32   n,d;
+int32_t   n,d;
 for(d=n=0,s++;*s;s++,n++)
     {
     if( strchr("-+=*/$&%1234567890",*s) )
@@ -850,7 +850,7 @@ return (d && d!=n);
 
 Bool32 rpstr_alphabet_check(Word8 *s)
 {
-Int32   n,d,r,l=strlen(s)-1,hsp;
+int32_t   n,d,r,l=strlen(s)-1,hsp;
 for(r=hsp=n=0,d=0;*s;s++,n++)
     {
     if( rpstr_is_digital(*s) )
@@ -923,7 +923,7 @@ return;
 
 Bool32 rpstr_txt_spell(char * s,Word8 lang)
 {
-Int32                      Check = 0;
+int32_t                      Check = 0;
 if( lang==LANG_ENGLISH && multy_language )
     { // second dict
     if( !RLING_CheckSecWord((PInt8)s, &Check) )
@@ -981,10 +981,10 @@ for(c=be;c&&c!=en;c=CSTR_GetNext(c))
 return;
 }
 
-static  Int32 rpstr_cstr2uni(CSTR_rast be,CSTR_rast en,UniVersions *uv, Int32 nlim)
+static  int32_t rpstr_cstr2uni(CSTR_rast be,CSTR_rast en,UniVersions *uv, int32_t nlim)
 {
 CSTR_rast   c;
-Int32       nv;
+int32_t       nv;
 
 	for(nv=0,c=be;nv<nlim && c&&c!=en;c=CSTR_GetNext(c),nv++)
     {
@@ -1009,7 +1009,7 @@ return nv;
 Bool32  rpstr_normal_spell(char *sec_wrd)
 {
 Word32          sizeout;
-Int32                   Check = 0;
+int32_t                   Check = 0;
 if( !language && multy_language )
     { // second dict
     if( !RLING_CheckSecED((PInt8)ed_buffer,(PInt8)edo_buffer,
@@ -1053,9 +1053,9 @@ for(r=rus;r && r!=ruse;r=CSTR_GetNext(r))
 return TRUE;
 }
 
-Int32   size_short_language(Word8 language)
+int32_t   size_short_language(Word8 language)
 {
-Int32   s;
+int32_t   s;
 switch( language )
     {
     case    LANG_GERMAN:
@@ -1071,9 +1071,9 @@ switch( language )
 return s;
 }
 
-Int32   size_short_language_aux(Word8 language)
+int32_t   size_short_language_aux(Word8 language)
 {
-Int32   s;
+int32_t   s;
 switch( language )
     {
     case    LANG_GERMAN:
@@ -1139,12 +1139,12 @@ int Snap_ConsoleLang(char *text,Word8 lang)
 return Lang_Console(text,lang);
 }
 
-Int32 uni_correct_check(CSTR_rast b,CSTR_rast e, Int32 *start)
+int32_t uni_correct_check(CSTR_rast b,CSTR_rast e, int32_t *start)
 {
 CSTR_rast_attr  attr;
 CSTR_rast       c;
 UniVersions     vrs;
-Int32           i,n,pen,nall;
+int32_t           i,n,pen,nall;
 
 for(vrs=rejo_vers[*start],i=*start,c=b,nall=pen=0;
     c && c!=e && i<nrejo_vers;c=CSTR_GetNext(c),i++,nall++)
@@ -1169,12 +1169,12 @@ if( nall==1 )
 return pen;
 }
 
-Bool32 uni_correct_cstr(CSTR_rast b,CSTR_rast e, Int32 *start, Bool32 enable_test, Bool32 enable_take)
+Bool32 uni_correct_cstr(CSTR_rast b,CSTR_rast e, int32_t *start, Bool32 enable_test, Bool32 enable_take)
 {
 CSTR_rast_attr  attr;
 CSTR_rast       c;
 UniVersions     vrs;
-Int32           i,j,n;
+int32_t           i,j,n;
 Word16          loc_language=35535, loc_charset=35535 ;
 
 for(c=b,i=0;c && c!=e ;c=CSTR_GetNext(c))
@@ -1272,7 +1272,7 @@ Bool32 rec_correct_cstr(CSTR_rast b,CSTR_rast e, Bool32 ret_space, Bool32 test_c
 CSTR_rast_attr  attr;
 CSTR_rast       c;
 UniVersions     vrs;
-Int32           i,n;
+int32_t           i,n;
 Bool32          iscursive;
 
 for(iscursive=i=0,c=b;
@@ -1369,7 +1369,7 @@ void rpstr_correct_ruseng(CSTR_rast   beg,    CSTR_rast   end,
 {
 CSTR_rast_attr  a;
 CSTR_rast       r;
-Int32           i, n;
+int32_t           i, n;
 UniVersions     u,u1;
 char           *arr1, *arr2, *p;
 Word8           lang1, charset=CSTR_RUSSIAN_CHARSET;
@@ -1423,7 +1423,7 @@ CSTR_rast_attr  a;
 Bool32          cur,curp;
 Bool32          bol,bolp;
 CSTR_rast       r;
-Int32           it, bo, all;
+int32_t           it, bo, all;
 
 for(it=all=bo=0,bol=cur=FALSE,r=beg;r&&r!=end;r=CSTR_GetNext(r))
     {
@@ -1500,14 +1500,14 @@ if( bol && !bolp || !bol && bolp )
 return;
 }
 /*
-void save_frh( CSTR_rast beg,CSTR_rast end, Int32 num_ln)
+void save_frh( CSTR_rast beg,CSTR_rast end, int32_t num_ln)
 {
 CSTR_rast_attr  attr;
 FILE       *fp=fopen("d:\\frh.txt","at");
 if( fp )
     {
     UniVersions c;
-    Int32       i;
+    int32_t       i;
     if( num_ln<2 && num_ln!=-1)
         fprintf(fp,"New Line\n");
     fprintf(fp,"-- line %d \n", num_ln);
@@ -1634,9 +1634,9 @@ if( attr.h*3<=attr.w )
 return FALSE;
 }
 
-Int32 rstr_hsp_num(Word8 *wrd)
+int32_t rstr_hsp_num(Word8 *wrd)
 {
-Int32   n;
+int32_t   n;
 for(n=0;*wrd;wrd++)
     {
     if( *wrd==SS_NEG_HALF_SPACE || *wrd==SS_POS_HALF_SPACE )
@@ -1706,7 +1706,7 @@ static char *rpstr_disable_words[]={
 };
 Bool32 rpstr_is_voc_word(Word8 *wrd, char *voc[])
 {
-Int32   i;
+int32_t   i;
 for(i=0; voc[i][0]!=0;i++)
     {
     if( !strcasecmp(voc[i],wrd) )
@@ -1756,9 +1756,9 @@ return TRUE;
 }
 
 Word32 myMonitorProc(Handle wnd,Handle hwnd,Word32 message,Word32 wParam,Word32 lParam);
-static void unis2word(UniVersions *uvs,Int32 n,Word8 *str)
+static void unis2word(UniVersions *uvs,int32_t n,Word8 *str)
 {
-Int32   i;
+int32_t   i;
 *str='\0';
 for(i=0;i<n;i++)
         {
@@ -1769,8 +1769,8 @@ return;
 }
 
 Bool32   rpstr_correct_spell(CSTR_line ln,
-    CSTR_rast *addbeg, CSTR_rast *addend, Int32 *linefrag,
-    Int32 num_ln,Bool32 disable_new_dict, Bool32 disable_check_word)
+    CSTR_rast *addbeg, CSTR_rast *addend, int32_t *linefrag,
+    int32_t num_ln,Bool32 disable_new_dict, Bool32 disable_check_word)
 {
 CSTR_rast       eng, enge, senge, tmp;
 CSTR_rast_attr  attr;
@@ -1778,12 +1778,12 @@ Word8           ewrd[MAX_LEN_WORD+40],pwrd[MAX_LEN_WORD+40],
                 third_wrd[MAX_LEN_WORD+40],
                 sec_wrd[MAX_LEN_WORD+40],
                 language1, snapstr[1024];
-Int32                   loc_debug=0, loc_debug_replace=1, chg, prevfrag=*linefrag;
+int32_t                   loc_debug=0, loc_debug_replace=1, chg, prevfrag=*linefrag;
 Bool32          snap, first,pos, cd;
 CSTR_rast       prevbeg=*addbeg, prevend=*addend;
 CSTR_attr       lattr;
 Bool32          hsp, sf, ss;
-Int32           short_word, short_word_aux;
+int32_t           short_word, short_word_aux;
 
 CSTR_GetLineAttr(ln,&lattr);
 cd=( lattr.Flags & CSTR_STR_CapDrop );
@@ -1933,7 +1933,7 @@ while(1)
                 chg=strcmp(pwrd, sec_wrd);
                 if( chg )
                     { // была коррекци
-                    Int32   phsp=rstr_hsp_num(pwrd);
+                    int32_t   phsp=rstr_hsp_num(pwrd);
                     if( strlen(pwrd)-phsp==strlen(sec_wrd)-rstr_hsp_num(sec_wrd) ||
                         strlen(pwrd)==strlen(sec_wrd) )
                         {
@@ -2041,7 +2041,7 @@ while(1)
         continue; // can't used spell checking
         }
     {
-    Int32   len=strlen(ewrd);
+    int32_t   len=strlen(ewrd);
     if( len<short_word && len<short_word_aux )
         { // проверяем короткие слова
         if( rpstr_disable_short_words(ewrd) || len==1)
@@ -2235,7 +2235,7 @@ return TRUE;
 
 // Nick 27.01.2001
 static int rpstr_case_notequal( Word8 *in,Word8 *out,
-        Int32 lenin, Int32 lenout,UniVersions *uvs )
+        int32_t lenin, int32_t lenout,UniVersions *uvs )
 {
 	int nSmall;
 	int nBig;
@@ -2366,7 +2366,7 @@ static Bool32 IsInAlter(Word8 *Code,CSTR_rast c)
 {
 	UniVersions vers;
 	Word8 codeAlt[4];
-	Int32 i;
+	int32_t i;
 
 	    CSTR_GetCollectionUni(c,&vers);
 
@@ -2414,19 +2414,19 @@ static rpstr_is_letter(Word8 w)
 ////////////////
 // проверить альтернативы словар
 // Nick 18.06.2001
-static  Int32 rpstr_test_spell_alter(CSTR_rast be,CSTR_rast en, Int32 nlim, UniVersions *uv)
+static  int32_t rpstr_test_spell_alter(CSTR_rast be,CSTR_rast en, int32_t nlim, UniVersions *uv)
 {
 CSTR_rast   c,last;
-Int32       nv;
-Int32       newRecog;
+int32_t       nv;
+int32_t       newRecog;
 UniVersions vers;
 Bool32 goodEnd;
 Bool32 bigFirst;
-Int32  numBig;
-Int32  numSpaceOld;
+int32_t  numBig;
+int32_t  numSpaceOld;
 Bool32 testStart,testEnd;
 CSTR_rast_attr attr;
-Int32  allNew;
+int32_t  allNew;
 Bool32 wasEnglish=FALSE;
 Bool32 wasLiga = FALSE;
 
@@ -2618,8 +2618,8 @@ static int	ReplacePartWord(CSTR_rast eng, CSTR_rast enge,
 	CSTR_rast_attr  attr={0}, battr={0};
 	CSTR_rast       c, cp;
 	UniVersions     vers={0};
-	Int32           mincol,maxcol,minrow,maxrow,avwid ;
-	Int32           ii, mincolr,maxcolr,avwidr ;
+	int32_t           mincol,maxcol,minrow,maxrow,avwid ;
+	int32_t           ii, mincolr,maxcolr,avwidr ;
 	Word16          loc_charset=35535, loc_battr=35535 ;
 	int oldLen = strlen(oldPart), newLen=strlen(newPart);
 	CSTR_rast first, last;

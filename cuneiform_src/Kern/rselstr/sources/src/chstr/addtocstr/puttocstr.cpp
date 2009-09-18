@@ -71,10 +71,10 @@ int min_let_w=2;
 int min_let_h=2;
 int inf_betw_str_h=10;
 
-Int32 my_top;
-Int32 my_left;
-Int32 my_right;
-Int32 my_bottom;
+int32_t my_top;
+int32_t my_left;
+int32_t my_right;
+int32_t my_bottom;
 
 
 /*----------------------------------------------------------------------------*/
@@ -390,10 +390,10 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
 	   continue;
 
    //for filter
-   my_top=(Int32)Rc.top;
-   my_bottom=(Int32)Rc.bottom;
-   my_left=(Int32)Rc.left;
-   my_right=(Int32)Rc.right;
+   my_top=(int32_t)Rc.top;
+   my_bottom=(int32_t)Rc.bottom;
+   my_left=(int32_t)Rc.left;
+   my_right=(int32_t)Rc.right;
 
    pcomp = CCOM_GetFirst(hStrCCOM,Filter);
 
@@ -971,8 +971,8 @@ BOOL MyRotateImage(Word8* ImageName,Word8* RotateImageName,int skew,Rect16* Rc,B
 	 return FALSE;
  }
  LDPUMA_ConsoleN("Time rotate=%d",clock()-time);
- Int32 x;
- Int32 y;
+ int32_t x;
+ int32_t y;
  RIMAGE_RotatePoint(RotateImageName,Rc->left,Rc->top,&x,&y);
  Rc->left=(Int16)(x);
  Rc->top=(Int16)(y);
@@ -1033,8 +1033,8 @@ void GetRasterRect(Word8* UnRotateImageName,Rect16 N,Rect16* Rc,CSTR_attr* attr,
 
  if(fl_rotate)
  {
-	 Int32 x;
-	 Int32 y;
+	 int32_t x;
+	 int32_t y;
   RIMAGE_RotatePoint(UnRotateImageName,N.left,N.top,&x,&y);
   Rc->top=(Int16)(y);
   Rc->left=(Int16)(x);

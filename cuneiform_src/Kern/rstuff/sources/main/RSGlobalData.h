@@ -97,10 +97,10 @@ EXTERN RSLinesBuffer        gLinesData          VALM(NULL);
 EXTERN Word32               gKillComponents     VAL(1);
 EXTERN Word32               gKillZone           VAL(1);
 EXTERN Word32               gKillRate           VAL(127);
-EXTERN Int32                gComponentRange     VAL(0);
-EXTERN Int32                bShowLineDebug      VAL(FALSE);
-EXTERN Int32                bShowStepLineDebug  VAL(FALSE);
-EXTERN Int32                bShowLineDebugData  VAL(FALSE);
+EXTERN int32_t                gComponentRange     VAL(0);
+EXTERN int32_t                bShowLineDebug      VAL(FALSE);
+EXTERN int32_t                bShowStepLineDebug  VAL(FALSE);
+EXTERN int32_t                bShowLineDebugData  VAL(FALSE);
 
 EXTERN Handle               hLineKillerWindow                   VAL(NULL);
 EXTERN Handle               hDebugRoot                          VAL(NULL);

@@ -79,7 +79,7 @@ typedef CTIMaskLine *PCTIMaskLine, **PPCTIMaskLine;
 class CTIMaskLine
 {
 public:
-	Bool32        IsSegmentOnLine(PCTIMaskLineSegment pSegm){ return (pSegm->GetStart() >= 0 && pSegm->GetStart() <= (Int32)mwLenght && pSegm->GetEnd() <= (Int32)mwLenght); };
+	Bool32        IsSegmentOnLine(PCTIMaskLineSegment pSegm){ return (pSegm->GetStart() >= 0 && pSegm->GetStart() <= (int32_t)mwLenght && pSegm->GetEnd() <= (int32_t)mwLenght); };
 	Bool32        RemoveSegment(PCTIMaskLineSegment pSegm);
 	Bool32        AddSegment(PCTIMaskLineSegment pSegm);
 	PCTIMaskLine  GetNext() { return mpNext; };
@@ -87,7 +87,7 @@ public:
 	Word32        SetLineNumber( Word32 nLine ) { return mwLine = nLine; };
 	Word32        GetLineNumber( void ) { return mwLine; };
 	Word32        GetSegmentsNumber( void ) { return mwSegments; };
-	Bool32        IsLine(Word32 nLine) { return ((Int32)nLine == mwLine); };
+	Bool32        IsLine(Word32 nLine) { return ((int32_t)nLine == mwLine); };
 	Bool32        GetLeftIntersection(PCTIMaskLineSegment pcSegm);
 
 public:
@@ -102,7 +102,7 @@ protected:
     Word32 mwLenght;
     Word32 mwSegments;
     PCTIMaskLine mpNext;
-	Int32 mwLine;
+	int32_t mwLine;
 	CTIMaskLineSegment mcFirst;
 private:
 	Bool32 CheckSegments(void);

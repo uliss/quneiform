@@ -75,7 +75,7 @@ typedef struct tagChunk {
 BWS *		 	first_int;      // If != NULL structure is in use
 struct tagChunk * 	master;		// Master chunk (can be NULL)
 struct tagChunk * 	dragon;		// Chunk who is ate this chunk
-Int32			area;		// area in pixels
+int32_t			area;		// area in pixels
 Int16			height,
 			yline;		// y offset of chunk in letter box
 Int16			nintervals;	// number of intervals

@@ -242,10 +242,10 @@ WORD el_pidx_crit(WORD t_let,INT pidx);
 // added for snap
 BOOL (*snap_monitor_rbal)(void);
 //IGOR
-BOOL (*snap_monitor_ori_rbal)(CSTR_line *snap_line, Int32 num_lines);
+BOOL (*snap_monitor_ori_rbal)(CSTR_line *snap_line, int32_t num_lines);
 BOOL (*snap_is_marked_rbal)(CSTR_line ln);//IGOR
 BOOL (*snap_baselines_rbal)(BYTE a);//IGOR
-void (*snap_draw_line_rbal)(Handle wnd, Point16 *start, Point16 *end, Int32 skew,
+void (*snap_draw_line_rbal)(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
 										  Word32 rgb, Int16 pen, Word32 key);//IGOR
 void (*snap_del_line_rbal)(Handle wnd, Word32 key);
 //IGOR

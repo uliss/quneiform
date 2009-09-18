@@ -79,8 +79,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 void SetReturnCode_rstuff(Word16);
 void SetReturnCode_rstuff(Word32);
 void DebugInit (void );
-void DebugDPumaDrawRect(Handle, Point16 *, Word32, Int32, Word32);
-void DebugDPumaShowComponents(PRSPreProcessImage, Handle, Word32, Int32, Word32);
+void DebugDPumaDrawRect(Handle, Point16 *, Word32, int32_t, Word32);
+void DebugDPumaShowComponents(PRSPreProcessImage, Handle, Word32, int32_t, Word32);
 
 Bool32    Binarise( void );
 Bool32    Normalise( PRSPreProcessImage );
@@ -114,11 +114,11 @@ Bool32    CheckSquare          ( LineInfo*, Rect16*, Word32, Word32);
 //
 Bool32    ExtractComponents    ( Bool32, Handle *, PWord8, PRSPreProcessImage );
 Bool32    RemoveLines          ( PRSPreProcessImage, PWord8 *);
-Bool32    MyGetZher            ( void **, Int32 *, Int32, Handle );
+Bool32    MyGetZher            ( void **, int32_t *, int32_t, Handle );
 Bool32    remove_overlayed     ( CCOM_comp *,CCOM_handle );
 Bool32    comp_over            ( CCOM_comp *,CCOM_comp * );
-//Bool32    AboutLines           ( PRSPreProcessImage, Bool32 *, Int32 * );
-Bool32    AboutLines           ( PRSPreProcessImage, Bool32 *, Int32 * );
+//Bool32    AboutLines           ( PRSPreProcessImage, Bool32 *, int32_t * );
+Bool32    AboutLines           ( PRSPreProcessImage, Bool32 *, int32_t * );
 void GiveMainBuff (void **vvBuff, int *Size);
 void GiveWorkBuff (char **ccBuff, int *Size);
 void SetMainBuff(void *vBuff, int Size);

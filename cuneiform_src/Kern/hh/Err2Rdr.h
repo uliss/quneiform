@@ -63,7 +63,7 @@ typedef struct tagRdrJob
 {
     char        ImgFile[256];
     char        FieldID[16];
-    Int32       FieldInd;
+    int32_t       FieldInd;
 
 #ifndef FORMREADER
     Rect16      rcFieldIdeal;

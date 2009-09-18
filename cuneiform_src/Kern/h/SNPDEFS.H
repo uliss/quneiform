@@ -224,11 +224,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    void (*FTDrawRect)( // adds rect to be drawn
       Rect16* rc,
          // in image ideal coords
-      Int32  skew,
+      int32_t  skew,
          // ideal-to-real coords skew (Tangens/1024)
       Word32 rgb_color,
          // rect color, use "wrgb.h" if windows.h invisible
-      Int32 pen_width,
+      int32_t pen_width,
          // positive - absolute pen width in screen pixels
          // if zero - fills all rect
          // negative means final pen width == zoom*100/(-width),
@@ -247,7 +247,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    void (*FTDrawLine)( // adds line to be drawn
       Point16* start, Point16* end,
          // in image ideal coords
-      Int32  skew,
+      int32_t  skew,
          // ideal-to-real coords skew (Tangens/1024)
       Word32 rgb_color,
          // rect color, use "wrgb.h" if windows.h invisible
@@ -305,9 +305,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       // returns FALSE if user cancel
       // in this case *result_long is not changed
 
-   typedef Bool16 (*FTGetUserLong)( // runs dialog to accept single Int32
+   typedef Bool16 (*FTGetUserLong)( // runs dialog to accept single int32_t
       char * static_text,
-      Int32 * result_long
+      int32_t * result_long
                                  );
       // returns FALSE if user cancel;
       // in this case *result_long is not changed
@@ -513,7 +513,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                     );
 
    typedef void   (*FTRasterHeader)( // header string with marked position
-      char *Text, Int32 mark         // to raster window
+      char *Text, int32_t mark         // to raster window
                                     );
 
    typedef void   (*FTZoomToRect)(   //zooms tiff window to given rectangle
@@ -562,7 +562,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       FTMessBoxOk       fMessBoxOk;     // invokes OK MessageBox
       FTMessBoxYesNo    fMessBoxYesNo;  // invokes Yes/No MessageBox
       FTGetUserString   fGetUserString; // runs dialog to accept zt string
-      FTGetUserLong     fGetUserLong;   // runs dialog to accept single Int32
+      FTGetUserLong     fGetUserLong;   // runs dialog to accept single int32_t
       FTGetUserRect     fGetUserRect;   // starts mouse rect input
       FTGetUserPoint    fGetUserPoint;  // starts mouse point input
       FTWaitUserInput   fWaitUserInput; // starts input loop

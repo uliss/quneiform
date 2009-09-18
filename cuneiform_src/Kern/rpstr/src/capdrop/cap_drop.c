@@ -67,7 +67,7 @@ CSTR_line capdrop_get_main(CSTR_line ln,CSTR_line  linef)
 CCOM_comp       *cmp=0;
 CSTR_rast       rst=0;
 CCOM_USER_BLOCK ub;
-Int32           num_ln,i;
+int32_t           num_ln,i;
 CSTR_line       line;
 
 rst= CSTR_GetNext(CSTR_GetFirstRaster(ln));
@@ -101,7 +101,7 @@ if( cmp )
 return (CSTR_line)0;
 }
 
-Bool32	capdrop_test_fragment(Int32 version,Int32 fragm,CSTR_line *ln_cd,CSTR_line *ln_main)
+Bool32	capdrop_test_fragment(int32_t version,int32_t fragm,CSTR_line *ln_cd,CSTR_line *ln_main)
 {
 CSTR_line   line, linef;
 CSTR_attr   attr;
@@ -138,7 +138,7 @@ return FALSE;
 Word8   eng_let[]       =   "ETYOPAHKXCBM";
 Word8   rus_let[]       =   "ЕТУОРАНКХСВМ";
 Word8   rus_let_ascii[] =   "…’“ЋђЂЌЉ•‘‚Њ";
-void	capdrop_collection(Int32 version,Int32 i,CSTR_line ln_cd,CSTR_line ln_main)
+void	capdrop_collection(int32_t version,int32_t i,CSTR_line ln_cd,CSTR_line ln_main)
 {
 CSTR_rast       mrst, crst;
 CSTR_rast_attr  attr;

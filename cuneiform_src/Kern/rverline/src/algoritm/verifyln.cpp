@@ -85,7 +85,7 @@ typedef struct tagAM_ZHERTVY
 	Point16  LinEnd[MaxZherOnLine];
 }AM_ZHERTVY;
 /*------------extern functions------------------------------------------------*/
-Bool HaveLinePartAtReg (Point16 *pA, Point16 *pB, Rect16 *pRc, Int32 Skew
+Bool HaveLinePartAtReg (Point16 *pA, Point16 *pB, Rect16 *pRc, int32_t Skew
 						, int NearHor, int NearVer);
 int InvestShortLineWithRastr_rv_pne (Handle hCPage, LineInfo *pLns);
 /*------------own functions---------------------------------------------------*/

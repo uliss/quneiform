@@ -94,7 +94,7 @@ Word32 GetReturnCode_rblock( void );
 char * GetModulesString(Word32 dwError);
 
 Bool32 OutputFragments( Handle hPage );
-void CalculatePageIncline(Handle hCCOM, Int32 * lpNominator, Int32 * lpDenominator);
+void CalculatePageIncline(Handle hCCOM, int32_t * lpNominator, int32_t * lpDenominator);
 
 Bool32 Open_Res_Log( void );
 Bool32 Close_Res_Log( void );

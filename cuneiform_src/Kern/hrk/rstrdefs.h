@@ -87,7 +87,7 @@ Word8   StyleContext;   // future
 Word8	StyleSpelling;
 
 Word8	EnableLearn;    //
-Int32   pageSkew2048;
+int32_t   pageSkew2048;
 }RSTR_Options;
 /*
 typedef struct tagSaveString  // str in H\struct.h OLD TIGER
@@ -104,8 +104,8 @@ typedef struct tagSaveString  // str in H\struct.h OLD TIGER
  Word16 scale;          // scale of the string (unused now)
  Int16 fragment;        // fragment of the string (unused now)
  Word8 language;        // language of the string (unused now)
- Int32 nSkew;		// string's skew (recalculated, not page!)
- Int32 strFlag;
+ int32_t nSkew;		// string's skew (recalculated, not page!)
+ int32_t strFlag;
  Word8 reserve[21];
 #define Matrix_For_RCM   0x00000001
 #define Matrix_For_LEO   0x00000002

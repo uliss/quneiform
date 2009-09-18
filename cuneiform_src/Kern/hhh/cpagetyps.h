@@ -72,13 +72,13 @@ typedef struct {
 	Word32	DPIX;
 	Word32	DPIY;
 	Word32	BitPerPixel;
-	Int32	X; // смещение относительно глобальных координат
-	Int32	Y;
+	int32_t	X; // смещение относительно глобальных координат
+	int32_t	Y;
 	Word32	Width; // размеры в пиксеалх
 	Word32	Height;
-	Int32	Incline2048; // наклон страницы в долях от 2048
+	int32_t	Incline2048; // наклон страницы в долях от 2048
 	Word32  Angle;// угол поворота страницы 0, 90, 180, 270
-	Int32   SkewLocVerLin2048;//вертикальное отклонение в долях 2048
+	int32_t   SkewLocVerLin2048;//вертикальное отклонение в долях 2048
 #define IMAGE_USER		1
 #define IMAGE_BINARIZE  2
 #define IMAGE_DELLINE	4
@@ -111,12 +111,12 @@ typedef PAGEINFO * LPPAGEINFO;
 
 typedef struct tagCellInfo
 {
-	Int32	Number; // Номер ячейки физической таблицы ( начиная с 1 )
+	int32_t	Number; // Номер ячейки физической таблицы ( начиная с 1 )
 	Point32 PhCoord;// Координаты привязки к физической ячейке
-	Int32   Block;  // Номер фрагмента
-	Int32	GeCount;// число геометрических ячеек, входящих в физическую
+	int32_t   Block;  // Номер фрагмента
+	int32_t	GeCount;// число геометрических ячеек, входящих в физическую
 	Word32	wFlags[16];// флажки
-	Int32   reserv[48];
+	int32_t   reserv[48];
 
 } CellInfo;
 

@@ -1542,13 +1542,13 @@ void StatSearchBL(CSTR_line line, CSTR_attr *p_attr,
 		p_attr = (CSTR_attr *) NULL;
 }
 
-Int16 stat_Hypothesis(Int32 line_number, Int16 diff_b3_bsl)
+Int16 stat_Hypothesis(int32_t line_number, Int16 diff_b3_bsl)
 {
 	Int16 iFound_b2 = 0, iFound_b1 = 0;
 
 	if(line_number <= CSTR_GetMaxNumber())
 	{
-		Int32 line_start = MAX(1, line_number - LNCNST);
+		int32_t line_start = MAX(1, line_number - LNCNST);
 
 		CSTR_attr *pCSTR_attrArray = (CSTR_attr *)malloc((line_number - line_start) * sizeof(CSTR_attr));
 
@@ -1582,14 +1582,14 @@ Int16 stat_Hypothesis(Int32 line_number, Int16 diff_b3_bsl)
 	return ret;
 }
 
-BOOL stat_FormCSTR_attrArray(Int32 line_start, Int32 line_stop, CSTR_attr *pCSTR_attrArray)
+BOOL stat_FormCSTR_attrArray(int32_t line_start, int32_t line_stop, CSTR_attr *pCSTR_attrArray)
 {
 	if(line_stop > CSTR_GetMaxNumber() || pCSTR_attrArray == NULL) return FALSE;
 
 	Int16 sz = malloc_usable_size(pCSTR_attrArray) / sizeof(CSTR_attr);
 	if(sz < line_stop - line_start) return FALSE;
 
-	for(Int32 l = 0; l < line_stop - line_start; l++)
+	for(int32_t l = 0; l < line_stop - line_start; l++)
 	{
 		CSTR_attr m_attr;
 
@@ -1662,14 +1662,14 @@ void stat_def_imaginary_bl(CSTR_attr *p_attr, Int16 *Ns1, Int16 *Ns2, Int16 *Ns4
 	}
 }
 
-Int16 stat_Mode_diff_b2_b1(Int32 line_number, Int16 diff_b3_b2)
+Int16 stat_Mode_diff_b2_b1(int32_t line_number, Int16 diff_b3_b2)
 {
 	Int16 iMode = 0;
 	BOOL bFound_mode = FALSE;
 
 	if(line_number <= CSTR_GetMaxNumber())
 	{
-		Int32 line_start = MAX(1, line_number - LNCNST);
+		int32_t line_start = MAX(1, line_number - LNCNST);
 
 		CSTR_attr *pCSTR_attrArray = (CSTR_attr *)malloc((line_number - line_start) * sizeof(CSTR_attr));
 
@@ -1791,14 +1791,14 @@ Int16 stat_Right_diff_from_max(Int16 *p_FrequencyArray, Int16 max_FrequencyArray
 	return jret;
 }
 
-Int16 stat_Mode_diff_b3_b4(Int32 line_number, Int16 diff_b3_b2)
+Int16 stat_Mode_diff_b3_b4(int32_t line_number, Int16 diff_b3_b2)
 {
 	Int16 iMode = 0;
 	BOOL bFound_mode = FALSE;
 
 	if(line_number <= CSTR_GetMaxNumber())
 	{
-		Int32 line_start = MAX(1, line_number - LNCNST);
+		int32_t line_start = MAX(1, line_number - LNCNST);
 
 		CSTR_attr *pCSTR_attrArray = (CSTR_attr *)malloc((line_number - line_start) * sizeof(CSTR_attr));
 
@@ -1855,14 +1855,14 @@ Int16 stat_Mode_diff_b3_b4(Int32 line_number, Int16 diff_b3_b2)
 	return iMode;
 }
 
-Int16 stat_Mode_diff_b2_b3(Int32 line_number, Int16 diff, Int16 fl_b2_or_b1)
+Int16 stat_Mode_diff_b2_b3(int32_t line_number, Int16 diff, Int16 fl_b2_or_b1)
 {
 	Int16 iMode = 0;
 	BOOL bFound_mode = FALSE;
 
 	if(line_number <= CSTR_GetMaxNumber())
 	{
-		Int32 line_start = MAX(1, line_number - LNCNST);
+		int32_t line_start = MAX(1, line_number - LNCNST);
 
 		CSTR_attr *pCSTR_attrArray = (CSTR_attr *)malloc((line_number - line_start) * sizeof(CSTR_attr));
 

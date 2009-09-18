@@ -118,9 +118,9 @@ public:
    ~XFile(void) { Close(); };
 
 #if _MSC_VER
-   Int32  Commit(void) { return (hnd != -1) ? FlushFileBuffers((HANDLE) _get_osfhandle(hnd)) : -1; };
+   int32_t  Commit(void) { return (hnd != -1) ? FlushFileBuffers((HANDLE) _get_osfhandle(hnd)) : -1; };
 #else
-   Int32  Commit(void) { return (hnd != -1) ? fsync(hnd) : -1; };
+   int32_t  Commit(void) { return (hnd != -1) ? fsync(hnd) : -1; };
 #endif
    Bool32 Open(char* name, XFileOpenMode mode_)
    {
@@ -145,17 +145,17 @@ public:
       return TRUE;
    };
 
-   Bool  Read( void* p, Int32 size )
-      {  Int32 nr=nRead(p, size);
+   Bool  Read( void* p, int32_t size )
+      {  int32_t nr=nRead(p, size);
          return nr >=0 && size == nr;
       };
 
-   Bool  Write( void* p, Int32 size )
-      {  Int32 nw=nWrite(p, size);
+   Bool  Write( void* p, int32_t size )
+      {  int32_t nw=nWrite(p, size);
          return nw >=0 && size == nw;
       };
 
-   Int32 nRead( void* p, Int32 size )
+   int32_t nRead( void* p, int32_t size )
    {  if (size ==0)
          {  return 0;  };
       if (hnd  == -1)
@@ -163,7 +163,7 @@ public:
       return stdRead(hnd, p, size);   // char* - for Mac's
    };
 
-   Int32 nWrite( void* p, Int32 size )
+   int32_t nWrite( void* p, int32_t size )
    {  if (size ==0)
          {  return 0;  };
       if (hnd  == -1)
@@ -171,19 +171,19 @@ public:
       return stdWrite(hnd, p, size);  // char* - for Mac's
    };
 
-   Int32 Tell(void)
+   int32_t Tell(void)
       { return stdTell(hnd); };
 
-   Int32 nSeek( Int32 offset, Int32 set = SEEK_SET )
+   int32_t nSeek( int32_t offset, int32_t set = SEEK_SET )
       { return stdSeek(hnd, offset, set); };
 
-   Bool32 Seek( Int32 offset ) // set from start to pos, true - success
+   Bool32 Seek( int32_t offset ) // set from start to pos, true - success
    {  if (hnd ==-1 || offset < 0)
          return FALSE;
       return nSeek(offset, SEEK_SET) == offset;
    };
 
-   Int32 GetLength( void )
+   int32_t GetLength( void )
       {   return stdFileLength(hnd); };
 };
 

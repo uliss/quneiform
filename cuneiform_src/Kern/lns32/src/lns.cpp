@@ -91,7 +91,7 @@ void RegisterBlackSquare(int left, int top, int right, int bottom )
    };
 }
 
-LNS_FUNC( Rect16* ) LnsGetBlackSquares( Int32* count )
+LNS_FUNC( Rect16* ) LnsGetBlackSquares( int32_t* count )
 {
    *count  = nSquares;
    return BlackSquares;
@@ -112,7 +112,7 @@ void RegisterCheckBox( Rect16& rcbox )
       CheckBoxes[nCheckBoxes++] = rcbox;
 }
 
-LNS_FUNC( Rect16* ) LnsGetCheckBoxes( Int32* count )
+LNS_FUNC( Rect16* ) LnsGetCheckBoxes( int32_t* count )
 {
    *count  = nCheckBoxes;
    return CheckBoxes;
@@ -133,10 +133,10 @@ LNS_FUNC( void )            LnsPageStart( TImageAccess* img )
 }
 
 
-LNS_FUNC( Bool16 )          LnsExtractLines( Int32   min_h_len,
-                                             Int32   min_v_len,
-                                             Int32*  result_h_count,
-                                             Int32*  result_v_count
+LNS_FUNC( Bool16 )          LnsExtractLines( int32_t   min_h_len,
+                                             int32_t   min_v_len,
+                                             int32_t*  result_h_count,
+                                             int32_t*  result_v_count
                                              )
 {
    lnserr = ExtrLinesUnderTigerStatic( min_h_len,   min_v_len,
@@ -148,10 +148,10 @@ LNS_FUNC( Bool16 )			ExtractAllEvents(CLINE_handle hCLINE, LinesTotalInfo  *lti)
 	return ExtractEvents(hCLINE, lti);
 }
 
-LNS_FUNC( Bool16 )          LnsGetCount(  Int32   min_h_len,
-                                          Int32   min_v_len,
-                                          Int32*  result_h_count,
-                                          Int32*  result_v_count
+LNS_FUNC( Bool16 )          LnsGetCount(  int32_t   min_h_len,
+                                          int32_t   min_v_len,
+                                          int32_t*  result_h_count,
+                                          int32_t*  result_v_count
                                        )
 {
    return ExtrLinesGetCount(min_h_len, min_v_len,
@@ -269,11 +269,11 @@ void  __RejectNearBound(LinesTotalInfo* plti)
 }
 //////////////
 LNS_FUNC( Bool16 )          LnsUpload( LinesTotalInfo* lti,
-                                       Int32   min_h_len,
-                                       Int32   min_v_len
+                                       int32_t   min_h_len,
+                                       int32_t   min_v_len
                                        )
 {
-   Int32 h,v;
+   int32_t h,v;
    if (ExtrLinesGetInfo(lti, min_h_len, min_v_len,h,v))
    {
       /*

@@ -77,15 +77,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef unsigned char BYTE;
 
-static Int32 _stdOpenCounter=0;
-static Int32 _stdCloseCounter=0;
-static Int32 _stdReadCounter=0;
-static Int32 _stdWriteCounter=0;
-static Int32 _stdSeekCounter=0;
-static Int32 _stdTellCounter=0;
-static Int32 _stdFileLengthCounter=0;
+static int32_t _stdOpenCounter=0;
+static int32_t _stdCloseCounter=0;
+static int32_t _stdReadCounter=0;
+static int32_t _stdWriteCounter=0;
+static int32_t _stdSeekCounter=0;
+static int32_t _stdTellCounter=0;
+static int32_t _stdFileLengthCounter=0;
 
-STD_FUNC( Int32 ) stdOpen( const char *filename, Int32 oflag, Int32 pmode )
+STD_FUNC( int32_t ) stdOpen( const char *filename, int32_t oflag, int32_t pmode )
 {
       _stdOpenCounter++;
       assert(filename);
@@ -93,7 +93,7 @@ STD_FUNC( Int32 ) stdOpen( const char *filename, Int32 oflag, Int32 pmode )
       if (pmode == 0)
          pmode = S_IREAD | S_IWRITE;
 
-      Int32 hnd  = open( filename, oflag, pmode );
+      int32_t hnd  = open( filename, oflag, pmode );
       if (hnd == -1)
       {
          CONSOLE("stdOpen('%s') failed {%ld}", filename, _stdOpenCounter);
@@ -101,7 +101,7 @@ STD_FUNC( Int32 ) stdOpen( const char *filename, Int32 oflag, Int32 pmode )
       return hnd;
 }
 
-STD_FUNC( Int32 ) stdClose( Int32 handle ) // ret: 0 -success, -1 -failed
+STD_FUNC( int32_t ) stdClose( int32_t handle ) // ret: 0 -success, -1 -failed
 {
       _stdCloseCounter++;
       if (handle == -1)
@@ -119,7 +119,7 @@ STD_FUNC( Int32 ) stdClose( Int32 handle ) // ret: 0 -success, -1 -failed
       return res;
 }
 
-STD_FUNC( Int32 ) stdRead( Int32 handle, void *buffer, Int32 count )
+STD_FUNC( int32_t ) stdRead( int32_t handle, void *buffer, int32_t count )
 {
    _stdReadCounter++;
 
@@ -129,7 +129,7 @@ STD_FUNC( Int32 ) stdRead( Int32 handle, void *buffer, Int32 count )
       return -1;
    };
 
-   Int32 res=0;
+   int32_t res=0;
 
    if (count>0)
    {  res = read(handle, (char*)buffer, count); // char* - for Macintosh
@@ -142,7 +142,7 @@ STD_FUNC( Int32 ) stdRead( Int32 handle, void *buffer, Int32 count )
    return res;
 }
 
-STD_FUNC( Int32 ) stdWrite( Int32 handle, void *buffer, Int32 count )
+STD_FUNC( int32_t ) stdWrite( int32_t handle, void *buffer, int32_t count )
 {
    _stdWriteCounter++;
 
@@ -152,7 +152,7 @@ STD_FUNC( Int32 ) stdWrite( Int32 handle, void *buffer, Int32 count )
       return -1;
    };
 
-   Int32 res=0;
+   int32_t res=0;
    if (count>0)
       res = write(handle, (char*)buffer, count);  // char* - for Macintosh
 
@@ -164,7 +164,7 @@ STD_FUNC( Int32 ) stdWrite( Int32 handle, void *buffer, Int32 count )
 }
 
 
-STD_FUNC( Int32 ) stdTell( Int32 handle )
+STD_FUNC( int32_t ) stdTell( int32_t handle )
 {
    _stdTellCounter++;
 
@@ -175,7 +175,7 @@ STD_FUNC( Int32 ) stdTell( Int32 handle )
       return -1;
    };
 
-   Int32 res = _tell(handle);
+   int32_t res = _tell(handle);
    if (res == -1L)
    {
       stdConsole("stdTell(%ld)=>%ld {%ld}", handle, res, _stdTellCounter);
@@ -183,7 +183,7 @@ STD_FUNC( Int32 ) stdTell( Int32 handle )
    return res;
 }
 
-STD_FUNC( Int32 ) stdSeek( Int32 handle, Int32 offset, Int32 origin  )
+STD_FUNC( int32_t ) stdSeek( int32_t handle, int32_t offset, int32_t origin  )
 {
    _stdSeekCounter++;
 
@@ -193,7 +193,7 @@ STD_FUNC( Int32 ) stdSeek( Int32 handle, Int32 offset, Int32 origin  )
       return -1;
    };
 
-   Int32 res = lseek(handle, offset, origin);
+   int32_t res = lseek(handle, offset, origin);
 
    if (res == -1L)
    {
@@ -202,7 +202,7 @@ STD_FUNC( Int32 ) stdSeek( Int32 handle, Int32 offset, Int32 origin  )
    return res;
 }
 
-STD_FUNC( Int32 ) stdFileLength( Int32 hnd )
+STD_FUNC( int32_t ) stdFileLength( int32_t hnd )
 {
    _stdFileLengthCounter++;
    if (hnd==-1)
@@ -211,10 +211,10 @@ STD_FUNC( Int32 ) stdFileLength( Int32 hnd )
       return -1;
    }
 #ifndef WIN32
-   Int32 cur = stdSeek(hnd, 0, SEEK_CUR);
+   int32_t cur = stdSeek(hnd, 0, SEEK_CUR);
    if (cur==-1)
       return -1;
-   Int32 ret = stdSeek(hnd,  0, SEEK_END);
+   int32_t ret = stdSeek(hnd,  0, SEEK_END);
    if (ret==-1)
       return -1;
    cur=stdSeek(hnd, cur, SEEK_SET);
@@ -222,7 +222,7 @@ STD_FUNC( Int32 ) stdFileLength( Int32 hnd )
       return -1;
    return ret;
 #else
-   Int32 ret = ::filelength(hnd);
+   int32_t ret = ::filelength(hnd);
 #endif
    if (ret == -1)
    {
@@ -231,7 +231,7 @@ STD_FUNC( Int32 ) stdFileLength( Int32 hnd )
    return ret;
 }
 
-STD_FUNC( Int32 ) stdAccess( const char *path, Int32 mode)
+STD_FUNC( int32_t ) stdAccess( const char *path, int32_t mode)
 {
 /*
 	mode: 00 - existence only
@@ -480,10 +480,10 @@ STD_FUNC( void ) stdGoToHomeDirectory(void)
 #endif
 }
 
-STD_FUNC( Int32 ) stdGetDirectoryInfo(const char * lpBuffer,
-              Int32 nFlags, void* pExtParm)
+STD_FUNC( int32_t ) stdGetDirectoryInfo(const char * lpBuffer,
+              int32_t nFlags, void* pExtParm)
 {
-    Int32 nResult=0;
+    int32_t nResult=0;
 #ifdef WIN32
     if(nFlags==STD_DIRINFO_FL_DRVTYPE)
     {
@@ -491,7 +491,7 @@ STD_FUNC( Int32 ) stdGetDirectoryInfo(const char * lpBuffer,
         char szComputerNameThis[256]={0};
         char szComputerName[256]={0};
 uint32_t wBuffSize=256;
-        Int32 nLen=strlen(lpBuffer);
+        int32_t nLen=strlen(lpBuffer);
         if(nLen<2)
             return 0;
         Bool32 bMapped=FALSE;
@@ -533,11 +533,11 @@ uint32_t wBuffSize=256;
 #endif
 }
 
-STD_FUNC( Int32 ) stdCmpFileTime(
+STD_FUNC( int32_t ) stdCmpFileTime(
        const char * lpFileName1,const char * lpFileName2,
-      Int32 nFlags)
+      int32_t nFlags)
 {
-    Int32 nResult=STD_CMPFILETIME_ERR;
+    int32_t nResult=STD_CMPFILETIME_ERR;
 #ifdef WIN32
     SECURITY_ATTRIBUTES stSecurityAttributes=
         {sizeof(SECURITY_ATTRIBUTES),0,TRUE};
@@ -559,7 +559,7 @@ STD_FUNC( Int32 ) stdCmpFileTime(
     FILETIME ftTime1={0}; FILETIME ftTime2={0};
     GetFileTime(hFile1,NULL,NULL,&ftTime1);
     GetFileTime(hFile2,NULL,NULL,&ftTime2);
-    Int32 nCmpRes=CompareFileTime(&ftTime1,&ftTime2);
+    int32_t nCmpRes=CompareFileTime(&ftTime1,&ftTime2);
     if(nCmpRes==-1)
         nResult=STD_CMPFILETIME_LESS;
     if(nCmpRes==1)
@@ -587,7 +587,7 @@ STD_FUNC( Bool32 ) stdCheckFile(const char * lpFileName )
 
 STD_FUNC( Bool32 ) stdMoveFile(
       const char * lpFileNameDst,const char * lpFileNameSrc,
-      Int32 nFlags)
+      int32_t nFlags)
 {
 #ifdef WIN32
     return MoveFile(lpFileNameSrc,lpFileNameDst);
@@ -626,7 +626,7 @@ STD_FUNC( Bool32 ) stdDeleteFile(
 
 #if WIN32
 
-Bool32 stdNetPathFromLocal(char* pszNetPath,Int32 nNetPathSize,const char* pszLocalPath)
+Bool32 stdNetPathFromLocal(char* pszNetPath,int32_t nNetPathSize,const char* pszLocalPath)
 {
     if(strlen(pszLocalPath)>=2 && !strncmp(pszLocalPath,"\\\\",2))
 	{

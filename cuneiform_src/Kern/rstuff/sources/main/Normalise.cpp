@@ -621,7 +621,7 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 			else
 			{
 				Bool32 BadScan = FALSE;
-				Int32  ScanQual= 0;
+				int32_t  ScanQual= 0;
 //				RVERLINE_AboutLines(Image->hCPAGE,*Image->phCCOM, Image->pgneed_clean_line, &BadScan, &ScanQual);			}
 				AboutLines(Image, &BadScan, &ScanQual);
 			}
@@ -644,7 +644,7 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 ////			else
 ////			{
 ////				Bool32 BadScan = FALSE;
-////				Int32  ScanQual= 0;
+////				int32_t  ScanQual= 0;
 ////				RLTABLE_AboutLines(hCPAGE,hCCOM, &gneed_clean_line, &BadScan, &ScanQual);			}
 ////				if(!gneed_clean_line)
 ////					LDPUMA_Console("Предупреждение: RLTABLE_AboutLines говорит, что снимать линии не надо.\n");
@@ -766,7 +766,7 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 	//  Горизонтальные линии
 	if ( bRet && pLHor != NULL )
 	{
-		for (Int32 i=0; i<LTInfo->Hor.Cnt; i++)
+		for (int32_t i=0; i<LTInfo->Hor.Cnt; i++)
 		{
 			if (i==0)
 				hBlockLineHor = CPAGE_GetBlockFirst (Image->hCPAGE, (Word32)(LTInfo->Hor.Lns));
@@ -797,7 +797,7 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 	//  Вертикальные линии
 	if ( bRet && pLVer != NULL )
 	{
-		for (Int32 i=0; i<LTInfo->Ver.Cnt; i++)
+		for (int32_t i=0; i<LTInfo->Ver.Cnt; i++)
 		{
 			if (i==0)
 				hBlockLineVer = CPAGE_GetBlockFirst (Image->hCPAGE, (Word32)(LTInfo->Ver.Lns));
@@ -877,7 +877,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, PWord8 * lppDIB)
 	Bool32 rc = TRUE;
     *hLinesCCOM = NULL;
     CCOM_comp   *victim[100];
-    Int32       nvict,i;
+    int32_t       nvict,i;
     Bool32      yes_victim = FALSE;
 	//
 	// Удалим линии
@@ -1007,7 +1007,7 @@ return rc;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 MyGetZher (void **vvZher, Int32 *nZher, Int32 MaxZher, Handle hCPage)
+Bool32 MyGetZher (void **vvZher, int32_t *nZher, int32_t MaxZher, Handle hCPage)
 {
 	Word32 err32, nTeor, nReal;
 	Handle hBlockZher;
@@ -1052,7 +1052,7 @@ Bool32 MyGetZher (void **vvZher, Int32 *nZher, Int32 MaxZher, Handle hCPage)
 Bool32  remove_overlayed(CCOM_comp *sour,CCOM_handle haCCOM)
 {
 	CCOM_comp   *cur=CCOM_GetFirst(haCCOM,NULL), *curn;
-	Int32       over=0;
+	int32_t       over=0;
 
 	do
 	{
@@ -1078,7 +1078,7 @@ Bool32  remove_overlayed(CCOM_comp *sour,CCOM_handle haCCOM)
 //
 Bool32  comp_over(CCOM_comp *sour,CCOM_comp *cur)
 {
-	Int32   le,ri,up,dn,w,h;
+	int32_t   le,ri,up,dn,w,h;
 
 	if( sour->left+sour->w<=cur->left || cur->left+cur->w<=sour->left )
 		return FALSE;
@@ -1158,7 +1158,7 @@ Bool32    SearchTables( PRSPreProcessImage Image)
 */
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-//Bool32 AboutLines(PRSPreProcessImage Image, Bool32 *BadScan, Int32 *ScanQual)
+//Bool32 AboutLines(PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
 //{
 //	return TRUE;
 //}
@@ -1171,7 +1171,7 @@ Bool32 CalcIncline(PRSPreProcessImage Image)
 	Bool ret, WasLine, ManyComp;
 	Bool CalcMuchSkew, TalkMuchSkew;
 	Word16 Code;
-	Int32 SkewReg, Skew, SkewLocVerLin;
+	int32_t SkewReg, Skew, SkewLocVerLin;
 	Rect16 RcReg;
     PAGEINFO info = {0};
 	UN_BUFF MainBuff = {0};

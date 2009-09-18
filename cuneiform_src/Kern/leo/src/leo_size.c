@@ -202,7 +202,7 @@ LEO_FUNC(void) LEO_ClearStat(void)
 ////////////////////
 //            russian ДдЦцЩщ
 static char *nonStandard="\x84\xA4\x96\xE6\x99\xE9";
-LEO_FUNC(Int32) LEO_AddStat(Int32 name,Int32 width,Int32 height,Int32 valid)
+LEO_FUNC(int32_t) LEO_AddStat(int32_t name,int32_t width,int32_t height,int32_t valid)
 {
 	  // add only good
 	if( ( valid & LEO_VALID_FINAL ) == 0)
@@ -306,14 +306,14 @@ int GetStat(int *sizes,int allCount,int *allWidthes,int *allHeights,int *ocenka)
 	return allCount;
 }
 ///////////////////
-LEO_FUNC(Int32) LEO_GetCommonStat(Int32 *sizes,Int32 *ocenka)
+LEO_FUNC(int32_t) LEO_GetCommonStat(int32_t *sizes,int32_t *ocenka)
 {
 	return GetStat(sizes,allCount,allWidthes,allHeights,ocenka);
 }
 ////////////////////
 
 
-LEO_FUNC(Int32) LEO_AddStatLetter(Int32 name,Int32 width,Int32 height,Int32 valid)
+LEO_FUNC(int32_t) LEO_AddStatLetter(int32_t name,int32_t width,int32_t height,int32_t valid)
 {
 
 	if(name < 0 || name > 255 ) return 0;
@@ -500,7 +500,7 @@ static int ClusterSet(int name,int all,LetInfo *lInfo,
 //  sizes4 - [0]=heiBig,[1]=widBig,[2]=heiSmall,[3]=widSmall
 //
 //int GetLetStat(int name,int *sizes4,int *ocenka2)
-LEO_FUNC(Int32) LEO_GetLetStat(Int32 name,Int32 *sizes4,Int32 *ocenka2)
+LEO_FUNC(int32_t) LEO_GetLetStat(int32_t name,int32_t *sizes4,int32_t *ocenka2)
 {
 int i;
 int *mysteck;
@@ -791,7 +791,7 @@ static PROP_STR letters_prop_table_rus[256]={
         1,127 //
               };
 
-Int32 leo_narrow, leo_narrow_pen;
+int32_t leo_narrow, leo_narrow_pen;
 extern Word8 leo_alpha_type;
 #include "alphaset.h"
 
@@ -801,11 +801,11 @@ leo_narrow=leo_narrow_pen=0;
 return;
 }
 
-Word8 leo_proport_penalty(Word8 let,Word8 prolet, Int32 w, Int32 h)
+Word8 leo_proport_penalty(Word8 let,Word8 prolet, int32_t w, int32_t h)
 {
-Int32 comSizes[4], prob[4], wid, hei, pr, pr1, prop, prp;
+int32_t comSizes[4], prob[4], wid, hei, pr, pr1, prop, prp;
 Word8 name;
-Int32 pmin=0, pmax=255;
+int32_t pmin=0, pmax=255;
 
 #ifdef NO_SIZES
 return 0;
@@ -820,7 +820,7 @@ if( let )
         name=let;
     pmin=letters_prop_table_rus[name].pmin;
     pmax=letters_prop_table_rus[name].pmax;
-    if( LEO_GetLetStat((Int32)let, comSizes,prob)>=0 && comSizes[0] && comSizes[2])
+    if( LEO_GetLetStat((int32_t)let, comSizes,prob)>=0 && comSizes[0] && comSizes[2])
         { //   normal statistic                             && not empty
         hei = MIN(comSizes[0],comSizes[2]);
         wid = MAX(comSizes[1],comSizes[3]);
@@ -939,9 +939,9 @@ return (Word8)((pr1*255)/100);  // large prop
 }
 
 
-Word8 leo_sizes_penalty( Int32 w, Int32 h)
+Word8 leo_sizes_penalty( int32_t w, int32_t h)
 {
-Int32 comSizes[4], prob[4], wid, hei, pr;
+int32_t comSizes[4], prob[4], wid, hei, pr;
 #ifdef NO_SIZES
 return 0;
 #endif

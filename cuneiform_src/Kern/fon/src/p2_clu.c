@@ -1015,7 +1015,7 @@ SINT SaveCluster(SINT fh, CTB_handle *CTBfile, SINT fhSnap,
 	SINT sumcol1;
 	BYTE *tmpbuf;
 	uint32_t fields[NFIELDDWORD];
-	Int32 nItalic, nBold, nSerif, nGelv, nArrow;
+	int32_t nItalic, nBold, nSerif, nGelv, nArrow;
 	uint32_t tablColumn = 0;
 	BYTE odin = (BYTE) 1;
 
@@ -1737,7 +1737,7 @@ clu_info make_font(PCHAR rname, MKFAM accept, PBYTE extern_buf, LONG size) {
 // Reading from CTBBase
 
 /////////////////////
-FON_FUNC(Int32) FONGetNumCluster(Int32 nInCTB)
+FON_FUNC(int32_t) FONGetNumCluster(int32_t nInCTB)
 {
 	if(nInCTB <= 0 || nInCTB > MAXSYM)
 	return 0;
@@ -1780,7 +1780,7 @@ static SINT ReadAllFromBase(CHAR *name, SINT *nClu, CHAR *movxy, SINT AllCount) 
 	return allnum;
 }
 /////////////////////
-FON_FUNC(Int32) FONFontClusters(char *rname,char *cluname,void *accept,Word8 *extern_buf,Int32 size,
+FON_FUNC(int32_t) FONFontClusters(char *rname,char *cluname,void *accept,Word8 *extern_buf,int32_t size,
 		Word32 param,void *ShowProgress,Word8 lang)
 {
 	clu_info cin;

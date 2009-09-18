@@ -104,17 +104,17 @@ typedef struct edPoint
 
 typedef struct edSize
 {
-	Int32 cx,cy;
+	int32_t cx,cy;
 } EDSIZE;
 
 typedef struct edRect
 {
-	Int32 left,top,right,bottom;
+	int32_t left,top,right,bottom;
 } EDRECT;
 
 typedef struct edCol
 {
-	Int32 width,space;
+	int32_t width,space;
 } EDCOL;
 
 
@@ -471,17 +471,17 @@ DEC_FUN(EDRECT, CED_GetSectionBorder,(Handle hEdSection));
 DEC_FUN(Word32, CED_GetCountColumn,(Handle hEdSection));
 DEC_FUN(Word32, CED_GetNumSnakeCols,(Handle hEdSection));
 DEC_FUN(Handle, CED_GetColumn,(Handle hEdSection,int number));
-DEC_FUN(Int32, CED_GetSnakeColumnWidth,(Handle hEdSection,int number));
-DEC_FUN(Int32, CED_GetSnakeColumnSpacing,(Handle hEdSection,int number));
+DEC_FUN(int32_t, CED_GetSnakeColumnWidth,(Handle hEdSection,int number));
+DEC_FUN(int32_t, CED_GetSnakeColumnSpacing,(Handle hEdSection,int number));
 DEC_FUN(Bool32, CED_GetSectionParams,(Handle hEdSection,EDRECT* border, int* colInterval, char* sectionBreak, int* width, int* height, char* orientation, int* headerY, int* footerY));
 //DEC_FUN(Word32, CED_GetCountFrame,(Handle hEdSection));
 //DEC_FUN(Handle, CED_GetFrame,(Handle hEdSection,int number));
 DEC_FUN(EDBOX, CED_GetFrameRect,(Handle hEdFrame));
-DEC_FUN(Int32, CED_GetFramePosition,(Handle hEdFrame));
-DEC_FUN(Int32, CED_GetFrameBorderSpace,(Handle hEdFrame));
-DEC_FUN(Int32, CED_GetFrameDxfrtextx, (Handle hEdFrame));
-DEC_FUN(Int32, CED_GetFrameDxfrtexty, (Handle hEdFrame));
-DEC_FUN(Int32, CED_GetFrameFlag, (Handle hEdFrame));
+DEC_FUN(int32_t, CED_GetFramePosition,(Handle hEdFrame));
+DEC_FUN(int32_t, CED_GetFrameBorderSpace,(Handle hEdFrame));
+DEC_FUN(int32_t, CED_GetFrameDxfrtextx, (Handle hEdFrame));
+DEC_FUN(int32_t, CED_GetFrameDxfrtexty, (Handle hEdFrame));
+DEC_FUN(int32_t, CED_GetFrameFlag, (Handle hEdFrame));
 DEC_FUN(Handle, CED_GetFirstObject,(Handle hObject));
 DEC_FUN(Handle, CED_GetNextObject,(Handle hObject));
 DEC_FUN(Bool32, CED_IsTable,(Handle hObject));
@@ -494,9 +494,9 @@ DEC_FUN(Bool32, CED_GetTableRowParams,(Handle hEdRow, int* left, int* rowHeight,
 DEC_FUN(Word32, CED_GetCountCell,(Handle hEdRow));
 DEC_FUN(Handle, CED_GetCell,(Handle hEdRow, int number));
 DEC_FUN(Bool32, CED_GetCellParams,(Handle hEdCell, int* cellX, int* merging, int* vertTextAlign, int* leftBrdrType, int* leftBrdrWidth, int* rightBrdrType, int* rightBrdrWidth, int* topBrdrType, int* topBrdrWidth, int* bottomBrdrType, int* bottomBrdrWidth, EDBOX* layout, int* shading, int* color));
-DEC_FUN(Int32, CED_GetCellFlag, (Handle hEdCell));
-DEC_FUN(Int32*,CED_GetLinesX,(Handle hEdTable));
-DEC_FUN(Int32 *,CED_GetRowsHeights,(Handle hEdTable));
+DEC_FUN(int32_t, CED_GetCellFlag, (Handle hEdCell));
+DEC_FUN(int32_t*,CED_GetLinesX,(Handle hEdTable));
+DEC_FUN(int32_t *,CED_GetRowsHeights,(Handle hEdTable));
 DEC_FUN(Word32*,CED_GetTableOfCells,(Handle hEdTable));
 DEC_FUN(EDSIZE, CED_GetSize,(Handle hEdTable));
 DEC_FUN(Handle, CED_GetLogicalCell,(Handle hEdTable, int number));
@@ -511,18 +511,18 @@ DEC_FUN(Bool32, CED_GetParaBorders,(Handle hEdParagraph, int* leftBrdrType, int*
 DEC_FUN(Word32, CED_GetCountLine,(Handle hEdParagraph));
 DEC_FUN(Handle, CED_GetLine,(Handle hEdParagraph,int number));
 DEC_FUN(Bool32, CED_GetLineHardBreak,(Handle hEdLine));
-DEC_FUN(Int32, CED_GetLineDefChrFontHeight,(Handle hEdLine));
+DEC_FUN(int32_t, CED_GetLineDefChrFontHeight,(Handle hEdLine));
 DEC_FUN(Word32, CED_GetCountChar,(Handle hEdLine));
 DEC_FUN(Handle, CED_GetChar,(Handle hEdLine,int number));
 DEC_FUN(Bool32, CED_IsPicture,(Handle hEdChar));
 DEC_FUN(LETTER*, CED_GetAlternatives,(Handle hEdChar));
-DEC_FUN(Int32, CED_GetCharFontHeight,(Handle hEdChar));
-DEC_FUN(Int32, CED_GetCharFontAttribs,(Handle hEdChar));
-DEC_FUN(Int32, CED_GetCharFontNum,(Handle hEdChar));
+DEC_FUN(int32_t, CED_GetCharFontHeight,(Handle hEdChar));
+DEC_FUN(int32_t, CED_GetCharFontAttribs,(Handle hEdChar));
+DEC_FUN(int32_t, CED_GetCharFontNum,(Handle hEdChar));
 DEC_FUN(EDRECT, CED_GetCharLayout,(Handle hEdChar));
-DEC_FUN(Int32, CED_GetCharFontLang,(Handle hEdChar));
-DEC_FUN(Int32, CED_GetCharBackgroundColor,(Handle hEdChar));
-DEC_FUN(Int32, CED_GetCharForegroundColor,(Handle hEdChar));
+DEC_FUN(int32_t, CED_GetCharFontLang,(Handle hEdChar));
+DEC_FUN(int32_t, CED_GetCharBackgroundColor,(Handle hEdChar));
+DEC_FUN(int32_t, CED_GetCharForegroundColor,(Handle hEdChar));
 
 
 DEC_FUN(Bool32, CED_WriteFormattedRtf,(const char * fileName, Handle hEdPage));

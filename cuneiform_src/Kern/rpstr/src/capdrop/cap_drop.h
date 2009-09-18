@@ -54,5 +54,5 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-Bool32	capdrop_test_fragment(Int32 version,Int32 i,CSTR_line *ln_cd,CSTR_line *ln_main);
-void	capdrop_collection(Int32 version,Int32 i,CSTR_line ln_cd,CSTR_line ln_main);
+Bool32	capdrop_test_fragment(int32_t version,int32_t i,CSTR_line *ln_cd,CSTR_line *ln_main);
+void	capdrop_collection(int32_t version,int32_t i,CSTR_line ln_cd,CSTR_line ln_main);

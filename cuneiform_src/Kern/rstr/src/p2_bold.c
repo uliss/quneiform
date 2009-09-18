@@ -165,7 +165,7 @@ static int Progib(int *hhh,int GreyLev, int numAccord);
 //////////////////////////
 static const char bigLitLet[]="bdfghiklpqty";
 ////////////
-static Int32 LetDigSymbol(int i) // letter or digit
+static int32_t LetDigSymbol(int i) // letter or digit
 {
         if( i >= '0' && i <= '9' )
                 return 1;
@@ -2073,9 +2073,9 @@ static void TestColumnsThick(void)
 	int minBold;
 	int maxLight;
 	Bool32 isProgib;
-	Int32 allThick;
-	Int32 allNum;
-	Int32 commonThick;
+	int32_t allThick;
+	int32_t allNum;
+	int32_t commonThick;
 	Word8 commonBold=0;
 
 

@@ -85,7 +85,7 @@ RCK_FUNC(Word32) RCORRKEGL_GetReturnCode();
 RCK_FUNC(Int8 *) RCORRKEGL_GetReturnString(Word32 dwError);
 RCK_FUNC(Bool32) RCORRKEGL_SetImportData(Word32 dwType, void * pData);
 
-RCK_FUNC(Bool32) RCORRKEGL_CorrectKegl(Int32 version);
+RCK_FUNC(Bool32) RCORRKEGL_CorrectKegl(int32_t version);
 
 #pragma pack (pop)
 

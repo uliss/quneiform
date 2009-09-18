@@ -268,7 +268,7 @@ Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Ima
 	//  Горизонтальные линии
 	if ( bRet && pLHor != NULL )
 	{
-		for (Int32 i=0; i<LTInfo->Hor.Cnt; i++)
+		for (int32_t i=0; i<LTInfo->Hor.Cnt; i++)
 		{
 			if (i==0)
 				hBlockLineHor = CPAGE_GetBlockFirst (Image->hCPAGE, (Word32)(LTInfo->Hor.Lns));
@@ -299,7 +299,7 @@ Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Ima
 	// Вертикальные линии
 	if ( bRet && pLVer != NULL )
 	{
-		for (Int32 i=0; i<LTInfo->Ver.Cnt; i++)
+		for (int32_t i=0; i<LTInfo->Ver.Cnt; i++)
 		{
 			if (i==0)
 				hBlockLineVer = CPAGE_GetBlockFirst (Image->hCPAGE, (Word32)(LTInfo->Ver.Lns));
@@ -342,7 +342,7 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage 
 	Word32 LinesTotalA;
 	Word32 LinesTotalB;
 	char str[255];
-	Int32 j = 0;
+	int32_t j = 0;
 	Word32 SVLCount = 0;
 	Rect16 ZoomRect;
 
@@ -449,9 +449,9 @@ Bool32 SVLComponentFilter(LineInfo *Line, PRMPreProcessImage Image)
 	Bool32 GoodComp;
 	Rect16 Rc;
 	Rect16 Rl;
-	Int32 nRc = 0;
-	Int32 Filter = 0;
-	Int32 j = 0;
+	int32_t nRc = 0;
+	int32_t Filter = 0;
+	int32_t j = 0;
 	char str[255];
 	Int16 Thick = Line->Thickness / 2;
 	Bool32 bDieComponent = FALSE;
@@ -530,14 +530,14 @@ Bool32 IsRectIntersect(Rect16 *A, Rect16 *B)
 {
 	Bool32 rc = FALSE;
 
-	Int32 M1 = A->bottom >= A->top  ? A->bottom : A->top;
-	Int32 M2 = A->right  >= A->left ? A->right  : A->left;
-	Int32 m1 = A->bottom >= A->top  ? A->top    : A->bottom;
-	Int32 m2 = A->right  >= A->left ? A->left   : A->right;
-	Int32 M3 = B->bottom >= B->top  ? B->bottom : B->top;
-	Int32 M4 = B->right  >= B->left ? B->right  : B->left;
-	Int32 m3 = B->bottom >= B->top  ? B->top    : B->bottom;
-	Int32 m4 = B->right  >= B->left ? B->left   : B->right;
+	int32_t M1 = A->bottom >= A->top  ? A->bottom : A->top;
+	int32_t M2 = A->right  >= A->left ? A->right  : A->left;
+	int32_t m1 = A->bottom >= A->top  ? A->top    : A->bottom;
+	int32_t m2 = A->right  >= A->left ? A->left   : A->right;
+	int32_t M3 = B->bottom >= B->top  ? B->bottom : B->top;
+	int32_t M4 = B->right  >= B->left ? B->right  : B->left;
+	int32_t m3 = B->bottom >= B->top  ? B->top    : B->bottom;
+	int32_t m4 = B->right  >= B->left ? B->left   : B->right;
 
 	if ( ( ( ( B->top >= m1 ) && ( B->top <= M1 ) ) || ( ( B->bottom >= m1 ) && ( B->bottom <= M1 ) ) ) &&
 		 ( ( ( B->left >= m2 ) && ( B->left <= M2 ) ) || ( ( B->right >= m2 ) && ( B->right <= M2 ) ) ) )
@@ -555,7 +555,7 @@ Bool32 IsRectIntersect(Rect16 *A, Rect16 *B)
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 // взято у Михайлова. лишнее выкинуто, остальное изменено
-Bool32 CompIsGood (CCOM_comp * pcomp, Int32 Filter)
+Bool32 CompIsGood (CCOM_comp * pcomp, int32_t Filter)
 {
 	switch (Filter)
 	{

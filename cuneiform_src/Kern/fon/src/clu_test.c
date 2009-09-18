@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 Bool32 BadCluster(InfoCluster *infoC);
 
-Int32 TestClustNames(welet *wel,int numWel,
+int32_t TestClustNames(welet *wel,int numWel,
 					 int name1,int name2 )
 {
 	int i,j;
@@ -102,7 +102,7 @@ Int32 TestClustNames(welet *wel,int numWel,
 	return MIN(dist1,dist2);
 }
 ////////////////
-Int32 GetNearestClusters (int num, welet *wel,int numWel ,
+int32_t GetNearestClusters (int num, welet *wel,int numWel ,
 	    RecVersions *collection )
 {
  RecRaster recRast;

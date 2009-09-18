@@ -118,7 +118,7 @@ static void print_method(FILE *fp,RecVersions *res,char *s,int ansi)
 Bool32 TestFontProtocol(void)
 {
 #ifdef _USE_LEO_
-    Int32          name;
+    int32_t          name;
     int            i; //,j;
     int            nClust;
     int            numCourier,nC;
@@ -179,7 +179,7 @@ Bool32 TestFontCourier(void)
 {
 #ifdef _USE_LEO_
     Word8          p;
-    Int32          name;
+    int32_t          name;
     RecRaster      recRast;
     int            i,j;
     int            nClust;
@@ -188,7 +188,7 @@ Bool32 TestFontCourier(void)
 
     RecVersions    MSKres;
     ClustInfo      clustinfo;
-    Int32          nf=FONGetFontCount();
+    int32_t          nf=FONGetFontCount();
 
     if( nf<1 || nf>2)
         return FALSE;
@@ -239,10 +239,10 @@ Bool32 TestFontCourier(void)
 static int curNumFile=0;
 static Word8 hasNearSame[]="\xa7\xed";  // çý
 static Word8 NearSame[]="\xed\xa7";     // ýç
-Int32 TestFontClusters(void)
+int32_t TestFontClusters(void)
 {
 #ifdef _USE_LEO_
-    Int32          name;
+    int32_t          name;
     int            i,j;
     int            nClust;
     int            porog=50; // test !!!
@@ -440,7 +440,7 @@ Bool32 RecogLEO(RecRaster *Rs,Word8 Language,UniVersions *Us)
     LeoPageSetup   ps={0};
     char    *      alpha;
     Word8          c, cw;
-    Int32          i, up=-1;
+    int32_t          i, up=-1;
 
 
     alpha = alpha_str;
@@ -522,7 +522,7 @@ Bool32   p2_msk_inc(CSTR_rast    rst)
     Word8       prob=0, name, lim, code;
     RecRaster   rc;
     RecVersions ver;
-    Int32       i;
+    int32_t       i;
 
     if(!HndTabInc )
         return 0;
@@ -584,7 +584,7 @@ Bool32 RecogLEO_SetAlphabet(char *letters)
     return TRUE;
 }
 
-Bool32 RecogLEOall(RecRaster *Rs,RecVersions *Us,Int32 nType)
+Bool32 RecogLEOall(RecRaster *Rs,RecVersions *Us,int32_t nType)
 {
 #ifdef _USE_LEO_
     LeoFieldSetup  fs={0};

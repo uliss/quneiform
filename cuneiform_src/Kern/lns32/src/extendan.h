@@ -60,6 +60,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lns.h"
 
 Bool  Preanalysis( TImageOpen   f_op, TImageClose  f_cl );
-Bool  GetArrayInfo( TImageOpen   f_op, TImageClose  f_cl, Int32* width, Int32* heigth );
+Bool  GetArrayInfo( TImageOpen   f_op, TImageClose  f_cl, int32_t* width, int32_t* heigth );
 
 #endif

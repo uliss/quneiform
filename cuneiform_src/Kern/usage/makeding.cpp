@@ -209,8 +209,8 @@ static bool IsNearestOldDing (const RLT_DING *pD, const int nD, const int Level,
     \param End [out]   - положение конца создаваемого разделителя
     \retval bool       - существует или нет
 */
-static bool IsNearestDing (const RLT_DING *pD, const int nD, const Int32 Level, const Int32 Beg
-    , const Int32 End)
+static bool IsNearestDing (const RLT_DING *pD, const int nD, const int32_t Level, const int32_t Beg
+    , const int32_t End)
 {
     for (int i = 0;  i < nD;  i++)
     {
@@ -306,7 +306,7 @@ static bool FindNextZveno (int *p_Mas, int *p_Row, const int n, int *p_i0, int *
     \param Beg [in]   - начало разделителя
     \param End [in]   - конец разделителя
 */
-static void MakeAbsendDing (RLT_DING *pD, const Int32 Level, const Int32 Beg, const Int32 End)
+static void MakeAbsendDing (RLT_DING *pD, const int32_t Level, const int32_t Beg, const int32_t End)
 {
     pD->Beg = Beg;
     pD->End = End;
@@ -542,7 +542,7 @@ void EvolFor_MakeDing (const RLT_LINEPOOL *pLinePool, int *pForw, int *pBack, co
 }
 /*------------------------------------------------------------------------------------------------*/
 bool MakeDingFromLine (RLT_DINGPOOL *pDingPool, const RLT_LINEPOOL *pLinePool
-    , const RLT_PARAM *pParam, const Int32 SkewReg)
+    , const RLT_PARAM *pParam, const int32_t SkewReg)
 {
 //    RLT_LINEATDIR *pP;
     RLT_LINE *pL = pLinePool->pLine;
@@ -654,12 +654,12 @@ bool DelAndAddDing (RLT_DINGPOOL *pDingPool, int *pForw, int *pBack, const int M
 static void MakeDingFromOneLine (RLT_DING *pDing, const int Skew, const RLT_LINE *pLine
     , const bool Hori, const RLT_PARAM *pParam);
 static bool IsNearestOldDing (const RLT_DING *pD, const int nD, const int Level, const int Pos);
-static bool IsNearestDing (const RLT_DING *pD, const int nD, const Int32 Level, const Int32 Beg
-    , const Int32 End);
+static bool IsNearestDing (const RLT_DING *pD, const int nD, const int32_t Level, const int32_t Beg
+    , const int32_t End);
 static void MyISort (int *p_Mas, int *p_Ind, const int n);
 static bool FindNextZveno (int *p_Mas, int *p_Row, const int n, int *p_i0, int *p_Level, int *p_Beg
     , int *p_End, const int MinVoiForCre);
-static void MakeAbsendDing (RLT_DING *pD, const Int32 Level, const Int32 Beg, const Int32 End);
+static void MakeAbsendDing (RLT_DING *pD, const int32_t Level, const int32_t Beg, const int32_t End);
 static void MakeAllAbsendDing (RLT_DING *pD1, const int nD1, const RLT_DING *pD2, const int nD2
     , char *p_Stat1, int *p_n1, bool const FromBeg, const int MinVoiForCre, const int MinLenOpory);
 static void DelFreeDing (const RLT_DING *pD1, const int nD1, const RLT_DING *pD2, const int nD2

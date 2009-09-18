@@ -101,14 +101,14 @@ Bool32 SearchAndKill ( PRSPreProcessImage Image, LinesTotalInfo *LTInfo )
 {
 	Bool32         bRet = TRUE;
 	Word32         nTagSize;
-	Int32          j;
+	int32_t          j;
 	char           str[255];
 	Rect16         ZoomRect;
-	Int32          LineCount;
+	int32_t          LineCount;
 	Point16        LinePoints[4];
 	Point16        KillPoints[4];
-	Int32          HalfThickness;
-	Int32          HalfThicknessB;
+	int32_t          HalfThickness;
+	int32_t          HalfThicknessB;
 
 	nTagSize = sizeof (LinesTotalInfo);
 
@@ -352,9 +352,9 @@ Bool32 ComponentFilter( PRSPreProcessImage Image, LineInfo *Line)
 	Bool32 GoodComp;
 	Rect16 Rc;
 	Rect16 Rl;
-	Int32 nRc = 0;
-	Int32 Filter = 0;
-	Int32 j = 0;
+	int32_t nRc = 0;
+	int32_t Filter = 0;
+	int32_t j = 0;
 	char str[255];
 	Int16 Thick = ( Line->Thickness / 2 ) + (Int16)gKillZone;
 	Bool32 bDieComponent = FALSE;
@@ -446,14 +446,14 @@ Bool32 IsRectIntersect(Rect16 *A, Rect16 *B)
 {
 	Bool32 rc = FALSE;
 
-	Int32 M1 = A->bottom >= A->top  ? A->bottom : A->top;
-	Int32 M2 = A->right  >= A->left ? A->right  : A->left;
-	Int32 m1 = A->bottom >= A->top  ? A->top    : A->bottom;
-	Int32 m2 = A->right  >= A->left ? A->left   : A->right;
-	Int32 M3 = B->bottom >= B->top  ? B->bottom : B->top;
-	Int32 M4 = B->right  >= B->left ? B->right  : B->left;
-	Int32 m3 = B->bottom >= B->top  ? B->top    : B->bottom;
-	Int32 m4 = B->right  >= B->left ? B->left   : B->right;
+	int32_t M1 = A->bottom >= A->top  ? A->bottom : A->top;
+	int32_t M2 = A->right  >= A->left ? A->right  : A->left;
+	int32_t m1 = A->bottom >= A->top  ? A->top    : A->bottom;
+	int32_t m2 = A->right  >= A->left ? A->left   : A->right;
+	int32_t M3 = B->bottom >= B->top  ? B->bottom : B->top;
+	int32_t M4 = B->right  >= B->left ? B->right  : B->left;
+	int32_t m3 = B->bottom >= B->top  ? B->top    : B->bottom;
+	int32_t m4 = B->right  >= B->left ? B->left   : B->right;
 
 	if ( ( ( ( B->top >= m1 ) && ( B->top <= M1 ) ) || ( ( B->bottom >= m1 ) && ( B->bottom <= M1 ) ) ) &&
 		 ( ( ( B->left >= m2 ) && ( B->left <= M2 ) ) || ( ( B->right >= m2 ) && ( B->right <= M2 ) ) ) )
@@ -486,13 +486,13 @@ Bool32 TuneFilter(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 //
 Bool32 ChekComponentAndLine(LineInfo *Line, Rect16 *Rect, Word32 KillZone)
 {
-	Int32 A0, B0, A1, B1;              // начало и конец линии
-	Int32 LineType;                    // Горизонтальная = 1 ( || > 1 ) или вертикальная = -1 ( || < 1 )
-	Int32 As, Bs, C;
+	int32_t A0, B0, A1, B1;              // начало и конец линии
+	int32_t LineType;                    // Горизонтальная = 1 ( || > 1 ) или вертикальная = -1 ( || < 1 )
+	int32_t As, Bs, C;
 	Bool32 bRet = FALSE;
 	Word32 wN, wP, wZ;
 	Point16  pPoints[4];
-	Int32 Zone = KillZone;
+	int32_t Zone = KillZone;
 
 	if ( Line->A.x == Line->B.x || Line->A.y == Line->B.y )
 	{
@@ -502,7 +502,7 @@ Bool32 ChekComponentAndLine(LineInfo *Line, Rect16 *Rect, Word32 KillZone)
 	if ( ! bRet )
 	{
 		Float32 temp = (Float32)(Line->A.x - Line->B.x) / (Float32)(Line->A.y - Line->B.y);
-		Int32 iTemp;
+		int32_t iTemp;
 		Word32 SecondHand = 1;
 
 		LineType = (temp > -1) && (temp < 1 ) ? -1 : 1;
@@ -520,10 +520,10 @@ Bool32 ChekComponentAndLine(LineInfo *Line, Rect16 *Rect, Word32 KillZone)
 			switch ( SecondHand )
 			{
 			case 1:
-				Zone = - ( ( (Line->Thickness + 1) / 2 ) + (Int32)KillZone );
+				Zone = - ( ( (Line->Thickness + 1) / 2 ) + (int32_t)KillZone );
 				break;
 			case 0:
-				Zone = ( ( (Line->Thickness + 1) / 2 ) + (Int32)KillZone );
+				Zone = ( ( (Line->Thickness + 1) / 2 ) + (int32_t)KillZone );
 				break;
 			default:
 				Zone = 0;
@@ -538,7 +538,7 @@ Bool32 ChekComponentAndLine(LineInfo *Line, Rect16 *Rect, Word32 KillZone)
 			Bs = B0 - B1;
 			C  = (B0 * As) - (A0 * Bs);
 
-			for ( Int32 i = 0; i < 4; i++ )
+			for ( int32_t i = 0; i < 4; i++ )
 			{
 				iTemp = ( pPoints[i].x * Bs ) - ( pPoints[i].y * As ) + C;
 
@@ -576,17 +576,17 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 
 	Float32 temp;
 	Float32 Halfs = 1.0;
-	Int32 LineType;
+	int32_t LineType;
 	Rect32 S;
 	Word32 SRect;
 	Word32 SLine;
-	Int32  iTemp;
-	Int32 A0 = Line->A.x;
-//	Int32 B0 = Line->B.y;
-	Int32 B0 = Line->A.y; //Almi 30.11.00
-	Int32 As = A0 - Line->B.x;
-	Int32 Bs = B0 - Line->B.y;
-	Int32 Thick = ((Line->Thickness + 1) / 2 ) + KillZone;
+	int32_t  iTemp;
+	int32_t A0 = Line->A.x;
+//	int32_t B0 = Line->B.y;
+	int32_t B0 = Line->A.y; //Almi 30.11.00
+	int32_t As = A0 - Line->B.x;
+	int32_t Bs = B0 - Line->B.y;
+	int32_t Thick = ((Line->Thickness + 1) / 2 ) + KillZone;
 
 	if (Rate > 255)
 		Rate = 255;
@@ -641,8 +641,8 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 			S.right  = S.left; //End Almi
 
 
-		S.bottom = S.top = B0 - (Int32)( ( (Float32)Bs / (Float32)As ) * (Float32)(A0 - S.left) );
-		iTemp = B0 - (Int32)( ( (Float32)Bs / (Float32)As ) * (Float32)(A0 - S.right) );
+		S.bottom = S.top = B0 - (int32_t)( ( (Float32)Bs / (Float32)As ) * (Float32)(A0 - S.left) );
+		iTemp = B0 - (int32_t)( ( (Float32)Bs / (Float32)As ) * (Float32)(A0 - S.right) );
 
 		S.top = S.top < iTemp ? S.top - Thick : iTemp - Thick;
 		S.bottom = S.bottom > iTemp ? S.bottom + Thick : iTemp + Thick;
@@ -675,7 +675,7 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 		SLine = 1 + (iTemp < 0 ? -iTemp : iTemp);
 		iTemp = S.right - S.left;
 		SLine *= 1 + (iTemp < 0 ? -iTemp : iTemp);
-/*		iTemp = (Int32)(Halfs * (Float32)iTemp / temp);
+/*		iTemp = (int32_t)(Halfs * (Float32)iTemp / temp);
 		SLine -= iTemp < 0 ? -iTemp : iTemp;*/
 
 		// отношение
@@ -724,8 +724,8 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 		if (S.bottom <= S.top)
 			S.bottom  = S.top; //End Almi
 
-		S.left = S.right = A0 - (Int32)( ( (Float32)As / (Float32)Bs ) * (Float32)(B0 - S.top) );
-		iTemp = A0 - (Int32)( ( (Float32)As / (Float32)Bs ) * (Float32)(B0 - S.bottom) );
+		S.left = S.right = A0 - (int32_t)( ( (Float32)As / (Float32)Bs ) * (Float32)(B0 - S.top) );
+		iTemp = A0 - (int32_t)( ( (Float32)As / (Float32)Bs ) * (Float32)(B0 - S.bottom) );
 
 		S.left = S.left < iTemp ? S.left - Thick : iTemp - Thick;
 		S.right = S.right > iTemp ? S.right + Thick : iTemp + Thick;
@@ -758,7 +758,7 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 		SLine = 1 + iTemp < 0 ? -iTemp : iTemp;
 		iTemp = 1 + S.bottom - S.top;
 		SLine *= iTemp < 0 ? -iTemp : iTemp;
-/*		iTemp = (Int32)(Halfs * (Float32)iTemp / temp);
+/*		iTemp = (int32_t)(Halfs * (Float32)iTemp / temp);
 		SLine -= iTemp < 0 ? -iTemp : iTemp;*/ //Almi
 
 		// отношение
@@ -776,7 +776,7 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-void DebugDPumaDrawRect(Handle hWindow, Point16 * Points, Word32 Color, Int32 Thickness, Word32 Group)
+void DebugDPumaDrawRect(Handle hWindow, Point16 * Points, Word32 Color, int32_t Thickness, Word32 Group)
 {
 	LDPUMA_DrawLine(hWindow, &Points[0], &Points[1], 0, Color, (Int16)Thickness, Group );
 	LDPUMA_DrawLine(hWindow, &Points[1], &Points[2], 0, Color, (Int16)Thickness, Group );
@@ -785,7 +785,7 @@ void DebugDPumaDrawRect(Handle hWindow, Point16 * Points, Word32 Color, Int32 Th
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-void DebugDPumaShowComponents(PRSPreProcessImage Image, Handle hWindow, Word32 Color, Int32 Thickness, Word32 Group)
+void DebugDPumaShowComponents(PRSPreProcessImage Image, Handle hWindow, Word32 Color, int32_t Thickness, Word32 Group)
 {
 	CCOM_comp * pcomp;
 	Rect16 Rc;

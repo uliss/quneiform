@@ -160,8 +160,8 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo)
 	CRtfString  *pRtfStringPrev, *pRtfString;
 	CRtfWord    *pRtfWord;
 	CRtfChar    *pRtfCharFirst, *pRtfCharLast;
-	Int32       CountChars  = 0;
-	Int32       LengthChars = 0;
+	int32_t       CountChars  = 0;
+	int32_t       LengthChars = 0;
 	int ns;
 
 	m_l_fragment = 32000;
@@ -781,8 +781,8 @@ BOOL CRtfFragment::DeterminationOfListType(int beg, int end)
 {
  CRtfString  *pRtfString;
 	BYTE        FlagListParagraph = 0;
- Int32       MinLeft,MaxLeft,MaxRight;
- Int32       CountMinLeft=0, CountMaxLeft=0, CountMaxRight=0;
+ int32_t       MinLeft,MaxLeft,MaxRight;
+ int32_t       CountMinLeft=0, CountMaxLeft=0, CountMaxRight=0;
  WORD        CountCentreEqual=0;
 
   GetCountEqual(beg, end, &CountCentreEqual, RTF_TP_CENTER);
@@ -853,7 +853,7 @@ return TRUE;
 
 BOOL CRtfFragment::DeterminationOfMixedFragment(RtfSectorInfo* SectorInfo)
 {
- Int32 beg=0,end;
+ int32_t beg=0,end;
  BOOL  Flag=TRUE;
 
  if(m_Attr==FALSE)
@@ -1008,7 +1008,7 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 GetNextFragmentBegEnd
 
-void CRtfFragment::GetNextFragmentBegEnd(Int32* beg, Int32* end, BOOL* Flag)
+void CRtfFragment::GetNextFragmentBegEnd(int32_t* beg, int32_t* end, BOOL* Flag)
 {
  CRtfString *pRtfString;
  int i;
@@ -1021,9 +1021,9 @@ void CRtfFragment::GetNextFragmentBegEnd(Int32* beg, Int32* end, BOOL* Flag)
   {*end=i; break;}
  }
 
- if((*end >= (Int32)m_wStringsCount) || (i >= (Int32)m_wStringsCount))
+ if((*end >= (int32_t)m_wStringsCount) || (i >= (int32_t)m_wStringsCount))
  {
-  *end= (Int32)m_wStringsCount;
+  *end= (int32_t)m_wStringsCount;
   *Flag=FALSE;
  }
 }
@@ -1042,7 +1042,7 @@ void CRtfFragment::Done(void)
 //-------------------------------------------------------------------------------------------------
 //---------------------------------  HELPER FUNCTIONS  --------------------------------------------
 //-------------------------------------------------------------------------------------------------
-void CRtfFragment::CalculationLengthAndCount(CRtfString* pRtfString, Int32* CountChars, Int32* LengthChars)
+void CRtfFragment::CalculationLengthAndCount(CRtfString* pRtfString, int32_t* CountChars, int32_t* LengthChars)
 {
  CRtfWord    *pRtfWord;
 	CRtfChar    *pRtfChar;

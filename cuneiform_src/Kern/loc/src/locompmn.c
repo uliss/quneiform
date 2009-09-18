@@ -60,8 +60,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "struct.h"
 #include "v1comp.h"
 
-BWSS *locomp_seglist(Word8* raster, BWSS *bwsp, BWSS *bwe, Int32 height, Int32 width);
-MN * c_locomp (Word8* raster, Int32 bw, Int32 h, Int16 upper, Int16 left);
+BWSS *locomp_seglist(Word8* raster, BWSS *bwsp, BWSS *bwe, int32_t height, int32_t width);
+MN * c_locomp (Word8* raster, int32_t bw, int32_t h, Int16 upper, Int16 left);
 //      Memory service
 #define MAX_BOX_NUMB            100*2
 #define MAX_INT_NUMB            32*2
@@ -101,7 +101,7 @@ static void new_line_cont();
 static void merge_line();
 static void dead_line();
 
-MN * c_locomp (Word8* raster, Int32 bw, Int32 h, Int16 upper, Int16 left)
+MN * c_locomp (Word8* raster, int32_t bw, int32_t h, Int16 upper, Int16 left)
 {
  lineno = upper-1; rast_lc = left;
  if (setjmp(locomp_err)) return NULL;

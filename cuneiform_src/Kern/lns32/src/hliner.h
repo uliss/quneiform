@@ -66,8 +66,8 @@ Bool32   HLiner_Setup( Tiger_ImageInfo* pImInf);
 void     HLiner_Done( void );
 
 Bool32   HLiner_AddImageLine( Word8* pLine );
-Int32    HLiner_Analyze(); // returns count of extracted lines
-Int32    HLiner_GetCount(void);// returns count of extracted lines
+int32_t    HLiner_Analyze(); // returns count of extracted lines
+int32_t    HLiner_GetCount(void);// returns count of extracted lines
 
 typedef struct tagLine16
 {
@@ -75,7 +75,7 @@ typedef struct tagLine16
    Point16 B;
 } Line16;
 
-Line16*  HLiner_GetLine( Int32 nLineIndex ); // 0..count-1
+Line16*  HLiner_GetLine( int32_t nLineIndex ); // 0..count-1
    // NULL - wrong index or not ready
 
 #endif   //__HLINER_H

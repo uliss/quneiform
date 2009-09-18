@@ -81,7 +81,7 @@ Bool CalcTripSkew (Rect16 *pRc, int nRc, int SkewProp, int DeltaProp
 				, Un_GYST *pEndGt, TRIP_SKEW *pTripSkew, Bool Hori, char *pStr);
 Bool CalcUgol (Rect16 *pRc, int nRc, int MaxSize, Un_GYST *pBegGt
 			, Un_GYST *pEndGt, int SkewProp, int DeltaProp, int StepProp
-			, Int32 *pSkew, double *pLent, double *pNumb, Bool Hori, int Bou
+			, int32_t *pSkew, double *pLent, double *pNumb, Bool Hori, int Bou
 			, char *pStr);
 /*---------------------------------------------------------------------------*/
 double Q_Estimate (Un_GYST *pGt)
@@ -144,8 +144,8 @@ Bool CalcTripSkew (Rect16 *pRc, int nRc, int SkewProp, int DeltaProp
 	int i;
 	double Norm, best_Q, best_N_B, best_N_M, best_N_E;
 	Bool ret;
-	Int32  SkewFirst_B, SkewFirst_M, SkewFirst_E;
-	Int32  SkewLast_B, SkewLast_M, SkewLast_E;
+	int32_t  SkewFirst_B, SkewFirst_M, SkewFirst_E;
+	int32_t  SkewLast_B, SkewLast_M, SkewLast_E;
 	/*  Определяем лучший угол.  */
 	SkewFirst_B = SkewProp-DeltaProp;
 	SkewLast_B = SkewProp-DeltaProp;
@@ -220,13 +220,13 @@ Bool CalcTripSkew (Rect16 *pRc, int nRc, int SkewProp, int DeltaProp
 /*---------------------------------------------------------------------------*/
 Bool CalcUgol (Rect16 *pRc, int nRc, int MaxSize, Un_GYST *pBegGt
 			, Un_GYST *pEndGt, int SkewProp, int DeltaProp, int StepProp
-			, Int32 *pSkew, double *pLent, double *pNumb, Bool Hori, int Bou
+			, int32_t *pSkew, double *pLent, double *pNumb, Bool Hori, int Bou
 			, char *pStr)
 {
 	int i;
 	double Norm, best_N, best_Q;
 	Bool ret;
-	Int32  SkewFirst, SkewLast;
+	int32_t  SkewFirst, SkewLast;
 	Un_GYST *pGt;
 	/*  Определяем лучший угол.  */
 	SkewFirst = SkewProp-DeltaProp;

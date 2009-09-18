@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ccom.h"
 /*----------------------------------------------------------------------------*/
 Bool FullRotatedRects_rv (void *vB, UN_DATAAIMS OldAim, UN_DATAAIMS NewAim
-					   , Int32 SkewReg, char *pStr, char *pWho);
+					   , int32_t SkewReg, char *pStr, char *pWho);
 Bool CompIsGood (CCOM_comp * pcomp, int16_t Filter);
 Bool LoadComps_rv (Handle hC, void *vB, char *pStr, int Filter);
 Bool MakeRectFromPict (Rect16 *pCurr, void *vPict);

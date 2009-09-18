@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  interface my-my      */
 #include "amt_geom.h"
 /*----------------------------------------------------------------------------*/
-void RotateRect (Rect16 *pRcRe, Rect16 *pRcId, Int32 Skew)
+void RotateRect (Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew)
 {
 	Point32 DirIdeal;
 	DirIdeal.x = (int)(.5 * (pRcRe->left + pRcRe->right + 1));
@@ -170,7 +170,7 @@ Bool CanUse (Point16 *pA, Point16 *pB, int Lev, int Lev_A, int Lev_B, int LimIsM
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-Bool HaveLinePartAtReg (Point16 *pA, Point16 *pB, Rect16 *pRc, Int32 Skew
+Bool HaveLinePartAtReg (Point16 *pA, Point16 *pB, Rect16 *pRc, int32_t Skew
 						, int NearHor, int NearVer)
 {
 	int Lev, Lev_A, Lev_B;
@@ -232,7 +232,7 @@ Bool IsRectsCross (Rect16 *pRc1, Rect16 *pRc2)
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-Bool MakeInternalRectId (Rect16 *pRcRe, Rect16 *pRcId, Int32 Skew)
+Bool MakeInternalRectId (Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew)
 {
 	Point32 LefTop, RigTop, LefBot, RigBot;
 	if ((Skew>512)||(Skew<-512))

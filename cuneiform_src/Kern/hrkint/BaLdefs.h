@@ -65,15 +65,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // входные параметры
   typedef struct tagBAL_RSTR_GLOBALS
   {
-	  Int32  language;
-	  Int32  line_number;
-	  Int32  fax1x2;
+	  int32_t  language;
+	  int32_t  line_number;
+	  int32_t  fax1x2;
 
-	  Int32  actual_resolution;
-      Int32  fEdCode ;  // ASCII
-      Int32  line_BL ;
-      Int32  spec_camera ;
-      Int32  no_linpen ;
+	  int32_t  actual_resolution;
+      int32_t  fEdCode ;  // ASCII
+      int32_t  line_BL ;
+      int32_t  spec_camera ;
+      int32_t  no_linpen ;
 
       Int16  prop_l_delta;
 	  Int16  prop_r_delta;
@@ -105,7 +105,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   typedef struct tagBAL_INOUT_GLOBALS
   {
 // наклон строки
-   Int32   nIncline;
+   int32_t   nIncline;
 // параметры строки
    INT     minrow,mincol, maxrow, maxcol;
 // получены БЛ

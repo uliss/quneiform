@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef struct tagLnsFrag
 {
-   Int32  flags;  // misc info
+   int32_t  flags;  // misc info
 #define LF_LINE   0x0001   // fragment decided in lns.dll to be line
 
 #define LF_STICK_LEFT   0x0010 // there is stick at left side - may be letter
@@ -76,7 +76,7 @@ typedef struct tagLnsFrag
 #define LF_TEXT     0x0002 // fragment seems to be part of text (can be combined with LF_LINE)
 
 
-   Int32  mass;   // count of filtered black pixels
+   int32_t  mass;   // count of filtered black pixels
    Rect16 rc;     // real image rect
    Point16 A,B;   // start and end - if ~LF_LINE - may be not linear, so...
    double Xc     ;// center of mass in real coords
@@ -168,7 +168,7 @@ typedef struct tagLineInfo
    Rect32        XYContext;     // согласование с перпендикулярными линиями
 
    //========= Привязка к выделителю (для последующего снятия,...) =====
-   Int32          ExtrDllHnd;    // внутренний номер линии от выделителя
+   int32_t          ExtrDllHnd;    // внутренний номер линии от выделителя
    Word16         Extractor;     // библиотека, выделившая линию
       #define LI_UNKNOWN   0
       #define LI_LNSDLL    1
@@ -183,7 +183,7 @@ typedef struct tagLineInfo
    Int16          IndCover;      // valid only for LI_COVERED-lines
    Word32         pFrmLineAtom;  // link to form description
    Word8          __buf[32];      // Зарезервировано, заполнено 0
-   Int32          TmpUsage;      // поле для временного использования
+   int32_t          TmpUsage;      // поле для временного использования
 
 }  LineInfo;
 
@@ -204,20 +204,20 @@ typedef struct tagLineInfo
 typedef struct tagLnsInfoArray
 {
 	LineInfo*      Lns;            // first line pointer
-   Int32          Cnt;             // total lines count
-//   Int32          SumLen;         // sum lines len (excluding noise)
-//removed   Int32          NoiseCnt;       // count of noise lines
-//   Int32          ExtCnt;         // count of extended lines
+   int32_t          Cnt;             // total lines count
+//   int32_t          SumLen;         // sum lines len (excluding noise)
+//removed   int32_t          NoiseCnt;       // count of noise lines
+//   int32_t          ExtCnt;         // count of extended lines
    char reserved[12];
 }  LnsInfoArray;
 
 typedef struct tagLCSetup
 {                                    // for 300 dpi:
-   Int32       NeglectedDelta;       // 5
-   Int32       MaxCornerGap;         // 20
-   Int32       MinExtLineFilling;    // 50 (in PERCENTS)
-   Int32       MinHLen;              //
-   Int32       MinVLen;              //
+   int32_t       NeglectedDelta;       // 5
+   int32_t       MaxCornerGap;         // 20
+   int32_t       MinExtLineFilling;    // 50 (in PERCENTS)
+   int32_t       MinHLen;              //
+   int32_t       MinVLen;              //
    // for all fields 0 - use default;
 }  LCSetup;
 
@@ -228,7 +228,7 @@ typedef struct tagLinesTotalInfo
 {
    LnsInfoArray      Hor;
    LnsInfoArray      Ver;
-   Int32             Skew1024;
+   int32_t             Skew1024;
    Point16          ImgSize;
    Point16          ImgResolution;
    LCSetup           LCS;

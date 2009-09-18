@@ -182,7 +182,7 @@ struct comp_struc
  Word8 large;               // large type
  Word8 scale;               // scale of the component
  Word8 begends;             // sum of original begs + ends
- Int32 dens;                // sum of black pixels
+ int32_t dens;                // sum of black pixels
 // 32
  //struct comp_struc * next;
 // 36
@@ -250,7 +250,7 @@ typedef struct  // == ExcBox from ExcDefs.h
  Int16 h;         // height of  comp
  Int16 w;         // width of  comp
  Word16 flag;     // some logical info
- Int32 user;     // working var for user
+ int32_t user;     // working var for user
 } gcomp;
 
 struct vers_struct      // versions with probabilities

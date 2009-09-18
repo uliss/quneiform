@@ -124,12 +124,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 typedef struct tagRSTR_info{
-    Int32   ndig, nfdig, nall, alphabet, ndollars, nplus_minus;
+    int32_t   ndig, nfdig, nall, alphabet, ndollars, nplus_minus;
     } RSTR_info;
 
    RSTR_FUNC(Bool32)  RSTRInit( MemFunc* mem );
 
-   RSTR_FUNC(Bool32)  RSTRNewPage( Int32 resolutiony, Handle myPage );
+   RSTR_FUNC(Bool32)  RSTRNewPage( int32_t resolutiony, Handle myPage );
 //   RSTR_FUNC(Bool32)  RSTRNewPage( FrhPageSetup* setup, Handle myPage );
 
    RSTR_FUNC(void)    RSTRRegisterSnpTree(
@@ -139,7 +139,7 @@ typedef struct tagRSTR_info{
 /*
    RSTR_FUNC(Bool32)  RSTRSetup(
       const FrhFieldSetup  setup,
-          Int32 pageSkew
+          int32_t pageSkew
                              );
 */
    RSTR_FUNC(void)  RSTRDone(void);
@@ -202,8 +202,8 @@ enum RSTRFunctions
     };
 
 // 1)   RSTR_FNNEWPAGE      новая страница
-typedef Bool32(*FNRSTR_NewPage)(Int32 resolutiony, Handle myPage);
-RSTR_FUNC(Bool32)  RSTR_NewPage (Int32 resolutiony, Handle myPage);
+typedef Bool32(*FNRSTR_NewPage)(int32_t resolutiony, Handle myPage);
+RSTR_FUNC(Bool32)  RSTR_NewPage (int32_t resolutiony, Handle myPage);
 //typedef Bool32(*FNRSTR_NewPage)(FrhPageSetup* setup, Handle myPage);
 //RSTR_FUNC(Bool32)  RSTR_NewPage (FrhPageSetup* setup, Handle myPage);
 // 2)   RSTR_FNSETOPTIONS   установка опций
@@ -247,8 +247,8 @@ RSTR_FUNC(Bool32)  RSTR_RecogOneLetter (RecRaster *Rs,Word8 Language,RecVersions
 typedef Bool32  (*FNRSTR_RecogContainer) (void);
 RSTR_FUNC(Bool32)  RSTR_RecogContainer (void);
 // 15   RSTR_FNRECOGONELETTERALL   распознать как букву из алфавита
-typedef Bool32  (*FNRSTR_RecogOneLetter_all) (RecRaster *Rs,char *letters,RecVersions *Vs,Int32 nType);
-RSTR_FUNC(Bool32)  RSTR_RecogOneLetter_all (RecRaster *Rs,char *letters,RecVersions *Vs,Int32 nType);
+typedef Bool32  (*FNRSTR_RecogOneLetter_all) (RecRaster *Rs,char *letters,RecVersions *Vs,int32_t nType);
+RSTR_FUNC(Bool32)  RSTR_RecogOneLetter_all (RecRaster *Rs,char *letters,RecVersions *Vs,int32_t nType);
 // 16   RSTR_FNTESTALPHABETPASS2 сбор алфавитной статистики в столбце перед вторым проходом
 typedef Bool32 (*FNRSTR_TestAlphabetPass2)(RSTR_info *str,CSTR_line lin);
 RSTR_FUNC(Bool32) RSTR_TestAlphabetPass2(RSTR_info *str,CSTR_line lin);
@@ -256,15 +256,15 @@ RSTR_FUNC(Bool32) RSTR_TestAlphabetPass2(RSTR_info *str,CSTR_line lin);
 typedef Bool32 (*FNRSTR_StudyAlphabetPass2)(RSTR_info *str);
 RSTR_FUNC(Bool32) RSTR_StudyAlphabetPass2(RSTR_info *str);
 // 18   RSTR_FNCHANGELINENUMBER   изменить номер текущей строки
-typedef Bool32 (*FNRSTR_ChangeLineNumber)(Int32 add);
-RSTR_FUNC(Bool32) RSTR_ChangeLineNumber(Int32 add);
+typedef Bool32 (*FNRSTR_ChangeLineNumber)(int32_t add);
+RSTR_FUNC(Bool32) RSTR_ChangeLineNumber(int32_t add);
 // 19   RSTR_SETSPECPRJ   установить признак спец-проекта
 typedef Bool32 (*FNRSTR_SetSpecPrj)(Word8 nSpecPrj);
 RSTR_FUNC(Bool32) RSTR_SetSpecPrj(Word8 nSpecPrj);
 
 //поделенный на части первый проход
 RSTR_FUNC(Bool32)  RSTRRecognizeMain(CSTR_line lin, CSTR_line lino);
-RSTR_FUNC(void) RSTR_Save2CTB(CSTR_line lino,Int32 type, Int16 line_num);
+RSTR_FUNC(void) RSTR_Save2CTB(CSTR_line lino,int32_t type, Int16 line_num);
 RSTR_FUNC(Bool32)  RSTRRecognizePostMain(CSTR_line lin, CSTR_line lino);
 
 #ifdef __cplusplus

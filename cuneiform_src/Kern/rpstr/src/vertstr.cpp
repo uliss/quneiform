@@ -79,7 +79,7 @@ RPSTR_FUNC(void) RPSTR_NormalizeVertStr(void)
 
  dpVertCompD=!LDPUMA_Skip(hVertCompD);
 
- Int32 version=0;
+ int32_t version=0;
  int count_str=CSTR_GetMaxNumber();
  if(!count_str)
 	 return;

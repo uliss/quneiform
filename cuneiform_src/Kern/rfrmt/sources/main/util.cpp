@@ -172,7 +172,7 @@ char * PASC  halloc_m(long n, uint size)
         heapstat("halloc_m aft");
         return p;
       #else
-       return (char*) malloc((Int32)n * size);
+       return (char*) malloc((int32_t)n * size);
       #endif
     #endif
   #else
@@ -390,7 +390,7 @@ void ProjectPoint(Point16 *r,float tg_ang)
 #endif
 
 //==
-void ProjectRect1024(Rect16 *r,Int32 Skew1024)
+void ProjectRect1024(Rect16 *r,int32_t Skew1024)
 //==
 { int xa,ya,
   #ifndef CT_SKEW
@@ -401,8 +401,8 @@ void ProjectRect1024(Rect16 *r,Int32 Skew1024)
   {
 		xa=(r->right + r->left)>>1; ya=(r->top + r->bottom)>>1;
 		#ifndef CT_SKEW
-	    xc=xa + (int)(((Int32)ya*Skew1024)/1024);
-	    yc=ya - (int)(((Int32)xa*Skew1024)/1024);
+	    xc=xa + (int)(((int32_t)ya*Skew1024)/1024);
+	    yc=ya - (int)(((int32_t)xa*Skew1024)/1024);
 	    dx=xc-xa; dy=yc-ya;
 		#else
 			Point16 pt;
@@ -415,14 +415,14 @@ void ProjectRect1024(Rect16 *r,Int32 Skew1024)
 }
 
 //==
-void ProjectPoint1024(Point16 *r,Int32 Skew1024)
+void ProjectPoint1024(Point16 *r,int32_t Skew1024)
 //==
 {
 	#ifndef CT_SKEW
 		Int16 xa,ya;
 	  xa=r->x; ya=r->y;
-	  r->x=xa + (Int16)(((Int32)ya*Skew1024)/1024);
-	  r->y=ya - (Int16)(((Int32)xa*Skew1024)/1024);
+	  r->x=xa + (Int16)(((int32_t)ya*Skew1024)/1024);
+	  r->y=ya - (Int16)(((int32_t)xa*Skew1024)/1024);
 	#else
 		Deskew(*r,-Skew1024);
 	#endif

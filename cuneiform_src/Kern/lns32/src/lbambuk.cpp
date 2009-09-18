@@ -116,7 +116,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
    PTLineFragment fragment;
 	TPuanso puanso;
 	double sum_phi = 0.0;
-   Int32 sum_len = 0;
+   int32_t sum_len = 0;
 
 	int down, up;
     int i(0);
@@ -497,8 +497,8 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
             frg->frag_handle = (short)frag_handle;
 			fragment->fragmentAsIs.start.x 	= puanso.left;
 			fragment->fragmentAsIs.end.x 	= puanso.right - 1;
-			fragment->fragmentAsIs.start.y 	=(Int32)( puanso.Yc + (puanso.left-puanso.Xc)*puanso.Phi );
-			fragment->fragmentAsIs.end.y 	=(Int32)( puanso.Yc + (puanso.right-puanso.Xc)*puanso.Phi );
+			fragment->fragmentAsIs.start.y 	=(int32_t)( puanso.Yc + (puanso.left-puanso.Xc)*puanso.Phi );
+			fragment->fragmentAsIs.end.y 	=(int32_t)( puanso.Yc + (puanso.right-puanso.Xc)*puanso.Phi );
          fragment->fragmentAsIs.width10 = (short)(puanso.aveW * 10.);
          fragment->fragmentAsIs.flags = 0;
          if (puanso.right - puanso.left > 64)
@@ -572,7 +572,7 @@ void TLinesBambuk::computeVRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 //   PTLineFragment fragment;
 	TPuanso puanso;
 	double sum_phi = 0.0;
-   Int32 sum_len = 0;
+   int32_t sum_len = 0;
 
 /// 10.02.99, VP ------- registering fragments for external usage
    Frag_VAlloc( rb->totalRasterCount() );
@@ -747,8 +747,8 @@ void TLinesBambuk::computeVRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 ////////
          frag.fragmentAsIs.start.y   = puanso.left;
          frag.fragmentAsIs.end.y  = puanso.right + 1;
-         frag.fragmentAsIs.start.x   = (Int32)( puanso.Yc + (puanso.left-puanso.Xc)*puanso.Phi );
-         frag.fragmentAsIs.end.x  = (Int32)( puanso.Yc + (puanso.right-puanso.Xc)*puanso.Phi );
+         frag.fragmentAsIs.start.x   = (int32_t)( puanso.Yc + (puanso.left-puanso.Xc)*puanso.Phi );
+         frag.fragmentAsIs.end.x  = (int32_t)( puanso.Yc + (puanso.right-puanso.Xc)*puanso.Phi );
          frag.fragmentAsIs.width10 = (short)(puanso.aveW * 10.);
          frag.fragmentAsIs.flags = 0;
          if (puanso.right - puanso.left > 64)
@@ -763,7 +763,7 @@ void TLinesBambuk::computeVRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 		}; // is a line
 
 	}; // for
-   fragmentsCount = (Int32)frag_handle;  // count of line fragments
+   fragmentsCount = (int32_t)frag_handle;  // count of line fragments
 	if (fragmentsCount > 0 && sum_len > 0)
    {
 		averagePhi = (sum_phi) / (double)(sum_len);
@@ -935,8 +935,8 @@ Bool  has_H_linked(  PLine  line, PLine  frag ){
    if (line->flags & LF_DONTLINK || frag->flags & LF_DONTLINK)
       return FALSE;
 
-   Int32 sum_len = (line->end.x - line->start.x) + (frag->end.x - frag->start.x);
-   Int32 gap = 0;
+   int32_t sum_len = (line->end.x - line->start.x) + (frag->end.x - frag->start.x);
+   int32_t gap = 0;
 
    if ( abs( line->width10 - frag->width10 ) > 15 ) // more than 1.5 pels width diff!
       return FALSE;
@@ -969,8 +969,8 @@ Bool  has_H_linked(  PLine  line, PLine  frag )
    if (line->flags & LF_DONTLINK || frag->flags & LF_DONTLINK)
       return FALSE;
 
-   Int32 sum_len = (line->end.x - line->start.x) + (frag->end.x - frag->start.x);
-   Int32 gap = 0;
+   int32_t sum_len = (line->end.x - line->start.x) + (frag->end.x - frag->start.x);
+   int32_t gap = 0;
 
    if ( abs( line->width10 - frag->width10 ) > 15 ) // more than 1.5 pels width diff!
    {
@@ -1100,20 +1100,20 @@ Bool  has_V_linked(  PLine  line, PLine  frag ){
       return FALSE;
 
 
-   Int32 sum_len = (line->end.y - line->start.y) + (frag->end.y - frag->start.y);
+   int32_t sum_len = (line->end.y - line->start.y) + (frag->end.y - frag->start.y);
 
 	PLine fst = frag->start.y < line->start.y ? frag : line;
 	PLine sec = frag->start.y < line->start.y ? line : frag;
 
 	int min_len = MIN( line_length(fst), line_length(sec) );
 	// test delta
-	Int32 delta =	abs(fst->end.x - sec->start.x);
+	int32_t delta =	abs(fst->end.x - sec->start.x);
 	int delta_limit = (min_len < 50) ? 5 : 10;
 	if (delta > delta_limit)
 		return FALSE;
 
 	// test gap
-	Int32 gap   =	abs(fst->end.y - sec->start.y);
+	int32_t gap   =	abs(fst->end.y - sec->start.y);
 	int gap_limit = (min_len < 50) ? 15 : 30;
 
    if (gap > gap_limit)

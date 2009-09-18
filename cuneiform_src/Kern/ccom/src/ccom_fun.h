@@ -62,4 +62,4 @@ Bool32 Linerep2ExtRaster(CCOM_lnhead *linerep, Int16 size,
                       RecRaster *rec);
 Bool32 Linerep2ScaleRaster(CCOM_lnhead *linerep, Int16 size,
                       Int16 w, Int16 h, Int16 c, Int16 r,
-                      RecRaster *rec,Int32 scale);
+                      RecRaster *rec,int32_t scale);

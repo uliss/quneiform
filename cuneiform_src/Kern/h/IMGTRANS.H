@@ -66,7 +66,7 @@ extern "C" {
 PPS_FUNC( Err16 )  ImageTransfer (
                       TImgImport *from,
                       TImgExport *to, // may be NULL
-                      Int32   buff_size
+                      int32_t   buff_size
                       );
 
 #ifdef __cplusplus

@@ -281,10 +281,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
    static int    SnpLog( const char* s, ...) { return 0;};
    static void   SnpStatusLine( char* s, ...){;};
-   static void   SnpDrawRect(Rect16* rc, Int32 skew, Word32 rgb_color,
-      Int32 pen_width,Word32 key){;};
+   static void   SnpDrawRect(Rect16* rc, int32_t skew, Word32 rgb_color,
+      int32_t pen_width,Word32 key){;};
    static void   SnpHideRects(Word32 key){;};
-   static void   SnpDrawLine(Point16* start, Point16* end, Int32 skew,
+   static void   SnpDrawLine(Point16* start, Point16* end, int32_t skew,
       Word32 rgb_color,Int16 pen_width,Word32 key ){;};
    static void   SnpHideLines(Handle key){;};
    static void   SnpDrawFocusRect(Rect16* rc){;};
@@ -299,7 +299,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    static Bool16 SnpGetUserString (char * static_text,
       char * result_string, Word32 result_string_length ){ return FALSE; };
    static Bool16 SnpGetUserLong(char * static_text,
-      Int32 * result_long) { return FALSE;};
+      int32_t * result_long) { return FALSE;};
    static Bool16 SnpGetUserRect( Rect16* rect ){return FALSE;};
    static Bool16 SnpGetUserPoint(Point16* pnt){return FALSE;};
    static Word32 SnpWaitUserInput(SnpTreeNode* cur_node)
@@ -319,10 +319,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
        int    SnpLog( const char* s, ...);
        void   SnpStatusLine( char* s, ...);
-       void   SnpDrawRect(Rect16* rc, Int32 skew, Word32 rgb_color,
-         Int32 pen_width,Word32 key);
+       void   SnpDrawRect(Rect16* rc, int32_t skew, Word32 rgb_color,
+         int32_t pen_width,Word32 key);
        void   SnpHideRects(Word32 key);
-       void   SnpDrawLine(Point16* start, Point16* end, Int32 skew,
+       void   SnpDrawLine(Point16* start, Point16* end, int32_t skew,
          Word32 rgb_color,Int16 pen_width, Handle key );
        void   SnpHideLines(Handle key);
        void   SnpDrawFocusRect(Rect16* rc);
@@ -336,7 +336,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
        Bool16 SnpGetUserString (char * _text,
          char * result_string, Word32 result_string_length );
        Bool16 SnpGetUserLong(char * _text,
-         Int32 * result_long);
+         int32_t * result_long);
        Bool16 SnpGetUserRect( Rect16* rect );
        Bool16 SnpGetUserPoint(Point16* pnt);
        Word32 SnpWaitUserInput(SnpTreeNode* cur_node);
@@ -362,10 +362,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    void SnpSetTools(__SnpToolBox* tools);
    Bool SnpIsActive(void);
 
-   void   SnpDrawRect(Rect16* rc, Int32 skew, Word32 rgb_color,
-      Int32 pen_width,Word32 key);
+   void   SnpDrawRect(Rect16* rc, int32_t skew, Word32 rgb_color,
+      int32_t pen_width,Word32 key);
    void   SnpHideRects(Word32 key);
-   void   SnpDrawLine(Point16* start, Point16* end, Int32 skew,
+   void   SnpDrawLine(Point16* start, Point16* end, int32_t skew,
       Word32 rgb_color, Int16 pen_width, Handle key );
    void   SnpHideLines(Handle key);
    void   SnpDrawFocusRect(Rect16* rc);
@@ -379,7 +379,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    Bool16 SnpGetUserString (char * static_text,
       char * result_string, Word32 result_string_length );
    Bool16 SnpGetUserLong(char * static_text,
-      Int32 * result_long);
+      int32_t * result_long);
    Bool16 SnpGetUserRect( Rect16* rect );
    Bool16 SnpGetUserPoint(Point16* pnt);
    Word32 SnpWaitUserInput(SnpTreeNode* cur_node);

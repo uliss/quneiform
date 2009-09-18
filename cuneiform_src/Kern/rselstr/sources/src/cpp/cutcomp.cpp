@@ -702,7 +702,7 @@ Handle GetStrCCOM(Handle hCPage, Word8* ImageName, Rect16 Rc, BOOL neg,
 		 if (!RRECCOM_Recog(hCCOM, rcontrol, NULL, -1))
 		 LDPUMA_ConsoleN(RRECCOM_GetReturnString(RRECCOM_GetReturnCode()));
 
-		 return (Int32)hCCOM;
+		 return (int32_t)hCCOM;
 		 */return REXCGetContainer();
 	}
 	return 0;

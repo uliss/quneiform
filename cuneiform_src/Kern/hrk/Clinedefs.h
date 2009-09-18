@@ -71,7 +71,7 @@ typedef void* CLINE_handle;
 
 typedef union
 {
-	struct {NR_PoinLine data;Int32 res[2];} point_line;
+	struct {NR_PoinLine data;int32_t res[2];} point_line;
 	struct {NR_DefiLine data;} defi_line;
 } SPECLINE;
 
@@ -83,8 +83,8 @@ typedef struct SL_POLOY_struct
 
 typedef struct Interval_Data_struct
 {
-  Int32  Pos;
-  Int32  Lent;
+  int32_t  Pos;
+  int32_t  Lent;
 } DInterval;
 
 typedef const DInterval* CPDInterval;
@@ -93,9 +93,9 @@ typedef struct Event_Data_struct
 {
   Bool32          Hori;                    //гориз.(1) или вертик.(0)
   Bool32          Increase;                //наращивать или уменьшать уровень
-  Int32           Lev_0;                   //уровень первого интервала
+  int32_t           Lev_0;                   //уровень первого интервала
   int             Width;
-  Int32           EventLength;
+  int32_t           EventLength;
 } DEvent;
 
 typedef const DEvent* CPDEvent;
@@ -108,7 +108,7 @@ typedef const DEvent* CPDEvent;
 typedef struct CutPoint_Data_struct
 {
   Bool32           Direction;
-  Int32            Level;                            //уровень полосы
+  int32_t            Level;                            //уровень полосы
   Word8            reserv;
 } DCutPoint;
 
@@ -121,8 +121,8 @@ typedef const DCutPoint* CPDCutPoint;
 typedef struct Component_Data_struct
 {
   Bool32    CrossPointFlag;
-  Int32     BeginPoint;
-  Int32     EndPoint;
+  int32_t     BeginPoint;
+  int32_t     EndPoint;
 } DComponent;
 
 typedef const DComponent* CPDComponent;
@@ -141,7 +141,7 @@ typedef struct Line_Data_struct
   Word32          Tail;                    // остаток линии за таблицой
   Rect32          rect;                    // прямоугольник линии
   Bool32          ProcessingType;          // тип обработки линии(гор. или верт.)
-  Int32           LineEventsLength;        // сумма черных точек линии
+  int32_t           LineEventsLength;        // сумма черных точек линии
   double          Degree;
   Handle           RelationshipIndex;       // индекс коробки компонент
   Bool32          FlagCalculatedWidth;
@@ -151,14 +151,14 @@ typedef struct Line_Data_struct
   Bool32          FlagLongStrip;
 
   NR_SimpLine     Line;                    // простейшее описание линии
-  Int32           Status;                  // история линии в программе
+  int32_t           Status;                  // история линии в программе
   NORM_DATATYPES  Type;                    // *Unknown, *Simple, *Defis, *Pointed
   LINE_DIR        Dir;
   char            Qual;                    // quality (or estimation) at percents
   char            Dens;                    // density at percents
   SPECLINE        Specline;                // (NR_DefiLine), (NR_PoinLine)
   CLINE_SL_POLY   poly;
-  Int32           n_event;                 //число ивентов
+  int32_t           n_event;                 //число ивентов
   DLns            lns_data;
 } DLine;
 

@@ -77,7 +77,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define Word16_BIT_SIZE   16
 
 #ifndef NDEBUG
-	Int32 tot_seg_extracted = 0;
+	int32_t tot_seg_extracted = 0;
 #endif
 
 	static Word16 left_pixel_ = 1;           // left border in pixels [1..)

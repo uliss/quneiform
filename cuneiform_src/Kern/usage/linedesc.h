@@ -124,6 +124,6 @@ typedef struct tagRLT_LINEPOOL
 	RLT_LINE  *pLine;
 }RLT_LINEPOOL;
 /*---------------------------------------------------------------------------*/
-void AnalOfMyLines (RLT_LINEPOOL *pLinePool, const Int32 Skew);
+void AnalOfMyLines (RLT_LINEPOOL *pLinePool, const int32_t Skew);
 RLT_LINEDIR_TYPE LineSect (const char Type);
-bool FindLinesReg ( const void *p_vB, Rect16 *pRcLin,  const Int32 SkewReg);
+bool FindLinesReg ( const void *p_vB, Rect16 *pRcLin,  const int32_t SkewReg);

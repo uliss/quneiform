@@ -91,8 +91,8 @@ Bool32 Layout(PWord8 lpdata)
 {
 	Bool32 rc = TRUE;
 	int nBlock = 0;
-	Int32  Nominator = 0;   // числитель
-	Int32  Denominator = 0;	// знаменатель определяемого угла поворота
+	int32_t  Nominator = 0;   // числитель
+	int32_t  Denominator = 0;	// знаменатель определяемого угла поворота
 
 	RSCBProgressPoints CBforRS;
 	RSPreProcessImage  DataforRS;

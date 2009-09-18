@@ -84,8 +84,8 @@ CDezaBinarizator::~CDezaBinarizator()
 
 Word32 CDezaBinarizator::OpenTrackBin(PCTBINTigerImageInfo Info, CRIBinarizator *pCaller, Word32 tip1)
 {
-	Int32 lenpor;
-	Int32 i;
+	int32_t lenpor;
+	int32_t i;
 
 	mpBinarizatorControl = pCaller;
 
@@ -134,13 +134,13 @@ Word32 CDezaBinarizator::OpenTrackBin(PCTBINTigerImageInfo Info, CRIBinarizator 
 	return(1);
 }
 
-PWord8 CDezaBinarizator::Black_file(PWord8 anPblack, Int32 stry)
+PWord8 CDezaBinarizator::Black_file(PWord8 anPblack, int32_t stry)
 {
 	Word32 ir = 0;
 	PWord8 regPtb = ptb;
 	PWord8 ptbend;
 	PWord8 pblack = anPblack;
-	Int32 shby = 0, shift = 0;
+	int32_t shby = 0, shift = 0;
 
 	for ( regPtb = ptgrey, ptbend = regPtb+spx*stry; regPtb != ptbend; regPtb++ )
 	{
@@ -177,11 +177,11 @@ PWord8 CDezaBinarizator::Black_file(PWord8 anPblack, Int32 stry)
 	*/
 }
 
-Int32 CDezaBinarizator::Our1(Int32 spr)
+int32_t CDezaBinarizator::Our1(int32_t spr)
 {
     PWord8 regPtb;
     Word8 regUrov;
-    Int32 regSpx = spx;
+    int32_t regSpx = spx;
 
     ypor=spr;
     bufmark[0]=bufmark[1]=0;
@@ -250,7 +250,7 @@ Int32 CDezaBinarizator::Our1(Int32 spr)
 	*/
 }
 
-Int32 CDezaBinarizator::Xygo(Int32 x1, Int32 y1)
+int32_t CDezaBinarizator::Xygo(int32_t x1, int32_t y1)
 {
 	if (y1 >= ypor || y1 < 0 || x1 >= spx || x1 < 0)
 		return(0);
@@ -261,9 +261,9 @@ Int32 CDezaBinarizator::Xygo(Int32 x1, Int32 y1)
 	return(1);
 }
 
-Int32 CDezaBinarizator::Grey_black()
+int32_t CDezaBinarizator::Grey_black()
 {
-	Int32 spypic, sy2, spybg;
+	int32_t spypic, sy2, spybg;
 
 	spybg = spypic = ((sy1 + nstrb) <= spy) ? nstrb : (spy-sy1);
 	sy2 = ((sy1 + nstr) <= spy) ? nstr : (spy - sy1);
@@ -289,9 +289,9 @@ Int32 CDezaBinarizator::Grey_black()
 	return(spybg);
 }
 
-Int32 CDezaBinarizator::Elem_st()
+int32_t CDezaBinarizator::Elem_st()
 {
-	Int32 i;
+	int32_t i;
 
 	if (Xygo(st[indbeg], st[indbeg+1]+1)==0)
 		return(0);
@@ -341,9 +341,9 @@ Int32 CDezaBinarizator::Elem_st()
 	return(1);
 }
 
-Int32 CDezaBinarizator::Read_por_first()
+int32_t CDezaBinarizator::Read_por_first()
 {
-	Int32 str, i, j;
+	int32_t str, i, j;
 
 	i = spy>>1;
 	str = (nstr<i) ? nstr:i;
@@ -379,10 +379,10 @@ Int32 CDezaBinarizator::Read_por_first()
 	return(1);
 }
 
-Int32 CDezaBinarizator::Get1()
+int32_t CDezaBinarizator::Get1()
 {
-	Int32 i, j, imax, lg1, pg1, lg2, pg2, pgn;
-	Int32 irl, srz, chet[256], srz1, srz2;
+	int32_t i, j, imax, lg1, pg1, lg2, pg2, pgn;
+	int32_t irl, srz, chet[256], srz1, srz2;
 
 	for (i=0; i<256; i++)
 		chet[i]=chet_color[i];
@@ -555,7 +555,7 @@ void CDezaBinarizator::Left_str()
 
 void CDezaBinarizator::Stek()
 {
-	Int32 r, ir;
+	int32_t r, ir;
 
 	if (indend==BUFS)
 	{
@@ -563,7 +563,7 @@ void CDezaBinarizator::Stek()
 			indend=0;
 		else
 		{
-			for (r = indbeg, ir = 0; r < (Int32)indend; r++, ir++)
+			for (r = indbeg, ir = 0; r < (int32_t)indend; r++, ir++)
 				st[ir]=st[r];
 
 			indend-=indbeg;
@@ -573,12 +573,12 @@ void CDezaBinarizator::Stek()
 	}
 }
 
-void CDezaBinarizator::Raspred(Int32 str)
+void CDezaBinarizator::Raspred(int32_t str)
 {
 	PWord8 regPtb;
 	Word8 regLg0 = lg0;
 	Word32 i, lineCount;
-	Int32 l;
+	int32_t l;
 
 	l = chet_color[lg0i];
 
@@ -613,12 +613,12 @@ void CDezaBinarizator::Raspred(Int32 str)
 	*/
 }
 
-void CDezaBinarizator::Ras1_pred(Int32 str)
+void CDezaBinarizator::Ras1_pred(int32_t str)
 {
 	PWord8 regPtb;
-    Int32 i;
-	Int32 regSpx2 = spx2;
-	Int32 lineCount;
+    int32_t i;
+	int32_t regSpx2 = spx2;
+	int32_t lineCount;
 
     for ( lineCount = str, regPtb=ptgrey; lineCount > 0 ; lineCount-- )
 	{
@@ -643,9 +643,9 @@ void CDezaBinarizator::Ras1_pred(Int32 str)
 	*/
 }
 
-Int32 CDezaBinarizator::GetBinarized(PWord8 ptbl, Word32 lenbl)
+int32_t CDezaBinarizator::GetBinarized(PWord8 ptbl, Word32 lenbl)
 {
-	Int32 spybr, ret, nstrb1;
+	int32_t spybr, ret, nstrb1;
 	PWord8 ptbend;
 
 	spybr  = lenbl/spx1;
@@ -692,7 +692,7 @@ Int32 CDezaBinarizator::GetBinarized(PWord8 ptbl, Word32 lenbl)
 	} while( TRUE );         //goto GB1;
 }
 
-Int32 CDezaBinarizator::CloseTrackBin()
+int32_t CDezaBinarizator::CloseTrackBin()
 {
 	DB_FREE(ptgrey);
 	DB_FREE(ptbosn);

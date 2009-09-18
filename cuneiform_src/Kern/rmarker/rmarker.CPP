@@ -136,8 +136,8 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
 {
 
 	LDPUMA_Skip(hPrep);
-//	Int32  Nominator = 0;   // числитель
-//	Int32  Denominator = 0;	// знаменатель определяемого угла поворота
+//	int32_t  Nominator = 0;   // числитель
+//	int32_t  Denominator = 0;	// знаменатель определяемого угла поворота
 	PAGEINFO           PInfo = {0};
 	Bool32 rc=TRUE;
 

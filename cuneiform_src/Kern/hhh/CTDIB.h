@@ -88,20 +88,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 typedef struct tagCTDIBBITMAPINFOHEADER
 { // bmih
 	Word32        biSize;
-    Int32         biWidth;
-	Int32         biHeight;
+    int32_t         biWidth;
+	int32_t         biHeight;
 	Word16        biPlanes;
     Word16        biBitCount;
     Word32        biCompression;
     Word32        biSizeImage;
-    Int32         biXPelsPerMeter;
-	Int32         biYPelsPerMeter;
+    int32_t         biXPelsPerMeter;
+	int32_t         biYPelsPerMeter;
 	Word32        biClrUsed;
     Word32        biClrImportant;
 } CTDIBBITMAPINFOHEADER, *PCTDIBBITMAPINFOHEADER, **PPCTDIBBITMAPINFOHEADER;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-typedef Int32     CTDIBPOINTCOORDINATE, *PCTDIBPOINTCOORDINATE;
+typedef int32_t     CTDIBPOINTCOORDINATE, *PCTDIBPOINTCOORDINATE;
 typedef struct tagCTDIBCIEXYZ
 {
         CTDIBPOINTCOORDINATE ciexyzX;
@@ -118,14 +118,14 @@ typedef struct tagCTDIBICEXYZTRIPLE
 // DIB version 4 header (lenght - 108 bytes)
 typedef struct tagCTDIBBITMAPV4HEADER
 {   Word32             bV4Size;
-	Int32              bV4Width;
-    Int32              bV4Height;
+	int32_t              bV4Width;
+    int32_t              bV4Height;
 	Word16             bV4Planes;
     Word16             bV4BitCount;
 	Word32             bV4V4Compression;
     Word32             bV4SizeImage;
-	Int32              bV4XPelsPerMeter;
-    Int32              bV4YPelsPerMeter;
+	int32_t              bV4XPelsPerMeter;
+    int32_t              bV4YPelsPerMeter;
 	Word32             bV4ClrUsed;
     Word32             bV4ClrImportant;
 	Word32             bV4RedMask;
@@ -143,14 +143,14 @@ typedef struct tagCTDIBBITMAPV4HEADER
 typedef struct tagCTDIBBITMAPV5HEADER
 {
 	Word32             bV5Size;
-	Int32              bV5Width;
-    Int32              bV5Height;
+	int32_t              bV5Width;
+    int32_t              bV5Height;
 	Word16             bV5Planes;
     Word16             bV5BitCount;
 	Word32             bV5Compression;
     Word32             bV5SizeImage;
-	Int32              bV5XPelsPerMeter;
-    Int32              bV5YPelsPerMeter;
+	int32_t              bV5XPelsPerMeter;
+    int32_t              bV5YPelsPerMeter;
 	Word32             bV5ClrUsed;
     Word32             bV5ClrImportant;
 	Word32             bV5RedMask;
@@ -302,7 +302,7 @@ public:
 	// void   (*PCTDIBMemUnlock)(Handle);
 	RDIB_FUNC(Bool32) SetExternals(PCTDIBMemAlloc pfAlloc, PCTDIBMemFree pfFree, PCTDIBMemLock pfLock, PCTDIBMemUnlock pfUnlock);
 	// start to create new DIB
-	RDIB_FUNC(Handle) CreateDIBBegin(Int32 Width, Int32 Height, Word32 BitCount, Word32 UseColors = 0, CTDIBVersion dVersion = WindowsVersion);
+	RDIB_FUNC(Handle) CreateDIBBegin(int32_t Width, int32_t Height, Word32 BitCount, Word32 UseColors = 0, CTDIBVersion dVersion = WindowsVersion);
 	// end of creating DIB
 	RDIB_FUNC(Bool32) CreateDIBEnd(void);
 	// Free memory if DIB created by this class
@@ -325,9 +325,9 @@ public:
 	// get version of DIB
 	RDIB_FUNC(Word32) GetDIBVersion();
 	// return image width in pixels
-	RDIB_FUNC(Int32) GetImageWidth();
+	RDIB_FUNC(int32_t) GetImageWidth();
 	// return image height in pixels
-	RDIB_FUNC(Int32) GetImageHeight();
+	RDIB_FUNC(int32_t) GetImageHeight();
 	// return image width in pixels
 	RDIB_FUNC(Word32) GetLineWidth();
 	// return image width in bytes forsed to 4

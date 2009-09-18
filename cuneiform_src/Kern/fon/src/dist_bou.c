@@ -1860,7 +1860,7 @@ FON_FUNC(int) FONRecogGlue(CSTR_rast firLeo,CSTR_rast lasLeo,
 ////////////////
 static RECS2 recs2[2];
 ////////////
-FON_FUNC(Int32) FONRecog2Glue(CSTR_rast firLeo,CSTR_rast lasLeo,
+FON_FUNC(int32_t) FONRecog2Glue(CSTR_rast firLeo,CSTR_rast lasLeo,
 							  CSTR_rast firOut,CSTR_rast lasOut,
 						    int lang,
 							int porog, int nNaklon, int countRazmaz)
@@ -2054,7 +2054,7 @@ FON_FUNC(Int32) FONRecog2Glue(CSTR_rast firLeo,CSTR_rast lasLeo,
 
 #endif
 ///////////////////
-FON_FUNC(Int32) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
+FON_FUNC(int32_t) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
 							  CSTR_rast firOut,CSTR_rast lasOut,
 						    int lang,
 							int porog, int nNaklon, int nRazmaz)

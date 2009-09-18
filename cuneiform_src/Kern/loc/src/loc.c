@@ -84,15 +84,15 @@ extern version* start_rec;   // ptr to answer
 extern Word8 lpool[];
 extern Word8 evline[], evline1[];
 
-extern MN * c_locomp (Word8* raster, Int32 bw, Int32 h, Int16 upper, Int16 left);
+extern MN * c_locomp (Word8* raster, int32_t bw, int32_t h, Int16 upper, Int16 left);
 extern void MN_to_line(MN *);
-extern Int32 recog_letter(void);
-extern Int32 recog_letter_lp(ExtComponent *ec, Word8 *lp,Word16 lth);
+extern int32_t recog_letter(void);
+extern int32_t recog_letter_lp(ExtComponent *ec, Word8 *lp,Word16 lth);
 
 
 static void *EvnAlloc(Word32 len) { return malloc(len); }
 static void  EvnFree(void *ptr,Word32 len) { free(ptr); }
-static Int32 GetFileLength(Int32 handle) { return filelength(handle);}
+static int32_t GetFileLength(int32_t handle) { return filelength(handle);}
 
 static void* (*my_alloc)(Word32 len)=EvnAlloc;
 static void  (*my_free)(void *ptr,Word32 len)=EvnFree;
@@ -125,7 +125,7 @@ return evn_error_code;
 Word8 evn_multy_lpool[6000+2];
 
 
-LOC_FUNC(MN *) LOC_CLocomp (Word8* raster, Int32 bw, Int32 h, Int16 upper, Int16 left)
+LOC_FUNC(MN *) LOC_CLocomp (Word8* raster, int32_t bw, int32_t h, Int16 upper, Int16 left)
 {
   return c_locomp (raster,bw,h,upper,left);
 }

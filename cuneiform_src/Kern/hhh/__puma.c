@@ -266,7 +266,7 @@ Bool32 LPUMA_XFinalRecognition( void )
         return rc;
 }
 //////////////////////////////////////////////////////////////////
-Bool32 LPUMA_XSave(const char * lpOutFileName, Int32 lnFormat, Int32 lnCode )
+Bool32 LPUMA_XSave(const char * lpOutFileName, int32_t lnFormat, int32_t lnCode )
 {
         Bool32 rc = FALSE;
         if(s_hLib && XSave)
@@ -587,49 +587,49 @@ char *  LPUMA_GetVersion()
 return rc;
 }
 //////////////////////////////////////////////////////////////////
-Int32  LPUMA_EnumLanguages(Int32 nPrev )
+int32_t  LPUMA_EnumLanguages(int32_t nPrev )
 {
-        Int32 rc = -1;
+        int32_t rc = -1;
         if(s_hLib && EnumLanguages)
                 rc = EnumLanguages(nPrev);
         return rc;
 }
 //////////////////////////////////////////////////////////////////
-Int32  LPUMA_EnumFormats(Int32 nPrev )
+int32_t  LPUMA_EnumFormats(int32_t nPrev )
 {
-        Int32 rc = -1;
+        int32_t rc = -1;
         if(s_hLib && EnumFormats)
                 rc = EnumFormats(nPrev );
         return rc;
 }
 //////////////////////////////////////////////////////////////////
-Int32  LPUMA_EnumCodes(Int32 format, Int32 nPrev )
+int32_t  LPUMA_EnumCodes(int32_t format, int32_t nPrev )
 {
-        Int32 rc = -1;
+        int32_t rc = -1;
         if(s_hLib && EnumCodes)
                 rc = EnumCodes(format,nPrev);
         return rc;
 }
 //////////////////////////////////////////////////////////////////
-Int32  LPUMA_EnumFormatMode(Int32 nPrev )
+int32_t  LPUMA_EnumFormatMode(int32_t nPrev )
 {
-        Int32 rc = -1;
+        int32_t rc = -1;
         if(s_hLib && EnumFormatMode)
                 rc = EnumFormatMode(nPrev );
         return rc;
 }
 //////////////////////////////////////////////////////////////////
-Int32  LPUMA_EnumTable(Int32 nPrev )
+int32_t  LPUMA_EnumTable(int32_t nPrev )
 {
-        Int32 rc = -1;
+        int32_t rc = -1;
         if(s_hLib && EnumTable)
                 rc = EnumTable(nPrev );
         return rc;
 }
 //////////////////////////////////////////////////////////////////
-Int32  LPUMA_EnumPicture(Int32 nPrev )
+int32_t  LPUMA_EnumPicture(int32_t nPrev )
 {
-        Int32 rc = -1;
+        int32_t rc = -1;
         if(s_hLib && EnumPicture)
                 rc = EnumPicture(nPrev );
         return rc;
@@ -778,7 +778,7 @@ Handle  LPUMA_GetCurrentEdPage()
 return rc;
 }
 //////////////////////////////////////////////////////////////////
-Bool32 LPUMA_Save(Handle hEdPage, const char * lpOutFileName, Int32 lnFormat, Int32 lnCode, Bool32 bAppend )
+Bool32 LPUMA_Save(Handle hEdPage, const char * lpOutFileName, int32_t lnFormat, int32_t lnCode, Bool32 bAppend )
 {
         Bool32 rc = FALSE;
         if(s_hLib && fnSave)
@@ -816,7 +816,7 @@ Bool32    LPUMA_XOpenClbk(PUMAIMAGECALLBACK CallBack,const char * lpFileName)
 return rc;
 }
 //////////////////////////////////////////////////////////////////
-Word32 LPUMA_SaveToMemory(Handle hEdPage, Int32 lnFormat, Int32 lnCode, char * lpMem, Word32 size )
+Word32 LPUMA_SaveToMemory(Handle hEdPage, int32_t lnFormat, int32_t lnCode, char * lpMem, Word32 size )
 {
         Bool32 rc = FALSE;
         if(s_hLib && fnSaveToMemory)
@@ -841,7 +841,7 @@ return rc;
 }
 #endif
 ///////////////////////////
-void    LPUMA_GetSpecialBuffer(char * szResult,Int32 *nResultLength)
+void    LPUMA_GetSpecialBuffer(char * szResult,int32_t *nResultLength)
 {
         if(s_hLib && fnGetSpecialBuffer)
         {

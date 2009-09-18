@@ -142,8 +142,8 @@ TBambuk< TLineFragment >( rb->totalRasterCount()
 
 ~TLinesBambuk( void ) { destroy(); };
 
-Int32 fragmentsCount;
-Int32 linesCount;     // result count of lines
+int32_t fragmentsCount;
+int32_t linesCount;     // result count of lines
 double averagePhi;
 
 Bool isOk( void ) { return (TBambuk< TLineFragment >::isOk() && ok); };

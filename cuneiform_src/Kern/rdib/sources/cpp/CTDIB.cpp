@@ -223,7 +223,7 @@ Bool32 CTDIB::IsDIBAvailable()
 	return IsAvailable;
 }
 //////////////////  !
-Int32 CTDIB::GetImageHeight()
+int32_t CTDIB::GetImageHeight()
 {
 	CTDIB_IFNODIB(0);
 
@@ -238,7 +238,7 @@ Word32 CTDIB::GetLinesNumber()
 }
 //////////////////  !
 
-Int32 CTDIB::GetImageWidth()
+int32_t CTDIB::GetImageWidth()
 {
 	CTDIB_IFNODIB(0);
 	return ((PCTDIBBITMAPINFOHEADER)pDIBHeader)->biWidth;
@@ -286,7 +286,7 @@ Word32 CTDIB::GetPixelSize()
 }
 ///////////////////////////////////////////////////////////////////////
 //
-Handle CTDIB::CreateDIBBegin(Int32 Width, Int32 Height, Word32 BitCount, Word32 UseColors, CTDIBVersion dVersion)
+Handle CTDIB::CreateDIBBegin(int32_t Width, int32_t Height, Word32 BitCount, Word32 UseColors, CTDIBVersion dVersion)
 {
 	#define DELETE_PHEADER(a)                if ( a )  delete a;
 

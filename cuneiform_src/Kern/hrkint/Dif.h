@@ -82,7 +82,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       // Start Initialization; TRUE - OK
       // for mem==NULL need used internal memory functions from DLL
       // New call - after close library without DIFDone
-   DIF_FUNC(void)  DIFSetFont( Int32 typ_of_font);
+   DIF_FUNC(void)  DIFSetFont( int32_t typ_of_font);
 
    DIF_FUNC(Bool32)  DIFSetAlphabet(
         char*     char_tbl_put_to ); // char table[0-255]
@@ -97,7 +97,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       Word8*      pool,
       RecVersions* DIFres );  // acuracy
 
-  DIF_FUNC(Int32)  DIFGet_incline( RecRaster*  r, Word8 *pool);
+  DIF_FUNC(int32_t)  DIFGet_incline( RecRaster*  r, Word8 *pool);
 
    DIF_FUNC(void)  DIFDone(void);
       // Stop function. Call after DIFInit()

@@ -3,7 +3,7 @@
 #include "rpstr/src/capdrop/cap_drop.h"
 
 int main(int argc, char **argv) {
-    Int32 version, i;
+    int32_t version, i;
     CSTR_line ln_cd, ln_main;
     capdrop_collection(version, i, ln_cd, ln_main);
     /*struct vers_ref foo;*/

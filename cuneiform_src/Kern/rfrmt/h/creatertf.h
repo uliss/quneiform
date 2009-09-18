@@ -203,8 +203,8 @@ public:
   void                 Rtf_CED_CreatePage(void);
   void                 Rtf_CED_WriteFormattedEd( const char* FileNameOut, Handle* );
   WORD                 GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector* pRtfNextSector);
-  void                 SetPaperSize(Int32 LeftPos,Int32 RightPos,Int32 TopPos,Int32 BottomPos,Int32* PaperW,Int32* PaperH,
-																												        Int32* MargL,Int32* MargR,Int32* MargT,Int32* MargB);
+  void                 SetPaperSize(int32_t LeftPos,int32_t RightPos,int32_t TopPos,int32_t BottomPos,int32_t* PaperW,int32_t* PaperH,
+																												        int32_t* MargL,int32_t* MargR,int32_t* MargT,int32_t* MargB);
 
   /*CObArray*/std::vector<CRtfFragment*>	            m_arFragments;
   /*CObArray*/std::vector<CRtfSector*>	            m_arSectors;
@@ -215,17 +215,17 @@ public:
 		float                m_fTwips;
   RECT	               m_rect;
   RECT	               m_rectReal;
-  Int32                PaperW;
-		Int32                PaperH;
-		Int32                MargL;
-		Int32                MargR;
-		Int32                MargT;
-		Int32                MargB;
+  int32_t                PaperW;
+		int32_t                PaperH;
+		int32_t                MargL;
+		int32_t                MargR;
+		int32_t                MargT;
+		int32_t                MargB;
 
-		Int32                InitMargL;
-		Int32                InitMargR;
-		Int32                InitMargT;
-		Int32                InitMargB;
+		int32_t                InitMargL;
+		int32_t                InitMargR;
+		int32_t                InitMargT;
+		int32_t                InitMargB;
 
 		BYTE                 FlagBadColumn;
   int		                m_nIndex;
@@ -263,7 +263,7 @@ public:
   void                 Done(void);
 
   BOOL                 DeterminationOfMixedFragment(RtfSectorInfo* SectorInfo);
-  void                 GetNextFragmentBegEnd(Int32* beg, Int32* end, BOOL* Flag);
+  void                 GetNextFragmentBegEnd(int32_t* beg, int32_t* end, BOOL* Flag);
 
   BOOL                 DeterminationOfLeftRightJustification(int beg, int end);
   BOOL                 CheckLeftRightJustification(int beg, int end);
@@ -282,7 +282,7 @@ public:
   void                 SetFirstLeftAndRightIndentOfParagraph(void);
   void                 CorrectIndents(int beg, int end);
   void                 SetParagraphAlignment(int beg, int end, int AlignType);
-  void                 CalculationLengthAndCount(CRtfString* pRtfString, Int32* CountChars, Int32* LengthChars);
+  void                 CalculationLengthAndCount(CRtfString* pRtfString, int32_t* CountChars, int32_t* LengthChars);
   void                 GetCountEqual(int beg, int end, WORD* Count, int AlignType);
   BOOL                 GetFlagCarry(int beg, int end);
   BOOL                 GetFlagLeft(int beg, int end);
@@ -379,7 +379,7 @@ public:
   void                 WriteNonTerminalColumns(void);
   void                 WriteTerminalColumnsTablesAndPictures(void);
   void                 CalcSector(void);
-  Int32                GetCountAndRightBoundVTerminalColumns(void);
+  int32_t                GetCountAndRightBoundVTerminalColumns(void);
   void                 ToPlacePicturesAndTables(CRtfFragment* Frament);
   void                 FillingSectorInfo(void);
 
@@ -401,7 +401,7 @@ public:
   Handle               m_hEDSector;
 		BOOL                 m_FlagOneString;
 		BOOL                 m_bFlagLine;
-	Int32			m_VTerminalColumnNumber;
+	int32_t			m_VTerminalColumnNumber;
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -414,16 +414,16 @@ public:
 
 	 CRtfPage             *m_PagePtr;
 
-  BOOL	                Write(/*CWordArray*/vectorWord* arRightBoundTerminalColumns, Int32* VTerminalColumnNumber);
+  BOOL	                Write(/*CWordArray*/vectorWord* arRightBoundTerminalColumns, int32_t* VTerminalColumnNumber);
   void                 WriteTerminalColumns(/*CWordArray*/vectorWord* arRightBoundTerminalColumns,
-		                                          Int32* VTerminalColumnNumber,
-																																												Int32  CountVTerminalColumns,
+		                                          int32_t* VTerminalColumnNumber,
+																																												int32_t  CountVTerminalColumns,
 																																												RtfSectorInfo* SectorInfo);
-  void                 WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo,BOOL FlagFirstTerminalFragment,Int32 TopPositionFirstTerminalFragment);
+  void                 WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo,BOOL FlagFirstTerminalFragment,int32_t TopPositionFirstTerminalFragment);
 		void                 WriteNonTerminalColumns(RtfSectorInfo* SectorInfo);
   void                 WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *SectorInfo);
   void                 CalcHorizontalColumn(void);
-  Int32                GetCountAndRightBoundVTerminalColumns(/*CWordArray*/vectorWord* arRightBoundTerminalColumns,vectorWord/*CWordArray*/* arWidthTerminalColumns);
+  int32_t                GetCountAndRightBoundVTerminalColumns(/*CWordArray*/vectorWord* arRightBoundTerminalColumns,vectorWord/*CWordArray*/* arWidthTerminalColumns);
   void                 FindHeadingAndSetFrameFlag(void);
   void                 DefineTerminalProperty(void);
   void                 FillingVTerminalColumnsIndex(void);
@@ -496,8 +496,8 @@ public:
   WORD	               m_wType;
 
 
-  Int32                m_LeftBorder;
-  Int32                m_RightBorder;
+  int32_t                m_LeftBorder;
+  int32_t                m_RightBorder;
   WORD	               m_wLeftIndent;
   WORD	               m_wRightIndent;
   WORD	               m_wCentre;

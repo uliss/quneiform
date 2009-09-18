@@ -210,7 +210,7 @@ public:
    CPrtSendEventToPublic ()
    {
       char szString[_MAX_PATH] = {0};
-      Int32 size = _MAX_PATH;
+      int32_t size = _MAX_PATH;
       bUse = false;
       file = NULL;
       stdGetProfileString(szString,&size,"protocol.ini","Options","Path",STD_SETPROF_DIR_PROJECT);
@@ -220,7 +220,7 @@ public:
       bUse = true;
 
       /*char szString[_MAX_PATH] = {0};
-      Int32 size = _MAX_PATH;
+      int32_t size = _MAX_PATH;
 
       stdGetProfileString(szString,&size,"protocol.ini","Options","Path",STD_SETPROF_DIR_PROJECT);
       if(!szString[0])
@@ -356,7 +356,7 @@ class CPrtEventSender
    CPrtSendEventToFile SenderToFile;
    CPrtSendEventToPublic SenderToPublic;
    CPrtSendEventToConsole SenderToConsole;
-   Bool32 SendEvent(char* EventText,Int32 EvnType);
+   Bool32 SendEvent(char* EventText,int32_t EvnType);
    char MessageBuffer[8*1024];
 public:
    CPrtEventSender() {memset(MessageBuffer,0,sizeof(MessageBuffer));};
@@ -374,8 +374,8 @@ class CPrtSysEventSender
 public:
    CPrtSysEventSender() {memset(buffer,0,sizeof(buffer));m_TableEvnCreator=NULL;};
    ~CPrtSysEventSender() {if(m_TableEvnCreator){ delete m_TableEvnCreator;m_TableEvnCreator=NULL;}};
-   Bool32 SendSysEvent(Int32 SysEvnNo,...); // вызов посылки сообщения
-   Bool32 SendSysEvent(Int32 SysEvnNo, va_list& List);
+   Bool32 SendSysEvent(int32_t SysEvnNo,...); // вызов посылки сообщения
+   Bool32 SendSysEvent(int32_t SysEvnNo, va_list& List);
    Bool32 SendEvent(StdPrtEvent* pspe); // посылка необходимых(необходимость определяется по StdPrtEvent) системных сообщений
    void Destroy();
 };
@@ -397,7 +397,7 @@ public:
 typedef struct tagStdPrtEventData
 {
    char FrmtEvnString[256]; // строка содержащая формат вывода события
-   Int32 iEvnNo;            // Идентиф. номер события
+   int32_t iEvnNo;            // Идентиф. номер события
 } StdPrtEventData;
 
 

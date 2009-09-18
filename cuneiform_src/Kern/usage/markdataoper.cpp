@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "markdataoper.h" //own functions
 /*----------------------------------------------------------------------------*/
 Bool FullRotatedRects_rv (void *vB, UN_DATAAIMS OldAim, UN_DATAAIMS NewAim
-					   , Int32 SkewReg, char *pStr, char *pWho)
+					   , int32_t SkewReg, char *pStr, char *pWho)
 {
 	int Ind, nTeor, nPartUnits, i;
 	UN_BUFF *pB;

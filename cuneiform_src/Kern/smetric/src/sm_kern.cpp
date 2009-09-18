@@ -298,10 +298,10 @@ SMetric_FUNC(Bool32) SMetric_GetExportData(Word32 dwType, void * pData)
 	{
 		CASE_FUNCTION(SMetric_FindMainSkew);
 		case SMetric_ResolX:
-			*((Int32 *)pData) = SMetric_GetResolX();
+			*((int32_t *)pData) = SMetric_GetResolX();
 			break;
 		case SMetric_ResolY:
-			*((Int32 *)pData) = SMetric_GetResolY();
+			*((int32_t *)pData) = SMetric_GetResolY();
 			break;
 		default:
 			*(Handle *)pData = NULL;

@@ -309,7 +309,7 @@ Bool32 DeleteFromPics(Word32 position)
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
-Bool32 MyFiltrateIn (Int32 upper, Int32 left, Int32 w, Int32 h)
+Bool32 MyFiltrateIn (int32_t upper, int32_t left, int32_t w, int32_t h)
 {
 	if( (upper<=my_upper) ||
 		(left<=my_left) ||
@@ -724,8 +724,8 @@ lNextComp:
 	sprintf(tmp_str, "  <4 Р %d %d %d \n", nPics,0 ,0);
 	LDPUMA_FPuts(resFile_pict, tmp_str);
 
-	Int32 min_image_width = (Int32)(100*((double)(pInfo.DPIX + 1)/300));
-	Int32 min_image_height = (Int32)(100*((double)(pInfo.DPIY + 1)/300));
+	int32_t min_image_width = (int32_t)(100*((double)(pInfo.DPIX + 1)/300));
+	int32_t min_image_height = (int32_t)(100*((double)(pInfo.DPIY + 1)/300));
 
 	for(i=0;i<nPics;i++)
 	{

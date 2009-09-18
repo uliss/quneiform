@@ -672,7 +672,7 @@ case (Word8)'¥' :
 // capiatl & small IO
     case (Word8)'ž' :  case (Word8)'î' :
 		//{
-		//Int32 ret=DIF_GetNoCutPoint(rastr0, (Word8)dx, (Word8)dy);
+		//int32_t ret=DIF_GetNoCutPoint(rastr0, (Word8)dx, (Word8)dy);
 		//}
     if( diskr_ju<0 )
        {

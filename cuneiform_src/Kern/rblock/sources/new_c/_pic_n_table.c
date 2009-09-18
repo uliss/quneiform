@@ -128,7 +128,7 @@ int Min (int x1, int x2)
 	return x1<x2 ? x1 : x2;
 }
 
-Bool32 MyFiltrateOr (Int32 upper, Int32 left, Int32 w, Int32 h)
+Bool32 MyFiltrateOr (int32_t upper, int32_t left, int32_t w, int32_t h)
 {
 	if((upper<my_upper)&&(left<my_left)&&
 	    (upper+h>my_bottom)&&(left+w>my_right)) return FALSE;
@@ -148,7 +148,7 @@ Bool32 MyFiltrateOr (Int32 upper, Int32 left, Int32 w, Int32 h)
 void DeleteRoot(ROOT * lpRoot)
 {
 	//ROOT* pRoot;
-	Int32 nn;
+	int32_t nn;
 
 	//for (pRoot = lpRoot; pRoot < pRoots + nRoots; pRoot++)
 	//{

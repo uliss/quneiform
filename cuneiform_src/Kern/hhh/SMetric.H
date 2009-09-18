@@ -95,12 +95,12 @@ typedef enum
 {
                 SMetric_FNSMetric_FindMainSkew = 1,
                 SMetric_DTSMetric_AnyOne,
-				SMetric_ResolX,	// для задания разрешения по x (в Import Int32 в Export Int32*)
-				SMetric_ResolY  // для задания разрешения по y (в Import Int32 в Export Int32*)
+				SMetric_ResolX,	// для задания разрешения по x (в Import int32_t в Export int32_t*)
+				SMetric_ResolY  // для задания разрешения по y (в Import int32_t в Export int32_t*)
 } SMetric_EXPORT_ENTRIES;
 /*  Описание функций  */
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; SMetric_FUNC(a) b c
-DEC_FUN(Bool32, SMetric_FindMainSkew, (void *vB, char *cWork, int SizeWork, Int32 *pSkew, Int32 *pSkewLocVerLin, Rect16 *pRcReg, Int32 SkewReg, char *pStr, Bool CalcMuchSkew, Bool TalkMuchSkew));
+DEC_FUN(Bool32, SMetric_FindMainSkew, (void *vB, char *cWork, int SizeWork, int32_t *pSkew, int32_t *pSkewLocVerLin, Rect16 *pRcReg, int32_t SkewReg, char *pStr, Bool CalcMuchSkew, Bool TalkMuchSkew));
 
 #undef DEC_FUN
 

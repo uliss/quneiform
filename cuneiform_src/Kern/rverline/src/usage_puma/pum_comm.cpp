@@ -207,12 +207,12 @@ Word32  AM_WaitUserInput (Handle owner, Handle wnd)
 	return LDPUMA_WaitUserInput (owner, wnd);
 }
 /*----------------------------------------------------------------------------*/
-void  AM_DrawLine (Handle wnd, Point16 *start, Point16 *end, Int32 skew, Word32 rgb, Int16 pen, Word32 key)
+void  AM_DrawLine (Handle wnd, Point16 *start, Point16 *end, int32_t skew, Word32 rgb, Int16 pen, Word32 key)
 {
 	LDPUMA_DrawLine (wnd, start, end, skew, rgb, pen, key);
 }
 /*----------------------------------------------------------------------------*/
-void  AM_DrawRect (Handle wnd, Rect16 *pRc, Int32 skew, Word32 rgb, Int16 pen, Word32 key)
+void  AM_DrawRect (Handle wnd, Rect16 *pRc, int32_t skew, Word32 rgb, Int16 pen, Word32 key)
 {
 	LDPUMA_DrawRect (wnd, pRc, skew, rgb, pen, key);
 }

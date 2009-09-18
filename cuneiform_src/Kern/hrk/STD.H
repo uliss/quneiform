@@ -114,8 +114,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //////////////////////////////////
 // malloc() -free()
-   STD_FUNC( void* ) stdMalloc( Int32 size );
-   STD_FUNC( void* ) stdRealloc( void* old_ptr, Int32 new_size, Int32 old_size );
+   STD_FUNC( void* ) stdMalloc( int32_t size );
+   STD_FUNC( void* ) stdRealloc( void* old_ptr, int32_t new_size, int32_t old_size );
    STD_FUNC( void )  stdFree( void* ptr );
    STD_FUNC( void )  stdFreeX( void** pptr );
       // smart version of free: checks *ptr,
@@ -123,27 +123,27 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef struct tagStdMemInfo
 {
-   Int32 nMallocCnt;
-   Int32 nFreeCnt;
-   Int32 nReallocCnt;
+   int32_t nMallocCnt;
+   int32_t nFreeCnt;
+   int32_t nReallocCnt;
    char  reserved[244];
 }  StdMemInfo;
 
    STD_FUNC( void )  stdGetMemInfo( StdMemInfo* pMemInf );
       // debug purpose function - if _DEBUG not defined, returned values are 0
 
-   STD_FUNC( void* ) stdMemcpy( void* dest , void* src , Int32 copy_count );
+   STD_FUNC( void* ) stdMemcpy( void* dest , void* src , int32_t copy_count );
       // in 32-bit - falls to memcpy,
       // in 16-bit - takes care about 64k segments bounds
 
-   STD_FUNC( Int32 ) stdOpen( const char *filename, Int32 oflag, Int32 pmode DEFAULT_ZERO );
-   STD_FUNC( Int32 ) stdTell( Int32 handle );
-   STD_FUNC( Int32 ) stdSeek( Int32 handle, Int32 offset, Int32 origin  );
-   STD_FUNC( Int32 ) stdFileLength( Int32 hnd );
-   STD_FUNC( Int32 ) stdClose( Int32 handle ); // ret: 0 -success, -1 -failed
-   STD_FUNC( Int32 ) stdRead( Int32 handle, void *buffer, Int32 count );
-   STD_FUNC( Int32 ) stdWrite( Int32 handle, void *buffer, Int32 count );
-   STD_FUNC( Int32 ) stdAccess( const char *path, Int32 mode);
+   STD_FUNC( int32_t ) stdOpen( const char *filename, int32_t oflag, int32_t pmode DEFAULT_ZERO );
+   STD_FUNC( int32_t ) stdTell( int32_t handle );
+   STD_FUNC( int32_t ) stdSeek( int32_t handle, int32_t offset, int32_t origin  );
+   STD_FUNC( int32_t ) stdFileLength( int32_t hnd );
+   STD_FUNC( int32_t ) stdClose( int32_t handle ); // ret: 0 -success, -1 -failed
+   STD_FUNC( int32_t ) stdRead( int32_t handle, void *buffer, int32_t count );
+   STD_FUNC( int32_t ) stdWrite( int32_t handle, void *buffer, int32_t count );
+   STD_FUNC( int32_t ) stdAccess( const char *path, int32_t mode);
 
 #ifdef __cplusplus
    inline bool stdFileExists(const char* path)
@@ -178,20 +178,20 @@ typedef struct tagStdMemInfo
       const char * lpBuffer   // address of buffer for current directory
       ); // Win32 ::SetCurrentDirectory() analog
 
-   STD_FUNC( Int32 ) stdGetDirectoryInfo(
+   STD_FUNC( int32_t ) stdGetDirectoryInfo(
       const char * lpBuffer, // current directory name buffer
-      Int32 nFlags,
+      int32_t nFlags,
 #define STD_DIRINFO_FL_DRVTYPE                  0x00000001
       void* pExtParm DEFAULT_NULL
       ); //return special info
 #define STD_DIRINFO_DRV_LOCAL                    0x00000001
 #define STD_DIRINFO_DRV_NET                         0x00000002
 
-   STD_FUNC( Int32 ) stdCmpFileTime(
+   STD_FUNC( int32_t ) stdCmpFileTime(
       const char * lpFileName1,
       const char * lpFileName2,
 #define STD_CMPFILETIME_FL_LASTCHANGE 0x00000001                    -1
-      Int32 nFlags
+      int32_t nFlags
 #ifdef __cplusplus
                      =STD_CMPFILETIME_FL_LASTCHANGE
 #endif
@@ -199,7 +199,7 @@ typedef struct tagStdMemInfo
 
    STD_FUNC( Bool32 ) stdNetPathFromLocal(
        char* pszNetPath,
-       Int32 nNetPathSize,
+       int32_t nNetPathSize,
        const char* pszLocalPath
        ); //return network path from local path for mapped drives
 
@@ -223,7 +223,7 @@ STD_FUNC( Bool32 ) stdMoveFile(
       const char * lpFileNameSrc,
 #define STD_MOVEFILE_FL_OVERWRITE      0x00000001                    -1
 #define STD_MOVEFILE_FL_DEFAULT        STD_MOVEFILE_FL_OVERWRITE                    -1
-      Int32 nFlags
+      int32_t nFlags
 #ifdef __cplusplus
       =STD_MOVEFILE_FL_OVERWRITE
 #endif
@@ -243,18 +243,18 @@ STD_FUNC( Bool32 ) stdMoveFile(
       // sets home directory to be current
 
    //Analog of Windows MessageBox function
-   STD_FUNC( Int32 ) stdMessageBox(
+   STD_FUNC( int32_t ) stdMessageBox(
       const char * szMessageText,
       const char * szMessageTitle,
-	  Int32 nFlags  DEFAULT_ZERO //defined in windows.h or wmb.h
+	  int32_t nFlags  DEFAULT_ZERO //defined in windows.h or wmb.h
       );	//return value: defined in windows.h or wmb.h
 
    //MessageBox function with no repeate checkbox
    //all params as in stdMessageBox function except key
-   STD_FUNC( Int32 ) stdRptMessageBox(
+   STD_FUNC( int32_t ) stdRptMessageBox(
       const char * szMessageText,
       const char * szMessageTitle,
-	  Int32 nFlags DEFAULT_ZERO, //defined in windows.h or wmb.h
+	  int32_t nFlags DEFAULT_ZERO, //defined in windows.h or wmb.h
       const char * szKey DEFAULT_NULL //if ommited then key is szMessageText
       );	//return value: defined in windows.h or wmb.h
 
@@ -269,9 +269,9 @@ STD_FUNC( Bool32 ) stdMoveFile(
 	STD_FUNC(void) stdStrAsciiToAnsi( char* Str);
 	STD_FUNC(void) stdStrAnsiToAscii( char* Str);
     STD_FUNC(void) stdStrAnsiToUnicode(wchar_t* pUnicode,const char* pAnsi);
-	STD_FUNC(void) stdStrNAsciiToAnsi( char* Str,Int32 nLen);
-	STD_FUNC(void) stdStrNAnsiToAscii( char* Str,Int32 nLen);
-    STD_FUNC(void) stdStrNAnsiToUnicode(wchar_t* pUnicode,const char* pAnsi,Int32 nLen);
+	STD_FUNC(void) stdStrNAsciiToAnsi( char* Str,int32_t nLen);
+	STD_FUNC(void) stdStrNAnsiToAscii( char* Str,int32_t nLen);
+    STD_FUNC(void) stdStrNAnsiToUnicode(wchar_t* pUnicode,const char* pAnsi,int32_t nLen);
 
 
     STD_FUNC( Bool32) stdLeoCompareChar(Word8 c1, Word8 c2);
@@ -282,7 +282,7 @@ STD_FUNC( Bool32 ) stdMoveFile(
 #define     STD_LEO_CASE_NONE   0
 #define     STD_LEO_CASE_LOWER  1
 #define     STD_LEO_CASE_UPPER  2
-    STD_FUNC( Int32 ) stdLeoIsCase(Word8 Code);
+    STD_FUNC( int32_t ) stdLeoIsCase(Word8 Code);
       // upper, lower or nondefined
     STD_FUNC( Word8)  stdLeoSetUpperCase(Word8 Code);
       // 'A'lat => 'A'lat, 'o'rus => 'O'rus, 'e'rus => 'e'rus
@@ -290,8 +290,8 @@ STD_FUNC( Bool32 ) stdMoveFile(
       // 'C'lat => 'C'lat, 'O'rus => 'o'rus, 'A'rus => 'A'rus
     STD_FUNC(Word8 *) stdLeoGetTypeface(Word8 c);
 
-    STD_FUNC(void) stdQsort(void *pMas,Int32 Num, Int32 width,
-			  Int32 (*compare)(const void *elm1,const void *elm2) );
+    STD_FUNC(void) stdQsort(void *pMas,int32_t Num, int32_t width,
+			  int32_t (*compare)(const void *elm1,const void *elm2) );
 /*
 //////////////////////////////////
 // open(), read(), _write(), close(), filelength(), seek(), tell()
@@ -308,7 +308,7 @@ STD_FUNC( Bool32 ) stdMoveFile(
 #define STD_SETPROF_DIR_PROJECT                     0x00000000
 #define STD_SETPROF_DIR_WINDOWS                   0x00000001
 #define STD_SETPROF_DIR_VERSION						0x00000002
-STD_FUNC( Bool32 ) stdGetProfileString(char* szString,Int32* nStrLen,const char* szIniFileName,const char* szSection,const char* szKey,Int32 nFlags
+STD_FUNC( Bool32 ) stdGetProfileString(char* szString,int32_t* nStrLen,const char* szIniFileName,const char* szSection,const char* szKey,int32_t nFlags
 #ifdef __cplusplus
                                        =STD_SETPROF_DIR_PROJECT
 #endif
@@ -317,21 +317,21 @@ STD_FUNC( Bool32 ) stdGetProfileString(char* szString,Int32* nStrLen,const char*
                                        =""
 #endif
                                        );
-STD_FUNC( Bool32 ) stdSetProfileString(const char* szString,const char* szIniFileName,const char* szSection,const char* szKey,Int32 nFlags
+STD_FUNC( Bool32 ) stdSetProfileString(const char* szString,const char* szIniFileName,const char* szSection,const char* szKey,int32_t nFlags
 #ifdef __cplusplus
                                        =STD_SETPROF_DIR_PROJECT
 #endif
                                        );
-STD_FUNC( Int32 ) stdGetProfileInt(const char* szIniFileName,const char* szSection,const char* szKey,Int32 nFlags
+STD_FUNC( int32_t ) stdGetProfileInt(const char* szIniFileName,const char* szSection,const char* szKey,int32_t nFlags
 #ifdef __cplusplus
                                        =STD_SETPROF_DIR_PROJECT
 #endif
-                                        ,  Int32 nValDefault
+                                        ,  int32_t nValDefault
 #ifdef __cplusplus
                                        =0
 #endif
                                        );
-STD_FUNC( Bool32 ) stdSetProfileInt(Int32 nValue,const char* szIniFileName,const char* szSection,const char* szKey,Int32 nFlags
+STD_FUNC( Bool32 ) stdSetProfileInt(int32_t nValue,const char* szIniFileName,const char* szSection,const char* szKey,int32_t nFlags
 #ifdef __cplusplus
                                        =STD_SETPROF_DIR_PROJECT
 #endif
@@ -351,7 +351,7 @@ STD_FUNC(const char*) stdGetProperty(const char* pKey);
 	 STD_FUNC(int) stdBits2Ints(
 		Word8*   pBits,
 		int      nByteWidth,
-		Int32*   pIntervals  // pointer to intervals buffer,
+		int32_t*   pIntervals  // pointer to intervals buffer,
 									// should have length (in bytes) == (nByteWidth*4)*4
                           );
 #endif
@@ -359,26 +359,26 @@ STD_FUNC(const char*) stdGetProperty(const char* pKey);
 
    /////////////////////
    // Error handling
-   STD_FUNC( Int32 ) stdGetErrorCount(void);
-   STD_FUNC( Int32 ) stdSetErrorCount( Int32 _nErrCount );
+   STD_FUNC( int32_t ) stdGetErrorCount(void);
+   STD_FUNC( int32_t ) stdSetErrorCount( int32_t _nErrCount );
    typedef struct tagStdError
    {
-      Int32 nErrorCode;
+      int32_t nErrorCode;
       char  szCondition[128];
       char  szFile[128];
-      Int32 nLine;
-      Int32 lData;
+      int32_t nLine;
+      int32_t lData;
    } StdError;
 
-   STD_FUNC( Int32 ) stdSetError( Int32 nErrorCode, const char* cond, const char* file,
-      Int32 nline, Int32 lData
+   STD_FUNC( int32_t ) stdSetError( int32_t nErrorCode, const char* cond, const char* file,
+      int32_t nline, int32_t lData
 #ifdef __cplusplus
 	  = 0
 #endif
 	  );
    // возвращает номер под которым зарегистрирована ошибка
 
-   STD_FUNC( Bool32 ) stdGetError( Int32 nError
+   STD_FUNC( Bool32 ) stdGetError( int32_t nError
 #ifdef __cplusplus
 	  = 0
 #endif

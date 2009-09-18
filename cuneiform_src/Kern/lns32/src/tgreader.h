@@ -76,12 +76,12 @@ class TigerReader :
    Word8* line_buf;
    Word8* cur_line;
    int lines_count;  // unreaded lines count
-   Int32  dword_len;  // buf len in dwords
+   int32_t  dword_len;  // buf len in dwords
 public:
    TigerReader(void);
    ~TigerReader(void);
    void* getLine(void);
-   Int32 lineWidthByte( void )    {return (wImageByteWidth);};
+   int32_t lineWidthByte( void )    {return (wImageByteWidth);};
 };
 
 

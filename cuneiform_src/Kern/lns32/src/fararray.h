@@ -66,12 +66,12 @@ protected:
     Type * data;
     long int last; // == len - 1
 public:
-    Type & operator[](Int32 i) {
+    Type & operator[](int32_t i) {
         assert( i <= last );
         return (*(data + i));
     }
 
-    Type * ptr(Int32 num) {
+    Type * ptr(int32_t num) {
         assert( num <= last );
         return (data + num);
     }
@@ -80,7 +80,7 @@ public:
         data = NULL;
     }
 
-    TArray(Int32 of_count) {
+    TArray(int32_t of_count) {
         create(of_count);
     }
 
@@ -98,7 +98,7 @@ public:
         return (data);
     }
 
-    Bool create(Int32 of_count) {
+    Bool create(int32_t of_count) {
         if (of_count != 0)
             data = (Type *) malloc(of_count * sizeof(Type));
         else
@@ -108,7 +108,7 @@ public:
         return (data != NULL);
     }
 
-    Bool Grow(Int32 of_count = -1) {
+    Bool Grow(int32_t of_count = -1) {
         if (of_count == -1) {
             of_count = (last + 1) * 2;
         }
@@ -116,8 +116,8 @@ public:
         if (of_count <= 0)
             of_count = 1;
 
-        Type * new_data = (Type *) (malloc((Int32) (of_count
-                * (Int32) sizeof(Type))));
+        Type * new_data = (Type *) (malloc((int32_t) (of_count
+                * (int32_t) sizeof(Type))));
         if (new_data != NULL) {
             if (data != NULL) {
                 memcpy(new_data, data, (last + 1) * sizeof(Type));
@@ -158,14 +158,14 @@ public:
         return (data != NULL);
     }
 
-    void fill(Type * value, Int32 from = 0);
+    void fill(Type * value, int32_t from = 0);
 
-    Bool shrink(Int32 el_count) {
+    Bool shrink(int32_t el_count) {
         return TRUE;
         /*
          assert(el_count < volume() );
          if (el_count > 0)
-         {  void* new_data = data; TFarHeap::shrinkMemBlock( data, sizeof(Type)*(Int32)el_count );
+         {  void* new_data = data; TFarHeap::shrinkMemBlock( data, sizeof(Type)*(int32_t)el_count );
          if (new_data == NULL)
          return WRONG();  // can't shrink ??
          else {
@@ -175,7 +175,7 @@ public:
          return TRUE;
          }
          else
-         {  void* new_data = TFarHeap::shrinkMemBlock( data, (Int32)sizeof(Type) );
+         {  void* new_data = TFarHeap::shrinkMemBlock( data, (int32_t)sizeof(Type) );
          if (new_data == NULL)
          return WRONG();  // can't shrink ??
          else {
@@ -192,21 +192,21 @@ public:
         assert( arr->isOk() );
         assert( isOk() );
         assert( arr->volume() <= volume() );
-        MEMMOVE(data, arr->data, (arr->volume()) * (Int32) (sizeof(Type)));
+        MEMMOVE(data, arr->data, (arr->volume()) * (int32_t) (sizeof(Type)));
     }
 
-    void copy(TArray<Type> * arr, Int32 count) {
+    void copy(TArray<Type> * arr, int32_t count) {
         assert( arr != NULL );
         assert( arr->isOk() );
         assert( isOk() );
         assert( count <= arr->volume() );
         assert( count <= volume() );
-        MEMMOVE(data, arr->data, count * (Int32) (sizeof(Type)));
+        MEMMOVE(data, arr->data, count * (int32_t) (sizeof(Type)));
     }
 };
 
 template<class Type>
-void TArray<Type>::fill(Type * value, Int32 from) {
+void TArray<Type>::fill(Type * value, int32_t from) {
     if(from == 0 && last < 0) // Cleaning function calls this even for a zero-sized array.
         data[0] = *value;
     else {

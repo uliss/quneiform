@@ -180,30 +180,30 @@ RRECCOM_FUNC(Bool32)  RRECCOM_SetEVNProperties(ExcControl ExCW,char *spath, Word
 typedef Bool32 (*FNRRECCOM_Excomp)(ExcControl Control,
     TImageOpen  tio,        TImageClose tic,
     TImageRead  tir,        Tiger_ProcComp tipc);
-RRECCOM_FUNC(Int32)  Extracomp(ExcControl Control,
+RRECCOM_FUNC(int32_t)  Extracomp(ExcControl Control,
     TImageOpen  tio,        TImageClose tic,
     TImageRead  tir,        Tiger_ProcComp tipc);
 // 3    RRECCOM_FNEXTRA        найти компоненты в растре
 typedef Bool32 (*FNRRECCOM_Exc)(ExcControl Control,
-    Word8 *lpRaster, Int32 BWid, Bool32 ReverseOrder,
-    Int32 Wid, Int32 Hei,
-    Int32 HRes, Int32 VRes,
-    Int32 TemplCol, Int32 TemplRow, Int32 TemplWid, Int32 TemplHei);
+    Word8 *lpRaster, int32_t BWid, Bool32 ReverseOrder,
+    int32_t Wid, int32_t Hei,
+    int32_t HRes, int32_t VRes,
+    int32_t TemplCol, int32_t TemplRow, int32_t TemplWid, int32_t TemplHei);
 RRECCOM_FUNC(Bool32)  RRECCOMExtra(ExcControl Control,
-    Word8 *lpRaster, Int32 BWid, Bool32 ReverseOrder,
-    Int32 Wid, Int32 Hei,
-    Int32 HRes, Int32 VRes,
-    Int32 TemplCol, Int32 TemplRow, Int32 TemplWid, Int32 TemplHei, Bool32 FotoMetr);
+    Word8 *lpRaster, int32_t BWid, Bool32 ReverseOrder,
+    int32_t Wid, int32_t Hei,
+    int32_t HRes, int32_t VRes,
+    int32_t TemplCol, int32_t TemplRow, int32_t TemplWid, int32_t TemplHei, Bool32 FotoMetr);
 // 4    RRECCOM_FNEXTRADIB     найти компоненты в ДИБе
 typedef Bool32 (*FNRRECCOM_ExcDIB)(ExcControl ExCW,
     Word8 *lpDIB,
-    Int32 TemplCol, Int32 TemplRow, Int32 TemplWid, Int32 TemplHei);
+    int32_t TemplCol, int32_t TemplRow, int32_t TemplWid, int32_t TemplHei);
 RRECCOM_FUNC(Bool32)  RRECCOMExtraDIB(ExcControl ExCW,
     Word8 *lpDIB,
-    Int32 TemplCol, Int32 TemplRow, Int32 TemplWid, Int32 TemplHei);
+    int32_t TemplCol, int32_t TemplRow, int32_t TemplWid, int32_t TemplHei);
 // 5    RRECCOM_FNGETCONTAINER   Получить код контейнера с компонентами
-typedef  Int32 (*FNRRECCOM_GetContainer)(void);
-RRECCOM_FUNC(Int32)  RRECCOMGetContainer(void);
+typedef  int32_t (*FNRRECCOM_GetContainer)(void);
+RRECCOM_FUNC(int32_t)  RRECCOMGetContainer(void);
 // 6    RRECCOM_FNGETLENEREP     Получить интервальное представление
 typedef  Bool32  (*FNRRECCOM_MakeLP)( RecRaster   *rRaster , Word8 *lp, Int16 *lp_size, Int16 *numcomp);
 RRECCOM_FUNC(Bool32)     RRECCOMMakeLP  ( RecRaster   *rRaster , Word8 *lp, Int16 *lp_size, Int16 *numcomp);
@@ -237,8 +237,8 @@ typedef Bool32  (*FNRRECCOMExtracomp3CB)(ExcControl ExCW,TImageOpen tio,
 RRECCOM_FUNC(Bool32)  RRECCOMExtracomp3CB(ExcControl ExCW,TImageOpen tio,
                                 TImageClose tic, TImageRead tir);
 // 14   RRECCOM_FNEXTGETRECRASTERORIENT ориентация рабочего растра
-typedef Bool32 (*FNexc_get_rec_raster_orient)(RecRaster   *rs,Int32 *res);
-RRECCOM_FUNC(Bool32) exc_get_rec_raster_orient(RecRaster   *rs,Int32 *res);
+typedef Bool32 (*FNexc_get_rec_raster_orient)(RecRaster   *rs,int32_t *res);
+RRECCOM_FUNC(Bool32) exc_get_rec_raster_orient(RecRaster   *rs,int32_t *res);
 // 15   RRECCOM_FNSETALLALPHAGRA   алфавит нейронной сети
 typedef Bool32 (*FNexc_set_all_alphabet_gra)(void);
 RRECCOM_FUNC(Bool32) exc_set_all_alphabet_gra(void);

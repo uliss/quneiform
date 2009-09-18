@@ -94,7 +94,7 @@ typedef struct struct_CHSTR_Objects
 	Rect16 Rc;
 	Bool32 type_vert;
 	Bool32 type_neg;
-	Int32 block_number;
+	int32_t block_number;
 } CHSTR_Objects;
 
 

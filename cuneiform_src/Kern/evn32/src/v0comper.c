@@ -95,8 +95,8 @@ static VAR * vp;
 
 Bool16 boxes_account();
 extern void make_raster(void);
-extern void c_rastror (Word8 *, Word8 *, Int32, Int32);
-extern MN *c_locomp(Word8 *,Int32,Int32,Int32,Int32);
+extern void c_rastror (Word8 *, Word8 *, int32_t, int32_t);
+extern MN *c_locomp(Word8 *,int32_t,int32_t,int32_t,int32_t);
 
 static void save_rot_comp();
 static void rest_rot_comp();

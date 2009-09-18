@@ -1025,7 +1025,7 @@ int init_file_prs3(char *file_prs,FRAME **frm,int NumFrm,int TypeCall);
 void FreePrsLine(void);
 
 int ProjectFrm(FRAME **frm,int NumFrm,float tg_ang);
-int ProjectFrm1024(FRAME **frm,int NumFrm,Int32 Skew1024);
+int ProjectFrm1024(FRAME **frm,int NumFrm,int32_t Skew1024);
 int EstIntrvlHor(FRAME **frm,int num,BOUND *bnd,int dxAS,int dyAS,
 		RECT *Limit,int MinVol,float MinPerc,int limDX,int limDY,
 		int *dsym,int *AveX,int *AveY);

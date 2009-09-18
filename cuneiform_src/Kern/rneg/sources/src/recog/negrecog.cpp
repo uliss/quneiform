@@ -359,7 +359,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
             }
 //----------------------------------------------------------------------
 
-        	  if( !(RSTR_RecogOneLetter_all (&rec,Alf, &(vs[j]),(Int32)(1)) ) )
+        	  if( !(RSTR_RecogOneLetter_all (&rec,Alf, &(vs[j]),(int32_t)(1)) ) )
                 Prob[1]=0;
 	          else
               {
@@ -369,11 +369,11 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
 				if (ShowNegByOne)
 					LDPUMA_ConsoleN("handprint symbol: %c , probability = %d", (char)vs[j].Alt[0].Code, vs[j].Alt[0].Prob);
               }
-//	  if( !(RSTR_RecogOneLetter_all (&rec,Alf, &(vs[j]),(Int32)(2)) ) )
+//	  if( !(RSTR_RecogOneLetter_all (&rec,Alf, &(vs[j]),(int32_t)(2)) ) )
 //            Prob[2]=0;
 //	  else
 //		  Prob[2]=vs[j].Alt[0].Prob;
-	          if( !(RSTR_RecogOneLetter_all (&rec,Alf, &(vs[j]),(Int32)(0)) ) )
+	          if( !(RSTR_RecogOneLetter_all (&rec,Alf, &(vs[j]),(int32_t)(0)) ) )
                 Prob[0]=0;
 	          else
               {

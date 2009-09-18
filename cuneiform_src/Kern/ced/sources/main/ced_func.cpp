@@ -216,12 +216,12 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 		int i;
 		for(i=0;i<sect->numSnakeCols;i++)
 		{
-			sect->colInfo[i].width=*((Int32*)c);
+			sect->colInfo[i].width=*((int32_t*)c);
 			c+=4;
 		}
 		for(i=0;i<sect->numSnakeCols;i++)
 		{
-			sect->colInfo[i].space=*((Int32*)c);
+			sect->colInfo[i].space=*((int32_t*)c);
 			c+=4;
 		}
 		sectParams2* sp2=(sectParams2*)c;

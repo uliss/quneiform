@@ -78,9 +78,9 @@ Int16 rstr_cont_store(RecRaster *r,Word8 let, Word8 nLns,Rect16 *rect,Word8 IsPr
 		Word8	Prob, Word8 Valid, RecVersions *v,Word8 control,
         Word8   kegl,Word8 column, Word8 tabno)
 {
-Int32       num;
+int32_t       num;
 Word8       raster[4096],data[CTB_DATA_SIZE]={0};
-Int32       wb, k;
+int32_t       wb, k;
 Bool32      ret;
 RecVersions ver;
 
@@ -197,9 +197,9 @@ Int16 rstr_cont_store1(RecRaster *r,Word8 let, Word8 nLns,Rect16 *rect,Word8 IsP
 		Word8	Prob, Word8 Valid, RecVersions *v,Word8 control,
         Word8   kegl)
 {
-Int32       num;
+int32_t       num;
 Word8       raster[4096],data[CTB_DATA_SIZE]={0};
-Int32       wb, k;
+int32_t       wb, k;
 Bool32      ret;
 RecVersions ver;
 

@@ -362,14 +362,14 @@ extern "C" {
         return IsActive ? IsActive():FALSE;
     };
     //////////////////////////////////////////////
-    void   LDPUMA_DrawRect(Handle wnd,Rect16* rc, Int32 skew, Word32 rgb_color,
+    void   LDPUMA_DrawRect(Handle wnd,Rect16* rc, int32_t skew, Word32 rgb_color,
                            Int16 pen_width,Word32 key)
     {
         if(DrawRect)
             DrawRect(wnd,rc,skew,rgb_color,(Int16)pen_width,key);
     }
     //////////////////////////////////////////////
-    void   LDPUMA_DrawRectTip(Handle wnd,Rect16* rc, Int32 skew, Word32 rgb_color,
+    void   LDPUMA_DrawRectTip(Handle wnd,Rect16* rc, int32_t skew, Word32 rgb_color,
                               Int16 pen_width,Word32 key,const char* pTip)
     {
         if(DrawRectTip)
@@ -382,14 +382,14 @@ extern "C" {
             DeleteRects(wnd,key);
     };
     //////////////////////////////////////////////
-    void  LDPUMA_DrawLine(Handle wnd,Point16* start, Point16* end, Int32 skew,
+    void  LDPUMA_DrawLine(Handle wnd,Point16* start, Point16* end, int32_t skew,
                           Word32 rgb_color,Int16 pen_width,Word32 key )
     {
         if(DrawLine)
             DrawLine(wnd,start,end,skew,rgb_color,pen_width,key);
     };
     //////////////////////////////////////////////
-    void  LDPUMA_DrawLineTip(Handle wnd,Point16* start, Point16* end, Int32 skew,
+    void  LDPUMA_DrawLineTip(Handle wnd,Point16* start, Point16* end, int32_t skew,
                              Word32 rgb_color,Int16 pen_width,Word32 key,const char* pTip)
     {
         if(DrawLineTip)
@@ -408,7 +408,7 @@ extern "C" {
             UpdateView(wnd);
     }
     //////////////////////////////////////////////
-    Int32 LDPUMA_Console(const char * message,...)
+    int32_t LDPUMA_Console(const char * message,...)
     {
 #ifdef WIN32
         int rc = 0;
@@ -430,9 +430,9 @@ extern "C" {
         return 1;
 #endif
     }
-    Int32 LDPUMA_ConsoleN(const char * message,...)
+    int32_t LDPUMA_ConsoleN(const char * message,...)
     {
-        Int32 rc = 0;
+        int32_t rc = 0;
         if(Console)
         {
             va_list marker;
@@ -577,7 +577,7 @@ extern "C" {
         return NULL;
     };
     //////////////////////////////////////////////
-    void  LDPUMA_DrawString(Handle wnd,Point16* start, const char * string, Int32 align,
+    void  LDPUMA_DrawString(Handle wnd,Point16* start, const char * string, int32_t align,
                             Word32 rgb_color,Int16 size,Word32 key )
     {
         if(DrawString)
@@ -697,7 +697,7 @@ extern "C" {
     }
 
     //////////////////////////////////////////////
-    Bool32 LDPUMA_SkipEx(Handle owner, Bool32 bIter, Bool32 bParent, Int32 nSign )
+    Bool32 LDPUMA_SkipEx(Handle owner, Bool32 bIter, Bool32 bParent, int32_t nSign )
     {
         Bool32 rc = TRUE;
         if(SkipEx)
@@ -774,8 +774,8 @@ extern "C" {
     }
     //////////////////////////////////////////////
     Bool32 LDPUMA_SetConsoleProperty(Bool32 bold,Bool32 italic,
-                                     Bool32 strikeout,Bool32 underline,Int32 height,	Int32 offset,	Word32 textcolor,
-                                     Int32 charset,	const char * name )
+                                     Bool32 strikeout,Bool32 underline,int32_t height,	int32_t offset,	Word32 textcolor,
+                                     int32_t charset,	const char * name )
     {
         Bool32 rc = TRUE;
 
@@ -787,7 +787,7 @@ extern "C" {
         return rc;
     }
     ///////////////////////////////////////
-    Handle LDPUMA_CreateHistogramm(const char * name, Word32 size, PInt32 lpVal)
+    Handle LDPUMA_CreateHistogramm(const char * name, Word32 size, Pint32_t lpVal)
     {
         Handle rc = NULL;
         if(fCreateHistogramm)
@@ -852,15 +852,15 @@ extern "C" {
         return rc;
     }
     //////////////////////////////////////////////
-    void LDPUMA_ConsoleClear(Int32 beforeline)
+    void LDPUMA_ConsoleClear(int32_t beforeline)
     {
         if(fConsoleClear)
             fConsoleClear(beforeline);
     }
     //////////////////////////////////////////////
-    Int32 LDPUMA_ConsoleGetCurLine()
+    int32_t LDPUMA_ConsoleGetCurLine()
     {
-        Int32 rc = -1;
+        int32_t rc = -1;
         if(fConsoleGetCurLine)
             rc = fConsoleGetCurLine();
         return rc;
@@ -889,9 +889,9 @@ extern "C" {
             fFClose(hFile);
     }
     //////////////////////////////////////////////
-    Int32  LDPUMA_FPrintf1024(Handle hFile,const char * lpFormat,...)
+    int32_t  LDPUMA_FPrintf1024(Handle hFile,const char * lpFormat,...)
     {
-        Int32 rc = 0;
+        int32_t rc = 0;
         if(fFPrintf1024 && hFile)
         {
             va_list marker;
@@ -902,9 +902,9 @@ extern "C" {
         return rc;
     }
     //////////////////////////////////////////////
-    Int32  LDPUMA_FPuts(Handle hFile,const char * lpString)
+    int32_t  LDPUMA_FPuts(Handle hFile,const char * lpString)
     {
-        Int32 rc = 0;
+        int32_t rc = 0;
         if(fFPuts && hFile)
             rc = fFPuts(hFile,lpString);
         return rc;
@@ -922,7 +922,7 @@ extern "C" {
     {
         LDPUMA_DrawFocusRect(NULL,rc);
     }
-    Bool16 SnpGetUserLong(char * static_text,Int32 * result_long)
+    Bool16 SnpGetUserLong(char * static_text,int32_t * result_long)
     {
         return LDPUMA_MessageBoxYesNo(static_text);
     };
@@ -975,7 +975,7 @@ extern "C" {
     {
         LDPUMA_RasterHeader(lpText,num);
     };
-    void   SnpDrawLine(Point16* start, Point16* end, Int32 skew,
+    void   SnpDrawLine(Point16* start, Point16* end, int32_t skew,
                        Word32 rgb_color, Int16 pen_width, Handle key )
     {
         LDPUMA_DrawLine(NULL,start,end,skew,rgb_color,pen_width,key );
@@ -1022,8 +1022,8 @@ extern "C" {
     {
         return LDPUMA_IsActive();
     };
-    void   SnpDrawRect(Rect16* rc, Int32 skew, Word32 rgb_color,
-                       Int32 pen_width,Word32 key)
+    void   SnpDrawRect(Rect16* rc, int32_t skew, Word32 rgb_color,
+                       int32_t pen_width,Word32 key)
     {
         LDPUMA_DrawRect(NULL,rc,skew,rgb_color,(Int16)pen_width,key);
     }

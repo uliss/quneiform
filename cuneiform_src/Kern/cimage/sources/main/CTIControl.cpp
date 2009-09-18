@@ -256,7 +256,7 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 					if ( bInvert )
 					{
 						PInt8 pBits = (PInt8)mCBWSourceDIB->GetPtrToLine(0);
-						Int32 Ii;
+						int32_t Ii;
 
 						for ( Ii = 0; Ii < (Word16)mCBWSourceDIB->GetLineWidthInBytes(); Ii++ )
 						{
@@ -422,7 +422,7 @@ Bool32 CTIControl::GetImage(PChar8  lpName, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 	Bool32   bRet = FALSE;
 	PCTDIB   pDscDIB;
 	void*    pDIBMemory;
-	Int32    iY;
+	int32_t    iY;
 
 	FreeBuffers();
 
@@ -469,7 +469,7 @@ Bool32 CTIControl::GetImage(PChar8  lpName, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 				}
 
 				lplpOut->lpData = pOutLine = mpBitFildFromImage;
-				iY = (Int32)lpIn->dwY;
+				iY = (int32_t)lpIn->dwY;
 
 			    // для Almi - заполняем белым пикселом
 				/*
@@ -829,9 +829,9 @@ Bool32 CTIControl::ApplayBitMaskToDIB(PWord8 pMask, PCTDIB pDIB)
 		PWord8 pImageByte;
 		Word32 Lines = pDIB->GetLinesNumber();
 		Word32 Pixels = pDIB->GetLineWidth();
-		Int32 i;
-		Int32 j;
-		Int32 k;
+		int32_t i;
+		int32_t j;
+		int32_t k;
 		Word8  WhiteByte = (Word8)pDIB->GetWhitePixel();
 		Word8  tmpByte;
 
@@ -861,7 +861,7 @@ Bool32 CTIControl::ApplayBitMaskToDIB(PWord8 pMask, PCTDIB pDIB)
 		// конец проверки
 		///////////////////////////////////////////////////////////////////////////////////////
 
-		for ( i = 0; i < (Int32)Lines; i++ )
+		for ( i = 0; i < (int32_t)Lines; i++ )
 		{
 			pImageByte = (PWord8)pDIB->GetPtrToLine( i );
 			j = Pixels;
@@ -1313,18 +1313,18 @@ Bool32 CTIControl::FreeBuffers()
 
 Bool32 CTIControl::CheckInData(PCTDIB pDIB, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_InfoDataInGet lpNewIn)
 {
-	PInt32 NewX = (PInt32)(lpNewIn ? &lpNewIn->dwX : &lpIn->dwX);
-	PInt32 NewY = (PInt32)(lpNewIn ? &lpNewIn->dwY : &lpIn->dwY);
-	PInt32 NewH = (PInt32)(lpNewIn ? &lpNewIn->dwHeight : &lpIn->dwHeight);
-	PInt32 NewW = (PInt32)(lpNewIn ? &lpNewIn->dwWidth  : &lpIn->dwWidth);
-	Int32 DIBW;  //= (Int32)pDIB->GetLineWidth();
-	Int32 DIBH;  //= (Int32)pDIB->GetLinesNumber();
+	Pint32_t NewX = (Pint32_t)(lpNewIn ? &lpNewIn->dwX : &lpIn->dwX);
+	Pint32_t NewY = (Pint32_t)(lpNewIn ? &lpNewIn->dwY : &lpIn->dwY);
+	Pint32_t NewH = (Pint32_t)(lpNewIn ? &lpNewIn->dwHeight : &lpIn->dwHeight);
+	Pint32_t NewW = (Pint32_t)(lpNewIn ? &lpNewIn->dwWidth  : &lpIn->dwWidth);
+	int32_t DIBW;  //= (int32_t)pDIB->GetLineWidth();
+	int32_t DIBH;  //= (int32_t)pDIB->GetLinesNumber();
 
 	if ( pDIB == NULL )
 		return FALSE;
 
-	DIBW  = (Int32)pDIB->GetLineWidth();
-	DIBH  = (Int32)pDIB->GetLinesNumber();
+	DIBW  = (int32_t)pDIB->GetLineWidth();
+	DIBH  = (int32_t)pDIB->GetLinesNumber();
 
 	// копируем
 	if ( lpNewIn )
@@ -1650,10 +1650,10 @@ Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm, 
 	Word32 wSegmLenght;
 	Word32 wLAStartPos;
 	Word32 wLAEndPos;
-	Int32 wLAFullBits;
+	int32_t wLAFullBits;
 
-	if ( ( pSegm->GetStart() > (Int32)(pcDIB->GetLineWidth() + wAtX )) ||
-		 ( pSegm->GetEnd() > (Int32)(pcDIB->GetLineWidth() + wAtX )) ||
+	if ( ( pSegm->GetStart() > (int32_t)(pcDIB->GetLineWidth() + wAtX )) ||
+		 ( pSegm->GetEnd() > (int32_t)(pcDIB->GetLineWidth() + wAtX )) ||
 		 ( wLine >= pcDIB->GetLinesNumber() + wAtY ) )
 		 return FALSE;
 

@@ -57,5 +57,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*** Declaration of function from _pic@table.c using in _LoadRoots.c ***/
 Bool32 DeleteRootsFromTables (void);
 Bool32 DeleteRootsFromPictures (void);
-Bool32 CarefulPicturesAllotment(Int32);
+Bool32 CarefulPicturesAllotment(int32_t);
 Bool32 SearchPicturesSecond (Handle hCCOM, Bool32 BLOCKS, CCOM_comp * comp);

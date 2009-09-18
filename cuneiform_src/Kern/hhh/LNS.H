@@ -77,7 +77,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#include "cline.h"
 typedef struct tagLnsSetupStr
 {
-   Int32 nOptions;
+   int32_t nOptions;
 #define LSS_NOVBORDER_FILTER     0x0001   // отключение чистки на левой-правой границе
 #define LSS_NOHBORDER_FILTER     0x0002   // отключение чистки на верхней-нижней границе
 #define LSS_NOFILLGAP3_FILTER    0x0004   // отключение размазывания на 3 пикселя (дотматрикс)
@@ -92,22 +92,22 @@ typedef struct tagLnsSetupStr
 
    LNS_FUNC( Bool16 )          LnsSetup( LnsSetupStr* ls ); // can call before LnsExtractLines
 
-   LNS_FUNC( Bool16 )          LnsExtractLines( Int32   min_h_len,
-                                                Int32   min_v_len,
-                                                Int32*  result_h_count,
-                                                Int32*  result_v_count
+   LNS_FUNC( Bool16 )          LnsExtractLines( int32_t   min_h_len,
+                                                int32_t   min_v_len,
+                                                int32_t*  result_h_count,
+                                                int32_t*  result_v_count
                                               );
-/*   LNS_FUNC( Bool16 )          MyLnsExtractLines( Int32   min_h_len,
-                                                Int32   min_v_len,
-                                                Int32*  result_h_count,
-                                                Int32*  result_v_count
+/*   LNS_FUNC( Bool16 )          MyLnsExtractLines( int32_t   min_h_len,
+                                                int32_t   min_v_len,
+                                                int32_t*  result_h_count,
+                                                int32_t*  result_v_count
                                               );*/
    //LNS_FUNC( Bool16 )			ExtractAllComponents( LinesTotalInfo          *lti );
    LNS_FUNC( Bool16 )			ExtractAllEvents(CLINE_handle hCLINE, LinesTotalInfo          *lti);
-   LNS_FUNC( Bool16 )          LnsGetCount( Int32   min_h_len,
-                                            Int32   min_v_len,
-                                            Int32*  result_h_count,
-                                            Int32*  result_v_count
+   LNS_FUNC( Bool16 )          LnsGetCount( int32_t   min_h_len,
+                                            int32_t   min_v_len,
+                                            int32_t*  result_h_count,
+                                            int32_t*  result_v_count
                                           );
 
    //.....выгрузка фрагментов..............................
@@ -116,13 +116,13 @@ typedef struct tagLnsSetupStr
    //......................................................
 
    LNS_FUNC( Bool16 )          LnsUpload( LinesTotalInfo* lti,
-                                          Int32   min_h_len,
-                                          Int32   min_v_len
+                                          int32_t   min_h_len,
+                                          int32_t   min_v_len
                                         );
 
-   LNS_FUNC( Rect16* )         LnsGetBlackSquares( Int32* count );
+   LNS_FUNC( Rect16* )         LnsGetBlackSquares( int32_t* count );
       // 04 dec 1998 - black squares upload
-   LNS_FUNC( Rect16* )         LnsGetCheckBoxes( Int32* count );
+   LNS_FUNC( Rect16* )         LnsGetCheckBoxes( int32_t* count );
       // 11 feb 1998 - checkboxes upload
 
    LNS_FUNC( TImageAccess* )   LnsGetSweepedImage( LinesTotalInfo* lti );

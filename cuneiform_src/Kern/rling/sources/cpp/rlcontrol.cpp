@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////////////////////
 // exit by catch
 ///////////////////////////////////////////////////////////////////////////////////
-typedef void(*pExitByCatchFunc)(Int32);
+typedef void(*pExitByCatchFunc)(int32_t);
 //////////////////////////////////////////////////////////////////////////////////
 // defined at "Rling_Ma.c"
 extern "C"
@@ -102,7 +102,7 @@ extern "C"
 	Int16     TE_close(Int16);
 	void      trees_load_rling(void);
 	Int16     text_findstat_rling(PChar8);
-	Int16     spelling(PWord8, Int32);
+	Int16     spelling(PWord8, int32_t);
 	void      load_user_dicts (PChar8, PChar8);
 	void      unload_user_dicts(void);
 }
@@ -136,12 +136,12 @@ CRLControl::~CRLControl()
 }
 ///////////////////////////////////////////////////////////////////////////////////
 //
-Int32  CRLControl::IsDictonaryAvailable(Word32 wLang, PChar8 pDictPath)
+int32_t  CRLControl::IsDictonaryAvailable(Word32 wLang, PChar8 pDictPath)
 {
 	// -1 - invalid languge code,
 	// 0  - tables not found,
 	// >0 - tables available
-	Int32 iRet = -1;
+	int32_t iRet = -1;
 	Int16 TempFile;
 
 	if ( pDictPath != NULL )
@@ -172,7 +172,7 @@ Int32  CRLControl::IsDictonaryAvailable(Word32 wLang, PChar8 pDictPath)
 
 				if ( TempFile == -1 )
 				{
-					throw (Int32)RLING_ERROR_CANT_OPEN_TABLE;
+					throw (int32_t)RLING_ERROR_CANT_OPEN_TABLE;
 				}
 
 				TE_close(TempFile);
@@ -181,7 +181,7 @@ Int32  CRLControl::IsDictonaryAvailable(Word32 wLang, PChar8 pDictPath)
 			iRet = 1;
 		}
 
-		catch( Int32 PumaExceptCode )
+		catch( int32_t PumaExceptCode )
 		{
 			SetCodeWhenExit(PumaExceptCode);
 		}
@@ -241,7 +241,7 @@ Bool32 CRLControl::LoadDictonary(Word32 wLang, PChar8 pDictPath)
 			trees_load_rling();
 		}
 
-		catch( Int32 PumaExceptCode )
+		catch( int32_t PumaExceptCode )
 		{
 			SetCodeWhenExit(PumaExceptCode);
 			UnLoadDictonary();
@@ -298,7 +298,7 @@ Bool32 CRLControl::UnLoadSecDictonary()
 	return bRet;
 }
 //////////////////////////////////////////////////////////////////////////////////
-Bool32 CRLControl::CheckWord(PChar8 cWord, PInt32 pOutCheck)
+Bool32 CRLControl::CheckWord(PChar8 cWord, Pint32_t pOutCheck)
 {
 	Bool32     bRet = FALSE;
 
@@ -325,7 +325,7 @@ Bool32 CRLControl::CheckWord(PChar8 cWord, PInt32 pOutCheck)
 				m_LastCheck = text_findstat_rling(m_LastWord);
 			}
 			/////////////////////////////////////////////////////////////////
-			catch( Int32 PumaExceptCode )
+			catch( int32_t PumaExceptCode )
 			{
 				SetCodeWhenExit(PumaExceptCode);
 				bRet = FALSE;
@@ -339,7 +339,7 @@ Bool32 CRLControl::CheckWord(PChar8 cWord, PInt32 pOutCheck)
 	return bRet;
 }
 //////////////////////////////////////////////////////////////////////////////////
-Bool32 CRLControl::CheckED(void *pEDPool, void * pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, PInt32 pOut)
+Bool32 CRLControl::CheckED(void *pEDPool, void * pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, Pint32_t pOut)
 {
 	Bool32     bRet = FALSE;
 	Word32     wHexSize = RLING_ED_BUFFER_SIZE / RLING_ED_DECREATOR;
@@ -394,7 +394,7 @@ Bool32 CRLControl::CheckED(void *pEDPool, void * pEDOutPool, Word32 wEDPoolSize,
 			memcpy(pEDOutPool, m_LastEDOutPool, m_LastEDOutPoolSize);
 		}
 		/////////////////////////////////////////////////////////////////
-		catch( Int32 PumaExceptCode )
+		catch( int32_t PumaExceptCode )
 		{
 			SetCodeWhenExit(PumaExceptCode);
 			bRet = FALSE;
@@ -406,7 +406,7 @@ Bool32 CRLControl::CheckED(void *pEDPool, void * pEDOutPool, Word32 wEDPoolSize,
 	return bRet;
 }
 //////////////////////////////////////////////////////////////////////////////////
-Bool32 CRLControl::CheckSecWord(PChar8 cWord, PInt32 pOutCheck)
+Bool32 CRLControl::CheckSecWord(PChar8 cWord, Pint32_t pOutCheck)
 {
 	Bool32     bRet = FALSE;
 
@@ -417,7 +417,7 @@ Bool32 CRLControl::CheckSecWord(PChar8 cWord, PInt32 pOutCheck)
 	return bRet;
 }
 //////////////////////////////////////////////////////////////////////////////////
-Bool32 CRLControl::CheckFile(PChar8 pFile, PInt32 pCheck)
+Bool32 CRLControl::CheckFile(PChar8 pFile, Pint32_t pCheck)
 {
 	Bool32     bRet = FALSE;
 	m_LastCheck = 0;
@@ -435,7 +435,7 @@ Bool32 CRLControl::CheckFile(PChar8 pFile, PInt32 pCheck)
 	return bRet;
 }
 //////////////////////////////////////////////////////////////////////////////////
-void CRLControl::ExitByCatch(Int32 ExitCode)
+void CRLControl::ExitByCatch(int32_t ExitCode)
 {
 	throw ExitCode;
 }
@@ -506,7 +506,7 @@ void CRLControl::FreeEDBuffer()
 	}
 }
 
-Bool32 CRLControl::CheckSecED(void *pEDPool, void *pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, PInt32 pOut)
+Bool32 CRLControl::CheckSecED(void *pEDPool, void *pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, Pint32_t pOut)
 {
 	Bool32     bRet = FALSE;
 
@@ -527,7 +527,7 @@ Bool32 CRLControl::LoadUserDictonary(PChar8 pUserDictonaryList, PChar8 pPoint)
 		bRet = TRUE;
 	}
 	/////////////////////////////////////////////////////////////////
-	catch( Int32 PumaExceptCode )
+	catch( int32_t PumaExceptCode )
 	{
 		SetCodeWhenExit(PumaExceptCode);
 		bRet = FALSE;
@@ -547,7 +547,7 @@ Bool32 CRLControl::LoadSecUserDictonary(PChar8 pUserDictonaryList, PChar8 pPoint
 	return bRet;
 }
 
-void CRLControl::SetCodeWhenExit(Int32 Code)
+void CRLControl::SetCodeWhenExit(int32_t Code)
 {
 	switch (Code)
 	{
@@ -587,7 +587,7 @@ Bool32 CRLControl::UnLoadUserDictonary()
 		bRet = TRUE;
 	}
 	/////////////////////////////////////////////////////////////////
-	catch( Int32 PumaExceptCode )
+	catch( int32_t PumaExceptCode )
 	{
 		SetCodeWhenExit(PumaExceptCode);
 		bRet = FALSE;
@@ -611,7 +611,7 @@ Bool32 CRLControl::CorrectWord(CSTR_rast Beg, CSTR_rast End, PWord32 pLanguage, 
 {
 	Bool32 bRet = FALSE;
 	Word32 wSizeOut;
-	Int32  iOut;
+	int32_t  iOut;
 
 	mcEderator.Init();
 
@@ -640,7 +640,7 @@ Bool32 CRLControl::CorrectHypWord(CSTR_rast BegF, CSTR_rast EndF, PWord32 pLangu
 {
 	Bool32 bRet = FALSE;
 	Word32 wSizeOut;
-	Int32  iOut;
+	int32_t  iOut;
 
 	mcEderator.Init();
 

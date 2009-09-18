@@ -61,7 +61,7 @@ extern   Word32 bit_cnt_mmx[];
 //
 //       uint32_t   MMX_anding (int32 * images, int32 * etalon, int32 limit)
 //
-MMX_FUNC(Bool32) MMX_anding(Int32 *image,Word16 *etalons,Int32 L)
+MMX_FUNC(Bool32) MMX_anding(int32_t *image,Word16 *etalons,int32_t L)
 {
 #ifdef _MSC_VER
 _asm    {
@@ -350,7 +350,7 @@ retur:
 }
 
 
-MMX_FUNC(void) MMX_open( Int32 *image)
+MMX_FUNC(void) MMX_open( int32_t *image)
 {
 #ifdef _MSC_VER
 _asm    {

@@ -97,7 +97,7 @@ extern  void RtfAssignRect_CRect_CRect(RECT *s1,RECT *s2);
 
 Int16   CreateEmptyRtfFile(void);
 void    PutC(char sym);
-void    PutCom(const char *Command, Int32 value, Int16 space);
+void    PutCom(const char *Command, int32_t value, Int16 space);
 void    Put(const char *Data);
 void    PutChar(BYTE sym);
 Int16   get_font_name(Int16 FontNumber);
@@ -250,12 +250,12 @@ void CRtfPage::Rtf_CED_CreatePage(void)
 	Handle hCPAGE = CPAGE_GetHandlePage( CPAGE_GetCurrentPage());
 	GetPageInfo(hCPAGE,&PageInfo);
 	PageNumber     = atoi((char*)WriteRtfPageNumber);
-	sizeOfImage.cx = (Int32)PageInfo.Width;
-	sizeOfImage.cy = (Int32)PageInfo.Height;
+	sizeOfImage.cx = (int32_t)PageInfo.Width;
+	sizeOfImage.cy = (int32_t)PageInfo.Height;
 	sizeInTwips.cx = PaperW;
 	sizeInTwips.cy = PaperH;
-	dpi.cx         = (Int32)PageInfo.DPIX;
-	dpi.cy         = (Int32)PageInfo.DPIY;
+	dpi.cx         = (int32_t)PageInfo.DPIX;
+	dpi.cy         = (int32_t)PageInfo.DPIY;
 
 	pageBordersInTwips.left   = MargL;
 	pageBordersInTwips.top    = MargT;
@@ -433,10 +433,10 @@ BOOL ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage)
 		pRtfFragment->m_wType = FT_TEXT;
 
 		fread(&RectFragm,1,sizeof(Rect16),in);
-		pRtfFragment->m_rect.left  = (Int32)(RectFragm.left*Twips);
-		pRtfFragment->m_rect.top   = (Int32)(RectFragm.top*Twips);
-		pRtfFragment->m_rect.right = (Int32)(RectFragm.right*Twips);
-		pRtfFragment->m_rect.bottom= (Int32)(RectFragm.bottom*Twips);
+		pRtfFragment->m_rect.left  = (int32_t)(RectFragm.left*Twips);
+		pRtfFragment->m_rect.top   = (int32_t)(RectFragm.top*Twips);
+		pRtfFragment->m_rect.right = (int32_t)(RectFragm.right*Twips);
+		pRtfFragment->m_rect.bottom= (int32_t)(RectFragm.bottom*Twips);
 		fread(&tmp,2,1,in);
 		pRtfFragment->m_wStringsCount = tmp;
 		fread(&wtmp,4,1,in);
@@ -680,7 +680,7 @@ BOOL CRtfPage::FindPageTree(FILE *fpFileNameIn, const char* FileNameOut)
 //////////////////////////////////////////////////////////////////////////////////////////
 void CRtfPage::ReCalcPageWidthAndHeight(void)
 {
-	Int32 LeftPos = 32000, TopPos=32000, RightPos =-32000, BottomPos=-32000, Height=-32000, Width=0;
+	int32_t LeftPos = 32000, TopPos=32000, RightPos =-32000, BottomPos=-32000, Height=-32000, Width=0;
 	CRtfSector*           pRtfSector;
 
 	if( FlagMode & USE_NONE )
@@ -691,7 +691,7 @@ void CRtfPage::ReCalcPageWidthAndHeight(void)
 		{
 			Width = MAX( Width, (*ppRtfFragment)->m_rect.right - (*ppRtfFragment)->m_rect.left );
 		}
-		PaperW = MAX( DefaultWidthPage, (Int32)(Width/** Twips*/) + MargL + MargR );
+		PaperW = MAX( DefaultWidthPage, (int32_t)(Width/** Twips*/) + MargL + MargR );
 		PaperH = DefaultHeightPage;
 	}
 	else
@@ -736,24 +736,24 @@ void CRtfPage::ReCalcPageWidthAndHeight(void)
 //////////////////////////////////////////////////////////////////////////////////////////
 //           Вычисления ширены и высоты листа                                           //
 //////////////////////////////////////////////////////////////////////////////////////////
-void CRtfPage::SetPaperSize(Int32  LeftPos, Int32 RightPos, Int32 TopPos, Int32 BottomPos,
-																												Int32* PaperW , Int32* PaperH ,
-																												Int32* MargL  , Int32* MargR  , Int32* MargT, Int32* MargB)
+void CRtfPage::SetPaperSize(int32_t  LeftPos, int32_t RightPos, int32_t TopPos, int32_t BottomPos,
+																												int32_t* PaperW , int32_t* PaperH ,
+																												int32_t* MargL  , int32_t* MargR  , int32_t* MargT, int32_t* MargB)
 {
 	int i,j;
 
- Int32  MargL2 = DefMargL/2,   MargL10 = DefMargL/10,   MargL0  = 0;
- Int32  MargR2 = DefMargR/2,   MargR10 = DefMargR/10,   MargR0  = 0;
- Int32  MargT2 = DefMargT/2,   MargT10 = DefMargT/10,   MargT0  = 0;
- Int32  MargB2 = DefMargB/2,   MargB10 = DefMargB/10,   MargB0  = 0;
+ int32_t  MargL2 = DefMargL/2,   MargL10 = DefMargL/10,   MargL0  = 0;
+ int32_t  MargR2 = DefMargR/2,   MargR10 = DefMargR/10,   MargR0  = 0;
+ int32_t  MargT2 = DefMargT/2,   MargT10 = DefMargT/10,   MargT0  = 0;
+ int32_t  MargB2 = DefMargB/2,   MargB10 = DefMargB/10,   MargB0  = 0;
 
- Int32  MasMargL[]={DefMargL,MargL2,MargL10,MargL0};
- Int32  MasMargR[]={DefMargR,MargR2,MargR10,MargR0};
- Int32  MasMargT[]={DefMargT,MargT2,MargT10,MargT0};
- Int32  MasMargB[]={DefMargB,MargB2,MargB10,MargB0};
+ int32_t  MasMargL[]={DefMargL,MargL2,MargL10,MargL0};
+ int32_t  MasMargR[]={DefMargR,MargR2,MargR10,MargR0};
+ int32_t  MasMargT[]={DefMargT,MargT2,MargT10,MargT0};
+ int32_t  MasMargB[]={DefMargB,MargB2,MargB10,MargB0};
 
-	Int32  WidthPage[]={11906,20163,23812,23812};   // A4,Legal,A3,A2
- Int32  HeightPage[]={16838,12242,16838,33676};  // A4,Legal,A3,A2
+	int32_t  WidthPage[]={11906,20163,23812,23812};   // A4,Legal,A3,A2
+ int32_t  HeightPage[]={16838,12242,16838,33676};  // A4,Legal,A3,A2
  for(j=0;j<3;j++)
 	{
 
@@ -1115,7 +1115,7 @@ BOOL CRtfPage::Write_USE_FRAME()
  CRtfFragment*  pRtfFragment;
  RtfSectorInfo* SectorInfo;
 	CRtfSector *pRtfSector;
-	Int32 shpleft,shptop,shpright,shpbottom,shpwr=0;
+	int32_t shpleft,shptop,shpright,shpbottom,shpwr=0;
 
 #ifdef EdWrite
  EDBOX       EdFragmRect;
@@ -1326,7 +1326,7 @@ WORD CRtfPage::GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector* pR
 	CRtfFragment       *pRtfFragment;
 	RECT              FreePlace;
 	int                i,CountFragments;
-	Int32              FreePlaceHeight;
+	int32_t              FreePlaceHeight;
 
 	FreePlace.left     = pRtfSector->m_rect.left;
 	FreePlace.right    = pRtfSector->m_rect.right;
@@ -1772,7 +1772,7 @@ BOOL CRtfSector::Write(void)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CRtfSector::WriteTerminalColumnsTablesAndPictures(void)
 {
-	Int32 CountHTerminalColumns,TerminalColumnNumber;
+	int32_t CountHTerminalColumns,TerminalColumnNumber;
 	CRtfHorizontalColumn *pRtfHorizontalColumn;
 
  	CountHTerminalColumns  = m_arHTerminalColumnsIndex.size();
@@ -1791,7 +1791,7 @@ void CRtfSector::WriteTerminalColumnsTablesAndPictures(void)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CRtfSector::WriteTerminalColumns(void)
 {
-	Int32 CountHTerminalColumns,CountVTerminalColumns,TerminalColumnNumber;
+	int32_t CountHTerminalColumns,CountVTerminalColumns,TerminalColumnNumber;
 	CRtfHorizontalColumn *pRtfHorizontalColumn;
 
 	CountHTerminalColumns  = m_arHTerminalColumnsIndex.size();
@@ -1803,7 +1803,7 @@ void CRtfSector::WriteTerminalColumns(void)
 	{
 		CountVTerminalColumns = GetCountAndRightBoundVTerminalColumns();
 		PutCom("\\cols",CountVTerminalColumns,0);
-		Int32 len_colsx = 709;
+		int32_t len_colsx = 709;
 		PutCom("\\colsx",len_colsx,1);
 		Put("\\endnhere");
 
@@ -1822,9 +1822,9 @@ void CRtfSector::WriteTerminalColumns(void)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 GetCountAndRightBoundVTerminalColumns                          //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-Int32 CRtfSector::GetCountAndRightBoundVTerminalColumns(void)
+int32_t CRtfSector::GetCountAndRightBoundVTerminalColumns(void)
 {
-	Int32 CountHTerminalColumns,CountVTerminalColumns,TerminalColumnNumber;
+	int32_t CountHTerminalColumns,CountVTerminalColumns,TerminalColumnNumber;
 	CRtfHorizontalColumn *pRtfHorizontalColumn;
 
 	CountVTerminalColumns=0;
@@ -2049,11 +2049,11 @@ return TRUE;
 void CRtfHorizontalColumn::FindHeadingAndSetFrameFlag(void)
 {
 	CRtfVerticalColumn* pRtfVerticalColumn;
-	Int32               TmpBottom = 32000;
+	int32_t               TmpBottom = 32000;
 	std::vector<BYTE>          Hist;
-	Int32               Left=32000,Right=0,Length,Left1,Right1;
+	int32_t               Left=32000,Right=0,Length,Left1,Right1;
 	int                 i,j,FlagLeft,FlagRight,tmp;
-	Int32                MaxWidth=1,MaxHeight=1;
+	int32_t                MaxWidth=1,MaxHeight=1;
 
 //	Hist.RemoveAll();
 	m_wVerticalColumnsCount = m_arVerticalColumns.size();
@@ -2170,7 +2170,7 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void)
 	std::vector<BYTE>    Hist;
 	vectorWord*   pGroup;
 	CRtfVerticalColumn* pRtfVerticalColumn;
-	Int32 Left=32000,Right=0,Length,Left1,Right1;
+	int32_t Left=32000,Right=0,Length,Left1,Right1;
 	int i,j,FlagSpace=0,CountColumn,MinLeft,MaxRight;
 
 	m_wVerticalColumnsCount = m_arVerticalColumns.size();
@@ -2304,7 +2304,7 @@ void CRtfHorizontalColumn::FillingVTerminalColumnsIndex(void)
 {
 	int                 i,j,FlagChange;
 	WORD		              index,Number;
-	Int32               Top;
+	int32_t               Top;
 	CRtfVerticalColumn *pRtfVerticalColumn;
 	vectorWord         *pGroup,*pGroupNew;
 
@@ -2388,10 +2388,10 @@ void CRtfHorizontalColumn::FillingVTerminalColumnsIndex(void)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 GetCountAndRightBoundVTerminalColumns                          //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-Int32 CRtfHorizontalColumn::GetCountAndRightBoundVTerminalColumns(vectorWord* arRightBoundTerminalColumns,
+int32_t CRtfHorizontalColumn::GetCountAndRightBoundVTerminalColumns(vectorWord* arRightBoundTerminalColumns,
 														vectorWord* arWidthTerminalColumns)
 {
-	Int32               CountVTerminalColumns=0;
+	int32_t               CountVTerminalColumns=0;
 	CRtfVerticalColumn *pRtfVerticalColumn;
 	WORD                RightBound,index,WidthColumn,tmp;
 	vectorWord         *pGroup;
@@ -2487,19 +2487,19 @@ void CRtfHorizontalColumn::SetFlagObjectInColumnForPageFragment( CRtfFragment* C
 //                                 WriteTerminalColumns                                           //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminalColumns,
-													Int32* VTerminalColumnNumber,
-													Int32  CountVTerminalColumns,
+													int32_t* VTerminalColumnNumber,
+													int32_t  CountVTerminalColumns,
 													RtfSectorInfo *SectorInfo)
 {
 	int                 colsr(0),i(0),j(0),colw(0),CountInGroup(0);
-	Int32               CountTerminalColumns,NextColumnsLeft,CountFrameInTerminalColumn,Left,Right;
+	int32_t               CountTerminalColumns,NextColumnsLeft,CountFrameInTerminalColumn,Left,Right;
 	CRtfVerticalColumn *pRtfVerticalColumn;
 	CRtfFragment       *pRtfFragment;
 	vectorWord         *pGroup;
 	WORD                FreeSpace;
 	int                 number;
 	BOOL                FlagFirstTerminalFragment = FALSE;
-	Int32               TopPositionFirstTerminalFragment;
+	int32_t               TopPositionFirstTerminalFragment;
 	RECT               Rect;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //***********************        Tерминальная колонка из одного или нескольких фрагментов  ******************************************
@@ -2690,7 +2690,7 @@ WORD CRtfHorizontalColumn::GetFreeSpaceBetweenPrevAndCurrentFragments(int TopPos
 	CRtfFragment       *pRtfFragment;
 	RECT              FreePlace;
 	int                i,CountFragments;
-	Int32              FreePlaceHeight;
+	int32_t              FreePlaceHeight;
 
 	FreePlace.left     = m_rect.left;
 	FreePlace.right    = m_rect.right;
@@ -2772,7 +2772,7 @@ BOOL CRtfHorizontalColumn::GetOverLayedFlag(int CurFragmentNumber)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CRtfHorizontalColumn::SortFragments()
 {
-	Int32               CountFrameInTerminalColumn;
+	int32_t               CountFrameInTerminalColumn;
 	CRtfVerticalColumn *pRtfVerticalColumn;
 	CRtfFragment       *pRtfFragment,*pRtfFragmentFirst;
 	int                 /*NextTop=-32000,*/size,number;
@@ -2861,7 +2861,7 @@ void CRtfHorizontalColumn::SortFragments()
 
 WORD CRtfHorizontalColumn::GetOffsetFromPrevTextFragment(CRtfFragment *pRtfFragment)
 {
-	Int32               CountFrameInTerminalColumn;
+	int32_t               CountFrameInTerminalColumn;
 	CRtfVerticalColumn *pRtfVerticalColumn;
 	CRtfFragment       *pRtfFragmentNext;
 	WORD                VerOffset=0;
@@ -2881,10 +2881,10 @@ WORD CRtfHorizontalColumn::GetOffsetFromPrevTextFragment(CRtfFragment *pRtfFragm
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 WriteFramesInTerminalColumn                                    //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfHorizontalColumn::WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo,BOOL FlagFirstTerminalFragment,Int32 TopPositionFirstTerminalFragment)
+void CRtfHorizontalColumn::WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo,BOOL FlagFirstTerminalFragment,int32_t TopPositionFirstTerminalFragment)
 {
 	CRtfVerticalColumn* pRtfVerticalColumn;
-	Int32 shpleft,shptop,shpright,shpbottom,shpwr=0,fri=0;
+	int32_t shpleft,shptop,shpright,shpbottom,shpwr=0,fri=0;
 
 #ifdef EdWrite
  EDBOX EdFragmRect;
@@ -3083,7 +3083,7 @@ void CRtfVerticalColumn::SetSpaceRect(CRtfFragment* CurrentFragment, RtfSectorIn
 	CRtfFragment*    pRtfFragment;
 	RECT            LeftFreePlace,RightFreePlace,TopFreePlace,BottomFreePlace,CurrentFragmentRect,RectInter;
 	int              i,CountFragments;
-	Int32            LeftFree,RightFree,TopFree,BottomFree;
+	int32_t            LeftFree,RightFree,TopFree,BottomFree;
 
 
 	LeftFree  = CurrentFragment->m_rect.left;
@@ -3136,10 +3136,10 @@ void CRtfVerticalColumn::SetSpaceRect(CRtfFragment* CurrentFragment, RtfSectorIn
 			BottomFree = MIN(BottomFree, CurrentFragmentRect.top - BottomFreePlace.top);
 	}
 
-  SectorInfo->m_rectFree.left   = CurrentFragment->m_rectFree.left   = (Int32)(MAX(0,LeftFree)   * TwipsToEMU_Koef);
-  SectorInfo->m_rectFree.right  = CurrentFragment->m_rectFree.right  = (Int32)(MAX(0,RightFree)  * TwipsToEMU_Koef);
-  SectorInfo->m_rectFree.top    = CurrentFragment->m_rectFree.top    = (Int32)(MAX(0,TopFree)    * TwipsToEMU_Koef);
-  SectorInfo->m_rectFree.bottom = CurrentFragment->m_rectFree.bottom = (Int32)(MAX(0,BottomFree) * TwipsToEMU_Koef);
+  SectorInfo->m_rectFree.left   = CurrentFragment->m_rectFree.left   = (int32_t)(MAX(0,LeftFree)   * TwipsToEMU_Koef);
+  SectorInfo->m_rectFree.right  = CurrentFragment->m_rectFree.right  = (int32_t)(MAX(0,RightFree)  * TwipsToEMU_Koef);
+  SectorInfo->m_rectFree.top    = CurrentFragment->m_rectFree.top    = (int32_t)(MAX(0,TopFree)    * TwipsToEMU_Koef);
+  SectorInfo->m_rectFree.bottom = CurrentFragment->m_rectFree.bottom = (int32_t)(MAX(0,BottomFree) * TwipsToEMU_Koef);
 
 }
 
@@ -4047,7 +4047,7 @@ Int16 GetRealSizeKegl( /*CString**/const char* str, Int16 width, Int16 FontPoint
 }
 
 //==Command - сама команда, value - числовой аргумент (-1 - нет)
-void PutCom(const char *Command,Int32 value,Int16 space)
+void PutCom(const char *Command,int32_t value,Int16 space)
 //==
 { char Num[10]; Int16 i,len;
 	if(RtfWriteMode == FALSE)
@@ -4336,7 +4336,7 @@ BOOL CheckLines(RECT* Rect, BOOL FlagVer, RtfSectorInfo *SectorInfo)
 // Word32             size;
 // LineInfo           lineinfo;
  Handle             hPage;
- Int32              VCentre,HCentre;
+ int32_t              VCentre,HCentre;
 // extern Handle hUseCLine;
  Word32 size_line_com=sizeof(LINE_COM);
 
@@ -4384,13 +4384,13 @@ BOOL CheckLines(RECT* Rect, BOOL FlagVer, RtfSectorInfo *SectorInfo)
 					 {
 					  if(cpdata->Line.Beg_Y*Twips > Rect->top   && cpdata->Line.Beg_Y*Twips < Rect->bottom)
 					  {
-					   Rect->top = (Int32)(cpdata->Line.Beg_Y*Twips);
-					   Rect->bottom = (Int32)(cpdata->Line.Beg_Y*Twips+10);
+					   Rect->top = (int32_t)(cpdata->Line.Beg_Y*Twips);
+					   Rect->bottom = (int32_t)(cpdata->Line.Beg_Y*Twips+10);
 					  }
 					  else
 					  {
-					   Rect->top = (Int32)(cpdata->Line.End_Y*Twips);
-					   Rect->bottom = (Int32)(cpdata->Line.End_Y*Twips+10);
+					   Rect->top = (int32_t)(cpdata->Line.End_Y*Twips);
+					   Rect->bottom = (int32_t)(cpdata->Line.End_Y*Twips+10);
 					  }
 					  CLINE_CopyData(&data,cpdata,sizeof(DLine));
 					  data.Flags |= LI_FRMT_Used;
@@ -4449,15 +4449,15 @@ BOOL CheckLines(RECT* Rect, BOOL FlagVer, RtfSectorInfo *SectorInfo)
 						{
 						 if(lineinfo.A.y*Twips > Rect->top   && lineinfo.A.y*Twips < Rect->bottom)
 							{
-					   Rect->top = (Int32)(lineinfo.A.y*Twips);
-								Rect->bottom = (Int32)(lineinfo.A.y*Twips+10);
+					   Rect->top = (int32_t)(lineinfo.A.y*Twips);
+								Rect->bottom = (int32_t)(lineinfo.A.y*Twips+10);
 								lineinfo.Flags |= LI_FRMT_Used;
         CPAGE_SetBlockData( hPage, hVH, (Word32)lti.Hor.Lns, &lineinfo, sizeof(lineinfo));
 							}
 							else
        {
-					   Rect->top = (Int32)(lineinfo.B.y*Twips);
-								Rect->bottom = (Int32)(lineinfo.B.y*Twips+10);
+					   Rect->top = (int32_t)(lineinfo.B.y*Twips);
+								Rect->bottom = (int32_t)(lineinfo.B.y*Twips+10);
         lineinfo.Flags |= LI_FRMT_Used;
         CPAGE_SetBlockData( hPage, hVH, (Word32)lti.Hor.Lns, &lineinfo, sizeof(lineinfo));
 							}

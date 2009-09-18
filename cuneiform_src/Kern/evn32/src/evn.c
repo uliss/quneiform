@@ -95,19 +95,19 @@ extern version* start_rec;   // ptr to answer
 extern Word8 lpool[];
 extern Word8 evline[], evline1[];
 
-extern MN * c_locomp (Word8* raster, Int32 bw, Int32 h, Int16 upper, Int16 left);
+extern MN * c_locomp (Word8* raster, int32_t bw, int32_t h, Int16 upper, Int16 left);
 extern void MN_to_line(MN *);
-extern Int32 recog_letter(void);
-extern Int32 recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, Word8 *lp,Word16 lth);
+extern int32_t recog_letter(void);
+extern int32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, Word8 *lp,Word16 lth);
 
 
 static void *EvnAlloc(Word32 len) { return malloc(len); }
 static void  EvnFree(void *ptr,Word32 len) { free(ptr); }
-static Int32 GetFileLength(Int32 handle) { return filelength(handle);}
+static int32_t GetFileLength(int32_t handle) { return filelength(handle);}
 
 static void* (*my_alloc)(Word32 len)=EvnAlloc;
 static void  (*my_free)(void *ptr,Word32 len)=EvnFree;
-Int32 evn_close(void)
+int32_t evn_close(void)
 {
 if( events_treeh )
     my_free( events_treeh, 0 );
@@ -118,7 +118,7 @@ if( events_tree_rth )
     return 1;
 }
 
-Int32 evn_close_prn(void)
+int32_t evn_close_prn(void)
 {
 if( events_treep )
     my_free( events_treep, 0 );
@@ -129,10 +129,10 @@ if( events_tree_rtp )
     return 1;
 }
 
-Int32 evn_tab_init( void )
+int32_t evn_tab_init( void )
 {
-  Int32  h;
-  Int32  size;
+  int32_t  h;
+  int32_t  size;
 
   evn_error_code = ER_EVN_NO_ERROR;
 
@@ -187,10 +187,10 @@ Int32 evn_tab_init( void )
 }
 
 
-Int32 evn_tab_init_prn(const char *file1, const char *file2 )
+int32_t evn_tab_init_prn(const char *file1, const char *file2 )
 {
-  Int32  h;
-  Int32  size;
+  int32_t  h;
+  int32_t  size;
 
   evn_error_code = ER_EVN_NO_ERROR;
 
@@ -349,7 +349,7 @@ Bool32  EVNRecog(
       RecVersions *res
                   )
 {
-Int32     nvers, i, ii, nvers1;
+int32_t     nvers, i, ii, nvers1;
 MN *mn=NULL;
 ev_num_ln=0;
 evn_error_code = ER_EVN_NO_ERROR;
@@ -414,9 +414,9 @@ return EVNRecog(rRaster, res );
 }
 
 
-EVN_FUNC(Int32)  EVNGetNumComp(   RecRaster   *rRaster )
+EVN_FUNC(int32_t)  EVNGetNumComp(   RecRaster   *rRaster )
 {
-Int32     i;
+int32_t     i;
 MN *mn=NULL;
 
 evn_error_code = ER_EVN_NO_ERROR;
@@ -433,7 +433,7 @@ return i;
 }
 
 Word8 evn_multy_lpool[6000+2];
-EVN_FUNC(Word8 *)  EVNMakeLine( RecRaster   *rRaster , Int32 parm)
+EVN_FUNC(Word8 *)  EVNMakeLine( RecRaster   *rRaster , int32_t parm)
 {
 MN *mn=NULL;
 Word8  *lp, *lpin, *lpend=(Word8*)(evn_multy_lpool+6000);
@@ -526,9 +526,9 @@ else if( parm==2 )
 return lp;
 }
 
-EVN_FUNC(Int32)  EVNGetRepresent(
+EVN_FUNC(int32_t)  EVNGetRepresent(
       RecRaster   *rRaster,
-      Word8 *evn, Word8 *evn_rot, Int32 font              )
+      Word8 *evn, Word8 *evn_rot, int32_t font              )
 {
 Word8   *tmp, four[6], c;
 int     i,nvers1,nvers;
@@ -595,10 +595,10 @@ for(nvers1=0,i=0;i<nvers;i++)
 return nvers1;
 }
 
-EVN_FUNC(Int32)  EVNRecog_lp(  /*ExtComponent*/CCOM_comp *ec, Word8   *lp, Word16 lth,
+EVN_FUNC(int32_t)  EVNRecog_lp(  /*ExtComponent*/CCOM_comp *ec, Word8   *lp, Word16 lth,
                                Word8   *res    )
 {
-Int32     nvers, i, ii;
+int32_t     nvers, i, ii;
 
 evn_error_code = ER_EVN_NO_ERROR;
 if( !evn_active_prn )
@@ -625,7 +625,7 @@ res[ii]=0;
 return ii;
 }
 
-EVN_FUNC(MN *) EVN_CLocomp (Word8* raster, Int32 bw, Int32 h, Int16 upper, Int16 left)
+EVN_FUNC(MN *) EVN_CLocomp (Word8* raster, int32_t bw, int32_t h, Int16 upper, Int16 left)
 {
 MN *m;
 left = MAX(0,left);

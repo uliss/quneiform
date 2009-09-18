@@ -83,7 +83,7 @@ static Bool32 IsFullName(const char* szFileName)
     return FALSE;
 }
 
-static void SetFullName(char* szFullFileName,const char* szIniFileName,Int32 nFlags)
+static void SetFullName(char* szFullFileName,const char* szIniFileName,int32_t nFlags)
 {
     strcpy(szFullFileName,szIniFileName);
     if(!IsFullName(szIniFileName) && !(nFlags & STD_SETPROF_DIR_WINDOWS))
@@ -99,7 +99,7 @@ static void SetFullName(char* szFullFileName,const char* szIniFileName,Int32 nFl
 }
 
 
-STD_FUNC( Bool32 ) stdGetProfileString(char* szString,Int32* nStrLen,const char* szIniFileName,const char* szSection,const char* szKey,Int32 nFlags, const char* pszStrDefault)
+STD_FUNC( Bool32 ) stdGetProfileString(char* szString,int32_t* nStrLen,const char* szIniFileName,const char* szSection,const char* szKey,int32_t nFlags, const char* pszStrDefault)
 {
     char szFullFileName[_MAX_PATH]={0};
 	SetFullName(szFullFileName,szIniFileName,nFlags);
@@ -108,14 +108,14 @@ STD_FUNC( Bool32 ) stdGetProfileString(char* szString,Int32* nStrLen,const char*
     return TRUE;
 }
 
-STD_FUNC( Int32 ) stdGetProfileInt(const char* szIniFileName,const char* szSection,const char* szKey,Int32 nFlags,Int32 nValDefault)
+STD_FUNC( int32_t ) stdGetProfileInt(const char* szIniFileName,const char* szSection,const char* szKey,int32_t nFlags,int32_t nValDefault)
 {
     char szFullFileName[_MAX_PATH]={0};
 	SetFullName(szFullFileName,szIniFileName,nFlags);
     return GetPrivateProfileInt(szSection,szKey,nValDefault,szFullFileName);
 }
 
-STD_FUNC( Bool32 ) stdSetProfileString(const char* szString,const char* szIniFileName,const char* szSection,const char* szKey,Int32 nFlags)
+STD_FUNC( Bool32 ) stdSetProfileString(const char* szString,const char* szIniFileName,const char* szSection,const char* szKey,int32_t nFlags)
 {
     char szFullFileName[_MAX_PATH]={0};
 	SetFullName(szFullFileName,szIniFileName,nFlags);
@@ -124,7 +124,7 @@ STD_FUNC( Bool32 ) stdSetProfileString(const char* szString,const char* szIniFil
     return TRUE;
 }
 
-STD_FUNC( Bool32 ) stdSetProfileInt(Int32 nValue,const char* szIniFileName,const char* szSection,const char* szKey,Int32 nFlags)
+STD_FUNC( Bool32 ) stdSetProfileInt(int32_t nValue,const char* szIniFileName,const char* szSection,const char* szKey,int32_t nFlags)
 {
     char szStrNumber[256]={0};
     itoa(nValue,szStrNumber,10);

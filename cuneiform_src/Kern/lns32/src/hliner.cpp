@@ -79,8 +79,8 @@ LNS_FUNC( void   )      LnsRegisterSnpTree(
 
 
 
-static Int32 nByteWidth;
-static Int32 nLine=0;
+static int32_t nByteWidth;
+static int32_t nLine=0;
 
 //static Bool  bReady = FALSE;
 
@@ -207,7 +207,7 @@ Bool32   _TraceLine(int i, int j, Line16& ln )
    return (jj - j) > 3;
 }
 
-Int32    HLiner_Analyze(void) // returns count of extracted lines
+int32_t    HLiner_Analyze(void) // returns count of extracted lines
 {
    int gap = 3; // count of zero cells on up and down direction
    int wid = 3; // count of notzero cells on left or right side
@@ -300,12 +300,12 @@ Int32    HLiner_Analyze(void) // returns count of extracted lines
    return  xsLines.GetCurCnt();
 }
 
-Int32  HLiner_GetCount(void)
+int32_t  HLiner_GetCount(void)
 {
    return  xsLines.GetCurCnt();
 }
 
-Line16*  HLiner_GetLine( Int32 nLineIndex )
+Line16*  HLiner_GetLine( int32_t nLineIndex )
 {
    return &(xsLines[nLineIndex]);
 } // 0..count-1

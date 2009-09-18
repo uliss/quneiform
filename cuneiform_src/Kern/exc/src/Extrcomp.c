@@ -90,10 +90,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 static  Rect16  merge_frame;
 static  Bool32  is_merge_frame=FALSE;
 static  CCOM_handle NumContainer =0;
-static  Int32   curr_line=0, original_density;
+static  int32_t   curr_line=0, original_density;
 static  Word8   original_begends;
 static  Word8 * rasterDIB4=NULL;
-static  Int32   DIB_Hei,    DIB_Wid,
+static  int32_t   DIB_Hei,    DIB_Wid,
                 DIB_HRes,   DIB_VRes,
                 DIB_TCol,   DIB_TRow,
                 DIB_BW,     DIB_FM=1,
@@ -172,8 +172,8 @@ extern Int16   MN_to_line(MN * mn);
 extern Bool16   rexc_set_alpha(Word8 language, Word8 *alphabet);
 extern Bool16   rexc_load_tables(Word8 language);
 extern Bool16   rexc_is_language(Word8 language);
-extern Int32    rexc_gra_type_ori(Word8 lang);
-extern Int32    rexc_gra_type_rec(Word8 lang);
+extern int32_t    rexc_gra_type_ori(Word8 lang);
+extern int32_t    rexc_gra_type_rec(Word8 lang);
 extern void     exc_ori_recog(RecVersions *v);
 -*/
 // from MATRIX.C
@@ -187,7 +187,7 @@ static Bool process_comp(void * pool,Word32 size);
 static Bool flush_cache(void);
 static void reset_cache(void);
 static Bool init_dump_file(void);
-static Bool write_dump(void * pool,Int32 size);
+static Bool write_dump(void * pool,int32_t size);
 static Bool extrcomp_setup_memory(void);
 
 //========== Import data
@@ -196,23 +196,23 @@ extern ExtComponent wcomp;
 extern Word16 lpool_lth;
 extern Word8 lpool[];
 extern Word8 work_raster[];
-extern Int32 sz_work_raster, sz_work_raster_1;
+extern int32_t sz_work_raster, sz_work_raster_1;
 extern BOX *dl_last_in_chain;
 //========== Global data
 Word8       language=-1;
-Int32       gra_type_ori =-1;
-Int32       gra_type_rec =-1;
+int32_t       gra_type_ori =-1;
+int32_t       gra_type_rec =-1;
 TImageOpen  Tiger_ImageOpen;
 TImageRead  Tiger_ImageRead;
 TImageClose Tiger_ImageClose;
 Tiger_ProcComp    Tiger_ProcessComp;
-Int32   box_number=BOX_NUMBER;
+int32_t   box_number=BOX_NUMBER;
 Word8   fax1x2=0,matrix=0;
 Word16  actual_resolution;
 Word16  comp_max_h, comp_max_w, comp_min_h, comp_min_w;
 Word8   alphabet[256];
 Int16   nBlack,nAll,nWid;
-Int32 ExControl;
+int32_t ExControl;
 //========== Local data
 
 #define CACHESIZE       (64*1024)
@@ -229,7 +229,7 @@ static Word16            wLowRC =                            REXC_ERR_NO;;
 EXC_FUNC(Bool32)  ExtrcompInit( void )
 {
 FNCCOM_MakeLP      MLP=(FNCCOM_MakeLP)REXCMakeLP;
-Int32                ccom_vers, vers=REXC_VERSION_CODE;
+int32_t                ccom_vers, vers=REXC_VERSION_CODE;
 
 if( Q.boxstart )
     {
@@ -269,7 +269,7 @@ return;
 
 
 
-EXC_FUNC(Int32)  Extracomp(ExcControl ExCW,TImageOpen tio,
+EXC_FUNC(int32_t)  Extracomp(ExcControl ExCW,TImageOpen tio,
                                 TImageClose tic, TImageRead tir,
                                 Tiger_ProcComp tipc)
 {
@@ -349,7 +349,7 @@ EXC_FUNC(Bool32)  REXCExtracomp(ExcControl ExCW,TImageOpen tio,
                                 TImageClose tic, TImageRead tir,
                                 Tiger_ProcComp tipc)
 {
-Int32 ret;
+int32_t ret;
 ret = Extracomp(ExCW,tio,tic,tir,tipc);
 
 switch (ret)
@@ -624,12 +624,12 @@ return TRUE;
 
 
 Bool32  REXCExtra(ExcControl ExCW,
-    Word8 *lpRaster, Int32 BWid, Bool32 ReverseOrder,
-    Int32 Wid, Int32 Hei, Int32 HRes, Int32 VRes,
-    Int32 TemplCol, Int32 TemplRow, Int32 TemplWid, Int32 TemplHei, Bool32 FotoMetr )
+    Word8 *lpRaster, int32_t BWid, Bool32 ReverseOrder,
+    int32_t Wid, int32_t Hei, int32_t HRes, int32_t VRes,
+    int32_t TemplCol, int32_t TemplRow, int32_t TemplWid, int32_t TemplHei, Bool32 FotoMetr )
 
 {
-Int32 ret;
+int32_t ret;
 if( Wid<=0 || BWid<=0 || Hei<=0 ||
     HRes<WORLD_MIN_RESOLUTION || VRes<WORLD_MIN_RESOLUTION  )
     {
@@ -734,7 +734,7 @@ return FALSE;
 Bool32  REXCExtracomp3CB(ExcControl ExCW,TImageOpen tio,
                                 TImageClose tic, TImageRead tir)
 {
-Int32 ret;
+int32_t ret;
   if( !(ExControl & Ex_NoContainer) )
     {
     NumContainer = CCOM_CreateContainer();
@@ -794,7 +794,7 @@ return FALSE;
 
 Bool32  REXCExtraDIB(ExcControl ExCW,
      Word8 *lp_DIB,
-     Int32 TemplCol, Int32 TemplRow, Int32 TemplWid, Int32 TemplHei)
+     int32_t TemplCol, int32_t TemplRow, int32_t TemplWid, int32_t TemplHei)
 
 {
 REXC_DIB        *lpDIB = (REXC_DIB *)lp_DIB;
@@ -1082,7 +1082,7 @@ void reset_cache(void)
 Bool init_dump_file(void)
 { return remove(dumpfile) == 0; }
 
-Bool write_dump(void * pool,Int32 size)
+Bool write_dump(void * pool,int32_t size)
 {
 int h;
 
@@ -1349,7 +1349,7 @@ Word8* frame_cut_MN(Int16, Int16);
 static Bool32 frame_cut_points();
 static void frame_select();
 static Bool16 frame_check();
-static Int32 frame_cut(MN *mn);
+static int32_t frame_cut(MN *mn);
 static Bool16 save_picture_scale (MN *mn);
 
 static Int16 big_merge(MN *mn)
@@ -1658,7 +1658,7 @@ return FALSE;
 #endif
 }
 
-static Int32 frame_cut(MN *mn)
+static int32_t frame_cut(MN *mn)
 {
  Int16 xl, xr, ncp,cutn;
  Int16 x0 = wcomp.left, y0=wcomp.upper, xmax = wcomp.w, h=wcomp.h;
@@ -1943,9 +1943,9 @@ for (pBox = (BOX *) mn -> mnfirstbox, nBox = 0;
 return FALSE;
 }
 
-Int32 sizeMN(MN *mn)
+int32_t sizeMN(MN *mn)
 {
-Int32    s;
+int32_t    s;
 BOX    *pBox;
 int    nBox;
 LNSTRT *pLine;
@@ -2004,7 +2004,7 @@ BOXINT *pInts;
 BOXINT *pAfterInts;
 BOXINT *pInt;
 int             xEnd, xBeg, y;
-Int32   size;
+int32_t   size;
 int             hh, y0, start=1;
 CCOM_lnhead *lnh={0};
 CCOM_comp   *cmp;
@@ -2079,7 +2079,7 @@ return TRUE;
 }
 
 
-static Int32 mn_sum(  MN *mn )
+static int32_t mn_sum(  MN *mn )
 {
 BOX    *pBox;
 int    nBox;
@@ -2087,7 +2087,7 @@ LNSTRT *pLine;
 BOXINT *pInts;
 BOXINT *pAfterInts;
 BOXINT *pInt;
-Int32     sum;
+int32_t     sum;
 
 sum=0;
 for (pBox = (BOX *) mn -> mnfirstbox, nBox = 0;
@@ -2121,7 +2121,7 @@ return sum;
 
 Bool16 save_picture_scale (MN *mn)
 {
-Int32     scale_2, scale;
+int32_t     scale_2, scale;
 Int16     sv_upper, sv_left, sv_w, sv_h;
 MN      *locmn;
 

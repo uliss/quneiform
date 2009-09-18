@@ -197,7 +197,7 @@ void file_string(STRING * s)
 // OLEG : Delete Garbage
 if( s->nDust > s->nLetters*1 )
     {
-    Int32   le,     ri, nri, nle;
+    int32_t   le,     ri, nri, nle;
     for(le = 32000,ri=-16000,i=0;i<s->nLetters;i++)
 		{
 		com = (pRoots + s -> pLettersList [i])->pComp;
@@ -291,7 +291,7 @@ if( s->nDust > s->nLetters*1 )
                         CCOM_comp       *ci=com;
                         CCOM_comp       *co=CSTR_GetComp(rst);
                         CCOM_USER_BLOCK ub;
-                        Int32           n;
+                        int32_t           n;
 
                         ub.code=CCOM_UB_CAPDROPLN;
                         ub.data=(Word8*)&n;

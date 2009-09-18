@@ -88,7 +88,7 @@ TableLine::~TableLine()
 {
 }
 //////////////////////////////////////////////////////////////////////
-Bool32 TableLine::Create(Int32 nCoord,Word32 nItems)
+Bool32 TableLine::Create(int32_t nCoord,Word32 nItems)
 {
 	Bool32 rc = FALSE;
 
@@ -144,7 +144,7 @@ TableClass::~TableClass()
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
-Bool32 TableClass::Create(Int32 Skew2048,Word32 nVer,Int32 * lpVCor, Word32 nHor,Int32 * lpHCor)
+Bool32 TableClass::Create(int32_t Skew2048,Word32 nVer,int32_t * lpVCor, Word32 nHor,int32_t * lpHCor)
 {
 	Bool32 rc = FALSE;
 	m_nSkew2048 = Skew2048;
@@ -283,7 +283,7 @@ void  TableClass::Update()
 	int nRow = GetNumberRow();
 	int nCol = GetNumberColumn();
 	Point32  p = {-1,-1};
-	Int32    n = -1;
+	int32_t    n = -1;
 
 	m_nPhNumber = 0;
 

@@ -166,29 +166,29 @@ EXC_FUNC(Bool32)  REXC_SetEVNProperties(ExcControl ExCW,char *spath, Word8 lang)
 typedef Bool32 (*FNREXC_Excomp)(ExcControl Control,
     TImageOpen  tio,        TImageClose tic,
     TImageRead  tir,        Tiger_ProcComp tipc);
-EXC_FUNC(Int32)  Extracomp(ExcControl Control,
+EXC_FUNC(int32_t)  Extracomp(ExcControl Control,
     TImageOpen  tio,        TImageClose tic,
     TImageRead  tir,        Tiger_ProcComp tipc);
 // 3    REXC_FNEXTRA        найти компоненты в растре
 typedef Bool32 (*FNREXC_Exc)(ExcControl Control,
-    Word8 *lpRaster, Int32 BWid, Bool32 ReverseOrder,
-    Int32 Wid, Int32 Hei,
-    Int32 HRes, Int32 VRes,
-    Int32 TemplCol, Int32 TemplRow, Int32 TemplWid, Int32 TemplHei);
+    Word8 *lpRaster, int32_t BWid, Bool32 ReverseOrder,
+    int32_t Wid, int32_t Hei,
+    int32_t HRes, int32_t VRes,
+    int32_t TemplCol, int32_t TemplRow, int32_t TemplWid, int32_t TemplHei);
 EXC_FUNC(Bool32)  REXCExtra(ExcControl Control,
-    Word8 *lpRaster, Int32 BWid, Bool32 ReverseOrder,
-    Int32 Wid, Int32 Hei,
-    Int32 HRes, Int32 VRes,
-    Int32 TemplCol, Int32 TemplRow, Int32 TemplWid, Int32 TemplHei, Bool32 FotoMetr);
+    Word8 *lpRaster, int32_t BWid, Bool32 ReverseOrder,
+    int32_t Wid, int32_t Hei,
+    int32_t HRes, int32_t VRes,
+    int32_t TemplCol, int32_t TemplRow, int32_t TemplWid, int32_t TemplHei, Bool32 FotoMetr);
 // 4    REXC_FNEXTRADIB     найти компоненты в ДИБе
 typedef Bool32 (*FNREXC_ExcDIB)(ExcControl ExCW,
     Word8 *lpDIB,
-    Int32 TemplCol, Int32 TemplRow, Int32 TemplWid, Int32 TemplHei);
+    int32_t TemplCol, int32_t TemplRow, int32_t TemplWid, int32_t TemplHei);
 EXC_FUNC(Bool32)  REXCExtraDIB(ExcControl ExCW,
     Word8 *lpDIB,
-    Int32 TemplCol, Int32 TemplRow, Int32 TemplWid, Int32 TemplHei);
+    int32_t TemplCol, int32_t TemplRow, int32_t TemplWid, int32_t TemplHei);
 // 5    REXC_FNGETCONTAINER   Получить код контейнера с компонентами
-typedef  Int32 (*FNREXC_GetContainer)(void);
+typedef  int32_t (*FNREXC_GetContainer)(void);
 EXC_FUNC(Handle)  REXCGetContainer(void);
 // 6    REXC_FNGETLENEREP     Получить интервальное представление
 typedef  Bool32  (*FNREXC_MakeLP)( RecRaster   *rRaster , Word8 *lp, Int16 *lp_size, Int16 *numcomp);
@@ -228,8 +228,8 @@ EXC_FUNC(Bool32)  REXCExtracomp3CB(ExcControl ExCW,TImageOpen tio,
 /*-Andrey: moved to RRecCom (recognition) and RNorm (autorotate)
 //--------------------------------------------------------------
 // 14   REXC_FNEXTGETRECRASTERORIENT ориентация рабочего растра
-typedef Bool32 (*FNexc_get_rec_raster_orient)(RecRaster   *rs,Int32 *res);
-EXC_FUNC(Bool32) exc_get_rec_raster_orient(RecRaster   *rs,Int32 *res);
+typedef Bool32 (*FNexc_get_rec_raster_orient)(RecRaster   *rs,int32_t *res);
+EXC_FUNC(Bool32) exc_get_rec_raster_orient(RecRaster   *rs,int32_t *res);
 // 15   REXC_FNSETALLALPHAGRA   алфавит нейронной сети
 typedef Bool32 (*FNexc_set_all_alphabet_gra)(void);
 EXC_FUNC(Bool32) exc_set_all_alphabet_gra(void);

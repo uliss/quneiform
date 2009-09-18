@@ -80,37 +80,37 @@ int     leo_exist_codes(RecVersions *ver, Word8 *codes);
 void    add_to_prob_array(Word8 prob[],RecVersions *v);
 void    VersToAlph(RecVersions *ver,Word8 alphabet0[]);
 void    leo_expert_prob( RecVersions *v,Word16 *v3x5, RecRaster *r ,
-                         Word8 prob_3x5[], Word8 prob_iva[], Int32 prn,
+                         Word8 prob_3x5[], Word8 prob_iva[], int32_t prn,
                          Bool32 bonus, Bool32 enable5x3);
 
 /// functions from module leo_stick
 int     leo_get_global_incline(void);
-void    leo_set_simple_sticks_group(RecVersions *v,unsigned char al[],Int32 nose);
+void    leo_set_simple_sticks_group(RecVersions *v,unsigned char al[],int32_t nose);
 Bool32  leo_small_object(RecObject *object,int wlim, int hlim);
-Int32   leo_wide_object(RecObject *object);
+int32_t   leo_wide_object(RecObject *object);
 Bool32  leo_big_object(RecObject *object,int wlim, int hlim);
 Bool32  leoRecogSimpleStick( RecObject*  object );
 void    leo_add_inc(RecObject*  object);
 void    leo_clear_stat(void);
-Int32   leo_stick_horiz_hist(int h);
+int32_t   leo_stick_horiz_hist(int h);
 Bool32  leo_is_stick(RecObject*  object);
 void    leo_setup_inc(RecObject*  object);
 void    leo_erect(RecObject* object,int inc);
-void    leo_set_sticks_group(   RecVersions *v, Int32 ret,
-                                unsigned char alph[], Int32 simple_st, Int32 nose_1);
-Int32   leo_recog_stick(Word16 *lpool, int w, int h);
+void    leo_set_sticks_group(   RecVersions *v, int32_t ret,
+                                unsigned char alph[], int32_t simple_st, int32_t nose_1);
+int32_t   leo_recog_stick(Word16 *lpool, int w, int h);
 void    leo_diskrim_stick(RecVersions *ver);
 
 /// functions from module leo_cont
 void    leo_close_cont(void);
-Bool32  leo_cont_new_page(Int32 id_page);
+Bool32  leo_cont_new_page(int32_t id_page);
 Int16   leo_cont_store(RecRaster *r,Word8 let, Word8 nLns,Rect16 *rect, Word8 IsPrn,
 		Word8 Prob, Word8 Valid, RecVersions *ver,Word8 control);
-Bool32  leo_cont_restore(RecRaster *r, Int32 id_page, Int16 id_rast, Word8 *nLns,Rect16 *rect, Word8 *IsPrn,Word8 *datao);
+Bool32  leo_cont_restore(RecRaster *r, int32_t id_page, Int16 id_rast, Word8 *nLns,Rect16 *rect, Word8 *IsPrn,Word8 *datao);
 void    leo_close_cont_temp(void);
 int     leo_open_cont_temp(void);
-Bool32  leo_cont_set_valid(Int32 id_page, Int16 id_rast,Word8 code, Word8 valid,Word8 control);
-Bool32  leo_cont_del_final(Int32 id_page, Int16 id_rast);
+Bool32  leo_cont_set_valid(int32_t id_page, Int16 id_rast,Word8 code, Word8 valid,Word8 control);
+Bool32  leo_cont_del_final(int32_t id_page, Int16 id_rast);
 Bool32  leo_cont_store_collection(RecVersions *ver);
 
 /// functions from module leo_prn
@@ -122,7 +122,7 @@ Bool32 leoRecogCharPRN_expert(RecRaster*  recRaster, RecVersions* over);
 void    leo_snapChar(RecVersions *ver, char *tit, int enable);
 void    leo_snapChar3x5(RecVersions *ver, char *tit, int enable);
 void    leo_snapRes2Str(RecVersions *ver, char *buf);
-Bool32  leoSnpInRect( Rect16* pRect, Int32 nSkew );
+Bool32  leoSnpInRect( Rect16* pRect, int32_t nSkew );
 
 void    leo_cuneiform(RecObject *rec);
 void    leo_SnpLog(char *tmp);
@@ -131,7 +131,7 @@ void    leo_snapSimpleKey(char *str, SnpTreeNode *stnRecog);
 Bool32  leo_init_prn(void);
 
 // function from module LEO_SIZE.C
-Word8 leo_proport_penalty(Word8 let,Word8 prob, Int32 w, Int32 h);
-Word8 leo_sizes_penalty( Int32 w, Int32 h);
+Word8 leo_proport_penalty(Word8 let,Word8 prob, int32_t w, int32_t h);
+Word8 leo_sizes_penalty( int32_t w, int32_t h);
 void  leo_sizes_init_stat(void);
 #endif

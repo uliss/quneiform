@@ -75,7 +75,7 @@ static Word16            gwHeightRC = 0;
 static Word16            gwLowRC =    0;
 static HINSTANCE         ghInst =     NULL;
 CTIControl *      Control_cti =    NULL;
-static Int32             InitCount =  0;
+static int32_t             InitCount =  0;
 /////////////////////////////////////////
 #undef APIENTRY
 #define APIENTRY

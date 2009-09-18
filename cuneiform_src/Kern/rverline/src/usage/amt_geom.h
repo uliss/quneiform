@@ -56,11 +56,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "cttypes.h"
 /*---------------------------------------------------------------------------*/
-void RotateRect (Rect16 *pRcRe, Rect16 *pRcId, Int32 Skew);
+void RotateRect (Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew);
 void FindMinimIdealRegion (int nRc, int *pDo, Rect16 *pRcIdeal, Rect16 *pMIR);
 Bool CanUse (Point16 *pA, Point16 *pB, int Lev, int Lev_A, int Lev_B, int LimIsMax, int Near);
-Bool HaveLinePartAtReg (Point16 *pA, Point16 *pB, Rect16 *pRc, Int32 Skew
+Bool HaveLinePartAtReg (Point16 *pA, Point16 *pB, Rect16 *pRc, int32_t Skew
 						, int NearHor, int NearVer);
 Bool IsRectsCross (Rect16 *pRc1, Rect16 *pRc2);
-Bool MakeInternalRectId (Rect16 *pRcRe, Rect16 *pRcId, Int32 Skew);
+Bool MakeInternalRectId (Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew);
 /*---------------------------------------------------------------------------*/

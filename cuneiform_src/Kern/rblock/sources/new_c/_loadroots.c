@@ -185,7 +185,7 @@ Bool32 IsNotGoodComp (PAGEINFO	pInfo, CCOM_comp *comp)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-Bool32 MyFiltrateIn (Int32 upper, Int32 left, Int32 w, Int32 h)
+Bool32 MyFiltrateIn (int32_t upper, int32_t left, int32_t w, int32_t h)
 {
 	if( (upper<=my_upper) ||
 		(left<=my_left) ||

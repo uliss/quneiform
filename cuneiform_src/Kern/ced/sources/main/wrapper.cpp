@@ -665,12 +665,12 @@ CED_FUNC(Handle) CED_GetColumn(Handle hEdSection,int number)
 	return (Handle)(((CEDSection*)hEdSection)->GetColumn(number));
 }
 
-CED_FUNC(Int32) CED_GetSnakeColumnWidth(Handle hEdSection,int number)
+CED_FUNC(int32_t) CED_GetSnakeColumnWidth(Handle hEdSection,int number)
 {
 	return ((CEDSection*)hEdSection)->colInfo[number].width;
 }
 
-CED_FUNC(Int32) CED_GetSnakeColumnSpacing(Handle hEdSection,int number)
+CED_FUNC(int32_t) CED_GetSnakeColumnSpacing(Handle hEdSection,int number)
 {
 	return ((CEDSection*)hEdSection)->colInfo[number].space;
 }
@@ -691,27 +691,27 @@ CED_FUNC(edBox) CED_GetFrameRect(Handle hEdFrame)
 	return ((EDFRAMEDESCR*)(((CEDParagraph*)hEdFrame)->descriptor))->rec;
 }
 
-CED_FUNC(Int32) CED_GetFramePosition(Handle hEdFrame)
+CED_FUNC(int32_t) CED_GetFramePosition(Handle hEdFrame)
 {
 	return ((EDFRAMEDESCR*)(((CEDParagraph*)hEdFrame)->descriptor))->position;
 }
 
-CED_FUNC(Int32) CED_GetFrameBorderSpace(Handle hEdFrame)
+CED_FUNC(int32_t) CED_GetFrameBorderSpace(Handle hEdFrame)
 {
 	return ((EDFRAMEDESCR*)(((CEDParagraph*)hEdFrame)->descriptor))->borderSpace;
 }
 
-CED_FUNC(Int32) CED_GetFrameDxfrtextx (Handle hEdFrame)
+CED_FUNC(int32_t) CED_GetFrameDxfrtextx (Handle hEdFrame)
 {
 	return ((EDFRAMEDESCR*)(((CEDParagraph*)hEdFrame)->descriptor))->dxfrtextx;
 }
 
-CED_FUNC(Int32) CED_GetFrameDxfrtexty (Handle hEdFrame)
+CED_FUNC(int32_t) CED_GetFrameDxfrtexty (Handle hEdFrame)
 {
 	return ((EDFRAMEDESCR*)(((CEDParagraph*)hEdFrame)->descriptor))->dxfrtexty;
 }
 
-CED_FUNC(Int32) CED_GetFrameFlag (Handle hEdFrame)
+CED_FUNC(int32_t) CED_GetFrameFlag (Handle hEdFrame)
 {
 	return ((EDFRAMEDESCR*)(((CEDParagraph*)hEdFrame)->descriptor))->flag;
 }
@@ -846,7 +846,7 @@ CED_FUNC(Bool32) CED_GetCellParams(Handle hEdCell, int* cellX, int* merging, int
 	return TRUE;
 }
 
-CED_FUNC(Int32) CED_GetCellFlag (Handle hEdCell)
+CED_FUNC(int32_t) CED_GetCellFlag (Handle hEdCell)
 {
 	return ((EDCELLDESCR*)(((CEDParagraph*)hEdCell)->descriptor))->flag;
 }
@@ -859,18 +859,18 @@ CED_FUNC(Word32 *) CED_GetTableOfCells(Handle hEdTable)
 }
 
 
-CED_FUNC(Int32 *)CED_GetLinesX(Handle hEdTable)
+CED_FUNC(int32_t *)CED_GetLinesX(Handle hEdTable)
 {
 	if ((Word32*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
 		((CEDParagraph*)hEdTable)->CreateTableOfCells();
-	return (Int32*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->linesX;
+	return (int32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->linesX;
 }
 
-CED_FUNC(Int32 *)CED_GetRowsHeights(Handle hEdTable)
+CED_FUNC(int32_t *)CED_GetRowsHeights(Handle hEdTable)
 {
 	if ((Word32*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
 		((CEDParagraph*)hEdTable)->CreateTableOfCells();
-	return (Int32*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->linesY;
+	return (int32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->linesY;
 }
 
 CED_FUNC(edSize) CED_GetSize(Handle hEdTable)
@@ -976,7 +976,7 @@ CED_FUNC(Bool32) CED_GetLineHardBreak (Handle hEdLine)
 	return ((CEDLine*)hEdLine)->hardBreak;
 }
 
-CED_FUNC(Int32) CED_GetLineDefChrFontHeight(Handle hEdLine)
+CED_FUNC(int32_t) CED_GetLineDefChrFontHeight(Handle hEdLine)
 {
 	return ((CEDLine*)hEdLine)->defChrFontHeight;
 }
@@ -1002,17 +1002,17 @@ CED_FUNC(struct) letterEx* CED_GetAlternatives(Handle hEdChar)
 	return ((CEDChar*)hEdChar)->alternatives;
 }
 
-CED_FUNC(Int32) CED_GetCharFontHeight(Handle hEdChar)
+CED_FUNC(int32_t) CED_GetCharFontHeight(Handle hEdChar)
 {
 	return ((CEDChar*)hEdChar)->fontHeight;
 }
 
-CED_FUNC(Int32) CED_GetCharFontAttribs(Handle hEdChar)
+CED_FUNC(int32_t) CED_GetCharFontAttribs(Handle hEdChar)
 {
 	return ((CEDChar*)hEdChar)->fontAttribs;
 }
 
-CED_FUNC(Int32) CED_GetCharFontNum(Handle hEdChar)
+CED_FUNC(int32_t) CED_GetCharFontNum(Handle hEdChar)
 {
 	return ((CEDChar*)hEdChar)->fontNum;
 }
@@ -1021,16 +1021,16 @@ CED_FUNC(EDRECT) CED_GetCharLayout(Handle hEdChar)
 {
 	return ((CEDChar*)hEdChar)->layout;
 }
-CED_FUNC(Int32) CED_GetCharForegroundColor(Handle hEdChar)
+CED_FUNC(int32_t) CED_GetCharForegroundColor(Handle hEdChar)
 {
 	return ((CEDChar*)hEdChar)->foregroundColor;
 }
 
-CED_FUNC(Int32) CED_GetCharBackgroundColor(Handle hEdChar)
+CED_FUNC(int32_t) CED_GetCharBackgroundColor(Handle hEdChar)
 {
 	return ((CEDChar*)hEdChar)->backgroundColor;
 }
-CED_FUNC(Int32) CED_GetCharFontLang(Handle hEdChar)
+CED_FUNC(int32_t) CED_GetCharFontLang(Handle hEdChar)
 {
 	return ((CEDChar*)hEdChar)->fontLang;
 }

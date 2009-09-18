@@ -118,11 +118,11 @@ static Word8 eng_uni_letters[]="iwWRFGLZz\xb1\xb2\xb3\xb4\xb5\xb6\xb9"; //+N
 static Word8 non_letters[]="«»()";
 static Word8 true_terms[]="/-\x5F";
 
-static Bool16	my_snap_monitor_ori(CSTR_line *snap_line, Int32 num_lines){return FALSE;};
+static Bool16	my_snap_monitor_ori(CSTR_line *snap_line, int32_t num_lines){return FALSE;};
 static Bool16	my_snap_activity(Word8 a){return FALSE;};
 static Bool16	my_snap_show_text(Word8 *txt){return FALSE;};
 
-static Bool16	(*snap_monitor_ori)(CSTR_line *snap_line, Int32 num_lines)=my_snap_monitor_ori;
+static Bool16	(*snap_monitor_ori)(CSTR_line *snap_line, int32_t num_lines)=my_snap_monitor_ori;
 static Bool16	(*snap_activity)(Word8 a)=my_snap_activity;
 static Bool16	(*snap_show_text)(Word8 *txt)=my_snap_show_text;
 static Word8	db_status=0;
@@ -146,7 +146,7 @@ static  Bool32  tables=FALSE;
 
 static  void rsadd_clear_hide(CSTR_line lrus);
 static  Bool32 rsadd_eng_L(CSTR_rast eng,CSTR_rast enge,CSTR_rast rus);
-static  Bool32 rsadd_hide_segment(CSTR_rast rus,Int32 b,Int32 e,Int32 lim) ;
+static  Bool32 rsadd_hide_segment(CSTR_rast rus,int32_t b,int32_t e,int32_t lim) ;
 
 static CSTR_rast rsadd_next_word(CSTR_rast cs)
 {
@@ -169,7 +169,7 @@ do{
 return (attr.flg&CSTR_f_fict)?(CSTR_rast)0:c;
 }
 
-static CSTR_rast rsadd_end_word(CSTR_rast cs,Word8 *str,Word8 *word_len,Int16 left_limit,Int16 right_limit, Int32 need_space,
+static CSTR_rast rsadd_end_word(CSTR_rast cs,Word8 *str,Word8 *word_len,Int16 left_limit,Int16 right_limit, int32_t need_space,
 								Bool32 rightTrue) //Nick 11.05.2001
 {
 CSTR_rast       c=cs, n;
@@ -185,8 +185,8 @@ if( rightTrue )
 {
 	Bool32 wasEnd = FALSE;
     CSTR_rast best=NULL;
-	Int32 bestDist=32000;
-	Int32 dist;
+	int32_t bestDist=32000;
+	int32_t dist;
 
 	for(c=cs;c;c=CSTR_GetNext(c) )
 	{
@@ -327,7 +327,7 @@ return c;
 ///////////
 // Проверить окружение слова
 // Nick 16.06.2001
-static Bool32 GoodWordBounds(CSTR_rast cs, CSTR_rast best, Int32 engCol, Int32 engLastCol)
+static Bool32 GoodWordBounds(CSTR_rast cs, CSTR_rast best, int32_t engCol, int32_t engLastCol)
 {
 	CSTR_rast_attr rattr;
 	Rect32 rect;
@@ -549,7 +549,7 @@ return;
 
 Bool32 rsadd_is_upper(Word8 Code, Word8 language)
 {
-Int32   code=(Int32)Code;
+int32_t   code=(int32_t)Code;
 
 switch( language )
     {
@@ -563,7 +563,7 @@ return FALSE;
 
 Bool32 rsadd_is_thick(Word8 Code, Word8 language)
 {
-Int32   code=(Int32)Code;
+int32_t   code=(int32_t)Code;
 if( code>49 && code<58 || code==48 )
     return TRUE;
 switch( language )
@@ -578,7 +578,7 @@ return FALSE;
 
 Bool32 rsadd_is_digit(Word8 Code)
 {
-Int32   code=(Int32)Code;
+int32_t   code=(int32_t)Code;
 
 return memchr("0123456789",code,10)!=NULL;
 }
@@ -700,7 +700,7 @@ static Bool32 rsadd_CopyWord(   CSTR_rast   cn,
                                 CSTR_rast   eng,CSTR_rast   enge,
                                 Bool32 rus_lang,
                                 CSTR_rast   *svb,CSTR_rast   *sve,
-								Int32 lastPos )
+								int32_t lastPos )
 {
 CSTR_rast   c;
 CCOM_comp    *  comp;
@@ -937,7 +937,7 @@ Bool32  find_in_paar_arrays(Word8 e,Word8 r,
                     Word8 *eng,
                     Word8 *rus)
 {
-Int32   ndx;
+int32_t   ndx;
 Bool32  comp,find;
 Word8 * p;
 
@@ -1105,7 +1105,7 @@ static char *rsadd_prev_eng_group_err[]={
 };
 Bool32 rsadd_eng_group(Word8 *wrd,Word8 last)
 {
-Int32   i;
+int32_t   i;
 for(i=0; rsadd_prev_eng_group[i][0]!=0;i++)
     {
     if( !strcasecmp(rsadd_prev_eng_group[i],wrd) )
@@ -1156,7 +1156,7 @@ static Word8 *russian_voc_spec[]={
 Bool32   rsadd_is_short_form(Word8 *rwrd)
 {
 Word8   russian_year[]="Ј.";
-Int32   i,ii,iv;
+int32_t   i,ii,iv;
 Word8   *p;
 
 ii=strlen(rwrd);
@@ -1234,12 +1234,12 @@ while( rus )
 return;
 }
 
-Bool32  rsadd_bl_conflict(CSTR_rast eng,CSTR_rast enge,Int32 BL_small)
+Bool32  rsadd_bl_conflict(CSTR_rast eng,CSTR_rast enge,int32_t BL_small)
 {
 CSTR_rast       c;
 CSTR_rast_attr  attr;
 UniVersions     u;
-Int32           all, small_;
+int32_t           all, small_;
 
 for(all=small_=0,c=eng;c && c!=enge;c=CSTR_GetNext(c))
     {
@@ -1294,9 +1294,9 @@ Bool32          rsolid, esolid, verdict, aliases,
 Word8           typea  ;
 RSADD_STAT      estat, rstat;
 CSTR_rast       svb,sve, cn,cne, nb, ne, pruse;
-Int32           nall,neng,num_word, BL_cap,BL_small ;
+int32_t           nall,neng,num_word, BL_cap,BL_small ;
 RecVersions     v;
-Int32           engCol;
+int32_t           engCol;
 Bool32          isSolid;
 
 
@@ -1724,10 +1724,10 @@ while( rus )
 return;
 }
 
-Bool32 rsadd_hide_segment(CSTR_rast rus,Int32 b,Int32 e,Int32 lim)
+Bool32 rsadd_hide_segment(CSTR_rast rus,int32_t b,int32_t e,int32_t lim)
 {
 CSTR_rast_attr  attr;
-Int32           ri, le, right, hide;
+int32_t           ri, le, right, hide;
 CSTR_rast       rri;
 
 right=-16000;
@@ -1767,7 +1767,7 @@ return FALSE;
 
 Bool32 rsadd_eng_L(CSTR_rast eng,CSTR_rast enge,CSTR_rast rus)
 {
-Int32           lim,hide;
+int32_t           lim,hide;
 UniVersions     uvs;
 CSTR_rast_attr  attr;
 CSTR_rast       pr=CSTR_GetPrev(enge);

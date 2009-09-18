@@ -119,7 +119,7 @@ SINT DistanceHausDLL(BYTE  *b1,SINT xbyte1,SINT yrow1,
 static void CorrectSizes(int *minBig,int *maxBig,int *minLit,int *maxLit,int bSize,int lSize,int porogSize);
 
 // from clu_ita.c
-Int32 TestItSeBoldCluster(int numCluster, InfoCluster *infoC,
+int32_t TestItSeBoldCluster(int numCluster, InfoCluster *infoC,
 				 int sBig,int sLit,int *maxC, Word32 *fifi,
 				 FONTFIELD *ff);
 // from clu_test.c
@@ -1400,7 +1400,7 @@ fillGood:
    {
      Word32 fifi[NFIELDDWORD];
 	 int fld,newFont,inField,best;
-	 Int32 FieldCount[MAXFIELD];
+	 int32_t FieldCount[MAXFIELD];
 
 	 memset(FieldCount,0,sizeof(FieldCount));
 	 for(fld=0;fld<numSymbol;fld++)

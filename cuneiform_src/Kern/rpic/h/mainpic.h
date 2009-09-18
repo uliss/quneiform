@@ -123,7 +123,7 @@ EXTERN Handle logFile_blocks;
 //////////////////////////////////////////////////////////
 Bool32 SearchRectanglePictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE);
 Bool32 SearchPolyPictures(Handle hCCOM,Handle hCPAGE);
-Bool32 MyFiltrateIn (Int32 upper, Int32 left, Int32 w, Int32 h);
+Bool32 MyFiltrateIn (int32_t upper, int32_t left, int32_t w, int32_t h);
 Bool32 DeleteFromPics(Word32 position);
 
 Bool32 OpenLogRes(void);

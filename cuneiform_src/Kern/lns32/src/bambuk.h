@@ -72,8 +72,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#	include "fararray.h"
 	#endif
 
-typedef 	Int32 BHandle ;
-typedef 	Int32 BEntry  ;
+typedef 	int32_t BHandle ;
+typedef 	int32_t BEntry  ;
 
 #define NULLBHandle  (BHandle)	0xFFFF
 #define NULLBEntry   (BEntry)	0xFFFF
@@ -240,9 +240,9 @@ void        destroyBambuk( void )
 			nextHandle = 0;
 			ok = FALSE;
 		};
-void        cleanMembers( T  * zero_member, Int32 from );
-void        cleanLinks( Int32 from = 0 );
-void        cleanEntries( Int32 from = 0 );
+void        cleanMembers( T  * zero_member, int32_t from );
+void        cleanLinks( int32_t from = 0 );
+void        cleanEntries( int32_t from = 0 );
 
 
 
@@ -280,20 +280,20 @@ void TBambuk<T>::appendMemberList( BEntry senior, BEntry junior )
 	};
 */
 template <class T>
-void  TBambuk<T>::cleanEntries( Int32 from )
+void  TBambuk<T>::cleanEntries( int32_t from )
 	{	assert( isOk() );
 		EntryInfo zeroEntry = { NULLBHandle, NULLBHandle, 0 };
 		entries.fill( &zeroEntry, from );
 	}
 
 template <class T>
-void  TBambuk<T>::cleanMembers( T  * zero_member, Int32 from )
+void  TBambuk<T>::cleanMembers( T  * zero_member, int32_t from )
 	{	assert( isOk() );
 		members.fill(  zero_member, from );
 	}
 
 template <class T>
-void  TBambuk<T>::cleanLinks( Int32 from )
+void  TBambuk<T>::cleanLinks( int32_t from )
 	{	assert( isOk() );
    	BHandle handle = NULLBHandle;
 		links.fill( &handle, from );
@@ -475,9 +475,9 @@ void        destroyBambuk( void )
 			nextHandle = 0;
 			ok = FALSE;
 		};
-void        cleanMembers( T  * zero_member, Int32 from );
-void        cleanLinks( Int32 from = 0 );
-void        cleanEntries( Int32 from = 0 );
+void        cleanMembers( T  * zero_member, int32_t from );
+void        cleanLinks( int32_t from = 0 );
+void        cleanEntries( int32_t from = 0 );
 
 
 
@@ -515,20 +515,20 @@ void THugeBambuk<T>::appendMemberList( BEntry senior, BEntry junior )
 	};
 */
 template <class T>
-void  THugeBambuk<T>::cleanEntries( Int32 from )
+void  THugeBambuk<T>::cleanEntries( int32_t from )
 	{	assert( isOk() );
 		EntryInfo zeroEntry = { NULLBHandle, NULLBHandle, 0 };
 		entries.fill( &zeroEntry, from );
 	}
 
 template <class T>
-void  THugeBambuk<T>::cleanMembers( T  * zero_member, Int32 from )
+void  THugeBambuk<T>::cleanMembers( T  * zero_member, int32_t from )
 	{	assert( isOk() );
 		members.fill(  zero_member, from );
 	}
 
 template <class T>
-void  THugeBambuk<T>::cleanLinks( Int32 from )
+void  THugeBambuk<T>::cleanLinks( int32_t from )
 	{	assert( isOk() );
    	BHandle handle = NULLBHandle;
 		links.fill( &handle, from );

@@ -77,12 +77,12 @@ void CleanData(Handle Type,void * lpData,Word32 Size)
 		TABLE_ *table = (TABLE_ *)lpData;
 		COMMON *com = &table->com;
 		memset(&com->Vertex[com->count],0,(char*)&com->Vertex[MaxNum]-(char*)&com->Vertex[com->count]);
-		Int32 *line=table->LineY;
+		int32_t *line=table->LineY;
 		memset(&line[table->num_rows+1],0,(char*)&line[MaxHorLines-1]-(char*)&line[table->num_rows+1]);
 		line=table->LineX;
 		memset(&line[table->num_colons+1],0,(char*)&line[MaxVerLines-1]-(char*)&line[table->num_colons+1]);
-		for (Int32 j=0; j<MaxVerLines; j++)
-			for (Int32 i=0; i<MaxHorLines; i++)
+		for (int32_t j=0; j<MaxVerLines; j++)
+			for (int32_t i=0; i<MaxHorLines; i++)
 				if (i>=table->num_rows || j>=table->num_colons)
 					table->Visible[i][j][0]=table->Visible[i][j][1]=table->TypeCell[i][j]=0;
 	}

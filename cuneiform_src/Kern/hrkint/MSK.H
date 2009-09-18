@@ -75,7 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    extern "C" {
    #endif
 
-  MSK_FUNC(void)    MSKSetPlatform(Int32 cpu);
+  MSK_FUNC(void)    MSKSetPlatform(int32_t cpu);
 
 ///
   MSK_FUNC(Bool32)  MSKInit( MemFunc* mem, const char *NameFile );

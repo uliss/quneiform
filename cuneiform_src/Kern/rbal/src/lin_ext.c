@@ -74,10 +74,10 @@ extern INT it_done;
 static Int16 skew_corr_stat(CSTR_line ln, INT pool_src);
 static Int16 rast_is_BOX_solid (CSTR_rast B1,Int16 scale);
 static BOOL snap_monitor_stat(void);
-static BOOL snap_monitor_ori_stat(CSTR_line *snap_line, Int32 num_lines);//IGOR
+static BOOL snap_monitor_ori_stat(CSTR_line *snap_line, int32_t num_lines);//IGOR
 static BOOL snap_is_marked_stat(CSTR_line ln);//IGOR
 static BOOL snap_baselines_stat(BYTE a);//IGOR
-static void snap_draw_line_stat(Handle wnd, Point16 *start, Point16 *end, Int32 skew,
+static void snap_draw_line_stat(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
 					                               Word32 rgb, Int16 pen, Word32 key);//IGOR
 static void snap_del_line_stat(Handle wnd, Word32 key);//IGOR
 static BOOL snap_show_text_stat(BYTE *txt);
@@ -90,10 +90,10 @@ Int16 (*RSTR_rast_is_BOX_solid) (CSTR_rast B1,Int16 scale) = rast_is_BOX_solid;
 BOOL (*snap_monitor_rbal)(void)=snap_monitor_stat;
 BOOL (*snap_show_text_rbal)(BYTE *txt)=snap_show_text_stat;
 BOOL (*snap_activity_rbal)(BYTE a)=snap_activity_stat;
-BOOL (*snap_monitor_ori_rbal)(CSTR_line *snap_line, Int32 num_lines)=snap_monitor_ori_stat; //IGOR
+BOOL (*snap_monitor_ori_rbal)(CSTR_line *snap_line, int32_t num_lines)=snap_monitor_ori_stat; //IGOR
 BOOL (*snap_is_marked_rbal)(CSTR_line ln)=snap_is_marked_stat;//IGOR
 BOOL (*snap_baselines_rbal)(BYTE a)=snap_baselines_stat;//IGOR
-void (*snap_draw_line_rbal)(Handle wnd, Point16 *start, Point16 *end, Int32 skew,
+void (*snap_draw_line_rbal)(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
 					                   Word32 rgb, Int16 pen, Word32 key)
 							=snap_draw_line_stat;//IGOR
 void (*snap_del_line_rbal)(Handle wnd, Word32 key) = snap_del_line_stat;//IGOR
@@ -108,7 +108,7 @@ Word16 actual_resolution=300;
 Word8  fEdCode = 0;  // ASCII
 BOOL   line_BL=FALSE;
 Word8  spec_camera = 0;
-Int32  nIncline=0;
+int32_t  nIncline=0;
 Word8  no_linpen=0;
 Int16  prop_l_delta=0, prop_r_delta=0;
 
@@ -464,7 +464,7 @@ void dust_ini(CSTR_line lin)
 BOOL snap_monitor_stat(void)
 { return FALSE;}
 ///////
-BOOL snap_monitor_ori_stat(CSTR_line *snap_line, Int32 num_lines)//IGOR
+BOOL snap_monitor_ori_stat(CSTR_line *snap_line, int32_t num_lines)//IGOR
 {return FALSE;}
 ///////
 BOOL snap_is_marked_stat(CSTR_line ln)//IGOR
@@ -473,7 +473,7 @@ BOOL snap_is_marked_stat(CSTR_line ln)//IGOR
 BOOL snap_baselines_stat(BYTE a)//IGOR
 { return FALSE;}
 ///////
-void snap_draw_line_stat(Handle wnd, Point16 *start, Point16 *end, Int32 skew,
+void snap_draw_line_stat(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
 											Word32 rgb, Int16 pen, Word32 key)//IGOR
 { return;}
 ///////

@@ -73,24 +73,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 class XMemFile : public XPool
 {
-   Int32    nFileLength;  // count of bytes in use (put into)
+   int32_t    nFileLength;  // count of bytes in use (put into)
    Word8*   pCur;        // current ptr
 
 public:
-   XMemFile( Int32 init_size = 0 )
+   XMemFile( int32_t init_size = 0 )
       : XPool(init_size)
       { pCur=(Word8*)Data; nFileLength = 0; };
 
-   Int32    Tell()
+   int32_t    Tell()
       { return pCur - (Word8*)Data; };
 
-   Int32    FileLength()
+   int32_t    FileLength()
       { return nFileLength; };
 
-   void    RestoreFileLength(Int32 len) // Oleg : knot for second recongition
+   void    RestoreFileLength(int32_t len) // Oleg : knot for second recongition
       { nFileLength=len; };
 
-   Bool     Seek( Int32 nOffset )
+   Bool     Seek( int32_t nOffset )
       {  if ((nOffset > nFileLength)||(nOffset < 0))
             RET_FALSE;
          pCur= ((Word8*)Data)+nOffset;
@@ -102,7 +102,7 @@ public:
 
    void     Reset() { nFileLength = 0; SeekToStart(); };
 
-   Bool     Get( void* data, Int32 size )
+   Bool     Get( void* data, int32_t size )
       {
          if (size < 0 || size+Tell() > nFileLength)
             RET_FALSE;
@@ -130,15 +130,15 @@ public:
          return ret;
       };
 
-   Bool     Reserve( Int32 size )
+   Bool     Reserve( int32_t size )
       {
          if (size < 0)
             RET_FALSE; // too strange...
-         Int32 tell = Tell();
+         int32_t tell = Tell();
          if (size+tell <= Volume)
             return TRUE; // there is enough place
 
-         Int32 new_size = maxi(size+tell, Volume*2);
+         int32_t new_size = maxi(size+tell, Volume*2);
          if (!Realloc( new_size ))
          {
             if (   size+tell < Volume*2  &&
@@ -150,7 +150,7 @@ public:
          return TRUE;
       }
 
-   Bool     Put( const void* data, Int32 size )
+   Bool     Put( const void* data, int32_t size )
       {
          if (size==0)
             return TRUE;
@@ -164,8 +164,8 @@ public:
       };
 
    // TODO: optimize!
-   Bool     Get( Int32& t ) { return Get( &t, sizeof(Int32) ); }
-   Bool     Put( Int32& t ) { return Put( &t, sizeof(Int32) ); }
+   Bool     Get( int32_t& t ) { return Get( &t, sizeof(int32_t) ); }
+   Bool     Put( int32_t& t ) { return Put( &t, sizeof(int32_t) ); }
    Bool     Get( Int16& t ) { return Get( &t, sizeof(Int16) ); }
    Bool     Put( Int16& t ) { return Put( &t, sizeof(Int16) ); }
    Bool     Get( Int8& t ) { return Get( &t, sizeof(Int8) ); }
@@ -192,7 +192,7 @@ public:
    template <class T>
    Bool     Put( T& t ) { return Put( &t, sizeof(T) ); }
 */
-   Bool     GetArray( void* p_start, Int32& nCount, Int32 cbElemSize )
+   Bool     GetArray( void* p_start, int32_t& nCount, int32_t cbElemSize )
       {  if (!Get( nCount ))
             RET_FALSE;
          if (!Get( p_start, nCount*cbElemSize ))
@@ -200,7 +200,7 @@ public:
          return TRUE;
       };
 
-   Bool     PutArray( void* p_start, Int32 nCount, Int32 cbElemSize )
+   Bool     PutArray( void* p_start, int32_t nCount, int32_t cbElemSize )
       {  if (!Put( nCount ))
             RET_FALSE;
          if (!Put( p_start, nCount*cbElemSize ))

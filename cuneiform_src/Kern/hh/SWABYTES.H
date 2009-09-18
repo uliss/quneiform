@@ -71,7 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    inline void SwapWord16(Word16 & x)  { __SWAP16(x); }
    inline void SwapWord32(Word32 & x)  { __SWAP32(x); }
    inline void SwapInt16(Int16 & x)    { __SWAP16(x); }
-   inline void SwapInt32(Int32 & x)    { __SWAP32(x); }
+   inline void Swapint32_t(int32_t & x)    { __SWAP32(x); }
    inline void SwapRect16(Rect16 & x)
       { __SWAP16(x.left); __SWAP16(x.top); __SWAP16(x.right); __SWAP16(x.bottom); }
    inline void SwapRect32(Rect32 & x)

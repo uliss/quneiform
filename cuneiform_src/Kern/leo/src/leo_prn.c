@@ -88,7 +88,7 @@ extern Bool32 leo_enable_fon_recog;
 
 // data from module LEO_DLL.C
 extern Bool32 leo_enable_stored;
-extern Int32  leo_typ_of_font, leo_MSK_ndx[];
+extern int32_t  leo_typ_of_font, leo_MSK_ndx[];
 
 static void leo_compress_prn( RecVersions *v)
 {
@@ -142,14 +142,14 @@ ver->Alt[0].Code = t;
 return;
 }
 
-static void leo_get_stat_bnd(Int32 *b1,Int32 *b2)
+static void leo_get_stat_bnd(int32_t *b1,int32_t *b2)
 {
 *b1 = 25;
 *b2 = 35;
 return;
 }
 
-static Int32 leo_no_hist_leader(Word8 over[],RecVersions *ver)
+static int32_t leo_no_hist_leader(Word8 over[],RecVersions *ver)
 {
 int i = 0, m = 0;Word8 c = 0;
 for(m=i=0;i<256;i++)
@@ -241,7 +241,7 @@ static Word8 bit_cnt[]={
 		};
 
 
-static Int32 leo_diskr16x16_down(RecRaster  *rr)
+static int32_t leo_diskr16x16_down(RecRaster  *rr)
 {
 int i,ii, longl, s, sc;
 
@@ -266,7 +266,7 @@ for(longl=0, ii=8*14,i=14;i<16;i++,ii+=8)
 return longl;
 }
 
-static Int32 leo_diskr16x16_right_down_hole(RecRaster  *rr)
+static int32_t leo_diskr16x16_right_down_hole(RecRaster  *rr)
 {
 int i,ii, longl, sc;
 
@@ -287,7 +287,7 @@ for(sc=0, ii=8*8,i=8;i<12;i++,ii+=8)
 return sc;
 }
 
-static Int32 leo_diskr16x16_right(RecRaster  *rr)
+static int32_t leo_diskr16x16_right(RecRaster  *rr)
 {
 int i,ii, sc;
 
@@ -323,7 +323,7 @@ static Word8 start_pos[]={
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 	/* 128 dup (0)*/
 		};
 
-static Int32 leo_diskr16x16_left(RecRaster  *rr)
+static int32_t leo_diskr16x16_left(RecRaster  *rr)
 {
 int i,ii, sc;
 
@@ -341,7 +341,7 @@ return 0;
 
 
 
-static Int32 leo_diskr3x5_H(Int16 *Im3x5)
+static int32_t leo_diskr3x5_H(Int16 *Im3x5)
 {
 int ret=1;
 
@@ -354,7 +354,7 @@ if( Im3x5[3*0+1]<(Im3x5[3*0+0]+Im3x5[3*0+2])/16 &&
 return ret;
 }
 
-static Int32 leo_diskr3x5_III(Int16 *Im3x5)
+static int32_t leo_diskr3x5_III(Int16 *Im3x5)
 {
 int ret=1;
 
@@ -385,7 +385,7 @@ int bn = (Im3x5[3*1+0]+Im3x5[3*2+0]+Im3x5[3*2+0]+Im3x5[3*1+2]+Im3x5[3*2+2]+Im3x5
 return (ce<bn );
 }
 
-Int32 LEO_DIFPenaltyCharMTR(RecRaster  *rr, Int16 *Im3x5, RecVersions *loc)
+int32_t LEO_DIFPenaltyCharMTR(RecRaster  *rr, Int16 *Im3x5, RecVersions *loc)
 {
 int i, num, pen, r;
 for(num=i=0;i<loc->lnAltCnt;i++)
@@ -546,7 +546,7 @@ switch( stdAsciiToAnsi(loc->Alt[i].Code) )
 return num;
 }
 
-Int32 leo_prn_undef(RecVersions *ver)
+int32_t leo_prn_undef(RecVersions *ver)
 {
 if( ver->lnAltCnt<2 )
     return 0;
@@ -563,7 +563,7 @@ return 0;
 
 void leo_reverse_russian(RecVersions *ver, Word8 Code1, Word8 Code2)
 {
-    Int32 i_1=leo_exist_code(ver,Code1),
+    int32_t i_1=leo_exist_code(ver,Code1),
           i_2=leo_exist_code(ver,Code2), i, i_22;
 	Word8 p;
     if( ver->lnAltCnt==REC_MAX_VERS )
@@ -616,9 +616,9 @@ return;
 
 void leo_kill_double_russian(RecVersions *ver, Word8 Code1, Word8 Code2)
 {
-    Int32 i_1=leo_exist_code(ver,Code1),
+    int32_t i_1=leo_exist_code(ver,Code1),
           i_2=leo_exist_code(ver,Code2);
-Int32 i,ii;
+int32_t i,ii;
 RecVersions v={0};
 v.lnAltMax = REC_MAX_VERS;
 if( i_2==-1 )
@@ -659,11 +659,11 @@ Bool32 leoRecogPrintAllChar( RecObject*  object )
 RecVersions ver, loc, per, msk, r35;
 Word16      CompImage16x16[256];
 Bool32      f16x16;
-Int32       over_bonus=0, unter=0;
+int32_t       over_bonus=0, unter=0;
 Word8       prob_3x5[256]={0}, over[256]={0};
 RecRaster   recR;
 Bool32      disable_dis=FALSE, disable_r35=FALSE, per_nonrec=FALSE;
-Int32       wid, hei;
+int32_t       wid, hei;
 
 DIFInit(&object->recData.recRaster,
         (object->recData.lwCompCnt>1),
@@ -800,7 +800,7 @@ if( !(object->recData.lwStatus & REC_STATUS_V3X5) )
 
 if( ver.lnAltCnt  )
   { // EXPERT PASS
-  Int32 ind;
+  int32_t ind;
   r35 = ver;
   msk = ver;
   ver.lnAltCnt=0;
@@ -845,7 +845,7 @@ if( !ver.lnAltCnt               ||
     ver.lnAltCnt && ver.Alt[0].Prob<150
     )
 	{  // CONSILIUM
-    Int32 ind;
+    int32_t ind;
 	ver.lnAltCnt=0;
 
     R35RecogPrintCharIm3x5(object->recData.v3x5, &r35);
@@ -909,8 +909,8 @@ if( ver.lnAltCnt && per.lnAltCnt && r35.lnAltCnt && msk.lnAltCnt)
         ver.Alt[0].Code!=per.Alt[0].Code )
         { // kill unique alt from 3x5
         Word8 first=per.Alt[0].Code;
-        Int32 i_msk=leo_exist_code(&msk,first);
-        Int32 i_r35=leo_exist_code(&r35,first);
+        int32_t i_msk=leo_exist_code(&msk,first);
+        int32_t i_r35=leo_exist_code(&r35,first);
 
         if( ver.Alt[0].Prob<245 )
         if( i_msk==0 ||                 // 180                              200
@@ -924,9 +924,9 @@ if( ver.lnAltCnt && per.lnAltCnt && r35.lnAltCnt && msk.lnAltCnt)
 if( !leo_strchr_codes_ansi("ØÙÆÇÝ", ver.Alt[0].Code) )
     {
     Word8 first=ver.Alt[0].Code;
-    Int32 i_r35=leo_exist_code(&r35,first);
-    Int32 i_msk=leo_exist_code(&msk,first);
-    Int32 i_per=leo_exist_code(&per,first);
+    int32_t i_r35=leo_exist_code(&r35,first);
+    int32_t i_msk=leo_exist_code(&msk,first);
+    int32_t i_per=leo_exist_code(&per,first);
     if( i_per==0 && i_r35!=-1 && i_msk!=-1 && per.Alt[0].Prob>180 )
         {
         if( i_r35==0 && i_msk==0 )
@@ -1154,7 +1154,7 @@ if( per.lnAltCnt && ver.lnAltCnt>1 && ver.Alt[0].Prob==ver.Alt[1].Prob && ver.Al
     }
 if( alphabet['N'] )
     {
-    Int32 i_N=leo_exist_code(&ver,'N');
+    int32_t i_N=leo_exist_code(&ver,'N');
     if( i_N!=-1 && ver.Alt[i_N].Method==REC_METHOD_3X5 &&
         ver.Alt[0].Prob>240 &&  ver.Alt[i_N].Prob>200 )
         {
@@ -1209,7 +1209,7 @@ Bool32 leoRecogPrintDotChar( RecObject*  object )
 RecVersions ver, loc,  per, tmp, msk, r35;
 Word16      CompImage16x16[256];
 Bool32      f16x16, disable_dis, disable_r35, per_nonrec=FALSE  ;
-Int32       over_bonus=0, not_n=0;
+int32_t       over_bonus=0, not_n=0;
 Word8       prob_3x5[256]={0}, over[256]={0};
 RecRaster   recR,rr, rr_sm;
 
@@ -1305,7 +1305,7 @@ if( !(object->recData.lwStatus & REC_STATUS_V3X5) )
 	}
 
     {  // CONSILIUM
-    Int32 ind;
+    int32_t ind;
 	ver.lnAltCnt=0;
 
     if( (leo_typ_of_font&LEO_FONT_MTR) &&
@@ -1376,7 +1376,7 @@ if( ver.Alt[0].Prob>150 && ver.Alt[0].Method==REC_METHOD_3X5 &&
     ver.Alt[0].Code!=per.Alt[0].Code )
     { // kill unique alt from 3x5
     Word8 first=per.Alt[0].Code;
-    Int32 i_msk=leo_exist_code(&msk,first);
+    int32_t i_msk=leo_exist_code(&msk,first);
 
     if( i_msk==0 || i_msk==1 && msk.Alt[0].Prob==msk.Alt[1].Prob && per.Alt[0].Prob>100)
         {
@@ -1388,9 +1388,9 @@ if( ver.Alt[0].Prob>150 && ver.Alt[0].Method==REC_METHOD_3X5 &&
 if( !leo_strchr_codes_ansi("ØÙÆ", ver.Alt[0].Code) )
     {
     Word8 first=ver.Alt[0].Code;
-    Int32 i_r35=leo_exist_code(&r35,first);
-    Int32 i_msk=leo_exist_code(&msk,first);
-    Int32 i_per=leo_exist_code(&per,first);
+    int32_t i_r35=leo_exist_code(&r35,first);
+    int32_t i_msk=leo_exist_code(&msk,first);
+    int32_t i_per=leo_exist_code(&per,first);
     if( i_per==0 && i_r35!=-1 && i_msk!=-1 && per.Alt[0].Prob>180 )
         {
         if( i_r35==0 && i_msk==0 )

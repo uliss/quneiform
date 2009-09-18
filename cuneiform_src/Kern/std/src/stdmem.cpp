@@ -66,9 +66,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 #ifdef _DEBUG
-   static Int32 _stdMallocCounter=0;
-   static Int32 _stdReallocCounter=0;
-   static Int32 _stdFreeCounter=0;
+   static int32_t _stdMallocCounter=0;
+   static int32_t _stdReallocCounter=0;
+   static int32_t _stdFreeCounter=0;
 
    class __TestStdMem
    {
@@ -97,7 +97,7 @@ STD_FUNC( void )  stdGetMemInfo( StdMemInfo* pMemInf )
 }
 
 
-STD_FUNC( void* ) stdMalloc( Int32 size )
+STD_FUNC( void* ) stdMalloc( int32_t size )
 {
 #if 0
    void * res = malloc(size);
@@ -118,7 +118,7 @@ STD_FUNC( void* ) stdMalloc( Int32 size )
    return malloc(size);
 }
 
-STD_FUNC( void* )  stdRealloc( void* old_ptr, Int32 new_size, Int32 old_size )
+STD_FUNC( void* )  stdRealloc( void* old_ptr, int32_t new_size, int32_t old_size )
 {
 
 #if 0
@@ -160,7 +160,7 @@ STD_FUNC( void  ) stdFreeX( void** pptr )
    };
 }
 
-STD_FUNC( void* ) stdMemcpy( void* dest , void* src , Int32 copy_count )
+STD_FUNC( void* ) stdMemcpy( void* dest , void* src , int32_t copy_count )
 {
 
 #ifdef _DEBUG

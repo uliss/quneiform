@@ -119,7 +119,7 @@ typedef struct tagRSPreProcessImage
 	Handle* phLinesCCOM;
 	void *  phCLINE;
 	PBool32 pgneed_clean_line;
-	PInt32  pgnNumberTables;
+	Pint32_t  pgnNumberTables;
 	Word32  gnPictures;
 	Bool32* pgrc_line;
 	Rect32  gRectTemplate;

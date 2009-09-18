@@ -66,7 +66,7 @@ _asm    {
 		psllq       mm6,        32
 		movd        mm7,        edx
 		mov         ecx,        dst
-		paddd       mm7,        mm6         ;;  mm7=((Int32)cg,(Int32)cg)
+		paddd       mm7,        mm6         ;;  mm7=((int32_t)cg,(int32_t)cg)
         mov         edx,        num
 		pxor        mm6,        mm6
         mov         ebx,        edx
@@ -129,7 +129,7 @@ _asm    {
 		psllq	mm6,	32
 		movd	mm7,	edx
 		mov     ecx,    dst
-		paddd	mm7,	mm6   // mm7=((Int32)cg,(Int32)cg)
+		paddd	mm7,	mm6   // mm7=((int32_t)cg,(int32_t)cg)
 		pxor	mm6,	mm6
         }
 

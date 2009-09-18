@@ -482,7 +482,7 @@ void p2_FillTxt(CSTR_line cc,char *intxt,BOOL ansi)
     p2_TextWord(CSTR_GetNext(first),last,intxt,ansi);
 }
 //////////////////////////////
-Int32 p2_TextProb(CSTR_line cc,CSTR_rast  first,CSTR_rast last, char *intxt,int maxTxt)
+int32_t p2_TextProb(CSTR_line cc,CSTR_rast  first,CSTR_rast last, char *intxt,int maxTxt)
 {
         CSTR_rast_attr  attr;
         UniVersions     vers;
@@ -523,7 +523,7 @@ Int32 p2_TextProb(CSTR_line cc,CSTR_rast  first,CSTR_rast last, char *intxt,int 
 }
 //////////////////
 static Word32 oddEvenFlag=CSTR_fn_val2odd;
-Int32 p2_setOddEvenFlag(CSTR_rast first,CSTR_rast last)
+int32_t p2_setOddEvenFlag(CSTR_rast first,CSTR_rast last)
 {
   int numCell;
   CSTR_rast curr;

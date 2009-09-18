@@ -114,49 +114,49 @@ typedef struct tagFLLData
 {
 	CLINE_handle hCLINE;
 	CLINE_handle hTempContainer;
-	Int32 line_distance_x;
-	Int32 line_distance_y;
+	int32_t line_distance_x;
+	int32_t line_distance_y;
 	PAGEINFO* pInfo;
-	Int32 page_beg_x;
-	Int32 page_beg_y;
-	Int32 page_end_x;
-	Int32 page_end_y;
+	int32_t page_beg_x;
+	int32_t page_beg_y;
+	int32_t page_end_x;
+	int32_t page_end_y;
 	bool bShowCP;
 	bool bShowCheckedRects;
 	bool bPrintCheckedRects;
 	Handle hWnd;
 	LineData* aBadHoriLines;
 	LineData* aBadVertLines;
-	Int32 hori_bad_lines;
-	Int32 vert_bad_lines;
+	int32_t hori_bad_lines;
+	int32_t vert_bad_lines;
 } FLLData;
 
 const int line_distance = 10;
 const int size_Point32 = sizeof(Point32);
-const int size_Int32 = sizeof(Int32);
+const int size_int32_t = sizeof(int32_t);
 const int size_DLine = sizeof(DLine);
 static const Word8 bits_array[] = {128, 64, 32, 16, 8, 4, 2, 1};
 
-extern Int32 hRLINE_Pass2Lost1;
-extern Int32 hRLINE_Pass2Lost2;
+extern int32_t hRLINE_Pass2Lost1;
+extern int32_t hRLINE_Pass2Lost2;
 extern Handle hShowCP;
 extern Handle hLinesPass2DebugSkipFindLost;
 extern Handle hShowCheckedRects;
 extern Handle hPrintCheckedRects;
 /***********************************************************************************************/
 void getLineIdealStrictRectangular(const NR_SimpLine *pdLine, Rect32* pRect, bool is_horiz,
-								   Int32 nIncline, Int32 spread = 0);
-Bool32 addLine(CPDLine pLine, LineData* aLines, Int32 *used_lines, Int32 *nCP, Int32 nLines,
-			   bool is_horiz, Int32 nIncline, CLINE_handle hLine, Int32 spread = 0);
-Bool32 getLostLines(const FLLData *work_data, const LineData* aCPLines, const Int32 nCPLines,
-					const LineData* aContLines, const Int32 nContLines, const bool is_horiz,
-					Point32* aCP, const Int32 nCP);
-Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
-					const LineData* aContLines, const Int32 nContLines, const bool is_horiz);
-Bool32 checkBlack(Int32 black, bool is_good);
-Int32 getRasterBlack(NR_SimpLine* term, bool is_horiz, const FLLData* work_data);
+								   int32_t nIncline, int32_t spread = 0);
+Bool32 addLine(CPDLine pLine, LineData* aLines, int32_t *used_lines, int32_t *nCP, int32_t nLines,
+			   bool is_horiz, int32_t nIncline, CLINE_handle hLine, int32_t spread = 0);
+Bool32 getLostLines(const FLLData *work_data, const LineData* aCPLines, const int32_t nCPLines,
+					const LineData* aContLines, const int32_t nContLines, const bool is_horiz,
+					Point32* aCP, const int32_t nCP);
+Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const int32_t nCP,
+					const LineData* aContLines, const int32_t nContLines, const bool is_horiz);
+Bool32 checkBlack(int32_t black, bool is_good);
+int32_t getRasterBlack(NR_SimpLine* term, bool is_horiz, const FLLData* work_data);
 Bool32 getEnds(Point32* cur_end, const Point32* finish_end, double angle, bool is_horiz,
-			 Int32 lend1, Int32 lend2, const FLLData* work_data, bool checkupper);
+			 int32_t lend1, int32_t lend2, const FLLData* work_data, bool checkupper);
 void updateLine(/*CLINE_handle* hLine, */const FLLData* work_data, bool is_horiz, Point32* begin,
 				Point32* end);
 Bool32 checkCross(const Rect32* rect1, const Rect32* rect2, bool is_horiz);
@@ -186,8 +186,8 @@ static int CompareY( const void *elem1, const void *elem2 )
 static int CompareAsc( const void *elem1, const void *elem2 )
 {
 
-  Int32 *a = (Int32*) elem1;
-  Int32 *b = (Int32*) elem2;
+  int32_t *a = (int32_t*) elem1;
+  int32_t *b = (int32_t*) elem2;
 
   return *a - *b;
 }
@@ -195,8 +195,8 @@ static int CompareAsc( const void *elem1, const void *elem2 )
 static int CompareDesc( const void *elem1, const void *elem2 )
 {
 
-  Int32 *a = (Int32*) elem1;
-  Int32 *b = (Int32*) elem2;
+  int32_t *a = (int32_t*) elem1;
+  int32_t *b = (int32_t*) elem2;
 
   return *b - *a;
 }
@@ -216,7 +216,7 @@ Bool32 findLostLines(CLINE_handle hCLINE, PAGEINFO* info)
 		return TRUE;
 	}
 
-	Int32 nLines = CLINE_GetLineCount(hCLINE), hori_lines = 0, vert_lines = 0, hori_bad_lines = 0, vert_bad_lines = 0;
+	int32_t nLines = CLINE_GetLineCount(hCLINE), hori_lines = 0, vert_lines = 0, hori_bad_lines = 0, vert_bad_lines = 0;
 
 	if (nLines < 2)
 		return TRUE;
@@ -252,10 +252,10 @@ Bool32 findLostLines(CLINE_handle hCLINE, PAGEINFO* info)
 	CPDLine pLine;
 	Word32 ignore_flags = LI_IsFalse | LI_Pointed;
 	Bool32 pc = TRUE;
-	Int32 nIncline = info->Incline2048;
-	Int32 hori_cp = 0, vert_cp = 0, bad_cp = 0;
-	const Int32 spread = 5;
-	const Int32 break_cp = 500;
+	int32_t nIncline = info->Incline2048;
+	int32_t hori_cp = 0, vert_cp = 0, bad_cp = 0;
+	const int32_t spread = 5;
+	const int32_t break_cp = 500;
 
 	for (CLINE_handle hLine = CLINE_GetFirstLine(hCLINE); hLine; hLine = CLINE_GetNextLine(hLine))
 	{
@@ -277,7 +277,7 @@ Bool32 findLostLines(CLINE_handle hCLINE, PAGEINFO* info)
 
 	if (pc)
 	{
-		Int32 max_cp = MAX(hori_cp, vert_cp);
+		int32_t max_cp = MAX(hori_cp, vert_cp);
 
 		if (max_cp > 1)//we need at least 2 cross points to reconstruct a line
 		{
@@ -426,8 +426,8 @@ void PrintErrorString(char* errstring)
 }
 #endif
 /********************************************************************************************/
-Bool32 addLine(CPDLine pLine, LineData* aLines, Int32 *used_lines, Int32 *nCP, Int32 nLines,
-			   bool is_horiz, Int32 nIncline, CLINE_handle hLine, Int32 spread)
+Bool32 addLine(CPDLine pLine, LineData* aLines, int32_t *used_lines, int32_t *nCP, int32_t nLines,
+			   bool is_horiz, int32_t nIncline, CLINE_handle hLine, int32_t spread)
 {
 	if (*used_lines >= nLines)
 	{
@@ -440,7 +440,7 @@ Bool32 addLine(CPDLine pLine, LineData* aLines, Int32 *used_lines, Int32 *nCP, I
 
 	getLineIdealStrictRectangular(&pLine->Line, &aLines[*used_lines].rect, is_horiz, nIncline, spread);
 
-	Int32 cross_points = CLINE_GetCutPointCount(hLine);
+	int32_t cross_points = CLINE_GetCutPointCount(hLine);
 
 	aLines[*used_lines].hLine = hLine;
 	aLines[*used_lines].flag = (pLine->Flags == LI_IsTrue  && pLine->Status != ST_Basil_Short ? FL_GOOD : 0) |
@@ -451,9 +451,9 @@ Bool32 addLine(CPDLine pLine, LineData* aLines, Int32 *used_lines, Int32 *nCP, I
 	return TRUE;
 }
 /********************************************************************************************/
-Bool32 getLostLines(const FLLData *work_data, const LineData* aCPLines, const Int32 nCPLines,
-					const LineData* aContLines, const Int32 nContLines, const bool is_horiz,
-					Point32* aCP, const Int32 nCP)
+Bool32 getLostLines(const FLLData *work_data, const LineData* aCPLines, const int32_t nCPLines,
+					const LineData* aContLines, const int32_t nContLines, const bool is_horiz,
+					Point32* aCP, const int32_t nCP)
 {
 	//check input data
 	//----------------
@@ -468,15 +468,15 @@ Bool32 getLostLines(const FLLData *work_data, const LineData* aCPLines, const In
 
 	//fill cross points array
 	//-----------------------
-	const Int32 hyst_spread = is_horiz ? work_data->line_distance_x>>1 : work_data->line_distance_y>>1;
+	const int32_t hyst_spread = is_horiz ? work_data->line_distance_x>>1 : work_data->line_distance_y>>1;
 	const Word32 good_line = FL_GOOD | FL_HAS_CP;
 	CLINE_handle hCP;
 	CPDCutPoint pCP;
-	Int32 cp = 0, cp_level;
-	Int32 nIncline = work_data->pInfo->Incline2048;
+	int32_t cp = 0, cp_level;
+	int32_t nIncline = work_data->pInfo->Incline2048;
 	bool bshowcp = work_data->bShowCP;
 	Handle hWnd = work_data->hWnd;
-	Int32 i;
+	int32_t i;
 
 	for (i = 0; i < nCPLines; i++)
 	{
@@ -510,12 +510,12 @@ Bool32 getLostLines(const FLLData *work_data, const LineData* aCPLines, const In
 			if (is_horiz)
 			{
 				aCP[cp].x = cp_level;
-				aCP[cp].y = pLine->Line.Beg_Y + (Int32)(tangle*(cp_level - pLine->Line.Beg_X));
+				aCP[cp].y = pLine->Line.Beg_Y + (int32_t)(tangle*(cp_level - pLine->Line.Beg_X));
 			}
 			else
 			{
 				aCP[cp].y = cp_level;
-				aCP[cp].x = pLine->Line.Beg_X - (Int32)(tangle*(cp_level - pLine->Line.Beg_Y));;
+				aCP[cp].x = pLine->Line.Beg_X - (int32_t)(tangle*(cp_level - pLine->Line.Beg_Y));;
 			}
 
 			if (bshowcp)
@@ -534,7 +534,7 @@ Bool32 getLostLines(const FLLData *work_data, const LineData* aCPLines, const In
 
 			if (!is_horiz)
 			{
-				Int32 t = aCP[cp].x;
+				int32_t t = aCP[cp].x;
 
 				aCP[cp].x = aCP[cp].y;
 				aCP[cp].y = t;
@@ -557,11 +557,11 @@ Bool32 getLostLines(const FLLData *work_data, const LineData* aCPLines, const In
 	//----------------------
 	qsort(aCP, cp, size_Point32, CompareX);
 
-	Int32 min_cp = aCP[0].x;
-	Int32 max_cp = aCP[cp - 1].x + 1;
-	Int32 cp_size = max_cp - min_cp;
-	Int32 *cp_hyst = new Int32[cp_size];
-	Int32 *cp_dist = new Int32[cp_size];
+	int32_t min_cp = aCP[0].x;
+	int32_t max_cp = aCP[cp - 1].x + 1;
+	int32_t cp_size = max_cp - min_cp;
+	int32_t *cp_hyst = new int32_t[cp_size];
+	int32_t *cp_dist = new int32_t[cp_size];
 
 	if (!cp_hyst || !cp_dist)
 	{
@@ -578,21 +578,21 @@ Bool32 getLostLines(const FLLData *work_data, const LineData* aCPLines, const In
 		return FALSE;
 	}
 
-	memset(cp_hyst, 0, cp_size*size_Int32);
-	memset(cp_dist, 0, cp_size*size_Int32);
+	memset(cp_hyst, 0, cp_size*size_int32_t);
+	memset(cp_dist, 0, cp_size*size_int32_t);
 
-	Int32 endj;
+	int32_t endj;
 
 	for (i = 0; i < cp; i++)
 	{
 		endj = MIN(max_cp, aCP[i].x + hyst_spread) - min_cp;
 		cp_dist[aCP[i].x - min_cp]++;
 
-		for (Int32 j = MAX(0, aCP[i].x - min_cp - hyst_spread); j < endj; j++)
+		for (int32_t j = MAX(0, aCP[i].x - min_cp - hyst_spread); j < endj; j++)
 			cp_hyst[j]++;
 	}
 
-	Int32 start, sum_cp = 0;
+	int32_t start, sum_cp = 0;
 
 	for (i = 0; i < cp_size; i++)
 		if (cp_hyst[i] > 0)
@@ -608,9 +608,9 @@ Bool32 getLostLines(const FLLData *work_data, const LineData* aCPLines, const In
 		{
 			if (sum_cp > 1)
 			{
-				Int32 start_cp = 0;
+				int32_t start_cp = 0;
 
-				for (Int32 j = 0; j < start; j++)
+				for (int32_t j = 0; j < start; j++)
 					start_cp += cp_dist[j];
 
 				if (!extractLines(work_data, &aCP[start_cp], sum_cp, aContLines, nContLines, is_horiz))
@@ -622,9 +622,9 @@ Bool32 getLostLines(const FLLData *work_data, const LineData* aCPLines, const In
 
 	if (sum_cp > 0)
 	{
-		Int32 start_cp = 0;
+		int32_t start_cp = 0;
 
-		for (Int32 j = 0; j < start; j++)
+		for (int32_t j = 0; j < start; j++)
 			start_cp += cp_dist[j];
 
 		extractLines(work_data, &aCP[start_cp], sum_cp, aContLines, nContLines, is_horiz);
@@ -636,8 +636,8 @@ Bool32 getLostLines(const FLLData *work_data, const LineData* aCPLines, const In
 	return TRUE;
 }
 /********************************************************************************************/
-Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
-					const LineData* aContLines, const Int32 nContLines, const bool is_horiz)
+Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const int32_t nCP,
+					const LineData* aContLines, const int32_t nContLines, const bool is_horiz)
 {
 	//check input data
 	//----------------
@@ -652,7 +652,7 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 
 	//extracting lines
 	//-----------------
-	Int32 *aCPStatus = new Int32[nCP];
+	int32_t *aCPStatus = new int32_t[nCP];
 //status switches
 #define SW_WORK 1
 #define SW_DELAYED 2
@@ -667,27 +667,27 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 		return FALSE;
 	}
 
-	memset(aCPStatus, 0, nCP*size_Int32);
+	memset(aCPStatus, 0, nCP*size_int32_t);
 	qsort(aCP, nCP, size_Point32, CompareY);
 
 	PAGEINFO* page_info = work_data->pInfo;
 	Point32 plast_cp;
-	Int32 nWork, first_cp = 0, finish_cp = nCP, last_cp;
-	Int32 nIncline = page_info->Incline2048;
-	Int32 page_beg_x = work_data->page_beg_x;
-	Int32 page_beg_y = work_data->page_beg_y;
-	Int32 page_end_x = work_data->page_end_x;
-	Int32 page_end_y = work_data->page_end_y;
-	Int32 line_distance_x = work_data->line_distance_x;
-	Int32 line_distance_y = work_data->line_distance_y;
-	Int32 near_ld_x = line_distance_x>>1;
-	Int32 near_ld_y = line_distance_y>>1;
+	int32_t nWork, first_cp = 0, finish_cp = nCP, last_cp;
+	int32_t nIncline = page_info->Incline2048;
+	int32_t page_beg_x = work_data->page_beg_x;
+	int32_t page_beg_y = work_data->page_beg_y;
+	int32_t page_end_x = work_data->page_end_x;
+	int32_t page_end_y = work_data->page_end_y;
+	int32_t line_distance_x = work_data->line_distance_x;
+	int32_t line_distance_y = work_data->line_distance_y;
+	int32_t near_ld_x = line_distance_x>>1;
+	int32_t near_ld_y = line_distance_y>>1;
 	bool bShowCR = work_data->bShowCheckedRects;
 	bool bPrintCR = work_data->bPrintCheckedRects;
 
 	do
 	{
-	    Int32 i;
+	    int32_t i;
 		nWork = 0;
 
 		//filtrate cross points
@@ -727,8 +727,8 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 			{
 				Point32 beg, end;
 				NR_SimpLine term;
-				Int32 black;
-//				Int32 base_line;
+				int32_t black;
+//				int32_t base_line;
 				Rect32 rect;
 			} *aInterval = new tagInterval[nWork];
 
@@ -741,8 +741,8 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 				break;
 			}
 
-			Int32 cur_cp = first_cp, ind = 0;
-			const Int32 interval_spread = 2;
+			int32_t cur_cp = first_cp, ind = 0;
+			const int32_t interval_spread = 2;
 
 			for (i = first_cp + 1; i <= last_cp; i++)
 				if (aCPStatus[i] == SW_WORK)
@@ -768,10 +768,10 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 
 			//analyse intervals by lines
 			//--------------------------
-			Int32 based_intervals = 0;
+			int32_t based_intervals = 0;
 
 			for (i = 0; i < nContLines; i++)
-				for (Int32 j = 0; j < nWork; j++)
+				for (int32_t j = 0; j < nWork; j++)
 				{
 					if (aInterval[j].black == FULL_BLACK ||
 						!checkCross(&aInterval[j].rect, &aContLines[i].rect, is_horiz))
@@ -848,7 +848,7 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 				//--------------------------
 				for (i = 0; i < nWork; i++)
 				{
-				    Int32 j, k;
+				    int32_t j, k;
 //					if (!checkBlack(aInterval[i].black, aInterval[i].base_line == -1 ? false : (aContLines[aInterval[i].base_line].flag & FL_GOOD)))
 					if (!checkBlack(aInterval[i].black, false))
 						continue;
@@ -879,9 +879,9 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 						continue;
 					}
 
-					Int32 lend1, lend2;
-					Int32* aLEnd1 = new Int32[nContLines];
-					Int32* aLEnd2 = new Int32[nContLines];
+					int32_t lend1, lend2;
+					int32_t* aLEnd1 = new int32_t[nContLines];
+					int32_t* aLEnd2 = new int32_t[nContLines];
 
 					if (!aLEnd1 || !aLEnd2)
 					{
@@ -899,7 +899,7 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 					}
 
 					double angle = (double)(start_line.x - finish_line.x)/(finish_line.y - start_line.y);
-					Int32 nLEnd1 = 0, nLEnd2 = 0;
+					int32_t nLEnd1 = 0, nLEnd2 = 0;
 					Point32 cur_line = finish_line;
 
 					//try to find free ends
@@ -932,7 +932,7 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 
 					if (nLEnd1 > 0)
 					{
-						qsort(aLEnd1, nLEnd1, size_Int32, CompareAsc);
+						qsort(aLEnd1, nLEnd1, size_int32_t, CompareAsc);
 
 						for (k = 0; k < nLEnd1; k++)
 							if (getEnds(&start_line, &cur_line, angle, is_horiz, aLEnd1[k], finish_line.y, work_data, true))
@@ -941,7 +941,7 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 
 					if (nLEnd2 > 0)
 					{
-						qsort(aLEnd2, nLEnd2, size_Int32, CompareDesc);
+						qsort(aLEnd2, nLEnd2, size_int32_t, CompareDesc);
 
 						for (k = 0; k < nLEnd2; k++)
 							if (getEnds(&finish_line, &cur_line, angle, is_horiz, start_line.y, aLEnd2[k], work_data, false))
@@ -955,7 +955,7 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 /*
 					//get line crosses
 					//----------------
-					Int32 strip_len = finish_line.y - start_line.y + 1;
+					int32_t strip_len = finish_line.y - start_line.y + 1;
 					Word8* aStrip = new Word8[strip_len];
 
 					if (!aStrip)
@@ -991,7 +991,7 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 							!checkCross(&strip_rect, &aContLines[k].rect, is_horiz))
 							continue;
 
-						Int32 beg, end;
+						int32_t beg, end;
 
 						if (is_horiz)
 						{
@@ -1016,7 +1016,7 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 							continue;
 						}
 
-						for (Int32 l = beg; l <= end; l++)
+						for (int32_t l = beg; l <= end; l++)
 							aStrip[l] = 1;
 					}
 
@@ -1031,12 +1031,12 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 						if (aStrip[k] > 0)
 							continue;
 
-						for (Int32 l = k + 1; l < strip_len && aStrip[l] == 0; l++);
+						for (int32_t l = k + 1; l < strip_len && aStrip[l] == 0; l++);
 
 						start_pos.y = k + start_line.y;
 						end_pos.y = l - 1 + start_line.y;
-						start_pos.x = finish_line.x + (Int32)(angle*(finish_line.y - start_pos.y));
-						end_pos.x = finish_line.x + (Int32)(angle*(finish_line.y - end_pos.y));
+						start_pos.x = finish_line.x + (int32_t)(angle*(finish_line.y - start_pos.y));
+						end_pos.x = finish_line.x + (int32_t)(angle*(finish_line.y - end_pos.y));
 
 						updateLine(work_data, is_horiz, &start_pos, &end_pos);
 
@@ -1055,16 +1055,16 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 						if (!(aContLines[aInterval[k].base_line].flag & FL_GOOD))
 							continue;
 
-						Int32 line_top = is_horiz ? aContLines[aInterval[k].base_line].rect.top : aContLines[aInterval[k].base_line].rect.left;
+						int32_t line_top = is_horiz ? aContLines[aInterval[k].base_line].rect.top : aContLines[aInterval[k].base_line].rect.left;
 
 						cur_line.y = MAX(start_line.y, is_horiz ? aContLines[aInterval[k].base_line].rect.top : aContLines[aInterval[k].base_line].rect.left);
-						cur_line.x = finish_line.x + (Int32)(angle*(finish_line.y - cur_line.y));
+						cur_line.x = finish_line.x + (int32_t)(angle*(finish_line.y - cur_line.y));
 
 						if (start_line.y < cur_line.y)
 							updateLine(work_data, is_horiz, &start_line, &cur_line);
 
 						start_line.y = MIN(finish_line.y, is_horiz ? aContLines[aInterval[k].base_line].rect.bottom : aContLines[aInterval[k].base_line].rect.right);
-						start_line.x = finish_line.x + (Int32)(angle*(finish_line.y - start_line.y));
+						start_line.x = finish_line.x + (int32_t)(angle*(finish_line.y - start_line.y));
 						cur_line = finish_line;
 					}
 
@@ -1106,7 +1106,7 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const Int32 nCP,
 	return TRUE;
 }
 /********************************************************************************************/
-Bool32 checkBlack(Int32 black, bool is_good)
+Bool32 checkBlack(int32_t black, bool is_good)
 {
 	if (black < hRLINE_Pass2Lost1 || black < hRLINE_Pass2Lost2 && !is_good)
 		return FALSE;
@@ -1114,20 +1114,20 @@ Bool32 checkBlack(Int32 black, bool is_good)
 	return TRUE;
 }
 /********************************************************************************************/
-Int32 getRasterBlack(NR_SimpLine* term, bool is_horiz, const FLLData* work_data)
+int32_t getRasterBlack(NR_SimpLine* term, bool is_horiz, const FLLData* work_data)
 {
 	PAGEINFO* page_info = work_data->pInfo;
-	Int32 page_beg_x = work_data->page_beg_x;
-	Int32 page_beg_y = work_data->page_beg_y;
-	Int32 page_end_x = work_data->page_end_x;
-	Int32 page_end_y = work_data->page_end_y;
-	Int32 nIncline = page_info->Incline2048;
+	int32_t page_beg_x = work_data->page_beg_x;
+	int32_t page_beg_y = work_data->page_beg_y;
+	int32_t page_end_x = work_data->page_end_x;
+	int32_t page_end_y = work_data->page_end_y;
+	int32_t nIncline = page_info->Incline2048;
 	Rect32 rterm;
 
 	if (!is_horiz)
 	{
-		Int32 tbeg = term->Beg_X;
-		Int32 tend = term->End_X;
+		int32_t tbeg = term->Beg_X;
+		int32_t tend = term->End_X;
 
 		term->Beg_X = term->Beg_Y;
 		term->End_X = term->End_Y;
@@ -1142,7 +1142,7 @@ Int32 getRasterBlack(NR_SimpLine* term, bool is_horiz, const FLLData* work_data)
 	//--------------------------------------
 	if (!is_horiz)
 	{
-		const Int32 spread = 10;
+		const int32_t spread = 10;
 
 		getLineIdealStrictRectangular(term, &rterm, !is_horiz, 0, spread);//we get real rectangular here
 
@@ -1180,10 +1180,10 @@ Int32 getRasterBlack(NR_SimpLine* term, bool is_horiz, const FLLData* work_data)
 			return -1;
 		}
 
-		Int32 rast_size = ((rterm.right - rterm.left + 8)>>3)*(rterm.bottom - rterm.top + 1);
-		Int32 black_byte = 0;
+		int32_t rast_size = ((rterm.right - rterm.left + 8)>>3)*(rterm.bottom - rterm.top + 1);
+		int32_t black_byte = 0;
 
-		for (Int32 i = 0; i < rast_size; i++)
+		for (int32_t i = 0; i < rast_size; i++)
 			if ((Word8)pRaster[i] == 255)
 				black_byte++;
 
@@ -1227,14 +1227,14 @@ Int32 getRasterBlack(NR_SimpLine* term, bool is_horiz, const FLLData* work_data)
 
 	//analyse raster
 	//--------------
-	Int32 rast_w = rterm.right - rterm.left + 1;
-	Int32 rast_h = rterm.bottom - rterm.top + 1;
-	Int32 rast_bytew = (rast_w + 7)>>3;
-	Int32 black = 0;
-	Int32 begj, start, k, rast_len, j;
+	int32_t rast_w = rterm.right - rterm.left + 1;
+	int32_t rast_h = rterm.bottom - rterm.top + 1;
+	int32_t rast_bytew = (rast_w + 7)>>3;
+	int32_t black = 0;
+	int32_t begj, start, k, rast_len, j;
 	double tan_angle;
-	Int32 max_white = 0, white = 0;
-	Int32 max_white_len = is_horiz ? work_data->line_distance_y : work_data->line_distance_x;
+	int32_t max_white = 0, white = 0;
+	int32_t max_white_len = is_horiz ? work_data->line_distance_y : work_data->line_distance_x;
 
 	if (!is_horiz)
 	{
@@ -1253,7 +1253,7 @@ Int32 getRasterBlack(NR_SimpLine* term, bool is_horiz, const FLLData* work_data)
 
 		for (j = 0; j < rast_w; j++)
 		{
-			start = begj + (Int32)(j*tan_angle);
+			start = begj + (int32_t)(j*tan_angle);
 
 			if (start < 0) start = 0;
 			else if (start >= rast_h) start = rast_h - 1;
@@ -1308,7 +1308,7 @@ Int32 getRasterBlack(NR_SimpLine* term, bool is_horiz, const FLLData* work_data)
 
 		for (j = 0; j < rast_h; j++)
 		{
-			start = begj - (Int32)(j*tan_angle);
+			start = begj - (int32_t)(j*tan_angle);
 			k = j*rast_bytew;
 
 			if (start < 0) start = 0;
@@ -1364,10 +1364,10 @@ Int32 getRasterBlack(NR_SimpLine* term, bool is_horiz, const FLLData* work_data)
 }
 /********************************************************************************************/
 Bool32 getEnds(Point32* cur_end, const Point32* finish_end, double angle, bool is_horiz,
-			 Int32 lend1, Int32 lend2, const FLLData* work_data, bool checkupper)
+			 int32_t lend1, int32_t lend2, const FLLData* work_data, bool checkupper)
 {
 	NR_SimpLine term;
-	Int32 new_end;
+	int32_t new_end;
 
 	if (cur_end->y > lend1 && cur_end->y < lend2)
 	{
@@ -1376,14 +1376,14 @@ Bool32 getEnds(Point32* cur_end, const Point32* finish_end, double angle, bool i
 			term.End_X = cur_end->x;
 			term.End_Y = cur_end->y;
 			term.Beg_Y = lend1;
-			term.Beg_X = new_end = finish_end->x + (Int32)(angle*(finish_end->y - term.Beg_Y));
+			term.Beg_X = new_end = finish_end->x + (int32_t)(angle*(finish_end->y - term.Beg_Y));
 		}
 		else
 		{
 			term.Beg_X = cur_end->x;
 			term.Beg_Y = cur_end->y;
 			term.End_Y = lend2;
-			term.End_X = new_end = finish_end->x + (Int32)(angle*(finish_end->y - term.End_Y));
+			term.End_X = new_end = finish_end->x + (int32_t)(angle*(finish_end->y - term.End_Y));
 		}
 
 		if (checkBlack(getRasterBlack(&term, is_horiz, work_data), false))
@@ -1401,14 +1401,14 @@ Bool32 getEnds(Point32* cur_end, const Point32* finish_end, double angle, bool i
 void updateLine(/*CLINE_handle* hLine, */const FLLData* work_data, bool is_horiz, Point32* begin,
 				Point32* end)
 {
-	Int32 nIncline = work_data->pInfo->Incline2048;
+	int32_t nIncline = work_data->pInfo->Incline2048;
 	DLine dLine;
 //	CLINE_handle hContainer = work_data->hCLINE;
 	CLINE_handle hContainer = work_data->hTempContainer;
-	Int32 bad_lines;
+	int32_t bad_lines;
 	LineData *aBadLines;
 	Rect32 rect;
-	Int32 i;
+	int32_t i;
 
 	InitLine(&dLine);
 

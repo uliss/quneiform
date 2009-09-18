@@ -200,7 +200,7 @@ Bool32 CRIControl::Binarise(PChar8 cDIBIn, PChar8 cDIBOut, Word32 wFlag, Word32 
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, Int32 High, Int32 Low, Word32 UseMargins)
+Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, int32_t High, int32_t Low, Word32 UseMargins)
 {
 	Bool32 Ret = TRUE;
 	Bool32 NoDest = FALSE;
@@ -282,8 +282,8 @@ Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, Int32 High, Int32 Low
 //
 Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, Word32 wFlag, Word32 UseMargins)
 {
-	Int32     NewWidth;
-	Int32     NewHeight;
+	int32_t     NewWidth;
+	int32_t     NewHeight;
 	Bool32    bRet = FALSE;
 	//void *   pSDIB;
 
@@ -695,7 +695,7 @@ Bool32 CRIControl::SetDestinationDIBtoStorage(PChar8  cDIBName)
 	return bErrors;
 }
 
-Bool32 CRIControl::Roll(PChar8 cDIBIn, PChar8 cDIBOut, Int32 Num, Int32 Denum, Word32 bUseMargins)
+Bool32 CRIControl::Roll(PChar8 cDIBIn, PChar8 cDIBOut, int32_t Num, int32_t Denum, Word32 bUseMargins)
 {
 	Bool32 Ret = TRUE;
 
@@ -750,7 +750,7 @@ Bool32 CRIControl::StartProgress()
 	return mcProgress.Start();
 }
 
-Bool32 CRIControl::RotatePoint(PChar8 cDIB, Int32 iX, Int32 iY, PInt32 prX, PInt32 prY)
+Bool32 CRIControl::RotatePoint(PChar8 cDIB, int32_t iX, int32_t iY, Pint32_t prX, Pint32_t prY)
 {
 	Bool32 bRet = FALSE;
 

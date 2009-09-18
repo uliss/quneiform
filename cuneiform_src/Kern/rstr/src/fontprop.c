@@ -1095,7 +1095,7 @@ static void underline()
  {
 //	return;
 extern STRLN page_lines[];
-extern Int32 num_of_lines;
+extern int32_t num_of_lines;
 
  INT nl=(INT)num_of_lines;
 

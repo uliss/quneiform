@@ -81,22 +81,22 @@ typedef struct tagFIELD_INFO
 #define FIS_MIX         2048  //может быть написано от руки или напечатано
 #define FIS_SPACED      4096  //символы разделены пробелами
   ALPHA_TABLE  AlphaTable;    //алфавит
-  Int32 LetWidth;             //оценка для ширины буквы
-  Int32 MinLetWidth;
-  Int32 MaxLetWidth;
-  Int32 BigLetHeight;         //оценка для высоты большой буквы
-  Int32 SmallLetHeight;       // то же для маленькой
-  Int32 MaxWidthHeight;        //максимальное отношение 64*w/h
+  int32_t LetWidth;             //оценка для ширины буквы
+  int32_t MinLetWidth;
+  int32_t MaxLetWidth;
+  int32_t BigLetHeight;         //оценка для высоты большой буквы
+  int32_t SmallLetHeight;       // то же для маленькой
+  int32_t MaxWidthHeight;        //максимальное отношение 64*w/h
 
 //из FrhFieldSetup
   Rect16   compRect;         // calculated rect in ideal coords
-  Int32    nMinLetWidth;
-  Int32    nMaxLetWidth;
-  Int32    nMinLetHeight; // letters excluding '-','.',...
-  Int32    nMaxLetHeight;
-  Int32    nMinChars;     // minimum count of chars (including dots, ...)
-  Int32    nMaxChars;     // maximum count of chars, 0 - not restricted;
-  Int32    xFlags;
+  int32_t    nMinLetWidth;
+  int32_t    nMaxLetWidth;
+  int32_t    nMinLetHeight; // letters excluding '-','.',...
+  int32_t    nMaxLetHeight;
+  int32_t    nMinChars;     // minimum count of chars (including dots, ...)
+  int32_t    nMaxChars;     // maximum count of chars, 0 - not restricted;
+  int32_t    xFlags;
 } FIELD_INFO;
 
 #define not_glue        (FieldInfo.Style & FIS_DONT_GLUE)

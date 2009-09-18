@@ -91,9 +91,9 @@ class CTIMaskLineSegment
 public:
 	void                  SetNext(PCTIMaskLineSegment pNext) { mpNext = pNext; };
 	PCTIMaskLineSegment   GetNext(void) { return mpNext; };
-	Int32                 GetStart(void) { return mwStart; };
-	Int32                 GetEnd(void) { return mwEnd; };
-	Bool32                IsPointInSegment(Int32 X) {return (X >= mwStart && X <= mwEnd);};
+	int32_t                 GetStart(void) { return mwStart; };
+	int32_t                 GetEnd(void) { return mwEnd; };
+	Bool32                IsPointInSegment(int32_t X) {return (X >= mwStart && X <= mwEnd);};
 	Bool32                CutRightTo(PCTIMaskLineSegment pSegm);
 	// обрезать с конца
 	Bool32                CutLeftTo(PCTIMaskLineSegment pSegm);
@@ -107,16 +107,16 @@ public:
 	Bool32                IsEqual(PCTIMaskLineSegment pSegm) { return (mwEnd == pSegm->GetEnd() && mwStart == pSegm->GetStart()); };
 
 public:
-	Int32 GetPointDirect(Word32 X);
+	int32_t GetPointDirect(Word32 X);
 	CTIMaskLineSegment();
-	CTIMaskLineSegment(Int32 Start, Int32 End);
+	CTIMaskLineSegment(int32_t Start, int32_t End);
 	CTIMaskLineSegment(PCTIMaskLineSegment pSegm);
 	virtual ~CTIMaskLineSegment();
 
 protected:
 	PCTIMaskLineSegment mpNext;
-    Int32 mwStart;
-	Int32 mwEnd;
+    int32_t mwStart;
+	int32_t mwEnd;
 };
 
 #endif // !defined(_CTIMASKLINESEGMENT_H_)

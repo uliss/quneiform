@@ -112,9 +112,9 @@ typedef struct tagStructBool16
 
 typedef struct tagVertex
 {
-	Int32 x;
-	Int32 y;
-	Int32 mark;
+	int32_t x;
+	int32_t y;
+	int32_t mark;
 } VERTEX;
 
 typedef struct tagCommon
@@ -136,9 +136,9 @@ typedef struct tagPOLY
 {
 	COMMON com;
 
-	Int32 mark[MaxNum];
+	int32_t mark[MaxNum];
 
-	Int32 alphabet;//Цифры,Цифры и буквы, Буквы
+	int32_t alphabet;//Цифры,Цифры и буквы, Буквы
 	Bool16 negative;//Негатив = TYPE_NEGATIVE, Позитив = TYPE_POSITIVE;//     01.01.01 Логинов
 	Int16 orient;//TYPE_NORD- Сверху вниз (нормальное), TYPE_WEST- лежит на левом боку, TYPE_OST- лежит на правом боку.
 } POLY_;
@@ -147,14 +147,14 @@ typedef struct tagTABLE
 {
 	COMMON com;
 
-	Int32 num_colons;//число колонок
-	Int32 num_rows;//число строк
-	Int32 LineY[MaxHorLines/*MaxHorLines*/-1];//координаты линий (нулевая совпадает с первой линией, верхняя крышка таблицы не участвует)
-	Int32 LineX[MaxVerLines-1];//координаты колонок (нулевая совпадает с первой левой колонкой)
+	int32_t num_colons;//число колонок
+	int32_t num_rows;//число строк
+	int32_t LineY[MaxHorLines/*MaxHorLines*/-1];//координаты линий (нулевая совпадает с первой линией, верхняя крышка таблицы не участвует)
+	int32_t LineX[MaxVerLines-1];//координаты колонок (нулевая совпадает с первой левой колонкой)
 	Bool16 Visible[MaxHorLines][MaxVerLines][2];//видима-невидима плюс флаги: сплошная, пунктирная, штрих
 	//StructBool16 Visible[MaxHorLines][MaxVerLines][2];//видима-невидима плюс флаги: сплошная, пунктирная, штрих
 	Bool16 TypeCell[MaxHorLines][MaxVerLines];//тип ячейки
-	Int32 Skew;
+	int32_t Skew;
 	Bool16 Negative[MaxHorLines][MaxVerLines];//Негатив = 1, Позитив = 0;//     01.01.01 Логинов
 	Int16 Orient[MaxHorLines][MaxVerLines];//TYPE_UPDOWN- Сверху вниз и т.д. см константы выше
 
@@ -172,9 +172,9 @@ typedef struct tagLINE
 {
 	COMMON com;
 
-	Int32 width;//Ширина
+	int32_t width;//Ширина
 
-	Int32 visi;//Внешний вид: Простая,Невидимая,Двойная,Пунктир.
+	int32_t visi;//Внешний вид: Простая,Невидимая,Двойная,Пунктир.
 
 } LINE_;
 */

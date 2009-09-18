@@ -75,27 +75,27 @@ class CRRotator
 #define   CTROTATOR_MAX_TANG             0.2
 //	static Word32    LAtoBytes[512];
 public:
-	Bool32 RotatePoint(Int32 iX, Int32 iY, PInt32 prX, PInt32 prY);
+	Bool32 RotatePoint(int32_t iX, int32_t iY, Pint32_t prX, Pint32_t prY);
 	CRRotator( PCRProgressor pProgressIndicator);
-	Bool32 Roll(PCTDIB cDIBIn, PCTDIB cDIBOut, Int32 Num, Int32 Denum);
-	Bool32 Rotate(PCTDIB cDIBIn, PCTDIB cDIBOut, Int32 Num, Int32 Denum);
+	Bool32 Roll(PCTDIB cDIBIn, PCTDIB cDIBOut, int32_t Num, int32_t Denum);
+	Bool32 Rotate(PCTDIB cDIBIn, PCTDIB cDIBOut, int32_t Num, int32_t Denum);
 	CRRotator();
 	virtual ~CRRotator();
 
 private:
-	void ComposeLine4(PCTDIB cDIBIn, Int32 iDirect, Word32 wLine, Word32 wBuffLen);
+	void ComposeLine4(PCTDIB cDIBIn, int32_t iDirect, Word32 wLine, Word32 wBuffLen);
 	void      AllocWorkBuffers(Word32 wStringBufferRange);
 	void      ResetItself(void);
 	void      FreeWorkBuffers(void);
-	Bool32    AddBlackToGray(Int32 X, Int32 Y, Word8 Gray);
-	Bool32    UnmaskPixels(PWord8 pMask, PWord8 pGrayPix, Int32 X, Int32 Y, Word32 wLineLen, Int32 ShiftX, Int32 ShiftY);
-	Bool32    GetGrayCoord(Int32 eX, Int32 eY, PInt32 pX, PInt32 pY, PInt32 psX, PInt32 psY);
-	Bool32    RollPoint(Int32 X, Int32 Y, PInt32 pnX, PInt32 pnY);
-	Bool32    GetExtCoord(Int32 X, Int32 Y, PInt32 peX, PInt32 peY);
+	Bool32    AddBlackToGray(int32_t X, int32_t Y, Word8 Gray);
+	Bool32    UnmaskPixels(PWord8 pMask, PWord8 pGrayPix, int32_t X, int32_t Y, Word32 wLineLen, int32_t ShiftX, int32_t ShiftY);
+	Bool32    GetGrayCoord(int32_t eX, int32_t eY, Pint32_t pX, Pint32_t pY, Pint32_t psX, Pint32_t psY);
+	Bool32    RollPoint(int32_t X, int32_t Y, Pint32_t pnX, Pint32_t pnY);
+	Bool32    GetExtCoord(int32_t X, int32_t Y, Pint32_t peX, Pint32_t peY);
 	Bool32    DescewGray(PCTDIB cDIBIn, PCTDIB cDIBOut);
 	Bool32    ConstructOutDIB(PCTDIB cDIBIn, PCTDIB cDIBOut, Bool32 Gray);
-	void      ComposeLineLA(PCTDIB cDIBIn, Int32 iDirect, Word32 wLine, Word32 wBuffLen);
-	void      ComposeLineG(PCTDIB cDIBIn, Int32 iDirect, Word32 wLine, Word32 wBuffLen);
+	void      ComposeLineLA(PCTDIB cDIBIn, int32_t iDirect, Word32 wLine, Word32 wBuffLen);
+	void      ComposeLineG(PCTDIB cDIBIn, int32_t iDirect, Word32 wLine, Word32 wBuffLen);
 	void      SetEndLineLA(Word32 Line, Word32 wLineW, Word32 wLineBytes);
 	void      PrepareTables( Word32 wMax, Word32 wCheck);
 	void      ShiftLineLA(Word32 LocalShift, Word32 wBytesTo);
@@ -122,13 +122,13 @@ protected:
 	Word32             ToX;
 	Word32             AtY;
 	Word32             AtX;
-	Int32              VerticalShift;
-	Int32              HorisontalShift;
+	int32_t              VerticalShift;
+	int32_t              HorisontalShift;
 	Float80            mfCos;
 	Float80            mfSin;
 	Float80            mfTang;
 	PWord8             BufferForGray;
-	PInt32             HShiftTable;
+	Pint32_t             HShiftTable;
 	PWord32            VShiftTable;
 	PWord32            VShiftLenght;
 };

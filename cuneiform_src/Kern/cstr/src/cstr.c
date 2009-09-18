@@ -64,13 +64,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "resource.h"
 
 static  CSTR_head head, tail;
-static  Int32     num_lines      = 0,num_fragments0=0,num_fragments1 = 0;
-static  Int32     user_number = 0xFFFFFF+1;
+static  int32_t     num_lines      = 0,num_fragments0=0,num_fragments1 = 0;
+static  int32_t     user_number = 0xFFFFFF+1;
 Word16           wHeightRC      = 0;
 Word16           wLowRC         = CSTR_ERR_NO;
 static  CSTR_line *FragmFirst0=NULL, *FragmLast0=NULL;
 static  CSTR_line *FragmFirst1=NULL, *FragmLast1=NULL;
-static  Int32 FragmMin[2], FragmMax[2];
+static  int32_t FragmMin[2], FragmMax[2];
 //int     mem=0;
 // memory funct
 static void *   cstr_alloc(Word32 len)
@@ -183,8 +183,8 @@ CSTR_FUNC(char*)   CSTR_GetReturnString(Word32 dwError)
 //////////////////////////////////
 // alloc / free & access lines to
 //////////////////////////////////
-CSTR_FUNC(CSTR_line)    CSTR_NewLine(Int32  lineno, Int32 version,
-    Int32 container)
+CSTR_FUNC(CSTR_line)    CSTR_NewLine(int32_t  lineno, int32_t version,
+    int32_t container)
 {
 CSTR_head       *line=head.next, *lineins=0, *prev, *next;
 // scan all heads
@@ -252,7 +252,7 @@ return (CSTR_line)line;
 
 
 
-CSTR_FUNC(CSTR_line)    CSTR_NextLine(CSTR_line start, Int32 version)
+CSTR_FUNC(CSTR_line)    CSTR_NextLine(CSTR_line start, int32_t version)
 {
 CSTR_head       *line=(CSTR_head        *)start;
 
@@ -261,7 +261,7 @@ for(line=line->next; line!=&tail && line->version!=version; line=line->next);
 return line!=&tail?(CSTR_line)line:0;
 }
 
-CSTR_FUNC(CSTR_line)    CSTR_FirstLine( Int32 version)
+CSTR_FUNC(CSTR_line)    CSTR_FirstLine( int32_t version)
 {
 return CSTR_NextLine((CSTR_line)&head, version);
 }
@@ -481,7 +481,7 @@ return TRUE;
 
 static Bool32 cstr_CCOM2raster(CCOM_comp *comp, CSTR_cell *cell)
 {
-Int32       len;
+int32_t       len;
 RecRaster   rs;
 
 rs.lnPixWidth   = comp->w;
@@ -512,7 +512,7 @@ if( cell->recRaster )
 return TRUE;
 }
 
-CSTR_FUNC(CSTR_line )   CSTR_GetLineHandle ( Int32 line_no, Int32 version)
+CSTR_FUNC(CSTR_line )   CSTR_GetLineHandle ( int32_t line_no, int32_t version)
 {
 CSTR_head *line = head.next;
 
@@ -526,7 +526,7 @@ for(; line!=&tail; line=line->next)
 return (CSTR_line)0;
 }
 
-CSTR_FUNC(CSTR_line )   CSTR_GetLineFirst ( Int32 fragment_no, Int32 version)
+CSTR_FUNC(CSTR_line )   CSTR_GetLineFirst ( int32_t fragment_no, int32_t version)
 {
 CSTR_head *line;
 
@@ -540,7 +540,7 @@ for(line = head.next; line!=&tail; line=line->next)
 return (CSTR_line)0;
 }
 
-CSTR_FUNC(CSTR_line )   CSTR_GetLineNext (CSTR_line lin, Int32 fragment_no, Int32 version)
+CSTR_FUNC(CSTR_line )   CSTR_GetLineNext (CSTR_line lin, int32_t fragment_no, int32_t version)
 {
 CSTR_head *line;
 
@@ -560,7 +560,7 @@ for(line=line->next; line!=&tail; line=line->next)
 return (CSTR_line)0;
 }
 
-CSTR_FUNC(Int32)    CSTR_GetMaxNumber(void)
+CSTR_FUNC(int32_t)    CSTR_GetMaxNumber(void)
 {
 return num_lines;
 }
@@ -621,7 +621,7 @@ return ( cell->attr.flg&type_raster ) ?
     (CSTR_rast)cell : (CSTR_rast)0;
 }
 
-CSTR_FUNC(CSTR_rast)    CSTR_NewRaster (CSTR_line linel, Int32 col, Int32 row, Int32 w)
+CSTR_FUNC(CSTR_rast)    CSTR_NewRaster (CSTR_line linel, int32_t col, int32_t row, int32_t w)
 {
 CSTR_cell *cell, *start, *stop;
 CSTR_head *line = (CSTR_head *)linel;
@@ -854,7 +854,7 @@ CSTR_FUNC(Bool32)               CSTR_SetUserAttr (CSTR_rast raster, CCOM_USER_BL
 CCOM_USER_BLOCK  *ub;
 Word32      UserCode = ubl->code;
 Word8   *   UserData = ubl->data;
-Int32       UserSize = ubl->size;
+int32_t       UserSize = ubl->size;
 CSTR_cell *cell  ;
 if( raster==(CSTR_rast)0 )
     {
@@ -1433,7 +1433,7 @@ if( curr_raster==(CSTR_rast)0 )
 return cell->env;
 }
 
-CSTR_FUNC(Int32)     CSTR_NewUserCode (void)
+CSTR_FUNC(int32_t)     CSTR_NewUserCode (void)
 {
 user_number++;
 return user_number;
@@ -1469,7 +1469,7 @@ for(*txt='\0'; c && c!=stop; c=CSTR_GetNextRaster (c,CSTR_f_all))
 return TRUE;
 }
 
-CSTR_FUNC(Bool32)                   CSTR_LineToTxt_Coord (CSTR_line   lin, char *txt, Int32 len)
+CSTR_FUNC(Bool32)                   CSTR_LineToTxt_Coord (CSTR_line   lin, char *txt, int32_t len)
 {
 CSTR_rast       start = CSTR_GetFirstRaster (lin),
                 stop = CSTR_GetLastRaster (lin), c;
@@ -1497,7 +1497,7 @@ for(; c && c!=stop; c=CSTR_GetNextRaster (c,CSTR_f_all))
             strcpy(buf,"~");
         else
             strcpy(buf,vers.Alt[0].Code);
-        if( (Int32)(strlen(txt)+strlen(buf))<len )
+        if( (int32_t)(strlen(txt)+strlen(buf))<len )
             strcat(txt,buf);
         else
             return FALSE;
@@ -1507,10 +1507,10 @@ for(; c && c!=stop; c=CSTR_GetNextRaster (c,CSTR_f_all))
 return TRUE;
 }
 
-CSTR_FUNC(Int32)                   CSTR_GetLength (CSTR_line   lin)
+CSTR_FUNC(int32_t)                   CSTR_GetLength (CSTR_line   lin)
 {
 CSTR_rast       c;
-Int32           len;
+int32_t           len;
 UniVersions     vers;
 CSTR_rast_attr  attr;
 
@@ -1793,14 +1793,14 @@ c->complist = (CSTR_cell*)complist;
 return TRUE;
 }
 
-CSTR_FUNC(CSTR_rast) CSTR_compose_Cell(Int32 n,CSTR_rast *clist, Int32 nIncline, Bool32 NeedDel)
+CSTR_FUNC(CSTR_rast) CSTR_compose_Cell(int32_t n,CSTR_rast *clist, int32_t nIncline, Bool32 NeedDel)
 {
 CSTR_rast_attr attr;
 Int16   minrow, mincol, maxcol, maxrow;
 RecRaster   rst;
 CCOM_comp   *comp;
 CSTR_cell   *cell;
-Int32      i;
+int32_t      i;
 CSTR_line line_no;
 CSTR_rast   c;
 
@@ -2056,7 +2056,7 @@ return TRUE;
 }
 
 
-CSTR_FUNC(Bool32)       CSTR_SortFragm( Int32 version)
+CSTR_FUNC(Bool32)       CSTR_SortFragm( int32_t version)
 {
 CSTR_head       *line;
 
@@ -2122,12 +2122,12 @@ else
 return TRUE;
 }
 
-CSTR_FUNC(Int32)    CSTR_GetMaxFragment(Int32 version)
+CSTR_FUNC(int32_t)    CSTR_GetMaxFragment(int32_t version)
 {
 return                version ? num_fragments1 : num_fragments0   ;
 }
 
-CSTR_FUNC(CSTR_line)    CSTR_FirstLineFragm( Int32 fragm, Int32 version )
+CSTR_FUNC(CSTR_line)    CSTR_FirstLineFragm( int32_t fragm, int32_t version )
 {
 if( version!=1 && version!=0 )
     {
@@ -2190,7 +2190,7 @@ return TRUE;
 CSTR_FUNC(Bool32) CSTR_GetExportData(Word32 dwType, void * pData)
 {
         Bool32 rc = TRUE;
-    Int32  vers = CSTR_VERSION_CODE;
+    int32_t  vers = CSTR_VERSION_CODE;
 #define EXPORT(name) *(Word32*)(pData)=(Word32)name;
         wLowRC = CSTR_ERR_NO;
         switch(dwType)

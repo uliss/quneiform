@@ -56,9 +56,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 Bool     smooth_start(int width_dword);
-Int32*   smooth_update(Int32* new_line);
+int32_t*   smooth_update(int32_t* new_line);
 void     smooth_finish();
-Int32    smooth_get_height(); // count of joined lines
+int32_t    smooth_get_height(); // count of joined lines
 
 #define SMOOTH98
 

@@ -76,7 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    extern "C" {
    #endif
 
-CTB_FUNC(Int32)   CTB_GetVersion(void );
+CTB_FUNC(int32_t)   CTB_GetVersion(void );
 //***************** open/close function prototypes **********************
 CTB_FUNC(Bool32) CTB_create(char *file_name,Word8 *data);
 CTB_FUNC(Bool32) CTB_create_gray(char *file_name,Word8 *data);
@@ -85,34 +85,34 @@ CTB_FUNC(Bool32) CTB_open(char *file_name,CTB_handle *hnd,char *attr);
 CTB_FUNC(void)   CTB_close(CTB_handle *hnd);
 
 //***************** read function prototypes ****************************
-CTB_FUNC(Int32)  CTB_volume(CTB_handle *hnd );
-CTB_FUNC(Int32)  CTB_volume_all(char *file_name );
-CTB_FUNC(Int32)  CTB_read(CTB_handle *hnd, Int32 num , Word8 *ima, Word8 *data );
+CTB_FUNC(int32_t)  CTB_volume(CTB_handle *hnd );
+CTB_FUNC(int32_t)  CTB_volume_all(char *file_name );
+CTB_FUNC(int32_t)  CTB_read(CTB_handle *hnd, int32_t num , Word8 *ima, Word8 *data );
 CTB_FUNC(Bool32) CTB_read_global_data(CTB_handle *hnd,Word8 *data);
-CTB_FUNC(Bool32) CTB_read_data(CTB_handle *hnd,Int32 num,Word8 *data);
+CTB_FUNC(Bool32) CTB_read_data(CTB_handle *hnd,int32_t num,Word8 *data);
 
 //***************** write function prototypes ***************************
-CTB_FUNC(Bool32) CTB_write( CTB_handle *hnd, Int32 num,Word8 *ima,  Word8 *data);
-CTB_FUNC(Bool32) CTB_write_mark( CTB_handle *hnd, Int32 num,Word8 *ima,  Word8 *data, Bool32 mark);
-CTB_FUNC(Bool32) CTB_insert( CTB_handle *hnd,Int32 num,Word8 *ima,  Word8 *data);
-CTB_FUNC(Bool32) CTB_delete( CTB_handle *hnd,Int32 num);
-CTB_FUNC(Bool32) CTB_kill(CTB_handle *hnd,Int32 num);
-CTB_FUNC(Bool32) CTB_mark(CTB_handle *hnd, Int32 num);
-CTB_FUNC(Bool32) CTB_write_data(CTB_handle *hnd,Int32 num, Word8 *data);
+CTB_FUNC(Bool32) CTB_write( CTB_handle *hnd, int32_t num,Word8 *ima,  Word8 *data);
+CTB_FUNC(Bool32) CTB_write_mark( CTB_handle *hnd, int32_t num,Word8 *ima,  Word8 *data, Bool32 mark);
+CTB_FUNC(Bool32) CTB_insert( CTB_handle *hnd,int32_t num,Word8 *ima,  Word8 *data);
+CTB_FUNC(Bool32) CTB_delete( CTB_handle *hnd,int32_t num);
+CTB_FUNC(Bool32) CTB_kill(CTB_handle *hnd,int32_t num);
+CTB_FUNC(Bool32) CTB_mark(CTB_handle *hnd, int32_t num);
+CTB_FUNC(Bool32) CTB_write_data(CTB_handle *hnd,int32_t num, Word8 *data);
 CTB_FUNC(Bool32) CTB_write_global_data(CTB_handle *hnd,Word8 *data);
-CTB_FUNC(Bool32) CTB_swap(CTB_handle *hnd,Int32 num1,Int32 num2);
+CTB_FUNC(Bool32) CTB_swap(CTB_handle *hnd,int32_t num1,int32_t num2);
 
 //***************** file/memory convertion functions protoypes ************
-CTB_FUNC(Int32)  CTB_compress(char *file_name);
-CTB_FUNC(Int32)  CTB_copy(char *newn, char *oldn);
-CTB_FUNC(Int32)  CTB_move(char *newn, char *oldn);
-CTB_FUNC(Int32)  CTB_rename(char *newn, char *oldn);
+CTB_FUNC(int32_t)  CTB_compress(char *file_name);
+CTB_FUNC(int32_t)  CTB_copy(char *newn, char *oldn);
+CTB_FUNC(int32_t)  CTB_move(char *newn, char *oldn);
+CTB_FUNC(int32_t)  CTB_rename(char *newn, char *oldn);
 CTB_FUNC(void)   CTB_unlink(char *newn);
-CTB_FUNC(void)   CTB_align8_lines(Word8 *bin,Int32 w, Int32 h);
-CTB_FUNC(void)   CTB_align1_lines(Word8 *bin,Int32 w, Int32 h);
-CTB_FUNC(void)   CTB_align8_124lines(Word8 *bin,Int32 w, Int32 h,
-                    Int32 alin,Word8 init_byte);
-CTB_FUNC(void)   CTB_align41(Word8 *sbin,Int32 w, Int32 h);
+CTB_FUNC(void)   CTB_align8_lines(Word8 *bin,int32_t w, int32_t h);
+CTB_FUNC(void)   CTB_align1_lines(Word8 *bin,int32_t w, int32_t h);
+CTB_FUNC(void)   CTB_align8_124lines(Word8 *bin,int32_t w, int32_t h,
+                    int32_t alin,Word8 init_byte);
+CTB_FUNC(void)   CTB_align41(Word8 *sbin,int32_t w, int32_t h);
 //*************** Gray images    ********* *********************************
 CTB_FUNC(Word8)  CTB_BestLevelInGray(Word8 *image,int wx,int wy);
 CTB_FUNC(Bool32) CTB_GrayBound(RecRasterEx *PaintRaster,int GLevel);
@@ -133,15 +133,15 @@ CTB_FUNC(Bool32) CTB_prot_gray_write(char *file_name,
         unsigned char *PROT_raster,unsigned char let, int w, int h,
         int align);
 //**************** CT FormReader data I/O **********************************
-CTB_FUNC(Int32) CTB_AddRecRaster(char *fname, RecRaster *r,Word8 let);
-CTB_FUNC(Int32) CTB_AddRecRaster_data(char *fname, RecRaster *r,Word8 *data);
-CTB_FUNC(Bool32) CTB_ReadRecRaster(CTB_handle *hnd, Int32 num ,
+CTB_FUNC(int32_t) CTB_AddRecRaster(char *fname, RecRaster *r,Word8 let);
+CTB_FUNC(int32_t) CTB_AddRecRaster_data(char *fname, RecRaster *r,Word8 *data);
+CTB_FUNC(Bool32) CTB_ReadRecRaster(CTB_handle *hnd, int32_t num ,
         Word8 *let,RecRaster *r, Word8 *data );
-CTB_FUNC(Bool32) CTB_GetRecRaster(char *fname, Int32 id_rast ,
+CTB_FUNC(Bool32) CTB_GetRecRaster(char *fname, int32_t id_rast ,
         RecRaster *r);
 
 //***************** error message *****************************
-CTB_FUNC(Int32)  CTB_get_error(void);
+CTB_FUNC(int32_t)  CTB_get_error(void);
 CTB_FUNC(char *) CTB_get_error_name(char *str);
 
 #define CTB_ERR_NONE			0

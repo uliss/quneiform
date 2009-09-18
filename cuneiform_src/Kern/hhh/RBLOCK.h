@@ -110,7 +110,7 @@ typedef enum
 
 DEC_FUN(Bool32, RBLOCK_ExtractTextBlocks,(Handle hCCOM, Handle hCPAGE, Handle hCLINE));
 DEC_FUN(Bool32, RBLOCK_ExtractTextStrings,(Handle hCCOM,Handle hCPAGE));
-DEC_FUN(Bool32, RBLOCK_GetAnglePage,(Handle hCCOM,Int32 * lpNominator,Int32 * lpDenominator));
+DEC_FUN(Bool32, RBLOCK_GetAnglePage,(Handle hCCOM,int32_t * lpNominator,int32_t * lpDenominator));
 #undef DEC_FUN
 
 typedef void   (*FNRBLOCK_ProgressStart)( void );

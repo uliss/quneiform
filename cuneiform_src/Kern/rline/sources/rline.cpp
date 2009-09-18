@@ -145,17 +145,17 @@ Handle	  hShowCheckedRects;
 Handle	  hPrintCheckedRects;
 Handle    hShowCPLines;
 
-Int32 hMinInterval = 10;
-Int32 h1Interval = 25;
-Int32 h2Interval = 63;
-Int32 hMaxInterval = 150;
-Int32 hSmallLineLen = 20;
-Int32 hLongLineLen = 50;
-Int32 hMaxDegreeDiff = 5;
-Int32 hMaxShift = 36;
-Int32 hRastDelta = 1;
-Int32 hRLINE_Pass2Lost1 = 75;
-Int32 hRLINE_Pass2Lost2 = 95;
+int32_t hMinInterval = 10;
+int32_t h1Interval = 25;
+int32_t h2Interval = 63;
+int32_t hMaxInterval = 150;
+int32_t hSmallLineLen = 20;
+int32_t hLongLineLen = 50;
+int32_t hMaxDegreeDiff = 5;
+int32_t hMaxShift = 36;
+int32_t hRastDelta = 1;
+int32_t hRLINE_Pass2Lost1 = 75;
+int32_t hRLINE_Pass2Lost2 = 95;
 //Handle    hUseCLine;
 void *    hTmpDIB;
 Word32    HorType;
@@ -395,7 +395,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 	char*		            pImage;	     // Указатель на изображение
 	LnsSetupStr				ls;
 
-	Int32  result_h_count,
+	int32_t  result_h_count,
 		   result_v_count;
 
 	// Получаем PAGEINFO текущей страницы
@@ -513,7 +513,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
         if (!draw_window) draw_window = LDPUMA_CreateWindow(NULL, NULL);
 
         Word32 x = 255<<8;
-		Int32 temp;
+		int32_t temp;
 		int i;
 		for(i=0;i<lti.Hor.Cnt;i++)
 		{
@@ -639,7 +639,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 	int					  i;
 
 
-	Int32  result_h_count,
+	int32_t  result_h_count,
 		   result_v_count;
 	Bool DelAllLines;
 	DelAllLines = FALSE;

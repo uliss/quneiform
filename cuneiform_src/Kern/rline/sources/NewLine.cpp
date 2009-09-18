@@ -131,15 +131,15 @@ extern Handle    hPrint3Cr;
 extern Handle    hPrint4Cr;
 extern Handle hDrawCrRast;
 extern Handle hRLINE_CorrectDrawLines;
-extern Int32 hMinInterval;
-extern Int32 h1Interval;
-extern Int32 h2Interval;
-extern Int32 hMaxInterval;
-extern Int32 hSmallLineLen;
-extern Int32 hLongLineLen;
-extern Int32 hMaxDegreeDiff;
-extern Int32 hMaxShift;
-extern Int32 hRastDelta;
+extern int32_t hMinInterval;
+extern int32_t h1Interval;
+extern int32_t h2Interval;
+extern int32_t hMaxInterval;
+extern int32_t hSmallLineLen;
+extern int32_t hLongLineLen;
+extern int32_t hMaxDegreeDiff;
+extern int32_t hMaxShift;
+extern int32_t hRastDelta;
 extern Handle hRLINE_CorrectDrawFrags;
 extern Handle hRLINE_Pass2DrawLines;
 extern Handle hRLINE_Pass2DrawFrags;
@@ -190,25 +190,25 @@ BOOL MyPutLines(CLINE_handle hContainerOut, CLINE_handle hCLINE, BOOL dotline);
 void DeleteBadDotLine(CLINE_handle hCLINE,CCOM_handle hCCOM,Handle hCPAGE);
 void SetLineDegree(DLine* line);
 //void DeletePLines(CPageLines* PLines);
-BOOL MyGetLines(/*CLINE_handle linecontainer,Handle hCPage,*/CLINE_handle hCLINE, Int32* CountLines);
+BOOL MyGetLines(/*CLINE_handle linecontainer,Handle hCPage,*/CLINE_handle hCLINE, int32_t* CountLines);
 void PrintLines(CLINE_handle hContainer, const char* FileName);
 Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM);
-Bool32 FindExtLines(CLINE_handle* hLinesMass, Int32 CountLines, CLINE_handle hExtContainer, Bool32 IsHor, CCOM_comp *pCompMass, Int32 CountMass, CLINE_handle hContainer);
+Bool32 FindExtLines(CLINE_handle* hLinesMass, int32_t CountLines, CLINE_handle hExtContainer, Bool32 IsHor, CCOM_comp *pCompMass, int32_t CountMass, CLINE_handle hContainer);
 void MergeLines(CLINE_handle hLine, CLINE_handle hLineExt, CLINE_handle hContainer);
-Bool32 CheckAllLines(Rect32* CurrLine, const Rect32* pLine, Bool32 IsHor, Int32 nIncline, CLINE_handle* hLinesMass, Int32 CountLines, Int32 interval, Int32 long_line);
-Int32 getLineComps(CCOM_comp** pCompMass, Int32 max_width, Int32 max_height, Handle hCCOM);
-Int32 countCompLen(CCOM_comp* pCompMass, Int32 CountComp, CPDLine pLine, CPDLine pLineExt, Bool32 IsHor);
-Int32 findFirstComp(CCOM_comp* pCompMass, Int32 CountComp, Rect32 RastRect, Bool32 IsHor);
+Bool32 CheckAllLines(Rect32* CurrLine, const Rect32* pLine, Bool32 IsHor, int32_t nIncline, CLINE_handle* hLinesMass, int32_t CountLines, int32_t interval, int32_t long_line);
+int32_t getLineComps(CCOM_comp** pCompMass, int32_t max_width, int32_t max_height, Handle hCCOM);
+int32_t countCompLen(CCOM_comp* pCompMass, int32_t CountComp, CPDLine pLine, CPDLine pLineExt, Bool32 IsHor);
+int32_t findFirstComp(CCOM_comp* pCompMass, int32_t CountComp, Rect32 RastRect, Bool32 IsHor);
 Bool32 CorrectDoubleLines(CLINE_handle hContainer);
-void getLineIdealStrictRectangular(const NR_SimpLine *pdLine, Rect32* pRect, bool is_horiz, Int32 nIncline, Int32 spread = 0);
-Int32 findLostLines(CLINE_handle hCLINE, PAGEINFO* info);
-//Bool32 writeBin(char* file_name, Int32 nIncline, Rect16* aRect, Word32* aType, Word32* aNumber, Int32 aCount);
+void getLineIdealStrictRectangular(const NR_SimpLine *pdLine, Rect32* pRect, bool is_horiz, int32_t nIncline, int32_t spread = 0);
+int32_t findLostLines(CLINE_handle hCLINE, PAGEINFO* info);
+//Bool32 writeBin(char* file_name, int32_t nIncline, Rect16* aRect, Word32* aType, Word32* aNumber, int32_t aCount);
 //PAGEINFO gl_page_info;
 /*----------------------------------------------------------------------------*/
 
 RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBool32 pgneed_clean_line, Bool32 sdl, Word8 lang)
 {
-//Int32* a = new Int32;
+//int32_t* a = new int32_t;
 
  LDPUMA_Skip(Prep2);
 
@@ -243,7 +243,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
 // LDPUMA_ConsoleN("Линии 2 проход");
 
 // CLINE_handle linecontainer = CLINE_CreateContainer(FALSE);
- Int32 CountLines = 0;
+ int32_t CountLines = 0;
 
  if(!MyGetLines(/*linecontainer,hCPage,*/hCLINE, &CountLines))
 	 return FALSE;
@@ -254,7 +254,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
 
  LDPUMA_Skip(MainWork2);
 
-// Int32 CountLines = CLINE_GetLineCount(/*linecontainer*/hCLINE);
+// int32_t CountLines = CLINE_GetLineCount(/*linecontainer*/hCLINE);
 
  if(!CountLines)
 	 return TRUE;
@@ -598,9 +598,9 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
 
   //финальный проход по всем линиям
   const Word32 My_False=~LI_IsTrue;
-  Int32 CountShortLines = 0;
+  int32_t CountShortLines = 0;
   Word8 debug_flags = 0;
-  Int32 cross_point[MAX_CROSS_POINTS];
+  int32_t cross_point[MAX_CROSS_POINTS];
   DCutPoint cut_point_obj;
   CLINE_handle hCutPoint;
 
@@ -691,7 +691,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
 //delete short tails of vertical lines
   if (LDPUMA_Skip(hSkipDelSmallLines))
   {
-	  for (Int32 it = 0; it < CountShortLines; it++)
+	  for (int32_t it = 0; it < CountShortLines; it++)
 		  CLINE_DelLine(/*linecontainer*/hCLINE, linesmass[it]);
   }
 
@@ -847,7 +847,7 @@ CLINE_handle FindLine(CLINE_handle hContainer, CLINE_handle processedline,BOOL v
 }
 
 /*********************************************************************************************************/
-BOOL MyGetLines(/*CLINE_handle linecontainer, Handle hCPage, */CLINE_handle hCLINE, Int32* CountLines)
+BOOL MyGetLines(/*CLINE_handle linecontainer, Handle hCPage, */CLINE_handle hCLINE, int32_t* CountLines)
 {
 //	BOOL fl_cont;
 
@@ -1907,8 +1907,8 @@ static int CompareByY( const void *elem1, const void *elem2 )
 //compare vertical lines by length
 	CPDLine pLine1 = CLINE_GetLineData(*(CLINE_handle*)elem1);
 	CPDLine pLine2 = CLINE_GetLineData(*(CLINE_handle*)elem2);
-	Int32 length1 = pLine1->Line.End_Y - pLine1->Line.Beg_Y;
-	Int32 length2 = pLine2->Line.End_Y - pLine2->Line.Beg_Y;
+	int32_t length1 = pLine1->Line.End_Y - pLine1->Line.Beg_Y;
+	int32_t length2 = pLine2->Line.End_Y - pLine2->Line.Beg_Y;
 
   return length2 - length1;
 }
@@ -1919,8 +1919,8 @@ static int CompareByX( const void *elem1, const void *elem2 )
 //compare horizontal lines by length
 	CPDLine pLine1 = CLINE_GetLineData(*(CLINE_handle*)elem1);
 	CPDLine pLine2 = CLINE_GetLineData(*(CLINE_handle*)elem2);
-	Int32 length1 = pLine1->Line.End_X - pLine1->Line.Beg_X;
-	Int32 length2 = pLine2->Line.End_X - pLine2->Line.Beg_X;
+	int32_t length1 = pLine1->Line.End_X - pLine1->Line.Beg_X;
+	int32_t length2 = pLine2->Line.End_X - pLine2->Line.Beg_X;
 
   return length2 - length1;
 }
@@ -1984,10 +1984,10 @@ RLINE_FUNC(Bool32) RLINE_LinesPass2(Handle hCCOM,void* phCLINE, Handle hCPAGE)
 	if (!hCLINE)
 		return TRUE;
 
-	const Int32 max_loop = 5;
-	Int32 i = 0;
-	Int32 nLines = CLINE_GetLineCount(hCLINE);
-	Int32 nOldLines1, nOldLines2, nOldLines3;
+	const int32_t max_loop = 5;
+	int32_t i = 0;
+	int32_t nLines = CLINE_GetLineCount(hCLINE);
+	int32_t nOldLines1, nOldLines2, nOldLines3;
 
 	do
 	{
@@ -2036,8 +2036,8 @@ Bool32 CorrectDoubleLines(CLINE_handle hContainer)
 	if (!GetPageInfo(h_Page,&page_info)) return FALSE;
 
 	const double coef_x = ((double)page_info.DPIX + 1)/300, coef_y = ((double)page_info.DPIY + 1)/300;
-	const Int32 interval_x = (Int32)(h1Interval*coef_x)/2;
-	const Int32 interval_y = (Int32)(h1Interval*coef_y)/2;
+	const int32_t interval_x = (int32_t)(h1Interval*coef_x)/2;
+	const int32_t interval_y = (int32_t)(h1Interval*coef_y)/2;
 
 	for (hLine1 = CLINE_GetFirstLine(hContainer); hLine1; hLine1 = CLINE_GetNextLine(hLine1))
 	{
@@ -2047,7 +2047,7 @@ Bool32 CorrectDoubleLines(CLINE_handle hContainer)
 		if (!(cpLine1->Flags & LI_COMPLEX) || cpLine1->Flags & LI_Pointed || cpLine1->Flags == LI_IsFalse) continue;
 
 		//нашлась похожая на двойную линия, на которую первый проход повесил соответствующий флаг
-		Int32 lUp, lDown, lLeft, lRight;
+		int32_t lUp, lDown, lLeft, lRight;
 
 		if (cpLine1->Dir == LD_Horiz)
 		{
@@ -2092,7 +2092,7 @@ Bool32 CorrectDoubleLines(CLINE_handle hContainer)
 			if (!cpLine2) continue;
 			if (cpLine1->Dir != cpLine2->Dir || cpLine2->Flags & LI_Pointed || cpLine2->Flags == LI_IsFalse) continue;
 
-			Int32 min_level, max_level;
+			int32_t min_level, max_level;
 
 			if (cpLine2->Line.Beg_X < cpLine2->Line.End_X)
 			{
@@ -2137,15 +2137,15 @@ Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM)
 {
 	if (!LDPUMA_Skip(hLinesPass2DebugSkipGlue)) return TRUE;
 
-//	Int32 CountHor, CountVert;
-	Int32 CountLines;
+//	int32_t CountHor, CountVert;
+	int32_t CountLines;
 	CPDLine pLine;
 //	CLINE_handle *hHorLines, *hVertLines;
 	CLINE_handle *hLinesMass = NULL;
 	CLINE_handle hExtContainer = CLINE_CreateContainer(FALSE);
 	Bool32 NeedNextLoop = FALSE;
 	CCOM_comp* pCompMass = NULL;
-	Int32 CountComps, max_line_width = 0;
+	int32_t CountComps, max_line_width = 0;
 
 	// проход по гориз. линиям
 	do
@@ -2356,32 +2356,32 @@ Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM)
 }
 
 /**********************************************************************************************/
-Bool32 FindExtLines(CLINE_handle* hLinesMass, Int32 CountLines, CLINE_handle hExtContainer, Bool32 IsHor,
-					CCOM_comp *pCompMass, Int32 CountMass, CLINE_handle hContainer)
+Bool32 FindExtLines(CLINE_handle* hLinesMass, int32_t CountLines, CLINE_handle hExtContainer, Bool32 IsHor,
+					CCOM_comp *pCompMass, int32_t CountMass, CLINE_handle hContainer)
 {
 	CPDLine pLine, pLineExt;
 	CLINE_handle hLineExt = NULL;
-	Int32 LineBeg, LineEnd, LineBegS, LineEndS, LineLen, spread = 0, simple_shift = 0;
+	int32_t LineBeg, LineEnd, LineBegS, LineEndS, LineLen, spread = 0, simple_shift = 0;
 	Word32 PageNumber = CPAGE_GetCurrentPage();
 	Handle h_Page = CPAGE_GetHandlePage(PageNumber);
 	PAGEINFO page_info = {0};
-	Int32 dpi;
+	int32_t dpi;
 
 	if (!GetPageInfo(h_Page,&page_info)) return FALSE;
 
 	dpi = IsHor ? page_info.DPIX : page_info.DPIY;
 
 	const double coef = ((double)dpi + 1)/300;
-	const Int32 min_interval = (Int32)(hMinInterval*coef);
-	const Int32 first_interval = (Int32)(h1Interval*coef);
-	const Int32 second_interval = (Int32)(h2Interval*coef);
-	const Int32 max_interval = (Int32)(hMaxInterval*coef);
-	const Int32 small_line = (Int32)(hSmallLineLen*coef);
-	const Int32 long_line = (Int32)(hLongLineLen*coef);
+	const int32_t min_interval = (int32_t)(hMinInterval*coef);
+	const int32_t first_interval = (int32_t)(h1Interval*coef);
+	const int32_t second_interval = (int32_t)(h2Interval*coef);
+	const int32_t max_interval = (int32_t)(hMaxInterval*coef);
+	const int32_t small_line = (int32_t)(hSmallLineLen*coef);
+	const int32_t long_line = (int32_t)(hLongLineLen*coef);
 	const double maxdegreediff = (double)hMaxDegreeDiff/100;
-	const Int32 max_shift = (Int32)(hMaxShift*coef);
+	const int32_t max_shift = (int32_t)(hMaxShift*coef);
 
-	for (Int32 i = 0; i < CountLines; i++)
+	for (int32_t i = 0; i < CountLines; i++)
 	{
 		pLine = CLINE_GetLineData(hLinesMass[i]);
 		if (!pLine) return FALSE;
@@ -2438,8 +2438,8 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, Int32 CountLines, CLINE_handle hEx
 			delta.x = pLineExt->Line.Beg_X - ((pLine->Line.Beg_X + pLine->Line.End_X)>>1);
 			delta.y = pLineExt->Line.Beg_Y - ((pLine->Line.Beg_Y + pLine->Line.End_Y)>>1);
 
-			Int32 temp = delta.x*(Int32)pLineExt->poly.Vertex[0].y - delta.y*(Int32)pLineExt->poly.Vertex[0].x;
-			Int32 squareshift = (Int32)(temp*((double)temp/pLineExt->LineEventsLength));
+			int32_t temp = delta.x*(int32_t)pLineExt->poly.Vertex[0].y - delta.y*(int32_t)pLineExt->poly.Vertex[0].x;
+			int32_t squareshift = (int32_t)(temp*((double)temp/pLineExt->LineEventsLength));
 
 			//отсекаем по сдвигу
 			if (squareshift > max_shift) continue;
@@ -2478,7 +2478,7 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, Int32 CountLines, CLINE_handle hEx
 				}
 			}
 
-			Int32 CountBlack = -1, CountBlackR = -1;
+			int32_t CountBlack = -1, CountBlackR = -1;
 
 			if (spread <= second_interval)
 			{
@@ -2555,7 +2555,7 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, Int32 CountLines, CLINE_handle hEx
 			pNewExt.n_event = 1;
 			pNewExt.poly.Vertex[0].x = (Int16)(pNewExt.Line.End_X - pNewExt.Line.Beg_X);
 			pNewExt.poly.Vertex[0].y = (Int16)(pNewExt.Line.End_Y - pNewExt.Line.Beg_Y);
-			pNewExt.LineEventsLength = (Int32)pNewExt.poly.Vertex[0].x*(Int32)pNewExt.poly.Vertex[0].x + (Int32)pNewExt.poly.Vertex[0].y*(Int32)pNewExt.poly.Vertex[0].y;
+			pNewExt.LineEventsLength = (int32_t)pNewExt.poly.Vertex[0].x*(int32_t)pNewExt.poly.Vertex[0].x + (int32_t)pNewExt.poly.Vertex[0].y*(int32_t)pNewExt.poly.Vertex[0].y;
 			if (IsHor)
 			{
 				pNewExt.rect.left = pLine->Line.Beg_X;
@@ -2710,8 +2710,8 @@ void MergeLines(CLINE_handle hLine, CLINE_handle hLineExt, CLINE_handle hContain
 }
 
 /************************************************************************************************/
-Bool32 CheckAllLines(Rect32* CurrLine, const Rect32* pLine, Bool32 IsHor, Int32 nIncline,
-					 CLINE_handle* hLinesMass, Int32 CountLines, Int32 interval, Int32 long_line)
+Bool32 CheckAllLines(Rect32* CurrLine, const Rect32* pLine, Bool32 IsHor, int32_t nIncline,
+					 CLINE_handle* hLinesMass, int32_t CountLines, int32_t interval, int32_t long_line)
 {
 	Rect32 tempRect;
 	memcpy(&tempRect, pLine, sizeof(Rect32));
@@ -2731,7 +2731,7 @@ Bool32 CheckAllLines(Rect32* CurrLine, const Rect32* pLine, Bool32 IsHor, Int32 
 		IDEAL_XY(tempRect.bottom, tempRect.right);
 	}
 
-	Int32 Level1, Level2, Level3, Level4;
+	int32_t Level1, Level2, Level3, Level4;
 
 	if (CurrLine->left < tempRect.left)
 	{
@@ -2751,9 +2751,9 @@ Bool32 CheckAllLines(Rect32* CurrLine, const Rect32* pLine, Bool32 IsHor, Int32 
 	if (Level2 >= Level3) return TRUE;
 
 	CPDLine pNowLine;
-	Int32 CountAllLines = 0, CountVotedLines = 0, CountLines1_2 = 0, CountLines3_4 = 0;
+	int32_t CountAllLines = 0, CountVotedLines = 0, CountLines1_2 = 0, CountLines3_4 = 0;
 
-	for (Int32 i = 0; i < CountLines; i++)
+	for (int32_t i = 0; i < CountLines; i++)
 	{
 		pNowLine = CLINE_GetLineData(hLinesMass[i]);
 		if (!pNowLine) return FALSE;
@@ -2810,9 +2810,9 @@ Bool32 CheckAllLines(Rect32* CurrLine, const Rect32* pLine, Bool32 IsHor, Int32 
 }
 
 /**********************************************************************************************/
-Int32 getLineComps(CCOM_comp** pCompMass, Int32 max_width, Int32 max_height, Handle hCCOM)
+int32_t getLineComps(CCOM_comp** pCompMass, int32_t max_width, int32_t max_height, Handle hCCOM)
 {
-	Int32 CountComps = 0;
+	int32_t CountComps = 0;
 	CCOM_comp *hcomp;
 	const int size_comp = sizeof(CCOM_comp);
 
@@ -2834,7 +2834,7 @@ Int32 getLineComps(CCOM_comp** pCompMass, Int32 max_width, Int32 max_height, Han
 }
 
 /**********************************************************************************************/
-Int32 countCompLen(CCOM_comp* pCompMass, Int32 CountComp, CPDLine pLine, CPDLine pLineExt,
+int32_t countCompLen(CCOM_comp* pCompMass, int32_t CountComp, CPDLine pLine, CPDLine pLineExt,
 				   Bool32 IsHor)
 {
 	Rect32 RastRect;
@@ -2909,14 +2909,14 @@ Int32 countCompLen(CCOM_comp* pCompMass, Int32 CountComp, CPDLine pLine, CPDLine
 
 	if (RastRect.left >= RastRect.right || RastRect.top >= RastRect.bottom) return 0;
 
-	Int32 ncomp = findFirstComp(pCompMass, CountComp, RastRect, IsHor);
+	int32_t ncomp = findFirstComp(pCompMass, CountComp, RastRect, IsHor);
 
 	if (ncomp == -1) return 0;
 
-	Int32 countLen = 0;
-	Int32 max_width = pLineExt->Line.Wid10/10 + 2;
+	int32_t countLen = 0;
+	int32_t max_width = pLineExt->Line.Wid10/10 + 2;
 
-	for (Int32 i = ncomp; i < CountComp; i++)
+	for (int32_t i = ncomp; i < CountComp; i++)
 		if (IsHor)
 		{
 			if (pCompMass[i].left > RastRect.right) break;
@@ -2948,7 +2948,7 @@ Int32 countCompLen(CCOM_comp* pCompMass, Int32 CountComp, CPDLine pLine, CPDLine
 }
 
 /*********************************************************************************************/
-Int32 findFirstComp(CCOM_comp* pCompMass, Int32 CountComp, Rect32 RastRect, Bool32 IsHor)
+int32_t findFirstComp(CCOM_comp* pCompMass, int32_t CountComp, Rect32 RastRect, Bool32 IsHor)
 {
 	if (CountComp < 1) return -1;
 
@@ -2956,7 +2956,7 @@ Int32 findFirstComp(CCOM_comp* pCompMass, Int32 CountComp, Rect32 RastRect, Bool
 		!IsHor && (pCompMass[0].upper > RastRect.bottom || pCompMass[CountComp - 1].upper < RastRect.top - 7))
 		return -1;
 
-	Int32 old_min = 0, old_max = CountComp - 1, curr = CountComp - 1;
+	int32_t old_min = 0, old_max = CountComp - 1, curr = CountComp - 1;
 
 	if (IsHor && pCompMass[0].left >= RastRect.left - 7 && pCompMass[0].left <= RastRect.right ||
 		!IsHor && pCompMass[0].upper >= RastRect.top - 7 && pCompMass[0].upper <= RastRect.bottom)
@@ -2992,7 +2992,7 @@ Int32 findFirstComp(CCOM_comp* pCompMass, Int32 CountComp, Rect32 RastRect, Bool
 		}
 	}
 
-	Int32 i;
+	int32_t i;
 	for (i = curr; i > 0; i--)
 		if ((IsHor && pCompMass[i].left >= RastRect.left - 7 ||
 			!IsHor && pCompMass[i].upper >= RastRect.top - 7) &&
@@ -3014,7 +3014,7 @@ double Lx,Ly;
  line->Degree = atan2(Ly,Lx);
 }
 /***********************************************************************************************/
-void getLineIdealStrictRectangular(const NR_SimpLine *pdLine, Rect32* pRect, bool is_horiz, Int32 nIncline, Int32 spread)
+void getLineIdealStrictRectangular(const NR_SimpLine *pdLine, Rect32* pRect, bool is_horiz, int32_t nIncline, int32_t spread)
 {
 	if (!pdLine || !pRect)
 		return;
@@ -3139,7 +3139,7 @@ Bool32 Compress(char * lpData, Word32 Size, char ** compressedData, Word32 * com
 	return TRUE;
 }
 
-Bool32 mywrite(void* of, const void* lpdata, Int32 size)
+Bool32 mywrite(void* of, const void* lpdata, int32_t size)
 {
 	ofstream *ofile = (ofstream*)of;
 
@@ -3160,7 +3160,7 @@ const Word32 type_page_len = strlen(TYPE_page) + 1;
 const Word32 data_size = sizeof(POLY_);
 const Word32 page_size = sizeof(PAGEINFO);
 
-Bool32 writeBin(char* file_name, Int32 nIncline, Rect16* aRect, Word32* aType, Word32* aNumber, Int32 aCount)
+Bool32 writeBin(char* file_name, int32_t nIncline, Rect16* aRect, Word32* aType, Word32* aNumber, int32_t aCount)
 {
 	ofstream bin_file(file_name, ios::out|ios::binary);
 
@@ -3185,7 +3185,7 @@ Bool32 writeBin(char* file_name, Int32 nIncline, Rect16* aRect, Word32* aType, W
 	if (rc)
 		rc = mywrite(&bin_file, &count, sizeof(count));
 
-	for (Int32 i = 0; i < aCount && rc; i++)
+	for (int32_t i = 0; i < aCount && rc; i++)
 	{//from BLOCK
 //		rc = mywrite(&bin_file, &aNumber[i], sizeof(aNumber[i]));//UserNum
 		rc = mywrite(&bin_file, &flags, sizeof(flags));//UserNum

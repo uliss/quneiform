@@ -88,17 +88,17 @@ public:
 	Bool32 UnLoadUserDictonary(void);
 	Bool32 LoadSecUserDictonary( PChar8 pUserDictonaryList, PChar8 pPoint);
 	Bool32 LoadUserDictonary(PChar8 pUserDictonaryList, PChar8 pPoint);
-	Bool32 CheckSecED(void *pEDPool, void * pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, PInt32 pOut);
-	Bool32 CheckED(void * pEDPool, void * pEDOutPool, Word32 wEDPoolsize, PWord32 pwEDOutPoolSize, PInt32 pOut);
-	Bool32 CheckSecWord(PChar8 cWord, PInt32 pOutCheck);
+	Bool32 CheckSecED(void *pEDPool, void * pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, Pint32_t pOut);
+	Bool32 CheckED(void * pEDPool, void * pEDOutPool, Word32 wEDPoolsize, PWord32 pwEDOutPoolSize, Pint32_t pOut);
+	Bool32 CheckSecWord(PChar8 cWord, Pint32_t pOutCheck);
 	Bool32 UnLoadSecDictonary(void);
 	Bool32 LoadSecDictonary(Word32 wLang, PChar8 pDictPath);
-	Bool32 CheckFile(PChar8 pFile, PInt32 pCheck);
-	static void ExitByCatch( Int32 ExitCode);
-	Bool32 CheckWord(PChar8 cWord, PInt32 pOutCheck);
+	Bool32 CheckFile(PChar8 pFile, Pint32_t pCheck);
+	static void ExitByCatch( int32_t ExitCode);
+	Bool32 CheckWord(PChar8 cWord, Pint32_t pOutCheck);
 	Bool32 UnLoadDictonary(void);
 	Bool32 LoadDictonary(Word32 wLang, PChar8 pDictPath);
-	Int32  IsDictonaryAvailable(Word32 wLang, PChar8 pDictPath);
+	int32_t  IsDictonaryAvailable(Word32 wLang, PChar8 pDictPath);
 
 	CRLControl();
 	virtual ~CRLControl();
@@ -107,7 +107,7 @@ protected:
 	Bool32 AllocEDBuffer(void);
 	Bool32 CheckEDFile(PChar8 pEDFile);
 	void   FreeEDBuffer(void);
-	void   SetCodeWhenExit( Int32 Code );
+	void   SetCodeWhenExit( int32_t Code );
 
 protected:
 	CRLEd   mcEderator;
@@ -120,14 +120,14 @@ protected:
 	Word32  m_LastEDWorkPoolSize;
 	PWord8  m_LastEDPool;
 	//Char8   m_SecLastWord[RLING_MAX_WORD_LENGHT + 4];
-	//Int32   m_SecLastCheck;
+	//int32_t   m_SecLastCheck;
 	//Char8   m_SecLastDictonaryPath[512];
 	Handle  m_SecTablePool;
-	Int32   m_SecLanguage;
+	int32_t   m_SecLanguage;
 	Handle  m_TablePool;
 	Char8   m_LastDictonaryPath[512];
-	Int32   m_Language;
-	Int32   m_LastCheck;
+	int32_t   m_Language;
+	int32_t   m_LastCheck;
 	Char8   m_LastWord[RLING_MAX_WORD_LENGHT + 4];
 };
 

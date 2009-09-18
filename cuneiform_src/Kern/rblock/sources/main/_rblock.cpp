@@ -141,7 +141,7 @@ RBLOCK_FUNC(Bool32) RBLOCK_ExtractTextStrings(Handle hCCOM,Handle hCPAGE)
   return TRUE;
 }
 ////////////////////////////////////////////////
-RBLOCK_FUNC(Bool32) RBLOCK_GetAnglePage(Handle hCCOM,Int32 * lpNominator,Int32 * lpDenominator)
+RBLOCK_FUNC(Bool32) RBLOCK_GetAnglePage(Handle hCCOM,int32_t * lpNominator,int32_t * lpDenominator)
 {
  Bool32 rc = TRUE;
  SetReturnCode_rblock(IDS_ERR_NO);

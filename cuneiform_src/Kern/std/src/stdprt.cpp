@@ -144,7 +144,7 @@ static StdPrtEvent szStdPrtSysEventList[] =
 CTableEvnFiller::CTableEvnFiller()
 {
    char szString[_MAX_PATH] = {0};
-   Int32 size = _MAX_PATH;
+   int32_t size = _MAX_PATH;
    stdGetProfileString(szString,&size,"protocol.ini","Options","EvnTablePath",STD_SETPROF_DIR_PROJECT);
    strcpy(m_szTableName,szString);
    xsTblEventData.erase(xsTblEventData.begin(),xsTblEventData.end());
@@ -459,7 +459,7 @@ Bool32 CPrtEventSender::SendEvent(StdPrtEvent* pspe, va_list& List)
    return (res1&&res2&&res3);
 }
 
-Bool32 CPrtEventSender::SendEvent(char* EventText,Int32 EvnType)
+Bool32 CPrtEventSender::SendEvent(char* EventText,int32_t EvnType)
 {
    Bool32 res1 = TRUE;//,res2 = TRUE,res3 = TRUE;
    switch(EvnType)
@@ -480,7 +480,7 @@ Bool32 CPrtEventSender::SendEvent(char* EventText,Int32 EvnType)
    return res1;//(res1&&res2&&res2);
 }
 
-Bool32 CPrtSysEventSender::SendSysEvent(Int32 SysEvnNo,...)
+Bool32 CPrtSysEventSender::SendSysEvent(int32_t SysEvnNo,...)
 {
    if(SysEvnNo >= CUR_SYS_EVN_COUNT || SysEvnNo < 0)
       RET_FALSE;
@@ -499,7 +499,7 @@ Bool32 CPrtSysEventSender::SendSysEvent(Int32 SysEvnNo,...)
    return res;
 }
 
-Bool32 CPrtSysEventSender::SendSysEvent(Int32 SysEvnNo, va_list& List)
+Bool32 CPrtSysEventSender::SendSysEvent(int32_t SysEvnNo, va_list& List)
 {
    if(SysEvnNo<100)
       return EventSender.SendEvent(&szStdPrtSysEventList[SysEvnNo-1], List);
@@ -528,7 +528,7 @@ Bool32 CPrtSysEventSender::SendEvent(StdPrtEvent* pspe)
 Bool32 CPrtSysEventSender::SendEnvRegistrationEvent(StdPrtEvent* pspe)
 {
    StdPrtEventData szEvnData = {0};
-   Int32 res = EvnParseFormat(pspe->szFormat,szEvnData.FrmtEvnString);
+   int32_t res = EvnParseFormat(pspe->szFormat,szEvnData.FrmtEvnString);
    if(!res)
       RET_FALSE;
    szEvnData.iEvnNo = ++gl_iLastEventNo;
@@ -581,47 +581,47 @@ STD_FUNC(void) stdPrtStopConsole()
    stdPrtConsole.FreePrtConsole();
 }
 
-STD_FUNC(Int32) stdPrt( StdPrtEvent* pspe, ... )
+STD_FUNC(int32_t) stdPrt( StdPrtEvent* pspe, ... )
 {
    if (NULL==(FILE*)theFile)
       RET_ZERO;
    va_list List;
    va_start(List, pspe);
    CPrtSendEvent Event;
-   Int32 res = Event(pspe,List);
+   int32_t res = Event(pspe,List);
    va_end( List );
    return res;
 }
 
 static CPrtSysEventSender SysEvent;
 
-STD_FUNC(Int32) stdSysPrt( Int32 EvnNo, ... )
+STD_FUNC(int32_t) stdSysPrt( int32_t EvnNo, ... )
 {
    if (NULL==(FILE*)theFile)
       RET_ZERO;
    va_list List;
    va_start(List, EvnNo);
 // CPrtSysEventSender Event;
-   Int32 res = SysEvent.SendSysEvent(EvnNo,List);
+   int32_t res = SysEvent.SendSysEvent(EvnNo,List);
    va_end( List );
    return res;
 }
 
-STD_FUNC(Int32) stdSysPrt( Int32 EvnNo, va_list& List )
+STD_FUNC(int32_t) stdSysPrt( int32_t EvnNo, va_list& List )
 {
    if (NULL==(FILE*)theFile)
       RET_ZERO;
 // CPrtSysEventSender Event;
-   Int32 res = SysEvent.SendSysEvent(EvnNo,List);
+   int32_t res = SysEvent.SendSysEvent(EvnNo,List);
    return res;
 }
 
-STD_FUNC(Int32) stdPrt( StdPrtEvent* pspe,  va_list& List)
+STD_FUNC(int32_t) stdPrt( StdPrtEvent* pspe,  va_list& List)
 {
    if (NULL==(FILE*)theFile)
       RET_ZERO;
    CPrtSendEvent Event;
-   Int32 res = Event(pspe,List);
+   int32_t res = Event(pspe,List);
    return res;
 }
 
@@ -722,7 +722,7 @@ void PrtUnload()
 
 
 
-Int32 ReadEventString(FILE* fl, char* str)
+int32_t ReadEventString(FILE* fl, char* str)
 {
    XString xsString;
    if(!fl)
@@ -744,7 +744,7 @@ Int32 ReadEventString(FILE* fl, char* str)
    return xsString.GetCurCnt();
 }
 
-Int32 GetNextEvnFld(char *evn_str,char* str)
+int32_t GetNextEvnFld(char *evn_str,char* str)
 {
    char buf[256] = {0};
    int i = 0;
@@ -761,10 +761,10 @@ Int32 GetNextEvnFld(char *evn_str,char* str)
    return i;
 }
 
-Int32 ParseEventString(char* evn_str,Int32 iEvnSize)
+int32_t ParseEventString(char* evn_str,int32_t iEvnSize)
 {
    char *str = evn_str;
-   Int32 iEvnSqNo = 0;
+   int32_t iEvnSqNo = 0;
    char buf[256] = {0};
 
    // выделение номера собития в протоколе
@@ -788,7 +788,7 @@ Int32 ParseEventString(char* evn_str,Int32 iEvnSize)
          xString.Push(*str, NULL);
       else
       {
-         Int32 shift = k+1;
+         int32_t shift = k+1;
          xsParamsShift.Push(&shift);
          char ch = 0;
          xString.Push(ch, NULL);
@@ -803,7 +803,7 @@ Int32 ParseEventString(char* evn_str,Int32 iEvnSize)
    return iEvnNo;
 }
 
-STD_FUNC(Int32) stdPrtStartParsePrt(char *file_name)
+STD_FUNC(int32_t) stdPrtStartParsePrt(char *file_name)
 {
    stdPrtFILE theParseFile(file_name,"rt");
    if((FILE*)(theParseFile)==NULL)
@@ -818,7 +818,7 @@ STD_FUNC(Int32) stdPrtStartParsePrt(char *file_name)
    return 1;
 }
 
-STD_FUNC(Int32) stdPrtGetNextEvent(StdPrtEvent* pspe)
+STD_FUNC(int32_t) stdPrtGetNextEvent(StdPrtEvent* pspe)
 {
    xsParamsShift.Destroy();
    if(pParamsString)
@@ -894,7 +894,7 @@ Bool32 SendEvnToConsole(StdPrtEvent* pspe,va_list& List)
    char buf[4097*2] = {0};
    char buff1[4097] = {0};
    char buff2[4097] = {0};
-   Int32 nBytesWritten=sprintf( buff1,"#%05i\tEvn=%03i",gl_iEventCount,xsEventTypeData[(pspe->hEvent-1)].iEvnNo);
+   int32_t nBytesWritten=sprintf( buff1,"#%05i\tEvn=%03i",gl_iEventCount,xsEventTypeData[(pspe->hEvent-1)].iEvnNo);
    nBytesWritten+=vsprintf( buff2, pspe->szFormat, List );
    nBytesWritten=sprintf(buf,"%s\t%s",buff1,buff2);
    unsigned long nRBytesWritten = 0;
@@ -916,7 +916,7 @@ Bool32 SendEvnToConsole(char *evn_str)
 
 
 /*
-STD_FUNC(Int32) stdPrt( StdPrtEvent* pspe, ... )
+STD_FUNC(int32_t) stdPrt( StdPrtEvent* pspe, ... )
 {
    if (NULL==(FILE*)theFile)
       return 0;
@@ -942,7 +942,7 @@ STD_FUNC(Int32) stdPrt( StdPrtEvent* pspe, ... )
       va_start(List, pspe);
 
       StdPrtEventData szEvnData = {0};
-      Int32 res = EvnParseFormat(pspe->szFormat,szEvnData.FrmtEvnString);
+      int32_t res = EvnParseFormat(pspe->szFormat,szEvnData.FrmtEvnString);
       if(!res)
          RET_FALSE;
       szEvnData.iEvnNo = ++gl_iLastEventNo;

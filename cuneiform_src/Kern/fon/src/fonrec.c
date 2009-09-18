@@ -298,7 +298,7 @@ static int LoadCTB(char *name) {
 	return num;
 }
 ////////////////////
-FON_FUNC(Int32) FONInit(char *name)
+FON_FUNC(int32_t) FONInit(char *name)
 {
 	int i,j;
 	welet *wel;
@@ -351,7 +351,7 @@ FON_FUNC(Int32) FONInit(char *name)
 #define POROG_HEI_REJECT 3
 
 // получить поле в виде DWORD[2]
-static Int32 GetBaseField(Int16 nField, FONBASE *fbase, Word32 *field) {
+static int32_t GetBaseField(Int16 nField, FONBASE *fbase, Word32 *field) {
 	if (nField <= 0 || nField > MAXFIELD)
 		return 0;
 	ClearFields(field);
@@ -487,15 +487,15 @@ static void FineFONCollection(RecVersions *collection) {
 }
 ///////////////////////////////
 
-FON_FUNC(Int32) FONRecogChar(RecRaster *recRast,RecVersions *collection,FonSpecInfo *specInfo)
+FON_FUNC(int32_t) FONRecogChar(RecRaster *recRast,RecVersions *collection,FonSpecInfo *specInfo)
 {
 	int xbit =recRast->lnPixWidth;
 	int bytesx=((xbit+63)/64)*8;
 	int ret;
 	RECRESULT recres[REC_MAX_VERS];
-	Int32 nInCTB,nField;
+	int32_t nInCTB,nField;
 	Int16 col,row;
-	Int32 countRazmaz;
+	int32_t countRazmaz;
 
 	memset(collection,0,sizeof(RecVersions));
 
@@ -588,13 +588,13 @@ FON_FUNC(Int32) FONRecogChar(RecRaster *recRast,RecVersions *collection,FonSpecI
 	return collection->lnAltCnt;
 }
 ///////////////////
-FON_FUNC(Int32) FONRecogCharTiger(RecRaster *recRast,RecVersions *collection,FonSpecInfo *specInfo)
+FON_FUNC(int32_t) FONRecogCharTiger(RecRaster *recRast,RecVersions *collection,FonSpecInfo *specInfo)
 {
 	int xbit=recRast->lnPixWidth;
 	int bytesx=((xbit+63)/64)*8;
 	int ret;
 	RECRESULT recres[REC_MAX_VERS];
-	Int32 nInCTB,nField;
+	int32_t nInCTB,nField;
 	Int16 col,row;
 
 	memset(collection,0,sizeof(RecVersions));
@@ -673,7 +673,7 @@ FON_FUNC(Int32) FONRecogCharTiger(RecRaster *recRast,RecVersions *collection,Fon
 	return collection->lnAltCnt;
 }
 ///////////////////
-FON_FUNC(Bool32) FONCheckItself(Word8 let,Int32 num,Int16 col,Int16 row)
+FON_FUNC(Bool32) FONCheckItself(Word8 let,int32_t num,Int16 col,Int16 row)
 {
 	welet *wel;
 	int i;
@@ -700,7 +700,7 @@ FON_FUNC(Bool32) FONCheckItself(Word8 let,Int32 num,Int16 col,Int16 row)
 //         -1 - no such letter
 //       >=0  - how many variants
 //
-FON_FUNC(Int32) FONTestChar(RecRaster *recRast,Word8 let,FonTestInfo *attr,Int16 nInCTB)
+FON_FUNC(int32_t) FONTestChar(RecRaster *recRast,Word8 let,FonTestInfo *attr,Int16 nInCTB)
 {
 	int xbit=recRast->lnPixWidth;
 	int bytesx=((xbit+63)/64)*8;
@@ -718,7 +718,7 @@ FON_FUNC(Int32) FONTestChar(RecRaster *recRast,Word8 let,FonTestInfo *attr,Int16
 	return ret;
 }
 ///////////////////
-FON_FUNC(Int32) FONTestCharTiger(RecRaster *recRast,Word8 let,FonTestInfo *attr)
+FON_FUNC(int32_t) FONTestCharTiger(RecRaster *recRast,Word8 let,FonTestInfo *attr)
 {
 	int xbit=recRast->lnPixWidth;
 	int bytesx=((xbit+63)/64)*8;
@@ -737,7 +737,7 @@ FON_FUNC(Int32) FONTestCharTiger(RecRaster *recRast,Word8 let,FonTestInfo *attr)
 }
 ///////////////////
 
-FON_FUNC(Int32) FONSetAlphabet(char *coll)
+FON_FUNC(int32_t) FONSetAlphabet(char *coll)
 {
 	int i;
 	welet *wel;
@@ -761,7 +761,7 @@ FON_FUNC(Int32) FONSetAlphabet(char *coll)
 }
 ///////////////////
 // return number of fonts
-FON_FUNC(Int32) FONGetFontCount(void)
+FON_FUNC(int32_t) FONGetFontCount(void)
 {
 	if(fonbase.inBase <= 0 ||
 			fonbase.start == NULL )
@@ -770,7 +770,7 @@ FON_FUNC(Int32) FONGetFontCount(void)
 }
 /////////////////
 // return number of distinct letters
-FON_FUNC(Int32) FONFontInfo(FontInfo *fontinfo)
+FON_FUNC(int32_t) FONFontInfo(FontInfo *fontinfo)
 {
 	int i,count;
 	welet *wel;
@@ -839,7 +839,7 @@ FON_FUNC(Int32) FONFontInfo(FontInfo *fontinfo)
 ////////////////////////////
 // get information about num first symbols
 // return number of symbols (<=num)
-FON_FUNC(Int32) FONSizesInfo(SizesInfo *sizeinfo,int num)
+FON_FUNC(int32_t) FONSizesInfo(SizesInfo *sizeinfo,int num)
 {
 	int i,j,count;
 	welet *wel;
@@ -1146,7 +1146,7 @@ int CheckRaster(PBYTE r, WORD fullBytes, WORD w, WORD h, int let,
 // end Valdemar }
 /////////////////////////////
 ///////////////////////////////
-FON_FUNC(Int32) FONCompareRasterCluster(RecRaster *recRast,int numWelet,
+FON_FUNC(int32_t) FONCompareRasterCluster(RecRaster *recRast,int numWelet,
 		int movx,int movy)
 {
 	int CompareCluster(BYTE *rast,int xbyte,int xbit,int yrow,welet *wel,
@@ -1182,7 +1182,7 @@ FON_FUNC(Int32) FONCompareRasterCluster(RecRaster *recRast,int numWelet,
 //       -21 - invalid name    (<0 or > 255)
 //       -22 - no correct cluster
 //
-FON_FUNC(Int32) FONGetClusterAsBW(Int32 *name,Int32 number,Int32 porog,RecRaster *recRast)
+FON_FUNC(int32_t) FONGetClusterAsBW(int32_t *name,int32_t number,int32_t porog,RecRaster *recRast)
 {
 	int xbit,yrow;
 	int bytesx;
@@ -1310,8 +1310,8 @@ static int DiskriminatorTest(void)
 // temporary ? :
 //  recBounds  - massiv REC_MAX_VERS*recRast->lnPixHeight;
 //
-FON_FUNC(Int32) FONRecogCharBound(RecRaster *recRast,RecVersions *collection,
-		Int32 *recBounds)
+FON_FUNC(int32_t) FONRecogCharBound(RecRaster *recRast,RecVersions *collection,
+		int32_t *recBounds)
 {
 	SINT RecogCluBound(BYTE *rast,SINT xbyte,SINT xbit,SINT yyrow,BYTE *names,
 			BYTE *probs,SINT maxNames,welet *wl,int numWel,
@@ -1345,7 +1345,7 @@ FON_FUNC(Int32) FONRecogCharBound(RecRaster *recRast,RecVersions *collection,
 	return collection->lnAltCnt;
 }
 ///////////////////
-FON_FUNC(Int32) FONRecogKley(RecRaster *recRast,RecVersions *collection)
+FON_FUNC(int32_t) FONRecogKley(RecRaster *recRast,RecVersions *collection)
 {
 	int KleyRecog(BYTE *inBuf,int xbyte,int xbit, int yrow,
 			welet *wl,int numWel,int porog,
@@ -1382,14 +1382,14 @@ FON_FUNC(Int32) FONRecogKley(RecRaster *recRast,RecVersions *collection)
 //
 // added 1.10.98
 // returns count (N) => numbers [1..N] can be used as indexes
-FON_FUNC(Int32) FONGetClustCount(void)
+FON_FUNC(int32_t) FONGetClustCount(void)
 {
 	if(fonbase.start)
 	return fonbase.inBase;
 	return -1;
 }
 ///////////////////
-FON_FUNC(Int32) FONGetClustInfo( ClustInfo *clustinfo,
+FON_FUNC(int32_t) FONGetClustInfo( ClustInfo *clustinfo,
 		int num // in range [1..FONGetClustCount(void)]
 )
 {
@@ -1438,7 +1438,7 @@ FON_FUNC(Int32) FONGetClustInfo( ClustInfo *clustinfo,
 	return num;
 }
 ///////////////////
-FON_FUNC(Int32) FONGetNearestClusters( RecRaster* recRast, // symbol
+FON_FUNC(int32_t) FONGetNearestClusters( RecRaster* recRast, // symbol
 		ClustAlt result[], // result table of K nearest klusters
 		int nClustAltLen, // length of table
 		int nDistLevel // don't report about clusters with distance more than nDistLevel
@@ -1490,7 +1490,7 @@ FON_FUNC(Int32) FONGetNearestClusters( RecRaster* recRast, // symbol
 //  return < 0 - error
 //   else 0 - 255  (255 - the same )
 //
-FON_FUNC(Int32) FONCompareClustNames(Int32 name1,Int32 name2)
+FON_FUNC(int32_t) FONCompareClustNames(int32_t name1,int32_t name2)
 {
 	if(fonbase.start == NULL ||
 			fonbase.inBase <= 0 )
@@ -1504,7 +1504,7 @@ FON_FUNC(Int32) FONCompareClustNames(Int32 name1,Int32 name2)
 // найти кластеры, похожие на кластер с заданным номером
 // номера - c 1
 //
-FON_FUNC(Int32) FONGetSameClust(Int32 num,RecVersions *collect)
+FON_FUNC(int32_t) FONGetSameClust(int32_t num,RecVersions *collect)
 {
 	int i;
 
@@ -1519,7 +1519,7 @@ FON_FUNC(Int32) FONGetSameClust(Int32 num,RecVersions *collect)
 	return i;
 }
 ///////////////////
-FON_FUNC(Int32) FONSetClusterInvalid(Int32 num)
+FON_FUNC(int32_t) FONSetClusterInvalid(int32_t num)
 {
 	welet *wel;
 
@@ -1587,7 +1587,7 @@ int SetTablDigitColumn(FONBASE *fonbase, int column, int onlyDigits) {
 	return 1;
 }
 ////////////
-FON_FUNC(Int32) FONSetAlphaColumn(Int32 column,Bool32 onlyDigits)
+FON_FUNC(int32_t) FONSetAlphaColumn(int32_t column,Bool32 onlyDigits)
 {
 
 	if(fonbase.start == NULL )
@@ -1605,13 +1605,13 @@ FON_FUNC(Int32) FONSetAlphaColumn(Int32 column,Bool32 onlyDigits)
 	return SetTablDigitColumn(&fonbase,column, onlyDigits);
 }
 //////////////////
-FON_FUNC(Int32) FONRecogOkr(RecRaster *recRast,RecVersions *collection,FonSpecInfo *specInfo,Int32 okr,Int32 proc)
+FON_FUNC(int32_t) FONRecogOkr(RecRaster *recRast,RecVersions *collection,FonSpecInfo *specInfo,int32_t okr,int32_t proc)
 {
 	int xbit =recRast->lnPixWidth;
 	int bytesx=((xbit+63)/64)*8;
 	int ret;
 	RECRESULT recres[REC_MAX_VERS];
-	Int32 nInCTB,nField;
+	int32_t nInCTB,nField;
 	Int16 col,row;
 	int RecogCluOkr(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
 			RECRESULT *recres, SINT maxNames,
@@ -1698,7 +1698,7 @@ FON_FUNC(Int32) FONRecogOkr(RecRaster *recRast,RecVersions *collection,FonSpecIn
 	return collection->lnAltCnt;
 }
 ///////////////////
-FON_FUNC(Int32) FONCompareOkrRasterCluster(RecRaster *recRast,int numWelet,
+FON_FUNC(int32_t) FONCompareOkrRasterCluster(RecRaster *recRast,int numWelet,
 		int movx,int movy,int okr,int proc,
 		int *dist1,int *dist2)
 {
@@ -1723,13 +1723,13 @@ FON_FUNC(Int32) FONCompareOkrRasterCluster(RecRaster *recRast,int numWelet,
 	return ret;
 }
 ///////////////////
-FON_FUNC(Int32) FONRecogInner(RecRaster *recRast,RecVersions *collection,FonSpecInfo *specInfo)
+FON_FUNC(int32_t) FONRecogInner(RecRaster *recRast,RecVersions *collection,FonSpecInfo *specInfo)
 {
 	int xbit =recRast->lnPixWidth;
 	int bytesx=((xbit+63)/64)*8;
 	int ret;
 	RECRESULT recres[REC_MAX_VERS];
-	Int32 nInCTB,nField;
+	int32_t nInCTB,nField;
 	Int16 col,row;
 	int RecogCluInner(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
 			RECRESULT *recres, SINT maxNames,

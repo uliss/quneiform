@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ////////////////////////
 // распознать с разрезанием/склейкой кусок - от first до last,
 // результат поместить в lineFon
-Int32 (*RSTR_p2_RecogCutGlu)( CSTR_rast  first,CSTR_rast last,
+int32_t (*RSTR_p2_RecogCutGlu)( CSTR_rast  first,CSTR_rast last,
 							  CSTR_line  lineFon,
 							  P2GLOBALS *p2globals);
 ///////////////////
@@ -73,12 +73,12 @@ void  (*RSTR_p2_DecodeCode)(char *pCode,int let);
 BOOL (*RSTR_p2_NoStopSnapLEO)(void);
 BOOL (*RSTR_p2_snap_show_text)(BYTE *txt);
 BOOL (*RSTR_p2_snap_activity)(BYTE a);
-BOOL (*RSTR_p2_snap_monitor_ori)(CSTR_line *snap_line, Int32 num_lines);
+BOOL (*RSTR_p2_snap_monitor_ori)(CSTR_line *snap_line, int32_t num_lines);
 ///////////////
 // проверка по словарю
 BOOL (*RSTR_p2_spell)(PCHAR s,BYTE lang);
 
 // дополнительное распознавание (LEO)
-Bool32  (*ADDREC_SetupField)(void *letInfo,Int32 nFont,void* fontInfo);
+Bool32  (*ADDREC_SetupField)(void *letInfo,int32_t nFont,void* fontInfo);
 Bool32  (*ADDREC_SetupPage)(void *info);
 Bool32  (*ADDREC_Recog)(RecObject* obj);

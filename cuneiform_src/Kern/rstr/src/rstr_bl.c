@@ -974,7 +974,7 @@ void clear_cells(void);
 void Cells2CSTR(CSTR_line lin,CSTR_line lino,cell *cur,Bool32 enable_scaled);
 // для CopyAttr2CSTR в Cells2CSTR() !!!
 BOOL SetFontReady(BOOL fready);
-Int32 p2_Cstr2Cell( CSTR_line lin,CSTR_rast first,CSTR_rast last,Bool32 needVers, Word32 disable );
+int32_t p2_Cstr2Cell( CSTR_line lin,CSTR_rast first,CSTR_rast last,Bool32 needVers, Word32 disable );
 // предварительный поиск базовых линий
 void basedraft(CSTR_line ln)
 {

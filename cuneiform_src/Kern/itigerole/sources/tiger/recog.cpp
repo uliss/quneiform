@@ -98,7 +98,7 @@ void 	RestorePRGTIME(PRGTIME prev);// Устанавливает дапозон 
 //////////////////////////////////////////////////////////////////////////
 // Коррекция координат, связанная со спецификой поворота изображения
 
-static Point32 CorrectPointTo(Int32 x,Int32 y,Int32 Incline2048)
+static Point32 CorrectPointTo(int32_t x,int32_t y,int32_t Incline2048)
 {
 	Point32 rc;
 	// Вернем в реальные координаты
@@ -112,7 +112,7 @@ rc.y = y;
 return rc;
 }
 //////////////////////////////////////////////////////////////////////////
-static void CorrectPointFrom(Point32 p, Int32 & x,Int32 & y,Int32 Incline2048)
+static void CorrectPointFrom(Point32 p, int32_t & x,int32_t & y,int32_t Incline2048)
 {
 	x = p.x;
 	y = p.y;
@@ -820,12 +820,12 @@ BOOL _GetRotateDIB(long * phDIB,long * x0,long * y0)
 
 		if(info.Incline2048>0)
 			{
-				*x0 = (Int32)info.Width * info.Incline2048 / 2048 * info.Incline2048 / 2048;
-				*y0 = (Int32)info.Width * info.Incline2048 / 2048;
+				*x0 = (int32_t)info.Width * info.Incline2048 / 2048 * info.Incline2048 / 2048;
+				*y0 = (int32_t)info.Width * info.Incline2048 / 2048;
 			}
 			else
 			{
-				*x0 = -(Int32)info.Height * info.Incline2048 / 2048 + (Int32)info.Width * info.Incline2048 / 2048 * info.Incline2048 / 2048;
+				*x0 = -(int32_t)info.Height * info.Incline2048 / 2048 + (int32_t)info.Width * info.Incline2048 / 2048 * info.Incline2048 / 2048;
 				*y0 = 0;
 			}
 	}

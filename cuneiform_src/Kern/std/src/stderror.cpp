@@ -60,16 +60,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "std.h"
 
-static Int32 nErrCount=0;
+static int32_t nErrCount=0;
 
-STD_FUNC( Int32 ) stdGetErrorCount(void)
+STD_FUNC( int32_t ) stdGetErrorCount(void)
 {
    return nErrCount;
 }
 
-STD_FUNC( Int32 ) stdSetErrorCount( Int32 _nErrCount )
+STD_FUNC( int32_t ) stdSetErrorCount( int32_t _nErrCount )
 {
-   Int32 ret = nErrCount;
+   int32_t ret = nErrCount;
    nErrCount = _nErrCount;
    return ret;
 }
@@ -77,7 +77,7 @@ STD_FUNC( Int32 ) stdSetErrorCount( Int32 _nErrCount )
 typedef struct tagStdErrorEx     // internal usage
 {
    StdError se;
-   Int32    nErrNum; // для проверки - была затерта или нет
+   int32_t    nErrNum; // для проверки - была затерта или нет
 } _StdErrorEx;
 
 #define _LoopLen 16
@@ -85,9 +85,9 @@ static _StdErrorEx __er_loop[_LoopLen]={0}; // помним подробност
 
 static StdError __er_missed={ER_FORGOTTEN, "<...no details...>",0};
 
-STD_FUNC( Int32 ) stdSetError(
-   Int32 nErrorCode, const char* cond, const char* file,
-   Int32 nline, Int32 lData )
+STD_FUNC( int32_t ) stdSetError(
+   int32_t nErrorCode, const char* cond, const char* file,
+   int32_t nline, int32_t lData )
 {
    _StdErrorEx& see =  __er_loop[nErrCount % _LoopLen];
    see.se.nErrorCode = nErrorCode;
@@ -104,7 +104,7 @@ STD_FUNC( Int32 ) stdSetError(
 
 }
 
-STD_FUNC( Bool32 ) stdGetError( Int32 nError, StdError* pse )
+STD_FUNC( Bool32 ) stdGetError( int32_t nError, StdError* pse )
 // true - есть ошибка с таким номером:
 // простейший вариант использования:
 //

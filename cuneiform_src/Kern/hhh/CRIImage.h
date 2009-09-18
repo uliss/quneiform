@@ -145,12 +145,12 @@ typedef enum
 #define       RIMAGE_WITHOUT_MARGINS   FALSE
 DEC_FUN(Bool32,  SetMargins,           (PRIMAGEMARGINS));
 DEC_FUN(Bool32,  Binarise,             (PWord8 , PWord8 , Word32, Word32));
-DEC_FUN(Bool32,  Rotate,               (PWord8 , PWord8 , Int32, Int32, Word32));
-DEC_FUN(Bool32,  Roll,                 (PWord8 , PWord8 , Int32, Int32, Word32));
+DEC_FUN(Bool32,  Rotate,               (PWord8 , PWord8 , int32_t, int32_t, Word32));
+DEC_FUN(Bool32,  Roll,                 (PWord8 , PWord8 , int32_t, int32_t, Word32));
 DEC_FUN(Bool32,  Turn,                 (PWord8 , PWord8 , Word32, Word32));
 DEC_FUN(Bool32,  Inverse,              (PWord8 , PWord8 , Word32));
 DEC_FUN(Bool32,  SetProgressCB,        (PRIMAGECBPRogressStart, PRIMAGECBPRogressStep , PRIMAGECBPRogressFinish));
-DEC_FUN(Bool32,  RotatePoint,          (PWord8 , Int32, Int32, PInt32, PInt32));
+DEC_FUN(Bool32,  RotatePoint,          (PWord8 , int32_t, int32_t, Pint32_t, Pint32_t));
 //////////////////////////////////////////////////////////////////////////////////////////
 //
 #undef DEC_FUN

@@ -117,7 +117,7 @@ typedef struct tagExtComponent
 ////////////////
  Word8 scale;                    // scale of the component
  Word8 begends;
- Int32 dens;
+ int32_t dens;
 } ExtComponent;
 
 ///////////////////////////////////////////////
@@ -243,21 +243,21 @@ typedef struct tagExcBox
  Int16   h;         // height of  comp
  Int16   w;         // width of  comp
  Word16  flag;     // some logical info
- Int32   user;     // working var for user
+ int32_t   user;     // working var for user
 } ExcBox;
 
 
 typedef struct tagREXC_DIB
       {
       Word32       biSize;
-      Int32        biWidth;
-      Int32        biHeight;
+      int32_t        biWidth;
+      int32_t        biHeight;
       Word16        biPlanes;
       Word16        biBitCount;
       Word32       biCompression;
       Word32       biSizeImage;
-      Int32        biXPelsPerMeter;
-      Int32        biYPelsPerMeter;
+      int32_t        biXPelsPerMeter;
+      int32_t        biYPelsPerMeter;
       Word32       biClrUsed;
       Word32       biClrImportant;
       }

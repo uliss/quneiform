@@ -56,9 +56,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include"mmx.h"
 
-//       Word32   MMX_scalarUni (Int16 * _EAX, Int16 * _EDX, Int32 num)
+//       Word32   MMX_scalarUni (Int16 * _EAX, Int16 * _EDX, int32_t num)
 //		return  0 if num<=0
-MMX_FUNC(Word32)   MMX_scalarUni (Int16 * _EAX, Int16 * _EDX, Int32 num)
+MMX_FUNC(Word32)   MMX_scalarUni (Int16 * _EAX, Int16 * _EDX, int32_t num)
 {
 #ifdef _MSC_VER
 _asm{

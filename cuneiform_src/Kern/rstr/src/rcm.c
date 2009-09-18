@@ -111,13 +111,13 @@ static void *   rstr_realloc(Word8*buf,Word32 len)    {    return realloc(buf,le
 static void *   rstr_alloc(Word32 len)    {    return calloc(len,1);    }
 static void     rstr_free(void *ptr,Word32 len) { free(ptr);};
 static void     rstr_get_colors(Int16 row,Int16 col,Int16 w,Int16 h,
-                                Int32 *ColorLtr, Int32 *ColorBack)        {*ColorBack=0xFFFFFF;*ColorLtr=0;};
+                                int32_t *ColorLtr, int32_t *ColorBack)        {*ColorBack=0xFFFFFF;*ColorLtr=0;};
 static void * (*my_realloc)(Word8*buf,Word32 len)=rstr_realloc;
 static void * (*my_alloc)(Word32 len)=rstr_alloc;
 static void   (*my_free)(void *,Word32 len)=rstr_free;
 static void   (*my_get_colors)(Int16 row,Int16 col,Int16 w,Int16 h,
-                               Int32 *ColorLrt, Int32 *ColorBack)=rstr_get_colors;
-static Int32 RemoveDustIfPointLine(CSTR_line lin);
+                               int32_t *ColorLrt, int32_t *ColorBack)=rstr_get_colors;
+static int32_t RemoveDustIfPointLine(CSTR_line lin);
 // RSTR_CON
 Int16 rstr_cont_store1(RecRaster *r,Word8 let, Word8 nLns,Rect16 *rect,Word8 IsPrint,
                        Word8   Prob, Word8 Valid, RecVersions *v,Word8 control,
@@ -176,7 +176,7 @@ BYTE db_trace_flag;
 WORD actual_resolution=300; // setup in RSTR_SetOptions
 #define MAX_LINE_COUNT 5000
 STRLN   page_lines[MAX_LINE_COUNT];
-Int32   num_of_lines;
+int32_t   num_of_lines;
 BYTE decode_ASCII_to_[256][4]=
 {
     /*       0      1      2      3      4      5      6      7      8      9      a      b      c      d      e      f  */
@@ -376,7 +376,7 @@ BYTE work_raster[2048*4], work_raster_1[2048*4];
 //Word8 language; // setup in RSTR_SetOptions
 FIELD_INFO FieldInfo;
 Bool FirstField;
-Int32 small_size;
+int32_t small_size;
 Bool16 first_number; // OLEG : 26-10-1998 : best cutting of glued "#"
 
 //=============== External data ==============
@@ -385,7 +385,7 @@ extern BOOL    snap_page_disable;
 extern INT page_nIncline;
 //=============== Local data ==============
 static jmp_buf jumper;
-static Int32  nResolutionY=300; // setup in RSTR_SetOptions
+static int32_t  nResolutionY=300; // setup in RSTR_SetOptions
 
 //=============== Code implementation ======
 PBYTE tableBOX=NULL;        /* BOX table memory start */
@@ -634,7 +634,7 @@ RSTR_FUNC(Bool32)  RSTRInit( MemFunc* mem )
 }
 
 
-RSTR_FUNC(Bool32)  RSTRNewPage(Int32 resolutiony, Handle myPage )
+RSTR_FUNC(Bool32)  RSTRNewPage(int32_t resolutiony, Handle myPage )
 {
 #ifdef _USE_FON_
 #ifndef _FON_CLU_MEMORY_
@@ -830,7 +830,7 @@ RSTR_FUNC(Bool32)  RSTR_EndPage(  Handle myPage )
             Flag_Courier=TestFontCourier();
             TestFontProtocol();
             { // Nick & Oleg - test clusters LEO
-                Int32 TestFontClusters(void); // p2_cour.c
+                int32_t TestFontClusters(void); // p2_cour.c
                 TestFontClusters();
             }
 
@@ -941,7 +941,7 @@ RSTR_FUNC(Bool32)  RSTR_NeedPass2( void )
     return TRUE;
 }
 
-void save_to_ctb(CSTR_line lino,Int32 type)
+void save_to_ctb(CSTR_line lino,int32_t type)
 {
 #ifdef _USE_CTB_
     CSTR_rast       rst;
@@ -951,7 +951,7 @@ void save_to_ctb(CSTR_line lino,Int32 type)
     RecRaster       rast;
     Rect16          rect;
     CSTR_rast_attr  attr;
-    Int32           i;
+    int32_t           i;
     Int16           key;
     Word8           flags;
     Word8           print_type;
@@ -1065,7 +1065,7 @@ void save_to_ctb(CSTR_line lino,Int32 type)
     return;
 }
 
-RSTR_FUNC(void)  RSTR_Save2CTB(CSTR_line lino,Int32 type, Int16 line_num)
+RSTR_FUNC(void)  RSTR_Save2CTB(CSTR_line lino,int32_t type, Int16 line_num)
 {
     CSTR_attr attr;
 
@@ -1091,7 +1091,7 @@ void CSTR_ligas(CSTR_line lino)
     CSTR_rast       rst=CSTR_GetFirstRaster(lino);
     UniVersions     uni;
     Word8           c;
-    Int32           i,nconv;
+    int32_t           i,nconv;
 
     for(rst = CSTR_GetNext(rst);rst;rst=CSTR_GetNext(rst))
     {
@@ -1143,7 +1143,7 @@ BOOL copy_cap_drop(CSTR_line lin, CSTR_line lino)
     CSTR_attr       lattr={0};
     CCOM_USER_BLOCK ub;
     CCOM_comp       *ci, *co;
-    Int32           n;
+    int32_t           n;
     UniVersions     uvs;
     CSTR_rast_attr  attr;
 
@@ -1215,7 +1215,7 @@ void rstr_make_multylang_loops(CSTR_line lino)
 }
 
 // превратить строку с петлями в две строки
-void rstr_make_second_line(CSTR_line lin, Int32 vers)
+void rstr_make_second_line(CSTR_line lin, int32_t vers)
 {
     CSTR_line		le;
     CSTR_attr		la;
@@ -1342,7 +1342,7 @@ Bool32 rstr_bad_recog_line(CSTR_line lout)
 {
     CSTR_rast       rst;
     UniVersions     uni;
-    Int32           pmax=0, pav=0, n=0, nbad=0;
+    int32_t           pmax=0, pav=0, n=0, nbad=0;
 
     for(rst = CSTR_GetNext(CSTR_GetFirstRaster(lout));rst;rst=CSTR_GetNext(rst))
     {
@@ -1365,7 +1365,7 @@ Bool32 rstr_bad_recog_line(CSTR_line lout)
     return (pav<140 && pmax<180 || pav<100 && pmax<200 && nbad );
 }
 
-//Int32 test_count_lines = 0;
+//int32_t test_count_lines = 0;
 
 RSTR_FUNC(Bool32)  RSTRRecognize(
         CSTR_line    lin,     // pointer to raw string
@@ -1936,7 +1936,7 @@ RSTR_FUNC(Word8 *) RSTR_GetReturnString(Word32 dwError)
 }
 
 
-RSTR_FUNC(Bool32)  RSTR_NewPage(Int32 resolutiony, Handle Page)
+RSTR_FUNC(Bool32)  RSTR_NewPage(int32_t resolutiony, Handle Page)
 {
     return RSTRNewPage( resolutiony, Page);
 }
@@ -2110,9 +2110,9 @@ RSTR_FUNC(Bool32)  RSTR_RecogOneLetter (RecRaster *Rs,Word8 Language,RecVersions
     return RecogLEOcap(Rs,Language,Vs);
 }
 
-RSTR_FUNC(Bool32)  RSTR_RecogOneLetter_all (RecRaster *Rs,char *letters,RecVersions *Vs,Int32 nType)
+RSTR_FUNC(Bool32)  RSTR_RecogOneLetter_all (RecRaster *Rs,char *letters,RecVersions *Vs,int32_t nType)
 {
-    extern Bool32 RecogLEOall(RecRaster *Rs,RecVersions *Vs,Int32 nType);
+    extern Bool32 RecogLEOall(RecRaster *Rs,RecVersions *Vs,int32_t nType);
     extern Bool32 RecogLEO_SetAlphabet(char *letters);
     RecogLEO_SetAlphabet(letters);
     return RecogLEOall(Rs,Vs,nType);
@@ -2387,7 +2387,7 @@ RSTR_FUNC(Bool32)  RSTR_SetSpecPrj(Word8 nSpecPrj)
 RSTR_FUNC(Bool32)  RSTR_GetExportData (Word32 dwType, void * pData)
 {
     Bool32 rc = TRUE;
-    Int32  vers = RSTR_VERSION_CODE;
+    int32_t  vers = RSTR_VERSION_CODE;
 #define EXPORT(name) *(Word32*)(pData)=(Word32)name;
 
 #define CASE_DATA(a,b,c)        case a: *(b *)pData = c; break
@@ -2653,7 +2653,7 @@ void store_colors(CSTR_line lino)
 INT  text_findstat(CHAR * w)
 {
 #ifdef     _USE_SPELLING_
-    Int32                      Check = 0;
+    int32_t                      Check = 0;
     if( strlen(w)>32 )
         return 0;
     if( !RLING_CheckWord((PInt8)w, &Check) )
@@ -2667,7 +2667,7 @@ INT  text_findstat(CHAR * w)
 INT  text_findstat_aux(CHAR * w)
 {
 #ifdef     _USE_SPELLING_
-    Int32                      Check = 0;
+    int32_t                      Check = 0;
     if( strlen(w)>32 )
         return 0;
     if( !RLING_CheckSecWord((PInt8)w, &Check) )
@@ -2686,12 +2686,12 @@ INT  text_findstat_agressive(CHAR * w)
 _JBTYPE *Control_Point()  { return  jumper; }
 
 /////////////
-static Int32 RemoveDustIfPointLine(CSTR_line lin)
+static int32_t RemoveDustIfPointLine(CSTR_line lin)
 {
     CSTR_attr lattr;
     CSTR_rast rast,end;
     CSTR_rast_attr attr;
-    Int32 ret = 0;
+    int32_t ret = 0;
 
     CSTR_GetLineAttr (lin, &lattr);
 
@@ -2731,7 +2731,7 @@ static Int32 RemoveDustIfPointLine(CSTR_line lin)
     return ret;
 }
 /////////////////
-RSTR_FUNC(Bool32) RSTR_ChangeLineNumber(Int32 add)
+RSTR_FUNC(Bool32) RSTR_ChangeLineNumber(int32_t add)
 {
     line_number += (Int16)add;
     return TRUE;

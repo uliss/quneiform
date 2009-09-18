@@ -85,17 +85,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "skew1024.h"
 
 const int SMETRIC_MIN_LINE_LNG = 60; //линии с длиной < SMETRIC_MIN_LINE_LNG не учитываются при вычислении угла наклона
-static Int32 giResolX = 300;
-static Int32 giResolY = 300;
+static int32_t giResolX = 300;
+static int32_t giResolY = 300;
 /*------------extern functions------------------------------------------------*/
 Bool CalcTripSkew (Rect16 *pRc, int nRc, int SkewProp, int DeltaProp
 				, int StepProp, int MaxSize, Un_GYST *pBegGt, Un_GYST *pMidGt
 				, Un_GYST *pEndGt, TRIP_SKEW *pTripSkew, Bool Hori, char *pStr);
 Bool CalcUgol (Rect16 *pRc, int nRc, int MaxSize, Un_GYST *pBegGt
 			, Un_GYST *pEndGt, int SkewProp, int DeltaProp, int StepProp
-			, Int32 *pSkew, double *pLent, double *pNumb, Bool Hori, int Bou
+			, int32_t *pSkew, double *pLent, double *pNumb, Bool Hori, int Bou
 			, char *pStr);
-Bool CalcLinesSkew (void *vB, Int32 *pSkewHor, double *pWeiHor, Int32 *pSkewVer
+Bool CalcLinesSkew (void *vB, int32_t *pSkewHor, double *pWeiHor, int32_t *pSkewVer
 					, double *pWeiVer);
 /*----------------------------------------------------------------------------*/
 typedef struct tagPAR_AnLi
@@ -106,41 +106,41 @@ typedef struct tagPAR_AnLi
 }PAR_AnLi;
 /*------------own functions---------------------------------------------------*/
 void FindLinesSkew (void *vLine, int nLine, void *vP, PAR_AnLi *pParAnLi);
-Bool CalcLinesSkew (void *vB, Int32 *pSkewHor, double *pWeiHor, Int32 *pSkewVer
+Bool CalcLinesSkew (void *vB, int32_t *pSkewHor, double *pWeiHor, int32_t *pSkewVer
 					, double *pWeiVer);
 void PrepareMyBoxes (Rect16 *pRc, int nRc, Rect16 **ppRcMy, int *nRcMy, int Size);
 Bool FindTextSkew (void *vB, char *cWork, int SizeWork, INV_SKEW *pInvSkew
 				   , char *pStr, Bool CalcMuchSkew);
 Bool FindSkewForLines (void *vB, char *cWork, int SizeWork, INV_SKEW *pInSk
-					, Rect16 *pRcReg, Int32 SkewReg, char *pStr);
-SMetric_FUNC(Bool32) SMetric_FindMainSkew (void *vB, char *cWork, int SizeWork, Int32 *pSkew
-			, Int32 *pSkewLocVerLin, Rect16 *pRcReg, Int32 SkewReg, char *pStr
+					, Rect16 *pRcReg, int32_t SkewReg, char *pStr);
+SMetric_FUNC(Bool32) SMetric_FindMainSkew (void *vB, char *cWork, int SizeWork, int32_t *pSkew
+			, int32_t *pSkewLocVerLin, Rect16 *pRcReg, int32_t SkewReg, char *pStr
 			, Bool CalcMuchSkew, Bool TalkMuchSkew);
 /*----------------------------------------------------------------------------*/
 //установить разрешение по X. Возвращает предыдущее значение /tanya
-Int32 SMetric_SetResolX(Int32 size)
+int32_t SMetric_SetResolX(int32_t size)
 {
-	Int32 ret = giResolX;
+	int32_t ret = giResolX;
 	giResolX = size;
 	return ret;
 }
 /*----------------------------------------------------------------------------*/
 //получить разрешение по X /tanya
-Int32 SMetric_GetResolX()
+int32_t SMetric_GetResolX()
 {
 	return giResolX;
 }
 /*----------------------------------------------------------------------------*/
 //установить разрешение по Y. Возвращает предыдущее значение /tanya
-Int32 SMetric_SetResolY(Int32 size)
+int32_t SMetric_SetResolY(int32_t size)
 {
-	Int32 ret = giResolY;
+	int32_t ret = giResolY;
 	giResolY = size;
 	return ret;
 }
 /*----------------------------------------------------------------------------*/
 //получить разрешение по Y /tanya
-Int32 SMetric_GetResolY()
+int32_t SMetric_GetResolY()
 {
 	return giResolY;
 }
@@ -232,7 +232,7 @@ void FindLinesSkew (void *vLine, int nLine, void *vP, PAR_AnLi *pParAnLi)
 	}
 }
 /*----------------------------------------------------------------------------*/
-Bool CalcLinesSkew (void *vB, Int32 *pSkewHor, double *pWeiHor, Int32 *pSkewVer
+Bool CalcLinesSkew (void *vB, int32_t *pSkewHor, double *pWeiHor, int32_t *pSkewVer
 					, double *pWeiVer)
 {
 	UN_BUFF *pB;
@@ -292,7 +292,7 @@ Bool FindTextSkew (void *vB, char *cWork, int SizeWork, INV_SKEW *pInSk
 	UN_BUFF *pB;
 	Rect16 *pRc, *pRcMy;
 	Bool ret;
-	Int32 SkewHorRough, SkewVerRough;
+	int32_t SkewHorRough, SkewVerRough;
 	iWork = (int *)cWork;
 	pB = (UN_BUFF *)vB;
 	Ind = FindSuchAimedData (vB, UN_DT_Rect16, UN_DA_CompReal);
@@ -334,7 +334,7 @@ Bool FindTextSkew (void *vB, char *cWork, int SizeWork, INV_SKEW *pInSk
 }
 /*----------------------------------------------------------------------------*/
 Bool FindSkewForLines (void *vB, char *cWork, int SizeWork, INV_SKEW *pInSk
-					, Rect16 *pRcReg, Int32 SkewReg, char *pStr)
+					, Rect16 *pRcReg, int32_t SkewReg, char *pStr)
 {
 	Bool ret;
 	ret = CalcLinesSkew (vB, &pInSk->SkewHorLin, &pInSk->WeigHorLin
@@ -346,13 +346,13 @@ Bool FindSkewForLines (void *vB, char *cWork, int SizeWork, INV_SKEW *pInSk
 	return RV_TRUE;
 }
 /*----------------------------------------------------------------------------*/
-SMetric_FUNC(Bool32) SMetric_FindMainSkew (void *vB, char *cWork, int SizeWork, Int32 *pSkew
-			, Int32 *pSkewLocVerLin, Rect16 *pRcReg, Int32 SkewReg, char *pStr
+SMetric_FUNC(Bool32) SMetric_FindMainSkew (void *vB, char *cWork, int SizeWork, int32_t *pSkew
+			, int32_t *pSkewLocVerLin, Rect16 *pRcReg, int32_t SkewReg, char *pStr
 			, Bool CalcMuchSkew, Bool TalkMuchSkew)
 {
 	char str[256];
 	double Wei;
-	Int32 SkewLine = 10000;
+	int32_t SkewLine = 10000;
 	Bool ret, VerDisp;
 	INV_SKEW InvSkew = {0};
 	*pSkewLocVerLin = 0;

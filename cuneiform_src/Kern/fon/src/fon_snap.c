@@ -84,7 +84,7 @@ static int probSnap[NUM_IN_SNAP + 1];
 //
 ///////////////
 
-FON_FUNC(Int32) FONInitSnap(Handle hwnd)
+FON_FUNC(int32_t) FONInitSnap(Handle hwnd)
 {
 	memset(nameSnap,0,sizeof(nameSnap));
 	InSnap=0;
@@ -120,7 +120,7 @@ FON_FUNC(Int32) FONInitSnap(Handle hwnd)
 	return NUM_IN_SNAP;
 }
 //////////////////
-FON_FUNC(Int32) FONEndSnap(void)
+FON_FUNC(int32_t) FONEndSnap(void)
 {
 
 	IsSnap=FALSE;
@@ -234,7 +234,7 @@ static int PutRecRaster(HDC hDC, RecRaster *rr, int fx, int fy, int sx, int sy) 
 	return step;
 }
 /*************************/
-FON_FUNC(Int32) FONShowSnap(void)
+FON_FUNC(int32_t) FONShowSnap(void)
 {
 	RECT rect;
 	int i,j,xstart,ystart;

@@ -126,28 +126,28 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*moved to ... module
 // 1    RPSTR_FNCORRECTKEGL      correct kegl in all string
-typedef Bool32 (*FNRPSTR_CorrectKegl)(Int32 version);
-RPSTR_FUNC(Bool32)  RPSTR_CorrectKegl (Int32 version);
+typedef Bool32 (*FNRPSTR_CorrectKegl)(int32_t version);
+RPSTR_FUNC(Bool32)  RPSTR_CorrectKegl (int32_t version);
 */
 
 // 2    RPSTR_FNNEWPAGE          init new page
 typedef Bool32 (*FNRPSTR_NewPage)(void);
 RPSTR_FUNC(Bool32) RPSTR_NewPage(void);
 // 3    RPSTR_FNCORRECTSPELL      spelling checker
-typedef Bool32 (*FNRPSTR_CorrectSpell)(Int32 version);
-RPSTR_FUNC(Bool32)  RPSTR_CorrectSpell(Int32 version);
+typedef Bool32 (*FNRPSTR_CorrectSpell)(int32_t version);
+RPSTR_FUNC(Bool32)  RPSTR_CorrectSpell(int32_t version);
 // 4    RPSTR_FNCORRECTINCLINE
-typedef Bool32 (*FNRPSTR_CorrectIncline)(Int32 version);
-RPSTR_FUNC(Bool32) RPSTR_CorrectIncline(Int32 version);
+typedef Bool32 (*FNRPSTR_CorrectIncline)(int32_t version);
+RPSTR_FUNC(Bool32) RPSTR_CorrectIncline(int32_t version);
 // 5    RPSTR_FNCOLLECTCAPDROP
-typedef Bool32 (*FNRPSTR_CollectCapDrops)(Int32 version);
-RPSTR_FUNC(Bool32) RPSTR_CollectCapDrops(Int32 version);
+typedef Bool32 (*FNRPSTR_CollectCapDrops)(int32_t version);
+RPSTR_FUNC(Bool32) RPSTR_CollectCapDrops(int32_t version);
 // 6    RPSTR_FNNORMVERTSTR
 typedef void (*FNRPSTR_NormalizeVertStr)(void);
 RPSTR_FUNC(void) RPSTR_NormalizeVertStr(void);
 //7 RPSTR_FNCORRECTLINESPELL      spelling checker for given line
-typedef Bool32 (*FNRPSTR_CorrectLineSpell)(CSTR_line line, Int32 line_num, CSTR_rast* re, CSTR_rast* rb, Int32* rf);
-RPSTR_FUNC(Bool32) RPSTR_CorrectLineSpell(CSTR_line line, Int32 line_num, CSTR_rast* re, CSTR_rast* rb, Int32* rf);
+typedef Bool32 (*FNRPSTR_CorrectLineSpell)(CSTR_line line, int32_t line_num, CSTR_rast* re, CSTR_rast* rb, int32_t* rf);
+RPSTR_FUNC(Bool32) RPSTR_CorrectLineSpell(CSTR_line line, int32_t line_num, CSTR_rast* re, CSTR_rast* rb, int32_t* rf);
 
 
    #ifdef __cplusplus

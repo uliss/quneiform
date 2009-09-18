@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "tableclass.h"
 
 //###########################################
-CPAGE_FUNC(Handle)  CPAGE_ExTableCreate (Handle hPage,Int32 Skew2048, Word32 nVer,Int32 * lpVCor, Word32 nHor,Int32 * lpHCor)
+CPAGE_FUNC(Handle)  CPAGE_ExTableCreate (Handle hPage,int32_t Skew2048, Word32 nVer,int32_t * lpVCor, Word32 nHor,int32_t * lpHCor)
 {
 	PROLOG;
   SetReturnCode_cpage(IDS_ERR_NO);
@@ -118,7 +118,7 @@ CPAGE_FUNC(Handle)  CPAGE_ExTableGetNext(Handle hTable)
 return tc;
 }
 //###########################################
-CPAGE_FUNC(Bool32)  CPAGE_ExGeTableGetNumberCells	(Handle hTable,Int32 * lpNumber)
+CPAGE_FUNC(Bool32)  CPAGE_ExGeTableGetNumberCells	(Handle hTable,int32_t * lpNumber)
 {
 	PROLOG;
   Bool32 rc = FALSE;
@@ -133,7 +133,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExGeTableGetNumberCells	(Handle hTable,Int32 * lpNumbe
   return rc;
 }
 //###########################################
-CPAGE_FUNC(Bool32)  CPAGE_ExPhTableGetNumberCells	(Handle hTable,Int32 * lpNumber)
+CPAGE_FUNC(Bool32)  CPAGE_ExPhTableGetNumberCells	(Handle hTable,int32_t * lpNumber)
 {
 	PROLOG;
 	Bool32 rc = FALSE;
@@ -149,7 +149,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExPhTableGetNumberCells	(Handle hTable,Int32 * lpNumbe
   return rc;
 }
 //###########################################
-CPAGE_FUNC(Bool32)  CPAGE_ExTableGetNumberRow		(Handle hTable,Int32 * lpNumber)
+CPAGE_FUNC(Bool32)  CPAGE_ExTableGetNumberRow		(Handle hTable,int32_t * lpNumber)
 {
 	PROLOG;
 	Bool32 rc = FALSE;
@@ -164,7 +164,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExTableGetNumberRow		(Handle hTable,Int32 * lpNumber)
   return rc;
 }
 //###########################################
-CPAGE_FUNC(Bool32)  CPAGE_ExTableGetNumberColumn		(Handle hTable,Int32 * lpNumber)
+CPAGE_FUNC(Bool32)  CPAGE_ExTableGetNumberColumn		(Handle hTable,int32_t * lpNumber)
 {
 	PROLOG;
 	Bool32 rc = FALSE;
@@ -215,7 +215,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExPhTableGetSizeCell		(Handle hTable,Point32 point,Rec
   return rc;
 }
 //###########################################
-CPAGE_FUNC(Bool32)  CPAGE_ExTableGetNumberBlock	(Handle hTable,Point32 point,Int32 * lpNumber)
+CPAGE_FUNC(Bool32)  CPAGE_ExTableGetNumberBlock	(Handle hTable,Point32 point,int32_t * lpNumber)
 {
 	PROLOG;
 	Bool32 rc = FALSE;
@@ -254,7 +254,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExGeTableGetPhysical		(Handle hTable,Point32 point,Poi
   return rc;
 }
 //###########################################
-CPAGE_FUNC(Bool32)  CPAGE_ExPhTableGetNumberGeometry	(Handle hTable,Point32 point,Int32 * lpNumber)
+CPAGE_FUNC(Bool32)  CPAGE_ExPhTableGetNumberGeometry	(Handle hTable,Point32 point,int32_t * lpNumber)
 {
 	PROLOG;
 	Bool32 rc = FALSE;
@@ -275,7 +275,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExPhTableGetNumberGeometry	(Handle hTable,Point32 poin
   return rc;
 }
 //###########################################
-CPAGE_FUNC(Bool32)  CPAGE_ExPhTableGetGeometry		(Handle hTable,Point32 point,Int32 count,Point32 * lpPoint)
+CPAGE_FUNC(Bool32)  CPAGE_ExPhTableGetGeometry		(Handle hTable,Point32 point,int32_t count,Point32 * lpPoint)
 {
 	PROLOG;
 	Bool32 rc = FALSE;
@@ -292,7 +292,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExPhTableGetGeometry		(Handle hTable,Point32 point,Int
   return rc;
 }
 //###########################################
-CPAGE_FUNC(Bool32)  CPAGE_ExPhTableSetNumberBlock	(Handle hTable,Point32 point,Int32 number)
+CPAGE_FUNC(Bool32)  CPAGE_ExPhTableSetNumberBlock	(Handle hTable,Point32 point,int32_t number)
 {
 	PROLOG;
 	Bool32 rc = FALSE;
@@ -349,7 +349,7 @@ CPAGE_FUNC(Bool32)  CPAGE_ExTableSize(Handle hTable,Rect32 * lpRect)
   return rc;
 }
 //###########################################
-CPAGE_FUNC(Bool32)  CPAGE_ExTableGetSkew(Handle hTable,Int32 * lpNumerator,Int32 * lpDenominator)
+CPAGE_FUNC(Bool32)  CPAGE_ExTableGetSkew(Handle hTable,int32_t * lpNumerator,int32_t * lpDenominator)
 {
 	PROLOG;
 	Bool32 rc = FALSE;

@@ -108,11 +108,11 @@ class CTableString;
 class CTableWord;
 class CTableChar;
 
-void  GetFragmLines( Int32 m_NumberFragm , Point32* m_point );
+void  GetFragmLines( int32_t m_NumberFragm , Point32* m_point );
 BOOL  CheckLine( CSTR_line* Comingline );
 void  AddLetter( CSTR_rast* rast , Word8*  m_ucCode , Word8* m_ucFontNumber );
 void  Write_SetPhCellParam( Handle h_Page, Handle h_Table, CTableRow* rTableRow, Point32 m_TempPhPoint,
-																										 Int32 CountStrCellInPn, Int32 FlagPhisicalGroup , Int32 NumberPhysicalGroup );
+																										 int32_t CountStrCellInPn, int32_t FlagPhisicalGroup , int32_t NumberPhysicalGroup );
 /////////////////////////////////////////////////////////////////////////////
 //Класс для таблицы
 class CMyTable //: public CObject
@@ -127,8 +127,8 @@ public:
   Rect32        RectTable;
   std::vector<CTableRow*>/*CObArray*/	    m_arTableRows;
   WORD          m_wIndex;
-  Int32         m_CountRows;
-  Int32         m_CountColumns;
+  int32_t         m_CountRows;
+  int32_t         m_CountColumns;
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -160,9 +160,9 @@ public:
  ~CTablePhCell();
 
   CTableString* GetCurrentString( void );
-  void          SetPhCellParam(Bool32 FlagTerminalPhCell, Int32   NumberPhysicalGroup ,
+  void          SetPhCellParam(Bool32 FlagTerminalPhCell, int32_t   NumberPhysicalGroup ,
   Bool32        FlagPhisicalGroup , Point32 m_TempPhPoint      );
-  void          FillPhCell(Int32 m_FragmentNumber);
+  void          FillPhCell(int32_t m_FragmentNumber);
   void          Write_Header(/*CString* TableString,*/ RtfSectorInfo* SectorInfo);
   void          Write(/*CString* TableString,*/ RtfSectorInfo* SectorInfo);
   void          SetPhCellFragmentFormattingAndAlignment();
@@ -178,9 +178,9 @@ public:
   WORD	        m_wIndex;
   Bool32	    m_FlagTerminalPhCell;
   Bool32        m_FlagPhisicalGroup;
-  Int32         m_NumberPhysicalGroup;
-  Int32         m_FragmentNumber;
-  Int32         m_LeftIndent;
+  int32_t         m_NumberPhysicalGroup;
+  int32_t         m_FragmentNumber;
+  int32_t         m_LeftIndent;
   WORD     	    m_wCountStrings;
   Bool32        m_PhCellFragmentFormatting;       //Hor. formatting
   Bool32        m_PhCellFragmentAlignment;        //Ver. formatting

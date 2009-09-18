@@ -97,7 +97,7 @@ BOOL   GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, PCHAR  pRaster,
 //BOOL   GetCorrectedLineStripesIntervals(CLine* pCLine);
 void   FillingStripes(CLINE_handle line, int y, INT Count, WORD* pIntervals, BOOL FlagVerticalLine, DLine* pCLine); //
 void   CheckDotLines(DLine* pCLine, BOOL FlagVerticalLine); //
-int    Bits2Ints(Word8* pBits, int nByteWidth, Int32* pIntervals); //
+int    Bits2Ints(Word8* pBits, int nByteWidth, int32_t* pIntervals); //
 void   TypeIntervals(int y, INT Count, WORD* pIntervals); //
 void   TypeStripe(CLINE_handle hStripe, DEvent* pStripe); //
 BOOL   GetLineFragments(CLINE_handle line, DLine* pCLine); //

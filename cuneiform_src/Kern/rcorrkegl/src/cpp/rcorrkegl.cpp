@@ -64,7 +64,7 @@
 #include "dpuma.h"
 #include "compat_defs.h"
 
-Bool32 CorrectKegl(Int32 version);
+Bool32 CorrectKegl(int32_t version);
 void kegl_snap_init();
 
 static Word16 gwHeightRC = 0;
@@ -143,7 +143,7 @@ RCK_FUNC(Bool32) RCORRKEGL_SetImportData(Word32 dwType, void * pData)
 	return TRUE;
 }
 
-RCK_FUNC(Bool32) RCORRKEGL_CorrectKegl(Int32 version)
+RCK_FUNC(Bool32) RCORRKEGL_CorrectKegl(int32_t version)
 {
 	return CorrectKegl(version);
 }

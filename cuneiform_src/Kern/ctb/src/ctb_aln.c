@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ctb.h"
 
 static  Word8   local_rst[REC_MAX_RASTER_SIZE];
-CTB_FUNC(void) CTB_align8_lines(Word8 *bin,Int32 w, Int32 h)
+CTB_FUNC(void) CTB_align8_lines(Word8 *bin,int32_t w, int32_t h)
 {
 int i,ii,iii, wb=(w+7)/8, wb_new=((w+63)/64)*8;
 Word8   buf[256];
@@ -76,7 +76,7 @@ for(iii=(h-1)*wb_new,ii=(h-1)*wb,i=0;i<h;i++,ii-=wb,iii-=wb_new)
 return;
 }
 
-CTB_FUNC(void) CTB_align1_lines(Word8 *bin,Int32 w, Int32 h)
+CTB_FUNC(void) CTB_align1_lines(Word8 *bin,int32_t w, int32_t h)
 {
 int i,ii,iii, wb=((w+63)/64)*8, wb_new=(w+7)/8;
 Word8   buf[256];
@@ -91,8 +91,8 @@ for(iii=ii=i=0;i<h;i++,ii+=wb,iii+=wb_new)
 return;
 }
 
-CTB_FUNC(void) CTB_align8_124lines(Word8 *bin,Int32 w, Int32 h,
-                                   Int32 alin, Word8 init)
+CTB_FUNC(void) CTB_align8_124lines(Word8 *bin,int32_t w, int32_t h,
+                                   int32_t alin, Word8 init)
 {
 int i, wb, wb_new;
 Word8   buf[256];
@@ -125,7 +125,7 @@ return;
 }
 
 // bin : B/W images align to 4 bytes
-CTB_FUNC(void) CTB_align41(Word8 *sbin,Int32 w, Int32 h)
+CTB_FUNC(void) CTB_align41(Word8 *sbin,int32_t w, int32_t h)
 {
 int i, wb_in, wb_out;
 Word8   buf[256];

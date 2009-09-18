@@ -133,7 +133,7 @@ void CleanStr(Rect16*,int&,int,int,int,int,int,BOOL);
 BOOL InitRotateMas(Rect16,Int16**,Int16**,Word8**);
 BOOL InitRotateMas(int**,int);
 void DeleteRotateMas(Int16*,Int16*,Word8*,int*);
-Bool32 Filter(Int32,Int32,Int32,Int32);
+Bool32 Filter(int32_t,int32_t,int32_t,int32_t);
 int GetStrW(Word8*,int,int,int,int,int&,int&);
 int GetMediumSize(CCOM_handle,Rect16,int&,BOOL);
 int GetMaxSize(CCOM_handle hCCOM,Rect16 Rc,int& num,BOOL vert);

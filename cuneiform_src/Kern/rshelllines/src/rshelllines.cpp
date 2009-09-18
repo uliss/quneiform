@@ -147,7 +147,7 @@ typedef struct tagRSPreProcessImage
     Handle* phLinesCCOM;
     void *  phCLINE;
     PBool32 pgneed_clean_line;
-    PInt32  pgnNumberTables;
+    Pint32_t  pgnNumberTables;
     Word32  gnPictures;
     Bool32* pgrc_line;
     Rect32  gRectTemplate;
@@ -156,7 +156,7 @@ typedef struct tagRSPreProcessImage
     char *szLayoutFileName;
 } RSPreProcessImage, *PRSPreProcessImage;
 
-Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, Int32 *ScanQual);
+Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual);
 
 //  BOOL APIENTRY DllMain( HANDLE hModule,
 //                         uint32_t  ul_reason_for_call,
@@ -338,7 +338,7 @@ RSL_FUNC(Bool32) RSL_SetImportData(Word32 dwType, void * pData)
             else
             {
                 Bool32 BadScan = FALSE;
-                Int32  ScanQual= 0;
+                int32_t  ScanQual= 0;
                 AboutLines(Image, &BadScan, &ScanQual);
             }
 
@@ -407,7 +407,7 @@ void	RSLFree(void * mem)
 #endif
 }
 
-Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, Int32 *ScanQual)
+Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
 {
 	int SizeMain, SizeWork;
 
@@ -532,10 +532,10 @@ Word16 GetReturnCode_rshelllines()
 
 struct FictInterval
 {
-	Int32 Level;
-	Int32 Pos;
-	Int32 End;
-	Int32 RelIndex;
+	int32_t Level;
+	int32_t Pos;
+	int32_t End;
+	int32_t RelIndex;
 };
 
 static int mycompare( const void *elem1, const void *elem2 )
@@ -553,11 +553,11 @@ static int mycompare( const void *elem1, const void *elem2 )
 
 // struct TieComp
 // {
-// 	Int32 LeftBorder;
-// 	Int32 RightBorder;
-// 	Int32 Weight;
+// 	int32_t LeftBorder;
+// 	int32_t RightBorder;
+// 	int32_t Weight;
 // 	Bool32 IsNoiseComp;
-// 	Int32 VoteResult;
+// 	int32_t VoteResult;
 // };
 
 void   DeleteNoiseEvents(CLINE_handle hLine, DLine* pLine)
@@ -716,7 +716,7 @@ RSHELLLINES_FUNC(void) FindGroupOfExtensibleLines(CLINE_handle hContainer, GLM* 
 {
 }
 
-RSHELLLINES_FUNC(Int32) RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, Word8 lang, Word8 debug_flags, Int32 *cross_point)
+RSHELLLINES_FUNC(int32_t) RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, Word8 lang, Word8 debug_flags, int32_t *cross_point)
 {
     return 0;
 }
@@ -727,12 +727,12 @@ RSHELLLINES_FUNC(Bool32) GetNextPartOfLine(CLINE_handle hContainer, CLINE_handle
 }
 
 Bool32 SetExtLines(CLINE_handle hExtContainer, CLINE_handle hContainer, CLINE_handle* hLinesMass,
-                   Int32 CountLines)
+                   int32_t CountLines)
 {
     return FALSE;
 }
 
-Int32 CountBlackRaster(CPDLine pLine, CPDLine pLineExt, Bool32 IsHor, Int32 delta, Handle hDrawRaster)
+int32_t CountBlackRaster(CPDLine pLine, CPDLine pLineExt, Bool32 IsHor, int32_t delta, Handle hDrawRaster)
 {
     return 0;
 }

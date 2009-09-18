@@ -75,12 +75,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 Word8 leo_alpha_type, prn_roma_regim;
 //extern int nNdxHei;
-extern Int32   GLU_all,
+extern int32_t   GLU_all,
         GLU_rus ,
         GLU_dig ,
         GLU_rom ,
         GLU_rall;
-extern Int32  leo_MSK_ndx[];
+extern int32_t  leo_MSK_ndx[];
 
 unsigned char alphabet[256];
 
@@ -117,9 +117,9 @@ for(i=0;i<ver->lnAltCnt;i++)
 return 0;
 }
 
-Int32 cmp_prob_info( const void *a, const void *b)
+int32_t cmp_prob_info( const void *a, const void *b)
 {
-return (Int32)(((RecAlt *)a)->Info) - (Int32)(((RecAlt *)b)->Info) ;
+return (int32_t)(((RecAlt *)a)->Info) - (int32_t)(((RecAlt *)b)->Info) ;
 }
 
 
@@ -129,9 +129,9 @@ stdQsort(v->Alt,v->lnAltCnt,sizeof(RecAlt),cmp_prob_info);
 return v->lnAltCnt;
 }
 
-Int32 cmp_prob( const void *a, const void *b)
+int32_t cmp_prob( const void *a, const void *b)
 {
-return (Int32)(((RecAlt *)b)->Prob) - (Int32)(((RecAlt *)a)->Prob) ;
+return (int32_t)(((RecAlt *)b)->Prob) - (int32_t)(((RecAlt *)a)->Prob) ;
 }
 
 int leo_sort_vers_prob(RecVersions *v)
@@ -467,7 +467,7 @@ return;
 }
 
 void leo_expert_prob( RecVersions *v,Word16 *v3x5,
-    RecRaster *r , Word8 prob_3x5[], Word8 prob_iva[], Int32 prn,Bool32 bonus, Bool32 enable5x3)
+    RecRaster *r , Word8 prob_3x5[], Word8 prob_iva[], int32_t prn,Bool32 bonus, Bool32 enable5x3)
 {
 int p, pold;
 
@@ -561,7 +561,7 @@ void leo_evn_pass(  RecObject*  object,
                     Word16 CompImage16x16[],
                     RecVersions *alphr)
 {
-Int32   r;
+int32_t   r;
 RecVersions evn;
 RecRaster   recR;
 
@@ -588,7 +588,7 @@ return;
 }
 
 
-Int32 leo_MSKRecogCharExpert(RecRaster*  rr, RecVersions  *ver, RecVersions  *iva)
+int32_t leo_MSKRecogCharExpert(RecRaster*  rr, RecVersions  *ver, RecVersions  *iva)
 {
 
 if( ver->lnAltCnt )
@@ -678,7 +678,7 @@ for(j=0;j<res->lnAltCnt;j++)
     }
 return ;
 }
-Int32 leoMakePropability(RecVersions *per, RecVersions *sce, RecVersions *iva,
+int32_t leoMakePropability(RecVersions *per, RecVersions *sce, RecVersions *iva,
 RecVersions *res  )
 {
 Word8 per_ch1, per_pr1, per_ch2=0, per_pr2=0; // perceptron
@@ -803,10 +803,10 @@ return res->lnAltCnt;
 
 
 
-Bool32 leoRecogCharRom( RecObject*  object ,  Int32 erect)
+Bool32 leoRecogCharRom( RecObject*  object ,  int32_t erect)
 {
 RecVersions ver, loc, alph, iva, sver, tmp, sce, per;
-Int32		num_horiz_dist, hei;
+int32_t		num_horiz_dist, hei;
 Word16      CompImage16x16[16*16];
 //Word8		feat[256];
 Word8       prob_3x5[256]={0}, prob_iva[256]={0};

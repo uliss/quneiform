@@ -60,13 +60,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  interface our util  */
 #include "skew1024.h"
 /*---------------------------------------------------------------------------*/
-Bool MakeTopBotGysts (Rect16 *pRc, int nRc, Int32 Skew, int MaxSize,
+Bool MakeTopBotGysts (Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
 				Un_GYST *pBegGt, Un_GYST *pEndGt)
 {
 	int MinBeg, MaxBeg, MinEnd, MaxEnd, i, End;
 	long dy, ddy;
-	Int32 x, yBeg, yEnd;
-	Int32 SkewSquar;
+	int32_t x, yBeg, yEnd;
+	int32_t SkewSquar;
 	int *pBegSig, *pEndSig;
 	SkewSquar = Skew*Skew;
 	pBegGt->nElem = nRc;
@@ -138,13 +138,13 @@ Bool MakeTopBotGysts (Rect16 *pRc, int nRc, Int32 Skew, int MaxSize,
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool MakeLefRigGysts (Rect16 *pRc, int nRc, Int32 Skew, int MaxSize,
+Bool MakeLefRigGysts (Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
 				Un_GYST *pBegGt, Un_GYST *pEndGt)
 {
 	int MinBeg, MaxBeg, MinEnd, MaxEnd, i, End;
 	long dx, ddx;
-	Int32 y, xBeg, xEnd;
-	Int32 SkewSquar;
+	int32_t y, xBeg, xEnd;
+	int32_t SkewSquar;
 	int *pBegSig, *pEndSig;
 	SkewSquar = Skew*Skew;
 	pBegGt->nElem = nRc;
@@ -216,13 +216,13 @@ Bool MakeLefRigGysts (Rect16 *pRc, int nRc, Int32 Skew, int MaxSize,
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool MakeTopMidBotGysts (Rect16 *pRc, int nRc, Int32 Skew, int MaxSize,
+Bool MakeTopMidBotGysts (Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
 				Un_GYST *pBegGt, Un_GYST *pMidGt, Un_GYST *pEndGt)
 {
 	int MinBeg, MaxBeg, MinMid, MaxMid, MinEnd, MaxEnd, i, End;
 	long dy, ddy;
-	Int32 x, yBeg, yMid, yEnd;
-	Int32 SkewSquar;
+	int32_t x, yBeg, yMid, yEnd;
+	int32_t SkewSquar;
 	int *pBegSig, *pMidSig, *pEndSig;
 	SkewSquar = Skew*Skew;
 	pBegGt->nElem = nRc;
@@ -319,13 +319,13 @@ Bool MakeTopMidBotGysts (Rect16 *pRc, int nRc, Int32 Skew, int MaxSize,
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool MakeLefMidRigGysts (Rect16 *pRc, int nRc, Int32 Skew, int MaxSize,
+Bool MakeLefMidRigGysts (Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
 				Un_GYST *pBegGt, Un_GYST *pMidGt, Un_GYST *pEndGt)
 {
 	int MinBeg, MaxBeg, MinMid, MaxMid, MinEnd, MaxEnd, i, End;
 	long dx, ddx;
-	Int32 y, xBeg, xMid, xEnd;
-	Int32 SkewSquar;
+	int32_t y, xBeg, xMid, xEnd;
+	int32_t SkewSquar;
 	int *pBegSig, *pMidSig, *pEndSig;
 	SkewSquar = Skew*Skew;
 	pBegGt->nElem = nRc;
@@ -421,7 +421,7 @@ Bool MakeLefMidRigGysts (Rect16 *pRc, int nRc, Int32 Skew, int MaxSize,
 	}
 	return TRUE;
 }
-int ScoreComp (const Rect16 *pRcReg, const Int32 Skew, const Rect16 *pRc, const int nRc)
+int ScoreComp (const Rect16 *pRcReg, const int32_t Skew, const Rect16 *pRc, const int nRc)
 {
 	int i, k;
 	Point32 PosIdeal;
@@ -452,7 +452,7 @@ int ScoreComp (const Rect16 *pRcReg, const Int32 Skew, const Rect16 *pRc, const 
 	return k;
 }
 /*---------------------------------------------------------------------------*/
-void MakeNormVertGyst (const Rect16 *pRcReg, const Int32 Skew, const Rect16 *pRc, const int nRc, int *Sig)
+void MakeNormVertGyst (const Rect16 *pRcReg, const int32_t Skew, const Rect16 *pRc, const int nRc, int *Sig)
 {
 	int i, k;
 	Point32 BegDirIdeal;
@@ -490,7 +490,7 @@ void MakeNormVertGyst (const Rect16 *pRcReg, const Int32 Skew, const Rect16 *pRc
 	}
 }
 /*---------------------------------------------------------------------------*/
-Bool MakeVertGysts (Rect16 *pRc, int nRc, Int32 Skew, int Amnist, int MaxSize, Un_GYST *pVerGt, int *pWhatDo)
+Bool MakeVertGysts (Rect16 *pRc, int nRc, int32_t Skew, int Amnist, int MaxSize, Un_GYST *pVerGt, int *pWhatDo)
 {
 	int MinBeg, MaxBeg, MinEnd, MaxEnd, CurBeg, CurEnd, i, End, k, iFirst;
 	Point32 BegDirIdeal;
@@ -567,7 +567,7 @@ Bool MakeVertGysts (Rect16 *pRc, int nRc, Int32 Skew, int Amnist, int MaxSize, U
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-void MakeNormHoriGyst (const Rect16 *pRcReg, const Int32 Skew, const Rect16 *pRc, const int nRc, int *Sig)
+void MakeNormHoriGyst (const Rect16 *pRcReg, const int32_t Skew, const Rect16 *pRc, const int nRc, int *Sig)
 {
 	int i, k;
 	Point32 BegDirIdeal;
@@ -605,7 +605,7 @@ void MakeNormHoriGyst (const Rect16 *pRcReg, const Int32 Skew, const Rect16 *pRc
 	}
 }
 /*---------------------------------------------------------------------------*/
-Bool MakeHoriGysts (Rect16 *pRc, int nRc, Int32 Skew, int MaxSize, Un_GYST *pHorGt, int *pWhatDo)
+Bool MakeHoriGysts (Rect16 *pRc, int nRc, int32_t Skew, int MaxSize, Un_GYST *pHorGt, int *pWhatDo)
 {
 	int MinBeg, MaxBeg, MinEnd, MaxEnd, CurBeg, CurEnd, i, End, k, iFirst;
 	Point32 BegDirIdeal;

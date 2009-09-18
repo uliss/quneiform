@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "msgerr.h"
 
 extern  Word8   fax1x2;
-extern  Int32   box_number;
+extern  int32_t   box_number;
 //------------------------ Common working fields
 
 extern Word8 double_fax;
@@ -189,7 +189,7 @@ static void initdsect()
 static void allocboxes()
 {
  BOX *b;
- Int32 i;
+ int32_t i;
  for (b = Q.boxalloc = Q.boxstart, i=0; i<box_number-1; i++,
       b = (BOX *)((Word8*)b + BOXSIZE))
   b->boxnext = (BOX *)((Word8*)b + BOXSIZE);

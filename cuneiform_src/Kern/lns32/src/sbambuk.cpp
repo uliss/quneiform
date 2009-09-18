@@ -219,8 +219,8 @@ Bool THVSegBambuk::makeIt(   TigerReader * reader,
 		};
 
 /*
-      if (!vBambuk.vUpdateFirst(    (Int32*)new_line,
-                                    (Int32*)(filter->cur16),
+      if (!vBambuk.vUpdateFirst(    (int32_t*)new_line,
+                                    (int32_t*)(filter->cur16),
 												16
 										  )
 			) {
@@ -228,9 +228,9 @@ Bool THVSegBambuk::makeIt(   TigerReader * reader,
 			return WRONG();
 		};
 */
-      Int32 white_line[1024]; memset(white_line, 0xff, sizeof(white_line));
-      if (!vBambuk.vUpdate(    (Int32*)new_line,
-                               (Int32*)(filter->cur16),
+      int32_t white_line[1024]; memset(white_line, 0xff, sizeof(white_line));
+      if (!vBambuk.vUpdate(    (int32_t*)new_line,
+                               (int32_t*)(filter->cur16),
                                white_line,
 								       16
 								  )
@@ -262,11 +262,11 @@ Bool THVSegBambuk::makeIt(   TigerReader * reader,
 				return WRONG();
 			};
 #ifdef SMOOTH98
-         new_line = (Word8*)smooth_update((Int32*)new_line);
+         new_line = (Word8*)smooth_update((int32_t*)new_line);
 #endif
-         if (!vBambuk.vUpdate( (Int32*)new_line,
-                               (Int32*)filter->cur16,
-                               (Int32*)filter->last16,
+         if (!vBambuk.vUpdate( (int32_t*)new_line,
+                               (int32_t*)filter->cur16,
+                               (int32_t*)filter->last16,
 										 cur_row
 									  )
             ){                               errCode = ER_NOMEMORY;
@@ -279,8 +279,8 @@ Bool THVSegBambuk::makeIt(   TigerReader * reader,
       smooth_finish();
 #endif
          if (!vBambuk.vUpdate( white_line,
-                               (Int32*)filter->cur16,
-                               (Int32*)filter->last16,
+                               (int32_t*)filter->cur16,
+                               (int32_t*)filter->last16,
 										 cur_row
 									  )
             ){                               errCode = ER_NOMEMORY;
@@ -288,8 +288,8 @@ Bool THVSegBambuk::makeIt(   TigerReader * reader,
 			}
 
 /*
-      if (!vBambuk.vUpdateLast(  (Int32*)(filter->cur16),
-                                 (Int32*)(filter->last16),
+      if (!vBambuk.vUpdateLast(  (int32_t*)(filter->cur16),
+                                 (int32_t*)(filter->last16),
 											top+1
 								 		)
          ){                               errCode = ER_NOMEMORY;
@@ -305,9 +305,9 @@ Bool THVSegBambuk::makeIt(   TigerReader * reader,
 #endif // __TGREADER_H
 
 /**********************************************************************/
-Bool TSegBambuk::vUpdate(  Int32* new_line,
-                           Int32* cur16,
-                           Int32* prev16,
+Bool TSegBambuk::vUpdate(  int32_t* new_line,
+                           int32_t* cur16,
+                           int32_t* prev16,
 									int cur_row
 								)
 {  assert( new_line != NULL );
@@ -376,16 +376,16 @@ Bool TSegBambuk::vUpdate(  Int32* new_line,
 	return TRUE;
 } // vUpdate()
 
-Bool TSegBambuk::vUpdateFirst(   Int32* new_line,
-                                 Int32* cur16,
+Bool TSegBambuk::vUpdateFirst(   int32_t* new_line,
+                                 int32_t* cur16,
 											int cur_row
 								)
 	{  assert( new_line != NULL );
 		assert( cur16 != NULL );
 		BHandle seg_handle;
 
-      Int32 was_born_dword;
-      Int32 has_died_dword;
+      int32_t was_born_dword;
+      int32_t has_died_dword;
 		Word8 was_born, has_died;
 		int j, col;
 
@@ -550,8 +550,8 @@ Bool TSegBambuk::vUpdateFirst(   Int32* new_line,
 		return TRUE;
 	} // vUpdateFirst()
 
-Bool TSegBambuk::vUpdateLast(    Int32* cur16,
-                                 Int32* last16,
+Bool TSegBambuk::vUpdateLast(    int32_t* cur16,
+                                 int32_t* last16,
 											int cur_row
 									 )
 	{
@@ -559,8 +559,8 @@ Bool TSegBambuk::vUpdateLast(    Int32* cur16,
 		assert( last16 != NULL );
 		BHandle seg_handle;
 
-      Int32 was_born_dword;
-      Int32 has_died_dword;
+      int32_t was_born_dword;
+      int32_t has_died_dword;
 		Word8 was_born, has_died;
 		int j, col;
 

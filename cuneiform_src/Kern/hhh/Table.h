@@ -79,7 +79,7 @@ typedef enum
 /*---------------------------------------------------------------------------*/
 typedef struct tagTABLE_LINE_DESC
 {
-        Int32   Level;
+        int32_t   Level;
 #define TLT_UnKnown       0x00 //- ничего не означает
 #define TLT_Rough         0x01 //- правильная линия, не пытаться сократить
 #define TLT_UnSure        0x02 //- ничего пока не означает
@@ -123,7 +123,7 @@ typedef struct tagTABLE_DESC
 {
 	/*  Как искали таблицу  */
 	Rect32  RectFieldSearch;
-	Int32   SkewFieldSearch;   // at what units?
+	int32_t   SkewFieldSearch;   // at what units?
 	char    TaskTableSearch;   // need types will be described
 	/*  Пользователи таблицы  */
 		/*  Key[USER] - ключ пользователя "USER" от хранилища его связанных  */
@@ -131,7 +131,7 @@ typedef struct tagTABLE_DESC
 	Word32  Key[MaxTableUsers];
 	/*  Общие свойства таблицы  */
 	Rect32  RectTable;         // это - избыточная информация
-	Int32   SkewTable;         // at what units?
+	int32_t   SkewTable;         // at what units?
 	char    LifeTable;         // need types will be described
 	int     nHorLines;
 	int     nVerLines;

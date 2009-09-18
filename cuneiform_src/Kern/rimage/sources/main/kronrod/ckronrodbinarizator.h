@@ -132,8 +132,8 @@ private:
 //	Word32               Itek;                   /////////////////// OTLADKA ONLY
 
 private:
-	Int32				Ln_hist;
-	Int32				Korob_Files_Address;
+	int32_t				Ln_hist;
+	int32_t				Korob_Files_Address;
 
 	Word32				I_to;		//current Line "TO"
 	Word32				Itek;       //current Line "FROM"
@@ -196,8 +196,8 @@ private:
 	Word8				Diapazon_16;
 	//----------------------------------------------------------------------//
 	Int8 				mkText[256];					//ARRAYs
-	Int32				Hist_tek[256];
-	Int32				Hist_glad[256];
+	int32_t				Hist_tek[256];
+	int32_t				Hist_glad[256];
 	//----------------------------------------------------------------------
 	FILE				*mkFile_GREY_INI;					// FILES
 	FILE				*mkFile_KOROBS_HEADS;
@@ -223,17 +223,17 @@ private:
 	Word32				Korob_j1;
 	Word32				Korob_nj;
 	Word32				Korob_Factor;
-	Int32				Korob_x;
-	Int32				Korob_y;
+	int32_t				Korob_x;
+	int32_t				Korob_y;
 	Word8				Korob_porog;
 	//----------------------------------------------------------------------
 	Word32				N_Korob;					// KOROBS STATISTIC
-	Int32				LS_Korobs;
-	Int32				LSH_Korobs;
-	Int32				LSL_Korobs;
-	Int32				LNgrey16;
-	Int32				LNgreyD8;
-	Int32				LNgrey08;
+	int32_t				LS_Korobs;
+	int32_t				LSH_Korobs;
+	int32_t				LSL_Korobs;
+	int32_t				LNgrey16;
+	int32_t				LNgreyD8;
+	int32_t				LNgrey08;
 	//----------------------------------------------------------------------*/
 	Word32				Hex_35[16];
 
@@ -258,13 +258,13 @@ public:
 protected:
 	void mk_hist_WORD(PWord32 Hist_WORD, PWord8 p, Word32 n);
 	Word32 mk_1235(void);
-	void pr_MES_3(PInt8  text, Int32 n1, Int32 n2, Int32 n3);
-	void pr_MES_2(PInt8  text, Int32 n1, Int32 n2);
-	void pr_MES_1(PInt8  text, Int32 n1);
+	void pr_MES_3(PInt8  text, int32_t n1, int32_t n2, int32_t n3);
+	void pr_MES_2(PInt8  text, int32_t n1, int32_t n2);
+	void pr_MES_1(PInt8  text, int32_t n1);
 	void pr_MES(PInt8  text);
-	void pr_ERR_3(PInt8  text, Int32 n1, Int32 n2, Int32 n3);
-	void pr_ERR_2(PInt8  text, Int32 n1, Int32 n2);
-	void pr_ERR_1(PInt8  text, Int32 n1);
+	void pr_ERR_3(PInt8  text, int32_t n1, int32_t n2, int32_t n3);
+	void pr_ERR_2(PInt8  text, int32_t n1, int32_t n2);
+	void pr_ERR_1(PInt8  text, int32_t n1);
 	void pr_ERR(PInt8  text);
 	void memory_free(void);
 	void memory_alloc_from_body(void);

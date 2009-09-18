@@ -230,7 +230,7 @@ int main(int argc, char **argv) {
     Bool32 onecolumn = FALSE;
     const char *defaultnamestem = "cuneiform-out.";
     string outfilename;
-    Int32 outputformat = PUMA_TOTEXT;
+    int32_t outputformat = PUMA_TOTEXT;
 
     cout << "Cuneiform for Linux " << CF_VERSION << "\n";
 

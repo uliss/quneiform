@@ -85,7 +85,7 @@ static char *Buffer = NULL;/*[SizeMyBuff];*/
 static char *WorkMem = NULL;/*[SizeWorkMem];*/
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, Int32 *ScanQual)
+Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
 {
 	int SizeMain, SizeWork;
 //	char Str[256];

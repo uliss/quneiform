@@ -75,7 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     \param Skew[in]    - угол наклона идеальных координат
     \note  Используется в RLTable и USAGE
 */
-void RotateRect (const Rect16 *pRcRe, Rect16 *pRcId, Int32 Skew);
+void RotateRect (const Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew);
 /**
     \brief Функция нахождения минимального прямоугольника, охватывающего заданные
     \param nRc [in]      - количество охватываемых прямоугольников
@@ -96,7 +96,7 @@ void FindMinimIdealRegion (const int nRc, const int *pDo, const Rect16 *pRcIdeal
     \retval bool        - так пересекает или нет
     \note  Используется в RVerLine и USAGE
 */
-bool HaveLinePartAtReg (Point16 *pA, Point16 *pB, const Rect16 *pRc, const Int32 Skew
+bool HaveLinePartAtReg (Point16 *pA, Point16 *pB, const Rect16 *pRc, const int32_t Skew
     , const int NearHor, const int NearVer);
 /**
     \brief Функция проверяет, пересекаются ли два прямоугольника
@@ -113,5 +113,5 @@ bool IsRectsCross (const Rect16 *pRc1, const Rect16 *pRc2);
     \param Skew[in]    - угол наклона идеальных координат
     \note  Используется только в MZoning
 */
-bool MakeInternalRectId (const Rect16 *pRcRe, Rect16 *pRcId, Int32 Skew);
+bool MakeInternalRectId (const Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew);
 /*------------------------------------------------------------------------------------------------*/

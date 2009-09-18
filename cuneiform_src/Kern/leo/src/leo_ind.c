@@ -74,7 +74,7 @@ static Bool32 leo_ndx_in_rect;
 extern int  LEO_error_code;
 extern int nNdxWid , nNdxHei;
 extern Bool32  no_init_ndx;
-extern Int32 try_call_vec;
+extern int32_t try_call_vec;
 
 static SnpTreeNode  stnNdxRecog;       // stops after ndx recog
 static SnpTreeNode  stnSnapNdxRecog;
@@ -93,9 +93,9 @@ stnCharRecog->Status=sstatus;
     return;
 }
 
-static Int32 cmp_ndx_prob( const void *a, const void *b)
+static int32_t cmp_ndx_prob( const void *a, const void *b)
 {
-return (Int32)(((RecAlt *)b)->Prob) - (Int32)(((RecAlt *)a)->Prob) ;
+return (int32_t)(((RecAlt *)b)->Prob) - (int32_t)(((RecAlt *)a)->Prob) ;
 }
 static int leo_ndx_sort_vers_prob(RecVersions *v)
 {
@@ -274,7 +274,7 @@ static Bool leo_ndx_InsideRect( const Rect16* r, const Point16 * p)
           );
 }
 
-static Bool32 leo_ndx_SnpInRect( Rect16* pRect/*, Int32 nSkew*/ )
+static Bool32 leo_ndx_SnpInRect( Rect16* pRect/*, int32_t nSkew*/ )
 {
    Point16 pt;
    if (!SnpIsActive())

@@ -102,7 +102,7 @@ static void MMX_setup_obraz(Word32 *obraz, Word16 *iobraz,
                             Word16 *iobraz2);
 
 Word8   *tmp_ptr;
-static void all_open(Int32 *image)
+static void all_open(int32_t *image)
 {
     tmp_ptr = (Word8*)image;
     return;
@@ -114,15 +114,15 @@ static void all_close(void)
     return;
 }
 
-static Bool32 all_anding(Int32 *image,Word16 *tmp,Int32 L);
-static Bool32 (*anding)(Int32 *image,Word16 *tmp,Int32 L)=all_anding;
+static Bool32 all_anding(int32_t *image,Word16 *tmp,int32_t L);
+static Bool32 (*anding)(int32_t *image,Word16 *tmp,int32_t L)=all_anding;
 static void all_setup_obraz(Word32 *obraz, Word16 *iobraz, Word16 *iobraz2);
 static void (*setup_obraz)(Word32 *obraz, Word16 *iobraz, Word16 *iobraz2)=all_setup_obraz;
-static void (*proc_open)(Int32 *image)=all_open;
+static void (*proc_open)(int32_t *image)=all_open;
 static void (*proc_close)(void)=all_close;
 
 
-int double_alphabet(Int32 i,Int32 n1)
+int double_alphabet(int32_t i,int32_t n1)
 {
     if (n1>0 && abc[i].let=='0'  &&   char_lst[n1-1]=='Î')
         return 1;
@@ -193,9 +193,9 @@ t   = *((int *)etalons);				\
                   ii += bit_cnt_msk[ *(image+16) & t ];		\
                     }
 
-Bool32 all_anding(Int32 *image,Word16 *etalons,Int32 L)
+Bool32 all_anding(int32_t *image,Word16 *etalons,int32_t L)
 {
-    Int32 t, ii = 0;
+    int32_t t, ii = 0;
 
     CYKL20(0)  // 0
             CYKL2(1)
@@ -248,7 +248,7 @@ int det_sym_sort(short ptr_char, Word16 pri, Word16 abc_n1,
                  Word16 iobraz[], Word16 iobraz1[],Word16 list[],
                  Word16 meas0[], Word16 proc)
 {
-    Int32	i,l,n1,m1;
+    int32_t	i,l,n1,m1;
     Word32 ii,j,jj, meas[3],L, k = 0, k1,let;
     int j1;
 
@@ -310,7 +310,7 @@ int det_sym_sort(short ptr_char, Word16 pri, Word16 abc_n1,
                     L = ms[MAX_NM-1];
                 if (n1>0)	continue;
                 if (ii<meas[0])
-                {	meas[0]=ii;	char_lst[0]=(int)let;     //(Int32)let;
+                {	meas[0]=ii;	char_lst[0]=(int)let;     //(int32_t)let;
                     number_lst[0]=i; lst[0]= list[0]=(Word16)i;	l=1;
                 }
                 if (!ii)	goto end_cykl;
@@ -360,7 +360,7 @@ int det_sym_sort(short ptr_char, Word16 pri, Word16 abc_n1,
 
 
 
-MSK_FUNC(void)    MSKSetPlatform(Int32 cpu)
+MSK_FUNC(void)    MSKSetPlatform(int32_t cpu)
 {
     switch( cpu )
     {
@@ -769,7 +769,7 @@ int new_reco(short ptr_char, short hor,Word16  *bgf,
     Word16 k ;
     short  k1;
     Word16  list[2],meas[6];
-    Int32 l1;
+    int32_t l1;
     rt=0;
     if  (abc_n==0 || m2<=m1+1 )	//04.02.97
     {
@@ -777,7 +777,7 @@ int new_reco(short ptr_char, short hor,Word16  *bgf,
         goto ret;
     }
 
-    l1=( (Int32)(n2-n1+1) * (Int32)100);
+    l1=( (int32_t)(n2-n1+1) * (int32_t)100);
     l1/=(m2-m1+1);
     if (l1>1000) k1=1000;
     else k1=(short)l1;

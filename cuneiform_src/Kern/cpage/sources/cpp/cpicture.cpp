@@ -89,11 +89,11 @@ CPAGE_FUNC(Handle)  CPAGE_PictureGetNext(Handle hPage,Handle hPicture)
 }
 //###########################################
 #define ROTATE_2048(p,a) {\
-             p.y = (Int32) (p.y - (Int32) p.x * a / 2048);\
-             p.x = (Int32) (p.x + (Int32) p.y * a / 2048);\
+             p.y = (int32_t) (p.y - (int32_t) p.x * a / 2048);\
+             p.x = (int32_t) (p.x + (int32_t) p.y * a / 2048);\
 		}
 
-CPAGE_FUNC(Bool32)  CPAGE_PictureGetPlace(Handle hPage,Handle hPicture,Int32 Skew2048, Point32 * lpLr, Point32 * lpWh)
+CPAGE_FUNC(Bool32)  CPAGE_PictureGetPlace(Handle hPage,Handle hPicture,int32_t Skew2048, Point32 * lpLr, Point32 * lpWh)
 {
 	PROLOG;
 	Bool32 rc = FALSE;
@@ -147,7 +147,7 @@ static int GetIndex(long * lpLong,long nLong,long n)
 return i;
 }
 
-CPAGE_FUNC(Bool32)  CPAGE_PictureGetMask(Handle hPage, Handle hPicture, Int32 Skew2048,
+CPAGE_FUNC(Bool32)  CPAGE_PictureGetMask(Handle hPage, Handle hPicture, int32_t Skew2048,
 									  Char8 * lpData, Word32 * lpSize)
 {
 	PROLOG;

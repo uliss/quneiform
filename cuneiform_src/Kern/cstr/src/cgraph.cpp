@@ -74,7 +74,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define CGRAPH_ERR_MEMORY CSTR_ERR_NOMEMORY
 #define CGRAPH_ERR_FILE   CSTR_ERR_OPEN
 
-Int32	memsize = 256;
+int32_t	memsize = 256;
 Word8 IDtext[IDTEXT_LEN] = "CCOM&CSTR file";	//Идентификатор файла
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -82,7 +82,7 @@ Word8 IDtext[IDTEXT_LEN] = "CCOM&CSTR file";	//Идентификатор фай
 //	ARGS:	объект CSTR_rast
 //	RETS:	Количество компонент в контейнере CSTR_rast
 /////////////////////////////////////////////////////////////////////////////////////////
-Int32 CGRAPH_GetCompCount(CSTR_rast rast)
+int32_t CGRAPH_GetCompCount(CSTR_rast rast)
 {
 	CSTR_rast curr_rast = rast;
 	int count = 0;
@@ -123,7 +123,7 @@ CSTR_rast CGRAPH_GetStopRaster(CSTR_rast rast)
 //			n	- позиция
 //	RETS:	Указатель на затребованную позицию
 /////////////////////////////////////////////////////////////////////////////////////////
-intptr_t *SetPtr(intptr_t *ptr, Int32 n)
+intptr_t *SetPtr(intptr_t *ptr, int32_t n)
 {
 	intptr_t i;
 	for(i = 0; i < n; i++)
@@ -185,9 +185,9 @@ Bool32 AddLevel(ALoop *al, intptr_t level)
 //	ARGS:	rast	- текущая ветвь
 //	RETS:	Число альтернативных ветвей для текущей ветви
 /////////////////////////////////////////////////////////////////////////////////////////
-Int32 GetCurrLoopCount(CSTR_rast rast)
+int32_t GetCurrLoopCount(CSTR_rast rast)
 {
-	Int32 count = 0;
+	int32_t count = 0;
 	CSTR_rast rst = rast;
 	while(rst)
 	{
@@ -207,7 +207,7 @@ Int32 GetCurrLoopCount(CSTR_rast rast)
 /////////////////////////////////////////////////////////////////////////////////////////
 Bool32 CGRAPH_GetLoopData(CSTR_rast curr_rast, CSTR_rast next_rast, LoopData *ld)
 {
-	Int32 count = 0;
+	int32_t count = 0;
 
 	CSTR_rast	curr_rst = curr_rast;
 	CSTR_rast	next_rst = next_rast;
@@ -247,8 +247,8 @@ Bool32 CGRAPH_GetLoopData(CSTR_rast curr_rast, CSTR_rast next_rast, LoopData *ld
 /////////////////////////////////////////////////////////////////////////////////////////
 Bool32 CGRAPH_GetLoopCount(ALoop *al, CSTR_rast rast)
 {
-	Int32	curr_level = 1;
-	Int32 i;
+	int32_t	curr_level = 1;
+	int32_t i;
 	intptr_t *ptr;
 	CSTR_rast	curr_rst;
 	CSTR_rast	next_rst;
@@ -340,7 +340,7 @@ Bool32 CGRAPH_GetLoopCount(ALoop *al, CSTR_rast rast)
 /////////////////////////////////////////////////////////////////////////////////////////
 Bool32 CGRAPH_SaveCSTR(CSTR_rast rast, CSTR_attr *attr, FILE *out)
 {
-	Int32 count;
+	int32_t count;
 
 	CGRAPH_Data	cstr;
 	CSTR_rast	rst		= rast;
@@ -420,7 +420,7 @@ Bool32 CGRAPH_SaveCSTR(CSTR_rast rast, CSTR_attr *attr, FILE *out)
 /////////////////////////////////////////////////////////////////////////////////////////
 Bool32 CGRAPH_SaveLoop(CSTR_rast rast, CSTR_attr *attr, FILE *out)
 {
-	Int32 i;
+	int32_t i;
 	intptr_t *ptr;
 	CSTR_rast	curr_rst = rast, next_rst = rast;
 	ALoop		al;
@@ -471,7 +471,7 @@ Bool32 CGRAPH_SaveLoop(CSTR_rast rast, CSTR_attr *attr, FILE *out)
 /////////////////////////////////////////////////////////////////////////////////////////
 CSTR_FUNC(Bool32) CSTR_SaveCont(char *filename)
 {
-	Int32		i, j, count;
+	int32_t		i, j, count;
 	Bool32		lineFlg;
 	FILE		*out;
 
@@ -555,10 +555,10 @@ CSTR_FUNC(Bool32) CSTR_SaveCont(char *filename)
 /////////////////////////////////////////////////////////////////////////////////////////
 Bool32 CGRAPH_RestoreLoop(CSTR_rast rast, FILE *in)
 {
-	Int32	count, lcount, rcount, curr_level = 1;
-	Int32	i, j;
+	int32_t	count, lcount, rcount, curr_level = 1;
+	int32_t	i, j;
 	intptr_t *ptr;
-	Int32	count_rast;
+	int32_t	count_rast;
 	Bool32	flg = FALSE;
 
 	CSTR_rast		rst = rast, curr_rst = rast;
@@ -731,7 +731,7 @@ Bool32 CGRAPH_RestoreLoop(CSTR_rast rast, FILE *in)
 CSTR_rast curr_rast;
 Bool32 CGRAPH_RestoreCSTR(CSTR_line *lin, FILE *in)
 {
-	Int32 i, count_rast;
+	int32_t i, count_rast;
 	Bool32	flg;
 	CSTR_rast		rst;
 	CSTR_rast_attr  rast_attr = {0};
@@ -840,7 +840,7 @@ CSTR_FUNC(Bool32) CSTR_RestoreCont(char *filename)
 	CSTR_rast	rst;
 	FILE		*in;
 	Word8		IDt[IDTEXT_LEN];
-	Int32		i, j, count;
+	int32_t		i, j, count;
 	Bool32		lineFlg;
 	CGRAPH_FileData	fData;
 

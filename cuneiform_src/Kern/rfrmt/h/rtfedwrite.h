@@ -94,10 +94,10 @@ struct RtfSectorInfo
 	WORD    FlagInColumn;
 	WORD    InterSectorDist;
 	BOOL    FlagFictiveParagraph;
- Int32   MargL;
-	Int32   MargR;
- Int32   PaperW;
- Int32   PaperH;
+ int32_t   MargL;
+	int32_t   MargR;
+ int32_t   PaperW;
+ int32_t   PaperH;
 
 	BOOL    FlagOneString;
 	BOOL    FlagOverLayed;

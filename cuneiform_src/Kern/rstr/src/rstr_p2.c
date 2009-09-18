@@ -275,7 +275,7 @@ return;
 // перевести в cell от first < last
 // if(first == NULL ) -> first= первый в lin
 //
-Int32 p2_Cstr2Cell( CSTR_line lin,CSTR_rast first,CSTR_rast last,Bool32 needVers, Word32 disable )
+int32_t p2_Cstr2Cell( CSTR_line lin,CSTR_rast first,CSTR_rast last,Bool32 needVers, Word32 disable )
 {
  cell           *c1,*c2, *next;
  CSTR_rast_attr  cur;
@@ -283,7 +283,7 @@ Int32 p2_Cstr2Cell( CSTR_line lin,CSTR_rast first,CSTR_rast last,Bool32 needVers
  CCOM_comp      *cmp;
  INT             i;
  UniVersions     evn;
- Int32           numCell;
+ int32_t           numCell;
 
  if( first == NULL )
  {
@@ -742,7 +742,7 @@ static void p2_TestAccent()
 ///////////////////
 // from crit_vers in old version (Version)
 // INT crit_vers(Version v,cell * c,const s_glue * gl); // difrv
-static Int32 CritVers(cell * BC,s_glue * GL,Word8 let,Word8 prob)
+static int32_t CritVers(cell * BC,s_glue * GL,Word8 let,Word8 prob)
 {
 void r_criteria(cell *c, const s_glue * gl);         // difrv
 cell cc=*BC;
@@ -766,7 +766,7 @@ cell cc=*BC;
 INT estletter(cell * BC,s_glue * GL)
 {
 RecVersions vers;
-Int32       i;
+int32_t       i;
 c_comp *comp=BC->env;
 Word8 *lp;
 Int16 *lt;
@@ -873,10 +873,10 @@ endvers:
 // распознать с разрезанием/склейкой кусок - от first до last,
 // результат поместить в lineFon
 // p2glob - language & s.o.
-Int32 p2_RecogCutGlu( CSTR_rast  first,CSTR_rast last,
+int32_t p2_RecogCutGlu( CSTR_rast  first,CSTR_rast last,
 								  CSTR_line  lineFon,P2GLOBALS *p2glob)
 {
-void proc_bI(Int32 pass);
+void proc_bI(int32_t pass);
 void proc_ii(void);
 void make_all_cuts( void);
 void make_all_glues(void);
@@ -952,7 +952,7 @@ void make_all_glues(void);
 }
 ///////////////////////
 
-Int32 p2_setBasLines(CSTR_line lineIn)
+int32_t p2_setBasLines(CSTR_line lineIn)
 {  // from Vlad version
  extern INT     bs_got;
  extern BOOL    line_readyBL;
@@ -1063,7 +1063,7 @@ void p2_DecodeCode(char *pCode,int let)
   strcpy(pCode , decode_ASCII_to_[let]);
 }
 //////////////////
-Int32 p2_GetP2Globals(P2GLOBALS *p2globals)
+int32_t p2_GetP2Globals(P2GLOBALS *p2globals)
 {
       p2globals->language = language;
 	  p2globals->multy_language = multy_language;
@@ -1084,7 +1084,7 @@ Int32 p2_GetP2Globals(P2GLOBALS *p2globals)
 	  return 1;
 }
 ////////////
-Int32 p2_SetP2Globals(P2GLOBALS *p2globals)
+int32_t p2_SetP2Globals(P2GLOBALS *p2globals)
 {
       language = p2globals->language ;
 	  multy_language = p2globals->multy_language ;
@@ -1106,12 +1106,12 @@ Int32 p2_SetP2Globals(P2GLOBALS *p2globals)
 }
 ////////////////////////////
 
-static Int32 cmp_prob( const void *a, const void *b)
+static int32_t cmp_prob( const void *a, const void *b)
 {
-return (Int32)(((RecAlt *)b)->Prob) - (Int32)(((RecAlt *)a)->Prob) ;
+return (int32_t)(((RecAlt *)b)->Prob) - (int32_t)(((RecAlt *)a)->Prob) ;
 }
 ///////////////////////
-Int32 p2_leo_sort_vers_prob(RecVersions *v)
+int32_t p2_leo_sort_vers_prob(RecVersions *v)
 {
 int i,n0,n1;
 Word8 c0,c1;
@@ -1191,7 +1191,7 @@ Int16 *lt;
 #endif
 }
 ////////////////////
-Bool32 p2_LEOSetupField(char *letInfo,Int32 nFont,FontInfo *fontinfo)
+Bool32 p2_LEOSetupField(char *letInfo,int32_t nFont,FontInfo *fontinfo)
 {
 #ifdef _USE_LEO_
   LeoFieldSetup   fs={0};
@@ -1273,7 +1273,7 @@ static Bool32 p2_twin(BYTE ch)
 // return 1 - есть слабый близнец
 // return 2 - есть равный близнец
 // return 3 - есть сильный близнец
-static Int32 IsTwinCluster(int nClus, Word8 name, Word8 *tName)
+static int32_t IsTwinCluster(int nClus, Word8 name, Word8 *tName)
 {
   Word8 twinName=0;
   ClustInfo clustinfo;

@@ -58,8 +58,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////
 // Rotation routines:
 //
-// inline Point32& Deskew( Point32& pt, Int32 skew1024);
-// inline Point16& Deskew( Point16& pt, Int32 skew1024);
+// inline Point32& Deskew( Point32& pt, int32_t skew1024);
+// inline Point16& Deskew( Point16& pt, int32_t skew1024);
 //
 // NOTE: POSITIVE SKEW == CLOCKWISE
 //////////////////////////////////////////////////////
@@ -71,7 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "cttypes.h"
 
-inline Point32& Deskew( Point32& pt, Int32 skew1024)
+inline Point32& Deskew( Point32& pt, int32_t skew1024)
 {
    long phi_sq = (skew1024*skew1024);
    long dx = ( (skew1024*pt.y+0x200) >> 10 );
@@ -85,7 +85,7 @@ inline Point32& Deskew( Point32& pt, Int32 skew1024)
    return pt;
 }
 
-inline Point16& Deskew( Point16& pt, Int32 skew1024)
+inline Point16& Deskew( Point16& pt, int32_t skew1024)
 {
    long phi_sq = (skew1024*skew1024);
    long dx = ( (skew1024*(long)pt.y+0x200) >> 10 );
@@ -99,7 +99,7 @@ inline Point16& Deskew( Point16& pt, Int32 skew1024)
    return pt;
 }
 
-inline Point32& DeskewRel( Point32& pt, Int32 skew1024, Point32& rel )
+inline Point32& DeskewRel( Point32& pt, int32_t skew1024, Point32& rel )
 {
    pt.x -= rel.x;
    pt.y -= rel.y;
@@ -109,7 +109,7 @@ inline Point32& DeskewRel( Point32& pt, Int32 skew1024, Point32& rel )
    return pt;
 }
 
-inline Point16& DeskewRel( Point16& pt, Int32 skew1024, Point16& rel )
+inline Point16& DeskewRel( Point16& pt, int32_t skew1024, Point16& rel )
 {
    pt.x -= rel.x;
    pt.y -= rel.y;
@@ -326,7 +326,7 @@ inline Bool operator == ( const Point32& p1, const Point32& p2 )
 
 
 //////////////////////////////////////////////////
-inline Rect32& DeskewCenter( Rect32& rc, Int32 skew1024)
+inline Rect32& DeskewCenter( Rect32& rc, int32_t skew1024)
 {
    Point32 center; GetCenter(rc, center);
    Point32 old_center = center;
@@ -336,7 +336,7 @@ inline Rect32& DeskewCenter( Rect32& rc, Int32 skew1024)
    return rc;
 }
 
-inline Rect16& DeskewCenter( Rect16& rc, Int32 skew1024)
+inline Rect16& DeskewCenter( Rect16& rc, int32_t skew1024)
 {
    Point16 center; GetCenter(rc, center);
    Point16 old_center = center;
@@ -346,7 +346,7 @@ inline Rect16& DeskewCenter( Rect16& rc, Int32 skew1024)
    return rc;
 }
 
-inline Rect32& DeskewCenterRel( Rect32& rc, Int32 skew1024, Point32& pt)
+inline Rect32& DeskewCenterRel( Rect32& rc, int32_t skew1024, Point32& pt)
 {
    Point32 center; GetCenter(rc, center);
    Point32 old_center = center;
@@ -356,7 +356,7 @@ inline Rect32& DeskewCenterRel( Rect32& rc, Int32 skew1024, Point32& pt)
    return rc;
 }
 
-inline Rect16& DeskewCenterRel( Rect16& rc, Int32 skew1024, Point16& pt)
+inline Rect16& DeskewCenterRel( Rect16& rc, int32_t skew1024, Point16& pt)
 {
    Point16 center; GetCenter(rc, center);
    Point16 old_center = center;
@@ -373,7 +373,7 @@ inline Rect16& Expand( Rect16& rc, Int16 delta )
    return rc;
 }
 
-inline Rect32& Expand( Rect32& rc, Int32 delta )
+inline Rect32& Expand( Rect32& rc, int32_t delta )
 {
    rc.left -= delta; rc.top -= delta;
    rc.right+= delta; rc.bottom+= delta;
@@ -390,7 +390,7 @@ inline void GetDiag2( Rect32& rc, Point32& rt, Point32& lb )
 inline void GetDiag2( Rect16& rc, Point16& rt, Point16& lb )
 {  rt.x = rc.right; rt.y = rc.top; lb.x = rc.left;lb.y = rc.bottom; }
 
-inline Rect32& GetBounding( Rect32& rc_src, Rect32& rc_dest, Int32 skew1024 )
+inline Rect32& GetBounding( Rect32& rc_src, Rect32& rc_dest, int32_t skew1024 )
    // dest rect can be the same as source
 {
    Point32 lt, rb; GetDiag1(rc_src, lt, rb);
@@ -414,7 +414,7 @@ inline Rect32& GetBounding( Rect32& rc_src, Rect32& rc_dest, Int32 skew1024 )
    return rc_dest;
 }
 
-inline Rect16& GetBounding(  Rect16& rc_src, Rect16& rc_dest, Int32 skew1024 )
+inline Rect16& GetBounding(  Rect16& rc_src, Rect16& rc_dest, int32_t skew1024 )
    // dest rect can be the same as source
 {
    Point16 lt, rb; GetDiag1(rc_src, lt, rb);

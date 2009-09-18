@@ -103,10 +103,10 @@ extern INT    erection_inc;
 // DIFFRV.C
 void final_descriminate(cell *b, cell *e);
 // EVN.DLL
-extern Word8*   EVNMakeLine( RecRaster   *rRaster,Int32 parm);
+extern Word8*   EVNMakeLine( RecRaster   *rRaster,int32_t parm);
 // RCM.C
 extern  STRLN   page_lines[];
-extern  Int32   num_of_lines;
+extern  int32_t   num_of_lines;
 extern Bool32 rstr_kit_realloc(void);
 extern Bool32 trees_load(void);
 extern void ErrorExit(int Code);
@@ -741,7 +741,7 @@ got_line:
             }
         else if(p2_active && Step == 0)
             {
-            Int32 ret;
+            int32_t ret;
             Bool32 wasSnap=FALSE;
             if (snap_activity('m'))
                 {
@@ -762,7 +762,7 @@ got_line:
 //  В случае двуязычия производится окончательный выбор одного из вариантов языка для каждого слова.
 
                 {
-                Int32 i;
+                int32_t i;
                 P2GLOBALS p2globals;
                 extern Handle hSnapSmartCut;
                 BYTE    slang=language;
@@ -2491,7 +2491,7 @@ CSTR_rast       rst, old_rst=CSTR_GetFirstRaster(lino);
 UniVersions     uvs;
 Int16            macol,  micol,  marow,  mirow;
 Int16           rmacol, rmicol, rmarow, rmirow;
-Int32           need_scale=0;
+int32_t           need_scale=0;
 BOOL            sfr;
 if( lin )
     CSTR_GetLineAttr(lin, &attrlin);
@@ -3313,7 +3313,7 @@ CSTR_rast       rst;
 CSTR_rast_attr  attr;
 UniVersions     u, uo;
 RecRaster       rc;
-Int32           n, i;
+int32_t           n, i;
 
 for(rst=CSTR_GetNextRaster(CSTR_GetFirstRaster(ln),CSTR_f_let);
     rst; rst=CSTR_GetNextRaster(rst,CSTR_f_let) )
@@ -3519,7 +3519,7 @@ CSTR_rast       rst, rsts;
 //CSTR_rast_attr  attr;
 UniVersions     uni;
 char            dots[]=".,\xd5";
-Int32           numdots=0;
+int32_t           numdots=0;
 
 if( !line_tabcell )
     return;

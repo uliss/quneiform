@@ -56,9 +56,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "cstr.h"
 #include "cor_incl.h"
-Bool32  incl_test_fragment(Int32 version, Int32 fragm)
+Bool32  incl_test_fragment(int32_t version, int32_t fragm)
 {
-Int32       old_bottom;
+int32_t       old_bottom;
 CSTR_line   line;
 CSTR_attr   attr;
 //return TRUE;
@@ -79,9 +79,9 @@ do
 return TRUE;
 }
 
-Int32   incl_calculate(Int32 version, Int32 fragm)
+int32_t   incl_calculate(int32_t version, int32_t fragm)
 {
-Int32   hist_incl[4096]={0},incline,maxi=-1,mini=4097, av, sav, i;
+int32_t   hist_incl[4096]={0},incline,maxi=-1,mini=4097, av, sav, i;
 CSTR_line   line;
 CSTR_attr   attr;
 
@@ -123,7 +123,7 @@ av/=sav;
 return av-2048;
 }
 
-void incl_recalc_incline(CSTR_line   line, Int32 nIncline)
+void incl_recalc_incline(CSTR_line   line, int32_t nIncline)
 {
 CSTR_attr       la;
 CSTR_rast_attr  a;
@@ -157,7 +157,7 @@ CSTR_SetLineAttr(line,&la);
 return;
 }
 
-void    incl_ordering(Int32 version, Int32 fragm, Int32 incline)
+void    incl_ordering(int32_t version, int32_t fragm, int32_t incline)
 {
 CSTR_line   line;
 

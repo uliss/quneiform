@@ -145,7 +145,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     EXTERN char szFormatStorageName[]	VAL("%sstorage.tmp");
     EXTERN char szFormatTbl1[]			VAL("%stbl1%s.dat");
 
-    EXTERN Int32 gnNumberTables			VAL(0);
+    EXTERN int32_t gnNumberTables			VAL(0);
 
     EXTERN Handle       hCCOM			      VAL(NULL);
     EXTERN Handle       hCPAGE				  VAL(NULL);
@@ -386,15 +386,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     Bool32 BinariseImage();
 
     Bool32 PrintResult(int num,CSTR_line lout,Handle hCPAGE);
-    Bool32 ConverROUT(char * lpOutFileName, Int32 lnFormat, Int32 lnCode,Bool32 bAppend);
-    Word32 ConverROUTtoMemory(Handle hEd, Int32 lnFormat, Int32 lnCode, Byte * lpMem, Word32 size);
+    Bool32 ConverROUT(char * lpOutFileName, int32_t lnFormat, int32_t lnCode,Bool32 bAppend);
+    Word32 ConverROUTtoMemory(Handle hEd, int32_t lnFormat, int32_t lnCode, Byte * lpMem, Word32 size);
     /*
     Bool32 ReadSVLFromPageContainer ( LinesTotalInfo * );
     Bool32 ShortVerticalLinesProcess ( Word32 );
     Bool32 SVLFilter(LinesTotalInfo *, LinesTotalInfo *);
     Bool32 SVLComponentFilter(LineInfo *);
     Bool32 IsRectIntersect(Rect16 *, Rect16 *);
-    Bool32 CompIsGood (CCOM_comp *, Int32 );
+    Bool32 CompIsGood (CCOM_comp *, int32_t );
     */
     //////////////////////////////////////////////////////////////////////////////////
 

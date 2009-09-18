@@ -118,7 +118,7 @@ static Word8 *testAlts[256]={
 };
 //////////////////
 
-Int32 p2_testSelf(RecRaster *recRast,RecVersions *vers,FonSpecInfo *specInfo,Int32 testSelf)
+int32_t p2_testSelf(RecRaster *recRast,RecVersions *vers,FonSpecInfo *specInfo,int32_t testSelf)
 {
  int nAlt,i;
  Word8 *alts;
@@ -187,9 +187,9 @@ Int32 p2_testSelf(RecRaster *recRast,RecVersions *vers,FonSpecInfo *specInfo,Int
 }
 //////////////////
 
-Int32 p2_testAccents(CSTR_rast first,CSTR_rast last )
+int32_t p2_testAccents(CSTR_rast first,CSTR_rast last )
 {
- FON_FUNC(Int32) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
+ FON_FUNC(int32_t) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
 							  CSTR_rast firNew,CSTR_rast lasNew,
 						      int lang, int porog, int nNaklon, int nRazmaz);
  CSTR_rast rst,rstPrev,rstNext;
@@ -197,7 +197,7 @@ Int32 p2_testAccents(CSTR_rast first,CSTR_rast last )
  CSTR_rast_attr  attr,attrAcc;
  int  language=p2globals.language;
  int  porog ;  // TRSFINE
- Int32 goodBrok=0;
+ int32_t goodBrok=0;
 
    if( language==LANG_ENGLISH && p2globals.multy_language )
                   language    = LANG_RUSENG;

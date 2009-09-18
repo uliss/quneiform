@@ -83,18 +83,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef struct tagRecRaster
    {
-      Int32    lnPixWidth;
-      Int32    lnPixHeight;
-      Int32    lnRasterBufSize;				// maximum of raster length
+      int32_t    lnPixWidth;
+      int32_t    lnPixHeight;
+      int32_t    lnRasterBufSize;				// maximum of raster length
       Word8    Raster[REC_MAX_RASTER_SIZE];	// image
    }  RecRaster;
 
 typedef struct tagRecRasterEx
    {
-      Int32    lnPixWidth;
-      Int32    lnPixHeight;
-      Int32    lnRasterBufSize;				// maximum of raster length
-      Int32    lnLevelGray;
+      int32_t    lnPixWidth;
+      int32_t    lnPixHeight;
+      int32_t    lnRasterBufSize;				// maximum of raster length
+      int32_t    lnLevelGray;
       Word8    Raster[REC_MAX_RASTER_SIZE_EX];	// image
    }  RecRasterEx;
 /////////////////////////////////////////////////////////
@@ -105,11 +105,11 @@ typedef struct tagRecBmp
    {
       Rect16         Region;
       Word8  *   pBits;
-      Int32          nOffsetX;   //this is offset of Region.left-bit
+      int32_t          nOffsetX;   //this is offset of Region.left-bit
                                  //relatively 0-bit 0-byte of pBits
-      Int32          nByteWidth;
-      Int32          nResolutionX;
-      Int32          nResolutionY;
+      int32_t          nByteWidth;
+      int32_t          nResolutionX;
+      int32_t          nResolutionY;
       char           reserved[16];  // zero filled reserve
    }  RecBmp;
 
@@ -141,25 +141,25 @@ typedef struct tagClustAlt
 
 typedef struct tagRecVersions
 	{
-	Int32  lnAltCnt;           // count of alternates
-	Int32  lnAltMax;		   // maximum of alternates
+	int32_t  lnAltCnt;           // count of alternates
+	int32_t  lnAltMax;		   // maximum of alternates
 	RecAlt Alt[REC_MAX_VERS];  // alternates array
 	} RecVersions;
 typedef struct tagUniVersions
 	{
-	Int32  lnAltCnt;           // count of alternates
-	Int32  lnAltMax;		   // maximum of alternates
+	int32_t  lnAltCnt;           // count of alternates
+	int32_t  lnAltMax;		   // maximum of alternates
 	UniAlt Alt[REC_MAX_VERS];  // alternates array
 	} UniVersions;
 
 typedef struct tagRecVector {
 Point16 beg,end;
-Int32 incline;   // 2048 * tangens
+int32_t incline;   // 2048 * tangens
 #define INCLINE_UNKNOWN	(-0x41414141)	  ///	      _______
-Int32  len;  // -1 - It isn't vector;  metric Eucleede ы xэ + yэ
-Int32 Mx,My;
-Int32 Cx,Cy;  // debug purposes
-Int32 area;
+int32_t  len;  // -1 - It isn't vector;  metric Eucleede ы xэ + yэ
+int32_t Mx,My;
+int32_t Cx,Cy;  // debug purposes
+int32_t area;
 Word8 Mn; // normalized moment
 Word8 reserve[3];
 #define MAX_VECT	64

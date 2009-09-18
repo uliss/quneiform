@@ -301,9 +301,9 @@ while(1)
 return  TRUE;
 }
 
-Bool32 ed_CorrectSpeller(Int32 version)
+Bool32 ed_CorrectSpeller(int32_t version)
 {
-Int32           n,  i;
+int32_t           n,  i;
 CSTR_line       line;
 
 

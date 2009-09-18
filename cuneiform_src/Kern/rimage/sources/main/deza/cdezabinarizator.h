@@ -105,30 +105,30 @@ class CDezaBinarizator
     #define LONGBUF 15L*4096L
 
 public:
-	Int32 CloseTrackBin(void);
-	Int32 GetBinarized(PWord8 ptbl, Word32 lenbl);
+	int32_t CloseTrackBin(void);
+	int32_t GetBinarized(PWord8 ptbl, Word32 lenbl);
 	Word32 OpenTrackBin(PCTBINTigerImageInfo Info, CRIBinarizator * pCaller, Word32 wdezaFlag);
 	CDezaBinarizator();
 	virtual ~CDezaBinarizator();
 
 private:
-	Int32 Get1(void);
-	Int32 Read_por_first(void);
-	Int32 Elem_st(void);
-	Int32 Grey_black(void);
-	Int32 Xygo(Int32, Int32);
-	Int32 Our1(Int32);
-	PWord8 Black_file(PWord8, Int32);
+	int32_t Get1(void);
+	int32_t Read_por_first(void);
+	int32_t Elem_st(void);
+	int32_t Grey_black(void);
+	int32_t Xygo(int32_t, int32_t);
+	int32_t Our1(int32_t);
+	PWord8 Black_file(PWord8, int32_t);
 
 private:
-	void Ras1_pred(Int32);
-	void Raspred(Int32);
+	void Ras1_pred(int32_t);
+	void Raspred(int32_t);
 	void Stek(void);
 	void Left_str(void);
 	void Right_str(void);
-	Int32 bWhitePixel;
-	Int32 colall;
-	Int32 chet_color[SB];
+	int32_t bWhitePixel;
+	int32_t colall;
+	int32_t chet_color[SB];
 	Word8 lg0;
 	PWord8 ptbtek;
 	PWord8 ptbosn;
@@ -136,28 +136,28 @@ private:
 	PWord8 ptgrey;
 	Word32 indend;
 	Word32 indbeg;
-	Int32 nstrb;
-	Int32 nstr;
-	Int32 sy1;
-	Int32 sdvig;
-	Int32 lg0i;
-	Int32 spx2;
-	Int32 spx1;
-	Int32 spy;
-	Int32 spx;
-	Int32 bufmark[4];
-	Int32 sheds;
-	Int32 shed;
-	Int32 st[BUFS];
-	Int32 ypor;
-	Int32 tip;
-	Int32 indbl;
-	Int32 lgn;
-	Int32 lg;
-	Int32 xx;
-	Int32 y;
-	Int32 x;
-	Int32 urov[2];
+	int32_t nstrb;
+	int32_t nstr;
+	int32_t sy1;
+	int32_t sdvig;
+	int32_t lg0i;
+	int32_t spx2;
+	int32_t spx1;
+	int32_t spy;
+	int32_t spx;
+	int32_t bufmark[4];
+	int32_t sheds;
+	int32_t shed;
+	int32_t st[BUFS];
+	int32_t ypor;
+	int32_t tip;
+	int32_t indbl;
+	int32_t lgn;
+	int32_t lg;
+	int32_t xx;
+	int32_t y;
+	int32_t x;
+	int32_t urov[2];
 	CRIBinarizator * mpBinarizatorControl;
 	//////////////////////////////////////////////////////////////////////
 	#define  DB_GREYREAD(a,b,c)    mpBinarizatorControl->KronrodImageRead(a,b,c)

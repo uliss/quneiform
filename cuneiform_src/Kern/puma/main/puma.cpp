@@ -299,7 +299,7 @@ Bool32 PreProcessImage()
     return rc;
 }
 //////////////////////////////////////////////////
-static Int32 s_ConsoleLine = 0;
+static int32_t s_ConsoleLine = 0;
 static Bool32 PreOpenInitialize(const char * lpFileName)
 {
     Bool32 rc = TRUE;
@@ -491,12 +491,12 @@ PUMA_FUNC(Bool32) PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p)
         {
             if(PInfo.Incline2048>0)
             {
-                p->x = (Int32)info.biWidth * PInfo.Incline2048 / 2048 * PInfo.Incline2048 / 2048;
-                p->y = (Int32)(info.biWidth ) * PInfo.Incline2048 / 2048;
+                p->x = (int32_t)info.biWidth * PInfo.Incline2048 / 2048 * PInfo.Incline2048 / 2048;
+                p->y = (int32_t)(info.biWidth ) * PInfo.Incline2048 / 2048;
             }
             else
             {
-                p->x = -(Int32)info.biHeight * PInfo.Incline2048 / 2048+(Int32)info.biWidth * PInfo.Incline2048 / 2048 * PInfo.Incline2048 / 2048;
+                p->x = -(int32_t)info.biHeight * PInfo.Incline2048 / 2048+(int32_t)info.biWidth * PInfo.Incline2048 / 2048 * PInfo.Incline2048 / 2048;
                 p->y = 0;
             }
         }
@@ -608,7 +608,7 @@ PUMA_FUNC(bool) PUMA_XFinalRecognition( )
     return rc;
 }
 //////////////////////////////////////////////////
-PUMA_FUNC(Bool32) PUMA_XSave(const char * lpOutFileName, Int32 lnFormat, Int32 lnCode ) {
+PUMA_FUNC(Bool32) PUMA_XSave(const char * lpOutFileName, int32_t lnFormat, int32_t lnCode ) {
     char *fname = strdup(lpOutFileName);
     Bool32 res;
     winpath_to_internal(fname);
@@ -617,7 +617,7 @@ PUMA_FUNC(Bool32) PUMA_XSave(const char * lpOutFileName, Int32 lnFormat, Int32 l
     return res;
 }
 //////////////////////////////////////////////////
-PUMA_FUNC(Bool32) PUMA_Save(Handle hEdPage, const char * lpOutFileName, Int32 lnFormat, Int32 lnCode, Bool32 bAppend )
+PUMA_FUNC(Bool32) PUMA_Save(Handle hEdPage, const char * lpOutFileName, int32_t lnFormat, int32_t lnCode, Bool32 bAppend )
 {
     Bool32 rc = TRUE;
     Handle prevEdPage = ghEdPage;
@@ -685,7 +685,7 @@ PUMA_FUNC(Bool32) PUMA_Save(Handle hEdPage, const char * lpOutFileName, Int32 ln
     return rc;
 }
 /////////////////////////////////////////////////////////////////////////
-PUMA_FUNC(Word32) PUMA_SaveToMemory(Handle hEdPage, Int32 lnFormat, Int32 lnCode, char * lpMem, Word32 size )
+PUMA_FUNC(Word32) PUMA_SaveToMemory(Handle hEdPage, int32_t lnFormat, int32_t lnCode, char * lpMem, Word32 size )
 {
     Bool32 rc = 0;
     Handle prevEdPage = ghEdPage;
@@ -726,32 +726,32 @@ PUMA_FUNC(Word32) PUMA_SaveToMemory(Handle hEdPage, Int32 lnFormat, Int32 lnCode
     return rc;
 }
 //////////////////////////////////////////////////
-PUMA_FUNC(Int32) PUMA_EnumLanguages(Int32 nPrev )
+PUMA_FUNC(int32_t) PUMA_EnumLanguages(int32_t nPrev )
 {
     return _EnumLanguage(nPrev);
 }
 //////////////////////////////////////////////////
-PUMA_FUNC(Int32) PUMA_EnumFormats(Int32 nPrev )
+PUMA_FUNC(int32_t) PUMA_EnumFormats(int32_t nPrev )
 {
     return _EnumFormats(nPrev);
 }
 //////////////////////////////////////////////////
-PUMA_FUNC(Int32) PUMA_EnumCodes(Int32 format, Int32 nPrev )
+PUMA_FUNC(int32_t) PUMA_EnumCodes(int32_t format, int32_t nPrev )
 {
     return _EnumCodes(format,nPrev);
 }
 //////////////////////////////////////////////////
-PUMA_FUNC(Int32) PUMA_EnumFormatMode(Int32 nPrev )
+PUMA_FUNC(int32_t) PUMA_EnumFormatMode(int32_t nPrev )
 {
     return _EnumFormatMode(nPrev);
 }
 //////////////////////////////////////////////////
-PUMA_FUNC(Int32) PUMA_EnumTable(Int32 nPrev )
+PUMA_FUNC(int32_t) PUMA_EnumTable(int32_t nPrev )
 {
     return _EnumTable(nPrev);
 }
 //////////////////////////////////////////////////
-PUMA_FUNC(Int32) PUMA_EnumPicture(Int32 nPrev )
+PUMA_FUNC(int32_t) PUMA_EnumPicture(int32_t nPrev )
 {
     return _EnumPicture(nPrev);
 }
@@ -831,10 +831,10 @@ PUMA_FUNC(Bool32) PUMA_XSetTemplate(Rect32 rect)
 }
 ///////////////////////////////
 //OLEG fot Consistent
-PUMA_FUNC(void) PUMA_GetSpecialBuffer(char * szResult,Int32 *nResultLength)
+PUMA_FUNC(void) PUMA_GetSpecialBuffer(char * szResult,int32_t *nResultLength)
 {
     extern char    global_buf[];
-    extern Int32   global_buf_len;
+    extern int32_t   global_buf_len;
 
     if( nResultLength )
         *nResultLength = global_buf_len;

@@ -83,13 +83,13 @@ typedef enum
 typedef struct tagLINE_COM
 {
 	NR_SimpLine     Line;     // простейшее описание линии
-	Int32           Status;   // история линии в программе
+	int32_t           Status;   // история линии в программе
 	Word32          Flags;    // common use info
 	NORM_DATATYPES  Type;     //*Unknown, *Simple, *Defis, *Pointed
 	LINE_DIR        Dir;
 	char            Qual;     // quality (or estimation) at percents
 	char            Dens;     // density at percents
-	Int32           nFrag;    // if==-1 - fragmentation was not made
+	int32_t           nFrag;    // if==-1 - fragmentation was not made
 	NR_Event       *pFrag;    // NULL for nFrag<1
 	void           *Specline; //(NR_DefiLine), (NR_PoinLine)
 	/* не NULL только для *Defis и *Pointed типов, и если информацию положили */

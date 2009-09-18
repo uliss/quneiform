@@ -65,7 +65,7 @@ extern Word8   stick_recog(Word8 let, STICK_CHARS *l, STICK_CHARS *r,
 extern Word8 lnhead_stick_center_study(lnhead *lin,Int16 dy,Int16 dx,
         STICK_CHARS *res_left_chars,STICK_CHARS *res_right_chars,
         STICK_SIGNUMS *res_signums);
-extern Int32 lnhead_stick_get_incline(lnhead *pool ,int dy, int dx );
+extern int32_t lnhead_stick_get_incline(lnhead *pool ,int dy, int dx );
 extern void  clear_right_bites(Word8 *RASTER, Int16 NWIDTH, Int16 WBYTE, Int16 NHEIGHT);
 extern  Word16 typ_thin_stick(lnhead *lin,Int16 dy,Int16 dx);
 extern  Int16 LeftDistance(Word8 *RASTER, Int16 NWIDTH);
@@ -74,14 +74,14 @@ extern  Int16 RightDistance(Word8 *RASTER, Int16 NWIDTH);
 Word8   alphabet[256];
 Bool32  digit_mode = FALSE, dif_adding_mode ;
 Word8   language;
-Int32   dif_typ_of_font=0;
+int32_t   dif_typ_of_font=0;
 #include "minmax.h"
 
 extern Int16 broken_ii;
 extern Word8 broken_flag;
 Word8  cutl_flag, cutr_flag;
 
-DIF_FUNC(void)  DIFSetFont( Int32 typ_of_font)
+DIF_FUNC(void)  DIFSetFont( int32_t typ_of_font)
 {
 dif_typ_of_font=typ_of_font;
 return;
@@ -313,7 +313,7 @@ return TRUE;
 }
 
 
-DIF_FUNC(Int32)  DIFGet_incline( RecRaster*  r, Word8 *pool)
+DIF_FUNC(int32_t)  DIFGet_incline( RecRaster*  r, Word8 *pool)
 {
  Int16 dx,dy ;
 

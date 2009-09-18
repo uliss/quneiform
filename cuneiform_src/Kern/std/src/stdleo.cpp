@@ -581,7 +581,7 @@ static Int8 leo_case_lower[]={
 /* ÿ(255,0xff) */ 'ÿ'
 };
 
-static Int32 leo_case[]={
+static int32_t leo_case[]={
 /* 000 */ 0,
 /* 001 */ 0,
 /* 002 */ 0,
@@ -1444,7 +1444,7 @@ STD_FUNC(void) stdStrAnsiToAscii( char* Str)
 	}
 }
 
-STD_FUNC(void) stdStrNAsciiToAnsi( char* Str,Int32 nLen)
+STD_FUNC(void) stdStrNAsciiToAnsi( char* Str,int32_t nLen)
 {
 	if(nLen<=0)
 		return;
@@ -1452,7 +1452,7 @@ STD_FUNC(void) stdStrNAsciiToAnsi( char* Str,Int32 nLen)
 		Str[nSymb]=std_ASCII_to_ANSI[(Word8)Str[nSymb]];
 }
 
-STD_FUNC(void) stdStrNAnsiToAscii( char* Str,Int32 nLen)
+STD_FUNC(void) stdStrNAnsiToAscii( char* Str,int32_t nLen)
 {
 	if(nLen<=0)
 		return;
@@ -1473,7 +1473,7 @@ STD_FUNC(void) stdStrAnsiToUnicode(wchar_t* pUnicode,const char* pAnsi)
     *pCurUnic=0;
 }
 
-STD_FUNC(void) stdStrNAnsiToUnicode(wchar_t* pUnicode,const char* pAnsi,Int32 nLen)
+STD_FUNC(void) stdStrNAnsiToUnicode(wchar_t* pUnicode,const char* pAnsi,int32_t nLen)
 {
 	const char* pCurAnsi=pAnsi; wchar_t* pCurUnic=pUnicode;
 	while(*pCurAnsi && pCurAnsi-pAnsi<=nLen)
@@ -1512,7 +1512,7 @@ return leo_typeface_one[c][0];
 }
 
 
-STD_FUNC( Int32 )   stdLeoIsCase(Word8 Code)
+STD_FUNC( int32_t )   stdLeoIsCase(Word8 Code)
 {
 return leo_case[ Code ];
 }

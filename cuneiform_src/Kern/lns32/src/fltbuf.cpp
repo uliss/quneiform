@@ -69,12 +69,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 TFltBuf::TFltBuf( int width_dword )
 	{
 		x16 = NULL;
-      if ( (Int32)32 * sizeof(Int32) * (Int32)width_dword  > (Int32)0xFFF0){
+      if ( (int32_t)32 * sizeof(int32_t) * (int32_t)width_dword  > (int32_t)0xFFF0){
 			// size of buffer > 64K
 			return;
 		};
 
-      x16 = (Int32 *)(malloc( (Int32)32 * (Int32)sizeof(Int32) * (Int32)width_dword  ));
+      x16 = (int32_t *)(malloc( (int32_t)32 * (int32_t)sizeof(int32_t) * (int32_t)width_dword  ));
 		if (x16 == NULL) {
 			return;
 		};
@@ -110,14 +110,14 @@ void TFltBuf::addLine( void* new_line )
 void TFltBuf::preBuffer( void )
    {
       int wdw = widthDWord;
-      Int32* curA;
-      Int32* curB;
-      Int32* curAB;
+      int32_t* curA;
+      int32_t* curB;
+      int32_t* curAB;
       int i=0;
 
-      curA = (Int32*)x16;
-      curB = (Int32*)x16 + wdw;
-      curAB = (Int32*)x8;
+      curA = (int32_t*)x16;
+      curB = (int32_t*)x16 + wdw;
+      curAB = (int32_t*)x8;
 		for( i = 0; i < 8; i++ ){
          A_B_to_AB();
          curAB += wdw;
@@ -125,9 +125,9 @@ void TFltBuf::preBuffer( void )
          curB  += wdw*2;
 		};
 
-      curA = (Int32*)x8;
-      curB = (Int32*)x8 + wdw;
-      curAB = (Int32*)x4;
+      curA = (int32_t*)x8;
+      curB = (int32_t*)x8 + wdw;
+      curAB = (int32_t*)x4;
 		for( i = 0; i < 4; i++ ){
          A_B_to_AB();
          curAB += wdw;
@@ -135,9 +135,9 @@ void TFltBuf::preBuffer( void )
          curB  += wdw*2;
 		};
 
-      curA = (Int32*)x4;
-      curB = (Int32*)x4 + wdw;
-      curAB = (Int32*)x2;
+      curA = (int32_t*)x4;
+      curB = (int32_t*)x4 + wdw;
+      curAB = (int32_t*)x2;
 		for( i = 0; i < 2; i++ ){
          A_B_to_AB();
          curAB += wdw;
@@ -145,9 +145,9 @@ void TFltBuf::preBuffer( void )
          curB  += wdw*2;
 		};
 
-      curA = (Int32*)x2;
-      curB = (Int32*)x2 + wdw;
-      curAB = (Int32*)cur16;
+      curA = (int32_t*)x2;
+      curB = (int32_t*)x2 + wdw;
+      curAB = (int32_t*)cur16;
       A_B_to_AB();
 
 		nCurLine = 0;
@@ -156,46 +156,46 @@ void TFltBuf::preBuffer( void )
 void TFltBuf::updateByLine( void* new_line )
 	{
       int wdw = widthDWord;
-      Int32* curA;
-      Int32* curB;
-      Int32* curAB;
-      Int32 n_cur = nCurLine;
+      int32_t* curA;
+      int32_t* curB;
+      int32_t* curAB;
+      int32_t n_cur = nCurLine;
 
 
 		swap( last16, cur16 );
 
-      curA = (Int32*)x16+wdw*n_cur;
+      curA = (int32_t*)x16+wdw*n_cur;
       memmove( (void*)curA, new_line, wdw*4 );
-      curB = (n_cur & (Int32)1) ?
-             (Int32*)x16+wdw*(n_cur - 1):    // odd - get previous
-             (Int32*)x16+wdw*(n_cur + 1);    // even - get next
+      curB = (n_cur & (int32_t)1) ?
+             (int32_t*)x16+wdw*(n_cur - 1):    // odd - get previous
+             (int32_t*)x16+wdw*(n_cur + 1);    // even - get next
 		n_cur >>= 1;
-      curAB = (Int32*)x8 + wdw*n_cur;
+      curAB = (int32_t*)x8 + wdw*n_cur;
       A_B_to_AB();
 
-      curA = (Int32*)x8+wdw*n_cur;
-      curB = (n_cur & (Int32)1) ?
-             (Int32*)x8+wdw*(n_cur - 1):    // odd - get previous
-             (Int32*)x8+wdw*(n_cur + 1);    // even - get next
+      curA = (int32_t*)x8+wdw*n_cur;
+      curB = (n_cur & (int32_t)1) ?
+             (int32_t*)x8+wdw*(n_cur - 1):    // odd - get previous
+             (int32_t*)x8+wdw*(n_cur + 1);    // even - get next
 		n_cur >>= 1;
-      curAB = (Int32*)x4 + wdw*n_cur;
+      curAB = (int32_t*)x4 + wdw*n_cur;
       A_B_to_AB();
 
-      curA = (Int32*)x4+wdw*n_cur;
-      curB = (n_cur & (Int32)1) ?
-             (Int32*)x4+wdw*(n_cur - 1):    // odd - get previous
-             (Int32*)x4+wdw*(n_cur + 1);    // even - get next
+      curA = (int32_t*)x4+wdw*n_cur;
+      curB = (n_cur & (int32_t)1) ?
+             (int32_t*)x4+wdw*(n_cur - 1):    // odd - get previous
+             (int32_t*)x4+wdw*(n_cur + 1);    // even - get next
 		n_cur >>= 1;
-      curAB = (Int32*)x2 + wdw*n_cur;
+      curAB = (int32_t*)x2 + wdw*n_cur;
       A_B_to_AB();
 
-      curA = (Int32*)x2+wdw*n_cur;
-      curB = (n_cur & (Int32)1) ?
-             (Int32*)x2+wdw*(n_cur - 1):    // odd - get previous
-             (Int32*)x2+wdw*(n_cur + 1);    // even - get next
+      curA = (int32_t*)x2+wdw*n_cur;
+      curB = (n_cur & (int32_t)1) ?
+             (int32_t*)x2+wdw*(n_cur - 1):    // odd - get previous
+             (int32_t*)x2+wdw*(n_cur + 1);    // even - get next
 		n_cur >>= 1;
 		assert( n_cur == 0 );
-      curAB = (Int32*)cur16;           // + wdw*n_cur;
+      curAB = (int32_t*)cur16;           // + wdw*n_cur;
       A_B_to_AB();
 
 		nCurLine++;

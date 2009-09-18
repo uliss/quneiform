@@ -70,9 +70,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 extern Nraster_header *rh;
 
-static Int32 numAddedMemory=0;
+static int32_t numAddedMemory=0;
 ////////////
-Int32 GetNumMemory(void)
+int32_t GetNumMemory(void)
 {
 	return numAddedMemory;
 }
@@ -91,7 +91,7 @@ BYTE *AddBuffer(LONG sizebitmap);
  SINT sx=rhh->w,sy=rhh->h,sxbyte;
  LONG sizebitmap;
  BYTE *pic,*pp;
- Int32 wb = ((r->lnPixWidth+63)/64)*8;
+ int32_t wb = ((r->lnPixWidth+63)/64)*8;
 
   rhh->xbyte=sxbyte=(sx>>3)+1;
   sizebitmap=sxbyte*sy;
@@ -113,7 +113,7 @@ BYTE *AddBuffer(LONG sizebitmap);
 }
 /////////////////////
 // fill static Nraster_header rh !!!
-FON_FUNC(Int32) FONStoreRaster(RecRaster *r,Word8 let, Word8 IsPrint,
+FON_FUNC(int32_t) FONStoreRaster(RecRaster *r,Word8 let, Word8 IsPrint,
 		Word8 Prob, Word8 Valid, Int16 line_number,Word8 kegl,
 		Rect16 *rect,Word8 column)
 {
@@ -176,7 +176,7 @@ FON_FUNC(Int32) FONStoreRaster(RecRaster *r,Word8 let, Word8 IsPrint,
  return numAddedMemory;
 }
 /////////////////////
-Int32 StartAddMemCluster(Word8 *metkaValid,Int32 CurClus,
+int32_t StartAddMemCluster(Word8 *metkaValid,int32_t CurClus,
 						 Int16 countFont,Word32 *allFields)
 {
  int i,CurCount;
@@ -207,7 +207,7 @@ Int32 StartAddMemCluster(Word8 *metkaValid,Int32 CurClus,
  return CurCount;
 }
 ///////////////////
-Int32 AddClusterMemFont(welet *wel)
+int32_t AddClusterMemFont(welet *wel)
 {
  FONBASE *fBase=GetStaticFonbase();
 

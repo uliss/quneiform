@@ -162,7 +162,7 @@ _asm{
 #endif
 }
 
-MMX_FUNC(Word32) MMX_scalar_sq(Word16 *_EAX,Int32 _ECX)
+MMX_FUNC(Word32) MMX_scalar_sq(Word16 *_EAX,int32_t _ECX)
 {
 #ifdef _MSC_VER
 _asm{
@@ -203,7 +203,7 @@ cykl:
 #endif
 }
 
-MMX_FUNC(void) MMX_scale( Word16 *_EAX, Int32 _ECX, Int32 _EDX)
+MMX_FUNC(void) MMX_scale( Word16 *_EAX, int32_t _ECX, int32_t _EDX)
 {
 #ifdef _MSC_VER
 _asm{

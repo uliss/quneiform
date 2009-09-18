@@ -823,7 +823,7 @@ extern  BYTE    decode_ASCII_to_[256][4];
 extern  BYTE    decode_rus_ASCII_to_[256][4];
 extern  BYTE    CodePages[];
 extern  char    alphabet[256];
-Int32   i;
+int32_t   i;
 alpha_used_mode=0;
 for(i=128;i<256;i++)
     {

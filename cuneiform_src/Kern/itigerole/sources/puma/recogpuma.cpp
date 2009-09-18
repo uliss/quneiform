@@ -204,7 +204,7 @@ BOOL _Save(void * hEdPage, char * lpFileName,long format, long code, Bool32 bApp
 	return rc;
 }
 
-Word32 _SaveToMemory(Handle hEdPage, Int32 format, Int32 code, char * lpMem, Word32 size )
+Word32 _SaveToMemory(Handle hEdPage, int32_t format, int32_t code, char * lpMem, Word32 size )
 {
 	BOOL rc = 0;
 
@@ -278,18 +278,18 @@ return rc;
 
 long	_EnumFormats(long prev)
 {
-	return LPUMA_EnumFormats((Int32)prev);
+	return LPUMA_EnumFormats((int32_t)prev);
 }
 
 long	_EnumCodes(long f,long prev)
 {
-	return (long)LPUMA_EnumCodes((Int32)f,(Int32)prev);
+	return (long)LPUMA_EnumCodes((int32_t)f,(int32_t)prev);
 }
 
 short  _EnumLanguage(short PrevLang)
 {
 	short rc = -1;
-	rc = (short)LPUMA_EnumLanguages((Int32)PrevLang);
+	rc = (short)LPUMA_EnumLanguages((int32_t)PrevLang);
 	return rc;
 }
 

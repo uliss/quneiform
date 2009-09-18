@@ -212,7 +212,7 @@ inline   EImageType GetImageType (TImgInfo *info)
 // Import callbacks prototypes:
 
 typedef Bool  (*TImpImgOpen) (TImgInfo * lpImageInfo);
-typedef Int32 (*TImpImgRead) (Word8* lpImage, Int32 wMaxSize);
+typedef int32_t (*TImpImgRead) (Word8* lpImage, int32_t wMaxSize);
 typedef Int16 (*TImpImgGetBlock)(Word8* lpBuff, Int16 fstLine, Int16 nLines);
 typedef Bool  (*TImpImgClose)(void);
 
@@ -230,7 +230,7 @@ _SETTYPES(TImgImport)
 // Export callbacks   prototypes:
 
 typedef Bool  (*TExpImgOpen)    (TImgInfo * lpImageInfo);
-typedef Int32 (*TExpImgWrite)   (Word8* lpImage, Int32 wMaxSize);
+typedef int32_t (*TExpImgWrite)   (Word8* lpImage, int32_t wMaxSize);
 typedef Int16 (*TExpImgSetBlock)(Word8* lpBuff, Int16 fstLine, Int16 nLines);
 typedef Bool  (*TExpImgClose)   (void);
 

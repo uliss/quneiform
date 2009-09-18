@@ -73,7 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include"compat_defs.h"
 
 // SMAP.C
-extern	Bool16	snap_monitor_ori(CSTR_line *snap_line, Int32 num_lines);
+extern	Bool16	snap_monitor_ori(CSTR_line *snap_line, int32_t num_lines);
 extern	Bool16	snap_activity(Word8 a);
 extern	Word8	db_status;
 extern	Bool16	snap_show_text(Word8 *txt);
@@ -206,7 +206,7 @@ CSTR_rast_attr  attr;
 RecRaster       recRast;
 UniVersions     u;
 FonTestInfo     Attribut[MAXCHECKALT];
-Int32           nval, nall, na, nalt;
+int32_t           nval, nall, na, nalt;
 
 for(nalt=nall=nval=0,r=beg;r && r!=end; r=CSTR_GetNext(r))
     {
@@ -442,7 +442,7 @@ void p2_add_probs(CSTR_line ln)
 CSTR_rast       r;
 CSTR_rast_attr  a;
 UniVersions     u;
-Int32           p, p0, i;
+int32_t           p, p0, i;
 
 for(r=CSTR_GetNext(CSTR_GetFirstRaster(ln));r ; r=CSTR_GetNext(r))
     {

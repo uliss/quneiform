@@ -753,7 +753,7 @@ Bool32 OutputFragments(Handle hPage)
 	Bool32 rc = TRUE;
 	int    count;
 	Word32 BlockNumber;
-	Int32  Min, PrevMin;
+	int32_t  Min, PrevMin;
 	Handle hBlock = NULL; // ***** Rom 01-03-99
 	Handle h;
 	Handle h_next;
@@ -1180,9 +1180,9 @@ free (pPics);
 return rc;
 }
 //#######################################################
-void CalculatePageIncline(Handle hCCOM, Int32 * lpNominator, Int32 * lpDenominator)
+void CalculatePageIncline(Handle hCCOM, int32_t * lpNominator, int32_t * lpDenominator)
 {
-//  PageLayoutBlocks((Int32)hCCOM);
+//  PageLayoutBlocks((int32_t)hCCOM);
 
   *lpDenominator = INCLINE_FACTOR;
   *lpNominator   = nIncline;

@@ -71,29 +71,29 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ///////////////////////////////////////////////////////
 class TableCell
 {
-	Int32	m_nNumber;	// Номер ячейки физической таблицы ( начиная с 1 )
+	int32_t	m_nNumber;	// Номер ячейки физической таблицы ( начиная с 1 )
 	Point32 m_PhCoord;	// Координаты привязки к физической ячейке
-	Int32   m_nBlock;	// Номер фрагмента
-	Int32	m_nGeCount;	// число геометрических ячеек, входящих в физическую
+	int32_t   m_nBlock;	// Номер фрагмента
+	int32_t	m_nGeCount;	// число геометрических ячеек, входящих в физическую
 
 public:
 	TableCell();
 	~TableCell();
 	inline operator Point32(){ return m_PhCoord;};
-	inline operator Int32()  { return m_nBlock;};
-	inline Int32 GetGeCount(){ return m_nGeCount;};
+	inline operator int32_t()  { return m_nBlock;};
+	inline int32_t GetGeCount(){ return m_nGeCount;};
 	inline Bool32 IsPhysic() { return m_nGeCount > 1;};
 	inline Point32 operator=(Point32 p){ m_PhCoord = p; return p;};
-	inline Int32 operator=(Int32   n){ m_nNumber = n; return n;};
-	inline Int32 & Fragment(){ return m_nBlock;};
-	inline Int32 & GeCount() { return m_nGeCount;};
+	inline int32_t operator=(int32_t   n){ m_nNumber = n; return n;};
+	inline int32_t & Fragment(){ return m_nBlock;};
+	inline int32_t & GeCount() { return m_nGeCount;};
 };
 ///////////////////////////////////////////////////////
 class TableLine
 {
 private:
-	Int32 m_nCoord; // координата X - для вертикальных Y - для горизонтальных
-	//Int32 m_nItems;	// число элементов линии
+	int32_t m_nCoord; // координата X - для вертикальных Y - для горизонтальных
+	//int32_t m_nItems;	// число элементов линии
 
 #define LINE_REALY	0x00000001 // Реальный элемент линии
 #define LINE_VISUAL	0x00000003 // Видимый элемент линии ( всегда реальный !!)
@@ -104,7 +104,7 @@ public:
 	TableLine();
 	~TableLine();
 
-	Bool32	Create(Int32 nCoord,Word32 nItems);
+	Bool32	Create(int32_t nCoord,Word32 nItems);
 	void	Delete();
 
 	Bool32	Attach(Handle hPage);
@@ -128,7 +128,7 @@ public:
 
 	inline Bool32 IsRealy(Word32 nItem){ return m_lpProperty[nItem] & LINE_REALY; };
 	inline Bool32 IsVisual(Word32 nItem){ return m_lpProperty[nItem] & LINE_VISUAL; };
-	inline operator Int32(){ return m_nCoord;};
+	inline operator int32_t(){ return m_nCoord;};
 };
 ///////////////////////////////////////////////////////
 class TableClass
@@ -136,7 +136,7 @@ class TableClass
 private:
 	//Word32		m_nVer;			// число вертикальных линий
 	//Word32		m_nHor;			// число горизонтальных линий
-	Int32		m_nSkew2048;	// наклон таблицы
+	int32_t		m_nSkew2048;	// наклон таблицы
 	Handle		m_hBlock;
 	Handle      m_hPage;
 	Word32      m_nPhNumber;    // число физических ячеек
@@ -149,7 +149,7 @@ public:
 	TableClass();
 	~TableClass();
 
-	Bool32			Create(Int32 Skew2048, Word32 nVer,Int32 * lpVCor, Word32 nHor,Int32 * lpHCor);// Создать таблицу
+	Bool32			Create(int32_t Skew2048, Word32 nVer,int32_t * lpVCor, Word32 nHor,int32_t * lpHCor);// Создать таблицу
 	void			Delete();// Освободить занимаемую память.
 	void			Update();// Создать внутренние связи.
 
@@ -163,8 +163,8 @@ public:
 	inline Word32 GetNumberGeCell(){ return GetNumberColumn()*GetNumberRow();};
 	inline Word32 GetNumberPhCell(){ return GetNumberGeCell();};
 
-	inline Int32 GetSkew2048(){ return m_nSkew2048;};
-	inline void  SetSkew2048(Int32 nSkew){ m_nSkew2048 = nSkew ;};
+	inline int32_t GetSkew2048(){ return m_nSkew2048;};
+	inline void  SetSkew2048(int32_t nSkew){ m_nSkew2048 = nSkew ;};
 
 	inline Word32 GetNumberColumn() { return m_lpVerLines.GetSize() - 1;};
 	inline Word32 GetNumberRow()	{ return m_lpHorLines.GetSize() - 1;};

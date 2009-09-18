@@ -231,12 +231,12 @@ dst->lnAltCnt = i;
 return TRUE;
 }
 ////////////////////
-static Int32 cmp_prob( const void *a, const void *b)
+static int32_t cmp_prob( const void *a, const void *b)
 {
-return (Int32)(((RecAlt *)b)->Prob) - (Int32)(((RecAlt *)a)->Prob) ;
+return (int32_t)(((RecAlt *)b)->Prob) - (int32_t)(((RecAlt *)a)->Prob) ;
 }
 ///////////////////////
-Int32 p2_leo_sort_vers_prob(RecVersions *v)
+int32_t p2_leo_sort_vers_prob(RecVersions *v)
 {
 int i,n0,n1;
 Word8 c0,c1;
@@ -399,11 +399,11 @@ static int AddFonVersions(RecVersions *old,RecVersions *ver)
 ////////////////
 // смешать два набора альтернатив и поместить в rast
 // return 1 - за основу взят новый, 0 - старый
-Int32 p2_leoMixture(CSTR_rast rast,RecVersions *old,RecVersions *ver,
+int32_t p2_leoMixture(CSTR_rast rast,RecVersions *old,RecVersions *ver,
                                                 FontInfo *fontinfo )
 {
 Bool32   enable_let=TRUE;
-//Int32    old_case ;
+//int32_t    old_case ;
 Word8    oldProb;  //  = data[14]
 Word8    oldName;  //  = data[3]
 int      i;

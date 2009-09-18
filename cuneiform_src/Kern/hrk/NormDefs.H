@@ -83,64 +83,64 @@ typedef enum
 
 typedef struct tagNR_Rect
 {
-	Int32  Lef;
-	Int32  Top;
-	Int32  Rig;
-	Int32  Bot;
-	Int32  Skew10; // == 10*1024*Tg(fi)
+	int32_t  Lef;
+	int32_t  Top;
+	int32_t  Rig;
+	int32_t  Bot;
+	int32_t  Skew10; // == 10*1024*Tg(fi)
 } NR_Rect;
 
 typedef struct tagNR_SimpLine
 {
-	Int32  Beg_X;
-	Int32  Beg_Y;
-	Int32  End_X;
-	Int32  End_Y;
-	Int32  Wid10; // == 10*width
+	int32_t  Beg_X;
+	int32_t  Beg_Y;
+	int32_t  End_X;
+	int32_t  End_Y;
+	int32_t  Wid10; // == 10*width
 } NR_SimpLine;
 
 typedef struct tagNR_DefiLine
 {
 	NR_Rect Rc_0;
-	Int32  Step1000; // == 1000*step
-	Int32  nRc;
+	int32_t  Step1000; // == 1000*step
+	int32_t  nRc;
 } NR_DefiLine;
 
 typedef struct tagNR_PoinLine
 {
-	Int32  Lef_0;
-	Int32  Top_0;
-	Int32  Size;
-	Int32  Step1000; // == 1000*step
-	Int32  nRc;
+	int32_t  Lef_0;
+	int32_t  Top_0;
+	int32_t  Size;
+	int32_t  Step1000; // == 1000*step
+	int32_t  nRc;
 } NR_PoinLine;
 
 typedef struct tagNR_Frame
 {
 	NR_Rect Rc;
-	Int32  StepInto;
+	int32_t  StepInto;
 } NR_Frame;
 
 typedef struct tagNR_Shift
 {
-	Int32  Pos;
-	Int32  Lent;
+	int32_t  Pos;
+	int32_t  Lent;
 } NR_Shift;
 
 typedef struct tagNR_Event
 {
 	Bool   Hori;      //гориз. или вертик.
 	Bool   Increase;  //наращивать или уменьшать уровень
-	Int32  Lev_0;     //уровень первого интервала
+	int32_t  Lev_0;     //уровень первого интервала
 	int    nInter;
 	NR_Shift *pInter; //отступы и протяженности интервалов
 } NR_Event;
 
 typedef struct tagNR_Inter
 {
-	Int32  Lev;
-	Int32  Pos;
-	Int32  Lent;
+	int32_t  Lev;
+	int32_t  Pos;
+	int32_t  Lent;
 } NR_Inter;
 
 typedef struct tagNR_Bag

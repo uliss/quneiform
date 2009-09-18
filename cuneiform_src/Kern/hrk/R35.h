@@ -89,24 +89,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       // Set alphabet for recognition
 
    R35_FUNC(Bool32)   R35Binarize(RecRaster *rRaster,
-							   Word16 *CompImage,Int32 dx, Int32 dy);
+							   Word16 *CompImage,int32_t dx, int32_t dy);
    R35_FUNC(Bool32)   R35Binarize8(RecRaster *rRaster,
-							   Word8 *CompImage,Int32 dx, Int32 dy);
+							   Word8 *CompImage,int32_t dx, int32_t dy);
 
-   R35_FUNC(void)  R35SetPlatform( Int32 cpu );
+   R35_FUNC(void)  R35SetPlatform( int32_t cpu );
    R35_FUNC(Bool32)   R35Pack(
        RecRaster*  raster,          // raster description
        Word16*  Image3x5,
-       Int32 TO_X, Int32 TO_Y);       // result
+       int32_t TO_X, int32_t TO_Y);       // result
 
    R35_FUNC(Bool32)   R35PackProport(
        RecRaster*  raster,          // raster description
        Word16*  Image3x5,
-       Int32 TO_X, Int32 TO_Y);       // result
+       int32_t TO_X, int32_t TO_Y);       // result
 
    R35_FUNC(Bool32)   R35PackProportHor16(
         RecRaster   *raster,
-        Word16      *Image3x5, Int32    *to_x,  Int32   *to_y);
+        Word16      *Image3x5, int32_t    *to_x,  int32_t   *to_y);
 
    R35_FUNC(Bool32)  R35RecogCharIm3x5(
       Word16*  Im3x5,         // image 3x5
@@ -138,14 +138,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
    R35_FUNC(Int16) R35GetErr(void);
       // Err16.h defined codes or one of the next
-  R35_FUNC(Bool32)  R35Init_learn( Int32 num, Word8 level, Int32 FontType );
-  R35_FUNC(void)    R35Done_learn( Int32 FontType);
+  R35_FUNC(Bool32)  R35Init_learn( int32_t num, Word8 level, int32_t FontType );
+  R35_FUNC(void)    R35Done_learn( int32_t FontType);
   R35_FUNC(Bool32)  R35RecogCharIm3x5_learn(
-			Word8 Code,Word16* Im3x5/*, Bool32 r5x3*/, Int32 FontType  );
+			Word8 Code,Word16* Im3x5/*, Bool32 r5x3*/, int32_t FontType  );
   R35_FUNC(Bool32)  R35RecogCharIm3x5_learn_expert(
             Word8 Code,Word16* Im3x5)  ;
-  R35_FUNC(Bool32) R35Delete(Word8    let, Int32 num_del);
-  R35_FUNC(Bool32) R35Add(Word8    let,Word16* Im3x5, Int32 FontType);
+  R35_FUNC(Bool32) R35Delete(Word8    let, int32_t num_del);
+  R35_FUNC(Bool32) R35Add(Word8    let,Word16* Im3x5, int32_t FontType);
   R35_FUNC(void)   R35SetMTR(int fnt) ;
 
 // error code

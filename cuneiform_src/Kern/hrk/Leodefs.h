@@ -69,14 +69,14 @@ typedef struct tagLeoPageSetup
    Word32     Options;
       // #define LEO_USEHISTORY 0x00000001
       // #define LEO_...        0x00000001
-   Int32      nResolutionX;
-   Int32      nResolutionY;
+   int32_t      nResolutionX;
+   int32_t      nResolutionY;
    Word8      AlphaStylesTable[256];
       // AlphaTable[i]==0 <=> no such letter on the page;
       // else
       // if  AlphaTable[i] & LS_HAND => such handprinted letter;
       // if  AlphaTable[i] & LS_INDX => such index letter; ...
-   Int32      nIdPage;
+   int32_t      nIdPage;
    Word8      _reserved[52-4];
 }  LeoPageSetup;
 
@@ -87,8 +87,8 @@ typedef struct tagLeoFieldSetup
    Point16     BoxSize;
    Word8       AlphaTable[256];  // AlphaTable[i]==0 <=> no such letter
    /// multi-passing:
-   Int32       nLeoInternal; // initially set to 0; modifyed only by LEO
-   Int32       nFieldNo;     // field num
+   int32_t       nLeoInternal; // initially set to 0; modifyed only by LEO
+   int32_t       nFieldNo;     // field num
    Word8       _reserved[240];
 }  LeoFieldSetup;
 

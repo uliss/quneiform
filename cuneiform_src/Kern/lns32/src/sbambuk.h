@@ -189,7 +189,7 @@ Bool hUpdate( void* new_line )
 				return TRUE;
 			};
 
-void addHorisontal( Int32 left, Int32 right )
+void addHorisontal( int32_t left, int32_t right )
 			{
 				BHandle new_member = addMember( curHEntry );
 				segCount++;
@@ -210,18 +210,18 @@ void addHorisontal( Int32 left, Int32 right )
 			};
 
 	/** vertical building routines **/
-Bool /*TSegBambuk::*/vUpdate(  Int32* new_line,
-                           Int32* cur16,
-                           Int32* prev16,
+Bool /*TSegBambuk::*/vUpdate(  int32_t* new_line,
+                           int32_t* cur16,
+                           int32_t* prev16,
 									int cur_row
 	//									int width_dword ??
 								);
-Bool /*TSegBambuk::*/vUpdateFirst(   Int32* new_line,
-                                 Int32* cur16,
+Bool /*TSegBambuk::*/vUpdateFirst(   int32_t* new_line,
+                                 int32_t* cur16,
 											int cur_row       // at this version == 16
 							 			);
-Bool /*TSegBambuk::*/vUpdateLast(    Int32* cur16,
-                                 Int32* last16,
+Bool /*TSegBambuk::*/vUpdateLast(    int32_t* cur16,
+                                 int32_t* last16,
 											int bottom_row
 							 			);
 

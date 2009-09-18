@@ -182,8 +182,8 @@ CIMAGE_InfoDataInReplace, * PCIMAGE_InfoDataInReplace;
 
 typedef struct tagCIMAGERECT
 {
-	Int32    dwX;
-	Int32    dwY;
+	int32_t    dwX;
+	int32_t    dwY;
 	Word32   dwWidth;
 	Word32   dwHeight;
 }
@@ -196,14 +196,14 @@ CIMAGE_Rect, *PCIMAGE_Rect, **PPCIMAGE_Rect;
 	typedef struct tagCIMAGEBITMAPINFOHEADER
 	{
 		Word32      biSize;
-		Int32       biWidth;
-		Int32       biHeight;
+		int32_t       biWidth;
+		int32_t       biHeight;
 		Word16      biPlanes;
 		Word16      biBitCount;
 		Word32      biCompression;
 		Word32      biSizeImage;
-		Int32       biXPelsPerMeter;
-		Int32       biYPelsPerMeter;
+		int32_t       biXPelsPerMeter;
+		int32_t       biYPelsPerMeter;
 		Word32      biClrUsed;
 		Word32      biClrImportant;
 	} CIMAGEBITMAPINFOHEADER, *PCIMAGEBITMAPINFOHEADER;

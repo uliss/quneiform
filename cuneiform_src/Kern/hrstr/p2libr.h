@@ -57,20 +57,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "p2.h"
 
 // rstr_p2.c
-Int32 p2_SetP2Globals(P2GLOBALS *p2globals);
-Int32 p2_GetP2Globals(P2GLOBALS *p2globals);
-Int32 p2_setBasLines(CSTR_line lineIn);
+int32_t p2_SetP2Globals(P2GLOBALS *p2globals);
+int32_t p2_GetP2Globals(P2GLOBALS *p2globals);
+int32_t p2_setBasLines(CSTR_line lineIn);
 
 //Bool32 p2_StoreVersions(CSTR_rast rast,RecVersions *rver);
 void   p2_FillTxt(CSTR_line c,char *intxt,BOOL ansi);
-Int32  p2_Cstr2Cell( CSTR_line lin,CSTR_rast first, CSTR_rast last, Bool32 needVers, Word32 disable );
+int32_t  p2_Cstr2Cell( CSTR_line lin,CSTR_rast first, CSTR_rast last, Bool32 needVers, Word32 disable );
 void   p2_CellsToCSTR(CSTR_line lino);
-Int32  p2_TextProb(CSTR_line cc,CSTR_rast  first,CSTR_rast last, char *intxt,int maxTxt);
+int32_t  p2_TextProb(CSTR_line cc,CSTR_rast  first,CSTR_rast last, char *intxt,int maxTxt);
 
-//Int32	p2_proc		(CSTR_line lineDraft,CSTR_line lineOne);
+//int32_t	p2_proc		(CSTR_line lineDraft,CSTR_line lineOne);
 INT	    estletter	(cell * BC,s_glue * GL);
 void	p2_init		(void);
-Int32   p2_leo_sort_vers_prob(RecVersions *v);
+int32_t   p2_leo_sort_vers_prob(RecVersions *v);
 //============ Global Data ============
 extern BOOL pass4_in;
 

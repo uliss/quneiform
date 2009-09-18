@@ -71,7 +71,7 @@ extern Handle hShowCheckLetters;
 
 
 ////////////////////////////////////////////////////////////////////////////////
-Bool32 CheckAreaForComps(Handle hCCOM, Handle hCCOM_big, Rect32 rect, Int32 Height, Word32 *Result1, Word32 *Result2)
+Bool32 CheckAreaForComps(Handle hCCOM, Handle hCCOM_big, Rect32 rect, int32_t Height, Word32 *Result1, Word32 *Result2)
 {
 	CCOM_comp * comp;
 	Word32 i;
@@ -230,7 +230,7 @@ Bool32 SearchRectanglePictures(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 	Word32 MaxLocal, nMaxLocal;
 	Word32 Result1, Result2, Result3, Result4, tmp1, tmp2;
 	Rect32 rect;
-	Int32 LengthTotal,LengthByIntervals;
+	int32_t LengthTotal,LengthByIntervals;
 	Handle BlockType;
 	RecRaster rec;
 	RecVersions vs;
@@ -396,7 +396,7 @@ Bool32 SearchRectanglePictures(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 		uBlock.code = CCOM_UB_DENSITY;
 		if( CCOM_GetUserBlock(&pPics[i], &uBlock) )
 		{
-			LengthByIntervals = *(Int32*)uBlock.data;
+			LengthByIntervals = *(int32_t*)uBlock.data;
 			LengthTotal = pPics[i].h * pPics[i].w;
 
 			if(LengthByIntervals==0)
@@ -541,17 +541,17 @@ Bool32 SearchRectanglePictures(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 			}
 
 
-			rect.top = pPics[i].upper - (Int32)(0.3*(double)(pPics[i].h));
+			rect.top = pPics[i].upper - (int32_t)(0.3*(double)(pPics[i].h));
 			rect.left = pPics[i].left - 12*pPics[i].h;
-			rect.bottom = pPics[i].upper + (Int32)(1.3*(double)(pPics[i].h));
+			rect.bottom = pPics[i].upper + (int32_t)(1.3*(double)(pPics[i].h));
 			//rect.right = pPics[i].left + pPics[i].w;
 			rect.right = pPics[i].left;
 			CheckAreaForComps(hCCOM,hCCOM_big, rect, pPics[i].h, &Result1, &Result2);
 			if(Result2 > 7)
 			{
-				rect.top = pPics[i].upper - (Int32)(0.3*(double)(pPics[i].h));
-				rect.left = pPics[i].left - (Int32)(1.5*(double)(pPics[i].h));
-				rect.bottom = pPics[i].upper + (Int32)(1.3*(double)(pPics[i].h));
+				rect.top = pPics[i].upper - (int32_t)(0.3*(double)(pPics[i].h));
+				rect.left = pPics[i].left - (int32_t)(1.5*(double)(pPics[i].h));
+				rect.bottom = pPics[i].upper + (int32_t)(1.3*(double)(pPics[i].h));
 				rect.right = pPics[i].left;
 				CheckAreaForComps(hCCOM,hCCOM_big, rect, pPics[i].h, &tmp1, &tmp2);
 				if(tmp2 == 0) Result2 = 0;
@@ -570,17 +570,17 @@ Bool32 SearchRectanglePictures(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 				continue;
 			}
 
-			rect.top = pPics[i].upper - (Int32)(0.3*(double)(pPics[i].h));
+			rect.top = pPics[i].upper - (int32_t)(0.3*(double)(pPics[i].h));
 			rect.left = pPics[i].left + pPics[i].w;
-			rect.bottom = pPics[i].upper + (Int32)(1.3*(double)(pPics[i].h));
+			rect.bottom = pPics[i].upper + (int32_t)(1.3*(double)(pPics[i].h));
 			rect.right = pPics[i].left + pPics[i].w + 12*pPics[i].h;
 			CheckAreaForComps(hCCOM,hCCOM_big, rect, pPics[i].h, &Result3, &Result4);
 			if(Result4 > 0)
 			{
-				rect.top = pPics[i].upper - (Int32)(0.3*(double)(pPics[i].h));
+				rect.top = pPics[i].upper - (int32_t)(0.3*(double)(pPics[i].h));
 				rect.left = pPics[i].left + pPics[i].w;
-				rect.bottom = pPics[i].upper + (Int32)(1.3*(double)(pPics[i].h));
-				rect.right = pPics[i].left + pPics[i].w + (Int32)(1.5*(double)(pPics[i].h));
+				rect.bottom = pPics[i].upper + (int32_t)(1.3*(double)(pPics[i].h));
+				rect.right = pPics[i].left + pPics[i].w + (int32_t)(1.5*(double)(pPics[i].h));
 				CheckAreaForComps(hCCOM,hCCOM_big ,rect, pPics[i].h, &tmp1, &tmp2);
 				if(tmp2 == 0) Result4 = 0;
 			}

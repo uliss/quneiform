@@ -85,7 +85,7 @@ Word8 field_number=0;
 Bool32 leo_enable_fon_recog=FALSE;
 Bool32 leo_Snp_In_Rect=FALSE;
 int  LEO_error_code=ER_LEO_NO_ERROR;
-Int32   GLU_all ,
+int32_t   GLU_all ,
         GLU_rus ,
         GLU_dig ,
         GLU_rom ,
@@ -97,10 +97,10 @@ Bool32 leo_enable_stored=FALSE;
  SnpTreeNode  stnSnapCharProt;
  SnpTreeNode  stnReRecog;
 // for registartion of alphabet set
-Int32 leo_alpha_count=1;
+int32_t leo_alpha_count=1;
 char  *leo_alpha_reg[256];
 Word8 leo_current_alpha_ndx=0;
-static Int32 fields_tab[MAX_FIELDS]={0};
+static int32_t fields_tab[MAX_FIELDS]={0};
 static MemFunc* leo_mem;
 static void* leo_alloc(Word32 len){return malloc(len);}
 static void  leo_free(void *ptr,Word32 len){ free(ptr);}
@@ -124,7 +124,7 @@ static Bool32   leo_init_evn_prn=FALSE,
 static Bool32   leo_init_net_ndx=FALSE,
                 leo_init_r35_ndx=FALSE;
 
-Int32  leo_typ_of_font = LEO_FONT_NONE, leo_MSK_ndx[3]={0};
+int32_t  leo_typ_of_font = LEO_FONT_NONE, leo_MSK_ndx[3]={0};
 int nNdxWid , nNdxHei;
 Bool32  no_init_ndx=TRUE, no_init_hnd=TRUE,  no_init_prn=TRUE;
 Word8 nIsPrint=0;
@@ -135,10 +135,10 @@ static   Bool32 leo_enable=TRUE;
 int set_cpu=0;
 extern Word8 leo_alpha_type, prn_roma_regim;
 extern unsigned char alphabet[256];
-extern Int32 leo_stick_nose_1;
+extern int32_t leo_stick_nose_1;
 
 ///
-LEO_FUNC(Int32)   LEO_Str2FldNo(Int32  str_no)
+LEO_FUNC(int32_t)   LEO_Str2FldNo(int32_t  str_no)
 {
 if( str_no>=MAX_FIELDS || str_no<=0 )
    return -1;
@@ -161,7 +161,7 @@ if( (stnCharRecog->Status&(STN_STOP | STN_DRAW)) )
     return;
 }
 
-Bool32 leoSnpInRect( Rect16* pRect, Int32 nSkew )
+Bool32 leoSnpInRect( Rect16* pRect, int32_t nSkew )
 {
    Point16 pt;
    if (!SnpIsActive())
@@ -307,7 +307,7 @@ return;
 }
 /////////////////////////////////////////////////////////////////
 
-LEO_FUNC(void) LEOSetPlatform(Int32 cpu)
+LEO_FUNC(void) LEOSetPlatform(int32_t cpu)
 {
 R35SetPlatform(cpu);
 MSKSetPlatform(cpu);
@@ -315,7 +315,7 @@ set_cpu=cpu?cpu:1;
 return;
 }
 
-LEO_FUNC(Int32) LEOGetCPU(void)
+LEO_FUNC(int32_t) LEOGetCPU(void)
 {
 #ifdef PC_TYPE
 	return GetCPUName();
@@ -408,7 +408,7 @@ return TRUE;
 
 LEO_FUNC(Bool32)  LEOInit( MemFunc* mem )
 {
-Int32   i;
+int32_t   i;
 leo_is_load = TRUE;
 leo_enable_fon_recog=FALSE;
 LEO_error_code=ER_LEO_NO_ERROR;
@@ -467,7 +467,7 @@ return;
 
 LEO_FUNC(void)  LEOFreeAlphabets(void)
 {
-Int32 i;
+int32_t i;
 for(i=0;i<256;i++)
     {
     if( leo_alpha_reg[i] )
@@ -522,7 +522,7 @@ leo_close_cont_temp();
 return ;
 }
 
-LEO_FUNC(Int32) LEOOpenCont(void)
+LEO_FUNC(int32_t) LEOOpenCont(void)
 {
 return leo_open_cont_temp();
 }
@@ -574,7 +574,7 @@ return LEOSetAlphabet( al );
 
 Word8 leo_register_alphabet(char alphabet[])
 {
-Int32 i;
+int32_t i;
 
 for(i=1;i<=leo_alpha_count;i++)
     {
@@ -674,7 +674,7 @@ if( nIsPrint )
 return TRUE;
 }
 
-LEO_FUNC(void) LEOSetFont( Int32 typ_of_font)
+LEO_FUNC(void) LEOSetFont( int32_t typ_of_font)
 {
 leo_typ_of_font = typ_of_font;
 DIFSetFont( typ_of_font);
@@ -746,7 +746,7 @@ LEO_FUNC( void   )      LEORegisterSnpTree(
 
 
 
-LEO_FUNC(char *) LEOGetMetName(Int32 method, char *met_name)
+LEO_FUNC(char *) LEOGetMetName(int32_t method, char *met_name)
 {
 switch( method )
     {
@@ -1033,7 +1033,7 @@ return (fon->Alt[0].Prob-fon->Alt[1].Prob<5);
 
 static void data2RecVersions( Word8 *data, RecVersions *ver)
 {
-Int32 k;
+int32_t k;
 ver->lnAltCnt        = data[16];
 ver->Alt[0].Code     = data[3];
 ver->Alt[0].Prob     = data[14];
@@ -1048,7 +1048,7 @@ return;
 }
 static void RecVersions2data(  RecVersions *ver, Word8 *data)
 {
-Int32 k;
+int32_t k;
  data[16]= (Word8)ver->lnAltCnt;
  data[3] = ver->Alt[0].Code    ;
  data[14]= ver->Alt[0].Prob    ;
@@ -1150,7 +1150,7 @@ Word8		data[CTB_DATA_SIZE], let;
 RecVersions ver={0}, old={0};
 FontInfo	fontinfo;
 Bool32		enable_let, enable_correct_case, local_snap;
-Int32		old_case ;
+int32_t		old_case ;
 FonSpecInfo specInfo = {0};
 Rect16		r16;
 
@@ -1403,7 +1403,7 @@ Word8       nLns;
 Rect16      rect;
 Word8       IsPrint;
 Word8       data[CTB_DATA_SIZE],ltr,prb, vld;
-Int32       id_page = LEO_CONT_STD_PAGE_ID, i;
+int32_t       id_page = LEO_CONT_STD_PAGE_ID, i;
 
 LEO_error_code=ER_LEO_NO_ERROR;
 if(!leo_enable_stored)
@@ -1578,7 +1578,7 @@ if(!leo_enable_stored)
 return  leo_cont_store(r,let, nLns, rect, IsPrint, Prob, Valid, Res,LEO_CONTROL_NONE);
 }
 
-LEO_FUNC(Int32)     LEO_GetGlobalIncline(void)
+LEO_FUNC(int32_t)     LEO_GetGlobalIncline(void)
 {
 return leo_get_global_incline();
 }
@@ -1640,17 +1640,17 @@ LEO_FUNC(Bool32)  LEORecogChar_expert(RecObject*  object)
     return FALSE;
 }
 
-LEO_FUNC(Bool32)  LEORecogId_expert(Int32 id_page,RecVersions *exp)
+LEO_FUNC(Bool32)  LEORecogId_expert(int32_t id_page,RecVersions *exp)
 {
     return FALSE;
 }
 
-LEO_FUNC(Bool32)  LEORecogId_Char(Int32 id_page, RecVersions *resin, RecVersions *resout)
+LEO_FUNC(Bool32)  LEORecogId_Char(int32_t id_page, RecVersions *resin, RecVersions *resout)
 {
     return FALSE;
 }
 
-LEO_FUNC(Bool32)  LEOValidId_Char(Int32 id_page, RecVersions *resin, RecVersions *resout)
+LEO_FUNC(Bool32)  LEOValidId_Char(int32_t id_page, RecVersions *resin, RecVersions *resout)
 {
     return FALSE;
 }

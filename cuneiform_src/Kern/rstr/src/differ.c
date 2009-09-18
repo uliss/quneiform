@@ -924,10 +924,10 @@ static void dif_j_i_bottom_accent(cell *c1 )
  int      lastUp,lastDn;
  BYTE     let;
  Word8    goodLet,badLet;
- Int32    isLeft, isRight;
- Int32    leftMin, rightMax;
- Int32    leftJump, rightJump;
- Int32    leftPerekladina;
+ int32_t    isLeft, isRight;
+ int32_t    leftMin, rightMax;
+ int32_t    leftJump, rightJump;
+ int32_t    leftPerekladina;
 
   if( language != LANG_LITHUANIAN )
  	 return;

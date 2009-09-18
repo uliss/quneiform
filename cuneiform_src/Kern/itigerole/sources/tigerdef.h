@@ -144,7 +144,7 @@ long	_EnumFormats(long prev);
 long	_EnumCodes(long format,long prev);
 BOOL	_GetRotateDIB(long * phDIB, long * x0, long * y0);
 void	_RenameImageName(char * FileName);
-Word32	_SaveToMemory(Handle hEdPage, Int32 format, Int32 code, char * lpMem, Word32 size );
+Word32	_SaveToMemory(Handle hEdPage, int32_t format, int32_t code, char * lpMem, Word32 size );
 
 
 

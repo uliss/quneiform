@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include "sjtl.h"
 
 char    global_buf[64000];  // OLEG fot Consistent
-Int32   global_buf_len=0;   // OLEG fot Consistent
+int32_t   global_buf_len=0;   // OLEG fot Consistent
 
 #ifdef _USE_REF_    // Nick 23.05.2001
  #include "ref.h"
@@ -78,7 +78,7 @@ Int32   global_buf_len=0;   // OLEG fot Consistent
 
 #ifdef _DEBUG
 #pragma warning(disable:4273)
-Bool32 PUMA_Save(Handle hEdPage, const char * lpOutFileName, Int32 lnFormat, Int32 lnCode, Bool32 bAppend );
+Bool32 PUMA_Save(Handle hEdPage, const char * lpOutFileName, int32_t lnFormat, int32_t lnCode, Bool32 bAppend );
 #endif
 
 static Bool32 rblockProgressStep(Word32 perc)
@@ -148,7 +148,7 @@ static Bool32 RecognizeSetup(int language)
 //    opt.setup = &fsetup;
     opt.pageSkew2048 = info.Incline2048;//0
 //    setup.nResolutionY = info.DPIY;//300;
-    Int32 nResolutionY = info.DPIY;//300;
+    int32_t nResolutionY = info.DPIY;//300;
 //    fsetup.nMaxLetWidth = 127;
 //    fsetup.nMaxLetHeight = 64;
 //    fsetup.wFlags = FFS_PRINTED;
@@ -269,7 +269,7 @@ static Bool32 RecognizeStringsPass1(void)
 
 #ifdef _USE_REF_    // Nick 23.05.2001
 			{
-             Int32 numFind = 0;
+             int32_t numFind = 0;
 			 REF_findEtaz(lin_in, lin_out, &numFind);
                // есть формулы ?
 			 if( numFind > 0 )
@@ -566,16 +566,16 @@ Bool32 Recognize()
                         CSTR_SortFragm( 0 );
                         CSTR_line   ln;
                         CSTR_attr   attr;
-                        Int32       nf=CSTR_GetMaxFragment(0),i;
+                        int32_t       nf=CSTR_GetMaxFragment(0),i;
                         Handle      hBlock = CPAGE_GetBlockFirst(hCPAGE,TYPE_TEXT);
                         if( hBlock)
                         {
-                            Int32       *flagfrag;
-                            flagfrag=(Int32*)myAlloc(nf*sizeof(Int32));
+                            int32_t       *flagfrag;
+                            flagfrag=(int32_t*)myAlloc(nf*sizeof(int32_t));
 
                             if( flagfrag )
                             {
-                                memset(flagfrag,0,nf*sizeof(Int32));
+                                memset(flagfrag,0,nf*sizeof(int32_t));
                                 for (i=0; hBlock && i<nf ; i++)
                                 {
                                     //nunfrag[i]=CPAGE_GetBlockInterNum(hCPAGE,hBlock);

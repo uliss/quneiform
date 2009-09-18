@@ -252,21 +252,21 @@ extern "C" {
     DEC_FUN(bool,   PUMA_XClose, (void));
     DEC_FUN(Bool32, PUMA_XPageAnalysis, (void));
     DEC_FUN(bool,   PUMA_XFinalRecognition, (void));
-    DEC_FUN(Bool32, PUMA_XSave,(const char * lpOutFileName, Int32 lnFormat, Int32 lnCode ));
-    DEC_FUN(Int32,  PUMA_EnumLanguages,(Int32 nPrev ));
-    DEC_FUN(Int32,  PUMA_EnumFormats,(Int32 nPrev ));
-    DEC_FUN(Int32,  PUMA_EnumCodes,(Int32 format, Int32 nPrev ));
-    DEC_FUN(Int32,  PUMA_EnumFormatMode,(Int32 nPrev ));
-    DEC_FUN(Int32,  PUMA_EnumTable,(Int32 nPrev ));
-    DEC_FUN(Int32,  PUMA_EnumPicture,(Int32 nPrev ));
+    DEC_FUN(Bool32, PUMA_XSave,(const char * lpOutFileName, int32_t lnFormat, int32_t lnCode ));
+    DEC_FUN(int32_t,  PUMA_EnumLanguages,(int32_t nPrev ));
+    DEC_FUN(int32_t,  PUMA_EnumFormats,(int32_t nPrev ));
+    DEC_FUN(int32_t,  PUMA_EnumCodes,(int32_t format, int32_t nPrev ));
+    DEC_FUN(int32_t,  PUMA_EnumFormatMode,(int32_t nPrev ));
+    DEC_FUN(int32_t,  PUMA_EnumTable,(int32_t nPrev ));
+    DEC_FUN(int32_t,  PUMA_EnumPicture,(int32_t nPrev ));
     DEC_FUN(Bool32, PUMA_XGetRotateDIB,(void ** lpDIB, Point32 * p));
     DEC_FUN(void ,  PUMA_RenameImageName,(char * name));
     DEC_FUN(Bool32, PUMA_XSetTemplate,(Rect32 rect));
     DEC_FUN(Bool32, PUMA_XGetTemplate,(Rect32 *pRect));
-    DEC_FUN(Bool32, PUMA_Save,(Handle hEdPage, const char * lpOutFileName, Int32 lnFormat, Int32 lnCode, Bool32 bAppend ));
+    DEC_FUN(Bool32, PUMA_Save,(Handle hEdPage, const char * lpOutFileName, int32_t lnFormat, int32_t lnCode, Bool32 bAppend ));
     DEC_FUN(Bool32, PUMA_XOpenClbk,(PUMAIMAGECALLBACK CallBack,const char * lpFileName));
-    DEC_FUN(Word32, PUMA_SaveToMemory,(Handle hEdPage, Int32 lnFormat, Int32 lnCode, char * lpMem, Word32 size ));
-    DEC_FUN(void ,  PUMA_GetSpecialBuffer,(char * szResult,Int32 *nResultLength));
+    DEC_FUN(Word32, PUMA_SaveToMemory,(Handle hEdPage, int32_t lnFormat, int32_t lnCode, char * lpMem, Word32 size ));
+    DEC_FUN(void ,  PUMA_GetSpecialBuffer,(char * szResult,int32_t *nResultLength));
     DEC_FUN(Bool32, PUMA_SetSpecialProject,(Word8 nSpecPrj));
 
 #undef DEC_FUN

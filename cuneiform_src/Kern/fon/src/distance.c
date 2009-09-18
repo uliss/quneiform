@@ -801,7 +801,7 @@ SINT RecogClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
               RECRESULT *recres, SINT maxNames,
               welet *wl,int numWel,
               int porog ,int nInCTB, Int16 col, Int16 row,
-			  Int32 countRazmaz)
+			  int32_t countRazmaz)
 {
  int i;
  int rbyte=(xbit+7)>>3;

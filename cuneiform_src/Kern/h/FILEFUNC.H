@@ -61,8 +61,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       #include "globus.h"
    #endif
 
-   typedef Word32 (*FTFileRead)(  Int32 handle, void* /*buf*/, Word32 /*length*/ );
-   typedef Word32 (*FTFileWrite)( Int32 handle, void* /*buf*/, Word32 /*length*/ );
+   typedef Word32 (*FTFileRead)(  int32_t handle, void* /*buf*/, Word32 /*length*/ );
+   typedef Word32 (*FTFileWrite)( int32_t handle, void* /*buf*/, Word32 /*length*/ );
 
    typedef struct    tagFileFunc {
       FTFileRead     read;

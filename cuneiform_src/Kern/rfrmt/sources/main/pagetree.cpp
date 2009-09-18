@@ -2824,10 +2824,10 @@ void RtfUnionRect_CRect_CRect(tagRECT *s1,tagRECT *s2)
 
 void	RtfCalcRectSizeInTwips(tagRECT *s1, float Twips)
 {
- s1->left   = (Int32)(s1->left   * Twips);
- s1->right  = (Int32)(s1->right  * Twips);
- s1->top    = (Int32)(s1->top    * Twips);
- s1->bottom = (Int32)(s1->bottom * Twips);
+ s1->left   = (int32_t)(s1->left   * Twips);
+ s1->right  = (int32_t)(s1->right  * Twips);
+ s1->top    = (int32_t)(s1->top    * Twips);
+ s1->bottom = (int32_t)(s1->bottom * Twips);
 }
 
 //==Объединение пары рамок

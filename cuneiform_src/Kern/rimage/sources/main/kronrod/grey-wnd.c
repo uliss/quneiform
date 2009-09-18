@@ -158,8 +158,8 @@ void	mk_hist_WORD (WORD *Hist_WORD, LPBYTE p, WORD n);
 //extern  char    Main_Dir_Name [];   // H:\CUNEI  (see zB SCANTAB.C)
 /*----------------------------------------------------------------------*/
 							//VARIABLES
-Int32    Ln_hist;
-Int32	Korob_Files_Address;
+int32_t    Ln_hist;
+int32_t	Korob_Files_Address;
 
 WORD	I_to;		//current Line "TO"
 WORD    Itek;       //current Line "FROM"
@@ -210,7 +210,7 @@ BYTE	Diapazon_8, Porog_38, Porog_58, Porog_78;
 BYTE	Diapazon_16;
 //----------------------------------------------------------------------//
 char	mkText [199];					//ARRAYs
-Int32	Hist_tek [256], Hist_glad [256];
+int32_t	Hist_tek [256], Hist_glad [256];
 /*----------------------------------------------------------------------*/
 FILE	*mkFile_GREY_INI;					// FILES
 //////FILE	*mkFile_TEMP_IMG;	// defete 02.09.1992
@@ -238,7 +238,7 @@ Int16	Korob_x, Korob_y;
 BYTE	Korob_porog;
 /*----------------------------------------------------------------------*/
 WORD	N_Korob;					// KOROBS STATISTIC
-Int32	LS_Korobs, LSH_Korobs, LSL_Korobs, LNgrey16, LNgreyD8, LNgrey08;
+int32_t	LS_Korobs, LSH_Korobs, LSL_Korobs, LNgrey16, LNgreyD8, LNgrey08;
 /*----------------------------------------------------------------------*/
 	//  - - -   - X -   X X X   X X X   X - X   X X X   - X X   X X X
 	//  - X -   X X -   -   X   - - X   X - X   X - -   X - -   - - X
@@ -332,7 +332,7 @@ char	buf [888];
 	return;
 
 	n = fread (buf, 1, 888, mkFile_GREY_INI);
-	if (n>=888)  PR_BEG "GREY.INI too Int32 [%d]", n);	PR_END
+	if (n>=888)  PR_BEG "GREY.INI too int32_t [%d]", n);	PR_END
 	for (k=1; k<n; k++)  {
 	    b1 = buf [k - 1];
 	    b2 = buf [k];
@@ -725,7 +725,7 @@ Int16	nDL, nD, nDR;
 Int16	k_plan;
 BYTE	b, mask_left, mask;
 BYTE	here_Laplas, here_Plan, here_Hor, here_Vert;
-Int32	L_kp_D8;
+int32_t	L_kp_D8;
 LPBYTE	pkuda_beg, pkuda;
 LPBYTE	pU, pC, pD;		// Up, Centre, Down
 
@@ -1081,7 +1081,7 @@ WORD	Hist_WORD [256];
 /*----------------------------------------------------------------------*/
 void	hist_glad_8_121 ()	{			// 26.08.1992
 Int16	k, n;
-Int32	LnL, LnC, LnR;
+int32_t	LnL, LnC, LnR;
 	for (k=0; k<256; k++)  Hist_glad [k] = Hist_tek [k];
 
 	for (n=0; n<8; n++)  {	/* 8 times Swertka with Binom 121 */
@@ -1114,8 +1114,8 @@ void	hist_MIN_MAX ()	{				// 27.09.1992
 		/*юддддддддддддддддддддддддддддддддддддддддддддддддддддды*/
 Int16	k;
 Int16	KmaxL, KmaxR;
-Int32	Ln, LmaxL, LmaxR, Lporog_34;	////// Lporog_2, Lporog_4;
-Int32	L_incr_2, Lporog_MM, Lporog_MMx2;
+int32_t	Ln, LmaxL, LmaxR, Lporog_34;	////// Lporog_2, Lporog_4;
+int32_t	L_incr_2, Lporog_MM, Lporog_MMx2;
 /*......................................................................*/
 		/*зддддддддддддддддддддддддддддддддддддддддддддддддддддд©*/
 		/*Ё maxR - right max: move from FF to left side, find	Ё*/
@@ -1554,7 +1554,7 @@ void	Korob_calc_Factor ()	{			// 07.09.1992
 			/*	Var-1: spec.work for RIGHT & DOWN !!!	*/
 			/*	Var-2: all black Border is diff !!!!!!	*/
 			/* porog: HAND - par_W;  AUTO - Porog_12;	*/
-Int32	LNblack, LNdiff, LNinter;
+int32_t	LNblack, LNdiff, LNinter;
 WORD	i1,i2, j1,nj, nj_1;
 WORD	i, j;
 BYTE	por_tek;
@@ -1819,7 +1819,7 @@ Int16	nC, nL, nR;
 Int16	por_tek;
 LPBYTE	pC;
 /*......................................................................*/
-	LS_Korobs += (Korob_i2 - Korob_i1 + 1) * (Int32) Korob_nj;
+	LS_Korobs += (Korob_i2 - Korob_i1 + 1) * (int32_t) Korob_nj;
 	LSH_Korobs += (Korob_i2 - Korob_i1 + 1);
 	LSL_Korobs += Korob_nj;
 /*......................................................................*/
@@ -1853,7 +1853,7 @@ PR_END
 /*----------------------------------------------------------------------*/
 void	Korob_statistic_print ()	{		// 11.09.1992
 WORD	percent;
-	percent = (WORD) (LS_Korobs * 100L / (NI * (Int32) NJ));
+	percent = (WORD) (LS_Korobs * 100L / (NI * (int32_t) NJ));
 PR_BEG	"%d Korobs;  S=%ld (%d)\n"
 	"SH=%ld SL=%ld\n"
 	"Ngrey: 16)%ld  D8)%ld  08)%ld",

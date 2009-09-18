@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*---------------------------------------------------------------------------*/
 typedef struct tagTEXT_SKEW
 {
-	Int32   Skew;
+	int32_t   Skew;
 	double  LentRow;
 	double  NumbRow;
 } TEXT_SKEW;
@@ -72,19 +72,19 @@ typedef struct tagTRIP_SKEW
 
 typedef struct tagINV_SKEW
 {
-	Int32   SkewHorLin;
+	int32_t   SkewHorLin;
 	double  WeigHorLin;
-	Int32   SkewVerLin;
+	int32_t   SkewVerLin;
 	double  WeigVerLin;
 	TRIP_SKEW Hor;
 	TRIP_SKEW Ver;
 } INV_SKEW;
 /*---------------------------------------------------------------------------*/
 //установить разрешение по X. Возвращает предыдущее значение /tanya
-Int32 SMetric_SetResolX(Int32 size);
+int32_t SMetric_SetResolX(int32_t size);
 //получить разрешение по X /tanya
-Int32 SMetric_GetResolX();
+int32_t SMetric_GetResolX();
 //установить разрешение по Y. Возвращает предыдущее значение /tanya
-Int32 SMetric_SetResolY(Int32 size);
+int32_t SMetric_SetResolY(int32_t size);
 //получить разрешение по Y /tanya
-Int32 SMetric_GetResolY();
+int32_t SMetric_GetResolY();

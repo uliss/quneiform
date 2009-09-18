@@ -145,7 +145,7 @@ public:
 	void * GetEdPool(void) { return (void *) mpEdBuffer; };
 	void * GetEdOutPool(void) { return (void *) mpEdOutBuffer; };
 	Word32 GetEdPoolSize(void) { return mpEdFileEnd - mpEdBuffer; };
-	Bool32 ExcludeToVers(Int32 size, PChar8 pStr);
+	Bool32 ExcludeToVers(int32_t size, PChar8 pStr);
 	Bool32 AddWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage);
 	Bool32 MakeWord(CSTR_rast b, CSTR_rast e,PWord8 Language);
 	void   Init();
@@ -156,7 +156,7 @@ protected:
 	Bool32 mbReadyToAdd;
 	Rect16 mEdRect[CRL_ED_RECT_ARRAY_SIZE];
 	RecVersions mEdVers[CRL_ED_VERS_ARRAY_SIZE];
-	Int32 miEdNVers;
+	int32_t miEdNVers;
 	Handle mhEdOutBuffer;
 	Handle mhEdBuffer;
 	PWord8 mpEdFileBound;

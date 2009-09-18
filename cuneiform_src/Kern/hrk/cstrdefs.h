@@ -76,13 +76,13 @@ typedef struct tagCSTR_stick
 
 typedef struct strucCSTR_attr{
 
-    Int32  incline              ;   // Incline*2048 = tg
-    Int32  fragment             ;
+    int32_t  incline              ;   // Incline*2048 = tg
+    int32_t  fragment             ;
     Int16  col, row             ;
     Int16  r_col, r_row     ;
     Int16  r_hei, r_wid     ;
     Int16  l_col, l_row     ;
-    Int32  wid, hei             ;
+    int32_t  wid, hei             ;
 // 32
     Word32 Flags            ;
 #define CSTR_STR_No              0x00000000
@@ -125,8 +125,8 @@ typedef struct strucCSTR_attr{
     Int16  agregat;
     Int16  tab_column;
 // 112
-    Int32       number                      ;
-    Int32       version                     ;
+    int32_t       number                      ;
+    int32_t       version                     ;
 // 120
     Word8       colors[4]                   ;
 // 124
@@ -298,7 +298,7 @@ typedef struct strucCSTR_rast_attr{
     Int16   clink               ; // link to cluster
     Word16  clu_attr            ; // cluster attributes
 //// 80
-    Int32   ColorLtr, ColorBack ; // colors of letters and background
+    int32_t   ColorLtr, ColorBack ; // colors of letters and background
 //// 88
     Word16   flg;  // flag of cell
 #define CSTR_f_no           0   // not init
@@ -360,8 +360,8 @@ typedef struct strucCSTR_cell{
     struct strucCSTR_cell * prev       ;
     struct strucCSTR_cell * dup        ;
     Word8                 * recRaster  ;
-    Int32                   lnPixWidth ;
-    Int32                   lnPixHeight;
+    int32_t                   lnPixWidth ;
+    int32_t                   lnPixHeight;
     CCOM_comp             * env        ;
     struct strucCSTR_cell * complist   ;
     UniVersions           * vers       ;
@@ -383,8 +383,8 @@ Word32      Properties          ;
 #define CSTR_LN_FICT        0x00000001
 
 
-Int32       number                      ;
-Int32       version                     ;
+int32_t       number                      ;
+int32_t       version                     ;
 CSTR_cell   first               ;
 CSTR_cell   last                ;
 struct _strucCSTR_head  *prev, *next,*next_fragm_line;
@@ -401,7 +401,7 @@ struct _strucCSTR_head  *prev, *next,*next_fragm_line;
 typedef struct strucCSTR_cell * CSTR_rast;
 #else
 
-typedef Int32 CSTR_rast;
+typedef int32_t CSTR_rast;
 #endif
 
 #define CSTR_ANSI_CHARSET            0

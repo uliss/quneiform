@@ -278,8 +278,8 @@ void  free_t(void *ptr, Word32 size);
 void* malloc_t(Word32 size);
 void* malloc_u(Word32 size);
 void  free_u(void *ptr, Word32 size);
-void  ProjectRect1024(Rect16 *r,Int32 Skew1024);
-void ProjectPoint1024(Point16 *r,Int32 Skew1024);
+void  ProjectRect1024(Rect16 *r,int32_t Skew1024);
+void ProjectPoint1024(Point16 *r,int32_t Skew1024);
 void  ProjectPoint(Point16 *r,float tg_ang);
 Bool16 GetScanRes_LenPrs(char *ImageName);
 

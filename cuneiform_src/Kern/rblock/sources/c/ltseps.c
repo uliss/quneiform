@@ -95,7 +95,7 @@ int nSeps       = 0;
 # ifdef LT_STAND_ALONE
 Bool32 DeleteSeps (int n)
 {
-	Int32 i;
+	int32_t i;
 
 	for (i = n; i < nSeps-1; i++)
 	{
@@ -128,7 +128,7 @@ void SeparatorsGet (void)
 	Word32 key;
 	Word32 color;
 
-	Int32 nPics;
+	int32_t nPics;
 	POLY_  *pPics;
 //	extern Handle hUseCLine;
     Word32 size_line_com=sizeof(LINE_COM);

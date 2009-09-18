@@ -99,10 +99,10 @@ TRasterBambuk( TSegBambuk* sb, BHandle max_dashes, BEntry max_rasters ):
 	};
 
 Bool isOk( void ) { return (TBambuk< TDash >::isOk() && ok); };
-Int32 totalRasterCount( void ) { return (count); };
+int32_t totalRasterCount( void ) { return (count); };
 	private:
-      Int32 count;     // result count of rasters
-      Int32 nextRasterEntry;
+      int32_t count;     // result count of rasters
+      int32_t nextRasterEntry;
       Bool ok;
       Bool makeIt( TSegBambuk* sb );
 

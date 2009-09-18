@@ -82,12 +82,12 @@ Bool32      gbFax100 = FALSE;
 Bool32      gbGarbage = TRUE;
 Int8*       sp_err="no spell errors";
 // from COR_SPEL.C
-Bool32 correct_line_spell(CSTR_line line, CSTR_rast* re, CSTR_rast* rb, Int32 line_num,
-						  Bool32 disable_new_dict, Bool32 disable_check_word, Int32* rf);
+Bool32 correct_line_spell(CSTR_line line, CSTR_rast* re, CSTR_rast* rb, int32_t line_num,
+						  Bool32 disable_new_dict, Bool32 disable_check_word, int32_t* rf);
 
 extern Bool32   rpstr_correct_spell(CSTR_line ln,
-    CSTR_rast *addbeg, CSTR_rast *addend, Int32 *linefrag,
-    Int32 num_ln,Bool32 disable_new_dict, Bool32 disable_check_word);
+    CSTR_rast *addbeg, CSTR_rast *addend, int32_t *linefrag,
+    int32_t num_ln,Bool32 disable_new_dict, Bool32 disable_check_word);
 extern Bool32 rpstr_txt_spell(char * s,Word8 lang);
 
 extern int Snap_Console(char *text);;
@@ -311,18 +311,18 @@ exit_enable = FALSE;
 return TRUE;
 }
 
-//Bool32 CorrectKegl(Int32 version);
+//Bool32 CorrectKegl(int32_t version);
 
-//RPSTR_FUNC(Bool32) RPSTR_CorrectKegl(Int32 version)
+//RPSTR_FUNC(Bool32) RPSTR_CorrectKegl(int32_t version)
 //{
 //  return CorrectKegl(version);
 //}
 
 
 
-RPSTR_FUNC(Bool32) RPSTR_CorrectIncline(Int32 version)
+RPSTR_FUNC(Bool32) RPSTR_CorrectIncline(int32_t version)
 {
-Int32   n=CSTR_GetMaxFragment(version),i;
+int32_t   n=CSTR_GetMaxFragment(version),i;
 for(i=0;i<=n;i++)
     {
     if( !incl_test_fragment(version,i) )
@@ -333,8 +333,8 @@ for(i=0;i<=n;i++)
 return TRUE;
 }
 
-Bool32 correct_line_spell(CSTR_line line, CSTR_rast* re, CSTR_rast* rb, Int32 line_num,
-						  Bool32 disable_new_dict, Bool32 disable_check_word, Int32* rf)
+Bool32 correct_line_spell(CSTR_line line, CSTR_rast* re, CSTR_rast* rb, int32_t line_num,
+						  Bool32 disable_new_dict, Bool32 disable_check_word, int32_t* rf)
 {
 	char            snapstr[256];
 //	CSTR_attr       lattr;
@@ -382,11 +382,11 @@ Bool32 correct_line_spell(CSTR_line line, CSTR_rast* re, CSTR_rast* rb, Int32 li
 	return TRUE;
 }
 
-RPSTR_FUNC(Bool32) RPSTR_CorrectLineSpell(CSTR_line line, Int32 line_num, CSTR_rast* re, CSTR_rast* rb, Int32* rf)
+RPSTR_FUNC(Bool32) RPSTR_CorrectLineSpell(CSTR_line line, int32_t line_num, CSTR_rast* re, CSTR_rast* rb, int32_t* rf)
 {
 //	CSTR_rast re=(CSTR_rast)0;
 //	CSTR_rast rb=(CSTR_rast)0;
-//	Int32 rf = -1;
+//	int32_t rf = -1;
 	Bool32 disable_new_dict=FALSE, disable_check_word=FALSE;
 
 	exit_enable = FALSE;
@@ -415,9 +415,9 @@ RPSTR_FUNC(Bool32) RPSTR_CorrectLineSpell(CSTR_line line, Int32 line_num, CSTR_r
 	return TRUE;
 }
 
-RPSTR_FUNC(Bool32) RPSTR_CorrectSpell(Int32 version)
+RPSTR_FUNC(Bool32) RPSTR_CorrectSpell(int32_t version)
 {
-Int32           n,  i, rf=-1;
+int32_t           n,  i, rf=-1;
 CSTR_line       line;
 //char            snapstr[256];
 CSTR_rast       rb=(CSTR_rast)0, re=(CSTR_rast)0;
@@ -498,9 +498,9 @@ if( !LDPUMA_SkipEx(hSnapSpell,TRUE,TRUE,1) )
 return TRUE;
 }
 
-RPSTR_FUNC(Bool32) RPSTR_CollectCapDrops(Int32 version)
+RPSTR_FUNC(Bool32) RPSTR_CollectCapDrops(int32_t version)
 {
-Int32   n=CSTR_GetMaxFragment(version),i;
+int32_t   n=CSTR_GetMaxFragment(version),i;
 CSTR_line   ln_cd, ln_main;
 if( !LDPUMA_SkipEx(hSnapCapDrop,FALSE,FALSE,0)  )
     return FALSE;
@@ -518,7 +518,7 @@ RPSTR_FUNC(Bool32) RPSTR_GetExportData(Word32 dwType, void * pData)
 {
 	Bool32 rc = TRUE;
   #define RPSTR_VERSION_CODE 1
-    Int32  vers = RPSTR_VERSION_CODE;
+    int32_t  vers = RPSTR_VERSION_CODE;
 #define EXPORT(name) *(Word32*)(pData)=(Word32)name;
   wLowRC = RPSTR_ERR_NO;
 	switch(dwType)

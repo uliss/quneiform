@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 typedef unsigned char       Word8;
 typedef unsigned short int  Word16;
 typedef short int           Int16;
-typedef int                 Int32;
+typedef int                 int32_t;
 typedef int                 Bool32;
 #endif
 
@@ -182,7 +182,7 @@ typedef struct 	{
     Int16 version;          // version number
     Int16 size_x, size_y;   // frame sizes
     Word8 dot_per_byte;
-    Int32 volume;           // number of images
+    int32_t volume;           // number of images
     Word8 signums;          // special bits
     Word8 need_compress;    // need_comp-bit 1, sort -2
     Word8 attr_size;        // num of attributes
@@ -261,8 +261,8 @@ typedef FILE*          FFILE;
 
 typedef struct 	{
 	FFILE  bas,ndx;       // file desriptions
-    Int32  num;           // number of images
-    Int32  len;           // length of binary frame
+    int32_t  num;           // number of images
+    int32_t  len;           // length of binary frame
     Int16  type;          // type : sizes & resolution
     Int16  width,height,colors,version,dpb;
     Word8  signums;       // global attributes

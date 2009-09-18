@@ -63,7 +63,7 @@ MN * main_number_ptr;
 BOX * boxchain, *dl_last_in_chain;
 c_comp wcomp;
 Word8 work_raster[2048*32], work_raster_1[2048*32];
-Int32 sz_work_raster=sizeof(work_raster), sz_work_raster_1=sizeof(work_raster_1);
+int32_t sz_work_raster=sizeof(work_raster), sz_work_raster_1=sizeof(work_raster_1);
 struct main_memory_str Q;
 version * start_rec, *rec_ptr;
 //BYTE string[8192]; // 20.01.97 19:15

@@ -86,13 +86,13 @@ typedef struct tagROW_STRUCT
 }	ROW_STRUCT;
 
 //////
-Int16 stat_Mode_diff_b2_b3(Int32 line_number, Int16 diff, Int16 fl_b2_or_b1);
-Int16 stat_Mode_diff_b2_b1(Int32 line_number, Int16 diff_b3_b2);
-Int16 stat_Mode_diff_b3_b4(Int32 line_number, Int16 diff_b3_b2);
+Int16 stat_Mode_diff_b2_b3(int32_t line_number, Int16 diff, Int16 fl_b2_or_b1);
+Int16 stat_Mode_diff_b2_b1(int32_t line_number, Int16 diff_b3_b2);
+Int16 stat_Mode_diff_b3_b4(int32_t line_number, Int16 diff_b3_b2);
 //////
 
 //////
-Int16 stat_Hypothesis(Int32 line_number, Int16 diff_b3_bsl);
+Int16 stat_Hypothesis(int32_t line_number, Int16 diff_b3_bsl);
 //////
 
 //////
@@ -126,7 +126,7 @@ BOOL  stat_control_semilevel(CSTR_line line, Int16 ln_row, Int16 b4);
 
 //////
 void stat_FormArrays(CSTR_line line, Int16 row, Int16 *pY1Arr, Int16 *pY2Arr);
-BOOL stat_FormCSTR_attrArray(Int32 line_start, Int32 line_stop, CSTR_attr *pCSTR_attrArr);
+BOOL stat_FormCSTR_attrArray(int32_t line_start, int32_t line_stop, CSTR_attr *pCSTR_attrArr);
 Int16 stat_LineLength(CSTR_line line);
 //////
 

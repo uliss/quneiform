@@ -274,10 +274,10 @@ Bool32 CRIBinarizator::OnBinarizator()
 Bool32 CRIBinarizator::OnBinarizeLoop()
 {
 	Bool32 bRet = FALSE;
-	Int32  i;
+	int32_t  i;
 	PWord8 pLALine;
-	Int32 NumberBWLines = 0;
-	Int32 CurGreyLine = 0;
+	int32_t NumberBWLines = 0;
+	int32_t CurGreyLine = 0;
 	Word32  nLines = mpOutcomeDIB->GetLinesNumber();
 
 	/////////////////////////////////////////////////////////////////////////
@@ -297,7 +297,7 @@ Bool32 CRIBinarizator::OnBinarizeLoop()
 		}
 		while ( mpDezaBinarizator->GetBinarized(pLALine, (Word16)(mpOutcomeDIB->GetUsedLineWidthInBytes())) );          // was Outcome
 
-		bRet = ( i == ( (Int32)nLines + 1 ) );
+		bRet = ( i == ( (int32_t)nLines + 1 ) );
 		break;
 	// Kranrod line binarize///////////////////////////////////////
 	case CTBIN_KRONROD:
@@ -306,7 +306,7 @@ Bool32 CRIBinarizator::OnBinarizeLoop()
 
 		mpProgressor->Start();
 
-		while (  i < (Int32)nLines )
+		while (  i < (int32_t)nLines )
 		{
 			pLALine = (PWord8)mpOutcomeDIB->GetPtrToLine(i++);
 
@@ -376,10 +376,10 @@ Int16 CRIBinarizator::KronrodImageRead(PWord8 lpImage, Int16 fstLine, Int16 nLin
 	if ( !mpKronrodBinarizator )
 		return FALSE;
 	*/
-	return (Int16)KronrodImageRead(lpImage, (Int32)fstLine, (Int32)nLines );
+	return (Int16)KronrodImageRead(lpImage, (int32_t)fstLine, (int32_t)nLines );
 }
 
-Int32 CRIBinarizator::KronrodImageRead(PWord8 lpImage, Int32 fstLine, Int32 nLines)
+int32_t CRIBinarizator::KronrodImageRead(PWord8 lpImage, int32_t fstLine, int32_t nLines)
 {
 	Word32 i;
 	Word32 j;

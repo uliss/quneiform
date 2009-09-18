@@ -111,13 +111,13 @@ struct CLineImage
 */
 struct DOT_STRUCT
  {
-  Int32 left;
-  Int32 right;
-  Int32 top;
-  Int32 bottom;
-  Int32 i_left;
-  Int32 i_top;
-  Int32 i_right;
+  int32_t left;
+  int32_t right;
+  int32_t top;
+  int32_t bottom;
+  int32_t i_left;
+  int32_t i_top;
+  int32_t i_right;
   BOOL  flag;
  };
 /*
@@ -138,13 +138,13 @@ typedef struct group_lines_mass
     CLINE_handle* hLinesMass;
     int           numder_of_lines;
     int           number_of_cp;
-    Int32*        m_arCutPointsL;
-    Int32*        m_arCutPointsR;
-    Int32*        m_arFrequency;
-    Int32         m_top;
-    Int32         m_bottom;
-    Int32         GroupOffset;
-    Int32         GroupVerOffset;
+    int32_t*        m_arCutPointsL;
+    int32_t*        m_arCutPointsR;
+    int32_t*        m_arFrequency;
+    int32_t         m_top;
+    int32_t         m_bottom;
+    int32_t         GroupOffset;
+    int32_t         GroupVerOffset;
 } GLM;
 
 /////////////////////////////////////////////////////////////////////////////
@@ -155,8 +155,8 @@ public:
   CInterval(){}
  ~CInterval(){}
 
-  Int32  Pos;
-  Int32  Lent;
+  int32_t  Pos;
+  int32_t  Lent;
 };
 */
 /////////////////////////////////////////////////////////////////////////////
@@ -182,9 +182,9 @@ public:
 
   Bool            Hori;                    //гориз.(1) или вертик.(0)
   Bool            Increase;                //наращивать или уменьшать уровень
-  Int32           Lev_0;                   //уровень первого интервала
+  int32_t           Lev_0;                   //уровень первого интервала
   int             Width;
-  Int32           EventLength;
+  int32_t           EventLength;
 
   CObArray        m_arIntervals;
 
@@ -203,7 +203,7 @@ public:
   CStripe();
  ~CStripe();
 
-  Int32           Level;                   //уровень полосы
+  int32_t           Level;                   //уровень полосы
 
   CObArray        m_arIntervals;
 
@@ -226,7 +226,7 @@ public:
  ~CCutPoint();
 
   int    Direction;
-  Int32  Level;                            //уровень полосы
+  int32_t  Level;                            //уровень полосы
 
   CObArray        m_arIntervals;
 
@@ -249,8 +249,8 @@ public:
  ~CComponent();
 
   int    CrossPointFlag;
-  Int32  BeginPoint;
-  Int32  EndPoint;
+  int32_t  BeginPoint;
+  int32_t  EndPoint;
 };
 */
 /////////////////////////////////////////////////////////////////////////////
@@ -307,7 +307,7 @@ RSHELLLINES_FUNC(void)            InitLine(DLine* linedata);  //
   Rect32          rect;                    // прямоугольник линии
   BOOL            ProcessingType;          // тип обработки линии(гор. или верт.)
   int             Width;
-  Int32           LineEventsLength;        // сумма черных точек линии
+  int32_t           LineEventsLength;        // сумма черных точек линии
   double          Degree;
   int             RelationshipIndex;       // индекс коробки компонент
   BOOL            FlagCalculatedWidth;
@@ -319,7 +319,7 @@ RSHELLLINES_FUNC(void)            InitLine(DLine* linedata);  //
 
   NR_SimpLine     Line;                    // простейшее описание линии
   NR_SimpLine     LineMid;                 // Средние точки линии
-  Int32           Status;                  // история линии в программе
+  int32_t           Status;                  // история линии в программе
   NORM_DATATYPES  Type;                    // *Unknown, *Simple, *Defis, *Pointed
   LINE_DIR        Dir;
   char            Qual;                    // quality (or estimation) at percents
@@ -373,14 +373,14 @@ RSHELLLINES_FUNC(Bool32)          CheckSeparationPoints(CLINE_handle hLine, CLIN
 
   void            SetSeparationPoints(CLINE_handle hContainer, CLINE_handle hLine, DLine* pCLine, Bool32 PLines); //
   void            SetCutPoints(CLINE_handle line, DLine* pCLine); //
-  void            SetNewLine(CLINE_handle hContainer, CPDLine pCLine, Int32 IntervalBeg, Int32 IntervalEnd, CLINE_handle hLineOld, Bool32 PossibleSymbolAboveLine); //
+  void            SetNewLine(CLINE_handle hContainer, CPDLine pCLine, int32_t IntervalBeg, int32_t IntervalEnd, CLINE_handle hLineOld, Bool32 PossibleSymbolAboveLine); //
   void            SetDegree(DLine* line); //
   BOOL            CheckPoint(CLINE_handle line, int CurPoint); //
 //  void            CheckShortVerticalLines(CPageLines* PLines);
-  void            ConvertStructs(CLINE_handle line, DLine* pCLine, Int32 nIncline); //
+  void            ConvertStructs(CLINE_handle line, DLine* pCLine, int32_t nIncline); //
   void            FindTailComponent(CLINE_handle line, DLine* pCLine); //
   void            GetCorrectLine_End_X(CLINE_handle line, DLine* pCLine); //
-  void            GetComponentBeg_Y_End_Y(Int32 Beg, Int32 End, Int32* Beg_X, Int32* End_X, Int32* Beg_Y, Int32* End_Y, CLINE_handle hLine, Bool32 ProcessingType); //
+  void            GetComponentBeg_Y_End_Y(int32_t Beg, int32_t End, int32_t* Beg_X, int32_t* End_X, int32_t* Beg_Y, int32_t* End_Y, CLINE_handle hLine, Bool32 ProcessingType); //
   Bool32          IfExistCutLine(CLINE_handle hContainer, DLine* pCLine, int left,int right); //
 /*  int             SetVStripeMasMaxSize(int size);
 };
@@ -466,7 +466,7 @@ public:
   CPRect32*                GetDotComp(int i);
   void                     DrowRectForDotComp(void);
 */
-  BOOL                     IsItNewLine(CLINE_handle hContainer, DLine* pLineCP, Int32 GroupVerOffset, Bool32 IfDrawResult); //
+  BOOL                     IsItNewLine(CLINE_handle hContainer, DLine* pLineCP, int32_t GroupVerOffset, Bool32 IfDrawResult); //
   BOOL                     CheckLinesForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
   BOOL                     CheckLinesImpositionForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
   BOOL                     CheckLinesDegreeForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
@@ -485,10 +485,10 @@ RSHELLLINES_FUNC(void)       DrawLosedVerticalLines(GLM* friendlinesmass, int Co
 RSHELLLINES_FUNC(void)       DrawBigComps(CLINE_handle hContainer); //
 
 RSHELLLINES_FUNC(void)       FindDotLines(Handle hCCOM,Handle hCPAGE, CLINE_handle hContainer); //
-  BOOL                     GetDotComps(Handle hCCOM,Handle hCPAGE, HANDLE &hbuf,LPSTR &pDotBuffer, Int32 *CountDotComps); //
-  void                     FindChains(Handle hCCOM, LPSTR &pDotBuffer, Int32 CountDotComps, CLINE_handle hContainer); //
-  void                     CheckChains(Handle hCCOM, LPSTR &pDotBuffer, Int32 BegIndex,Int32 CountDots, CLINE_handle hContainer); //
-  void                     AddNewDotLines(Handle hCCOM, LPSTR &pDotBuffer, Int32 CountDots, CLINE_handle hContainer); //
+  BOOL                     GetDotComps(Handle hCCOM,Handle hCPAGE, HANDLE &hbuf,LPSTR &pDotBuffer, int32_t *CountDotComps); //
+  void                     FindChains(Handle hCCOM, LPSTR &pDotBuffer, int32_t CountDotComps, CLINE_handle hContainer); //
+  void                     CheckChains(Handle hCCOM, LPSTR &pDotBuffer, int32_t BegIndex,int32_t CountDots, CLINE_handle hContainer); //
+  void                     AddNewDotLines(Handle hCCOM, LPSTR &pDotBuffer, int32_t CountDots, CLINE_handle hContainer); //
   void                     UnionBreakup(CLINE_handle hContainer); //
 
 RSHELLLINES_FUNC(void)       SetLinesAndCompsRelationship(CLINE_handle hContainer, CLINE_handle hFictContainer); //
@@ -504,8 +504,8 @@ RSHELLLINES_FUNC(Bool32) GetNextPartOfLine(CLINE_handle hContainer, CLINE_handle
 void                       AddLine2Group(GLM* hGroup, CLINE_handle hLine);
 RSHELLLINES_FUNC(void)      DeleteGroup(GLM* hGroup, int CountLines);
 RSHELLLINES_FUNC(void)      DrawFragsForAllLines(CLINE_handle hContainer, Handle hDebugDrawAllLineFragments);
-RSHELLLINES_FUNC(Int32)     CountBlackRaster(CPDLine pLine, CPDLine pLineExt, Bool32 IsHor, Int32 delta, Handle hDrawRaster);
-RSHELLLINES_FUNC(Bool32)    SetExtLines(CLINE_handle hExtContainer, CLINE_handle hContainer, CLINE_handle* hLinesMass, Int32 CountLines);
+RSHELLLINES_FUNC(int32_t)     CountBlackRaster(CPDLine pLine, CPDLine pLineExt, Bool32 IsHor, int32_t delta, Handle hDrawRaster);
+RSHELLLINES_FUNC(Bool32)    SetExtLines(CLINE_handle hExtContainer, CLINE_handle hContainer, CLINE_handle* hLinesMass, int32_t CountLines);
 RSHELLLINES_FUNC(Bool32)    RSL_CorrectDoubleLines(CLINE_handle hLine1, CLINE_handle hLine2);
 RSHELLLINES_FUNC(Bool32)    RSL_SplitLine(CLINE_handle hLine, CLINE_handle hContainer);
 
@@ -518,7 +518,7 @@ RSHELLLINES_FUNC(Bool32)    RSL_SplitLine(CLINE_handle hLine, CLINE_handle hCont
 
 #define MAX_CROSS_POINTS 4
 
-RSHELLLINES_FUNC(Int32)    RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, Word8 lang, Word8 debug_flags, Int32 *cross_point = NULL);
+RSHELLLINES_FUNC(int32_t)    RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, Word8 lang, Word8 debug_flags, int32_t *cross_point = NULL);
 RSHELLLINES_FUNC(Bool)  SL_GetRaster(Rect32* rect, Word8** ppData, PAGEINFO* page_info/*, CIMAGEBITMAPINFOHEADER* image_info*/); //
 
 

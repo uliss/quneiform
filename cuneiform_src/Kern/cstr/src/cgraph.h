@@ -102,15 +102,15 @@ typedef struct CGRAPH_FileData
 
 typedef struct ALoop
 {
-	Int32     n;
+	int32_t     n;
 	intptr_t *loop;
 } aloop;
 
 typedef struct LoopData
 {
-	Int32	beg;
-	Int32	end;
-	Int32	level;
-	Int32	loop;
+	int32_t	beg;
+	int32_t	end;
+	int32_t	level;
+	int32_t	loop;
 }ld;
 #endif

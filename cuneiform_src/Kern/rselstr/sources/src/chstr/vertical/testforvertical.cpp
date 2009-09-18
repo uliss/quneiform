@@ -61,10 +61,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rneg.h"
 
 
-extern Int32 my_top;
-extern Int32 my_left;
-extern Int32 my_right;
-extern Int32 my_bottom;
+extern int32_t my_top;
+extern int32_t my_left;
+extern int32_t my_right;
+extern int32_t my_bottom;
 
 extern int inf_let_h;
 extern int min_let_w;
@@ -677,7 +677,7 @@ BOOL AddToPrepList(CPrepHstr* temp)
  return TRUE;
 }
 
-Bool32 Filter(Int32 upper, Int32 left, Int32 w, Int32 h)
+Bool32 Filter(int32_t upper, int32_t left, int32_t w, int32_t h)
 {
 	if( (upper+(h>>1)<my_top) ||
 		(left+(w>>1)<my_left) ||

@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 
 
-Bool32 ConverROUT(char * lpOutFileName, Int32 lnFormat, Int32 lnCode,Bool32 bAppend)
+Bool32 ConverROUT(char * lpOutFileName, int32_t lnFormat, int32_t lnCode,Bool32 bAppend)
 {
 	char szName[260];
 	strcpy(szName,lpOutFileName);
@@ -139,7 +139,7 @@ Bool32 ConverROUT(char * lpOutFileName, Int32 lnFormat, Int32 lnCode,Bool32 bApp
 	return TRUE;
 }
 
-Word32 ConverROUTtoMemory(Handle hEd, Int32 lnFormat, Int32 lnCode, Byte * lpMem, Word32 size)
+Word32 ConverROUTtoMemory(Handle hEd, int32_t lnFormat, int32_t lnCode, Byte * lpMem, Word32 size)
 {
 Word32 rc = 0;
 	if (

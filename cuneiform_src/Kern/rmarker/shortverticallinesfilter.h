@@ -79,7 +79,7 @@ typedef struct tagPUMALinesBuffer
 Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Image );
 Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage Image);
 Bool32 SVLComponentFilter(LineInfo *Line, PRMPreProcessImage Image);
-Bool32 CompIsGood (CCOM_comp * pcomp, Int32 Filter);
+Bool32 CompIsGood (CCOM_comp * pcomp, int32_t Filter);
 Bool32 IsRectIntersect(Rect16 *A, Rect16 *B);
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //

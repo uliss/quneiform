@@ -150,7 +150,7 @@ void*   TigerReader::getLine(void)
 //   printf("\n[%d]\t", lines_counter);
 //#endif
       if (lines_count == 0)    // there is no lines in buf...
-      {  Int32 res = Tiger_Callback_ImageRead( (Word8*)line_buf, (BUF_LEN/wImageByteWidth)*wImageByteWidth ); // 03-09-94 01:45pm
+      {  int32_t res = Tiger_Callback_ImageRead( (Word8*)line_buf, (BUF_LEN/wImageByteWidth)*wImageByteWidth ); // 03-09-94 01:45pm
          lines_count = res / wImageByteWidth;
          if (lines_count == 0)
          {  assert(0);
@@ -160,7 +160,7 @@ void*   TigerReader::getLine(void)
          if (bFotoMetrics == 0x00)  // white is zero
 			{
 				#ifdef NO_ASM
-               register Int32* cur_dword = (Int32*)line_buf;
+               register int32_t* cur_dword = (int32_t*)line_buf;
                int ww16 = dword_len >> 4;
                while (ww16--)
                {
@@ -203,7 +203,7 @@ void*   TigerReader::getLine(void)
       ///////////////////////////////////////////////////////
 	  if (HBorder)       //*******Rom
       {  // kill hor border
-         Int32 num_short_segm = 0;
+         int32_t num_short_segm = 0;
          Word8* pp = (Word8*)res_line;
          int wi16 = wImageByteWidth >> 4;
          int wi   = wImageByteWidth & 15;
@@ -269,7 +269,7 @@ void*   TigerReader::getLine(void)
       if (wAddX)
       {
          Word8* pp = (Word8*)res_line;
-         Int32 skipbytes = wAddX >> 3;
+         int32_t skipbytes = wAddX >> 3;
          pp += skipbytes;
          res_line = pp;
       }

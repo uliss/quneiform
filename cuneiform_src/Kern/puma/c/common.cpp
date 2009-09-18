@@ -204,7 +204,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name)
 // Будет перенесено в RSource.dll
 Bool32  comp_over(CCOM_comp *sour,CCOM_comp *cur)
 {
-	Int32   le,ri,up,dn,w,h;
+	int32_t   le,ri,up,dn,w,h;
 
 	if( sour->left+sour->w<=cur->left || cur->left+cur->w<=sour->left )
 		return FALSE;
@@ -242,7 +242,7 @@ Bool32  comp_over(CCOM_comp *sour,CCOM_comp *cur)
 Bool32  remove_overlayed(CCOM_comp *sour,CCOM_handle haCCOM)
 {
 CCOM_comp   *cur=CCOM_GetFirst(haCCOM,NULL), *curn;
-Int32       over=0;
+int32_t       over=0;
 
 do  {
     curn=CCOM_GetNext(cur,NULL);
@@ -265,7 +265,7 @@ return (over>0);
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 // будет перенесено в RSource.dll
 // авторство принадлежит AlMi
-Bool32 MyGetZher (void **vvZher, Int32 *nZher, Int32 MaxZher, Handle hCPage)
+Bool32 MyGetZher (void **vvZher, int32_t *nZher, int32_t MaxZher, Handle hCPage)
 {
 	Word32 err32, nTeor, nReal;
 	Handle hBlockZher;
@@ -313,7 +313,7 @@ Bool32 RemoveLines(Handle hccom,Handle hcpage,PWord8 * lppDIB)
 	Bool32 rc = TRUE;
     hLinesCCOM = NULL;
     CCOM_comp   *victim[100];
-    Int32       nvict,i;
+    int32_t       nvict,i;
     Bool32      yes_victim = FALSE;
 //
 //	 Удалим линии
@@ -628,12 +628,12 @@ Bool32 PrintResult(int num,CSTR_line lout,Handle hCPAGE)
 	Bool32 italic = 0;
 	Bool32 strikeout = 0;
 	Bool32 underline = 0;
-	Int32 height = 0;
-	Int32 offset = 0;
+	int32_t height = 0;
+	int32_t offset = 0;
 	Word32 textcolor = 0;
 	int charset = RUSSIAN_CHARSET;
 	const char * name = NULL;
-	static Int32  nFragment = -1;
+	static int32_t  nFragment = -1;
 	static Word32 deftextcolor = 0;
 	Bool32 bOutputKegl = TRUE;
 

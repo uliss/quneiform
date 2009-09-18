@@ -100,11 +100,11 @@ static Word32 mask_r[]={  255,    128,  192,  224,  240,  248,  252,  254, 255};
 //********************************************************************
 //********************* static function : ****************************
 //********************************************************************
-static Int32  CTB_volume_true(char *file_name );
+static int32_t  CTB_volume_true(char *file_name );
 static Bool32   CTB_type(Int16 wid, Int16 hei, Int16 dpb);
-static void     xor_lines(Word8 *bin,Int32 wb,Int32 len);
-static void     xor_lines_rest(Word8 *bin,Int32 wb,Int32 len,Word8 mask);
-static void     xor_one_line(Word8 *bin,Word8 *bin1,Int32 wb);
+static void     xor_lines(Word8 *bin,int32_t wb,int32_t len);
+static void     xor_lines_rest(Word8 *bin,int32_t wb,int32_t len,Word8 mask);
+static void     xor_one_line(Word8 *bin,Word8 *bin1,int32_t wb);
 //********************************************************************
 //************ global functions : ************************************
 //********************************************************************
@@ -114,7 +114,7 @@ Bool32  CTB_files_init(char *file_name,Word8 *data,Int16 maxX,Int16 maxY,
 //********************************************************************
 //************ global data : *****************************************
 //********************************************************************
-Int32   ctb_err_code = CTB_ERR_NONE;   // error code
+int32_t   ctb_err_code = CTB_ERR_NONE;   // error code
 char * ctb_tmp_dir=NULL;
 CTB_FUNC(char) local_grey_ctb[256] = "page6666";
 CTB_FUNC(char) local_ctb_name[256] = "ct666666";
@@ -173,7 +173,7 @@ static void free_tmp_pattern(char* dummy) {
 }
 #endif
 
-CTB_FUNC(Int32) CTB_gettmpdirname(void) {
+CTB_FUNC(int32_t) CTB_gettmpdirname(void) {
     char* tmp = get_tmp_pattern();
     ctb_tmp_dir = malloc(strlen(tmp) + 1);
     strncpy(ctb_tmp_dir, tmp, strlen(tmp) + 1);
@@ -185,7 +185,7 @@ CTB_FUNC(Int32) CTB_gettmpdirname(void) {
         return 0;
 }
 
-CTB_FUNC(Int32) CTB_get_error(void)
+CTB_FUNC(int32_t) CTB_get_error(void)
 {
 return ctb_err_code ;
 }
@@ -237,7 +237,7 @@ if( HCTB.version<3 || HCTB.version>7 )
         ctb_err_code = CTB_ERR_VERS;
         return 0;
         }
-hnd->len=(Int32)(((long)HCTB.size_x*HCTB.size_y)/HCTB.dot_per_byte);
+hnd->len=(int32_t)(((long)HCTB.size_x*HCTB.size_y)/HCTB.dot_per_byte);
                       // store attributes    //
 hnd->num     = HCTB.volume>0 ? HCTB.volume : CTB_volume_true(file_name);
 hnd->type           = (Int16)CTB_type(HCTB.size_x,HCTB.size_y,HCTB.dot_per_byte);
@@ -393,10 +393,10 @@ return  CTB_files_init(file_name,data,256,128,1,CTB_GRAY_SCALE,attr_size);
 //********************************************************************
 //**************** subroutines to read data from *********************
 //********************************************************************
-CTB_FUNC(Int32)  CTB_read( CTB_handle *hnd,Int32 num , Word8 *save_bin, Word8 *data)
+CTB_FUNC(int32_t)  CTB_read( CTB_handle *hnd,int32_t num , Word8 *save_bin, Word8 *data)
 {
 FFILE   fp;
-Int32   l_seek,f_seek,l, len, w,h, sign, wb, datalen;
+int32_t   l_seek,f_seek,l, len, w,h, sign, wb, datalen;
 Bool32  gray=(hnd->signums&CTB_GRAY_SCALE),
         plane=(hnd->signums&CTB_PLANE);
 
@@ -500,8 +500,8 @@ if( !w || !h )
         return 0;
         }
 
-wb =  gray ? (((Int32)w+7)/8)*8 : (((Int32)w+7)/8);
-len = wb*(Int32)h;
+wb =  gray ? (((int32_t)w+7)/8)*8 : (((int32_t)w+7)/8);
+len = wb*(int32_t)h;
 if( hnd->type==CTB_256_128_2 && (w>255 || h>127 || len>REC_MAX_RASTER_SIZE) )
     {
         ctb_err_code = CTB_ERR_READ;
@@ -548,12 +548,12 @@ xor_lines_rest(save_bin,!plane?wb:wb/8,len,mask);
 return sign;
 }
 
-CTB_FUNC(Int32)  CTB_volume(CTB_handle *hnd )
+CTB_FUNC(int32_t)  CTB_volume(CTB_handle *hnd )
 {
 return hnd->num;
 }
 
-CTB_FUNC(Int32)  CTB_volume_all(char *filename )
+CTB_FUNC(int32_t)  CTB_volume_all(char *filename )
 {
 struct stat sts;
 char lin[MAXPATH],file_name[MAXPATH],*p;
@@ -566,14 +566,14 @@ SPRINTF(lin,"%s/%s.IND",ctb_tmp_dir,file_name);
 if( STAT(lin,&sts)==-1 )
         return 0;
 
-return (Int32)(sts.st_size/8);
+return (int32_t)(sts.st_size/8);
 }
 
 
 
 CTB_FUNC(Bool32)  CTB_read_global_data(CTB_handle *hnd, Word8 *data)
 {
-Int32   gdatalen;
+int32_t   gdatalen;
 ctb_err_code = CTB_ERR_NONE;
 if( data==NULL )
         {
@@ -624,9 +624,9 @@ return( TRUE );
 }
 
 
-CTB_FUNC(Bool32)  CTB_read_data(CTB_handle *hnd, Int32 num, Word8 *data)
+CTB_FUNC(Bool32)  CTB_read_data(CTB_handle *hnd, int32_t num, Word8 *data)
 {
-Int32 f_seek, datalen;
+int32_t f_seek, datalen;
 FFILE fp;
 
 ctb_err_code = CTB_ERR_NONE;
@@ -696,11 +696,11 @@ return TRUE;
 //********************************************************************
 // ************** subroutines to write data to a file ***************** //
 //********************************************************************
-CTB_FUNC(Bool32)  CTB_write_mark( CTB_handle *hnd, Int32 num,Word8 *bin, Word8 *data , Bool32  mark)
+CTB_FUNC(Bool32)  CTB_write_mark( CTB_handle *hnd, int32_t num,Word8 *bin, Word8 *data , Bool32  mark)
 {
 Int16   sp,n=(Int16)hnd->len;
 FFILE   fp;
-Int32   pos, datalen, wb;
+int32_t   pos, datalen, wb;
 Int16   len;
 Word8   w,h;
 Bool32  gray=(hnd->signums&CTB_GRAY_SCALE),
@@ -726,9 +726,9 @@ if( !w || !h )
         return FALSE;
         }
 
-wb =  gray ? (((Int32)w+7)/8)*8 : (((Int32)w+7)/8);
+wb =  gray ? (((int32_t)w+7)/8)*8 : (((int32_t)w+7)/8);
 
-n = len = (Int16)(wb*(Int32)h);
+n = len = (Int16)(wb*(int32_t)h);
 if( hnd->type==CTB_256_128_2 && (w>255 || h>127 || len>REC_MAX_RASTER_SIZE) )
     {
         ctb_err_code = CTB_ERR_WRITE;
@@ -838,7 +838,7 @@ hnd->is_sort = 0;
 return TRUE;
 }
 
-CTB_FUNC(Bool32)  CTB_write( CTB_handle *hnd, Int32 num,Word8 *bin, Word8 *data )
+CTB_FUNC(Bool32)  CTB_write( CTB_handle *hnd, int32_t num,Word8 *bin, Word8 *data )
 {
 Bool32 ret = CTB_write_mark(hnd,num,bin,data,FALSE);
 if( ret )
@@ -846,7 +846,7 @@ if( ret )
 return ret;
 }
 
-CTB_FUNC(Bool32)  CTB_kill(CTB_handle *hnd, Int32 num)
+CTB_FUNC(Bool32)  CTB_kill(CTB_handle *hnd, int32_t num)
 {
 long f_seek;
 FFILE fp;
@@ -892,7 +892,7 @@ return TRUE;
 
 
 CTB_FUNC(Bool32)  CTB_swap(CTB_handle *hnd,
-                                                   Int32 num1,Int32 num2)
+                                                   int32_t num1,int32_t num2)
 {
 long f_seek1, l_seek1;
 long f_seek2, l_seek2;
@@ -991,7 +991,7 @@ hnd->is_sort = 0;
 return TRUE;
 }
 
-CTB_FUNC(Bool32)  CTB_mark(CTB_handle *hnd, Int32 num)
+CTB_FUNC(Bool32)  CTB_mark(CTB_handle *hnd, int32_t num)
 {
 long f_seek, l_seek;
 FFILE fp;
@@ -1050,7 +1050,7 @@ return TRUE;
 }
 
 // delete image num //
-CTB_FUNC(Bool32)  CTB_delete( CTB_handle *hnd,Int32 num )
+CTB_FUNC(Bool32)  CTB_delete( CTB_handle *hnd,int32_t num )
 {
 Word8 buffer[8];
 Int16 i,n=hnd->num - 1;
@@ -1096,10 +1096,10 @@ return TRUE;
 }
 
 // insert kadr (bin,data) after (num-1) image, before num image //
-CTB_FUNC(Bool32)  CTB_insert( CTB_handle *hnd,Int32 num,Word8 *bin,     Word8 *data )
+CTB_FUNC(Bool32)  CTB_insert( CTB_handle *hnd,int32_t num,Word8 *bin,     Word8 *data )
 {
 Word8 buffer[8];
-Int32 i,n=hnd->num - 1;
+int32_t i,n=hnd->num - 1;
 
 ctb_err_code = CTB_ERR_NONE;
 if( hnd==NULL )
@@ -1143,9 +1143,9 @@ hnd->is_sort = 0;
 return TRUE;
 }
 
-CTB_FUNC(Bool32)  CTB_write_data(CTB_handle *hnd, Int32 num, Word8 *data)
+CTB_FUNC(Bool32)  CTB_write_data(CTB_handle *hnd, int32_t num, Word8 *data)
 {
-Int32 f_seek, datalen;
+int32_t f_seek, datalen;
 FFILE fp;
 
 if( hnd->version<CTB_VERSION )
@@ -1216,7 +1216,7 @@ return TRUE;
 CTB_FUNC(Bool32)  CTB_write_global_data(CTB_handle *hnd,Word8 *data)
 {
 FFILE fp;
-Int32 gdatalen;
+int32_t gdatalen;
 
 ctb_err_code = CTB_ERR_NONE;
 if( data==NULL )
@@ -1263,7 +1263,7 @@ return TRUE;
 //********************************************************************
 //***************** static functions : *******************************
 //********************************************************************
-static void xor_lines(Word8 *bin,Int32 wb,Int32 len)
+static void xor_lines(Word8 *bin,int32_t wb,int32_t len)
 {
 int i,ii,h=len/wb;
 for(ii=(h-1)*wb,i=1;i<h;i++,ii-=wb)
@@ -1271,7 +1271,7 @@ for(ii=(h-1)*wb,i=1;i<h;i++,ii-=wb)
 return;
 }
 
-static void xor_lines_rest(Word8 *bin,Int32 wb,Int32 len,Word8 mask)
+static void xor_lines_rest(Word8 *bin,int32_t wb,int32_t len,Word8 mask)
 {
 int i,ii,h=len/wb;
 if( mask )
@@ -1331,12 +1331,12 @@ if( wid==256 && hei==128 && dpb==1 )
 return CTB_UNKNOWN;
 }
 
-static Int32 CTB_volume_true(char *filename )
+static int32_t CTB_volume_true(char *filename )
 {
 struct stat sts;
 char lin[MAXPATH],file_name[MAXPATH],*p;
-Int32 i,n,k;
-Int32 fs,fl;
+int32_t i,n,k;
+int32_t fs,fl;
 FFILE fp;
 
 strcpy(file_name,filename);
@@ -1346,7 +1346,7 @@ SPRINTF(lin,"%s/%s.IND",ctb_tmp_dir,file_name);
 if( STAT(lin,&sts)==-1 )
         return 0;
 
-n = (Int32)(sts.st_size/8);
+n = (int32_t)(sts.st_size/8);
 
 fp=fopen(lin,R_B);
 if( fp==BAD_FOPEN )
@@ -1361,7 +1361,7 @@ fclose(fp);
 
 return k;
 }
-static void xor_one_line(Word8 *bin,Word8 *bin1,Int32 wb)
+static void xor_one_line(Word8 *bin,Word8 *bin1,int32_t wb)
 {
 int i;
 for(i=0;i<wb;i++)
@@ -1440,7 +1440,7 @@ fclose(fp);
 return TRUE;
 }
 
-CTB_FUNC(Int32)   CTB_GetVersion(void )
+CTB_FUNC(int32_t)   CTB_GetVersion(void )
 {
 return CTB_VERSION;
 }

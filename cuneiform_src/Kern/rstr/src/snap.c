@@ -99,7 +99,7 @@ extern  void    CopyAttr2CSTR(CSTR_rast_attr *attr, cell *c);
 extern  int     cell2UniVers(UniVersions *ver, cell *c);
 // from EVN32.DLL
 extern LONG EVNGetRepresent( RecRaster   *rRaster,
-    Word8 *evn, Word8 *evn_rot, Int32 font);
+    Word8 *evn, Word8 *evn_rot, int32_t font);
 extern LONG  EVNRecogCharPRN(   RecRaster  * rRaster,
       RecVersions* EVNres       );
 // from RCM.C
@@ -120,7 +120,7 @@ static  cell        currcell;//,*db_stopcell;
 static  Point32 cutpoints_show[128];
 static  Word32  numpoints_show;
 static  cell *  cutpoints_cell=NULL;
-static  Int32   select_line=0, num_select_lines=0;
+static  int32_t   select_line=0, num_select_lines=0;
 cell   *stopcell=NULL;
 static  int stop_number=0, curr_pass=-1;
 
@@ -186,7 +186,7 @@ static int Lang_Console(char *text, Word8 lang)
 {
 char    buf[1024];
 //LDPUMA_SetConsoleProperty(Bool32 bold,Bool32 italic,
-//      Bool32 strikeout,Bool32 underline,Int32 height, Int32 offset,   Word32 textcolor,
+//      Bool32 strikeout,Bool32 underline,int32_t height, int32_t offset,   Word32 textcolor,
 //      int charset,    char * name )
 LDPUMA_SetConsoleProperty(0,0,
         0,0,0,  0,      0,
@@ -476,7 +476,7 @@ for(c=b;c!=e;c=c->next)
 
 if( fp )
     {
-    Int32       i;
+    int32_t       i;
     //if( num_ln<2 && num_ln!=-1)
     //    fprintf(fp,"New Line\n");
     fprintf(fp,"-- line %d \n", num_ln);
@@ -547,13 +547,13 @@ snap_show_text(buf);
 return;
 }
 
-Int32 snap_AddRecRaster(char *fname, RecRaster *r,Word8 let, Word8 font)
+int32_t snap_AddRecRaster(char *fname, RecRaster *r,Word8 let, Word8 font)
 {
 #ifdef _USE_CTB_
 CTB_handle  hnd;
-Int32       num;
+int32_t       num;
 Word8       raster[4096],data[CTB_DATA_SIZE]={0};
-Int32       wb;
+int32_t       wb;
 Bool32      ret;
 B_LINES     my_bases;
 
@@ -1083,7 +1083,7 @@ return (Word32)(ret);
 }
 
 // режим мониторинга строки и ожидания клавиши
-static Int32 snap_monitor_calls=0;
+static int32_t snap_monitor_calls=0;
 BOOL snap_monitor(void)
 {
 Handle hnd;
@@ -1148,7 +1148,7 @@ if( exit_enable==TRUE )
 return TRUE;
 }
 
-BOOL snap_monitor_ori(CSTR_line *snap_line, Int32 num_lines)
+BOOL snap_monitor_ori(CSTR_line *snap_line, int32_t num_lines)
 {
 Handle hnd;
         int i,scale;
@@ -1318,7 +1318,7 @@ currcell.complist = (c_comp *)c;
 return TRUE;
 }
 
-static void snap_align8_lines(Word8 *bin,Int32 w, Int32 h)
+static void snap_align8_lines(Word8 *bin,int32_t w, int32_t h)
 {
 int i,ii,iii, wb=(w+7)/8, wb_new=((w+63)/64)*8;
 Word8   buf[256];
@@ -1501,7 +1501,7 @@ BOOL snap_baselines(BYTE a)
 	return !LDPUMA_Skip(hSnapLineBL[a - 'a']);
 }
 
-void snap_draw_line(Handle wnd, Point16 *start, Point16 *end, Int32 skew, Word32 rgb, Int16 pen, Word32 key)//IGOR
+void snap_draw_line(Handle wnd, Point16 *start, Point16 *end, int32_t skew, Word32 rgb, Int16 pen, Word32 key)//IGOR
 {
 	LDPUMA_DrawLine(wnd,start, end, skew, rgb, pen, key);
 	return;

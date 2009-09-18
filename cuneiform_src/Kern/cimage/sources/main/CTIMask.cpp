@@ -209,9 +209,9 @@ Bool32 CTIMask::RemoveRectangle(PCIMAGE_Rect pRect)
 Bool32 CTIMask::IsRectOnMask(PCIMAGE_Rect pRect)
 {
 	return  ( pRect &&
-		     ( pRect->dwX < (Int32)mwMaskWidth ||
+		     ( pRect->dwX < (int32_t)mwMaskWidth ||
 		      (pRect->dwX + pRect->dwWidth) < mwMaskWidth ||
-			  pRect->dwY < (Int32)mwMaskHeight ||
+			  pRect->dwY < (int32_t)mwMaskHeight ||
 			  (pRect->dwY + pRect->dwHeight) < mwMaskHeight ) );
 }
 
@@ -235,7 +235,7 @@ Bool32 CTIMask::GetLine(Word32 wLine, PPCTIMaskLine ppcLine)
 {
 	PCTIMaskLine pL = mcLine.GetNext();
 	Bool32 bLinePresent = FALSE;
-	Int32 iLine;
+	int32_t iLine;
 
 	*ppcLine = NULL;
 
@@ -248,20 +248,20 @@ Bool32 CTIMask::GetLine(Word32 wLine, PPCTIMaskLine ppcLine)
 	{
 		iLine = pL->GetLineNumber();
 
-		if ( iLine < (Int32)wLine )
+		if ( iLine < (int32_t)wLine )
 		{
 			pL = pL->GetNext();
 			continue;
 		}
 
-		if ( iLine == (Int32)wLine )
+		if ( iLine == (int32_t)wLine )
 		{
 			*ppcLine = pL;
 			bLinePresent = TRUE;
 			break;
 		}
 
-		if ( iLine > (Int32)wLine )
+		if ( iLine > (int32_t)wLine )
 			break;
 	}
 

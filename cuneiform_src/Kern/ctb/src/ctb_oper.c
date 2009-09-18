@@ -67,13 +67,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern char * ctb_last_punct(char *word);
 extern Bool32 CTB_files_init(char *file_name,Word8 *data,Int16 maxX,Int16 maxY,
                     Int16 dpb,Word8 signums,Word8 attr_size);
-extern Int32 ctb_err_code ;   // error code                   //
+extern int32_t ctb_err_code ;   // error code                   //
 
-CTB_FUNC(Int32)  CTB_compress(char *filename)
+CTB_FUNC(int32_t)  CTB_compress(char *filename)
 {
 char *p,tmp_file[MAXPATH],file_name[MAXPATH];
 CTB_handle hi,ho;
-Int32 i,n,compress;
+int32_t i,n,compress;
 Word8 dst[CTB_DATA_SIZE],buffer[256*128+2+CTB_DATA_SIZE];
 
 p=ctb_last_punct(file_name);
@@ -148,7 +148,7 @@ RENAME(tmp_file,file_name);
 return n;
 }
 
-CTB_FUNC(Int32)  CTB_rename(char *new_name, char *old_name)
+CTB_FUNC(int32_t)  CTB_rename(char *new_name, char *old_name)
 {
 char newname[MAXPATH], oldname[MAXPATH];
 
@@ -181,7 +181,7 @@ return 2;
 }
 
 
-CTB_FUNC(Int32)  CTB_move(char *new_name, char *old_name)
+CTB_FUNC(int32_t)  CTB_move(char *new_name, char *old_name)
 {
 Int16 n;
 
@@ -205,7 +205,7 @@ UNLINK(str);
 return ;
 }
 
-CTB_FUNC(Int32)  CTB_copy(char *new_name, char *old_name)
+CTB_FUNC(int32_t)  CTB_copy(char *new_name, char *old_name)
 {
 char *p;
 CTB_handle hi,ho;

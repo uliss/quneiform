@@ -76,15 +76,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // extern data
 extern unsigned char alphabet[];
 extern Word8 nIsPrint;
-extern Int32  leo_typ_of_font;
+extern int32_t  leo_typ_of_font;
 
 // from module LEO.C
 extern Word8    leo_alpha_type,prn_roma_regim;
 
 // для осмысленности assert
-Int32 try_call_vec = 0;
+int32_t try_call_vec = 0;
 
-Int32   leo_stick_nose_1;
+int32_t   leo_stick_nose_1;
 
 int leo_incline=ERECT_ENABLE;
 static int leo_av_inc=0, leo_av_inc_n=0,leo_av_inc1=0, leo_av_inc_n1=0, is_pool=0, save_w, save_h;
@@ -116,7 +116,7 @@ static Bool32   leo_stick_thin(RecRaster *r,int inc,int num, int den);
 static Bool32   leo_stick_make_tab(int inc, int h, int     tab_angle[]);
 static void     leo_save_rl(Word16 *lpool);
 static Word16 * leo_rest_rl(void);
-static Int32    leo_num_of_long_sticks(RecVector *vSticks,int Cnt, int h);
+static int32_t    leo_num_of_long_sticks(RecVector *vSticks,int Cnt, int h);
 static Bool32   leo_wide_stick(RecVector *vSticks,int Cnt, int h, int w);
 static Bool32   leo_test_inclinable(RecVersions *v);
 static int      leo_get_first_pixel(Word8 *r,int d);
@@ -124,7 +124,7 @@ static int      leo_get_last_pixel(Word8 *r,int d);
 static int      leo_shift_raster(   Word8 *raster, int dx, int dy,
                         int tab_angle[]);
 static int      leo_current_slash_level(void);
-static Int32    leo_get_incline(RecObject*  object);
+static int32_t    leo_get_incline(RecObject*  object);
 
 Bool32 similar_i(RecRaster *rs)
 {
@@ -196,9 +196,9 @@ static int  hist_wid[128],
             hist_ri[128],
             hist_wi [128],
             hist_num[128];
-static Int32  slash_level=700;
+static int32_t  slash_level=700;
 
-Int32   leo_stick_horiz_hist(int h)
+int32_t   leo_stick_horiz_hist(int h)
 {
 int s,i;
 for(s=i=0;i<h;i++)
@@ -272,7 +272,7 @@ return save_pool;
 //          3 - handprinted 1
 //          4 - fine printed stick
 //          5 - dark printed stick
-Int32 leo_recog_stick(Word16 *lpool, int w, int h)
+int32_t leo_recog_stick(Word16 *lpool, int w, int h)
 {
 Int16   len,hei,row,flg;
 Word8   il, ie, *loc;
@@ -380,9 +380,9 @@ return 1;
 
 
 
-void leo_set_sticks_group(RecVersions *v, Int32 ret,
-                      unsigned char alphabet[],Int32 simple_st,
-                      Int32 nose_1)
+void leo_set_sticks_group(RecVersions *v, int32_t ret,
+                      unsigned char alphabet[],int32_t simple_st,
+                      int32_t nose_1)
 {
 int inc;
 int level_1;
@@ -579,7 +579,7 @@ return;
 
 
 void leo_set_simple_sticks_group(RecVersions *ver,
-                      unsigned char alphabet[], Int32 nose_1)
+                      unsigned char alphabet[], int32_t nose_1)
 {
 ver->lnAltCnt=0;
 ver->lnAltMax=REC_MAX_VERS;
@@ -668,7 +668,7 @@ return (h*100 /w);
 }
 
 
-static Int32 leo_num_of_long_sticks(RecVector *vSticks,int Cnt, int h)
+static int32_t leo_num_of_long_sticks(RecVector *vSticks,int Cnt, int h)
 {
 int i,n;
 for(n=i=0;i<Cnt;i++)
@@ -770,7 +770,7 @@ return (num==1);
 Bool32 leo_is_stick(RecObject*  object)
 {
 RecVersions ver;
-Int32       ret, rret, yx, w,h, n;
+int32_t       ret, rret, yx, w,h, n;
 Word16     *lpool;
 Bool32      rstick;
 RecVersions r;
@@ -1232,7 +1232,7 @@ return abs(leo_av_inc1/leo_av_inc_n1);
 }
 
 
-static Int32 leo_get_incline(RecObject*  object)
+static int32_t leo_get_incline(RecObject*  object)
 {
 RecVector *v;
 int i,s,n,k,kz, h;

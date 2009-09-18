@@ -80,15 +80,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "puma_err.h"
 /*------------own functions---------------------------------------------------*/
 Bool FullMyLines_Mod (void *vLns, int nLns, void *vB, int *pForw, int *SizeForw
-	, int ShifValuForw, Rect16 *pRcReg, Int32 SkewReg, Bool Hori, char *pStr, Bool ContWarn);
+	, int ShifValuForw, Rect16 *pRcReg, int32_t SkewReg, Bool Hori, char *pStr, Bool ContWarn);
 Bool FullMyLines_Mod (void *vLines, int count, void *vB, int *pForw, int *SizeForw
-	, Rect16 *pRcReg, Int32 SkewReg, Bool Hori, char *pStr, Bool ContWarn);
+	, Rect16 *pRcReg, int32_t SkewReg, Bool Hori, char *pStr, Bool ContWarn);
 void FullNewMyLine (RLT_LINE *pLine, LineInfo *pLns, Bool Hori, Bool ContWarn);
 void FullNewMyLine (RLT_LINE* pLine,DLine* pline,Bool Hori,Bool ContWarn);
 /*----------------------------------------------------------------------------*/
 
 Bool ConvertLinesToAM_rv (int FromType, int ToType, void *vB, int *pForw
-					, int SizeForw, Rect16 *pRcReg, Int32 SkewReg, char *pStr, Bool ContWarn)
+					, int SizeForw, Rect16 *pRcReg, int32_t SkewReg, char *pStr, Bool ContWarn)
 {
 	int i, Aim, Ind, nFrom, ShifValuForw, SizeF;
 	int *pF;
@@ -196,7 +196,7 @@ Bool ConvertLinesToAM_rv (int FromType, int ToType, void *vB, int *pForw
 }
 /*----------------------------------------------------------------------------*/
 Bool FullMyLines_Mod (void *vLns, int nLns, void *vB, int *pForw, int *SizeForw
-	, int ShifValuForw, Rect16 *pRcReg, Int32 SkewReg, Bool Hori, char *pStr, Bool ContWarn)
+	, int ShifValuForw, Rect16 *pRcReg, int32_t SkewReg, Bool Hori, char *pStr, Bool ContWarn)
 {
 	int i, nLine, SizeCurr, nTeor, LentOld, LentNew;
 	LineInfo *pLns;
@@ -275,7 +275,7 @@ Bool FullMyLines_Mod (void *vLns, int nLns, void *vB, int *pForw, int *SizeForw
 }
 /*----------------------------------------------------------------------------*/
 Bool FullMyLines_Mod (void *vLines, int count, void *vB, int *pForw, int *SizeForw
-	, Rect16 *pRcReg, Int32 SkewReg, Bool Hori, char *pStr, Bool ContWarn)
+	, Rect16 *pRcReg, int32_t SkewReg, Bool Hori, char *pStr, Bool ContWarn)
 {
 	int i, nLine, SizeCurr, nTeor, LentOld, LentNew;
 	int move=0;

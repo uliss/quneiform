@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 struct _USER_BLOCK
 {
 Word32  code;
-Int32   size;
+int32_t   size;
 Word8 * data;
 struct _USER_BLOCK * next_block;
 };
@@ -161,7 +161,7 @@ typedef struct _CCOM_cont
     CCOM_comp           *   last;
     struct _CCOM_cont   *   next;
     struct _CCOM_cont   *   prev;
-    Int32                   nall,nsmall[8];
+    int32_t                   nall,nsmall[8];
     Bool16                kill_dust_mode,language,style_new;
     } CCOM_cont;
 

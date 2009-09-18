@@ -365,7 +365,7 @@ else
 return ret;
 }
 
-Int32 lnhead_stick_get_incline(lnhead *lin,Int16 dy,Int16 dx)
+int32_t lnhead_stick_get_incline(lnhead *lin,Int16 dy,Int16 dx)
 {
 Int16 wide,opt,left_mode,right_mode,inc_v, nc, num_angles,f_a;
 STICK_CHARS left_chars,right_chars;
@@ -806,7 +806,7 @@ return(dis);
 
 
 
-extern Int32   dif_typ_of_font;
+extern int32_t   dif_typ_of_font;
 Int16 dis_1 (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s, Int16 typ_add)
 {							// 17.01.1994
 Int16   dis_sI=0;

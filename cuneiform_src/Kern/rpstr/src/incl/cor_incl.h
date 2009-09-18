@@ -54,6 +54,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-Bool32  incl_test_fragment(Int32 version, Int32 fragm);
-Int32   incl_calculate(Int32 version, Int32 fragm);
-void    incl_ordering(Int32 version, Int32 fragm, Int32 incline);
+Bool32  incl_test_fragment(int32_t version, int32_t fragm);
+int32_t   incl_calculate(int32_t version, int32_t fragm);
+void    incl_ordering(int32_t version, int32_t fragm, int32_t incline);

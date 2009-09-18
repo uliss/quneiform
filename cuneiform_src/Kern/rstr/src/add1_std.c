@@ -575,7 +575,7 @@ static Int8 leo_case_lower[]={
 /* Ъ(255,0xff) */ 'Ъ'
 };
 
-static Int32 leo_case[]={
+static int32_t leo_case[]={
 /* 000 */ 0,
 /* 001 */ 0,
 /* 002 */ 0,
@@ -1433,7 +1433,7 @@ return leo_typeface_one[c][0];
 }
 
 
- Int32    stdLeoIsCase(Word8 Code)
+ int32_t    stdLeoIsCase(Word8 Code)
 {
 return leo_case[ Code ];
 }

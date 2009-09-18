@@ -73,7 +73,7 @@ typedef struct tagChunk {
 BWSV *		 	first_int;      // If != NULL structure is in use
 struct tagChunk * 	master;		// Master chunk (can be NULL)
 struct tagChunk * 	dragon;		// Chunk who is ate this chunk
-Int32			area;		// area in pixels
+int32_t			area;		// area in pixels
 Int16			height,
 			yline;		// y offset of chunk in letter box
 Int16			nintervals;	// number of intervals
@@ -84,12 +84,12 @@ Word16			wide : 1,       // wide chunk
 
 typedef struct tagVector {
 Point16 beg,end;
-Int32 incline;   // 2048 * tangens
+int32_t incline;   // 2048 * tangens
 #define INCLINE_UNKNOWN	(-0x41414141)	  ///	      _______
-Int32  len;  // -1 - It isn't vector;  metric Eucleede ы xэ + yэ
-Int32 Mx,My;
-Int32 Cx,Cy;  // debug purposes
-Int32 area;
+int32_t  len;  // -1 - It isn't vector;  metric Eucleede ы xэ + yэ
+int32_t Mx,My;
+int32_t Cx,Cy;  // debug purposes
+int32_t area;
 Word8 Mn; // normalized moment
 Word8 reserve[3];
 #define MAX_VECT	64

@@ -59,14 +59,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include <std.h>
 
-static void reverse(char *p1,char *p2, Int32 w);
-static void piramida(char *pAr,Int32 firstel,Int32 N, Int32 w,
-					Int32 (*compare)(const void *elm1,const void *elm2) );
+static void reverse(char *p1,char *p2, int32_t w);
+static void piramida(char *pAr,int32_t firstel,int32_t N, int32_t w,
+					int32_t (*compare)(const void *elm1,const void *elm2) );
 
-void stdQsort(void *pMas,Int32 Num, Int32 width,
-			  Int32 (*compare)(const void *elm1,const void *elm2) )
+void stdQsort(void *pMas,int32_t Num, int32_t width,
+			  int32_t (*compare)(const void *elm1,const void *elm2) )
 {
- Int32 i,CurNum=Num;
+ int32_t i,CurNum=Num;
 
  if( Num<2 )
     return;
@@ -83,10 +83,10 @@ void stdQsort(void *pMas,Int32 Num, Int32 width,
  while(CurNum>1);
 }
 
-static void piramida(char *pAr,Int32 firstel,Int32 N, Int32 w,
-					Int32 (*compare)(const void *elm1,const void *elm2) )
+static void piramida(char *pAr,int32_t firstel,int32_t N, int32_t w,
+					int32_t (*compare)(const void *elm1,const void *elm2) )
 {
- Int32 i,i_next;
+ int32_t i,i_next;
  char *p1,*p2;
 
  i=firstel;
@@ -114,10 +114,10 @@ static void piramida(char *pAr,Int32 firstel,Int32 N, Int32 w,
 
 }
 
-static void reverse(char *p1,char *p2, Int32 w)
+static void reverse(char *p1,char *p2, int32_t w)
 {
-  Int32 *t1=(Int32 *)p1,*t2=(Int32 *)p2,tmp;
-  Int32 len,ost,i;
+  int32_t *t1=(int32_t *)p1,*t2=(int32_t *)p2,tmp;
+  int32_t len,ost,i;
   char *c1,*c2,c ;
 
   ost=w%4; len=(w-ost)/4;

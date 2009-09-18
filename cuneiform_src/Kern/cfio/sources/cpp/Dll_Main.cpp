@@ -81,7 +81,7 @@ static Word16            wHeightRC =                         0;
 static Word16            wLowRC =                            0;
 static Handle            hInst =                             NULL;
 CTCControl *      Control_ctc =                           NULL;
-static Int32             InitCount =                         0;
+static int32_t             InitCount =                         0;
 static Bool32            InitDone =                          FALSE;
 //////////////////////////////////////////////////////////////////////////////////
 //

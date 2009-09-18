@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //      Common variables
 extern Int16    nBlack,nWid;
-extern Int32    ExControl;
+extern int32_t    ExControl;
 //      Internal functions
 static void make_seg_line (Word8* raster, Int16 width);
 
@@ -94,7 +94,7 @@ BWS *extrcomp_seglist(Word8* raster, BWS *bwsp, BWS *bwe, Int16 width)
 static void account_black(BWS *p,BWS *bp)
 {
 BWS *pp;
-Int32   lbl;
+int32_t   lbl;
 if( !(ExControl & Ex_Background) )
     return;
 p++;

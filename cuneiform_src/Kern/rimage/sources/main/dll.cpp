@@ -75,7 +75,7 @@ static Word16            gwLowRC = 0;
 static Handle            ghStorage = NULL;
 static Handle            ghInst =  NULL;
 CRIControl *      Control_cri = NULL;
-static Int32             InitCount =  0;
+static int32_t             InitCount =  0;
 
 Bool32 InitCFIOInterface(Bool32 Status);
 /////////////////////////////////////////

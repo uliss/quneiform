@@ -217,8 +217,8 @@ typedef struct tag_Nraster_header {
 } Nraster_header;
 
 typedef struct tagInfoCluster {
-	Int32 mw;
-	Int32 mh;
+	int32_t mw;
+	int32_t mh;
 	Word32 fields[NFIELDDWORD];
 	Int16 count;
 	Int16 first;
@@ -254,11 +254,11 @@ int TestFromGoodRaster(int start, Nraster_header *rh, int NumAll, int NumClus,
 		SINT *nClus, InfoCluster *infoC, int porog);
 LONG StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf);
 void EndHausdorfDLL(void);
-Int32 GetNumMemory(void);
+int32_t GetNumMemory(void);
 void EndNumMemory(void);
-Int32 StartAddMemCluster(Word8 *metkaValid, Int32 CurClus, Int16 countFont,
+int32_t StartAddMemCluster(Word8 *metkaValid, int32_t CurClus, Int16 countFont,
 		Word32 *allFields);
-Int32 AddClusterMemFont(welet *wel);
+int32_t AddClusterMemFont(welet *wel);
 SINT Razmaz(BYTE *bSource, BYTE *bDest, SINT xbyte, SINT xbit, SINT yrow,
 		BYTE bold);
 #endif

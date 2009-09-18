@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern std::vector<RECT>   *pInputArray;
 #endif
 
-Int32	PageIncline2048 = 2048;
+int32_t	PageIncline2048 = 2048;
 Word32  CountPict=0,CountTable=0;
 void    SetReturnCode_rfrmt(Word16 rc);
 POINT   TemplateOffset;
@@ -260,7 +260,7 @@ void CFPage::CreateArray_For_TextFragments( )
 //                    CFPage::CheckComingLine_For_TextFragments
 BOOL CFPage::CheckComingLine_For_TextFragments( CSTR_line* line )
 {
- Int32 CurFragNumber,SizeArrayTextFragments,i;
+ int32_t CurFragNumber,SizeArrayTextFragments,i;
  CSTR_attr  attr;
 
  if( !CSTR_GetLineAttr( *line , &attr ) )
@@ -269,7 +269,7 @@ BOOL CFPage::CheckComingLine_For_TextFragments( CSTR_line* line )
  SizeArrayTextFragments = FragmentsArray.size();
 
  for( i=0; i<SizeArrayTextFragments; i++ )
-  if( CurFragNumber ==(Int32)FragmentsArray[i])
+  if( CurFragNumber ==(int32_t)FragmentsArray[i])
     return 1;
 
  return 0;

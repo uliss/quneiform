@@ -81,12 +81,12 @@ MMX_FUNC(Word32)    MMX_scalar(Word32 _EAX, Word32 _EDX);
 MMX_FUNC(Word32)    MMX_scalar16_(Word32  _EAX, Word32 _EDX);
 MMX_FUNC(void)      MMX_open_image(Word16 *_EAX);
 MMX_FUNC(void)      MMX_close_image(void);
-MMX_FUNC(Word32)    MMX_scalar_sq(Word16 *_EAX,Int32 _ECX);
-MMX_FUNC(void)      MMX_scale( Word16 *_EAX, Int32 _ECX, Int32 _EDX);
+MMX_FUNC(Word32)    MMX_scalar_sq(Word16 *_EAX,int32_t _ECX);
+MMX_FUNC(void)      MMX_scale( Word16 *_EAX, int32_t _ECX, int32_t _EDX);
 MMX_FUNC(void)      MMX_binarize_16x16(Word16 *rin,Word8 *rout);
 
 // for NET.dll
-MMX_FUNC(Word32)    MMX_scalarUni (Int16 * _EAX, Int16 * _EDX, Int32 num);
+MMX_FUNC(Word32)    MMX_scalarUni (Int16 * _EAX, Int16 * _EDX, int32_t num);
 MMX_FUNC(Word32)    MMX_scalar16 (Int16 * _EAX, Int16 * _EDX);
 MMX_FUNC(Word32)    MMX_scalar36 (Int16 * _EAX, Int16 * _EDX);
 
@@ -96,8 +96,8 @@ MMX_FUNC(void)      MMX_addshab(int * src, int cg, signed char * dst);
 
 // for IND.dll
 MMX_FUNC(void)      MMX_ind_setup_table(Word32 *bit_cnt0);
-MMX_FUNC(Bool32)    MMX_anding(Int32 *image,Word16 *etalons,Int32 L);
-MMX_FUNC(void)      MMX_open( Int32 *image);
+MMX_FUNC(Bool32)    MMX_anding(int32_t *image,Word16 *etalons,int32_t L);
+MMX_FUNC(void)      MMX_open( int32_t *image);
 MMX_FUNC(void)      MMX_close(void);
 
    #ifdef __cplusplus

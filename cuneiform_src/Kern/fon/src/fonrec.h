@@ -89,9 +89,9 @@ int AddVersion(RECRESULT *recres,BYTE let,BYTE rec,int nClust,
 SINT RecogClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
               RECRESULT *recResult,SINT size,
               welet *wl, int numWelet,
-              int porog,int nInCTB,Int16 col,Int16 row,Int32 countRazmaz);
-Int32 GetNearestClusters (int num, welet *wel,int numWel ,
+              int porog,int nInCTB,Int16 col,Int16 row,int32_t countRazmaz);
+int32_t GetNearestClusters (int num, welet *wel,int numWel ,
 	    RecVersions *collection );
-Int32 TestClustNames(welet *wel,int numWel,
+int32_t TestClustNames(welet *wel,int numWel,
 					 int name1,int name2 );
 FONBASE *GetStaticFonbase(void);

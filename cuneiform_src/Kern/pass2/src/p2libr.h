@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // p2_tools.c
 Bool32 p2_StoreVersions(CSTR_rast rast,RecVersions *rver);
 void   p2_FillTxt(CSTR_line c,char *intxt,BOOL ansi);
-Int32  p2_TextProb(CSTR_line cc,CSTR_rast  first,CSTR_rast last, char *intxt,int maxTxt);
+int32_t  p2_TextProb(CSTR_line cc,CSTR_rast  first,CSTR_rast last, char *intxt,int maxTxt);
 BYTE   p2_to_upperASCII( BYTE c );
 BYTE   p2_to_lowerASCII( BYTE c );
 Bool32 p2_is_upperASCII( BYTE c );
@@ -71,13 +71,13 @@ Bool32 p2_is_lowerASCII( BYTE c );
 Word8    p2_rsadd_get_alias_class(Word8 let,Word8 lang);
 //Int16   estletter	(cell * BC,s_glue * GL);
 void	p2_init		(void);
-//Int32   p2_rotate(RecRaster *recRast);
+//int32_t   p2_rotate(RecRaster *recRast);
 
 // p2_choice.c
-Int32  p2_leoMixture(CSTR_rast rast,RecVersions *old,RecVersions *ver,
+int32_t  p2_leoMixture(CSTR_rast rast,RecVersions *old,RecVersions *ver,
 						FontInfo *fontinfo );
 Bool32 p2_leo_choise_fon_or_leo(Word8 p_fon,Word8 p_leo);
-Int32  p2_leo_sort_vers_prob(RecVersions *v);
+int32_t  p2_leo_sort_vers_prob(RecVersions *v);
 //============ Global Data ============
 //extern BOOL pass4_in;
 

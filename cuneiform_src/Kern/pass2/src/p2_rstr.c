@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // распознать с разрезанием/склейкой кусок - от first до last,
 // результат поместить в lineFon
-Int32 my_p2_RecogCutGlu( CSTR_rast  first,CSTR_rast last, CSTR_line  lineFon,
+int32_t my_p2_RecogCutGlu( CSTR_rast  first,CSTR_rast last, CSTR_line  lineFon,
 						P2GLOBALS *p2glob)
                    {return 0;};
 
@@ -81,11 +81,11 @@ void  my_p2_DecodeCode(char *pCode,int let){return;};
 //////////////////
 // снэр
 BOOL    my_NoStopSnapLEO(void){return FALSE;};
-Bool16	my_snap_monitor_ori(CSTR_line *snap_line, Int32 num_lines){return FALSE;};
+Bool16	my_snap_monitor_ori(CSTR_line *snap_line, int32_t num_lines){return FALSE;};
 Bool16	my_snap_activity(Word8 a){return FALSE;};
 Bool16	my_snap_show_text(Word8 *txt){return FALSE;};
 
-Bool32  mySetupField(void *letInfo,Int32 nFont,void *info) {return FALSE;};
+Bool32  mySetupField(void *letInfo,int32_t nFont,void *info) {return FALSE;};
 Bool32  mySetupPage(void *info) {return FALSE;};
 Bool32  mySpecRecog(RecObject *ro) {return FALSE;};
 ///////////////
@@ -95,7 +95,7 @@ BOOL    my_p2_spell(PCHAR s,BYTE lang) {return FALSE;};
 ///////////////////////////////
 // распознать с разрезанием/склейкой кусок - от first до last,
 // результат поместить в lineFon
-Int32 (*RSTR_p2_RecogCutGlu)( CSTR_rast  first,CSTR_rast last, CSTR_line  lineFon,
+int32_t (*RSTR_p2_RecogCutGlu)( CSTR_rast  first,CSTR_rast last, CSTR_line  lineFon,
 							 P2GLOBALS *pglob)=
                    my_p2_RecogCutGlu;
 
@@ -107,7 +107,7 @@ void  (*RSTR_p2_DecodeCode)(char *pCode,int let)=my_p2_DecodeCode;
 //////////////////
 // снэр
 BOOL    (*RSTR_p2_NoStopSnapLEO)(void)=my_NoStopSnapLEO;
-Bool16	(*RSTR_p2_snap_monitor_ori)(CSTR_line *snap_line, Int32 num_lines)=my_snap_monitor_ori;
+Bool16	(*RSTR_p2_snap_monitor_ori)(CSTR_line *snap_line, int32_t num_lines)=my_snap_monitor_ori;
 Bool16	(*RSTR_p2_snap_activity)(Word8 a)=my_snap_activity;
 Bool16	(*RSTR_p2_snap_show_text)(Word8 *txt)=my_snap_show_text;
 ///////////////
@@ -115,7 +115,7 @@ Bool16	(*RSTR_p2_snap_show_text)(Word8 *txt)=my_snap_show_text;
 BOOL    (*RSTR_p2_spell)(PCHAR s,BYTE lang)=my_p2_spell;
 
 // дополнительное распознавание (LEO)
-Bool32  (*ADDREC_SetupField)(void *letInfo,Int32 nFont,void* fontInfo)=mySetupField;
+Bool32  (*ADDREC_SetupField)(void *letInfo,int32_t nFont,void* fontInfo)=mySetupField;
 Bool32  (*ADDREC_SetupPage)(void *info)=mySetupPage;
 Bool32  (*ADDREC_Recog)(RecObject* obj)=mySpecRecog;
 

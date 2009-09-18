@@ -160,7 +160,7 @@ static PWord8    tableBOX        = NULL;       /* BOX table memory start */
 static Word8     all_loaded      = 0;
 static PWord8    fontBOX         = NULL;        /* BOX table for font  */
 static PWord8    omniBOX         = NULL;        /* BOX save table for omni  */
-static Int32     box_n           = BOX_NUM0;
+static int32_t     box_n           = BOX_NUM0;
 static PROOT     root_file       = NULL;                /* start of the root file */
 static PWord8    full_list[512];
 static PWord8    font_full_list[512];
@@ -182,7 +182,7 @@ static Int8 *lang_suff[] =
 };
 /////////////////////////////////////////////////////////////////////////////////////
 //  exit generation functions
-typedef void(*pExitByCatchFunc)(Int32);
+typedef void(*pExitByCatchFunc)(int32_t);
 pExitByCatchFunc    pExitFunc = NULL;
 
 void SetErrorExit( pExitByCatchFunc  pExternalExitFunc )
@@ -345,7 +345,7 @@ Int16 TE_table_op(Int16 Stream, Int16 Language, Int16 Type, Int16 SubType)
         return TE_open (TB_STREAM, Wname, Type, SubType);
 }
 
-Int32 TE_read(Int16 File, PInt8 Buffer, Int32 Size)
+int32_t TE_read(Int16 File, PInt8 Buffer, int32_t Size)
 {
         Int16 i;
 
@@ -424,7 +424,7 @@ PInt8 TE_handle_fgets  ( Int16 Handle, PInt8 Buff, Int16 Lenght )
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Int32 TE_file_length(Int16 fn)
+int32_t TE_file_length(Int16 fn)
 {
         Int16 i;
 
@@ -479,7 +479,7 @@ void read_rec_file(Int16 fileno, PWord8 pool, PWord8 * end)
 // протащено из filesys.c
 void reload_lang_vocs()
 {
-        //Int32 roots_lth;
+        //int32_t roots_lth;
 
         correct_letters_pidx_table();
         correct_let_tables();

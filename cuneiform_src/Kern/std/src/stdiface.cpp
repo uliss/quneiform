@@ -68,13 +68,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-STD_FUNC( Int32 ) stdMessageBox(
+STD_FUNC( int32_t ) stdMessageBox(
     const char * szMessageText,
     const char * szMessageTitle,
-    Int32 nFlags)
+    int32_t nFlags)
 {
 #if 0
-    Int32 nMFlags=0;
+    int32_t nMFlags=0;
     if(nFlags & wMB_OK)
         nMFlags|=MB_OK;
     if((nFlags & wMB_OKCANCEL) == wMB_OKCANCEL)
@@ -95,7 +95,7 @@ STD_FUNC( Int32 ) stdMessageBox(
         nMFlags|=MB_ICONEXCLAMATION;
     if((nFlags & wMB_ICONASTERISK) == wMB_ICONASTERISK)
         nMFlags|=MB_ICONASTERISK;
-    Int32 nRes=MessageBox(NULL,szMessageText,szMessageTitle,nMFlags);
+    int32_t nRes=MessageBox(NULL,szMessageText,szMessageTitle,nMFlags);
     switch (nRes)
     {
         case IDABORT:
@@ -131,7 +131,7 @@ static class CRptDlgMap
 #define RDM_UNREP_SESS        0x00000100  //don't show dlg in this sess
 #define RDM_UNREP_PERM       0x00000200  //don't show dlg always
 #define RDM_UNREP			         0x00000300  //don't show dlg always
-    typedef map<string,Int32> Tmap;
+    typedef map<string,int32_t> Tmap;
 	Tmap mp;
     public:
     //construction/initialization
@@ -142,9 +142,9 @@ static class CRptDlgMap
     Bool32 Initialize(const char* pIniFile);
     Bool32 Destroy();
     //get/set show props
-    Int32 GetShowProps(const char* pDlgKey)
+    int32_t GetShowProps(const char* pDlgKey)
         { return mp[string(pDlgKey)]; }
-    void SetShowProps(const char* pDlgKey,Int32 nProps)
+    void SetShowProps(const char* pDlgKey,int32_t nProps)
         { mp[string(pDlgKey)]=nProps; }
 	Bool32 Load(const char* pFileName);
 	Bool32 Save(const char* pFileName);
@@ -299,7 +299,7 @@ static Bool32 GetDlgUnitsScale(float& fXScale,float& fYScale,HWND hDlg)
     return TRUE;
 }
 
-static void SetRptDlgButtonsPlacement(HWND hWnd,Int32 nBtns,HWND* pBtns)
+static void SetRptDlgButtonsPlacement(HWND hWnd,int32_t nBtns,HWND* pBtns)
 {
 #if 0
     float fXScale=1,fYScale=1;
@@ -335,7 +335,7 @@ static void VisualizeWindow(HWND hWnd,Bool32 bVisualize)
 #endif
 }
 
-static void EnableRptDlgWindows(HWND hWnd,Int32 nFlags)
+static void EnableRptDlgWindows(HWND hWnd,int32_t nFlags)
 {
 #if 0
     HWND hWndCtrl=NULL;
@@ -365,14 +365,14 @@ static void EnableRptDlgWindows(HWND hWnd,Int32 nFlags)
 
 typedef struct tagDlgProcParms
 {
-    Int32 nFlags;
+    int32_t nFlags;
     const char* pszTitle;
     const char* pszMessageText;
 	Bool32 bNoRepeat;
 } TDlgProcParms;
 
 #if 0
-static Int32 bNoRepeat=-1;
+static int32_t bNoRepeat=-1;
 static HICON hIcon=NULL;
 static BOOL WINAPI DialogProc( HWND hwndDlg,UINT uMsg,WPARAM wParam,LPARAM lParam)
 {
@@ -489,10 +489,10 @@ static BOOL WINAPI DialogProc( HWND hwndDlg,UINT uMsg,WPARAM wParam,LPARAM lPara
 }
 #endif
 
-STD_FUNC( Int32 ) stdRptMessageBox(
+STD_FUNC( int32_t ) stdRptMessageBox(
   const char * szMessageText,
   const char * szMessageTitle,
-  Int32 nFlags,
+  int32_t nFlags,
   const char * szKey)
 {
 #if 0

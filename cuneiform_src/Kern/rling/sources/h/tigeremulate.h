@@ -88,10 +88,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 INT    TE_open          (INT, CHAR *, INT, INT);    /* / stream, name, ... */
 Int16    TE_write         (Int16, PWord8, Word32);    /* / stream, name, ... */
 INT    TE_table_op      (INT, INT, INT, INT);      /* / table #, ...          */
-Int32   TE_read          (Int16, PInt8, Int32);        /* / handle, addr, lth */
+int32_t   TE_read          (Int16, PInt8, int32_t);        /* / handle, addr, lth */
 INT    TE_close         (INT);                      /* / handle            */
 CHAR * TE_handle_fgets  ( INT handle, CHAR * s, INT len );
-Int32   TE_file_length   (Int16);
+int32_t   TE_file_length   (Int16);
 
 #define TGOPEN(a,b,c,d)        TE_open(a,b,c,d)
 #define TBOPEN(a,b,c,d)        TE_table_op(a,b,c,d)

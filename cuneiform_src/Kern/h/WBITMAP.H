@@ -63,10 +63,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef struct tagBitmap
   {
-    Int32   bmType;
-    Int32   bmWidth;
-    Int32   bmHeight;
-    Int32   bmWidthBytes;
+    int32_t   bmType;
+    int32_t   bmWidth;
+    int32_t   bmHeight;
+    int32_t   bmWidthBytes;
     Word16  bmPlanes;
     Word16  bmBitsPixel;
     void * bmBits;

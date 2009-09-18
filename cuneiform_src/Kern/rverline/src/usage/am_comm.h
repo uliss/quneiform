@@ -82,8 +82,8 @@ void   AM_RegiVari (Handle owner, const char *lpName, void *lpData, const char *
 void AM_RegiHelp (Handle owner, const char *lpName, Bool32 bAppend);
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 Word32 AM_WaitUserInput (Handle owner, Handle wnd);
-void   AM_DrawLine (Handle wnd, Point16 *start, Point16 *end, Int32 skew, Word32 rgb, Int16 pen, Word32 key);
-void   AM_DrawRect (Handle wnd, Rect16 *pRc, Int32 skew, Word32 rgb, Int16 pen, Word32 key);
+void   AM_DrawLine (Handle wnd, Point16 *start, Point16 *end, int32_t skew, Word32 rgb, Int16 pen, Word32 key);
+void   AM_DrawRect (Handle wnd, Rect16 *pRc, int32_t skew, Word32 rgb, Int16 pen, Word32 key);
 void   AM_DeleteLines (Handle wnd, Word32 key);
 void   AM_DeleteRects (Handle wnd, Word32 key);
 Bool16 AM_Skip (Handle owner);

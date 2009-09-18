@@ -105,7 +105,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_Binarise(PWord8 cDIBIn, PWord8 cDIBOut, Word32 wFlag,
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_Rotate(PWord8 cDIBIn, PWord8 cDIBOut, Int32 High, Int32 Low, Word32 UseMargins)
+RIMAGE_FUNC(Bool32) RIMAGE_Rotate(PWord8 cDIBIn, PWord8 cDIBOut, int32_t High, int32_t Low, Word32 UseMargins)
 {
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
@@ -117,7 +117,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_Rotate(PWord8 cDIBIn, PWord8 cDIBOut, Int32 High, Int
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_RotatePoint( PWord8 cDIBIn, Int32 wX, Int32 wY, PInt32 prX, PInt32 prY)
+RIMAGE_FUNC(Bool32) RIMAGE_RotatePoint( PWord8 cDIBIn, int32_t wX, int32_t wY, Pint32_t prX, Pint32_t prY)
 {
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
@@ -129,7 +129,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_RotatePoint( PWord8 cDIBIn, Int32 wX, Int32 wY, PInt3
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_Roll(PWord8 cDIBIn, PWord8 cDIBOut, Int32 High, Int32 Low, Word32 UseMargins)
+RIMAGE_FUNC(Bool32) RIMAGE_Roll(PWord8 cDIBIn, PWord8 cDIBOut, int32_t High, int32_t Low, Word32 UseMargins)
 {
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 

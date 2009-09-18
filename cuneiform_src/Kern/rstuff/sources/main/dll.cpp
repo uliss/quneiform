@@ -103,7 +103,7 @@ Bool32 gbRSLT = FALSE;
 /////////////////////////////////////////////////////////////////////////////////////////
 static Handle            ghStorage = NULL;
 static Handle            ghInst =  NULL;
-Int32             InitCount =  0;
+int32_t             InitCount =  0;
 Handle ObvKillLines;
 Handle OKL;
 Handle Zone;

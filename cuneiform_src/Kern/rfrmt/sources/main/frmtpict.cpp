@@ -370,7 +370,7 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 					}
 					if(!RIMAGE_RotatePoint((PWord8)lpName,
 						in.dwX,in.dwY,
-						(PInt32)&in.dwX,(PInt32)&in.dwY))
+						(Pint32_t)&in.dwX,(Pint32_t)&in.dwY))
 					{
 						in.dwX = 0;
 						in.dwY = 0;
@@ -425,7 +425,7 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 					pictGoal.cx = int((uint32_t)(Twips* pTmpDIB->GetLineWidth()));
 					pictGoal.cy = int((uint32_t)(Twips* pTmpDIB->GetLinesNumber()));
 
-					Int32 iDIBSize = pTmpDIB->GetDIBSize();
+					int32_t iDIBSize = pTmpDIB->GetDIBSize();
 					delete pTmpDIB;
 
 					indent.left    = 0;

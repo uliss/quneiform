@@ -152,7 +152,7 @@ static void MarkPoolLineInfo (const RLT_LINE *pL, int nLine, RLT_LINEATDIR *pP)
     \param Skew [in]          - угол наклона разграфки страницы
     \note  Используется в SMetric и USAGE
 */
-void AnalOfMyLines (RLT_LINEPOOL *pLinePool, const Int32 Skew)
+void AnalOfMyLines (RLT_LINEPOOL *pLinePool, const int32_t Skew)
 {
     for (int j = 0;  j < 4;  j++)//по четырём квадрантам формальная инициализация
     {
@@ -192,7 +192,7 @@ RLT_LINEDIR_TYPE LineSect (const char Type)
     \param pRcLin [out]  - указатель на охватывающий прямоугольник
     \param SkewReg[in]   - угол наклона идеальных координат
 */
-bool FindLinesReg (const void *p_vB, Rect16 *pRcLin,  const Int32 SkewReg)
+bool FindLinesReg (const void *p_vB, Rect16 *pRcLin,  const int32_t SkewReg)
 {
     Point16 A = {0}, B = {0};
     const UN_BUFF *pB = static_cast<const UN_BUFF *>(p_vB);

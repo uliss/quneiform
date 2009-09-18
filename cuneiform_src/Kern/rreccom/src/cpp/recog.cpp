@@ -71,10 +71,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "excdefs.h"
 #include "compat_defs.h"
 /*********************************************************************************************/
-const Int32 max_raster = REC_MAX_RASTER_SIZE;//2048*32;
+const int32_t max_raster = REC_MAX_RASTER_SIZE;//2048*32;
 
 Word8 alphabet[256];
-Int32 gra_type_rec = -1;
+int32_t gra_type_rec = -1;
 Word16 comp_max_h, comp_max_w, comp_min_h, comp_min_w;
 Int16 MaxScale;
 Word8 work_raster[max_raster];
@@ -91,12 +91,12 @@ void make_raster(CCOM_comp* pcomp);
 //void recog_gra(RecVersions *v, CCOM_comp* pcomp);
 void getExtComp(CCOM_comp* pcomp, /*ExtComponent*/CCOM_comp* ec);
 
-static void align8_lines(Word8 *bin,Int32 w, Int32 h);
+static void align8_lines(Word8 *bin,int32_t w, int32_t h);
 
 extern Bool16 rec_is_language(Word8);
 extern Bool16 rec_set_alpha(Word8, Word8*);
 extern Bool16 rec_load_tables(Word8);
-//extern Int32 rec_gra_type_rec(Word8);
+//extern int32_t rec_gra_type_rec(Word8);
 /*********************************************************************************************/
 RRECCOM_FUNC(Bool32)  RRECCOM_Recog(Handle hCCOM, RRecComControl Control,char *spath, Word8 lang)
 {
@@ -171,7 +171,7 @@ void recog(Handle hCCOM, Word32 flags)
 void recog_evn(CCOM_comp* pcomp, bool if_use_gra)
 {
 	unsigned char evn_res[17]="", gra_res[17]="";
-	Int32 nvers = 0;
+	int32_t nvers = 0;
 	CCOM_comp comp = *pcomp;
 	int i;//, j;
 	CCOM_comp ec;
@@ -215,7 +215,7 @@ void recog_evn(CCOM_comp* pcomp, bool if_use_gra)
 
 		if (pcomp->cs == 255) nvers >>= 1;
 
-		Int32 vers_beg = pcomp->vers->lnAltCnt;
+		int32_t vers_beg = pcomp->vers->lnAltCnt;
 
 		if (nvers + pcomp->vers->lnAltCnt > REC_MAX_VERS)
 			nvers = REC_MAX_VERS - pcomp->vers->lnAltCnt;
@@ -270,7 +270,7 @@ void make_raster(CCOM_comp* pcomp)
 	}
 }
 /*********************************************************************************************/
-static void align8_lines(Word8 *bin,Int32 w, Int32 h)
+static void align8_lines(Word8 *bin,int32_t w, int32_t h)
 {
 	int i,ii,iii, wb=(w+7)/8, wb_new=((w+63)/64)*8;
 	Word8   buf[256];

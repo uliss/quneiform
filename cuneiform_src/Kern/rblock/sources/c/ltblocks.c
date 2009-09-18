@@ -208,7 +208,7 @@ void BlocksRemoveDescriptor (BLOCK *p)
 
 // ********************** Rom 23-02-99 ***************
 //void TryingAddBorderDust (BLOCK *p, ROOT *pRoot, Bool32 *WasExtendedUp, Bool32 *WasExtendedDown)
-void TryingAddBorderDust (BLOCK *p, ROOT *pRoot, Int32 *yTop,  Int32 *yBottom, Int32 *xLeft, Int32 *xRight)
+void TryingAddBorderDust (BLOCK *p, ROOT *pRoot, int32_t *yTop,  int32_t *yBottom, int32_t *xLeft, int32_t *xRight)
 {
 
 	if (pRoot -> xColumn < p -> Rect.xLeft - p->nAverageHeight)
@@ -676,7 +676,7 @@ void BlocksAbsorbDust (void)
     ROOT *pRootsBegin, *pRootsAfter;
 	//Bool32 WasExtendedUp;
 	//Bool32 WasExtendedDown;
-	Int32 xLeft, yTop, yBottom, xRight;
+	int32_t xLeft, yTop, yBottom, xRight;
 
 
     BlocksSetRootsNumbers ();

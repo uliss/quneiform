@@ -116,13 +116,13 @@ static CCOM_interval16 join(CCOM_interval16 *f, CCOM_interval16 *s)
 	return res;
 }
 
-static void reorder(CCOM_interval16 set[], Int32 n)
+static void reorder(CCOM_interval16 set[], int32_t n)
 {
 	if (n<=1)
 		return;
 
 	Bool32 changed;
-	Int32 i;
+	int32_t i;
 	CCOM_interval16 *sc,*sp;
 	do
 	{
@@ -146,9 +146,9 @@ DoubleInterval::DoubleInterval(Ocomp *comp)
 	memset(right,0,sizeof(right));
 }
 *-/
-Int32 DoubleInterval::Number()
+int32_t DoubleInterval::Number()
 {
-	Int32 n=0;
+	int32_t n=0;
 	if (left.l)	n++;
 	if (right.l)	n++;
 	return n;
@@ -156,7 +156,7 @@ Int32 DoubleInterval::Number()
 
 void DoubleInterval::SetOne(CCOM_interval16 *add)
 {
-	Int32 mid=add->e-add->l/2;
+	int32_t mid=add->e-add->l/2;
 	if (mid > pComp->nWidth/2)
 	{
 		right=*add;
@@ -260,7 +260,7 @@ void Ocomp::SetComp(CCOM_comp *comp)
 	nCavBeg=-1;	 nCavWidth=nCavEnd=0;
 	rCavRect=SmRect32();
 	memset(ints,0,(nHeight+1)*sizeof(DoubleInterval));
-	for (Int32 i=0; i<=nHeight && i<=MAXHEIGHT; i++)
+	for (int32_t i=0; i<=nHeight && i<=MAXHEIGHT; i++)
 		ints[i].pComp=this;
 }
 
@@ -276,7 +276,7 @@ Bool32 Ocomp::FindCavity(SmRect32 *rect)
 		if (inter.l != 0)
 		{
 			memset(ints,0,(nHeight+1)*sizeof(DoubleInterval));
-			for (Int32 i=0; i<=nHeight && i<=MAXHEIGHT; i++)
+			for (int32_t i=0; i<=nHeight && i<=MAXHEIGHT; i++)
 			{
 				ints[i].pComp=this;
 				if (i>=rect->top && i<=rect->bottom)
@@ -290,7 +290,7 @@ Bool32 Ocomp::FindCavity(SmRect32 *rect)
 
 	rCavRect=SmRect32();
 	nCavBeg=-1;	 nCavWidth=nCavEnd=0;
-	Int32 i,cLeft=0,cUp=0,cRight=0;
+	int32_t i,cLeft=0,cUp=0,cRight=0;
 	Bool32 found=FALSE;
 	CCOM_interval16 prev={0,0};
 	for (i=0; i<=nHeight; i++)	//последний интервал - фиктивный
@@ -301,7 +301,7 @@ Bool32 Ocomp::FindCavity(SmRect32 *rect)
 		Bool32 end = prev.l>0 && (notcross || curr.l==0);
 		if (end)
 		{
-			Int32 h=i-cUp;
+			int32_t h=i-cUp;
 			cLeft=DIV_ROUND(cLeft,h);
 			cRight=DIV_ROUND(cRight,h);
 			if (h>=nHeight/2 && cRight-cLeft>=nWidth/2)
@@ -377,7 +377,7 @@ Bool32 Ocomp::FillIntervals()
 
 void Ocomp::ShowCavity()
 {
-	for (Int32 i=nCavBeg; i<nCavEnd; i++)
+	for (int32_t i=nCavBeg; i<nCavEnd; i++)
 	{
 		Int16 h=(Int16)(pComp->upper+i);
 		Point16 beg1={pComp->left+ints[i].left.e,h},end1={beg1.x+1,h};
@@ -389,9 +389,9 @@ void Ocomp::ShowCavity()
 	LDPUMA_DeleteLines(hWndTurn,key);
 }
 
-Int32 TripleInterval::Number()
+int32_t TripleInterval::Number()
 {
-	Int32 n=0;
+	int32_t n=0;
 	if (left.l)	n++;
 	if (middle.l)	n++;
 	if (right.l)	n++;
@@ -400,8 +400,8 @@ Int32 TripleInterval::Number()
 
 void TripleInterval::SetOne(CCOM_interval16 *add)
 {
-	Int32 Ithird=pComp->nWidth/3,IIthird=2*Ithird;
-	Int32 mid=add->e-add->l/2;
+	int32_t Ithird=pComp->nWidth/3,IIthird=2*Ithird;
+	int32_t mid=add->e-add->l/2;
 	if (mid >= IIthird)
 	{
 		right=*add;
@@ -430,7 +430,7 @@ void TripleInterval::Add(CCOM_interval16 *toAdd)
 		SetOne(toAdd);  return;
 	}
 
-	Int32 i,Ithird=pComp->nWidth/3,IIthird=2*Ithird;
+	int32_t i,Ithird=pComp->nWidth/3,IIthird=2*Ithird;
 	CCOM_interval16	 set[4];
 	set[0]=left; set[1]=middle; set[2]=right; set[3]=*toAdd;
 	CCOM_interval16	*curr,*next;
@@ -439,7 +439,7 @@ void TripleInterval::Add(CCOM_interval16 *toAdd)
 	reorder(set,4);		// в порядке возрастания концов
 	if (set[0].l)		// всего 4 интервала - пару надо объединить
 	{
-		Int32 distmin=MAXWIDTH,imin;
+		int32_t distmin=MAXWIDTH,imin;
 		for (i=0,curr=set+i,next=curr+1; i<3; i++,curr++,next++)
 		{
 			Int16 dist=distance(curr,next);
@@ -475,7 +475,7 @@ void TripleInterval::Add(CCOM_interval16 *toAdd)
 	}
 	else if (set[2].l)	// 2 интервала - распределяем по трем вакансиям
 	{
-		Int32 mid=set[3].e-set[3].l/2;
+		int32_t mid=set[3].e-set[3].l/2;
 		if (mid<IIthird)
 		{
 			left=set[2];  middle=set[3];  memset(&right,0,sizeof(right));
@@ -494,7 +494,7 @@ void TripleInterval::Add(CCOM_interval16 *toAdd)
 		assert(0);
 }
 
-void OOcomp::SetComp(CCOM_comp *comp, Int32 pageWidth, Int32 pageHeight)
+void OOcomp::SetComp(CCOM_comp *comp, int32_t pageWidth, int32_t pageHeight)
 {
 	if (comp==NULL)
 		return;
@@ -506,7 +506,7 @@ void OOcomp::SetComp(CCOM_comp *comp, Int32 pageWidth, Int32 pageHeight)
 	nDens=0;
 	rCavRect=SmRect32();
 	memset(ints,0,(nHeight+1)*sizeof(TripleInterval));
-	for (Int32 i=0; i<=nHeight && i<=MAXHEIGHT; i++)
+	for (int32_t i=0; i<=nHeight && i<=MAXHEIGHT; i++)
 		ints[i].pComp=this;
 }
 
@@ -568,14 +568,14 @@ Bool32 OOcomp::Test(SmRect32 *rect)
 		return FALSE;
 
 
-	Int32 i,dens=0;
-	Int32 lm=0,lc=0,rm=0,rc=0;
+	int32_t i,dens=0;
+	int32_t lm=0,lc=0,rm=0,rc=0;
 	Int16 um=pComp->upper,bm=nPageHeight-(um+pComp->h);
 	for (i=0; i<nHeight; i++)
 	{
 		TripleInterval *intv=ints+i;
 #ifdef DRAWTPIPLEINT
-				Int32 color=wRGB(0,0,255);
+				int32_t color=wRGB(0,0,255);
 				Int16 h=(Int16)(pComp->upper+i);
 				{
 				Point16 beg={pComp->left+intv->left.e-intv->left.l,h},end={pComp->left+intv->left.e,h};
@@ -616,7 +616,7 @@ Bool32 OOcomp::Test(SmRect32 *rect)
 			return TRUE;
 
 	Int16 wm=(Int16)nPageWidth/128,hm=(Int16)nPageHeight/128;
-	Int32 boundh=0,boundv=0;
+	int32_t boundh=0,boundv=0;
 	if (pComp->left<=wm)  boundv++;
 	if (pComp->upper<=hm) boundh++;
 	if (pComp->left+pComp->w>=nPageWidth-wm)	boundv++;

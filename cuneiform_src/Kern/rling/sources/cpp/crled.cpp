@@ -280,14 +280,14 @@ void CRLEd::Write(PWord8 pP, Word16 wSize)
 	mpEdFileEnd += wSize;
 }
 
-Bool32 CRLEd::ExcludeToVers(Int32 size, PChar8 pStr)
+Bool32 CRLEd::ExcludeToVers(int32_t size, PChar8 pStr)
 {
 	Word8  *p,*pe;
 	//struct  vers_ref     vf;
 	//struct  bit_map_ref  bm;
 	struct  VersRef     vf;
 	struct  BitMapRef   bm;
-	Int32   i;
+	int32_t   i;
 	Bool32	new_bmp;
 
 	//i=-1;
