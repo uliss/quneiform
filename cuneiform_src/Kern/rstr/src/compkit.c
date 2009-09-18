@@ -59,7 +59,7 @@
 #include "struct.h"
 #include "func.h"
 
-BOOL boxes_account();
+Bool boxes_account();
 
 extern c_comp wcomp;
 extern MN * main_number_ptr;
@@ -72,7 +72,7 @@ extern BYTE records_change;
 
 static void boxes_to_line();
 
-BOOL component_account() {
+Bool component_account() {
 	if (boxes_account()) {
 		boxes_to_line();
 		wcomp.type = 0;
@@ -81,7 +81,7 @@ BOOL component_account() {
 	return FALSE;
 }
 
-BOOL boxes_account() {
+Bool boxes_account() {
 	MN *mn;
 	BOX *bp;
 	INT left, right, n;

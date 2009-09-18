@@ -178,13 +178,13 @@ uint32_t m_dwExtendedStyle;
         }
 
         // overridden to provide proper initialization
-        BOOL SubclassWindow(HWND hWnd)
+        Bool SubclassWindow(HWND hWnd)
         {
 #if (_MSC_VER >= 1300)
-            BOOL bRet = ATL::CWindowImpl< T, TBase, TWinTraits>::SubclassWindow(hWnd);
+            Bool bRet = ATL::CWindowImpl< T, TBase, TWinTraits>::SubclassWindow(hWnd);
 #else // !(_MSC_VER >= 1300)
             typedef ATL::CWindowImpl< T, TBase, TWinTraits>   _baseClass;
-            BOOL bRet = _baseClass::SubclassWindow(hWnd);
+            Bool bRet = _baseClass::SubclassWindow(hWnd);
 #endif // !(_MSC_VER >= 1300)
             if(bRet)
                 Init();
@@ -280,7 +280,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
                 m_nImage[_nImageDisabled] = nDisabled;
         }
 
-        BOOL SizeToImage()
+        Bool SizeToImage()
         {
             ATLASSERT(::IsWindow(m_hWnd) && m_ImageList.m_hImageList != NULL);
             int cx = 0;
@@ -356,14 +356,14 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
                 MESSAGE_HANDLER(WM_UPDATEUISTATE, OnUpdateUiState)
                 END_MSG_MAP()
 
-                LRESULT OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled)
+                LRESULT OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& bHandled)
         {
             Init();
             bHandled = FALSE;
             return 1;
         }
 
-        LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled)
+        LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& bHandled)
         {
             if(m_tip.IsWindow())
             {
@@ -374,7 +374,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
             return 1;
         }
 
-        LRESULT OnMouseMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+        LRESULT OnMouseMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, Bool& bHandled)
         {
             MSG msg = { m_hWnd, uMsg, wParam, lParam };
             if(m_tip.IsWindow())
@@ -383,12 +383,12 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
             return 1;
         }
 
-        LRESULT OnEraseBackground(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+        LRESULT OnEraseBackground(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
         {
             return 1;   // no background needed
         }
 
-        LRESULT OnPaint(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+        LRESULT OnPaint(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, Bool& /*bHandled*/)
         {
             T* pT = static_cast<T*>(this);
             if(wParam != NULL)
@@ -403,7 +403,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
             return 0;
         }
 
-        LRESULT OnFocus(UINT uMsg, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled)
+        LRESULT OnFocus(UINT uMsg, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& bHandled)
         {
             m_fFocus = (uMsg == WM_SETFOCUS) ? 1 : 0;
             Invalidate();
@@ -412,7 +412,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
             return 1;
         }
 
-        LRESULT OnLButtonDown(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& /*bHandled*/)
+        LRESULT OnLButtonDown(UINT uMsg, WPARAM wParam, LPARAM lParam, Bool& /*bHandled*/)
         {
             LRESULT lRet = 0;
             if(IsHoverMode())
@@ -436,7 +436,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
             return lRet;
         }
 
-        LRESULT OnLButtonDblClk(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& /*bHandled*/)
+        LRESULT OnLButtonDblClk(UINT uMsg, WPARAM wParam, LPARAM lParam, Bool& /*bHandled*/)
         {
             LRESULT lRet = 0;
             if(!IsHoverMode())
@@ -452,7 +452,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
             return lRet;
         }
 
-        LRESULT OnLButtonUp(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& /*bHandled*/)
+        LRESULT OnLButtonUp(UINT uMsg, WPARAM wParam, LPARAM lParam, Bool& /*bHandled*/)
         {
             LRESULT lRet = 0;
             bool bHover = IsHoverMode();
@@ -467,7 +467,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
             return lRet;
         }
 
-        LRESULT OnCaptureChanged(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled)
+        LRESULT OnCaptureChanged(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& bHandled)
         {
             if(m_fPressed == 1)
             {
@@ -479,7 +479,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
             return 1;
         }
 
-        LRESULT OnEnable(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled)
+        LRESULT OnEnable(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& bHandled)
         {
             Invalidate();
             UpdateWindow();
@@ -487,7 +487,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
             return 1;
         }
 
-        LRESULT OnMouseMove(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& bHandled)
+        LRESULT OnMouseMove(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, Bool& bHandled)
         {
             if(::GetCapture() == m_hWnd)
             {
@@ -514,7 +514,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
             return 1;
         }
 
-        LRESULT OnMouseLeave(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+        LRESULT OnMouseLeave(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
         {
             if(m_fMouseOver == 1)
             {
@@ -525,7 +525,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
             return 0;
         }
 
-        LRESULT OnKeyDown(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& bHandled)
+        LRESULT OnKeyDown(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, Bool& bHandled)
         {
             if(wParam == VK_SPACE && IsHoverMode())
                 return 0;   // ignore if in hover mode
@@ -539,7 +539,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
             return 1;
         }
 
-        LRESULT OnKeyUp(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& bHandled)
+        LRESULT OnKeyUp(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, Bool& bHandled)
         {
             if(wParam == VK_SPACE && IsHoverMode())
                 return 0;   // ignore if in hover mode
@@ -553,7 +553,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
             return 1;
         }
 
-        LRESULT OnTimer(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+        LRESULT OnTimer(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, Bool& /*bHandled*/)
         {
             ATLASSERT((m_dwExtendedStyle & BMPBTN_AUTOFIRE) != 0);
             switch(wParam)   // timer ID
@@ -582,7 +582,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
             return 0;
         }
 
-        LRESULT OnUpdateUiState(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+        LRESULT OnUpdateUiState(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
         {
             // If the control is subclassed or superclassed, this message can cause
             // repainting without WM_PAINT. We don't use this state, so just do nothing.
@@ -608,7 +608,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
                 SizeToImage();
         }
 
-        BOOL StartTrackMouseLeave()
+        Bool StartTrackMouseLeave()
         {
             TRACKMOUSEEVENT tme = { 0 };
             tme.cbSize = sizeof(tme);
@@ -675,13 +675,13 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
         }
 
         // Operations
-        BOOL SubclassWindow(HWND hWnd)
+        Bool SubclassWindow(HWND hWnd)
         {
 #if (_MSC_VER >= 1300)
-            BOOL bRet = ATL::CWindowImplBaseT< TBase, TWinTraits>::SubclassWindow(hWnd);
+            Bool bRet = ATL::CWindowImplBaseT< TBase, TWinTraits>::SubclassWindow(hWnd);
 #else // !(_MSC_VER >= 1300)
             typedef ATL::CWindowImplBaseT< TBase, TWinTraits>   _baseClass;
-            BOOL bRet = _baseClass::SubclassWindow(hWnd);
+            Bool bRet = _baseClass::SubclassWindow(hWnd);
 #endif // !(_MSC_VER >= 1300)
             if(bRet)
             {
@@ -706,7 +706,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
             if(!(lvi.state & LVIS_SELECTED))
                 return;
             // new check state will be reverse of the current state,
-            BOOL bCheck = !GetCheckState(nCurrItem);
+            Bool bCheck = !GetCheckState(nCurrItem);
             int nItem = -1;
             int nOldItem = -1;
             while((nItem = GetNextItem(nOldItem, LVNI_SELECTED)) != -1)
@@ -725,7 +725,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
                 MESSAGE_HANDLER(WM_KEYDOWN, OnKeyDown)
                 END_MSG_MAP()
 
-                LRESULT OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& /*bHandled*/)
+                LRESULT OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, Bool& /*bHandled*/)
         {
             // first let list view control initialize everything
             LRESULT lRet = DefWindowProc(uMsg, wParam, lParam);
@@ -736,7 +736,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
             return lRet;
         }
 
-        LRESULT OnLButtonDown(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& bHandled)
+        LRESULT OnLButtonDown(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, Bool& bHandled)
         {
             POINT ptMsg = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
             LVHITTESTINFO lvh = { 0 };
@@ -750,7 +750,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
             return 1;
         }
 
-        LRESULT OnKeyDown(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& bHandled)
+        LRESULT OnKeyDown(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, Bool& bHandled)
         {
             if(wParam == VK_SPACE)
             {
@@ -1100,15 +1100,15 @@ uint32_t dwStyle = GetStyle();
     }
 
     // Operations
-    BOOL SubclassWindow(HWND hWnd)
+    Bool SubclassWindow(HWND hWnd)
     {
         ATLASSERT(m_hWnd == NULL);
         ATLASSERT(::IsWindow(hWnd));
 #if (_MSC_VER >= 1300)
-        BOOL bRet = ATL::CWindowImpl< T, TBase, TWinTraits>::SubclassWindow(hWnd);
+        Bool bRet = ATL::CWindowImpl< T, TBase, TWinTraits>::SubclassWindow(hWnd);
 #else // !(_MSC_VER >= 1300)
         typedef ATL::CWindowImpl< T, TBase, TWinTraits>   _baseClass;
-        BOOL bRet = _baseClass::SubclassWindow(hWnd);
+        Bool bRet = _baseClass::SubclassWindow(hWnd);
 #endif // !(_MSC_VER >= 1300)
         if(bRet)
         {
@@ -1183,7 +1183,7 @@ uint32_t dwStyle = GetStyle();
             MESSAGE_HANDLER(WM_SIZE, OnSize)
             END_MSG_MAP()
 
-            LRESULT OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+            LRESULT OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
     {
         T* pT = static_cast<T*>(this);
         pT->Init();
@@ -1191,7 +1191,7 @@ uint32_t dwStyle = GetStyle();
     }
 
 #ifndef _WIN32_WCE
-    LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled)
+    LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& bHandled)
     {
         if(m_tip.IsWindow())
         {
@@ -1202,7 +1202,7 @@ uint32_t dwStyle = GetStyle();
         return 1;
     }
 
-    LRESULT OnMouseMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+    LRESULT OnMouseMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, Bool& bHandled)
     {
         MSG msg = { m_hWnd, uMsg, wParam, lParam };
         if(m_tip.IsWindow() && IsUsingToolTip())
@@ -1212,12 +1212,12 @@ uint32_t dwStyle = GetStyle();
     }
 #endif // !_WIN32_WCE
 
-    LRESULT OnEraseBackground(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+    LRESULT OnEraseBackground(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
     {
         return 1;   // no background painting needed (we do it all during WM_PAINT)
     }
 
-    LRESULT OnPaint(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& bHandled)
+    LRESULT OnPaint(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, Bool& bHandled)
     {
         if(!m_bPaintLabel)
         {
@@ -1241,7 +1241,7 @@ uint32_t dwStyle = GetStyle();
         return 0;
     }
 
-    LRESULT OnFocus(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled)
+    LRESULT OnFocus(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& bHandled)
     {
         if(m_bPaintLabel)
             Invalidate();
@@ -1250,7 +1250,7 @@ uint32_t dwStyle = GetStyle();
         return 0;
     }
 
-    LRESULT OnMouseMove(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& bHandled)
+    LRESULT OnMouseMove(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, Bool& bHandled)
     {
         POINT pt = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
         if((m_lpstrHyperLink != NULL  || IsCommandButton()) && ::PtInRect(&m_rcLink, pt))
@@ -1286,7 +1286,7 @@ uint32_t dwStyle = GetStyle();
     }
 
 #ifndef _WIN32_WCE
-    LRESULT OnMouseLeave(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+    LRESULT OnMouseLeave(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
     {
         if(IsUnderlineHover() && m_bHover)
         {
@@ -1298,7 +1298,7 @@ uint32_t dwStyle = GetStyle();
     }
 #endif // !_WIN32_WCE
 
-    LRESULT OnLButtonDown(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& /*bHandled*/)
+    LRESULT OnLButtonDown(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, Bool& /*bHandled*/)
     {
         POINT pt = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
         if(::PtInRect(&m_rcLink, pt))
@@ -1309,7 +1309,7 @@ uint32_t dwStyle = GetStyle();
         return 0;
     }
 
-    LRESULT OnLButtonUp(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& /*bHandled*/)
+    LRESULT OnLButtonUp(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, Bool& /*bHandled*/)
     {
         if(GetCapture() == m_hWnd)
         {
@@ -1324,7 +1324,7 @@ uint32_t dwStyle = GetStyle();
         return 0;
     }
 
-    LRESULT OnChar(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+    LRESULT OnChar(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, Bool& /*bHandled*/)
     {
         if(wParam == VK_RETURN || wParam == VK_SPACE)
         {
@@ -1334,12 +1334,12 @@ uint32_t dwStyle = GetStyle();
         return 0;
     }
 
-    LRESULT OnGetDlgCode(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+    LRESULT OnGetDlgCode(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
     {
         return DLGC_WANTCHARS;
     }
 
-    LRESULT OnSetCursor(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled)
+    LRESULT OnSetCursor(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& bHandled)
     {
         POINT pt = { 0, 0 };
         GetCursorPos(&pt);
@@ -1352,22 +1352,22 @@ uint32_t dwStyle = GetStyle();
         return FALSE;
     }
 
-    LRESULT OnEnable(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+    LRESULT OnEnable(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
     {
         Invalidate();
         UpdateWindow();
         return 0;
     }
 
-    LRESULT OnGetFont(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+    LRESULT OnGetFont(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
     {
         return (LRESULT)m_hFontNormal;
     }
 
-    LRESULT OnSetFont(UINT /*uMsg*/, WPARAM wParam, LPARAM lParam, BOOL& /*bHandled*/)
+    LRESULT OnSetFont(UINT /*uMsg*/, WPARAM wParam, LPARAM lParam, Bool& /*bHandled*/)
     {
         m_hFontNormal = (HFONT)wParam;
-        if((BOOL)lParam)
+        if((Bool)lParam)
         {
             Invalidate();
             UpdateWindow();
@@ -1375,14 +1375,14 @@ uint32_t dwStyle = GetStyle();
         return 0;
     }
 
-    LRESULT OnUpdateUiState(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+    LRESULT OnUpdateUiState(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
     {
         // If the control is subclassed or superclassed, this message can cause
         // repainting without WM_PAINT. We don't use this state, so just do nothing.
         return 0;
     }
 
-    LRESULT OnSize(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+    LRESULT OnSize(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
     {
         T* pT = static_cast<T*>(this);
         pT->CalcLabelRect();
@@ -1762,7 +1762,7 @@ uint32_t dwStyle = GetStyle();
     }
 
 #ifndef _WIN32_WCE
-    BOOL StartTrackMouseLeave()
+    Bool StartTrackMouseLeave()
     {
         TRACKMOUSEEVENT tme = { 0 };
         tme.cbSize = sizeof(tme);
@@ -1967,7 +1967,7 @@ public:
         return Create(hWndParent, szText, dwStyle, nID);
     }
 
-    BOOL SetPanes(int* pPanes, int nPanes, bool bSetText = true)
+    Bool SetPanes(int* pPanes, int nPanes, bool bSetText = true)
     {
         ATLASSERT(::IsWindow(m_hWnd));
         ATLASSERT(nPanes > 0);
@@ -2021,7 +2021,7 @@ public:
             cxLeft = pPanesPos[i];
         }
 
-        BOOL bRet = SetParts(nPanes, pPanesPos);
+        Bool bRet = SetParts(nPanes, pPanesPos);
 
         if(bRet && bSetText)
         {
@@ -2053,7 +2053,7 @@ public:
         return true;
     }
 
-    BOOL GetPaneText(int nPaneID, LPTSTR lpstrText, int* pcchLength = NULL, int* pnType = NULL) const
+    Bool GetPaneText(int nPaneID, LPTSTR lpstrText, int* pcchLength = NULL, int* pnType = NULL) const
     {
         ATLASSERT(::IsWindow(m_hWnd));
         int nIndex  = GetPaneIndexFromID(nPaneID);
@@ -2067,7 +2067,7 @@ public:
         return TRUE;
     }
 
-    BOOL SetPaneText(int nPaneID, LPCTSTR lpstrText, int nType = 0)
+    Bool SetPaneText(int nPaneID, LPCTSTR lpstrText, int nType = 0)
     {
         ATLASSERT(::IsWindow(m_hWnd));
         int nIndex  = GetPaneIndexFromID(nPaneID);
@@ -2077,7 +2077,7 @@ public:
         return SetText(nIndex, lpstrText, nType);
     }
 
-    BOOL GetPaneRect(int nPaneID, LPRECT lpRect) const
+    Bool GetPaneRect(int nPaneID, LPRECT lpRect) const
     {
         ATLASSERT(::IsWindow(m_hWnd));
         int nIndex  = GetPaneIndexFromID(nPaneID);
@@ -2087,7 +2087,7 @@ public:
         return GetRect(nIndex, lpRect);
     }
 
-    BOOL SetPaneWidth(int nPaneID, int cxWidth)
+    Bool SetPaneWidth(int nPaneID, int cxWidth)
     {
         ATLASSERT(::IsWindow(m_hWnd));
         ATLASSERT(nPaneID != ID_DEFAULT_PANE);   // Can't resize this one
@@ -2131,7 +2131,7 @@ public:
     }
 
 #if (_WIN32_IE >= 0x0400) && !defined(_WIN32_WCE)
-    BOOL GetPaneTipText(int nPaneID, LPTSTR lpstrText, int nSize) const
+    Bool GetPaneTipText(int nPaneID, LPTSTR lpstrText, int nSize) const
     {
         ATLASSERT(::IsWindow(m_hWnd));
         int nIndex  = GetPaneIndexFromID(nPaneID);
@@ -2142,7 +2142,7 @@ public:
         return TRUE;
     }
 
-    BOOL SetPaneTipText(int nPaneID, LPCTSTR lpstrText)
+    Bool SetPaneTipText(int nPaneID, LPCTSTR lpstrText)
     {
         ATLASSERT(::IsWindow(m_hWnd));
         int nIndex  = GetPaneIndexFromID(nPaneID);
@@ -2155,7 +2155,7 @@ public:
 #endif // (_WIN32_IE >= 0x0400) && !defined(_WIN32_WCE)
 
 #if ((_WIN32_IE >= 0x0400) && !defined(_WIN32_WCE)) || (defined(_WIN32_WCE) && (_WIN32_WCE >= 0x0500))
-    BOOL GetPaneIcon(int nPaneID, HICON& hIcon) const
+    Bool GetPaneIcon(int nPaneID, HICON& hIcon) const
     {
         ATLASSERT(::IsWindow(m_hWnd));
         int nIndex  = GetPaneIndexFromID(nPaneID);
@@ -2166,7 +2166,7 @@ public:
         return TRUE;
     }
 
-    BOOL SetPaneIcon(int nPaneID, HICON hIcon)
+    Bool SetPaneIcon(int nPaneID, HICON hIcon)
     {
         ATLASSERT(::IsWindow(m_hWnd));
         int nIndex  = GetPaneIndexFromID(nPaneID);
@@ -2182,7 +2182,7 @@ public:
             MESSAGE_HANDLER(WM_SIZE, OnSize)
             END_MSG_MAP()
 
-            LRESULT OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& /*bHandled*/)
+            LRESULT OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, Bool& /*bHandled*/)
     {
         LRESULT lRet = DefWindowProc(uMsg, wParam, lParam);
         if(wParam != SIZE_MINIMIZED && m_nPanes > 0)
@@ -2194,7 +2194,7 @@ public:
     }
 
     // Implementation
-    BOOL UpdatePanesLayout()
+    Bool UpdatePanesLayout()
     {
         // get pane positions
         CTempBuffer<int, _WTL_STACK_ALLOC_THRESHOLD> buff;
@@ -2367,7 +2367,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
         return hWndOldClient;
     }
 
-    BOOL GetTitle(LPTSTR lpstrTitle, int cchLength) const
+    Bool GetTitle(LPTSTR lpstrTitle, int cchLength) const
     {
         ATLASSERT(lpstrTitle != NULL);
 
@@ -2376,7 +2376,7 @@ uint32_t dwPrevStyle = m_dwExtendedStyle;
         return (nRet == 0 || nRet == STRUNCATE);
     }
 
-    BOOL SetTitle(LPCTSTR lpstrTitle)
+    Bool SetTitle(LPCTSTR lpstrTitle)
     {
         ATLASSERT(lpstrTitle != NULL);
 
@@ -2423,7 +2423,7 @@ uint32_t dwExStyle = 0, UINT nID = 0, LPVOID lpCreateParam = NULL)
 #endif // !(_MSC_VER >= 1300)
     }
 
-    BOOL EnableCloseButton(BOOL bEnable)
+    Bool EnableCloseButton(Bool bEnable)
     {
         ATLASSERT(::IsWindow(m_hWnd));
         T* pT = static_cast<T*>(this);
@@ -2454,7 +2454,7 @@ uint32_t dwExStyle = 0, UINT nID = 0, LPVOID lpCreateParam = NULL)
             FORWARD_NOTIFICATIONS()
             END_MSG_MAP()
 
-            LRESULT OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+            LRESULT OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
     {
         T* pT = static_cast<T*>(this);
         pT->CalcSize();
@@ -2465,26 +2465,26 @@ uint32_t dwExStyle = 0, UINT nID = 0, LPVOID lpCreateParam = NULL)
         return 0;
     }
 
-    LRESULT OnSize(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& /*bHandled*/)
+    LRESULT OnSize(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, Bool& /*bHandled*/)
     {
         T* pT = static_cast<T*>(this);
         pT->UpdateLayout(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
         return 0;
     }
 
-    LRESULT OnSetFocus(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+    LRESULT OnSetFocus(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
     {
         if(m_wndClient.m_hWnd != NULL)
             m_wndClient.SetFocus();
         return 0;
     }
 
-    LRESULT OnEraseBackground(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+    LRESULT OnEraseBackground(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
     {
         return 1;   // no background needed
     }
 
-    LRESULT OnPaint(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+    LRESULT OnPaint(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, Bool& /*bHandled*/)
     {
         T* pT = static_cast<T*>(this);
         if(wParam != NULL)
@@ -2506,7 +2506,7 @@ uint32_t dwExStyle = 0, UINT nID = 0, LPVOID lpCreateParam = NULL)
         return 0;
     }
 
-    LRESULT OnNotify(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& bHandled)
+    LRESULT OnNotify(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, Bool& bHandled)
     {
         if(m_tb.m_hWnd == NULL)
         {
@@ -2535,7 +2535,7 @@ uint32_t dwExStyle = 0, UINT nID = 0, LPVOID lpCreateParam = NULL)
         return lRet;
     }
 
-    LRESULT OnCommand(UINT /*uMsg*/, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+    LRESULT OnCommand(UINT /*uMsg*/, WPARAM wParam, LPARAM lParam, Bool& bHandled)
     {
         // if command comes from the close button, substitute HWND of the pane container instead
         if(m_tb.m_hWnd != NULL && (HWND)lParam == m_tb.m_hWnd)
@@ -2695,7 +2695,7 @@ uint32_t OnItemPostPaint(int /*idCtrl*/, LPNMCUSTOMDRAW lpNMCustomDraw)
     }
 
 #ifndef _WIN32_WCE
-    BOOL GetToolTipText(LPNMHDR /*lpnmh*/)
+    Bool GetToolTipText(LPNMHDR /*lpnmh*/)
     {
         return FALSE;
     }
@@ -3122,7 +3122,7 @@ uint32_t dwFlags = LOCALE_NOUSEROVERRIDE;
 
         ATLASSERT(pFunc != NULL);
         LVSortInfo lvsi = { pT, iCol, bDescending };
-        bool bRet = ((BOOL)pT->DefWindowProc(LVM_SORTITEMS, (WPARAM)&lvsi, (LPARAM)pFunc) != FALSE);
+        bool bRet = ((Bool)pT->DefWindowProc(LVM_SORTITEMS, (WPARAM)&lvsi, (LPARAM)pFunc) != FALSE);
         for(int i = 0; i < nCount; i++)
         {
             DWORD_PTR dwItemData = pT->GetItemData(i);
@@ -3555,7 +3555,7 @@ uint32_t dwFlags = LOCALE_NOUSEROVERRIDE;
             MESSAGE_HANDLER(WM_SETTINGCHANGE, OnSettingChange)
             END_MSG_MAP()
 
-            LRESULT OnInsertColumn(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& /*bHandled*/)
+            LRESULT OnInsertColumn(UINT uMsg, WPARAM wParam, LPARAM lParam, Bool& /*bHandled*/)
     {
         T* pT = static_cast<T*>(this);
         LRESULT lRet = pT->DefWindowProc(uMsg, wParam, lParam);
@@ -3577,7 +3577,7 @@ uint32_t dwFlags = LOCALE_NOUSEROVERRIDE;
         return lRet;
     }
 
-    LRESULT OnDeleteColumn(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& /*bHandled*/)
+    LRESULT OnDeleteColumn(UINT uMsg, WPARAM wParam, LPARAM lParam, Bool& /*bHandled*/)
     {
         T* pT = static_cast<T*>(this);
         LRESULT lRet = pT->DefWindowProc(uMsg, wParam, lParam);
@@ -3594,7 +3594,7 @@ uint32_t dwFlags = LOCALE_NOUSEROVERRIDE;
         return lRet;
     }
 
-    LRESULT OnHeaderItemClick(int /*idCtrl*/, LPNMHDR pnmh, BOOL& bHandled)
+    LRESULT OnHeaderItemClick(int /*idCtrl*/, LPNMHDR pnmh, Bool& bHandled)
     {
         LPNMHEADER p = (LPNMHEADER)pnmh;
         if(p->iButton == 0)
@@ -3608,7 +3608,7 @@ uint32_t dwFlags = LOCALE_NOUSEROVERRIDE;
         return 0;
     }
 
-    LRESULT OnSettingChange(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& bHandled)
+    LRESULT OnSettingChange(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, Bool& bHandled)
     {
 #ifndef _WIN32_WCE
         if(wParam == SPI_SETNONCLIENTMETRICS)
@@ -3771,12 +3771,12 @@ public:
     }
 
     // Message filter function - to be called from PreTranslateMessage of the main window
-    BOOL PreTranslateMessage(MSG* pMsg)
+    Bool PreTranslateMessage(MSG* pMsg)
     {
         if(IsWindow() == FALSE)
             return FALSE;
 
-        BOOL bRet = FALSE;
+        Bool bRet = FALSE;
 
         // Check for TabView built-in accelerators (Ctrl+Tab/Ctrl+Shift+Tab - next/previous page)
         int nCount = GetPageCount();
@@ -3817,7 +3817,7 @@ public:
         if(bRet == FALSE)
         {
             if(m_nActivePage != -1)
-                bRet = (BOOL)::SendMessage(GetPageHWND(m_nActivePage), WM_FORWARDMSG, 0, (LPARAM)pMsg);
+                bRet = (Bool)::SendMessage(GetPageHWND(m_nActivePage), WM_FORWARDMSG, 0, (LPARAM)pMsg);
         }
 
         return bRet;
@@ -4211,7 +4211,7 @@ public:
         {
             CMenuItemInfo mii;
             mii.fMask = MIIM_ID;
-            BOOL bRet = menu.GetMenuItemInfo(nFirstPos, TRUE, &mii);
+            Bool bRet = menu.GetMenuItemInfo(nFirstPos, TRUE, &mii);
             if(bRet == FALSE)
                 break;
             if((mii.wID >= ID_WINDOW_TABFIRST && mii.wID <= ID_WINDOW_TABLAST) || mii.wID == ID_WINDOW_SHOWTABLIST)
@@ -4220,7 +4220,7 @@ public:
 #endif // _WIN32_WCE
 
         // Remove all menu items for tab pages
-        BOOL bRet = TRUE;
+        Bool bRet = TRUE;
         while(bRet != FALSE)
             bRet = menu.DeleteMenu(nFirstPos, MF_BYPOSITION);
 
@@ -4326,7 +4326,7 @@ public:
             MESSAGE_HANDLER(WM_SYSKEYDOWN, OnTabSysKeyDown)
             END_MSG_MAP()
 
-            LRESULT OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+            LRESULT OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
     {
         T* pT = static_cast<T*>(this);
         pT->CreateTabControl();
@@ -4334,7 +4334,7 @@ public:
         return 0;
     }
 
-    LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+    LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
     {
         RemoveAllPages();
 
@@ -4348,21 +4348,21 @@ public:
         return 0;
     }
 
-    LRESULT OnSize(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+    LRESULT OnSize(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
     {
         T* pT = static_cast<T*>(this);
         pT->UpdateLayout();
         return 0;
     }
 
-    LRESULT OnSetFocus(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+    LRESULT OnSetFocus(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
     {
         if(m_nActivePage != -1)
             ::SetFocus(GetPageHWND(m_nActivePage));
         return 0;
     }
 
-    LRESULT OnTabChanged(int /*idCtrl*/, LPNMHDR /*pnmh*/, BOOL& /*bHandled*/)
+    LRESULT OnTabChanged(int /*idCtrl*/, LPNMHDR /*pnmh*/, Bool& /*bHandled*/)
     {
         SetActivePage(m_tab.GetCurSel());
         T* pT = static_cast<T*>(this);
@@ -4371,7 +4371,7 @@ public:
         return 0;
     }
 
-    LRESULT OnTabNotification(int /*idCtrl*/, LPNMHDR /*pnmh*/, BOOL& /*bHandled*/)
+    LRESULT OnTabNotification(int /*idCtrl*/, LPNMHDR /*pnmh*/, Bool& /*bHandled*/)
     {
         // nothing to do - this just blocks all tab control
         // notifications from being propagated further
@@ -4379,7 +4379,7 @@ public:
     }
 
 #ifndef _WIN32_WCE
-    LRESULT OnTabGetDispInfo(int /*idCtrl*/, LPNMHDR pnmh, BOOL& bHandled)
+    LRESULT OnTabGetDispInfo(int /*idCtrl*/, LPNMHDR pnmh, Bool& bHandled)
     {
         LPNMTTDISPINFO pTTDI = (LPNMTTDISPINFO)pnmh;
         if(pTTDI->hdr.hwndFrom == m_tab.GetTooltips())
@@ -4397,7 +4397,7 @@ public:
 #endif // !_WIN32_WCE
 
     // Tab control message handlers
-    LRESULT OnTabLButtonDown(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& bHandled)
+    LRESULT OnTabLButtonDown(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, Bool& bHandled)
     {
         if(m_tab.GetItemCount() > 1)
         {
@@ -4412,7 +4412,7 @@ public:
         return 0;
     }
 
-    LRESULT OnTabLButtonUp(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& bHandled)
+    LRESULT OnTabLButtonUp(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, Bool& bHandled)
     {
         if(m_bTabCapture)
         {
@@ -4433,7 +4433,7 @@ public:
         return 0;
     }
 
-    LRESULT OnTabCaptureChanged(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled)
+    LRESULT OnTabCaptureChanged(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& bHandled)
     {
         if(m_bTabCapture)
         {
@@ -4459,7 +4459,7 @@ public:
         return 0;
     }
 
-    LRESULT OnTabMouseMove(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& bHandled)
+    LRESULT OnTabMouseMove(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, Bool& bHandled)
     {
         bHandled = FALSE;
 
@@ -4516,7 +4516,7 @@ public:
         return 0;
     }
 
-    LRESULT OnTabRButtonUp(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& /*bHandled*/)
+    LRESULT OnTabRButtonUp(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, Bool& /*bHandled*/)
     {
         TCHITTESTINFO hti = { 0 };
         hti.pt.x = GET_X_LPARAM(lParam);
@@ -4531,7 +4531,7 @@ public:
         return 0;
     }
 
-    LRESULT OnTabSysKeyDown(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& bHandled)
+    LRESULT OnTabSysKeyDown(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, Bool& bHandled)
     {
         bool bShift = (::GetKeyState(VK_SHIFT) < 0);
         if(wParam == VK_F10 && bShift)
@@ -4578,7 +4578,7 @@ public:
         tcix.tciheader.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_PARAM;
         tcix.tciheader.pszText = lpstrTabText;
         tcix.tciheader.cchTextMax = m_cchTabTextLength + 1;
-        BOOL bRet = m_tab.GetItem(nMovePage, tcix);
+        Bool bRet = m_tab.GetItem(nMovePage, tcix);
         ATLASSERT(bRet != FALSE);
         if(bRet == FALSE)
             return false;

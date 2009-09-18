@@ -80,7 +80,7 @@ END_OBJECT_MAP()
 // DLL Entry Point
 
 extern "C"
-BOOL WINAPI DllMain(HINSTANCE hInstance, uint32_t dwReason, LPVOID /*lpReserved*/)
+Bool WINAPI DllMain(HINSTANCE hInstance, uint32_t dwReason, LPVOID /*lpReserved*/)
 {
     if (dwReason == DLL_PROCESS_ATTACH)
     {

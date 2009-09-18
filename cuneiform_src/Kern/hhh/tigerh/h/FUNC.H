@@ -84,7 +84,7 @@ void correct_dir_path(PBYTE p);
 
 // module proimage.c
 void image_file_close();
-BOOL image_file_open();
+Bool image_file_open();
 INT source_read(PBYTE start, PBYTE ptr, PBYTE end);
 
 // module progress.c
@@ -133,22 +133,22 @@ void pass3(INT nCall);
 void accept_cell(cell *, c_comp *);
 INT revision();
 // module alphabet.c
-BOOL is_digital_string(void);
+Bool is_digital_string(void);
 void serbian_J2j(void);
 
 // module snap.c
-BOOL snap_init();
-BOOL snap_finish();
-BOOL snap_newline();
-BOOL snap_newpass(BYTE);
-BOOL snap_show_text(PBYTE);
-BOOL snap_show_text1(PBYTE);
-BOOL snap_monitor();
-BOOL snap_newcell(cell *);
-BOOL snap_stopcell(cell *, cell *);
-BOOL snap_activity(BYTE);
-BOOL snap_show_raster(PBYTE, INT, INT);
-BOOL Alik_snap_show_raster(PBYTE, PBYTE, PBYTE, INT, INT, PCHAR, PCHAR, PINT);
+Bool snap_init();
+Bool snap_finish();
+Bool snap_newline();
+Bool snap_newpass(BYTE);
+Bool snap_show_text(PBYTE);
+Bool snap_show_text1(PBYTE);
+Bool snap_monitor();
+Bool snap_newcell(cell *);
+Bool snap_stopcell(cell *, cell *);
+Bool snap_activity(BYTE);
+Bool snap_show_raster(PBYTE, INT, INT);
+Bool Alik_snap_show_raster(PBYTE, PBYTE, PBYTE, INT, INT, PCHAR, PCHAR, PINT);
 void snap_newcut();
 void snap_show_cuts(cell *C, struct cut_elm *cut_points);
 void snap_newpoint(INT i);
@@ -264,8 +264,8 @@ void dens_to_cell(cell *);
 void static_to_cell(cell *);
 
 // module embBOX.c
-void embBOX(servBOX *, SVERS *, BOOL);
-void embBOXF(servBOX *, INT, BOOL);
+void embBOX(servBOX *, SVERS *, Bool);
+void embBOXF(servBOX *, INT, Bool);
 
 // module scalar.asm
 INT proport(WORD, WORD, WORD, INT, INT);
@@ -301,15 +301,15 @@ void SpecCompPut(MN *mn);
 void star();
 void bullet();
 INT chkbullet(BYTE);
-BOOL abris_curve(BYTE fun[], INT n, INT w);
+Bool abris_curve(BYTE fun[], INT n, INT w);
 INT find_minimum(BYTE fun[], INT n, BYTE *_imin);
 
 // module S_TOOLS.C
 void new_vers(cell *c, BYTE vers, BYTE prob);
 void down_all_versions(cell *c, INT monus);
 void filtr_shave(BYTE fun[], INT len);
-BOOL set_prob(cell *c, CHAR let, BYTE prob);
-BOOL check_let(cell *c, CHAR let);
+Bool set_prob(cell *c, CHAR let, BYTE prob);
+Bool check_let(cell *c, CHAR let);
 void add_stick_vers(cell *c, CHAR let, BYTE prob);
 void filtr_short(BYTE fun[], INT n, INT lev);
 void filtr121(BYTE fun[], INT n);
@@ -320,7 +320,7 @@ void add_thick_stick_versions(cell *c, INT dx, INT wide, INT inc, INT typ_snap,
 void add_thin_stick_versions(cell *c, BYTE left[], BYTE right[], INT dy,
 		INT dx, INT typ_inc, STICK_CHARS *left_chars, STICK_CHARS *right_chars,
 		STICK_SIGNUMS *signums);
-BOOL sign_neck(BYTE left[], BYTE right[], INT n, INT base, INT mode);
+Bool sign_neck(BYTE left[], BYTE right[], INT n, INT base, INT mode);
 INT conv_prob(INT prob);
 INT shift_raster(BYTE *r, INT dy, INT dx, INT tab[], INT max_shift, BYTE *res,
 		INT dir);
@@ -359,7 +359,7 @@ INT set_stick_char(BYTE left[], BYTE right[], INT tails[], INT dy, INT dx,
 		STICK_CHARS *right_chars, STICK_SIGNUMS *signums, INT *l_mode,
 		INT *r_mode);
 INT calc_right_f_symptom(BYTE fun[], INT n, INT m);
-INT calc_left_f_symptom(BYTE fun[], INT n, INT nx, BOOL c_ft);
+INT calc_left_f_symptom(BYTE fun[], INT n, INT nx, Bool c_ft);
 void num_of_skip_line(BYTE left[], BYTE right[], INT dy, INT opt, INT wide,
 		INT *up_l, INT *up_r, INT *down_l, INT *down_r);
 
@@ -371,7 +371,7 @@ void set_stick_aux_signums(cell *c, BYTE left[], BYTE right[], INT dy,
 
 void
 		calc_skipped_lines(INT hist_int[], BYTE left[], BYTE right[], INT dy,
-				INT dx, INT wide, INT opt, BOOL c_r, INT *ul, INT *ur, INT *dl,
+				INT dx, INT wide, INT opt, Bool c_r, INT *ul, INT *ur, INT *dl,
 				INT *dr);
 void correct_f_symptoms(INT hist_int[], INT dy, INT *l_f_sym, INT *r_f_sym);
 void correct_upper_peaks(STICK_CHARS *l, STICK_CHARS *r, INT dy);
@@ -380,8 +380,8 @@ void correct_upper_peaks(STICK_CHARS *l, STICK_CHARS *r, INT dy);
 void differ();
 
 // module bold.c
-BOOL boldshave(cell *, INT); //AK: at .ms as BOOL
-BOOL pimpleshave(cell *C, INT shave, INT inc); //AK: at .ms as BOOL
+Bool boldshave(cell *, INT); //AK: at .ms as Bool
+Bool pimpleshave(cell *C, INT shave, INT inc); //AK: at .ms as Bool
 
 
 // module shaving.c
@@ -419,7 +419,7 @@ void complex_word();
 void correct_case(void);
 
 // module spec_sym.c
-BOOL abris_curve(BYTE fun[], INT n, INT w);
+Bool abris_curve(BYTE fun[], INT n, INT w);
 
 // module fontprop.c
 void font_let();
@@ -446,8 +446,8 @@ void loutf_bcr();
 void louti_bcr();
 
 // module edscan.c
-INT ed_scan(BOOL(*)(PBYTE, INT), BOOL(*)(PBYTE, INT), PBYTE, PBYTE);
-BOOL scan_skip(PBYTE p, INT lth);
+INT ed_scan(Bool(*)(PBYTE, INT), Bool(*)(PBYTE, INT), PBYTE, PBYTE);
+Bool scan_skip(PBYTE p, INT lth);
 
 // module edp.c
 void edp_main(PBYTE memory, LONG lth);
@@ -473,8 +473,8 @@ c_comp * comp_vers_to_kit(MN * mn, c_comp *c);
 c_comp * dust_to_kit(dust_comp *);
 c_comp * comp_from_file(uint32_t, LONG);
 c_comp * compose_comp(INT, c_comp **);
-BOOL compose_cell(INT, cell **, cell *);
-BOOL compose_cell_save(INT, cell **, cell *);
+Bool compose_cell(INT, cell **, cell *);
+Bool compose_cell_save(INT, cell **, cell *);
 void del_retain_cell(cell *);
 cell *del_cell(cell *);
 PBYTE del_save_cell(cell *);
@@ -506,7 +506,7 @@ void take_kit_addr(PBYTE a);
 void add_vers(cell *, version *);
 void del_version(cell *c, BYTE let);
 void online_comp(c_comp *);
-BOOL save_MN(MN *);
+Bool save_MN(MN *);
 void cell_bonus_let(cell *C, CHAR Let, INT BonVal);
 void cell_bonus(cell *C, version *pVer, INT BonVal);
 
@@ -558,12 +558,12 @@ void recog_save_maden();
 // module proport.c
 void v2_pidx_crit(cell *);
 void pidx_crit();
-BOOL pidx_skip(INT h, INT w, BYTE t_let);
+Bool pidx_skip(INT h, INT w, BYTE t_let);
 WORD el_pidx_crit(WORD t_let, INT pidx);
 
 // module lang_fil.c
 void ev_lang_filter();
-BOOL proplet(BYTE);
+Bool proplet(BYTE);
 
 // module compkit.c
 INT MN_to_line(MN *);
@@ -623,7 +623,7 @@ void trade_marks(void);
 //module passe.c
 cell * end_word(cell *cs, BYTE *str, BYTE *word_len);
 cell * next_word(cell *cs);
-BOOL russian_word(BYTE *wrd);
+Bool russian_word(BYTE *wrd);
 
 //module erection.c
 BYTE erection_incline_words(void);
@@ -635,9 +635,9 @@ void erection_restore_seq(cell *b, cell *e);
 INT erection_compose_inc(INT n, cell **clist);
 INT erect_original_dens(cell *c);
 INT erect_original_width(cell *c);
-cell* erect_cell_value(cell *c, INT inc, INT shave, BOOL cutting);
-cell* erect_cell_table(cell *c, INT tab_angle[], INT shave, BOOL cutting);
-BOOL erect_make_tab(cell *c, INT tab_angle[]);
+cell* erect_cell_value(cell *c, INT inc, INT shave, Bool cutting);
+cell* erect_cell_table(cell *c, INT tab_angle[], INT shave, Bool cutting);
+Bool erect_make_tab(cell *c, INT tab_angle[]);
 void erect_shift_intervals(void *addr, INT h, INT tab_angle[]);
 INT erect_raster_value(BYTE *raster, INT dx, INT dy, INT inc);
 
@@ -645,7 +645,7 @@ INT erect_raster_value(BYTE *raster, INT dx, INT dy, INT inc);
 void shevron(cell*);
 /*-------------------------- Extern -------------------*/
 
-BOOL check_cancel(WORD perc);
+Bool check_cancel(WORD perc);
 
 MN *cell_cut(cell *);
 

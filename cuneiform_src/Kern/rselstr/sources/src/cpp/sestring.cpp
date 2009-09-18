@@ -79,7 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # define DUST_LIST_MEMORY_ALLOCATION_SHIFT   7
 
 STRING String;
-BOOL bNeedFreeString = FALSE;
+Bool bNeedFreeString = FALSE;
 STRING *pStringsList     = NULL;
 STRING *pStringsListEnd  = NULL;
 STRING *pStringsUpList   = NULL;
@@ -119,13 +119,13 @@ void StringNewDescriptor (void)
     String.nSpecialsLetters = 0;
 }
 
-BOOL StringIncludes (STRING *p, STRING *q)
+Bool StringIncludes (STRING *p, STRING *q)
 {
     int    i;
     ROOT * pRoot;
     int    nLettersSquare;
     int    nStringSquare;
-    BOOL   bNotIncludes;
+    Bool   bNotIncludes;
 
     if ((p -> uFlags & SF_SPECIAL)     ||
         (q -> uFlags & SF_SPECIAL)     ||

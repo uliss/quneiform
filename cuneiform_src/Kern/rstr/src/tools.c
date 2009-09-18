@@ -564,12 +564,12 @@ void online_comp(c_comp *w)
 
 #define NCOMPMAX 8
 
-BOOL compose_cell(INT n,cell **clist,cell *c)
+Bool compose_cell(INT n,cell **clist,cell *c)
  {
  INT i,top,bot,left,right,hmax,imax;
  c_comp *elist[NCOMPMAX];
  INT inc;
- BOOL   ret=TRUE;
+ Bool   ret=TRUE;
 
  for ( top=left=10000,imax=hmax=bot=right=-10000,i=0; i<n && i<NCOMPMAX; i++)
   {
@@ -629,12 +629,12 @@ BOOL compose_cell(INT n,cell **clist,cell *c)
  }
 
 // analog of compose_cell whithout deleting
-BOOL compose_cell_save(INT n,cell **clist,cell *c)
+Bool compose_cell_save(INT n,cell **clist,cell *c)
  {
  INT i,top,bot,left,right,hmax,imax;
  c_comp *elist[NCOMPMAX];
  INT inc;
- BOOL   ret=TRUE;
+ Bool   ret=TRUE;
 
  for (top=left=10000,imax=hmax=bot=right=-10000,i=0; i<n && i<NCOMPMAX; i++)
   {
@@ -1176,7 +1176,7 @@ void add_vers(cell *bc, version *wv)
   }
 }
 
-BOOL    comp_versions(version *v, version *w, INT n,INT    snvers)
+Bool    comp_versions(version *v, version *w, INT n,INT    snvers)
 {
 INT i;
 

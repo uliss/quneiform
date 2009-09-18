@@ -88,7 +88,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 /////////////////
 void   clear_cells(void);
-void p2_TextWord(CSTR_rast  c,CSTR_rast stop, char *intxt,BOOL ansi);
+void p2_TextWord(CSTR_rast  c,CSTR_rast stop, char *intxt,Bool ansi);
 extern INT  line_number;
 
 static int FindBounds(int *val,int size);
@@ -873,7 +873,7 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
         int nBold=0,nLight=0;
         int maxLight=0,minBold=MAXTHICK;
         int minVal=MAXTHICK,maxVal=0;
-        BOOL isGoodStat;
+        Bool isGoodStat;
         int maxWord;
 
 //      memset(thickBuffer,0,sizeof(thickBuffer));

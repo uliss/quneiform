@@ -98,7 +98,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 static int p2_checkUpperLower(void);
 
 //======== EXTERN FUNCTIONS
-BOOL _spell(PCHAR s,BYTE lang);
+Bool _spell(PCHAR s,BYTE lang);
 void clear_cells(void);
 int cell2UniVers(UniVersions *ver, cell *c); // pass3
 int CopyVers2CSTR(RecVersions *ver, cell *c);    // pass3
@@ -370,7 +370,7 @@ int32_t p2_Cstr2Cell( CSTR_line lin,CSTR_rast first,CSTR_rast last,Bool32 needVe
   c2->dens=255;    // density not yet made by BOX
 
 
-    if(! p2_accept_Cell(c2,&cur, cmp, line_scale) )//(BOOL)(cmp->scale!=0)) )
+    if(! p2_accept_Cell(c2,&cur, cmp, line_scale) )//(Bool)(cmp->scale!=0)) )
         {
           free_cell(c2);  // нельзя del_cell() если не было insert_cell()
           break;
@@ -955,7 +955,7 @@ void make_all_glues(void);
 int32_t p2_setBasLines(CSTR_line lineIn)
 {  // from Vlad version
  extern INT     bs_got;
- extern BOOL    line_readyBL;
+ extern Bool    line_readyBL;
  CSTR_rast_attr attr;
  CSTR_rast      rst;
  INT            i,minr=0, row;
@@ -1037,7 +1037,7 @@ int32_t p2_setBasLines(CSTR_line lineIn)
 return 0;
 }
 //////////////////////
-BOOL p2_NoStopSnapLEO(void)
+Bool p2_NoStopSnapLEO(void)
 {
 	if( !hSnapLEO|| LDPUMA_SkipEx(hSnapLEO,TRUE,FALSE,1))
 	 return TRUE;
@@ -1141,7 +1141,7 @@ if( v->lnAltCnt>1 && v->Alt[0].Prob==v->Alt[1].Prob )
 return v->lnAltCnt;
 }
 ////////////////////////
-void p2_TextWord(CSTR_rast  c,CSTR_rast stop, char *intxt,BOOL ansi)
+void p2_TextWord(CSTR_rast  c,CSTR_rast stop, char *intxt,Bool ansi)
 {
         CSTR_rast_attr attr;
         UniVersions     vers;
@@ -1163,7 +1163,7 @@ void p2_TextWord(CSTR_rast  c,CSTR_rast stop, char *intxt,BOOL ansi)
                         *txt=stdAnsiToAscii(*txt);
 }
 //////////////////
-void p2_FillTxt(CSTR_line cc,char *intxt,BOOL ansi)
+void p2_FillTxt(CSTR_line cc,char *intxt,Bool ansi)
 {
     CSTR_rast first=CSTR_GetFirstRaster(cc);
     CSTR_rast last=CSTR_GetLastRaster(cc);

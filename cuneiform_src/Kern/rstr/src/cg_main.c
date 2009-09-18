@@ -133,7 +133,7 @@ typedef struct grup_struct grup;
  //extern CHAR accent_tab[];
  extern BYTE db_status;  // snap presence byte
  extern BYTE db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
- extern BOOL pass4_in;   //флаг: второй проход по странице
+ extern Bool pass4_in;   //флаг: второй проход по странице
  extern INT  sMALL_SIZE; //минимальная высота "большого" элемента
  Handle hSnapBLcut;
 
@@ -799,7 +799,7 @@ static cell *process_frame (cell *WB, cell *WE)
 
    if ( n>1 )            //несколько кусков - клеим
    {
-    BOOL dis=FALSE; // OLEG : SERBIAN PASS4
+    Bool dis=FALSE; // OLEG : SERBIAN PASS4
 
 
     if(!pass4_in)

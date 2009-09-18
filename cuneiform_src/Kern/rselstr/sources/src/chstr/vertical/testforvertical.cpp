@@ -500,7 +500,7 @@ CCOM_handle CreateContainer(Handle hCPage,CCOM_handle hCCOM_old,Rect16 Rc)
   return hCCOM_new;
 }
 
-BOOL AddToCpage(Handle hCPAGE,CPrepHstr* temp)
+Bool AddToCpage(Handle hCPAGE,CPrepHstr* temp)
 {
  int size_phstr=sizeof(CPrepHstr);
  int i;
@@ -529,7 +529,7 @@ BOOL AddToCpage(Handle hCPAGE,CPrepHstr* temp)
 	 return FALSE;
 }
 
-BOOL InitPrepList(Handle hCPAGE)
+Bool InitPrepList(Handle hCPAGE)
 {
  prelist=NULL;
  prelist=new CLPrepHstr;
@@ -637,7 +637,7 @@ BOOL InitPrepList(Handle hCPAGE)
 }
 
 
-BOOL AddToPrepList(CPrepHstr* temp)
+Bool AddToPrepList(CPrepHstr* temp)
 {
  CPrepHstr* add=prelist->Add();
  if(!add)
@@ -691,7 +691,7 @@ Bool32 Filter(int32_t upper, int32_t left, int32_t w, int32_t h)
 }
 
 /*
-BOOL IfBadCut(Handle hCCOM,Rect16* pRc,Rect16 Rc,int nRc,uchar* pmasp,CHstr* my_str)
+Bool IfBadCut(Handle hCCOM,Rect16* pRc,Rect16 Rc,int nRc,uchar* pmasp,CHstr* my_str)
 {
  if(my_str->neg)
 	 return FALSE;
@@ -746,7 +746,7 @@ BOOL IfBadCut(Handle hCCOM,Rect16* pRc,Rect16 Rc,int nRc,uchar* pmasp,CHstr* my_
 }
 */
 
-int GetMediumSize(CCOM_handle hCCOM,Rect16 Rc,int& num,BOOL vert)
+int GetMediumSize(CCOM_handle hCCOM,Rect16 Rc,int& num,Bool vert)
 {
 	int sum_size=0;
 	num=0;
@@ -777,7 +777,7 @@ int GetMediumSize(CCOM_handle hCCOM,Rect16 Rc,int& num,BOOL vert)
 		return sum_size/num;
 }
 
-int GetMaxSize(CCOM_handle hCCOM,Rect16 Rc,int& num,BOOL vert)
+int GetMaxSize(CCOM_handle hCCOM,Rect16 Rc,int& num,Bool vert)
 {
 	int max_size=0;
 	num=0;
@@ -814,7 +814,7 @@ int GetMaxSize(CCOM_handle hCCOM,Rect16 Rc,int& num,BOOL vert)
 		return max_size;
 }
 
-int GetMinCol(CCOM_comp** pC,int nN,BOOL vert)
+int GetMinCol(CCOM_comp** pC,int nN,Bool vert)
 {
  int max=0;
  int min=1000000;
@@ -838,7 +838,7 @@ int GetMinCol(CCOM_comp** pC,int nN,BOOL vert)
  }
 }
 
-BOOL MainVertDiagnostic(Handle hCPage,CCOM_handle hCCOM,CPrepHstr* temp,Rect16* pRc,int nRc,int param)
+Bool MainVertDiagnostic(Handle hCPage,CCOM_handle hCCOM,CPrepHstr* temp,Rect16* pRc,int nRc,int param)
 {
 
  PAGEINFO info = {0};
@@ -1078,7 +1078,7 @@ void  GetIdealRect(CCOM_handle HCCOM,Rect16 Rc,Rect16* Rect)
  Rect->right=right;
 }
 
-void GetStrBounds(CCOM_handle hCCOM,Rect16* pRc,int nRc,int num,int* ptop,int* pbottom,BOOL vert,Rect16 Rc)
+void GetStrBounds(CCOM_handle hCCOM,Rect16* pRc,int nRc,int num,int* ptop,int* pbottom,Bool vert,Rect16 Rc)
 {
  int min_top=10000;
  int max_bottom=0;
@@ -1151,7 +1151,7 @@ void GetStrBounds(CCOM_handle hCCOM,Rect16* pRc,int nRc,int num,int* ptop,int* p
 
 }
 
-BOOL NotIn(CCOM_handle hCCOM,Rect16 Rc,Rect16* pRc,int nRc,BOOL vert,int medium_size)
+Bool NotIn(CCOM_handle hCCOM,Rect16 Rc,Rect16* pRc,int nRc,Bool vert,int medium_size)
 {
 	my_top=Rc.top;
 	my_bottom=Rc.bottom;
@@ -1161,7 +1161,7 @@ BOOL NotIn(CCOM_handle hCCOM,Rect16 Rc,Rect16* pRc,int nRc,BOOL vert,int medium_
 	int right;
 	int top;
 	int bottom;
-	BOOL fl_in;
+	Bool fl_in;
 	CCOM_comp* comp;
 
    if(!vert)
@@ -1218,7 +1218,7 @@ BOOL NotIn(CCOM_handle hCCOM,Rect16 Rc,Rect16* pRc,int nRc,BOOL vert,int medium_
  return FALSE;
 }
 
-BOOL NotInAll(CCOM_handle hCCOM,Rect16 Rc,Rect16* pRc,int& nRc,BOOL vert)
+Bool NotInAll(CCOM_handle hCCOM,Rect16 Rc,Rect16* pRc,int& nRc,Bool vert)
 {
 	my_top=Rc.top;
 	my_bottom=Rc.bottom;
@@ -1231,7 +1231,7 @@ BOOL NotInAll(CCOM_handle hCCOM,Rect16 Rc,Rect16* pRc,int& nRc,BOOL vert)
 	CCOM_comp* comp;
 	int i(0);
 
-	BOOL* fl_in = new BOOL[nRc];
+	Bool* fl_in = new Bool[nRc];
 	for(i=0;i<nRc;i++)
         fl_in[i]=FALSE;
 
@@ -1280,7 +1280,7 @@ BOOL NotInAll(CCOM_handle hCCOM,Rect16 Rc,Rect16* pRc,int& nRc,BOOL vert)
 	}
    }
 
- BOOL ret=FALSE;
+ Bool ret=FALSE;
  for(i=nRc-1;i>=0;i--)
  {
 	 if(fl_in[i]==FALSE)
@@ -1292,7 +1292,7 @@ BOOL NotInAll(CCOM_handle hCCOM,Rect16 Rc,Rect16* pRc,int& nRc,BOOL vert)
  return ret;
 }
 
-BOOL IfOneRowComp(CCOM_handle hCCOM,Rect16 Rc,BOOL vert)
+Bool IfOneRowComp(CCOM_handle hCCOM,Rect16 Rc,Bool vert)
 {
 	my_top=Rc.top;
 	my_bottom=Rc.bottom;

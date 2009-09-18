@@ -82,7 +82,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define MAXRASTERSIZE    1000
 
 int    SL_IsInPoly(Point32* a, CLINE_SL_POLY* p); //
-BOOL   SL_IsPointInAB(Point32 *P,Point32 *A,Point32 *B); //
+Bool   SL_IsPointInAB(Point32 *P,Point32 *A,Point32 *B); //
 void   CalculateRectForRaster(DLine* pCLine, PAGEINFO* page_info); //
 void   CalculatePolynomia(DLine* pCLine, PAGEINFO* page_info); //
 void   DrowRectForRaster(Rect32* rect); //
@@ -93,17 +93,17 @@ void   CleaningRaster(DLine* pCLine, LPSTR Buffer); //
 void   DrowCleanedRaster(DLine* pCLine, LPSTR Buffer, CIMAGEBITMAPINFOHEADER* image_info, Handle* HndMyWindow); //
 void   DrowVerticalLineRaster(DLine* pCLine, LPSTR Buffer, CIMAGEBITMAPINFOHEADER* image_info, Handle* HndMyWindow); //
 void   Transpose_bit_matrixes(PCHAR buf_in,PCHAR buf_out, Rect32* rect); //
-BOOL   GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, PCHAR  pRaster, BOOL FlagVerticalLine); //
-//BOOL   GetCorrectedLineStripesIntervals(CLine* pCLine);
-void   FillingStripes(CLINE_handle line, int y, INT Count, WORD* pIntervals, BOOL FlagVerticalLine, DLine* pCLine); //
-void   CheckDotLines(DLine* pCLine, BOOL FlagVerticalLine); //
+Bool   GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, PCHAR  pRaster, Bool FlagVerticalLine); //
+//Bool   GetCorrectedLineStripesIntervals(CLine* pCLine);
+void   FillingStripes(CLINE_handle line, int y, INT Count, WORD* pIntervals, Bool FlagVerticalLine, DLine* pCLine); //
+void   CheckDotLines(DLine* pCLine, Bool FlagVerticalLine); //
 int    Bits2Ints(uchar* pBits, int nByteWidth, int32_t* pIntervals); //
 void   TypeIntervals(int y, INT Count, WORD* pIntervals); //
 void   TypeStripe(CLINE_handle hStripe, DEvent* pStripe); //
-BOOL   GetLineFragments(CLINE_handle line, DLine* pCLine); //
+Bool   GetLineFragments(CLINE_handle line, DLine* pCLine); //
 Handle DrawLineFragments(CLINE_handle line, CPDLine pCLine, Handle HndMyWindow, int ColorIndex, Bool32 ForAllLines = FALSE); //
 //void DrawSeparationPoints(CLine* pCLine, Handle HndMyWindow);
-BOOL   CorrectLineFragments(CLINE_handle line, DLine* pCLine); //
+Bool   CorrectLineFragments(CLINE_handle line, DLine* pCLine); //
 HANDLE GetTransposedRaster(DLine* pCLine, LPSTR Buffer, LPSTR* pRaster); //
 void   FreeTransposedBuffer(HANDLE hbuf, LPSTR pRaster); //
 void   DrowVerticalLineCutPoints(CLINE_handle line, Handle HndMyWindowVert); //

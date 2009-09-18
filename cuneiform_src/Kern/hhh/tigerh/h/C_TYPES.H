@@ -113,7 +113,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   typedef unsigned short int near *	PWORD;
 
 /*			Boolean data                            */
-  typedef INT             BOOL;
+  typedef INT             Bool;
   #ifndef TRUE
    #define TRUE 1
   #endif

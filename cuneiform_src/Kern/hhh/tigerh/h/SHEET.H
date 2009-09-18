@@ -82,17 +82,17 @@ typedef struct strSheet SHT;
 int  GetUserNumSheet(SHT * sht,int x,int y);
 int  GetWidthSheet(SHT * sht,int x,int y);
 int  GetNumFragmentColumn(SHT * sht,int num);
-BOOL ExtractSheets(INT NumSht,SHT ** sht);
-BOOL DeleteSheet(INT);
-BOOL ExistSheets(void);
-BOOL GetSheetIncline(INT * angle);
-BOOL ItsSheetBlock(BLOCK * p);
-BOOL OutsideSheet(int * xLeft,int * yTop,int * xRight,int * yBottom);
+Bool ExtractSheets(INT NumSht,SHT ** sht);
+Bool DeleteSheet(INT);
+Bool ExistSheets(void);
+Bool GetSheetIncline(INT * angle);
+Bool ItsSheetBlock(BLOCK * p);
+Bool OutsideSheet(int * xLeft,int * yTop,int * xRight,int * yBottom);
 
 int  GetHeightItemSheet	(SHT *,int,int);
 int  GetWidthItemSheet 	(SHT *,int,int);
 int  GetUserNumSheet   	(SHT *,int,int);
-BOOL ItsNewItem		(SHT *,int,int);
+Bool ItsNewItem		(SHT *,int,int);
 
 
 void backup_sheets   (int * nSheets, SHT ** sht);
@@ -100,7 +100,7 @@ void free_undo_sheets(int nSheets,SHT * sht);
 void undo_sheets     (int nSheets,SHT * sht);
 
 // gmsheet.c
-BOOL ExtractSheetFragments(void);
+Bool ExtractSheetFragments(void);
 
 
 

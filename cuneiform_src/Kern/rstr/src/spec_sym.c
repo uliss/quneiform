@@ -85,27 +85,27 @@ static INT flag_abris_curve_left, flag_abris_curve_right,
 
 static INT comp_is_bullet(cell *c );
 static void init_bullet_functions(void);
-static BOOL comp_is_triangle(BYTE left[],BYTE right[],INT h,INT w);
-static BOOL comp_is_rectangle(BYTE left[],BYTE right[],INT h);
-static BOOL comp_is_ellipse(BYTE left[],BYTE right[],INT n,INT w);
-static BOOL abris_line(BYTE fun[],INT n, INT denominator);
+static Bool comp_is_triangle(BYTE left[],BYTE right[],INT h,INT w);
+static Bool comp_is_rectangle(BYTE left[],BYTE right[],INT h);
+static Bool comp_is_ellipse(BYTE left[],BYTE right[],INT n,INT w);
+static Bool abris_line(BYTE fun[],INT n, INT denominator);
 static INT place_fun_limit(BYTE fun[],INT n);
 static INT place_fun(BYTE fun[],INT n);
 static INT limit_place(BYTE left[],BYTE right[],INT h);
 static void find_abris(cell *c,INT wid,BYTE left[],BYTE right[]);
 static INT one_line_in_comp(cell *c);
-static BOOL comp_glue(cell *c);
-static BOOL comp_projections_overlay(cell *c1, cell *c2);
+static Bool comp_glue(cell *c);
+static Bool comp_projections_overlay(cell *c1, cell *c2);
 static INT context_next(cell *c);
 static INT context_prev(cell *c);
-static BOOL context_bullet(cell *c);
+static Bool context_bullet(cell *c);
 static INT conv_size_capital_let(BYTE let,INT wide);
 
-static BOOL comp_is_star5(cell *c);
-static BOOL pit(BYTE fun[],INT h);
-static BOOL concave_line(BYTE fun[],INT h);
-static BOOL ray_head_and_hands(BYTE left[],BYTE right[],INT h);
-static BOOL ray_head_and_feets(cell *c);
+static Bool comp_is_star5(cell *c);
+static Bool pit(BYTE fun[],INT h);
+static Bool concave_line(BYTE fun[],INT h);
+static Bool ray_head_and_hands(BYTE left[],BYTE right[],INT h);
+static Bool ray_head_and_feets(cell *c);
 
 #define NON_BULLET       0
 #define BAD_RECTANGLE    1
@@ -227,7 +227,7 @@ static INT comp_is_bullet(cell *c)
 
 BYTE left[LIMIT_HEIGHT],right[LIMIT_HEIGHT];
 INT height=c->h, width=c->w;
-BOOL i1=FALSE, i2=FALSE, i3=FALSE;
+Bool i1=FALSE, i2=FALSE, i3=FALSE;
 INT place_limit, place=(height-2)*width;
 B_LINES bl;
 INT center_bl,center_bul,top,bot;
@@ -338,7 +338,7 @@ if( i1==TRUE )
 return(NON_BULLET);
 }
 
-static BOOL context_bullet(cell *c)
+static Bool context_bullet(cell *c)
 {
 INT r1  = context_prev(c), r2 = context_next(c) ;
 
@@ -414,7 +414,7 @@ static INT conv_size_capital_let(BYTE let,INT wide)
 return( let<91 ? (wide*2)/3 : wide);
 }
 
-static BOOL comp_glue(cell *c)
+static Bool comp_glue(cell *c)
 {
 cell *cc=c->next;
 if( cc!=cell_l() )
@@ -432,7 +432,7 @@ if( cc!=cell_f() )
 return(FALSE);
 }
 
-static BOOL comp_projections_overlay(cell *c1, cell *c2)
+static Bool comp_projections_overlay(cell *c1, cell *c2)
 {
 INT b1 = c1->col, b2 = c2->col;
 INT e1 = b1 + c1->w, e2 = b2 + c2->w;
@@ -441,7 +441,7 @@ if( b2<=b1 && b1<=e2 )return(TRUE);
 return( FALSE );
 }
 
-static BOOL comp_is_ellipse(BYTE left[],BYTE right[],INT h,INT w)
+static Bool comp_is_ellipse(BYTE left[],BYTE right[],INT h,INT w)
 {
 if( flag_abris_curve_left<0 )
 	flag_abris_curve_left = abris_curve(left,h,w);
@@ -450,7 +450,7 @@ if( flag_abris_curve_right<0 )
 return flag_abris_curve_left && flag_abris_curve_right ;
 }
 
-static BOOL comp_is_rectangle(BYTE left[],BYTE right[],INT h)
+static Bool comp_is_rectangle(BYTE left[],BYTE right[],INT h)
 {
 if( flag_abris_line_left<0 )
 	flag_abris_line_left = abris_line(left,h,4);
@@ -463,7 +463,7 @@ if( flag_abris_line_left && !flag_abris_line_right )
 return flag_abris_line_left && flag_abris_line_right ;
 }
 
-static BOOL comp_is_triangle(BYTE left[],BYTE right[],INT h,INT w)
+static Bool comp_is_triangle(BYTE left[],BYTE right[],INT h,INT w)
 {
 if( flag_abris_curve_left<0 )
 	flag_abris_curve_left = abris_curve(left,h,w);
@@ -509,7 +509,7 @@ for(s=i=0;i<n;i++)
 return( s );
 }
 
-BOOL abris_curve(BYTE fun[],INT n,INT w)
+Bool abris_curve(BYTE fun[],INT n,INT w)
 {
 BYTE i=n>>2,minim,ff,fo,imin;
 
@@ -538,7 +538,7 @@ if( (fun[0]-minim)<w || (fun[n-1]-minim)<w )
 return(TRUE);                           /* similar arc       */
 }
 
-static BOOL abris_line(BYTE fun[],INT n,INT denominator)
+static Bool abris_line(BYTE fun[],INT n,INT denominator)
 {
 #define NUM_OF_LEAP (n/denominator)
 INT i,hist=0;
@@ -614,7 +614,7 @@ static void find_abris(cell *c,INT wid,BYTE left[],BYTE right[])
 return ;
 }
 
-static BOOL comp_is_star5(cell *c)
+static Bool comp_is_star5(cell *c)
 {
 B_LINES bl;
 BYTE left[LIMIT_HEIGHT],right[LIMIT_HEIGHT];
@@ -651,12 +651,12 @@ return( TRUE );
 }
 
 
-static BOOL ray_head_and_hands(BYTE left[],BYTE right[],INT h)
+static Bool ray_head_and_hands(BYTE left[],BYTE right[],INT h)
 {
 return pit(left,h) & pit(right,h) ;
 }
 
-static BOOL ray_head_and_feets(cell *c )
+static Bool ray_head_and_feets(cell *c )
 {
 BYTE work[LIMIT_HEIGHT];    /* number of intervals in row              */
 INT height=c->h;
@@ -697,7 +697,7 @@ if( h_c==1 && height<11 && (work[height-1]==2 || work[height-2]==2) )
 return( (i>=height/4) && (l>skip_h/2) && (ll>h_c-((fax1x2)?1:0)) );
 }
 
-static BOOL pit(BYTE fun[],INT h)
+static Bool pit(BYTE fun[],INT h)
 {
 BYTE imin, minim;
 INT wide;
@@ -716,7 +716,7 @@ return( concave_line( fun, (INT)(imin+1) ) );        /* concave upper area      
 }
 
 /* fun[0] = upper point of head; fun[n-1] = limits point of hand-ray */
-static BOOL concave_line(BYTE fun[],INT n)
+static Bool concave_line(BYTE fun[],INT n)
 {
 INT st = (fun[0]+fun[n-1])*n/2;        /* place of trapeze         */
 INT sf = place_fun(fun,n);             /* integral of function     */

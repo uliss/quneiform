@@ -240,18 +240,18 @@ INT short_recog_cell (CSTR_rast c, int line_scale);
 WORD el_pidx_crit(WORD t_let,INT pidx);
 
 // added for snap
-BOOL (*snap_monitor_rbal)(void);
+Bool (*snap_monitor_rbal)(void);
 //IGOR
-BOOL (*snap_monitor_ori_rbal)(CSTR_line *snap_line, int32_t num_lines);
-BOOL (*snap_is_marked_rbal)(CSTR_line ln);//IGOR
-BOOL (*snap_baselines_rbal)(BYTE a);//IGOR
+Bool (*snap_monitor_ori_rbal)(CSTR_line *snap_line, int32_t num_lines);
+Bool (*snap_is_marked_rbal)(CSTR_line ln);//IGOR
+Bool (*snap_baselines_rbal)(BYTE a);//IGOR
 void (*snap_draw_line_rbal)(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
 										  uint32_t rgb, int16_t pen, uint32_t key);//IGOR
 void (*snap_del_line_rbal)(Handle wnd, uint32_t key);
 //IGOR
-BOOL (*snap_show_text_rbal)(BYTE *txt);
-BOOL (*snap_activity_rbal)(BYTE a);
-//BOOL snap_newcell (CSTR_rast c);
+Bool (*snap_show_text_rbal)(BYTE *txt);
+Bool (*snap_activity_rbal)(BYTE a);
+//Bool snap_newcell (CSTR_rast c);
 
 // from struct.h
 #define RASTER_MAX_HEIGHT                63

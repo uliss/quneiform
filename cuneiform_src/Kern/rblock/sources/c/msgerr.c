@@ -327,7 +327,7 @@ void clear_error_status()
     status_code = 0; add_mess[0]='\0';
 }
 
-BOOL bool_status()
+Bool bool_status()
 {
     return ((status_code) ? FALSE : TRUE);
 }

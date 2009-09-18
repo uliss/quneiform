@@ -48,10 +48,10 @@ END_MESSAGE_MAP()
 
 BEGIN_DISPATCH_MAP(Events, CCmdTarget)
 	//{{AFX_DISPATCH_MAP(Events)
-	DISP_FUNCTION(Events, "Start", Start, VT_BOOL, VTS_NONE)
-	DISP_FUNCTION(Events, "Stop", Stop, VT_BOOL, VTS_NONE)
-	DISP_FUNCTION(Events, "Step", Step, VT_BOOL, VTS_I4 VTS_BSTR VTS_I4)
-	DISP_FUNCTION(Events, "EndThread", EndThread, VT_I4, VTS_BOOL VTS_I4)
+	DISP_FUNCTION(Events, "Start", Start, VT_Bool, VTS_NONE)
+	DISP_FUNCTION(Events, "Stop", Stop, VT_Bool, VTS_NONE)
+	DISP_FUNCTION(Events, "Step", Step, VT_Bool, VTS_I4 VTS_BSTR VTS_I4)
+	DISP_FUNCTION(Events, "EndThread", EndThread, VT_I4, VTS_Bool VTS_I4)
 	//}}AFX_DISPATCH_MAP
 END_DISPATCH_MAP()
 
@@ -72,7 +72,7 @@ END_INTERFACE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // Events message handlers
 
-BOOL Events::Start()
+Bool Events::Start()
 {
     m_dlg->m_progress="";
     m_dlg->UpdateData(false);
@@ -81,7 +81,7 @@ BOOL Events::Start()
 	return TRUE;
 }
 
-BOOL Events::Stop()
+Bool Events::Stop()
 {
 	m_dlg->m_progress="Распознавание закончено.";
     m_dlg->UpdateData(false);
@@ -91,7 +91,7 @@ BOOL Events::Stop()
 }
 
 
-BOOL Events::Step(long lStep, LPCTSTR strName, long lPerc)
+Bool Events::Step(long lStep, LPCTSTR strName, long lPerc)
 {
 	m_dlg->m_progress.Format("%s %d%%",strName,lPerc);
     m_dlg->UpdateData(false);
@@ -100,7 +100,7 @@ BOOL Events::Step(long lStep, LPCTSTR strName, long lPerc)
 	return TRUE;
 }
 
-long Events::EndThread(BOOL rc, long lContext)
+long Events::EndThread(Bool rc, long lContext)
 {
 	// TODO: Add your dispatch handler code here
 

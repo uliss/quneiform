@@ -66,7 +66,7 @@ uint16_t gwLowRC_rrec = RRECCOM_ERR_NO; /* Not static since it is accessed in re
 uchar*  lnOcrPath = NULL;
 /*********************************************************************************************/
 /*********************************************************************************************/
-BOOL APIENTRY DllMain( HANDLE hModule,
+Bool APIENTRY DllMain( HANDLE hModule,
 uint32_t  ul_reason_for_call,
                        LPVOID lpReserved
 					 )

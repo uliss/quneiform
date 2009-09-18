@@ -122,7 +122,7 @@ SINT MoveLeftRightBitmap(BYTE *bSource,SINT xbyte,SINT yrow)
 /***********************/
 static BYTE const maska[8]={0,128,192,224,240,248,252,254};
 
-static BOOL VeryFat(BYTE *bSource,SINT xbit,SINT yrow,SINT xbyte)
+static Bool VeryFat(BYTE *bSource,SINT xbit,SINT yrow,SINT xbyte)
 {
  LONG i=(LONG)xbyte*yrow,summa;
 

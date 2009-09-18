@@ -146,7 +146,7 @@ LONG my_read    (INT, CHAR *, LONG);        /* / handle, addr, lth */
 LONG my_write   (INT, CHAR *, LONG);        /* / handle, addr, lth */
 LONG my_seek    (INT, LONG, INT);           /* / handle, addr, type*/
 INT  my_chsize  (INT, LONG);                /* / handle, addr      */
-BOOL save_dir   (INT, void * );             /* / stream, name      */
+Bool save_dir   (INT, void * );             /* / stream, name      */
 INT  is_open    (INT);                      /* / stream            */
 void set_name_ext   (CHAR *);               /* / stream=TX; extention  */
 INT  my_table_op (INT, INT, INT, INT);      /* / table #, ...          */

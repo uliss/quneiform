@@ -99,9 +99,9 @@ extern  uint32_t      ExFlagMode;
 
 /////////////////////////////////////////////////////////////////////////////
 //                    CreateInternalFileForFormatter
-BOOL CreateInternalFileForFormatter(FILE *pIFName)
+Bool CreateInternalFileForFormatter(FILE *pIFName)
 {
- BOOL         FReturnCode = TRUE;
+ Bool         FReturnCode = TRUE;
  CSTR_line    line;
  CFPage       Page;
  PAGEINFO     PageInfo;
@@ -258,7 +258,7 @@ void CFPage::CreateArray_For_TextFragments( )
 
 /////////////////////////////////////////////////////////////////////////////
 //                    CFPage::CheckComingLine_For_TextFragments
-BOOL CFPage::CheckComingLine_For_TextFragments( CSTR_line* line )
+Bool CFPage::CheckComingLine_For_TextFragments( CSTR_line* line )
 {
  int32_t CurFragNumber,SizeArrayTextFragments,i;
  CSTR_attr  attr;
@@ -348,7 +348,7 @@ void CFPage::AddString(CSTR_line* Comingline)
 
 /////////////////////////////////////////////////////////////////////////////
 //                    CFPage::Write
-BOOL CFPage::Write()
+Bool CFPage::Write()
 {
  for( CFragment* pFrag = GetFirstFrag(); pFrag!=NULL; pFrag=GetNextFrag() )
  {
@@ -424,7 +424,7 @@ void CFragment::AddString( CSTR_line* Comingline, PageElementCount* Count)
 
 /////////////////////////////////////////////////////////////////////////////
 //                    CheckLineForFilling
-BOOL CheckLineForFilling( CSTR_line* Comingline )
+Bool CheckLineForFilling( CSTR_line* Comingline )
 {
  CSTR_line	     line;
  CSTR_rast       rast;
@@ -455,7 +455,7 @@ BOOL CheckLineForFilling( CSTR_line* Comingline )
 }
 
 
-BOOL CFragment::Write()
+Bool CFragment::Write()
 {
  return TRUE;
 }
@@ -491,7 +491,7 @@ void CFString::ExtractWordsFromString( CSTR_line* Comingline , PageElementCount*
  const char*     SeparatorsWord=" ";
  const char*     result=NULL;
  INT             FlagWord;
- BOOL            FlagString,FlagCapDrop;
+ Bool            FlagString,FlagCapDrop;
 
  line        = *Comingline;
  FlagWord    = 0;
@@ -597,7 +597,7 @@ CChar* cChar;
 
 /////////////////////////////////////////////////////////////////////////////
 //                   CWord::AddLetter2Word
-void CWord::AddLetter2Word( CSTR_rast* rast , PageElementCount* Count ,BOOL* FlagCapDrop)
+void CWord::AddLetter2Word( CSTR_rast* rast , PageElementCount* Count ,Bool* FlagCapDrop)
 {
  CChar* CurrentChar;
  UniVersions	vers;
@@ -629,7 +629,7 @@ CChar::~CChar()
 
 /////////////////////////////////////////////////////////////////////////////
 //                   CChar::AddingLetter
-void CChar::AddingLetter(CSTR_rast* rast, int index, BOOL* FlagCapDrop)
+void CChar::AddingLetter(CSTR_rast* rast, int index, Bool* FlagCapDrop)
 {
  CSTR_rast_attr	 rast_attr;
  UniVersions	vers;
@@ -699,7 +699,7 @@ void VCopyRect(InternalRect* Inner, RECT* Outer)
 
 /////////////////////////////////////////////////////////////////////////////
 //                   CheckRect
-BOOL CheckRect(InternalRect* Inner)
+Bool CheckRect(InternalRect* Inner)
 {
  char      str[500];
 
@@ -717,7 +717,7 @@ BOOL CheckRect(InternalRect* Inner)
 
 /////////////////////////////////////////////////////////////////////////////
 //                   CheckComingLine
-BOOL CheckComingLine( CSTR_line* Comingline )
+Bool CheckComingLine( CSTR_line* Comingline )
 {
  CSTR_rast       rast;
  CSTR_line	     line;

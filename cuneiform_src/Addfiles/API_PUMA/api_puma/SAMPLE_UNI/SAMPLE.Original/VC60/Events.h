@@ -43,10 +43,10 @@ protected:
 	DECLARE_MESSAGE_MAP()
 	// Generated OLE dispatch map functions
 	//{{AFX_DISPATCH(Events)
-	afx_msg BOOL Start();
-	afx_msg BOOL Stop();
-	afx_msg BOOL Step(long lStep, LPCTSTR strName, long lPerc);
-	afx_msg long EndThread(BOOL rc, long lContext);
+	afx_msg Bool Start();
+	afx_msg Bool Stop();
+	afx_msg Bool Step(long lStep, LPCTSTR strName, long lPerc);
+	afx_msg long EndThread(Bool rc, long lContext);
 	//}}AFX_DISPATCH
 	DECLARE_DISPATCH_MAP()
 	DECLARE_INTERFACE_MAP()

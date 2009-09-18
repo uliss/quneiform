@@ -92,9 +92,9 @@ static void write_comp(PCHAR,LONG);
 #define BND1BX    16
 
 
-static BOOL badcell(cell *);
-static BOOL near_garb(cell *);
-static BOOL badglue(cell **,INT);
+static Bool badcell(cell *);
+static Bool near_garb(cell *);
+static Bool badglue(cell **,INT);
 
 #define BIGANGLE  100
 #define NLETBLN    10
@@ -109,7 +109,7 @@ INT delgarb()
 INT s,t,b3,ps,max;
 cell *c,*c1,*c2;
 B_LINES bl;
-extern BOOL line_readyBL, line_handfragment;
+extern Bool line_readyBL, line_handfragment;
 
 if (abs(nIncline-page_nIncline)>BIGANGLE)
     {
@@ -203,7 +203,7 @@ extern BYTE line_scale;
 #define DELST      50
 #define PROBGL    120
 
-static BOOL badcell(cell *c)
+static Bool badcell(cell *c)
  {
  BYTE let,prob;
 
@@ -220,7 +220,7 @@ static BOOL badcell(cell *c)
  return FALSE;
  }
 
-static BOOL near_garb(cell *c)
+static Bool near_garb(cell *c)
  {
  INT i,imi,ima,j,jmi,jma,n;
 
@@ -235,7 +235,7 @@ static BOOL near_garb(cell *c)
  return FALSE;
  }
 
-static BOOL badglue(cell **pc,INT direct)
+static Bool badglue(cell **pc,INT direct)
  {
  INT s,n;
  cell *c;

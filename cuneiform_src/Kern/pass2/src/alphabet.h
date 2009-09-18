@@ -61,7 +61,7 @@ typedef struct { INT dig,fuzzy_dig,all,alphabet,dollars,pm;} str_info;
 
 void  add_digital_versions(void);
 void   copy_alphabet(PBYTE);
-BOOL   test_alphabet_elem(BYTE let);
+Bool   test_alphabet_elem(BYTE let);
 void del_punct_and_last_context(void);
 void clear_digital_mode(void);
 void set_digital_mode(void);
@@ -75,7 +75,7 @@ void make_simples_diff(INT lang);
 INT  dichotomy_array(INT value,INT *array,INT start,INT end);
 void set_column_alphabets(str_info *str_inf,INT VertNum);
 void setup_digital_mode(str_info *str, INT first_pass);
-BOOL digital_last_context(void);
+Bool digital_last_context(void);
 
 
 

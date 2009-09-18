@@ -87,7 +87,7 @@ void   SetReturnCode_rverline (uint16_t rc);
 uint16_t GetReturnCode_rverline ();
 Bool WasInitRVERLINE ();
 /*----------------------------------------------------------------------------*/
-BOOL APIENTRY DllMain( HANDLE hModule,
+Bool APIENTRY DllMain( HANDLE hModule,
 uint32_t ul_reason_for_call,
                         LPVOID lpReserved )
 {

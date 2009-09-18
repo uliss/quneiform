@@ -79,7 +79,7 @@ static int32_t             InitCount =  0;
 
 Bool32 InitCFIOInterface(Bool32 Status);
 /////////////////////////////////////////
-BOOL APIENTRY DllMain( HINSTANCE hModule,
+Bool APIENTRY DllMain( HINSTANCE hModule,
                         uint32_t ul_reason_for_call,
                         LPVOID lpReserved )
 {
@@ -215,7 +215,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_GetExportData(uint32_t dwType, void * pData)
 //
 RIMAGE_FUNC(Bool32) RIMAGE_SetImportData(uint32_t dwType, void * pData)
 {
-	BOOL rc = FALSE;
+	Bool rc = FALSE;
 	gwLowRC = IDS_RIMAGE_ERR_NOTIMPLEMENT;
 
 	switch(dwType)

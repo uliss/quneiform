@@ -184,7 +184,7 @@ typedef unsigned int UINT;
 
 typedef int INT;
 
-typedef long BOOL;
+typedef long Bool;
 
 #ifndef _LONG_DEFINED
 #define _LONG_DEFINED
@@ -494,7 +494,7 @@ typedef struct  _SECURITY_ATTRIBUTES
     {
 uint32_t nLength;
     /* [size_is] */ LPVOID lpSecurityDescriptor;
-    BOOL bInheritHandle;
+    Bool bInheritHandle;
     }	SECURITY_ATTRIBUTES;
 
 typedef struct _SECURITY_ATTRIBUTES __RPC_FAR *PSECURITY_ATTRIBUTES;
@@ -1149,15 +1149,15 @@ typedef /* [wire_marshal] */ OLECHAR __RPC_FAR *BSTR;
 typedef BSTR __RPC_FAR *LPBSTR;
 
 /* 0 == FALSE, -1 == TRUE */
-typedef short VARIANT_BOOL;
+typedef short VARIANT_Bool;
 
 #if !__STDC__ && (_MSC_VER <= 1000)
 /* For backward compatibility */
-typedef VARIANT_BOOL _VARIANT_BOOL;
+typedef VARIANT_Bool _VARIANT_Bool;
 
 #else
 /* ANSI C/C++ reserve bool as keyword */
-#define _VARIANT_BOOL    /##/
+#define _VARIANT_Bool    /##/
 #endif
 typedef boolean BOOLEAN;
 
@@ -1175,8 +1175,8 @@ typedef struct  tagBSTRBLOB
 typedef struct tagBSTRBLOB __RPC_FAR *LPBSTRBLOB;
 
 #endif
-#define VARIANT_TRUE ((VARIANT_BOOL)0xffff)
-#define VARIANT_FALSE ((VARIANT_BOOL)0)
+#define VARIANT_TRUE ((VARIANT_Bool)0xffff)
+#define VARIANT_FALSE ((VARIANT_Bool)0)
 #ifndef _tagBLOB_DEFINED
 #define _tagBLOB_DEFINED
 #define _BLOB_DEFINED
@@ -1221,7 +1221,7 @@ typedef unsigned short VARTYPE;
  *  VT_BSTR             [V][T][P][S]  OLE Automation string
  *  VT_DISPATCH         [V][T][P][S]  IDispatch *
  *  VT_ERROR            [V][T][P][S]  SCODE
- *  VT_BOOL             [V][T][P][S]  True=-1, False=0
+ *  VT_Bool             [V][T][P][S]  True=-1, False=0
  *  VT_VARIANT          [V][T][P][S]  VARIANT *
  *  VT_UNKNOWN          [V][T]   [S]  IUnknown *
  *  VT_DECIMAL          [V][T]   [S]  16 byte fixed point
@@ -1269,7 +1269,7 @@ enum VARENUM
 	VT_BSTR	= 8,
 	VT_DISPATCH	= 9,
 	VT_ERROR	= 10,
-	VT_BOOL	= 11,
+	VT_Bool	= 11,
 	VT_VARIANT	= 12,
 	VT_UNKNOWN	= 13,
 	VT_DECIMAL	= 14,

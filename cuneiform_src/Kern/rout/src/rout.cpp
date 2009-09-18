@@ -70,13 +70,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "stdafx.h"
 #include "rout_own.h"
 
-static BOOL Static_GetTargetObject(Handle hObject, long reason);
-static BOOL Static_GetFirstTable(Handle hObject,long reason);
-static BOOL GetWorkMem();
-static BOOL FreeWorkMem();
-static BOOL LoadAlphabet(long language,char *rec6xxxFilename);
-static BOOL UpdateActiveAlphabet();
-static BOOL HaveTablesOnPage();
+static Bool Static_GetTargetObject(Handle hObject, long reason);
+static Bool Static_GetFirstTable(Handle hObject,long reason);
+static Bool GetWorkMem();
+static Bool FreeWorkMem();
+static Bool LoadAlphabet(long language,char *rec6xxxFilename);
+static Bool UpdateActiveAlphabet();
+static Bool HaveTablesOnPage();
 
 //********************************************************************
 Bool32 ROUT_LoadEd
@@ -304,7 +304,7 @@ Bool32 ROUT_GetObject
     return (gwLowRC_rout?FALSE:TRUE);
 }
 //********************************************************************
-BOOL SetLanguage(long language)
+Bool SetLanguage(long language)
 {
     // Настройка на язык распознавания.
 
@@ -343,7 +343,7 @@ BOOL SetLanguage(long language)
     return TRUE;
 }
 //********************************************************************
-BOOL SetFormat(long format)
+Bool SetFormat(long format)
 {
     // Настройка на формат
 
@@ -365,7 +365,7 @@ BOOL SetFormat(long format)
     return FALSE;
 }
 //********************************************************************
-BOOL SetActiveCode(long code)
+Bool SetActiveCode(long code)
 {
     // Настройка на выходную кодировку
 
@@ -559,7 +559,7 @@ long ROUT_CountObjects()
     return 0;
 }
 //********************************************************************
-BOOL Static_GetTargetObject(
+Bool Static_GetTargetObject(
         Handle hObject,
         long reason	// См. enum BROWSE_REASON
         )
@@ -804,7 +804,7 @@ char *ROUT_GetDefaultObjectName(
     return name;
 }
 //*****************************************************************
-static BOOL GetWorkMem()
+static Bool GetWorkMem()
 {
     // Запросить свободный блок общей памяти
     // А если не дадут, то использовать
@@ -831,10 +831,10 @@ static BOOL GetWorkMem()
 
 }
 //********************************************************************
-static BOOL FreeWorkMem()
+static Bool FreeWorkMem()
 {
     // Освободить рабочую память
-    BOOL good = TRUE;
+    Bool good = TRUE;
 
     // Собственную память не сдавать
     if (gMemStart &&
@@ -965,7 +965,7 @@ Bool32 ROUT_LoadRec6List(
     return TRUE;
 }
 //********************************************************************
-static BOOL LoadAlphabet(
+static Bool LoadAlphabet(
         long language,
         char *rec6xxxFilename)
 {
@@ -1036,7 +1036,7 @@ static BOOL LoadAlphabet(
     return TRUE;
 }
 //*****************************************************************
-static BOOL UpdateActiveAlphabet()
+static Bool UpdateActiveAlphabet()
 {
     /*  Смена алфавита.
         Алфавит выбирается по номеру языка gLanguage
@@ -1096,7 +1096,7 @@ long ROUT_ListAvailableFormats(uchar * buf, ulong sizeBuf)
     }
 
     // Наличие таблиц на странице
-    BOOL haveTables = HaveTablesOnPage();
+    Bool haveTables = HaveTablesOnPage();
 
 #define ITEM(a) {\
     p->code = ROUT_FMT_##a;\
@@ -1121,7 +1121,7 @@ ITEM (HTML);
 return count;
 }
 //********************************************************************
-BOOL Static_GetFirstTable(
+Bool Static_GetFirstTable(
         Handle hObject,
         long reason	// См. enum BROWSE_REASON
         )
@@ -1134,7 +1134,7 @@ BOOL Static_GetFirstTable(
     return TRUE;	// Продолжить поиск
 }
 //********************************************************************
-static BOOL HaveTablesOnPage()
+static Bool HaveTablesOnPage()
 {
     // Наличие таблиц на странице
     if ( !gPageHandle )

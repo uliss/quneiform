@@ -175,12 +175,12 @@ struct NegImage
 	int Height;
 	int bytewide;
 	uchar* lp;
-	BOOL fl_delete;
+	Bool fl_delete;
 	uchar* pmasp;
 	int size_mas;
 	RotImageFlags rotate;
 	NegImage();
 	~NegImage();
-	BOOL SetDibPtr(uchar* lpDibData,int wide,int heght,int bwide);
+	Bool SetDibPtr(uchar* lpDibData,int wide,int heght,int bwide);
 	uchar* GetPmasp(Rect16* pRc);
 };

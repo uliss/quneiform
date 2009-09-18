@@ -183,7 +183,7 @@ void DeleteData(void)
 
 }
 
-BOOL InitData(void)
+Bool InitData(void)
 {
 	pLCont=NULL;
 	pLCont=new LIST<CHLine>;
@@ -397,7 +397,7 @@ void* MyNew(int size)
  return NULL;
 }
 
-BOOL MyRealloc(void** pMem,int size)
+Bool MyRealloc(void** pMem,int size)
 {
  int i;
  void* pTemp;

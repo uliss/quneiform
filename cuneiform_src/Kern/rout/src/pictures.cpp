@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 //********************************************************************
-BOOL PictureFromChar(Handle charHandle)
+Bool PictureFromChar(Handle charHandle)
 {
 /* Прочесть описание кортинки из спецсимвола
 	Записывает:
@@ -137,7 +137,7 @@ long GetPictureNumber(Handle charHandle)
 	return pictureNumber;
 }
 //********************************************************************
-BOOL WritePictureToBMP_File(
+Bool WritePictureToBMP_File(
 					Byte *pDIB,	   // Адрес DIB включая заголовок
 					long lenDIB,   // Длина DIB включая заголовок
 					char *filename // Имя файла

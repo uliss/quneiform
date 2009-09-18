@@ -175,9 +175,9 @@ static INT contain(cell *,cell *);
 static cut_pos cposd;
 // russian glue-heuristics
 static void glue_III();
-static BOOL config_III(cell *BC,cell *EC, cell *ECN);
-static BOOL config_brace_and_K(cell *BC,cell *EC);
-static BOOL config_CapRusGe_and_bad(cell *BC,cell *EC);
+static Bool config_III(cell *BC,cell *EC, cell *ECN);
+static Bool config_brace_and_K(cell *BC,cell *EC);
+static Bool config_CapRusGe_and_bad(cell *BC,cell *EC);
 
 static INT is_bad_turkish_glue(BYTE c1, BYTE c2, BYTE c3); // 27.06.2002 E.P.
 
@@ -1256,7 +1256,7 @@ return;
 
 #endif
 
-BOOL config_III(cell *BC,cell *EC, cell *ECN)
+Bool config_III(cell *BC,cell *EC, cell *ECN)
 {
 return(  (EC->flg&c_f_bad) &&
        (ECN->flg&c_f_let) &&
@@ -1267,7 +1267,7 @@ return(  (EC->flg&c_f_bad) &&
 
 }
 
-BOOL config_CapRusGe_and_bad(cell *BC,cell *EC)
+Bool config_CapRusGe_and_bad(cell *BC,cell *EC)
 {
 cell *BP,*BPP;
 BP  = ( BC!=cell_f())?BC->prev:NULL;
@@ -1289,7 +1289,7 @@ return ( !(BP->flg&c_f_fict) && !(BC->flg&c_f_fict) && !(EC->flg&c_f_fict) &&
          EC->nvers<1 );
 }
 
-BOOL config_brace_and_K(cell *BC,cell *EC)
+Bool config_brace_and_K(cell *BC,cell *EC)
 {
 return( BC->nvers>0 && BC->vers[0].let==(BYTE)'>' &&
         EC->nvers>0 && EC->vers[0].let==(BYTE)'ª' &&

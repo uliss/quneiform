@@ -77,7 +77,7 @@ extern int countCluster[256]; // how many clust
 Bool32 BadCluster(InfoCluster *infoC);
 void GetClusterStatistic(int numSymbol,int numCluster,Nraster_header *rh,
 						SINT *nClus,InfoCluster *infoC,int *countC,
-						BYTE *metkaGood,BYTE *metkaValid,BOOL addLingvo);
+						BYTE *metkaGood,BYTE *metkaValid,Bool addLingvo);
 
 #define GoodCluster(infoC) (infoC.valid & LEO_VALID_LINGVO )
 

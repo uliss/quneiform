@@ -182,15 +182,15 @@ extern int MinHorLenForTrue, MinVerLenForTrue;
 
 //My function's diclarations
 
-CLINE_handle FindLine(CLINE_handle hContainer, CLINE_handle processedline, BOOL vert);
-//BOOL MyGetLines(CPageLines* PLines,CLINE_handle hCLINE);
-//BOOL AddLenLineMas(LineInfo** ppRc,int& len,int add);
+CLINE_handle FindLine(CLINE_handle hContainer, CLINE_handle processedline, Bool vert);
+//Bool MyGetLines(CPageLines* PLines,CLINE_handle hCLINE);
+//Bool AddLenLineMas(LineInfo** ppRc,int& len,int add);
 //void DelLineMas(LineInfo* masp);
-BOOL MyPutLines(CLINE_handle hContainerOut, CLINE_handle hCLINE, BOOL dotline);
+Bool MyPutLines(CLINE_handle hContainerOut, CLINE_handle hCLINE, Bool dotline);
 void DeleteBadDotLine(CLINE_handle hCLINE,CCOM_handle hCCOM,Handle hCPAGE);
 void SetLineDegree(DLine* line);
 //void DeletePLines(CPageLines* PLines);
-BOOL MyGetLines(/*CLINE_handle linecontainer,Handle hCPage,*/CLINE_handle hCLINE, int32_t* CountLines);
+Bool MyGetLines(/*CLINE_handle linecontainer,Handle hCPage,*/CLINE_handle hCLINE, int32_t* CountLines);
 void PrintLines(CLINE_handle hContainer, const char* FileName);
 Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM);
 Bool32 FindExtLines(CLINE_handle* hLinesMass, int32_t CountLines, CLINE_handle hExtContainer, Bool32 IsHor, CCOM_comp *pCompMass, int32_t CountMass, CLINE_handle hContainer);
@@ -743,7 +743,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass3(Handle hCPAGE,CLINE_handle hCLINE, Handle hC
 }
 
 /***********************************************************************************************************/
-CLINE_handle FindLine(CLINE_handle hContainer, CLINE_handle processedline,BOOL vert)
+CLINE_handle FindLine(CLINE_handle hContainer, CLINE_handle processedline,Bool vert)
 {
  DLine* pCLine = new DLine;
 // DLine* pCLineCopy = new DLine;
@@ -847,9 +847,9 @@ CLINE_handle FindLine(CLINE_handle hContainer, CLINE_handle processedline,BOOL v
 }
 
 /*********************************************************************************************************/
-BOOL MyGetLines(/*CLINE_handle linecontainer, Handle hCPage, */CLINE_handle hCLINE, int32_t* CountLines)
+Bool MyGetLines(/*CLINE_handle linecontainer, Handle hCPage, */CLINE_handle hCLINE, int32_t* CountLines)
 {
-//	BOOL fl_cont;
+//	Bool fl_cont;
 
 // if(!LDPUMA_Skip(hUseCLine))
 // {
@@ -975,7 +975,7 @@ BOOL MyGetLines(/*CLINE_handle linecontainer, Handle hCPage, */CLINE_handle hCLI
 }
 
 
-BOOL MyPutLines(CLINE_handle hContainerOut,CLINE_handle hCLINE,BOOL dotline)
+Bool MyPutLines(CLINE_handle hContainerOut,CLINE_handle hCLINE,Bool dotline)
 {
  CPDLine line;
  CPDEvent event;
@@ -989,7 +989,7 @@ BOOL MyPutLines(CLINE_handle hContainerOut,CLINE_handle hCLINE,BOOL dotline)
  DInterval data_inv;
  CLINE_handle hinv;
  int count_poly;
- BOOL fl_good_event;
+ Bool fl_good_event;
  struct BigEvents
  {
 	 int left;
@@ -1426,7 +1426,7 @@ void DelLineMas(LineInfo* masp)
 }
 */
 /*
-BOOL AddLenLineMas(LineInfo** ppRc,int& len,int add)
+Bool AddLenLineMas(LineInfo** ppRc,int& len,int add)
 {
  LineInfo* dop;
  int i;
@@ -1463,7 +1463,7 @@ BOOL AddLenLineMas(LineInfo** ppRc,int& len,int add)
 }
 */
 /*
-BOOL MyGetLines(CPageLines* PLines,CLINE_handle hCLINE)
+Bool MyGetLines(CPageLines* PLines,CLINE_handle hCLINE)
 {
  CLine* line;
  CEvent* event;
@@ -1641,8 +1641,8 @@ void DeleteBadDotLine(CLINE_handle hCLINE,CCOM_handle hCCOM,Handle hCPAGE)
 
  int count_comp=0;
  const int My_False=~((int)LI_IsTrue);
- const BOOL fl_show=!LDPUMA_Skip(hDotKilledD);
- BOOL WasKilled=FALSE;
+ const Bool fl_show=!LDPUMA_Skip(hDotKilledD);
+ Bool WasKilled=FALSE;
  Point16 start;
  Point16 end;
  count_comp=CCOM_GetContainerVolume(hCCOM);
@@ -1667,7 +1667,7 @@ void DeleteBadDotLine(CLINE_handle hCLINE,CCOM_handle hCCOM,Handle hCPAGE)
  int delta;
  int right;
  int left;
- BOOL fl_break;
+ Bool fl_break;
  CCOM_comp* comp=NULL;
  DLine data;
  const uint32_t size_line=sizeof(DLine);

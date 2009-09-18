@@ -329,8 +329,8 @@ uint32_t   dynmem_size;                // Total count of dynamic memory size
 //*****************************************************************************
 
 INT ed_scan(
-      BOOL (*func_spec)(PBYTE p, INT lth),
-      BOOL (*func_char)(PBYTE p, INT lth),
+      Bool (*func_spec)(PBYTE p, INT lth),
+      Bool (*func_char)(PBYTE p, INT lth),
       PBYTE start, PBYTE end);
 
 

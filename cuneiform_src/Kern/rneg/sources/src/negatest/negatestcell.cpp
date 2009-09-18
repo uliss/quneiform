@@ -112,7 +112,7 @@ RNEG_FUNC(Bool32) RNEG_TestForNegative(CCOM_handle hCCOM,Handle hCPage,uchar* pI
  NegList* temp;
  int nRC=1;
  int i;
- BOOL flag_rotate;
+ Bool flag_rotate;
 
  PAGEINFO info = {0};
  GetPageInfo(hCPage,&info);

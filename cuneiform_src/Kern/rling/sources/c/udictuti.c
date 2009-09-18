@@ -102,7 +102,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	      /***        P R O T O T Y P E S       ****/
 
  static INT UserDictRDWR( BYTE * word,voc_state * user_dict,INT weight,INT mode);
- static BOOL ispermitted (BYTE a);
+ static Bool ispermitted (BYTE a);
  extern BYTE multy_language;
 
 
@@ -239,11 +239,11 @@ for(i=0;i<num;i++)
 return;
 }
 
-BOOL ispermitted (BYTE a)
+Bool ispermitted (BYTE a)
 {
   return tab_alphas[a];
 }
-//BOOL ispermitted (BYTE a)
+//Bool ispermitted (BYTE a)
 //{
 // if ( isalpha (a))                   return TRUE;
 // if ( a == '\'')                     return TRUE;

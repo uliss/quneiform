@@ -234,27 +234,27 @@ public:
 
 	bool IsNull() const { return (m_hMenu == NULL); }
 
-	BOOL IsMenu() const
+	Bool IsMenu() const
 	{
 		return ::IsMenu(m_hMenu);
 	}
 
 // Create/destroy methods
-	BOOL CreateMenu()
+	Bool CreateMenu()
 	{
 		ATLASSERT(m_hMenu == NULL);
 		m_hMenu = ::CreateMenu();
 		return (m_hMenu != NULL) ? TRUE : FALSE;
 	}
 
-	BOOL CreatePopupMenu()
+	Bool CreatePopupMenu()
 	{
 		ATLASSERT(m_hMenu == NULL);
 		m_hMenu = ::CreatePopupMenu();
 		return (m_hMenu != NULL) ? TRUE : FALSE;
 	}
 
-	BOOL LoadMenu(ATL::_U_STRINGorID menu)
+	Bool LoadMenu(ATL::_U_STRINGorID menu)
 	{
 		ATLASSERT(m_hMenu == NULL);
 		m_hMenu = ::LoadMenu(ModuleHelper::GetResourceInstance(), menu.m_lpstr);
@@ -262,7 +262,7 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	BOOL LoadMenuIndirect(const void* lpMenuTemplate)
+	Bool LoadMenuIndirect(const void* lpMenuTemplate)
 	{
 		ATLASSERT(m_hMenu == NULL);
 		m_hMenu = ::LoadMenuIndirect(lpMenuTemplate);
@@ -270,24 +270,24 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	BOOL DestroyMenu()
+	Bool DestroyMenu()
 	{
 		if (m_hMenu == NULL)
 			return FALSE;
-		BOOL bRet = ::DestroyMenu(m_hMenu);
+		Bool bRet = ::DestroyMenu(m_hMenu);
 		if(bRet)
 			m_hMenu = NULL;
 		return bRet;
 	}
 
 // Menu Operations
-	BOOL DeleteMenu(UINT nPosition, UINT nFlags)
+	Bool DeleteMenu(UINT nPosition, UINT nFlags)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::DeleteMenu(m_hMenu, nPosition, nFlags);
 	}
 
-	BOOL TrackPopupMenu(UINT nFlags, int x, int y, HWND hWnd, LPCRECT lpRect = NULL)
+	Bool TrackPopupMenu(UINT nFlags, int x, int y, HWND hWnd, LPCRECT lpRect = NULL)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 #ifndef _WIN32_WCE
@@ -301,7 +301,7 @@ public:
 #endif // _WIN32_WCE
 	}
 
-	BOOL TrackPopupMenuEx(UINT uFlags, int x, int y, HWND hWnd, LPTPMPARAMS lptpm = NULL)
+	Bool TrackPopupMenuEx(UINT uFlags, int x, int y, HWND hWnd, LPTPMPARAMS lptpm = NULL)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 #if (WINVER >= 0x0500) && !defined(_WIN32_WCE)
@@ -336,13 +336,13 @@ public:
 		return x;
 	}
 
-	BOOL GetMenuInfo(LPMENUINFO lpMenuInfo) const
+	Bool GetMenuInfo(LPMENUINFO lpMenuInfo) const
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::GetMenuInfo(m_hMenu, lpMenuInfo);
 	}
 
-	BOOL SetMenuInfo(LPCMENUINFO lpMenuInfo)
+	Bool SetMenuInfo(LPCMENUINFO lpMenuInfo)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::SetMenuInfo(m_hMenu, lpMenuInfo);
@@ -350,13 +350,13 @@ public:
 #endif // (WINVER >= 0x0500) && !defined(_WIN32_WCE)
 
 // Menu Item Operations
-	BOOL AppendMenu(UINT nFlags, UINT_PTR nIDNewItem = 0, LPCTSTR lpszNewItem = NULL)
+	Bool AppendMenu(UINT nFlags, UINT_PTR nIDNewItem = 0, LPCTSTR lpszNewItem = NULL)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::AppendMenu(m_hMenu, nFlags, nIDNewItem, lpszNewItem);
 	}
 
-	BOOL AppendMenu(UINT nFlags, HMENU hSubMenu, LPCTSTR lpszNewItem)
+	Bool AppendMenu(UINT nFlags, HMENU hSubMenu, LPCTSTR lpszNewItem)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		ATLASSERT(::IsMenu(hSubMenu));
@@ -364,13 +364,13 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	BOOL AppendMenu(UINT nFlags, UINT_PTR nIDNewItem, HBITMAP hBmp)
+	Bool AppendMenu(UINT nFlags, UINT_PTR nIDNewItem, HBITMAP hBmp)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::AppendMenu(m_hMenu, nFlags | MF_BITMAP, nIDNewItem, (LPCTSTR)hBmp);
 	}
 
-	BOOL AppendMenu(UINT nFlags, HMENU hSubMenu, HBITMAP hBmp)
+	Bool AppendMenu(UINT nFlags, HMENU hSubMenu, HBITMAP hBmp)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		ATLASSERT(::IsMenu(hSubMenu));
@@ -391,7 +391,7 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	BOOL HiliteMenuItem(HWND hWnd, UINT uIDHiliteItem, UINT uHilite)
+	Bool HiliteMenuItem(HWND hWnd, UINT uIDHiliteItem, UINT uHilite)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::HiliteMenuItem(hWnd, m_hMenu, uIDHiliteItem, uHilite);
@@ -428,7 +428,7 @@ public:
 	}
 
 #ifndef _ATL_NO_COM
-	BOOL GetMenuString(UINT nIDItem, BSTR& bstrText, UINT nFlags) const
+	Bool GetMenuString(UINT nIDItem, BSTR& bstrText, UINT nFlags) const
 	{
 		USES_CONVERSION;
 		ATLASSERT(::IsMenu(m_hMenu));
@@ -481,13 +481,13 @@ public:
 		return CMenuHandle(::GetSubMenu(m_hMenu, nPos));
 	}
 
-	BOOL InsertMenu(UINT nPosition, UINT nFlags, UINT_PTR nIDNewItem = 0, LPCTSTR lpszNewItem = NULL)
+	Bool InsertMenu(UINT nPosition, UINT nFlags, UINT_PTR nIDNewItem = 0, LPCTSTR lpszNewItem = NULL)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::InsertMenu(m_hMenu, nPosition, nFlags, nIDNewItem, lpszNewItem);
 	}
 
-	BOOL InsertMenu(UINT nPosition, UINT nFlags, HMENU hSubMenu, LPCTSTR lpszNewItem)
+	Bool InsertMenu(UINT nPosition, UINT nFlags, HMENU hSubMenu, LPCTSTR lpszNewItem)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		ATLASSERT(::IsMenu(hSubMenu));
@@ -495,39 +495,39 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	BOOL InsertMenu(UINT nPosition, UINT nFlags, UINT_PTR nIDNewItem, HBITMAP hBmp)
+	Bool InsertMenu(UINT nPosition, UINT nFlags, UINT_PTR nIDNewItem, HBITMAP hBmp)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::InsertMenu(m_hMenu, nPosition, nFlags | MF_BITMAP, nIDNewItem, (LPCTSTR)hBmp);
 	}
 
-	BOOL InsertMenu(UINT nPosition, UINT nFlags, HMENU hSubMenu, HBITMAP hBmp)
+	Bool InsertMenu(UINT nPosition, UINT nFlags, HMENU hSubMenu, HBITMAP hBmp)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		ATLASSERT(::IsMenu(hSubMenu));
 		return ::InsertMenu(m_hMenu, nPosition, nFlags | (MF_BITMAP | MF_POPUP), (UINT_PTR)hSubMenu, (LPCTSTR)hBmp);
 	}
 
-	BOOL ModifyMenu(UINT nPosition, UINT nFlags, UINT_PTR nIDNewItem = 0, LPCTSTR lpszNewItem = NULL)
+	Bool ModifyMenu(UINT nPosition, UINT nFlags, UINT_PTR nIDNewItem = 0, LPCTSTR lpszNewItem = NULL)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::ModifyMenu(m_hMenu, nPosition, nFlags, nIDNewItem, lpszNewItem);
 	}
 
-	BOOL ModifyMenu(UINT nPosition, UINT nFlags, HMENU hSubMenu, LPCTSTR lpszNewItem)
+	Bool ModifyMenu(UINT nPosition, UINT nFlags, HMENU hSubMenu, LPCTSTR lpszNewItem)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		ATLASSERT(::IsMenu(hSubMenu));
 		return ::ModifyMenu(m_hMenu, nPosition, nFlags | MF_POPUP, (UINT_PTR)hSubMenu, lpszNewItem);
 	}
 
-	BOOL ModifyMenu(UINT nPosition, UINT nFlags, UINT_PTR nIDNewItem, HBITMAP hBmp)
+	Bool ModifyMenu(UINT nPosition, UINT nFlags, UINT_PTR nIDNewItem, HBITMAP hBmp)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::ModifyMenu(m_hMenu, nPosition, nFlags | MF_BITMAP, nIDNewItem, (LPCTSTR)hBmp);
 	}
 
-	BOOL ModifyMenu(UINT nPosition, UINT nFlags, HMENU hSubMenu, HBITMAP hBmp)
+	Bool ModifyMenu(UINT nPosition, UINT nFlags, HMENU hSubMenu, HBITMAP hBmp)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		ATLASSERT(::IsMenu(hSubMenu));
@@ -535,58 +535,58 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	BOOL RemoveMenu(UINT nPosition, UINT nFlags)
+	Bool RemoveMenu(UINT nPosition, UINT nFlags)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::RemoveMenu(m_hMenu, nPosition, nFlags);
 	}
 
 #ifndef _WIN32_WCE
-	BOOL SetMenuItemBitmaps(UINT nPosition, UINT nFlags, HBITMAP hBmpUnchecked, HBITMAP hBmpChecked)
+	Bool SetMenuItemBitmaps(UINT nPosition, UINT nFlags, HBITMAP hBmpUnchecked, HBITMAP hBmpChecked)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::SetMenuItemBitmaps(m_hMenu, nPosition, nFlags, hBmpUnchecked, hBmpChecked);
 	}
 #endif // !_WIN32_WCE
 
-	BOOL CheckMenuRadioItem(UINT nIDFirst, UINT nIDLast, UINT nIDItem, UINT nFlags)
+	Bool CheckMenuRadioItem(UINT nIDFirst, UINT nIDLast, UINT nIDItem, UINT nFlags)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::CheckMenuRadioItem(m_hMenu, nIDFirst, nIDLast, nIDItem, nFlags);
 	}
 
-	BOOL GetMenuItemInfo(UINT uItem, BOOL bByPosition, LPMENUITEMINFO lpmii) const
+	Bool GetMenuItemInfo(UINT uItem, Bool bByPosition, LPMENUITEMINFO lpmii) const
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
-		return (BOOL)::GetMenuItemInfo(m_hMenu, uItem, bByPosition, lpmii);
+		return (Bool)::GetMenuItemInfo(m_hMenu, uItem, bByPosition, lpmii);
 	}
 
-	BOOL SetMenuItemInfo(UINT uItem, BOOL bByPosition, LPMENUITEMINFO lpmii)
+	Bool SetMenuItemInfo(UINT uItem, Bool bByPosition, LPMENUITEMINFO lpmii)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
-		return (BOOL)::SetMenuItemInfo(m_hMenu, uItem, bByPosition, lpmii);
+		return (Bool)::SetMenuItemInfo(m_hMenu, uItem, bByPosition, lpmii);
 	}
 
 #ifndef _WIN32_WCE
-	BOOL InsertMenuItem(UINT uItem, BOOL bByPosition, LPMENUITEMINFO lpmii)
+	Bool InsertMenuItem(UINT uItem, Bool bByPosition, LPMENUITEMINFO lpmii)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
-		return (BOOL)::InsertMenuItem(m_hMenu, uItem, bByPosition, lpmii);
+		return (Bool)::InsertMenuItem(m_hMenu, uItem, bByPosition, lpmii);
 	}
 
-	UINT GetMenuDefaultItem(BOOL bByPosition = FALSE, UINT uFlags = 0U) const
+	UINT GetMenuDefaultItem(Bool bByPosition = FALSE, UINT uFlags = 0U) const
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::GetMenuDefaultItem(m_hMenu, (UINT)bByPosition, uFlags);
 	}
 
-	BOOL SetMenuDefaultItem(UINT uItem = (UINT)-1,  BOOL bByPosition = FALSE)
+	Bool SetMenuDefaultItem(UINT uItem = (UINT)-1,  Bool bByPosition = FALSE)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::SetMenuDefaultItem(m_hMenu, uItem, (UINT)bByPosition);
 	}
 
-	BOOL GetMenuItemRect(HWND hWnd, UINT uItem, LPRECT lprcItem) const
+	Bool GetMenuItemRect(HWND hWnd, UINT uItem, LPRECT lprcItem) const
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::GetMenuItemRect(hWnd, m_hMenu, uItem, lprcItem);
@@ -599,7 +599,7 @@ public:
 	}
 
 // Context Help Functions
-	BOOL SetMenuContextHelpId(DWORD dwContextHelpId)
+	Bool SetMenuContextHelpId(DWORD dwContextHelpId)
 	{
 		ATLASSERT(::IsMenu(m_hMenu));
 		return ::SetMenuContextHelpId(m_hMenu, dwContextHelpId);
@@ -698,7 +698,7 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	BOOL TranslateAccelerator(HWND hWnd, LPMSG pMsg)
+	Bool TranslateAccelerator(HWND hWnd, LPMSG pMsg)
 	{
 		ATLASSERT(m_hAccel != NULL);
 		ATLASSERT(::IsWindow(hWnd));
@@ -832,10 +832,10 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	BOOL DestroyIcon()
+	Bool DestroyIcon()
 	{
 		ATLASSERT(m_hIcon != NULL);
-		BOOL bRet = ::DestroyIcon(m_hIcon);
+		Bool bRet = ::DestroyIcon(m_hIcon);
 		if(bRet != FALSE)
 			m_hIcon = NULL;
 		return bRet;
@@ -856,7 +856,7 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	BOOL DrawIcon(HDC hDC, int x, int y)
+	Bool DrawIcon(HDC hDC, int x, int y)
 	{
 		ATLASSERT(m_hIcon != NULL);
 #ifndef _WIN32_WCE
@@ -866,7 +866,7 @@ public:
 #endif // _WIN32_WCE
 	}
 
-	BOOL DrawIcon(HDC hDC, POINT pt)
+	Bool DrawIcon(HDC hDC, POINT pt)
 	{
 		ATLASSERT(m_hIcon != NULL);
 #ifndef _WIN32_WCE
@@ -876,20 +876,20 @@ public:
 #endif // _WIN32_WCE
 	}
 
-	BOOL DrawIconEx(HDC hDC, int x, int y, int cxWidth, int cyWidth, UINT uStepIfAniCur = 0, HBRUSH hbrFlickerFreeDraw = NULL, UINT uFlags = DI_NORMAL)
+	Bool DrawIconEx(HDC hDC, int x, int y, int cxWidth, int cyWidth, UINT uStepIfAniCur = 0, HBRUSH hbrFlickerFreeDraw = NULL, UINT uFlags = DI_NORMAL)
 	{
 		ATLASSERT(m_hIcon != NULL);
 		return ::DrawIconEx(hDC, x, y, m_hIcon, cxWidth, cyWidth, uStepIfAniCur, hbrFlickerFreeDraw, uFlags);
 	}
 
-	BOOL DrawIconEx(HDC hDC, POINT pt, SIZE size, UINT uStepIfAniCur = 0, HBRUSH hbrFlickerFreeDraw = NULL, UINT uFlags = DI_NORMAL)
+	Bool DrawIconEx(HDC hDC, POINT pt, SIZE size, UINT uStepIfAniCur = 0, HBRUSH hbrFlickerFreeDraw = NULL, UINT uFlags = DI_NORMAL)
 	{
 		ATLASSERT(m_hIcon != NULL);
 		return ::DrawIconEx(hDC, pt.x, pt.y, m_hIcon, size.cx, size.cy, uStepIfAniCur, hbrFlickerFreeDraw, uFlags);
 	}
 
 #ifndef _WIN32_WCE
-	BOOL GetIconInfo(PICONINFO pIconInfo) const
+	Bool GetIconInfo(PICONINFO pIconInfo) const
 	{
 		ATLASSERT(m_hIcon != NULL);
 		ATLASSERT(pIconInfo != NULL);
@@ -897,7 +897,7 @@ public:
 	}
 
 #if (_WIN32_WINNT >= 0x0600)
-	BOOL GetIconInfoEx(PICONINFOEX pIconInfo) const
+	Bool GetIconInfoEx(PICONINFOEX pIconInfo) const
 	{
 		ATLASSERT(m_hIcon != NULL);
 		ATLASSERT(pIconInfo != NULL);
@@ -1085,11 +1085,11 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	BOOL DestroyCursor()
+	Bool DestroyCursor()
 	{
 		ATLASSERT(m_hCursor != NULL);
 #if !defined(_WIN32_WCE) || ((_WIN32_WCE >= 0x400) && !(defined(WIN32_PLATFORM_PSPC) || defined(WIN32_PLATFORM_WFSP)))
-		BOOL bRet = ::DestroyCursor(m_hCursor);
+		Bool bRet = ::DestroyCursor(m_hCursor);
 		if(bRet != FALSE)
 			m_hCursor = NULL;
 		return bRet;
@@ -1109,7 +1109,7 @@ public:
 #endif // !_WIN32_WCE
 
 #if (WINVER >= 0x0500) && !defined(_WIN32_WCE)
-	BOOL GetCursorInfo(LPCURSORINFO pCursorInfo)
+	Bool GetCursorInfo(LPCURSORINFO pCursorInfo)
 	{
 		ATLASSERT(m_hCursor != NULL);
 		ATLASSERT(pCursorInfo != NULL);

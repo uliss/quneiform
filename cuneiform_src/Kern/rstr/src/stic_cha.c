@@ -121,7 +121,7 @@ static void find_peak_new(INT *ind1,INT *ind2,BYTE fun[],INT nn,	// MK
 //////	 INT *extr_pos,BYTE *extr_fun);
 static void find_conc_new(INT *ind1,INT *ind2,BYTE fun[],INT nn,	// MK
 	INT level,INT sr,INT *extr_pos,BYTE *extr_fun);
-static BOOL find_first_ne(BYTE fun[],INT n,INT direct,INT level);
+static Bool find_first_ne(BYTE fun[],INT n,INT direct,INT level);
 static void set_serifs(BYTE left[],BYTE right[],
 		       STICK_CHARS *left_chars,STICK_CHARS *right_chars,
                        INT skip_ul,INT skip_dl,INT skip_ur,INT skip_dr,
@@ -134,7 +134,7 @@ static void calc_of_skip(INT hist[],INT dy,INT opt,
 			 BYTE left[],BYTE right[],INT lim_l,INT lim_r,
 			 INT *s_ul,INT *s_dl,INT *s_ur,INT *s_dr);
 static void correct_Y_peak(STICK_CHARS *l,INT dy);
-static BOOL sign_t_TOP (BYTE left[], BYTE right[]);
+static Bool sign_t_TOP (BYTE left[], BYTE right[]);
 
 #define COPY_PEAK(lr,i,j)                \
 	{                                \
@@ -450,7 +450,7 @@ return;
 /* exist value in array (fun) no equivalence (level)                      */
 /* n - number of elems in array, direct=1 <--> fun[0],fun[1],...,fun[n-1] */
 /* direct=-1 <--> fun[0],fun[-1],...,fun[1-n]                             */
-static BOOL find_first_ne(BYTE fun[],INT n,INT direct,INT level)
+static Bool find_first_ne(BYTE fun[],INT n,INT direct,INT level)
 {
 INT i,ind; BYTE lev=(BYTE)level;
 for(ind=i=0;i<n;i++,ind+=direct)
@@ -628,7 +628,7 @@ return(0);
 /*       nx - wide of c_comp                                         */
 /*                                                                 */
 /* out : l->f_symptom : 0(not f left abris),1(bad f),2(good f)     */
-INT calc_left_f_symptom(BYTE fun[],INT n,INT nx,BOOL c_ft)
+INT calc_left_f_symptom(BYTE fun[],INT n,INT nx,Bool c_ft)
 {
 INT i,s,ss,f,ret_code,nn=n>>1;
 ss=nn*(nx>>1);   /* place of study-zone */
@@ -1324,7 +1324,7 @@ return;
 /*			 disable discrimination 'l','I','1' prob  )  */
 /*		     2 - good neck ( enable adding, enable discrim)  */
 /*----------------------------------------------------------------------*/
-BOOL sign_neck (BYTE left[], BYTE right[], INT n, INT base, INT mode)
+Bool sign_neck (BYTE left[], BYTE right[], INT n, INT base, INT mode)
 {							// 18.02.1993
 ///INT i,s,l,ml,sig_wide=mode>10?1:0,f,e=3;   /* sig_wide = signum of thick */
 ///INT i,l,ml,sig_wide=mode>10?1:0,f;	/* sig_wide = signum of thick */
@@ -1434,7 +1434,7 @@ if( n_less==0 ) {  // not find neck belong diapason base,base+3 (base correct)
 //////return( s );
 }
 /*----------------------------------------------------------------------*/
-static	BOOL  sign_t_TOP (BYTE left[], BYTE right[])  {	// 26.01.1994
+static	Bool  sign_t_TOP (BYTE left[], BYTE right[])  {	// 26.01.1994
 INT	d0 = right[0]-left[0];				// see sign_neck ABOVE;
 INT	d1 = right[1]-left[1];				// NB: MASTAB = 4 !!!
 INT	d2 = right[2]-left[2];				// 0, 4, 8, 12 are
@@ -1462,7 +1462,7 @@ return;
 }
 
 void calc_skipped_lines(INT hist_int[],BYTE left[],BYTE right[],
-			INT dy,INT dx,INT wide,INT opt,BOOL c_r,
+			INT dy,INT dx,INT wide,INT opt,Bool c_r,
 			INT *ul,INT *ur,INT *dl,INT *dr)
 {
 INT skip_ul,skip_ur,skip_dl,skip_dr;

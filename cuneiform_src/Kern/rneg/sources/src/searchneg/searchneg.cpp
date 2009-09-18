@@ -65,8 +65,8 @@ void DelIn(Handle hCPage,NegList** proot,int& nRc)
  NegList* nowin=root;
  NegList* nowout=root;
  NegList* temp;
- BOOL fl_cont;
- BOOL vert;
+ Bool fl_cont;
+ Bool vert;
  uchar Data[1000];
  memset (Data, 0, sizeof (Data));
  uchar* pmasp;
@@ -202,7 +202,7 @@ void CutNegStr(Handle hCPage,NegList** proot,int& nRc,int skew)
  NegList* now=(*proot);
  NegList* temp;
  uchar Data[1000];
- BOOL fl_cont=FALSE;
+ Bool fl_cont=FALSE;
  Rect16 Rc;
  memset (Data, 0, sizeof (Data));
  while(now->next)
@@ -268,7 +268,7 @@ void CutNeg(Handle hCPage,NegList** proot,int& nRc,int skew)
  NegList* root=(*proot);
  NegList* now=root;
  uchar Data[1000];
- BOOL fl_cont=FALSE;
+ Bool fl_cont=FALSE;
  int bytewide;
  int rect;
  int top;
@@ -276,7 +276,7 @@ void CutNeg(Handle hCPage,NegList** proot,int& nRc,int skew)
  register uchar bytep;
  register int count_black;
  double proc;
- BOOL neg;
+ Bool neg;
  Rect16 Rc;
  NegList* temp;
  int stop;
@@ -436,7 +436,7 @@ void CutNeg(Handle hCPage,NegList** proot,int& nRc,int skew)
 
 }
 
-BOOL IfNegIn(NegList* root,int nRc,int top,int bottom,int left,int right)
+Bool IfNegIn(NegList* root,int nRc,int top,int bottom,int left,int right)
 {
  int i;
  int d_top,d_bot;
@@ -470,7 +470,7 @@ BOOL IfNegIn(NegList* root,int nRc,int top,int bottom,int left,int right)
 
 
 
-BOOL SearchNegBySize(CCOM_handle hCCOM, Handle hCPage,NegList** ROOT,int& nRC)
+Bool SearchNegBySize(CCOM_handle hCCOM, Handle hCPage,NegList** ROOT,int& nRC)
 {
  NegList* root=NULL;
  NegList* temp=NULL;
@@ -548,7 +548,7 @@ void SearchNegByBlack(Handle hCPage,NegList** proot,int& nRC)
 }
 
 /*
-BOOL IfDrob(Handle hCPage,Rect16* pRc,int num,CCOM_comp * pdr)
+Bool IfDrob(Handle hCPage,Rect16* pRc,int num,CCOM_comp * pdr)
 {
  int inteps=2;
  int delta=5;
@@ -625,7 +625,7 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
 
 	 //попытка - не пытка
 
-   BOOL top=FALSE,left=FALSE,right=FALSE,bottom=FALSE;
+   Bool top=FALSE,left=FALSE,right=FALSE,bottom=FALSE;
 
    	  while((*Rc).top<=0)
 		  ((*Rc).top)++;
@@ -991,14 +991,14 @@ void NegMoveMasR(Rect16* pRc,int& nRc,int num)
 }
 
 
-BOOL IsNegSize(int16_t h,int16_t w)
+Bool IsNegSize(int16_t h,int16_t w)
 {
  if( (h<inf_neg_h) || (w<inf_neg_h) ) return FALSE;
  if( (h<inf_neg_w) && (w<inf_neg_w) ) return FALSE;
  return TRUE;
 }
 
-BOOL IsNegBlack(Handle hCPage,NegList* now)
+Bool IsNegBlack(Handle hCPage,NegList* now)
 {
  int i,j,k;
  uchar *pmasp;
@@ -1066,7 +1066,7 @@ BOOL IsNegBlack(Handle hCPage,NegList* now)
 }
 
 
-BOOL GetMasP(Handle hCPage,Rect16 Rc,uchar** ppmasp)
+Bool GetMasP(Handle hCPage,Rect16 Rc,uchar** ppmasp)
 {
     int prewide;
 	int left=Rc.left;
@@ -1113,7 +1113,7 @@ BOOL GetMasP(Handle hCPage,Rect16 Rc,uchar** ppmasp)
 	return TRUE;
 }
 
-BOOL GetMasP(Rect16* pRc,uchar** ppmasp)
+Bool GetMasP(Rect16* pRc,uchar** ppmasp)
 {
 	*ppmasp=pNegImage->GetPmasp(pRc);
 	if(*ppmasp==NULL)
@@ -1182,7 +1182,7 @@ void PrintFrameComp(Handle hCPage,Rect16* pRc,int num)
  printf("\n");
 }
 
-BOOL InitNegMas(Rect16** ppRc,int len)
+Bool InitNegMas(Rect16** ppRc,int len)
 {
 	(*ppRc)=NULL;
 	if(!((*ppRc)=new Rect16[len]))
@@ -1191,7 +1191,7 @@ BOOL InitNegMas(Rect16** ppRc,int len)
 }
 
 
-BOOL InitNegMas(RecVersions** ppRc,int len)
+Bool InitNegMas(RecVersions** ppRc,int len)
 {
 	(*ppRc)=NULL;
 	if(!((*ppRc)= new RecVersions[len]))
@@ -1199,7 +1199,7 @@ BOOL InitNegMas(RecVersions** ppRc,int len)
 	return TRUE;
 }
 
-BOOL InitNegMas(UniVersions** ppRc,int len)
+Bool InitNegMas(UniVersions** ppRc,int len)
 {
 	(*ppRc)=NULL;
 	if(!((*ppRc)= new UniVersions[len]))
@@ -1208,7 +1208,7 @@ BOOL InitNegMas(UniVersions** ppRc,int len)
 }
 
 
-BOOL InitNegMas(CCOM_comp*** ppRc,int len)
+Bool InitNegMas(CCOM_comp*** ppRc,int len)
 {
 	(*ppRc)=NULL;
 	if(!((*ppRc)=new CCOM_comp*[len]))
@@ -1238,7 +1238,7 @@ void DelNegMas(CCOM_comp **masp)
 }
 
 
-BOOL AddLenNegMas(Rect16** ppRc,int& len,int add)
+Bool AddLenNegMas(Rect16** ppRc,int& len,int add)
 {Rect16 *dop;
  int i;
  if(!(InitNegMas(&dop,len)) )
@@ -1258,7 +1258,7 @@ BOOL AddLenNegMas(Rect16** ppRc,int& len,int add)
  return TRUE;
 }
 
-BOOL AddLenNegMas(CCOM_comp*** ppRc,int& len,int add)
+Bool AddLenNegMas(CCOM_comp*** ppRc,int& len,int add)
 {CCOM_comp **dop;
  int i;
  if(!(InitNegMas(&dop,len)) )

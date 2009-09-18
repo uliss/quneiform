@@ -149,7 +149,7 @@ int move;
 extern uchar* Buffer;
 extern uchar* WorkMem;
 /////////////////////////////////////////
-BOOL APIENTRY DllMain( HINSTANCE hModule,
+Bool APIENTRY DllMain( HINSTANCE hModule,
 uint32_t ul_reason_for_call,
                         LPVOID lpReserved )
 {
@@ -303,7 +303,7 @@ RSTUFF_FUNC(Bool32) RSTUFF_GetExportData(uint32_t dwType, void * pData)
 //
 RSTUFF_FUNC(Bool32) RSTUFF_SetImportData(uint32_t dwType, void * pData)
 {
-	BOOL rc = FALSE;
+	Bool rc = FALSE;
 	RC.gwRC = 0;
 
 	switch(dwType)

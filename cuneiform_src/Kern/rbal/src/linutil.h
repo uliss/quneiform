@@ -56,8 +56,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //#include "struct.h"
 
-BOOL is_liga_ff(BYTE c) ;
-BOOL is_liga_ffl(BYTE c);
+Bool is_liga_ff(BYTE c) ;
+Bool is_liga_ffl(BYTE c);
 BYTE to_lower(BYTE c);
 BYTE to_upper(BYTE c);
 INT  is_lower(BYTE ch);
@@ -71,7 +71,7 @@ INT is_hungar_special(BYTE ch);
 INT is_serbian_special(BYTE ch);
 INT is_cen_bottom_accent(BYTE c); // 12.09.2000 E.P.
 INT  isletter(BYTE ch);
-BOOL is_digit(BYTE ch);
+Bool is_digit(BYTE ch);
 BYTE get_homot(BYTE ch);
 INT  twin(BYTE ch);
 //INT  setup_let_case(void);

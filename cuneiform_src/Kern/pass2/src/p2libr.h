@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // p2_tools.c
 Bool32 p2_StoreVersions(CSTR_rast rast,RecVersions *rver);
-void   p2_FillTxt(CSTR_line c,char *intxt,BOOL ansi);
+void   p2_FillTxt(CSTR_line c,char *intxt,Bool ansi);
 int32_t  p2_TextProb(CSTR_line cc,CSTR_rast  first,CSTR_rast last, char *intxt,int maxTxt);
 BYTE   p2_to_upperASCII( BYTE c );
 BYTE   p2_to_lowerASCII( BYTE c );
@@ -79,6 +79,6 @@ int32_t  p2_leoMixture(CSTR_rast rast,RecVersions *old,RecVersions *ver,
 Bool32 p2_leo_choise_fon_or_leo(uchar p_fon,uchar p_leo);
 int32_t  p2_leo_sort_vers_prob(RecVersions *v);
 //============ Global Data ============
-//extern BOOL pass4_in;
+//extern Bool pass4_in;
 
 #endif

@@ -169,8 +169,6 @@ typedef const char* LPCTSTR;
 
 #endif
 
-typedef int BOOL;
-
 typedef char CHAR;
 typedef char * PCHAR;
 
@@ -190,7 +188,7 @@ typedef WORD * PWORD;
 
 typedef BYTE* LPBYTE;
 typedef uint32_t * LPDWORD;
-typedef BOOL* LPBOOL;
+typedef Bool* LPBool;
 typedef LONG* LPLONG;
 typedef void* LPVOID;
 

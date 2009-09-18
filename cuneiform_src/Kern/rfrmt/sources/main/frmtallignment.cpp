@@ -126,7 +126,7 @@ void CRtfFragment::SetFragmentAlignment(RtfSectorInfo* SectorInfo)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                     ProcessingUseNoneMode
 
-BOOL CRtfFragment::ProcessingUseNoneMode(void)
+Bool CRtfFragment::ProcessingUseNoneMode(void)
 {
  CRtfString  *pRtfString;
  int ns;
@@ -266,7 +266,7 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo)
 
 // если колонки остались несепарабельными, то они все будут отписаны как frames
 
-BOOL CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo)
+Bool CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo)
 {
  CRtfString  *pRtfStringPrev;
  CRtfString  *pRtfStringNext;
@@ -330,7 +330,7 @@ BOOL CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 DeterminationOfLeftRightJustification
 
-BOOL CRtfFragment::DeterminationOfLeftRightJustification(int beg, int end)
+Bool CRtfFragment::DeterminationOfLeftRightJustification(int beg, int end)
 {
 
  if(!CheckLeftRightJustification(beg, end))  return FALSE;
@@ -347,7 +347,7 @@ BOOL CRtfFragment::DeterminationOfLeftRightJustification(int beg, int end)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 CheckLeftRightJustification
 
-BOOL CRtfFragment::CheckLeftRightJustification(int beg, int end)
+Bool CRtfFragment::CheckLeftRightJustification(int beg, int end)
 {
  CRtfString  *pRtfString;
  int          Count = 0;
@@ -462,7 +462,7 @@ void CRtfFragment::GetCountEqual(int beg, int end, WORD* Count, int AlignType)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                       CheckStringForLeftRightJustification
 
-BOOL CRtfFragment::CheckStringForLeftRightJustification(int ns)
+Bool CRtfFragment::CheckStringForLeftRightJustification(int ns)
 {
  CRtfString *pRtfString;
  CRtfString *pRtfStringPrev;
@@ -534,7 +534,7 @@ void CRtfFragment::SetFlagBeginParagraphForLeftRightJustification(int beg, int e
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 CheckNumber
 
-BOOL CRtfFragment::CheckNumber(BYTE FirstChar)
+Bool CRtfFragment::CheckNumber(BYTE FirstChar)
 {
  const char* result=NULL;
  const char* MasNumber="0123456789";
@@ -587,7 +587,7 @@ void CRtfFragment::CorrectIndents(int beg, int end)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 DeterminationOfLeftJustification
 
-BOOL CRtfFragment::DeterminationOfLeftJustification(int beg, int end, BOOL direct)
+Bool CRtfFragment::DeterminationOfLeftJustification(int beg, int end, Bool direct)
 {
 
  if(!direct && !CheckLeftJustification(beg, end))  return FALSE;
@@ -609,7 +609,7 @@ BOOL CRtfFragment::DeterminationOfLeftJustification(int beg, int end, BOOL direc
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 CheckLeftJustification
 
-BOOL CRtfFragment::CheckLeftJustification(int beg, int end)
+Bool CRtfFragment::CheckLeftJustification(int beg, int end)
 {
  WORD CountLeftEqual=0;
  WORD CountRightEqual=0;
@@ -690,7 +690,7 @@ void CRtfFragment::SetFlagBeginParagraphForLeftJustification(int beg, int end)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 DeterminationOfCentreJustification
 
-BOOL CRtfFragment::DeterminationOfCentreJustification(int beg, int end)
+Bool CRtfFragment::DeterminationOfCentreJustification(int beg, int end)
 {
  CRtfString  *pRtfString;
 
@@ -725,7 +725,7 @@ return TRUE;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 DeterminationOfRightJustification
 
-BOOL CRtfFragment::DeterminationOfRightJustification(int beg, int end)
+Bool CRtfFragment::DeterminationOfRightJustification(int beg, int end)
 {
  CRtfString  *pRtfStringPrev;
  CRtfString  *pRtfString;
@@ -777,7 +777,7 @@ return TRUE;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 DeterminationOfListType
 
-BOOL CRtfFragment::DeterminationOfListType(int beg, int end)
+Bool CRtfFragment::DeterminationOfListType(int beg, int end)
 {
  CRtfString  *pRtfString;
 	BYTE        FlagListParagraph = 0;
@@ -851,10 +851,10 @@ return TRUE;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 DeterminationOfMixedFragment
 
-BOOL CRtfFragment::DeterminationOfMixedFragment(RtfSectorInfo* SectorInfo)
+Bool CRtfFragment::DeterminationOfMixedFragment(RtfSectorInfo* SectorInfo)
 {
  int32_t beg=0,end;
- BOOL  Flag=TRUE;
+ Bool  Flag=TRUE;
 
  if(m_Attr==FALSE)
   return FALSE;
@@ -1008,7 +1008,7 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 GetNextFragmentBegEnd
 
-void CRtfFragment::GetNextFragmentBegEnd(int32_t* beg, int32_t* end, BOOL* Flag)
+void CRtfFragment::GetNextFragmentBegEnd(int32_t* beg, int32_t* end, Bool* Flag)
 {
  CRtfString *pRtfString;
  int i;
@@ -1321,12 +1321,12 @@ void CRtfFragment::DefineLineTransfer()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                     GetFlagLeft
 
-BOOL CRtfFragment::GetFlagLeft(int beg, int end)
+Bool CRtfFragment::GetFlagLeft(int beg, int end)
 {
  CRtfString*  pRtfString;
  int          Count=0;
  WORD         CountLeftEqual=0;
- BOOL         PriznakLeft=FALSE;
+ Bool         PriznakLeft=FALSE;
 
 
 	for( int ns=beg; ns<end; ns++ )
@@ -1360,7 +1360,7 @@ BOOL CRtfFragment::GetFlagLeft(int beg, int end)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                     GetFlagStrongLeft
 
-BOOL CRtfFragment::GetFlagStrongLeft(int beg, int end)
+Bool CRtfFragment::GetFlagStrongLeft(int beg, int end)
 {
  int         Count=0;
  CRtfString  *pRtfString;
@@ -1384,7 +1384,7 @@ BOOL CRtfFragment::GetFlagStrongLeft(int beg, int end)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                     GetFlagRight
 
-BOOL CRtfFragment::GetFlagRight(int beg, int end)
+Bool CRtfFragment::GetFlagRight(int beg, int end)
 {
  CRtfString  *pRtfString;
 
@@ -1409,7 +1409,7 @@ BOOL CRtfFragment::GetFlagRight(int beg, int end)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                     GetFlagCarry
 
-BOOL CRtfFragment::GetFlagCarry(int beg, int end)
+Bool CRtfFragment::GetFlagCarry(int beg, int end)
 {
  CRtfString  *pRtfString;
 
@@ -1426,7 +1426,7 @@ BOOL CRtfFragment::GetFlagCarry(int beg, int end)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                     GetFlagBigSpace
 
-BOOL CRtfFragment::GetFlagBigSpace(int beg, int end)
+Bool CRtfFragment::GetFlagBigSpace(int beg, int end)
 {
  CRtfString*  pRtfString;
  CRtfWord*    pRtfWordPrev,*pRtfWordCur;

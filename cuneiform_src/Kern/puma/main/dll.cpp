@@ -84,7 +84,7 @@ static char				 szPath[_MAX_PATH] = ".";
 static char				 szTempPath[_MAX_PATH] = ".";
 static char				 szStorage[_MAX_PATH];
 /////////////////////////////////////////
-BOOL APIENTRY DllMain( HINSTANCE  hModule,
+Bool APIENTRY DllMain( HINSTANCE  hModule,
 uint32_t ul_reason_for_call,
                         LPVOID lpReserved )
 {

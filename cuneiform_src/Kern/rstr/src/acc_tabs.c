@@ -2936,7 +2936,7 @@ switch( language )
     }
 }
 
-BOOL    is_russian_language(BYTE lang)
+Bool    is_russian_language(BYTE lang)
 {
 return (lang==LANG_RUSSIAN ||lang==LANG_UKRAINIAN ||
 		lang==LANG_SERBIAN ||lang==LANG_UZBEK ||

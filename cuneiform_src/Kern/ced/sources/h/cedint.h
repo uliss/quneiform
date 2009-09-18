@@ -397,18 +397,18 @@ struct StrRtfOut {                        // Rtf output file processing block
       long BufIndex;                      // index of next character in the buffer
       char text[MAX_WIDTH+1];             // temporary buffer to write text
       int  TextLen;                       // length of the text in the 'text' buffer
-      BOOL SpacePending;                  // TRUE if space needs to be written out after the last control
-      BOOL WritingControl;                // TRUE when writing a control word
+      Bool SpacePending;                  // TRUE if space needs to be written out after the last control
+      Bool WritingControl;                // TRUE when writing a control word
       struct StrRtfColor *color;      // rtf color table pointer
       int  TotalColors;                   // total colors in the color table
       int  GroupLevel;
       UINT flags;                         // ROFLAG_ flags
 	  int RtfInHdrFtr;
-	  BOOL RtfInTable;
-	  BOOL RtfInFrame;
-	  BOOL wrtFrmSz;
+	  Bool RtfInTable;
+	  Bool RtfInFrame;
+	  Bool wrtFrmSz;
 	  CEDPage * page;
-	  BOOL reset;
+	  Bool reset;
 	  CEDParagraph* PrevPfmt;
 	  CEDParagraph* frm;
 	  CEDChar PrevChar;
@@ -416,15 +416,15 @@ struct StrRtfOut {                        // Rtf output file processing block
 	  int oldFileLen;					//their length
       int * table;						//table of correspondence between fonts of old and new rtf
 	  int maxFntNum;
-      BOOL GroupBegin;                    // TRUE if the group begins
-      BOOL GroupEnd;                      // TRUE if the group ends
-      BOOL IsControlWord;                 // TRUE if control word
+      Bool GroupBegin;                    // TRUE if the group begins
+      Bool GroupEnd;                      // TRUE if the group ends
+      Bool IsControlWord;                 // TRUE if control word
       long IntParam;                      // rtf control word parameter in integer numeric format
 	  char CurWord[MAX_WIDTH+1];          // current word
       int  WordLen;                       // length of the current word
       int  TextIndex;                     // index if current BYTE in the 'text' buffer
       char CurChar;                       // last character read
-      BOOL eof;                           // end of file
+      Bool eof;                           // end of file
       char param[MAX_WIDTH/3];            // rtf control word parameter
       BYTE stack[MAX_WIDTH+1];            // characters returned from previous operations
       int  StackLen;                      // number of characters in the stack
@@ -432,7 +432,7 @@ struct StrRtfOut {                        // Rtf output file processing block
 	};
 
 struct StrRtfFont {                       // font table in an rtf file
-//      BOOL InUse;                         // TRUE when the slot is in use
+//      Bool InUse;                         // TRUE when the slot is in use
       int  FontId;                        // font id
       char family[32];                    // font family
       char name[32];                      // font name
@@ -456,28 +456,28 @@ struct StrRtfFont {                       // font table in an rtf file
 #define ROFLAG_IN_SUPSCR      0x4      // in superscript group
 #define ROFLAG_IN_SUBSCR      0x8      // in subscript group
 
-BOOL BeginRtfGroup(/*PTERWND w,*/struct StrRtfOut *rtf);
-BOOL WriteRtfControl(/*PTERWND w,*/struct StrRtfOut *rtf, const char* control,int type, double val);
-BOOL WriteRtfFont(struct StrRtfOut *rtf, BOOL head);
-BOOL WriteRtfMargin(/*PTERWND w,*/struct StrRtfOut *rtf);
-BOOL WriteRtfSection(/*PTERWND w,*/struct StrRtfOut *rtf, CEDSection* sect);
-BOOL WriteRtfCharFmt(/*PTERWND w,*/struct StrRtfOut *rtf,CEDChar* curChar);
-BOOL EndRtfGroup(/*PTERWND w,*/struct StrRtfOut *rtf);
-BOOL WriteRtfParaFmt(/*PTERWND w,*/struct StrRtfOut *rtf,CEDParagraph* NewPfmt,CEDParagraph* PrevPfmt/*, int NewCell, int PrevCell, int NewFID, int PrevFID*/);
-BOOL FlushRtfLine(/*PTERWND w,*/struct StrRtfOut *rtf);
-BOOL PutRtfChar(/*PTERWND w,*/struct StrRtfOut *rtf,BYTE CurChar);
-BOOL WriteRtfText(/*PTERWND w,*/struct StrRtfOut *rtf, const char* text, int TextLen);
-BOOL WriteRtfRow(/*PTERWND w,*/struct StrRtfOut *rtf, CEDParagraph* NewCell,CEDParagraph * prevRow);
-BOOL WriteRtfCell(/*PTERWND w,*/struct StrRtfOut *rtf, CEDParagraph* NewCell);
+Bool BeginRtfGroup(/*PTERWND w,*/struct StrRtfOut *rtf);
+Bool WriteRtfControl(/*PTERWND w,*/struct StrRtfOut *rtf, const char* control,int type, double val);
+Bool WriteRtfFont(struct StrRtfOut *rtf, Bool head);
+Bool WriteRtfMargin(/*PTERWND w,*/struct StrRtfOut *rtf);
+Bool WriteRtfSection(/*PTERWND w,*/struct StrRtfOut *rtf, CEDSection* sect);
+Bool WriteRtfCharFmt(/*PTERWND w,*/struct StrRtfOut *rtf,CEDChar* curChar);
+Bool EndRtfGroup(/*PTERWND w,*/struct StrRtfOut *rtf);
+Bool WriteRtfParaFmt(/*PTERWND w,*/struct StrRtfOut *rtf,CEDParagraph* NewPfmt,CEDParagraph* PrevPfmt/*, int NewCell, int PrevCell, int NewFID, int PrevFID*/);
+Bool FlushRtfLine(/*PTERWND w,*/struct StrRtfOut *rtf);
+Bool PutRtfChar(/*PTERWND w,*/struct StrRtfOut *rtf,BYTE CurChar);
+Bool WriteRtfText(/*PTERWND w,*/struct StrRtfOut *rtf, const char* text, int TextLen);
+Bool WriteRtfRow(/*PTERWND w,*/struct StrRtfOut *rtf, CEDParagraph* NewCell,CEDParagraph * prevRow);
+Bool WriteRtfCell(/*PTERWND w,*/struct StrRtfOut *rtf, CEDParagraph* NewCell);
 
-BOOL WriteRtfPara(struct StrRtfOut *rtf,CEDParagraph* p, BOOL brk);
-BOOL WriteFrmPos(/*PTERWND w,*/struct StrRtfOut *rtf, CEDParagraph* frm, BOOL writeWidth);
-BOOL WriteRtfDIB(/*PTERWND w,*/struct StrRtfOut *rtf,int pict);
-BOOL PutRtfHexChar(/*PTERWND w,*/struct StrRtfOut *rtf,BYTE CurChar);
-BOOL WriteRtfMetafile(/*PTERWND w,*/struct StrRtfOut *rtf,int pict);
-BOOL WriteRtfMergedHeader(struct StrRtfOut *rtf, const char * name);
-BOOL WriteRtfParaBorder(struct StrRtfOut *rtf, CEDParagraph * para);
-BOOL WriteRtfColor(struct StrRtfOut *rtf,BOOL head = TRUE);
+Bool WriteRtfPara(struct StrRtfOut *rtf,CEDParagraph* p, Bool brk);
+Bool WriteFrmPos(/*PTERWND w,*/struct StrRtfOut *rtf, CEDParagraph* frm, Bool writeWidth);
+Bool WriteRtfDIB(/*PTERWND w,*/struct StrRtfOut *rtf,int pict);
+Bool PutRtfHexChar(/*PTERWND w,*/struct StrRtfOut *rtf,BYTE CurChar);
+Bool WriteRtfMetafile(/*PTERWND w,*/struct StrRtfOut *rtf,int pict);
+Bool WriteRtfMergedHeader(struct StrRtfOut *rtf, const char * name);
+Bool WriteRtfParaBorder(struct StrRtfOut *rtf, CEDParagraph * para);
+Bool WriteRtfColor(struct StrRtfOut *rtf,Bool head = TRUE);
 
 
 extern char logName[_MAX_PATH];

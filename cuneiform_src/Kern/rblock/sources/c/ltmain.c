@@ -95,25 +95,25 @@ extern Handle hFirstDustAbsorbtion ;
 extern Handle hRemoveEmptyBlocks ;
 extern Handle hSecondDustAbsorbtion ;
 
-BOOL bOptionForceOneColumn      = FALSE;
-BOOL bOptionBusinessCardsLayout = FALSE;
+Bool bOptionForceOneColumn      = FALSE;
+Bool bOptionBusinessCardsLayout = FALSE;
 
-BOOL bOptionPointSizeAnalysis                = TRUE;
-BOOL bOptionSmartBreaking                    = TRUE;
-BOOL bOptionInitialBreakingByPageMatrix      = TRUE;
-BOOL bOptionBlocksRemovingByPageMatrix       = TRUE;
-BOOL bOptionBlocksRemovingByDustDistribution = TRUE;
-BOOL bOptionSpecialHorizontalCutting         = TRUE;
-BOOL bOptionWhiteStripsBreaking              = TRUE;
+Bool bOptionPointSizeAnalysis                = TRUE;
+Bool bOptionSmartBreaking                    = TRUE;
+Bool bOptionInitialBreakingByPageMatrix      = TRUE;
+Bool bOptionBlocksRemovingByPageMatrix       = TRUE;
+Bool bOptionBlocksRemovingByDustDistribution = TRUE;
+Bool bOptionSpecialHorizontalCutting         = TRUE;
+Bool bOptionWhiteStripsBreaking              = TRUE;
 
 # ifdef LT_DEBUG
 int  LT_DebugGraphicsLevel = 0;
 
-BOOL bDebugOptionCalibratePictureRemovingCriteria = FALSE;
-BOOL bDebugOptionCalibrateDD_RemovingCriteria     = FALSE;
-BOOL bDebugOptionCalibrateLinearRemovingCriteria  = FALSE;
+Bool bDebugOptionCalibratePictureRemovingCriteria = FALSE;
+Bool bDebugOptionCalibrateDD_RemovingCriteria     = FALSE;
+Bool bDebugOptionCalibrateLinearRemovingCriteria  = FALSE;
 
-BOOL bDebugTimeFlag = FALSE;
+Bool bDebugTimeFlag = FALSE;
 static clock_t tTimeTotal;
 # endif
 

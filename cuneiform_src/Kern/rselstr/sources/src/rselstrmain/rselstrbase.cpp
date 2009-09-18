@@ -122,7 +122,7 @@ int inf_str_w=8;
 
 
 /////////////////////////////////////////
-BOOL APIENTRY DllMain( HINSTANCE  hModule,
+Bool APIENTRY DllMain( HINSTANCE  hModule,
 uint32_t ul_reason_for_call,
                         LPVOID lpReserved )
 {

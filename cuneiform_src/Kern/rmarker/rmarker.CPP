@@ -121,7 +121,7 @@ extern Handle hEnd;
 static HINSTANCE ghInst =  NULL;
 static uint16_t gwHeightRC = 0;
 static uint32_t gwRC = 0;
-BOOL dpDebugUpDown;
+Bool dpDebugUpDown;
 
 static Bool32 rblockProgressStep(uint32_t perc)
 {

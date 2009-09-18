@@ -75,10 +75,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			return FALSE;}
 
 //********************************************************************
-BOOL BrowsePage(
+Bool BrowsePage(
 	FNROUT_BrowseFunction BrowseFunction, // Вызывать при обходе
-	BOOL wantSkipTableCells,	// Пропускать клетки таблиц
-	BOOL wantSkipParagraphs		// Пропускать абзацы
+	Bool wantSkipTableCells,	// Пропускать клетки таблиц
+	Bool wantSkipParagraphs		// Пропускать абзацы
 	)
 {
 /* Обход страницы.
@@ -200,10 +200,10 @@ BOOL BrowsePage(
 
 }
 //********************************************************************
-BOOL BrowseParagraphs(Handle hParentObject,
+Bool BrowseParagraphs(Handle hParentObject,
 	FNROUT_BrowseFunction BrowseFunction, // Вызывать при обходе
-	BOOL wantSkipTableCells,	// Пропускать клетки таблиц
-	BOOL wantSkipParagraphs		// Пропускать абзацы
+	Bool wantSkipTableCells,	// Пропускать клетки таблиц
+	Bool wantSkipParagraphs		// Пропускать абзацы
 	)
 {
 /*
@@ -379,7 +379,7 @@ BOOL BrowseParagraphs(Handle hParentObject,
 
 }
 //********************************************************************
-BOOL BrowseCells(FNROUT_BrowseFunction BrowseFunction)
+Bool BrowseCells(FNROUT_BrowseFunction BrowseFunction)
 {
 /* Обход ячеек таблицы gTableHandle
 
@@ -464,7 +464,7 @@ BOOL BrowseCells(FNROUT_BrowseFunction BrowseFunction)
 
 }
 //********************************************************************
-BOOL BrowseTable(FNROUT_BrowseFunction BrowseFunction)
+Bool BrowseTable(FNROUT_BrowseFunction BrowseFunction)
 {
 // Обход таблицы.
 

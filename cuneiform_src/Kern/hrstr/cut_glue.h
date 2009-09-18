@@ -205,13 +205,13 @@ cell * create_my_cell(MN * mn, cell * ci, CHAR bdiff, CHAR dflag);
 //cg_tools.c
 cell *col_to_one(cell **clist, INT n);
 cell *comp_to_cell(cell *C, c_comp **list, INT N, CHAR bdiff, BYTE dflag);
-BOOL glue_overlap(cell *LC, cell *E);
+Bool glue_overlap(cell *LC, cell *E);
 seg_vers *find_vers( INT i1, INT i0, seg_vers **vers_list );
 BYTE not_connect_sect(INT i1, INT i0, struct cut_elm *cut_list);
 INT on_path(INT i, INT ie, struct cut_elm *cut_list);
 seg_vers *store_vers(seg_vers *cur_vers, seg_vers **vers_list,
          INT i1, INT i0, SVERS *vers, INT ro, INT width, CHAR gvar);
-void adjust_3x5(BOOL prerecog);
+void adjust_3x5(Bool prerecog);
 
 void cg_show_rast(cell *C, raster *r, CHAR *msg,
                struct cut_elm *cut_list);

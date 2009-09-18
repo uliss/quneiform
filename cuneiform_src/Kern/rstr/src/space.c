@@ -104,7 +104,7 @@ static BYTE dist[300];
 static INT sm,sp,spmin,spmax;
 static WORD n;
 static LONG H;
-static BOOL italic;
+static Bool italic;
 static INT  gap;
 
 /* static void order();*/
@@ -1093,7 +1093,7 @@ static INT ser_g(cell *c)
  return 0;
  }
 
-BOOL enable_word(cell *c1,cell *c2,BYTE *word)
+Bool enable_word(cell *c1,cell *c2,BYTE *word)
  {
    if( !strcmp("http",word) &&
         c2->nvers && c2->vers[0].let==':' )

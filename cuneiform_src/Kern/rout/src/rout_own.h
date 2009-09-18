@@ -158,7 +158,7 @@ EXTERN HANDLE   ghInst_rout	VAL(NULL);
 EXTERN long gLanguage		VAL(-1);
 
 // Для Французского Windows
-EXTERN BOOL gWinFrench		VAL(FALSE);
+EXTERN Bool gWinFrench		VAL(FALSE);
 
 // Формат, см. enum ROUT_FMT
 EXTERN long gFormat			VAL(0);
@@ -170,7 +170,7 @@ EXTERN long gActiveCode		VAL(ROUT_CODE_ANSI);
 EXTERN Byte *gActiveCodeTable	VAL(NULL);
 
 // Сохранять ли концы строк в текстовых форматах
-EXTERN BOOL gPreserveLineBreaks VAL(FALSE);
+EXTERN Bool gPreserveLineBreaks VAL(FALSE);
 
 // Нераспознанный символ
 EXTERN char gBadChar		VAL('~');
@@ -192,8 +192,8 @@ EXTERN long gCountTigerToUserCharSet	VAL(0);
 EXTERN BYTE **gTigerToUserCharSet VAL({0});	// [3][128]; // SPELABC.C
 
 // Для удобства
-EXTERN BOOL langUzbek	VAL(FALSE);
-EXTERN BOOL langKaz		VAL(FALSE);
+EXTERN Bool langUzbek	VAL(FALSE);
+EXTERN Bool langKaz		VAL(FALSE);
 
 // Конец строки
 #if defined(_WIN32) || defined(__CYGWIN__)
@@ -210,7 +210,7 @@ EXTERN char gPageName[_MAX_PATH] VAL("PageName");
 EXTERN Handle gPageHandle		VAL(0);
 
 // Страница была загружена мной
-EXTERN BOOL gPageLoadedByMe		VAL(FALSE);
+EXTERN Bool gPageLoadedByMe		VAL(FALSE);
 
 // Состояние обхода страницы.
 // Модуль Browse.cpp.
@@ -256,13 +256,13 @@ EXTERN Handle gLineHandle		VAL(0);
 EXTERN long gHitLines			VAL(0);
 
 // Конец строки "жесткий" (TRUE) или "скрытый" (FALSE)
-EXTERN BOOL gEdLineHardBreak	VAL(FALSE);
+EXTERN Bool gEdLineHardBreak	VAL(FALSE);
 
 // Символ
 EXTERN Handle gCharHandle		VAL(0);
 
 // Скрытый символ
-EXTERN BOOL gEdCharHidden		VAL(FALSE);
+EXTERN Bool gEdCharHidden		VAL(FALSE);
 
 // Куда был записан символ
 EXTERN Byte *gCharBack			VAL(NULL);
@@ -450,21 +450,21 @@ void ErrLoadAlphabet(const char *file, long line);
 void ErrLoadRec6List(const char *file, long line);
 void ErrUpdateActiveAlphabet(const char *file, long line);
 
-BOOL InitMemory(Byte *memStart, long sizeMem);
-BOOL SetTableTextSeparators(char* s);
+Bool InitMemory(Byte *memStart, long sizeMem);
+Bool SetTableTextSeparators(char* s);
 
 //*****************************************************************
 // CodeTables.cpp
 void ResetCodeTables();
-BOOL UpdateActiveCodeTable();
+Bool UpdateActiveCodeTable();
 long GetCodePage();
 const char * getUTF8Str(const unsigned char in, const int codepage);
 
 //*****************************************************************
 // Rout.cpp
-BOOL SetLanguage(long language);
-BOOL SetFormat(long format);
-BOOL SetActiveCode(long code);
+Bool SetLanguage(long language);
+Bool SetFormat(long format);
+Bool SetActiveCode(long code);
 long BrowseObjects(ulong targetIndex);
 long BrowseTables(ulong targetIndex);
 
@@ -472,30 +472,30 @@ long BrowseTables(ulong targetIndex);
 // Browse.cpp
 
 // Функция, вызываемая при обходе страницы для каждого объекта
-typedef BOOL (*FNROUT_BrowseFunction)(
+typedef Bool (*FNROUT_BrowseFunction)(
 			Handle hObject,
 			long reason	// См. enum BROWSE_REASON
 			);
 
 // Обход страницы
-BOOL BrowsePage(FNROUT_BrowseFunction BrowseFunction,
-				BOOL wantSkipTableCells,
-				BOOL wantSkipParagraphs
+Bool BrowsePage(FNROUT_BrowseFunction BrowseFunction,
+				Bool wantSkipTableCells,
+				Bool wantSkipParagraphs
 				);
 
 // Обход ячеек таблицы
-BOOL BrowseCells(FNROUT_BrowseFunction BrowseFunction);
+Bool BrowseCells(FNROUT_BrowseFunction BrowseFunction);
 
 // Обход таблицы, включает обход ячеек, а также
 // начальное и конечное сообщение
-BOOL BrowseTable(FNROUT_BrowseFunction BrowseFunction);
+Bool BrowseTable(FNROUT_BrowseFunction BrowseFunction);
 
 // Обход абзацев, таблиц и фреймов
 // в родительском объекте (колонке, фрейме, ячейке)
-BOOL BrowseParagraphs(Handle hParentObject,
+Bool BrowseParagraphs(Handle hParentObject,
 			FNROUT_BrowseFunction BrowseFunction,
-			BOOL wantSkipTableCells,
-			BOOL wantSkipParagraphs
+			Bool wantSkipTableCells,
+			Bool wantSkipParagraphs
 			);
 
 typedef enum {
@@ -534,23 +534,23 @@ typedef enum {
 
 //*****************************************************************
 // Text.cpp
-BOOL MakeText();
-BOOL NewLine();
-BOOL OneChar(Handle charHandle);
-BOOL PutString(char *s);
-BOOL PutSpaces(long lth);
+Bool MakeText();
+Bool NewLine();
+Bool OneChar(Handle charHandle);
+Bool PutString(char *s);
+Bool PutSpaces(long lth);
 
 //*****************************************************************
 // Words.cpp
-BOOL IsLetter(Byte c);
-BOOL IsEOL(Byte c);
-BOOL WordsControl(long reason);
-BOOL WordEnd();
+Bool IsLetter(Byte c);
+Bool IsEOL(Byte c);
+Bool WordsControl(long reason);
+Bool WordEnd();
 
 //*****************************************************************
 // HTML.cpp
-BOOL MakeHTML();
-BOOL MakeHOCR();
+Bool MakeHTML();
+Bool MakeHOCR();
 //*****************************************************************
 // То чего не хватает в CED.H (из EDP.H и EDFILE.H)
 #define FONT_DBLUNDERLINED 1 // подчеркнутый двойной линией
@@ -572,9 +572,9 @@ BOOL MakeHOCR();
 
 //*****************************************************************
 // TableText.cpp
-BOOL MakeTableText();
-BOOL TableText_Prepare();
-BOOL TableText_Delete();
+Bool MakeTableText();
+Bool TableText_Prepare();
+Bool TableText_Delete();
 
 // Обход построчного представления таблицы:
 typedef enum {
@@ -590,28 +590,28 @@ typedef enum {
 
 // Функция, вызываемая при обходе построчного
 // представления таблицы
-typedef BOOL (*FNROUT_BrowseTableTextFunction)(
+typedef Bool (*FNROUT_BrowseTableTextFunction)(
 				long reason // См. enum BROWSE_TABLE_TEXT_REASON
 				);
 
-BOOL BrowseTableText(FNROUT_BrowseTableTextFunction
+Bool BrowseTableText(FNROUT_BrowseTableTextFunction
 						BrowseTableTextFunction);
 
 //*****************************************************************
 // TableDBF.cpp
-BOOL MakeTableDBF();
+Bool MakeTableDBF();
 
 //*****************************************************************
 // Pictures.cpp
 
 // Получить кортинку из спецсимвола
-BOOL PictureFromChar(Handle charHandle);
+Bool PictureFromChar(Handle charHandle);
 
 // Извлечь номер картинки из спецсимвола
 long GetPictureNumber(Handle charHandle);
 
 // Записать картинку в BMP-файл
-BOOL WritePictureToBMP_File(
+Bool WritePictureToBMP_File(
 				Byte *pDIB,	   // Адрес DIB включая заголовок
 				long lenDIB,   // Длина DIB включая заголовок
 				char *filename // Имя файла

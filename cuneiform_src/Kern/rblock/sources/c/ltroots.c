@@ -109,7 +109,7 @@ int nRootStripsOffset;
 # ifdef LT_STAND_ALONE
 # define ROOTS_MEMORY_QUANTUM   1024
 
-BOOL RootsLoadFile (PSTR pFilename)
+Bool RootsLoadFile (PSTR pFilename)
 {
 /*    typedef int HANDLE;*/
 

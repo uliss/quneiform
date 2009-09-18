@@ -70,13 +70,13 @@ BYTE  (*RSTR_p2_GetCodePage)(int lang);
 void  (*RSTR_p2_DecodeCode)(char *pCode,int let);
 //////////////////
 // снэр
-BOOL (*RSTR_p2_NoStopSnapLEO)(void);
-BOOL (*RSTR_p2_snap_show_text)(BYTE *txt);
-BOOL (*RSTR_p2_snap_activity)(BYTE a);
-BOOL (*RSTR_p2_snap_monitor_ori)(CSTR_line *snap_line, int32_t num_lines);
+Bool (*RSTR_p2_NoStopSnapLEO)(void);
+Bool (*RSTR_p2_snap_show_text)(BYTE *txt);
+Bool (*RSTR_p2_snap_activity)(BYTE a);
+Bool (*RSTR_p2_snap_monitor_ori)(CSTR_line *snap_line, int32_t num_lines);
 ///////////////
 // проверка по словарю
-BOOL (*RSTR_p2_spell)(PCHAR s,BYTE lang);
+Bool (*RSTR_p2_spell)(PCHAR s,BYTE lang);
 
 // дополнительное распознавание (LEO)
 Bool32  (*ADDREC_SetupField)(void *letInfo,int32_t nFont,void* fontInfo);

@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-extern BOOL line_readyBL;
+extern Bool line_readyBL;
 extern BYTE p2_active;
 extern INT  nIncline;
 extern INT  page_nIncline;
@@ -94,7 +94,7 @@ static INT pitch();
 
 // RCM.C
 extern BYTE line_tabcell;
-extern BOOL pass4_in;
+extern Bool pass4_in;
 static BYTE bad_italic[]="03┤▌▒²╔╖╝АМeocOC"; // a g m u..."03гнящЕГНЯЩeocOC"
 static BYTE nei_italic[]="02356789()%┤▌▒²╔╖╘╝АМ";	// "02356789()%гнящЕГИНЯЩ"
 static BYTE one_italic[]="╒╙";	// "БЙ"
@@ -189,7 +189,7 @@ static void italic(cell *c)
  INT nansw,maxi,maxni,l;
  extern PCHAR tableBOX;
  INT sv_pos_inc , sv_stick_inc, sv_save_stick_inc;
- BOOL   bad_cur_ge, disable_it=FALSE;
+ Bool   bad_cur_ge, disable_it=FALSE;
 
 if( c->pos_inc==erect_no )
     disable_it=TRUE;
@@ -537,7 +537,7 @@ static INT kegl_prevstr=0; // =0 Nick 04.01.2002
 void checkpitch()
  {
  extern INT line_number;
- extern BOOL pass4_in;
+ extern Bool pass4_in;
  B_LINES bl;
 
  get_b_lines(NULL,&bl);

@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 static INT LiliI                (cell *);
 static INT bon_to_dig           (cell *);
-static BOOL apostr_ll           (cell *);
+static Bool apostr_ll           (cell *);
 static void inc_or_dec_slash    (cell *wc, INT numv);
 extern BYTE langUkr;
 extern BYTE langSer;
@@ -1155,7 +1155,7 @@ static void inc_or_dec_slash(cell *wc, INT numv)
 //
  {
  cell  *cprev, *cnext;
- BOOL   no_Il = (get_nvers(wc, 'I')==-1) && (get_nvers(wc, 'l')==-1 && wc->vers[numv].let=='/');
+ Bool   no_Il = (get_nvers(wc, 'I')==-1) && (get_nvers(wc, 'l')==-1 && wc->vers[numv].let=='/');
 
   if ( wc->vers[0].prob - wc->vers[numv].prob > REFUSE_BOUND )
    return;
@@ -1267,7 +1267,7 @@ monus:;
  return 1;
  }
 
-static BOOL apostr_ll(cell *NC)
+static Bool apostr_ll(cell *NC)
 //
 //	This procedure gives bonus to ll in two letters word
 //	if there is after apostrophe. Example: he'll

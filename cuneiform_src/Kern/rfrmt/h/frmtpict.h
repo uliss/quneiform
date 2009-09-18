@@ -71,7 +71,7 @@ extern   float      Twips;
 #endif
 
 uint32_t GetPictCount  ( void );
-BOOL		 WritePict     ( uint32_t   IndexPict, RtfSectorInfo* SectorInfo /*,  CString* PictString*/, BOOL OutPutType);
+Bool		 WritePict     ( uint32_t   IndexPict, RtfSectorInfo* SectorInfo /*,  CString* PictString*/, Bool OutPutType);
 BYTE   GetPictRect   ( uint32_t   NumberPict , Rect16* RectPict ,uint32_t* UserNumber);
 void   GetBmpFileName( char* BmpFileName, char* RtfFileName, int IndexPict );
 

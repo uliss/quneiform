@@ -146,7 +146,7 @@ FNBOOL16        Tiger_Callback_ProgressSetStage (WORD wStageNumber,
 												 LPSTR lpStageName,
 												 WORD wVolume);
 //////////////////////////////////////////////////////////////////////////////
-FNBOOL              Tiger_Callback_Get_One_Word (LPSTR Buffer );
+FNBool              Tiger_Callback_Get_One_Word (LPSTR Buffer );
 //////////////////////////////////////////////////////////////////////////////
 FNBOOL16                  Swp_ImageOpen         (LPTIGER_IMAGEINFO lpImageInfo);
 //////////////////////////////////////////////////////////////////////////////

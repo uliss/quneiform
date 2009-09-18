@@ -91,13 +91,13 @@ BLOCK *pTopBlocksList           = NULL;
 BLOCK *pBottomBlocksList        = NULL;
 int nNextBlockNumber;
 
-BOOL RectEq (RECTANGLE *p, RECTANGLE *q)
+Bool RectEq (RECTANGLE *p, RECTANGLE *q)
 {
     return (p -> xLeft == q -> xLeft && p -> xRight  == q -> xRight  &&
             p -> yTop  == q -> yTop  && p -> yBottom == q -> yBottom);
 }
 
-BOOL RectIsCrossed (RECTANGLE *p, RECTANGLE *q)
+Bool RectIsCrossed (RECTANGLE *p, RECTANGLE *q)
 {
     return (!(p -> xRight  < q -> xLeft   || p -> xLeft   > q -> xRight  ||
               p -> yTop    > q -> yBottom || p -> yBottom < q -> yTop));
@@ -111,7 +111,7 @@ void RectAsgPlus (RECTANGLE *p, RECTANGLE *q)
     if (q -> yBottom > p -> yBottom) p -> yBottom = q -> yBottom;
 }
 
-BOOL RectIncludes (RECTANGLE *p, RECTANGLE *q)
+Bool RectIncludes (RECTANGLE *p, RECTANGLE *q)
 {
     RECTANGLE Sum = *p;
 
@@ -619,7 +619,7 @@ void BlocksRemoveFrameLikeRoots (void)
     BLOCK *pBuilded;
     ROOT  *pFrameLikeRoot;
 # ifdef LT_DEBUG
-    BOOL  bAtLeastOneOutput = FALSE;
+    Bool  bAtLeastOneOutput = FALSE;
 # endif
 
 # ifdef LT_DEBUG

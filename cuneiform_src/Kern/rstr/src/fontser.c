@@ -154,7 +154,7 @@ static cell *serif_word(cell *c)
 {
   LONG np=0,nm=0,meas=0;
   LONG serif=0;
-  BOOL reliable;
+  Bool reliable;
 //  LONG tol;
   cell *beg=c,*end;
   B_LINES my_bases; //Ў §®ўлҐ «Ё­ЁЁ

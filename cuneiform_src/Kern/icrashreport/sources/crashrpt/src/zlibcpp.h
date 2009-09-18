@@ -93,8 +93,8 @@ public:
 	CZLib();
 	virtual ~CZLib();
 
-	BOOL Open(CString f_file, int f_nAppend = 0);
-   BOOL AddFile(CString f_file);
+	Bool Open(CString f_file, int f_nAppend = 0);
+   Bool AddFile(CString f_file);
 	void Close();
 protected:
 	zipFile m_zf;

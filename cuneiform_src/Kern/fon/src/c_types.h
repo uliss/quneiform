@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /* Moved all these to cttypes.h so they are in one single place. */
 
 #if 0
-typedef int             BOOL;
+typedef int             Bool;
 
 typedef signed char		CHAR;
 typedef signed char *	PCHAR;

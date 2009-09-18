@@ -66,8 +66,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rout_own.h"
 #include "dbf.h"
 
-static BOOL TableDBF_Finish(long reason);
-static BOOL MakeDbfHeader();
+static Bool TableDBF_Finish(long reason);
+static Bool MakeDbfHeader();
 static Byte DbfLanguage();
 
 static DBF_HEADER *dbf_header;	// Адрес заголовка
@@ -76,7 +76,7 @@ static long rec_num;	// Номер текущей записи DBF-файла
 static Byte *rec_ptr;	// Адрес текущей записи
 
 //********************************************************************
-BOOL MakeTableDBF()
+Bool MakeTableDBF()
 {
 /*
 	Формат TableDBF.
@@ -106,7 +106,7 @@ BOOL MakeTableDBF()
 	gMemCur = gMemStart;
 
 	// Финальная сборка DBF
-	BOOL good = BrowseTableText(TableDBF_Finish);
+	Bool good = BrowseTableText(TableDBF_Finish);
 
 	// Восстановить конец памяти
 	gMemEnd = saveMemEnd;
@@ -117,7 +117,7 @@ BOOL MakeTableDBF()
 	return good;
 }
 //********************************************************************
-static BOOL TableDBF_Finish(
+static Bool TableDBF_Finish(
 			long reason // См. enum BROWSE_TABLE_TEXT_REASON
 			)
 {
@@ -197,7 +197,7 @@ static BOOL TableDBF_Finish(
 	return TRUE;
 }
 //********************************************************************
-static BOOL MakeDbfHeader()
+static Bool MakeDbfHeader()
 {
 // Создать заголовок DBF-файла включая дескрипторы полей
 	CHECK_MEMORY(sizeof(DBF_HEADER) +

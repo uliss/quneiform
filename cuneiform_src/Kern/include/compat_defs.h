@@ -279,16 +279,16 @@ typedef struct tagLOGPALETTE {
  } HPALETTE;
  */
 
-typedef BOOL(*WNDENUMPROC)(HWND, int);
+typedef Bool(*WNDENUMPROC)(HWND, int);
 
 typedef int HPALETTE;
 
 typedef struct tagPAINTSTRUCT {
 	HDC hdc;
-	BOOL fErase;
+	Bool fErase;
 	RECT rcPaint;
-	BOOL fRestore;
-	BOOL fIncUpdate;
+	Bool fRestore;
+	Bool fIncUpdate;
 	unsigned char rgbReserved[32];
 } PAINTSTRUCT, *PPAINTSTRUCT;
 

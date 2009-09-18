@@ -90,16 +90,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern Handle NotKillPointed;
 	extern Handle ObvKillLines;
 
-	BOOL fl_not_kill_pointed;
-	BOOL dphNotTestAlik;
+	Bool fl_not_kill_pointed;
+	Bool dphNotTestAlik;
 
 
-BOOL AddLenLineMas(MyLine** ppLines,int& len,int add);
-BOOL InitLineMas(MyLine** ppLines,int len);
+Bool AddLenLineMas(MyLine** ppLines,int& len,int add);
+Bool InitLineMas(MyLine** ppLines,int len);
 void DelLineMas(MyLine *masp);
-BOOL DelOneHorLine(uchar* pmasp,const int bytewide,int num_str,int begx,int begy,int endx,int endy,int wide10);
-BOOL DelOneVerLine(uchar* pmasp,const int bytewide,int num_str,int begx,int begy,int endx,int endy,int wide10);
-BOOL DelLineFromInside(uchar* pmasp,const int bytewide,int num_str,CLINE_handle hline);
+Bool DelOneHorLine(uchar* pmasp,const int bytewide,int num_str,int begx,int begy,int endx,int endy,int wide10);
+Bool DelOneVerLine(uchar* pmasp,const int bytewide,int num_str,int begx,int begy,int endx,int endy,int wide10);
+Bool DelLineFromInside(uchar* pmasp,const int bytewide,int num_str,CLINE_handle hline);
 
 
 
@@ -133,7 +133,7 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, const char* ImageDelLines)
 	int					  i;
 //	uint32_t    HorType;
 //    uint32_t    VerType;
-	BOOL fl_cont;
+	Bool fl_cont;
     uchar ImageName[CPAGE_MAXNAME];
 	// Получаем PAGEINFO текущей страницы
 	GetPageInfo(hCPage,&info);
@@ -453,7 +453,7 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, const char* ImageDelLines)
 }
 
 
-BOOL InitLineMas(MyLine** ppLines,int len)
+Bool InitLineMas(MyLine** ppLines,int len)
 {
 	(*ppLines)=NULL;
 	if(!((*ppLines)=new MyLine[len]))
@@ -468,7 +468,7 @@ void DelLineMas(MyLine *masp)
 }
 
 
-BOOL AddLenLineMas(MyLine** ppLines,int& len,int add)
+Bool AddLenLineMas(MyLine** ppLines,int& len,int add)
 {
  MyLine *dop;
  int i;
@@ -489,7 +489,7 @@ BOOL AddLenLineMas(MyLine** ppLines,int& len,int add)
  return TRUE;
 }
 
-BOOL DelOneHorLine(uchar* pmasp,int bytewide,int num_str,int begx,int begy,int endx,int endy,int wide10)
+Bool DelOneHorLine(uchar* pmasp,int bytewide,int num_str,int begx,int begy,int endx,int endy,int wide10)
 {
  int wide;
  int x1;
@@ -896,7 +896,7 @@ BOOL DelOneHorLine(uchar* pmasp,int bytewide,int num_str,int begx,int begy,int e
 }
 
 
-BOOL DelOneVerLine(uchar* pmasp,int bytewide,int num_str,int begx,int begy,int endx,int endy,int wide10)
+Bool DelOneVerLine(uchar* pmasp,int bytewide,int num_str,int begx,int begy,int endx,int endy,int wide10)
 {
  int wide;
  int x1;
@@ -1052,7 +1052,7 @@ BOOL DelOneVerLine(uchar* pmasp,int bytewide,int num_str,int begx,int begy,int e
 }
 
 /*
-BOOL GetMasP(Handle hCPage,uchar* ImageName,int x1,int y1,int x2,int y2,uchar** ppmasp)
+Bool GetMasP(Handle hCPage,uchar* ImageName,int x1,int y1,int x2,int y2,uchar** ppmasp)
 {
     int prewide;
 	int left=x1;
@@ -1090,7 +1090,7 @@ BOOL GetMasP(Handle hCPage,uchar* ImageName,int x1,int y1,int x2,int y2,uchar** 
 }
 */
 
-BOOL DelLineFromInside(uchar* pmasp,const int bytewide,int num_str,CLINE_handle hline)
+Bool DelLineFromInside(uchar* pmasp,const int bytewide,int num_str,CLINE_handle hline)
 {
  CLINE_handle hevent;
  CLINE_handle hinv;

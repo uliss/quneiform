@@ -83,7 +83,7 @@ static void comp_parms( BYTE );
 static INT bottom_left_corner (PBYTE, BYTE, BYTE, BYTE);
 static INT upper_right_corner (PBYTE, BYTE, BYTE, BYTE);
 //static INT upper_left_corner (PBYTE, BYTE, BYTE, BYTE);
-static BOOL is_italic();
+static Bool is_italic();
 static void compare_corners_mass();
 static void make_straight_abris (s_glue *, PBYTE, PBYTE);
 static INT func_mode_val( PBYTE func, BYTE from, BYTE to);
@@ -363,7 +363,7 @@ INT u_around_bl_corner ( s_glue *GL )
 
 }
 
-static BOOL is_italic()
+static Bool is_italic()
 {
 BYTE h14, i;
 INT lmax, xmax;

@@ -78,20 +78,20 @@ static int min_cut_down_let_w;
 static int sup_prob_w;
 /*********************************************************************************************/
 static int GetCountCutLetters(CCOM_comp* comp, uchar* pmasp);
-static int IfNeedCut(CCOM_comp* comp, BOOL* type_let);
-//static BOOL GetMasP(Rect16 Rc,uchar** ppmasp);
-static BOOL JNotInMas2(int j,int* mas,int size,int bound);
-static BOOL JNotInMas(int j,int* mas,int size,int bound);
-static BOOL IfZpt(CCOM_comp* comp);
-static BOOL IfCav(CCOM_comp* comp);
-static int GetBoundFromStr(CCOM_comp* comp,BOOL IfCav,int& max_bottom,int& min_top);
-static BOOL NotNeedCut(CCOM_comp* comp);
+static int IfNeedCut(CCOM_comp* comp, Bool* type_let);
+//static Bool GetMasP(Rect16 Rc,uchar** ppmasp);
+static Bool JNotInMas2(int j,int* mas,int size,int bound);
+static Bool JNotInMas(int j,int* mas,int size,int bound);
+static Bool IfZpt(CCOM_comp* comp);
+static Bool IfCav(CCOM_comp* comp);
+static int GetBoundFromStr(CCOM_comp* comp,Bool IfCav,int& max_bottom,int& min_top);
+static Bool NotNeedCut(CCOM_comp* comp);
 static int ExBound(CCOM_comp* comp,int bound);
 static int GetRastWide(RecRaster* rast,int& left,int& right);
-static BOOL IfHightLetters(CCOM_comp* comp,BOOL Up,int real_left,int real_right);
-static BOOL IfNearLetters(CCOM_comp* cutting,CCOM_comp* comp);
+static Bool IfHightLetters(CCOM_comp* comp,Bool Up,int real_left,int real_right);
+static Bool IfNearLetters(CCOM_comp* cutting,CCOM_comp* comp);
 static void NotCutDownLetter(RecRaster* rast,int& bound,int rast_bound,int new_rast_bound,int delta,int mini_w,int scale);
-static BOOL IfWhiteRow(RecRaster* rast,int row);
+static Bool IfWhiteRow(RecRaster* rast,int row);
 /*********************************************************************************************/
 RCUTP_FUNC(Bool32) RCUTP_RSelStr_SetEnv(/*char* szImageName,*/ int _medium_h, int _inf_let_w,
 										int _inf_dust_h, int _inf_let_h, Handle hCCOM,
@@ -125,7 +125,7 @@ RCUTP_FUNC(void) RCUTP_RSelStr_UnsetEnv()
 	env_set = false;
 }
 /*********************************************************************************************/
-RCUTP_FUNC(int) RCUTP_RSelStr_CP(CCOM_comp* comp, BOOL* type_let, uchar* pmasp)
+RCUTP_FUNC(int) RCUTP_RSelStr_CP(CCOM_comp* comp, Bool* type_let, uchar* pmasp)
 {
 	if (!comp || !env_set || !pmasp) return 0;
 
@@ -243,7 +243,7 @@ int GetCountCutLetters(CCOM_comp* comp, uchar* pmasp)
 	 return count;
 }
 /*********************************************************************************************/
-int IfNeedCut(CCOM_comp* comp, BOOL* type_let)
+int IfNeedCut(CCOM_comp* comp, Bool* type_let)
 {
  int bound;
  int upper=-1;
@@ -287,7 +287,7 @@ LDPUMA_ConsoleN("bound=%d", bound);
 }
 
 /*********************************************************************************************/
-BOOL JNotInMas2(int j,int* mas,int size,int bound)
+Bool JNotInMas2(int j,int* mas,int size,int bound)
 {
   int i;
   for(i=j+medium_h;i>=j;i--)
@@ -309,7 +309,7 @@ BOOL JNotInMas2(int j,int* mas,int size,int bound)
 	return TRUE;
 }
 /*********************************************************************************************/
-BOOL JNotInMas(int j,int* mas,int size,int bound)
+Bool JNotInMas(int j,int* mas,int size,int bound)
 {
 	for(size--;size>bound;size--)
 	{
@@ -319,7 +319,7 @@ BOOL JNotInMas(int j,int* mas,int size,int bound)
 	return TRUE;
 }
 /*********************************************************************************************/
-BOOL IfZpt(CCOM_comp* comp)
+Bool IfZpt(CCOM_comp* comp)
 {
  int bound=comp->upper+inf_dust_h-1;
 
@@ -342,7 +342,7 @@ BOOL IfZpt(CCOM_comp* comp)
  return FALSE;
 }
 /*********************************************************************************************/
-BOOL IfCav(CCOM_comp* comp)
+Bool IfCav(CCOM_comp* comp)
 {
  int bound=comp->upper+comp->h-1-inf_dust_h;
 
@@ -380,7 +380,7 @@ BOOL IfCav(CCOM_comp* comp)
  return FALSE;
 }
 /*********************************************************************************************/
-int GetBoundFromStr(CCOM_comp* comp,BOOL IfCav,int& max_bottom,int& min_top)
+int GetBoundFromStr(CCOM_comp* comp,Bool IfCav,int& max_bottom,int& min_top)
 {
  int up=comp->upper;
  int down=comp->upper+comp->h-1;
@@ -424,7 +424,7 @@ int GetBoundFromStr(CCOM_comp* comp,BOOL IfCav,int& max_bottom,int& min_top)
  return (max_bottom+min_top)>>1;
 }
 /*********************************************************************************************/
-BOOL NotNeedCut(CCOM_comp* comp)
+Bool NotNeedCut(CCOM_comp* comp)
 {
  CCOM_comp Test;
  CCOM_comp Test_Next;
@@ -438,8 +438,8 @@ BOOL NotNeedCut(CCOM_comp* comp)
  Test_Next.upper=bound+1;
  Test_Next.h=comp->h-Test.h;
 
- BOOL ret1=FALSE;
- BOOL ret2=FALSE;
+ Bool ret1=FALSE;
+ Bool ret2=FALSE;
 
  if(IfNearLetters(comp,&Test))
 	ret1=TRUE;
@@ -472,7 +472,7 @@ int ExBound(CCOM_comp* comp,int bound)
  int right_bound;
  int bytewide=((rast.lnPixWidth+63)/64)*8;
  uchar bytep;
- BOOL Not_move_down=FALSE;
+ Bool Not_move_down=FALSE;
 
  if(rast_bound+delta>rast.lnPixHeight||rast_bound-delta<0)
 	 return bound;
@@ -597,14 +597,14 @@ int GetRastWide(RecRaster* rast,int& left,int& right)
 	return wide;
 }
 /*********************************************************************************************/
-BOOL IfHightLetters(CCOM_comp* comp,BOOL Up,int real_left,int real_right)
+Bool IfHightLetters(CCOM_comp* comp,Bool Up,int real_left,int real_right)
 {
   int Root_Up=comp->upper;
   int Root_Down=comp->upper+comp->h-1;
   int left=real_left;
   int right=real_right;
   int double_width=inf_let_w*3;
-  BOOL fl_as_cav=FALSE;
+  Bool fl_as_cav=FALSE;
 
   CCOM_comp* co=CCOM_GetFirst((CCOM_handle)HCCOM,NULL);
   while(co)
@@ -650,7 +650,7 @@ BOOL IfHightLetters(CCOM_comp* comp,BOOL Up,int real_left,int real_right)
  return FALSE;
 }
 /*********************************************************************************************/
-BOOL IfNearLetters(CCOM_comp* cutting,CCOM_comp* comp)
+Bool IfNearLetters(CCOM_comp* cutting,CCOM_comp* comp)
 {
  CCOM_comp* co;
  int med_h=(2*(comp->upper)+comp->h-1)/2;
@@ -711,8 +711,8 @@ void NotCutDownLetter(RecRaster* rast,int& bound,int rast_bound,int new_rast_bou
  int right_bound;
  uchar bytep;
  int bytewide=((rast->lnPixWidth+63)/64)*8;
- BOOL fl_cut=FALSE;
- BOOL fl_break=FALSE;
+ Bool fl_cut=FALSE;
+ Bool fl_break=FALSE;
  int oldleft;
  int oldright;
  int min_wide=10000;
@@ -837,7 +837,7 @@ void NotCutDownLetter(RecRaster* rast,int& bound,int rast_bound,int new_rast_bou
  }
 }
 /*********************************************************************************************/
-BOOL IfWhiteRow(RecRaster* rast,int row)
+Bool IfWhiteRow(RecRaster* rast,int row)
 {
  int bytewide=8*((rast->lnPixWidth+63)/64);
  int byte_row=row>>3;

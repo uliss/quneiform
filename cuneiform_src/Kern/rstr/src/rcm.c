@@ -368,7 +368,7 @@ INT nIncline;         // setup in RcmSetup
 INT current_fragment; // setup in RSTR_SetOptions
 INT iFont=0;
 INT line_number;
-BOOL pass4_in;
+Bool pass4_in;
 MN * main_number_ptr;
 BOX * boxchain, *dl_last_in_chain;
 c_comp wcomp;
@@ -381,7 +381,7 @@ Bool16 first_number; // OLEG : 26-10-1998 : best cutting of glued "#"
 
 //=============== External data ==============
 extern cell   *stopcell;
-extern BOOL    snap_page_disable;
+extern Bool    snap_page_disable;
 extern INT page_nIncline;
 //=============== Local data ==============
 static jmp_buf jumper;
@@ -395,7 +395,7 @@ extern PBYTE load_BOX (PBYTE end);
 LONG    memory_length;
 PBYTE fontBOX=NULL;
 BYTE line_scale=0, line_alphabet=0, line_minus=0, line_pointsusp=0; // need setup after calculation in ExStr
-BOOL line_readyBL=FALSE,line_BL=FALSE,line_handfragment=FALSE,line_rerecog=FALSE;
+Bool line_readyBL=FALSE,line_BL=FALSE,line_handfragment=FALSE,line_rerecog=FALSE;
 BYTE line_tabcell=0;
 
 #define MEMORY                  0x50000 //500000        //0x450000
@@ -758,7 +758,7 @@ RSTR_FUNC(Bool32)  RSTRNewPage(int32_t resolutiony, Handle myPage )
     return TRUE;
 }
 
-static BOOL rcm_find(INT Ax,INT Ay,INT Bx,INT By)
+static Bool rcm_find(INT Ax,INT Ay,INT Bx,INT By)
 {
     INT i;
     for (i=0; i<num_of_lines; i++)
@@ -1137,7 +1137,7 @@ static void set_empty_line(CSTR_line    ln)
     return;
 }
 
-BOOL copy_cap_drop(CSTR_line lin, CSTR_line lino)
+Bool copy_cap_drop(CSTR_line lin, CSTR_line lino)
 {
     CSTR_rast       ri, ro;
     CSTR_attr       lattr={0};

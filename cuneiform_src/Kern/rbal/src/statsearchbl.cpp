@@ -190,13 +190,13 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr,
 	}
 }
 
-BOOL stat_control_semilevel(CSTR_line line, int16_t ln_row, int16_t b4)
+Bool stat_control_semilevel(CSTR_line line, int16_t ln_row, int16_t b4)
 {
 	CSTR_attr line_attr;
 	int16_t iret = 0, iret4 = 0;
 
 	char buff[] = "\\/дДщЩцЦ";
-	BOOL flg = FALSE;
+	Bool flg = FALSE;
 
 	if(CSTR_GetLineAttr(line,&line_attr))
 	{
@@ -250,7 +250,7 @@ BOOL stat_control_semilevel(CSTR_line line, int16_t ln_row, int16_t b4)
 	return flg;
 }
 
-BOOL stat_interp_bsl_by_boxes(CSTR_line line, int16_t ln_row, int16_t b3, int16_t b4, ROW_STRUCT *row_str)
+Bool stat_interp_bsl_by_boxes(CSTR_line line, int16_t ln_row, int16_t b3, int16_t b4, ROW_STRUCT *row_str)
 {
 	CSTR_attr line_attr;
 	if(!CSTR_GetLineAttr(line,&line_attr)) return FALSE;
@@ -302,7 +302,7 @@ BOOL stat_interp_bsl_by_boxes(CSTR_line line, int16_t ln_row, int16_t b3, int16_
 			   rast_attr.flg != CSTR_f_punct &&
 			   rast_attr.flg != CSTR_f_space)
 			{
-				BOOL flg = TRUE;
+				Bool flg = TRUE;
 				UniVersions vers;
 
 				if(CSTR_GetCollectionUni(curr_raster, &vers))
@@ -429,7 +429,7 @@ int16_t stat_control_b3_by_recog(CSTR_line line, int16_t ln_row, ROW_STRUCT *row
 			if(CSTR_GetAttr(curr_raster, &rast_attr) &&
 			   CSTR_GetCollectionUni(curr_raster, &vers))
 			{
-				BOOL flg = TRUE;
+				Bool flg = TRUE;
 				int16_t iNl = 0, iWl = 0;
 
 				if(vers.lnAltCnt == 0)
@@ -516,13 +516,13 @@ int16_t stat_control_b3_by_recog(CSTR_line line, int16_t ln_row, ROW_STRUCT *row
 	return iret;
 }
 
-BOOL stat_interp_bsl(CSTR_line line, CSTR_attr *p_attr, ROW_STRUCT *row_str)
+Bool stat_interp_bsl(CSTR_line line, CSTR_attr *p_attr, ROW_STRUCT *row_str)
 {
 	int16_t  rGM[3] = {0, 0, 0};
 	int16_t rLLM[3] = {0, 0, 0};
 	int16_t rRLM[3] = {0, 0, 0};
 
-	BOOL bret = FALSE;
+	Bool bret = FALSE;
 
 	row_str->AltLLM = -1;
 	row_str->AltRLM = -1;
@@ -596,7 +596,7 @@ BOOL stat_interp_bsl(CSTR_line line, CSTR_attr *p_attr, ROW_STRUCT *row_str)
 	return TRUE;
 }
 /**/
-BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, int16_t ln_row, int16_t b3, ROW_STRUCT *row_str)
+Bool stat_interp_bsl_by_solid_recog(CSTR_line line, int16_t ln_row, int16_t b3, ROW_STRUCT *row_str)
 {
 	CSTR_attr line_attr;
 
@@ -951,7 +951,7 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, int16_t ln_row, int16_t b3, 
 				}
 			}
 
-			BOOL bdel = FALSE;
+			Bool bdel = FALSE;
 			if(row_str->leftLocMax != -1 && row_str->AltLLM == -1 &&
 				((row_str->ValLLM <= countWarn1 && countHighL1 == 0) ||
 				(countLLM2 > 0 && row_str->globMax - row_str->leftLocMax < 4)))
@@ -991,10 +991,10 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, int16_t ln_row, int16_t b3, 
 	return TRUE;
 }
 
-BOOL stat_control_t_level(CSTR_line line, int16_t ln_row, int16_t b3, int16_t bl)
+Bool stat_control_t_level(CSTR_line line, int16_t ln_row, int16_t b3, int16_t bl)
 {
 	CSTR_attr line_attr;
-	BOOL bret = FALSE;
+	Bool bret = FALSE;
 	int16_t i1 = 0, i2 = 0;
 
 	if(CSTR_GetLineAttr(line,&line_attr))
@@ -1018,7 +1018,7 @@ BOOL stat_control_t_level(CSTR_line line, int16_t ln_row, int16_t b3, int16_t bl
 					continue;
 				}
 
-				BOOL flg = FALSE;
+				Bool flg = FALSE;
 
 				for(int i = 0; i < 4; i++)//отладка vers.lnAltCnt
 				{
@@ -1052,7 +1052,7 @@ BOOL stat_control_t_level(CSTR_line line, int16_t ln_row, int16_t b3, int16_t bl
 	return bret;
 }
 
-BOOL stat_interp_bsl_by_b4(CSTR_line line, int16_t ln_row, int16_t b3, int16_t b4, ROW_STRUCT *row_str)
+Bool stat_interp_bsl_by_b4(CSTR_line line, int16_t ln_row, int16_t b3, int16_t b4, ROW_STRUCT *row_str)
 {
 	CSTR_attr line_attr;
 	if(!CSTR_GetLineAttr(line,&line_attr)) return FALSE;
@@ -1115,7 +1115,7 @@ BOOL stat_interp_bsl_by_b4(CSTR_line line, int16_t ln_row, int16_t b3, int16_t b
 
 			if(-pnt <= db4 && db4 <= 3)//отладка vers.Alt[0].Prob >= 230 &&
 			{
-				BOOL flg1 = FALSE, flg2 = FALSE, flg_warning = FALSE;
+				Bool flg1 = FALSE, flg2 = FALSE, flg_warning = FALSE;
 
 				for(int i = 0; i < vers.lnAltCnt; i++)
 				{
@@ -1554,13 +1554,13 @@ int16_t stat_Hypothesis(int32_t line_number, int16_t diff_b3_bsl)
 
 		if(pCSTR_attrArray != NULL)
 		{
-			BOOL bRet = stat_FormCSTR_attrArray(line_start, line_number, pCSTR_attrArray);
+			Bool bRet = stat_FormCSTR_attrArray(line_start, line_number, pCSTR_attrArray);
 
 			if(bRet)
 			{
 				for(int16_t l = 0; l < line_number - line_start ; l++)
 				{
-					BOOL b = abs(pCSTR_attrArray[l].bs3 - pCSTR_attrArray[l].bs2 - diff_b3_bsl) <= 2;//отладка 1
+					Bool b = abs(pCSTR_attrArray[l].bs3 - pCSTR_attrArray[l].bs2 - diff_b3_bsl) <= 2;//отладка 1
 					if(b && pCSTR_attrArray[l].Nb2 != -1)
 						iFound_b2++;
 
@@ -1582,7 +1582,7 @@ int16_t stat_Hypothesis(int32_t line_number, int16_t diff_b3_bsl)
 	return ret;
 }
 
-BOOL stat_FormCSTR_attrArray(int32_t line_start, int32_t line_stop, CSTR_attr *pCSTR_attrArray)
+Bool stat_FormCSTR_attrArray(int32_t line_start, int32_t line_stop, CSTR_attr *pCSTR_attrArray)
 {
 	if(line_stop > CSTR_GetMaxNumber() || pCSTR_attrArray == NULL) return FALSE;
 
@@ -1665,7 +1665,7 @@ void stat_def_imaginary_bl(CSTR_attr *p_attr, int16_t *Ns1, int16_t *Ns2, int16_
 int16_t stat_Mode_diff_b2_b1(int32_t line_number, int16_t diff_b3_b2)
 {
 	int16_t iMode = 0;
-	BOOL bFound_mode = FALSE;
+	Bool bFound_mode = FALSE;
 
 	if(line_number <= CSTR_GetMaxNumber())
 	{
@@ -1679,7 +1679,7 @@ int16_t stat_Mode_diff_b2_b1(int32_t line_number, int16_t diff_b3_b2)
 
 			if(p_diff != NULL)
 			{
-				BOOL bRet = stat_FormCSTR_attrArray(line_start, line_number, pCSTR_attrArray);
+				Bool bRet = stat_FormCSTR_attrArray(line_start, line_number, pCSTR_attrArray);
 
 				if(bRet)
 				{
@@ -1794,7 +1794,7 @@ int16_t stat_Right_diff_from_max(int16_t *p_FrequencyArray, int16_t max_Frequenc
 int16_t stat_Mode_diff_b3_b4(int32_t line_number, int16_t diff_b3_b2)
 {
 	int16_t iMode = 0;
-	BOOL bFound_mode = FALSE;
+	Bool bFound_mode = FALSE;
 
 	if(line_number <= CSTR_GetMaxNumber())
 	{
@@ -1808,7 +1808,7 @@ int16_t stat_Mode_diff_b3_b4(int32_t line_number, int16_t diff_b3_b2)
 
 			if(p_diff != NULL)
 			{
-				BOOL bRet = stat_FormCSTR_attrArray(line_start, line_number, pCSTR_attrArray);
+				Bool bRet = stat_FormCSTR_attrArray(line_start, line_number, pCSTR_attrArray);
 
 				if(bRet)
 				{
@@ -1858,7 +1858,7 @@ int16_t stat_Mode_diff_b3_b4(int32_t line_number, int16_t diff_b3_b2)
 int16_t stat_Mode_diff_b2_b3(int32_t line_number, int16_t diff, int16_t fl_b2_or_b1)
 {
 	int16_t iMode = 0;
-	BOOL bFound_mode = FALSE;
+	Bool bFound_mode = FALSE;
 
 	if(line_number <= CSTR_GetMaxNumber())
 	{
@@ -1872,12 +1872,12 @@ int16_t stat_Mode_diff_b2_b3(int32_t line_number, int16_t diff, int16_t fl_b2_or
 
 			if(p_diff != NULL)
 			{
-				BOOL bRet = stat_FormCSTR_attrArray(line_start, line_number, pCSTR_attrArray);
+				Bool bRet = stat_FormCSTR_attrArray(line_start, line_number, pCSTR_attrArray);
 
 				if(bRet)
 				{
 					int16_t jCount = 0;
-					BOOL b;
+					Bool b;
 					for(int16_t l = 0; l < line_number - line_start; l++)
 					{
 						switch(fl_b2_or_b1)
@@ -1925,7 +1925,7 @@ int16_t stat_Mode_diff_b2_b3(int32_t line_number, int16_t diff, int16_t fl_b2_or
 }
 
 /*
-BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, int16_t ln_row, int16_t b3, ROW_STRUCT *row_str)
+Bool stat_interp_bsl_by_solid_recog(CSTR_line line, int16_t ln_row, int16_t b3, ROW_STRUCT *row_str)
 {
 	CSTR_attr line_attr;
 
@@ -2193,7 +2193,7 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, int16_t ln_row, int16_t b3, 
 				}
 			}
 
-			BOOL bdel = FALSE;
+			Bool bdel = FALSE;
 			if(row_str->leftLocMax != -1 && row_str->AltLLM == -1 &&
 				row_str->ValLLM <= countWarn1 && countHighL1 == 0)
 			{

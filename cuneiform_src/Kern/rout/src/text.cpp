@@ -65,12 +65,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rout_own.h"
 #include "ligas.h"	// Теперь в HHH 01.09.2000 E.P.
 
-static BOOL Static_MakeText(Handle hObject, long reason);
-static BOOL TableStub();
-static BOOL IncludeTable();
+static Bool Static_MakeText(Handle hObject, long reason);
+static Bool TableStub();
+static Bool IncludeTable();
 
 //********************************************************************
-BOOL MakeText()
+Bool MakeText()
 {
 /* Текстовые форматы.
 
@@ -86,7 +86,7 @@ BOOL MakeText()
 
 }
 //********************************************************************
-BOOL Static_MakeText(
+Bool Static_MakeText(
 			Handle hObject,
 			long reason	// См. enum BROWSE_REASON
 			)
@@ -147,7 +147,7 @@ BOOL Static_MakeText(
 	return TRUE;	// Продолжить просмотр
 }
 //********************************************************************
-BOOL NewLine()
+Bool NewLine()
 {
 // Записать конец строки
 
@@ -163,7 +163,7 @@ BOOL NewLine()
 	return TRUE;
 }
 //********************************************************************
-BOOL OneChar(Handle charHandle)
+Bool OneChar(Handle charHandle)
 {
 	// write one symbol
 	char sCodePageName[200]={0};
@@ -328,7 +328,7 @@ BOOL OneChar(Handle charHandle)
 	return TRUE;
 }
 //********************************************************************
-BOOL PutString(char *s)
+Bool PutString(char *s)
 {
 // Запись строки в ответ.
 // Желательно избегать концов строк, для этого
@@ -346,7 +346,7 @@ BOOL PutString(char *s)
 	return TRUE;
 }
 //********************************************************************
-BOOL PutSpaces(long lth)
+Bool PutSpaces(long lth)
 {
 // Запись пробелов в ответ.
 
@@ -360,7 +360,7 @@ BOOL PutSpaces(long lth)
 	return TRUE;
 }
 //********************************************************************
-static BOOL TableStub()
+static Bool TableStub()
 {
 // Обозначение таблицы в тексте страницы
 
@@ -389,7 +389,7 @@ char word1[40]="", word2[40]="", word3[40]="", word4[40]="";
 	return TRUE;
 }
 //********************************************************************
-static BOOL IncludeTable()
+static Bool IncludeTable()
 {
 /*
 	Включить таблицу в текст страницы
@@ -406,7 +406,7 @@ static BOOL IncludeTable()
 	memset(gMemStart,0,gMemEnd - gMemStart);
 
 	// Вызвать табличный текст
-	BOOL good = MakeTableText();
+	Bool good = MakeTableText();
 
 	// Восстановить начало памяти
 	gMemStart = saveMemStart;

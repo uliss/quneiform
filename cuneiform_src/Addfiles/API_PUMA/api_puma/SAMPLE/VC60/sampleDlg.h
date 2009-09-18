@@ -27,7 +27,7 @@ public:
 	//{{AFX_DATA(CSampleDlg)
 	enum { IDD = IDD_SAMPLE_DIALOG };
 	CString	m_progress;
-	BOOL	m_spell;
+	Bool	m_spell;
 	//}}AFX_DATA
 
 	// ClassWizard generated virtual function overrides
@@ -41,11 +41,11 @@ protected:
 	CSampleDlgAutoProxy* m_pAutoProxy;
 	HICON m_hIcon;
 
-	BOOL CanExit();
+	Bool CanExit();
 
 	// Generated message map functions
 	//{{AFX_MSG(CSampleDlg)
-	virtual BOOL OnInitDialog();
+	virtual Bool OnInitDialog();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();

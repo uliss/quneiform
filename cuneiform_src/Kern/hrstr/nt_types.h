@@ -105,14 +105,14 @@ typedef unsigned short int              WORD;
 typedef unsigned short int  *       PWORD;
 
 /*                      Boolean data                            */
-        typedef INT             _BOOL;
-        #define BOOL _BOOL
+        typedef INT             _Bool;
+        #define Bool _Bool
 
 #ifndef TRUE
-# define TRUE ((BOOL)1)
+# define TRUE ((Bool)1)
 #endif
 #ifndef FALSE
-# define FALSE ((BOOL)0)
+# define FALSE ((Bool)0)
 #endif
 
 /*                      Double word size data                      */

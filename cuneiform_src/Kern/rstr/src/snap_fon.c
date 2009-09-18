@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "nt_types.h"
 #include "rstr.h"
 
-BOOL snap_show_text(BYTE *txt);
+Bool snap_show_text(BYTE *txt);
 
 static HINSTANCE hDFon = NULL;
 

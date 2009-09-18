@@ -168,7 +168,7 @@ extern int nRootStripsStep;
 extern int nRootStripsOffset;
 
 # ifdef LT_STAND_ALONE
-BOOL RootsLoadFile (PSTR pFilename);
+Bool RootsLoadFile (PSTR pFilename);
 # endif
 void CalculatePageParameters (void);
 
@@ -201,7 +201,7 @@ extern int  nHeightes;
 
 extern INT nIncline;
 
-BOOL InclinesAccount (void);
+Bool InclinesAccount (void);
 void InclinesFreeData (void);
 
 void IdealXY (INT x, INT y, INT *px, INT *py);
@@ -292,7 +292,7 @@ struct _Component // equal to COMP
         int     yTop;
         int     xRight;
         int     yBottom;
-        BOOL    bRectangleAccounted;
+        Bool    bRectangleAccounted;
 
         STRIP   *pStripsListBegin;
         STRIP   *pStripsListEnd;
@@ -376,7 +376,7 @@ void CompsFreeData (void);
 # define PAGE_MATRIX_REAL_HEIGHT (PAGE_MATRIX_HEIGHT << PAGE_COMP_SHIFT)
 
 extern BYTE *PageMatrix;   /* [PAGE_MATRIX_SIZE] */
-extern BOOL bPageMatrixInitialized;
+extern Bool bPageMatrixInitialized;
 
 void PageMatrixInit (int nWidth, int nHeight);
 void SpecCompPut (MN *mn);
@@ -385,8 +385,8 @@ void PageMatrixHorzGlue (void);
 void PageMatrixVertGlue (void);
 void PageMatrixExcludeIntersections (void);
 void PageMatrixBuild (void);
-void PageMatrixPutSeparators (BOOL bConvertToRealCoords);
-void PageMatrixExcludeSeparators (BOOL bConvertToRealCoords);
+void PageMatrixPutSeparators (Bool bConvertToRealCoords);
+void PageMatrixExcludeSeparators (Bool bConvertToRealCoords);
 BYTE PageMatrixFlagsByIdealXY (int xIdeal, int yIdeal);
 void PageMatrixFreeData (void);
 
@@ -520,10 +520,10 @@ extern BLOCK *pTopBlocksList;
 extern BLOCK *pBottomBlocksList;
 extern int nNextBlockNumber;
 
-BOOL RectEq (RECTANGLE *p, RECTANGLE *q);
-BOOL RectIsCrossed (RECTANGLE *p, RECTANGLE *q);
+Bool RectEq (RECTANGLE *p, RECTANGLE *q);
+Bool RectIsCrossed (RECTANGLE *p, RECTANGLE *q);
 void RectAsgPlus (RECTANGLE *p, RECTANGLE *q);
-BOOL RectIncludes (RECTANGLE *p, RECTANGLE *q);
+Bool RectIncludes (RECTANGLE *p, RECTANGLE *q);
 
 BLOCK *BlocksAddDescriptor (void);
 void BlocksRemoveDescriptor (BLOCK *p);
@@ -560,7 +560,7 @@ extern int  *pHystBottoms;
 extern int  nHystColumns;
 extern int  nHystColumnWidth;
 
-BOOL HystogramAllocateBody (void);
+Bool HystogramAllocateBody (void);
 void HystogramMakeIntegral (int *pInt, int *p, int nWidth);
 void HystogramFreeData (void);
 
@@ -592,7 +592,7 @@ extern int  nSB_CellHeight;
 extern BLOCK *pSB_Block;
 # endif
 
-BOOL SB_MatrixBuild (BLOCK *pBlock, int nCellWidth, int nCellHeight);
+Bool SB_MatrixBuild (BLOCK *pBlock, int nCellWidth, int nCellHeight);
 void SB_MatrixFreeData (void);
 
 # define FCC_NOT_FOUND        0
@@ -602,7 +602,7 @@ void SB_MatrixFreeData (void);
 
 int  CompsFindCompToCut (COMP **ppResult);
 
-BOOL TrySmartBreaking (BLOCK *pBlock);
+Bool TrySmartBreaking (BLOCK *pBlock);
 void SmartBreakingFreeData (void);
 
 /****************************************************************************
@@ -643,8 +643,8 @@ extern int         nWSB_Points;
 void WSB_BuildHystograms (void);
 void WSB_AddPoint (WSB_POINT Point);
 void WSB_BuildPoints (void);
-BOOL WSB_BreakBlock (BLOCK * p, WSB_POINT Point);
-BOOL WSB_CutUpperLine (BLOCK * p, WSB_POINT Point);
+Bool WSB_BreakBlock (BLOCK * p, WSB_POINT Point);
+Bool WSB_CutUpperLine (BLOCK * p, WSB_POINT Point);
 void WhiteStripsBreaking (void);
 void WSB_FreeData (void);
 
@@ -704,11 +704,11 @@ extern int xDebugVertLine;
  *   Blocks processing tools                                                *
  ***************************************************************************/
 
-BOOL BlockBreakOnVertical (BLOCK *p, BLOCK **pq, BLOCK **pr,
+Bool BlockBreakOnVertical (BLOCK *p, BLOCK **pq, BLOCK **pr,
                            int x, int nBreakingWidth);
-BOOL BlockBreakOnHorizontal (BLOCK *p, BLOCK **pq, BLOCK **pr,
+Bool BlockBreakOnHorizontal (BLOCK *p, BLOCK **pq, BLOCK **pr,
                              int y);
-BOOL BlockBreakByRectangle (BLOCK *p, BLOCK **pq, BLOCK **pr,
+Bool BlockBreakByRectangle (BLOCK *p, BLOCK **pq, BLOCK **pr,
                             int xBegin, int yBegin, int xEnd, int yEnd);
 BLOCK *BlocksGlueTwo (BLOCK *p, BLOCK *q);
 void BlockRemove (BLOCK *p);
@@ -781,27 +781,27 @@ void LayoutPart1 (void);
 void LayoutPart2 (void);
 
 # ifdef LT_DEBUG
-extern BOOL bDebugTimeFlag;
+extern Bool bDebugTimeFlag;
 extern int  LT_DebugGraphicsLevel;
-extern BOOL bDebugOptionCalibratePictureRemovingCriteria;
-extern BOOL bDebugOptionCalibrateDD_RemovingCriteria;
-extern BOOL bDebugOptionCalibrateLinearRemovingCriteria;
+extern Bool bDebugOptionCalibratePictureRemovingCriteria;
+extern Bool bDebugOptionCalibrateDD_RemovingCriteria;
+extern Bool bDebugOptionCalibrateLinearRemovingCriteria;
 # endif
 
-extern BOOL bOptionForceOneColumn;
-extern BOOL bOptionBusinessCardsLayout;
+extern Bool bOptionForceOneColumn;
+extern Bool bOptionBusinessCardsLayout;
 
-extern BOOL bOptionPointSizeAnalysis;
-extern BOOL bOptionSmartBreaking;
-extern BOOL bOptionInitialBreakingByPageMatrix;
-extern BOOL bOptionBlocksRemovingByPageMatrix;
-extern BOOL bOptionBlocksRemovingByDustDistribution;
-extern BOOL bOptionSpecialHorizontalCutting;
-extern BOOL bOptionWhiteStripsBreaking;
+extern Bool bOptionPointSizeAnalysis;
+extern Bool bOptionSmartBreaking;
+extern Bool bOptionInitialBreakingByPageMatrix;
+extern Bool bOptionBlocksRemovingByPageMatrix;
+extern Bool bOptionBlocksRemovingByDustDistribution;
+extern Bool bOptionSpecialHorizontalCutting;
+extern Bool bOptionWhiteStripsBreaking;
 
 
-//BOOL AddRoot(CCOM_comp * comp);// Piter
-BOOL AddRoot(CCOM_comp * comp, Bool32 FirstTime);// Roman
+//Bool AddRoot(CCOM_comp * comp);// Piter
+Bool AddRoot(CCOM_comp * comp, Bool32 FirstTime);// Roman
 
 # endif
 

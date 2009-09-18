@@ -120,7 +120,7 @@ RMARKER_FUNC(Bool32) RMARKER_SearchTableInZone(Handle hPage,Handle hCCOM,uint32_
 
 RMARKER_FUNC(Bool32) RMARKER_SetImportData(uint32_t dwType, void * pData)
 {
-	BOOL rc = FALSE;
+	Bool rc = FALSE;
 
 	rc = SetCBProgressPoints( pData );
 	return rc;

@@ -367,7 +367,7 @@ static void SetFonFlags(FonSpecInfo *specInfo, RecVersions *collection,
 	int i, j;
 	welet *wel;
 	uint32_t nField[NFIELDDWORD];
-	BOOL isInField;
+	Bool isInField;
 
 	if (!specInfo)
 		return;
@@ -1278,7 +1278,7 @@ static int DiskriminatorTest(void)
 	RecRaster myRaster;
 	welet *wel;
 	int i;
-	BOOL rett;
+	Bool rett;
 	RecVersions collect;
 
 	for(i=0,wel=fonbase.start; i< fonbase.inBase; i++)

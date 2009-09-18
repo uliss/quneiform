@@ -80,10 +80,10 @@ static void snap_sticks(cell *,char *);
 
 
 // from module PASSE
-BOOL _spell(PCHAR s,BYTE lang);
-BOOL _spell_agressive(PCHAR s,BYTE lang);
-BOOL short_spell(BYTE *wrd,BYTE language );
-BOOL short_spell_re(BYTE *wrd,BYTE language );
+Bool _spell(PCHAR s,BYTE lang);
+Bool _spell_agressive(PCHAR s,BYTE lang);
+Bool short_spell(BYTE *wrd,BYTE language );
+Bool short_spell_re(BYTE *wrd,BYTE language );
 
 BYTE mwInput[80];
 extern INT      line_number;
@@ -109,11 +109,11 @@ extern  CHAR    StopPoint;
 extern  BYTE    CodePages[];
 //extern  INT     gbCol1,gbCol2;
 
-static  BOOL    exit_enable         = FALSE;
-static  BOOL    cut_enable          = FALSE;
-static  BOOL    snap_disable        = FALSE;
-static  BOOL    snap_continue       = FALSE;
-BOOL    snap_page_disable   = FALSE;
+static  Bool    exit_enable         = FALSE;
+static  Bool    cut_enable          = FALSE;
+static  Bool    snap_disable        = FALSE;
+static  Bool    snap_continue       = FALSE;
+Bool    snap_page_disable   = FALSE;
 static  BYTE    db_skip_client;
 static  CSTR_line   snap_line;
 static  cell        currcell;//,*db_stopcell;
@@ -173,7 +173,7 @@ Handle hSnapLineBL[sizeof(snap_bl)/sizeof(snap_bl[0])];
 //IGOR
 //Handle hUseCLine;
 extern Handle hSnapBLcut;
-static  BOOL    internal_skip[sizeof(snap_pass)/sizeof(snap_pass[0])];
+static  Bool    internal_skip[sizeof(snap_pass)/sizeof(snap_pass[0])];
 
 void reset_snap(void)
 {
@@ -207,7 +207,7 @@ return Lang_Console(text,3);
 }
 
 // перекодировка
-static BOOL ASCII2ANSI(char *ascii,char *ansi)
+static Bool ASCII2ANSI(char *ascii,char *ansi)
 {
 *ansi='\0';
 for(;*ascii ;ascii++)
@@ -278,7 +278,7 @@ return pos;
 }
 
 // общая инициализаци
-BOOL snap_init(void)
+Bool snap_init(void)
 {
 int i;
 static  init=FALSE;
@@ -318,7 +318,7 @@ LDPUMA_RegVariable(hSnapMain,"Наложение слова",mwInput,"char *");
 LDPUMA_Registry(&hSnapSmartCut,"Запретить кластерное разрезание/склеивание на 2-ом проходе",hSnapMain);
 LDPUMA_RegistryHelp(hSnapSmartCut,"Запретить кластерное разрезание/склеивание на 2-ом проходе",FALSE);
 snap_page_disable = snap_disable = db_skip_client = FALSE;
-memset(internal_skip,TRUE,snap_clients*sizeof(BOOL));
+memset(internal_skip,TRUE,snap_clients*sizeof(Bool));
 exit_enable=FALSE;
 db_trace_flag=0;
 db_skip_client=0;
@@ -326,7 +326,7 @@ cutpoints_cell=NULL;
 return TRUE;
 }
 
-BOOL snap_init_variables(void)
+Bool snap_init_variables(void)
 {
 snap_page_disable = snap_disable = db_skip_client = FALSE;
 exit_enable=FALSE;
@@ -336,9 +336,9 @@ cutpoints_cell=NULL;
 return TRUE;
 }
 
-BOOL snap_fictive_skip(INT i)
+Bool snap_fictive_skip(INT i)
 {
-return (BOOL)LDPUMA_SkipEx(hSnapFict[i],FALSE,TRUE,1);
+return (Bool)LDPUMA_SkipEx(hSnapFict[i],FALSE,TRUE,1);
 }
 
 // показ распознавания эвент
@@ -636,7 +636,7 @@ static Bool32   shift=0;
 BYTE            str[1200];
 static CSTR_rast s_r = (CSTR_rast)0;
 unsigned int    i,ii;
-static BOOL     no_process=TRUE;
+static Bool     no_process=TRUE;
 uint32_t          pos;
 char            buf[256];
 
@@ -1084,7 +1084,7 @@ return (uint32_t)(ret);
 
 // режим мониторинга строки и ожидания клавиши
 static int32_t snap_monitor_calls=0;
-BOOL snap_monitor(void)
+Bool snap_monitor(void)
 {
 Handle hnd;
         int i,scale;
@@ -1148,7 +1148,7 @@ if( exit_enable==TRUE )
 return TRUE;
 }
 
-BOOL snap_monitor_ori(CSTR_line *snap_line, int32_t num_lines)
+Bool snap_monitor_ori(CSTR_line *snap_line, int32_t num_lines)
 {
 Handle hnd;
         int i,scale;
@@ -1207,7 +1207,7 @@ return TRUE;
 
 
 // вывести текст
-BOOL snap_show_text(BYTE *txt)
+Bool snap_show_text(BYTE *txt)
 {
 char text[256],texto[80*40];
 if( snap_disable
@@ -1258,7 +1258,7 @@ LDPUMA_RasterText(texto);
 return TRUE;
 }
 
-BOOL    snap_is_marked(CSTR_line ln)
+Bool    snap_is_marked(CSTR_line ln)
 {
 Point16     p;
 CSTR_attr   r;
@@ -1275,7 +1275,7 @@ return !( (p.x < r.r_col)||(p.x > r.r_col+r.r_wid )||
 }
 
 // активен ли клиент
-BOOL snap_activity(BYTE a)
+Bool snap_activity(BYTE a)
 {
 Bool32 ret;
 if( snap_disable || snap_page_disable || db_skip_client || (a-'a')>=snap_clients)
@@ -1291,7 +1291,7 @@ return(!ret);
 }
 
 // активен ли хотя бы один клиент
-BOOL snap_is_active(void)
+Bool snap_is_active(void)
 {
 int i;
 snap_disable = FALSE;
@@ -1309,7 +1309,7 @@ db_status=0;
 return FALSE;
 }
 // встать на клетке
-BOOL snap_newcell (cell *c)
+Bool snap_newcell (cell *c)
 {
 if( snap_disable || snap_page_disable || db_skip_client )
     return FALSE;
@@ -1334,7 +1334,7 @@ return;
 }
 
 // вывести растр
-BOOL snap_show_raster(PBYTE raster, INT height, INT width)
+Bool snap_show_raster(PBYTE raster, INT height, INT width)
 {
 DPUMA_RecRaster rs={0};
 
@@ -1361,7 +1361,7 @@ return TRUE;
 
 // + остановиться, если между B,E
 // can be call after setup stopcell (F3)
-BOOL snap_stopcell(cell *B,cell *E)
+Bool snap_stopcell(cell *B,cell *E)
 {
 if( snap_disable || snap_page_disable || db_skip_client || !stopcell)
     return FALSE;
@@ -1420,7 +1420,7 @@ return ;
 }
 
 // начало нового шага
-BOOL snap_newpass(BYTE pass)
+Bool snap_newpass(BYTE pass)
 {
 if( snap_disable || snap_page_disable  )
     return FALSE;
@@ -1468,7 +1468,7 @@ return;
 
 
 // knot for Alik debug. Absent pass 'j'
-BOOL Alik_snap_show_raster(PBYTE raster,PBYTE raster1,PBYTE buf,INT height,
+Bool Alik_snap_show_raster(PBYTE raster,PBYTE raster1,PBYTE buf,INT height,
                            INT width,PCHAR product,PCHAR product_two,
                            PINT penalty)
 
@@ -1485,7 +1485,7 @@ return;
 }
 
 // knot for DOS-init
-BOOL snap_newline(void)
+Bool snap_newline(void)
 {
 if( snap_disable && db_skip_client )
     return FALSE;
@@ -1493,7 +1493,7 @@ return TRUE;
 }
 
 //IGOR
-BOOL snap_baselines(BYTE a)
+Bool snap_baselines(BYTE a)
 {
 	if(!hSnapLineBL[a - 'a'])
 		return FALSE;

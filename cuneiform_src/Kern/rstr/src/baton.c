@@ -104,7 +104,7 @@ static LONG line_to_hist(lnhead *);
 static LONG sticks_find();
 static LONG test_extr(LONG,LONG,LONG);
 static void ordextr();
-static BOOL is_stick(struct extr*);
+static Bool is_stick(struct extr*);
 static LONG typend(STICK *,LONG);
 static LONG bend(LONG,struct pairs *);
 static void ordsticks();
@@ -337,7 +337,7 @@ static void ordextr()
 #define THINST  4
 #define LLACUN  3
 
-static BOOL is_stick(struct extr *ex)
+static Bool is_stick(struct extr *ex)
  {
  LONG incl,incl1,i,n,x0,x,x1,y,y1,ymi,yma,ym,w,w1,m,f,h;          //20.02.97
  LONG line[VERTMAX];                                              //20.02.97

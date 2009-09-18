@@ -178,12 +178,12 @@ public:
 	}
 
 // Operations
-	BOOL operator ==(SIZE size) const
+	Bool operator ==(SIZE size) const
 	{
 		return (cx == size.cx && cy == size.cy);
 	}
 
-	BOOL operator !=(SIZE size) const
+	Bool operator !=(SIZE size) const
 	{
 		return (cx != size.cx || cy != size.cy);
 	}
@@ -286,12 +286,12 @@ public:
 		y += size.cy;
 	}
 
-	BOOL operator ==(POINT point) const
+	Bool operator ==(POINT point) const
 	{
 		return (x == point.x && y == point.y);
 	}
 
-	BOOL operator !=(POINT point) const
+	Bool operator !=(POINT point) const
 	{
 		return (x != point.x || y != point.y);
 	}
@@ -458,17 +458,17 @@ public:
 		return this;
 	}
 
-	BOOL IsRectEmpty() const
+	Bool IsRectEmpty() const
 	{
 		return ::IsRectEmpty(this);
 	}
 
-	BOOL IsRectNull() const
+	Bool IsRectNull() const
 	{
 		return (left == 0 && right == 0 && top == 0 && bottom == 0);
 	}
 
-	BOOL PtInRect(POINT point) const
+	Bool PtInRect(POINT point) const
 	{
 		return ::PtInRect(this, point);
 	}
@@ -494,7 +494,7 @@ public:
 		::CopyRect(this, lpSrcRect);
 	}
 
-	BOOL EqualRect(LPCRECT lpRect) const
+	Bool EqualRect(LPCRECT lpRect) const
 	{
 		return ::EqualRect(this, lpRect);
 	}
@@ -608,17 +608,17 @@ public:
 	}
 
 	// operations that fill '*this' with result
-	BOOL IntersectRect(LPCRECT lpRect1, LPCRECT lpRect2)
+	Bool IntersectRect(LPCRECT lpRect1, LPCRECT lpRect2)
 	{
 		return ::IntersectRect(this, lpRect1, lpRect2);
 	}
 
-	BOOL UnionRect(LPCRECT lpRect1, LPCRECT lpRect2)
+	Bool UnionRect(LPCRECT lpRect1, LPCRECT lpRect2)
 	{
 		return ::UnionRect(this, lpRect1, lpRect2);
 	}
 
-	BOOL SubtractRect(LPCRECT lpRectSrc1, LPCRECT lpRectSrc2)
+	Bool SubtractRect(LPCRECT lpRectSrc1, LPCRECT lpRectSrc2)
 	{
 		return ::SubtractRect(this, lpRectSrc1, lpRectSrc2);
 	}
@@ -629,12 +629,12 @@ public:
 		::CopyRect(this, &srcRect);
 	}
 
-	BOOL operator ==(const RECT& rect) const
+	Bool operator ==(const RECT& rect) const
 	{
 		return ::EqualRect(this, &rect);
 	}
 
-	BOOL operator !=(const RECT& rect) const
+	Bool operator !=(const RECT& rect) const
 	{
 		return !::EqualRect(this, &rect);
 	}
@@ -977,7 +977,7 @@ public:
 		return GetData()->nDataLength;
 	}
 
-	BOOL IsEmpty() const
+	Bool IsEmpty() const
 	{
 		return GetData()->nDataLength == 0;
 	}
@@ -1700,21 +1700,21 @@ public:
 
 	// simple formatting
 	// formatting (using wsprintf style formatting)
-	BOOL __cdecl Format(LPCTSTR lpszFormat, ...)
+	Bool __cdecl Format(LPCTSTR lpszFormat, ...)
 	{
 		ATLASSERT(_IsValidString(lpszFormat));
 
 		va_list argList;
 		va_start(argList, lpszFormat);
-		BOOL bRet = FormatV(lpszFormat, argList);
+		Bool bRet = FormatV(lpszFormat, argList);
 		va_end(argList);
 		return bRet;
 	}
 
-	BOOL __cdecl Format(UINT nFormatID, ...)
+	Bool __cdecl Format(UINT nFormatID, ...)
 	{
 		CString strFormat;
-		BOOL bRet = strFormat.LoadString(nFormatID);
+		Bool bRet = strFormat.LoadString(nFormatID);
 		ATLASSERT(bRet != 0);
 
 		va_list argList;
@@ -1724,7 +1724,7 @@ public:
 		return bRet;
 	}
 
-	BOOL FormatV(LPCTSTR lpszFormat, va_list argList)
+	Bool FormatV(LPCTSTR lpszFormat, va_list argList)
 	{
 		ATLASSERT(_IsValidString(lpszFormat));
 
@@ -2041,13 +2041,13 @@ public:
 
 	// formatting for localization (uses FormatMessage API)
 	// formatting (using FormatMessage style formatting)
-	BOOL __cdecl FormatMessage(LPCTSTR lpszFormat, ...)
+	Bool __cdecl FormatMessage(LPCTSTR lpszFormat, ...)
 	{
 		// format message into temporary buffer lpszTemp
 		va_list argList;
 		va_start(argList, lpszFormat);
 		LPTSTR lpszTemp;
-		BOOL bRet = TRUE;
+		Bool bRet = TRUE;
 
 		if (::FormatMessage(FORMAT_MESSAGE_FROM_STRING | FORMAT_MESSAGE_ALLOCATE_BUFFER,
 				lpszFormat, 0, 0, (LPTSTR)&lpszTemp, 0, &argList) == 0 || lpszTemp == NULL)
@@ -2060,11 +2060,11 @@ public:
 		return bRet;
 	}
 
-	BOOL __cdecl FormatMessage(UINT nFormatID, ...)
+	Bool __cdecl FormatMessage(UINT nFormatID, ...)
 	{
 		// get format string from string table
 		CString strFormat;
-		BOOL bRetTmp = strFormat.LoadString(nFormatID);
+		Bool bRetTmp = strFormat.LoadString(nFormatID);
 		bRetTmp;   // ref
 		ATLASSERT(bRetTmp != 0);
 
@@ -2072,7 +2072,7 @@ public:
 		va_list argList;
 		va_start(argList, nFormatID);
 		LPTSTR lpszTemp;
-		BOOL bRet = TRUE;
+		Bool bRet = TRUE;
 
 		if (::FormatMessage(FORMAT_MESSAGE_FROM_STRING | FORMAT_MESSAGE_ALLOCATE_BUFFER,
 				strFormat, 0, 0, (LPTSTR)&lpszTemp, 0, &argList) == 0 || lpszTemp == NULL)
@@ -2086,7 +2086,7 @@ public:
 	}
 
 	// Windows support
-	BOOL LoadString(UINT nID)   // load from string resource (255 chars max.)
+	Bool LoadString(UINT nID)   // load from string resource (255 chars max.)
 	{
 #ifdef _UNICODE
 		const int CHAR_FUDGE = 1;   // one TCHAR unused is good enough
@@ -2267,7 +2267,7 @@ public:
 		return GetData()->nAllocLength;
 	}
 
-	static BOOL __stdcall _IsValidString(LPCTSTR lpsz, int /*nLength*/ = -1)
+	static Bool __stdcall _IsValidString(LPCTSTR lpsz, int /*nLength*/ = -1)
 	{
 		return (lpsz != NULL) ? TRUE : FALSE;
 	}
@@ -2287,14 +2287,14 @@ protected:
 		m_pchData = _GetEmptyString().m_pchData;
 	}
 
-	BOOL AllocCopy(CString& dest, int nCopyLen, int nCopyIndex, int nExtraLen) const
+	Bool AllocCopy(CString& dest, int nCopyLen, int nCopyIndex, int nExtraLen) const
 	{
 		// will clone the data attached to this string
 		// allocating 'nExtraLen' characters
 		// Places results in uninitialized string 'dest'
 		// Will copy the part or all of original data to start of new string
 
-		BOOL bRet = FALSE;
+		Bool bRet = FALSE;
 		int nNewLen = nCopyLen + nExtraLen;
 		if (nNewLen == 0)
 		{
@@ -2315,7 +2315,7 @@ protected:
 
 	// always allocate one extra character for '\0' termination
 	// assumes [optimistically] that data length will equal allocation length
-	BOOL AllocBuffer(int nLen)
+	Bool AllocBuffer(int nLen)
 	{
 		ATLASSERT(nLen >= 0);
 		ATLASSERT(nLen <= INT_MAX - 1);   // max size (enough room for 1 extra)
@@ -2367,13 +2367,13 @@ protected:
 	// and for ? = TCHAR, LPCTSTR
 	//          CString + ?
 	//          ? + CString
-	BOOL ConcatCopy(int nSrc1Len, LPCTSTR lpszSrc1Data, int nSrc2Len, LPCTSTR lpszSrc2Data)
+	Bool ConcatCopy(int nSrc1Len, LPCTSTR lpszSrc1Data, int nSrc2Len, LPCTSTR lpszSrc2Data)
 	{
 		// -- master concatenation routine
 		// Concatenate two sources
 		// -- assume that 'this' is a new CString object
 
-		BOOL bRet = TRUE;
+		Bool bRet = TRUE;
 		int nNewLen = nSrc1Len + nSrc2Len;
 		if(nNewLen < nSrc1Len || nNewLen < nSrc2Len)
 		{
@@ -2433,9 +2433,9 @@ protected:
 		ATLASSERT(GetData()->nRefs <= 1);
 	}
 
-	BOOL AllocBeforeWrite(int nLen)
+	Bool AllocBeforeWrite(int nLen)
 	{
-		BOOL bRet = TRUE;
+		Bool bRet = TRUE;
 		if (GetData()->nRefs > 1 || nLen > GetData()->nAllocLength)
 		{
 			Release();
@@ -3025,7 +3025,7 @@ public:
 	}
 
 // Operations
-	BOOL AddToList(LPCTSTR lpstrDocName)
+	Bool AddToList(LPCTSTR lpstrDocName)
 	{
 		_DocEntry de;
 		errno_t nRet = SecureHelper::strncpy_x(de.szDocName, _countof(de.szDocName), lpstrDocName, _TRUNCATE);
@@ -3044,7 +3044,7 @@ public:
 		if(m_arrDocs.GetSize() == m_nMaxEntries)
 			m_arrDocs.RemoveAt(0);
 
-		BOOL bRet = m_arrDocs.Add(de);
+		Bool bRet = m_arrDocs.Add(de);
 		if(bRet)
 		{
 			T* pT = static_cast<T*>(this);
@@ -3058,13 +3058,13 @@ public:
 #if (_MSC_VER >= 1300)
 	__declspec(deprecated)
 #endif
-	BOOL GetFromList(int /*nItemID*/, LPTSTR /*lpstrDocName*/)
+	Bool GetFromList(int /*nItemID*/, LPTSTR /*lpstrDocName*/)
 	{
 		ATLASSERT(FALSE);
 		return FALSE;
 	}
 
-	BOOL GetFromList(int nItemID, LPTSTR lpstrDocName, int cchLength)
+	Bool GetFromList(int nItemID, LPTSTR lpstrDocName, int cchLength)
 	{
 		int nIndex = m_arrDocs.GetSize() - (nItemID - t_nFirstID) - 1;
 		if(nIndex < 0 || nIndex >= m_arrDocs.GetSize())
@@ -3077,7 +3077,7 @@ public:
 	}
 
 #if defined(_WTL_USE_CSTRING) || defined(__ATLSTR_H__)
-	BOOL GetFromList(int nItemID, _CSTRING_NS::CString& strDocName)
+	Bool GetFromList(int nItemID, _CSTRING_NS::CString& strDocName)
 	{
 		int nIndex = m_arrDocs.GetSize() - (nItemID - t_nFirstID) - 1;
 		if(nIndex < 0 || nIndex >= m_arrDocs.GetSize())
@@ -3087,10 +3087,10 @@ public:
 	}
 #endif // defined(_WTL_USE_CSTRING) || defined(__ATLSTR_H__)
 
-	BOOL RemoveFromList(int nItemID)
+	Bool RemoveFromList(int nItemID)
 	{
 		int nIndex = m_arrDocs.GetSize() - (nItemID - t_nFirstID) - 1;
-		BOOL bRet = m_arrDocs.RemoveAt(nIndex);
+		Bool bRet = m_arrDocs.RemoveAt(nIndex);
 		if(bRet)
 		{
 			T* pT = static_cast<T*>(this);
@@ -3099,7 +3099,7 @@ public:
 		return bRet;
 	}
 
-	BOOL MoveToTop(int nItemID)
+	Bool MoveToTop(int nItemID)
 	{
 		int nIndex = m_arrDocs.GetSize() - (nItemID - t_nFirstID) - 1;
 		if(nIndex < 0 || nIndex >= m_arrDocs.GetSize())
@@ -3107,7 +3107,7 @@ public:
 		_DocEntry de;
 		de = m_arrDocs[nIndex];
 		m_arrDocs.RemoveAt(nIndex);
-		BOOL bRet = m_arrDocs.Add(de);
+		Bool bRet = m_arrDocs.Add(de);
 		if(bRet)
 		{
 			T* pT = static_cast<T*>(this);
@@ -3116,7 +3116,7 @@ public:
 		return bRet;
 	}
 
-	BOOL ReadFromRegistry(LPCTSTR lpstrRegKey)
+	Bool ReadFromRegistry(LPCTSTR lpstrRegKey)
 	{
 		T* pT = static_cast<T*>(this);
 		ATL::CRegKey rkParent;
@@ -3168,7 +3168,7 @@ public:
 		return pT->UpdateMenu();
 	}
 
-	BOOL WriteToRegistry(LPCTSTR lpstrRegKey)
+	Bool WriteToRegistry(LPCTSTR lpstrRegKey)
 	{
 		T* pT = static_cast<T*>(this);
 		pT;   // avoid level 4 warning
@@ -3220,7 +3220,7 @@ public:
 	}
 
 // Implementation
-	BOOL UpdateMenu()
+	Bool UpdateMenu()
 	{
 		if(m_hMenu == NULL)
 			return FALSE;
@@ -3332,7 +3332,7 @@ public:
 	TCHAR m_lpszRoot[MAX_PATH];
 	TCHAR m_chDirSeparator;
 	HANDLE m_hFind;
-	BOOL m_bFound;
+	Bool m_bFound;
 
 // Constructor/destructor
 	CFindFile() : m_hFind(NULL), m_chDirSeparator(_T('\\')), m_bFound(FALSE)
@@ -3363,7 +3363,7 @@ public:
 		return nFileSize.QuadPart;
 	}
 
-	BOOL GetFileName(LPTSTR lpstrFileName, int cchLength) const
+	Bool GetFileName(LPTSTR lpstrFileName, int cchLength) const
 	{
 		ATLASSERT(m_hFind != NULL);
 		if(lstrlen(m_fd.cFileName) >= cchLength)
@@ -3375,7 +3375,7 @@ public:
 		return m_bFound;
 	}
 
-	BOOL GetFilePath(LPTSTR lpstrFilePath, int cchLength) const
+	Bool GetFilePath(LPTSTR lpstrFilePath, int cchLength) const
 	{
 		ATLASSERT(m_hFind != NULL);
 
@@ -3408,7 +3408,7 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	BOOL GetFileTitle(LPTSTR lpstrFileTitle, int cchLength) const
+	Bool GetFileTitle(LPTSTR lpstrFileTitle, int cchLength) const
 	{
 		ATLASSERT(m_hFind != NULL);
 
@@ -3430,7 +3430,7 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	BOOL GetFileURL(LPTSTR lpstrFileURL, int cchLength) const
+	Bool GetFileURL(LPTSTR lpstrFileURL, int cchLength) const
 	{
 		ATLASSERT(m_hFind != NULL);
 
@@ -3446,7 +3446,7 @@ public:
 		return TRUE;
 	}
 
-	BOOL GetRoot(LPTSTR lpstrRoot, int cchLength) const
+	Bool GetRoot(LPTSTR lpstrRoot, int cchLength) const
 	{
 		ATLASSERT(m_hFind != NULL);
 		if(lstrlen(m_lpszRoot) >= cchLength)
@@ -3521,7 +3521,7 @@ public:
 	}
 #endif // defined(_WTL_USE_CSTRING) || defined(__ATLSTR_H__)
 
-	BOOL GetLastWriteTime(FILETIME* pTimeStamp) const
+	Bool GetLastWriteTime(FILETIME* pTimeStamp) const
 	{
 		ATLASSERT(m_hFind != NULL);
 		ATLASSERT(pTimeStamp != NULL);
@@ -3535,7 +3535,7 @@ public:
 		return FALSE;
 	}
 
-	BOOL GetLastAccessTime(FILETIME* pTimeStamp) const
+	Bool GetLastAccessTime(FILETIME* pTimeStamp) const
 	{
 		ATLASSERT(m_hFind != NULL);
 		ATLASSERT(pTimeStamp != NULL);
@@ -3549,7 +3549,7 @@ public:
 		return FALSE;
 	}
 
-	BOOL GetCreationTime(FILETIME* pTimeStamp) const
+	Bool GetCreationTime(FILETIME* pTimeStamp) const
 	{
 		ATLASSERT(m_hFind != NULL);
 
@@ -3562,7 +3562,7 @@ public:
 		return FALSE;
 	}
 
-	BOOL MatchesMask(DWORD dwMask) const
+	Bool MatchesMask(DWORD dwMask) const
 	{
 		ATLASSERT(m_hFind != NULL);
 
@@ -3572,14 +3572,14 @@ public:
 		return FALSE;
 	}
 
-	BOOL IsDots() const
+	Bool IsDots() const
 	{
 		ATLASSERT(m_hFind != NULL);
 
 		// return TRUE if the file name is "." or ".." and
 		// the file is a directory
 
-		BOOL bResult = FALSE;
+		Bool bResult = FALSE;
 		if(m_bFound && IsDirectory())
 		{
 			if(m_fd.cFileName[0] == _T('.') && (m_fd.cFileName[1] == _T('\0') || (m_fd.cFileName[1] == _T('.') && m_fd.cFileName[2] == _T('\0'))))
@@ -3589,48 +3589,48 @@ public:
 		return bResult;
 	}
 
-	BOOL IsReadOnly() const
+	Bool IsReadOnly() const
 	{
 		return MatchesMask(FILE_ATTRIBUTE_READONLY);
 	}
 
-	BOOL IsDirectory() const
+	Bool IsDirectory() const
 	{
 		return MatchesMask(FILE_ATTRIBUTE_DIRECTORY);
 	}
 
-	BOOL IsCompressed() const
+	Bool IsCompressed() const
 	{
 		return MatchesMask(FILE_ATTRIBUTE_COMPRESSED);
 	}
 
-	BOOL IsSystem() const
+	Bool IsSystem() const
 	{
 		return MatchesMask(FILE_ATTRIBUTE_SYSTEM);
 	}
 
-	BOOL IsHidden() const
+	Bool IsHidden() const
 	{
 		return MatchesMask(FILE_ATTRIBUTE_HIDDEN);
 	}
 
-	BOOL IsTemporary() const
+	Bool IsTemporary() const
 	{
 		return MatchesMask(FILE_ATTRIBUTE_TEMPORARY);
 	}
 
-	BOOL IsNormal() const
+	Bool IsNormal() const
 	{
 		return MatchesMask(FILE_ATTRIBUTE_NORMAL);
 	}
 
-	BOOL IsArchived() const
+	Bool IsArchived() const
 	{
 		return MatchesMask(FILE_ATTRIBUTE_ARCHIVE);
 	}
 
 // Operations
-	BOOL FindFile(LPCTSTR pstrName = NULL)
+	Bool FindFile(LPCTSTR pstrName = NULL)
 	{
 		Close();
 
@@ -3693,7 +3693,7 @@ public:
 		return TRUE;
 	}
 
-	BOOL FindNextFile()
+	Bool FindNextFile()
 	{
 		ATLASSERT(m_hFind != NULL);
 

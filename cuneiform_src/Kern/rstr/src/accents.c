@@ -1005,7 +1005,7 @@ for(po=rinp+wb*(h-1),pi=rinp,i=0;i<h/2;i++, pi+=wb, po-=wb)
 return;
 }
 //**************************************************************************
-INT type_acc(cell *c,BOOL enable_mark_satellit)
+INT type_acc(cell *c,Bool enable_mark_satellit)
  {
  cell *cc;
  INT i=0,e,r,d,fld, ret;
@@ -2621,7 +2621,7 @@ static INT acc_weak_roof(cell *cc,PBYTE r)
  }
 //**************************************************************************/
 //Nick 20.08.01
-static BOOL NotEmptyInside(PBYTE r, INT w, INT h)
+static Bool NotEmptyInside(PBYTE r, INT w, INT h)
 {
 	int i,j,sum,allSum;
 	int wb = (w+7)>>3;

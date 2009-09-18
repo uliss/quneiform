@@ -67,11 +67,11 @@
 #include <stdio.h>
 #include "cstrdefs.h"
 
-BOOL CreateInternalFileForFormatter(FILE *fpInternalFileName);
-BOOL CheckComingLine(CSTR_line* Comingline);
-BOOL CheckLineForFilling(CSTR_line* Comingline);
+Bool CreateInternalFileForFormatter(FILE *fpInternalFileName);
+Bool CheckComingLine(CSTR_line* Comingline);
+Bool CheckLineForFilling(CSTR_line* Comingline);
 
-//BOOL CheckRect(InternalRect* Inner);
+//Bool CheckRect(InternalRect* Inner);
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -97,7 +97,7 @@ typedef struct tagInternalRect {
 } InternalRect;
 
 void VCopyRect(InternalRect* InnerR, RECT* OuterR);
-BOOL CheckRect(InternalRect* Inner);
+Bool CheckRect(InternalRect* Inner);
 
 /////////////////////////////////////////////////////////////////////////////
 // Page class
@@ -112,9 +112,9 @@ public:
 	CFragment* GetNextFrag();
 	void ProcessingComingLine(CSTR_line* line);
 	void CreateArray_For_TextFragments();
-	BOOL CheckComingLine_For_TextFragments(CSTR_line* line);
+	Bool CheckComingLine_For_TextFragments(CSTR_line* line);
 	void AddString(CSTR_line* line);
-	BOOL Write();
+	Bool Write();
 
 	/*CDWordArray*/
 	std::vector<uint32_t> FragmentsArray;
@@ -138,7 +138,7 @@ public:
 	CFString* GetFirstString();
 	CFString* GetNextString();
 	void AddString(CSTR_line* line, PageElementCount* Count);
-	BOOL Write();
+	Bool Write();
 
 	WORD m_wStringsCount;
 	/*CObArray*/
@@ -163,7 +163,7 @@ public:
 	CWord* GetNextWord();
 	void ExtractWordsFromString(CSTR_line* line, PageElementCount* Count);
 	void ExtractNextWord(CSTR_line* line);
-	BOOL Write();
+	Bool Write();
 
 	WORD m_wWordsCount;
 	/*CObArray*/
@@ -188,8 +188,8 @@ public:
 	CChar* GetFirstChar();
 	CChar* GetNextChar();
 	void AddLetter2Word(CSTR_rast* rast, PageElementCount* Count,
-			BOOL* FlagCapDrop);
-	BOOL Write();
+			Bool* FlagCapDrop);
+	Bool Write();
 
 	/*CObArray*/
 	std::vector<CChar*> m_arChars;
@@ -209,8 +209,8 @@ class CChar//:public CObject
 public:
 	CChar();
 	~CChar();
-	void AddingLetter(CSTR_rast* rast, int index, BOOL* FlagCapDrop);
-	BOOL Write();
+	void AddingLetter(CSTR_rast* rast, int index, Bool* FlagCapDrop);
+	Bool Write();
 
 	RECT m_rectChar;
 	RECT m_RealRectChar;

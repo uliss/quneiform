@@ -357,7 +357,7 @@ INT dmiBOX(cell *A, s_glue *GL, INT fl2)
      stick_center_study(BC,GL,1);     // Oleg : 04.09.92.
      return -1; // strong sticks not to be BOXtted
    }
-   embBOX(&SBOX,&svers,(BOOL)((A->pos_inc&erect_rot)!=0));       // BOX estimate
+   embBOX(&SBOX,&svers,(Bool)((A->pos_inc&erect_rot)!=0));       // BOX estimate
    if (GL->arg & GABOXs)  goto makeans;   // single "stick" version
    if ((best_answer_BOX > 29500 && language != LANG_RUSSIAN) ||
        (best_answer_BOX > 30300 && language == LANG_RUSSIAN)
@@ -388,7 +388,7 @@ INT dmiBOX(cell *A, s_glue *GL, INT fl2)
 #ifdef NO_LIN_KLASTER
    typl = 15;
 #endif
-   embBOXF(&SBOX,typl,(BOOL)((A->pos_inc&erect_rot)!=0));
+   embBOXF(&SBOX,typl,(Bool)((A->pos_inc&erect_rot)!=0));
    ffull=1;
    goto makeans;
  } // IF (ftv) -- solid TIGERs versions in cell
@@ -398,7 +398,7 @@ INT dmiBOX(cell *A, s_glue *GL, INT fl2)
    if (db_status && (db_trace_flag & 4))
      est_snap(db_pass,BC,"use FULL BOX");
    if (GL->arg & GABOXl)
-    {typl=15; embBOXF(&SBOX,typl,(BOOL)((A->pos_inc&erect_rot)!=0)); goto makeans;}
+    {typl=15; embBOXF(&SBOX,typl,(Bool)((A->pos_inc&erect_rot)!=0)); goto makeans;}
    ps=(INT)get_size();    // try to cut some letters by linear criterion
    if (ps)
    {
@@ -411,7 +411,7 @@ INT dmiBOX(cell *A, s_glue *GL, INT fl2)
    typl = 15;
 #endif
    if (GL->ncell > 1) typl |= 16;      // forbid sticks
-   embBOXF(&SBOX,typl,(BOOL)((A->pos_inc&erect_rot)!=0));
+   embBOXF(&SBOX,typl,(Bool)((A->pos_inc&erect_rot)!=0));
    ffull=1;
  }
 makeans:
@@ -546,7 +546,7 @@ makeans:
       if( isWideLetter(c) && isKlasterFull((INT)(0x100+c)) )
       if( dv1[i].prob >= WIDE5x3 ){
           crecell5x3(BC,GL);
-          embBOXF(&SBOX5x3,(INT)(0x100+c),(BOOL)((A->pos_inc&erect_rot)!=0));
+          embBOXF(&SBOX5x3,(INT)(0x100+c),(Bool)((A->pos_inc&erect_rot)!=0));
           wcos = SBOX5x3.best_BOX->iprob;
           for (px=0,pb1=prob,pi1=Proi[pl],pb2=pb1+1,pi2=pi1+1;
                px<5; px++, pi1++, pb1++,pi2++,pb2++){
@@ -883,7 +883,7 @@ make_full:
    typl = 15;
 #endif
    if (GL->ncell > 1) typl |= 16;      // forbid sticks
- embBOXF(&SBOX,typl,(BOOL)((A->pos_inc&erect_rot)!=0));
+ embBOXF(&SBOX,typl,(Bool)((A->pos_inc&erect_rot)!=0));
  goto makeans;
 
 }
@@ -1268,7 +1268,7 @@ INT  simpleBOX( cell *C, INT typl ) //(cell,128) for full exept 1l
    GL.ncell=1;
 
    crecell(C,&GL,3);
-   embBOXF(&SBOX,typl,(BOOL)((C->pos_inc&erect_rot)!=0));
+   embBOXF(&SBOX,typl,(Bool)((C->pos_inc&erect_rot)!=0));
 /*
    if( db_status && snap_activity('h') ){
       CHAR  snap[80],*s=snap;

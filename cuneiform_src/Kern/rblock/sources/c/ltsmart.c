@@ -88,7 +88,7 @@ int  nSB_CellHeight;
 # define NEEDED_COMP_MIN_HEIGHT 8
 # define NEEDED_REMAINED_SQUARE 10
 
-BOOL SB_MatrixAllocateBody (BLOCK *p, int nCellWidth, int nCellHeight)
+Bool SB_MatrixAllocateBody (BLOCK *p, int nCellWidth, int nCellHeight)
 {
     nSB_CellWidth  = nCellWidth;
     nSB_CellHeight = nCellHeight;
@@ -115,7 +115,7 @@ BOOL SB_MatrixAllocateBody (BLOCK *p, int nCellWidth, int nCellHeight)
     return (TRUE);
 }
 
-BOOL SB_MatrixBuild (BLOCK *p, int nCellWidth, int nCellHeight)
+Bool SB_MatrixBuild (BLOCK *p, int nCellWidth, int nCellHeight)
 {
     ROOT *pRoot;
     RECTANGLE r;
@@ -267,7 +267,7 @@ int CompsFindCompToCut (COMP **ppResult)
     return (FCC_FOUND);
 }
 
-BOOL BlockBreakByMatrix (BLOCK *p, BLOCK **pq, BLOCK **pr)
+Bool BlockBreakByMatrix (BLOCK *p, BLOCK **pq, BLOCK **pr)
 {
     BLOCK *q, *r;
     ROOT *pRoot, *pNext;
@@ -325,12 +325,12 @@ static int SB_CoefficientX_Den [SB_ITERATIONS] = { 1, 1, 1 };
 static int SB_CoefficientY_Nom [SB_ITERATIONS] = { 1, 2, 4 };
 static int SB_CoefficientY_Den [SB_ITERATIONS] = { 1, 1, 1 };
 
-BOOL TrySmartBreaking (BLOCK *pBlock)
+Bool TrySmartBreaking (BLOCK *pBlock)
 {
     COMP *pComp;
     int  FCC_Status;
     int  nIter;
-    BOOL bSuccess;
+    Bool bSuccess;
 
     for (nIter = 0; nIter < SB_ITERATIONS; nIter++)
     {

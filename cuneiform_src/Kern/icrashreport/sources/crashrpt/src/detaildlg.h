@@ -174,7 +174,7 @@ public:
    //
    //
    //
-   LRESULT OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+   LRESULT OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
 	{
       int i = 0;
 
@@ -296,7 +296,7 @@ public:
    //
    //
    //
-   LRESULT OnSysCommand(UINT, WPARAM wParam, LPARAM , BOOL& bHandled)
+   LRESULT OnSysCommand(UINT, WPARAM wParam, LPARAM , Bool& bHandled)
    {
       bHandled = FALSE;
 
@@ -315,7 +315,7 @@ public:
    //
    // Force white background for read-only rich edit control
    //
-   LRESULT OnCtlColor(UINT, WPARAM, LPARAM lParam, BOOL& bHandled)
+   LRESULT OnCtlColor(UINT, WPARAM, LPARAM lParam, Bool& bHandled)
    {
       LRESULT res = 0;
       if ((HWND)lParam == GetDlgItem(IDC_FILE_EDIT))
@@ -332,7 +332,7 @@ public:
    //
    //
    //
-   LRESULT OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+   LRESULT OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, Bool& /*bHandled*/)
 	{
 		EndDialog(wID);
 		return 0;
@@ -344,7 +344,7 @@ public:
    //
    // Update file preview
    //
-   LRESULT OnItemChanged(int /*idCtrl*/, LPNMHDR pnmh, BOOL& /*bHandled*/)
+   LRESULT OnItemChanged(int /*idCtrl*/, LPNMHDR pnmh, Bool& /*bHandled*/)
    {
       LPNMLISTVIEW lpItem           = (LPNMLISTVIEW)pnmh;
       int iItem                     = lpItem->iItem;
@@ -364,7 +364,7 @@ public:
    //
    // Open file in associated application
    //
-   LRESULT OnItemDblClicked(int /*idCtrl*/, LPNMHDR pnmh, BOOL& /*bHandled*/)
+   LRESULT OnItemDblClicked(int /*idCtrl*/, LPNMHDR pnmh, Bool& /*bHandled*/)
    {
       LPNMLISTVIEW lpItem           = (LPNMLISTVIEW)pnmh;
       int iItem                     = lpItem->iItem;

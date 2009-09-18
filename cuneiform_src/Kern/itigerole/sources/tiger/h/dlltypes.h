@@ -112,20 +112,20 @@ typedef short int BOOL32,  *PBOOL32, TIGERFAR *LPBOOL32;
 
 // for exported functions
 #define TGBOOL16  TIGERAPI(BOOL16)
-#define TGBOOL  TIGERAPI(BOOL)
+#define TGBool  TIGERAPI(Bool)
 #define TGWORD  TIGERAPI(WORD)
 #define TGLPSTR TIGERAPI(LPSTR)
 #define TGDWORD TIGERAPI(DWORD)
 #define TGVOID  TIGERAPI(void)
 // for internal functions and connect description
 #define FNBOOL16  TIGERFUN(BOOL16)
-#define FNBOOL  TIGERFUN(BOOL)
+#define FNBool  TIGERFUN(Bool)
 #define FNWORD  TIGERFUN(WORD)
 #define FNLPSTR TIGERFUN(LPSTR)
 #define FNDWORD TIGERFUN(DWORD)
 #define FNVOID  TIGERFUN(void)
 // for callback functions
-#define CBBOOL  TIGERCALLBACK(BOOL)
+#define CBBool  TIGERCALLBACK(Bool)
 #define CBWORD  TIGERCALLBACK(WORD)
 #define CBLPSTR TIGERCALLBACK(LPSTR)
 #define CBDWORD TIGERCALLBACK(DWORD)

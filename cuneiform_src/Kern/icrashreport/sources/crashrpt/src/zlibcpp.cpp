@@ -103,7 +103,7 @@ CZLib::~CZLib()
 //
 // Create or open zip file
 //
-BOOL CZLib::Open(CString f_file, int f_nAppend)
+Bool CZLib::Open(CString f_file, int f_nAppend)
 {
    m_zf = zipOpen(f_file, f_nAppend);
    return (m_zf != NULL);
@@ -129,9 +129,9 @@ void CZLib::Close()
 //
 // Adds a file to the zip archive
 //
-BOOL CZLib::AddFile(CString f_file)
+Bool CZLib::AddFile(CString f_file)
 {
-   BOOL bReturn = FALSE;
+   Bool bReturn = FALSE;
 
    // Open file being added
    HANDLE hFile = NULL;

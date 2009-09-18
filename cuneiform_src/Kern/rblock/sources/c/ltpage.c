@@ -85,7 +85,7 @@ BYTE * PageMatrix;  ////  [PAGE_MATRIX_SIZE];
 extern BYTE *CellsPage;
 extern Handle hPageMatrix;
 
-BOOL bPageMatrixInitialized = FALSE;
+Bool bPageMatrixInitialized = FALSE;
 
 void PageMatrixInit (int nWidth, int nHeight)
 {
@@ -366,7 +366,7 @@ void PageMatrixBuild (void)
         LT_GraphicsPageMatrixOutput ("After excluding intersections");
 # endif
 
-    PageMatrixPutSeparators (FALSE); //BOOL bConvertToRealCoords:=FALSE
+    PageMatrixPutSeparators (FALSE); //Bool bConvertToRealCoords:=FALSE
 
 # ifdef LT_DEBUG
     //if (LT_DebugGraphicsLevel >= 4)
@@ -634,7 +634,7 @@ void RemoveRealPictureLine (LPOINT Point1, LPOINT Point2, int nWidth)
     DrawRealPictureLine (Point1, Point2, nWidth);
 }
 
-void PageMatrixPutSeparators (BOOL bConvertToRealCoords)
+void PageMatrixPutSeparators (Bool bConvertToRealCoords)
 {
     LPOINT Begin, End;
     int i;
@@ -666,7 +666,7 @@ void PageMatrixPutSeparators (BOOL bConvertToRealCoords)
     }
 }
 
-void PageMatrixExcludeSeparators (BOOL bConvertToRealCoords)
+void PageMatrixExcludeSeparators (Bool bConvertToRealCoords)
 {
     LPOINT Begin, End;
     int i;

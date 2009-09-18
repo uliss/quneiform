@@ -124,7 +124,7 @@ BLOCK   * pDebugBlock    = NULL;
 RECTANGLE rDebugRect;
 int       xDebugVertLine = -1;
 
-static BOOL bGraphicsModeWasChanged = FALSE;
+static Bool bGraphicsModeWasChanged = FALSE;
 
 void LT_GraphicsOpen (void)
 {
@@ -929,7 +929,7 @@ static void ScreenOutput (const char *pTitle,
     int nWidth   = 3000;
     int nHeight  = 3000;
 
-    BOOL bNeedUpdateScreen = TRUE;
+    Bool bNeedUpdateScreen = TRUE;
 
     for (;;)
     {

@@ -78,8 +78,8 @@ void initstdn(void);
 BYTE _2cap(BYTE c);
 BYTE _2low(BYTE c);
 void dectable_init(void);
-BOOL InitializeAlphabet(INT CountryCode);
-BOOL IsVowel(BYTE c);
+Bool InitializeAlphabet(INT CountryCode);
+Bool IsVowel(BYTE c);
 
 /*** SPELSPEC ***/
 
@@ -120,7 +120,7 @@ INT partspec(SOBJ *, SPART[]);
 INT partgc(SOBJ *, SPART[]);
 INT partbrk(SOBJ*, SPART[]);
 INT init_specpos(SOBJ*);
-BOOL loadArtBase(INT);
+Bool loadArtBase(INT);
 
 /*** SPELLSET ***/
 

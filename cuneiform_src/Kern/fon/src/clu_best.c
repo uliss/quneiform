@@ -365,7 +365,7 @@ static int TestO0b6(int numSymbol,Nraster_header *rh,
 ///////////////////////
 void GetClusterStatistic(int numSymbol,int numCluster,Nraster_header *rh,
 						SINT *nClus,InfoCluster *infoC,int *countC,
-						BYTE *metkaGood,BYTE *metkaValid,BOOL addLingvo)
+						BYTE *metkaGood,BYTE *metkaValid,Bool addLingvo)
 {
  int i;
  int curClus;

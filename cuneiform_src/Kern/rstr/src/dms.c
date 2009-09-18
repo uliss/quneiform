@@ -234,7 +234,7 @@ INT cell_is_BOX_solid (cell  *B1)
  if ((SBOX.matrBOX.isq_rt = long_sqrt((*scalar)(mBOX,mBOX)))==0)
    SBOX.matrBOX.isq_rt=1;
 
- embBOX(&SBOX,&svers, (BOOL)((B1->pos_inc&erect_rot)!=0));      // BOX estimate
+ embBOX(&SBOX,&svers, (Bool)((B1->pos_inc&erect_rot)!=0));      // BOX estimate
  return best_answer_BOX;
 
 }
@@ -335,7 +335,7 @@ INT rast_is_BOX_solid (CSTR_rast B1,int16_t scale)
    SBOX.matrBOX.isq_rt=1;
 
       // BOX estimate
- embBOX(&SBOX,&svers, (BOOL)((attr.pos_inc&erect_rot)!=0));
+ embBOX(&SBOX,&svers, (Bool)((attr.pos_inc&erect_rot)!=0));
 
 
  return best_answer_BOX;

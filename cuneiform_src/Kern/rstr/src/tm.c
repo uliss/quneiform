@@ -82,7 +82,7 @@ void   make_all_glues(void);
 
 # define TM_SNAP_PASS 'h'
 
-BOOL TM_check_active=0;
+Bool TM_check_active=0;
 
 // OLEG
 static void clear_up_spec(void)
@@ -107,7 +107,7 @@ for(c=cell_f()->next;c!=cell_l();c=c->next)
 return;
 }
 
-BOOL  tradeCR( cell *c )
+Bool  tradeCR( cell *c )
 {
 	 cell  *nextc,*clist[2];
 	 BYTE  snap[80],*s=snap,save_flg,save_language;

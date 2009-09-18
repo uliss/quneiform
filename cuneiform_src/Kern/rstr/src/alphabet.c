@@ -88,7 +88,7 @@ static cell *clist[2];
 INT  digital_string_penalty;
 extern BYTE CodePages[];
 
-BOOL isLikeDigit(BYTE c)
+Bool isLikeDigit(BYTE c)
 {
 // — учетом турецко-русских конфликтов. 21.05.2002 E.P.
  if( memchr("0123456789ОЃ°ЗІТВшl",c,19) &&
@@ -99,7 +99,7 @@ BOOL isLikeDigit(BYTE c)
  return FALSE;
 }
 
-BOOL digital_last_context(void)
+Bool digital_last_context(void)
 {
   cell *curr,*tmp;
   CHAR punct_list[]="'\"=:";
@@ -318,7 +318,7 @@ if( db_status && snap_activity('c') )
  for(curr=cell_f()->nextl;curr!=cell_l();curr=curr->nextl,num++)
  {
  // 21.05.2002 E.P.
- BOOL likeDigit = isLikeDigit(curr->vers[0].let);
+ Bool likeDigit = isLikeDigit(curr->vers[0].let);
 
  if( curr->nvers<1 || curr->vers[0].prob<150 && likeDigit)
     return 0;  // bad symbols or small propability
@@ -596,7 +596,7 @@ alphabet_set[let/8] &= ~del_mask[ let%8 ];
 return;
 }
 
-BOOL test_alphabet_elem(BYTE let)
+Bool test_alphabet_elem(BYTE let)
 {
 BYTE test_mask[]={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
 
@@ -924,7 +924,7 @@ return;
 }
 
 
-BOOL is_digital_string(void)
+Bool is_digital_string(void)
 {
   return(digital_mode!=0);
 }

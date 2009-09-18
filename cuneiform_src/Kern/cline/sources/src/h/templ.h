@@ -93,11 +93,11 @@ public:
  TYPE* GetNext(TYPE* now);
  TYPE* Add();
  void Attach(TYPE* att);
- BOOL Detach(TYPE* det);
+ Bool Detach(TYPE* det);
  TYPE* RealAdd();
  void Del(TYPE* now);
  void RealDelAll();
- BOOL IfExistElem(TYPE* now);
+ Bool IfExistElem(TYPE* now);
  void FastDel()
  {
 	TYPE* temp;
@@ -201,7 +201,7 @@ template<class TYPE> void LIST<TYPE>::RealDelAll()
 	m_tail=NULL;
  }
 
-template<class TYPE> BOOL LIST<TYPE>::IfExistElem(TYPE* now)
+template<class TYPE> Bool LIST<TYPE>::IfExistElem(TYPE* now)
 {
  if(!now)
 	 return FALSE;
@@ -230,7 +230,7 @@ template<class TYPE> void LIST<TYPE>::Attach(TYPE* att)
 	att->next=NULL;
 }
 
-template<class TYPE> BOOL LIST<TYPE>::Detach(TYPE* det)
+template<class TYPE> Bool LIST<TYPE>::Detach(TYPE* det)
 {
 	if (!m_root)
 		return FALSE;

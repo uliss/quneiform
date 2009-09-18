@@ -239,10 +239,10 @@ public:
 		return m_hPen;
 	}
 
-	BOOL DeleteObject()
+	Bool DeleteObject()
 	{
 		ATLASSERT(m_hPen != NULL);
-		BOOL bRet = ::DeleteObject(m_hPen);
+		Bool bRet = ::DeleteObject(m_hPen);
 		if(bRet)
 			m_hPen = NULL;
 		return bRet;
@@ -385,10 +385,10 @@ public:
 		return m_hBrush;
 	}
 
-	BOOL DeleteObject()
+	Bool DeleteObject()
 	{
 		ATLASSERT(m_hBrush != NULL);
-		BOOL bRet = ::DeleteObject(m_hBrush);
+		Bool bRet = ::DeleteObject(m_hBrush);
 		if(bRet)
 			m_hBrush = NULL;
 		return bRet;
@@ -699,10 +699,10 @@ public:
 		return CreateFontIndirect(&logFont);
 	}
 
-	BOOL DeleteObject()
+	Bool DeleteObject()
 	{
 		ATLASSERT(m_hFont != NULL);
-		BOOL bRet = ::DeleteObject(m_hFont);
+		Bool bRet = ::DeleteObject(m_hFont);
 		if(bRet)
 			m_hFont = NULL;
 		return bRet;
@@ -826,10 +826,10 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	BOOL DeleteObject()
+	Bool DeleteObject()
 	{
 		ATLASSERT(m_hBitmap != NULL);
-		BOOL bRet = ::DeleteObject(m_hBitmap);
+		Bool bRet = ::DeleteObject(m_hBitmap);
 		if(bRet)
 			m_hBitmap = NULL;
 		return bRet;
@@ -876,13 +876,13 @@ public:
 #endif // !defined(_WIN32_WCE) || (_WIN32_WCE >= 410)
 
 #ifndef _WIN32_WCE
-	BOOL GetBitmapDimension(LPSIZE lpSize) const
+	Bool GetBitmapDimension(LPSIZE lpSize) const
 	{
 		ATLASSERT(m_hBitmap != NULL);
 		return ::GetBitmapDimensionEx(m_hBitmap, lpSize);
 	}
 
-	BOOL SetBitmapDimension(int nWidth, int nHeight, LPSIZE lpSize = NULL)
+	Bool SetBitmapDimension(int nWidth, int nHeight, LPSIZE lpSize = NULL)
 	{
 		ATLASSERT(m_hBitmap != NULL);
 		return ::SetBitmapDimensionEx(m_hBitmap, nWidth, nHeight, lpSize);
@@ -985,10 +985,10 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	BOOL DeleteObject()
+	Bool DeleteObject()
 	{
 		ATLASSERT(m_hPalette != NULL);
-		BOOL bRet = ::DeleteObject(m_hPalette);
+		Bool bRet = ::DeleteObject(m_hPalette);
 		if(bRet)
 			m_hPalette = NULL;
 		return bRet;
@@ -1023,7 +1023,7 @@ public:
 		::AnimatePalette(m_hPalette, nStartIndex, nNumEntries, lpPaletteColors);
 	}
 
-	BOOL ResizePalette(UINT nNumEntries)
+	Bool ResizePalette(UINT nNumEntries)
 	{
 		ATLASSERT(m_hPalette != NULL);
 		return ::ResizePalette(m_hPalette, nNumEntries);
@@ -1152,10 +1152,10 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	BOOL DeleteObject()
+	Bool DeleteObject()
 	{
 		ATLASSERT(m_hRgn != NULL);
-		BOOL bRet = ::DeleteObject(m_hRgn);
+		Bool bRet = ::DeleteObject(m_hRgn);
 		if(bRet)
 			m_hRgn = NULL;
 		return bRet;
@@ -1192,7 +1192,7 @@ public:
 		return ::CombineRgn(m_hRgn, hRgnSrc, NULL, RGN_COPY);
 	}
 
-	BOOL EqualRgn(HRGN hRgn) const
+	Bool EqualRgn(HRGN hRgn) const
 	{
 		ATLASSERT(m_hRgn != NULL);
 		return ::EqualRgn(m_hRgn, hRgn);
@@ -1216,19 +1216,19 @@ public:
 		return ::GetRgnBox(m_hRgn, lpRect);
 	}
 
-	BOOL PtInRegion(int x, int y) const
+	Bool PtInRegion(int x, int y) const
 	{
 		ATLASSERT(m_hRgn != NULL);
 		return ::PtInRegion(m_hRgn, x, y);
 	}
 
-	BOOL PtInRegion(POINT point) const
+	Bool PtInRegion(POINT point) const
 	{
 		ATLASSERT(m_hRgn != NULL);
 		return ::PtInRegion(m_hRgn, point.x, point.y);
 	}
 
-	BOOL RectInRegion(LPCRECT lpRect) const
+	Bool RectInRegion(LPCRECT lpRect) const
 	{
 		ATLASSERT(m_hRgn != NULL);
 		return ::RectInRegion(m_hRgn, lpRect);
@@ -1343,11 +1343,11 @@ public:
 		return m_hDC;
 	}
 
-	BOOL DeleteDC()
+	Bool DeleteDC()
 	{
 		if(m_hDC == NULL)
 			return FALSE;
-		BOOL bRet = ::DeleteDC(m_hDC);
+		Bool bRet = ::DeleteDC(m_hDC);
 		if(bRet)
 			m_hDC = NULL;
 		return bRet;
@@ -1360,7 +1360,7 @@ public:
 		return ::SaveDC(m_hDC);
 	}
 
-	BOOL RestoreDC(int nSavedDC)
+	Bool RestoreDC(int nSavedDC)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::RestoreDC(m_hDC, nSavedDC);
@@ -1385,27 +1385,27 @@ public:
 		return ::GetBoundsRect(m_hDC, lpRectBounds, flags);
 	}
 
-	BOOL ResetDC(const DEVMODE* lpDevMode)
+	Bool ResetDC(const DEVMODE* lpDevMode)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::ResetDC(m_hDC, lpDevMode) != NULL;
 	}
 
 // Drawing-Tool Functions
-	BOOL GetBrushOrg(LPPOINT lpPoint) const
+	Bool GetBrushOrg(LPPOINT lpPoint) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetBrushOrgEx(m_hDC, lpPoint);
 	}
 #endif // !_WIN32_WCE
 
-	BOOL SetBrushOrg(int x, int y, LPPOINT lpPoint = NULL)
+	Bool SetBrushOrg(int x, int y, LPPOINT lpPoint = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::SetBrushOrgEx(m_hDC, x, y, lpPoint);
 	}
 
-	BOOL SetBrushOrg(POINT point, LPPOINT lpPointRet = NULL)
+	Bool SetBrushOrg(POINT point, LPPOINT lpPointRet = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::SetBrushOrgEx(m_hDC, point.x, point.y, lpPointRet);
@@ -1495,7 +1495,7 @@ public:
 		return SelectFont((HFONT)::GetStockObject(nFont));
 	}
 
-	HPALETTE SelectStockPalette(int nPalette, BOOL bForceBackground)
+	HPALETTE SelectStockPalette(int nPalette, Bool bForceBackground)
 	{
 		ATLASSERT(nPalette == DEFAULT_PALETTE); // the only one supported
 		return SelectPalette((HPALETTE)::GetStockObject(nPalette), bForceBackground);
@@ -1508,7 +1508,7 @@ public:
 		return ::GetNearestColor(m_hDC, crColor);
 	}
 
-	HPALETTE SelectPalette(HPALETTE hPalette, BOOL bForceBackground)
+	HPALETTE SelectPalette(HPALETTE hPalette, Bool bForceBackground)
 	{
 		ATLASSERT(m_hDC != NULL);
 
@@ -1609,13 +1609,13 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	BOOL GetColorAdjustment(LPCOLORADJUSTMENT lpColorAdjust) const
+	Bool GetColorAdjustment(LPCOLORADJUSTMENT lpColorAdjust) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetColorAdjustment(m_hDC, lpColorAdjust);
 	}
 
-	BOOL SetColorAdjustment(const COLORADJUSTMENT* lpColorAdjust)
+	Bool SetColorAdjustment(const COLORADJUSTMENT* lpColorAdjust)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::SetColorAdjustment(m_hDC, lpColorAdjust);
@@ -1628,7 +1628,7 @@ public:
 		return ::GetMapMode(m_hDC);
 	}
 
-	BOOL GetViewportOrg(LPPOINT lpPoint) const
+	Bool GetViewportOrg(LPPOINT lpPoint) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetViewportOrgEx(m_hDC, lpPoint);
@@ -1642,45 +1642,45 @@ public:
 #endif // !_WIN32_WCE
 
 	// Viewport Origin
-	BOOL SetViewportOrg(int x, int y, LPPOINT lpPoint = NULL)
+	Bool SetViewportOrg(int x, int y, LPPOINT lpPoint = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::SetViewportOrgEx(m_hDC, x, y, lpPoint);
 	}
 
-	BOOL SetViewportOrg(POINT point, LPPOINT lpPointRet = NULL)
+	Bool SetViewportOrg(POINT point, LPPOINT lpPointRet = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return SetViewportOrg(point.x, point.y, lpPointRet);
 	}
 
 #ifndef _WIN32_WCE
-	BOOL OffsetViewportOrg(int nWidth, int nHeight, LPPOINT lpPoint = NULL)
+	Bool OffsetViewportOrg(int nWidth, int nHeight, LPPOINT lpPoint = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::OffsetViewportOrgEx(m_hDC, nWidth, nHeight, lpPoint);
 	}
 
 	// Viewport Extent
-	BOOL GetViewportExt(LPSIZE lpSize) const
+	Bool GetViewportExt(LPSIZE lpSize) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetViewportExtEx(m_hDC, lpSize);
 	}
 
-	BOOL SetViewportExt(int x, int y, LPSIZE lpSize = NULL)
+	Bool SetViewportExt(int x, int y, LPSIZE lpSize = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::SetViewportExtEx(m_hDC, x, y, lpSize);
 	}
 
-	BOOL SetViewportExt(SIZE size, LPSIZE lpSizeRet = NULL)
+	Bool SetViewportExt(SIZE size, LPSIZE lpSizeRet = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return SetViewportExt(size.cx, size.cy, lpSizeRet);
 	}
 
-	BOOL ScaleViewportExt(int xNum, int xDenom, int yNum, int yDenom, LPSIZE lpSize = NULL)
+	Bool ScaleViewportExt(int xNum, int xDenom, int yNum, int yDenom, LPSIZE lpSize = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::ScaleViewportExtEx(m_hDC, xNum, xDenom, yNum, yDenom, lpSize);
@@ -1689,69 +1689,69 @@ public:
 
 	// Window Origin
 #ifndef _WIN32_WCE
-	BOOL GetWindowOrg(LPPOINT lpPoint) const
+	Bool GetWindowOrg(LPPOINT lpPoint) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetWindowOrgEx(m_hDC, lpPoint);
 	}
 
-	BOOL SetWindowOrg(int x, int y, LPPOINT lpPoint = NULL)
+	Bool SetWindowOrg(int x, int y, LPPOINT lpPoint = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::SetWindowOrgEx(m_hDC, x, y, lpPoint);
 	}
 
-	BOOL SetWindowOrg(POINT point, LPPOINT lpPointRet = NULL)
+	Bool SetWindowOrg(POINT point, LPPOINT lpPointRet = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return SetWindowOrg(point.x, point.y, lpPointRet);
 	}
 
-	BOOL OffsetWindowOrg(int nWidth, int nHeight, LPPOINT lpPoint = NULL)
+	Bool OffsetWindowOrg(int nWidth, int nHeight, LPPOINT lpPoint = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::OffsetWindowOrgEx(m_hDC, nWidth, nHeight, lpPoint);
 	}
 
 	// Window extent
-	BOOL GetWindowExt(LPSIZE lpSize) const
+	Bool GetWindowExt(LPSIZE lpSize) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetWindowExtEx(m_hDC, lpSize);
 	}
 
-	BOOL SetWindowExt(int x, int y, LPSIZE lpSize = NULL)
+	Bool SetWindowExt(int x, int y, LPSIZE lpSize = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::SetWindowExtEx(m_hDC, x, y, lpSize);
 	}
 
-	BOOL SetWindowExt(SIZE size, LPSIZE lpSizeRet = NULL)
+	Bool SetWindowExt(SIZE size, LPSIZE lpSizeRet = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return SetWindowExt(size.cx, size.cy, lpSizeRet);
 	}
 
-	BOOL ScaleWindowExt(int xNum, int xDenom, int yNum, int yDenom, LPSIZE lpSize = NULL)
+	Bool ScaleWindowExt(int xNum, int xDenom, int yNum, int yDenom, LPSIZE lpSize = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::ScaleWindowExtEx(m_hDC, xNum, xDenom, yNum, yDenom, lpSize);
 	}
 
 // Coordinate Functions
-	BOOL DPtoLP(LPPOINT lpPoints, int nCount = 1) const
+	Bool DPtoLP(LPPOINT lpPoints, int nCount = 1) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DPtoLP(m_hDC, lpPoints, nCount);
 	}
 
-	BOOL DPtoLP(LPRECT lpRect) const
+	Bool DPtoLP(LPRECT lpRect) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DPtoLP(m_hDC, (LPPOINT)lpRect, 2);
 	}
 
-	BOOL DPtoLP(LPSIZE lpSize) const
+	Bool DPtoLP(LPSIZE lpSize) const
 	{
 		SIZE sizeWinExt = { 0, 0 };
 		if(!GetWindowExt(&sizeWinExt))
@@ -1764,19 +1764,19 @@ public:
 		return TRUE;
 	}
 
-	BOOL LPtoDP(LPPOINT lpPoints, int nCount = 1) const
+	Bool LPtoDP(LPPOINT lpPoints, int nCount = 1) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::LPtoDP(m_hDC, lpPoints, nCount);
 	}
 
-	BOOL LPtoDP(LPRECT lpRect) const
+	Bool LPtoDP(LPRECT lpRect) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::LPtoDP(m_hDC, (LPPOINT)lpRect, 2);
 	}
 
-	BOOL LPtoDP(LPSIZE lpSize) const
+	Bool LPtoDP(LPSIZE lpSize) const
 	{
 		SIZE sizeWinExt = { 0, 0 };
 		if(!GetWindowExt(&sizeWinExt))
@@ -1850,26 +1850,26 @@ public:
 #endif // !_WIN32_WCE
 
 // Region Functions
-	BOOL FillRgn(HRGN hRgn, HBRUSH hBrush)
+	Bool FillRgn(HRGN hRgn, HBRUSH hBrush)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::FillRgn(m_hDC, hRgn, hBrush);
 	}
 
 #ifndef _WIN32_WCE
-	BOOL FrameRgn(HRGN hRgn, HBRUSH hBrush, int nWidth, int nHeight)
+	Bool FrameRgn(HRGN hRgn, HBRUSH hBrush, int nWidth, int nHeight)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::FrameRgn(m_hDC, hRgn, hBrush, nWidth, nHeight);
 	}
 
-	BOOL InvertRgn(HRGN hRgn)
+	Bool InvertRgn(HRGN hRgn)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::InvertRgn(m_hDC, hRgn);
 	}
 
-	BOOL PaintRgn(HRGN hRgn)
+	Bool PaintRgn(HRGN hRgn)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::PaintRgn(m_hDC, hRgn);
@@ -1897,20 +1897,20 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	BOOL PtVisible(int x, int y) const
+	Bool PtVisible(int x, int y) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::PtVisible(m_hDC, x, y);
 	}
 
-	BOOL PtVisible(POINT point) const
+	Bool PtVisible(POINT point) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::PtVisible(m_hDC, point.x, point.y);
 	}
 #endif // !_WIN32_WCE
 
-	BOOL RectVisible(LPCRECT lpRect) const
+	Bool RectVisible(LPCRECT lpRect) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::RectVisible(m_hDC, lpRect);
@@ -1976,31 +1976,31 @@ public:
 
 // Line-Output Functions
 #if !defined(_WIN32_WCE) || (_WIN32_WCE >= 400)
-	BOOL GetCurrentPosition(LPPOINT lpPoint) const
+	Bool GetCurrentPosition(LPPOINT lpPoint) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetCurrentPositionEx(m_hDC, lpPoint);
 	}
 
-	BOOL MoveTo(int x, int y, LPPOINT lpPoint = NULL)
+	Bool MoveTo(int x, int y, LPPOINT lpPoint = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::MoveToEx(m_hDC, x, y, lpPoint);
 	}
 
-	BOOL MoveTo(POINT point, LPPOINT lpPointRet = NULL)
+	Bool MoveTo(POINT point, LPPOINT lpPointRet = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return MoveTo(point.x, point.y, lpPointRet);
 	}
 
-	BOOL LineTo(int x, int y)
+	Bool LineTo(int x, int y)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::LineTo(m_hDC, x, y);
 	}
 
-	BOOL LineTo(POINT point)
+	Bool LineTo(POINT point)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return LineTo(point.x, point.y);
@@ -2008,13 +2008,13 @@ public:
 #endif // !defined(_WIN32_WCE) || (_WIN32_WCE >= 400)
 
 #ifndef _WIN32_WCE
-	BOOL Arc(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4)
+	Bool Arc(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::Arc(m_hDC, x1, y1, x2, y2, x3, y3, x4, y4);
 	}
 
-	BOOL Arc(LPCRECT lpRect, POINT ptStart, POINT ptEnd)
+	Bool Arc(LPCRECT lpRect, POINT ptStart, POINT ptEnd)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::Arc(m_hDC, lpRect->left, lpRect->top,
@@ -2023,26 +2023,26 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	BOOL Polyline(LPPOINT lpPoints, int nCount)
+	Bool Polyline(LPPOINT lpPoints, int nCount)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::Polyline(m_hDC, lpPoints, nCount);
 	}
 
 #ifndef _WIN32_WCE
-	BOOL AngleArc(int x, int y, int nRadius, float fStartAngle, float fSweepAngle)
+	Bool AngleArc(int x, int y, int nRadius, float fStartAngle, float fSweepAngle)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::AngleArc(m_hDC, x, y, nRadius, fStartAngle, fSweepAngle);
 	}
 
-	BOOL ArcTo(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4)
+	Bool ArcTo(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::ArcTo(m_hDC, x1, y1, x2, y2, x3, y3, x4, y4);
 	}
 
-	BOOL ArcTo(LPCRECT lpRect, POINT ptStart, POINT ptEnd)
+	Bool ArcTo(LPCRECT lpRect, POINT ptStart, POINT ptEnd)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ArcTo(lpRect->left, lpRect->top, lpRect->right,
@@ -2061,32 +2061,32 @@ public:
 		return ::SetArcDirection(m_hDC, nArcDirection);
 	}
 
-	BOOL PolyDraw(const POINT* lpPoints, const BYTE* lpTypes, int nCount)
+	Bool PolyDraw(const POINT* lpPoints, const BYTE* lpTypes, int nCount)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::PolyDraw(m_hDC, lpPoints, lpTypes, nCount);
 	}
 
-	BOOL PolylineTo(const POINT* lpPoints, int nCount)
+	Bool PolylineTo(const POINT* lpPoints, int nCount)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::PolylineTo(m_hDC, lpPoints, nCount);
 	}
 
-	BOOL PolyPolyline(const POINT* lpPoints,
+	Bool PolyPolyline(const POINT* lpPoints,
 		const DWORD* lpPolyPoints, int nCount)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::PolyPolyline(m_hDC, lpPoints, lpPolyPoints, nCount);
 	}
 
-	BOOL PolyBezier(const POINT* lpPoints, int nCount)
+	Bool PolyBezier(const POINT* lpPoints, int nCount)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::PolyBezier(m_hDC, lpPoints, nCount);
 	}
 
-	BOOL PolyBezierTo(const POINT* lpPoints, int nCount)
+	Bool PolyBezierTo(const POINT* lpPoints, int nCount)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::PolyBezierTo(m_hDC, lpPoints, nCount);
@@ -2094,13 +2094,13 @@ public:
 #endif // !_WIN32_WCE
 
 // Simple Drawing Functions
-	BOOL FillRect(LPCRECT lpRect, HBRUSH hBrush)
+	Bool FillRect(LPCRECT lpRect, HBRUSH hBrush)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::FillRect(m_hDC, lpRect, hBrush);
 	}
 
-	BOOL FillRect(LPCRECT lpRect, int nColorIndex)
+	Bool FillRect(LPCRECT lpRect, int nColorIndex)
 	{
 		ATLASSERT(m_hDC != NULL);
 #ifndef _WIN32_WCE
@@ -2111,7 +2111,7 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	BOOL FrameRect(LPCRECT lpRect, HBRUSH hBrush)
+	Bool FrameRect(LPCRECT lpRect, HBRUSH hBrush)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::FrameRect(m_hDC, lpRect, hBrush);
@@ -2119,14 +2119,14 @@ public:
 #endif // !_WIN32_WCE
 
 #if !defined(_WIN32_WCE) || (_WIN32_WCE >= 420)
-	BOOL InvertRect(LPCRECT lpRect)
+	Bool InvertRect(LPCRECT lpRect)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::InvertRect(m_hDC, lpRect);
 	}
 #endif // !defined(_WIN32_WCE) || (_WIN32_WCE >= 420)
 
-	BOOL DrawIcon(int x, int y, HICON hIcon)
+	Bool DrawIcon(int x, int y, HICON hIcon)
 	{
 		ATLASSERT(m_hDC != NULL);
 #ifndef _WIN32_WCE
@@ -2136,7 +2136,7 @@ public:
 #endif // _WIN32_WCE
 	}
 
-	BOOL DrawIcon(POINT point, HICON hIcon)
+	Bool DrawIcon(POINT point, HICON hIcon)
 	{
 		ATLASSERT(m_hDC != NULL);
 #ifndef _WIN32_WCE
@@ -2146,38 +2146,38 @@ public:
 #endif // _WIN32_WCE
 	}
 
-	BOOL DrawIconEx(int x, int y, HICON hIcon, int cxWidth, int cyWidth, UINT uStepIfAniCur = 0, HBRUSH hbrFlickerFreeDraw = NULL, UINT uFlags = DI_NORMAL)
+	Bool DrawIconEx(int x, int y, HICON hIcon, int cxWidth, int cyWidth, UINT uStepIfAniCur = 0, HBRUSH hbrFlickerFreeDraw = NULL, UINT uFlags = DI_NORMAL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawIconEx(m_hDC, x, y, hIcon, cxWidth, cyWidth, uStepIfAniCur, hbrFlickerFreeDraw, uFlags);
 	}
 
-	BOOL DrawIconEx(POINT point, HICON hIcon, SIZE size, UINT uStepIfAniCur = 0, HBRUSH hbrFlickerFreeDraw = NULL, UINT uFlags = DI_NORMAL)
+	Bool DrawIconEx(POINT point, HICON hIcon, SIZE size, UINT uStepIfAniCur = 0, HBRUSH hbrFlickerFreeDraw = NULL, UINT uFlags = DI_NORMAL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawIconEx(m_hDC, point.x, point.y, hIcon, size.cx, size.cy, uStepIfAniCur, hbrFlickerFreeDraw, uFlags);
 	}
 
 #ifndef _WIN32_WCE
-	BOOL DrawState(POINT pt, SIZE size, HBITMAP hBitmap, UINT nFlags, HBRUSH hBrush = NULL)
+	Bool DrawState(POINT pt, SIZE size, HBITMAP hBitmap, UINT nFlags, HBRUSH hBrush = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawState(m_hDC, hBrush, NULL, (LPARAM)hBitmap, 0, pt.x, pt.y, size.cx, size.cy, nFlags | DST_BITMAP);
 	}
 
-	BOOL DrawState(POINT pt, SIZE size, HICON hIcon, UINT nFlags, HBRUSH hBrush = NULL)
+	Bool DrawState(POINT pt, SIZE size, HICON hIcon, UINT nFlags, HBRUSH hBrush = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawState(m_hDC, hBrush, NULL, (LPARAM)hIcon, 0, pt.x, pt.y, size.cx, size.cy, nFlags | DST_ICON);
 	}
 
-	BOOL DrawState(POINT pt, SIZE size, LPCTSTR lpszText, UINT nFlags, BOOL bPrefixText = TRUE, int nTextLen = 0, HBRUSH hBrush = NULL)
+	Bool DrawState(POINT pt, SIZE size, LPCTSTR lpszText, UINT nFlags, Bool bPrefixText = TRUE, int nTextLen = 0, HBRUSH hBrush = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawState(m_hDC, hBrush, NULL, (LPARAM)lpszText, (WPARAM)nTextLen, pt.x, pt.y, size.cx, size.cy, nFlags | (bPrefixText ? DST_PREFIXTEXT : DST_TEXT));
 	}
 
-	BOOL DrawState(POINT pt, SIZE size, DRAWSTATEPROC lpDrawProc, LPARAM lData, UINT nFlags, HBRUSH hBrush = NULL)
+	Bool DrawState(POINT pt, SIZE size, DRAWSTATEPROC lpDrawProc, LPARAM lData, UINT nFlags, HBRUSH hBrush = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawState(m_hDC, hBrush, lpDrawProc, lData, 0, pt.x, pt.y, size.cx, size.cy, nFlags | DST_COMPLEX);
@@ -2186,13 +2186,13 @@ public:
 
 // Ellipse and Polygon Functions
 #ifndef _WIN32_WCE
-	BOOL Chord(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4)
+	Bool Chord(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::Chord(m_hDC, x1, y1, x2, y2, x3, y3, x4, y4);
 	}
 
-	BOOL Chord(LPCRECT lpRect, POINT ptStart, POINT ptEnd)
+	Bool Chord(LPCRECT lpRect, POINT ptStart, POINT ptEnd)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::Chord(m_hDC, lpRect->left, lpRect->top, lpRect->right, lpRect->bottom, ptStart.x, ptStart.y, ptEnd.x, ptEnd.y);
@@ -2205,85 +2205,85 @@ public:
 		::DrawFocusRect(m_hDC, lpRect);
 	}
 
-	BOOL Ellipse(int x1, int y1, int x2, int y2)
+	Bool Ellipse(int x1, int y1, int x2, int y2)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::Ellipse(m_hDC, x1, y1, x2, y2);
 	}
 
-	BOOL Ellipse(LPCRECT lpRect)
+	Bool Ellipse(LPCRECT lpRect)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::Ellipse(m_hDC, lpRect->left, lpRect->top, lpRect->right, lpRect->bottom);
 	}
 
 #ifndef _WIN32_WCE
-	BOOL Pie(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4)
+	Bool Pie(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::Pie(m_hDC, x1, y1, x2, y2, x3, y3, x4, y4);
 	}
 
-	BOOL Pie(LPCRECT lpRect, POINT ptStart, POINT ptEnd)
+	Bool Pie(LPCRECT lpRect, POINT ptStart, POINT ptEnd)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::Pie(m_hDC, lpRect->left, lpRect->top, lpRect->right, lpRect->bottom, ptStart.x, ptStart.y, ptEnd.x, ptEnd.y);
 	}
 #endif // !_WIN32_WCE
 
-	BOOL Polygon(LPPOINT lpPoints, int nCount)
+	Bool Polygon(LPPOINT lpPoints, int nCount)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::Polygon(m_hDC, lpPoints, nCount);
 	}
 
 #ifndef _WIN32_WCE
-	BOOL PolyPolygon(LPPOINT lpPoints, LPINT lpPolyCounts, int nCount)
+	Bool PolyPolygon(LPPOINT lpPoints, LPINT lpPolyCounts, int nCount)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::PolyPolygon(m_hDC, lpPoints, lpPolyCounts, nCount);
 	}
 #endif // !_WIN32_WCE
 
-	BOOL Rectangle(int x1, int y1, int x2, int y2)
+	Bool Rectangle(int x1, int y1, int x2, int y2)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::Rectangle(m_hDC, x1, y1, x2, y2);
 	}
 
-	BOOL Rectangle(LPCRECT lpRect)
+	Bool Rectangle(LPCRECT lpRect)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::Rectangle(m_hDC, lpRect->left, lpRect->top, lpRect->right, lpRect->bottom);
 	}
 
-	BOOL RoundRect(int x1, int y1, int x2, int y2, int x3, int y3)
+	Bool RoundRect(int x1, int y1, int x2, int y2, int x3, int y3)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::RoundRect(m_hDC, x1, y1, x2, y2, x3, y3);
 	}
 
-	BOOL RoundRect(LPCRECT lpRect, POINT point)
+	Bool RoundRect(LPCRECT lpRect, POINT point)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::RoundRect(m_hDC, lpRect->left, lpRect->top, lpRect->right, lpRect->bottom, point.x, point.y);
 	}
 
 // Bitmap Functions
-	BOOL PatBlt(int x, int y, int nWidth, int nHeight, DWORD dwRop)
+	Bool PatBlt(int x, int y, int nWidth, int nHeight, DWORD dwRop)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::PatBlt(m_hDC, x, y, nWidth, nHeight, dwRop);
 	}
 
-	BOOL BitBlt(int x, int y, int nWidth, int nHeight, HDC hSrcDC,
+	Bool BitBlt(int x, int y, int nWidth, int nHeight, HDC hSrcDC,
 		int xSrc, int ySrc, DWORD dwRop)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::BitBlt(m_hDC, x, y, nWidth, nHeight, hSrcDC, xSrc, ySrc, dwRop);
 	}
 
-	BOOL StretchBlt(int x, int y, int nWidth, int nHeight, HDC hSrcDC, int xSrc, int ySrc, int nSrcWidth, int nSrcHeight, DWORD dwRop)
+	Bool StretchBlt(int x, int y, int nWidth, int nHeight, HDC hSrcDC, int xSrc, int ySrc, int nSrcWidth, int nSrcHeight, DWORD dwRop)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::StretchBlt(m_hDC, x, y, nWidth, nHeight, hSrcDC, xSrc, ySrc, nSrcWidth, nSrcHeight, dwRop);
@@ -2314,39 +2314,39 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	BOOL FloodFill(int x, int y, COLORREF crColor)
+	Bool FloodFill(int x, int y, COLORREF crColor)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::FloodFill(m_hDC, x, y, crColor);
 	}
 
-	BOOL ExtFloodFill(int x, int y, COLORREF crColor, UINT nFillType)
+	Bool ExtFloodFill(int x, int y, COLORREF crColor, UINT nFillType)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::ExtFloodFill(m_hDC, x, y, crColor, nFillType);
 	}
 #endif // !_WIN32_WCE
 
-	BOOL MaskBlt(int x, int y, int nWidth, int nHeight, HDC hSrcDC, int xSrc, int ySrc, HBITMAP hMaskBitmap, int xMask, int yMask, DWORD dwRop)
+	Bool MaskBlt(int x, int y, int nWidth, int nHeight, HDC hSrcDC, int xSrc, int ySrc, HBITMAP hMaskBitmap, int xMask, int yMask, DWORD dwRop)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::MaskBlt(m_hDC, x, y, nWidth, nHeight, hSrcDC, xSrc, ySrc, hMaskBitmap, xMask, yMask, dwRop);
 	}
 
 #ifndef _WIN32_WCE
-	BOOL PlgBlt(LPPOINT lpPoint, HDC hSrcDC, int xSrc, int ySrc, int nWidth, int nHeight, HBITMAP hMaskBitmap, int xMask, int yMask)
+	Bool PlgBlt(LPPOINT lpPoint, HDC hSrcDC, int xSrc, int ySrc, int nWidth, int nHeight, HBITMAP hMaskBitmap, int xMask, int yMask)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::PlgBlt(m_hDC, lpPoint, hSrcDC, xSrc, ySrc, nWidth, nHeight, hMaskBitmap, xMask, yMask);
 	}
 
-	BOOL SetPixelV(int x, int y, COLORREF crColor)
+	Bool SetPixelV(int x, int y, COLORREF crColor)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::SetPixelV(m_hDC, x, y, crColor);
 	}
 
-	BOOL SetPixelV(POINT point, COLORREF crColor)
+	Bool SetPixelV(POINT point, COLORREF crColor)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::SetPixelV(m_hDC, point.x, point.y, crColor);
@@ -2355,13 +2355,13 @@ public:
 
 #if !defined(_ATL_NO_MSIMG) || defined(_WIN32_WCE)
 #ifndef _WIN32_WCE
-	BOOL TransparentBlt(int x, int y, int nWidth, int nHeight, HDC hSrcDC, int xSrc, int ySrc, int nSrcWidth, int nSrcHeight, UINT crTransparent)
+	Bool TransparentBlt(int x, int y, int nWidth, int nHeight, HDC hSrcDC, int xSrc, int ySrc, int nSrcWidth, int nSrcHeight, UINT crTransparent)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::TransparentBlt(m_hDC, x, y, nWidth, nHeight, hSrcDC, xSrc, ySrc, nSrcWidth, nSrcHeight, crTransparent);
 	}
 #else // CE specific
-	BOOL TransparentImage(int x, int y, int nWidth, int nHeight, HDC hSrcDC, int xSrc, int ySrc, int nSrcWidth, int nSrcHeight, UINT crTransparent)
+	Bool TransparentImage(int x, int y, int nWidth, int nHeight, HDC hSrcDC, int xSrc, int ySrc, int nSrcWidth, int nSrcHeight, UINT crTransparent)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::TransparentImage(m_hDC, x, y, nWidth, nHeight, hSrcDC, xSrc, ySrc, nSrcWidth, nSrcHeight, crTransparent);
@@ -2369,7 +2369,7 @@ public:
 #endif // _WIN32_WCE
 
 #if (!defined(_WIN32_WCE) || (_WIN32_WCE >= 420))
-	BOOL GradientFill(const PTRIVERTEX pVertices, DWORD nVertices, void* pMeshElements, DWORD nMeshElements, DWORD dwMode)
+	Bool GradientFill(const PTRIVERTEX pVertices, DWORD nVertices, void* pMeshElements, DWORD nMeshElements, DWORD dwMode)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GradientFill(m_hDC, pVertices, nVertices, pMeshElements, nMeshElements, dwMode);
@@ -2377,7 +2377,7 @@ public:
 #endif // !defined(_WIN32_WCE) || (_WIN32_WCE >= 420)
 
 #if !defined(_WIN32_WCE) || (_WIN32_WCE > 0x500)
-	BOOL AlphaBlend(int x, int y, int nWidth, int nHeight, HDC hSrcDC, int xSrc, int ySrc, int nSrcWidth, int nSrcHeight, BLENDFUNCTION bf)
+	Bool AlphaBlend(int x, int y, int nWidth, int nHeight, HDC hSrcDC, int xSrc, int ySrc, int nSrcWidth, int nSrcHeight, BLENDFUNCTION bf)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::AlphaBlend(m_hDC, x, y, nWidth, nHeight, hSrcDC, xSrc, ySrc, nSrcWidth, nSrcHeight, bf);
@@ -2389,7 +2389,7 @@ public:
 	// Helper function for painting a disabled toolbar or menu bitmap
 	// This function can take either an HBITMAP (for SS) or a DC with
 	//           the bitmap already painted (for cmdbar)
-	BOOL DitherBlt(int x, int y, int nWidth, int nHeight, HDC hSrcDC, HBITMAP hBitmap, int xSrc, int ySrc,
+	Bool DitherBlt(int x, int y, int nWidth, int nHeight, HDC hSrcDC, HBITMAP hBitmap, int xSrc, int ySrc,
 			HBRUSH hBrushBackground = ::GetSysColorBrush(COLOR_3DFACE),
 			HBRUSH hBrush3DEffect = ::GetSysColorBrush(COLOR_3DHILIGHT),
 			HBRUSH hBrushDisabledImage = ::GetSysColorBrush(COLOR_3DSHADOW))
@@ -2499,7 +2499,7 @@ public:
 
 // Text Functions
 #ifndef _WIN32_WCE
-	BOOL TextOut(int x, int y, LPCTSTR lpszString, int nCount = -1)
+	Bool TextOut(int x, int y, LPCTSTR lpszString, int nCount = -1)
 	{
 		ATLASSERT(m_hDC != NULL);
 		if(nCount == -1)
@@ -2508,7 +2508,7 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	BOOL ExtTextOut(int x, int y, UINT nOptions, LPCRECT lpRect, LPCTSTR lpszString, UINT nCount = -1, LPINT lpDxWidths = NULL)
+	Bool ExtTextOut(int x, int y, UINT nOptions, LPCRECT lpRect, LPCTSTR lpszString, UINT nCount = -1, LPINT lpDxWidths = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		if(nCount == -1)
@@ -2574,7 +2574,7 @@ public:
 	}
 #endif // (_WIN32_WINNT >= 0x0501)
 
-	BOOL GetTextExtent(LPCTSTR lpszString, int nCount, LPSIZE lpSize) const
+	Bool GetTextExtent(LPCTSTR lpszString, int nCount, LPSIZE lpSize) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		if(nCount == -1)
@@ -2582,7 +2582,7 @@ public:
 		return ::GetTextExtentPoint32(m_hDC, lpszString, nCount, lpSize);
 	}
 
-	BOOL GetTextExtentExPoint(LPCTSTR lpszString, int cchString, LPSIZE lpSize, int nMaxExtent, LPINT lpnFit = NULL, LPINT alpDx = NULL)
+	Bool GetTextExtentExPoint(LPCTSTR lpszString, int cchString, LPSIZE lpSize, int nMaxExtent, LPINT lpnFit = NULL, LPINT alpDx = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetTextExtentExPoint(m_hDC, lpszString, cchString, nMaxExtent, lpnFit, alpDx, lpSize);
@@ -2597,7 +2597,7 @@ public:
 		return ::GetTabbedTextExtent(m_hDC, lpszString, nCount, nTabPositions, lpnTabStopPositions);
 	}
 
-	BOOL GrayString(HBRUSH hBrush, BOOL (CALLBACK* lpfnOutput)(HDC, LPARAM, int), LPARAM lpData, int nCount, int x, int y, int nWidth, int nHeight)
+	Bool GrayString(HBRUSH hBrush, Bool (CALLBACK* lpfnOutput)(HDC, LPARAM, int), LPARAM lpData, int nCount, int x, int y, int nWidth, int nHeight)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GrayString(m_hDC, hBrush, (GRAYSTRINGPROC)lpfnOutput, lpData, nCount, x, y, nWidth, nHeight);
@@ -2632,7 +2632,7 @@ public:
 
 #ifndef _ATL_NO_COM
 #ifdef _OLEAUTO_H_
-	BOOL GetTextFace(BSTR& bstrFace) const
+	Bool GetTextFace(BSTR& bstrFace) const
 	{
 		USES_CONVERSION;
 		ATLASSERT(m_hDC != NULL);
@@ -2674,7 +2674,7 @@ public:
 	}
 #endif // defined(_WTL_USE_CSTRING) || defined(__ATLSTR_H__)
 
-	BOOL GetTextMetrics(LPTEXTMETRIC lpMetrics) const
+	Bool GetTextMetrics(LPTEXTMETRIC lpMetrics) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetTextMetrics(m_hDC, lpMetrics);
@@ -2701,20 +2701,20 @@ public:
 #endif // !_WIN32_WCE
 
 // Advanced Drawing
-	BOOL DrawEdge(LPRECT lpRect, UINT nEdge, UINT nFlags)
+	Bool DrawEdge(LPRECT lpRect, UINT nEdge, UINT nFlags)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawEdge(m_hDC, lpRect, nEdge, nFlags);
 	}
 
-	BOOL DrawFrameControl(LPRECT lpRect, UINT nType, UINT nState)
+	Bool DrawFrameControl(LPRECT lpRect, UINT nType, UINT nState)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawFrameControl(m_hDC, lpRect, nType, nState);
 	}
 
 // Scrolling Functions
-	BOOL ScrollDC(int dx, int dy, LPCRECT lpRectScroll, LPCRECT lpRectClip, HRGN hRgnUpdate, LPRECT lpRectUpdate)
+	Bool ScrollDC(int dx, int dy, LPCRECT lpRectScroll, LPCRECT lpRectClip, HRGN hRgnUpdate, LPRECT lpRectUpdate)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::ScrollDC(m_hDC, dx, dy, lpRectScroll, lpRectClip, hRgnUpdate, lpRectUpdate);
@@ -2722,14 +2722,14 @@ public:
 
 // Font Functions
 #ifndef _WIN32_WCE
-	BOOL GetCharWidth(UINT nFirstChar, UINT nLastChar, LPINT lpBuffer) const
+	Bool GetCharWidth(UINT nFirstChar, UINT nLastChar, LPINT lpBuffer) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetCharWidth(m_hDC, nFirstChar, nLastChar, lpBuffer);
 	}
 
 	// GetCharWidth32 is not supported under Win9x
-	BOOL GetCharWidth32(UINT nFirstChar, UINT nLastChar, LPINT lpBuffer) const
+	Bool GetCharWidth32(UINT nFirstChar, UINT nLastChar, LPINT lpBuffer) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetCharWidth32(m_hDC, nFirstChar, nLastChar, lpBuffer);
@@ -2741,13 +2741,13 @@ public:
 		return ::SetMapperFlags(m_hDC, dwFlag);
 	}
 
-	BOOL GetAspectRatioFilter(LPSIZE lpSize) const
+	Bool GetAspectRatioFilter(LPSIZE lpSize) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetAspectRatioFilterEx(m_hDC, lpSize);
 	}
 
-	BOOL GetCharABCWidths(UINT nFirstChar, UINT nLastChar, LPABC lpabc) const
+	Bool GetCharABCWidths(UINT nFirstChar, UINT nLastChar, LPABC lpabc) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetCharABCWidths(m_hDC, nFirstChar, nLastChar, lpabc);
@@ -2777,13 +2777,13 @@ public:
 		return ::GetGlyphOutline(m_hDC, nChar, nFormat, lpgm, cbBuffer, lpBuffer, lpmat2);
 	}
 
-	BOOL GetCharABCWidths(UINT nFirstChar, UINT nLastChar, LPABCFLOAT lpABCF) const
+	Bool GetCharABCWidths(UINT nFirstChar, UINT nLastChar, LPABCFLOAT lpABCF) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetCharABCWidthsFloat(m_hDC, nFirstChar, nLastChar, lpABCF);
 	}
 
-	BOOL GetCharWidth(UINT nFirstChar, UINT nLastChar, float* lpFloatBuffer) const
+	Bool GetCharWidth(UINT nFirstChar, UINT nLastChar, float* lpFloatBuffer) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetCharWidthFloat(m_hDC, nFirstChar, nLastChar, lpFloatBuffer);
@@ -2842,7 +2842,7 @@ public:
 		return ::EndPage(m_hDC);
 	}
 
-	int SetAbortProc(BOOL (CALLBACK* lpfn)(HDC, int))
+	int SetAbortProc(Bool (CALLBACK* lpfn)(HDC, int))
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::SetAbortProc(m_hDC, (ABORTPROC)lpfn);
@@ -2863,7 +2863,7 @@ public:
 
 // MetaFile Functions
 #ifndef _WIN32_WCE
-	BOOL PlayMetaFile(HMETAFILE hMF)
+	Bool PlayMetaFile(HMETAFILE hMF)
 	{
 		ATLASSERT(m_hDC != NULL);
 		if(::GetDeviceCaps(m_hDC, TECHNOLOGY) == DT_METAFILE)
@@ -2876,13 +2876,13 @@ public:
 		return ::EnumMetaFile(m_hDC, hMF, EnumMetaFileProc, (LPARAM)this);
 	}
 
-	BOOL PlayMetaFile(HENHMETAFILE hEnhMetaFile, LPCRECT lpBounds)
+	Bool PlayMetaFile(HENHMETAFILE hEnhMetaFile, LPCRECT lpBounds)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::PlayEnhMetaFile(m_hDC, hEnhMetaFile, lpBounds);
 	}
 
-	BOOL AddMetaFileComment(UINT nDataSize, const BYTE* pCommentData) // can be used for enhanced metafiles only
+	Bool AddMetaFileComment(UINT nDataSize, const BYTE* pCommentData) // can be used for enhanced metafiles only
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GdiComment(m_hDC, nDataSize, pCommentData);
@@ -2979,67 +2979,67 @@ public:
 
 // Path Functions
 #ifndef _WIN32_WCE
-	BOOL AbortPath()
+	Bool AbortPath()
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::AbortPath(m_hDC);
 	}
 
-	BOOL BeginPath()
+	Bool BeginPath()
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::BeginPath(m_hDC);
 	}
 
-	BOOL CloseFigure()
+	Bool CloseFigure()
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::CloseFigure(m_hDC);
 	}
 
-	BOOL EndPath()
+	Bool EndPath()
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::EndPath(m_hDC);
 	}
 
-	BOOL FillPath()
+	Bool FillPath()
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::FillPath(m_hDC);
 	}
 
-	BOOL FlattenPath()
+	Bool FlattenPath()
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::FlattenPath(m_hDC);
 	}
 
-	BOOL StrokeAndFillPath()
+	Bool StrokeAndFillPath()
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::StrokeAndFillPath(m_hDC);
 	}
 
-	BOOL StrokePath()
+	Bool StrokePath()
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::StrokePath(m_hDC);
 	}
 
-	BOOL WidenPath()
+	Bool WidenPath()
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::WidenPath(m_hDC);
 	}
 
-	BOOL GetMiterLimit(PFLOAT pfMiterLimit) const
+	Bool GetMiterLimit(PFLOAT pfMiterLimit) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetMiterLimit(m_hDC, pfMiterLimit);
 	}
 
-	BOOL SetMiterLimit(float fMiterLimit)
+	Bool SetMiterLimit(float fMiterLimit)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::SetMiterLimit(m_hDC, fMiterLimit, NULL);
@@ -3051,7 +3051,7 @@ public:
 		return ::GetPath(m_hDC, lpPoints, lpTypes, nCount);
 	}
 
-	BOOL SelectClipPath(int nMode)
+	Bool SelectClipPath(int nMode)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::SelectClipPath(m_hDC, nMode);
@@ -3222,13 +3222,13 @@ public:
 		return ::GetPixelFormat(m_hDC);
 	}
 
-	BOOL SetPixelFormat(int iPixelFormat, CONST PIXELFORMATDESCRIPTOR* ppfd)
+	Bool SetPixelFormat(int iPixelFormat, CONST PIXELFORMATDESCRIPTOR* ppfd)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::SetPixelFormat(m_hDC, iPixelFormat, ppfd);
 	}
 
-	BOOL SwapBuffers()
+	Bool SwapBuffers()
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::SwapBuffers(m_hDC);
@@ -3246,25 +3246,25 @@ public:
 		return ::wglCreateLayerContext(m_hDC, iLayerPlane);
 	}
 
-	BOOL wglMakeCurrent(HGLRC hglrc)
+	Bool wglMakeCurrent(HGLRC hglrc)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::wglMakeCurrent(m_hDC, hglrc);
 	}
 
-	BOOL wglUseFontBitmaps(DWORD dwFirst, DWORD dwCount, DWORD listBase)
+	Bool wglUseFontBitmaps(DWORD dwFirst, DWORD dwCount, DWORD listBase)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::wglUseFontBitmaps(m_hDC, dwFirst, dwCount, listBase);
 	}
 
-	BOOL wglUseFontOutlines(DWORD dwFirst, DWORD dwCount, DWORD listBase, FLOAT deviation, FLOAT extrusion, int format, LPGLYPHMETRICSFLOAT lpgmf)
+	Bool wglUseFontOutlines(DWORD dwFirst, DWORD dwCount, DWORD listBase, FLOAT deviation, FLOAT extrusion, int format, LPGLYPHMETRICSFLOAT lpgmf)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::wglUseFontOutlines(m_hDC, dwFirst, dwCount, listBase, deviation, extrusion, format, lpgmf);
 	}
 
-	BOOL wglDescribeLayerPlane(int iPixelFormat, int iLayerPlane, UINT nBytes, LPLAYERPLANEDESCRIPTOR plpd)
+	Bool wglDescribeLayerPlane(int iPixelFormat, int iLayerPlane, UINT nBytes, LPLAYERPLANEDESCRIPTOR plpd)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::wglDescribeLayerPlane(m_hDC, iPixelFormat, iLayerPlane, nBytes, plpd);
@@ -3282,13 +3282,13 @@ public:
 		return ::wglGetLayerPaletteEntries(m_hDC, iLayerPlane, iStart, cEntries, pclr);
 	}
 
-	BOOL wglRealizeLayerPalette(int iLayerPlane, BOOL bRealize)
+	Bool wglRealizeLayerPalette(int iLayerPlane, Bool bRealize)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::wglRealizeLayerPalette(m_hDC, iLayerPlane, bRealize);
 	}
 
-	BOOL wglSwapLayerBuffers(UINT uPlanes)
+	Bool wglSwapLayerBuffers(UINT uPlanes)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::wglSwapLayerBuffers(m_hDC, uPlanes);
@@ -3335,25 +3335,25 @@ public:
 		return ::GetGlyphIndices(m_hDC, lpstr, cch, pgi, dwFlags);
 	}
 
-	BOOL GetTextExtentPointI(LPWORD pgiIn, int cgi, LPSIZE lpSize) const
+	Bool GetTextExtentPointI(LPWORD pgiIn, int cgi, LPSIZE lpSize) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetTextExtentPointI(m_hDC, pgiIn, cgi, lpSize);
 	}
 
-	BOOL GetTextExtentExPointI(LPWORD pgiIn, int cgi, int nMaxExtent, LPINT lpnFit, LPINT alpDx, LPSIZE lpSize) const
+	Bool GetTextExtentExPointI(LPWORD pgiIn, int cgi, int nMaxExtent, LPINT lpnFit, LPINT alpDx, LPSIZE lpSize) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetTextExtentExPointI(m_hDC, pgiIn, cgi, nMaxExtent, lpnFit, alpDx, lpSize);
 	}
 
-	BOOL GetCharWidthI(UINT giFirst, UINT cgi, LPWORD pgi, LPINT lpBuffer) const
+	Bool GetCharWidthI(UINT giFirst, UINT cgi, LPWORD pgi, LPINT lpBuffer) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetCharWidthI(m_hDC, giFirst, cgi, pgi, lpBuffer);
 	}
 
-	BOOL GetCharABCWidthsI(UINT giFirst, UINT cgi, LPWORD pgi, LPABC lpabc) const
+	Bool GetCharABCWidthsI(UINT giFirst, UINT cgi, LPWORD pgi, LPABC lpabc) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetCharABCWidthsI(m_hDC, giFirst, cgi, pgi, lpabc);
@@ -3362,7 +3362,7 @@ public:
 
 // New for Windows 2000 and Windows 98
 #if (WINVER >= 0x0500) && !defined(_WIN32_WCE)
-	BOOL ColorCorrectPalette(HPALETTE hPalette, DWORD dwFirstEntry, DWORD dwNumOfEntries)
+	Bool ColorCorrectPalette(HPALETTE hPalette, DWORD dwFirstEntry, DWORD dwNumOfEntries)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::ColorCorrectPalette(m_hDC, hPalette, dwFirstEntry, dwNumOfEntries);
@@ -3585,10 +3585,10 @@ public:
 
 	bool IsNull() const { return (m_hEMF == NULL); }
 
-	BOOL DeleteObject()
+	Bool DeleteObject()
 	{
 		ATLASSERT(m_hEMF != NULL);
-		BOOL bRet = ::DeleteEnhMetaFile(m_hEMF);
+		Bool bRet = ::DeleteEnhMetaFile(m_hEMF);
 		m_hEMF = NULL;
 		return bRet;
 	}
@@ -3802,7 +3802,7 @@ inline HBITMAP AtlCopyBitmap(HBITMAP hbm , SIZE sizeDst, bool bAsBitmap = false)
 	ATLASSERT(!bmNew.IsNull());
 
 	hbmOld2 = hdcDst.SelectBitmap(bmNew);
-	BOOL bOK = FALSE;
+	Bool bOK = FALSE;
 
 	if ((sizeDst.cx == sizeSrc.cx) && (sizeDst.cy == sizeSrc.cy))
 		bOK = hdcDst.BitBlt(0, 0, sizeDst.cx, sizeDst.cy, hdcSrc, 0, 0, SRCCOPY);
@@ -3858,7 +3858,7 @@ inline HLOCAL AtlCreatePackedDib16(HBITMAP hbm, SIZE size)
 inline bool AtlSetClipboardDib16(HBITMAP hbm, SIZE size, HWND hWnd)
 {
 	ATLASSERT(::IsWindow(hWnd));
-	BOOL bOK = OpenClipboard(hWnd);
+	Bool bOK = OpenClipboard(hWnd);
 	if (bOK == TRUE)
 	{
 		if ((bOK = EmptyClipboard()) == TRUE)

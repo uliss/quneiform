@@ -94,7 +94,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-static void accept_Cell(cell *ce,CSTR_rast_attr*co, CCOM_comp *cmp, BOOL sca);
+static void accept_Cell(cell *ce,CSTR_rast_attr*co, CCOM_comp *cmp, Bool sca);
 
 // P2_COUR.C
 Bool32 RecogLEO(RecRaster *Rs,uchar Language,UniVersions *Vs);
@@ -113,7 +113,7 @@ extern void ErrorExit(int Code);
 extern Bool32 trees_load_fict(void);
 extern PBYTE string_curr;
 extern BYTE line_scale,line_alphabet, line_minus, line_handfragment,line_pointsusp;
-extern BOOL line_readyBL,line_BL;
+extern Bool line_readyBL,line_BL;
 extern BYTE line_tabcell;
 extern BYTE db_trace_flag;
 extern INT nIncline;
@@ -124,14 +124,14 @@ extern BYTE   small_english_str(void) ;
 extern void   russian_english_context(void);
 // from Acc_tabs.c
 void    correct_let_tables(void);
-BOOL    is_russian_language(BYTE lang);
+Bool    is_russian_language(BYTE lang);
 
 extern LONG Flag_Courier;
 extern INT line_number;
 extern FILE *dbg_f;
 extern BYTE prop_in_trouble;
 extern BYTE let_to_dust;
-extern BOOL bCancelled;
+extern Bool bCancelled;
 extern INT bs_got;
 extern INT flag_cut_point;
 extern BYTE language;
@@ -141,13 +141,13 @@ extern char alphabet[256];
 INT    page_nIncline;
 BYTE   pass2;
 INT    del_squares();
-BOOL   ProgressSetPhase (char *text, WORD wPhaseSize);
-BOOL   ProgressSetPercentage (WORD wPercentage);
-BOOL   ProgressHandleMessages (void);
-BOOL   check_cancel(WORD t);
-BOOL   snap_skip();
+Bool   ProgressSetPhase (char *text, WORD wPhaseSize);
+Bool   ProgressSetPercentage (WORD wPercentage);
+Bool   ProgressHandleMessages (void);
+Bool   check_cancel(WORD t);
+Bool   snap_skip();
 INT    tot_strings(void);
-BOOL   kernel_reload_vocs(void);
+Bool   kernel_reload_vocs(void);
 void   delete_spaces(void);
 
 BYTE   no_linear_crit=1;
@@ -156,7 +156,7 @@ BYTE   save_sp;
 static  void pass3_special_recode(CSTR_line ln);
 void pass3_table_points_suspension(CSTR_line ln);
 void pass3_table_points_suspension2(CSTR_line ln);
-static  BOOL recog_minus(void);
+static  Bool recog_minus(void);
 static  INT p2_GetPs(void);
 static  INT p2_GetPs_up(void);
 static  void cstr_rerecog_leo(CSTR_line ln);
@@ -165,7 +165,7 @@ static  Bool32  cstr_scaled_in_res(CSTR_line ln);
 static  Bool32  cstr_kill_scaled(CSTR_line ln);
 static  void import_lines_features(void);
 static  void courier_let(CSTR_line ln);
-static  BOOL del_spaces_before_carry(CSTR_line ln);
+static  Bool del_spaces_before_carry(CSTR_line ln);
 static  void pass3_Ps(CSTR_line lin);
 static  void delete_far_dust(CSTR_line lin);
 static  void CSTR_refresh_flags(CSTR_line ln);
@@ -174,17 +174,17 @@ static  void pass_start();
 static  void convert_ligas(void);
 static  void postrecog();
 static  void set_normal_unrecog(void);
-static  BOOL test_short_english_blines(void);
+static  Bool test_short_english_blines(void);
 void Cells2CSTR(CSTR_line lin,CSTR_line lino,cell *cur,Bool32 enable_scaled);
 void    make_all_cuts( void);
 void    make_all_glues(void);
 void    all_cell_levcut(INT arg);
-void    letters_ini(CSTR_line lin, BOOL enable_scaling);
+void    letters_ini(CSTR_line lin, Bool enable_scaling);
 void clear_cells(void);
 void clear_cells_pass2(void);
 void clear_dust_alternates(void);
 
-static  BOOL    font_ready=FALSE;
+static  Bool    font_ready=FALSE;
 static  CSTR_line   lne, lneout, lnout, lnsave;
 static INT  pass3_num_killed_line()
 {
@@ -333,9 +333,9 @@ for(c=cell_f()->next;c!=cell_l();c=c->next)
 return;
 }
 
-BOOL unique_upper(BYTE c)
+Bool unique_upper(BYTE c)
 {
-BOOL    ret;
+Bool    ret;
 switch(language)
     {
     case    LANG_ENGLISH:
@@ -351,7 +351,7 @@ switch(language)
 return ret;
 }
 
-BOOL    test_bl_comps(CSTR_line ln)
+Bool    test_bl_comps(CSTR_line ln)
 {
 B_LINES         my_bases;
 CSTR_rast       rst=CSTR_GetFirstRaster(ln);
@@ -384,7 +384,7 @@ void pass3(CSTR_line ln,CSTR_line lout)
     BYTE    Lang;
     INT     Step=0,no_crit;
     INT     eng=0;
-    BOOL    snap_active=FALSE,line_scale0=FALSE,stop_pass2=FALSE;
+    Bool    snap_active=FALSE,line_scale0=FALSE,stop_pass2=FALSE;
     CSTR_attr   lattr;
 
     pass_start();
@@ -395,7 +395,7 @@ void pass3(CSTR_line ln,CSTR_line lout)
         erection_enable    = 0;
     if(p2_active)
         { // some init
-        extern BOOL pass4_in;
+        extern Bool pass4_in;
         pass4_in = TRUE;
         p2_init();  //init data for second pass
         pass2=0; // safe init
@@ -1555,7 +1555,7 @@ return;
 }
 
 extern PBYTE kit_curr, kit_end;
-static void accept_Cell( cell *c,CSTR_rast_attr *rst, CCOM_comp *cmp, BOOL shift)
+static void accept_Cell( cell *c,CSTR_rast_attr *rst, CCOM_comp *cmp, Bool shift)
  {
  c_comp ec={0};
  uint16_t zero=0;
@@ -1627,7 +1627,7 @@ if( c2->env )
 return;
 }
 
-void letters_ini(CSTR_line lin, BOOL enable_scaling)
+void letters_ini(CSTR_line lin, Bool enable_scaling)
  {
  cell           *c1,*c2;
  CSTR_rast_attr  cur;
@@ -2226,7 +2226,7 @@ for(c=cell_f()->next, e=cell_l(); c!=e; c=c->next )
 return;
 }
 
-BOOL test_short_english_blines(void)
+Bool test_short_english_blines(void)
 {
 INT bad;
 bad = (Nb1==-1)+(Nb2==-1)+(Nb3==-1)+(Nb4==-1);
@@ -2492,7 +2492,7 @@ UniVersions     uvs;
 int16_t            macol,  micol,  marow,  mirow;
 int16_t           rmacol, rmicol, rmarow, rmirow;
 int32_t           need_scale=0;
-BOOL            sfr;
+Bool            sfr;
 if( lin )
     CSTR_GetLineAttr(lin, &attrlin);
 if( line_pointsusp )
@@ -2792,7 +2792,7 @@ for(; c!=cell_l() && r ; r=CSTR_GetNext(r),c=c->next)
 return;
 }
 
-BOOL del_spaces_before_carry(CSTR_line ln)
+Bool del_spaces_before_carry(CSTR_line ln)
 {
 CSTR_rast       r=CSTR_GetPrev(CSTR_GetLastRaster(ln)),l,f;
 CSTR_rast_attr  a;
@@ -2911,13 +2911,13 @@ for(i=0;i<num_of_lines;i++)
 return;
 }
 
-BOOL pass3BL(CSTR_line ln)
+Bool pass3BL(CSTR_line ln)
 {
     INT     lsq, loc_bdiff[6]={0},i, mlbd, bd, imlbd, bado, badn;
-    BOOL    snap_active=FALSE,line_scale0=0;
+    Bool    snap_active=FALSE,line_scale0=0;
     cell   *c;
     BYTE    str[100];
-    BOOL    ret;
+    Bool    ret;
 	int16_t   minr,maxr;
 
     pass_start();
@@ -3043,13 +3043,13 @@ return ret;
 }
 
 
-BOOL match_word_prepare(CSTR_line ln, BYTE *alphabet, MatchWordPar *param)
+Bool match_word_prepare(CSTR_line ln, BYTE *alphabet, MatchWordPar *param)
 {
     INT     lsq;
     BYTE    Lang;
     INT     Step=0,no_crit;
-    BOOL    line_scale0=0;
-    extern BOOL pass4_in;
+    Bool    line_scale0=0;
+    extern Bool pass4_in;
 
     line_scale=0;
     pass_start();
@@ -3201,7 +3201,7 @@ BOOL match_word_prepare(CSTR_line ln, BYTE *alphabet, MatchWordPar *param)
 return TRUE;
 }
 
-BOOL pass1_test_alphabet(str_info *str,CSTR_line ln)
+Bool pass1_test_alphabet(str_info *str,CSTR_line ln)
 {
 CSTR_attr   la;
 CSTR_GetLineAttr(ln,&la);
@@ -3217,7 +3217,7 @@ line_number =0;
 return TRUE;
 }
 
-BOOL pass2_test_alphabet(str_info *str,CSTR_line ln)
+Bool pass2_test_alphabet(str_info *str,CSTR_line ln)
 {
 CSTR_attr   la;
 CSTR_GetLineAttr(ln,&la);
@@ -3234,9 +3234,9 @@ return TRUE;
 }
 
 
-BOOL add_rus_under(cell *c)
+Bool add_rus_under(cell *c)
 {
-BOOL    ret = FALSE;
+Bool    ret = FALSE;
 BYTE    pr = (BYTE)(MAX((INT)c->vers[0].prob-10,2));
 switch( c->vers[0].let )
     {
@@ -3264,9 +3264,9 @@ switch( c->vers[0].let )
 return FALSE;
 }
 
-BOOL add_eng_under(cell *c)
+Bool add_eng_under(cell *c)
 {
-BOOL    ret = FALSE;
+Bool    ret = FALSE;
 BYTE    pr = (BYTE)(MAX((INT)c->vers[0].prob-10,2));
 switch( c->vers[0].let )
     {
@@ -3345,7 +3345,7 @@ for(rst=CSTR_GetNextRaster(CSTR_GetFirstRaster(ln),CSTR_f_let);
     }
 }
 
-BOOL recog_minus(void)
+Bool recog_minus(void)
 {
 INT up, dn, dh, rn, con, wn, hn;
 cell    *c=cell_f()->next, *cn, *clist[2];
@@ -3619,9 +3619,9 @@ return;
 
 //  Nick 20.02.2001  -
 // чтобы без потерь использовать CopyAttr2CSTR!!!
-BOOL SetFontReady(BOOL fready)
+Bool SetFontReady(Bool fready)
 {
-	BOOL old = font_ready;
+	Bool old = font_ready;
 
 	font_ready = fready;
 

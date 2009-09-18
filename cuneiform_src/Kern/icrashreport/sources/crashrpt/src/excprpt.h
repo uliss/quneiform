@@ -143,7 +143,7 @@ private:
 
    static MSXML::IXMLDOMNode* CreateModulesNode(MSXML::IXMLDOMDocument* pDoc);
 
-   static BOOL CALLBACK miniDumpCallback(PVOID CallbackParam,
+   static Bool CALLBACK miniDumpCallback(PVOID CallbackParam,
                                          CONST PMINIDUMP_CALLBACK_INPUT CallbackInput,
                                          PMINIDUMP_CALLBACK_OUTPUT CallbackOutput);
 };

@@ -706,7 +706,7 @@ Bool32 ReadRoots(Handle hCCOM, Bool32 BLOCKS)
 
 }
 
-BOOL AddRoot(CCOM_comp * comp, Bool32 FirstTime)
+Bool AddRoot(CCOM_comp * comp, Bool32 FirstTime)
 {
 ROOT   RootRecord = {0};
 

@@ -176,7 +176,7 @@ Begobj:
 	if(SPQ.stack->language!=language)
 	{
         extern trees_load_rling(void);
-        extern BOOL FlagMixedText;
+        extern Bool FlagMixedText;
 
         FlagMixedText=TRUE;
         language=SPQ.stack->language;

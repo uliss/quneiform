@@ -709,7 +709,7 @@ RSELSTR_FUNC(void) RSELSTR_CleanStr(Rect16* pN,CCOM_comp** pC,int& nN,int top,in
  {
   int x;
   int y;
-  BOOL cont;
+  Bool cont;
   for(int i=nN-1;i>=0;i--)
   {
    cont=FALSE;
@@ -761,7 +761,7 @@ RSELSTR_FUNC(void) RSELSTR_CleanStr(Rect16* pN,CCOM_comp** pC,int& nN,int top,in
   int x;
   int y;
   skew=-skew;
-  BOOL cont;
+  Bool cont;
   for(int i=nN-1;i>=0;i--)
   {
    cont=FALSE;

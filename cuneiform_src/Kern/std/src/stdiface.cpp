@@ -374,7 +374,7 @@ typedef struct tagDlgProcParms
 #if 0
 static int32_t bNoRepeat=-1;
 static HICON hIcon=NULL;
-static BOOL WINAPI DialogProc( HWND hwndDlg,UINT uMsg,WPARAM wParam,LPARAM lParam)
+static Bool WINAPI DialogProc( HWND hwndDlg,UINT uMsg,WPARAM wParam,LPARAM lParam)
 {
     float fXScale=1,fYScale=1;
     GetDlgUnitsScale(fXScale,fYScale,hwndDlg);
@@ -469,7 +469,7 @@ static BOOL WINAPI DialogProc( HWND hwndDlg,UINT uMsg,WPARAM wParam,LPARAM lPara
 		}
 		hChk=::GetDlgItem(hwndDlg,IDC_RDLG_CHK_REPEAT);
 		if(hChk)
-			bNoRepeat=(BOOL)::SendMessage(hChk, BM_GETCHECK, 0, 0);
+			bNoRepeat=(Bool)::SendMessage(hChk, BM_GETCHECK, 0, 0);
 		break;
     case WM_PAINT:
 		{

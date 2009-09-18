@@ -265,7 +265,7 @@ public:
    // Remarks
    //    First simple MAPI is used if unsucessful CMC is used.
    //
-   BOOL Send();
+   Bool Send();
 
 protected:
 
@@ -282,7 +282,7 @@ protected:
    // Remarks
    //    none
    //
-   BOOL CMCSend();
+   Bool CMCSend();
 
    //-----------------------------------------------------------------------------
    // MAPISend
@@ -297,7 +297,7 @@ protected:
    // Remarks
    //    none
    //
-   BOOL MAPISend();
+   Bool MAPISend();
 
    //-----------------------------------------------------------------------------
    // Initialize
@@ -312,7 +312,7 @@ protected:
    // Remarks
    //    none
    //
-   BOOL Initialize();
+   Bool Initialize();
 
    //-----------------------------------------------------------------------------
    // Uninitialize
@@ -346,9 +346,9 @@ protected:
    LPMAPISENDMAIL m_lpMapiSendMail;             // Mapi func pointer
    LPMAPILOGOFF   m_lpMapiLogoff;               // Mapi func pointer
 
-   BOOL           m_bInited;                     // MAPI is loaded
-   BOOL           m_bHasMAPI;					 //Признак того, что в системе настроен MAPI
-   BOOL           m_bHasCMC;					 //Признак того, что в системе настроен CMC
+   Bool           m_bInited;                     // MAPI is loaded
+   Bool           m_bHasMAPI;					 //Признак того, что в системе настроен MAPI
+   Bool           m_bHasCMC;					 //Признак того, что в системе настроен CMC
 };
 
 #endif	// #ifndef _MAILMSG_H_

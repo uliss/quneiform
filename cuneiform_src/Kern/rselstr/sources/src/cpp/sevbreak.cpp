@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 
 void StringCountRecog (STRING *);   // 940223  AL
-BOOL StringBreakOnVertical (STRING *p,  int x,
+Bool StringBreakOnVertical (STRING *p,  int x,
                             STRING **pq, STRING **pr)
 {
     int  i;
@@ -136,9 +136,9 @@ BOOL StringBreakOnVertical (STRING *p,  int x,
     return (TRUE);
 }
 
-static BOOL StringProcessVerticalBreaking (STRING *p);
+static Bool StringProcessVerticalBreaking (STRING *p);
 
-static BOOL CheckIntervalsAndProcessString
+static Bool CheckIntervalsAndProcessString
 (
     STRING *p,
     int nBigDistance,
@@ -173,7 +173,7 @@ static BOOL CheckIntervalsAndProcessString
     return (FALSE);
 }
 
-static BOOL StringProcessVerticalBreaking (STRING *p)
+static Bool StringProcessVerticalBreaking (STRING *p)
 {
     STRING *q, *r;
     int i, j;

@@ -86,7 +86,7 @@ Bool WasInitSMetric ();
 Bool AM_InitComm (uint16_t wRltOwnCode);
 void AM_DoneComm ();
 /*---------------------------------------------------------------------------*/
-BOOL APIENTRY DllMain( HANDLE hModule,
+Bool APIENTRY DllMain( HANDLE hModule,
 uint32_t ul_reason_for_call,
                         LPVOID lpReserved )
 {

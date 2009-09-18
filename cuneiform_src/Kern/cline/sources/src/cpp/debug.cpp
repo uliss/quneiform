@@ -60,7 +60,7 @@ extern int CLINE_Debug;
 extern int CLINE_Debug_2;
 extern LIST<CHLine>* pLCont;
 
-BOOL IfExistContainer(CHLine* pelem)
+Bool IfExistContainer(CHLine* pelem)
 {
  if(!CLINE_Debug_2)
 	 return TRUE;
@@ -74,7 +74,7 @@ BOOL IfExistContainer(CHLine* pelem)
 }
 
 
-BOOL IfExistLine(CLine* pelem)
+Bool IfExistLine(CLine* pelem)
 {
  if(!CLINE_Debug_2)
 	 return TRUE;
@@ -91,7 +91,7 @@ BOOL IfExistLine(CLine* pelem)
  return FALSE;
 }
 
-BOOL IfExistEvent(CEvent* pelem)
+Bool IfExistEvent(CEvent* pelem)
 {
  if(!CLINE_Debug_2)
 	 return TRUE;
@@ -112,7 +112,7 @@ BOOL IfExistEvent(CEvent* pelem)
  return FALSE;
 }
 
-BOOL IfExistCutPoint(CCutPoint* pelem)
+Bool IfExistCutPoint(CCutPoint* pelem)
 {
  if(!CLINE_Debug_2)
 	 return TRUE;
@@ -133,7 +133,7 @@ BOOL IfExistCutPoint(CCutPoint* pelem)
  return FALSE;
 }
 
-BOOL IfExistComp(CComponent* pelem)
+Bool IfExistComp(CComponent* pelem)
 {
  if(!CLINE_Debug_2)
 	 return TRUE;
@@ -155,7 +155,7 @@ BOOL IfExistComp(CComponent* pelem)
 }
 
 
-BOOL IfExistEventInv(CInterval* pelem)
+Bool IfExistEventInv(CInterval* pelem)
 {
  if(!CLINE_Debug_2)
 	 return TRUE;
@@ -180,7 +180,7 @@ BOOL IfExistEventInv(CInterval* pelem)
  return FALSE;
 }
 
-BOOL IfExistCutPointInv(CInterval* pelem)
+Bool IfExistCutPointInv(CInterval* pelem)
 {
  if(!CLINE_Debug_2)
 	 return TRUE;

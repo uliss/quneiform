@@ -39,7 +39,7 @@ CSampleApp theApp;
 /////////////////////////////////////////////////////////////////////////////
 // CSampleApp initialization
 
-BOOL CSampleApp::InitInstance()
+Bool CSampleApp::InitInstance()
 {
 	// Initialize OLE libraries
 	if (!AfxOleInit())

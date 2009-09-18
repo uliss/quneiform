@@ -118,7 +118,7 @@ struct DOT_STRUCT
   int32_t i_left;
   int32_t i_top;
   int32_t i_right;
-  BOOL  flag;
+  Bool  flag;
  };
 /*
 class  CSL_POLY:public CObject
@@ -168,7 +168,7 @@ public:
  ~CPRect32(){};
 
   Rect32  rect;
-  BOOL    m_flag;
+  Bool    m_flag;
 };
 */
 
@@ -263,13 +263,13 @@ public:
 
   CPRect32        m_LeftDot;       // левая точка
   CPRect32        m_RightDot;      // правая точка
-  BOOL            m_LeftDotState;  //FALSE-линия не имеет лев. продольжение
-  BOOL            m_RightDotState; //FALSE-линия не имеет прав.продольжение
+  Bool            m_LeftDotState;  //FALSE-линия не имеет лев. продольжение
+  Bool            m_RightDotState; //FALSE-линия не имеет прав.продольжение
 
   CObArray        m_arDots;        // все точки без сортировки
   CWordArray      m_dist;          // все расстояния между точками
 
-  BOOL            m_Flag;          //Если == FALSE то плохая точечная линия
+  Bool            m_Flag;          //Если == FALSE то плохая точечная линия
 
   int             GetCountOfDots(void);
   CPRect32*       GetDot(int i);
@@ -305,16 +305,16 @@ RSHELLLINES_FUNC(void)            InitLine(DLine* linedata);  //
   Point32         BeginPoint;
   Point32         EndPoint;
   Rect32          rect;                    // прямоугольник линии
-  BOOL            ProcessingType;          // тип обработки линии(гор. или верт.)
+  Bool            ProcessingType;          // тип обработки линии(гор. или верт.)
   int             Width;
   int32_t           LineEventsLength;        // сумма черных точек линии
   double          Degree;
   int             RelationshipIndex;       // индекс коробки компонент
-  BOOL            FlagCalculatedWidth;
-  BOOL            FlagExtensible;
-  BOOL            FlagDot;                 // устанавливается когда линия точечная
-  BOOL            FlagBad;
-  BOOL            FlagLongStrip;
+  Bool            FlagCalculatedWidth;
+  Bool            FlagExtensible;
+  Bool            FlagDot;                 // устанавливается когда линия точечная
+  Bool            FlagBad;
+  Bool            FlagLongStrip;
   int             PathNumber;              // номер прохода
 
   NR_SimpLine     Line;                    // простейшее описание линии
@@ -337,7 +337,7 @@ RSHELLLINES_FUNC(void)            InitLine(DLine* linedata);  //
   CWordArray      m_arFriendsIndex;        // индексы дружественных линий
 
 */
-  BOOL            SetLineNormDataTypes(NORM_DATATYPES, DLine* line); //
+  Bool            SetLineNormDataTypes(NORM_DATATYPES, DLine* line); //
 /*  NORM_DATATYPES  GetLineNormDataTypes(void);
 
   int             GetCountStripes(void);
@@ -375,7 +375,7 @@ RSHELLLINES_FUNC(Bool32)          CheckSeparationPoints(CLINE_handle hLine, CLIN
   void            SetCutPoints(CLINE_handle line, DLine* pCLine); //
   void            SetNewLine(CLINE_handle hContainer, CPDLine pCLine, int32_t IntervalBeg, int32_t IntervalEnd, CLINE_handle hLineOld, Bool32 PossibleSymbolAboveLine); //
   void            SetDegree(DLine* line); //
-  BOOL            CheckPoint(CLINE_handle line, int CurPoint); //
+  Bool            CheckPoint(CLINE_handle line, int CurPoint); //
 //  void            CheckShortVerticalLines(CPageLines* PLines);
   void            ConvertStructs(CLINE_handle line, DLine* pCLine, int32_t nIncline); //
   void            FindTailComponent(CLINE_handle line, DLine* pCLine); //
@@ -399,7 +399,7 @@ public:
   CWordArray      m_arFrequency;           // и частота
 
   double          Degree;                  // +- 0.05
-  BOOL            ProcessingType;          // тип обработки линий(гор. или верт.)
+  Bool            ProcessingType;          // тип обработки линий(гор. или верт.)
   int             RelationshipIndex;       // индекс коробки компонент
   WORD            m_top;
   WORD            m_bottom;
@@ -416,7 +416,7 @@ public:
  ~CGroupOfExtensibleLines();
 
   double          Degree;                  // +- 0.05
-  BOOL            ProcessingType;          // тип обработки линий(гор. или верт.)
+  Bool            ProcessingType;          // тип обработки линий(гор. или верт.)
   CWordArray      m_arFriendsIndex;        // индексы дружественных линий (m_arLines)
 
   int             GetCountOfExtensibleLines(void);
@@ -430,7 +430,7 @@ public:
   CPageLines();
  ~CPageLines();
 
-  BOOL                     FlagDot;  //Если == TRUE то проверяется точечные линии
+  Bool                     FlagDot;  //Если == TRUE то проверяется точечные линии
 
   CObArray                 m_arLines;
   CObArray                 m_arNewDotLines;  // точечные линии собранные из коробок компонент
@@ -466,11 +466,11 @@ public:
   CPRect32*                GetDotComp(int i);
   void                     DrowRectForDotComp(void);
 */
-  BOOL                     IsItNewLine(CLINE_handle hContainer, DLine* pLineCP, int32_t GroupVerOffset, Bool32 IfDrawResult); //
-  BOOL                     CheckLinesForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
-  BOOL                     CheckLinesImpositionForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
-  BOOL                     CheckLinesDegreeForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
-//  BOOL                     CheckGroupsForExtensible(void);
+  Bool                     IsItNewLine(CLINE_handle hContainer, DLine* pLineCP, int32_t GroupVerOffset, Bool32 IfDrawResult); //
+  Bool                     CheckLinesForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
+  Bool                     CheckLinesImpositionForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
+  Bool                     CheckLinesDegreeForExtensible(CLINE_handle hLine, GLM* hGroupEx); //
+//  Bool                     CheckGroupsForExtensible(void);
 
 RSHELLLINES_FUNC(void)       FindFriendLines(CLINE_handle hContainer, GLM* friendlinesmass); //
 RSHELLLINES_FUNC(void)       DrawFriendLines(CLINE_handle hContainer, GLM* friendlinesmass); //
@@ -485,7 +485,7 @@ RSHELLLINES_FUNC(void)       DrawLosedVerticalLines(GLM* friendlinesmass, int Co
 RSHELLLINES_FUNC(void)       DrawBigComps(CLINE_handle hContainer); //
 
 RSHELLLINES_FUNC(void)       FindDotLines(Handle hCCOM,Handle hCPAGE, CLINE_handle hContainer); //
-  BOOL                     GetDotComps(Handle hCCOM,Handle hCPAGE, HANDLE &hbuf,LPSTR &pDotBuffer, int32_t *CountDotComps); //
+  Bool                     GetDotComps(Handle hCCOM,Handle hCPAGE, HANDLE &hbuf,LPSTR &pDotBuffer, int32_t *CountDotComps); //
   void                     FindChains(Handle hCCOM, LPSTR &pDotBuffer, int32_t CountDotComps, CLINE_handle hContainer); //
   void                     CheckChains(Handle hCCOM, LPSTR &pDotBuffer, int32_t BegIndex,int32_t CountDots, CLINE_handle hContainer); //
   void                     AddNewDotLines(Handle hCCOM, LPSTR &pDotBuffer, int32_t CountDots, CLINE_handle hContainer); //

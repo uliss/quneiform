@@ -109,24 +109,24 @@ void stat_def_imaginary_bl(CSTR_attr *p_attr, int16_t *Ns1, int16_t *Ns2, int16_
 //////
 
 //////
-BOOL               stat_interp_bsl(CSTR_line line, CSTR_attr *p_attr, ROW_STRUCT *row_str);
-BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, int16_t ln_row, int16_t b3,
+Bool               stat_interp_bsl(CSTR_line line, CSTR_attr *p_attr, ROW_STRUCT *row_str);
+Bool stat_interp_bsl_by_solid_recog(CSTR_line line, int16_t ln_row, int16_t b3,
 																	   ROW_STRUCT *row_str);
-BOOL		  stat_interp_bsl_by_b4(CSTR_line line, int16_t ln_row, int16_t b3, int16_t b4,
+Bool		  stat_interp_bsl_by_b4(CSTR_line line, int16_t ln_row, int16_t b3, int16_t b4,
 																	   ROW_STRUCT *row_str);
-BOOL       stat_interp_bsl_by_boxes(CSTR_line line, int16_t ln_row, int16_t b3, int16_t b4,
+Bool       stat_interp_bsl_by_boxes(CSTR_line line, int16_t ln_row, int16_t b3, int16_t b4,
 																	   ROW_STRUCT *row_str);
 //////
 
 //////
-BOOL	  stat_control_t_level(CSTR_line line, int16_t ln_row, int16_t b3, int16_t b4);
+Bool	  stat_control_t_level(CSTR_line line, int16_t ln_row, int16_t b3, int16_t b4);
 int16_t stat_control_b3_by_recog(CSTR_line line, int16_t ln_row, ROW_STRUCT *row_str);
-BOOL  stat_control_semilevel(CSTR_line line, int16_t ln_row, int16_t b4);
+Bool  stat_control_semilevel(CSTR_line line, int16_t ln_row, int16_t b4);
 //////
 
 //////
 void stat_FormArrays(CSTR_line line, int16_t row, int16_t *pY1Arr, int16_t *pY2Arr);
-BOOL stat_FormCSTR_attrArray(int32_t line_start, int32_t line_stop, CSTR_attr *pCSTR_attrArr);
+Bool stat_FormCSTR_attrArray(int32_t line_start, int32_t line_stop, CSTR_attr *pCSTR_attrArr);
 int16_t stat_LineLength(CSTR_line line);
 //////
 

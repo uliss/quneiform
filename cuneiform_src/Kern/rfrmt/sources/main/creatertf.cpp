@@ -84,10 +84,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "minmax.h"
 
-extern "C" BOOL  FullRtf( FILE *fpFileNameIn, const char *FileNameOut ,Handle* hEdTree);
-extern "C" BOOL  PageTree(FILE *fpFileNameIn, CRtfPage* RtfPage, const char *FileNameOut);
-extern "C" BOOL	 WriteTable( uint32_t IndexTable, RtfSectorInfo* SectorInfo, /*CString* TableString ,*/BOOL OutPutMode);
-extern "C" BOOL	 WritePict( uint32_t IndexPict, RtfSectorInfo* SectorInfo/*, CString* PictString*/, BOOL OutPutTypeFrame);
+extern "C" Bool  FullRtf( FILE *fpFileNameIn, const char *FileNameOut ,Handle* hEdTree);
+extern "C" Bool  PageTree(FILE *fpFileNameIn, CRtfPage* RtfPage, const char *FileNameOut);
+extern "C" Bool	 WriteTable( uint32_t IndexTable, RtfSectorInfo* SectorInfo, /*CString* TableString ,*/Bool OutPutMode);
+extern "C" Bool	 WritePict( uint32_t IndexPict, RtfSectorInfo* SectorInfo/*, CString* PictString*/, Bool OutPutTypeFrame);
 extern "C" { void GetTableRect( uint32_t NumberTable , Rect16* RectTable,uint32_t* UserNumber ); }
 extern "C" { BYTE GetPictRect ( uint32_t NumberPict  , Rect16* RectPict ,uint32_t* UserNumber ); }
 extern  void RtfAssignRect_CRect_Rect16(RECT *s1,Rect16 *s2);
@@ -104,11 +104,11 @@ int16_t   get_font_name(int16_t FontNumber);
 
 int16_t   GetRealSizeKegl( const char * /*CString**/ str, int16_t width, int16_t FontPointSize, int16_t FontNumber );
 int16_t   GetRealSize( char* str,int16_t len,int16_t FontSize ,int16_t FontNumber,int16_t* strHeight);
-BOOL    ReadInternalFileRelease(FILE *fpFileNameIn, CRtfPage* RtfPage);
+Bool    ReadInternalFileRelease(FILE *fpFileNameIn, CRtfPage* RtfPage);
 Handle  Rtf_CED_CreateParagraph(int16_t FirstIndent,int16_t LeftIndent,int16_t RightIndent,int16_t IntervalBefore, RtfSectorInfo *SectorInfo, int AlignParagraph,int shad, int LenthStringInTwips, int LengthFragmInTwips);
 void    Rtf_CED_CreateChar( EDRECT* slayout, letterEx* Letter, CRtfChar* pRtfChar );
 void    WriteCupDrop(CRtfChar* pRtfChar,int16_t font);
-BOOL    CheckLines(RECT* Rect, BOOL FlagVer, RtfSectorInfo *SectorInfo);
+Bool    CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo);
 void    Cleaning_LI_FRMT_Used_Flag(void);
 
 float   Twips;
@@ -138,7 +138,7 @@ extern  POINT  TemplateOffset;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 FullRtf                                                        //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL FullRtf(FILE *fpFileNameIn, const char* FileNameOut, Handle* hEdTree)
+Bool FullRtf(FILE *fpFileNameIn, const char* FileNameOut, Handle* hEdTree)
 {
 	CRtfPage RtfPage;
 
@@ -245,7 +245,7 @@ void CRtfPage::Rtf_CED_CreatePage(void)
 	EDSIZE   dpi;
 	EDRECT   pageBordersInTwips;
 	PAGEINFO PageInfo = {0};
-	BOOL     resizeToFit=FALSE;
+	Bool     resizeToFit=FALSE;
 
 	Handle hCPAGE = CPAGE_GetHandlePage( CPAGE_GetCurrentPage());
 	GetPageInfo(hCPAGE,&PageInfo);
@@ -336,9 +336,9 @@ CRtfFragment* CRtfPage::GetNextFragment()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 OpenOutputFile                                                 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfPage::OpenOutputFile(const char* FileNameOut)
+Bool CRtfPage::OpenOutputFile(const char* FileNameOut)
 {
- BOOL Bisy  = TRUE;
+ Bool Bisy  = TRUE;
 	int  Count = 0;
 
 #ifdef _DEBUG
@@ -385,7 +385,7 @@ void CRtfPage::CloseOutputFile(void)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 ReadInternalFile                                               //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfPage::ReadInternalFile(FILE *fpFileNameIn)
+Bool CRtfPage::ReadInternalFile(FILE *fpFileNameIn)
 {
 	if(ReadInternalFileRelease( fpFileNameIn, this ))
 	 return TRUE;
@@ -395,7 +395,7 @@ BOOL CRtfPage::ReadInternalFile(FILE *fpFileNameIn)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 ReadInternalFileRelease                                        //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage)
+Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage)
 {
 	CRtfFragment*   pRtfFragment;
 	CRtfString*     pRtfString;
@@ -670,7 +670,7 @@ void	CRtfPage::SortUserNumber(void)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 FindPageTree                                                   //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfPage::FindPageTree(FILE *fpFileNameIn, const char* FileNameOut)
+Bool CRtfPage::FindPageTree(FILE *fpFileNameIn, const char* FileNameOut)
 {
 	return	PageTree( fpFileNameIn, this ,FileNameOut);
 }
@@ -1005,7 +1005,7 @@ int16_t CRtfPage::GetMinKegl( int16_t OldKegl )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 Write                                                          //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfPage::Write(const char *FileNameOut)
+Bool CRtfPage::Write(const char *FileNameOut)
 {
 	if(RtfWriteMode)
 	{
@@ -1063,7 +1063,7 @@ BOOL CRtfPage::Write(const char *FileNameOut)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 Write_USE_NONE                                                 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfPage::Write_USE_NONE()
+Bool CRtfPage::Write_USE_NONE()
 {
 	int16_t         NumberCurrentFragment,InGroupNumber;
 	BYTE          FragmentType;
@@ -1109,7 +1109,7 @@ BOOL CRtfPage::Write_USE_NONE()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 Write_USE_FRAME                                                //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfPage::Write_USE_FRAME()
+Bool CRtfPage::Write_USE_FRAME()
 {
 	int16_t InGroupNumber;
  CRtfFragment*  pRtfFragment;
@@ -1282,7 +1282,7 @@ void CRtfPage::ToPlacePicturesAndTables(void)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 Write_USE_FRAME_AND_COLUMN                                     //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfPage::Write_USE_FRAME_AND_COLUMN()
+Bool CRtfPage::Write_USE_FRAME_AND_COLUMN()
 {
     int i;
 	CRtfSector* pRtfSector;
@@ -1355,7 +1355,7 @@ WORD CRtfPage::GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector* pR
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 WriteHeaderRtf                                                 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfPage::WriteHeaderRtf(void)
+Bool CRtfPage::WriteHeaderRtf(void)
 {
  int16_t  NumFont = 4, i;
 	WORD cr=13/*0x0d*/,lf=10/*0x0a*/;
@@ -1712,7 +1712,7 @@ void CRtfSector::CalcSector(void)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 Write                                                          //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfSector::Write(void)
+Bool CRtfSector::Write(void)
 {
 #ifdef EdWrite
 	Handle  hParagraph=NULL;
@@ -2020,7 +2020,7 @@ void CRtfHorizontalColumn::CalcHorizontalColumn(void)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 CheckTermColumn                                                //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfHorizontalColumn::CheckTermColumn(void)
+Bool CRtfHorizontalColumn::CheckTermColumn(void)
 {
 	CRtfVerticalColumn *pRtfVerticalColumn,*pRtfPrevVerticalColumn;
 	int i;
@@ -2498,7 +2498,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminal
 	vectorWord         *pGroup;
 	WORD                FreeSpace;
 	int                 number;
-	BOOL                FlagFirstTerminalFragment = FALSE;
+	Bool                FlagFirstTerminalFragment = FALSE;
 	int32_t               TopPositionFirstTerminalFragment;
 	RECT               Rect;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2719,7 +2719,7 @@ WORD CRtfHorizontalColumn::GetFreeSpaceBetweenPrevAndCurrentFragments(int TopPos
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                          GetOverLayedFlag                                      //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfHorizontalColumn::GetOverLayedFlag(int CurFragmentNumber)
+Bool CRtfHorizontalColumn::GetOverLayedFlag(int CurFragmentNumber)
 {
 	CRtfVerticalColumn *pRtfVerticalColumn;
 	CRtfFragment       *pRtfFragment;
@@ -2776,7 +2776,7 @@ void CRtfHorizontalColumn::SortFragments()
 	CRtfVerticalColumn *pRtfVerticalColumn;
 	CRtfFragment       *pRtfFragment,*pRtfFragmentFirst;
 	int                 /*NextTop=-32000,*/size,number;
-	BOOL                FlagInserted = FALSE;
+	Bool                FlagInserted = FALSE;
 
 	CountFrameInTerminalColumn = m_arVerticalColumns.size();
 	for(int i=0; i<CountFrameInTerminalColumn; i++)
@@ -2881,7 +2881,7 @@ WORD CRtfHorizontalColumn::GetOffsetFromPrevTextFragment(CRtfFragment *pRtfFragm
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 WriteFramesInTerminalColumn                                    //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfHorizontalColumn::WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo,BOOL FlagFirstTerminalFragment,int32_t TopPositionFirstTerminalFragment)
+void CRtfHorizontalColumn::WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo,Bool FlagFirstTerminalFragment,int32_t TopPositionFirstTerminalFragment)
 {
 	CRtfVerticalColumn* pRtfVerticalColumn;
 	int32_t shpleft,shptop,shpright,shpbottom,shpwr=0,fri=0;
@@ -3035,7 +3035,7 @@ CRtfVerticalColumn::~CRtfVerticalColumn()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 Write                                                          //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfVerticalColumn::Write(BOOL OutPutType, RtfSectorInfo* SectorInfo)
+Bool CRtfVerticalColumn::Write(Bool OutPutType, RtfSectorInfo* SectorInfo)
 {
 	CRtfFragment* pRtfFragment;
 
@@ -3191,7 +3191,7 @@ CRtfString* CRtfFragment::GetNextString()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 FWriteText                                                     //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfFragment::FWriteText(int16_t NumberCurrentFragment,RtfSectorInfo *SectorInfo, BOOL OutPutType )
+Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment,RtfSectorInfo *SectorInfo, Bool OutPutType )
 {
 	CRtfWord*   pRtfWord;
 	CRtfString* pRtfString;
@@ -3663,7 +3663,7 @@ void CRtfFragment::InitFragment(RtfSectorInfo* SectorInfo)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 FWriteTable                                                    //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfFragment::FWriteTable(int16_t NumberCurrentFragment,RtfSectorInfo *SectorInfo, BOOL OutPutType)
+Bool CRtfFragment::FWriteTable(int16_t NumberCurrentFragment,RtfSectorInfo *SectorInfo, Bool OutPutType)
 {
 // CString  TableString;
 //	uint32_t   CountTableElem;
@@ -3687,7 +3687,7 @@ BOOL CRtfFragment::FWriteTable(int16_t NumberCurrentFragment,RtfSectorInfo *Sect
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 FWritePicture                                                  //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CRtfFragment::FWritePicture(int16_t NumberCurrentFragment,RtfSectorInfo *SectorInfo, BOOL OutPutType)
+Bool CRtfFragment::FWritePicture(int16_t NumberCurrentFragment,RtfSectorInfo *SectorInfo, Bool OutPutType)
 {
 //	CString  PictString;
 //	uint32_t   Pindex;
@@ -3711,7 +3711,7 @@ BOOL CRtfFragment::FWritePicture(int16_t NumberCurrentFragment,RtfSectorInfo *Se
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 new_paragraph                                                  //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfFragment::new_paragraph( BOOL OutPutType )
+void CRtfFragment::new_paragraph( Bool OutPutType )
 {
  if( OutPutType )
 	{
@@ -4328,7 +4328,7 @@ void  Rtf_CED_CreateChar( EDRECT* slayout, letterEx* Letter, CRtfChar* pRtfChar 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 #define LMin  500
 
-BOOL CheckLines(RECT* Rect, BOOL FlagVer, RtfSectorInfo *SectorInfo)
+Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo)
 {
 // LinesTotalInfo     lti;
 // Handle             hVH;

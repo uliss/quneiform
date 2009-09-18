@@ -382,7 +382,7 @@ static INT botlad(INT jump,INT percent)
 }
 */
 
-static BOOL increase (PBYTE f, INT from, INT to)
+static Bool increase (PBYTE f, INT from, INT to)
 {
     INT i;
 
@@ -393,7 +393,7 @@ static BOOL increase (PBYTE f, INT from, INT to)
 }
 
 /*
-static BOOL decrease (PBYTE f, INT from, INT to)
+static Bool decrease (PBYTE f, INT from, INT to)
 //
 //	This procedure checks function to be decreasing.
 //

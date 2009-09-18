@@ -659,7 +659,7 @@ static BYTE **code_table[] = {
   mac_table
   };
 //********************************************************************
-BOOL UpdateActiveCodeTable()
+Bool UpdateActiveCodeTable()
 {
 // Выбор кодовой таблицы для комбинации "язык - кодировка"
 

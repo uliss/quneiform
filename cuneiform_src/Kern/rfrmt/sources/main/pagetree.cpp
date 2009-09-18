@@ -179,7 +179,7 @@ util_spl:
 	OpenFullOutTiger  - RTF
 	CalcStatTiger     - статистика об интервалах (внутри- и меж- словные и т.п.)
 */
-extern "C" BOOL PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName);
+extern "C" Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName);
 extern short __cdecl OpenFullOutTiger(FILE *FileName);
 void   show_frm(int16_t NumFragm,FRAME **frm);
 Bool   Alik_sort_function( const void *a, const void *b);
@@ -227,7 +227,7 @@ void RtfAssignRect_CRect_CRect(tagRECT *s1,tagRECT *s2);
 
 ////////////// functions, which are moved from other modules //////////////
 static HWND h_found=NULL;
-extern "C" BOOL __stdcall FindByPartOfTitle( HWND hwnd,	      // handle to parent window
+extern "C" Bool __stdcall FindByPartOfTitle( HWND hwnd,	      // handle to parent window
                                              LPARAM lParam 	) // application-defined value
 {
    char title[256];
@@ -1818,7 +1818,7 @@ int16_t CalcNumDau(KNOTT *Knot)
 //         Горизантальные колонки на вертикальные колонки
 //         Определение терминальности вертикальных колонок
 //  Запольнение RtfPage.
-BOOL PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
+Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 {
 	int16_t  nc,ns,nw,nz,fl,i,i_ns1,i_nsb,i_nse,j,ih,iv,iv1,kp,kp1,kp2,
 		      n_beg,dist_hor_col=240,dist_sec=360,flag_vse_term=1,OldNumCol;
@@ -1829,7 +1829,7 @@ BOOL PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 	COLH   **ColH,**ColH_New;
 	INF_TREE Inf;
 	FRAME **frm;
-	BOOL  FlagBadBad = FALSE;
+	Bool  FlagBadBad = FALSE;
 	KNOTT *RootUdal=NULL;
 
 

@@ -121,7 +121,7 @@ NegImage::~NegImage()
 		delete[] lp;
 }
 
-BOOL NegImage::SetDibPtr(uchar* lpDibData,int wide,int height,int bwide)
+Bool NegImage::SetDibPtr(uchar* lpDibData,int wide,int height,int bwide)
 {
 	if(lp!=NULL||lpDibData==NULL)
 		return FALSE;
@@ -145,7 +145,7 @@ uchar* NegImage::GetPmasp(Rect16* pRc)
 	const int bwide=(w+7)>>3;
 	int h=bottom-top+1;
 	const int cbytewide=bytewide;
-	const BOOL fl_danger=!(cbytewide-(right>>3));
+	const Bool fl_danger=!(cbytewide-(right>>3));
 
 	if(left<0||top<0||right>=Wide||bottom>=Height)
 		return NULL;

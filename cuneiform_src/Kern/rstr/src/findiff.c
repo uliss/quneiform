@@ -83,10 +83,10 @@ static void final_ao_gpq(cell *);
 static void final_OQ(cell *);
 static void final_dotcom(cell *);
 static INT final_slash_l(cell *);
-static BOOL is_slash(cell *);
+static Bool is_slash(cell *);
 static INT final_no_slash(cell *);
 static INT final_back_slash(cell *);
-static BOOL is_back_slash(cell *);
+static Bool is_back_slash(cell *);
 static void final_bh(cell *);
 static void final_ii_u(cell *);
 static void final_AOU_2dot(cell *);
@@ -374,7 +374,7 @@ static INT final_slash_l(cell *c)
 #define NOMINCL     30
 #define DENOMINCL   11
 
-static BOOL is_slash(cell *c)
+static Bool is_slash(cell *c)
  {
  PBYTE raster;
  INT i1,i2,j1,j2,l;
@@ -436,7 +436,7 @@ static INT final_back_slash(cell *c)
  return 1;
  }
 
-static BOOL is_back_slash(cell *c)
+static Bool is_back_slash(cell *c)
  {
  PBYTE raster;
  INT l,i1,i2,i3,j1,j2,j3,k1,k2,k3;

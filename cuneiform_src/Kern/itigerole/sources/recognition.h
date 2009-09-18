@@ -81,8 +81,8 @@ public:
 public:
 	HANDLE	hThread;
 	DWORD	dwReturnCode;
-	BOOL	bIsLoad; // Загружена ли библиотека
-	BOOL	bIsOpen; // Открыто ли изображение
+	Bool	bIsLoad; // Загружена ли библиотека
+	Bool	bIsOpen; // Открыто ли изображение
 
 	long	nContext; // Для временного использования. В частности,
 				// для передачи данных между потоками.
@@ -91,8 +91,8 @@ public:
 private:
 // Operations
 public:
-	inline BOOL IsLoad(){ return bIsLoad;};
-	inline BOOL IsOpen(){ return bIsOpen;};
+	inline Bool IsLoad(){ return bIsLoad;};
+	inline Bool IsOpen(){ return bIsOpen;};
 
 	void SetError(UINT nID);
 	void SetError(char * str);
@@ -126,21 +126,21 @@ END_CONNECTION_POINT_MAP()
 
 // IRecognition
 public:
-	STDMETHOD(XGetTemplate)(/*[out]*/ long * lpnLeft,/*[out]*/ long * lpnTop,/*[out]*/ long * lpnRight,/*[out]*/ long * lpnBottom,/*[out,retval]*/ BOOL * rc);
-	STDMETHOD(SetSpecialProject)(/*[in]*/ long nSpecPrj, /*[retval]*/ BOOL * ret);
+	STDMETHOD(XGetTemplate)(/*[out]*/ long * lpnLeft,/*[out]*/ long * lpnTop,/*[out]*/ long * lpnRight,/*[out]*/ long * lpnBottom,/*[out,retval]*/ Bool * rc);
+	STDMETHOD(SetSpecialProject)(/*[in]*/ long nSpecPrj, /*[retval]*/ Bool * ret);
 	STDMETHOD(DeleteEdPage)(/*[in]*/long hEdPage);
-	STDMETHOD(SaveToBSTR)(/*[in]*/ long hEdPage,/*[in]*/ long format,/*[in]*/ long code,/*[out]*/ BSTR * lpBstr,/*[out,retval]*/ BOOL * rc);
-	STDMETHOD(Save)(/*[in]*/ long hEdPage,/*[in]*/ BSTR FileName,/*[in]*/ long format,/*[in]*/ long code,/*[in]*/ BOOL bAppend,/*[out,retval]*/ BOOL * rc);
-	STDMETHOD(get_PreserveLineBreaks)(/*[out, retval]*/ BOOL *pVal);
-	STDMETHOD(put_PreserveLineBreaks)(/*[in]*/ BOOL newVal);
+	STDMETHOD(SaveToBSTR)(/*[in]*/ long hEdPage,/*[in]*/ long format,/*[in]*/ long code,/*[out]*/ BSTR * lpBstr,/*[out,retval]*/ Bool * rc);
+	STDMETHOD(Save)(/*[in]*/ long hEdPage,/*[in]*/ BSTR FileName,/*[in]*/ long format,/*[in]*/ long code,/*[in]*/ Bool bAppend,/*[out,retval]*/ Bool * rc);
+	STDMETHOD(get_PreserveLineBreaks)(/*[out, retval]*/ Bool *pVal);
+	STDMETHOD(put_PreserveLineBreaks)(/*[in]*/ Bool newVal);
 	STDMETHOD(get_CurrentEdPage)(/*[out, retval]*/ long *pVal);
 	STDMETHOD(put_CurrentEdPage)(/*[in]*/ long newVal);
-	STDMETHOD(XSetTemplate)(/*[in]*/ long nLeft,/*[in]*/ long nTop,/*[in]*/ long nRight,/*[in]*/ long nBottom,/*[out,retval]*/ BOOL * rc );
+	STDMETHOD(XSetTemplate)(/*[in]*/ long nLeft,/*[in]*/ long nTop,/*[in]*/ long nRight,/*[in]*/ long nBottom,/*[out,retval]*/ Bool * rc );
 	STDMETHOD(RenameImageFile)(/*[in]*/ BSTR name);
 	STDMETHOD(SetPageSize)(/*[in]*/ long width,/*[in]*/ long height);
 	STDMETHOD(get_AutoRotate)(/*[out, retval]*/ long *pVal);
 	STDMETHOD(put_AutoRotate)(/*[in]*/ long newVal);
-	STDMETHOD(XGetRotateDIB)(/*[out]*/ long * phDIB,/*[out]*/ long * x0, /*[out]*/ long * y0,/*[out,retval]*/ BOOL * rc);
+	STDMETHOD(XGetRotateDIB)(/*[out]*/ long * phDIB,/*[out]*/ long * x0, /*[out]*/ long * y0,/*[out,retval]*/ Bool * rc);
 	STDMETHOD(GetTableModeString)(/*[in]*/ long nMode,/*[out,retval]*/ BSTR * lpbstr);
 	STDMETHOD(GetPictureModeString)(/*[in]*/  long nMode,/*[out,retval]*/ BSTR * lpbstr);
 	STDMETHOD(GetFormatModeString)(/*[in]*/  long nMode,/*[out,retval]*/ BSTR * lpbstr);
@@ -161,17 +161,17 @@ public:
 	STDMETHOD(GetFormatString)(/*[in]*/ long code,/*[out,retval]*/ BSTR * lpstr);
 	STDMETHOD(EnumFormats)(/*[in]*/ long prev,/*[out,retval]*/ long * next);
 	STDMETHOD(GetLanguageString)(/*[in]*/ long code,/*[out,retval]*/ BSTR * lpstr);
-	STDMETHOD(XPageAnalysis)(/*[out,retval]*/ BOOL * rc);
-	STDMETHOD(XSave)(/*[in]*/ BSTR FileName,/*[in]*/ long format,/*[in]*/ long code,/*[out,retval]*/ BOOL * rc);
-	STDMETHOD(XRecognition)(/*[in]*/ BOOL bThread,/*[in]*/long context,/*[out,retval]*/ BOOL * rc);
-	STDMETHOD(XClose)(/*[out,retval]*/ BOOL * rc);
-	STDMETHOD(XOpen)(/*[in]*/ long hDIB,/*[in]*/ BSTR FileName,/*[out,retval]*/ BOOL * hRc);
-	STDMETHOD(RecogClipboard)(/*[out,retval]*/ BOOL * rc);
-	STDMETHOD(RecogDIBtoMemory)(/*[in]*/ long hDIB,/*[out,retval]*/ long * lphMem, /*[in]*/ short Format,/*[in]*/ short Code,/*[out,retval]*/ BOOL * rc);
+	STDMETHOD(XPageAnalysis)(/*[out,retval]*/ Bool * rc);
+	STDMETHOD(XSave)(/*[in]*/ BSTR FileName,/*[in]*/ long format,/*[in]*/ long code,/*[out,retval]*/ Bool * rc);
+	STDMETHOD(XRecognition)(/*[in]*/ Bool bThread,/*[in]*/long context,/*[out,retval]*/ Bool * rc);
+	STDMETHOD(XClose)(/*[out,retval]*/ Bool * rc);
+	STDMETHOD(XOpen)(/*[in]*/ long hDIB,/*[in]*/ BSTR FileName,/*[out,retval]*/ Bool * hRc);
+	STDMETHOD(RecogClipboard)(/*[out,retval]*/ Bool * rc);
+	STDMETHOD(RecogDIBtoMemory)(/*[in]*/ long hDIB,/*[out,retval]*/ long * lphMem, /*[in]*/ short Format,/*[in]*/ short Code,/*[out,retval]*/ Bool * rc);
 	STDMETHOD(EnumLanguage)(/*[in]*/ short PrevLang,/*[out,retval]*/ short * lpNextLang);
-	STDMETHOD(RecogDIBtoFile)(/*[in]*/ long hDIB, /*[in]*/ BSTR lpFileName, /*[in]*/ short shFormat,/*[in]*/ short shCode,/*[out,retval]*/BOOL * rc);
+	STDMETHOD(RecogDIBtoFile)(/*[in]*/ long hDIB, /*[in]*/ BSTR lpFileName, /*[in]*/ short shFormat,/*[in]*/ short shCode,/*[out,retval]*/Bool * rc);
 	STDMETHOD(Unload)();
-	STDMETHOD(Load)(/*[out, retval]*/ BOOL * rc);
+	STDMETHOD(Load)(/*[out, retval]*/ Bool * rc);
 	STDMETHOD(GetReturnString)(/*[in]*/ long rc,/*[out]*/ BSTR * str);
 	STDMETHOD(GetReturnCode)(/*[in]*/ long * rc);
 	STDMETHOD(get_ProgressStart)(/*[out, retval]*/ long *pVal);
@@ -186,24 +186,24 @@ public:
 	STDMETHOD(put_SansSerifName)(/*[in]*/ BSTR newVal);
 	STDMETHOD(get_SerifName)(/*[out, retval]*/ BSTR *pVal);
 	STDMETHOD(put_SerifName)(/*[in]*/ BSTR newVal);
-	STDMETHOD(get_Format)(/*[out, retval]*/ BOOL *pVal);
-	STDMETHOD(put_Format)(/*[in]*/ BOOL newVal);
-	STDMETHOD(get_Size)(/*[out, retval]*/ BOOL *pVal);
-	STDMETHOD(put_Size)(/*[in]*/ BOOL newVal);
-	STDMETHOD(get_Italic)(/*[out, retval]*/ BOOL *pVal);
-	STDMETHOD(put_Italic)(/*[in]*/ BOOL newVal);
-	STDMETHOD(get_Bold)(/*[out, retval]*/ BOOL *pVal);
-	STDMETHOD(put_Bold)(/*[in]*/ BOOL newVal);
+	STDMETHOD(get_Format)(/*[out, retval]*/ Bool *pVal);
+	STDMETHOD(put_Format)(/*[in]*/ Bool newVal);
+	STDMETHOD(get_Size)(/*[out, retval]*/ Bool *pVal);
+	STDMETHOD(put_Size)(/*[in]*/ Bool newVal);
+	STDMETHOD(get_Italic)(/*[out, retval]*/ Bool *pVal);
+	STDMETHOD(put_Italic)(/*[in]*/ Bool newVal);
+	STDMETHOD(get_Bold)(/*[out, retval]*/ Bool *pVal);
+	STDMETHOD(put_Bold)(/*[in]*/ Bool newVal);
 	STDMETHOD(get_UserDictName)(/*[out, retval]*/ BSTR *pVal);
 	STDMETHOD(put_UserDictName)(/*[in]*/ BSTR newVal);
-	STDMETHOD(get_DotMatrix)(/*[out, retval]*/ BOOL *pVal);
-	STDMETHOD(put_DotMatrix)(/*[in]*/ BOOL newVal);
-	STDMETHOD(get_Fax100)(/*[out, retval]*/ BOOL *pVal);
-	STDMETHOD(put_Fax100)(/*[in]*/ BOOL newVal);
-	STDMETHOD(get_OneColumn)(/*[out, retval]*/ BOOL *pVal);
-	STDMETHOD(put_OneColumn)(/*[in]*/ BOOL newVal);
-	STDMETHOD(get_Speller)(/*[out, retval]*/ BOOL *pVal);
-	STDMETHOD(put_Speller)(/*[in]*/ BOOL newVal);
+	STDMETHOD(get_DotMatrix)(/*[out, retval]*/ Bool *pVal);
+	STDMETHOD(put_DotMatrix)(/*[in]*/ Bool newVal);
+	STDMETHOD(get_Fax100)(/*[out, retval]*/ Bool *pVal);
+	STDMETHOD(put_Fax100)(/*[in]*/ Bool newVal);
+	STDMETHOD(get_OneColumn)(/*[out, retval]*/ Bool *pVal);
+	STDMETHOD(put_OneColumn)(/*[in]*/ Bool newVal);
+	STDMETHOD(get_Speller)(/*[out, retval]*/ Bool *pVal);
+	STDMETHOD(put_Speller)(/*[in]*/ Bool newVal);
 	STDMETHOD(get_Language)(/*[out, retval]*/ short *pVal);
 	STDMETHOD(put_Language)(/*[in]*/ short newVal);
 };

@@ -119,7 +119,7 @@ ret_dif:
 }/*dif_II*/
 
 
-BOOL  proc_UKR_I( cell *c )
+Bool  proc_UKR_I( cell *c )
 {
    cell  *cc,*clist[3];
    BYTE  one,Ione,let;

@@ -107,7 +107,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CSampleDlg message handlers
 
-BOOL CSampleDlg::OnInitDialog()
+Bool CSampleDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
@@ -212,7 +212,7 @@ void CSampleDlg::OnCancel()
 		CDialog::OnCancel();
 }
 
-BOOL CSampleDlg::CanExit()
+Bool CSampleDlg::CanExit()
 {
 	// If the proxy object is still around, then the automation
 	//  controller is still holding on to this application.  Leave

@@ -102,7 +102,7 @@ static INT kill_version( BYTE prob);
   extern BYTE line_tabcell;
 
   extern BYTE enable_table_recog; // Oleg : 10-02-95 09:05pm : sheet version
-  extern BOOL test_alphabet_elem(BYTE let);
+  extern Bool test_alphabet_elem(BYTE let);
 /*......................................................................*/
 WORD	mkm1=0x1111, mkm2=0x2222, mkm3=0x3333,	// MK Variables
 	mkm4=0x4444, mkm5=0x5555;
@@ -177,7 +177,7 @@ return;
 
 /* set letter (let) propability to (prob) if prob > old propability */
 /* return FALSE if letter (let) not exist in cell *c                */
-BOOL set_prob(cell *c, CHAR let, BYTE prob)
+Bool set_prob(cell *c, CHAR let, BYTE prob)
 {
 INT i,n=c->nvers;
 for(i=0;i<n;i++)
@@ -225,7 +225,7 @@ else
 return;
 }
 
-BOOL check_let(cell *c, CHAR let )
+Bool check_let(cell *c, CHAR let )
 {
 BYTE i,l=(BYTE)let,n=(BYTE)c->nvers;
 version *bv;

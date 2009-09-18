@@ -159,7 +159,7 @@ static int Built_inSize;
 // 08-13-93 09:44pm, Mike
 // New stream technology.
 
-BOOL loadArtBase (INT CountryCode)
+Bool loadArtBase (INT CountryCode)
 {
 	INT h;
 	TabFH f;

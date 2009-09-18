@@ -63,10 +63,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //-------------------------------------
 #include "compat_defs.h"
 
-extern BOOL dpPrintResConsole;
-extern BOOL dpNegResD;
-extern BOOL dpNegRecD;
-extern BOOL dpRecOneLetter;
+extern Bool dpPrintResConsole;
+extern Bool dpNegResD;
+extern Bool dpNegRecD;
+extern Bool dpRecOneLetter;
 
 #define TYPE_RNEG_TEMP_PHSTR CPAGE_GetInternalType("TYPE_RNEG_TEMP_PHSTR")
 
@@ -84,9 +84,9 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
  int nN=0;
  int len_neg_mas=100;
  int add_len_mas=50;
- BOOL vertical;
+ Bool vertical;
  char Alf[256];
- BOOL nomem=FALSE;
+ Bool nomem=FALSE;
  NegList* root=(*proot);
  NegList* now=root;
  NegList* temp;
@@ -642,7 +642,7 @@ double NegRecControl(int p)
 	return .5+(double)(p-99)/99./2.;
 }
 
-double NegStrControl(Rect16* pRc,int n,BOOL vertical,Rect16* pRect)
+double NegStrControl(Rect16* pRc,int n,Bool vertical,Rect16* pRect)
 {
  double res;
  int count_pogr=0;
@@ -714,7 +714,7 @@ double NegStrControl(Rect16* pRc,int n,BOOL vertical,Rect16* pRect)
  return res;
 }
 
-int CountLetter(Rect16* pRc,int n,BOOL vertical)
+int CountLetter(Rect16* pRc,int n,Bool vertical)
 {
  int count=0;
  const int DY=10*(DPIY+1)/300-1;
@@ -755,7 +755,7 @@ void ToHoriz(Rect16* pRc,int nRc)
 	}
 }
 
-BOOL IfBadResult(uchar* result,int n)
+Bool IfBadResult(uchar* result,int n)
 {
  int i;
  int count_q=0;
@@ -777,7 +777,7 @@ BOOL IfBadResult(uchar* result,int n)
  return TRUE;
 }
 
-BOOL IfExistDef(RecVersions vs)
+Bool IfExistDef(RecVersions vs)
 {
 	int i;
 	for(i=0;i<vs.lnAltCnt;i++)
@@ -788,7 +788,7 @@ BOOL IfExistDef(RecVersions vs)
 	return FALSE;
 }
 
-BOOL IfExistI(RecVersions vs)
+Bool IfExistI(RecVersions vs)
 {
 	int i;
 	for(i=0;i<vs.lnAltCnt;i++)
@@ -799,7 +799,7 @@ BOOL IfExistI(RecVersions vs)
 	return FALSE;
 }
 
-BOOL IfGl(uchar c)
+Bool IfGl(uchar c)
 {
 	if( (c==256+'À')||(c==256+'Å')||(c==256+'Ó')||(c==256+'Û')||(c==256+'Î')||(c==256+'Ý')||(c==256+'ß')||(c==256+'È')||(c==256+'Þ') )
 		return TRUE;
@@ -807,7 +807,7 @@ BOOL IfGl(uchar c)
 		return FALSE;
 }
 
-BOOL IfExistA(RecVersions vs)
+Bool IfExistA(RecVersions vs)
 {
 	int i;
 	for(i=0;i<vs.lnAltCnt;i++)
@@ -869,7 +869,7 @@ void NegMoveResult(uchar* result,int& len,int num)
 
 
 
-void NegPutLetter(uchar* result,int& len_result,RecAlt Alt,BOOL Flag)
+void NegPutLetter(uchar* result,int& len_result,RecAlt Alt,Bool Flag)
 {
   if(Flag==TRUE)
   {
@@ -918,7 +918,7 @@ int GetMediumH(Rect16* pN,int n)
 }
 
 
-BOOL NegGetRaster(Handle hCPage,Rect16 N,RecRaster* rec,BOOL vert)
+Bool NegGetRaster(Handle hCPage,Rect16 N,RecRaster* rec,Bool vert)
 {
  int i,j,k;
  uchar Data[1000];
@@ -1315,8 +1315,8 @@ Handle GetNegCCOM(Handle hCPage,Rect16* pRc,int i)
  }
 
  int bytewide=(pRc[i].right-pRc[i].left+8)/8;
- BOOL fotomet=FALSE;
- BOOL RevOv=TRUE;
+ Bool fotomet=FALSE;
+ Bool RevOv=TRUE;
 
  Control.MinCompHei=min_h;
  Control.MinCompWid=min_w;
@@ -1332,7 +1332,7 @@ Handle GetNegCCOM(Handle hCPage,Rect16* pRc,int i)
  */
 }
 
-void SortLetter(Rect16 *pRc,int n,BOOL vert)
+void SortLetter(Rect16 *pRc,int n,Bool vert)
 {
  int16_t left;
  int16_t right;
@@ -1495,7 +1495,7 @@ void PutTempToCPAGE(Handle hCPage,NegList* root)
 {
  NegList* now;
  NegTemp temp;
- BOOL fl_cont;
+ Bool fl_cont;
  int size_phstr=sizeof(NegTemp);
 
  for(now=root;now;now=now->next)
@@ -1552,7 +1552,7 @@ void PutTempToCPAGE(Handle hCPage,NegList* root)
  }
 }
 
-BOOL UnifCont(CCOM_handle to,CCOM_handle from)
+Bool UnifCont(CCOM_handle to,CCOM_handle from)
 {
  if(!to||!from)
 	return FALSE;

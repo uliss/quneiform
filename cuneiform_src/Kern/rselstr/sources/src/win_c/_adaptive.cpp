@@ -166,7 +166,7 @@ CCOM_comp *get_CCOM_comp(PROOT r) {
 	return (CCOM_comp *) r->pComp;
 }
 
-BOOL save_MN(MN *mn) {
+Bool save_MN(MN *mn) {
 	CCOM_comp * p = REXC_MN2CCOM((Handle) exthCCOM, (Handle) mn);
 	if (!p)
 		return FALSE;

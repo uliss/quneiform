@@ -152,7 +152,7 @@ void StringCalculateParameters (STRING *pString)
     int  ySumTop;
     int  nSumTopDispersion;
     int  nSumBottomDispersion;
-    BOOL bSpecialFound;
+    Bool bSpecialFound;
 
     pString -> language = pCurrentBlock -> language; // Pit 02-??-94
 
@@ -284,7 +284,7 @@ void StringsFill (void)
     int  iMax;
     int  i;
     int  y;
-    BOOL    CorrectHist=FALSE;
+    Bool    CorrectHist=FALSE;
 
     for (;;)
     {
@@ -400,9 +400,9 @@ static int nDustUpper, nDustLower;
 static int nDustLeft, nDustRight;
 static int nDustGap;
 
-static BOOL PassForDust (STRING *pString, ROOT *pRootsBegin, ROOT *pRootsAfter)
+static Bool PassForDust (STRING *pString, ROOT *pRootsBegin, ROOT *pRootsAfter)
 {
-    BOOL bStripWasExpanded = FALSE;
+    Bool bStripWasExpanded = FALSE;
     ROOT *pRoot;
 
     for (pRoot = pRootsBegin; pRoot < pRootsAfter; pRoot++)
@@ -455,7 +455,7 @@ void StringDustAccount (STRING *pString)
 {
     int i;
     ROOT *pLocalRootsBegin, *pLocalRootsAfter;
-    BOOL bExpanded1, bExpanded2;
+    Bool bExpanded1, bExpanded2;
 
     nStripHeight = pString -> yBottom - pString -> yTop + 1;
     nDustUpper   = pString -> yTop - nStripHeight / 2;
@@ -502,7 +502,7 @@ void StringsDustAccount (void)
     }
 }
 
-BOOL StringIsTrash (STRING *pString)
+Bool StringIsTrash (STRING *pString)
 {
     int nBigDust;
     int nBigDustHeight;

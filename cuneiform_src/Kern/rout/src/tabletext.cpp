@@ -64,22 +64,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "stdafx.h"
 #include "rout_own.h"
 
-static BOOL Static_TableText_Prepare(Handle hObject, long reason);
-static BOOL LineEnd();
-static BOOL TableText_Columns();
-static BOOL TableText_CellWidths();
+static Bool Static_TableText_Prepare(Handle hObject, long reason);
+static Bool LineEnd();
+static Bool TableText_Columns();
+static Bool TableText_CellWidths();
 static long BottomRow();
 static long RightmostCol();
-static BOOL SearchTable(long fromCol);
-static BOOL CellRight();
-static BOOL FirstCell();
-static BOOL NextLevel();
-static BOOL TableText_Finish(long reason);
-static BOOL EmptyColumns(long fromCol,long toCol);
-static BOOL AfterColumn(long col);
+static Bool SearchTable(long fromCol);
+static Bool CellRight();
+static Bool FirstCell();
+static Bool NextLevel();
+static Bool TableText_Finish(long reason);
+static Bool EmptyColumns(long fromCol,long toCol);
+static Bool AfterColumn(long col);
 
 //********************************************************************
-BOOL MakeTableText()
+Bool MakeTableText()
 {
 /*
 	Формат TableText.
@@ -122,7 +122,7 @@ BOOL MakeTableText()
 	gMemCur = gMemStart;
 
 	// Финальная сборка табличного текста
-	BOOL good = BrowseTableText(TableText_Finish);
+	Bool good = BrowseTableText(TableText_Finish);
 
 	// Восстановить конец памяти
 	gMemEnd = saveMemEnd;
@@ -133,7 +133,7 @@ BOOL MakeTableText()
 	return good;
 }
 //********************************************************************
-BOOL TableText_Prepare()
+Bool TableText_Prepare()
 {
 /*
 	Выложить таблицу построчно.
@@ -273,7 +273,7 @@ BOOL TableText_Prepare()
 
 }
 //********************************************************************
-BOOL TableText_Delete()
+Bool TableText_Delete()
 {
 // Удалить построчное представление
 
@@ -295,7 +295,7 @@ BOOL TableText_Delete()
 	return TRUE;
 }
 //********************************************************************
-BOOL Static_TableText_Prepare(
+Bool Static_TableText_Prepare(
 			Handle hObject,
 			long reason	// См. enum BROWSE_REASON
 			)
@@ -424,7 +424,7 @@ BOOL Static_TableText_Prepare(
 	return TRUE;	// Продолжить просмотр
 }
 //********************************************************************
-static BOOL LineEnd()
+static Bool LineEnd()
 {
 // Конец строки текста
 
@@ -454,7 +454,7 @@ static BOOL LineEnd()
 	return TRUE;
 }
 //********************************************************************
-static BOOL TableText_Columns()
+static Bool TableText_Columns()
 {
 /*
 	Рассчитать координаты колонок таблицы:
@@ -543,7 +543,7 @@ static BOOL TableText_Columns()
 	return TRUE;
 }
 //********************************************************************
-static BOOL TableText_CellWidths()
+static Bool TableText_CellWidths()
 {
 // Рассчитать ширины ячеек с учетом охваченных колонок
 
@@ -573,7 +573,7 @@ static BOOL TableText_CellWidths()
 	return TRUE;
 }
 //********************************************************************
-BOOL BrowseTableText(
+Bool BrowseTableText(
 			FNROUT_BrowseTableTextFunction
 				BrowseTableTextFunction
 			)
@@ -602,7 +602,7 @@ BOOL BrowseTableText(
 #define BROWSE_TABLE_TEXT_FUNCTION(a)\
 	{if (!BrowseTableTextFunction(a)) return FALSE;}
 
-	BOOL empty_line = FALSE;
+	Bool empty_line = FALSE;
 
 	gCurLineText = NULL;
 	gCellText = NULL;
@@ -700,7 +700,7 @@ static long RightmostCol()
 	return col-1;
 }
 //********************************************************************
-static BOOL SearchTable(
+static Bool SearchTable(
 			long fromCol	// Левая колонка области поиска
 			)
 {
@@ -782,7 +782,7 @@ static BOOL SearchTable(
 
 }
 //********************************************************************
-static BOOL CellRight()
+static Bool CellRight()
 {
 /*
 	Переход к ячейке справа от текущей ячейки
@@ -806,7 +806,7 @@ static BOOL CellRight()
 
 }
 //********************************************************************
-static BOOL FirstCell()
+static Bool FirstCell()
 {
 /*
 	Найти первую ячейку таблицы, в которой есть текст
@@ -824,7 +824,7 @@ static BOOL FirstCell()
 
 }
 //********************************************************************
-static BOOL NextLevel()
+static Bool NextLevel()
 {
 /*
 	Переход к самой левой ячейке на следующем уровне текста.
@@ -847,7 +847,7 @@ static BOOL NextLevel()
 
 }
 //********************************************************************
-static BOOL TableText_Finish(
+static Bool TableText_Finish(
 			long reason // См. enum BROWSE_TABLE_TEXT_REASON
 			)
 {
@@ -948,7 +948,7 @@ static BOOL TableText_Finish(
 	return TRUE;
 }
 //********************************************************************
-static BOOL EmptyColumns(
+static Bool EmptyColumns(
 		long fromCol,	// Первая пустая колонка
 		long toCol		// Последняя пустая колонка
 		)
@@ -971,7 +971,7 @@ for(long col = fromCol; col <= toCol; col++)
 	return TRUE;
 }
 //********************************************************************
-static BOOL AfterColumn(long col)
+static Bool AfterColumn(long col)
 {
 // Разделитель после колонки
 	char sep = 0;

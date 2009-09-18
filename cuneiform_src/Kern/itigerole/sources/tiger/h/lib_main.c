@@ -1038,9 +1038,9 @@ return (*proc)(prev);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-FNBOOL Tiger_SpellerExist(WORD language)
+FNBool Tiger_SpellerExist(WORD language)
 {
-typedef BOOL (TIGERFUN(*)fpTiger_SpellerExist)(WORD);
+typedef Bool (TIGERFUN(*)fpTiger_SpellerExist)(WORD);
 fpTiger_SpellerExist proc;
 
 if(!hTiger || !Init)
@@ -1060,7 +1060,7 @@ return (*proc)(language);
 //
 FNBOOL16 Tiger_RunWithDIB( void * lpDIB, void * lpRes )
 {
-	typedef BOOL (TIGERFUN(*)fpTigerRunWithDIB)(void *, void *);
+	typedef Bool (TIGERFUN(*)fpTigerRunWithDIB)(void *, void *);
 	fpTigerRunWithDIB proc;
 
 	if ( !hTiger || !Init )

@@ -83,7 +83,7 @@ static void dif_vy(cell *);
 static void dif_Sdol(cell *);
 static void dif_cct(cell *);
 static void dif_add(cell *);
-static BOOL compadd(cell *);
+static Bool compadd(cell *);
 static void dif_sae(cell *);
 static void dif_uv(cell *);
 static void dif_O0(cell *);
@@ -439,7 +439,7 @@ ret:
 #define NLET    256
 #define PRADDOK 31000
 
-static BOOL compadd(cell *c)
+static Bool compadd(cell *c)
  {
  s_glue GL;
  servBOX *s;

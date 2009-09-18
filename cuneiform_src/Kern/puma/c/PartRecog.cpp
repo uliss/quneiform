@@ -383,9 +383,9 @@ static Bool32 RecognizeStringsPass2()
 }
 ///////////////////////////////////////////////
 /*
-static BOOL StoreColorStrings()
+static Bool StoreColorStrings()
 {
-BOOL            rc = TRUE;
+Bool            rc = TRUE;
 int             count = CSTR_GetMaxNumber();
 int             i;
 

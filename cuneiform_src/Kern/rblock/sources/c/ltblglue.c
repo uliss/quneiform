@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # define IsCrossedIntervals(a1, a2, b1, b2)  (!((a2) < (b1) || (b2) < (a1)))
 
-static BOOL IsColumn (BLOCK *p, BLOCK *q)
+static Bool IsColumn (BLOCK *p, BLOCK *q)
 {
     int x1, x2;
     int nWidth1, nWidth2;
@@ -163,7 +163,7 @@ static BOOL IsColumn (BLOCK *p, BLOCK *q)
     return (TRUE);
 }
 
-static BOOL IsIncorrectBreaking (BLOCK *p, BLOCK *q)
+static Bool IsIncorrectBreaking (BLOCK *p, BLOCK *q)
 {
     BLOCK *r;
 
@@ -222,7 +222,7 @@ static BOOL IsIncorrectBreaking (BLOCK *p, BLOCK *q)
     return (TRUE);
 }
 
-static BOOL IsIncorrectSmartBreaking (BLOCK *p, BLOCK *q)
+static Bool IsIncorrectSmartBreaking (BLOCK *p, BLOCK *q)
 {
     register ROOT *pRoot;
     register int xLeft   = q -> Rect.xLeft;
@@ -231,7 +231,7 @@ static BOOL IsIncorrectSmartBreaking (BLOCK *p, BLOCK *q)
     register int yBottom = q -> Rect.yBottom;
     int nDistance1;
     int nDistance2;
-    BOOL bNearRootFound;
+    Bool bNearRootFound;
     int nMinDistance;
 
     if (! (p -> uFlags & BF_SMART_BREAKING_APPLIED) &&

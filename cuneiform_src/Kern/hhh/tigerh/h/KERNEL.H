@@ -67,30 +67,30 @@
 #define SPACE_CORRECTION   512
 
 //	Kernel functions
-BOOL kernel_init(void);
-BOOL bcr_init(void);
+Bool kernel_init(void);
+Bool bcr_init(void);
 void kernel_run_options(WORD options);
-BOOL recognize(PBYTE ed_file_name);
-BOOL page_analysis(void);
-BOOL final_recognition(PBYTE ed_file_name);
-BOOL spelling_checker(PBYTE ed_file_name);
-BOOL kernel_reset(void);
-BOOL kernel_reload_vocs(void);
-BOOL kernel_set_temp_dir(BYTE *tmp_dir);
-BOOL kernel_set_windows_dir(BYTE *tmp_dir);
-BOOL kernel_valid_version(INT, INT);
-BOOL kernel_set_enable_table_recog(BYTE table_recog);
-BOOL kernel_set_user_dict(BYTE *user_dict);
+Bool recognize(PBYTE ed_file_name);
+Bool page_analysis(void);
+Bool final_recognition(PBYTE ed_file_name);
+Bool spelling_checker(PBYTE ed_file_name);
+Bool kernel_reset(void);
+Bool kernel_reload_vocs(void);
+Bool kernel_set_temp_dir(BYTE *tmp_dir);
+Bool kernel_set_windows_dir(BYTE *tmp_dir);
+Bool kernel_valid_version(INT, INT);
+Bool kernel_set_enable_table_recog(BYTE table_recog);
+Bool kernel_set_user_dict(BYTE *user_dict);
 
 //  Error status functions
 PCHAR get_message(WORD code);
 WORD get_error_status(void);
-BOOL bool_status(void);
+Bool bool_status(void);
 void set_error_status(WORD group, WORD element);
 void clear_error_status(void);
 
 //	Convetrt to text
-BOOL convert_to_text(PBYTE edfile, PBYTE textfile, WORD options, WORD codepage,
+Bool convert_to_text(PBYTE edfile, PBYTE textfile, WORD options, WORD codepage,
 		BYTE badchar);
 #define SAVE_TEXT_ED            0x01
 #define SAVE_TEXT_ASCII         0x02
@@ -140,9 +140,9 @@ struct AttrImage {
 	WORD AddY;
 };
 
-BOOL Tiger_ImageOpen(struct AttrImage * p);
-BOOL Tiger_ImageOpen_xy(struct AttrImage * p, WORD x, WORD y, WORD w, WORD h);
-BOOL Tiger_ImageClose(void);
+Bool Tiger_ImageOpen(struct AttrImage * p);
+Bool Tiger_ImageOpen_xy(struct AttrImage * p, WORD x, WORD y, WORD w, WORD h);
+Bool Tiger_ImageClose(void);
 INT Tiger_ImageRead(PBYTE buffer, WORD lth);
 uint32_t Tiger_ProcessPictures(PBYTE buffer, uint32_t lth);
 
@@ -150,7 +150,7 @@ uint32_t Tiger_ProcessPictures(PBYTE buffer, uint32_t lth);
 void Tiger_ReportError(WORD status, PBYTE message);
 
 // Progress Monitor
-BOOL Tiger_ProgressStart(void);
-BOOL Tiger_ProgressFinish(void);
-BOOL Tiger_ProgressSetPercentage(WORD wPercent);
-BOOL Tiger_ProgressSetStage(WORD wStageNumber, PBYTE pStageName, WORD wVolume);
+Bool Tiger_ProgressStart(void);
+Bool Tiger_ProgressFinish(void);
+Bool Tiger_ProgressSetPercentage(WORD wPercent);
+Bool Tiger_ProgressSetStage(WORD wStageNumber, PBYTE pStageName, WORD wVolume);

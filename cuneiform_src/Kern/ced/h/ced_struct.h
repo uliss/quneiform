@@ -193,7 +193,7 @@ public:
 	CEDPage();
 	~CEDPage();
 
-	Bool32	FormattedWriteRtf(const char * fileName, BOOL merge);
+	Bool32	FormattedWriteRtf(const char * fileName, Bool merge);
 
 	CEDSection * GetSection(int _num);
 	CEDParagraph * GetParagraph(int _num);
@@ -262,7 +262,7 @@ public:
 	int headerY;
 	int footerY;
 	int numSnakeCols;
-	BOOL lineBetCol;
+	Bool lineBetCol;
 	EDCOL *colInfo;
 	char *	extData;			// Data cat. will be recorded in the file after the title;
 	int		extDataLen;			// Data size.

@@ -88,7 +88,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 // Client crash callback
-typedef BOOL (CALLBACK *LPGETLOGFILE) (LPVOID lpvState);
+typedef Bool (CALLBACK *LPGETLOGFILE) (LPVOID lpvState);
 
 namespace CrashHandler
 {

@@ -72,7 +72,7 @@ void ResetUserDict(voc_state * user_dict);
 
 INT _IsUserDict(CHAR *FileName);
 
-BOOL CloseUserDictionary(BYTE * DictName, voc_state *user_dict);
+Bool CloseUserDictionary(BYTE * DictName, voc_state *user_dict);
 INT AddWordToUserDictionary(BYTE * word, INT weight, voc_state * user_dict);
 INT DeleteWordFromUserDictionary(BYTE * word, voc_state * user_dict);
 INT IsWordInUserDictionary(BYTE * word, voc_state * user_dict);

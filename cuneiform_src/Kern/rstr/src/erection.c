@@ -113,19 +113,19 @@ static BYTE extr[4];
 INT    erection_inc=0;
 static INT  erect_page_incline[2048/16],erect_page_incline_mode;
 static INT  erect_page_num_represent, erect_page_words=0;
-static BOOL erect_solid_stick(cell *c);
+static Bool erect_solid_stick(cell *c);
 static INT  erection_incline_word_set(cell *b, cell *e);
-static BOOL add_versions(cell *c, version *save_versions, INT save_nvers);
-static BOOL no_bad_alias(cell *c);
+static Bool add_versions(cell *c, version *save_versions, INT save_nvers);
+static Bool no_bad_alias(cell *c);
 static cell * convert_to_cells(cell *c);
-static BOOL mode_incline( INT inc);
+static Bool mode_incline( INT inc);
 static LONG calc_dens(cell *c);
 static INT  get_incline_of_word(cell *b, cell *e);
 static INT  erection_incline_word(cell *b, cell *e, INT base_3,INT n_call);
 static void shift_word( cell *c, cell *e, INT shift );
 static cell * erect_end_word(cell *cs,BYTE *str,BYTE *word_len,INT limit);
 static cell * erect_next_word(cell *cs);
-static BOOL setup_incline_word(cell *b, cell *e, BOOL t);
+static Bool setup_incline_word(cell *b, cell *e, Bool t);
 static void clear_incline_word(cell *b, cell *e);
 static INT  fict_shift_intervals(cell *c, INT tab_angle[] );
 static INT  fict_shift_left_intervals(cell *c, INT tab_angle[] );
@@ -199,7 +199,7 @@ return;
 // make ratating table for incline c->stick_inc.
 // Return FALSE if can't make table, TRUE is table is OK
 //
-BOOL erect_make_tab(cell *c, INT     tab_angle[])
+Bool erect_make_tab(cell *c, INT     tab_angle[])
 {
 INT     inc = -c->stick_inc       ;
 INT     dy=c->h                   ;
@@ -298,7 +298,7 @@ return dx;
 // incline is VALUE, shave - enable shaving
 // use for back rotating too
 //
-cell * erect_cell_value (cell *c, INT inc, INT shave, BOOL cutting)
+cell * erect_cell_value (cell *c, INT inc, INT shave, Bool cutting)
 {
 INT     dx=c->w, dy=c->h, le, ri, sinc=inc     ;
 INT     lminx, lminsx, lminy, lminsy           ;
@@ -481,7 +481,7 @@ return cret;
 // incline is TABLE, shave - enable shaving
 // not use for back rotating
 //
-cell * erect_cell_table (cell *c, INT tab_angle[], INT shave, BOOL cutting)
+cell * erect_cell_table (cell *c, INT tab_angle[], INT shave, Bool cutting)
 {
 INT     dx=c->w, dy=c->h, le, ri               ;
 INT     lminx, lminsx, lminy, lminsy           ;
@@ -593,7 +593,7 @@ if( shave || inc)
 return cret;
 }
 
-BOOL no_incline_word(cell *b,cell *e)
+Bool no_incline_word(cell *b,cell *e)
 {
 cell *c;
 for(c=b;c!=e;c=c->next)
@@ -604,7 +604,7 @@ return TRUE;
 
 BYTE   erection_one_incline_word(cell *b, cell *e)
 {
-BOOL    inc   ;
+Bool    inc   ;
 B_LINES bl    ;
 
 if( !setup_incline_word(b,e, FALSE) ) // without statistic making
@@ -632,7 +632,7 @@ BYTE   erection_incline_words(INT pass)
 cell *c, *e, *tmp, *sc              ;
 BYTE buf[MAX_LEN_WORD+40]           ;
 BYTE wrd[MAX_LEN_WORD+40], word_len ;
-BOOL inc, incline, no_res           ;
+Bool inc, incline, no_res           ;
 B_LINES bl                          ;
 #ifdef STEND_INC
 static CHAR  oldstr[256]="c:\\";
@@ -796,7 +796,7 @@ if( c->nvers<1 )
  }
 
 // erecting all letters with sticks and bad symbols
-BOOL setup_incline_word(cell *b, cell *e, BOOL calc)
+Bool setup_incline_word(cell *b, cell *e, Bool calc)
 {
 cell *c , *cs;
 INT  inc, ninc, nall;
@@ -987,7 +987,7 @@ for(num=i=0;i<n;i++)
 return num;
 }
 
-BOOL mode_incline( INT inc)
+Bool mode_incline( INT inc)
 {
 INT i;
 inc /= 16;
@@ -999,7 +999,7 @@ return FALSE;
 }
 
 // check bad eventual aliases for inlineables letters
-BOOL no_bad_alias(cell *c)
+Bool no_bad_alias(cell *c)
 {
 INT  i, n;
 BYTE *p;
@@ -1229,9 +1229,9 @@ for (i=0; i<dy; i++)
 return fict_shift_left_intervals(c, tab_angle);
 }
 
-BOOL    test_incline_of_word(cell *b,cell *e,LONG inc)
+Bool    test_incline_of_word(cell *b,cell *e,LONG inc)
 {
-//BOOL    ret=TRUE;
+//Bool    ret=TRUE;
 cell  * c;
 INT     i,wn, up,let;
 for(up=let=i=0, c=b; c!=e; c=c->next, i++)
@@ -1660,9 +1660,9 @@ return next->prev;
 //
 // add_versions : adding versions from array save_versions[0:save_nvers-1]
 //                to cell c
-BOOL add_versions(cell *c, version *save_vers, INT save_nvers)
+Bool add_versions(cell *c, version *save_vers, INT save_nvers)
 {
-BOOL     res=FALSE;
+Bool     res=FALSE;
 version *v, *r;
 INT      i, n;
 
@@ -1729,7 +1729,7 @@ for(line=(lnhead *)addr,w=0;
 return ;  // result width
 }
 
-BOOL       erect_solid_stick(cell *c)
+Bool       erect_solid_stick(cell *c)
 {
 INT i;
 return FALSE;

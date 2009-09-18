@@ -314,7 +314,7 @@ void BlocksRestoreBreakedBlock (BLOCK *p, BLOCK *q, BLOCK *r)
     BlocksRemoveDescriptor (r);
 }
 
-BOOL BlockBreakOnVertical (BLOCK *p, BLOCK **pq, BLOCK **pr,
+Bool BlockBreakOnVertical (BLOCK *p, BLOCK **pq, BLOCK **pr,
                            int x, int nBreakingWidth)
 {
     BLOCK *q, *r;
@@ -412,7 +412,7 @@ BOOL BlockBreakOnVertical (BLOCK *p, BLOCK **pq, BLOCK **pr,
 # define VERT_HYST_LOW_LEVEL(n)  ((n) / 4)
 # define CONDITIONAL_BREAKING_FACTOR 3
 
-BOOL CorrectCondition (int iColumn)
+Bool CorrectCondition (int iColumn)
 {
     int nLeftMax;
     int nRightMax;
@@ -430,7 +430,7 @@ BOOL CorrectCondition (int iColumn)
 
     if (nLeftMax >= CONDITIONAL_BREAKING_FACTOR * pHystogram [iColumn + 1])
     {
-        BOOL bOneString = TRUE;
+        Bool bOneString = TRUE;
         int i;
 
         for (i = iColumn + 1; i < nHystColumns; i++)
@@ -451,7 +451,7 @@ BOOL CorrectCondition (int iColumn)
 
     if (nRightMax >= CONDITIONAL_BREAKING_FACTOR * pHystogram [iColumn - 1])
     {
-        BOOL bOneString = TRUE;
+        Bool bOneString = TRUE;
         int i;
 
         for (i = 0; i < iColumn; i++)
@@ -465,7 +465,7 @@ BOOL CorrectCondition (int iColumn)
     return (FALSE);
 }
 
-BOOL TryCutBlockOnVertical (BLOCK *p, int bcr_cut, Bool32 SecondStage)
+Bool TryCutBlockOnVertical (BLOCK *p, int bcr_cut, Bool32 SecondStage)
 {
     ROOT *pRoot;
 
@@ -478,7 +478,7 @@ BOOL TryCutBlockOnVertical (BLOCK *p, int bcr_cut, Bool32 SecondStage)
     int  nSpaceWidth;
     int  iSpace;
     int  nHystSum;
-    BOOL bNotSpace;
+    Bool bNotSpace;
 
     int  iLeftLimit;
     int  iRightLimit;
@@ -752,7 +752,7 @@ BOOL TryCutBlockOnVertical (BLOCK *p, int bcr_cut, Bool32 SecondStage)
     return (FALSE);
 }
 
-BOOL BlockBreakOnHorizontal (BLOCK *p, BLOCK **pq, BLOCK **pr,
+Bool BlockBreakOnHorizontal (BLOCK *p, BLOCK **pq, BLOCK **pr,
                              int y)
 {
     BLOCK *q, *r;
@@ -799,7 +799,7 @@ BOOL BlockBreakOnHorizontal (BLOCK *p, BLOCK **pq, BLOCK **pr,
     return (TRUE);
 }
 
-BOOL HorizontalBreakingCondition (BLOCK *p, int iBegin, int iEnd)
+Bool HorizontalBreakingCondition (BLOCK *p, int iBegin, int iEnd)
 {
     int i;
     int x1, x2, y;
@@ -847,11 +847,11 @@ BOOL HorizontalBreakingCondition (BLOCK *p, int iBegin, int iEnd)
     return (FALSE);
 }
 
-BOOL TryCutBlockOnHorizontal (BLOCK *p)
+Bool TryCutBlockOnHorizontal (BLOCK *p)
 {
     int iColumn;
     int iZeroEnd;
-    BOOL bNotSpace;
+    Bool bNotSpace;
 
     int  iBestPointSizeBreakingColumn;
     int  nPointSizeDifference;
@@ -1000,8 +1000,8 @@ BOOL TryCutBlockOnHorizontal (BLOCK *p)
 
 # define SEPARATOR_FLUCTUATION_DIVIDER 10
 
-//BOOL TryCutBlockByVerticalSeparator (BLOCK *p, int i)
-BOOL TryCutBlockByVerticalSeparator (BLOCK *p, int i, BOOL NotWholeBlock)
+//Bool TryCutBlockByVerticalSeparator (BLOCK *p, int i)
+Bool TryCutBlockByVerticalSeparator (BLOCK *p, int i, Bool NotWholeBlock)
 {
     BLOCK *q, *r;
 
@@ -1059,7 +1059,7 @@ BOOL TryCutBlockByVerticalSeparator (BLOCK *p, int i, BOOL NotWholeBlock)
     return (FALSE);
 }
 
-BOOL TryCutBlockByHorizontalSeparator (BLOCK *p, int i)
+Bool TryCutBlockByHorizontalSeparator (BLOCK *p, int i)
 {
     BLOCK *q, *r;
     int y = (pSeps [i].yBegin + pSeps [i].yEnd) / 2;
@@ -1080,7 +1080,7 @@ BOOL TryCutBlockByHorizontalSeparator (BLOCK *p, int i)
     return (FALSE);
 }
 
-BOOL BlockBreakByRectangle (BLOCK *p, BLOCK **pq, BLOCK **pr,
+Bool BlockBreakByRectangle (BLOCK *p, BLOCK **pq, BLOCK **pr,
                             int xBegin, int yBegin, int xEnd, int yEnd)
 {
     BLOCK *q, *r;
@@ -1142,7 +1142,7 @@ BOOL BlockBreakByRectangle (BLOCK *p, BLOCK **pq, BLOCK **pr,
     }
 }
 
-BOOL TryCutBlockByRectangleSeparator (BLOCK *p, int i)
+Bool TryCutBlockByRectangleSeparator (BLOCK *p, int i)
 {
     if (pSeps [i].xEnd   > p -> Rect.xLeft            &&
         pSeps [i].yEnd   > p -> Rect.yTop             &&
@@ -1160,7 +1160,7 @@ BOOL TryCutBlockByRectangleSeparator (BLOCK *p, int i)
     return (FALSE);
 }
 
-BOOL TrySpecialHorizontalCutting (BLOCK *p) /* Debugging not completed */
+Bool TrySpecialHorizontalCutting (BLOCK *p) /* Debugging not completed */
 {
     int  nBlockWidth  = p -> Rect.xRight  - p -> Rect.xLeft + 1;
     int  nBlockHeight = p -> Rect.yBottom - p -> Rect.yTop  + 1;

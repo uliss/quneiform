@@ -72,7 +72,7 @@ CHAR *SHAVE_FLAGS;
 INT SHAVE_HEIGHT;
 INT SHAVE_WIDTH ;
 
-BOOL boldshave(cell *C,INT method)
+Bool boldshave(cell *C,INT method)
 //
 //  This procedure shaves skin from image in cell *C.
 //
@@ -356,7 +356,7 @@ for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
 return;
 }
 
-BOOL pimpleshave(cell *C, INT shave, INT incline)
+Bool pimpleshave(cell *C, INT shave, INT incline)
 //
 //  This procedure deletes pimples from image in cell *C.
 //

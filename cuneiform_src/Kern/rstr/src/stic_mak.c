@@ -110,17 +110,17 @@ INT make_center_line (center_interval center[], INT nc,
 		      BYTE left[], BYTE right[],
 		      INT  dy, INT dx,  INC_BASE *angles[],INT num_angles,
 		      INT  tab_angle[],
-		      BOOL comp_wide, BOOL sig_T, BOOL sig_f, BOOL sig_r,
+		      Bool comp_wide, Bool sig_T, Bool sig_f, Bool sig_r,
           INT  *wid, INT hooks[], INT *inc_v, BYTE enable_corrcet);
 
 INT	abris_convexity(BYTE fun[],INT n,INT w);
-BOOL	bad_overlay(INT over,INT width,INT dy,INT sig_wide,BOOL c_f);
+Bool	bad_overlay(INT over,INT width,INT dy,INT sig_wide,Bool c_f);
 INT	centers_len_to_hist(center_interval fun[],INT n,INT dy,INT dx,
 			  BYTE hist[]);
 INT	overlay_interval(center_interval c[],INT nc, INT col,INT typ,
 			    INT tab_angle[]);
 
-static INT abris_inc_line(BYTE fun[],INT n,INT inc[],BOOL s_l);
+static INT abris_inc_line(BYTE fun[],INT n,INT inc[],Bool s_l);
 static INT calc_inc_periods(INT inc[],INT dy,INT inc_periods[]);
 static void compress_centers(center_interval center[],INT nc,INT inc[],INT n,
 		    center_interval cent[],INT hooks[]);
@@ -130,7 +130,7 @@ static INT correct_result_BACK (center_interval cent[], INT inc[], INT dy);
 static INT enable_shift(BYTE l[],BYTE r[],INT h,INT w,INT inc[]);
 static INT find_opt_shift(INC_BASE *angles[],INT num_angles,
 		INT dy, INT dx, center_interval center[], INT nc, INT wid,
-		BOOL sig_T,BOOL sig_f,INT tab_angle[],
+		Bool sig_T,Bool sig_f,INT tab_angle[],
 		BYTE hist[], struct shift_inform *res);
 //////static INT intermediate_center_d(center_interval *c,INT inc);
 //////static INT intermediate_center_u(center_interval *c,INT inc);
@@ -201,7 +201,7 @@ INT make_center_line (center_interval center[], INT nc,		// 22.11.1993
 			BYTE left[], BYTE right[],
 			INT  dy, INT dx, INC_BASE *angles[], INT num_angles,
 			INT  tab_angle[],
-			BOOL comp_wide, BOOL sig_T, BOOL sig_f, BOOL sig_r,
+			Bool comp_wide, Bool sig_T, Bool sig_f, Bool sig_r,
       INT  *wide, INT hooks[], INT *inc_v, BYTE enable_correct)
 {
 struct shift_inform tmp;
@@ -468,9 +468,9 @@ else
 /*----------------------------------------------------------------------*/
 /* study overlay incline and stick ( heigh=dy,width=width) */
 /*       wide - signum of wide c_comp,c_f-signum 'f'-letter  */
-/*static*/ BOOL bad_overlay(INT over,INT width,INT dy,INT wide,BOOL c_f)
+/*static*/ Bool bad_overlay(INT over,INT width,INT dy,INT wide,Bool c_f)
 {
-BOOL ret;
+Bool ret;
 if( width<3 )
 	ret = ( over<(wide ? dy>>2 : 6*(dy>>3)) );
 else
@@ -531,7 +531,7 @@ return(num>>1);
 /*----------------------------------------------------------------------*/
 /*----------------------------------------------------------------------*/
 /*  if abris(fun[0:n-1]) similar inc line(inc[0:n-1]) ret 1 else ret 0  */
-static INT abris_inc_line (BYTE fun[], INT n, INT inc[], BOOL sig_left)  {
+static INT abris_inc_line (BYTE fun[], INT n, INT inc[], Bool sig_left)  {
 							// 27.10.1993
 					// MK EDITION:
 					// LEFT - Exactly 0;
@@ -1014,7 +1014,7 @@ return ( 0 );		/* no lines, no arcs */
 /*       hist[0:2*dx-1] - histogramm, *res - result parametrs		*/
 static INT find_opt_shift(INC_BASE *angles[],INT num_angles,
 			  INT dy, INT dx, center_interval center[], INT nc,
-			  INT wid,BOOL sig_T,BOOL sig_f,
+			  INT wid,Bool sig_T,Bool sig_f,
 			  INT tab_angle[],
 			  BYTE hist[], struct shift_inform *res)
 {

@@ -81,13 +81,13 @@ extern BYTE digital_string_penalty;
 //AK for debug
 static LONG * AK_deb;
 /*============ Import functions ==================*/
-BOOL test_alphabet_elem(BYTE let);
+Bool test_alphabet_elem(BYTE let);
 
 INT  Diskrim(BYTE let,PBYTE raster,INT dw,INT x,INT y,INT dx,INT dy,BYTE cg,INT inc);
 INT  discr_angles(BYTE let, INT dy, INT type);
 void init_diskrim(PBYTE r,INT h,INT w);
 void calc_angles(struct rst *rast,PBYTE p,BYTE ang[],BYTE cflgl,BYTE cflgr);
-BOOL snap_show_raster(PBYTE raster, INT height, INT width);
+Bool snap_show_raster(PBYTE raster, INT height, INT width);
 
 INT  SumIntervalBits( BYTE *r, INT bx, INT ex);
 INT  NumHorizInterval( BYTE *r, INT );
@@ -107,45 +107,45 @@ struct rst create_raster(cell * c, const s_glue * gl);
 
 static INT  RE_rus_Ge(INT hist[], INT histd[], INT hei, INT wid);
 static void RE_final_descr(cell *c);
-static BOOL similar_S( INT hist_n[],INT hist_d[], INT w,INT h);
-static BOOL similar_R( INT hist_n[],INT h);
+static Bool similar_S( INT hist_n[],INT hist_d[], INT w,INT h);
+static Bool similar_R( INT hist_n[],INT h);
 static INT  check_kk(INT h);
 static INT  short_lines2(cell * c);
-static BOOL check_dnri_hook( s_glue *s, cell * c );
-static BOOL check_dnri_hook_cell( cell * c , INT w);
-static BOOL check_upri_hook_cell( cell * c );
-static BOOL check_uple_hook_cell( cell * c );
-static BOOL dust_in_glue( cell *s,s_glue *GL,INT c1,INT r1,INT c2, INT r2);
-static BOOL dust_near_rusG(cell *cc);
+static Bool check_dnri_hook( s_glue *s, cell * c );
+static Bool check_dnri_hook_cell( cell * c , INT w);
+static Bool check_upri_hook_cell( cell * c );
+static Bool check_uple_hook_cell( cell * c );
+static Bool dust_in_glue( cell *s,s_glue *GL,INT c1,INT r1,INT c2, INT r2);
+static Bool dust_near_rusG(cell *cc);
 static void adjust_left(PBYTE pint,INT height);
 static void calc_data(PBYTE pint,INT height,INT width );
 static INT  discr_iot(cell * c,BYTE let,INT upper);
 static void _init_(void);
 static INT  sym_italic( cell * c,BYTE let );
-static BOOL valid_inc( WORD inc );
+static Bool valid_inc( WORD inc );
 static WORD check_inc_foots(cell * c,INT nums);
 static INT  calc_dest_foot(INT h,INT w,INT *dest_foot,INT wid_foot);
 static WORD check_num_foots(INT nums,INT h);
 static INT  check_cursiv_inp(BYTE *rast,INT w,INT h,INT foot_wid,INT dest,BYTE let);
-static BOOL check_bend_up( cell * c );
-static BOOL check_bend_dn( cell * c );
+static Bool check_bend_up( cell * c );
+static Bool check_bend_dn( cell * c );
 static INT  multicell_hist(cell *base_c, const s_glue *GL,
 			    INT hist_n[], INT hist_d[]);
 static void add_cell_to_hist(cell *c,INT off_str,INT hist_n[],INT hist_d[]);
 static void make_white_hist(PBYTE pint,INT height);
 static void calc_abris(PBYTE pint,INT height );
-static BOOL valid_line(segment * segm);
+static Bool valid_line(segment * segm);
 static INT  triangle_bottom(BYTE *raster,INT dx, INT dy, INT wid);
 static INT  triangle_top(BYTE *raster,INT dx, INT dy, INT wid);
 static WORD internal_filling(segment * segm,INT h,INT w);
-static BOOL stick_online(cell * c);
-static BOOL suspect_italic_iee(void);
-static BOOL suspect_italic_tche(void);
-static BOOL suspect_italic_ii(void);
-static BOOL suspect_italic_III(cell*);
-static BOOL suspect_italic_kk(void);
-static BOOL suspect_italic_ce(cell *c);
-static BOOL suspect_italic_III_bend(cell * c);
+static Bool stick_online(cell * c);
+static Bool suspect_italic_iee(void);
+static Bool suspect_italic_tche(void);
+static Bool suspect_italic_ii(void);
+static Bool suspect_italic_III(cell*);
+static Bool suspect_italic_kk(void);
+static Bool suspect_italic_ce(cell *c);
+static Bool suspect_italic_III_bend(cell * c);
 static INT  o_symmetric(INT h,INT w);
 /*----*/
 static WORD check_III(cell *c,INT foot_wid,INT dest[]);
@@ -255,7 +255,7 @@ static BYTE let_stick[256] = {
 /*********************************************************start r_criteria*/
 void r_criteria(cell *c, const s_glue * gl)              //10.02.97
 {
- extern BOOL TM_check_active;
+ extern Bool TM_check_active;
  version *v0;
  LONG    d,d_ang,d_cun,d_abris,i,dd;                       //change from INT
  CHAR    snap[380],*s=snap;
@@ -1549,7 +1549,7 @@ if( !(c->pos_inc&erect_rot) )
 
 // Oleg zone
 
-BOOL check_uple_hook_cell( cell * c )
+Bool check_uple_hook_cell( cell * c )
 {
  lnhead *line;
  INT l,h,ind,wid, av;
@@ -1579,7 +1579,7 @@ BOOL check_uple_hook_cell( cell * c )
 return FALSE;
 }
 
-BOOL check_upri_hook_cell( cell * c )
+Bool check_upri_hook_cell( cell * c )
 {
  lnhead *line;
  INT l,h,ind,wid;
@@ -1608,7 +1608,7 @@ return FALSE;
 }
 
 
-BOOL check_dnri_hook_cell( cell * c , INT w)
+Bool check_dnri_hook_cell( cell * c , INT w)
 {
  lnhead *line;
  INT l,h,ind, ri;
@@ -1642,7 +1642,7 @@ BOOL check_dnri_hook_cell( cell * c , INT w)
 return FALSE;
 }
 
-BOOL check_dnri_hook( s_glue *GL, cell *s)
+Bool check_dnri_hook( s_glue *GL, cell *s)
 {
 cell *c;
 INT ncells=0, maxc=-1;
@@ -1671,21 +1671,21 @@ return FALSE;
 }
 
 
-BOOL suspect_italic_kk(void)
+Bool suspect_italic_kk(void)
 {
 if( nstick == 2)
  if( stick[0].incl==0 )    return TRUE;
  return FALSE;
 }
 
-BOOL suspect_italic_tche(void)
+Bool suspect_italic_tche(void)
 {
 if( nstick == 1)
  if( stick[0].incl<=200 )    return TRUE;
  return FALSE;
 }
 
-BOOL suspect_italic_nn(void)
+Bool suspect_italic_nn(void)
 {
 if(  nstick>3 )                  return TRUE;
 if(  nstick==1 && !broken_flag ) return TRUE;
@@ -1697,7 +1697,7 @@ if( nstick == 2)
      MIN(stick[0].w,stick[1].w) > 2) return TRUE;
  return FALSE;
 }
-BOOL suspect_italic_ii(void)
+Bool suspect_italic_ii(void)
 {
 if( nstick>3 )                  return TRUE;
 if( nstick==1 && !broken_flag ) return TRUE;
@@ -1710,7 +1710,7 @@ if( nstick == 2)
      stick[1].incl==0 && stick[0].incl<=200 ) return TRUE;
  return FALSE;
 }
-BOOL suspect_italic_III(cell * c)
+Bool suspect_italic_III(cell * c)
 {
 INT s=0;
 
@@ -1721,7 +1721,7 @@ if( nstick == 3)
 	s+= ( stick[0].incl==0)+( stick[1].incl==0 )+( stick[2].incl==0 ) ;
  return s>1;
 }
-BOOL suspect_italic_III_bend(cell * c)
+Bool suspect_italic_III_bend(cell * c)
 {
 INT s=0;
 
@@ -1732,7 +1732,7 @@ INT s=0;
 s+= ( stick[0].incl==0)+( stick[1].incl==0 )+( stick[2].incl==0 ) ;
  return s>0;
 }
-BOOL suspect_italic_ce(cell * c)
+Bool suspect_italic_ce(cell * c)
 {
 INT s=0,h=c->h,i;
 
@@ -1751,7 +1751,7 @@ if( nstick==3 )
  return s>0;
 }
 
-BOOL suspect_italic_iee(void)
+Bool suspect_italic_iee(void)
 {
 if( nstick == 3)
  if( stick[0].incl==0 && stick[2].incl==0  ) return TRUE;
@@ -1768,7 +1768,7 @@ for(i=0;i<nstick;i++)
 }
 
 static int nstick_broken;
-BOOL two_stick_online(s_glue *GL,INT *dest_foot, INT *wid_foot)
+Bool two_stick_online(s_glue *GL,INT *dest_foot, INT *wid_foot)
 {
 STICK  *s[2],ss[2];
 cell *c,*cc[2];
@@ -1810,7 +1810,7 @@ nstick_broken=2;
 return TRUE;
 }
 
-BOOL broken_sym_italic(s_glue *GL,BYTE let)
+Bool broken_sym_italic(s_glue *GL,BYTE let)
 {
 STICK  *s[2];
 cell *c,*cc[2];
@@ -2100,14 +2100,14 @@ for(p=n_max=0,i=1;i<w;i++)
 return n_max>3 ? p : *dest_foot ;
 }
 
-BOOL up_ii_config(INT i)
+Bool up_ii_config(INT i)
 {
 if( hist_white[i]==0 )i--;
 return( hist_white[i-2]<5 &&
     hist_white[i-1]<hist_white[i-2] &&
 		hist_white[i]<hist_white[i-1] );
 }
-BOOL down_ii_config(INT i)
+Bool down_ii_config(INT i)
 {
 if( hist_white[i]==0 )i++;
 return( hist_white[i+2]<5 &&
@@ -2502,7 +2502,7 @@ void calc_abris(PBYTE pint,INT height )
 	}
 }
 ////////////////////////////////////////////////////////////////////
-BOOL valid_line(segment * segm)
+Bool valid_line(segment * segm)
 {
 WORD vl=0;
 
@@ -2571,7 +2571,7 @@ if( max*4 > (h-2)*3 )
  return pen;
 }
 
-BOOL check_bend_up( cell * c )
+Bool check_bend_up( cell * c )
 {
  lnhead *line;
  INT l;
@@ -2585,7 +2585,7 @@ BOOL check_bend_up( cell * c )
                         }
    return FALSE;
 }
-BOOL check_bend_dn( cell * c )
+Bool check_bend_dn( cell * c )
 {
  lnhead *line;
  INT l;
@@ -2804,7 +2804,7 @@ INT gaps=-1,pen=0;
 /*============== Sources level 2 ========================*/
 
 
-static BOOL valid_inc( WORD inc )
+static Bool valid_inc( WORD inc )
 {
 INT ret=0;
  if( inc == 0 || inc > 800) ret = 0;
@@ -2834,7 +2834,7 @@ nstick = 0; dens=0; abris_online=0;
 stick = NULL;nstickLP=0;stickLP=NULL;
 }
 
-BOOL stick_online(cell * c)
+Bool stick_online(cell * c)
 {
 STICK * s;
 if( stick || !c)
@@ -3085,7 +3085,7 @@ return 254; // penalize deadly
 }
 
 // similar to true stick '|' or not
-BOOL    test_I(cell *c)
+Bool    test_I(cell *c)
 {
 cell    sc;
 if( c->nvers<1 || c->vers[0].let!='1' )
@@ -3170,7 +3170,7 @@ return 0;
 /*	s - ведущая клетка склейки GL; [(c1,r1),(c2,r2)] - область	*/
 /*	c1,c2,r1,r2 - координаты внутреннего прямоугольника		*/
 /*		выраженные в процентах (от размеров оболочки)		*/
-BOOL dust_in_glue( cell *s, s_glue *GL,INT c1,INT r1,INT c2, INT r2)
+Bool dust_in_glue( cell *s, s_glue *GL,INT c1,INT r1,INT c2, INT r2)
 {
 cell *c,*ss=NULL;
 INT ncells,maxrow,minrow,maxcol,mincol,h,w;
@@ -3246,7 +3246,7 @@ for( c=ss->prev;(c->flg&(c_f_dust|c_f_bad))&&c!=b; c=c->prev)  // right comps
 return FALSE;
 }
 
-BOOL dust_near_rusG(cell *cc)
+Bool dust_near_rusG(cell *cc)
 {
 cell *c;
 INT dw,dh;
@@ -3301,7 +3301,7 @@ for(num=i=0;i<hei;i++)
 return num;
 }
 
-BOOL similar_S( INT hist_n[],INT hist_d[], INT w,INT h)
+Bool similar_S( INT hist_n[],INT hist_d[], INT w,INT h)
 {
 INT i,ii,p,pp;
 for(ii=h-1,p=pp=i=0;i<3;i++,ii--)
@@ -3313,7 +3313,7 @@ for(ii=h-1,p=pp=i=0;i<3;i++,ii--)
 return( p==3 && pp==3 );
 }
 
-BOOL similar_R( INT hist_n[], INT h)
+Bool similar_R( INT hist_n[], INT h)
 {
 INT i,ii,p;
 for(ii=h-1,p=i=0;i<h/2;i++,ii--)

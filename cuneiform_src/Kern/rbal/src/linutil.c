@@ -96,12 +96,12 @@ extern BYTE fEdCode      ;    // Change code letter in module LINUTIL.C
 /*static*/ INT  h_hist(void);
 
 /*============= Source code ============*/
-BOOL is_liga_ff(BYTE c)
+Bool is_liga_ff(BYTE c)
 {
 // Код лиги определен через макру в ligas.h 05.09.2000 E.P.
   return (c==liga_ff);
 }
-BOOL is_liga_ffl(BYTE c)
+Bool is_liga_ffl(BYTE c)
 {
 // Код лиги определен через макру в ligas.h 05.09.2000 E.P.
   return (c==liga_ffl);
@@ -255,7 +255,7 @@ if(ch >= 'A' && ch <= 'Z') return 1;
  return 0;
 }
 
-BOOL is_digit(BYTE ch)
+Bool is_digit(BYTE ch)
 {
 if(ch >= (BYTE)'0' && ch <= (BYTE)'9') return TRUE;
 else return FALSE;

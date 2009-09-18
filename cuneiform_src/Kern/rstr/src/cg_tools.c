@@ -73,7 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-extern BOOL pass4_in;   //флаг: второй проход по странице
+extern Bool pass4_in;   //флаг: второй проход по странице
 
 
 /*-----------------03-14-95 02:23pm----------------------------------
@@ -191,7 +191,7 @@ static cell *overlap_cell( cell *C, cell *D )
   return NULL;
 }
 
-BOOL glue_overlap(cell *LC, cell *E)
+Bool glue_overlap(cell *LC, cell *E)
 //склеивает налагающиеся друг на друга cell'ы
 {
   cell *B=LC->next,*C;
@@ -406,7 +406,7 @@ static INT discr_vers(cell *B1, INT mon, CHAR all_vers)
 
 /*--------------------------------------------------------------
 --------------------------------------------------------------*/
-void adjust_3x5(BOOL prerecog)
+void adjust_3x5(Bool prerecog)
 {
  cell *B=cell_f()->nextl;
  while ( !fict(B) )

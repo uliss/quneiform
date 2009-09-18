@@ -160,11 +160,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #define SM_CYCURSOR             14
 #endif
 
-inline BOOL IsMenu(HMENU hMenu)
+inline Bool IsMenu(HMENU hMenu)
 {
 	MENUITEMINFO mii = { sizeof(MENUITEMINFO) };
 	::SetLastError(0);
-	BOOL bRet = ::GetMenuItemInfo(hMenu, 0, TRUE, &mii);
+	Bool bRet = ::GetMenuItemInfo(hMenu, 0, TRUE, &mii);
 	if(!bRet)
 		bRet = (::GetLastError() != ERROR_INVALID_MENU_HANDLE) ? TRUE : FALSE;
 	return bRet;
@@ -539,7 +539,7 @@ inline bool AtlIsOldWindows()
 {
 	OSVERSIONINFO ovi = { 0 };
 	ovi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-	BOOL bRet = ::GetVersionEx(&ovi);
+	Bool bRet = ::GetVersionEx(&ovi);
 	return (!bRet || !((ovi.dwMajorVersion >= 5) || (ovi.dwMajorVersion == 4 && ovi.dwMinorVersion >= 90)));
 }
 
@@ -575,10 +575,10 @@ inline HFONT AtlCreateBoldFont(HFONT hFont = NULL)
 }
 
 // Common Controls initialization helper
-inline BOOL AtlInitCommonControls(DWORD dwFlags)
+inline Bool AtlInitCommonControls(DWORD dwFlags)
 {
 	INITCOMMONCONTROLSEX iccx = { sizeof(INITCOMMONCONTROLSEX), dwFlags };
-	BOOL bRet = ::InitCommonControlsEx(&iccx);
+	Bool bRet = ::InitCommonControlsEx(&iccx);
 	ATLASSERT(bRet);
 	return bRet;
 }
@@ -633,7 +633,7 @@ namespace RunTimeHelper
 	inline bool IsVista()
 	{
 		OSVERSIONINFO ovi = { sizeof(OSVERSIONINFO) };
-		BOOL bRet = ::GetVersionEx(&ovi);
+		Bool bRet = ::GetVersionEx(&ovi);
 		return ((bRet != FALSE) && (ovi.dwMajorVersion >= 6));
 	}
 #endif // !_WIN32_WCE
@@ -941,7 +941,7 @@ namespace SecureHelper
 class CMessageFilter
 {
 public:
-	virtual BOOL PreTranslateMessage(MSG* pMsg) = 0;
+	virtual Bool PreTranslateMessage(MSG* pMsg) = 0;
 };
 
 
@@ -951,7 +951,7 @@ public:
 class CIdleHandler
 {
 public:
-	virtual BOOL OnIdle() = 0;
+	virtual Bool OnIdle() = 0;
 };
 
 #ifndef _ATL_NO_OLD_NAMES
@@ -972,36 +972,36 @@ public:
 	MSG m_msg;
 
 // Message filter operations
-	BOOL AddMessageFilter(CMessageFilter* pMessageFilter)
+	Bool AddMessageFilter(CMessageFilter* pMessageFilter)
 	{
 		return m_aMsgFilter.Add(pMessageFilter);
 	}
 
-	BOOL RemoveMessageFilter(CMessageFilter* pMessageFilter)
+	Bool RemoveMessageFilter(CMessageFilter* pMessageFilter)
 	{
 		return m_aMsgFilter.Remove(pMessageFilter);
 	}
 
 // Idle handler operations
-	BOOL AddIdleHandler(CIdleHandler* pIdleHandler)
+	Bool AddIdleHandler(CIdleHandler* pIdleHandler)
 	{
 		return m_aIdleHandler.Add(pIdleHandler);
 	}
 
-	BOOL RemoveIdleHandler(CIdleHandler* pIdleHandler)
+	Bool RemoveIdleHandler(CIdleHandler* pIdleHandler)
 	{
 		return m_aIdleHandler.Remove(pIdleHandler);
 	}
 
 #ifndef _ATL_NO_OLD_NAMES
 	// for compatilibility with old names only
-	BOOL AddUpdateUI(CIdleHandler* pIdleHandler)
+	Bool AddUpdateUI(CIdleHandler* pIdleHandler)
 	{
 		ATLTRACE2(atlTraceUI, 0, _T("CUpdateUIObject and AddUpdateUI are deprecated. Please change your code to use CIdleHandler and OnIdle\n"));
 		return AddIdleHandler(pIdleHandler);
 	}
 
-	BOOL RemoveUpdateUI(CIdleHandler* pIdleHandler)
+	Bool RemoveUpdateUI(CIdleHandler* pIdleHandler)
 	{
 		ATLTRACE2(atlTraceUI, 0, _T("CUpdateUIObject and RemoveUpdateUI are deprecated. Please change your code to use CIdleHandler and OnIdle\n"));
 		return RemoveIdleHandler(pIdleHandler);
@@ -1011,9 +1011,9 @@ public:
 // message loop
 	int Run()
 	{
-		BOOL bDoIdle = TRUE;
+		Bool bDoIdle = TRUE;
 		int nIdleCount = 0;
-		BOOL bRet;
+		Bool bRet;
 
 		for(;;)
 		{
@@ -1052,7 +1052,7 @@ public:
 		return (int)m_msg.wParam;
 	}
 
-	static BOOL IsIdleMessage(MSG* pMsg)
+	static Bool IsIdleMessage(MSG* pMsg)
 	{
 		// These messages should NOT cause idle processing
 		switch(pMsg->message)
@@ -1071,7 +1071,7 @@ public:
 
 // Overrideables
 	// Override to change message filtering
-	virtual BOOL PreTranslateMessage(MSG* pMsg)
+	virtual Bool PreTranslateMessage(MSG* pMsg)
 	{
 		// loop backwards
 		for(int i = m_aMsgFilter.GetSize() - 1; i >= 0; i--)
@@ -1084,7 +1084,7 @@ public:
 	}
 
 	// override to change idle processing
-	virtual BOOL OnIdle(int /*nIdleCount*/)
+	virtual Bool OnIdle(int /*nIdleCount*/)
 	{
 		for(int i = 0; i < m_aIdleHandler.GetSize(); i++)
 		{
@@ -1279,7 +1279,7 @@ public:
 	}
 
 // Message loop map methods
-	BOOL AddMessageLoop(CMessageLoop* pMsgLoop)
+	Bool AddMessageLoop(CMessageLoop* pMsgLoop)
 	{
 		CStaticDataInitCriticalSectionLock lock;
 		if(FAILED(lock.Lock()))
@@ -1292,14 +1292,14 @@ public:
 		ATLASSERT(pMsgLoop != NULL);
 		ATLASSERT(m_pMsgLoopMap->Lookup(::GetCurrentThreadId()) == NULL);   // not in map yet
 
-		BOOL bRet = m_pMsgLoopMap->Add(::GetCurrentThreadId(), pMsgLoop);
+		Bool bRet = m_pMsgLoopMap->Add(::GetCurrentThreadId(), pMsgLoop);
 
 		lock.Unlock();
 
 		return bRet;
 	}
 
-	BOOL RemoveMessageLoop()
+	Bool RemoveMessageLoop()
 	{
 		CStaticDataInitCriticalSectionLock lock;
 		if(FAILED(lock.Lock()))
@@ -1309,7 +1309,7 @@ public:
 			return FALSE;
 		}
 
-		BOOL bRet = m_pMsgLoopMap->Remove(::GetCurrentThreadId());
+		Bool bRet = m_pMsgLoopMap->Remove(::GetCurrentThreadId());
 
 		lock.Unlock();
 
@@ -1335,7 +1335,7 @@ public:
 
 // Setting change notify methods
 	// Note: Call this from the main thread for MSDI apps
-	BOOL InitSettingChangeNotify(DLGPROC pfnDlgProc = _SettingChangeDlgProc)
+	Bool InitSettingChangeNotify(DLGPROC pfnDlgProc = _SettingChangeDlgProc)
 	{
 		CStaticDataInitCriticalSectionLock lock;
 		if(FAILED(lock.Lock()))
@@ -1352,7 +1352,7 @@ public:
 			ATLASSERT(m_pSettingChangeNotify != NULL);
 		}
 
-		BOOL bRet = (m_pSettingChangeNotify != NULL);
+		Bool bRet = (m_pSettingChangeNotify != NULL);
 		if(bRet && m_pSettingChangeNotify->GetSize() == 0)
 		{
 			// init everything
@@ -1398,7 +1398,7 @@ public:
 		lock.Unlock();
 	}
 
-	BOOL AddSettingChangeNotify(HWND hWnd)
+	Bool AddSettingChangeNotify(HWND hWnd)
 	{
 		CStaticDataInitCriticalSectionLock lock;
 		if(FAILED(lock.Lock()))
@@ -1409,7 +1409,7 @@ public:
 		}
 
 		ATLASSERT(::IsWindow(hWnd));
-		BOOL bRet = FALSE;
+		Bool bRet = FALSE;
 		if(InitSettingChangeNotify() != FALSE)
 			bRet = m_pSettingChangeNotify->Add(hWnd);
 
@@ -1418,7 +1418,7 @@ public:
 		return bRet;
 	}
 
-	BOOL RemoveSettingChangeNotify(HWND hWnd)
+	Bool RemoveSettingChangeNotify(HWND hWnd)
 	{
 		CStaticDataInitCriticalSectionLock lock;
 		if(FAILED(lock.Lock()))
@@ -1428,7 +1428,7 @@ public:
 			return FALSE;
 		}
 
-		BOOL bRet = FALSE;
+		Bool bRet = FALSE;
 		if(m_pSettingChangeNotify != NULL)
 			bRet = m_pSettingChangeNotify->Remove(hWnd);
 
@@ -1451,7 +1451,7 @@ public:
 #ifdef _WIN64
 	static INT_PTR CALLBACK _SettingChangeDlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 #else
-	static BOOL CALLBACK _SettingChangeDlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+	static Bool CALLBACK _SettingChangeDlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 #endif
 	{
 		if(uMsg == WM_SETTINGCHANGE)

@@ -206,7 +206,7 @@ static void SetBound(welet *wel,int *bou)
   }
 }
 /////////////////
-static BOOL GetBounds(welet *wel,int num)
+static Bool GetBounds(welet *wel,int num)
 {
 int *bou;
 
@@ -1272,7 +1272,7 @@ int maxWidth=REC_MAX_RASTER_SIZE/MAX(1,yrow);
 	return startX;
 }
 ///////////////
-extern BOOL IsSnap;
+extern Bool IsSnap;
 int AddBitmapToSnap(BYTE *buf,int xbit,int yrow,int num,int dist);
 
 int KleyRecog(BYTE *inBuf,int xbyte,int xbit, int yrow,

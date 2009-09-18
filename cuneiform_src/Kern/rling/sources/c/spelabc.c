@@ -122,7 +122,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*    BYTE AcsGrps[ACSBUFSZ];                                         */
 /*    BYTE AcsInd [256];                 - Table of shifts in AcsGrps */
 /*                                                                    */
-/*  static BOOL setUpAcsGrps ( INT h );                               */
+/*  static Bool setUpAcsGrps ( INT h );                               */
 /*                                                                    */
 /* ------------------------------------------------------------------ */
 
@@ -150,7 +150,7 @@ BYTE _2cap(BYTE c)
 
 /* ------------------------------------------------------------------ */
 
-BOOL IsVowel(BYTE c)
+Bool IsVowel(BYTE c)
 {
   return alphabet[2][codetable[c]] == (BYTE)'^' ? TRUE : FALSE;
 }
@@ -158,7 +158,7 @@ BOOL IsVowel(BYTE c)
 /* ------------------------------------------------------------------ */
 
 extern void init_tab_alpha(BYTE *s1,BYTE *s2,INT num);
-BOOL InitializeAlphabet (INT CountryCode)
+Bool InitializeAlphabet (INT CountryCode)
 {
   BYTE w[ABCSIZE+1];
   INT  h;
@@ -213,7 +213,7 @@ BOOL InitializeAlphabet (INT CountryCode)
 
 /* ------------------------------------------------------------------ */
 /* 01-15-94 10:10pm, Mike                                             */
-/* BOOL setUpAcsGrps ( INT h )                                        */
+/* Bool setUpAcsGrps ( INT h )                                        */
 /* {                                                                  */
 /*   INT  i = 0, j = 0;                                               */
 /*                                                                    */

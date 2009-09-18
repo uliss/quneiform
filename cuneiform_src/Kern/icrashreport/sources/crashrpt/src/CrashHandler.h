@@ -198,7 +198,7 @@ protected:
    // Remarks
    //    none
    //
-   BOOL
+   Bool
    SaveReport(
       CExceptionReport &rpt,
       LPCTSTR lpcszFile
@@ -220,7 +220,7 @@ protected:
    // Remarks
    //    MAPI is used to send the report.
    //
-   BOOL
+   Bool
    MailReport(
       CExceptionReport &rpt,
       LPCTSTR lpcszFile,

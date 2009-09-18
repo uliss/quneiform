@@ -204,7 +204,7 @@ static cell *rest_composition(cell *cmplx);
 static INT test_O0(cell *c);
 static void  improve_proN();
 
-BOOL test_cell(cell *c);
+Bool test_cell(cell *c);
 //void Leo_ContStoreC(cell *c);
 /******* Global variable *********/
 perc_struct *gpt;
@@ -700,7 +700,7 @@ Rexit:
 static INT search_underline_dust()
 {
 cell *prd=gpt->RC;
-BOOL weak=FALSE;
+Bool weak=FALSE;
 
  while (prd->next && prd->r_col<=gpt->lew)
  {
@@ -848,7 +848,7 @@ Bool makeRasterC( c_comp* comp, RecRaster** rast )
    return TRUE;
 }//makeRasterC
 
-BOOL test_cell(cell *c)
+Bool test_cell(cell *c)
 {
 #ifdef _USE_LEO_
 

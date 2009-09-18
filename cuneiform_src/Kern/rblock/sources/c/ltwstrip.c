@@ -190,7 +190,7 @@ void WSB_BuildPoints (void)
 {
     int       x, xx;
     WSB_POINT Point;
-    BOOL      bPeakFromLeft;
+    Bool      bPeakFromLeft;
     int       nLeftPeak;
     int       nRightPeak;
     BLOCK   * pBlock;
@@ -338,7 +338,7 @@ void WSB_BuildPoints (void)
 # endif
 }
 
-BOOL WSB_BreakBlock (BLOCK * p, WSB_POINT Point)
+Bool WSB_BreakBlock (BLOCK * p, WSB_POINT Point)
 {
     BLOCK *q, *r;
     ROOT  *pRoot;
@@ -350,7 +350,7 @@ BOOL WSB_BreakBlock (BLOCK * p, WSB_POINT Point)
     int   iBreakingColumn;
     int   xBreakingLine;
     int   iLSpaceEnd, iRSpaceEnd;
-    BOOL  bLineCorrected;
+    Bool  bLineCorrected;
 
     if (p -> uFlags & BF_WHITE_STRIPS_BREAKING_APPLIED)
         return FALSE;
@@ -492,7 +492,7 @@ BOOL WSB_BreakBlock (BLOCK * p, WSB_POINT Point)
     return FALSE;
 }
 
-BOOL WSB_CutUpperLine (BLOCK * p, WSB_POINT Point)
+Bool WSB_CutUpperLine (BLOCK * p, WSB_POINT Point)
 {
     int ixColumn;
     int yAverageHystHeight;
@@ -519,7 +519,7 @@ BOOL WSB_CutUpperLine (BLOCK * p, WSB_POINT Point)
 
     /*
      *  Precondition : Hystogram, builded by
-     *     BOOL WSB_BreakBlock (BLOCK * p, WSB_POINT Point)
+     *     Bool WSB_BreakBlock (BLOCK * p, WSB_POINT Point)
      */
 
     /*

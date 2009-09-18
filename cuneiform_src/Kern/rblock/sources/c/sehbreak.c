@@ -137,7 +137,7 @@ void FormOneRootString (int iRoot)
     StringAddToList ();
 }
 
-BOOL IsInterStringsComponent (ROOT *pRoot)
+Bool IsInterStringsComponent (ROOT *pRoot)
 {
     int yTop    = pRoot -> yRow;
     int yBottom = pRoot -> yRow + pRoot -> nHeight - 1;
@@ -182,7 +182,7 @@ BOOL IsInterStringsComponent (ROOT *pRoot)
     return (FALSE);
 }
 
-BOOL IsGluedComponent (STRING *pString, ROOT *pRoot)
+Bool IsGluedComponent (STRING *pString, ROOT *pRoot)
 {
     STRING *pUp, *pDown;
     int yUpLine;
@@ -249,7 +249,7 @@ void RasterHystogramBuild (void)
     }
 }
 
-BOOL GluedLettersProcess (ROOT *pRoot)
+Bool GluedLettersProcess (ROOT *pRoot)
 {
     int oBreakLine, oAfterBreakLine;
     MN  *mn;
@@ -408,7 +408,7 @@ void StringsProcessSpecials (void)
     ROOT        *pRoot;
     int         i, j;
     int         nDeleted;
-    BOOL        bSpecialsFounded = FALSE;
+    Bool        bSpecialsFounded = FALSE;
 
     nOldRoots      = nRoots;
     pOldAfterRoots = pAfterRoots;

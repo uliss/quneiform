@@ -343,7 +343,7 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
   Rect16* pN = NULL;
   CCOM_comp** pC;
   int nN=0;
-  BOOL nomem=FALSE;
+  Bool nomem=FALSE;
 
   int i;
 
@@ -691,7 +691,7 @@ void CleanCont()
 
 
 
-BOOL StrGetRaster(Handle hCPage,uchar* ImageName,Rect16 N,CCOM_comp* comp,RecRaster* rec,BOOL vert,BOOL neg,int scale)
+Bool StrGetRaster(Handle hCPage,uchar* ImageName,Rect16 N,CCOM_comp* comp,RecRaster* rec,Bool vert,Bool neg,int scale)
 {
 	//Andrey - 05.03.2003 - в структуру RecRaster больше, чем REC_MAX_RASTER_SIZE, не влезет
 	if (comp->h*REC_GW_WORD8(((comp->w + (1<<comp->scale) - 1)>>comp->scale)) > REC_MAX_RASTER_SIZE)
@@ -940,7 +940,7 @@ void Invert(RecRaster* rec)
 }
 
 
-BOOL MyRotateImage(uchar* ImageName,uchar* RotateImageName,int skew,Rect16* Rc,BOOL vertical,int code,MATRIX* rot,MATRIX* unrot)
+Bool MyRotateImage(uchar* ImageName,uchar* RotateImageName,int skew,Rect16* Rc,Bool vertical,int code,MATRIX* rot,MATRIX* unrot)
 {
  int w;
  int own_skew=skew;
@@ -1026,7 +1026,7 @@ void InitRotateImageName(uchar* RotateImageName,int code)
 	RotateImageName[num]='\0';
 }
 
-void GetRasterRect(uchar* UnRotateImageName,Rect16 N,Rect16* Rc,CSTR_attr* attr,BOOL fl_rotate)
+void GetRasterRect(uchar* UnRotateImageName,Rect16 N,Rect16* Rc,CSTR_attr* attr,Bool fl_rotate)
 {
  int top;
  int bottom;
@@ -1070,7 +1070,7 @@ void GetRasterRect(uchar* UnRotateImageName,Rect16 N,Rect16* Rc,CSTR_attr* attr,
 }
 
 
-int GetStrScale(Rect16* pRc,int nRc,BOOL vertical)
+int GetStrScale(Rect16* pRc,int nRc,Bool vertical)
 {
 	int max_scale=0;
 	int now_scale=0;
@@ -1088,7 +1088,7 @@ int GetStrScale(Rect16* pRc,int nRc,BOOL vertical)
  return max_scale;
 }
 
-BOOL InitRotateMas(Rect16 Rc,int16_t** ppbegx,int16_t** ppmovey,uchar** ppflmovey)
+Bool InitRotateMas(Rect16 Rc,int16_t** ppbegx,int16_t** ppmovey,uchar** ppflmovey)
 {
 	int w=Rc.right-Rc.left+1;
 	int h=Rc.bottom-Rc.top+1;
@@ -1111,7 +1111,7 @@ BOOL InitRotateMas(Rect16 Rc,int16_t** ppbegx,int16_t** ppmovey,uchar** ppflmove
 	return TRUE;
 }
 
-BOOL InitRotateMas(int** pphi,int n)
+Bool InitRotateMas(int** pphi,int n)
 {
 	if(!( (*pphi)=new int[n]))
 		return FALSE;

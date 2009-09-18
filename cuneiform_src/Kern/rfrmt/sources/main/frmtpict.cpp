@@ -96,7 +96,7 @@ extern   uint32_t RtfWriteMode;
 extern   POINT  TemplateOffset;
 
 extern	  CHAR   RtfFileName[MAX_PATH];
-//BOOL SaveMetafile(CString * str, /*CIMAGE*/BITMAPINFOHEADER * lpDIB);
+//Bool SaveMetafile(CString * str, /*CIMAGE*/BITMAPINFOHEADER * lpDIB);
 
 /*
 * Dib Header Marker - used in writing DIBs to files
@@ -154,7 +154,7 @@ BYTE GetPictRect( uint32_t NumberPict , Rect16* RectPict,uint32_t* UserNumber )
 }
 
 //**************************** Запись картин ************************************
-BOOL WritePict( uint32_t IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictString*/, BOOL OutPutTypeFrame)
+Bool WritePict( uint32_t IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictString*/, Bool OutPutTypeFrame)
 {
 	uint32_t        PictNumber    = 0;
 //	int           Realx,Realy;
@@ -267,7 +267,7 @@ BOOL WritePict( uint32_t IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictSt
 		}
 */		// Получим картинку из исходного изображения задав ее контур
 		//определяем размер маски
-		BOOL rc = TRUE;
+		Bool rc = TRUE;
 		char * pOutDIB = NULL;
 		if(CPAGE_PictureGetPlace (h_Page, h_Pict,-pinfo.Incline2048, &Lr, &Wh) )
 		{
@@ -544,9 +544,9 @@ static void bufcpy(char ** str, void  * mem, unsigned sz)
 	}
 }
 /*
-BOOL SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
+Bool SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
 {
-	BOOL rc = FALSE;
+	Bool rc = FALSE;
 
 #pragma pack (push,1)
 	struct MF_header {

@@ -118,7 +118,7 @@ BLOCK   * pDebugBlock    = NULL;
 RECTANGLE rDebugRect;
 int       xDebugVertLine = -1;
 
-static BOOL bGraphicsModeWasChanged = FALSE;
+static Bool bGraphicsModeWasChanged = FALSE;
 
 void LT_GraphicsOpen (void) // "bGraphicsModeWasChanged=ON"
 {
@@ -171,7 +171,7 @@ static void MatrixUpdate
     BYTE *pMatrix,
     int  nWidth,
     int  nHeight,
-    BOOL bGrid,
+    Bool bGrid,
     int  DrawingMode
 )
 {
@@ -527,7 +527,7 @@ static void PageMatrixUpdate (int xLeft, int yTop, int nScaling)
         PageMatrix,
         PAGE_MATRIX_WIDTH,  // 1024
         PAGE_MATRIX_HEIGHT, // 1024 (квадрат такой)
-        FALSE, // BOOL bGrid
+        FALSE, // Bool bGrid
         MATRIX_DRAWING_NATIVE_MODE // режим рисования, один из двух (18.10.01)
     );
 }
@@ -2073,7 +2073,7 @@ static void ScreenOutput (const char *pTitle,
     int nWidth   = 3000;
     int nHeight  = 3000;
 
-    BOOL bNeedUpdateScreen = TRUE;
+    Bool bNeedUpdateScreen = TRUE;
 
     for (;;)
     {

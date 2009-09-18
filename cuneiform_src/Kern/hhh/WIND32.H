@@ -78,9 +78,9 @@ typedef unsigned long intLU;
     #define RECT RECT16
   //for default POINT = POINT16
     #define POINT POINT16
-  //for default BOOL = short
-    //#define BOOL short
-    //typedef __int16 BOOL;
+  //for default Bool = short
+    //#define Bool short
+    //typedef __int16 Bool;
   //for default UINT = short
     #define UINT UINT16
   //for combination "unsigned int" -> intU

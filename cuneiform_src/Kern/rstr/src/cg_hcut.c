@@ -78,23 +78,23 @@ typedef struct tagRecogStat
 } RecogStat;
 
 static B_LINES bl;
-static BOOL fb1;
-static BOOL fb2;
-static BOOL fb3;
-static BOOL fb4;
+static Bool fb1;
+static Bool fb2;
+static Bool fb3;
+static Bool fb4;
 static INT bl_lim=3;
 
-static INT dirt_frag(cell **B, cell **E, cell *first, cell *last, BOOL stop_first);
+static INT dirt_frag(cell **B, cell **E, cell *first, cell *last, Bool stop_first);
 static void bl_cut(cell *B, cell *E, INT cut);
-static BOOL find_clust(BYTE let);
-static BOOL clip_cell(INT j, cell *c, INT b1, INT b2, INT b3, INT b4, INT st_inc);
+static Bool find_clust(BYTE let);
+static Bool clip_cell(INT j, cell *c, INT b1, INT b2, INT b3, INT b4, INT st_inc);
 static void save_frag(cell *B, cell *E, RecogStat *rs, cell **sv_frag, INT *st_inc);
 static void replace_frag(cell *B, cell *E, RecogStat *rs, cell *sv_frag);
 static  INT create_cells(cell *whither, raster *r, cell *celist[], INT st_inc);
 static cell *hide(cell *c, cell **clink);
 static void restore(cell *clink, cell *wherever);
 static void del_hided(cell *clink);
-static BOOL capital(BYTE let);
+static Bool capital(BYTE let);
 
 void  base_lines_cut()
 {
@@ -123,7 +123,7 @@ void  base_lines_cut()
   }
 }
 /*
-static BOOL dirt_frag(cell **B,cell **E)
+static Bool dirt_frag(cell **B,cell **E)
 {
   cell *c=cell_f()->next;
   gbCol1=gbCol2=0;
@@ -171,7 +171,7 @@ LONG testDirt(CSTR_rast *beg, CSTR_rast *end)
     {
       BYTE let=uni.Alt[0].Code[0],letpos = let_linpos[let];
       INT bot=attr.row+attr.h;
-      BOOL d2=attr.row<bl.b2-bl_lim,d3=bot>bl.b3+bl_lim;
+      Bool d2=attr.row<bl.b2-bl_lim,d3=bot>bl.b3+bl_lim;
 
       if (uni.lnAltCnt==0)
       {
@@ -224,7 +224,7 @@ mark:
   return 0;
 }
 
-static INT dirt_frag(cell **B, cell **E, cell *first, cell *last, BOOL stop_first)
+static INT dirt_frag(cell **B, cell **E, cell *first, cell *last, Bool stop_first)
 {
   cell *c=*B,*end=*E;
   cell *capb=NULL,*cape=NULL;
@@ -248,8 +248,8 @@ static INT dirt_frag(cell **B, cell **E, cell *first, cell *last, BOOL stop_firs
       BYTE let=c->vers[0].let;
       BYTE letpos = let_linpos[let];
       INT bot=c->row+c->h;
-      BOOL d2 = (fb2) ? c->row<bl.b2-bl_lim : TRUE;
-      BOOL d3 = (fb3) ? bot>bl.b3+bl_lim : TRUE;
+      Bool d2 = (fb2) ? c->row<bl.b2-bl_lim : TRUE;
+      Bool d3 = (fb3) ? bot>bl.b3+bl_lim : TRUE;
 
       if ((c->pr_vers.prob>=220 ||
 				strchr("рцЦщЩ",c->pr_vers.let) &&
@@ -365,7 +365,7 @@ mark:
   return 0;
 }
 
-static BOOL find_clust(BYTE let)
+static Bool find_clust(BYTE let)
 {
 #ifdef _USE_FON_
   ClustInfo clustinfo;
@@ -382,7 +382,7 @@ static void bl_cut(cell *B, cell *E, INT cut)
   RecogStat rs;
   cell *sv_frag=NULL;
   INT st_inc;          //средний наклон
-  BOOL repair=TRUE;
+  Bool repair=TRUE;
 
   //save current state
   save_frag(B,E,&rs,&sv_frag,&st_inc);
@@ -429,18 +429,18 @@ static void bl_cut(cell *B, cell *E, INT cut)
     del_hided(sv_frag);
 }
 
-static BOOL clip_cell(INT j, cell *c, INT b1, INT b2, INT b3, INT b4, INT st_inc)
+static Bool clip_cell(INT j, cell *c, INT b1, INT b2, INT b3, INT b4, INT st_inc)
 {
 //отрезает от c все, что выходит за b1,b4 (отсчет от c->row); b2,b3 - дополнительные разрезы,
 // если нужно
 //  INT j;
   INT crow=c->row;  //b1,b2,b3,b4 refer to crow
-  BOOL repair=TRUE;
+  Bool repair=TRUE;
 
 //  for (j=0; j<2 && c; j++)
   if (j<2)
   {
-    BOOL cut_made=FALSE;
+    Bool cut_made=FALSE;
 
     if (j==0)
     {
@@ -604,7 +604,7 @@ static void del_hided(cell *clink)
   }
 }
 
-static BOOL capital(BYTE let)
+static Bool capital(BYTE let)
 {
     return (let>='0' && let<='9' || let>='A' && let<='Z' || let>='└' && let<='▀');
 }

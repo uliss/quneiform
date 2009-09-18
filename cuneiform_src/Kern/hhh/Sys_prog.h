@@ -155,7 +155,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   typedef unsigned int WORD;
   typedef signed long LONG;
   typedef unsigned long DWORD;
-  typedef int BOOL;
+  typedef int Bool;
   #ifndef PASCAL
 	  #define PASCAL _pascal
   #endif

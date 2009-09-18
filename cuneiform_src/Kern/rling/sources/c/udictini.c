@@ -138,7 +138,7 @@ void ResetUserDict(voc_state * user_dict) {
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-BOOL CloseUserDictionary(BYTE * DictName, voc_state *user_dict) {
+Bool CloseUserDictionary(BYTE * DictName, voc_state *user_dict) {
 	if (user_dict -> state & VOC_CHANGED) {
 		char w[80];
 		LONG size;

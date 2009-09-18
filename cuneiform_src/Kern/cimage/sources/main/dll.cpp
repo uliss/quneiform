@@ -80,7 +80,7 @@ static int32_t             InitCount =  0;
 #undef APIENTRY
 #define APIENTRY
 
-BOOL APIENTRY DllMain( HINSTANCE  hModule,
+Bool APIENTRY DllMain( HINSTANCE  hModule,
                         uint32_t ul_reason_for_call,
                         LPVOID lpReserved )
 {
@@ -213,7 +213,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_GetExportData(uint32_t dwType, void * pData)
 //
 CIMAGE_FUNC(Bool32) CIMAGE_SetImportData(uint32_t dwType, void * pData)
 {
-	BOOL rc = FALSE;
+	Bool rc = FALSE;
 	gwLowRC = IDS_CIMAGE_ERR_NOTIMPLEMENT;
 
 	return rc;

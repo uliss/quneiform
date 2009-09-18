@@ -90,26 +90,26 @@ static BYTE eng_recognize(cell *b, cell *e);
 static BYTE english_cell_recognize(cell *cc);
 static void filtrate_language(cell *b,cell *e);
 static void mark_two_lang_word(cell *b, cell *e, BYTE val);
-static BOOL bad_chars_in_word(cell *b,cell *e);
-static BOOL small_prob_in_word(cell *b,cell *e) ;
-static BOOL more_alt(cell *b,cell *e);
-static BOOL II_place(cell *c);
-static BOOL II_config(cell *c);
-BOOL russian_word(BYTE *wrd);
-BOOL english_word(BYTE *wrd);
-BOOL russian_word_all(BYTE *wrd,BYTE language,BYTE nextlet);
-BOOL english_word_all(BYTE *wrd,BYTE language);
-static BOOL exist_symbol(cell *b,cell *e,BYTE ch) ;
-static BOOL left_over(cell *b,INT limit);
+static Bool bad_chars_in_word(cell *b,cell *e);
+static Bool small_prob_in_word(cell *b,cell *e) ;
+static Bool more_alt(cell *b,cell *e);
+static Bool II_place(cell *c);
+static Bool II_config(cell *c);
+Bool russian_word(BYTE *wrd);
+Bool english_word(BYTE *wrd);
+Bool russian_word_all(BYTE *wrd,BYTE language,BYTE nextlet);
+Bool english_word_all(BYTE *wrd,BYTE language);
+static Bool exist_symbol(cell *b,cell *e,BYTE ch) ;
+static Bool left_over(cell *b,INT limit);
 
 //Alik 04-25-96 06:53pm
 //============== Import func ===========
 //INT text_findstat(CHAR * word);
 //============== Local func =================
-static BOOL russian_dictionary_word(cell * first, cell * last,PBYTE);
-BOOL _spell(PCHAR s,BYTE lang);
-BOOL _spell_agressive(PCHAR s,BYTE lang);
-BOOL short_spell(BYTE *wrd,BYTE language, BYTE nextlet );
+static Bool russian_dictionary_word(cell * first, cell * last,PBYTE);
+Bool _spell(PCHAR s,BYTE lang);
+Bool _spell_agressive(PCHAR s,BYTE lang);
+Bool short_spell(BYTE *wrd,BYTE language, BYTE nextlet );
 extern void final_descriminate(cell *b, cell *e);
 extern void del_word_for2lang(INT left_limit,INT right_limit);
 extern INT line_number;         // number of line in ed_file
@@ -117,9 +117,9 @@ extern INT line_number;         // number of line in ed_file
 #define MAX_LEN_WORD  48
 #define GOOD_PROB     200
 
-BOOL short_spell(BYTE *wrd,BYTE language, BYTE nextlet )
+Bool short_spell(BYTE *wrd,BYTE language, BYTE nextlet )
 {
-BOOL    short_word_solid;
+Bool    short_word_solid;
 switch( language )
     {
     case    LANG_RUSSIAN:
@@ -135,9 +135,9 @@ switch( language )
 return short_word_solid;
 }
 
-BOOL short_spell_re(BYTE *wrd,BYTE language )
+Bool short_spell_re(BYTE *wrd,BYTE language )
 {
-BOOL    short_word_solid;
+Bool    short_word_solid;
 switch( language )
     {
     case    LANG_RUSSIAN:
@@ -165,7 +165,7 @@ for(r=c->next;r && r!=e;r=r->next)
 return lang;
 }
 
-static BOOL  cells_get_solid(cell * rus, cell * ruse)
+static Bool  cells_get_solid(cell * rus, cell * ruse)
 {
 cell *r;
 
@@ -177,7 +177,7 @@ for(r=rus;r && r!=ruse;r=r->next)
 return TRUE;
 }
 
-BOOL cells_left_solid(cell *c)
+Bool cells_left_solid(cell *c)
 {
 INT sol=0;
 for(c=c->prev;(c->flg&(c_f_punct));c=c->prev);
@@ -194,7 +194,7 @@ return (c->flg&c_f_fict)?TRUE:FALSE;
 }
 
 
-BOOL cells_right_solid(cell *c)
+Bool cells_right_solid(cell *c)
 {
 INT sol=0;
 for(c=c->next;(c->flg&(c_f_punct));c=c->next);
@@ -406,7 +406,7 @@ if( (c->flg&(c_f_let|c_f_bad)) &&
 return c;
 }
 
-BOOL    nonpunct_interval(cell *b,cell *e)
+Bool    nonpunct_interval(cell *b,cell *e)
 {
 cell *c;
 for(c=b;c!=e;c=c->next)
@@ -583,7 +583,7 @@ if( db_status && snap_activity('c') )
 return( eng!=0 );
 }
 
-BOOL russian_dictionary_word(cell * first, cell * last,PBYTE BadWord)
+Bool russian_dictionary_word(cell * first, cell * last,PBYTE BadWord)
 {
 #define DELTA            80
 #define MINI_PROB	150
@@ -650,7 +650,7 @@ cell *c,*roll;
  return FALSE;
 }
 
-BOOL _spell(PCHAR s,BYTE lang)
+Bool _spell(PCHAR s,BYTE lang)
 {
 
 CHAR        w[76]="",*pw; BYTE ss;
@@ -684,7 +684,7 @@ else
 return  ret > 0;
 }
 
-BOOL _spell_agressive(PCHAR s,BYTE lang)
+Bool _spell_agressive(PCHAR s,BYTE lang)
 {
 
 CHAR        w[76]="",*pw; BYTE ss;
@@ -909,7 +909,7 @@ return;
 }
 
 
-BOOL bad_chars_in_word(cell *b,cell *e)
+Bool bad_chars_in_word(cell *b,cell *e)
 {
 cell *c;
 for(c=b;c!=e;c=c->next)
@@ -917,7 +917,7 @@ for(c=b;c!=e;c=c->next)
 return FALSE;
 }
 
-BOOL small_prob_in_word(cell *b,cell *e)
+Bool small_prob_in_word(cell *b,cell *e)
 {
 cell *c;
 for(c=b;c!=e;c=c->next)
@@ -944,7 +944,7 @@ return( m<3 );
 }
 
 /* ¡« £®¯à¨ïâ­®¥ ¬¥áâ®à á¯®«®¦¥­¨¥ ¤«ï ¯ àë II */
-BOOL II_place(cell *c)
+Bool II_place(cell *c)
 {
 if( c->prev  && (c->prev->flg & c_f_space) &&
     c->next  && (c->next->flg & c_f_space) &&
@@ -957,12 +957,12 @@ if( c->prev  && (c->prev->flg & c_f_space) &&
 return FALSE;
 }
 
-BOOL II_config(cell *c)
+Bool II_config(cell *c)
 {
 return c->broken_II;
 }
 
-BOOL more_alt(cell *b,cell *e)
+Bool more_alt(cell *b,cell *e)
 {
 cell *c;
 INT min_prob=1000;
@@ -988,7 +988,7 @@ else                              return FALSE;
 
 static BYTE russian_ligas[] ="ðñõ÷øýÀÈ";
 static BYTE russian_ligas_recode[] ="¤¤â¨£ ¥…";
-BOOL russian_word(BYTE *wrd)
+Bool russian_word(BYTE *wrd)
 {
 INT i,ii,iv;
 BYTE w[MAX_LEN_WORD],c,*oc;
@@ -1015,7 +1015,7 @@ for(i=0;russian_voc[i][0]!='\0';i++)
 return FALSE;
 }
 
-BOOL russian_word_all(BYTE *wrd,BYTE language,BYTE nextlet)
+Bool russian_word_all(BYTE *wrd,BYTE language,BYTE nextlet)
 {
 INT i,ii,iv;
 BYTE ww[MAX_LEN_WORD],*w=&ww[0],c;
@@ -1058,7 +1058,7 @@ return FALSE;
 }
 
 
-BOOL english_word(BYTE *wrd)
+Bool english_word(BYTE *wrd)
 {
 INT i,ii,iv;
 BYTE w[MAX_LEN_WORD];
@@ -1078,7 +1078,7 @@ for(i=0;english_voc[i][0]!='\0';i++)
 return FALSE;
 }
 
-BOOL english_word_all(BYTE *wrd,BYTE language)
+Bool english_word_all(BYTE *wrd,BYTE language)
 {
 INT i,ii,iv;
 BYTE w[MAX_LEN_WORD];
@@ -1104,14 +1104,14 @@ static BYTE eng_two_lang_letters[]="ETYOPAHKXCBMeyuopaxcn1234567890,þ×Ø!._<>;";
 static BYTE rus_two_lang_letters1[]="…’“Ž€Š•‘‚Œ¥ã¨®à åá¯";
 static BYTE eng_two_lang_letters1[]="ETYOPAHKXCBMeyuopaxcn";
 
-static BOOL mixed_eng_rus_word(cell *b, cell *e);
-static BOOL mixed_rus_eng_word(cell *b, cell *e);
-static BOOL eng_word_to_rus_word(cell *b, cell *e);
-static BOOL rus_word_to_eng_word(cell *b, cell *e);
-static BOOL russian_letter(cell *b,cell *e);
-static BOOL english_letter(cell *b,cell *e);
+static Bool mixed_eng_rus_word(cell *b, cell *e);
+static Bool mixed_rus_eng_word(cell *b, cell *e);
+static Bool eng_word_to_rus_word(cell *b, cell *e);
+static Bool rus_word_to_eng_word(cell *b, cell *e);
+static Bool russian_letter(cell *b,cell *e);
+static Bool english_letter(cell *b,cell *e);
 
-BOOL mixed_eng_rus_word(cell *b, cell *e)
+Bool mixed_eng_rus_word(cell *b, cell *e)
 {
   cell *c;
   BYTE *p;
@@ -1141,7 +1141,7 @@ wrd[n]=0;
 return ( u!=n && d!=n && !english_word(wrd) );
 }
 
-BOOL mixed_rus_eng_word(cell *b, cell *e)
+Bool mixed_rus_eng_word(cell *b, cell *e)
 {
   cell *c;
   BYTE *p;
@@ -1172,7 +1172,7 @@ return ( u!=n && d!=n && !russian_word(wrd) );
 }
 
 
-BOOL eng_word_to_rus_word(cell *b, cell *e)
+Bool eng_word_to_rus_word(cell *b, cell *e)
 {
   cell *c;
   BYTE *p,ch,pp;
@@ -1196,7 +1196,7 @@ BOOL eng_word_to_rus_word(cell *b, cell *e)
 return TRUE;
 }
 
-BOOL rus_word_to_eng_word(cell *b, cell *e)
+Bool rus_word_to_eng_word(cell *b, cell *e)
 {
   cell *c;
   BYTE *p,ch,pp;
@@ -1220,7 +1220,7 @@ BOOL rus_word_to_eng_word(cell *b, cell *e)
 return TRUE;
 }
 
-BOOL russian_letter(cell *b,cell *e)
+Bool russian_letter(cell *b,cell *e)
 {
 cell *c;
 for(c=b;c!=e;c=c->next)
@@ -1234,7 +1234,7 @@ for(c=b;c!=e;c=c->next)
 return FALSE;
 }
 
-BOOL russian_letter_context(cell *b,cell *e)
+Bool russian_letter_context(cell *b,cell *e)
 {
 cell *c;
 for(c=b;c!=e;c=c->next)
@@ -1245,7 +1245,7 @@ for(c=b;c!=e;c=c->next)
 return FALSE;
 }
 
-BOOL english_letter(cell *b,cell *e)
+Bool english_letter(cell *b,cell *e)
 {
 cell *c;
 for(c=b;c!=e;c=c->next)
@@ -1257,9 +1257,9 @@ for(c=b;c!=e;c=c->next)
 return TRUE;
 }
 
-BOOL    special_eng_to_rus(cell *b,cell *e)
+Bool    special_eng_to_rus(cell *b,cell *e)
 {
-BOOL ret=FALSE;
+Bool ret=FALSE;
 
 if( b->flg&c_f_fict )
     return ret;
@@ -1407,7 +1407,7 @@ if( db_status && snap_activity('c') )
 return;
 }
 
-BOOL exist_symbol(cell *b,cell *e,BYTE ch)
+Bool exist_symbol(cell *b,cell *e,BYTE ch)
 {
 cell *c;
 for(c=b;c!=e;c=c->next)
@@ -1463,7 +1463,7 @@ do{
 return c;
 }
 
-BOOL left_over(cell *b,INT limit)
+Bool left_over(cell *b,INT limit)
 {
 cell *c,*e=cell_l()->prev;
 for(c=b;c!=e;c=c->next )

@@ -131,7 +131,7 @@ char * _ErrorMessage(long rc)
 }
 
 
-BOOL _Load(CRecognition * pThis)
+Bool _Load(CRecognition * pThis)
 {
 	HINSTANCE hInstance = GetModuleHandle(PUMANAME);
 	char szFullPath[_MAX_PATH];
@@ -140,7 +140,7 @@ BOOL _Load(CRecognition * pThis)
 	if(p)
 		*p='\0';
 
-	BOOL rc = LPUMA_Load(szFullPath);
+	Bool rc = LPUMA_Load(szFullPath);
 
 	g_pRecognition = pThis;
 	if(!rc)
@@ -161,9 +161,9 @@ void _Unload()
 }
 
 
-BOOL _Open(char * hDIB, char * FileName)
+Bool _Open(char * hDIB, char * FileName)
 {
-	BOOL rc = FALSE;
+	Bool rc = FALSE;
 
 	_Close( );
 	if(hDIB==0)
@@ -175,19 +175,19 @@ BOOL _Open(char * hDIB, char * FileName)
 	return rc;
 }
 
-BOOL _Close()
+Bool _Close()
 {
 	return LPUMA_XClose();
 }
 
-BOOL _Recognition()
+Bool _Recognition()
 {
 return  _FinalRecognition();
 }
 
-BOOL _Save(void * hEdPage, char * lpFileName,long format, long code, Bool32 bAppend)
+Bool _Save(void * hEdPage, char * lpFileName,long format, long code, Bool32 bAppend)
 {
-	BOOL rc = FALSE;
+	Bool rc = FALSE;
 
 	LPUMA_SetBold(g_bBold);
 	LPUMA_SetItalic(g_bItalic);
@@ -206,7 +206,7 @@ BOOL _Save(void * hEdPage, char * lpFileName,long format, long code, Bool32 bApp
 
 uint32_t _SaveToMemory(Handle hEdPage, int32_t format, int32_t code, char * lpMem, uint32_t size )
 {
-	BOOL rc = 0;
+	Bool rc = 0;
 
 	LPUMA_SetBold(g_bBold);
 	LPUMA_SetItalic(g_bItalic);
@@ -223,9 +223,9 @@ uint32_t _SaveToMemory(Handle hEdPage, int32_t format, int32_t code, char * lpMe
 	return rc;
 }
 
-BOOL _PageAnalysis(BOOL bUpdateCPAGE)
+Bool _PageAnalysis(Bool bUpdateCPAGE)
 {
-	BOOL rc = FALSE;
+	Bool rc = FALSE;
 
 	LPUMA_SetSpeller(g_bSpeller);
 	LPUMA_SetOneColumn(g_bOneColumn);
@@ -244,9 +244,9 @@ BOOL _PageAnalysis(BOOL bUpdateCPAGE)
 	return rc;
 }
 
-BOOL _FinalRecognition()
+Bool _FinalRecognition()
 {
-BOOL rc = FALSE;
+Bool rc = FALSE;
 
 	LPUMA_SetSpeller(g_bSpeller);
 	LPUMA_SetOneColumn(g_bOneColumn);
@@ -314,9 +314,9 @@ long	_EnumPictureMode(long nPrev)
 	return rc;
 }
 
-BOOL	_GetRotateDIB(long * phDIB, long * x0, long * y0)
+Bool	_GetRotateDIB(long * phDIB, long * x0, long * y0)
 {
-	BOOL rc = FALSE;
+	Bool rc = FALSE;
 	Point32 p = {0,0};
 
 	rc = LPUMA_XGetRotateDIB((void**)phDIB,&p);

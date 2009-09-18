@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 void DrawRect(Handle wnd,uint32_t OperCode,uint32_t color,int top,int bottom,int left,int right);
 
 extern "C" Handle hVertCompD;
-//BOOL dpVertCompD;
+//Bool dpVertCompD;
 
 RPSTR_FUNC(void) RPSTR_NormalizeVertStr(void)
 {
@@ -84,7 +84,7 @@ RPSTR_FUNC(void) RPSTR_NormalizeVertStr(void)
  if(!count_str)
 	 return;
 
- BOOL WasDraw=FALSE;
+ Bool WasDraw=FALSE;
  CSTR_line string;
  CSTR_rast rast;
  CSTR_attr attr;

@@ -793,7 +793,7 @@ CleanUp:
 // MiniDumpWriteDump.  Builds a linked list of all module names which is
 // eventually used to create the <modules> node in the XML log file.
 //
-BOOL CALLBACK
+Bool CALLBACK
 CExceptionReport::miniDumpCallback(PVOID,
                                    CONST PMINIDUMP_CALLBACK_INPUT CallbackInput,
                                    PMINIDUMP_CALLBACK_OUTPUT)

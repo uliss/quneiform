@@ -138,7 +138,7 @@ struct _String
 # define String Tiger_String
 
 extern STRING String;
-extern BOOL bNeedFreeString;
+extern Bool bNeedFreeString;
 
 extern STRING *pStringsList;
 extern STRING *pStringsListEnd;

@@ -73,26 +73,26 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern INT it_done;
 static int16_t skew_corr_stat(CSTR_line ln, INT pool_src);
 static int16_t rast_is_BOX_solid (CSTR_rast B1,int16_t scale);
-static BOOL snap_monitor_stat(void);
-static BOOL snap_monitor_ori_stat(CSTR_line *snap_line, int32_t num_lines);//IGOR
-static BOOL snap_is_marked_stat(CSTR_line ln);//IGOR
-static BOOL snap_baselines_stat(BYTE a);//IGOR
+static Bool snap_monitor_stat(void);
+static Bool snap_monitor_ori_stat(CSTR_line *snap_line, int32_t num_lines);//IGOR
+static Bool snap_is_marked_stat(CSTR_line ln);//IGOR
+static Bool snap_baselines_stat(BYTE a);//IGOR
 static void snap_draw_line_stat(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
 					                               uint32_t rgb, int16_t pen, uint32_t key);//IGOR
 static void snap_del_line_stat(Handle wnd, uint32_t key);//IGOR
-static BOOL snap_show_text_stat(BYTE *txt);
-static BOOL snap_activity_stat(BYTE a);
+static Bool snap_show_text_stat(BYTE *txt);
+static Bool snap_activity_stat(BYTE a);
 
 static uchar let_linempty[512]={0};
 
 int16_t (*RSTR_skew_corr)(CSTR_line ln, INT pool_src)=skew_corr_stat;
 int16_t (*RSTR_rast_is_BOX_solid) (CSTR_rast B1,int16_t scale) = rast_is_BOX_solid;
-BOOL (*snap_monitor_rbal)(void)=snap_monitor_stat;
-BOOL (*snap_show_text_rbal)(BYTE *txt)=snap_show_text_stat;
-BOOL (*snap_activity_rbal)(BYTE a)=snap_activity_stat;
-BOOL (*snap_monitor_ori_rbal)(CSTR_line *snap_line, int32_t num_lines)=snap_monitor_ori_stat; //IGOR
-BOOL (*snap_is_marked_rbal)(CSTR_line ln)=snap_is_marked_stat;//IGOR
-BOOL (*snap_baselines_rbal)(BYTE a)=snap_baselines_stat;//IGOR
+Bool (*snap_monitor_rbal)(void)=snap_monitor_stat;
+Bool (*snap_show_text_rbal)(BYTE *txt)=snap_show_text_stat;
+Bool (*snap_activity_rbal)(BYTE a)=snap_activity_stat;
+Bool (*snap_monitor_ori_rbal)(CSTR_line *snap_line, int32_t num_lines)=snap_monitor_ori_stat; //IGOR
+Bool (*snap_is_marked_rbal)(CSTR_line ln)=snap_is_marked_stat;//IGOR
+Bool (*snap_baselines_rbal)(BYTE a)=snap_baselines_stat;//IGOR
 void (*snap_draw_line_rbal)(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
 					                   uint32_t rgb, int16_t pen, uint32_t key)
 							=snap_draw_line_stat;//IGOR
@@ -106,7 +106,7 @@ int16_t line_number = 0;
 uchar  fax1x2=0;
 uint16_t actual_resolution=300;
 uchar  fEdCode = 0;  // ASCII
-BOOL   line_BL=FALSE;
+Bool   line_BL=FALSE;
 uchar  spec_camera = 0;
 int32_t  nIncline=0;
 uchar  no_linpen=0;
@@ -461,16 +461,16 @@ void dust_ini(CSTR_line lin)
 }
 ///////////////////////
 
-BOOL snap_monitor_stat(void)
+Bool snap_monitor_stat(void)
 { return FALSE;}
 ///////
-BOOL snap_monitor_ori_stat(CSTR_line *snap_line, int32_t num_lines)//IGOR
+Bool snap_monitor_ori_stat(CSTR_line *snap_line, int32_t num_lines)//IGOR
 {return FALSE;}
 ///////
-BOOL snap_is_marked_stat(CSTR_line ln)//IGOR
+Bool snap_is_marked_stat(CSTR_line ln)//IGOR
 { return FALSE;}
 ///////
-BOOL snap_baselines_stat(BYTE a)//IGOR
+Bool snap_baselines_stat(BYTE a)//IGOR
 { return FALSE;}
 ///////
 void snap_draw_line_stat(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
@@ -480,14 +480,14 @@ void snap_draw_line_stat(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
 void snap_del_line_stat(Handle wnd, uint32_t key)//IGOR
 { return;}
 ///////
-BOOL snap_show_text_stat(BYTE *txt)
+Bool snap_show_text_stat(BYTE *txt)
 { return FALSE;}
 ///////
-BOOL snap_activity_stat(BYTE a)
+Bool snap_activity_stat(BYTE a)
 { return FALSE;}
 ///////
 /*
-BOOL snap_newcell (CSTR_rast c)
+Bool snap_newcell (CSTR_rast c)
 {
 	return FALSE;
 }

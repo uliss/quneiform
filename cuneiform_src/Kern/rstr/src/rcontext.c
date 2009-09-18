@@ -238,7 +238,7 @@ if( memchr(predessor,c->prevl->vers[0].let,sizeof(predessor)) &&
 
 #define MAX_LEN_WORD  48
 
-static BOOL case_convert(cell *b, cell *e);
+static Bool case_convert(cell *b, cell *e);
 static BYTE wave_up_abris(cell *b, cell *e);
 static void make_convert(cell *b, cell *e, BYTE r);
 
@@ -252,7 +252,7 @@ void correct_case(void)
 cell *c, *e;
 BYTE buf[MAX_LEN_WORD+40],word_len;
 BYTE wrd[MAX_LEN_WORD+40];
-BOOL r;
+Bool r;
 
 
 if( db_status && snap_activity('c') )
@@ -348,7 +348,7 @@ if( n<6 || up==0 || dn==0 || up1 && up2 )
 return up2 ? 1 : 2 ;
 }
 
-BOOL case_convert(cell *b, cell *e)
+Bool case_convert(cell *b, cell *e)
 {
 BYTE r;
 

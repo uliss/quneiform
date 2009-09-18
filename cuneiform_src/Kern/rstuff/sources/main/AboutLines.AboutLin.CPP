@@ -200,7 +200,7 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
 			{
 				*Image->pgneed_clean_line = FALSE;
 				CLINE_handle hCLINE=*((CLINE_handle*)(Image->phCLINE));
-				BOOL fl_break=FALSE;
+				Bool fl_break=FALSE;
 				for(CLINE_handle hline=CLINE_GetFirstLine(hCLINE);hline;hline=CLINE_GetNextLine(hline))
 				{
 					CPDLine cpdata=CLINE_GetLineData(hline);

@@ -177,13 +177,13 @@ public:
 
 		void                 CRtfPageDelFragments(void);
   CRtfFragment*        GetNextFragment();
-  BOOL                 ReadInternalFile(FILE *FileNameIn);
-		BOOL                 OpenOutputFile(const char* FileNameOut);
+  Bool                 ReadInternalFile(FILE *FileNameIn);
+		Bool                 OpenOutputFile(const char* FileNameOut);
 		void                 CloseOutputFile(void);
   void                 SetTwips(void);
-		BOOL                 FindPageTree(FILE *FileNameIn, const char* FileNameOut);
+		Bool                 FindPageTree(FILE *FileNameIn, const char* FileNameOut);
 	 void                 ReCalcPageWidthAndHeight();
-		BOOL                 WriteHeaderRtf(void);
+		Bool                 WriteHeaderRtf(void);
 	 void                 CorrectKegl(void);
   void                 ChangeKegl(void);
 		void                 AddNewKegl( int16_t OldKegl, int16_t NewKegl );
@@ -193,10 +193,10 @@ public:
 		void                 AddTables(void);
 		void                 AddLines(void);
 		void                 SortUserNumber(void);
-  BOOL	                Write(const char* FileNameOut );
-	 BOOL	                Write_USE_NONE( void );
-	 BOOL	                Write_USE_FRAME( void );
-	 BOOL	                Write_USE_FRAME_AND_COLUMN( void );
+  Bool	                Write(const char* FileNameOut );
+	 Bool	                Write_USE_NONE( void );
+	 Bool	                Write_USE_FRAME( void );
+	 Bool	                Write_USE_FRAME_AND_COLUMN( void );
  	int16_t               	GetFlagAndNumberFragment( BYTE* FragmentType, int16_t* CurrentSectorNumber );
   void                 WriteSectorsHeader(int16_t i);
   void                 ToPlacePicturesAndTables(void);
@@ -245,35 +245,35 @@ public:
   CRtfPage*            pRtfParent;
   CRtfString*	       GetFirstString();
   CRtfString*	       GetNextString();
-  BOOL	               Write(RtfSectorInfo* SectorInfo);
+  Bool	               Write(RtfSectorInfo* SectorInfo);
   void                 InitFragment(RtfSectorInfo* SectorInfo);
   void                 SetFragmentAlignment(RtfSectorInfo* SectorInfo);
-  void                 new_paragraph( BOOL OutPutType );
-  BOOL                 FWriteText(int16_t NumberCurrentFragment,RtfSectorInfo* SectorInfo, BOOL OutPutType);
-  BOOL                 FWriteTable(int16_t NumberCurrentFragment,RtfSectorInfo* SectorInfo, BOOL OutPutType);
-  BOOL                 FWritePicture(int16_t NumberCurrentFragment,RtfSectorInfo* SectorInfo, BOOL OutPutType);
+  void                 new_paragraph( Bool OutPutType );
+  Bool                 FWriteText(int16_t NumberCurrentFragment,RtfSectorInfo* SectorInfo, Bool OutPutType);
+  Bool                 FWriteTable(int16_t NumberCurrentFragment,RtfSectorInfo* SectorInfo, Bool OutPutType);
+  Bool                 FWritePicture(int16_t NumberCurrentFragment,RtfSectorInfo* SectorInfo, Bool OutPutType);
 
-  BOOL                 ProcessingUseNoneMode(void);
+  Bool                 ProcessingUseNoneMode(void);
   void                 Init(RtfSectorInfo* SectorInfo);
   void                 ReInit(RtfSectorInfo* SectorInfo, int beg, int end);
-  BOOL                 ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo);
-  BOOL                 DeterminationOfCentreJustification(int beg, int end);
-  BOOL                 DeterminationOfRightJustification(int beg, int end);
-  BOOL                 DeterminationOfListType(int beg, int end);
+  Bool                 ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo);
+  Bool                 DeterminationOfCentreJustification(int beg, int end);
+  Bool                 DeterminationOfRightJustification(int beg, int end);
+  Bool                 DeterminationOfListType(int beg, int end);
   void                 Done(void);
 
-  BOOL                 DeterminationOfMixedFragment(RtfSectorInfo* SectorInfo);
-  void                 GetNextFragmentBegEnd(int32_t* beg, int32_t* end, BOOL* Flag);
+  Bool                 DeterminationOfMixedFragment(RtfSectorInfo* SectorInfo);
+  void                 GetNextFragmentBegEnd(int32_t* beg, int32_t* end, Bool* Flag);
 
-  BOOL                 DeterminationOfLeftRightJustification(int beg, int end);
-  BOOL                 CheckLeftRightJustification(int beg, int end);
+  Bool                 DeterminationOfLeftRightJustification(int beg, int end);
+  Bool                 CheckLeftRightJustification(int beg, int end);
   void                 SetFlagBeginParagraphForLeftRightJustification(int beg, int end);
-  BOOL                 CheckStringForLeftRightJustification(int ns);
+  Bool                 CheckStringForLeftRightJustification(int ns);
 
-  BOOL                 DeterminationOfLeftJustification(int beg, int end, BOOL direct);
-  BOOL                 CheckLeftJustification(int beg, int end);
+  Bool                 DeterminationOfLeftJustification(int beg, int end, Bool direct);
+  Bool                 CheckLeftJustification(int beg, int end);
   void                 SetFlagBeginParagraphForLeftJustification(int beg, int end);
-  BOOL                 CheckStringForLeftJustification(int ns);
+  Bool                 CheckStringForLeftJustification(int ns);
 
   void                 CheckOnceAgainImportancesFlagBeginParagraph(void);
   void                 DefineLineTransfer(void);
@@ -284,12 +284,12 @@ public:
   void                 SetParagraphAlignment(int beg, int end, int AlignType);
   void                 CalculationLengthAndCount(CRtfString* pRtfString, int32_t* CountChars, int32_t* LengthChars);
   void                 GetCountEqual(int beg, int end, WORD* Count, int AlignType);
-  BOOL                 GetFlagCarry(int beg, int end);
-  BOOL                 GetFlagLeft(int beg, int end);
-  BOOL                 GetFlagStrongLeft(int beg, int end);
-  BOOL                 GetFlagRight(int beg, int end);
-  BOOL                 GetFlagBigSpace(int beg, int end);
-  BOOL                 CheckNumber(BYTE FirstChar);
+  Bool                 GetFlagCarry(int beg, int end);
+  Bool                 GetFlagLeft(int beg, int end);
+  Bool                 GetFlagStrongLeft(int beg, int end);
+  Bool                 GetFlagRight(int beg, int end);
+  Bool                 GetFlagBigSpace(int beg, int end);
+  Bool                 CheckNumber(BYTE FirstChar);
 
   void                 PrintTheResult(const char*);
 
@@ -311,15 +311,15 @@ uint32_t                m_wUserNumberForFormattedMode;
   WORD                 m_wBegStr;
   WORD                 m_wEndStr;
 
-  BOOL                 m_bFlagObjectInColumn;
-  BOOL                 m_bFlagUsed;
-  BOOL                 m_bOutPutType;
-  BOOL                 m_bflag_new_column;
-  BOOL                 m_bflag_new_parag;
-  BOOL                 m_bflag_new_str;
-  BOOL                 m_bflag_new_line;
-  BOOL                 m_bflag_change;
-  BOOL                 m_bflag_LineTransfer;
+  Bool                 m_bFlagObjectInColumn;
+  Bool                 m_bFlagUsed;
+  Bool                 m_bOutPutType;
+  Bool                 m_bflag_new_column;
+  Bool                 m_bflag_new_parag;
+  Bool                 m_bflag_new_str;
+  Bool                 m_bflag_new_line;
+  Bool                 m_bflag_change;
+  Bool                 m_bflag_LineTransfer;
   WORD                 m_wprev_font_name;
   WORD                 m_wprev_Underline;
   WORD                 m_wprev_Bold;
@@ -374,7 +374,7 @@ public:
 
 	 CRtfPage             *m_PagePtr;
 
-  BOOL	                Write(void);
+  Bool	                Write(void);
   void                 WriteTerminalColumns(void);
   void                 WriteNonTerminalColumns(void);
   void                 WriteTerminalColumnsTablesAndPictures(void);
@@ -399,8 +399,8 @@ public:
   RECT	               m_rectReal;
   WORD	                m_wType;
   Handle               m_hEDSector;
-		BOOL                 m_FlagOneString;
-		BOOL                 m_bFlagLine;
+		Bool                 m_FlagOneString;
+		Bool                 m_bFlagLine;
 	int32_t			m_VTerminalColumnNumber;
 };
 
@@ -414,12 +414,12 @@ public:
 
 	 CRtfPage             *m_PagePtr;
 
-  BOOL	                Write(/*CWordArray*/vectorWord* arRightBoundTerminalColumns, int32_t* VTerminalColumnNumber);
+  Bool	                Write(/*CWordArray*/vectorWord* arRightBoundTerminalColumns, int32_t* VTerminalColumnNumber);
   void                 WriteTerminalColumns(/*CWordArray*/vectorWord* arRightBoundTerminalColumns,
 		                                          int32_t* VTerminalColumnNumber,
 																																												int32_t  CountVTerminalColumns,
 																																												RtfSectorInfo* SectorInfo);
-  void                 WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo,BOOL FlagFirstTerminalFragment,int32_t TopPositionFirstTerminalFragment);
+  void                 WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo,Bool FlagFirstTerminalFragment,int32_t TopPositionFirstTerminalFragment);
 		void                 WriteNonTerminalColumns(RtfSectorInfo* SectorInfo);
   void                 WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *SectorInfo);
   void                 CalcHorizontalColumn(void);
@@ -428,11 +428,11 @@ public:
   void                 DefineTerminalProperty(void);
   void                 FillingVTerminalColumnsIndex(void);
   void                 ToPlacePicturesAndTables(CRtfFragment* Frament);
-  BOOL	                CheckTermColumn(void);
+  Bool	                CheckTermColumn(void);
   void                 SortFragments(void);
   WORD                 GetFreeSpaceBetweenPrevAndCurrentFragments(int TopPosCurFrag, RtfSectorInfo *SectorInfo);
   WORD                 GetOffsetFromPrevTextFragment(CRtfFragment *pRtfFragment);
-  BOOL                 GetOverLayedFlag(int CurFragmentNumber);
+  Bool                 GetOverLayedFlag(int CurFragmentNumber);
   void                 SetFlagObjectInColumnForPageFragment( CRtfFragment* CurFragment );
 
   /*CObArray*/std::vector<CRtfVerticalColumn*>	            m_arVerticalColumns;
@@ -456,7 +456,7 @@ public:
 	 CRtfVerticalColumn();
  ~CRtfVerticalColumn();
 
-  BOOL	                Write( BOOL OutPutType ,RtfSectorInfo* SectorInfo);
+  Bool	                Write( Bool OutPutType ,RtfSectorInfo* SectorInfo);
   void                 SetSpaceRect(CRtfFragment* CurrentFragment, RtfSectorInfo* SectorInfo);
 
   /*CObArray*/std::vector<CRtfFragment*>	            m_arFragments;
@@ -464,12 +464,12 @@ public:
 
   WORD     	           m_wFragmentsCount;
   WORD	                m_wIndex;
-		BOOL                 m_bSortFlag;
+		Bool                 m_bSortFlag;
   RECT	               m_rect;
   RECT	               m_rectReal;
   WORD	                m_wType;
-  BOOL                 m_bFlagObjectInColumn;
-		BOOL                 m_bFlagSmall;
+  Bool                 m_bFlagObjectInColumn;
+		Bool                 m_bFlagSmall;
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -482,7 +482,7 @@ public:
 
   CRtfWord*            GetFirstWord           (void);
   CRtfWord*            GetNextWord            (void);
-  BOOL	               Write                  (void);
+  Bool	               Write                  (void);
   WORD                 get_max_font_size      (void);
   int16_t                GetStringSizeInTwips   (void);
   WORD                 GetRealStringSize      (void);
@@ -528,7 +528,7 @@ public:
 
   CRtfChar*            GetFirstChar();
   CRtfChar*            GetNextChar();
-  BOOL	                Write();
+  Bool	                Write();
   void                 get_coordinates_and_probability(void);
 
   /*CObArray*/std::vector<CRtfChar*>             m_arChars;
@@ -557,7 +557,7 @@ class CRtfChar//:public CObject
 public:
 	 CRtfChar(){};
  ~CRtfChar(){};
-  BOOL	                Write();
+  Bool	                Write();
 
   struct
   {

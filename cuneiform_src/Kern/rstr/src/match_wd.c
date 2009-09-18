@@ -127,14 +127,14 @@ typedef struct tagCutAdd
 } CutAdd;
 
 static void set_param (MatchWordPar *param);
-static BOOL make_cell_string(CSTR_rast wb, CSTR_rast we);
+static Bool make_cell_string(CSTR_rast wb, CSTR_rast we);
 static void calc_bl();
 static void make_alphabet(BYTE *word);
 static INT compose_inc(cell *wb, cell *we);
-static BOOL  make_str_raster(cell *wb, cell *we, StrRaster *raster);
+static Bool  make_str_raster(cell *wb, cell *we, StrRaster *raster);
 static void comptorast(c_comp *cp1, StrRaster *raster);
 static void inttorast( StrRaster *r, LONG h, LONG end, LONG lth);
-static BOOL calc_cut_points(cell *wb, cell *we, INT rastlc, INT rastdr);
+static Bool calc_cut_points(cell *wb, cell *we, INT rastlc, INT rastdr);
 static void fict_sect(CutPoint *sec, CutAdd *sec_add, GraphNode *node, INT x, INT px);
 static void close_ds(CutPoint *sec, CutAdd *sec_add, GraphNode *node, INT x, INT px);
 static void cor_sect(cell *C, CutPoint *cut, INT left, INT down);
@@ -142,12 +142,12 @@ static INT get_points (cell *C, CutPoint *listn, INT nmax );
 static void save_alpha_vers(cell *C, SVERS *svers);
 static INT cut_by_alpha(INT n, version vers[]);
 static Weight match(BYTE *word);
-static BOOL test_set(LONG prev, LONG h0, BYTE nlet, LONG tol, BOOL rerecog, LONG *imax, LONG *pmax);
+static Bool test_set(LONG prev, LONG h0, BYTE nlet, LONG tol, Bool rerecog, LONG *imax, LONG *pmax);
 static LONG inc(CutPoint **cutp, LONG i, LONG ie, LONG set);
 static LONG dec(CutPoint **cutp, LONG i, LONG ie, LONG set);
-static LONG add_sect(LONG il, LONG ir, BYTE nlet, BOOL rerecog, BYTE *p);
+static LONG add_sect(LONG il, LONG ir, BYTE nlet, Bool rerecog, BYTE *p);
 static version *find_in_vers(SVERS *svers, BYTE let);
-static BOOL equal(BYTE let1, BYTE let2);
+static Bool equal(BYTE let1, BYTE let2);
 static LONG select_cells(LONG il, LONG ir, BYTE cut_fl, cell **cells);
 static void set_bad_vers(SVERS *c);
 static Weight add_weight(Weight *wp, BYTE ro, BYTE nlet);
@@ -253,9 +253,9 @@ CHAR eq_let[256]=
 
 static void  CBS_Init() {}
 static void  CBS_Calc() {}
-static void  letToDust(BOOL exact) {}
-static BOOL LINDefineLines(cell *f, cell *l)  { return FALSE; }
-static BOOL SetBases ()   { return FALSE; }
+static void  letToDust(Bool exact) {}
+static Bool LINDefineLines(cell *f, cell *l)  { return FALSE; }
+static Bool SetBases ()   { return FALSE; }
 static void StrRec(BYTE *alphabet, LONG mode) {}
 
 LONG match_word(CSTR_rast wb, CSTR_rast we, BYTE *word, MatchWordPar *param)
@@ -281,7 +281,7 @@ LONG match_word(CSTR_rast wb, CSTR_rast we, BYTE *word, MatchWordPar *param)
 
   if (!param->bases)
   {
-    BOOL linOK=FALSE;
+    Bool linOK=FALSE;
     if (LINDefineLines(cell_f(),cell_l()))
       linOK=SetBases();
     if (linOK)
@@ -299,7 +299,7 @@ LONG match_word(CSTR_rast wb, CSTR_rast we, BYTE *word, MatchWordPar *param)
   return match(word);
 }
 
-static BOOL make_cell_string(CSTR_rast wb, CSTR_rast we)
+static Bool make_cell_string(CSTR_rast wb, CSTR_rast we)
 {
   return FALSE;
 }
@@ -329,7 +329,7 @@ static void set_param (MatchWordPar *par)
   min_cut_width = param->cut_width;
 }
 
-BOOL match_word_prepare(CSTR_line ln, BYTE *alpha, MatchWordPar *param);
+Bool match_word_prepare(CSTR_line ln, BYTE *alpha, MatchWordPar *param);
 
 RSTR_FUNC(Bool32) RSTR_recog_one_word(CSTR_line ln, uchar *word, char *points,uchar *res)
 {
@@ -466,7 +466,7 @@ static INT compose_inc(cell *wb, cell *we)
   return erection_compose_inc(n,cells);
 }
 
-static BOOL  make_str_raster(cell *wb, cell *we, StrRaster *str_raster)
+static Bool  make_str_raster(cell *wb, cell *we, StrRaster *str_raster)
 {
   cell *c;
   INT left=MAXINT,top=MAXINT,right=0,bottom=0;
@@ -535,7 +535,7 @@ static void inttorast( StrRaster *r, LONG h, LONG end, LONG lth)
   str_raster[j] = 0xff;
  }
 
-static BOOL calc_cut_points(cell *wb, cell *we, INT rastlc, INT rastdr)
+static Bool calc_cut_points(cell *wb, cell *we, INT rastlc, INT rastdr)
 {
   CHAR x;
   INT i,j,ro,wide=MAXINT;
@@ -804,7 +804,7 @@ static Weight match(BYTE *word)
   {
     GraphNode *layer=prev_layer;
     LONG imax,pmax=-1;
-    BOOL rerecog=FALSE;
+    Bool rerecog=FALSE;
     uint32_t numbers=param->monitors;
     BYTE l1=(BYTE)(l+1);
     if (numbers)
@@ -859,7 +859,7 @@ static Weight match(BYTE *word)
   return  weight;
 }
 
-static BOOL test_set(LONG prev, LONG h0, BYTE nlet, LONG tol, BOOL rerecog, LONG *imax, LONG *pmax)
+static Bool test_set(LONG prev, LONG h0, BYTE nlet, LONG tol, Bool rerecog, LONG *imax, LONG *pmax)
 {
   BYTE let=templ[nlet];
   CutPoint *cut,*cute=cut_list+ncut,*cutr,*cutl;
@@ -870,7 +870,7 @@ static BOOL test_set(LONG prev, LONG h0, BYTE nlet, LONG tol, BOOL rerecog, LONG
   LONG set,cc;
   LONG  il,ir;
   BYTE p;
-  BOOL rv=FALSE;
+  Bool rv=FALSE;
 
 //  set_user_alphbet(alpha);
 
@@ -969,7 +969,7 @@ static LONG dec(CutPoint **cutp, LONG i, LONG ie, LONG set)
   return -128;
 }
 
-static LONG add_sect(LONG il, LONG ir, BYTE nlet, BOOL rerecog, BYTE *p)
+static LONG add_sect(LONG il, LONG ir, BYTE nlet, Bool rerecog, BYTE *p)
 {
   BYTE let=templ[nlet];
   version *v;
@@ -989,7 +989,7 @@ static LONG add_sect(LONG il, LONG ir, BYTE nlet, BOOL rerecog, BYTE *p)
 #define ROI_LEN 4
   INT ro,roi[ROI_LEN]; //ro и его составляющие
   Weight wp=prev_layer[il].weight,wc=cur_layer[ir].weight,wt;
-  BOOL change=TRUE;
+  Bool change=TRUE;
   seg_vers *cur_vers;
 
   if (xr-xl-1 < wmin)
@@ -1097,7 +1097,7 @@ static version *find_in_vers(SVERS *svers, BYTE let)
   return NULL;
 }
 
-static BOOL equal(BYTE let1, BYTE let2)
+static Bool equal(BYTE let1, BYTE let2)
 {
   if (let1==let2)
     return TRUE;

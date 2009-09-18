@@ -187,11 +187,11 @@ public:
 #else
 	OPENFILENAME m_ofn;
 #endif
-	BOOL m_bOpenFileDialog;            // TRUE for file open, FALSE for file save
+	Bool m_bOpenFileDialog;            // TRUE for file open, FALSE for file save
 	TCHAR m_szFileTitle[_MAX_FNAME];   // contains file title after return
 	TCHAR m_szFileName[_MAX_PATH];     // contains full path name after return
 
-	CFileDialogImpl(BOOL bOpenFileDialog, // TRUE for FileOpen, FALSE for FileSaveAs
+	CFileDialogImpl(Bool bOpenFileDialog, // TRUE for FileOpen, FALSE for FileSaveAs
 			LPCTSTR lpszDefExt = NULL,
 			LPCTSTR lpszFileName = NULL,
 			DWORD dwFlags = OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
@@ -246,7 +246,7 @@ public:
 		ATLASSERT(m_hWnd == NULL);
 		ModuleHelper::AddCreateWndData(&m_thunk.cd, (ATL::CDialogImplBase*)this);
 
-		BOOL bRet;
+		Bool bRet;
 		if(m_bOpenFileDialog)
 #if defined(__AYGSHELL_H__) && (_WIN32_WCE >= 0x0501)
 			bRet = ::GetOpenFileNameEx(&m_ofn);
@@ -318,7 +318,7 @@ public:
 		GetFileDialogWindow().SendMessage(CDM_SETDEFEXT, 0, (LPARAM)lpstrExt);
 	}
 
-	BOOL GetReadOnlyPref() const	// return TRUE if readonly checked
+	Bool GetReadOnlyPref() const	// return TRUE if readonly checked
 	{
 		return ((m_ofn.Flags & OFN_READONLY) != 0) ? TRUE : FALSE;
 	}
@@ -333,7 +333,7 @@ public:
 	}
 
 // Special override for common dialogs
-	BOOL EndDialog(INT_PTR /*nRetCode*/ = 0)
+	Bool EndDialog(INT_PTR /*nRetCode*/ = 0)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		GetFileDialogWindow().SendMessage(WM_COMMAND, MAKEWPARAM(IDCANCEL, 0));
@@ -354,14 +354,14 @@ public:
 #endif // !_WIN32_WCE
 	END_MSG_MAP()
 
-	LRESULT _OnFileOK(int /*idCtrl*/, LPNMHDR pnmh, BOOL& /*bHandled*/)
+	LRESULT _OnFileOK(int /*idCtrl*/, LPNMHDR pnmh, Bool& /*bHandled*/)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		T* pT = static_cast<T*>(this);
 		return !pT->OnFileOK((LPOFNOTIFY)pnmh);
 	}
 
-	LRESULT _OnFolderChange(int /*idCtrl*/, LPNMHDR pnmh, BOOL& /*bHandled*/)
+	LRESULT _OnFolderChange(int /*idCtrl*/, LPNMHDR pnmh, Bool& /*bHandled*/)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		T* pT = static_cast<T*>(this);
@@ -369,7 +369,7 @@ public:
 		return 0;
 	}
 
-	LRESULT _OnHelp(int /*idCtrl*/, LPNMHDR pnmh, BOOL& /*bHandled*/)
+	LRESULT _OnHelp(int /*idCtrl*/, LPNMHDR pnmh, Bool& /*bHandled*/)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		T* pT = static_cast<T*>(this);
@@ -377,7 +377,7 @@ public:
 		return 0;
 	}
 
-	LRESULT _OnInitDone(int /*idCtrl*/, LPNMHDR pnmh, BOOL& /*bHandled*/)
+	LRESULT _OnInitDone(int /*idCtrl*/, LPNMHDR pnmh, Bool& /*bHandled*/)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		T* pT = static_cast<T*>(this);
@@ -385,7 +385,7 @@ public:
 		return 0;
 	}
 
-	LRESULT _OnSelChange(int /*idCtrl*/, LPNMHDR pnmh, BOOL& /*bHandled*/)
+	LRESULT _OnSelChange(int /*idCtrl*/, LPNMHDR pnmh, Bool& /*bHandled*/)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		T* pT = static_cast<T*>(this);
@@ -393,14 +393,14 @@ public:
 		return 0;
 	}
 
-	LRESULT _OnShareViolation(int /*idCtrl*/, LPNMHDR pnmh, BOOL& /*bHandled*/)
+	LRESULT _OnShareViolation(int /*idCtrl*/, LPNMHDR pnmh, Bool& /*bHandled*/)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		T* pT = static_cast<T*>(this);
 		return pT->OnShareViolation((LPOFNOTIFY)pnmh);
 	}
 
-	LRESULT _OnTypeChange(int /*idCtrl*/, LPNMHDR pnmh, BOOL& /*bHandled*/)
+	LRESULT _OnTypeChange(int /*idCtrl*/, LPNMHDR pnmh, Bool& /*bHandled*/)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		T* pT = static_cast<T*>(this);
@@ -409,7 +409,7 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	LRESULT _OnIncludeItem(int /*idCtrl*/, LPNMHDR pnmh, BOOL& /*bHandled*/)
+	LRESULT _OnIncludeItem(int /*idCtrl*/, LPNMHDR pnmh, Bool& /*bHandled*/)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		T* pT = static_cast<T*>(this);
@@ -418,7 +418,7 @@ public:
 #endif // !_WIN32_WCE
 
 // Overrideables
-	BOOL OnFileOK(LPOFNOTIFY /*lpon*/)
+	Bool OnFileOK(LPOFNOTIFY /*lpon*/)
 	{
 		return TRUE;
 	}
@@ -449,7 +449,7 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	BOOL OnIncludeItem(LPOFNOTIFYEX /*lponex*/)
+	Bool OnIncludeItem(LPOFNOTIFYEX /*lponex*/)
 	{
 		return TRUE;   // include item
 	}
@@ -459,7 +459,7 @@ public:
 class CFileDialog : public CFileDialogImpl<CFileDialog>
 {
 public:
-	CFileDialog(BOOL bOpenFileDialog, // TRUE for FileOpen, FALSE for FileSaveAs
+	CFileDialog(Bool bOpenFileDialog, // TRUE for FileOpen, FALSE for FileSaveAs
 		LPCTSTR lpszDefExt = NULL,
 		LPCTSTR lpszFileName = NULL,
 		DWORD dwFlags = OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
@@ -1559,7 +1559,7 @@ public:
 	}
 
 	// Commands - valid to call only from handlers
-	void EnableOK(BOOL bEnable)
+	void EnableOK(Bool bEnable)
 	{
 		ATLASSERT(m_hWnd != NULL);
 		::SendMessage(m_hWnd, BFFM_ENABLEOK, 0, bEnable);
@@ -1654,7 +1654,7 @@ public:
 	}
 
 // Special override for common dialogs
-	BOOL EndDialog(INT_PTR /*nRetCode*/ = 0)
+	Bool EndDialog(INT_PTR /*nRetCode*/ = 0)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		SendMessage(WM_COMMAND, MAKEWPARAM(IDABORT, 0));
@@ -1738,7 +1738,7 @@ public:
 		ATLASSERT(m_hWnd == NULL);
 		ModuleHelper::AddCreateWndData(&m_thunk.cd, (CCommonDialogImplBase*)this);
 
-		BOOL bRet = ::ChooseFont(&m_cf);
+		Bool bRet = ::ChooseFont(&m_cf);
 
 		m_hWnd = NULL;
 
@@ -1822,22 +1822,22 @@ public:
 		return (int)m_cf.lpLogFont->lfWeight;
 	}
 
-	BOOL IsStrikeOut() const      // return TRUE if strikeout
+	Bool IsStrikeOut() const      // return TRUE if strikeout
 	{
 		return (m_cf.lpLogFont->lfStrikeOut) ? TRUE : FALSE;
 	}
 
-	BOOL IsUnderline() const      // return TRUE if underline
+	Bool IsUnderline() const      // return TRUE if underline
 	{
 		return (m_cf.lpLogFont->lfUnderline) ? TRUE : FALSE;
 	}
 
-	BOOL IsBold() const           // return TRUE if bold font
+	Bool IsBold() const           // return TRUE if bold font
 	{
 		return (m_cf.lpLogFont->lfWeight == FW_BOLD) ? TRUE : FALSE;
 	}
 
-	BOOL IsItalic() const         // return TRUE if italic font
+	Bool IsItalic() const         // return TRUE if italic font
 	{
 		return m_cf.lpLogFont->lfItalic ? TRUE : FALSE;
 	}
@@ -2061,7 +2061,7 @@ public:
 		ATLASSERT(m_hWnd == NULL);
 		ModuleHelper::AddCreateWndData(&m_thunk.cd, (CCommonDialogImplBase*)this);
 
-		BOOL bRet = ::ChooseColor(&m_cc);
+		Bool bRet = ::ChooseColor(&m_cc);
 
 		m_hWnd = NULL;
 
@@ -2185,14 +2185,14 @@ public:
 		MESSAGE_HANDLER(_GetColorOKMessage(), _OnColorOK)
 	END_MSG_MAP()
 
-	LRESULT _OnColorOK(UINT, WPARAM, LPARAM, BOOL&)
+	LRESULT _OnColorOK(UINT, WPARAM, LPARAM, Bool&)
 	{
 		T* pT = static_cast<T*>(this);
 		return pT->OnColorOK();
 	}
 
 // Overrideable
-	BOOL OnColorOK()        // validate color
+	Bool OnColorOK()        // validate color
 	{
 		return FALSE;
 	}
@@ -2248,7 +2248,7 @@ public:
 	PRINTDLG& m_pd;
 
 // Constructors
-	CPrintDialogImpl(BOOL bPrintSetupOnly = FALSE,	// TRUE for Print Setup, FALSE for Print Dialog
+	CPrintDialogImpl(Bool bPrintSetupOnly = FALSE,	// TRUE for Print Setup, FALSE for Print Dialog
 			DWORD dwFlags = PD_ALLPAGES | PD_USEDEVMODECOPIES | PD_NOPAGENUMS | PD_NOSELECTION,
 			HWND hWndParent = NULL)
 			: m_pd(m_pdActual)
@@ -2284,7 +2284,7 @@ public:
 		ATLASSERT(m_hWnd == NULL);
 		ModuleHelper::AddCreateWndData(&m_thunk.cd, (CCommonDialogImplBase*)this);
 
-		BOOL bRet = ::PrintDlg(&m_pd);
+		Bool bRet = ::PrintDlg(&m_pd);
 
 		m_hWnd = NULL;
 
@@ -2292,7 +2292,7 @@ public:
 	}
 
 	// GetDefaults will not display a dialog but will get device defaults
-	BOOL GetDefaults()
+	Bool GetDefaults()
 	{
 		m_pd.Flags |= PD_RETURNDEFAULT;
 		ATLASSERT(m_pd.hDevMode == NULL);    // must be NULL
@@ -2313,27 +2313,27 @@ public:
 		return m_pd.nCopies;
 	}
 
-	BOOL PrintCollate() const       // TRUE if collate checked
+	Bool PrintCollate() const       // TRUE if collate checked
 	{
 		return ((m_pd.Flags & PD_COLLATE) != 0) ? TRUE : FALSE;
 	}
 
-	BOOL PrintSelection() const     // TRUE if printing selection
+	Bool PrintSelection() const     // TRUE if printing selection
 	{
 		return ((m_pd.Flags & PD_SELECTION) != 0) ? TRUE : FALSE;
 	}
 
-	BOOL PrintAll() const           // TRUE if printing all pages
+	Bool PrintAll() const           // TRUE if printing all pages
 	{
 		return (!PrintRange() && !PrintSelection()) ? TRUE : FALSE;
 	}
 
-	BOOL PrintRange() const         // TRUE if printing page range
+	Bool PrintRange() const         // TRUE if printing page range
 	{
 		return ((m_pd.Flags & PD_PAGENUMS) != 0) ? TRUE : FALSE;
 	}
 
-	BOOL PrintToFile() const        // TRUE if printing to a file
+	Bool PrintToFile() const        // TRUE if printing to a file
 	{
 		return ((m_pd.Flags & PD_PRINTTOFILE) != 0) ? TRUE : FALSE;
 	}
@@ -2424,7 +2424,7 @@ public:
 #endif // !psh1
 	END_MSG_MAP()
 
-	LRESULT OnPrintSetup(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& /*bHandled*/)
+	LRESULT OnPrintSetup(WORD wNotifyCode, WORD wID, HWND hWndCtl, Bool& /*bHandled*/)
 	{
 		T dlgSetup(m_pd);
 		ModuleHelper::AddCreateWndData(&dlgSetup.m_thunk.cd, (CCommonDialogImplBase*)&dlgSetup);
@@ -2435,7 +2435,7 @@ public:
 class CPrintDialog : public CPrintDialogImpl<CPrintDialog>
 {
 public:
-	CPrintDialog(BOOL bPrintSetupOnly = FALSE,
+	CPrintDialog(Bool bPrintSetupOnly = FALSE,
 		DWORD dwFlags = PD_ALLPAGES | PD_USEDEVMODECOPIES | PD_NOPAGENUMS | PD_NOSELECTION,
 		HWND hWndParent = NULL)
 		: CPrintDialogImpl<CPrintDialog>(bPrintSetupOnly, dwFlags, hWndParent)
@@ -2507,7 +2507,7 @@ public:
 		return hResult;
 	}
 
-	BOOL EndDialog(INT_PTR /*nRetCode*/ = 0)
+	Bool EndDialog(INT_PTR /*nRetCode*/ = 0)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		SendMessage(WM_COMMAND, MAKEWPARAM(IDABORT, 0));
@@ -2536,27 +2536,27 @@ public:
 		return m_pdex.nCopies;
 	}
 
-	BOOL PrintCollate() const       // TRUE if collate checked
+	Bool PrintCollate() const       // TRUE if collate checked
 	{
 		return ((m_pdex.Flags & PD_COLLATE) != 0) ? TRUE : FALSE;
 	}
 
-	BOOL PrintSelection() const     // TRUE if printing selection
+	Bool PrintSelection() const     // TRUE if printing selection
 	{
 		return ((m_pdex.Flags & PD_SELECTION) != 0) ? TRUE : FALSE;
 	}
 
-	BOOL PrintAll() const           // TRUE if printing all pages
+	Bool PrintAll() const           // TRUE if printing all pages
 	{
 		return (!PrintRange() && !PrintSelection()) ? TRUE : FALSE;
 	}
 
-	BOOL PrintRange() const         // TRUE if printing page range
+	Bool PrintRange() const         // TRUE if printing page range
 	{
 		return ((m_pdex.Flags & PD_PAGENUMS) != 0) ? TRUE : FALSE;
 	}
 
-	BOOL PrintToFile() const        // TRUE if printing to a file
+	Bool PrintToFile() const        // TRUE if printing to a file
 	{
 		return ((m_pdex.Flags & PD_PRINTTOFILE) != 0) ? TRUE : FALSE;
 	}
@@ -2679,7 +2679,7 @@ public:
 		if(hRet == S_OK && uMsg == WM_NOTIFY)   // return in DWLP_MSGRESULT
 			::SetWindowLongPtr(GetParent(), DWLP_MSGRESULT, (LONG_PTR)*plResult);
 
-		if(uMsg == WM_INITDIALOG && hRet == S_OK && (BOOL)*plResult != FALSE)
+		if(uMsg == WM_INITDIALOG && hRet == S_OK && (Bool)*plResult != FALSE)
 			hRet = S_FALSE;
 
 		return hRet;
@@ -2803,7 +2803,7 @@ public:
 		ATLASSERT(m_hWnd == NULL);
 		ModuleHelper::AddCreateWndData(&m_thunk.cd, (CCommonDialogImplBase*)this);
 
-		BOOL bRet = ::PageSetupDlg(&m_psd);
+		Bool bRet = ::PageSetupDlg(&m_psd);
 
 		m_hWnd = NULL;
 
@@ -2903,7 +2903,7 @@ public:
 		delete this;
 	}
 
-	HWND Create(BOOL bFindDialogOnly, // TRUE for Find, FALSE for FindReplace
+	HWND Create(Bool bFindDialogOnly, // TRUE for Find, FALSE for FindReplace
 			LPCTSTR lpszFindWhat,
 			LPCTSTR lpszReplaceWith = NULL,
 			DWORD dwFlags = FR_DOWN,
@@ -2965,37 +2965,37 @@ public:
 		return (LPCTSTR)m_fr.lpstrReplaceWith;
 	}
 
-	BOOL SearchDown() const          // TRUE if search down, FALSE is up
+	Bool SearchDown() const          // TRUE if search down, FALSE is up
 	{
 		return ((m_fr.Flags & FR_DOWN) != 0) ? TRUE : FALSE;
 	}
 
-	BOOL FindNext() const            // TRUE if command is find next
+	Bool FindNext() const            // TRUE if command is find next
 	{
 		return ((m_fr.Flags & FR_FINDNEXT) != 0) ? TRUE : FALSE;
 	}
 
-	BOOL MatchCase() const           // TRUE if matching case
+	Bool MatchCase() const           // TRUE if matching case
 	{
 		return ((m_fr.Flags & FR_MATCHCASE) != 0) ? TRUE : FALSE;
 	}
 
-	BOOL MatchWholeWord() const      // TRUE if matching whole words only
+	Bool MatchWholeWord() const      // TRUE if matching whole words only
 	{
 		return ((m_fr.Flags & FR_WHOLEWORD) != 0) ? TRUE : FALSE;
 	}
 
-	BOOL ReplaceCurrent() const      // TRUE if replacing current string
+	Bool ReplaceCurrent() const      // TRUE if replacing current string
 	{
 		return ((m_fr. Flags & FR_REPLACE) != 0) ? TRUE : FALSE;
 	}
 
-	BOOL ReplaceAll() const          // TRUE if replacing all occurrences
+	Bool ReplaceAll() const          // TRUE if replacing all occurrences
 	{
 		return ((m_fr.Flags & FR_REPLACEALL) != 0) ? TRUE : FALSE;
 	}
 
-	BOOL IsTerminating() const       // TRUE if terminating dialog
+	Bool IsTerminating() const       // TRUE if terminating dialog
 	{
 		return ((m_fr.Flags & FR_DIALOGTERM) != 0) ? TRUE : FALSE ;
 	}
@@ -3423,7 +3423,7 @@ public:
 
 #if (_ATL_VER >= 0x0800)
 		// Allocate the thunk structure here, where we can fail gracefully.
-		BOOL result = m_thunk.Init(NULL, NULL);
+		Bool result = m_thunk.Init(NULL, NULL);
 		if (result == FALSE)
 		{
 			SetLastError(ERROR_OUTOFMEMORY);
@@ -3450,7 +3450,7 @@ public:
 
 #if (_ATL_VER >= 0x0800)
 		// Allocate the thunk structure here, where we can fail gracefully.
-		BOOL result = m_thunk.Init(NULL, NULL);
+		Bool result = m_thunk.Init(NULL, NULL);
 		if (result == FALSE)
 		{
 			SetLastError(ERROR_OUTOFMEMORY);
@@ -3526,23 +3526,23 @@ public:
 		return (int)::SendMessage(hWndTabCtrl, TCM_GETCURSEL, 0, 0L);
 	}
 
-	BOOL SetActivePage(int nPageIndex)
+	Bool SetActivePage(int nPageIndex)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (BOOL)::SendMessage(m_hWnd, PSM_SETCURSEL, nPageIndex, 0L);
+		return (Bool)::SendMessage(m_hWnd, PSM_SETCURSEL, nPageIndex, 0L);
 	}
 
-	BOOL SetActivePage(HPROPSHEETPAGE hPage)
+	Bool SetActivePage(HPROPSHEETPAGE hPage)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT(hPage != NULL);
-		return (BOOL)::SendMessage(m_hWnd, PSM_SETCURSEL, 0, (LPARAM)hPage);
+		return (Bool)::SendMessage(m_hWnd, PSM_SETCURSEL, 0, (LPARAM)hPage);
 	}
 
-	BOOL SetActivePageByID(int nPageID)
+	Bool SetActivePageByID(int nPageID)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (BOOL)::SendMessage(m_hWnd, PSM_SETCURSELID, 0, nPageID);
+		return (Bool)::SendMessage(m_hWnd, PSM_SETCURSELID, 0, nPageID);
 	}
 
 	void SetTitle(LPCTSTR lpszText, UINT nStyle = 0)
@@ -3572,56 +3572,56 @@ public:
 	}
 
 // Operations
-	BOOL AddPage(HPROPSHEETPAGE hPage)
+	Bool AddPage(HPROPSHEETPAGE hPage)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT(hPage != NULL);
-		return (BOOL)::SendMessage(m_hWnd, PSM_ADDPAGE, 0, (LPARAM)hPage);
+		return (Bool)::SendMessage(m_hWnd, PSM_ADDPAGE, 0, (LPARAM)hPage);
 	}
 
-	BOOL AddPage(LPCPROPSHEETPAGE pPage)
+	Bool AddPage(LPCPROPSHEETPAGE pPage)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT(pPage != NULL);
 		HPROPSHEETPAGE hPage = ::CreatePropertySheetPage(pPage);
 		if(hPage == NULL)
 			return FALSE;
-		return (BOOL)::SendMessage(m_hWnd, PSM_ADDPAGE, 0, (LPARAM)hPage);
+		return (Bool)::SendMessage(m_hWnd, PSM_ADDPAGE, 0, (LPARAM)hPage);
 	}
 
 #ifndef _WIN32_WCE
-	BOOL InsertPage(int nNewPageIndex, HPROPSHEETPAGE hPage)
+	Bool InsertPage(int nNewPageIndex, HPROPSHEETPAGE hPage)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT(hPage != NULL);
-		return (BOOL)::SendMessage(m_hWnd, PSM_INSERTPAGE, nNewPageIndex, (LPARAM)hPage);
+		return (Bool)::SendMessage(m_hWnd, PSM_INSERTPAGE, nNewPageIndex, (LPARAM)hPage);
 	}
 
-	BOOL InsertPage(int nNewPageIndex, LPCPROPSHEETPAGE pPage)
+	Bool InsertPage(int nNewPageIndex, LPCPROPSHEETPAGE pPage)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT(pPage != NULL);
 		HPROPSHEETPAGE hPage = ::CreatePropertySheetPage(pPage);
 		if(hPage == NULL)
 			return FALSE;
-		return (BOOL)::SendMessage(m_hWnd, PSM_INSERTPAGE, nNewPageIndex, (LPARAM)hPage);
+		return (Bool)::SendMessage(m_hWnd, PSM_INSERTPAGE, nNewPageIndex, (LPARAM)hPage);
 	}
 
-	BOOL InsertPage(HPROPSHEETPAGE hPageInsertAfter, HPROPSHEETPAGE hPage)
+	Bool InsertPage(HPROPSHEETPAGE hPageInsertAfter, HPROPSHEETPAGE hPage)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT(hPage != NULL);
-		return (BOOL)::SendMessage(m_hWnd, PSM_INSERTPAGE, (WPARAM)hPageInsertAfter, (LPARAM)hPage);
+		return (Bool)::SendMessage(m_hWnd, PSM_INSERTPAGE, (WPARAM)hPageInsertAfter, (LPARAM)hPage);
 	}
 
-	BOOL InsertPage(HPROPSHEETPAGE hPageInsertAfter, LPCPROPSHEETPAGE pPage)
+	Bool InsertPage(HPROPSHEETPAGE hPageInsertAfter, LPCPROPSHEETPAGE pPage)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT(pPage != NULL);
 		HPROPSHEETPAGE hPage = ::CreatePropertySheetPage(pPage);
 		if(hPage == NULL)
 			return FALSE;
-		return (BOOL)::SendMessage(m_hWnd, PSM_INSERTPAGE, (WPARAM)hPageInsertAfter, (LPARAM)hPage);
+		return (Bool)::SendMessage(m_hWnd, PSM_INSERTPAGE, (WPARAM)hPageInsertAfter, (LPARAM)hPage);
 	}
 #endif // !_WIN32_WCE
 
@@ -3638,16 +3638,16 @@ public:
 		::SendMessage(m_hWnd, PSM_REMOVEPAGE, 0, (LPARAM)hPage);
 	}
 
-	BOOL PressButton(int nButton)
+	Bool PressButton(int nButton)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (BOOL)::SendMessage(m_hWnd, PSM_PRESSBUTTON, nButton, 0L);
+		return (Bool)::SendMessage(m_hWnd, PSM_PRESSBUTTON, nButton, 0L);
 	}
 
-	BOOL Apply()
+	Bool Apply()
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (BOOL)::SendMessage(m_hWnd, PSM_APPLY, 0, 0L);
+		return (Bool)::SendMessage(m_hWnd, PSM_APPLY, 0, 0L);
 	}
 
 	void CancelToClose()
@@ -3656,7 +3656,7 @@ public:
 		::SendMessage(m_hWnd, PSM_CANCELTOCLOSE, 0, 0L);
 	}
 
-	void SetModified(HWND hWndPage, BOOL bChanged = TRUE)
+	void SetModified(HWND hWndPage, Bool bChanged = TRUE)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT(::IsWindow(hWndPage));
@@ -3682,10 +3682,10 @@ public:
 		::SendMessage(m_hWnd, PSM_RESTARTWINDOWS, 0, 0L);
 	}
 
-	BOOL IsDialogMessage(LPMSG lpMsg)
+	Bool IsDialogMessage(LPMSG lpMsg)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (BOOL)::SendMessage(m_hWnd, PSM_ISDIALOGMESSAGE, 0, (LPARAM)lpMsg);
+		return (Bool)::SendMessage(m_hWnd, PSM_ISDIALOGMESSAGE, 0, (LPARAM)lpMsg);
 	}
 
 #if (_WIN32_IE >= 0x0500) && !defined(_WIN32_WCE)
@@ -3731,10 +3731,10 @@ public:
 		return (int)::SendMessage(m_hWnd, PSM_GETRESULT, 0, 0L);
 	}
 
-	BOOL RecalcPageSizes()
+	Bool RecalcPageSizes()
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (BOOL)::SendMessage(m_hWnd, PSM_RECALCPAGESIZES, 0, 0L);
+		return (Bool)::SendMessage(m_hWnd, PSM_RECALCPAGESIZES, 0, 0L);
 	}
 
 	void SetHeaderTitle(int nIndex, LPCTSTR lpstrHeaderTitle)
@@ -3942,7 +3942,7 @@ public:
 		return m_arrPages.Find((HPROPSHEETPAGE&)hPage);
 	}
 
-	BOOL SetActivePage(int nPageIndex)
+	Bool SetActivePage(int nPageIndex)
 	{
 		if(m_hWnd == NULL)   // not created yet
 		{
@@ -3953,7 +3953,7 @@ public:
 		return TBase::SetActivePage(nPageIndex);
 	}
 
-	BOOL SetActivePage(HPROPSHEETPAGE hPage)
+	Bool SetActivePage(HPROPSHEETPAGE hPage)
 	{
 		ATLASSERT(hPage != NULL);
 		if (m_hWnd == NULL)   // not created yet
@@ -4007,10 +4007,10 @@ public:
 	}
 
 // Operations
-	BOOL AddPage(HPROPSHEETPAGE hPage)
+	Bool AddPage(HPROPSHEETPAGE hPage)
 	{
 		ATLASSERT(hPage != NULL);
-		BOOL bRet = FALSE;
+		Bool bRet = FALSE;
 		if(m_hWnd != NULL)
 			bRet = TBase::AddPage(hPage);
 		else	// sheet not created yet, use internal data
@@ -4018,19 +4018,19 @@ public:
 		return bRet;
 	}
 
-	BOOL AddPage(LPCPROPSHEETPAGE pPage)
+	Bool AddPage(LPCPROPSHEETPAGE pPage)
 	{
 		ATLASSERT(pPage != NULL);
 		HPROPSHEETPAGE hPage = ::CreatePropertySheetPage(pPage);
 		if(hPage == NULL)
 			return FALSE;
-		BOOL bRet = AddPage(hPage);
+		Bool bRet = AddPage(hPage);
 		if(!bRet)
 			::DestroyPropertySheetPage(hPage);
 		return bRet;
 	}
 
-	BOOL RemovePage(HPROPSHEETPAGE hPage)
+	Bool RemovePage(HPROPSHEETPAGE hPage)
 	{
 		ATLASSERT(hPage != NULL);
 		if (m_hWnd == NULL)   // not created yet
@@ -4045,9 +4045,9 @@ public:
 
 	}
 
-	BOOL RemovePage(int nPageIndex)
+	Bool RemovePage(int nPageIndex)
 	{
-		BOOL bRet = TRUE;
+		Bool bRet = TRUE;
 		if(m_hWnd != NULL)
 			TBase::RemovePage(nPageIndex);
 		else	// sheet not created yet, use internal data
@@ -4120,7 +4120,7 @@ public:
 		MESSAGE_HANDLER(WM_SYSCOMMAND, OnSysCommand)
 	END_MSG_MAP()
 
-	LRESULT OnCommand(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& /*bHandled*/)
+	LRESULT OnCommand(UINT uMsg, WPARAM wParam, LPARAM lParam, Bool& /*bHandled*/)
 	{
 		LRESULT lRet = DefWindowProc(uMsg, wParam, lParam);
 		if(HIWORD(wParam) == BN_CLICKED && (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL) &&
@@ -4129,7 +4129,7 @@ public:
 		return lRet;
 	}
 
-	LRESULT OnSysCommand(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& bHandled)
+	LRESULT OnSysCommand(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, Bool& bHandled)
 	{
 		if(((m_psh.dwFlags & PSH_MODELESS) == PSH_MODELESS) && ((wParam & 0xFFF0) == SC_CLOSE))
 			SendMessage(WM_CLOSE);
@@ -4180,7 +4180,7 @@ public:
 	}
 
 // Operations
-	BOOL Apply()
+	Bool Apply()
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT(GetParent() != NULL);
@@ -4194,7 +4194,7 @@ public:
 		GetPropertySheet().CancelToClose();
 	}
 
-	void SetModified(BOOL bChanged = TRUE)
+	void SetModified(Bool bChanged = TRUE)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT(GetParent() != NULL);
@@ -4355,7 +4355,7 @@ public:
 
 	// NOTE: Define _WTL_NEW_PAGE_NOTIFY_HANDLERS to use new notification
 	// handlers that return direct values without any restrictions
-	LRESULT OnNotify(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& bHandled)
+	LRESULT OnNotify(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, Bool& bHandled)
 	{
 #ifndef _WIN32_WCE
 		// This notification is sometimes received on Windows CE after the window is already destroyed
@@ -4499,7 +4499,7 @@ public:
 		return 0;
 	}
 
-	BOOL OnKillActive()
+	Bool OnKillActive()
 	{
 		// FALSE = allow deactivate
 		// TRUE = prevent deactivation
@@ -4518,7 +4518,7 @@ public:
 	{
 	}
 
-	BOOL OnQueryCancel()
+	Bool OnQueryCancel()
 	{
 		// FALSE = allow cancel
 		// TRUE = prevent cancel
@@ -4555,7 +4555,7 @@ public:
 
 #ifndef _WIN32_WCE
 #if (_WIN32_IE >= 0x0400)
-	BOOL OnGetObject(LPNMOBJECTNOTIFY /*lpObjectNotify*/)
+	Bool OnGetObject(LPNMOBJECTNOTIFY /*lpObjectNotify*/)
 	{
 		return FALSE;   // not processed
 	}
@@ -4579,17 +4579,17 @@ public:
 #endif // !_WIN32_WCE
 
 #else // !_WTL_NEW_PAGE_NOTIFY_HANDLERS
-	BOOL OnSetActive()
+	Bool OnSetActive()
 	{
 		return TRUE;
 	}
 
-	BOOL OnKillActive()
+	Bool OnKillActive()
 	{
 		return TRUE;
 	}
 
-	BOOL OnApply()
+	Bool OnApply()
 	{
 		return TRUE;
 	}
@@ -4598,7 +4598,7 @@ public:
 	{
 	}
 
-	BOOL OnQueryCancel()
+	Bool OnQueryCancel()
 	{
 		return TRUE;    // ok to cancel
 	}
@@ -4619,7 +4619,7 @@ public:
 		return 0;
 	}
 
-	BOOL OnWizardFinish()
+	Bool OnWizardFinish()
 	{
 		return TRUE;
 	}
@@ -4630,14 +4630,14 @@ public:
 
 #ifndef _WIN32_WCE
 #if (_WIN32_IE >= 0x0400)
-	BOOL OnGetObject(LPNMOBJECTNOTIFY /*lpObjectNotify*/)
+	Bool OnGetObject(LPNMOBJECTNOTIFY /*lpObjectNotify*/)
 	{
 		return FALSE;   // not processed
 	}
 #endif // (_WIN32_IE >= 0x0400)
 
 #if (_WIN32_IE >= 0x0500)
-	BOOL OnTranslateAccelerator(LPMSG /*lpMsg*/)
+	Bool OnTranslateAccelerator(LPMSG /*lpMsg*/)
 	{
 		return FALSE;   // not translated
 	}
@@ -4749,7 +4749,7 @@ public:
 
 // Methods
 	// call this one to handle keyboard message for ActiveX controls
-	BOOL PreTranslateMessage(LPMSG pMsg)
+	Bool PreTranslateMessage(LPMSG pMsg)
 	{
 		if ((pMsg->message < WM_KEYFIRST || pMsg->message > WM_KEYLAST) &&
 		   (pMsg->message < WM_MOUSEFIRST || pMsg->message > WM_MOUSELAST))
@@ -4765,7 +4765,7 @@ public:
 			while (::GetParent(hWndCtl) != m_hWnd);
 		}
 		// give controls a chance to translate this message
-		return (BOOL)::SendMessage(hWndCtl, WM_FORWARDMSG, 0, (LPARAM)pMsg);
+		return (Bool)::SendMessage(hWndCtl, WM_FORWARDMSG, 0, (LPARAM)pMsg);
 	}
 
 // Overridables
@@ -4778,7 +4778,7 @@ public:
 		return (pT->PreTranslateMessage(lpMsg) != FALSE) ? PSNRET_MESSAGEHANDLED : PSNRET_NOERROR;
 	}
 #else // !_WTL_NEW_PAGE_NOTIFY_HANDLERS
-	BOOL OnTranslateAccelerator(LPMSG lpMsg)
+	Bool OnTranslateAccelerator(LPMSG lpMsg)
 	{
 		T* pT = static_cast<T*>(this);
 		return pT->PreTranslateMessage(lpMsg);
@@ -4839,7 +4839,7 @@ public:
 				if (pDlg != NULL)
 				{
 					// Get first control on the template
-					BOOL bDialogEx = ATL::_DialogSplitHelper::IsDialogEx(pDlg);
+					Bool bDialogEx = ATL::_DialogSplitHelper::IsDialogEx(pDlg);
 					WORD nItems = ATL::_DialogSplitHelper::DlgTemplateItemCount(pDlg);
 
 					// Get first control on the dialog
@@ -4986,7 +4986,7 @@ public:
 		CHAIN_MSG_MAP(_baseClass)
 	END_MSG_MAP()
 
-	LRESULT OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled)
+	LRESULT OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& bHandled)
 	{
 		// initialize controls in dialog with DLGINIT resource section
 		ExecuteDlgInit(static_cast<T*>(this)->IDD);
@@ -4995,7 +4995,7 @@ public:
 		return 1;
 	}
 
-	LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled)
+	LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& bHandled)
 	{
 		AdviseSinkMap(false);
 		bHandled = FALSE;
@@ -5257,17 +5257,17 @@ public:
 		CHAIN_MSG_MAP(baseClass)
 	END_MSG_MAP()
 
-	LRESULT OnGetExteriorPageTitleFont(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+	LRESULT OnGetExteriorPageTitleFont(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
 	{
 		return (LRESULT)(HFONT)m_fontExteriorPageTitle;
 	}
 
-	LRESULT OnGetBulletFont(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+	LRESULT OnGetBulletFont(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
 	{
 		return (LRESULT)(HFONT)m_fontBullet;
 	}
 
-	LRESULT OnSize(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled)
+	LRESULT OnSize(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& bHandled)
 	{
 		if(!m_bReceivedFirstSizeMessage)
 		{
@@ -5919,7 +5919,7 @@ public:
 	}
 
 // Operations
-	HRESULT DoModal(HWND hWndParent = ::GetActiveWindow(), int* pnButton = NULL, int* pnRadioButton = NULL, BOOL* pfVerificationFlagChecked = NULL)
+	HRESULT DoModal(HWND hWndParent = ::GetActiveWindow(), int* pnButton = NULL, int* pnRadioButton = NULL, Bool* pfVerificationFlagChecked = NULL)
 	{
 		if(m_tdc.hwndParent == NULL)
 			m_tdc.hwndParent = hWndParent;
@@ -5929,7 +5929,7 @@ public:
 #else
 
 		// This allows apps to run on older versions of Windows
-		typedef HRESULT (STDAPICALLTYPE *PFN_TaskDialogIndirect)(const TASKDIALOGCONFIG* pTaskConfig, int* pnButton, int* pnRadioButton, BOOL* pfVerificationFlagChecked);
+		typedef HRESULT (STDAPICALLTYPE *PFN_TaskDialogIndirect)(const TASKDIALOGCONFIG* pTaskConfig, int* pnButton, int* pnRadioButton, Bool* pfVerificationFlagChecked);
 
 		HRESULT hRet = E_UNEXPECTED;
 		HMODULE m_hCommCtrlDLL = ::LoadLibrary(_T("comctl32.dll"));
@@ -6027,7 +6027,7 @@ public:
 		T* pT = (T*)lpRefData;
 		ATLASSERT(pT->m_hWnd == NULL || pT->m_hWnd == hWnd);
 
-		BOOL bRet = FALSE;
+		Bool bRet = FALSE;
 		switch(uMsg)
 		{
 		case TDN_DIALOG_CONSTRUCTED:
@@ -6082,7 +6082,7 @@ public:
 	{
 	}
 
-	BOOL OnButtonClicked(int /*nButton*/)
+	Bool OnButtonClicked(int /*nButton*/)
 	{
 		return FALSE;   // don't prevent dialog to close
 	}
@@ -6107,7 +6107,7 @@ public:
 	{
 	}
 
-	BOOL OnTimer(DWORD /*dwTickCount*/)
+	Bool OnTimer(DWORD /*dwTickCount*/)
 	{
 		return FALSE;   // don't reset counter
 	}
@@ -6148,16 +6148,16 @@ public:
 		::SendMessage(m_hWnd, TDM_CLICK_BUTTON, nButton, 0L);
 	}
 
-	void SetMarqueeProgressBar(BOOL bMarquee)
+	void SetMarqueeProgressBar(Bool bMarquee)
 	{
 		ATLASSERT(m_hWnd != NULL);
 		::SendMessage(m_hWnd, TDM_SET_MARQUEE_PROGRESS_BAR, bMarquee, 0L);
 	}
 
-	BOOL SetProgressBarState(int nNewState)
+	Bool SetProgressBarState(int nNewState)
 	{
 		ATLASSERT(m_hWnd != NULL);
-		return (BOOL)::SendMessage(m_hWnd, TDM_SET_PROGRESS_BAR_STATE, nNewState, 0L);
+		return (Bool)::SendMessage(m_hWnd, TDM_SET_PROGRESS_BAR_STATE, nNewState, 0L);
 	}
 
 	DWORD SetProgressBarRange(int nMinRange, int nMaxRange)
@@ -6172,10 +6172,10 @@ public:
 		return (int)::SendMessage(m_hWnd, TDM_SET_PROGRESS_BAR_POS, nNewPos, 0L);
 	}
 
-	BOOL SetProgressBarMarquee(BOOL bMarquee, UINT uSpeed)
+	Bool SetProgressBarMarquee(Bool bMarquee, UINT uSpeed)
 	{
 		ATLASSERT(m_hWnd != NULL);
-		return (BOOL)::SendMessage(m_hWnd, TDM_SET_PROGRESS_BAR_MARQUEE, bMarquee, uSpeed);
+		return (Bool)::SendMessage(m_hWnd, TDM_SET_PROGRESS_BAR_MARQUEE, bMarquee, uSpeed);
 	}
 
 	void SetElementText(TASKDIALOG_ELEMENTS element, LPCWSTR lpstrText)
@@ -6190,19 +6190,19 @@ public:
 		::SendMessage(m_hWnd, TDM_CLICK_RADIO_BUTTON, nRadioButton, 0L);
 	}
 
-	void EnableButton(int nButton, BOOL bEnable)
+	void EnableButton(int nButton, Bool bEnable)
 	{
 		ATLASSERT(m_hWnd != NULL);
 		::SendMessage(m_hWnd, TDM_ENABLE_BUTTON, nButton, bEnable);
 	}
 
-	void EnableRadioButton(int nButton, BOOL bEnable)
+	void EnableRadioButton(int nButton, Bool bEnable)
 	{
 		ATLASSERT(m_hWnd != NULL);
 		::SendMessage(m_hWnd, TDM_ENABLE_RADIO_BUTTON, nButton, bEnable);
 	}
 
-	void ClickVerification(BOOL bCheck, BOOL bFocus)
+	void ClickVerification(Bool bCheck, Bool bFocus)
 	{
 		ATLASSERT(m_hWnd != NULL);
 		::SendMessage(m_hWnd, TDM_CLICK_VERIFICATION, bCheck, bFocus);
@@ -6214,7 +6214,7 @@ public:
 		::SendMessage(m_hWnd, TDM_UPDATE_ELEMENT_TEXT, element, (LPARAM)lpstrText);
 	}
 
-	void SetButtonElevationRequiredState(int nButton, BOOL bElevation)
+	void SetButtonElevationRequiredState(int nButton, Bool bElevation)
 	{
 		ATLASSERT(m_hWnd != NULL);
 		::SendMessage(m_hWnd, TDM_SET_BUTTON_ELEVATION_REQUIRED_STATE, nButton, bElevation);

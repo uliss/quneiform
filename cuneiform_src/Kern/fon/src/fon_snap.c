@@ -67,15 +67,15 @@
 #include "compat_defs.h"
 
 #define NUM_IN_SNAP 9     // maximal pictures in snap
-BOOL IsSnap = FALSE;
+Bool IsSnap = FALSE;
 static int InSnap = 0; // now pictures in snap
 static RecRaster *snapRaster = NULL;
-static BOOL WasRegister = FALSE;
+static Bool WasRegister = FALSE;
 static HWND hwndSnap = NULL;
 static char szGluName[32] = "FonGlueSnap";
 static HINSTANCE hGluInstance = NULL;
 static char recogResult[256];
-static BOOL RegisterGlu(HANDLE hInstance, LPSTR szAppName);
+static Bool RegisterGlu(HANDLE hInstance, LPSTR szAppName);
 static char nameSnap[NUM_IN_SNAP + 1];
 static int probSnap[NUM_IN_SNAP + 1];
 ////////////
@@ -313,9 +313,9 @@ LONG PASCAL GluFonWindowProc(HWND win, UINT msg, WPARAM wparam, LPARAM lparam) {
 	return DefWindowProc(win, msg, wparam, lparam);
 }
 ////////////////////////
-static BOOL RegisterGlu(HANDLE hInstance, LPSTR szAppName) {
+static Bool RegisterGlu(HANDLE hInstance, LPSTR szAppName) {
 	WNDCLASS WndClass;
-	BOOL bSuccess;
+	Bool bSuccess;
 
 	memset(&WndClass, 0, sizeof(WNDCLASS));
 

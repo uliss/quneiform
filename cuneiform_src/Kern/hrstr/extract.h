@@ -100,7 +100,7 @@ void StringPrepare (void);
 void StringFree (void);
 
 void StringNewDescriptor (void);
-BOOL StringIncludes (STRING *p, STRING *q);
+Bool StringIncludes (STRING *p, STRING *q);
 void StringRemove (STRING *p);
 void StringRemoveFromUpDownLists (STRING *p);
 void StringSortLetters (STRING *pString);

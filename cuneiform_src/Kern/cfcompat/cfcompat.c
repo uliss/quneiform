@@ -145,7 +145,7 @@ uint32_t GetModuleFileName(HMODULE hModule, LPTSTR lpFilename, uint32_t nSize) {
 	return 1;
 }
 
-BOOL CloseHandle(HANDLE hObject) {
+Bool CloseHandle(HANDLE hObject) {
 	return FALSE;
 }
 
@@ -171,7 +171,7 @@ long _tell(int handle) {
 	return lseek(handle, 0, SEEK_CUR);
 }
 
-BOOL GetComputerName(LPTSTR lpBuffer, long unsigned int *lpnSize) {
+Bool GetComputerName(LPTSTR lpBuffer, long unsigned int *lpnSize) {
 	strncpy(lpBuffer, "CompName", *lpnSize);
 	*lpnSize = strlen(lpBuffer);
 	return TRUE;
@@ -187,11 +187,11 @@ LONG RegQueryValueEx(HKEY hKey, LPCTSTR lpValueName, LPDWORD lpReserved,
 	return 0;
 }
 
-BOOL GetClientRect(HWND hWnd, LPRECT lpRect) {
+Bool GetClientRect(HWND hWnd, LPRECT lpRect) {
 	return 0;
 }
 
-BOOL WritePrivateProfileString(LPCTSTR lpAppName, LPCTSTR lpKeyName,
+Bool WritePrivateProfileString(LPCTSTR lpAppName, LPCTSTR lpKeyName,
 		LPCTSTR lpString, LPCTSTR lpFileName) {
 	return 0;
 }
@@ -209,10 +209,10 @@ UINT GetPrivateProfileInt(LPCTSTR lpAppName, LPCTSTR lpKeyName, INT nDefault,
 
 int WideCharToMultiByte(UINT CodePage, uint32_t dwFlags,
 		const wchar_t *lpWideCharStr, int cchWideChar, LPSTR lpMultiByteStr,
-		int cbMultiByte, LPCSTR lpDefaultChar, LPBOOL lpUsedDefaultChar) {
+		int cbMultiByte, LPCSTR lpDefaultChar, LPBool lpUsedDefaultChar) {
 	return 0;
 }
-BOOL ShowWindow(HWND hWnd, int nCmdShow) {
+Bool ShowWindow(HWND hWnd, int nCmdShow) {
 	return 0;
 }
 
@@ -241,7 +241,7 @@ int _access(const char *filename, int mode) {
 	return stat(filename, &foo);
 }
 
-BOOL SetWindowText(HWND hWnd, LPCTSTR lpString) {
+Bool SetWindowText(HWND hWnd, LPCTSTR lpString) {
 	return 0;
 }
 
@@ -249,7 +249,7 @@ int ReleaseDC(HWND hWnd, HDC hDC) {
 	return 0;
 }
 
-BOOL IsIconic(HWND hWnd) {
+Bool IsIconic(HWND hWnd) {
 	return 0;
 }
 
@@ -257,7 +257,7 @@ HDC GetDC(HWND hWnd) {
 	return 0;
 }
 
-BOOL EndPaint(HWND hWnd, ...) {
+Bool EndPaint(HWND hWnd, ...) {
 	return 1;
 }
 
@@ -317,7 +317,7 @@ int lstrcmpi(LPCTSTR lpString1, LPCTSTR lpString2) {
 	return strcasecmp(lpString1, lpString2);
 }
 
-BOOL DeleteObject(HGDIOBJ hObject) {
+Bool DeleteObject(HGDIOBJ hObject) {
 	return 0;
 }
 
@@ -338,11 +338,11 @@ LPVOID GlobalLock(HGLOBAL hMem) {
 	return NULL;
 }
 
-BOOL GlobalUnlock(HGLOBAL hMem) {
+Bool GlobalUnlock(HGLOBAL hMem) {
 	return 0;
 }
 
-BOOL IsBadWritePtr(LPVOID lp, int ucb) {
+Bool IsBadWritePtr(LPVOID lp, int ucb) {
 	return 0;
 }
 
@@ -350,7 +350,7 @@ void OutputDebugString(LPCTSTR lpOutputString) {
 
 }
 
-BOOL SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom) {
+Bool SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom) {
 	lprc->left = xLeft;
 	lprc->right = xRight;
 	lprc->top = yTop;
@@ -358,7 +358,7 @@ BOOL SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom) {
 	return TRUE;
 }
 
-BOOL PtInRect(const RECT *lprc, POINT pt) {
+Bool PtInRect(const RECT *lprc, POINT pt) {
 	if (pt.x >= lprc->left && pt.x < lprc->right && pt.y >= lprc->top && pt.y
 			< lprc->bottom)
 		return TRUE;
@@ -369,7 +369,7 @@ BOOL PtInRect(const RECT *lprc, POINT pt) {
  * we do not need to calculate it.
  */
 
-BOOL IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2) {
+Bool IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2) {
 	if (lprcSrc1->left > lprcSrc2->right || lprcSrc1->right < lprcSrc2->left
 			|| lprcSrc1->top > lprcSrc2->bottom || lprcSrc1->bottom
 			< lprcSrc2->top)
@@ -377,7 +377,7 @@ BOOL IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2) {
 	return TRUE;
 }
 
-BOOL UnionRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2) {
+Bool UnionRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2) {
 	if (lprcSrc1->left - lprcSrc1->right == 0 || lprcSrc1->top
 			- lprcSrc1->bottom == 0) {
 		lprcDst->left = lprcSrc2->left;
@@ -419,11 +419,11 @@ HFONT CreateFont(int nHeight, int nWidth, int nEscapement, int nOrientation,
 	return 0;
 }
 
-BOOL GetTextExtentPoint32(HDC hdc, LPCTSTR lpString, int c, LPSIZE lpSize) {
+Bool GetTextExtentPoint32(HDC hdc, LPCTSTR lpString, int c, LPSIZE lpSize) {
 	return 0;
 }
 
-BOOL EnumWindows(WNDENUMPROC lpEnumFunc, LPARAM lParam) {
+Bool EnumWindows(WNDENUMPROC lpEnumFunc, LPARAM lParam) {
 	return 0;
 }
 
@@ -435,7 +435,7 @@ HMODULE LoadLibrary(LPCTSTR lpFileName) {
 	return dlopen(lpFileName, RTLD_LAZY);
 }
 
-BOOL FreeLibrary(HMODULE hModule) {
+Bool FreeLibrary(HMODULE hModule) {
 	return dlclose(hModule);
 }
 
@@ -447,7 +447,7 @@ HGDIOBJ GetStockObject(int fnObject) {
 	return -1;
 }
 
-BOOL IsWindowVisible(HWND hWnd) {
+Bool IsWindowVisible(HWND hWnd) {
 	return 0;
 }
 
@@ -459,7 +459,7 @@ LONG GetWindowLong(HWND hWnd, int nIndex) {
 	return 0;
 }
 
-BOOL RegisterClass(const WNDCLASS *lpWndClass) {
+Bool RegisterClass(const WNDCLASS *lpWndClass) {
 	return 0;
 }
 
@@ -475,7 +475,7 @@ int LoadCursor(HINSTANCE hInstance, LPCTSTR lpCursorName) {
 	return 0;
 }
 
-BOOL Rectangle(HDC hdc, int nLeftRect, int nTopRect, int nRightRect,
+Bool Rectangle(HDC hdc, int nLeftRect, int nTopRect, int nRightRect,
 		int nBottomRect) {
 	return 0;
 }
@@ -497,7 +497,7 @@ char* _strupr(char*s) {
 
 static HMODULE thismod;
 
-CFCOMPAT_FUNC(BOOL)
+CFCOMPAT_FUNC(Bool)
 WINAPI DllMain(HINSTANCE hinstDLL, uint32_t fdwReason, LPVOID lpvReserved) {
 	thismod = (HMODULE) hinstDLL;
 	return TRUE;

@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rout_own.h"
 
 //********************************************************************
-BOOL IsLetter(Byte c)
+Bool IsLetter(Byte c)
 {
 	Byte type = gAlphabetTable[c];
 
@@ -73,13 +73,13 @@ BOOL IsLetter(Byte c)
 		   (type & CASE_LOWER);
 }
 //********************************************************************
-BOOL IsEOL(Byte c)
+Bool IsEOL(Byte c)
 {
 	return c == 0x0d ||
 		   c == 0x0a;
 }
 //********************************************************************
-BOOL WordsControl(
+Bool WordsControl(
 		long reason	// См. enum BROWSE_REASON
 		)
 {
@@ -187,14 +187,14 @@ BOOL WordsControl(
 	return TRUE;
 }
 //********************************************************************
-BOOL WordEnd()
+Bool WordEnd()
 {
 // Обработать конец слова
 // Имеется: gBegWord > 0,
 //			gDefis >= 0,
 //			gLastEOL >= 0
 
-	BOOL hasWordBreak = (gBegWord < gDefis &&
+	Bool hasWordBreak = (gBegWord < gDefis &&
 					     gDefis + 1 == gLastEOL &&
 						*gLastEOL == ' '
 						 );

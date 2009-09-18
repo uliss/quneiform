@@ -85,7 +85,7 @@ static int32_t             InitCount =                         0;
 static Bool32            InitDone =                          FALSE;
 //////////////////////////////////////////////////////////////////////////////////
 //
-BOOL APIENTRY DllMain( Handle hModule,
+Bool APIENTRY DllMain( Handle hModule,
                         uint32_t ul_reason_for_call,
                         LPVOID lpReserved )
 {

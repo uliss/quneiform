@@ -86,7 +86,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "tuner.h"
 #ifdef UFA
-  BOOL test_alphabet_elem(BYTE let);
+  Bool test_alphabet_elem(BYTE let);
 #endif
 
 double koeK=1.;                            //AK 30.04.97 It's need?
@@ -338,7 +338,7 @@ static INT letagain(CHAR curleta,INT fl)
  return 1;
 }
 
-void embBOX(servBOX *SBOX, SVERS *tvers, BOOL erection)
+void embBOX(servBOX *SBOX, SVERS *tvers, Bool erection)
 //
 //	This procedure checks r_raster against compressed images from
 //  table BOX of letters given by tgrhyp.
@@ -439,8 +439,8 @@ if (!fll)                             // all not in table - make .99 to all
 return;
 }
 
-BOOL pidx_skip(INT h, INT w,BYTE t_let);
-void embBOXF(servBOX *SBOX, INT typl, BOOL erection)
+Bool pidx_skip(INT h, INT w,BYTE t_let);
+void embBOXF(servBOX *SBOX, INT typl, Bool erection)
 //
 //	This procedure checks r_raster against compressed images from
 //  table BOX of letters given by tgrhyp.

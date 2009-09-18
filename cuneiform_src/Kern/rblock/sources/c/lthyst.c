@@ -84,7 +84,7 @@ int  *pHystBottoms         = NULL;
 int  nHystColumns          = 0;
 int  nHystColumnWidth      = 0;
 
-BOOL HystogramAllocateBody (void)
+Bool HystogramAllocateBody (void)
 {
     BLOCK *p;
     int nBlockWidth;

@@ -112,11 +112,11 @@ extern INT make_center_line(center_interval center[],INT nc,
 		      BYTE left[], BYTE right[],
 		      INT dy, INT dx,  INC_BASE *angles[],INT num_angles,
 		      INT tab_angle[],
-		      BOOL comp_wide,BOOL sig_T,BOOL sig_f,BOOL sig_r,
+		      Bool comp_wide,Bool sig_T,Bool sig_f,Bool sig_r,
           INT *wid,INT hooks[],INT *inc_v, BYTE enable_correct);
 
 INT abris_convexity(BYTE fun[],INT n,INT w);
-extern	BOOL bad_overlay(INT over,INT width,INT dy,INT sig_wide,BOOL c_f);
+extern	Bool bad_overlay(INT over,INT width,INT dy,INT sig_wide,Bool c_f);
 extern	INT centers_len_to_hist(center_interval fun[],INT n,INT dy,INT dx,
 			  BYTE hist[]);
 extern	INT overlay_interval(center_interval c[],INT nc, INT col,INT typ,
@@ -131,13 +131,13 @@ static INT discrim_left_brace (BYTE left[], BYTE right[],
 			INT dy, INT dx, INT wid);
 static INT discrim_right_brace (BYTE left[], BYTE right[],
 			INT dy, INT dx, INT wid);
-static BOOL dis_bold_r (BYTE fun[], INT n);
+static Bool dis_bold_r (BYTE fun[], INT n);
 static INT first_tg (INC_BASE *tab_inc[], INT num_inc, INT tg2048 );
 
 static void calc_discrim_braces(BYTE left[], BYTE right[], INT dy, INT dx,
 				center_interval center[], INT nc, INT wide,
 				INT tab_angle[], BYTE left1[], BYTE right1[],
-				BOOL c_brace_l, BOOL c_brace_r,
+				Bool c_brace_l, Bool c_brace_r,
 				INT *d_l, INT *d_r);
 
 static void filtrate_abris( BYTE left[],BYTE right[],INT dy,INT dx,INT wide,
@@ -145,7 +145,7 @@ static void filtrate_abris( BYTE left[],BYTE right[],INT dy,INT dx,INT wide,
 static INT calc_T_config(INT hist_int[],INT n,INT up_lim,INT lev);
 static WORD calc_T_2_3 (INT hist_int[],INT n);	//MK 21.01.1993 (old Y_config)
 static WORD abris_leap_new(BYTE left[], BYTE right[], INT n, INT wide); // MK
-static BOOL T_roof(INT hist_int[],BYTE left[],BYTE right[],INT n,INT w);
+static Bool T_roof(INT hist_int[],BYTE left[],BYTE right[],INT n,INT w);
 static void add_stick_vers_a_posteriory (cell *c,
 		STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
 
@@ -211,11 +211,11 @@ INT skip_ul,skip_dl,skip_ur,skip_dr;
 INT nc,num_angles,f_a;
 
 INT dy=c->h,dx=c->w;
-BOOL c_wide = check_let(c,'r')|check_let(c,'T')|
+Bool c_wide = check_let(c,'r')|check_let(c,'T')|
     check_let(c,'J')|check_let(c,'L');
-BOOL c_slash = check_let(c,'/'), c_f=check_let(c,'f');
-BOOL c_T = check_let(c,'T'),c_r=check_let(c,'r'),c_Y=check_let(c,'Y');
-BOOL corr = ( c->nvers==1 && c->vers[0].let=='r' );
+Bool c_slash = check_let(c,'/'), c_f=check_let(c,'f');
+Bool c_T = check_let(c,'T'),c_r=check_let(c,'r'),c_Y=check_let(c,'Y');
+Bool corr = ( c->nvers==1 && c->vers[0].let=='r' );
 
 num_lines = 0;
 c->stick_inc=0;
@@ -272,7 +272,7 @@ opt = (opt>>1)<<1;
 typ_inc = (inc_num_EEM!=0);	// 09.12.1993, because OLD CONDITION
 
 calc_skipped_lines (GL_hist_int, GL_left0, GL_right0, dy, dx, wide, opt,
-		    (BOOL)(c_r|c_Y), &skip_ul, &skip_ur, &skip_dl, &skip_dr);
+		    (Bool)(c_r|c_Y), &skip_ul, &skip_ur, &skip_dl, &skip_dr);
 filtrate_abris (GL_left0, GL_right0, dy, dx, wide, GL_hooks,
 		skip_ul, skip_ur, skip_dl, skip_dr, typ_inc);
 
@@ -313,13 +313,13 @@ STICK_SIGNUMS signums;
 			// here was DEBUG_GRAPH
 B_LINES bl;
 INT dy=c->h,dx=c->w;
-BOOL c_brace_l = check_let(c,'('), c_brace_r = check_let(c,')');
-BOOL c_wide = check_let(c,'r')|check_let(c,'T')|
+Bool c_brace_l = check_let(c,'('), c_brace_r = check_let(c,')');
+Bool c_wide = check_let(c,'r')|check_let(c,'T')|
 		check_let(c,'J')|check_let(c,'L'),
      c_brace = c_brace_l | c_brace_r;
-BOOL c_slash = check_let(c,'/'),c_t=check_let(c,'t'),c_f=check_let(c,'f');
-BOOL c_T = check_let(c,'T'),c_r=check_let(c,'r'),c_Y=check_let(c,'Y');
-BOOL corr = ( c->nvers==1 && c->vers[0].let=='r' );
+Bool c_slash = check_let(c,'/'),c_t=check_let(c,'t'),c_f=check_let(c,'f');
+Bool c_T = check_let(c,'T'),c_r=check_let(c,'r'),c_Y=check_let(c,'Y');
+Bool corr = ( c->nvers==1 && c->vers[0].let=='r' );
 
 	left_letter_EEM = ' ';	// 17.01.1994  for dis_i (similar 'h');
   if (c!=NULL&&(c->flg&(c_f_let|c_f_bad)))
@@ -430,7 +430,7 @@ if( c_f )
 	{   /* calculate symptoms 'f' befor shift */
 	INT e_len = dx-1-((opt+wide*2)>>2);
 	if( opt%4==0 ) e_len++;
-	l_f_sym = calc_left_f_symptom (GL_left0, dy, (INT)(dx>>1), (BOOL)(c_f&c_t));
+	l_f_sym = calc_left_f_symptom (GL_left0, dy, (INT)(dx>>1), (Bool)(c_f&c_t));
 	r_f_sym = calc_right_f_symptom(GL_right0, dy, e_len);
 	}
 
@@ -446,7 +446,7 @@ typ_inc = (inc_num_EEM!=0);	// 09.12.1993, because OLD CONDITION
 				// on the both ends of stick !!!!!!!!!!!!!
 
 calc_skipped_lines (GL_hist_int, GL_left0, GL_right0, dy, dx, wide, opt,
-		    (BOOL)(c_r|c_Y), &skip_ul, &skip_ur, &skip_dl, &skip_dr);
+		    (Bool)(c_r|c_Y), &skip_ul, &skip_ur, &skip_dl, &skip_dr);
 filtrate_abris (GL_left0, GL_right0, dy, dx, wide, GL_hooks,
 		skip_ul, skip_ur, skip_dl, skip_dr, typ_inc);
 
@@ -608,7 +608,7 @@ INT	let_0=c->vers[0].let;
 	return;
 }
 /*----------------------------------------------------------------------*/
-static BOOL T_roof(INT hist_int[],BYTE left[],BYTE right[],INT n,INT w)
+static Bool T_roof(INT hist_int[],BYTE left[],BYTE right[],INT n,INT w)
 {
 INT i;
 w <<= 2;
@@ -643,7 +643,7 @@ return(0);
 /*----------------------------------------------------------------------*/
 #ifdef	OLEG_abris_leap_OLD
 /* abris 'Y' hav'nt long jumps in upper zone */
-static BOOL abris_leap(BYTE fun[],INT n,INT width)
+static Bool abris_leap(BYTE fun[],INT n,INT width)
 {
 INT i;
 n>>=1;
@@ -656,7 +656,7 @@ return(FALSE);
 #endif
 /*----------------------------------------------------------------------*/
 /* abris 'Y' hav'nt long jumps in upper zone */		// 21.01.1993	MK
-/////static BOOL abris_leap_new (BYTE left[], BYTE right[], INT n, INT wide)  {
+/////static Bool abris_leap_new (BYTE left[], BYTE right[], INT n, INT wide)  {
 static WORD abris_leap_new (BYTE left[], BYTE right[], INT n, INT wide)  {
 							// 17.02.1993
 ////INT	i, porog = MAX (wide, 4) << 2, d, dL=0, dR=0;
@@ -814,7 +814,7 @@ if( ( dx>wide*3 || inc&&dx>wide*2 ) &&    /* by may be false pimples */
 static void calc_discrim_braces(BYTE left[],BYTE right[],INT dy,INT dx,
 				center_interval center[],INT nc,INT wide,
 				INT tab_angle[],BYTE left1[],BYTE right1[],
-				BOOL c_brace_l,BOOL c_brace_r,
+				Bool c_brace_l,Bool c_brace_r,
 				INT *dis_l,INT *dis_r)
 {
 INT	i, n_2, porog;	// MK 20.01.1993
@@ -850,7 +850,7 @@ return;
 }
 /*----------------------------------------------------------------------*/
 /* study right abris for letter 'r'(bold)   */
-static BOOL dis_bold_r(BYTE fun[],INT n)
+static Bool dis_bold_r(BYTE fun[],INT n)
 {
 INT i,m=n>>1,s1,s2,f,f_next,s;
 			 /*   NEED :              */

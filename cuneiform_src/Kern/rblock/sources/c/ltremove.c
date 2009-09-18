@@ -419,7 +419,7 @@ void CalculateDustDistribution (BLOCK *p)
 }
 // new page
 # ifdef LT_DEBUG
-static BOOL bAtLeastOneOutput;
+static Bool bAtLeastOneOutput;
 # endif
 
 void BlockRemove (BLOCK *p)

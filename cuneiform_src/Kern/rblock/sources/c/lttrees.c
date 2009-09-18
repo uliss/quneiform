@@ -94,7 +94,7 @@ static void BlocksAddLink (BLOCK *p, BLOCK *q)
 }
 **************************************************/
 
-static BOOL IsPossibleParent (BLOCK *p, BLOCK *q)
+static Bool IsPossibleParent (BLOCK *p, BLOCK *q)
 {
     if (p -> Type == BLOCK_TEXT && q -> Type == BLOCK_TEXT &&
         p -> nEmbedding != q -> nEmbedding)
@@ -110,7 +110,7 @@ static BOOL IsPossibleParent (BLOCK *p, BLOCK *q)
 /*************************************** Remove function
 static int nCheckPathCounter;
 
-static BOOL CheckPath (BLOCK *p, BLOCK *q)
+static Bool CheckPath (BLOCK *p, BLOCK *q)
 {
     int i;
 
@@ -189,7 +189,7 @@ next_p:;
 
 void TreePass (void)
 {
-    //  BOOL bDone;
+    //  Bool bDone;
     int  nTextBlock;
     int  nSeparator;
     BLOCK *p;

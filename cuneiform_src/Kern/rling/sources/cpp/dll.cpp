@@ -91,7 +91,7 @@ uint16_t GetReturnCode_rling();
 #define APIENTRY
 #endif
 
-BOOL APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
+Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
 		LPVOID lpReserved) {
 	switch (ul_reason_for_call) {
 	case DLL_PROCESS_ATTACH:
@@ -244,7 +244,7 @@ RLING_FUNC(Bool32) RLING_SetImportData(uint32_t dwType, void * pData)
 RLINGS_FUNC(Bool32) RLINGS_SetImportData(uint32_t dwType, void * pData)
 #endif
 {
-	BOOL rc = FALSE;
+	Bool rc = FALSE;
 	gwLowRC = IDS_RLING_ERR_NOTIMPLEMENT;
 
 	return rc;

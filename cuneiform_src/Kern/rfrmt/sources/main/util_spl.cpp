@@ -150,7 +150,7 @@ static void readSRECT(SRECT *r, FILE *f) {
     r->bottom = r16.bottom;
 }
 
-BOOL __stdcall FindByPartOfTitle(
+Bool __stdcall FindByPartOfTitle(
     HWND hwnd,	    // handle to parent window
     LPARAM lParam 	// application-defined value
    )

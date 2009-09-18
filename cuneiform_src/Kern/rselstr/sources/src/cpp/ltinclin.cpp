@@ -92,7 +92,7 @@ static int nInclinesStrings;
 # define MAX_EQUAL_LOWERS_DIFFERENCE    4
 
 struct _HorizontalBarRecord {
-	BOOL bAllocated;
+	Bool bAllocated;
 	int xLeft;
 	int nLower;
 };

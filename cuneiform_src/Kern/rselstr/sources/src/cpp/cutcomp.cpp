@@ -77,9 +77,9 @@ int sup_let_h = 30;
 int medium_h;
 extern int inf_let_w;
 double coef_cut = .75;
-BOOL WasCutComp;
+Bool WasCutComp;
 extern Bool32 WasCut;
-BOOL WasDifHis;
+Bool WasDifHis;
 int code_comp_cut_d = 117;
 
 extern Handle MainWindowD;
@@ -95,31 +95,31 @@ extern FILE* f_temp_cut;
 extern FILE* f_cut_str;
 extern FILE* f_old_cut;
 extern int inf_let_h;
-extern BOOL type_let;
+extern Bool type_let;
 extern int inf_dust_h;
 extern uint32_t Code_UB_Kill;
 extern uint32_t Code_UB_Create;
 
-BOOL IfNeedCutComp(CCOM_comp* comp, Point32 beg, Point32 end, int& yCut);
+Bool IfNeedCutComp(CCOM_comp* comp, Point32 beg, Point32 end, int& yCut);
 int GetLineY(Point32 beg, Point32 end, int x);
-BOOL CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
-		BOOL fl_cut);
+Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
+		Bool fl_cut);
 void CleanRaster(RecRaster* rast, Rect16* rect, int scale);
-BOOL Increase2(RecRaster* rast, CCOM_comp* comp);
+Bool Increase2(RecRaster* rast, CCOM_comp* comp);
 int GetCountNumbers(int num);
 void DrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top, int bottom,
 		int left, int right);
-BOOL IfWhiteRow(RecRaster* rast, int row);
+Bool IfWhiteRow(RecRaster* rast, int row);
 int GetMediumH(CCOM_handle hCCOM);
 void IfDifCutComp(void);
-BOOL IfEqv(char* buf1, char* buf2);
-BOOL IfEqv(Rect16 r1, Rect16 r2);
-Handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, BOOL neg,
-		BOOL vertical, RecRaster* rast, int min_h);
+Bool IfEqv(char* buf1, char* buf2);
+Bool IfEqv(Rect16 r1, Rect16 r2);
+Handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, Bool neg,
+		Bool vertical, RecRaster* rast, int min_h);
 void MyKillComp(CCOM_comp* comp);
 void MyCreateComp(CCOM_comp* comp);
 
-BOOL IfNeedCutComp(CCOM_comp* comp, Point32 beg, Point32 end, int& yCut) {
+Bool IfNeedCutComp(CCOM_comp* comp, Point32 beg, Point32 end, int& yCut) {
 	int top = comp->upper;
 	int left = comp->left;
 	int right = left + comp->w - 1;
@@ -181,8 +181,8 @@ int GetLineY(Point32 beg, Point32 end, int x) {
 	return beg.y - ((x - beg.x + 1) * spusk) / lenght;
 }
 
-BOOL CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
-		BOOL fl_cut) {
+Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
+		Bool fl_cut) {
 	RecRaster rast;
 	int ii;
 
@@ -503,7 +503,7 @@ void IfDifCutComp(void) {
 	char buf1[10000];
 	char buf2[10000];
 	fgets(buf1, 10000, f_temp_cut_comp);
-	BOOL fl_exist = FALSE;
+	Bool fl_exist = FALSE;
 
 	while (fgets(buf2, 10000, f_old_cut_comp)) {
 		if (IfEqv(buf1, buf2))
@@ -518,7 +518,7 @@ void IfDifCutComp(void) {
 	int nOldCut = 0;
 	Rect16 pNewCut[1000];
 	int nNewCut = 0;
-	BOOL fl_empty = FALSE;
+	Bool fl_empty = FALSE;
 
 	if (!fgets(buf2, 10000, f_old_cut_comp))
 		fl_empty = TRUE;
@@ -638,8 +638,8 @@ void IfDifCutComp(void) {
 
 }
 
-Handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, BOOL neg,
-		BOOL vertical, RecRaster* rast, int min_h) {
+Handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, Bool neg,
+		Bool vertical, RecRaster* rast, int min_h) {
 	int min_w, max_h, max_w;
 	// int j;
 	PAGEINFO info = { 0 };
@@ -673,8 +673,8 @@ Handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, BOOL neg,
 	}
 
 	int bytewide = ((rast->lnPixWidth + 63) / 64) * 8;
-	BOOL fotomet = FALSE;
-	BOOL RevOv = FALSE;
+	Bool fotomet = FALSE;
+	Bool RevOv = FALSE;
 
 	Control.MinCompHei = min_h;
 	Control.MinCompWid = min_w;

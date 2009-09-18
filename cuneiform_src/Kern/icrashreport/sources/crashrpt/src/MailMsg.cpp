@@ -151,7 +151,7 @@ CMailMsg& CMailMsg::AddAttachment(CString sAttachment, CString sTitle)
    return *this;
 }
 
-BOOL CMailMsg::Send()
+Bool CMailMsg::Send()
 {
    // try mapi
    if (MAPISend())
@@ -164,7 +164,7 @@ BOOL CMailMsg::Send()
    return FALSE;
 }
 
-BOOL CMailMsg::MAPISend()
+Bool CMailMsg::MAPISend()
 {
    TStrStrMap::iterator p;
    int                  nIndex = 0;
@@ -280,7 +280,7 @@ BOOL CMailMsg::MAPISend()
    return (SUCCESS_SUCCESS == status);
 }
 
-BOOL CMailMsg::CMCSend()
+Bool CMailMsg::CMCSend()
 {
    TStrStrMap::iterator p;
    int                  nIndex = 0;
@@ -394,7 +394,7 @@ BOOL CMailMsg::CMCSend()
    return ((CMC_SUCCESS == status) && bAvailable);
 }
 
-BOOL CMailMsg::Initialize()
+Bool CMailMsg::Initialize()
 {
    if(m_bInited)
 	   return m_bHasMAPI || m_bHasCMC;

@@ -81,7 +81,7 @@ DECLARE_HANDLE(HDIB);
 #define WIDTHBYTES(bits)    (((bits) + 31) / 32 * 4)
 
 /* Function prototypes */
-//BOOL      WINAPI  CreateDIBPalette(HDIB hDIB, CPalette* cPal);//!!! Art - устарело
+//Bool      WINAPI  CreateDIBPalette(HDIB hDIB, CPalette* cPal);//!!! Art - устарело
 LPSTR     WINAPI  FindDIBBits (LPSTR lpbi);
 uint32_t     WINAPI  DIBWidth (LPSTR lpDIB);
 uint32_t     WINAPI  DIBHeight (LPSTR lpDIB);
@@ -89,7 +89,7 @@ WORD      WINAPI  PaletteSize (LPSTR lpbi);
 WORD      WINAPI  DIBNumColors (LPSTR lpbi);
 HGLOBAL   WINAPI  CopyHandle (HGLOBAL h);
 
-//BOOL       WINAPI       SaveDIB (Handle hDib, CFile& file);//!!! Art - устарело
-BOOL              FrmtSaveFile(Handle hDib,  LPCTSTR lpszPathName);
+//Bool       WINAPI       SaveDIB (Handle hDib, CFile& file);//!!! Art - устарело
+Bool              FrmtSaveFile(Handle hDib,  LPCTSTR lpszPathName);
 
 #endif //!_INC_DIBAPI

@@ -102,7 +102,7 @@ public:
    //
    // Send message to parent control instead of trying to open URL.
    //
-   LRESULT OnLButtonDown(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+   LRESULT OnLButtonDown(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
    {
       ::SendMessage(GetParent(), WM_COMMAND, MAKEWPARAM(GetDlgCtrlID(), DL_CLICKED), (LPARAM)m_hWnd);
       return 0;

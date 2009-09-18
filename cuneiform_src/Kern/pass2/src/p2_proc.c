@@ -198,7 +198,7 @@ static int32_t composeWords(CSTR_rast fStart,CSTR_rast fEnd,
                           CSTR_rast *lStart,CSTR_rast lEnd,
                           FontInfo *fontinfo, Bool32 broken);
 static CSTR_rast AddRastersLine(CSTR_rast fRast,CSTR_rast eRast,
-                                           CSTR_rast rastOut,BOOL emptyCollect,
+                                           CSTR_rast rastOut,Bool emptyCollect,
                                                    int nRotate,int nNaklon);
 static Bool32 p2_needStop(CSTR_rast first,CSTR_rast last);
 static int mark_strong_letters(CSTR_rast fRecog,CSTR_rast lRecog,CSTR_rast fRaw,CSTR_rast lRaw);
@@ -374,7 +374,7 @@ CSTR_rast_attr  attr;
 
 }
 /////////////////////////////////
-static BOOL GoodWordProb(CSTR_rast first,CSTR_rast last,int porog)
+static Bool GoodWordProb(CSTR_rast first,CSTR_rast last,int porog)
 {
 CSTR_rast rst;
 UniVersions    verNew;
@@ -512,7 +512,7 @@ static int32_t p2_processWord(CSTR_line lineRaw,CSTR_line lineFon,
   uchar           isSolid=0;
 //  CSTR_rast       savFirst;
 //  CSTR_line       savLine;
-  BOOL            vSnap=FALSE;
+  Bool            vSnap=FALSE;
   CSTR_rast       first=*firOld;
 
   // clear lineFon
@@ -749,7 +749,7 @@ static int32_t p2_processWord(CSTR_line lineRaw,CSTR_line lineFon,
 }
 ////////////////////////
 // язык подходит для ЛЕО ?
-static BOOL IsLeoLanguage(uchar lang)
+static Bool IsLeoLanguage(uchar lang)
 {
         if( lang==LANG_RUSSIAN && !p2globals.langBul && !p2globals.langSer )
                 return TRUE;
@@ -2479,7 +2479,7 @@ static void FindAccordLine(CSTR_line lineRaw,CSTR_rast *firOld,CSTR_rast *lasOld
 //    в строку после rastOut
 //
 static CSTR_rast AddRastersLine(CSTR_rast fRast,CSTR_rast eRast,
-                                CSTR_rast rastOut,BOOL emptyCollect,
+                                CSTR_rast rastOut,Bool emptyCollect,
                                 int nRotate,int nNaklon)
 {
 CSTR_rast_attr  attr;
@@ -2642,7 +2642,7 @@ int     total=0,
             better=0,
         strong=0;
 int     minLeo=255,minFon=255;
-BOOL    newFon;
+Bool    newFon;
 int     numFONnotLEO;
 int     palkiNew = 0;
 

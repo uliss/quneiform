@@ -100,11 +100,11 @@ int Height;
 int Width;
 uchar ImageName[CPAGE_MAXNAME];
 int nIncline;
-BOOL dpTime;
-BOOL dpPrintResConsole;
-BOOL dpNegResD;
-BOOL dpNegRecD;
-BOOL dpRecOneLetter;
+Bool dpTime;
+Bool dpPrintResConsole;
+Bool dpNegResD;
+Bool dpNegRecD;
+Bool dpRecOneLetter;
 /*----------------------------------------------------------------------------*/
 NegImage* pNegImage;
 
@@ -182,9 +182,9 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,uchar* pImageName
  NegList* temp;
  int nRC=0;
  int i;
- BOOL fl_del_mas_neg;
- BOOL flag_rotate;
- BOOL flag_rimage_rotate;
+ Bool fl_del_mas_neg;
+ Bool flag_rotate;
+ Bool flag_rimage_rotate;
 
 
  if(!LDPUMA_Skip(SetSkew))
@@ -642,9 +642,9 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,uchar* pImageName
 }
 
 
-BOOL NegRotate(Handle hCPage,NegList* root,int nRc,int skew)
+Bool NegRotate(Handle hCPage,NegList* root,int nRc,int skew)
 {
- BOOL ret=FALSE;
+ Bool ret=FALSE;
  int oldskew=skew;
  if(skew<0)
 	 skew=-skew;
@@ -660,7 +660,7 @@ BOOL NegRotate(Handle hCPage,NegList* root,int nRc,int skew)
 
  NegList* now=root;
  Rect16 Rc;
- BOOL fl_cont;
+ Bool fl_cont;
 
  while(now)
  {
@@ -734,7 +734,7 @@ void NegCopy(uchar* from,uchar* to,int bytewide,int h)
 		to[i]=from[i];
 }
 
-BOOL InitRotateMas(int w,int h,int16_t** ppbegx,int16_t** ppmovey,uchar** ppflmovey,int** pphi)
+Bool InitRotateMas(int w,int h,int16_t** ppbegx,int16_t** ppmovey,uchar** ppflmovey,int** pphi)
 {
 	if(!( (*ppbegx)=new int16_t[h+1]))
 		return FALSE;
@@ -779,13 +779,13 @@ void DeleteRotateMas(uchar** pmasp,int16_t** begx,int16_t** movey,uchar** flmove
 		*hi=NULL;
 }
 
-BOOL IfNeedGlobalRotate(NegList* root,int& skew)
+Bool IfNeedGlobalRotate(NegList* root,int& skew)
 {
  NegList* now=root;
  Rect16 Rc;
  int w;
  int h;
- BOOL fl_break=FALSE;
+ Bool fl_break=FALSE;
  int modskew=skew;
  if(modskew<0)
 	 modskew=-modskew;
@@ -1047,7 +1047,7 @@ void CheckNega(NegList* root)
  }
 }
 
-BOOL InitMyImage()
+Bool InitMyImage()
 {
 	Handle lpDIB;
 	if(!CIMAGE_ReadDIB(ImageName,&lpDIB,1))

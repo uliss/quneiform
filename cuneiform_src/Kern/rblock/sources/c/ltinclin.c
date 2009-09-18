@@ -95,7 +95,7 @@ static int  nInclinesStrings;
 
 struct _HorizontalBarRecord
        {
-           BOOL bAllocated;
+           Bool bAllocated;
            int  xLeft;
            int  nLower;
        };
@@ -114,7 +114,7 @@ static int nLetterRepresentativeHeight;
 /*
 # define HEIGHTES_MEMORY_ALLOCATION_QUANTUM  256
 
-static BOOL CalculateLetterRepresentativeHeight (void)
+static Bool CalculateLetterRepresentativeHeight (void)
 {
     int i;
     int  iHeight;
@@ -193,7 +193,7 @@ static BOOL CalculateLetterRepresentativeHeight (void)
     return (TRUE);
 }
 
-BOOL FindString (int iFirst, int *piAfter, int *piLastBar)
+Bool FindString (int iFirst, int *piAfter, int *piLastBar)
 {
     int iRoot;
     int iBar;
@@ -263,7 +263,7 @@ int CalculateIncline (int dy, int dx)
         return (int)( ( (LONG) dy * INCLINE_FACTOR - dx / 2) / dx  );
 }
 
-BOOL SelectStringAndCalculateIncline (int iStart)
+Bool SelectStringAndCalculateIncline (int iStart)
 {
     int iLeft, iRight, oSkipped;
     int nLower = pBar [iStart].nLower;
@@ -368,7 +368,7 @@ LONG CalculateShadowSum (int *pShadow, int nLength)
 
 # define MAX_INCLINE_CORRECTION (INCLINE_FACTOR / 40)
 
-BOOL CorrectIncline (int nRoughIncline, int *pnIncline)
+Bool CorrectIncline (int nRoughIncline, int *pnIncline)
 {
     int  *pShadow;
     int  dIncline;
@@ -437,7 +437,7 @@ BOOL CorrectIncline (int nRoughIncline, int *pnIncline)
     return (TRUE);
 }
 
-BOOL InclinesAccount (void)
+Bool InclinesAccount (void)
 {
     int  iFirstStringRoot;
     int  iAfterStringRoot;
@@ -445,7 +445,7 @@ BOOL InclinesAccount (void)
     int  nRoughIncline;
     int  nCorrectedIncline;
     //INT  angle;
-    BOOL bSuccess;
+    Bool bSuccess;
 	// *************** Rom
 	Handle h = NULL;
 	int32_t nNom,nDenom;

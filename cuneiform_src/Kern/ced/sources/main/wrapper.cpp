@@ -115,7 +115,7 @@ CED_FUNC(Bool32) CED_CreateFont(Handle hEdPage, BYTE fontNumber, BYTE fontPitchA
 				fontName);
 		fflush(logStream);
 	}
-	BOOL ret=((CEDPage*)hEdPage)->CreateFont(fontNumber,fontPitchAndFamily,fontCharset,fontName);
+	Bool ret=((CEDPage*)hEdPage)->CreateFont(fontNumber,fontPitchAndFamily,fontCharset,fontName);
 	if (logStream)
 	{
 		fprintf(logStream,"CreateFont returned %i\n",ret);
@@ -131,7 +131,7 @@ CED_FUNC(Bool32) CED_CreatePicture(Handle hEdPage, int pictNumber, EDSIZE pictSi
 		fprintf(logStream,"CreatePicture params: %x,%i,(%i,%i),(%i,%i),%i,%i,%x,%i\n", hEdPage, pictNumber, pictSize.cx, pictSize.cy, pictGoal.cx, pictGoal.cy, pictAlign, type, data, len);
 		fflush(logStream);
 	}
-	BOOL ret=((CEDPage*)hEdPage)->CreatePicture(pictNumber,pictSize,pictGoal,pictAlign,type,data,len);
+	Bool ret=((CEDPage*)hEdPage)->CreatePicture(pictNumber,pictSize,pictGoal,pictAlign,type,data,len);
 	if (logStream)
 	{
 		fprintf(logStream,"CreatePicture returned %i\n",ret);

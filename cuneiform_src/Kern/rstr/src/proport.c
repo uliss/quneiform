@@ -131,7 +131,7 @@ void v2_pidx_crit (cell *c)
  if ((c->nvers -= v-wv) == 0) set_bad_cell(c);
 }
 
-BOOL pidx_skip(INT h, INT w,BYTE t_let)
+Bool pidx_skip(INT h, INT w,BYTE t_let)
 {
   INT pidx;
   WORD let;

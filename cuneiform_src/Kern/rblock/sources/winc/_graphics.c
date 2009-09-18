@@ -225,7 +225,7 @@ void _grtext (int x, int y, const char * text)
 unsigned _getlinestyle (){return 0;};
 void break_point_data (char * c){};
 void write_prot () {};
-BOOL snapAutofont(BYTE a){ a=a; return TRUE; } // Andrew Theer
+Bool snapAutofont(BYTE a){ a=a; return TRUE; } // Andrew Theer
 
 int LT_Getch (void)
 {

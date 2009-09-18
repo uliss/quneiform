@@ -84,7 +84,7 @@ Handle hSnapTimerEnd = NULL;
 #endif
 
 /////////////////////////////////////////
-BOOL APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
+Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
 		LPVOID lpReserved) {
 	switch (ul_reason_for_call) {
 	case DLL_PROCESS_ATTACH:
@@ -240,7 +240,7 @@ CPAGE_FUNC(Bool32) CPAGE_GetExportData(uint32_t dwType, void * pData)
 //
 CPAGE_FUNC(Bool32) CPAGE_SetImportData(uint32_t dwType, void * pData)
 {
-	BOOL rc = FALSE;
+	Bool rc = FALSE;
 	gwLowRC = IDS_ERR_NOTIMPLEMENT;
 
 #define CASE_FUNCTION(a)	case CPAGE_FN##a:	a = (FN##a)pData; break

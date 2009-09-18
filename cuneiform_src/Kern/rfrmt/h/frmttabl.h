@@ -95,7 +95,7 @@ extern   int16_t      get_font_name(int16_t FontNumber);
 uint32_t GetTablCount(void);
 void   ViewTable(void);
 void   GetTableRect( uint32_t NumberTable , Rect16* RectTable,uint32_t* UserNumber );
-BOOL   WriteTable( uint32_t IndexTable, RtfSectorInfo* SectorInfo/*, CString* TableString*/ ,BOOL OutPutMode );
+Bool   WriteTable( uint32_t IndexTable, RtfSectorInfo* SectorInfo/*, CString* TableString*/ ,Bool OutPutMode );
 //void   TablePutChar( CString* TableString, BYTE sym );
 
 #ifdef __cplusplus
@@ -109,7 +109,7 @@ class CTableWord;
 class CTableChar;
 
 void  GetFragmLines( int32_t m_NumberFragm , Point32* m_point );
-BOOL  CheckLine( CSTR_line* Comingline );
+Bool  CheckLine( CSTR_line* Comingline );
 void  AddLetter( CSTR_rast* rast , uchar*  m_ucCode , uchar* m_ucFontNumber );
 void  Write_SetPhCellParam( Handle h_Page, Handle h_Table, CTableRow* rTableRow, Point32 m_TempPhPoint,
 																										 int32_t CountStrCellInPn, int32_t FlagPhisicalGroup , int32_t NumberPhysicalGroup );
@@ -122,7 +122,7 @@ public:
  ~CMyTable();
 
   CTableRow*    GetCurrentTableRow( void );
-  void          Write(/*CString* TableString,*/RtfSectorInfo* SectorInfo,BOOL OutPutMode);
+  void          Write(/*CString* TableString,*/RtfSectorInfo* SectorInfo,Bool OutPutMode);
 
   Rect32        RectTable;
   std::vector<CTableRow*>/*CObArray*/	    m_arTableRows;
@@ -255,7 +255,7 @@ public:
  ~CTableChar();
 
   void          AddingLetter( CSTR_rast* rast ,int index );
-  BOOL	        Write();
+  Bool	        Write();
 
   RECT	        m_rectChar;
   struct

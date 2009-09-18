@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 
-int IfStr(Rect16* pN,int nN,BOOL vertical)
+int IfStr(Rect16* pN,int nN,Bool vertical)
 {
  int let_h;
  int let_w;
@@ -86,7 +86,7 @@ int IfStr(Rect16* pN,int nN,BOOL vertical)
  return 0;
 }
 
-void StrDrawRect(Handle wnd,uint32_t OperCode,uint32_t color,Rect16 *pRc,int nRc,BOOL vert,Rect16 Rc)
+void StrDrawRect(Handle wnd,uint32_t OperCode,uint32_t color,Rect16 *pRc,int nRc,Bool vert,Rect16 Rc)
 {
 	int i;
 	Rect16 Rect;
@@ -127,7 +127,7 @@ void StrDrawRect(Handle wnd,uint32_t OperCode,uint32_t color,Rect16 Rc)
 }
 
 
-Handle GetStrCCOM(Handle hCPage,uchar* ImageName,Rect16 Rc,BOOL neg,BOOL vertical)
+Handle GetStrCCOM(Handle hCPage,uchar* ImageName,Rect16 Rc,Bool neg,Bool vertical)
 {
  int min_h,min_w,max_h,max_w;
  int j;
@@ -303,7 +303,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_CutStr(Rect16** ppRc,int& nRc,int& len_mas,uchar* p
  Rect16* pRc=(*ppRc);
  int up;
  int oldtop;
- BOOL white=TRUE;
+ Bool white=TRUE;
 
  for(i=nRc-1;i>=0;i--)
  {
@@ -322,7 +322,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_CutStr(Rect16** ppRc,int& nRc,int& len_mas,uchar* p
   uchar bytep;
   int count_black=0;
   double proc;
-  BOOL str=FALSE;
+  Bool str=FALSE;
   int oldoldtop=pRc[i].top;
   int W;
   int rightbyte;
@@ -541,7 +541,7 @@ int GetStrW(uchar* pmasp,int spusk,int from,int h,int w,int& leftbyte,int& right
 
 
 
-BOOL IfNewStr(uchar* pmasp,int i,int h,int bytewide,int w,int& l,int rect)
+Bool IfNewStr(uchar* pmasp,int i,int h,int bytewide,int w,int& l,int rect)
 {
 // if(LDPUMA_Skip (CutStrDel) )
 	 return TRUE;
@@ -635,7 +635,7 @@ void StrMoveMasR(Rect16* pRc,int& nRc,int num)
   nRc++;
 }
 
-BOOL GetMasP(Handle hCPage,uchar* ImageName,Rect16 Rc,uchar** ppmasp)
+Bool GetMasP(Handle hCPage,uchar* ImageName,Rect16 Rc,uchar** ppmasp)
 {
     int prewide;
 	int left=Rc.left;
@@ -718,7 +718,7 @@ void InitRc(Rect16* pRc,int nRC,CCOM_comp * pcomp)
 			 #define VOID
 			 #endif
 			 extern "C" {
-			 WINBASEAPI BOOL WINAPI IsDebuggerPresent(VOID);
+			 WINBASEAPI Bool WINAPI IsDebuggerPresent(VOID);
 			 }
 
 			 // остановка под отладчиком:
@@ -730,7 +730,7 @@ void InitRc(Rect16* pRc,int nRC,CCOM_comp * pcomp)
 // <--= отладочная вставка для слежения за качеством заплатки
 //////////////////////////////////////////////////////////////////////////
 
-BOOL InitStrMas(Rect16** ppRc,int len)
+Bool InitStrMas(Rect16** ppRc,int len)
 {
 	if (NULL != *ppRc)
 	{
@@ -767,7 +767,7 @@ BOOL InitStrMas(Rect16** ppRc,int len)
 	return TRUE;
 }
 
-BOOL InitStrMas(CCOM_comp*** ppRc,int len)
+Bool InitStrMas(CCOM_comp*** ppRc,int len)
 {
 	(*ppRc)=NULL;
 	if(!((*ppRc)=new CCOM_comp*[len]))
@@ -788,7 +788,7 @@ void DelStrMas(CCOM_comp** masp)
 	delete[] masp;
 }
 
-BOOL AddLenStrMas(Rect16** ppRc,int& len,int add)
+Bool AddLenStrMas(Rect16** ppRc,int& len,int add)
 {
  Rect16 *dop = NULL;
  int i;
@@ -810,7 +810,7 @@ BOOL AddLenStrMas(Rect16** ppRc,int& len,int add)
  return TRUE;
 }
 
-BOOL AddLenStrMas(CCOM_comp*** ppRc,int& len,int add)
+Bool AddLenStrMas(CCOM_comp*** ppRc,int& len,int add)
 {
  CCOM_comp** dop;
  int i;
@@ -832,7 +832,7 @@ BOOL AddLenStrMas(CCOM_comp*** ppRc,int& len,int add)
 
 
 
-void SortLetter(CCOM_comp** ppComp,int n,BOOL vert)
+void SortLetter(CCOM_comp** ppComp,int n,Bool vert)
 {
  CCOM_comp* comp;
  int j,i;

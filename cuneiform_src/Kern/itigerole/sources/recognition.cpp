@@ -128,7 +128,7 @@ CRecognition::CRecognition()
 
 CRecognition::~CRecognition()
 {
-	BOOL rc;
+	Bool rc;
 
 	if(IsOpen())
 		XClose(&rc);
@@ -217,7 +217,7 @@ STDMETHODIMP CRecognition::put_Language(short newVal)
 	return RCODE_VAL;
 }
 
-STDMETHODIMP CRecognition::get_Speller(BOOL *pVal)
+STDMETHODIMP CRecognition::get_Speller(Bool *pVal)
 {
 	// TODO: Add your implementation code here
 	TEST_ON_LOAD;
@@ -225,7 +225,7 @@ STDMETHODIMP CRecognition::get_Speller(BOOL *pVal)
 	return S_OK;
 }
 
-STDMETHODIMP CRecognition::put_Speller(BOOL newVal)
+STDMETHODIMP CRecognition::put_Speller(Bool newVal)
 {
 	// TODO: Add your implementation code here
 	TEST_ON_LOAD;
@@ -233,7 +233,7 @@ STDMETHODIMP CRecognition::put_Speller(BOOL newVal)
 	return S_OK;
 }
 
-STDMETHODIMP CRecognition::get_OneColumn(BOOL *pVal)
+STDMETHODIMP CRecognition::get_OneColumn(Bool *pVal)
 {
 	// TODO: Add your implementation code here
 	TEST_ON_LOAD;
@@ -241,7 +241,7 @@ STDMETHODIMP CRecognition::get_OneColumn(BOOL *pVal)
 	return S_OK;
 }
 
-STDMETHODIMP CRecognition::put_OneColumn(BOOL newVal)
+STDMETHODIMP CRecognition::put_OneColumn(Bool newVal)
 {
 	// TODO: Add your implementation code here
 	TEST_ON_LOAD;
@@ -249,7 +249,7 @@ STDMETHODIMP CRecognition::put_OneColumn(BOOL newVal)
 	return S_OK;
 }
 
-STDMETHODIMP CRecognition::get_Fax100(BOOL *pVal)
+STDMETHODIMP CRecognition::get_Fax100(Bool *pVal)
 {
 	// TODO: Add your implementation code here
 	TEST_ON_LOAD;
@@ -257,7 +257,7 @@ STDMETHODIMP CRecognition::get_Fax100(BOOL *pVal)
 	return S_OK;
 }
 
-STDMETHODIMP CRecognition::put_Fax100(BOOL newVal)
+STDMETHODIMP CRecognition::put_Fax100(Bool newVal)
 {
 	// TODO: Add your implementation code here
 	TEST_ON_LOAD;
@@ -265,7 +265,7 @@ STDMETHODIMP CRecognition::put_Fax100(BOOL newVal)
 	return S_OK;
 }
 
-STDMETHODIMP CRecognition::get_DotMatrix(BOOL *pVal)
+STDMETHODIMP CRecognition::get_DotMatrix(Bool *pVal)
 {
 	// TODO: Add your implementation code here
 	TEST_ON_LOAD;
@@ -273,7 +273,7 @@ STDMETHODIMP CRecognition::get_DotMatrix(BOOL *pVal)
 	return S_OK;
 }
 
-STDMETHODIMP CRecognition::put_DotMatrix(BOOL newVal)
+STDMETHODIMP CRecognition::put_DotMatrix(Bool newVal)
 {
 	// TODO: Add your implementation code here
 	TEST_ON_LOAD;
@@ -299,7 +299,7 @@ STDMETHODIMP CRecognition::put_UserDictName(BSTR newVal)
 	return S_OK;
 }
 
-STDMETHODIMP CRecognition::get_Bold(BOOL *pVal)
+STDMETHODIMP CRecognition::get_Bold(Bool *pVal)
 {
 	// TODO: Add your implementation code here
 	TEST_ON_LOAD;
@@ -307,7 +307,7 @@ STDMETHODIMP CRecognition::get_Bold(BOOL *pVal)
 	return S_OK;
 }
 
-STDMETHODIMP CRecognition::put_Bold(BOOL newVal)
+STDMETHODIMP CRecognition::put_Bold(Bool newVal)
 {
 	// TODO: Add your implementation code here
 	TEST_ON_LOAD;
@@ -315,7 +315,7 @@ STDMETHODIMP CRecognition::put_Bold(BOOL newVal)
 	return S_OK;
 }
 
-STDMETHODIMP CRecognition::get_Italic(BOOL *pVal)
+STDMETHODIMP CRecognition::get_Italic(Bool *pVal)
 {
 	// TODO: Add your implementation code here
 	TEST_ON_LOAD;
@@ -323,7 +323,7 @@ STDMETHODIMP CRecognition::get_Italic(BOOL *pVal)
 	return S_OK;
 }
 
-STDMETHODIMP CRecognition::put_Italic(BOOL newVal)
+STDMETHODIMP CRecognition::put_Italic(Bool newVal)
 {
 	// TODO: Add your implementation code here
 	TEST_ON_LOAD;
@@ -331,7 +331,7 @@ STDMETHODIMP CRecognition::put_Italic(BOOL newVal)
 	return S_OK;
 }
 
-STDMETHODIMP CRecognition::get_Size(BOOL *pVal)
+STDMETHODIMP CRecognition::get_Size(Bool *pVal)
 {
 	// TODO: Add your implementation code here
 	TEST_ON_LOAD;
@@ -339,7 +339,7 @@ STDMETHODIMP CRecognition::get_Size(BOOL *pVal)
 	return S_OK;
 }
 
-STDMETHODIMP CRecognition::put_Size(BOOL newVal)
+STDMETHODIMP CRecognition::put_Size(Bool newVal)
 {
 	// TODO: Add your implementation code here
 	TEST_ON_LOAD;
@@ -347,7 +347,7 @@ STDMETHODIMP CRecognition::put_Size(BOOL newVal)
 	return S_OK;
 }
 
-STDMETHODIMP CRecognition::get_Format(BOOL *pVal)
+STDMETHODIMP CRecognition::get_Format(Bool *pVal)
 {
 	// TODO: Add your implementation code here
 	TEST_ON_LOAD;
@@ -355,7 +355,7 @@ STDMETHODIMP CRecognition::get_Format(BOOL *pVal)
 	return S_OK;
 }
 
-STDMETHODIMP CRecognition::put_Format(BOOL newVal)
+STDMETHODIMP CRecognition::put_Format(Bool newVal)
 {
 	// TODO: Add your implementation code here
 	TEST_ON_LOAD;
@@ -519,7 +519,7 @@ STDMETHODIMP CRecognition::GetReturnString(long rc, BSTR *str)
 	return RCODE_VAL;
 }
 
-STDMETHODIMP CRecognition::Load(BOOL *rc)
+STDMETHODIMP CRecognition::Load(Bool *rc)
 {
 	// TODO: Add your implementation code here
 	RCODE_CLEAR;
@@ -562,12 +562,12 @@ STDMETHODIMP CRecognition::Unload()
 	return RCODE_VAL;
 }
 
-STDMETHODIMP CRecognition::RecogDIBtoFile(long hDIB, BSTR FileName, short shFormat, short shCode, BOOL * rc)
+STDMETHODIMP CRecognition::RecogDIBtoFile(long hDIB, BSTR FileName, short shFormat, short shCode, Bool * rc)
 {
 	// TODO: Add your dispatch handler code here
 	RCODE_CLEAR;
 	USES_CONVERSION;
-	BOOL h = FALSE;
+	Bool h = FALSE;
 	TEST_ON_LOAD;
 
 	*rc = FALSE;
@@ -604,7 +604,7 @@ STDMETHODIMP CRecognition::EnumLanguage(short PrevLang, short *lpNextLang)
 	return RCODE_VAL;
 }
 
-STDMETHODIMP CRecognition::RecogDIBtoMemory(long hDIB,long *lphMem, short Format, short Code, BOOL *rc)
+STDMETHODIMP CRecognition::RecogDIBtoMemory(long hDIB,long *lphMem, short Format, short Code, Bool *rc)
 {
 	// TODO: Add your dispatch handler code here
 	RCODE_CLEAR;
@@ -665,7 +665,7 @@ LeaveCriticalSection(&Critical);
 return RCODE_VAL;
 }
 
-STDMETHODIMP CRecognition::RecogClipboard(BOOL *rc)
+STDMETHODIMP CRecognition::RecogClipboard(Bool *rc)
 {
 	// TODO: Add your implementation code here
 	char * hMem = NULL;
@@ -709,7 +709,7 @@ char * _GetTempPath( void )
 
 static HANDLE s_hDIB = NULL;
 
-STDMETHODIMP CRecognition::XOpen(long hDIB, BSTR FileName, BOOL *hRc)
+STDMETHODIMP CRecognition::XOpen(long hDIB, BSTR FileName, Bool *hRc)
 {
 	// TODO: Add your implementation code here
 	RCODE_CLEAR;
@@ -735,7 +735,7 @@ STDMETHODIMP CRecognition::XOpen(long hDIB, BSTR FileName, BOOL *hRc)
 	return RCODE_VAL;
 }
 
-STDMETHODIMP CRecognition::XClose( BOOL *rc)
+STDMETHODIMP CRecognition::XClose( Bool *rc)
 {
 	// TODO: Add your implementation code here
 	RCODE_CLEAR;
@@ -767,13 +767,13 @@ void __cdecl RecognitionThread( void * p)
 	EnterCriticalSection(&Critical);
 		CRecognition * pThis = (CRecognition *)p;
 		ResumeThread(pThis->hThread);
-		BOOL rc = _FinalRecognition();
+		Bool rc = _FinalRecognition();
 		pThis->Fire_EndThread(rc,pThis->nContext);
 	LeaveCriticalSection(&Critical);
 	_endthread();
 }
 
-STDMETHODIMP CRecognition::XRecognition( BOOL bThread, long context, BOOL *rc)
+STDMETHODIMP CRecognition::XRecognition( Bool bThread, long context, Bool *rc)
 {
 	// TODO: Add your implementation code here
 	RCODE_CLEAR;
@@ -828,12 +828,12 @@ STDMETHODIMP CRecognition::XRecognition( BOOL bThread, long context, BOOL *rc)
 	return RCODE_VAL;
 }
 
-STDMETHODIMP CRecognition::XSave( BSTR FileName, long format, long code, BOOL *rc)
+STDMETHODIMP CRecognition::XSave( BSTR FileName, long format, long code, Bool *rc)
 {
 return Save(NULL, FileName, format, code, FALSE, rc);
 }
 
-STDMETHODIMP CRecognition::XPageAnalysis( BOOL *rc)
+STDMETHODIMP CRecognition::XPageAnalysis( Bool *rc)
 {
 	// TODO: Add your implementation code here
 	RCODE_CLEAR;
@@ -1191,7 +1191,7 @@ STDMETHODIMP CRecognition::GetTableModeString(long nMode, BSTR *lpbstr)
 	return RCODE_VAL;
 }
 
-STDMETHODIMP CRecognition::XGetRotateDIB(long *phDIB, long *px0, long *py0, BOOL *rc)
+STDMETHODIMP CRecognition::XGetRotateDIB(long *phDIB, long *px0, long *py0, Bool *rc)
 {
 	// TODO: Add your implementation code here
 	RCODE_CLEAR;
@@ -1252,7 +1252,7 @@ STDMETHODIMP CRecognition::RenameImageFile(BSTR name)
 }
 //////////////////////////////////////////////////////////////////////////////
 
-STDMETHODIMP CRecognition::XSetTemplate(long nLeft, long nTop, long nRight, long nBottom, BOOL * rc)
+STDMETHODIMP CRecognition::XSetTemplate(long nLeft, long nTop, long nRight, long nBottom, Bool * rc)
 {
 	// TODO: Add your implementation code here
 	RCODE_CLEAR;
@@ -1348,7 +1348,7 @@ STDMETHODIMP CRecognition::put_CurrentEdPage(long newVal)
 	return RCODE_VAL;
 }
 
-STDMETHODIMP CRecognition::get_PreserveLineBreaks(BOOL *pVal)
+STDMETHODIMP CRecognition::get_PreserveLineBreaks(Bool *pVal)
 {
 	RCODE_CLEAR;
 	#if defined(__PUMA__)
@@ -1365,7 +1365,7 @@ STDMETHODIMP CRecognition::get_PreserveLineBreaks(BOOL *pVal)
 	return RCODE_VAL;
 }
 
-STDMETHODIMP CRecognition::put_PreserveLineBreaks(BOOL newVal)
+STDMETHODIMP CRecognition::put_PreserveLineBreaks(Bool newVal)
 {
 	RCODE_CLEAR;
 	#if defined(__PUMA__)
@@ -1382,7 +1382,7 @@ STDMETHODIMP CRecognition::put_PreserveLineBreaks(BOOL newVal)
 	return RCODE_VAL;
 }
 
-STDMETHODIMP CRecognition::Save(long hEdPage, BSTR FileName, long format, long code, BOOL bAppend, BOOL *rc)
+STDMETHODIMP CRecognition::Save(long hEdPage, BSTR FileName, long format, long code, Bool bAppend, Bool *rc)
 {
 	// TODO: Add your dispatch handler code here
 	// TODO: Add your implementation code here
@@ -1402,7 +1402,7 @@ STDMETHODIMP CRecognition::Save(long hEdPage, BSTR FileName, long format, long c
 	return RCODE_VAL;
 }
 
-STDMETHODIMP CRecognition::SaveToBSTR(long hEdPage, long format, long code, BSTR *lpBstr, BOOL *rc)
+STDMETHODIMP CRecognition::SaveToBSTR(long hEdPage, long format, long code, BSTR *lpBstr, Bool *rc)
 {
 	// TODO: Add your implementation code here
 	USES_CONVERSION;
@@ -1453,7 +1453,7 @@ STDMETHODIMP CRecognition::DeleteEdPage(long hEdPage)
 	return RCODE_VAL;
 }
 
-STDMETHODIMP CRecognition::SetSpecialProject(long nSpecPrj, /*[retval]*/ BOOL * ret)
+STDMETHODIMP CRecognition::SetSpecialProject(long nSpecPrj, /*[retval]*/ Bool * ret)
 {
 	TEST_ON_LOAD;
 	EnterCriticalSection(&Critical);
@@ -1471,7 +1471,7 @@ STDMETHODIMP CRecognition::SetSpecialProject(long nSpecPrj, /*[retval]*/ BOOL * 
 	return rc;
 }
 
-STDMETHODIMP CRecognition::XGetTemplate(long *lpnLeft, long *lpnTop, long *lpnRight, long *lpnBottom, BOOL *rc)
+STDMETHODIMP CRecognition::XGetTemplate(long *lpnLeft, long *lpnTop, long *lpnRight, long *lpnBottom, Bool *rc)
 {
 	RCODE_CLEAR;
 	#if defined(__PUMA__)

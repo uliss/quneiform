@@ -289,13 +289,13 @@ void CCrashHandler::GenerateErrorReport(PEXCEPTION_POINTERS pExInfo)
    DeleteFile(sTempFileName);
 }
 
-BOOL CCrashHandler::SaveReport(CExceptionReport&, LPCTSTR lpcszFile)
+Bool CCrashHandler::SaveReport(CExceptionReport&, LPCTSTR lpcszFile)
 {
    // let user more zipped report
    return (CopyFile(lpcszFile, CUtility::getSaveFileName(), TRUE));
 }
 
-BOOL CCrashHandler::MailReport(CExceptionReport&, LPCTSTR lpcszFile,
+Bool CCrashHandler::MailReport(CExceptionReport&, LPCTSTR lpcszFile,
                                LPCTSTR lpcszEmail, LPCTSTR lpcszDesc)
 {
    CMailMsg msg;

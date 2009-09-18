@@ -450,7 +450,7 @@ int p2_rotateRecRaster(RecRaster *rec,int ninc)
   return 1;
 }
 ///////////////
-void p2_TextWord(CSTR_rast  c,CSTR_rast stop, char *intxt,BOOL ansi)
+void p2_TextWord(CSTR_rast  c,CSTR_rast stop, char *intxt,Bool ansi)
 {
         CSTR_rast_attr attr;
         UniVersions     vers;
@@ -474,7 +474,7 @@ void p2_TextWord(CSTR_rast  c,CSTR_rast stop, char *intxt,BOOL ansi)
 
 }
 //////////////////
-void p2_FillTxt(CSTR_line cc,char *intxt,BOOL ansi)
+void p2_FillTxt(CSTR_line cc,char *intxt,Bool ansi)
 {
         CSTR_rast first=CSTR_GetFirstRaster(cc);
         CSTR_rast last=CSTR_GetLastRaster(cc);

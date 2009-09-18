@@ -163,11 +163,11 @@ static INT  gmax                    (PBYTE, INT, INT);
 static INT  gmin                    (PBYTE, INT, INT);
 static INT  vertsym                 (INT);
 static INT  centrsym                (INT);
-static BOOL increase                (PBYTE, INT, INT);
-static BOOL decrease                (PBYTE, INT, INT);
+static Bool increase                (PBYTE, INT, INT);
+static Bool decrease                (PBYTE, INT, INT);
 static INT  difference              (PBYTE, INT, INT);
 static INT  valley                  (PBYTE, INT, INT, INT);
-static BOOL fill                    (PBYTE, INT, INT, INT);
+static Bool fill                    (PBYTE, INT, INT, INT);
 static void oarecog                 (cell *);
 static void TYrecog                 (void);
 //static void put_two_case            (cell *, PCHAR);
@@ -176,19 +176,19 @@ static void put_ec_case             (cell *);
 static void make_hor_vert_ec        (void);
 static void make_hist_ec            (void);
 static void make_func_ec            (void);
-static BOOL not_AvanGard_a          (void);
-static BOOL middle_long_sharp_peak  (INT,   INT, INT);
-static BOOL pure_concave            (PBYTE, INT, INT, INT);
-static BOOL hole_in_func            (PBYTE, INT, INT, INT);
-// static BOOL hill_in_func            (PBYTE, INT, INT, INT);
-static BOOL flat_func               (PBYTE, INT, INT, INT);
+static Bool not_AvanGard_a          (void);
+static Bool middle_long_sharp_peak  (INT,   INT, INT);
+static Bool pure_concave            (PBYTE, INT, INT, INT);
+static Bool hole_in_func            (PBYTE, INT, INT, INT);
+// static Bool hill_in_func            (PBYTE, INT, INT, INT);
+static Bool flat_func               (PBYTE, INT, INT, INT);
 static void ecrecog                 (void);
 static BYTE filled_head             (void);
 #define FH_Y_FILLED                 1
 #define FH_N_FILLED                 2
 #define FH_NO_IDEA                  0
 static void cell_versions_to_text   (cell *);
-static BOOL not_letter              (cell *);
+static Bool not_letter              (cell *);
 
 static INT  oa_accent_removing      ( cell *srC );
 static void oa_accent_restoring     ( cell *resC );
@@ -646,7 +646,7 @@ static void TYrecog ()
 //
 {
  INT from, to, shift, jmp;
- BOOL rc;
+ Bool rc;
 
 
    TYprop  = 0; from = 1; to = dx - 1; jmp = 1;
@@ -735,7 +735,7 @@ static INT check_two_case (cell *C, PCHAR c)
 
 #include "il1tgh.c"
 
-static BOOL flat_func (PBYTE func, INT from, INT to, INT jump)
+static Bool flat_func (PBYTE func, INT from, INT to, INT jump)
 {
     INT i;
 
@@ -782,7 +782,7 @@ static INT valley (PBYTE func, INT from, INT to, INT percent)
                                                 return 1;
 }
 
-static BOOL fill (PBYTE func, INT from, INT to, INT percent)
+static Bool fill (PBYTE func, INT from, INT to, INT percent)
 //
 //	This procedure checks whether given region is close to constant.
 //
@@ -898,7 +898,7 @@ fin:;
     }
 }
 
-static BOOL not_AvanGard_a()
+static Bool not_AvanGard_a()
  {
  INT m;
 
@@ -1068,7 +1068,7 @@ static void make_func_ec ()
     nfunc = MIN (nfunc, MAX_NEW_FUNC);
 }
 
-static BOOL middle_long_sharp_peak (INT nf, INT from, INT to)
+static Bool middle_long_sharp_peak (INT nf, INT from, INT to)
 {
     INT i, i1;
 
@@ -1084,7 +1084,7 @@ static BOOL middle_long_sharp_peak (INT nf, INT from, INT to)
                                                 return FALSE;
 }
 
-static BOOL pure_concave (PBYTE f, INT from, INT to, INT jmp)
+static Bool pure_concave (PBYTE f, INT from, INT to, INT jmp)
 {
     INT i, j, fl;
 
@@ -1108,7 +1108,7 @@ static BOOL pure_concave (PBYTE f, INT from, INT to, INT jmp)
                                                 return FALSE;
 }
 
-static BOOL hole_in_func (PBYTE f, INT from, INT to, INT jmp)
+static Bool hole_in_func (PBYTE f, INT from, INT to, INT jmp)
 {
     INT  min;
     min = gmin ( f, from, to );
@@ -1119,7 +1119,7 @@ static BOOL hole_in_func (PBYTE f, INT from, INT to, INT jmp)
 }
 
 /*
-static BOOL hill_in_func (PBYTE f, INT from, INT to, INT jmp)
+static Bool hill_in_func (PBYTE f, INT from, INT to, INT jmp)
 {
     INT  max;
     max = gmax ( f, from, to );
@@ -1310,7 +1310,7 @@ static void cell_versions_to_text (cell *C)
     }
 }
 
-static BOOL not_letter(cell * C)
+static Bool not_letter(cell * C)
 {
   extern INT sMALL_SIZE;
      B_LINES bl;

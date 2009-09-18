@@ -158,7 +158,7 @@ typedef struct tagRSPreProcessImage
 
 Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual);
 
-//  BOOL APIENTRY DllMain( HANDLE hModule,
+//  Bool APIENTRY DllMain( HANDLE hModule,
 //                         uint32_t  ul_reason_for_call,
 //                         LPVOID lpReserved
 //  				  )
@@ -451,7 +451,7 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
 			{
 				*Image->pgneed_clean_line = FALSE;
 				CLINE_handle hCLINE=*((CLINE_handle*)(Image->phCLINE));
-				BOOL fl_break=FALSE;
+				Bool fl_break=FALSE;
 				for(CLINE_handle hline=CLINE_GetFirstLine(hCLINE);hline;hline=CLINE_GetNextLine(hline))
 				{
 					CPDLine cpdata=CLINE_GetLineData(hline);
@@ -590,7 +590,7 @@ int SL_IsInPoly(Point32* a, CLINE_SL_POLY* p)
     return 0;
 }
 
-BOOL SL_IsPointInAB(Point32 *P,Point32 *A,Point32 *B)
+Bool SL_IsPointInAB(Point32 *P,Point32 *A,Point32 *B)
 {
     return FALSE;
 }
@@ -631,16 +631,16 @@ void   Transpose_bit_matrixes(PCHAR buf_in,PCHAR buf_out, Rect32* rect)
 {
 }
 
-BOOL GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, PCHAR  pRaster, BOOL FlagVerticalLine)
+Bool GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, PCHAR  pRaster, Bool FlagVerticalLine)
 {
     return TRUE;
 }
 
-void   FillingStripes(CLINE_handle line, int y, INT Count, WORD* pIntervals, BOOL FlagVerticalLine, DLine* pCLine)
+void   FillingStripes(CLINE_handle line, int y, INT Count, WORD* pIntervals, Bool FlagVerticalLine, DLine* pCLine)
 {
 }
 
-void   CheckDotLines(DLine* pCLine, BOOL FlagVerticalLine)
+void   CheckDotLines(DLine* pCLine, Bool FlagVerticalLine)
 {
 }
 
@@ -652,7 +652,7 @@ void   TypeStripe(CLINE_handle hStripe, DEvent* pStripe)
 {
 }
 
-BOOL   GetLineFragments(CLINE_handle line, DLine* pCLine)
+Bool   GetLineFragments(CLINE_handle line, DLine* pCLine)
 {
     return TRUE;
 }

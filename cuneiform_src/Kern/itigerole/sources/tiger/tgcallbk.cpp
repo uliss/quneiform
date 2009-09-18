@@ -313,7 +313,7 @@ lth=lth;
 return TRUE;
 }
 
-FNBOOL Tiger_Callback_Get_One_Word (LPSTR Buffer )
+FNBool Tiger_Callback_Get_One_Word (LPSTR Buffer )
 {
 	return TRUE;
 }

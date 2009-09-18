@@ -103,7 +103,7 @@ static BYTE Only_symbols[257]={
 //////////////////////////////////////////////////////////////////////////////////////
 //
 extern  BYTE    line_alphabet;
-static BOOL proplet_tg(BYTE let)
+static Bool proplet_tg(BYTE let)
 {
 
 	extern BYTE NO_Punct;
@@ -314,9 +314,9 @@ static BOOL proplet_tg(BYTE let)
 	return TRUE;
 }
 
-BOOL proplet(BYTE let)
+Bool proplet(BYTE let)
 {
-BOOL rc = proplet_tg(let) ;
+Bool rc = proplet_tg(let) ;
 if( !alpha_used_mode )
     return rc;
 return (alphabet[let] && rc);

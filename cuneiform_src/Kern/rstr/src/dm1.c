@@ -101,7 +101,7 @@ static CHAR madeBOX;
 #ifdef NEW_TM    //10.4.95
  static INT TM_suspect(INT position, cell *c);
 #endif
-static BOOL is_comma(cell *c, INT bases3);
+static Bool is_comma(cell *c, INT bases3);
 static void delcels(all_cells *);
 static INT colcels(all_cells *,MN *,cell *,cell *,INT);
 static INT forest(cell *,INT,INT);
@@ -2765,7 +2765,7 @@ return c->vers[0].prob;
 }
 #endif
 
-BOOL is_comma(cell *c, INT bases3)
+Bool is_comma(cell *c, INT bases3)
 {
  uint32_t    d;
  INT      ll, n, h, i;
