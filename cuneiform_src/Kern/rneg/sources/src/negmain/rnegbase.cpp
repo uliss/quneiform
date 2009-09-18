@@ -109,7 +109,7 @@ int NegRecTYPEE=0;
 
 Bool APIENTRY DllMain( HANDLE hModule,
 uint32_t ul_reason_for_call,
-                        pvoid lpReserved )
+                        LPVOID lpReserved )
 {
     switch( ul_reason_for_call )
 	{
@@ -127,7 +127,7 @@ uint32_t ul_reason_for_call,
 
 /*----------------------------------------------------------------------------*/
 
-RNEG_FUNC(Bool32) RNEG_Init(uint16_t wHeightCode,Handle parent)
+RNEG_FUNC(Bool32) RNEG_Init(Word16 wHeightCode,Handle parent)
 {
  LDPUMA_Init(0,NULL);
 
@@ -323,17 +323,17 @@ RNEG_FUNC(Bool32) RNEG_Done()
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-RNEG_FUNC(uint32_t) RNEG_GetReturnCode()
+RNEG_FUNC(Word32) RNEG_GetReturnCode()
 {
-	return (uint32_t)(0);
+	return (Word32)(0);
 }
 /*---------------------------------------------------------------------------*/
-RNEG_FUNC(char *) RNEG_GetReturnString(uint32_t dwError)
+RNEG_FUNC(Int8 *) RNEG_GetReturnString(Word32 dwError)
 {
 	return NULL;
 }
 /*---------------------------------------------------------------------------*/
-RNEG_FUNC(Bool32) RNEG_GetExportData(uint32_t dwType, void * pData)
+RNEG_FUNC(Bool32) RNEG_GetExportData(Word32 dwType, void * pData)
 {
 
 
@@ -352,7 +352,7 @@ RNEG_FUNC(Bool32) RNEG_GetExportData(uint32_t dwType, void * pData)
 }
 
 /*---------------------------------------------------------------------------*/
-RNEG_FUNC(Bool32) RNEG_SetImportData(uint32_t dwType, void *pData)
+RNEG_FUNC(Bool32) RNEG_SetImportData(Word32 dwType, void *pData)
 {
 
 	return FALSE;

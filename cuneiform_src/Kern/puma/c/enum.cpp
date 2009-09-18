@@ -232,8 +232,8 @@ long _EnumLanguage(long prev)
             if(enumLanguage[i]==next)
             {
                 next = enumLanguage[i + 1];
-                //              if(REXC_IsLanguage((uchar)next) && RSTR_IsLanguage((uchar)next) )
-                if(RRECCOM_IsLanguage((uchar)next) && RSTR_IsLanguage((uchar)next) )
+                //              if(REXC_IsLanguage((Word8)next) && RSTR_IsLanguage((Word8)next) )
+                if(RRECCOM_IsLanguage((Word8)next) && RSTR_IsLanguage((Word8)next) )
                 {
                     rc = next;
                     break;

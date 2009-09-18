@@ -79,34 +79,34 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define NAME_RTP "rec2r&e.dat"
 #endif
 //-------------- FROM DIF.DLL
-extern Bool32 DIF_SetLanguage(uchar lang);
+extern Bool32 DIF_SetLanguage(Word8 lang);
 static evn_error_code=ER_EVN_NO_ERROR;
 static  char    load_tab1[256], load_tab2[256];
 char alphabet[256];
-uchar   language;
+Word8   language;
 Bool32  enable_save_stat=FALSE;
-uchar   save_event_txt[36],save_eventr_txt[36];
-uchar   save_event_txts[80],save_eventr_txts[80];
-uchar *events_treeh=NULL, *events_tree_rth=NULL;  // event tables hnd
-uchar *events_treep=NULL, *events_tree_rtp=NULL;  // event tables prn
-uchar *events_tree=NULL,  *events_tree_rt=NULL;  // event tables
+Word8   save_event_txt[36],save_eventr_txt[36];
+Word8   save_event_txts[80],save_eventr_txts[80];
+Word8 *events_treeh=NULL, *events_tree_rth=NULL;  // event tables hnd
+Word8 *events_treep=NULL, *events_tree_rtp=NULL;  // event tables prn
+Word8 *events_tree=NULL,  *events_tree_rt=NULL;  // event tables
 extern c_comp wcomp;         // working component structure
 extern version* start_rec;   // ptr to answer
-extern uchar lpool[];
-extern uchar evline[], evline1[];
+extern Word8 lpool[];
+extern Word8 evline[], evline1[];
 
-extern MN * c_locomp (uchar* raster, int32_t bw, int32_t h, int16_t upper, int16_t left);
+extern MN * c_locomp (Word8* raster, int32_t bw, int32_t h, Int16 upper, Int16 left);
 extern void MN_to_line(MN *);
 extern int32_t recog_letter(void);
-extern int32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, uchar *lp,uint16_t lth);
+extern int32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, Word8 *lp,Word16 lth);
 
 
-static void *EvnAlloc(uint32_t len) { return malloc(len); }
-static void  EvnFree(void *ptr,uint32_t len) { free(ptr); }
+static void *EvnAlloc(Word32 len) { return malloc(len); }
+static void  EvnFree(void *ptr,Word32 len) { free(ptr); }
 static int32_t GetFileLength(int32_t handle) { return filelength(handle);}
 
-static void* (*my_alloc)(uint32_t len)=EvnAlloc;
-static void  (*my_free)(void *ptr,uint32_t len)=EvnFree;
+static void* (*my_alloc)(Word32 len)=EvnAlloc;
+static void  (*my_free)(void *ptr,Word32 len)=EvnFree;
 int32_t evn_close(void)
 {
 if( events_treeh )
@@ -144,7 +144,7 @@ int32_t evn_tab_init( void )
     return 0;
     }
   size=GetFileLength(h);
-  events_treeh=(uchar *)my_alloc( size );
+  events_treeh=(Word8 *)my_alloc( size );
   if( !events_treeh )
     {
     evn_error_code = ER_EVN_MEMORY;
@@ -169,7 +169,7 @@ int32_t evn_tab_init( void )
     return 0;
     }
   size=GetFileLength(h);
-  events_tree_rth=(char *)my_alloc( size );
+  events_tree_rth=(Int8 *)my_alloc( size );
   if( !events_tree_rth )
     {
     evn_error_code = ER_EVN_MEMORY;
@@ -202,7 +202,7 @@ int32_t evn_tab_init_prn(const char *file1, const char *file2 )
     return 0;
     }
   size=GetFileLength(h);
-  events_treep=(char *)my_alloc( size );
+  events_treep=(Int8 *)my_alloc( size );
   if( !events_treep )
     {
     evn_error_code = ER_EVN_MEMORY;
@@ -227,7 +227,7 @@ int32_t evn_tab_init_prn(const char *file1, const char *file2 )
     return 0;
     }
   size=GetFileLength(h);
-  events_tree_rtp=(char *)my_alloc( size );
+  events_tree_rtp=(Int8 *)my_alloc( size );
   if( !events_tree_rtp )
     {
     evn_error_code = ER_EVN_MEMORY;
@@ -247,7 +247,7 @@ int32_t evn_tab_init_prn(const char *file1, const char *file2 )
 
 
 int evn_active=0, evn_active_prn=0;
-uchar ev_rt_num_ln,ev_num_ln;
+Word8 ev_rt_num_ln,ev_num_ln;
 EVN_FUNC(Bool32)  EVNInitHND( MemFunc* mem )
 {
 if(	mem )
@@ -288,7 +288,7 @@ return ( EVNInitPRN(mem) & EVNInitHND(mem) );
 }
 
 
-EVN_FUNC(Bool32) EVNInitLanguage(const char *tabevn1, const char *tabevn2, uchar lang)
+EVN_FUNC(Bool32) EVNInitLanguage(const char *tabevn1, const char *tabevn2, Word8 lang)
 {
 
 if( evn_active_prn && language!=lang &&
@@ -307,7 +307,7 @@ language=lang; // store new lang code
 return evn_active_prn;
 }
 
-EVN_FUNC(Bool32) EVNSetLanguage( uchar lang)
+EVN_FUNC(Bool32) EVNSetLanguage( Word8 lang)
 {
 language=lang;
 DIF_SetLanguage(lang);
@@ -331,7 +331,7 @@ if( evn_active_prn )
 return ;
 }
 
-EVN_FUNC(int16_t) EVNGetErr(void)
+EVN_FUNC(Int16) EVNGetErr(void)
 {
 return evn_error_code;
 }
@@ -366,7 +366,7 @@ ev_num_ln= MIN(mn->mnlines,15)<<4;
 nvers = 0;
 nvers = recog_letter();   // to recognize
 for(nvers1=0,i=0;i<nvers;i++)
-	if(	alphabet[   (uchar)(start_rec+i)->let ] )
+	if(	alphabet[   (Word8)(start_rec+i)->let ] )
 		nvers1++;
 
 if( !nvers )
@@ -379,9 +379,9 @@ if( !nvers )
 res->lnAltCnt = nvers;
 for(ii=i=0;i<nvers&&ii<res->lnAltMax;i++)
 	{
-	if( alphabet[   (uchar)start_rec->let ] )
+	if( alphabet[   (Word8)start_rec->let ] )
 		{
-		res->Alt[ii].Code     = (uchar)start_rec->let;
+		res->Alt[ii].Code     = (Word8)start_rec->let;
 		res->Alt[ii].CodeExt  = 0;
         res->Alt[ii].Prob     = 126 + ((ev_num_ln>4*16)+(ev_rt_num_ln>4)+(nvers1==1))*43;
 		res->Alt[ii].Method   = REC_METHOD_EVN;
@@ -432,24 +432,24 @@ return i;
 
 }
 
-uchar evn_multy_lpool[6000+2];
-EVN_FUNC(uchar *)  EVNMakeLine( RecRaster   *rRaster , int32_t parm)
+Word8 evn_multy_lpool[6000+2];
+EVN_FUNC(Word8 *)  EVNMakeLine( RecRaster   *rRaster , int32_t parm)
 {
 MN *mn=NULL;
-uchar  *lp, *lpin, *lpend=(uchar*)(evn_multy_lpool+6000);
-uint16_t  len,lall;
+Word8  *lp, *lpin, *lpend=(Word8*)(evn_multy_lpool+6000);
+Word16  len,lall;
 
 mn = c_locomp(rRaster->Raster,REC_GW_WORD8(rRaster->lnPixWidth),rRaster->lnPixHeight,0,0);
 if( parm==1 )
     {
     if( mn != NULL && mn->mnnext==NULL )
         {
-        lp   = (uchar*)evn_multy_lpool;
+        lp   = (Word8*)evn_multy_lpool;
         lpin = lpool;
         MN_to_line(mn);
         while(1){
-            lpin[4] += (uchar)mn->mnupper;
-            len = *((uint16_t*)lpin);
+            lpin[4] += (Word8)mn->mnupper;
+            len = *((Word16*)lpin);
             if( len==0 )
                 break;
             if( lp+len>=lpend )
@@ -468,13 +468,13 @@ else if( parm==0 )
     {
     if( mn != NULL )
         {
-        lp   = (uchar*)evn_multy_lpool;
+        lp   = (Word8*)evn_multy_lpool;
         do  {
             lpin = lpool;
             MN_to_line(mn);
             while(1)    {
-                lpin[4] += (uchar)mn->mnupper;
-                len = *((uint16_t*)lpin);
+                lpin[4] += (Word8)mn->mnupper;
+                len = *((Word16*)lpin);
                 if( len==0 )
                     break;
                 if( lp+len>=lpend )
@@ -486,7 +486,7 @@ else if( parm==0 )
             }
             while( (mn=mn->mnnext)!=NULL );
         lp[1]=lp[0]=0;
-        lp = (uchar*)evn_multy_lpool;
+        lp = (Word8*)evn_multy_lpool;
         }
     else
         lp = NULL;
@@ -495,14 +495,14 @@ else if( parm==2 )
     {
     if( mn != NULL )
         {
-        lp   = (uchar*)&evn_multy_lpool[2];
+        lp   = (Word8*)&evn_multy_lpool[2];
         lall=0;
         do  {
             lpin = lpool;
             MN_to_line(mn);
             while(1)    {
-                lpin[4] += (uchar)mn->mnupper;
-                len = *((uint16_t*)lpin);
+                lpin[4] += (Word8)mn->mnupper;
+                len = *((Word16*)lpin);
                 if( len==0 )
                     break;
                 if( lp+len>=lpend )
@@ -517,8 +517,8 @@ else if( parm==2 )
         lp[1]=lp[0]=0;
         lp[3]=lp[2]=0;
         //lp[5]=lp[4]=0;
-        lp = (uchar*)evn_multy_lpool;
-        *((uint16_t*)lp)=lall+2 ;
+        lp = (Word8*)evn_multy_lpool;
+        *((Word16*)lp)=lall+2 ;
         }
     else
         lp = NULL;
@@ -528,9 +528,9 @@ return lp;
 
 EVN_FUNC(int32_t)  EVNGetRepresent(
       RecRaster   *rRaster,
-      uchar *evn, uchar *evn_rot, int32_t font              )
+      Word8 *evn, Word8 *evn_rot, int32_t font              )
 {
-uchar   *tmp, four[6], c;
+Word8   *tmp, four[6], c;
 int     i,nvers1,nvers;
 MN      *mn=NULL;
 mn = c_locomp(rRaster->Raster,REC_GW_WORD8(rRaster->lnPixWidth),rRaster->lnPixHeight,0,0);
@@ -589,14 +589,14 @@ for(i=0;save_eventr_txts[i];i++)
     if(	alphabet[ save_eventr_txts[i] ] )
         tmp += sprintf(tmp,"%c",save_eventr_txts[i]);
 for(nvers1=0,i=0;i<nvers;i++)
-	if(	alphabet[   (uchar)(start_rec+i)->let ] )
+	if(	alphabet[   (Word8)(start_rec+i)->let ] )
 		nvers1++;
 
 return nvers1;
 }
 
-EVN_FUNC(int32_t)  EVNRecog_lp(  /*ExtComponent*/CCOM_comp *ec, uchar   *lp, uint16_t lth,
-                               uchar   *res    )
+EVN_FUNC(int32_t)  EVNRecog_lp(  /*ExtComponent*/CCOM_comp *ec, Word8   *lp, Word16 lth,
+                               Word8   *res    )
 {
 int32_t     nvers, i, ii;
 
@@ -617,23 +617,23 @@ if( !nvers )
 
 for(ii=i=0;i<nvers;i++,	start_rec++)
 	{
-	if( alphabet[   (uchar)start_rec->let ] )
-		res[ii++]    =  (uchar)start_rec->let ;
+	if( alphabet[   (Word8)start_rec->let ] )
+		res[ii++]    =  (Word8)start_rec->let ;
     }
 res[ii]=0;
 
 return ii;
 }
 
-EVN_FUNC(MN *) EVN_CLocomp (uchar* raster, int32_t bw, int32_t h, int16_t upper, int16_t left)
+EVN_FUNC(MN *) EVN_CLocomp (Word8* raster, int32_t bw, int32_t h, Int16 upper, Int16 left)
 {
 MN *m;
 left = MAX(0,left);
 m=c_locomp (raster,bw,h,upper,left);
 return m;
 }
-extern uchar* segment_pool;
-EVN_FUNC(uchar*) EVN_GetSegmentPool(void)
+extern Word8* segment_pool;
+EVN_FUNC(Word8*) EVN_GetSegmentPool(void)
 {
 return segment_pool;
 }

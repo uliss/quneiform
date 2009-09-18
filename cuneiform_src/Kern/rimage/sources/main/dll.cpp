@@ -70,8 +70,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-static uint16_t            gwHeightRC = 0;
-static uint16_t            gwLowRC = 0;
+static Word16            gwHeightRC = 0;
+static Word16            gwLowRC = 0;
 static Handle            ghStorage = NULL;
 static Handle            ghInst =  NULL;
 CRIControl *      Control_cri = NULL;
@@ -81,7 +81,7 @@ Bool32 InitCFIOInterface(Bool32 Status);
 /////////////////////////////////////////
 Bool APIENTRY DllMain( HINSTANCE hModule,
                         uint32_t ul_reason_for_call,
-                        pvoid lpReserved )
+                        LPVOID lpReserved )
 {
     switch( ul_reason_for_call )
 	{
@@ -99,7 +99,7 @@ Bool APIENTRY DllMain( HINSTANCE hModule,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_Init(uint16_t wHeightCode,Handle hStorage)
+RIMAGE_FUNC(Bool32) RIMAGE_Init(Word16 wHeightCode,Handle hStorage)
 {
 
 	if ( !Control_cri )
@@ -159,19 +159,19 @@ RIMAGE_FUNC(Bool32)RIMAGE_Reset()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(uint32_t) RIMAGE_GetReturnCode()
+RIMAGE_FUNC(Word32) RIMAGE_GetReturnCode()
 {
 	if ( !gwLowRC )
 		return 0;
 
-	return (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_RIMAGE_ERR_NO);
+	return (Word32)(gwHeightRC<<16)|(gwLowRC - IDS_RIMAGE_ERR_NO);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(char *) RIMAGE_GetReturnString(uint32_t dwError)
+RIMAGE_FUNC(Int8 *) RIMAGE_GetReturnString(Word32 dwError)
 {
-	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_RIMAGE_ERR_NO;
-	static char szBuffer[512];
+	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_RIMAGE_ERR_NO;
+	static Int8 szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
 		gwLowRC = IDS_RIMAGE_ERR_NOTIMPLEMENT;
@@ -188,7 +188,7 @@ RIMAGE_FUNC(char *) RIMAGE_GetReturnString(uint32_t dwError)
 #define CASE_FUNCTION(a)	case RIMAGE_FN_##a:	*(FNRIMAGE##a *)pData = RIMAGE_##a; break
 //////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_GetExportData(uint32_t dwType, void * pData)
+RIMAGE_FUNC(Bool32) RIMAGE_GetExportData(Word32 dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -213,7 +213,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_GetExportData(uint32_t dwType, void * pData)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_SetImportData(uint32_t dwType, void * pData)
+RIMAGE_FUNC(Bool32) RIMAGE_SetImportData(Word32 dwType, void * pData)
 {
 	Bool rc = FALSE;
 	gwLowRC = IDS_RIMAGE_ERR_NOTIMPLEMENT;
@@ -241,14 +241,14 @@ RIMAGE_FUNC(Bool32) RIMAGE_SetImportData(uint32_t dwType, void * pData)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void SetReturnCode_rimage(uint16_t rc)
+void SetReturnCode_rimage(Word16 rc)
 {
 	if ( rc == IDS_RIMAGE_ERR_NO || gwLowRC == IDS_RIMAGE_ERR_NO )
 		gwLowRC = rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-uint16_t GetReturnCode_rimage()
+Word16 GetReturnCode_rimage()
 {
 	return gwLowRC;
 }

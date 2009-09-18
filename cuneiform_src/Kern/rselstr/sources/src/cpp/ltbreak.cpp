@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 extern Handle hNotWholeLine ;
 extern Handle hHystogramNull ;
-extern uint32_t ZagolovokBreakingCoeff;
+extern Word32 ZagolovokBreakingCoeff;
 
 
 # define MIN_BREAKED_BLOCK_HEIGHTES_WIDTH  4
@@ -100,7 +100,7 @@ void BlockHorzHystogramBuild (BLOCK *p)
     pHystogram =(int*) malloc ((nHystColumns + 1) * sizeof (int));
 
     if (pHystogram == NULL)
-        ErrorNoEnoughMemory ((uchar*)"in LTBREAK.C,BlockHorzHystogramBuild,part 1");
+        ErrorNoEnoughMemory ((Word8*)"in LTBREAK.C,BlockHorzHystogramBuild,part 1");
 
     memset (pHystogram, 0, (nHystColumns + 1) * sizeof (int));
 

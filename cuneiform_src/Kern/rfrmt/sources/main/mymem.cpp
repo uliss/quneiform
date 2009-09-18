@@ -67,8 +67,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 // extern functions
-void SetReturnCode_rfrmt(uint16_t rc);
-uint16_t GetReturnCode_rfrmt();
+void SetReturnCode_rfrmt(Word16 rc);
+Word16 GetReturnCode_rfrmt();
 
 //####################################
 void *	myAlloc(size_t stAllocateBlock)
@@ -110,7 +110,7 @@ Handle  myOpenRestore(char * lpName)
 }
 unsigned int  myWrite(Handle h,void * lpdata,unsigned int size)
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 #ifdef _DEBUG
 	rc = fwrite(lpdata,1,size,(FILE*)h);
 #endif
@@ -118,7 +118,7 @@ unsigned int  myWrite(Handle h,void * lpdata,unsigned int size)
 }
 unsigned int  myRead(Handle h,void * lpdata,unsigned int size)
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 #ifdef _DEBUG
 	rc = fread(lpdata,1,size,(FILE *)h);
 #endif

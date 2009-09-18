@@ -79,7 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 /////////////////////////////////
 
-# define __RGB__(r,g,b)          ((uint32_t)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
+# define __RGB__(r,g,b)          ((Word32)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
 
 /////////////////////////////////
 extern jmp_buf fatal_error_exit;	// For error handling
@@ -121,9 +121,9 @@ void PageLayoutStrings(Handle hCCOM,Handle hCPAGE)
 }
 /////////////////////////////////
 /*
-uint32_t myMonitorProc(Handle wnd,Handle hwnd,uint32_t message,uint32_t wParam,uint32_t lParam)
+Word32 myMonitorProc(Handle wnd,Handle hwnd,Word32 message,Word32 wParam,Word32 lParam)
 {
-	uint32_t rc = 0; // если обработка не состоялась
+	Word32 rc = 0; // если обработка не состоялась
 	switch(message)
 	{
 	case WM_LBUTTONDBLCLK:
@@ -215,8 +215,8 @@ if( s->nDust > s->nLetters*1 )
         if( com->w*com->h <15 )
             {
             CCOM_comp   com1=*com;
-            com1.upper=com1.upper-(int16_t)(nIncline*com1.left /2048);
-            com1.left =com1.left +(int16_t)(nIncline*com1.upper/2048);
+            com1.upper=com1.upper-(Int16)(nIncline*com1.left /2048);
+            com1.left =com1.left +(Int16)(nIncline*com1.upper/2048);
             if( com->left+com->w <= le )
                 {
                 nle++;
@@ -246,8 +246,8 @@ if( s->nDust > s->nLetters*1 )
                 if( filtr &&  com->w*com->h <15 )
                     {
                     CCOM_comp   com1=*com;
-                    com1.upper=com1.upper-(int16_t)(nIncline*com1.left /2048);
-                    com1.left =com1.left +(int16_t)(nIncline*com1.upper/2048);
+                    com1.upper=com1.upper-(Int16)(nIncline*com1.left /2048);
+                    com1.left =com1.left +(Int16)(nIncline*com1.upper/2048);
                     if( com1.upper>=left.top && com1.upper+com1.h<=left.bottom &&
                         com1.left>=left.left && com1.left+com1.w<=left.right )
                         continue;
@@ -265,7 +265,7 @@ if( s->nDust > s->nLetters*1 )
 					attr.r_col = com->left;
 					attr.flg   = CSTR_f_dust;
 					CSTR_SetAttr (rst, &attr);
-					CSTR_StoreComp (rst, (uchar*)com->linerep,1,com->scale);
+					CSTR_StoreComp (rst, (Word8*)com->linerep,1,com->scale);
                     if(com->vers )
 					CSTR_StoreCollection(rst, com->vers);
 					}
@@ -285,7 +285,7 @@ if( s->nDust > s->nLetters*1 )
 					attr.r_col = com->left;
 					attr.flg   = CSTR_f_let|CSTR_f_bad;
 					CSTR_SetAttr (rst, &attr);
- 					CSTR_StoreComp (rst, (uchar*)com->linerep,1,com->scale);
+ 					CSTR_StoreComp (rst, (Word8*)com->linerep,1,com->scale);
                     if( s->uFlags & CSTR_STR_CapDrop )
                         {
                         CCOM_comp       *ci=com;
@@ -294,7 +294,7 @@ if( s->nDust > s->nLetters*1 )
                         int32_t           n;
 
                         ub.code=CCOM_UB_CAPDROPLN;
-                        ub.data=(uchar*)&n;
+                        ub.data=(Word8*)&n;
                         if( CCOM_GetUserBlock(ci,&ub) )
                             CCOM_SetUserBlock(co,&ub);
                         }
@@ -316,7 +316,7 @@ static void LayoutFromCPAGE(Handle hCPAGE)
 	int nBlocks = FIRST_REGULAR_BLOCK_NUMBER;
 	Point16 pLeftTop, pRightTop, pLeftBottom, pRightBottom;
 	ROOT * pRoot = NULL;
-	uint32_t BlockNumber;
+	Word32 BlockNumber;
     // piter 08.07.99
 	PAGEINFO    PInfo = {0};
 
@@ -345,7 +345,7 @@ static void LayoutFromCPAGE(Handle hCPAGE)
 	h!=NULL;
 	h = CPAGE_GetBlockNext(hCPAGE,h,TYPE_TEXT))
 	{
-        uint32_t f = CPAGE_GetBlockFlags(hCPAGE,h);
+        Word32 f = CPAGE_GetBlockFlags(hCPAGE,h);
 		//BlockNumber = CPAGE_GetBlockUserNum(hCPAGE,h)*64000;// Piter 030399
 		if(CPAGE_GetBlockData(hCPAGE,h,TYPE_TEXT, &block, sizeof(block))!=sizeof(block))
 		{

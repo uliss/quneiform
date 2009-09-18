@@ -59,51 +59,51 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 struct vers_ref
     {
-    uchar   code;
-    uchar   prob;
+    Word8   code;
+    Word8   prob;
     };
 
 struct bit_map_ref
     {
-    uchar code;
-    uchar pos;
-    uint16_t row;
-    uint16_t col;
-    uint16_t width;
-    uint16_t height;
+    Word8 code;
+    Word8 pos;
+    Word16 row;
+    Word16 col;
+    Word16 width;
+    Word16 height;
     } ;
 
 struct fragm_disk
     {
-    uchar code;
-    uchar fragm_numb;
-    uint16_t depth;
+    Word8 code;
+    Word8 fragm_numb;
+    Word16 depth;
     } ;
 
 struct fragm_disk_descr
     {
-    uchar code;
-    uint16_t row;
-    uint16_t col;
-    uint16_t height;
-    uint16_t w_width;
-    char   type;
-    uchar  kegl;
-    uchar  font;
-    uchar  language;
-    uchar  type_underl;
+    Word8 code;
+    Word16 row;
+    Word16 col;
+    Word16 height;
+    Word16 w_width;
+    Int8   type;
+    Word8  kegl;
+    Word8  font;
+    Word8  language;
+    Word8  type_underl;
     } ;
 
 struct sheet_disk_descr
     {
-    uchar code;
-    char quant_fragm;
-    uint16_t sheet_numb;
-    uint16_t descr_lth;
-    uchar byte_flag;
-    uint16_t resolution;
-    uint16_t  incline;
-    char tabl[13];
+    Word8 code;
+    Int8 quant_fragm;
+    Word16 sheet_numb;
+    Word16 descr_lth;
+    Word8 byte_flag;
+    Word16 resolution;
+    Word16  incline;
+    Int8 tabl[13];
     } ;
 
 #endif

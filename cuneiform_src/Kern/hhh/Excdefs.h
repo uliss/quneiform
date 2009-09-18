@@ -72,17 +72,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //-------------------- component in kit --------------------------
 typedef struct tagExtComponent
 {
- uint16_t size;             // size of component in bytes (head + body)
+ Word16 size;             // size of component in bytes (head + body)
                           // NOTE: in tiger.dll - in paragraphs >=3
                           // can be used to step to next comp
  /////////////////////////////////// in image coords, not ideal
- int16_t upper;             // upper boundary of component
- int16_t left;              // left boundary of component
- int16_t h;                 // height of component
- int16_t w;                 // width of component
+ Int16 upper;             // upper boundary of component
+ Int16 left;              // left boundary of component
+ Int16 h;                 // height of component
+ Int16 w;                 // width of component
  ///////////////////////////////////////////////////////////////
- uchar rw;               // raster width in bytes  == (w+7)/8
- uchar type;             // recognition type
+ Word8 rw;               // raster width in bytes  == (w+7)/8
+ Word8 type;             // recognition type
 #define ch_perfect    1     // perfect type defined
 #define ch_letter     2     // letter type
 #define ch_dust       4     // dust type
@@ -91,17 +91,17 @@ typedef struct tagExtComponent
 #define ch_great     32     // great component
 #define ch_merge     64     // merged components
 #define ch_notltr   128     // not letter or punctuation
- uchar cs;              // recognition case (see bellow)        *
- uchar pidx;            // proportional index (ref.)            *
- int16_t nvers;           // number of alternative versions, 0 - none !!
- int16_t records;         // recognition records offset, 0 - none     !!
- int16_t lines;           // ptr to line representation, 0 - never
+ Word8 cs;              // recognition case (see bellow)        *
+ Word8 pidx;            // proportional index (ref.)            *
+ Int16 nvers;           // number of alternative versions, 0 - none !!
+ Int16 records;         // recognition records offset, 0 - none     !!
+ Int16 lines;           // ptr to line representation, 0 - never
                         // p_body == (char*)p_comp + lines;
- int16_t nl;               // number of lines
- uchar begs;             // number of free begins
- uchar ends;             // number of free ends
- uchar reasno;           // proportional criteria messages
- uchar large;            // large type
+ Int16 nl;               // number of lines
+ Word8 begs;             // number of free begins
+ Word8 ends;             // number of free ends
+ Word8 reasno;           // proportional criteria messages
+ Word8 large;            // large type
 #define REXC_ch_underlined   0x01       // component was underlined
 #define REXC_ch_taken        0x02       // taken to line at dust_ini
 // Almi added //
@@ -115,8 +115,8 @@ typedef struct tagExtComponent
 //#define el_vert_big      32     // more than anyone letter
 //#define el_hori_big      64     // extremely long
 ////////////////
- uchar scale;                    // scale of the component
- uchar begends;
+ Word8 scale;                    // scale of the component
+ Word8 begends;
  int32_t dens;
 } ExtComponent;
 
@@ -132,12 +132,12 @@ typedef struct tagExtComponent
 // dust_comp in H\struct.h OLD TIGER
 typedef struct tagExtCompDust // currently not used
 {
-  uint16_t size;            // =1
-  int16_t  upper;
-  int16_t  left;
-  uchar h;               // >0
-  uchar w;               // >0
-  uchar raster[8];
+  Word16 size;            // =1
+  Int16  upper;
+  Int16  left;
+  Word8 h;               // >0
+  Word8 w;               // >0
+  Word8 raster[8];
 } ExtCompDust;
 
 
@@ -151,12 +151,12 @@ typedef struct tagExtCompDust // currently not used
 //      line header
 typedef struct tagExtLnHead
 {
- int16_t lth;       // length of one line representation,
+ Int16 lth;       // length of one line representation,
                   // ==head+intervals size in bytes
- int16_t h;         // height of line == count of intervals
- int16_t row;       // relative row of line start
+ Int16 h;         // height of line == count of intervals
+ Int16 row;       // relative row of line start
                   // (offset in pixels from top bound of comp, 0 based)
- uint16_t flg;       // flags of free beg and free end
+ Word16 flg;       // flags of free beg and free end
 #define l_fbeg          0x20
 #define l_fend          0x80
 #define l_cbeg          0x02
@@ -168,8 +168,8 @@ typedef struct tagExtLnHead
 //      one interval
 typedef struct tagExtInterval
 {
- uchar l;        // length of interval
- uchar e;        // end of interval from left bound of comp in pixels
+ Word8 l;        // length of interval
+ Word8 e;        // end of interval from left bound of comp in pixels
                  // so, start == e-l, relatively to left bound of comp
          //beg = inter->e - inter->l;
          //end = inter->e - 1;
@@ -181,15 +181,15 @@ typedef struct tagExtInterval
 // pool:
 // 1. if    Ex_ExtraComp pool has following structure:
 //      <ExtComponent>
-//      <unused uint16_t>
+//      <unused Word16>
 //      <ExtLnHead>, <interval[]>
 //      <ExtLnHead>, <interval[]>
 //      ......................
 //      <ExtLnHead>   // <= ln_head.lth == 0 ( terminator )
 // where:
 //       <c_comp>, <lnhead>, <interval> are structures from "struct.h"
-// count of  <lnhead>, <interval[]> pairs == c_comp->nl (int16_t)
-// count of intervals == lnhead->h (int16_t)
+// count of  <lnhead>, <interval[]> pairs == c_comp->nl (Int16)
+// count of intervals == lnhead->h (Int16)
 //
 // 2. else  array of <gcomp> structures from "struct.h"
 // size: pool size in bytes
@@ -203,7 +203,7 @@ typedef struct tagExtInterval
 
 typedef struct tagExcControl
 {
-        uint32_t Control;
+        Word32 Control;
          // Control flag (bitonal)
          #define Ex_ExtraComp            0x00000001
             // 1 - result -> ExtComponent+...
@@ -229,44 +229,44 @@ typedef struct tagExcControl
          #define Ex_NoContainer          0x00000400
             // not used container CCOM
 
-   uint16_t MaxCompWid;  // if comp width > MaxCompWid => ignored; 0 - not init
-   uint16_t MaxCompHei;  // =""= by height
-   uint16_t MinCompWid;  // if comp width <= MinCompWid => ignored; 0 - not init
-   uint16_t MinCompHei;  // =""= by width
-   uint16_t MaxScale;    // if scaling > => use long intervals
+   Word16 MaxCompWid;  // if comp width > MaxCompWid => ignored; 0 - not init
+   Word16 MaxCompHei;  // =""= by height
+   Word16 MinCompWid;  // if comp width <= MinCompWid => ignored; 0 - not init
+   Word16 MinCompHei;  // =""= by width
+   Word16 MaxScale;    // if scaling > => use long intervals
 } ExcControl;
 
 typedef struct tagExcBox
 {
- int16_t   row;       // real row of comp
- int16_t   col;       // real column of  comp
- int16_t   h;         // height of  comp
- int16_t   w;         // width of  comp
- uint16_t  flag;     // some logical info
+ Int16   row;       // real row of comp
+ Int16   col;       // real column of  comp
+ Int16   h;         // height of  comp
+ Int16   w;         // width of  comp
+ Word16  flag;     // some logical info
  int32_t   user;     // working var for user
 } ExcBox;
 
 
 typedef struct tagREXC_DIB
       {
-      uint32_t       biSize;
+      Word32       biSize;
       int32_t        biWidth;
       int32_t        biHeight;
-      uint16_t        biPlanes;
-      uint16_t        biBitCount;
-      uint32_t       biCompression;
-      uint32_t       biSizeImage;
+      Word16        biPlanes;
+      Word16        biBitCount;
+      Word32       biCompression;
+      Word32       biSizeImage;
       int32_t        biXPelsPerMeter;
       int32_t        biYPelsPerMeter;
-      uint32_t       biClrUsed;
-      uint32_t       biClrImportant;
+      Word32       biClrUsed;
+      Word32       biClrImportant;
       }
    REXC_DIB;
 typedef struct tagREXC_RGBQUAD { // rgbq
-    uchar    rgbBlue;
-    uchar    rgbGreen;
-    uchar    rgbRed;
-    uchar    rgbReserved;
+    Word8    rgbBlue;
+    Word8    rgbGreen;
+    Word8    rgbRed;
+    Word8    rgbReserved;
 } REXC_RGBQUAD;
 
 #define MAX_NUM_CUTPN 2048
@@ -276,11 +276,11 @@ typedef struct tagREXC_RGBQUAD { // rgbq
 /*
 struct big_merge_struct
 {
- int16_t vh[2*RASTER_MAX_HEIGHT+2];
+ Int16 vh[2*RASTER_MAX_HEIGHT+2];
  char eh[MAX_NUM_CUTPN];
  char sh[MAX_NUM_CUTPN];
- uint16_t np;
- int16_t min_est;
+ Word16 np;
+ Int16 min_est;
  CP cp[MAX_NUM_CUTPN];
 };
 

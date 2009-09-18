@@ -70,8 +70,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 extern Handle hDebugAutoTemplate;
 
-static uint32_t key=2;                  //для snap'а
-static uchar buffer[256];
+static Word32 key=2;                  //для snap'а
+static Word8 buffer[256];
 static char *message = (char *)buffer;
 
 
@@ -82,17 +82,17 @@ static Bool32 	intersect  (CCOM_interval16 *f, CCOM_interval16 *s)
 	if (f->l==0 || s->l==0)
 		return FALSE;
 
-	int16_t fbeg=BEGIN(*f),sbeg=BEGIN(*s);
+	Int16 fbeg=BEGIN(*f),sbeg=BEGIN(*s);
 	return fbeg<=sbeg && sbeg<=f->e || fbeg<=s->e && s->e<=f->e || sbeg<=fbeg && f->e<=s->e;
 }
 
-static int16_t distance  (CCOM_interval16 *f, CCOM_interval16 *s)
+static Int16 distance  (CCOM_interval16 *f, CCOM_interval16 *s)
 {
 	if (f->l==0 || s->l==0)
 		return MAXWIDTH;
 
-	int16_t fbeg=BEGIN(*f),sbeg=BEGIN(*s);
-	int16_t ro1=sbeg-f->e,ro2=fbeg-s->e;
+	Int16 fbeg=BEGIN(*f),sbeg=BEGIN(*s);
+	Int16 ro1=sbeg-f->e,ro2=fbeg-s->e;
 	return MAX(ro1,ro2);
 }
 
@@ -110,8 +110,8 @@ static CCOM_interval16 join(CCOM_interval16 *f, CCOM_interval16 *s)
 	if (s->l==0)
 		return *f;
 
-	int16_t fbeg=BEGIN(*f),sbeg=BEGIN(*s);
-	int16_t rbeg=MIN(fbeg,sbeg),rend=MAX(f->e,s->e);
+	Int16 fbeg=BEGIN(*f),sbeg=BEGIN(*s);
+	Int16 rbeg=MIN(fbeg,sbeg),rend=MAX(f->e,s->e);
 	CCOM_interval16	res={rend-rbeg,rend};
 	return res;
 }
@@ -228,8 +228,8 @@ CCOM_interval16 DoubleInterval::Cavity()
 	CCOM_interval16	cav={BEGIN(right)-left.e,BEGIN(right)};
 	return cav;
 /*
-	CCOM_interval16 cavl={0,0},cavm={0,(int16_t)pComp->nWidth},cavr={0,cavm.e};
-	int16_t cavmb=0;
+	CCOM_interval16 cavl={0,0},cavm={0,(Int16)pComp->nWidth},cavr={0,cavm.e};
+	Int16 cavmb=0;
 	if (left.l>0)
 	{
 		cavl.l=cavl.e=BEGIN(left);
@@ -272,7 +272,7 @@ Bool32 Ocomp::FindCavity(SmRect32 *rect)
 
 	if (rect)
 	{
-		CCOM_interval16 inter =	{(int16_t)(rect->right-rect->left),(int16_t)rect->right};
+		CCOM_interval16 inter =	{(Int16)(rect->right-rect->left),(Int16)rect->right};
 		if (inter.l != 0)
 		{
 			memset(ints,0,(nHeight+1)*sizeof(DoubleInterval));
@@ -334,10 +334,10 @@ Bool32 Ocomp::FillIntervals()
 	if (pComp->scale & CCOM_LONGLINES)
 	{
 		CCOM_lnhead  *lnhead;
-		lnhead = (CCOM_lnhead*)(pComp->linerep + sizeof(uint16_t));
+		lnhead = (CCOM_lnhead*)(pComp->linerep + sizeof(Word16));
 		while( lnhead->lth )						// по линиям
 		{
-			int16_t cInter = lnhead->row;
+			Int16 cInter = lnhead->row;
 			CCOM_interval16 *inter = (CCOM_interval16*)(lnhead+1);
 			while( inter->l && cInter<MAXHEIGHT )	// по интервалам линии
 			{
@@ -353,10 +353,10 @@ Bool32 Ocomp::FillIntervals()
 	else
 	{
 		CCOM_lnhead  *lnhead;
-		lnhead = (CCOM_lnhead*)(pComp->linerep + sizeof(uint16_t));
+		lnhead = (CCOM_lnhead*)(pComp->linerep + sizeof(Word16));
 		while( lnhead->lth )						// по линиям
 		{
-			int16_t cInter = lnhead->row;
+			Int16 cInter = lnhead->row;
 			CCOM_interval *inter = (CCOM_interval*)(lnhead+1);
 			while( inter->l && cInter<MAXHEIGHT )	// по интервалам линии
 			{
@@ -379,7 +379,7 @@ void Ocomp::ShowCavity()
 {
 	for (int32_t i=nCavBeg; i<nCavEnd; i++)
 	{
-		int16_t h=(int16_t)(pComp->upper+i);
+		Int16 h=(Int16)(pComp->upper+i);
 		Point16 beg1={pComp->left+ints[i].left.e,h},end1={beg1.x+1,h};
 		LDPUMA_DrawLine(hWndTurn,&beg1,&end1,0,wRGB(0,0,255),PEN_WIDTH,key);
 		Point16 beg2={pComp->left+BEGIN(ints[i].right),h},end2={beg2.x+1,h};
@@ -442,7 +442,7 @@ void TripleInterval::Add(CCOM_interval16 *toAdd)
 		int32_t distmin=MAXWIDTH,imin;
 		for (i=0,curr=set+i,next=curr+1; i<3; i++,curr++,next++)
 		{
-			int16_t dist=distance(curr,next);
+			Int16 dist=distance(curr,next);
 			if (dist<distmin) { distmin=dist; imin=i; };
 		}
 		set[imin+1]=join(set+imin,set+imin+1);
@@ -457,7 +457,7 @@ void TripleInterval::Add(CCOM_interval16 *toAdd)
 		joined=FALSE;
 		for (i=1,curr=set+i,next=curr+1; i<3; i++,curr++,next++)
 		{
-			int16_t dist=distance(curr,next);
+			Int16 dist=distance(curr,next);
 			if (dist<curr->l && dist<next->l)
 			{
 				joined=TRUE;
@@ -515,10 +515,10 @@ Bool32 OOcomp::FillIntervals()
 	if (pComp->scale & CCOM_LONGLINES)
 	{
 		CCOM_lnhead  *lnhead;
-		lnhead = (CCOM_lnhead*)(pComp->linerep + sizeof(uint16_t));
+		lnhead = (CCOM_lnhead*)(pComp->linerep + sizeof(Word16));
 		while( lnhead->lth )						// по линиям
 		{
-			int16_t cInter = lnhead->row;
+			Int16 cInter = lnhead->row;
 			CCOM_interval16 *inter = (CCOM_interval16*)(lnhead+1);
 			while( inter->l && cInter<MAXHEIGHT )	// по интервалам линии
 			{
@@ -535,10 +535,10 @@ Bool32 OOcomp::FillIntervals()
 	else
 	{
 		CCOM_lnhead  *lnhead;
-		lnhead = (CCOM_lnhead*)(pComp->linerep + sizeof(uint16_t));
+		lnhead = (CCOM_lnhead*)(pComp->linerep + sizeof(Word16));
 		while( lnhead->lth )						// по линиям
 		{
-			int16_t cInter = lnhead->row;
+			Int16 cInter = lnhead->row;
 			CCOM_interval *inter = (CCOM_interval*)(lnhead+1);
 			while( inter->l && cInter<MAXHEIGHT )	// по интервалам линии
 			{
@@ -570,13 +570,13 @@ Bool32 OOcomp::Test(SmRect32 *rect)
 
 	int32_t i,dens=0;
 	int32_t lm=0,lc=0,rm=0,rc=0;
-	int16_t um=pComp->upper,bm=nPageHeight-(um+pComp->h);
+	Int16 um=pComp->upper,bm=nPageHeight-(um+pComp->h);
 	for (i=0; i<nHeight; i++)
 	{
 		TripleInterval *intv=ints+i;
 #ifdef DRAWTPIPLEINT
 				int32_t color=wRGB(0,0,255);
-				int16_t h=(int16_t)(pComp->upper+i);
+				Int16 h=(Int16)(pComp->upper+i);
 				{
 				Point16 beg={pComp->left+intv->left.e-intv->left.l,h},end={pComp->left+intv->left.e,h};
 				LDPUMA_DrawLine(hWndTurn,&beg,&end,0,wRGB(0,0,255),PEN_WIDTH,key);
@@ -615,7 +615,7 @@ Bool32 OOcomp::Test(SmRect32 *rect)
 		10*pComp->left>=3*nPageWidth && 10*(pComp->left+pComp->w)<=7*nPageWidth)
 			return TRUE;
 
-	int16_t wm=(int16_t)nPageWidth/128,hm=(int16_t)nPageHeight/128;
+	Int16 wm=(Int16)nPageWidth/128,hm=(Int16)nPageHeight/128;
 	int32_t boundh=0,boundv=0;
 	if (pComp->left<=wm)  boundv++;
 	if (pComp->upper<=hm) boundh++;

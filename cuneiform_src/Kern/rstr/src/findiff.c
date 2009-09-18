@@ -490,7 +490,7 @@ static void final_bh(cell *c)
 static void final_ii_u(cell *c)
  {
  cell *c1;
- uchar lett = u_2dot_accent;
+ Word8 lett = u_2dot_accent;
 
  c1=c->nextl;
  if (c->vers[0].let=='i' ||
@@ -659,7 +659,7 @@ static void final_Il_1(cell *c)
  servBOX *s;
  indBOX *h;
  elmBOX *elm;
- extern char * tableBOX;
+ extern PCHAR tableBOX;
  WORD max,prob;
  INT i;
 

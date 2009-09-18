@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define  RELY_LET  220       //граница высокой оценки
 
-uchar stick_like[]={"/\\<>(){}[]!1ГгТтIiJjlrTtf"};   //"палочные" буквы
+Word8 stick_like[]={"/\\<>(){}[]!1ГгТтIiJjlrTtf"};   //"палочные" буквы
 
 //Для заведомо хорошего фрагмента
 

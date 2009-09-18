@@ -142,7 +142,7 @@ static bool CanUse (Point16 *pA, Point16 *pB, const int Lev, const int Lev_A, co
     \param a [in] - второе усредняемое
     \retval int   - результат
 */
-inline static int AverageRoundToBig (int16_t a, int16_t b)
+inline static int AverageRoundToBig (Int16 a, Int16 b)
 {
     return static_cast<int>(HALF * (a + b + 1));
 }
@@ -154,22 +154,22 @@ void RotateRect (const Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew)
     DirIdeal.x = AverageRoundToBig (pRcRe->left, pRcRe->right);
     DirIdeal.y = pRcRe->top;
     ::Deskew (DirIdeal, -Skew);
-    pRcId->top = static_cast<int16_t>(DirIdeal.y);
+    pRcId->top = static_cast<Int16>(DirIdeal.y);
     /*  Координаты правого верхнего угла  */
     DirIdeal.x = AverageRoundToBig (pRcRe->left, pRcRe->right);
     DirIdeal.y = pRcRe->bottom;
     ::Deskew (DirIdeal, -Skew);
-    pRcId->bottom = static_cast<int16_t>(DirIdeal.y);
+    pRcId->bottom = static_cast<Int16>(DirIdeal.y);
     /*  Координаты левого нижнего угла  */
     DirIdeal.x = pRcRe->left;
     DirIdeal.y = AverageRoundToBig (pRcRe->top, pRcRe->bottom);
     ::Deskew (DirIdeal, -Skew);
-    pRcId->left = static_cast<int16_t>(DirIdeal.x);
+    pRcId->left = static_cast<Int16>(DirIdeal.x);
     /*  Координаты правого нижнего угла  */
     DirIdeal.x = pRcRe->right;
     DirIdeal.y = AverageRoundToBig (pRcRe->top, pRcRe->bottom);
     ::Deskew (DirIdeal, -Skew);
-    pRcId->right = static_cast<int16_t>(DirIdeal.x);
+    pRcId->right = static_cast<Int16>(DirIdeal.x);
 }
 /*------------------------------------------------------------------------------------------------*/
 void FindMinimIdealRegion (const int nRc, const int *pDo, const Rect16 *pRcIdeal, Rect16 *pMIR)
@@ -303,17 +303,17 @@ bool MakeInternalRectId (const Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew)
     ::Deskew (RigBot, -Skew);
     if (Skew >= 0)//по часовой стрелке из левого верхнего угла
     {
-        pRcId->top    = static_cast<int16_t>(LefTop.y);
-        pRcId->bottom = static_cast<int16_t>(RigBot.y);
-        pRcId->left   = static_cast<int16_t>(LefBot.x);
-        pRcId->right  = static_cast<int16_t>(RigTop.x);
+        pRcId->top    = static_cast<Int16>(LefTop.y);
+        pRcId->bottom = static_cast<Int16>(RigBot.y);
+        pRcId->left   = static_cast<Int16>(LefBot.x);
+        pRcId->right  = static_cast<Int16>(RigTop.x);
     }
     else
     {
-        pRcId->top    = static_cast<int16_t>(RigTop.y);
-        pRcId->bottom = static_cast<int16_t>(LefBot.y);
-        pRcId->left   = static_cast<int16_t>(LefTop.x);
-        pRcId->right  = static_cast<int16_t>(RigBot.x);
+        pRcId->top    = static_cast<Int16>(RigTop.y);
+        pRcId->bottom = static_cast<Int16>(LefBot.y);
+        pRcId->left   = static_cast<Int16>(LefTop.x);
+        pRcId->right  = static_cast<Int16>(RigBot.x);
     }
     if (pRcId->top > pRcId->bottom)
         return false;
@@ -325,5 +325,5 @@ bool MakeInternalRectId (const Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew)
 /*----------    Локальные функции    -------------------------------------------------------------*/
 static bool CanUse (Point16 *pA, Point16 *pB, const int Lev, const int Lev_A, const int Lev_B
     , const bool LimIsMax, int Near);
-inline static int AverageRoundToBig (int16_t a, int16_t b);
+inline static int AverageRoundToBig (Int16 a, Int16 b);
 /*------------------------------------------------------------------------------------------------*/

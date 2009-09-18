@@ -81,7 +81,7 @@ struct seg_vers_struct   //версии сегмента
 {
   struct seg_vers_struct *next; //следующая версия
   INT  px;      //левое сечение сегмента
-  char gvar;   //вариант склейки
+  CHAR gvar;   //вариант склейки
   INT  ro;      //мера
   INT width;    //ширина
   SVERS vers;  //версии
@@ -112,11 +112,11 @@ typedef struct raster_struct raster;
 //cg_main.c
  extern BYTE sticks_left_to_bad[];
  extern BYTE letters_left_to_bad[];
- extern char *results_left_to_bad[];
+ extern CHAR *results_left_to_bad[];
  extern BYTE prob_left_to_bad[];
  extern BYTE sticks_right_to_bad[];
  extern BYTE letters_right_to_bad[];
- extern char *results_right_to_bad[];
+ extern CHAR *results_right_to_bad[];
  extern BYTE prob_right_to_bad[];
 
  extern B_LINES my_bases; //базовые линии
@@ -128,7 +128,7 @@ typedef struct raster_struct raster;
  extern INT sym_width;    //средняя ширина символа
  extern INT cut_width;    //при ширине > cut_width можно резать
 
- extern char snap_text[],*snap;
+ extern CHAR snap_text[],*snap;
 
  extern BYTE trs2;             // >trs2 - буква хорошая во всех отношениях
  extern BYTE trg;              //порог для склеивания
@@ -196,29 +196,29 @@ void dp_pass0(cell *LC, raster *r, struct cut_elm *cut_list,
 //cg_main.c
 cell *process_word (cell *WB, cell *WE);
 BYTE addij(cell *C, raster *r0, struct cut_elm *cut_list,
-           seg_vers **vers_list, INT ncut, INT i1, INT i0, char mode);
+           seg_vers **vers_list, INT ncut, INT i1, INT i0, CHAR mode);
 void dp_bound(struct cut_elm *cut_list,seg_vers **vers_list,
               INT pass, INT *ib, INT *ie);
 INT full_recog (cell *B1, s_glue *gl0, INT trs, INT tol);
-cell * create_my_cell(MN * mn, cell * ci, char bdiff, char dflag);
+cell * create_my_cell(MN * mn, cell * ci, CHAR bdiff, CHAR dflag);
 
 //cg_tools.c
 cell *col_to_one(cell **clist, INT n);
-cell *comp_to_cell(cell *C, c_comp **list, INT N, char bdiff, BYTE dflag);
+cell *comp_to_cell(cell *C, c_comp **list, INT N, CHAR bdiff, BYTE dflag);
 Bool glue_overlap(cell *LC, cell *E);
 seg_vers *find_vers( INT i1, INT i0, seg_vers **vers_list );
 BYTE not_connect_sect(INT i1, INT i0, struct cut_elm *cut_list);
 INT on_path(INT i, INT ie, struct cut_elm *cut_list);
 seg_vers *store_vers(seg_vers *cur_vers, seg_vers **vers_list,
-         INT i1, INT i0, SVERS *vers, INT ro, INT width, char gvar);
+         INT i1, INT i0, SVERS *vers, INT ro, INT width, CHAR gvar);
 void adjust_3x5(Bool prerecog);
 
-void cg_show_rast(cell *C, raster *r, char *msg,
+void cg_show_rast(cell *C, raster *r, CHAR *msg,
                struct cut_elm *cut_list);
 void cg_show_list(cell **cells, INT N, BYTE *msg);
-char *show_dp( PBYTE s, struct cut_elm *cut_list, INT i0);
-void det_snap(cell *C, char *txt);
-void show_and_wait(char *txt);
+CHAR *show_dp( PBYTE s, struct cut_elm *cut_list, INT i0);
+void det_snap(cell *C, CHAR *txt);
+void show_and_wait(CHAR *txt);
 
 //cg_hcut.c
 void  base_lines_cut();

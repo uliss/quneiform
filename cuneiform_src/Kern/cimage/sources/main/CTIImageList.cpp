@@ -84,7 +84,7 @@ CTIImageList::~CTIImageList()
 	}
 }
 
-Bool32 CTIImageList::AddImage(const char *lpName, Handle hDIB, uint32_t wFlag)
+Bool32 CTIImageList::AddImage(const char *lpName, Handle hDIB, Word32 wFlag)
 {
 	CTIImageHeader * NewImage = NULL;
 	CTIImageHeader * LastImage = NULL;

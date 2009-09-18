@@ -85,7 +85,7 @@ void BlocksHystogramsAllocate (void)
         p -> pHystogram   =(int*) malloc (p -> nHystColumns * sizeof (int));
 
         if (p -> pHystogram == NULL)
-            ErrorNoEnoughMemory ((uchar*)"in SEHYST.C,BlocksHystogramsAllocate,part 1");
+            ErrorNoEnoughMemory ((Word8*)"in SEHYST.C,BlocksHystogramsAllocate,part 1");
 
         memset (p -> pHystogram, 0, p -> nHystColumns * sizeof (int));
     }

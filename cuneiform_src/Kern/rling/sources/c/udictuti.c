@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     #include "tc_types.h"
   #elif defined (BC_FOR_WIN)
     #include "bcwtypes.h"
-    typedef long signed int int;
+    typedef long signed int LONG;
   #elif defined (WATCOM)
     #include "spelwatc.h"
   #elif defined(THINK_C)
@@ -261,11 +261,11 @@ Bool ispermitted (BYTE a)
 			 - UD_PERMITTED  - file has a CTC user dict header.
 */
 
-INT _IsUserDict (char * name)
+INT _IsUserDict (CHAR * name)
 {
-  char buff[128];
+  CHAR buff[128];
   INT f;
-  int ret;
+  LONG ret;
 
   f = TGOPEN( (INT)VC_STREAM, name, (INT)(O_RDONLY|O_BINARY), S_IREAD );
   if ( f ==-1) {

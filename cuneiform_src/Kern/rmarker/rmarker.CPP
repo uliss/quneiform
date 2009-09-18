@@ -77,14 +77,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # define IDEAL_XY(x, y)   \
          {\
-             y = (INT) (y - (int) x * nIncline / INCLINE_FACTOR);\
-             x = (INT) (x + (int) y * nIncline / INCLINE_FACTOR);\
+             y = (INT) (y - (LONG) x * nIncline / INCLINE_FACTOR);\
+             x = (INT) (x + (LONG) y * nIncline / INCLINE_FACTOR);\
          }
 
 # define REAL_XY(x, y)   \
          {\
-             x = (INT) (x - (int) y * nIncline / INCLINE_FACTOR);\
-             y = (INT) (y + (int) x * nIncline / INCLINE_FACTOR);\
+             x = (INT) (x - (LONG) y * nIncline / INCLINE_FACTOR);\
+             y = (INT) (y + (LONG) x * nIncline / INCLINE_FACTOR);\
 		}
 
 #define TYPE_FON      CPAGE_GetInternalType("TYPE_FON")
@@ -119,11 +119,11 @@ extern Handle hFon;
 extern Handle hEnd;
 
 static HINSTANCE ghInst =  NULL;
-static uint16_t gwHeightRC = 0;
-static uint32_t gwRC = 0;
+static Word16 gwHeightRC = 0;
+static Word32 gwRC = 0;
 Bool dpDebugUpDown;
 
-static Bool32 rblockProgressStep(uint32_t perc)
+static Bool32 rblockProgressStep(Word32 perc)
 {
 	return ProgressStepAutoLayout(2, perc);
 }
@@ -143,8 +143,8 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
 
 	gSVLBuffer.VLinefBufferA = NULL;
 	gSVLBuffer.VLinefBufferB = NULL;
-	gSVLBuffer.LineInfoA = (LinesTotalInfo*) CFIO_DAllocMemory( sizeof(LinesTotalInfo), MAF_GALL_GPTR, (char *)"puma", (char *)"SVL step I lines info pool");
-	gSVLBuffer.LineInfoB = (LinesTotalInfo*) CFIO_DAllocMemory( sizeof(LinesTotalInfo), MAF_GALL_GPTR, (char *)"puma", (char *)"SVL step II lines info pool");
+	gSVLBuffer.LineInfoA = (LinesTotalInfo*) CFIO_DAllocMemory( sizeof(LinesTotalInfo), MAF_GALL_GPTR, (PInt8)"puma", (PInt8)"SVL step I lines info pool");
+	gSVLBuffer.LineInfoB = (LinesTotalInfo*) CFIO_DAllocMemory( sizeof(LinesTotalInfo), MAF_GALL_GPTR, (PInt8)"puma", (PInt8)"SVL step II lines info pool");
 
 	if ( rc )
 	{
@@ -189,7 +189,7 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
 	if(LDPUMA_Skip(hDebugLinePass3)&&LDPUMA_Skip(hDebugVerifLine)&&LDPUMA_Skip(hDebugLinePass2))
 	{
 	 if(rc)
-		 RLINE_LinesPass3(Image->hCPAGE, Image->hCLINE, Image->hCCOM, (uchar)Image->gnLanguage);
+		 RLINE_LinesPass3(Image->hCPAGE, Image->hCLINE, Image->hCCOM, (Word8)Image->gnLanguage);
 	}
 
 	LDPUMA_Skip(hSVLP);
@@ -215,7 +215,7 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
 		rc = FALSE;
 	if(!LDPUMA_Skip(Image->hDebugLayoutFromFile))
 	{
-		Image->hCPAGE = CPAGE_RestorePage(TRUE,(char *)(Image->szLayoutFileName));
+		Image->hCPAGE = CPAGE_RestorePage(TRUE,(PInt8)(Image->szLayoutFileName));
 		if(Image->hCPAGE==NULL)
 		{
 			SetReturnCode_rmarker(CPAGE_GetReturnCode());
@@ -262,12 +262,12 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
 	return rc;
 }
 
-void SetReturnCode_rmarker(uint32_t rc)
+void SetReturnCode_rmarker(Word32 rc)
 {
 	gwRC = rc;
 }
 
-uint32_t GetReturnCode_rmarker(void)
+Word32 GetReturnCode_rmarker(void)
 {
 	return gwRC;
 }
@@ -297,7 +297,7 @@ Bool32 SearchPictures ( PRMPreProcessImage Image, BIG_IMAGE big_Image )
 		{
 			if(!RPIC_SearchPictures(Image->hCCOM, big_Image.hCCOM, Image->hCPAGE))
 			{
-				uint32_t RPicRetCode = RPIC_GetReturnCode();
+				Word32 RPicRetCode = RPIC_GetReturnCode();
 
 				SetReturnCode_rmarker(RPicRetCode);
 				rc = FALSE;

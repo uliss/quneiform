@@ -66,30 +66,30 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef struct tagLeoPageSetup
 {
-   uint32_t     Options;
+   Word32     Options;
       // #define LEO_USEHISTORY 0x00000001
       // #define LEO_...        0x00000001
    int32_t      nResolutionX;
    int32_t      nResolutionY;
-   uchar      AlphaStylesTable[256];
+   Word8      AlphaStylesTable[256];
       // AlphaTable[i]==0 <=> no such letter on the page;
       // else
       // if  AlphaTable[i] & LS_HAND => such handprinted letter;
       // if  AlphaTable[i] & LS_INDX => such index letter; ...
    int32_t      nIdPage;
-   uchar      _reserved[52-4];
+   Word8      _reserved[52-4];
 }  LeoPageSetup;
 
 
 typedef struct tagLeoFieldSetup
 {
-   uint32_t       nStyle;
+   Word32       nStyle;
    Point16     BoxSize;
-   uchar       AlphaTable[256];  // AlphaTable[i]==0 <=> no such letter
+   Word8       AlphaTable[256];  // AlphaTable[i]==0 <=> no such letter
    /// multi-passing:
    int32_t       nLeoInternal; // initially set to 0; modifyed only by LEO
    int32_t       nFieldNo;     // field num
-   uchar       _reserved[240];
+   Word8       _reserved[240];
 }  LeoFieldSetup;
 
 

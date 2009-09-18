@@ -176,8 +176,8 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 
 			   frg->A.x 	= puanso.left;
 			   frg->B.x 	= puanso.right - 1;
-			   frg->A.y 	=(int16_t)( puanso.Yc + (puanso.left-puanso.Xc)*puanso.Phi );
-			   frg->B.y 	=(int16_t)( puanso.Yc + (puanso.right-puanso.Xc)*puanso.Phi );
+			   frg->A.y 	=(Int16)( puanso.Yc + (puanso.left-puanso.Xc)*puanso.Phi );
+			   frg->B.y 	=(Int16)( puanso.Yc + (puanso.right-puanso.Xc)*puanso.Phi );
          }
       }
 ///-----------------------
@@ -549,7 +549,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
    }
 ///////////////////
 
-   fragmentsCount = (uint16_t)frag_handle;  // count of line fragments
+   fragmentsCount = (Word16)frag_handle;  // count of line fragments
 	if (fragmentsCount > 0 && sum_len > 0)
    {
 		averagePhi = (sum_phi) / (double)(sum_len);
@@ -637,8 +637,8 @@ void TLinesBambuk::computeVRasters( TRasterBambuk* rb, TSegBambuk* sb ){
 //		      frg->relMyy  =puanso.relMyy ;//???
             frg->A.y     = puanso.left;
             frg->B.y     = puanso.right + 1;
-            frg->A.x     = (int16_t)( puanso.Yc + (puanso.left-puanso.Xc)*puanso.Phi );
-            frg->B.x     = (int16_t)( puanso.Yc + (puanso.right-puanso.Xc)*puanso.Phi );
+            frg->A.x     = (Int16)( puanso.Yc + (puanso.left-puanso.Xc)*puanso.Phi );
+            frg->B.x     = (Int16)( puanso.Yc + (puanso.right-puanso.Xc)*puanso.Phi );
          }
       }
 ///-----------------------

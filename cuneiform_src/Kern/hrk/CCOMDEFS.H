@@ -65,9 +65,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //-------------------- user blocks      --------------------------
 struct _USER_BLOCK
 {
-uint32_t  code;
+Word32  code;
 int32_t   size;
-uchar * data;
+Word8 * data;
 struct _USER_BLOCK * next_block;
 };
 typedef struct _USER_BLOCK CCOM_USER_BLOCK;
@@ -80,13 +80,13 @@ typedef struct _USER_BLOCK CCOM_USER_BLOCK;
 
 struct _CCOM_comp
  {
- int16_t upper;                   // upper boundary of component
- int16_t left;                    // left boundary of component
- int16_t h;                       // height of component
- int16_t w;                       // width of component
+ Int16 upper;                   // upper boundary of component
+ Int16 left;                    // left boundary of component
+ Int16 h;                       // height of component
+ Int16 w;                       // width of component
 // 8
- uchar rw;                      // raster width in bytes
- uchar type;                    // recognition type :
+ Word8 rw;                      // raster width in bytes
+ Word8 type;                    // recognition type :
 #define CCOM_CH_PERFECT    1      // perfect type defined
 #define CCOM_CH_LETTER     2      // letter type
 #define CCOM_CH_DUST       4      // dust type
@@ -95,23 +95,23 @@ struct _CCOM_comp
 #define CCOM_CH_GREAT     32      // great component
 #define CCOM_CH_MERGE     64      // merged components
 #define CCOM_CH_NOTLTR   128      // not letter or punctuation
- int16_t nl;                      // number of lines
- int16_t        size_linerep;     // sizeof to line representation
- uchar  *     linerep;          // linear (inteval) representation
- uchar begs;                    // number of free begins
+ Int16 nl;                      // number of lines
+ Int16        size_linerep;     // sizeof to line representation
+ Word8  *     linerep;          // linear (inteval) representation
+ Word8 begs;                    // number of free begins
 // 16
- uchar ends;                    // number of free ends
- uchar large;                   // large type :
+ Word8 ends;                    // number of free ends
+ Word8 large;                   // large type :
 #define CCOM_LR_UNDERLINED  1   // component was underlined
 #define CCOM_LR_TAKEN       2   // taken to line at dust_ini
 #define CCOM_LR_LINEREP     4   // store line representation
 #define CCOM_LR_KILLED      8   // killed component
- uchar scale;                   // scale of the component
+ Word8 scale;                   // scale of the component
 #define CCOM_LONGLINES      128 // int16 end, int16 len
- uchar  cs;                     // respond from events
- uchar pidx;            // proportional index (ref.)            *
- uchar reasno;           // proportional criteria messages
- int16_t numcomp;
+ Word8  cs;                     // respond from events
+ Word8 pidx;            // proportional index (ref.)            *
+ Word8 reasno;           // proportional criteria messages
+ Int16 numcomp;
  CCOM_USER_BLOCK   * user_block ; // user information
 // 24
 #define CCOM_USER_NO    0
@@ -131,10 +131,10 @@ typedef struct _CCOM_comp CCOM_comp;
 //	line header
 typedef struct _lnhead
  {
- int16_t lth; // length of one line representation
- int16_t h;   // height of line
- int16_t row; // relative row of line start
- uint16_t flg;  // flags of free beg and free end
+ Int16 lth; // length of one line representation
+ Int16 h;   // height of line
+ Int16 row; // relative row of line start
+ Word16 flg;  // flags of free beg and free end
 #define CCOM_l_fbeg     0x20
 #define CCOM_l_fend     0x80
 #define CCOM_l_cbeg     0x02
@@ -145,14 +145,14 @@ typedef struct _lnhead CCOM_linerep; // alias
 //	one interval
 typedef struct _interval
  {
- uchar l;  // length of interval
- uchar e;  // end of interval coordinates
+ Word8 l;  // length of interval
+ Word8 e;  // end of interval coordinates
  } CCOM_interval;
 
  typedef struct _interval16
  {
- uint16_t l;  // length of interval
- uint16_t e;  // end of interval coordinates
+ Word16 l;  // length of interval
+ Word16 e;  // end of interval coordinates
  } CCOM_interval16;
 
 typedef struct _CCOM_cont

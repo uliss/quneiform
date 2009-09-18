@@ -90,22 +90,22 @@ typedef struct tagLnsFrag
 //   double relMxy ;// squared sum by Y axes
 //   double relMyy ;// mixed sum
 
-   int16_t frag_handle;   // internal usage - link to own data; 0xffff - undefined
+   Int16 frag_handle;   // internal usage - link to own data; 0xffff - undefined
    char  reserved[22];
 } LnsFrag;
 
 typedef struct tagAdjacentLst
 {
-	int16_t          ltiNext;       // list of adjacent lines (left to right,
-	int16_t          ltiPrev;       // top to bottom), -1 == None
-	int16_t          ltiFirst;
-	int16_t          ltiLast;
+	Int16          ltiNext;       // list of adjacent lines (left to right,
+	Int16          ltiPrev;       // top to bottom), -1 == None
+	Int16          ltiFirst;
+	Int16          ltiLast;
 }  AdjacentLst;
 
 typedef struct tagLnsCorner
 {
-   int16_t          ltiStart;      // LTI index of perpendicular lines
-   int16_t          ltiEnd;        // joined with proper end of this line
+   Int16          ltiStart;      // LTI index of perpendicular lines
+   Int16          ltiEnd;        // joined with proper end of this line
 }  LnsCorner;
 
 
@@ -120,7 +120,7 @@ typedef struct tagLineInfo
    Point16       Bnew;          // end for sweep: if set LI_NOTWHOLE (real cords)
 
    //========= Специальные характеристики ==========================
-	uint32_t         Flags;         // common use info
+	Word32         Flags;         // common use info
 //все флаги вынесены в LineDefs.h
 /*
       #define LI_NOISE      0x00000001   // is a noise line
@@ -157,9 +157,9 @@ typedef struct tagLineInfo
 	#define LI_IsNotAtTable 0x00000800
 */
 	/**********************************************/
-   int16_t          SegCnt;        // число сегментов в составной линии, 0-неинициализировано
-   uchar          Quality;       // 0-255; 255 == good line
-   uchar          Thickness;     // средняя толщина линии/штриха
+   Int16          SegCnt;        // число сегментов в составной линии, 0-неинициализировано
+   Word8          Quality;       // 0-255; 255 == good line
+   Word8          Thickness;     // средняя толщина линии/штриха
 
    //========= Групповые характеристики ============================
    AdjacentLst    Adj;           // потенциальное расширение на уровне
@@ -169,20 +169,20 @@ typedef struct tagLineInfo
 
    //========= Привязка к выделителю (для последующего снятия,...) =====
    int32_t          ExtrDllHnd;    // внутренний номер линии от выделителя
-   uint16_t         Extractor;     // библиотека, выделившая линию
+   Word16         Extractor;     // библиотека, выделившая линию
       #define LI_UNKNOWN   0
       #define LI_LNSDLL    1
       #define LI_DOTDLL    2
       #define LI_UNION     3      // union of some set of dot & some set of solid lines
 
    //========= Определения, специфичные для пунктиров ===============
-   int16_t          DotAveLen;     // Средняя длина штриха
-   int16_t          DotAveGap;     // Средний интервал м/штрихами
+   Int16          DotAveLen;     // Средняя длина штриха
+   Int16          DotAveGap;     // Средний интервал м/штрихами
 
    //================================================================
-   int16_t          IndCover;      // valid only for LI_COVERED-lines
-   uint32_t         pFrmLineAtom;  // link to form description
-   uchar          __buf[32];      // Зарезервировано, заполнено 0
+   Int16          IndCover;      // valid only for LI_COVERED-lines
+   Word32         pFrmLineAtom;  // link to form description
+   Word8          __buf[32];      // Зарезервировано, заполнено 0
    int32_t          TmpUsage;      // поле для временного использования
 
 }  LineInfo;
@@ -232,7 +232,7 @@ typedef struct tagLinesTotalInfo
    Point16          ImgSize;
    Point16          ImgResolution;
    LCSetup           LCS;
-   uchar             __buf[32];
+   Word8             __buf[32];
 }  LinesTotalInfo;
 
 #ifdef __cplusplus

@@ -80,13 +80,13 @@ BYTE broken_flag=0;
 BYTE rec5_flag=1,font_type=0,omni=1;
 /*#else					// А ЭТО Turbo C
 
-	typedef signed char		char;
+	typedef signed char		CHAR;
 	typedef	unsigned char		BYTE;
 	typedef signed int		INT;
 	typedef unsigned char *		PBYTE;
 			// определения типов : для совместимости с WATCOM
 			// INT	- int
-			// char - char
+			// CHAR - char
 			// BYTE - unsigned char
 
 	#define memset  memset

@@ -71,7 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 26.08.1993	to FARA 7.4
 // 15.11.1993	add .num to struct INC_BASE;
 // 19.11.1993	VERS-085;
-// 10.12.1993	OLD  BYTE inc_v16 => char inc_num;
+// 10.12.1993	OLD  BYTE inc_v16 => CHAR inc_num;
 //		VERS-087;
 // 15.12.1993	xxx_OxBA => xxx_0xBA (LETTER => DIGIT);
 // 16.12.1993	VERS-088;
@@ -164,7 +164,7 @@ typedef struct							// s->xxx;
 		up_dot_H,	// Hight of DOT	(0 - NO DOT !)
     down_nose_1, // special for 1 : nose belong central zone
     up_dot_W; // Width of DOT
-	char
+	CHAR
 		inc_num,	// 10.12.1993 (from inc_num_EEM)
 		up_dot_dCOL;	// Displacement of DOT (use col)
 	BYTE    num_lines;      /* Number of with none single interval 	*/

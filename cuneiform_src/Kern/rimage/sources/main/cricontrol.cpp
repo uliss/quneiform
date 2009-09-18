@@ -132,7 +132,7 @@ Bool32 CRIControl::SetMargins(PRIMAGEMARGINS pMargins)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRIControl::Binarise(PChar8 cDIBIn, PChar8 cDIBOut, uint32_t wFlag, uint32_t UseMargins)
+Bool32 CRIControl::Binarise(PChar8 cDIBIn, PChar8 cDIBOut, Word32 wFlag, Word32 UseMargins)
 {
 	Bool32 Ret = TRUE;
 	CTBinarize bType = CTBIN_UNKNOWN;
@@ -200,7 +200,7 @@ Bool32 CRIControl::Binarise(PChar8 cDIBIn, PChar8 cDIBOut, uint32_t wFlag, uint3
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins)
+Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, int32_t High, int32_t Low, Word32 UseMargins)
 {
 	Bool32 Ret = TRUE;
 	Bool32 NoDest = FALSE;
@@ -230,7 +230,7 @@ Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, int32_t High, int32_t
 
 	if ( !mpRotator->Rotate(mpSourceDIB, mpDestinationDIB, High, Low) )
 	{
-		uint16_t wRet = GetReturnCode_rimage();
+		Word16 wRet = GetReturnCode_rimage();
 // !!! Art Изменил - теперь она заносит не хендлы, а указатели, а то память утекала
 //почему-то...
 		//		Handle hDIBtoSet;
@@ -280,7 +280,7 @@ Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, int32_t High, int32_t
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, uint32_t wFlag, uint32_t UseMargins)
+Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, Word32 wFlag, Word32 UseMargins)
 {
 	int32_t     NewWidth;
 	int32_t     NewHeight;
@@ -382,7 +382,7 @@ Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, uint32_t wFlag, uint32_
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRIControl::Inverse(PChar8  cDIBIn, PChar8  cDIBOut, uint32_t UseMargins)
+Bool32 CRIControl::Inverse(PChar8  cDIBIn, PChar8  cDIBOut, Word32 UseMargins)
 {
 	Bool32    bErrors = TRUE;
 	// копируем из исходного DIB в обрабатываемый
@@ -419,7 +419,7 @@ Bool32 CRIControl::Inverse(PChar8  cDIBIn, PChar8  cDIBOut, uint32_t UseMargins)
 Bool32 CRIControl::GetDIB(PChar8  cDIB, PHandle phDIB)
 {
 	// берем с копированием, что б маска была!
-	if ( CIMAGE_ReadDIB((uchar *)cDIB, phDIB, TRUE) )
+	if ( CIMAGE_ReadDIB((PWord8)cDIB, phDIB, TRUE) )
 		return TRUE;
 
 	SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
@@ -430,7 +430,7 @@ Bool32 CRIControl::GetDIB(PChar8  cDIB, PHandle phDIB)
 // положить без копировыания
 Bool32 CRIControl::SetDIB(PChar8  cDIB, Handle hDIB)
 {
-	if ( CIMAGE_WriteDIB((uchar *)cDIB, hDIB, TRUE) )
+	if ( CIMAGE_WriteDIB((PWord8)cDIB, hDIB, TRUE) )
 		return TRUE;
 
 	SetReturnCode_rimage(IDS_RIMAGE_UNABLE_WRITE_DIB);
@@ -440,7 +440,7 @@ Bool32 CRIControl::SetDIB(PChar8  cDIB, Handle hDIB)
 // положитьь c копировыанием
 Bool32 CRIControl::WriteDIB(PChar8  cDIB, Handle hDIB)
 {
-	if ( CIMAGE_WriteDIB((uchar *)cDIB, hDIB, FALSE) )
+	if ( CIMAGE_WriteDIB((PWord8)cDIB, hDIB, FALSE) )
 		return TRUE;
 
 	SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
@@ -450,7 +450,7 @@ Bool32 CRIControl::WriteDIB(PChar8  cDIB, Handle hDIB)
 // взять с копировыанием
 Bool32 CRIControl::ReadDIB(PChar8  cDIB, PHandle phDIB)
 {
-	if ( CIMAGE_ReadDIB((uchar *)cDIB, phDIB, FALSE) )
+	if ( CIMAGE_ReadDIB((PWord8)cDIB, phDIB, FALSE) )
 		return TRUE;
 
 	SetReturnCode_rimage(IDS_RIMAGE_UNABLE_WRITE_DIB);
@@ -568,12 +568,12 @@ Bool32 CRIControl::CloseDestinationDIB(PChar8  cDIBName)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Creating new DIB by CTDIB class and 4 RIMAGE functions
-Bool32 CRIControl::CreateDestinatonDIB(uint32_t BitCount)
+Bool32 CRIControl::CreateDestinatonDIB(Word32 BitCount)
 {
-	uint32_t wNewHeight;
-	uint32_t wNewWidth;
-	uint32_t wXResolution;
-	uint32_t wYResolution;
+	Word32 wNewHeight;
+	Word32 wNewWidth;
+	Word32 wXResolution;
+	Word32 wYResolution;
 	CTDIBRGBQUAD       BWQuads[2] = {{0x00,0x00,0x00,0x00},{0xff,0xff,0xff,0x00} };
 
 
@@ -695,7 +695,7 @@ Bool32 CRIControl::SetDestinationDIBtoStorage(PChar8  cDIBName)
 	return bErrors;
 }
 
-Bool32 CRIControl::Roll(PChar8 cDIBIn, PChar8 cDIBOut, int32_t Num, int32_t Denum, uint32_t bUseMargins)
+Bool32 CRIControl::Roll(PChar8 cDIBIn, PChar8 cDIBOut, int32_t Num, int32_t Denum, Word32 bUseMargins)
 {
 	Bool32 Ret = TRUE;
 
@@ -766,7 +766,7 @@ Bool32 CRIControl::WriteDIBtoBMP(const char *cName, PCTDIB pDIB)
 {
 #ifdef RIMAGE_DUMP_ENABLE
 
-	uint32_t  wBMPSize = pDIB->GetDIBSize() + 14;
+	Word32  wBMPSize = pDIB->GetDIBSize() + 14;
 	PumaMemoryToFileDumper BMPDump(cName);
 
 	BMPDump.AddDump("BM",2);

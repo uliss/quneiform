@@ -94,12 +94,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "cttypext.h"
 
-   RPSTR_FUNC(Bool32)  RPSTR_Init( uint16_t wHeightCode , Handle hStorage);
+   RPSTR_FUNC(Bool32)  RPSTR_Init( Word16 wHeightCode , Handle hStorage);
    RPSTR_FUNC(void)    RPSTR_Done(void);
-   RPSTR_FUNC(uint32_t)  RPSTR_GetReturnCode(void);
-   RPSTR_FUNC(char*)   RPSTR_GetReturnString(uint32_t dwError);
-   RPSTR_FUNC(Bool32)  RPSTR_SetImportData(uint32_t dwType, void * pData);
-   RPSTR_FUNC(Bool32)  RPSTR_GetExportData(uint32_t dwType, void * pData);
+   RPSTR_FUNC(Word32)  RPSTR_GetReturnCode(void);
+   RPSTR_FUNC(char*)   RPSTR_GetReturnString(Word32 dwError);
+   RPSTR_FUNC(Bool32)  RPSTR_SetImportData(Word32 dwType, void * pData);
+   RPSTR_FUNC(Bool32)  RPSTR_GetExportData(Word32 dwType, void * pData);
 
     enum RPSTRFunctionsExt
         {

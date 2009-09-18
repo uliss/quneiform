@@ -88,7 +88,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 // Client crash callback
-typedef Bool (CALLBACK *LPGETLOGFILE) (pvoid lpvState);
+typedef Bool (CALLBACK *LPGETLOGFILE) (LPVOID lpvState);
 
 namespace CrashHandler
 {
@@ -112,7 +112,7 @@ namespace CrashHandler
 //    report to be saved to disk.
 //
 CRASHRPTAPI
-pvoid
+LPVOID
 Install(
    IN LPGETLOGFILE pfn OPTIONAL,                // client crash callback
    IN LPCTSTR lpTo OPTIONAL,                    // Email:to
@@ -120,7 +120,7 @@ Install(
    );
 
 CRASHRPTAPI
-pvoid
+LPVOID
 Create(
    IN LPGETLOGFILE pfn OPTIONAL,                // client crash callback
    IN LPCTSTR lpTo OPTIONAL,                    // Email:to
@@ -145,7 +145,7 @@ Create(
 CRASHRPTAPI
 void
 Uninstall(
-   IN pvoid lpState                            // State from Install()
+   IN LPVOID lpState                            // State from Install()
    );
 
 //-----------------------------------------------------------------------------
@@ -167,7 +167,7 @@ Uninstall(
 CRASHRPTAPI
 void
 AddFile(
-   IN pvoid lpState,                           // State from Install()
+   IN LPVOID lpState,                           // State from Install()
    IN LPCTSTR lpFile,                           // File name
    IN LPCTSTR lpDesc                            // File desc
    );
@@ -189,7 +189,7 @@ AddFile(
 CRASHRPTAPI
 void
 GenerateErrorReport(
-   IN pvoid lpState,
+   IN LPVOID lpState,
    IN PEXCEPTION_POINTERS pExInfo OPTIONAL
    );
 

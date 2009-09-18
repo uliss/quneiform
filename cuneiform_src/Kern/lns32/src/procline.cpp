@@ -80,12 +80,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	int32_t tot_seg_extracted = 0;
 #endif
 
-	static uint16_t left_pixel_ = 1;           // left border in pixels [1..)
-	static uint16_t right_pixel_ = 0;          // right border (included) in pixels [16..)
-	static uint16_t left_word_offset_ = 0;     // offset from start of line in word (0..);
-	static uint16_t left_pixel_offset_ = 0;    // pixel in word from wich starts line
+	static Word16 left_pixel_ = 1;           // left border in pixels [1..)
+	static Word16 right_pixel_ = 0;          // right border (included) in pixels [16..)
+	static Word16 left_word_offset_ = 0;     // offset from start of line in word (0..);
+	static Word16 left_pixel_offset_ = 0;    // pixel in word from wich starts line
                                           // [0..Word16_BIT_SIZE-1]
-	static uint16_t right_pixel_offset_ = 0;
+	static Word16 right_pixel_offset_ = 0;
    static Bool include_border_segments_ = TRUE; // if FALSE - segments touching border are ignored
    static TSegBambuk* bambuk_ptr_ = NULL;       // all line segments
 	static int filter_len_ = 0;            // segments shorter (or equal) filter_len
@@ -172,7 +172,7 @@ static inline void new_segment( int left, int right )
 
  }
 
-inline uint16_t Getuint16_t( uint16_t* pw )
+inline Word16 GetWord16( Word16* pw )
 #ifndef BIG_ENDIAN
 {  return *pw; }
 #else
@@ -210,12 +210,12 @@ void ConvertBWLine(  void*      image_line_ptr
 #error Wow, !BLACK_IS_ZERO, Correct, me please!
 #endif
 
-   image_line_ptr = FillGap3_SubstLine( (uchar*)image_line_ptr );
+   image_line_ptr = FillGap3_SubstLine( (Word8*)image_line_ptr );
 
-	register uchar* pb = (uchar*)image_line_ptr + left_pixel_/8;
-   uchar* pfirst = (uchar*)image_line_ptr;
-   uchar* plast  = (uchar*)image_line_ptr + right_pixel_/8;
-	uchar last_byte = *plast;
+	register Word8* pb = (Word8*)image_line_ptr + left_pixel_/8;
+   Word8* pfirst = (Word8*)image_line_ptr;
+   Word8* plast  = (Word8*)image_line_ptr + right_pixel_/8;
+	Word8 last_byte = *plast;
    int left, right;
    line_start();
 #ifdef NO_DOTMATRIX

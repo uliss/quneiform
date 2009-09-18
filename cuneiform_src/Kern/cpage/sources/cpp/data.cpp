@@ -77,7 +77,7 @@ DATA::~DATA()
 		delete []lpData;
 }
 //##############################
-Bool32   DATA::SetData(Handle type, void * lpdata, uint32_t size)
+Bool32   DATA::SetData(Handle type, void * lpdata, Word32 size)
 {
 	Type = type;
 	Size = size;
@@ -101,7 +101,7 @@ Bool32   DATA::SetData(Handle type, void * lpdata, uint32_t size)
 return TRUE;
 }
 //##############################
-uint32_t   DATA::GetData(Handle type, void * lpdata,uint32_t size)
+Word32   DATA::GetData(Handle type, void * lpdata,Word32 size)
 {
 	if(type==Type)
 	{
@@ -138,7 +138,7 @@ Bool32 DATA::Save(Handle to)
 {
 	char * lpName = CPAGE_GetNameInternalType(Type);
 	_ASSERT(lpName);
-	uint32_t len = strlen(lpName) + 1;
+	Word32 len = strlen(lpName) + 1;
 
 	if(myWrite(to,&len,sizeof(len)) == sizeof(len) &&
 	   myWrite(to,lpName,len) == len &&
@@ -150,7 +150,7 @@ Bool32 DATA::Save(Handle to)
 //#################################
 Bool32 DATA::Restore(Handle from)
 {
-	uint32_t len = 0;
+	Word32 len = 0;
 	char Name[260];
 	if(myRead(from,&len,sizeof(len)) == sizeof(len) &&
 	   myRead(from,Name,len) == len)
@@ -185,7 +185,7 @@ Bool32 DATA::SaveCompress(Handle to)
 
 	Bool32 rv;
 	char *compressedData, *lpDataSave=lpData;
-	uint32_t compressedSize, SizeSave=Size;
+	Word32 compressedSize, SizeSave=Size;
 	CleanData(Type,lpData,Size);
 	if (!Compress(lpData,Size,&compressedData,&compressedSize))
 		return FALSE;
@@ -205,7 +205,7 @@ Bool32 DATA::RestoreCompress(Handle from)
 	if (Size==0)
 		return TRUE;
 
-	char *decomData;  uint32_t decomSize;
+	char *decomData;  Word32 decomSize;
 	if (!Decompress(lpData,Size,&decomData,&decomSize))
 		return FALSE;
 

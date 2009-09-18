@@ -148,9 +148,9 @@ Bool32 Close_Res_Log( void )
 }
 
 
-Bool32 DeleteFromPics(uint32_t position)
+Bool32 DeleteFromPics(Word32 position)
 {
-	uint32_t i = 0;
+	Word32 i = 0;
 	nPics--;
 	for(i=position;i<nPics;i++)
 	{
@@ -208,13 +208,13 @@ Bool32 PicturesSecondStage(Handle hCCOM,Handle hCPAGE)
 	POLY_	block;
 	Handle h = NULL;
 
-	uint32_t i,j;
+	Word32 i,j;
 	CCOM_comp pic;
 	CCOM_comp * comp;
-	uint16_t pLocalHystogram[MaxHeightOfLetter];
-	uint32_t nLocalComps;
-	uint32_t MaxLocal, nMaxLocal;
-	uint32_t Result1, Result2;
+	Word16 pLocalHystogram[MaxHeightOfLetter];
+	Word32 nLocalComps;
+	Word32 MaxLocal, nMaxLocal;
+	Word32 Result1, Result2;
     PAGEINFO info = {0};//Almi
 	int PageWidth;//Almi
 
@@ -506,7 +506,7 @@ Bool32 FillBigLetters (Handle hCCOM,Handle hCPAGE)
 				* BIG_LETTERS_QUANTUM * sizeof (RPIC_Comp_Rect)));
 		}
 
-		//CPAGE_GetBlockData,(Handle page,Handle block,uint32_t Type, void * lpData, uint32_t Size));
+		//CPAGE_GetBlockData,(Handle page,Handle block,Word32 Type, void * lpData, Word32 Size));
 		CPAGE_GetBlockData(hCPAGE, pBlock, BlockType, &CompRect, sizeof(CompRect));
 		nBigLetters++;
 		pBigLetters[nBigLetters-1] = CompRect;
@@ -579,7 +579,7 @@ Bool32 ReadRoots(Handle hCCOM, Bool32 BLOCKS)
 	CCOM_comp * comp = NULL;
 	Handle		pPage;
 	PAGEINFO	pInfo;
-	uint32_t i;
+	Word32 i;
 
 	exthCCOM = hCCOM;
     RootsFreeData ();
@@ -618,7 +618,7 @@ Bool32 ReadRoots(Handle hCCOM, Bool32 BLOCKS)
 
 	for(i=0;i<MaxHeightOfLetter;i++)
 	{
-		pBlockHystogram[i] = 0; //uint16_t[]
+		pBlockHystogram[i] = 0; //Word16[]
 	}
 
 

@@ -70,13 +70,13 @@ CTIMaskLine::CTIMaskLine()
 			  mpNext(NULL),
 			  mwLine(-1){}
 
-CTIMaskLine::CTIMaskLine(uint32_t Lenght)
+CTIMaskLine::CTIMaskLine(Word32 Lenght)
             : mwLenght(Lenght),
 			  mwSegments(0),
 			  mpNext(NULL),
 			  mwLine(-1){}
 
-CTIMaskLine::CTIMaskLine(uint32_t Lenght, PCTIMaskLineSegment pSegm)
+CTIMaskLine::CTIMaskLine(Word32 Lenght, PCTIMaskLineSegment pSegm)
             : mwLenght(Lenght),
 			  //mcFirst(pSegm),
 			  mwSegments(0),
@@ -86,7 +86,7 @@ CTIMaskLine::CTIMaskLine(uint32_t Lenght, PCTIMaskLineSegment pSegm)
 	AddSegment( pSegm );
 }
 
-CTIMaskLine::CTIMaskLine(uint32_t Lenght, uint32_t nLine, PCTIMaskLineSegment pSegm)
+CTIMaskLine::CTIMaskLine(Word32 Lenght, Word32 nLine, PCTIMaskLineSegment pSegm)
             : mwLenght(Lenght),
 			  //mcFirst(pSegm),
 			  mwSegments(0),
@@ -96,7 +96,7 @@ CTIMaskLine::CTIMaskLine(uint32_t Lenght, uint32_t nLine, PCTIMaskLineSegment pS
 	AddSegment ( pSegm );
 }
 
-CTIMaskLine::CTIMaskLine(uint32_t Lenght, uint32_t nLine, PCTIMaskLineSegment pSegm, PCTIMaskLine pcNextLine)
+CTIMaskLine::CTIMaskLine(Word32 Lenght, Word32 nLine, PCTIMaskLineSegment pSegm, PCTIMaskLine pcNextLine)
             : mwLenght(Lenght),
 			  //mcFirst(pSegm),
 			  mwSegments(0),
@@ -249,7 +249,7 @@ Bool32 CTIMaskLine::RemoveSegment(PCTIMaskLineSegment pSegm)
 Bool32 CTIMaskLine::GetLeftIntersection(PCTIMaskLineSegment pcSegm)
 {
 	PCTIMaskLineSegment pL = mcFirst.GetNext();
-	uint32_t  wItype;
+	Word32  wItype;
 	Bool32  bInt = FALSE;
 
 	while ( pL )

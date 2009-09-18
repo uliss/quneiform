@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ligas.h"
 #include "linutil.h"
 #include "tuner.h"
-extern uchar *EVN_GetSegmentPool (void);
+extern Word8 *EVN_GetSegmentPool (void);
 //#include "Autofont.H"
 #include "tm.h"  //NB 4.4.95
 #include "diffrb.h"
@@ -79,7 +79,7 @@ extern uchar *EVN_GetSegmentPool (void);
 
 extern BYTE digital_string_penalty;
 //AK for debug
-static int * AK_deb;
+static LONG * AK_deb;
 /*============ Import functions ==================*/
 Bool test_alphabet_elem(BYTE let);
 
@@ -257,13 +257,13 @@ void r_criteria(cell *c, const s_glue * gl)              //10.02.97
 {
  extern Bool TM_check_active;
  version *v0;
- int    d,d_ang,d_cun,d_abris,i,dd;                       //change from INT
- char    snap[380],*s=snap;
+ LONG    d,d_ang,d_cun,d_abris,i,dd;                       //change from INT
+ CHAR    snap[380],*s=snap;
  struct rst _rst;
  MN *    mn;
  cell *  cc=NULL;
  BYTE    pen_m=0,flag_m=0,maxprob;
- int     inc=0 ;                                          //change from INT
+ LONG     inc=0 ;                                          //change from INT
  version    save[VERS_IN_CELL];
  INT    snvers;
 
@@ -690,8 +690,8 @@ lnhead *line;
 INT l;
 WORD nl=0,pen=0;
 
- for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-			(l=line->lth)>0; line=(lnhead *)((char *)line+l))
+ for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+			(l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
   if (line->h > 2 || !(line->flg & (l_fbeg | l_fend)) ) nl++;
   if( nl == 1 ) pen+=220;
    return pen;
@@ -825,7 +825,7 @@ INT chkquocks2(cell * c,PBYTE rstr,INT h,INT w,INT d)
 INT i,i1,i2,extr1,ln,ln1,h1,h2;
 INT tanx,tany,sum1,sum2;
 MN *mn;
-char buf[200],tmp[200];
+CHAR buf[200],tmp[200];
   mn = c_locomp(rstr,(INT)((w + 7)>>3),h,0,0);
   if(mn){
   segment_pool = EVN_GetSegmentPool();
@@ -968,8 +968,8 @@ lnhead *line;
 INT l;
   gaps = ((c_comp*)c->env)->nl - ((c_comp*)c->env)->begs - ((c_comp*)c->env)->ends + 1;
  if( gaps > 0)
- for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-			(l=line->lth)>0; line=(lnhead *)((char *)line+l))
+ for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+			(l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
   if(!(line->flg & (l_fend | l_fbeg)) )
    if(line->h == 1) gaps--; // skip non valueble lines
    else if(line->row > c->h/2 && line->h < 3) gaps--;
@@ -987,8 +987,8 @@ WORD check_EK(BYTE let,cell * c)
 
  if(((c_comp*)c->env)->nl == 1) pen_K = 200;
 
- for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-			(l=line->lth)>0; line=(lnhead *)((char *)line+l))
+ for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+			(l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
   if (line->row < c->h/3 && !(line->flg&l_fend) && line->h > c->h/4 )
      pen_E += 100;
 
@@ -1010,8 +1010,8 @@ WORD check_iee(cell * c,BYTE let)
   if( gaps == 0 && let == (BYTE)'ë') return 10;
   else if ( gaps == 0 && let == (BYTE)'›' ) return 60;
      // hole in top right square
- for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-			(l=line->lth)>0; line=(lnhead *)((char *)line+l))
+ for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+			(l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
   if (line->row < c->h/2 &&  line->h < c->h/4 &&
   (!(line->flg&l_fend) && !(line->flg&l_fbeg))  )
      pen += 60;
@@ -1025,8 +1025,8 @@ WORD check_ya( cell * c)
  INT l,suspect=0,strong=0;
  WORD pen=0,gaps;
    gaps = ((c_comp*)c->env)->nl - ((c_comp*)c->env)->begs - ((c_comp*)c->env)->ends + 1;
- for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-			(l=line->lth)>0; line=(lnhead *)((char *)line+l))
+ for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+			(l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
   if ( (line->flg & (l_fbeg | l_fend)) == 0 )
    if (line->row > c->h/3) suspect++;
    else                    strong++;
@@ -1043,7 +1043,7 @@ static INT nstickLP;
 
 WORD check_pl( cell * c, cell * ci,BYTE let,struct rst * const rst )
 {
-char  maxL=0,maxR=0;
+CHAR  maxL=0,maxR=0;
 INT i,j1,j2,j,sym,nInvest;
 WORD penL=0,penP=0,pen=0,top=0,meanLetter,meanLetter0;
 WORD left=0,right=0,mean=0,D_X;
@@ -1425,7 +1425,7 @@ return pen;
 WORD check_tg( cell * c, BYTE let, PBYTE RASTR, INT dx, INT dy )
 {
 BYTE  j,n4=dy>>2,D_X=(dx+7)/8;
-char  beg,end;
+CHAR  beg,end;
 INT   i,k,piece2=0,piece3=0;
 INT   left=0,right=0,sum=0,tg=0;
 BYTE  *RAST;
@@ -1536,8 +1536,8 @@ WORD pen;
 if( !(c->pos_inc&erect_rot) )
    pen += check_inc_foots(c,2);
 
- for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-                        (l=line->lth)>0; line=(lnhead *)((char *)line+l))
+ for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+                        (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
   if ( line->h*3 >= c->h*2 && line->row+line->h >= c->h*2/3 ) cnt++;
   switch(cnt){
   case 0        : pen += 100;break;
@@ -1554,9 +1554,9 @@ Bool check_uple_hook_cell( cell * c )
  lnhead *line;
  INT l,h,ind,wid, av;
  interval *i;
- for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-			(l=line->lth)>0; line=(lnhead *)((char *)line+l)){
-   i=(interval *)((char *)line+sizeof(lnhead));
+ for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+			(l=line->lth)>0; line=(lnhead *)((PCHAR)line+l)){
+   i=(interval *)((PCHAR)line+sizeof(lnhead));
    wid = i->l;
    if( line->row<2 && line->h*2<=c->h && (i->e-i->l)*4<c->w && line->h>2 &&
          (line->flg & l_fend)  )
@@ -1584,9 +1584,9 @@ Bool check_upri_hook_cell( cell * c )
  lnhead *line;
  INT l,h,ind,wid;
  interval *i;
- for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-			(l=line->lth)>0; line=(lnhead *)((char *)line+l)){
-   i=(interval *)((char *)line+sizeof(lnhead));
+ for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+			(l=line->lth)>0; line=(lnhead *)((PCHAR)line+l)){
+   i=(interval *)((PCHAR)line+sizeof(lnhead));
    wid = i->l;
    if( line->row<2 && line->h*2<=c->h && (i->e-i->l)*4>c->w*3 && line->h>2 &&
          (line->flg & l_fend)  )
@@ -1613,10 +1613,10 @@ Bool check_dnri_hook_cell( cell * c , INT w)
  lnhead *line;
  INT l,h,ind, ri;
  interval *i;
- for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-      (l=line->lth)>0; line=(lnhead *)((char *)line+l))
+ for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+      (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
   {
-  i=(interval *)((char *)line+sizeof(lnhead));
+  i=(interval *)((PCHAR)line+sizeof(lnhead));
   if( line->row >= c->h/2 && line->h*3 <= c->h &&
       (line->flg & l_fbeg) && i->l <= c->w/3  )
     {
@@ -2576,9 +2576,9 @@ Bool check_bend_up( cell * c )
  lnhead *line;
  INT l;
  interval *i;
- for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-                        (l=line->lth)>0; line=(lnhead *)((char *)line+l)){
- i=(interval *)((char *)line+sizeof(lnhead));
+ for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+                        (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l)){
+ i=(interval *)((PCHAR)line+sizeof(lnhead));
   if( line->row > c->h/2 && line->h*4 <= c->h && i->e-i->l > 3*c->w/4 &&
       line->flg & l_fbeg )
         return TRUE;
@@ -2590,9 +2590,9 @@ Bool check_bend_dn( cell * c )
  lnhead *line;
  INT l;
  interval *i;
- for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-                        (l=line->lth)>0; line=(lnhead *)((char *)line+l)){
- i=(interval *)((char *)line+sizeof(lnhead));
+ for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+                        (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l)){
+ i=(interval *)((PCHAR)line+sizeof(lnhead));
   if( line->row > 2*c->h/3 && line->h*4 <= c->h && (i->e-i->l)*2 > c->w &&
       (line->flg & l_fend || line->flg & l_fbeg) && i->l <= c->w/3 &&
       ( (line->h == 1 && i->l > 3 && line->row != c->h-1) ||
@@ -2609,13 +2609,13 @@ Bool check_bend_dn( cell * c )
  INT l,row,col,h,w,a;
  BYTE flg;
 
- for (a=0,line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-		       (l=line->lth)>0; line=(lnhead *)((char *)line+l)    )
+ for (a=0,line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+		       (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l)    )
   if ((h=line->h)<=2)
    {
    flg=line->flg;
    row=line->row;
-   intval=(interval *)((char *)line+sizeof(lnhead));
+   intval=(interval *)((PCHAR)line+sizeof(lnhead));
    if (h==2 && flg&l_fend) {intval++; row++;}
    w=intval->l;
    col=intval->e-w;
@@ -2633,8 +2633,8 @@ Bool check_bend_dn( cell * c )
 static WORD internal_filling(segment * segm,INT h,INT w)
 {
  uint32_t fill=0;
- int start, end, col;
- int row,left,right,upper,lower;
+ LONG start, end, col;
+ LONG row,left,right,upper,lower;
 
  if (h <= 4 || w <= 4) return 0;
 
@@ -2721,7 +2721,7 @@ if( c && !check_bend_dn(c) && corner_type(corners[3]) == CURVE) pen_a += 60;
  tresh = h/10 + h%10/5;  smooth=0;
  /* find  left pad */
        if( let == (BYTE)'¢' ){
-       char jm1,jm2,jm3,jm4,pn;
+       CHAR jm1,jm2,jm3,jm4,pn;
             jm1=jm2=jm3=jm4=pn=0;
        for(i=h/4+h%4/2,cnt=0;i< h*3/4-1;i++)
         if(l_abris[i+1] - l_abris[i] > 0 )
@@ -2745,9 +2745,9 @@ if( c && !check_bend_dn(c) && corner_type(corners[3]) == CURVE) pen_a += 60;
     corner_type(corners[0]) == CURVE &&
     corner_type(corners[2]) == CURVE
    ){ // refuse ¢ -- blood ¥ with 2 gaps
- for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-                        (l=line->lth)>0; line=(lnhead *)((char *)line+l)){
- in=(interval *)((char *)line+sizeof(lnhead));
+ for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+                        (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l)){
+ in=(interval *)((PCHAR)line+sizeof(lnhead));
   if( !(line->flg & l_fbeg) && !(line->flg & l_fend) &&
      line->row > h/3 )
    for(i=0;i < line->h;i++,in++)
@@ -3019,12 +3019,12 @@ void add_cell_to_hist(cell *c,INT off_str,INT hist_n[],INT hist_d[])
  lnhead   *line;
  interval *inter;
 
-for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-		(ll=line->lth)>0; line=(lnhead *)((char *)line+ll))
+for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+		(ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
 	{
 	h=line->h;
 	for( ind=off_str+line->row,
-	     inter=(interval *)((char *)line+sizeof(lnhead));
+	     inter=(interval *)((PCHAR)line+sizeof(lnhead));
 	     h ;ind++,h--,inter++)     		/* one line     */
 		{
 		hist_d[ind] += inter->l;/* number of bits      in row */
@@ -3038,7 +3038,7 @@ return;
 void make_white_hist(PBYTE pint,INT height)
 {
  segment * segm;
- int i;                                                 //change from INT
+ LONG i;                                                 //change from INT
 
  memset(hist_white,0,height<<1);
  for(i=0,segm = (segment*)pint,segm++;i < height;i++)

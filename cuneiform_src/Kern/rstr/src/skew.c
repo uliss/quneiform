@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "struct.h"
 #include "func.h"
 
-struct pairs {INT x,y; char f;};
+struct pairs {INT x,y; CHAR f;};
 typedef struct pairs pairs;
 
 extern INT nIncline;
@@ -93,7 +93,7 @@ static void total_skew();
 #define NRELABMIN 7
 #define NRELABMAX 30
 
-int16_t skew_corr(CSTR_line ln, INT pool_src)
+Int16 skew_corr(CSTR_line ln, INT pool_src)
  {
  INT skew_pool_n=0,inclini;
  WORD l,l1;
@@ -142,7 +142,7 @@ static INT skew_pool_fill(CSTR_line ln,pairs *pool)
  com=CSTR_GetComp(rst);
  row=com->upper;
 
- //nl=(c_comp **)((char *)ln+ln->dust)-&(ln->c_comp[0]);
+ //nl=(c_comp **)((PCHAR)ln+ln->dust)-&(ln->c_comp[0]);
  //if (nl>255) nl=255;
  for (	 p=pool,i=0; i<255 && rst; rst=CSTR_GetNext(rst))
   {
@@ -215,15 +215,15 @@ static INT skew_pool_refill2(CSTR_line ln,pairs *pool)
 static INT incl_init(INT n,pairs *pool)
  {
  INT i,incl,shift,m,d;
- int sx,sy,sxy,sx2,w,sigma,dd;
+ LONG sx,sy,sxy,sx2,w,sigma,dd;
  pairs *p;
 
  for (p=pool,sx=sy=sxy=sx2=i=0; i<n; i++,p++)
   {
   sx+=p->x;
   sy+=p->y;
-  sxy+=((int)p->x)*(p->y);
-  sx2+=((int)p->x)*(p->x);
+  sxy+=((LONG)p->x)*(p->y);
+  sx2+=((LONG)p->x)*(p->x);
   }
  w=(n*((sx2+128)/256)-((sx+8)/16)*((sx+8)/16));
  if (w<=0)
@@ -233,7 +233,7 @@ static INT incl_init(INT n,pairs *pool)
  shift=(INT)((((sx2+128)/256)*sy-((sxy+8)/16)*((sx+8)/16)+w/2)/w);
  for (p=pool,w=i=0; i<n; i++,p++)
   {
-  dd=(int)incl*p->x;
+  dd=(LONG)incl*p->x;
   d=p->y-(INT)((dd+((dd>0)?1024:-1024))/2048)-shift;
   if (abs(d)>100)
    d=100;
@@ -250,14 +250,14 @@ static INT incl_init(INT n,pairs *pool)
   }
  for (p=pool,sx=sy=sxy=sx2=m=i=0; i<n; i++,p++)
   {
-  dd=(int)incl*p->x;
+  dd=(LONG)incl*p->x;
   d=p->y-(INT)((dd+((dd>0)?1024:-1024))/2048)-shift;
   if (abs(d)<100 && d*d<=sigma)
    {
    sx+=p->x;
    sy+=p->y;
-   sxy+=((int)p->x)*(p->y);
-   sx2+=((int)p->x)*(p->x);
+   sxy+=((LONG)p->x)*(p->y);
+   sx2+=((LONG)p->x)*(p->x);
    p->f=1;
    m++;
    }
@@ -272,7 +272,7 @@ static INT incl_init(INT n,pairs *pool)
   for (p=pool,w=i=0; i<n; i++,p++)
    if (p->f)
     {
-    dd=(int)incl*p->x;
+    dd=(LONG)incl*p->x;
     d=p->y-(INT)((dd+((dd>0)?1024:-1024))/2048)-shift;
     if (abs(d)>100)
      d=100;
@@ -305,7 +305,7 @@ static WORD skew_stat(INT incl,CSTR_line ln,INT pool_n,pairs *pool)
  memset(hist,0,HIMAX);// Piter change im) for HIMAX;
  for (i=0; i<pool_n; i++)
   {
-  d=im/2+pool[i].y-(INT)((int)incl*pool[i].x/2048);
+  d=im/2+pool[i].y-(INT)((LONG)incl*pool[i].x/2048);
   if (d>0 && d<HIMAX) hist[d]++;
   }
  for (l=i=0; i<im; i++)
@@ -334,6 +334,6 @@ void skew_end()
 
 void ideal_rc(cell *c)
  {
- c->row=c->r_row-(INT)((int)nIncline*c->r_col/2048);
- c->col=c->r_col+(INT)((int)nIncline*c->r_row/2048);
+ c->row=c->r_row-(INT)((LONG)nIncline*c->r_col/2048);
+ c->col=c->r_col+(INT)((LONG)nIncline*c->r_row/2048);
  }

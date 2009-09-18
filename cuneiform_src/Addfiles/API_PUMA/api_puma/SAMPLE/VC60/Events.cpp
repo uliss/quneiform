@@ -48,10 +48,10 @@ END_MESSAGE_MAP()
 
 BEGIN_DISPATCH_MAP(Events, CCmdTarget)
 	//{{AFX_DISPATCH_MAP(Events)
-	DISP_FUNCTION(Events, "Start", Start, VT_Bool, VTS_NONE)
-	DISP_FUNCTION(Events, "Stop", Stop, VT_Bool, VTS_NONE)
-	DISP_FUNCTION(Events, "Step", Step, VT_Bool, VTS_I4 VTS_BSTR VTS_I4)
-	DISP_FUNCTION(Events, "EndThread", EndThread, VT_I4, VTS_Bool VTS_I4)
+	DISP_FUNCTION(Events, "Start", Start, VT_BOOL, VTS_NONE)
+	DISP_FUNCTION(Events, "Stop", Stop, VT_BOOL, VTS_NONE)
+	DISP_FUNCTION(Events, "Step", Step, VT_BOOL, VTS_I4 VTS_BSTR VTS_I4)
+	DISP_FUNCTION(Events, "EndThread", EndThread, VT_I4, VTS_BOOL VTS_I4)
 	//}}AFX_DISPATCH_MAP
 END_DISPATCH_MAP()
 

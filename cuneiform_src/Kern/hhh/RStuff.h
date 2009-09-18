@@ -96,12 +96,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 typedef struct tagRSPreProcessImage
 {
-	uchar *	*pgpRecogDIB;
+	PWord8	*pgpRecogDIB;
 	Bool32	gbAutoRotate;
 	Bool32  gbDotMatrix;
 	Bool32  gbFax100;
-	uint32_t  gnLanguage;
-	uint32_t  gnTables;
+	Word32  gnLanguage;
+	Word32  gnTables;
 	Handle	hCPAGE;
 	Handle  hDebugCancelSearchPictures;
 	Handle  hDebugCancelComponent;
@@ -120,7 +120,7 @@ typedef struct tagRSPreProcessImage
 	void *  phCLINE;
 	PBool32 pgneed_clean_line;
 	int32_t *  pgnNumberTables;
-	uint32_t  gnPictures;
+	Word32  gnPictures;
 	Bool32* pgrc_line;
 	Rect32  gRectTemplate;
 	FNPUMA_XSetTemplate fnXSetTemplate;
@@ -148,12 +148,12 @@ typedef struct tagRSCBProgressPoints
 	void *  pSetUpdate;
 } RSCBProgressPoints, *PRSCBProgressPoints;
 ///////////////////////////////////////////////////////////////////////////////////////////
-RSTUFF_FUNC(Bool32) RSTUFF_Init(uint16_t wHeightCode,Handle hStorage);
+RSTUFF_FUNC(Bool32) RSTUFF_Init(Word16 wHeightCode,Handle hStorage);
 RSTUFF_FUNC(Bool32) RSTUFF_Done();
-RSTUFF_FUNC(uint32_t) RSTUFF_GetReturnCode();
-RSTUFF_FUNC(char *) RSTUFF_GetReturnString(uint32_t dwError);
-RSTUFF_FUNC(Bool32) RSTUFF_GetExportData(uint32_t dwType, void * pData);
-RSTUFF_FUNC(Bool32) RSTUFF_SetImportData(uint32_t dwType, void * pData);
+RSTUFF_FUNC(Word32) RSTUFF_GetReturnCode();
+RSTUFF_FUNC(Int8 *) RSTUFF_GetReturnString(Word32 dwError);
+RSTUFF_FUNC(Bool32) RSTUFF_GetExportData(Word32 dwType, void * pData);
+RSTUFF_FUNC(Bool32) RSTUFF_SetImportData(Word32 dwType, void * pData);
 /////////////////////////////////////////////////////////////
 
 typedef enum
@@ -165,7 +165,7 @@ typedef enum
 } RSTUFF_EXPORT_ENTRIES;
 //////////////////////////////////////////////////////////////////////////////////////////////
 //typedef void   (*PRSTUFFCBPRogressStart)(void);
-//typedef Bool32 (*PRSTUFFCBPRogressStep)(uint32_t);
+//typedef Bool32 (*PRSTUFFCBPRogressStep)(Word32);
 //typedef void   (*PRSTUFFCBPRogressFinish)(void);
 //////////////////////////////////////////////////////////////////////////////////////////////
 typedef enum
@@ -185,7 +185,7 @@ DEC_FUN(Bool32, RSNormalise,         (PRSPreProcessImage,void* vBuff,int Size,vo
 DEC_FUN(Bool32, RSNormVerify,        (PRSPreProcessImage));
 DEC_FUN(Bool32, RSNormRemoveLines,   (PRSPreProcessImage));
 DEC_FUN(Bool32, RSLayout,            (PRSPreProcessImage));
-DEC_FUN(Bool32, RSSetSpecPrj,          (uchar NoSpecPrj));
+DEC_FUN(Bool32, RSSetSpecPrj,          (Word8 NoSpecPrj));
 #undef DEC_FUN
 
 

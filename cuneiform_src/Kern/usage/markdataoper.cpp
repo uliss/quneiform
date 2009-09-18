@@ -207,17 +207,17 @@ Bool MakeRectFromPict (Rect16 *pCurr, void *vPict)
 		return FALSE;
 	if (pPict->com.Vertex[0].y>=pPict->com.Vertex[3].y)
 		return FALSE;
-	pCurr->left   = (int16_t)pPict->com.Vertex[0].x;
-	pCurr->right  = (int16_t)pPict->com.Vertex[1].x;
-	pCurr->top    = (int16_t)pPict->com.Vertex[0].y;
-	pCurr->bottom = (int16_t)pPict->com.Vertex[3].y;
+	pCurr->left   = (Int16)pPict->com.Vertex[0].x;
+	pCurr->right  = (Int16)pPict->com.Vertex[1].x;
+	pCurr->top    = (Int16)pPict->com.Vertex[0].y;
+	pCurr->bottom = (Int16)pPict->com.Vertex[3].y;
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
 Bool LoadPicts_rv (Handle hC, void *vB, char *pStr)
 {
 	int SizeCurr, Deficit, nRc;
-	uint32_t err32, nTeor, nReal;
+	Word32 err32, nTeor, nReal;
 	Bool ret;
 	POLY_ Pict;
 	Handle hBlockPictSpec;

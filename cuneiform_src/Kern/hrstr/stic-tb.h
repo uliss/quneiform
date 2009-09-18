@@ -150,7 +150,7 @@ static BYTE tab_L[]=				// dis_L
 	LF, /* 4. for any long center flag	*/
 	NF, /* 5. for any near center flag	*/
 	40, /* 6. similar    ╨			*/
-	100 /* 7. too int down right flag	*/
+	100 /* 7. too LONG down right flag	*/
 	};
 
 static BYTE tab_T[]=				// for dis_T

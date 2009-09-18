@@ -79,8 +79,8 @@ Edef FNRSELSTR_ProgressStep 	fnProgressStep_rsel		VAL(NULL);
 Edef FNRSELSTR_ProgressFinish  fnProgressFinish_rsel	VAL(NULL);
 
 void PageLayoutStrings(Handle hCCOM,Handle hCPAGE);
-void SetReturnCode_rselstr(uint32_t rc);
-uint32_t GetReturnCode_rselstr( void );
+void SetReturnCode_rselstr(Word32 rc);
+Word32 GetReturnCode_rselstr( void );
 Bool32 Open_Res_Log( void );
 Bool32 Close_Res_Log( void );
 

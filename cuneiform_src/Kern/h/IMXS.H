@@ -67,18 +67,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef struct tagImxs_ImageInfo
 {
-    uint16_t  wImageHeight;           /* Height of the image in lines       */
-    uint16_t  wImageWidth;            /* Width of the image in pixels       */
-    uint16_t  wImageByteWidth;        /* Size of the image line in bytes    */
-    uint16_t  wImageDisplacement;     /* Displacement of the first pixel of */
+    Word16  wImageHeight;           /* Height of the image in lines       */
+    Word16  wImageWidth;            /* Width of the image in pixels       */
+    Word16  wImageByteWidth;        /* Size of the image line in bytes    */
+    Word16  wImageDisplacement;     /* Displacement of the first pixel of */
                                     /*   image line in pixels, usually 0  */
-    uint16_t  wResolutionX;           /* Resolution by X-axe */
-    uint16_t  wResolutionY;           /* Resolution by Y-axe */
-    uchar   bFotoMetrics;             /* White pixel */
-    uchar   bUnused;                  /* not used; for alignment purpose only */
+    Word16  wResolutionX;           /* Resolution by X-axe */
+    Word16  wResolutionY;           /* Resolution by Y-axe */
+    Word8   bFotoMetrics;             /* White pixel */
+    Word8   bUnused;                  /* not used; for alignment purpose only */
 
-    uint16_t  wAddX;
-    uint16_t  wAddY;
+    Word16  wAddX;
+    Word16  wAddY;
 } Imxs_ImageInfo;
 
 #pragma pack()
@@ -86,9 +86,9 @@ typedef struct tagImxs_ImageInfo
 	#ifdef __cplusplus
 	extern "C"  {
 	#endif
-		typedef int16_t  (*TImageGetBlock )(uchar* lpBuff, int16_t fstLine, int16_t nLines);
+		typedef Int16  (*TImageGetBlock )(Word8* lpBuff, Int16 fstLine, Int16 nLines);
       typedef Bool16 (*TImageOpen     )(Imxs_ImageInfo* lpImageInfo);
-		typedef int16_t  (*TImageRead     )(uchar* lpImage, uint16_t wMaxSize);
+		typedef Int16  (*TImageRead     )(Word8* lpImage, Word16 wMaxSize);
 		typedef Bool16 (*TImageClose    )(void);
 	#ifdef __cplusplus
 	}

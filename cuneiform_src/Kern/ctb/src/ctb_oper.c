@@ -65,8 +65,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /// extern fuxntions and data
 extern char * ctb_last_punct(char *word);
-extern Bool32 CTB_files_init(char *file_name,uchar *data,int16_t maxX,int16_t maxY,
-                    int16_t dpb,uchar signums,uchar attr_size);
+extern Bool32 CTB_files_init(char *file_name,Word8 *data,Int16 maxX,Int16 maxY,
+                    Int16 dpb,Word8 signums,Word8 attr_size);
 extern int32_t ctb_err_code ;   // error code                   //
 
 CTB_FUNC(int32_t)  CTB_compress(char *filename)
@@ -74,7 +74,7 @@ CTB_FUNC(int32_t)  CTB_compress(char *filename)
 char *p,tmp_file[MAXPATH],file_name[MAXPATH];
 CTB_handle hi,ho;
 int32_t i,n,compress;
-uchar dst[CTB_DATA_SIZE],buffer[256*128+2+CTB_DATA_SIZE];
+Word8 dst[CTB_DATA_SIZE],buffer[256*128+2+CTB_DATA_SIZE];
 
 p=ctb_last_punct(file_name);
 strcpy(file_name,filename);
@@ -183,9 +183,9 @@ return 2;
 
 CTB_FUNC(int32_t)  CTB_move(char *new_name, char *old_name)
 {
-int16_t n;
+Int16 n;
 
-n = (int16_t)CTB_copy(new_name, old_name);
+n = (Int16)CTB_copy(new_name, old_name);
 CTB_unlink(old_name);
 return n;
 }
@@ -209,8 +209,8 @@ CTB_FUNC(int32_t)  CTB_copy(char *new_name, char *old_name)
 {
 char *p;
 CTB_handle hi,ho;
-int16_t i,n;
-uchar dst[CTB_DATA_SIZE], buffer[256*128+2+CTB_DATA_SIZE];
+Int16 i,n;
+Word8 dst[CTB_DATA_SIZE], buffer[256*128+2+CTB_DATA_SIZE];
 //size_t size;
 
 ctb_err_code = CTB_ERR_NONE;
@@ -225,7 +225,7 @@ CTB_read_global_data(&hi,dst);
 CTB_files_init(new_name,dst,hi.width,hi.height,
 					hi.dpb,hi.signums,hi.attr_size);
 
-n = (int16_t)CTB_volume(&hi);
+n = (Int16)CTB_volume(&hi);
 
 if( !CTB_open(new_name,&ho,"w") )
 	return 0;

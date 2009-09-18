@@ -73,7 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "fonrec.h"
 
 WORD cmp(PBYTE r,WORD fullwb,WORD w,WORD h,welet * wl);
-int16_t RazmazHalf(BYTE *bSource,BYTE *bDest,int16_t xbit,int16_t yrow);
+SINT RazmazHalf(BYTE *bSource,BYTE *bDest,SINT xbit,SINT yrow);
 
 static int LookLeft(int *startRow,int yrow,int bits,int height,
 					int *outHeight);
@@ -113,7 +113,7 @@ typedef struct tagMYSTACK {
 } MYSTACK;
 */
 
-extern uchar language;
+extern Word8 language;
 
 static int *AllBounds=NULL;
 static RECBOU AllRecBou[MAX_ALT_BOU];
@@ -231,7 +231,7 @@ int *bou;
 static int DistToWeletBound(PBYTE r,int fullByte,int w,int h,welet * wl,
 					   int xo,int yo,int porog,int *bou )
 {
-char * curr;
+PCHAR curr;
 int   i,j,jj;
 BYTE  cbyte,cc;
 int rbyte;
@@ -292,11 +292,11 @@ int lastColumn;
 static int DistWeletRazmazBound(PBYTE r,int fullByte,int  w,int  h,welet * wl,
 					 int  xo,int  yo, int porog,int *bou)
 {
-int16_t ww=wl->w, hh=wl->h;
-char * curr;
-int16_t i,j;
+SINT ww=wl->w, hh=wl->h;
+PCHAR curr;
+SINT i,j;
 BYTE  cbyte,cc;
-int16_t rbyte;
+SINT rbyte;
 int dist;
 int startx; // =(WR_MAX_WIDTH-w)/2;
 int starty=(WR_MAX_HEIGHT-h)/2;
@@ -586,8 +586,8 @@ static int FindBestClustersBound(int w,int h,BYTE *buf,BYTE *bufrazmaz,
 			  int *leftStart,
 			  int col, int row, int nInCTB,int countRazmaz)
 {
- int16_t i;
- int16_t dist;
+ SINT i;
+ SINT dist;
  int num=0;
  int xbyte=(w+7)>>3;
  int xbyteRazmaz=(w+9)>>3;
@@ -695,8 +695,8 @@ static BYTE bufrazmaz[2*REC_MAX_RASTER_SIZE];
 static int StartInRow[WR_MAX_HEIGHT];
 
 // bounds - massiv yyrow*maxNames
-int16_t RecogCluBound(BYTE *rast,int16_t xbyte,int16_t xbit,int16_t yyrow,BYTE *names,
-			 BYTE *probs,int16_t maxNames,welet *wl,int numWel,
+SINT RecogCluBound(BYTE *rast,SINT xbyte,SINT xbit,SINT yyrow,BYTE *names,
+			 BYTE *probs,SINT maxNames,welet *wl,int numWel,
 			 int *bounds, int countRazmaz)
 {
  int i,numAlt;
@@ -720,8 +720,8 @@ int16_t RecogCluBound(BYTE *rast,int16_t xbyte,int16_t xbit,int16_t yyrow,BYTE *
 // if( xbit < POROG_HALF_WIDTH && yrow < POROG_HALF_HEIGHT )
 //   RazmazHalf(buf,bufrazmaz,xbit,yrow);
 
-  Razmaz2(buf,bufrazmaz,xbit,(int16_t)yrow,0,
-          (int16_t)POROG_ANGLES);
+  Razmaz2(buf,bufrazmaz,xbit,(SINT)yrow,0,
+          (SINT)POROG_ANGLES);
    //  - threshold add angles
 
   // left bound
@@ -1088,8 +1088,8 @@ static int FindFirstClusterPorog(int w,int h,
 			  int porog, int *outBou ,int *outDist,
 			  int *yFir,int *yHei)
 {
- int16_t i,j;
- int16_t dist;
+ SINT i,j;
+ SINT dist;
  int xbyte=(w+7)>>3;
  int xbyteRazmaz=(w+9)>>3;
  int yStart,yHeight;
@@ -1303,8 +1303,8 @@ int  heiY;
  if( yrow > WR_MAX_HEIGHT-2)
         yrow = WR_MAX_HEIGHT-2;
 
-// int16_t RecogCluBound(BYTE *rast,int16_t xbyte,int16_t xbit,int16_t yyrow,BYTE *names,
-//			 BYTE *probs,int16_t maxNames,welet *wl,int numWel,
+// SINT RecogCluBound(BYTE *rast,SINT xbyte,SINT xbit,SINT yyrow,BYTE *names,
+//			 BYTE *probs,SINT maxNames,welet *wl,int numWel,
 //			 int *bounds);
 
  TekInStack=0;
@@ -1322,8 +1322,8 @@ int  heiY;
 	 if(  startX + POROG_STOP < xbit)
 	 {
 
-         Razmaz2(buf,bufrazmaz,(int16_t)(outBit),(int16_t)yrow,
-			 (int16_t)0,(int16_t)POROG_ANGLES);
+         Razmaz2(buf,bufrazmaz,(SINT)(outBit),(SINT)yrow,
+			 (SINT)0,(SINT)POROG_ANGLES);
 
  // left bound
          FillLeft(buf,outByte,yrow,outByte<<3,StartInRow);
@@ -1424,7 +1424,7 @@ static int FillInBuf(BYTE *inBuf,int xbyte,int yrow,CSTR_rast fir,CSTR_rast las,
 	{
         if( !CSTR_GetAttr (fir, &attr) )
                 return -1;
-		if( !CSTR_GetImage(fir,(uchar*)&recRast,CSTR_TYPE_IMAGE_RS ) )
+		if( !CSTR_GetImage(fir,(Word8*)&recRast,CSTR_TYPE_IMAGE_RS ) )
                 return -1;
 
 		xbyte8 = REC_GW_WORD8(recRast.lnPixWidth);
@@ -1608,7 +1608,7 @@ Bool32 p2_StoreVersions(CSTR_rast rast,RecVersions *rver,int lang)
 {
 int  i;
 UniVersions cver,*ver;
-uchar let;
+Word8 let;
 
 //if( lang==LANG_ENGLISH && multy_language )
 //    lang    = LANG_RUSENG;
@@ -1710,15 +1710,15 @@ static int PutNewRasters(BYTE *inBuf,int xbit,int yrow,CSTR_rast outFir,
 	   {
         attr.row = rect.top+posLineY;
 	    attr.col = rect.left+posLineX;
-	    attr.r_row =attr.row+(short)((int)nNaklon*attr.col/2048);
-        attr.r_col =attr.col-(short)((int)nNaklon*attr.row/2048);
+	    attr.r_row =attr.row+(short)((LONG)nNaklon*attr.col/2048);
+        attr.r_col =attr.col-(short)((LONG)nNaklon*attr.row/2048);
 	   }
 	   else
 	   {
 		attr.r_row = rect.top+posLineY;
 	    attr.r_col = rect.left+posLineX;
-	    attr.row =attr.r_row-(short)((int)nNaklon*attr.r_col/2048);
-        attr.col =attr.r_col+(short)((int)nNaklon*attr.r_row/2048);
+	    attr.row =attr.r_row-(short)((LONG)nNaklon*attr.r_col/2048);
+        attr.col =attr.r_col+(short)((LONG)nNaklon*attr.r_row/2048);
 	   }
 
 
@@ -1802,8 +1802,8 @@ FON_FUNC(int) FONRecogGlue(CSTR_rast firLeo,CSTR_rast lasLeo,
 	 if(  startX + POROG_STOP < xbit)
 	 {
 
-         Razmaz2(buf,bufrazmaz,(int16_t)(outBit),(int16_t)yrow,
-			 (int16_t)0,(int16_t)POROG_ANGLES);
+         Razmaz2(buf,bufrazmaz,(SINT)(outBit),(SINT)yrow,
+			 (SINT)0,(SINT)POROG_ANGLES);
 
  // left bound
          FillLeft(buf,outByte,yrow,outByte<<3,StartInRow);
@@ -1920,8 +1920,8 @@ FON_FUNC(int32_t) FONRecog2Glue(CSTR_rast firLeo,CSTR_rast lasLeo,
 					  buf,&outBit,NULL);
  outByte = (outBit+7)>>3;
 
- Razmaz2(buf,bufrazmaz,(int16_t)(outBit),(int16_t)yrow,
-			 (int16_t)0,(int16_t)POROG_ANGLES);
+ Razmaz2(buf,bufrazmaz,(SINT)(outBit),(SINT)yrow,
+			 (SINT)0,(SINT)POROG_ANGLES);
 
  FillLeft(buf,outByte,yrow,outByte<<3,StartInRow);
 
@@ -2153,15 +2153,15 @@ FON_FUNC(int32_t) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
 	   {
         attr.row = wordRect.top;
 	    attr.col = wordRect.left;
-	    attr.r_row =attr.row+(short)((int)nNaklon*attr.col/2048);
-        attr.r_col =attr.col-(short)((int)nNaklon*attr.row/2048);
+	    attr.r_row =attr.row+(short)((LONG)nNaklon*attr.col/2048);
+        attr.r_col =attr.col-(short)((LONG)nNaklon*attr.row/2048);
 	   }
    else
 	   {
 		attr.r_row = wordRect.top;
 		attr.r_col = wordRect.left;
-		attr.row =attr.r_row-(short)((int)nNaklon*attr.r_col/2048);
-		attr.col =attr.r_col+(short)((int)nNaklon*attr.r_row/2048);
+		attr.row =attr.r_row-(short)((LONG)nNaklon*attr.r_col/2048);
+		attr.col =attr.r_col+(short)((LONG)nNaklon*attr.r_row/2048);
 	   }
 
                         // нельзя NewRaster - вставится после пробела,

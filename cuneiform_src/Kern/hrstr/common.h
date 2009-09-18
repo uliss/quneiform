@@ -60,13 +60,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //Для использования в других файлах должна быть объявлена как
 //           extern "C" FIELD_INFO FieldInfo;
 
-typedef uchar ALPHA_TABLE[256];
+typedef Word8 ALPHA_TABLE[256];
 
 typedef struct tagFIELD_INFO
 {
   Bool LINret;          //флаг: базовые линии определены LINDefineLines
   Bool HandRec;         //рукописное распознавание
-  uint32_t Style;
+  Word32 Style;
 #define FIS_DONT_GLUE      1  //не клеить
 #define FIS_DONT_CUT       2  //не резать
 #define FIS_PRINTED        4  //печатное поле

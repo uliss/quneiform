@@ -75,21 +75,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       int32_t  spec_camera ;
       int32_t  no_linpen ;
 
-      int16_t  prop_l_delta;
-	  int16_t  prop_r_delta;
+      Int16  prop_l_delta;
+	  Int16  prop_r_delta;
 
-	  uchar *let_lindef3;
-      uchar *let_lindef;
-      uchar *let_linpos;
-      uchar *let_linshape;
-      uchar *let_sans_acc;          // [257]
-      uchar *letters_pidx_table;    // 512
-      uchar *decode_ASCII_to_;      // [256][4]
+	  Word8 *let_lindef3;
+      Word8 *let_lindef;
+      Word8 *let_linpos;
+      Word8 *let_linshape;
+      Word8 *let_sans_acc;          // [257]
+      Word8 *letters_pidx_table;    // 512
+      Word8 *decode_ASCII_to_;      // [256][4]
 	  Handle skew_corr;
 	  Handle rast_is_BOX_solid;
 
-	  uchar db_status;
-	  uchar db_pass;
+	  Word8 db_status;
+	  Word8 db_pass;
 	  Handle snap_monitor;
 	  Handle snap_show_text;
 	  Handle snap_activity;
@@ -123,17 +123,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // буква была переведена в dust
    BYTE          let_to_dust;
 // все буквы в строке заглавные
-   char          all_caps;
+   CHAR          all_caps;
 // посчитаны и заполнены в растры ->bdiff, ->difflg.
-   char          all_diffs_made;
+   CHAR          all_diffs_made;
   }
  BAL_INOUT_GLOBALS;
 
  typedef struct BLIN_bas_ln_type
- { int16_t startcol, endcol;
+ { Int16 startcol, endcol;
 //, startf, endf, ncells;
-   int16_t ps, b1, b2, b3, b4;
-   int16_t n1, n2, n3, n4;
+   Int16 ps, b1, b2, b3, b4;
+   Int16 n1, n2, n3, n4;
    BYTE fl_def;
 //   BYTE fl_ext;
 //   cell *c1, *c2, *cf1, *cf2;

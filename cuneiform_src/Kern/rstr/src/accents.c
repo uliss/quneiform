@@ -94,7 +94,7 @@ static INT acc_tild(cell *,PBYTE);
 static INT acc_macron(cell *,PBYTE);	// 17.07.2001 E.P.
 static INT acc_dot(cell *c,cell *cc);
 
-int16_t NumIntersect2(c_comp *cmp, int mHei);
+Int16 NumIntersect2(c_comp *cmp, int mHei);
 
 // 04.09.2000 E.P.
 static INT acc_double_right(cell *c,cell *cc,PBYTE r);
@@ -1753,7 +1753,7 @@ static Bool32 IsProgib(PBYTE r,int w,int h)
 {
 	int i,j;
 	int wb=(w+7)>>3;
-	uchar cc;
+	Word8 cc;
 	int tek;
 	int buffer[128],bufUp[128],bufDn[128];
 	int left,right,best;
@@ -2329,7 +2329,7 @@ static INT acc_semicircle(cell *cc,PBYTE r)
 // how many intersections >= 2 - on height from 0 to mHei
 // return < 0 - some error
 #define MAXNUMINT 64
-int16_t NumIntersect2(c_comp *cmp, int mHei)
+Int16 NumIntersect2(c_comp *cmp, int mHei)
 {
  int      i,crow;
  lnhead   *line;
@@ -2345,13 +2345,13 @@ int16_t NumIntersect2(c_comp *cmp, int mHei)
 
  memset(numint,0,mHei*sizeof(int));
 
- line=(lnhead *)((char *)cmp+cmp->lines+sizeof(INT));
+ line=(lnhead *)((PCHAR)cmp+cmp->lines+sizeof(INT));
 
  // test all lines
- for (; (len=line->lth)>0; line=(lnhead *)((char *)line+len))
+ for (; (len=line->lth)>0; line=(lnhead *)((PCHAR)line+len))
  {
   // current line
-  for (vint=(interval *)((char *)line+sizeof(lnhead)),
+  for (vint=(interval *)((PCHAR)line+sizeof(lnhead)),
 	   crow = line->row,i=0; i < line->h; i++, crow++ )
   {
 	  if( crow < 0 )
@@ -2370,7 +2370,7 @@ int16_t NumIntersect2(c_comp *cmp, int mHei)
  return i;
 }
 //**************************************************************************
-static int16_t FindAngles(cell *c, int *lUAngle, int *rUAngle,
+static Int16 FindAngles(cell *c, int *lUAngle, int *rUAngle,
 						int *lDAngle, int *rDAngle )
 {
  c_comp   *cmp=c->env;
@@ -2385,13 +2385,13 @@ static int16_t FindAngles(cell *c, int *lUAngle, int *rUAngle,
  *lUAngle = *rUAngle = c->h + c->w;
  *lDAngle = *rDAngle = c->h + c->w;
 
- line=(lnhead *)((char *)cmp+cmp->lines+sizeof(INT));
+ line=(lnhead *)((PCHAR)cmp+cmp->lines+sizeof(INT));
 
  // test all lines
- for (; (len=line->lth)>0; line=(lnhead *)((char *)line+len))
+ for (; (len=line->lth)>0; line=(lnhead *)((PCHAR)line+len))
  {
   // current line
-  for (vint=(interval *)((char *)line+sizeof(lnhead)),
+  for (vint=(interval *)((PCHAR)line+sizeof(lnhead)),
 	   crow = line->row,i=0; i < line->h; i++, crow++, vint++ )
   {
 	  if( crow < 0 )
@@ -2409,7 +2409,7 @@ static int16_t FindAngles(cell *c, int *lUAngle, int *rUAngle,
  return 1;
 }
 //**************************************************************************
-static int16_t Test2Cell2(cell *c1,cell *c2,
+static Int16 Test2Cell2(cell *c1,cell *c2,
 						int *lUAngle, int *rUAngle,
 						int *lDAngle, int *rDAngle )
 {
@@ -2448,16 +2448,16 @@ static int16_t Test2Cell2(cell *c1,cell *c2,
 
  for(j=0, cmp=cmp1;j<2;j++,cmp=cmp2)
  {
-  line=(lnhead *)((char *)cmp+cmp->lines+sizeof(INT));
+  line=(lnhead *)((PCHAR)cmp+cmp->lines+sizeof(INT));
 
   startRow = (j==0?c1->row:c2->row)-minRow;
   startCol = (j==0?c1->col:c2->col)-minCol;
 
  // test all lines
-  for (; (len=line->lth)>0; line=(lnhead *)((char *)line+len))
+  for (; (len=line->lth)>0; line=(lnhead *)((PCHAR)line+len))
   {
   // current line
-   for (vint=(interval *)((char *)line+sizeof(lnhead)),
+   for (vint=(interval *)((PCHAR)line+sizeof(lnhead)),
 	   crow = line->row,i=0; i < line->h; i++, crow++, vint++ )
    {
 	  if( crow < 0 )
@@ -2625,7 +2625,7 @@ static Bool NotEmptyInside(PBYTE r, INT w, INT h)
 {
 	int i,j,sum,allSum;
 	int wb = (w+7)>>3;
-	uchar cc;
+	Word8 cc;
 	PBYTE rr;
 
 	for(i=0,allSum=0;i<h;i++,r+=wb)

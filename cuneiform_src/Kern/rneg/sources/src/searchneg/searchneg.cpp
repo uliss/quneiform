@@ -67,9 +67,9 @@ void DelIn(Handle hCPage,NegList** proot,int& nRc)
  NegList* temp;
  Bool fl_cont;
  Bool vert;
- uchar Data[1000];
+ Word8 Data[1000];
  memset (Data, 0, sizeof (Data));
- uchar* pmasp;
+ Word8* pmasp;
  Rect16 Rc;
  double blackout;
  double blackin;
@@ -158,7 +158,7 @@ void DelIn(Handle hCPage,NegList** proot,int& nRc)
  (*proot)=root;
 }
 
-double NegBlack(uchar* pmasp,Rect16 Rc)
+double NegBlack(Word8* pmasp,Rect16 Rc)
 {
  int w=Rc.right-Rc.left+1;
  const int bytewide=(w+7)/8;
@@ -168,10 +168,10 @@ double NegBlack(uchar* pmasp,Rect16 Rc)
  int rect=w&7;
  if(!rect)
 	 rect=8;
- register uchar bytep;
+ register Word8 bytep;
  register int count_black=w*h;
- register uchar* p=pmasp;
- register uchar* pend=p+h*bytewide;
+ register Word8* p=pmasp;
+ register Word8* pend=p+h*bytewide;
  i=1;
  for(;p<pend;p++)
  {
@@ -198,10 +198,10 @@ void CutNegStr(Handle hCPage,NegList** proot,int& nRc,int skew)
 	 return;
 
  int h,w;
- uchar* pmasp;
+ Word8* pmasp;
  NegList* now=(*proot);
  NegList* temp;
- uchar Data[1000];
+ Word8 Data[1000];
  Bool fl_cont=FALSE;
  Rect16 Rc;
  memset (Data, 0, sizeof (Data));
@@ -264,24 +264,24 @@ void CutNeg(Handle hCPage,NegList** proot,int& nRc,int skew)
 {
  int k;
  int h,w;
- uchar* pmasp;
+ Word8* pmasp;
  NegList* root=(*proot);
  NegList* now=root;
- uchar Data[1000];
+ Word8 Data[1000];
  Bool fl_cont=FALSE;
  int bytewide;
  int rect;
  int top;
  int oldtop;
- register uchar bytep;
+ register Word8 bytep;
  register int count_black;
  double proc;
  Bool neg;
  Rect16 Rc;
  NegList* temp;
  int stop;
- register uchar* p;
- register uchar* pend;
+ register Word8* p;
+ register Word8* pend;
  int neg_top;
  int neg_bottom;
  int neg_left;
@@ -595,19 +595,19 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
 {
  double black_del;
  int i,j,k;
- uchar* pmasp;
+ Word8* pmasp;
  Rect16* Rc=(now->neg).pRc;
  int w;
  int h;
  int rect;
- register uchar bytep;
+ register Word8 bytep;
  register int count_black;
  int topp,lp;
  double proc;
  int stop;
- register uchar* p;
- register uchar* pend;
- uchar* pbeg;
+ register Word8* p;
+ register Word8* pend;
+ Word8* pbeg;
 
 
  if((now->neg).rot.pmasp)
@@ -616,7 +616,7 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
  }
  else
  {
-  uchar Data[1000];
+  Word8 Data[1000];
   memset (Data, 0, sizeof (Data));
 	pmasp = Data;
 
@@ -648,8 +648,8 @@ void NormNeg(Handle hCPage,NegList* now,NegList** proot,int& nRc)
 //Внимание!!! Здесь не должно останавливаться
     if((*Rc).top<5) top=TRUE;
     if((*Rc).left<5) left=TRUE;
-    if((*Rc).right>(int16_t)(Width)-5) right=TRUE;
-    if((*Rc).bottom>(int16_t)(Height)-5) bottom=TRUE;
+    if((*Rc).right>(Int16)(Width)-5) right=TRUE;
+    if((*Rc).bottom>(Int16)(Height)-5) bottom=TRUE;
     k=10;
     for(i=0;i<k;i++)
     {
@@ -991,7 +991,7 @@ void NegMoveMasR(Rect16* pRc,int& nRc,int num)
 }
 
 
-Bool IsNegSize(int16_t h,int16_t w)
+Bool IsNegSize(Int16 h,Int16 w)
 {
  if( (h<inf_neg_h) || (w<inf_neg_h) ) return FALSE;
  if( (h<inf_neg_w) && (w<inf_neg_w) ) return FALSE;
@@ -1001,12 +1001,12 @@ Bool IsNegSize(int16_t h,int16_t w)
 Bool IsNegBlack(Handle hCPage,NegList* now)
 {
  int i,j,k;
- uchar *pmasp;
+ Word8 *pmasp;
  if((now->neg).rot.pmasp)
    pmasp=(now->neg).rot.pmasp;
  else
  {
-  uchar Data[1000];
+  Word8 Data[1000];
   memset (Data, 0, sizeof (Data));
 	pmasp = Data;
   if(!(GetMasP(now->neg.pRc,&pmasp)) )
@@ -1030,15 +1030,15 @@ Bool IsNegBlack(Handle hCPage,NegList* now)
  int h=(now->neg).pRc[0].bottom-(now->neg).pRc[0].top+1;
  const int bytewide=(w+7)/8;
  register int count_black=w*h;
- register uchar bytep;
+ register Word8 bytep;
  i=7-(bytewide*8-w);
  j=128;
  int rect=w&7;
  if(!rect)
 	 rect=8;
 
- register uchar* p=pmasp;
- const uchar* pend=p+h*bytewide;
+ register Word8* p=pmasp;
+ const Word8* pend=p+h*bytewide;
  i=1;
  for(;p<pend;p++)
  {
@@ -1066,7 +1066,7 @@ Bool IsNegBlack(Handle hCPage,NegList* now)
 }
 
 
-Bool GetMasP(Handle hCPage,Rect16 Rc,uchar** ppmasp)
+Bool GetMasP(Handle hCPage,Rect16 Rc,Word8** ppmasp)
 {
     int prewide;
 	int left=Rc.left;
@@ -1083,14 +1083,14 @@ Bool GetMasP(Handle hCPage,Rect16 Rc,uchar** ppmasp)
 	PAGEINFO info = {0};
 	CIMAGEInfoDataInGet DataInto = {0};
 	CIMAGEInfoDataOutGet DataOut = {0};
-	uchar Name[CPAGE_MAXNAME];
+	Word8 Name[CPAGE_MAXNAME];
 	Bool ret;
 	int i;
 
 	/*  1. Подготовка к запросу части изображения.  */
-	DataInto.dwHeight   = (uint32_t)(h);
-	DataInto.dwWidth    = (uint32_t)(prewide);
-	DataInto.wByteWidth = (uint16_t)(prewide/8);
+	DataInto.dwHeight   = (Word32)(h);
+	DataInto.dwWidth    = (Word32)(prewide);
+	DataInto.wByteWidth = (Word16)(prewide/8);
 	DataInto.dwX        = left;
 	DataInto.dwY        = upper;
 	DataInto.MaskFlag   = 0x00;
@@ -1100,7 +1100,7 @@ Bool GetMasP(Handle hCPage,Rect16 Rc,uchar** ppmasp)
 	DataOut.dwWidth    = DataInto.dwWidth;
 	DataOut.dwHeight   = DataInto.dwHeight;
 	DataOut.wByteWidth = DataInto.wByteWidth;
-	DataOut.byBit      = (uint16_t)info.BitPerPixel;
+	DataOut.byBit      = (Word16)info.BitPerPixel;
 	DataOut.lpData     = *ppmasp;
 
 	/*  5. Чтение части изображения.  */
@@ -1113,7 +1113,7 @@ Bool GetMasP(Handle hCPage,Rect16 Rc,uchar** ppmasp)
 	return TRUE;
 }
 
-Bool GetMasP(Rect16* pRc,uchar** ppmasp)
+Bool GetMasP(Rect16* pRc,Word8** ppmasp)
 {
 	*ppmasp=pNegImage->GetPmasp(pRc);
 	if(*ppmasp==NULL)
@@ -1124,15 +1124,15 @@ Bool GetMasP(Rect16* pRc,uchar** ppmasp)
 void PrintFrameComp(Handle hCPage,Rect16* pRc,int num)
 {
  int i,j,k,bytewide;
- uchar bytep;
- uchar Data[1000];
+ Word8 bytep;
+ Word8 Data[1000];
 
  int h=pRc[num].bottom-pRc[num].top+1;
  int w=pRc[num].right-pRc[num].left+1;
  bytewide=(w)/8;
  if( ((w)%8) != 0)
 	 bytewide++;
- uchar* pmasp;
+ Word8* pmasp;
  memset (Data, 0, sizeof (Data));
  pmasp = Data;
  if( !(GetMasP(&(pRc[num]),&pmasp)) )
@@ -1295,10 +1295,10 @@ void InitRc(Rect16* pRc,int nRc,CCOM_comp * pcomp)
  pRc[nRc].bottom = pcomp->upper + pcomp->h - 1;
 }
 
-void NegInvert(uchar* pmasp,Rect16 N)
+void NegInvert(Word8* pmasp,Rect16 N)
 {
-	uchar* p=pmasp;
-	uchar* pend=pmasp+(N.bottom-N.top+1)*( (N.right-N.left+8)/8 );
+	Word8* p=pmasp;
+	Word8* pend=pmasp+(N.bottom-N.top+1)*( (N.right-N.left+8)/8 );
 	for(;p<pend;p++)
 		(*p)=~(*p);
 }

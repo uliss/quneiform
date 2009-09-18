@@ -98,7 +98,7 @@
 int OpenBase(char *);
 void CloseBase(void);
 
-static int16_t ReadAllFromBase(char *name, int16_t *nClu, char *movxy, int16_t AllCount);
+static SINT ReadAllFromBase(CHAR *name, SINT *nClu, CHAR *movxy, SINT AllCount);
 
 #define memmove memmove
 #define MAXINCLUS 127
@@ -111,70 +111,70 @@ static int16_t ReadAllFromBase(char *name, int16_t *nClu, char *movxy, int16_t A
 #define SIGNAL_SAVE     40
 void Signal(void);
 
-typedef int (* MKFAM)(raster_header * rh, WORD nclu);
+typedef LONG (* MKFAM)(raster_header * rh, WORD nclu);
 
 // now - common number of symbols <= MAXSYM
 // number in one weighted raster <= MAXINCLUS (127)
 // must be MAXINCLUS*3 < MAXSYM ! (used in SaveCluster)
-// must be sizeof(welet) >= MAXSYM*sizeof(int16_t)
+// must be sizeof(welet) >= MAXSYM*sizeof(SINT)
 //  -use dist_wel as mysteck
 //   (now 128*64+... > 8192)
 //
 // working buffer
-static char mybuffer[MAX(2*MAXSYM * sizeof(int16_t), max(2*sizeof (welet ),sizeof(access_tab)))];
+static CHAR mybuffer[MAX(2*MAXSYM * sizeof(SINT), max(2*sizeof (welet ),sizeof(access_tab)))];
 welet *welBuf = (welet *) mybuffer;
-welet *dist_wel = (welet *) (mybuffer + MAX(MAXSYM * sizeof(int16_t),
+welet *dist_wel = (welet *) (mybuffer + MAX(MAXSYM * sizeof(SINT),
 		sizeof(welet))); // use as
 
 // union twins with solid? - tiger
 //             remove week? - CTB
 static BYTE p2_active = 4;
-static int16_t porogCluster = 2;
-static int16_t IsCTBBase = 1; // load from b/w CTB
-static int16_t OutCTBBase = 1; // save as grey CTB
+static SINT porogCluster = 2;
+static SINT IsCTBBase = 1; // load from b/w CTB
+static SINT OutCTBBase = 1; // save as grey CTB
 static BYTE metkaGoodStat[MAXWEICLUS * 2];
 static BYTE saveOnlyBest = 0; // make one font ?
-static uint32_t allFields[4][NFIELDDWORD];
+static Word32 allFields[4][NFIELDDWORD];
 #define MAXKEGL 127
-static int16_t keglBuffer[MAXKEGL + 1];
+static SINT keglBuffer[MAXKEGL + 1];
 ////////////////
 // ctb-functions
-int StartCTB(char *outname, CTB_handle *ccc, int16_t countFont, uint32_t *allFil);
+int StartCTB(char *outname, CTB_handle *ccc, Int16 countFont, Word32 *allFil);
 void EndCTB(CTB_handle *ccc);
 int SaveWeletAsCTB(welet *wel, CTB_handle *ccc);
 ///////////////////
 int FindBestClusters(int numSymbol, int numCluster, Nraster_header *rh,
-		int16_t *nClus, BYTE *metka, BYTE *metkaValid, int maxOutFonts,
-		uint32_t *ffFields);
+		SINT *nClus, BYTE *metka, BYTE *metkaValid, int maxOutFonts,
+		Word32 *ffFields);
 int MultiFindBestClusters(int numSymbol, int numCluster, Nraster_header *rh,
-		int16_t *nClus, BYTE *metka, BYTE *metkaValid);
+		SINT *nClus, BYTE *metka, BYTE *metkaValid);
 int GetProbValid(int numSymbol, int numCluster, Nraster_header *rh,
-		int16_t *nClus, BYTE *metkaGood, BYTE *metkaValid);
-int16_t AddClusterHausdorf(char *NameWr, char *szOutName, int16_t porog, int16_t porog2,
-		MKFAM accept, PBYTE extern_buf, int size_extern, clu_info *cin);
-int16_t SetAccessTab(int16_t fl, void *buf);
-int16_t CheckAccessTab(int16_t fh, void *buf);
-static int16_t ReOrderClusters(int16_t NumClus, int16_t NumAll, clu_info *cin);
-static int16_t TestUnionSolid(int16_t porog, int16_t NumAll, int16_t Clus2, int16_t NumClus);
-int16_t MakeMoved(BYTE *etalon, int16_t xbyte, int16_t yrow, BYTE *tmpbuf);
-static int16_t UnionOneAll(int16_t fir, int16_t las, BYTE *buf, BYTE *bufr, int16_t xbyte,
-		int16_t yrow, WORD CurName, int16_t porog, int16_t *NumIn);
-static int16_t TestUnionOne(int16_t porog, int16_t NumAll, int16_t NumClus);
-int16_t FindDistanceWr(welet *wel, welet *outwel);
-int16_t CheckCenterSymbol(BYTE *b1, int16_t xbyte, int16_t yrow, BYTE *buf2, BYTE *tbuf,
-		int16_t xbit2, int16_t yrow2, int16_t *sdvigx, int16_t *sdvigy, int16_t sum);
+		SINT *nClus, BYTE *metkaGood, BYTE *metkaValid);
+SINT AddClusterHausdorf(CHAR *NameWr, CHAR *szOutName, SINT porog, SINT porog2,
+		MKFAM accept, PBYTE extern_buf, LONG size_extern, clu_info *cin);
+SINT SetAccessTab(SINT fl, void *buf);
+SINT CheckAccessTab(SINT fh, void *buf);
+static SINT ReOrderClusters(SINT NumClus, SINT NumAll, clu_info *cin);
+static SINT TestUnionSolid(SINT porog, SINT NumAll, SINT Clus2, SINT NumClus);
+SINT MakeMoved(BYTE *etalon, SINT xbyte, SINT yrow, BYTE *tmpbuf);
+static SINT UnionOneAll(SINT fir, SINT las, BYTE *buf, BYTE *bufr, SINT xbyte,
+		SINT yrow, WORD CurName, SINT porog, SINT *NumIn);
+static SINT TestUnionOne(SINT porog, SINT NumAll, SINT NumClus);
+SINT FindDistanceWr(welet *wel, welet *outwel);
+SINT CheckCenterSymbol(BYTE *b1, SINT xbyte, SINT yrow, BYTE *buf2, BYTE *tbuf,
+		SINT xbit2, SINT yrow2, SINT *sdvigx, SINT *sdvigy, SINT sum);
 void init11(void);
-int16_t SaveCluster(int16_t fh, CTB_handle *cc, int16_t fhh, CTB_handle *ccc, int16_t clus,
-		int16_t NumAll, BYTE *m1, BYTE *m2);
+SINT SaveCluster(SINT fh, CTB_handle *cc, SINT fhh, CTB_handle *ccc, SINT clus,
+		SINT NumAll, BYTE *m1, BYTE *m2);
 
-int16_t NumHauBit = 0; // number of bitmap buffers
+SINT NumHauBit = 0; // number of bitmap buffers
 static BYTE *BitHau[MAXHAU]; // big buffers
-static int LastBit = 0;
+static LONG LastBit = 0;
 Nraster_header *rh = NULL;
-int16_t nClus[MAXSYM];
-uchar language = 0, langCyrilRoman = 0;
-static int16_t clusBuffer[MAXSYM];
-static int16_t *mysteck = NULL; // == dist_wel
+SINT nClus[MAXSYM];
+Word8 language = 0, langCyrilRoman = 0;
+static SINT clusBuffer[MAXSYM];
+static SINT *mysteck = NULL; // == dist_wel
 
 static uint32_t MaxSizeBuf = 0; // space in buffer for bitmaps
 static BYTE IsRhHauBuf = 0; // 0 - use extern buffer for rh, BitHau[0]
@@ -213,7 +213,7 @@ void Signal(void) {
 /**************************/
 
 void EndHausdorfDLL(void) {
-	int16_t i;
+	SINT i;
 
 	for (i = (IsRhHauBuf >= 2 ? 0 : 1); i < NumHauBit; i++) {
 		if (BitHau[i] != NULL)
@@ -234,8 +234,8 @@ void EndHausdorfDLL(void) {
 // use ExternBuf - if not NULL && SizeExternBuf > 0
 //  return > 0 - how many memory alloccated
 //
-int StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf) {
-	int size = 0;
+LONG StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf) {
+	LONG size = 0;
 
 #ifdef _NONFLAT_
 	IsRhHauBuf=2;
@@ -285,13 +285,13 @@ int StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf) {
 	NumHauBit = 1; // number of bitmap buffers
 	LastBit = 0; // first empty byte in BitHau
 
-	mysteck = (int16_t *) dist_wel;
+	mysteck = (SINT *) dist_wel;
 
 	return size;
 }
 
 /***********************/
-BYTE *AddBuffer(int sizebitmap) {
+BYTE *AddBuffer(LONG sizebitmap) {
 	BYTE *bubu;
 
 	if ((uint32_t) (LastBit + sizebitmap) > MaxSizeBuf) {
@@ -313,14 +313,14 @@ BYTE *AddBuffer(int sizebitmap) {
 }
 /*********************/
 // Hausdorf distance from b1 to b2
-// in b1 black point16_t == 1 !
+// in b1 black poSINT == 1 !
 // b2 in reverse - black==0
-int16_t DistanceHausDLL(BYTE *b1, int16_t xbyte1, int16_t yrow1, BYTE *b2, int16_t xbyte2,
-		int16_t yrow2, int16_t porog) {
-	int16_t i, j;
-	int16_t xbyte = MIN(xbyte1, xbyte2);
-	int16_t yrow = MIN(yrow1, yrow2);
-	int16_t dist;
+SINT DistanceHausDLL(BYTE *b1, SINT xbyte1, SINT yrow1, BYTE *b2, SINT xbyte2,
+		SINT yrow2, SINT porog) {
+	SINT i, j;
+	SINT xbyte = MIN(xbyte1, xbyte2);
+	SINT yrow = MIN(yrow1, yrow2);
+	SINT dist;
 
 	for (i = 0, dist = 0; i < yrow; i++, b1 += xbyte1, b2 += xbyte2) {
 		for (j = 0; j < xbyte; j++) {
@@ -350,11 +350,11 @@ int16_t DistanceHausDLL(BYTE *b1, int16_t xbyte1, int16_t yrow1, BYTE *b2, int16
 // make next bitmaps
 // if nClu != NULL && nClu[num] > 0 ( already set cluster)
 // make only good picture
-static int16_t MakeBitmapsDLL(Nraster_header *rhh, BYTE *pp, int16_t num, int16_t *nClu,
-		char *movxy) {
-	int16_t j, i;
-	int16_t sx = rhh->w, sy = rhh->h, sxbyte;
-	int sizebitmap;
+static SINT MakeBitmapsDLL(Nraster_header *rhh, BYTE *pp, SINT num, SINT *nClu,
+		CHAR *movxy) {
+	SINT j, i;
+	SINT sx = rhh->w, sy = rhh->h, sxbyte;
+	LONG sizebitmap;
 	BYTE *pic;
 
 	// make good and razmaz pictures
@@ -398,12 +398,12 @@ static int16_t MakeBitmapsDLL(Nraster_header *rhh, BYTE *pp, int16_t num, int16_
 /////////////////////
 // how many symbols ?
 // use nClus as buffer
-int16_t GetNumSym(char *NameWr) {
-	int16_t fh;
-	int16_t i;
-	int16_t num;
+SINT GetNumSym(CHAR *NameWr) {
+	SINT fh;
+	SINT i;
+	SINT num;
 	BYTE *buf = (BYTE *) nClus;
-	int16_t size = sizeof(nClus), csize;
+	SINT size = sizeof(nClus), csize;
 	raster_header *rh;
 	int j;
 
@@ -424,7 +424,7 @@ int16_t GetNumSym(char *NameWr) {
 	}
 
 	for (i = 0, num = 0;;) {
-		while ((int16_t) (num + sizeof(raster_header)) <= csize) {
+		while ((SINT) (num + sizeof(raster_header)) <= csize) {
 			i++;
 			rh = (raster_header *) (buf + num);
 			num += ((rh->w + 7) >> 3) * rh->h + sizeof(raster_header);
@@ -452,14 +452,14 @@ int16_t GetNumSym(char *NameWr) {
 /***********************/
 // use buf as buffer for reading
 // must :size of picture + sizeof(raster_header) <= size) !
-int16_t ReadAllFromWr(char *name, BYTE *buf, int16_t size, int16_t *nClu, char *movxy,
-		int16_t NumAll, int16_t AllCount) {
-	int16_t allnum;
-	int16_t fh, i;
-	int16_t csize;
-	int16_t num;
+SINT ReadAllFromWr(CHAR *name, BYTE *buf, SINT size, SINT *nClu, CHAR *movxy,
+		SINT NumAll, SINT AllCount) {
+	SINT allnum;
+	SINT fh, i;
+	SINT csize;
+	SINT num;
 	raster_header *rhh;
-	int16_t CurCount = 0;
+	SINT CurCount = 0;
 
 	if (IsCTBBase)
 		return ReadAllFromBase(name, nClu, movxy, AllCount);
@@ -473,7 +473,7 @@ int16_t ReadAllFromWr(char *name, BYTE *buf, int16_t size, int16_t *nClu, char *
 		csize += num; // all bytes in buffer
 		num = 0;
 
-		while ((int16_t) (num + sizeof(raster_header)) < csize) {
+		while ((SINT) (num + sizeof(raster_header)) < csize) {
 			rhh = (raster_header *) (buf + num);
 			if (num + sizeof(raster_header) + ((rhh->w + 7) >> 3) * rhh->h
 					> (unsigned) csize)
@@ -518,13 +518,13 @@ int16_t ReadAllFromWr(char *name, BYTE *buf, int16_t size, int16_t *nClu, char *
 /////////////////////
 // save symbols & call function
 // use mysteck as buffer
-int16_t SaveSym(char *NameWr, int16_t NumAll, BYTE *buf, int16_t size, MKFAM accept) {
-	int16_t fh;
-	int16_t i;
-	int16_t num;
-	int16_t csize;
+SINT SaveSym(CHAR *NameWr, SINT NumAll, BYTE *buf, SINT size, MKFAM accept) {
+	SINT fh;
+	SINT i;
+	SINT num;
+	SINT csize;
 	raster_header *rh;
-	int position = 0;
+	LONG position = 0;
 
 	if (IsCTBBase)
 		return 0;
@@ -539,11 +539,11 @@ int16_t SaveSym(char *NameWr, int16_t NumAll, BYTE *buf, int16_t size, MKFAM acc
 			break;
 		num = 0;
 
-		while ((int16_t) (num + sizeof(raster_header)) <= csize) {
+		while ((SINT) (num + sizeof(raster_header)) <= csize) {
 			rh = (raster_header *) (buf + num);
 			rh->num = nClus[i];
 			if (accept)
-				accept(rh, (int16_t) (nClus[i] - 1));
+				accept(rh, (SINT) (nClus[i] - 1));
 			num += ((rh->w + 7) >> 3) * rh->h + sizeof(raster_header);
 			i++;
 			if (i >= NumAll)
@@ -574,18 +574,18 @@ int16_t SaveSym(char *NameWr, int16_t NumAll, BYTE *buf, int16_t size, MKFAM acc
 // pHau - massiv of NumAll*2 bitmaps
 //    real bitmap -( xbyte*yrow),next razmaz - (xbyte*(yrow+1))
 // use pHau[], rh,
-int16_t MakeClusters(int16_t fir, int16_t NumAll, int16_t CurClus, int16_t porog,
-		int16_t AllCount) {
+SINT MakeClusters(SINT fir, SINT NumAll, SINT CurClus, SINT porog,
+		SINT AllCount) {
 
-	int16_t i, j;
-	int16_t IsSame, IsNew;
-	int16_t NumSame;
+	SINT i, j;
+	SINT IsSame, IsNew;
+	SINT NumSame;
 	WORD CurName;
 	BYTE *buf, *bufr;
-	int16_t xbyte, yrow; // size of current
-	int16_t dist;
-	int16_t CurCount = 0;
-	int16_t sporog = porog;
+	SINT xbyte, yrow; // size of current
+	SINT dist;
+	SINT CurCount = 0;
+	SINT sporog = porog;
 
 	if (fir >= NumAll)
 		return CurClus - 1;
@@ -620,11 +620,11 @@ int16_t MakeClusters(int16_t fir, int16_t NumAll, int16_t CurClus, int16_t porog
 			//	 if( xbyte >= 4 && yrow > 30 ) porog<<=1;
 
 			dist = DistanceHausDLL(buf, xbyte, yrow, rh[j].pHaur, rh[j].xbyte,
-					(int16_t) (rh[j].h + 1), porog);
+					(SINT) (rh[j].h + 1), porog);
 
 			if (dist <= porog)
 				dist = DistanceHausDLL(rh[j].pHau, rh[j].xbyte, rh[j].h, bufr,
-						xbyte, (int16_t) (yrow + 1), porog);
+						xbyte, (SINT) (yrow + 1), porog);
 
 			if (dist <= porog) {
 				nClus[j] = CurClus;
@@ -666,30 +666,30 @@ int16_t MakeClusters(int16_t fir, int16_t NumAll, int16_t CurClus, int16_t porog
 // save clusters
 // NumAll - number of symbols
 // results - in nClus ,
-static int16_t ClusterHausdorfDLL(char *NameWr, int16_t porog, char *szOutName,
-		MKFAM accept, PBYTE extern_buf, int size_extern, clu_info *cin) {
-	int16_t i;
-	int16_t CurClus = 0;
-	int16_t NumAll;
-	int16_t fh;
-	int16_t ret = 0;
-	int position;
-	int16_t Clus2 = 0; // start non-solid clusters
-	int16_t Pass2 = 0;
-	int16_t AllCount = 0; // how many times Signal
-	int16_t CurCount, j; // need signal now ?
+static SINT ClusterHausdorfDLL(CHAR *NameWr, SINT porog, CHAR *szOutName,
+		MKFAM accept, PBYTE extern_buf, LONG size_extern, clu_info *cin) {
+	SINT i;
+	SINT CurClus = 0;
+	SINT NumAll;
+	SINT fh;
+	SINT ret = 0;
+	LONG position;
+	SINT Clus2 = 0; // start non-solid clusters
+	SINT Pass2 = 0;
+	SINT AllCount = 0; // how many times Signal
+	SINT CurCount, j; // need signal now ?
 #ifdef _GETTIME_
 	clock_t cl1,cl2,cl3,cl4,cl5;
 	cl1=clock();
 #endif
 	BYTE *metkaGood = NULL;
 	BYTE *metkaValid;
-	int16_t fhSnap = -1; // 30.10.98
+	SINT fhSnap = -1; // 30.10.98
 	CTB_handle CTBfile, CTBsnap, *CTBpointer = NULL;
-	int16_t countFont = 0;
+	Int16 countFont = 0;
 
 	if (NameWr == NULL) {
-		if ((NumAll = (int16_t) GetNumMemory()) <= 0)
+		if ((NumAll = (SINT) GetNumMemory()) <= 0)
 			return NumAll;
 	}
 
@@ -715,7 +715,7 @@ static int16_t ClusterHausdorfDLL(char *NameWr, int16_t porog, char *szOutName,
 
 		// make bitmaps
 		NumAll = ReadAllFromWr(NameWr, (BYTE *) mysteck, sizeof(welet), NULL,
-				NULL, NumAll, (int16_t) (NumAll / SIGNAL_START));
+				NULL, NumAll, (SINT) (NumAll / SIGNAL_START));
 		if (NumAll <= 0) // read invalid
 		{
 			EndHausdorfDLL();
@@ -727,7 +727,7 @@ static int16_t ClusterHausdorfDLL(char *NameWr, int16_t porog, char *szOutName,
 #endif
 	}
 
-	memset(nClus, 0, MAXSYM * sizeof(int16_t));
+	memset(nClus, 0, MAXSYM * sizeof(SINT));
 
 	AllCount = NumAll / SIGNAL_CLUSTER; // number of symbols for one Signal!
 
@@ -776,7 +776,7 @@ static int16_t ClusterHausdorfDLL(char *NameWr, int16_t porog, char *szOutName,
 	// проба разбить некоторые кластеры
 #ifdef _TEST_DIVIDE_
 	{
-		int TryDivide(int numSymbol, Nraster_header *rh, int16_t *nClus,
+		int TryDivide(int numSymbol, Nraster_header *rh, SINT *nClus,
 				int numCluster);
 		CurClus = TryDivide(NumAll, rh, nClus, CurClus);
 	}
@@ -796,7 +796,7 @@ static int16_t ClusterHausdorfDLL(char *NameWr, int16_t porog, char *szOutName,
 	// если чтение было из файла .r - записать туда номера кластеров
 	if (NameWr != NULL) {
 		// call external function && write numbers to file .r
-		i = SaveSym(NameWr, NumAll, (BYTE *) mysteck, MAXSYM * sizeof(int16_t),
+		i = SaveSym(NameWr, NumAll, (BYTE *) mysteck, MAXSYM * sizeof(SINT),
 				accept);
 		if (i < 0)
 			ret = i;
@@ -931,7 +931,7 @@ static BYTE WasInit11 = 0;
 /////
 // пометить, где в байтах стоят 1
 void init11(void) {
-	int16_t i, j;
+	SINT i, j;
 	BYTE k;
 	BYTE *curtab;
 	if (WasInit11)
@@ -950,10 +950,10 @@ void init11(void) {
 /////////////
 // rbyte =8*...  !!!
 // return number of black points
-WORD PutSymbolRaster(BYTE *pHau, BYTE *rast, int16_t rbyte, int16_t xbits,
-		int16_t xbyte, int16_t yrow) {
-	int16_t i, j;
-	int16_t xb = (xbits + 7) >> 3; // actual bytes in row
+WORD PutSymbolRaster(BYTE *pHau, BYTE *rast, SINT rbyte, SINT xbits,
+		SINT xbyte, SINT yrow) {
+	SINT i, j;
+	SINT xb = (xbits + 7) >> 3; // actual bytes in row
 	BYTE *rr;
 	BYTE *tb;
 	BYTE num;
@@ -992,34 +992,34 @@ WORD PutSymbolRaster(BYTE *pHau, BYTE *rast, int16_t rbyte, int16_t xbits,
 //////////////////
 // make, save weighted raster to file
 // use mysteck as buffer
-int16_t SaveCluster(int16_t fh, CTB_handle *CTBfile, int16_t fhSnap,
-		CTB_handle *CTBsnap, int16_t clus, int16_t NumAll, BYTE *metkaGood,
+SINT SaveCluster(SINT fh, CTB_handle *CTBfile, SINT fhSnap,
+		CTB_handle *CTBsnap, SINT clus, SINT NumAll, BYTE *metkaGood,
 		BYTE *metkaValid) {
-	int16_t i, j;
+	SINT i, j;
 	BYTE *rast;
-	int summax;
-	int summay;
-	int16_t maxx, maxy;
-	int16_t fir, fat;
-	int16_t *NextInClus;
-	int16_t *movex;
-	int16_t *movey;
-	int16_t startx, starty;
+	LONG summax;
+	LONG summay;
+	SINT maxx, maxy;
+	SINT fir, fat;
+	SINT *NextInClus;
+	SINT *movex;
+	SINT *movey;
+	SINT startx, starty;
 
 	BYTE *etalon;
-	int16_t xbyte; // size of etalon
-	int16_t yrow;
-	int16_t sdvigx; // need to move bitmap?
-	int16_t sdvigy; //   ------""------
-	int16_t fx, fy, distXY;
-	int16_t sumcol1;
+	SINT xbyte; // size of etalon
+	SINT yrow;
+	SINT sdvigx; // need to move bitmap?
+	SINT sdvigy; //   ------""------
+	SINT fx, fy, distXY;
+	SINT sumcol1;
 	BYTE *tmpbuf;
 	uint32_t fields[NFIELDDWORD];
 	int32_t nItalic, nBold, nSerif, nGelv, nArrow;
 	uint32_t tablColumn = 0;
 	BYTE odin = (BYTE) 1;
 
-	movex = (int16_t *) mysteck;
+	movex = (SINT *) mysteck;
 	movey = movex + MAXINCLUS;
 	NextInClus = movey + MAXINCLUS;
 
@@ -1064,8 +1064,8 @@ int16_t SaveCluster(int16_t fh, CTB_handle *CTBfile, int16_t fhSnap,
 			fy = -1;
 		movex[j] = sdvigx;
 		movey[j] = sdvigy;
-		maxx = MAX(maxx, (int16_t) rh[i].w + sdvigx);
-		maxy = MAX(maxy, (int16_t) rh[i].h + sdvigy);
+		maxx = MAX(maxx, (SINT) rh[i].w + sdvigx);
+		maxy = MAX(maxy, (SINT) rh[i].h + sdvigy);
 
 		NextInClus[j - 1] = i; // pointer from previous to current
 		summax += rh[i].w;
@@ -1089,7 +1089,7 @@ int16_t SaveCluster(int16_t fh, CTB_handle *CTBfile, int16_t fhSnap,
 
 	// collect all symbols to raster
 	memset(welBuf, 0, sizeof(welet));
-	welBuf->weight = (char) j;
+	welBuf->weight = (CHAR) j;
 	welBuf->w = maxx;
 	welBuf->h = maxy;
 
@@ -1106,9 +1106,9 @@ int16_t SaveCluster(int16_t fh, CTB_handle *CTBfile, int16_t fhSnap,
 		// where put next raster ?
 		etalon = rast + sdvigy * WR_MAX_WIDTH + sdvigx;
 
-		fat = PutSymbolRaster(rh[i].pHau, etalon, WR_MAX_WIDTH, (int16_t) MIN(
+		fat = PutSymbolRaster(rh[i].pHau, etalon, WR_MAX_WIDTH, (SINT) MIN(
 				rh[i].w, WR_MAX_WIDTH - startx - sdvigx),
-				(int16_t) ((rh[i].w >> 3) + 1), (int16_t) MIN(rh[i].h, WR_MAX_HEIGHT
+				(SINT) ((rh[i].w >> 3) + 1), (SINT) MIN(rh[i].h, WR_MAX_HEIGHT
 						- starty - sdvigy));
 		welBuf->summa += fat;
 
@@ -1182,7 +1182,7 @@ int16_t SaveCluster(int16_t fh, CTB_handle *CTBfile, int16_t fhSnap,
 	welBuf->sr_row = rh[fir].sr_row;
 
 	if (IsCTBBase && metkaGood) {
-		uint16_t meme = METKA_VALID;
+		Word16 meme = METKA_VALID;
 		welBuf->prob = metkaGood[clus - 1];
 		welBuf->valid = metkaValid[clus - 1] & (~meme);
 	}
@@ -1248,10 +1248,10 @@ int16_t SaveCluster(int16_t fh, CTB_handle *CTBfile, int16_t fhSnap,
 }
 ////////////////////
 /*************************/
-void MakRas(char *inp, char *ras, int16_t point) {
-	register int16_t i;
-	int16_t j = MIN(3, strlen(ras));
-	int16_t lens = strlen(inp);
+void MakRas(CHAR *inp, CHAR *ras, SINT point) {
+	register SINT i;
+	SINT j = MIN(3, strlen(ras));
+	SINT lens = strlen(inp);
 
 	for (i = lens - 1; i >= 0; i--) {
 		if (inp[i] == '.') {
@@ -1271,10 +1271,10 @@ void MakRas(char *inp, char *ras, int16_t point) {
 }
 ////////////////////////
 #ifdef _ADDONE_
-int16_t UnionOne(int16_t fir, int16_t las, BYTE *buf, BYTE *bufr, int16_t xbyte, int16_t xbit,
-		int16_t yrow, int16_t CurClus, int16_t porog) {
-	int16_t j;
-	int16_t dist;
+SINT UnionOne(SINT fir, SINT las, BYTE *buf, BYTE *bufr, SINT xbyte, SINT xbit,
+		SINT yrow, SINT CurClus, SINT porog) {
+	SINT j;
+	SINT dist;
 
 	for (j = fir; j < las; j++) {
 		if (nClus[j] != CurClus)
@@ -1286,11 +1286,11 @@ int16_t UnionOne(int16_t fir, int16_t las, BYTE *buf, BYTE *bufr, int16_t xbyte,
 			continue;
 
 		dist = DistanceHausDLL(buf, xbyte, yrow, rh[j].pHaur, rh[j].xbyte,
-				(int16_t) (rh[j].h + 1), porog);
+				(SINT) (rh[j].h + 1), porog);
 		if (dist > porog)
 			continue;
 		dist = DistanceHausDLL(rh[j].pHau, rh[j].xbyte, rh[j].h, bufr, xbyte,
-				(int16_t) (yrow + 1), (int16_t) porog);
+				(SINT) (yrow + 1), (SINT) porog);
 		if (dist <= porog)
 			return 1;
 	}
@@ -1303,10 +1303,10 @@ int16_t UnionOne(int16_t fir, int16_t las, BYTE *buf, BYTE *bufr, int16_t xbyte,
 // try union symbols - move centers
 //
 static int UnionSingles(int let, int porog, int NumClus, int NumAll,
-		int16_t *LasIn, int16_t *NumIn) {
+		SINT *LasIn, SINT *NumIn) {
 	int TestMoveRaster(int start, Nraster_header *rh, int NumAll, int NumClus,
-			int16_t *nClus, int16_t *LasIn, int16_t *NumIn, int porog);
-	int16_t i, j;
+			SINT *nClus, SINT *LasIn, SINT *NumIn, int porog);
+	SINT i, j;
 
 	for (i = 0; i < NumAll; i++) {
 		if (rh[i].let != let)
@@ -1320,14 +1320,14 @@ static int UnionSingles(int let, int porog, int NumClus, int NumAll,
 
 ///////////////////////
 // test - can union uniqal symbols with other clusters
-static int16_t maxClusName[256];
+static SINT maxClusName[256];
 #endif
-static int16_t TestUnionOne(int16_t porog, int16_t NumAll, int16_t NumClus) {
-	int16_t i, j, k;
-	int16_t *LasIn;
-	int16_t *NumIn;
+static SINT TestUnionOne(SINT porog, SINT NumAll, SINT NumClus) {
+	SINT i, j, k;
+	SINT *LasIn;
+	SINT *NumIn;
 	WORD CurName;
-	int16_t best, numbest;
+	SINT best, numbest;
 
 	NumClus++; // start from 1
 	if (NumClus <= 1 || NumClus * 2 > MAXSYM)
@@ -1335,7 +1335,7 @@ static int16_t TestUnionOne(int16_t porog, int16_t NumAll, int16_t NumClus) {
 	NumIn = mysteck;
 	LasIn = mysteck + NumClus;
 
-	memset(mysteck, 0, 2* NumClus * sizeof(int16_t));
+	memset(mysteck, 0, 2* NumClus * sizeof(SINT));
 	// how many symbols in clusters and get names
 	for (i = 0; i < NumAll; i++) {
 		if (nClus[i] <= 0)
@@ -1346,7 +1346,7 @@ static int16_t TestUnionOne(int16_t porog, int16_t NumAll, int16_t NumClus) {
 	}
 
 #ifdef _UNION_ONEONE_
-	memset(maxClusName, 0, 256* sizeof (int16_t));
+	memset(maxClusName, 0, 256* sizeof (SINT));
 	for(i=1;i< NumClus;i++)
 	{
 		CurName=rh[LasIn[i]].let;
@@ -1407,18 +1407,18 @@ static int16_t TestUnionOne(int16_t porog, int16_t NumAll, int16_t NumClus) {
 			continue; // ???
 
 			// can union ?
-			if( UnionOne(0,(int16_t)(LasIn[best]+1),rh[k].pHau,rh[k].pHaur,rh[k].xbyte,
+			if( UnionOne(0,(SINT)(LasIn[best]+1),rh[k].pHau,rh[k].pHaur,rh[k].xbyte,
 				 rh[k].w,rh[k].h,
 				 best,
-				 (int16_t)(rh[k].h<20?porog*2:rh[k].h<30?porog*3:porog*4)) )
+				 (SINT)(rh[k].h<20?porog*2:rh[k].h<30?porog*3:porog*4)) )
 	 {
 	   /*printf(" union %d with %d %c \n",i,best,(char)rh[k].let);*/
 	  nClus[k]=best;
 	  NumIn[best]++;
 	  for(j=0;j<NumAll;j++)  if(nClus[j] > i ) nClus[j]--;
 	  NumClus--;
-	  memcpy(LasIn+i,LasIn+i+1,(NumClus-i)*sizeof(int16_t));
-	  memcpy(NumIn+i,NumIn+i+1,(NumClus-i)*sizeof(int16_t));
+	  memcpy(LasIn+i,LasIn+i+1,(NumClus-i)*sizeof(SINT));
+	  memcpy(NumIn+i,NumIn+i+1,(NumClus-i)*sizeof(SINT));
 	  i--;
 	  continue;
 	 }
@@ -1427,7 +1427,7 @@ static int16_t TestUnionOne(int16_t porog, int16_t NumAll, int16_t NumClus) {
 //rename:
  #ifdef _RENAME_
   if( (j=UnionOneAll(0,NumAll,rh[k].pHau,rh[k].pHaur,rh[k].xbyte,
-				 rh[k].h, CurName,(int16_t)( porog>>2),NumIn) ) != -1 )
+				 rh[k].h, CurName,(SINT)( porog>>2),NumIn) ) != -1 )
 	 {
 	  rh[k].num=j+1;  // symbol number+1 - to mark ! ( > 0 - was union)
 	  /*printf(" union N=%d %c with %c (N=%d)\n",i,(char)rh[k].let,(char)rh[j].let,j);*/
@@ -1442,10 +1442,10 @@ static int16_t TestUnionOne(int16_t porog, int16_t NumAll, int16_t NumClus) {
 #endif
 
 #ifdef _RENAME_
-int16_t UnionOneAll(int16_t fir, int16_t las, BYTE *buf, BYTE *bufr, int16_t xbyte,
-		int16_t yrow, WORD CurName, int16_t porog, int16_t *NumIn) {
-	int16_t j;
-	int16_t dist;
+SINT UnionOneAll(SINT fir, SINT las, BYTE *buf, BYTE *bufr, SINT xbyte,
+		SINT yrow, WORD CurName, SINT porog, SINT *NumIn) {
+	SINT j;
+	SINT dist;
 
 	for (j = fir; j < las; j++) {
 		if (rh[j].let == CurName)
@@ -1458,11 +1458,11 @@ int16_t UnionOneAll(int16_t fir, int16_t las, BYTE *buf, BYTE *bufr, int16_t xby
 			continue;
 
 		dist = DistanceHausDLL(buf, xbyte, yrow, rh[j].pHaur, rh[j].xbyte,
-				(int16_t) (rh[j].h + 1), porog);
+				(SINT) (rh[j].h + 1), porog);
 		if (dist > porog)
 			continue;
 		dist = DistanceHausDLL(rh[j].pHau, rh[j].xbyte, rh[j].h, bufr, xbyte,
-				(int16_t) (yrow + 1), porog);
+				(SINT) (yrow + 1), porog);
 		if (dist <= porog)
 			return j;
 	}
@@ -1476,17 +1476,17 @@ int16_t UnionOneAll(int16_t fir, int16_t las, BYTE *buf, BYTE *bufr, int16_t xby
 // (really don't make union - only mark Or union - by p2_active)
 // return number of clusters
 // Clus2 - start non-solid clusters
-int16_t TestUnionSolid(int16_t porog, int16_t NumAll, int16_t Clus2, int16_t NumClus) {
-	int16_t j, k;
-	int16_t *IsTwin; // buffer for number union
-	int16_t *FirIn; // first from every non-solid cluster
+SINT TestUnionSolid(SINT porog, SINT NumAll, SINT Clus2, SINT NumClus) {
+	SINT j, k;
+	SINT *IsTwin; // buffer for number union
+	SINT *FirIn; // first from every non-solid cluster
 	WORD CurName;
-	int16_t CurClus;
+	SINT CurClus;
 	BYTE *buf;
 	BYTE *bufr;
-	int16_t xbyte, yrow;
-	int16_t dist;
-	int16_t porog1;
+	SINT xbyte, yrow;
+	SINT dist;
+	SINT porog1;
 
 	if (Clus2 >= NumClus)
 		return NumClus;
@@ -1494,7 +1494,7 @@ int16_t TestUnionSolid(int16_t porog, int16_t NumAll, int16_t Clus2, int16_t Num
 	if (NumClus * 2 > MAXSYM)
 		return NumClus - 1;
 	// mysteck use as buffers for study
-	IsTwin = (int16_t *) mysteck;
+	IsTwin = (SINT *) mysteck;
 	FirIn = mysteck + NumClus;
 	for (j = Clus2; j < NumClus; j++)
 		IsTwin[j] = FirIn[j] = -1;
@@ -1531,11 +1531,11 @@ int16_t TestUnionSolid(int16_t porog, int16_t NumAll, int16_t Clus2, int16_t Num
 				porog1 = porog;
 
 			dist = DistanceHausDLL(buf, xbyte, yrow, rh[j].pHaur, rh[j].xbyte,
-					(int16_t) (rh[j].h + 1), porog1);
+					(SINT) (rh[j].h + 1), porog1);
 			if (dist > porog1)
 				continue;
 			dist = DistanceHausDLL(rh[j].pHau, rh[j].xbyte, rh[j].h, bufr,
-					xbyte, (int16_t) (yrow + 1), porog);
+					xbyte, (SINT) (yrow + 1), porog);
 			if (dist <= porog1) {
 				IsTwin[CurClus] = j;
 				break;
@@ -1601,10 +1601,10 @@ int16_t TestUnionSolid(int16_t porog, int16_t NumAll, int16_t Clus2, int16_t Num
 //         4- solid,invalid; 5 - non-solid,invalid
 // NumClus - last Number of cluster (exist 1 - NumClus)
 //
-int16_t ReOrderClusters(int16_t NumClus, int16_t NumAll, clu_info *cin) {
-	int16_t i, j, k;
-	int16_t *newclus;
-	int16_t *order;
+SINT ReOrderClusters(SINT NumClus, SINT NumAll, clu_info *cin) {
+	SINT i, j, k;
+	SINT *newclus;
+	SINT *order;
 
 	cin->nsolid = 0;
 	cin->ninvalid = 0;
@@ -1616,7 +1616,7 @@ int16_t ReOrderClusters(int16_t NumClus, int16_t NumAll, clu_info *cin) {
 
 	newclus = mysteck;
 	order = mysteck + NumClus;
-	memset(order, 0, sizeof(int16_t) * NumClus);
+	memset(order, 0, sizeof(SINT) * NumClus);
 	for (i = 1; i < NumClus; i++)
 		newclus[i] = i;
 
@@ -1662,7 +1662,7 @@ int16_t ReOrderClusters(int16_t NumClus, int16_t NumAll, clu_info *cin) {
 }
 /////////////////////
 // write acces_tab
-int16_t CheckAccessTab(int16_t fh, void *buf) {
+SINT CheckAccessTab(SINT fh, void *buf) {
 	access_tab *act = buf;
 
 	if (read(fh, act, sizeof(access_tab)) != sizeof(access_tab))
@@ -1677,7 +1677,7 @@ int16_t CheckAccessTab(int16_t fh, void *buf) {
 }
 ///////////////////
 // sizeof(buf) must be >= sizeof(access_tab) !!!
-int16_t SetAccessTab(int16_t fh, void *buf) {
+SINT SetAccessTab(SINT fh, void *buf) {
 	access_tab *act = (access_tab *) buf;
 
 	memset(act, 0, sizeof(access_tab));
@@ -1701,9 +1701,9 @@ int16_t SetAccessTab(int16_t fh, void *buf) {
 //
 //       >=0 - number of clusters
 //
-clu_info make_font(char * rname, MKFAM accept, PBYTE extern_buf, int size) {
-	char szOutName[144];
-	int16_t ret;
+clu_info make_font(PCHAR rname, MKFAM accept, PBYTE extern_buf, LONG size) {
+	CHAR szOutName[144];
+	SINT ret;
 	clu_info cin;
 
 	memset(&cin, 0, sizeof(clu_info));
@@ -1745,11 +1745,11 @@ FON_FUNC(int32_t) FONGetNumCluster(int32_t nInCTB)
 }
 ////////////////
 // fill static Nraster_header rh !!!
-static int16_t ReadAllFromBase(char *name, int16_t *nClu, char *movxy, int16_t AllCount) {
+static SINT ReadAllFromBase(CHAR *name, SINT *nClu, CHAR *movxy, SINT AllCount) {
 	int GetSymbolFromBase(int i, Nraster_header *rh, BYTE **pBuf);
 
 	int allnum; // really read
-	int16_t CurCount = 0;
+	SINT CurCount = 0;
 	BYTE *pp;
 	int NumAll;
 	int i;
@@ -1764,7 +1764,7 @@ static int16_t ReadAllFromBase(char *name, int16_t *nClu, char *movxy, int16_t A
 		if (GetSymbolFromBase(i, rh + allnum, &pp) == 0)
 			continue;
 
-		if (MakeBitmapsDLL(rh + allnum, pp, (int16_t) allnum, nClu, movxy) < 0)
+		if (MakeBitmapsDLL(rh + allnum, pp, (SINT) allnum, nClu, movxy) < 0)
 			break;
 
 		allnum++;
@@ -1780,8 +1780,8 @@ static int16_t ReadAllFromBase(char *name, int16_t *nClu, char *movxy, int16_t A
 	return allnum;
 }
 /////////////////////
-FON_FUNC(int32_t) FONFontClusters(char *rname,char *cluname,void *accept,uchar *extern_buf,int32_t size,
-		uint32_t param,void *ShowProgress,uchar lang)
+FON_FUNC(int32_t) FONFontClusters(char *rname,char *cluname,void *accept,Word8 *extern_buf,int32_t size,
+		Word32 param,void *ShowProgress,Word8 lang)
 {
 	clu_info cin;
 	char szOutName[144];
@@ -1824,7 +1824,7 @@ FON_FUNC(int32_t) FONFontClusters(char *rname,char *cluname,void *accept,uchar *
 	if( (param & FONCLU_InputR)!=0 ) IsCTBBase=0;
 	else IsCTBBase=1;
 
-	porogCluster=(int16_t)(param&FONCLU_Threshold);
+	porogCluster=(SINT)(param&FONCLU_Threshold);
 	if(porogCluster<=0) porogCluster=2;
 	else porogCluster--;
 
@@ -1837,7 +1837,7 @@ FON_FUNC(int32_t) FONFontClusters(char *rname,char *cluname,void *accept,uchar *
 
 	if( (param & FONCLU_AddClu) !=0 )
 	ret= AddClusterHausdorf(rname,cluname,
-			(int16_t)(2*porogCluster),1,accept, extern_buf, size,&cin);
+			(SINT)(2*porogCluster),1,accept, extern_buf, size,&cin);
 	else // standard clustering
 	ret=ClusterHausdorfDLL(rname,porogCluster,cluname,
 			accept,extern_buf,size,&cin);

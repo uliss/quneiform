@@ -57,11 +57,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include "ccom.h"
 #include "ccom_fun.h"
-static uchar make_fill[] = {0, 1, 3, 7, 15, 31, 63, 127, 255};
-static Bool32 StoreOneInterval( uchar *p, int end , int len,uchar *pe)
+static Word8 make_fill[] = {0, 1, 3, 7, 15, 31, 63, 127, 255};
+static Bool32 StoreOneInterval( Word8 *p, int end , int len,Word8 *pe)
 {
-int16_t     sh;
-uint16_t    w;
+Int16     sh;
+Word16    w;
 p = p + (end>>3);
 if( p>=pe )
     return FALSE;
@@ -72,14 +72,14 @@ return TRUE;
 }
 
 
-Bool32 Linerep2Raster(CCOM_lnhead *linerep, int16_t size,
-                      int16_t w, int16_t h, int16_t c, int16_t r,
+Bool32 Linerep2Raster(CCOM_lnhead *linerep, Int16 size,
+                      Int16 w, Int16 h, Int16 c, Int16 r,
                       RecRaster *rec, Bool32 bChangeSize)
 {
     int         ww, len, i, wmax;
     CCOM_lnhead    * line;
     CCOM_interval  * inter;
-    uchar   *pe=rec->Raster+REC_MAX_RASTER_SIZE;
+    Word8   *pe=rec->Raster+REC_MAX_RASTER_SIZE;
 
     if( !w || !h || c+w>rec->lnPixWidth || r+h>rec->lnPixHeight )
         return FALSE;
@@ -120,14 +120,14 @@ Bool32 Linerep2Raster(CCOM_lnhead *linerep, int16_t size,
 }
 
 
-Bool32 Linerep2ExtRaster(CCOM_lnhead *linerep, int16_t size,
-                      int16_t w, int16_t h, int16_t c, int16_t r,
+Bool32 Linerep2ExtRaster(CCOM_lnhead *linerep, Int16 size,
+                      Int16 w, Int16 h, Int16 c, Int16 r,
                       RecRaster *rec)
 {
 int         ww, len, i;
 CCOM_lnhead    * line;
 CCOM_interval  * inter;
-uchar   *pe=rec->Raster+REC_MAX_RASTER_SIZE;
+Word8   *pe=rec->Raster+REC_MAX_RASTER_SIZE;
 
 if( !w || !h || c+w>rec->lnPixWidth || r+h>rec->lnPixHeight )
   return FALSE;
@@ -147,7 +147,7 @@ for(line=linerep,len=0; len<size && line->lth; len+=line->lth,line=(CCOM_lnhead 
 return TRUE;
 }
 
-static Bool32 StoreOneScaleInterval (uchar *p,  int32_t h, int32_t b, int32_t e, int32_t bw, int32_t scale,uchar*pe)
+static Bool32 StoreOneScaleInterval (Word8 *p,  int32_t h, int32_t b, int32_t e, int32_t bw, int32_t scale,Word8*pe)
 {
 b>>=scale;
 e>>=scale;
@@ -162,14 +162,14 @@ return StoreOneInterval ( &p[(h>>scale)*bw] , e , e-b,pe);
 }
 
 
-Bool32 Linerep2ScaleRaster(CCOM_lnhead *linerep, int16_t size,
-                      int16_t w, int16_t h, int16_t c, int16_t r,
+Bool32 Linerep2ScaleRaster(CCOM_lnhead *linerep, Int16 size,
+                      Int16 w, Int16 h, Int16 c, Int16 r,
                       RecRaster *rec,int32_t scale)
 {
 int         ww, len, i;
 CCOM_lnhead    * line;
 CCOM_interval  * inter;
-uchar   *pe=rec->Raster+REC_MAX_RASTER_SIZE;
+Word8   *pe=rec->Raster+REC_MAX_RASTER_SIZE;
 
 if( !w || !h || c+w>(rec->lnPixWidth<<scale) || r+h>(rec->lnPixHeight<<scale) )
   return FALSE;

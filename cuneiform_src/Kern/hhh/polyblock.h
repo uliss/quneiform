@@ -120,16 +120,16 @@ typedef struct tagVertex
 typedef struct tagCommon
 {
 	Handle type;//Текст, Картинка, Таблица;
-	int16_t number;//порядковый номер
-	int16_t Color;
+	Int16 number;//порядковый номер
+	Int16 Color;
 	Bool Select;//
-	int16_t count;
+	Int16 count;
 	Point32 Vertex[MaxNum];
 // Almi 18.04.00
 #define POS_NEGTABCAP   0x00000001 // Вероятный негативный заголовок таблицы
 #define POS_NEGTXTCAP   0x00000002 // Вероятный негативный заголовок текста
 #define POS_MATCH       0x00000004 // Используется в программе сравнения фрагментации
-	uint32_t Flags;
+	Word32 Flags;
 } COMMON;
 
 typedef struct tagPOLY
@@ -140,7 +140,7 @@ typedef struct tagPOLY
 
 	int32_t alphabet;//Цифры,Цифры и буквы, Буквы
 	Bool16 negative;//Негатив = TYPE_NEGATIVE, Позитив = TYPE_POSITIVE;//     01.01.01 Логинов
-	int16_t orient;//TYPE_NORD- Сверху вниз (нормальное), TYPE_WEST- лежит на левом боку, TYPE_OST- лежит на правом боку.
+	Int16 orient;//TYPE_NORD- Сверху вниз (нормальное), TYPE_WEST- лежит на левом боку, TYPE_OST- лежит на правом боку.
 } POLY_;
 
 typedef struct tagTABLE
@@ -156,15 +156,15 @@ typedef struct tagTABLE
 	Bool16 TypeCell[MaxHorLines][MaxVerLines];//тип ячейки
 	int32_t Skew;
 	Bool16 Negative[MaxHorLines][MaxVerLines];//Негатив = 1, Позитив = 0;//     01.01.01 Логинов
-	int16_t Orient[MaxHorLines][MaxVerLines];//TYPE_UPDOWN- Сверху вниз и т.д. см константы выше
+	Int16 Orient[MaxHorLines][MaxVerLines];//TYPE_UPDOWN- Сверху вниз и т.д. см константы выше
 
 	char    iSet; //номер сета, которому
 	char    TypeTablDetail;
 	char    Active; // 0 - пассивная, 1 - активная в сете
 	char    reserv[3];
-	//int16_t SetNum;//Нумерация в сете
+	//Int16 SetNum;//Нумерация в сете
 	//Bool16 bActive;//для маркировки активной таблицы в сете
-	//int16_t GlobNum;//Внутренняя нумерация
+	//Int16 GlobNum;//Внутренняя нумерация
 
 } TABLE_;
 /*

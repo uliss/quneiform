@@ -62,14 +62,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 MN * main_number_ptr;
 BOX * boxchain, *dl_last_in_chain;
 c_comp wcomp;
-uchar work_raster[2048*32], work_raster_1[2048*32];
+Word8 work_raster[2048*32], work_raster_1[2048*32];
 int32_t sz_work_raster=sizeof(work_raster), sz_work_raster_1=sizeof(work_raster_1);
 struct main_memory_str Q;
 version * start_rec, *rec_ptr;
 //BYTE string[8192]; // 20.01.97 19:15
-uchar lpool_lth;
-uchar lpool[6000*10];
+Word8 lpool_lth;
+Word8 lpool[6000*10];
 
-uchar  records_change;
-uchar  evfulln;
-uchar  double_fax;
+Word8  records_change;
+Word8  evfulln;
+Word8  double_fax;

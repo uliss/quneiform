@@ -114,7 +114,7 @@ static INT long_lines_ff(cell *);
 // static INT not_1(cell *);
 // static INT not_no(cell *);
 static INT upper_right_line(cell *);
-uint32_t check_letter(cell *c, uchar let); // 18.06.2002 E.P.
+Word32 check_letter(cell *c, Word8 let); // 18.06.2002 E.P.
 
 void criteries()
  {
@@ -340,12 +340,12 @@ static INT long_line_c(cell *c)
  INT l;
  interval *i;
 
- for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-			(l=line->lth)>0; line=(lnhead *)((char *)line+l))
+ for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+			(l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
   if (line->flg&l_fbeg && line->flg&l_fend)
    {
    if (line->h<c->h/2) return 0;
-   i=(interval *)((char *)line+sizeof(lnhead))+(line->h-4);
+   i=(interval *)((PCHAR)line+sizeof(lnhead))+(line->h-4);
    if (i->e-i->l>c->w/2) return 0;
    return 1;
    }
@@ -410,13 +410,13 @@ static INT short_lines(cell *c)
  INT l,row,col,h,w,a;
  BYTE flg;
 
- for (a=0,line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-		       (l=line->lth)>0; line=(lnhead *)((char *)line+l)    )
+ for (a=0,line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+		       (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l)    )
   if ((h=line->h)<=2)
    {
    flg=line->flg;
    row=line->row;
-   intval=(interval *)((char *)line+sizeof(lnhead));
+   intval=(interval *)((PCHAR)line+sizeof(lnhead));
    if (h==2 && flg&l_fend) {intval++; row++;}
    w=intval->l;
    col=intval->e-w;
@@ -520,11 +520,11 @@ static BYTE left_line(cell *c)
  INT l,H,h,b1,b2,e1,e2;
  interval *i1,*i2;
 
- for (H=c->h,line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-			  (l=line->lth)>0; line=(lnhead *)((char *)line+l) )
+ for (H=c->h,line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+			  (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l) )
   if (line->flg&l_fend && (h=line->h)>=3*H/4 && line->row+h+2>=H)
    {
-   i1=(interval *)((char *)line+sizeof(lnhead))+(h-2);
+   i1=(interval *)((PCHAR)line+sizeof(lnhead))+(h-2);
    if ((b1=(e1=i1->e)-i1->l)<(c->w)/2) break;
    }
  if (l)
@@ -1118,8 +1118,8 @@ static INT long_lines_rt(cell *c)
  interval *i1,*i2;
 
  for (m1=m2=1000,
-	  ln1=line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-			     (l=line->lth)>0; line=(lnhead *)((char *)line+l))
+	  ln1=line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+			     (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
   if (line->flg&l_fbeg && line->h>=2)
    {
    if (line->row<m1)
@@ -1129,8 +1129,8 @@ static INT long_lines_rt(cell *c)
    }
  if (m2 != 1000)
   {
-  i1=(interval *)((char *)ln1+sizeof(lnhead));
-  i2=(interval *)((char *)ln2+sizeof(lnhead));
+  i1=(interval *)((PCHAR)ln1+sizeof(lnhead));
+  i2=(interval *)((PCHAR)ln2+sizeof(lnhead));
   if (i1->e<i2->e || m2<=2) return 1;
   }
  return 0;
@@ -1170,8 +1170,8 @@ static INT long_lines_ff(cell *c)
  INT l,m1,m2;
 
  for (m1=m2=1000,
-	  ln1=line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-			    (l=line->lth)>0; line=(lnhead *)((char *)line+l))
+	  ln1=line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+			    (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
   if (line->flg&l_fbeg && line->h>=2)
    {
    if (line->row<m1)
@@ -1245,18 +1245,18 @@ static INT upper_right_line(cell *c)
  interval *intval;
  INT l,e,max,min,i;
 
- for (e=0,line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-		       (l=line->lth)>0; line=(lnhead *)((char *)line+l)    )
+ for (e=0,line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+		       (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l)    )
   if (line->h>=(c->h)/2)
    {
-   intval=(interval *)((char *)line+sizeof(lnhead));
+   intval=(interval *)((PCHAR)line+sizeof(lnhead));
    if (intval->e>e) e=intval->e;
    }
- for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-		       (l=line->lth)>0; line=(lnhead *)((char *)line+l)    )
+ for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+		       (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l)    )
   if (line->h<=(c->h)/4 && line->flg&l_fbeg && line->row<=c->h/4)
    {
-   intval=(interval *)((char *)line+sizeof(lnhead));
+   intval=(interval *)((PCHAR)line+sizeof(lnhead));
    for (max=0,min=c->w,i=line->h; i; i--,intval++)
     {
     if (intval->e>max) max=intval->e;
@@ -1268,7 +1268,7 @@ static INT upper_right_line(cell *c)
  return 0;
  }
 
-uint32_t check_letter(cell *c, uchar let)
+Word32 check_letter(cell *c, Word8 let)
 {
 // Проверяет наличие версии. 18.06.2002 E.P.
 version *p = c->vers;
@@ -1306,15 +1306,15 @@ static INT upper_right_angle(cell *c)
 	for(i=0;i< maxH ;i++)
 		lBound[i] = c->w;
 
-	for ( line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-		       (l=line->lth)>0; line=(lnhead *)((char *)line+l)  )
+	for ( line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+		       (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l)  )
 	{
 		if( line->h * 4 >= c->h * 3 )
 			nBigLine++;
 
 		start = line->row;
 
-		intval=(interval *)((char *)line+sizeof(lnhead));
+		intval=(interval *)((PCHAR)line+sizeof(lnhead));
 		for ( i = 0; i < line->h ; i++, intval++)
 		{
 			if( start +i  >= maxH )
@@ -1376,15 +1376,15 @@ static INT upper_dot_I(cell *c)
 	for(i=0;i< maxH ;i++)
 		lBound[i] = c->w;
 
-	for ( line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-		       (l=line->lth)>0; line=(lnhead *)((char *)line+l)  )
+	for ( line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+		       (l=line->lth)>0; line=(lnhead *)((PCHAR)line+l)  )
 	{
 		if( line->h * 4 >= c->h * 3 )
 			nBigLine++;
 
 		start = line->row;
 
-		intval=(interval *)((char *)line+sizeof(lnhead));
+		intval=(interval *)((PCHAR)line+sizeof(lnhead));
 		for ( i = 0; i < line->h ; i++, intval++)
 		{
 			if( start + i  >= maxH )

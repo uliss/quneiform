@@ -94,7 +94,7 @@ long   allK=0,klaK=0;                      //AK -"-
 
 
 struct res_recog RR;
-extern char *tableBOX;
+extern CHAR *tableBOX;
 extern PBYTE fontBOX/*,auto_pool*/;    /* BOX table for font  */
 PBYTE  omniBOX;    /* BOX save table for omni  */
 
@@ -104,8 +104,8 @@ static void store_all_bests(INT);
 static indBOX *wiptr, *indp;
 static BYTE curlet;
 
-char forbidBOX[]={"&#@!-."};
-char *db_m1[]={"3x3 tab","3x7 tbl", "5x11 t","7x13 march","16x16 cell"};
+CHAR forbidBOX[]={"&#@!-."};
+CHAR *db_m1[]={"3x3 tab","3x7 tbl", "5x11 t","7x13 march","16x16 cell"};
 
 static PBYTE full_list[512];
 static PBYTE font_full_list[512];
@@ -118,7 +118,7 @@ struct list_BOX
   WORD res;
  };
 typedef struct list_BOX LST;
-static void store_new_bests(WORD ibcos, char pl, char ff,char n_rsn);
+static void store_new_bests(WORD ibcos, CHAR pl, CHAR ff,CHAR n_rsn);
 
 
 INT  isKlasterFull( INT typl )
@@ -129,7 +129,7 @@ INT  isKlasterFull( INT typl )
    return  0;
 }/*isWideLetter*/
 
-static void store_many(WORD ibcos, char let, char ff, INT typl)
+static void store_many(WORD ibcos, CHAR let, CHAR ff, INT typl)
 {
      if(language==LANG_RUSSIAN) return;
   switch (let)
@@ -137,12 +137,12 @@ static void store_many(WORD ibcos, char let, char ff, INT typl)
     case 'x': case 'c': case 'v':
     case 's': case 'w':
      if (typl & 1) store_new_bests(ibcos,let,ff,-1);               // small
-     if (typl & 2) store_new_bests(ibcos,(char)(let +'A' -'a'),ff,-1);     // capital
+     if (typl & 2) store_new_bests(ibcos,(CHAR)(let +'A' -'a'),ff,-1);     // capital
      break;
 
     case 'X': case 'C': case 'V':
     case 'S': case 'W':
-     if (typl & 1) store_new_bests(ibcos,(char)(let +'a' -'A'),ff,-1);     // small
+     if (typl & 1) store_new_bests(ibcos,(CHAR)(let +'a' -'A'),ff,-1);     // small
      if (typl & 2) store_new_bests(ibcos,let,ff,-1);               // capital
      break;
 
@@ -178,14 +178,14 @@ static void store_many(WORD ibcos, char let, char ff, INT typl)
 		if (is_baltic_language(language))
 			break;
 
-     if (typl & 4) store_new_bests(ibcos,(char)c_bottom_accent,ff,-1);
-     if (typl & (2+8)) store_new_bests(ibcos,(char)CC_bottom_accent,ff,-1);
+     if (typl & 4) store_new_bests(ibcos,(CHAR)c_bottom_accent,ff,-1);
+     if (typl & (2+8)) store_new_bests(ibcos,(CHAR)CC_bottom_accent,ff,-1);
      break;
    }
 }
 
 
-static void store_new_bests(WORD ibcos, char pl, char ff,char n_rsn)
+static void store_new_bests(WORD ibcos, CHAR pl, CHAR ff,CHAR n_rsn)
 //
 //	This procedure stores best NBEST answers in rec_recog.
 //
@@ -217,9 +217,9 @@ static void store_new_bests(WORD ibcos, char pl, char ff,char n_rsn)
   RR.n_rsn[0]    =n_rsn;
  }
 
-static char rbfo, rbfc, rbfv, rbfw, rbfx, rbfs, rbfp, rbfz, rbil;
+static CHAR rbfo, rbfc, rbfv, rbfw, rbfx, rbfs, rbfp, rbfz, rbil;
 
-static INT letagain(char curleta,INT fl)
+static INT letagain(CHAR curleta,INT fl)
 {
    INT fl1, fl2, fl4;
    fl1 = fl;
@@ -362,7 +362,7 @@ memset(&RR,0,sizeof(RR));
 indp = (indBOX *) tableBOX;
 matr = (elmBOX *) (tableBOX+1024);
 for(i=0;i<15;i++)
-    vect[i] = (((int)SBOX->matrBOX.vect[i])<<15)/SBOX->matrBOX.isq_rt;
+    vect[i] = (((LONG)SBOX->matrBOX.vect[i])<<15)/SBOX->matrBOX.isq_rt;
 
 fll=0;                                // all hypotesa not in BOX tab
 best_answer_BOX=0;
@@ -396,7 +396,7 @@ relet:           // repeat for "similar" letter[s]
                if (probest > (WORD) best_answer_BOX) best_answer_BOX=probest;
                ans_ptr->fnt=wmatr->fnt;
                ans_ptr->iprob=probest;
-               ans_ptr->n_rsn=(char)cnt;
+               ans_ptr->n_rsn=(CHAR)cnt;
                }
             cnt++;
             klist += sizeof(PBYTE *);
@@ -415,7 +415,7 @@ relet:           // repeat for "similar" letter[s]
                         best_answer_BOX=probest;
                     ans_ptr->fnt=wmatr->fnt;
                     ans_ptr->iprob=probest;
-                    ans_ptr->n_rsn=(char)cnt;
+                    ans_ptr->n_rsn=(CHAR)cnt;
                     }
                 }
             cnt++;
@@ -455,7 +455,7 @@ WORD curr_cosinus;
 PWORD vectp;
 uint32_t norm;
 PBYTE list;
-char cnt,n_rsn;
+CHAR cnt,n_rsn;
 elmBOX *wmatr;
 t_answer *ans_ptr;
 WORD vect[16];
@@ -467,7 +467,7 @@ memset(&RR,0,sizeof(RR));
 vectp=SBOX->matrBOX.vect;
 norm=SBOX->matrBOX.isq_rt;
 for(i=0;i<15;i++)
-    vect[i] = (WORD)((((int)vectp[i])<<15)/norm);
+    vect[i] = (WORD)((((LONG)vectp[i])<<15)/norm);
 list = full_list[typl];
 nAll = 0;
 
@@ -778,7 +778,7 @@ void load_font( INT  font )
 PBYTE  preload_font_BOX( PBYTE free )
 {
  INT   i;
-// int  l;
+// LONG  l;
 // BYTE  workLetter;
 // StructTree *tmp=(StructTree *)auto_pool;               //AK
 

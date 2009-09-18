@@ -814,10 +814,10 @@ struct CStringData
 	long nRefs;     // reference count
 	int nDataLength;
 	int nAllocLength;
-	// Tchar data[nAllocLength]
+	// TCHAR data[nAllocLength]
 
-	Tchar* data()
-	{ return (Tchar*)(this + 1); }
+	TCHAR* data()
+	{ return (TCHAR*)(this + 1); }
 };
 
 // Globals
@@ -855,7 +855,7 @@ public:
 		}
 	}
 
-	CString(Tchar ch, int nRepeat = 1)
+	CString(TCHAR ch, int nRepeat = 1)
 	{
 		ATLASSERT(!_istlead(ch));   // can't create a lead byte string
 		Init();
@@ -888,7 +888,7 @@ public:
 			if (nLen != 0)
 			{
 				if(AllocBuffer(nLen))
-					SecureHelper::memcpy_x(m_pchData, (nLen + 1) * sizeof(Tchar), lpsz, nLen * sizeof(Tchar));
+					SecureHelper::memcpy_x(m_pchData, (nLen + 1) * sizeof(TCHAR), lpsz, nLen * sizeof(TCHAR));
 			}
 		}
 	}
@@ -933,7 +933,7 @@ public:
 		if (nLength != 0)
 		{
 			if(AllocBuffer(nLength))
-				SecureHelper::memcpy_x(m_pchData, (nLength + 1) * sizeof(Tchar), lpch, nLength * sizeof(Tchar));
+				SecureHelper::memcpy_x(m_pchData, (nLength + 1) * sizeof(TCHAR), lpch, nLength * sizeof(TCHAR));
 		}
 	}
 
@@ -996,14 +996,14 @@ public:
 		ATLASSERT(GetData()->nRefs < 0 || GetData()->nAllocLength == 0);
 	}
 
-	Tchar GetAt(int nIndex) const   // 0 based
+	TCHAR GetAt(int nIndex) const   // 0 based
 	{
 		ATLASSERT(nIndex >= 0);
 		ATLASSERT(nIndex < GetData()->nDataLength);
 		return m_pchData[nIndex];
 	}
 
-	Tchar operator [](int nIndex) const   // same as GetAt
+	TCHAR operator [](int nIndex) const   // same as GetAt
 	{
 		// same as GetAt
 		ATLASSERT(nIndex >= 0);
@@ -1011,7 +1011,7 @@ public:
 		return m_pchData[nIndex];
 	}
 
-	void SetAt(int nIndex, Tchar ch)
+	void SetAt(int nIndex, TCHAR ch)
 	{
 		ATLASSERT(nIndex >= 0);
 		ATLASSERT(nIndex < GetData()->nDataLength);
@@ -1047,7 +1047,7 @@ public:
 		return *this;
 	}
 
-	CString& operator =(Tchar ch)
+	CString& operator =(TCHAR ch)
 	{
 		ATLASSERT(!_istlead(ch));   // can't set single lead byte
 		AssignCopy(1, &ch);
@@ -1057,7 +1057,7 @@ public:
 #ifdef _UNICODE
 	CString& operator =(char ch)
 	{
-		*this = (Tchar)ch;
+		*this = (TCHAR)ch;
 		return *this;
 	}
 #endif
@@ -1110,7 +1110,7 @@ public:
 		return *this;
 	}
 
-	CString& operator +=(Tchar ch)
+	CString& operator +=(TCHAR ch)
 	{
 		ConcatInPlace(1, &ch);
 		return *this;
@@ -1119,7 +1119,7 @@ public:
 #ifdef _UNICODE
 	CString& operator +=(char ch)
 	{
-		*this += (Tchar)ch;
+		*this += (TCHAR)ch;
 		return *this;
 	}
 #endif
@@ -1132,8 +1132,8 @@ public:
 	}
 
 	friend CString __stdcall operator +(const CString& string1, const CString& string2);
-	friend CString __stdcall operator +(const CString& string, Tchar ch);
-	friend CString __stdcall operator +(Tchar ch, const CString& string);
+	friend CString __stdcall operator +(const CString& string, TCHAR ch);
+	friend CString __stdcall operator +(TCHAR ch, const CString& string);
 #ifdef _UNICODE
 	friend CString __stdcall operator +(const CString& string, char ch);
 	friend CString __stdcall operator +(char ch, const CString& string);
@@ -1286,12 +1286,12 @@ public:
 
 		// fix up data and length
 		int nDataLength = GetData()->nDataLength - (int)(DWORD_PTR)(lpsz - m_pchData);
-		SecureHelper::memmove_x(m_pchData, (GetData()->nAllocLength + 1) * sizeof(Tchar), lpsz, (nDataLength + 1) * sizeof(Tchar));
+		SecureHelper::memmove_x(m_pchData, (GetData()->nAllocLength + 1) * sizeof(TCHAR), lpsz, (nDataLength + 1) * sizeof(TCHAR));
 		GetData()->nDataLength = nDataLength;
 	}
 
 	// remove continuous occurrences of chTarget starting from right
-	void TrimRight(Tchar chTarget)
+	void TrimRight(TCHAR chTarget)
 	{
 		// find beginning of trailing matches
 		// by starting at beginning (DBCS aware)
@@ -1331,7 +1331,7 @@ public:
 
 		while (*lpsz != _T('\0'))
 		{
-			Tchar* pNext = ::CharNext(lpsz);
+			TCHAR* pNext = ::CharNext(lpsz);
 			if(pNext > lpsz + 1)
 			{
 				if (_cstrchr_db(lpszTargetList, *lpsz, *(lpsz + 1)) != NULL)
@@ -1369,7 +1369,7 @@ public:
 	}
 
 	// remove continuous occurrences of chTarget starting from left
-	void TrimLeft(Tchar chTarget)
+	void TrimLeft(TCHAR chTarget)
 	{
 		// find first non-matching character
 
@@ -1383,7 +1383,7 @@ public:
 		{
 			// fix up data and length
 			int nDataLength = GetData()->nDataLength - (int)(DWORD_PTR)(lpsz - m_pchData);
-			SecureHelper::memmove_x(m_pchData, (GetData()->nAllocLength + 1) * sizeof(Tchar), lpsz, (nDataLength + 1) * sizeof(Tchar));
+			SecureHelper::memmove_x(m_pchData, (GetData()->nAllocLength + 1) * sizeof(TCHAR), lpsz, (nDataLength + 1) * sizeof(TCHAR));
 			GetData()->nDataLength = nDataLength;
 		}
 	}
@@ -1400,7 +1400,7 @@ public:
 
 		while (*lpsz != _T('\0'))
 		{
-			Tchar* pNext = ::CharNext(lpsz);
+			TCHAR* pNext = ::CharNext(lpsz);
 			if(pNext > lpsz + 1)
 			{
 				if (_cstrchr_db(lpszTargets, *lpsz, *(lpsz + 1)) == NULL)
@@ -1418,14 +1418,14 @@ public:
 		{
 			// fix up data and length
 			int nDataLength = GetData()->nDataLength - (int)(DWORD_PTR)(lpsz - m_pchData);
-			SecureHelper::memmove_x(m_pchData, (GetData()->nAllocLength + 1) * sizeof(Tchar), lpsz, (nDataLength + 1) * sizeof(Tchar));
+			SecureHelper::memmove_x(m_pchData, (GetData()->nAllocLength + 1) * sizeof(TCHAR), lpsz, (nDataLength + 1) * sizeof(TCHAR));
 			GetData()->nDataLength = nDataLength;
 		}
 	}
 
 	// advanced manipulation
 	// replace occurrences of chOld with chNew
-	int Replace(Tchar chOld, Tchar chNew)
+	int Replace(TCHAR chOld, TCHAR chNew)
 	{
 		int nCount = 0;
 
@@ -1468,7 +1468,7 @@ public:
 		LPTSTR lpszTarget = NULL;
 		while (lpszStart < lpszEnd)
 		{
-			while ((lpszTarget = (Tchar*)_cstrstr(lpszStart, lpszOld)) != NULL)
+			while ((lpszTarget = (TCHAR*)_cstrstr(lpszStart, lpszOld)) != NULL)
 			{
 				nCount++;
 				lpszStart = lpszTarget + nSourceLen;
@@ -1490,7 +1490,7 @@ public:
 				LPTSTR pstr = m_pchData;
 				if(!AllocBuffer(nNewLength))
 					return -1;
-				SecureHelper::memcpy_x(m_pchData, (nNewLength + 1) * sizeof(Tchar), pstr, pOldData->nDataLength * sizeof(Tchar));
+				SecureHelper::memcpy_x(m_pchData, (nNewLength + 1) * sizeof(TCHAR), pstr, pOldData->nDataLength * sizeof(TCHAR));
 				CString::Release(pOldData);
 			}
 			// else, we just do it in-place
@@ -1500,12 +1500,12 @@ public:
 			// loop again to actually do the work
 			while (lpszStart < lpszEnd)
 			{
-				while ((lpszTarget = (Tchar*)_cstrstr(lpszStart, lpszOld)) != NULL)
+				while ((lpszTarget = (TCHAR*)_cstrstr(lpszStart, lpszOld)) != NULL)
 				{
 					int nBalance = nOldLength - ((int)(DWORD_PTR)(lpszTarget - m_pchData) + nSourceLen);
 					int cchBuffLen = GetData()->nAllocLength - (int)(DWORD_PTR)(lpszTarget - m_pchData);
-					SecureHelper::memmove_x(lpszTarget + nReplacementLen, (cchBuffLen - nReplacementLen + 1) * sizeof(Tchar), lpszTarget + nSourceLen, nBalance * sizeof(Tchar));
-					SecureHelper::memcpy_x(lpszTarget, (cchBuffLen + 1) * sizeof(Tchar), lpszNew, nReplacementLen * sizeof(Tchar));
+					SecureHelper::memmove_x(lpszTarget + nReplacementLen, (cchBuffLen - nReplacementLen + 1) * sizeof(TCHAR), lpszTarget + nSourceLen, nBalance * sizeof(TCHAR));
+					SecureHelper::memcpy_x(lpszTarget, (cchBuffLen + 1) * sizeof(TCHAR), lpszNew, nReplacementLen * sizeof(TCHAR));
 					lpszStart = lpszTarget + nReplacementLen;
 					lpszStart[nBalance] = _T('\0');
 					nOldLength += (nReplacementLen - nSourceLen);
@@ -1520,7 +1520,7 @@ public:
 	}
 
 	// remove occurrences of chRemove
-	int Remove(Tchar chRemove)
+	int Remove(TCHAR chRemove)
 	{
 		CopyBeforeWrite();
 
@@ -1545,7 +1545,7 @@ public:
 	}
 
 	// insert character at zero-based index; concatenates if index is past end of string
-	int Insert(int nIndex, Tchar ch)
+	int Insert(int nIndex, TCHAR ch)
 	{
 		CopyBeforeWrite();
 
@@ -1563,12 +1563,12 @@ public:
 			LPTSTR pstr = m_pchData;
 			if(!AllocBuffer(nNewLength))
 				return -1;
-			SecureHelper::memcpy_x(m_pchData, (nNewLength + 1) * sizeof(Tchar), pstr, (pOldData->nDataLength + 1) * sizeof(Tchar));
+			SecureHelper::memcpy_x(m_pchData, (nNewLength + 1) * sizeof(TCHAR), pstr, (pOldData->nDataLength + 1) * sizeof(TCHAR));
 			CString::Release(pOldData);
 		}
 
 		// move existing bytes down
-		SecureHelper::memmove_x(m_pchData + nIndex + 1, (GetData()->nAllocLength - nIndex) * sizeof(Tchar), m_pchData + nIndex, (nNewLength - nIndex) * sizeof(Tchar));
+		SecureHelper::memmove_x(m_pchData + nIndex + 1, (GetData()->nAllocLength - nIndex) * sizeof(TCHAR), m_pchData + nIndex, (nNewLength - nIndex) * sizeof(TCHAR));
 		m_pchData[nIndex] = ch;
 		GetData()->nDataLength = nNewLength;
 
@@ -1596,13 +1596,13 @@ public:
 				LPTSTR pstr = m_pchData;
 				if(!AllocBuffer(nNewLength))
 					return -1;
-				SecureHelper::memcpy_x(m_pchData, (nNewLength + 1) * sizeof(Tchar), pstr, (pOldData->nDataLength + 1) * sizeof(Tchar));
+				SecureHelper::memcpy_x(m_pchData, (nNewLength + 1) * sizeof(TCHAR), pstr, (pOldData->nDataLength + 1) * sizeof(TCHAR));
 				CString::Release(pOldData);
 			}
 
 			// move existing bytes down
-			SecureHelper::memmove_x(m_pchData + nIndex + nInsertLength, (GetData()->nAllocLength + 1 - nIndex - nInsertLength) * sizeof(Tchar), m_pchData + nIndex, (nNewLength - nIndex - nInsertLength + 1) * sizeof(Tchar));
-			SecureHelper::memcpy_x(m_pchData + nIndex, (GetData()->nAllocLength + 1 - nIndex) * sizeof(Tchar), pstr, nInsertLength * sizeof(Tchar));
+			SecureHelper::memmove_x(m_pchData + nIndex + nInsertLength, (GetData()->nAllocLength + 1 - nIndex - nInsertLength) * sizeof(TCHAR), m_pchData + nIndex, (nNewLength - nIndex - nInsertLength + 1) * sizeof(TCHAR));
+			SecureHelper::memcpy_x(m_pchData + nIndex, (GetData()->nAllocLength + 1 - nIndex) * sizeof(TCHAR), pstr, nInsertLength * sizeof(TCHAR));
 			GetData()->nDataLength = nNewLength;
 		}
 
@@ -1622,7 +1622,7 @@ public:
 			CopyBeforeWrite();
 			int nBytesToCopy = nLength - (nIndex + nCount) + 1;
 
-			SecureHelper::memmove_x(m_pchData + nIndex, (GetData()->nAllocLength + 1 - nIndex) * sizeof(Tchar), m_pchData + nIndex + nCount, nBytesToCopy * sizeof(Tchar));
+			SecureHelper::memmove_x(m_pchData + nIndex, (GetData()->nAllocLength + 1 - nIndex) * sizeof(TCHAR), m_pchData + nIndex + nCount, nBytesToCopy * sizeof(TCHAR));
 			nLength -= nCount;
 			GetData()->nDataLength = nLength;
 		}
@@ -1632,28 +1632,28 @@ public:
 
 	// searching (return starting index, or -1 if not found)
 	// look for a single character match
-	int Find(Tchar ch) const   // like "C" strchr
+	int Find(TCHAR ch) const   // like "C" strchr
 	{
 		return Find(ch, 0);
 	}
 
-	int ReverseFind(Tchar ch) const
+	int ReverseFind(TCHAR ch) const
 	{
 		// find last single character
-		LPCTSTR lpsz = _cstrrchr(m_pchData, (_TUchar)ch);
+		LPCTSTR lpsz = _cstrrchr(m_pchData, (_TUCHAR)ch);
 
 		// return -1 if not found, distance from beginning otherwise
 		return (lpsz == NULL) ? -1 : (int)(lpsz - m_pchData);
 	}
 
-	int Find(Tchar ch, int nStart) const   // starting at index
+	int Find(TCHAR ch, int nStart) const   // starting at index
 	{
 		int nLength = GetData()->nDataLength;
 		if (nStart < 0 || nStart >= nLength)
 			return -1;
 
 		// find first single character
-		LPCTSTR lpsz = _cstrchr(m_pchData + nStart, (_TUchar)ch);
+		LPCTSTR lpsz = _cstrchr(m_pchData + nStart, (_TUCHAR)ch);
 
 		// return -1 if not found and index otherwise
 		return (lpsz == NULL) ? -1 : (int)(lpsz - m_pchData);
@@ -1692,7 +1692,7 @@ public:
 	CString& Append(int n)
 	{
 		const int cchBuff = 12;
-		Tchar szBuffer[cchBuff] = { 0 };
+		TCHAR szBuffer[cchBuff] = { 0 };
 		SecureHelper::wsprintf_x(szBuffer, cchBuff, _T("%d"), n);
 		ConcatInPlace(SafeStrlen(szBuffer), szBuffer);
 		return *this;
@@ -1832,7 +1832,7 @@ public:
 			case _T('c'):
 			case _T('C'):
 				nItemLen = 2;
-				va_arg(argList, Tchar);
+				va_arg(argList, TCHAR);
 				break;
 			case _T('c') | FORCE_ANSI:
 			case _T('C') | FORCE_ANSI:
@@ -1842,7 +1842,7 @@ public:
 			case _T('c') | FORCE_UNICODE:
 			case _T('C') | FORCE_UNICODE:
 				nItemLen = 2;
-				va_arg(argList, Wchar);
+				va_arg(argList, WCHAR);
 				break;
 
 			// strings
@@ -1989,7 +1989,7 @@ public:
 						// 6 == adjustment in case precision is not specified,
 						//   which means that the precision defaults to 6
 						int cchLen = max(nWidth, 312 + nPrecision + 6);
-						CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
+						CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
 						LPTSTR pszTemp = buff.Allocate(cchLen);
 						if(pszTemp != NULL)
 						{
@@ -2089,13 +2089,13 @@ public:
 	Bool LoadString(UINT nID)   // load from string resource (255 chars max.)
 	{
 #ifdef _UNICODE
-		const int CHAR_FUDGE = 1;   // one Tchar unused is good enough
+		const int CHAR_FUDGE = 1;   // one TCHAR unused is good enough
 #else
 		const int CHAR_FUDGE = 2;   // two BYTES unused for case of DBC last char
 #endif
 
 		// try fixed buffer first (to avoid wasting space in the heap)
-		Tchar szTemp[256];
+		TCHAR szTemp[256];
 		int nCount =  sizeof(szTemp) / sizeof(szTemp[0]);
 		int nLen = _LoadString(nID, szTemp, nCount);
 		if (nCount - nLen > CHAR_FUDGE)
@@ -2184,7 +2184,7 @@ public:
 			if(!AllocBuffer(nMinBufLength))
 				return NULL;
 
-			SecureHelper::memcpy_x(m_pchData, (nMinBufLength + 1) * sizeof(Tchar), pOldData->data(), (nOldLen + 1) * sizeof(Tchar));
+			SecureHelper::memcpy_x(m_pchData, (nMinBufLength + 1) * sizeof(TCHAR), pOldData->data(), (nOldLen + 1) * sizeof(TCHAR));
 			GetData()->nDataLength = nOldLen;
 			CString::Release(pOldData);
 		}
@@ -2227,7 +2227,7 @@ public:
 			CStringData* pOldData = GetData();
 			if(AllocBuffer(GetData()->nDataLength))
 			{
-				SecureHelper::memcpy_x(m_pchData, (GetData()->nAllocLength + 1) * sizeof(Tchar), pOldData->data(), pOldData->nDataLength * sizeof(Tchar));
+				SecureHelper::memcpy_x(m_pchData, (GetData()->nAllocLength + 1) * sizeof(TCHAR), pOldData->data(), pOldData->nDataLength * sizeof(TCHAR));
 				ATLASSERT(m_pchData[GetData()->nDataLength] == _T('\0'));
 				CString::Release(pOldData);
 			}
@@ -2305,7 +2305,7 @@ protected:
 		{
 			if(dest.AllocBuffer(nNewLen))
 			{
-				SecureHelper::memcpy_x(dest.m_pchData, (nNewLen + 1) * sizeof(Tchar), m_pchData + nCopyIndex, nCopyLen * sizeof(Tchar));
+				SecureHelper::memcpy_x(dest.m_pchData, (nNewLen + 1) * sizeof(TCHAR), m_pchData + nCopyIndex, nCopyLen * sizeof(TCHAR));
 				bRet = TRUE;
 			}
 		}
@@ -2327,7 +2327,7 @@ protected:
 		else
 		{
 			CStringData* pData = NULL;
-			ATLTRY(pData = (CStringData*)new BYTE[sizeof(CStringData) + (nLen + 1) * sizeof(Tchar)]);
+			ATLTRY(pData = (CStringData*)new BYTE[sizeof(CStringData) + (nLen + 1) * sizeof(TCHAR)]);
 			if(pData == NULL)
 				return FALSE;
 
@@ -2354,7 +2354,7 @@ protected:
 	{
 		if(AllocBeforeWrite(nSrcLen))
 		{
-			SecureHelper::memcpy_x(m_pchData, (nSrcLen + 1) * sizeof(Tchar), lpszSrcData, nSrcLen * sizeof(Tchar));
+			SecureHelper::memcpy_x(m_pchData, (nSrcLen + 1) * sizeof(TCHAR), lpszSrcData, nSrcLen * sizeof(TCHAR));
 			GetData()->nDataLength = nSrcLen;
 			m_pchData[nSrcLen] = _T('\0');
 		}
@@ -2364,7 +2364,7 @@ protected:
 	// NOTE: "operator +" is done as friend functions for simplicity
 	//      There are three variants:
 	//          CString + CString
-	// and for ? = Tchar, LPCTSTR
+	// and for ? = TCHAR, LPCTSTR
 	//          CString + ?
 	//          ? + CString
 	Bool ConcatCopy(int nSrc1Len, LPCTSTR lpszSrc1Data, int nSrc2Len, LPCTSTR lpszSrc2Data)
@@ -2384,8 +2384,8 @@ protected:
 			bRet = AllocBuffer(nNewLen);
 			if (bRet)
 			{
-				SecureHelper::memcpy_x(m_pchData, (nNewLen + 1) * sizeof(Tchar), lpszSrc1Data, nSrc1Len * sizeof(Tchar));
-				SecureHelper::memcpy_x(m_pchData + nSrc1Len, (nNewLen + 1 - nSrc1Len) * sizeof(Tchar), lpszSrc2Data, nSrc2Len * sizeof(Tchar));
+				SecureHelper::memcpy_x(m_pchData, (nNewLen + 1) * sizeof(TCHAR), lpszSrc1Data, nSrc1Len * sizeof(TCHAR));
+				SecureHelper::memcpy_x(m_pchData + nSrc1Len, (nNewLen + 1 - nSrc1Len) * sizeof(TCHAR), lpszSrc2Data, nSrc2Len * sizeof(TCHAR));
 			}
 		}
 		return bRet;
@@ -2414,7 +2414,7 @@ protected:
 		else
 		{
 			// fast concatenation when buffer big enough
-			SecureHelper::memcpy_x(m_pchData + GetData()->nDataLength, (GetData()->nAllocLength + 1) * sizeof(Tchar), lpszSrcData, nSrcLen * sizeof(Tchar));
+			SecureHelper::memcpy_x(m_pchData + GetData()->nDataLength, (GetData()->nAllocLength + 1) * sizeof(TCHAR), lpszSrcData, nSrcLen * sizeof(TCHAR));
 			GetData()->nDataLength += nSrcLen;
 			ATLASSERT(GetData()->nDataLength <= GetData()->nAllocLength);
 			m_pchData[GetData()->nDataLength] = _T('\0');
@@ -2428,7 +2428,7 @@ protected:
 			CStringData* pData = GetData();
 			Release();
 			if(AllocBuffer(pData->nDataLength))
-				SecureHelper::memcpy_x(m_pchData, (GetData()->nAllocLength + 1) * sizeof(Tchar), pData->data(), (pData->nDataLength + 1) * sizeof(Tchar));
+				SecureHelper::memcpy_x(m_pchData, (GetData()->nAllocLength + 1) * sizeof(TCHAR), pData->data(), (pData->nDataLength + 1) * sizeof(TCHAR));
 		}
 		ATLASSERT(GetData()->nRefs <= 1);
 	}
@@ -2522,7 +2522,7 @@ protected:
 
 // Helpers to avoid CRT startup code
 #ifdef _ATL_MIN_CRT
-	static const Tchar* _cstrchr(const Tchar* p, Tchar ch)
+	static const TCHAR* _cstrchr(const TCHAR* p, TCHAR ch)
 	{
 		// strchr for '\0' should succeed
 		while (*p != 0)
@@ -2534,9 +2534,9 @@ protected:
 		return (*p == ch) ? p : NULL;
 	}
 
-	static const Tchar* _cstrrchr(const Tchar* p, Tchar ch)
+	static const TCHAR* _cstrrchr(const TCHAR* p, TCHAR ch)
 	{
-		const Tchar* lpsz = NULL;
+		const TCHAR* lpsz = NULL;
 		while (*p != 0)
 		{
 			if (*p == ch)
@@ -2546,17 +2546,17 @@ protected:
 		return lpsz;
 	}
 
-	static Tchar* _cstrrev(Tchar* pStr)
+	static TCHAR* _cstrrev(TCHAR* pStr)
 	{
 		// optimize NULL, zero-length, and single-char case
 		if ((pStr == NULL) || (pStr[0] == _T('\0')) || (pStr[1] == _T('\0')))
 			return pStr;
 
-		Tchar* p = pStr;
+		TCHAR* p = pStr;
 
 		while (*p != 0)
 		{
-			Tchar* pNext = ::CharNext(p);
+			TCHAR* pNext = ::CharNext(p);
 			if(pNext > p + 1)
 			{
 				char p1 = *(char*)p;
@@ -2567,11 +2567,11 @@ protected:
 		}
 
 		p--;
-		Tchar* q = pStr;
+		TCHAR* q = pStr;
 
 		while (q < p)
 		{
-			Tchar t = *q;
+			TCHAR t = *q;
 			*q = *p;
 			*p = t;
 			q++;
@@ -2580,17 +2580,17 @@ protected:
 		return pStr;
 	}
 
-	static const Tchar* _cstrstr(const Tchar* pStr, const Tchar* pCharSet)
+	static const TCHAR* _cstrstr(const TCHAR* pStr, const TCHAR* pCharSet)
 	{
 		int nLen = lstrlen(pCharSet);
 		if (nLen == 0)
-			return (Tchar*)pStr;
+			return (TCHAR*)pStr;
 
-		const Tchar* pRet = NULL;
-		const Tchar* pCur = pStr;
+		const TCHAR* pRet = NULL;
+		const TCHAR* pCur = pStr;
 		while((pCur = _cstrchr(pCur, *pCharSet)) != NULL)
 		{
-			if(memcmp(pCur, pCharSet, nLen * sizeof(Tchar)) == 0)
+			if(memcmp(pCur, pCharSet, nLen * sizeof(TCHAR)) == 0)
 			{
 				pRet = pCur;
 				break;
@@ -2600,13 +2600,13 @@ protected:
 		return pRet;
 	}
 
-	static int _cstrspn(const Tchar* pStr, const Tchar* pCharSet)
+	static int _cstrspn(const TCHAR* pStr, const TCHAR* pCharSet)
 	{
 		int nRet = 0;
-		const Tchar* p = pStr;
+		const TCHAR* p = pStr;
 		while (*p != 0)
 		{
-			const Tchar* pNext = ::CharNext(p);
+			const TCHAR* pNext = ::CharNext(p);
 			if(pNext > p + 1)
 			{
 				if(_cstrchr_db(pCharSet, *p, *(p + 1)) == NULL)
@@ -2624,13 +2624,13 @@ protected:
 		return nRet;
 	}
 
-	static int _cstrcspn(const Tchar* pStr, const Tchar* pCharSet)
+	static int _cstrcspn(const TCHAR* pStr, const TCHAR* pCharSet)
 	{
 		int nRet = 0;
-		Tchar* p = (Tchar*)pStr;
+		TCHAR* p = (TCHAR*)pStr;
 		while (*p != 0)
 		{
-			Tchar* pNext = ::CharNext(p);
+			TCHAR* pNext = ::CharNext(p);
 			if(pNext > p + 1)
 			{
 				if(_cstrchr_db(pCharSet, *p, *(p + 1)) != NULL)
@@ -2648,51 +2648,51 @@ protected:
 		return nRet;
 	}
 
-	static const Tchar* _cstrpbrk(const Tchar* p, const Tchar* lpszCharSet)
+	static const TCHAR* _cstrpbrk(const TCHAR* p, const TCHAR* lpszCharSet)
 	{
 		int n = _cstrcspn(p, lpszCharSet);
 		return (p[n] != 0) ? &p[n] : NULL;
 	}
 
-	static int _cstrisdigit(Tchar ch)
+	static int _cstrisdigit(TCHAR ch)
 	{
 		WORD type;
 		GetStringTypeEx(GetThreadLocale(), CT_CTYPE1, &ch, 1, &type);
 		return (type & C1_DIGIT) == C1_DIGIT;
 	}
 
-	static int _cstrisspace(Tchar ch)
+	static int _cstrisspace(TCHAR ch)
 	{
 		WORD type;
 		GetStringTypeEx(GetThreadLocale(), CT_CTYPE1, &ch, 1, &type);
 		return (type & C1_SPACE) == C1_SPACE;
 	}
 
-	static int _cstrcmp(const Tchar* pstrOne, const Tchar* pstrOther)
+	static int _cstrcmp(const TCHAR* pstrOne, const TCHAR* pstrOther)
 	{
 		return lstrcmp(pstrOne, pstrOther);
 	}
 
-	static int _cstrcmpi(const Tchar* pstrOne, const Tchar* pstrOther)
+	static int _cstrcmpi(const TCHAR* pstrOne, const TCHAR* pstrOther)
 	{
 		return lstrcmpi(pstrOne, pstrOther);
 	}
 
-	static int _cstrcoll(const Tchar* pstrOne, const Tchar* pstrOther)
+	static int _cstrcoll(const TCHAR* pstrOne, const TCHAR* pstrOther)
 	{
 		int nRet = CompareString(GetThreadLocale(), 0, pstrOne, -1, pstrOther, -1);
 		ATLASSERT(nRet != 0);
 		return nRet - 2;   // convert to strcmp convention
 	}
 
-	static int _cstrcolli(const Tchar* pstrOne, const Tchar* pstrOther)
+	static int _cstrcolli(const TCHAR* pstrOne, const TCHAR* pstrOther)
 	{
 		int nRet = CompareString(GetThreadLocale(), NORM_IGNORECASE, pstrOne, -1, pstrOther, -1);
 		ATLASSERT(nRet != 0);
 		return nRet - 2;   // convert to strcmp convention
 	}
 
-	static int _cstrtoi(const Tchar* nptr)
+	static int _cstrtoi(const TCHAR* nptr)
 	{
 		int c;       // current char
 		int total;   // current total
@@ -2701,17 +2701,17 @@ protected:
 		while (_cstrisspace(*nptr))
 			++nptr;
 
-		c = (int)(_TUchar)*nptr++;
+		c = (int)(_TUCHAR)*nptr++;
 		sign = c;   // save sign indication
 		if (c == _T('-') || c == _T('+'))
-			c = (int)(_TUchar)*nptr++;   // skip sign
+			c = (int)(_TUCHAR)*nptr++;   // skip sign
 
 		total = 0;
 
-		while (_cstrisdigit((Tchar)c))
+		while (_cstrisdigit((TCHAR)c))
 		{
 			total = 10 * total + (c - '0');   // accumulate digit
-			c = (int)(_TUchar)*nptr++;        // get next char
+			c = (int)(_TUCHAR)*nptr++;        // get next char
 		}
 
 		if (sign == '-')
@@ -2720,82 +2720,82 @@ protected:
 			return total;   // return result, negated if necessary
 	}
 #else // !_ATL_MIN_CRT
-	static const Tchar* _cstrchr(const Tchar* p, Tchar ch)
+	static const TCHAR* _cstrchr(const TCHAR* p, TCHAR ch)
 	{
 		return _tcschr(p, ch);
 	}
 
-	static const Tchar* _cstrrchr(const Tchar* p, Tchar ch)
+	static const TCHAR* _cstrrchr(const TCHAR* p, TCHAR ch)
 	{
 		return _tcsrchr(p, ch);
 	}
 
-	static Tchar* _cstrrev(Tchar* pStr)
+	static TCHAR* _cstrrev(TCHAR* pStr)
 	{
 		return _tcsrev(pStr);
 	}
 
-	static const Tchar* _cstrstr(const Tchar* pStr, const Tchar* pCharSet)
+	static const TCHAR* _cstrstr(const TCHAR* pStr, const TCHAR* pCharSet)
 	{
 		return _tcsstr(pStr, pCharSet);
 	}
 
-	static int _cstrspn(const Tchar* pStr, const Tchar* pCharSet)
+	static int _cstrspn(const TCHAR* pStr, const TCHAR* pCharSet)
 	{
 		return (int)_tcsspn(pStr, pCharSet);
 	}
 
-	static int _cstrcspn(const Tchar* pStr, const Tchar* pCharSet)
+	static int _cstrcspn(const TCHAR* pStr, const TCHAR* pCharSet)
 	{
 		return (int)_tcscspn(pStr, pCharSet);
 	}
 
-	static const Tchar* _cstrpbrk(const Tchar* p, const Tchar* lpszCharSet)
+	static const TCHAR* _cstrpbrk(const TCHAR* p, const TCHAR* lpszCharSet)
 	{
 		return _tcspbrk(p, lpszCharSet);
 	}
 
-	static int _cstrisdigit(Tchar ch)
+	static int _cstrisdigit(TCHAR ch)
 	{
 		return _istdigit(ch);
 	}
 
-	static int _cstrisspace(Tchar ch)
+	static int _cstrisspace(TCHAR ch)
 	{
-		return _istspace((_TUchar)ch);
+		return _istspace((_TUCHAR)ch);
 	}
 
-	static int _cstrcmp(const Tchar* pstrOne, const Tchar* pstrOther)
+	static int _cstrcmp(const TCHAR* pstrOne, const TCHAR* pstrOther)
 	{
 		return _tcscmp(pstrOne, pstrOther);
 	}
 
-	static int _cstrcmpi(const Tchar* pstrOne, const Tchar* pstrOther)
+	static int _cstrcmpi(const TCHAR* pstrOne, const TCHAR* pstrOther)
 	{
 		return _tcsicmp(pstrOne, pstrOther);
 	}
 
 #ifndef _WIN32_WCE
-	static int _cstrcoll(const Tchar* pstrOne, const Tchar* pstrOther)
+	static int _cstrcoll(const TCHAR* pstrOne, const TCHAR* pstrOther)
 	{
 		return _tcscoll(pstrOne, pstrOther);
 	}
 
-	static int _cstrcolli(const Tchar* pstrOne, const Tchar* pstrOther)
+	static int _cstrcolli(const TCHAR* pstrOne, const TCHAR* pstrOther)
 	{
 		return _tcsicoll(pstrOne, pstrOther);
 	}
 #endif // !_WIN32_WCE
 
-	static int _cstrtoi(const Tchar* nptr)
+	static int _cstrtoi(const TCHAR* nptr)
 	{
 		return _ttoi(nptr);
 	}
 #endif // !_ATL_MIN_CRT
 
-	static const Tchar* _cstrchr_db(const Tchar* p, Tchar ch1, Tchar ch2)
+	static const TCHAR* _cstrchr_db(const TCHAR* p, TCHAR ch1, TCHAR ch2)
 	{
-		const Tchar* lpsz = NULL;
+		const TCHAR* lpsz = NULL;
 		while (*p != 0)
 		{
 			if (*p == ch1 && *(p + 1) == ch2)
@@ -2876,14 +2876,14 @@ inline CString __stdcall operator +(const CString& string1, const CString& strin
 	return s;
 }
 
-inline CString __stdcall operator +(const CString& string, Tchar ch)
+inline CString __stdcall operator +(const CString& string, TCHAR ch)
 {
 	CString s;
 	s.ConcatCopy(string.GetData()->nDataLength, string.m_pchData, 1, &ch);
 	return s;
 }
 
-inline CString __stdcall operator +(Tchar ch, const CString& string)
+inline CString __stdcall operator +(TCHAR ch, const CString& string)
 {
 	CString s;
 	s.ConcatCopy(1, &ch, string.GetData()->nDataLength, string.m_pchData);
@@ -2893,12 +2893,12 @@ inline CString __stdcall operator +(Tchar ch, const CString& string)
 #ifdef _UNICODE
 inline CString __stdcall operator +(const CString& string, char ch)
 {
-	return string + (Tchar)ch;
+	return string + (TCHAR)ch;
 }
 
 inline CString __stdcall operator +(char ch, const CString& string)
 {
-	return (Tchar)ch + string;
+	return (TCHAR)ch + string;
 }
 #endif // _UNICODE
 
@@ -2940,7 +2940,7 @@ public:
 // Declarations
 	struct _DocEntry
 	{
-		Tchar szDocName[t_cchItemLen];
+		TCHAR szDocName[t_cchItemLen];
 		bool operator ==(const _DocEntry& de) const
 		{ return (lstrcmpi(szDocName, de.szDocName) == 0); }
 	};
@@ -2959,7 +2959,7 @@ public:
 	int m_nMaxEntries;   // default is 4
 	HMENU m_hMenu;
 
-	Tchar m_szNoEntries[t_cchItemLen];
+	TCHAR m_szNoEntries[t_cchItemLen];
 
 	int m_cchMaxItemLen;
 
@@ -3122,7 +3122,7 @@ public:
 		ATL::CRegKey rkParent;
 		ATL::CRegKey rk;
 
-		int lRet = rkParent.Open(HKEY_CURRENT_USER, lpstrRegKey);
+		LONG lRet = rkParent.Open(HKEY_CURRENT_USER, lpstrRegKey);
 		if(lRet != ERROR_SUCCESS)
 			return FALSE;
 		lRet = rk.Open(rkParent, pT->GetRegKeyName());
@@ -3141,18 +3141,18 @@ public:
 
 		m_arrDocs.RemoveAll();
 
-		Tchar szRetString[t_cchItemLen] = { 0 };
+		TCHAR szRetString[t_cchItemLen] = { 0 };
 		_DocEntry de;
 
 		for(int nItem = m_nMaxEntries; nItem > 0; nItem--)
 		{
-			Tchar szBuff[m_cchItemNameLen] = { 0 };
+			TCHAR szBuff[m_cchItemNameLen] = { 0 };
 			SecureHelper::wsprintf_x(szBuff, m_cchItemNameLen, pT->GetRegItemName(), nItem);
 #if (_ATL_VER >= 0x0700)
                         ulong ulCount = t_cchItemLen;
 			lRet = rk.QueryStringValue(szBuff, szRetString, &ulCount);
 #else
-			DWORD dwCount = t_cchItemLen * sizeof(Tchar);
+			DWORD dwCount = t_cchItemLen * sizeof(TCHAR);
 			lRet = rk.QueryValue(szRetString, szBuff, &dwCount);
 #endif
 			if(lRet == ERROR_SUCCESS)
@@ -3175,7 +3175,7 @@ public:
 		ATL::CRegKey rkParent;
 		ATL::CRegKey rk;
 
-		int lRet = rkParent.Create(HKEY_CURRENT_USER, lpstrRegKey);
+		LONG lRet = rkParent.Create(HKEY_CURRENT_USER, lpstrRegKey);
 		if(lRet != ERROR_SUCCESS)
 			return FALSE;
 		lRet = rk.Create(rkParent, pT->GetRegKeyName());
@@ -3193,9 +3193,9 @@ public:
 		int nItem;
 		for(nItem = m_arrDocs.GetSize(); nItem > 0; nItem--)
 		{
-			Tchar szBuff[m_cchItemNameLen] = { 0 };
+			TCHAR szBuff[m_cchItemNameLen] = { 0 };
 			SecureHelper::wsprintf_x(szBuff, m_cchItemNameLen, pT->GetRegItemName(), nItem);
-			Tchar szDocName[t_cchItemLen] = { 0 };
+			TCHAR szDocName[t_cchItemLen] = { 0 };
 			GetFromList(t_nFirstID + nItem - 1, szDocName, t_cchItemLen);
 #if (_ATL_VER >= 0x0700)
 			lRet = rk.SetStringValue(szBuff, szDocName);
@@ -3208,7 +3208,7 @@ public:
 		// delete unused keys
 		for(nItem = m_arrDocs.GetSize() + 1; nItem < m_nMaxEntries_Max; nItem++)
 		{
-			Tchar szBuff[m_cchItemNameLen] = { 0 };
+			TCHAR szBuff[m_cchItemNameLen] = { 0 };
 			SecureHelper::wsprintf_x(szBuff, m_cchItemNameLen, pT->GetRegItemName(), nItem);
 			rk.DeleteValue(szBuff);
 		}
@@ -3246,7 +3246,7 @@ public:
 				::DeleteMenu(m_hMenu, nItem, MF_BYCOMMAND);
 		}
 
-		Tchar szItemText[t_cchItemLen + 6] = { 0 };   // add space for &, 2 digits, and a space
+		TCHAR szItemText[t_cchItemLen + 6] = { 0 };   // add space for &, 2 digits, and a space
 		int nSize = m_arrDocs.GetSize();
 		nItem = 0;
 		if(nSize > 0)
@@ -3259,7 +3259,7 @@ public:
 				}
 				else
 				{
-					Tchar szBuff[t_cchItemLen] = { 0 };
+					TCHAR szBuff[t_cchItemLen] = { 0 };
 					T* pT = static_cast<T*>(this);
 					pT;   // avoid level 4 warning
 					bool bRet = pT->CompactDocumentName(szBuff, m_arrDocs[nSize - 1 - nItem].szDocName, m_cchMaxItemLen);
@@ -3329,8 +3329,8 @@ class CFindFile
 public:
 // Data members
 	WIN32_FIND_DATA m_fd;
-	Tchar m_lpszRoot[MAX_PATH];
-	Tchar m_chDirSeparator;
+	TCHAR m_lpszRoot[MAX_PATH];
+	TCHAR m_chDirSeparator;
 	HANDLE m_hFind;
 	Bool m_bFound;
 
@@ -3344,7 +3344,7 @@ public:
 	}
 
 // Attributes
-        ulongint GetFileSize() const
+        ulongLONG GetFileSize() const
 	{
 		ATLASSERT(m_hFind != NULL);
 
@@ -3398,7 +3398,7 @@ public:
 
 		if(bAddSep)
 		{
-			Tchar szSeparator[2] = { m_chDirSeparator, 0 };
+			TCHAR szSeparator[2] = { m_chDirSeparator, 0 };
 			SecureHelper::strcat_x(lpstrFilePath, cchLength, szSeparator);
 		}
 
@@ -3412,7 +3412,7 @@ public:
 	{
 		ATLASSERT(m_hFind != NULL);
 
-		Tchar szBuff[MAX_PATH] = { 0 };
+		TCHAR szBuff[MAX_PATH] = { 0 };
 		if(!GetFileName(szBuff, MAX_PATH))
 			return FALSE;
 
@@ -3434,7 +3434,7 @@ public:
 	{
 		ATLASSERT(m_hFind != NULL);
 
-		Tchar szBuff[MAX_PATH] = { 0 };
+		TCHAR szBuff[MAX_PATH] = { 0 };
 		if(!GetFilePath(szBuff, MAX_PATH))
 			return FALSE;
 		LPCTSTR lpstrFileURLPrefix = _T("file://");
@@ -3720,10 +3720,10 @@ public:
 	}
 
 // Helper
-	static const Tchar* _cstrrchr(const Tchar* p, Tchar ch)
+	static const TCHAR* _cstrrchr(const TCHAR* p, TCHAR ch)
 	{
 #ifdef _ATL_MIN_CRT
-		const Tchar* lpsz = NULL;
+		const TCHAR* lpsz = NULL;
 		while (*p != 0)
 		{
 			if (*p == ch)
@@ -3884,7 +3884,7 @@ inline bool AtlLoadString(UINT uID, BSTR& bstrText)
 	int nRes = 0;
 	for(int nLen = 256; ; nLen *= 2)
 	{
-		ATLTRY(lpstrText = new Tchar[nLen]);
+		ATLTRY(lpstrText = new TCHAR[nLen]);
 		if(lpstrText == NULL)
 			break;
 		nRes = ::LoadString(ModuleHelper::GetResourceInstance(), uID, lpstrText, nLen);
@@ -3984,7 +3984,7 @@ inline bool AtlCompactPath(LPTSTR lpstrOut, LPCTSTR lpstrIn, int cchLen)
 	lpstrOut[0] = 0;
 
 	// check if the separator is a slash or a backslash
-	Tchar chSlash = _T('\\');
+	TCHAR chSlash = _T('\\');
 	for(LPTSTR lpstr = (LPTSTR)lpstrIn; *lpstr != 0; lpstr = ::CharNext(lpstr))
 	{
 		if((*lpstr == _T('/')) || (*lpstr == _T('\\')))
@@ -4044,7 +4044,7 @@ inline bool AtlCompactPath(LPTSTR lpstrOut, LPCTSTR lpstrIn, int cchLen)
 	SecureHelper::strcat_x(lpstrOut, cchLen, szEllipsis);
 	if(!bRet)
 		return false;
-	Tchar szSlash[2] = { chSlash, 0 };
+	TCHAR szSlash[2] = { chSlash, 0 };
 	SecureHelper::strcat_x(lpstrOut, cchLen, szSlash);
 	if(!bRet)
 		return false;

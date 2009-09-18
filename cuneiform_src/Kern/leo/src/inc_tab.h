@@ -54,7 +54,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-static uchar start_pos[]={
+static Word8 start_pos[]={
 		8,
 		7,
 		6,6, 					/* 2 dup (6) */
@@ -76,7 +76,7 @@ static uchar start_pos[]={
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 	/* 128 dup (0)*/
 		};
-static uchar last_pos[]={
+static Word8 last_pos[]={
 		8,		0,1,0,
 		2,		0,1,0,
 		3,		0,1,0,

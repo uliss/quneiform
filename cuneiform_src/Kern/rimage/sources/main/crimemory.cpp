@@ -82,12 +82,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  #define CFIO_MAX_COMMENT       48
 #endif
 // extern functions
-//void SetReturnCode_rimage(uint16_t rc);
-//uint16_t GetReturnCode_rimage();
+//void SetReturnCode_rimage(Word16 rc);
+//Word16 GetReturnCode_rimage();
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //CFIO Entries
-static void* (*pDAlloc)(uint32_t, uint32_t, uchar *, uchar *) = NULL;
-static void* (*pAlloc)(uint32_t, uint32_t)                  = NULL;
+static void* (*pDAlloc)(Word32, Word32, PWord8, PWord8) = NULL;
+static void* (*pAlloc)(Word32, Word32)                  = NULL;
 static void  (*pFree)(void *)                           = NULL;
 static void* (*pLock)(void *)                           = NULL;
 static void  (*pUnlock)(void *)                         = NULL;
@@ -123,19 +123,19 @@ Char8 cCommentBuffer[CFIO_MAX_COMMENT];
 
 void    RIMAGEComment(const char *Comment)
 {
-	uint32_t Len = strlen(Comment);
+	Word32 Len = strlen(Comment);
     Len = Len < CFIO_MAX_COMMENT ? Len : CFIO_MAX_COMMENT - 1 ;
 	strncpy(cCommentBuffer, Comment, Len );
     cCommentBuffer[Len] = 0x0;
 }
 
-void *	RIMAGEDAlloc(uint32_t stAllocateBlock, const char *Comment)
+void *	RIMAGEDAlloc(Word32 stAllocateBlock, const char *Comment)
 {
 	RIMAGEComment(Comment);
 	return RIMAGEAlloc(stAllocateBlock);
 }
 
-void *	RIMAGEAlloc(uint32_t stAllocateBlock) {
+void *	RIMAGEAlloc(Word32 stAllocateBlock) {
 	return malloc(stAllocateBlock);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -176,7 +176,7 @@ Handle  RIMAGEOpenRestore(char * lpName)
 //
 unsigned int  RIMAGEWrite(Handle h,void * lpdata,unsigned int size)
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 #ifdef _NO_CFIO
 	rc = fwrite(lpdata,1,size,(FILE*)h);
 #endif
@@ -186,7 +186,7 @@ unsigned int  RIMAGEWrite(Handle h,void * lpdata,unsigned int size)
 //
 unsigned int  RIMAGERead(Handle h,void * lpdata,unsigned int size)
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 #ifdef _NO_CFIO
 	rc = fread(lpdata,1,size,(FILE *)h);
 #endif

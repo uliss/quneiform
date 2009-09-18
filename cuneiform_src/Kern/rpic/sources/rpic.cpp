@@ -156,13 +156,13 @@ Bool32 ClearLogRes(void)
 ////////////////////////////////////////////////////////////////////////////////
 Bool32 LastCheck(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 {
-	uint32_t i,j;
+	Word32 i,j;
 	CCOM_comp pic;
 	CCOM_comp * comp;
-	uint16_t pLocalHystogram[MaxHeightOfLetter];
-	uint32_t nLocalComps;
-	uint32_t MaxLocal, nMaxLocal;
-	uint32_t Result1, Result2;
+	Word16 pLocalHystogram[MaxHeightOfLetter];
+	Word32 nLocalComps;
+	Word32 MaxLocal, nMaxLocal;
+	Word32 Result1, Result2;
 
 	for(i=0; i<nPics; i++)
 	{
@@ -290,10 +290,10 @@ Bool32 LastCheck(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-Bool32 DeleteFromPics(uint32_t position)
+Bool32 DeleteFromPics(Word32 position)
 {
 	/*
-	uint32_t i;
+	Word32 i;
 
 	for(i=position;i<nPics-1;i++)
 	{
@@ -360,12 +360,12 @@ RPIC_FUNC(Bool32) RPIC_SearchPictures (Handle hCCOM, Handle hCCOM_big,Handle hCP
 	CCOM_comp common;
 	PAGEINFO			pInfo;
 	POLY_ block;
-	uint32_t i,j;
+	Word32 i,j;
 
 	Rect16 rect;
-	uint32_t key;
-	uint32_t color;
-	uint32_t tmp_comp=0;
+	Word32 key;
+	Word32 color;
+	Word32 tmp_comp=0;
 
 	Handle MainWindowD=NULL;
     MainWindowD=LDPUMA_GetWindowHandle ("Изображение после разворота");
@@ -400,7 +400,7 @@ RPIC_FUNC(Bool32) RPIC_SearchPictures (Handle hCCOM, Handle hCCOM_big,Handle hCP
 
 	if((pInfo.Angle == 90)||(pInfo.Angle == 270))
 	{
-		uint32_t tmp;
+		Word32 tmp;
 		tmp = pInfo.Width;
 		pInfo.Width = pInfo.Height;
 		pInfo.Height = tmp;
@@ -793,10 +793,10 @@ lNextComp:
 	 {
 	  nPics++;
 	  CPAGE_GetBlockData(hCPAGE,h,TYPE_IMAGE, &block, sizeof(block));
-       rect.left =(int16_t)(block.com.Vertex[0].x);
-	   rect.top =(int16_t)(block.com.Vertex[0].y);
-	   rect.right =(int16_t)(block.com.Vertex[1].x);
-	   rect.bottom =(int16_t)(block.com.Vertex[2].y);
+       rect.left =(Int16)(block.com.Vertex[0].x);
+	   rect.top =(Int16)(block.com.Vertex[0].y);
+	   rect.right =(Int16)(block.com.Vertex[1].x);
+	   rect.bottom =(Int16)(block.com.Vertex[2].y);
 	  LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 2, key);
 	 }
 	 if(nPics)
@@ -817,10 +817,10 @@ lNextComp:
 	 {
 	  nPics++;
 	  CPAGE_GetBlockData(hCPAGE,h,POSSIBLE_PICTURES, &block, sizeof(block));
-       rect.left =(int16_t)(block.com.Vertex[0].x);
-	   rect.top =(int16_t)(block.com.Vertex[0].y);
-	   rect.right =(int16_t)(block.com.Vertex[1].x);
-	   rect.bottom =(int16_t)(block.com.Vertex[2].y);
+       rect.left =(Int16)(block.com.Vertex[0].x);
+	   rect.top =(Int16)(block.com.Vertex[0].y);
+	   rect.right =(Int16)(block.com.Vertex[1].x);
+	   rect.bottom =(Int16)(block.com.Vertex[2].y);
 	  LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 2, key);
 	 }
 	 if(nPics)

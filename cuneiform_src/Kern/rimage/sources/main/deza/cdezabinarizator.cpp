@@ -82,7 +82,7 @@ CDezaBinarizator::~CDezaBinarizator()
 
 }
 
-uint32_t CDezaBinarizator::OpenTrackBin(PCTBINTigerImageInfo Info, CRIBinarizator *pCaller, uint32_t tip1)
+Word32 CDezaBinarizator::OpenTrackBin(PCTBINTigerImageInfo Info, CRIBinarizator *pCaller, Word32 tip1)
 {
 	int32_t lenpor;
 	int32_t i;
@@ -116,14 +116,14 @@ uint32_t CDezaBinarizator::OpenTrackBin(PCTBINTigerImageInfo Info, CRIBinarizato
 	nstr        = lenpor;
 	lenpor      = lenpor*spx;
 
-	if ((ptgrey=(uchar *)DB_MALLOC(lenpor))==NULL)
+	if ((ptgrey=(PWord8)DB_MALLOC(lenpor))==NULL)
 		return(0);
 
 	lenpor      = LONGBUF / spx1;
 	nstrb       = lenpor;
 	lenpor      = lenpor * spx1;
 
-	if ((ptbosn=(uchar *)DB_MALLOC(lenpor))==NULL)
+	if ((ptbosn=(PWord8)DB_MALLOC(lenpor))==NULL)
 		return(0);
 
 	if (Read_por_first()==0)
@@ -134,12 +134,12 @@ uint32_t CDezaBinarizator::OpenTrackBin(PCTBINTigerImageInfo Info, CRIBinarizato
 	return(1);
 }
 
-uchar * CDezaBinarizator::Black_file(uchar * anPblack, int32_t stry)
+PWord8 CDezaBinarizator::Black_file(PWord8 anPblack, int32_t stry)
 {
-	uint32_t ir = 0;
-	uchar * regPtb = ptb;
-	uchar * ptbend;
-	uchar * pblack = anPblack;
+	Word32 ir = 0;
+	PWord8 regPtb = ptb;
+	PWord8 ptbend;
+	PWord8 pblack = anPblack;
 	int32_t shby = 0, shift = 0;
 
 	for ( regPtb = ptgrey, ptbend = regPtb+spx*stry; regPtb != ptbend; regPtb++ )
@@ -150,13 +150,13 @@ uchar * CDezaBinarizator::Black_file(uchar * anPblack, int32_t stry)
 		{
 			shby = 0;
 			ir <<= sdvig;
-			*pblack++=(uchar)ir;
+			*pblack++=(Word8)ir;
 			shift = 0;
 		}
 		else
 			if ( ++shift == 8 )
 			{
-				*pblack++=(uchar)ir;
+				*pblack++=(Word8)ir;
 				shift = 0;
 			}
 	}
@@ -179,8 +179,8 @@ uchar * CDezaBinarizator::Black_file(uchar * anPblack, int32_t stry)
 
 int32_t CDezaBinarizator::Our1(int32_t spr)
 {
-    uchar * regPtb;
-    uchar regUrov;
+    PWord8 regPtb;
+    Word8 regUrov;
     int32_t regSpx = spx;
 
     ypor=spr;
@@ -191,7 +191,7 @@ int32_t CDezaBinarizator::Our1(int32_t spr)
 		x=bufmark[0];
 		y=bufmark[1];
 		regPtb = ptb=ptgrey+y*spx+x;    // use register instead of static
-		regUrov = (uchar)urov[1];              // see above Stas!!!
+		regUrov = (Word8)urov[1];              // see above Stas!!!
 
 		while ( *regPtb < regUrov )
 		{
@@ -372,7 +372,7 @@ int32_t CDezaBinarizator::Read_por_first()
 			break;
 
 	lgn = lg0i+1;
-	lg0 = (uchar)lg0i;
+	lg0 = (Word8)lg0i;
 	chet_color[lg0i] += chet_color[0];
 	chet_color[0] = 0L;
 	colall -= chet_color[lg0i];
@@ -575,16 +575,16 @@ void CDezaBinarizator::Stek()
 
 void CDezaBinarizator::Raspred(int32_t str)
 {
-	uchar * regPtb;
-	uchar regLg0 = lg0;
-	uint32_t i, lineCount;
+	PWord8 regPtb;
+	Word8 regLg0 = lg0;
+	Word32 i, lineCount;
 	int32_t l;
 
 	l = chet_color[lg0i];
 
-	for ( lineCount = 0, regPtb=ptgrey; lineCount < (uint32_t)str ; lineCount++ )
+	for ( lineCount = 0, regPtb=ptgrey; lineCount < (Word32)str ; lineCount++ )
 	{
-		for( i = 0 ; i <= (uint32_t)spx2 ; i++, regPtb++ )
+		for( i = 0 ; i <= (Word32)spx2 ; i++, regPtb++ )
 		{
 			if ( *regPtb < regLg0 )
 				*regPtb=regLg0;
@@ -592,7 +592,7 @@ void CDezaBinarizator::Raspred(int32_t str)
 			chet_color[*regPtb]++;
 		}
 
-		for( ; i < (uint32_t)spx ; i++, regPtb++ )
+		for( ; i < (Word32)spx ; i++, regPtb++ )
 		{
 			if ( *regPtb < regLg0 )
 				*regPtb=regLg0;
@@ -615,7 +615,7 @@ void CDezaBinarizator::Raspred(int32_t str)
 
 void CDezaBinarizator::Ras1_pred(int32_t str)
 {
-	uchar * regPtb;
+	PWord8 regPtb;
     int32_t i;
 	int32_t regSpx2 = spx2;
 	int32_t lineCount;
@@ -643,10 +643,10 @@ void CDezaBinarizator::Ras1_pred(int32_t str)
 	*/
 }
 
-int32_t CDezaBinarizator::GetBinarized(uchar * ptbl, uint32_t lenbl)
+int32_t CDezaBinarizator::GetBinarized(PWord8 ptbl, Word32 lenbl)
 {
 	int32_t spybr, ret, nstrb1;
-	uchar * ptbend;
+	PWord8 ptbend;
 
 	spybr  = lenbl/spx1;
 	nstrb1 = spybr+indbl-nstrb;

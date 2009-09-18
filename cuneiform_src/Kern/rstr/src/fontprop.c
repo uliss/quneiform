@@ -84,7 +84,7 @@ INT nw;
 
 static void italic(cell *);
 static INT linerev(INT,INT *);
-static int inclin(INT,INT *);
+static LONG inclin(INT,INT *);
 static void serif(cell *);
 static void underline();
 static BYTE keg_word(cell *,cell *,INT,B_LINES *);
@@ -184,10 +184,10 @@ static void italic(cell *c)
  elmBOX *elm;
  BYTE let;
  PBYTE          twins;
- char font[2*NVAR];
+ CHAR font[2*NVAR];
  WORD i,prob[2*NVAR];
  INT nansw,maxi,maxni,l;
- extern char * tableBOX;
+ extern PCHAR tableBOX;
  INT sv_pos_inc , sv_stick_inc, sv_save_stick_inc;
  Bool   bad_cur_ge, disable_it=FALSE;
 
@@ -333,7 +333,7 @@ return;
 
 // рЮАКХЖЮ ХМТНПЛХПСЕР Н БНГЛНФМНЛ ПЮЯОНКНФЕМХХ 'ГЮБХРСЬЕЙ' МЮ ЙНМЖЮУ АСЙБ.
 // нМХ ЛНЦСР ПЮЯОНКЮЦЮРЭЯЪ ЯОПЮБЮ-0x01 Х/ХКХ ЯКЕБЮ-0x02 НР АСЙБШ
-static char tabincl[256]={
+static CHAR tabincl[256]={
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 0  - 23
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 24 - 47
 //                        ! " # $ % & ' ( ) * + , - . /
@@ -373,7 +373,7 @@ INT letincl(cell *c)
  INT left[KEGMAX],right[KEGMAX];
  lnhead *line;
  interval *intv0,*intv,*intve;
- int s;
+ LONG s;
 
  let=let_sans_acc[c->vers[0].let];
  //if( language==LANG_RUSSIAN || language==LANG_ENGLISH )
@@ -388,11 +388,11 @@ INT letincl(cell *c)
 /* printf("let=%c,h=%u,mini=%u,maxi=%u\n",let,c->h,mini,maxi);*/
  if (f&RINCL) {memset(right,0,h+h); nr=h;}
  if (f&LINCL) {for (i=0; i<h; i++) left[i]=WMAX; nl=h;}
- for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-			 line->lth>0; line=(lnhead *)((char *)line+line->lth))
+ for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+			 line->lth>0; line=(lnhead *)((PCHAR)line+line->lth))
   if (line->row<=maxi && line->row+line->h>mini)
    {
-   intv0=(interval *)((char *)line+sizeof(lnhead));
+   intv0=(interval *)((PCHAR)line+sizeof(lnhead));
    intv=intv0+MAX(0,mini-line->row);
    intve=intv0+MIN(maxi+1-line->row,line->h);
 /*   printf("y=%u,h=%u,b=%u,e=%u\n",line->row,line->h,
@@ -432,10 +432,10 @@ static INT linerev(INT n,INT *line)
  return end-beg+1;
  }
 
-static int inclin(INT n,INT *line)
+static LONG inclin(INT n,INT *line)
  {
  INT x;
- int sy,sxy,inc;
+ LONG sy,sxy,inc;
 
  for (sxy=sy=x=0; x<n; x++)
   {sy+=line[x]; sxy+=x*line[x];}
@@ -449,7 +449,7 @@ static int inclin(INT n,INT *line)
 
 // ▓═║╝╗Ф═ ╗╜Д╝Ю╛╗ЮЦ╔Б ╝ ╒╝╖╛╝╕╜╝╛ Ю═А╞╝╚╝╕╔╜╗╗ А╔Ю╗Д╝╒ ╜═ ║Ц╙╒╔
 // ▌╜╗ ╛╝ёЦБ Ю═╞╝╚╝ё═БЛАО ╒ ╜╗╕╜╔╘-0x01 ╗/╗╚╗ ╒╔ЮЕ╜╔╘-0x02 Г═АБ╗ ║Ц╙╒К
-static char tabserif[256]={
+static CHAR tabserif[256]={
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,        //  0-23
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,        // 24-47
 //                        ! " # $ % & ' ( ) * + , - . /
@@ -485,13 +485,13 @@ static void serif(cell *c)
 
  H=c->h;
  let=let_sans_acc[c->vers[0].let];
- for (n1=n2=0,line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-			 line->lth>0; line=(lnhead *)((char *)line+line->lth))
+ for (n1=n2=0,line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+			 line->lth>0; line=(lnhead *)((PCHAR)line+line->lth))
   {
   if (tabserif[let]&LSER && line->flg&l_fend && (h=line->h)>=5 && h>=H/4 &&
       line->row+h+2>=H && !(c->font&c_fp_it && memchr("BLb",let,3)))
    {
-   i1=(interval *)((char *)line+sizeof(lnhead))+(h-3);
+   i1=(interval *)((PCHAR)line+sizeof(lnhead))+(h-3);
    i2=i1-(H/4-3);
    b1=MIN(MIN(i1->e-i1->l,(i1+1)->e-(i1+1)->l),(i1+2)->e-(i1+2)->l);
    e1=MAX(MAX(i1->e,(i1+1)->e),(i1+2)->e);
@@ -502,7 +502,7 @@ static void serif(cell *c)
   if (tabserif[let]&HSER && line->flg&l_fbeg && (h=line->h)>=5 && h>=H/4 &&
       line->row<=2 && !(c->font&c_fp_it && let=='q'))
    {
-   i1=(interval *)((char *)line+sizeof(lnhead));
+   i1=(interval *)((PCHAR)line+sizeof(lnhead));
    i2=i1+(H/4-1);
    b1=MIN(MIN(i1->e-i1->l,(i1+1)->e-(i1+1)->l),(i1+2)->e-(i1+2)->l);
    e1=MAX(MAX(i1->e,(i1+1)->e),(i1+2)->e);
@@ -553,7 +553,7 @@ static INT pitch()
  cell *c;
  BYTE let;
  INT nl,nc,ng,n,n1,n2,h,w,ww,wmin,wmax,i,j,sp,bad,d,p,mg;
- int s,min;
+ LONG s,min;
  WORD center[LSTRMAX],left[LSTRMAX],right[LSTRMAX];
 
  for (nl=nc=ng=0,c=(cell_f())->next; c->next!=NULL; c=c->next)
@@ -796,7 +796,7 @@ void font_str()
 					fnt|=c_fp_str;
 
 					{
-						char snap[80], sg[30], tmps[30];
+						CHAR snap[80], sg[30], tmps[30];
 
 						if( ni1 == 0 && ni2 == 0 )
 							strcpy(tmps," NO ");
@@ -979,7 +979,7 @@ void font_str()
 				w_inc[i].bool = 0;
 				w_inc[i].fnt = (BYTE)fnt;
 				{
-					char snap[80],sg[30];
+					CHAR snap[80],sg[30];
 
 					if( fnt & c_fp_it )
 						strcpy(sg," ITA");
@@ -1114,8 +1114,8 @@ extern int32_t num_of_lines;
   by=lines[i].beg.y>>line_scale;
   ex=lines[i].end.x>>line_scale;
   ey=lines[i].end.y>>line_scale;
-  by-=(INT)((int)nIncline*bx/2048);
-  ey-=(INT)((int)nIncline*ex/2048);
+  by-=(INT)((LONG)nIncline*bx/2048);
+  ey-=(INT)((LONG)nIncline*ex/2048);
   if (MIN(by,ey)<bl.b3 || MAX(by,ey)>bl.b3+bl.ps/2 ||
       cf->r_col-bl.ps>bx || cl->r_col+cl->w+bl.ps<ex)
     continue;
@@ -1131,7 +1131,7 @@ extern int32_t num_of_lines;
 
 #define BNDPROB 100
 /*
-static char tabpos[256]={
+static CHAR tabpos[256]={
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 //                        ! " # $ % & ' ( ) * + , - . /
@@ -1156,7 +1156,7 @@ static char tabpos[256]={
 // ___________ 1 2 3
 // ___________     3
 //
-static char tabpos[256]={
+static CHAR tabpos[256]={
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,     //  0-23
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,     // 24-47
 //                        ! " # $ % & ' ( ) * + , - . /
@@ -1288,7 +1288,7 @@ static void bold_word(cell *c1,cell *c2,struct word_inf *inf)
  inf->n=nd;
 if(0)
 {
-   char snap[80],sg[30];
+   CHAR snap[80],sg[30];
    INT  ser,gel;
 
    ser = gel = 0;
@@ -1317,12 +1317,12 @@ if(0)
 }
  }
 
-static char aver_dens;
+static CHAR aver_dens;
 
 void avdens()
  {
  //str *ln;
- int /*l,*/s,n;
+ LONG /*l,*/s,n;
  //c_comp **curr,**last,*cmp;
  lnhead *line;
  interval *ic,*ie;
@@ -1337,8 +1337,8 @@ for (c=c1,n=s=0; c!=c2; c=c->next)// Piter add init s=0
 	if ( !(c->flg & (c_f_let|c_f_bad)) )
 		continue;
 	n+=(c->env->h)*(c->env->w);
-	for( line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-			 line->lth>0; line=(lnhead *)((char *)line+line->lth))
+	for( line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+			 line->lth>0; line=(lnhead *)((PCHAR)line+line->lth))
 		{
 		for (ie=(ic=(interval *)((PBYTE)line+sizeof(lnhead)))+line->h;
 			  ic<ie; ic++)
@@ -1358,7 +1358,7 @@ for (c=c1,n=s=0; c!=c2; c=c->next)// Piter add init s=0
    cmp=*curr;
    if (cmp->size==1 && !((file_comp *)cmp)->h && !((file_comp *)cmp)->w)
     {
-    l=((int)((file_comp *)cmp)->lth)<<4;
+    l=((LONG)((file_comp *)cmp)->lth)<<4;
     if ((comp_curr-comp_file+l)>>4>comp_lth)
      error_exit(ERR_comp,2);
     read_comp(((file_comp *)cmp)->offset,comp_curr,l);
@@ -1391,7 +1391,7 @@ for (c=c1,n=s=0; c!=c2; c=c->next)// Piter add init s=0
 #define MKEGDENS  65
 #define MDENS      4
 /*
-static char tabss[256]={
+static CHAR tabss[256]={
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,0,2,-7,1,0,0,0,0,0,0,0,0,-8,
 //                    ! " # $  % & ' ( ) * + , - .  /
@@ -1409,7 +1409,7 @@ static char tabss[256]={
     3, 3, 1, 3,  3, 4,0,0, 3, 0,0,0,-2};
 // fi fl ff ffi rt ri % % ffl i j !  ?
 
-static char tabgs[256]={
+static CHAR tabgs[256]={
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,0,1,-7,-1,0,0,0,0,0,0,0,0,-11,
 //                    ! " # $  %  & ' ( ) * + , - .  /
@@ -1427,7 +1427,7 @@ static char tabgs[256]={
     3, 3, 1, 3, -2, 0,0,0, 3, 0,0,0,-2};
 // fi fl ff ffi rt ri % % ffl i j !  ?
 
-static char tabgi[256]={
+static CHAR tabgi[256]={
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,0,1,-7,-1,0,0,0,0,0,0,0,0,-9,
 //                    ! " # $  %  & ' ( ) * + , - .  /
@@ -1445,7 +1445,7 @@ static char tabgi[256]={
     2, 3, 0, 2,  2, 3,0,0, 2, 0,0,0,-2};
 // fi fl ff ffi rt ri % % ffl i j !  ?
 
-static char tabcr[256]={
+static CHAR tabcr[256]={
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,0,1,-7,-1,0,0,0,0,0,0,0,0,-8,
 //                    ! " # $  %  & ' ( ) * + , - .  /
@@ -1463,7 +1463,7 @@ static char tabcr[256]={
     3, 3, 1, 3,  3, 4,0,0, 3, 0,0,0,-2};
 // fi fl ff ffi rt ri % % ffl i j !  ?
 
-static char tabmd[256]={
+static CHAR tabmd[256]={
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,0,2,-7,-1,0,0,0,0,0,0,0,0,-8,
 //                    ! " # $  %  & ' ( ) * + , - .  /
@@ -1486,7 +1486,7 @@ static char tabmd[256]={
 // ПЮГМШУ РХОНБ ЬПХТРНБ.
 
 //  еЯКХ ЬПХТР ХЛЕЕР РХО 'ХРЮКХЙ'.
-static char tabgi[256]={
+static CHAR tabgi[256]={
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,0,1,-7,-1,0,0,0,0,0,0,0,0,-9,
 //                    ! " # $  %  & ' ( ) * + , - .  /
@@ -1516,7 +1516,7 @@ static char tabgi[256]={
 
 // └═╚╔╔ ╗╓ЦБ ╛═АА╗╒К ╔А╚╗ ХЮ╗ДБ █┘ ┬▓─▀┬┼.
 //  ≤╗Ю╗╜═ ║Ц╙╒К ╜╔╝╞Ю╔╓╔╚╔╜═. ≤Ю╗ДБ А╔Ю╗Д╜К╘.
-static char tabss[256]={
+static CHAR tabss[256]={
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,0,2,-7,1,0,0,0,0,0,0,0,0,-8,
 //                    ! " # $  % & ' ( ) * + , - .  /
@@ -1544,7 +1544,7 @@ static char tabss[256]={
 
 
 //  ≤╗Ю╗╜═ ║Ц╙╒К ╜╔╝╞Ю╔╓╔╚╔╜═. ≤Ю╗ДБ █┘ А╔Ю╗Д╜К╘.
-static char tabgs[256]={
+static CHAR tabgs[256]={
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,0,1,-7,-1,0,0,0,0,0,0,0,0,-11,
 //                    ! " # $  %  & ' ( ) * + , - .  /
@@ -1573,7 +1573,7 @@ static char tabgs[256]={
 
 
 //   . ≤╗Ю╗╜═ ║Ц╙╒К ║╝╚ЛХ╔ Г╔╛ Ю═╖╛╔Ю ╙╔ё╚О.
-static char tabcr[256]={
+static CHAR tabcr[256]={
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,0,1,-7,-1,0,0,0,0,0,0,0,0,-8,
 //                    ! " # $  %  & ' ( ) * + , - .  /
@@ -1601,7 +1601,7 @@ static char tabcr[256]={
 
 
 //  . ≤╗Ю╗╜═ ║Ц╙╒К ╛╔╜ЛХ╔ ╗╚╗ Ю═╒╜╝ Ю═╖╛╔ЮЦ ╙╔ё╚О.
-static char tabmd[256]={
+static CHAR tabmd[256]={
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,0,2,-7,-1,0,0,0,0,0,0,0,0,-8,
 //                    ! " # $  %  & ' ( ) * + , - .  /
@@ -1630,7 +1630,7 @@ static char tabmd[256]={
 static INT dens_let(cell *c)
  {
  INT d,h;
- char * tab;
+ PCHAR tab;
  BYTE let,fnt;
  if (c->dens>100)  // 11-10-94 05:59pm Pit for debug
   return NOTAPPL;  //

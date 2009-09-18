@@ -75,12 +75,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define RFRMT_MAXNAME 260
 
-RFRMT_FUNC(Bool32) RFRMT_Init(uint16_t wHeightCode,Handle hStorage);
+RFRMT_FUNC(Bool32) RFRMT_Init(Word16 wHeightCode,Handle hStorage);
 RFRMT_FUNC(Bool32) RFRMT_Done();
-RFRMT_FUNC(uint32_t) RFRMT_GetReturnCode();
-RFRMT_FUNC(char *) RFRMT_GetReturnString(uint32_t dwError);
-RFRMT_FUNC(Bool32) RFRMT_GetExportData(uint32_t dwType, void * pData);
-RFRMT_FUNC(Bool32) RFRMT_SetImportData(uint32_t dwType, const void * pData);
+RFRMT_FUNC(Word32) RFRMT_GetReturnCode();
+RFRMT_FUNC(Int8 *) RFRMT_GetReturnString(Word32 dwError);
+RFRMT_FUNC(Bool32) RFRMT_GetExportData(Word32 dwType, void * pData);
+RFRMT_FUNC(Bool32) RFRMT_SetImportData(Word32 dwType, const void * pData);
 /////////////////////////////////////////////////////////////
 
 
@@ -103,7 +103,7 @@ typedef enum
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RFRMT_FUNC(a) b c
 
 DEC_FUN(Bool32,  RFRMT_Formatter,(char * lpInputFileName , Handle* PtrEdTree));
-DEC_FUN(Bool32,  RFRMT_SaveRtf,(char * lpOutputFileName,uint32_t code));
+DEC_FUN(Bool32,  RFRMT_SaveRtf,(char * lpOutputFileName,Word32 code));
 
 #undef DEC_FUN
 

@@ -92,7 +92,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #define ER_CANTDELETE          -25 // cannot delete some object...
    #define ER_IMPROPERVALUE       -26 // some another value expected!
    #define ER_EMPTY               -27 // some value or object assumed to be not empty
-   #define ER_TOOint             -28 // some file or string too long
+   #define ER_TOOLONG             -28 // some file or string too long
    #define ER_NOFITNESS           -29 // some object does not correspond another
    #define ER_TIMEOUT             -30 // timeout !!!
    #define ER_OVERTURN            -31 // something is overturned - image, bytes,...

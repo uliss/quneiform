@@ -91,13 +91,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 ///////////////////////////////////////////////////////////////////////////////////
-//void SetReturnCode_rstuff(uint16_t rc);
-//uint16_t GetReturnCode_rstuff();
+//void SetReturnCode_rstuff(Word16 rc);
+//Word16 GetReturnCode_rstuff();
 /////////////////////////////////////////////////////////////////////////////////////////
 //
 void    RSTUFFComment(const char * Comment);
-void *	RSTUFFAlloc(uint32_t stAllocateBlock);
-void *	RSTUFFDAlloc(uint32_t stAllocateBlock, const char * Comment);
+void *	RSTUFFAlloc(Word32 stAllocateBlock);
+void *	RSTUFFDAlloc(Word32 stAllocateBlock, const char * Comment);
 void	RSTUFFFree(void * mem);
 void *  RSTUFFLock(void * mem);
 void    RSTUFFUnlock(void * mem);

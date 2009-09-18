@@ -79,12 +79,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma pack (push,8)
 
 
-RPIC_FUNC(Bool32) RPIC_Init(uint16_t wHeightCode,Handle hStorage);
+RPIC_FUNC(Bool32) RPIC_Init(Word16 wHeightCode,Handle hStorage);
 RPIC_FUNC(Bool32) RPIC_Done();
-RPIC_FUNC(uint32_t) RPIC_GetReturnCode();
-RPIC_FUNC(char *) RPIC_GetReturnString(uint32_t dwError);
-RPIC_FUNC(Bool32) RPIC_GetExportData(uint32_t dwType, void * pData);
-RPIC_FUNC(Bool32) RPIC_SetImportData(uint32_t dwType, void * pData);
+RPIC_FUNC(Word32) RPIC_GetReturnCode();
+RPIC_FUNC(Int8 *) RPIC_GetReturnString(Word32 dwError);
+RPIC_FUNC(Bool32) RPIC_GetExportData(Word32 dwType, void * pData);
+RPIC_FUNC(Bool32) RPIC_SetImportData(Word32 dwType, void * pData);
 /////////////////////////////////////////////////////////////
 
 
@@ -100,16 +100,16 @@ DEC_FUN(Bool32, RPIC_SearchPictures,(Handle hCCOM, Handle hCCOM_big,Handle hCPAG
 
 /*
 typedef void   (*FNRPIC_ProgressStart)( void );
-typedef	Bool32 (*FNRPIC_ProgressStep)(uint32_t perc);
+typedef	Bool32 (*FNRPIC_ProgressStep)(Word32 perc);
 typedef	void   (*FNRPIC_ProgressFinish)( void );
 */
 
 struct _RPIC_Comp_Rect
 {
-	int16_t upper;                   // upper boundary of component
-	int16_t left;                    // left boundary of component
-	int16_t h;                       // height of component
-	int16_t w;                       // width of component
+	Int16 upper;                   // upper boundary of component
+	Int16 left;                    // left boundary of component
+	Int16 h;                       // height of component
+	Int16 w;                       // width of component
 };
 typedef struct _RPIC_Comp_Rect RPIC_Comp_Rect;
 

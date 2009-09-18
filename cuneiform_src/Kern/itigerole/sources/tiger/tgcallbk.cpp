@@ -69,10 +69,10 @@ HANDLE ToMono(HANDLE hDIB);
 
 typedef struct
 	{
-	uint32_t dwBeg;   // Начало текущего диапозона
-	uint32_t dwEnd;	// Конец
+	Word32 dwBeg;   // Начало текущего диапозона
+	Word32 dwEnd;	// Конец
 
-	uint32_t dwStep;  // текущий номер шага
+	Word32 dwStep;  // текущий номер шага
 	const char * name;	// текущее название шага
 	} PRGTIME;
 
@@ -91,7 +91,7 @@ extern FNPROGRESS_STOP  fnProgressStop;
 extern FNPROGRESS_STEP  fnProgressStep;
 
 //////////////////////////////////////////////////////
-static uint32_t bInitPrgTime = 0;
+static Word32 bInitPrgTime = 0;
 Bool32  DonePRGTIME()
 {
 	Bool32 rc = FALSE;
@@ -125,12 +125,12 @@ Bool32  InitPRGTIME()
 	bInitPrgTime++;
 	return rc;
 }
-PRGTIME	 StorePRGTIME(uint32_t beg, uint32_t end)
+PRGTIME	 StorePRGTIME(Word32 beg, Word32 end)
 {
 	PRGTIME rc = g_PrgTime;
 
-	uint32_t newBeg = g_PrgTime.dwBeg + (g_PrgTime.dwEnd - g_PrgTime.dwBeg)*beg/100;
-	uint32_t newEnd = g_PrgTime.dwBeg + (g_PrgTime.dwEnd - g_PrgTime.dwBeg)*end/100;
+	Word32 newBeg = g_PrgTime.dwBeg + (g_PrgTime.dwEnd - g_PrgTime.dwBeg)*beg/100;
+	Word32 newEnd = g_PrgTime.dwBeg + (g_PrgTime.dwEnd - g_PrgTime.dwBeg)*end/100;
 
 	g_PrgTime.dwBeg = newBeg;
 	g_PrgTime.dwEnd = newEnd;
@@ -270,7 +270,7 @@ FNBOOL16 Tiger_Callback_ProgressSetPerc (WORD wPercent)
 {
 	USES_CONVERSION;
 
-	uint32_t perc = g_PrgTime.dwBeg + wPercent*(g_PrgTime.dwEnd - g_PrgTime.dwBeg)/100;
+	Word32 perc = g_PrgTime.dwBeg + wPercent*(g_PrgTime.dwEnd - g_PrgTime.dwBeg)/100;
 	swPercent = (WORD)perc;
 
     return fnProgressStep(swStageNumber,StageName,perc) &
@@ -313,7 +313,7 @@ lth=lth;
 return TRUE;
 }
 
-FNBool Tiger_Callback_Get_One_Word (LPSTR Buffer )
+FNBOOL Tiger_Callback_Get_One_Word (LPSTR Buffer )
 {
 	return TRUE;
 }

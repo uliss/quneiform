@@ -106,7 +106,7 @@ Handle  myOpenRestore(char * lpName)
 }
 unsigned int  myWrite(Handle h,void * lpdata,unsigned int size)
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 //#ifdef _DEBUG
 	rc = fwrite(lpdata,1,size,(FILE*)h);
 //#endif
@@ -114,7 +114,7 @@ unsigned int  myWrite(Handle h,void * lpdata,unsigned int size)
 }
 unsigned int  myRead(Handle h,void * lpdata,unsigned int size)
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 //#ifdef _DEBUG
 	rc = fread(lpdata,1,size,(FILE *)h);
 //#endif
@@ -128,8 +128,8 @@ void    myClose(Handle h)
 }
 
 
-static uchar* Buffer;
-static uchar* WorkMem;
+static Word8* Buffer;
+static Word8* WorkMem;
 
 void GiveMainBuff (void **vvBuff, int *Size)
 {
@@ -146,11 +146,11 @@ void GiveWorkBuff (void **vvBuff, int *Size)
 Bool32 InitMem()
 {
 	Buffer=NULL;
-	Buffer=(uchar*)myAlloc(BufferSize);
+	Buffer=(Word8*)myAlloc(BufferSize);
 	if(!Buffer)
 		return FALSE;
 	WorkMem=NULL;
-	WorkMem=(uchar*)myAlloc(WorkMemSize);
+	WorkMem=(Word8*)myAlloc(WorkMemSize);
 	if(!WorkMem)
 		return FALSE;
 	return TRUE;

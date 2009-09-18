@@ -125,7 +125,7 @@ extern	INT dis_figa_left (STICK_SIGNUMS *s);
 extern	INT dis_figa_right(STICK_SIGNUMS *s);
 extern	INT dis_slash(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
 extern	INT dis_vert(STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s,
-		INT add_flag, char type);
+		INT add_flag, CHAR type);
 /*----------------------------------------------------------------------*/
 						// to STIC_FRT.C:
 extern	INT dis_f (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s);
@@ -237,12 +237,12 @@ switch( let )
   // 31.08.2000 E.P.
   case liga_exm_usual :   /*  '!' */        /* 0xBC <-> ! + point */
 	if (liga_exm_usual==liga_exm)
-		 dis = dis_vert(l,r,s,0,(char)liga_exm);
+		 dis = dis_vert(l,r,s,0,(CHAR)liga_exm);
 	break;
 
   case liga_exm_latin :   /*  '!' */        /* 0xBC <-> ! + point */
 	if (liga_exm_latin==liga_exm)
-		 dis = dis_vert(l,r,s,0,(char)liga_exm);
+		 dis = dis_vert(l,r,s,0,(CHAR)liga_exm);
 	break;
 
   case CROAT_d :
@@ -401,7 +401,7 @@ if( i )  {	// (2) pitch font
 	    l->down_serif==2 && r->down_serif==2 && l->mount[0]>1 &&
 	    l->mount[4]>1 && r->mount[4]>1 )
 		dis += tab_0xBA[21];  /* similar '1' */			// 50
-}	// (1) EXIST int FLAGS
+}	// (1) EXIST LONG FLAGS
 /*......................................................................*/
 else	{	// (1) small flags
 	if( rt>lt && ( lt>0 || lt==0 && rt>1) )
@@ -498,9 +498,9 @@ if ( s->neck < 2  &&  r->down_serif  &&	// 16.02.1993  fax9/20(19) "tool"
      (l->mb_pos[0] != l->me_pos[0] || l->mount[0] > 1) )	// stdm14/24(26) "Union"
 		dis += tab_0xBA[22];					// 50
 
-				// similar TOO int 'L' (h3/32) "L. Steele"
+				// similar TOO LONG 'L' (h3/32) "L. Steele"
 if ((MIN(wid,6) + wid + r->mount[4]) > dy)			// 12.10.1993
-	dis += 100;		// too int right down flag		// 100
+	dis += 100;		// too LONG right down flag		// 100
 
 				// 16.01.1994	PROBA dis/=2 for NECK==3;
 	if (s->neck==3)  dis = (dis >> 2) << 1;		// DIVIDE DIS / 2;

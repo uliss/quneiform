@@ -182,7 +182,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -278,7 +278,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -471,7 +471,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -612,7 +612,7 @@ public:
 	int SetCaretIndex(int nIndex, Bool bScroll = TRUE)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (int)::SendMessage(m_hWnd, LB_SETCARETINDEX, nIndex, MAKEint(bScroll, 0));
+		return (int)::SendMessage(m_hWnd, LB_SETCARETINDEX, nIndex, MAKELONG(bScroll, 0));
 	}
 
 	// for listbox items
@@ -664,7 +664,7 @@ public:
 		if(nLen == LB_ERR)
 			return FALSE;
 
-		CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
+		CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
 		LPTSTR lpstrText = buff.Allocate(nLen + 1);
 		if(lpstrText == NULL)
 			return FALSE;
@@ -711,7 +711,7 @@ public:
 	int SetItemHeight(int nIndex, UINT cyItemHeight)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (int)::SendMessage(m_hWnd, LB_SETITEMHEIGHT, nIndex, MAKEint(cyItemHeight, 0));
+		return (int)::SendMessage(m_hWnd, LB_SETITEMHEIGHT, nIndex, MAKELONG(cyItemHeight, 0));
 	}
 
 	// Settable only attributes
@@ -860,7 +860,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -960,7 +960,7 @@ public:
 	Bool SetEditSel(int nStartChar, int nEndChar)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (Bool)::SendMessage(m_hWnd, CB_SETEDITSEL, 0, MAKEint(nStartChar, nEndChar));
+		return (Bool)::SendMessage(m_hWnd, CB_SETEDITSEL, 0, MAKELONG(nStartChar, nEndChar));
 	}
 
 	// for combobox item
@@ -1005,7 +1005,7 @@ public:
 		if(nLen == CB_ERR)
 			return FALSE;
 
-		CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
+		CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
 		LPTSTR lpstrText = buff.Allocate(nLen + 1);
 		if(lpstrText == NULL)
 			return FALSE;
@@ -1051,7 +1051,7 @@ public:
 	int SetItemHeight(int nIndex, UINT cyItemHeight)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (int)::SendMessage(m_hWnd, CB_SETITEMHEIGHT, nIndex, MAKEint(cyItemHeight, 0));
+		return (int)::SendMessage(m_hWnd, CB_SETITEMHEIGHT, nIndex, MAKELONG(cyItemHeight, 0));
 	}
 
 	Bool GetExtendedUI() const
@@ -1234,7 +1234,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -1310,7 +1310,7 @@ public:
 	void SetMargins(UINT nLeft, UINT nRight)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		::SendMessage(m_hWnd, EM_SETMARGINS, EC_LEFTMARGIN|EC_RIGHTMARGIN, MAKEint(nLeft, nRight));
+		::SendMessage(m_hWnd, EM_SETMARGINS, EC_LEFTMARGIN|EC_RIGHTMARGIN, MAKELONG(nLeft, nRight));
 	}
 
 	UINT GetLimitText() const
@@ -1328,7 +1328,7 @@ public:
 	POINT PosFromChar(UINT nChar) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		DWORD dwRet = (DWORD)::SendMessage(m_hWnd, EM_POSFROMchar, nChar, 0);
+		DWORD dwRet = (DWORD)::SendMessage(m_hWnd, EM_POSFROMCHAR, nChar, 0);
 		POINT point = { GET_X_LPARAM(dwRet), GET_Y_LPARAM(dwRet) };
 		return point;
 	}
@@ -1356,16 +1356,16 @@ public:
 		return (int)::SendMessage(m_hWnd, EM_GETLINE, nIndex, (LPARAM)lpszBuffer);
 	}
 
-	Tchar GetPasswordChar() const
+	TCHAR GetPasswordChar() const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (Tchar)::SendMessage(m_hWnd, EM_GETPASSWORDchar, 0, 0L);
+		return (TCHAR)::SendMessage(m_hWnd, EM_GETPASSWORDCHAR, 0, 0L);
 	}
 
-	void SetPasswordChar(Tchar ch)
+	void SetPasswordChar(TCHAR ch)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		::SendMessage(m_hWnd, EM_SETPASSWORDchar, ch, 0L);
+		::SendMessage(m_hWnd, EM_SETPASSWORDCHAR, ch, 0L);
 	}
 
 #ifndef _WIN32_WCE
@@ -1454,7 +1454,7 @@ public:
 	int LineFromChar(int nIndex = -1) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (int)::SendMessage(m_hWnd, EM_LINEFROMchar, nIndex, 0L);
+		return (int)::SendMessage(m_hWnd, EM_LINEFROMCHAR, nIndex, 0L);
 	}
 
 	int LineIndex(int nLine = -1) const
@@ -1810,7 +1810,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -2315,7 +2315,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -2644,7 +2644,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -2854,7 +2854,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -2963,7 +2963,7 @@ public:
 		int nRes = 0;
 		for(int nLen = 256; ; nLen *= 2)
 		{
-			ATLTRY(lpstrText = new Tchar[nLen]);
+			ATLTRY(lpstrText = new TCHAR[nLen]);
 			if(lpstrText == NULL)
 				break;
 			lpstrText[0] = NULL;
@@ -3895,7 +3895,7 @@ public:
 		return (int)::SendMessage(m_hWnd, LVM_ENABLEGROUPVIEW, bEnable, 0L);
 	}
 
-	int SortGroups(PFNLVGROUPCOMPARE pCompareFunc, pvoid lpVoid = NULL)
+	int SortGroups(PFNLVGROUPCOMPARE pCompareFunc, LPVOID lpVoid = NULL)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (int)::SendMessage(m_hWnd, LVM_SORTGROUPS, (WPARAM)pCompareFunc, (LPARAM)lpVoid);
@@ -4010,7 +4010,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -4107,7 +4107,7 @@ public:
 		Bool bRet = FALSE;
 		for(int nLen = 256; ; nLen *= 2)
 		{
-			ATLTRY(lpstrText = new Tchar[nLen]);
+			ATLTRY(lpstrText = new TCHAR[nLen]);
 			if(lpstrText == NULL)
 				break;
 			lpstrText[0] = NULL;
@@ -5334,7 +5334,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -5765,7 +5765,7 @@ public:
 		int nLength = (int)(short)LOWORD(::SendMessage(m_hWnd, TB_GETSTRING, MAKEWPARAM(0, nString), NULL));
 		if(nLength != -1)
 		{
-			CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
+			CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
 			LPTSTR lpstrText = buff.Allocate(nLength + 1);
 			if(lpstrText != NULL)
 			{
@@ -6035,7 +6035,7 @@ public:
 		return (Bool)::SendMessage(m_hWnd, TB_INSERTMARKHITTEST, (WPARAM)&pt, (LPARAM)lptbim);
 	}
 
-	Bool MapAccelerator(Tchar chAccel, int& nID) const
+	Bool MapAccelerator(TCHAR chAccel, int& nID) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (Bool)::SendMessage(m_hWnd, TB_MAPACCELERATOR, (WPARAM)chAccel, (LPARAM)&nID);
@@ -6053,7 +6053,7 @@ public:
 		return (Bool)::SendMessage(m_hWnd, TB_MOVEBUTTON, nOldPos, nNewPos);
 	}
 
-	HRESULT GetObject(REFIID iid, pvoid* ppvObject)
+	HRESULT GetObject(REFIID iid, LPVOID* ppvObject)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (HRESULT)::SendMessage(m_hWnd, TB_GETOBJECT, (WPARAM)&iid, (LPARAM)ppvObject);
@@ -6084,7 +6084,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -6138,7 +6138,7 @@ public:
 		if(nLength == 0)
 			return FALSE;
 
-		CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
+		CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
 		LPTSTR lpstrText = buff.Allocate(nLength + 1);
 		if(lpstrText == NULL)
 			return FALSE;
@@ -6292,7 +6292,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -6566,7 +6566,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -6840,7 +6840,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -6887,7 +6887,7 @@ public:
 		return ATL::CWindow((HWND)::SendMessage(m_hWnd, UDM_SETBUDDY, (WPARAM)hWndBuddy, 0L));
 	}
 
-	int GetPos(LPBool lpbError = NULL) const
+	int GetPos(LPBOOL lpbError = NULL) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		DWORD dwRet = (DWORD)::SendMessage(m_hWnd, UDM_GETPOS, 0, 0L);
@@ -6953,7 +6953,7 @@ public:
 #endif // (_WIN32_IE >= 0x0400)
 
 #if (_WIN32_IE >= 0x0500) && !defined(_WIN32_WCE)
-	int GetPos32(LPBool lpbError = NULL) const
+	int GetPos32(LPBOOL lpbError = NULL) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		// Note: Seems that Windows always sets error to TRUE if
@@ -6991,7 +6991,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -7146,7 +7146,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -7210,7 +7210,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -7296,7 +7296,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -7378,7 +7378,7 @@ public:
 		return (Bool)::SendMessage(m_hWnd, EM_CANPASTE, nFormat, 0L);
 	}
 
-	void GetSel(int& nStartChar, int& nEndChar) const
+	void GetSel(LONG& nStartChar, LONG& nEndChar) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		CHARRANGE cr = { 0, 0 };
@@ -7393,7 +7393,7 @@ public:
 		::SendMessage(m_hWnd, EM_EXGETSEL, 0, (LPARAM)&cr);
 	}
 
-	int SetSel(int nStartChar, int nEndChar)
+	int SetSel(LONG nStartChar, LONG nEndChar)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		CHARRANGE cr = { nStartChar, nEndChar };
@@ -7436,10 +7436,10 @@ public:
 		return (DWORD)::SendMessage(m_hWnd, EM_GETEVENTMASK, 0, 0L);
 	}
 
-	int GetLimitText() const
+	LONG GetLimitText() const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (int)::SendMessage(m_hWnd, EM_GETLIMITTEXT, 0, 0L);
+		return (LONG)::SendMessage(m_hWnd, EM_GETLIMITTEXT, 0, 0L);
 	}
 
 	DWORD GetParaFormat(PARAFORMAT& pf) const
@@ -7450,17 +7450,17 @@ public:
 	}
 
 #if (_RICHEDIT_VER >= 0x0200)
-	int GetSelText(LPTSTR lpstrBuff) const
+	LONG GetSelText(LPTSTR lpstrBuff) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (int)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrBuff);
+		return (LONG)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrBuff);
 	}
 #else // !(_RICHEDIT_VER >= 0x0200)
 	// RichEdit 1.0 EM_GETSELTEXT is ANSI only
-	int GetSelText(LPSTR lpstrBuff) const
+	LONG GetSelText(LPSTR lpstrBuff) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (int)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrBuff);
+		return (LONG)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrBuff);
 	}
 #endif // !(_RICHEDIT_VER >= 0x0200)
 
@@ -7475,7 +7475,7 @@ public:
 		::SendMessage(m_hWnd, EM_EXGETSEL, 0, (LPARAM)&cr);
 
 #if (_RICHEDIT_VER >= 0x0200)
-		CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
+		CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
 		LPTSTR lpstrText = buff.Allocate(cr.cpMax - cr.cpMin + 1);
 		if(lpstrText == NULL)
 			return FALSE;
@@ -7499,7 +7499,7 @@ public:
 #endif // !_ATL_NO_COM
 
 #if defined(_WTL_USE_CSTRING) || defined(__ATLSTR_H__)
-	int GetSelText(_CSTRING_NS::CString& strText) const
+	LONG GetSelText(_CSTRING_NS::CString& strText) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 
@@ -7507,11 +7507,11 @@ public:
 		::SendMessage(m_hWnd, EM_EXGETSEL, 0, (LPARAM)&cr);
 
 #if (_RICHEDIT_VER >= 0x0200)
-		int lLen = 0;
+		LONG lLen = 0;
 		LPTSTR lpstrText = strText.GetBufferSetLength(cr.cpMax - cr.cpMin);
 		if(lpstrText != NULL)
 		{
-			lLen = (int)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrText);
+			lLen = (LONG)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrText);
 			strText.ReleaseBuffer();
 		}
 #else // !(_RICHEDIT_VER >= 0x0200)
@@ -7519,7 +7519,7 @@ public:
 		LPSTR lpstrText = buff.Allocate(cr.cpMax - cr.cpMin + 1);
 		if(lpstrText == NULL)
 			return 0;
-		int lLen = (int)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrText);
+		LONG lLen = (LONG)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrText);
 		if(lLen == 0)
 			return 0;
 
@@ -7633,7 +7633,7 @@ public:
 	}
 
 #if (_RICHEDIT_VER >= 0x0200)
-	int GetTextRange(int nStartChar, int nEndChar, LPTSTR lpstrText) const
+	int GetTextRange(LONG nStartChar, LONG nEndChar, LPTSTR lpstrText) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		TEXTRANGE tr = { 0 };
@@ -7644,7 +7644,7 @@ public:
 	}
 #else // !(_RICHEDIT_VER >= 0x0200)
 
-	int GetTextRange(int nStartChar, int nEndChar, LPSTR lpstrText) const
+	int GetTextRange(LONG nStartChar, LONG nEndChar, LPSTR lpstrText) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		TEXTRANGE tr = { 0 };
@@ -7775,11 +7775,11 @@ public:
 		return (int)::SendMessage(m_hWnd, EM_GETTEXTEX, (WPARAM)pGetTextEx, (LPARAM)lpstrText);
 	}
 
-	int GetTextEx(LPTSTR lpstrText, int nTextLen, DWORD dwFlags = GT_DEFAULT, UINT uCodePage = CP_ACP, LPCSTR lpDefaultChar = NULL, LPBool lpUsedDefChar = NULL) const
+	int GetTextEx(LPTSTR lpstrText, int nTextLen, DWORD dwFlags = GT_DEFAULT, UINT uCodePage = CP_ACP, LPCSTR lpDefaultChar = NULL, LPBOOL lpUsedDefChar = NULL) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		GETTEXTEX gte = { 0 };
-		gte.cb = nTextLen * sizeof(Tchar);
+		gte.cb = nTextLen * sizeof(TCHAR);
 		gte.codepage = uCodePage;
 		gte.flags = dwFlags;
 		gte.lpDefaultChar = lpDefaultChar;
@@ -7876,23 +7876,23 @@ public:
 #endif // (_RICHEDIT_VER >= 0x0300)
 
 // Operations
-	void LimitText(int nChars = 0)
+	void LimitText(LONG nChars = 0)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		::SendMessage(m_hWnd, EM_EXLIMITTEXT, 0, nChars);
 	}
 
-	int LineFromChar(int nIndex) const
+	int LineFromChar(LONG nIndex) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (int)::SendMessage(m_hWnd, EM_EXLINEFROMchar, 0, nIndex);
+		return (int)::SendMessage(m_hWnd, EM_EXLINEFROMCHAR, 0, nIndex);
 	}
 
-	POINT PosFromChar(int nChar) const
+	POINT PosFromChar(LONG nChar) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		POINT point = { 0, 0 };
-		::SendMessage(m_hWnd, EM_POSFROMchar, (WPARAM)&point, nChar);
+		::SendMessage(m_hWnd, EM_POSFROMCHAR, (WPARAM)&point, nChar);
 		return point;
 	}
 
@@ -7945,36 +7945,36 @@ public:
 		return (Bool)::SendMessage(m_hWnd, EM_DISPLAYBAND, 0, (LPARAM)pDisplayRect);
 	}
 
-	int FindText(DWORD dwFlags, FINDTEXT& ft) const
+	LONG FindText(DWORD dwFlags, FINDTEXT& ft) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 #if (_RICHEDIT_VER >= 0x0200) && defined(_UNICODE)
-		return (int)::SendMessage(m_hWnd, EM_FINDTEXTW, dwFlags, (LPARAM)&ft);
+		return (LONG)::SendMessage(m_hWnd, EM_FINDTEXTW, dwFlags, (LPARAM)&ft);
 #else
-		return (int)::SendMessage(m_hWnd, EM_FINDTEXT, dwFlags, (LPARAM)&ft);
+		return (LONG)::SendMessage(m_hWnd, EM_FINDTEXT, dwFlags, (LPARAM)&ft);
 #endif
 	}
 
-	int FindText(DWORD dwFlags, FINDTEXTEX& ft) const
+	LONG FindText(DWORD dwFlags, FINDTEXTEX& ft) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 #if (_RICHEDIT_VER >= 0x0200) && defined(_UNICODE)
-		return (int)::SendMessage(m_hWnd, EM_FINDTEXTEXW, dwFlags, (LPARAM)&ft);
+		return (LONG)::SendMessage(m_hWnd, EM_FINDTEXTEXW, dwFlags, (LPARAM)&ft);
 #else
-		return (int)::SendMessage(m_hWnd, EM_FINDTEXTEX, dwFlags, (LPARAM)&ft);
+		return (LONG)::SendMessage(m_hWnd, EM_FINDTEXTEX, dwFlags, (LPARAM)&ft);
 #endif
 	}
 
-	int FormatRange(FORMATRANGE& fr, Bool bDisplay = TRUE)
+	LONG FormatRange(FORMATRANGE& fr, Bool bDisplay = TRUE)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (int)::SendMessage(m_hWnd, EM_FORMATRANGE, bDisplay, (LPARAM)&fr);
+		return (LONG)::SendMessage(m_hWnd, EM_FORMATRANGE, bDisplay, (LPARAM)&fr);
 	}
 
-	int FormatRange(FORMATRANGE* pFormatRange, Bool bDisplay = TRUE)
+	LONG FormatRange(FORMATRANGE* pFormatRange, Bool bDisplay = TRUE)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (int)::SendMessage(m_hWnd, EM_FORMATRANGE, bDisplay, (LPARAM)pFormatRange);
+		return (LONG)::SendMessage(m_hWnd, EM_FORMATRANGE, bDisplay, (LPARAM)pFormatRange);
 	}
 
 	void HideSelection(Bool bHide = TRUE, Bool bChangeStyle = FALSE)
@@ -7996,19 +7996,19 @@ public:
 		::SendMessage(m_hWnd, EM_REQUESTRESIZE, 0, 0L);
 	}
 
-	int StreamIn(UINT uFormat, EDITSTREAM& es)
+	LONG StreamIn(UINT uFormat, EDITSTREAM& es)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (int)::SendMessage(m_hWnd, EM_STREAMIN, uFormat, (LPARAM)&es);
+		return (LONG)::SendMessage(m_hWnd, EM_STREAMIN, uFormat, (LPARAM)&es);
 	}
 
-	int StreamOut(UINT uFormat, EDITSTREAM& es)
+	LONG StreamOut(UINT uFormat, EDITSTREAM& es)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (int)::SendMessage(m_hWnd, EM_STREAMOUT, uFormat, (LPARAM)&es);
+		return (LONG)::SendMessage(m_hWnd, EM_STREAMOUT, uFormat, (LPARAM)&es);
 	}
 
-	DWORD FindWordBreak(int nCode, int nStartChar)
+	DWORD FindWordBreak(int nCode, LONG nStartChar)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (DWORD)::SendMessage(m_hWnd, EM_FINDWORDBREAK, nCode, nStartChar);
@@ -8212,7 +8212,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		HWND hWnd = TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 		if(hWnd != NULL)
@@ -8346,7 +8346,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -8731,7 +8731,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -8898,7 +8898,7 @@ public:
 		Bool bRet = FALSE;
 		for(int nLen = 256; ; nLen *= 2)
 		{
-			ATLTRY(lpstrText = new Tchar[nLen]);
+			ATLTRY(lpstrText = new TCHAR[nLen]);
 			if(lpstrText == NULL)
 				break;
 			lpstrText[0] = NULL;
@@ -9025,7 +9025,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -9264,7 +9264,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -9511,7 +9511,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -9591,7 +9591,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -9710,7 +9710,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}

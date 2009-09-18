@@ -76,13 +76,13 @@
 #include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-static uint16_t gwHeightRC = 0;
-static uint16_t gwLowRC = 0;
+static Word16 gwHeightRC = 0;
+static Word16 gwLowRC = 0;
 static Handle ghInst = NULL;
 CRLControl * Control_crl = NULL;
 ///////////////////////////////////////////////////////////////////////////////////
-void SetReturnCode_rling(uint16_t rc);
-uint16_t GetReturnCode_rling();
+void SetReturnCode_rling(Word16 rc);
+Word16 GetReturnCode_rling();
 ///////////////////////////////////////////////////////////////////////////////////
 
 // FIXME: temp hack
@@ -92,7 +92,7 @@ uint16_t GetReturnCode_rling();
 #endif
 
 Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
-		pvoid lpReserved) {
+		LPVOID lpReserved) {
 	switch (ul_reason_for_call) {
 	case DLL_PROCESS_ATTACH:
 		ghInst = hModule;
@@ -109,9 +109,9 @@ Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
 //////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_Init(uint16_t wHeightCode,Handle hStorage)
+RLING_FUNC(Bool32) RLING_Init(Word16 wHeightCode,Handle hStorage)
 #else
-RLINGS_FUNC(Bool32) RLINGS_Init(uint16_t wHeightCode,Handle hStorage)
+RLINGS_FUNC(Bool32) RLINGS_Init(Word16 wHeightCode,Handle hStorage)
 #endif
 {
 	gwHeightRC = wHeightCode;
@@ -148,9 +148,9 @@ RLINGS_FUNC(Bool32)RLINGS_Done()
 //////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(uint32_t) RLING_GetReturnCode()
+RLING_FUNC(Word32) RLING_GetReturnCode()
 #else
-RLINGS_FUNC(uint32_t) RLINGS_GetReturnCode()
+RLINGS_FUNC(Word32) RLINGS_GetReturnCode()
 #endif
 {
 	if ( !gwLowRC )
@@ -161,18 +161,18 @@ RLINGS_FUNC(uint32_t) RLINGS_GetReturnCode()
 	return RLINGS_GetReturnCode();
 #endif
 
-	return (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_RLING_ERR_NO);
+	return (Word32)(gwHeightRC<<16)|(gwLowRC - IDS_RLING_ERR_NO);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(char *) RLING_GetReturnString(uint32_t dwError)
+RLING_FUNC(Int8 *) RLING_GetReturnString(Word32 dwError)
 #else
-RLINGS_FUNC(char *) RLINGS_GetReturnString(uint32_t dwError)
+RLINGS_FUNC(Int8 *) RLINGS_GetReturnString(Word32 dwError)
 #endif
 {
-	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_RLING_ERR_NO;
-	static char szBuffer[512];
+	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_RLING_ERR_NO;
+	static Int8 szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
 	gwLowRC = IDS_RLING_ERR_NOTIMPLEMENT;
@@ -194,9 +194,9 @@ RLINGS_FUNC(char *) RLINGS_GetReturnString(uint32_t dwError)
 //////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_GetExportData(uint32_t dwType, void * pData)
+RLING_FUNC(Bool32) RLING_GetExportData(Word32 dwType, void * pData)
 #else
-RLINGS_FUNC(Bool32) RLINGS_GetExportData(uint32_t dwType, void * pData)
+RLINGS_FUNC(Bool32) RLINGS_GetExportData(Word32 dwType, void * pData)
 #endif
 {
 	Bool32 rc = TRUE;
@@ -239,9 +239,9 @@ RLINGS_FUNC(Bool32) RLINGS_GetExportData(uint32_t dwType, void * pData)
 //////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_SetImportData(uint32_t dwType, void * pData)
+RLING_FUNC(Bool32) RLING_SetImportData(Word32 dwType, void * pData)
 #else
-RLINGS_FUNC(Bool32) RLINGS_SetImportData(uint32_t dwType, void * pData)
+RLINGS_FUNC(Bool32) RLINGS_SetImportData(Word32 dwType, void * pData)
 #endif
 {
 	Bool rc = FALSE;
@@ -251,13 +251,13 @@ RLINGS_FUNC(Bool32) RLINGS_SetImportData(uint32_t dwType, void * pData)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void SetReturnCode_rling(uint16_t rc) {
+void SetReturnCode_rling(Word16 rc) {
 	if (rc == IDS_RLING_ERR_NO || gwLowRC == IDS_RLING_ERR_NO)
 		gwLowRC = rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-uint16_t GetReturnCode_rling() {
+Word16 GetReturnCode_rling() {
 	return gwLowRC;
 }
 //////////////////////////////////////////////////////////////////////////////////

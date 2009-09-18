@@ -69,14 +69,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "pumadef.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-static uint16_t            gwHeightRC = 0;
-static uint32_t            gwRC = 0;
-//static uint32_t			length=0;		//length of current block
+static Word16            gwHeightRC = 0;
+static Word32            gwRC = 0;
+//static Word32			length=0;		//length of current block
 static HINSTANCE            ghInst =  NULL;
 /////////////////////////////////////////
 Bool32 APIENTRY DllMain( HINSTANCE hModule,
                         uint32_t ul_reason_for_call,
-                        pvoid lpReserved )
+                        LPVOID lpReserved )
 {
     switch( ul_reason_for_call )
 	{
@@ -94,7 +94,7 @@ Bool32 APIENTRY DllMain( HINSTANCE hModule,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CED_FUNC(Bool32) CED_Init(uint16_t wHeightCode,HANDLE hStorage)
+CED_FUNC(Bool32) CED_Init(Word16 wHeightCode,HANDLE hStorage)
 {
 	gwHeightRC = wHeightCode;
 //define stub functions
@@ -126,12 +126,12 @@ DEC_FUN(void, CED_ListOfFragments,(const list_of_fragments* pt));
 DEC_FUN(void, CED_Extention,(const edExtention* pt,const void* ptExt));
 DEC_FUN(void, CED_ExtentionNew,(const edExtentionNew* pt,const void* ptExt));
 DEC_FUN(void, CED_Aksant,(const aksant* pt));
-DEC_FUN(void, CED_Letter,(const letter* pt,const uint32_t alternatives));
+DEC_FUN(void, CED_Letter,(const letter* pt,const Word32 alternatives));
 
 #undef DEC_FUN
 
 #define	ReadFunction(a,b) if(!CFIO_GetExportData(a, &b)) \
-		SetReturnCode_ced((uint16_t)CFIO_GetReturnCode());
+		SetReturnCode_ced((Word16)CFIO_GetReturnCode());
 
 ReadFunction(CFIO_FNReadMemoryFromFile,MemFromFile);
 ReadFunction(CFIO_FNLockMemory,Lock);
@@ -155,17 +155,17 @@ CED_FUNC(Bool32) CED_Done()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CED_FUNC(uint32_t) CED_GetReturnCode()
+CED_FUNC(Word32) CED_GetReturnCode()
 {
 	return gwRC;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CED_FUNC(char *) CED_GetReturnString(uint32_t dwError)
+CED_FUNC(char *) CED_GetReturnString(Word32 dwError)
 {
 	static char szBuffer[512];
-	uint16_t low = (uint16_t)(dwError &  0xFFFF);
-	uint16_t hei = (uint16_t)(dwError >> 16);
+	Word16 low = (Word16)(dwError &  0xFFFF);
+	Word16 hei = (Word16)(dwError >> 16);
 
 	if(hei == gwHeightRC)
 	{
@@ -184,7 +184,7 @@ CED_FUNC(char *) CED_GetReturnString(uint32_t dwError)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CED_FUNC(Bool32) CED_GetExportData(uint32_t dwType, void * pData)
+CED_FUNC(Bool32) CED_GetExportData(Word32 dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -305,7 +305,7 @@ return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CED_FUNC(Bool32) CED_SetImportData(uint32_t dwType, void * pData)
+CED_FUNC(Bool32) CED_SetImportData(Word32 dwType, void * pData)
 {
 #define CASE_FUNCTION(a)	case CED_FN##a:	a=(FN##a)pData; break
 	Bool32 rc = TRUE;
@@ -347,28 +347,28 @@ CASE_FUNCTION(CED_Letter);
 return rc;
 }
 
-void SetReturnCode_ced(uint32_t rc)
+void SetReturnCode_ced(Word32 rc)
 {
-uint16_t low = (uint16_t)(rc &  0xFFFF);
-uint16_t hei = (uint16_t)(rc >> 16);
+Word16 low = (Word16)(rc &  0xFFFF);
+Word16 hei = (Word16)(rc >> 16);
 
 	if(hei)
 		gwRC = rc;
 	else
 	{
 		if(low >= IDS_ERR_NO)
-			gwRC = (uint32_t)(gwHeightRC<<16)|(low - IDS_ERR_NO);
+			gwRC = (Word32)(gwHeightRC<<16)|(low - IDS_ERR_NO);
 		else
 			gwRC = low;
 	}
 
 }
 
-uint32_t GetReturnCode_ced()
+Word32 GetReturnCode_ced()
 {
-uint32_t rc = gwRC;
-uint16_t low = (uint16_t)(gwRC &  0xFFFF);
-uint16_t hei = (uint16_t)(gwRC >> 16);
+Word32 rc = gwRC;
+Word16 low = (Word16)(gwRC &  0xFFFF);
+Word16 hei = (Word16)(gwRC >> 16);
 
 	if(hei == gwHeightRC || hei == 0)
 		rc = low + IDS_ERR_NO;
@@ -376,9 +376,9 @@ uint16_t hei = (uint16_t)(gwRC >> 16);
 return rc;
 }
 
-char * GetModulesString(uint32_t dwError)
+char * GetModulesString(Word32 dwError)
 {
-	uint16_t hei = (uint16_t)(dwError >> 16);
+	Word16 hei = (Word16)(dwError >> 16);
 	static char szString[512] ;
 	sprintf(szString,"Unknown code error 0x%X",dwError);
 

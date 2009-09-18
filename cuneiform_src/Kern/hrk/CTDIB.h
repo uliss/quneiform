@@ -87,17 +87,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // DIB version 3 header (lenght - 40 bytes)
 typedef struct tagCTDIBBITMAPINFOHEADER
 { // bmih
-	uint32_t        biSize;
+	Word32        biSize;
     int32_t         biWidth;
 	int32_t         biHeight;
-	uint16_t        biPlanes;
-    uint16_t        biBitCount;
-    uint32_t        biCompression;
-    uint32_t        biSizeImage;
+	Word16        biPlanes;
+    Word16        biBitCount;
+    Word32        biCompression;
+    Word32        biSizeImage;
     int32_t         biXPelsPerMeter;
 	int32_t         biYPelsPerMeter;
-	uint32_t        biClrUsed;
-    uint32_t        biClrImportant;
+	Word32        biClrUsed;
+    Word32        biClrImportant;
 } CTDIBBITMAPINFOHEADER, *PCTDIBBITMAPINFOHEADER, **PPCTDIBBITMAPINFOHEADER;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -117,70 +117,70 @@ typedef struct tagCTDIBICEXYZTRIPLE
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // DIB version 4 header (lenght - 108 bytes)
 typedef struct tagCTDIBBITMAPV4HEADER
-{   uint32_t             bV4Size;
+{   Word32             bV4Size;
 	int32_t              bV4Width;
     int32_t              bV4Height;
-	uint16_t             bV4Planes;
-    uint16_t             bV4BitCount;
-	uint32_t             bV4V4Compression;
-    uint32_t             bV4SizeImage;
+	Word16             bV4Planes;
+    Word16             bV4BitCount;
+	Word32             bV4V4Compression;
+    Word32             bV4SizeImage;
 	int32_t              bV4XPelsPerMeter;
     int32_t              bV4YPelsPerMeter;
-	uint32_t             bV4ClrUsed;
-    uint32_t             bV4ClrImportant;
-	uint32_t             bV4RedMask;
-    uint32_t             bV4GreenMask;
-	uint32_t             bV4BlueMask;
-    uint32_t             bV4AlphaMask;
-	uint32_t             bV4CSType;
+	Word32             bV4ClrUsed;
+    Word32             bV4ClrImportant;
+	Word32             bV4RedMask;
+    Word32             bV4GreenMask;
+	Word32             bV4BlueMask;
+    Word32             bV4AlphaMask;
+	Word32             bV4CSType;
     CTDIBICEXYZTRIPLE  bV4Endpoints;
-	uint32_t             bV4GammaRed;
-    uint32_t             bV4GammaGreen;
-	uint32_t             bV4GammaBlue;
+	Word32             bV4GammaRed;
+    Word32             bV4GammaGreen;
+	Word32             bV4GammaBlue;
 } CTDIBBITMAPV4HEADER, *PCTDIBBITMAPV4HEADER, **PPCTDIBBITMAPV4HEADER;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // DIB version 5 header (lenght - 124 bytes)
 typedef struct tagCTDIBBITMAPV5HEADER
 {
-	uint32_t             bV5Size;
+	Word32             bV5Size;
 	int32_t              bV5Width;
     int32_t              bV5Height;
-	uint16_t             bV5Planes;
-    uint16_t             bV5BitCount;
-	uint32_t             bV5Compression;
-    uint32_t             bV5SizeImage;
+	Word16             bV5Planes;
+    Word16             bV5BitCount;
+	Word32             bV5Compression;
+    Word32             bV5SizeImage;
 	int32_t              bV5XPelsPerMeter;
     int32_t              bV5YPelsPerMeter;
-	uint32_t             bV5ClrUsed;
-    uint32_t             bV5ClrImportant;
-	uint32_t             bV5RedMask;
-    uint32_t             bV5GreenMask;
-	uint32_t             bV5BlueMask;
-    uint32_t             bV5AlphaMask;
-	uint32_t             bV5CSType;
+	Word32             bV5ClrUsed;
+    Word32             bV5ClrImportant;
+	Word32             bV5RedMask;
+    Word32             bV5GreenMask;
+	Word32             bV5BlueMask;
+    Word32             bV5AlphaMask;
+	Word32             bV5CSType;
     CTDIBICEXYZTRIPLE  bV5Endpoints;
-	uint32_t             bV5GammaRed;
-    uint32_t             bV5GammaGreen;
-	uint32_t             bV5GammaBlue;
-    uint32_t             bV5Intent;
-	uint32_t             bV5ProfileData;
-    uint32_t             bV5ProfileSize;
-	uint32_t             bV5Reserved;
+	Word32             bV5GammaRed;
+    Word32             bV5GammaGreen;
+	Word32             bV5GammaBlue;
+    Word32             bV5Intent;
+	Word32             bV5ProfileData;
+    Word32             bV5ProfileSize;
+	Word32             bV5Reserved;
 } CTDIBBITMAPV5HEADER, *PCTDIBBITMAPV5HEADER, **PPCTDIBBITMAPV5HEADER;
  #define CTDIB_BI_JPEG  4L
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 typedef struct tagCTDIBRGBQUAD
 { // rgbq
-	uchar    rgbBlue;
-	uchar    rgbGreen;
-    uchar    rgbRed;
-	uchar    rgbReserved;
+	Word8    rgbBlue;
+	Word8    rgbGreen;
+    Word8    rgbRed;
+	Word8    rgbReserved;
 } CTDIBRGBQUAD, *PCTDIBRGBQUAD, **PPCTDIBRGBQUAD;
 #endif //   !defined(WIN32) | !defined(CTDIB_USE_WIN32_API)
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-	typedef Handle (*PCTDIBMemAlloc)(uint32_t);
+	typedef Handle (*PCTDIBMemAlloc)(Word32);
 	typedef void   (*PCTDIBMemFree)(Handle);
 	typedef PVOID  (*PCTDIBMemLock)(Handle);
 	typedef void   (*PCTDIBMemUnlock)(Handle);
@@ -236,7 +236,7 @@ private:
 	// open DIB properties
 	Bool32 AttachDIB();
 	// return number of used RGBQUAD structures
-	uint32_t UsedColors(uint32_t wBitCount, uint32_t wClrUsed);
+	Word32 UsedColors(Word32 wBitCount, Word32 wClrUsed);
 
 private:
 	Bool32 IsFirstQUADEqualSecond(PCTDIBRGBQUAD fQuad, PCTDIBRGBQUAD sQuad);
@@ -250,7 +250,7 @@ private:
 	// pointer to first RGBQUAD 32 bit fild
 	PCTDIBRGBQUAD       pRGBQuads;
 	// pointer to BitFild
-	uchar *              pBitFild;
+	PWord8              pBitFild;
 	// version of DIB - 3,4 or 5
 	CTDIBVersion        wVersion;
 	// DIB Direction
@@ -283,26 +283,26 @@ public:
 
 public:
 	// return black pixel RGBQuad index or 00-00-00
-	RDIB_FUNC(uint32_t) GetBlackPixel();
+	RDIB_FUNC(Word32) GetBlackPixel();
 	// return white pixel RGBQuad index or ff-ff-ff
-	RDIB_FUNC(uint32_t) GetWhitePixel();
+	RDIB_FUNC(Word32) GetWhitePixel();
 	// copy resolution from another DIB at once4
 	RDIB_FUNC(Bool32) CopyDPIFromDIB( CTDIB * pSrcDIB);
 	// copy line from another DIB from X at once
-	RDIB_FUNC(Bool32) SetFuelLineFromDIB(CTDIB * pSrcDIB, uint32_t nSrcLine, uint32_t nDscLine, uint32_t wSrcX);
+	RDIB_FUNC(Bool32) SetFuelLineFromDIB(CTDIB * pSrcDIB, Word32 nSrcLine, Word32 nDscLine, Word32 wSrcX);
 	// Copy fuel pallete from another DIB
 	RDIB_FUNC(Bool32) CopyPalleteFromDIB(CTDIB *pSrcDIB);
 	// get DIB vrsion by enum versions
 	RDIB_FUNC(CTDIB::CTDIBVersion) GetVersion(void);
 	////////////////////////////Creating
 	// get 4 external function for class:
-	// Handle (*PCTDIBMemAlloc)(uint32_t);
+	// Handle (*PCTDIBMemAlloc)(Word32);
 	// void   (*PCTDIBMemFree)(Handle);
 	// PVOID  (*PCTDIBMemLock)(Handle);
 	// void   (*PCTDIBMemUnlock)(Handle);
 	RDIB_FUNC(Bool32) SetExternals(PCTDIBMemAlloc pfAlloc, PCTDIBMemFree pfFree, PCTDIBMemLock pfLock, PCTDIBMemUnlock pfUnlock);
 	// start to create new DIB
-	RDIB_FUNC(Handle) CreateDIBBegin(int32_t Width, int32_t Height, uint32_t BitCount, uint32_t UseColors = 0, CTDIBVersion dVersion = WindowsVersion);
+	RDIB_FUNC(Handle) CreateDIBBegin(int32_t Width, int32_t Height, Word32 BitCount, Word32 UseColors = 0, CTDIBVersion dVersion = WindowsVersion);
 	// end of creating DIB
 	RDIB_FUNC(Bool32) CreateDIBEnd(void);
 	// Free memory if DIB created by this class
@@ -319,44 +319,44 @@ public:
 	RDIB_FUNC(Bool32) IsDIBAvailable();
 	////////////////////////////////////////////////////////Header Data
 	//Get DIB header memory allocation size
-	RDIB_FUNC(uint32_t) GetHeaderSize(void);
+	RDIB_FUNC(Word32) GetHeaderSize(void);
 	// get pointer to DIB header
 	RDIB_FUNC(PVOID) GetPtrToHeader();
 	// get version of DIB
-	RDIB_FUNC(uint32_t) GetDIBVersion();
+	RDIB_FUNC(Word32) GetDIBVersion();
 	// return image width in pixels
 	RDIB_FUNC(int32_t) GetImageWidth();
 	// return image height in pixels
 	RDIB_FUNC(int32_t) GetImageHeight();
 	// return image width in pixels
-	RDIB_FUNC(uint32_t) GetLineWidth();
+	RDIB_FUNC(Word32) GetLineWidth();
 	// return image width in bytes forsed to 4
-	RDIB_FUNC(uint32_t) GetLineWidthInBytes();
+	RDIB_FUNC(Word32) GetLineWidthInBytes();
 	// return image width in bytes
-	RDIB_FUNC(uint32_t) GetUsedLineWidthInBytes();
+	RDIB_FUNC(Word32) GetUsedLineWidthInBytes();
 	// return image height in pixels
-	RDIB_FUNC(uint32_t) GetLinesNumber();
+	RDIB_FUNC(Word32) GetLinesNumber();
 	// return image size in pixels
-	RDIB_FUNC(uint32_t) GetImageSize();
+	RDIB_FUNC(Word32) GetImageSize();
 	// return image size in bytes
-	RDIB_FUNC(uint32_t) GetImageSizeInBytes();
+	RDIB_FUNC(Word32) GetImageSizeInBytes();
 	// return bits per pixel
-	RDIB_FUNC(uint32_t) GetPixelSize();
+	RDIB_FUNC(Word32) GetPixelSize();
 	// Get number of used colors
 	// if 0 - DIB is JPEG format
-	RDIB_FUNC(uint32_t) GetActualColorNumber();
+	RDIB_FUNC(Word32) GetActualColorNumber();
 	// get resolution of DIB: x,[y]
-	RDIB_FUNC(Bool32) GetResolutionDPM(uint32_t * pX_Dpm, uint32_t * pY_Dpm = 0x0);
+	RDIB_FUNC(Bool32) GetResolutionDPM(PWord32 pX_Dpm, PWord32 pY_Dpm = 0x0);
 	// get resolution of DIB: x,[y]
-	RDIB_FUNC(Bool32) GetResolutionDPI(uint32_t * pX_Dpi, uint32_t * pY_Dpi = 0x0);
+	RDIB_FUNC(Bool32) GetResolutionDPI(PWord32 pX_Dpi, PWord32 pY_Dpi = 0x0);
 	// set resolution of DIB: x,[y]. available if DIB constructed by CTDIB
-	RDIB_FUNC(Bool32) SetResolutionDPM(uint32_t X_Dpm, uint32_t Y_DPM = 0);
+	RDIB_FUNC(Bool32) SetResolutionDPM(Word32 X_Dpm, Word32 Y_DPM = 0);
 	// set resolution of DIB: x,[y]. available if DIB constructed by CTDIB
-	RDIB_FUNC(Bool32) SetResolutionDPI(uint32_t X_DPI, uint32_t Y_DPI = 0);
+	RDIB_FUNC(Bool32) SetResolutionDPI(Word32 X_DPI, Word32 Y_DPI = 0);
 	// Get allocated memory size for DIBHeader, RGBQuads and Image in bytes
-	RDIB_FUNC(uint32_t) GetDIBSize();
+	RDIB_FUNC(Word32) GetDIBSize();
 	//Get used by DIB RGB Quads memory allocation size
-	RDIB_FUNC(uint32_t) GetRGBPalleteSize(void);
+	RDIB_FUNC(Word32) GetRGBPalleteSize(void);
 	// get HANDLE to DIB
 	RDIB_FUNC(Bool32) GetDIBHandle(PHandle phDIB);
 	// Set Handle for DIB if it not attached
@@ -367,19 +367,19 @@ public:
 	// get pointer to first RGBQuad of RGB Quads ( or Triads)
 	RDIB_FUNC(PVOID)  GetPtrToRGB();
 	// Get RGBQuad[wQuad]
-	RDIB_FUNC(Bool32) GetRGBQuad(uint32_t wQuad, PCTDIBRGBQUAD pQuad);
+	RDIB_FUNC(Bool32) GetRGBQuad(Word32 wQuad, PCTDIBRGBQUAD pQuad);
 	// set RGBQuad
-	RDIB_FUNC(Bool32) SetRGBQuad(uint32_t wQuad, CTDIBRGBQUAD Quad);
+	RDIB_FUNC(Bool32) SetRGBQuad(Word32 wQuad, CTDIBRGBQUAD Quad);
 	////////////////////////////////////////////////////////BitFild Data
 	// Get pointer to BitFild data;
 	RDIB_FUNC(PVOID)  GetPtrToBitFild(void);
 	// get pointer to Line (from 0 to |biHeight|-1)
-	RDIB_FUNC(PVOID)  GetPtrToLine(uint32_t wLine);
+	RDIB_FUNC(PVOID)  GetPtrToLine(Word32 wLine);
 	// get ptr to BitFild memory on pixel(x,y)
 	// if PixelSize < 8 - ptr to byte where its pixel
-	RDIB_FUNC(PVOID)  GetPtrToPixel(uint32_t wPixelX, uint32_t wPixelY);
+	RDIB_FUNC(PVOID)  GetPtrToPixel(Word32 wPixelX, Word32 wPixelY);
 	// Get bit position in byte of image fild for pixel
-	RDIB_FUNC(uint32_t) GetPixelShiftInByte(uint32_t dwX);
+	RDIB_FUNC(Word32) GetPixelShiftInByte(Word32 dwX);
 	// Check Externals Memory functions
 	RDIB_FUNC(Bool32) IsExternalsSets(void);
 ///////////////////////////////////////////////////////////////////////////////

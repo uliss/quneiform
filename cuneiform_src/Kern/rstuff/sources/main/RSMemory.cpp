@@ -89,18 +89,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  #define CFIO_MAX_COMMENT       48
 #endif
 // extern functions
-//void SetReturnCode_rstuff(uint16_t rc);
-//uint16_t GetReturnCode_rstuff();
+//void SetReturnCode_rstuff(Word16 rc);
+//Word16 GetReturnCode_rstuff();
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //CFIO Entries
-static void* (*pDAlloc)(uint32_t, uint32_t, uchar *, uchar *) = NULL;
-static void* (*pAlloc)(uint32_t, uint32_t)                  = NULL;
+static void* (*pDAlloc)(Word32, Word32, PWord8, PWord8) = NULL;
+static void* (*pAlloc)(Word32, Word32)                  = NULL;
 static void  (*pFree)(void *)                           = NULL;
 static void* (*pLock)(void *)                           = NULL;
 static void  (*pUnlock)(void *)                         = NULL;
 
-uchar* Buffer=NULL;
-uchar* WorkMem=NULL;
+Word8* Buffer=NULL;
+Word8* WorkMem=NULL;
 int BufferSize=0;
 int WorkMemSize=0;
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -139,17 +139,17 @@ Char8 cCommentBuffer[CFIO_MAX_COMMENT];
 
 void    RSTUFFComment(const char *Comment)
 {
-	uint32_t Len = strlen(Comment);
+	Word32 Len = strlen(Comment);
 	strncpy(cCommentBuffer, Comment, (Len < CFIO_MAX_COMMENT ? Len : CFIO_MAX_COMMENT - 1 ) );
 }
 
-void *	RSTUFFDAlloc(uint32_t stAllocateBlock, const char *Comment)
+void *	RSTUFFDAlloc(Word32 stAllocateBlock, const char *Comment)
 {
 	RSTUFFComment(Comment);
 	return RSTUFFAlloc(stAllocateBlock);
 }
 
-void *	RSTUFFAlloc(uint32_t stAllocateBlock)
+void *	RSTUFFAlloc(Word32 stAllocateBlock)
 {
 	char * mem = NULL;
 
@@ -167,13 +167,13 @@ void *	RSTUFFAlloc(uint32_t stAllocateBlock)
 	#endif
 
 	if(!mem)
-		SetReturnCode_rstuff((uint16_t)IDS_RSTUFF_ERR_NO_MEMORY);
+		SetReturnCode_rstuff((Word16)IDS_RSTUFF_ERR_NO_MEMORY);
 #else
 
-	mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(char*)"RSTUFF", (char*)cCommentBuffer);
+	mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(Int8*)"RSTUFF", (Int8*)cCommentBuffer);
 
 	if(!mem)
-		SetReturnCode_rstuff((uint16_t)IDS_RSTUFF_ERR_NO_MEMORY);
+		SetReturnCode_rstuff((Word16)IDS_RSTUFF_ERR_NO_MEMORY);
 
 #endif
 
@@ -280,7 +280,7 @@ Handle  RSTUFFOpenRestore(char * lpName)
 //
 unsigned int  RSTUFFWrite(Handle h,void * lpdata,unsigned int size)
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 #ifdef _NO_CFIO
 	rc = fwrite(lpdata,1,size,(FILE*)h);
 #else
@@ -292,7 +292,7 @@ unsigned int  RSTUFFWrite(Handle h,void * lpdata,unsigned int size)
 //
 unsigned int  RSTUFFRead(Handle h,void * lpdata,unsigned int size)
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 #ifdef _NO_CFIO
 	rc = fread(lpdata,1,size,(FILE *)h);
 #else
@@ -324,13 +324,13 @@ void GiveWorkBuff (char **ccBuff, int *Size)
 
 void SetMainBuff(void *vBuff, int Size)
 {
-	Buffer=(uchar*)vBuff;
+	Buffer=(Word8*)vBuff;
 	BufferSize=Size;
 }
 
 void SetWorkBuff(void *vBuff, int Size)
 {
-	WorkMem=(uchar*)vBuff;
+	WorkMem=(Word8*)vBuff;
 	WorkMemSize=Size;
 }
 

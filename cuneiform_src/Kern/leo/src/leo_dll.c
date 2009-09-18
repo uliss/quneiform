@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "minmax.h"
 
-uchar field_number=0;
+Word8 field_number=0;
 Bool32 leo_enable_fon_recog=FALSE;
 Bool32 leo_Snp_In_Rect=FALSE;
 int  LEO_error_code=ER_LEO_NO_ERROR;
@@ -99,15 +99,15 @@ Bool32 leo_enable_stored=FALSE;
 // for registartion of alphabet set
 int32_t leo_alpha_count=1;
 char  *leo_alpha_reg[256];
-uchar leo_current_alpha_ndx=0;
+Word8 leo_current_alpha_ndx=0;
 static int32_t fields_tab[MAX_FIELDS]={0};
 static MemFunc* leo_mem;
-static void* leo_alloc(uint32_t len){return malloc(len);}
-static void  leo_free(void *ptr,uint32_t len){ free(ptr);}
-static void* (*my_alloc)(uint32_t len)=leo_alloc;
-static void  (*my_free)(void *,uint32_t len)=leo_free;
+static void* leo_alloc(Word32 len){return malloc(len);}
+static void  leo_free(void *ptr,Word32 len){ free(ptr);}
+static void* (*my_alloc)(Word32 len)=leo_alloc;
+static void  (*my_free)(void *,Word32 len)=leo_free;
 static Bool32 leo_is_load = FALSE;
-static uchar save_alpha_valid=0, save_isPrint=0;
+static Word8 save_alpha_valid=0, save_isPrint=0;
 
 
 static Bool32   leo_init_evn_hnd=FALSE,
@@ -127,13 +127,13 @@ static Bool32   leo_init_net_ndx=FALSE,
 int32_t  leo_typ_of_font = LEO_FONT_NONE, leo_MSK_ndx[3]={0};
 int nNdxWid , nNdxHei;
 Bool32  no_init_ndx=TRUE, no_init_hnd=TRUE,  no_init_prn=TRUE;
-uchar nIsPrint=0;
+Word8 nIsPrint=0;
 static char alphabet_dig[256],alphabet_all[256];
 static   Bool32 leo_enable=TRUE;
 
 // data from module leo.c
 int set_cpu=0;
-extern uchar leo_alpha_type, prn_roma_regim;
+extern Word8 leo_alpha_type, prn_roma_regim;
 extern unsigned char alphabet[256];
 extern int32_t leo_stick_nose_1;
 
@@ -248,7 +248,7 @@ void leo_snapSimpleKey(char *str, SnpTreeNode *stnRecog)
 SnpLog("%s",str);
 SnpLog("");
 Leo_SnpWaitUserInput(stnRecog); // pass control to user
-SnpHideRects((uint32_t)stnRecog);
+SnpHideRects((Word32)stnRecog);
 return;
 }
 
@@ -275,7 +275,7 @@ else
 return;
 }
 
-void leo_store_for_pass2(RecObject* object,uchar let)
+void leo_store_for_pass2(RecObject* object,Word8 let)
 {
 object->recData.recRaster.Raster[REC_MAX_RASTER_SIZE-1]=stdAnsiToAscii(let);
 return;
@@ -289,7 +289,7 @@ SnpDrawRect(&object->recData.rect,
      0, //Skew - zero to real coords
      wRGB(0,0,255),
      -16, // one image pixel width
-     (uint32_t)stnRecog    );
+     (Word32)stnRecog    );
 
 SnpDrawRaster( &object->recData.recRaster );
 return;
@@ -528,7 +528,7 @@ return leo_open_cont_temp();
 }
 
 
-LEO_FUNC(Bool32)  LEOPushAlphabetType(uchar alpha_valid, uchar isPrint)
+LEO_FUNC(Bool32)  LEOPushAlphabetType(Word8 alpha_valid, Word8 isPrint)
 {
 char my_alpha_cap[]="…÷” ≈Õ√ÿŸ«’⁄‘€¬¿œ–ŒÀƒ∆›ﬂ◊—Ã»“‹¡ﬁ";
 char my_digit[]="0123456789";
@@ -564,7 +564,7 @@ switch( alpha_valid&15 )
     }
 while( *palph )
     {
-    al[ (uchar)*palph++ ]=1;
+    al[ (Word8)*palph++ ]=1;
     }
 
 nIsPrint = isPrint;
@@ -572,7 +572,7 @@ return LEOSetAlphabet( al );
 }
 
 
-uchar leo_register_alphabet(char alphabet[])
+Word8 leo_register_alphabet(char alphabet[])
 {
 int32_t i;
 
@@ -581,17 +581,17 @@ for(i=1;i<=leo_alpha_count;i++)
     if( !leo_alpha_reg[i] )
         break;
     if( !memcmp(leo_alpha_reg[i],alphabet,256) )
-        return (uchar)i; // alphabet ready
+        return (Word8)i; // alphabet ready
     }
 if( i>255 )
-    return (uchar)0;
+    return (Word8)0;
 // new alphabet
 leo_alpha_reg[i]=my_alloc(256);
 if( !leo_alpha_reg[i] )
-    return (uchar)0;
+    return (Word8)0;
 memcpy(leo_alpha_reg[i],alphabet,256);
 leo_alpha_count = i;
-return (uchar)i;
+return (Word8)i;
 }
 
 LEO_FUNC(Bool32)  LEOSetAlphabet(  char     ansi_letters[] ) // char table[0-255]
@@ -603,7 +603,7 @@ if( !ansi_letters )
 memset(alphabet,0,256);
 for(n=i=0;i<256;i++)
 	if( ansi_letters[i] )
-        alphabet[ stdAnsiToAscii((uchar)i) ]=1;
+        alphabet[ stdAnsiToAscii((Word8)i) ]=1;
 if(  alphabet['\"'] )
 	{
 	 alphabet[0xd7]= alphabet[0xd8]=1;
@@ -622,12 +622,12 @@ for(eng=all=rus=leo_alpha_type=i=0;i<256;i++)
 	}
 leo_current_alpha_ndx=leo_register_alphabet(alphabet);
 prn_roma_regim = (
-        !ansi_letters[(uchar)'¿'] &&
+        !ansi_letters[(Word8)'¿'] &&
         ansi_letters['I'] &&
-        ansi_letters[(uchar)'œ'] &&
-        ansi_letters[(uchar)'”'] &&
-        ansi_letters[(uchar)'’'] &&
-        ansi_letters[(uchar)'ÿ'] &&
+        ansi_letters[(Word8)'œ'] &&
+        ansi_letters[(Word8)'”'] &&
+        ansi_letters[(Word8)'’'] &&
+        ansi_letters[(Word8)'ÿ'] &&
         ansi_letters['1']);
 
 if( leo_alpha_type&ALPH_R_E )
@@ -668,7 +668,7 @@ if( field_number<MAX_FIELDS )
    {
    fields_tab[field_number]=fs->nFieldNo;
    }
-nIsPrint = (uchar)((fs->nStyle&LS_PRINT)!=0);
+nIsPrint = (Word8)((fs->nStyle&LS_PRINT)!=0);
 if( nIsPrint )
     alphabet[0]=1;
 return TRUE;
@@ -705,7 +705,7 @@ memset(&fields_tab[0],0,MAX_FIELDS);
 return leo_enable_stored;
 }
 
-LEO_FUNC(int16_t) LEOGetErr(void)
+LEO_FUNC(Int16) LEOGetErr(void)
 {
 return LEO_error_code;
 }
@@ -767,7 +767,7 @@ LEO_FUNC(Bool32)  LEORecogPrintChar( RecObject*  object )
 {
 RecVersions ver;
 int small_wid=7, i,n, id_rast, id_alph, pen_prop=0, pen_size=0;
-uchar let_narrow[]="()|1";
+Word8 let_narrow[]="()|1";
 
 if( no_init_prn )
     {
@@ -777,9 +777,9 @@ if( no_init_prn )
     }
 
 DIFClearRightZone(object->recData.recRaster.Raster ,
-        (int16_t)object->recData.recRaster.lnPixWidth,
-        (int16_t)(REC_GW_WORD8(object->recData.recRaster.lnPixWidth)),
-        (int16_t)object->recData.recRaster.lnPixHeight);
+        (Int16)object->recData.recRaster.lnPixWidth,
+        (Int16)(REC_GW_WORD8(object->recData.recRaster.lnPixWidth)),
+        (Int16)object->recData.recRaster.lnPixHeight);
 
 leo_Snp_In_Rect=leoSnpInRect(&object->recData.rect, 0);
 if( leo_alpha_type==ALPH_ENG || leo_alpha_type==ALPH_R_E )
@@ -939,11 +939,11 @@ switch( leo_alpha_type )
     }
 if(leo_enable_stored )
     id_rast=leo_cont_store(&object->recData.recRaster,
-                 (uchar)(n?object->recResults.Alt[0].Code:'~'),
-                 (uchar)object->recData.lwCompCnt,
-                 &object->recData.rect, (uchar)(leo_typ_of_font|0x01),
-                 (uchar)(n?object->recResults.Alt[0].Prob:0),
-                 (uchar)id_alph, &object->recResults,LEO_CONTROL_NONE);
+                 (Word8)(n?object->recResults.Alt[0].Code:'~'),
+                 (Word8)object->recData.lwCompCnt,
+                 &object->recData.rect, (Word8)(leo_typ_of_font|0x01),
+                 (Word8)(n?object->recResults.Alt[0].Prob:0),
+                 (Word8)id_alph, &object->recResults,LEO_CONTROL_NONE);
 object->recResults.Alt[0].Info = id_rast;
 for(i=0;i<n;i++)
     object->recResults.Alt[i].Info = id_rast;
@@ -957,12 +957,12 @@ if (!SnpSkip(&stnCharRecog)|| leo_Snp_In_Rect)
          SnpLog("LEO PRN LTR : %s", buf);
          SnpLog("%s","");
          Leo_SnpWaitUserInput(&stnCharRecog);
-		 SnpHideRects( (uint32_t)&stnCharRecog );
+		 SnpHideRects( (Word32)&stnCharRecog );
       }
 
 if (!SnpSkip(&stnSnapCharProt))
     {
-	uchar let='~';
+	Word8 let='~';
     memcpy(&ver,&object->recResults,sizeof(RecVersions));
 	if( ver.lnAltCnt )
        let = stdAnsiToAscii(ver.Alt[0].Code);
@@ -972,7 +972,7 @@ leo_Snp_In_Rect=FALSE;
 return TRUE;
 }
 
-static Bool32 leo_choise_fon_or_leo_absent(uchar p_fon,uchar p_leo)
+static Bool32 leo_choise_fon_or_leo_absent(Word8 p_fon,Word8 p_leo)
 {
 if( p_fon>200 )
     {
@@ -991,7 +991,7 @@ if( p_fon>200 )
 return FALSE; // low FON
 }
 
-static Bool32 leo_choise_fon_or_leo(uchar p_fon,uchar p_leo)
+static Bool32 leo_choise_fon_or_leo(Word8 p_fon,Word8 p_leo)
 {
 if( p_fon>200 )
     {
@@ -1008,7 +1008,7 @@ if( p_fon>200 )
 return FALSE; // low FON
 }
 
-static Bool32 leo_near_letters(RecVersions *fon,uchar leo_code)
+static Bool32 leo_near_letters(RecVersions *fon,Word8 leo_code)
 {
 if( fon->lnAltCnt<2 )
     return FALSE;
@@ -1031,7 +1031,7 @@ if( !(leo_strchr_codes_ansi("0ÓŒ",  fon->Alt[0].Code) &&
 return (fon->Alt[0].Prob-fon->Alt[1].Prob<5);
 }
 
-static void data2RecVersions( uchar *data, RecVersions *ver)
+static void data2RecVersions( Word8 *data, RecVersions *ver)
 {
 int32_t k;
 ver->lnAltCnt        = data[16];
@@ -1046,10 +1046,10 @@ for(k=1;k<ver->lnAltCnt;k++)
   }
 return;
 }
-static void RecVersions2data(  RecVersions *ver, uchar *data)
+static void RecVersions2data(  RecVersions *ver, Word8 *data)
 {
 int32_t k;
- data[16]= (uchar)ver->lnAltCnt;
+ data[16]= (Word8)ver->lnAltCnt;
  data[3] = ver->Alt[0].Code    ;
  data[14]= ver->Alt[0].Prob    ;
  data[28]= ver->Alt[0].Method  ;
@@ -1112,7 +1112,7 @@ static Bool32 FonIsBetter(int newProb,int oldProb)
 Bool32 LEO_SelectOldNewOkr(RecVersions *verOld,RecVersions *verNew)
 {
 Bool32  ret=FALSE;
-uchar   oldprob;
+Word8   oldprob;
   if( verOld->Alt[0].Code != verNew->Alt[0].Code )
   {
 //	  fprintf(basOut," MISS");
@@ -1146,7 +1146,7 @@ LEO_FUNC(Bool32) LEOFonRerecogCTB(char *CTBname)
 CTB_handle	hnd;
 int			i,n,k;
 RecRaster	r;
-uchar		data[CTB_DATA_SIZE], let;
+Word8		data[CTB_DATA_SIZE], let;
 RecVersions ver={0}, old={0};
 FontInfo	fontinfo;
 Bool32		enable_let, enable_correct_case, local_snap;
@@ -1184,7 +1184,7 @@ for(i=0;i<n;i++)
                 if (/*!SnpSkip(&stnReRecog)||*/ local_snap)
 					{
 					leo_snapChar(&old,"PASS1.51 NICE LEO COLLECTION : ",TRUE);
-					SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(uint32_t)&stnReRecog    );
+					SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(Word32)&stnReRecog    );
 					SnpDrawRaster( &r );
 					Leo_SnpWaitUserInput(&stnReRecog);
 					}
@@ -1193,7 +1193,7 @@ for(i=0;i<n;i++)
             if (!SnpSkip(&stnReRecog)|| local_snap)
 					{
 					leo_snapChar(&old,"PASS1.51 LEO COLLECTION : ",TRUE);
-					SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(uint32_t)&stnReRecog    );
+					SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(Word32)&stnReRecog    );
 					SnpDrawRaster( &r );
 					Leo_SnpWaitUserInput(&stnReRecog);
 					}
@@ -1201,7 +1201,7 @@ for(i=0;i<n;i++)
 
             enable_correct_case =  ((data[27]&LEO_CONTROL_CASE)==0);
             enable_let = (  fontinfo.count[data[3]]!=0 && FONCheckItself(data[3],i+1,-1,-1));
-            memset((uchar*)&specInfo,0,sizeof(specInfo));
+            memset((Word8*)&specInfo,0,sizeof(specInfo));
             specInfo.nInCTB    = i+1;
             specInfo.nFieldRow = data[25];
             specInfo.nLet      = data[3];
@@ -1217,7 +1217,7 @@ for(i=0;i<n;i++)
                 if (!SnpSkip(&stnReRecog)|| local_snap)
                     {
                     leo_snapChar(&old,"PASS1.51 FNT RERECOG DIGITAL HAND : ",TRUE);
-				    SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(uint32_t)&stnReRecog    );
+				    SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(Word32)&stnReRecog    );
 				    SnpDrawRaster( &r );
 				    Leo_SnpWaitUserInput(&stnReRecog);
                     }
@@ -1225,7 +1225,7 @@ for(i=0;i<n;i++)
             else if (!SnpSkip(&stnReRecog)|| local_snap)
                 {
                 leo_snapChar(&ver,"PASS1.51 FNT UNKNOWN CASE FOR DIGITAL HAND : ",TRUE);
-				SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(uint32_t)&stnReRecog    );
+				SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(Word32)&stnReRecog    );
 				SnpDrawRaster( &r );
 				Leo_SnpWaitUserInput(&stnReRecog);
                 }
@@ -1237,7 +1237,7 @@ for(i=0;i<n;i++)
             if (!SnpSkip(&stnReRecog)|| local_snap)
 					{
 					leo_snapChar(&old,"PASS1.5 LEO COLLECTION : ",TRUE);
-					SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(uint32_t)&stnReRecog    );
+					SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(Word32)&stnReRecog    );
 					SnpDrawRaster( &r );
 					Leo_SnpWaitUserInput(&stnReRecog);
 					}
@@ -1248,7 +1248,7 @@ for(i=0;i<n;i++)
 
             enable_correct_case =  ((data[27]&LEO_CONTROL_CASE)==0);
             enable_let = (  fontinfo.count[data[3]]!=0 && FONCheckItself(data[3],i+1,-1,-1));
-            memset((uchar*)&specInfo,0,sizeof(specInfo));
+            memset((Word8*)&specInfo,0,sizeof(specInfo));
             specInfo.nInCTB    = i+1;
             specInfo.nFieldRow = data[25];
             specInfo.nLet      = data[3];
@@ -1260,7 +1260,7 @@ for(i=0;i<n;i++)
 			   if (!SnpSkip(&stnReRecog)|| local_snap)
 				   {
 				   leo_snapChar(&ver,"PASS1.5 FNT COLLECTION : ",TRUE);
-				   SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(uint32_t)&stnReRecog    );
+				   SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(Word32)&stnReRecog    );
 				   SnpDrawRaster( &r );
 				   Leo_SnpWaitUserInput(&stnReRecog);
 				   }
@@ -1343,7 +1343,7 @@ for(i=0;i<n;i++)
                            leo_snapChar(&ver,"PASS1.5 FNT+LEO CONFIRMING : ",TRUE);
 					   else
                            leo_snapChar(&ver,"PASS1.5 FNT+LEO CHANGING : ",TRUE);
-					   SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(uint32_t)&stnReRecog    );
+					   SnpDrawRect(&r16,0,wRGB(0,0,255),-16,(Word32)&stnReRecog    );
 					   SnpDrawRaster( &r );
 					   Leo_SnpWaitUserInput(&stnReRecog);
 					   }
@@ -1395,14 +1395,14 @@ return TRUE;
 }
 
 // return quality if validation, 0 if error
-LEO_FUNC(uchar) LEOValidRestore_Char( RecVersions *resin,RecVersions *resout)
+LEO_FUNC(Word8) LEOValidRestore_Char( RecVersions *resin,RecVersions *resout)
 {
 RecRaster   rr;
-int16_t       idr;
-uchar       nLns;
+Int16       idr;
+Word8       nLns;
 Rect16      rect;
-uchar       IsPrint;
-uchar       data[CTB_DATA_SIZE],ltr,prb, vld;
+Word8       IsPrint;
+Word8       data[CTB_DATA_SIZE],ltr,prb, vld;
 int32_t       id_page = LEO_CONT_STD_PAGE_ID, i;
 
 LEO_error_code=ER_LEO_NO_ERROR;
@@ -1464,24 +1464,24 @@ if (!SnpSkip(&stnCharRecog)|| leo_Snp_In_Rect)
 
          leo_snapRaster(&object, &stnCharRecog);
          leo_store_for_pass2(&object,
-            (uchar)(ver.lnAltCnt ? ver.Alt[0].Code : (uchar)'0'));
+            (Word8)(ver.lnAltCnt ? ver.Alt[0].Code : (Word8)'0'));
          SnpLog("LEO PRN RERECOG FNT LTR (num=%d): %s", idr-1, buf);
          SnpLog("%s","");
          Leo_SnpWaitUserInput(&stnCharRecog); // pass control to user
-		 SnpHideRects( (uint32_t)&stnCharRecog );
+		 SnpHideRects( (Word32)&stnCharRecog );
       }
 return data[27]&(~LEO_CONTROL_CASE) ;
 }
 
 
-LEO_FUNC(Bool32) LEOSetValid(int16_t id_rast, uchar code, uchar valid,uchar control)
+LEO_FUNC(Bool32) LEOSetValid(Int16 id_rast, Word8 code, Word8 valid,Word8 control)
 {
 if(!leo_enable_stored)
     return FALSE;
 return leo_cont_set_valid(LEO_CONT_STD_PAGE_ID, id_rast, stdAnsiToAscii(code), valid, control);
 }
 
-LEO_FUNC(Bool32) LEODelFinal(int16_t id_rast)
+LEO_FUNC(Bool32) LEODelFinal(Int16 id_rast)
 {
 if(!leo_enable_stored)
     return FALSE;
@@ -1516,12 +1516,12 @@ if(object->recData.recRaster.lnPixWidth<5 ||
                       0, //Skew - zero to real coords
                      wRGB(255,0,0),
                      -16, // one image pixel width
-                     (uint32_t)&stnCharRecog
+                     (Word32)&stnCharRecog
                     );
 			SnpDrawRaster( &object->recData.recRaster );
 			SnpLog("%s","TOO SMALL RASTER");
 			Leo_SnpWaitUserInput(&stnCharRecog); // pass control to user
-			SnpHideRects((uint32_t)&stnCharRecog);
+			SnpHideRects((Word32)&stnCharRecog);
 			}
 	return FALSE;
 	}
@@ -1536,12 +1536,12 @@ if(object->recData.recRaster.lnPixWidth>150 ||
                       0, //Skew - zero to real coords
                      wRGB(255,0,0),
                      -16, // one image pixel width
-                     (uint32_t)&stnCharRecog
+                     (Word32)&stnCharRecog
                     );
 			SnpDrawRaster( &object->recData.recRaster );
 			SnpLog("%s","TOO BIG RASTER");
 			Leo_SnpWaitUserInput(&stnCharRecog); // pass control to user
-			SnpHideRects((uint32_t)&stnCharRecog);
+			SnpHideRects((Word32)&stnCharRecog);
 			}
 
 	return FALSE;
@@ -1563,14 +1563,14 @@ if (!SnpSkip(&stnCharRecog)|| leo_Snp_In_Rect)
          SnpLog("EXPERT PRN LTR : %s", buf);
          SnpLog("%s","");
          Leo_SnpWaitUserInput(&stnCharRecog); // pass control to user
-         SnpHideRects( (uint32_t)&stnCharRecog );
+         SnpHideRects( (Word32)&stnCharRecog );
       }
 
 return TRUE;
 }
 
-LEO_FUNC(int16_t) LEO_ContStore(RecRaster *r,uchar let, uchar nLns,Rect16 *rect,uchar IsPrint,
-		uchar	Prob, uchar Valid, RecVersions *Res)
+LEO_FUNC(Int16) LEO_ContStore(RecRaster *r,Word8 let, Word8 nLns,Rect16 *rect,Word8 IsPrint,
+		Word8	Prob, Word8 Valid, RecVersions *Res)
 {
 if(!leo_enable_stored)
     return 0;
@@ -1583,12 +1583,12 @@ LEO_FUNC(int32_t)     LEO_GetGlobalIncline(void)
 return leo_get_global_incline();
 }
 
-LEO_FUNC(Bool32) LEO_ContRestoreObject(int16_t       idr, RecObject *object,
-                                            uchar *alpha, uchar *isPrint)
+LEO_FUNC(Bool32) LEO_ContRestoreObject(Int16       idr, RecObject *object,
+                                            Word8 *alpha, Word8 *isPrint)
 {
-uchar       nLns;
+Word8       nLns;
 Rect16      rect;
-uchar       data[CTB_DATA_SIZE];
+Word8       data[CTB_DATA_SIZE];
 
 if(!leo_enable_stored)
     return FALSE;
@@ -1609,7 +1609,7 @@ leo_decode_to_ansi( &object->recResults );
 return TRUE;
 }
 
-LEO_FUNC(int16_t) LEO_GetNoCutPoint(uchar *RASTER, int16_t WB, uchar NWIDTH, uchar NLENGTH)
+LEO_FUNC(Int16) LEO_GetNoCutPoint(Word8 *RASTER, Int16 WB, Word8 NWIDTH, Word8 NLENGTH)
 {
 return DIF_GetNoCutPoint(RASTER,  WB, NWIDTH, NLENGTH);
 }

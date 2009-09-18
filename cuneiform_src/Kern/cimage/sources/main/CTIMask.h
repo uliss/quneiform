@@ -78,22 +78,22 @@ typedef CTIMask  *PCTIMask, **PPCTIMask;
 class CTIMask
 {
 public:
-	Bool32 GetLine(uint32_t wLine, PPCTIMaskLine ppcLine);
+	Bool32 GetLine(Word32 wLine, PPCTIMaskLine ppcLine);
 	Bool32        IsRectOnMask(PCIMAGE_Rect pRect);
 	Bool32        RemoveRectangle(PCIMAGE_Rect pRect);
 	Bool32        AddRectangle(PCIMAGE_Rect pRect);
-	CTIMask(uint32_t Width, uint32_t Height);
+	CTIMask(Word32 Width, Word32 Height);
 	CTIMask();
 	virtual ~CTIMask();
 
 protected:
-    uint32_t mwMaskWidth;
-	uint32_t mwMaskHeight;
-	uint32_t mwSegments;
+    Word32 mwMaskWidth;
+	Word32 mwMaskHeight;
+	Word32 mwSegments;
     CTIMaskLine mcLine;
-	uint32_t mwLines;
+	Word32 mwLines;
 private:
-	Bool32 SetPtrToPrevLine(uint32_t wLine, PPCTIMaskLine ppLine);
+	Bool32 SetPtrToPrevLine(Word32 wLine, PPCTIMaskLine ppLine);
 };
 
 #endif // !defined(_CTIMASK_H_)

@@ -67,19 +67,19 @@
 Bool32 CorrectKegl(int32_t version);
 void kegl_snap_init();
 
-static uint16_t gwHeightRC = 0;
-static uint16_t gwLowRC = 0;
+static Word16 gwHeightRC = 0;
+static Word16 gwLowRC = 0;
 Bool32 snap_enable = TRUE;
 Bool32 exit_enable = FALSE;
 Bool32 gbFax100 = FALSE;
-uchar language = 3;
+Word8 language = 3;
 
 Bool APIENTRY DllMain(HANDLE hModule, uint32_t ul_reason_for_call,
-		pvoid lpReserved) {
+		LPVOID lpReserved) {
 	return TRUE;
 }
 
-RCK_FUNC(Bool32) RCORRKEGL_Init(uint16_t wHeightCode,HANDLE hStorage)
+RCK_FUNC(Bool32) RCORRKEGL_Init(Word16 wHeightCode,HANDLE hStorage)
 {
 	gwHeightRC = wHeightCode;
 	snap_enable = TRUE;
@@ -98,7 +98,7 @@ RCK_FUNC(Bool32) RCORRKEGL_Done()
 	return TRUE;
 }
 
-RCK_FUNC(uint32_t) RCORRKEGL_GetReturnCode()
+RCK_FUNC(Word32) RCORRKEGL_GetReturnCode()
 {
 	if(gwLowRC == RCORRKEGL_ERR_NO)
 	return 0;
@@ -106,10 +106,10 @@ RCK_FUNC(uint32_t) RCORRKEGL_GetReturnCode()
 	return (gwHeightRC<<16)|(gwLowRC-RCORRKEGL_ERR_MIN);
 }
 
-RCK_FUNC(char*) RCORRKEGL_GetReturnString(uint32_t dwError)
+RCK_FUNC(Int8*) RCORRKEGL_GetReturnString(Word32 dwError)
 {
-	uint16_t rc = (uint16_t)((dwError & 0xFFFF) );
-	static char szBuffer[512];
+	Word16 rc = (Word16)((dwError & 0xFFFF) );
+	static Int8 szBuffer[512];
 
 	if (dwError >> 16 != gwHeightRC) gwLowRC = RCORRKEGL_ERR_NOTIMPLEMENT;
 
@@ -121,7 +121,7 @@ RCK_FUNC(char*) RCORRKEGL_GetReturnString(uint32_t dwError)
 	return szBuffer;
 }
 
-RCK_FUNC(Bool32) RCORRKEGL_SetImportData(uint32_t dwType, void * pData)
+RCK_FUNC(Bool32) RCORRKEGL_SetImportData(Word32 dwType, void * pData)
 {
 
 	gwLowRC = RCORRKEGL_ERR_NO;
@@ -131,7 +131,7 @@ RCK_FUNC(Bool32) RCORRKEGL_SetImportData(uint32_t dwType, void * pData)
 	{
 		CASE_DATA(RCORRKEGL_Bool32_Fax100,Bool32,gbFax100);
 		// 12.06.2002 E.P.
-		CASE_DATA(RCORRKEGL_FNIMP_LANGUAGE,uchar,language);
+		CASE_DATA(RCORRKEGL_FNIMP_LANGUAGE,Word8,language);
 
 		default:
 		gwLowRC = RCORRKEGL_ERR_NOTIMPLEMENT;

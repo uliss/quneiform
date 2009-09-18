@@ -279,7 +279,7 @@ uint32_t wdCookie;
 
 	hd_buf=::GetClipboardData(CF_TEXT);//взять в hd_buf
 
-	pvoid pHptr = GlobalLock(hd_buf);
+	LPVOID pHptr = GlobalLock(hd_buf);
 	if(pHptr == 0)
 	{
 		MessageBox("wrong resolution ");
@@ -305,7 +305,7 @@ uint32_t wdCookie;
 		pBU = (LPOLESTR)CoTaskMemAlloc(len * 2);
 		::MultiByteToWideChar(CP_ACP, 0, pBufText, len, pBU, len);
 
-		Wchar x_unicode = *pBU;
+		WCHAR x_unicode = *pBU;
 		CString str(pBU);
 		//MessageBox(str);
 

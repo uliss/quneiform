@@ -99,14 +99,14 @@ struct CLineImage
 	int Wide;
 	int Height;
 	int bytewide;
-	uchar* lp;
+	Word8* lp;
 	int fl_delete;
-	uchar* pmasp;
+	Word8* pmasp;
 	int size_mas;
 	CLineImage();
 	~CLineImage();
-	int SetDibPtr(uchar* lpDibData,int wide,int heght,int bwide);
-	uchar* GetPmasp(Rect32* pRc);
+	int SetDibPtr(Word8* lpDibData,int wide,int heght,int bwide);
+	Word8* GetPmasp(Rect32* pRc);
 };
 */
 struct DOT_STRUCT
@@ -127,7 +127,7 @@ public:
   CSL_POLY(){count=4;}
  ~CSL_POLY(){}
 
- int16_t   count;
+ Int16   count;
  Point32 Vertex[MaxNumber];
 };
 */
@@ -192,7 +192,7 @@ public:
   CInterval*      GetInterval(int i);
   CInterval*      GetNewInterval(void);
 */
-  void            SetEventWidth(CLINE_handle hEvent, DEvent* pEvent, uint32_t* LineHist, uint32_t RectBegin, uint32_t LineLength); //
+  void            SetEventWidth(CLINE_handle hEvent, DEvent* pEvent, Word32* LineHist, Word32 RectBegin, Word32 LineLength); //
 /*};
 */
 /////////////////////////////////////////////////////////////////////////////
@@ -300,8 +300,8 @@ public:
  ~CLine();
 */
 RSHELLLINES_FUNC(void)            InitLine(DLine* linedata);  //
-/*  uint32_t          Flags;                   // common use info
-  uint32_t          Tail;                    // остаток линии за таблицой
+/*  Word32          Flags;                   // common use info
+  Word32          Tail;                    // остаток линии за таблицой
   Point32         BeginPoint;
   Point32         EndPoint;
   Rect32          rect;                    // прямоугольник линии
@@ -518,8 +518,8 @@ RSHELLLINES_FUNC(Bool32)    RSL_SplitLine(CLINE_handle hLine, CLINE_handle hCont
 
 #define MAX_CROSS_POINTS 4
 
-RSHELLLINES_FUNC(int32_t)    RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, uchar lang, uchar debug_flags, int32_t *cross_point = NULL);
-RSHELLLINES_FUNC(Bool)  SL_GetRaster(Rect32* rect, uchar** ppData, PAGEINFO* page_info/*, CIMAGEBITMAPINFOHEADER* image_info*/); //
+RSHELLLINES_FUNC(int32_t)    RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, Word8 lang, Word8 debug_flags, int32_t *cross_point = NULL);
+RSHELLLINES_FUNC(Bool)  SL_GetRaster(Rect32* rect, Word8** ppData, PAGEINFO* page_info/*, CIMAGEBITMAPINFOHEADER* image_info*/); //
 
 
 //}

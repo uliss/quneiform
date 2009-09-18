@@ -77,12 +77,12 @@ extern int	DPIX;
 extern int	DPIY;
 extern int Height;
 extern int Width;
-extern uchar ImageName[CPAGE_MAXNAME];
+extern Word8 ImageName[CPAGE_MAXNAME];
 
 /*----------------------------------------------------------------------------*/
 
 
-RNEG_FUNC(Bool32) RNEG_TestForNegative(CCOM_handle hCCOM,Handle hCPage,uchar* pImageName,Rect16 Rc)
+RNEG_FUNC(Bool32) RNEG_TestForNegative(CCOM_handle hCCOM,Handle hCPage,Word8* pImageName,Rect16 Rc)
 {
  MainWindowD=NULL;
  MainWindowD=LDPUMA_GetWindowHandle ("Изображение после разворота");
@@ -99,12 +99,12 @@ RNEG_FUNC(Bool32) RNEG_TestForNegative(CCOM_handle hCCOM,Handle hCPage,uchar* pI
  inf_betw_str_h=10;
  sup_square=500000;
 
- uint32_t code_sersized=(512<<16);
- uint32_t code_normd=(512<<17);
- uint32_t code_colord=(512<<17)+(512<<16);
- uint32_t code_cutd=(512<<18);
- uint32_t code_cutstrd=(512<<18)+(512<<16);
- uint32_t code_sized=(512<<18)+(512<<17);
+ Word32 code_sersized=(512<<16);
+ Word32 code_normd=(512<<17);
+ Word32 code_colord=(512<<17)+(512<<16);
+ Word32 code_cutd=(512<<18);
+ Word32 code_cutstrd=(512<<18)+(512<<16);
+ Word32 code_sized=(512<<18)+(512<<17);
 
 
  NegList* root=NULL;

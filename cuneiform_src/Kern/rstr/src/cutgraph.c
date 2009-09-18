@@ -134,14 +134,14 @@ static INT init_list()
 			return 0;
 		sl_ptr->top = (BYTE) lp->row;
 		sl_ptr->bot = sl_ptr->top + lp->h;
-		sl_ptr->segm_addr = ((char *) lp) - ((char *) t_line_ptr) + sizeof(*lp);
+		sl_ptr->segm_addr = ((PCHAR) lp) - ((PCHAR) t_line_ptr) + sizeof(*lp);
 		segm_ptr = (struct segment *) (lp + 1); // skip header of line
 		sl_ptr->fb = segm_ptr->end - segm_ptr->lth;
 		sl_ptr->fe = segm_ptr->end;
 		segm_ptr += lp->h - 1; // segm_ptr points to the last segment in line
 		sl_ptr->lb = segm_ptr->end - segm_ptr->lth;
 		sl_ptr->le = segm_ptr->end;
-		lp = (lnhead *) (((char *) lp) + lp->lth); // next line
+		lp = (lnhead *) (((PCHAR) lp) + lp->lth); // next line
 	}
 	return 1;
 }
@@ -249,7 +249,7 @@ static void intersect()
 
 	if (fl_ptr->top < sl_ptr->top) // second line goes from first ?
 	{
-		sg = ((struct segment *) (((char *) t_line_ptr) + fl_ptr->segm_addr));
+		sg = ((struct segment *) (((PCHAR) t_line_ptr) + fl_ptr->segm_addr));
 		sg += sl_ptr->top - fl_ptr->top - 1;/* possible splitting segment */
 		if (!((sl_ptr->fb > sg->end) || (sl_ptr->fe < sg->end - sg->lth))) {
 			if (fl_ptr->bot > sl_ptr->top) // proper splitting ?
@@ -262,7 +262,7 @@ static void intersect()
 	}
 	if (fl_ptr->bot > sl_ptr->bot) // second line goes into first ?
 	{
-		sg = ((struct segment *) (((char *) t_line_ptr) + fl_ptr->segm_addr));
+		sg = ((struct segment *) (((PCHAR) t_line_ptr) + fl_ptr->segm_addr));
 		sg += sl_ptr->bot - fl_ptr->top; // possible merging segment
 		if (!((sl_ptr->lb > sg->end) || (sl_ptr->le < sg->end - sg->lth))) {
 			meet_flag |= MERGE1; // merging
@@ -271,7 +271,7 @@ static void intersect()
 		}
 	}
 	if ((fl_ptr->bot < sl_ptr->bot) && (fl_ptr->bot > sl_ptr->top)) { // first line goes into second ?
-		sg = ((struct segment *) (((char *) t_line_ptr) + sl_ptr->segm_addr));
+		sg = ((struct segment *) (((PCHAR) t_line_ptr) + sl_ptr->segm_addr));
 		sg += fl_ptr->bot - sl_ptr->top; // possible merging segment
 		if (!((fl_ptr->lb > sg->end) || (fl_ptr->le < sg->end - sg->lth))) {
 			meet_flag |= MERGE2; // merging
@@ -293,7 +293,7 @@ static void make_half(struct short_line_header *fslp)
 
 	nlp = &Ed_lines[max_line];
 	memcpy(nlp, fslp, sizeof(*nlp));
-	nlp->segm_addr = ((char *) segm_ptr) - ((char *) t_line_ptr);
+	nlp->segm_addr = ((PCHAR) segm_ptr) - ((PCHAR) t_line_ptr);
 	fslp->bot = nlp->top = fslp->top + (nlp->segm_addr - fslp->segm_addr)
 			/ sizeof(*segm_ptr);
 	fslp->lb = (segm_ptr - 1)->end - (segm_ptr - 1)->lth;
@@ -445,7 +445,7 @@ static INT next_edge()
 //	from vertex path[path_lth-1].
 //
 {
-	char *mp;
+	CHAR *mp;
 	INT n;
 
 	n = path[path_lth] + 1; // 1 + older son of path[path_lth-1]
@@ -508,7 +508,7 @@ void excl_connect()
 	edge++; // start search from next vertex
 	goto edge_search;
 
-	up_stack: less_vertices[stp->vert].n_connect = (char) stp->ncp; // set a component number
+	up_stack: less_vertices[stp->vert].n_connect = (CHAR) stp->ncp; // set a component number
 	// for the vertex
 
 	if (!stp->vert)
@@ -538,9 +538,9 @@ void excl_connect()
  struct less_vertex_elem *lv_ptr;
  INT n,vert;
  INT i,j,k;
- char * c;
- char * ac;
- char * s;
+ PCHAR c;
+ PCHAR ac;
+ PCHAR s;
 
  lv_ptr=less_vertices;
  memset(matrix,0,sizeof(matrix));
@@ -618,11 +618,11 @@ void excl_connect()
  }
  else
  {
- s=(char *)matrix[n_verts];
+ s=(PCHAR)matrix[n_verts];
  memcpy(s,adj_matrix[vert],MAX_LINES);
  for (k=0; k < n_verts; k++,s++)
  if (*s == 1) *s=0;
- s=(char *)matrix[n_verts+1];
+ s=(PCHAR)matrix[n_verts+1];
  memcpy(s,adj_matrix[vert],MAX_LINES);
  for (k=0; k < n_verts; k++,s++)
  if (*s == -1) *s=0;
@@ -645,11 +645,11 @@ void excl_connect()
 
  static INT concomp(int nv)
  {
- char mark[MAX_LINES];
+ CHAR mark[MAX_LINES];
  INT ncp;
- char vert_list[MAX_LINES];
+ CHAR vert_list[MAX_LINES];
  INT beg,end;
- char * mc,mp;
+ PCHAR mc,mp;
  INT n;
  INT i;
 

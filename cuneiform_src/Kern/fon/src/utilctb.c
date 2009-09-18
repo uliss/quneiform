@@ -76,22 +76,22 @@ void EndCTB(CTB_handle *CTBFile)
 //	CTB_done();
 }
 /////////////////
-int StartCTB(char *outname,CTB_handle *CTBFile,int16_t countFont,
-			 uint32_t *fields)
+int StartCTB(char *outname,CTB_handle *CTBFile,Int16 countFont,
+			 Word32 *fields)
 {
-uchar CTBdata[CTB_DATA_SIZE];
-int16_t  *pint16=(int16_t *)(CTBdata+6);
-uint32_t *pword32=(uint32_t *)(CTBdata+8);
+Word8 CTBdata[CTB_DATA_SIZE];
+Int16  *pint16=(Int16 *)(CTBdata+6);
+Word32 *pword32=(Word32 *)(CTBdata+8);
 int i;
 
  memset(CTBdata,0,CTB_DATA_SIZE);
  memcpy(&CTBdata[1],ParolBase,5);
  *pint16=countFont;
  i=MIN(countFont,4);
- memcpy(pword32,fields,i*NFIELDDWORD*sizeof(uint32_t));
+ memcpy(pword32,fields,i*NFIELDDWORD*sizeof(Word32));
 
- CTBdata[0]=MAX(8+4*NFIELDDWORD*sizeof(uint32_t),
-	           34+NFIELDDWORD*sizeof(uint32_t));
+ CTBdata[0]=MAX(8+4*NFIELDDWORD*sizeof(Word32),
+	           34+NFIELDDWORD*sizeof(Word32));
 
  if( CTB_create_gray(outname,CTBdata) == FALSE )
    {
@@ -110,13 +110,13 @@ int i;
 /////////////////
 int SaveWeletAsCTB(welet *wel,CTB_handle *CTBFile)
 {
-uchar CTBdata[CTB_DATA_SIZE];
+Word8 CTBdata[CTB_DATA_SIZE];
 int fullX;
 int fullY;
 BYTE *bufCTB;
-uint16_t *pword16;
-uint32_t *pword32;
-int16_t  *pint16;
+Word16 *pword16;
+Word32 *pword32;
+Int16  *pint16;
 static  num=0;
 int i;
 
@@ -140,21 +140,21 @@ int i;
 */
 	memset(CTBdata,0,CTB_DATA_SIZE);
     CTBdata[0]= CTB_OEM_CHARSET;
-    CTBdata[1]= (uchar)fullX;       // 128
-    CTBdata[2]= (uchar)fullY;       //  64
-    CTBdata[3]= (uchar)wel->let;    // in ASCII
+    CTBdata[1]= (Word8)fullX;       // 128
+    CTBdata[2]= (Word8)fullY;       //  64
+    CTBdata[3]= (Word8)wel->let;    // in ASCII
     // now my features
-	CTBdata[4]=(uchar)wel->w;
-	CTBdata[5]=(uchar)wel->h;
-	CTBdata[6]=(uchar)wel->weight;  // how many symbols make
-	CTBdata[7]=(uchar)wel->porog;   // threshold
-	CTBdata[8]=(uchar)wel->mw;      // medium width
-	CTBdata[9]=(uchar)wel->mh;      //        height
-    CTBdata[10]=(uchar)wel->prob;   // for CTB - probability
-	CTBdata[11]=(uchar)wel->attr;   // for attributes
+	CTBdata[4]=(Word8)wel->w;
+	CTBdata[5]=(Word8)wel->h;
+	CTBdata[6]=(Word8)wel->weight;  // how many symbols make
+	CTBdata[7]=(Word8)wel->porog;   // threshold
+	CTBdata[8]=(Word8)wel->mw;      // medium width
+	CTBdata[9]=(Word8)wel->mh;      //        height
+    CTBdata[10]=(Word8)wel->prob;   // for CTB - probability
+	CTBdata[11]=(Word8)wel->attr;   // for attributes
 
 	// now put words
-    pword16=(uint16_t *)(CTBdata+12);
+    pword16=(Word16 *)(CTBdata+12);
 	pword16[0]=wel->fill;
 	pword16[1]=wel->num;
 	pword16[2]=wel->invalid;
@@ -163,21 +163,21 @@ int i;
     CTBdata[19]=wel->kegl;
 
 	// now short int's
-	pint16=(int16_t *)(CTBdata+20);
+	pint16=(Int16 *)(CTBdata+20);
 	pint16[0]=wel->sr_col;
 	pint16[1]=wel->sr_row;
 
 	// now dword
-	pword32=(uint32_t *)(CTBdata+24);
+	pword32=(Word32 *)(CTBdata+24);
 	pword32[0]=wel->summa;
 
 	for(i=0;i<NFIELDDWORD;i++)
 	 pword32[1+i]=wel->fields[i];
 
-	pint16=(int16_t *)(CTBdata+28+NFIELDDWORD*sizeof(uint32_t));
+	pint16=(Int16 *)(CTBdata+28+NFIELDDWORD*sizeof(Word32));
 	pint16[0]=wel->nInCTB;
 
-	pword32=(uint32_t *)(pint16+1);
+	pword32=(Word32 *)(pint16+1);
     pword32[0]=wel->tablColumn;
 
    if( CTB_write(CTBFile,-1,bufCTB,CTBdata) == FALSE )
@@ -192,8 +192,8 @@ num++;
 //
 //////////////////////
 static CTB_handle CTBfileBW;
-static uchar CTBima[((BASE_MAX_W+7)/8)*(BASE_MAX_H+1)];
-static uchar CTBdata[MAX(CTB_DATA_SIZE,36)];
+static Word8 CTBima[((BASE_MAX_W+7)/8)*(BASE_MAX_H+1)];
+static Word8 CTBdata[MAX(CTB_DATA_SIZE,36)];
 
 void CloseBase(void)
 {
@@ -220,7 +220,7 @@ int OpenBase(char *bas)
 ///////////////
 int GetSymbolFromBase(int i,Nraster_header *rh,BYTE **pBuf)
 {
-int16_t *pint16;
+Int16 *pint16;
 
  memset(rh,0,sizeof(Nraster_header));
 
@@ -240,7 +240,7 @@ int16_t *pint16;
  rh->let=CTBdata[3]; //result_struct.let;
  rh->solid=1;
 
- pint16=(int16_t *)(CTBdata+6);
+ pint16=(Int16 *)(CTBdata+6);
  rh->sr_col=pint16[0];
  rh->sr_row=pint16[1];
 

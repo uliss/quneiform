@@ -108,9 +108,9 @@ extern BYTE multy_language ;
   static INT outpos_context ( SPART * part, INT pos, BYTE * c);
   static INT  getpos_bel (SOBJ * obj, INT pos, LT  ** beg,
                           LT  ** end, INT * lth );
-  static INT corrpos_lt (SOBJ * obj, INT pos, int lth);
+  static INT corrpos_lt (SOBJ * obj, INT pos, LONG lth);
   static INT shift_left(INT v_s,struct segm * cur_segm,
-                          char * cur_symb);
+                          CHAR * cur_symb);
   static INT outpos_ins_shift (SOBJ * obj, INT pos, BYTE cnew);
 
 #ifdef SECOND_PASS
@@ -122,10 +122,10 @@ extern BYTE multy_language ;
 /*  ................
 								       */
 /***********************************************************************/
-char * find_byte_flag()
+CHAR * find_byte_flag()
 {
  struct segm * sgm;
- char * b_f;
+ CHAR * b_f;
  sgm= SPQ.tab_ptr->tab_sheet_descr[SPQ.cur_sheet].first_segm;
  b_f=sgm->string;
  while(*b_f!=SS_SHEET_DESCR)
@@ -554,7 +554,7 @@ INT outpos_ins_shift (SOBJ * obj, INT pos, BYTE cnew)
 
 {
  struct segm  * savesegm;
- char         * savesymb;
+ CHAR         * savesymb;
  LT        ca;        /* code & attr to insert                  */
  LT  * pca;       /* pointer to above                       */
  struct segm  * segm;        /* segm of where to insert                */
@@ -562,7 +562,7 @@ INT outpos_ins_shift (SOBJ * obj, INT pos, BYTE cnew)
  LT  * lt;        /* beg of pos,after which to insert       */
  INT lth=0;
  /*struct segm  *tmp;*/
- int shift=0;
+ LONG shift=0;
  INT endposp, endpos;
  INT pi;                         /* curr pos                               */
 
@@ -582,11 +582,11 @@ INT outpos_ins_shift (SOBJ * obj, INT pos, BYTE cnew)
  if(!test_spare_space(segm,sizeof(LT)))
     return(NO);
   else
-   if (insert_symb(segm,(char *)symb,pca)==YES)
+   if (insert_symb(segm,(CHAR *)symb,pca)==YES)
 				/* either insert in old segm or not: */
   {                                 /* old segm is full, set newsegm       */
 				    /* everywhere after the pos inserted:  */
-   shift= (int)(SPQ.ns_symb-(BYTE  *)(lt));
+   shift= (LONG)(SPQ.ns_symb-(BYTE  *)(lt));
    for(pi=pos+1; pi<endpos; pi++)
     {
      if(obj->pos[pi].tif_ref.segm!=segm) /* other segm then in ins-pos ?   */
@@ -603,7 +603,7 @@ INT outpos_ins_shift (SOBJ * obj, INT pos, BYTE cnew)
     }
 
    getpos_bel (obj, (INT)(pi - 1), &lt, &symb, &lth);/* get beg(lt),end(symb) & lth */
-   SPQ.ns_symb = (char  *)(symb); /* set SPQ.ns_symb via last pos     */
+   SPQ.ns_symb = (CHAR  *)(symb); /* set SPQ.ns_symb via last pos     */
    /* ????SPQ.ns_symb = wrdimg[i-1].source+( (pi-1==pos) ? shift:0); */
   }
  else                                    /* segm not changed, just         */
@@ -613,7 +613,7 @@ INT outpos_ins_shift (SOBJ * obj, INT pos, BYTE cnew)
      if (obj->pos[pi].tif_ref.segm!=segm) /* other segm then in ins-pos ?  */
       break;
      else
-      corrpos_lt (obj, pi, (int)(sizeof(LT))); /* correct lt   */
+      corrpos_lt (obj, pi, (LONG)(sizeof(LT))); /* correct lt   */
     }
    SPQ.ns_segm = savesegm;
    SPQ.ns_symb = savesymb + ((segm==savesegm)? sizeof(LT):0);
@@ -638,7 +638,7 @@ return(OK);
 
  getpos_bel (obj, pos, &lt, &symb, &lth);  /* get beg(lt), end(symb) & lth */
  segm = obj->pos[pos].tif_ref.segm;        /* segm arg of the pos          */
- shift_left(lth,segm,(char *)symb);         /* shift-to-left: lth, segm. symb      */
+ shift_left(lth,segm,(CHAR *)symb);         /* shift-to-left: lth, segm. symb      */
 
 /* correct all obj->pos[P].lt & obj->pos[P].alt[K].lt with the same segm:  */
 /* shift-to-left needed in all of them                                     */
@@ -648,7 +648,7 @@ return(OK);
  for (pi=pos+1; pi<endpos; pi++)
   {
    if (obj->pos[pi].tif_ref.segm == segm)   /* if the same segm => shift : */
-    corrpos_lt (obj, pi, -((int)(lth)));   /* correct lt of pos & alts    */
+    corrpos_lt (obj, pi, -((LONG)(lth)));   /* correct lt of pos & alts    */
    else
     break;
   }
@@ -666,18 +666,18 @@ return(OK);
     obj->pos[pos].alt[..].lt
 									  */
 /* ********************************************************************** */
-INT corrpos_lt (SOBJ * obj, INT pos, int lth)
+INT corrpos_lt (SOBJ * obj, INT pos, LONG lth)
 
 {
  INT ai;
  obj->pos[pos].lt=(LT *)
-   ((char  *)(obj->pos[pos].lt)+lth);
+   ((CHAR  *)(obj->pos[pos].lt)+lth);
 			  /* correct pos                 */
   if ( !(obj->pos[pos].type_sp & (T_BLANK|T_SP1|T_SP2|T_HYPHEN)) )
 				    /* if it is alt-detailed pos           */
   for (ai=0; ai <= obj->pos[pos].alt_nmb; ai++)    /* correct all alts:   */
   obj->pos[pos].alt[ai].lt=(LT *)
-    ((char  *)(obj->pos[pos].alt[ai].lt)+lth);
+    ((CHAR  *)(obj->pos[pos].alt[ai].lt)+lth);
       /* correct alt         */
   return(OK);
 }
@@ -690,24 +690,24 @@ INT corrpos_lt (SOBJ * obj, INT pos, int lth)
     cur_symb - address of rightmost ed_symb to shift
 									  */
 /* ********************************************************************** */
-INT shift_left(INT v_s,struct segm * cur_segm, char * cur_symb)
+INT shift_left(INT v_s,struct segm * cur_segm, CHAR * cur_symb)
  {
-  char  *c;
+  CHAR  *c;
   /*INT l;*/
-  char  *from;
-  char  *to;
-  char  *end;
+  CHAR  *from;
+  CHAR  *to;
+  CHAR  *end;
 
   c=cur_symb;
   if (c == NULL)
     return(OK);
 /*
-  end=(char  *)cur_segm;
+  end=(CHAR  *)cur_segm;
   end+=sizeof(struct segm)+cur_segm->busy_lth-1;
 */
   end=&cur_segm ->string[cur_segm->busy_lth];
   end+=0;
-  from=(char  *)cur_symb;
+  from=(CHAR  *)cur_symb;
   to=from-v_s;
   while (from < end)
     *to++=*from++;
@@ -764,7 +764,7 @@ INT  getpos_bel (SOBJ * obj, INT pos,
   return(OK);
 }
 /***********************************************************************/
-char suppress_voc = 0;
+CHAR suppress_voc = 0;
  INT setobj_blue(SOBJ *obj)
  {
   int i;

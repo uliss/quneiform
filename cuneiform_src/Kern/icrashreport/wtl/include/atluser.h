@@ -105,7 +105,7 @@ inline int AtlMessageBox(HWND hWndOwner, ATL::_U_STRINGorID message, ATL::_U_STR
 	{
 		for(int nLen = 256; ; nLen *= 2)
 		{
-			ATLTRY(lpstrMessage = new Tchar[nLen]);
+			ATLTRY(lpstrMessage = new TCHAR[nLen]);
 			if(lpstrMessage == NULL)
 			{
 				ATLASSERT(FALSE);
@@ -126,7 +126,7 @@ inline int AtlMessageBox(HWND hWndOwner, ATL::_U_STRINGorID message, ATL::_U_STR
 	{
 		for(int nLen = 256; ; nLen *= 2)
 		{
-			ATLTRY(lpstrTitle = new Tchar[nLen]);
+			ATLTRY(lpstrTitle = new TCHAR[nLen]);
 			if(lpstrTitle == NULL)
 			{
 				ATLASSERT(FALSE);
@@ -442,7 +442,7 @@ public:
 		}
 
 		nLen++;   // increment to include terminating NULL char
-		CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
+		CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
 		LPTSTR lpszText = buff.Allocate(nLen);
 		if(lpszText == NULL)
 			return FALSE;
@@ -1190,11 +1190,11 @@ public:
 		return ::SizeofResource(ModuleHelper::GetResourceInstance(), m_hResource);
 	}
 
-	pvoid Lock()
+	LPVOID Lock()
 	{
 		ATLASSERT(m_hResource != NULL);
 		ATLASSERT(m_hGlobal != NULL);
-		pvoid pVoid = ::LockResource(m_hGlobal);
+		LPVOID pVoid = ::LockResource(m_hGlobal);
 		ATLASSERT(pVoid != NULL);
 		return pVoid;
 	}

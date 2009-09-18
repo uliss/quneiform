@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //# define    PChar8              char *
 /*
 # define    CTIBOOL16          Bool16
-# define    CTIWORD            uint16_t
+# define    CTIWORD            Word16
 */
 #define     RIMAGE_MAX_IMAGE_NAME           256
 //////////////////////////////////////////////////////////////////////////////////////////////////////////

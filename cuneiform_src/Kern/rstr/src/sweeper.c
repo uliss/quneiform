@@ -82,11 +82,11 @@ static void stat_garb(PWORD);
 static WORD delete(PWORD);
 static WORD to_file();
 static void open_comp_file();
-static void write_comp(char *,int);
+static void write_comp(PCHAR,LONG);
 
 #define ROK       50
 #define NBOXMAX   4096
-#define BXSZ      ((INT)((64*(int)actual_resolution)/300))
+#define BXSZ      ((INT)((64*(LONG)actual_resolution)/300))
 #define SMALL     ((8*actual_resolution)/300)
 #define BNDBX     32
 #define BND1BX    16

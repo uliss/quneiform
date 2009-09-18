@@ -83,7 +83,7 @@ Bool32 ROUT_LoadEd
         (
                 char *lpEdFile,		// Имя файла или адрес в памяти
                 Bool32 readFromFile,	// TRUE, если задано имя файла
-                uint32_t bufLen		// Длина (только при readFromFile=FALSE)
+                Word32 bufLen		// Длина (только при readFromFile=FALSE)
                 )
 {
     // Загрузка ED-файла.
@@ -142,7 +142,7 @@ Bool32 ROUT_UnloadEd(void)
 //********************************************************************
 // Конвертирование в один формат и запись в файл
 Bool32 ROUT_SaveObject(
-        uint32_t objIndex,	// Индекс объекта начиная от 1
+        Word32 objIndex,	// Индекс объекта начиная от 1
         char *path,		// Путь до выходного файла
         Bool32 append		// Дополнение в конец файла
         )
@@ -249,7 +249,7 @@ Bool32 ROUT_SaveObject(
 // Конвертирование в один формат на заданной памяти
 Bool32 ROUT_GetObject
         (
-                uint32_t objIndex,	// Индекс объекта начиная от 1
+                Word32 objIndex,	// Индекс объекта начиная от 1
                 Byte *lpMem,	// Адрес блока памяти ( 0 - старая память)
                 long *sizeMem	// На входе: длина блока памяти
                 // На выходе: длина использованной памяти
@@ -381,7 +381,7 @@ Bool SetActiveCode(long code)
     return TRUE;
 }
 //********************************************************************
-long ROUT_ListFormats(uchar * buf, ulong sizeBuf)
+long ROUT_ListFormats(PWord8 buf, ulong sizeBuf)
 {
     // Получение списка поддерживаемых форматов
     // Возвращает количество форматов или -1 при ошибке
@@ -417,7 +417,7 @@ ITEM (HTML);
 return count;
 }
 //********************************************************************
-long ROUT_ListCodes(uchar * buf, ulong sizeBuf)
+long ROUT_ListCodes(PWord8 buf, ulong sizeBuf)
 {
     // Получение списка кодировок для данного формата
     // Возвращает количество кодировок или -1 при ошибке
@@ -608,7 +608,7 @@ Bool Static_GetTargetObject(
 }
 //********************************************************************
 Bool32 ROUT_SetAlphabet(
-        uint32_t sizeAlphabet,// Количество букв
+        Word32 sizeAlphabet,// Количество букв
         char *upper,		// Прописные буквы
         char *lower,		// Строчные буквы
         char *vowels		// Гласные букы
@@ -664,7 +664,7 @@ Bool32 ROUT_SetAlphabet(
 }
 //********************************************************************
 char *ROUT_GetDefaultObjectName(
-        uint32_t objIndex	// Индекс объекта начиная от 1
+        Word32 objIndex	// Индекс объекта начиная от 1
         )
 {
     /*
@@ -851,8 +851,8 @@ static Bool FreeWorkMem()
 
 }
 //********************************************************************
-uint32_t ROUT_GetObjectSize(
-        uint32_t objIndex	// Индекс объекта начиная от 1
+Word32 ROUT_GetObjectSize(
+        Word32 objIndex	// Индекс объекта начиная от 1
         )
 {
     // Гадкая функция для определения длины объекта
@@ -1065,7 +1065,7 @@ static Bool UpdateActiveAlphabet()
     return TRUE;
 }
 //********************************************************************
-long ROUT_ListAvailableFormats(uchar * buf, ulong sizeBuf)
+long ROUT_ListAvailableFormats(PWord8 buf, ulong sizeBuf)
 {
     /*
         Получение списка возможных форматов сохранения

@@ -60,8 +60,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "fillgap_.h"
 #include "lns.h"
 
-static uchar* buff=NULL;
-static uchar* buff_=NULL;
+static Word8* buff=NULL;
+static Word8* buff_=NULL;
 static int nByteWidth=0;
 
 static Bool16 No_Fillgap = FALSE;
@@ -83,7 +83,7 @@ Bool     FillGap3_Init(int wImageByteWidth)
 	{
 		nByteWidth= wImageByteWidth;
 
-		buff_ = (uchar*)malloc(nByteWidth+4);
+		buff_ = (Word8*)malloc(nByteWidth+4);
 		if (buff_==NULL)
 			return FALSE;
 		memset(buff_, 0xff, nByteWidth + 4);
@@ -97,14 +97,14 @@ Bool     FillGap3_Init(int wImageByteWidth)
 	}
 }
 
-uchar*   FillGap3_SubstLine( uchar* line )
+Word8*   FillGap3_SubstLine( Word8* line )
 {
 	if ( !No_Fillgap )				//*******Rom
 	{
 		if (buff==NULL)
 			return line;
 
-		uchar* res = buff-1;
+		Word8* res = buff-1;
 
 		int xx = 0;
 		int bytes =nByteWidth;
@@ -112,8 +112,8 @@ uchar*   FillGap3_SubstLine( uchar* line )
 		{
 			xx = ((xx & 0x0f) << 8) | *line++;
 			xx = FillGap3_Tbl[xx];
-			*res++ &= (uchar)( (xx | 0xf000) >> 8);        // black assumed 1
-			*res =    (uchar)xx;
+			*res++ &= (Word8)( (xx | 0xf000) >> 8);        // black assumed 1
+			*res =    (Word8)xx;
 		}
 
 		return buff;

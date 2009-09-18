@@ -86,11 +86,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 ///////////////////////////////////////////////////////////////////////////////////
-void SetReturnCode_rling(uint16_t rc);
-uint16_t GetReturnCode_rling();
+void SetReturnCode_rling(Word16 rc);
+Word16 GetReturnCode_rling();
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-void *	RLINGAlloc(uint32_t stAllocateBlock);
+void *	RLINGAlloc(Word32 stAllocateBlock);
 void	RLINGFree(void * mem);
 void *  RLINGLock(void * mem);
 void    RLINGUnlock(void * mem);

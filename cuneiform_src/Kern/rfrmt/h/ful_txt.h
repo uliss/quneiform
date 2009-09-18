@@ -185,7 +185,7 @@ TITLE_STR {
             SRECT    S_Rect;       //Base Line
 			SRECT    S_Real_Rect;  //Координаты строки
             WORD     S_Attr;       //Атрибуты строки
-			uint32_t   S_Flags;      //NEGA_STR vmk 10-06-2001
+			Word32   S_Flags;      //NEGA_STR vmk 10-06-2001
             #ifndef ID4
 				BYTE Dummy[DELTA_TITLE];
             #endif
@@ -426,8 +426,8 @@ void MyUnionRect(SRECT *s1,SRECT *s2,SRECT *u);
   //---Из секции колонок---
   int NumCol,SizeSectionCol;
   int *NumStr;//[nc]
-  uint32_t *UserNumber;//[nc]
-  uint32_t *FragFlag;//[nc]
+  Word32 *UserNumber;//[nc]
+  Word32 *FragFlag;//[nc]
   SRECT *BndCol;//[nc]
   STAT_COL *StatCol;//[nc]
   int len_col,k_frm;
@@ -468,11 +468,11 @@ void MyUnionRect(SRECT *s1,SRECT *s2,SRECT *u);
 */
 #else
   //---Из секции колонок---
-  extern int16_t NumCol;
+  extern Int16 NumCol;
   extern int SizeSectionCol;
-  extern int16_t *NumStr;//[nc]
-  extern uint32_t *UserNumber;//[nc]
-  extern uint32_t *FragFlag;//[nc]
+  extern Int16 *NumStr;//[nc]
+  extern Word32 *UserNumber;//[nc]
+  extern Word32 *FragFlag;//[nc]
   extern SRECT *BndCol;//[nc]
   extern STAT_COL *StatCol;//[nc]
   extern int len_col,k_colt,slope,k_frm,space;

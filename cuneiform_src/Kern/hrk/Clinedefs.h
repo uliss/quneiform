@@ -77,7 +77,7 @@ typedef union
 
 typedef struct SL_POLOY_struct
 {
- int16_t   count;
+ Int16   count;
  Point16 Vertex[CLINE_MaxVerticsNumber];
 } CLINE_SL_POLY;
 
@@ -109,7 +109,7 @@ typedef struct CutPoint_Data_struct
 {
   Bool32           Direction;
   int32_t            Level;                            //уровень полосы
-  uchar            reserv;
+  Word8            reserv;
 } DCutPoint;
 
 typedef const DCutPoint* CPDCutPoint;
@@ -137,8 +137,8 @@ typedef const DLns* CPDLns;
 
 typedef struct Line_Data_struct
 {
-  uint32_t          Flags;                   // common use info
-  uint32_t          Tail;                    // остаток линии за таблицой
+  Word32          Flags;                   // common use info
+  Word32          Tail;                    // остаток линии за таблицой
   Rect32          rect;                    // прямоугольник линии
   Bool32          ProcessingType;          // тип обработки линии(гор. или верт.)
   int32_t           LineEventsLength;        // сумма черных точек линии

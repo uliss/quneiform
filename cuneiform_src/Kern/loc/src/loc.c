@@ -71,31 +71,31 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 static evn_error_code=ER_LOC_NO_ERROR;
 char alphabet[256];
-uchar   language;
+Word8   language;
 Bool32  enable_save_stat=FALSE;
-uchar   save_event_txt[36],save_eventr_txt[36];
-uchar   save_event_txts[80],save_eventr_txts[80];
-uchar *events_treeh=NULL, *events_tree_rth=NULL;  // event tables hnd
-uchar *events_treep=NULL, *events_tree_rtp=NULL;  // event tables prn
-uchar *events_tree=NULL,  *events_tree_rt=NULL;  // event tables
-uchar ev_rt_num_ln,ev_num_ln;
+Word8   save_event_txt[36],save_eventr_txt[36];
+Word8   save_event_txts[80],save_eventr_txts[80];
+Word8 *events_treeh=NULL, *events_tree_rth=NULL;  // event tables hnd
+Word8 *events_treep=NULL, *events_tree_rtp=NULL;  // event tables prn
+Word8 *events_tree=NULL,  *events_tree_rt=NULL;  // event tables
+Word8 ev_rt_num_ln,ev_num_ln;
 extern c_comp wcomp;         // working component structure
 extern version* start_rec;   // ptr to answer
-extern uchar lpool[];
-extern uchar evline[], evline1[];
+extern Word8 lpool[];
+extern Word8 evline[], evline1[];
 
-extern MN * c_locomp (uchar* raster, int32_t bw, int32_t h, int16_t upper, int16_t left);
+extern MN * c_locomp (Word8* raster, int32_t bw, int32_t h, Int16 upper, Int16 left);
 extern void MN_to_line(MN *);
 extern int32_t recog_letter(void);
-extern int32_t recog_letter_lp(ExtComponent *ec, uchar *lp,uint16_t lth);
+extern int32_t recog_letter_lp(ExtComponent *ec, Word8 *lp,Word16 lth);
 
 
-static void *EvnAlloc(uint32_t len) { return malloc(len); }
-static void  EvnFree(void *ptr,uint32_t len) { free(ptr); }
+static void *EvnAlloc(Word32 len) { return malloc(len); }
+static void  EvnFree(void *ptr,Word32 len) { free(ptr); }
 static int32_t GetFileLength(int32_t handle) { return filelength(handle);}
 
-static void* (*my_alloc)(uint32_t len)=EvnAlloc;
-static void  (*my_free)(void *ptr,uint32_t len)=EvnFree;
+static void* (*my_alloc)(Word32 len)=EvnAlloc;
+static void  (*my_free)(void *ptr,Word32 len)=EvnFree;
 
 
 
@@ -115,23 +115,23 @@ LOC_FUNC(void)  LOCDone(void)
 return ;
 }
 
-LOC_FUNC(int16_t) LOCGetErr(void)
+LOC_FUNC(Int16) LOCGetErr(void)
 {
 return evn_error_code;
 }
 
 
 
-uchar evn_multy_lpool[6000+2];
+Word8 evn_multy_lpool[6000+2];
 
 
-LOC_FUNC(MN *) LOC_CLocomp (uchar* raster, int32_t bw, int32_t h, int16_t upper, int16_t left)
+LOC_FUNC(MN *) LOC_CLocomp (Word8* raster, int32_t bw, int32_t h, Int16 upper, Int16 left)
 {
   return c_locomp (raster,bw,h,upper,left);
 }
-extern uchar* segment_pool;
+extern Word8* segment_pool;
 
-LOC_FUNC(uchar*) LOC_GetSegmentPool(void)
+LOC_FUNC(Word8*) LOC_GetSegmentPool(void)
 {
 return segment_pool;
 }

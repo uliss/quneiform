@@ -87,9 +87,9 @@ static Bool compadd(cell *);
 static void dif_sae(cell *);
 static void dif_uv(cell *);
 static void dif_O0(cell *);
-static void dif_inv_roof(cell *c,uchar noRoof,uchar roof); // Nick 05.9.00
+static void dif_inv_roof(cell *c,Word8 noRoof,Word8 roof); // Nick 05.9.00
 static void dif_f_t_inv_roof(cell *c1); // Nick 12.09.00
-static void dif_f_Ii_right_accent(cell *c1,uchar Ii); // Nick 13.09.00
+static void dif_f_Ii_right_accent(cell *c1,Word8 Ii); // Nick 13.09.00
 static void dif_j_i_bottom_accent(cell *c1 );
 #define SMALKEG 18
 
@@ -445,7 +445,7 @@ static Bool compadd(cell *c)
  servBOX *s;
  indBOX *h;
  elmBOX *elm;
- extern char * tableBOX;
+ extern PCHAR tableBOX;
  cell *cc;
  INT i,n;
  WORD max,prob;
@@ -597,13 +597,13 @@ exit:
 //**************************************************************************
 // Nick 05.09.00
 // diskriminator d - d'    t - t'  for czech lang
-static void dif_inv_roof(cell *c, uchar letNoRoof, uchar letRoof) // Nick 05.9.00
+static void dif_inv_roof(cell *c, Word8 letNoRoof, Word8 letRoof) // Nick 05.9.00
 {
  INT prob_t,prob_troof,i;
  BYTE let;
- int16_t nIntersect,hei3;
- extern int16_t NumIntersect2(c_comp *cmp, int mHei);
- uchar goodLet,badLet;
+ Int16 nIntersect,hei3;
+ extern Int16 NumIntersect2(c_comp *cmp, int mHei);
+ Word8 goodLet,badLet;
 
  for (prob_t=prob_troof=0,i=c->nvers-1; i>=0; i--)
  {
@@ -673,12 +673,12 @@ static int GetBounds(cell *c1,int *lBound,int *rBound,int *wid)
   if( !cmp )
      return -1;
 
-  line=(lnhead *)((char *)cmp+cmp->lines+sizeof(INT));
+  line=(lnhead *)((PCHAR)cmp+cmp->lines+sizeof(INT));
 // test all lines - fill bounds
-  for (numRow = standWid = 0; (len=line->lth)>0; line=(lnhead *)((char *)line+len))
+  for (numRow = standWid = 0; (len=line->lth)>0; line=(lnhead *)((PCHAR)line+len))
   {
   // current line
-   for (vint=(interval *)((char *)line+sizeof(lnhead)),
+   for (vint=(interval *)((PCHAR)line+sizeof(lnhead)),
 	   crow = line->row,i=0; i < line->h; i++, crow++, vint++ )
    {
 	  if( crow < 0 || crow >= c1->h )
@@ -714,7 +714,7 @@ static void dif_f_t_inv_roof(cell *c1)
  int      lastUp;
  int      wideStart,isStep;
  BYTE     let;
- uchar    goodLet,badLet;
+ Word8    goodLet,badLet;
 
   if( language != LANG_CZECH )
  	 return;
@@ -801,7 +801,7 @@ static void dif_f_t_inv_roof(cell *c1)
 //**************************************************************************
 // Nick 13.09.00
 // diskriminator f - (I,i) with right accent  for czech lang
-static void dif_f_Ii_right_accent(cell *c1,uchar Ii)
+static void dif_f_Ii_right_accent(cell *c1,Word8 Ii)
 {
  INT      prob_f,prob_troof;
  int      i,crow;     // current row
@@ -813,7 +813,7 @@ static void dif_f_Ii_right_accent(cell *c1,uchar Ii)
  int      lastUp;
  int      wideStart,numStep,wideEnd;
  BYTE     let;
- uchar    goodLet,badLet;
+ Word8    goodLet,badLet;
  int      maxWidth;
 
   if( language != LANG_CZECH && language != LANG_HUNGAR)
@@ -923,7 +923,7 @@ static void dif_j_i_bottom_accent(cell *c1 )
  int      standWid;   // standard width
  int      lastUp,lastDn;
  BYTE     let;
- uchar    goodLet,badLet;
+ Word8    goodLet,badLet;
  int32_t    isLeft, isRight;
  int32_t    leftMin, rightMax;
  int32_t    leftJump, rightJump;

@@ -85,19 +85,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cpagetyps.h"
 #endif
 
-CPAGE_FUNC(Bool32) CPAGE_Init(uint16_t wHeightCode,Handle hStorage);
+CPAGE_FUNC(Bool32) CPAGE_Init(Word16 wHeightCode,Handle hStorage);
 CPAGE_FUNC(Bool32) CPAGE_Done();
-CPAGE_FUNC(uint32_t) CPAGE_GetReturnCode();
-CPAGE_FUNC(char *) CPAGE_GetReturnString(uint32_t dwError);
-CPAGE_FUNC(Bool32) CPAGE_GetExportData(uint32_t dwType, void * pData);
-CPAGE_FUNC(Bool32) CPAGE_SetImportData(uint32_t dwType, void * pData);
+CPAGE_FUNC(Word32) CPAGE_GetReturnCode();
+CPAGE_FUNC(Int8 *) CPAGE_GetReturnString(Word32 dwError);
+CPAGE_FUNC(Bool32) CPAGE_GetExportData(Word32 dwType, void * pData);
+CPAGE_FUNC(Bool32) CPAGE_SetImportData(Word32 dwType, void * pData);
 /////////////////////////////////////////////////////////////
 
-typedef uint32_t (*CPAGE_ExtConvert)(uint32_t dwContext,
-								   Handle TypeIn ,void * lpDataIn,uint32_t SizeIn,
-								   Handle TypeOut,void * LpDataOut, uint32_t SizeOut);
+typedef Word32 (*CPAGE_ExtConvert)(Word32 dwContext,
+								   Handle TypeIn ,void * lpDataIn,Word32 SizeIn,
+								   Handle TypeOut,void * LpDataOut, Word32 SizeOut);
 typedef struct {
-	uint32_t				dwContext;		// Контекст конвертора
+	Word32				dwContext;		// Контекст конвертора
 	CPAGE_ExtConvert	fnConvertor;	// Функция конвертировани
 }	CPAGE_CONVERTOR;
 
@@ -200,54 +200,54 @@ enum CPAGE_EXPORT_ENTRIES
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; CPAGE_FUNC(a) b c
 
-DEC_FUN(Handle,  CPAGE_CreatePage,(Handle Type, void * lpData, uint32_t Size));
+DEC_FUN(Handle,  CPAGE_CreatePage,(Handle Type, void * lpData, Word32 Size));
 DEC_FUN(void,    CPAGE_DeletePage,(Handle hPage));
-DEC_FUN(uint32_t,  CPAGE_GetCountPage,());
-DEC_FUN(Handle,  CPAGE_GetHandlePage,(uint32_t number));
-DEC_FUN(uint32_t,  CPAGE_GetCurrentPage,( ));
-DEC_FUN(Bool32,  CPAGE_SetCurrentPage,(uint32_t page));
-DEC_FUN(uint32_t,  CPAGE_GetNumberPage,( Handle hPage ));
+DEC_FUN(Word32,  CPAGE_GetCountPage,());
+DEC_FUN(Handle,  CPAGE_GetHandlePage,(Word32 number));
+DEC_FUN(Word32,  CPAGE_GetCurrentPage,( ));
+DEC_FUN(Bool32,  CPAGE_SetCurrentPage,(Word32 page));
+DEC_FUN(Word32,  CPAGE_GetNumberPage,( Handle hPage ));
 
-DEC_FUN(Bool32,  CPAGE_SavePage,(Handle page,char * lpName));
-DEC_FUN(Handle,  CPAGE_RestorePage,(Bool32 remove,char * lpName));
+DEC_FUN(Bool32,  CPAGE_SavePage,(Handle page,Int8 * lpName));
+DEC_FUN(Handle,  CPAGE_RestorePage,(Bool32 remove,Int8 * lpName));
 
 
 DEC_FUN(Handle,  CPAGE_GetPageType,(Handle hPage));
-DEC_FUN(Bool32,  CPAGE_SetPageData,(Handle page, Handle Type, void * lpData, uint32_t Size));
-DEC_FUN(uint32_t,  CPAGE_GetPageData,(Handle page, Handle Type, void * lpData, uint32_t Size));
+DEC_FUN(Bool32,  CPAGE_SetPageData,(Handle page, Handle Type, void * lpData, Word32 Size));
+DEC_FUN(Word32,  CPAGE_GetPageData,(Handle page, Handle Type, void * lpData, Word32 Size));
 
 DEC_FUN(void,    CPAGE_ClearBackUp,(Handle page));   //Paul 19-01-2001
 DEC_FUN(Handle,  CPAGE_BackUp,(Handle page));
 DEC_FUN(Bool32,  CPAGE_Undo,(Handle page,Handle backup));
 DEC_FUN(Bool32,  CPAGE_Redo,(Handle page,Handle backup));
 
-DEC_FUN(Handle,   CPAGE_CreateBlock,(Handle page, Handle Type, uint32_t UserNum , uint32_t Flags,void * lpData, uint32_t Size));
+DEC_FUN(Handle,   CPAGE_CreateBlock,(Handle page, Handle Type, Word32 UserNum , Word32 Flags,void * lpData, Word32 Size));
 DEC_FUN(void  ,  CPAGE_DeleteBlock,(Handle page,Handle block));
 
-DEC_FUN(uint32_t,  CPAGE_GetCountBlock,(Handle page));
-DEC_FUN(Handle,  CPAGE_GetHandleBlock,(Handle page, uint32_t number));
+DEC_FUN(Word32,  CPAGE_GetCountBlock,(Handle page));
+DEC_FUN(Handle,  CPAGE_GetHandleBlock,(Handle page, Word32 number));
 
 DEC_FUN(Handle,  CPAGE_GetBlockType,(Handle page,Handle block));
-DEC_FUN(uint32_t,  CPAGE_GetBlockUserNum,(Handle page,Handle block));
-DEC_FUN(void  ,  CPAGE_SetBlockUserNum,(Handle page,Handle block,uint32_t user));
+DEC_FUN(Word32,  CPAGE_GetBlockUserNum,(Handle page,Handle block));
+DEC_FUN(void  ,  CPAGE_SetBlockUserNum,(Handle page,Handle block,Word32 user));
 
-DEC_FUN(uint32_t,  CPAGE_GetBlockFlags,(Handle page,Handle block));
-DEC_FUN(void  ,  CPAGE_SetBlockFlags,(Handle page,Handle block,uint32_t flags));
+DEC_FUN(Word32,  CPAGE_GetBlockFlags,(Handle page,Handle block));
+DEC_FUN(void  ,  CPAGE_SetBlockFlags,(Handle page,Handle block,Word32 flags));
 //Paul 09-08-99
 #define CPAGE_BLOCK_USER       0x1  //выделен пользователем
 #define CPAGE_BLOCK_UNCERTAIN  0x2  //грязь или нет ?
 //
-DEC_FUN(Bool32,  CPAGE_SetBlockData,(Handle page,Handle block, Handle Type, void * lpData, uint32_t Size));
-DEC_FUN(uint32_t,  CPAGE_GetBlockData,(Handle page,Handle block, Handle Type, void * lpData, uint32_t Size));
+DEC_FUN(Bool32,  CPAGE_SetBlockData,(Handle page,Handle block, Handle Type, void * lpData, Word32 Size));
+DEC_FUN(Word32,  CPAGE_GetBlockData,(Handle page,Handle block, Handle Type, void * lpData, Word32 Size));
 
 DEC_FUN(CPAGE_CONVERTOR,  CPAGE_SetConvertorPages,(CPAGE_CONVERTOR func));
 DEC_FUN(CPAGE_CONVERTOR,  CPAGE_SetConvertorBlocks,(Handle page,CPAGE_CONVERTOR func));
 
 DEC_FUN(Handle,  CPAGE_GetUserPageType,());
 DEC_FUN(Handle,  CPAGE_GetUserBlockType,());
-DEC_FUN(uint32_t, CPAGE_GetBuckUpCount,(Handle page));
-DEC_FUN(Handle, CPAGE_GetBuckUpHandle,(Handle page,uint32_t number));
-DEC_FUN(uint32_t, CPAGE_GetBuckUpCurPos,(Handle page));
+DEC_FUN(Word32, CPAGE_GetBuckUpCount,(Handle page));
+DEC_FUN(Handle, CPAGE_GetBuckUpHandle,(Handle page,Word32 number));
+DEC_FUN(Word32, CPAGE_GetBuckUpCurPos,(Handle page));
 
 DEC_FUN(Handle,  CPAGE_GetPageFirst,(Handle type));
 DEC_FUN(Handle,  CPAGE_GetPageNext,(Handle page, Handle type));
@@ -260,10 +260,10 @@ DEC_FUN(Bool32,  CPAGE_UpdateBlocks,( Handle hPage, Handle type ));
 DEC_FUN(Handle,  CPAGE_PictureGetFirst,		(Handle hPage));
 DEC_FUN(Handle,  CPAGE_PictureGetNext,		(Handle hPage,Handle hPicture));
 DEC_FUN(Bool32,  CPAGE_PictureGetPlace,		(Handle hPage,Handle hPicture,int32_t Skew2048, Point32 * lpLr,Point32 * lpWh));
-DEC_FUN(Bool32,  CPAGE_PictureGetMask,			(Handle hPage,Handle hPicture,int32_t Skew2048,Char8 * lpData,uint32_t * lpSize));
+DEC_FUN(Bool32,  CPAGE_PictureGetMask,			(Handle hPage,Handle hPicture,int32_t Skew2048,Char8 * lpData,Word32 * lpSize));
 
-DEC_FUN(uint32_t,  CPAGE_GetBlockInterNum,	(Handle page,Handle block));
-DEC_FUN(void,    CPAGE_SetBlockInterNum,	(Handle page,Handle block,uint32_t inter));
+DEC_FUN(Word32,  CPAGE_GetBlockInterNum,	(Handle page,Handle block));
+DEC_FUN(void,    CPAGE_SetBlockInterNum,	(Handle page,Handle block,Word32 inter));
 DEC_FUN(Bool32,  CPAGE_GetBlockDataPtr,		(Handle page, Handle block, Handle Type, void ** lpData));
 
 DEC_FUN(Handle,  CPAGE_GetInternalType,		(const char * name));
@@ -287,7 +287,7 @@ DEC_FUN();
 #define CPAGE_TABLE_LINE	0x1
 #define CPAGE_TABLE_TEXT	0x2
 
-VRT_FUN(Bool32,  CPAGE_HL_TableExtract,(  Handle hPAGE, uint32_t type, Rect32 rect ))
+VRT_FUN(Bool32,  CPAGE_HL_TableExtract,(  Handle hPAGE, Word32 type, Rect32 rect ))
 
 #undef DEC_FUN
 

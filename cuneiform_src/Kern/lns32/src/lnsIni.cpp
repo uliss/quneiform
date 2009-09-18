@@ -91,7 +91,7 @@ LNS_FUNC( void )   LnsSetSection( char* _szSection ) // 63 chars max
    strncpy(szSection, _szSection, sizeof(szSection)-1);
 }
 
-LNS_FUNC( uint32_t ) LnsGetProfileInt(const char* szKey, int nDefault)
+LNS_FUNC( Word32 ) LnsGetProfileInt(const char* szKey, int nDefault)
 {
    if (szIniFileName[0]==0)
    {
@@ -102,7 +102,7 @@ LNS_FUNC( uint32_t ) LnsGetProfileInt(const char* szKey, int nDefault)
    return GetPrivateProfileInt(szSection, szKey, nDefault, szIniFileName);
 }
 
-LNS_FUNC( uint32_t ) LnsGetProfileString(   char* szKey,
+LNS_FUNC( Word32 ) LnsGetProfileString(   char* szKey,
                                           char* szResult, int nResult,
                                           char* szDefault
                                        )

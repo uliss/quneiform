@@ -63,7 +63,7 @@ int32_t p2_setBasLines(CSTR_line lineIn);
 
 //Bool32 p2_StoreVersions(CSTR_rast rast,RecVersions *rver);
 void   p2_FillTxt(CSTR_line c,char *intxt,Bool ansi);
-int32_t  p2_Cstr2Cell( CSTR_line lin,CSTR_rast first, CSTR_rast last, Bool32 needVers, uint32_t disable );
+int32_t  p2_Cstr2Cell( CSTR_line lin,CSTR_rast first, CSTR_rast last, Bool32 needVers, Word32 disable );
 void   p2_CellsToCSTR(CSTR_line lino);
 int32_t  p2_TextProb(CSTR_line cc,CSTR_rast  first,CSTR_rast last, char *intxt,int maxTxt);
 

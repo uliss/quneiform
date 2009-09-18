@@ -89,12 +89,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define RCUTP_MAXNAME 260
 
-RCUTP_FUNC(Bool32) RCUTP_Init(uint16_t wHeightCode,Handle hStorage);
+RCUTP_FUNC(Bool32) RCUTP_Init(Word16 wHeightCode,Handle hStorage);
 RCUTP_FUNC(Bool32) RCUTP_Done();
-RCUTP_FUNC(uint32_t) RCUTP_GetReturnCode();
-RCUTP_FUNC(char *) RCUTP_GetReturnString(uint32_t dwError);
-RCUTP_FUNC(Bool32) RCUTP_GetExportData(uint32_t dwType, void * pData);
-RCUTP_FUNC(Bool32) RCUTP_SetImportData(uint32_t dwType, void * pData);
+RCUTP_FUNC(Word32) RCUTP_GetReturnCode();
+RCUTP_FUNC(Int8 *) RCUTP_GetReturnString(Word32 dwError);
+RCUTP_FUNC(Bool32) RCUTP_GetExportData(Word32 dwType, void * pData);
+RCUTP_FUNC(Bool32) RCUTP_SetImportData(Word32 dwType, void * pData);
 
 /////////////////////////////////////////////////////////////
 typedef enum
@@ -105,12 +105,12 @@ typedef enum
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RCUTP_FUNC(a) b c
 
-DEC_FUN(Bool32,  RCUTP_CutPoints, (uchar *raster,struct own_cut *ans, int16_t w,int16_t h,int16_t row));
-DEC_FUN(Bool32,  RCUTP_SetBL_for_CutPoints, (int16_t  minrow0,int16_t  bbs10,int16_t  bbs20,
-        int16_t  bbs30,int16_t  bbs40, int16_t  Nb10,int16_t  Nb20,int16_t  Nb30,uchar language0));
-//DEC_FUN(Bool32, RCUTP_RExc_CP, (void* m, BM* W, ExtComponent* wcomp, uint16_t actual_resolution));
-DEC_FUN(int, RCUTP_RSelStr_CP, (CCOM_comp* comp, Bool* type_let, uchar* pmasp));
-DEC_FUN(Bool32, RCUTP_RSelStr_SetEnv, (/*char *szImageName,*/ int _medium_h, int _inf_let_w, int _inf_dust_h, int _inf_let_h, Handle hCCOM, int _sup_dust_w, int _min_cut_down_let_w, int _sup_prob_w, const uint16_t biBit));
+DEC_FUN(Bool32,  RCUTP_CutPoints, (Word8 *raster,struct own_cut *ans, Int16 w,Int16 h,Int16 row));
+DEC_FUN(Bool32,  RCUTP_SetBL_for_CutPoints, (Int16  minrow0,Int16  bbs10,Int16  bbs20,
+        Int16  bbs30,Int16  bbs40, Int16  Nb10,Int16  Nb20,Int16  Nb30,Word8 language0));
+//DEC_FUN(Bool32, RCUTP_RExc_CP, (void* m, BM* W, ExtComponent* wcomp, Word16 actual_resolution));
+DEC_FUN(int, RCUTP_RSelStr_CP, (CCOM_comp* comp, Bool* type_let, Word8* pmasp));
+DEC_FUN(Bool32, RCUTP_RSelStr_SetEnv, (/*char *szImageName,*/ int _medium_h, int _inf_let_w, int _inf_dust_h, int _inf_let_h, Handle hCCOM, int _sup_dust_w, int _min_cut_down_let_w, int _sup_prob_w, const Word16 biBit));
 DEC_FUN(void, RCUTP_RSelStr_UnsetEnv, ());
 #undef DEC_FUN
 

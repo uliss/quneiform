@@ -75,7 +75,7 @@ static  TImageClose __f_cl = NULL;
    //Romptr->next = NULL;
    RomBubble* Romptr2 = NULL;
    RomBubble* Romptr3 = Romptr;
-   uchar	  tmp_w8;
+   Word8	  tmp_w8;
    //div_t div_result;
 //******************************************
 
@@ -113,7 +113,7 @@ static Bool MustCloseImage = FALSE;
 static Tiger_ImageInfo ImageInfo;
 
 //static BYTE* ImageBuf = NULL;
-static uchar* LinesBuf = NULL;
+static Word8* LinesBuf = NULL;
 //static BYTE* ResultBuf = NULL;
 static int32_t  CurLine = 0;
 static Bool  Ready = FALSE;
@@ -136,7 +136,7 @@ Bool Sweeper_ImageOpen (Tiger_ImageInfo* lpImageInfo)
 			return WRONG();
 
 
-      LinesBuf  = (uchar*)malloc( BUF_LEN );
+      LinesBuf  = (Word8*)malloc( BUF_LEN );
 		if (LinesBuf == NULL) return WRONG();
 
 		MustCloseImage = TRUE;
@@ -150,7 +150,7 @@ Bool Sweeper_ImageOpen (Tiger_ImageInfo* lpImageInfo)
 		return TRUE;
 	}
 
-static void unpack_segments( uchar* dstprev, uchar* dst, uchar* dstnext, int32_t line )
+static void unpack_segments( Word8* dstprev, Word8* dst, Word8* dstnext, int32_t line )
 {
 		// after unpack segments black pixels are 1, white 0
 		// initially all filled by 0
@@ -168,11 +168,11 @@ static void unpack_segments( uchar* dstprev, uchar* dst, uchar* dstnext, int32_t
 			int right = bs.left+1;
 			int left  = bs.right;
 			int leftoff = left >> 3;
-         uchar* pb    = dst      + leftoff;
-         uchar* prev  = dstprev  + leftoff;
-         uchar* next  = dstnext  + leftoff;
+         Word8* pb    = dst      + leftoff;
+         Word8* prev  = dstprev  + leftoff;
+         Word8* next  = dstnext  + leftoff;
 
-			uchar  left_byte = ( 0xFF >> ( left -  (leftoff<<3) ) );
+			Word8  left_byte = ( 0xFF >> ( left -  (leftoff<<3) ) );
 			*pb++   |= left_byte;
 			*prev++ |= left_byte;
 			*next++ |= left_byte;
@@ -185,7 +185,7 @@ static void unpack_segments( uchar* dstprev, uchar* dst, uchar* dstnext, int32_t
 				*next++    |= 0xFF;
 			}
 			assert( (pb - dst) == rightoff );
-			uchar right_byte = ~( 0xFF >> ( right - (rightoff<<3) ) );
+			Word8 right_byte = ~( 0xFF >> ( right - (rightoff<<3) ) );
 			*pb   |= right_byte;
 			*prev |= right_byte;
 			*next |= right_byte;;
@@ -194,13 +194,13 @@ static void unpack_segments( uchar* dstprev, uchar* dst, uchar* dstnext, int32_t
 	}
 }
 
-int16_t Sweeper_ImageRead (uchar* lpImage, uint16_t wMaxSize)
+Int16 Sweeper_ImageRead (Word8* lpImage, Word16 wMaxSize)
 {
 	if (!Ready)
       return 0;
 
    int32_t max_read_rqst = BUF_LEN - 4*ImageInfo.wImageByteWidth;
-   int32_t size_read = (int32_t)Tiger_Callback_ImageRead( (uchar*)lpImage, (uint16_t) MIN( wMaxSize, max_read_rqst ) );
+   int32_t size_read = (int32_t)Tiger_Callback_ImageRead( (Word8*)lpImage, (Word16) MIN( wMaxSize, max_read_rqst ) );
 	if (size_read ==0)
 		return 0;
 	assert( size_read <= max_read_rqst );
@@ -211,7 +211,7 @@ int16_t Sweeper_ImageRead (uchar* lpImage, uint16_t wMaxSize)
 	assert( (ImageInfo.wAddX % 8) == 0 );
 	Romptr2 = Romptr->next; //********Rom
 	Romptr3 = Romptr;		//********Rom
-   uchar* scn = LinesBuf + (ImageInfo.wAddX >> 3);
+   Word8* scn = LinesBuf + (ImageInfo.wAddX >> 3);
    /*
 	if (CurLine == 0)  // first call
 	{	unpack_segments( scn, scn, scn + ImageInfo.wImageByteWidth, CurLine );
@@ -331,7 +331,7 @@ int16_t Sweeper_ImageRead (uchar* lpImage, uint16_t wMaxSize)
 	memset( LinesBuf+ImageInfo.wImageByteWidth*2, 0 , size_read + ImageInfo.wImageByteWidth );
 */
 
-	return (int16_t)size_read;
+	return (Int16)size_read;
 }
 
 Bool  Sweeper_ImageClose (void)

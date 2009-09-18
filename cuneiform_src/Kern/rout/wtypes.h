@@ -188,7 +188,7 @@ typedef long Bool;
 
 #ifndef _LONG_DEFINED
 #define _LONG_DEFINED
-typedef long int;
+typedef long LONG;
 
 #endif // !_LONG_DEFINED
 #ifndef _WPARAM_DEFINED
@@ -198,12 +198,12 @@ typedef UINT WPARAM;
 #endif // _WPARAM_DEFINED
 #ifndef _LPARAM_DEFINED
 #define _LPARAM_DEFINED
-typedef int LPARAM;
+typedef LONG LPARAM;
 
 #endif // !_LPARAM_DEFINED
 #ifndef _LRESULT_DEFINED
 #define _LRESULT_DEFINED
-typedef int LRESULT;
+typedef LONG LRESULT;
 
 #endif // !_LRESULT_DEFINED
 typedef void __RPC_FAR *HANDLE;
@@ -253,26 +253,26 @@ typedef WORD __RPC_FAR *LPWORD;
 typedef uint32_t __RPC_FAR *LPDWORD;
 
 #endif // !_LPDWORD_DEFINED
-typedef char char;
+typedef char CHAR;
 
-typedef /* [string] */ char __RPC_FAR *LPSTR;
+typedef /* [string] */ CHAR __RPC_FAR *LPSTR;
 
-typedef /* [string] */ const char __RPC_FAR *LPCSTR;
+typedef /* [string] */ const CHAR __RPC_FAR *LPCSTR;
 
 #ifndef _WCHAR_DEFINED
 #define _WCHAR_DEFINED
-typedef wchar_t Wchar;
+typedef wchar_t WCHAR;
 
-typedef Wchar Tchar;
+typedef WCHAR TCHAR;
 
 #endif // !_WCHAR_DEFINED
-typedef /* [string] */ Wchar __RPC_FAR *LPWSTR;
+typedef /* [string] */ WCHAR __RPC_FAR *LPWSTR;
 
-typedef /* [string] */ Tchar __RPC_FAR *LPTSTR;
+typedef /* [string] */ TCHAR __RPC_FAR *LPTSTR;
 
-typedef /* [string] */ const Wchar __RPC_FAR *LPCWSTR;
+typedef /* [string] */ const WCHAR __RPC_FAR *LPCWSTR;
 
-typedef /* [string] */ const Tchar __RPC_FAR *LPCTSTR;
+typedef /* [string] */ const TCHAR __RPC_FAR *LPCTSTR;
 
 typedef struct  tagPALETTEENTRY
     {
@@ -319,10 +319,10 @@ typedef HANDLE __RPC_FAR *LPHANDLE;
 
 typedef struct  _RECTL
     {
-    int left;
-    int top;
-    int right;
-    int bottom;
+    LONG left;
+    LONG top;
+    LONG right;
+    LONG bottom;
     }	RECTL;
 
 typedef struct _RECTL __RPC_FAR *PRECTL;
@@ -331,8 +331,8 @@ typedef struct _RECTL __RPC_FAR *LPRECTL;
 
 typedef struct  tagPOINT
     {
-    int x;
-    int y;
+    LONG x;
+    LONG y;
     }	POINT;
 
 typedef struct tagPOINT __RPC_FAR *PPOINT;
@@ -341,8 +341,8 @@ typedef struct tagPOINT __RPC_FAR *LPPOINT;
 
 typedef struct  _POINTL
     {
-    int x;
-    int y;
+    LONG x;
+    LONG y;
     }	POINTL;
 
 typedef struct _POINTL __RPC_FAR *PPOINTL;
@@ -350,8 +350,8 @@ typedef struct _POINTL __RPC_FAR *PPOINTL;
 #ifndef WIN16
 typedef struct  tagSIZE
     {
-    int cx;
-    int cy;
+    LONG cx;
+    LONG cy;
     }	SIZE;
 
 typedef struct tagSIZE __RPC_FAR *PSIZE;
@@ -367,8 +367,8 @@ typedef struct tagSIZE
 #endif // WIN16
 typedef struct  tagSIZEL
     {
-    int cx;
-    int cy;
+    LONG cx;
+    LONG cy;
     }	SIZEL;
 
 typedef struct tagSIZEL __RPC_FAR *PSIZEL;
@@ -378,17 +378,17 @@ typedef struct tagSIZEL __RPC_FAR *LPSIZEL;
 #endif  //WINAPI
 #endif  //!WIN32 && !MPPC
 #if defined(_WIN32) && !defined(OLE2ANSI)
-typedef Wchar OLEchar;
+typedef WCHAR OLECHAR;
 
-typedef /* [string] */ OLEchar __RPC_FAR *LPOLESTR;
+typedef /* [string] */ OLECHAR __RPC_FAR *LPOLESTR;
 
-typedef /* [string] */ const OLEchar __RPC_FAR *LPCOLESTR;
+typedef /* [string] */ const OLECHAR __RPC_FAR *LPCOLESTR;
 
 #define OLESTR(str) L##str
 
 #else
 
-typedef char      OLEchar;
+typedef char      OLECHAR;
 typedef LPSTR     LPOLESTR;
 typedef LPCSTR    LPCOLESTR;
 #define OLESTR(str) str
@@ -398,16 +398,16 @@ typedef const RECTL __RPC_FAR *LPCRECTL;
 
 typedef void __RPC_FAR *PVOID;
 
-typedef void __RPC_FAR *pvoid;
+typedef void __RPC_FAR *LPVOID;
 
 typedef float FLOAT;
 
 typedef struct  tagRECT
     {
-    int left;
-    int top;
-    int right;
-    int bottom;
+    LONG left;
+    LONG top;
+    LONG right;
+    LONG bottom;
     }	RECT;
 
 typedef struct tagRECT __RPC_FAR *PRECT;
@@ -417,7 +417,7 @@ typedef struct tagRECT __RPC_FAR *LPRECT;
 typedef const RECT __RPC_FAR *LPCRECT;
 
 #endif  //_WINDEF_
-typedef unsigned char Uchar;
+typedef unsigned char UCHAR;
 
 typedef short SHORT;
 
@@ -426,32 +426,32 @@ typedef unsigned short USHORT;
 typedef double DOUBLE;
 
 #ifndef _DWORDLONG_
-typedef MIDL_uhyper DWORDint;
+typedef MIDL_uhyper DWORDLONG;
 
-typedef DWORDint __RPC_FAR *PDWORDint;
+typedef DWORDLONG __RPC_FAR *PDWORDLONG;
 
 #endif // !_DWORDLONG_
 #ifndef _ULONGLONG_
-typedef hyper LONGint;
+typedef hyper LONGLONG;
 
-typedef MIDL_uhyper ULONGint;
+typedef MIDL_uhyper ULONGLONG;
 
-typedef LONGint __RPC_FAR *PLONGint;
+typedef LONGLONG __RPC_FAR *PLONGLONG;
 
-typedef ULONGint __RPC_FAR *PULONGint;
+typedef ULONGLONG __RPC_FAR *PULONGLONG;
 
 #endif // _ULONGLONG_
 #if 0
 typedef struct  _LARGE_INTEGER
     {
-    LONGint QuadPart;
+    LONGLONG QuadPart;
     }	LARGE_INTEGER;
 
 typedef LARGE_INTEGER __RPC_FAR *PLARGE_INTEGER;
 
 typedef struct  _ULARGE_INTEGER
     {
-    ULONGint QuadPart;
+    ULONGLONG QuadPart;
     }	ULARGE_INTEGER;
 
 #endif // 0
@@ -493,7 +493,7 @@ typedef struct _SYSTEMTIME __RPC_FAR *LPSYSTEMTIME;
 typedef struct  _SECURITY_ATTRIBUTES
     {
 uint32_t nLength;
-    /* [size_is] */ pvoid lpSecurityDescriptor;
+    /* [size_is] */ LPVOID lpSecurityDescriptor;
     Bool bInheritHandle;
     }	SECURITY_ATTRIBUTES;
 
@@ -511,8 +511,8 @@ typedef PVOID PSID;
 
 typedef struct  _ACL
     {
-    Uchar AclRevision;
-    Uchar Sbz1;
+    UCHAR AclRevision;
+    UCHAR Sbz1;
     USHORT AclSize;
     USHORT AceCount;
     USHORT Sbz2;
@@ -522,8 +522,8 @@ typedef ACL __RPC_FAR *PACL;
 
 typedef struct  _SECURITY_DESCRIPTOR
     {
-    Uchar Revision;
-    Uchar Sbz1;
+    UCHAR Revision;
+    UCHAR Sbz1;
     SECURITY_DESCRIPTOR_CONTROL Control;
     PSID Owner;
     PSID Group;
@@ -538,11 +538,11 @@ typedef struct _SECURITY_DESCRIPTOR __RPC_FAR *PISECURITY_DESCRIPTOR;
 typedef struct  _COAUTHIDENTITY
     {
     /* [size_is] */ USHORT __RPC_FAR *User;
-    Uint UserLength;
+    ULONG UserLength;
     /* [size_is] */ USHORT __RPC_FAR *Domain;
-    Uint DomainLength;
+    ULONG DomainLength;
     /* [size_is] */ USHORT __RPC_FAR *Password;
-    Uint PasswordLength;
+    ULONG PasswordLength;
     ulong Flags;
     }	COAUTHIDENTITY;
 
@@ -557,11 +557,11 @@ uint32_t dwImpersonationLevel;
 uint32_t dwCapabilities;
     }	COAUTHINFO;
 
-typedef int SCODE;
+typedef LONG SCODE;
 
 #ifndef _HRESULT_DEFINED
 #define _HRESULT_DEFINED
-typedef int HRESULT;
+typedef LONG HRESULT;
 
 #endif // !_HRESULT_DEFINED
 typedef SCODE __RPC_FAR *PSCODE;
@@ -893,10 +893,10 @@ typedef struct  _userHENHMETAFILE
 
 typedef struct  _userBITMAP
     {
-    int bmType;
-    int bmWidth;
-    int bmHeight;
-    int bmWidthBytes;
+    LONG bmType;
+    LONG bmWidth;
+    LONG bmHeight;
+    LONG bmWidthBytes;
     WORD bmPlanes;
     WORD bmBitsPixel;
     ulong cbSize;
@@ -979,21 +979,21 @@ typedef HICON HCURSOR;
 /* tagTEXTMETRICW was copied from wingdi.h for MIDL */
 typedef struct  tagTEXTMETRICW
     {
-    int tmHeight;
-    int tmAscent;
-    int tmDescent;
-    int tmInternalLeading;
-    int tmExternalLeading;
-    int tmAveCharWidth;
-    int tmMaxCharWidth;
-    int tmWeight;
-    int tmOverhang;
-    int tmDigitizedAspectX;
-    int tmDigitizedAspectY;
-    Wchar tmFirstChar;
-    Wchar tmLastChar;
-    Wchar tmDefaultChar;
-    Wchar tmBreakChar;
+    LONG tmHeight;
+    LONG tmAscent;
+    LONG tmDescent;
+    LONG tmInternalLeading;
+    LONG tmExternalLeading;
+    LONG tmAveCharWidth;
+    LONG tmMaxCharWidth;
+    LONG tmWeight;
+    LONG tmOverhang;
+    LONG tmDigitizedAspectX;
+    LONG tmDigitizedAspectY;
+    WCHAR tmFirstChar;
+    WCHAR tmLastChar;
+    WCHAR tmDefaultChar;
+    WCHAR tmBreakChar;
     BYTE tmItalic;
     BYTE tmUnderlined;
     BYTE tmStruckOut;
@@ -1075,7 +1075,7 @@ typedef double DATE;
 /* what RPC knows how to remote */
 typedef struct  tagCY
     {
-    LONGint int64;
+    LONGLONG int64;
     }	CY;
 
 #else /* 0 */
@@ -1090,7 +1090,7 @@ typedef union tagCY {
         long      Hi;
 #endif
     };
-    LONGint int64;
+    LONGLONG int64;
 } CY;
 #endif /* 0 */
 #endif /* _tagCY_DEFINED */
@@ -1105,7 +1105,7 @@ typedef struct  tagDEC
     BYTE scale;
     BYTE sign;
     ulong Hi32;
-    ULONGint Lo64;
+    ULONGLONG Lo64;
     }	DECIMAL;
 
 #else /* _tagDEC_DEFINED */
@@ -1130,7 +1130,7 @@ typedef struct tagDEC {
             ulong Mid32;
 #endif
         };
-        ULONGint Lo64;
+        ULONGLONG Lo64;
     };
 } DECIMAL;
 #define DECIMAL_NEG ((BYTE)0x80)
@@ -1144,20 +1144,20 @@ typedef DECIMAL __RPC_FAR *LPDECIMAL;
 #endif
 typedef /* [unique] */ FLAGGED_WORD_BLOB __RPC_FAR *wireBSTR;
 
-typedef /* [wire_marshal] */ OLEchar __RPC_FAR *BSTR;
+typedef /* [wire_marshal] */ OLECHAR __RPC_FAR *BSTR;
 
 typedef BSTR __RPC_FAR *LPBSTR;
 
 /* 0 == FALSE, -1 == TRUE */
-typedef short VARIANT_Bool;
+typedef short VARIANT_BOOL;
 
 #if !__STDC__ && (_MSC_VER <= 1000)
 /* For backward compatibility */
-typedef VARIANT_Bool _VARIANT_Bool;
+typedef VARIANT_BOOL _VARIANT_BOOL;
 
 #else
 /* ANSI C/C++ reserve bool as keyword */
-#define _VARIANT_Bool    /##/
+#define _VARIANT_BOOL    /##/
 #endif
 typedef boolean BOOLEAN;
 
@@ -1175,8 +1175,8 @@ typedef struct  tagBSTRBLOB
 typedef struct tagBSTRBLOB __RPC_FAR *LPBSTRBLOB;
 
 #endif
-#define VARIANT_TRUE ((VARIANT_Bool)0xffff)
-#define VARIANT_FALSE ((VARIANT_Bool)0)
+#define VARIANT_TRUE ((VARIANT_BOOL)0xffff)
+#define VARIANT_FALSE ((VARIANT_BOOL)0)
 #ifndef _tagBLOB_DEFINED
 #define _tagBLOB_DEFINED
 #define _BLOB_DEFINED
@@ -1221,7 +1221,7 @@ typedef unsigned short VARTYPE;
  *  VT_BSTR             [V][T][P][S]  OLE Automation string
  *  VT_DISPATCH         [V][T][P][S]  IDispatch *
  *  VT_ERROR            [V][T][P][S]  SCODE
- *  VT_Bool             [V][T][P][S]  True=-1, False=0
+ *  VT_BOOL             [V][T][P][S]  True=-1, False=0
  *  VT_VARIANT          [V][T][P][S]  VARIANT *
  *  VT_UNKNOWN          [V][T]   [S]  IUnknown *
  *  VT_DECIMAL          [V][T]   [S]  16 byte fixed point
@@ -1269,7 +1269,7 @@ enum VARENUM
 	VT_BSTR	= 8,
 	VT_DISPATCH	= 9,
 	VT_ERROR	= 10,
-	VT_Bool	= 11,
+	VT_BOOL	= 11,
 	VT_VARIANT	= 12,
 	VT_UNKNOWN	= 13,
 	VT_DECIMAL	= 14,
@@ -1314,7 +1314,7 @@ typedef ulong PROPID;
 #define SID_IDENTIFIER_AUTHORITY_DEFINED
 typedef struct  _SID_IDENTIFIER_AUTHORITY
     {
-    Uchar Value[ 6 ];
+    UCHAR Value[ 6 ];
     }	SID_IDENTIFIER_AUTHORITY;
 
 typedef struct _SID_IDENTIFIER_AUTHORITY __RPC_FAR *PSID_IDENTIFIER_AUTHORITY;
@@ -1324,10 +1324,10 @@ typedef struct _SID_IDENTIFIER_AUTHORITY __RPC_FAR *PSID_IDENTIFIER_AUTHORITY;
 #define SID_DEFINED
 typedef struct  _SID
     {
-    Uchar Revision;
-    Uchar SubAuthorityCount;
+    UCHAR Revision;
+    UCHAR SubAuthorityCount;
     SID_IDENTIFIER_AUTHORITY IdentifierAuthority;
-    /* [size_is] */ Uint SubAuthority[ 1 ];
+    /* [size_is] */ ULONG SubAuthority[ 1 ];
     }	SID;
 
 typedef struct _SID __RPC_FAR *PISID;
@@ -1445,7 +1445,7 @@ uint32_t dwContext;
     LCID Locale;
 uint32_t dwVersionHi;
 uint32_t dwVersionLo;
-    ULONGint Usn;
+    ULONGLONG Usn;
 uint32_t cApps;
     /* [size_is] */ APPDETAIL __RPC_FAR *pAppDetail;
     }	PACKAGEDETAIL;

@@ -86,7 +86,7 @@ int IfStr(Rect16* pN,int nN,Bool vertical)
  return 0;
 }
 
-void StrDrawRect(Handle wnd,uint32_t OperCode,uint32_t color,Rect16 *pRc,int nRc,Bool vert,Rect16 Rc)
+void StrDrawRect(Handle wnd,Word32 OperCode,Word32 color,Rect16 *pRc,int nRc,Bool vert,Rect16 Rc)
 {
 	int i;
 	Rect16 Rect;
@@ -112,7 +112,7 @@ void StrDrawRect(Handle wnd,uint32_t OperCode,uint32_t color,Rect16 *pRc,int nRc
 }
 
 
-void StrDrawRect(Handle wnd,uint32_t OperCode,uint32_t color,Rect16 Rc)
+void StrDrawRect(Handle wnd,Word32 OperCode,Word32 color,Rect16 Rc)
 {
 
 	Rect16 Rect;
@@ -127,12 +127,12 @@ void StrDrawRect(Handle wnd,uint32_t OperCode,uint32_t color,Rect16 Rc)
 }
 
 
-Handle GetStrCCOM(Handle hCPage,uchar* ImageName,Rect16 Rc,Bool neg,Bool vertical)
+Handle GetStrCCOM(Handle hCPage,Word8* ImageName,Rect16 Rc,Bool neg,Bool vertical)
 {
  int min_h,min_w,max_h,max_w;
  int j;
  PAGEINFO info = {0};
- uchar Name[CPAGE_MAXNAME];
+ Word8 Name[CPAGE_MAXNAME];
  GetPageInfo(hCPage,&info);
 
  if(ImageName)
@@ -173,13 +173,13 @@ Handle GetStrCCOM(Handle hCPage,uchar* ImageName,Rect16 Rc,Bool neg,Bool vertica
  if(neg)
 	 Control.Control|=Ex_Invert;
 
- if(REXCExtraDIB(Control,(uchar*)(lpDIB),Rc.left,Rc.top,Rc.right-Rc.left+1,Rc.bottom-Rc.top+1))
+ if(REXCExtraDIB(Control,(Word8*)(lpDIB),Rc.left,Rc.top,Rc.right-Rc.left+1,Rc.bottom-Rc.top+1))
     return REXCGetContainer();
  return 0;
  }
 
 
-void Invert(Rect16* pRc,uchar* pmasp)
+void Invert(Rect16* pRc,Word8* pmasp)
 {
  int h=pRc[0].bottom-pRc[0].top+1;
  int w=pRc[0].right-pRc[0].left+1;
@@ -193,7 +193,7 @@ void Invert(Rect16* pRc,uchar* pmasp)
 }
 
 
-void CopyP(Rect16* pRc,uchar* Raster,uchar* pmasp)
+void CopyP(Rect16* pRc,Word8* Raster,Word8* pmasp)
 {
  int h=pRc[0].bottom-pRc[0].top+1;
  int w=pRc[0].right-pRc[0].left+1;
@@ -206,7 +206,7 @@ void CopyP(Rect16* pRc,uchar* Raster,uchar* pmasp)
 
 }
 
-void ToHorizont(Rect16* pRc,uchar* Raster,uchar* pmasp)
+void ToHorizont(Rect16* pRc,Word8* Raster,Word8* pmasp)
 {
  int h=pRc[0].bottom-pRc[0].top+1;
  int w=pRc[0].right-pRc[0].left+1;
@@ -216,7 +216,7 @@ void ToHorizont(Rect16* pRc,uchar* Raster,uchar* pmasp)
  int vbytewide=(h)/8;
  if( ((h)%8) != 0)
 	 vbytewide++;
- uchar bytep;
+ Word8 bytep;
  int i,k;
  int nowbyte=0;
  int nowbyte2;
@@ -277,7 +277,7 @@ void ToHorizont(Rect16* pRc,uchar* Raster,uchar* pmasp)
 
 
 
-RSELSTR_FUNC(Bool32) RSELSTR_CutStr(Rect16** ppRc,int& nRc,int& len_mas,uchar* pmasp,int DPIX,int DPIY,int str_w)
+RSELSTR_FUNC(Bool32) RSELSTR_CutStr(Rect16** ppRc,int& nRc,int& len_mas,Word8* pmasp,int DPIX,int DPIY,int str_w)
 {
  inf_str_h=15;
  if(str_w<=0)
@@ -319,7 +319,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_CutStr(Rect16** ppRc,int& nRc,int& len_mas,uchar* p
   int k;
   int top=pRc[i].top;
   oldtop=top;
-  uchar bytep;
+  Word8 bytep;
   int count_black=0;
   double proc;
   Bool str=FALSE;
@@ -433,7 +433,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_CutStr(Rect16** ppRc,int& nRc,int& len_mas,uchar* p
 }
 
 
-int GetStrW(uchar* pmasp,int spusk,int from,int h,int w,int& leftbyte,int& rightbyte)
+int GetStrW(Word8* pmasp,int spusk,int from,int h,int w,int& leftbyte,int& rightbyte)
 {
  int bytewide=(w+7)/8;
  int j=7-(bytewide*8-w);
@@ -443,7 +443,7 @@ int GetStrW(uchar* pmasp,int spusk,int from,int h,int w,int& leftbyte,int& right
  if(from+real_spusk>h)
 	 real_spusk=h-from;
  int count_black;
- uchar bytep;
+ Word8 bytep;
 
  leftbyte=0;
  rightbyte=bytewide-1;
@@ -541,7 +541,7 @@ int GetStrW(uchar* pmasp,int spusk,int from,int h,int w,int& leftbyte,int& right
 
 
 
-Bool IfNewStr(uchar* pmasp,int i,int h,int bytewide,int w,int& l,int rect)
+Bool IfNewStr(Word8* pmasp,int i,int h,int bytewide,int w,int& l,int rect)
 {
 // if(LDPUMA_Skip (CutStrDel) )
 	 return TRUE;
@@ -549,7 +549,7 @@ Bool IfNewStr(uchar* pmasp,int i,int h,int bytewide,int w,int& l,int rect)
  double proc;
  int j;
  int W;
- uchar bytep;
+ Word8 bytep;
  int k;
  int leftbyte;
  int rightbyte;
@@ -635,7 +635,7 @@ void StrMoveMasR(Rect16* pRc,int& nRc,int num)
   nRc++;
 }
 
-Bool GetMasP(Handle hCPage,uchar* ImageName,Rect16 Rc,uchar** ppmasp)
+Bool GetMasP(Handle hCPage,Word8* ImageName,Rect16 Rc,Word8** ppmasp)
 {
     int prewide;
 	int left=Rc.left;
@@ -651,7 +651,7 @@ Bool GetMasP(Handle hCPage,uchar* ImageName,Rect16 Rc,uchar** ppmasp)
 	PAGEINFO info = {0};
 	CIMAGEInfoDataInGet DataInto = {0};
 	CIMAGEInfoDataOutGet DataOut = {0};
-	uchar Name[CPAGE_MAXNAME];
+	Word8 Name[CPAGE_MAXNAME];
 	Bool ret;
 	int i;
 
@@ -668,9 +668,9 @@ Bool GetMasP(Handle hCPage,uchar* ImageName,Rect16 Rc,uchar** ppmasp)
 	}
 
 	/*  1. Подготовка к запросу части изображения.  */
-	DataInto.dwHeight   = (uint32_t)(h);
-	DataInto.dwWidth    = (uint32_t)(prewide);
-	DataInto.wByteWidth = (uint16_t)(prewide/8);
+	DataInto.dwHeight   = (Word32)(h);
+	DataInto.dwWidth    = (Word32)(prewide);
+	DataInto.wByteWidth = (Word16)(prewide/8);
 	DataInto.dwX        = left;
 	DataInto.dwY        = upper;
 	DataInto.MaskFlag   = 0x00;
@@ -678,7 +678,7 @@ Bool GetMasP(Handle hCPage,uchar* ImageName,Rect16 Rc,uchar** ppmasp)
 	DataOut.dwWidth    = DataInto.dwWidth;
 	DataOut.dwHeight   = DataInto.dwHeight;
 	DataOut.wByteWidth = DataInto.wByteWidth;
-	DataOut.byBit      = (uint16_t)info.BitPerPixel;
+	DataOut.byBit      = (Word16)info.BitPerPixel;
 	DataOut.lpData     = *ppmasp;
 	/*  5. Чтение части изображения.  */
 	ret = CIMAGE_GetData (Name, &DataInto, &DataOut);
@@ -735,7 +735,7 @@ Bool InitStrMas(Rect16** ppRc,int len)
 	if (NULL != *ppRc)
 	{
       // проверка корректности заплатки (вызов IsBadWritePtr() специфичен для платформы Windows)
-			if ( IsBadWritePtr( (pvoid)(*ppRc), sizeof(Rect16) ) )
+			if ( IsBadWritePtr( (LPVOID)(*ppRc), sizeof(Rect16) ) )
 			{
 					// если мы здесь, то где-то перед вызовом InitStrMas()
 					// (*ppRc) объявлен, но не обнулен (надо найти, где и обнулить)

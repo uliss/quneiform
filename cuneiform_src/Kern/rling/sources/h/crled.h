@@ -81,51 +81,51 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 struct VersRef
 {
-    uchar   code;
-    uchar   prob;
+    Word8   code;
+    Word8   prob;
 };
 
 struct BitMapRef
 {
-    uchar code;
-    uchar pos;
-    uint16_t row;
-    uint16_t col;
-    uint16_t width;
-    uint16_t height;
+    Word8 code;
+    Word8 pos;
+    Word16 row;
+    Word16 col;
+    Word16 width;
+    Word16 height;
 };
 
 struct SheetDiskDescr
 {
-    uchar code;
-    char quant_fragm;
-    uint16_t sheet_numb;
-    uint16_t descr_lth;
-    uchar byte_flag;
-    uint16_t resolution;
-    uint16_t  incline;
-    char tabl[13];
+    Word8 code;
+    Int8 quant_fragm;
+    Word16 sheet_numb;
+    Word16 descr_lth;
+    Word8 byte_flag;
+    Word16 resolution;
+    Word16  incline;
+    Int8 tabl[13];
 };
 
 struct FragmDisk
 {
-    uchar code;
-    uchar fragm_numb;
-    uint16_t depth;
+    Word8 code;
+    Word8 fragm_numb;
+    Word16 depth;
 };
 
 struct FragmDiskDescr
 {
-    uchar code;
-    uint16_t row;
-    uint16_t col;
-    uint16_t height;
-    uint16_t w_width;
-    char   type;
-    uchar  kegl;
-    uchar  font;
-    uchar  language;
-    uchar  type_underl;
+    Word8 code;
+    Word16 row;
+    Word16 col;
+    Word16 height;
+    Word16 w_width;
+    Int8   type;
+    Word8  kegl;
+    Word8  font;
+    Word8  language;
+    Word8  type_underl;
 };
 
 #pragma pack ( pop )
@@ -140,14 +140,14 @@ class CRLEd
 
 
 public:
-	RecVersions GetVersElement(uint32_t i, uint32_t * pNVers);
-	Rect16 GetRectElement(uint32_t i);
+	RecVersions GetVersElement(Word32 i, PWord32 pNVers);
+	Rect16 GetRectElement(Word32 i);
 	void * GetEdPool(void) { return (void *) mpEdBuffer; };
 	void * GetEdOutPool(void) { return (void *) mpEdOutBuffer; };
-	uint32_t GetEdPoolSize(void) { return mpEdFileEnd - mpEdBuffer; };
+	Word32 GetEdPoolSize(void) { return mpEdFileEnd - mpEdBuffer; };
 	Bool32 ExcludeToVers(int32_t size, PChar8 pStr);
-	Bool32 AddWord(CSTR_rast b, CSTR_rast e, uchar * pLanguage);
-	Bool32 MakeWord(CSTR_rast b, CSTR_rast e,uchar * Language);
+	Bool32 AddWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage);
+	Bool32 MakeWord(CSTR_rast b, CSTR_rast e,PWord8 Language);
 	void   Init();
 	CRLEd();
 	virtual ~CRLEd();
@@ -159,11 +159,11 @@ protected:
 	int32_t miEdNVers;
 	Handle mhEdOutBuffer;
 	Handle mhEdBuffer;
-	uchar * mpEdFileBound;
-	uchar * mpEdFileEnd;
-	uchar * mpEdOutBuffer;
-	uchar * mpEdBuffer;
-	uchar  mHalfSpaces[3];
+	PWord8 mpEdFileBound;
+	PWord8 mpEdFileEnd;
+	PWord8 mpEdOutBuffer;
+	PWord8 mpEdBuffer;
+	Word8  mHalfSpaces[3];
 	struct SheetDiskDescr    mSdd;
 	struct FragmDiskDescr    mFdd;
 	struct FragmDisk         mFd;
@@ -176,7 +176,7 @@ protected:
 	//struct bit_map_ref         mBmr;
 
 private:
-	void   Write(uchar * pP, uint16_t wSize);
+	void   Write(PWord8 pP, Word16 wSize);
 
 };
 

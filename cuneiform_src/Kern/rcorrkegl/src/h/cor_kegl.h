@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern Bool32 snap_enable;
 extern Bool32 exit_enable;
 
-uint32_t myMonitorProc(Handle wnd,Handle hwnd,uint32_t message,uint32_t wParam,uint32_t lParam);
+Word32 myMonitorProc(Handle wnd,Handle hwnd,Word32 message,Word32 wParam,Word32 lParam);
 
 #define space(x) ((x).flg & CSTR_f_space)
 #define fict(x)  ((x).flg & CSTR_f_fict)
@@ -66,12 +66,12 @@ uint32_t myMonitorProc(Handle wnd,Handle hwnd,uint32_t message,uint32_t wParam,u
 
 # define IDEAL_XY(x, y)   \
          {\
-             y = (INT) (y - (int) x * nIncline / INCLINE_FACTOR);\
-             x = (INT) (x + (int) y * nIncline / INCLINE_FACTOR);\
+             y = (INT) (y - (LONG) x * nIncline / INCLINE_FACTOR);\
+             x = (INT) (x + (LONG) y * nIncline / INCLINE_FACTOR);\
          }
 
 # define REAL_XY(x, y)   \
          {\
-             x = (INT) (x - (int) y * nIncline / INCLINE_FACTOR);\
-             y = (INT) (y + (int) x * nIncline / INCLINE_FACTOR);\
+             x = (INT) (x - (LONG) y * nIncline / INCLINE_FACTOR);\
+             y = (INT) (y + (LONG) x * nIncline / INCLINE_FACTOR);\
 		}

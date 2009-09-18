@@ -110,7 +110,7 @@ void lpmima(INT);
 void bring_dust(INT);
 void interdif(CSTR_rast P, CSTR_rast N, CSTR_rast B1);
 void stand_bas();
-void complete_bas(char *);
+void complete_bas(CHAR *);
 void dbreset(INT);
 static INT  fincells();
 INT  dbsum(INT filter);
@@ -163,7 +163,7 @@ EXTLIN  INT  minrow, mincol, maxrow, maxcol, midcol,  minold,
              old_minrow, old_maxrow, out_of_minmax,
              ncut_sticks, ncut_vers, ntot_cells, ncut_mult, killed_box, ncut_box, ncut_cells, bs_got, sum_ans;
 EXTLIN  INT  ncut_old, nmult_old, ndead_old, nvers_old, ntot_old;
-EXTLIN char fl_fail, fl_artifact, all_caps,
+EXTLIN CHAR fl_fail, fl_artifact, all_caps,
             b2_solid, dust_in, diff_curv,
             all_diffs_made, diffs_made, histofl, histiter, lin_pass;
 EXTLIN INT  oldPs2, oldPs1, oldPs4, oldn1, oldn2, oldn4, oldmult,
@@ -224,9 +224,9 @@ CSTR_rast  cell_l(void);
 void linpos(CSTR_line ln);
 void basefin(CSTR_line ln);
 INT def_locbas(CSTR_rast );
-void glsnap(char I, CSTR_rast , char *txt);
+void glsnap(CHAR I, CSTR_rast , CHAR *txt);
 
-void li_snap(char *t);
+void li_snap(CHAR *t);
 void gen_reset(void);
 
 void sort_vers(CSTR_rast c);
@@ -246,8 +246,8 @@ Bool (*snap_monitor_ori_rbal)(CSTR_line *snap_line, int32_t num_lines);
 Bool (*snap_is_marked_rbal)(CSTR_line ln);//IGOR
 Bool (*snap_baselines_rbal)(BYTE a);//IGOR
 void (*snap_draw_line_rbal)(Handle wnd, Point16 *start, Point16 *end, int32_t skew,
-										  uint32_t rgb, int16_t pen, uint32_t key);//IGOR
-void (*snap_del_line_rbal)(Handle wnd, uint32_t key);
+										  Word32 rgb, Int16 pen, Word32 key);//IGOR
+void (*snap_del_line_rbal)(Handle wnd, Word32 key);
 //IGOR
 Bool (*snap_show_text_rbal)(BYTE *txt);
 Bool (*snap_activity_rbal)(BYTE a);
@@ -271,5 +271,5 @@ Bool (*snap_activity_rbal)(BYTE a);
 #define f_letter ( CSTR_f_let | CSTR_f_bad )
 
 // внешние функции
-int16_t (*RSTR_skew_corr)(CSTR_line ln, INT pool_src);
-int16_t (*RSTR_rast_is_BOX_solid) (CSTR_rast B1, int16_t scale);
+Int16 (*RSTR_skew_corr)(CSTR_line ln, INT pool_src);
+Int16 (*RSTR_rast_is_BOX_solid) (CSTR_rast B1, Int16 scale);

@@ -64,12 +64,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // exteren globals
 extern CTIControl * Control_cti;
 // extern functions
-void SetReturnCode_cimage(uint16_t rc);
-uint16_t GetReturnCode_cimage();
+void SetReturnCode_cimage(Word16 rc);
+Word16 GetReturnCode_cimage();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_WriteCallbackImage(uchar *                 lpName,
+CIMAGE_FUNC(Bool32) CIMAGE_WriteCallbackImage(PWord8                 lpName,
 											  CIMAGEIMAGECALLBACK  Cbk)
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
@@ -82,7 +82,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_WriteCallbackImage(uchar *                 lpName,
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_GetCallbackImage(uchar *                  lpName,
+CIMAGE_FUNC(Bool32) CIMAGE_GetCallbackImage(PWord8                  lpName,
 											PCIMAGEIMAGECALLBACK  pCbk)
 {
 	Bool32 A = FALSE;
@@ -97,9 +97,9 @@ CIMAGE_FUNC(Bool32) CIMAGE_GetCallbackImage(uchar *                  lpName,
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_WriteDIB(uchar *    lpName,
+CIMAGE_FUNC(Bool32) CIMAGE_WriteDIB(PWord8    lpName,
 									Handle  lpDIB,
-									uint32_t  wFlag)
+									Word32  wFlag)
 {
 	Bool32 A = FALSE;
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
@@ -113,9 +113,9 @@ CIMAGE_FUNC(Bool32) CIMAGE_WriteDIB(uchar *    lpName,
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_ReadDIB(uchar *     lpName,
+CIMAGE_FUNC(Bool32) CIMAGE_ReadDIB(PWord8     lpName,
 								   PHandle  lplpDIB,
-								   uint32_t   wFlag)
+								   Word32   wFlag)
 {
 	Bool32 A = FALSE;
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
@@ -129,7 +129,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_ReadDIB(uchar *     lpName,
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_GetData(uchar *                     lpName,
+CIMAGE_FUNC(Bool32) CIMAGE_GetData(PWord8                     lpName,
 								   PCIMAGE_InfoDataInGet       lpIn,
 								   PCIMAGE_InfoDataOutGet      lpOut)
 {
@@ -145,9 +145,9 @@ CIMAGE_FUNC(Bool32) CIMAGE_GetData(uchar *                     lpName,
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_GetDIBData(uchar *                      lpName,
+CIMAGE_FUNC(Bool32) CIMAGE_GetDIBData(PWord8                      lpName,
 								      PCIMAGE_InfoDataInGet       lpIn,
-								      char *                       *lpDIB)
+								      PInt8                       *lpDIB)
 {
 	Bool32 A = FALSE;
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
@@ -160,7 +160,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_GetDIBData(uchar *                      lpName,
 	return A;
 }/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_ReplaceData(uchar *                        lpName,
+CIMAGE_FUNC(Bool32) CIMAGE_ReplaceData(PWord8                        lpName,
 									   PCIMAGE_InfoDataInReplace   lpIn )
 {
 	Bool32 A = FALSE;
@@ -175,7 +175,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_ReplaceData(uchar *                        lpName,
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_GetImageInfo(uchar *                     lpName,
+CIMAGE_FUNC(Bool32) CIMAGE_GetImageInfo(PWord8                     lpName,
 										PCIMAGEBITMAPINFOHEADER  lpBIH)
 {
 	Bool32 A = FALSE;
@@ -190,7 +190,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_GetImageInfo(uchar *                     lpName,
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_DeleteImage( uchar *  lpName)
+CIMAGE_FUNC(Bool32) CIMAGE_DeleteImage( PWord8  lpName)
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
@@ -246,7 +246,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_Reset(void)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_AddReadCloseRects(uchar * lpName, uint32_t wCount, PCIMAGE_Rect pFirst)
+CIMAGE_FUNC(Bool32) CIMAGE_AddReadCloseRects(PWord8 lpName, Word32 wCount, PCIMAGE_Rect pFirst)
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
@@ -258,7 +258,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_AddReadCloseRects(uchar * lpName, uint32_t wCount, PC
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_RemoveReadCloseRects(uchar * lpName, uint32_t wCount, PCIMAGE_Rect pFirst)
+CIMAGE_FUNC(Bool32) CIMAGE_RemoveReadCloseRects(PWord8 lpName, Word32 wCount, PCIMAGE_Rect pFirst)
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
@@ -270,7 +270,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_RemoveReadCloseRects(uchar * lpName, uint32_t wCount,
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_AddWriteCloseRects(uchar * lpName, uint32_t wCount, PCIMAGE_Rect pFirst)
+CIMAGE_FUNC(Bool32) CIMAGE_AddWriteCloseRects(PWord8 lpName, Word32 wCount, PCIMAGE_Rect pFirst)
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
@@ -282,7 +282,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_AddWriteCloseRects(uchar * lpName, uint32_t wCount, P
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_RemoveWriteCloseRects(uchar * lpName, uint32_t wCount, PCIMAGE_Rect pFirst)
+CIMAGE_FUNC(Bool32) CIMAGE_RemoveWriteCloseRects(PWord8 lpName, Word32 wCount, PCIMAGE_Rect pFirst)
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
@@ -294,7 +294,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_RemoveWriteCloseRects(uchar * lpName, uint32_t wCount
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_EnableMask(uchar * lpName, uchar * lpType, Bool32 bEnabler)
+CIMAGE_FUNC(Bool32) CIMAGE_EnableMask(PWord8 lpName, PWord8 lpType, Bool32 bEnabler)
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
@@ -322,7 +322,7 @@ CIMAGE_CALLBACK_FUNC(CIMAGEBOOL16) CIMAGE_Callback_ImageOpen(PCIMAGE_ImageInfo l
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_CALLBACK_FUNC(CIMAGEWORD)   CIMAGE_Callback_ImageRead(char *  lpImage, uint16_t wMaxSize)
+CIMAGE_CALLBACK_FUNC(CIMAGEWORD)   CIMAGE_Callback_ImageRead(PInt8  lpImage, Word16 wMaxSize)
 {
 	if ( !Control_cti )
 	{

@@ -95,7 +95,7 @@ BLOCK *BlocksAddDescriptor (void)
         #ifdef DebugFile
                 STRCPY(StringError,"BlocksAddDescriptor,if(pBlocksList==NULL)");
         #endif
-        ErrorNoEnoughMemory ((uchar*)"in LTBLOCKS.C,BlockAddDescriptor;part 1");
+        ErrorNoEnoughMemory ((Word8*)"in LTBLOCKS.C,BlockAddDescriptor;part 1");
         }
 
         memset (pBlocksList, 0, sizeof (BLOCK));
@@ -108,7 +108,7 @@ BLOCK *BlocksAddDescriptor (void)
         #ifdef DebugFile
                 STRCPY(StringError,"BlocksAddDescriptor,if(pPrev==NULL)");
         #endif
-        ErrorNoEnoughMemory ((uchar*)"in LTBLOCKS.C,BlockAddDescriptor;part 2");
+        ErrorNoEnoughMemory ((Word8*)"in LTBLOCKS.C,BlockAddDescriptor;part 2");
         }
 
         memset (pBlocksList -> pPrev, 0, sizeof (BLOCK));

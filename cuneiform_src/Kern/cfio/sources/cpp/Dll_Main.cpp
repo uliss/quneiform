@@ -75,10 +75,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL
-void SetReturnCode_cfio(uint16_t rc);
+void SetReturnCode_cfio(Word16 rc);
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-static uint16_t            wHeightRC =                         0;
-static uint16_t            wLowRC =                            0;
+static Word16            wHeightRC =                         0;
+static Word16            wLowRC =                            0;
 static Handle            hInst =                             NULL;
 CTCControl *      Control_ctc =                           NULL;
 static int32_t             InitCount =                         0;
@@ -87,7 +87,7 @@ static Bool32            InitDone =                          FALSE;
 //
 Bool APIENTRY DllMain( Handle hModule,
                         uint32_t ul_reason_for_call,
-                        pvoid lpReserved )
+                        LPVOID lpReserved )
 {
     switch( ul_reason_for_call )
 	{
@@ -105,7 +105,7 @@ Bool APIENTRY DllMain( Handle hModule,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(Bool32) CFIO_Init(uint16_t wHeightCode,Handle hStorage)
+CFIO_FUNC(Bool32) CFIO_Init(Word16 wHeightCode,Handle hStorage)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -151,16 +151,16 @@ CFIO_FUNC(Bool32) CFIO_Done()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(uint32_t) CFIO_GetReturnCode()
+CFIO_FUNC(Word32) CFIO_GetReturnCode()
 {
 	return (wHeightRC<<16)|(wLowRC - IDS_ERR_MIN);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(char *) CFIO_GetReturnString(uint32_t dwError)
+CFIO_FUNC(Int8 *) CFIO_GetReturnString(Word32 dwError)
 {
-	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_MIN;
-	static char szBuffer[512];
+	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_MIN;
+	static Int8 szBuffer[512];
 
 	if( dwError >> 16 != wHeightRC)
 		wLowRC = IDS_ERR_NOTIMPLEMENT;
@@ -174,14 +174,14 @@ CFIO_FUNC(char *) CFIO_GetReturnString(uint32_t dwError)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void SetReturnCode_cfio(uint16_t rc)
+void SetReturnCode_cfio(Word16 rc)
 {
 	if ( rc == IDS_CFIO_ERR_NO || wLowRC == IDS_CFIO_ERR_NO )
 		wLowRC = rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-uint16_t GetReturnCode_cfio()
+Word16 GetReturnCode_cfio()
 {
 	return wLowRC;
 }
@@ -190,7 +190,7 @@ uint16_t GetReturnCode_cfio()
 #define CASE_FUNCTION(a)	case CFIO_FN##a:	*(FNCFIO##a *)pData = CFIO_##a; break
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(Bool32) CFIO_GetExportData(uint32_t dwType, void * pData)
+CFIO_FUNC(Bool32) CFIO_GetExportData(Word32 dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -242,9 +242,9 @@ return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(Bool32) CFIO_SetImportData(uint32_t dwType, void * pData)
+CFIO_FUNC(Bool32) CFIO_SetImportData(Word32 dwType, void * pData)
 {
-	uint32_t      Folder;
+	Word32      Folder;
 
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -271,7 +271,7 @@ return Control_ctc->SetFolder(Folder, (char *)pData);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(Handle) CFIO_OpenStorage(char * lpName, uint32_t dwTypes)
+CFIO_FUNC(Handle) CFIO_OpenStorage(PInt8 lpName, Word32 dwTypes)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -288,7 +288,7 @@ CFIO_FUNC(Handle) CFIO_OpenStorage(char * lpName, uint32_t dwTypes)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(Bool32) CFIO_CloseStorage(Handle  hStorage, uint32_t  dwFlag)
+CFIO_FUNC(Bool32) CFIO_CloseStorage(Handle  hStorage, Word32  dwFlag)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -305,7 +305,7 @@ CFIO_FUNC(Bool32) CFIO_CloseStorage(Handle  hStorage, uint32_t  dwFlag)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(Bool32) CFIO_DeleteStorage (char * lpName)
+CFIO_FUNC(Bool32) CFIO_DeleteStorage (PInt8 lpName)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -322,7 +322,7 @@ CFIO_FUNC(Bool32) CFIO_DeleteStorage (char * lpName)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(uint32_t) CFIO_WriteFileToStorage (Handle hStorage, Handle hFile, char * lpNameInStorage)
+CFIO_FUNC(Word32) CFIO_WriteFileToStorage (Handle hStorage, Handle hFile, PInt8 lpNameInStorage)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -339,7 +339,7 @@ CFIO_FUNC(uint32_t) CFIO_WriteFileToStorage (Handle hStorage, Handle hFile, char
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(Handle) CFIO_ReadFileFromStorage (Handle hStorage, char * lpName)
+CFIO_FUNC(Handle) CFIO_ReadFileFromStorage (Handle hStorage, PInt8 lpName)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -356,7 +356,7 @@ CFIO_FUNC(Handle) CFIO_ReadFileFromStorage (Handle hStorage, char * lpName)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(Handle) CFIO_OpenFreeFile(Handle hStorage, char * lpName, uint32_t dwFlag)
+CFIO_FUNC(Handle) CFIO_OpenFreeFile(Handle hStorage, PInt8 lpName, Word32 dwFlag)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -373,7 +373,7 @@ CFIO_FUNC(Handle) CFIO_OpenFreeFile(Handle hStorage, char * lpName, uint32_t dwF
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(Bool32) CFIO_CloseFreeFile(Handle hFile, uint32_t dwFlag)
+CFIO_FUNC(Bool32) CFIO_CloseFreeFile(Handle hFile, Word32 dwFlag)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -390,7 +390,7 @@ CFIO_FUNC(Bool32) CFIO_CloseFreeFile(Handle hFile, uint32_t dwFlag)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(uint32_t) CFIO_WriteToFile (Handle hFile, char * lpData, uint32_t dwSize)
+CFIO_FUNC(Word32) CFIO_WriteToFile (Handle hFile, PInt8 lpData, Word32 dwSize)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -407,7 +407,7 @@ CFIO_FUNC(uint32_t) CFIO_WriteToFile (Handle hFile, char * lpData, uint32_t dwSi
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(uint32_t) CFIO_ReadFromFile (Handle hFile, char * lpData, uint32_t dwSize)
+CFIO_FUNC(Word32) CFIO_ReadFromFile (Handle hFile, PInt8 lpData, Word32 dwSize)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -424,7 +424,7 @@ CFIO_FUNC(uint32_t) CFIO_ReadFromFile (Handle hFile, char * lpData, uint32_t dwS
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(uint32_t) CFIO_SeekFilePointer (Handle hFile, uint32_t dwBytes, uint32_t dwFrom)
+CFIO_FUNC(Word32) CFIO_SeekFilePointer (Handle hFile, Word32 dwBytes, Word32 dwFrom)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -441,7 +441,7 @@ CFIO_FUNC(uint32_t) CFIO_SeekFilePointer (Handle hFile, uint32_t dwBytes, uint32
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(uint32_t) CFIO_TellFilePointer (Handle hFile)
+CFIO_FUNC(Word32) CFIO_TellFilePointer (Handle hFile)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -475,7 +475,7 @@ CFIO_FUNC(Bool32) CFIO_FlushFile(Handle hFile)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(Handle) CFIO_AllocMemory (uint32_t dwSize, uint32_t dwFlag)
+CFIO_FUNC(Handle) CFIO_AllocMemory (Word32 dwSize, Word32 dwFlag)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -492,7 +492,7 @@ CFIO_FUNC(Handle) CFIO_AllocMemory (uint32_t dwSize, uint32_t dwFlag)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(Handle) CFIO_DAllocMemory (uint32_t dwSize, uint32_t dwFlag, char* cOwner, char* Comment)
+CFIO_FUNC(Handle) CFIO_DAllocMemory (Word32 dwSize, Word32 dwFlag, Int8* cOwner, Int8* Comment)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -509,7 +509,7 @@ CFIO_FUNC(Handle) CFIO_DAllocMemory (uint32_t dwSize, uint32_t dwFlag, char* cOw
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(Handle) CFIO_ReAllocMemory (Handle hMemory, uint32_t dwSize, uint32_t dwFlag)
+CFIO_FUNC(Handle) CFIO_ReAllocMemory (Handle hMemory, Word32 dwSize, Word32 dwFlag)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -577,7 +577,7 @@ CFIO_FUNC(Bool32) CFIO_UnlockMemory(Handle hMem)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(uint32_t) CFIO_WriteMemoryToFile(Handle hMem, char * lpName)
+CFIO_FUNC(Word32) CFIO_WriteMemoryToFile(Handle hMem, PInt8 lpName)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -594,7 +594,7 @@ CFIO_FUNC(uint32_t) CFIO_WriteMemoryToFile(Handle hMem, char * lpName)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(uint32_t) CFIO_ReadMemoryFromFile(char * lpName, Handle * phMem)
+CFIO_FUNC(Word32) CFIO_ReadMemoryFromFile(PInt8 lpName, Handle * phMem)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -611,7 +611,7 @@ CFIO_FUNC(uint32_t) CFIO_ReadMemoryFromFile(char * lpName, Handle * phMem)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(uint32_t) CFIO_WriteMemoryToStorage(Handle hMem, Handle hStorage, char * lpName)
+CFIO_FUNC(Word32) CFIO_WriteMemoryToStorage(Handle hMem, Handle hStorage, PInt8 lpName)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 
@@ -628,7 +628,7 @@ CFIO_FUNC(uint32_t) CFIO_WriteMemoryToStorage(Handle hMem, Handle hStorage, char
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CFIO_FUNC(uint32_t) CFIO_ReadMemoryFromStorage(Handle hStorage, char * lpName, Handle * phMem)
+CFIO_FUNC(Word32) CFIO_ReadMemoryFromStorage(Handle hStorage, PInt8 lpName, Handle * phMem)
 {
 	SetReturnCode_cfio(IDS_CFIO_ERR_NO);
 

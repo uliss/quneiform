@@ -68,17 +68,17 @@ Bool snap_show_text(BYTE *txt);
 
 static HINSTANCE hDFon = NULL;
 
-static int DFon_SendRasterStat(RecRaster* rr, Handle pPaintWnd, uchar let)
+static int DFon_SendRasterStat(RecRaster* rr, Handle pPaintWnd, Word8 let)
 {
 	snap_show_text("version without DFON.DLL");
 	return 0;
 }
 
-static void DFon_TerminatedStat(uint32_t wParam)
+static void DFon_TerminatedStat(Word32 wParam)
 { }
 //////////
-int  (*DFon_SendRaster)(RecRaster* rr, Handle pPaintWnd, uchar let)=DFon_SendRasterStat;
-void (*DFon_Terminated)(uint32_t wParam)=DFon_TerminatedStat;
+int  (*DFon_SendRaster)(RecRaster* rr, Handle pPaintWnd, Word8 let)=DFon_SendRasterStat;
+void (*DFon_Terminated)(Word32 wParam)=DFon_TerminatedStat;
 
 ////////////
 void DFon_NewPage(char *name)

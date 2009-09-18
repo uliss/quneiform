@@ -61,16 +61,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef struct
 	{
-	uint32_t dwBeg;   // Начало текущего диапозона
-	uint32_t dwEnd;	// Конец
+	Word32 dwBeg;   // Начало текущего диапозона
+	Word32 dwEnd;	// Конец
 
-	uint32_t dwStep;  // текущий номер шага
+	Word32 dwStep;  // текущий номер шага
 	const char * name;	// текущее название шага
 	} PRGTIME;
 
 // Флаги обновления контейнеров
 #define FLG_UPDATE_NO		0
-#define FLG_UPDATE			(uint32_t)-1
+#define FLG_UPDATE			(Word32)-1
 #define FLG_UPDATE_CCOM		0x1
 #define FLG_UPDATE_CPAGE	0x2
 

@@ -75,9 +75,9 @@ CFCOMPAT_FUNC(long) _tell(int handle);
 
 CFCOMPAT_FUNC(Bool) GetComputerName(LPTSTR lpBuffer, long unsigned int *lpnSize);
 
-CFCOMPAT_FUNC(int) RegOpenKeyEx(HKEY hKey, LPCTSTR lpSubKey, uint32_t ulOptions,
+CFCOMPAT_FUNC(LONG) RegOpenKeyEx(HKEY hKey, LPCTSTR lpSubKey, uint32_t ulOptions,
 		REGSAM samDesired, PHKEY phkResult);
-CFCOMPAT_FUNC(int) RegQueryValueEx(HKEY hKey, LPCTSTR lpValueName,
+CFCOMPAT_FUNC(LONG) RegQueryValueEx(HKEY hKey, LPCTSTR lpValueName,
 		LPDWORD lpReserved, LPDWORD lpType, LPBYTE lpData,
 		LPDWORD lpcbData);
 
@@ -91,7 +91,7 @@ CFCOMPAT_FUNC(UINT) GetPrivateProfileInt(LPCTSTR lpAppName,
 
 CFCOMPAT_FUNC(int) WideCharToMultiByte(UINT CodePage, uint32_t dwFlags, const wchar_t *lpWideCharStr,
 		int cchWideChar, LPSTR lpMultiByteStr, int cbMultiByte,
-		LPCSTR lpDefaultChar, LPBool lpUsedDefaultChar);
+		LPCSTR lpDefaultChar, LPBOOL lpUsedDefaultChar);
 
 CFCOMPAT_FUNC(Bool) ShowWindow(HWND hWnd, int nCmdShow);
 
@@ -119,7 +119,7 @@ CFCOMPAT_FUNC(HWND) CreateWindow(
 		HWND hWndParent,
 		HMENU hMenu,
 		HINSTANCE hInstance,
-		pvoid lpParam
+		LPVOID lpParam
 );
 
 CFCOMPAT_FUNC(HGDIOBJ) SelectObject(HDC hdc, HGDIOBJ hgdiobj);
@@ -140,9 +140,9 @@ CFCOMPAT_FUNC(HWND) GetFocus();
 CFCOMPAT_FUNC(int) MessageBox(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType);
 
 CFCOMPAT_FUNC(int) WINAPI GlobalSize(HGLOBAL hMem);
-CFCOMPAT_FUNC(pvoid) GlobalLock(HGLOBAL hMem);
+CFCOMPAT_FUNC(LPVOID) GlobalLock(HGLOBAL hMem);
 CFCOMPAT_FUNC(Bool) GlobalUnlock(HGLOBAL hMem);
-CFCOMPAT_FUNC(Bool) IsBadWritePtr(pvoid lp, int ucb);
+CFCOMPAT_FUNC(Bool) IsBadWritePtr(LPVOID lp, int ucb);
 CFCOMPAT_FUNC(void) OutputDebugString(LPCTSTR lpOutputString);
 CFCOMPAT_FUNC(Bool) SetRect(LPRECT lprc, int xLeft, int yTop,
 		int xRight, int yBottom);
@@ -168,7 +168,7 @@ CFCOMPAT_FUNC(HGDIOBJ) GetStockObject(int fnObject);
 CFCOMPAT_FUNC(Bool) IsWindowVisible(HWND hWnd);
 CFCOMPAT_FUNC(LRESULT) DefWindowProc(HWND hWnd, UINT Msg, WPARAM wParam,
 		LPARAM lParam);
-CFCOMPAT_FUNC(int) GetWindowLong(HWND hWnd, int nIndex);
+CFCOMPAT_FUNC(LONG) GetWindowLong(HWND hWnd, int nIndex);
 CFCOMPAT_FUNC(Bool) RegisterClass(const WNDCLASS *lpWndClass);
 CFCOMPAT_FUNC(HMODULE) GetModuleHandle(LPCTSTR lpModuleName);
 CFCOMPAT_FUNC(HICON) LoadIcon(HINSTANCE hInstance, LPCTSTR lpIconName);

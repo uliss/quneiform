@@ -212,17 +212,17 @@ typedef TDictState * PTDictState;
 
 typedef struct {
 
-	char sign[8]; /* "CTCDict"                        */
-	char cpuType[8]; /* "Mac" or "Intel"                 */
-	char language[8]; /* "FRA"/"RUS"/"ENG"/etc.           */
-	char version[8]; /* "01.00"                          */
-	char treeLength[8]; /* RADIX 10 - in bytes              */
-	char tailsLength[8]; /* RADIX 10 - in bytes              */
-	char rulesLength[8]; /* RADIX 10 - in bytes              */
-	char hushLength[8]; /* RADIX 10 - in bytes              */
-	char abcSize[8]; /* size of the current alphabet     */
-	char abcUpper[64]; /* string of uppercase letters      */
-	char abcLower[64]; /* string of lowercase letters      */
+	CHAR sign[8]; /* "CTCDict"                        */
+	CHAR cpuType[8]; /* "Mac" or "Intel"                 */
+	CHAR language[8]; /* "FRA"/"RUS"/"ENG"/etc.           */
+	CHAR version[8]; /* "01.00"                          */
+	CHAR treeLength[8]; /* RADIX 10 - in bytes              */
+	CHAR tailsLength[8]; /* RADIX 10 - in bytes              */
+	CHAR rulesLength[8]; /* RADIX 10 - in bytes              */
+	CHAR hushLength[8]; /* RADIX 10 - in bytes              */
+	CHAR abcSize[8]; /* size of the current alphabet     */
+	CHAR abcUpper[64]; /* string of uppercase letters      */
+	CHAR abcLower[64]; /* string of lowercase letters      */
 
 } TDictHeaderMask;
 

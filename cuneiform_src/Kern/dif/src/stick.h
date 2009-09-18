@@ -64,14 +64,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define LIMIT_CENTER     LIMIT_HEIGHT*3
 #define LIMIT_OF_ANGLES  8
 /*----------------------------------------------------------------------*/
-typedef struct { int16_t row,  /* row in c_comp */
+typedef struct { Int16 row,  /* row in c_comp */
 		     col,  /* column * 2  */
 		     len;  /* length      */
 		} center_interval;
 /*----------------------------------------------------------------------*/
 typedef struct						// l->xxx, r->xxx;
 	{
-  uchar
+  Word8
 		mount[5],   /* max flag in any zone. 0 - no flag	*/
 		conc[5],    /* max concave in any zone. 0 - no concave	*/
 		m_pos[5],   /* position of max flag in zone. 0-if no flag */
@@ -95,14 +95,14 @@ typedef struct						// l->xxx, r->xxx;
 /*----------------------------------------------------------------------*/
 typedef struct							// s->xxx;
 	{
-  int16_t     height,   // height of c_comp
+  Int16     height,   // height of c_comp
 		width ,		// width  of c_comp
 		base_2,		// second base line
 		base_3,		// third  base line
 		base_2mk,	// MK EDITION of SECOND,
 		base_3mk,	// THIRD,
 		base_4mk;	// and FOURTH base lines	03.01.1994
-  uchar
+  Word8
 		l_f_symptom,	// special signums for letter 'f'
 		r_f_symptom,	// l:0,1,2,3 ; r : 0,1,2
 		t_TOP,		// t^ or t~;
@@ -134,29 +134,29 @@ typedef struct							// s->xxx;
 		up_dot_H,	// Hight of DOT	(0 - NO DOT !)
     down_nose_1, // special for 1 : nose belong central zone
     up_dot_W; // Width of DOT
-  char
+  Int8
 		inc_num,	// 10.12.1993 (from inc_num_EEM)
 		up_dot_dCOL;	// Displacement of DOT (use col)
-  uchar    num_lines;      /* Number of with none single interval  */
-  int16_t incline;  /* Normal tg(stick)*2048 + line_incline */
+  Word8    num_lines;      /* Number of with none single interval  */
+  Int16 incline;  /* Normal tg(stick)*2048 + line_incline */
 	} STICK_SIGNUMS;	// auxiliary information for
 				// stick diskrimination
 /*----------------------------------------------------------------------*/
 typedef struct
         {
-  int16_t tg;             /* tg = tangens*2048  */
-  int16_t num;      /* 15.11.1993 MK NEW  */
-  int16_t inc[256];       /* table of inc       */
+  Int16 tg;             /* tg = tangens*2048  */
+  Int16 num;      /* 15.11.1993 MK NEW  */
+  Int16 inc[256];       /* table of inc       */
 	} INC_BASE;         /* base tables of inc */
 /*----------------------------------------------------------------------*/
 #define ADD_PROB(c) (c->nvers ? (c->vers[0].prob - 4) : 254 )
 
 struct ln_head
  {
- int16_t  lth; // length of one line representation
- int16_t  h;   // height of line
- int16_t  row; // relative row of line start
- uint16_t flg;  // flags of free beg and free end
+ Int16  lth; // length of one line representation
+ Int16  h;   // height of line
+ Int16  row; // relative row of line start
+ Word16 flg;  // flags of free beg and free end
 #define l_fbeg		0x20
 #define l_fend		0x80
 #define l_cbeg          0x02
@@ -166,13 +166,13 @@ typedef struct ln_head lnhead;
 
 struct int_s
  {
- uchar l;  // length of interval
- uchar e;  // end of interval coordinates
+ Word8 l;  // length of interval
+ Word8 e;  // end of interval coordinates
  };
 typedef struct int_s interval;
 
 #define DIS_CENTER_FLAG(U,i,width,inc,t1,t2)             \
-  { int16_t t,dist=1;                                  \
+  { Int16 t,dist=1;                                  \
 	t = U->mount[i];                                 \
 	if( U->mount[0]>width || U->mount[4]>width )     \
 		dist++;                                  \
@@ -197,7 +197,7 @@ typedef struct int_s interval;
 
 #define DIS_DIFFERENT_SERIFS(L,R,i,dist,wid,tab)      \
 	{                                             \
-	int16_t t,m;                                      \
+	Int16 t,m;                                      \
 	t =  abs(L->mount[i]-R->mount[i]) ;           \
 	m =  MIN(L->mount[i],R->mount[i]) ;           \
 	if( t>MAX(((wid)>>1),dist) || m==0 )          \
@@ -206,7 +206,7 @@ typedef struct int_s interval;
 
 #define DIS_DIFFERENT_SERIFS(L,R,i,dist,wid,tab)      \
 	{                                             \
-	int16_t t,m;                                      \
+	Int16 t,m;                                      \
 	t =  abs(L->mount[i]-R->mount[i]) ;           \
 	m =  MIN(L->mount[i],R->mount[i]) ;           \
 	if( t>MAX(((wid)>>1),dist) || m==0 )          \
@@ -247,7 +247,7 @@ typedef struct int_s interval;
 		}
 
 #define DIS_CENTER_CONC(U,i,inc,t1,t2)              \
-	{ int16_t t,m;                                  \
+	{ Int16 t,m;                                  \
 	m = ((U->up_serif==0)&&(U->down_serif==0)); \
 	t = U->conc[i];                             \
 	if( t>1 )                                   \
@@ -297,7 +297,7 @@ typedef struct int_s interval;
 
 #define DIS_CURVE(L,R,i,lev,tab)         	   \
 	{                                          \
-	int16_t ll,rr;                                 \
+	Int16 ll,rr;                                 \
 	ll=L->mount[i]; rr=R->conc[i];             \
 	if( ll>lev && rr>lev && (ll>0||rr>0) )     \
 		dis += (ll+rr)*(tab);              \

@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __LIGAS__
 
 //#include "face_lng.h"
-#include "cttypes.h"	// uchar 01.09.2000 E.P.
+#include "cttypes.h"	// Word8 01.09.2000 E.P.
 #include "lang_def.h"	// 12.09.2000 E.P.
 
 #define ligas_beg       0xb1
@@ -84,44 +84,44 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // При добавлении новой макры нужно добавить в
 // space_ligas() в SPACE.C, а также
 // correct_let_tables() в ACC_TABS.C и PROPTAB.C
-#define liga_i			((uchar)(is_cen_language(language)?liga_i_latin:\
+#define liga_i			((Word8)(is_cen_language(language)?liga_i_latin:\
 						(is_baltic_language(language)?liga_i_baltic:liga_i_usual)))
-#define liga_exm		((uchar)(is_cen_language(language)?liga_exm_latin:liga_exm_usual))
-#define liga_inv_exm	((uchar)(is_cen_language(language)?liga_inv_exm_latin:liga_inv_exm_usual))
-#define right_quocket	((uchar)(is_cen_language(language)?right_quocket_latin:\
+#define liga_exm		((Word8)(is_cen_language(language)?liga_exm_latin:liga_exm_usual))
+#define liga_inv_exm	((Word8)(is_cen_language(language)?liga_inv_exm_latin:liga_inv_exm_usual))
+#define right_quocket	((Word8)(is_cen_language(language)?right_quocket_latin:\
 						(is_baltic_language(language)?right_quocket_baltic:right_quocket_usual)))
 
-#define liga_CC			((uchar)(is_cen_language(language)?liga_CC_latin:\
+#define liga_CC			((Word8)(is_cen_language(language)?liga_CC_latin:\
 						(is_baltic_language(language)?liga_CC_baltic:\
 						(is_turkish_language(language)?liga_CC_turkish:liga_CC_usual))))
 
-#define liga_CR			((uchar)(is_cen_language(language)?liga_CR_latin:\
+#define liga_CR			((Word8)(is_cen_language(language)?liga_CR_latin:\
 						(is_baltic_language(language)?liga_CR_baltic:\
 						(is_turkish_language(language)?liga_CR_turkish:liga_CR_usual))))
 
-#define liga_bull		((uchar)(is_cen_language(language)?liga_bull_latin:\
+#define liga_bull		((Word8)(is_cen_language(language)?liga_bull_latin:\
 						(is_baltic_language(language)?liga_bull_baltic:\
 						(is_turkish_language(language)?liga_bull_turkish:liga_bull_usual))))
 
 #define low_quotes		(language==LANG_RUSSIAN?low_quotes_rus:low_quotes_usual)
 
-#define liga_TM			((uchar)(is_cen_language(language)?liga_TM_latin:\
+#define liga_TM			((Word8)(is_cen_language(language)?liga_TM_latin:\
 						(is_baltic_language(language)?liga_TM_baltic:\
 						(is_turkish_language(language)?liga_TM_turkish:liga_TM_usual))))
 
-#define AA_bottom_accent ((uchar)(is_baltic_language(language)?AA_bottom_accent_baltic:AA_bottom_accent_latin))
-#define a_bottom_accent  ((uchar)(is_baltic_language(language)?a_bottom_accent_baltic:a_bottom_accent_latin))
-#define EE_bottom_accent ((uchar)(is_baltic_language(language)?EE_bottom_accent_baltic:EE_bottom_accent_latin))
-#define e_bottom_accent  ((uchar)(is_baltic_language(language)?e_bottom_accent_baltic:e_bottom_accent_latin))
+#define AA_bottom_accent ((Word8)(is_baltic_language(language)?AA_bottom_accent_baltic:AA_bottom_accent_latin))
+#define a_bottom_accent  ((Word8)(is_baltic_language(language)?a_bottom_accent_baltic:a_bottom_accent_latin))
+#define EE_bottom_accent ((Word8)(is_baltic_language(language)?EE_bottom_accent_baltic:EE_bottom_accent_latin))
+#define e_bottom_accent  ((Word8)(is_baltic_language(language)?e_bottom_accent_baltic:e_bottom_accent_latin))
 
-#define SS_inv_roof		 ((uchar)(is_baltic_language(language)?SS_inv_roof_baltic:SS_inv_roof_latin))
-#define s_inv_roof		 ((uchar)(is_baltic_language(language)?s_inv_roof_baltic:s_inv_roof_latin))
+#define SS_inv_roof		 ((Word8)(is_baltic_language(language)?SS_inv_roof_baltic:SS_inv_roof_latin))
+#define s_inv_roof		 ((Word8)(is_baltic_language(language)?s_inv_roof_baltic:s_inv_roof_latin))
 
-#define SS_bottom_accent ((uchar)(is_turkish_language(language)?SS_bottom_accent_turkish:SS_bottom_accent_latin))
-#define s_bottom_accent	 ((uchar)(is_turkish_language(language)?s_bottom_accent_turkish:s_bottom_accent_latin))
+#define SS_bottom_accent ((Word8)(is_turkish_language(language)?SS_bottom_accent_turkish:SS_bottom_accent_latin))
+#define s_bottom_accent	 ((Word8)(is_turkish_language(language)?s_bottom_accent_turkish:s_bottom_accent_latin))
 
-#define ZZ_inv_roof		 ((uchar)(is_baltic_language(language)?ZZ_inv_roof_baltic:ZZ_inv_roof_latin))
-#define z_inv_roof		 ((uchar)(is_baltic_language(language)?z_inv_roof_baltic:z_inv_roof_latin))
+#define ZZ_inv_roof		 ((Word8)(is_baltic_language(language)?ZZ_inv_roof_baltic:ZZ_inv_roof_latin))
+#define z_inv_roof		 ((Word8)(is_baltic_language(language)?z_inv_roof_baltic:z_inv_roof_latin))
 
 
 // Лиги для cp1250 30.08.2000 E.P.
@@ -207,11 +207,11 @@ is_ligas_lat(let))))
 #endif
 
 #ifndef __KERNEL__
-        extern  uchar     fEdCode; // Change code letter in module LINUTIL.C
-        extern  uchar     bEdCode[];
+        extern  Word8     fEdCode; // Change code letter in module LINUTIL.C
+        extern  Word8     bEdCode[];
 #else
-        uchar   fEdCode = 0;  //ASCII
-        uchar   bEdCode[4]={//  ASCII, WIN, MAC, FRN
+        Word8   fEdCode = 0;  //ASCII
+        Word8   bEdCode[4]={//  ASCII, WIN, MAC, FRN
                                 0xFE,0x95,0xA5,0xB0 // BULLET
                               };
 #endif
@@ -288,7 +288,7 @@ is_ligas_lat(let))))
 
 /****** accents ************/
 /*
-Таблица acc_tab в ACC_TABS.C теперь типа uint16_t, для добавления
+Таблица acc_tab в ACC_TABS.C теперь типа Word16, для добавления
 новых типов акцентов. См. также ACCENTS.C. 30.08.2000 E.P.
 */
 #define ACC_LEFT			1

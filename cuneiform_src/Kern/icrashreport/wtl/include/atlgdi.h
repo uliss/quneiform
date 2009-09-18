@@ -462,19 +462,19 @@ public:
 			lfHeight -= iScale;
 	}
 
-	void SetHeight(int nPointSize, HDC hDC = NULL)
+	void SetHeight(LONG nPointSize, HDC hDC = NULL)
 	{
 		// For MM_TEXT mapping mode
 		lfHeight = -::MulDiv(nPointSize, ::GetDeviceCaps(hDC, LOGPIXELSY), 72);
 	}
 
-	int GetHeight(HDC hDC = NULL) const
+	LONG GetHeight(HDC hDC = NULL) const
 	{
 		// For MM_TEXT mapping mode
 		return ::MulDiv(-lfHeight, 72, ::GetDeviceCaps(hDC, LOGPIXELSY));
 	}
 
-	int GetDeciPointHeight(HDC hDC = NULL) const
+	LONG GetDeciPointHeight(HDC hDC = NULL) const
 	{
 #ifndef _WIN32_WCE
 		POINT ptOrg = { 0, 0 };
@@ -489,7 +489,7 @@ public:
 #endif // _WIN32_WCE
 	}
 
-	void SetHeightFromDeciPoint(int nDeciPtHeight, HDC hDC = NULL)
+	void SetHeightFromDeciPoint(LONG nDeciPtHeight, HDC hDC = NULL)
 	{
 #ifndef _WIN32_WCE
 		POINT pt = { 0, 0 };
@@ -860,7 +860,7 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	DWORD GetBitmapBits(DWORD dwCount, pvoid lpBits) const
+	DWORD GetBitmapBits(DWORD dwCount, LPVOID lpBits) const
 	{
 		ATLASSERT(m_hBitmap != NULL);
 		return ::GetBitmapBits(m_hBitmap, dwCount, lpBits);
@@ -905,7 +905,7 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	int GetDIBits(HDC hDC, UINT uStartScan, UINT cScanLines,  pvoid lpvBits, LPBITMAPINFO lpbmi, UINT uColorUse) const
+	int GetDIBits(HDC hDC, UINT uStartScan, UINT cScanLines,  LPVOID lpvBits, LPBITMAPINFO lpbmi, UINT uColorUse) const
 	{
 		ATLASSERT(m_hBitmap != NULL);
 		return ::GetDIBits(hDC, m_hBitmap, uStartScan, cScanLines,  lpvBits, lpbmi, uColorUse);
@@ -1412,13 +1412,13 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	int EnumObjects(int nObjectType, int (CALLBACK* lpfn)(pvoid, LPARAM), LPARAM lpData)
+	int EnumObjects(int nObjectType, int (CALLBACK* lpfn)(LPVOID, LPARAM), LPARAM lpData)
 	{
 		ATLASSERT(m_hDC != NULL);
 #ifdef STRICT
 		return ::EnumObjects(m_hDC, nObjectType, (GOBJENUMPROC)lpfn, lpData);
 #else
-		return ::EnumObjects(m_hDC, nObjectType, (GOBJENUMPROC)lpfn, (pvoid)lpData);
+		return ::EnumObjects(m_hDC, nObjectType, (GOBJENUMPROC)lpfn, (LPVOID)lpData);
 #endif
 	}
 #endif // !_WIN32_WCE
@@ -2522,7 +2522,7 @@ public:
 		ATLASSERT(m_hDC != NULL);
 		if(nCount == -1)
 			nCount = lstrlen(lpszString);
-		int lRes = ::TabbedTextOut(m_hDC, x, y, lpszString, nCount, nTabPositions, lpnTabStopPositions, nTabOrigin);
+		LONG lRes = ::TabbedTextOut(m_hDC, x, y, lpszString, nCount, nTabPositions, lpnTabStopPositions, nTabOrigin);
 		SIZE size = { GET_X_LPARAM(lRes), GET_Y_LPARAM(lRes) };
 		return size;
 	}
@@ -2642,7 +2642,7 @@ public:
 		if(nLen == 0)
 			return FALSE;
 
-		CTempBuffer<Tchar, _WTL_STACK_ALLOC_THRESHOLD> buff;
+		CTempBuffer<TCHAR, _WTL_STACK_ALLOC_THRESHOLD> buff;
 		LPTSTR lpszText = buff.Allocate(nLen);
 		if(lpszText == NULL)
 			return FALSE;
@@ -2753,7 +2753,7 @@ public:
 		return ::GetCharABCWidths(m_hDC, nFirstChar, nLastChar, lpabc);
 	}
 
-	DWORD GetFontData(DWORD dwTable, DWORD dwOffset, pvoid lpData, DWORD cbData) const
+	DWORD GetFontData(DWORD dwTable, DWORD dwOffset, LPVOID lpData, DWORD cbData) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetFontData(m_hDC, dwTable, dwOffset, lpData, cbData);
@@ -2771,7 +2771,7 @@ public:
 		return ::GetOutlineTextMetrics(m_hDC, cbData, lpotm);
 	}
 
-	DWORD GetGlyphOutline(UINT nChar, UINT nFormat, LPGLYPHMETRICS lpgm, DWORD cbBuffer, pvoid lpBuffer, const MAT2* lpmat2) const
+	DWORD GetGlyphOutline(UINT nChar, UINT nFormat, LPGLYPHMETRICS lpgm, DWORD cbBuffer, LPVOID lpBuffer, const MAT2* lpmat2) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetGlyphOutline(m_hDC, nChar, nFormat, lpgm, cbBuffer, lpBuffer, lpmat2);
@@ -2792,7 +2792,7 @@ public:
 
 // Printer/Device Escape Functions
 #ifndef _WIN32_WCE
-	int Escape(int nEscape, int nCount, LPCSTR lpszInData, pvoid lpOutData)
+	int Escape(int nEscape, int nCount, LPCSTR lpszInData, LPVOID lpOutData)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::Escape(m_hDC, nEscape, nCount, lpszInData, lpOutData);
@@ -3483,7 +3483,7 @@ public:
 // Data members
 	HENHMETAFILE m_hEMF;
 	BYTE* m_pBits;
-	Tchar* m_pDesc;
+	TCHAR* m_pDesc;
 	ENHMETAHEADER m_header;
 	PIXELFORMATDESCRIPTOR m_pfd;
 
@@ -3516,7 +3516,7 @@ public:
 		UINT nLen = ::GetEnhMetaFileDescription(m_hEMF, 0, NULL);
 		delete [] m_pDesc;
 		m_pDesc = NULL;
-		ATLTRY(m_pDesc = new Tchar[nLen]);
+		ATLTRY(m_pDesc = new TCHAR[nLen]);
 		if (m_pDesc != NULL)
 			nLen = ::GetEnhMetaFileDescription(m_hEMF, nLen, m_pDesc);
 		return m_pDesc;
@@ -3795,7 +3795,7 @@ inline HBITMAP AtlCopyBitmap(HBITMAP hbm , SIZE sizeDst, bool bAsBitmap = false)
 	else
 	{
 		DIBINFO16 dib16(sizeDst);
-		pvoid pBits = NULL;
+		LPVOID pBits = NULL;
 		bmNew = CreateDIBSection(hdcDst, (const BITMAPINFO*)&dib16, DIB_RGB_COLORS, &pBits, NULL, NULL);
 	}
 

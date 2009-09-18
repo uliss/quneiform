@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // RCM.C
 extern  BYTE alpha_used_mode;
 
-	uint16_t	// BYTE=>uint16_t 30.08.2000 E.P.
+	Word16	// BYTE=>Word16 30.08.2000 E.P.
 	   accent_tab_lat[256] = {
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 // 0
@@ -104,7 +104,7 @@ extern  BYTE alpha_used_mode;
 //    n~ o` o' o^ o~ o:        u` u' u^ u:  y'    y:
    };
 
-	uint16_t	// BYTE=>uint16_t 30.08.2000 E.P.
+	Word16	// BYTE=>Word16 30.08.2000 E.P.
 accent_tab_rus[256] = {
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 // 0
@@ -155,22 +155,22 @@ accent_tab_rus[256] = {
 
 tblg -----> linpos for ligatures
 
-char tblg[]={0x16,0x16,0x16,0x16,0x31,0x21,0x10,0x10,0x16,0x11,0x12,0x11,0x11,0, 0, 0  };
+CHAR tblg[]={0x16,0x16,0x16,0x16,0x31,0x21,0x10,0x10,0x16,0x11,0x12,0x11,0x11,0, 0, 0  };
 //   	       b1   b2   b3   b4   b5   b6   b7   b8   b9   ba   bb   bc   bd   be bf c0
 //             fi   fl   ff   ffi  rt   ri   %    %   ffl    i.   j.   !.   ?.
 
 tblgt ----> capital type if ligas
-char tblgt[]={1,1,1,1,4,2,1,1,1,1,1,4,4,0,0,0};
+CHAR tblgt[]={1,1,1,1,4,2,1,1,1,1,1,4,4,0,0,0};
 
 tbsl  ----> spec. signs having specific capital type
 tbsn  ----> linpos for these signs
 
-char tbsl[]={"&$/%()+!#{}"};
-char tbsn[]={0x11,0x16,0x16,0x11,0x46,0x46,0,0x14,0x04,0x35,0x35};
+CHAR tbsl[]={"&$/%()+!#{}"};
+CHAR tbsn[]={0x11,0x16,0x16,0x11,0x46,0x46,0,0x14,0x04,0x35,0x35};
 //              &    $    /    %    (    ) +    !    #    {    }
 
 tblt ----> linpos for characters from '0' till 'z'
-char tblt[]={0x11,0x11,0x11,0x16,0x10,0x16,0x11,0x16,0x11,0x16,
+CHAR tblt[]={0x11,0x11,0x11,0x16,0x10,0x16,0x11,0x16,0x11,0x16,
 //           0    1    2    3    4 ?? 5    6    7    8    9
 //
 	       00,  00,0x01, 00,0x01,0x14,0x11,
@@ -295,7 +295,7 @@ char tblt[]={0x11,0x11,0x11,0x16,0x10,0x16,0x11,0x16,0x11,0x16,
    };
 
 /***********************
-static char tblg[]={0x01,0x01,0x01,0x01,0x44,0x06,0x01,0x01,
+static CHAR tblg[]={0x01,0x01,0x01,0x01,0x44,0x06,0x01,0x01,
 //                   b1   b2   b3   b4   b5   b6   b7   b8
 //                   fi   fl   ff  ffi   rt   ri    %    %
 	       0x01,0x44,0x48,40,40,00,00 };
@@ -483,7 +483,7 @@ BYTE let_tbdf[]={ 0, 0x40,0,0x40,0x40,1,5,0,0x40,0x40,0,0,0,0,0,0x40,
 // lin_compatible -- which letter agrees to be what size
 /********
 //  1 - small; 2 - capital, 4 - low (like 'y'), 8 - other
-static char tbdf[]={    // starts at 'space'
+static CHAR tbdf[]={    // starts at 'space'
 	     0,10,8,11,15,3,3,8,15,15,9,11,8,8,8,15,
 //             !  " #  $  % & ' (   ) *  + , - . /           last = 2f
              3,2,2,2,2,2,2,2,2,2,0,0,11,8,11,10,15,
@@ -700,7 +700,7 @@ static BYTE let_sans_acc_rus[257] = {
 BYTE    *let_linpos,    *let_lindef,
         *let_lincomp,   *let_linshape,
         *let_sans_acc,  *let_lindef3;
-uint16_t *accent_tab; // 30.08.2000 E.P.
+Word16 *accent_tab; // 30.08.2000 E.P.
 
  static BYTE alph_russian[256]={
 

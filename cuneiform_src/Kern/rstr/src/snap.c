@@ -80,8 +80,8 @@ static void snap_sticks(cell *,char *);
 
 
 // from module PASSE
-Bool _spell(char * s,BYTE lang);
-Bool _spell_agressive(char * s,BYTE lang);
+Bool _spell(PCHAR s,BYTE lang);
+Bool _spell_agressive(PCHAR s,BYTE lang);
 Bool short_spell(BYTE *wrd,BYTE language );
 Bool short_spell_re(BYTE *wrd,BYTE language );
 
@@ -98,14 +98,14 @@ extern  void    Cells2CSTR(CSTR_line lin,CSTR_line lino,cell *cur,Bool32 enable_
 extern  void    CopyAttr2CSTR(CSTR_rast_attr *attr, cell *c);
 extern  int     cell2UniVers(UniVersions *ver, cell *c);
 // from EVN32.DLL
-extern int EVNGetRepresent( RecRaster   *rRaster,
-    uchar *evn, uchar *evn_rot, int32_t font);
-extern int  EVNRecogCharPRN(   RecRaster  * rRaster,
+extern LONG EVNGetRepresent( RecRaster   *rRaster,
+    Word8 *evn, Word8 *evn_rot, int32_t font);
+extern LONG  EVNRecogCharPRN(   RecRaster  * rRaster,
       RecVersions* EVNres       );
 // from RCM.C
 extern  void    ErrorExit(int Code);
 extern  BYTE    decode_ASCII_to_[256][4];
-extern  char    StopPoint;
+extern  CHAR    StopPoint;
 extern  BYTE    CodePages[];
 //extern  INT     gbCol1,gbCol2;
 
@@ -118,7 +118,7 @@ static  BYTE    db_skip_client;
 static  CSTR_line   snap_line;
 static  cell        currcell;//,*db_stopcell;
 static  Point32 cutpoints_show[128];
-static  uint32_t  numpoints_show;
+static  Word32  numpoints_show;
 static  cell *  cutpoints_cell=NULL;
 static  int32_t   select_line=0, num_select_lines=0;
 cell   *stopcell=NULL;
@@ -182,11 +182,11 @@ LDPUMA_SetConsoleProperty(0,0,
         CodePages[3],   NULL);
 return;
 }
-static int Lang_Console(char *text, uchar lang)
+static int Lang_Console(char *text, Word8 lang)
 {
 char    buf[1024];
 //LDPUMA_SetConsoleProperty(Bool32 bold,Bool32 italic,
-//      Bool32 strikeout,Bool32 underline,int32_t height, int32_t offset,   uint32_t textcolor,
+//      Bool32 strikeout,Bool32 underline,int32_t height, int32_t offset,   Word32 textcolor,
 //      int charset,    char * name )
 LDPUMA_SetConsoleProperty(0,0,
         0,0,0,  0,      0,
@@ -264,9 +264,9 @@ return (CSTR_rast)NULL;
 }
 
 // позиция cell-a
-static uint32_t snap_cell2pos(cell *cl)
+static Word32 snap_cell2pos(cell *cl)
 {
-uint32_t pos;
+Word32 pos;
 cell    *c,*e;
 for(pos=0,c=cell_f()->next,e=cell_l();c!=e;c=c->next,pos++)
     {
@@ -353,7 +353,7 @@ static void snap_recogEVN(CSTR_rast r,cell * cl)
   return;
  if (tenv(cl))
   {
-  CSTR_GetImage(r,(uchar*)(&rRaster),CSTR_TYPE_IMAGE_RS);
+  CSTR_GetImage(r,(Word8*)(&rRaster),CSTR_TYPE_IMAGE_RS);
 
   if( EVNGetRepresent( &rRaster, evn, evnr, 1)==-1  )
     RUS_Console("Не могу получить ЛП");
@@ -459,7 +459,7 @@ static void snap_sticks(cell *c, char *str)
 
 static void store_spell(cell *c)
 {
-uchar       wrd[80],buf[160],*w=wrd;
+Word8       wrd[80],buf[160],*w=wrd;
 FILE       *fp=fopen("frh.txt","at");
 int         num_ln=0;
 cell       *b, *e;
@@ -505,7 +505,7 @@ return;
 
 static void show_spell(cell *c)
 {
-uchar   wrd[80],buf[160],*w=wrd, lang;
+Word8   wrd[80],buf[160],*w=wrd, lang;
 Bool32  nonrec=FALSE;
 
 
@@ -547,12 +547,12 @@ snap_show_text(buf);
 return;
 }
 
-int32_t snap_AddRecRaster(char *fname, RecRaster *r,uchar let, uchar font)
+int32_t snap_AddRecRaster(char *fname, RecRaster *r,Word8 let, Word8 font)
 {
 #ifdef _USE_CTB_
 CTB_handle  hnd;
 int32_t       num;
-uchar       raster[4096],data[CTB_DATA_SIZE]={0};
+Word8       raster[4096],data[CTB_DATA_SIZE]={0};
 int32_t       wb;
 Bool32      ret;
 B_LINES     my_bases;
@@ -569,8 +569,8 @@ if( !CTB_open( fname, &hnd, "w") )
         return FALSE;
         }
     }
-data[1] = (uchar)r->lnPixWidth;
-data[2] = (uchar)r->lnPixHeight;
+data[1] = (Word8)r->lnPixWidth;
+data[2] = (Word8)r->lnPixHeight;
 data[3] = let;
 data[4] = 0; // typeface
 if( font & CSTR_fp_it )
@@ -612,19 +612,19 @@ return -1;
         cell2UniVers(&uvs, c);                              \
         CSTR_StoreCollectionUni (r, &uvs);                  \
         if( c->env )                                        \
-          CSTR_StoreComp (r, (uchar*)((uchar*)c->env+c->env->lines),1,c->env->scale); \
+          CSTR_StoreComp (r, (Word8*)((Word8*)c->env+c->env->lines),1,c->env->scale); \
         RUS_Console(s);                                    \
         }                                                   \
     LDPUMA_CSTR_Update();                                   \
     }
 
 #ifdef _USE_DFON_
-  int (*DFon_SendRaster)(RecRaster* rr, Handle pPaintWnd, uchar let);
-  void (*DFon_Terminated)(uint32_t wParam);
+  int (*DFon_SendRaster)(RecRaster* rr, Handle pPaintWnd, Word8 let);
+  void (*DFon_Terminated)(Word32 wParam);
 #endif
 
 // обработчик  сообщений
-uint32_t myMonitorProc(Handle wnd,Handle hwnd,uint32_t message,uint32_t wParam,uint32_t lParam)
+Word32 myMonitorProc(Handle wnd,Handle hwnd,Word32 message,Word32 wParam,Word32 lParam)
 {
 int             ret=0;
 CSTR_rast       r=(CSTR_rast)0;
@@ -637,7 +637,7 @@ BYTE            str[1200];
 static CSTR_rast s_r = (CSTR_rast)0;
 unsigned int    i,ii;
 static Bool     no_process=TRUE;
-uint32_t          pos;
+Word32          pos;
 char            buf[256];
 
 pos=LDPUMA_CSTR_GetPosition((int *)&r);
@@ -672,7 +672,7 @@ switch(message)
     // MOUSE CLICKS
     case WM_LBUTTONDBLCLK:
                 { // select start cut point
-                        Point32 p = { (uint16_t)(lParam), (uint16_t)(lParam>>16)};  // vertical position of cursor  }
+                        Point32 p = { (Word16)(lParam), (Word16)(lParam>>16)};  // vertical position of cursor  }
                         p = LDPUMA_GetRasterPixel(wnd,p);
             for(ii=1,i=0;i<numpoints_show;i+=2,ii++)
                 {
@@ -693,7 +693,7 @@ switch(message)
 
     case WM_RBUTTONDBLCLK:
                 { // show one cut point
-                Point32 p = { (uint16_t)(lParam), (uint16_t)(lParam>>16)};  // vertical position of cursor  }
+                Point32 p = { (Word16)(lParam), (Word16)(lParam>>16)};  // vertical position of cursor  }
                 p = LDPUMA_GetRasterPixel(wnd,p);
                 for(ii=1,i=0;i<numpoints_show;i+=2,ii++)
                     {
@@ -766,9 +766,9 @@ switch(message)
         case    VK_F8:  // ALT + F8
             if( r )
                 {
-                uchar let;
-                CSTR_GetImage(r,(uchar*)(&rRaster),CSTR_TYPE_IMAGE_RS);
-                let = (uchar)(c->nvers? c->vers[0].let:'~');
+                Word8 let;
+                CSTR_GetImage(r,(Word8*)(&rRaster),CSTR_TYPE_IMAGE_RS);
+                let = (Word8)(c->nvers? c->vers[0].let:'~');
                 if( decode_ASCII_to_[let][1]==0 )
                     let = decode_ASCII_to_[let][0];
                 CSTR_GetAttr(r,&attr);
@@ -906,10 +906,10 @@ switch(message)
                     break;
                     }
 
-                CSTR_GetImage(r,(uchar*)(&rRaster),CSTR_TYPE_IMAGE_RS);
+                CSTR_GetImage(r,(Word8*)(&rRaster),CSTR_TYPE_IMAGE_RS);
                 // надо повернуть ?
                 p2_rotate(&rRaster);
-                DFon_SendRaster( &rRaster, hwnd, (uchar)(c&&c->nvers?c->vers[0].let:'~'));
+                DFon_SendRaster( &rRaster, hwnd, (Word8)(c&&c->nvers?c->vers[0].let:'~'));
 #else
                 RUS_Console("verrions without DFON.DLL");
 #endif
@@ -993,7 +993,7 @@ switch(message)
                     RecVersions vers;                                                                                                                                   char rere[256],rerew[256];
                     int i;
 
-                    CSTR_GetImage(r,(uchar*)(&rRaster),CSTR_TYPE_IMAGE_RS);
+                    CSTR_GetImage(r,(Word8*)(&rRaster),CSTR_TYPE_IMAGE_RS);
                     p2_recog(&rRaster,&vers,NULL,FALSE);
                     rere[0]=0;
                     for(i=0;i<vers.lnAltCnt;i++)
@@ -1079,7 +1079,7 @@ switch(message)
                 break;
         }
 
-return (uint32_t)(ret);
+return (Word32)(ret);
 }
 
 // режим мониторинга строки и ожидания клавиши
@@ -1318,10 +1318,10 @@ currcell.complist = (c_comp *)c;
 return TRUE;
 }
 
-static void snap_align8_lines(uchar *bin,int32_t w, int32_t h)
+static void snap_align8_lines(Word8 *bin,int32_t w, int32_t h)
 {
 int i,ii,iii, wb=(w+7)/8, wb_new=((w+63)/64)*8;
-uchar   buf[256];
+Word8   buf[256];
 
 memset(buf,0,wb_new);
 for(iii=(h-1)*wb_new,ii=(h-1)*wb,i=0;i<h;i++,ii-=wb,iii-=wb_new)
@@ -1469,7 +1469,7 @@ return;
 
 // knot for Alik debug. Absent pass 'j'
 Bool Alik_snap_show_raster(PBYTE raster,PBYTE raster1,PBYTE buf,INT height,
-                           INT width,char * product,char * product_two,
+                           INT width,PCHAR product,PCHAR product_two,
                            PINT penalty)
 
 {
@@ -1501,13 +1501,13 @@ Bool snap_baselines(BYTE a)
 	return !LDPUMA_Skip(hSnapLineBL[a - 'a']);
 }
 
-void snap_draw_line(Handle wnd, Point16 *start, Point16 *end, int32_t skew, uint32_t rgb, int16_t pen, uint32_t key)//IGOR
+void snap_draw_line(Handle wnd, Point16 *start, Point16 *end, int32_t skew, Word32 rgb, Int16 pen, Word32 key)//IGOR
 {
 	LDPUMA_DrawLine(wnd,start, end, skew, rgb, pen, key);
 	return;
 }
 
-void snap_del_line(Handle wnd, uint32_t key)
+void snap_del_line(Handle wnd, Word32 key)
 {
 	LDPUMA_DeleteLines(wnd, key);
 	return;

@@ -166,10 +166,10 @@ static void _squeezeIfTooMany(  int32_t & hor_len, int32_t & ver_len,
 }
 
 //******************************* Rom 8-2-99 **************
-static void FillFragmentsCount( int32_t hnd, Bool hor, int16_t* cnt, uchar* quality)
+static void FillFragmentsCount( int32_t hnd, Bool hor, Int16* cnt, Word8* quality)
 {
-	int16_t Romii;
-   int16_t SpacesLength, TotalLength;
+	Int16 Romii;
+   Int16 SpacesLength, TotalLength;
 	TLinesBambuk* lb = hor ? hLB : vLB;
 
 	TLineInfo & li = lb->linesRoot[hnd];
@@ -398,8 +398,8 @@ Bool ExtrLinesGetCount(   int32_t  hor_len, int32_t  ver_len,
 
 static void  LCpy( Point16& dst, Point32& src )
 {
-dst.x=(int16_t)(src.x);
-dst.y=(int16_t)(src.y);
+dst.x=(Int16)(src.x);
+dst.y=(Int16)(src.y);
 }
 
 
@@ -408,8 +408,8 @@ Bool ExtrLinesGetInfo(  LinesTotalInfo * lti,
 								int32_t &hor_cnt, int32_t &ver_cnt
                      )
 {
-	int16_t cnt;//******************Rom
-	uchar Quality;//******************Rom
+	Int16 cnt;//******************Rom
+	Word8 Quality;//******************Rom
 
    if (hLB == NULL) return WRONG();
    if (vLB == NULL) return WRONG();

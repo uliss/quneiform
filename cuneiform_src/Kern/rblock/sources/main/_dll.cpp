@@ -75,8 +75,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include "newfunc.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-static uint16_t            gwHeightRC = 0;
-static uint32_t            gwRC = 0;
+static Word16            gwHeightRC = 0;
+static Word32            gwRC = 0;
 static HANDLE            ghStorage = NULL;
 static HINSTANCE         ghInst =  NULL;
 /////////////////////////////////////////
@@ -88,7 +88,7 @@ extern unsigned short int run_options;
 /////////////////////////////////////////
 Bool APIENTRY DllMain( HINSTANCE  hModule,
 uint32_t ul_reason_for_call,
-                        pvoid lpReserved )
+                        LPVOID lpReserved )
 {
     switch( ul_reason_for_call )
 	{
@@ -106,7 +106,7 @@ uint32_t ul_reason_for_call,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RBLOCK_FUNC(Bool32) RBLOCK_Init(uint16_t wHeightCode,HANDLE hStorage)
+RBLOCK_FUNC(Bool32) RBLOCK_Init(Word16 wHeightCode,HANDLE hStorage)
 {
 	gwHeightRC = wHeightCode;
 	LDPUMA_Init(0,NULL);
@@ -129,17 +129,17 @@ RBLOCK_FUNC(Bool32) RBLOCK_Done()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RBLOCK_FUNC(uint32_t) RBLOCK_GetReturnCode()
+RBLOCK_FUNC(Word32) RBLOCK_GetReturnCode()
 {
 	return gwRC;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RBLOCK_FUNC(char *) RBLOCK_GetReturnString(uint32_t dwError)
+RBLOCK_FUNC(Int8 *) RBLOCK_GetReturnString(Word32 dwError)
 {
 	static char szBuffer[512];
-	uint16_t low = (uint16_t)(dwError &  0xFFFF);
-	uint16_t hei = (uint16_t)(dwError >> 16);
+	Word16 low = (Word16)(dwError &  0xFFFF);
+	Word16 hei = (Word16)(dwError >> 16);
 
 	if(hei == gwHeightRC)
 	{
@@ -151,11 +151,11 @@ RBLOCK_FUNC(char *) RBLOCK_GetReturnString(uint32_t dwError)
 		LoadString(ghInst,IDS_ERR_NOTIMPLEMENT,(char *)szBuffer,sizeof(szBuffer));
 	}
 
-	return (char*)szBuffer;
+	return (Int8*)szBuffer;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RBLOCK_FUNC(Bool32) RBLOCK_GetExportData(uint32_t dwType, void * pData)
+RBLOCK_FUNC(Bool32) RBLOCK_GetExportData(Word32 dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -179,7 +179,7 @@ return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RBLOCK_FUNC(Bool32) RBLOCK_SetImportData(uint32_t dwType, void * pData)
+RBLOCK_FUNC(Bool32) RBLOCK_SetImportData(Word32 dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -213,27 +213,27 @@ RBLOCK_FUNC(Bool32) RBLOCK_SetImportData(uint32_t dwType, void * pData)
 return rc;
 }
 
-void SetReturnCode_rblock(uint32_t rc)
+void SetReturnCode_rblock(Word32 rc)
 {
-uint16_t low = (uint16_t)(rc &  0xFFFF);
-uint16_t hei = (uint16_t)(rc >> 16);
+Word16 low = (Word16)(rc &  0xFFFF);
+Word16 hei = (Word16)(rc >> 16);
 
 	if(hei)
 		gwRC = rc;
 	else
 	{
 		if(low - IDS_ERR_NO)
-			gwRC = (uint32_t)(gwHeightRC<<16)|(low - IDS_ERR_NO);
+			gwRC = (Word32)(gwHeightRC<<16)|(low - IDS_ERR_NO);
 		else
 			gwRC = 0;
 	}
 }
 
-uint32_t GetReturnCode_rblock()
+Word32 GetReturnCode_rblock()
 {
-uint32_t rc = gwRC;
-uint16_t low = (uint16_t)(gwRC &  0xFFFF);
-uint16_t hei = (uint16_t)(gwRC >> 16);
+Word32 rc = gwRC;
+Word16 low = (Word16)(gwRC &  0xFFFF);
+Word16 hei = (Word16)(gwRC >> 16);
 
 	if(hei == gwHeightRC || hei == 0)
 		rc = low + IDS_ERR_NO;

@@ -377,10 +377,10 @@ void PutMess(int num, char *str)
 //==
 void ProjectPoint(Point16 *r,float tg_ang)
 //==
-{ int16_t xa,ya;
+{ Int16 xa,ya;
   float fi=(float)atan(tg_ang);
   float si=(float)sin(fi),co=(float)cos(fi);
-  xa=r->x; ya=r->y; r->x=(int16_t)(xa*co+ya*si); r->y=(int16_t)(-xa*si+ya*co);
+  xa=r->x; ya=r->y; r->x=(Int16)(xa*co+ya*si); r->y=(Int16)(-xa*si+ya*co);
 }
 */
 //#undef CT_SKEW
@@ -410,7 +410,7 @@ void ProjectRect1024(Rect16 *r,int32_t Skew1024)
 			Deskew(pt,-Skew1024);
 	    dx=pt.x-xa; dy=pt.y-ya;
 		#endif
-  	r->left+=(int16_t)dx; r->right+=(int16_t)dx; r->bottom+=(int16_t)dy; r->top+=(int16_t)dy;
+  	r->left+=(Int16)dx; r->right+=(Int16)dx; r->bottom+=(Int16)dy; r->top+=(Int16)dy;
   }
 }
 
@@ -419,10 +419,10 @@ void ProjectPoint1024(Point16 *r,int32_t Skew1024)
 //==
 {
 	#ifndef CT_SKEW
-		int16_t xa,ya;
+		Int16 xa,ya;
 	  xa=r->x; ya=r->y;
-	  r->x=xa + (int16_t)(((int32_t)ya*Skew1024)/1024);
-	  r->y=ya - (int16_t)(((int32_t)xa*Skew1024)/1024);
+	  r->x=xa + (Int16)(((int32_t)ya*Skew1024)/1024);
+	  r->y=ya - (Int16)(((int32_t)xa*Skew1024)/1024);
 	#else
 		Deskew(*r,-Skew1024);
 	#endif
@@ -430,10 +430,10 @@ void ProjectPoint1024(Point16 *r,int32_t Skew1024)
 
 #if defined (FIND_NDX) || defined (FIND_BOX) || defined (FIND_DOT)
 	extern MemFunc mem;
-	void* malloc_t(uint32_t size)         { return (*mem.alloc)(size); }
-	void free_t(void *ptr, uint32_t size) { (*mem.free)(ptr,size); }
-	void* malloc_u(uint32_t size)         {return malloc_m((WORD)size);}
-	void free_u(void *ptr, uint32_t size) {free_m(ptr);}
+	void* malloc_t(Word32 size)         { return (*mem.alloc)(size); }
+	void free_t(void *ptr, Word32 size) { (*mem.free)(ptr,size); }
+	void* malloc_u(Word32 size)         {return malloc_m((WORD)size);}
+	void free_u(void *ptr, Word32 size) {free_m(ptr);}
 #endif
 
 #ifndef WIN_MOD
@@ -455,7 +455,7 @@ void ProjectPoint1024(Point16 *r,int32_t Skew1024)
 	{
 		FILE *File;
 		BYTE buf03[255];
-		int16_t ret=0;
+		Int16 ret=0;
 
 		if((File=fopen(name,"rt")) == NULL) {
 			return 0;

@@ -76,8 +76,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 CRTurner::CRTurner()
 {
-	uint32_t i,j;
-	uchar mask, mask2;
+	Word32 i,j;
+	Word8 mask, mask2;
 
 	hLineBuffer = 0x00000000;   //NULL;
 
@@ -129,7 +129,7 @@ CRTurner::~CRTurner()
 
 }
 
-void * CRTurner::TurnDIB(void *pDIB, uint32_t wAngle)
+void * CRTurner::TurnDIB(void *pDIB, Word32 wAngle)
 {
     return NULL;
 }
@@ -139,7 +139,7 @@ Bool32 CRTurner::FreeDIB(void *pDIB)
 	return TRUE;
 }
 
-Bool32 CRTurner::TurnDIB(PCTDIB pInDIB, PCTDIB pOutDIB, uint32_t wAngle)
+Bool32 CRTurner::TurnDIB(PCTDIB pInDIB, PCTDIB pOutDIB, Word32 wAngle)
 {
 	Bool32 bRet;
 
@@ -253,22 +253,22 @@ Bool32 CRTurner::Turn270(PCTDIB pInDIB, PCTDIB pOutDIB)
 Bool32 CRTurner::Turn180LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 {
 	Bool32 bRet = FALSE;
-	uint32_t nLine;
-	uint32_t sLine;
-	uint32_t sLineSize;
-	uint32_t sShift;
-	uint32_t rShift;
-	uchar * sPix;
-	uchar * nPix;
-	uint32_t wLines = pInDIB->GetLinesNumber();
-	uint32_t sLineWidth = pInDIB->GetLineWidth();
-	uint32_t sBytesPerLine = pOutDIB->GetUsedLineWidthInBytes();
-	uint32_t cByte;
+	Word32 nLine;
+	Word32 sLine;
+	Word32 sLineSize;
+	Word32 sShift;
+	Word32 rShift;
+	PWord8 sPix;
+	PWord8 nPix;
+	Word32 wLines = pInDIB->GetLinesNumber();
+	Word32 sLineWidth = pInDIB->GetLineWidth();
+	Word32 sBytesPerLine = pOutDIB->GetUsedLineWidthInBytes();
+	Word32 cByte;
 
 	FreeBuffers();
 
 	hLineBuffer = RIMAGEDAlloc((sLineSize = pInDIB->GetLineWidthInBytes()),"CRTurner::Turn180LA - line buffer" );
-	LineBuffer  = (uchar *)RIMAGELock(hLineBuffer);
+	LineBuffer  = (PWord8)RIMAGELock(hLineBuffer);
 
 	// позиция последнего пиксела
 	sShift = pOutDIB->GetPixelShiftInByte(pOutDIB->GetLineWidth() - 1);
@@ -277,11 +277,11 @@ Bool32 CRTurner::Turn180LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 	for( nLine = 0, sLine = wLines - 1; nLine < wLines; nLine++, sLine--)
 	{
 		// копируем в буфер всю строку и при этом сдвигаем её
-		sPix = (uchar *)pInDIB->GetPtrToLine(sLine);
+		sPix = (PWord8)pInDIB->GetPtrToLine(sLine);
 
 		if ( sShift == 7 )
 		{
-			nPix = (uchar *)pOutDIB->GetPtrToLine(nLine) + sBytesPerLine - 1;
+			nPix = (PWord8)pOutDIB->GetPtrToLine(nLine) + sBytesPerLine - 1;
 		}
 		else
 		{
@@ -309,7 +309,7 @@ Bool32 CRTurner::Turn180LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 			}
 			// теперь копируем в выходной
 			sPix = LineBuffer;
-			nPix = (uchar *)pOutDIB->GetPtrToLine(nLine);
+			nPix = (PWord8)pOutDIB->GetPtrToLine(nLine);
 			memcpy(nPix, sPix, sBytesPerLine);
 		}
 		bRet = TRUE;
@@ -357,22 +357,22 @@ Bool32 CRTurner::CheckInAndOut90(PCTDIB pIn, PCTDIB pOut)
 
 Bool32 CRTurner::Turn90LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 {
-	uint32_t dLines = pOutDIB->GetLinesNumber();
-	uint32_t sLines = pInDIB->GetLinesNumber();  //
+	Word32 dLines = pOutDIB->GetLinesNumber();
+	Word32 sLines = pInDIB->GetLinesNumber();  //
 	int32_t  sX;
 	int32_t  dX;
 	int32_t  dLine;
 	int32_t  sLine;
-	uchar * sPix;
-	uchar * dPix;
-	uint32_t sBytesPerLine = pOutDIB->GetLineWidth()/8;
-	uint32_t cByte;
-	uint32_t sShift;
+	PWord8 sPix;
+	PWord8 dPix;
+	Word32 sBytesPerLine = pOutDIB->GetLineWidth()/8;
+	Word32 cByte;
+	Word32 sShift;
 
 	for ( dLine = 0, sX = 0; dLine < (int32_t)dLines; dLine++, sX++ )
 	{
 		// начало линии
-		dPix = (uchar *)pOutDIB->GetPtrToLine(dLine);
+		dPix = (PWord8)pOutDIB->GetPtrToLine(dLine);
 		// сдвиг
 		sShift = pInDIB->GetPixelShiftInByte(sX);
 		// по 8 пикселей
@@ -381,35 +381,35 @@ Bool32 CRTurner::Turn90LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 			*dPix = 0x0;
 
 			//x.......
-			sPix = (uchar *)pInDIB->GetPtrToPixel(sX, sLine--);
+			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine--);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][0];
 
 			//.x......
-			sPix = (uchar *)pInDIB->GetPtrToPixel(sX, sLine--);
+			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine--);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][1];
 
 			//..x.....
-			sPix = (uchar *)pInDIB->GetPtrToPixel(sX, sLine--);
+			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine--);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][2];
 
 			//...x....
-			sPix = (uchar *)pInDIB->GetPtrToPixel(sX, sLine--);
+			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine--);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][3];
 
 			//....x...
-			sPix = (uchar *)pInDIB->GetPtrToPixel(sX, sLine--);
+			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine--);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][4];
 
 			//.....x..
-			sPix = (uchar *)pInDIB->GetPtrToPixel(sX, sLine--);
+			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine--);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][5];
 
 			//......x.
-			sPix = (uchar *)pInDIB->GetPtrToPixel(sX, sLine--);
+			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine--);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][6];
 
 			//.......x
-			sPix = (uchar *)pInDIB->GetPtrToPixel(sX, sLine--);
+			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine--);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][7];
 
 			dPix++;
@@ -422,7 +422,7 @@ Bool32 CRTurner::Turn90LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 
 			for ( ; sLine >= 0; sLine--, dX++ )
 			{
-				sPix = (uchar *)pInDIB->GetPtrToPixel(sX, sLine);
+				sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine);
 				*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][(pOutDIB->GetPixelShiftInByte(dX))];
 			}
 		}
@@ -432,22 +432,22 @@ Bool32 CRTurner::Turn90LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 
 Bool32 CRTurner::Turn270LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 {
-	uint32_t dLines = pOutDIB->GetLinesNumber();
-	uint32_t sLines = pInDIB->GetLinesNumber();  //
+	Word32 dLines = pOutDIB->GetLinesNumber();
+	Word32 sLines = pInDIB->GetLinesNumber();  //
 	int32_t  sX;
 	int32_t  dX;
 	int32_t  dLine;
 	int32_t  sLine;
-	uchar * sPix;
-	uchar * dPix;
-	uint32_t sBytesPerLine = pOutDIB->GetLineWidth()/8;
-	uint32_t cByte;
-	uint32_t sShift;
+	PWord8 sPix;
+	PWord8 dPix;
+	Word32 sBytesPerLine = pOutDIB->GetLineWidth()/8;
+	Word32 cByte;
+	Word32 sShift;
 
 	for ( dLine = 0, sX = dLines - 1; dLine < (int32_t)dLines; dLine++, sX-- )
 	{
 		// начало линии
-		dPix = (uchar *)pOutDIB->GetPtrToLine(dLine);
+		dPix = (PWord8)pOutDIB->GetPtrToLine(dLine);
 		// сдвиг
 		sShift = pInDIB->GetPixelShiftInByte(sX);
 		// по 8 пикселей
@@ -456,35 +456,35 @@ Bool32 CRTurner::Turn270LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 			*dPix = 0x0;
 
 			//x.......
-			sPix = (uchar *)pInDIB->GetPtrToPixel(sX, sLine++);
+			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine++);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][0];
 
 			//.x......
-			sPix = (uchar *)pInDIB->GetPtrToPixel(sX, sLine++);
+			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine++);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][1];
 
 			//..x.....
-			sPix = (uchar *)pInDIB->GetPtrToPixel(sX, sLine++);
+			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine++);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][2];
 
 			//...x....
-			sPix = (uchar *)pInDIB->GetPtrToPixel(sX, sLine++);
+			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine++);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][3];
 
 			//....x...
-			sPix = (uchar *)pInDIB->GetPtrToPixel(sX, sLine++);
+			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine++);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][4];
 
 			//.....x..
-			sPix = (uchar *)pInDIB->GetPtrToPixel(sX, sLine++);
+			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine++);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][5];
 
 			//......x.
-			sPix = (uchar *)pInDIB->GetPtrToPixel(sX, sLine++);
+			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine++);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][6];
 
 			//.......x
-			sPix = (uchar *)pInDIB->GetPtrToPixel(sX, sLine++);
+			sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine++);
 			*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][7];
 
 			dPix++;
@@ -498,7 +498,7 @@ Bool32 CRTurner::Turn270LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 
 			for ( ; sLine < (int32_t)sLines; sLine++, dX++ )
 			{
-				sPix = (uchar *)pInDIB->GetPtrToPixel(sX, sLine);
+				sPix = (PWord8)pInDIB->GetPtrToPixel(sX, sLine);
 
 				*dPix |= Turn1at90[((*sPix)&wBitMask[sShift])][(pOutDIB->GetPixelShiftInByte(dX))];
 			}
@@ -514,26 +514,26 @@ Bool32 CRTurner::Turn90GC(PCTDIB pIn, PCTDIB pOut)
 	int32_t   dX;
 	int32_t   dLine;
 	int32_t   sLine;
-	uchar *  sPix8;
-	uchar *  dPix8;
-	uint16_t * sPix16;
-	uint16_t * dPix16;
-	uint32_t * sPix32;
-	uint32_t * dPix32;
-	uint32_t  dLines = pOut->GetLinesNumber();
-	uint32_t  sLines = pIn->GetLinesNumber();  //
-	uint32_t  wPixSize = pIn->GetPixelSize() / 8;
+	PWord8  sPix8;
+	PWord8  dPix8;
+	PWord16 sPix16;
+	PWord16 dPix16;
+	PWord32 sPix32;
+	PWord32 dPix32;
+	Word32  dLines = pOut->GetLinesNumber();
+	Word32  sLines = pIn->GetLinesNumber();  //
+	Word32  wPixSize = pIn->GetPixelSize() / 8;
 
 	switch (wPixSize)
 	{
 	case 1:
 		for( dLine = 0, sX = 0;  dLine < (int32_t)dLines; dLine++, sX++ )
 		{
-		CONTINUEPIXEL(dPix8 = (uchar *)pOut->GetPtrToLine( dLine ));
+		CONTINUEPIXEL(dPix8 = (PWord8)pOut->GetPtrToLine( dLine ));
 
 			for ( sLine = sLines - 1, dX = 0; dX < (int32_t)sLines; sLine--, dX++, dPix8++ )
 			{
-				CONTINUEPIXEL(sPix8 = (uchar *)pIn->GetPtrToPixel( sX, sLine));
+				CONTINUEPIXEL(sPix8 = (PWord8)pIn->GetPtrToPixel( sX, sLine));
 				*dPix8 = *sPix8;
 			}
 		}
@@ -543,11 +543,11 @@ Bool32 CRTurner::Turn90GC(PCTDIB pIn, PCTDIB pOut)
 	case 2:
 		for( dLine = 0, sX = 0;  dLine < (int32_t)dLines; dLine++, sX++ )
 		{
-			CONTINUEPIXEL(dPix16 = (uint16_t *)pOut->GetPtrToLine( dLine ));
+			CONTINUEPIXEL(dPix16 = (PWord16)pOut->GetPtrToLine( dLine ));
 
 			for ( sLine = sLines - 1, dX = 0; dX < (int32_t)sLines; sLine--, dX++, dPix16++ )
 			{
-				CONTINUEPIXEL(sPix16 = (uint16_t *)pIn->GetPtrToPixel( sX, sLine));
+				CONTINUEPIXEL(sPix16 = (PWord16)pIn->GetPtrToPixel( sX, sLine));
 				*dPix16 = *sPix16;
 			}
 		}
@@ -557,11 +557,11 @@ Bool32 CRTurner::Turn90GC(PCTDIB pIn, PCTDIB pOut)
 	case 3:
 		for( dLine = 0, sX = 0;  dLine < (int32_t)dLines; dLine++, sX++ )
 		{
-			CONTINUEPIXEL(dPix8 = (uchar *)pOut->GetPtrToLine( dLine )) ;
+			CONTINUEPIXEL(dPix8 = (PWord8)pOut->GetPtrToLine( dLine )) ;
 
 			for ( sLine = sLines - 1, dX = 0; dX < (int32_t)sLines; sLine--, dX++ )
 			{
-				CONTINUEPIXEL(sPix8 = (uchar *)pIn->GetPtrToPixel( sX, sLine));
+				CONTINUEPIXEL(sPix8 = (PWord8)pIn->GetPtrToPixel( sX, sLine));
 				*dPix8++ = *sPix8++;
 				*dPix8++ = *sPix8++;
 				*dPix8++ = *sPix8++;
@@ -573,11 +573,11 @@ Bool32 CRTurner::Turn90GC(PCTDIB pIn, PCTDIB pOut)
 	case 4:
 		for( dLine = 0, sX = 0;  dLine < (int32_t)dLines; dLine++, sX++ )
 		{
-			CONTINUEPIXEL(dPix32 = (uint32_t *)pOut->GetPtrToLine( dLine ));
+			CONTINUEPIXEL(dPix32 = (PWord32)pOut->GetPtrToLine( dLine ));
 
 			for ( sLine = sLines - 1, dX = 0; dX < (int32_t)sLines; sLine--, dX++, dPix32++ )
 			{
-				CONTINUEPIXEL(sPix32 = (uint32_t *)pIn->GetPtrToPixel( sX, sLine));
+				CONTINUEPIXEL(sPix32 = (PWord32)pIn->GetPtrToPixel( sX, sLine));
 				*dPix32 = *sPix32;
 			}
 		}
@@ -594,26 +594,26 @@ Bool32 CRTurner::Turn90GC(PCTDIB pIn, PCTDIB pOut)
 Bool32 CRTurner::Turn180GC(PCTDIB pIn, PCTDIB pOut)
 {
 	Bool32  bRet = FALSE;
-	uint32_t  dLine;
-	uint32_t  sLine;
-	uint32_t  wPix;
-	uchar *  sPix8;
-	uchar *  dPix8;
-	uint16_t * sPix16;
-	uint16_t * dPix16;
-	uint32_t * sPix32;
-	uint32_t * dPix32;
-	uint32_t  wPixSize = pIn->GetPixelSize() / 8;
-	uint32_t  wLines = pIn->GetLinesNumber();
-	uint32_t  sLineWidth = pIn->GetLineWidth();
+	Word32  dLine;
+	Word32  sLine;
+	Word32  wPix;
+	PWord8  sPix8;
+	PWord8  dPix8;
+	PWord16 sPix16;
+	PWord16 dPix16;
+	PWord32 sPix32;
+	PWord32 dPix32;
+	Word32  wPixSize = pIn->GetPixelSize() / 8;
+	Word32  wLines = pIn->GetLinesNumber();
+	Word32  sLineWidth = pIn->GetLineWidth();
 
 	switch (wPixSize)
 	{
 	case 1:
 		for( dLine = 0, sLine = wLines - 1; dLine < wLines; dLine++, sLine--)
 		{
-			sPix8 = (uchar *)pIn->GetPtrToPixel( sLineWidth - 1, sLine);
-			dPix8 = (uchar *)pOut->GetPtrToLine( dLine );
+			sPix8 = (PWord8)pIn->GetPtrToPixel( sLineWidth - 1, sLine);
+			dPix8 = (PWord8)pOut->GetPtrToLine( dLine );
 
 			for ( wPix = 0; wPix < sLineWidth; wPix++, sPix8 --, dPix8 ++ )
 			{
@@ -626,8 +626,8 @@ Bool32 CRTurner::Turn180GC(PCTDIB pIn, PCTDIB pOut)
 	case 2:
 		for( dLine = 0, sLine = wLines - 1; dLine < wLines; dLine++, sLine--)
 		{
-			sPix16 = (uint16_t *)pIn->GetPtrToPixel( sLineWidth - 1, sLine);
-			dPix16 = (uint16_t *)pOut->GetPtrToLine( dLine );
+			sPix16 = (PWord16)pIn->GetPtrToPixel( sLineWidth - 1, sLine);
+			dPix16 = (PWord16)pOut->GetPtrToLine( dLine );
 
 			for ( wPix = 0; wPix < sLineWidth; wPix++, sPix16 --, dPix16 ++ )
 			{
@@ -640,8 +640,8 @@ Bool32 CRTurner::Turn180GC(PCTDIB pIn, PCTDIB pOut)
 	case 3:
 		for( dLine = 0, sLine = wLines - 1; dLine < wLines; dLine++, sLine--)
 		{
-			sPix8 = (uchar *)pIn->GetPtrToPixel( sLineWidth - 1, sLine);
-			dPix8 = (uchar *)pOut->GetPtrToLine( dLine );
+			sPix8 = (PWord8)pIn->GetPtrToPixel( sLineWidth - 1, sLine);
+			dPix8 = (PWord8)pOut->GetPtrToLine( dLine );
 
 			for ( wPix = 0; wPix < sLineWidth; wPix++, sPix8 -= 6)
 			{
@@ -656,8 +656,8 @@ Bool32 CRTurner::Turn180GC(PCTDIB pIn, PCTDIB pOut)
 	case 4:
 		for( dLine = 0, sLine = wLines - 1; dLine < wLines; dLine++, sLine--)
 		{
-			sPix32 = (uint32_t *)pIn->GetPtrToPixel( sLineWidth - 1, sLine);
-			dPix32 = (uint32_t *)pOut->GetPtrToLine( dLine );
+			sPix32 = (PWord32)pIn->GetPtrToPixel( sLineWidth - 1, sLine);
+			dPix32 = (PWord32)pOut->GetPtrToLine( dLine );
 
 			for ( wPix = 0; wPix < sLineWidth; wPix++, sPix32--, dPix32++ )
 			{
@@ -681,26 +681,26 @@ Bool32 CRTurner::Turn270GC(PCTDIB pIn, PCTDIB pOut)
 	int32_t   dX;
 	int32_t   dLine;
 	int32_t   sLine;
-	uchar *  sPix8;
-	uchar *  dPix8;
-	uint16_t * sPix16;
-	uint16_t * dPix16;
-	uint32_t * sPix32;
-	uint32_t * dPix32;
-	uint32_t  dLines = pOut->GetLinesNumber();
-	uint32_t  sLines = pIn->GetLinesNumber();  //
-	uint32_t  wPixSize = pIn->GetPixelSize() / 8;
+	PWord8  sPix8;
+	PWord8  dPix8;
+	PWord16 sPix16;
+	PWord16 dPix16;
+	PWord32 sPix32;
+	PWord32 dPix32;
+	Word32  dLines = pOut->GetLinesNumber();
+	Word32  sLines = pIn->GetLinesNumber();  //
+	Word32  wPixSize = pIn->GetPixelSize() / 8;
 
 	switch (wPixSize)
 	{
 	case 1:
 		for( dLine = 0, sX = dLines - 1;  dLine < (int32_t)dLines; dLine++, sX-- )
 		{
-			CONTINUEPIXEL(dPix8 = (uchar *)pOut->GetPtrToLine( dLine ));
+			CONTINUEPIXEL(dPix8 = (PWord8)pOut->GetPtrToLine( dLine ));
 
 			for ( sLine = 0, dX = 0; sLine < (int32_t)sLines; sLine++, dX++, dPix8++ )
 			{
-				CONTINUEPIXEL(sPix8 = (uchar *)pIn->GetPtrToPixel( sX, sLine));
+				CONTINUEPIXEL(sPix8 = (PWord8)pIn->GetPtrToPixel( sX, sLine));
 				*dPix8 = *sPix8;
 			}
 		}
@@ -710,11 +710,11 @@ Bool32 CRTurner::Turn270GC(PCTDIB pIn, PCTDIB pOut)
 	case 2:
 		for( dLine = 0, sX = dLines - 1;  dLine < (int32_t)dLines; dLine++, sX-- )
 		{
-			CONTINUEPIXEL(dPix16 = (uint16_t *)pOut->GetPtrToLine( dLine ));
+			CONTINUEPIXEL(dPix16 = (PWord16)pOut->GetPtrToLine( dLine ));
 
 			for ( sLine = 0, dX = 0; sLine < (int32_t)sLines; sLine++, dX++, dPix16++ )
 			{
-				CONTINUEPIXEL(sPix16 = (uint16_t *)pIn->GetPtrToPixel( sX, sLine));
+				CONTINUEPIXEL(sPix16 = (PWord16)pIn->GetPtrToPixel( sX, sLine));
 				*dPix16 = *sPix16;
 			}
 		}
@@ -724,11 +724,11 @@ Bool32 CRTurner::Turn270GC(PCTDIB pIn, PCTDIB pOut)
 	case 3:
 		for( dLine = 0, sX = dLines - 1;  dLine < (int32_t)dLines; dLine++, sX-- )
 		{
-			CONTINUEPIXEL(dPix8 = (uchar *)pOut->GetPtrToLine( dLine ));
+			CONTINUEPIXEL(dPix8 = (PWord8)pOut->GetPtrToLine( dLine ));
 
 			for ( sLine = 0, dX = 0; sLine < (int32_t)sLines; sLine++, dX++  )
 			{
-				CONTINUEPIXEL(sPix8 = (uchar *)pIn->GetPtrToPixel( sX, sLine));
+				CONTINUEPIXEL(sPix8 = (PWord8)pIn->GetPtrToPixel( sX, sLine));
 				*dPix8++ = *sPix8++;
 				*dPix8++ = *sPix8++;
 				*dPix8++ = *sPix8++;
@@ -740,11 +740,11 @@ Bool32 CRTurner::Turn270GC(PCTDIB pIn, PCTDIB pOut)
 	case 4:
 		for( dLine = 0, sX = dLines - 1;  dLine < (int32_t)dLines; dLine++, sX-- )
 		{
-			CONTINUEPIXEL(dPix32 = (uint32_t *)pOut->GetPtrToLine( dLine ));
+			CONTINUEPIXEL(dPix32 = (PWord32)pOut->GetPtrToLine( dLine ));
 
 			for ( sLine = 0, dX = 0; sLine < (int32_t)sLines; sLine++, dX++, dPix32++ )
 			{
-				CONTINUEPIXEL(sPix32 = (uint32_t *)pIn->GetPtrToPixel( sX, sLine));
+				CONTINUEPIXEL(sPix32 = (PWord32)pIn->GetPtrToPixel( sX, sLine));
 				*dPix32 = *sPix32;
 			}
 		}
@@ -761,7 +761,7 @@ Bool32 CRTurner::Turn270GC(PCTDIB pIn, PCTDIB pOut)
 Bool32 CRTurner::WriteDIBtoBMP(const char *cName, PCTDIB pDIB)
 {
 #ifdef RIMAGE_DUMP_TO_FILE
-	uint32_t  wBMPSize = pDIB->GetDIBSize() + 14;
+	Word32  wBMPSize = pDIB->GetDIBSize() + 14;
 	PumaMemoryToFileDumper BMPDump(cName);
 
 	BMPDump.AddDump("BM",2);

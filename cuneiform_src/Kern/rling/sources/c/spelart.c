@@ -176,7 +176,7 @@ Bool loadArtBase (INT CountryCode)
 		vocs_NOK |= 1<<9;
 		return FALSE;
 	}
-	if ( TGREAD(h, (char *) (&f), sizeof (f))!= sizeof(f))
+	if ( TGREAD(h, (CHAR *) (&f), sizeof (f))!= sizeof(f))
 	{
 		TGCLOSE(h);
 		return FALSE;
@@ -213,7 +213,7 @@ Bool loadArtBase (INT CountryCode)
 	//memset( artbase+i, 0, sizeof(ARTS)*(MAX_ARTS-i) ); // Bound
 	memset( &artbase[i], 0, (&artbase[MAX_ARTS] - &artbase[i]) ); // Bound
 
-	if ( TGREAD( h, (char *) (artbase+i), sizeof(ARTS)*f.rep_no ) != (int)(sizeof(ARTS)*f.rep_no) )
+	if ( TGREAD( h, (CHAR *) (artbase+i), sizeof(ARTS)*f.rep_no ) != (LONG)(sizeof(ARTS)*f.rep_no) )
 	{
 		TGCLOSE(h);
 		return FALSE;
@@ -520,7 +520,7 @@ static BYTE wide_let[]={ 0xec,0xe6,0xf8,0xf9,0xfe,0xce,0xcf };
   { case  BAD_S : if(obj->pos[pi1].orig.attr>PROB_TO_BRK)
 		      return(No);
 		  break;
-    case  DEL_S:  if((type=symcode((char  *)&(obj->pos[pi1].orig.code)))
+    case  DEL_S:  if((type=symcode((CHAR  *)&(obj->pos[pi1].orig.code)))
 		     !=E_DL)if(type!=_APF) return(No);
 		  break;
   }
@@ -528,12 +528,12 @@ static BYTE wide_let[]={ 0xec,0xe6,0xf8,0xf9,0xfe,0xce,0xcf };
   { case  BAD_S : if(obj->pos[pi2].orig.attr>PROB_TO_BRK)
 		      return(No);
 		  break;
-    case  DEL_S:  if(type=symcode((char  *)&(obj->pos[pi2].orig.code))
+    case  DEL_S:  if(type=symcode((CHAR  *)&(obj->pos[pi2].orig.code))
 		     !=E_DL) if(type!=_APF)return(No);
 		  break;
     // Le + Vova    01-24-94 03:45pm
     case  WID_S:  if (!(MEMCHR(wide_let,
-                            *((char  *)&(obj->pos[pi2].orig.code))
+                            *((CHAR  *)&(obj->pos[pi2].orig.code))
                             ,sizeof wide_let )) ||
                             language != LANG_RUSSIAN ) return (No);
                   break;
@@ -728,7 +728,7 @@ INT  setart_new (SOBJ * obj, INT * pa,
  INT posn, stdn;
  INT i;
  LT  * lt;
- char  * pc;
+ CHAR  * pc;
  BYTE   c;              // Valdemar+Lepik for russian
 
  if (!code)

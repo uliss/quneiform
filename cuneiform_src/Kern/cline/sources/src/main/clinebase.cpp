@@ -113,7 +113,7 @@ void DeleteData(void);
 
 /////////////////////////////////////////
 Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
-		pvoid lpReserved) {
+		LPVOID lpReserved) {
 	switch (ul_reason_for_call) {
 	case DLL_PROCESS_ATTACH:
 		break;
@@ -128,7 +128,7 @@ Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CLINE_FUNC(Bool32) CLINE_Init(uint16_t wHeightCode,HANDLE hStorage)
+CLINE_FUNC(Bool32) CLINE_Init(Word16 wHeightCode,HANDLE hStorage)
 {
 	LDPUMA_Init(0,NULL);
 
@@ -187,19 +187,19 @@ CLINE_FUNC(Bool32) CLINE_Done()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CLINE_FUNC(uint32_t) CLINE_GetReturnCode()
+CLINE_FUNC(Word32) CLINE_GetReturnCode()
 {
 	return 0;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CLINE_FUNC(char *) CLINE_GetReturnString(uint32_t dwError)
+CLINE_FUNC(Int8 *) CLINE_GetReturnString(Word32 dwError)
 {
 	return NULL;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CLINE_FUNC(Bool32) CLINE_GetExportData(uint32_t dwType, void * pData)
+CLINE_FUNC(Bool32) CLINE_GetExportData(Word32 dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -272,13 +272,13 @@ CLINE_FUNC(Bool32) CLINE_GetExportData(uint32_t dwType, void * pData)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CLINE_FUNC(Bool32) CLINE_SetImportData(uint32_t dwType, void * pData)
+CLINE_FUNC(Bool32) CLINE_SetImportData(Word32 dwType, void * pData)
 {
 	return FALSE;
 }
 
-CLINE_FUNC(uint32_t) CLINE_SetReturnCode(uint32_t rc)
+CLINE_FUNC(Word32) CLINE_SetReturnCode(Word32 rc)
 {
-	return (uint32_t)(0);
+	return (Word32)(0);
 }
 

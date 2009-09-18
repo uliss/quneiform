@@ -69,7 +69,7 @@ PAGE::~PAGE()
 	Block.Clear();
 }
 //#################################
-Handle	PAGE::CreateBlock(Handle Type, uint32_t UserNum , uint32_t Flags ,void * lpData , uint32_t Size )
+Handle	PAGE::CreateBlock(Handle Type, Word32 UserNum , Word32 Flags ,void * lpData , Word32 Size )
 {
     BLOCK tmp;
 	Handle hBlock = Block.AddTail(tmp);
@@ -178,9 +178,9 @@ CPAGE_CONVERTOR SetConvertorPages(CPAGE_CONVERTOR convertor)
 	return old;
 }
 //#################################
-uint32_t PAGE::Convert(Handle type,void * lpdata,uint32_t size)
+Word32 PAGE::Convert(Handle type,void * lpdata,Word32 size)
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 	rc = (*s_ConvertorPages.fnConvertor)(s_ConvertorPages.dwContext,
 									Type,lpData,Size,
 									type,lpdata,size);

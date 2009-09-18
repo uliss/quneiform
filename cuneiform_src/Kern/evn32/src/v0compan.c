@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include "status.h"
 //#include "msgerr.h"
 
-extern uchar double_fax;
+extern Word8 double_fax;
 extern BOX *boxchain, *dl_last_in_chain;
 extern MN * main_number_ptr;
 extern struct main_memory_str Q;
@@ -82,7 +82,7 @@ static void picture_process(void);
 //MN * accept_greate_picture(MN * mn);        // pic_apx.c
 
 static BWSS *op, *np;    // pointers to segment representation
-static int16_t ol,nl;       // location counters
+static Int16 ol,nl;       // location counters
 
 static void simple_cont();
 static void dead_line();
@@ -166,7 +166,7 @@ static void simple_cont()
 
 reset:
  bp = op->box;
- ip = (BOXINT *) ((uchar*)bp + bp->boxptr);
+ ip = (BOXINT *) ((Word8*)bp + bp->boxptr);
  if (bp->boxptr > BOXBOUNDARY) goto fullbox;
 fret:
  ip->l = np->b; ip->d = nl-ol; bp->boxptr += sizeof(BOXINT);
@@ -183,7 +183,7 @@ fullbox:
  bpp->boxnext = bp->boxnext; bp->boxnext = bpp;
  mn = bpp->boxmain = bp->boxmain; mn->mnboxcnt++; bp = bpp;
  bp->boxleft = (bp->boxright = nl) - np->b; bp->boxflag = 0;
- bp->boxptr = sizeof(BOX); ip = (BOXINT *) ((uchar*)bp + sizeof (BOX));
+ bp->boxptr = sizeof(BOX); ip = (BOXINT *) ((Word8*)bp + sizeof (BOX));
  goto fret;
 
 compress: no_box(); goto reset;
@@ -204,7 +204,7 @@ reset:
 
  Q.boxalloc = bp->boxnext; bp->boxnext = NULL; np->box = bp;
  bp->boxflag = BOXFREEBEG; bp->boxptr = sizeof(BOX) + sizeof(LNSTRT);
- lp = (LNSTRT *)((uchar*)bp + sizeof(BOX));
+ lp = (LNSTRT *)((Word8*)bp + sizeof(BOX));
  mn->mnupper = lp->y = Q.lineno; bp->boxmain = mn;
  bp->boxright = lp->x = nl; bp->boxleft = nl - (lp->l = np->b);
  if (double_fax)  { mn->mnupper++; lp->y++; bp->boxptr = BOXSIZE; }
@@ -229,7 +229,7 @@ reset:
 
  bp->boxptr = sizeof(BOX) + sizeof(LNSTRT); bp->boxmain = mn;
  bp->boxflag = BOXBEG; bp->boxleft = nl;
- lp = (LNSTRT *)((uchar*)bp + sizeof(BOX));
+ lp = (LNSTRT *)((Word8*)bp + sizeof(BOX));
  nl += (lp->l = np->b); bp->boxright = lp->x = nl; lp->y = Q.lineno;
  return;
 
@@ -241,9 +241,9 @@ static void merge_lines()
  BOX *bp, *bpp;
  MN *mn, *mnn, *mnw;
  BOXINT *ip;
- uint16_t n;
+ Word16 n;
 
- bp = op->box; ip = (BOXINT *)((uchar*)bp + (bp->boxptr)++); ip->l = 0;
+ bp = op->box; ip = (BOXINT *)((Word8*)bp + (bp->boxptr)++); ip->l = 0;
  bp->boxflag |= BOXEND;
  bp->boxey = Q.lineno; bp->boxel = op->b; bp->boxex = ol;
 
@@ -273,13 +273,13 @@ static void dead_line()
  BOX *bp, *bpp;
  BOXINT *ip;
  MN *mn;
- uint16_t lnum;
+ Word16 lnum;
  Bool16 lcomp;
 
 //      Double Fax preprocessing
 
 resume_fax:
- bp = op->box; ip = (BOXINT *)((uchar*)bp + bp->boxptr); lnum = Q.lineno;
+ bp = op->box; ip = (BOXINT *)((Word8*)bp + bp->boxptr); lnum = Q.lineno;
 
  if (double_fax)
   {
@@ -289,7 +289,7 @@ resume_fax:
    if (bp->boxptr == sizeof(BOX) + sizeof(LNSTRT))
     { ip->l = 0; mn = bp->boxmain;
       if (mn->mnupper == lnum)
-       {mn->mnupper--; ((LNSTRT *)((uchar*)bp + sizeof(BOX)))->y--; }
+       {mn->mnupper--; ((LNSTRT *)((Word8*)bp + sizeof(BOX)))->y--; }
       goto faxend;
     }
    mn = bp->boxmain; mn->mnboxcnt--; bpp = mn->mnfirstbox;
@@ -331,8 +331,8 @@ static void no_box()
  BOX *bp, *bpp, *bww;
  MN *mn, *mmax;
  LNSTRT *lp;
- int16_t left, right;
- uint16_t n, i;
+ Int16 left, right;
+ Word16 n, i;
  //     Clear references to box in the new line
  bwp = np; do bwp->box = NULL; while ((bwp++)->w > 0);
  //     Look for main number with maximal box number
@@ -357,7 +357,7 @@ static void no_box()
        if (bp->boxmain == mmax)
         {
          bp->boxwf = 0; bp->boxptr = sizeof(BOX) + sizeof(LNSTRT);
-         lp = (LNSTRT *)((uchar*)bp + sizeof(BOX));
+         lp = (LNSTRT *)((Word8*)bp + sizeof(BOX));
          lp->y = Q.lineno - 1 + i; lp->x = n + (lp->l = bwp->b);
          bp->boxflag = BOXFREEBEG;
         }

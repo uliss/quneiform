@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "mpuma.h"
 #include "cfio.h"
 
-static Bool32 rblockProgressStep(uint32_t perc)
+static Bool32 rblockProgressStep(Word32 perc)
 {
 	return ProgressStep(2,NULL,perc);
 }
@@ -87,7 +87,7 @@ Bool32 DPumaSkipTurn( void )
 /////////////////////////////////////////////////////////////////////////
 //end Allex
 /////////////////////////////////////////////////
-Bool32 Layout(uchar * lpdata)
+Bool32 Layout(PWord8 lpdata)
 {
 	Bool32 rc = TRUE;
 	int nBlock = 0;
@@ -287,11 +287,11 @@ Bool32 Layout(uchar * lpdata)
 Для показа в Layout будет использовано не повернутое изображение.\n",PUMA_GetReturnString(PUMA_GetReturnCode()));
 			PAGEINFO           PInfo = {0};
 			GetPageInfo(hCPAGE,&PInfo);
-			CIMAGE_ReadDIB((uchar * )PInfo.szImageName,(Handle*)&hRotateDIB,TRUE);
+			CIMAGE_ReadDIB((PWord8 )PInfo.szImageName,(Handle*)&hRotateDIB,TRUE);
 		}
 		//LDPUMA_CreateWindow("Повернутое изображение",hRotateDIB);
 		LDPUMA_HandLayout(hRotateDIB, 0 ,&p);
-		CIMAGE_DeleteImage((uchar *)PUMA_IMAGE_ROTATE);
+		CIMAGE_DeleteImage((PWord8)PUMA_IMAGE_ROTATE);
 	}
 	//
 	if(!LDPUMA_Skip(hDebugPrintBlocksCPAGE))

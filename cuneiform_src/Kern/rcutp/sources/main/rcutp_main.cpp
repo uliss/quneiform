@@ -69,17 +69,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 //--------------------------GLOBAL VARIABLES------------------------
-int16_t      minrow,bbs1,bbs2,bbs3,bbs4,Nb1,Nb2,Nb3;
-uchar      language;
+Int16      minrow,bbs1,bbs2,bbs3,bbs4,Nb1,Nb2,Nb3;
+Word8      language;
 
 HINSTANCE  ghInst = NULL;
-uint16_t     gwHeightRC = 0;
-uint16_t     gwLowRC = 0;
+Word16     gwHeightRC = 0;
+Word16     gwLowRC = 0;
 Handle     ghStorage = NULL;
 Handle     hDebugRoot, hDebugMy,hDebugCutP;
 
 ///////////////////////////////////////////////////////////////
-RCUTP_FUNC(Bool32) RCUTP_Init(uint16_t wHeightCode,Handle hStorage)
+RCUTP_FUNC(Bool32) RCUTP_Init(Word16 wHeightCode,Handle hStorage)
 {
 	LDPUMA_Init(0,NULL);
 	LDPUMA_Registry(&hDebugRoot,SNAP_ROOT_CONVERTERS,NULL);
@@ -103,21 +103,21 @@ RCUTP_FUNC(Bool32) RCUTP_Done()
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RCUTP_FUNC(uint32_t) RCUTP_GetReturnCode()
+RCUTP_FUNC(Word32) RCUTP_GetReturnCode()
 {
-uint32_t rc = 0;
+Word32 rc = 0;
 	if((gwLowRC - IDS_ERR_NO)>0)
-		rc = (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
+		rc = (Word32)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
 
 return rc;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RCUTP_FUNC(char *) RCUTP_GetReturnString(uint32_t dwError)
+RCUTP_FUNC(Int8 *) RCUTP_GetReturnString(Word32 dwError)
 {
-	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
-	static char szBuffer[512];
+	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
+	static Int8 szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
 		gwLowRC = IDS_ERR_NOTIMPLEMENT;
@@ -132,7 +132,7 @@ RCUTP_FUNC(char *) RCUTP_GetReturnString(uint32_t dwError)
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RCUTP_FUNC(Bool32) RCUTP_GetExportData(uint32_t dwType, void * pData)
+RCUTP_FUNC(Bool32) RCUTP_GetExportData(Word32 dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -160,18 +160,18 @@ return rc;
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RCUTP_FUNC(Bool32) RCUTP_SetImportData(uint32_t dwType, void * pData)
+RCUTP_FUNC(Bool32) RCUTP_SetImportData(Word32 dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 return rc;
 }
 
-void SetReturnCode_rcutp(uint16_t rc)
+void SetReturnCode_rcutp(Word16 rc)
 {
 	gwLowRC = rc;
 }
 
-uint16_t GetReturnCode_rcutp()
+Word16 GetReturnCode_rcutp()
 {
 	return gwLowRC;
 }

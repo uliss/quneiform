@@ -76,11 +76,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include "RStuff.H"
 //////////////////////////
 //общего назначения
-void SetReturnCode_rstuff(uint16_t);
-void SetReturnCode_rstuff(uint32_t);
+void SetReturnCode_rstuff(Word16);
+void SetReturnCode_rstuff(Word32);
 void DebugInit (void );
-void DebugDPumaDrawRect(Handle, Point16 *, uint32_t, int32_t, uint32_t);
-void DebugDPumaShowComponents(PRSPreProcessImage, Handle, uint32_t, int32_t, uint32_t);
+void DebugDPumaDrawRect(Handle, Point16 *, Word32, int32_t, Word32);
+void DebugDPumaShowComponents(PRSPreProcessImage, Handle, Word32, int32_t, Word32);
 
 Bool32    Binarise( void );
 Bool32    Normalise( PRSPreProcessImage );
@@ -107,13 +107,13 @@ Bool32    LineKiller           ( PRSPreProcessImage );
 Bool32    SearchAndKill        ( PRSPreProcessImage, LinesTotalInfo* );
 Bool32    ComponentFilter      ( PRSPreProcessImage, LineInfo* );
 Bool32    IsRectIntersect      ( Rect16*, Rect16* );
-Bool32    TuneFilter           ( LineInfo*, Rect16*, uint32_t, uint32_t);
-Bool32    ChekComponentAndLine ( LineInfo*, Rect16*, uint32_t);
-Bool32    CheckSquare          ( LineInfo*, Rect16*, uint32_t, uint32_t);
+Bool32    TuneFilter           ( LineInfo*, Rect16*, Word32, Word32);
+Bool32    ChekComponentAndLine ( LineInfo*, Rect16*, Word32);
+Bool32    CheckSquare          ( LineInfo*, Rect16*, Word32, Word32);
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32    ExtractComponents    ( Bool32, Handle *, uchar *, PRSPreProcessImage );
-Bool32    RemoveLines          ( PRSPreProcessImage, uchar * *);
+Bool32    ExtractComponents    ( Bool32, Handle *, PWord8, PRSPreProcessImage );
+Bool32    RemoveLines          ( PRSPreProcessImage, PWord8 *);
 Bool32    MyGetZher            ( void **, int32_t *, int32_t, Handle );
 Bool32    remove_overlayed     ( CCOM_comp *,CCOM_handle );
 Bool32    comp_over            ( CCOM_comp *,CCOM_comp * );
@@ -126,7 +126,7 @@ void SetWorkBuff(void *vBuff, int Size);
 void ReSetMem(void);
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 // обработка коротких вертикальных линий
-//Bool32    ShortVerticalLinesProcess    ( PRSPreProcessImage, uint32_t );
+//Bool32    ShortVerticalLinesProcess    ( PRSPreProcessImage, Word32 );
 //Bool32    ReadSVLFromPageContainer     ( PRSPreProcessImage, void * );
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 // калбэки
@@ -135,18 +135,18 @@ Bool32    SetCBProgressPoints(void *);
 #define DEC_CB_TYPE(a)  PF##a
 #define DEC_CB_FUN(a,b,c) typedef a (*DEC_CB_TYPE(b))c; a b c;
 DEC_CB_FUN(void,    ProgressStart,      (void))
-DEC_CB_FUN(Bool32,  ProgressStep,       (uint32_t,  uint32_t))
-DEC_CB_FUN(Bool32,  ProgressStepLines,  (uint32_t,  uint32_t))
-DEC_CB_FUN(Bool32,  ProgressStepTables, (uint32_t,  uint32_t))
+DEC_CB_FUN(Bool32,  ProgressStep,       (Word32,  Word32))
+DEC_CB_FUN(Bool32,  ProgressStepLines,  (Word32,  Word32))
+DEC_CB_FUN(Bool32,  ProgressStepTables, (Word32,  Word32))
 DEC_CB_FUN(void,    ProgressFinish,     (void))
 DEC_CB_FUN(Bool32,  InitPRGTIME,        (void))
-DEC_CB_FUN(PRGTIME, StorePRGTIME,       (uint32_t, uint32_t))
+DEC_CB_FUN(PRGTIME, StorePRGTIME,       (Word32, Word32))
 DEC_CB_FUN(void,    RestorePRGTIME,     (PRGTIME))
 DEC_CB_FUN(Bool32,  DonePRGTIME,        (void))
 DEC_CB_FUN(Bool32,  DPumaSkipComponent, (void))
 DEC_CB_FUN(Bool32,  DPumaSkipTurn,      (void))
-DEC_CB_FUN(Bool32,  rexcProgressStep,   (uint32_t))
-DEC_CB_FUN(void,    SetUpdate,          (uint32_t, uint32_t))
+DEC_CB_FUN(Bool32,  rexcProgressStep,   (Word32))
+DEC_CB_FUN(void,    SetUpdate,          (Word32, Word32))
 DEC_CB_FUN(char *,  GetModulePath,      (void))
 #undef DEC_CB_FUN
 #endif //_RS_FUNC_H_

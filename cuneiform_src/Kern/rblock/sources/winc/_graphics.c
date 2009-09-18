@@ -77,11 +77,11 @@ void _clearscreen (int mode)
 	LDPUMA_DeleteStrings(NULL,PUMA_MODULE_RBLOCK);
 	//LDPUMA_UpdateView(NULL);
 };
-static uint32_t swColor = 0;
+static Word32 swColor = 0;
 void _setcolor (int color)
 {
-	#define __RGB__(r,g,b)          ((uint32_t)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
-	uint32_t clr[16] =
+	#define __RGB__(r,g,b)          ((Word32)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
+	Word32 clr[16] =
 	{ // 16 цветов в порядке, заданном DOS (see MENUCOLOR :) )
     __RGB__(0,0,0),          // 0  черный    _COLOR_BLACK
     __RGB__(0,0,127),        // 1  темно-синий     _COLOR_DBLUE
@@ -158,14 +158,14 @@ void _setlinestyle (int style){};
 #ifndef WIN32
 typedef struct tagBITMAPINFOHEADER{
 uint32_t      biSize;
-        int       biWidth;
-        int       biHeight;
+        LONG       biWidth;
+        LONG       biHeight;
         WORD       biPlanes;
         WORD       biBitCount;
 uint32_t      biCompression;
 uint32_t      biSizeImage;
-        int       biXPelsPerMeter;
-        int       biYPelsPerMeter;
+        LONG       biXPelsPerMeter;
+        LONG       biYPelsPerMeter;
 uint32_t      biClrUsed;
 uint32_t      biClrImportant;
 } BITMAPINFOHEADER, *LPBITMAPINFOHEADER, *PBITMAPINFOHEADER;
@@ -181,7 +181,7 @@ void _gettextsettings (struct textsettings *ts)
 	}
 };
 
-static uint32_t swAlign = 0;
+static Word32 swAlign = 0;
 void _settextalign (int right,int top)
 {
 	swAlign = 0;
@@ -229,7 +229,7 @@ Bool snapAutofont(BYTE a){ a=a; return TRUE; } // Andrew Theer
 
 int LT_Getch (void)
 {
-	uint32_t rc;
+	Word32 rc;
 	rc = LDPUMA_WaitUserInput(NULL,NULL);
 	EnableDebug();
 	return rc;

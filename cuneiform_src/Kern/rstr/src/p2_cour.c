@@ -178,7 +178,7 @@ Bool32 TestFontProtocol(void)
 Bool32 TestFontCourier(void)
 {
 #ifdef _USE_LEO_
-    uchar          p;
+    Word8          p;
     int32_t          name;
     RecRaster      recRast;
     int            i,j;
@@ -217,9 +217,9 @@ Bool32 TestFontCourier(void)
             CTB_AddRecRaster("CLUST2", &recRast,decode_ASCII_to_[name][0]);
         MSKres.lnAltCnt=2;
         MSKres.lnAltMax=REC_MAX_VERS;
-        MSKres.Alt[0].Code=(uchar)to_upper((uchar)name);
+        MSKres.Alt[0].Code=(Word8)to_upper((Word8)name);
         MSKres.Alt[0].Prob=255;
-        MSKres.Alt[1].Code=(uchar)to_lower((uchar)name);
+        MSKres.Alt[1].Code=(Word8)to_lower((Word8)name);
         MSKres.Alt[1].Prob=255;
 
         if(!MSKRecogCharExp( HndTab, &recRast,       &MSKres )  )
@@ -237,8 +237,8 @@ Bool32 TestFontCourier(void)
 }
 ////////////////////////
 static int curNumFile=0;
-static uchar hasNearSame[]="\xa7\xed";  // çý
-static uchar NearSame[]="\xed\xa7";     // ýç
+static Word8 hasNearSame[]="\xa7\xed";  // çý
+static Word8 NearSame[]="\xed\xa7";     // ýç
 int32_t TestFontClusters(void)
 {
 #ifdef _USE_LEO_
@@ -253,7 +253,7 @@ int32_t TestFontClusters(void)
     RecObject   ro={0};
     LeoPageSetup ps={0};
     ClustInfo cluInfo;
-    uchar addLet,resLet;
+    Word8 addLet,resLet;
 
 #ifdef _SAVE_INVALID_CLU_
     FILE          *fp;
@@ -392,7 +392,7 @@ int32_t TestFontClusters(void)
 }
 ////////////////
 
-Bool32 RecogLEOcap(RecRaster *Rs,uchar Language,RecVersions *Vs)
+Bool32 RecogLEOcap(RecRaster *Rs,Word8 Language,RecVersions *Vs)
 {
 #ifdef _USE_LEO_
     LeoFieldSetup  fs={0};
@@ -432,14 +432,14 @@ Bool32 RecogLEOcap(RecRaster *Rs,uchar Language,RecVersions *Vs)
     return TRUE;
 }
 
-Bool32 RecogLEO(RecRaster *Rs,uchar Language,UniVersions *Us)
+Bool32 RecogLEO(RecRaster *Rs,Word8 Language,UniVersions *Us)
 {
 #ifdef _USE_LEO_
     LeoFieldSetup  fs={0};
     RecObject      ro={0};
     LeoPageSetup   ps={0};
     char    *      alpha;
-    uchar          c, cw;
+    Word8          c, cw;
     int32_t          i, up=-1;
 
 
@@ -519,7 +519,7 @@ static char similar_letters[]="¢‚“ã‘áŽ®€ï«";
 Bool32   p2_msk_inc(CSTR_rast    rst)
 {
 #ifdef _USE_MSK_
-    uchar       prob=0, name, lim, code;
+    Word8       prob=0, name, lim, code;
     RecRaster   rc;
     RecVersions ver;
     int32_t       i;
@@ -528,7 +528,7 @@ Bool32   p2_msk_inc(CSTR_rast    rst)
         return 0;
     if(language!=LANG_RUSSIAN && language!=LANG_RUSENG )
         return 0;
-    CSTR_GetImage(rst,(uchar*)&rc,CSTR_TYPE_IMAGE_RS);
+    CSTR_GetImage(rst,(Word8*)&rc,CSTR_TYPE_IMAGE_RS);
     if( !rc.lnPixHeight || !rc.lnPixWidth )
         return 0;
     MSKSetAlphabet  ( alphabet );
@@ -537,21 +537,21 @@ Bool32   p2_msk_inc(CSTR_rast    rst)
     ver.lnAltCnt=2;
     ver.lnAltMax=REC_MAX_VERS;
     name = ver.Alt[0].Code;
-    ver.Alt[0].Code=(uchar)to_upper((uchar)name);
+    ver.Alt[0].Code=(Word8)to_upper((Word8)name);
     ver.Alt[0].Prob=255;
-    ver.Alt[1].Code=(uchar)to_lower((uchar)name);
+    ver.Alt[1].Code=(Word8)to_lower((Word8)name);
     ver.Alt[1].Prob=255;
     if( name=='0' )
     {
-        ver.Alt[1].Code=(uchar)'Ž';
-        ver.Alt[2].Code=(uchar)'®';
+        ver.Alt[1].Code=(Word8)'Ž';
+        ver.Alt[2].Code=(Word8)'®';
         ver.Alt[2].Prob=255;
         ver.lnAltCnt=3;
     }
     if( name=='3' )
     {
-        ver.Alt[1].Code=(uchar)'‡';
-        ver.Alt[2].Code=(uchar)'§';
+        ver.Alt[1].Code=(Word8)'‡';
+        ver.Alt[2].Code=(Word8)'§';
         ver.Alt[2].Prob=255;
         ver.lnAltCnt=3;
     }

@@ -93,11 +93,11 @@ static HWND h_found=NULL;
 extern "C" {
 #endif
 //---Из секции колонок---
-int16_t NumCol;
+Int16 NumCol;
 int SizeSectionCol;
-int16_t *NumStr;//[nc]
-uint32_t *UserNumber;//[nc]
-uint32_t *FragFlag;//[nc]
+Int16 *NumStr;//[nc]
+Word32 *UserNumber;//[nc]
+Word32 *FragFlag;//[nc]
 SRECT *BndCol;//[nc]
 STAT_COL *StatCol;//[nc]
 int len_col,k_frm;
@@ -176,8 +176,8 @@ extern int ConsMess( const char* str, ... );
 #endif
 int TypeDoc;
 */ // !!! Art - устарело
-int16_t MonoSpaceAllPage;
-int16_t HeiStrAllPage;
+Int16 MonoSpaceAllPage;
+Int16 HeiStrAllPage;
 /* // !!! Art - устарело
 int getchW(void);
 
@@ -198,7 +198,7 @@ int SaveFullOutTiger(char *FileName);
 //Return: 0 - OK
 //
 WORD NumZ,NumW,NumS;
-int16_t SizeYGlobUpp;
+Int16 SizeYGlobUpp;
 int IsB1(BYTE a)
 { if((FeatLet[a].Chif && a != ',' && a != '.' && a != '-') ||
      (FeatLet[a].Let &&  a != '-' && a != '\'' &&
@@ -420,25 +420,25 @@ int CalcStatTiger(void)
 }
 
 //Формат файла:
-//int16_t ScanResolution
-//int16_t NumCol,NumZ,NumW,NumS - числа колонок, знакомест, слов и строк in all page
-//int16_t MonoSpaceAllPage - distance between left margin letters-neighdoors from one word
-//int16_t HeiStrAllPage - distance between top margin
+//Int16 ScanResolution
+//Int16 NumCol,NumZ,NumW,NumS - числа колонок, знакомест, слов и строк in all page
+//Int16 MonoSpaceAllPage - distance between left margin letters-neighdoors from one word
+//Int16 HeiStrAllPage - distance between top margin
 //Fragm[0], ..., Fragm[NumCol-1] фрагменты
 //  Fragm[nf]: один фрагмент
 //    Rect16 RectFragm
-//    int16_t  NumStr число строк
+//    Int16  NumStr число строк
 //    Str[0], ..., Str[NumStr-1] строки
 //      Str[nf][ns]:
 //        Rect16 S_Rect // 4 base lines
-//        int16_t  NumWordStr; число слов текущей строки
+//        Int16  NumWordStr; число слов текущей строки
 //        Word[0], ..., Word[NumWordStr-1] слова
 //          Word[nf][ns][nw]: одно слово
-//            int16_t NumSym число знакомест слова (пробелов нет)
+//            Int16 NumSym число знакомест слова (пробелов нет)
 //            Sym[0], ..., Sym[NumSym-1] знакоместа
 //              Sym[nf][ns][nw][nz]:
 //                Rect16 Z_Rect     рамка знакоместа
-//                int16_t  NumAlt     число альтернатив
+//                Int16  NumAlt     число альтернатив
 //                Alt[0], ..., Alt[NumAlt-1] альтернативы
 //                  Alt[nf][ns][nw][nz][na] одна альтернатива
 //                    BYTE Code код
@@ -455,7 +455,7 @@ int CalcStatTiger(void)
 
 extern Rect16  *RectFragm;
 extern float    Twips;
-extern int16_t   K_TwipsInInch;
+extern Int16   K_TwipsInInch;
 
 short __cdecl  OpenFullOutTiger(FILE *in)
 {
@@ -487,7 +487,7 @@ short __cdecl  OpenFullOutTiger(FILE *in)
 // Twips = (float)((int)(Twips+0.5));
 	if(NumCol)
 	{
-		NumStr    = (int16_t*)malloc(NumCol*sizeof(int16_t));
+		NumStr    = (Int16*)malloc(NumCol*sizeof(Int16));
 		StatCol   = (STAT_COL*)malloc(NumCol*sizeof(STAT_COL));
 		if(NumStr==NULL||StatCol==NULL)
 		{
@@ -509,8 +509,8 @@ short __cdecl  OpenFullOutTiger(FILE *in)
 	}
 
  BndCol     = (SRECT*)malloc(NumCol * sizeof(SRECT));
- UserNumber = (uint32_t*)malloc(NumCol*sizeof(uint32_t));
- FragFlag   = (uint32_t*)malloc(NumCol*sizeof(uint32_t));
+ UserNumber = (Word32*)malloc(NumCol*sizeof(Word32));
+ FragFlag   = (Word32*)malloc(NumCol*sizeof(Word32));
 
  RectFragm = (Rect16*)malloc(NumCol*sizeof(Rect16));
 
@@ -559,9 +559,9 @@ short __cdecl  OpenFullOutTiger(FILE *in)
 	{
   fread(&RectFragm[nc],1,sizeof(Rect16),in);
 	 // *********** РАСЧЕТ КОЛОННОЙ СТАТИСТИКИ *************
-  fread(&NumStr[nc],sizeof(int16_t),1,in);
-  fread(&UserNumber[nc],sizeof(uint32_t),1,in);
-  fread(&FragFlag[nc],sizeof(uint32_t),1,in);
+  fread(&NumStr[nc],sizeof(Int16),1,in);
+  fread(&UserNumber[nc],sizeof(Word32),1,in);
+  fread(&FragFlag[nc],sizeof(Word32),1,in);
 
   Zn[nc]=(ZN***)Submalloc((NumStr[nc])*sizeof(ZN**),&SubZn);
   TitleStr[nc]=(TITLE_STR*)Submalloc((NumStr[nc])*sizeof(TITLE_STR),&SubZn);
@@ -573,7 +573,7 @@ short __cdecl  OpenFullOutTiger(FILE *in)
 		for(ns=0; ns <= NumStr[nc]; ++ns)
 		{
 			TITLE_STR *t = &TitleStr[nc][ns];
-			int16_t        tmp;
+			Int16        tmp;
 
 			t->Z_Code = 2;
 			t->S_Attr = 0;
@@ -604,14 +604,14 @@ short __cdecl  OpenFullOutTiger(FILE *in)
 				TITLE_WORD *tw=&TitleWord[nc][ns][nw];
 
 				tw->Z_Code=1;
-				fread(&tmp, sizeof(int16_t), 1, in);
+				fread(&tmp, sizeof(Int16), 1, in);
 				tw->W_Gen.W_NumSym=tmp;// NumZn
 				k_z=tw->W_Gen.W_NumSym-1;
 
-				fread(&tmp, sizeof(int16_t), 1, in);
+				fread(&tmp, sizeof(Int16), 1, in);
 				tw->W_Gen.FontNumber=(WORD)tmp;
 
-				fread(&tmp, sizeof(int16_t), 1, in);
+				fread(&tmp, sizeof(Int16), 1, in);
 				tw->W_Gen.FontSize=(WORD)tmp;
 
 				if((Zn[nc][ns][nw]=(ZN*)Submalloc((k_z+1)*sizeof(ZN),&SubZn))==NULL)
@@ -621,7 +621,7 @@ short __cdecl  OpenFullOutTiger(FILE *in)
 				{
 					ZN        *z  = &Zn[nc][ns][nw][nz];
 					TITLE_ZN  *tz = &z->Title;
-					int16_t     num;
+					Int16     num;
 #pragma pack(1)
 					//   struct RECT_TIGER {int top,left,bottom,right;} rect;
 					struct ALT_TIGER1  {unsigned char let, prob;} alt1;
@@ -633,7 +633,7 @@ short __cdecl  OpenFullOutTiger(FILE *in)
 					//fread_m(&tz->Z_RealRect,sizeof(SRECT),1,in); // Real BOX
 					readSRECT(&tz->Z_RealRect, in);
 
-					fread(&num, sizeof(int16_t), 1, in);  tz->Z_Num_Alt=(BYTE)MIN(num,REC_MAX_VERS); //NumAlt
+					fread(&num, sizeof(Int16), 1, in);  tz->Z_Num_Alt=(BYTE)MIN(num,REC_MAX_VERS); //NumAlt
 //					if(num > 1)
 //						num = 1;
 

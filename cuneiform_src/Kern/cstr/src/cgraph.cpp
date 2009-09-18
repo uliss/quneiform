@@ -75,7 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define CGRAPH_ERR_FILE   CSTR_ERR_OPEN
 
 int32_t	memsize = 256;
-uchar IDtext[IDTEXT_LEN] = "CCOM&CSTR file";	//Идентификатор файла
+Word8 IDtext[IDTEXT_LEN] = "CCOM&CSTR file";	//Идентификатор файла
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //	DESC:	Возвращает количество компонент в контейнере CSTR
@@ -569,7 +569,7 @@ Bool32 CGRAPH_RestoreLoop(CSTR_rast rast, FILE *in)
 	UniVersions		uvers = {0};
 	CGRAPH_Data		cstr = {0};
 
-	uchar		*lp = NULL;
+	Word8		*lp = NULL;
 	LoopData	ld;
 	ALoop		al;
 
@@ -648,7 +648,7 @@ Bool32 CGRAPH_RestoreLoop(CSTR_rast rast, FILE *in)
 
 				if(cstr.size_linerep)
 				{
-					lp = (uchar *)malloc(cstr.size_linerep);
+					lp = (Word8 *)malloc(cstr.size_linerep);
 					if(!lp)
 					{
 						wLowRC = CGRAPH_ERR_MEMORY;
@@ -670,7 +670,7 @@ Bool32 CGRAPH_RestoreLoop(CSTR_rast rast, FILE *in)
 					return FALSE;
 				}
 
-				if(!CSTR_StoreComp(rst, (uchar*)((uchar*)lp), 1, cstr.scale))
+				if(!CSTR_StoreComp(rst, (Word8*)((Word8*)lp), 1, cstr.scale))
 				{
 					wLowRC = CGRAPH_ERR_PARAM;
 					return FALSE;
@@ -738,7 +738,7 @@ Bool32 CGRAPH_RestoreCSTR(CSTR_line *lin, FILE *in)
 	CSTR_attr		attr = {0};
 	UniVersions		uvers = {0};
 	CGRAPH_Data		cstr = {0};
-	uchar			*lp = NULL;
+	Word8			*lp = NULL;
 
 	fread(&count_rast, sizeof(count_rast), 1, in);
 	fread(&attr, sizeof(CSTR_attr), 1, in);
@@ -761,7 +761,7 @@ Bool32 CGRAPH_RestoreCSTR(CSTR_line *lin, FILE *in)
 
 			if(cstr.size_linerep)
 			{
-				lp = (uchar *)malloc(cstr.size_linerep);
+				lp = (Word8 *)malloc(cstr.size_linerep);
 				if(!lp)
 				{
 					wLowRC = CGRAPH_ERR_MEMORY;
@@ -803,7 +803,7 @@ Bool32 CGRAPH_RestoreCSTR(CSTR_line *lin, FILE *in)
 
 		if(cstr.env)
 		{
-			if(!CSTR_StoreComp(rst, (uchar*)((uchar*)lp), 1, cstr.scale))
+			if(!CSTR_StoreComp(rst, (Word8*)((Word8*)lp), 1, cstr.scale))
 			{
 				wLowRC = CGRAPH_ERR_PARAM;
 				return FALSE;
@@ -839,7 +839,7 @@ CSTR_FUNC(Bool32) CSTR_RestoreCont(char *filename)
 	CSTR_line	linx;
 	CSTR_rast	rst;
 	FILE		*in;
-	uchar		IDt[IDTEXT_LEN];
+	Word8		IDt[IDTEXT_LEN];
 	int32_t		i, j, count;
 	Bool32		lineFlg;
 	CGRAPH_FileData	fData;

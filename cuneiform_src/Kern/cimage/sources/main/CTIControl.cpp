@@ -115,7 +115,7 @@ CTIControl::CTIControl()
 	mwLABlackLeftMask[0]  = 0x7f;
 	mwLABlackRightMask[7] = 0xfe;
 	mwIndexMask[0]        = 0x01;
-	for ( uint32_t i = 1; i < 8 ; i++ )
+	for ( Word32 i = 1; i < 8 ; i++ )
 	{
 		mwLAWhiteLeftMask[7 - i]  = mwLAWhiteLeftMask[8 - i] << 1;
 		mwLAWhiteRightMask[i]     = mwLAWhiteRightMask[i - 1] >> 1;
@@ -154,8 +154,8 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 {
 	Handle hNewDIB;
 	Bool32 Ret;
-	uint32_t Readed;
-	uint32_t i;
+	Word32 Readed;
+	Word32 i;
 	Bool32 bInvert = false;
 	CIMAGE_InfoDataInReplace   FrameToReplace;
 	CIMAGE_ImageInfo           ImageInfo;
@@ -236,29 +236,29 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 				mCBWDestianationDIB->SetRGBQuad(1,cdSQuad);
 				mCBWSourceDIB->SetRGBQuad(1,cdSQuad);
 				// заполняем структурку	для замещения строк
-				FrameToReplace.byBit      = (uint16_t)mCBWSourceDIB->GetPixelSize();
+				FrameToReplace.byBit      = (Word16)mCBWSourceDIB->GetPixelSize();
 				FrameToReplace.dwX        = 0;
 				FrameToReplace.dwY        = 0;
-				FrameToReplace.dwWidth    = (uint16_t)mCBWSourceDIB->GetLineWidth();
-				FrameToReplace.dwHeight   = (uint16_t)mCBWSourceDIB->GetLinesNumber();
-				FrameToReplace.wByteWidth = (uint16_t)mCBWSourceDIB->GetLineWidthInBytes();
-				FrameToReplace.lpData     = (uchar *)mCBWSourceDIB->GetPtrToLine(0);
+				FrameToReplace.dwWidth    = (Word16)mCBWSourceDIB->GetLineWidth();
+				FrameToReplace.dwHeight   = (Word16)mCBWSourceDIB->GetLinesNumber();
+				FrameToReplace.wByteWidth = (Word16)mCBWSourceDIB->GetLineWidthInBytes();
+				FrameToReplace.lpData     = (PWord8)mCBWSourceDIB->GetPtrToLine(0);
 				FrameToReplace.MaskFlag   = 0;
 
 				// Заполняем его
 				for ( i = 0; i < ImageInfo.wImageHeight; i++ )
 				{
 					// вызываем второй калбэк
-					Readed = Cbk.CIMAGE_ImageRead((char *)mCBWSourceDIB->GetPtrToLine(0),
-												  (uint16_t)mCBWSourceDIB->GetLineWidthInBytes());
+					Readed = Cbk.CIMAGE_ImageRead((PInt8)mCBWSourceDIB->GetPtrToLine(0),
+												  (Word16)mCBWSourceDIB->GetLineWidthInBytes());
 
 					//инвертируем битовое поле, ежели надо
 					if ( bInvert )
 					{
-						char * pBits = (char *)mCBWSourceDIB->GetPtrToLine(0);
+						PInt8 pBits = (PInt8)mCBWSourceDIB->GetPtrToLine(0);
 						int32_t Ii;
 
-						for ( Ii = 0; Ii < (uint16_t)mCBWSourceDIB->GetLineWidthInBytes(); Ii++ )
+						for ( Ii = 0; Ii < (Word16)mCBWSourceDIB->GetLineWidthInBytes(); Ii++ )
 						{
 							*pBits++ = ~(*pBits);
 						}
@@ -361,7 +361,7 @@ Bool32 CTIControl::GetCBImage (PChar8  lpName, PCIMAGEIMAGECALLBACK pCbk)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::SetDIB(PChar8  lpName, Handle hDIB, uint32_t wFlag)
+Bool32 CTIControl::SetDIB(PChar8  lpName, Handle hDIB, Word32 wFlag)
 {
 	Handle  hImage = NULL;
 
@@ -382,7 +382,7 @@ Bool32 CTIControl::SetDIB(PChar8  lpName, Handle hDIB, uint32_t wFlag)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::GetDIB(PChar8  lpName, PHandle phDIB, uint32_t wFlag)
+Bool32 CTIControl::GetDIB(PChar8  lpName, PHandle phDIB, Word32 wFlag)
 {
 	Handle  hImage = NULL;  // Handle
 
@@ -427,7 +427,7 @@ Bool32 CTIControl::GetImage(PChar8  lpName, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 	FreeBuffers();
 
 	// берем кусок диба оттедова
-	if ( GetDIBFromImage(lpName, lpIn, (char **)&pDIBMemory ) )
+	if ( GetDIBFromImage(lpName, lpIn, (PInt8*)&pDIBMemory ) )
 	{
 		pDscDIB = new CTDIB;
 		if ( pDscDIB->SetDIBbyPtr(pDIBMemory) )
@@ -442,21 +442,21 @@ Bool32 CTIControl::GetImage(PChar8  lpName, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 				 && lpIn->dwHeight   == pDscDIB->GetLinesNumber()
 				)
 			{
-				uint32_t nOutLine;
-				uchar * pOutLine;
-				uchar  WhiteBit;
+				Word32 nOutLine;
+				PWord8 pOutLine;
+				Word8  WhiteBit;
 
-				lplpOut->byBit      = (uint16_t)pDscDIB->GetPixelSize();
+				lplpOut->byBit      = (Word16)pDscDIB->GetPixelSize();
 				lplpOut->dwHeight   = pDscDIB->GetLinesNumber();
 				lplpOut->dwWidth    = pDscDIB->GetLineWidth();
-				lplpOut->wByteWidth = (uint16_t)pDscDIB->GetUsedLineWidthInBytes();
+				lplpOut->wByteWidth = (Word16)pDscDIB->GetUsedLineWidthInBytes();
 
 				lplpOut->wBlackBit  = pDscDIB->GetBlackPixel();
 
-				WhiteBit = (uchar)pDscDIB->GetWhitePixel();
+				WhiteBit = (Word8)pDscDIB->GetWhitePixel();
 
 				mhBitFildFromImage = CIMAGEDAlloc(lpIn->wByteWidth * lpIn->dwHeight,lpName);
-				mpBitFildFromImage = (uchar *)CIMAGELock(mhBitFildFromImage);
+				mpBitFildFromImage = (PWord8)CIMAGELock(mhBitFildFromImage);
 
 				if ( !mhBitFildFromImage || !mpBitFildFromImage )
 				{
@@ -541,8 +541,8 @@ Bool32 CTIControl::ReplaceImage(PChar8  lpName, PCIMAGE_InfoDataInReplace lpIn)
 			{
 				if ( lpIn->wByteWidth <= pSrcDIB->GetUsedLineWidthInBytes() )
 				{
-					uint32_t nInLine;
-					uchar * pInLine = lpIn->lpData;
+					Word32 nInLine;
+					PWord8 pInLine = lpIn->lpData;
 
 					for ( nInLine = 0; nInLine < lpIn->dwHeight; nInLine++ )
 					{
@@ -602,7 +602,7 @@ Bool32 CTIControl::CopyDIB(Handle hSrc, PHandle phCopyedDib)
 	void *         pSrc = NULL;
 	void *         pDsc = NULL;
 	Handle         hDsc = NULL;
-	uint32_t         DIBSize = 0;
+	Word32         DIBSize = 0;
 	PCTDIB         pcSrcDIB = NULL;
 	PCTDIB         pcDscDIB = NULL;
 
@@ -663,7 +663,7 @@ Bool32 CTIControl::CopyDIB(Handle hSrc, PHandle phCopyedDib)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::GetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInGet pIn, uchar * pMask)
+Bool32 CTIControl::GetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInGet pIn, PWord8 pMask)
 {
 	if ( pSrcDIB == NULL || pDscDIB == NULL )
 	{
@@ -696,13 +696,13 @@ Bool32 CTIControl::GetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInGe
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::CopyToFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInGet pFrameInfo, uchar * pMask)
+Bool32 CTIControl::CopyToFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInGet pFrameInfo, PWord8 pMask)
 {
-	uint32_t StartY = pFrameInfo->dwY;
-	uint32_t EndY   = StartY + pFrameInfo->dwHeight;
-	uint32_t StartX = pFrameInfo->dwX;
-	uint32_t nLine;
-	uint32_t dLine = 0;
+	Word32 StartY = pFrameInfo->dwY;
+	Word32 EndY   = StartY + pFrameInfo->dwHeight;
+	Word32 StartX = pFrameInfo->dwX;
+	Word32 nLine;
+	Word32 dLine = 0;
 	Bool32 bRet = FALSE;
 
 	if ( pSrcDIB->GetPixelSize() != pSrcDIB->GetPixelSize() )
@@ -736,10 +736,10 @@ Bool32 CTIControl::CopyToFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataI
 //
 Bool32 CTIControl::CopyFromFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInReplace pFrameIn)
 {
-	uint32_t StartY = pFrameIn->dwY;
-	uint32_t EndY   = StartY + pFrameIn->dwHeight;
-	uint32_t nLine;
-	uint32_t dLine = 0;
+	Word32 StartY = pFrameIn->dwY;
+	Word32 EndY   = StartY + pFrameIn->dwHeight;
+	Word32 nLine;
+	Word32 dLine = 0;
 
 	if ( pSrcDIB->GetPixelSize() != pSrcDIB->GetPixelSize() )
 	{
@@ -776,8 +776,8 @@ Bool32 CTIControl::ApplayBitMaskToFrame(PCIMAGE_InfoDataInGet pIn, PCIMAGE_InfoD
 	}
 	else
 	{
-		uint32_t SizeInBytes;
-		uint32_t i;
+		Word32 SizeInBytes;
+		Word32 i;
 		char * pMask = (char *)pIn;
 		char * pRaster = (char *)(pOut->lpData);
 		char * Msc;
@@ -817,7 +817,7 @@ Bool32 CTIControl::ApplayBitMaskToFrame(PCIMAGE_InfoDataInGet pIn, PCIMAGE_InfoD
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::ApplayBitMaskToDIB(uchar * pMask, PCTDIB pDIB)
+Bool32 CTIControl::ApplayBitMaskToDIB(PWord8 pMask, PCTDIB pDIB)
 {
 	if ( pMask == 0 )
 	{
@@ -825,24 +825,24 @@ Bool32 CTIControl::ApplayBitMaskToDIB(uchar * pMask, PCTDIB pDIB)
 	}
 	else
 	{
-		uchar * pMaskByte = pMask; //(uchar *)&pIn[1];
-		uchar * pImageByte;
-		uint32_t Lines = pDIB->GetLinesNumber();
-		uint32_t Pixels = pDIB->GetLineWidth();
+		PWord8 pMaskByte = pMask; //(PWord8)&pIn[1];
+		PWord8 pImageByte;
+		Word32 Lines = pDIB->GetLinesNumber();
+		Word32 Pixels = pDIB->GetLineWidth();
 		int32_t i;
 		int32_t j;
 		int32_t k;
-		uchar  WhiteByte = (uchar)pDIB->GetWhitePixel();
-		uchar  tmpByte;
+		Word8  WhiteByte = (Word8)pDIB->GetWhitePixel();
+		Word8  tmpByte;
 
 		///////////////////////////////////////////////////////////////////////////////////////
 		//Allex 28.01.2000
 		//ввиду неоднократных ошибок, связанных с  выделением памяти под передаваемую мне маску
 		//ввожу следующую проверку:
-		uchar TestByte;
-		uint32_t MaskLenght = ((Pixels + 7)/8)*Lines;
-		uchar * pMaskBegin = pMask;
-		uchar * pMaskEnd = pMaskBegin + MaskLenght - 1;
+		Word8 TestByte;
+		Word32 MaskLenght = ((Pixels + 7)/8)*Lines;
+		PWord8 pMaskBegin = pMask;
+		PWord8 pMaskEnd = pMaskBegin + MaskLenght - 1;
 
 		try
 		{
@@ -863,7 +863,7 @@ Bool32 CTIControl::ApplayBitMaskToDIB(uchar * pMask, PCTDIB pDIB)
 
 		for ( i = 0; i < (int32_t)Lines; i++ )
 		{
-			pImageByte = (uchar *)pDIB->GetPtrToLine( i );
+			pImageByte = (PWord8)pDIB->GetPtrToLine( i );
 			j = Pixels;
 			//позиционируемся на строку в маске
 			pMaskByte = pMask + ((Pixels + 7)/8)*i;
@@ -970,7 +970,7 @@ Bool32 CTIControl::ApplayBitMaskToDIB(uchar * pMask, PCTDIB pDIB)
 //
 Bool32 CTIControl::SetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInReplace pIn)
 {
-	uint32_t wFrameSize;
+	Word32 wFrameSize;
 
 	if ( pSrcDIB == NULL || pDscDIB == NULL || !pIn)
 	{
@@ -1005,8 +1005,8 @@ Bool32 CTIControl::SetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInRe
 //
 Bool32 CTIControl::CBImageOpen(PCIMAGE_ImageInfo lpImageInfo)
 {
-	uint32_t wFrgb;
-	uint32_t wSrgb;
+	Word32 wFrgb;
+	Word32 wSrgb;
 	Handle hDescDIB;
 	//CTDIBRGBQUAD tmpQ;
 
@@ -1055,16 +1055,16 @@ Bool32 CTIControl::CBImageOpen(PCIMAGE_ImageInfo lpImageInfo)
 		{
 			wCBLines	= mCBSourceDIB->GetLinesNumber();
 
-			lpImageInfo->wImageWidth        = (uint16_t)mCBSourceDIB->GetLineWidth();
-			lpImageInfo->wImageHeight       = (uint16_t)wCBLines;
-			lpImageInfo->wImageByteWidth    = (uint16_t)wCBBufferSize;
+			lpImageInfo->wImageWidth        = (Word16)mCBSourceDIB->GetLineWidth();
+			lpImageInfo->wImageHeight       = (Word16)wCBLines;
+			lpImageInfo->wImageByteWidth    = (Word16)wCBBufferSize;
 			lpImageInfo->wImageDisplacement = 0;
 
 			mCBSourceDIB->GetResolutionDPI(&wFrgb, &wSrgb);
-			lpImageInfo->wResolutionX       = (uint16_t)wFrgb;
-			lpImageInfo->wResolutionY       = (uint16_t)wSrgb;
+			lpImageInfo->wResolutionX       = (Word16)wFrgb;
+			lpImageInfo->wResolutionY       = (Word16)wSrgb;
 
-			lpImageInfo->bFotoMetrics       = (uchar)mCBSourceDIB->GetWhitePixel();
+			lpImageInfo->bFotoMetrics       = (Word8)mCBSourceDIB->GetWhitePixel();
 
 			lpImageInfo->wAddX              = 0;
 			lpImageInfo->wAddY              = 0;
@@ -1080,12 +1080,12 @@ Bool32 CTIControl::CBImageOpen(PCIMAGE_ImageInfo lpImageInfo)
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-uint32_t CTIControl::CBImageRead(PChar8  lpBuff, uint32_t wMaxSize)
+Word32 CTIControl::CBImageRead(PChar8  lpBuff, Word32 wMaxSize)
 {
 	CIMAGE_InfoDataInGet   InFrame;
-	uint32_t                 LinesAtOnce;
-	uint32_t                 nOutLine;
-	uint32_t                 CopiedBytes = 0;
+	Word32                 LinesAtOnce;
+	Word32                 nOutLine;
+	Word32                 CopiedBytes = 0;
 	PChar8                 pNextLineInBuffer = lpBuff;
 
 #ifndef CIMAGE_CBR_ONE_LINE
@@ -1101,7 +1101,7 @@ uint32_t CTIControl::CBImageRead(PChar8  lpBuff, uint32_t wMaxSize)
 			InFrame.dwX        = 0;
 			InFrame.dwWidth    = mCBDestianationDIB->GetLineWidth();
 			InFrame.dwHeight   = mCBDestianationDIB->GetLinesNumber();
-			InFrame.wByteWidth = (uint16_t)(wCBBufferSize);
+			InFrame.wByteWidth = (Word16)(wCBBufferSize);
 			InFrame.MaskFlag   = 0;
 
 			for ( nOutLine = 0;nOutLine < LinesAtOnce; nOutLine++ )
@@ -1187,7 +1187,7 @@ Bool32 CTIControl::FreeAlloced(Handle hDIB)
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::DumpToFile(PChar8 FileName, uchar * pData, uint32_t Size)
+Bool32 CTIControl::DumpToFile(PChar8 FileName, PWord8 pData, Word32 Size)
 {
 	FILE * fDump;
 
@@ -1201,14 +1201,14 @@ Bool32 CTIControl::DumpToFile(PChar8 FileName, uchar * pData, uint32_t Size)
 	return TRUE;
 }
 
-Bool32 CTIControl::GetDIBFromImage(PChar8 lpName, PCIMAGE_InfoDataInGet lpIn, char * *pDIB)
+Bool32 CTIControl::GetDIBFromImage(PChar8 lpName, PCIMAGE_InfoDataInGet lpIn, PInt8 *pDIB)
 {
 	Handle hImage = NULL;
 	void * pImage = NULL;
 	Bool32   bRet = FALSE;
 	PCTDIB   pSrcDIB;
-	uint32_t   wResolutionX;
-	uint32_t   wResolutionY;
+	Word32   wResolutionX;
+	Word32   wResolutionY;
 	CIMAGE_InfoDataInGet NewIn;
 
 	// в случае повторного вызова предыдущий диб стирается
@@ -1249,7 +1249,7 @@ Bool32 CTIControl::GetDIBFromImage(PChar8 lpName, PCIMAGE_InfoDataInGet lpIn, ch
 					 mpDIBFromImage->SetResolutionDPM(wResolutionX, wResolutionY) &&
 					 mpDIBFromImage->CreateDIBEnd() )
 				{
-					bRet = GetFrame(pSrcDIB, mpDIBFromImage, &NewIn, (NewIn.MaskFlag == TRUE ? (uchar *)&lpIn[1] : NULL) );
+					bRet = GetFrame(pSrcDIB, mpDIBFromImage, &NewIn, (NewIn.MaskFlag == TRUE ? (PWord8)&lpIn[1] : NULL) );
 				}
 				else
 					SetReturnCode_cimage(IDS_CIMAGE_UNABLE_CREATE_DIB);
@@ -1392,7 +1392,7 @@ Bool32 CTIControl::WriteDIBtoBMP(const char *cName, PCTDIB pDIB)
 {
 #ifdef CIMAGE_DUMP_ENABLE
 
-	uint32_t  wBMPSize = pDIB->GetDIBSize() + 14;
+	Word32  wBMPSize = pDIB->GetDIBSize() + 14;
 	PumaMemoryToFileDumper BMPDump(cName);
 
 	BMPDump.AddDump("BM",2);
@@ -1409,22 +1409,22 @@ Bool32 CTIControl::WriteDIBtoBMP(const char *cName, PCTDIB pDIB)
 	return TRUE;
 }
 
-Bool32 CTIControl::AddWriteRectangles(PChar8 lpName, uint32_t wNumber, PCIMAGE_Rect pFirst)
+Bool32 CTIControl::AddWriteRectangles(PChar8 lpName, Word32 wNumber, PCIMAGE_Rect pFirst)
 {
 	return AddRectsToMask(lpName, wNumber, pFirst, "w");
 }
 
-Bool32 CTIControl::RemoveWriteRectangles(PChar8 lpName, uint32_t wNumber, PCIMAGE_Rect pFirst)
+Bool32 CTIControl::RemoveWriteRectangles(PChar8 lpName, Word32 wNumber, PCIMAGE_Rect pFirst)
 {
 	return RemoveRectsFromMask(lpName, wNumber, pFirst, "w");
 }
 
-Bool32 CTIControl::AddReadRectangles(PChar8 lpName, uint32_t wNumber, PCIMAGE_Rect pFirst)
+Bool32 CTIControl::AddReadRectangles(PChar8 lpName, Word32 wNumber, PCIMAGE_Rect pFirst)
 {
 	return AddRectsToMask(lpName, wNumber, pFirst, "r");
 }
 
-Bool32 CTIControl::RemoveReadRectangles(PChar8 lpName, uint32_t wNumber, PCIMAGE_Rect pFirst)
+Bool32 CTIControl::RemoveReadRectangles(PChar8 lpName, Word32 wNumber, PCIMAGE_Rect pFirst)
 {
 	return RemoveRectsFromMask(lpName, wNumber, pFirst, "r");
 }
@@ -1509,12 +1509,12 @@ Bool32 CTIControl::CloseDIBFromList(PCTDIB pDIB)
 	return TRUE;
 }
 
-Bool32 CTIControl::AddRectsToMask(const char *lpName, uint32_t wNumber, PCIMAGE_Rect pFirstRect, const char *pcType)
+Bool32 CTIControl::AddRectsToMask(const char *lpName, Word32 wNumber, PCIMAGE_Rect pFirstRect, const char *pcType)
 {
 	Bool32 bRet = FALSE;
 	PCTIMask pMask;
 	Bool32  bInvalidMask = FALSE;
-	uint32_t  wRect;
+	Word32  wRect;
 	Bool32  bMaskEnabled;
 
 	if ( !OpenMaskFromList(lpName, &pMask, &bMaskEnabled, pcType) )
@@ -1552,12 +1552,12 @@ Bool32 CTIControl::AddRectsToMask(const char *lpName, uint32_t wNumber, PCIMAGE_
 	return bRet;
 }
 
-Bool32 CTIControl::RemoveRectsFromMask(const char *lpName, uint32_t wNumber, PCIMAGE_Rect pFirstRect, const char *pcType)
+Bool32 CTIControl::RemoveRectsFromMask(const char *lpName, Word32 wNumber, PCIMAGE_Rect pFirstRect, const char *pcType)
 {
 	Bool32 bRet = true;
 	PCTIMask pMask;
 	Bool32  bInvalidMask = FALSE;
-	uint32_t  wRect;
+	Word32  wRect;
 	Bool32  bMaskEnabled;
 
 	if ( !OpenMaskFromList(lpName, &pMask, &bMaskEnabled, pcType) )
@@ -1582,12 +1582,12 @@ Bool32 CTIControl::RemoveRectsFromMask(const char *lpName, uint32_t wNumber, PCI
 	return bRet;
 }
 
-Bool32 CTIControl::ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, uint32_t wAtX, uint32_t wAtY)
+Bool32 CTIControl::ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, Word32 wAtX, Word32 wAtY)
 {
-	uint32_t wX, wY;
-	uint32_t wXb, wXe;
-	uint32_t wYb, wYe;
-	uint32_t wSegmentsOnLine;
+	Word32 wX, wY;
+	Word32 wXb, wXe;
+	Word32 wYb, wYe;
+	Word32 wSegmentsOnLine;
 	PCTIMaskLine  pcMaskLine;
 
 	if ( !pDIB )
@@ -1637,19 +1637,19 @@ Bool32 CTIControl::ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, uint32_t wAtX, u
 	return TRUE;
 }
 
-Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm, uint32_t wLine, uint32_t wAtX, uint32_t wAtY)
+Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm, Word32 wLine, Word32 wAtX, Word32 wAtY)
 {
-	uint32_t wBitCount;
+	Word32 wBitCount;
 	Bool32 bRet = FALSE;
-	uint32_t wXb;
-	uint32_t wXe;
-	uint32_t wY;
-	uchar * pPixB;
-	uchar * pPixE;
-	uchar  wWPLA;
-	uint32_t wSegmLenght;
-	uint32_t wLAStartPos;
-	uint32_t wLAEndPos;
+	Word32 wXb;
+	Word32 wXe;
+	Word32 wY;
+	PWord8 pPixB;
+	PWord8 pPixE;
+	Word8  wWPLA;
+	Word32 wSegmLenght;
+	Word32 wLAStartPos;
+	Word32 wLAEndPos;
 	int32_t wLAFullBits;
 
 	if ( ( pSegm->GetStart() > (int32_t)(pcDIB->GetLineWidth() + wAtX )) ||
@@ -1669,8 +1669,8 @@ Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm, 
 	if ( wXe >= pcDIB->GetLineWidth() )
 		wXe = pcDIB->GetLineWidth() - 1;
 
-	pPixB = (uchar *)pcDIB->GetPtrToPixel(wXb, wY);
-	pPixE = (uchar *)pcDIB->GetPtrToPixel(wXe, wY);
+	pPixB = (PWord8)pcDIB->GetPtrToPixel(wXb, wY);
+	pPixE = (PWord8)pcDIB->GetPtrToPixel(wXe, wY);
 
 	if ( pPixB == NULL || pPixE == NULL )
 	{
@@ -1683,7 +1683,7 @@ Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm, 
 	case 1:
 		wLAStartPos = pcDIB->GetPixelShiftInByte(wXb);
 		wLAEndPos   = pcDIB->GetPixelShiftInByte(wXe);
-		wWPLA       = (uchar)pcDIB->GetWhitePixel();
+		wWPLA       = (Word8)pcDIB->GetWhitePixel();
 		wLAFullBits = pPixE - pPixB - 1;
 
 		if ( wLAFullBits > 0 )
@@ -1713,11 +1713,11 @@ Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm, 
 	case 24:
 	case 32:
 		wSegmLenght = ((pSegm->GetEnd() - pSegm->GetStart() ) * wBitCount ) / 8;
-		CIMAGE_MEMSET( pPixB, (uchar)pcDIB->GetWhitePixel(), wSegmLenght );
+		CIMAGE_MEMSET( pPixB, (Word8)pcDIB->GetWhitePixel(), wSegmLenght );
 		bRet = TRUE;
 		break;
 		//wSegmLenght = ((pSegm->GetEnd() - pSegm->GetStart() + 1) * wBitCount ) / 8;
-		//wWP24 = (uchar)pcDIB->GetWhitePixel();
+		//wWP24 = (Word8)pcDIB->GetWhitePixel();
 		//memset( pPix, wWP24, wSegmLenght );
 		//bRet = TRUE;
 		//break;

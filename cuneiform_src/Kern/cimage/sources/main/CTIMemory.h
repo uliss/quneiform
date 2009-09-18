@@ -84,14 +84,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#endif
 #endif
 ///////////////////////////////////////////////////////////////////////////////////
-void SetReturnCode_cimage(uint16_t rc);
-uint16_t GetReturnCode_cimage();
+void SetReturnCode_cimage(Word16 rc);
+Word16 GetReturnCode_cimage();
 /////////////////////////////////////////////////////////////////////////////////////////
 //
 Bool32  InitCFIOInterface(Bool32 Status);
 void    CIMAGEComment(const char *Comment);
-void *	CIMAGEAlloc(uint32_t stAllocateBlock);
-void *	CIMAGEDAlloc(uint32_t stAllocateBlock, const char *Comment);
+void *	CIMAGEAlloc(Word32 stAllocateBlock);
+void *	CIMAGEDAlloc(Word32 stAllocateBlock, const char *Comment);
 void	CIMAGEFree(void * mem);
 void *  CIMAGELock(void * mem);
 void    CIMAGEUnlock(void * mem);

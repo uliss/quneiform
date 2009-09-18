@@ -89,8 +89,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 struct Line {
 	Point32 start;
 	Point32 end;
-   int16_t   width10;
-   int16_t   flags;          // LF_,,, in LnsFrag from lnsdefs.h
+   Int16   width10;
+   Int16   flags;          // LF_,,, in LnsFrag from lnsdefs.h
 #define LF_DONTLINK 0x0001 // don't try to link
 #define LF_HLINER   0x0002 // extracted by HLiner
 

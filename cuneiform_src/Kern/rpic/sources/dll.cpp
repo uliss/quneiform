@@ -64,15 +64,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "mainpic.h"
 
 ///////////////////////////////////GLOBAL VARIABLES///////////////////////////////
-static uint16_t            gwHeightRC = 0;
-static uint16_t            gwLowRC = 0;
+static Word16            gwHeightRC = 0;
+static Word16            gwLowRC = 0;
 static HANDLE            ghStorage = NULL;
 static HINSTANCE         ghInst =  NULL;
 //////////////////////////////////////////////////////////////////////////////////
 
 Bool APIENTRY DllMain( HINSTANCE hModule,
                         uint32_t ul_reason_for_call,
-                        pvoid lpReserved )
+                        LPVOID lpReserved )
 {
     switch( ul_reason_for_call )
 	{
@@ -90,7 +90,7 @@ Bool APIENTRY DllMain( HINSTANCE hModule,
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-RPIC_FUNC(Bool32) RPIC_Init(uint16_t wHeightCode,HANDLE hStorage)
+RPIC_FUNC(Bool32) RPIC_Init(Word16 wHeightCode,HANDLE hStorage)
 {
 	gwHeightRC = wHeightCode;
 	LDPUMA_Init(0,NULL);
@@ -110,18 +110,18 @@ RPIC_FUNC(Bool32) RPIC_Done()
 	return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////
-RPIC_FUNC(uint32_t) RPIC_GetReturnCode()
+RPIC_FUNC(Word32) RPIC_GetReturnCode()
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 	if(gwLowRC && (gwLowRC - IDS_ERR_NO)> 0 )
-		rc = (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
+		rc = (Word32)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
 	return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
-RPIC_FUNC(char *) RPIC_GetReturnString(uint32_t dwError)
+RPIC_FUNC(Int8 *) RPIC_GetReturnString(Word32 dwError)
 {
-	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
-	static char szBuffer[512];
+	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
+	static Int8 szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
 		gwLowRC = IDS_ERR_NOTIMPLEMENT;
@@ -134,7 +134,7 @@ RPIC_FUNC(char *) RPIC_GetReturnString(uint32_t dwError)
 	return szBuffer;
 }
 //////////////////////////////////////////////////////////////////////////////////
-RPIC_FUNC(Bool32) RPIC_GetExportData(uint32_t dwType, void * pData)
+RPIC_FUNC(Bool32) RPIC_GetExportData(Word32 dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -162,7 +162,7 @@ RPIC_FUNC(Bool32) RPIC_GetExportData(uint32_t dwType, void * pData)
 return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
-RPIC_FUNC(Bool32) RPIC_SetImportData(uint32_t dwType, void * pData)
+RPIC_FUNC(Bool32) RPIC_SetImportData(Word32 dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -182,27 +182,27 @@ return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 
-void SetReturnCode_rpic(uint32_t rc)
+void SetReturnCode_rpic(Word32 rc)
 {
-uint16_t low = (uint16_t)(rc &  0xFFFF);
-uint16_t hei = (uint16_t)(rc >> 16);
+Word16 low = (Word16)(rc &  0xFFFF);
+Word16 hei = (Word16)(rc >> 16);
 
 	if(hei)
-		gwLowRC = (uint16_t)rc;
+		gwLowRC = (Word16)rc;
 	else
 	{
 		if(low - IDS_ERR_NO)
-			gwLowRC = (uint16_t)((uint32_t)(gwHeightRC<<16)|(low - IDS_ERR_NO));
+			gwLowRC = (Word16)((Word32)(gwHeightRC<<16)|(low - IDS_ERR_NO));
 		else
 			gwLowRC = 0;
 	}
 }
 
-uint32_t GetReturnCode_rpic()
+Word32 GetReturnCode_rpic()
 {
-uint32_t rc = gwLowRC;
-uint16_t low = (uint16_t)(gwLowRC &  0xFFFF);
-uint16_t hei = (uint16_t)(gwLowRC >> 16);
+Word32 rc = gwLowRC;
+Word16 low = (Word16)(gwLowRC &  0xFFFF);
+Word16 hei = (Word16)(gwLowRC >> 16);
 
 	if(hei == gwHeightRC || hei == 0)
 		rc = low + IDS_ERR_NO;

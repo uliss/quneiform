@@ -84,11 +84,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //		#define WHITE 1
 		#define BBYTE 0x00
 		#define WBYTE 0xFF
-      #define Buint16_t 0x0000
-      #define Wuint16_t 0xFFFF
+      #define BWord16 0x0000
+      #define WWord16 0xFFFF
 
-      #define BLACK_uint16_t( ww )          ( ww == Buint16_t )
-      #define WHITE_uint16_t( ww )          ( ww == Wuint16_t )
+      #define BLACK_Word16( ww )          ( ww == BWord16 )
+      #define WHITE_Word16( ww )          ( ww == WWord16 )
 		#define BLACK_BIT( ww, i )        ( (~ww) & lbit_word[i] )
 		#define WHITE_BIT( ww, i )        ( ww & lbit_word[i]    )
 		#define FIRST_WHITE_BIT( ww )                               \
@@ -120,11 +120,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //		#define WHITE 0
 		#define BBYTE 0xFF
 		#define WBYTE 0x00
-      #define Buint16_t 0xFFFF
-      #define Wuint16_t 0x0000
+      #define BWord16 0xFFFF
+      #define WWord16 0x0000
 
-      #define BLACK_uint16_t( ww )          ( ww == Buint16_t )
-      #define WHITE_uint16_t( ww )          ( ww == Wuint16_t )
+      #define BLACK_Word16( ww )          ( ww == BWord16 )
+      #define WHITE_Word16( ww )          ( ww == WWord16 )
 		#define BLACK_BIT( ww, i )        ( ww & lbit_word[i]    )
 		#define WHITE_BIT( ww, i )        ( (~ww) & lbit_word[i] )
 		#define FIRST_WHITE_BIT( ww )     									\

@@ -96,12 +96,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cttypext.h"
 ///////////////////////////////AK
 
-   CSTR_FUNC(Bool32)  CSTR_Init( uint16_t wHeightCode , Handle hStorage);
+   CSTR_FUNC(Bool32)  CSTR_Init( Word16 wHeightCode , Handle hStorage);
    CSTR_FUNC(void)    CSTR_Done(void);
-   CSTR_FUNC(uint32_t)  CSTR_GetReturnCode(void);
-   CSTR_FUNC(char*)   CSTR_GetReturnString(uint32_t dwError);
-   CSTR_FUNC(Bool32)  CSTR_SetImportData(uint32_t dwType, void * pData);
-   CSTR_FUNC(Bool32)  CSTR_GetExportData(uint32_t dwType, void * pData);
+   CSTR_FUNC(Word32)  CSTR_GetReturnCode(void);
+   CSTR_FUNC(char*)   CSTR_GetReturnString(Word32 dwError);
+   CSTR_FUNC(Bool32)  CSTR_SetImportData(Word32 dwType, void * pData);
+   CSTR_FUNC(Bool32)  CSTR_GetExportData(Word32 dwType, void * pData);
 
     enum CSTRFunctionsExt
         {
@@ -209,11 +209,11 @@ CSTR_FUNC(CSTR_rast)    CSTR_GetFirstRaster (CSTR_line  line);
 typedef CSTR_rast       (*FNCSTR_GetLastRaster)(CSTR_line       line);
 CSTR_FUNC(CSTR_rast)    CSTR_GetLastRaster (CSTR_line   line);
 // 7    CSTR_FNGETNEXT      дать хэндл следующего растра
-typedef CSTR_rast       (*FNCSTR_GetNextRaster)(CSTR_rast  curr_raster, uint32_t type_raster);
-CSTR_FUNC(CSTR_rast)    CSTR_GetNextRaster (CSTR_rast  curr_raster, uint32_t type_raster);
+typedef CSTR_rast       (*FNCSTR_GetNextRaster)(CSTR_rast  curr_raster, Word32 type_raster);
+CSTR_FUNC(CSTR_rast)    CSTR_GetNextRaster (CSTR_rast  curr_raster, Word32 type_raster);
 // 8    CSTR_FNGETPREV      дать хэндл предыдущего растра
-typedef CSTR_rast       (*FNCSTR_GetPrevRaster)(CSTR_rast  curr_raster, uint32_t type_raster);
-CSTR_FUNC(CSTR_rast)    CSTR_GetPrevRaster (CSTR_rast  curr_raster, uint32_t type_raster);
+typedef CSTR_rast       (*FNCSTR_GetPrevRaster)(CSTR_rast  curr_raster, Word32 type_raster);
+CSTR_FUNC(CSTR_rast)    CSTR_GetPrevRaster (CSTR_rast  curr_raster, Word32 type_raster);
 // 9    CSTR_FNGETLINE      дать хэндл строки, сопряжённой с растром
 typedef CSTR_line       (*FNCSTR_GetLine)(CSTR_rast  curr_raster);
 CSTR_FUNC(CSTR_line)    CSTR_GetLine (CSTR_rast  curr_raster);
@@ -227,8 +227,8 @@ CSTR_FUNC(CSTR_rast)            CSTR_NewRaster (CSTR_line       line ,int32_t co
 typedef Bool32          (*FNCSTR_StoreRaster)(CSTR_rast  curr_raster, RecRaster *image);
 CSTR_FUNC(Bool32)               CSTR_StoreRaster (CSTR_rast  curr_raster, RecRaster *image);
 // 13   CSTR_FNSTORECOMP запомнить растр как компоненту с интервальным представлением
-typedef Bool32          (*FNCSTR_StoreComp)(CSTR_rast  curr_raster, uchar *lp, Bool32 raster_init, uchar scale);
-CSTR_FUNC(Bool32)               CSTR_StoreComp (CSTR_rast  curr_raster, uchar *lp, Bool32 raster_init, uchar scale);
+typedef Bool32          (*FNCSTR_StoreComp)(CSTR_rast  curr_raster, Word8 *lp, Bool32 raster_init, Word8 scale);
+CSTR_FUNC(Bool32)               CSTR_StoreComp (CSTR_rast  curr_raster, Word8 *lp, Bool32 raster_init, Word8 scale);
 // 14   CSTR_FNSTORECOLLECTION запомнить коллекцию
 typedef Bool32          (*FNCSTR_StoreCollection)(CSTR_rast  curr_raster, RecVersions *collect);
 CSTR_FUNC(Bool32)                   CSTR_StoreCollection (CSTR_rast  curr_raster, RecVersions *collect);
@@ -239,8 +239,8 @@ CSTR_FUNC(CSTR_rast)    CSTR_DelRaster (CSTR_rast  curr_raster);
 typedef Bool32          (*FNCSTR_VerifyLine)(CSTR_line  line);
 CSTR_FUNC(Bool32)               CSTR_VerifyLine (CSTR_line      line);
 // 17   CSTR_FNGETRASTER    получить изображение (растр или интервалы)
-typedef Bool32          (*FNCSTR_GetImage)(CSTR_rast  curr_raster, uchar *out_res, uint32_t type_image);
-CSTR_FUNC(Bool32)               CSTR_GetImage (CSTR_rast  curr_raster, uchar *out_res, uint32_t type_image);
+typedef Bool32          (*FNCSTR_GetImage)(CSTR_rast  curr_raster, Word8 *out_res, Word32 type_image);
+CSTR_FUNC(Bool32)               CSTR_GetImage (CSTR_rast  curr_raster, Word8 *out_res, Word32 type_image);
 // 18   CSTR_FNGETATTR      получить атрибуты растра
 typedef Bool32          (*FNCSTR_GetAttr)(CSTR_rast  curr_raster, CSTR_rast_attr * attr);
 CSTR_FUNC(Bool32)           CSTR_GetAttr (CSTR_rast  curr_raster, CSTR_rast_attr * attr);
@@ -327,8 +327,8 @@ CSTR_FUNC(Bool32)                   CSTR_StoreCollectionUni (CSTR_rast  curr_ras
 typedef CCOM_handle (*FNCSTR_GetContainer)(CSTR_line ln);
 CSTR_FUNC(CCOM_handle) CSTR_GetContainer(CSTR_line ln);
 // 47   CSTR_FNSTORESCALE   запомнить код масштабирования
-typedef Bool32 (*FNCSTR_StoreScale)(CSTR_rast  curr_raster,uchar scale);
-CSTR_FUNC(Bool32)               CSTR_StoreScale(CSTR_rast  curr_raster,uchar scale);
+typedef Bool32 (*FNCSTR_StoreScale)(CSTR_rast  curr_raster,Word8 scale);
+CSTR_FUNC(Bool32)               CSTR_StoreScale(CSTR_rast  curr_raster,Word8 scale);
 // 48   CSTR_GETLINEFIRST   дать хэндл первой строки данных фрагмента и версии
 typedef CSTR_line (*FNCSTR_GetLineFirst) ( int32_t fragment_no, int32_t version);
 CSTR_FUNC(CSTR_line )   CSTR_GetLineFirst ( int32_t fragment_no, int32_t version);
@@ -336,8 +336,8 @@ CSTR_FUNC(CSTR_line )   CSTR_GetLineFirst ( int32_t fragment_no, int32_t version
 typedef CSTR_line (*FNCSTR_GetLineNext) (CSTR_line lin, int32_t fragment_no, int32_t version);
 CSTR_FUNC(CSTR_line )   CSTR_GetLineNext (CSTR_line lin, int32_t fragment_no, int32_t version);
 // 50   CSTR_FNCLEARLINE    Удалить растры из строки
-typedef Bool32 (*FNCSTR_ClearLine)(CSTR_line lin,int16_t left, int16_t right);
-CSTR_FUNC(Bool32) CSTR_ClearLine(CSTR_line lin,int16_t left, int16_t right);
+typedef Bool32 (*FNCSTR_ClearLine)(CSTR_line lin,Int16 left, Int16 right);
+CSTR_FUNC(Bool32) CSTR_ClearLine(CSTR_line lin,Int16 left, Int16 right);
 // 51   CSTR_GETRASTERLINE      дать хэндл строки растра
 typedef CSTR_line  (*FNCSTR_GetRasterLine) (CSTR_rast  curr_raster);
 CSTR_FUNC(CSTR_line)    CSTR_GetRasterLine (CSTR_rast  curr_raster);

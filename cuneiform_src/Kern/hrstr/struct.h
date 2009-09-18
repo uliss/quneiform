@@ -90,17 +90,17 @@
 
 struct mn_struc {
 	void *mnfirstbox; // address of the first box
-	int16_t mncounter; // (was INT) number of living lines in the component
+	Int16 mncounter; // (was INT) number of living lines in the component
 #define mnfree  mnfirstbox      // reference to next free main number
-	int16_t mnupper; // upper bound of component
-	int16_t mnlower; // lower bound of component
-	int16_t mnboxcnt; // number of boxes in component
+	Int16 mnupper; // upper bound of component
+	Int16 mnlower; // lower bound of component
+	Int16 mnboxcnt; // number of boxes in component
 #define usual_box_count 20      // heuristic of number of lines in a letter
 #define great_box_count 200     // heuristic for number of boxes in a picture
-	uchar mnlines; // number of lines in the component
-	uchar mnbegs; // number of free line begins
-	uchar mnends; // number of free line ends
-	uchar mnflag; // flag byte for main number
+	Word8 mnlines; // number of lines in the component
+	Word8 mnbegs; // number of free line begins
+	Word8 mnends; // number of free line ends
+	Word8 mnflag; // flag byte for main number
 #define mnpicture 1             // component is a picture
 	struct mn_struc *mnnext; // address of next dead component
 };
@@ -111,18 +111,18 @@ typedef struct mn_struc MN;
 struct box_struct {
 	struct box_struct *boxnext; // chain address (zero if no next box)
 	MN * boxmain; // component main number pointer
-	uint16_t boxptr; // ptr to the empty place in the box
-	int16_t boxleft; // left boundary for line envelope
-	int16_t boxright; // right boundary for line envelope
-	int16_t boxey; // row of line end+1 ( if line ends within
+	Word16 boxptr; // ptr to the empty place in the box
+	Int16 boxleft; // left boundary for line envelope
+	Int16 boxright; // right boundary for line envelope
+	Int16 boxey; // row of line end+1 ( if line ends within
 	//    box)
-	int16_t boxel; // length of the last segment (if line ends
+	Int16 boxel; // length of the last segment (if line ends
 	//    within box)
-	int16_t boxex; // coordinate of last segment end (if line
+	Int16 boxex; // coordinate of last segment end (if line
 	//    ends within box)
-	uchar boxflag; // byte for box attributes flags
-	uchar boxwf; // working flag (for picture compress)
-	uint16_t boxresw; // reserved word (for *4 arround)
+	Word8 boxflag; // byte for box attributes flags
+	Word8 boxwf; // working flag (for picture compress)
+	Word16 boxresw; // reserved word (for *4 arround)
 };
 typedef struct box_struct BOX;
 
@@ -206,7 +206,7 @@ typedef struct vers_struct version;
 //----------------------- stick -------------------------------
 
 struct stick_struct {
-	char x, y, l, w, top, bot;
+	CHAR x, y, l, w, top, bot;
 	INT incl;
 };
 typedef struct stick_struct STICK;
@@ -223,7 +223,7 @@ struct cell_struc {
 	struct cell_struc *nextl; // next letter ( only for letters )
 	struct cell_struc *prevl; // prev letter ( only for letters )
 	// 28
-	char bdiff; // local base line corrective displacement
+	CHAR bdiff; // local base line corrective displacement
 	BYTE difflg; // local correction flg
 	// baseline defined by cell:
 #define c_db_b1         1
@@ -243,11 +243,11 @@ struct cell_struc {
 #define c_bs_round  32
 #define c_bs_cap    64     // capital shape
 #define c_bs_done   128
-	char bas1;
+	CHAR bas1;
 	// 32
-	char bas2;
-	char bas3;
-	char bas4;
+	CHAR bas2;
+	CHAR bas3;
+	CHAR bas4;
 	BYTE cg_flag; // cut-to-glue message
 #define c_cg_noglue     1   // don't glue to ... ( just cut )
 #define c_cg_noenv      2       // envelope address obsolete
@@ -368,7 +368,7 @@ struct cell_struc {
 	// 112
 	STICK save_baton[MAX_BATON];
 	// 24+112=136
-	int dupstart, dupend;
+	LONG dupstart, dupend;
 #define dup_default     ((cell*)0xffffffff)
 	// 144
 	BYTE dlang_dup;
@@ -408,10 +408,10 @@ typedef struct cell_struc cell;
 
 //      line header
 struct ln_head {
-	int16_t lth; // length of one line representation
-	int16_t h; // height of line
-	int16_t row; // relative row of line start
-	uint16_t flg; // flags of free beg and free end
+	Int16 lth; // length of one line representation
+	Int16 h; // height of line
+	Int16 row; // relative row of line start
+	Word16 flg; // flags of free beg and free end
 #define l_fbeg          0x20
 #define l_fend          0x80
 #define l_cbeg          0x02

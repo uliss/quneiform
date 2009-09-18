@@ -91,11 +91,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ctbdefs.h"
 #include "ligas.h"    // 13.09.2000
 
-extern uchar language;
+extern Word8 language;
 
 
 WORD cmp(PBYTE r,WORD fullwb,WORD w,WORD h,welet * wl);
-int16_t RazmazHalf(BYTE *bSource,BYTE *bDest,int16_t xbit,int16_t yrow);
+SINT RazmazHalf(BYTE *bSource,BYTE *bDest,SINT xbit,SINT yrow);
 ///////////////////////
 //
 // штрафуем дальние точки
@@ -143,7 +143,7 @@ static int DistToWelet(PBYTE r,int fullByte,int w,int h,welet * wl,
 					   int xo,int yo,int porog,
 					   int dist1)
 {
-char *   curr, currn,currh;
+PCHAR   curr, currn,currh;
 int     rbyte;
 PBYTE   rr,rn;
 int		dist;
@@ -237,11 +237,11 @@ static int sig_tab[513]={
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1  // f
 };
 ///////////////
-int16_t DistWeletRazmaz(PBYTE r,int fullByte,int  w,int  h,welet * wl,
+SINT DistWeletRazmaz(PBYTE r,int fullByte,int  w,int  h,welet * wl,
 					 int  xo,int  yo, int porog, int wei)
 {
 int  ww=wl->w, hh=wl->h;
-char * curr;
+PCHAR curr;
 int i,j;
 BYTE  cbyte;
 int dist;
@@ -346,7 +346,7 @@ BYTE *rr;
 static int DistToWelet(PBYTE r,int fullByte,int w,int h,welet * wl,
 					   int xo,int yo,int porog,int dist1)
 {
-char * curr;
+PCHAR curr;
 int   i,j,jj;
 BYTE  cbyte,cc;
 int rbyte;
@@ -388,14 +388,14 @@ int dist;
 //
 // штрафуем точки cluster's
 //
-int16_t DistWeletRazmaz(PBYTE r,int fullByte,int  w,int  h,welet * wl,
+SINT DistWeletRazmaz(PBYTE r,int fullByte,int  w,int  h,welet * wl,
 					 int  xo,int  yo, int porog,int wei)
 {
-int16_t ww=wl->w, hh=wl->h;
-char * curr;
-int16_t i,j;
+SINT ww=wl->w, hh=wl->h;
+PCHAR curr;
+SINT i,j;
 BYTE  cbyte,cc;
-int16_t rbyte;
+SINT rbyte;
 int dist;
 int startx=(WR_MAX_WIDTH-w)/2;
 int starty=(WR_MAX_HEIGHT-h)/2;
@@ -698,10 +698,10 @@ static int LookBestClusters(int w,int h,BYTE *buf,BYTE *bufrazmaz,
 
 ///////////////////////
 
-int AddTestAlt(uchar prob,int numAlt,FonTestInfo *attr,
+int AddTestAlt(Word8 prob,int numAlt,FonTestInfo *attr,
 			   welet *wel,int nClust)
 {
-    uchar flg =CTB_PRINT_FONT;
+    Word8 flg =CTB_PRINT_FONT;
 	int j,k;
 
 	if(wel->attr & FON_CLU_ITALIC)
@@ -755,10 +755,10 @@ int AddTestAlt(uchar prob,int numAlt,FonTestInfo *attr,
    return numAlt;
 }
 /////////////
-static int16_t CheckLetter(int16_t w,int16_t h,BYTE *buf,BYTE *bufrazmaz,
-		       FONBASE *fbase,int porog, int let,FonTestInfo *attr ,int16_t nInCTB)
+static SINT CheckLetter(SINT w,SINT h,BYTE *buf,BYTE *bufrazmaz,
+		       FONBASE *fbase,int porog, int let,FonTestInfo *attr ,Int16 nInCTB)
 {
- int16_t dist;
+ SINT dist;
  int num=0,i;
  int numAlt=0;
  welet *wel;
@@ -782,7 +782,7 @@ static int16_t CheckLetter(int16_t w,int16_t h,BYTE *buf,BYTE *bufrazmaz,
 
   if(dist <= porog)
   {
-   uchar prob=MAX(0,255-STRAFPOINT*dist);
+   Word8 prob=MAX(0,255-STRAFPOINT*dist);
    numAlt = AddTestAlt( prob,numAlt,attr,wel,i);
   }
 
@@ -797,10 +797,10 @@ static BYTE buf[REC_MAX_RASTER_SIZE];
 static BYTE bufrazmaz[REC_MAX_RASTER_SIZE];
 static BYTE const mask0[8]={255,128,192,224,240,248,252,254};
 //////////////
-int16_t RecogClu(BYTE *rast,int16_t xbyte,int16_t xbit,int16_t yrow,
-              RECRESULT *recres, int16_t maxNames,
+SINT RecogClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
+              RECRESULT *recres, SINT maxNames,
               welet *wl,int numWel,
-              int porog ,int nInCTB, int16_t col, int16_t row,
+              int porog ,int nInCTB, Int16 col, Int16 row,
 			  int32_t countRazmaz)
 {
  int i;
@@ -871,8 +871,8 @@ int16_t RecogClu(BYTE *rast,int16_t xbyte,int16_t xbit,int16_t yrow,
   return i;
 }
 ///////////////////////////
-int16_t CheckClu(BYTE *rast,int16_t xbyte,int16_t xbit,int16_t yrow,
-			  FONBASE *fbase,int let,FonTestInfo *attr,int16_t nInCTB)
+SINT CheckClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
+			  FONBASE *fbase,int let,FonTestInfo *attr,Int16 nInCTB)
 {
  int i;
  int rbyte=(xbit+7)>>3;
@@ -897,7 +897,7 @@ int16_t CheckClu(BYTE *rast,int16_t xbyte,int16_t xbit,int16_t yrow,
  else
 #endif
   Razmaz2(buf,bufrazmaz,xbit,yrow,
-    0,(int16_t)POROG_ANGLES );
+    0,(SINT)POROG_ANGLES );
 
   //porog=MAX(xbit,yrow);
   porog=MIN(50,xbit+yrow);
@@ -926,11 +926,11 @@ int CompareCluster(BYTE *rast,int xbyte,int xbit,int yrow,welet *wel,
 
 #ifdef _USE_HALF_
  if( xbit < POROG_HALF_WIDTH || yrow < POROG_HALF_HEIGHT )
-  RazmazHalf(buf,bufrazmaz,(int16_t)xbit,(int16_t)yrow);
+  RazmazHalf(buf,bufrazmaz,(SINT)xbit,(SINT)yrow);
  else
 #endif
-  Razmaz2(buf,bufrazmaz,(int16_t)xbit,(int16_t)yrow,
-   (int16_t)0,(int16_t)POROG_ANGLES);
+  Razmaz2(buf,bufrazmaz,(SINT)xbit,(SINT)yrow,
+   (SINT)0,(SINT)POROG_ANGLES);
 
   i=distOne(buf,bufrazmaz,xbit,yrow,85,wel,movex,movey,1);
   return MAX(0,255-STRAFPOINT*i);
@@ -941,7 +941,7 @@ int CompareCluster(BYTE *rast,int xbyte,int xbit,int yrow,welet *wel,
 static int DistToWeletReal(PBYTE r,int fullByte,int w,int h,welet * wl,
 					   int xo,int yo,int porog)
 {
-char * curr;
+PCHAR curr;
 int   i,j,jj;
 BYTE  cbyte,cc;
 int rbyte;
@@ -1060,7 +1060,7 @@ static int AddTestRecogCollection( BYTE *rast,int xbit,int yrow,
 static int distOkr1(PBYTE r,int w,int h,welet * wl,
 				   int xo,int yo,int porog,int bound)
 {
-char * curr;
+PCHAR curr;
 int   i,j,jj;
 BYTE  cbyte,cc;
 int rbyte;
@@ -1115,14 +1115,14 @@ int dist;
 //
 // штрафуем точки cluster's
 //
-int16_t distOkr2(PBYTE r,int  w,int  h,welet * wl,
+SINT distOkr2(PBYTE r,int  w,int  h,welet * wl,
 			  int  xo,int  yo, int porog,int proc)
 {
-int16_t ww=wl->w, hh=wl->h;
-char * curr;
-int16_t i,j;
+SINT ww=wl->w, hh=wl->h;
+PCHAR curr;
+SINT i,j;
 BYTE  cbyte,cc;
-int16_t rbyte;
+SINT rbyte;
 int dist;
 int startx=(WR_MAX_WIDTH-w)/2;
 int starty=(WR_MAX_HEIGHT-h)/2;
@@ -1371,10 +1371,10 @@ static int LookBestOkr(int w,int h,BYTE *buf,BYTE *razmaz,
 }
 
 ///////////////////////
-int RecogCluOkr(BYTE *rast,int16_t xbyte,int16_t xbit,int16_t yrow,
-              RECRESULT *recres, int16_t maxNames,
+int RecogCluOkr(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
+              RECRESULT *recres, SINT maxNames,
               welet *wl,int numWel,
-              int porog ,int nInCTB, int16_t col, int16_t row,
+              int porog ,int nInCTB, Int16 col, Int16 row,
 			  int okr,int proc)
 {
  int i;
@@ -1422,7 +1422,7 @@ int CompareClusterOkr(BYTE *rast,int xbyte,int xbit,int yrow,welet *wel,
  {memcpy(b1,rast,rbyte);
   b1[rbyte-1]&=hvost;
  }
- Razmaz2(buf,bufrazmaz,(int16_t)xbit,(int16_t)yrow,0,POROG_ANGLES);
+ Razmaz2(buf,bufrazmaz,(SINT)xbit,(SINT)yrow,0,POROG_ANGLES);
 
  i=distOneOkr(buf,bufrazmaz,xbit,yrow,250,wel,movex,movey,okr,proc);
  *dist1=distOkr1(buf,xbit,yrow,wel,movex,movey,250,okr);
@@ -1434,7 +1434,7 @@ int CompareClusterOkr(BYTE *rast,int xbyte,int xbit,int yrow,welet *wel,
 static int distOkr(PBYTE r,int w,int h,welet * wl,
 				   int xo,int yo,int porog)
 {
-char * curr;
+PCHAR curr;
 int   i,j,jj;
 BYTE  cbyte,cc;
 int rbyte;
@@ -1475,7 +1475,7 @@ int dist;
 static int LookBestInner(int w,int h,BYTE *buf,BYTE *razmaz,
 		    int NumClus, welet *wel,
             RECRESULT *recres,int maxNames,int nInCTB,
-			int16_t *col,int16_t *row)
+			Int16 *col,Int16 *row)
 {
  int i,j,k;
  int dist;
@@ -1657,10 +1657,10 @@ addvers:
 static int ScaleSymbol(BYTE *inbuf,int fullByte,int allSizeX, int allSizeY,BYTE *outbuf,int newX,int newY);
 
 
-int RecogCluInner(BYTE *rast,int16_t xbyte,int16_t xbit,int16_t yrow,
-              RECRESULT *recres, int16_t maxNames,
+int RecogCluInner(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
+              RECRESULT *recres, SINT maxNames,
               welet *wl,int numWel,
-              int nInCTB, int16_t *col, int16_t *row )
+              int nInCTB, Int16 *col, Int16 *row )
 {
  int i;
  int rbyte=(xbit+7)>>3;

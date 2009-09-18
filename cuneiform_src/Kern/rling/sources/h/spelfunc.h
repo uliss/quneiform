@@ -69,8 +69,8 @@
 #endif // _MSC_VER > 1000
 /*** TG_SPELL ***/
 
-int read_all_file(PSTR name, char *buff); /* atal  .lib */
-int write_all_file(PSTR name, char *, uint32_t size);
+LONG read_all_file(PSTR name, CHAR *buff); /* atal  .lib */
+LONG write_all_file(PSTR name, CHAR *, uint32_t size);
 /*** SPELABC  ***/
 
 void initcode(void);
@@ -84,7 +84,7 @@ Bool IsVowel(BYTE c);
 /*** SPELSPEC ***/
 
 BYTE * load_specABC(BYTE *point, INT Country);
-INT check_art_dict(char word[], INT * wordlth, INT * vockind);
+INT check_art_dict(CHAR word[], INT * wordlth, INT * vockind);
 INT test_apppostrof(BYTE word[], SWORD *wrd, INT *l, INT *r);
 
 /*** SPELLFUN ***/
@@ -97,10 +97,10 @@ INT check_compound(SOBJ *, LTIMG **, struct dict_state *, user_voc *, INT);
 INT check_dict_voc(SOBJ *, LTIMG **, struct dict_state *, user_voc *, INT);
 INT prtobj(SOBJ *, INT, INT);
 INT prtwrd(SOBJ *, SWORD *, INT, INT);
-INT symcode(char *);
+INT symcode(CHAR *);
 INT findpart(SOBJ*, SPART[], INT, INT, INT *);
 INT findparte(SPART *, INT, INT, INT*);
-INT getstdn(char *);
+INT getstdn(CHAR *);
 
 /*** SPELLCHK ***/
 
@@ -132,7 +132,7 @@ INT genpart(SOBJ *);
 
 /*** SPELLOUT ***/
 
-char * find_byte_flag(void);
+CHAR * find_byte_flag(void);
 INT outobj(SOBJ *, SPART *);
 INT setobj_blue(SOBJ *);
 INT setpart_blue(SOBJ *obj, INT beg, INT end);
@@ -146,12 +146,12 @@ INT search(KEYTYPE *word, INT *wordsize, LTIMG * wrddef[],
 /*** EDFORMAT ***/
 
 INT begin(BYTE batch_run);
-struct segm * next_line(char tt, struct segm *cur_segm);
+struct segm * next_line(CHAR tt, struct segm *cur_segm);
 void skip_letter_in_line(struct segm *segm_ptr, INT x);
-void shift(char dir, INT v_s, struct segm *cur_segm, char *cur_symb);
+void shift(CHAR dir, INT v_s, struct segm *cur_segm, CHAR *cur_symb);
 INT test_spare_space(struct segm * segm, INT need_size);
 INT load_fragm(void);
-INT insert_symb(struct segm *, char *, LT *);
+INT insert_symb(struct segm *, CHAR *, LT *);
 INT processEdSymb(void);
 void puff_last_segm(void);
 
@@ -183,13 +183,13 @@ void init_stat_dict(struct dict_state *);/* in_treei.c */
 
 // 08-13-93 08:59pm, Mike
 // Second parameter has been removed.
-BYTE * load_stat_dict(char *point);
+BYTE * load_stat_dict(CHAR *point);
 
 // 08-13-93 09:00pm, Mike
 // Return type has been changed.
-void load_user_dicts(PSTR list_name, char * point);
+void load_user_dicts(PSTR list_name, CHAR * point);
 
-int read_all_voc(INT seqn, char *name, char *p);
+LONG read_all_voc(INT seqn, CHAR *name, CHAR *p);
 
 #ifdef SECOND_PASS
 

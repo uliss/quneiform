@@ -93,7 +93,7 @@ CTCStorageHeader::CTCStorageHeader():CTCGlobalHeader()
 //////////////////////////////////////////////////////////////////////////////////
 //
 CTCStorageHeader::CTCStorageHeader(CTCGlobalFile * pNewStorage,
-								   uint32_t wNewFlag,
+								   Word32 wNewFlag,
 								   const char *pcNewStorageFolder )
 								   :CTCGlobalHeader(pNewStorage,NULL,0,wNewFlag)//, Contents()
 {
@@ -127,9 +127,9 @@ CTCStorageHeader::CTCStorageHeader(CTCGlobalFile * pNewStorage,
 		else
 		{
 #ifdef _DEBUG
-            uint32_t Err = GetLastError();
+            Word32 Err = GetLastError();
             // попробуем сообщить об ошибке  №№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№
-			pvoid lpMsgBuf;
+			LPVOID lpMsgBuf;
 
 			FormatMessage(
 				FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
@@ -171,7 +171,7 @@ CTCStorageHeader::~CTCStorageHeader()
 //////////////////////////////////////////////////////////////////////////////////
 //
 /*
-Bool32 CTCStorageHeader::AddItemToStorage(Handle hNewItem, uint32_t wID, uint32_t wNewSize)
+Bool32 CTCStorageHeader::AddItemToStorage(Handle hNewItem, Word32 wID, Word32 wNewSize)
 {
 	CTCStorageContents * pCurrent, * New;
 
@@ -245,7 +245,7 @@ CTCStorageList::~CTCStorageList()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Handle CTCStorageList::AddItem(CTCGlobalFile * pNewStorage, uint32_t wNewFlag)
+Handle CTCStorageList::AddItem(CTCGlobalFile * pNewStorage, Word32 wNewFlag)
 {
 	CTCStorageHeader * Current, * NewBlock = NULL;
 	Handle NewHandle = pNewStorage->GetFileHandle();
@@ -268,10 +268,10 @@ Handle CTCStorageList::AddItem(CTCGlobalFile * pNewStorage, uint32_t wNewFlag)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTCStorageList::DeleteItem(Handle Storage, uint32_t Flag)
+Bool32 CTCStorageList::DeleteItem(Handle Storage, Word32 Flag)
 {
 	CTCStorageHeader * Current, * Last, * EraseBlock;
-	uint32_t IsOK    = 0;
+	Word32 IsOK    = 0;
 
 	for ( Last = Current = pFirst(); Current != pLast(); Current = Current->GetNext() )
 	{

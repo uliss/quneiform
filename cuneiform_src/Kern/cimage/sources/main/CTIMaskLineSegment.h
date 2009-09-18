@@ -102,12 +102,12 @@ public:
 	// пересечение данного сегмента с аргументом
 	Bool32                IntersectWith(PCTIMaskLineSegment pSegm);
 	// положение данного сегмента относительно аргумента
-	uint32_t                IsIntersectWith(PCTIMaskLineSegment pSegm);
+	Word32                IsIntersectWith(PCTIMaskLineSegment pSegm);
 	// равенство сегментов
 	Bool32                IsEqual(PCTIMaskLineSegment pSegm) { return (mwEnd == pSegm->GetEnd() && mwStart == pSegm->GetStart()); };
 
 public:
-	int32_t GetPointDirect(uint32_t X);
+	int32_t GetPointDirect(Word32 X);
 	CTIMaskLineSegment();
 	CTIMaskLineSegment(int32_t Start, int32_t End);
 	CTIMaskLineSegment(PCTIMaskLineSegment pSegm);

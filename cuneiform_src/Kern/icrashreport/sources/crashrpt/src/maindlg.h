@@ -81,10 +81,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 // RTF load callback
 //
-uint32_t CALLBACK LoadRTFString(DWORD dwCookie, LPBYTE pbBuff, int cb, int *pcb)
+uint32_t CALLBACK LoadRTFString(DWORD dwCookie, LPBYTE pbBuff, LONG cb, LONG *pcb)
 {
    CString *sText = (CString*)dwCookie;
-   int lLen = sText->GetLength();
+   LONG lLen = sText->GetLength();
 
    for (*pcb = 0; *pcb < cb && *pcb < lLen; (*pcb)++)
    {
@@ -260,7 +260,7 @@ public:
            m_sEmail.ReverseFind(_T('.')) < m_sEmail.Find(_T('@'))))
       {
          // alert user
-         Tchar szBuf[256];
+         TCHAR szBuf[256];
 		   ::LoadString(_Module.GetResourceInstance(), IDS_INVALID_EMAIL, szBuf, 255);
          MessageBox(szBuf, CUtility::getAppName(), MB_OK);
          // select email

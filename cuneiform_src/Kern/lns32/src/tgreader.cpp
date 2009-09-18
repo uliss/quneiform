@@ -120,7 +120,7 @@ TigerReader::TigerReader(void)
 
       lines_count = 0;
       dword_len = BUF_LEN / 4;
-      line_buf = (uchar*)malloc( BUF_LEN ); // 24 apr 96, VP. Bug:  BUF_LEN <== (dword_len*4)
+      line_buf = (Word8*)malloc( BUF_LEN ); // 24 apr 96, VP. Bug:  BUF_LEN <== (dword_len*4)
 		if (line_buf == NULL)
       {  assert(0); errCode = ER_NOMEMORY;
          dword_len=0;
@@ -150,7 +150,7 @@ void*   TigerReader::getLine(void)
 //   printf("\n[%d]\t", lines_counter);
 //#endif
       if (lines_count == 0)    // there is no lines in buf...
-      {  int32_t res = Tiger_Callback_ImageRead( (uchar*)line_buf, (BUF_LEN/wImageByteWidth)*wImageByteWidth ); // 03-09-94 01:45pm
+      {  int32_t res = Tiger_Callback_ImageRead( (Word8*)line_buf, (BUF_LEN/wImageByteWidth)*wImageByteWidth ); // 03-09-94 01:45pm
          lines_count = res / wImageByteWidth;
          if (lines_count == 0)
          {  assert(0);
@@ -204,7 +204,7 @@ void*   TigerReader::getLine(void)
 	  if (HBorder)       //*******Rom
       {  // kill hor border
          int32_t num_short_segm = 0;
-         uchar* pp = (uchar*)res_line;
+         Word8* pp = (Word8*)res_line;
          int wi16 = wImageByteWidth >> 4;
          int wi   = wImageByteWidth & 15;
          while (wi16--)
@@ -241,7 +241,7 @@ void*   TigerReader::getLine(void)
 	  if (VBorder)			//*******Rom
       {  // kill left border - kill all for first white segm
          int max_border_width = wImageByteWidth >> 4; // 1/16 of page
-         uchar* pp = (uchar*)res_line;
+         Word8* pp = (Word8*)res_line;
          while (max_border_width--)
          {
             if (*pp == 0xff)  // full white segm
@@ -254,7 +254,7 @@ void*   TigerReader::getLine(void)
 	  if (VBorder)				//*******Rom
       {  // kill right border - kill all for first white segm
          int max_border_width = wImageByteWidth >> 4; // 1/16 of page
-         uchar* pp = (uchar*)res_line;
+         Word8* pp = (Word8*)res_line;
          pp += wImageByteWidth - 1; // set to last byte
          while (max_border_width--)
          {
@@ -268,7 +268,7 @@ void*   TigerReader::getLine(void)
 
       if (wAddX)
       {
-         uchar* pp = (uchar*)res_line;
+         Word8* pp = (Word8*)res_line;
          int32_t skipbytes = wAddX >> 3;
          pp += skipbytes;
          res_line = pp;

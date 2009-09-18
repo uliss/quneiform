@@ -87,8 +87,8 @@ Bool32 StringsUpdatedByBukvica()
 	STRING* p;
 	int nString;
 //	Rect16  rect1;
-	uint32_t key = 111;
-	uint32_t color = 23000;
+	Word32 key = 111;
+	Word32 color = 23000;
 
 	for (nString = 0, p = pStringsUpList; p != NULL; p = p -> pDown, nString++)
     {
@@ -223,11 +223,11 @@ void StringCalculateParameters (STRING *pString)
     }
 
     pString -> nTopDispersion =
-        (int) long_sqrt ((int) (nSumTopDispersion
+        (int) long_sqrt ((LONG) (nSumTopDispersion
                       / (pString -> nLetters - pString -> nSpecialsLetters)));
 
     pString -> nBottomDispersion =
-        (int) long_sqrt ((int) (nSumBottomDispersion
+        (int) long_sqrt ((LONG) (nSumBottomDispersion
                       / (pString -> nLetters - pString -> nSpecialsLetters)));
 
     pString -> yMin = pString -> yMiddleTop

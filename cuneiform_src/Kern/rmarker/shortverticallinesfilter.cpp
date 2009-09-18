@@ -79,7 +79,7 @@ static Bool32 bShowDebugData = FALSE;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 ShortVerticalLinesProcess ( uint32_t Step, PRMPreProcessImage Image )
+Bool32 ShortVerticalLinesProcess ( Word32 Step, PRMPreProcessImage Image )
 {
 	Bool32 bRet = FALSE;
 	Bool32 bClear = FALSE;
@@ -91,7 +91,7 @@ Bool32 ShortVerticalLinesProcess ( uint32_t Step, PRMPreProcessImage Image )
 		//gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns = (LineInfo *)myAlloc(sizeof(LineInfo) * PUMAMaxNumLines);
 
 		if ( gSVLBuffer.VLinefBufferA == NULL )
-			gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns = (LineInfo *)CFIO_DAllocMemory((sizeof(LineInfo) * PUMAMaxNumLines), MAF_GALL_GPTR, (char *)"puma", (char *)"SVL step I lines pool");
+			gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns = (LineInfo *)CFIO_DAllocMemory((sizeof(LineInfo) * PUMAMaxNumLines), MAF_GALL_GPTR, (PInt8)"puma", (PInt8)"SVL step I lines pool");
 
 		bRet = ReadSVLFromPageContainer( gSVLBuffer.LineInfoA, Image );
 		bClear = bRet == FALSE;
@@ -104,7 +104,7 @@ Bool32 ShortVerticalLinesProcess ( uint32_t Step, PRMPreProcessImage Image )
 		//gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns = (LineInfo *)myAlloc(sizeof(LineInfo) * PUMAMaxNumLines);
 
 		if ( gSVLBuffer.VLinefBufferB == NULL )
-			gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns = (LineInfo *)CFIO_DAllocMemory((sizeof(LineInfo) * PUMAMaxNumLines), MAF_GALL_GPTR, (char *)"puma", (char *)"SVL step II lines pool");
+			gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns = (LineInfo *)CFIO_DAllocMemory((sizeof(LineInfo) * PUMAMaxNumLines), MAF_GALL_GPTR, (PInt8)"puma", (PInt8)"SVL step II lines pool");
 
 		bRet = ReadSVLFromPageContainer( gSVLBuffer.LineInfoB, Image );
 		////////////////
@@ -156,12 +156,12 @@ Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Ima
 // Handle         hBlockLineHor;
 // Handle         hBlockLineVer;
 // Handle         hBlockLinePrev;
- uint32_t         nTagSize;
-// uint32_t         nReal;
-// uint32_t         wErr32;
+ Word32         nTagSize;
+// Word32         nReal;
+// Word32         wErr32;
 
  nTagSize = sizeof (LinesTotalInfo);
- uint32_t size_line_com=sizeof(LINE_COM);
+ Word32 size_line_com=sizeof(LINE_COM);
  Bool32 fl_break;
  int num=0;
  int count=0;
@@ -194,10 +194,10 @@ Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Ima
 		   if(LTInfo->Hor.Lns)
 		   {
 		    num=LTInfo->Hor.Cnt;
-		    LTInfo->Hor.Lns[num].A.x=(int16_t)(cpdata->Line.Beg_X);
-            LTInfo->Hor.Lns[num].A.y=(int16_t)(cpdata->Line.Beg_Y);
-		    LTInfo->Hor.Lns[num].B.x=(int16_t)(cpdata->Line.End_X);
-		    LTInfo->Hor.Lns[num].B.y=(int16_t)(cpdata->Line.End_Y);
+		    LTInfo->Hor.Lns[num].A.x=(Int16)(cpdata->Line.Beg_X);
+            LTInfo->Hor.Lns[num].A.y=(Int16)(cpdata->Line.Beg_Y);
+		    LTInfo->Hor.Lns[num].B.x=(Int16)(cpdata->Line.End_X);
+		    LTInfo->Hor.Lns[num].B.y=(Int16)(cpdata->Line.End_Y);
 		    LTInfo->Hor.Lns[num].Thickness=cpdata->Line.Wid10/10;
             LTInfo->Hor.Lns[num].Flags=cpdata->Flags;
 		    (LTInfo->Hor.Cnt)++;
@@ -208,10 +208,10 @@ Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Ima
 		   if(LTInfo->Ver.Lns)
 		   {
 		    num=LTInfo->Ver.Cnt;
-		    LTInfo->Ver.Lns[num].A.x=(int16_t)(cpdata->Line.Beg_X);
-            LTInfo->Ver.Lns[num].A.y=(int16_t)(cpdata->Line.Beg_Y);
-		    LTInfo->Ver.Lns[num].B.x=(int16_t)(cpdata->Line.End_X);
-		    LTInfo->Ver.Lns[num].B.y=(int16_t)(cpdata->Line.End_Y);
+		    LTInfo->Ver.Lns[num].A.x=(Int16)(cpdata->Line.Beg_X);
+            LTInfo->Ver.Lns[num].A.y=(Int16)(cpdata->Line.Beg_Y);
+		    LTInfo->Ver.Lns[num].B.x=(Int16)(cpdata->Line.End_X);
+		    LTInfo->Ver.Lns[num].B.y=(Int16)(cpdata->Line.End_Y);
 		    LTInfo->Ver.Lns[num].Thickness=cpdata->Line.Wid10/10;
             LTInfo->Ver.Lns[num].Flags=cpdata->Flags;
 		    (LTInfo->Ver.Cnt)++;
@@ -271,9 +271,9 @@ Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Ima
 		for (int32_t i=0; i<LTInfo->Hor.Cnt; i++)
 		{
 			if (i==0)
-				hBlockLineHor = CPAGE_GetBlockFirst (Image->hCPAGE, (uint32_t)(LTInfo->Hor.Lns));
+				hBlockLineHor = CPAGE_GetBlockFirst (Image->hCPAGE, (Word32)(LTInfo->Hor.Lns));
 			else
-				hBlockLineHor = CPAGE_GetBlockNext (Image->hCPAGE, hBlockLinePrev, (uint32_t)(LTInfo->Hor.Lns));
+				hBlockLineHor = CPAGE_GetBlockNext (Image->hCPAGE, hBlockLinePrev, (Word32)(LTInfo->Hor.Lns));
 			wErr32 = CPAGE_GetReturnCode ();
 			if (wErr32!=0)
 			{
@@ -285,7 +285,7 @@ Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Ima
 				break;
 			}
 			nTagSize = sizeof (LineInfo);
-			nReal = CPAGE_GetBlockData (Image->hCPAGE, hBlockLineHor, (uint32_t)(LTInfo->Hor.Lns), (void *)&(pLHor[i]), nTagSize);
+			nReal = CPAGE_GetBlockData (Image->hCPAGE, hBlockLineHor, (Word32)(LTInfo->Hor.Lns), (void *)&(pLHor[i]), nTagSize);
 			wErr32 = CPAGE_GetReturnCode ();
 			if ((nReal!=nTagSize)||(wErr32!=0))
 			{
@@ -302,9 +302,9 @@ Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Ima
 		for (int32_t i=0; i<LTInfo->Ver.Cnt; i++)
 		{
 			if (i==0)
-				hBlockLineVer = CPAGE_GetBlockFirst (Image->hCPAGE, (uint32_t)(LTInfo->Ver.Lns));
+				hBlockLineVer = CPAGE_GetBlockFirst (Image->hCPAGE, (Word32)(LTInfo->Ver.Lns));
 			else
-				hBlockLineVer = CPAGE_GetBlockNext (Image->hCPAGE, hBlockLinePrev, (uint32_t)(LTInfo->Ver.Lns));
+				hBlockLineVer = CPAGE_GetBlockNext (Image->hCPAGE, hBlockLinePrev, (Word32)(LTInfo->Ver.Lns));
 			wErr32 = CPAGE_GetReturnCode ();
 			if (wErr32!=0)
 			{
@@ -316,7 +316,7 @@ Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Ima
 				break;
 			}
 			nTagSize = sizeof (LineInfo);
-			nReal = CPAGE_GetBlockData (Image->hCPAGE, hBlockLineVer, (uint32_t)(LTInfo->Ver.Lns), (void *)&(pLVer[i]), nTagSize);
+			nReal = CPAGE_GetBlockData (Image->hCPAGE, hBlockLineVer, (Word32)(LTInfo->Ver.Lns), (void *)&(pLVer[i]), nTagSize);
 			wErr32 = CPAGE_GetReturnCode ();
 			if ((nReal!=nTagSize)||(wErr32!=0))
 			{
@@ -339,11 +339,11 @@ Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Ima
 Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage Image)
 {
 	Bool32 rc = TRUE;
-	uint32_t LinesTotalA;
-	uint32_t LinesTotalB;
+	Word32 LinesTotalA;
+	Word32 LinesTotalB;
 	char str[255];
 	int32_t j = 0;
-	uint32_t SVLCount = 0;
+	Word32 SVLCount = 0;
 	Rect16 ZoomRect;
 
 	bShowDebug     = !LDPUMA_Skip(Image->hDebugSVLines);
@@ -365,7 +365,7 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage 
 		LDPUMA_Console(str);
 	}
 
-	for (uint32_t i=0; i<LinesTotalB; i++)
+	for (Word32 i=0; i<LinesTotalB; i++)
 	{
 		if ( LtiB->Ver.Lns[i].Flags != LtiA->Ver.Lns[i].Flags )
 		{
@@ -453,7 +453,7 @@ Bool32 SVLComponentFilter(LineInfo *Line, PRMPreProcessImage Image)
 	int32_t Filter = 0;
 	int32_t j = 0;
 	char str[255];
-	int16_t Thick = Line->Thickness / 2;
+	Int16 Thick = Line->Thickness / 2;
 	Bool32 bDieComponent = FALSE;
 
 

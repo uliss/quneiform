@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern "C" {
 #endif
 
-extern uint16_t wLowRC;
+extern Word16 wLowRC;
 
 #ifdef __cplusplus
 }
@@ -75,29 +75,29 @@ extern uint16_t wLowRC;
 //32
 typedef struct CGRAPH_Data
 {
-        int16_t	upper;
-        int16_t	left;
-        int16_t	h;
-        int16_t	w;
-        int16_t	numcomp;
-        int16_t	size_linerep;
+        Int16	upper;
+        Int16	left;
+        Int16	h;
+        Int16	w;
+        Int16	numcomp;
+        Int16	size_linerep;
 
-        uchar	scale;
+        Word8	scale;
 
         Bool32	uvers;
 		Bool32	env;
 		Bool32	loop;
 
-		uchar	Reserved[7];
+		Word8	Reserved[7];
 }data;
 
 //32
 typedef struct CGRAPH_FileData
 {
-	uint16_t	FileVer;
-	uint16_t	MaxLineVer;
+	Word16	FileVer;
+	Word16	MaxLineVer;
 
-	uchar	Reserved[28];
+	Word8	Reserved[28];
 }FileData;
 
 typedef struct ALoop

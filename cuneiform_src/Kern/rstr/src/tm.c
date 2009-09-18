@@ -239,7 +239,7 @@ INT is_square(cell *a)
  INT  intbeg, intend, intlth, flsq, dens;
  INT  addinc, addinc8, cellh, cellw, cellwa8, cellha8,
       Ln, lc1, lineh, hcur, hcur8, hrest, hrest8, hint;
- int wrkl, cellsq, sumlth;
+ LONG wrkl, cellsq, sumlth;
  BYTE was_here;
 
  was_here=0;
@@ -258,7 +258,7 @@ INT is_square(cell *a)
 
  cp1 = a->env;
  Ln=cp1->nl;        // number of lines in component
- Lp1=(lnhead *) ( (char *)cp1 + cp1->lines + 2); // beginning of first line
+ Lp1=(lnhead *) ( (CHAR *)cp1 + cp1->lines + 2); // beginning of first line
  Lp2=Lp1;
  for (lc1=0; lc1 < Ln; lc1++)
  {
@@ -308,7 +308,7 @@ INT is_square(cell *a)
      }
      flsq = 0;  // thick in middle
    } // intervals
-   Lp2=Lp1=(lnhead *) ((char *)Lp2+Lp2->lth);   // next line
+   Lp2=Lp1=(lnhead *) ((CHAR *)Lp2+Lp2->lth);   // next line
  } // all lines
  switch (was_here)
  {

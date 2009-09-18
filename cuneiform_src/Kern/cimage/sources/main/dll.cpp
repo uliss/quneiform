@@ -71,8 +71,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-static uint16_t            gwHeightRC = 0;
-static uint16_t            gwLowRC =    0;
+static Word16            gwHeightRC = 0;
+static Word16            gwLowRC =    0;
 static HINSTANCE         ghInst =     NULL;
 CTIControl *      Control_cti =    NULL;
 static int32_t             InitCount =  0;
@@ -82,7 +82,7 @@ static int32_t             InitCount =  0;
 
 Bool APIENTRY DllMain( HINSTANCE  hModule,
                         uint32_t ul_reason_for_call,
-                        pvoid lpReserved )
+                        LPVOID lpReserved )
 {
     switch( ul_reason_for_call )
 	{
@@ -100,7 +100,7 @@ Bool APIENTRY DllMain( HINSTANCE  hModule,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_Init(uint16_t wHeightCode,Handle hStorage)
+CIMAGE_FUNC(Bool32) CIMAGE_Init(Word16 wHeightCode,Handle hStorage)
 {
 	gwHeightRC = wHeightCode;
 
@@ -146,18 +146,18 @@ CIMAGE_FUNC(Bool32) CIMAGE_Done()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(uint32_t) CIMAGE_GetReturnCode()
+CIMAGE_FUNC(Word32) CIMAGE_GetReturnCode()
 {
 	if ( !gwLowRC )
 		return 0;
 
-	return (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_CIMAGE_ERR_NO);
+	return (Word32)(gwHeightRC<<16)|(gwLowRC - IDS_CIMAGE_ERR_NO);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(char *) CIMAGE_GetReturnString(uint32_t dwError)
+CIMAGE_FUNC(PInt8) CIMAGE_GetReturnString(Word32 dwError)
 {
-	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_CIMAGE_ERR_NO;
+	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_CIMAGE_ERR_NO;
 	static Char8 szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
@@ -168,14 +168,14 @@ CIMAGE_FUNC(char *) CIMAGE_GetReturnString(uint32_t dwError)
 	else
 		return NULL;
 
-	return (char *)szBuffer;
+	return (PInt8)szBuffer;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 #define CASE_FUNCTION(a)	case CIMAGE_FN_##a:	*(FNCIMAGE##a *)pData = CIMAGE_##a; break
 //////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_GetExportData(uint32_t dwType, void * pData)
+CIMAGE_FUNC(Bool32) CIMAGE_GetExportData(Word32 dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -211,7 +211,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_GetExportData(uint32_t dwType, void * pData)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_SetImportData(uint32_t dwType, void * pData)
+CIMAGE_FUNC(Bool32) CIMAGE_SetImportData(Word32 dwType, void * pData)
 {
 	Bool rc = FALSE;
 	gwLowRC = IDS_CIMAGE_ERR_NOTIMPLEMENT;
@@ -220,14 +220,14 @@ CIMAGE_FUNC(Bool32) CIMAGE_SetImportData(uint32_t dwType, void * pData)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void SetReturnCode_cimage(uint16_t rc)
+void SetReturnCode_cimage(Word16 rc)
 {
 	if ( rc == IDS_CIMAGE_ERR_NO || gwLowRC == IDS_CIMAGE_ERR_NO )
 		gwLowRC = rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-uint16_t GetReturnCode_cimage()
+Word16 GetReturnCode_cimage()
 {
 	return gwLowRC;
 }

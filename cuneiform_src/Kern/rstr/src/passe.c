@@ -79,9 +79,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern BYTE db_trace_flag;
 extern BYTE decode_ASCII_to_[256][4];
 extern BYTE valid_word_number;
-extern INT  text_findstat(char * w);
-extern INT  text_findstat_aux(char * w);
-extern INT  text_findstat_agressive(char * w);
+extern INT  text_findstat(CHAR * w);
+extern INT  text_findstat_aux(CHAR * w);
+extern INT  text_findstat_agressive(CHAR * w);
 static INT  get_right_coord(cell *c);
 static INT  get_left_coord(cell *c);
 static BYTE is_english_word(cell *c,cell *e);
@@ -104,11 +104,11 @@ static Bool left_over(cell *b,INT limit);
 
 //Alik 04-25-96 06:53pm
 //============== Import func ===========
-//INT text_findstat(char * word);
+//INT text_findstat(CHAR * word);
 //============== Local func =================
 static Bool russian_dictionary_word(cell * first, cell * last,PBYTE);
-Bool _spell(char * s,BYTE lang);
-Bool _spell_agressive(char * s,BYTE lang);
+Bool _spell(PCHAR s,BYTE lang);
+Bool _spell_agressive(PCHAR s,BYTE lang);
 Bool short_spell(BYTE *wrd,BYTE language, BYTE nextlet );
 extern void final_descriminate(cell *b, cell *e);
 extern void del_word_for2lang(INT left_limit,INT right_limit);
@@ -589,7 +589,7 @@ Bool russian_dictionary_word(cell * first, cell * last,PBYTE BadWord)
 #define MINI_PROB	150
 #define FINE_LET	200
 
-char word[76],*pw;
+CHAR word[76],*pw;
 INT  cl;
 cell *c,*roll;
 
@@ -650,10 +650,10 @@ cell *c,*roll;
  return FALSE;
 }
 
-Bool _spell(char * s,BYTE lang)
+Bool _spell(PCHAR s,BYTE lang)
 {
 
-char        w[76]="",*pw; BYTE ss;
+CHAR        w[76]="",*pw; BYTE ss;
 INT         ret;
 
 for(pw=w; *s; s++)
@@ -684,10 +684,10 @@ else
 return  ret > 0;
 }
 
-Bool _spell_agressive(char * s,BYTE lang)
+Bool _spell_agressive(PCHAR s,BYTE lang)
 {
 
-char        w[76]="",*pw; BYTE ss;
+CHAR        w[76]="",*pw; BYTE ss;
 INT         ret;
 
 if( lang!=LANG_RUSSIAN )

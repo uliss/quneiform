@@ -136,13 +136,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #define POROG_GOOD_VERY_SPEC 252
   //#include "leo.h"
   static RecObject ro;
-  static uchar specBadRus[]="’х√га¬вёю“т…й к";
-  static uchar specBadEng[]="mnVvWwaBrYQ";
-  static uchar specBadNon[]="";
-  static uchar *specBadLeo=specBadRus;
-  static uchar specVeryBadRus[]="ўщ";
-  static uchar specVeryBadEng[]="";
-  static uchar *specVeryBadLeo=specBadNon;
+  static Word8 specBadRus[]="’х√га¬вёю“т…й к";
+  static Word8 specBadEng[]="mnVvWwaBrYQ";
+  static Word8 specBadNon[]="";
+  static Word8 *specBadLeo=specBadRus;
+  static Word8 specVeryBadRus[]="ўщ";
+  static Word8 specVeryBadEng[]="";
+  static Word8 *specVeryBadLeo=specBadNon;
 #endif
 //======== EXTERN FUNCTIONS
 int    p2_rotateRecRaster(RecRaster *rec,int ninc);
@@ -181,7 +181,7 @@ FON_FUNC(int32_t) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
                               CSTR_rast firNew,CSTR_rast lasNew,
                               int lang, int porog, int nNaklon, int nRazmaz);
 
-static void p2_SetLanguage(CSTR_rast first, CSTR_rast last, uchar lang);
+static void p2_SetLanguage(CSTR_rast first, CSTR_rast last, Word8 lang);
 static int BrokenRerecog(CSTR_rast first,CSTR_rast last,CSTR_line lineRaw,Bool32 single);
 static int GlueRerecog(CSTR_rast first,CSTR_rast last, CSTR_line lineRaw,Bool32 boAll);
 static int RerecogPalki(CSTR_rast first,CSTR_rast last,CSTR_line lineRaw);
@@ -191,7 +191,7 @@ static int  p2_getIncline(CSTR_rast first,CSTR_rast last);
 static BYTE p2_getFont(CSTR_rast first,CSTR_rast last); // OLEG
 static void FindAccordLine(CSTR_line lineRaw,CSTR_rast *firOld,CSTR_rast *lasOld,CSTR_rast first,CSTR_rast last,int32_t naklon);
 // from first, < last
-static int32_t CheckWord( CSTR_rast first,CSTR_rast last,CSTR_line lineOut,uchar *isSolid);
+static int32_t CheckWord( CSTR_rast first,CSTR_rast last,CSTR_line lineOut,Word8 *isSolid);
 static void  MixtureAnswer(CSTR_rast first,CSTR_rast last,CSTR_rast firstNew,FontInfo *fontinfo);
 static int32_t RecogWord( CSTR_rast  first,CSTR_rast last, CSTR_line lineFon,FontInfo *fontinfo,int nNaklon);
 static int32_t composeWords(CSTR_rast fStart,CSTR_rast fEnd,
@@ -243,10 +243,10 @@ static Bool32 GoodSpell(CSTR_rast first,CSTR_rast last,int minSize)
  RecVersions     verOld;
  CSTR_rast       rst;
  CSTR_rast_attr  attr;
- uchar           wrd[MAX_LEN_WORD];
- uchar           lang;
+ Word8           wrd[MAX_LEN_WORD];
+ Word8           lang;
  int             nlet;
- uchar           minProb=255;
+ Word8           minProb=255;
 
    for(rst=first,nlet=0; rst && rst != last; rst=CSTR_GetNext(rst))
    {
@@ -423,7 +423,7 @@ static int32_t p2_ShowSnap(CSTR_rast first,CSTR_rast last)
 // return (new) first
 static CSTR_rast CompareRecogVersions(CSTR_rast first, CSTR_rast last,
 			CSTR_rast firstNew, CSTR_rast lastNew,
-			uchar isSolid, Bool32 useSpell,FontInfo  *fontinfo,
+			Word8 isSolid, Bool32 useSpell,FontInfo  *fontinfo,
 			char *outt, Bool32 broken)
 {
   int ret = 0;
@@ -509,7 +509,7 @@ static int32_t p2_processWord(CSTR_line lineRaw,CSTR_line lineFon,
   int32_t ret;
   CSTR_rast       firstNew=CSTR_GetFirstRaster(lineFon);
   CSTR_rast       lastNew,rst;
-  uchar           isSolid=0;
+  Word8           isSolid=0;
 //  CSTR_rast       savFirst;
 //  CSTR_line       savLine;
   Bool            vSnap=FALSE;
@@ -565,7 +565,7 @@ static int32_t p2_processWord(CSTR_line lineRaw,CSTR_line lineFon,
 	int glRet = 0;
 
 	 // в p2globals установлен текущий €зык
-	p2_SetLanguage(CSTR_GetNext(firstNew),CSTR_GetLastRaster(lineFon),(uchar)p2globals.language);
+	p2_SetLanguage(CSTR_GetNext(firstNew),CSTR_GetLastRaster(lineFon),(Word8)p2globals.language);
 
       // nice broken rerecog ?
 	if( brRet == 1 && (ret == 4 || GoodSpell(CSTR_GetNext(firstNew),CSTR_GetLastRaster(lineFon),5) )  )
@@ -574,7 +574,7 @@ static int32_t p2_processWord(CSTR_line lineRaw,CSTR_line lineFon,
 		glRet=GlueRerecog(CSTR_GetNext(firstNew),CSTR_GetLastRaster(lineFon),lineRaw,FALSE);
 
 	 // в p2globals установлен текущий €зык
-	p2_SetLanguage(CSTR_GetNext(firstNew),CSTR_GetLastRaster(lineFon),(uchar)p2globals.language);
+	p2_SetLanguage(CSTR_GetNext(firstNew),CSTR_GetLastRaster(lineFon),(Word8)p2globals.language);
 
 	if( brRet == 2 || 	glRet > 0
 		// ||	brRet > 0
@@ -598,7 +598,7 @@ static int32_t p2_processWord(CSTR_line lineRaw,CSTR_line lineFon,
  }
 
   // в p2globals установлен текущий €зык
-  p2_SetLanguage(CSTR_GetNext(firstNew),CSTR_GetLastRaster(lineFon),(uchar)p2globals.language);
+  p2_SetLanguage(CSTR_GetNext(firstNew),CSTR_GetLastRaster(lineFon),(Word8)p2globals.language);
 
   switch(ret)
   {
@@ -651,7 +651,7 @@ static int32_t p2_processWord(CSTR_line lineRaw,CSTR_line lineFon,
           {
            CSTR_rast firOld=(CSTR_rast)NULL,lasOld;
 
-           //B->r_row-(INT)((int)nIncline*B->r_col/2048);
+           //B->r_row-(INT)((LONG)nIncline*B->r_col/2048);
            // возьмем нужный кусок сырой строки
            FindAccordLine(lineRaw,&firOld,&lasOld,first,last,(int)p2globals.nIncline);
 
@@ -695,7 +695,7 @@ static int32_t p2_processWord(CSTR_line lineRaw,CSTR_line lineFon,
                   }
 
 		    // в p2globals установлен текущий €зык
-			p2_SetLanguage(CSTR_GetNext(firstNew),CSTR_GetLastRaster(lineFon),(uchar)p2globals.language);
+			p2_SetLanguage(CSTR_GetNext(firstNew),CSTR_GetLastRaster(lineFon),(Word8)p2globals.language);
 
             if( !p2_needLeo ||
                 !GoodWordProb(CSTR_GetNext(firstNew),CSTR_GetLastRaster(lineFon),180) &&
@@ -725,7 +725,7 @@ static int32_t p2_processWord(CSTR_line lineRaw,CSTR_line lineFon,
 		  lastNew=CSTR_GetLastRaster(lineFon);
 
 		   // в p2globals установлен текущий €зык
-		  p2_SetLanguage(CSTR_GetNext(firstNew),CSTR_GetLastRaster(lineFon),(uchar)p2globals.language);
+		  p2_SetLanguage(CSTR_GetNext(firstNew),CSTR_GetLastRaster(lineFon),(Word8)p2globals.language);
 
 // сравним результаты распознавани€, смешаем их или выберем лучший
 		  *firOld = CompareRecogVersions(first, last,
@@ -749,7 +749,7 @@ static int32_t p2_processWord(CSTR_line lineRaw,CSTR_line lineFon,
 }
 ////////////////////////
 // €зык подходит дл€ Ћ≈ќ ?
-static Bool IsLeoLanguage(uchar lang)
+static Bool IsLeoLanguage(Word8 lang)
 {
         if( lang==LANG_RUSSIAN && !p2globals.langBul && !p2globals.langSer )
                 return TRUE;
@@ -763,7 +763,7 @@ static Bool IsLeoLanguage(uchar lang)
 }
 ////////////////////
 // букву можно распознать Ћ≈ќ ?
-static Bool32 IsLeoStandardLetter(uchar let,uchar lang)
+static Bool32 IsLeoStandardLetter(Word8 let,Word8 lang)
 {
     static  char    alpha_str[]="…÷” ≈Ќ√Ўў«’Џ‘џ¬јѕ–ќЋƒ∆Ёя„—ћ»“№Ѕё0123456789йцукенгшщзхъфывапролджэ€чсмитьбю#%+";
     static  char    latin_str[]="QWERTYUIOPASDFGHJKLZXCVBNM0123456789qwertyuiopasdfghjklzxcvbnm#%+";
@@ -802,7 +802,7 @@ static void SetRecogAlphabet(FontInfo *fontinfo)
 #ifdef _ALL_LEO_
    if( p2_needLeo )
 #else
-   if( p2_needLeo && IsLeoLanguage((uchar)p2globals.language) )
+   if( p2_needLeo && IsLeoLanguage((Word8)p2globals.language) )
 #endif
    {
     static  char    alpha_str[]="…÷” ≈Ќ√Ўў«’Џ‘џ¬јѕ–ќЋƒ∆Ёя„—ћ»“№Ѕё0123456789йцукенгшщзхъфывапролджэ€чсмитьбю#%+";
@@ -810,26 +810,26 @@ static void SetRecogAlphabet(FontInfo *fontinfo)
     static  char    dig_str[]="0123456789+";
         // remove from alpha_str  - "/^()"
 
-    uchar   *aa;
+    Word8   *aa;
     int     nFont=FONGetFontCount();
 
     if(  p2globals.line_alphabet == ALPHA_DIGITAL_TRUE ||
          p2globals.line_alphabet == ALPHA_DIGITAL
           )
         {
-         aa=(uchar *)(&dig_str[0]);
+         aa=(Word8 *)(&dig_str[0]);
          specBadLeo=specBadNon;
                  specVeryBadLeo=specBadNon;
         }
     else if( p2globals.language==LANG_RUSSIAN )
         {
-            aa=(uchar *)(&alpha_str[0]);
+            aa=(Word8 *)(&alpha_str[0]);
             specBadLeo=specBadRus;
             specVeryBadLeo=specVeryBadRus;
         }
     else
         {
-                aa=(uchar *)(&latin_str[0]);
+                aa=(Word8 *)(&latin_str[0]);
                 specBadLeo=specBadEng;
                 specVeryBadLeo=specVeryBadEng;
         }
@@ -868,7 +868,7 @@ static void SetRecogAlphabet(FontInfo *fontinfo)
    }
 }
 ////////////
-static void p2_SetLanguage(CSTR_rast first, CSTR_rast last, uchar lang)
+static void p2_SetLanguage(CSTR_rast first, CSTR_rast last, Word8 lang)
 // установим €зык - Nick 8.01.2002
 {
 	CSTR_rast rast;
@@ -884,10 +884,10 @@ static void p2_SetLanguage(CSTR_rast first, CSTR_rast last, uchar lang)
 //////////////////////
 // перераспознать с учетом €зыка
 static int32_t RerecogLang(CSTR_line lineRaw,CSTR_line lineFon,
-                         CSTR_rast *first,CSTR_rast last,uchar lang,
+                         CSTR_rast *first,CSTR_rast last,Word8 lang,
                          FontInfo *fontinfo,Bool32 useSpell)
 {
- uchar  sav_lang = p2globals.language;
+ Word8  sav_lang = p2globals.language;
  int32_t  ret=0;
 
    p2globals.language = lang;
@@ -1011,7 +1011,7 @@ int32_t           retSelect=0;
   {
           lineFon=CSTR_NewLine(linNumber,linVers,-1);
           if( lineFon) break;
-//      uint32_t   cstrErr=CSTR_GetReturnCode();
+//      Word32   cstrErr=CSTR_GetReturnCode();
 //      cstrErr&=0xFFFF;
 //      if(cstrErr!=CSTR_ERR_DOUBLICATE) break;
   }
@@ -1048,7 +1048,7 @@ int32_t           retSelect=0;
  {
   CSTR_rast dup=(CSTR_rast)NULL,dupend;
 //  CSTR_rast prevFir, prevDup;
-  uchar lang;
+  Word8 lang;
 
   if( p2globals.line_number != prevLine + 1 )
 	   prevLang = -1;
@@ -1173,7 +1173,7 @@ int32_t           retSelect=0;
      // почистим lineFon
      for(lastNew=CSTR_GetNext(firstNew);lastNew;lastNew=CSTR_GetNext(firstNew))
                   CSTR_DelRaster(lastNew);
-     ret = RerecogLang( lineRaw,lineFon,&dup,dupend,(uchar)(lang==LANG_RUSSIAN?LANG_ENGLISH:LANG_RUSSIAN),&fontinfo,FALSE);
+     ret = RerecogLang( lineRaw,lineFon,&dup,dupend,(Word8)(lang==LANG_RUSSIAN?LANG_ENGLISH:LANG_RUSSIAN),&fontinfo,FALSE);
      if(ret < 0)
             break;
 
@@ -1305,7 +1305,7 @@ int32_t           retSelect=0;
   p2_needLeo = 1;
   //  ret = RerecogLang( lineRaw,lineFon,first,last,language,&fontinfo,TRUE);
   ret = p2_processWord(lineRaw, lineFon,&first, last, &fontinfo,TRUE);
-  p2_SetLanguage(first,last,(uchar)p2globals.language);
+  p2_SetLanguage(first,last,(Word8)p2globals.language);
 
   p2_needLeo = 0;
 
@@ -1401,17 +1401,17 @@ P2_FUNC(int32_t) p2_recog(RecRaster *recRast,RecVersions *vers,void *sinfo,int32
 
 #ifdef _ALL_LEO_
 	   if( p2_needLeo && ( nAlt <= 0 || vers->Alt[0].Prob < 180) &&
-           specInfo && IsLeoStandardLetter((uchar)specInfo->nLet,(uchar)p2globals.language)
+           specInfo && IsLeoStandardLetter((Word8)specInfo->nLet,(Word8)p2globals.language)
 		 )
 #else
-        if( p2_needLeo && IsLeoLanguage((uchar)p2globals.language) &&
+        if( p2_needLeo && IsLeoLanguage((Word8)p2globals.language) &&
                 ( nAlt <= 0 || vers->Alt[0].Prob < 180) )
 #endif
         {
          RecVersions *res;
          int i, ii;
          int porog;
- 		 uchar language = p2globals.language;
+ 		 Word8 language = p2globals.language;
 
 
         memset(&ro,0,sizeof(RecObject));
@@ -1445,8 +1445,8 @@ P2_FUNC(int32_t) p2_recog(RecRaster *recRast,RecVersions *vers,void *sinfo,int32
 #ifdef _ALL_LEO_
 
 		// не русский, не английский можем только подтвердить
-		if( !IsLeoLanguage((uchar)p2globals.language ) &&
-			stdAnsiToAscii(res->Alt[0].Code ) != (uchar)specInfo->nLet
+		if( !IsLeoLanguage((Word8)p2globals.language ) &&
+			stdAnsiToAscii(res->Alt[0].Code ) != (Word8)specInfo->nLet
 	  	  )
 		  return nAlt;
 
@@ -1511,7 +1511,7 @@ P2_FUNC(int32_t) p2_recog(RecRaster *recRast,RecVersions *vers,void *sinfo,int32
 #endif
 
 #ifdef _SAVE_IN_CTB_
-    CTB_AddRecRaster(nickName, recRast, (uchar)(vers->lnAltCnt <=0?'@':vers->Alt[0].Code));
+    CTB_AddRecRaster(nickName, recRast, (Word8)(vers->lnAltCnt <=0?'@':vers->Alt[0].Code));
 #endif
 
  return nAlt;
@@ -1566,7 +1566,7 @@ static int32_t TestSolidCluster(CSTR_rast  first,CSTR_rast last)
 /////////////////
 static const BYTE kuskiBroken[]="1!|[]()Il<>";  //\xba\xbc"; // r
 /////////////////////
-static Bool32 IsKusokBroken(uchar Code)
+static Bool32 IsKusokBroken(Word8 Code)
 {
   int32_t language = p2globals.language;
 
@@ -1596,7 +1596,7 @@ static Bool32 IsKusokBroken(uchar Code)
 //      < 0 - error
 //
 
-static int32_t CheckWord( CSTR_rast  first,CSTR_rast last, CSTR_line lineOut,uchar *isSolid)
+static int32_t CheckWord( CSTR_rast  first,CSTR_rast last, CSTR_line lineOut,Word8 *isSolid)
 {
 CSTR_rast rst;
 CSTR_rast rast;  // new raster
@@ -1610,7 +1610,7 @@ int32_t           recRes=0;
 int32_t           ret=2;
 int32_t           porog;
 int32_t           sumHei,i;
-uchar language = p2globals.language;
+Word8 language = p2globals.language;
 int32_t			porogFine;
 
 	// Nick 10.07.2002
@@ -1673,7 +1673,7 @@ int32_t			porogFine;
 
 
 
-        if(!CSTR_GetImage(rst,(uchar*)&recRast,CSTR_TYPE_IMAGE_RS ) )
+        if(!CSTR_GetImage(rst,(Word8*)&recRast,CSTR_TYPE_IMAGE_RS ) )
                 return ERR_GET_RAST;
 
         // fill specInfo
@@ -1840,8 +1840,8 @@ static int FindEqualLine(CSTR_line lineRaw,CSTR_rast *firOld,CSTR_rast *lasOld,R
 
             if(naklon)
             {
-             attr.row =attr.r_row-(INT)((int)naklon*attr.r_col/2048);
-             attr.col =attr.r_col+(INT)((int)naklon*attr.r_row/2048);
+             attr.row =attr.r_row-(INT)((LONG)naklon*attr.r_col/2048);
+             attr.col =attr.r_col+(INT)((LONG)naklon*attr.r_row/2048);
             }
 
 			if( attr.col < bLeft )
@@ -1944,8 +1944,8 @@ int  lang=p2globals.language;
 int  firClink = 0;
 CSTR_rast prev;
 int  nReGlue=0;
-uint16_t firConf=0;
-uchar  firCut=0;
+Word16 firConf=0;
+Word8  firCut=0;
 
    if( lang==LANG_ENGLISH && p2globals.multy_language )
                   lang    = LANG_RUSENG;
@@ -2457,8 +2457,8 @@ static void FindAccordLine(CSTR_line lineRaw,CSTR_rast *firOld,CSTR_rast *lasOld
                 }
                 if(naklon)
             {
-            attr.row =attr.r_row-(INT)((int)naklon*attr.r_col/2048);
-            attr.col =attr.r_col+(INT)((int)naklon*attr.r_row/2048);
+            attr.row =attr.r_row-(INT)((LONG)naklon*attr.r_col/2048);
+            attr.col =attr.r_col+(INT)((LONG)naklon*attr.r_row/2048);
             }
 
                 if(  attr.col + attr.w - maxX >= maxX - attr.col &&
@@ -2495,7 +2495,7 @@ RecVersions     *pVers;
     for( ; fRast && fRast!=eRast; fRast=CSTR_GetNextRaster(fRast,CSTR_f_all))
         {
         if( CSTR_GetAttr (fRast, &attr) &&
-            CSTR_GetImage (fRast, (uchar *)(&rs), CSTR_TYPE_IMAGE_RS) &&
+            CSTR_GetImage (fRast, (Word8 *)(&rs), CSTR_TYPE_IMAGE_RS) &&
             CSTR_GetCollection(fRast,&vr) &&
             !(rs.lnPixHeight && (comp=CSTR_GetComp(fRast))==NULL) ) // OLEG
             {
@@ -2519,17 +2519,17 @@ RecVersions     *pVers;
             if( nRotate)
             {
                 p2_rotateRecRaster(&rs, nRotate);
-                attr.w=(uchar)rs.lnPixWidth<<comp->scale;
+                attr.w=(Word8)rs.lnPixWidth<<comp->scale;
                 attr.save_stick_inc=-nRotate;
-                attr.h=(uchar)rs.lnPixHeight<<comp->scale; // OLEG
+                attr.h=(Word8)rs.lnPixHeight<<comp->scale; // OLEG
                                 // как будто так и было ...
                                 attr.stick_inc=NO_INCLINE; // 0 ?
                                 attr.pos_inc  =CSTR_erect_no;
             }
             if(nNaklon)
                 {
-                attr.row =attr.r_row-(INT)((int)nNaklon*attr.r_col/2048);
-                attr.col =attr.r_col+(INT)((int)nNaklon*attr.r_row/2048);
+                attr.row =attr.r_row-(INT)((LONG)nNaklon*attr.r_col/2048);
+                attr.col =attr.r_col+(INT)((LONG)nNaklon*attr.r_row/2048);
                 }
 
                         // нельз€ NewRaster - вставитс€ после пробела,
@@ -2586,26 +2586,26 @@ static Bool32 SomnitelnyjBlRazrez(CSTR_rast_attr  *attrFon,RecVersions *vrFon,
 {
     int language = p2globals.language;	// 01.06.2001 E.P.
 
-    uchar let=vrLeo->Alt[0].Code;
+    Word8 let=vrLeo->Alt[0].Code;
     return attrFon->flg_new & CSTR_fn_bl_cut &&
 
 		//  онфликтные коды. 16.07.2001 E.P.
 		   !is_baltic_language(language) &&
            (
-//           vrFon->Alt[0].Code==(uchar)'Ѓ' &&	// 0xae liga_CR
+//           vrFon->Alt[0].Code==(Word8)'Ѓ' &&	// 0xae liga_CR
              vrFon->Alt[0].Code==liga_CR &&		// ћакрос 01.06.2001 E.P.
-             (let==(uchar)'°' ||				// 0xa1
-			 let==(uchar)'а' ||					// 0xe0
+             (let==(Word8)'°' ||				// 0xa1
+			 let==(Word8)'а' ||					// 0xe0
 			 let==r_cu_d || let==r_cu_g) &&
              vrLeo->Alt[0].Prob > 150
              ||
-             vrFon->Alt[0].Code==(uchar)'ѓ' &&	// 0xaf
-			 let==(uchar)'ж' &&					// 0xe6
+             vrFon->Alt[0].Code==(Word8)'ѓ' &&	// 0xaf
+			 let==(Word8)'ж' &&					// 0xe6
 			 vrLeo->Alt[0].Prob > 220
            );
 }
 ///////////////////
-static Bool32 testUkrKryshki(uchar leoName,uchar fonName)
+static Bool32 testUkrKryshki(Word8 leoName,Word8 fonName)
 {
         if( p2globals.language == LANG_RUSSIAN && p2globals.langUkr)
         {
@@ -2754,8 +2754,8 @@ int     palkiNew = 0;
                                         }
                                         else
                                         {
-                     Bool32 p2_leo_choise_fon_or_leo_absent(uchar p_fon,uchar p_leo);
-                                         Bool32 (*p2_choice)(uchar fon,uchar leo);
+                     Bool32 p2_leo_choise_fon_or_leo_absent(Word8 p_fon,Word8 p_leo);
+                                         Bool32 (*p2_choice)(Word8 fon,Word8 leo);
 
                                          p2_choice=(fontinfo->count[vrLeo.Alt[0].Code] > 0 ?
                                                  p2_leo_choise_fon_or_leo:
@@ -2818,7 +2818,7 @@ int     palkiNew = 0;
 }
 //////////////////////
 //  remake from p2_proc.c
-static int16_t findWordBound( CSTR_rast *nextRast,
+static Int16 findWordBound( CSTR_rast *nextRast,
                                                     CSTR_rast endRaster, int bound )
 {
  CSTR_rast_attr  attr;
@@ -3160,8 +3160,8 @@ static int p2_getIncline(CSTR_rast first,CSTR_rast last)
 ///////////////
 // распознать компоненту в линейном представлении
 // возврат - номер лучшего кластера
-P2_FUNC(int32_t) p2_RecogCompLp(int16_t sizeLp,uchar *lp,int16_t w,int16_t h,
-                                         int16_t col,int16_t row,
+P2_FUNC(int32_t) p2_RecogCompLp(Int16 sizeLp,Word8 *lp,Int16 w,Int16 h,
+                                         Int16 col,Int16 row,
                                      RecVersions *vers)
 {
  int32_t       i;

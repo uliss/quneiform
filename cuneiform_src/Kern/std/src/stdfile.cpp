@@ -415,8 +415,8 @@ STD_FUNC( Bool32 ) stdCopyDirectory(
 #endif
 }
 
-STD_FUNC( uint32_t ) stdGetCurrentDirectory(
-   uint32_t nBufferLength,	// size, in characters, of directory buffer
+STD_FUNC( Word32 ) stdGetCurrentDirectory(
+   Word32 nBufferLength,	// size, in characters, of directory buffer
    char * lpBuffer 	// address of buffer for current directory
    )
 {
@@ -501,7 +501,7 @@ uint32_t wBuffSize=256;
         {
             strncpy(szRootDir,lpBuffer,2);
             szRootDir[2]=0;
-            uint32_t wDrvType=GetDriveType(szRootDir);
+            Word32 wDrvType=GetDriveType(szRootDir);
             if(wDrvType==DRIVE_REMOTE)
                 nResult|=STD_DIRINFO_DRV_NET;
             else if(wDrvType!=0 && wDrvType!=1)
@@ -647,7 +647,7 @@ Bool32 stdNetPathFromLocal(char* pszNetPath,int32_t nNetPathSize,const char* psz
        xpLocPath=xpLocalDir;
        return stdNetPathFromLocal(pszNetPath,nNetPathSize,xpLocPath.buf);
     }
-    uint32_t nDrvType=GetDriveType(szDrv);
+    Word32 nDrvType=GetDriveType(szDrv);
     szDrv[0]=(char)stdUpperAscii((char)szDrv[0]);
     XPath xpPathWoDrv(pszLocalPath);
     xpPathWoDrv.EraseDrive();

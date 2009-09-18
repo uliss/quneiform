@@ -87,17 +87,17 @@ static struct {INT row,col,count;} debug_try_cut ={0};
 
 struct cut_elm *my_cut_points;  //ALIK 01-31-96 04:56pm
 INT    show_cut_points;
-char   StopPoint;
+CHAR   StopPoint;
 INT    flag_cut_point=0;
 INT    flag_ShiftF9=0;
 
 static SVERS sv00, svown;
 static B_LINES my_bases;
 static INT bs12, bs2m, bsm3, bs34;
-static char glob_diff;
-static char glob_dflg;
-static char wch[80];
-static char madeBOX;
+static CHAR glob_diff;
+static CHAR glob_dflg;
+static CHAR wch[80];
+static CHAR madeBOX;
 #ifdef NEW_TM    //10.4.95
  static INT TM_suspect(INT position, cell *c);
 #endif
@@ -122,24 +122,24 @@ static INT forbid_stick_cut(cell *,cut_pos *,INT);
 extern BYTE db_status;	// snap presence byte
 extern BYTE db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
 extern BYTE fax1x2;
-extern char db_pass;
+extern CHAR db_pass;
 extern BYTE language;
 static INT  dust_monus;
 static BYTE dust_mon_flag;
 
-char fbg=0;
+CHAR fbg=0;
 extern INT line_number;
 extern FILE *dbg_f;
-char Ldb_flag = 0;
+CHAR Ldb_flag = 0;
 static void corr_cut();
 c_comp * env_to_show;
 INT w_to_show, h_to_show, row_to_show, col_to_show;
 
-static char log_str[256], *log_s;
+static CHAR log_str[256], *log_s;
 
-static void lsnap(char user,cell *C,char * txt, INT p)
+static void lsnap(CHAR user,cell *C,PCHAR txt, INT p)
 {
- char wrk[16];
+ CHAR wrk[16];
  if (!db_status) return;
  snap_newcell(C);
  if (snap_activity(user))
@@ -152,7 +152,7 @@ static void lsnap(char user,cell *C,char * txt, INT p)
   }
 }
 
-void est_snap(char user,cell *C,char * txt)
+void est_snap(CHAR user,cell *C,PCHAR txt)
 {
  if (!db_status) return;
  snap_newcell(C);
@@ -317,7 +317,7 @@ return CL->Nb;
 }
 
 static INT dust_usage;
-//extern char accent_tab[];
+//extern CHAR accent_tab[];
 INT discrid(cell *B1, INT mon)
  {
  BYTE p; INT fl, np, max, dd; version *v;  BYTE c;
@@ -337,7 +337,7 @@ INT discrid(cell *B1, INT mon)
 
 static INT forest(cell *B1, INT p, INT TR)
  {
- char c;
+ CHAR c;
 
  c= B1->vers[0].let;
  if (((c=='o') || (c=='O') || (c=='0')) && (p >= TR))
@@ -348,7 +348,7 @@ static INT forest(cell *B1, INT p, INT TR)
 static INT dust_is_dot(all_cells *CL, cell *C)
 {
    cell *dot;
-   char l;
+   CHAR l;
    version *v;
    INT nv, p;
    for (nv=0, v=C->vers; nv<C->nvers; nv++,v++)
@@ -463,7 +463,7 @@ static INT owned_dust(cell *c,cell *cc)
 static cell * try_glue(s_glue *GL, cell *BC)
 {
 
- cell *CC, *LC; INT glue_pass, i, diff; MN *mn; char dflag;
+ cell *CC, *LC; INT glue_pass, i, diff; MN *mn; CHAR dflag;
  cut_pos cposd;  // place of cut for 1st, 2nd points and dummy
  SVERS  svs, sv0;
  s_glue GLM;
@@ -497,7 +497,7 @@ static cell * try_glue(s_glue *GL, cell *BC)
    glue_pass = 1;
    goto again;
  }
- CC=create_cell(mn,LC,(char)diff,dflag);
+ CC=create_cell(mn,LC,(CHAR)diff,dflag);
  inter_diff(CC);
  if (CC->flg&(c_f_let|c_f_bad) && (if_dust(CC)&7))
  {
@@ -614,7 +614,7 @@ cell * finpat(cell *BC, s_glue *GL, INT var, BYTE flag, BYTE pen)
  return BC;
 }
 
-extern char dust_in_pattern;
+extern CHAR dust_in_pattern;
 static INT max_var;
 
 static INT allow_comp(cell *B1, INT bnd1, INT bnd2, INT p0)
@@ -635,7 +635,7 @@ static INT allow_comp(cell *B1, INT bnd1, INT bnd2, INT p0)
 }
 
 
-void cmp_snap (cell *B1, char *txt, INT n, cell **clist)
+void cmp_snap (cell *B1, CHAR *txt, INT n, cell **clist)
 {
   c_comp *my_list [8];
   if (n > 1)
@@ -660,7 +660,7 @@ static INT rec_own(cell *B1,s_glue *GL,INT bnd1,INT bnd2, INT dupf,INT *disd)
  INT  wn, cans, ans, ncl, n0, n1, n2, n3, n4, sarg, sff, sfs;
  BYTE e, emax, svcg,clet;
  SVERS sv_v[5];
- char dip[5];
+ CHAR dip[5];
  BYTE Var, Flg;
  c_comp *KITA;
  BYTE let0, let1;	// 16.07.2001 E.P.
@@ -951,21 +951,21 @@ fin:
   return ans;
 }
 
-static char ms220ready[]={"m > 220 --> ready"};
-static char msw3ready[]={"w <= 3  --> ready"};
-static char msf170bef[]={"f supports i,j"};
-static char msnat220[]={"native >220 --> ready"};
-static char ms29500[]={"stick > 29500"};
-static char msingl[]={"single nondiscrim ready"};
+static CHAR ms220ready[]={"m > 220 --> ready"};
+static CHAR msw3ready[]={"w <= 3  --> ready"};
+static CHAR msf170bef[]={"f supports i,j"};
+static CHAR msnat220[]={"native >220 --> ready"};
+static CHAR ms29500[]={"stick > 29500"};
+static CHAR msingl[]={"single nondiscrim ready"};
 
-INT estcomp(char user, cell *B1, SVERS *save, INT trs, INT bnd1, INT bnd2,
-    s_glue *GL, cut_pos *cpos1, cut_pos *cpos2, char pnt1 ,char pnt2, char iv)
+INT estcomp(CHAR user, cell *B1, SVERS *save, INT trs, INT bnd1, INT bnd2,
+    s_glue *GL, cut_pos *cpos1, cut_pos *cpos2, CHAR pnt1 ,CHAR pnt2, CHAR iv)
  {
  BYTE c, c_sacc, ct, svarg;
  INT flag_m, flg_own, disd;
  BYTE  p1, pans, dup;
- char wrk[32];
- char *pmsg;
+ CHAR wrk[32];
+ CHAR *pmsg;
  cut_pos *wcp;   // to cover dummy arg warning;
  extern INT best_answer_BOX;
 
@@ -1475,7 +1475,7 @@ void make_all_cuts()
  all_cells CL;
  cell  PROTO ;
  cell  *B1, *I1, *I3, *T1, *T2, *T3, *TD, *NL;
- char n1, n2, nc;
+ CHAR n1, n2, nc;
  BYTE left_dust_allowed, left_dust_seen, fldust, svcg, fljust;
  INT  av_dens, ndens, gv0, gf0, N, mw, mh, mrr, mrc, i, rpn;
  BYTE c0, c1, c3, *rp1, *rp2, already_cut;
@@ -1484,7 +1484,7 @@ void make_all_cuts()
  INT  p0, p1, p2, p3;
  v_val pe;
  cut_pos cpos1, cpos2, cposd, cposc;  // place of cut for 1st, 2nd points and dummy
- char   doubles_allowed,  double_cutsn;
+ CHAR   doubles_allowed,  double_cutsn;
  char bf_d[180], *bf_p;
  SVERS  sv0, sv1, sv2, sv3;
  BYTE   csv1[32], csv2[32];               // savearea for cutten bits
@@ -1648,7 +1648,7 @@ init_est_done:
      cpnt1->lv.v1=cpnt1->lv.v2=cpnt1->lv.v3=-1;
      cpnt1->var=0;
      cpnt1->x=127;
-     cpnt1->duflm=cpnt1->duflr=cpnt1->gvarr=cpnt1->gvarm=(char)0;
+     cpnt1->duflm=cpnt1->duflr=cpnt1->gvarr=cpnt1->gvarm=(CHAR)0;
     }
 
  rp1=(BYTE*)save_raster(B1);
@@ -1700,7 +1700,7 @@ init_est_done:
 
  num_shaves=0; // Oleg : use pimples shaving
  N &= 255;
- rp2=(char *)&cell_raster;
+ rp2=(CHAR *)&cell_raster;
  rpn=((mw+7)>>3)*mh;
  for (i=0; i<rpn; i++)
    *(rp2++) = *(rp1++);
@@ -1757,12 +1757,12 @@ repeat_with_doubles:
      if (cpnt1->dh == B1->h)
        goto next1;
      cut_rast(cell_raster,mw,mh,mrr,mrc,cpnt0,n1,0,csv1,&cposc);    // glue back
-     cpnt1->h=cpnt1->dh=(char)B1->h;
+     cpnt1->h=cpnt1->dh=(CHAR)B1->h;
      cpnt1->var |= 32;  // mark as full
      goto cut_full;
    }
    fldust=0;
-   nc=(char)colcels(&CL,mn1,I1,I3,mw);
+   nc=(CHAR)colcels(&CL,mn1,I1,I3,mw);
    TD=I1->nextl;    // density-test cell
    T1=CL.minlet;
    T3=CL.maxlet;
@@ -2278,7 +2278,7 @@ celcut:
    cpntw=cpnt0+p0;
    p0=cpntw->px;
    if (!p0) break;
-   cut_rast(cell_raster,mw,mh,mrr,mrc,cpnt0,(char)p0,1,csv1,&cposc);
+   cut_rast(cell_raster,mw,mh,mrr,mrc,cpnt0,(CHAR)p0,1,csv1,&cposc);
  }
  mn1=cut_rast(cell_raster,mw,mh,mrr,mrc,cpnt0,0,3,csv1,&cposc); // create components
  if (mn1==NULL)
@@ -2681,7 +2681,7 @@ void promote (BYTE sn, cell *cl, BYTE let, INT delta)
  cl->vers[cl->nvers].let=cl->vers[cl->nvers].prob=0;
  sort_vers(cl);
  if (sn)
-   glsnap((char)(sn>'a'?sn:'a'),cl,"insvers");
+   glsnap((CHAR)(sn>'a'?sn:'a'),cl,"insvers");
 }
 
 static void corr_cut()
@@ -2781,12 +2781,12 @@ Bool is_comma(cell *c, INT bases3)
       return FALSE;
     else
       {
-      for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT)),n=0,d=0;
-        (ll=line->lth)>0; line=(lnhead *)((char *)line+ll))
+      for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT)),n=0,d=0;
+        (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
         {
         h=line->h;
         i=line->row;
-        for( inter=(interval *)((char *)line+sizeof(lnhead));h;
+        for( inter=(interval *)((PCHAR)line+sizeof(lnhead));h;
           n++,h--,inter++,i++)
             if( inter->l!=1||(i!=0&&i!=c->h-1) ) // non pimple or middel line
               d += inter->l;

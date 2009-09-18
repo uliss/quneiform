@@ -65,16 +65,16 @@ typedef struct tagFONBase
 	 welet *start;
 	 int   inBase;
 	 access_tab *ace;
-	 int16_t countFont;
-	 int16_t reserv;
-	 uint32_t fontFields[4][NFIELDDWORD];
+	 Int16 countFont;
+	 Int16 reserv;
+	 Word32 fontFields[4][NFIELDDWORD];
 	 Bool32 isFirst;
-	 uint16_t first[256];
-	 uchar  tablColumn[32];
+	 Word16 first[256];
+	 Word8  tablColumn[32];
 	}
 	FONBASE;
 
-//int16_t CutOffClusters(welet *ww,int16_t num);
+//SINT CutOffClusters(welet *ww,SINT num);
 typedef struct tagRecResult
 {
    short int nClust;
@@ -86,10 +86,10 @@ RECRESULT;
 
 int AddVersion(RECRESULT *recres,BYTE let,BYTE rec,int nClust,
 			   int num,int maxNames);
-int16_t RecogClu(BYTE *rast,int16_t xbyte,int16_t xbit,int16_t yrow,
-              RECRESULT *recResult,int16_t size,
+SINT RecogClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
+              RECRESULT *recResult,SINT size,
               welet *wl, int numWelet,
-              int porog,int nInCTB,int16_t col,int16_t row,int32_t countRazmaz);
+              int porog,int nInCTB,Int16 col,Int16 row,int32_t countRazmaz);
 int32_t GetNearestClusters (int num, welet *wel,int numWel ,
 	    RecVersions *collection );
 int32_t TestClustNames(welet *wel,int numWel,

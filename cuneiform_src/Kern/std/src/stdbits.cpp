@@ -64,12 +64,12 @@
  Clearly, this function will not work properly if there is 64K (or more) of consecutive whites (or blacks).
  */
 
-STD_FUNC(int) stdBits2Ints(uchar* pBits, int nByteWidth, int32_t* pIntervals) {
+STD_FUNC(int) stdBits2Ints(Word8* pBits, int nByteWidth, int32_t* pIntervals) {
 
     /* Here, pIntervals is a pointer to the interval buffer. It should have length (in bytes) == (nByteWidth*4)*4 */
 
     int32_t* p = pIntervals;
-    uchar b = 0;
+    Word8 b = 0;
 
     *p = 0;
 

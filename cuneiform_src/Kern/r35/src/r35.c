@@ -80,34 +80,34 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifdef PC_TYPE
 
-static void   MMX_normalize_res(uint32_t res_comp[],uint16_t res[],int32_t numx);
+static void   MMX_normalize_res(Word32 res_comp[],Word16 res[],int32_t numx);
 #endif
-static int32_t  scalar_all(int16_t Im3x5_1[],int16_t Im3x5_2[]);
-static void   ALL_open_image(uint16_t Im3x5[]);
+static int32_t  scalar_all(Int16 Im3x5_1[],Int16 Im3x5_2[]);
+static void   ALL_open_image(Word16 Im3x5[]);
 static void   ALL_close_image (void);
 
-static int32_t (*scalar)(int16_t Im3x5_1[],int16_t Im3x5_2[])=scalar_all;
-static void  (*open_image)(uint16_t Im3x5[])=ALL_open_image;
+static int32_t (*scalar)(Int16 Im3x5_1[],Int16 Im3x5_2[])=scalar_all;
+static void  (*open_image)(Word16 Im3x5[])=ALL_open_image;
 static void  (*close_image)(void)=ALL_close_image;
 
 
-static void* r35_alloc(uint32_t len){return malloc(len);}
-static void  r35_free(void *ptr,uint32_t len){ free(ptr);}
+static void* r35_alloc(Word32 len){return malloc(len);}
+static void  r35_free(void *ptr,Word32 len){ free(ptr);}
 
-static void* (*my_alloc)(uint32_t len)=r35_alloc;
-static void  (*my_free)(void *,uint32_t len)=r35_free;
+static void* (*my_alloc)(Word32 len)=r35_alloc;
+static void  (*my_free)(void *,Word32 len)=r35_free;
 /***********************************/
 /************* COMPRESS ************/
 /***********************************/
-static int32_t   r35_pack(uchar raster[],
+static int32_t   r35_pack(Word8 raster[],
         int32_t D_X, int32_t X, int32_t Y, int32_t dx, int32_t dy,
-        uint16_t Image3x5[], int32_t to_x, int32_t to_y);
-static int32_t   r35_pack_gray(uchar raster[],
+        Word16 Image3x5[], int32_t to_x, int32_t to_y);
+static int32_t   r35_pack_gray(Word8 raster[],
         int32_t D_X, int32_t X, int32_t Y, int32_t dx, int32_t dy,
-        uint16_t Image3x5[], int32_t to_x, int32_t to_y);
+        Word16 Image3x5[], int32_t to_x, int32_t to_y);
 static void r35_set_cpu(int32_t cpu);
 static Bool32   R35Pack_resize(   RecRaster*  raster,
-        uint16_t* Image3x5, int32_t to_x, int32_t to_y, Bool32 proport);
+        Word16* Image3x5, int32_t to_x, int32_t to_y, Bool32 proport);
 
 /***********************************/
 /************** INIT ***************/
@@ -115,26 +115,26 @@ static Bool32   R35Pack_resize(   RecRaster*  raster,
 
 typedef struct elidx
  {
- uchar  ltr;                  /* the letter                            */
- uchar  vnum;                 /* the number of the classes           */
- uint16_t numel;                /* the number of the first class     */
+ Word8  ltr;                  /* the letter                            */
+ Word8  vnum;                 /* the number of the classes           */
+ Word16 numel;                /* the number of the first class     */
  } ind3x5;
 
 typedef struct eltab
  {
- uchar  ltr;                  /* the letter                      */
- uchar  fnt;                  /* the font number               */
- uint16_t list;                 /* next of same letter         */
- uint16_t bnd;                  /* the bound of the typeface */
- uint16_t vect[15];             /* the vector of the letter */
+ Word8  ltr;                  /* the letter                      */
+ Word8  fnt;                  /* the font number               */
+ Word16 list;                 /* next of same letter         */
+ Word16 bnd;                  /* the bound of the typeface */
+ Word16 vect[15];             /* the vector of the letter */
  } elm3x5;
 
 static Bool32 r35_init(char *, elm3x5 **, ind3x5 **);
 static Bool32 r35_save(char *name,elm3x5 *tab3x5this, ind3x5 *header3x5this, int num);
-static Bool32 r35_delete_elm3x5(uchar let, int32_t   num_del);
+static Bool32 r35_delete_elm3x5(Word8 let, int32_t   num_del);
 static Bool32 r35_close( elm3x5 **, ind3x5 **);
 static int32_t r35_cpu=0;
-static uchar r35_learn_level=0;
+static Word8 r35_learn_level=0;
 #ifdef MTR_LEARN
 static r35_fnt=0x80;
 #else
@@ -147,52 +147,52 @@ static  int      num_learn=0, max_learn;
 
 typedef struct
     {
-    uchar   let;
+    Word8   let;
     int32_t   prob;
     int32_t   num;
 	} VERSION;
 
 #define R35_MAX_VERS 4
-static Bool32 recog_cluster(uint16_t Im3x5[], uchar let, VERSION *v);
-static Bool32 recog_cluster5x3(uint16_t Im3x5[], uchar let, VERSION *v);
-static void r35_recog_full(uint16_t Im3x5[],VERSION vers[], int32_t *nvers);
-static void r35_recog_full_prn(uint16_t Im3x5[],VERSION vers[], int32_t *nvers);
-static void r35_recog(uint16_t Im3x5[],VERSION vers[], int32_t nvers, Bool32 r5x3);
+static Bool32 recog_cluster(Word16 Im3x5[], Word8 let, VERSION *v);
+static Bool32 recog_cluster5x3(Word16 Im3x5[], Word8 let, VERSION *v);
+static void r35_recog_full(Word16 Im3x5[],VERSION vers[], int32_t *nvers);
+static void r35_recog_full_prn(Word16 Im3x5[],VERSION vers[], int32_t *nvers);
+static void r35_recog(Word16 Im3x5[],VERSION vers[], int32_t nvers, Bool32 r5x3);
 
 
 /***********************************/
 /************* COMPRESS ************/
 /***********************************/
-static void   ALL_normalize_res(uint32_t res_comp[],uint16_t res[],int32_t numx);
-static void   normalize_res_3x5(uint32_t res_comp[],uint16_t res[],int32_t numx);
-static void   (*normalize_res)(uint32_t res_comp[],uint16_t res[],int32_t numx)=ALL_normalize_res;
-static Bool32 delete_elm3x5(uchar let, int32_t   num_del);
+static void   ALL_normalize_res(Word32 res_comp[],Word16 res[],int32_t numx);
+static void   normalize_res_3x5(Word32 res_comp[],Word16 res[],int32_t numx);
+static void   (*normalize_res)(Word32 res_comp[],Word16 res[],int32_t numx)=ALL_normalize_res;
+static Bool32 delete_elm3x5(Word8 let, int32_t   num_del);
 static int32_t  MakeScale(int32_t Xcut[],int32_t Xval[],int32_t L,int32_t dL);
 
-static void   ALL_compress_line(uchar *lin,int32_t nx,int32_t *buf_comp,int32_t numx,int32_t Xcut[],int32_t Xval[]);
-static void   ALL_compress_gray_line(uchar *lin,int32_t nx,int32_t *buf_comp,int32_t numx,int32_t Xcut[],int32_t Xval[]);
-static int32_t  ALL_SumBits(uchar *str,int32_t start, int32_t stop);
-static int32_t  ALL_SumGray(uchar *str,int32_t start, int32_t stop);
-static void   (*compress_line)(uchar *lin,int32_t nx,
+static void   ALL_compress_line(Word8 *lin,int32_t nx,int32_t *buf_comp,int32_t numx,int32_t Xcut[],int32_t Xval[]);
+static void   ALL_compress_gray_line(Word8 *lin,int32_t nx,int32_t *buf_comp,int32_t numx,int32_t Xcut[],int32_t Xval[]);
+static int32_t  ALL_SumBits(Word8 *str,int32_t start, int32_t stop);
+static int32_t  ALL_SumGray(Word8 *str,int32_t start, int32_t stop);
+static void   (*compress_line)(Word8 *lin,int32_t nx,
 							   int32_t *buf_comp,int32_t numx,
 							   int32_t Xcut[],int32_t Xval[])=
 							   ALL_compress_line;
 
-static void   ALL_addcomp(uint32_t res_comp[],int32_t buf_comp[],int32_t numx,int32_t numy);
-static void   (*addcomp)(uint32_t res_comp[],int32_t buf_comp[],
+static void   ALL_addcomp(Word32 res_comp[],int32_t buf_comp[],int32_t numx,int32_t numy);
+static void   (*addcomp)(Word32 res_comp[],int32_t buf_comp[],
 						 int32_t numx,int32_t numy)=ALL_addcomp;
 
 /* ******************************* */
-static const uint32_t mask_word32[] =
+static const Word32 mask_word32[] =
 	{128,     64,   32,   16,    8,    4,    2,   1};
-static const uchar mask_byte[]   =
+static const Word8 mask_byte[]   =
 	{128,     64,   32,   16,    8,    4,    2,   1};
-static const uint32_t mask_l[]     =
+static const Word32 mask_l[]     =
 	{255,    127,   63,   31,   15,    7,    3,   1};
-static const uint32_t mask_r[]     =
+static const Word32 mask_r[]     =
 	{  0,    128,  192,  224,  240,  248,  252,  254};
 
-static const uint32_t bit_cnt[]  ={
+static const Word32 bit_cnt[]  ={
 0,1,1,2,1,2,2,3,    1,2,2,3,2,3,3,4,    1,2,2,3,2,3,3,4,
 2,3,3,4,3,4,4,5,	1,2,2,3,2,3,3,4,	2,3,3,4,3,4,4,5,	2,3,3,4,3,4,4,5,
 3,4,4,5,4,5,5,6,	1,2,2,3,2,3,3,4,	2,3,3,4,3,4,4,5,	2,3,3,4,3,4,4,5,
@@ -208,7 +208,7 @@ static const uint32_t bit_cnt[]  ={
 /************************************/
 
 static void  store_bests(VERSION *vers, VERSION *ver);
-static uchar recode_prob( int32_t prob );
+static Word8 recode_prob( int32_t prob );
 
 
 /***********************************/
@@ -217,7 +217,7 @@ static uchar recode_prob( int32_t prob );
 static ind3x5 *header3x5,*header3x5ndx,*header3x5all,*header3x5print;
 static elm3x5 *tab3x5,*tab3x5ndx,*tab3x5all,*tab3x5print;
 static char   alpha[256];
-static int16_t  r35_error_code=ER_R35_NO_ERROR;
+static Int16  r35_error_code=ER_R35_NO_ERROR;
 
 /***********************************/
 /************* COMPRESS ************/
@@ -242,7 +242,7 @@ int32_t MakeScale(int32_t Xcut[], int32_t Xval[], int32_t L, int32_t dL) {
     return 1;
 }
 
-int32_t ALL_SumBits(uchar *str,int32_t start, int32_t stop)
+int32_t ALL_SumBits(Word8 *str,int32_t start, int32_t stop)
 {
 int32_t l, r, i, res;
 
@@ -259,7 +259,7 @@ for( i=l+1;i<r;i++)
 return res;
 }
 
-int32_t ALL_SumGray(uchar *str,int32_t start, int32_t stop)
+int32_t ALL_SumGray(Word8 *str,int32_t start, int32_t stop)
 {
 int32_t i, res;
 
@@ -269,11 +269,11 @@ for( res=0, i=start;i<stop;i++)
 return res;
 }
 
-void    ALL_compress_gray_line( uchar *lin, int32_t nx, int32_t *buf_comp, int32_t numx,
+void    ALL_compress_gray_line( Word8 *lin, int32_t nx, int32_t *buf_comp, int32_t numx,
                  int32_t Xcut[],int32_t Xval[])
 {
 int32_t   k,Xc=Xcut[0],Xv;
-uchar   c;
+Word8   c;
 
 memset(buf_comp,0,sizeof(int32_t)*numx);
 for(k=0;k<numx-1;k++)
@@ -294,7 +294,7 @@ return;
 }
 
 
-void ALL_compress_line( uchar *lin, int32_t nx, int32_t *buf_comp, int32_t numx,
+void ALL_compress_line( Word8 *lin, int32_t nx, int32_t *buf_comp, int32_t numx,
                  int32_t Xcut[],int32_t Xval[])
 {
 int32_t k,Xc=Xcut[0],Xv;
@@ -318,7 +318,7 @@ return;
 }
 
 
-void ALL_addcomp(uint32_t res_comp[],int32_t buf_comp[],int32_t numx,int32_t numy) {
+void ALL_addcomp(Word32 res_comp[],int32_t buf_comp[],int32_t numx,int32_t numy) {
 	int32_t i;
 
 	for(i=0;i<numx;i++)
@@ -326,11 +326,11 @@ void ALL_addcomp(uint32_t res_comp[],int32_t buf_comp[],int32_t numx,int32_t num
 	return;
 }
 
-void ALL_normalize_res(uint32_t res_comp[],uint16_t res[],int32_t numx)
+void ALL_normalize_res(Word32 res_comp[],Word16 res[],int32_t numx)
 {
 int32_t i;
-uint32_t amax=0, div;
-uint32_t mod;
+Word32 amax=0, div;
+Word32 mod;
 for(i=0;i<numx;i++)
     if( res_comp[i] )
         amax += res_comp[i]*res_comp[i];
@@ -341,21 +341,21 @@ div  = 32767l/amax;
     memset(res,0,numx*sizeof(res[0]));
 for(i=0;i<numx;i++)
     if( res_comp[i] )
-	    res[i] = (uint16_t)(res_comp[i]*div);
+	    res[i] = (Word16)(res_comp[i]*div);
 if( !div )
     {
     mod  = (32767l-div*amax)*256l/amax ;
     for(i=0;i<numx;i++)
-	    res[i] = (uint16_t)(res_comp[i]*div +((res_comp[i]*mod)>>8));
+	    res[i] = (Word16)(res_comp[i]*div +((res_comp[i]*mod)>>8));
     }
 return;
 }
 
-void normalize_res_3x5(uint32_t res_comp[],uint16_t res[],int32_t numx)
+void normalize_res_3x5(Word32 res_comp[],Word16 res[],int32_t numx)
 {
 int32_t i;
-uint32_t amax=0, div;
-uint32_t mod;
+Word32 amax=0, div;
+Word32 mod;
 for(i=0;i<numx;i++)
     if( res_comp[i] )
         amax += res_comp[i]*res_comp[i];
@@ -365,19 +365,19 @@ amax = sqrt(amax);
 div  = 32767l/amax;
 mod  = (32767l-div*amax)*256l/amax ;
 for(i=0;i<numx;i++)
-	res[i] = (uint16_t)(res_comp[i]*div +((res_comp[i]*mod)>>8));
+	res[i] = (Word16)(res_comp[i]*div +((res_comp[i]*mod)>>8));
 
 return;
 }
 
 #ifdef PC_TYPE
-void MMX_normalize_res(uint32_t res_comp[],uint16_t res[],int32_t numx)
+void MMX_normalize_res(Word32 res_comp[],Word16 res[],int32_t numx)
 {
 int32_t i,n;
-uint32_t amax, div;
+Word32 amax, div;
 n = ((numx+7)/8)*8;
 for(i=0;i<n;i++)
-    res[i] = (uint16_t)res_comp[i];
+    res[i] = (Word16)res_comp[i];
 
 amax = MMX_scalar_sq(res, numx);
 
@@ -393,16 +393,16 @@ return;
 }
 #endif
 
-int32_t r35_pack(uchar *raster,int32_t d_x,int32_t SX,int32_t SY,int32_t dx,int32_t dy,
-  uint16_t I3x5[], int32_t TO_X, int32_t TO_Y)
+int32_t r35_pack(Word8 *raster,int32_t d_x,int32_t SX,int32_t SY,int32_t dx,int32_t dy,
+  Word16 I3x5[], int32_t TO_X, int32_t TO_Y)
 {
-uchar      *rast ;
+Word8      *rast ;
 int32_t       k, kx, num, t, len8, len;
 #define SIZE_FROM   128
 #define SIZE_TO     128*63
 int32_t       Ycut[SIZE_FROM],Yval[SIZE_FROM],Xcut[SIZE_FROM],
             Xval[SIZE_FROM],buf_comp[SIZE_FROM];
-uint32_t      res_comp[SIZE_TO];
+Word32      res_comp[SIZE_TO];
 
 if( TO_X>SIZE_FROM || TO_Y>SIZE_FROM )
     return 0;
@@ -446,13 +446,13 @@ if(len!=len8)
     memset(&I3x5[len],0,(len8-len)*sizeof(I3x5[0]));
 return 1;
 }
-int32_t r35_pack_gray(uchar *raster,int32_t d_x,int32_t SX,int32_t SY,int32_t dx,int32_t dy,
-  uint16_t I3x5[], int32_t TO_X, int32_t TO_Y)
+int32_t r35_pack_gray(Word8 *raster,int32_t d_x,int32_t SX,int32_t SY,int32_t dx,int32_t dy,
+  Word16 I3x5[], int32_t TO_X, int32_t TO_Y)
 {
-uchar      *rast ;
+Word8      *rast ;
 int32_t       k, kx, num, t, len, len8;
 int32_t       Ycut[128],Yval[128],Xcut[128],Xval[128],buf_comp[128];
-uint32_t      res_comp[32*32];
+Word32      res_comp[32*32];
 
 if( TO_X>128 || TO_Y>128 )
     return 0;
@@ -529,7 +529,7 @@ return;
 Bool32 r35_init(char *name,elm3x5 **tab3x5this, ind3x5 **header3x5this)
 {
 int32_t f=open_data_file(name, O_BINARY|O_RDONLY); /* , S_IREAD */
-uint32_t num;
+Word32 num;
 
 r35_error_code = ER_R35_NO_ERROR;
 if( f==-1 )
@@ -634,15 +634,15 @@ return 1;
 /************** RECOG ***************/
 /************************************/
 
-int32_t scalar_all(int16_t Im3x5_1[], int16_t Im3x5_2[]) {
-    uint32_t s = 0;
+int32_t scalar_all(Int16 Im3x5_1[], Int16 Im3x5_2[]) {
+    Word32 s = 0;
     int i;
     for (i = 0; i < 3 * 5; i++)
         s += Im3x5_1[i] * Im3x5_2[i];
     return s;
 }
 
-void   ALL_open_image(uint16_t Im3x5[])
+void   ALL_open_image(Word16 Im3x5[])
 {
 return;
 }
@@ -652,7 +652,7 @@ void   ALL_close_image (void)
 return;
 }
 
-Bool32 r35_delete_elm3x5(uchar let, int32_t   num_del)
+Bool32 r35_delete_elm3x5(Word8 let, int32_t   num_del)
 {
 elm3x5 *curr,  *fin;
 int i,j, no_next, no_kill;
@@ -695,7 +695,7 @@ for(i=0;i<256;i++)
 return TRUE;
 }
 
-Bool32 recog_cluster(uint16_t Im3x5[], uchar let, VERSION *v)
+Bool32 recog_cluster(Word16 Im3x5[], Word8 let, VERSION *v)
 {
 int jm = 0, rm = 0, res = 0, jold = 0;
 elm3x5 *curr = 0;
@@ -726,7 +726,7 @@ v->num  = jm;
 return (rm>0);
 }
 
-Bool32 recog_cluster5x3(uint16_t Im3x5[], uchar let, VERSION *v)
+Bool32 recog_cluster5x3(Word16 Im3x5[], Word8 let, VERSION *v)
 {
 int jold, jm, rm, res;
 elm3x5 *curr;
@@ -758,7 +758,7 @@ return (rm>0);
 }
 
 
-void r35_recog(uint16_t Im3x5[],
+void r35_recog(Word16 Im3x5[],
           VERSION vers[], int32_t nvers, Bool32 r5x3)
 {
 int32_t i;
@@ -767,12 +767,12 @@ VERSION  v;
 open_image(Im3x5);
 for(i=0;i<nvers;i++)
   {
-  if( alpha[(uchar)vers[i].let] && header3x5[vers[i].let].vnum )
+  if( alpha[(Word8)vers[i].let] && header3x5[vers[i].let].vnum )
 	{
     if( r5x3 )
-        recog_cluster5x3(Im3x5,(uchar)vers[i].let,&v);
+        recog_cluster5x3(Im3x5,(Word8)vers[i].let,&v);
     else
-        recog_cluster(Im3x5,(uchar)vers[i].let,&v);
+        recog_cluster(Im3x5,(Word8)vers[i].let,&v);
 	vers[i].prob = recode_prob( v.prob );
 	vers[i].num  = v.num;
 	}
@@ -799,15 +799,15 @@ vers[j] = *ver;
 return;
 }
 
-uchar recode_prob( int32_t prob )
+Word8 recode_prob( int32_t prob )
 {
 int32_t start[]={32767, 32113, 31455, 30475, 29200,0,0}, i, res;
-uint32_t stop[]={255,   230,   190,   110,   50,   0}  ;
+Word32 stop[]={255,   230,   190,   110,   50,   0}  ;
 
 prob >>= 15;
 if( prob>=32767 )
 	return 255;
-//return (uchar)(prob>>7);
+//return (Word8)(prob>>7);
 for(i=0;i<sizeof(stop)/sizeof(stop[0]);i++)
 	{
 	res = prob-start[i] ;
@@ -815,12 +815,12 @@ for(i=0;i<sizeof(stop)/sizeof(stop[0]);i++)
 		break;
 	}
 res = (res*(stop[i-1]-stop[i]))/(start[i-1]-start[i])+stop[i];
-return (uchar)res;
+return (Word8)res;
 }
 
 
 
-void r35_recog_full(uint16_t Im3x5[],
+void r35_recog_full(Word16 Im3x5[],
           VERSION v[], int32_t *nvers)
 {
 int32_t i;
@@ -833,7 +833,7 @@ for(i=0;i<256;i++)
     {
 	if( alpha[i] && header3x5[i].vnum  )
 	    {
-        if( recog_cluster(Im3x5,(uchar)i,&ver) )
+        if( recog_cluster(Im3x5,(Word8)i,&ver) )
 		    store_bests(vers, &ver);
 	    }
     }
@@ -850,7 +850,7 @@ for(i--;i>=0;i--)
 return;
 }
 
-void r35_recog_full_prn(uint16_t Im3x5[],
+void r35_recog_full_prn(Word16 Im3x5[],
           VERSION v[], int32_t *nvers)
 {
 int32_t i;
@@ -864,7 +864,7 @@ for(i=0;i<256;i++)
     {
 	if( alpha[i] && header3x5[i].vnum && !used_cl[stdLeoTypefaceChar(header3x5[i].ltr)] )
 	    {
-        if( recog_cluster(Im3x5,(uchar)i,&ver) )
+        if( recog_cluster(Im3x5,(Word8)i,&ver) )
 		    store_bests(vers, &ver);
         used_cl[header3x5[i].ltr]=1;
 	    }
@@ -966,7 +966,7 @@ return ;
 }
 
 
-R35_FUNC(int16_t) R35GetErr(void)
+R35_FUNC(Int16) R35GetErr(void)
 {
 return r35_error_code;
 }
@@ -981,7 +981,7 @@ return TRUE;
 
 // PACKING & BINARIZING
 R35_FUNC(Bool32)   R35Binarize(RecRaster *rRaster,
-							   uint16_t *CompImage,int32_t dx, int32_t dy)
+							   Word16 *CompImage,int32_t dx, int32_t dy)
 {
 int i,j,ii,iii,j1, dbx=(dx+63)/64*8;
 
@@ -1063,7 +1063,7 @@ return TRUE;
 }
 
 R35_FUNC(Bool32)   R35Binarize8(RecRaster *rRaster,
-							   uchar *CompImage,int32_t dx, int32_t dy)
+							   Word8 *CompImage,int32_t dx, int32_t dy)
 {
 int i,j,ii,iii,j1, dbx=(dx+63)/64*8, dbxin=(dx+7)/8*8;
 
@@ -1154,22 +1154,22 @@ for(i=ii=iii=0;i<dy;i++,ii+=dx,iii+=dbx)
 return TRUE;
 }
 
-uchar   double_raster[REC_MAX_RASTER_SIZE];
-uchar   quadro_raster[REC_MAX_RASTER_SIZE];
-uchar  dquadro_raster[REC_MAX_RASTER_SIZE];
-uchar   tab16x256[16]={0x00,0x03,0x0C,0x0F,
+Word8   double_raster[REC_MAX_RASTER_SIZE];
+Word8   quadro_raster[REC_MAX_RASTER_SIZE];
+Word8  dquadro_raster[REC_MAX_RASTER_SIZE];
+Word8   tab16x256[16]={0x00,0x03,0x0C,0x0F,
                        0x30,0x33,0x3C,0x3F,
                        0xC0,0xC3,0xCC,0xCF,
                        0xF0,0xF3,0xFC,0xFF };
 
 Bool32   R35Pack_resize(
         RecRaster*  raster,
-        uint16_t* Image3x5,
+        Word16* Image3x5,
 		int32_t to_x, int32_t to_y, Bool32 proport)
 {
 int32_t   w, h, wb, i,ii,iii, swb, w0,h0, ret;
-uchar   *rast;
-uint16_t   Im16x16[32*32];
+Word8   *rast;
+Word16   Im16x16[32*32];
 
 w0 = w    = raster->lnPixWidth;
 h0 = h    = raster->lnPixHeight;
@@ -1275,12 +1275,12 @@ return (ret>0);
 
 Bool32   R35PackGray_resize(
         RecRaster*  raster,          // raster description
-        uint16_t* Image3x5,
+        Word16* Image3x5,
 		int32_t to_x, int32_t to_y, Bool32 proport)      // image 3x5
 {
 int32_t   w, h, wb, i,ii,iii, swb, w0,h0;
-uchar   *rast;
-uint16_t   Im16x16[16*16];
+Word8   *rast;
+Word16   Im16x16[16*16];
 
 w0 = w    = raster->lnPixWidth;
 h0 = h    = raster->lnPixHeight;
@@ -1369,7 +1369,7 @@ return TRUE;
 
 R35_FUNC(Bool32)   R35Pack(
         RecRaster*  raster,          // raster description
-        uint16_t* Image3x5,
+        Word16* Image3x5,
 		int32_t to_x, int32_t to_y)      // image 3x5
 {
 return (raster->lnRasterBufSize&1) ?
@@ -1379,7 +1379,7 @@ return (raster->lnRasterBufSize&1) ?
 
 R35_FUNC(Bool32)   R35PackProport(
         RecRaster*  raster,          // raster description
-        uint16_t* Image3x5,
+        Word16* Image3x5,
 		int32_t to_x, int32_t to_y)      // image 3x5
 {
 
@@ -1389,7 +1389,7 @@ return R35Pack_resize(   raster, Image3x5, to_x, to_y,1);
 
 R35_FUNC(Bool32)   R35PackProportHor16(
         RecRaster*  raster,
-        uint16_t* Image3x5,
+        Word16* Image3x5,
 		int32_t *to_x, int32_t *to_y)
 {
 int w = raster->lnPixWidth, h = raster->lnPixHeight;
@@ -1400,7 +1400,7 @@ return R35Pack_resize(   raster, Image3x5, *to_x, *to_y, 0);
 
 // RECOGNIZING
 R35_FUNC(Bool32)  R35RecogCharIm3x5(
-			uint16_t* Im3x5,
+			Word16* Im3x5,
 			RecVersions* res  )
 {
 VERSION vers[16];
@@ -1428,8 +1428,8 @@ res->lnAltCnt = nvers;
 for(i=0;i<nvers&&i<REC_MAX_VERS;i++)
 	{
   res->Alt[i].Code     = vers[i].let;
-  res->Alt[i].Info     = (uchar)vers[i].num;
-  res->Alt[i].Prob     = (uchar)vers[i].prob;
+  res->Alt[i].Info     = (Word8)vers[i].num;
+  res->Alt[i].Prob     = (Word8)vers[i].prob;
   res->Alt[i].Method   = REC_METHOD_3X5;
   }
 return TRUE;
@@ -1437,7 +1437,7 @@ return TRUE;
 
 
 R35_FUNC(Bool32)  R35RecogNdxIm3x5(
-			uint16_t* Im3x5,       // image 3x5
+			Word16* Im3x5,       // image 3x5
 			RecVersions* res  )  // acuracy
 {
 VERSION vers[16];
@@ -1465,15 +1465,15 @@ res->lnAltCnt = nvers;
 for(i=0;i<nvers&&i<REC_MAX_VERS;i++)
 	{
   res->Alt[i].Code     = vers[i].let;
-  res->Alt[i].Info     = (uchar)vers[i].num;
-  res->Alt[i].Prob     = (uchar)vers[i].prob;
+  res->Alt[i].Info     = (Word8)vers[i].num;
+  res->Alt[i].Prob     = (Word8)vers[i].prob;
   res->Alt[i].Method   = REC_METHOD_3X5;
   }
 return TRUE;
 }
 
 R35_FUNC(Bool32)  R35RecogPrintCharIm3x5(
-			uint16_t* Im3x5,       // image 3x5
+			Word16* Im3x5,       // image 3x5
 			RecVersions* res  )  // acuracy
 {
 VERSION vers[16];
@@ -1501,8 +1501,8 @@ res->lnAltCnt = nvers;
 for(i=0;i<nvers&&i<REC_MAX_VERS;i++)
 	{
   res->Alt[i].Code     = vers[i].let;
-  res->Alt[i].Info     = (uint16_t)vers[i].num;
-  res->Alt[i].Prob     = (uchar)vers[i].prob;
+  res->Alt[i].Info     = (Word16)vers[i].num;
+  res->Alt[i].Prob     = (Word8)vers[i].prob;
   res->Alt[i].Method   = REC_METHOD_3X5;
   }
 return TRUE;
@@ -1511,7 +1511,7 @@ return TRUE;
 
 // RECONGIZE EXPERT
 R35_FUNC(Bool32)  R35RecogCharIm3x5_expert(
-			uint16_t* Im3x5,       // image 3x5
+			Word16* Im3x5,       // image 3x5
 			RecVersions* res  )  // acuracy
 {
 VERSION vers[16];
@@ -1543,15 +1543,15 @@ r35_recog(Im3x5,   vers, nvers, 0);
 for(i=0;i<nvers&&i<REC_MAX_VERS;i++)
 	{
   res->Alt[i].Code     = vers[i].let;
-  res->Alt[i].Info     = (uchar)vers[i].num;
-  res->Alt[i].Prob     = (uchar)vers[i].prob;
+  res->Alt[i].Info     = (Word8)vers[i].num;
+  res->Alt[i].Prob     = (Word8)vers[i].prob;
   res->Alt[i].Method   = REC_METHOD_3X5;
   }
 return TRUE;
 }
 
 R35_FUNC(Bool32)  R35RecogNdxIm3x5_expert(
-			uint16_t* Im3x5,       // image 3x5
+			Word16* Im3x5,       // image 3x5
 			RecVersions* res  )  // acuracy
 {
 VERSION vers[16];
@@ -1583,8 +1583,8 @@ r35_recog(Im3x5,   vers, nvers, 0);
 for(i=0;i<nvers&&i<REC_MAX_VERS;i++)
 	{
   res->Alt[i].Code     = vers[i].let;
-  res->Alt[i].Info     = (uchar)vers[i].num;
-  res->Alt[i].Prob     = (uchar)vers[i].prob;
+  res->Alt[i].Info     = (Word8)vers[i].num;
+  res->Alt[i].Prob     = (Word8)vers[i].prob;
   res->Alt[i].Method   = REC_METHOD_3X5;
   }
 return TRUE;
@@ -1592,7 +1592,7 @@ return TRUE;
 
 
 R35_FUNC(Bool32)  R35RecogPrintCharIm3x5_expert(
-			uint16_t* Im3x5,
+			Word16* Im3x5,
 			RecVersions* res, Bool32 r5x3  )
 {
 VERSION vers[16];
@@ -1627,8 +1627,8 @@ r35_recog(Im3x5,   vers, nvers, r5x3);
 for(i=0;i<nvers&&i<REC_MAX_VERS;i++)
 	{
   res->Alt[i].Code     = vers[i].let;
-  res->Alt[i].Info     = (uchar)vers[i].num;
-  res->Alt[i].Prob     = (uchar)vers[i].prob;
+  res->Alt[i].Info     = (Word8)vers[i].num;
+  res->Alt[i].Prob     = (Word8)vers[i].prob;
   res->Alt[i].Method   = REC_METHOD_3X5;
   }
 return TRUE;
@@ -1639,24 +1639,24 @@ return TRUE;
 // CLUSTER SECTION
 typedef struct Cluster_
 {
-uchar   ltr;        // Name of Cluster
-uint32_t   num;        // number of accepted images
-uint16_t  vect[16];   // ideal image
+Word8   ltr;        // Name of Cluster
+Word32   num;        // number of accepted images
+Word16  vect[16];   // ideal image
 double  vsum[16];   // sum of all images
 struct  Cluster_ * next;
 }Cluster;
 // functions
-Cluster * ClusterNew(uchar ltr);
-void    ClusterAdd(Cluster *clu,uint16_t vect[]);
-uchar   ClusterRecog(Cluster *clu,uint16_t vect[]);
-uchar   ClusterRecogOneLet(uint16_t vect[],uchar ltr,VERSION *v);
-int32_t   ClusterRecogFull(uint16_t vect[],VERSION v[],int32_t *nvers);
+Cluster * ClusterNew(Word8 ltr);
+void    ClusterAdd(Cluster *clu,Word16 vect[]);
+Word8   ClusterRecog(Cluster *clu,Word16 vect[]);
+Word8   ClusterRecogOneLet(Word16 vect[],Word8 ltr,VERSION *v);
+int32_t   ClusterRecogFull(Word16 vect[],VERSION v[],int32_t *nvers);
 void    ClusterFree(void);
 Bool32  ClusterTo3x5(int32_t FontType);
 //
 static  Cluster *First3x5=NULL, *Last3x5=NULL;
-static  uchar   alpha_clust[256]={0};
-Cluster * ClusterNew(uchar ltr)
+static  Word8   alpha_clust[256]={0};
+Cluster * ClusterNew(Word8 ltr)
 {
 Cluster *tmp;
 tmp=calloc(1,sizeof(Cluster));
@@ -1684,34 +1684,34 @@ for(j=0,curr=First3x5;curr/*->next*/&&j<num;curr=curr->next,j++);
 return j==num ? curr : NULL;
 }
 
-void    ClusterAdd(Cluster *clu,uint16_t vect[])
+void    ClusterAdd(Cluster *clu,Word16 vect[])
 {
 int     i;
-uint32_t  sq;
+Word32  sq;
 // adding
 for(i=0;i<15;i++)
     clu->vsum[i]+=(double)vect[i];
 clu->num++;
-// reduce to uint16_t
+// reduce to Word16
 for(i=0;i<15;i++)
-    clu->vect[i]   = (uint16_t)(clu->vsum[i] / clu->num);
+    clu->vect[i]   = (Word16)(clu->vsum[i] / clu->num);
 // accuracy normalize
 sq=scalar_all(clu->vect,clu->vect);
 sq = sqrt (sq);
 for(i=0;i<15;i++)
-    clu->vect[i]   = (uint16_t)((((int)(clu->vect[i]))*32767l)/sq);
+    clu->vect[i]   = (Word16)((((int)(clu->vect[i]))*32767l)/sq);
 return;
 }
 
-uchar   ClusterRecog(Cluster *clu,uint16_t vect[])
+Word8   ClusterRecog(Cluster *clu,Word16 vect[])
 {
 return recode_prob(scalar_all(clu->vect,vect));
 }
 
-uchar   ClusterRecogOneLet(uint16_t vect[],uchar ltr,VERSION *v)
+Word8   ClusterRecogOneLet(Word16 vect[],Word8 ltr,VERSION *v)
 {
 Cluster *curr;
-uchar   rm,prob;
+Word8   rm,prob;
 int32_t   jm,j;
 
 if( !First3x5 )
@@ -1738,7 +1738,7 @@ v->num  =jm;
 return rm>0;
 }
 
-int32_t   ClusterRecogFull(uint16_t vect[],VERSION v[],int32_t *nvers)
+int32_t   ClusterRecogFull(Word16 vect[],VERSION v[],int32_t *nvers)
 {
 VERSION vers[R35_MAX_VERS]={0}, ver;
 int     i;
@@ -1746,7 +1746,7 @@ int     i;
 for(i=0;i<256;i++)
     if( alpha_clust[i] )
         {
-        if( ClusterRecogOneLet(vect,(uchar)i,&ver) )
+        if( ClusterRecogOneLet(vect,(Word8)i,&ver) )
 		    store_bests(vers, &ver);
         }
 for(i=0;i<R35_MAX_VERS&&vers[i].prob>0;i++);
@@ -1764,7 +1764,7 @@ Bool32    ClusterTo3x5(int32_t FontType)
 {
 Cluster *curr;
 elm3x5  *curr3x5;
-uint32_t  lim = (FontType>-1)?FontType:1;
+Word32  lim = (FontType>-1)?FontType:1;
 
 if( !First3x5 )
     return FALSE;
@@ -1838,7 +1838,7 @@ return num;
 }
 // end CLUSTER SECTION
 
-R35_FUNC(Bool32)  R35Init_learn( int32_t num, uchar level, int32_t FontType )
+R35_FUNC(Bool32)  R35Init_learn( int32_t num, Word8 level, int32_t FontType )
 {
 switch(FontType)
     {
@@ -1914,7 +1914,7 @@ return ;
 }
 
 R35_FUNC(Bool32)  R35RecogCharIm3x5_learn(
-            uchar Code,uint16_t* Im3x5/*,
+            Word8 Code,Word16* Im3x5/*,
 			Bool32 r5x3*/, int32_t FontType  )
 {
 VERSION vers[R35_MAX_VERS];
@@ -2000,7 +2000,7 @@ return TRUE;
 }
 
 R35_FUNC(Bool32)  R35RecogCharIm3x5_learn_expert(
-            uchar Code,uint16_t* Im3x5)
+            Word8 Code,Word16* Im3x5)
 {
 VERSION vers[R35_MAX_VERS];
 int32_t   nvers;
@@ -2066,15 +2066,15 @@ r35_fnt = fnt;
 return;
 }
 
-R35_FUNC(Bool32) R35Delete(uchar    let, int32_t num_del)
+R35_FUNC(Bool32) R35Delete(Word8    let, int32_t num_del)
 {
 return r35_delete_elm3x5(let, num_del);
 }
 
-R35_FUNC(Bool32) R35Add(uchar    let,uint16_t* Im3x5, int32_t FontType)
+R35_FUNC(Bool32) R35Add(Word8    let,Word16* Im3x5, int32_t FontType)
 {
 elm3x5 *curr;
-uchar  fnt=0,  bnd=0;
+Word8  fnt=0,  bnd=0;
 
 if( num_learn==max_learn )
     {

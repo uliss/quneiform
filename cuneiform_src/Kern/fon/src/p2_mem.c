@@ -82,14 +82,14 @@ void EndNumMemory(void)
 	numAddedMemory=0;
 }
 ///////////////
-static int16_t MakeBitmapsRecRaster(Nraster_header  *rhh,
+static SINT MakeBitmapsRecRaster(Nraster_header  *rhh,
 								 RecRaster *r)
 {
-BYTE *AddBuffer(int sizebitmap);
+BYTE *AddBuffer(LONG sizebitmap);
 
- int16_t j,i;
- int16_t sx=rhh->w,sy=rhh->h,sxbyte;
- int sizebitmap;
+ SINT j,i;
+ SINT sx=rhh->w,sy=rhh->h,sxbyte;
+ LONG sizebitmap;
  BYTE *pic,*pp;
  int32_t wb = ((r->lnPixWidth+63)/64)*8;
 
@@ -113,9 +113,9 @@ BYTE *AddBuffer(int sizebitmap);
 }
 /////////////////////
 // fill static Nraster_header rh !!!
-FON_FUNC(int32_t) FONStoreRaster(RecRaster *r,uchar let, uchar IsPrint,
-		uchar Prob, uchar Valid, int16_t line_number,uchar kegl,
-		Rect16 *rect,uchar column)
+FON_FUNC(int32_t) FONStoreRaster(RecRaster *r,Word8 let, Word8 IsPrint,
+		Word8 Prob, Word8 Valid, Int16 line_number,Word8 kegl,
+		Rect16 *rect,Word8 column)
 {
  Nraster_header *rhh;
 
@@ -140,8 +140,8 @@ FON_FUNC(int32_t) FONStoreRaster(RecRaster *r,uchar let, uchar IsPrint,
  rhh=rh+numAddedMemory;
  memset(rhh,0,sizeof(Nraster_header));
 
- rhh->w    =(uchar)r->lnPixWidth;  //CTBdata[1];
- rhh->h    =(uchar)r->lnPixHeight; //CTBdata[2];
+ rhh->w    =(Word8)r->lnPixWidth;  //CTBdata[1];
+ rhh->h    =(Word8)r->lnPixHeight; //CTBdata[2];
  rhh->let  =let;                   //CTBdata[3];
 
  rhh->prob=Prob;   // probability
@@ -176,8 +176,8 @@ FON_FUNC(int32_t) FONStoreRaster(RecRaster *r,uchar let, uchar IsPrint,
  return numAddedMemory;
 }
 /////////////////////
-int32_t StartAddMemCluster(uchar *metkaValid,int32_t CurClus,
-						 int16_t countFont,uint32_t *allFields)
+int32_t StartAddMemCluster(Word8 *metkaValid,int32_t CurClus,
+						 Int16 countFont,Word32 *allFields)
 {
  int i,CurCount;
  FONBASE *fBase;
@@ -202,7 +202,7 @@ int32_t StartAddMemCluster(uchar *metkaValid,int32_t CurClus,
  fBase->countFont=countFont;
  // Информация о шрифтах в полях
  i=MIN(countFont,4);
- memcpy(fBase->fontFields,allFields,i*NFIELDDWORD*sizeof(uint32_t));
+ memcpy(fBase->fontFields,allFields,i*NFIELDDWORD*sizeof(Word32));
 
  return CurCount;
 }

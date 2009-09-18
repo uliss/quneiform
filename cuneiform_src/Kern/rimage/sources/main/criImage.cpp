@@ -64,8 +64,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // exteren globals
 extern CRIControl * Control_cri;
 // extern functions
-void SetReturnCode_rimage(uint16_t rc);
-uint16_t GetReturnCode_rimage();
+void SetReturnCode_rimage(Word16 rc);
+Word16 GetReturnCode_rimage();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -93,7 +93,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_SetProgressCB(PRIMAGECBPRogressStart pStart, PRIMAGEC
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_Binarise(uchar * cDIBIn, uchar * cDIBOut, uint32_t wFlag, uint32_t UseMargins)
+RIMAGE_FUNC(Bool32) RIMAGE_Binarise(PWord8 cDIBIn, PWord8 cDIBOut, Word32 wFlag, Word32 UseMargins)
 {
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
@@ -105,7 +105,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_Binarise(uchar * cDIBIn, uchar * cDIBOut, uint32_t wF
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_Rotate(uchar * cDIBIn, uchar * cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins)
+RIMAGE_FUNC(Bool32) RIMAGE_Rotate(PWord8 cDIBIn, PWord8 cDIBOut, int32_t High, int32_t Low, Word32 UseMargins)
 {
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
@@ -117,7 +117,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_Rotate(uchar * cDIBIn, uchar * cDIBOut, int32_t High,
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_RotatePoint( uchar * cDIBIn, int32_t wX, int32_t wY, int32_t * prX, int32_t * prY)
+RIMAGE_FUNC(Bool32) RIMAGE_RotatePoint( PWord8 cDIBIn, int32_t wX, int32_t wY, int32_t * prX, int32_t * prY)
 {
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
@@ -129,7 +129,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_RotatePoint( uchar * cDIBIn, int32_t wX, int32_t wY, 
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_Roll(uchar * cDIBIn, uchar * cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins)
+RIMAGE_FUNC(Bool32) RIMAGE_Roll(PWord8 cDIBIn, PWord8 cDIBOut, int32_t High, int32_t Low, Word32 UseMargins)
 {
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
@@ -141,7 +141,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_Roll(uchar * cDIBIn, uchar * cDIBOut, int32_t High, i
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_Turn(uchar * cDIBIn, uchar * cDIBOut, uint32_t wFlag, uint32_t UseMargins)
+RIMAGE_FUNC(Bool32) RIMAGE_Turn(PWord8 cDIBIn, PWord8 cDIBOut, Word32 wFlag, Word32 UseMargins)
 {
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
@@ -153,7 +153,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_Turn(uchar * cDIBIn, uchar * cDIBOut, uint32_t wFlag,
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_Inverse(uchar * cDIBIn, uchar * cDIBOut, uint32_t UseMargins)
+RIMAGE_FUNC(Bool32) RIMAGE_Inverse(PWord8 cDIBIn, PWord8 cDIBOut, Word32 UseMargins)
 {
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 

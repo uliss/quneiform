@@ -58,8 +58,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rmarker.h"
 #include "rmfunc.h"
 
-uchar* Buffer=NULL;
-uchar* WorkMem=NULL;
+Word8* Buffer=NULL;
+Word8* WorkMem=NULL;
 int BufferSize=0;
 int WorkMemSize=0;
 
@@ -78,13 +78,13 @@ void GiveWorkBuff (char **ccBuff, int *Size)
 
 void SetMainBuff(void *vBuff, int Size)
 {
-	Buffer=(uchar*)vBuff;
+	Buffer=(Word8*)vBuff;
 	BufferSize=Size;
 }
 
 void SetWorkBuff(void *vBuff, int Size)
 {
-	WorkMem=(uchar*)vBuff;
+	WorkMem=(Word8*)vBuff;
 	WorkMemSize=Size;
 }
 

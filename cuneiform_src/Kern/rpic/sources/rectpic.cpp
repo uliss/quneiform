@@ -71,15 +71,15 @@ extern Handle hShowCheckLetters;
 
 
 ////////////////////////////////////////////////////////////////////////////////
-Bool32 CheckAreaForComps(Handle hCCOM, Handle hCCOM_big, Rect32 rect, int32_t Height, uint32_t *Result1, uint32_t *Result2)
+Bool32 CheckAreaForComps(Handle hCCOM, Handle hCCOM_big, Rect32 rect, int32_t Height, Word32 *Result1, Word32 *Result2)
 {
 	CCOM_comp * comp;
-	uint32_t i;
+	Word32 i;
 	comp =  NULL;
 
 	Rect16 rect1;
-	uint32_t key = 111;
-	uint32_t color = 23000;
+	Word32 key = 111;
+	Word32 color = 23000;
 
 	Handle MainWindowD=NULL;
     MainWindowD=LDPUMA_GetWindowHandle ("Изображение после разворота");
@@ -92,10 +92,10 @@ Bool32 CheckAreaForComps(Handle hCCOM, Handle hCCOM_big, Rect32 rect, int32_t He
 
 	if(!LDPUMA_Skip(hShowCheckLetters))
 	{
-		rect1.top = (uint16_t)rect.top;
-		rect1.left = (uint16_t)rect.left;
-		rect1.bottom = (uint16_t)rect.bottom;
-		rect1.right = (uint16_t)rect.right;
+		rect1.top = (Word16)rect.top;
+		rect1.left = (Word16)rect.left;
+		rect1.bottom = (Word16)rect.bottom;
+		rect1.right = (Word16)rect.right;
 		LDPUMA_DrawRect(MainWindowD, &rect1, 0, 23635, 4, key);
 	}
 
@@ -222,19 +222,19 @@ lNextComp:
 ////////////////////////////////////////////////////////////////////////////////
 Bool32 SearchRectanglePictures(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 {
-	uint32_t i,j;
+	Word32 i,j;
 	CCOM_comp pic;
 	CCOM_comp * comp;
-	uint16_t pLocalHystogram[MaxHeightOfLetter];
-	uint32_t nLocalComps;
-	uint32_t MaxLocal, nMaxLocal;
-	uint32_t Result1, Result2, Result3, Result4, tmp1, tmp2;
+	Word16 pLocalHystogram[MaxHeightOfLetter];
+	Word32 nLocalComps;
+	Word32 MaxLocal, nMaxLocal;
+	Word32 Result1, Result2, Result3, Result4, tmp1, tmp2;
 	Rect32 rect;
 	int32_t LengthTotal,LengthByIntervals;
 	Handle BlockType;
 	RecRaster rec;
 	RecVersions vs;
-	int16_t Language;
+	Int16 Language;
 	RPIC_Comp_Rect CompRect;
 
 
@@ -382,7 +382,7 @@ Bool32 SearchRectanglePictures(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 		uBlock.code = CCOM_UB_BEGENDS;
 		if( CCOM_GetUserBlock(&pPics[i], &uBlock) )
 		{
-			if(*(uchar*)uBlock.data > 100)
+			if(*(Word8*)uBlock.data > 100)
 			{
 				continue;
 			}
@@ -516,7 +516,7 @@ Bool32 SearchRectanglePictures(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 			{
 				if( CCOM_GetRaster(&pPics[i], &rec) &&
 					CCOM_GetLanguage(hCCOM, &Language) &&
-					RSTR_RecogOneLetter (&rec, (uchar)(Language), &vs) )
+					RSTR_RecogOneLetter (&rec, (Word8)(Language), &vs) )
 				{
 
 					if( (vs.lnAltCnt > 0)&&

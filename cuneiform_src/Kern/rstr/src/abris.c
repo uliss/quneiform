@@ -63,8 +63,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 #include "minmax.h"
 
-static char let_mol[let_monN] = {" 0Oaeo"};
-static char let_mind[80] = {
+static CHAR let_mol[let_monN] = {" 0Oaeo"};
+static CHAR let_mind[80] = {
    1,  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 // 0   1 2 3 4 5 6 7 8 9 a b c d e f
 // 30
@@ -1788,7 +1788,7 @@ INT h_filt(cell *c, INT prob, s_glue *GL, BYTE h_or_b_Let)
   cold=a->col - c->col;  // cell_to_box_relative col
   cp1 = a->env;
   Lc1=cp1->nl;      // number of lines in component
-  Lp1=(lnhead *) ( (char *)cp1 + cp1->lines + 2); // beginning of first line
+  Lp1=(lnhead *) ( (CHAR *)cp1 + cp1->lines + 2); // beginning of first line
   Lp2=Lp1;
   for (lc1=0; lc1 < Lc1; lc1++)
      {
@@ -1813,7 +1813,7 @@ INT h_filt(cell *c, INT prob, s_glue *GL, BYTE h_or_b_Let)
       pnl += 70;	// PENALIZE 'h' or 'b'
 
     nextl:
-      Lp2=Lp1=(lnhead *) ((char *)Lp2+Lp2->lth);   // next line
+      Lp2=Lp1=(lnhead *) ((CHAR *)Lp2+Lp2->lth);   // next line
      }                                            // for all lines
   }                                               // while all cells
 

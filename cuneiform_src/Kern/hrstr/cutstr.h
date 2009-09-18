@@ -66,7 +66,7 @@ struct v_v
 typedef struct v_v v_val;
 
 struct save_vers
- {INT nvers; version vers[VERS_IN_CELL]; char flg; char pos; BYTE source;
+ {INT nvers; version vers[VERS_IN_CELL]; CHAR flg; CHAR pos; BYTE source;
   BYTE broken_II; BYTE cg_flag_fine;BYTE accent_leader;
   BYTE bottom_accent;   // 16.10.97 E.P.
   BYTE history;      // Nick  18.6.99
@@ -79,20 +79,20 @@ typedef struct save_vers SVERS;
 
 struct cut_elm
  {
- char x;                            // position
- char dh;                           // height to be cut
- char h;                            // end of segment
- char var;                          // method
+ CHAR x;                            // position
+ CHAR dh;                           // height to be cut
+ CHAR h;                            // end of segment
+ CHAR var;                          // method
  v_val lv;                          // two-component estimate of left side
- char px;                           // best previous point
+ CHAR px;                           // best previous point
  v_val rv;                          // two-component estimate of right sude
- char duflm, gvarm, duflr, gvarr;   // glue variant, dust flags
+ CHAR duflm, gvarm, duflr, gvarr;   // glue variant, dust flags
  SVERS  versm;                      // best cell versions
  SVERS  versr;                      // right part versions
  };
 
 typedef struct cut_position
- { INT row1, row2, cuth; char flag; } cut_pos;
+ { INT row1, row2, cuth; CHAR flag; } cut_pos;
 struct glue_struct
  {
  c_comp *complist[MAX_CELLS_IN_LIST];
@@ -124,35 +124,35 @@ typedef struct all_c all_cells;
 
 struct st_answer
  {
- char ltr;
- char fnt;
+ CHAR ltr;
+ CHAR fnt;
  WORD iprob;
- char n_rsn; // number of letter from list of same letters
+ CHAR n_rsn; // number of letter from list of same letters
  };
 typedef struct st_answer t_answer;
 
 struct info_elm
  {
- char topline, botline;
- char lnum;
- char topf, toph, botf, both;
- char sumb;
+ CHAR topline, botline;
+ CHAR lnum;
+ CHAR topf, toph, botf, both;
+ CHAR sumb;
  };
 
 struct own_cut
  {
- char x;     // position
- char dh;    // height to be cut
- char h;     // end of segment
- char var;   // method
+ CHAR x;     // position
+ CHAR dh;    // height to be cut
+ CHAR h;     // end of segment
+ CHAR var;   // method
  };
 
 struct extrem_elem
  {
- char type;      // +- -- max/min
- char cat;       // category
- char beg, end;  // area limits
- char val;       // etrem value
+ CHAR type;      // +- -- max/min
+ CHAR cat;       // category
+ CHAR beg, end;  // area limits
+ CHAR val;       // etrem value
  };
 
 struct linehdr
@@ -160,7 +160,7 @@ struct linehdr
  INT  lth;
  WORD  dy;
  WORD  y0;
- char flag;
+ CHAR flag;
  };
 
 struct segment
@@ -200,24 +200,24 @@ struct local_min
 
 struct func_elem
  {			// description of argument (x)
- char fvalue[3];	// values of lth, lower, upper
- char extrem[6];	// number of minimum area for this
+ CHAR fvalue[3];	// values of lth, lower, upper
+ CHAR extrem[6];	// number of minimum area for this
 			//   particular x for three functions;
 			//   -1 means out of minima areas
- char line;		// number of line in graph containing this x
+ CHAR line;		// number of line in graph containing this x
  };
 
 struct graph_comp
  {
- char top;
- char bot;
- char left;
- char right;
+ CHAR top;
+ CHAR bot;
+ CHAR left;
+ CHAR right;
  };
 
 struct less_vertex_elem
  {			// graph without one vertex
- char n_connect;	// number of connected components
+ CHAR n_connect;	// number of connected components
  };
 
 typedef struct own_cut mas_cpnt;

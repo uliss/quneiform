@@ -76,12 +76,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 // extern functions
-//void SetReturnCode_rling(uint16_t rc);
-//uint16_t GetReturnCode_rling();
+//void SetReturnCode_rling(Word16 rc);
+//Word16 GetReturnCode_rling();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //memory Allocator for RLING module
-void *	RLINGAlloc(uint32_t stAllocateBlock)
+void *	RLINGAlloc(Word32 stAllocateBlock)
 {
     /* JussiP: disabled all this, since it seems to be legacy from Win16 days. Just use malloc.
 	char * mem = NULL;
@@ -182,7 +182,7 @@ Handle  RLINGOpenRestore(char * lpName)
 //
 unsigned int  RLINGWrite(Handle h,void * lpdata,unsigned int size)
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 #ifdef _NO_CFIO
 	rc = fwrite(lpdata,1,size,(FILE*)h);
 #endif
@@ -192,7 +192,7 @@ unsigned int  RLINGWrite(Handle h,void * lpdata,unsigned int size)
 //
 unsigned int  RLINGRead(Handle h,void * lpdata,unsigned int size)
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 #ifdef _NO_CFIO
 	rc = fread(lpdata,1,size,(FILE *)h);
 #endif

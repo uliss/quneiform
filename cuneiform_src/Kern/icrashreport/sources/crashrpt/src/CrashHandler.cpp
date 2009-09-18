@@ -81,7 +81,7 @@ CAppModule _Module;
 CSimpleMap<int, CCrashHandler*> _crashStateMap;
 
 // unhandled exception callback set with SetUnhandledExceptionFilter()
-int WINAPI CustomUnhandledExceptionFilter(PEXCEPTION_POINTERS pExInfo)
+LONG WINAPI CustomUnhandledExceptionFilter(PEXCEPTION_POINTERS pExInfo)
 {
    _crashStateMap.Lookup(_getpid())->GenerateErrorReport(pExInfo);
 
@@ -186,7 +186,7 @@ void CCrashHandler::GenerateErrorReport(PEXCEPTION_POINTERS pExInfo)
 
 	ATL::CRegKey rk;
 	//Читаем из ключа с именем приложения
-	int lRet = rk.Open(HKEY_LOCAL_MACHINE,
+	LONG lRet = rk.Open(HKEY_LOCAL_MACHINE,
 	   TEXT("SOFTWARE\\Cognitive Technologies Ltd.\\CuneiForm\\PumaCrashRpt\\")
 	   + CUtility::getAppName(), KEY_QUERY_VALUE);
 	if(lRet != ERROR_SUCCESS)

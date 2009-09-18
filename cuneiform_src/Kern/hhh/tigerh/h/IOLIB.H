@@ -137,23 +137,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern "C" {
 #endif
 
-int my_filelth (INT);                      /* / handle    */
-INT  my_open    (INT, char *, INT, INT);    /* / stream, name, ... */
-FILE *my_fopen  (INT, char *, char *);      /* / stream, name, ... */
-void my_file_rem (INT, char *);             /* / stream, name      */
+LONG my_filelth (INT);                      /* / handle    */
+INT  my_open    (INT, CHAR *, INT, INT);    /* / stream, name, ... */
+FILE *my_fopen  (INT, CHAR *, CHAR *);      /* / stream, name, ... */
+void my_file_rem (INT, CHAR *);             /* / stream, name      */
 INT  my_close   (INT);                      /* / handle            */
-int my_read    (INT, char *, int);        /* / handle, addr, lth */
-int my_write   (INT, char *, int);        /* / handle, addr, lth */
-int my_seek    (INT, int, INT);           /* / handle, addr, type*/
-INT  my_chsize  (INT, int);                /* / handle, addr      */
+LONG my_read    (INT, CHAR *, LONG);        /* / handle, addr, lth */
+LONG my_write   (INT, CHAR *, LONG);        /* / handle, addr, lth */
+LONG my_seek    (INT, LONG, INT);           /* / handle, addr, type*/
+INT  my_chsize  (INT, LONG);                /* / handle, addr      */
 Bool save_dir   (INT, void * );             /* / stream, name      */
 INT  is_open    (INT);                      /* / stream            */
-void set_name_ext   (char *);               /* / stream=TX; extention  */
+void set_name_ext   (CHAR *);               /* / stream=TX; extention  */
 INT  my_table_op (INT, INT, INT, INT);      /* / table #, ...          */
 
 // 08-14-93 02:49pm, Mike
-FILE *my_table_fop (INT, INT, char *);      /* / table #, ...          */
-char *handle_fgets ( INT handle, char * s, INT len );
+FILE *my_table_fop (INT, INT, CHAR *);      /* / table #, ...          */
+CHAR *handle_fgets ( INT handle, CHAR * s, INT len );
 
 #ifdef __cplusplus
 }

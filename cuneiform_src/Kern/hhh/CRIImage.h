@@ -94,25 +94,25 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 # define    RIMAGEBOOL16          Bool16
-# define    RIMAGEWORD            uint16_t
+# define    RIMAGEWORD            Word16
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 typedef struct tag_RIMAGE_MARGINS
 {
-	uint32_t    rmLeftMarg;
-	uint32_t    rmTopMarg;
-	uint32_t    rmRightMarg;
-	uint32_t    rmBottomMarg;
+	Word32    rmLeftMarg;
+	Word32    rmTopMarg;
+	Word32    rmRightMarg;
+	Word32    rmBottomMarg;
 }   RIMAGEMARGINS, *PRIMAGEMARGINS, **PPRIMAGEMARGINS;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_Init(uint16_t wHeightCode,Handle hStorage);
+RIMAGE_FUNC(Bool32) RIMAGE_Init(Word16 wHeightCode,Handle hStorage);
 RIMAGE_FUNC(Bool32) RIMAGE_Done();
 RIMAGE_FUNC(Bool32) RIMAGE_Reset();
-RIMAGE_FUNC(uint32_t) RIMAGE_GetReturnCode();
-RIMAGE_FUNC(char *) RIMAGE_GetReturnString(uint32_t dwError);
-RIMAGE_FUNC(Bool32) RIMAGE_GetExportData(uint32_t dwType, void * pData);
-RIMAGE_FUNC(Bool32) RIMAGE_SetImportData(uint32_t dwType, void * pData);
+RIMAGE_FUNC(Word32) RIMAGE_GetReturnCode();
+RIMAGE_FUNC(Int8 *) RIMAGE_GetReturnString(Word32 dwError);
+RIMAGE_FUNC(Bool32) RIMAGE_GetExportData(Word32 dwType, void * pData);
+RIMAGE_FUNC(Bool32) RIMAGE_SetImportData(Word32 dwType, void * pData);
 /////////////////////////////////////////////////////////////
 typedef enum
 {
@@ -128,7 +128,7 @@ typedef enum
 } RIMAGE_EXPORT_ENTRIES;
 //////////////////////////////////////////////////////////////////////////////////////////////
 typedef void   (*PRIMAGECBPRogressStart)(void);
-typedef Bool32 (*PRIMAGECBPRogressStep)(uint32_t);
+typedef Bool32 (*PRIMAGECBPRogressStep)(Word32);
 typedef void   (*PRIMAGECBPRogressFinish)(void);
 //////////////////////////////////////////////////////////////////////////////////////////////
 typedef enum
@@ -144,13 +144,13 @@ typedef enum
 #define       RIMAGE_USE_MARGINS       TRUE
 #define       RIMAGE_WITHOUT_MARGINS   FALSE
 DEC_FUN(Bool32,  SetMargins,           (PRIMAGEMARGINS));
-DEC_FUN(Bool32,  Binarise,             (uchar * , uchar * , uint32_t, uint32_t));
-DEC_FUN(Bool32,  Rotate,               (uchar * , uchar * , int32_t, int32_t, uint32_t));
-DEC_FUN(Bool32,  Roll,                 (uchar * , uchar * , int32_t, int32_t, uint32_t));
-DEC_FUN(Bool32,  Turn,                 (uchar * , uchar * , uint32_t, uint32_t));
-DEC_FUN(Bool32,  Inverse,              (uchar * , uchar * , uint32_t));
+DEC_FUN(Bool32,  Binarise,             (PWord8 , PWord8 , Word32, Word32));
+DEC_FUN(Bool32,  Rotate,               (PWord8 , PWord8 , int32_t, int32_t, Word32));
+DEC_FUN(Bool32,  Roll,                 (PWord8 , PWord8 , int32_t, int32_t, Word32));
+DEC_FUN(Bool32,  Turn,                 (PWord8 , PWord8 , Word32, Word32));
+DEC_FUN(Bool32,  Inverse,              (PWord8 , PWord8 , Word32));
 DEC_FUN(Bool32,  SetProgressCB,        (PRIMAGECBPRogressStart, PRIMAGECBPRogressStep , PRIMAGECBPRogressFinish));
-DEC_FUN(Bool32,  RotatePoint,          (uchar * , int32_t, int32_t, int32_t *, int32_t *));
+DEC_FUN(Bool32,  RotatePoint,          (PWord8 , int32_t, int32_t, int32_t *, int32_t *));
 //////////////////////////////////////////////////////////////////////////////////////////
 //
 #undef DEC_FUN

@@ -107,7 +107,7 @@ Handle  myOpenRestore(char * lpName)
 }
 unsigned int  myWrite(Handle h,void * lpdata,unsigned int size)
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 #ifdef _DEBUG
 	rc = fwrite(lpdata,1,size,(FILE*)h);
 #endif
@@ -115,7 +115,7 @@ unsigned int  myWrite(Handle h,void * lpdata,unsigned int size)
 }
 unsigned int  myRead(Handle h,void * lpdata,unsigned int size)
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 #ifdef _DEBUG
 	rc = fread(lpdata,1,size,(FILE *)h);
 #endif

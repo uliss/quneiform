@@ -94,12 +94,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include "cttypext.h"
 //////////////////////////////AK"
 
-   CCOM_FUNC(Bool32)  CCOM_Init( uint16_t wHeightCode, Handle hStorage );
+   CCOM_FUNC(Bool32)  CCOM_Init( Word16 wHeightCode, Handle hStorage );
    CCOM_FUNC(void)    CCOM_Done(void);
-   CCOM_FUNC(uint32_t)  CCOM_GetReturnCode(void);
-   CCOM_FUNC(char*)   CCOM_GetReturnString(uint32_t dwError);
-   CCOM_FUNC(Bool32)  CCOM_SetImportData(uint32_t dwType, void * pData);
-   CCOM_FUNC(Bool32)  CCOM_GetExportData(uint32_t dwType, void * pData);
+   CCOM_FUNC(Word32)  CCOM_GetReturnCode(void);
+   CCOM_FUNC(char*)   CCOM_GetReturnString(Word32 dwError);
+   CCOM_FUNC(Bool32)  CCOM_SetImportData(Word32 dwType, void * pData);
+   CCOM_FUNC(Bool32)  CCOM_GetExportData(Word32 dwType, void * pData);
 
     enum CCOMFunctionsExt
         {
@@ -156,14 +156,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 typedef CCOM_comp  * (*FNCCOM_New)(CCOM_handle cont, int32_t upper, int32_t left, int32_t w, int32_t h);
 CCOM_FUNC(CCOM_comp*) CCOM_New(CCOM_handle cont,int32_t upper, int32_t left, int32_t w, int32_t h);
 // 2    CCOM_FNSTORE        записать в компоненту образ
-typedef Bool32         (*FNCCOM_Store)(CCOM_comp * comp,int16_t numcomp,
-                int32_t size_nlines, uchar *lines,  int16_t nl,
-                uchar free_beg, uchar free_e,
+typedef Bool32         (*FNCCOM_Store)(CCOM_comp * comp,Int16 numcomp,
+                int32_t size_nlines, Word8 *lines,  Int16 nl,
+                Word8 free_beg, Word8 free_e,
                 RecVersions *vers,
                 CCOM_USER_BLOCK  *ub);
-CCOM_FUNC(Bool32)          CCOM_Store(CCOM_comp * comp,int16_t numcomp,
-                int32_t size_nlines, uchar *lines,  int16_t nl,
-                uchar free_beg, uchar free_e,
+CCOM_FUNC(Bool32)          CCOM_Store(CCOM_comp * comp,Int16 numcomp,
+                int32_t size_nlines, Word8 *lines,  Int16 nl,
+                Word8 free_beg, Word8 free_e,
                 RecVersions *vers,
                 CCOM_USER_BLOCK  *ub);
 // 3    CCOM_FNSTORE        записать в компоненту образ
@@ -180,7 +180,7 @@ typedef CCOM_comp  * (*FNCCOM_GetNext)(CCOM_comp * comp,Bool32 (*filtrate)(int32
 CCOM_FUNC(CCOM_comp*) CCOM_GetNext(CCOM_comp * comp, Bool32 (*filtrate)(int32_t upper, int32_t left, int32_t w, int32_t h));
 // 7    CCOM_FNGETLINE      получить интервальное представление
 typedef Bool32       (*FNCCOM_GetLine)(CCOM_comp * comp,CCOM_linerep  *lrep );
-CCOM_FUNC(int16_t)     CCOM_GetLine(CCOM_comp * comp,CCOM_linerep  *lrep);
+CCOM_FUNC(Int16)     CCOM_GetLine(CCOM_comp * comp,CCOM_linerep  *lrep);
 // 8    CCOM_FNGETRASTER    получить рабочий растр компоненты
 typedef Bool32       (*FNCCOM_GetRaster)(CCOM_comp * comp,RecRaster *rec );
 CCOM_FUNC(Bool32)     CCOM_GetRaster(CCOM_comp * comp, RecRaster *rec);
@@ -200,8 +200,8 @@ CCOM_FUNC(Bool32)      CCOM_DeleteContainer  (CCOM_handle con);
 typedef Bool32      (*FNCCOM_AddLPToRaster)(CCOM_comp * comp, RecRaster *rec);
 CCOM_FUNC(Bool32)      CCOM_AddLPToRaster  (CCOM_comp * comp, RecRaster *rec);
 // 14   CCOM_FNMAKELP       Получить интервальное представление
-typedef Bool32      (*FNCCOM_MakeLP)( RecRaster   *rRaster , uchar *lp, int16_t *lp_size, int16_t *numcomp);
-CCOM_FUNC(Bool32)      CCOM_MakeLP  ( RecRaster   *rRaster , uchar *lp, int16_t *lp_size, int16_t *numcomp);
+typedef Bool32      (*FNCCOM_MakeLP)( RecRaster   *rRaster , Word8 *lp, Int16 *lp_size, Int16 *numcomp);
+CCOM_FUNC(Bool32)      CCOM_MakeLP  ( RecRaster   *rRaster , Word8 *lp, Int16 *lp_size, Int16 *numcomp);
 // 15   CCOM_FNSETUSERBLOCK Записать пользовательский блок
 typedef Bool32       (*FNCCOM_SetUserBlock)(CCOM_comp * comp,CCOM_USER_BLOCK *ub);
 CCOM_FUNC(Bool32)     CCOM_SetUserBlock(CCOM_comp * comp, CCOM_USER_BLOCK *ub);
@@ -225,8 +225,8 @@ CCOM_FUNC(CCOM_comp)   *CCOM_LargeNew(CCOM_handle cont,int32_t upper, int32_t le
 typedef Bool32 (*FNCCOM_LargeNewLn)(CCOM_comp   *cmp,CCOM_lnhead **lnh);
 CCOM_FUNC(Bool32) CCOM_LargeNewLn(CCOM_comp   *cmp,CCOM_lnhead **lnh);
 // 23   CCOM_FNLARGENEWINTERVAL записать новый длинный интервал
-typedef Bool32 (*FNCCOM_LargeNewInterval)(CCOM_comp   *cmp,int16_t e,int16_t l);
-CCOM_FUNC(Bool32) CCOM_LargeNewInterval(CCOM_comp   *cmp,int16_t e,int16_t l);
+typedef Bool32 (*FNCCOM_LargeNewInterval)(CCOM_comp   *cmp,Int16 e,Int16 l);
+CCOM_FUNC(Bool32) CCOM_LargeNewInterval(CCOM_comp   *cmp,Int16 e,Int16 l);
 // 24   CCOM_FNLARGECLOSE   закончить обработку компоненты с длинными интервалами
 typedef void (*FNCCOM_LargeClose)(CCOM_comp   *cmp);
 CCOM_FUNC(void) CCOM_LargeClose(CCOM_comp   *cmp);
@@ -249,11 +249,11 @@ CCOM_FUNC(Bool32) CCOM_GetScaleRaster(CCOM_comp * comp, RecRaster *rec,int32_t s
 typedef Bool32     (*FNCCOM_CompressContatiner)(CCOM_handle hcont);
 CCOM_FUNC(Bool32)     CCOM_CompressContatiner(CCOM_handle hcont);
 // 31   CCOM_SETLANGUAGE        установить язык контейнера
-typedef Bool32     (*FNCCOM_SetLanguage)(CCOM_handle hcont,int16_t language);
-CCOM_FUNC(Bool32)     CCOM_SetLanguage(CCOM_handle hcont,int16_t language);
+typedef Bool32     (*FNCCOM_SetLanguage)(CCOM_handle hcont,Int16 language);
+CCOM_FUNC(Bool32)     CCOM_SetLanguage(CCOM_handle hcont,Int16 language);
 // 32   CCOM_GETLANGUAGE        получить язык контейнера
-typedef Bool32     (*FNCCOM_GetLanguage)(CCOM_handle hcont,int16_t *language);
-CCOM_FUNC(Bool32)     CCOM_GetLanguage(CCOM_handle hcont,int16_t *language);
+typedef Bool32     (*FNCCOM_GetLanguage)(CCOM_handle hcont,Int16 *language);
+CCOM_FUNC(Bool32)     CCOM_GetLanguage(CCOM_handle hcont,Int16 *language);
 // 33   CCOM_GECONTAINERVOLUME  число компонент в контейнере
 typedef int32_t      (*FNCCOM_GetContainerVolume)(CCOM_handle hcont);
 CCOM_FUNC(int32_t)      CCOM_GetContainerVolume(CCOM_handle hcont);
@@ -268,8 +268,8 @@ typedef Bool32  (*FNCCOM_Reanimate)(CCOM_comp *c);
 CCOM_FUNC(Bool32)  CCOM_Reanimate(CCOM_comp *c);
 // 37   CCOM_FNADDCOMPTORS
 // Добавить ЛП к растру -- исправленный вариант
-typedef Bool32      (*FNCCOM_AddCompToRaster)(CCOM_comp * comp, int16_t relleft, int16_t relupper, RecRaster *rec);
-CCOM_FUNC(Bool32)      CCOM_AddCompToRaster(CCOM_comp * comp, int16_t relleft, int16_t relupper, RecRaster *rec);
+typedef Bool32      (*FNCCOM_AddCompToRaster)(CCOM_comp * comp, Int16 relleft, Int16 relupper, RecRaster *rec);
+CCOM_FUNC(Bool32)      CCOM_AddCompToRaster(CCOM_comp * comp, Int16 relleft, Int16 relupper, RecRaster *rec);
 // error code
 
 

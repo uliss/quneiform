@@ -80,18 +80,18 @@ class cls;                 \
 #endif
 
 /*** Base types ***/
+typedef unsigned int Indx;_SETTYPES( Indx )
+typedef uint32_t Word32;_SETTYPES( Word32 )
+typedef int16_t Int16;  _SETTYPES( Int16 )
+typedef uint16_t Word16;_SETTYPES( Word16 )
+typedef char Int8;      _SETTYPES( Int8 )
+typedef unsigned char Word8;_SETTYPES( Word8 )
+typedef float Float32;  _SETTYPES( Float32 )
+typedef double Float64; _SETTYPES( Float64 )
 typedef long double Float80; _SETTYPES( Float80 )
 typedef int Bool; _SETTYPES( Bool )
 typedef int16_t Bool16;_SETTYPES( Bool16 )
 typedef int32_t Bool32;_SETTYPES( Bool32 )
-
-typedef unsigned long ulong;
-typedef unsigned int uint;
-typedef unsigned char uchar;
-
-typedef void * pvoid;
-typedef int * pint;
-typedef char * pchar;
 
 #ifndef   FALSE
 #define FALSE               0
@@ -102,7 +102,7 @@ typedef char * pchar;
 
 /*** Derived types ***/
 typedef struct tagPoint16 {
-	int16_t x, y;
+	Int16 x, y;
 } Point16;
 _SETTYPES( Point16 )
 typedef struct tagPoint32 {
@@ -110,7 +110,7 @@ typedef struct tagPoint32 {
 } Point32;
 _SETTYPES( Point32 )
 typedef struct tagRect16 {
-	int16_t left, top, right, bottom;
+	Int16 left, top, right, bottom;
 } Rect16;
 _SETTYPES( Rect16 )
 typedef struct tagRect32 {
@@ -131,11 +131,11 @@ typedef Bool (* FTBool_PVoid)(void*);
 typedef Bool16 (* FTBool16_PVoid)(void*);
 typedef Bool32 (* FTBool32_PVoid)(void*);
 
-typedef void (* FTVoid_uint32_t)(uint32_t);
-typedef void* (* FTPVoid_uint32_t)(uint32_t);
-typedef Bool (* FTBool_uint32_t)(uint32_t);
-typedef Bool16 (* FTBool16_uint32_t)(uint32_t);
-typedef Bool32 (* FTBool32_uint32_t)(uint32_t);
+typedef void (* FTVoid_Word32)(Word32);
+typedef void* (* FTPVoid_Word32)(Word32);
+typedef Bool (* FTBool_Word32)(Word32);
+typedef Bool16 (* FTBool16_Word32)(Word32);
+typedef Bool32 (* FTBool32_Word32)(Word32);
 
 #ifdef __cplusplus
 extern "C" {
@@ -151,11 +151,11 @@ typedef Bool (* CFTBool_PVoid)(void*);
 typedef Bool16 (* CFTBool16_PVoid)(void*);
 typedef Bool32 (* CFTBool32_PVoid)(void*);
 
-typedef void (* CFTVoid_uint32_t)(uint32_t);
-typedef void* (* CFTPVoid_uint32_t)(uint32_t);
-typedef Bool (* CFTBool_uint32_t)(uint32_t);
-typedef Bool16 (* CFTBool16_uint32_t)(uint32_t);
-typedef Bool32 (* CFTBool32_uint32_t)(uint32_t);
+typedef void (* CFTVoid_Word32)(Word32);
+typedef void* (* CFTPVoid_Word32)(Word32);
+typedef Bool (* CFTBool_Word32)(Word32);
+typedef Bool16 (* CFTBool16_Word32)(Word32);
+typedef Bool32 (* CFTBool32_Word32)(Word32);
 }
 #endif   // __cplusplus
 
@@ -165,6 +165,7 @@ typedef Bool32 (* CFTBool32_uint32_t)(uint32_t);
 
 #ifndef WIN32
 
+typedef int32_t LONG;
 typedef uint16_t WORD;
 typedef uint32_t UINT;
 
@@ -176,9 +177,15 @@ typedef const char* LPCTSTR;
 
 #endif
 
+typedef char CHAR;
+typedef char * PCHAR;
+
 typedef unsigned char BYTE;
 typedef unsigned char * PBYTE;
 
+typedef int16_t SINT;
+
+typedef LONG * PLONG;
 typedef uint32_t * PDWORD;
 
 typedef int16_t _INT;
@@ -189,9 +196,14 @@ typedef WORD * PWORD;
 
 typedef BYTE* LPBYTE;
 typedef uint32_t * LPDWORD;
-typedef Bool* LPBool;
+typedef Bool* LPBOOL;
+typedef LONG* LPLONG;
+typedef void* LPVOID;
 
-#define PSTR  char *
+#define PSTR  PCHAR
+
+typedef unsigned long ulong;
+typedef unsigned char uchar;
 
 #include "cttypext.h"
 

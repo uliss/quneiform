@@ -99,8 +99,8 @@ Char8       cCommentBuffer[CFIO_MAX_COMMENT];
 static char *Buffer = NULL;
 static char *WorkMem = NULL;
 
-static uint16_t            gwHeightRC = 0;
-static uint16_t            gwLowRC = 0;
+static Word16            gwHeightRC = 0;
+static Word16            gwLowRC = 0;
 static HANDLE            ghStorage = NULL;
 static HINSTANCE         ghInst =  NULL;
 //DVP DLine*             tempLine;
@@ -124,12 +124,12 @@ typedef Bool32 (*FNPUMA_XSetTemplate)(Rect32 rect);
 typedef Bool32 (*FNPUMA_XGetTemplate)(Rect32 *pRect);
 typedef struct tagRSPreProcessImage
 {
-    uchar *	*pgpRecogDIB;
+    PWord8	*pgpRecogDIB;
     Bool32	gbAutoRotate;
     Bool32  gbDotMatrix;
     Bool32  gbFax100;
-    uint32_t  gnLanguage;
-    uint32_t  gnTables;
+    Word32  gnLanguage;
+    Word32  gnTables;
     Handle	hCPAGE;
     Handle  hDebugCancelSearchPictures;
     Handle  hDebugCancelComponent;
@@ -148,7 +148,7 @@ typedef struct tagRSPreProcessImage
     void *  phCLINE;
     PBool32 pgneed_clean_line;
     int32_t *  pgnNumberTables;
-    uint32_t  gnPictures;
+    Word32  gnPictures;
     Bool32* pgrc_line;
     Rect32  gRectTemplate;
     FNPUMA_XSetTemplate fnXSetTemplate;
@@ -160,7 +160,7 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
 
 //  Bool APIENTRY DllMain( HANDLE hModule,
 //                         uint32_t  ul_reason_for_call,
-//                         pvoid lpReserved
+//                         LPVOID lpReserved
 //  				  )
 //  {
 //      switch (ul_reason_for_call)
@@ -192,7 +192,7 @@ RSHELLLINES_FUNC(Bool32) FindLineAttr(CLINE_handle line, DLine* pCLine, Bool32 A
 }
 
 ///////////////////////////////////////////////////////////////
-RSL_FUNC(Bool32) RSL_Init(uint16_t wHeightCode,HANDLE hStorage)
+RSL_FUNC(Bool32) RSL_Init(Word16 wHeightCode,HANDLE hStorage)
 {
 	LDPUMA_Init(0,NULL);
 	LDPUMA_Registry(&hDebugRSL,SNAP_STUFF_RSL,NULL);
@@ -249,7 +249,7 @@ RSL_FUNC(Bool32) RSL_Init(uint16_t wHeightCode,HANDLE hStorage)
     return RESULT;
 }
 
-void SetReturnCode_rshelllines(uint16_t rc)
+void SetReturnCode_rshelllines(Word16 rc)
 {
     gwLowRC = rc;
 }
@@ -264,21 +264,21 @@ RSL_FUNC(Bool32) RSL_Done()
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSL_FUNC(uint32_t) RSL_GetReturnCode()
+RSL_FUNC(Word32) RSL_GetReturnCode()
 {
-    uint32_t rc = 0;
+    Word32 rc = 0;
     if((gwLowRC - IDS_ERR_NO)>0)
-        rc = (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
+        rc = (Word32)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
 
     return rc;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSL_FUNC(char *) RSL_GetReturnString(uint32_t dwError)
+RSL_FUNC(Int8 *) RSL_GetReturnString(Word32 dwError)
 {
-	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
-	static char szBuffer[512];
+	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
+	static Int8 szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
 		gwLowRC = IDS_ERR_NOTIMPLEMENT;
@@ -294,7 +294,7 @@ RSL_FUNC(char *) RSL_GetReturnString(uint32_t dwError)
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSL_FUNC(Bool32) RSL_GetExportData(uint32_t dwType, void * pData)
+RSL_FUNC(Bool32) RSL_GetExportData(Word32 dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -303,7 +303,7 @@ return rc;
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSL_FUNC(Bool32) RSL_SetImportData(uint32_t dwType, void * pData)
+RSL_FUNC(Bool32) RSL_SetImportData(Word32 dwType, void * pData)
 {
 	Bool32 rc = RESULT;
 
@@ -315,11 +315,11 @@ RSL_FUNC(Bool32) RSL_SetImportData(uint32_t dwType, void * pData)
     RSPreProcessImage IImage;
     PRSPreProcessImage Image = &IImage;
 
-    uint32_t nTeor = sizeof (RSPreProcessImage);
+    Word32 nTeor = sizeof (RSPreProcessImage);
     Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
     Handle VerifyN = CPAGE_GetBlockFirst (*phCPage, RSL_VERLINE);//hPage, RSL_VERLINE);
-    uint32_t nReal = CPAGE_GetBlockData (*phCPage, VerifyN, RSL_VERLINE, Image, nTeor);
-//     uint32_t err32 = CPAGE_GetReturnCode ();
+    Word32 nReal = CPAGE_GetBlockData (*phCPage, VerifyN, RSL_VERLINE, Image, nTeor);
+//     Word32 err32 = CPAGE_GetReturnCode ();
 //     if (err32)
 //         return FALSE;
 
@@ -332,7 +332,7 @@ RSL_FUNC(Bool32) RSL_SetImportData(uint32_t dwType, void * pData)
             if( !RVERLINE_SetImportData(RVERLINE_DTRVERLINE_RegimeOfVerifyLines,&val)||
                 !RVERLINE_MarkLines(*Image->phCCOM, Image->hCPAGE))
             {
-                SetReturnCode_rshelllines((uint16_t)RVERLINE_GetReturnCode());
+                SetReturnCode_rshelllines((Word16)RVERLINE_GetReturnCode());
                 rc = FALSE;
             }
             else
@@ -356,7 +356,7 @@ RSL_FUNC(Bool32) RSL_SetImportData(uint32_t dwType, void * pData)
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-void *	RSLAlloc(uint32_t stAllocateBlock)
+void *	RSLAlloc(Word32 stAllocateBlock)
 {
     char * mem = NULL;
 
@@ -374,13 +374,13 @@ void *	RSLAlloc(uint32_t stAllocateBlock)
 #endif
 
     if(!mem)
-        SetReturnCode_rshelllines((uint16_t)RSL_ERR_NO_MEMORY);
+        SetReturnCode_rshelllines((Word16)RSL_ERR_NO_MEMORY);
 #else
 
-    mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(char*)"RSL", (char*)cCommentBuffer);
+    mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(Int8*)"RSL", (Int8*)cCommentBuffer);
 
     if(!mem)
-        SetReturnCode_rshelllines((uint16_t)RSL_ERR_NO_MEMORY);
+        SetReturnCode_rshelllines((Word16)RSL_ERR_NO_MEMORY);
 
 #endif
 
@@ -423,7 +423,7 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
 
 	if (Buffer == NULL || WorkMem == NULL )
 	{
-		SetReturnCode_rshelllines((uint16_t)RSL_ERR_NO_MEMORY);
+		SetReturnCode_rshelllines((Word16)RSL_ERR_NO_MEMORY);
 		bRc =  FALSE;
 	}
 
@@ -492,7 +492,7 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-uint16_t GetReturnCode_rshelllines()
+Word16 GetReturnCode_rshelllines()
 {
 	return gwLowRC;
 }
@@ -627,11 +627,11 @@ void   DrowVerticalLineRaster(DLine* pCLine, LPSTR Buffer, CIMAGEBITMAPINFOHEADE
 {
 }
 
-void   Transpose_bit_matrixes(char * buf_in,char * buf_out, Rect32* rect)
+void   Transpose_bit_matrixes(PCHAR buf_in,PCHAR buf_out, Rect32* rect)
 {
 }
 
-Bool GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, char *  pRaster, Bool FlagVerticalLine)
+Bool GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, PCHAR  pRaster, Bool FlagVerticalLine)
 {
     return TRUE;
 }
@@ -699,7 +699,7 @@ RSHELLLINES_FUNC( Bool32) CheckSeparationPoints(CLINE_handle hLine, CLINE_handle
     return FALSE;
 }
 
-RSHELLLINES_FUNC( Bool) SL_GetRaster(Rect32* rect, uchar** ppData, PAGEINFO* page_info)
+RSHELLLINES_FUNC( Bool) SL_GetRaster(Rect32* rect, Word8** ppData, PAGEINFO* page_info)
 {
     return TRUE;
 }
@@ -716,7 +716,7 @@ RSHELLLINES_FUNC(void) FindGroupOfExtensibleLines(CLINE_handle hContainer, GLM* 
 {
 }
 
-RSHELLLINES_FUNC(int32_t) RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, uchar lang, uchar debug_flags, int32_t *cross_point)
+RSHELLLINES_FUNC(int32_t) RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, Word8 lang, Word8 debug_flags, int32_t *cross_point)
 {
     return 0;
 }

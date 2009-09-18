@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern Handle hBlocksBreaking;
 extern Handle hNotWholeLine ;
 extern Handle hHystogramNull ;
-extern uint32_t ZagolovokBreakingCoeff;
+extern Word32 ZagolovokBreakingCoeff;
 
 
 # define MIN_BREAKED_BLOCK_HEIGHTES_WIDTH  4

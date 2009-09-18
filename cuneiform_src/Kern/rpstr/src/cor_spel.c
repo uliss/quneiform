@@ -88,16 +88,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define MAX_LEN_WORD  48
 
 static  char    dash[]="-\x5F—";
-static  uchar   ed_left_limit_word[] =" -()[{.,:!\'\"\xbb\xab?\x84</—\x99\xa9\xae";
-static  uchar   ed_right_limit_word[]=" -()]}.,:;!\'\"\xbb\xab?/>\x84—\x99\xa9\xae";
-static  uchar   ed_half_spaces[3]="\x1e\x1f";
-static  uchar   multy_language;
+static  Word8   ed_left_limit_word[] =" -()[{.,:!\'\"\xbb\xab?\x84</—\x99\xa9\xae";
+static  Word8   ed_right_limit_word[]=" -()]}.,:;!\'\"\xbb\xab?/>\x84—\x99\xa9\xae";
+static  Word8   ed_half_spaces[3]="\x1e\x1f";
+static  Word8   multy_language;
 extern  Bool32  skip_line, snap_enable ;
 extern  Handle  hSnapSpell,hSnapMatch,hSnapEndWord,hSnapStartWord;
-extern  char*   sp_err;
+extern  Int8*   sp_err;
 
-uchar   language;
-static  uchar   ed_buffer[32000], edo_buffer[32000], *MED_file_bound, *MED_file_end ;
+Word8   language;
+static  Word8   ed_buffer[32000], edo_buffer[32000], *MED_file_bound, *MED_file_end ;
 static  RecVersions ed_vers[100];
 static  UniVersions rej_vers[100], rejo_vers[100];
 static  Rect16  ed_rect[100];
@@ -112,7 +112,7 @@ struct  sheet_disk_descr    ed_sdd={0};
 
 static  Bool32 make_fictive_str(CSTR_line fln, CSTR_rast eng, CSTR_rast enge, CSTR_line ln, CSTR_line lnraw);
 // Nick 27.01.2001
-static int rpstr_case_notequal( uchar *in,uchar *out,
+static int rpstr_case_notequal( Word8 *in,Word8 *out,
         int32_t lenin, int32_t lenout,UniVersions *uvs );
 // Nick 18.06.2001
 static  int32_t rpstr_test_spell_alter(CSTR_rast be,CSTR_rast en, int32_t nlim, UniVersions *uv);
@@ -121,7 +121,7 @@ static int  rpstr_test_21( CSTR_rast eng, CSTR_rast enge,
 						   char *ewrd, int lang );
 
 ///////////////
-static void ed_write(uchar* p, uint16_t size)
+static void ed_write(Word8* p, Word16 size)
 {
 if (MED_file_bound -  MED_file_end < size)
     {
@@ -131,9 +131,9 @@ memcpy (MED_file_end, p, size);
 MED_file_end += size;
 }
 
-static  Bool32    ed_exclude_to_vers(int32_t size, uchar *str)
+static  Bool32    ed_exclude_to_vers(int32_t size, Word8 *str)
 {
-uchar  *p,*pe;
+Word8  *p,*pe;
 struct  vers_ref     vf;
 struct  bit_map_ref  bm;
 int32_t   i;
@@ -212,7 +212,7 @@ CSTR_rast       c;
 UniVersions     vrs;
 int32_t           i,j,n;
 Bool32          change_rect;
-uint16_t          loc_language=35535, loc_charset=35535 ;
+Word16          loc_language=35535, loc_charset=35535 ;
 
 for(c=b,i=0;c && c!=e ;c=CSTR_GetNext(c))
     {
@@ -243,7 +243,7 @@ for(c=b,i=*start;c && c!=e && i<ed_nvers;c=CSTR_GetNext(c),i++)
         vrs.Alt[0].Prob   =ed_vers[i].Alt[0].Prob;
         vrs.Alt[0].Liga   =ed_vers[i].Alt[0].Code;
         vrs.Alt[0].Method =REC_METHOD_DIC;
-        vrs.Alt[0].Charset=(uchar)loc_charset;
+        vrs.Alt[0].Charset=(Word8)loc_charset;
         if( change_rect )
             vrs.Alt[0].Info=0;
         }
@@ -254,7 +254,7 @@ for(c=b,i=*start;c && c!=e && i<ed_nvers;c=CSTR_GetNext(c),i++)
         vrs.Alt[0].Prob   =ed_vers[i].Alt[0].Prob;
         vrs.Alt[0].Liga   =ed_vers[i].Alt[0].Code;
         vrs.Alt[0].Method =REC_METHOD_DIC;
-        vrs.Alt[0].Charset=(uchar)loc_charset;
+        vrs.Alt[0].Charset=(Word8)loc_charset;
         if( change_rect )
             vrs.Alt[0].Info=0;
         }
@@ -267,7 +267,7 @@ for(c=b,i=*start;c && c!=e && i<ed_nvers;c=CSTR_GetNext(c),i++)
             vrs.Alt[j].Prob   =ed_vers[i].Alt[j].Prob;
             vrs.Alt[j].Liga   =stdAnsiToAscii(ed_vers[i].Alt[j].Code);
             vrs.Alt[j].Method =REC_METHOD_DIC;
-            vrs.Alt[j].Charset=(uchar)loc_charset;
+            vrs.Alt[j].Charset=(Word8)loc_charset;
             if( change_rect )
                 vrs.Alt[j].Info=0;
             }
@@ -276,7 +276,7 @@ for(c=b,i=*start;c && c!=e && i<ed_nvers;c=CSTR_GetNext(c),i++)
     CSTR_StoreCollectionUni(c,&vrs);
 
     attr.flg_spell = CSTR_fa_spell_correct;
-    attr.language=(uchar)loc_language;
+    attr.language=(Word8)loc_language;
     CSTR_SetAttr(c,&attr);
     }
 *start=i;
@@ -291,7 +291,7 @@ UniVersions     vrs={0};
 int32_t           i,j,n,mincol,maxcol,minrow,maxrow,avwid ;
 int32_t           mincolr,maxcolr,minrowr,maxrowr,avwidr ;
 CSTR_line       line;
-uint16_t          loc_language=35535, loc_charset=35535, loc_battr=35535 ;
+Word16          loc_language=35535, loc_charset=35535, loc_battr=35535 ;
 
 CSTR_GetAttr(b,&battr);
 line=CSTR_GetRasterLine(b);
@@ -341,15 +341,15 @@ for(c=cp;i<ed_nvers;i++)
     c=CSTR_InsertRaster(c); // c - prev raster
     if( !c )
         continue;
-    attr.r_row  = (int16_t)minrowr   ;
-    attr.r_col  = (int16_t)(mincolr+i*avwidr)  ;
-    attr.row    = (int16_t)minrow   ;
-    attr.col    = (int16_t)(mincol+i*avwid)  ;
-    attr.h      = (int16_t)(maxrow-minrow);
-    attr.w      = (int16_t)avwid ;
+    attr.r_row  = (Int16)minrowr   ;
+    attr.r_col  = (Int16)(mincolr+i*avwidr)  ;
+    attr.row    = (Int16)minrow   ;
+    attr.col    = (Int16)(mincol+i*avwid)  ;
+    attr.h      = (Int16)(maxrow-minrow);
+    attr.w      = (Int16)avwid ;
     attr.font   = battr.font       ;
     attr.keg    = battr.keg        ;
-    attr.language=(uchar)loc_language;
+    attr.language=(Word8)loc_language;
     attr.flg_spell = CSTR_fa_spell_restruct;
     n           = ed_vers[i].lnAltCnt;
     attr.flg    = n ? CSTR_f_let : CSTR_f_bad;
@@ -361,7 +361,7 @@ for(c=cp;i<ed_nvers;i++)
         vrs.Alt[0].Prob   =ed_vers[i].Alt[0].Prob;
         vrs.Alt[0].Liga   =ed_vers[i].Alt[0].Code;
         vrs.Alt[0].Method =REC_METHOD_DIC;
-        vrs.Alt[0].Charset=(uchar)loc_charset;
+        vrs.Alt[0].Charset=(Word8)loc_charset;
         vrs.Alt[0].Info=0;
         }
     else if( ed_vers[i].Alt[0].Code==SS_NEG_HALF_SPACE  )
@@ -371,7 +371,7 @@ for(c=cp;i<ed_nvers;i++)
         vrs.Alt[0].Prob   =ed_vers[i].Alt[0].Prob;
         vrs.Alt[0].Liga   =ed_vers[i].Alt[0].Code;
         vrs.Alt[0].Method =REC_METHOD_DIC;
-        vrs.Alt[0].Charset=(uchar)loc_charset;
+        vrs.Alt[0].Charset=(Word8)loc_charset;
         vrs.Alt[0].Info=0;
         }
     else
@@ -383,7 +383,7 @@ for(c=cp;i<ed_nvers;i++)
             vrs.Alt[j].Liga   = stdAnsiToAscii(ed_vers[i].Alt[j].Code);
             vrs.Alt[j].Prob   = ed_vers[i].Alt[j].Prob;
             vrs.Alt[j].Method = REC_METHOD_DIC;
-            vrs.Alt[j].Charset= (uchar)loc_charset;
+            vrs.Alt[j].Charset= (Word8)loc_charset;
             vrs.Alt[j].Info   = 0;
             }
         vrs.lnAltCnt=n;
@@ -396,14 +396,14 @@ for(c=cp;i<ed_nvers;i++)
 return TRUE;
 }
 
-Bool32 ed_make_word(CSTR_rast b, CSTR_rast e,uchar *language)
+Bool32 ed_make_word(CSTR_rast b, CSTR_rast e,Word8 *language)
 {
-uchar           *l,p;
+Word8           *l,p;
 CSTR_rast       c;
 UniVersions     uni;
-int16_t           k,i,n,h,wb, nlig, nl;
+Int16           k,i,n,h,wb, nlig, nl;
 CSTR_rast_attr  a;
-int16_t           top,bottom,left,right;
+Int16           top,bottom,left,right;
 
 
 for(top=10000,bottom=0,left=10000,right=0,c=b;c&&c!=e;c=CSTR_GetNext(c))
@@ -428,18 +428,18 @@ wb= (right-left-1+7)/8;
     ed_sdd.code     =0x0a;
     ed_sdd.descr_lth=0x26;
     ed_sdd.resolution=300;
-    ed_write((uchar*)&ed_sdd,sizeof(ed_sdd));
+    ed_write((Word8*)&ed_sdd,sizeof(ed_sdd));
 // start fragm_disk_descr
     ed_fdd.code=0x0b;
     ed_fdd.language = *language;
     ed_fdd.height   = h;
     ed_fdd.w_width  = wb;
     ed_fdd.kegl     = 10;
-    ed_write((uchar*)&ed_fdd,sizeof(ed_fdd));
+    ed_write((Word8*)&ed_fdd,sizeof(ed_fdd));
 
  // start fragm_disk
     ed_fd.code=0x0b;
-    ed_write((uchar*)&ed_fd,sizeof(ed_fd));
+    ed_write((Word8*)&ed_fd,sizeof(ed_fd));
 
  for(c=b;c&&c!=e;c=CSTR_GetNext(c))
     {
@@ -452,19 +452,19 @@ wb= (right-left-1+7)/8;
     bmr.width   =a.w;
     bmr.height  =a.h;
     CSTR_GetCollectionUni(c,&uni);
-    n=(int16_t)uni.lnAltCnt;
+    n=(Int16)uni.lnAltCnt;
     if(n>7) n=7;
     if(n<1) n=1;
 
     if( n && memchr(ed_half_spaces,uni.Alt[0].Liga,2) )
         {
-        ed_write((uchar*)&bmr,sizeof(bmr));
+        ed_write((Word8*)&bmr,sizeof(bmr));
         p=uni.Alt[0].Prob;
         if( p&1 )   p--;
         p++;
         ed_vrs.code = uni.Alt[0].Liga;
         ed_vrs.prob = p;
-        ed_write((uchar*)&ed_vrs,sizeof(ed_vrs));
+        ed_write((Word8*)&ed_vrs,sizeof(ed_vrs));
         continue;  // half spaces for spelling analisys
         }
     nlig = strlen(uni.Alt[0].Code);
@@ -472,7 +472,7 @@ wb= (right-left-1+7)/8;
         return FALSE;
     for(nl=0;nl<nlig;nl++)
     {
-    ed_write((uchar*)&bmr,sizeof(bmr));
+    ed_write((Word8*)&bmr,sizeof(bmr));
 
     for(k=i=0;k<n;)
         {
@@ -485,7 +485,7 @@ wb= (right-left-1+7)/8;
                 p = p+1; // last even propability
             ed_vrs.code = *l;
             ed_vrs.prob =  p;
-            ed_write((uchar*)&ed_vrs,sizeof(ed_vrs));
+            ed_write((Word8*)&ed_vrs,sizeof(ed_vrs));
             }
         }
      }
@@ -494,12 +494,12 @@ wb= (right-left-1+7)/8;
 return TRUE;
 }
 
-Bool32 ed_add_word(CSTR_rast b, CSTR_rast e,uchar *language)
+Bool32 ed_add_word(CSTR_rast b, CSTR_rast e,Word8 *language)
 {
-uchar           *l,p;
+Word8           *l,p;
 CSTR_rast       c;
 UniVersions     uni;
-int16_t           k,i,n, nlig, nl;
+Int16           k,i,n, nlig, nl;
 CSTR_rast_attr  a;
 
 for(c=b;c && c!=e;c=CSTR_GetNext(c))
@@ -522,19 +522,19 @@ for(c=b;c&&c!=e;c=CSTR_GetNext(c))
     bmr.width   =a.w;
     bmr.height  =a.h;
     CSTR_GetCollectionUni(c,&uni);
-    n=(int16_t)uni.lnAltCnt;
+    n=(Int16)uni.lnAltCnt;
     if(n>7) n=7;
     if(n<1) n=1;
 
     if( n && memchr(ed_half_spaces,uni.Alt[0].Liga,2) )
         {
-        ed_write((uchar*)&bmr,sizeof(bmr));
+        ed_write((Word8*)&bmr,sizeof(bmr));
         p=uni.Alt[0].Prob;
         if( p&1 )   p--;
         p++;
         ed_vrs.code = uni.Alt[0].Liga;
         ed_vrs.prob = p;
-        ed_write((uchar*)&ed_vrs,sizeof(ed_vrs));
+        ed_write((Word8*)&ed_vrs,sizeof(ed_vrs));
         continue;  // half spaces for spelling analisys
         }
     nlig = strlen(uni.Alt[0].Code);
@@ -542,7 +542,7 @@ for(c=b;c&&c!=e;c=CSTR_GetNext(c))
         return FALSE;
     for(nl=0;nl<nlig;nl++)
     {
-    ed_write((uchar*)&bmr,sizeof(bmr));
+    ed_write((Word8*)&bmr,sizeof(bmr));
 
     for(k=i=0;k<n;)
         {
@@ -555,7 +555,7 @@ for(c=b;c&&c!=e;c=CSTR_GetNext(c))
                 p = p+1; // last even propability
             ed_vrs.code = *l;
             ed_vrs.prob =  p;
-            ed_write((uchar*)&ed_vrs,sizeof(ed_vrs));
+            ed_write((Word8*)&ed_vrs,sizeof(ed_vrs));
             }
         }
      }
@@ -584,11 +584,11 @@ do{
 return (attr.flg&CSTR_f_fict)?(CSTR_rast)0:c;
 }
 
-static CSTR_rast rpstr_end_word(CSTR_rast cs,uchar *str,Bool32 *hsp)
+static CSTR_rast rpstr_end_word(CSTR_rast cs,Word8 *str,Bool32 *hsp)
 {
 CSTR_rast       c=cs, nc;
 CSTR_rast_attr  attr, nattr;
-int16_t           i;
+Int16           i;
 UniVersions     vers, nuni;
 Bool32 halfspace=FALSE;	// 01.06.2001 E.P.
 
@@ -622,7 +622,7 @@ do{
         if( (nc=CSTR_GetNext(c))!=0 )
             {
             CSTR_GetCollectionUni(nc,&nuni);
-            if( nuni.lnAltCnt && nuni.Alt[0].Code[0]==(uchar)'ê' )
+            if( nuni.lnAltCnt && nuni.Alt[0].Code[0]==(Word8)'ê' )
                 {
                 CSTR_GetAttr(nc,&nattr);
                 CSTR_GetAttr(c,&attr);
@@ -651,49 +651,49 @@ c=c ? c : CSTR_GetLastRaster(CSTR_GetRasterLine(cs));
 return c;
 }
 
-static rpstr_is_digital(uchar w)
+static rpstr_is_digital(Word8 w)
 {
 return (w>='0' && w<='9' || strchr("~",w) );
 }
 
 // for russian and english ansi codes
-static rpstr_is_upper(uchar w)
+static rpstr_is_upper(Word8 w)
 {
-return (w>='A' && w<='Z' || w>=(uchar)'À' && w<=(uchar)'ß' );
+return (w>='A' && w<='Z' || w>=(Word8)'À' && w<=(Word8)'ß' );
 }
 
-static rpstr_is_lower(uchar w)
+static rpstr_is_lower(Word8 w)
 {
-return (w>='a' && w<='z' || w>=(uchar)'à' && w<=(uchar)'ÿ' );
+return (w>='a' && w<='z' || w>=(Word8)'à' && w<=(Word8)'ÿ' );
 }
 
-static rpstr_to_upper(uchar w)
+static rpstr_to_upper(Word8 w)
 {
 if( w>='a' && w<='z'  )
-    return (uchar)(w-32);
-if( w>=(uchar)'à' && w<=(uchar)'ÿ' )
-    return (uchar)(w-32);
+    return (Word8)(w-32);
+if( w>=(Word8)'à' && w<=(Word8)'ÿ' )
+    return (Word8)(w-32);
 return w;
 }
 
-static rpstr_to_lower(uchar w)
+static rpstr_to_lower(Word8 w)
 {
 if( w>='A' && w<='Z'  )
-    return (uchar)(w+32);
-if( w>=(uchar)'À' && w<=(uchar)'ß' )
-    return (uchar)(w+32);
+    return (Word8)(w+32);
+if( w>=(Word8)'À' && w<=(Word8)'ß' )
+    return (Word8)(w+32);
 return w;
 }
 
-Bool32  rpstr_correct_case_old(uchar *in,uchar *out,
+Bool32  rpstr_correct_case_old(Word8 *in,Word8 *out,
         int32_t lenin, int32_t lenout,UniVersions *uvs)
 {
 int32_t   nvers,i,n=(lenin<lenout)?lenin:lenout;
 Bool32  ui,uo, lo, li;
 
 Bool32 isUnknown=FALSE;
-uchar *inIni=in;  // save for second pass
-uchar *outIni=out;
+Word8 *inIni=in;  // save for second pass
+Word8 *outIni=out;
 
 if( lenin!=lenout )
 {
@@ -738,15 +738,15 @@ if(isUnknown)  //Nick 27.01.2001
 return (nvers!=0);
 }
 /////////////////
-Bool32  rpstr_correct_case(uchar *in,uchar *out,
-        int32_t lenin, int32_t lenout,UniVersions *uvs, uchar cpos)
+Bool32  rpstr_correct_case(Word8 *in,Word8 *out,
+        int32_t lenin, int32_t lenout,UniVersions *uvs, Word8 cpos)
 {
 int32_t   nvers,i,n=(lenin<lenout)?lenin:lenout;
 Bool32  ui,uo, lo, li;
 
 Bool32 isUnknown = FALSE;
-uchar *inIni=in;  // save for second pass
-uchar *outIni=out;
+Word8 *inIni=in;  // save for second pass
+Word8 *outIni=out;
 
 if( lenin!=lenout )
 {
@@ -833,7 +833,7 @@ if(isUnknown)  //Nick 27.01.2001
 return (nvers!=0);
 }
 
-Bool32 rpstr_alphabet_mixed( uchar *s )
+Bool32 rpstr_alphabet_mixed( Word8 *s )
 {
 int32_t   n,d;
 for(d=n=0,s++;*s;s++,n++)
@@ -848,7 +848,7 @@ for(d=n=0,s++;*s;s++,n++)
 return (d && d!=n);
 }
 
-Bool32 rpstr_alphabet_check(uchar *s)
+Bool32 rpstr_alphabet_check(Word8 *s)
 {
 int32_t   n,d,r,l=strlen(s)-1,hsp;
 for(r=hsp=n=0,d=0;*s;s++,n++)
@@ -877,7 +877,7 @@ return( d!=n &&
 	   r!=n);
 }
 
-void rpstr_set_spell_flag(CSTR_rast b,CSTR_rast e,uchar flg_spell, uchar flg)
+void rpstr_set_spell_flag(CSTR_rast b,CSTR_rast e,Word8 flg_spell, Word8 flg)
 {
 CSTR_rast_attr  attr;
 
@@ -921,12 +921,12 @@ return;
 }
 
 
-Bool32 rpstr_txt_spell(char * s,uchar lang)
+Bool32 rpstr_txt_spell(char * s,Word8 lang)
 {
 int32_t                      Check = 0;
 if( lang==LANG_ENGLISH && multy_language )
     { // second dict
-    if( !RLING_CheckSecWord((char *)s, &Check) )
+    if( !RLING_CheckSecWord((PInt8)s, &Check) )
         {
         sp_err=RLING_GetReturnString(RLING_GetReturnCode());
         return FALSE;
@@ -934,7 +934,7 @@ if( lang==LANG_ENGLISH && multy_language )
     }
 else
     { // first dict
-    if( !RLING_CheckWord((char *)s, &Check) )
+    if( !RLING_CheckWord((PInt8)s, &Check) )
         {
         sp_err=RLING_GetReturnString(RLING_GetReturnCode());
         return FALSE;
@@ -967,7 +967,7 @@ for(; e  ; e=CSTR_GetNext(e))
 return is_dash;
 }
 
-static void rpstr_cstr2word(CSTR_rast be,CSTR_rast en,uchar *str)
+static void rpstr_cstr2word(CSTR_rast be,CSTR_rast en,Word8 *str)
 {
 CSTR_rast c;
 UniVersions     uvs;
@@ -1008,12 +1008,12 @@ return nv;
 
 Bool32  rpstr_normal_spell(char *sec_wrd)
 {
-uint32_t          sizeout;
+Word32          sizeout;
 int32_t                   Check = 0;
 if( !language && multy_language )
     { // second dict
-    if( !RLING_CheckSecED((char *)ed_buffer,(char *)edo_buffer,
-            (uint32_t)(MED_file_end-ed_buffer), &sizeout,
+    if( !RLING_CheckSecED((PInt8)ed_buffer,(PInt8)edo_buffer,
+            (Word32)(MED_file_end-ed_buffer), &sizeout,
             &Check) )
         {
         sp_err=RLING_GetReturnString(RLING_GetReturnCode());
@@ -1022,8 +1022,8 @@ if( !language && multy_language )
     }
 else
     { // first dict
-    if( !RLING_CheckED((char *)ed_buffer,(char *)edo_buffer,
-            (uint32_t)(MED_file_end-ed_buffer), &sizeout,
+    if( !RLING_CheckED((PInt8)ed_buffer,(PInt8)edo_buffer,
+            (Word32)(MED_file_end-ed_buffer), &sizeout,
             &Check) )
         {
         sp_err=RLING_GetReturnString(RLING_GetReturnCode());
@@ -1034,7 +1034,7 @@ return ed_exclude_to_vers(sizeout, sec_wrd);
 //return TRUE;
 }
 
-static uchar non_letters[]="«»()\x1f\x1e,.!?";
+static Word8 non_letters[]="«»()\x1f\x1e,.!?";
 Bool32  rpstr_get_solid(CSTR_rast rus, CSTR_rast ruse)
 {
 CSTR_rast       r;
@@ -1053,7 +1053,7 @@ for(r=rus;r && r!=ruse;r=CSTR_GetNext(r))
 return TRUE;
 }
 
-int32_t   size_short_language(uchar language)
+int32_t   size_short_language(Word8 language)
 {
 int32_t   s;
 switch( language )
@@ -1071,7 +1071,7 @@ switch( language )
 return s;
 }
 
-int32_t   size_short_language_aux(uchar language)
+int32_t   size_short_language_aux(Word8 language)
 {
 int32_t   s;
 switch( language )
@@ -1089,7 +1089,7 @@ switch( language )
 return s;
 }
 
-static uchar CodePages[LANG_TOTAL]={
+static Word8 CodePages[LANG_TOTAL]={
 CSTR_ANSI_CHARSET            , // LANG_ENGLISH		0
 CSTR_ANSI_CHARSET            , // LANG_GERMAN		1
 CSTR_ANSI_CHARSET            , // LANG_FRENCH		2
@@ -1120,7 +1120,7 @@ BALTIC_CHARSET				 , // LANG_ESTONIAN	    26
 TURKISH_CHARSET				   // LANG_TURKISH		27
 };
 
-static int Lang_Console(char *text, uchar lang)
+static int Lang_Console(char *text, Word8 lang)
 {
 char    buf[1024];
 LDPUMA_SetConsoleProperty(0,0,0,0,0,0,0,CodePages[lang],NULL);
@@ -1134,7 +1134,7 @@ int Snap_Console(char *text)
 return Lang_Console(text,language);
 }
 
-int Snap_ConsoleLang(char *text,uchar lang)
+int Snap_ConsoleLang(char *text,Word8 lang)
 {
 return Lang_Console(text,lang);
 }
@@ -1175,7 +1175,7 @@ CSTR_rast_attr  attr;
 CSTR_rast       c;
 UniVersions     vrs;
 int32_t           i,j,n;
-uint16_t          loc_language=35535, loc_charset=35535 ;
+Word16          loc_language=35535, loc_charset=35535 ;
 
 for(c=b,i=0;c && c!=e ;c=CSTR_GetNext(c))
     {
@@ -1230,7 +1230,7 @@ if( enable_take )
             vrs.Alt[0].Prob   =rejo_vers[i].Alt[0].Prob;
             vrs.Alt[0].Liga   =SS_POS_HALF_SPACE;
             vrs.Alt[0].Method =REC_METHOD_DIC;
-            vrs.Alt[0].Charset=(uchar)loc_charset;
+            vrs.Alt[0].Charset=(Word8)loc_charset;
             vrs.Alt[0].Info=0;
             }
         else if( rejo_vers[i].Alt[0].Code[0]==SS_NEG_HALF_SPACE &&  vrs.Alt[0].Code[0]==0 && vrs.lnAltCnt==1 )
@@ -1240,7 +1240,7 @@ if( enable_take )
             vrs.Alt[0].Prob   =rejo_vers[i].Alt[0].Prob;
             vrs.Alt[0].Liga   =SS_NEG_HALF_SPACE;
             vrs.Alt[0].Method =REC_METHOD_DIC;
-            vrs.Alt[0].Charset=(uchar)loc_charset;
+            vrs.Alt[0].Charset=(Word8)loc_charset;
             vrs.Alt[0].Info=0;
             }
         else
@@ -1251,7 +1251,7 @@ if( enable_take )
                 vrs.Alt[j].Prob   =rejo_vers[i].Alt[j].Prob;
                 vrs.Alt[j].Liga   =stdAnsiToAscii(rejo_vers[i].Alt[j].Code[0]);
                 vrs.Alt[j].Method =REC_METHOD_DIC;
-                vrs.Alt[j].Charset=(uchar)loc_charset;
+                vrs.Alt[j].Charset=(Word8)loc_charset;
                 vrs.Alt[j].Info=0;
                 }
             vrs.lnAltCnt=n;
@@ -1259,7 +1259,7 @@ if( enable_take )
         CSTR_StoreCollectionUni(c,&vrs);
 
         attr.flg_spell = CSTR_fa_spell_correct;
-        attr.language=(uchar)loc_language;
+        attr.language=(Word8)loc_language;
         CSTR_SetAttr(c,&attr);
         }
     }
@@ -1332,7 +1332,7 @@ static  char    double_eng[]="ETYOPAHKXCBMeyuopaxcnr";
 static  char    double_rus[]="ÅÒÓÎÐÀÍÊÕÑÂÌåóèîðàõñïã";
 //static  char    double_rus[]="…’“Ž€Š•‘‚Œ¥ã¨®à åá¯";
 Bool32 rpstr_double_word(CSTR_rast   beg,    CSTR_rast   end,
-                          uchar lang)
+                          Word8 lang)
 {
 CSTR_rast_attr  a;
 CSTR_rast       r;
@@ -1365,14 +1365,14 @@ return TRUE;
 }
 
 void rpstr_correct_ruseng(CSTR_rast   beg,    CSTR_rast   end,
-                          uchar lang)
+                          Word8 lang)
 {
 CSTR_rast_attr  a;
 CSTR_rast       r;
 int32_t           i, n;
 UniVersions     u,u1;
 char           *arr1, *arr2, *p;
-uchar           lang1, charset=CSTR_RUSSIAN_CHARSET;
+Word8           lang1, charset=CSTR_RUSSIAN_CHARSET;
 
 if( lang==LANG_RUSSIAN )
     {
@@ -1634,7 +1634,7 @@ if( attr.h*3<=attr.w )
 return FALSE;
 }
 
-int32_t rstr_hsp_num(uchar *wrd)
+int32_t rstr_hsp_num(Word8 *wrd)
 {
 int32_t   n;
 for(n=0;*wrd;wrd++)
@@ -1704,7 +1704,7 @@ static char *rpstr_disable_words[]={
 "#",
 "\0"
 };
-Bool32 rpstr_is_voc_word(uchar *wrd, char *voc[])
+Bool32 rpstr_is_voc_word(Word8 *wrd, char *voc[])
 {
 int32_t   i;
 for(i=0; voc[i][0]!=0;i++)
@@ -1715,17 +1715,17 @@ for(i=0; voc[i][0]!=0;i++)
 return FALSE;
 }
 
-Bool32 rpstr_is_short_prefix(uchar *wrd)
+Bool32 rpstr_is_short_prefix(Word8 *wrd)
 {
 return rpstr_is_voc_word(wrd, rpstr_short_prefix);
 }
 
-Bool32 rpstr_is_short_postfix(uchar *wrd)
+Bool32 rpstr_is_short_postfix(Word8 *wrd)
 {
 return rpstr_is_voc_word(wrd, rpstr_short_postfix);
 }
 
-Bool32 rpstr_disable_short_words(uchar * wrd)
+Bool32 rpstr_disable_short_words(Word8 * wrd)
 {
 return rpstr_is_voc_word(wrd, rpstr_disable_words);
 }
@@ -1755,8 +1755,8 @@ if( !u.lnAltCnt || !rpstr_is_lower(u.Alt[0].Code[0]) )
 return TRUE;
 }
 
-uint32_t myMonitorProc(Handle wnd,Handle hwnd,uint32_t message,uint32_t wParam,uint32_t lParam);
-static void unis2word(UniVersions *uvs,int32_t n,uchar *str)
+Word32 myMonitorProc(Handle wnd,Handle hwnd,Word32 message,Word32 wParam,Word32 lParam);
+static void unis2word(UniVersions *uvs,int32_t n,Word8 *str)
 {
 int32_t   i;
 *str='\0';
@@ -1774,7 +1774,7 @@ Bool32   rpstr_correct_spell(CSTR_line ln,
 {
 CSTR_rast       eng, enge, senge, tmp;
 CSTR_rast_attr  attr;
-uchar           ewrd[MAX_LEN_WORD+40],pwrd[MAX_LEN_WORD+40],
+Word8           ewrd[MAX_LEN_WORD+40],pwrd[MAX_LEN_WORD+40],
                 third_wrd[MAX_LEN_WORD+40],
                 sec_wrd[MAX_LEN_WORD+40],
                 language1, snapstr[1024];
@@ -2190,7 +2190,7 @@ CSTR_rast_attr  attr;
 RecRaster       rs;
 UniVersions     vr;
 CCOM_comp    *  comp;
-int16_t           left, right;
+Int16           left, right;
 
 CSTR_GetLineAttr(ln,&lattr);
 CSTR_SetLineAttr(fln,&lattr);
@@ -2214,7 +2214,7 @@ for(c=CSTR_GetNextRaster (start,CSTR_f_all); c && c!=stop; c=CSTR_GetNextRaster 
     {
     if( CSTR_GetAttr (c, &attr) &&
         !(attr.r_col+attr.w<left || attr.r_col>right) &&
-        CSTR_GetImage (c, (uchar *)&rs, CSTR_TYPE_IMAGE_RS) &&
+        CSTR_GetImage (c, (Word8 *)&rs, CSTR_TYPE_IMAGE_RS) &&
         CSTR_GetCollectionUni(c,&vr) &&
         (comp=CSTR_GetComp(c))!=NULL )
         {
@@ -2234,7 +2234,7 @@ return TRUE;
 }
 
 // Nick 27.01.2001
-static int rpstr_case_notequal( uchar *in,uchar *out,
+static int rpstr_case_notequal( Word8 *in,Word8 *out,
         int32_t lenin, int32_t lenout,UniVersions *uvs )
 {
 	int nSmall;
@@ -2317,7 +2317,7 @@ static int rpstr_case_notequal( uchar *in,uchar *out,
 ///////////
 // ïðîâåðèòü àëüòåðíàòèâû
 // ñ êåì ïóòàþòñÿ áóêâû
-static uchar *twinAlts[256]={
+static Word8 *twinAlts[256]={
 	"","","","","","","","","","","","","","","","",
     "","","","","","","","","","","","","","","","",
 	"","","","","","","","","","","","","","","","", //32-47
@@ -2362,10 +2362,10 @@ static uchar *twinAlts[256]={
 	"ù","ø","üû","íüú","êúû","àç","","àí" // 248
 };
 //////////////////
-static Bool32 IsInAlter(uchar *Code,CSTR_rast c)
+static Bool32 IsInAlter(Word8 *Code,CSTR_rast c)
 {
 	UniVersions vers;
-	uchar codeAlt[4];
+	Word8 codeAlt[4];
 	int32_t i;
 
 	    CSTR_GetCollectionUni(c,&vers);
@@ -2402,11 +2402,11 @@ static Bool32 IsInAlter(uchar *Code,CSTR_rast c)
 }
 //////////////
 
-static rpstr_is_letter(uchar w)
+static rpstr_is_letter(Word8 w)
 {
-   if (w>='A' && w<='Z' || w>=(uchar)'À' && w<=(uchar)'ß' )
+   if (w>='A' && w<='Z' || w>=(Word8)'À' && w<=(Word8)'ß' )
 	   return TRUE;
-   if (w>='a' && w<='z' || w>=(uchar)'à' && w<=(uchar)'ÿ' )
+   if (w>='a' && w<='z' || w>=(Word8)'à' && w<=(Word8)'ÿ' )
 	   return TRUE;
 
    return FALSE;
@@ -2562,11 +2562,11 @@ static char *standReplace[MAX_STANDARD]={
 /////////
 // íàéòè íóæíîå ìåñòî
 static CSTR_rast rpstr_find_in_word(CSTR_rast cs,CSTR_rast ce,
-									uchar *ewrd, int start, int len,
+									Word8 *ewrd, int start, int len,
 									CSTR_rast *last)
 {
  CSTR_rast       c;
- int16_t           i;
+ Int16           i;
  UniVersions     vers;
  int allLen = strlen(ewrd), oneLen;
  CSTR_rast first=NULL;
@@ -2620,7 +2620,7 @@ static int	ReplacePartWord(CSTR_rast eng, CSTR_rast enge,
 	UniVersions     vers={0};
 	int32_t           mincol,maxcol,minrow,maxrow,avwid ;
 	int32_t           ii, mincolr,maxcolr,avwidr ;
-	uint16_t          loc_charset=35535, loc_battr=35535 ;
+	Word16          loc_charset=35535, loc_battr=35535 ;
 	int oldLen = strlen(oldPart), newLen=strlen(newPart);
 	CSTR_rast first, last;
 	int midProb;
@@ -2697,24 +2697,24 @@ static int	ReplacePartWord(CSTR_rast eng, CSTR_rast enge,
 		if( !c )
 			continue;
 
-		attr.r_row  = (int16_t)minrow   ;
-		attr.r_col  = (int16_t)(mincolr+ii*avwidr)  ;
-		attr.row    = (int16_t)minrow   ;
-		attr.col    = (int16_t)(mincol+ii*avwid)  ;
-		attr.h      = (int16_t)(maxrow-minrow);
-		attr.w      = (int16_t)avwid ;
+		attr.r_row  = (Int16)minrow   ;
+		attr.r_col  = (Int16)(mincolr+ii*avwidr)  ;
+		attr.row    = (Int16)minrow   ;
+		attr.col    = (Int16)(mincol+ii*avwid)  ;
+		attr.h      = (Int16)(maxrow-minrow);
+		attr.w      = (Int16)avwid ;
 		attr.font   = battr.font       ;
 		attr.keg    = battr.keg        ;
-		attr.language=(uchar)lang;
+		attr.language=(Word8)lang;
 		attr.flg_spell = CSTR_fa_spell_restruct;
 		attr.flg    = CSTR_f_let | CSTR_f_solid;
 
 		vers.Alt[0].Code[0]= newPart[ii];
 		vers.Alt[0].Code[1]= 0;
 		vers.Alt[0].Liga   = newPart[ii];
-		vers.Alt[0].Prob   = (uchar)midProb;
+		vers.Alt[0].Prob   = (Word8)midProb;
 		vers.Alt[0].Method = REC_METHOD_DIC;
-		vers.Alt[0].Charset= (uchar)loc_charset;
+		vers.Alt[0].Charset= (Word8)loc_charset;
 		vers.Alt[0].Info   = 0;
 
 		vers.lnAltCnt=1;

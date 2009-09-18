@@ -84,17 +84,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 struct tagRC16
 {
-	uint16_t        gwLowRC;
-	uint16_t        gwHeightRC;
+	Word16        gwLowRC;
+	Word16        gwHeightRC;
 };
 union  RCode
 {
 	tagRC16           RC16;
-	uint32_t            gwRC;
+	Word32            gwRC;
 };
 
 static RCode  RC = {0};
-static uint16_t wHighErrCode=0;
+static Word16 wHighErrCode=0;
 
 #define RESULT 2
 
@@ -146,12 +146,12 @@ int move;
 #undef APIENRTY
 #define APIENTRY
 
-extern uchar* Buffer;
-extern uchar* WorkMem;
+extern Word8* Buffer;
+extern Word8* WorkMem;
 /////////////////////////////////////////
 Bool APIENTRY DllMain( HINSTANCE hModule,
 uint32_t ul_reason_for_call,
-                        pvoid lpReserved )
+                        LPVOID lpReserved )
 {
     switch( ul_reason_for_call )
 	{
@@ -169,7 +169,7 @@ uint32_t ul_reason_for_call,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSTUFF_FUNC(Bool32) RSTUFF_Init(uint16_t wHeightCode,Handle hStorage)
+RSTUFF_FUNC(Bool32) RSTUFF_Init(Word16 wHeightCode,Handle hStorage)
 {
 
     Bool32 rc = TRUE;
@@ -178,10 +178,10 @@ RSTUFF_FUNC(Bool32) RSTUFF_Init(uint16_t wHeightCode,Handle hStorage)
 
 	LDPUMA_Init(0, NULL);
 //	Buffer=NULL;
-//	Buffer=(uchar*)RSTUFFAlloc(BufferSize*sizeof(uchar));
+//	Buffer=(Word8*)RSTUFFAlloc(BufferSize*sizeof(Word8));
 //	if(!Buffer)
 //		return FALSE;
-//	WorkMem=(uchar*)RSTUFFAlloc(WorkMemSize*sizeof(uchar));
+//	WorkMem=(Word8*)RSTUFFAlloc(WorkMemSize*sizeof(Word8));
 //	if(!WorkMem)
 //		return FALSE;
 
@@ -247,21 +247,21 @@ RSTUFF_FUNC(Bool32)RSTUFF_Done()
 //
 RSTUFF_FUNC(Bool32)RSTUFF_Reset()
 {
-	SetReturnCode_rstuff((uint16_t)0);
+	SetReturnCode_rstuff((Word16)0);
 	return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSTUFF_FUNC(uint32_t) RSTUFF_GetReturnCode()
+RSTUFF_FUNC(Word32) RSTUFF_GetReturnCode()
 {
 	return RC.gwRC;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSTUFF_FUNC(char *) RSTUFF_GetReturnString(uint32_t dwError)
+RSTUFF_FUNC(Int8 *) RSTUFF_GetReturnString(Word32 dwError)
 {
-	uint16_t rc = (uint16_t)(dwError & 0xFFFF);
-	static char szBuffer[512];
+	Word16 rc = (Word16)(dwError & 0xFFFF);
+	static Int8 szBuffer[512];
 
 	if( dwError >> 16 != RC.RC16.gwHeightRC)
 		RC.RC16.gwLowRC = IDS_RSTUFF_ERR_NOTIMPLEMENT;
@@ -278,7 +278,7 @@ RSTUFF_FUNC(char *) RSTUFF_GetReturnString(uint32_t dwError)
 #define CASE_FUNCTION(a)	case RSTUFF_FN_##a:	*(FNRSTUFF##a *)pData = RSTUFF_##a; break
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSTUFF_FUNC(Bool32) RSTUFF_GetExportData(uint32_t dwType, void * pData)
+RSTUFF_FUNC(Bool32) RSTUFF_GetExportData(Word32 dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -293,7 +293,7 @@ RSTUFF_FUNC(Bool32) RSTUFF_GetExportData(uint32_t dwType, void * pData)
 
 	default:
 		*(Handle *)pData = NULL;
-		SetReturnCode_rstuff((uint16_t)IDS_RSTUFF_ERR_NOTIMPLEMENT);
+		SetReturnCode_rstuff((Word16)IDS_RSTUFF_ERR_NOTIMPLEMENT);
 		rc = FALSE;
 	}
 
@@ -301,7 +301,7 @@ RSTUFF_FUNC(Bool32) RSTUFF_GetExportData(uint32_t dwType, void * pData)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSTUFF_FUNC(Bool32) RSTUFF_SetImportData(uint32_t dwType, void * pData)
+RSTUFF_FUNC(Bool32) RSTUFF_SetImportData(Word32 dwType, void * pData)
 {
 	Bool rc = FALSE;
 	RC.gwRC = 0;
@@ -328,7 +328,7 @@ RSTUFF_FUNC(Bool32) RSTUFF_SetImportData(uint32_t dwType, void * pData)
 //		rc = TRUE;
 //		break;
 	default:
-		SetReturnCode_rstuff((uint16_t)IDS_RSTUFF_ERR_NOTIMPLEMENT);
+		SetReturnCode_rstuff((Word16)IDS_RSTUFF_ERR_NOTIMPLEMENT);
 		rc = FALSE;
 	}
 
@@ -338,7 +338,7 @@ RSTUFF_FUNC(Bool32) RSTUFF_SetImportData(uint32_t dwType, void * pData)
 //
 RSTUFF_FUNC(Bool32) RSTUFF_RSBinarise( void )
 {
-	SetReturnCode_rstuff((uint16_t)0);
+	SetReturnCode_rstuff((Word16)0);
 
 	return Binarise();
 }
@@ -346,7 +346,7 @@ RSTUFF_FUNC(Bool32) RSTUFF_RSBinarise( void )
 //
 RSTUFF_FUNC(Bool32) RSTUFF_RSNormalise( PRSPreProcessImage Image,void* vBuff,int Size,void* vWork,int SizeWork )
 {
-	SetReturnCode_rstuff((uint16_t)0);
+	SetReturnCode_rstuff((Word16)0);
 	SetMainBuff(vBuff,Size);
 	SetWorkBuff(vWork,SizeWork);
 	Bool32 rc=Normalise( Image );
@@ -358,7 +358,7 @@ RSTUFF_FUNC(Bool32) RSTUFF_RSNormalise( PRSPreProcessImage Image,void* vBuff,int
 //
 RSTUFF_FUNC(Bool32) RSTUFF_RSNormVerify( PRSPreProcessImage Image )
 {
-	SetReturnCode_rstuff((uint16_t)0);
+	SetReturnCode_rstuff((Word16)0);
 
 	return VerifyN( Image );
 }
@@ -366,7 +366,7 @@ RSTUFF_FUNC(Bool32) RSTUFF_RSNormVerify( PRSPreProcessImage Image )
 //
 RSTUFF_FUNC(Bool32) RSTUFF_RSNormRemoveLines( PRSPreProcessImage Image )
 {
-	SetReturnCode_rstuff((uint16_t)0);
+	SetReturnCode_rstuff((Word16)0);
 
 	return KillLinesN( Image );
 }
@@ -374,13 +374,13 @@ RSTUFF_FUNC(Bool32) RSTUFF_RSNormRemoveLines( PRSPreProcessImage Image )
 //
 RSTUFF_FUNC(Bool32) RSTUFF_RSLayout( PRSPreProcessImage Image )
 {
-	SetReturnCode_rstuff((uint16_t)0);
+	SetReturnCode_rstuff((Word16)0);
 
 	return Layout(Image);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void SetReturnCode_rstuff(uint16_t rc)
+void SetReturnCode_rstuff(Word16 rc)
 {
 	if (rc==0)
 		RC.gwRC=0;
@@ -392,11 +392,11 @@ void SetReturnCode_rstuff(uint16_t rc)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void SetReturnCode_rstuff(uint32_t rc)
+void SetReturnCode_rstuff(Word32 rc)
 {
 	RC.gwRC=rc;
-//	uint16_t low = (uint16_t)(rc &  0xFFFF);
-//	uint16_t hei = (uint16_t)(rc >> 16);
+//	Word16 low = (Word16)(rc &  0xFFFF);
+//	Word16 hei = (Word16)(rc >> 16);
 //	if(low > 0 && low != IDS_RSTUFF_ERR_NO)
 //		LDPUMA_Console("%s\n",GetModulesString(gwRC));
 //
@@ -511,7 +511,7 @@ void DebugInit (void)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSTUFF_FUNC(Bool32) RSTUFF_RSSetSpecPrj( uchar NoSpecPrj)
+RSTUFF_FUNC(Bool32) RSTUFF_RSSetSpecPrj( Word8 NoSpecPrj)
 {
 	db_spec_prj = NoSpecPrj;
 

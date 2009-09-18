@@ -71,8 +71,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define  MAX_KEG    40
 #define  KEG_RANGE  34
-uint16_t              wHeightRC      = 0;
-uint16_t              wLowRC         = RPSTR_ERR_NO;
+Word16              wHeightRC      = 0;
+Word16              wLowRC         = RPSTR_ERR_NO;
 Bool32      snap_enable = TRUE;
 Bool32      exit_enable = FALSE, skip_line=FALSE;;
 Handle      hSnapSpell = 0,hSnapWordSpell = 0,hSnapMatch = 0, hSnapCapDrop = 0;
@@ -80,7 +80,7 @@ Handle      hSnapEndWord=NULL,hSnapStartWord=NULL;
 Handle      hVertCompD;
 Bool32      gbFax100 = FALSE;
 Bool32      gbGarbage = TRUE;
-char*       sp_err="no spell errors";
+Int8*       sp_err="no spell errors";
 // from COR_SPEL.C
 Bool32 correct_line_spell(CSTR_line line, CSTR_rast* re, CSTR_rast* rb, int32_t line_num,
 						  Bool32 disable_new_dict, Bool32 disable_check_word, int32_t* rf);
@@ -88,26 +88,26 @@ Bool32 correct_line_spell(CSTR_line line, CSTR_rast* re, CSTR_rast* rb, int32_t 
 extern Bool32   rpstr_correct_spell(CSTR_line ln,
     CSTR_rast *addbeg, CSTR_rast *addend, int32_t *linefrag,
     int32_t num_ln,Bool32 disable_new_dict, Bool32 disable_check_word);
-extern Bool32 rpstr_txt_spell(char * s,uchar lang);
+extern Bool32 rpstr_txt_spell(char * s,Word8 lang);
 
 extern int Snap_Console(char *text);;
-uchar    language=3;
+Word8    language=3;
 
-static uchar   s_lang4page = -1;
+static Word8   s_lang4page = -1;
 
-static uchar set_lang4page(const uchar lang)
+static Word8 set_lang4page(const Word8 lang)
 {
    s_lang4page = lang;
    return s_lang4page;
 }
 
-static uchar get_lang4page()
+static Word8 get_lang4page()
 {
    return s_lang4page;
 }
 
 // memory funct
-static void *   rpstr_alloc(uint32_t len)
+static void *   rpstr_alloc(Word32 len)
     {
     void *ma = malloc(len);
     if( !ma )
@@ -115,17 +115,17 @@ static void *   rpstr_alloc(uint32_t len)
     memset(ma,0,len);
     return ma;
     }
-static void     rpstr_free(void *ptr,uint32_t len) { free(ptr);};
-static void *   rpstr_realloc(void *ptr,uint32_t len) { return realloc(ptr,len);};
-static void * (*my_alloc)(uint32_t len)=rpstr_alloc;
-static void   (*my_free)(void *,uint32_t len)=rpstr_free;
-static void * (*my_realloc)(void *,uint32_t len)=rpstr_realloc;
+static void     rpstr_free(void *ptr,Word32 len) { free(ptr);};
+static void *   rpstr_realloc(void *ptr,Word32 len) { return realloc(ptr,len);};
+static void * (*my_alloc)(Word32 len)=rpstr_alloc;
+static void   (*my_free)(void *,Word32 len)=rpstr_free;
+static void * (*my_realloc)(void *,Word32 len)=rpstr_realloc;
 
 
 
 static void show_spell(CSTR_rast c)
 {
-uchar   wrd[80],buf[160],*w=wrd, lang;
+Word8   wrd[80],buf[160],*w=wrd, lang;
 Bool32  nonrec=FALSE;
 CSTR_rast_attr  attr;
 UniVersions     uni;
@@ -163,14 +163,14 @@ Snap_Console(buf);
 return;
 }
 
-uint32_t myMonitorProc(Handle wnd,Handle hwnd,uint32_t message,uint32_t wParam,uint32_t lParam)
+Word32 myMonitorProc(Handle wnd,Handle hwnd,Word32 message,Word32 wParam,Word32 lParam)
 {
 int             ret=0;
-uint32_t          pos;
+Word32          pos;
 CSTR_rast       r=(CSTR_rast)0;
 CSTR_rast_attr  attr;
 
-pos=LDPUMA_CSTR_GetPosition((uint32_t *)&r);
+pos=LDPUMA_CSTR_GetPosition((Word32 *)&r);
 
 if (!is_turkish_language(language)) // 12.06.2002 E.P.
 	language=3;
@@ -234,7 +234,7 @@ switch(message)
 		break;
 	}
 
-return (uint32_t)(ret);
+return (Word32)(ret);
 }
 
 /////////////////////
@@ -242,7 +242,7 @@ return (uint32_t)(ret);
 /////////////////////
 //void kegl_snap_init();
 
-RPSTR_FUNC(Bool32)  RPSTR_Init( uint16_t wHeightCode , Handle hStorage)
+RPSTR_FUNC(Bool32)  RPSTR_Init( Word16 wHeightCode , Handle hStorage)
 {
 wHeightRC = wHeightCode;
 wLowRC    = RPSTR_ERR_NO;
@@ -280,16 +280,16 @@ return;
 }
 
 
-RPSTR_FUNC(uint32_t)   RPSTR_GetReturnCode(void)
+RPSTR_FUNC(Word32)   RPSTR_GetReturnCode(void)
 {
 if( wLowRC == RPSTR_ERR_NO )
     return 0;
 return (wHeightRC<<16)|(wLowRC-RPSTR_ERR_MIN);
 }
 
-RPSTR_FUNC(char*)   RPSTR_GetReturnString(uint32_t dwError)
+RPSTR_FUNC(char*)   RPSTR_GetReturnString(Word32 dwError)
 {
-  uint16_t rc = (uint16_t)(dwError & 0xFFFF + RPSTR_ERR_MIN);
+  Word16 rc = (Word16)(dwError & 0xFFFF + RPSTR_ERR_MIN);
 	static char szBuffer[512];
 
 	if( dwError >> 16 != wHeightRC)
@@ -514,12 +514,12 @@ for(i=0;i<=n;i++)
 return TRUE;
 }
 
-RPSTR_FUNC(Bool32) RPSTR_GetExportData(uint32_t dwType, void * pData)
+RPSTR_FUNC(Bool32) RPSTR_GetExportData(Word32 dwType, void * pData)
 {
 	Bool32 rc = TRUE;
   #define RPSTR_VERSION_CODE 1
     int32_t  vers = RPSTR_VERSION_CODE;
-#define EXPORT(name) *(uint32_t*)(pData)=(uint32_t)name;
+#define EXPORT(name) *(Word32*)(pData)=(Word32)name;
   wLowRC = RPSTR_ERR_NO;
 	switch(dwType)
 	{
@@ -554,7 +554,7 @@ RPSTR_FUNC(Bool32) RPSTR_GetExportData(uint32_t dwType, void * pData)
 return rc;
 }
 
-RPSTR_FUNC(Bool32) RPSTR_SetImportData(uint32_t dwType, void * pData)
+RPSTR_FUNC(Bool32) RPSTR_SetImportData(Word32 dwType, void * pData)
 {
 
   wLowRC = RPSTR_ERR_NO;
@@ -575,7 +575,7 @@ RPSTR_FUNC(Bool32) RPSTR_SetImportData(uint32_t dwType, void * pData)
 
 	// 12.06.2002 E.P.
     case    RPSTR_FNIMP_LANGUAGE:
-        language=*(uchar*)pData;
+        language=*(Word8*)pData;
         set_lang4page(language);
         break;
 

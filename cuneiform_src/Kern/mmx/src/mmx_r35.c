@@ -56,7 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "mmx.h"
 
-MMX_FUNC(uint32_t) MMX_scalar(uint32_t _EAX, uint32_t _EDX)
+MMX_FUNC(Word32) MMX_scalar(Word32 _EAX, Word32 _EDX)
 {
 #ifdef _MSC_VER
 _asm{
@@ -101,7 +101,7 @@ _asm{
 
 
 
-MMX_FUNC(uint32_t) MMX_scalar16_(uint32_t  _EAX, uint32_t _EDX)
+MMX_FUNC(Word32) MMX_scalar16_(Word32  _EAX, Word32 _EDX)
 {
 #ifdef _MSC_VER
 _asm{
@@ -134,7 +134,7 @@ _asm{
 #endif
 }
 
-MMX_FUNC(void) MMX_open_image(uint16_t *_EAX)
+MMX_FUNC(void) MMX_open_image(Word16 *_EAX)
 {
 #ifdef _MSC_VER
 _asm{
@@ -162,7 +162,7 @@ _asm{
 #endif
 }
 
-MMX_FUNC(uint32_t) MMX_scalar_sq(uint16_t *_EAX,int32_t _ECX)
+MMX_FUNC(Word32) MMX_scalar_sq(Word16 *_EAX,int32_t _ECX)
 {
 #ifdef _MSC_VER
 _asm{
@@ -203,7 +203,7 @@ cykl:
 #endif
 }
 
-MMX_FUNC(void) MMX_scale( uint16_t *_EAX, int32_t _ECX, int32_t _EDX)
+MMX_FUNC(void) MMX_scale( Word16 *_EAX, int32_t _ECX, int32_t _EDX)
 {
 #ifdef _MSC_VER
 _asm{
@@ -237,7 +237,7 @@ cykl:
 #endif
 }
 
-MMX_FUNC(void) MMX_binarize_16x16(uint16_t *rin,uchar *rout)
+MMX_FUNC(void) MMX_binarize_16x16(Word16 *rin,Word8 *rout)
 {
 #ifdef _MSC_VER
 _asm{

@@ -81,7 +81,7 @@ int32_t   global_buf_len=0;   // OLEG fot Consistent
 Bool32 PUMA_Save(Handle hEdPage, const char * lpOutFileName, int32_t lnFormat, int32_t lnCode, Bool32 bAppend );
 #endif
 
-static Bool32 rblockProgressStep(uint32_t perc)
+static Bool32 rblockProgressStep(Word32 perc)
 {
 	return ProgressStep(2,NULL,perc);
 }
@@ -89,7 +89,7 @@ static void   rblockProgressFinish( void )
 {
 	ProgressStep(2,NULL,100);
 }
-static Bool32 rselstrProgressStep(uint32_t perc)
+static Bool32 rselstrProgressStep(Word32 perc)
 {
 	return ProgressStep(2,NULL,perc);
 }
@@ -170,16 +170,16 @@ static Bool32 RecognizeSetup(int language)
 	else
 	{
 		// Настройка параметров
-		uchar w8 = (uchar)gnLanguage;
+		Word8 w8 = (Word8)gnLanguage;
 		RSTR_SetImportData(RSTR_Word8_Language,&w8);
 
-		uint16_t w16 = (uint16_t)info.DPIY;//300;
+		Word16 w16 = (Word16)info.DPIY;//300;
 		RSTR_SetImportData(RSTR_Word16_Resolution,&w16);
 
-		w8 = (uchar)gbFax100;
+		w8 = (Word8)gbFax100;
 		RSTR_SetImportData(RSTR_Word8_Fax1x2,&w8);
 
-		w8 = (uchar)gbDotMatrix;
+		w8 = (Word8)gbDotMatrix;
 		RSTR_SetImportData(RSTR_Word8_Matrix,&w8);
 
 		w8 = 0;
@@ -189,7 +189,7 @@ static Bool32 RecognizeSetup(int language)
         if(!LDPUMA_Skip(hDebugCancelStringsPass2))
             RSTR_SetImportData(RSTR_Word8_P2_disable,&w8);
 
-		w8 = (uchar)gbSpeller;
+		w8 = (Word8)gbSpeller;
 		RSTR_SetImportData(RSTR_Word8_Spell_check,&w8);
 
 		RSTR_SetImportData(RSTR_pchar_user_dict_name,gpUserDictName);
@@ -197,7 +197,7 @@ static Bool32 RecognizeSetup(int language)
 		// Передать язык в словарный контроль. 12.06.2002 E.P.
 		// причем всегда 08.02.2008 DVP
 		{
-			uchar w8 = (uchar)language;
+			Word8 w8 = (Word8)language;
 			RPSTR_SetImportData(RPSTR_FNIMP_LANGUAGE, &w8);
 			RCORRKEGL_SetImportData(RCORRKEGL_FNIMP_LANGUAGE, &w8);
 		}
@@ -312,7 +312,7 @@ static Bool32 RecognizeStringsPass2()
 	Bool32 rc = TRUE;
 	// рапознавание строк
 
-	uchar w8 = 1;
+	Word8 w8 = 1;
 	RSTR_SetImportData(RSTR_Word8_P2_active,&w8);
 
 	int count = CSTR_GetMaxNumber();
@@ -407,8 +407,8 @@ int             i;
         CSTR_rast       rst=CSTR_GetFirstRaster(lin_in);
         CSTR_rast_attr  attr;
         Point32         point,size;
-        uint32_t          lpColor[10];
-        uchar           lpMask[4096];
+        Word32          lpColor[10];
+        Word8           lpMask[4096];
 
 		  for(rst=CSTR_GetNext(rst);rst;rst=CSTR_GetNext(rst))
 		  {
@@ -427,8 +427,8 @@ int             i;
 		  rc = FALSE;
 		  return rc;
 		  }
-		  attr.ColorLtr   = *((uchar*)lpColor);
-		  attr.ColorBack  = *(((uchar*)lpColor)+1);
+		  attr.ColorLtr   = *((Word8*)lpColor);
+		  attr.ColorBack  = *(((Word8*)lpColor)+1);
 		  CSTR_SetAttr(rst,&attr);
 		  }
 		  }
@@ -480,7 +480,7 @@ Bool32 Recognize()
         CPAGE_ClearBackUp(hCPAGE);
 #endif
 //
-		if(!CPAGE_SavePage(hCPAGE,(char*)szLayoutFileName))
+		if(!CPAGE_SavePage(hCPAGE,(Int8*)szLayoutFileName))
 		{
 			SetReturnCode_puma(CPAGE_GetReturnCode());
 			return FALSE;
@@ -493,7 +493,7 @@ Bool32 Recognize()
 	//
 	if(!LDPUMA_Skip(hDebugLayoutFromFile))
 	{
-		hCPAGE = CPAGE_RestorePage(TRUE,(char*)szLayoutFileName);
+		hCPAGE = CPAGE_RestorePage(TRUE,(Int8*)szLayoutFileName);
 		if(hCPAGE==NULL)
 		{
 			SetReturnCode_puma(CPAGE_GetReturnCode());
@@ -515,7 +515,7 @@ Bool32 Recognize()
 			PAGEINFO info = {0};
 			if(GetPageInfo(hCPAGE,&info))
 			{
-				rc = ExtractComponents( FALSE , NULL, (uchar *)info.szImageName);
+				rc = ExtractComponents( FALSE , NULL, (PWord8)info.szImageName);
 			}
 			else
 			{

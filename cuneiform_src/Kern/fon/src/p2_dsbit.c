@@ -66,14 +66,14 @@ extern int  Num11[256];
 /**************************************/
 // Bitmap distance from b1 to b2
 // black point == 1 !
-static int16_t DistanceBitDLL(BYTE *b1,int16_t xbyte1,int16_t yrow1,
-						 BYTE  *b2,int16_t xbyte2,int16_t yrow2,
-						 int16_t porog)
+static SINT DistanceBitDLL(BYTE *b1,SINT xbyte1,SINT yrow1,
+						 BYTE  *b2,SINT xbyte2,SINT yrow2,
+						 SINT porog)
 {
- register int16_t i,j;
- int16_t xbyte=MIN(xbyte1,xbyte2);
- int16_t yrow=MIN(yrow1,yrow2);
- int16_t dist;
+ register SINT i,j;
+ SINT xbyte=MIN(xbyte1,xbyte2);
+ SINT yrow=MIN(yrow1,yrow2);
+ SINT dist;
 
  for(i=0,dist=0;i<yrow;i++,b1+=xbyte1,b2+=xbyte2)
   {
@@ -107,13 +107,13 @@ static int16_t DistanceBitDLL(BYTE *b1,int16_t xbyte1,int16_t yrow1,
  return dist;
 }
 /**************************************/
-int16_t DistanceBitFull(BYTE *b1,int16_t xbyte1,int16_t yrow1,
-						 BYTE  *b2,int16_t xbyte2,int16_t yrow2)
+SINT DistanceBitFull(BYTE *b1,SINT xbyte1,SINT yrow1,
+						 BYTE  *b2,SINT xbyte2,SINT yrow2)
 {
- register int16_t i,j;
- int16_t xbyte=MIN(xbyte1,xbyte2);
- int16_t yrow=MIN(yrow1,yrow2);
- int16_t dist;
+ register SINT i,j;
+ SINT xbyte=MIN(xbyte1,xbyte2);
+ SINT yrow=MIN(yrow1,yrow2);
+ SINT dist;
 
  for(i=0,dist=0;i<yrow;i++,b1+=xbyte1,b2+=xbyte2)
   {
@@ -140,10 +140,10 @@ int16_t DistanceBitFull(BYTE *b1,int16_t xbyte1,int16_t yrow1,
 }
 /**************************************/
 // move bitmaps left-right on mov bit ( <8!)
-void MoveRightBmp(BYTE *buf,int16_t mov,int16_t xbyte,int16_t yrow)
+void MoveRightBmp(BYTE *buf,SINT mov,SINT xbyte,SINT yrow)
 {
- register int16_t i,j;
- int16_t mov1=8-mov;
+ register SINT i,j;
+ SINT mov1=8-mov;
 
  for(i=0;i<yrow;i++,buf+=xbyte)
   {
@@ -152,10 +152,10 @@ void MoveRightBmp(BYTE *buf,int16_t mov,int16_t xbyte,int16_t yrow)
   }
 }
 ////////////
-void MoveLeftBmp(BYTE *buf,int16_t mov,int16_t xbyte,int16_t yrow)
+void MoveLeftBmp(BYTE *buf,SINT mov,SINT xbyte,SINT yrow)
 {
- register int16_t i,j;
- int16_t mov1=8-mov;
+ register SINT i,j;
+ SINT mov1=8-mov;
 
  for(i=0;i<yrow;i++,buf+=xbyte)
   {
@@ -165,16 +165,16 @@ void MoveLeftBmp(BYTE *buf,int16_t mov,int16_t xbyte,int16_t yrow)
 }
 ////////////
 // tbuf -temporary buffer, in it - moved b1 right,left
-int16_t  CheckCenterSymbol(BYTE *b1,int16_t xbyte,int16_t yrow,
-			  BYTE *b2,BYTE *tbuf,int16_t xbit2,int16_t yrow2,
-			  int16_t *sdvigx,int16_t *sdvigy,int16_t firdist)
+SINT  CheckCenterSymbol(BYTE *b1,SINT xbyte,SINT yrow,
+			  BYTE *b2,BYTE *tbuf,SINT xbit2,SINT yrow2,
+			  SINT *sdvigx,SINT *sdvigy,SINT firdist)
 {
- register int16_t i;
- int16_t dist,bestdist;
- int16_t xbyte2=(xbit2>>3)+1;  // bytes in row
- int16_t bestx=0;
- int16_t besty=0;
- int16_t tx;
+ register SINT i;
+ SINT dist,bestdist;
+ SINT xbyte2=(xbit2>>3)+1;  // bytes in row
+ SINT bestx=0;
+ SINT besty=0;
+ SINT tx;
 
  *sdvigx=0;
  *sdvigy=0;
@@ -193,7 +193,7 @@ int16_t  CheckCenterSymbol(BYTE *b1,int16_t xbyte,int16_t yrow,
   }
 
   // move b2 - down (or etalon -up)
- dist= DistanceBitDLL(b1+xbyte,xbyte,(int16_t)(yrow-1),b2,xbyte2,yrow2,bestdist);
+ dist= DistanceBitDLL(b1+xbyte,xbyte,(SINT)(yrow-1),b2,xbyte2,yrow2,bestdist);
  if(tx==1) dist+=firdist;
  if(dist < bestdist)
 	{  // add first row
@@ -202,7 +202,7 @@ int16_t  CheckCenterSymbol(BYTE *b1,int16_t xbyte,int16_t yrow,
 	}
 
   // move b2 - up
- dist= DistanceBitDLL(b1,xbyte,yrow,b2+xbyte2,xbyte2,(int16_t)(yrow2-1),bestdist);
+ dist= DistanceBitDLL(b1,xbyte,yrow,b2+xbyte2,xbyte2,(SINT)(yrow2-1),bestdist);
  if(tx==1) dist+=firdist;
  if(dist < bestdist)
 	{ for(i=0;i<xbyte;i++) dist+=Num11[b2[i]];
@@ -230,9 +230,9 @@ int16_t  CheckCenterSymbol(BYTE *b1,int16_t xbyte,int16_t yrow,
 ///////////////
 // move left/right on 1 etalon
 // return - summa 1 im first column
-int16_t MakeMoved(BYTE *etalon,int16_t xbyte,int16_t yrow,BYTE *tmpbuf)
+SINT MakeMoved(BYTE *etalon,SINT xbyte,SINT yrow,BYTE *tmpbuf)
 {
-int16_t i,j;
+SINT i,j;
 
   memcpy(tmpbuf,etalon,xbyte*yrow);
   MoveRightBmp(tmpbuf,1,xbyte,yrow);

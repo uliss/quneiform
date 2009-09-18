@@ -158,8 +158,8 @@ int32_t hRLINE_Pass2Lost1 = 75;
 int32_t hRLINE_Pass2Lost2 = 95;
 //Handle    hUseCLine;
 void *    hTmpDIB;
-uint32_t    HorType;
-uint32_t    VerType;
+Word32    HorType;
+Word32    VerType;
 
 Handle Parts;
 Handle Part2;
@@ -184,33 +184,33 @@ Imxs* swp_imxs;
 Imxs imxs;
 
 
-uint16_t    min_h_len = 40,
+Word16    min_h_len = 40,
 	      min_v_len = 40;
-uint16_t	  rc16;
-uint32_t	  rc32;
+Word16	  rc16;
+Word32	  rc32;
 
 	//Almi 16.05.01
     int MinHorLenForTrue = 129;//113;//было 100
 	int MinVerLenForTrue = 94;//58; //было  50
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-void SetReturnCode_rline( uint32_t );
-void SetReturnCode_rline( uint16_t );
+void SetReturnCode_rline( Word32 );
+void SetReturnCode_rline( Word16 );
 void CleanLineData( void* pdata,int size);
 
 
 Bool16 SampleImageOpen (CIMAGE_ImageInfo* lpImageInfo)
 { return swp_imxs->f_op( (Imxs_ImageInfo*)lpImageInfo ); }
-uint16_t SampleImageRead ( char * lpImage, uint16_t wMaxSize)
-{ return swp_imxs->f_re( (uchar*)lpImage, wMaxSize ); }
+Word16 SampleImageRead ( PInt8 lpImage, Word16 wMaxSize)
+{ return swp_imxs->f_re( (Word8*)lpImage, wMaxSize ); }
 Bool16 SampleImageClose ( void )
 { return swp_imxs->f_cl( ); }
 
 
 Bool16 DibOpen (Imxs_ImageInfo* lpImageInfo)
 { return cbk.CIMAGE_ImageOpen( (CIMAGE_ImageInfo*)lpImageInfo ); }
-int16_t  DibRead ( uchar* lpImage, uint16_t wMaxSize)
-{ return cbk.CIMAGE_ImageRead( (char *)lpImage, wMaxSize ); }
+Int16  DibRead ( Word8* lpImage, Word16 wMaxSize)
+{ return cbk.CIMAGE_ImageRead( (PInt8)lpImage, wMaxSize ); }
 Bool16 DibClose ( void )
 { return cbk.CIMAGE_ImageClose( ); }
 
@@ -410,10 +410,10 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 	// Копируем в pImage из PInfo указатель на изображение, связанное со страницей
 	pImage = (char*)&PInfo.szImageName;
 
-	min_h_len = (uint16_t)(PInfo.DPIX*40/300);
-	min_v_len = (uint16_t)(PInfo.DPIY*40/300);
+	min_h_len = (Word16)(PInfo.DPIX*40/300);
+	min_v_len = (Word16)(PInfo.DPIY*40/300);
 
-	if (!CIMAGE_GetCallbackImage( (uchar *)pImage, &cbk))
+	if (!CIMAGE_GetCallbackImage( (PWord8)pImage, &cbk))
 	{
 		LDPUMA_Console( " Error in GetCallbackImage " );
 		rc32 = CIMAGE_GetReturnCode();
@@ -512,7 +512,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 		if (!draw_window) draw_window = LDPUMA_GetWindowHandle (PUMA_IMAGE_TURN);
         if (!draw_window) draw_window = LDPUMA_CreateWindow(NULL, NULL);
 
-        uint32_t x = 255<<8;
+        Word32 x = 255<<8;
 		int32_t temp;
 		int i;
 		for(i=0;i<lti.Hor.Cnt;i++)
@@ -658,10 +658,10 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 	// связанное со страницей
 	pImage = (char*)&PInfo.szImageName;
 
-	min_h_len = (uint16_t)(PInfo.DPIX*40/300);
-	min_v_len = (uint16_t)(PInfo.DPIY*40/300);
+	min_h_len = (Word16)(PInfo.DPIX*40/300);
+	min_v_len = (Word16)(PInfo.DPIY*40/300);
 
-	if (!CIMAGE_GetCallbackImage((uchar *) pImage, &cbk))
+	if (!CIMAGE_GetCallbackImage((PWord8) pImage, &cbk))
 	{
 		LDPUMA_Console( " Error in GetCallbackImage " );
 		rc32 = CIMAGE_GetReturnCode();
@@ -818,14 +818,14 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 	cbk1.CIMAGE_ImageClose = SampleImageClose;
 
 
-	if (!CIMAGE_GetCallbackImage( (uchar *)pImage, &cbk))
+	if (!CIMAGE_GetCallbackImage( (PWord8)pImage, &cbk))
 	{
 		rc32 = CIMAGE_GetReturnCode();
 		SetReturnCode_rline( rc32 );
 		return FALSE;
 	}
 
-	if (!CIMAGE_WriteCallbackImage( (uchar *)lpOutDIB, cbk1 ))
+	if (!CIMAGE_WriteCallbackImage( (PWord8)lpOutDIB, cbk1 ))
 	{
 		rc32 = CIMAGE_GetReturnCode();
 		SetReturnCode_rline( rc32 );
@@ -838,7 +838,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 	if(!LDPUMA_Skip(RLINE_ShowWithoutLines))
 	{
 		BITMAPINFOHEADER * lp = NULL ;
-		CIMAGE_ReadDIB((uchar *)PUMA_IMAGE_DELLINE,(Handle*)&lp,TRUE);
+		CIMAGE_ReadDIB((PWord8)PUMA_IMAGE_DELLINE,(Handle*)&lp,TRUE);
 		Handle hwnd = LDPUMA_CreateWindow("После снятия линий",lp);
 		LDPUMA_Console("Нажмите любую клавишу...");
 		LDPUMA_WaitUserInput(RLINE_ShowWithoutLines, hwnd );
@@ -852,7 +852,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 
 void CleanLineData(void* pdata,int size)
 {
-	uchar* mas=(uchar*)pdata;
+	Word8* mas=(Word8*)pdata;
 	for(int i=size-1;i>=0;i--)
 	{
 		mas[i]=0;

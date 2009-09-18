@@ -111,7 +111,7 @@ CPAGE_FUNC(Bool32)  CPAGE_PictureGetPlace(Handle hPage,Handle hPicture,int32_t S
 		lt = pict.Corner[0];
 		rb = pict.Corner[0];
 		ROTATE_2048(lt,Skew2048);
-		for(uint32_t i = 1; i<pict.Number;i++)
+		for(Word32 i = 1; i<pict.Number;i++)
 		{
 			ROTATE_2048(pict.Corner[i],Skew2048);
 			if(lt.x > pict.Corner[i].x)
@@ -148,7 +148,7 @@ return i;
 }
 
 CPAGE_FUNC(Bool32)  CPAGE_PictureGetMask(Handle hPage, Handle hPicture, int32_t Skew2048,
-									  Char8 * lpData, uint32_t * lpSize)
+									  Char8 * lpData, Word32 * lpSize)
 {
 	PROLOG;
 	Bool32 rc = FALSE;
@@ -159,7 +159,7 @@ CPAGE_FUNC(Bool32)  CPAGE_PictureGetMask(Handle hPage, Handle hPicture, int32_t 
 /*
 	if(CPAGE_PictureGetPlace(hPage,hPicture,Skew2048, &lt, &wh))
 	{
-		uint32_t size = (wh.x + 7)/8 * wh.y;
+		Word32 size = (wh.x + 7)/8 * wh.y;
 		*lpSize = size;
 		if(lpData && *lpSize == size)
 		{

@@ -100,7 +100,7 @@ struct PL
 
 /////////////////////////////////
 
-# define __RGB__(r,g,b)          ((uint32_t)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
+# define __RGB__(r,g,b)          ((Word32)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
 
 /////////////////////////////////
 
@@ -132,7 +132,7 @@ void BlocksExtract (void);
 Bool32 ReadRoots(Handle hCCOM);
 void EnableDebug(void);
 void progress_finish(void);
-void DrawRect(Handle wnd,uint32_t OperCode,uint32_t color,int top,int bottom,int left,int right);
+void DrawRect(Handle wnd,Word32 OperCode,Word32 color,int top,int bottom,int left,int right);
 Bool InitHstrMas(CHSTR_Objects** ppRc,int len);
 void DelHstrMas(CHSTR_Objects *masp);
 Bool AddLenHstrMas(CHSTR_Objects** ppRc,int& len,int add);
@@ -224,7 +224,7 @@ void LayoutFromCPAGE(Handle hCPAGE,Handle hCCOM)
 	int nBlocks = FIRST_REGULAR_BLOCK_NUMBER;
 	Point16 pLeftTop, pRightTop, pLeftBottom, pRightBottom;
 	ROOT * pRoot = NULL;
-	uint32_t BlockNumber;
+	Word32 BlockNumber;
 	Bool WasVertCells=FALSE;
 	Bool WasNegaCells=FALSE;
 	Bool dpShowVertCells=!LDPUMA_Skip(ShowVertCells);
@@ -251,7 +251,7 @@ void LayoutFromCPAGE(Handle hCPAGE,Handle hCCOM)
 	h!=NULL;
 	h = CPAGE_GetBlockNext(hCPAGE,h,TYPE_TEXT))
 	{
-        uint32_t f = CPAGE_GetBlockFlags(hCPAGE,h);
+        Word32 f = CPAGE_GetBlockFlags(hCPAGE,h);
 		if(CPAGE_GetBlockData(hCPAGE,h,TYPE_TEXT, &block, sizeof(block))!=sizeof(block))
 		{
 			SetReturnCode_rselstr(CPAGE_GetReturnCode());
@@ -299,10 +299,10 @@ void LayoutFromCPAGE(Handle hCPAGE,Handle hCCOM)
 
     Bool type_vert;
 	Bool type_neg;
-	uchar* ImageTurn=(uchar*)PUMA_IMAGE_TURN;
-	uchar* ImageUser=(uchar*)PUMA_IMAGE_USER;
-	uchar* ImageOrto=(uchar*)PUMA_IMAGE_ORTOMOVE;
-	uchar* ImageBin = (uchar*)PUMA_IMAGE_BINARIZE;
+	Word8* ImageTurn=(Word8*)PUMA_IMAGE_TURN;
+	Word8* ImageUser=(Word8*)PUMA_IMAGE_USER;
+	Word8* ImageOrto=(Word8*)PUMA_IMAGE_ORTOMOVE;
+	Word8* ImageBin = (Word8*)PUMA_IMAGE_BINARIZE;
 	CHSTR_Objects* Hstr=NULL;
 	int nObjects=0;
 	int len_Objects=50;
@@ -475,8 +475,8 @@ if( s->nDust > s->nLetters*1 )
         if( com->w*com->h <15 )
             {
             CCOM_comp   com1=*com;
-            com1.upper=com1.upper-(int16_t)(nIncline*com1.left /2048);
-            com1.left =com1.left +(int16_t)(nIncline*com1.upper/2048);
+            com1.upper=com1.upper-(Int16)(nIncline*com1.left /2048);
+            com1.left =com1.left +(Int16)(nIncline*com1.upper/2048);
             if( com->left+com->w <= le )
                 {
                 nle++;
@@ -506,8 +506,8 @@ if( s->nDust > s->nLetters*1 )
                 if( filtr &&  com->w*com->h <15 )
                     {
                     CCOM_comp   com1=*com;
-                    com1.upper=com1.upper-(int16_t)(nIncline*com1.left /2048);
-                    com1.left =com1.left +(int16_t)(nIncline*com1.upper/2048);
+                    com1.upper=com1.upper-(Int16)(nIncline*com1.left /2048);
+                    com1.left =com1.left +(Int16)(nIncline*com1.upper/2048);
                     if( com1.upper>=left.top && com1.upper+com1.h<=left.bottom &&
                         com1.left>=left.left && com1.left+com1.w<=left.right )
                         continue;
@@ -525,7 +525,7 @@ if( s->nDust > s->nLetters*1 )
 					attr.r_col = com->left;
 					attr.flg   = CSTR_f_dust;
 					CSTR_SetAttr (rst, &attr);
-					CSTR_StoreComp (rst, (uchar*)com->linerep,1,com->scale);
+					CSTR_StoreComp (rst, (Word8*)com->linerep,1,com->scale);
                     if(com->vers )
 					CSTR_StoreCollection(rst, com->vers);
 					}
@@ -552,7 +552,7 @@ if( s->nDust > s->nLetters*1 )
 					attr.r_col = com->left;
 					attr.flg   = CSTR_f_let|CSTR_f_bad;
 					CSTR_SetAttr (rst, &attr);
- 					CSTR_StoreComp (rst, (uchar*)com->linerep,1,com->scale);
+ 					CSTR_StoreComp (rst, (Word8*)com->linerep,1,com->scale);
                     if( s->uFlags & CSTR_STR_CapDrop )
                         {
                         CCOM_comp       *ci=com;
@@ -561,7 +561,7 @@ if( s->nDust > s->nLetters*1 )
                         int32_t           n;
 
                         ub.code=CCOM_UB_CAPDROPLN;
-                        ub.data=(uchar*)&n;
+                        ub.data=(Word8*)&n;
                         if( CCOM_GetUserBlock(ci,&ub) )
                             CCOM_SetUserBlock(co,&ub);
                         }

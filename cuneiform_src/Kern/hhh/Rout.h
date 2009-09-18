@@ -144,12 +144,12 @@ ROUT_TABLE_TEXT_ALIGN_COLUMNS = 2
 	} ROUT_TABLE_TEXT_OPTIONS;
 //*****************************************************************
 // Точки входа в DLL имени Петра Хлебутина.
-ROUT_FUNC(Bool32) ROUT_Init(uint16_t wHeightCode,Handle hStorage);
+ROUT_FUNC(Bool32) ROUT_Init(Word16 wHeightCode,Handle hStorage);
 ROUT_FUNC(Bool32) ROUT_Done();
-ROUT_FUNC(uint32_t) ROUT_GetReturnCode();
-ROUT_FUNC(char *) ROUT_GetReturnString(uint32_t dwError);
-ROUT_FUNC(Bool32) ROUT_GetExportData(uint32_t dwType, void * pData);
-ROUT_FUNC(Bool32) ROUT_SetImportData(uint32_t dwType, void * pData);
+ROUT_FUNC(Word32) ROUT_GetReturnCode();
+ROUT_FUNC(Int8 *) ROUT_GetReturnString(Word32 dwError);
+ROUT_FUNC(Bool32) ROUT_GetExportData(Word32 dwType, void * pData);
+ROUT_FUNC(Bool32) ROUT_SetImportData(Word32 dwType, void * pData);
 //*****************************************************************
 // Экспорт
 typedef enum
@@ -174,7 +174,7 @@ typedef enum
 // Гласные буквы отмечаются знаком "^", согласные любым отличным символом
 // Например для английского vowels = "^bcd^fgh^^klmn^pqrst^v^x^z"
 DEC_FUN(Bool32, ROUT_SetAlphabet,(
-		uint32_t sizeAlphabet,// Количество букв
+		Word32 sizeAlphabet,// Количество букв
 		char *upper,		// Прописные буквы ( ровно sizeAlphabet )
 		char *lower,		// Строчные буквы  ( ровно sizeAlphabet )
 		char *vowels		// Гласные буквы   ( ровно sizeAlphabet )
@@ -190,7 +190,7 @@ DEC_FUN(Bool32, ROUT_LoadEd,
 		// Параметры как в CED_ReadFormattedEd:
 		(char *lpEdFile,	// Имя файла или адрес в памяти
 		Bool32 readFromFile,	// TRUE, если задано имя файла
-		uint32_t bufLen));	// Длина (только при readFromFile=FALSE)
+		Word32 bufLen));	// Длина (только при readFromFile=FALSE)
 
 // Выгрузка ED-файла
 DEC_FUN(Bool32, ROUT_UnloadEd,(void));
@@ -198,23 +198,23 @@ DEC_FUN(Bool32, ROUT_UnloadEd,(void));
 // Получение списка поддерживаемых форматов
 // Возвращает количество форматов или (-1) при ошибке
 DEC_FUN(long, ROUT_ListFormats,
-	(uchar * buf,	  // Адрес буфера для списка ROUT_ITEM
-	uint32_t sizeBuf // Длина буфера
+	(PWord8 buf,	  // Адрес буфера для списка ROUT_ITEM
+	Word32 sizeBuf // Длина буфера
 	));
 
 // Получение списка возможных форматов сохранения
 // для текущей загруженной страницы.
 // Возвращает количество форматов или (-1) при ошибке
 DEC_FUN(long, ROUT_ListAvailableFormats,
-	(uchar * buf,	// Адрес буфера для списка ROUT_ITEM
-	uint32_t sizeBuf	// Длина буфера
+	(PWord8 buf,	// Адрес буфера для списка ROUT_ITEM
+	Word32 sizeBuf	// Длина буфера
 	));
 
 // Получение списка кодировок для данного формата
 // Возвращает количество кодировок или -1 при ошибке
 DEC_FUN(long, ROUT_ListCodes,
-	(uchar * buf,	// Адрес буфера для списка ROUT_ITEM
-	uint32_t sizeBuf	// Длина буфера
+	(PWord8 buf,	// Адрес буфера для списка ROUT_ITEM
+	Word32 sizeBuf	// Длина буфера
 	));
 
 // Перекодировать один байт по кодовой таблице
@@ -240,7 +240,7 @@ DEC_FUN(long, ROUT_CountObjects,());
 // Конвертирование в один формат на заданной памяти
 DEC_FUN(Bool32, ROUT_GetObject,
 		(
-		uint32_t objIndex,	// Индекс объекта начиная от 1
+		Word32 objIndex,	// Индекс объекта начиная от 1
 		Byte *lpMem,	// Адрес блока памяти ( 0 - старая память)
 		long *sizeMem	// Длина блока памяти ( 0 - старая память)
 		));
@@ -248,7 +248,7 @@ DEC_FUN(Bool32, ROUT_GetObject,
 // Конвертирование в один формат и запись в файл
 DEC_FUN(Bool32, ROUT_SaveObject,
 		(
-		uint32_t objIndex,	// Индекс объекта начиная от 1
+		Word32 objIndex,	// Индекс объекта начиная от 1
 		char *path,			// Путь до выходного файла
 		Bool32 append		// Дополнение в конец файла
 		));
@@ -265,12 +265,12 @@ DEC_FUN(Bool32, ROUT_SaveObject,
 //		и т.д.
 DEC_FUN(char *, ROUT_GetDefaultObjectName,
 		(
-		uint32_t objIndex	// Индекс объекта начиная от 1
+		Word32 objIndex	// Индекс объекта начиная от 1
 		));
 
 // Гадкая функция для определения длины объекта
-DEC_FUN(uint32_t, ROUT_GetObjectSize,(
-		uint32_t objIndex	// Индекс объекта начиная от 1
+DEC_FUN(Word32, ROUT_GetObjectSize,(
+		Word32 objIndex	// Индекс объекта начиная от 1
 		));
 
 #undef DEC_FUN
@@ -300,7 +300,7 @@ typedef enum
 	ROUT_BOOL_PreserveLineBreaks = 6,
 
 	// Нераспознанный символ
-	ROUT_PCHAR_BAD_char = 7,
+	ROUT_PCHAR_BAD_CHAR = 7,
 
 	// Количество подстановок из REC6.DAT
 	ROUT_LONG_CountTigerToUserCharSet = 8,

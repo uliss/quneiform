@@ -156,7 +156,7 @@ void CRecognition::SetError(char * str)
 		pErr->SetDescription(T2OLE(str));
 		pErr->SetGUID(IID_IRecognition);
 		pErr->SetSource(T2OLE("Cognitive.Tiger"));
-		hr = pErr->QueryInterface(IID_IErrorInfo, (pvoid FAR*) &perrinfo);
+		hr = pErr->QueryInterface(IID_IErrorInfo, (LPVOID FAR*) &perrinfo);
 		if (SUCCEEDED(hr))
 		{
 			SetErrorInfo(0, perrinfo);
@@ -1413,7 +1413,7 @@ STDMETHODIMP CRecognition::SaveToBSTR(long hEdPage, long format, long code, BSTR
 	__try {
 		char * lpMem = 0;
 		// определим сколько нужно памяти
-		uint32_t nSize = _SaveToMemory((Handle)hEdPage, format, code, lpMem, 0);
+		Word32 nSize = _SaveToMemory((Handle)hEdPage, format, code, lpMem, 0);
 		if(nSize)
 		{
 			lpMem = new char [nSize];

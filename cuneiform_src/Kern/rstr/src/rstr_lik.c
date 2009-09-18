@@ -82,12 +82,12 @@ extern WORD actual_resolution;
 extern BYTE let_captype[];
 extern INT line_number;
 extern BYTE fax1x2;
-extern uchar language;
+extern Word8 language;
 
 /// static variables
 
 static INT DPs, DPsf;
-static char diff_curv = 0;   // always !
+static CHAR diff_curv = 0;   // always !
 
 static INT change_vote = 0;  // only ++, never more used !
 
@@ -246,7 +246,7 @@ void interdif(cell *P, cell *N, cell *B1)
  {
    wdp = 0;
    if (N->flg & c_f_fict) { B1->bdiff=0; wdn = 0; goto retcv; }
-   B1->bdiff = (char)wdn  ;
+   B1->bdiff = (CHAR)wdn  ;
    if (B1->flg & (c_f_let|c_f_bad))
    {
      switch (bsn-bsc)
@@ -262,7 +262,7 @@ void interdif(cell *P, cell *N, cell *B1)
  if (N->flg & c_f_fict)
  {
    wdn = 0;
-   B1->bdiff = (char)wdp;
+   B1->bdiff = (CHAR)wdp;
    if (B1->flg & (c_f_let|c_f_bad))
    {
      switch (bsp-bsc)
@@ -282,24 +282,24 @@ void interdif(cell *P, cell *N, cell *B1)
  {
    case  1: B1->bdiff = wdp-1; B1->difflg |= c_db_up; goto retcv;
    case -1: B1->bdiff = wdp+1; B1->difflg |= c_db_down; goto retcv;
-   case  0: B1->bdiff = (char)wdp  ; goto retcv;
+   case  0: B1->bdiff = (CHAR)wdp  ; goto retcv;
  }
  switch (bsn-bsc)
  {
    case  1: B1->bdiff = wdn-1; B1->difflg |= c_db_up; goto retcv;
    case -1: B1->bdiff = wdn+1; B1->difflg |= c_db_down; goto retcv;
-   case  0: B1->bdiff = (char)wdn  ; goto retcv;
+   case  0: B1->bdiff = (CHAR)wdn  ; goto retcv;
  }
 
 
 
  interpol:
- if (wdp==wdn) {B1->bdiff=(char)wdn; goto retcv; }
+ if (wdp==wdn) {B1->bdiff=(CHAR)wdn; goto retcv; }
  // set diff of whoever is closer to cell
  if ((clc-clp) > (cln-clc))
-   B1->bdiff=(char)wdn;
+   B1->bdiff=(CHAR)wdn;
  else
-   B1->bdiff=(char)wdp;
+   B1->bdiff=(CHAR)wdp;
  retcv:
 // if (abs(B1->bdiff) < 2)
 if(Ns1+Ns2 > 0 && B1->bdiff != 0) smart_diff( B1 ); // Valdemar

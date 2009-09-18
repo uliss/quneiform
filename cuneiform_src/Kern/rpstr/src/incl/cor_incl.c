@@ -128,7 +128,7 @@ void incl_recalc_incline(CSTR_line   line, int32_t nIncline)
 CSTR_attr       la;
 CSTR_rast_attr  a;
 CSTR_rast       r=CSTR_GetFirstRaster(line);
-int16_t           mincol, minrow, maxcol, maxrow;
+Int16           mincol, minrow, maxcol, maxrow;
 
 CSTR_GetLineAttr(line,&la);
 mincol=32000;
@@ -140,8 +140,8 @@ for(r=CSTR_GetNext(r);r;r=CSTR_GetNext(r))
     CSTR_GetAttr(r,&a);
     if( a.flg & (CSTR_f_let|CSTR_f_bad|CSTR_f_dust|CSTR_f_punct) )
         {
-        a.row=a.r_row-(int16_t)(nIncline*a.r_col/2048);
-        a.col=a.r_col+(int16_t)(nIncline*a.r_row/2048);
+        a.row=a.r_row-(Int16)(nIncline*a.r_col/2048);
+        a.col=a.r_col+(Int16)(nIncline*a.r_row/2048);
         if( mincol>a.col ) mincol = a.col;
         if( minrow>a.row ) minrow = a.row;
         if( maxcol<a.col+a.w ) maxcol = a.col+a.w;

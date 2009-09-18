@@ -111,7 +111,7 @@ uint32_t i(0);
     pBlockPointer =(BLOCK**) malloc (nBlocks * sizeof (BLOCK *));
 
     if (pBlockPointer == NULL)
-        ErrorNoEnoughMemory ((uchar*)"in SEBLOCKS.C,BlocksAccessTableBuild,part 1");
+        ErrorNoEnoughMemory ((Word8*)"in SEBLOCKS.C,BlocksAccessTableBuild,part 1");
 
     memset (pBlockPointer, 0, nBlocks * sizeof (BLOCK *));
 

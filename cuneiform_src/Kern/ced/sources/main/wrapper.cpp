@@ -479,7 +479,7 @@ CED_FUNC(void) CED_DeletePage(Handle hEdPage)
 
 //get description of page
 
-CED_FUNC(Handle) CED_ReadFormattedEd(char * lpEdFile,Bool32 readFromFile, uint32_t bufLen)
+CED_FUNC(Handle) CED_ReadFormattedEd(char * lpEdFile,Bool32 readFromFile, Word32 bufLen)
 {
 	return (Handle)CED_FormattedLoad(lpEdFile, readFromFile,bufLen);
 }
@@ -515,7 +515,7 @@ CED_FUNC(EDSIZE) CED_GetPageDpi(Handle hEdPage)
 return ((CEDPage*)hEdPage)->dpi;
 }
 
-CED_FUNC(uint32_t) CED_GetPageTurn(Handle hEdPage)
+CED_FUNC(Word32) CED_GetPageTurn(Handle hEdPage)
 {
 return ((CEDPage*)hEdPage)->turn;
 }
@@ -525,7 +525,7 @@ CED_FUNC(EDSIZE) CED_GetPageSize(Handle hEdPage)
 return ((CEDPage*)hEdPage)->pageSizeInTwips;
 }
 
-CED_FUNC(uint32_t) CED_GetPageNumber(Handle hEdPage)
+CED_FUNC(Word32) CED_GetPageNumber(Handle hEdPage)
 {
 return ((CEDPage*)hEdPage)->pageNumber;
 }
@@ -553,7 +553,7 @@ CED_FUNC(Bool32) CED_GetPageResize(Handle hEdPage)
 return ((CEDPage*)hEdPage)->resizeToFit;
 }
 
-CED_FUNC(uint32_t) CED_GetNumberOfParagraphs(Handle hEdPage)
+CED_FUNC(Word32) CED_GetNumberOfParagraphs(Handle hEdPage)
 {
 return ((CEDPage*)hEdPage)->GetNumberOfParagraphs();
 }
@@ -569,7 +569,7 @@ CED_FUNC(Bool32) CED_GetFont(Handle hEdPage,int number, BYTE* fontNumber, BYTE* 
 {
 	return ((CEDPage*)hEdPage)->GetFont(number,fontNumber,fontPitchAndFamily,fontCharset,fontName);
 }
-CED_FUNC(uint32_t) CED_GetNumOfFonts(Handle hEdPage)
+CED_FUNC(Word32) CED_GetNumOfFonts(Handle hEdPage)
 {
 	return ((CEDPage*)hEdPage)->fontsUsed;
 }
@@ -596,17 +596,17 @@ CED_FUNC(Bool32) CED_GetPicture(Handle hEdPage,int number, int* pictNumber, EDSI
 		*len=tmp->len;
 	return TRUE;
 }
-CED_FUNC(uint32_t) CED_GetNumOfPics(Handle hEdPage)
+CED_FUNC(Word32) CED_GetNumOfPics(Handle hEdPage)
 {
 	return ((CEDPage*)hEdPage)->picsUsed;
 }
 ////////////////////////////////////////////////////////////////////////////////////////
-CED_FUNC(uint32_t) CED_GetCountSection(Handle hEdPage)
+CED_FUNC(Word32) CED_GetCountSection(Handle hEdPage)
 {
 	return ((CEDPage*)hEdPage)->GetNumberOfSections();
 }
 
-CED_FUNC(Handle) CED_GetSection(Handle hEdPage, uint32_t number)
+CED_FUNC(Handle) CED_GetSection(Handle hEdPage, Word32 number)
 {
 	return (Handle)((CEDPage*)hEdPage)->GetSection(number);
 }
@@ -650,12 +650,12 @@ CED_FUNC(Bool32) CED_GetSectLineBetCol( Handle hEdSection)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////
-CED_FUNC(uint32_t) CED_GetCountColumn(Handle hEdSection)
+CED_FUNC(Word32) CED_GetCountColumn(Handle hEdSection)
 {
 	return ((CEDSection*)hEdSection)->numberOfColumns;
 }
 
-CED_FUNC(uint32_t) CED_GetNumSnakeCols(Handle hEdSection)
+CED_FUNC(Word32) CED_GetNumSnakeCols(Handle hEdSection)
 {
 	return ((CEDSection*)hEdSection)->numSnakeCols;
 }
@@ -676,7 +676,7 @@ CED_FUNC(int32_t) CED_GetSnakeColumnSpacing(Handle hEdSection,int number)
 }
 ///////////////////////////////////////////////////////////
 
-/*uint32_t CED_GetCountFrame(Handle hEdSection)
+/*Word32 CED_GetCountFrame(Handle hEdSection)
 {
 	return ((CEDSection*)hEdSection)->numberOfFrames;
 }
@@ -751,7 +751,7 @@ CED_FUNC(Bool32) CED_IsFictive(Handle hEdParagraph)
 	return ((CEDParagraph*)hEdParagraph)->type&FICTIVE?TRUE:FALSE;
 }
 
-CED_FUNC(uint32_t) CED_GetCountRow(Handle hEdTable)
+CED_FUNC(Word32) CED_GetCountRow(Handle hEdTable)
 {
 	return ((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->numOfRows;
 }
@@ -800,7 +800,7 @@ CED_FUNC(Bool32) CED_GetTableRowParams(Handle hEdRow,
 	return TRUE;
 }
 
-uint32_t CED_GetCountCell(Handle hEdRow)
+Word32 CED_GetCountCell(Handle hEdRow)
 {
 	return ((EDROWDESCR*)((CEDParagraph*)hEdRow)->descriptor)->numOfCells;
 }
@@ -851,48 +851,48 @@ CED_FUNC(int32_t) CED_GetCellFlag (Handle hEdCell)
 	return ((EDCELLDESCR*)(((CEDParagraph*)hEdCell)->descriptor))->flag;
 }
 
-CED_FUNC(uint32_t *) CED_GetTableOfCells(Handle hEdTable)
+CED_FUNC(Word32 *) CED_GetTableOfCells(Handle hEdTable)
 {
-	if ((uint32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
+	if ((Word32*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
 		((CEDParagraph*)hEdTable)->CreateTableOfCells();
-	return (uint32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table;
+	return (Word32*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table;
 }
 
 
 CED_FUNC(int32_t *)CED_GetLinesX(Handle hEdTable)
 {
-	if ((uint32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
+	if ((Word32*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
 		((CEDParagraph*)hEdTable)->CreateTableOfCells();
 	return (int32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->linesX;
 }
 
 CED_FUNC(int32_t *)CED_GetRowsHeights(Handle hEdTable)
 {
-	if ((uint32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
+	if ((Word32*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
 		((CEDParagraph*)hEdTable)->CreateTableOfCells();
 	return (int32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->linesY;
 }
 
 CED_FUNC(edSize) CED_GetSize(Handle hEdTable)
 {
-	if ((uint32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
+	if ((Word32*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
 		((CEDParagraph*)hEdTable)->CreateTableOfCells();
 	return (edSize)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->size;
 }
 CED_FUNC(Handle) CED_GetLogicalCell(Handle hEdTable, int number)
 {
-	if ((uint32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
+	if ((Word32*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
 		((CEDParagraph*)hEdTable)->CreateTableOfCells();
 	return (Handle)((CEDParagraph*)hEdTable)->GetLogicalCell(number);
 }
 CED_FUNC(int) CED_GetCountLogicalCell(Handle hEdTable)
 {
-	if ((uint32_t*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
+	if ((Word32*)((EDTABDESCR*)((CEDParagraph*)hEdTable)->descriptor)->table==0)
 		((CEDParagraph*)hEdTable)->CreateTableOfCells();
 	return ((CEDParagraph*)hEdTable)->GetCountLogicalCell();
 }
 /////////////////////////////////////////////////////////////////
-CED_FUNC(uint32_t) CED_GetCountLine(Handle hEdParagraph)
+CED_FUNC(Word32) CED_GetCountLine(Handle hEdParagraph)
 {
 	return ((CEDParagraph*)hEdParagraph)->GetCountLine();
 }
@@ -907,7 +907,7 @@ CED_FUNC(EDRECT) CED_GetIndent(Handle hEdParagraph)
 	return ((CEDParagraph*)hEdParagraph)->indent;
 }
 
-CED_FUNC(uint32_t) CED_GetAlignment(Handle hEdParagraph)
+CED_FUNC(Word32) CED_GetAlignment(Handle hEdParagraph)
 {
 	return ((CEDParagraph*)hEdParagraph)->alignment;
 }
@@ -917,7 +917,7 @@ CED_FUNC(edBox) CED_GetLayout(Handle hEdParagraph)
 	return ((CEDParagraph*)hEdParagraph)->layout;
 }
 
-CED_FUNC(uint32_t) CED_GetUserNumber(Handle hEdParagraph)
+CED_FUNC(Word32) CED_GetUserNumber(Handle hEdParagraph)
 {
 	return ((CEDParagraph*)hEdParagraph)->userNumber;
 }
@@ -980,7 +980,7 @@ CED_FUNC(int32_t) CED_GetLineDefChrFontHeight(Handle hEdLine)
 {
 	return ((CEDLine*)hEdLine)->defChrFontHeight;
 }
-CED_FUNC(uint32_t) CED_GetCountChar(Handle hEdLine)
+CED_FUNC(Word32) CED_GetCountChar(Handle hEdLine)
 {
 	return ((CEDLine*)hEdLine)->GetCountChar();
 }

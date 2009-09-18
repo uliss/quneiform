@@ -64,8 +64,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "lang_def.h"
 #include "ligas.h"
 
-extern uchar language;
-extern uchar langCyrilRoman;
+extern Word8 language;
+extern Word8 langCyrilRoman;
 
 static Bool32 CyrilLanguage(void)
 {
@@ -166,8 +166,8 @@ static const char notStandLet[]="QJfj\x84\x89\x96\x99\xe4";
                    // WЖШЩЮ
 static const char wideLet[]="W\x86\x98\x99\x9e";
 
-static const uchar notCursivNames[]="\xa0\xa3\xa4\xa8\xe2";  // dos - "агдит";
-static const uchar cursivNames[]   ="\xfd\xf8\xf0\xf7\xf5";
+static const Word8 notCursivNames[]="\xa0\xa3\xa4\xa8\xe2";  // dos - "агдит";
+static const Word8 cursivNames[]   ="\xfd\xf8\xf0\xf7\xf5";
 ////////////////
 Bool32 BigSmallSymbol(int i)
 {
@@ -369,7 +369,7 @@ Bool32 WideSymbol(int i)
     return FALSE;
 }
 ////////////
-uchar TestCursivName(uchar let)
+Word8 TestCursivName(Word8 let)
 {
 		 char *qq;
 
@@ -377,7 +377,7 @@ uchar TestCursivName(uchar let)
 			 return let;
 
 		 if( (qq=(char *)strchr(cursivNames,let))!=NULL )
-			 let=notCursivNames[(uchar*)qq-cursivNames];
+			 let=notCursivNames[(Word8*)qq-cursivNames];
 
 		 return let;
 }

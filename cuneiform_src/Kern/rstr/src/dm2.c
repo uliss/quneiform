@@ -78,12 +78,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-static char txg1[]={"LOCOMP ERR"};
-static char txg2[]={"NO CELL got"};
-static char txg3[]={"        p=(%d,%d)"};
-static char txg4[]={"        GL OK"};
-static char txg5[]={"        BOX OK"};
-static char txg6[]={"n,a,m,e,l"};
+static CHAR txg1[]={"LOCOMP ERR"};
+static CHAR txg2[]={"NO CELL got"};
+static CHAR txg3[]={"        p=(%d,%d)"};
+static CHAR txg4[]={"        GL OK"};
+static CHAR txg5[]={"        BOX OK"};
+static CHAR txg6[]={"n,a,m,e,l"};
 // bad letters are allowed to eat good letters:
 //    if the eaten letter is in list
 //    if the result is registered
@@ -101,26 +101,26 @@ static BYTE sticks_left_to_bad[]  =  {"  /l1IJ)}]  11"};
 
 static BYTE letters_left_to_bad[] =  {" nrvtcC(u<>ÏúØ|·ë£"}; // 0th pos for sticks
 
-static char ltmp0[] = "kDPbhèØ "; /* stick */
-static char ltmp1[] = "m"; /* n */
-static char ltmp2[] = "nm"; /* r */
-static char ltmp3[] = "w"; /* v */
-static char ltmp4[] = "u"; /* t */
-static char ltmp5[] = "ao"; /* c */
-static char ltmp6[] = "O6"; /* C */
-static char ltmp7[] = "oO6"; /* ( */
-static char ltmp8[] = "w"; /* u */
-static char ltmp9[] = "odÆ"; /* < */
-static char ltmp10[] = "xXÂ"; /* > */
-static char ltmp11[] = "Î"; /* Ï */
-static char ltmp12[] = "õ"; /* õ */
-static char ltmp13[] = "ËÈ"; /* Ø */
-static char ltmp14[] = "≠ç®àØè™ä¨å"; /* | */
-static char ltmp15[] = "Æ"; /* · */
-static char ltmp16[] = "é"; /* ë */
-static char ltmp17[] = "Ø"; /* £ */
+static CHAR ltmp0[] = "kDPbhèØ "; /* stick */
+static CHAR ltmp1[] = "m"; /* n */
+static CHAR ltmp2[] = "nm"; /* r */
+static CHAR ltmp3[] = "w"; /* v */
+static CHAR ltmp4[] = "u"; /* t */
+static CHAR ltmp5[] = "ao"; /* c */
+static CHAR ltmp6[] = "O6"; /* C */
+static CHAR ltmp7[] = "oO6"; /* ( */
+static CHAR ltmp8[] = "w"; /* u */
+static CHAR ltmp9[] = "odÆ"; /* < */
+static CHAR ltmp10[] = "xXÂ"; /* > */
+static CHAR ltmp11[] = "Î"; /* Ï */
+static CHAR ltmp12[] = "õ"; /* õ */
+static CHAR ltmp13[] = "ËÈ"; /* Ø */
+static CHAR ltmp14[] = "≠ç®àØè™ä¨å"; /* | */
+static CHAR ltmp15[] = "Æ"; /* · */
+static CHAR ltmp16[] = "é"; /* ë */
+static CHAR ltmp17[] = "Ø"; /* £ */
 
-static char *results_left_to_bad[] = {
+static CHAR *results_left_to_bad[] = {
         ltmp0, ltmp1, ltmp2, ltmp3, ltmp4, ltmp5, ltmp6, ltmp7, ltmp8, ltmp9,
         ltmp10, ltmp11, ltmp12, ltmp13, ltmp14, ltmp15, ltmp16, ltmp17
 };
@@ -132,32 +132,32 @@ static char *results_left_to_bad[] = {
 static BYTE sticks_right_to_bad[] =  {" /l1I]11"};  // 1st pos reserved for liga_i
 static BYTE letters_right_to_bad[] = {" nvt)u><·ÊñÆé™˜"}; // 0th pos for sticks
 
-static char rtmp0[] = "d≠®Øè";
-static char rtmp1[] = "m"; /* n */
-static char rtmp2[] = "w"; /* v */
-static char rtmp3[] = "u"; /* t */
-static char rtmp4[] = "o"; /* ) */
-static char rtmp5[] = "w"; /* u */
-static char rtmp6[] = "bop6DÆ"; /* < */
-static char rtmp7[] = "kXx™¶"; /* > */
-static char rtmp8[] = "™¶"; /* · */
-static char rtmp9[] = "È"; /* Ê */
-static char rtmp10[] = "ô"; /* ñ */
-static char rtmp11[] = "Ó"; /* Æ */
-static char rtmp12[] = "û"; /* é */
-static char rtmp13[] = "¶"; /* ™ */
-static char rtmp14[] = "Ë"; /* ˜ */
+static CHAR rtmp0[] = "d≠®Øè";
+static CHAR rtmp1[] = "m"; /* n */
+static CHAR rtmp2[] = "w"; /* v */
+static CHAR rtmp3[] = "u"; /* t */
+static CHAR rtmp4[] = "o"; /* ) */
+static CHAR rtmp5[] = "w"; /* u */
+static CHAR rtmp6[] = "bop6DÆ"; /* < */
+static CHAR rtmp7[] = "kXx™¶"; /* > */
+static CHAR rtmp8[] = "™¶"; /* · */
+static CHAR rtmp9[] = "È"; /* Ê */
+static CHAR rtmp10[] = "ô"; /* ñ */
+static CHAR rtmp11[] = "Ó"; /* Æ */
+static CHAR rtmp12[] = "û"; /* é */
+static CHAR rtmp13[] = "¶"; /* ™ */
+static CHAR rtmp14[] = "Ë"; /* ˜ */
 
-static char *results_right_to_bad[] = {
+static CHAR *results_right_to_bad[] = {
         rtmp0, rtmp1, rtmp2, rtmp3, rtmp4, rtmp5, rtmp6, rtmp7, rtmp8, rtmp9,
         rtmp10, rtmp11, rtmp12, rtmp13, rtmp14,
 };
 
-static char *ltoi;
+static CHAR *ltoi;
 static INT lton;
 static INT glue_pass;
-static char percgot;       // percent was got as result of a glue
-extern char db_pass;
+static CHAR percgot;       // percent was got as result of a glue
+extern CHAR db_pass;
 
 void collect_pat(cell *BC, s_glue *GL, cell *EC);
 cell * finpat(cell *BC, s_glue *GL, INT var, BYTE flag,BYTE pen);
@@ -242,7 +242,7 @@ void make_all_glues()
   if( BC->accent_leader )
     continue; // Oleg : 06/10/97 17:51 : can't glued fictive images
   if ((BC->nvers > 0) && (BC->vers[0].prob > 220))
-  { char c;
+  { CHAR c;
     DOT = NULL;
     c = BC->vers[0].let;
     if ((c == 'i') || (c == 'j'))
@@ -324,10 +324,10 @@ static void glue_let_dust()
 //
  s_glue GL={0};
  cell *BC,*LC,*WC,*WS,*CC,*DC;
- INT bdiff; char dflag;
+ INT bdiff; CHAR dflag;
  INT i, nsc, ngc, n, p1, p1l, p2;
  SVERS svv1;
- char  defl, ww[40];
+ CHAR  defl, ww[40];
  BYTE c1, c1l, c2, cp;
  cell bc;
  MN *mn;
@@ -386,7 +386,7 @@ static void glue_let_dust()
   ngc=0;
   while(/*1*/ngc<MAX_CELLS_IN_LIST)
   {
-    GL.nclist[ngc++]=CC=create_cell(mn,LC,(char)bdiff,dflag);
+    GL.nclist[ngc++]=CC=create_cell(mn,LC,(CHAR)bdiff,dflag);
     inter_diff(CC);
     if (!CC->env)
       { glsnap('b',WS,txg1);  goto  delrest; }  // NOT to recog garbage
@@ -502,10 +502,10 @@ bcforw:
  }
 
 
-static char txt11[]="B-->B";
-static char txt12[]="B-->L";
-static char txt21[]="B<--B";
-static char txt22[]="L<--B";
+static CHAR txt11[]="B-->B";
+static CHAR txt12[]="B-->L";
+static CHAR txt21[]="B<--B";
+static CHAR txt22[]="L<--B";
 
 static lll=0;
 INT glue_to_o (BYTE c2, BYTE c3, cell *BC, cell *EC)
@@ -531,14 +531,14 @@ BYTE broken_ii; // broken 'Ø','≠','®'
 static void glue_let_bad()
  {
  INT   i, j, dist, ndist, wdg, bdiff, trsuccess;
- char dflag, gtofl;
+ CHAR dflag, gtofl;
  WORD  p1, p2, pt;
  BYTE  *tx1, *tx2, **rp1, *rp2, *rps, c2, c3, cw, flb;
  BYTE  rus_iee;
  cell  *B1, *B2, *BP, *BD, *BC, *EC, *WS;
  void  *k1, *k2, *k3;
  c_comp *S[8];
- char sgfl,fgd, flgBOX, ww[40];
+ CHAR sgfl,fgd, flgBOX, ww[40];
  MN  *mn;
  cell w;
  SVERS svv1, sav1, sav2;
@@ -719,7 +719,7 @@ trgl2:
        glsnap('b',BC,"unregistered pair");
        continue;
     }
-    lton=ltoi-(char*)rp2;
+    lton=ltoi-(CHAR*)rp2;
     ltoi=rp1[lton];
   pairgot:
     glsnap('b',BC,tx2);
@@ -839,7 +839,7 @@ trygl:
    k1=del_save_cell(B1);
    k2=del_save_cell(B2);
    if (fgd) k3=del_save_cell(BD);
-   BC=create_cell(mn,WS,(char)bdiff, dflag);
+   BC=create_cell(mn,WS,(CHAR)bdiff, dflag);
    inter_diff(BC);
    if (!BC->env)
     {
@@ -977,12 +977,12 @@ accel:                                 // accept new cells
 static void glue_dust_dust()
  {
  INT  i,j, bdiff;
- char dflag;
+ CHAR dflag;
  cell *BC, *EC, *WS;
  void *k1, *k2;
  c_comp *S[8];
  cell   *C[8]; INT inc=0;
- char  flgBOX;
+ CHAR  flgBOX;
  MN  *mn;
  cell w;
  SVERS svv1, sav1, sav2;
@@ -1049,7 +1049,7 @@ static void glue_dust_dust()
    save_vers(EC,&sav2);
    k1=del_save_cell(BC);
    k2=del_save_cell(EC);
-   BC=create_cell(mn,WS,(char)bdiff,dflag);
+   BC=create_cell(mn,WS,(CHAR)bdiff,dflag);
    inter_diff(BC);
    if ((!BC->env) || (BC->flg & c_f_dust))
     {
@@ -1127,7 +1127,7 @@ static INT contain(cell *new, cell *old)
  return 1;
  }
 
-void glsnap(char I, cell *C, char *txt)
+void glsnap(CHAR I, cell *C, CHAR *txt)
  {
 
  if (!db_status) return;

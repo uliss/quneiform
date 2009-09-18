@@ -119,7 +119,7 @@ static Bool add_versions(cell *c, version *save_versions, INT save_nvers);
 static Bool no_bad_alias(cell *c);
 static cell * convert_to_cells(cell *c);
 static Bool mode_incline( INT inc);
-static int calc_dens(cell *c);
+static LONG calc_dens(cell *c);
 static INT  get_incline_of_word(cell *b, cell *e);
 static INT  erection_incline_word(cell *b, cell *e, INT base_3,INT n_call);
 static void shift_word( cell *c, cell *e, INT shift );
@@ -237,7 +237,7 @@ for (i=0; i<dy; i++)
 
 if( inc<0 )
   {  //  rotate without shaving
-  int oldw = c->w;
+  LONG oldw = c->w;
   cw = fict_shift_intervals(&cc, tab_angle);
   if( c->dens!=255 )
     c->dens = (c->dens*oldw)/cw;
@@ -360,7 +360,7 @@ if( shave || inc )
 
   for(i=0; sh_mn && i<MAX_CELLS_IN_LIST; i++, sh_mn = sh_mn->mnnext)
     {
-    if( (sh_cell[i]=create_cell (sh_mn, c, c->bdiff, (char)(c->difflg&0xf0)))==NULL )
+    if( (sh_cell[i]=create_cell (sh_mn, c, c->bdiff, (CHAR)(c->difflg&0xf0)))==NULL )
       return c;
     if( sh_cell[i]->w>RASTER_MAX_WIDTH || sh_cell[i]->h>RASTER_MAX_HEIGHT ||
 		!sh_cell[i]->env
@@ -411,7 +411,7 @@ if( shave || inc )
     c->dens     = 255          ; // undef
   else
     {
-    int dens   = calc_dens(c);
+    LONG dens   = calc_dens(c);
     c->dens     = (dens*32)/(res_cell.w*res_cell.h);
     }
   c->w          = res_cell.w   ;
@@ -509,7 +509,7 @@ if( shave || inc)
 
   for(i=0; sh_mn && i<MAX_CELLS_IN_LIST; i++, sh_mn = sh_mn->mnnext)
     {
-    if( (sh_cell[i]=create_cell (sh_mn, c, c->bdiff, (char)(c->difflg&0xf0)))==NULL )
+    if( (sh_cell[i]=create_cell (sh_mn, c, c->bdiff, (CHAR)(c->difflg&0xf0)))==NULL )
       return NULL;
     sh_cell[i]->stick_inc = NO_INCLINE; // rotate disabled
     }
@@ -549,7 +549,7 @@ if( shave || inc)
     c->dens     = 255          ; // undef
   else
     {
-    int dens   = calc_dens(c);
+    LONG dens   = calc_dens(c);
     c->dens     = (dens*32)/(res_cell.w*res_cell.h);
     }
   c->w          = res_cell.w   ;
@@ -635,8 +635,8 @@ BYTE wrd[MAX_LEN_WORD+40], word_len ;
 Bool inc, incline, no_res           ;
 B_LINES bl                          ;
 #ifdef STEND_INC
-static char  oldstr[256]="c:\\";
-char         str[256]      ;
+static CHAR  oldstr[256]="c:\\";
+CHAR         str[256]      ;
 static INT   oldline=-1    ;
 FILE         *fp           ;
 static INT   first=1       ;
@@ -751,7 +751,7 @@ INT get_baton_inc(cell *c)
  {
  INT n, inc=0;
  STICK *res,*r;
- uchar let;
+ Word8 let;
 
 if( c->nvers<1 )
     return 0;
@@ -764,23 +764,23 @@ if( c->nvers<1 )
     {
     switch( let )
         {
-        case    (uchar)'Ï':
-        case    (uchar)'ï':
+        case    (Word8)'Ï':
+        case    (Word8)'ï':
 			if (is_russian_baltic_conflict(let))	// 17.07.2001 E.P.
 				{inc=1;break;}
 
             if( n==2 && abs(r[1].incl-r[0].incl)<50 )
                 inc=r[1].incl;
             break;
-        case    (uchar)'×':
-        case    (uchar)'÷':
+        case    (Word8)'×':
+        case    (Word8)'÷':
             if( n==2 && abs(r[1].incl-r[0].incl)<50 )
                 inc=r[1].incl;
             else if( n==1  )
                 inc=r[0].incl;
             break;
-        case    (uchar)'Ò':
-        case    (uchar)'ò':
+        case    (Word8)'Ò':
+        case    (Word8)'ò':
             if( n==1  )
                 inc=r[0].incl;
             break;
@@ -1035,7 +1035,7 @@ return TRUE;
 INT get_incline_of_word(cell *b, cell *e)
 {
 cell *c                       ;
-int  inc, inc1, n1           ;
+LONG  inc, inc1, n1           ;
 INT   i, n, mn, all, zeromn   ;
 INT   inc_list[MAX_LEN_WORD]  ;
 INT   norm_list[MAX_LEN_WORD] ;
@@ -1184,10 +1184,10 @@ if( inc==0 && all<2 && num_extr )
 return (INT)inc;
 }
 
-static void erect_rotate_bl(cell *tmp, INT base_3, int inc, INT dir)
+static void erect_rotate_bl(cell *tmp, INT base_3, LONG inc, INT dir)
 {
 INT     h1, h2;
-int    d;
+LONG    d;
 h1 = tmp->row-base_3;
 h2 = base_3 - tmp->row-tmp->h;
 if( h2>0 )      d =  h2;
@@ -1229,7 +1229,7 @@ for (i=0; i<dy; i++)
 return fict_shift_left_intervals(c, tab_angle);
 }
 
-Bool    test_incline_of_word(cell *b,cell *e,int inc)
+Bool    test_incline_of_word(cell *b,cell *e,LONG inc)
 {
 //Bool    ret=TRUE;
 cell  * c;
@@ -1264,7 +1264,7 @@ return !(up*2>let&&let>2);
 INT erection_incline_word(cell *b, cell *e, INT base_3, INT n_call)
 {
 cell  *c, *tmp, *cnext                  ;
-int  inc,    i                         ;
+LONG  inc,    i                         ;
 INT   shave=(erection_enable==2)        ;
 version save_versions[VERS_IN_CELL]     ;
 INT   save_nvers                        ;
@@ -1358,7 +1358,7 @@ return (INT)inc;
 INT erection_incline_word_set(cell *b, cell *e)
 {
 cell  *c                  ;
-int  inc                 ;
+LONG  inc                 ;
 
 if( (inc=get_incline_of_word(b,e))==0 )
   {
@@ -1432,17 +1432,17 @@ lnhead   *line;
 
 // calculating left offset of image
 min_shift = MIN (tab_angle[0], tab_angle[c->h-1]);
-for(line=(lnhead *)((char *)c->env+c->env->lines+sizeof(INT)),left_shift=c->w;
-    (ll=line->lth)>0; line=(lnhead *)((char *)line+ll))
-  for(h=line->h,ind=line->row,inter=(interval *)((char *)line+sizeof(lnhead)); h; h--,inter++,ind++)
+for(line=(lnhead *)((PCHAR)c->env+c->env->lines+sizeof(INT)),left_shift=c->w;
+    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
+  for(h=line->h,ind=line->row,inter=(interval *)((PCHAR)line+sizeof(lnhead)); h; h--,inter++,ind++)
     if( (w=inter->e - inter->l - (tab_angle[ind]-min_shift))< left_shift )
       left_shift = w;  // max left limit
 min_shift -= left_shift;
 
 // rotating during shift table
-for(line=(lnhead *)((char *)c->env+c->env->lines+sizeof(INT)),w=0;
-    (ll=line->lth)>0; line=(lnhead *)((char *)line+ll))
-  for(h=line->h,ind=line->row,inter=(interval *)((char *)line+sizeof(lnhead));
+for(line=(lnhead *)((PCHAR)c->env+c->env->lines+sizeof(INT)),w=0;
+    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
+  for(h=line->h,ind=line->row,inter=(interval *)((PCHAR)line+sizeof(lnhead));
         h; h--,inter++,ind++)
     if( (inter->e-tab_angle[ind]-min_shift) > w )
       w = inter->e-tab_angle[ind]-min_shift;  // max right limit - new width
@@ -1458,17 +1458,17 @@ lnhead   *line;
 
 // calculating left offset of image
 min_shift = MIN (tab_angle[0], tab_angle[c->h-1]);
-for(line=(lnhead *)((char *)c->env+c->env->lines+sizeof(INT)),left_shift=c->w;
-    (ll=line->lth)>0; line=(lnhead *)((char *)line+ll))
-  for(h=line->h,ind=line->row,inter=(interval *)((char *)line+sizeof(lnhead)); h; h--,inter++,ind++)
+for(line=(lnhead *)((PCHAR)c->env+c->env->lines+sizeof(INT)),left_shift=c->w;
+    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
+  for(h=line->h,ind=line->row,inter=(interval *)((PCHAR)line+sizeof(lnhead)); h; h--,inter++,ind++)
     if( (w=inter->e - inter->l - (tab_angle[ind]-min_shift))< left_shift )
       left_shift = w;  // max left limit
 //min_shift -= left_shift;
 
 // rotating during shift table
-for(line=(lnhead *)((char *)c->env+c->env->lines+sizeof(INT)),w=0;
-    (ll=line->lth)>0; line=(lnhead *)((char *)line+ll))
-  for(h=line->h,ind=line->row,inter=(interval *)((char *)line+sizeof(lnhead));
+for(line=(lnhead *)((PCHAR)c->env+c->env->lines+sizeof(INT)),w=0;
+    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
+  for(h=line->h,ind=line->row,inter=(interval *)((PCHAR)line+sizeof(lnhead));
         h; h--,inter++,ind++)
     if( (inter->e-tab_angle[ind]) > w )
       w = inter->e-tab_angle[ind];  // max right limit - new width
@@ -1494,7 +1494,7 @@ for(c=b;c!=e;c=c->next)
     {
     c->save_stick_inc =  c->stick_inc;
     erect_cell_value(c, (INT)(-c->stick_inc), 0, FALSE);
-    erect_rotate_bl(c,(INT)((p2_active&&line_scale)?(bl.b3>>line_scale):bl.b3),(int)(-c->stick_inc),+1);
+    erect_rotate_bl(c,(INT)((p2_active&&line_scale)?(bl.b3>>line_scale):bl.b3),(LONG)(-c->stick_inc),+1);
     c->stick_inc = NO_INCLINE;
     c->pos_inc   = erect_rest;
     c->left      = c->col;
@@ -1528,7 +1528,7 @@ B_LINES bl;
     {
 		c = erect_cell_value(c, c->save_stick_inc, 0, FALSE);
 
-		erect_rotate_bl(c,(INT)((p2_active&&line_scale)?(bl.b3>>line_scale):bl.b3),(int)(c->save_stick_inc),-1);
+		erect_rotate_bl(c,(INT)((p2_active&&line_scale)?(bl.b3>>line_scale):bl.b3),(LONG)(c->save_stick_inc),-1);
     }
  }
 return;
@@ -1562,7 +1562,7 @@ INT      b, l;
 
 h=line->h;
 lmax=init_max; i=0;  num_row = line->row;
-inter=(interval *)((char *)line+sizeof(lnhead));
+inter=(interval *)((PCHAR)line+sizeof(lnhead));
 
 for( ; h ; h--,inter++,i++,num_row++)
   {
@@ -1583,8 +1583,8 @@ INT diff_left_limit_cell(cell *c, INT tab_angle[], INT init_max)
  lnhead   *line;
  INT      ll, lmax, l;
 
-for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT)),lmax=init_max;
-    (ll=line->lth)>0; line=(lnhead *)((char *)line+ll))
+for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT)),lmax=init_max;
+    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
         {
         l = diff_left_limit_one_line(line, tab_angle, init_max);
         if( l<lmax )          lmax = l;
@@ -1596,7 +1596,7 @@ return lmax;
 INT erection_compose_inc(INT n,cell **clist)
 {
 INT i;
-int inc; INT ninc;
+LONG inc; INT ninc;
 
 for ( ninc=0,inc=i=0; i<n && i<NCOMPMAX; i++)
   if( clist[i]->pos_inc&erect_rot )
@@ -1616,17 +1616,17 @@ inc = ninc ? inc/ninc:NO_INCLINE;
 return (INT)inc;
 }
 
-int calc_dens(cell *c)
+LONG calc_dens(cell *c)
 {
-int dens=0l;
+LONG dens=0l;
 INT      ll, h ;
 interval *inter;
 lnhead   *line;
 
 // calculating left offset of image
-for(line=(lnhead *)((char *)c->env+c->env->lines+sizeof(INT));
-    (ll=line->lth)>0; line=(lnhead *)((char *)line+ll))
-  for(h=line->h,inter=(interval *)((char *)line+sizeof(lnhead)); h; h--,inter++)
+for(line=(lnhead *)((PCHAR)c->env+c->env->lines+sizeof(INT));
+    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
+  for(h=line->h,inter=(interval *)((PCHAR)line+sizeof(lnhead)); h; h--,inter++)
       dens += inter->l;
 return dens;
 }
@@ -1644,7 +1644,7 @@ if( (sh_mn = c_locomp (raster, (INT)(bytlen(start->w)), start->h, 0, 0))==NULL )
 for(i=0; sh_mn && i<MAX_CELLS_IN_LIST; i++, sh_mn = sh_mn->mnnext)
     {
     if( (sh_cell=create_cell_work(sh_mn, start,
-                              start->bdiff, (char)(start->difflg&0xf0)))==NULL )
+                              start->bdiff, (CHAR)(start->difflg&0xf0)))==NULL )
       return NULL;
 
     levcut(sh_cell,1);
@@ -1714,15 +1714,15 @@ lnhead   *line;
 
 // calculating left offset of image
 for(line=(lnhead *)addr,min_shift=RASTER_MAX_WIDTH;
-    (ll=line->lth)>0; line=(lnhead *)((char *)line+ll))
-  for(h=line->h,ind=line->row,inter=(interval *)((char *)line+sizeof(lnhead)); h; h--,inter++,ind++)
+    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
+  for(h=line->h,ind=line->row,inter=(interval *)((PCHAR)line+sizeof(lnhead)); h; h--,inter++,ind++)
     if( (w=inter->e - inter->l - tab_angle[ind]) < min_shift )
       min_shift = w;  // min dest to image from left bound
 
 // rotating during shift table
 for(line=(lnhead *)addr,w=0;
-    (ll=line->lth)>0; line=(lnhead *)((char *)line+ll))
-  for(h=line->h,ind=line->row,inter=(interval *)((char *)line+sizeof(lnhead));
+    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
+  for(h=line->h,ind=line->row,inter=(interval *)((PCHAR)line+sizeof(lnhead));
         h; h--,inter++,ind++)
       inter->e -= tab_angle[ind]+min_shift;  // max right limit - new width
 

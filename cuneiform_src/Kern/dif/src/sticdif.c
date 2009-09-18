@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 
 #define MAX_ADD_DIS  30		/* max discrim for adding 'є','1'	*/
-static uchar tab_t[]=					// dis_t
+static Word8 tab_t[]=					// dis_t
 	{
 	40,  /* 0.  no flags                                  */
 	20,  /* 1.  no beam : exist only one flags>1          */
@@ -102,7 +102,7 @@ static uchar tab_t[]=					// dis_t
 	};
 
 
-static uchar tab_l[]=					// dis_l
+static Word8 tab_l[]=					// dis_l
 	{
 	2,	// 0. right upper flag > left or no left
 	8,	// 1. -- // -- + long right flag
@@ -125,13 +125,13 @@ static uchar tab_l[]=					// dis_l
 	SI,	// 18. thin LEG exist
 	6	// 19. about thin '(' or ')'	09.06.1993
 	};
-static uchar tab_slash[] =
+static Word8 tab_slash[] =
 	{
 	20, /* 0. for long central flag       */
 	0,  /* 1. for near central flag       */
 	40  /* 2. central beam                */
 	};
-static uchar tab_I[]=				// dis_I
+static Word8 tab_I[]=				// dis_I
 	{
 	20,	// 0. long halfserif
 	8, 	// 1. too different flaghs
@@ -153,7 +153,7 @@ static uchar tab_I[]=				// dis_I
 	6	// 17. about thin '(' or ')'	09.06.1993
 	};
 
-static uchar tab_1[]=					// dis_1
+static Word8 tab_1[]=					// dis_1
 	{
 	60,  /* 0. no left upper flag : zones 0, 1        */
 	2,   /* 1. for right upper flag : zone  0         */
@@ -178,7 +178,7 @@ static uchar tab_1[]=					// dis_1
 	BP   /* 20. bad proportions                       */
 	};
 
-static uchar tab_circle_brace[]=
+static Word8 tab_circle_brace[]=
   {
   70, /* 0. up or down serif                 */
   10, /* 1. '(' similar    't'               */
@@ -189,7 +189,7 @@ static uchar tab_circle_brace[]=
   28  /* 6. bad budgles                      */
   };
 
-static uchar tab_sq_brace[]=
+static Word8 tab_sq_brace[]=
   {
   44,  /* 0. no flag : В  MK: 44 from 29.09.1993 (old 4)  */
   8,   /* 1. bad paar flags : ВД  for ], ДВ for [         */
@@ -203,70 +203,70 @@ static uchar tab_sq_brace[]=
 
 /*----------------------------------------------------------------------*/
 						// GLOBAL VARIABLES :
-uchar GL_hist [2*LIMIT_HEIGHT];			/* array for histogramm	*/
+Word8 GL_hist [2*LIMIT_HEIGHT];			/* array for histogramm	*/
 
 center_interval GL_cent [LIMIT_HEIGHT];		/* center of intervals	*/
 
 center_interval GL_center [LIMIT_CENTER];	// center of c_comp-intervals
 
-	uchar GL_left1 [LIMIT_HEIGHT],	/* auxiliary left and		*/
+	Word8 GL_left1 [LIMIT_HEIGHT],	/* auxiliary left and		*/
 	     GL_right1[LIMIT_HEIGHT];	/*    right abris-arrays	*/
 
-static int16_t  GL_hooks[4];		/* array of "hooks"		*/
-static int16_t  GL_hist_int[LIMIT_HEIGHT];	/* number of intervals in any row */
+static Int16  GL_hooks[4];		/* array of "hooks"		*/
+static Int16  GL_hist_int[LIMIT_HEIGHT];	/* number of intervals in any row */
 
-	uchar GL_left0 [LIMIT_HEIGHT],	/* left and right abris-arrays	*/
+	Word8 GL_left0 [LIMIT_HEIGHT],	/* left and right abris-arrays	*/
 	     GL_right0[LIMIT_HEIGHT];	// NO STATIC from 19.01.1993
 
-static int16_t GL_tab_angle [LIMIT_HEIGHT];		/* optimal center inc line */
-static int16_t num_lines;
-int16_t nIncline=0;
-extern uchar language;
+static Int16 GL_tab_angle [LIMIT_HEIGHT];		/* optimal center inc line */
+static Int16 num_lines;
+Int16 nIncline=0;
+extern Word8 language;
 
 ////////////////////Functions prototypes/////////////////////////////
-uchar lnhead_stick_center_study(lnhead *lin,int16_t dy,int16_t dx,
+Word8 lnhead_stick_center_study(lnhead *lin,Int16 dy,Int16 dx,
         STICK_CHARS *res_left_chars,STICK_CHARS *res_right_chars,
         STICK_SIGNUMS *res_signums);
-static int16_t lnhead_to_centers(lnhead *lin, int16_t wid,
-        center_interval center[],uchar left[], uchar right[]);
-static int16_t num_of_lines(center_interval center[],int16_t nc,int16_t dy,int16_t hist[]);
-static int16_t first_tg(INC_BASE *tab_inc[], int16_t num_inc, int16_t tg2048 );
-static int16_t abris_expansion (uchar left[], uchar right[],
-          int16_t dy, int16_t dx, int16_t tab_angle[]);
-static int16_t dis_slash (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t typ_add);
-static int16_t dis_I (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
-static int16_t dis_1 (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s, int16_t typ_add);
-static int16_t dis_l (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  ;
-static int16_t dis_l_stroked (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  ;
-static int16_t dis_t (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t sign_f);
-static int16_t dis_circle_brace(STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s, int16_t typ);
-static int16_t dis_r_sq_brace(STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s);
-static int16_t dis_l_sq_brace(STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s);
-static int16_t find_neck (STICK_CHARS *l, STICK_CHARS *r,int16_t lim_long);
-static int16_t find_beam (STICK_CHARS *l, STICK_CHARS *r,int16_t lim_long);
+static Int16 lnhead_to_centers(lnhead *lin, Int16 wid,
+        center_interval center[],Word8 left[], Word8 right[]);
+static Int16 num_of_lines(center_interval center[],Int16 nc,Int16 dy,Int16 hist[]);
+static Int16 first_tg(INC_BASE *tab_inc[], Int16 num_inc, Int16 tg2048 );
+static Int16 abris_expansion (Word8 left[], Word8 right[],
+          Int16 dy, Int16 dx, Int16 tab_angle[]);
+static Int16 dis_slash (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, Int16 typ_add);
+static Int16 dis_I (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
+static Int16 dis_1 (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s, Int16 typ_add);
+static Int16 dis_l (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  ;
+static Int16 dis_l_stroked (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)  ;
+static Int16 dis_t (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, Int16 sign_f);
+static Int16 dis_circle_brace(STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s, Int16 typ);
+static Int16 dis_r_sq_brace(STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s);
+static Int16 dis_l_sq_brace(STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s);
+static Int16 find_neck (STICK_CHARS *l, STICK_CHARS *r,Int16 lim_long);
+static Int16 find_beam (STICK_CHARS *l, STICK_CHARS *r,Int16 lim_long);
 
-extern int16_t set_stick_char (uchar left[], uchar right[], int16_t hooks[],
-       int16_t dy, int16_t dx, int16_t opt, int16_t wide, int16_t corr_mode,
-       int16_t skip_ul, int16_t skip_dl, int16_t skip_ur, int16_t skip_dr,
-       int16_t inc_num,
+extern Int16 set_stick_char (Word8 left[], Word8 right[], Int16 hooks[],
+       Int16 dy, Int16 dx, Int16 opt, Int16 wide, Int16 corr_mode,
+       Int16 skip_ul, Int16 skip_dl, Int16 skip_ur, Int16 skip_dr,
+       Int16 inc_num,
 		   STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
-       int16_t *l_mode, int16_t *r_mode);
-extern int16_t make_center_line_dif (center_interval center[], int16_t nc,
-       uchar left[], uchar right[],
-       int16_t  dy, int16_t dx, INC_BASE *angles[], int16_t num_angles,
-       int16_t  tab_angle[],
+       Int16 *l_mode, Int16 *r_mode);
+extern Int16 make_center_line_dif (center_interval center[], Int16 nc,
+       Word8 left[], Word8 right[],
+       Int16  dy, Int16 dx, INC_BASE *angles[], Int16 num_angles,
+       Int16  tab_angle[],
        Bool16 comp_wide, Bool16 sig_T, Bool16 sig_f, Bool16 sig_r,
-       int16_t  *wide, int16_t hooks[], int16_t *inc_v, uchar enable_correct);
+       Int16  *wide, Int16 hooks[], Int16 *inc_v, Word8 enable_correct);
 extern Bool32  digit_mode, dif_adding_mode ;
 //////////////////////////////////////////////////////////////////////////
 
 
-uchar lnhead_stick_center_study(lnhead *lin,int16_t dy,int16_t dx,
+Word8 lnhead_stick_center_study(lnhead *lin,Int16 dy,Int16 dx,
         STICK_CHARS *res_left_chars,STICK_CHARS *res_right_chars,
         STICK_SIGNUMS *res_signums)
 {
-int16_t wide,opt,left_mode,right_mode,inc_v, nc, num_angles,f_a;
-uchar ret_br=0;
+Int16 wide,opt,left_mode,right_mode,inc_v, nc, num_angles,f_a;
+Word8 ret_br=0;
 STICK_CHARS left_chars,right_chars;
 STICK_SIGNUMS signums;
 
@@ -282,9 +282,9 @@ if ( num_of_lines (GL_center, nc, dy, GL_hist_int) )
 num_angles =   sizeof(stick_inc)/sizeof(stick_inc[0]);
 f_a=first_tg(stick_inc, num_angles,nIncline );
 num_angles=MIN( (dx*2048/dy)>800?LIMIT_OF_ANGLES+4:LIMIT_OF_ANGLES,
-           (int16_t)(sizeof(stick_inc)/sizeof(stick_inc[0])-f_a-1));
+           (Int16)(sizeof(stick_inc)/sizeof(stick_inc[0])-f_a-1));
 
-if( (ret_br=(uchar)make_center_line_dif(GL_center,(int16_t)(nc-(GL_center[nc-1].len==1)),
+if( (ret_br=(Word8)make_center_line_dif(GL_center,(Int16)(nc-(GL_center[nc-1].len==1)),
 		     GL_left0, GL_right0,dy, dx,
 		     &stick_inc[f_a], num_angles, GL_tab_angle,
          0, 0, 1, 0, &wide, GL_hooks, &inc_v, 1)) ) // with correct
@@ -293,7 +293,7 @@ if( (ret_br=(uchar)make_center_line_dif(GL_center,(int16_t)(nc-(GL_center[nc-1].
         {
         opt=0;
         set_stick_char (GL_left0, GL_right0, GL_hooks, dy, dx, opt, wide,
-		        (int16_t)(opt - MIN ( GL_tab_angle[0], GL_tab_angle[dy-1] )),
+		        (Int16)(opt - MIN ( GL_tab_angle[0], GL_tab_angle[dy-1] )),
 		        0, 0, 0, 0,  0,		// NB: LAST ZERO PAR - inc_num (?????)
 		        &left_chars, &right_chars, &signums,
 		        &left_mode, &right_mode);
@@ -309,7 +309,7 @@ opt = ((MAX( GL_tab_angle[0], GL_tab_angle[dy-1] ))>>1)<<1;
 abris_expansion (GL_left0, GL_right0, dy, dx, GL_tab_angle);
 
 set_stick_char (GL_left0, GL_right0, GL_hooks, dy, dx, opt, wide,
-		(int16_t)(opt - MIN ( GL_tab_angle[0], GL_tab_angle[dy-1] )),
+		(Int16)(opt - MIN ( GL_tab_angle[0], GL_tab_angle[dy-1] )),
 		0, 0, 0, 0,  0,		// NB: LAST ZERO PAR - inc_num (?????)
 		&left_chars, &right_chars, &signums,
 		&left_mode, &right_mode);
@@ -321,38 +321,38 @@ signums.inc = (inc_v>256);
 return 1;
 }
 
-uchar   stick_recog(uchar let, STICK_CHARS *l, STICK_CHARS *r,
+Word8   stick_recog(Word8 let, STICK_CHARS *l, STICK_CHARS *r,
                 STICK_SIGNUMS *s)
 {
-   int16_t dis=0;
-   uchar ret;
+   Int16 dis=0;
+   Word8 ret;
 switch( let )
   {
-  case (uchar)'l':
+  case (Word8)'l':
     dis=dis_l(l,r, s);
     break;
-  case (uchar)'t':
+  case (Word8)'t':
     dis=dis_t(l,r, s, 0/*sign_f*/);
     break;
-  case (uchar)'1':
-    dis=dis_1(l,r, s,(uchar)dif_adding_mode);
+  case (Word8)'1':
+    dis=dis_1(l,r, s,(Word8)dif_adding_mode);
     break;
-  case (uchar)'|':
+  case (Word8)'|':
     dis=dis_I(l,r, s);
     break;
-  case (uchar)'/':
-    dis=dis_slash(l,r, s,(uchar)dif_adding_mode);
+  case (Word8)'/':
+    dis=dis_slash(l,r, s,(Word8)dif_adding_mode);
     break;
-  case (uchar)'(':
+  case (Word8)'(':
     dis=dis_circle_brace(l,r, s,1);
     break;
-  case (uchar)')':
+  case (Word8)')':
     dis=dis_circle_brace(l,r, s,0);
     break;
-  case (uchar)']':
+  case (Word8)']':
     dis_r_sq_brace(l,r, s);
     break;
-  case (uchar)'[':
+  case (Word8)'[':
     dis_l_sq_brace(l,r, s);
     break;
   default :
@@ -365,9 +365,9 @@ else
 return ret;
 }
 
-int32_t lnhead_stick_get_incline(lnhead *lin,int16_t dy,int16_t dx)
+int32_t lnhead_stick_get_incline(lnhead *lin,Int16 dy,Int16 dx)
 {
-int16_t wide,opt,left_mode,right_mode,inc_v, nc, num_angles,f_a;
+Int16 wide,opt,left_mode,right_mode,inc_v, nc, num_angles,f_a;
 STICK_CHARS left_chars,right_chars;
 STICK_SIGNUMS signums;
 
@@ -383,9 +383,9 @@ if ( num_of_lines (GL_center, nc, dy, GL_hist_int) )
 num_angles =   sizeof(stick_inc)/sizeof(stick_inc[0]);
 f_a=first_tg(stick_inc, num_angles,nIncline );
 num_angles=MIN((dx*2048/dy)>800?LIMIT_OF_ANGLES+4:LIMIT_OF_ANGLES,
-           (int16_t)(sizeof(stick_inc)/sizeof(stick_inc[0])-f_a-1));
+           (Int16)(sizeof(stick_inc)/sizeof(stick_inc[0])-f_a-1));
 
-if( make_center_line_dif(GL_center,(int16_t)(nc-(GL_center[nc-1].len==1)),
+if( make_center_line_dif(GL_center,(Int16)(nc-(GL_center[nc-1].len==1)),
 		     GL_left0, GL_right0,dy, dx,
 		     &stick_inc[f_a], num_angles, GL_tab_angle,
          0, 0, 1, 0, &wide, GL_hooks, &inc_v, 1) ) // with correct
@@ -396,7 +396,7 @@ opt = ((MAX( GL_tab_angle[0], GL_tab_angle[dy-1] ))>>1)<<1;
 abris_expansion (GL_left0, GL_right0, dy, dx, GL_tab_angle);
 
 set_stick_char (GL_left0, GL_right0, GL_hooks, dy, dx, opt, wide,
-		(int16_t)(opt - MIN ( GL_tab_angle[0], GL_tab_angle[dy-1] )),
+		(Int16)(opt - MIN ( GL_tab_angle[0], GL_tab_angle[dy-1] )),
 		0, 0, 0, 0,  0,		// NB: LAST ZERO PAR - inc_num (?????)
 		&left_chars, &right_chars, &signums,
 		&left_mode, &right_mode);
@@ -405,25 +405,25 @@ return signums.incline;
 }
 
 
-static int16_t lnhead_to_centers(lnhead *lin, int16_t wid,
-        center_interval center[],uchar left[], uchar right[])
+static Int16 lnhead_to_centers(lnhead *lin, Int16 wid,
+        center_interval center[],Word8 left[], Word8 right[])
 {
- int16_t ll,ind,n;
+ Int16 ll,ind,n;
  lnhead   *line;
  interval *inter;
- uchar l,r,h;
+ Word8 l,r,h;
  center_interval *p_center=&center[0];
 
-for (n=0,line=lin; (ll=line->lth)>0; line=(lnhead *)((uchar*)line+ll))
+for (n=0,line=lin; (ll=line->lth)>0; line=(lnhead *)((Word8*)line+ll))
 	{
-	h=(uchar)line->h;
+	h=(Word8)line->h;
 	n += h;
 	if( n>=LIMIT_CENTER )
 		return( 0 );
-  for( ind=line->row,inter=(interval *)((uchar*)line+sizeof(lnhead));
+  for( ind=line->row,inter=(interval *)((Word8*)line+sizeof(lnhead));
       h ;ind++,h--,inter++)     /* one line    */
 		{
-    int16_t inter_e, inter_l;
+    Int16 inter_e, inter_l;
 		  if( ind>=LIMIT_HEIGHT )
 			  return 0;
     inter_e = inter->e, inter_l = inter->l;
@@ -443,9 +443,9 @@ for (n=0,line=lin; (ll=line->lth)>0; line=(lnhead *)((uchar*)line+ll))
 return(n);
 }
 
-static int16_t num_of_lines(center_interval center[],int16_t nc,int16_t dy,int16_t hist[])
+static Int16 num_of_lines(center_interval center[],Int16 nc,Int16 dy,Int16 hist[])
 {
-int16_t n,*r,*e,ret;
+Int16 n,*r,*e,ret;
 center_interval *p_center,*p_end=&center[nc];
 
 memset(hist,0,dy*sizeof(hist[0]));
@@ -462,7 +462,7 @@ dy -= 2;
 ret = (n<<2>(dy-2)*3);      /* !!!???!!! */
 if( ret==0 )
   {    /* normal number of Int16ervals */
-  int16_t i,j;
+  Int16 i,j;
   for(i=1;i<dy&&hist[i]==1;i++); /* one Int16erval in row     */
   for(j=i;i<dy&&hist[i]>=2;i++); /* more 1 Int16ervals        */
 	if( (i-j)<<1>dy )
@@ -474,9 +474,9 @@ else ret = 0; /* nc<=dy */
 return(ret);  /* 0 - OK, 1 - bad c_comp (>1 line) */
 }
 
-static int16_t first_tg(INC_BASE *tab_inc[], int16_t num_inc, int16_t tg2048 )
+static Int16 first_tg(INC_BASE *tab_inc[], Int16 num_inc, Int16 tg2048 )
 {
-int16_t i;
+Int16 i;
 if( abs(tg2048)>32 )      /* nonzero incline      */
 	{
 	for(i=0; i<num_inc && tg2048>tab_inc[i]->tg;i++);
@@ -494,11 +494,11 @@ else
 return(i);
 }
 
-static int16_t abris_expansion (uchar left[], uchar right[],
-          int16_t dy, int16_t dx, int16_t tab_angle[])  {
+static Int16 abris_expansion (Word8 left[], Word8 right[],
+          Int16 dy, Int16 dx, Int16 tab_angle[])  {
 							// 09.12.1993
-int16_t i, opt;
-int16_t k, max_negat_left=0, max_negat_right=0; // 09.12.1993
+Int16 i, opt;
+Int16 k, max_negat_left=0, max_negat_right=0; // 09.12.1993
 
 opt = MAX (tab_angle[0], tab_angle[dy-1]);  // NB: NO VERY GOOD !!!
 for (i=0; i<dy; i++) {	/* dilate (step=4) and shift (inc = tab_angle) */
@@ -510,10 +510,10 @@ for (i=0; i<dy; i++) {	/* dilate (step=4) and shift (inc = tab_angle) */
 		k = opt + (left [i] << 2) - tab_angle [i];	// 09.12.1993
 //////		if (k<0)  k = 0;	// NEGAT CASE (It is possible !!!!!!)
 		if (k<0)  if (max_negat_left>k)  max_negat_left = k;
-		left [i] = (uchar)k;
+		left [i] = (Word8)k;
 		}
         else
-		left[i] = (uchar)opt;  /* empty string */
+		left[i] = (Word8)opt;  /* empty string */
 
 	if ( right[i]!=0xFF )  {
 		/******************************	BEFORE 09.12.1993
@@ -523,28 +523,28 @@ for (i=0; i<dy; i++) {	/* dilate (step=4) and shift (inc = tab_angle) */
 		k = opt + ((dx - 1 - right[i]) << 2) - tab_angle [i];
 //////		if (k<0)  k = 0;	// NEGAT CASE (It is possible !!!!!!)
 		if (k<0)  if (max_negat_right>k)  max_negat_right = k;
-		right [i] = (uchar)k;
+		right [i] = (Word8)k;
 		}
 	else
-		right[i] = (uchar)opt; /* empty string  */
+		right[i] = (Word8)opt; /* empty string  */
 	}
 /*......................................................................*/
 if (max_negat_left)					// 09.12.1993
-  for (i=0; i<dy; i++)  left [i] -= (uchar) max_negat_left;
+  for (i=0; i<dy; i++)  left [i] -= (Word8) max_negat_left;
 
 if (max_negat_right)
-  for (i=0; i<dy; i++)  right [i] -= (uchar) max_negat_right;
+  for (i=0; i<dy; i++)  right [i] -= (Word8) max_negat_right;
 
 return(1);
 }
 
-int16_t dis_I (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {	// 17.01.1994
+Int16 dis_I (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {	// 17.01.1994
 
-int16_t	dis=0, t, lmu, rmu, lmd, rmd, num_l, num_n, num_z,z;
-int16_t	sl=l->num_flags, sr=r->num_flags;
-int16_t	wid=s->stick_width, inc=s->inc, dy=s->height;
-int16_t	max_u, max_d;
-int16_t	d_L, d_R;	// 24.02.1993
+Int16	dis=0, t, lmu, rmu, lmd, rmd, num_l, num_n, num_z,z;
+Int16	sl=l->num_flags, sr=r->num_flags;
+Int16	wid=s->stick_width, inc=s->inc, dy=s->height;
+Int16	max_u, max_d;
+Int16	d_L, d_R;	// 24.02.1993
 
 	dis = 0;		// 18.11.1993 (0 or 100);
    if( s->incline>256 )
@@ -756,11 +756,11 @@ if (wid*2+1>=dy &&	// k11/31 "PERFORMERCE", last 'E' 21*11, wid=10
 
 	return(dis);
 }
-int16_t dis_slash (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t typ_add)
+Int16 dis_slash (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, Int16 typ_add)
 {
-int16_t dis=0;            // 13.12.1993
-////int16_t wid = s->stick_width; NOT USED NOW
-int16_t inc=s->incline;
+Int16 dis=0;            // 13.12.1993
+////Int16 wid = s->stick_width; NOT USED NOW
+Int16 inc=s->incline;
 
 if( s->incline<300/*64*/ )
   dis += 100;
@@ -807,13 +807,13 @@ return(dis);
 
 
 extern int32_t   dif_typ_of_font;
-int16_t dis_1 (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s, int16_t typ_add)
+Int16 dis_1 (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s, Int16 typ_add)
 {							// 17.01.1994
-int16_t   dis_sI=0;
-int16_t	dis=0, t, lmu, rmu, lmd, rmd, dy=s->height;
-int16_t	wid=s->stick_width, inc=s->inc;
-int16_t	tt = (dy>30) ? 2 : 1;	// 25.02.1993	// CAUTION: USED TWICE ######
-//////int16_t	d_L, d_R;	// 04.06.1993
+Int16   dis_sI=0;
+Int16	dis=0, t, lmu, rmu, lmd, rmd, dy=s->height;
+Int16	wid=s->stick_width, inc=s->inc;
+Int16	tt = (dy>30) ? 2 : 1;	// 25.02.1993	// CAUTION: USED TWICE ######
+//////Int16	d_L, d_R;	// 04.06.1993
 if( typ_add && s->incline>256 )
     return 200;
 if( !digit_mode )
@@ -902,7 +902,7 @@ if( inc && ( r->down_hook || r->mount[3]>1 ))
 /*..................................................*/
 if( typ_add==0 && !(s->typ_nose_1&&l->mount[0]>wid) )	/* not add */
 {
-int16_t ser = l->up_serif + r->up_serif + l->down_serif + r->down_serif ;
+Int16 ser = l->up_serif + r->up_serif + l->down_serif + r->down_serif ;
 
 if(0)
 //if(  language != LANG_RUSSIAN )
@@ -920,7 +920,7 @@ if ( (r->conc[0]>1 && r->conc[4]>1) ||	// OLD OLEG
 	dis += tab_1[16];		// this also ')'-config		// 40
 if( (r->conc[0] || r->conc[1]) && r->mount[4]>2 && l->mount[4]>2 )
 	{	/* pitch є */
-	int16_t tt=find_neck(l,r,1);
+	Int16 tt=find_neck(l,r,1);
 /******	if( tt<2 ) ******/
 	if( tt>=0  &&  tt<2 )		// 31.05.1993 (WAS ERROR if FFFF)
 		dis += tab_1[13];	// similar    є			// 20
@@ -984,7 +984,7 @@ if (l->mount[1]>2  &&  			// 22.10.1993 for TOO DOWN NOSE
     }
 if( digit_mode )
     {
-    int16_t s_dis=dis;
+    Int16 s_dis=dis;
     dis=0;
     DIS_CENTER_FLAGS(l,r,2,wid,inc,tab_1[6],tab_1[7]);		// 60,12
     DIS_CENTER_CONCS(l,r,2,inc,tab_1[6],tab_1[7]);			// 60,12
@@ -1068,9 +1068,9 @@ if(0)
 return(dis);
 }
 
-int16_t	find_neck(STICK_CHARS *l, STICK_CHARS *r,int16_t lim_long)
+Int16	find_neck(STICK_CHARS *l, STICK_CHARS *r,Int16 lim_long)
 {
-int16_t i,num,minim,m,rr,ll;
+Int16 i,num,minim,m,rr,ll;
 
 for(num=-1,minim=m=i=0;i<3;i++)
 	{
@@ -1088,9 +1088,9 @@ for(num=-1,minim=m=i=0;i<3;i++)
 return( num );
 }
 
-int16_t	find_beam (STICK_CHARS *l, STICK_CHARS *r,int16_t lim_long)
+Int16	find_beam (STICK_CHARS *l, STICK_CHARS *r,Int16 lim_long)
 {
-int16_t i,num,maxim,m,rr,ll;
+Int16 i,num,maxim,m,rr,ll;
 
 for(num=-1,maxim=m=i=0;i<3;i++)
 	{
@@ -1108,12 +1108,12 @@ for(num=-1,maxim=m=i=0;i<3;i++)
 return( num );
 }
 
-int16_t dis_circle_brace(STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s, int16_t typ)
+Int16 dis_circle_brace(STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s, Int16 typ)
 {
-int16_t dis=0;
-int16_t inc = s->inc;
-int16_t sl=l->num_flags,sr=r->num_flags,wid=s->stick_width;
-int16_t   lu, ld, ru, rd;
+Int16 dis=0;
+Int16 inc = s->inc;
+Int16 sl=l->num_flags,sr=r->num_flags,wid=s->stick_width;
+Int16   lu, ld, ru, rd;
 
 if( l->up_serif && r->up_serif &&
     ( !inc || l->down_serif + r->down_serif>2 && !inc)  )
@@ -1235,14 +1235,14 @@ else    /* right */
 return(dis);
 }
 
-static int16_t dis_l (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
+static Int16 dis_l (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 {
 							// 17.01.1994
-int16_t	dis=0, t, lmu, rmu, lmd, rmd, num_l, num_z, dy=s->height;
-int16_t	sl=l->num_flags, sr=r->num_flags;
-int16_t	wid=s->stick_width, inc=s->inc;
-int16_t	tt;		// MK WORK 28.01.1992
-int16_t	d_L, d_R;	// 23.02.1993
+Int16	dis=0, t, lmu, rmu, lmd, rmd, num_l, num_z, dy=s->height;
+Int16	sl=l->num_flags, sr=r->num_flags;
+Int16	wid=s->stick_width, inc=s->inc;
+Int16	tt;		// MK WORK 28.01.1992
+Int16	d_L, d_R;	// 23.02.1993
 
 //	dis = dis_LIMIT_EEM;		// 18.11.1993 (0 or 100);
 if( s->incline>256 )
@@ -1288,7 +1288,7 @@ if( !inc && l->down_serif && r->down_serif )
 	DIS_DIFFERENT_SERIFS(l,r,4,2,wid,tab_l[2]);		// *6
 
 if( l->up_serif && r->up_serif && !inc )  {
-	int16_t ser = l->up_serif + r->up_serif + l->down_serif + r->down_serif;
+	Int16 ser = l->up_serif + r->up_serif + l->down_serif + r->down_serif;
 
 	DIS_CURVE(l,r,4,1,tab_l[8]);				// 10
 
@@ -1482,13 +1482,13 @@ if (wid*2+1>=dy &&	// k11/31 "PERFORMERCE", last 'E' 21*11, wid=10
 	return(dis);
 }
 
-static int16_t dis_l_stroked (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
+static Int16 dis_l_stroked (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 {
-int16_t	dis=0, t, lmu, rmu, lmd, rmd, num_l, num_z, dy=s->height;
-int16_t	sl=l->num_flags, sr=r->num_flags;
-int16_t	wid=s->stick_width, inc=s->inc;
-int16_t	tt;		// MK WORK 28.01.1992
-int16_t	d_L, d_R;	// 23.02.1993
+Int16	dis=0, t, lmu, rmu, lmd, rmd, num_l, num_z, dy=s->height;
+Int16	sl=l->num_flags, sr=r->num_flags;
+Int16	wid=s->stick_width, inc=s->inc;
+Int16	tt;		// MK WORK 28.01.1992
+Int16	d_L, d_R;	// 23.02.1993
 
 //	dis = dis_LIMIT_EEM;		// 18.11.1993 (0 or 100);
 
@@ -1531,7 +1531,7 @@ if( !inc && l->down_serif && r->down_serif )
 	DIS_DIFFERENT_SERIFS(l,r,4,2,wid,tab_l[2]);		// *6
 
 if( l->up_serif && r->up_serif && !inc )  {
-	int16_t ser = l->up_serif + r->up_serif + l->down_serif + r->down_serif;
+	Int16 ser = l->up_serif + r->up_serif + l->down_serif + r->down_serif;
 
 	DIS_CURVE(l,r,4,1,tab_l[8]);				// 10
 
@@ -1650,7 +1650,7 @@ if( wid<3 )  { l->c_meandr++;  r->c_meandr++;  }	// MODIFY c_meandr !!!
 // special polish
 if( l->mount[2]<3 || r->mount[2]<3 )
   {
-  int16_t rm=r->mount[0],lm=l->mount[0];
+  Int16 rm=r->mount[0],lm=l->mount[0];
   if( rm<r->mount[1] ) rm=r->mount[1];
   if( rm<r->mount[2] ) rm=r->mount[2];
   if( lm<l->mount[1] ) lm=l->mount[1];
@@ -1743,13 +1743,13 @@ if (wid*2+1>=dy &&	// k11/31 "PERFORMERCE", last 'E' 21*11, wid=10
 	return(dis);
 }
 
-int16_t	dis_t (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t sign_f)
+Int16	dis_t (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, Int16 sign_f)
 {							// 10.01.1994
-int16_t i, dis=0, t, lm, rm, dy=s->height, dx=s->width, t2;
-int16_t	nl=l->num_long_flags, nr=r->num_long_flags;
-int16_t	sl=l->num_flags, sr=r->num_flags;
-int16_t	wid=s->stick_width, inc=s->inc;
-int16_t	tpos;	// 18.11.1993 (old - use the same {t}, how for zone)
+Int16 i, dis=0, t, lm, rm, dy=s->height, dx=s->width, t2;
+Int16	nl=l->num_long_flags, nr=r->num_long_flags;
+Int16	sl=l->num_flags, sr=r->num_flags;
+Int16	wid=s->stick_width, inc=s->inc;
+Int16	tpos;	// 18.11.1993 (old - use the same {t}, how for zone)
 
 t = find_beam (l, r, 1);
 /*......................................................................*/
@@ -1834,7 +1834,7 @@ if( multy_language ) t2=4;
 
 	if( lm+rm>3 )	/* flags : 1,2  2,1 2,2  ... */
 		{	/* long flags */
-		int16_t im,ma;
+		Int16 im,ma;
 		if( lm*3>rm*4 && lm>3 )
 			dis += tab_t[3];  /* left>right */		// 4
 
@@ -1955,7 +1955,7 @@ if( l->m_meandr==1 && l->num_flags==1 && l->mount[4] &&
 	dis += tab_t[27];   /* head : similar to 'f' */			// 40
 
 /*......................................................................*/
-{				// MK: TOO int HOOK: for "t." ==> 't'
+{				// MK: TOO LONG HOOK: for "t." ==> 't'
 
 	if ((r->mount[4]>=lm+wid+rm) &&		// 10.03.1993
 	    (r->m_pos[4]+wid+3 > dy))		// 11.03.1993 no big hook
@@ -1979,10 +1979,10 @@ return(dis);
 }
 
 /* letter [ */            // 22.11.1993
-int16_t dis_l_sq_brace(STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s)
+Int16 dis_l_sq_brace(STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s)
 {
-int16_t dis=0, lmu, rmu, lmd, rmd, dy=s->height;
-int16_t wid=s->stick_width, inc=s->inc;
+Int16 dis=0, lmu, rmu, lmd, rmd, dy=s->height;
+Int16 wid=s->stick_width, inc=s->inc;
 
 lmu = l->mount[0];  rmu = r->mount[0];
 lmd = l->mount[4];  rmd = r->mount[4];
@@ -2052,10 +2052,10 @@ return(dis);
 }
 /*----------------------------------------------------------------------*/
 /* letter ] */            // 29.09.1993 MK
-int16_t dis_r_sq_brace(STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s)
+Int16 dis_r_sq_brace(STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s)
 {
-int16_t dis=0,lmu,rmu,lmd,rmd,dy=s->height;
-int16_t wid=s->stick_width,inc=s->inc;
+Int16 dis=0,lmu,rmu,lmd,rmd,dy=s->height;
+Int16 wid=s->stick_width,inc=s->inc;
 
 lmu = l->mount[0];  rmu = r->mount[0];
 lmd = l->mount[4];  rmd = r->mount[4];
@@ -2113,9 +2113,9 @@ return(dis);
 }
 
 /* rough propability of letter 'f' */
-static uchar config_f( STICK_CHARS *l,STICK_CHARS *r)
+static Word8 config_f( STICK_CHARS *l,STICK_CHARS *r)
 {
-uchar ret=3,lf=(l->mount[0]!=0)+(l->mount[1]!=0)+(l->mount[2]!=0),
+Word8 ret=3,lf=(l->mount[0]!=0)+(l->mount[1]!=0)+(l->mount[2]!=0),
 	rf=(r->mount[0]!=0)+(r->mount[1]!=0)+(r->mount[2]!=0),
 	br_l=(r->mount[0]&&r->mount[4]&&l->mount[2]);
 if( rf<2 && r->m_meandr==2 && r->mount[4]==0 && r->mount[3]==0 )
@@ -2132,9 +2132,9 @@ return(ret);
 }
 /*----------------------------------------------------------------------*/
 /* rough propability of letter 'r' */
-static uchar config_r( STICK_CHARS *l,STICK_CHARS *r)
+static Word8 config_r( STICK_CHARS *l,STICK_CHARS *r)
 {
-uchar ret=3,lf=(l->mount[0]!=0)+(l->mount[1]!=0)+(l->mount[2]!=0),
+Word8 ret=3,lf=(l->mount[0]!=0)+(l->mount[1]!=0)+(l->mount[2]!=0),
 	rf=(r->mount[0]!=0)+(r->mount[1]!=0);
 if( lf==0 && rf==1 )
 	ret=r->mount[0]?2:1;
@@ -2144,9 +2144,9 @@ return(ret);
 }
 /*----------------------------------------------------------------------*/
 /* rough propability of letter 't' */
-static uchar config_t( STICK_CHARS *l,STICK_CHARS *r)
+static Word8 config_t( STICK_CHARS *l,STICK_CHARS *r)
 {
-uchar ret=3,lf=(l->mount[0]!=0)+(l->mount[1]!=0)+(l->mount[2]!=0),
+Word8 ret=3,lf=(l->mount[0]!=0)+(l->mount[1]!=0)+(l->mount[2]!=0),
 	rf=(r->mount[0]!=0)+(r->mount[1]!=0)+(r->mount[2]!=0);
 
 if( lf==1 && l->m_meandr==1 && rf==1 )
@@ -2157,9 +2157,9 @@ return(ret);
 }
 /*----------------------------------------------------------------------*/
 /* rough propability of letter '1' */
-static uchar config_1( STICK_CHARS *l,STICK_CHARS *r)
+static Word8 config_1( STICK_CHARS *l,STICK_CHARS *r)
 {
-uchar ret=3;
+Word8 ret=3;
 
 if( r->mount[0]==0 && r->mount[1]==0 && r->mount[2]==0 &&
     r->mount[3]==0 && r->mount[4]==0 && l->mount[2]==0 &&
@@ -2172,9 +2172,9 @@ if( r->mount[0]==0 && r->mount[1]==0 && r->mount[2]==0 &&
     }
 return(ret);
 }
-uchar similar_wide_frt1(STICK_CHARS *left_chars,STICK_CHARS *right_chars)
+Word8 similar_wide_frt1(STICK_CHARS *left_chars,STICK_CHARS *right_chars)
 {
-uchar ret=0;
+Word8 ret=0;
 ret |= config_f(left_chars,right_chars);
 ret |= config_r(left_chars,right_chars)<<2;
 ret |= config_t(left_chars,right_chars)<<4;
@@ -2182,7 +2182,7 @@ ret |= config_1(left_chars,right_chars)<<6;
 return(ret);
 }
 
-int16_t similar_l_stroked (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
+Int16 similar_l_stroked (STICK_CHARS *l,STICK_CHARS *r,STICK_SIGNUMS *s)
 {
 return(dis_l_stroked(l,r,s)<MAX_ADD_DIS);
 }
@@ -2192,10 +2192,10 @@ return(dis_l_stroked(l,r,s)<MAX_ADD_DIS);
 //     return : propabilites letters 'f','r','t'  ( 0b00ttrrff or 0 )
 //              tt,rr,ff = 01(bad),10(good),11(verybad)
 //////////////////////////////////////////////////////////////////////
-uint16_t typ_thin_stick(lnhead *lin,int16_t dy,int16_t dx)
+Word16 typ_thin_stick(lnhead *lin,Int16 dy,Int16 dx)
 {
-int16_t wide,opt,left_mode,right_mode,inc_v, nc, num_angles,f_a;
-uint16_t ret=0;
+Int16 wide,opt,left_mode,right_mode,inc_v, nc, num_angles,f_a;
+Word16 ret=0;
 STICK_CHARS left_chars,right_chars;
 STICK_SIGNUMS signums;
 
@@ -2213,7 +2213,7 @@ f_a=first_tg(stick_inc, num_angles, nIncline );
 num_angles=MIN(LIMIT_OF_ANGLES,
            sizeof(stick_inc)/sizeof(stick_inc[0])-f_a-1);
 
-if( make_center_line_dif(GL_center, (int16_t)(nc-(GL_center[nc-1].len==1)),
+if( make_center_line_dif(GL_center, (Int16)(nc-(GL_center[nc-1].len==1)),
 		     GL_left0, GL_right0,dy, dx,
 		     &stick_inc[f_a], num_angles, GL_tab_angle,
          0, 0, 1, 0, &wide, GL_hooks, &inc_v, 1) ) // with correct
@@ -2224,7 +2224,7 @@ opt = ((MAX( GL_tab_angle[0], GL_tab_angle[dy-1] ))>>1)<<1;
 abris_expansion (GL_left0, GL_right0, dy, dx, GL_tab_angle);
 
 set_stick_char (GL_left0, GL_right0, GL_hooks, dy, dx, opt, wide,
-		(int16_t)(opt - MIN ( GL_tab_angle[0], GL_tab_angle[dy-1] )),
+		(Int16)(opt - MIN ( GL_tab_angle[0], GL_tab_angle[dy-1] )),
 		0, 0, 0, 0,  0,
 		&left_chars, &right_chars, &signums,
 		&left_mode, &right_mode);

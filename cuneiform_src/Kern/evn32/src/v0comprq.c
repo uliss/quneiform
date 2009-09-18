@@ -57,39 +57,39 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "struct.h"
 #include "recdefs.h"
-extern uchar lpool[];
-extern uint16_t lpool_lth;
+extern Word8 lpool[];
+extern Word16 lpool_lth;
 #include<string.h>
 //#include"excdefs.h"
 #include"lang_def.h"
 #include "ligas.h"	// 04.06.2002 E.P.
 #include "ccomdefs.h"
 //------------------ FROM DIF.DLL
-extern uint16_t DIF_typ_thin_stick(uchar *lin,int16_t dy,int16_t dx);
+extern Word16 DIF_typ_thin_stick(Word8 *lin,Int16 dy,Int16 dx);
 //------------------ Common working fields
 extern c_comp wcomp;
-extern uchar records_change;
-extern int16_t evfulln;
+extern Word8 records_change;
+extern Int16 evfulln;
 extern version *start_rec, *rec_ptr;
 static version records[128];
-extern uchar work_raster[];
-extern  uchar language;
+extern Word8 work_raster[];
+extern  Word8 language;
 
 //------------------ Common definitions
 #define PURE_DUST_HEIGHT 3
 #define PURE_DUST_WIDTH  3
 
 //------------------ Common functions definitions
-uint16_t events_recog();
-uint16_t events_recog_rt();
-uint16_t sort_events_vers();
+Word16 events_recog();
+Word16 events_recog_rt();
+Word16 sort_events_vers();
 void pidx_crit();
 void save_wcomp();
-//void sort_events_box(version *p, uint16_t n);
-int16_t stick_w_4();
+//void sort_events_box(version *p, Word16 n);
+Int16 stick_w_4();
 
 //------------------ Internal functions
-static void setvers (uchar* p);
+static void setvers (Word8* p);
 void recog_one();
 
 //------------------ Recognition cases
@@ -121,10 +121,10 @@ void recog_one();
 #define cs_comma_dot		38	// determined as comma or dot by
 					// comma_dot criterium
 
-static uchar v_dash_defis[] = {ch_punct,cs_dash_defis_size,0};
-static uchar v_side_punct[] = {ch_punct,cs_punct_sw_size,0};
-static uchar v_up_punct[] = {ch_punct,cs_punct_up_size,0};
-static uchar v_sq_punct[] = {ch_punct,cs_punct_sq_size,0};
+static Word8 v_dash_defis[] = {ch_punct,cs_dash_defis_size,0};
+static Word8 v_side_punct[] = {ch_punct,cs_punct_sw_size,0};
+static Word8 v_up_punct[] = {ch_punct,cs_punct_up_size,0};
+static Word8 v_sq_punct[] = {ch_punct,cs_punct_sq_size,0};
 //static BYTE v_small_stick[] = {ch_letter,cs_stick_by_size,
 //		'l','i','I','!','j','f','t',0};
 //static BYTE v_stick_by_size[] = {ch_letter,cs_stick_by_size,
@@ -132,8 +132,8 @@ static uchar v_sq_punct[] = {ch_punct,cs_punct_sq_size,0};
 //static BYTE v_temp_one_line[] = {ch_stick,cs_one_line_ltr,0};
 //static BYTE v_comma_dot[] = {ch_punct,cs_comma_dot,0};
 
-static uint32_t check_iIl1();	// 04.06.2002 E.P.
-static uint32_t check_letter(uchar let); // 18.06.2002 E.P.
+static Word32 check_iIl1();	// 04.06.2002 E.P.
+static Word32 check_letter(Word8 let); // 18.06.2002 E.P.
 
 
 void recog_save_maden()
@@ -150,9 +150,9 @@ void alone_comp()
 }
 
 #define s_ans(a) { rec_ptr->let = a; rec_ptr->prob = 254; rec_ptr++; }
-int16_t stick_w_4()
+Int16 stick_w_4()
 {
- int16_t answ;
+ Int16 answ;
  answ = DIF_typ_thin_stick(lpool,wcomp.h,wcomp.w);
  rec_ptr = start_rec;
  if (answ == 0) goto ret;
@@ -192,7 +192,7 @@ void recog_cutlong()
 extern Bool32  enable_save_stat;
 void recog_one()
 {
- int16_t nvers;
+ Int16 nvers;
 
  //// Reset	/////
  wcomp.cs = 0;
@@ -275,7 +275,7 @@ not_letter:
  wcomp.type = ch_merge; wcomp.cs = cs_net_cut; return;
 }
 
-static void setvers(uchar* p)
+static void setvers(Word8* p)
 {
  version *v = start_rec;
  wcomp.type = *p++; wcomp.cs = *p++;
@@ -283,14 +283,14 @@ static void setvers(uchar* p)
  wcomp.nvers = (rec_ptr = v) - start_rec;
 }
 
-uint32_t recog_letter()
+Word32 recog_letter()
 {
  recog_one();
  return wcomp.nvers;
 }
 
 
-uint32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, uchar * lp,uint16_t lth)
+Word32 recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, Word8 * lp,Word16 lth)
 {
 memset(&wcomp,0,sizeof(wcomp));
 wcomp.h=      ec->h;
@@ -309,7 +309,7 @@ return wcomp.nvers;
 }
 
 
-uint32_t check_iIl1()
+Word32 check_iIl1()
 {
 // Выдает количество палочных версий iIl1
 version *p = start_rec;
@@ -326,7 +326,7 @@ while ( p < rec_ptr )
 return n;
 }
 
-uint32_t check_letter(uchar let)
+Word32 check_letter(Word8 let)
 {
 // Проверяет наличие версии. 18.06.2002 E.P.
 version *p = start_rec;

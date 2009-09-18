@@ -62,10 +62,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :  Формальности ввода/вывода (с унифицированным буфером и без).*/
 /*----------------------------------------------------------------------------*/
 #include "cline.h"
-/* !!! Bool LoadLinesVP_rv (Handle hC, int Type, void *vB, char *pStr, uint16_t *pCode); */
-Bool LoadLinesVP_rv (CLINE_handle hC, int Type, void *vB, char *pStr, uint16_t *pCode);
-/* !!! только для вызова MyReSetLines */void GetKeysPumaVP (void *vLti, uint32_t *pKeyHor, uint32_t *pKeyVer);
-Bool GetSomeKeys_rv (void *vB, uint32_t *pKeyHor, uint32_t *pKeyVer
+/* !!! Bool LoadLinesVP_rv (Handle hC, int Type, void *vB, char *pStr, Word16 *pCode); */
+Bool LoadLinesVP_rv (CLINE_handle hC, int Type, void *vB, char *pStr, Word16 *pCode);
+/* !!! только для вызова MyReSetLines */void GetKeysPumaVP (void *vLti, Word32 *pKeyHor, Word32 *pKeyVer);
+Bool GetSomeKeys_rv (void *vB, Word32 *pKeyHor, Word32 *pKeyVer
 					 , int *pCntHor, int *pCntVer, char *pStr);
 Bool LoadLinesTotalInfo_rv (Handle hC, void *vB, char *pStr);
 Bool LoadLinesSpecInfo (Handle hC, void *vB, Handle Key, int Cnt);

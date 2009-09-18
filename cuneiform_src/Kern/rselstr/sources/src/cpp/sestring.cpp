@@ -91,11 +91,11 @@ void StringPrepare (void)
 
     String.pLettersList =(int*) malloc (nRoots * sizeof (int));
     if (String.pLettersList == NULL)
-        ErrorNoEnoughMemory ((uchar*)"in SESTRING.C,StringPrepare,part 1");
+        ErrorNoEnoughMemory ((Word8*)"in SESTRING.C,StringPrepare,part 1");
 
     String.pDustList =(int*) malloc (nRoots * sizeof (int));
     if (String.pDustList == NULL)
-        ErrorNoEnoughMemory ((uchar*)"in SESTRING.C,StringPrepare,part 2");
+        ErrorNoEnoughMemory ((Word8*)"in SESTRING.C,StringPrepare,part 2");
 
     bNeedFreeString = TRUE;
 }
@@ -325,7 +325,7 @@ void StringAddDust2 (STRING *pString, int iRoot)
                      * sizeof (int)));
 
         if (pString -> pDustList == NULL)
-        ErrorNoEnoughMemory ((uchar*)"in SESTRING.C,StringAddDust2,part 1");
+        ErrorNoEnoughMemory ((Word8*)"in SESTRING.C,StringAddDust2,part 1");
     }
 
     pString -> pDustList [pString -> nDust++] = iRoot;
@@ -338,7 +338,7 @@ STRING *StringAddToList (void)
 
     pNew =(STRING*) malloc (sizeof (STRING));
     if (pNew == NULL)
-        ErrorNoEnoughMemory ((uchar*)"in SESTRING.C,StringAddToList,part 1");
+        ErrorNoEnoughMemory ((Word8*)"in SESTRING.C,StringAddToList,part 1");
 
     memcpy (pNew, &String, sizeof (String));
 
@@ -347,7 +347,7 @@ STRING *StringAddToList (void)
         pNew -> pLettersList =(int*) malloc (String.nLetters * sizeof (int));
 
         if (pNew -> pLettersList == NULL)
-        ErrorNoEnoughMemory ((uchar*)"in SESTRING.C,StringAddToList,part 2");
+        ErrorNoEnoughMemory ((Word8*)"in SESTRING.C,StringAddToList,part 2");
 
         memcpy (pNew -> pLettersList,
                 String.pLettersList,
@@ -363,7 +363,7 @@ STRING *StringAddToList (void)
         pNew -> pDustList =(int*) malloc (String.nDust * sizeof (int));
 
         if (pNew -> pDustList == NULL)
-        ErrorNoEnoughMemory ((uchar*)"in SESTRING.C,StringAddToList,part 3");
+        ErrorNoEnoughMemory ((Word8*)"in SESTRING.C,StringAddToList,part 3");
 
         memcpy (pNew -> pDustList,
                 String.pDustList,

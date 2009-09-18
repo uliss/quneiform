@@ -97,8 +97,8 @@ extern FILE* f_old_cut;
 extern int inf_let_h;
 extern Bool type_let;
 extern int inf_dust_h;
-extern uint32_t Code_UB_Kill;
-extern uint32_t Code_UB_Create;
+extern Word32 Code_UB_Kill;
+extern Word32 Code_UB_Create;
 
 Bool IfNeedCutComp(CCOM_comp* comp, Point32 beg, Point32 end, int& yCut);
 int GetLineY(Point32 beg, Point32 end, int x);
@@ -107,14 +107,14 @@ Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
 void CleanRaster(RecRaster* rast, Rect16* rect, int scale);
 Bool Increase2(RecRaster* rast, CCOM_comp* comp);
 int GetCountNumbers(int num);
-void DrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top, int bottom,
+void DrawRect(Handle wnd, Word32 OperCode, Word32 color, int top, int bottom,
 		int left, int right);
 Bool IfWhiteRow(RecRaster* rast, int row);
 int GetMediumH(CCOM_handle hCCOM);
 void IfDifCutComp(void);
 Bool IfEqv(char* buf1, char* buf2);
 Bool IfEqv(Rect16 r1, Rect16 r2);
-Handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, Bool neg,
+Handle GetStrCCOM(Handle hCPage, Word8* ImageName, Rect16 Rc, Bool neg,
 		Bool vertical, RecRaster* rast, int min_h);
 void MyKillComp(CCOM_comp* comp);
 void MyCreateComp(CCOM_comp* comp);
@@ -201,10 +201,10 @@ Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
 	Rect16 rect2;
 	CCOM_comp* comp1;
 	CCOM_comp* comp2;
-	uchar* lp=NULL;
-	// uchar* old;
-			// int16_t lp_size;
-			// int16_t numcomp;
+	Word8* lp=NULL;
+	// Word8* old;
+			// Int16 lp_size;
+			// Int16 numcomp;
 
 
 			for(ii=rast_bound*8*((rast.lnPixWidth+63)/64);ii<j;ii++)
@@ -466,7 +466,7 @@ Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
 // delete[] lp;
 }
 
-void DrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top, int bottom,
+void DrawRect(Handle wnd, Word32 OperCode, Word32 color, int top, int bottom,
 		int left, int right) {
 
 	Rect16 Rect;
@@ -638,12 +638,12 @@ void IfDifCutComp(void) {
 
 }
 
-Handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, Bool neg,
+Handle GetStrCCOM(Handle hCPage, Word8* ImageName, Rect16 Rc, Bool neg,
 		Bool vertical, RecRaster* rast, int min_h) {
 	int min_w, max_h, max_w;
 	// int j;
 	PAGEINFO info = { 0 };
-	// uchar Name[CPAGE_MAXNAME];
+	// Word8 Name[CPAGE_MAXNAME];
 	GetPageInfo(hCPage, &info);
 
 	// if(ImageName)
@@ -710,13 +710,13 @@ Handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, Bool neg,
 
 void MyKillComp(CCOM_comp* comp) {
 	if (Code_UB_Kill && Code_UB_Create) {
-		int size = sizeof(uint32_t);
+		int size = sizeof(Word32);
 		CCOM_USER_BLOCK ub;
 		ub.code = Code_UB_Create;
 		if (!CCOM_GetUserBlock(comp, &ub)) {
 			ub.code = Code_UB_Kill;
 			ub.size = size;
-			ub.data = (uchar*) (&Code_UB_Kill);
+			ub.data = (Word8*) (&Code_UB_Kill);
 			CCOM_SetUserBlock(comp, &ub);
 		}
 	}
@@ -725,11 +725,11 @@ void MyKillComp(CCOM_comp* comp) {
 }
 
 void MyCreateComp(CCOM_comp* comp) {
-	int size = sizeof(uint32_t);
+	int size = sizeof(Word32);
 	CCOM_USER_BLOCK ub;
 	ub.code = Code_UB_Create;
 	ub.size = size;
-	ub.data = (uchar*) (&Code_UB_Create);
+	ub.data = (Word8*) (&Code_UB_Create);
 	CCOM_SetUserBlock(comp, &ub);
 }
 

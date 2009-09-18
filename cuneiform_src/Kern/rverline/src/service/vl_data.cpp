@@ -84,16 +84,16 @@ FNCPAGE_GetBlockNext GetBlockNext;
 FNCPAGE_GetBlockData GetBlockData;
 /*------------extern functions------------------------------------------------*/
 void MyErrorNoMem (const char* str);
-void   SetReturnCode_rverline (uint16_t rc);
+void   SetReturnCode_rverline (Word16 rc);
 /*------------own functions---------------------------------------------------*/
 Bool MyInit_CPage ();
-Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage, uint32_t *pHoriType, uint32_t *pVertType, char *pStr);
+Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage, Word32 *pHoriType, Word32 *pVertType, char *pStr);
 Bool MyGetComp (Handle hCCOM, Rect16 *pRc, int *nRC, int MyMaxC, int Filter);
 void Error_CPage (const char *str);
 Bool MyFormZhertvy (Handle hCCOM, void **vvZher, int *iZher, int nZher, int Filter);
 Bool MySetZher (void **vvZher, int nZher, Handle hCPage);
 Bool MyGetZher (void **vvZher, int *nZher, int MaxZher, Handle hCPage);
-Bool MyGetRaster (Handle hCPage, VL_I_TASK *pTask, uchar **ppData);
+Bool MyGetRaster (Handle hCPage, VL_I_TASK *pTask, Word8 **ppData);
 /*----------------------------------------------------------------------------*/
 Bool MyInit_CPage ()
 {
@@ -122,7 +122,7 @@ Bool MyInit_CPage ()
 Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle *hCPage, Handle *pHoriType, Handle *pVertType, char *pStr)
 {
 	int i;
-	uint32_t err32, nTeor, nReal;
+	Word32 err32, nTeor, nReal;
 	Handle hBlockLine;
 	Handle hBlockLineHor;
 	Handle hBlockLineVer;
@@ -256,24 +256,24 @@ Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin,CLINE_handle hCLINE,char *p
 
 		if(cpdata->Dir==LD_Horiz)
 		{
-			pLHor[count_hor].A.x=(int16_t)(cpdata->Line.Beg_X);
-			pLHor[count_hor].A.y=(int16_t)(cpdata->Line.Beg_Y);
-			pLHor[count_hor].B.x=(int16_t)(cpdata->Line.End_X);
-			pLHor[count_hor].B.y=(int16_t)(cpdata->Line.End_Y);
+			pLHor[count_hor].A.x=(Int16)(cpdata->Line.Beg_X);
+			pLHor[count_hor].A.y=(Int16)(cpdata->Line.Beg_Y);
+			pLHor[count_hor].B.x=(Int16)(cpdata->Line.End_X);
+			pLHor[count_hor].B.y=(Int16)(cpdata->Line.End_Y);
 			pLHor[count_hor].Thickness=cpdata->Line.Wid10/10;
-			pLHor[count_hor].SegCnt=(int16_t)(cpdata->n_event);
+			pLHor[count_hor].SegCnt=(Int16)(cpdata->n_event);
 			pLHor[count_hor].Quality=(cpdata->Dens*255)/100;
 			pLHor[count_hor].Flags=cpdata->Flags;
 			count_hor++;
 		}
 		else
 		{
-			pLVer[count_ver].A.x=(int16_t)(cpdata->Line.Beg_X);
-			pLVer[count_ver].A.y=(int16_t)(cpdata->Line.Beg_Y);
-			pLVer[count_ver].B.x=(int16_t)(cpdata->Line.End_X);
-			pLVer[count_ver].B.y=(int16_t)(cpdata->Line.End_Y);
+			pLVer[count_ver].A.x=(Int16)(cpdata->Line.Beg_X);
+			pLVer[count_ver].A.y=(Int16)(cpdata->Line.Beg_Y);
+			pLVer[count_ver].B.x=(Int16)(cpdata->Line.End_X);
+			pLVer[count_ver].B.y=(Int16)(cpdata->Line.End_Y);
 			pLVer[count_ver].Thickness=cpdata->Line.Wid10/10;
-			pLVer[count_ver].SegCnt=(int16_t)(cpdata->n_event);
+			pLVer[count_ver].SegCnt=(Int16)(cpdata->n_event);
 			pLVer[count_ver].Quality=(cpdata->Dens*255)/100;
 			pLVer[count_ver].Flags=cpdata->Flags;
 			count_ver++;
@@ -292,7 +292,7 @@ Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin,CLINE_handle hCLINE,char *p
 Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType, Handle VertType)
 {
 	int i;
-	uint32_t err32, nTeor;//, nReal;
+	Word32 err32, nTeor;//, nReal;
 	Bool32 nReal;//differ
 	Handle hBlockLine;
 	Handle hBlockLineHor;
@@ -451,12 +451,12 @@ Bool MyReSetLines (void *vLti, int MaxNumLin, CLINE_handle hCLINE)
 /*----------------------------------------------------------------------------*/
 void Error_CPage (const char *str)
 {
-	uchar  err8;
-	uint16_t Code;
-	err8 = (uchar)ER_ROUGH_NORMAL;
-	Code = (uint16_t)(err8<<8);
-	err8 = (uchar)ER_DETAIL_FUNC_CPAGE;
-	Code |= (uint16_t)err8;
+	Word8  err8;
+	Word16 Code;
+	err8 = (Word8)ER_ROUGH_NORMAL;
+	Code = (Word16)(err8<<8);
+	err8 = (Word8)ER_DETAIL_FUNC_CPAGE;
+	Code |= (Word16)err8;
 	SetReturnCode_rverline (Code);
 	AM_Console ("RVERLINE : Ошибка чужой библиотеки - [CPAGE]%s", str);
 }
@@ -568,7 +568,7 @@ Bool MyFormZhertvy (Handle hCCOM, void **vvZher, int *iZher, int nZher, int Filt
 /*----------------------------------------------------------------------------*/
 Bool MySetZher (void **vvZher, int nZher, Handle hCPage)
 {
-	uint32_t err32, nTeor;//, nReal;//dwTableType
+	Word32 err32, nTeor;//, nReal;//dwTableType
 	Handle hBlockZher;
 	int i;
 	nTeor = sizeof (void *);
@@ -596,7 +596,7 @@ Bool MySetZher (void **vvZher, int nZher, Handle hCPage)
 /*----------------------------------------------------------------------------*/
 Bool MyGetZher (void **vvZher, int *nZher, int MaxZher, Handle hCPage)
 {
-	uint32_t err32, nTeor, nReal;
+	Word32 err32, nTeor, nReal;
 	Handle hBlockZher;
 	Handle hBlockPrev;
 	int i;
@@ -636,18 +636,18 @@ Bool MyGetZher (void **vvZher, int *nZher, int MaxZher, Handle hCPage)
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-Bool MyGetRaster (Handle hCPage, VL_I_TASK *pTask, uchar **ppData)
+Bool MyGetRaster (Handle hCPage, VL_I_TASK *pTask, Word8 **ppData)
 {
     PAGEINFO info = {0};
 	CIMAGEInfoDataInGet DataInto = {0};
 	CIMAGEInfoDataOutGet DataOut = {0};
-	uchar Name[256];
+	Word8 Name[256];
 	Bool ret;
 	int i;
 	/*  1. Подготовка к запросу части изображения.  */
-	DataInto.dwHeight   = (uint32_t)pTask->MyHeight;
+	DataInto.dwHeight   = (Word32)pTask->MyHeight;
 	DataInto.dwWidth    = pTask->MyExtrWidth;
-	DataInto.wByteWidth = (int16_t)((pTask->MyExtrWidth+7)/8);//06.09.00
+	DataInto.wByteWidth = (Int16)((pTask->MyExtrWidth+7)/8);//06.09.00
 	DataInto.dwX        = pTask->MyLeft;
 	DataInto.dwY        = pTask->MyTop;
 	DataInto.MaskFlag   = 0x00;
@@ -657,7 +657,7 @@ Bool MyGetRaster (Handle hCPage, VL_I_TASK *pTask, uchar **ppData)
 	DataOut.dwWidth    = DataInto.dwWidth;
 	DataOut.dwHeight   = DataInto.dwHeight;
 	DataOut.wByteWidth = DataInto.wByteWidth;
-	DataOut.byBit      = (uint16_t)info.BitPerPixel;
+	DataOut.byBit      = (Word16)info.BitPerPixel;
 	DataOut.lpData     = *ppData;
 	/*  5. Чтение части изображения.  */
 	ret = CIMAGE_GetData (Name, &DataInto, &DataOut);

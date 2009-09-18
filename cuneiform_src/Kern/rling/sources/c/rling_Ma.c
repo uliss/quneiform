@@ -117,61 +117,61 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //      4)      call function spelling
 
 
-void * (*my_alloc)(uint32_t )= RLINGAlloc;                  //rling_alloc;
+void * (*my_alloc)(Word32 )= RLINGAlloc;                  //rling_alloc;
 void   (*my_free)(void * )= RLINGFree;             //rling_free;
 void   user_voc_init(void);
-void GetRecFileName(int16_t tab,int16_t lang, char * wname);
-void   append_by_lang (int16_t lang, char * src, char * dst);
-//uint32_t LoadUserDict(PChar8 DictName, PChar8 pool, uint32_t pool_size, voc_state *user_dict);
+void GetRecFileName(Int16 tab,Int16 lang, PInt8 wname);
+void   append_by_lang (Int16 lang, PInt8 src, PInt8 dst);
+//Word32 LoadUserDict(PChar8 DictName, PChar8 pool, Word32 pool_size, voc_state *user_dict);
 ///////////////////////////////////////////////////////////
-int16_t to_voc();
+Int16 to_voc();
 ///////////////////////////////////////////////////////////
 void trees_load_rling(void);
-static void read_rec_file(int16_t fileno, uchar * pool, uchar * * end);
-static uchar * preload_font_BOX( uchar * free );
-static uchar * load_BOX(uchar * free);
-static uchar * preload_font_BOX( uchar * free );
+static void read_rec_file(Int16 fileno, PWord8 pool, PWord8 * end);
+static PWord8 preload_font_BOX( PWord8 free );
+static PWord8 load_BOX(PWord8 free);
+static PWord8 preload_font_BOX( PWord8 free );
 static void reload_lang_vocs();
 static void correct_let_tables(void); // ўл§лў Ґвбп ў д ©«Ґ EMBBOX.C: load_BOX()
 static void correct_letters_pidx_table(void);
-static uchar * list_BOX(uchar * free, int16_t typl);
-static void straight_BOX(uchar * free);
+static PWord8 list_BOX(PWord8 free, Int16 typl);
+static void straight_BOX(PWord8 free);
 
-uchar            language;
-uchar            multy_language;
-int16_t            vocs_NOK;
-uchar            fax1x2;
+Word8            language;
+Word8            multy_language;
+Int16            vocs_NOK;
+Word8            fax1x2;
 Bool16           FlagMixedText;
-uchar *           ED_file_start   = NULL;
-uchar *           ED_file_end     = NULL;
-uchar *           ED_out_end      = NULL;
-uchar *           svbox_pool      = NULL;
-int16_t            CheckOpenBinType = (int16_t)(O_RDONLY | O_BINARY);
-int16_t            CheckOpenTxtType = (int16_t)(O_RDONLY | O_TEXT);
-int16_t            CheckOpenSubType = (int16_t)(S_IREAD);
-static uchar *    memory_pool     = NULL;       /* start of memory pool */
-static uchar *    memory_pool_end = NULL;           /* end of memory pool */
-static uchar *    auto_pool       = NULL;       /* boxes pool for auto & font tables */
-static uchar *    box_pool        = NULL;       /* boxes pool for extr_comp */
-static uchar *    events_tree     = NULL;
-static uchar *    events_tree_rt  = NULL;       /* events tree memory start */
-static uchar     sv_lang         = 255;
-static uchar *    tableBOX        = NULL;       /* BOX table memory start */
-static uchar     all_loaded      = 0;
-static uchar *    fontBOX         = NULL;        /* BOX table for font  */
-static uchar *    omniBOX         = NULL;        /* BOX save table for omni  */
+PWord8           ED_file_start   = NULL;
+PWord8           ED_file_end     = NULL;
+PWord8           ED_out_end      = NULL;
+PWord8           svbox_pool      = NULL;
+Int16            CheckOpenBinType = (Int16)(O_RDONLY | O_BINARY);
+Int16            CheckOpenTxtType = (Int16)(O_RDONLY | O_TEXT);
+Int16            CheckOpenSubType = (Int16)(S_IREAD);
+static PWord8    memory_pool     = NULL;       /* start of memory pool */
+static PWord8    memory_pool_end = NULL;           /* end of memory pool */
+static PWord8    auto_pool       = NULL;       /* boxes pool for auto & font tables */
+static PWord8    box_pool        = NULL;       /* boxes pool for extr_comp */
+static PWord8    events_tree     = NULL;
+static PWord8    events_tree_rt  = NULL;       /* events tree memory start */
+static Word8     sv_lang         = 255;
+static PWord8    tableBOX        = NULL;       /* BOX table memory start */
+static Word8     all_loaded      = 0;
+static PWord8    fontBOX         = NULL;        /* BOX table for font  */
+static PWord8    omniBOX         = NULL;        /* BOX save table for omni  */
 static int32_t     box_n           = BOX_NUM0;
 static PROOT     root_file       = NULL;                /* start of the root file */
-static uchar *    full_list[512];
-static uchar *    font_full_list[512];
-static uchar *    omni_full_list[512];
-static char      seq_name[]            = "rec0";
-char      own_dir[256]          = {"./"};
-static char      txt_ext[16]           = {"txt"};
-static int16_t     file_handle[16]       = { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
-static int16_t     file_stream[16]       = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-static int16_t     stream_op[10]         = {0,0,0,0,0,0,0,0,0,0};
-static char *lang_suff[] =
+static PWord8    full_list[512];
+static PWord8    font_full_list[512];
+static PWord8    omni_full_list[512];
+static Int8      seq_name[]            = "rec0";
+Int8      own_dir[256]          = {"./"};
+static Int8      txt_ext[16]           = {"txt"};
+static Int16     file_handle[16]       = { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
+static Int16     file_stream[16]       = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+static Int16     stream_op[10]         = {0,0,0,0,0,0,0,0,0,0};
+static Int8 *lang_suff[] =
 {
 "","grm","frn","rus","swe","spa","ita","r&e","ukr","ser","cro","pol","dan","por","dut","dig",
 "uzb","kaz","kaz",			// 04.09.2000 E.P.
@@ -197,10 +197,10 @@ void ErrorExit(int Code)
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //
-void TE_make_name (int16_t stream, char * name, char * wname)
+void TE_make_name (Int16 stream, PInt8 name, PInt8 wname)
 {
-  char * pn;
-  int16_t l;
+  PInt8 pn;
+  Int16 l;
 
         switch (stream)
         {
@@ -253,7 +253,7 @@ void TE_make_name (int16_t stream, char * name, char * wname)
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //
-void GetRecFileName(int16_t tab,int16_t lang, char * wname)
+void GetRecFileName(Int16 tab,Int16 lang, PInt8 wname)
 {
         seq_name[3] = tab + '0';
         append_by_lang (lang, seq_name, wname);
@@ -262,7 +262,7 @@ void GetRecFileName(int16_t tab,int16_t lang, char * wname)
 ////////////////////////////////////////////////////////////////////////////////////
 //
 /*
-int16_t to_voc()
+Int16 to_voc()
 {
         if (vocs_NOK == 0)
         {
@@ -277,7 +277,7 @@ int16_t to_voc()
 */
 ////////////////////////////////////////////////////////////////////////////////////
 //
-void append_by_lang (int16_t lang, char * src, char * dst)
+void append_by_lang (Int16 lang, PInt8 src, PInt8 dst)
 {
         strcpy(dst,src);
 
@@ -298,11 +298,11 @@ void append_by_lang (int16_t lang, char * src, char * dst)
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //
-int16_t TE_open(int16_t Stream, char * Name, int16_t Type, int16_t SubType)
+Int16 TE_open(Int16 Stream, PInt8 Name, Int16 Type, Int16 SubType)
 {
-        char Wname[160];
-        int16_t i;
-        int16_t fn;
+        Int8 Wname[160];
+        Int16 i;
+        Int16 fn;
 
         TE_make_name (Stream, Name, Wname);
 
@@ -326,9 +326,9 @@ int16_t TE_open(int16_t Stream, char * Name, int16_t Type, int16_t SubType)
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //
-int16_t TE_write(int16_t File, uchar * Data, uint32_t Size)
+Int16 TE_write(Int16 File, PWord8 Data, Word32 Size)
 {
-        int16_t i;
+        Int16 i;
 
         if ((i=file_handle[File]) < 0)
                 return -1;
@@ -337,17 +337,17 @@ int16_t TE_write(int16_t File, uchar * Data, uint32_t Size)
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //
-int16_t TE_table_op(int16_t Stream, int16_t Language, int16_t Type, int16_t SubType)
+Int16 TE_table_op(Int16 Stream, Int16 Language, Int16 Type, Int16 SubType)
 {
-        char Wname[20];
+        Int8 Wname[20];
 
         GetRecFileName(Stream,Language,Wname);
         return TE_open (TB_STREAM, Wname, Type, SubType);
 }
 
-int32_t TE_read(int16_t File, char * Buffer, int32_t Size)
+int32_t TE_read(Int16 File, PInt8 Buffer, int32_t Size)
 {
-        int16_t i;
+        Int16 i;
 
         if ((i=file_handle[File]) < 0)
                 return -1;
@@ -355,9 +355,9 @@ int32_t TE_read(int16_t File, char * Buffer, int32_t Size)
         return read (i, Buffer, Size);
 }
 
-int16_t TE_close(int16_t File)
+Int16 TE_close(Int16 File)
 {
-        int16_t i, s;
+        Int16 i, s;
 
         if ((File < 0) || (File > 9))
                 return -1;
@@ -373,11 +373,11 @@ int16_t TE_close(int16_t File)
         return 0;
 }
 
-char * TE_handle_fgets  ( int16_t Handle, char * Buff, int16_t Lenght )
+PInt8 TE_handle_fgets  ( Int16 Handle, PInt8 Buff, Int16 Lenght )
 {
-        char ch;
-        char * ptr = Buff;
-        int16_t  ret;
+        Int8 ch;
+        PInt8 ptr = Buff;
+        Int16  ret;
 
         if ( Handle <= 0 || Buff == NULL || Lenght < 1 )
         {
@@ -386,7 +386,7 @@ char * TE_handle_fgets  ( int16_t Handle, char * Buff, int16_t Lenght )
 
         while ( Lenght > 1 )
         {
-                ret =(int16_t)TE_read( Handle, &ch, 1L );
+                ret =(Int16)TE_read( Handle, &ch, 1L );
 
                 if ( ret < 0  )
                 {
@@ -424,9 +424,9 @@ char * TE_handle_fgets  ( int16_t Handle, char * Buff, int16_t Lenght )
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-int32_t TE_file_length(int16_t fn)
+int32_t TE_file_length(Int16 fn)
 {
-        int16_t i;
+        Int16 i;
 
         if ((i=file_handle[fn]) < 0)
                 return -1;
@@ -434,7 +434,7 @@ int32_t TE_file_length(int16_t fn)
         return filelength (i);
 }
 
-void ed_out_write(uchar * p, uint16_t size)
+void ed_out_write(PWord8 p, Word16 size)
 {
         if ( ED_out_end )
         {
@@ -460,12 +460,12 @@ void trees_load_rling()
 }
 ////////////////////////////////////////////////////////
 //
-void read_rec_file(int16_t fileno, uchar * pool, uchar * * end)
+void read_rec_file(Int16 fileno, PWord8 pool, PWord8 * end)
 {
-        uint32_t l;
-        int16_t h;
+        Word32 l;
+        Int16 h;
 
-        h = TBOPEN(fileno,-1,(int16_t)(O_RDONLY|O_BINARY), 0);
+        h = TBOPEN(fileno,-1,(Int16)(O_RDONLY|O_BINARY), 0);
 
         if (h==-1)
                 ErrorExit(RLING_ERROR_CANT_OPEN_TABLE);
@@ -502,9 +502,9 @@ void reload_lang_vocs()
 
 //      roots_lth = box_n;
 //      roots_lth *= BOXSIZE;
-//      root_file = (PROOT)((uchar *)box_pool + roots_lth);
+//      root_file = (PROOT)((PWord8)box_pool + roots_lth);
 
-//      if (memory_pool_end <= (uchar *)root_file)
+//      if (memory_pool_end <= (PWord8)root_file)
 //              ErrorExit(9);
 }
 ////////////////////////////////////////////////////////////////////////////////////////

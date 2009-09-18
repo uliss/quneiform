@@ -188,8 +188,8 @@ public:
 	OPENFILENAME m_ofn;
 #endif
 	Bool m_bOpenFileDialog;            // TRUE for file open, FALSE for file save
-	Tchar m_szFileTitle[_MAX_FNAME];   // contains file title after return
-	Tchar m_szFileName[_MAX_PATH];     // contains full path name after return
+	TCHAR m_szFileTitle[_MAX_FNAME];   // contains file title after return
+	TCHAR m_szFileName[_MAX_PATH];     // contains full path name after return
 
 	CFileDialogImpl(Bool bOpenFileDialog, // TRUE for FileOpen, FALSE for FileSaveAs
 			LPCTSTR lpszDefExt = NULL,
@@ -278,7 +278,7 @@ public:
 		return (int)GetFileDialogWindow().SendMessage(CDM_GETFILEPATH, nLength, (LPARAM)lpstrFilePath);
 	}
 
-	int GetFolderIDList(pvoid lpBuff, int nLength) const
+	int GetFolderIDList(LPVOID lpBuff, int nLength) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT((m_ofn.Flags & OFN_EXPLORER) != 0);
@@ -777,7 +777,7 @@ public:
 
 			// Allocate the new buffer.
 			LPTSTR lpstrBuff = NULL;
-			ATLTRY(lpstrBuff = new Tchar[dwLength]);
+			ATLTRY(lpstrBuff = new TCHAR[dwLength]);
 			if (lpstrBuff != NULL)
 			{
 				m_ofn.lpstrFile = lpstrBuff;
@@ -862,7 +862,7 @@ public:
 					// Get the ID-list and attributes of the file.
 					USES_CONVERSION;
 					int nFileNameLength = (int)(DWORD_PTR)(pChar - pAnchor);
-					Tchar szFileName[MAX_PATH];
+					TCHAR szFileName[MAX_PATH];
 					SecureHelper::strncpy_x(szFileName, MAX_PATH, pAnchor, nFileNameLength);
 					LPITEMIDLIST pidl = NULL;
 					DWORD dwAttrib = SFGAO_LINK;
@@ -876,7 +876,7 @@ public:
 							if (SUCCEEDED(pFolder->BindToObject(pidl, NULL, IID_IShellLink, (void**)&pLink)))
 							{
 								// Get the shortcut's target path.
-								Tchar szPath[MAX_PATH];
+								TCHAR szPath[MAX_PATH];
 								if (SUCCEEDED(pLink->GetPath(szPath, MAX_PATH, NULL, 0)))
 								{
 									// If the target path is longer than the shortcut name, then add on the number
@@ -901,12 +901,12 @@ public:
 	}
 
 	// Helper for _ATM_MIN_CRT
-	static const Tchar* _strrchr(const Tchar* p, Tchar ch)
+	static const TCHAR* _strrchr(const TCHAR* p, TCHAR ch)
 	{
 #ifndef _ATL_MIN_CRT
 		return _tcsrchr(p, ch);
 #else // _ATL_MIN_CRT
-		const Tchar* lpsz = NULL;
+		const TCHAR* lpsz = NULL;
 		while (*p != 0)
 		{
 			if (*p == ch)
@@ -1375,8 +1375,8 @@ public:
 	LPCTSTR m_lpstrInitialFolder;
 	LPCITEMIDLIST m_pidlInitialSelection;
 	bool m_bExpandInitialSelection;
-	Tchar m_szFolderDisplayName[MAX_PATH];
-	Tchar m_szFolderPath[MAX_PATH];
+	TCHAR m_szFolderDisplayName[MAX_PATH];
+	TCHAR m_szFolderPath[MAX_PATH];
 	LPITEMIDLIST m_pidlSelected;
 	HWND m_hWnd;   // used only in the callback function
 
@@ -1662,7 +1662,7 @@ public:
 	}
 
 // Implementation - try to override these, to prevent errors
-	HWND Create(HWND, ATL::_U_RECT, LPCTSTR, DWORD, DWORD, ATL::_U_MENUorID, ATOM, pvoid)
+	HWND Create(HWND, ATL::_U_RECT, LPCTSTR, DWORD, DWORD, ATL::_U_MENUorID, ATOM, LPVOID)
 	{
 		ATLASSERT(FALSE);   // should not be called
 		return NULL;
@@ -1688,7 +1688,7 @@ public:
 	enum { _cchStyleName = 64 };
 
 	CHOOSEFONT m_cf;
-	Tchar m_szStyleName[_cchStyleName];  // contains style name after return
+	TCHAR m_szStyleName[_cchStyleName];  // contains style name after return
 	LOGFONT m_lf;                        // default LOGFONT to store the info
 
 // Constructors
@@ -1933,7 +1933,7 @@ public:
 		if((cf.dwMask & CFM_SIZE) != 0)
 		{
 			HDC hDC = ::CreateDC(_T("DISPLAY"), NULL, NULL, NULL);
-			int yPerInch = ::GetDeviceCaps(hDC, LOGPIXELSY);
+			LONG yPerInch = ::GetDeviceCaps(hDC, LOGPIXELSY);
 			m_lf.lfHeight = -(int)((cf.yHeight * yPerInch) / 1440);
 		}
 		else
@@ -1986,7 +1986,7 @@ public:
 		else
 		{
 			m_lf.lfPitchAndFamily = DEFAULT_PITCH|FF_DONTCARE;
-			m_lf.lfFaceName[0] = (Tchar)0;
+			m_lf.lfFaceName[0] = (TCHAR)0;
 		}
 		return dwFlags;
 	}
@@ -2877,8 +2877,8 @@ public:
 	enum { _cchFindReplaceBuffer = 128 };
 
 	FINDREPLACE m_fr;
-	Tchar m_szFindWhat[_cchFindReplaceBuffer];
-	Tchar m_szReplaceWith[_cchFindReplaceBuffer];
+	TCHAR m_szFindWhat[_cchFindReplaceBuffer];
+	TCHAR m_szReplaceWith[_cchFindReplaceBuffer];
 
 // Constructors
 	CFindReplaceDialogImpl()
@@ -3263,7 +3263,7 @@ protected:
 	{
 		if (lpszStr == NULL)
 		{
-			Wchar szEmpty = 0;
+			WCHAR szEmpty = 0;
 			AddData(&szEmpty, sizeof(szEmpty));
 		}
 		else
@@ -3271,7 +3271,7 @@ protected:
 			USES_CONVERSION;
 			LPCWSTR lpstr = T2CW(lpszStr);
 			int nSize = lstrlenW(lpstr) + 1;
-			AddData(lpstr, nSize * sizeof(Wchar));
+			AddData(lpstr, nSize * sizeof(WCHAR));
 		}
 	}
 
@@ -3751,7 +3751,7 @@ public:
 #endif // (_WIN32_IE >= 0x0500) && !defined(_WIN32_WCE)
 
 // Implementation - override to prevent usage
-	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, pvoid = NULL)
+	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, LPVOID = NULL)
 	{
 		ATLASSERT(FALSE);
 		return NULL;
@@ -3772,7 +3772,7 @@ public:
   #ifndef PROPSHEET_LINK_SIZE
 	#define PROPSHEET_LINK_SIZE 128
   #endif // PROPSHEET_LINK_SIZE
-	Tchar m_szLink[PROPSHEET_LINK_SIZE];
+	TCHAR m_szLink[PROPSHEET_LINK_SIZE];
 	static LPCTSTR m_pszTitle;
 	static LPCTSTR m_pszLink;
 #endif // defined(_AYGSHELL_H_) || defined(__AYGSHELL_H__)
@@ -4230,7 +4230,7 @@ public:
 	}
 
 // Implementation - overrides to prevent usage
-	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, pvoid = NULL)
+	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, LPVOID = NULL)
 	{
 		ATLASSERT(FALSE);
 		return NULL;
@@ -5166,7 +5166,7 @@ public:
 	}
 
 // Implementation - override to prevent usage
-	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, pvoid = NULL)
+	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, LPVOID = NULL)
 	{
 		ATLASSERT(FALSE);
 		return NULL;
@@ -5342,7 +5342,7 @@ public:
 	}
 
 // Implementation - overrides to prevent usage
-	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, pvoid = NULL)
+	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, LPVOID = NULL)
 	{
 		ATLASSERT(FALSE);
 		return NULL;

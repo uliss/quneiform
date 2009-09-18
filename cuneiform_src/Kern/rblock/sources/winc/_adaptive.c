@@ -139,8 +139,8 @@ void * TigerReallocateMemory(void * mem, uint32_t size) {
 }
 
 
-extern MN * LOC_CLocomp(uchar* raster, int32_t bw, int32_t h, int16_t upper,
-		int16_t left);
+extern MN * LOC_CLocomp(Word8* raster, int32_t bw, int32_t h, Int16 upper,
+		Int16 left);
 extern BYTE work_raster[], work_raster_1[];
 //extern c_comp wcomp;
 extern WORD lpool_lth;
@@ -153,7 +153,7 @@ static INT comp_max_w = 128, comp_min_w = 0, comp_max_h = 64, comp_min_h = 0;
  * in locompmn.c.
  */
 /*
- MN * c_locomp (PBYTE raster, int bw, int h, INT upper, INT left)
+ MN * c_locomp (PBYTE raster, LONG bw, LONG h, INT upper, INT left)
  {
  return LOC_CLocomp (raster, bw, h, upper, left);
  }

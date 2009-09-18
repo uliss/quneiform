@@ -224,8 +224,8 @@ typedef struct
     INT     turn;           // Turn of page: turn=(xideal-xreal)/yreal*2048=
                             //                   =(yreal-yideal)/xreal*2048
     // Symbol substitutions
-    char    subst_bad;      // Subst. for not recognized character
-    char    subst_dash[3];  // Subst. for dash
+    CHAR    subst_bad;      // Subst. for not recognized character
+    CHAR    subst_dash[3];  // Subst. for dash
 
     // E	D
     INT     edfile;         // ED-file handle
@@ -309,7 +309,7 @@ uint32_t   dynmem_size;                // Total count of dynamic memory size
     // Line RTF buffer uses memory for graph during scan of ED file
     BYTE   *rtfbeg;            // Address of buffer= address of graph
     BYTE   *rtfcur;            // Pointer to free space in the buffer
-    int    rtflth;            // Length of text in buffer
+    LONG    rtflth;            // Length of text in buffer
     BYTE   *rtffree;
     BYTE   *rtfend;
     BYTE   rtfspec;

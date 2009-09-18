@@ -202,15 +202,15 @@ void LPUMA_Unload()
 //	StdUnload();
 }
 //////////////////////////////////////////////////////////////////
-uint32_t LPUMA_GetReturnCode()
+Word32 LPUMA_GetReturnCode()
 {
-        uint32_t rc = -1;
+        Word32 rc = -1;
         if(s_hLib && GetReturnCode)
                 rc = GetReturnCode();
 return rc;
 }
 //////////////////////////////////////////////////////////////////
-char * LPUMA_GetReturnString(uint32_t dwError)
+char * LPUMA_GetReturnString(Word32 dwError)
 {
         char * rc = "Library PUMA.DLL not load.";
         if(s_hLib && GetReturnString)
@@ -218,7 +218,7 @@ char * LPUMA_GetReturnString(uint32_t dwError)
 return rc;
 }
 //////////////////////////////////////////////////////////////////
-Bool32 LPUMA_GetExportData(uint32_t dwType, void * pData)
+Bool32 LPUMA_GetExportData(Word32 dwType, void * pData)
 {
         Bool32 rc = FALSE;
         if(s_hLib && GetExportData)
@@ -226,7 +226,7 @@ Bool32 LPUMA_GetExportData(uint32_t dwType, void * pData)
 return rc;
 }
 //////////////////////////////////////////////////////////////////
-Bool32 LPUMA_SetImportData(uint32_t dwType, void * pData)
+Bool32 LPUMA_SetImportData(Word32 dwType, void * pData)
 {
         Bool32 rc = FALSE;
         if(s_hLib && SetImportData)
@@ -274,12 +274,12 @@ Bool32 LPUMA_XSave(const char * lpOutFileName, int32_t lnFormat, int32_t lnCode 
         return rc;
 }
 //////////////////////////////////////////////////////////////////
-uint32_t   LPUMA_GetLanguage()
+Word32   LPUMA_GetLanguage()
 {
-        uint32_t rc = (uint32_t)-1;
+        Word32 rc = (Word32)-1;
         if(s_hLib && GetExportData)
         {
-          uint32_t lang = 0;
+          Word32 lang = 0;
           if(GetExportData(PUMA_Word32_Language,&lang))
                   rc = lang;
         }
@@ -287,7 +287,7 @@ uint32_t   LPUMA_GetLanguage()
 return rc;
 }
 //////////////////////////////////////////////////////////////////
-void LPUMA_SetLanguage(uint32_t lang)
+void LPUMA_SetLanguage(Word32 lang)
 {
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Word32_Language,&lang))
@@ -536,7 +536,7 @@ void    LPUMA_SetCourierName(char * lpszNewValue)
         }
 }
 //////////////////////////////////////////////////////////////////
-void    LPUMA_SetPictures(uint32_t nNewValue)
+void    LPUMA_SetPictures(Word32 nNewValue)
 {
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Word32_Pictures,&nNewValue))
@@ -545,9 +545,9 @@ void    LPUMA_SetPictures(uint32_t nNewValue)
         }
 }
 //////////////////////////////////////////////////////////////////
-uint32_t  LPUMA_GetPictures( void )
+Word32  LPUMA_GetPictures( void )
 {
-        uint32_t rc = FALSE;
+        Word32 rc = FALSE;
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Word32_Pictures,&rc))
         {
@@ -556,7 +556,7 @@ uint32_t  LPUMA_GetPictures( void )
 return rc;
 }
 //////////////////////////////////////////////////////////////////
-void    LPUMA_SetTables(uint32_t nNewValue)
+void    LPUMA_SetTables(Word32 nNewValue)
 {
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Word32_Tables,&nNewValue))
@@ -565,9 +565,9 @@ void    LPUMA_SetTables(uint32_t nNewValue)
         }
 }
 //////////////////////////////////////////////////////////////////
-uint32_t  LPUMA_GetTables( void )
+Word32  LPUMA_GetTables( void )
 {
-        uint32_t rc = FALSE;
+        Word32 rc = FALSE;
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Word32_Tables,&rc))
         {
@@ -635,9 +635,9 @@ int32_t  LPUMA_EnumPicture(int32_t nPrev )
         return rc;
 }
 //////////////////////////////////////////////////////////////////
-uint32_t  LPUMA_GetFormatMode()
+Word32  LPUMA_GetFormatMode()
 {
-        uint32_t rc = 0;
+        Word32 rc = 0;
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Word32_Format,&rc))
         {
@@ -646,7 +646,7 @@ uint32_t  LPUMA_GetFormatMode()
 return rc;
 }
 //////////////////////////////////////////////////////////////////
-void    LPUMA_SetFormatMode(uint32_t nNewValue)
+void    LPUMA_SetFormatMode(Word32 nNewValue)
 {
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Word32_Format,&nNewValue))
@@ -655,7 +655,7 @@ void    LPUMA_SetFormatMode(uint32_t nNewValue)
         }
 }
 //////////////////////////////////////////////////////////////////
-void    LPUMA_SetUnrecogChar(uchar nNewValue)
+void    LPUMA_SetUnrecogChar(Word8 nNewValue)
 {
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Word8_Format,&nNewValue))
@@ -664,9 +664,9 @@ void    LPUMA_SetUnrecogChar(uchar nNewValue)
         }
 }
 //////////////////////////////////////////////////////////////////
-uchar   LPUMA_GetUnrecogChar()
+Word8   LPUMA_GetUnrecogChar()
 {
-        uchar rc = 0;
+        Word8 rc = 0;
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Word8_Format,&rc))
         {
@@ -719,7 +719,7 @@ Bool32  LPUMA_GetAutoRotate( void )
 return rc;
 }
 //////////////////////////////////////////////////////////////////
-void    LPUMA_SetPageSize(uint32_t width, uint32_t height)
+void    LPUMA_SetPageSize(Word32 width, Word32 height)
 {
         Point32 p = { width,height };
         if(s_hLib && SetImportData &&
@@ -816,7 +816,7 @@ Bool32    LPUMA_XOpenClbk(PUMAIMAGECALLBACK CallBack,const char * lpFileName)
 return rc;
 }
 //////////////////////////////////////////////////////////////////
-uint32_t LPUMA_SaveToMemory(Handle hEdPage, int32_t lnFormat, int32_t lnCode, char * lpMem, uint32_t size )
+Word32 LPUMA_SaveToMemory(Handle hEdPage, int32_t lnFormat, int32_t lnCode, char * lpMem, Word32 size )
 {
         Bool32 rc = FALSE;
         if(s_hLib && fnSaveToMemory)
@@ -826,9 +826,9 @@ return rc;
 //////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
 #ifdef  ADD_CED
-uint32_t  LCED_DeletePage(Handle hEdPage)
+Word32  LCED_DeletePage(Handle hEdPage)
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 	typedef void (*FNDeletePage)(Handle hEdPage);
 	FNDeletePage fn;
 
@@ -850,7 +850,7 @@ void    LPUMA_GetSpecialBuffer(char * szResult,int32_t *nResultLength)
 
 }
 
-Bool32    LPUMA_SetSpecialProject(uchar nSpecPrj)
+Bool32    LPUMA_SetSpecialProject(Word8 nSpecPrj)
 {
         if(s_hLib && fnSetSpecialProject)
         {

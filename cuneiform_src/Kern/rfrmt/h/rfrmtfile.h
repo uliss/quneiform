@@ -90,10 +90,10 @@ struct PageElementCount {
 };
 
 typedef struct tagInternalRect {
-	int16_t left;
-	int16_t top;
-	int16_t right;
-	int16_t bottom;
+	Int16 left;
+	Int16 top;
+	Int16 right;
+	Int16 bottom;
 } InternalRect;
 
 void VCopyRect(InternalRect* InnerR, RECT* OuterR);
@@ -173,7 +173,7 @@ public:
 	RECT m_rectString;
 	WORD m_wType;
 	RECT m_rectBaseLine;
-	uint32_t S_Flags; //NEGA_STR vmk 10-06-2001
+	Word32 S_Flags; //NEGA_STR vmk 10-06-2001
 };
 
 /////////////////////////////////////////////////////////////////////////////

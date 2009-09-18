@@ -62,10 +62,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  General descriptor for available image disk formats.
 struct TFormatDescriptor
 {
- int16_t              id;
+ Int16              id;
  char   extentions[32];
  char	      name[32];
- int16_t           flags;
+ Int16           flags;
 
 #define   FD_READAVAIL			0x0001
 #define   FD_WRITEAVAIL			0x0002
@@ -84,7 +84,7 @@ struct TFormatDescriptor
 #define   FD_FORCEBWNEGATIVE	0x0400  // Format supports negative fotometric only B&W
 #define   FD_FORCEGRAYNEGATIVE	0x0800  // Format supports negative fotometric only B&W
 
- uint32_t	iWLEntry;				  // Reserved for internal use
+ Word32	iWLEntry;				  // Reserved for internal use
 
 }; _SETTYPES( TFormatDescriptor )
 

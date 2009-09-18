@@ -69,13 +69,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef void   (*CRPStart)(void);
 typedef void   (*CRPFinish)(void);
-typedef Bool32 (*CRPStep)(uint32_t);
+typedef Bool32 (*CRPStep)(Word32);
 
 class CRProgressor
 {
 
 public:
-	Bool32 SetStep(uint32_t wPercent);
+	Bool32 SetStep(Word32 wPercent);
 	Bool32 Finish(void);
 	Bool32 Start(void);
 
@@ -87,7 +87,7 @@ public:
 
 protected:
 	Handle hBufferForGray;
-	uint32_t         mwLastPercent;
+	Word32         mwLastPercent;
 	Bool32         mbProgressStarted;
 	CRPFinish      mfFinish;
 	CRPStart       mfStart;

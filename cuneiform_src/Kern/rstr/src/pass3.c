@@ -97,13 +97,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 static void accept_Cell(cell *ce,CSTR_rast_attr*co, CCOM_comp *cmp, Bool sca);
 
 // P2_COUR.C
-Bool32 RecogLEO(RecRaster *Rs,uchar Language,UniVersions *Vs);
+Bool32 RecogLEO(RecRaster *Rs,Word8 Language,UniVersions *Vs);
 // ERECTION.C
 extern INT    erection_inc;
 // DIFFRV.C
 void final_descriminate(cell *b, cell *e);
 // EVN.DLL
-extern uchar*   EVNMakeLine( RecRaster   *rRaster,int32_t parm);
+extern Word8*   EVNMakeLine( RecRaster   *rRaster,int32_t parm);
 // RCM.C
 extern  STRLN   page_lines[];
 extern  int32_t   num_of_lines;
@@ -126,7 +126,7 @@ extern void   russian_english_context(void);
 void    correct_let_tables(void);
 Bool    is_russian_language(BYTE lang);
 
-extern int Flag_Courier;
+extern LONG Flag_Courier;
 extern INT line_number;
 extern FILE *dbg_f;
 extern BYTE prop_in_trouble;
@@ -1432,7 +1432,7 @@ return;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-void set_cells_language(uchar lang)
+void set_cells_language(Word8 lang)
 { // Oleg : 06-08-95 09:48pm : set 2 language
 cell *c;
 if( lang==LANG_RUSSIAN )
@@ -1543,8 +1543,8 @@ static void pass_start()
 #define PROPMAX   25
 void DeskewCell(cell *c, CCOM_comp *cmp, INT nIncline, INT shift)
 {
-c->row=cmp->upper-(INT)((int)nIncline*cmp->left/2048);
-c->col=cmp->left+(INT)((int)nIncline*cmp->upper/2048);
+c->row=cmp->upper-(INT)((LONG)nIncline*cmp->left/2048);
+c->col=cmp->left+(INT)((LONG)nIncline*cmp->upper/2048);
 if( shift )
     {
     c->row>>=shift;
@@ -1558,7 +1558,7 @@ extern PBYTE kit_curr, kit_end;
 static void accept_Cell( cell *c,CSTR_rast_attr *rst, CCOM_comp *cmp, Bool shift)
  {
  c_comp ec={0};
- uint16_t zero=0;
+ Word16 zero=0;
 
 if( !cmp )
     return;
@@ -1710,7 +1710,7 @@ void letters_ini(CSTR_line lin, Bool enable_scaling)
 /* åùå íå ïîñòðîåíû bsdust_upper è ò.ï. ! Nick 16.03.2001
     if( cur.flg==CSTR_f_dust )
         {
-        INT c2bdiff=(char)(obtain_diff(cmp->left));
+        INT c2bdiff=(CHAR)(obtain_diff(cmp->left));
         if( cmp->upper+cmp->h < bsdust_upper + c2bdiff ||
            (cmp->upper+(cmp->h+1)/2>bsdust_lower+c2bdiff) &&
           !(cmp->h<bsdust_ps/2 && cmp->w>=bsdust_ps) ||
@@ -1854,8 +1854,8 @@ void letters_ini(CSTR_line lin, Bool enable_scaling)
         {
         RecRaster       rs;
         CCOM_comp      *scale_comp;
-        uchar          *lpool;
-        int16_t           scale=line_scale-cmp->scale;
+        Word8          *lpool;
+        Int16           scale=line_scale-cmp->scale;
 
         if( !CCOM_GetScaleRaster(cmp, &rs,scale) )
             continue;
@@ -1865,7 +1865,7 @@ void letters_ini(CSTR_line lin, Bool enable_scaling)
             continue;
 
         scale_comp = CCOM_New(CSTR_GetContainer(lin) ,cmp->upper, cmp->left, cmp->w, cmp->h);
-        CCOM_Store(scale_comp,0, (int16_t)((*((int16_t*)&lpool[0]))), lpool,  0, 0, 0, &zer,  NULL);
+        CCOM_Store(scale_comp,0, (Int16)((*((Int16*)&lpool[0]))), lpool,  0, 0, 0, &zer,  NULL);
         if( scale_comp->w<(1<<scale) )
             scale_comp->w= 1<<scale;
         if( scale_comp->h<(1<<scale) )
@@ -1960,8 +1960,8 @@ void letters_ini(CSTR_line lin, Bool enable_scaling)
  c2=cell_l();
  c1->next=c1->nextl=c2;
  c2->prev=c2->prevl=c1;
- c2->dupstart=0/*(int)CSTR_GetDup(curr)*/;
- c2->dupend  =0/*(int)CSTR_GetDupEnd(curr)*/;
+ c2->dupstart=0/*(LONG)CSTR_GetDup(curr)*/;
+ c2->dupend  =0/*(LONG)CSTR_GetDupEnd(curr)*/;
 
 if( line_alphabet==ALPHA_DIGITAL_TRUE )
         language=sl;
@@ -2059,8 +2059,8 @@ void dust_ini(CSTR_line lin)
     {
     RecRaster       rs;
     CCOM_comp      *scale_comp;
-    uchar          *lpool;
-    int16_t           scale=line_scale-cmp->scale;
+    Word8          *lpool;
+    Int16           scale=line_scale-cmp->scale;
 
     if( !CCOM_GetScaleRaster(cmp, &rs,scale) )
         continue;
@@ -2070,7 +2070,7 @@ void dust_ini(CSTR_line lin)
         continue;
 
     scale_comp = CCOM_New(CSTR_GetContainer(lin) ,cmp->upper, cmp->left, cmp->w, cmp->h);
-    CCOM_Store(scale_comp,0, (int16_t)((*((int16_t*)&lpool[0]))), lpool,  0, 0, 0, &zer,  NULL);
+    CCOM_Store(scale_comp,0, (Int16)((*((Int16*)&lpool[0]))), lpool,  0, 0, 0, &zer,  NULL);
     if( scale_comp->w<(1<<scale) )
         scale_comp->w= 1<<scale;
     if( scale_comp->h<(1<<scale) )
@@ -2085,9 +2085,9 @@ void dust_ini(CSTR_line lin)
   c2->env->scale=0;
   c2->env->large |= ch_taken;
   c2->reasno=0;
-  c2->bdiff=(char)(obtain_diff(c2->col));
-  c2->dupstart=(int)CSTR_GetDup(curr);
-  c2->dupend  =(int)CSTR_GetDupEnd(curr);
+  c2->bdiff=(CHAR)(obtain_diff(c2->col));
+  c2->dupstart=(LONG)CSTR_GetDup(curr);
+  c2->dupend  =(LONG)CSTR_GetDupEnd(curr);
 
   c2->flg_new |= c_fn_taken; // Nick 13.02.2001
 
@@ -2474,7 +2474,7 @@ for (c = cell_f()->next; c != cell_l(); c = c->next)
         CSTR_StoreCollection (rst, &ver);
 
         if( c->env /*&& c->env->scale<2*/ )
-          CSTR_StoreComp (rst, (uchar*)((uchar*)c->env+c->env->lines),1,0);
+          CSTR_StoreComp (rst, (Word8*)((Word8*)c->env+c->env->lines),1,0);
         }
                   c=del_cell(c);
             } //loop for dusts
@@ -2489,8 +2489,8 @@ CSTR_rast_attr  attr,zattr={0};
 CSTR_attr               attrlin={0};
 CSTR_rast       rst, old_rst=CSTR_GetFirstRaster(lino);
 UniVersions     uvs;
-int16_t            macol,  micol,  marow,  mirow;
-int16_t           rmacol, rmicol, rmarow, rmirow;
+Int16            macol,  micol,  marow,  mirow;
+Int16           rmacol, rmicol, rmarow, rmirow;
 int32_t           need_scale=0;
 Bool            sfr;
 if( lin )
@@ -2589,7 +2589,7 @@ for (c = cell_f()->next; c != cell_l(); c = c -> next)
         CSTR_SetAttr (rst, &attr);
 
         if( c->env /*&& c->env->scale<2*/ )
-          CSTR_StoreComp (rst, (uchar*)((uchar*)c->env+c->env->lines),1,c->env->scale);
+          CSTR_StoreComp (rst, (Word8*)((Word8*)c->env+c->env->lines),1,c->env->scale);
         old_rst = rst;
         if( cc.col+cc.w>macol )
             macol=cc.col+cc.w;
@@ -2685,11 +2685,11 @@ void accept_cell(cell *c,c_comp *cmp)
  c->r_col=cmp->left;
  c->reasno=cmp->reasno;
  c->cpos=c->keg=c->font=0;
- c->row=cmp->upper-(INT)((int)nIncline*cmp->left/2048);
- c->col=cmp->left+(INT)((int)nIncline*cmp->upper/2048);
+ c->row=cmp->upper-(INT)((LONG)nIncline*cmp->left/2048);
+ c->col=cmp->left+(INT)((LONG)nIncline*cmp->upper/2048);
  if ((c->nvers=cmp->nvers)>0)
   {
-  memcpy(c->vers,(char *)cmp+cmp->records,c->nvers*sizeof(version));
+  memcpy(c->vers,(PCHAR)cmp+cmp->records,c->nvers*sizeof(version));
   c->vers[c->nvers].let=0;
   c->recsource = c_rs_ev;   // events done
   c->history   = c_rs_ev;
@@ -2797,7 +2797,7 @@ Bool del_spaces_before_carry(CSTR_line ln)
 CSTR_rast       r=CSTR_GetPrev(CSTR_GetLastRaster(ln)),l,f;
 CSTR_rast_attr  a;
 UniVersions     u;
-uchar           carry[]="-\x5F";
+Word8           carry[]="-\x5F";
 
 CSTR_GetCollectionUni(r,&u);
 if(!u.lnAltCnt || !strchr(carry,u.Alt[0].Liga)    )
@@ -2885,7 +2885,7 @@ return;
 void import_lines_features(void)
 {
 cell *c,*b=cell_f()->next, *e=cell_l();
-int i,dy,dx;
+LONG i,dy,dx;
 INT up, uploc;
 
 for(i=0;i<num_of_lines;i++)
@@ -2918,7 +2918,7 @@ Bool pass3BL(CSTR_line ln)
     cell   *c;
     BYTE    str[100];
     Bool    ret;
-	int16_t   minr,maxr;
+	Int16   minr,maxr;
 
     pass_start();
     snap_is_active();
@@ -3244,18 +3244,18 @@ switch( c->vers[0].let )
 		if(is_russian_turkish_conflict(c->vers[0].let)) // 21.05.2002 E.P.
 			break;
 
-        add_stick_vers(c,(char)'ã', pr ) ;
+        add_stick_vers(c,(CHAR)'ã', pr ) ;
         ret = TRUE;
         break;
     case    (BYTE)'¨':
-        add_stick_vers(c,(char)'æ', pr ) ;
-        add_stick_vers(c,(char)'ã', (BYTE)MAX((INT)pr-10,2) ) ;
+        add_stick_vers(c,(CHAR)'æ', pr ) ;
+        add_stick_vers(c,(CHAR)'ã', (BYTE)MAX((INT)pr-10,2) ) ;
         ret = TRUE;
         break;
     case    (BYTE)'®':
  		if(is_russian_turkish_conflict(c->vers[0].let)) // 21.05.2002 E.P.
 			break;
-       add_stick_vers(c,(char)'à', pr ) ;
+       add_stick_vers(c,(CHAR)'à', pr ) ;
         ret = TRUE;
         break;
     default:
@@ -3271,16 +3271,16 @@ BYTE    pr = (BYTE)(MAX((INT)c->vers[0].prob-10,2));
 switch( c->vers[0].let )
     {
     case    (BYTE)'v':
-        add_stick_vers(c,(char)'y',pr ) ;
+        add_stick_vers(c,(CHAR)'y',pr ) ;
         ret = TRUE;
         break;
     case    (BYTE)'o':
-        add_stick_vers(c,(char)'p',pr ) ;
+        add_stick_vers(c,(CHAR)'p',pr ) ;
         ret = TRUE;
         break;
     case    (BYTE)'a':
-        add_stick_vers(c,(char)'q',pr ) ;
-        add_stick_vers(c,(char)'g',pr ) ;
+        add_stick_vers(c,(CHAR)'q',pr ) ;
+        add_stick_vers(c,(CHAR)'g',pr ) ;
         ret = TRUE;
         break;
     default:
@@ -3292,7 +3292,7 @@ return ret;
 void add_vers_underlined(void)
 {
 cell *  c;
-uint16_t  flg;
+Word16  flg;
 for(c=cell_f()->nextl;c!=cell_l();c=c->nextl)
     {
     if( c->nvers && ((c->flg_new&CSTR_fn_under)||(c->font&c_fp_undrln)) )
@@ -3321,7 +3321,7 @@ for(rst=CSTR_GetNextRaster(CSTR_GetFirstRaster(ln),CSTR_f_let);
     CSTR_GetAttr(rst,&attr);
     if( attr.language==LANG_RUSSIAN )
         {
-        CSTR_GetImage(rst,(uchar*)&rc, CSTR_TYPE_IMAGE_RS);
+        CSTR_GetImage(rst,(Word8*)&rc, CSTR_TYPE_IMAGE_RS);
         CSTR_GetCollectionUni(rst,&uo);
         u=uo;
         RecogLEO(&rc,attr.language,&u);
@@ -3411,7 +3411,7 @@ cell *  c;
 char    lets[]="weuoaszxcvnmª¥­£è§åêë¢ ¯®«¦íïçá¬¨âì¡î";
 //			   "weuoaszxcvnmêåíãøçõúûâàïîëæýÿ÷ñìèòüáþ"
 
-int    s2,s1,n,h,s12,na,nl;
+LONG    s2,s1,n,h,s12,na,nl;
 
 for(s1=s2=na=nl=n=0,c=cell_f()->nextl;c!=cell_l();c=c->nextl,na++)
     {
@@ -3454,7 +3454,7 @@ cell *  c;
 char    lets_up[]="WERTYUOPQASDFGHJKLZXCVBNM‰“Š…ƒ˜‡•š”›‚€Ž‹†Ÿ—‘Œˆ’œž012234567890";
 //				  "WERTYUOPQASDFGHJKLZXCVBNMÉÓÊÅÍÃØÇÕÚÔÛÂÀÏÐÎËÆÝß×ÑÌÈÒÜÁÞ012234567890";
 
-int    s2,s1,n,h,s12,na,nl;
+LONG    s2,s1,n,h,s12,na,nl;
 
 for(s1=s2=na=nl=n=0,c=cell_f()->nextl;c!=cell_l();c=c->nextl,na++)
     {
@@ -3555,7 +3555,7 @@ for(numdots=0,rst=CSTR_GetNext(CSTR_GetFirstRaster(ln));rst;rst=CSTR_GetNext(rst
                         break;
                     case    '.':
                         break;
-                    case    (uchar)'\xd5':
+                    case    (Word8)'\xd5':
                         uni.Alt[0].Liga='.';
                         uni.Alt[0].Code[0]='.'; uni.Alt[0].Code[1]=0;
                         CSTR_StoreCollectionUni(rst,&uni);
@@ -3586,15 +3586,15 @@ for(rst=CSTR_GetPrev(CSTR_GetLastRaster(ln));rst;rst=CSTR_GetPrev(rst))
         {
         switch( uni.Alt[0].Liga  )
             {
-            case    (uchar)0x1e:
-            case    (uchar)0x1f:
+            case    (Word8)0x1e:
+            case    (Word8)0x1f:
             case    ' ':
                 uni.Alt[0].Liga='\x1e';
                 uni.Alt[0].Code[0]=0;
                 uni.Alt[0].Prob=75;
                 CSTR_StoreCollectionUni(rst,&uni);
                 break;
-            case    (uchar)0xFE:
+            case    (Word8)0xFE:
             case    '\"':
             case    '-':
             case    ',':
@@ -3604,7 +3604,7 @@ for(rst=CSTR_GetPrev(CSTR_GetLastRaster(ln));rst;rst=CSTR_GetPrev(rst))
                 break;
             case    '.':
                 break;
-            case    (uchar)'\xd5':
+            case    (Word8)'\xd5':
                 uni.Alt[0].Liga='.';
                 uni.Alt[0].Code[0]='.'; uni.Alt[0].Code[1]=0;
                 CSTR_StoreCollectionUni(rst,&uni);

@@ -81,12 +81,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  #define CFIO_MAX_COMMENT       48
 #endif
 // extern functions
-//void SetReturnCode_cimage(uint16_t rc);
-//uint16_t GetReturnCode_cimage();
+//void SetReturnCode_cimage(Word16 rc);
+//Word16 GetReturnCode_cimage();
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //CFIO Entries
-static void* (*pDAlloc)(uint32_t, uint32_t, uchar *, uchar *) = NULL;
-static void* (*pAlloc)(uint32_t, uint32_t)                  = NULL;
+static void* (*pDAlloc)(Word32, Word32, PWord8, PWord8) = NULL;
+static void* (*pAlloc)(Word32, Word32)                  = NULL;
 static void  (*pFree)(void *)                           = NULL;
 static void* (*pLock)(void *)                           = NULL;
 static void  (*pUnlock)(void *)                         = NULL;
@@ -119,17 +119,17 @@ Bool32 InitCFIOInterface(Bool32 Status)
 
 void    CIMAGEComment(const char * Comment)
 {
-	uint32_t Len = strlen(Comment);
+	Word32 Len = strlen(Comment);
 	strncpy(cCommentBuffer, Comment, (Len < CFIO_MAX_COMMENT ? Len : CFIO_MAX_COMMENT - 1 ) );
 }
 
-void *	CIMAGEDAlloc(uint32_t stAllocateBlock, const char *Comment)
+void *	CIMAGEDAlloc(Word32 stAllocateBlock, const char *Comment)
 {
 	CIMAGEComment(Comment);
 	return CIMAGEAlloc(stAllocateBlock);
 }
 
-void *	CIMAGEAlloc(uint32_t stAllocateBlock)
+void *	CIMAGEAlloc(Word32 stAllocateBlock)
 {
 	char * mem = NULL;
 
@@ -148,7 +148,7 @@ void *	CIMAGEAlloc(uint32_t stAllocateBlock)
 	if(!mem)
 		SetReturnCode_cimage(IDS_CIMAGE_ERR_NO_MEMORY);
 #else
-	mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(char*)"CImage", (char*)cCommentBuffer);
+	mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(Int8*)"CImage", (Int8*)cCommentBuffer);
 
 	if(!mem)
 		SetReturnCode_cimage(IDS_CIMAGE_ERR_NO_MEMORY);
@@ -253,7 +253,7 @@ Handle  CIMAGEOpenRestore(char * lpName)
 //
 unsigned int  CIMAGEWrite(Handle h,void * lpdata,unsigned int size)
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 #ifdef _NO_CFIO
 	rc = fwrite(lpdata,1,size,(FILE*)h);
 #endif
@@ -263,7 +263,7 @@ unsigned int  CIMAGEWrite(Handle h,void * lpdata,unsigned int size)
 //
 unsigned int  CIMAGERead(Handle h,void * lpdata,unsigned int size)
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 #ifdef _NO_CFIO
 	rc = fread(lpdata,1,size,(FILE *)h);
 #endif

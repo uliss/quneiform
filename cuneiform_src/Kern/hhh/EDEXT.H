@@ -70,15 +70,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma pack(push,1)
 struct edExtention
 {
-	uchar/*unsigned char   */  	code;   /* always SS_EXTENTION <0x1C> */
-	uint16_t/*unsigned short int*/      Ecode;  /* New extention code */
-	uint16_t/*unsigned short int*/      length; /* Length in bytes */
+	Word8/*unsigned char   */  	code;   /* always SS_EXTENTION <0x1C> */
+	Word16/*unsigned short int*/      Ecode;  /* New extention code */
+	Word16/*unsigned short int*/      length; /* Length in bytes */
 };
 struct edExtentionNew
 {
-	uchar/*unsigned char   */  	code;   /* always SS_EXTENTION <0x1C> */
-	uint16_t/*unsigned short int*/      Ecode;  /* New extention code */
-	uint32_t/*unsigned short int*/      length; /* Length in bytes */
+	Word8/*unsigned char   */  	code;   /* always SS_EXTENTION <0x1C> */
+	Word16/*unsigned short int*/      Ecode;  /* New extention code */
+	Word32/*unsigned short int*/      length; /* Length in bytes */
 };
 /* This structure is header all structs included in extention ED */
 typedef struct edExtention EDEXT;
@@ -116,7 +116,7 @@ typedef struct edExtention EDEXT;
 //SS_EXTENTION может быть 16 и 32 битно длинным - здесь 32
 #define EDEXT_PICS		(0x306|0x8000)
 #define EDEXT_TABLE_CELL 0x307
-#define EDEXT_char		0x308
+#define EDEXT_CHAR		0x308
 typedef struct sTable
 {
  EDEXT 	  head;

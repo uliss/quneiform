@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 static int count_cut_let;
 //static PAGEINFO info = {0};
 //static char* image_name = NULL;
-static uint16_t biBitCount = 0;
+static Word16 biBitCount = 0;
 static bool env_set = false;
 static int medium_h;
 static int inf_let_w;
@@ -77,9 +77,9 @@ static int sup_dust_w;
 static int min_cut_down_let_w;
 static int sup_prob_w;
 /*********************************************************************************************/
-static int GetCountCutLetters(CCOM_comp* comp, uchar* pmasp);
+static int GetCountCutLetters(CCOM_comp* comp, Word8* pmasp);
 static int IfNeedCut(CCOM_comp* comp, Bool* type_let);
-//static Bool GetMasP(Rect16 Rc,uchar** ppmasp);
+//static Bool GetMasP(Rect16 Rc,Word8** ppmasp);
 static Bool JNotInMas2(int j,int* mas,int size,int bound);
 static Bool JNotInMas(int j,int* mas,int size,int bound);
 static Bool IfZpt(CCOM_comp* comp);
@@ -96,7 +96,7 @@ static Bool IfWhiteRow(RecRaster* rast,int row);
 RCUTP_FUNC(Bool32) RCUTP_RSelStr_SetEnv(/*char* szImageName,*/ int _medium_h, int _inf_let_w,
 										int _inf_dust_h, int _inf_let_h, Handle hCCOM,
 										int _sup_dust_w, int _min_cut_down_let_w,
-										int _sup_prob_w, const uint16_t biBit)
+										int _sup_prob_w, const Word16 biBit)
 {
 	if (_medium_h < 0 || _inf_let_w < 0 || _inf_dust_h < 0 || _inf_let_h < 0 ||
 		_sup_dust_w < 0 || _min_cut_down_let_w < 0 || _sup_prob_w < 0 || !hCCOM)
@@ -125,7 +125,7 @@ RCUTP_FUNC(void) RCUTP_RSelStr_UnsetEnv()
 	env_set = false;
 }
 /*********************************************************************************************/
-RCUTP_FUNC(int) RCUTP_RSelStr_CP(CCOM_comp* comp, Bool* type_let, uchar* pmasp)
+RCUTP_FUNC(int) RCUTP_RSelStr_CP(CCOM_comp* comp, Bool* type_let, Word8* pmasp)
 {
 	if (!comp || !env_set || !pmasp) return 0;
 
@@ -134,11 +134,11 @@ RCUTP_FUNC(int) RCUTP_RSelStr_CP(CCOM_comp* comp, Bool* type_let, uchar* pmasp)
 	return IfNeedCut(comp, type_let);
 }
 /*********************************************************************************************/
-int GetCountCutLetters(CCOM_comp* comp, uchar* pmasp)
+int GetCountCutLetters(CCOM_comp* comp, Word8* pmasp)
 {
- uchar Data[1000];
+ Word8 Data[1000];
  memset (Data, 0, sizeof (Data));
-// uchar* pmasp=Data;
+// Word8* pmasp=Data;
  Rect16 Rc;
 
 
@@ -166,7 +166,7 @@ int GetCountCutLetters(CCOM_comp* comp, uchar* pmasp)
 
  int newstr;
  int bytewide=(w+7)/8;
- uchar bytep;
+ Word8 bytep;
  int rect=128>>(7-(bytewide*8-w));
  int count_black=0;
  int i;
@@ -471,7 +471,7 @@ int ExBound(CCOM_comp* comp,int bound)
  int left_bound;
  int right_bound;
  int bytewide=((rast.lnPixWidth+63)/64)*8;
- uchar bytep;
+ Word8 bytep;
  Bool Not_move_down=FALSE;
 
  if(rast_bound+delta>rast.lnPixHeight||rast_bound-delta<0)
@@ -709,7 +709,7 @@ void NotCutDownLetter(RecRaster* rast,int& bound,int rast_bound,int new_rast_bou
 {
  int left_bound;
  int right_bound;
- uchar bytep;
+ Word8 bytep;
  int bytewide=((rast->lnPixWidth+63)/64)*8;
  Bool fl_cut=FALSE;
  Bool fl_break=FALSE;
@@ -842,7 +842,7 @@ Bool IfWhiteRow(RecRaster* rast,int row)
  int bytewide=8*((rast->lnPixWidth+63)/64);
  int byte_row=row>>3;
  int rect_row=128>>(row%8);
- uchar* Raster=rast->Raster;
+ Word8* Raster=rast->Raster;
  for(int i=rast->lnPixHeight-1;i>=0;i--)
  {
 	 if(Raster[i*bytewide+byte_row]&rect_row)

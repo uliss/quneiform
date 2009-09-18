@@ -106,7 +106,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define ASSERT assert
 
 #define NEW_LINE {if(!NewLine()) return FALSE;}
-#define ONE_char(a) {if(!OneChar(a)) return FALSE;}
+#define ONE_CHAR(a) {if(!OneChar(a)) return FALSE;}
 #define PUT_STRING(a) {if(!PutString((char*)a)) return FALSE;}
 #define PUT_SPACES(a) {if(!PutSpaces((long)a)) return FALSE;}
 
@@ -149,8 +149,8 @@ EXTERN long gLine	VAL(0);	// Номер строки из __LINE
 EXTERN long gROUT_Option1	VAL(0);
 
 // Параметры инициализации и мой код ошибки
-EXTERN uint16_t	gwHighRC_rout	VAL(0);
-EXTERN uint16_t   gwLowRC_rout    VAL(0);
+EXTERN Word16	gwHighRC_rout	VAL(0);
+EXTERN Word16   gwLowRC_rout    VAL(0);
 EXTERN HANDLE   ghStorage_rout	VAL(NULL);
 EXTERN HANDLE   ghInst_rout	VAL(NULL);
 
@@ -425,10 +425,10 @@ EXTERN char gAT_vowels[LANG_TOTAL][kMaxSizeAlphabet+1] VAL({0});
 //*****************************************************************
 // Rout_DLL.cpp
 
-Handle MyAlloc(uint32_t dwSize, uint32_t dwFlag);
+Handle MyAlloc(Word32 dwSize, Word32 dwFlag);
 Handle MyReAlloc(Handle hMem,
-				uint32_t dwSize,
-				uint32_t dwFlag);
+				Word32 dwSize,
+				Word32 dwFlag);
 Handle MyLock(Handle hMem);
 Bool32 MyUnlock(Handle hMem);
 Bool32 MyFree(Handle hMem);
@@ -526,7 +526,7 @@ typedef enum {
 	BROWSE_LINE_START,		// 17
 	BROWSE_LINE_END,		// 18
 
-	BROWSE_char,			// 19
+	BROWSE_CHAR,			// 19
 
 	BROWSE_PICTURE			// 20
 

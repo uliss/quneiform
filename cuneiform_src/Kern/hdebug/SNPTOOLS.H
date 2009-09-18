@@ -234,7 +234,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    /*static*/
    void    SnpStartLoop( // call in dll before start of loop
       SnpTreeNode* node, // node inside loop
-      uint32_t iter_total  // iteration count, 0 if unknown
+      Word32 iter_total  // iteration count, 0 if unknown
                        )
    {
       node->IterTotal = iter_total;
@@ -281,28 +281,28 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
    static int    SnpLog( const char* s, ...) { return 0;};
    static void   SnpStatusLine( char* s, ...){;};
-   static void   SnpDrawRect(Rect16* rc, int32_t skew, uint32_t rgb_color,
-      int32_t pen_width,uint32_t key){;};
-   static void   SnpHideRects(uint32_t key){;};
+   static void   SnpDrawRect(Rect16* rc, int32_t skew, Word32 rgb_color,
+      int32_t pen_width,Word32 key){;};
+   static void   SnpHideRects(Word32 key){;};
    static void   SnpDrawLine(Point16* start, Point16* end, int32_t skew,
-      uint32_t rgb_color,int16_t pen_width,uint32_t key ){;};
+      Word32 rgb_color,Int16 pen_width,Word32 key ){;};
    static void   SnpHideLines(Handle key){;};
    static void   SnpDrawFocusRect(Rect16* rc){;};
-   static uint32_t SnpSetZoneOn(Rect16*  zone_rect,
-      uint32_t   rgb_color,char* status_line_comment,
-      uint32_t  users_zone_handle, FTOnMouseDown  on_mouse_down )
+   static Word32 SnpSetZoneOn(Rect16*  zone_rect,
+      Word32   rgb_color,char* status_line_comment,
+      Word32  users_zone_handle, FTOnMouseDown  on_mouse_down )
       { return 0; };
-   static void   SnpSetZoneOff( uint32_t zone_handle ){;};
+   static void   SnpSetZoneOff( Word32 zone_handle ){;};
    static void   SnpUpdateViews(void){;};
    static void   SnpMessBoxOk( char * message ){;};
    static Bool16 SnpMessBoxYesNo( char * message ){ return TRUE;};
    static Bool16 SnpGetUserString (char * static_text,
-      char * result_string, uint32_t result_string_length ){ return FALSE; };
+      char * result_string, Word32 result_string_length ){ return FALSE; };
    static Bool16 SnpGetUserLong(char * static_text,
       int32_t * result_long) { return FALSE;};
    static Bool16 SnpGetUserRect( Rect16* rect ){return FALSE;};
    static Bool16 SnpGetUserPoint(Point16* pnt){return FALSE;};
-   static uint32_t SnpWaitUserInput(SnpTreeNode* cur_node)
+   static Word32 SnpWaitUserInput(SnpTreeNode* cur_node)
       {  return 0; };
    static void SnpNotifyAppl(SnpTreeNode* cur_node){;};
    // tree manipulation
@@ -310,7 +310,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    static void SnpAddNode( SnpTreeNode *  node, char * name,
       SnpTreeNode * parent ) {;};
    static void    __SnpIterParent( SnpTreeNode* node, Bool activate ){;};
-   static void    SnpStartLoop( SnpTreeNode* node, uint32_t iter_total ){;};
+   static void    SnpStartLoop( SnpTreeNode* node, Word32 iter_total ){;};
    static void    SnpLoopNext( SnpTreeNode* node ){;};
    static Bool16  SnpSkip( SnpTreeNode* node ){ return TRUE; };
 */
@@ -319,34 +319,34 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
        int    SnpLog( const char* s, ...);
        void   SnpStatusLine( char* s, ...);
-       void   SnpDrawRect(Rect16* rc, int32_t skew, uint32_t rgb_color,
-         int32_t pen_width,uint32_t key);
-       void   SnpHideRects(uint32_t key);
+       void   SnpDrawRect(Rect16* rc, int32_t skew, Word32 rgb_color,
+         int32_t pen_width,Word32 key);
+       void   SnpHideRects(Word32 key);
        void   SnpDrawLine(Point16* start, Point16* end, int32_t skew,
-         uint32_t rgb_color,int16_t pen_width, Handle key );
+         Word32 rgb_color,Int16 pen_width, Handle key );
        void   SnpHideLines(Handle key);
        void   SnpDrawFocusRect(Rect16* rc);
-       uint32_t SnpSetZoneOn(Rect16*  zone_rect,
-         uint32_t   rgb_color,char* status_line_comment,
-         uint32_t  users_zone_handle, FTOnMouseDown  on_mouse_down );
-       void   SnpSetZoneOff( uint32_t zone_handle );
+       Word32 SnpSetZoneOn(Rect16*  zone_rect,
+         Word32   rgb_color,char* status_line_comment,
+         Word32  users_zone_handle, FTOnMouseDown  on_mouse_down );
+       void   SnpSetZoneOff( Word32 zone_handle );
        void   SnpUpdateViews(void);
        void   SnpMessBoxOk( char * message );
        Bool16 SnpMessBoxYesNo( char * message );
        Bool16 SnpGetUserString (char * _text,
-         char * result_string, uint32_t result_string_length );
+         char * result_string, Word32 result_string_length );
        Bool16 SnpGetUserLong(char * _text,
          int32_t * result_long);
        Bool16 SnpGetUserRect( Rect16* rect );
        Bool16 SnpGetUserPoint(Point16* pnt);
-       uint32_t SnpWaitUserInput(SnpTreeNode* cur_node);
+       Word32 SnpWaitUserInput(SnpTreeNode* cur_node);
        void SnpNotifyAppl(SnpTreeNode* cur_node);
       // tree manipulation
        void   SnpRasterText(char *Text);
       void SnpAddNode( SnpTreeNode *  node, const char * name,
          SnpTreeNode * parent ) ;
    void    __SnpIterParent( SnpTreeNode* node, Bool activate );
-   void    SnpStartLoop( SnpTreeNode* node, uint32_t iter_total );
+   void    SnpStartLoop( SnpTreeNode* node, Word32 iter_total );
    void    SnpLoopNext( SnpTreeNode* node );
    Bool16  SnpSkip( SnpTreeNode* node );
 
@@ -362,27 +362,27 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    void SnpSetTools(__SnpToolBox* tools);
    Bool SnpIsActive(void);
 
-   void   SnpDrawRect(Rect16* rc, int32_t skew, uint32_t rgb_color,
-      int32_t pen_width,uint32_t key);
-   void   SnpHideRects(uint32_t key);
+   void   SnpDrawRect(Rect16* rc, int32_t skew, Word32 rgb_color,
+      int32_t pen_width,Word32 key);
+   void   SnpHideRects(Word32 key);
    void   SnpDrawLine(Point16* start, Point16* end, int32_t skew,
-      uint32_t rgb_color, int16_t pen_width, Handle key );
+      Word32 rgb_color, Int16 pen_width, Handle key );
    void   SnpHideLines(Handle key);
    void   SnpDrawFocusRect(Rect16* rc);
-   uint32_t SnpSetZoneOn(Rect16*  zone_rect,
-      uint32_t   rgb_color,char* status_line_comment,
-      uint32_t  users_zone_handle, FTOnMouseDown  on_mouse_down );
-   void   SnpSetZoneOff( uint32_t zone_handle );
+   Word32 SnpSetZoneOn(Rect16*  zone_rect,
+      Word32   rgb_color,char* status_line_comment,
+      Word32  users_zone_handle, FTOnMouseDown  on_mouse_down );
+   void   SnpSetZoneOff( Word32 zone_handle );
    void   SnpUpdateViews(void);
    void   SnpMessBoxOk( char * message );
    Bool16 SnpMessBoxYesNo( char * message );
    Bool16 SnpGetUserString (char * static_text,
-      char * result_string, uint32_t result_string_length );
+      char * result_string, Word32 result_string_length );
    Bool16 SnpGetUserLong(char * static_text,
       int32_t * result_long);
    Bool16 SnpGetUserRect( Rect16* rect );
    Bool16 SnpGetUserPoint(Point16* pnt);
-   uint32_t SnpWaitUserInput(SnpTreeNode* cur_node);
+   Word32 SnpWaitUserInput(SnpTreeNode* cur_node);
    void SnpNotifyAppl(SnpTreeNode* cur_node);
    // tree manipulation
    void   SnpRasterText(char *Text);
@@ -390,11 +390,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
    void		SnpAddNode( SnpTreeNode*  node, const char * name,SnpTreeNode* parent );
    void    __SnpIterParent( SnpTreeNode* node, Bool activate );
-   void    SnpStartLoop( SnpTreeNode* node, uint32_t iter_total );
+   void    SnpStartLoop( SnpTreeNode* node, Word32 iter_total );
    void    SnpLoopNext( SnpTreeNode* node );
    Bool16  SnpSkip( SnpTreeNode* node );
 	void	SnpZoomToRect(Rect16 * lpRect);
-	void	SnpRasterHeader(char * lpText,uint32_t num);
+	void	SnpRasterHeader(char * lpText,Word32 num);
 
 
 #ifdef __cplusplus

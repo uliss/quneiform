@@ -74,24 +74,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // SMAP.C
 extern	Bool16	snap_monitor_ori(CSTR_line *snap_line, int32_t num_lines);
-extern	Bool16	snap_activity(uchar a);
-extern	uchar	db_status;
-extern	Bool16	snap_show_text(uchar *txt);
+extern	Bool16	snap_activity(Word8 a);
+extern	Word8	db_status;
+extern	Bool16	snap_show_text(Word8 *txt);
 // ERECTION.C
-extern  int16_t   erect_get_global(void);
-extern  int16_t   erect_get_represent(void);
-extern  int16_t   erect_get_words(void);
+extern  Int16   erect_get_global(void);
+extern  Int16   erect_get_represent(void);
+extern  Int16   erect_get_words(void);
 // RCM.C
-extern uchar decode_ASCII_to_[256][4];
-extern uchar line_tabcell;
+extern Word8 decode_ASCII_to_[256][4];
+extern Word8 line_tabcell;
 // p2_cour.c
 extern Bool32   p2_msk_inc(CSTR_rast    rst);
 #define etap_name 'i'
 
 #define MAX_LEN_WORD  48
 
-static uchar left_limit_word[] =" .";
-static uchar right_limit_word[]=" .,"
+static Word8 left_limit_word[] =" .";
+static Word8 right_limit_word[]=" .,"
 "Р"
    "ЭЮ\'\":/\x1f";
 static CSTR_rast erect_next_word(CSTR_rast cs)
@@ -114,11 +114,11 @@ do{
 return (attr.flg&CSTR_f_fict)?(CSTR_rast)0:c;
 }
 
-static CSTR_rast erect_end_word(CSTR_rast cs,uchar *str,uchar *word_len,int16_t right_limit, Bool32 need_space)
+static CSTR_rast erect_end_word(CSTR_rast cs,Word8 *str,Word8 *word_len,Int16 right_limit, Bool32 need_space)
 {
 CSTR_rast       c=cs, n;
 CSTR_rast_attr  attr, nattr;
-int16_t           i, dif;
+Int16           i, dif;
 RecVersions     vers;
 
 dif=1;
@@ -157,7 +157,7 @@ if( need_space && c && !(attr.flg&CSTR_f_fict) )
     CSTR_GetAttr(n,&nattr);
     if( nattr.flg&(CSTR_f_let|CSTR_f_bad|CSTR_f_punct) )
         {
-        int16_t   dist=MIN(attr.h,nattr.h);
+        Int16   dist=MIN(attr.h,nattr.h);
         dist = MIN( dist, attr.w);
         dist = MIN( dist,nattr.w);
         if( nattr.col - (attr.col+attr.w)<dist/3 )
@@ -171,7 +171,7 @@ if( i )
     str--;
     }
 *str='\0';
-*word_len = (uchar)i;
+*word_len = (Word8)i;
 return c;
 }
 
@@ -214,7 +214,7 @@ for(nalt=nall=nval=0,r=beg;r && r!=end; r=CSTR_GetNext(r))
     if( !(attr.flg & CSTR_f_let) )
         continue;
     CSTR_GetCollectionUni(r,&u);
-    CSTR_GetImage(r,(uchar*)&recRast, CSTR_TYPE_IMAGE_RS);
+    CSTR_GetImage(r,(Word8*)&recRast, CSTR_TYPE_IMAGE_RS);
     if( u.lnAltCnt &&
         (na=FONTestChar(&recRast,u.Alt[0].Liga, &Attribut[0],u.Alt[0].Info))>0 &&
         Attribut[0].prob>180  )
@@ -271,7 +271,7 @@ if( !small_inc )
 return FALSE;
 }
 
-static Bool32 erect_rotate(CSTR_rast beg,CSTR_rast  end, int16_t inc)
+static Bool32 erect_rotate(CSTR_rast beg,CSTR_rast  end, Int16 inc)
 {
 CSTR_rast       r;
 CSTR_rast_attr  a;
@@ -289,7 +289,7 @@ for(r=beg;r && r!=end; r=CSTR_GetNext(r))
 return TRUE;
 }
 
-static Bool32 erect_clear(CSTR_rast beg,CSTR_rast  end, int16_t inc)
+static Bool32 erect_clear(CSTR_rast beg,CSTR_rast  end, Int16 inc)
 {
 CSTR_rast       r;
 CSTR_rast_attr  a;
@@ -307,11 +307,11 @@ for(r=beg;r && r!=end; r=CSTR_GetNext(r))
 return TRUE;
 }
 
-static int16_t erect_min_inc(CSTR_rast beg)
+static Int16 erect_min_inc(CSTR_rast beg)
 {
 CSTR_rast       r;
 CSTR_rast_attr  a;
-int16_t           mininc=NO_INCLINE;
+Int16           mininc=NO_INCLINE;
 for(r=beg;r ; r=CSTR_GetNext(r))
     {
     CSTR_GetAttr(r,&a);
@@ -328,11 +328,11 @@ Bool32	cstr_erection_pass2(CSTR_line lout)
 {
 Bool32      ret=FALSE;
 CSTR_rast   beg,end;
-uchar       len, wrd[MAX_LEN_WORD+40];
-int16_t       ginc = erect_get_global();
-int16_t       gninc= erect_get_represent();
-int16_t       gall = erect_get_words();
-int16_t       min_inc=erect_min_inc(CSTR_GetFirstRaster(lout));
+Word8       len, wrd[MAX_LEN_WORD+40];
+Int16       ginc = erect_get_global();
+Int16       gninc= erect_get_represent();
+Int16       gall = erect_get_words();
+Int16       min_inc=erect_min_inc(CSTR_GetFirstRaster(lout));
 
 if( gninc>1 )
 {
@@ -411,7 +411,7 @@ return ret;
 
 Bool32 non_near_letters(RecVersions *v)
 {
-uchar   v0, v1, p0, p1;
+Word8   v0, v1, p0, p1;
 
 // 21.05.2002 E.P.
 if (is_baltic_language(language) ||
@@ -454,11 +454,11 @@ for(r=CSTR_GetNext(CSTR_GetFirstRaster(ln));r ; r=CSTR_GetNext(r))
         a.clink>200 )
         {
         p0 = u.Alt[0].Prob;
-        u.Alt[0].Prob = (uchar)a.clink ;
+        u.Alt[0].Prob = (Word8)a.clink ;
         for(i=1;i<u.lnAltCnt;i++)
             {
             p=u.Alt[i].Prob;
-            u.Alt[i].Prob = (uchar)(p*a.clink/p0);
+            u.Alt[i].Prob = (Word8)(p*a.clink/p0);
             }
         CSTR_StoreCollectionUni(r,&u);
         }
@@ -469,11 +469,11 @@ for(r=CSTR_GetNext(CSTR_GetFirstRaster(ln));r ; r=CSTR_GetNext(r))
         a.RecogHistory |= CSTR_hi_fon;
         CSTR_SetAttr(r,&a);
         p0 = u.Alt[0].Prob;
-        u.Alt[0].Prob = (uchar)a.clink ;
+        u.Alt[0].Prob = (Word8)a.clink ;
         for(i=1;i<u.lnAltCnt;i++)
             {
             p=u.Alt[i].Prob;
-            u.Alt[i].Prob = (uchar)(p*a.clink/p0);
+            u.Alt[i].Prob = (Word8)(p*a.clink/p0);
             }
         CSTR_StoreCollectionUni(r,&u);
         }

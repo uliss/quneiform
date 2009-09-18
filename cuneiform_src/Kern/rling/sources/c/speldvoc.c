@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     #include "spelwatc.h"
   #elif defined (BC_FOR_WIN)
     #include "bcwtypes.h"
-    typedef long signed int  int;
+    typedef long signed int  LONG;
   #else
     #error   NO TOOOL SPECIFIED
   #endif

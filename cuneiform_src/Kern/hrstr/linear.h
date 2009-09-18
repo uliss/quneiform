@@ -102,10 +102,10 @@ EXTLIN INT           Ns1,Ns2;        // in Iot.c   only  !!!
 
 EXTLIN BYTE          let_to_dust;
 
-EXTLIN char          all_caps;
-EXTLIN char          all_diffs_made;
+EXTLIN CHAR          all_caps;
+EXTLIN CHAR          all_diffs_made;
 EXTLIN CSTR_line     lin_str;     // pass3.c only
-EXTLIN char          dust_in ;
+EXTLIN CHAR          dust_in ;
 
 
 #define cpsu(i)  ((((i)<3) && ((i)>-3))? i : ((i) * 26 / DPs))
@@ -166,7 +166,7 @@ void lpmima(INT);
 void bring_dust(INT);
 void interdif(cell *P, cell *N, cell *B1);
 void stand_bas();
-void complete_bas(char *);
+void complete_bas(CHAR *);
 void dbreset(INT);
 INT  fincells();
 INT  dbsum(INT filter);
@@ -223,7 +223,7 @@ EXTLIN  INT  minrow, mincol, maxrow, maxcol, midcol,  minold,
              old_minrow, old_maxrow, out_of_minmax,
              ncut_sticks, ncut_vers, ntot_cells, ncut_mult, killed_box, ncut_box, ncut_cells, bs_got, sum_ans;
 EXTLIN  INT  ncut_old, nmult_old, ndead_old, nvers_old, ntot_old;
-EXTLIN char fl_fail, fl_artifact, all_caps, fl_defb,
+EXTLIN CHAR fl_fail, fl_artifact, all_caps, fl_defb,
             b2_solid, dust_in, diff_curv,
             all_diffs_made, diffs_made, histofl, histiter, lin_pass;
 EXTLIN INT  oldPs2, oldPs1, oldPs4, oldn1, oldn2, oldn4, oldmult,

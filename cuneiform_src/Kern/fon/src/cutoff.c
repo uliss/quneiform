@@ -68,28 +68,28 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <memory.h>
 #include <string.h>
 
-int16_t NewFx=0,NewFy=0;
+SINT NewFx=0,NewFy=0;
 ////////////////
 /////////////////////
 // make ideal picture from weighted
-int16_t MakeIdeal(welet *wel,int16_t porog)
+SINT MakeIdeal(welet *wel,SINT porog)
 {
- int16_t i,j;
- char *rr,*rr1;
- int16_t sx=wel->w;
- int16_t sy=wel->h;
- int16_t fx=sx;  // first x
- int16_t lx=0;   // last  x
- int16_t fy=sy;  // first y
- int16_t ly=0;   // last  y
- int16_t summa;  // how many weighted points removed?
- int16_t startx=(WR_MAX_WIDTH-wel->w)/2;
- int16_t starty=(WR_MAX_HEIGHT-wel->h)/2;
- int16_t newstartx;
- int16_t newstarty;
- int16_t newsx,newsy;
- int16_t sdvigx;
- int16_t sdvigy;
+ SINT i,j;
+ CHAR *rr,*rr1;
+ SINT sx=wel->w;
+ SINT sy=wel->h;
+ SINT fx=sx;  // first x
+ SINT lx=0;   // last  x
+ SINT fy=sy;  // first y
+ SINT ly=0;   // last  y
+ SINT summa;  // how many weighted points removed?
+ SINT startx=(WR_MAX_WIDTH-wel->w)/2;
+ SINT starty=(WR_MAX_HEIGHT-wel->h)/2;
+ SINT newstartx;
+ SINT newstarty;
+ SINT newsx,newsy;
+ SINT sdvigx;
+ SINT sdvigy;
 
 
   rr=wel->raster+starty*WR_MAX_WIDTH+startx;
@@ -187,11 +187,11 @@ int16_t MakeIdeal(welet *wel,int16_t porog)
 ////////////////////////////////
 ////////////////
 // start find distance L1 from all points to raster
-int16_t AnalisFirstRow(BYTE *row,int16_t fir,int16_t las,BYTE *out,
-						 int16_t sizex,int16_t sizey,int16_t fullx)
+SINT AnalisFirstRow(BYTE *row,SINT fir,SINT las,BYTE *out,
+						 SINT sizex,SINT sizey,SINT fullx)
 {
- register int16_t i,j;
- int16_t PrevDist;
+ register SINT i,j;
+ SINT PrevDist;
  BYTE *nextRow;
 
  if(fir >= las) return 0;
@@ -235,11 +235,11 @@ int16_t AnalisFirstRow(BYTE *row,int16_t fir,int16_t las,BYTE *out,
  return 0;
 }
 /////////////////////////
-int16_t AnalisNextRow (BYTE *row,int16_t fir,int16_t las, BYTE *out,
-						 int16_t sizex,int16_t sizey,int16_t fullx)
+SINT AnalisNextRow (BYTE *row,SINT fir,SINT las, BYTE *out,
+						 SINT sizex,SINT sizey,SINT fullx)
 {
- register int16_t i,j;
- int16_t PrevDist;
+ register SINT i,j;
+ SINT PrevDist;
  BYTE *nextRow;
 
   if(fir > 0)  out[fir]=1;
@@ -286,12 +286,12 @@ int16_t AnalisNextRow (BYTE *row,int16_t fir,int16_t las, BYTE *out,
  return 0;
 }
 ///////////////////////
-static int16_t FindDist(BYTE *ras,int16_t sizex,int16_t sizey,int16_t fullx,BYTE *out)
+static SINT FindDist(BYTE *ras,SINT sizex,SINT sizey,SINT fullx,BYTE *out)
 {
- int16_t i;
- int16_t fir,k;
- int16_t tsizey;   // stay rows
- int16_t fill;
+ SINT i;
+ SINT fir,k;
+ SINT tsizey;   // stay rows
+ SINT fill;
 
  // at first - find distances in first row
  for(i=0,fir=-1,fill=0;i<sizex;i++)
@@ -336,22 +336,22 @@ static int16_t FindDist(BYTE *ras,int16_t sizex,int16_t sizey,int16_t fullx,BYTE
 }
 ////////////////
 // find distances in wel - results put to outwel
-int16_t FindDistanceWr(welet *wel,welet *outwel)
+SINT FindDistanceWr(welet *wel,welet *outwel)
 {
  BYTE *cur;
- int16_t startx,starty;
+ SINT startx,starty;
  BYTE *out;
- register int16_t i,j;
- int16_t bound;
- int16_t sizex,sizey;
- int16_t fill;
+ register SINT i,j;
+ SINT bound;
+ SINT sizex,sizey;
+ SINT fill;
  BYTE *cout;
 #ifdef _WEIDIST_
  WORD koef;
  BYTE ckoef,maxvei;
- char *ras,*cras;
+ CHAR *ras,*cras;
 #else
- int16_t b2;
+ SINT b2;
  BYTE *fullout;
 #endif
 
@@ -360,7 +360,7 @@ int16_t FindDistanceWr(welet *wel,welet *outwel)
  cur=(BYTE *)wel->raster+starty*WR_MAX_WIDTH+startx;
  out=(BYTE *)outwel->raster+starty*WR_MAX_WIDTH+startx;
 
- fill=FindDist(cur,wel->w,wel->h,(int16_t)WR_MAX_WIDTH,out);
+ fill=FindDist(cur,wel->w,wel->h,(SINT)WR_MAX_WIDTH,out);
 
  // set distances for all around
  sizex=wel->w;
@@ -513,10 +513,10 @@ int16_t FindDistanceWr(welet *wel,welet *outwel)
 /////////////////
 #define POROG_IDEAL 10
 /**************/
-FON_FUNC(int32_t) FONCutOffClusters(welet *ww,int16_t num)
+FON_FUNC(int32_t) FONCutOffClusters(welet *ww,Int16 num)
 {
-int16_t TestFat(welet *wel,int16_t porog,int16_t porog_fat);
-char porog;
+SINT TestFat(welet *wel,SINT porog,SINT porog_fat);
+CHAR porog;
 welet tmp_wel;
 
  if(!ww) return 0;
@@ -539,7 +539,7 @@ welet tmp_wel;
 #ifdef _TEST_FAT_
   if( ww->weight > 1 && ww->fixed==0 )
   {
- //   if( ((ww->summa*100L)/((int)ww->mw*ww->mh*ww->weight)) < 75 )
+ //   if( ((ww->summa*100L)/((LONG)ww->mw*ww->mh*ww->weight)) < 75 )
 	   porog=TestFat(ww,porog,_POROG_FAT_);
   }
 #endif

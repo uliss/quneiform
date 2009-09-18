@@ -73,32 +73,32 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*********************************************************************************************/
 const int32_t max_raster = REC_MAX_RASTER_SIZE;//2048*32;
 
-uchar alphabet[256];
+Word8 alphabet[256];
 int32_t gra_type_rec = -1;
-uint16_t comp_max_h, comp_max_w, comp_min_h, comp_min_w;
-int16_t MaxScale;
-uchar work_raster[max_raster];
+Word16 comp_max_h, comp_max_w, comp_min_h, comp_min_w;
+Int16 MaxScale;
+Word8 work_raster[max_raster];
 
-static uchar make_fill[] = {0, 1, 3, 7, 15, 31, 63, 127, 255};
+static Word8 make_fill[] = {0, 1, 3, 7, 15, 31, 63, 127, 255};
 
-extern uint16_t gwLowRC_rrec;
-extern uchar*  lnOcrPath;
+extern Word16 gwLowRC_rrec;
+extern Word8*  lnOcrPath;
 /*********************************************************************************************/
-Bool32 rec_init(RRecComControl control, char *spath, uchar lang);
-void recog(Handle hCCOM, uint32_t flags);
+Bool32 rec_init(RRecComControl control, char *spath, Word8 lang);
+void recog(Handle hCCOM, Word32 flags);
 void recog_evn(CCOM_comp* pcomp, bool if_use_gra);
 void make_raster(CCOM_comp* pcomp);
 //void recog_gra(RecVersions *v, CCOM_comp* pcomp);
 void getExtComp(CCOM_comp* pcomp, /*ExtComponent*/CCOM_comp* ec);
 
-static void align8_lines(uchar *bin,int32_t w, int32_t h);
+static void align8_lines(Word8 *bin,int32_t w, int32_t h);
 
-extern Bool16 rec_is_language(uchar);
-extern Bool16 rec_set_alpha(uchar, uchar*);
-extern Bool16 rec_load_tables(uchar);
-//extern int32_t rec_gra_type_rec(uchar);
+extern Bool16 rec_is_language(Word8);
+extern Bool16 rec_set_alpha(Word8, Word8*);
+extern Bool16 rec_load_tables(Word8);
+//extern int32_t rec_gra_type_rec(Word8);
 /*********************************************************************************************/
-RRECCOM_FUNC(Bool32)  RRECCOM_Recog(Handle hCCOM, RRecComControl Control,char *spath, uchar lang)
+RRECCOM_FUNC(Bool32)  RRECCOM_Recog(Handle hCCOM, RRecComControl Control,char *spath, Word8 lang)
 {
 	if (!rec_init(Control, (char*)lnOcrPath, lang)) return FALSE;
 
@@ -110,7 +110,7 @@ RRECCOM_FUNC(Bool32)  RRECCOM_Recog(Handle hCCOM, RRecComControl Control,char *s
 	return TRUE;
 }
 /*********************************************************************************************/
-Bool32 rec_init(RRecComControl control, char *spath, uchar lang)
+Bool32 rec_init(RRecComControl control, char *spath, Word8 lang)
 {
 	if (control.MaxCompWid > 0) comp_max_w = control.MaxCompWid;
 	else comp_max_w = RASTER_MAX_WIDTH ;
@@ -154,7 +154,7 @@ Bool32 rec_init(RRecComControl control, char *spath, uchar lang)
 	return TRUE;
 }
 /*********************************************************************************************/
-void recog(Handle hCCOM, uint32_t flags)
+void recog(Handle hCCOM, Word32 flags)
 {
 	CCOM_comp* pcomp;
 
@@ -195,8 +195,8 @@ void recog_evn(CCOM_comp* pcomp, bool if_use_gra)
 
 		getExtComp(&comp, &ec);
 
-		nvers = (int16_t)EVNRecog_lp(&ec, comp.linerep + sizeof(int16_t), comp.size_linerep - sizeof(int16_t), evn_res);
-//-		nvers = (int16_t)EVNRecog_lp(&comp, comp.linerep + sizeof(int16_t), comp.size_linerep - sizeof(int16_t), evn_res);
+		nvers = (Int16)EVNRecog_lp(&ec, comp.linerep + sizeof(Int16), comp.size_linerep - sizeof(Int16), evn_res);
+//-		nvers = (Int16)EVNRecog_lp(&comp, comp.linerep + sizeof(Int16), comp.size_linerep - sizeof(Int16), evn_res);
 
 //		pcomp->type |= ec.type;
 		pcomp->type = ec.type;
@@ -243,12 +243,12 @@ void make_raster(CCOM_comp* pcomp)
 {
 	CCOM_lnhead* lp;
 	CCOM_interval* ip;
-	uchar *p, *pp;
-	int16_t x, l, sh;
-	uint16_t w;
+	Word8 *p, *pp;
+	Int16 x, l, sh;
+	Word16 w;
 
 	memset (work_raster, 0, pcomp->rw*pcomp->h);
-	lp = (CCOM_lnhead*)((char *)pcomp->linerep + sizeof(int16_t));
+	lp = (CCOM_lnhead*)((char *)pcomp->linerep + sizeof(Int16));
 
 	while (lp->lth)
 	{
@@ -270,10 +270,10 @@ void make_raster(CCOM_comp* pcomp)
 	}
 }
 /*********************************************************************************************/
-static void align8_lines(uchar *bin,int32_t w, int32_t h)
+static void align8_lines(Word8 *bin,int32_t w, int32_t h)
 {
 	int i,ii,iii, wb=(w+7)/8, wb_new=((w+63)/64)*8;
-	uchar   buf[256];
+	Word8   buf[256];
 
 	memset(buf,0,wb_new);
 
@@ -297,7 +297,7 @@ void getExtComp(CCOM_comp* pcomp, /*ExtComponent*/CCOM_comp* ec)
 	ec->scale = pcomp->scale;
 }
 /*********************************************************************************************/
-RRECCOM_FUNC(Bool32) RRECCOM_IsLanguage(uchar language)
+RRECCOM_FUNC(Bool32) RRECCOM_IsLanguage(Word8 language)
 {
 	chdir((char*)lnOcrPath);
 

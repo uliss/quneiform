@@ -100,7 +100,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #endif
 
 MEMOPS_INLINE
-void __CopyOR(uchar* dst, const uchar* src, const int bytes_cnt) {
+void __CopyOR(Word8* dst, const Word8* src, const int bytes_cnt) {
 	for(int i=0; i<bytes_cnt; i++) {
 		*dst++ |= *src++;
 	}
@@ -108,11 +108,11 @@ void __CopyOR(uchar* dst, const uchar* src, const int bytes_cnt) {
 
 MEMOPS_INLINE
 void CopyOR(void* dst, const void* src, const unsigned short dword_cnt) {
-	__CopyOR((uchar*)dst, (uchar*)src, 4*(int)dword_cnt);
+	__CopyOR((Word8*)dst, (Word8*)src, 4*(int)dword_cnt);
 }
 
 MEMOPS_INLINE
-void __CopyAND(uchar* dst, const uchar* src, const int bytes_cnt) {
+void __CopyAND(Word8* dst, const Word8* src, const int bytes_cnt) {
 	for(int i=0; i<bytes_cnt; i++) {
 		*dst++ &= *src++;
 	}
@@ -120,11 +120,11 @@ void __CopyAND(uchar* dst, const uchar* src, const int bytes_cnt) {
 
 MEMOPS_INLINE
 void CopyAND(void* dst, const void* src, const unsigned short dword_cnt) {
-	__CopyAND((uchar*)dst, (uchar*)src, 4*(int)dword_cnt);
+	__CopyAND((Word8*)dst, (Word8*)src, 4*(int)dword_cnt);
 }
 
 MEMOPS_INLINE
-void __InvertSelf(uchar* dst, const int bytes_cnt) {
+void __InvertSelf(Word8* dst, const int bytes_cnt) {
 	for(int i=0; i<bytes_cnt; i++) {
 		*dst++ = ~*dst;
 	}
@@ -132,7 +132,7 @@ void __InvertSelf(uchar* dst, const int bytes_cnt) {
 
 MEMOPS_INLINE
 void InvertSelf(void* dst, const unsigned short dword_cnt) {
-	__InvertSelf((uchar*)dst, 4*(int)dword_cnt);
+	__InvertSelf((Word8*)dst, 4*(int)dword_cnt);
 }
 
 MEMOPS_INLINE

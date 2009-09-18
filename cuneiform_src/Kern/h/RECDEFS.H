@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #pragma pack(1)
 
-#define  RD_UNRECOG_char   '~'
+#define  RD_UNRECOG_CHAR   '~'
 /////////////////////////////////////////////////////////
 // RecRaster - rectangular peace of black/white image
 // Black pixel is 1
@@ -86,7 +86,7 @@ typedef struct tagRecRaster
       int32_t    lnPixWidth;
       int32_t    lnPixHeight;
       int32_t    lnRasterBufSize;				// maximum of raster length
-      uchar    Raster[REC_MAX_RASTER_SIZE];	// image
+      Word8    Raster[REC_MAX_RASTER_SIZE];	// image
    }  RecRaster;
 
 typedef struct tagRecRasterEx
@@ -95,7 +95,7 @@ typedef struct tagRecRasterEx
       int32_t    lnPixHeight;
       int32_t    lnRasterBufSize;				// maximum of raster length
       int32_t    lnLevelGray;
-      uchar    Raster[REC_MAX_RASTER_SIZE_EX];	// image
+      Word8    Raster[REC_MAX_RASTER_SIZE_EX];	// image
    }  RecRasterEx;
 /////////////////////////////////////////////////////////
 // RecBmp - .............................................
@@ -104,7 +104,7 @@ typedef struct tagRecRasterEx
 typedef struct tagRecBmp
    {
       Rect16         Region;
-      uchar  *   pBits;
+      Word8  *   pBits;
       int32_t          nOffsetX;   //this is offset of Region.left-bit
                                  //relatively 0-bit 0-byte of pBits
       int32_t          nByteWidth;
@@ -116,27 +116,27 @@ typedef struct tagRecBmp
 
 typedef struct tagRecAlt
    {
-      uchar    Code;
-      uchar    CodeExt;        // for unicode
-      uchar    Method;         // recognize method
-      uchar    Prob;
-      uint16_t   Info;
+      Word8    Code;
+      Word8    CodeExt;        // for unicode
+      Word8    Method;         // recognize method
+      Word8    Prob;
+      Word16   Info;
    }  RecAlt;
 typedef struct tagUniAlt
    {
-      uchar    Code[4];
-      uchar    Liga;        // for unicode
-      uchar    Method;         // recognize method
-      uchar    Prob;
-      uchar    Charset;
-      uint16_t   Info;
+      Word8    Code[4];
+      Word8    Liga;        // for unicode
+      Word8    Method;         // recognize method
+      Word8    Prob;
+      Word8    Charset;
+      Word16   Info;
    }  UniAlt;
 
 typedef struct tagClustAlt
    {
-      int16_t    nClust;         // cluster index; zero - structure is not initiated
-      uchar    nDist;          // distance
-      uchar    nReserved;
+      Int16    nClust;         // cluster index; zero - structure is not initiated
+      Word8    nDist;          // distance
+      Word8    nReserved;
    }  ClustAlt;
 
 typedef struct tagRecVersions
@@ -160,29 +160,29 @@ int32_t  len;  // -1 - It isn't vector;  metric Eucleede ы xэ + yэ
 int32_t Mx,My;
 int32_t Cx,Cy;  // debug purposes
 int32_t area;
-uchar Mn; // normalized moment
-uchar reserve[3];
+Word8 Mn; // normalized moment
+Word8 reserve[3];
 #define MAX_VECT	64
 #define NORMA_FACTOR	12
 }  RecVector;
 
 typedef struct tagRecData
 	{
-	uint32_t    lwStatus;
+	Word32    lwStatus;
 
 	RecRaster recRaster;       // basic raster. Can be not changed
-	uint16_t    v3x5[16];        // normalizeted image 3x5
-	uint32_t    lwCompCnt;       // number of components, 0 - not counted
+	Word16    v3x5[16];        // normalizeted image 3x5
+	Word32    lwCompCnt;       // number of components, 0 - not counted
 	Rect16    rect;
   RecVector    vSticks[MAX_VECT];
-  int16_t     lwSticksCnt;
+  Int16     lwSticksCnt;
 	} RecData;
 
 typedef struct tagRecObject
 	{
 	RecData     recData;
 	RecVersions recResults;
-	uint32_t      lwStatusMethods; // indicator of used methods
+	Word32      lwStatusMethods; // indicator of used methods
 
 
 	} RecObject;

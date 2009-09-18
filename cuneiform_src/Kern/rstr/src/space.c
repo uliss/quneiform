@@ -103,7 +103,7 @@ static BYTE dist[300];
 
 static INT sm,sp,spmin,spmax;
 static WORD n;
-static int H;
+static LONG H;
 static Bool italic;
 static INT  gap;
 
@@ -121,7 +121,7 @@ void space_size(INT h)
 {
  INT nh,nh1,i,j,d,pl,sss,dd,sv;
  WORD s,ss,s1,n1,n2,x[128],y[128],hist[128];
- int S;
+ LONG S;
  cell *c1,*c2,*c;
  BYTE str[2100],let1,let2,fl;
 
@@ -1814,7 +1814,7 @@ INT get_space_size(void)
 //
 void set_space_size(INT spn)
 {
-	char str[80];
+	CHAR str[80];
 
 	sp=spn;
 	spmin=sp-1;

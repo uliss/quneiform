@@ -73,13 +73,13 @@ static int		font,kegl,lang;
 static int foregroundColor,backgroundColor,fontNum;
 static char * verInfo;
 
-static void ExtDataProc(uchar* _ptr, uint32_t lth);
+static void ExtDataProc(Word8* _ptr, Word32 lth);
 void NewFormattedSDD(const sheet_disk_descr* pt);
 void NewFormattedFDD(const fragm_disk_descr* pt);
 void NewFormattedTR(const text_ref* pt);
 //void NewFormattedFD(const fragm_disk* pt);
 void NewFormattedLB(const line_beg* pt);
-void NewFormattedL(const letter* pt,const uint32_t alternatives);
+void NewFormattedL(const letter* pt,const Word32 alternatives);
 void NewFormattedBMR(const bit_map_ref * pt);
 void NewFormattedFK(const font_kegl * pt);
 void NewFormattedE(const edExtention* pt,const void* ptExt);
@@ -93,13 +93,13 @@ void CED_DeleteTree(CEDPage * pg)
 
 void RepairStructure();
 
-CEDPage * CED_FormattedLoad (char * file,Bool32 readFromFile, uint32_t bufLen)
+CEDPage * CED_FormattedLoad (char * file,Bool32 readFromFile, Word32 bufLen)
 {
 	CED_SetRawDataProc(ExtDataProc);
 	if (CED_IsEdFile(file,readFromFile,bufLen)==96)
 	{
 		return 0;
-//		return Formattedload_96(char * file,Bool32 readFromFile, uint32_t bufLen);
+//		return Formattedload_96(char * file,Bool32 readFromFile, Word32 bufLen);
 	}
 	else if (CED_IsEdFile(file,readFromFile,bufLen)!=2000)
 		return 0;
@@ -131,7 +131,7 @@ CEDPage * CED_FormattedLoad (char * file,Bool32 readFromFile, uint32_t bufLen)
 }
 
 //Put non-recognized codes to the corresponding field of extData
-void ExtDataProc(uchar* _ptr, uint32_t lth)
+void ExtDataProc(Word8* _ptr, Word32 lth)
 {}
 
 void NewFormattedSDD(const sheet_disk_descr* pt)
@@ -334,7 +334,7 @@ void NewFormattedE(const edExtention* pt,const void* ptExt)
 			fd->flag=fp->flag;
 		break;
 	}
-	case EDEXT_char:
+	case EDEXT_CHAR:
 	{
 		charParams* chp=(charParams*)ptExt;
 		fontNum=chp->fontNumber;
@@ -442,7 +442,7 @@ void NewFormattedLang(const EdTagLanguage* pt)
 {
 	lang=pt->language;
 }
-void NewFormattedL(const letter* pt,const uint32_t alternatives)
+void NewFormattedL(const letter* pt,const Word32 alternatives)
 {
 	if (!curEdLine)
 		return;
@@ -742,7 +742,7 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 	int fn;
 	int sec;
 	CEDChar *tmpChr;
-	HANDLE hFile=Open(0, (char *)fileName,OSF_CREATE|OSF_BINARY|OSF_WRITE);
+	HANDLE hFile=Open(0, (PInt8)fileName,OSF_CREATE|OSF_BINARY|OSF_WRITE);
 	if (!hFile)
 	{
 		SetReturnCode_ced(CFIO_GetReturnCode());
@@ -754,14 +754,14 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 	sdd.quant_fragm=1;
 	sdd.sheet_numb=page->pageNumber;
 	sdd.descr_lth=sizeof(sdd)+sizeof(fragm_disk_descr);
-	sdd.resolution=(uint16_t)page->dpi.cx;
+	sdd.resolution=(Word16)page->dpi.cx;
 	sdd.incline=page->turn;
 	sdd.version=2000;
-	if (!Write(hFile,(char *)&sdd,sizeof(sdd))) goto ED_WRITE_END;
+	if (!Write(hFile,(PInt8)&sdd,sizeof(sdd))) goto ED_WRITE_END;
 	fragm_disk_descr fdd;
 	memset((void*)&fdd,0,sizeof(fdd));
 	fdd.code=SS_FRAGMENT;
-	if (!Write(hFile,(char *)&fdd,sizeof(fdd))) goto ED_WRITE_END;
+	if (!Write(hFile,(PInt8)&fdd,sizeof(fdd))) goto ED_WRITE_END;
 	//Write text description of version
 	if (!WriteExtCode(hFile,EDEXT_VERSION,(void*)"CuneiForm2000 file format",strlen("CuneiForm2000 file format")+1)) goto ED_WRITE_END;
 	//Write table of fonts
@@ -796,9 +796,9 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 		sp.numSnakeCols=sect->numSnakeCols;
 		if (!WriteExtCode(hFile,EDEXT_SECTION,&sp,sizeof(sp),sizeof(sectParams2)+sect->numSnakeCols*8)) goto ED_WRITE_END;
 		for (i=0;i<sect->numSnakeCols;i++)
-			if (!Write(hFile,(char *)&(sect->colInfo[i].width),4)) goto ED_WRITE_END;
+			if (!Write(hFile,(PInt8)&(sect->colInfo[i].width),4)) goto ED_WRITE_END;
 		for (i=0;i<sect->numSnakeCols;i++)
-			if (!Write(hFile,(char *)&(sect->colInfo[i].space),4)) goto ED_WRITE_END;
+			if (!Write(hFile,(PInt8)&(sect->colInfo[i].space),4)) goto ED_WRITE_END;
 		sectParams2	sp2;
 		sp2.footerY=sect->footerY;
 		sp2.headerY=sect->headerY;
@@ -807,7 +807,7 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 		sp2.orientation=sect->orientation;
 		sp2.sectionBreak=sect->sectionBreak;
 		sp2.lineBetCol=sect->lineBetCol;
-		if (!Write(hFile,(char *)&sp2,sizeof(sp2))) goto ED_WRITE_END;
+		if (!Write(hFile,(PInt8)&sp2,sizeof(sp2))) goto ED_WRITE_END;
 		if (!WriteRemark(hFile,SSR_FRAG_TYPE,TP_MCOL_BEG)) goto ED_WRITE_END;
 		if (!WriteRemark(hFile,SSR_FRAG_PNUM,MIN(sect->numberOfColumns,1))) goto ED_WRITE_END;
 		//Write headers of paragraphs in rows
@@ -917,16 +917,16 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 		fk.code=SS_FONT_KEGL;
 		font=fk.new_font=tmpChr->fontAttribs;
 		kegl=fk.new_kegl=tmpChr->fontHeight;
-		if (!Write(hFile,(char *)&fk,sizeof(fk))) goto ED_WRITE_END;
+		if (!Write(hFile,(PInt8)&fk,sizeof(fk))) goto ED_WRITE_END;
 		charParams chp;
 		chp.fontNumber=fontNum=tmpChr->fontNum;
 		chp.foregroundColor=foregroundColor=tmpChr->foregroundColor;
 		chp.backgroundColor=backgroundColor=tmpChr->backgroundColor;
-		if (!WriteExtCode(hFile,EDEXT_char,&chp,sizeof(chp))) goto ED_WRITE_END;
+		if (!WriteExtCode(hFile,EDEXT_CHAR,&chp,sizeof(chp))) goto ED_WRITE_END;
 		EdTagLanguage fl;
 		fl.code=SS_LANGUAGE;
 		fl.language=lang=tmpChr->fontLang;
-		if (!Write(hFile,(char *)&fl,sizeof(fl))) goto ED_WRITE_END;
+		if (!Write(hFile,(PInt8)&fl,sizeof(fl))) goto ED_WRITE_END;
 	}
 	else
 		font=kegl=0;
@@ -947,18 +947,18 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 					line->SetCurChar(chr);
 					bit_map_ref bmr;
 					bmr.code=SS_BITMAP_REF;
-					bmr.col=(uint16_t)chr->layout.left;
-					bmr.row=(uint16_t)chr->layout.top;
-					bmr.height=(uint16_t)(chr->layout.bottom-chr->layout.top);
-					bmr.width=uint16_t(chr->layout.right-chr->layout.left);
-					if (!Write(hFile,(char *)(&bmr),sizeof(bmr))) goto ED_WRITE_END;
+					bmr.col=(Word16)chr->layout.left;
+					bmr.row=(Word16)chr->layout.top;
+					bmr.height=(Word16)(chr->layout.bottom-chr->layout.top);
+					bmr.width=Word16(chr->layout.right-chr->layout.left);
+					if (!Write(hFile,(PInt8)(&bmr),sizeof(bmr))) goto ED_WRITE_END;
 					if(chr->fontHeight!=kegl||chr->fontAttribs!=font)
 					{
 						font_kegl fk;
 						fk.code=SS_FONT_KEGL;
 						font=fk.new_font=chr->fontAttribs;
 						kegl=fk.new_kegl=chr->fontHeight;
-						if (!Write(hFile,(char *)&fk,sizeof(fk))) goto ED_WRITE_END;
+						if (!Write(hFile,(PInt8)&fk,sizeof(fk))) goto ED_WRITE_END;
 					}
 					if(chr->fontNum!=fontNum||chr->foregroundColor!=foregroundColor||chr->backgroundColor!=backgroundColor)
 					{
@@ -966,25 +966,25 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 						chp.fontNumber=fontNum=chr->fontNum;
 						chp.foregroundColor=foregroundColor=chr->foregroundColor;
 						chp.backgroundColor=backgroundColor=chr->backgroundColor;
-						if (!WriteExtCode(hFile,EDEXT_char,&chp,sizeof(chp))) goto ED_WRITE_END;
+						if (!WriteExtCode(hFile,EDEXT_CHAR,&chp,sizeof(chp))) goto ED_WRITE_END;
 					}
 					if(chr->fontLang!=lang)
 					{
 						EdTagLanguage fl;
 						fl.code=SS_LANGUAGE;
 						fl.language=lang=chr->fontLang;
-						if (!Write(hFile,(char *)&fl,sizeof(fl))) goto ED_WRITE_END;
+						if (!Write(hFile,(PInt8)&fl,sizeof(fl))) goto ED_WRITE_END;
 					}
 					if (chr->alternatives)
 					{
-						if (!Write(hFile,(char *)chr->alternatives,chr->numOfAltern*sizeof(letterEx))) goto ED_WRITE_END;
+						if (!Write(hFile,(PInt8)chr->alternatives,chr->numOfAltern*sizeof(letterEx))) goto ED_WRITE_END;
 					}
 					else
 					{
 						letterEx l;
 						l.alternative=' ';
 						l.probability=254;
-						if (!Write(hFile,(char *)&l,sizeof(letterEx))) goto ED_WRITE_END;
+						if (!Write(hFile,(PInt8)&l,sizeof(letterEx))) goto ED_WRITE_END;
 					}
 					chr=line->NextChar(FALSE);
 				}while(chr);
@@ -995,7 +995,7 @@ Bool32	CED_FormattedWrite(char * fileName, CEDPage *page)
 				lb.code=SS_LINE_BEG;
 				lb.base_line=!line->hardBreak;
 				lb.height=line->defChrFontHeight;
-				if (!Write(hFile,(char *)&lb,sizeof(line_beg))) goto ED_WRITE_END;
+				if (!Write(hFile,(PInt8)&lb,sizeof(line_beg))) goto ED_WRITE_END;
 			}
 			line=line->next;//para->NextLine(FALSE);
 		}while(line);
@@ -1035,9 +1035,9 @@ Bool32 WriteFontTable(HANDLE hFile, CEDPage* page)
 			&(fond.fontCharset),&ch);
 		fond.size=strlen(ch)+1+sizeof(fontDiscr);
 		//write info about font
-		if (!Write(hFile,(char *)&fond,sizeof(fontDiscr))) return FALSE;
+		if (!Write(hFile,(PInt8)&fond,sizeof(fontDiscr))) return FALSE;
 		//write font's name
-		if (!Write(hFile,(char *)ch,strlen(ch)+1)) return FALSE;
+		if (!Write(hFile,(PInt8)ch,strlen(ch)+1)) return FALSE;
 	}
 	return TRUE;
 }
@@ -1053,7 +1053,7 @@ Bool32 WriteTiffDescr(HANDLE hFile, CEDPage* page)
 	fond.resolutionY=(WORD)page->dpi.cy;
 	fond.unrecogSymbol=page->unrecogChar;
 	if (!WriteExtCode(hFile,EDEXT_TIFF_DESC,&fond,sizeof(fond),strlen(page->imageName)+1)) return FALSE;
-	if (!Write(hFile,(char *)page->imageName,strlen(page->imageName)+1)) return FALSE;
+	if (!Write(hFile,(PInt8)page->imageName,strlen(page->imageName)+1)) return FALSE;
 	return TRUE;
 }
 
@@ -1083,9 +1083,9 @@ Bool32 WritePictTable(HANDLE hFile, CEDPage* page)
 		picd.type=page->picsTable[q].type;
 		picd.size=page->picsTable[q].len+sizeof(picd);
 		//write picture info.
-		if (!Write(hFile,(char *)&picd,sizeof(picd))) return FALSE;
+		if (!Write(hFile,(PInt8)&picd,sizeof(picd))) return FALSE;
 		//write picture
-		if (!Write(hFile,(char *)page->picsTable[q].data,page->picsTable[q].len)) return FALSE;
+		if (!Write(hFile,(PInt8)page->picsTable[q].data,page->picsTable[q].len)) return FALSE;
 	}
 	return TRUE;
 }
@@ -1128,7 +1128,7 @@ Bool32 WriteExtCode(HANDLE hFile,int Ecode, void* object, int lenOfObj, int extr
 		ext.code=SS_EXTENTION;
 		ext.Ecode=Ecode;
 		ext.length=lenOfObj+extraLen+sizeof(ext);
-		if (!Write(hFile,(char *)&ext,sizeof(ext))) return FALSE;
+		if (!Write(hFile,(PInt8)&ext,sizeof(ext))) return FALSE;
 	}
 	else
 	{
@@ -1136,10 +1136,10 @@ Bool32 WriteExtCode(HANDLE hFile,int Ecode, void* object, int lenOfObj, int extr
 		ext.code=SS_EXTENTION;
 		ext.Ecode=Ecode;
 		ext.length=lenOfObj+extraLen+sizeof(ext);
-		if (!Write(hFile,(char *)&ext,sizeof(ext))) return FALSE;
+		if (!Write(hFile,(PInt8)&ext,sizeof(ext))) return FALSE;
 	}
 		if (lenOfObj)
-			if (!Write(hFile,(char *)object,lenOfObj)) return FALSE;
+			if (!Write(hFile,(PInt8)object,lenOfObj)) return FALSE;
 	return TRUE;
 }
 
@@ -1149,23 +1149,23 @@ Bool32 WriteRemark(HANDLE hFile,int type, int object)
 	tr.code=SS_REMARK;
 	tr.type=type;
 	tr.object=object;
-	if (!Write(hFile,(char *)&tr,sizeof(tr))) return FALSE;
+	if (!Write(hFile,(PInt8)&tr,sizeof(tr))) return FALSE;
 	return TRUE;
 }
 
 
-uint32_t CED_IsEdFile (char * file,Bool32 readFromFile, uint32_t bufLen)
+Word32 CED_IsEdFile (char * file,Bool32 readFromFile, Word32 bufLen)
 {
 	HANDLE PedHandle;
-	uint32_t len;
-	uchar * start;
+	Word32 len;
+	PWord8 start;
 
 	if (readFromFile)
 	{
-		len=MemFromFile((char *)file,&PedHandle);
+		len=MemFromFile((PInt8)file,&PedHandle);
 		if (len==0)
 			return 0;
-		start = (uchar *)Lock(PedHandle);
+		start = (PWord8)Lock(PedHandle);
 		if ( !start )
 		{
 			Unlock(PedHandle);
@@ -1175,7 +1175,7 @@ uint32_t CED_IsEdFile (char * file,Bool32 readFromFile, uint32_t bufLen)
 	}
 	else
 	{
-		start =(uchar*)file;
+		start =(Word8*)file;
 		len=bufLen;
 	}
 	Bool32 ret=96;

@@ -91,7 +91,7 @@ int32_t TestClustNames(welet *wel,int numWel,
        j=FONGetClusterAsBW( NULL,i,0,&recRast);
 	   if(j<0) continue;
 
-	   dist= FONTestChar(&recRast,(uchar)n2,testInfo,0);
+	   dist= FONTestChar(&recRast,(Word8)n2,testInfo,0);
        if(dist <= 0 ||  testInfo[0].prob <= d2 )
 		     continue;
 
@@ -120,8 +120,8 @@ int32_t GetNearestClusters (int num, welet *wel,int numWel ,
 	xbit=recRast.lnPixWidth;
 	bytesx=((xbit+63)/64)*8;
 
-    ret=RecogClu(recRast.Raster,(int16_t)bytesx,(int16_t)xbit,(int16_t)recRast.lnPixHeight,
-	  recres,(int16_t)REC_MAX_VERS, wel,numWel,-1, 0,-1024,-1024, 1 );
+    ret=RecogClu(recRast.Raster,(SINT)bytesx,(SINT)xbit,(SINT)recRast.lnPixHeight,
+	  recres,(SINT)REC_MAX_VERS, wel,numWel,-1, 0,-1024,-1024, 1 );
 
     if(ret <= 0) return 0;
 
@@ -250,8 +250,8 @@ int   ylast=MIN(h,yrow2-ymove-1);
 //
 extern welet *welBuf;
 int TestMoveRaster(int start,Nraster_header *rh,int NumAll,
-				   int NumClus, int16_t *nClus,
-				   int16_t  *LasIn, int16_t *NumIn,
+				   int NumClus, SINT *nClus,
+				   SINT  *LasIn, SINT *NumIn,
 				   int porog)
 {
  BYTE *tmpbuf=(BYTE *)welBuf;
@@ -322,8 +322,8 @@ int TestMoveRaster(int start,Nraster_header *rh,int NumAll,
     for(k=0;k<NumAll;k++)
 	  if(nClus[k]>j) nClus[k]--;
     NumClus--;
-    memcpy(LasIn+j,LasIn+j+1,(NumClus-j)*sizeof(int16_t));
-    memcpy(NumIn+j,NumIn+j+1,(NumClus-j)*sizeof(int16_t));
+    memcpy(LasIn+j,LasIn+j+1,(NumClus-j)*sizeof(SINT));
+    memcpy(NumIn+j,NumIn+j+1,(NumClus-j)*sizeof(SINT));
 	if(LasIn[nClus[start]] < i)
 		LasIn[nClus[start]] = i;
 	numAdded++;
@@ -334,7 +334,7 @@ int TestMoveRaster(int start,Nraster_header *rh,int NumAll,
 }
 ///////////////
 int TestFromGoodRaster(int start,Nraster_header *rh,int NumAll,
-				   int NumClus, int16_t *nClus,
+				   int NumClus, SINT *nClus,
 				   InfoCluster *infoC,
 				   int porog)
 {
@@ -413,7 +413,7 @@ static const char twinLet2[] ="l!!\xAB";
 ////////////////
 static int TestSymbolGood(  Nraster_header *rh,
 					 int start,int NumAll,
-					 int porog,  int16_t *nClus,
+					 int porog,  SINT *nClus,
 					 BYTE *metkaGood,BYTE *metkaValid,int nCompare
 					 )
 {
@@ -503,7 +503,7 @@ static int TestSymbolGood(  Nraster_header *rh,
 ///////////////
 int TestClusterGood(  Nraster_header *rh,
 					 int testClus,int start,int inCluster,
-					 int NumAll, int porog,  int16_t *nClus,
+					 int NumAll, int porog,  SINT *nClus,
 					 BYTE *metkaGood,BYTE *metkaValid,
 					 int nCompare
 					 )
@@ -536,7 +536,7 @@ static int cou1[MAXFIELD];
 static int cou2[MAXFIELD];
 static void GetStatField(FONTFIELD *ff,InfoCluster *infoC,int *cou)
 {
- uint32_t fil;
+ Word32 fil;
  int i,j,k,best;
 
  memset(cou,0,sizeof(cou1));
@@ -553,9 +553,9 @@ static void GetStatField(FONTFIELD *ff,InfoCluster *infoC,int *cou)
 
 }
 /////////////
-static int SummaCifr(uint32_t *ww1,uint32_t *ww2)
+static int SummaCifr(Word32 *ww1,Word32 *ww2)
 {
-	uint32_t odin,ww;
+	Word32 odin,ww;
 	int summa=0,k;
 
     for(k=0;k<NFIELDDWORD;k++)
@@ -567,10 +567,10 @@ static int SummaCifr(uint32_t *ww1,uint32_t *ww2)
     return summa;
 }
 ///////////////
-static void AddCountFields(uint32_t *fifi,int *cou)
+static void AddCountFields(Word32 *fifi,int *cou)
 {
  int i,k;
- uint32_t fil;
+ Word32 fil;
 
  for(k=0;k<NFIELDDWORD;k++)
  {
@@ -582,12 +582,12 @@ static void AddCountFields(uint32_t *fifi,int *cou)
 ///////////////
 static void fillExclusiv(FONTFIELD *fil1,FONTFIELD *fil2,
 						 InfoCluster *infoC,
-						 uint32_t *ff1,uint32_t *ff2,
+						 Word32 *ff1,Word32 *ff2,
 						 int *cou1,int *cou2)
 {
-uint32_t f1[NFIELDDWORD],f2[NFIELDDWORD];
+Word32 f1[NFIELDDWORD],f2[NFIELDDWORD];
 int    j;
-uint32_t onlyf1[NFIELDDWORD], onlyf2[NFIELDDWORD];
+Word32 onlyf1[NFIELDDWORD], onlyf2[NFIELDDWORD];
 
   SetFields(onlyf1,ff1);
   SetFields(onlyf2,ff2);
@@ -612,7 +612,7 @@ uint32_t onlyf1[NFIELDDWORD], onlyf2[NFIELDDWORD];
 	   }
 	   else // поменяем
 		{
-          uint16_t tmpInFont=fil1->inFont[j];
+          Word16 tmpInFont=fil1->inFont[j];
 		   fil1->inFont[j]=fil2->inFont[j];
 		   fil2->inFont[j]=tmpInFont;
 		   AddCountFields(f2,cou1);
@@ -674,9 +674,9 @@ static void TestCommonFields(FONTFIELD *f1,FONTFIELD *f2,
 					 InfoCluster *infoC)
 {
   int i;
-  uint32_t ff1[NFIELDDWORD],ff2[NFIELDDWORD];
-  uint32_t tField[NFIELDDWORD];
-  uint32_t onlyf1[NFIELDDWORD]={0,0},onlyf2[NFIELDDWORD]={0,0};
+  Word32 ff1[NFIELDDWORD],ff2[NFIELDDWORD];
+  Word32 tField[NFIELDDWORD];
+  Word32 onlyf1[NFIELDDWORD]={0,0},onlyf2[NFIELDDWORD]={0,0};
 
   GetStatField(f1,infoC,cou1);
   GetStatField(f2,infoC,cou2);
@@ -764,7 +764,7 @@ int TestStayGood(int numCluster, int numSymbol,InfoCluster *infoC,
 	int sBig,sLit,numBig,numLit;
 	int countStay;
 	Bool32 BadCluster(InfoCluster *infoC);
-	uint32_t ff[NFIELDDWORD]={0,0};
+	Word32 ff[NFIELDDWORD]={0,0};
 	int porogSize;
 
 	memset(allStay,0,256*sizeof(int));
@@ -908,7 +908,7 @@ int TestStayGood(int numCluster, int numSymbol,InfoCluster *infoC,
 }
 ////////////////
 int TestAddFontGood(int numCluster, InfoCluster *infoC,
-				 int sBig,int sLit,int *maxC,int fromAll,uint32_t *fifi)
+				 int sBig,int sLit,int *maxC,int fromAll,Word32 *fifi)
 {
 	int i,let;
 	int numStay;
@@ -986,7 +986,7 @@ int TestAddFontGood(int numCluster, InfoCluster *infoC,
 	return numStay;
 }
 ////////////////
-static uchar isInColumn[256];
+static Word8 isInColumn[256];
 int AnalyzeTablColumn(welet *wel,int numWelet,int column)
 {
 	int i;
@@ -1028,7 +1028,7 @@ int AnalyzeTablColumn(welet *wel,int numWelet,int column)
 ////////////
 int TectTablColumn(InfoCluster *infoCluster,int numCluster,int i,
 				   Nraster_header *rh,int numAll,
-				   int16_t *nClus)
+				   SINT *nClus)
 {
 	int j,k;
 

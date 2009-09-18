@@ -138,7 +138,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  #define MAXINT      0x7FFF*/
   #ifndef WIN32
     #define MAXSHORT    0x7FFF
-    #define MAXint     0x7FFFFFFFL
+    #define MAXLONG     0x7FFFFFFFL
   #endif
 #else
 
@@ -153,7 +153,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef WIN_MOD
   typedef unsigned char BYTE;
   typedef unsigned int WORD;
-  typedef signed long int;
+  typedef signed long LONG;
   typedef unsigned long DWORD;
   typedef int Bool;
   #ifndef PASCAL
@@ -162,7 +162,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #ifndef LPSTR
      typedef char * LPSTR;
   #endif
-  #define MAKEint(a,b) ((DWORD)(((WORD)(a)) | (((DWORD)((WORD)(b))) << 16)))
+  #define MAKELONG(a,b) ((DWORD)(((WORD)(a)) | (((DWORD)((WORD)(b))) << 16)))
   #define LOWORD(l) ((WORD)(l))
   #define HIWORD(l) ((WORD)(((DWORD)(l) >> 16) & 0xFFFF))
   typedef int HFILE;
@@ -178,7 +178,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     //#define CALLBACK FAR PASCAL
     typedef unsigned int UINT;
     typedef UINT WPARAM;
-    typedef int LPARAM;
+    typedef LONG LPARAM;
   #endif
   #ifndef WIN32
     #ifdef DLL_MOD
@@ -274,10 +274,10 @@ void * hrealloc_m(void *ptr_old, long size_old, long size_new);
 	#include "globus.h"
 #include "wind32.h"
 
-void  free_t(void *ptr, uint32_t size);
-void* malloc_t(uint32_t size);
-void* malloc_u(uint32_t size);
-void  free_u(void *ptr, uint32_t size);
+void  free_t(void *ptr, Word32 size);
+void* malloc_t(Word32 size);
+void* malloc_u(Word32 size);
+void  free_u(void *ptr, Word32 size);
 void  ProjectRect1024(Rect16 *r,int32_t Skew1024);
 void ProjectPoint1024(Point16 *r,int32_t Skew1024);
 void  ProjectPoint(Point16 *r,float tg_ang);

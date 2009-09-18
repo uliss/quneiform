@@ -88,29 +88,29 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  static INT ir;   //яюёыхфэ   тхЁю Єэр  уЁрэшЎр яЁш фтшцхэшш ёяЁртр
  static INT ibc;  //уЁрэшЎр яЁш фтшцхэшш яю ёт чэ√ь ъюьяюэхэЄрь
  static INT iemax;       //яЁртр  уЁрэшЎр
- static char right_dust; //Їыру: ёяЁртр dust (тюьюцэю Єюўър шыш чря Єр )
- static char fl_b;       //Їыру: яЁш фтшцхэшш ёыхтр тёЄЁхЄшыё  "№"
+ static CHAR right_dust; //Їыру: ёяЁртр dust (тюьюцэю Єюўър шыш чря Єр )
+ static CHAR fl_b;       //Їыру: яЁш фтшцхэшш ёыхтр тёЄЁхЄшыё  "№"
  static BYTE connect_;    //Їыру Ёхцшьр яю ёт чэ√ь ъюьяюэхэЄрь
 
  static INT w1,w2,h2;
 
-static char l2r(INT *ib1, INT *ib2, INT *il);
-static char lcut_out(INT ib, INT ii, INT ie, INT wmin, INT wmax,
+static CHAR l2r(INT *ib1, INT *ib2, INT *il);
+static CHAR lcut_out(INT ib, INT ii, INT ie, INT wmin, INT wmax,
                      INT set, INT tol, INT *imax, INT *pmax);
-static char r2l(INT *ir, INT *ie2, INT *ie1, INT mode);
-static char rcut_out(INT ib, INT ii, INT ie, INT wmin, INT wmax,
+static CHAR r2l(INT *ir, INT *ie2, INT *ie1, INT mode);
+static CHAR rcut_out(INT ib, INT ii, INT ie, INT wmin, INT wmax,
                      INT set, INT tol, INT *imax, INT *pmax, INT mode);
 static INT inc(struct cut_elm **cutp, INT i, INT ie, INT pass, INT x);
 static INT dec(struct cut_elm **cutp, INT i, INT ie, INT pass, INT x);
-static char one_cut(INT i1, INT ib, INT ie, INT i2);
-static char ladjust_cut(INT ib, INT *ib0, INT *il, INT ie, INT d, INT *pmax);
-static char radjust_cut(INT ib, INT *ir, INT *ie0, INT ie, INT d,
+static CHAR one_cut(INT i1, INT ib, INT ie, INT i2);
+static CHAR ladjust_cut(INT ib, INT *ib0, INT *il, INT ie, INT d, INT *pmax);
+static CHAR radjust_cut(INT ib, INT *ir, INT *ie0, INT ie, INT d,
                         INT *pmax, INT mode);
-static char adjust_cut(cell *LC, raster *r, struct cut_elm *cut_list,
+static CHAR adjust_cut(cell *LC, raster *r, struct cut_elm *cut_list,
        seg_vers **vers_list, INT ncut, INT ib, INT *i0, INT ie, INT d);
 static void spec_pairs();
 static INT right_bound(raster *r, INT x1, INT x2, INT y1, INT y2);
-static char glue_right_dust();
+static CHAR glue_right_dust();
 static good_path(struct cut_elm *cut_list, INT ncut);
 
 /*------------------------------------------------------------------
@@ -266,7 +266,7 @@ void dp_pass0(cell *CP, raster *rp, struct cut_elm *cutp,
     if (il==ir)
     {
       version *vers0;
-      char *ilet;
+      CHAR *ilet;
       if (connect_ && cut_list[il].dh==0)
       {
         addij(LC,r,cut_list,vers_list,ncut,ib2,ie2,0);
@@ -439,12 +439,12 @@ finish:
       граница совпала с вершиной оптимального пути справа;
       вычисляет новые значения ib1, ib2, il;
 ---------------------------------------------------------------------*/
-static char l2r(INT *ib1, INT *ib2, INT *il)
+static CHAR l2r(INT *ib1, INT *ib2, INT *il)
 {
   INT i,x0;
   BYTE let;
   struct cut_elm *cut;
-  char cc;
+  CHAR cc;
   INT ib2p;       //предыдущая ib2
   struct cut_elm *cute;//граница при движении по связным компонентам
   INT pmax;       //наилучший результат
@@ -479,7 +479,7 @@ static char l2r(INT *ib1, INT *ib2, INT *il)
     while (*il<iec)
     {
       version *vers0;
-      char *ilet;
+      CHAR *ilet;
       INT ib1p=*ib1;
       if (*ib2<ie2 && ie2<=iec && cut_list[ie2].x-cut_list[*ib2].x <= w2)
       {
@@ -571,7 +571,7 @@ accept:
             imax и pmax - найденная правая граница буквы и ее
             вероятность
 ------------------------------------------------------------------*/
-static char lcut_out(INT ib, INT ii, INT ie, INT wmin, INT wmax,
+static CHAR lcut_out(INT ib, INT ii, INT ie, INT wmin, INT wmax,
                      INT set, INT tol, INT *imax, INT *pmax)
 {
   struct cut_elm  *cut; INT i;
@@ -593,7 +593,7 @@ static char lcut_out(INT ib, INT ii, INT ie, INT wmin, INT wmax,
     i=ii+1; cut=cut_list+i; il=ir=-128;
     while (cut<=cute && cut->x <= xe)
     {
-      char var=cut->var & 0x7F;
+      CHAR var=cut->var & 0x7F;
       if (cut->x > xb && in_set(var,set))
         if(cut->x <= x0)  { il=i;  cutl=cut; }
         else              { ir=i;  cutr=cut; break; }
@@ -669,13 +669,13 @@ right:
       граница совпала с вершиной оптимального пути слева;
       вычисляет новые значения ie1, ie2, ir;
 ---------------------------------------------------------------------*/
-static char r2l(INT *ir, INT *ie2, INT *ie1, INT mode)
+static CHAR r2l(INT *ir, INT *ie2, INT *ie1, INT mode)
 {
   INT i,x0;
   BYTE let;
   seg_vers *cur_vers;
   struct cut_elm *cut;
-  char cc;
+  CHAR cc;
   INT ie2p;   //предыдущая ie2
   struct cut_elm *cutb;  //граница при движении по связным компонентам
   INT pmax;       //наилучший результат
@@ -710,7 +710,7 @@ static char r2l(INT *ir, INT *ie2, INT *ie1, INT mode)
     while (*ir > ibc)
     {
       version *vers0;
-      char *ilet;
+      CHAR *ilet;
       INT ie1p=*ie1;
       if (ib2<*ie2 && ibc<=ib2 && cut_list[*ie2].x-cut_list[ib2].x <= w2)
       {
@@ -796,7 +796,7 @@ accept:
             imax и pmax - найденная правая граница буквы и ее
             вероятность
 ------------------------------------------------------------------*/
-static char rcut_out(INT ib, INT ii, INT ie, INT wmin, INT wmax,
+static CHAR rcut_out(INT ib, INT ii, INT ie, INT wmin, INT wmax,
                      INT set, INT tol, INT *imax, INT *pmax, INT mode)
 {
   struct cut_elm  *cut; INT i;
@@ -818,7 +818,7 @@ static char rcut_out(INT ib, INT ii, INT ie, INT wmin, INT wmax,
     i=ii-1; cut=cut_list+i; il=ir=-128;
     while (cut>=cutb && cut->x >= xb)
     {
-      char var=cut->var & 0x7F;
+      CHAR var=cut->var & 0x7F;
       if (cut->x < xe && in_set(var,set))
         if(cut->x >= x0)  { ir=i;  cutr=cut; }
         else              { il=i;  cutl=cut; break; }
@@ -833,7 +833,7 @@ static char rcut_out(INT ib, INT ii, INT ie, INT wmin, INT wmax,
         else
           if (cutr->x-x0 < x0-cutl->x)  goto right;
 left:
-      cc=addij(LC,r,cut_list,vers_list,ncut,il,ie,(char)mode);
+      cc=addij(LC,r,cut_list,vers_list,ncut,il,ie,(CHAR)mode);
       if (cc & 8)                     //широкий
         il=-128;
       else
@@ -858,7 +858,7 @@ left:
       }
       continue;
 right:
-      cc=addij(LC,r,cut_list,vers_list,ncut,ir,ie,(char)mode);
+      cc=addij(LC,r,cut_list,vers_list,ncut,ir,ie,(CHAR)mode);
       if (cc & 4)                     //узкий
         ir=-128;
       else
@@ -896,7 +896,7 @@ static INT inc(struct cut_elm **cutp, INT i, INT ie, INT set, INT x)
   (*cutp)++; i++;
   while ((*cutp)->x < x)
   {
-    char var=(*cutp)->var & 0x7F;
+    CHAR var=(*cutp)->var & 0x7F;
     if (i==ie || in_set(var,set))  return i;
     (*cutp)++; i++;
   }
@@ -913,7 +913,7 @@ static INT dec(struct cut_elm **cutp, INT i, INT ie, INT set, INT x)
   (*cutp)--; i--;
   while ((*cutp)->x > x)
   {
-    char var=(*cutp)->var & 0x7F;
+    CHAR var=(*cutp)->var & 0x7F;
     if (i==ie || in_set(var,set))  return i;
     (*cutp)--; i--;
   }
@@ -925,7 +925,7 @@ static INT dec(struct cut_elm **cutp, INT i, INT ie, INT set, INT x)
            хотя бы один кусок был хороший;
            возвращает 1, если разрезался на две хорошие части, иначе - 0
 -------------------------------------------------------------------*/
-static char one_cut(INT i1, INT ib, INT ie, INT i2)
+static CHAR one_cut(INT i1, INT ib, INT ie, INT i2)
 {
   struct cut_elm  *cut; INT i;
   struct cut_elm *cutb=cut_list+ib;
@@ -934,7 +934,7 @@ static char one_cut(INT i1, INT ib, INT ie, INT i2)
   INT xe=cute->x;
   INT x0=(cutb->x+cute->x)>>1;  //начальное сечение
   struct cut_elm  *cutl,*cutr; INT il,ir;   //сечения слева и справа от x0
-  char fll,flr;
+  CHAR fll,flr;
   SVERS *vers;
   INT set;
 
@@ -955,7 +955,7 @@ static char one_cut(INT i1, INT ib, INT ie, INT i2)
     i=ib+1; cut=cutb+1; il=ir=-128;
     while (cut<=cute && cut->x < xe)
     {
-      char var=cut->var & 0x7F;
+      CHAR var=cut->var & 0x7F;
       if (cut->x > xb && in_set(var,set))
         if(cut->x <= x0)  { il=i;  cutl=cut; }
         else              { ir=i;  cutr=cut; break; }
@@ -995,7 +995,7 @@ rec:
                ib,ie - предельные границы слева и справа
                il и pmax - наилучшая правая граница и вероятность
 -------------------------------------------------------------------*/
-static char ladjust_cut(INT ib, INT *ib0, INT *il, INT ie, INT d, INT *pmax)
+static CHAR ladjust_cut(INT ib, INT *ib0, INT *il, INT ie, INT d, INT *pmax)
 {
   INT i0=*ib0;
   INT i=i0; struct cut_elm  *cut=cut_list+i; //текущая середина
@@ -1009,7 +1009,7 @@ static char ladjust_cut(INT ib, INT *ib0, INT *il, INT ie, INT d, INT *pmax)
   SVERS *vers;
   INT idir;
   INT wmin,wmax;  //допустимая ширина буквы: мин. и макс.
-  char cc;
+  CHAR cc;
 
   if (i==ib || i==ie || cut->dh==0)  return 0;
 
@@ -1063,7 +1063,7 @@ static char ladjust_cut(INT ib, INT *ib0, INT *il, INT ie, INT d, INT *pmax)
                ib,ie - предельные границы слева и справа
                ir и pmax - наилучшая левая граница и вероятность
 -------------------------------------------------------------------*/
-static char radjust_cut(INT ib, INT *ir, INT *ie0, INT ie, INT d,
+static CHAR radjust_cut(INT ib, INT *ir, INT *ie0, INT ie, INT d,
                         INT *pmax, INT mode)
 {
   INT i0=*ie0;
@@ -1079,7 +1079,7 @@ static char radjust_cut(INT ib, INT *ir, INT *ie0, INT ie, INT d,
   SVERS *vers;
   INT idir;
   INT wmin,wmax;  //допустимая ширина буквы: мин. и макс.
-  char cc;
+  CHAR cc;
 
   if (i==ib || i==ie || cut->dh==0)  return 0;
 
@@ -1102,7 +1102,7 @@ static char radjust_cut(INT ib, INT *ir, INT *ie0, INT ie, INT d,
     i=i0+dir;  cut=cut_list+i;
     while ( (dir>0) ? cut->x <= xe && i<ie : cut->x >= xb && i>=ib )
     {
-      addij(LC,r,cut_list,vers_list,ncut,i,ie,(char)mode);
+      addij(LC,r,cut_list,vers_list,ncut,i,ie,(CHAR)mode);
       pr=0;
       if (cur_vers=find_vers(i,ie,vers_list))
         if (let_or_bad(vers=&cur_vers->vers)) pr=vers->vers[0].prob;
@@ -1198,7 +1198,7 @@ static void spec_pairs()
 				 !is_russian_turkish_conflict(let) &&	// 21.05.2002 E.P.
 				 (letp==(BYTE)'г' || letp==(BYTE)'Г'))	// у├
                {
-                m_row=my_bases.bm+(INT)((int)nIncline*(r->left+cut->x)/2048);
+                m_row=my_bases.bm+(INT)((LONG)nIncline*(r->left+cut->x)/2048);
                 x0=right_bound(r,0,cut->x,(INT)(m_row-r->top+1),(INT)(r->h-1));
                }
               else
@@ -1206,7 +1206,7 @@ static void spec_pairs()
 					!is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
 				    (letp==(BYTE)'п' || letp==(BYTE)'П'))
                   {
-                   m_row=my_bases.bm+(INT)((int)nIncline*(r->left+cut->x)/2048);
+                   m_row=my_bases.bm+(INT)((LONG)nIncline*(r->left+cut->x)/2048);
                    x0=right_bound(r,0,cut->x,0,(INT)(m_row-r->top));
                   }
                  else
@@ -1272,7 +1272,7 @@ static INT right_bound(raster *r, INT x1, INT x2, INT y1, INT y2)
   BYTE *b0=r->pict + wb*y1;  //начало горизонтали
   BYTE *b1=b0+x1/8;          //верхние левый
   BYTE *b2=b0+x2/8;          // и правый байты области
-  char p;               //проекция столбика
+  CHAR p;               //проекция столбика
   BYTE *bx=b2;          //верхний байт столбика
   BYTE *ib;             //текущий  -"-
   BYTE m1=0xff>>(x1%8); //интересующие биты в проекции
@@ -1295,7 +1295,7 @@ static INT right_bound(raster *r, INT x1, INT x2, INT y1, INT y2)
 /*--------------------------------------------------------------
   glue_right_dust присоединяет правые dust'ы, если нужно
 --------------------------------------------------------------*/
-static char glue_right_dust()
+static CHAR glue_right_dust()
 {
   SVERS *vers;
   if (let_or_bad(vers=&cut_list[iemax].versm))

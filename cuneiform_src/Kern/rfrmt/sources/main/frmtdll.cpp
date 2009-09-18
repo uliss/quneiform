@@ -71,26 +71,26 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-static uint16_t     gwHeightRC = 0;
-static uint16_t     gwLowRC    = 0;
+static Word16     gwHeightRC = 0;
+static Word16     gwLowRC    = 0;
 static HANDLE     ghStorage  = NULL;
 static HINSTANCE  ghInst     = NULL;
 Bool32     gbBold     = TRUE;
 Bool32     gbItalic   = TRUE;
 Bool32     gbSize     = TRUE;
-uint32_t     gnFormat	  = 1;    // 0 - не форматировать
+Word32     gnFormat	  = 1;    // 0 - не форматировать
 							  // 1 - форматировать с фреймами и  колонками
 							  // 2 - только фреймы
 const char * gpSerifName	  = "MS Serif Cyr";
 const char * gpSansSerifName= "MS Sans Serif Cyr";
 const char * gpCourierName  = "Courier Cyr";
 char   UnRecogSymbol  = '~';
-uint32_t gnLanguage = LANG_RUSENG;
+Word32 gnLanguage = LANG_RUSENG;
 
 /////////////////////////////////////////
 Bool APIENTRY DllMain( HINSTANCE hModule,
 uint32_t ul_reason_for_call,
-                        pvoid lpReserved )
+                        LPVOID lpReserved )
 {
  switch( ul_reason_for_call )
  {
@@ -110,7 +110,7 @@ uint32_t ul_reason_for_call,
 ///////////////////////////////////////////////////////////////
 //Handle hUseCLine;
 
-RFRMT_FUNC(Bool32) RFRMT_Init(uint16_t wHeightCode,HANDLE hStorage)
+RFRMT_FUNC(Bool32) RFRMT_Init(Word16 wHeightCode,HANDLE hStorage)
 {
  LDPUMA_Init(0,NULL);
  LDPUMA_Registry(&hDebugRoot,SNAP_ROOT_CONVERTERS,NULL);
@@ -189,21 +189,21 @@ RFRMT_FUNC(Bool32) RFRMT_Done()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RFRMT_FUNC(uint32_t) RFRMT_GetReturnCode()
+RFRMT_FUNC(Word32) RFRMT_GetReturnCode()
 {
- uint32_t rc = 0;
+ Word32 rc = 0;
 
  if((gwLowRC - IDS_ERR_NO)>0)
-	rc = (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
+	rc = (Word32)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
 
  return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RFRMT_FUNC(char *) RFRMT_GetReturnString(uint32_t dwError)
+RFRMT_FUNC(Int8 *) RFRMT_GetReturnString(Word32 dwError)
 {
- uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
- static char szBuffer[512];
+ Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
+ static Int8 szBuffer[512];
 
  if( dwError >> 16 != gwHeightRC)
 	gwLowRC = IDS_ERR_NOTIMPLEMENT;
@@ -217,7 +217,7 @@ RFRMT_FUNC(char *) RFRMT_GetReturnString(uint32_t dwError)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RFRMT_FUNC(Bool32) RFRMT_GetExportData(uint32_t dwType, void * pData)
+RFRMT_FUNC(Bool32) RFRMT_GetExportData(Word32 dwType, void * pData)
 {
  Bool32 rc = TRUE;
 
@@ -233,7 +233,7 @@ RFRMT_FUNC(Bool32) RFRMT_GetExportData(uint32_t dwType, void * pData)
 	CASE_DATA(RFRMT_Bool32_Bold,Bool32,gbBold);
 	CASE_DATA(RFRMT_Bool32_Italic,Bool32,gbItalic);
 	CASE_DATA(RFRMT_Bool32_Size,Bool32,gbSize);
-	CASE_DATA(RFRMT_Word8_UnRecogSymbol,uchar,UnRecogSymbol);
+	CASE_DATA(RFRMT_Word8_UnRecogSymbol,Word8,UnRecogSymbol);
 
 	default:
 	*(Handle *)pData = NULL;
@@ -247,7 +247,7 @@ return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RFRMT_FUNC(Bool32) RFRMT_SetImportData(uint32_t dwType, const void * pData)
+RFRMT_FUNC(Bool32) RFRMT_SetImportData(Word32 dwType, const void * pData)
 {
  Bool32 rc = TRUE;
 
@@ -260,12 +260,12 @@ RFRMT_FUNC(Bool32) RFRMT_SetImportData(uint32_t dwType, const void * pData)
 	CASE_DATA(RFRMT_Bool32_Bold,Bool32,gbBold);
 	CASE_DATA(RFRMT_Bool32_Italic,Bool32,gbItalic);
 	CASE_DATA(RFRMT_Bool32_Size,Bool32,gbSize);
-	CASE_DATA(RFRMT_Word32_Format,uint32_t,gnFormat);
+	CASE_DATA(RFRMT_Word32_Format,Word32,gnFormat);
 	CASE_PDATA(RFRMT_char_SerifName,const char *,gpSerifName);
 	CASE_PDATA(RFRMT_char_SansSerifName,const char *,gpSansSerifName);
 	CASE_PDATA(RFRMT_char_CourierName,const char *,gpCourierName);
-	CASE_DATA(RFRMT_Word8_UnRecogSymbol,uchar,UnRecogSymbol);
-	CASE_DATA(RFRMT_Word32_Language,uint32_t,gnLanguage);// !!!Art - язык распознавания понадобился для умолчания в редактор
+	CASE_DATA(RFRMT_Word8_UnRecogSymbol,Word8,UnRecogSymbol);
+	CASE_DATA(RFRMT_Word32_Language,Word32,gnLanguage);// !!!Art - язык распознавания понадобился для умолчания в редактор
 	 default:
 		gwLowRC = IDS_ERR_NOTIMPLEMENT;
 		rc = FALSE;
@@ -276,12 +276,12 @@ RFRMT_FUNC(Bool32) RFRMT_SetImportData(uint32_t dwType, const void * pData)
 return rc;
 }
 
-void SetReturnCode_rfrmt(uint16_t rc)
+void SetReturnCode_rfrmt(Word16 rc)
 {
  gwLowRC = rc;
 }
 
-uint16_t GetReturnCode_rfrmt()
+Word16 GetReturnCode_rfrmt()
 {
  return gwLowRC;
 }

@@ -66,7 +66,7 @@
 #include "spelwatc.h"
 #elif defined (BC_FOR_WIN)
 #include "bcwtypes.h"
-typedef long signed int int;
+typedef long signed int LONG;
 #elif defined(TURBO_C)
 #include "tc_types.h"
 #else
@@ -81,9 +81,9 @@ typedef long signed int int;
 
 #include "compat_defs.h"
 
-uint32_t LoadUserDict(char *DictName, char *pool, uint32_t pool_size,
+uint32_t LoadUserDict(CHAR *DictName, CHAR *pool, uint32_t pool_size,
 		voc_state *user_dict) {
-	int size;
+	LONG size;
 	pool_size = pool_size;
 	if (_IsUserDict(DictName) != UD_PERMITTED)
 		return 0;
@@ -97,7 +97,7 @@ uint32_t LoadUserDict(char *DictName, char *pool, uint32_t pool_size,
 
 	{
 		INT Fh;
-		char nm[128];
+		CHAR nm[128];
 		strcpy(nm, DictName);
 		Fh = TGOPEN(VC_STREAM, nm, (INT)(O_RDONLY | O_BINARY), S_IREAD);
 		if (Fh == -1)
@@ -118,7 +118,7 @@ uint32_t LoadUserDict(char *DictName, char *pool, uint32_t pool_size,
 	return MAX_VOC_SIZE;
 }
 
-uint32_t InitializeNewUserDict(char *pool, uint32_t pool_size, voc_state *user_dict) {
+uint32_t InitializeNewUserDict(CHAR *pool, uint32_t pool_size, voc_state *user_dict) {
 #ifdef TURBO_C
 	if(TEST_PRPH(pool))
 	pool=ALI_PR(pool);
@@ -141,7 +141,7 @@ void ResetUserDict(voc_state * user_dict) {
 Bool CloseUserDictionary(BYTE * DictName, voc_state *user_dict) {
 	if (user_dict -> state & VOC_CHANGED) {
 		char w[80];
-		int size;
+		LONG size;
 		INT h;
 
 		strcpy(w, DictName);
@@ -155,7 +155,7 @@ Bool CloseUserDictionary(BYTE * DictName, voc_state *user_dict) {
 		size = TGWRITE(h, V_POINT(user_dict ->vocseg, 0), user_dict ->vocfree);
 		TGCLOSE(h);
 
-		if (size != (int) user_dict->vocfree) {
+		if (size != (LONG) user_dict->vocfree) {
 			/* MsgBox("wrong size"); */
 			return FALSE;
 		}

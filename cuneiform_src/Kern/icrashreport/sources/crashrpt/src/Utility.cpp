@@ -88,7 +88,7 @@ FILETIME CUtility::getLastWriteFileTime(CString sFile)
 
 CString CUtility::getAppName()
 {
-   Tchar szFileName[_MAX_PATH];
+   TCHAR szFileName[_MAX_PATH];
    GetModuleFileName(NULL, szFileName, _MAX_FNAME);
 
    CString sAppName; // Extract from last '\' to '.'
@@ -102,8 +102,8 @@ CString CUtility::getAppName()
 
 CString CUtility::getTempFileName()
 {
-   Tchar szTempDir[MAX_PATH - 14]   = _T("");
-   Tchar szTempFile[MAX_PATH]       = _T("");
+   TCHAR szTempDir[MAX_PATH - 14]   = _T("");
+   TCHAR szTempFile[MAX_PATH]       = _T("");
 
    if (GetTempPath(MAX_PATH - 14, szTempDir))
       GetTempFileName(szTempDir, getAppName(), 0, szTempFile);

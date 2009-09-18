@@ -101,14 +101,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#define VAL4(a,b,c,d)
 #endif
 ////////////////////////////////////////////////////////////////////////////////
-EXTERN uint32_t nComps;
-EXTERN uint16_t pHystogram[MaxHeightOfLetter];
-EXTERN uint32_t nPics;
+EXTERN Word32 nComps;
+EXTERN Word16 pHystogram[MaxHeightOfLetter];
+EXTERN Word32 nPics;
 EXTERN CCOM_comp * pPics;
-EXTERN uint32_t nAverageHeight;
+EXTERN Word32 nAverageHeight;
 EXTERN int my_upper, my_left, my_bottom, my_right;
 EXTERN char tmp_str[200];
-EXTERN uint32_t page_count VAL1(0);
+EXTERN Word32 page_count VAL1(0);
 EXTERN char* file_name;
 
 EXTERN Handle resFile_comp;
@@ -124,7 +124,7 @@ EXTERN Handle logFile_blocks;
 Bool32 SearchRectanglePictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE);
 Bool32 SearchPolyPictures(Handle hCCOM,Handle hCPAGE);
 Bool32 MyFiltrateIn (int32_t upper, int32_t left, int32_t w, int32_t h);
-Bool32 DeleteFromPics(uint32_t position);
+Bool32 DeleteFromPics(Word32 position);
 
 Bool32 OpenLogRes(void);
 Bool32 CloseLogRes(void);

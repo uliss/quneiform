@@ -67,17 +67,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define PT_PAGEINFO CPAGE_GetInternalType("__PageInfo__")
 
 typedef struct {
-	char	szImageName[CPAGE_MAXNAME];// имя блока распознаваемого изображения в контейнере RIMAGE
-	uint32_t	Page; // номер страницы
-	uint32_t	DPIX;
-	uint32_t	DPIY;
-	uint32_t	BitPerPixel;
+	Int8	szImageName[CPAGE_MAXNAME];// имя блока распознаваемого изображения в контейнере RIMAGE
+	Word32	Page; // номер страницы
+	Word32	DPIX;
+	Word32	DPIY;
+	Word32	BitPerPixel;
 	int32_t	X; // смещение относительно глобальных координат
 	int32_t	Y;
-	uint32_t	Width; // размеры в пиксеалх
-	uint32_t	Height;
+	Word32	Width; // размеры в пиксеалх
+	Word32	Height;
 	int32_t	Incline2048; // наклон страницы в долях от 2048
-	uint32_t  Angle;// угол поворота страницы 0, 90, 180, 270
+	Word32  Angle;// угол поворота страницы 0, 90, 180, 270
 	int32_t   SkewLocVerLin2048;//вертикальное отклонение в долях 2048
 #define IMAGE_USER		1
 #define IMAGE_BINARIZE  2
@@ -85,8 +85,8 @@ typedef struct {
 #define IMAGE_ROTATE	8
 #define IMAGE_ORTOMOVE  16
 #define IMAGE_TURN		32
-	uint16_t   Images;//существующие изображения
-	uint32_t	status;
+	Word16   Images;//существующие изображения
+	Word32	status;
 #define PINFO_USERTEMPLATE	1;	// темплейт установлен пользователем
 #define PINFO_AUTOTEMPLATE	2;	// темплейт установлен автоматически
 } PAGEINFO;
@@ -115,7 +115,7 @@ typedef struct tagCellInfo
 	Point32 PhCoord;// Координаты привязки к физической ячейке
 	int32_t   Block;  // Номер фрагмента
 	int32_t	GeCount;// число геометрических ячеек, входящих в физическую
-	uint32_t	wFlags[16];// флажки
+	Word32	wFlags[16];// флажки
 	int32_t   reserv[48];
 
 } CellInfo;
@@ -124,8 +124,8 @@ typedef struct tagCPAGE_TABLE
 {
 	TABLE_DESC	prop; // основная информация о таблице
 	CellInfo	cell[MaxHorLines-1][MaxVerLines-1];// номер соответсвующего
-	uint32_t      PhNumber; // число физических ячеек
-	uint32_t		wFlags[16];// флажки
+	Word32      PhNumber; // число физических ячеек
+	Word32		wFlags[16];// флажки
 
 
 } CPAGE_TABLE;
@@ -134,7 +134,7 @@ typedef struct tagCPAGE_TABLE
 
 typedef struct tagCPAGE_PICTURE
 {
-	uint16_t  Number;
+	Word16  Number;
 	Point32 Corner[CPAGE_MAXCORNER];
 
 } CPAGE_PICTURE;

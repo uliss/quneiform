@@ -56,7 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 /* The following three constants are returned by
-   IsUserDict (char  *FileName) routine.
+   IsUserDict (CHAR  *FileName) routine.
 */
 
 #ifndef __USERDICT_TEST_H__

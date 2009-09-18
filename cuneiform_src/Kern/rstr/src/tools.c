@@ -69,10 +69,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "p2libr.h"
 #include "ccomdefs.h"
 
-int  EVNRecog_lp(/*c_comp*/CCOM_comp *ec, BYTE * lp, INT lth, BYTE *res    );
+LONG  EVNRecog_lp(/*c_comp*/CCOM_comp *ec, BYTE * lp, INT lth, BYTE *res    );
 extern BYTE db_status;	// snap presence byte
 extern BYTE db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
-extern char db_pass;
+extern CHAR db_pass;
 extern INT nIncline;
 extern void ErrorExit(int Code);
 //#define NUMBER_OF_CELLS (0x30000/sizeof (cell))
@@ -95,7 +95,7 @@ static void comp_from_kit(cell *c);
 
 static BYTE il1_pool[8192]={0};	// 19.07.2001 E.P.
 
-char deb_messages[]="Virtal shape set\0Skeleton match got\0"
+CHAR deb_messages[]="Virtal shape set\0Skeleton match got\0"
 				"Create scaled shape\0"
 				"Vectorization in progress\0"
 				"Pattern matching: est = %d\0"
@@ -379,7 +379,7 @@ INT wp,wp1;
   }
 }
 
-void cell_bonus_let(cell *C, char Let, INT BonVal)
+void cell_bonus_let(cell *C, CHAR Let, INT BonVal)
 {
 version *pv;
  for (pv=C->vers; pv->let != 0 ; pv++)
@@ -392,7 +392,7 @@ version *pv;
 extern BYTE *CellsPage_rstr, *CellsPageEnd_rstr;
 void setup_string()
 {
-int    number_of_cells=((int)CellsPageEnd_rstr-(int)CellsPage_rstr)/sizeof (cell);
+LONG    number_of_cells=((LONG)CellsPageEnd_rstr-(LONG)CellsPage_rstr)/sizeof (cell);
  empty_cell=(cell *) (CellsPage_rstr);
  cell_boundary = empty_cell + number_of_cells;//NUMBER_OF_CELLS;
  free_cell_chain=NULL;
@@ -606,8 +606,8 @@ Bool compose_cell(INT n,cell **clist,cell *c)
      c->h=bot-top;
      c->r_col=left;
      c->w=right-left;
-     c->row=c->r_row-(INT)((int)nIncline*c->r_col/2048);
-     c->col=c->r_col+(INT)((int)nIncline*c->r_row/2048);
+     c->row=c->r_row-(INT)((LONG)nIncline*c->r_col/2048);
+     c->col=c->r_col+(INT)((LONG)nIncline*c->r_row/2048);
      c->env=compose_comp(i,elist);
      c->cg_flag|=c_cg_comp;
      }
@@ -671,8 +671,8 @@ Bool compose_cell_save(INT n,cell **clist,cell *c)
      c->h=bot-top;
      c->r_col=left;
      c->w=right-left;
-     c->row=c->r_row-(INT)((int)nIncline*c->r_col/2048);
-     c->col=c->r_col+(INT)((int)nIncline*c->r_row/2048);
+     c->row=c->r_row-(INT)((LONG)nIncline*c->r_col/2048);
+     c->col=c->r_col+(INT)((LONG)nIncline*c->r_row/2048);
      c->env=compose_comp(i,elist);
      c->cg_flag|=c_cg_comp;
      }
@@ -933,7 +933,7 @@ void adjust_links (cell *c)
  cn->prevl = c;
 }
 
-cell * create_cell(MN * mn, cell * ci, char bdiff, char dflag)
+cell * create_cell(MN * mn, cell * ci, CHAR bdiff, CHAR dflag)
 {
  cell * c = new_cell();
  accept_cell (c,(c_comp *)comp_to_kit(mn));
@@ -957,7 +957,7 @@ cell * create_cell(MN * mn, cell * ci, char bdiff, char dflag)
  return c;
 }
 
-cell * create_cell1(MN * mn, cell * ci, char bdiff, char dflag)
+cell * create_cell1(MN * mn, cell * ci, CHAR bdiff, CHAR dflag)
 {
  cell * c = new_cell();
  accept_cell (c,(c_comp *)comp_to_kit(mn));
@@ -981,7 +981,7 @@ cell * create_cell1(MN * mn, cell * ci, char bdiff, char dflag)
  return c;
 }
 
-cell * create_cell_work(MN * mn, cell * ci, char bdiff, char dflag)
+cell * create_cell_work(MN * mn, cell * ci, CHAR bdiff, CHAR dflag)
 {
  cell * c = new_cell();
  accept_cell (c,(c_comp *)comp_to_kit(mn));

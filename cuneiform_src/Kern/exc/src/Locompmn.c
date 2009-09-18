@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "struct.h"
 #include "v1comp.h"
 
-BWS *locomp_seglist(uchar* raster, BWS *bwsp, BWS *bwe, int16_t height, int16_t width);
+BWS *locomp_seglist(Word8* raster, BWS *bwsp, BWS *bwe, Int16 height, Int16 width);
 
 //      Memory service
 #define MAX_BOX_NUMB            100*4
@@ -74,21 +74,21 @@ static MN * mainalloc;
 static MN * first_dead_comp;
 static BWS * segm_repr_end;
 static BWS * op, *np;
-static int16_t ol, nl;
-static int16_t rast_lc;
-static int16_t lineno;
+static Int16 ol, nl;
+static Int16 rast_lc;
+static Int16 lineno;
 
 
 static BWS lines[LINE_POOL_LENGTH+9];
-static uchar boxes[BOXSIZE * MAX_BOX_NUMB];
+static Word8 boxes[BOXSIZE * MAX_BOX_NUMB];
 static MN main_numbers[MAX_INT_NUMB];
 
    // Oleg : 18-08-1994 : link DIFFRV.C
    // Vald: 10-03-96 07:18pm set it const
-const uchar* segment_pool=(uchar*)lines;
+const Word8* segment_pool=(Word8*)lines;
 
 #define end_line_pool  (lines + LINE_POOL_LENGTH)
-#define box_alloc(bp) bp = boxalloc; boxalloc = (BOX *)((uchar*)boxalloc + BOXSIZE)
+#define box_alloc(bp) bp = boxalloc; boxalloc = (BOX *)((Word8*)boxalloc + BOXSIZE)
 
 static jmp_buf locomp_err;
 
@@ -102,7 +102,7 @@ static void new_line_cont();
 static void merge_line();
 static void dead_line();
 
-MN * c_locomp (uchar* raster, int16_t bw, int16_t h, int16_t upper, int16_t left)
+MN * c_locomp (Word8* raster, Int16 bw, Int16 h, Int16 upper, Int16 left)
 {
  lineno = upper-1; rast_lc = left;
  if (setjmp(locomp_err)) return NULL;
@@ -114,7 +114,7 @@ MN * c_locomp (uchar* raster, int16_t bw, int16_t h, int16_t upper, int16_t left
 
 static void locomp_begin()
 {
- int16_t i;
+ Int16 i;
  MN * mn;
  first_dead_comp = NULL;
  segm_repr_end->b = 0; (segm_repr_end++)->w = -0x7000;
@@ -186,7 +186,7 @@ static void simple_cont()
  BOX * bp, *bpw;
  BOXINT * ip;
  MN *mn;
- bp = op->box; ip = (BOXINT *)((uchar*)bp + bp->boxptr);
+ bp = op->box; ip = (BOXINT *)((Word8*)bp + bp->boxptr);
  if (bp->boxptr > BOXBOUNDARY) goto fullbox; bp->boxptr += sizeof (*ip);
 resume:
  np->box = bp; ip->l = np->b; ip->d = nl - ol;
@@ -198,7 +198,7 @@ fullbox:
  if (boxalloc == boxallocend) longjmp(locomp_err,1);
  bpw->boxmain = mn = bp->boxmain; mn->mnboxcnt++;
  bpw->boxnext = bp->boxnext; bp->boxnext = bpw;
- bp = bpw; ip = (BOXINT *)((uchar*)bp + sizeof(BOX));
+ bp = bpw; ip = (BOXINT *)((Word8*)bp + sizeof(BOX));
  bp->boxptr = sizeof(BOX) + sizeof(BOXINT); bp->boxflag = 0;
  bp->boxleft = bp->boxright = nl; goto resume;
 }
@@ -241,10 +241,10 @@ static void merge_line()
  MN *mn, *mno, *mnw;
  BOX *bp, *bpo;
  BOXINT *ip;
- int16_t n;
+ Int16 n;
 
  bpo = op->box; bpo->boxflag |= BOXEND;
- ip = (BOXINT *)((uchar*)bpo + bpo->boxptr); ip->l = 0; bpo->boxptr++;
+ ip = (BOXINT *)((Word8*)bpo + bpo->boxptr); ip->l = 0; bpo->boxptr++;
  bpo->boxey = lineno; bpo->boxex = ol; bpo->boxel = op->b;
 
  bp = np->box; mn = bp->boxmain; mno = bpo->boxmain;
@@ -267,7 +267,7 @@ static void dead_line()
  BOX *bp;
  MN *mn;
  BOXINT *ip;
- bp = op->box; ip = (BOXINT *)((uchar*)bp + bp->boxptr++); ip->l = 0;
+ bp = op->box; ip = (BOXINT *)((Word8*)bp + bp->boxptr++); ip->l = 0;
  bp->boxey = lineno; bp->boxex = ol; bp->boxel = op->b;
  bp->boxflag |= BOXFREEEND;
  mn = bp->boxmain; mn->mnends++; if (--(mn->mncounter)) return;

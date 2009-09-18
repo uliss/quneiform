@@ -294,10 +294,10 @@ Bool FullMyLines_Mod (void *vLines, int count, void *vB, int *pForw, int *SizeFo
 		move=pB->nPartUnits[pB->nPart-1];
 	for (i=0; i<count; i++,pline++)
 	{
-		LinBeg.x =(int16_t)pline->Line.Beg_X;
-		LinBeg.y =(int16_t)pline->Line.Beg_Y;
-		LinEnd.x =(int16_t)pline->Line.End_X;
-		LinEnd.y =(int16_t)pline->Line.End_Y;
+		LinBeg.x =(Int16)pline->Line.Beg_X;
+		LinBeg.y =(Int16)pline->Line.Beg_Y;
+		LinEnd.x =(Int16)pline->Line.End_X;
+		LinEnd.y =(Int16)pline->Line.End_Y;
 		LentOld  =  (LinEnd.x-LinBeg.x)*(LinEnd.x-LinBeg.x);
 		LentOld += ((LinEnd.y-LinBeg.y)*(LinEnd.y-LinBeg.y));
 		LentOld  = (int)sqrt ((double)LentOld);
@@ -381,7 +381,7 @@ void FullNewMyLine (RLT_LINE* pLine,DLine* pline,Bool Hori,Bool ContWarn)
 {
 	NR_SimpLine* pSLine=&(pline->Line);
 	pLine->Wid   = pSLine->Wid10/10;
-	pLine->nSeg  = (int16_t)pline->n_event;
+	pLine->nSeg  = (Int16)pline->n_event;
 	pLine->Plot  = (pline->Qual*255)/100;
 //	pLine->nSeg=1;
 	if (pLine->Wid<=0)

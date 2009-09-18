@@ -83,7 +83,7 @@ Bool32 ConverROUT(char * lpOutFileName, int32_t lnFormat, int32_t lnCode,Bool32 
 		!ROUT_SetImportData(ROUT_HANDLE_PageHandle,ghEdPage)||
 		!ROUT_SetImportData(ROUT_LONG_Format,(void*)lnFormat)||
 		!ROUT_SetImportData(ROUT_LONG_Code,(void*)lnCode)||
-		!ROUT_SetImportData(ROUT_PCHAR_BAD_char,&gnUnrecogChar))
+		!ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR,&gnUnrecogChar))
 	{
 		SetReturnCode_puma(ROUT_GetReturnCode());
 		return FALSE;
@@ -139,16 +139,16 @@ Bool32 ConverROUT(char * lpOutFileName, int32_t lnFormat, int32_t lnCode,Bool32 
 	return TRUE;
 }
 
-uint32_t ConverROUTtoMemory(Handle hEd, int32_t lnFormat, int32_t lnCode, Byte * lpMem, uint32_t size)
+Word32 ConverROUTtoMemory(Handle hEd, int32_t lnFormat, int32_t lnCode, Byte * lpMem, Word32 size)
 {
-uint32_t rc = 0;
+Word32 rc = 0;
 	if (
 		!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks,
 					  (void*)gnPreserveLineBreaks)||
 		!ROUT_SetImportData(ROUT_HANDLE_PageHandle,hEd)||
 		!ROUT_SetImportData(ROUT_LONG_Format,(void*)lnFormat)||
 		!ROUT_SetImportData(ROUT_LONG_Code,(void*)lnCode)||
-		!ROUT_SetImportData(ROUT_PCHAR_BAD_char,&gnUnrecogChar))
+		!ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR,&gnUnrecogChar))
 	{
 		SetReturnCode_puma(ROUT_GetReturnCode());
 		return rc;

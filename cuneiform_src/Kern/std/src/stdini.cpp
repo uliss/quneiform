@@ -103,7 +103,7 @@ STD_FUNC( Bool32 ) stdGetProfileString(char* szString,int32_t* nStrLen,const cha
 {
     char szFullFileName[_MAX_PATH]={0};
 	SetFullName(szFullFileName,szIniFileName,nFlags);
-    if(GetPrivateProfileString(szSection,szKey,pszStrDefault,szString,*nStrLen,szFullFileName)==(uint32_t)(*nStrLen-1))
+    if(GetPrivateProfileString(szSection,szKey,pszStrDefault,szString,*nStrLen,szFullFileName)==(Word32)(*nStrLen-1))
        return FALSE;
     return TRUE;
 }

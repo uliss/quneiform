@@ -216,7 +216,7 @@ static INT find_and_class_word(cell *first_C)
 //		  returns number of letters in word.
 //
 {
- char fl_beg;
+ CHAR fl_beg;
  BYTE class, wf;
  cell *wc, *C;
 
@@ -581,7 +581,7 @@ static void negspace()
  {
  cell *C,*D,*E;
  version *v;
- char fl;
+ CHAR fl;
  INT i;
 
  C=cell_f();
@@ -674,7 +674,7 @@ void complex_word()
   est_dc = find_dig_chr_var();
   if ( est_dc > 0 )
   {
-    est_dc += BON_DIG_char;
+    est_dc += BON_DIG_CHAR;
     if ( est_dc < ( last_dv + best_l )->est ) goto NoNumeric;
     make_dig_chr_chain ();
     goto CW_Ret;
@@ -847,7 +847,7 @@ static void estimate_letter(cell *C, INT pos)
 stloop:;
  }
 
-static INT class_of_letter(char c)
+static INT class_of_letter(CHAR c)
  {
  if (check_upper(c)) return L_BIG;
  if (check_lower(c)) return L_SMALL;
@@ -981,7 +981,7 @@ static void make_dig_chr_chain ()
  up_rest_str();
 }
 
-static void up_substr( char * substr )
+static void up_substr( PCHAR substr )
 {
 INT wlet, n, i, shift;
 dv *cv;
@@ -1020,7 +1020,7 @@ INT wlet, i;
    }
 }
 
-static INT get_est_substr_in_word (char * str)
+static INT get_est_substr_in_word (PCHAR str)
 {
 dv *cv;
 INT n, m, sump, lstr, shift;
@@ -1072,7 +1072,7 @@ ERD_Ret:
     return ret_est;
 }
 
-static INT test_var ( char * str_var)
+static INT test_var ( PCHAR str_var)
 {
 INT rc, curest;
 
@@ -1161,9 +1161,9 @@ static void contextNumberTable(void)
 	int    numDig,numAll;
 	int    isCommaDot=0;
 	int    isDig;
-	uchar  letAsDig[] ="OoIli!SsBg\x8e\xae\x87\xa7\x9d\xed\x97\xe7\xa1\x82\xa2";
+	Word8  letAsDig[] ="OoIli!SsBg\x8e\xae\x87\xa7\x9d\xed\x97\xe7\xa1\x82\xa2";
 	//                            ОоЗзЭэЧчбВв
-	uchar  accordDig[]="001111558900333344688";
+	Word8  accordDig[]="001111558900333344688";
 	char *qq;
 	int minSize,maxSize;
 
@@ -1247,7 +1247,7 @@ static void contextNumberTable(void)
 	     qq = strchr(letAsDig,cc->vers[0].let);
 
 		 if( qq )
-           cc->vers[0].let=accordDig[(uchar*)qq-letAsDig];
+           cc->vers[0].let=accordDig[(Word8*)qq-letAsDig];
 		}
 
 		if (snap_activity('c'))

@@ -76,37 +76,37 @@ typedef struct tagRSTR_Options
 char     szAlphaString[256];
 //FrhFieldSetup *setup;    // old fields
 //                          char     szAlphaString[256]
-uchar   language;
-uchar * Alphabet;       // 256 indicators
-uchar   StyleRecog;     // printing, handprinting
-uchar   EnableCut;      // only glue if 0
+Word8   language;
+Word8 * Alphabet;       // 256 indicators
+Word8   StyleRecog;     // printing, handprinting
+Word8   EnableCut;      // only glue if 0
 
-uchar   StyleCursive;   // no cursive if 0
-uchar   StyleFont;      // normal,TW, DOT MATR
-uchar   StyleContext;   // future
-uchar	StyleSpelling;
+Word8   StyleCursive;   // no cursive if 0
+Word8   StyleFont;      // normal,TW, DOT MATR
+Word8   StyleContext;   // future
+Word8	StyleSpelling;
 
-uchar	EnableLearn;    //
+Word8	EnableLearn;    //
 int32_t   pageSkew2048;
 }RSTR_Options;
 /*
 typedef struct tagSaveString  // str in H\struct.h OLD TIGER
 {
- int16_t row;             // upper bound of line box (in real coord)
- int16_t col;             // left  bound of line box (in real coord)
- int16_t lower;           // lower bound of line box (in real coord)
- int16_t right;           // right bound of line box (in real coord)
- uint16_t dust;           // c_comp offset to first dust ptr (in bytes)
- uint16_t end;            // offset to end end of dust ptrs (in bytes)
- uint16_t lth;            // total size of struc 'end == lth'  (in bytes)
- uint16_t first;          // unused now
- uint16_t last;           // unused now
- uint16_t scale;          // scale of the string (unused now)
- int16_t fragment;        // fragment of the string (unused now)
- uchar language;        // language of the string (unused now)
+ Int16 row;             // upper bound of line box (in real coord)
+ Int16 col;             // left  bound of line box (in real coord)
+ Int16 lower;           // lower bound of line box (in real coord)
+ Int16 right;           // right bound of line box (in real coord)
+ Word16 dust;           // c_comp offset to first dust ptr (in bytes)
+ Word16 end;            // offset to end end of dust ptrs (in bytes)
+ Word16 lth;            // total size of struc 'end == lth'  (in bytes)
+ Word16 first;          // unused now
+ Word16 last;           // unused now
+ Word16 scale;          // scale of the string (unused now)
+ Int16 fragment;        // fragment of the string (unused now)
+ Word8 language;        // language of the string (unused now)
  int32_t nSkew;		// string's skew (recalculated, not page!)
  int32_t strFlag;
- uchar reserve[21];
+ Word8 reserve[21];
 #define Matrix_For_RCM   0x00000001
 #define Matrix_For_LEO   0x00000002
  void *vAddStringData;  //Almi added

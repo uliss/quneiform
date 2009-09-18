@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _USE_STD_
 #include "std.h"
 
-static char leo_case_upper[]={
+static Int8 leo_case_upper[]={
 /* 000 */ ' ',
 /* 001 */ ' ',
 /* 002 */ ' ',
@@ -316,7 +316,7 @@ static char leo_case_upper[]={
 /* Ч(254,0xfe) */ 'Ч',
 /* Ъ(255,0xff) */ 'Ъ'
 };
-static char leo_case_lower[]={
+static Int8 leo_case_lower[]={
 /* 000 */ ' ',
 /* 001 */ ' ',
 /* 002 */ ' ',
@@ -1394,14 +1394,14 @@ static char std_ANSI_to_ASCII[257]={
 /*F*/    "ЮАБЦДЕФГХИЙКЛМНО"
 };
 
-uchar stdAsciiToAnsi( uchar Code)
+Word8 stdAsciiToAnsi( Word8 Code)
 {
 if( !Code )
     return 0;
 return    std_ASCII_to_ANSI[Code];
 }
 
-uchar stdAnsiToAscii( uchar Code)
+Word8 stdAnsiToAscii( Word8 Code)
 {
 if( !Code )
     return 0;
@@ -1409,66 +1409,66 @@ return    std_ANSI_to_ASCII[Code];
 }
 
 
-Bool32 stdLeoCompareChar(uchar c1, uchar c2)
+Bool32 stdLeoCompareChar(Word8 c1, Word8 c2)
 {
 char *p=leo_typeface_class[c1];
-uchar   c;
+Word8   c;
 while( *p )
     {
-    c=(uchar)*p++;
+    c=(Word8)*p++;
     if( c==c2 )
         return TRUE;
     }
 return FALSE;
 }
 
-uchar * stdLeoGetTypeface(uchar c)
+Word8 * stdLeoGetTypeface(Word8 c)
 {
-return (uchar *)leo_typeface_class[c];
+return (Word8 *)leo_typeface_class[c];
 }
 
-uchar stdLeoTypefaceChar(uchar c)
+Word8 stdLeoTypefaceChar(Word8 c)
 {
 return leo_typeface_one[c][0];
 }
 
 
- int32_t    stdLeoIsCase(uchar Code)
+ int32_t    stdLeoIsCase(Word8 Code)
 {
 return leo_case[ Code ];
 }
 
- uchar   stdLeoSetUpperCase(uchar Code)
+ Word8   stdLeoSetUpperCase(Word8 Code)
 {
-return (uchar)(leo_case_upper[ Code ]);
+return (Word8)(leo_case_upper[ Code ]);
 }
 
- uchar   stdLeoSetLowerCase(uchar Code)
+ Word8   stdLeoSetLowerCase(Word8 Code)
 {
-return (uchar)(leo_case_lower[ Code ]);
+return (Word8)(leo_case_lower[ Code ]);
 }
 
-uchar stdUpperAscii( uchar c )
+Word8 stdUpperAscii( Word8 c )
 {
-  if ( c >= (uchar)'a' && c <= (uchar)'z')
-    c = c - (uchar)'a' + (uchar)'A';
+  if ( c >= (Word8)'a' && c <= (Word8)'z')
+    c = c - (Word8)'a' + (Word8)'A';
 
-  if ( c >= (uchar)'═' && c <= (uchar)'╞')
-    c = c - (uchar)'═' + (uchar)'─';
-  if ( c >= (uchar)'Ю' && c <= (uchar)'О')
-    c = c - (uchar)'Ю' + (uchar)'░';
+  if ( c >= (Word8)'═' && c <= (Word8)'╞')
+    c = c - (Word8)'═' + (Word8)'─';
+  if ( c >= (Word8)'Ю' && c <= (Word8)'О')
+    c = c - (Word8)'Ю' + (Word8)'░';
 return c;
 }
 
  /* Function returns LOWER CASE variant of the letter.             */
-uchar stdLowerAscii(uchar c)
+Word8 stdLowerAscii(Word8 c)
 {
-  if ( c >= (uchar)'A' && c <= (uchar)'Z')
-    c = c - (uchar)'A'+ (uchar)'a' ;
-  if ( c >= (uchar)'─' && c <= (uchar)'▐')
-    c = c - (uchar)'─'+ (uchar)'═' ;
-  if ( c >= (uchar)'░' && c <= (uchar)'÷')
-    c = c - (uchar)'░'+ (uchar)'Ю' ;
+  if ( c >= (Word8)'A' && c <= (Word8)'Z')
+    c = c - (Word8)'A'+ (Word8)'a' ;
+  if ( c >= (Word8)'─' && c <= (Word8)'▐')
+    c = c - (Word8)'─'+ (Word8)'═' ;
+  if ( c >= (Word8)'░' && c <= (Word8)'÷')
+    c = c - (Word8)'░'+ (Word8)'Ю' ;
 return c;
 }
 #endif

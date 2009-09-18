@@ -566,12 +566,12 @@ static INT one_line_in_comp(cell *c)
  memset(fill, 0, max_h-- );
 
  num_int = 0;                        /* number of rows with 1 interval    */
- for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-	(ll=line->lth)>0; line=(lnhead *)((char *)line+ll))
+ for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+	(ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
 #ifdef INTERSEPTOR
   if( line->h>1 )
 #endif
- for( h=line->h,i=0, inter=(interval *)((char *)line+sizeof(lnhead));
+ for( h=line->h,i=0, inter=(interval *)((PCHAR)line+sizeof(lnhead));
 	i<h;i++,inter++)             /* one line                          */
 	{
 	ind = line->row + i;         /* skipped first and last lines      */
@@ -600,10 +600,10 @@ static void find_abris(cell *c,INT wid,BYTE left[],BYTE right[])
  interval *inter;
  BYTE l,r,h;
 
- for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-			(ll=line->lth)>0; line=(lnhead *)((char *)line+ll))
+ for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+			(ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
  if( (h=(BYTE)line->h)>1 )                         /* long line        */
- for( i=0, inter=(interval *)((char *)line+sizeof(lnhead));i<h;i++,inter++)
+ for( i=0, inter=(interval *)((PCHAR)line+sizeof(lnhead));i<h;i++,inter++)
 	{
 	r= wid - inter->e;                   /* current interval */
 	l = inter->e - inter->l;
@@ -668,10 +668,10 @@ INT ll,h,i,l;
 
 memset(work, 0, height);
 
-for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-			(ll=line->lth)>0; line=(lnhead *)((char *)line+ll))
+for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+			(ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
  if( (h=line->h)>0 )        /*                  long line              */
- for( i=0, inter=(interval *)((char *)line+sizeof(lnhead));
+ for( i=0, inter=(interval *)((PCHAR)line+sizeof(lnhead));
 			i<h;i++,inter++)
 		work[line->row+i] ++;
 

@@ -169,15 +169,15 @@ INT back_flag = 0; /* nonzero if back_recog required */
 INT debug_obj_nmb = 1;
 
 #ifdef TIMETEST
-static char time_buf[80]; /* buff to output time */
+static CHAR time_buf[80]; /* buff to output time */
 #endif
 
-static char *q_free_alloc_mem; /* poiter to save SPQ.free_alloc_mem */
+static CHAR *q_free_alloc_mem; /* poiter to save SPQ.free_alloc_mem */
 
 extern dQ SPQ; //Q;
 extern INT vocs_NOK; // 08-13-93 07:45pm, Mike
-extern char spell_buff_pool[]; // 08-13-93 07:40pm, Mike
-extern char spell_buff_out[]; // 08-13-93 07:40pm, Mike
+extern CHAR spell_buff_pool[]; // 08-13-93 07:40pm, Mike
+extern CHAR spell_buff_out[]; // 08-13-93 07:40pm, Mike
 
 #ifdef SECOND_PASS
 voc_state wvoc;
@@ -189,10 +189,10 @@ extern BYTE multy_language;
 #endif
 
 /************************************************************************/
-INT spelling(BYTE *beg, int size) {
+INT spelling(BYTE *beg, LONG size) {
 	INT ret;
 	SPQ.beg_alloc_mem = SPQ.free_alloc_mem = beg;
-	SPQ.end_alloc_mem = (char *) beg + size * 16;
+	SPQ.end_alloc_mem = (CHAR *) beg + size * 16;
 	SPQ.alloc_size = size;
 	ret = batch_setup();
 	if (ret)
@@ -258,10 +258,10 @@ static INT run_page() /* run one page */
 
 #ifdef WATCOM
 
-int read_all_vfile( char *path, char *buff)
+LONG read_all_vfile( CHAR *path, CHAR *buff)
 {
 	int f;
-	int lth;
+	LONG lth;
 
 	f=open(path,O_RDONLY|O_BINARY,S_IREAD);
 	if(f==-1) return(-1);
@@ -270,7 +270,7 @@ int read_all_vfile( char *path, char *buff)
 
 	return(lth);
 }
-int write_all_vfile( char *path, char *buff,uint32_t lth)
+LONG write_all_vfile( CHAR *path, CHAR *buff,uint32_t lth)
 {
 	INT f;
 
@@ -282,10 +282,10 @@ int write_all_vfile( char *path, char *buff,uint32_t lth)
 	return(lth);
 }
 
-int read_all_vtab( INT tabn, char *buff)
+LONG read_all_vtab( INT tabn, CHAR *buff)
 {
 	int f;
-	int lth;
+	LONG lth;
 
 	if (vocs_NOK)
 	return -1;
@@ -298,7 +298,7 @@ int read_all_vtab( INT tabn, char *buff)
 		return(-1);
 	}
 
-	lth=TGREAD((INT)(f), buff, (int)(TGFILELTH((INT)f)));
+	lth=TGREAD((INT)(f), buff, (LONG)(TGFILELTH((INT)f)));
 	TGCLOSE((INT)f);
 
 	return(lth);
@@ -650,7 +650,7 @@ INT pull_to_stat(INT status,SOBJ*obj,SPART *part,
 
 void investigate_word(INT status,SOBJ *obj,LTIMG *wrddef[],
 		WTOKEN *token)
-{	register char fst_lt=1;
+{	register CHAR fst_lt=1;
 	token->nmb=obj->nmb;
 	token->segm=obj->tif_ref.segm;
 	token->symb=obj->tif_ref.symb;

@@ -71,7 +71,7 @@ CTIMask::CTIMask()
 		 mcLine(0),
 		 mwLines(0) {}
 
-CTIMask::CTIMask(uint32_t Width, uint32_t Height)
+CTIMask::CTIMask(Word32 Width, Word32 Height)
         :mwMaskWidth(Width),
 		 mwMaskHeight(Height),
 		 mwSegments(0),
@@ -93,13 +93,13 @@ CTIMask::~CTIMask()
 
 Bool32 CTIMask::AddRectangle(PCIMAGE_Rect pRect)
 {
-	uint32_t        wXb;
-	uint32_t        wXe;
-	uint32_t        wYb;
-	uint32_t        wYe;
+	Word32        wXb;
+	Word32        wXe;
+	Word32        wYb;
+	Word32        wYe;
 	PCTIMaskLine  pPL = &mcLine;
 	PCTIMaskLine  pL;
-	uint32_t        wLine;
+	Word32        wLine;
 
 	if ( !IsRectOnMask(pRect) )
 		return FALSE;
@@ -151,13 +151,13 @@ Bool32 CTIMask::AddRectangle(PCIMAGE_Rect pRect)
 
 Bool32 CTIMask::RemoveRectangle(PCIMAGE_Rect pRect)
 {
-	uint32_t        wXb;
-	uint32_t        wXe;
-	uint32_t        wYb;
-	uint32_t        wYe;
+	Word32        wXb;
+	Word32        wXe;
+	Word32        wYb;
+	Word32        wYe;
 	PCTIMaskLine  pPL = &mcLine;
 	PCTIMaskLine  pL;
-	uint32_t        wLine;
+	Word32        wLine;
 
 	if ( !IsRectOnMask(pRect) )
 		return FALSE;
@@ -215,7 +215,7 @@ Bool32 CTIMask::IsRectOnMask(PCIMAGE_Rect pRect)
 			  (pRect->dwY + pRect->dwHeight) < mwMaskHeight ) );
 }
 
-Bool32 CTIMask::SetPtrToPrevLine(uint32_t wLine, PPCTIMaskLine ppLine)
+Bool32 CTIMask::SetPtrToPrevLine(Word32 wLine, PPCTIMaskLine ppLine)
 {
 	if ( !ppLine )
 		return FALSE;
@@ -231,7 +231,7 @@ Bool32 CTIMask::SetPtrToPrevLine(uint32_t wLine, PPCTIMaskLine ppLine)
 	return TRUE;
 }
 
-Bool32 CTIMask::GetLine(uint32_t wLine, PPCTIMaskLine ppcLine)
+Bool32 CTIMask::GetLine(Word32 wLine, PPCTIMaskLine ppcLine)
 {
 	PCTIMaskLine pL = mcLine.GetNext();
 	Bool32 bLinePresent = FALSE;

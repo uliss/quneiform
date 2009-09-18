@@ -76,7 +76,7 @@ extern int countCluster[256]; // how many clust
 
 Bool32 BadCluster(InfoCluster *infoC);
 void GetClusterStatistic(int numSymbol,int numCluster,Nraster_header *rh,
-						int16_t *nClus,InfoCluster *infoC,int *countC,
+						SINT *nClus,InfoCluster *infoC,int *countC,
 						BYTE *metkaGood,BYTE *metkaValid,Bool addLingvo);
 
 #define GoodCluster(infoC) (infoC.valid & LEO_VALID_LINGVO )
@@ -94,11 +94,11 @@ static int GetVes(Nraster_header *rh)
     return summa;
 }
 ///////////////
-static int GetAddField(int num,uint32_t *ifield,int let,
+static int GetAddField(int num,Word32 *ifield,int let,
 						  int numCluster,InfoCluster *infoC,
-						  uint32_t *addField)
+						  Word32 *addField)
 {
-	uint32_t field[NFIELDDWORD];
+	Word32 field[NFIELDDWORD];
 	int i;
 
 	SetFields(field,ifield);
@@ -119,7 +119,7 @@ static int GetAddField(int num,uint32_t *ifield,int let,
 	return 1;
 }
 //////////////
-static Bool32 isAddField(uchar name,InfoCluster *infoC,int numCluster,uint32_t *addField)
+static Bool32 isAddField(Word8 name,InfoCluster *infoC,int numCluster,Word32 *addField)
 {
  int i;
 
@@ -141,10 +141,10 @@ static Bool32 isAddField(uchar name,InfoCluster *infoC,int numCluster,uint32_t *
 // и заполняем - кто смешан
 static int smes[256];
 static int uniqal[256];
-static int GetSameField(uint32_t *field,uint32_t *addField,int let,
+static int GetSameField(Word32 *field,Word32 *addField,int let,
 						  int numCluster,InfoCluster *infoC,
 						  int *numSmes,
-						  uint32_t *sameField)
+						  Word32 *sameField)
 {
 	int i,numSame,nSmes=0;
 	int k;
@@ -200,7 +200,7 @@ static int GetSameField(uint32_t *field,uint32_t *addField,int let,
         AddFields(sameField, infoC[i].fields);
 
 		if( infoC[uniqal[infoC[i].let]-1].count >= POROG_TEST &&
-			isAddField((uchar)infoC[i].let,infoC,numCluster,addField)
+			isAddField((Word8)infoC[i].let,infoC,numCluster,addField)
 		  )
 			numSame++;
 	}
@@ -261,11 +261,11 @@ static Bool32 SameSizes(InfoCluster *infoC,int i,int j,
 	   return FALSE;
 }
 ///////////////////
-extern int16_t DistanceHausDLL(BYTE  *b1,int16_t xbyte1,int16_t yrow1,
-						BYTE  *b2,int16_t xbyte2,int16_t yrow2,
-						int16_t porog);
+extern SINT DistanceHausDLL(BYTE  *b1,SINT xbyte1,SINT yrow1,
+						BYTE  *b2,SINT xbyte2,SINT yrow2,
+						SINT porog);
 /*
-static int TestRaster(int num,int numSymbol,Nraster_header *rh,int16_t *nClus,
+static int TestRaster(int num,int numSymbol,Nraster_header *rh,SINT *nClus,
 					  int i1,int i2)
 {
  int sum1=0;
@@ -275,9 +275,9 @@ static int TestRaster(int num,int numSymbol,Nraster_header *rh,int16_t *nClus,
 	{
 		if(nClus[i] == i1)
 		{
-			sum1+=DistanceHausDLL(rh[num].pHau,rh[num].byte1,int16_t yrow1,
-						BYTE  *b2,int16_t xbyte2,int16_t yrow2,
-						int16_t porog);
+			sum1+=DistanceHausDLL(rh[num].pHau,rh[num].byte1,SINT yrow1,
+						BYTE  *b2,SINT xbyte2,SINT yrow2,
+						SINT porog);
 		}
 
 	}
@@ -286,13 +286,13 @@ static int TestRaster(int num,int numSymbol,Nraster_header *rh,int16_t *nClus,
 */
 ////////////////////////
 static int TrySubdivide(int numSymbol,Nraster_header *rh,
-			    int16_t *nClus,InfoCluster *infoC,
+			    SINT *nClus,InfoCluster *infoC,
 				int  nCluster,int numNew,
-				uint32_t *testField,uint32_t *addField,
+				Word32 *testField,Word32 *addField,
 				int *smes,int *uniqal )
 {
    int i,let;
-   uint32_t field[NFIELDDWORD];
+   Word32 field[NFIELDDWORD];
    int nNul;
    int oldFir;
    InfoCluster saveInfo;
@@ -412,18 +412,18 @@ static int TrySubdivide(int numSymbol,Nraster_header *rh,
 }
 ///////////////
 
-int TryDivide(int numSymbol,Nraster_header *rh,int16_t *nClus,
+int TryDivide(int numSymbol,Nraster_header *rh,SINT *nClus,
 			  int numCluster )
 {
   int i,j;
-  uint32_t testField[NFIELDDWORD];
-  uint32_t addField[NFIELDDWORD],sameField[NFIELDDWORD];
+  Word32 testField[NFIELDDWORD];
+  Word32 addField[NFIELDDWORD],sameField[NFIELDDWORD];
   int numNew=0;
   int numSmes;
 
   InfoCluster *infoC =infoClusterStat;
   int         *countC= countCluster;
-  uint32_t dividedFields[NFIELDDWORD]={0,0};
+  Word32 dividedFields[NFIELDDWORD]={0,0};
 
   if(numCluster >= MAXWEICLUS )
 	  return numCluster;

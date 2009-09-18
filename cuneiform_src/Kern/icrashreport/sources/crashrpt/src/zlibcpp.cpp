@@ -164,7 +164,7 @@ Bool CZLib::AddFile(CString f_file)
       {
          // Write file to Zip in 4 KB chunks
          const uint32_t BUFFSIZE    = 4096;
-         Tchar buffer[BUFFSIZE]  = _T("");
+         TCHAR buffer[BUFFSIZE]  = _T("");
 uint32_t dwBytesRead       = 0;
 
          while (ReadFile(hFile, &buffer, BUFFSIZE, &dwBytesRead, NULL)

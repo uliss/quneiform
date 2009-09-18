@@ -95,7 +95,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 
-RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(uchar* pmasp,int skew,Rect16* Rc,int16_t* begx,int16_t* movey,uchar* flmovey,int inf_betw_str_h)
+RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(Word8* pmasp,int skew,Rect16* Rc,Int16* begx,Int16* movey,Word8* flmovey,int inf_betw_str_h)
 {
  int oldskew=skew;
  if(skew<0)
@@ -133,12 +133,12 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(uchar* pmasp,int skew,Rect16* Rc,int16
  x=(int)((-b+D)/(2.*a));
  x=(int)((-b-D)/(2.*a));
 */
- int16_t x=(int16_t)( ((double)(w)-(double)(h*2048)/(double)(skew))/(1.-2048.*2048./(double)(skew*skew)) );
+ Int16 x=(Int16)( ((double)(w)-(double)(h*2048)/(double)(skew))/(1.-2048.*2048./(double)(skew*skew)) );
  if((x<0)||(x>w))
 	 return FALSE;
  if(x==0)
     x++;
- int16_t y=(int16_t)( (((double)(h)*2048.)/(double)(skew)-(double)(w))/(2048./(double)(skew)-(double)(skew)/2048.) );
+ Int16 y=(Int16)( (((double)(h)*2048.)/(double)(skew)-(double)(w))/(2048./(double)(skew)-(double)(skew)/2048.) );
  if((y<0)||(y>h))
 	 return FALSE;
  y=h-y;
@@ -154,14 +154,14 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(uchar* pmasp,int skew,Rect16* Rc,int16
    */
 
 
- int16_t i,j;
+ Int16 i,j;
  int numstr,newnumstr;
- int16_t bytewide,newbytewide;
+ Int16 bytewide,newbytewide;
  int nowbyte=0;
 
 
- int16_t newh;
- int16_t neww;
+ Int16 newh;
+ Int16 neww;
 
 
  if(oldskew<0)
@@ -186,7 +186,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(uchar* pmasp,int skew,Rect16* Rc,int16
 	  break;
   }
   j-=x-1;
-  int16_t k;
+  Int16 k;
   i=x-1;
   while(i)
   {
@@ -222,11 +222,11 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(uchar* pmasp,int skew,Rect16* Rc,int16
   if(neww<=0||newh<=0)
 	  return FALSE;
 
-  uchar* safe=NULL;
+  Word8* safe=NULL;
   newbytewide=((neww+7)/8);
   bytewide=(w+7)/8;
 
-  if(!(safe=new uchar[(int)(newbytewide)*(int)(newh)]))
+  if(!(safe=new Word8[(int)(newbytewide)*(int)(newh)]))
 	 return FALSE;
 
   nowbyte=0;
@@ -236,10 +236,10 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(uchar* pmasp,int skew,Rect16* Rc,int16
   int realpj;
   numstr=begx[0]>>3;
   newnumstr=0;
-  int16_t rect=(neww%8);
+  Int16 rect=(neww%8);
   if(rect==0)
 	  rect=8;
-  int16_t realrect;
+  Int16 realrect;
 
   for(i=0;i<newh;i++)
   {
@@ -390,7 +390,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(uchar* pmasp,int skew,Rect16* Rc,int16
   }
   flmovey[0]=0;
 
-  int16_t k=0;
+  Int16 k=0;
 
   flmovey[w]=0;
 
@@ -420,11 +420,11 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(uchar* pmasp,int skew,Rect16* Rc,int16
   for(i=newh;i<=h;i++)
 	  begx[i]=j;
 
-  uchar* safe=NULL;
+  Word8* safe=NULL;
   newbytewide=((neww+7)/8);
   bytewide=(w+7)/8;
 
-  if(!(safe=new uchar[(int)(newbytewide)*(int)(newh)]))
+  if(!(safe=new Word8[(int)(newbytewide)*(int)(newh)]))
 	 return FALSE;
 
   int my_temp_size = (int)(newbytewide)*(int)(newh);
@@ -436,10 +436,10 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(uchar* pmasp,int skew,Rect16* Rc,int16
   int realpj;
   numstr=(y-1)*bytewide;
   newnumstr=0;
-  int16_t rect=(neww%8);
+  Int16 rect=(neww%8);
   if(rect==0)
 	  rect=8;
-  int16_t realrect;
+  Int16 realrect;
   for(i=0;i<newh;i++)
   {
 	nowbyte=numstr;
@@ -594,12 +594,12 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(uchar* pmasp,int skew,Rect16* Rc,int16
  return FALSE;
 }
 
-int16_t okrug(double d)
+Int16 okrug(double d)
 {
-	return (int16_t)(d+.5);
+	return (Int16)(d+.5);
 }
 
-RSELSTR_FUNC(Bool32) RSELSTR_UnRotateRect(int skew,Rect16* pRc,int nRc,Rect16 Rc,int16_t* begx,int16_t* movey,uchar* flmovey,int* hi)
+RSELSTR_FUNC(Bool32) RSELSTR_UnRotateRect(int skew,Rect16* pRc,int nRc,Rect16 Rc,Int16* begx,Int16* movey,Word8* flmovey,int* hi)
 {
  if(skew<0)
  {
@@ -646,7 +646,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_UnRotateRect(int skew,Rect16* pRc,int nRc,Rect16 Rc
  return TRUE;
 }
 
-int GetUnRotateY(int y,int h,int16_t* begx,int16_t* movey,uchar* flmovey,int skew)
+int GetUnRotateY(int y,int h,Int16* begx,Int16* movey,Word8* flmovey,int skew)
 {
 	int k=-1;
 	int i=0;

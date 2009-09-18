@@ -59,21 +59,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "un_err.h"
 #include "puma_err.h" //own functions
 /*----------------------------------------------------------------------------*/
-void Error_MyNoMem_Code (uint16_t *pCode)
+void Error_MyNoMem_Code (Word16 *pCode)
 {
-	uchar  err8;
-	err8 = (uchar)ER_ROUGH_NORMAL;
-	*pCode = (uint16_t)(err8<<8);
-	err8 = (uchar)ER_DETAIL_NO_MEMORY;
-	*pCode |= (uint16_t)err8;
+	Word8  err8;
+	err8 = (Word8)ER_ROUGH_NORMAL;
+	*pCode = (Word16)(err8<<8);
+	err8 = (Word8)ER_DETAIL_NO_MEMORY;
+	*pCode |= (Word16)err8;
 }
 /*---------------------------------------------------------------------------*/
-void Error_CPage_Code (uint16_t *pCode)
+void Error_CPage_Code (Word16 *pCode)
 {
-	uchar  err8;
-	err8 = (uchar)ER_ROUGH_NORMAL;
-	*pCode = (uint16_t)(err8<<8);
-	err8 = (uchar)ER_DETAIL_FUNC_CPAGE;
-	*pCode |= (uint16_t)err8;
+	Word8  err8;
+	err8 = (Word8)ER_ROUGH_NORMAL;
+	*pCode = (Word16)(err8<<8);
+	err8 = (Word8)ER_DETAIL_FUNC_CPAGE;
+	*pCode |= (Word16)err8;
 }
 /*----------------------------------------------------------------------------*/

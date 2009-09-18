@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "tableclass.h"
 
 //###########################################
-CPAGE_FUNC(Handle)  CPAGE_ExTableCreate (Handle hPage,int32_t Skew2048, uint32_t nVer,int32_t * lpVCor, uint32_t nHor,int32_t * lpHCor)
+CPAGE_FUNC(Handle)  CPAGE_ExTableCreate (Handle hPage,int32_t Skew2048, Word32 nVer,int32_t * lpVCor, Word32 nHor,int32_t * lpHCor)
 {
 	PROLOG;
   SetReturnCode_cpage(IDS_ERR_NO);

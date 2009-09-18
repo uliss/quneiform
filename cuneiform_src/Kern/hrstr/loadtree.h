@@ -99,15 +99,15 @@ struct strucAlternative
 
 typedef  struct{
    BYTE  let;
-   int  tr1,tr2;
+   LONG  tr1,tr2;
 }  StructTree;
 
 
 
-int  read_auto_tree( BYTE );
-char * tree_start( INT n );
+LONG  read_auto_tree( BYTE );
+PCHAR tree_start( INT n );
 INT copy_raster( PBYTE in, INT dy, INT dx,PBYTE out,INT row,INT col );
-void  errorExit( char * str );
+void  errorExit( PCHAR str );
 INT  recog( void );
 INT  rec_without_halo( void );
 

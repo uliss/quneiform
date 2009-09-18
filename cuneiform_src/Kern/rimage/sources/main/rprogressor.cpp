@@ -74,7 +74,7 @@ CRProgressor::CRProgressor()
 	mwLastPercent = 0;
 }
 
-CRProgressor::CRProgressor( void (*pStart)(void), void (*pFinish)(void), Bool32 (*pStep)(uint32_t))
+CRProgressor::CRProgressor( void (*pStart)(void), void (*pFinish)(void), Bool32 (*pStep)(Word32))
 {
 	mfStart  = pStart;
 	mfStep   = pStep;
@@ -112,7 +112,7 @@ Bool32 CRProgressor::Finish()
 	return FALSE;
 }
 
-Bool32 CRProgressor::SetStep(uint32_t wPercent)
+Bool32 CRProgressor::SetStep(Word32 wPercent)
 {
 	if ( mbProgressStarted && mfStep )
 	{

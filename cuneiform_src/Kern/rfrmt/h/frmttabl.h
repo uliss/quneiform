@@ -82,20 +82,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define  TG_EDW_NARROW        128     // user defined
 
 extern   float      Twips;
-extern   uint32_t     FlagMode;
-extern   char       lpMyNameSerif[MAX_PATH];
-extern   char       lpMyNameNonSerif[MAX_PATH];
-extern   char       lpMyNameMono[MAX_PATH];
-extern   int16_t      get_font_name(int16_t FontNumber);
+extern   Word32     FlagMode;
+extern   CHAR       lpMyNameSerif[MAX_PATH];
+extern   CHAR       lpMyNameNonSerif[MAX_PATH];
+extern   CHAR       lpMyNameMono[MAX_PATH];
+extern   Int16      get_font_name(Int16 FontNumber);
 
 #ifdef __cplusplus
 	extern "C" {
 #endif
 
-uint32_t GetTablCount(void);
+Word32 GetTablCount(void);
 void   ViewTable(void);
-void   GetTableRect( uint32_t NumberTable , Rect16* RectTable,uint32_t* UserNumber );
-Bool   WriteTable( uint32_t IndexTable, RtfSectorInfo* SectorInfo/*, CString* TableString*/ ,Bool OutPutMode );
+void   GetTableRect( Word32 NumberTable , Rect16* RectTable,Word32* UserNumber );
+Bool   WriteTable( Word32 IndexTable, RtfSectorInfo* SectorInfo/*, CString* TableString*/ ,Bool OutPutMode );
 //void   TablePutChar( CString* TableString, BYTE sym );
 
 #ifdef __cplusplus
@@ -110,7 +110,7 @@ class CTableChar;
 
 void  GetFragmLines( int32_t m_NumberFragm , Point32* m_point );
 Bool  CheckLine( CSTR_line* Comingline );
-void  AddLetter( CSTR_rast* rast , uchar*  m_ucCode , uchar* m_ucFontNumber );
+void  AddLetter( CSTR_rast* rast , Word8*  m_ucCode , Word8* m_ucFontNumber );
 void  Write_SetPhCellParam( Handle h_Page, Handle h_Table, CTableRow* rTableRow, Point32 m_TempPhPoint,
 																										 int32_t CountStrCellInPn, int32_t FlagPhisicalGroup , int32_t NumberPhysicalGroup );
 /////////////////////////////////////////////////////////////////////////////
@@ -189,8 +189,8 @@ uint32_t         m_Flags;
 
   union
   {
-	uchar		m_u8BoundsType[4];//Информация о типе границ ячейки:L,R,T,B !!!Art
-	uint32_t		m_u32BoundsType;
+	Word8		m_u8BoundsType[4];//Информация о типе границ ячейки:L,R,T,B !!!Art
+	Word32		m_u32BoundsType;
   };
 };
 
@@ -206,8 +206,8 @@ public:
   void  	    ExtractWordsFromString( CSTR_line line );
   void          ExtractNextWord( CSTR_line* line );
   void	        Write(/*CString* TableString,*/ RtfSectorInfo* SectorInfo);
-  void          MyCorrectKegl( int16_t width );
-  int16_t         GetRealSizeForKegl( char* str,int16_t FontSize,int16_t FontNumber );
+  void          MyCorrectKegl( Int16 width );
+  Int16         GetRealSizeForKegl( char* str,Int16 FontSize,Int16 FontNumber );
 
   /*CObArray*/std::vector<CTableWord*>      m_arWords;
 

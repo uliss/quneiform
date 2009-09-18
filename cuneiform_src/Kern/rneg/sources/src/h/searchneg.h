@@ -90,7 +90,7 @@ extern int	DPIX;
 extern int	DPIY;
 extern int Height;
 extern int Width;
-extern uchar ImageName[CPAGE_MAXNAME];
+extern Word8 ImageName[CPAGE_MAXNAME];
 extern NegImage* pNegImage;
 /*----------------------------------------------------------------------------*/
 
@@ -110,10 +110,10 @@ void DelNegMas(UniVersions*);
 void DelNegMas(CCOM_comp**);
 Bool AddLenNegMas(Rect16**,int&,int);
 Bool AddLenNegMas(CCOM_comp***,int&,int);
-Bool IsNegSize(int16_t,int16_t);
+Bool IsNegSize(Int16,Int16);
 Bool IsNegBlack(Handle,NegList*);
-Bool GetMasP(Handle,Rect16,uchar**);
-Bool GetMasP(Rect16*,uchar**);
+Bool GetMasP(Handle,Rect16,Word8**);
+Bool GetMasP(Rect16*,Word8**);
 void NormNeg(Handle,NegList*,NegList**,int&);
 void CutNeg(Handle,NegList**,int&,int);
 void CutNegStr(Handle,NegList**,int&,int);
@@ -126,11 +126,11 @@ void PMoveMas(double*,int,int);
 void NegMoveMasR(Rect16*,int&,int);
 void NegMoveMas(Rotating*,int,int);
 Bool IfNegIn(NegList*,int,int,int,int,int);
-void DeleteRotateMas(uchar**,int16_t**,int16_t**,uchar**,int**);
-void NegInvert(uchar*,Rect16);
+void DeleteRotateMas(Word8**,Int16**,Int16**,Word8**,int**);
+void NegInvert(Word8*,Rect16);
 void DelIn(Handle,NegList**,int&);
 int absolut(int);
-double NegBlack(uchar*,Rect16);
+double NegBlack(Word8*,Rect16);
 void PostRotate(NegList* now,int skew);
 
 

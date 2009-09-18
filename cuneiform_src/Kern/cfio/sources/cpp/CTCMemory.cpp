@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ctcclasses.h"
 //////////////////////////////////////////////////////////////////GLOBAL
 //
-extern void SetReturnCode_cfio(uint16_t rc);
+extern void SetReturnCode_cfio(Word16 rc);
 //////////////////////////////////////////////////////////////////////////////////
 //
 CTCMemoryHeader::CTCMemoryHeader()
@@ -80,7 +80,7 @@ CTCMemoryHeader::CTCMemoryHeader()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCMemoryHeader::CTCMemoryHeader(Handle hMemory, uint32_t wBlockSize)
+CTCMemoryHeader::CTCMemoryHeader(Handle hMemory, Word32 wBlockSize)
                 :CTCGlobalHeader(hMemory,NULL,wBlockSize)
 {
 	SetHeaderSize(sizeof( class CTCMemoryHeader));
@@ -88,7 +88,7 @@ CTCMemoryHeader::CTCMemoryHeader(Handle hMemory, uint32_t wBlockSize)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CTCMemoryHeader::CTCMemoryHeader(Handle hMemory, uint32_t wBlockSize, const char *OwnerName, const char *Commentary)
+CTCMemoryHeader::CTCMemoryHeader(Handle hMemory, Word32 wBlockSize, const char *OwnerName, const char *Commentary)
                 :CTCGlobalHeader(hMemory,NULL,wBlockSize)
 {
 	SetHeaderSize(sizeof( class CTCMemoryHeader));
@@ -157,13 +157,13 @@ CTCMemoryList::~CTCMemoryList()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-uint32_t CTCMemoryList::IncreaseMemoryCounter(uint32_t wSize)
+Word32 CTCMemoryList::IncreaseMemoryCounter(Word32 wSize)
 {
 	return ( wMemoryCounter = wMemoryCounter + wSize );
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-uint32_t CTCMemoryList::DecreaseMemoryCounter(uint32_t wSize)
+Word32 CTCMemoryList::DecreaseMemoryCounter(Word32 wSize)
 {
 	return ( wMemoryCounter = wMemoryCounter - wSize );
 }
@@ -181,7 +181,7 @@ CTCMemoryHeader * CTCMemoryList::pLast()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTCMemoryList::AddItem(Handle hMemory, uint32_t wSize, uint32_t wIsGlobal, const char *cOwner, const char *Coment)
+Bool32 CTCMemoryList::AddItem(Handle hMemory, Word32 wSize, Word32 wIsGlobal, const char *cOwner, const char *Coment)
 {
 	CTCMemoryHeader * Current, * NewBlock = NULL;
 
@@ -212,10 +212,10 @@ Bool32 CTCMemoryList::AddItem(Handle hMemory, uint32_t wSize, uint32_t wIsGlobal
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTCMemoryList::DeleteItem(Handle hMemory, uint32_t wParam)
+Bool32 CTCMemoryList::DeleteItem(Handle hMemory, Word32 wParam)
 {
 	PCTCMemoryHeader Current, Last;
-	uint32_t IsOK    = 0;
+	Word32 IsOK    = 0;
 
 	for ( Last = Current = pFirst(); Current != pLast(); Current = Current->GetNext() )
 	{
@@ -270,7 +270,7 @@ CTCMemoryHeader * CTCMemoryList::GetItem(Handle hMemory)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTCMemoryList::TakeItem(Handle hMemory, uint32_t * wSize, uint32_t * wFlag)
+Bool32 CTCMemoryList::TakeItem(Handle hMemory, Word32 * wSize, Word32 * wFlag)
 {
 	CTCMemoryHeader * Current = GetItem(hMemory);
 

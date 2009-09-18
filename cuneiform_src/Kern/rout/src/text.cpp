@@ -95,7 +95,7 @@ Bool Static_MakeText(
 
 	switch(reason)
 		{
-		case BROWSE_char:
+		case BROWSE_CHAR:
 			// Символ
 			// Установить язык
 			{
@@ -105,7 +105,7 @@ Bool Static_MakeText(
 			}
 
 			// Записать символ
-			ONE_char(hObject);
+			ONE_CHAR(hObject);
 			break;
 
 		case BROWSE_LINE_END:

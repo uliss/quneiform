@@ -304,7 +304,7 @@ Bool32 ReadRoots(Handle hCCOM)
 	CCOM_comp * comp = NULL;
 	Handle		pPage;
 	PAGEINFO	pInfo;
-	uint32_t i;
+	Word32 i;
 	int max_h=50;
 
 	exthCCOM = hCCOM;
@@ -432,7 +432,7 @@ int w=comp->w;
 
         if (pRoots == NULL)
         {
-            ErrorNoEnoughMemory ((uchar*)"in LTROOTS.C, AddRoot");
+            ErrorNoEnoughMemory ((Word8*)"in LTROOTS.C, AddRoot");
             nRoots = 0;
             return FALSE;
         }

@@ -90,7 +90,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     #include "rcorrkegl.h"
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     //
-    #define BYTE char
+    #define BYTE Int8
 
     // predefined
     #ifdef __PUMA_CPP__
@@ -112,7 +112,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     // global variables
     // Исходные данные, передаваемые пользователем
-    EXTERN uint32_t gnLanguage			VAL(7);
+    EXTERN Word32 gnLanguage			VAL(7);
     EXTERN Bool32 gbSpeller				VAL(TRUE);
     EXTERN Bool32 gbOneColumn			VAL(FALSE);
     EXTERN Bool32 gbFax100				VAL(FALSE);
@@ -121,13 +121,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     EXTERN Bool32 gbItalic				VAL(TRUE);
     EXTERN Bool32 gbSize				VAL(TRUE);
     EXTERN Bool32 gbFormat				VAL(TRUE); // устарела см. gnFormat
-    EXTERN uint32_t gnFormat				VAL(1);
+    EXTERN Word32 gnFormat				VAL(1);
     EXTERN Bool32 gnPreserveLineBreaks  VAL(FALSE);
 
-    EXTERN uchar  gnUnrecogChar			VAL('~');
+    EXTERN Word8  gnUnrecogChar			VAL('~');
 
-    EXTERN uint32_t gnPictures			VAL(1);
-    EXTERN uint32_t gnTables				VAL(1);
+    EXTERN Word32 gnPictures			VAL(1);
+    EXTERN Word32 gnTables				VAL(1);
 
     EXTERN const char * gpUserDictName		VAL("");
     EXTERN const char * gpSerifName			VAL("Times New Roman");
@@ -135,8 +135,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     EXTERN const char * gpCourierName			VAL("Courier New");
 
     EXTERN char	  szInputFileName[260];
-    EXTERN uchar * gpInputDIB			VAL(NULL);
-    EXTERN uchar * gpRecogDIB			VAL(NULL);
+    EXTERN PWord8 gpInputDIB			VAL(NULL);
+    EXTERN PWord8 gpRecogDIB			VAL(NULL);
     EXTERN Bool32 gbAutoRotate			VAL(FALSE);
     EXTERN Point32 gPageSize			VAL2(209,295); // формат А4 в миллиметрах
     EXTERN Rect32 gRectTemplate			VAL4(-1,-1,-1,-1);
@@ -239,14 +239,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     EXTERN FNPUMA_ProgressFinish	fnProgressFinish				VAL(NULL);
     EXTERN FNPUMA_ProgressStep		fnProgressStep					VAL(NULL);
 
-    EXTERN uint32_t					g_prgStep						VAL(0);
+    EXTERN Word32					g_prgStep						VAL(0);
     //Allex  при разделении бинаризации и обработки сырь
     //имя картинки 'lpRecogName' сделано глабольной переменной
     EXTERN const char *					glpRecogName					VAL(NULL);
     EXTERN Bool32                   grc_line                        VAL(TRUE);
     EXTERN Bool32                   gneed_clean_line                VAL(FALSE);
     EXTERN Bool32                   gKillVSLComponents              VAL(TRUE);
-    EXTERN uchar  gnSpecialProject			VAL(0);
+    EXTERN Word8  gnSpecialProject			VAL(0);
 
     //allex
     #ifdef _DEBUG
@@ -260,21 +260,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     // Флаги обновления контейнеров
     // перехали в mpumatime.h
     //#define FLG_UPDATE_NO		0
-    //#define FLG_UPDATE			(uint32_t)-1
+    //#define FLG_UPDATE			(Word32)-1
     //#define FLG_UPDATE_CCOM		0x1
     //#define FLG_UPDATE_CPAGE	0x2
 
-    EXTERN uint32_t g_flgUpdate			VAL(0);
+    EXTERN Word32 g_flgUpdate			VAL(0);
 
-    Bool32 IsUpdate(uint32_t flg);
-    void   SetUpdate(uint32_t flgAdd,uint32_t flgRemove);
+    Bool32 IsUpdate(Word32 flg);
+    void   SetUpdate(Word32 flgAdd,Word32 flgRemove);
 
     //typedef struct
     //	{
-    //	uint32_t dwBeg;   // Начало текущего диапозона
-    //	uint32_t dwEnd;	// Конец
+    //	Word32 dwBeg;   // Начало текущего диапозона
+    //	Word32 dwEnd;	// Конец
     //
-    //	uint32_t dwStep;  // текущий номер шага
+    //	Word32 dwStep;  // текущий номер шага
     //	char * name;	// текущее название шага
     //	} PRGTIME;
 
@@ -293,11 +293,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     //functions
-    void	SetReturnCode_puma(uint32_t rc);
-    uint32_t	GetReturnCode_puma();
+    void	SetReturnCode_puma(Word32 rc);
+    Word32	GetReturnCode_puma();
     char *	GetModulePath();
     char *	GetModuleTempPath();
-    char *  GetResourceString(uint32_t id);
+    char *  GetResourceString(Word32 id);
 
     Bool32 InitMem(void);
     void   DoneMem(void);
@@ -322,9 +322,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     Bool32 ModulesInit(Handle  ghStorage);
     Bool32 ModulesDone(Handle  ghStorage);
-    char * GetModulesString(uint32_t dwError);
+    char * GetModulesString(Word32 dwError);
 
-    Bool32 Layout(uchar * lpdata);
+    Bool32 Layout(PWord8 lpdata);
     Bool32 Recognize();
 
     void InitDebug();
@@ -346,35 +346,35 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     // common.cpp
     void	ClearAll( void );
-    Bool32  rexcProgressStep  (uint32_t);
-    Bool32  ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom , uchar * name);
-    Bool32  RemoveLines(Handle hccom,Handle hcpage,uchar * * pDIB);
+    Bool32  rexcProgressStep  (Word32);
+    Bool32  ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom , PWord8 name);
+    Bool32  RemoveLines(Handle hccom,Handle hcpage,PWord8 * pDIB);
     void    SetOptionsToFRMT( void );
     Bool32  SaveToText(char * lpOutFileName,int code);
-//    Bool32  HL_TableExtract( Handle hPAGE, uint32_t type, Rect32 rect );
-//    Bool32  HL_TableExtractEx( Handle hPAGE, uint32_t perc, Rect32 rect );
+//    Bool32  HL_TableExtract( Handle hPAGE, Word32 type, Rect32 rect );
+//    Bool32  HL_TableExtractEx( Handle hPAGE, Word32 perc, Rect32 rect );
     // Функции прогресс индикатора.
     // 1. Для инициализации внутреннего счетчика надо вызвать InitPRGTIME. Возвращает TRUE, если выполняется впервые
     // 2. Внутри одной функции разбиение идет всегда от 0 до 100 процентов
     // 3. Перед вызовом функции надо установить диапозон прогресса для этой функции в масштабе 0 - 100
-    //		Для этого надо выполнить StorePRGTIME(uint32_t beg, uint32_t end);
+    //		Для этого надо выполнить StorePRGTIME(Word32 beg, Word32 end);
     // 4. После возврата из этой функции надо восстановить счетчик функцией RestorePRGTIME(PRGTIME prev)
     //		Параметром этой функции должно быть возвращаемое значение функции StorePRGTIME
     // 5. В конце функции вызвать DonePRGTIME
     void    ResetPRGTIME();
     Bool32	InitPRGTIME();
     Bool32	DonePRGTIME();
-    PRGTIME	StorePRGTIME(uint32_t beg, uint32_t end);// Устанавливает дапозон изменений, который учитывается в  ProgressStep
+    PRGTIME	StorePRGTIME(Word32 beg, Word32 end);// Устанавливает дапозон изменений, который учитывается в  ProgressStep
     void 	RestorePRGTIME(PRGTIME prev);// Устанавливает дапозон изменений, который учитывается в  ProgressStep
 
     void	ProgressStart();
     void	ProgressFinish();
-    Bool32	ProgressStep(uint32_t step,char*name,uint32_t percent);
-    Bool32  ProgressStepLayout(uint32_t step,uint32_t percent);
-    Bool32  ProgressStepLines(uint32_t step,uint32_t percent);
-    Bool32  ProgressStepTables(uint32_t step,uint32_t percent);
-    Bool32  ProgressStepSearchTables(uint32_t step,uint32_t percent);
-    Bool32  ProgressStepAutoLayout(uint32_t step,uint32_t percent);
+    Bool32	ProgressStep(Word32 step,char*name,Word32 percent);
+    Bool32  ProgressStepLayout(Word32 step,Word32 percent);
+    Bool32  ProgressStepLines(Word32 step,Word32 percent);
+    Bool32  ProgressStepTables(Word32 step,Word32 percent);
+    Bool32  ProgressStepSearchTables(Word32 step,Word32 percent);
+    Bool32  ProgressStepAutoLayout(Word32 step,Word32 percent);
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     // Allex (перенесено в pumadef.h
     //#define NAME_IMAGE_INPUT		"Исходное изображение"
@@ -387,10 +387,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     Bool32 PrintResult(int num,CSTR_line lout,Handle hCPAGE);
     Bool32 ConverROUT(char * lpOutFileName, int32_t lnFormat, int32_t lnCode,Bool32 bAppend);
-    uint32_t ConverROUTtoMemory(Handle hEd, int32_t lnFormat, int32_t lnCode, Byte * lpMem, uint32_t size);
+    Word32 ConverROUTtoMemory(Handle hEd, int32_t lnFormat, int32_t lnCode, Byte * lpMem, Word32 size);
     /*
     Bool32 ReadSVLFromPageContainer ( LinesTotalInfo * );
-    Bool32 ShortVerticalLinesProcess ( uint32_t );
+    Bool32 ShortVerticalLinesProcess ( Word32 );
     Bool32 SVLFilter(LinesTotalInfo *, LinesTotalInfo *);
     Bool32 SVLComponentFilter(LineInfo *);
     Bool32 IsRectIntersect(Rect16 *, Rect16 *);

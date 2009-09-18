@@ -84,7 +84,7 @@ INT  draft_cut_hyps(INT bs,INT fl);
 
 #define MAX_HEIGHT 70  // such was...  change ?
 
-extern uchar language;
+extern Word8 language;
 
 extern BYTE db_status    ;    // snap presence byte
 extern BYTE db_trace_flag;    // snap-detail presence byte
@@ -567,7 +567,7 @@ INT uc[MAX_HEIGHT]={0},
  }
  if(db_status & snap_activity_rbal(db_pass) && ret!=0)
  {
-  char buf[120];
+  CHAR buf[120];
   sprintf(buf,"Page statistic lh=%u  caps=%u,%u lcase=%u,%u ",lh,umax,uprob,lmax,lprob);
   snap_show_text_rbal(buf); snap_monitor_rbal();
  }
@@ -1136,7 +1136,7 @@ INT GetPsFromHeights(void)
     HIST_STATISTIC=1;
     if(db_status & snap_activity_rbal(db_pass) )
 	{
-     char buf[120];
+     CHAR buf[120];
      sprintf(buf,"Histogramms: min=%d b3=%d peak1= %d|%d peak2= %d|%d sunk=%d",
                               minrow,bbs3,    ind1,max1,   ind2,max2, n_sunk);
      snap_show_text_rbal(buf); snap_monitor_rbal();

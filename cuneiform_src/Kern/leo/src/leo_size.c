@@ -207,7 +207,7 @@ LEO_FUNC(int32_t) LEO_AddStat(int32_t name,int32_t width,int32_t height,int32_t 
 	  // add only good
 	if( ( valid & LEO_VALID_FINAL ) == 0)
 		 return allCount;
-    //name = stdAnsiToAscii((uchar)name);
+    //name = stdAnsiToAscii((Word8)name);
 	if( width  < 0 || width  >= MAX_WIDTH ||
 		height < 0 || height >= MAX_HEIGHT   )
           return allCount;
@@ -317,7 +317,7 @@ LEO_FUNC(int32_t) LEO_AddStatLetter(int32_t name,int32_t width,int32_t height,in
 {
 
 	if(name < 0 || name > 255 ) return 0;
-//name = stdAnsiToAscii((uchar)name);
+//name = stdAnsiToAscii((Word8)name);
 	  // add only good
 	if( ( valid & LEO_VALID_FINAL ) == 0)
 		 return letCount[name];
@@ -509,7 +509,7 @@ int *mysteck;
     memset(ocenka2,0,2*sizeof(int));
 
 	if( name < 0 || name > 255 ) return 0;
-//name = stdAnsiToAscii((uchar)name);
+//name = stdAnsiToAscii((Word8)name);
 	 //  symbols not enouph ?
     if( letCount[name] < MIN_STAT_ONE ) return 0;
 	if( letInfo == NULL ) return 0;
@@ -792,7 +792,7 @@ static PROP_STR letters_prop_table_rus[256]={
               };
 
 int32_t leo_narrow, leo_narrow_pen;
-extern uchar leo_alpha_type;
+extern Word8 leo_alpha_type;
 #include "alphaset.h"
 
 void leo_sizes_init_stat(void)
@@ -801,10 +801,10 @@ leo_narrow=leo_narrow_pen=0;
 return;
 }
 
-uchar leo_proport_penalty(uchar let,uchar prolet, int32_t w, int32_t h)
+Word8 leo_proport_penalty(Word8 let,Word8 prolet, int32_t w, int32_t h)
 {
 int32_t comSizes[4], prob[4], wid, hei, pr, pr1, prop, prp;
-uchar name;
+Word8 name;
 int32_t pmin=0, pmax=255;
 
 #ifdef NO_SIZES
@@ -815,7 +815,7 @@ if( !w || !h )
 
 if( let )
     {
-    name = stdAnsiToAscii((uchar)let);
+    name = stdAnsiToAscii((Word8)let);
     if( memchr("№",let,1) )
         name=let;
     pmin=letters_prop_table_rus[name].pmin;
@@ -935,11 +935,11 @@ if( h>=w && prp>=pmin && prp<=pmax ||
     h<w &&pr1<45 && !( pmax && w>wid && w*100/wid>120 && prp>pmax) )
     return 0;
 
-return (uchar)((pr1*255)/100);  // large prop
+return (Word8)((pr1*255)/100);  // large prop
 }
 
 
-uchar leo_sizes_penalty( int32_t w, int32_t h)
+Word8 leo_sizes_penalty( int32_t w, int32_t h)
 {
 int32_t comSizes[4], prob[4], wid, hei, pr;
 #ifdef NO_SIZES
@@ -967,7 +967,7 @@ return 0;
             if( h*2<=hei  )
                 return 100;
             if( h*4<=hei*3 )
-                return (uchar)(100*(hei*3-4*h)/hei);
+                return (Word8)(100*(hei*3-4*h)/hei);
             }
         wid = comSizes[2];
         if( prob[2] >=100 && pr>60 && (h*2<=hei||w*2<=wid) && h*w*4<=hei*wid*3  )
@@ -975,7 +975,7 @@ return 0;
             if( h*w*4<=hei*wid  )
                 return 100;
             if( h*w*4<=hei*wid*3 )
-                return (uchar)(50*(hei*wid*3-4*h*w)/(hei*wid));
+                return (Word8)(50*(hei*wid*3-4*h*w)/(hei*wid));
             }
         }
 

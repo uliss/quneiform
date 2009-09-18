@@ -61,17 +61,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "v1comp.h"
 
 //      Common variables
-extern int16_t    nBlack,nWid;
+extern Int16    nBlack,nWid;
 extern int32_t    ExControl;
 //      Internal functions
-static void make_seg_line (uchar* raster, int16_t width);
+static void make_seg_line (Word8* raster, Int16 width);
 
 //      Internal variables
 static BWS *bp,*bpe;
-static uchar extrcomp_flag;
+static Word8 extrcomp_flag;
 #define SEG_DELIM -0x7000
 
-BWS *locomp_seglist(uchar* raster, BWS *bwsp, BWS *bwe, int16_t height, int16_t width)
+BWS *locomp_seglist(Word8* raster, BWS *bwsp, BWS *bwe, Int16 height, Int16 width)
 {
  bwsp->b = 0; bwsp->w = SEG_DELIM; bwsp++;
  bp = bwsp;  bpe = bwe;extrcomp_flag = 0;
@@ -79,7 +79,7 @@ BWS *locomp_seglist(uchar* raster, BWS *bwsp, BWS *bwe, int16_t height, int16_t 
  return bp;
 }
 
-BWS *extrcomp_seglist(uchar* raster, BWS *bwsp, BWS *bwe, int16_t width)
+BWS *extrcomp_seglist(Word8* raster, BWS *bwsp, BWS *bwe, Int16 width)
 {
  bp = bwsp;  bpe = bwe; extrcomp_flag = 1;
  make_seg_line(raster,width);
@@ -108,10 +108,10 @@ else
     nBlack+=0;
 }
 
-static void make_seg_line(uchar* raster, int16_t width)
+static void make_seg_line(Word8* raster, Int16 width)
 {
  BWS *p = bp;
- uchar b;
+ Word8 b;
 
 
  p->w = p->b = 0;
@@ -808,7 +808,7 @@ comm_after_white:
 
 }
 
-void invert_tiff (uchar* p, uint16_t lth)
+void invert_tiff (Word8* p, Word16 lth)
 {
  while (lth--) {*p = ~*p; p++;}
 }

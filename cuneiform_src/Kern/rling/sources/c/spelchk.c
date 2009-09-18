@@ -104,8 +104,8 @@ BYTE raster[RASTER_SIZE];
 #ifdef V_RECOG
   static INT form_raster (SOBJ *, SPOS *);
   static INT back_recog (SOBJ *, SWORD *, INT, INT, INT * );
-  static void set_last_symb(struct segm  *,char  *);
-  static void  set_tif_strip(struct segm  *,char  *,INT *,INT *);
+  static void set_last_symb(struct segm  *,CHAR  *);
+  static void  set_tif_strip(struct segm  *,CHAR  *,INT *,INT *);
   static INT fill_raster();
 #else
   #define back_recog(a,s,c,v,b) ((a=a),0)
@@ -558,7 +558,7 @@ INT CheckContext ( SOBJ *obj,LTIMG *wrddef[], INT lth)
 
  if ( (type & T_CAP) && (type & T_LOW) )      /* low & capital  ?         */
   {
-    char a;
+    CHAR a;
     INT fl = 0;
     INT i;
     INT ApfFlag =FALSE;
@@ -573,7 +573,7 @@ INT CheckContext ( SOBJ *obj,LTIMG *wrddef[], INT lth)
           )
              ? (*wrddef[i] -> source) : (wrddef[i] -> lt -> code);
 
-     switch (symcode((char  *)&a))
+     switch (symcode((CHAR  *)&a))
       {
        case _APF:
                   fl = 0; ApfFlag =TRUE; break;
@@ -893,12 +893,12 @@ static  back_recog(SOBJ * obj,
 		     )
 {
  INT i,j;
- char fl=0;
+ CHAR fl=0;
  INT code;
- int isq = 0;        /* the eBOX structure item */
+ LONG isq = 0;        /* the eBOX structure item */
  WORD icosinus;
  struct tifref * wt;
- char hyp[10];
+ CHAR hyp[10];
  t_answer ans[10];
 
  hyp[0]=word->pos[pi]->alt[ai].lt->code;
@@ -957,7 +957,7 @@ static  back_recog(SOBJ * obj,
 /* Andrew Leman's responsibility :
 									    */
 /****************************************************************************/
-static char *Plst[]=        /* The matter of what to discriminate : */
+static CHAR *Plst[]=        /* The matter of what to discriminate : */
  {"   ",
   "MwW",
   "1liItfr",
@@ -994,7 +994,7 @@ static INT make_probBOXf(INT ltr, WORD  *fi)
  INT result=0;
  INT  px, *pi1, *pi2;
  WORD wcos, *pb1, *pb2;
- char pl;
+ CHAR pl;
  INT  w1;
 
  for (pl=1; pl<Pl; pl++)
@@ -1060,10 +1060,10 @@ form_raster(SOBJ * obj, SPOS * pos)
     )
 #endif
   {
-   int sh;
+   LONG sh;
    if (!adjust_tif(obj,pos))
     return (No);
-   sh=(int)tif_st.shift*Q.tif_line_lth;
+   sh=(LONG)tif_st.shift*Q.tif_line_lth;
    trseek(sh);
    if (seek_and_read(Q.tif_file,tif_st.lth,tif_st.buf,sh) == -1)
     return (No);
@@ -1101,11 +1101,11 @@ adjust_tif(SOBJ * obj, SPOS * pos)
 /*
 									    */
 /****************************************************************************/
-void set_tif_strip(struct segm  *segm,char  *symb,INT*min,INT*max)
+void set_tif_strip(struct segm  *segm,CHAR  *symb,INT*min,INT*max)
 
  {
-  char  *savesymb;
-  char  *savesegm;
+  CHAR  *savesymb;
+  CHAR  *savesegm;
   INT i;
 
   savesymb=Q.ns_symb;
@@ -1130,7 +1130,7 @@ void set_tif_strip(struct segm  *segm,char  *symb,INT*min,INT*max)
 /*
 									    */
 /****************************************************************************/
-void set_last_symb(struct segm  *savesegm,char  *savesymb)
+void set_last_symb(struct segm  *savesegm,CHAR  *savesymb)
  {
   Q.ns_segm=savesegm;
   skip_letter_in_line(savesegm,0);
@@ -1139,7 +1139,7 @@ void set_last_symb(struct segm  *savesegm,char  *savesymb)
  }
 
 
-/* ????    static char stick[]={'?',0}; ???? */
+/* ????    static CHAR stick[]={'?',0}; ???? */
 
 /****************************************************************************/
 /*
@@ -1197,7 +1197,7 @@ check_tif()
 /*
 									    */
 /****************************************************************************/
-static INT fill_raster(char raster[], char  *tif_buf,
+static INT fill_raster(CHAR raster[], CHAR  *tif_buf,
                     INT x_map, INT y_map, INT t_wth, INT t_hght,
                     INT tif_line_lth, INT status)
       /* check y_map ???? */
@@ -1228,7 +1228,7 @@ static INT fill_raster(char raster[], char  *tif_buf,
    c=raster;
    for  ( ty_map=y_map; ty_map < y_map+t_hght; ty_map++) /* tiff lines*/
     {
-     tt=tif_buf+(int)ty_map*(int)tif_line_lth+tx_map;
+     tt=tif_buf+(LONG)ty_map*(LONG)tif_line_lth+tx_map;
      for  ( xx=0; xx < tx_wth; xx++,c++,tt++)        /* tiff bytes*/
       {
        cc=&two;

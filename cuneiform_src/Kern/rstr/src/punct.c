@@ -2288,7 +2288,7 @@ return;
 void clean_punct()
 {
   cell *L,*R,*C=cell_f()->next;
-  char str[80];
+  CHAR str[80];
   INT gap=get_gap();
 
   for (; C->next; C=C->next)

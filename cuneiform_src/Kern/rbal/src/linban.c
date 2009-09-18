@@ -93,7 +93,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 //IGOR
-extern uchar language;
+extern Word8 language;
 extern CSTR_line lin_str;
 extern int32_t  nIncline;
 //IGOR
@@ -287,7 +287,7 @@ INT obtain_diff(INT arg)
  }
 ////////////
 
-void complete_bas(char *txt)
+void complete_bas(CHAR *txt)
 {
  CSTR_rast B1;
  CSTR_rast_attr attr;
@@ -635,13 +635,13 @@ void add_hist(CSTR_rast a, INT flg, BYTE *begs)
 
   Lc1=cp1->nl;	    // number of lines in component
 
-  //Lp1=(lnhead *) ( (char *)cp1 + cp1->lines + 2); // beginning of first line
+  //Lp1=(lnhead *) ( (CHAR *)cp1 + cp1->lines + 2); // beginning of first line
   Lp1 = (CCOM_lnhead *)(cp1->linerep+2);
   Lp2 = Lp1;
   for (lc1=0; lc1 < Lc1; lc1++,Lp1=Lp2)
   {  INT th;
-    //Lp2=(lnhead *) ((char *)Lp1+Lp1->lth);   // next line
-	Lp2=(CCOM_lnhead *) ((char *)Lp1+Lp1->lth);   // next line
+    //Lp2=(lnhead *) ((CHAR *)Lp1+Lp1->lth);   // next line
+	Lp2=(CCOM_lnhead *) ((CHAR *)Lp1+Lp1->lth);   // next line
     if (!(Lp1->flg & l_fbeg))
 		continue;
     hbeg = Lp1->row;
@@ -699,12 +699,12 @@ void hist_bot (INT x1, INT x2)
 	rowd = rowd + hcell + 32;
 	//cp1 = a->env;
 	Lc1=cp1->nl;	    // number of lines in component
-	//Lp1=(lnhead *) ( (char *)cp1 + cp1->lines + 2);           // beginning of first line
+	//Lp1=(lnhead *) ( (CHAR *)cp1 + cp1->lines + 2);           // beginning of first line
 	Lp1=(CCOM_lnhead *) ( cp1->linerep + 2);           // beginning of first line
 	Lp2=Lp1;
 	for (lc1=0; lc1 < Lc1; lc1++,Lp1=Lp2)
        {
-		Lp2=(CCOM_lnhead *) ((char *)Lp1+Lp1->lth);                // next line
+		Lp2=(CCOM_lnhead *) ((CHAR *)Lp1+Lp1->lth);                // next line
 		if (!(Lp1->flg & l_fend))
 			continue;                                         // free ends only
 		hend = Lp1->row + Lp1->h;
@@ -768,12 +768,12 @@ void hist_top(INT x1, INT x2)
   rowd = rowd + hcell + 32;
   //cp1 = a->env;
   Lc1=cp1->nl;	    // number of lines in component
-  //Lp1=(lnhead *) ( (char *)cp1 + cp1->lines + 2); // beginning of first line
+  //Lp1=(lnhead *) ( (CHAR *)cp1 + cp1->lines + 2); // beginning of first line
   Lp1=(CCOM_lnhead *) ( cp1->linerep + 2); // beginning of first line
   Lp2=Lp1;
   for (lc1=0; lc1 < Lc1; lc1++,Lp1=Lp2)
   {  INT th, ih;
-    Lp2=(CCOM_lnhead *) ((char *)Lp1+Lp1->lth);   // next line
+    Lp2=(CCOM_lnhead *) ((CHAR *)Lp1+Lp1->lth);   // next line
     if (!(Lp1->flg & l_fbeg)) continue;   // take free begs only
     hbeg = Lp1->row;
     th = MIN(hcell+attr.h, bbs3) - hcell;      // part of cell above bs3
@@ -1267,13 +1267,13 @@ void hist_max(CSTR_rast a)
   //cp1 = a->env;
   cp1= CSTR_GetComp(a);
   Lc1=cp1->nl;	    // number of lines in component
-  //Lp1=(lnhead *) ( (char *)cp1 + cp1->lines + 2); // beginning of first line
+  //Lp1=(lnhead *) ( (CHAR *)cp1 + cp1->lines + 2); // beginning of first line
   Lp1=(CCOM_lnhead *) ( cp1->linerep + 2); // beginning of first line
   Lp2=Lp1;
   for (lc1=0; lc1 < Lc1; lc1++,Lp1=Lp2)
   {  INT th;
-    //Lp2=(lnhead *) ((char *)Lp1+Lp1->lth);   // next line
-    Lp2=(CCOM_lnhead *) ((char *)Lp1+Lp1->lth);   // next line
+    //Lp2=(lnhead *) ((CHAR *)Lp1+Lp1->lth);   // next line
+    Lp2=(CCOM_lnhead *) ((CHAR *)Lp1+Lp1->lth);   // next line
     if (!(Lp1->flg & l_fbeg)) continue;
     hbeg = Lp1->row;
     if (hbeg == 0)
@@ -1326,8 +1326,8 @@ void hist_max(CSTR_rast a)
 
   if (pa2 == NULL) // no more maximums
   {
-	// a->bas1 = (char)pa1->row;
-	attr.bas1 = (char)pa1->row;
+	// a->bas1 = (CHAR)pa1->row;
+	attr.bas1 = (CHAR)pa1->row;
 	CSTR_SetAttr(a,&attr);
     return;
   }
@@ -1337,10 +1337,10 @@ void hist_max(CSTR_rast a)
 	  ba1=pa1; pa1=pa2; pa2=ba1;
   }
 
-  attr.bas1 = (char)pa1->row;
+  attr.bas1 = (CHAR)pa1->row;
   // 931025 if (pa1->cnt[1] > pa1->cnt[2])
   // 931025   a->basflg |= c_bs_m1r;
-  attr.bas2 = (char)pa2->row;
+  attr.bas2 = (CHAR)pa2->row;
   // 931025 if (pa2->cnt[1] > pa2->cnt[2])
   // 931025   a->basflg |= c_bs_m2r;
   CSTR_SetAttr(a,&attr);
@@ -1524,7 +1524,7 @@ INT dbsum(INT filter)
 
 		CSTR_GetAttr(B1,&attr);
 
-		if (max_height < (ww=(char)attr.h))
+		if (max_height < (ww=(CHAR)attr.h))
 			max_height = ww;
 		top = attr.row-minrow;
 		bot = top + ww;
@@ -1537,7 +1537,7 @@ INT dbsum(INT filter)
 		if (max_crow < bot)
 			max_crow=bot;
 		nctot++;
-		ww=(char)attr.w;
+		ww=(CHAR)attr.w;
 		sum_cellth += ww;
 		sum_maxrow = sum_maxrow + bot;
 		if (attr.difflg & 64)
@@ -1644,7 +1644,7 @@ INT dbsum(INT filter)
 
 	if(i_method != 0)
 	{
-		int16_t n1 = 0, n2 = 0, n3 = 0, n4 = 0;
+		Int16 n1 = 0, n2 = 0, n3 = 0, n4 = 0;
 		m_attr.row = minrow;
 		m_attr.language = language; //IGOR
 
@@ -1727,8 +1727,8 @@ INT dbsum(INT filter)
 		(bbs1 != m_attr.bs1 || bbs2 != m_attr.bs2 || bbs3 != m_attr.bs3 || bbs4 != m_attr.bs4)))
 	{
 		Point16 rs, re, rsm, rem;
-		int16_t startx, endx, mc;
-		uint32_t rgb;
+		Int16 startx, endx, mc;
+		Word32 rgb;
 		CSTR_attr line_attr;
 
 		if(CSTR_GetLineAttr(lin_str, &line_attr))
@@ -1744,7 +1744,7 @@ INT dbsum(INT filter)
 		{
 			if(i_method != 1)//PUMA
 			{
-				int16_t ic = 0;
+				Int16 ic = 0;
 				rgb = wRGB(64,128,128);
 				rs.x = startx; re.x = startx + MIN(80, endx - startx);
 				while(rs.x <= endx && re.x <= endx)
@@ -1799,7 +1799,7 @@ INT dbsum(INT filter)
 		{
 			if(i_method != 1)//PUMA
 			{
-				int16_t ic = 0;
+				Int16 ic = 0;
 				rgb = wRGB(124,190,190);
 				rs.x = startx; re.x = startx + MIN(80, endx - startx);
 				while(rs.x <= endx && re.x <= endx)
@@ -1890,7 +1890,7 @@ INT dbsum(INT filter)
 // собственно поиск БЛ
 INT calc_base()
 {
- INT j, iret; int w1, w2;
+ INT j, iret; LONG w1, w2;
 
  Nb2=Ns2; Nb3=Ns3; Nb1=Ns1; Nb4=Ns4;
  iret = 0;

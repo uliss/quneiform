@@ -95,12 +95,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#define  BIG_FRAG_PAGE 50 //максимальное число фрагментов на странице
 #define  LINE_PAGE FRAG_PAGE //максимальное число строк на странице
 
-typedef uint16_t KegStat[MAX_KEG+2];
+typedef Word16 KegStat[MAX_KEG+2];
 
 typedef struct tagKegTabElement
 {
-  char  keg0;  //если keg0>0, то это надежно определенное значение,
-  char  keg1;  // иначе -keg0 и -keg1 - возможные значения кегл
+  Int8  keg0;  //если keg0>0, то это надежно определенное значение,
+  Int8  keg1;  // иначе -keg0 и -keg1 - возможные значения кегл
 } KegTabElement;
 
 typedef KegTabElement KegTab[MAX_KEG+1];
@@ -127,18 +127,18 @@ typedef struct tagFragStat   //для выявления мусора
 {
   Handle hBlock;
   Rect32 rect;     //охватывающий прямоугольник
-  int16_t nsym;      //всего символов во фрагменте
-  int16_t nbig;      //больших (буквы, цифры, "?" и т.д.)
-  int16_t nstick;    //палочных
-  int16_t nlet;      //всего распознанных
-  int16_t ndig;      // -"- цифр
-  int16_t nconf;     //по эвентам или подтвержденных
-  int16_t ngood;     //надежно распознанных
-  int16_t nhigh;     //высокая оценка
-  int16_t npunct;    //знаков препинани
-  uchar min_keg;
-  uchar max_keg;
-  uchar flag;
+  Int16 nsym;      //всего символов во фрагменте
+  Int16 nbig;      //больших (буквы, цифры, "?" и т.д.)
+  Int16 nstick;    //палочных
+  Int16 nlet;      //всего распознанных
+  Int16 ndig;      // -"- цифр
+  Int16 nconf;     //по эвентам или подтвержденных
+  Int16 ngood;     //надежно распознанных
+  Int16 nhigh;     //высокая оценка
+  Int16 npunct;    //знаков препинани
+  Word8 min_keg;
+  Word8 max_keg;
+  Word8 flag;
 #define RS_GOOD 1
 #define RS_BAD  2
 #define RS_STRANGE 4
@@ -161,7 +161,7 @@ typedef struct tagLineList       //список строк
 extern Bool32      gbFax100;
 extern Bool32 snap_enable;
 extern Bool32 exit_enable;
-extern uchar language;
+extern Word8 language;
 
 Bool32 gbGarbage = TRUE;
 Handle hSnapMain = 0;
@@ -175,13 +175,13 @@ static int32_t nIncline;
 static KegTab  keg_tab;
 static int32_t num_keg,num_keg_opt;     //количество кеглей на странице исходное и оптимальное
 static KegStat  keg_stats;            //статистика кеглей на исходной странице
-static uchar max_keg=0,min_keg=255;   //минимальный и максимальный кегли на страницы
+static Word8 max_keg=0,min_keg=255;   //минимальный и максимальный кегли на страницы
 static int32_t version;                 //версия строки
-static uint32_t key=1;                  //для snap'а
+static Word32 key=1;                  //для snap'а
 static int32_t skew=0;                  //поворот страницы (или строки?)
 static int32_t num_frag=0;              //число фрагментов на странице
 static Bool fr_ovf;                   //на странице больше FRAG_PAGE фрагментов
-static int16_t fragments[LINE_PAGE+FRAG_PAGE],*fragments_end=NULL,*cur_fragment;
+static Int16 fragments[LINE_PAGE+FRAG_PAGE],*fragments_end=NULL,*cur_fragment;
 /*     структура фрагментов на странице:
   n1    -  число строк в 1-ом фрагменте
   i[1]  -  номер первой строки
@@ -190,7 +190,7 @@ static int16_t fragments[LINE_PAGE+FRAG_PAGE],*fragments_end=NULL,*cur_fragment;
   n2    -  число строк в 2-ом фрагменте
            . . .
 */
-static uchar fragfont[FRAG_PAGE],*cur_font;
+static Word8 fragfont[FRAG_PAGE],*cur_font;
 static RecStat recstat[FRAG_PAGE];
 
 static PageWord cur_word;
@@ -209,17 +209,17 @@ static void  cor_gen_fragment();
 static Bool rtf_correct();
 
 static void  garbage_fragments();
-static void draw_fragments(uint32_t color);
-static void draw_fragment(Handle hBlock, uint32_t color, uint32_t key);
-static void display_fragment(RecStat *rsti, uint32_t color, uint32_t key);
-static Bool in_gap(int32_t top, int32_t bottom, uchar *proj);
+static void draw_fragments(Word32 color);
+static void draw_fragment(Handle hBlock, Word32 color, Word32 key);
+static void display_fragment(RecStat *rsti, Word32 color, Word32 key);
+static Bool in_gap(int32_t top, int32_t bottom, Word8 *proj);
 static Bool condition1(RecStat *rsti);
 static Bool condition2(RecStat *rsti);
 static Bool condition3(RecStat *rsti);
 static Bool condition4(RecStat *rsti);
 static Bool condition34(RecStat *rsti, int32_t ngood);
 
-static void mark_word(uint32_t color);
+static void mark_word(Word32 color);
 static Bool set_cur_word(PageWord *pw);
 static Bool next_word_inline(CSTR_rast *beg, CSTR_rast *end);
 static Bool prev_word_inline(CSTR_rast *beg, CSTR_rast *end);
@@ -227,8 +227,8 @@ static PageWord  get_cur_word();
 static Bool next_word();
 static Bool prev_word();
 static Bool cur_word_eq(PageWord *cmp);
-static void set_word_keg(uchar keg);
-static uchar get_word_keg();
+static void set_word_keg(Word8 keg);
+static Word8 get_word_keg();
 static Bool contain(Rect32 *b, Rect32 *s);
 static void to_real(Rect32 *rect);
 static void to_real16(Rect16 *rect);
@@ -241,16 +241,16 @@ static int32_t dist_border(Rect32 *rect);
 static Bool add2list(LineNumber **frag_lines, int32_t fn, int32_t ln);
 
 static void draw_keg(const char *str);
-static void draw_rect(Rect32 *rect, uint32_t color, uint32_t key);
+static void draw_rect(Rect32 *rect, Word32 color, Word32 key);
 
 static void kegl_by_frag();
 static void keg_frag_stats();
 
-//uint32_t myMonitorProc(Handle wnd,Handle hwnd,uint32_t message,uint32_t wParam,uint32_t lParam);
+//Word32 myMonitorProc(Handle wnd,Handle hwnd,Word32 message,Word32 wParam,Word32 lParam);
 
 Bool32 CorrectKegl(int32_t ver)
 {
-  uint32_t key=1;
+  Word32 key=1;
 
   hCPAGE = CPAGE_GetHandlePage( CPAGE_GetCurrentPage());
 
@@ -295,9 +295,9 @@ static Bool32 get_stats()
   LineList  frag_lines_pool;
 #define  frag_lines  frag_lines_pool.node
   int32_t total_size=0;
-  int16_t *fragj=fragments;
+  Int16 *fragj=fragments;
   FontStat font_stat[FRAG_PAGE]={0},*fsti;
-  uchar *ffi=fragfont;
+  Word8 *ffi=fragfont;
   int32_t ser_fr=0,gelv_fr=0;
   RecStat *rsti;
 
@@ -353,7 +353,7 @@ static Bool32 get_stats()
       for(;rst;rst=CSTR_GetNext(rst))
       {
         UniAlt *alt;
-        uchar let,keg;
+        Word8 let,keg;
 
         CSTR_GetAttr(rst,&attr);
         CSTR_GetCollectionUni(rst,&uni);
@@ -433,11 +433,11 @@ static Bool32 get_stats()
     if (size>=0)
     {
       LineNumber *cur_num=frag_lines[i];
-      *fragj=(int16_t)size;
+      *fragj=(Int16)size;
       fragj += size;
       while (cur_num)
       {
-        *fragj-- = (int16_t)cur_num->n;
+        *fragj-- = (Int16)cur_num->n;
         cur_num=cur_num->next;
       }
       fragj += size+1;
@@ -477,14 +477,14 @@ static Bool32 get_stats()
 
 static void get_keg_tab()
 {
-  uint16_t *prev_max=NULL,*cur_min=NULL,*keg_statsi=NULL;
+  Word16 *prev_max=NULL,*cur_min=NULL,*keg_statsi=NULL;
   int32_t prev_max_n=0,min_n=INT_MAX,prev_n=0;
 //  int32_t prev_size=0,i_prev=0;
   int32_t i,j;
-  uchar rely1,rely2,extend2;
+  Word8 rely1,rely2,extend2;
   KegTabElement *keg_tabi;
   Bool rise=TRUE;
-  uchar temp_tab[3*KEG_PAGE]; //таблица из num_keg_opt кеглей
+  Word8 temp_tab[3*KEG_PAGE]; //таблица из num_keg_opt кеглей
   //структура temp_tab:
   //  0 - размер кегл
   //  1 - граница области неопределенности
@@ -493,7 +493,7 @@ static void get_keg_tab()
   //      . . .
   //  n - размер кегл
 
-  uchar *tab=temp_tab;
+  Word8 *tab=temp_tab;
 
   num_keg_opt=0;
   if (num_keg==0)
@@ -511,14 +511,14 @@ static void get_keg_tab()
       if (rise)
       {                  //найден локальный максимум
         int32_t tol=MIN(prev_max_n,prev_n)/3;
-        uint16_t *cur_max=keg_statsi-1;
+        Word16 *cur_max=keg_statsi-1;
         if (num_keg_opt>0)       //не первый кегль
         {
           Bool rely_bound=FALSE;
           int32_t dk=cur_max-prev_max;
           if (min_n<tol && (!gbFax100 || dk>4) && 10*dk >= cur_max-keg_stats)         //надежная граница
           {
-            uint16_t *j;
+            Word16 *j;
             for (j=prev_max; j<cur_min && *j>=tol; j++);
             *tab++=j-keg_stats;
             for (j=cur_max; j>cur_min && *j>=tol; j--);
@@ -568,16 +568,16 @@ static void get_keg_tab()
   rely1=0;
   for (i=1; i<=num_keg_opt; i++,tab += 3)
   {
-    int32_t tol=(char)(keg_stats[*tab])/3;
+    int32_t tol=(Int8)(keg_stats[*tab])/3;
     int32_t keg=0,n=0,k;
     rely2=*(tab+1)-1;  extend2=*(tab+2);  keg_tabi=keg_tab+j;
     for (k=rely1,keg_statsi=keg_stats+k; k<=rely2; k++,keg_statsi++)
       if (*keg_statsi>=tol)  { n += *keg_statsi;  keg += *keg_statsi*k; }
 //    if (n>0)  keg=keg*2/n;  //размер шрифта от верха заглавной до низа опущенной
     if (n>0)  keg=(keg+n/2)/n;
-    for ( ; j<rely1;    j++,keg_tabi++)  keg_tabi->keg1=-(char)keg;
-    for ( ; j<=rely2;   j++,keg_tabi++)  keg_tabi->keg0= (char)keg;
-    for ( ; j<=extend2; j++,keg_tabi++)  keg_tabi->keg0=-(char)keg;
+    for ( ; j<rely1;    j++,keg_tabi++)  keg_tabi->keg1=-(Int8)keg;
+    for ( ; j<=rely2;   j++,keg_tabi++)  keg_tabi->keg0= (Int8)keg;
+    for ( ; j<=extend2; j++,keg_tabi++)  keg_tabi->keg0=-(Int8)keg;
     rely1=extend2+1;  j=rely2+1;
   }
 }
@@ -605,9 +605,9 @@ static void  cor_cur_fragment()
 static void  cor_fax_fragment()
 {  //для факсов по всему фрагменту устанавливается единый кегль
   PageWord beg;
-  uchar stat[2*MAX_KEG+2]={0},max_keg=0,opt_keg=0;
-  uchar keg0;
-  char  keg;
+  Word8 stat[2*MAX_KEG+2]={0},max_keg=0,opt_keg=0;
+  Word8 keg0;
+  Int8  keg;
   int32_t i,max_n=0;
 
   beg.word=1;
@@ -650,7 +650,7 @@ static void  cor_fax_fragment()
   for (i=1; i<=max_keg; i++)
     if (max_n<stat[i])
     {
-      max_n=stat[i];  opt_keg=(uchar)i;
+      max_n=stat[i];  opt_keg=(Word8)i;
     }
 
   set_cur_word(&beg);
@@ -663,7 +663,7 @@ static void  cor_fax_fragment()
       CSTR_line line = CSTR_GetLineHandle (cur_fragment[cur_word.line], version);
       if (line)
       {
-        uchar msg[20];
+        Word8 msg[20];
         CSTR_attr  l_attr;
         CSTR_GetLineAttr(line,&l_attr);
         sprintf((char*)msg,"fragment=%d",l_attr.fragment);
@@ -679,8 +679,8 @@ static void  cor_fax_fragment()
 static void  cor_gen_fragment()
 {
   PageWord fin,rely;
-  uchar keg0;        //кегль, который будет присвоен слову
-  char  keg;         //текущий кегль
+  Word8 keg0;        //кегль, который будет присвоен слову
+  Int8  keg;         //текущий кегль
   Bool next=TRUE;
 
   fin.word=1;
@@ -727,7 +727,7 @@ static void  cor_gen_fragment()
     {
       do                      //от надежного влево
       {
-        uchar  kegw;
+        Word8  kegw;
         prev_word();
         kegw=get_word_keg();
         if (keg0==abs(keg_tab[kegw].keg0) || keg0==abs(keg_tab[kegw].keg1))
@@ -744,7 +744,7 @@ static void  cor_gen_fragment()
 
     while (next=next_word())         //от надежного вправо
     {
-      uchar kegw=get_word_keg();
+      Word8 kegw=get_word_keg();
       keg=keg_tab[kegw].keg0;
       if (keg>0)  break;
 
@@ -762,7 +762,7 @@ static void  cor_gen_fragment()
       CSTR_line line = CSTR_GetLineHandle (cur_fragment[rely.line], version);
       if (line)
       {
-        uchar msg[20];
+        Word8 msg[20];
         CSTR_attr  l_attr;
         CSTR_GetLineAttr(line,&l_attr);
         sprintf((char*)msg,"fragment=%d",l_attr.fragment);
@@ -774,7 +774,7 @@ static void  cor_gen_fragment()
   }
 }
 
-static void mark_word(uint32_t color)
+static void mark_word(Word32 color)
 {
   CSTR_rast_attr  attr;
   if( snap_enable && !LDPUMA_SkipEx(hSnapMain,FALSE,TRUE,1))
@@ -960,11 +960,11 @@ static Bool cur_word_eq(PageWord *cmp)
   return cur_word.line==cmp->line && cur_word.word==cmp->word;
 }
 
-static void set_word_keg(uchar keg)
+static void set_word_keg(Word8 keg)
 {
   CSTR_rast cur=cur_word.beg;
   CSTR_rast_attr  attr;
-  uchar font;
+  Word8 font;
 
   if (!cur)
     return;
@@ -992,7 +992,7 @@ static void set_word_keg(uchar keg)
 
 }
 
-static uchar get_word_keg()
+static Word8 get_word_keg()
 {
   CSTR_rast cur=cur_word.beg;
   CSTR_rast_attr  attr;
@@ -1030,10 +1030,10 @@ static Bool rtf_correct()
       rst = CSTR_GetFirstRaster(line);
       for(;rst;rst=CSTR_GetNext(rst))
       {
-        uchar keg;
+        Word8 keg;
         CSTR_GetAttr(rst,&attr);
-        keg = (uchar)((attr.keg*2*72+dpi/2)/dpi);  //размер шрифта от верха заглавной до низа опущенной в пунктах (1/72 дюйма)
-//        keg = (uchar)((attr.keg*72+dpi/2)/dpi);
+        keg = (Word8)((attr.keg*2*72+dpi/2)/dpi);  //размер шрифта от верха заглавной до низа опущенной в пунктах (1/72 дюйма)
+//        keg = (Word8)((attr.keg*72+dpi/2)/dpi);
 /*
         if (keg>=12)
         {
@@ -1048,7 +1048,7 @@ static Bool rtf_correct()
     }
     if (snap_enable && !LDPUMA_SkipEx(hSnapMain,FALSE,TRUE,1))
     {
-      uchar msg[80];
+      Word8 msg[80];
       sprintf((char*)msg,"Line %d corrected\n",i);
       LDPUMA_Console((const char*)msg);
       LDPUMA_RasterText((char*)msg);
@@ -1091,8 +1091,8 @@ static void garbage_fragments()
   int32_t mainsize;
   Bool add=FALSE,ingap;
   Handle  hBlock;
-  uint32_t k_cur=key+1;
-  uchar vproj[V_SIZE]={0};
+  Word32 k_cur=key+1;
+  Word8 vproj[V_SIZE]={0};
 
   min_keg=255,max_keg=0;
 
@@ -1110,7 +1110,7 @@ static void garbage_fragments()
   {
     int32_t j,hmax;
     Rect32 *rect=&rsti->rect;
-    uint32_t bl_flg;
+    Word32 bl_flg;
 
     if (!rsti->hBlock)  continue;
 
@@ -1148,7 +1148,7 @@ static void garbage_fragments()
         for(;rst;rst=CSTR_GetNext(rst))
         {
           UniVersions uni;
-          uchar let;
+          Word8 let;
           CSTR_rast_attr  attr;
 
           CSTR_GetAttr(rst,&attr);
@@ -1198,7 +1198,7 @@ static void garbage_fragments()
 
     if (snap_enable && !LDPUMA_SkipEx(hSnapGarbage,FALSE,TRUE,1) )
     {
-      uint32_t color=wRGB(255,0,255);
+      Word32 color=wRGB(255,0,255);
       if (rsti->flag & RS_GOOD)  color=wRGB(0,255,0);
       else
       if (rsti->flag & RS_BAD)   color=wRGB(255,255,0);
@@ -1223,7 +1223,7 @@ static void garbage_fragments()
   while(1)
   {
     int32_t maxsize=0;
-    int16_t *maxfrag;
+    Int16 *maxfrag;
     RecStat *maxrst;
     int32_t d;
     Rect32 *rect;
@@ -1346,7 +1346,7 @@ static void garbage_fragments()
 	{
 		Handle hNext = CPAGE_GetBlockNext(hCPAGE,hBlock,TYPE_TEXT);
     int32_t i;
-    uint32_t bl_flg=CPAGE_GetBlockFlags(hCPAGE,hBlock);
+    Word32 bl_flg=CPAGE_GetBlockFlags(hCPAGE,hBlock);
     if (!(bl_flg & USER_FRAG) || rsti->flag==RS_STRANGE)
     {
       for (i=0,rsti=recstat; i<num_frag; i++,rsti++)
@@ -1369,7 +1369,7 @@ static void garbage_fragments()
 
 }
 
-static Bool in_gap(int32_t top, int32_t bottom, uchar *proj)
+static Bool in_gap(int32_t top, int32_t bottom, Word8 *proj)
 {
   int32_t i=(top+bottom)/2;
 
@@ -1423,7 +1423,7 @@ static Bool condition34(RecStat *rsti, int32_t ngood)
   return FALSE;
 }
 
-static void draw_fragments(uint32_t color)
+static void draw_fragments(Word32 color)
 {
 	if(hCPAGE)
   {
@@ -1438,9 +1438,9 @@ static void draw_fragments(uint32_t color)
   }
 }
 
-static void display_fragment(RecStat *rsti, uint32_t color, uint32_t key)
+static void display_fragment(RecStat *rsti, Word32 color, Word32 key)
 {
-  uchar msg[90];
+  Word8 msg[90];
 
   draw_fragment(rsti->hBlock,color,key);
 
@@ -1457,10 +1457,10 @@ static void display_fragment(RecStat *rsti, uint32_t color, uint32_t key)
   }
 }
 
-static void draw_fragment(Handle hBlock, uint32_t color, uint32_t key)
+static void draw_fragment(Handle hBlock, Word32 color, Word32 key)
 {
 	POLY_ poly;
-  uint32_t  v;
+  Word32  v;
 
   if (!hBlock)
     return;
@@ -1473,19 +1473,19 @@ static void draw_fragment(Handle hBlock, uint32_t color, uint32_t key)
     Point32 p32=com->Vertex[0];
     Point16 cv,pv,v0;
     int32_t   i;
-    v0.x=(int16_t)p32.x;  v0.y=(int16_t)p32.y;
+    v0.x=(Int16)p32.x;  v0.y=(Int16)p32.y;
     cv=v0;
     for (i=1; i<com->count; i++)
     {
       Point32 p32=com->Vertex[i];
       pv=cv;
-      cv.x=(int16_t)p32.x;  cv.y=(int16_t)p32.y;
+      cv.x=(Int16)p32.x;  cv.y=(Int16)p32.y;
       LDPUMA_DrawLine(NULL,&pv,&cv,0,color,1,key);
     }
     LDPUMA_DrawLine(NULL,&v0,&cv,0,color,1,key);
     if( snap_enable && !LDPUMA_SkipEx(hSnapGarbage,FALSE,TRUE,1) )
     {
-      uchar msg[80];
+      Word8 msg[80];
       sprintf((char*)msg,"draw=%d handle=%x\n",com->number,CPAGE_GetHandleBlock(hCPAGE, com->number));
       LDPUMA_Console((const char*)msg);
       LDPUMA_RasterText((char*)msg);
@@ -1608,13 +1608,13 @@ static void to_real16(Rect16 *rect)
   IDEAL_XY(rect->bottom, rect->right);
 }
 
-static void draw_rect(Rect32 *rect, uint32_t color, uint32_t key)
+static void draw_rect(Rect32 *rect, Word32 color, Word32 key)
 {
   Point16 v1,v2,v3,v4;
-  v1.x=(int16_t)rect->left;   v1.y=(int16_t)rect->top;
-  v2.x=(int16_t)rect->right;  v2.y=(int16_t)rect->top;
-  v3.x=(int16_t)rect->right;  v3.y=(int16_t)rect->bottom;
-  v4.x=(int16_t)rect->left;   v4.y=(int16_t)rect->bottom;
+  v1.x=(Int16)rect->left;   v1.y=(Int16)rect->top;
+  v2.x=(Int16)rect->right;  v2.y=(Int16)rect->top;
+  v3.x=(Int16)rect->right;  v3.y=(Int16)rect->bottom;
+  v4.x=(Int16)rect->left;   v4.y=(Int16)rect->bottom;
   LDPUMA_DrawLine(NULL,&v1,&v2,0,color,1,key);
   LDPUMA_DrawLine(NULL,&v2,&v3,0,color,1,key);
   LDPUMA_DrawLine(NULL,&v3,&v4,0,color,1,key);
@@ -1644,8 +1644,8 @@ static void draw_keg(const char *str)
     CSTR_line line = CSTR_GetLineHandle (1, version);
     CSTR_rast       rst;
     CSTR_rast_attr  attr;
-    uchar msg[1024],*s=msg,*se=msg+950;
-    uchar keg_range=max_keg-min_keg+1;
+    Word8 msg[1024],*s=msg,*se=msg+950;
+    Word8 keg_range=max_keg-min_keg+1;
     int32_t i;
     int32_t n=CSTR_GetMaxNumber();
 
@@ -1670,10 +1670,10 @@ static void draw_keg(const char *str)
           {
             Rect16 box;
             int32_t keg = attr.keg;
-            uchar green;
+            Word8 green;
 //             if (j==1)  keg /= 2;
             keg=MIN(keg,max_keg);
-            green=(uchar)(255*(max_keg-keg)/keg_range);
+            green=(Word8)(255*(max_keg-keg)/keg_range);
 
             box.left=attr.r_col;  box.right=box.left+attr.w-1;
             box.top=attr.r_row;   box.bottom=box.top+attr.h-1;
@@ -1731,7 +1731,7 @@ static void kegl_by_frag()
 static void keg_frag_stats()
 {
   int32_t nl,sv_num_keg=num_keg;
-  uchar max_keg=0;
+  Word8 max_keg=0;
   memset(keg_stats,0,sizeof(keg_stats));
   for (nl=1; nl<=*cur_fragment; nl++)
   {
@@ -1753,7 +1753,7 @@ static void keg_frag_stats()
         CSTR_GetCollectionUni(rst,&uni);
         if(!(attr.flg & CSTR_f_space) && attr.keg && uni.lnAltCnt)
         {
-          uchar keg=attr.keg;
+          Word8 keg=attr.keg;
           max_keg=MAX(keg,max_keg);
           keg_stats[keg]++;
         }

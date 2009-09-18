@@ -202,7 +202,7 @@ struct table_conform_sizes
  {
  BYTE code;
  BYTE store;
- char tab_val_A [9*2];                   /* table of sizes of letter A  */
+ CHAR tab_val_A [9*2];                   /* table of sizes of letter A  */
  };              			 /*     for kegles from 4 to 12 */
 
 
@@ -268,13 +268,13 @@ struct pos_half_space
 struct sheet_disk_descr
  {
  BYTE code;
- char quant_fragm;
+ CHAR quant_fragm;
  INT sheet_numb;
  INT descr_lth;
  BYTE byte_flag;
  WORD resolution;
  INT  incline;
- char tabl[13];
+ CHAR tabl[13];
  };
 
 struct fragm_disk_descr
@@ -284,7 +284,7 @@ struct fragm_disk_descr
  INT col;                             /* angle of fragment's frame  */
  INT height;                          /* height of fragment         */
  INT w_width;                         /* Q.w_width of fragment      */
- char type;
+ CHAR type;
 #define FD_TYPE_TEXT 0
 #define FD_TYPE_PICT 1
 #define FD_TYPE_TABLE 2

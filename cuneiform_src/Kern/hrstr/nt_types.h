@@ -68,9 +68,9 @@ typedef signed short int  *         _PINT;
 #define INT  _INT
 #define PINT _PINT
 typedef unsigned short int  *       PWORD;
-#define PSTR  char *
+#define PSTR  PCHAR
 
-typedef signed long int  *          pint;
+typedef signed long int  *          PLONG;
 */
 /* The original contents of this file follow for future reference. */
 #if 0
@@ -84,14 +84,14 @@ typedef signed long int  *          pint;
 /*----------------- Signed and unsigned integer types ------------------*/
 
 /*                      Byte size data                                */
-        typedef signed char             _char;
-        typedef signed char  *      _char *;
+        typedef signed char             _CHAR;
+        typedef signed char  *      _PCHAR;
 		typedef unsigned char           _BYTE;
         typedef unsigned char  *    _PBYTE;
 
-        #define char  _char
-        #define char * _char *
-		#define PSTR  _char *
+        #define CHAR  _CHAR
+        #define PCHAR _PCHAR
+		#define PSTR  _PCHAR
 		#define BYTE  _BYTE
         #define PBYTE _PBYTE
 
@@ -105,8 +105,8 @@ typedef unsigned short int              WORD;
 typedef unsigned short int  *       PWORD;
 
 /*                      Boolean data                            */
-        typedef INT             _Bool;
-        #define Bool _Bool
+        typedef INT             _BOOL;
+        #define Bool _BOOL
 
 #ifndef TRUE
 # define TRUE ((Bool)1)
@@ -117,9 +117,9 @@ typedef unsigned short int  *       PWORD;
 
 /*                      Double word size data                      */
 
-typedef signed long int                 int;
+typedef signed long int                 LONG;
 typedef unsigned long int               DWORD;
-typedef signed long int  *          pint;
+typedef signed long int  *          PLONG;
 typedef unsigned long int  *        PDWORD;
 
 #endif

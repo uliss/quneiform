@@ -116,10 +116,10 @@ EXTERN Handle logFile_blocks;
 
 EXTERN RPIC_Comp_Rect * pBigLetters VAL1(NULL);
 EXTERN int nBigLetters  VAL1(0);
-EXTERN uint32_t nPics;
+EXTERN Word32 nPics;
 EXTERN CCOM_comp * pPics VAL1(NULL);
-EXTERN uint16_t pBlockHystogram[MaxHeightOfLetter];
-EXTERN uint32_t nComps;
+EXTERN Word16 pBlockHystogram[MaxHeightOfLetter];
+EXTERN Word32 nComps;
 EXTERN Handle exthCCOM;
 #ifdef __cplusplus
 }

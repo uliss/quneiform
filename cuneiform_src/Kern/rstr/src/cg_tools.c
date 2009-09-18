@@ -81,7 +81,7 @@ extern Bool pass4_in;   //флаг: второй проход по странице
                 возвращает указатель на него
   NB! шч сюы№°шї ъюьяюэхэЄ ьюцхЄ яюыєўшЄ№ё  фєёЄ!
 -------------------------------------------------------------------*/
-cell *comp_to_cell(cell *C, c_comp **list, INT N, char bdiff, BYTE dflag)
+cell *comp_to_cell(cell *C, c_comp **list, INT N, CHAR bdiff, BYTE dflag)
 {
   INT i,top,bot,left,right;
   cell *B;                       //текущий cell
@@ -105,8 +105,8 @@ cell *comp_to_cell(cell *C, c_comp **list, INT N, char bdiff, BYTE dflag)
   B->h=bot-top;
   B->r_col=left;
   B->w=right-left;
-  B->row=B->r_row-(INT)((int)nIncline*B->r_col/2048);
-  B->col=B->r_col+(INT)((int)nIncline*B->r_row/2048);
+  B->row=B->r_row-(INT)((LONG)nIncline*B->r_col/2048);
+  B->col=B->r_col+(INT)((LONG)nIncline*B->r_row/2048);
   B->env=compose_comp(i,list);
   if ( N>1 ) B->cg_flag=c_cg_comp;
   if ( if_dust(B) & 0x0c )  set_dust(B);
@@ -147,8 +147,8 @@ cell *col_to_one(cell **clist, INT n)
  c->h=bot-top;
  c->r_col=left;
  c->w=right-left;
- c->row=c->r_row-(INT)((int)nIncline*c->r_col/2048);
- c->col=c->r_col+(INT)((int)nIncline*c->r_row/2048);
+ c->row=c->r_row-(INT)((LONG)nIncline*c->r_col/2048);
+ c->col=c->r_col+(INT)((LONG)nIncline*c->r_row/2048);
   if ( if_dust(c) & 0x0c )  set_dust(c);
   else                      set_bad(c);
   set_bad_cell(c);
@@ -244,7 +244,7 @@ seg_vers *find_vers( INT i1, INT i0, seg_vers **vers_list )
                указатель на обновленные версии
 ---------------------------------------------------------------------*/
 seg_vers *store_vers(seg_vers *cur_vers, seg_vers **vers_list,
-         INT i1, INT i0, SVERS *vers, INT ro, INT width, char gvar)
+         INT i1, INT i0, SVERS *vers, INT ro, INT width, CHAR gvar)
 {
   if (!cur_vers && (*vers_list))           //-Rўлc //AK! crash //новый
   {
@@ -260,7 +260,7 @@ seg_vers *store_vers(seg_vers *cur_vers, seg_vers **vers_list,
   }
   if (cur_vers)              //сохраняем
   {
-    cur_vers->px=(char)i1;
+    cur_vers->px=(CHAR)i1;
     cur_vers->ro=ro;
     cur_vers->width=width;
     cur_vers->gvar=gvar;
@@ -301,7 +301,7 @@ INT on_path(INT i, INT ie, struct cut_elm *cut_list)
 /*------------------------------------------------------------------------
   quote - проверяет, B и B->prevl на ">>"
 ------------------------------------------------------------------------*/
-static char quote(cell *B)
+static CHAR quote(cell *B)
 {
   cell *P;
 
@@ -389,7 +389,7 @@ static void mark_own_dust(cell *B)
 
 /*--------------------------------------------------------------
 --------------------------------------------------------------*/
-static INT discr_vers(cell *B1, INT mon, char all_vers)
+static INT discr_vers(cell *B1, INT mon, CHAR all_vers)
  {
  version *v;  BYTE c,chg=0;
  if (B1->nvers==0) return 0;
@@ -468,7 +468,7 @@ void adjust_3x5(Bool prerecog)
        }
      }
      if (let(B))
-     { char c = B->vers[0].let;
+     { CHAR c = B->vers[0].let;
        cell *DOT = NULL;
        c = B->vers[0].let;
        if ((c == 'i') || (c == 'j'))
@@ -487,7 +487,7 @@ void adjust_3x5(Bool prerecog)
 /*-----------------02-28-95 03:51pm----------------------------------
   cg_show_rast  выводит на экран изображение растра r и сообщения msg
 --------------------------------------------------------------------*/
-void cg_show_rast(cell *C, raster *r, char *msg, struct cut_elm *cut_list)
+void cg_show_rast(cell *C, raster *r, CHAR *msg, struct cut_elm *cut_list)
 {
   INT   i,n;
   MN *mn1;
@@ -550,10 +550,10 @@ void cg_show_list(cell **cells, INT N, BYTE *msg)
 /*------------------------------------------------------------------
   show_dp  выводит на экран состояние графа ДП
 ------------------------------------------------------------------*/
-char *show_dp( PBYTE s, struct cut_elm *cut_list, INT i0)
+CHAR *show_dp( PBYTE s, struct cut_elm *cut_list, INT i0)
 {
   SVERS  *vers;
-  char c;
+  CHAR c;
   INT x,i,i1 = (i0>15) ? i0-14 : 1;  //на экран - последние 15 вершин
 
   *s++='\n';
@@ -588,7 +588,7 @@ char *show_dp( PBYTE s, struct cut_elm *cut_list, INT i0)
   return s;
 }
 
-void det_snap(cell *C, char *txt)
+void det_snap(cell *C, CHAR *txt)
 {
   if (db_status)
 #ifndef MY_DEBUG
@@ -603,7 +603,7 @@ void det_snap(cell *C, char *txt)
   snap=snap_text; *snap=0;  //освобождение буфера
 }
 
-void show_and_wait(char *txt)
+void show_and_wait(CHAR *txt)
 {
   snap_show_text(txt);
 #ifdef MY_DEBUG

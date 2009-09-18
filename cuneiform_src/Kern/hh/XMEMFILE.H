@@ -74,15 +74,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class XMemFile : public XPool
 {
    int32_t    nFileLength;  // count of bytes in use (put into)
-   uchar*   pCur;        // current ptr
+   Word8*   pCur;        // current ptr
 
 public:
    XMemFile( int32_t init_size = 0 )
       : XPool(init_size)
-      { pCur=(uchar*)Data; nFileLength = 0; };
+      { pCur=(Word8*)Data; nFileLength = 0; };
 
    int32_t    Tell()
-      { return pCur - (uchar*)Data; };
+      { return pCur - (Word8*)Data; };
 
    int32_t    FileLength()
       { return nFileLength; };
@@ -93,12 +93,12 @@ public:
    Bool     Seek( int32_t nOffset )
       {  if ((nOffset > nFileLength)||(nOffset < 0))
             RET_FALSE;
-         pCur= ((uchar*)Data)+nOffset;
+         pCur= ((Word8*)Data)+nOffset;
          return TRUE;
       };
 
-   void     SeekToStart( void ) {  pCur= ((uchar*)Data); };
-   void     SeekToFinish( void ) {  pCur= ((uchar*)Data)+nFileLength; };
+   void     SeekToStart( void ) {  pCur= ((Word8*)Data); };
+   void     SeekToFinish( void ) {  pCur= ((Word8*)Data)+nFileLength; };
 
    void     Reset() { nFileLength = 0; SeekToStart(); };
 
@@ -126,7 +126,7 @@ public:
 	 if (pNext==NULL)
             return NULL;
          char* ret = (char*)pCur;
-         pCur = (uchar*)pNext; pCur++;
+         pCur = (Word8*)pNext; pCur++;
          return ret;
       };
 
@@ -166,16 +166,16 @@ public:
    // TODO: optimize!
    Bool     Get( int32_t& t ) { return Get( &t, sizeof(int32_t) ); }
    Bool     Put( int32_t& t ) { return Put( &t, sizeof(int32_t) ); }
-   Bool     Get( int16_t& t ) { return Get( &t, sizeof(int16_t) ); }
-   Bool     Put( int16_t& t ) { return Put( &t, sizeof(int16_t) ); }
-   Bool     Get( char& t ) { return Get( &t, sizeof(char) ); }
-   Bool     Put( char& t ) { return Put( &t, sizeof(char) ); }
-   Bool     Get( uint32_t& t ) { return Get( &t, sizeof(uint32_t) ); }
-   Bool     Put( uint32_t& t ) { return Put( &t, sizeof(uint32_t) ); }
-   Bool     Get( uint16_t& t ) { return Get( &t, sizeof(uint16_t) ); }
-   Bool     Put( uint16_t& t ) { return Put( &t, sizeof(uint16_t) ); }
-   Bool     Get( uchar& t ) { return Get( &t, sizeof(uchar) ); }
-   Bool     Put( uchar& t ) { return Put( &t, sizeof(uchar) ); }
+   Bool     Get( Int16& t ) { return Get( &t, sizeof(Int16) ); }
+   Bool     Put( Int16& t ) { return Put( &t, sizeof(Int16) ); }
+   Bool     Get( Int8& t ) { return Get( &t, sizeof(Int8) ); }
+   Bool     Put( Int8& t ) { return Put( &t, sizeof(Int8) ); }
+   Bool     Get( Word32& t ) { return Get( &t, sizeof(Word32) ); }
+   Bool     Put( Word32& t ) { return Put( &t, sizeof(Word32) ); }
+   Bool     Get( Word16& t ) { return Get( &t, sizeof(Word16) ); }
+   Bool     Put( Word16& t ) { return Put( &t, sizeof(Word16) ); }
+   Bool     Get( Word8& t ) { return Get( &t, sizeof(Word8) ); }
+   Bool     Put( Word8& t ) { return Put( &t, sizeof(Word8) ); }
    Bool     Get( Rect16& t ) { return Get( &t, sizeof(Rect16) ); }
    Bool     Put( Rect16& t ) { return Put( &t, sizeof(Rect16) ); }
    Bool     Get( Point16& t ) { return Get( &t, sizeof(Point16) ); }

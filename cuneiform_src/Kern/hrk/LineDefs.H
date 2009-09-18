@@ -84,7 +84,7 @@ typedef struct tagLINE_COM
 {
 	NR_SimpLine     Line;     // простейшее описание линии
 	int32_t           Status;   // история линии в программе
-	uint32_t          Flags;    // common use info
+	Word32          Flags;    // common use info
 	NORM_DATATYPES  Type;     //*Unknown, *Simple, *Defis, *Pointed
 	LINE_DIR        Dir;
 	char            Qual;     // quality (or estimation) at percents

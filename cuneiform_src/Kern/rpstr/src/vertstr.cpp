@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cstr.h"
 #include "dpuma.h"
 
-void DrawRect(Handle wnd,uint32_t OperCode,uint32_t color,int top,int bottom,int left,int right);
+void DrawRect(Handle wnd,Word32 OperCode,Word32 color,int top,int bottom,int left,int right);
 
 extern "C" Handle hVertCompD;
 //Bool dpVertCompD;
@@ -91,7 +91,7 @@ RPSTR_FUNC(void) RPSTR_NormalizeVertStr(void)
  CSTR_rast_attr r_attr;
  int delta_col;
  int temp;
- uint32_t type=0;
+ Word32 type=0;
  type=~type;
 
  string=CSTR_FirstLine(version);
@@ -201,7 +201,7 @@ RPSTR_FUNC(void) RPSTR_NormalizeVertStr(void)
 #endif
 }
 
-void DrawRect(Handle wnd,uint32_t OperCode,uint32_t color,int top,int bottom,int left,int right)
+void DrawRect(Handle wnd,Word32 OperCode,Word32 color,int top,int bottom,int left,int right)
 {
 
 	Rect16 Rect;

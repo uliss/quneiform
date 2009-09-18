@@ -71,11 +71,11 @@ void DefConvertInit()
 #undef TYPE_CPAGE_TABLE
 #undef TYPE_CPAGE_PICTURE
 
-uint32_t DefConvertBlock(uint32_t dwContext,
-				  Handle TypeIn,void * lpDataIn,uint32_t SizeIn,
-				  Handle TypeOut,void * LpDataOut, uint32_t SizeOut)
+Word32 DefConvertBlock(Word32 dwContext,
+				  Handle TypeIn,void * lpDataIn,Word32 SizeIn,
+				  Handle TypeOut,void * LpDataOut, Word32 SizeOut)
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 	SetReturnCode_cpage(IDS_ERR_NO);
 
 	if(TypeIn==TYPE_DESK)
@@ -101,11 +101,11 @@ uint32_t DefConvertBlock(uint32_t dwContext,
 	return rc;
 }
 
-uint32_t DefConvertPage(uint32_t dwContext,
-				  Handle TypeIn,void * lpDataIn,uint32_t SizeIn,
-				  Handle TypeOut,void * LpDataOut, uint32_t SizeOut)
+Word32 DefConvertPage(Word32 dwContext,
+				  Handle TypeIn,void * lpDataIn,Word32 SizeIn,
+				  Handle TypeOut,void * LpDataOut, Word32 SizeOut)
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 	SetReturnCode_cpage(IDS_ERR_NO);
 
 	return rc;

@@ -332,7 +332,7 @@ INT check_mem(INT l)
 */
  {
   struct segm  * segm_ptr;
-  char  *s;
+  CHAR  *s;
 
   s=&SPQ.ns_segm->string[SPQ.ns_segm->busy_lth];
   if (SPQ.ns_symb < s)
@@ -457,13 +457,13 @@ void copy_prev_level(void)
    This procedure copies stack from preceeding level to current one.
 */
  {
-  char  *from;
-  char  *to;
+  CHAR  *from;
+  CHAR  *to;
   INT i;
 
   if (SPQ.st.stack_level == 0)
     return;
-  to=(char  *)SPQ.stack;
+  to=(CHAR  *)SPQ.stack;
   from=to+sizeof(struct state_stack_elem);
   for (i=0; i <= sizeof(struct state_stack_elem); i++)
     *to++=*from++;
@@ -474,7 +474,7 @@ void copy_prev_level(void)
 void create_new_stack(void)
 {
 	INT i;
-	char  * symb;
+	CHAR  * symb;
 	struct segm  * segm;
 
 	symb=SPQ.ns_symb;
@@ -543,7 +543,7 @@ INT check_free_mem(void)
      memory for stack and memory for text.
 */
  {
-  if ((char  *)(SPQ.stack) < SPQ.free_alloc_mem +
+  if ((CHAR  *)(SPQ.stack) < SPQ.free_alloc_mem +
 		      sizeof(struct state_stack_elem))
    {
 #ifdef FOR_EDIT

@@ -177,12 +177,12 @@ Bool GetComputerName(LPTSTR lpBuffer, long unsigned int *lpnSize) {
 	return TRUE;
 }
 
-int RegOpenKeyEx(HKEY hKey, LPCTSTR lpSubKey, uint32_t ulOptions,
+LONG RegOpenKeyEx(HKEY hKey, LPCTSTR lpSubKey, uint32_t ulOptions,
 		REGSAM samDesired, PHKEY phkResult) {
 	return 0;
 }
 
-int RegQueryValueEx(HKEY hKey, LPCTSTR lpValueName, LPDWORD lpReserved,
+LONG RegQueryValueEx(HKEY hKey, LPCTSTR lpValueName, LPDWORD lpReserved,
 		LPDWORD lpType, LPBYTE lpData, LPDWORD lpcbData) {
 	return 0;
 }
@@ -209,7 +209,7 @@ UINT GetPrivateProfileInt(LPCTSTR lpAppName, LPCTSTR lpKeyName, INT nDefault,
 
 int WideCharToMultiByte(UINT CodePage, uint32_t dwFlags,
 		const wchar_t *lpWideCharStr, int cchWideChar, LPSTR lpMultiByteStr,
-		int cbMultiByte, LPCSTR lpDefaultChar, LPBool lpUsedDefaultChar) {
+		int cbMultiByte, LPCSTR lpDefaultChar, LPBOOL lpUsedDefaultChar) {
 	return 0;
 }
 Bool ShowWindow(HWND hWnd, int nCmdShow) {
@@ -277,7 +277,7 @@ void strlwr(char *foo) {
 
 HWND CreateWindow(LPCTSTR lpClassName, LPCTSTR lpWindowName, uint32_t dwStyle,
 		int x, int y, int nWidth, int nHeight, HWND hWndParent, HMENU hMenu,
-		HINSTANCE hInstance, pvoid lpParam) {
+		HINSTANCE hInstance, LPVOID lpParam) {
 	return (HWND) 55;
 }
 
@@ -334,7 +334,7 @@ int WINAPI GlobalSize(HGLOBAL hMem) {
 	return 0;
 }
 
-pvoid GlobalLock(HGLOBAL hMem) {
+LPVOID GlobalLock(HGLOBAL hMem) {
 	return NULL;
 }
 
@@ -342,7 +342,7 @@ Bool GlobalUnlock(HGLOBAL hMem) {
 	return 0;
 }
 
-Bool IsBadWritePtr(pvoid lp, int ucb) {
+Bool IsBadWritePtr(LPVOID lp, int ucb) {
 	return 0;
 }
 
@@ -455,7 +455,7 @@ LRESULT DefWindowProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
 	return 0;
 }
 
-int GetWindowLong(HWND hWnd, int nIndex) {
+LONG GetWindowLong(HWND hWnd, int nIndex) {
 	return 0;
 }
 
@@ -498,7 +498,7 @@ char* _strupr(char*s) {
 static HMODULE thismod;
 
 CFCOMPAT_FUNC(Bool)
-WINAPI DllMain(HINSTANCE hinstDLL, uint32_t fdwReason, pvoid lpvReserved) {
+WINAPI DllMain(HINSTANCE hinstDLL, uint32_t fdwReason, LPVOID lpvReserved) {
 	thismod = (HMODULE) hinstDLL;
 	return TRUE;
 }

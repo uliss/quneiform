@@ -81,31 +81,31 @@ using namespace std;
 
 # define IDEAL_XY(x, y)   \
          {\
-             y = (INT) (y - (int) x * nIncline / INCLINE_FACTOR);\
-             x = (INT) (x + (int) y * nIncline / INCLINE_FACTOR);\
+             y = (INT) (y - (LONG) x * nIncline / INCLINE_FACTOR);\
+             x = (INT) (x + (LONG) y * nIncline / INCLINE_FACTOR);\
          }
 
 # define IDEAL_X(x, y)   \
          {\
-             x = (INT) (x + (int) y * nIncline / INCLINE_FACTOR);\
+             x = (INT) (x + (LONG) y * nIncline / INCLINE_FACTOR);\
          }
 
 # define IDEAL_Y(x, y)   \
          {\
-             y = (INT) (y - (int) x * nIncline / INCLINE_FACTOR);\
+             y = (INT) (y - (LONG) x * nIncline / INCLINE_FACTOR);\
          }
 
 # define REAL_XY(x, y)   \
          {\
-             x = (INT) (x - (int) y * nIncline / INCLINE_FACTOR);\
-             y = (INT) (y + (int) x * nIncline / INCLINE_FACTOR);\
+             x = (INT) (x - (LONG) y * nIncline / INCLINE_FACTOR);\
+             y = (INT) (y + (LONG) x * nIncline / INCLINE_FACTOR);\
 		}
 /***********************************************************************************************/
 typedef struct tagLineData
 {
 	CLINE_handle hLine;
 	Rect32 rect;
-	uint32_t flag;
+	Word32 flag;
 #define FL_GOOD 1
 #define FL_HAS_CP 2
 } LineData;
@@ -135,7 +135,7 @@ const int line_distance = 10;
 const int size_Point32 = sizeof(Point32);
 const int size_int32_t = sizeof(int32_t);
 const int size_DLine = sizeof(DLine);
-static const uchar bits_array[] = {128, 64, 32, 16, 8, 4, 2, 1};
+static const Word8 bits_array[] = {128, 64, 32, 16, 8, 4, 2, 1};
 
 extern int32_t hRLINE_Pass2Lost1;
 extern int32_t hRLINE_Pass2Lost2;
@@ -250,7 +250,7 @@ Bool32 findLostLines(CLINE_handle hCLINE, PAGEINFO* info)
 	//initializing
 	//------------
 	CPDLine pLine;
-	uint32_t ignore_flags = LI_IsFalse | LI_Pointed;
+	Word32 ignore_flags = LI_IsFalse | LI_Pointed;
 	Bool32 pc = TRUE;
 	int32_t nIncline = info->Incline2048;
 	int32_t hori_cp = 0, vert_cp = 0, bad_cp = 0;
@@ -469,7 +469,7 @@ Bool32 getLostLines(const FLLData *work_data, const LineData* aCPLines, const in
 	//fill cross points array
 	//-----------------------
 	const int32_t hyst_spread = is_horiz ? work_data->line_distance_x>>1 : work_data->line_distance_y>>1;
-	const uint32_t good_line = FL_GOOD | FL_HAS_CP;
+	const Word32 good_line = FL_GOOD | FL_HAS_CP;
 	CLINE_handle hCP;
 	CPDCutPoint pCP;
 	int32_t cp = 0, cp_level;
@@ -822,10 +822,10 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const int32_t nCP,
 
 						getLineIdealStrictRectangular(&aInterval[i].term, &r, !is_horiz, 0);
 
-						dr.top = (int16_t)r.top;
-						dr.left = (int16_t)r.left;
-						dr.bottom = (int16_t)r.bottom;
-						dr.right = (int16_t)r.right;
+						dr.top = (Int16)r.top;
+						dr.left = (Int16)r.left;
+						dr.bottom = (Int16)r.bottom;
+						dr.right = (Int16)r.right;
 						was_drawn = true;
 
 						LDPUMA_DrawRect(work_data->hWnd, &dr, 0, RGB(0, 255, 0), -100, 2);
@@ -956,7 +956,7 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const int32_t nCP,
 					//get line crosses
 					//----------------
 					int32_t strip_len = finish_line.y - start_line.y + 1;
-					uchar* aStrip = new uchar[strip_len];
+					Word8* aStrip = new Word8[strip_len];
 
 					if (!aStrip)
 					{
@@ -1171,7 +1171,7 @@ int32_t getRasterBlack(NR_SimpLine* term, bool is_horiz, const FLLData* work_dat
 
 		LPSTR pRaster = NULL;
 
-		if (!SL_GetRaster(&rterm, (uchar**)&pRaster, page_info/*, NULL*/))
+		if (!SL_GetRaster(&rterm, (Word8**)&pRaster, page_info/*, NULL*/))
 		{
 #ifdef _DEBUG
 			PrintErrorString("failed to get interval raster");
@@ -1184,7 +1184,7 @@ int32_t getRasterBlack(NR_SimpLine* term, bool is_horiz, const FLLData* work_dat
 		int32_t black_byte = 0;
 
 		for (int32_t i = 0; i < rast_size; i++)
-			if ((uchar)pRaster[i] == 255)
+			if ((Word8)pRaster[i] == 255)
 				black_byte++;
 
 		if (black_byte*3 > rast_size)
@@ -1216,7 +1216,7 @@ int32_t getRasterBlack(NR_SimpLine* term, bool is_horiz, const FLLData* work_dat
 
 	LPSTR pRaster = NULL;
 
-	if (!SL_GetRaster(&rterm, (uchar**)&pRaster, page_info/*, NULL*/))
+	if (!SL_GetRaster(&rterm, (Word8**)&pRaster, page_info/*, NULL*/))
 	{
 #ifdef _DEBUG
 		PrintErrorString("failed to get interval raster");

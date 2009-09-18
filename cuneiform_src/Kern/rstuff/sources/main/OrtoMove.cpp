@@ -76,13 +76,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 extern int move;
 extern Handle OrtMove;
-void CopyMove(uchar* newpmasp,uchar* oldpmasp,int newbytewide,int oldbytewide,int num_str,int move);
-void MasCopy(uchar* oldpmasp,uchar* pmasp,int oldbytewide,int num_str);
-void* MyMemAlloc(uint32_t size);
+void CopyMove(Word8* newpmasp,Word8* oldpmasp,int newbytewide,int oldbytewide,int num_str,int move);
+void MasCopy(Word8* oldpmasp,Word8* pmasp,int oldbytewide,int num_str);
+void* MyMemAlloc(Word32 size);
 void MyMemDelete(void* mem);
 void *  MyMemLock(void* mem);
 void MyMemUnLock(void* mem);
-void CleanImage(uchar* pmasp,int bytewide,int num_str,int wide);
+void CleanImage(Word8* pmasp,int bytewide,int num_str,int wide);
 
 
 
@@ -95,7 +95,7 @@ Bool32 OrtoMove(PRSPreProcessImage Image)
 // int time=clock();
  Handle hCPage=Image->hCPAGE;
  PAGEINFO info = {0};
- uchar OldImage[CPAGE_MAXNAME];
+ Word8 OldImage[CPAGE_MAXNAME];
  GetPageInfo(hCPage,&info);
 
  move=info.SkewLocVerLin2048;
@@ -120,11 +120,11 @@ Bool32 OrtoMove(PRSPreProcessImage Image)
  }
  int oldbytewide=olddib->GetLineWidthInBytes();
  int num_str=olddib->GetLinesNumber ();
- uchar* pmasp=(uchar*)(olddib->GetPtrToBitFild());
+ Word8* pmasp=(Word8*)(olddib->GetPtrToBitFild());
 
  int oldwide=(int)(olddib->GetLineWidth());
-// uchar* oldpmasp=NULL;
-// oldpmasp=new uchar[oldbytewide*num_str];
+// Word8* oldpmasp=NULL;
+// oldpmasp=new Word8[oldbytewide*num_str];
 // if(!oldpmasp)
 // {
 //  olddib->ResetDIB();
@@ -160,8 +160,8 @@ Bool32 OrtoMove(PRSPreProcessImage Image)
 	 delete newdib;
 	 return TRUE;
  }
- uint32_t X_DPM=0;
- uint32_t Y_DPM=0;
+ Word32 X_DPM=0;
+ Word32 Y_DPM=0;
  olddib->GetResolutionDPM(&X_DPM,&Y_DPM);
  newdib->SetResolutionDPI(info.DPIX,info.DPIY);
  newdib->SetResolutionDPM(X_DPM,Y_DPM);
@@ -173,7 +173,7 @@ Bool32 OrtoMove(PRSPreProcessImage Image)
 	 return TRUE;
  }
  int newbytewide=newdib->GetLineWidthInBytes();
- uchar* newpmasp=(uchar*)(newdib->GetPtrToBitFild());
+ Word8* newpmasp=(Word8*)(newdib->GetPtrToBitFild());
  if(newwide>(int)(newdib->GetLineWidth()))
  {
 	 olddib->ResetDIB();
@@ -186,10 +186,10 @@ Bool32 OrtoMove(PRSPreProcessImage Image)
  CopyMove(newpmasp,pmasp,newbytewide,oldbytewide,num_str,move);
 
 
- if(CIMAGE_WriteDIB((uchar*)ImageName,lpDIB,0))
+ if(CIMAGE_WriteDIB((Word8*)ImageName,lpDIB,0))
  {
 	 BITMAPINFOHEADER * lp = NULL ;
-	 if(CIMAGE_ReadDIB((uchar *)ImageName,(Handle*)&lp,TRUE))
+	 if(CIMAGE_ReadDIB((PWord8)ImageName,(Handle*)&lp,TRUE))
 	 {
 	  Handle hwnd = LDPUMA_CreateWindow(NAME_IMAGE_ORTOMOVE,lp);
 	  info.Images|=IMAGE_ORTOMOVE;
@@ -211,7 +211,7 @@ Bool32 OrtoMove(PRSPreProcessImage Image)
      delete newdib;
 
  //снова выделим компоненты
-	 if(!ExtractComponents(FALSE,NULL,(uchar*)PUMA_IMAGE_ORTOMOVE,Image))
+	 if(!ExtractComponents(FALSE,NULL,(Word8*)PUMA_IMAGE_ORTOMOVE,Image))
 		 return FALSE;
  //выделим линии
 	 CLINE_Reset();
@@ -238,7 +238,7 @@ Bool32 OrtoMove(PRSPreProcessImage Image)
 }
 
 
-void CopyMove(uchar* newpmasp,uchar* oldpmasp,int newbytewide,int oldbytewide,int num_str,int move)
+void CopyMove(Word8* newpmasp,Word8* oldpmasp,int newbytewide,int oldbytewide,int num_str,int move)
 {
  int max_move=abs((num_str*move)/2048);
  int spusk=(num_str+max_move-1)/max_move;
@@ -349,7 +349,7 @@ void CopyMove(uchar* newpmasp,uchar* oldpmasp,int newbytewide,int oldbytewide,in
 }
 
 
-void CleanImage(uchar* pmasp,int bytewide,int num_str,int wide)
+void CleanImage(Word8* pmasp,int bytewide,int num_str,int wide)
 {
 	int realbytewide=((wide+7)>>3);
 	int stop=num_str*bytewide;
@@ -399,14 +399,14 @@ void CleanImage(uchar* pmasp,int bytewide,int num_str,int wide)
 }
 
 
-void  MasCopy(uchar* oldpmasp,uchar* pmasp,int oldbytewide,int num_str)
+void  MasCopy(Word8* oldpmasp,Word8* pmasp,int oldbytewide,int num_str)
 {
 	int j=oldbytewide*num_str;
 	for(int i=0;i<j;i++)
 		oldpmasp[i]=pmasp[i];
 }
 
-void* MyMemAlloc(uint32_t size)
+void* MyMemAlloc(Word32 size)
 {
 	return malloc(size);
 }

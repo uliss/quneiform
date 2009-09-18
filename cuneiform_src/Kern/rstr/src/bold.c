@@ -67,8 +67,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "func.h"
 
 cell *SHAVE_CELL;
-char *SHAVE_RASTER;
-char *SHAVE_FLAGS;
+CHAR *SHAVE_RASTER;
+CHAR *SHAVE_FLAGS;
 INT SHAVE_HEIGHT;
 INT SHAVE_WIDTH ;
 
@@ -79,7 +79,7 @@ Bool boldshave(cell *C,INT method)
  {
  MN *mn;
  cell *D;
- INT bd; char df;
+ INT bd; CHAR df;
  BYTE sv[sizeof(D->nvers)+sizeof(D->vers)];
  BYTE svf;
 // cell c;
@@ -98,7 +98,7 @@ Bool boldshave(cell *C,INT method)
  D=C->prev;
  bd=C->bdiff; df = C->difflg & 0xf0;
  del_cell(C);
- C=create_cell(mn,D,(char)bd, df);
+ C=create_cell(mn,D,(CHAR)bd, df);
  // memcpy (C,&c,sizeof(c));
  memcpy (&C->nvers,sv,sizeof(C->nvers)+sizeof(C->vers));
  C->flg = svf;
@@ -232,7 +232,7 @@ INT      num_row, i, h;
 interval *inter;
 
 h=line->h;  i=0;  num_row = line->row;
-inter=(interval *)((char *)line+sizeof(lnhead));
+inter=(interval *)((PCHAR)line+sizeof(lnhead));
 for( ; h ; h--,inter++,i++,num_row++)
   if( (i==0 && (line->flg&l_fbeg))  || (h==1 && (line->flg&l_fend)) )
     {
@@ -272,8 +272,8 @@ static void pimples_deleting(cell *c,INT direct)
  INT      ll;
  INT      cw=direct?((c->w+7)/8):((c->h+7)/8),ch=c->w;
 
-for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-    (ll=line->lth)>0; line=(lnhead *)((char *)line+ll))
+for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
         pimples_deleting_one_line(line,cw,ch,direct);
 
 return;
@@ -291,7 +291,7 @@ INT      pb,pe, b,e, nb,ne;
 h=line->h;
 if( h<3 ) return;
 i=0;  num_row = line->row;
-inter=(interval *)((char *)line+sizeof(lnhead));
+inter=(interval *)((PCHAR)line+sizeof(lnhead));
 
 inter++; num_row++;
 i++, h-=2; // skip first, last intervals on the line
@@ -349,8 +349,8 @@ static void jumps_deleting(cell *c)
  INT      ll;
  INT      cw=((c->w+7)/8),ch=c->w;
 
-for (line=(lnhead *)((char *)(c->env)+c->env->lines+sizeof(INT));
-    (ll=line->lth)>0; line=(lnhead *)((char *)line+ll))
+for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
+    (ll=line->lth)>0; line=(lnhead *)((PCHAR)line+ll))
         jumps_deleting_one_line(line,cw,ch);
 
 return;
@@ -364,7 +364,7 @@ Bool pimpleshave(cell *C, INT shave, INT incline)
  MN   *mn;
  cell *CC,*WW;
  INT   bd;
- char df;
+ CHAR df;
  BYTE  svf;
 
  Z=&string;
@@ -383,7 +383,7 @@ if( shave )
  mn=c_locomp(SHAVE_RASTER,(INT)((C->w+7)/8),C->h,C->r_row,C->r_col);
  if (!mn) return 0;
 
- WW=create_cell(mn,C,(char)bd, df);
+ WW=create_cell(mn,C,(CHAR)bd, df);
  // FIRST SHAVING
 
  SHAVE_RASTER=save_raster(WW);
@@ -401,13 +401,13 @@ if( shave )
  mn=c_locomp(t_raster(),t_width_b,t_height,0,(INT)(-t_left_shift));
 			      // extraction components from t_raster
  if (!mn) {del_cell(WW);return 0;}
- CC=create_cell(mn,WW,(char)bd, df);
+ CC=create_cell(mn,WW,(CHAR)bd, df);
  pimples_deleting(CC,0); // modify SHAVE_RASTER
  del_cell(CC);
  mn=c_locomp(SHAVE_RASTER,(INT)((WW->w+7)/8),WW->h,WW->r_row,WW->r_col);
  del_cell(WW);
  if (!mn) return 0;
- WW=create_cell(mn,C,(char)bd, df);
+ WW=create_cell(mn,C,(CHAR)bd, df);
  if( C->flg!=c_f_dust && WW->w<MAX_DUST_WIDTH && WW->h<MAX_DUST_HEIGHT )
   return 0;
  // SECOND SHAVING
@@ -417,7 +417,7 @@ if( shave )
   mn=c_locomp(SHAVE_RASTER,(INT)((C->w+7)/8),C->h,C->r_row,C->r_col);
   if (!mn)
     return 0;
-  WW=create_cell(mn,C,(char)bd, df);
+  WW=create_cell(mn,C,(CHAR)bd, df);
   if( C->flg!=c_f_dust && WW->w<MAX_DUST_WIDTH && WW->h<MAX_DUST_HEIGHT )
     return 0;
   }

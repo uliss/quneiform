@@ -56,19 +56,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "lnslang.h"
 
-   extern const uchar bit_byte[8] =
+   extern const Word8 bit_byte[8] =
 		{
 			0x01,	0x02,	0x04,	0x08,
 			0x10,	0x20,	0x40,	0x80
 		};
 
-   extern const uchar lbit_byte[8] =
+   extern const Word8 lbit_byte[8] =
 		{
 			0x80, 0x40,	0x20,	0x10,
 			0x08, 0x04, 0x02,	0x01
 		};
 
-   extern const uint16_t bit_word[16] =
+   extern const Word16 bit_word[16] =
 		{
 			0x0001,	0x0002,	0x0004,	0x0008,
 			0x0010,	0x0020,	0x0040,	0x0080,
@@ -76,7 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			0x1000,	0x2000,	0x4000,	0x8000
 		};
 
-   extern const uint16_t lbit_word[16] =
+   extern const Word16 lbit_word[16] =
 		{
 			0x0080, 0x0040,	0x0020,	0x0010,
 			0x0008,	0x0004,	0x0002,	0x0001,
@@ -84,7 +84,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			0x0800, 0x0400, 0x0200,	0x0100
 		};
 
-	extern const uint16_t lbit_word0[16] =
+	extern const Word16 lbit_word0[16] =
 		{
 			0xFF7F, 	0xFFBF,	0xFFDF,	0xFFEF,
 			0xFFF7,	0xFFFB,	0xFFFD,	0xFFFE,
@@ -92,7 +92,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			0xF7FF, 	0xFBFF,  0xFDFF,	0xFEFF
 		};
 
-   extern const uchar left_0[256] =
+   extern const Word8 left_0[256] =
 		{
 			0x00,0x01,0x03,0x03,0x07,0x07,0x07,0x07,0x0F,0x0F,0x0F,0x0F,0x0F,0x0F,0x0F,0x0F,
 			0x1F,0x1F,0x1F,0x1F,0x1F,0x1F,0x1F,0x1F,0x1F,0x1F,0x1F,0x1F,0x1F,0x1F,0x1F,0x1F,
@@ -112,7 +112,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF
 		};
 
-   extern const uchar right_0[256] =
+   extern const Word8 right_0[256] =
 		{
 			0x00,0xFF,0xFE,0xFF,0xFC,0xFF,0xFE,0xFF,0xF8,0xFF,0xFE,0xFF,0xFC,0xFF,0xFE,0xFF,
 			0xF0,0xFF,0xFE,0xFF,0xFC,0xFF,0xFE,0xFF,0xF8,0xFF,0xFE,0xFF,0xFC,0xFF,0xFE,0xFF,
@@ -133,7 +133,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		};
 
 /********************************************************************/
-   extern const uchar bit1_cnt[256] =
+   extern const Word8 bit1_cnt[256] =
 		{ 0,1,1,2,1,2,2,3,
 		  1,2,2,3,2,3,3,4,
 		  1,2,2,3,2,3,3,4,
@@ -168,7 +168,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		  5,6,6,7,6,7,7,8
 		};
 
-   extern const uchar bit0_cnt[256] =
+   extern const Word8 bit0_cnt[256] =
 		{ 8,7,7,6,7,6,6,5,
 		  7,6,6,5,6,5,5,4,
 		  7,6,6,5,6,5,5,4,
@@ -203,7 +203,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		  3,2,2,1,2,1,1,0
 		};
 
-   extern const uchar first_bit1_pos[256] =
+   extern const Word8 first_bit1_pos[256] =
 	{
 	/*       0 1 2 3 4 5 6 7 8 9 a b c d e f */
 	/*0*/    8,7,6,6,5,5,5,5,4,4,4,4,4,4,4,4,
@@ -223,7 +223,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	/*e*/    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	/*f*/    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 	};
-   extern const uchar first_bit0_pos[256] =
+   extern const Word8 first_bit0_pos[256] =
 	{
 	/*       0 1 2 3 4 5 6 7 8 9 a b c d e f */
 	/*0*/    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -244,7 +244,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	/*f*/    4,4,4,4,4,4,4,4,5,5,5,5,6,6,7,8
 	};
 
-   extern const uchar nFirstByte[]=
+   extern const Word8 nFirstByte[]=
 	{
 	/*       0 1 2 3 4 5 6 7 8 9 a b c d e f */
 	/*0*/    0,1,1,2,1,1,2,3,1,1,1,1,2,2,3,4,

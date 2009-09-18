@@ -1038,7 +1038,7 @@ return (*proc)(prev);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-FNBool Tiger_SpellerExist(WORD language)
+FNBOOL Tiger_SpellerExist(WORD language)
 {
 typedef Bool (TIGERFUN(*)fpTiger_SpellerExist)(WORD);
 fpTiger_SpellerExist proc;

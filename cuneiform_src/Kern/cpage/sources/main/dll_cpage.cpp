@@ -73,8 +73,8 @@
 FNCPAGE_HL_TableExtract CPAGE_HL_TableExtract = NULL;
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-static uint16_t gwHeightRC = 0;
-static uint16_t gwLowRC = 0;
+static Word16 gwHeightRC = 0;
+static Word16 gwLowRC = 0;
 static HANDLE ghStorage = NULL;
 static HINSTANCE ghInst = NULL;
 
@@ -85,7 +85,7 @@ Handle hSnapTimerEnd = NULL;
 
 /////////////////////////////////////////
 Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
-		pvoid lpReserved) {
+		LPVOID lpReserved) {
 	switch (ul_reason_for_call) {
 	case DLL_PROCESS_ATTACH:
 		ghInst = hModule;
@@ -101,7 +101,7 @@ Bool APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CPAGE_FUNC(Bool32) CPAGE_Init(uint16_t wHeightCode,HANDLE hStorage)
+CPAGE_FUNC(Bool32) CPAGE_Init(Word16 wHeightCode,HANDLE hStorage)
 {
 	gwHeightRC = wHeightCode;
 #ifdef DPUMA_ON
@@ -136,20 +136,20 @@ CPAGE_FUNC(Bool32) CPAGE_Done()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CPAGE_FUNC(uint32_t) CPAGE_GetReturnCode()
+CPAGE_FUNC(Word32) CPAGE_GetReturnCode()
 {
-	uint32_t rc = 0;
+	Word32 rc = 0;
 	if((gwLowRC - IDS_ERR_NO)>0)
-	rc = (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
+	rc = (Word32)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
 
 	return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CPAGE_FUNC(char *) CPAGE_GetReturnString(uint32_t dwError)
+CPAGE_FUNC(Int8 *) CPAGE_GetReturnString(Word32 dwError)
 {
-	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
-	static char szBuffer[512];
+	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
+	static Int8 szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
 	gwLowRC = IDS_ERR_NOTIMPLEMENT;
@@ -163,7 +163,7 @@ CPAGE_FUNC(char *) CPAGE_GetReturnString(uint32_t dwError)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CPAGE_FUNC(Bool32) CPAGE_GetExportData(uint32_t dwType, void * pData)
+CPAGE_FUNC(Bool32) CPAGE_GetExportData(Word32 dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -238,7 +238,7 @@ CPAGE_FUNC(Bool32) CPAGE_GetExportData(uint32_t dwType, void * pData)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CPAGE_FUNC(Bool32) CPAGE_SetImportData(uint32_t dwType, void * pData)
+CPAGE_FUNC(Bool32) CPAGE_SetImportData(Word32 dwType, void * pData)
 {
 	Bool rc = FALSE;
 	gwLowRC = IDS_ERR_NOTIMPLEMENT;
@@ -258,11 +258,11 @@ CPAGE_FUNC(Bool32) CPAGE_SetImportData(uint32_t dwType, void * pData)
 	return rc;
 }
 
-void SetReturnCode_cpage(uint16_t rc) {
+void SetReturnCode_cpage(Word16 rc) {
 	gwLowRC = rc;
 }
 
-uint16_t GetReturnCode_cpage() {
+Word16 GetReturnCode_cpage() {
 	return gwLowRC;
 }
 
@@ -301,7 +301,7 @@ void ProfileEpilog(Handle prev)
 		if(!s_prolog && prev)
 		{
 #ifdef TIMECONTROL
-			uint32_t c = clock() - s_tbeg;
+			Word32 c = clock() - s_tbeg;
 			_ASSERT(c < 99);
 #endif
 			LDPUMA_Skip(prev);

@@ -87,22 +87,22 @@ typedef void(*pExitByCatchFunc)(int32_t);
 extern "C"
 {
 	// global variables
-	extern    uchar     language;
-	extern    char      own_dir[];
-	extern    uchar *    svbox_pool;
-	extern    uchar *    ED_file_start;
-	extern    uchar *    ED_file_end;
-	extern    uchar *    ED_out_end;
-	extern    int16_t     CheckOpenBinType;
-	extern    int16_t     CheckOpenTxtType;
-	extern    int16_t     CheckOpenSubType;
+	extern    Word8     language;
+	extern    Int8      own_dir[];
+	extern    PWord8    svbox_pool;
+	extern    PWord8    ED_file_start;
+	extern    PWord8    ED_file_end;
+	extern    PWord8    ED_out_end;
+	extern    Int16     CheckOpenBinType;
+	extern    Int16     CheckOpenTxtType;
+	extern    Int16     CheckOpenSubType;
 	// C-typef functions
 	void      SetErrorExit( pExitByCatchFunc );
-	int16_t     TE_table_op(int16_t, int16_t, int16_t, int16_t);
-	int16_t     TE_close(int16_t);
+	Int16     TE_table_op(Int16, Int16, Int16, Int16);
+	Int16     TE_close(Int16);
 	void      trees_load_rling(void);
-	int16_t     text_findstat_rling(PChar8);
-	int16_t     spelling(uchar *, int32_t);
+	Int16     text_findstat_rling(PChar8);
+	Int16     spelling(PWord8, int32_t);
 	void      load_user_dicts (PChar8, PChar8);
 	void      unload_user_dicts(void);
 }
@@ -136,13 +136,13 @@ CRLControl::~CRLControl()
 }
 ///////////////////////////////////////////////////////////////////////////////////
 //
-int32_t  CRLControl::IsDictonaryAvailable(uint32_t wLang, PChar8 pDictPath)
+int32_t  CRLControl::IsDictonaryAvailable(Word32 wLang, PChar8 pDictPath)
 {
 	// -1 - invalid languge code,
 	// 0  - tables not found,
 	// >0 - tables available
 	int32_t iRet = -1;
-	int16_t TempFile;
+	Int16 TempFile;
 
 	if ( pDictPath != NULL )
 	{
@@ -162,13 +162,13 @@ int32_t  CRLControl::IsDictonaryAvailable(uint32_t wLang, PChar8 pDictPath)
 
 	if ( iRet == 0 )
 	{
-		language = (uchar) wLang;
+		language = (Word8) wLang;
 		//////////////////////////////////////////////////////////////////////
 		try
 		{
-			for ( int16_t iStream = 6; iStream < 10; iStream++ )
+			for ( Int16 iStream = 6; iStream < 10; iStream++ )
 			{
-				TempFile = TE_table_op( iStream, (int16_t) wLang, (iStream == 6 ? CheckOpenBinType : CheckOpenTxtType), CheckOpenSubType);
+				TempFile = TE_table_op( iStream, (Int16) wLang, (iStream == 6 ? CheckOpenBinType : CheckOpenTxtType), CheckOpenSubType);
 
 				if ( TempFile == -1 )
 				{
@@ -192,13 +192,13 @@ int32_t  CRLControl::IsDictonaryAvailable(uint32_t wLang, PChar8 pDictPath)
 }
 ///////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRLControl::LoadDictonary(uint32_t wLang, PChar8 pDictPath)
+Bool32 CRLControl::LoadDictonary(Word32 wLang, PChar8 pDictPath)
 {
 	Bool32 bRet = FALSE;
 
 	if ( m_Language > 0 )
     {
-        if ( wLang == (uint32_t)m_Language )
+        if ( wLang == (Word32)m_Language )
             return TRUE;
 
         UnLoadDictonary();
@@ -225,7 +225,7 @@ Bool32 CRLControl::LoadDictonary(uint32_t wLang, PChar8 pDictPath)
 	if ( svbox_pool == NULL )
 	{
 		m_TablePool = RLINGAlloc(SizeTables);
-		svbox_pool  = (uchar *)RLINGLock(m_TablePool);
+		svbox_pool  = (PWord8)RLINGLock(m_TablePool);
 	}
 	else
 	{
@@ -234,7 +234,7 @@ Bool32 CRLControl::LoadDictonary(uint32_t wLang, PChar8 pDictPath)
 
 	if ( bRet == TRUE )
 	{
-		language = (uchar) m_Language;
+		language = (Word8) m_Language;
 		//////////////////////////////////////////////////////////////////////
 		try
 		{
@@ -254,12 +254,12 @@ Bool32 CRLControl::LoadDictonary(uint32_t wLang, PChar8 pDictPath)
 }
 ///////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRLControl::LoadSecDictonary(uint32_t wLang, PChar8 pDictPath)
+Bool32 CRLControl::LoadSecDictonary(Word32 wLang, PChar8 pDictPath)
 {
 	Bool32 bRet = FALSE;
 
 #ifndef RLING_SECONDARY
-	bRet = RLINGS_LoadDictonary(wLang, (char *)pDictPath);
+	bRet = RLINGS_LoadDictonary(wLang, (PInt8)pDictPath);
 #endif
 
 	return bRet;
@@ -339,10 +339,10 @@ Bool32 CRLControl::CheckWord(PChar8 cWord, int32_t * pOutCheck)
 	return bRet;
 }
 //////////////////////////////////////////////////////////////////////////////////
-Bool32 CRLControl::CheckED(void *pEDPool, void * pEDOutPool, uint32_t wEDPoolSize, uint32_t * pwEDOutPoolSize, int32_t * pOut)
+Bool32 CRLControl::CheckED(void *pEDPool, void * pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, int32_t * pOut)
 {
 	Bool32     bRet = FALSE;
-	uint32_t     wHexSize = RLING_ED_BUFFER_SIZE / RLING_ED_DECREATOR;
+	Word32     wHexSize = RLING_ED_BUFFER_SIZE / RLING_ED_DECREATOR;
 
 	m_LastCheck = 0;
 
@@ -352,7 +352,7 @@ Bool32 CRLControl::CheckED(void *pEDPool, void * pEDOutPool, uint32_t wEDPoolSiz
 		return FALSE;
 	}
 
-	m_LastEDPool = (uchar *)pEDPool;
+	m_LastEDPool = (PWord8)pEDPool;
 	m_LastEDPoolSize = wEDPoolSize;
 
 	if ( !AllocEDBuffer() )
@@ -388,7 +388,7 @@ Bool32 CRLControl::CheckED(void *pEDPool, void * pEDOutPool, uint32_t wEDPoolSiz
 		try
 		{
 			*pwEDOutPoolSize = 0;
-			m_LastCheck = spelling((uchar *)m_LastEDWorkPool, wHexSize/*m_LastEDWorkPoolSize*/);
+			m_LastCheck = spelling((PWord8)m_LastEDWorkPool, wHexSize/*m_LastEDWorkPoolSize*/);
 			m_LastEDOutPoolSize = ED_out_end - m_LastEDOutPool;
 			*pwEDOutPoolSize = m_LastEDOutPoolSize;
 			memcpy(pEDOutPool, m_LastEDOutPool, m_LastEDOutPoolSize);
@@ -411,7 +411,7 @@ Bool32 CRLControl::CheckSecWord(PChar8 cWord, int32_t * pOutCheck)
 	Bool32     bRet = FALSE;
 
 #ifndef RLING_SECONDARY
-	bRet = RLINGS_CheckWord((char *)cWord, pOutCheck);
+	bRet = RLINGS_CheckWord((PInt8)cWord, pOutCheck);
 #endif
 
 	return bRet;
@@ -459,7 +459,7 @@ Bool32 CRLControl::AllocEDBuffer()
 			}
 			else
 			{
-				m_LastEDOutPool  = (uchar *)RLINGLock(m_hLastEDOutPool);
+				m_LastEDOutPool  = (PWord8)RLINGLock(m_hLastEDOutPool);
 			}
 		}
 		else
@@ -478,7 +478,7 @@ Bool32 CRLControl::AllocEDBuffer()
 			}
 			else
 			{
-				m_LastEDWorkPool = (uchar *)RLINGLock(m_hLastEDWorkPool);
+				m_LastEDWorkPool = (PWord8)RLINGLock(m_hLastEDWorkPool);
 			}
 		}
 		else
@@ -506,7 +506,7 @@ void CRLControl::FreeEDBuffer()
 	}
 }
 
-Bool32 CRLControl::CheckSecED(void *pEDPool, void *pEDOutPool, uint32_t wEDPoolSize, uint32_t * pwEDOutPoolSize, int32_t * pOut)
+Bool32 CRLControl::CheckSecED(void *pEDPool, void *pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, int32_t * pOut)
 {
 	Bool32     bRet = FALSE;
 
@@ -541,7 +541,7 @@ Bool32 CRLControl::LoadSecUserDictonary(PChar8 pUserDictonaryList, PChar8 pPoint
 	Bool32     bRet = FALSE;
 
 #ifndef RLING_SECONDARY
-	bRet = RLINGS_LoadUserDictonary((char *)pUserDictonaryList, (char *)pPoint);
+	bRet = RLINGS_LoadUserDictonary((PInt8)pUserDictonaryList, (PInt8)pPoint);
 #endif
 
 	return bRet;
@@ -607,15 +607,15 @@ Bool32 CRLControl::UnLoadSecUserDictonary()
 	return bRet;
 }
 
-Bool32 CRLControl::CorrectWord(CSTR_rast Beg, CSTR_rast End, uint32_t * pLanguage, PChar8 CorrWord)
+Bool32 CRLControl::CorrectWord(CSTR_rast Beg, CSTR_rast End, PWord32 pLanguage, PChar8 CorrWord)
 {
 	Bool32 bRet = FALSE;
-	uint32_t wSizeOut;
+	Word32 wSizeOut;
 	int32_t  iOut;
 
 	mcEderator.Init();
 
-	if ( mcEderator.MakeWord(Beg, End, (uchar *)pLanguage) )
+	if ( mcEderator.MakeWord(Beg, End, (PWord8)pLanguage) )
 	{
 		if ( CheckED(mcEderator.GetEdPool(), mcEderator.GetEdOutPool(), mcEderator.GetEdPoolSize(), &wSizeOut, &iOut) )
 		{
@@ -625,27 +625,27 @@ Bool32 CRLControl::CorrectWord(CSTR_rast Beg, CSTR_rast End, uint32_t * pLanguag
 	return bRet;
 }
 
-Bool32 CRLControl::CorrectSecWord(CSTR_rast Beg, CSTR_rast End, uint32_t * pLanguage, PChar8 CorrWord)
+Bool32 CRLControl::CorrectSecWord(CSTR_rast Beg, CSTR_rast End, PWord32 pLanguage, PChar8 CorrWord)
 {
 	Bool32     bRet = FALSE;
 
 #ifndef RLING_SECONDARY
-	bRet = RLINGS_CorrectWord(Beg, End, pLanguage, (char *)CorrWord);
+	bRet = RLINGS_CorrectWord(Beg, End, pLanguage, (PInt8)CorrWord);
 #endif
 
 	return bRet;
 }
 
-Bool32 CRLControl::CorrectHypWord(CSTR_rast BegF, CSTR_rast EndF, uint32_t * pLanguageF, CSTR_rast BegS, CSTR_rast EndS, uint32_t * pLanguageS, PChar8 CorrWord)
+Bool32 CRLControl::CorrectHypWord(CSTR_rast BegF, CSTR_rast EndF, PWord32 pLanguageF, CSTR_rast BegS, CSTR_rast EndS, PWord32 pLanguageS, PChar8 CorrWord)
 {
 	Bool32 bRet = FALSE;
-	uint32_t wSizeOut;
+	Word32 wSizeOut;
 	int32_t  iOut;
 
 	mcEderator.Init();
 
-	if ( mcEderator.MakeWord(BegF, EndF, (uchar *)pLanguageF) &&
-		 mcEderator.AddWord(BegS, EndS, (uchar *)pLanguageS)    )
+	if ( mcEderator.MakeWord(BegF, EndF, (PWord8)pLanguageF) &&
+		 mcEderator.AddWord(BegS, EndS, (PWord8)pLanguageS)    )
 	{
 		// Это уже делается в CheckED
 		//PumaMemoryToFileDumper Dmp(mcEderator.GetEdPool(), mcEderator.GetEdPoolSize(), "RLingMakeHypWord.ed");
@@ -658,23 +658,23 @@ Bool32 CRLControl::CorrectHypWord(CSTR_rast BegF, CSTR_rast EndF, uint32_t * pLa
 	return bRet;
 }
 
-Bool32 CRLControl::CorrectSecHypWord(CSTR_rast BegF, CSTR_rast EndF, uint32_t * pLanguageF, CSTR_rast BegS, CSTR_rast EndS, uint32_t * pLanguageS, PChar8 CorrWord)
+Bool32 CRLControl::CorrectSecHypWord(CSTR_rast BegF, CSTR_rast EndF, PWord32 pLanguageF, CSTR_rast BegS, CSTR_rast EndS, PWord32 pLanguageS, PChar8 CorrWord)
 {
 	Bool32     bRet = FALSE;
 
 #ifndef RLING_SECONDARY
-	bRet = RLINGS_CorrectHypWord(BegF, EndF, pLanguageF, BegS, EndS, pLanguageS, (char *)CorrWord);
+	bRet = RLINGS_CorrectHypWord(BegF, EndF, pLanguageF, BegS, EndS, pLanguageS, (PInt8)CorrWord);
 #endif
 
 	return bRet;
 }
 
-Rect16 CRLControl::GetCorrectedRectElement(uint32_t i)
+Rect16 CRLControl::GetCorrectedRectElement(Word32 i)
 {
 	return mcEderator.GetRectElement(i);
 }
 
-Rect16 CRLControl::GetSecCorrectedRectElement(uint32_t i)
+Rect16 CRLControl::GetSecCorrectedRectElement(Word32 i)
 {
 #ifndef RLING_SECONDARY
 	return RLINGS_GetCorrectedRectElement(i);
@@ -684,12 +684,12 @@ Rect16 CRLControl::GetSecCorrectedRectElement(uint32_t i)
 	return Empt;
 }
 
-RecVersions CRLControl::GetCorrectedVersElemet(uint32_t i, uint32_t * pNVers)
+RecVersions CRLControl::GetCorrectedVersElemet(Word32 i, PWord32 pNVers)
 {
 	return mcEderator.GetVersElement(i, pNVers);
 }
 
-RecVersions CRLControl::GetSecCorrectedVersElement(uint32_t i, uint32_t * pNVers)
+RecVersions CRLControl::GetSecCorrectedVersElement(Word32 i, PWord32 pNVers)
 {
 #ifndef RLING_SECONDARY
 	return RLINGS_GetCorrectedVersElement(i, pNVers);

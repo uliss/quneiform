@@ -162,10 +162,10 @@ extern int HFILE_ERROR;
 typedef int HFILE;
 
 typedef struct tagRECT {
-	int left;
-	int right;
-	int top;
-	int bottom;
+	LONG left;
+	LONG right;
+	LONG top;
+	LONG bottom;
 } RECT;
 
 typedef RECT* LPRECT;
@@ -197,14 +197,14 @@ typedef struct {
 
 typedef struct tagBITMAPINFOHEADER {
 	uint32_t biSize;
-	int biWidth;
-	int biHeight;
+	LONG biWidth;
+	LONG biHeight;
 	WORD biPlanes;
 	WORD biBitCount;
 	uint32_t biCompression;
 	uint32_t biSizeImage;
-	int biXPelsPerMeter;
-	int biYPelsPerMeter;
+	LONG biXPelsPerMeter;
+	LONG biYPelsPerMeter;
 	uint32_t biClrUsed;
 	uint32_t biClrImportant;
 } BITMAPINFOHEADER, *PBITMAPINFOHEADER;
@@ -293,13 +293,13 @@ typedef struct tagPAINTSTRUCT {
 } PAINTSTRUCT, *PPAINTSTRUCT;
 
 typedef struct tagPOINT {
-	int x;
-	int y;
+	LONG x;
+	LONG y;
 } POINT, *PPOINT;
 
 typedef struct tagSIZE {
-	int cx;
-	int cy;
+	LONG cx;
+	LONG cy;
 } SIZE;
 
 #pragma pack(push, 2)
@@ -390,7 +390,7 @@ typedef int REGSAM;
 #endif
 
 #ifndef RGB
-#define RGB(r,g,b) ((uint32_t)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
+#define RGB(r,g,b) ((Word32)(((Word8)(r)|((Word16)((Word8)(g))<<8))|(((Word32)(Word8)(b))<<16)))
 #endif
 
 #ifndef GENERIC_READ
