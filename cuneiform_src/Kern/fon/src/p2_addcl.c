@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Ðàçðåøàåòñÿ ïîâòîðíîå ðàñïðîñòðàíåíèå è èñïîëüçîâàíèå êàê â âèäå èñõîäíîãî êîäà,
-òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
+Ð Ð°Ð·Ñ€ÐµÑˆÐ°ÐµÑ‚ÑÑ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ Ð¸ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸Ðµ ÐºÐ°Ðº Ð² Ð²Ð¸Ð´Ðµ Ð¸ÑÑ…Ð¾Ð´Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð°,
+Ñ‚Ð°Ðº Ð¸ Ð² Ð´Ð²Ð¾Ð¸Ñ‡Ð½Ð¾Ð¹ Ñ„Ð¾Ñ€Ð¼Ðµ, Ñ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸ÑÐ¼Ð¸ Ð¸Ð»Ð¸ Ð±ÐµÐ·, Ð¿Ñ€Ð¸ ÑÐ¾Ð±Ð»ÑŽÐ´ÐµÐ½Ð¸Ð¸ ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ñ… ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹:
 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
-        îòêàç îò ãàðàíòèé.
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
-        äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
-        óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
-        ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ.
+      * ÐŸÑ€Ð¸ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ð¼ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸ Ð¸ÑÑ…Ð¾Ð´Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð° Ð´Ð¾Ð»Ð¶Ð½Ñ‹ Ð¾ÑÑ‚Ð°Ð²Ð°Ñ‚ÑŒÑÑ ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð¾Ðµ
+        Ð²Ñ‹ÑˆÐµ ÑƒÐ²ÐµÐ´Ð¾Ð¼Ð»ÐµÐ½Ð¸Ðµ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÑ‚Ð¾Ñ‚ ÑÐ¿Ð¸ÑÐ¾Ðº ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹ Ð¸ Ð¿Ð¾ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹
+        Ð¾Ñ‚ÐºÐ°Ð· Ð¾Ñ‚ Ð³Ð°Ñ€Ð°Ð½Ñ‚Ð¸Ð¹.
+      * ÐŸÑ€Ð¸ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ð¼ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸ Ð´Ð²Ð¾Ð¸Ñ‡Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð° Ð² Ð´Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ð°Ñ†Ð¸Ð¸ Ð¸/Ð¸Ð»Ð¸ Ð²
+        Ð´Ñ€ÑƒÐ³Ð¸Ñ… Ð¼Ð°Ñ‚ÐµÑ€Ð¸Ð°Ð»Ð°Ñ…, Ð¿Ð¾ÑÑ‚Ð°Ð²Ð»ÑÐµÐ¼Ñ‹Ñ… Ð¿Ñ€Ð¸ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸, Ð´Ð¾Ð»Ð¶Ð½Ñ‹ ÑÐ¾Ñ…Ñ€Ð°Ð½ÑÑ‚ÑŒÑÑ
+        ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð°Ñ Ð²Ñ‹ÑˆÐµ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ñ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÑ‚Ð¾Ñ‚ ÑÐ¿Ð¸ÑÐ¾Ðº ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹ Ð¸
+        Ð¿Ð¾ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹ Ð¾Ñ‚ÐºÐ°Ð· Ð¾Ñ‚ Ð³Ð°Ñ€Ð°Ð½Ñ‚Ð¸Ð¹.
+      * ÐÐ¸ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ Cognitive Technologies, Ð½Ð¸ Ð¸Ð¼ÐµÐ½Ð° ÐµÐµ ÑÐ¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸ÐºÐ¾Ð² Ð½Ðµ Ð¼Ð¾Ð³ÑƒÑ‚
+        Ð±Ñ‹Ñ‚ÑŒ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ñ‹ Ð² ÐºÐ°Ñ‡ÐµÑÑ‚Ð²Ðµ ÑÑ€ÐµÐ´ÑÑ‚Ð²Ð° Ð¿Ð¾Ð´Ð´ÐµÑ€Ð¶ÐºÐ¸ Ð¸/Ð¸Ð»Ð¸ Ð¿Ñ€Ð¾Ð´Ð²Ð¸Ð¶ÐµÐ½Ð¸Ñ
+        Ð¿Ñ€Ð¾Ð´ÑƒÐºÑ‚Ð¾Ð², Ð¾ÑÐ½Ð¾Ð²Ð°Ð½Ð½Ñ‹Ñ… Ð½Ð° ÑÑ‚Ð¾Ð¼ ÐŸÐž, Ð±ÐµÐ· Ð¿Ñ€ÐµÐ´Ð²Ð°Ñ€Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ð³Ð¾ Ð¿Ð¸ÑÑŒÐ¼ÐµÐ½Ð½Ð¾Ð³Ð¾
+        Ñ€Ð°Ð·Ñ€ÐµÑˆÐµÐ½Ð¸Ñ.
 
-ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
-ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
-ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
+Ð­Ð¢Ð ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ ÐŸÐ Ð•Ð”ÐžÐ¡Ð¢ÐÐ’Ð›Ð•ÐÐ Ð’Ð›ÐÐ”Ð•Ð›Ð¬Ð¦ÐÐœÐ˜ ÐÐ’Ð¢ÐžÐ Ð¡ÐšÐ˜Ð¥ ÐŸÐ ÐÐ’ Ð˜/Ð˜Ð›Ð˜ Ð”Ð Ð£Ð“Ð˜ÐœÐ˜ Ð›Ð˜Ð¦ÐÐœÐ˜ "ÐšÐÐš
+ÐžÐÐ Ð•Ð¡Ð¢Ð¬" Ð‘Ð•Ð— ÐšÐÐšÐžÐ“Ðž-Ð›Ð˜Ð‘Ðž Ð’Ð˜Ð”Ð Ð“ÐÐ ÐÐÐ¢Ð˜Ð™, Ð’Ð«Ð ÐÐ–Ð•ÐÐÐ«Ð¥ Ð¯Ð’ÐÐž Ð˜Ð›Ð˜ ÐŸÐžÐ”Ð ÐÐ—Ð£ÐœÐ•Ð’ÐÐ•ÐœÐ«Ð¥,
+Ð’ÐšÐ›Ð®Ð§ÐÐ¯ Ð“ÐÐ ÐÐÐ¢Ð˜Ð˜ ÐšÐžÐœÐœÐ•Ð Ð§Ð•Ð¡ÐšÐžÐ™ Ð¦Ð•ÐÐÐžÐ¡Ð¢Ð˜ Ð˜ ÐŸÐ Ð˜Ð“ÐžÐ”ÐÐžÐ¡Ð¢Ð˜ Ð”Ð›Ð¯ ÐšÐžÐÐšÐ Ð•Ð¢ÐÐžÐ™ Ð¦Ð•Ð›Ð˜, ÐÐž ÐÐ•
+ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð˜ÐœÐ˜. ÐÐ˜ Ð’Ð›ÐÐ”Ð•Ð›Ð•Ð¦ ÐÐ’Ð¢ÐžÐ Ð¡ÐšÐ˜Ð¥ ÐŸÐ ÐÐ’ Ð˜ ÐÐ˜ ÐžÐ”ÐÐž Ð”Ð Ð£Ð“ÐžÐ• Ð›Ð˜Ð¦Ðž, ÐšÐžÐ¢ÐžÐ ÐžÐ•
+ÐœÐžÐ–Ð•Ð¢ Ð˜Ð—ÐœÐ•ÐÐ¯Ð¢Ð¬ Ð˜/Ð˜Ð›Ð˜ ÐŸÐžÐ’Ð¢ÐžÐ ÐÐž Ð ÐÐ¡ÐŸÐ ÐžÐ¡Ð¢Ð ÐÐÐ¯Ð¢Ð¬ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ£, ÐÐ˜ Ð’ ÐšÐžÐ•Ðœ Ð¡Ð›Ð£Ð§ÐÐ• ÐÐ•
+ÐÐ•Ð¡ÐÐ¢ ÐžÐ¢Ð’Ð•Ð¢Ð¡Ð¢Ð’Ð•ÐÐÐžÐ¡Ð¢Ð˜, Ð’ÐšÐ›Ð®Ð§ÐÐ¯ Ð›Ð®Ð‘Ð«Ð• ÐžÐ‘Ð©Ð˜Ð•, Ð¡Ð›Ð£Ð§ÐÐ™ÐÐ«Ð•, Ð¡ÐŸÐ•Ð¦Ð˜ÐÐ›Ð¬ÐÐ«Ð• Ð˜Ð›Ð˜
+ÐŸÐžÐ¡Ð›Ð•Ð”ÐžÐ’ÐÐ’Ð¨Ð˜Ð• Ð£Ð‘Ð«Ð¢ÐšÐ˜, Ð¡Ð’Ð¯Ð—ÐÐÐÐ«Ð• Ð¡ Ð˜Ð¡ÐŸÐžÐ›Ð¬Ð—ÐžÐ’ÐÐÐ˜Ð•Ðœ Ð˜Ð›Ð˜ ÐŸÐžÐÐ•Ð¡Ð•ÐÐÐ«Ð• Ð’Ð¡Ð›Ð•Ð”Ð¡Ð¢Ð’Ð˜Ð•
+ÐÐ•Ð’ÐžÐ—ÐœÐžÐ–ÐÐžÐ¡Ð¢Ð˜ Ð˜Ð¡ÐŸÐžÐ›Ð¬Ð—ÐžÐ’ÐÐÐ˜Ð¯ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ« (Ð’ÐšÐ›Ð®Ð§ÐÐ¯ ÐŸÐžÐ¢Ð•Ð Ð˜ Ð”ÐÐÐÐ«Ð¥, Ð˜Ð›Ð˜ Ð”ÐÐÐÐ«Ð•,
+Ð¡Ð¢ÐÐ’Ð¨Ð˜Ð• ÐÐ•Ð“ÐžÐ”ÐÐ«ÐœÐ˜, Ð˜Ð›Ð˜ Ð£Ð‘Ð«Ð¢ÐšÐ˜ Ð˜/Ð˜Ð›Ð˜ ÐŸÐžÐ¢Ð•Ð Ð˜ Ð”ÐžÐ¥ÐžÐ”ÐžÐ’, ÐŸÐžÐÐ•Ð¡Ð•ÐÐÐ«Ð• Ð˜Ð—-Ð—Ð Ð”Ð•Ð™Ð¡Ð¢Ð’Ð˜Ð™
+Ð¢Ð Ð•Ð¢Ð¬Ð˜Ð¥ Ð›Ð˜Ð¦ Ð˜/Ð˜Ð›Ð˜ ÐžÐ¢ÐšÐÐ—Ð ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ« Ð ÐÐ‘ÐžÐ¢ÐÐ¢Ð¬ Ð¡ÐžÐ’ÐœÐ•Ð¡Ð¢ÐÐž Ð¡ Ð”Ð Ð£Ð“Ð˜ÐœÐ˜ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐÐœÐ˜,
+ÐÐž ÐÐ• ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð­Ð¢Ð˜ÐœÐ˜ Ð¡Ð›Ð£Ð§ÐÐ¯ÐœÐ˜), ÐÐž ÐÐ• ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð˜ÐœÐ˜, Ð”ÐÐ–Ð• Ð•Ð¡Ð›Ð˜ Ð¢ÐÐšÐžÐ™
+Ð’Ð›ÐÐ”Ð•Ð›Ð•Ð¦ Ð˜Ð›Ð˜ Ð”Ð Ð£Ð“ÐžÐ• Ð›Ð˜Ð¦Ðž Ð‘Ð«Ð›Ð˜ Ð˜Ð—Ð’Ð•Ð©Ð•ÐÐ« Ðž Ð’ÐžÐ—ÐœÐžÐ–ÐÐžÐ¡Ð¢Ð˜ Ð¢ÐÐšÐ˜Ð¥ Ð£Ð‘Ð«Ð¢ÐšÐžÐ’ Ð˜ ÐŸÐžÐ¢Ð•Ð Ð¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -96,7 +96,7 @@ WORD PutSymbolRaster(BYTE *pHau,CHAR *rast,SINT rbyte,
 //SINT FindDistanceWr(welet *wel,welet *outwel);
 void init11(void);
 SINT SaveCluster(SINT fh,SINT clus,SINT NumAll,BYTE *m1,BYTE *m2);
-LONG StartHausdorfDLL(int num,void *ExternBuf,DWORD SizeExternBuf);
+LONG StartHausdorfDLL(int num,void *ExternBuf, uint32_t SizeExternBuf);
 void EndHausdorfDLL(void);
 SINT MakeClusters(SINT fir,SINT NumAll,SINT CurClus,SINT porog,SINT AllCount);
 SINT SaveSym(CHAR *NameWr,SINT NumAll,BYTE *buf,SINT size,MKFAM accept);
@@ -148,12 +148,12 @@ static BYTE  *WelHau[MAXWELHAU];   // big buffers for welet
 static SINT   IsStart[MAXWELSYM];     // first added symbol
 static SINT   IsAdd[MAXWELSYM];     // last added symbol+1
 static SINT   FirLet[256];
-static DWORD LastWel=0;         // last size
-static DWORD MaxSizeBuf2=0;    // space in buffer for bitmaps
+static uint32_t LastWel=0;         // last size
+static uint32_t MaxSizeBuf2=0;    // space in buffer for bitmaps
 static SINT IsRhHauBuf2=0;
 static SWEL *swel=NULL;
 
-static LONG StartHausdorfDLL2(int num,void *ExternBuf,DWORD SizeExternBuf);
+static LONG StartHausdorfDLL2(int num,void *ExternBuf, uint32_t SizeExternBuf);
 static void EndHausdorfDLL2(void);
 static SINT FindBestClusterMemory(SINT let,SINT w,SINT h,BYTE *buf,BYTE *bufrazmaz,
 		      SINT NumClus, SINT porog,SINT xcen,SINT ycen,CHAR *movxy);
@@ -166,11 +166,11 @@ static POSXY *posXY=NULL;
 
 SINT FindCenterRaster(BYTE *raster,SINT xbyte,SINT yrow,SINT *y);
 SINT FindCenterWel(welet *wl,SINT *y);
- // ¥áâì «¨ â®çª¨ ¢ r  á à ááâ®ï­¨¥¬ > dist1
+ // ÒÐ±Ð²Ð¼ Â«Ð Ð²Â®Ð·Ð„Ð Ñž r  Ð± Ð° Ð±Ð±Ð²Â®Ð¿Â­ÐÒÂ¬ > dist1
 SINT DistBitRas(PBYTE r,SINT w,SINT h,     // b/w bitmap
 		 PCHAR wr,SINT ww,SINT wh,CHAR dist1,  // grey raster
 		 SINT xo,SINT yo,SINT bdist);
- // ¥áâì «¨ â®çª¨ ¢ wr  á ¢¥á®¬ > wei ­¥ ¢å®¤ïé¨¥ ¢ r
+ // ÒÐ±Ð²Ð¼ Â«Ð Ð²Â®Ð·Ð„Ð Ñž wr  Ð± ÑžÒÐ±Â®Â¬ > wei Â­Ò ÑžÐµÂ®Â¤Ð¿Ð¹ÐÒ Ñž r
 SINT DistRasBit(PBYTE r,SINT w,SINT h,     // b/w bitmap
 		 PCHAR wr,SINT ww,SINT wh,CHAR wei,  // grey raster
 		 SINT xo,SINT yo,SINT bdist);
@@ -286,13 +286,13 @@ void EndHausdorfDLL2(void)
 // use ExternBuf - if not NULL && SizeExternBuf > 0
 //  return > 0 - how many memory alloccated
 //
-LONG StartHausdorfDLL2(int num,void *ExternBuf,DWORD SizeExternBuf)
+LONG StartHausdorfDLL2(int num,void *ExternBuf, uint32_t SizeExternBuf)
 {
 LONG size=0;
 
 #ifdef _NONFLAT_
  IsRhHauBuf2=2;
- swel=(SWEL *)malloc((DWORD)num*sizeof(SWEL));
+ swel=(SWEL *)malloc(( uint32_t)num*sizeof(SWEL));
  if(swel==NULL) return -1;
 
  NumWelHau=0;
@@ -300,37 +300,37 @@ LONG size=0;
  WelHau[0]=(BYTE  *)malloc(SIZEBUF);  // take one segment
  if(WelHau[0]==NULL)	 return -1;
  MaxSizeBuf2=SIZEBUF;
- size=(DWORD)num*sizeof(SWEL)+SIZEBUF;
+ size=( uint32_t)num*sizeof(SWEL)+SIZEBUF;
 
 #else
  if(num <= 0) num=MAXWELSYM;
  if(ExternBuf == NULL)
  {
-  swel=(SWEL *)malloc((DWORD)MAXWELSYM*sizeof(SWEL)+(DWORD)SIZEBUF);
+  swel=(SWEL *)malloc((uint32_t)MAXWELSYM*sizeof(SWEL)+(uint32_t)SIZEBUF);
   if(swel==NULL) return -1;
   WelHau[0]=(BYTE *)swel;
-  WelHau[0]+=(DWORD)num*sizeof(SWEL);
+  WelHau[0]+=(uint32_t)num*sizeof(SWEL);
   IsRhHauBuf2=1;
-  MaxSizeBuf2=(DWORD)MAXWELSYM*sizeof(SWEL)+(DWORD)SIZEBUF-(DWORD)num*sizeof(SWEL);
-  size=(DWORD)MAXWELSYM*sizeof(SWEL)+(DWORD)SIZEBUF;
+  MaxSizeBuf2=(uint32_t)MAXWELSYM*sizeof(SWEL)+(uint32_t)SIZEBUF-(uint32_t)num*sizeof(SWEL);
+  size=(uint32_t)MAXWELSYM*sizeof(SWEL)+(uint32_t)SIZEBUF;
  }
- else if(SizeExternBuf >= (DWORD)num*sizeof(SWEL))
+ else if(SizeExternBuf >= (uint32_t)num*sizeof(SWEL))
   {
 	swel=(SWEL *)ExternBuf;
 	WelHau[0]=(BYTE *)swel;
-	WelHau[0]+=(DWORD)num*sizeof(SWEL);
-	MaxSizeBuf2=SizeExternBuf-(DWORD)num*sizeof(SWEL);
+        WelHau[0]+=(uint32_t)num*sizeof(SWEL);
+        MaxSizeBuf2=SizeExternBuf-(uint32_t)num*sizeof(SWEL);
 	IsRhHauBuf2=0;
 	size=0;
   }
  else  // use extern buffer for WelHau[0]
   {
-  swel=(SWEL *)malloc((DWORD)MAXWELSYM*sizeof(SWEL));
+  swel=(SWEL *)malloc((uint32_t)MAXWELSYM*sizeof(SWEL));
   if(swel==NULL) return -1;
   WelHau[0]=(BYTE *)ExternBuf;
   MaxSizeBuf2=SizeExternBuf;
   IsRhHauBuf2=1;
-  size=(DWORD)MAXWELSYM*sizeof(SWEL);
+  size=(uint32_t)MAXWELSYM*sizeof(SWEL);
   }
 #endif
 
@@ -776,7 +776,7 @@ SINT NumClus; // how many clusters
     }
 
      // was new memory allocated?
-  cin->memused +=(DWORD)(NumWelHau-1)*SIZEBUF;
+  cin->memused +=(uint32_t)(NumWelHau-1)*SIZEBUF;
   return NumClus;
 }
 /////////////
@@ -854,7 +854,7 @@ SINT AddClusterHausdorf(CHAR  *NameWr,CHAR  *szOutName,
 	}
 
       // full memory for b/w rasters
- size +=(DWORD)(NumHauBit-1)*SIZEBUF;
+ size +=(uint32_t)(NumHauBit-1)*SIZEBUF;
 
   // compare memory for weighted rasters and b/w rasters
  cin->memused=MAX(size,cin->memused);

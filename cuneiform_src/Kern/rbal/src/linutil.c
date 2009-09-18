@@ -1262,7 +1262,7 @@ INT def_upper_side(void)
 void tell_for_b3(INT hist_array[])
 {
   INT i;
-  DWORD NDisp,ON3;
+  uint32_t NDisp,ON3;
 
   stable_b3=FALSE;
 

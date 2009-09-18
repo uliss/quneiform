@@ -103,7 +103,7 @@ typedef struct tagGraphNode
 {
   WORD   prev;  //previous node in this path
   Weight weight;   //accrued weight to current node
-  DWORD  monitors; //rates of monitoring letters
+  uint32_t  monitors; //rates of monitoring letters
 // SVERS  vers;  //versions for segment from prev to current
 } GraphNode;
 
@@ -337,7 +337,7 @@ Weight      w;
 MatchWordPar param={0};
 int rc;
 
-param.monitors=*((DWORD*)points);
+param.monitors=*((uint32_t*)points);
 param.p2_active=1;  //call while p2 pass
 param.language=3;	// LANG_RUSSIAN
 
@@ -805,7 +805,7 @@ static Weight match(BYTE *word)
     GraphNode *layer=prev_layer;
     LONG imax,pmax=-1;
     BOOL rerecog=FALSE;
-    DWORD numbers=param->monitors;
+    uint32_t numbers=param->monitors;
     BYTE l1=(BYTE)(l+1);
     if (numbers)
       do
@@ -1202,10 +1202,10 @@ static Weight add_weight(Weight *w0, BYTE ro, BYTE nlet)
 
 static void add_monitors(LONG il, LONG ir, BYTE nlet, BYTE pb)
 {
-  DWORD numbers=param->monitors;
+  uint32_t numbers=param->monitors;
   if (numbers)
   {
-    DWORD monitors=prev_layer[il].monitors,p=pb;
+    uint32_t monitors=prev_layer[il].monitors,p=pb;
     do
     {
       if ((numbers & 0xFF)==nlet)
@@ -1313,7 +1313,7 @@ void test_match_cell_word(B_LINES *my_bases, INT cut_width)
   cell *wb=cell_f()->next,*we;
   MatchWordPar  param;
   CHAR wascii[80];
-  DWORD mon;
+  uint32_t mon;
 
   strcpy(mwInput,"");
   glsnap('a',wb,"match_word: input col for begin and last cell and string");

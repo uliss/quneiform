@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -59,8 +59,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //
 //
-//   Использовать
-//   Версии:     CImage.dll - 31 Jan 2000
+//   РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ
+//   Р’РµСЂСЃРёРё:     CImage.dll - 31 Jan 2000
 //               RDIB.dll   - 31 Jan 2000
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 #include "cricontrol.h"
@@ -136,7 +136,7 @@ Bool32 CRIControl::Binarise(PChar8 cDIBIn, PChar8 cDIBOut, Word32 wFlag, Word32 
 {
 	Bool32 Ret = TRUE;
 	CTBinarize bType = CTBIN_UNKNOWN;
-	// открываем исходный
+	// РѕС‚РєСЂС‹РІР°РµРј РёСЃС…РѕРґРЅС‹Р№
 	if ( !OpenSourceDIB(cDIBIn) )
 	{
 		return FALSE;
@@ -150,19 +150,19 @@ Bool32 CRIControl::Binarise(PChar8 cDIBIn, PChar8 cDIBOut, Word32 wFlag, Word32 
 		return FALSE;
     }
 		*/
-	// создаем новый
+	// СЃРѕР·РґР°РµРј РЅРѕРІС‹Р№
 	if ( ! CreateDestinatonDIB(1) )           // create DIB 1 bit per pixel
 	{
         CloseSourceDIB();
 		SetReturnCode_rimage(IDS_RIMAGE_CANNOT_CREATE_NEW_DIB);
 		return FALSE;
 	}
-	//открываем бинаризатор
+	//РѕС‚РєСЂС‹РІР°РµРј Р±РёРЅР°СЂРёР·Р°С‚РѕСЂ
 	if ( !mpBinarizator )
 	{
 		mpBinarizator = new CRIBinarizator(&mcProgress);
 	}
-	// закидываем туда картинки
+	// Р·Р°РєРёРґС‹РІР°РµРј С‚СѓРґР° РєР°СЂС‚РёРЅРєРё
 	if ( !mpBinarizator->SetRasters(mpSourceDIB, mpDestinationDIB) )
 	{
 		SetReturnCode_rimage(IDS_RIMAGE_CANNOT_SET_DIB);
@@ -177,20 +177,20 @@ Bool32 CRIControl::Binarise(PChar8 cDIBIn, PChar8 cDIBOut, Word32 wFlag, Word32 
 	{
 		bType = CTBIN_KRONROD;
 	}
-	// бинаризуем
+	// Р±РёРЅР°СЂРёР·СѓРµРј
 	if ( !mpBinarizator->Binarize(bType, wFlag) )
 	{
 		SetReturnCode_rimage(IDS_RIMAGE_CANT_BINARYZE);
 		Ret = FALSE;
 	}
-	//отписваем новый в контейнер и освобождаем
+	//РѕС‚РїРёСЃРІР°РµРј РЅРѕРІС‹Р№ РІ РєРѕРЅС‚РµР№РЅРµСЂ Рё РѕСЃРІРѕР±РѕР¶РґР°РµРј
 	if ( !CloseDestinationDIB(cDIBOut) )
 	{
 		SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
 		Ret = FALSE;
 	}
 
-	//закрываем исходный
+	//Р·Р°РєСЂС‹РІР°РµРј РёСЃС…РѕРґРЅС‹Р№
 	if ( !CloseSourceDIB() )
 	{
 		SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
@@ -205,7 +205,7 @@ Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, Int32 High, Int32 Low
 	Bool32 Ret = TRUE;
 	Bool32 NoDest = FALSE;
 
-	// открываем исходный
+	// РѕС‚РєСЂС‹РІР°РµРј РёСЃС…РѕРґРЅС‹Р№
 	if ( !OpenSourceDIB(cDIBIn) )
 	{
 		return FALSE;
@@ -219,20 +219,20 @@ Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, Int32 High, Int32 Low
 
 	mpDestinationDIB = new CTDIB;
 
-	//открываем вертелку
+	//РѕС‚РєСЂС‹РІР°РµРј РІРµСЂС‚РµР»РєСѓ
 	if ( !mpRotator )
 	{
 		mpRotator = new CRRotator(&mcProgress);
 	}
 
-	// забываем старое имя
+	// Р·Р°Р±С‹РІР°РµРј СЃС‚Р°СЂРѕРµ РёРјСЏ
 	mcLastDIBName[0] = 0x0;
 
 	if ( !mpRotator->Rotate(mpSourceDIB, mpDestinationDIB, High, Low) )
 	{
 		Word16 wRet = GetReturnCode_rimage();
-// !!! Art Изменил - теперь она заносит не хендлы, а указатели, а то память утекала
-//почему-то...
+// !!! Art РР·РјРµРЅРёР» - С‚РµРїРµСЂСЊ РѕРЅР° Р·Р°РЅРѕСЃРёС‚ РЅРµ С…РµРЅРґР»С‹, Р° СѓРєР°Р·Р°С‚РµР»Рё, Р° С‚Рѕ РїР°РјСЏС‚СЊ СѓС‚РµРєР°Р»Р°
+//РїРѕС‡РµРјСѓ-С‚Рѕ...
 		//		Handle hDIBtoSet;
 		PVOID  pDIBtoSet;
 
@@ -258,7 +258,7 @@ Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, Int32 High, Int32 Low
 		WriteDIBtoBMP("Allex.DIBAfterDeskew.bmp",mpDestinationDIB);
 	}
 
-	//отписваем новый в контейнер и освобождаем
+	//РѕС‚РїРёСЃРІР°РµРј РЅРѕРІС‹Р№ РІ РєРѕРЅС‚РµР№РЅРµСЂ Рё РѕСЃРІРѕР±РѕР¶РґР°РµРј
 	if ( !CloseDestinationDIB(cDIBOut) )
 	{
 		if ( NoDest == FALSE )
@@ -270,7 +270,7 @@ Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, Int32 High, Int32 Low
 
 	strcpy(mcLastDIBName, cDIBOut);
 
-	//закрываем исходный
+	//Р·Р°РєСЂС‹РІР°РµРј РёСЃС…РѕРґРЅС‹Р№
 	if ( !CloseSourceDIB() )
 	{
 		SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
@@ -298,7 +298,7 @@ Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, Word32 wFlag, Word32 Us
 		SetReturnCode_rimage(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
 		return FALSE;
 	}
-	// открываем исходный
+	// РѕС‚РєСЂС‹РІР°РµРј РёСЃС…РѕРґРЅС‹Р№
 	if ( !OpenSourceDIB(cDIBIn) )
 	{
 		return FALSE;
@@ -312,13 +312,13 @@ Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, Word32 wFlag, Word32 Us
 		return FALSE;
 	}
 	*/
-	//открываем вертелку
+	//РѕС‚РєСЂС‹РІР°РµРј РІРµСЂС‚РµР»РєСѓ
 	if ( !mpTurner )
 	{
 		mpTurner = new CRTurner;
 	}
 
-	// генерим новенький
+	// РіРµРЅРµСЂРёРј РЅРѕРІРµРЅСЊРєРёР№
 	if ( mpDestinationDIB )
 	{
 		SetReturnCode_rimage(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
@@ -341,7 +341,7 @@ Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, Word32 wFlag, Word32 Us
 
 
 
-	// вертим
+	// РІРµСЂС‚РёРј
 	/*
 	if ( !(mp_TurnedDIB = mpTurner->TurnDIB(pSDIB, wFlag)) )
 	{
@@ -351,7 +351,7 @@ Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, Word32 wFlag, Word32 Us
 	*/
 
 	/*
-	//отписваем новый в контейнер и освобождаем
+	//РѕС‚РїРёСЃРІР°РµРј РЅРѕРІС‹Р№ РІ РєРѕРЅС‚РµР№РЅРµСЂ Рё РѕСЃРІРѕР±РѕР¶РґР°РµРј
 	if ( !WriteDIB(cDIBOutt, mp_TurnedDIB) )
 	{
 		SetReturnCode_rimage(IDS_RIMAGE_UNABLE_WRITE_DIB);
@@ -366,13 +366,13 @@ Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, Word32 wFlag, Word32 Us
 
 	mp_TurnedDIB = NULL;
 	*/
-	//отписваем новый в контейнер и освобождаем
+	//РѕС‚РїРёСЃРІР°РµРј РЅРѕРІС‹Р№ РІ РєРѕРЅС‚РµР№РЅРµСЂ Рё РѕСЃРІРѕР±РѕР¶РґР°РµРј
 	if ( !CloseDestinationDIB(cDIBOut) )
 	{
 		SetReturnCode_rimage(IDS_RIMAGE_CANNT_SAVE_OUTCOMING_DIB);
 		bRet = FALSE;
 	}
-	//закрываем исходный
+	//Р·Р°РєСЂС‹РІР°РµРј РёСЃС…РѕРґРЅС‹Р№
 	if ( !CloseSourceDIB() )
 	{
 		SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
@@ -385,27 +385,27 @@ Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, Word32 wFlag, Word32 Us
 Bool32 CRIControl::Inverse(PChar8  cDIBIn, PChar8  cDIBOut, Word32 UseMargins)
 {
 	Bool32    bErrors = TRUE;
-	// копируем из исходного DIB в обрабатываемый
-	// получаем заполненный mpDescinationDIB и пустой mpSourceDIB
+	// РєРѕРїРёСЂСѓРµРј РёР· РёСЃС…РѕРґРЅРѕРіРѕ DIB РІ РѕР±СЂР°Р±Р°С‚С‹РІР°РµРјС‹Р№
+	// РїРѕР»СѓС‡Р°РµРј Р·Р°РїРѕР»РЅРµРЅРЅС‹Р№ mpDescinationDIB Рё РїСѓСЃС‚РѕР№ mpSourceDIB
 	if ( !OpenDestinationDIBfromSource( cDIBIn ) )
 	{
 		return FALSE;
 	}
 
-	//открываем инвертор
+	//РѕС‚РєСЂС‹РІР°РµРј РёРЅРІРµСЂС‚РѕСЂ
 	if ( !mpInvertor )
 	{
 		mpInvertor = new CRInvertor;
 	}
 
-	// Инвертируем
+	// РРЅРІРµСЂС‚РёСЂСѓРµРј
 	if ( !mpInvertor->Inverse(mpDestinationDIB) )
 	{
 		SetReturnCode_rimage(IDS_RIMAGE_CANNOT_INVERT_IMAGE);
 		bErrors = FALSE;
 	}
 
-	//отписваем новый в контейнер и освобождаем
+	//РѕС‚РїРёСЃРІР°РµРј РЅРѕРІС‹Р№ РІ РєРѕРЅС‚РµР№РЅРµСЂ Рё РѕСЃРІРѕР±РѕР¶РґР°РµРј
 	if ( !SetDestinationDIBtoStorage(cDIBOut) )
 	{
 		SetReturnCode_rimage(IDS_RIMAGE_UNABLE_WRITE_DIB);
@@ -415,10 +415,10 @@ Bool32 CRIControl::Inverse(PChar8  cDIBIn, PChar8  cDIBOut, Word32 UseMargins)
 	return bErrors;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-// взять без копировыания
+// РІР·СЏС‚СЊ Р±РµР· РєРѕРїРёСЂРѕРІС‹Р°РЅРёСЏ
 Bool32 CRIControl::GetDIB(PChar8  cDIB, PHandle phDIB)
 {
-	// берем с копированием, что б маска была!
+	// Р±РµСЂРµРј СЃ РєРѕРїРёСЂРѕРІР°РЅРёРµРј, С‡С‚Рѕ Р± РјР°СЃРєР° Р±С‹Р»Р°!
 	if ( CIMAGE_ReadDIB((PWord8)cDIB, phDIB, TRUE) )
 		return TRUE;
 
@@ -427,7 +427,7 @@ Bool32 CRIControl::GetDIB(PChar8  cDIB, PHandle phDIB)
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-// положить без копировыания
+// РїРѕР»РѕР¶РёС‚СЊ Р±РµР· РєРѕРїРёСЂРѕРІС‹Р°РЅРёСЏ
 Bool32 CRIControl::SetDIB(PChar8  cDIB, Handle hDIB)
 {
 	if ( CIMAGE_WriteDIB((PWord8)cDIB, hDIB, TRUE) )
@@ -437,7 +437,7 @@ Bool32 CRIControl::SetDIB(PChar8  cDIB, Handle hDIB)
 	return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-// положитьь c копировыанием
+// РїРѕР»РѕР¶РёС‚СЊСЊ c РєРѕРїРёСЂРѕРІС‹Р°РЅРёРµРј
 Bool32 CRIControl::WriteDIB(PChar8  cDIB, Handle hDIB)
 {
 	if ( CIMAGE_WriteDIB((PWord8)cDIB, hDIB, FALSE) )
@@ -447,7 +447,7 @@ Bool32 CRIControl::WriteDIB(PChar8  cDIB, Handle hDIB)
 	return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-// взять с копировыанием
+// РІР·СЏС‚СЊ СЃ РєРѕРїРёСЂРѕРІС‹Р°РЅРёРµРј
 Bool32 CRIControl::ReadDIB(PChar8  cDIB, PHandle phDIB)
 {
 	if ( CIMAGE_ReadDIB((PWord8)cDIB, phDIB, FALSE) )
@@ -511,7 +511,7 @@ Bool32 CRIControl::OpenSourceDIB(PChar8  cDIBName)
 	return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Создаем временный DIB куда отпишем, что получили
+//РЎРѕР·РґР°РµРј РІСЂРµРјРµРЅРЅС‹Р№ DIB РєСѓРґР° РѕС‚РїРёС€РµРј, С‡С‚Рѕ РїРѕР»СѓС‡РёР»Рё
 Bool32 CRIControl::CloseDestinationDIB(PChar8  cDIBName)
 {
 	Handle hDIB = NULL;
@@ -668,7 +668,7 @@ Bool32 CRIControl::SetDestinationDIBtoStorage(PChar8  cDIBName)
 	{
 		return CloseDestinationDIB(cDIBName);
 	}
-	// записывваем в блок выделеный в CIMAGE при открытии
+	// Р·Р°РїРёСЃС‹РІРІР°РµРј РІ Р±Р»РѕРє РІС‹РґРµР»РµРЅС‹Р№ РІ CIMAGE РїСЂРё РѕС‚РєСЂС‹С‚РёРё
 	if ( mpDestinationDIB == NULL )
 		return FALSE;
 
@@ -699,7 +699,7 @@ Bool32 CRIControl::Roll(PChar8 cDIBIn, PChar8 cDIBOut, Int32 Num, Int32 Denum, W
 {
 	Bool32 Ret = TRUE;
 
-	// открываем исходный
+	// РѕС‚РєСЂС‹РІР°РµРј РёСЃС…РѕРґРЅС‹Р№
 	if ( !OpenSourceDIB(cDIBIn) )
 	{
 		return FALSE;
@@ -712,7 +712,7 @@ Bool32 CRIControl::Roll(PChar8 cDIBIn, PChar8 cDIBOut, Int32 Num, Int32 Denum, W
 	}
 	mpDestinationDIB = new CTDIB;
 
-	//открываем вертелку
+	//РѕС‚РєСЂС‹РІР°РµРј РІРµСЂС‚РµР»РєСѓ
 	if ( !mpRotator )
 	{
 		mpRotator = new CRRotator;
@@ -724,14 +724,14 @@ Bool32 CRIControl::Roll(PChar8 cDIBIn, PChar8 cDIBOut, Int32 Num, Int32 Denum, W
 		Ret = FALSE;
 	}
 
-	//отписваем новый в контейнер и освобождаем
+	//РѕС‚РїРёСЃРІР°РµРј РЅРѕРІС‹Р№ РІ РєРѕРЅС‚РµР№РЅРµСЂ Рё РѕСЃРІРѕР±РѕР¶РґР°РµРј
 	if ( !CloseDestinationDIB(cDIBOut) )
 	{
 		SetReturnCode_rimage(IDS_RIMAGE_CANNT_SAVE_OUTCOMING_DIB);
 		Ret = FALSE;
 	}
 
-	//закрываем исходный
+	//Р·Р°РєСЂС‹РІР°РµРј РёСЃС…РѕРґРЅС‹Р№
 	if ( !CloseSourceDIB() )
 	{
 		SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);

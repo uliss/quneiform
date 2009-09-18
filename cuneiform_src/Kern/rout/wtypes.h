@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -196,11 +196,6 @@ typedef long LONG;
 typedef UINT WPARAM;
 
 #endif // _WPARAM_DEFINED
-#ifndef _DWORD_DEFINED
-#define _DWORD_DEFINED
-typedef unsigned long DWORD;
-
-#endif // !_DWORD_DEFINED
 #ifndef _LPARAM_DEFINED
 #define _LPARAM_DEFINED
 typedef LONG LPARAM;
@@ -255,7 +250,7 @@ typedef WORD __RPC_FAR *LPWORD;
 #endif // !_LPWORD_DEFINED
 #ifndef _LPDWORD_DEFINED
 #define _LPDWORD_DEFINED
-typedef DWORD __RPC_FAR *LPDWORD;
+typedef uint32_t __RPC_FAR *LPDWORD;
 
 #endif // !_LPDWORD_DEFINED
 typedef char CHAR;
@@ -312,12 +307,12 @@ typedef struct tagLOGPALETTE {
 #endif
 #ifndef _COLORREF_DEFINED
 #define _COLORREF_DEFINED
-typedef DWORD COLORREF;
+typedef uint32_t COLORREF;
 
 #endif // !_COLORREF_DEFINED
 #ifndef _LPCOLORREF_DEFINED
 #define _LPCOLORREF_DEFINED
-typedef DWORD __RPC_FAR *LPCOLORREF;
+typedef uint32_t __RPC_FAR *LPCOLORREF;
 
 #endif // !_LPCOLORREF_DEFINED
 typedef HANDLE __RPC_FAR *LPHANDLE;
@@ -428,8 +423,6 @@ typedef short SHORT;
 
 typedef unsigned short USHORT;
 
-typedef DWORD ULONG;
-
 typedef double DOUBLE;
 
 #ifndef _DWORDLONG_
@@ -467,8 +460,8 @@ typedef struct  _ULARGE_INTEGER
 #define _FILETIME_
 typedef struct  _FILETIME
     {
-    DWORD dwLowDateTime;
-    DWORD dwHighDateTime;
+uint32_t dwLowDateTime;
+uint32_t dwHighDateTime;
     }	FILETIME;
 
 typedef struct _FILETIME __RPC_FAR *PFILETIME;
@@ -499,7 +492,7 @@ typedef struct _SYSTEMTIME __RPC_FAR *LPSYSTEMTIME;
 #define _SECURITY_ATTRIBUTES_
 typedef struct  _SECURITY_ATTRIBUTES
     {
-    DWORD nLength;
+uint32_t nLength;
     /* [size_is] */ LPVOID lpSecurityDescriptor;
     BOOL bInheritHandle;
     }	SECURITY_ATTRIBUTES;
@@ -550,18 +543,18 @@ typedef struct  _COAUTHIDENTITY
     ULONG DomainLength;
     /* [size_is] */ USHORT __RPC_FAR *Password;
     ULONG PasswordLength;
-    ULONG Flags;
+    ulong Flags;
     }	COAUTHIDENTITY;
 
 typedef struct  _COAUTHINFO
     {
-    DWORD dwAuthnSvc;
-    DWORD dwAuthzSvc;
+uint32_t dwAuthnSvc;
+uint32_t dwAuthzSvc;
     LPWSTR pwszServerPrincName;
-    DWORD dwAuthnLevel;
-    DWORD dwImpersonationLevel;
+uint32_t dwAuthnLevel;
+uint32_t dwImpersonationLevel;
     COAUTHIDENTITY __RPC_FAR *pAuthIdentityData;
-    DWORD dwCapabilities;
+uint32_t dwCapabilities;
     }	COAUTHINFO;
 
 typedef LONG SCODE;
@@ -577,7 +570,7 @@ typedef SCODE __RPC_FAR *PSCODE;
 #define GUID_DEFINED
 typedef struct  _GUID
     {
-    DWORD Data1;
+uint32_t Data1;
     WORD Data2;
     WORD Data3;
     BYTE Data4[ 8 ];
@@ -747,7 +740,7 @@ typedef /* [context_handle] */ void __RPC_FAR *HCONTEXT;
 
 #ifndef _LCID_DEFINED
 #define _LCID_DEFINED
-typedef DWORD LCID;
+typedef uint32_t LCID;
 
 #endif // !_LCID_DEFINED
 typedef struct  _BYTE_BLOB
@@ -825,7 +818,7 @@ typedef struct  _userCLIPFORMAT
     long fContext;
     /* [switch_is] */ /* [switch_type] */ union __MIDL_IWinTypes_0001
         {
-        /* [case()] */ DWORD dwValue;
+        /* [case()] */ uint32_t dwValue;
         /* [case()][string] */ wchar_t __RPC_FAR *pwszName;
         }	u;
     }	userCLIPFORMAT;
@@ -906,7 +899,7 @@ typedef struct  _userBITMAP
     LONG bmWidthBytes;
     WORD bmPlanes;
     WORD bmBitsPixel;
-    ULONG cbSize;
+    ulong cbSize;
     /* [size_is] */ byte pBuffer[ 1 ];
     }	userBITMAP;
 
@@ -1017,7 +1010,7 @@ typedef struct  tagMSG
     UINT message;
     WPARAM wParam;
     LPARAM lParam;
-    DWORD time;
+uint32_t time;
     POINT pt;
     }	MSG;
 
@@ -1111,7 +1104,7 @@ typedef struct  tagDEC
     USHORT wReserved;
     BYTE scale;
     BYTE sign;
-    ULONG Hi32;
+    ulong Hi32;
     ULONGLONG Lo64;
     }	DECIMAL;
 
@@ -1126,15 +1119,15 @@ typedef struct tagDEC {
         };
         USHORT signscale;
     };
-    ULONG Hi32;
+    ulong Hi32;
     union {
         struct {
 #ifdef _MAC
-            ULONG Mid32;
-            ULONG Lo32;
+            ulong Mid32;
+            ulong Lo32;
 #else
-            ULONG Lo32;
-            ULONG Mid32;
+            ulong Lo32;
+            ulong Mid32;
 #endif
         };
         ULONGLONG Lo64;
@@ -1175,7 +1168,7 @@ typedef boolean BOOLEAN;
 #define _tagBSTRBLOB_DEFINED
 typedef struct  tagBSTRBLOB
     {
-    ULONG cbSize;
+    ulong cbSize;
     /* [size_is] */ BYTE __RPC_FAR *pData;
     }	BSTRBLOB;
 
@@ -1190,7 +1183,7 @@ typedef struct tagBSTRBLOB __RPC_FAR *LPBSTRBLOB;
 #define _LPBLOB_DEFINED
 typedef struct  tagBLOB
     {
-    ULONG cbSize;
+    ulong cbSize;
     /* [size_is] */ BYTE __RPC_FAR *pBlobData;
     }	BLOB;
 
@@ -1199,7 +1192,7 @@ typedef struct tagBLOB __RPC_FAR *LPBLOB;
 #endif
 typedef struct  tagCLIPDATA
     {
-    ULONG cbSize;
+    ulong cbSize;
     long ulClipFmt;
     /* [size_is] */ BYTE __RPC_FAR *pClipData;
     }	CLIPDATA;
@@ -1315,7 +1308,7 @@ enum VARENUM
 	VT_ILLEGALMASKED	= 0xfff,
 	VT_TYPEMASK	= 0xfff
     };
-typedef ULONG PROPID;
+typedef ulong PROPID;
 
 #ifndef SID_IDENTIFIER_AUTHORITY_DEFINED
 #define SID_IDENTIFIER_AUTHORITY_DEFINED
@@ -1344,19 +1337,19 @@ typedef GUID APPID;
 
 typedef struct  tagCSPLATFORM
     {
-    DWORD dwPlatformId;
-    DWORD dwVersionHi;
-    DWORD dwVersionLo;
-    DWORD dwProcessorArch;
+uint32_t dwPlatformId;
+uint32_t dwVersionHi;
+uint32_t dwVersionLo;
+uint32_t dwProcessorArch;
     }	CSPLATFORM;
 
 typedef struct  tagQUERYCONTEXT
     {
-    DWORD dwContext;
+uint32_t dwContext;
     CSPLATFORM Platform;
     LCID Locale;
-    DWORD dwVersionHi;
-    DWORD dwVersionLo;
+uint32_t dwVersionHi;
+uint32_t dwVersionLo;
     }	QUERYCONTEXT;
 
 typedef /* [v1_enum] */
@@ -1374,7 +1367,7 @@ enum tagTYSPEC
 
 typedef /* [public] */ struct  __MIDL___MIDL_itf_wtypes_0001_0001
     {
-    DWORD tyspec;
+uint32_t tyspec;
     /* [switch_is] */ /* [switch_type] */ union __MIDL___MIDL_itf_wtypes_0001_0003
         {
         /* [case()] */ CLSID clsid;
@@ -1429,11 +1422,11 @@ enum _CLASSPATHTYPE
 typedef struct  tagAPPDETAIL
     {
     GUID AppID;
-    DWORD cClasses;
+uint32_t cClasses;
     /* [size_is] */ CLSID __RPC_FAR *prgClsIdList;
-    DWORD cTypeLibIds;
+uint32_t cTypeLibIds;
     /* [size_is] */ CLSID __RPC_FAR *prgTypeLibIdList;
-    DWORD cServers;
+uint32_t cServers;
     /* [size_is] */ LPOLESTR __RPC_FAR *prgServerNames;
     }	APPDETAIL;
 
@@ -1443,17 +1436,17 @@ typedef struct  tagPACKAGEDETAIL
     LPOLESTR pszPath;
     LPOLESTR pszIconPath;
     LPOLESTR pszSetupCommand;
-    DWORD dwActFlags;
+uint32_t dwActFlags;
     LPOLESTR pszVendor;
     LPOLESTR pszPackageName;
     LPOLESTR pszProductName;
-    DWORD dwContext;
+uint32_t dwContext;
     CSPLATFORM Platform;
     LCID Locale;
-    DWORD dwVersionHi;
-    DWORD dwVersionLo;
+uint32_t dwVersionHi;
+uint32_t dwVersionLo;
     ULONGLONG Usn;
-    DWORD cApps;
+uint32_t cApps;
     /* [size_is] */ APPDETAIL __RPC_FAR *pAppDetail;
     }	PACKAGEDETAIL;
 
@@ -1461,7 +1454,7 @@ typedef struct  tagPACKAGEINFO
     {
     LPOLESTR pszClassIconPath;
     CLSID __RPC_FAR *pTreatAsClsid;
-    DWORD cPackages;
+uint32_t cPackages;
     /* [size_is] */ PACKAGEDETAIL __RPC_FAR *pPackageDetail;
     }	PACKAGEINFO;
 

@@ -88,319 +88,319 @@ static  char    alphabet1[256];
 
 void set_alphabet(unsigned char *alpha,unsigned char *letters)
 {
-memset(alpha,0,256);
+    memset(alpha,0,256);
 
-while( *letters )
+    while( *letters )
     {
         alpha[ *letters++ ] = 1;
     }
-return;
+    return;
 }
 
 static void print_method(FILE *fp,RecVersions *res,char *s,int ansi)
 {
-int ii;
-fprintf(fp,s);
-if( !res->lnAltCnt )
+    int ii;
+    fprintf(fp,s);
+    if( !res->lnAltCnt )
     {
-    fprintf(fp,"-\n");
+        fprintf(fp,"-\n");
+        return;
+    }
+    fprintf(fp,"%c(%d)",ansi?stdAnsiToAscii(res->Alt[0].Code):res->Alt[0].Code,res->Alt[0].Prob);
+    for(ii=1;ii<res->lnAltCnt;ii++)
+    {
+        fprintf(fp,",%c(%d)",ansi?stdAnsiToAscii(res->Alt[ii].Code):res->Alt[ii].Code,res->Alt[ii].Prob);
+    }
+    fprintf(fp,"\n");
     return;
-    }
-fprintf(fp,"%c(%d)",ansi?stdAnsiToAscii(res->Alt[0].Code):res->Alt[0].Code,res->Alt[0].Prob);
-for(ii=1;ii<res->lnAltCnt;ii++)
-    {
-    fprintf(fp,",%c(%d)",ansi?stdAnsiToAscii(res->Alt[ii].Code):res->Alt[ii].Code,res->Alt[ii].Prob);
-    }
-fprintf(fp,"\n");
-return;
 }
 
 Bool32 TestFontProtocol(void)
- {
- #ifdef _USE_LEO_
- Int32          name;
- int            i; //,j;
- int            nClust;
- int            numCourier,nC;
- FILE          *fp;
- LeoFieldSetup  fs={0};
- RecRaster   rec;
- RecObject   ro={0};
- LeoPageSetup ps={0};
- int jj;
+{
+#ifdef _USE_LEO_
+    Int32          name;
+    int            i; //,j;
+    int            nClust;
+    int            numCourier,nC;
+    FILE          *fp;
+    LeoFieldSetup  fs={0};
+    RecRaster   rec;
+    RecObject   ro={0};
+    LeoPageSetup ps={0};
+    int jj;
 
- if( _access("c:\\met.ini",0)==-1 )
-    return FALSE;
+    if( _access("c:\\met.ini",0)==-1 )
+        return FALSE;
 
-  nClust=FONGetClustCount();
+    nClust=FONGetClustCount();
 
-  set_alphabet(alphabet1, alpha_str);
+    set_alphabet(alphabet1, alpha_str);
 
-  LEOSetPlatform(586);
-  fs.nStyle = LS_PRINT;
-  memcpy(fs.AlphaTable,alphabet1,256);
-  LEOSetupField(&fs);
-  CTB_unlink("CLUST2");
+    LEOSetPlatform(586);
+    fs.nStyle = LS_PRINT;
+    memcpy(fs.AlphaTable,alphabet1,256);
+    LEOSetupField(&fs);
+    CTB_unlink("CLUST2");
 
-fp=fopen(".\\clu_met.pro","wt");
-for(i=0,nC=numCourier=0;i<nClust;i++)
-  {
-  for(jj=0;jj<3;jj++)
+    fp=fopen(".\\clu_met.pro","wt");
+    for(i=0,nC=numCourier=0;i<nClust;i++)
+    {
+        for(jj=0;jj<3;jj++)
         {
-        name=0;
-        FONGetClusterAsBW(&name,i,jj*25,&rec);
-        CTB_AddRecRaster("CLUST2", &rec,decode_ASCII_to_[name][0]);
-        memset(&ro,0,sizeof(RecObject));
-        memcpy(&ro.recData.recRaster,&rec,REC_MAX_RASTER_SIZE);
-        ps.nIdPage=-1;
-        ro.recData.lwStatus=0;
-        LEOSetupPage(&ps);
-        fprintf(fp,"Nclu=%d(%d) let=%c tresh=%d%s\n",i,i*3+jj, name, jj,jj?"":"(default)" );
+            name=0;
+            FONGetClusterAsBW(&name,i,jj*25,&rec);
+            CTB_AddRecRaster("CLUST2", &rec,decode_ASCII_to_[name][0]);
+            memset(&ro,0,sizeof(RecObject));
+            memcpy(&ro.recData.recRaster,&rec,REC_MAX_RASTER_SIZE);
+            ps.nIdPage=-1;
+            ro.recData.lwStatus=0;
+            LEOSetupPage(&ps);
+            fprintf(fp,"Nclu=%d(%d) let=%c tresh=%d%s\n",i,i*3+jj, name, jj,jj?"":"(default)" );
 
-        LEORecogPrintChar(&ro);
-        print_method(fp,&ro.recResults,"         leo : ",1);
+            LEORecogPrintChar(&ro);
+            print_method(fp,&ro.recResults,"         leo : ",1);
 
 
-        LEORecogPrnMethod( &ro , REC_METHOD_MSK, 1);
-        print_method(fp,&ro.recResults,"         msk : ",0);
+            LEORecogPrnMethod( &ro , REC_METHOD_MSK, 1);
+            print_method(fp,&ro.recResults,"         msk : ",0);
 
-        LEORecogCharDebug( &ro );
-        print_method(fp,&ro.recResults,"     evn+3x5 : ",1);
+            LEORecogCharDebug( &ro );
+            print_method(fp,&ro.recResults,"     evn+3x5 : ",1);
         } // end treshold
-    fprintf(fp,"\n");
+        fprintf(fp,"\n");
     }   // end clusters
 
-fclose(fp);
+    fclose(fp);
 #endif
-return TRUE;
+    return TRUE;
 }
 ////////////////
 Bool32 TestFontCourier(void)
- {
- #ifdef _USE_LEO_
- Word8          p;
- Int32          name;
- RecRaster      recRast;
- int            i,j;
- int            nClust;
- int            porog=0; // test !!!
- int            numCourier,nC;
+{
+#ifdef _USE_LEO_
+    Word8          p;
+    Int32          name;
+    RecRaster      recRast;
+    int            i,j;
+    int            nClust;
+    int            porog=0; // test !!!
+    int            numCourier,nC;
 
- RecVersions    MSKres;
- ClustInfo      clustinfo;
- Int32          nf=FONGetFontCount();
+    RecVersions    MSKres;
+    ClustInfo      clustinfo;
+    Int32          nf=FONGetFontCount();
 
-  if( nf<1 || nf>2)
-    return FALSE;
-  nClust=FONGetClustCount();
-  if(nClust < 20 )
-    return FALSE;
+    if( nf<1 || nf>2)
+        return FALSE;
+    nClust=FONGetClustCount();
+    if(nClust < 20 )
+        return FALSE;
 
-  if(!HndTab)
-     return FALSE;
-  MSKSetAlphabet  ( alphabet );
+    if(!HndTab)
+        return FALSE;
+    MSKSetAlphabet  ( alphabet );
 
-  for(i=0,nC=numCourier=0;i<nClust;i++)
-  {
-   name=0;
-   j=FONGetClusterAsBW(&name,i,porog,&recRast);
-   if(j<0)
-        continue;
-
-   if( name>'9' && name<128 )
-        continue;
-   clustinfo.let = 0;  // from all clusters
-   FONGetClustInfo( &clustinfo, i+1 );
-   if( clustinfo.weight<3 )
-        continue;
-   if(0)
-    CTB_AddRecRaster("CLUST2", &recRast,decode_ASCII_to_[name][0]);
-   MSKres.lnAltCnt=2;
-   MSKres.lnAltMax=REC_MAX_VERS;
-   MSKres.Alt[0].Code=(Word8)to_upper((Word8)name);
-   MSKres.Alt[0].Prob=255;
-   MSKres.Alt[1].Code=(Word8)to_lower((Word8)name);
-   MSKres.Alt[1].Prob=255;
-
-   if(!MSKRecogCharExp( HndTab, &recRast,       &MSKres )  )
+    for(i=0,nC=numCourier=0;i<nClust;i++)
+    {
+        name=0;
+        j=FONGetClusterAsBW(&name,i,porog,&recRast);
+        if(j<0)
             continue;
-   p = MAX(MSKres.Alt[0].Prob,MSKres.Alt[1].Prob);
-   if( p> 150)
-       numCourier++;
-    nC++;
-  }
 
-  if(numCourier*3 > nC*2)
-    return TRUE;
+        if( name>'9' && name<128 )
+            continue;
+        clustinfo.let = 0;  // from all clusters
+        FONGetClustInfo( &clustinfo, i+1 );
+        if( clustinfo.weight<3 )
+            continue;
+        if(0)
+            CTB_AddRecRaster("CLUST2", &recRast,decode_ASCII_to_[name][0]);
+        MSKres.lnAltCnt=2;
+        MSKres.lnAltMax=REC_MAX_VERS;
+        MSKres.Alt[0].Code=(Word8)to_upper((Word8)name);
+        MSKres.Alt[0].Prob=255;
+        MSKres.Alt[1].Code=(Word8)to_lower((Word8)name);
+        MSKres.Alt[1].Prob=255;
+
+        if(!MSKRecogCharExp( HndTab, &recRast,       &MSKres )  )
+            continue;
+        p = MAX(MSKres.Alt[0].Prob,MSKres.Alt[1].Prob);
+        if( p> 150)
+            numCourier++;
+        nC++;
+    }
+
+    if(numCourier*3 > nC*2)
+        return TRUE;
 #endif
-  return FALSE;
+    return FALSE;
 }
 ////////////////////////
 static int curNumFile=0;
 static Word8 hasNearSame[]="\xa7\xed";  // зэ
 static Word8 NearSame[]="\xed\xa7";     // эз
 Int32 TestFontClusters(void)
- {
- #ifdef _USE_LEO_
- Int32          name;
- int            i,j;
- int            nClust;
- int            porog=50; // test !!!
- int            numInvalid;
+{
+#ifdef _USE_LEO_
+    Int32          name;
+    int            i,j;
+    int            nClust;
+    int            porog=50; // test !!!
+    int            numInvalid;
 
- LeoFieldSetup  fs={0};
- RecRaster   rec;
- RecObject   ro={0};
- LeoPageSetup ps={0};
- ClustInfo cluInfo;
- Word8 addLet,resLet;
-
-#ifdef _SAVE_INVALID_CLU_
- FILE          *fp;
-#endif
-
-  curNumFile++;
-
-  nClust=FONGetClustCount();
-  set_alphabet(alphabet1, alpha_str);
+    LeoFieldSetup  fs={0};
+    RecRaster   rec;
+    RecObject   ro={0};
+    LeoPageSetup ps={0};
+    ClustInfo cluInfo;
+    Word8 addLet,resLet;
 
 #ifdef _SAVE_INVALID_CLU_
-  fp=fopen("clust.tst","at");
-  fprintf(fp,"file %d\n",curNumFile);
+    FILE          *fp;
 #endif
 
-  LEOSetPlatform(LEOGetCPU());
-  fs.nStyle = LS_PRINT;
-  memcpy(fs.AlphaTable,alphabet1,256);
-  LEOSetupField(&fs);
+    curNumFile++;
 
-  for(i=0,numInvalid=0;i<nClust;i++)
-  {
-    cluInfo.let = 0;
-    j=FONGetClustInfo(&cluInfo,i+1);
-    if(j<=0)
-         continue;
+    nClust=FONGetClustCount();
+    set_alphabet(alphabet1, alpha_str);
+
+#ifdef _SAVE_INVALID_CLU_
+    fp=fopen("clust.tst","at");
+    fprintf(fp,"file %d\n",curNumFile);
+#endif
+
+    LEOSetPlatform(LEOGetCPU());
+    fs.nStyle = LS_PRINT;
+    memcpy(fs.AlphaTable,alphabet1,256);
+    LEOSetupField(&fs);
+
+    for(i=0,numInvalid=0;i<nClust;i++)
+    {
+        cluInfo.let = 0;
+        j=FONGetClustInfo(&cluInfo,i+1);
+        if(j<=0)
+            continue;
 
         if(cluInfo.attr & CTB_PRINT_ITALIC)
-                 continue;
+            continue;
 
         if(cluInfo.attr & CTB_PRINT_BOLD)
-                 continue;
+            continue;
 
         // now - test only russian ASCII letters
         if(cluInfo.let < 128 ||
            cluInfo.let >= 176 && cluInfo.let < 224 ||
            cluInfo.let > 240
            )
-           continue;
+            continue;
 
         addLet=(cluInfo.let < 144 ? cluInfo.let +32 :
                 cluInfo.let < 160 ? cluInfo.let +80 :
                 cluInfo.let < 176 ? cluInfo.let -32 :
                 cluInfo.let - 80
-               );
+                );
 
 
-    name=0;
-    FONGetClusterAsBW(&name,i,porog,&rec);
+        name=0;
+        FONGetClusterAsBW(&name,i,porog,&rec);
 
-    memset(&ro,0,sizeof(RecObject));
+        memset(&ro,0,sizeof(RecObject));
         memcpy(&ro.recData.recRaster,&rec,sizeof(RecRaster));
-    ps.nIdPage=-1;
-    ro.recData.lwStatus=0;
-    LEOSetupPage(&ps);
+        ps.nIdPage=-1;
+        ro.recData.lwStatus=0;
+        LEOSetupPage(&ps);
 
-    LEORecogPrintChar(&ro);
+        LEORecogPrintChar(&ro);
 
-    // ничего хорошего по LEO ?
-    if( ro.recResults.lnAltCnt <= 0 ||
-        ro.recResults.Alt[0].Prob < 150
-      )
-          continue;
+        // ничего хорошего по LEO ?
+        if( ro.recResults.lnAltCnt <= 0 ||
+            ro.recResults.Alt[0].Prob < 150
+            )
+            continue;
 
-    for(j=0;j<ro.recResults.lnAltCnt;j++)
+        for(j=0;j<ro.recResults.lnAltCnt;j++)
         {
-         resLet = stdAnsiToAscii(ro.recResults.Alt[j].Code);
+            resLet = stdAnsiToAscii(ro.recResults.Alt[j].Code);
 
-         if( resLet == cluInfo.let ||
-             resLet == addLet )
-                 break;
+            if( resLet == cluInfo.let ||
+                resLet == addLet )
+                break;
         }
 
-    if(j==0)
+        if(j==0)
+            continue;
+
+        { char *qq;
+
+            resLet = stdAnsiToAscii(ro.recResults.Alt[0].Code);
+            if( !is_lower(resLet) )
+                resLet =  to_lower(resLet);
+            if( (qq=strchr(hasNearSame,cluInfo.let)) &&
+                NearSame[qq-(char*)hasNearSame] == resLet
+                )
                 continue;
-
-	{ char *qq;
-
-	  resLet = stdAnsiToAscii(ro.recResults.Alt[0].Code);
-	  if( !is_lower(resLet) )
-               resLet =  to_lower(resLet);
-	  if( (qq=strchr(hasNearSame,cluInfo.let)) &&
-		  NearSame[qq-(char*)hasNearSame] == resLet
-		)
-		continue;
-	}
+        }
 
         // узналось как что-то иное ?
         // если совсем не распозналось - бывает ('»' в sten91)
-     if( j >= ro.recResults.lnAltCnt ||
-         ro.recResults.Alt[j].Prob < 180 ||
-         ro.recResults.Alt[j].Prob < 220 &&
-         ro.recResults.Alt[j].Prob + 25 < ro.recResults.Alt[0].Prob
-       )
-     {
-     FonTestInfo testInfo[MAXCHECKALT];
+        if( j >= ro.recResults.lnAltCnt ||
+            ro.recResults.Alt[j].Prob < 180 ||
+            ro.recResults.Alt[j].Prob < 220 &&
+            ro.recResults.Alt[j].Prob + 25 < ro.recResults.Alt[0].Prob
+            )
+        {
+            FonTestInfo testInfo[MAXCHECKALT];
 
-         // проверим
-     resLet = stdAnsiToAscii(ro.recResults.Alt[0].Code);
-     j=FONTestChar(&rec,resLet,testInfo,0);
+            // проверим
+            resLet = stdAnsiToAscii(ro.recResults.Alt[0].Code);
+            j=FONTestChar(&rec,resLet,testInfo,0);
 
-     if( j <=0 || testInfo[0].prob <= 215 )
-         {
-        resLet=(resLet < 144 ? resLet +32 :
-                resLet < 160 ? resLet +80 :
-                resLet < 176 ? resLet -32 :
-                resLet - 80
-               );
-        j=FONTestChar(&rec,resLet,testInfo,0);
-         }
+            if( j <=0 || testInfo[0].prob <= 215 )
+            {
+                resLet=(resLet < 144 ? resLet +32 :
+                        resLet < 160 ? resLet +80 :
+                        resLet < 176 ? resLet -32 :
+                        resLet - 80
+                        );
+                j=FONTestChar(&rec,resLet,testInfo,0);
+            }
 
-      if( j > 0 && testInfo[0].prob > 215 )
-      {
-       numInvalid++;
-       FONSetClusterInvalid(i+1);
+            if( j > 0 && testInfo[0].prob > 215 )
+            {
+                numInvalid++;
+                FONSetClusterInvalid(i+1);
 #ifdef _SAVE_INVALID_CLU_
-          fprintf(fp,"    invalid %d (%c -> %c(%d))\n",i+1,cluInfo.let,
-                 stdAnsiToAscii(ro.recResults.Alt[0].Code),
-                 ro.recResults.Alt[0].Prob);
+                fprintf(fp,"    invalid %d (%c -> %c(%d))\n",i+1,cluInfo.let,
+                        stdAnsiToAscii(ro.recResults.Alt[0].Code),
+                        ro.recResults.Alt[0].Prob);
 #endif
-      }
-	 } // end if j
+            }
+        } // end if j
 
-  }   // end clusters
+    }   // end clusters
 
 
 
 #ifdef _SAVE_INVALID_CLU_
- fclose(fp);
+    fclose(fp);
 #endif
 
- return numInvalid;
+    return numInvalid;
 #else
- return 0;
+    return 0;
 #endif
 }
 ////////////////
 
 Bool32 RecogLEOcap(RecRaster *Rs,Word8 Language,RecVersions *Vs)
- {
- #ifdef _USE_LEO_
- LeoFieldSetup  fs={0};
- RecObject      ro={0};
- LeoPageSetup   ps={0};
- char    *      alpha;
+{
+#ifdef _USE_LEO_
+    LeoFieldSetup  fs={0};
+    RecObject      ro={0};
+    LeoPageSetup   ps={0};
+    char    *      alpha;
 
- switch(Language)
+    switch(Language)
     {
     case LANG_RUSSIAN:
         alpha = alpha_str_cap;
@@ -413,68 +413,68 @@ Bool32 RecogLEOcap(RecRaster *Rs,Word8 Language,RecVersions *Vs)
         break;
     }
 
-  set_alphabet(alphabet1, alpha);
+    set_alphabet(alphabet1, alpha);
 
-  LEOSetPlatform(586);
-  fs.nStyle = LS_PRINT;
-  memcpy(fs.AlphaTable,alphabet1,256);
-  LEOSetupField(&fs);
+    LEOSetPlatform(586);
+    fs.nStyle = LS_PRINT;
+    memcpy(fs.AlphaTable,alphabet1,256);
+    LEOSetupField(&fs);
 
-        memset(&ro,0,sizeof(RecObject));
-        memcpy(&ro.recData.recRaster,Rs,REC_MAX_RASTER_SIZE);
-        ps.nIdPage=-1;
-        ro.recData.lwStatus=0;
-        LEOSetupPage(&ps);
+    memset(&ro,0,sizeof(RecObject));
+    memcpy(&ro.recData.recRaster,Rs,REC_MAX_RASTER_SIZE);
+    ps.nIdPage=-1;
+    ro.recData.lwStatus=0;
+    LEOSetupPage(&ps);
 
-        LEORecogPrintChar(&ro);
-        memcpy(Vs,&ro.recResults,sizeof(RecVersions));
+    LEORecogPrintChar(&ro);
+    memcpy(Vs,&ro.recResults,sizeof(RecVersions));
 #endif
-return TRUE;
+    return TRUE;
 }
 
 Bool32 RecogLEO(RecRaster *Rs,Word8 Language,UniVersions *Us)
- {
- #ifdef _USE_LEO_
- LeoFieldSetup  fs={0};
- RecObject      ro={0};
- LeoPageSetup   ps={0};
- char    *      alpha;
- Word8          c, cw;
- Int32          i, up=-1;
+{
+#ifdef _USE_LEO_
+    LeoFieldSetup  fs={0};
+    RecObject      ro={0};
+    LeoPageSetup   ps={0};
+    char    *      alpha;
+    Word8          c, cw;
+    Int32          i, up=-1;
 
 
-  alpha = alpha_str;
-  set_alphabet(alphabet1, alpha);
+    alpha = alpha_str;
+    set_alphabet(alphabet1, alpha);
 
-  LEOSetPlatform(586);
-  fs.nStyle = LS_PRINT;
-  memcpy(fs.AlphaTable,alphabet1,256);
-  LEOSetupField(&fs);
+    LEOSetPlatform(586);
+    fs.nStyle = LS_PRINT;
+    memcpy(fs.AlphaTable,alphabet1,256);
+    LEOSetupField(&fs);
 
-        memset(&ro,0,sizeof(RecObject));
-        memcpy(&ro.recData.recRaster,Rs,REC_MAX_RASTER_SIZE);
-        ps.nIdPage=-1;
-        ro.recData.lwStatus=0;
-        LEOSetupPage(&ps);
+    memset(&ro,0,sizeof(RecObject));
+    memcpy(&ro.recData.recRaster,Rs,REC_MAX_RASTER_SIZE);
+    ps.nIdPage=-1;
+    ro.recData.lwStatus=0;
+    LEOSetupPage(&ps);
 
-        LEORecogPrintChar(&ro);
-//        memcpy(Vs,&ro.recResults,sizeof(RecVersions));
-        if( Us->lnAltCnt )
-            {
-            c = Us->Alt[0].Liga     ;
-            if( is_upper(c) )
-                up=1;
-            else  if( is_lower(c) )
-                up=0;
-            }
-        Us->lnAltCnt=ro.recResults.lnAltCnt;
-        Us->lnAltMax=REC_MAX_VERS;
+    LEORecogPrintChar(&ro);
+    //        memcpy(Vs,&ro.recResults,sizeof(RecVersions));
+    if( Us->lnAltCnt )
+    {
+        c = Us->Alt[0].Liga     ;
+        if( is_upper(c) )
+            up=1;
+        else  if( is_lower(c) )
+            up=0;
+    }
+    Us->lnAltCnt=ro.recResults.lnAltCnt;
+    Us->lnAltMax=REC_MAX_VERS;
 
-        for(i=0;i<ro.recResults.lnAltCnt;i++)
-            {
-            c  = stdAnsiToAscii( ro.recResults.Alt[i].Code);
-            switch( up )
-                {
+    for(i=0;i<ro.recResults.lnAltCnt;i++)
+    {
+        c  = stdAnsiToAscii( ro.recResults.Alt[i].Code);
+        switch( up )
+        {
                 case    1: // upper
                     c=to_upper(c);
                     break;
@@ -484,33 +484,33 @@ Bool32 RecogLEO(RecRaster *Rs,Word8 Language,UniVersions *Us)
                 default:
                     break;
                 }
-            cw = stdAsciiToAnsi( c );
-            Us->Alt[i].Code[0]=cw;
-            Us->Alt[i].Code[1]=0;
-            Us->Alt[i].Liga=c;
-            Us->Alt[i].Charset=CSTR_RUSSIAN_CHARSET;
-            Us->Alt[i].Method =REC_METHOD_LEO;
-            Us->Alt[i].Prob   = ro.recResults.Alt[i].Prob ;
-            }
+        cw = stdAsciiToAnsi( c );
+        Us->Alt[i].Code[0]=cw;
+        Us->Alt[i].Code[1]=0;
+        Us->Alt[i].Liga=c;
+        Us->Alt[i].Charset=CSTR_RUSSIAN_CHARSET;
+        Us->Alt[i].Method =REC_METHOD_LEO;
+        Us->Alt[i].Prob   = ro.recResults.Alt[i].Prob ;
+    }
 #endif
-return TRUE;
+    return TRUE;
 }
 
 Bool32  p2_msk_init()
 {
 #ifdef _USE_MSK_
-HndTab=MSKInit( NULL, "rec4cour.dat");
-HndTabInc=MSKInit( NULL, "rec4inc.dat");
+    HndTab = MSKInit( NULL, "rec4cour.dat");
+    HndTabInc = MSKInit( NULL, "rec4inc.dat");
 #endif
-return HndTab;
+    return HndTab;
 }
 
 void    p2_msk_done(void)
 {
 #ifdef _USE_MSK_
-MSKDone();
+    MSKDone();
 #endif
-return;
+    return;
 }
 
 #define MIN_MSK_PROB        207
@@ -519,61 +519,61 @@ static char similar_letters[]="ҐВУгСбОЃАпЂ";
 Bool32   p2_msk_inc(CSTR_rast    rst)
 {
 #ifdef _USE_MSK_
-Word8       prob=0, name, lim, code;
-RecRaster   rc;
-RecVersions ver;
-Int32       i;
+    Word8       prob=0, name, lim, code;
+    RecRaster   rc;
+    RecVersions ver;
+    Int32       i;
 
-if(!HndTabInc )
-     return 0;
-if(language!=LANG_RUSSIAN && language!=LANG_RUSENG )
-     return 0;
-CSTR_GetImage(rst,(Word8*)&rc,CSTR_TYPE_IMAGE_RS);
-if( !rc.lnPixHeight || !rc.lnPixWidth )
-     return 0;
-MSKSetAlphabet  ( alphabet );
+    if(!HndTabInc )
+        return 0;
+    if(language!=LANG_RUSSIAN && language!=LANG_RUSENG )
+        return 0;
+    CSTR_GetImage(rst,(Word8*)&rc,CSTR_TYPE_IMAGE_RS);
+    if( !rc.lnPixHeight || !rc.lnPixWidth )
+        return 0;
+    MSKSetAlphabet  ( alphabet );
 
-CSTR_GetCollection(rst,&ver);
-ver.lnAltCnt=2;
-ver.lnAltMax=REC_MAX_VERS;
-name = ver.Alt[0].Code;
-ver.Alt[0].Code=(Word8)to_upper((Word8)name);
-ver.Alt[0].Prob=255;
-ver.Alt[1].Code=(Word8)to_lower((Word8)name);
-ver.Alt[1].Prob=255;
-if( name=='0' )
+    CSTR_GetCollection(rst,&ver);
+    ver.lnAltCnt=2;
+    ver.lnAltMax=REC_MAX_VERS;
+    name = ver.Alt[0].Code;
+    ver.Alt[0].Code=(Word8)to_upper((Word8)name);
+    ver.Alt[0].Prob=255;
+    ver.Alt[1].Code=(Word8)to_lower((Word8)name);
+    ver.Alt[1].Prob=255;
+    if( name=='0' )
     {
-    ver.Alt[1].Code=(Word8)'О';
-    ver.Alt[2].Code=(Word8)'Ѓ';
-    ver.Alt[2].Prob=255;
-    ver.lnAltCnt=3;
+        ver.Alt[1].Code=(Word8)'О';
+        ver.Alt[2].Code=(Word8)'Ѓ';
+        ver.Alt[2].Prob=255;
+        ver.lnAltCnt=3;
     }
-if( name=='3' )
+    if( name=='3' )
     {
-    ver.Alt[1].Code=(Word8)'З';
-    ver.Alt[2].Code=(Word8)'І';
-    ver.Alt[2].Prob=255;
-    ver.lnAltCnt=3;
+        ver.Alt[1].Code=(Word8)'З';
+        ver.Alt[2].Code=(Word8)'І';
+        ver.Alt[2].Prob=255;
+        ver.lnAltCnt=3;
     }
-if( !MSKRecogCharExpPuma( HndTabInc, &rc, &ver,1 ) )
-    return 0;
-if( !ver.lnAltCnt )
-    return 0;
+    if( !MSKRecogCharExpPuma( HndTabInc, &rc, &ver,1 ) )
+        return 0;
+    if( !ver.lnAltCnt )
+        return 0;
 
-for(prob=0, i=0;i<ver.lnAltCnt;i++)
+    for(prob=0, i=0;i<ver.lnAltCnt;i++)
     {
-    if( prob<ver.Alt[i].Prob)
+        if( prob<ver.Alt[i].Prob)
         {
-        prob=ver.Alt[i].Prob ;
-        code=ver.Alt[i].Code;
+            prob=ver.Alt[i].Prob ;
+            code=ver.Alt[i].Code;
         }
     }
-lim = MIN_MSK_PROB;
-if( strchr(similar_letters,code) )
-    lim = MIN_MSK_PROB_SIM;
-return (prob>lim);
+    lim = MIN_MSK_PROB;
+    if( strchr(similar_letters,code) )
+        lim = MIN_MSK_PROB_SIM;
+    return (prob>lim);
 #else
-return FALSE;
+    return FALSE;
 #endif
 }
 
@@ -585,27 +585,27 @@ Bool32 RecogLEO_SetAlphabet(char *letters)
 }
 
 Bool32 RecogLEOall(RecRaster *Rs,RecVersions *Us,Int32 nType)
- {
- #ifdef _USE_LEO_
- LeoFieldSetup  fs={0};
- RecObject      ro={0};
- LeoPageSetup   ps={0};
+{
+#ifdef _USE_LEO_
+    LeoFieldSetup  fs={0};
+    RecObject      ro={0};
+    LeoPageSetup   ps={0};
 
-  fs.nStyle = LS_PRINT;
-  memcpy(fs.AlphaTable,alphabet1,256);
-  LEOSetupField(&fs);
-  memset(&ro,0,sizeof(RecObject));
-  memcpy(&ro.recData.recRaster,Rs,REC_MAX_RASTER_SIZE);
-  ps.nIdPage=-1;
-  ro.recData.lwStatus=0;
-  LEOSetupPage(&ps);
+    fs.nStyle = LS_PRINT;
+    memcpy(fs.AlphaTable,alphabet1,256);
+    LEOSetupField(&fs);
+    memset(&ro,0,sizeof(RecObject));
+    memcpy(&ro.recData.recRaster,Rs,REC_MAX_RASTER_SIZE);
+    ps.nIdPage=-1;
+    ro.recData.lwStatus=0;
+    LEOSetupPage(&ps);
 
-  if( nType==0 )
-  {
-      LEORecogPrintChar(&ro);
-  }
+    if( nType==0 )
+    {
+        LEORecogPrintChar(&ro);
+    }
 
-  *Us=ro.recResults;
+    *Us=ro.recResults;
 #endif
-return TRUE;
+    return TRUE;
 }

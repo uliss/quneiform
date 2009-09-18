@@ -1,59 +1,58 @@
 /*
-Copyright (c) 1993-2008, Cognitive Technologies
-All rights reserved.
+ Copyright (c) 1993-2008, Cognitive Technologies
+ All rights reserved.
 
-Ðàçðåøàåòñÿ ïîâòîðíîå ðàñïðîñòðàíåíèå è èñïîëüçîâàíèå êàê â âèäå èñõîäíîãî êîäà,
-òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
+ Ð Ð°Ð·Ñ€ÐµÑˆÐ°ÐµÑ‚ÑÑ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ Ð¸ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸Ðµ ÐºÐ°Ðº Ð² Ð²Ð¸Ð´Ðµ Ð¸ÑÑ…Ð¾Ð´Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð°,
+ Ñ‚Ð°Ðº Ð¸ Ð² Ð´Ð²Ð¾Ð¸Ñ‡Ð½Ð¾Ð¹ Ñ„Ð¾Ñ€Ð¼Ðµ, Ñ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸ÑÐ¼Ð¸ Ð¸Ð»Ð¸ Ð±ÐµÐ·, Ð¿Ñ€Ð¸ ÑÐ¾Ð±Ð»ÑŽÐ´ÐµÐ½Ð¸Ð¸ ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ñ… ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹:
 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
-        îòêàç îò ãàðàíòèé.
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
-        äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
-        óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
-        ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ.
+ * ÐŸÑ€Ð¸ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ð¼ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸ Ð¸ÑÑ…Ð¾Ð´Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð° Ð´Ð¾Ð»Ð¶Ð½Ñ‹ Ð¾ÑÑ‚Ð°Ð²Ð°Ñ‚ÑŒÑÑ ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð¾Ðµ
+ Ð²Ñ‹ÑˆÐµ ÑƒÐ²ÐµÐ´Ð¾Ð¼Ð»ÐµÐ½Ð¸Ðµ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÑ‚Ð¾Ñ‚ ÑÐ¿Ð¸ÑÐ¾Ðº ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹ Ð¸ Ð¿Ð¾ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹
+ Ð¾Ñ‚ÐºÐ°Ð· Ð¾Ñ‚ Ð³Ð°Ñ€Ð°Ð½Ñ‚Ð¸Ð¹.
+ * ÐŸÑ€Ð¸ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ð¼ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸ Ð´Ð²Ð¾Ð¸Ñ‡Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð° Ð² Ð´Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ð°Ñ†Ð¸Ð¸ Ð¸/Ð¸Ð»Ð¸ Ð²
+ Ð´Ñ€ÑƒÐ³Ð¸Ñ… Ð¼Ð°Ñ‚ÐµÑ€Ð¸Ð°Ð»Ð°Ñ…, Ð¿Ð¾ÑÑ‚Ð°Ð²Ð»ÑÐµÐ¼Ñ‹Ñ… Ð¿Ñ€Ð¸ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸, Ð´Ð¾Ð»Ð¶Ð½Ñ‹ ÑÐ¾Ñ…Ñ€Ð°Ð½ÑÑ‚ÑŒÑÑ
+ ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð°Ñ Ð²Ñ‹ÑˆÐµ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ñ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÑ‚Ð¾Ñ‚ ÑÐ¿Ð¸ÑÐ¾Ðº ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹ Ð¸
+ Ð¿Ð¾ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹ Ð¾Ñ‚ÐºÐ°Ð· Ð¾Ñ‚ Ð³Ð°Ñ€Ð°Ð½Ñ‚Ð¸Ð¹.
+ * ÐÐ¸ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ Cognitive Technologies, Ð½Ð¸ Ð¸Ð¼ÐµÐ½Ð° ÐµÐµ ÑÐ¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸ÐºÐ¾Ð² Ð½Ðµ Ð¼Ð¾Ð³ÑƒÑ‚
+ Ð±Ñ‹Ñ‚ÑŒ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ñ‹ Ð² ÐºÐ°Ñ‡ÐµÑÑ‚Ð²Ðµ ÑÑ€ÐµÐ´ÑÑ‚Ð²Ð° Ð¿Ð¾Ð´Ð´ÐµÑ€Ð¶ÐºÐ¸ Ð¸/Ð¸Ð»Ð¸ Ð¿Ñ€Ð¾Ð´Ð²Ð¸Ð¶ÐµÐ½Ð¸Ñ
+ Ð¿Ñ€Ð¾Ð´ÑƒÐºÑ‚Ð¾Ð², Ð¾ÑÐ½Ð¾Ð²Ð°Ð½Ð½Ñ‹Ñ… Ð½Ð° ÑÑ‚Ð¾Ð¼ ÐŸÐž, Ð±ÐµÐ· Ð¿Ñ€ÐµÐ´Ð²Ð°Ñ€Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ð³Ð¾ Ð¿Ð¸ÑÑŒÐ¼ÐµÐ½Ð½Ð¾Ð³Ð¾
+ Ñ€Ð°Ð·Ñ€ÐµÑˆÐµÐ½Ð¸Ñ.
 
-ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
-ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
-ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
+ Ð­Ð¢Ð ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ ÐŸÐ Ð•Ð”ÐžÐ¡Ð¢ÐÐ’Ð›Ð•ÐÐ Ð’Ð›ÐÐ”Ð•Ð›Ð¬Ð¦ÐÐœÐ˜ ÐÐ’Ð¢ÐžÐ Ð¡ÐšÐ˜Ð¥ ÐŸÐ ÐÐ’ Ð˜/Ð˜Ð›Ð˜ Ð”Ð Ð£Ð“Ð˜ÐœÐ˜ Ð›Ð˜Ð¦ÐÐœÐ˜ "ÐšÐÐš
+ ÐžÐÐ Ð•Ð¡Ð¢Ð¬" Ð‘Ð•Ð— ÐšÐÐšÐžÐ“Ðž-Ð›Ð˜Ð‘Ðž Ð’Ð˜Ð”Ð Ð“ÐÐ ÐÐÐ¢Ð˜Ð™, Ð’Ð«Ð ÐÐ–Ð•ÐÐÐ«Ð¥ Ð¯Ð’ÐÐž Ð˜Ð›Ð˜ ÐŸÐžÐ”Ð ÐÐ—Ð£ÐœÐ•Ð’ÐÐ•ÐœÐ«Ð¥,
+ Ð’ÐšÐ›Ð®Ð§ÐÐ¯ Ð“ÐÐ ÐÐÐ¢Ð˜Ð˜ ÐšÐžÐœÐœÐ•Ð Ð§Ð•Ð¡ÐšÐžÐ™ Ð¦Ð•ÐÐÐžÐ¡Ð¢Ð˜ Ð˜ ÐŸÐ Ð˜Ð“ÐžÐ”ÐÐžÐ¡Ð¢Ð˜ Ð”Ð›Ð¯ ÐšÐžÐÐšÐ Ð•Ð¢ÐÐžÐ™ Ð¦Ð•Ð›Ð˜, ÐÐž ÐÐ•
+ ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð˜ÐœÐ˜. ÐÐ˜ Ð’Ð›ÐÐ”Ð•Ð›Ð•Ð¦ ÐÐ’Ð¢ÐžÐ Ð¡ÐšÐ˜Ð¥ ÐŸÐ ÐÐ’ Ð˜ ÐÐ˜ ÐžÐ”ÐÐž Ð”Ð Ð£Ð“ÐžÐ• Ð›Ð˜Ð¦Ðž, ÐšÐžÐ¢ÐžÐ ÐžÐ•
+ ÐœÐžÐ–Ð•Ð¢ Ð˜Ð—ÐœÐ•ÐÐ¯Ð¢Ð¬ Ð˜/Ð˜Ð›Ð˜ ÐŸÐžÐ’Ð¢ÐžÐ ÐÐž Ð ÐÐ¡ÐŸÐ ÐžÐ¡Ð¢Ð ÐÐÐ¯Ð¢Ð¬ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ£, ÐÐ˜ Ð’ ÐšÐžÐ•Ðœ Ð¡Ð›Ð£Ð§ÐÐ• ÐÐ•
+ ÐÐ•Ð¡ÐÐ¢ ÐžÐ¢Ð’Ð•Ð¢Ð¡Ð¢Ð’Ð•ÐÐÐžÐ¡Ð¢Ð˜, Ð’ÐšÐ›Ð®Ð§ÐÐ¯ Ð›Ð®Ð‘Ð«Ð• ÐžÐ‘Ð©Ð˜Ð•, Ð¡Ð›Ð£Ð§ÐÐ™ÐÐ«Ð•, Ð¡ÐŸÐ•Ð¦Ð˜ÐÐ›Ð¬ÐÐ«Ð• Ð˜Ð›Ð˜
+ ÐŸÐžÐ¡Ð›Ð•Ð”ÐžÐ’ÐÐ’Ð¨Ð˜Ð• Ð£Ð‘Ð«Ð¢ÐšÐ˜, Ð¡Ð’Ð¯Ð—ÐÐÐÐ«Ð• Ð¡ Ð˜Ð¡ÐŸÐžÐ›Ð¬Ð—ÐžÐ’ÐÐÐ˜Ð•Ðœ Ð˜Ð›Ð˜ ÐŸÐžÐÐ•Ð¡Ð•ÐÐÐ«Ð• Ð’Ð¡Ð›Ð•Ð”Ð¡Ð¢Ð’Ð˜Ð•
+ ÐÐ•Ð’ÐžÐ—ÐœÐžÐ–ÐÐžÐ¡Ð¢Ð˜ Ð˜Ð¡ÐŸÐžÐ›Ð¬Ð—ÐžÐ’ÐÐÐ˜Ð¯ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ« (Ð’ÐšÐ›Ð®Ð§ÐÐ¯ ÐŸÐžÐ¢Ð•Ð Ð˜ Ð”ÐÐÐÐ«Ð¥, Ð˜Ð›Ð˜ Ð”ÐÐÐÐ«Ð•,
+ Ð¡Ð¢ÐÐ’Ð¨Ð˜Ð• ÐÐ•Ð“ÐžÐ”ÐÐ«ÐœÐ˜, Ð˜Ð›Ð˜ Ð£Ð‘Ð«Ð¢ÐšÐ˜ Ð˜/Ð˜Ð›Ð˜ ÐŸÐžÐ¢Ð•Ð Ð˜ Ð”ÐžÐ¥ÐžÐ”ÐžÐ’, ÐŸÐžÐÐ•Ð¡Ð•ÐÐÐ«Ð• Ð˜Ð—-Ð—Ð Ð”Ð•Ð™Ð¡Ð¢Ð’Ð˜Ð™
+ Ð¢Ð Ð•Ð¢Ð¬Ð˜Ð¥ Ð›Ð˜Ð¦ Ð˜/Ð˜Ð›Ð˜ ÐžÐ¢ÐšÐÐ—Ð ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ« Ð ÐÐ‘ÐžÐ¢ÐÐ¢Ð¬ Ð¡ÐžÐ’ÐœÐ•Ð¡Ð¢ÐÐž Ð¡ Ð”Ð Ð£Ð“Ð˜ÐœÐ˜ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐÐœÐ˜,
+ ÐÐž ÐÐ• ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð­Ð¢Ð˜ÐœÐ˜ Ð¡Ð›Ð£Ð§ÐÐ¯ÐœÐ˜), ÐÐž ÐÐ• ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð˜ÐœÐ˜, Ð”ÐÐ–Ð• Ð•Ð¡Ð›Ð˜ Ð¢ÐÐšÐžÐ™
+ Ð’Ð›ÐÐ”Ð•Ð›Ð•Ð¦ Ð˜Ð›Ð˜ Ð”Ð Ð£Ð“ÐžÐ• Ð›Ð˜Ð¦Ðž Ð‘Ð«Ð›Ð˜ Ð˜Ð—Ð’Ð•Ð©Ð•ÐÐ« Ðž Ð’ÐžÐ—ÐœÐžÐ–ÐÐžÐ¡Ð¢Ð˜ Ð¢ÐÐšÐ˜Ð¥ Ð£Ð‘Ð«Ð¢ÐšÐžÐ’ Ð˜ ÐŸÐžÐ¢Ð•Ð Ð¬.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
 
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation
-      and/or other materials provided with the distribution.
-    * Neither the name of the Cognitive Technologies nor the names of its
-      contributors may be used to endorse or promote products derived from this
-      software without specific prior written permission.
+ * Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ * Neither the name of the Cognitive Technologies nor the names of its
+ contributors may be used to endorse or promote products derived from this
+ software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 /****************************************************************************/
 /*****                        S P E L L E R                             *****/
@@ -66,158 +65,148 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "nt_types.h"
 
 #if _MSC_VER > 1000
-   #pragma once
+#pragma once
 #endif // _MSC_VER > 1000
-
 /*** TG_SPELL ***/
 
-  LONG read_all_file(PSTR name,CHAR  *buff);                                      /* atal  .lib */
-  LONG write_all_file(PSTR name,CHAR *,DWORD size);
+LONG read_all_file(PSTR name, CHAR *buff); /* atal  .lib */
+LONG write_all_file(PSTR name, CHAR *, uint32_t size);
 /*** SPELABC  ***/
 
-  void  initcode(void);
-  void  initstdn(void);
-  BYTE   _2cap ( BYTE c);
-  BYTE   _2low ( BYTE c);
-  void   dectable_init(void);
-  BOOL  InitializeAlphabet (INT CountryCode);
-  BOOL  IsVowel(BYTE c);
+void initcode(void);
+void initstdn(void);
+BYTE _2cap(BYTE c);
+BYTE _2low(BYTE c);
+void dectable_init(void);
+BOOL InitializeAlphabet(INT CountryCode);
+BOOL IsVowel(BYTE c);
 
 /*** SPELSPEC ***/
 
-  BYTE  * load_specABC (BYTE  *point, INT Country);
-  INT          check_art_dict (CHAR word[], INT * wordlth, INT * vockind);
-  INT           test_apppostrof (BYTE word[],SWORD *wrd, INT *l, INT *r);
+BYTE * load_specABC(BYTE *point, INT Country);
+INT check_art_dict(CHAR word[], INT * wordlth, INT * vockind);
+INT test_apppostrof(BYTE word[], SWORD *wrd, INT *l, INT *r);
 
 /*** SPELLFUN ***/
 
-
-  INT   setwrd (SOBJ *,LTIMG **);
-  INT   setimg (SOBJ *, LTIMG *);
-  INT   setdef (LTIMG *, LTIMG **, INT *);
-  INT   nextwrd (SOBJ *, LTIMG **);
-  INT   check_compound ( SOBJ *, LTIMG **,
-             struct dict_state *, user_voc *,INT );
-  INT   check_dict_voc (SOBJ *, LTIMG **,  struct dict_state *,
-            user_voc *,INT );
-  INT   prtobj (SOBJ *, INT, INT);
-  INT   prtwrd (SOBJ *, SWORD *, INT, INT);
-  INT   symcode(CHAR  *);
-  INT   findpart(SOBJ*,SPART [],INT,INT, INT *);
-  INT   findparte ( SPART *,INT, INT, INT*);
-  INT   getstdn (CHAR  *);
+INT setwrd(SOBJ *, LTIMG **);
+INT setimg(SOBJ *, LTIMG *);
+INT setdef(LTIMG *, LTIMG **, INT *);
+INT nextwrd(SOBJ *, LTIMG **);
+INT check_compound(SOBJ *, LTIMG **, struct dict_state *, user_voc *, INT);
+INT check_dict_voc(SOBJ *, LTIMG **, struct dict_state *, user_voc *, INT);
+INT prtobj(SOBJ *, INT, INT);
+INT prtwrd(SOBJ *, SWORD *, INT, INT);
+INT symcode(CHAR *);
+INT findpart(SOBJ*, SPART[], INT, INT, INT *);
+INT findparte(SPART *, INT, INT, INT*);
+INT getstdn(CHAR *);
 
 /*** SPELLCHK ***/
 
-  INT   selectopt (SOBJ *, SPART[]);
-  INT   checkpart(SOBJ*);
-  INT   checkobj (SOBJ *);
-  INT   checkwrd (SOBJ *);
-  INT   selectwrd (SOBJ *, LTIMG **);
-  INT   selectpart (SOBJ *);
-  INT   selectobj  (SOBJ *, INT, SPART[]);
-  INT   CheckContext ( SOBJ *obj, LTIMG *wrddef[], INT lth);
+INT selectopt(SOBJ *, SPART[]);
+INT checkpart(SOBJ*);
+INT checkobj(SOBJ *);
+INT checkwrd(SOBJ *);
+INT selectwrd(SOBJ *, LTIMG **);
+INT selectpart(SOBJ *);
+INT selectobj(SOBJ *, INT, SPART[]);
+INT CheckContext(SOBJ *obj, LTIMG *wrddef[], INT lth);
 
 /*** SPELLART ***/
 
-  INT   wordchange(SOBJ*);
-  INT   partspec(SOBJ *, SPART[]);
-  INT   partgc (SOBJ *, SPART[]);
-  INT   partbrk(SOBJ*,SPART[]);
-  INT   init_specpos (SOBJ*);
-  BOOL loadArtBase(INT);
+INT wordchange(SOBJ*);
+INT partspec(SOBJ *, SPART[]);
+INT partgc(SOBJ *, SPART[]);
+INT partbrk(SOBJ*, SPART[]);
+INT init_specpos(SOBJ*);
+BOOL loadArtBase(INT);
 
 /*** SPELLSET ***/
 
-  INT   genwrd (SOBJ*);
-  INT   readobj(INT status,SOBJ *);
-  void  genobj (SOBJ *);
-  INT   setpart (SOBJ *, SPART[]);
-  INT   genpart (SOBJ *);
+INT genwrd(SOBJ*);
+INT readobj(INT status, SOBJ *);
+void genobj(SOBJ *);
+INT setpart(SOBJ *, SPART[]);
+INT genpart(SOBJ *);
 
 /*** SPELLOUT ***/
 
-  CHAR  * find_byte_flag(void);
-  INT           outobj (SOBJ *, SPART *);
-  INT           setobj_blue (SOBJ *);
-  INT           setpart_blue(SOBJ *obj,INT beg, INT end);
-  INT           outpos_exch (SOBJ * obj, INT pos, INT anew);
+CHAR * find_byte_flag(void);
+INT outobj(SOBJ *, SPART *);
+INT setobj_blue(SOBJ *);
+INT setpart_blue(SOBJ *obj, INT beg, INT end);
+INT outpos_exch(SOBJ * obj, INT pos, INT anew);
 
 /*** STATDICT ***/
 
-  INT search (KEYTYPE *word, INT *wordsize, LTIMG * wrddef[],
-	     struct dict_state  * dict );
+INT search(KEYTYPE *word, INT *wordsize, LTIMG * wrddef[],
+		struct dict_state * dict);
 
 /*** EDFORMAT ***/
 
-   INT    begin(BYTE batch_run);
-   struct segm * next_line( CHAR tt, struct segm  *cur_segm );
-   void   skip_letter_in_line(struct segm  *segm_ptr,INT x);
-   void   shift(CHAR dir,INT v_s,struct segm *cur_segm,
-              CHAR *cur_symb);
-   INT    test_spare_space(struct segm * segm,INT need_size);
-   INT    load_fragm(void);
-   INT    insert_symb(struct segm *, CHAR *,LT *);
-   INT    processEdSymb (void);
-   void  puff_last_segm(void);
+INT begin(BYTE batch_run);
+struct segm * next_line(CHAR tt, struct segm *cur_segm);
+void skip_letter_in_line(struct segm *segm_ptr, INT x);
+void shift(CHAR dir, INT v_s, struct segm *cur_segm, CHAR *cur_symb);
+INT test_spare_space(struct segm * segm, INT need_size);
+INT load_fragm(void);
+INT insert_symb(struct segm *, CHAR *, LT *);
+INT processEdSymb(void);
+void puff_last_segm(void);
 
 /*** NEXT_SYM ***/
 
- BYTE  * next_symb (INT i, INT j, INT k,
-                          struct segm  *cur_segm,
-                          BYTE  * cur_symb);
- void          create_new_stack(void);
- INT           check_free_mem(void);
+BYTE * next_symb(INT i, INT j, INT k, struct segm *cur_segm, BYTE * cur_symb);
+void create_new_stack(void);
+INT check_free_mem(void);
 
 /*** FINDWORD ***/
 
-   INT    findstat(INT *,LTIMG **,struct dict_state *);
+INT findstat(INT *, LTIMG **, struct dict_state *);
 
 /*** FINDVOC  ***/
 
-    INT    look_through_voc(INT * currw,LTIMG * wrddef[],
-			     voc_state * voc,INT vocmode,
-			     INT incr,WTOKEN  *  * wtoken);
+INT look_through_voc(INT * currw, LTIMG * wrddef[], voc_state * voc,
+		INT vocmode, INT incr, WTOKEN * * wtoken);
 
 /***   VOC    ***/
 
-   INT  voc_init(voc_state*);
-   void voc_open(voc_state*);
-   INT  voc_(voc_state *voc,LTIMG **wrddef,
-            INT *lth, INT weight,INT mode ,WTOKEN  *  *wtoken);
+INT voc_init(voc_state*);
+void voc_open(voc_state*);
+INT voc_(voc_state *voc, LTIMG **wrddef, INT *lth, INT weight, INT mode,
+		WTOKEN * *wtoken);
 
 /*** IN_TREEI ***/
 
-  void init_stat_dict(struct dict_state *);/* in_treei.c */
+void init_stat_dict(struct dict_state *);/* in_treei.c */
 
 // 08-13-93 08:59pm, Mike
 // Second parameter has been removed.
-  BYTE  * load_stat_dict( CHAR  *point );
+BYTE * load_stat_dict(CHAR *point);
 
 // 08-13-93 09:00pm, Mike
 // Return type has been changed.
-  void load_user_dicts ( PSTR list_name, CHAR  * point);
+void load_user_dicts(PSTR list_name, CHAR * point);
 
-  LONG     read_all_voc(INT seqn, CHAR *name, CHAR  *p);
+LONG read_all_voc(INT seqn, CHAR *name, CHAR *p);
 
 #ifdef SECOND_PASS
 
-   INT   pull_to_stat(INT status,SOBJ*obj,SPART *part,
-		   LTIMG wrdimg[],LTIMG *wrddef[]);
-   void  investigate_word(INT status,SOBJ *obj,LTIMG *wrddef[],
-		       WTOKEN  *token);
-   void  set_context(WTOKEN  *left,WTOKEN  *right);
-   INT   set_img_for_found(SOBJ *obj,SPART *part,LTIMG wrdimg[]);
-   INT   set_img_for_notfound(SOBJ *obj,SPART *part,LTIMG wrdimg[]);
+INT pull_to_stat(INT status,SOBJ*obj,SPART *part,
+		LTIMG wrdimg[],LTIMG *wrddef[]);
+void investigate_word(INT status,SOBJ *obj,LTIMG *wrddef[],
+		WTOKEN *token);
+void set_context(WTOKEN *left,WTOKEN *right);
+INT set_img_for_found(SOBJ *obj,SPART *part,LTIMG wrdimg[]);
+INT set_img_for_notfound(SOBJ *obj,SPART *part,LTIMG wrdimg[]);
 
-   INT  stat_replacements(SOBJ *obj);
+INT stat_replacements(SOBJ *obj);
 
 #endif
 
 /*** IOED_TF ~~ IOED_TST  ***/
-   INT   read_file(BYTE batch_run);
-   INT    save_ed_file(BYTE batch_run);
-
-
+INT read_file(BYTE batch_run);
+INT save_ed_file(BYTE batch_run);
 
 #endif    //#ifndef __SPEL_FUNCS_H__

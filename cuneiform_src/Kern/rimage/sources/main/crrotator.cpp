@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -111,12 +111,12 @@ static Word8 MaskForLeftShift[9] =
 };
 static Word8 OneBitMask[8] =
 {
-//  1-й вариант
+//  1-Р№ РІР°СЂРёР°РЅС‚
 //  00000001   00000010   00000100   00001000
 //	0x01,      0x02,      0x04,      0x08,
 //  00010000   00100000   01000000   10000000
 //	0x10,      0x20,      0x40,      0x80
-//  2-й вариант
+//  2-Р№ РІР°СЂРёР°РЅС‚
 //  10000000   01000000   00100000   00010000
 	0x80,      0x40,      0x20,      0x10,
 //  00001000   00000100   00000010   00000001
@@ -267,7 +267,7 @@ Bool32 CRRotator::Descew(PCTDIB cDIBIn, PCTDIB cDIBOut )
 	PrepareTables(mwTablesRange, mwDescewedWidth - 1);
 
 	/////////////
-	//начинаем сдвигать.
+	//РЅР°С‡РёРЅР°РµРј СЃРґРІРёРіР°С‚СЊ.
 	mpProgressor->Start();
 
 	for ( Line = 0; Line < mwDescewedHeight; Line++)
@@ -290,12 +290,12 @@ Bool32 CRRotator::Descew(PCTDIB cDIBIn, PCTDIB cDIBOut )
 			ComposeLineG(cDIBIn, Direction, Line, mwDescewedWidth);
 			break;
 		case 1:
-			//// состовляем строку с учетом сдвигов
-			// внимание! строка составляется неточно!!!!!
+			//// СЃРѕСЃС‚РѕРІР»СЏРµРј СЃС‚СЂРѕРєСѓ СЃ СѓС‡РµС‚РѕРј СЃРґРІРёРіРѕРІ
+			// РІРЅРёРјР°РЅРёРµ! СЃС‚СЂРѕРєР° СЃРѕСЃС‚Р°РІР»СЏРµС‚СЃСЏ РЅРµС‚РѕС‡РЅРѕ!!!!!
 			ComposeLineLA(cDIBIn, Direction, Line, mwDescewedWidth);
-			//забиваем конец строки
+			//Р·Р°Р±РёРІР°РµРј РєРѕРЅРµС† СЃС‚СЂРѕРєРё
 			SetEndLineLA(Line, mwOriginalWidth, wLineBytesWTo);
-			//// сдвигаем по горизонтали
+			//// СЃРґРІРёРіР°РµРј РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё
 			ToShift = HShiftTable[Line]%8;             //(Int32)( (i * dTan) + 0.5) % 8
 
 			if ( ToShift != 0 )
@@ -308,7 +308,7 @@ Bool32 CRRotator::Descew(PCTDIB cDIBIn, PCTDIB cDIBOut )
 		default:
 			break;
 		}
-			// копируем строку в конечный диб
+			// РєРѕРїРёСЂСѓРµРј СЃС‚СЂРѕРєСѓ РІ РєРѕРЅРµС‡РЅС‹Р№ РґРёР±
 		pToCopy = (PWord8)(Direction > 0 ? cDIBOut->GetPtrToLine(Line) :
 		                                   cDIBOut->GetPtrToLine(mwDescewedHeight - Line - 1));
 		if (pToCopy )
@@ -337,9 +337,9 @@ void CRRotator::ComposeLineLA(PCTDIB cDIBIn, Int32 iDirect, Word32 wLine, Word32
 
 	for ( j = 0; j < wBuffLen; )
 	{
-		StartByte = j / 8; //откуда начнем
-//		EndByte   = (j + VShiftLenght[j])/8; //последний копируемый
-		EndByte   = (j - 1 + VShiftLenght[j])/8; //последний копируемый
+		StartByte = j / 8; //РѕС‚РєСѓРґР° РЅР°С‡РЅРµРј
+//		EndByte   = (j + VShiftLenght[j])/8; //РїРѕСЃР»РµРґРЅРёР№ РєРѕРїРёСЂСѓРµРјС‹Р№
+		EndByte   = (j - 1 + VShiftLenght[j])/8; //РїРѕСЃР»РµРґРЅРёР№ РєРѕРїРёСЂСѓРµРјС‹Р№
 
 		FulBytes = EndByte - StartByte + 1;
 //		Bits     = (j + VShiftLenght[j]) - EndByte * 8;
@@ -351,7 +351,7 @@ void CRRotator::ComposeLineLA(PCTDIB cDIBIn, Int32 iDirect, Word32 wLine, Word32
 			continue;
 		}
 
-		// если есть строка исходной картинки
+		// РµСЃР»Рё РµСЃС‚СЊ СЃС‚СЂРѕРєР° РёСЃС…РѕРґРЅРѕР№ РєР°СЂС‚РёРЅРєРё
 		PixFrom = NULL;
 		PosInBuff = ( HShiftTable[wLine]) / 8 + StartByte;
 		if ( wLine + VShiftTable[j] >= AtY && wLine + VShiftTable[j] < ToY )
@@ -365,7 +365,7 @@ void CRRotator::ComposeLineLA(PCTDIB cDIBIn, Int32 iDirect, Word32 wLine, Word32
 				PixFrom = (PWord8)cDIBIn->GetPtrToPixel(j,wLines - (wLine + VShiftTable[j] - AtY));
 			}
 		}
-		//перед копированием дальше запоминаем первый байт
+		//РїРµСЂРµРґ РєРѕРїРёСЂРѕРІР°РЅРёРµРј РґР°Р»СЊС€Рµ Р·Р°РїРѕРјРёРЅР°РµРј РїРµСЂРІС‹Р№ Р±Р°Р№С‚
 		if ( j != 0  && Bits > 0 && mbEnableVSS)
 		{
 			LastByte = 0x00;
@@ -374,7 +374,7 @@ void CRRotator::ComposeLineLA(PCTDIB cDIBIn, Int32 iDirect, Word32 wLine, Word32
 
 		if ( PixFrom )
 		{
-			// копируем следующий кусок
+			// РєРѕРїРёСЂСѓРµРј СЃР»РµРґСѓСЋС‰РёР№ РєСѓСЃРѕРє
 			if (EndByte > cDIBIn->GetUsedLineWidthInBytes() - 1)
 			{
 				EndByte = cDIBIn->GetUsedLineWidthInBytes() - 1;
@@ -387,7 +387,7 @@ void CRRotator::ComposeLineLA(PCTDIB cDIBIn, Int32 iDirect, Word32 wLine, Word32
 		{
 			memset(BufferForGray + PosInBuff,BitFillforGray, FulBytes );
 		}
-		//на стыке совмещаем побитно
+		//РЅР° СЃС‚С‹РєРµ СЃРѕРІРјРµС‰Р°РµРј РїРѕР±РёС‚РЅРѕ
 		if ( Bits > 0 && j != 0 && mbEnableVSS)
 		{
 			LastByte |= *(BufferForGray + PosInBuff)&MaskForRightShift[8 - Bits];
@@ -414,8 +414,8 @@ void CRRotator::ComposeLine4(PCTDIB cDIBIn, Int32 iDirect, Word32 wLine, Word32 
 
 	for ( j = 0; j < wBuffLen; )
 	{
-		StartByte = j / 2; //откуда начнем
-		EndByte   = (j + VShiftLenght[j])/2; //последний копируемый
+		StartByte = j / 2; //РѕС‚РєСѓРґР° РЅР°С‡РЅРµРј
+		EndByte   = (j + VShiftLenght[j])/2; //РїРѕСЃР»РµРґРЅРёР№ РєРѕРїРёСЂСѓРµРјС‹Р№
 
 		FulBytes = EndByte - StartByte + 1;
 		Pixels   = (j + VShiftLenght[j]) - EndByte * 2;
@@ -427,7 +427,7 @@ void CRRotator::ComposeLine4(PCTDIB cDIBIn, Int32 iDirect, Word32 wLine, Word32 
 			continue;
 		}
 
-		// если есть строка исходной картинки
+		// РµСЃР»Рё РµСЃС‚СЊ СЃС‚СЂРѕРєР° РёСЃС…РѕРґРЅРѕР№ РєР°СЂС‚РёРЅРєРё
 		PixFrom = NULL;
 		PosInBuff = ( HShiftTable[wLine]) / 2 + StartByte;
 
@@ -442,7 +442,7 @@ void CRRotator::ComposeLine4(PCTDIB cDIBIn, Int32 iDirect, Word32 wLine, Word32 
 				PixFrom = (PWord8)cDIBIn->GetPtrToPixel(j,wLines - (wLine + VShiftTable[j] - AtY));
 			}
 		}
-		//перед копированием дальше запоминаем первый байт
+		//РїРµСЂРµРґ РєРѕРїРёСЂРѕРІР°РЅРёРµРј РґР°Р»СЊС€Рµ Р·Р°РїРѕРјРёРЅР°РµРј РїРµСЂРІС‹Р№ Р±Р°Р№С‚
 		if ( j != 0  && Pixels > 0 && mbEnableVSS)
 		{
 			LastByte = 0x00;
@@ -451,14 +451,14 @@ void CRRotator::ComposeLine4(PCTDIB cDIBIn, Int32 iDirect, Word32 wLine, Word32 
 
 		if ( PixFrom )
 		{
-			// копируем следующий кусок
+			// РєРѕРїРёСЂСѓРµРј СЃР»РµРґСѓСЋС‰РёР№ РєСѓСЃРѕРє
 			memcpy(BufferForGray + PosInBuff,PixFrom, FulBytes );
 		}
 		else  //  if ( pixfrom )
 		{
 			memset(BufferForGray + PosInBuff,BitFillforGray, FulBytes );
 		}
-		//на стыке совмещаем побитно
+		//РЅР° СЃС‚С‹РєРµ СЃРѕРІРјРµС‰Р°РµРј РїРѕР±РёС‚РЅРѕ
 		if ( Pixels > 0 && j != 0 && mbEnableVSS)
 		{
 			LastByte |= *(BufferForGray + PosInBuff)&MaskForRightShift[8 - Pixels];
@@ -636,7 +636,7 @@ Bool32 CRRotator::ConstructOutDIB(PCTDIB cDIBIn, PCTDIB cDIBOut, Bool32 Gray)
 
 	BitFillforGray   = (Word8)cDIBIn->GetWhitePixel();
 
-	//для однобитного изображения растягиваем его на весь байт
+	//РґР»СЏ РѕРґРЅРѕР±РёС‚РЅРѕРіРѕ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ СЂР°СЃС‚СЏРіРёРІР°РµРј РµРіРѕ РЅР° РІРµСЃСЊ Р±Р°Р№С‚
 	if ( cDIBOut->GetPixelSize() == 1 )
 		BitFillforGray += ( BitFillforGray << 1 ) +
 		                  ( BitFillforGray << 2 ) +
@@ -663,12 +663,12 @@ Bool32 CRRotator::ConstructOutDIB(PCTDIB cDIBIn, PCTDIB cDIBOut, Bool32 Gray)
 Bool32 CRRotator::DescewGray(PCTDIB cDIBIn, PCTDIB cDIBOut)
 {
 	Bool32 bRet = TRUE;
-	// размеры
+	// СЂР°Р·РјРµСЂС‹
 	Word32         OutLineLenght = cDIBOut->GetLineWidth();
 	Word32         OunLines      = cDIBOut->GetLinesNumber();
 	Word32         InLineLenght  = cDIBIn->GetLineWidth();
 	Word32         InLines       = cDIBIn->GetLinesNumber();
-	//координаты
+	//РєРѕРѕСЂРґРёРЅР°С‚С‹
 	Int32          CurrLAX;
 	Int32          CurrLAY;
 	Int32          CurrGX;
@@ -679,14 +679,14 @@ Bool32 CRRotator::DescewGray(PCTDIB cDIBIn, PCTDIB cDIBOut)
 	Int32          NewPointY;
 	Int32          GShiftX;
 	Int32          GShiftY;
-	// пикселы
+	// РїРёРєСЃРµР»С‹
 	PWord8         pLAPix = NULL;
 	PWord8         pGrayPix = NULL;
 	PWord8         pGrayLine = NULL;
 	Word32         LABitInByte;
 	Word8          Decrement;
 	Word8          Corner = 1;
-	// маска
+	// РјР°СЃРєР°
 	Handle         hMask = NULL;
 	PWord8         pMask = NULL;
 
@@ -748,7 +748,7 @@ Bool32 CRRotator::DescewGray(PCTDIB cDIBIn, PCTDIB cDIBOut)
 				UnmaskPixels(pMask, pGrayPix, CurrGX, CurrGY, OutLineLenght, GShiftX, GShiftY);
 			}
 
-			//берем черно-белый пиксел
+			//Р±РµСЂРµРј С‡РµСЂРЅРѕ-Р±РµР»С‹Р№ РїРёРєСЃРµР»
 			if ( CurrLAX < (Int32)InLineLenght &&
 				 CurrLAY < (Int32)InLines)
 			{
@@ -761,7 +761,7 @@ Bool32 CRRotator::DescewGray(PCTDIB cDIBIn, PCTDIB cDIBOut)
 			else
 				continue;
 
-			// раскидываем по серому
+			// СЂР°СЃРєРёРґС‹РІР°РµРј РїРѕ СЃРµСЂРѕРјСѓ
 			LABitInByte = CurrLAX - ((CurrLAX / 8) * 8);
 			if ( ((*pLAPix) & OneBitMask[LABitInByte]) == 0 )
 			{
@@ -942,8 +942,8 @@ void CRRotator::AllocWorkBuffers(Word32 wStringBufferRange)
 
 	if ( wStringBufferRange )
 	{
-		//hBufferForGray = RIMAGEAlloc( wLineBytesWTo + HorisontalShiftInBytes * 2 + ( VShiftLenght[0] * 2 )  );     //буфер для конечной картинки
-		hBufferForGray = RIMAGEDAlloc( wWorkGrayBufferLenght = ( mwDescewedWidth * 4 ), "Rotator::AllocWorkBuffer - buffer for gray");     //буфер для конечной картинки
+		//hBufferForGray = RIMAGEAlloc( wLineBytesWTo + HorisontalShiftInBytes * 2 + ( VShiftLenght[0] * 2 )  );     //Р±СѓС„РµСЂ РґР»СЏ РєРѕРЅРµС‡РЅРѕР№ РєР°СЂС‚РёРЅРєРё
+		hBufferForGray = RIMAGEDAlloc( wWorkGrayBufferLenght = ( mwDescewedWidth * 4 ), "Rotator::AllocWorkBuffer - buffer for gray");     //Р±СѓС„РµСЂ РґР»СЏ РєРѕРЅРµС‡РЅРѕР№ РєР°СЂС‚РёРЅРєРё
 		BufferForGray  = (PWord8)RIMAGELock(hBufferForGray);
 	}
 
@@ -1043,8 +1043,8 @@ void CRRotator::ComposeLineG(PCTDIB cDIBIn, Int32 iDirect, Word32 wLine, Word32 
 
 	for ( j = 0; j < wBuffLen; )
 	{
-		StartByte = j * PixelSize; //откуда начнем
-		EndByte   = (j + VShiftLenght[j]) * PixelSize; //последний копируемый
+		StartByte = j * PixelSize; //РѕС‚РєСѓРґР° РЅР°С‡РЅРµРј
+		EndByte   = (j + VShiftLenght[j]) * PixelSize; //РїРѕСЃР»РµРґРЅРёР№ РєРѕРїРёСЂСѓРµРјС‹Р№
 
 		FulBytes = EndByte - StartByte + 1;
 
@@ -1054,7 +1054,7 @@ void CRRotator::ComposeLineG(PCTDIB cDIBIn, Int32 iDirect, Word32 wLine, Word32 
 			continue;
 		}
 
-		// если есть строка исходной картинки
+		// РµСЃР»Рё РµСЃС‚СЊ СЃС‚СЂРѕРєР° РёСЃС…РѕРґРЅРѕР№ РєР°СЂС‚РёРЅРєРё
 		PixFrom = NULL;
 		PosInBuff = ( HShiftTable[wLine] * PixelSize) + StartByte;
 
@@ -1070,15 +1070,15 @@ void CRRotator::ComposeLineG(PCTDIB cDIBIn, Int32 iDirect, Word32 wLine, Word32 
 			}
 		}
         // Allex  27.03.00
-        // слабое место. на некоторых файлах возникают прблемы с отписыванием в BufferForGray - пытается отписать
-        // туда больше чем длина файла. возможно гсвязано с размером пиксела в цветном файле.
+        // СЃР»Р°Р±РѕРµ РјРµСЃС‚Рѕ. РЅР° РЅРµРєРѕС‚РѕСЂС‹С… С„Р°Р№Р»Р°С… РІРѕР·РЅРёРєР°СЋС‚ РїСЂР±Р»РµРјС‹ СЃ РѕС‚РїРёСЃС‹РІР°РЅРёРµРј РІ BufferForGray - РїС‹С‚Р°РµС‚СЃСЏ РѕС‚РїРёСЃР°С‚СЊ
+        // С‚СѓРґР° Р±РѕР»СЊС€Рµ С‡РµРј РґР»РёРЅР° С„Р°Р№Р»Р°. РІРѕР·РјРѕР¶РЅРѕ РіСЃРІСЏР·Р°РЅРѕ СЃ СЂР°Р·РјРµСЂРѕРј РїРёРєСЃРµР»Р° РІ С†РІРµС‚РЅРѕРј С„Р°Р№Р»Рµ.
         if ( PosInBuff < (Int32)wWorkGrayBufferLenght )
         {
             FulBytes = FulBytes > wWorkGrayBufferLenght - PosInBuff ? wWorkGrayBufferLenght - PosInBuff : FulBytes;
 
 		    if ( PixFrom )
 		    {
-			    // копируем следующий кусок
+			    // РєРѕРїРёСЂСѓРµРј СЃР»РµРґСѓСЋС‰РёР№ РєСѓСЃРѕРє
 			    memcpy(BufferForGray + PosInBuff,PixFrom, FulBytes );
 		    }
 		    else  //  if ( pixfrom )

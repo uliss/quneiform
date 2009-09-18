@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -141,8 +141,8 @@ enum    RRECCOMParametrs
 typedef struct tagRRecComControl
 {
         Word32 flags;
-#define RECOG_EVN 1 //опознание с помошью метода "Event"
-#define RECOG_GRA 2 //опознание с помошью нейросети
+#define RECOG_EVN 1 //РѕРїРѕР·РЅР°РЅРёРµ СЃ РїРѕРјРѕС€СЊСЋ РјРµС‚РѕРґР° "Event"
+#define RECOG_GRA 2 //РѕРїРѕР·РЅР°РЅРёРµ СЃ РїРѕРјРѕС€СЊСЋ РЅРµР№СЂРѕСЃРµС‚Рё
 
    Word16 MaxCompWid;  // if comp width > MaxCompWid => ignored; 0 - not init
    Word16 MaxCompHei;  // =""= by height
@@ -161,29 +161,29 @@ typedef struct tagRRecComControl
    RRECCOM_FUNC(Bool32) RRECCOM_Init(Word16 wHeightCode, Handle hStorage);
    RRECCOM_FUNC(Bool32) RRECCOM_Done(void);
    RRECCOM_FUNC(Bool32) RRECCOM_GetExportData(Word32 dwType, void * pData);
-   RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(Word32 dwType, void * pData);
+   RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(Word32 dwType, const void * pData);
 
-// 1    RRECCOM_FNRECOG   опознать компоненты
+// 1    RRECCOM_FNRECOG   РѕРїРѕР·РЅР°С‚СЊ РєРѕРјРїРѕРЅРµРЅС‚С‹
 typedef Bool32   (*FNRRECCOM_Recog)(Handle hCCOM, RRecComControl Control, char *spath, Word8 lang);
 RRECCOM_FUNC(Bool32)  RRECCOM_Recog(Handle hCCOM, RRecComControl Control, char *spath, Word8 lang);
-//2		RRECCOM_FNRECOGCOMP опознать одну компоненту
+//2		RRECCOM_FNRECOGCOMP РѕРїРѕР·РЅР°С‚СЊ РѕРґРЅСѓ РєРѕРјРїРѕРЅРµРЅС‚Сѓ
 //typedef Bool32   (*FNRRECCOM_RecogComp)(RecRaster* comp_raster, RecVersions* comp_vers, Word8 lang, Bool32 need_align8 = false);
 //RRECCOM_FUNC(Bool32)  RRECCOM_RecogComp(RecRaster* comp_raster, RecVersions* comp_vers, Word8 lang, Bool32 need_align8 = false);
 
 /*
-// 1    RRECCOM_FNEVNPROPERT   установить опции для эвент
+// 1    RRECCOM_FNEVNPROPERT   СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РѕРїС†РёРё РґР»СЏ СЌРІРµРЅС‚
 // setup condition for recognition all comps without Event-algoriphm
 //       and alphabet (256 ANSI indicators for any letter)
 typedef Bool32   (*FNRRECCOM_SetEVNProperties)(ExcControl ExCW,char *spath, Word8 lang);
 RRECCOM_FUNC(Bool32)  RRECCOM_SetEVNProperties(ExcControl ExCW,char *spath, Word8 lang);
-// 2    RRECCOM_FNEXTRACOMP    найти компоненты с помощью коллбэков
+// 2    RRECCOM_FNEXTRACOMP    РЅР°Р№С‚Рё РєРѕРјРїРѕРЅРµРЅС‚С‹ СЃ РїРѕРјРѕС‰СЊСЋ РєРѕР»Р»Р±СЌРєРѕРІ
 typedef Bool32 (*FNRRECCOM_Excomp)(ExcControl Control,
     TImageOpen  tio,        TImageClose tic,
     TImageRead  tir,        Tiger_ProcComp tipc);
 RRECCOM_FUNC(Int32)  Extracomp(ExcControl Control,
     TImageOpen  tio,        TImageClose tic,
     TImageRead  tir,        Tiger_ProcComp tipc);
-// 3    RRECCOM_FNEXTRA        найти компоненты в растре
+// 3    RRECCOM_FNEXTRA        РЅР°Р№С‚Рё РєРѕРјРїРѕРЅРµРЅС‚С‹ РІ СЂР°СЃС‚СЂРµ
 typedef Bool32 (*FNRRECCOM_Exc)(ExcControl Control,
     Word8 *lpRaster, Int32 BWid, Bool32 ReverseOrder,
     Int32 Wid, Int32 Hei,
@@ -194,52 +194,52 @@ RRECCOM_FUNC(Bool32)  RRECCOMExtra(ExcControl Control,
     Int32 Wid, Int32 Hei,
     Int32 HRes, Int32 VRes,
     Int32 TemplCol, Int32 TemplRow, Int32 TemplWid, Int32 TemplHei, Bool32 FotoMetr);
-// 4    RRECCOM_FNEXTRADIB     найти компоненты в ДИБе
+// 4    RRECCOM_FNEXTRADIB     РЅР°Р№С‚Рё РєРѕРјРїРѕРЅРµРЅС‚С‹ РІ Р”РР‘Рµ
 typedef Bool32 (*FNRRECCOM_ExcDIB)(ExcControl ExCW,
     Word8 *lpDIB,
     Int32 TemplCol, Int32 TemplRow, Int32 TemplWid, Int32 TemplHei);
 RRECCOM_FUNC(Bool32)  RRECCOMExtraDIB(ExcControl ExCW,
     Word8 *lpDIB,
     Int32 TemplCol, Int32 TemplRow, Int32 TemplWid, Int32 TemplHei);
-// 5    RRECCOM_FNGETCONTAINER   Получить код контейнера с компонентами
+// 5    RRECCOM_FNGETCONTAINER   РџРѕР»СѓС‡РёС‚СЊ РєРѕРґ РєРѕРЅС‚РµР№РЅРµСЂР° СЃ РєРѕРјРїРѕРЅРµРЅС‚Р°РјРё
 typedef  Int32 (*FNRRECCOM_GetContainer)(void);
 RRECCOM_FUNC(Int32)  RRECCOMGetContainer(void);
-// 6    RRECCOM_FNGETLENEREP     Получить интервальное представление
+// 6    RRECCOM_FNGETLENEREP     РџРѕР»СѓС‡РёС‚СЊ РёРЅС‚РµСЂРІР°Р»СЊРЅРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ
 typedef  Bool32  (*FNRRECCOM_MakeLP)( RecRaster   *rRaster , Word8 *lp, Int16 *lp_size, Int16 *numcomp);
 RRECCOM_FUNC(Bool32)     RRECCOMMakeLP  ( RecRaster   *rRaster , Word8 *lp, Int16 *lp_size, Int16 *numcomp);
-// 7    RRECCOM_FNVERSION Дать версию библиотеки
+// 7    RRECCOM_FNVERSION Р”Р°С‚СЊ РІРµСЂСЃРёСЋ Р±РёР±Р»РёРѕС‚РµРєРё
 //
 //
 */
-// 8    RRECCOM_FNREX_ISLANGUAGE существует ли язык
+// 8    RRECCOM_FNREX_ISLANGUAGE СЃСѓС‰РµСЃС‚РІСѓРµС‚ Р»Рё СЏР·С‹Рє
 typedef Bool32 (*FNRRECCOM_IsLanguage)(Word8 language);
 RRECCOM_FUNC(Bool32)  RRECCOM_IsLanguage(Word8 language);
 /*
-// 9    RRECCOM_FNGETORIENT    ориентация страницы
+// 9    RRECCOM_FNGETORIENT    РѕСЂРёРµРЅС‚Р°С†РёСЏ СЃС‚СЂР°РЅРёС†С‹
 //typedef Bool32 (*FNRRECCOM_GetOrient)(Word8 *ori);
    RRECCOM_FUNC(Bool32) RRECCOM_GetOrient(Word8 *ori, Handle hCCOM);
 
-// 10   RRECCOM_FNMN2CCOM      из MN в CCOM_comp
+// 10   RRECCOM_FNMN2CCOM      РёР· MN РІ CCOM_comp
 typedef CCOM_comp*   (*FNRRECCOM_MN2CCOM)(Handle hCCOM,Handle hmn);
 RRECCOM_FUNC(CCOM_comp*)   RRECCOM_MN2CCOM(Handle hCCOM,Handle hmn);
-// 11   RRECCOM_FNGETINVERTION инверсный ли образ (белое на чёрном)
+// 11   RRECCOM_FNGETINVERTION РёРЅРІРµСЂСЃРЅС‹Р№ Р»Рё РѕР±СЂР°Р· (Р±РµР»РѕРµ РЅР° С‡С‘СЂРЅРѕРј)
 typedef Bool32 (*FNRRECCOM_GetInvertion)(Word8 *inv);
 RRECCOM_FUNC(Bool32) RRECCOM_GetInvertion(Word8 *inv);
 typedef Bool32 (*FNRRECCOM_ProgressStart )(void);
 typedef Bool32 (*FNRRECCOM_ProgressStep  )(Word32 step);
 typedef Bool32 (*FNRRECCOM_ProgressFinish)(void);
-// 12   RRECCOM_FNEVNALPHABET   установка алфавита для евент
+// 12   RRECCOM_FNEVNALPHABET   СѓСЃС‚Р°РЅРѕРІРєР° Р°Р»С„Р°РІРёС‚Р° РґР»СЏ РµРІРµРЅС‚
 typedef Bool32 (*FNRRECCOM_SetEVNAlphabet)(char *spath, Word8 lang);
 RRECCOM_FUNC(Bool32) RRECCOM_SetEVNAlphabet(char *spath, Word8 lang);
-// 13   RRECCOM_FNEXTRACOMP3CB 3 коллбэка
+// 13   RRECCOM_FNEXTRACOMP3CB 3 РєРѕР»Р»Р±СЌРєР°
 typedef Bool32  (*FNRRECCOMExtracomp3CB)(ExcControl ExCW,TImageOpen tio,
                                 TImageClose tic, TImageRead tir);
 RRECCOM_FUNC(Bool32)  RRECCOMExtracomp3CB(ExcControl ExCW,TImageOpen tio,
                                 TImageClose tic, TImageRead tir);
-// 14   RRECCOM_FNEXTGETRECRASTERORIENT ориентация рабочего растра
+// 14   RRECCOM_FNEXTGETRECRASTERORIENT РѕСЂРёРµРЅС‚Р°С†РёСЏ СЂР°Р±РѕС‡РµРіРѕ СЂР°СЃС‚СЂР°
 typedef Bool32 (*FNexc_get_rec_raster_orient)(RecRaster   *rs,Int32 *res);
 RRECCOM_FUNC(Bool32) exc_get_rec_raster_orient(RecRaster   *rs,Int32 *res);
-// 15   RRECCOM_FNSETALLALPHAGRA   алфавит нейронной сети
+// 15   RRECCOM_FNSETALLALPHAGRA   Р°Р»С„Р°РІРёС‚ РЅРµР№СЂРѕРЅРЅРѕР№ СЃРµС‚Рё
 typedef Bool32 (*FNexc_set_all_alphabet_gra)(void);
 RRECCOM_FUNC(Bool32) exc_set_all_alphabet_gra(void);
 */

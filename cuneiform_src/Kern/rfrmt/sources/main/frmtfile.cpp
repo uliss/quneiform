@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Ğàçğåøàåòñÿ ïîâòîğíîå ğàñïğîñòğàíåíèå è èñïîëüçîâàíèå êàê â âèäå èñõîäíîãî êîäà,
-òàê è â äâîè÷íîé ôîğìå, ñ èçìåíåíèÿìè èëè áåç, ïğè ñîáëşäåíèè ñëåäóşùèõ óñëîâèé:
+Ğ Ğ°Ğ·Ñ€ĞµÑˆĞ°ĞµÑ‚ÑÑ Ğ¿Ğ¾Ğ²Ñ‚Ğ¾Ñ€Ğ½Ğ¾Ğµ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ğµ Ğ¸ Ğ¸ÑĞ¿Ğ¾Ğ»ÑŒĞ·Ğ¾Ğ²Ğ°Ğ½Ğ¸Ğµ ĞºĞ°Ğº Ğ² Ğ²Ğ¸Ğ´Ğµ Ğ¸ÑÑ…Ğ¾Ğ´Ğ½Ğ¾Ğ³Ğ¾ ĞºĞ¾Ğ´Ğ°,
+Ñ‚Ğ°Ğº Ğ¸ Ğ² Ğ´Ğ²Ğ¾Ğ¸Ñ‡Ğ½Ğ¾Ğ¹ Ñ„Ğ¾Ñ€Ğ¼Ğµ, Ñ Ğ¸Ğ·Ğ¼ĞµĞ½ĞµĞ½Ğ¸ÑĞ¼Ğ¸ Ğ¸Ğ»Ğ¸ Ğ±ĞµĞ·, Ğ¿Ñ€Ğ¸ ÑĞ¾Ğ±Ğ»ÑĞ´ĞµĞ½Ğ¸Ğ¸ ÑĞ»ĞµĞ´ÑƒÑÑ‰Ğ¸Ñ… ÑƒÑĞ»Ğ¾Ğ²Ğ¸Ğ¹:
 
-      * Ïğè ïîâòîğíîì ğàñïğîñòğàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîğñêîì ïğàâå, ıòîò ñïèñîê óñëîâèé è ïîñëåäóşùèé
-        îòêàç îò ãàğàíòèé.
-      * Ïğè ïîâòîğíîì ğàñïğîñòğàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
-        äğóãèõ ìàòåğèàëàõ, ïîñòàâëÿåìûõ ïğè ğàñïğîñòğàíåíèè, äîëæíû ñîõğàíÿòüñÿ
-        óêàçàííàÿ âûøå èíôîğìàöèÿ îá àâòîğñêîì ïğàâå, ıòîò ñïèñîê óñëîâèé è
-        ïîñëåäóşùèé îòêàç îò ãàğàíòèé.
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòğóäíèêîâ íå ìîãóò
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñğåäñòâà ïîääåğæêè è/èëè ïğîäâèæåíèÿ
-        ïğîäóêòîâ, îñíîâàííûõ íà ıòîì ÏÎ, áåç ïğåäâàğèòåëüíîãî ïèñüìåííîãî
-        ğàçğåøåíèÿ.
+      * ĞŸÑ€Ğ¸ Ğ¿Ğ¾Ğ²Ñ‚Ğ¾Ñ€Ğ½Ğ¾Ğ¼ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ğ¸ Ğ¸ÑÑ…Ğ¾Ğ´Ğ½Ğ¾Ğ³Ğ¾ ĞºĞ¾Ğ´Ğ° Ğ´Ğ¾Ğ»Ğ¶Ğ½Ñ‹ Ğ¾ÑÑ‚Ğ°Ğ²Ğ°Ñ‚ÑŒÑÑ ÑƒĞºĞ°Ğ·Ğ°Ğ½Ğ½Ğ¾Ğµ
+        Ğ²Ñ‹ÑˆĞµ ÑƒĞ²ĞµĞ´Ğ¾Ğ¼Ğ»ĞµĞ½Ğ¸Ğµ Ğ¾Ğ± Ğ°Ğ²Ñ‚Ğ¾Ñ€ÑĞºĞ¾Ğ¼ Ğ¿Ñ€Ğ°Ğ²Ğµ, ÑÑ‚Ğ¾Ñ‚ ÑĞ¿Ğ¸ÑĞ¾Ğº ÑƒÑĞ»Ğ¾Ğ²Ğ¸Ğ¹ Ğ¸ Ğ¿Ğ¾ÑĞ»ĞµĞ´ÑƒÑÑ‰Ğ¸Ğ¹
+        Ğ¾Ñ‚ĞºĞ°Ğ· Ğ¾Ñ‚ Ğ³Ğ°Ñ€Ğ°Ğ½Ñ‚Ğ¸Ğ¹.
+      * ĞŸÑ€Ğ¸ Ğ¿Ğ¾Ğ²Ñ‚Ğ¾Ñ€Ğ½Ğ¾Ğ¼ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ğ¸ Ğ´Ğ²Ğ¾Ğ¸Ñ‡Ğ½Ğ¾Ğ³Ğ¾ ĞºĞ¾Ğ´Ğ° Ğ² Ğ´Ğ¾ĞºÑƒĞ¼ĞµĞ½Ñ‚Ğ°Ñ†Ğ¸Ğ¸ Ğ¸/Ğ¸Ğ»Ğ¸ Ğ²
+        Ğ´Ñ€ÑƒĞ³Ğ¸Ñ… Ğ¼Ğ°Ñ‚ĞµÑ€Ğ¸Ğ°Ğ»Ğ°Ñ…, Ğ¿Ğ¾ÑÑ‚Ğ°Ğ²Ğ»ÑĞµĞ¼Ñ‹Ñ… Ğ¿Ñ€Ğ¸ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ğ¸, Ğ´Ğ¾Ğ»Ğ¶Ğ½Ñ‹ ÑĞ¾Ñ…Ñ€Ğ°Ğ½ÑÑ‚ÑŒÑÑ
+        ÑƒĞºĞ°Ğ·Ğ°Ğ½Ğ½Ğ°Ñ Ğ²Ñ‹ÑˆĞµ Ğ¸Ğ½Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ†Ğ¸Ñ Ğ¾Ğ± Ğ°Ğ²Ñ‚Ğ¾Ñ€ÑĞºĞ¾Ğ¼ Ğ¿Ñ€Ğ°Ğ²Ğµ, ÑÑ‚Ğ¾Ñ‚ ÑĞ¿Ğ¸ÑĞ¾Ğº ÑƒÑĞ»Ğ¾Ğ²Ğ¸Ğ¹ Ğ¸
+        Ğ¿Ğ¾ÑĞ»ĞµĞ´ÑƒÑÑ‰Ğ¸Ğ¹ Ğ¾Ñ‚ĞºĞ°Ğ· Ğ¾Ñ‚ Ğ³Ğ°Ñ€Ğ°Ğ½Ñ‚Ğ¸Ğ¹.
+      * ĞĞ¸ Ğ½Ğ°Ğ·Ğ²Ğ°Ğ½Ğ¸Ğµ Cognitive Technologies, Ğ½Ğ¸ Ğ¸Ğ¼ĞµĞ½Ğ° ĞµĞµ ÑĞ¾Ñ‚Ñ€ÑƒĞ´Ğ½Ğ¸ĞºĞ¾Ğ² Ğ½Ğµ Ğ¼Ğ¾Ğ³ÑƒÑ‚
+        Ğ±Ñ‹Ñ‚ÑŒ Ğ¸ÑĞ¿Ğ¾Ğ»ÑŒĞ·Ğ¾Ğ²Ğ°Ğ½Ñ‹ Ğ² ĞºĞ°Ñ‡ĞµÑÑ‚Ğ²Ğµ ÑÑ€ĞµĞ´ÑÑ‚Ğ²Ğ° Ğ¿Ğ¾Ğ´Ğ´ĞµÑ€Ğ¶ĞºĞ¸ Ğ¸/Ğ¸Ğ»Ğ¸ Ğ¿Ñ€Ğ¾Ğ´Ğ²Ğ¸Ğ¶ĞµĞ½Ğ¸Ñ
+        Ğ¿Ñ€Ğ¾Ğ´ÑƒĞºÑ‚Ğ¾Ğ², Ğ¾ÑĞ½Ğ¾Ğ²Ğ°Ğ½Ğ½Ñ‹Ñ… Ğ½Ğ° ÑÑ‚Ğ¾Ğ¼ ĞŸĞ, Ğ±ĞµĞ· Ğ¿Ñ€ĞµĞ´Ğ²Ğ°Ñ€Ğ¸Ñ‚ĞµĞ»ÑŒĞ½Ğ¾Ğ³Ğ¾ Ğ¿Ğ¸ÑÑŒĞ¼ĞµĞ½Ğ½Ğ¾Ğ³Ğ¾
+        Ñ€Ğ°Ğ·Ñ€ĞµÑˆĞµĞ½Ğ¸Ñ.
 
-İÒÀ ÏĞÎÃĞÀÌÌÀ ÏĞÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎĞÑÊÈÕ ÏĞÀÂ È/ÈËÈ ÄĞÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀĞÀÍÒÈÉ, ÂÛĞÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄĞÀÇÓÌÅÂÀÅÌÛÕ,
-ÂÊËŞ×Àß ÃÀĞÀÍÒÈÈ ÊÎÌÌÅĞ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏĞÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊĞÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃĞÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎĞÑÊÈÕ ÏĞÀÂ È ÍÈ ÎÄÍÎ ÄĞÓÃÎÅ ËÈÖÎ, ÊÎÒÎĞÎÅ
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎĞÍÎ ĞÀÑÏĞÎÑÒĞÀÍßÒÜ ÏĞÎÃĞÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËŞ×Àß ËŞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏĞÎÃĞÀÌÌÛ (ÂÊËŞ×Àß ÏÎÒÅĞÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅĞÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
-ÒĞÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏĞÎÃĞÀÌÌÛ ĞÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄĞÓÃÈÌÈ ÏĞÎÃĞÀÌÌÀÌÈ,
-ÍÎ ÍÅ ÎÃĞÀÍÈ×ÈÂÀßÑÜ İÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃĞÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
-ÂËÀÄÅËÅÖ ÈËÈ ÄĞÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅĞÜ.
+Ğ­Ğ¢Ğ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞ ĞŸĞ Ğ•Ğ”ĞĞ¡Ğ¢ĞĞ’Ğ›Ğ•ĞĞ Ğ’Ğ›ĞĞ”Ğ•Ğ›Ğ¬Ğ¦ĞĞœĞ˜ ĞĞ’Ğ¢ĞĞ Ğ¡ĞšĞ˜Ğ¥ ĞŸĞ ĞĞ’ Ğ˜/Ğ˜Ğ›Ğ˜ Ğ”Ğ Ğ£Ğ“Ğ˜ĞœĞ˜ Ğ›Ğ˜Ğ¦ĞĞœĞ˜ "ĞšĞĞš
+ĞĞĞ Ğ•Ğ¡Ğ¢Ğ¬" Ğ‘Ğ•Ğ— ĞšĞĞšĞĞ“Ğ-Ğ›Ğ˜Ğ‘Ğ Ğ’Ğ˜Ğ”Ğ Ğ“ĞĞ ĞĞĞ¢Ğ˜Ğ™, Ğ’Ğ«Ğ ĞĞ–Ğ•ĞĞĞ«Ğ¥ Ğ¯Ğ’ĞĞ Ğ˜Ğ›Ğ˜ ĞŸĞĞ”Ğ ĞĞ—Ğ£ĞœĞ•Ğ’ĞĞ•ĞœĞ«Ğ¥,
+Ğ’ĞšĞ›Ğ®Ğ§ĞĞ¯ Ğ“ĞĞ ĞĞĞ¢Ğ˜Ğ˜ ĞšĞĞœĞœĞ•Ğ Ğ§Ğ•Ğ¡ĞšĞĞ™ Ğ¦Ğ•ĞĞĞĞ¡Ğ¢Ğ˜ Ğ˜ ĞŸĞ Ğ˜Ğ“ĞĞ”ĞĞĞ¡Ğ¢Ğ˜ Ğ”Ğ›Ğ¯ ĞšĞĞĞšĞ Ğ•Ğ¢ĞĞĞ™ Ğ¦Ğ•Ğ›Ğ˜, ĞĞ ĞĞ•
+ĞĞ“Ğ ĞĞĞ˜Ğ§Ğ˜Ğ’ĞĞ¯Ğ¡Ğ¬ Ğ˜ĞœĞ˜. ĞĞ˜ Ğ’Ğ›ĞĞ”Ğ•Ğ›Ğ•Ğ¦ ĞĞ’Ğ¢ĞĞ Ğ¡ĞšĞ˜Ğ¥ ĞŸĞ ĞĞ’ Ğ˜ ĞĞ˜ ĞĞ”ĞĞ Ğ”Ğ Ğ£Ğ“ĞĞ• Ğ›Ğ˜Ğ¦Ğ, ĞšĞĞ¢ĞĞ ĞĞ•
+ĞœĞĞ–Ğ•Ğ¢ Ğ˜Ğ—ĞœĞ•ĞĞ¯Ğ¢Ğ¬ Ğ˜/Ğ˜Ğ›Ğ˜ ĞŸĞĞ’Ğ¢ĞĞ ĞĞ Ğ ĞĞ¡ĞŸĞ ĞĞ¡Ğ¢Ğ ĞĞĞ¯Ğ¢Ğ¬ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞ£, ĞĞ˜ Ğ’ ĞšĞĞ•Ğœ Ğ¡Ğ›Ğ£Ğ§ĞĞ• ĞĞ•
+ĞĞ•Ğ¡ĞĞ¢ ĞĞ¢Ğ’Ğ•Ğ¢Ğ¡Ğ¢Ğ’Ğ•ĞĞĞĞ¡Ğ¢Ğ˜, Ğ’ĞšĞ›Ğ®Ğ§ĞĞ¯ Ğ›Ğ®Ğ‘Ğ«Ğ• ĞĞ‘Ğ©Ğ˜Ğ•, Ğ¡Ğ›Ğ£Ğ§ĞĞ™ĞĞ«Ğ•, Ğ¡ĞŸĞ•Ğ¦Ğ˜ĞĞ›Ğ¬ĞĞ«Ğ• Ğ˜Ğ›Ğ˜
+ĞŸĞĞ¡Ğ›Ğ•Ğ”ĞĞ’ĞĞ’Ğ¨Ğ˜Ğ• Ğ£Ğ‘Ğ«Ğ¢ĞšĞ˜, Ğ¡Ğ’Ğ¯Ğ—ĞĞĞĞ«Ğ• Ğ¡ Ğ˜Ğ¡ĞŸĞĞ›Ğ¬Ğ—ĞĞ’ĞĞĞ˜Ğ•Ğœ Ğ˜Ğ›Ğ˜ ĞŸĞĞĞ•Ğ¡Ğ•ĞĞĞ«Ğ• Ğ’Ğ¡Ğ›Ğ•Ğ”Ğ¡Ğ¢Ğ’Ğ˜Ğ•
+ĞĞ•Ğ’ĞĞ—ĞœĞĞ–ĞĞĞ¡Ğ¢Ğ˜ Ğ˜Ğ¡ĞŸĞĞ›Ğ¬Ğ—ĞĞ’ĞĞĞ˜Ğ¯ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞ« (Ğ’ĞšĞ›Ğ®Ğ§ĞĞ¯ ĞŸĞĞ¢Ğ•Ğ Ğ˜ Ğ”ĞĞĞĞ«Ğ¥, Ğ˜Ğ›Ğ˜ Ğ”ĞĞĞĞ«Ğ•,
+Ğ¡Ğ¢ĞĞ’Ğ¨Ğ˜Ğ• ĞĞ•Ğ“ĞĞ”ĞĞ«ĞœĞ˜, Ğ˜Ğ›Ğ˜ Ğ£Ğ‘Ğ«Ğ¢ĞšĞ˜ Ğ˜/Ğ˜Ğ›Ğ˜ ĞŸĞĞ¢Ğ•Ğ Ğ˜ Ğ”ĞĞ¥ĞĞ”ĞĞ’, ĞŸĞĞĞ•Ğ¡Ğ•ĞĞĞ«Ğ• Ğ˜Ğ—-Ğ—Ğ Ğ”Ğ•Ğ™Ğ¡Ğ¢Ğ’Ğ˜Ğ™
+Ğ¢Ğ Ğ•Ğ¢Ğ¬Ğ˜Ğ¥ Ğ›Ğ˜Ğ¦ Ğ˜/Ğ˜Ğ›Ğ˜ ĞĞ¢ĞšĞĞ—Ğ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞ« Ğ ĞĞ‘ĞĞ¢ĞĞ¢Ğ¬ Ğ¡ĞĞ’ĞœĞ•Ğ¡Ğ¢ĞĞ Ğ¡ Ğ”Ğ Ğ£Ğ“Ğ˜ĞœĞ˜ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞĞœĞ˜,
+ĞĞ ĞĞ• ĞĞ“Ğ ĞĞĞ˜Ğ§Ğ˜Ğ’ĞĞ¯Ğ¡Ğ¬ Ğ­Ğ¢Ğ˜ĞœĞ˜ Ğ¡Ğ›Ğ£Ğ§ĞĞ¯ĞœĞ˜), ĞĞ ĞĞ• ĞĞ“Ğ ĞĞĞ˜Ğ§Ğ˜Ğ’ĞĞ¯Ğ¡Ğ¬ Ğ˜ĞœĞ˜, Ğ”ĞĞ–Ğ• Ğ•Ğ¡Ğ›Ğ˜ Ğ¢ĞĞšĞĞ™
+Ğ’Ğ›ĞĞ”Ğ•Ğ›Ğ•Ğ¦ Ğ˜Ğ›Ğ˜ Ğ”Ğ Ğ£Ğ“ĞĞ• Ğ›Ğ˜Ğ¦Ğ Ğ‘Ğ«Ğ›Ğ˜ Ğ˜Ğ—Ğ’Ğ•Ğ©Ğ•ĞĞ« Ğ Ğ’ĞĞ—ĞœĞĞ–ĞĞĞ¡Ğ¢Ğ˜ Ğ¢ĞĞšĞ˜Ğ¥ Ğ£Ğ‘Ğ«Ğ¢ĞšĞĞ’ Ğ˜ ĞŸĞĞ¢Ğ•Ğ Ğ¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -118,11 +118,11 @@ BOOL CreateInternalFileForFormatter(FILE *pIFName)
      TemplateOffset.y = 0;
  }
 
- //Ñîçäàíèå ìàññèâà òåêñòîâûõ ôğàãìåíòîâ
+ //Ğ¡Ğ¾Ğ·Ğ´Ğ°Ğ½Ğ¸Ğµ Ğ¼Ğ°ÑÑĞ¸Ğ²Ğ° Ñ‚ĞµĞºÑÑ‚Ğ¾Ğ²Ñ‹Ñ… Ñ„Ñ€Ğ°Ğ³Ğ¼ĞµĞ½Ñ‚Ğ¾Ğ²
  Page.FragmentsArray.clear();
  Page.CreateArray_For_TextFragments( );
 
- //×òåíèå èíôîğìàöèè èç õğàíèëèøà
+ //Ğ§Ñ‚ĞµĞ½Ğ¸Ğµ Ğ¸Ğ½Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ†Ğ¸Ğ¸ Ğ¸Ğ· Ñ…Ñ€Ğ°Ğ½Ğ¸Ğ»Ğ¸ÑˆĞ°
  line = CSTR_FirstLine (1);
 
  while(line)
@@ -147,7 +147,7 @@ BOOL CreateInternalFileForFormatter(FILE *pIFName)
 	return TRUE;
  }
 
- //Ñîçäàíèÿ âíóòğåííåãî ôàéëà äëÿ ôîğìàòèğîâàíèÿ
+ //Ğ¡Ğ¾Ğ·Ğ´Ğ°Ğ½Ğ¸Ñ Ğ²Ğ½ÑƒÑ‚Ñ€ĞµĞ½Ğ½ĞµĞ³Ğ¾ Ñ„Ğ°Ğ¹Ğ»Ğ° Ğ´Ğ»Ñ Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ‚Ğ¸Ñ€Ğ¾Ğ²Ğ°Ğ½Ğ¸Ñ
  WORD  DistanceBetweenLeftMargin = 15;
  WORD  DistanceBetweenTopMargin  =  5;
  Page.m_wDpi             = (WORD)PageInfo.DPIX;
@@ -155,10 +155,10 @@ BOOL CreateInternalFileForFormatter(FILE *pIFName)
 
  InternalRect VRect;
  fwrite(&Page.m_wDpi,              sizeof(WORD),1,pIFName); // ScanResolution
- fwrite(&Page.Count.Frags,         sizeof(WORD),1,pIFName); // ÷èñëî êîëîíîê
- fwrite(&Page.Count.Chars,         sizeof(WORD),1,pIFName); // ÷èñëî çíàêîìåñò  in all page
- fwrite(&Page.Count.Words,         sizeof(WORD),1,pIFName); // ÷èñëî ñëîâ
- fwrite(&Page.Count.Strings,       sizeof(WORD),1,pIFName); // ÷èñëî ñòğîê
+ fwrite(&Page.Count.Frags,         sizeof(WORD),1,pIFName); // Ñ‡Ğ¸ÑĞ»Ğ¾ ĞºĞ¾Ğ»Ğ¾Ğ½Ğ¾Ğº
+ fwrite(&Page.Count.Chars,         sizeof(WORD),1,pIFName); // Ñ‡Ğ¸ÑĞ»Ğ¾ Ğ·Ğ½Ğ°ĞºĞ¾Ğ¼ĞµÑÑ‚  in all page
+ fwrite(&Page.Count.Words,         sizeof(WORD),1,pIFName); // Ñ‡Ğ¸ÑĞ»Ğ¾ ÑĞ»Ğ¾Ğ²
+ fwrite(&Page.Count.Strings,       sizeof(WORD),1,pIFName); // Ñ‡Ğ¸ÑĞ»Ğ¾ ÑÑ‚Ñ€Ğ¾Ğº
  fwrite(&DistanceBetweenLeftMargin,sizeof(WORD),1,pIFName); // distance between left margin letters- neighdoors from one word
  fwrite(&DistanceBetweenTopMargin, sizeof(WORD),1,pIFName); // distance between top margin
 
@@ -175,8 +175,8 @@ BOOL CreateInternalFileForFormatter(FILE *pIFName)
 	  FReturnCode = FALSE ;
     fwrite(&VRect , sizeof( InternalRect ),1,pIFName);
     fwrite(&cFrag->m_wStringsCount, sizeof( WORD  ),1,pIFName);
-    fwrite(&cFrag->m_wUserNumber  , sizeof( DWORD ),1,pIFName);
-    fwrite(&cFrag->m_Flags        , sizeof( DWORD ),1,pIFName);
+    fwrite(&cFrag->m_wUserNumber  , sizeof( uint32_t ),1,pIFName);
+    fwrite(&cFrag->m_Flags        , sizeof( uint32_t ),1,pIFName);
 
    // Processing Strings
    for(int iFrag=0; iFrag < cFrag->m_wStringsCount; iFrag++){
@@ -315,7 +315,7 @@ void CFPage::ProcessingComingLine( CSTR_line* Comingline )
 	while(hBlock)
     {
 		if(CPAGE_GetBlockInterNum(hCPAGE,hBlock)==(Word32)m_nCurFragNumber){
-		   Fragment->m_wUserNumber = (DWORD)CPAGE_GetBlockUserNum( hCPAGE, hBlock  );
+		   Fragment->m_wUserNumber = (uint32_t)CPAGE_GetBlockUserNum( hCPAGE, hBlock  );
            Fragment->m_Flags = attr.Flags; //nega
            if(attr.Flags == CSTR_STR_NEGATIVE){ //nega_str
  		      CPAGE_GetBlockData(hCPAGE,hBlock,TYPE_TEXT, &poly, sizeof(POLY_));
@@ -432,7 +432,7 @@ BOOL CheckLineForFilling( CSTR_line* Comingline )
  CSTR_rast_attr	 rast_attr;
 
  line = *Comingline;
- rast =  CSTR_GetFirstRaster( line );                              // I ôèêò. ğàñòğ
+ rast =  CSTR_GetFirstRaster( line );                              // I Ñ„Ğ¸ĞºÑ‚. Ñ€Ğ°ÑÑ‚Ñ€
  rast =  CSTR_GetNextRaster( rast , CSTR_f_all );
 
  while( rast )
@@ -440,10 +440,10 @@ BOOL CheckLineForFilling( CSTR_line* Comingline )
 	 CSTR_GetCollection( rast,&vers );
      CSTR_GetAttr( rast,&rast_attr );
 
-     if((rast_attr.flg&CSTR_f_dust) ||  (rast_attr.flg&CSTR_f_fict ) ||//Äóñòû è
+     if((rast_attr.flg&CSTR_f_dust) ||  (rast_attr.flg&CSTR_f_fict ) ||//Ğ”ÑƒÑÑ‚Ñ‹ Ğ¸
 	    ((rast_attr.flg&CSTR_f_space) &&
 	    (!vers.Alt[0].Code || vers.Alt[0].Code == 0x1e ||
-		vers.Alt[0].Code == 0x1f)))                                 //ïîëóïğîáåëû  âûêèäûâàåì.
+		vers.Alt[0].Code == 0x1f)))                                 //Ğ¿Ğ¾Ğ»ÑƒĞ¿Ñ€Ğ¾Ğ±ĞµĞ»Ñ‹  Ğ²Ñ‹ĞºĞ¸Ğ´Ñ‹Ğ²Ğ°ĞµĞ¼.
      goto next_raster;
      return TRUE;
 
@@ -499,7 +499,7 @@ void CFString::ExtractWordsFromString( CSTR_line* Comingline , PageElementCount*
  FlagCapDrop = FALSE;
 
  CSTR_GetLineAttr( line , &line_attr );
- if(line_attr.Flags & CSTR_STR_CapDrop) //áóêâèöà - ñì. ïåğâàÿ áóêâà â ñêàçêàõ
+ if(line_attr.Flags & CSTR_STR_CapDrop) //Ğ±ÑƒĞºĞ²Ğ¸Ñ†Ğ° - ÑĞ¼. Ğ¿ĞµÑ€Ğ²Ğ°Ñ Ğ±ÑƒĞºĞ²Ğ° Ğ² ÑĞºĞ°Ğ·ĞºĞ°Ñ…
     FlagCapDrop = TRUE;
 
  SetRect(&m_rectBaseLine, line_attr.bs1, line_attr.bs2,
@@ -519,7 +519,7 @@ void CFString::ExtractWordsFromString( CSTR_line* Comingline , PageElementCount*
  }
  #endif
 
- rast =  CSTR_GetFirstRaster( line );            // I ôèêò. ğàñòğ
+ rast =  CSTR_GetFirstRaster( line );            // I Ñ„Ğ¸ĞºÑ‚. Ñ€Ğ°ÑÑ‚Ñ€
  rast =  CSTR_GetNextRaster( rast , CSTR_f_all );
 
  while( rast )
@@ -530,10 +530,10 @@ void CFString::ExtractWordsFromString( CSTR_line* Comingline , PageElementCount*
      //#define POS_HALF_SPACE  0x1f
      //#define REGULAR_SPACE   0x20
 
-     if((rast_attr.flg&CSTR_f_dust) ||  (rast_attr.flg&CSTR_f_fict ) ||//Äóñòû è
+     if((rast_attr.flg&CSTR_f_dust) ||  (rast_attr.flg&CSTR_f_fict ) ||//Ğ”ÑƒÑÑ‚Ñ‹ Ğ¸
 	    ((rast_attr.flg&CSTR_f_space) &&
 	    (!vers.Alt[0].Code || vers.Alt[0].Code == 0x1e ||
-	    vers.Alt[0].Code == 0x1f)))//ïîëóïğîáåëû  âûêèäûâàåì.
+	    vers.Alt[0].Code == 0x1f)))//Ğ¿Ğ¾Ğ»ÑƒĞ¿Ñ€Ğ¾Ğ±ĞµĞ»Ñ‹  Ğ²Ñ‹ĞºĞ¸Ğ´Ñ‹Ğ²Ğ°ĞµĞ¼.
       goto next_raster;
 
       FlagString = TRUE;

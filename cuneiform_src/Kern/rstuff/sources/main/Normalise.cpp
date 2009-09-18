@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -54,15 +54,15 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/**********  Заголовок  *******************************************************/
-/*  Автор,                                                                    */
-/*  комментарии                                                               */
-/*  и далнейшая                                                               */
-/*  правка     :  Алексей Коноплев                                            */
-/*  Редакция   :  08.06.00                                                    */
-/*  Файл       :  'Normalise.cpp'                                             */
-/*  Содержание :  Нормализация сырья                                          */
-/*  Назначение :                                                              */
+/**********  Р—Р°РіРѕР»РѕРІРѕРє  *******************************************************/
+/*  РђРІС‚РѕСЂ,                                                                    */
+/*  РєРѕРјРјРµРЅС‚Р°СЂРёРё                                                               */
+/*  Рё РґР°Р»РЅРµР№С€Р°СЏ                                                               */
+/*  РїСЂР°РІРєР°     :  РђР»РµРєСЃРµР№ РљРѕРЅРѕРїР»РµРІ                                            */
+/*  Р РµРґР°РєС†РёСЏ   :  08.06.00                                                    */
+/*  Р¤Р°Р№Р»       :  'Normalise.cpp'                                             */
+/*  РЎРѕРґРµСЂР¶Р°РЅРёРµ :  РќРѕСЂРјР°Р»РёР·Р°С†РёСЏ СЃС‹СЂСЊСЏ                                          */
+/*  РќР°Р·РЅР°С‡РµРЅРёРµ :                                                              */
 /*----------------------------------------------------------------------------*/
 
 #include <fstream>
@@ -83,7 +83,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "un_err.h"
 #include "specprj.h"
 
-// модули
+// РјРѕРґСѓР»Рё
 #include "ccom.h"
 #include "cpage.h"
 #include "criimage.h"
@@ -135,8 +135,8 @@ extern Handle hDebugPrintResolution;
 Bool32    AutoTemplate          ( PRSPreProcessImage );
 void checkResolution(Handle hCCOM, Handle hCPAGE);
 ////////////////////////////////////////////////////////////////////////////////
-// Нормализация сырь
-// (07.07.2000) Изначально взято из puma.dll без изменений
+// РќРѕСЂРјР°Р»РёР·Р°С†РёСЏ СЃС‹СЂСЊ
+// (07.07.2000) РР·РЅР°С‡Р°Р»СЊРЅРѕ РІР·СЏС‚Рѕ РёР· puma.dll Р±РµР· РёР·РјРµРЅРµРЅРёР№
 Bool32 Normalise( PRSPreProcessImage Image)
 {
 	Bool32 rc;
@@ -175,7 +175,7 @@ Bool32 Normalise( PRSPreProcessImage Image)
 
 /*    if (rc &&
 
-		//  В Турецком зазря удаляются точки над буквами. 02.07.2002 E.P..
+		//  Р’ РўСѓСЂРµС†РєРѕРј Р·Р°Р·СЂСЏ СѓРґР°Р»СЏСЋС‚СЃСЏ С‚РѕС‡РєРё РЅР°Рґ Р±СѓРєРІР°РјРё. 02.07.2002 E.P..
 		Image->gnLanguage != LANG_TURKISH &&
 
 		LDPUMA_Skip(hDotLine) &&
@@ -190,13 +190,13 @@ Bool32 Normalise( PRSPreProcessImage Image)
 
     LDPUMA_Skip(hKillLine);
 
-	// снятие линий
+	// СЃРЅСЏС‚РёРµ Р»РёРЅРёР№
 	if ( rc )
 		rc = KillLinesN( Image );
 
 	LDPUMA_Skip(hKillLineAfter);
 
-	// убиваем остатки линии после сняти
+	// СѓР±РёРІР°РµРј РѕСЃС‚Р°С‚РєРё Р»РёРЅРёРё РїРѕСЃР»Рµ СЃРЅСЏС‚Рё
 	if ( rc && LDPUMA_Skip(Image->hDebugCancelRemoveLines))
 //		rc = //almi 28.11.00
              LineKiller(Image);
@@ -298,10 +298,10 @@ Bool32    KillLinesN( PRSPreProcessImage Image )
 	return rc;
 }
 ////////////////////////////////////////////////////////////////////////////////
-// Предварительная обработка
-// (07.07.2000) Изначально взято из puma.dll без изменений
-// сильно привязана к пуме
-// в начале окучиваем выделение компонент
+// РџСЂРµРґРІР°СЂРёС‚РµР»СЊРЅР°СЏ РѕР±СЂР°Р±РѕС‚РєР°
+// (07.07.2000) РР·РЅР°С‡Р°Р»СЊРЅРѕ РІР·СЏС‚Рѕ РёР· puma.dll Р±РµР· РёР·РјРµРЅРµРЅРёР№
+// СЃРёР»СЊРЅРѕ РїСЂРёРІСЏР·Р°РЅР° Рє РїСѓРјРµ
+// РІ РЅР°С‡Р°Р»Рµ РѕРєСѓС‡РёРІР°РµРј РІС‹РґРµР»РµРЅРёРµ РєРѕРјРїРѕРЅРµРЅС‚
 Bool32 PreProcessImage( PRSPreProcessImage Image )
 {
 
@@ -324,7 +324,7 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 		rc = FALSE;
 
 	// Andrey 12.11.01
-	// Проинициализируем контейнер CPAGE
+	// РџСЂРѕРёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РєРѕРЅС‚РµР№РЅРµСЂ CPAGE
 	//
 	if(rc)
 	{
@@ -338,7 +338,7 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 //		PInfo.DPIY = PInfo.DPIY < 200 ? 200 : PInfo.DPIY;
 		PInfo.Height = info->biHeight;
 		PInfo.Width = info->biWidth;
-//		PInfo.X = 0; Уже установлено
+//		PInfo.X = 0; РЈР¶Рµ СѓСЃС‚Р°РЅРѕРІР»РµРЅРѕ
 //		PInfo.Y = 0;
 		PInfo.Incline2048 = 0;
 		PInfo.Page = 1;
@@ -348,7 +348,7 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 	}
 
 	////////////////////////////////////////////////////////
-	// Выделим компоненты
+	// Р’С‹РґРµР»РёРј РєРѕРјРїРѕРЅРµРЅС‚С‹
 	//
 	if(!ProgressStep(2,65))
 		rc = FALSE;
@@ -410,7 +410,7 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 								else
 								{
 									//
-									//  удалим общий контейнер
+									//  СѓРґР°Р»РёРј РѕР±С‰РёР№ РєРѕРЅС‚РµР№РЅРµСЂ
 									//
 									glpRecogName = PUMA_IMAGE_TURN;
 									hWndTurn = LDPUMA_CreateWindow(PUMA_IMAGE_TURN,(*gpRecogDIB));
@@ -429,17 +429,17 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 				}
 			}*/
 
-			//проверим наличие разрешения и попытаемся определить по компонентам, если его нет
+			//РїСЂРѕРІРµСЂРёРј РЅР°Р»РёС‡РёРµ СЂР°Р·СЂРµС€РµРЅРёСЏ Рё РїРѕРїС‹С‚Р°РµРјСЃСЏ РѕРїСЂРµРґРµР»РёС‚СЊ РїРѕ РєРѕРјРїРѕРЅРµРЅС‚Р°Рј, РµСЃР»Рё РµРіРѕ РЅРµС‚
 			checkResolution(*(Image->phCCOM), hCPAGE);
 			if(!ProgressStep(2,100))
 				rc = FALSE;
 
 		}
 		else
-			LDPUMA_Console("Пропущен этап выделения компонент.\n");
+			LDPUMA_Console("РџСЂРѕРїСѓС‰РµРЅ СЌС‚Р°Рї РІС‹РґРµР»РµРЅРёСЏ РєРѕРјРїРѕРЅРµРЅС‚.\n");
 	}
 	//
-	// Переинициализируем контейнер CPAGE
+	// РџРµСЂРµРёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РєРѕРЅС‚РµР№РЅРµСЂ CPAGE
 	//
 	if(rc)
 	{
@@ -453,7 +453,7 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 		PInfo.DPIY = PInfo.DPIY < 200 ? 200 : PInfo.DPIY;
 		PInfo.Height = info->biHeight;
 		PInfo.Width = info->biWidth;
-//		PInfo.X = 0; Уже установлено
+//		PInfo.X = 0; РЈР¶Рµ СѓСЃС‚Р°РЅРѕРІР»РµРЅРѕ
 //		PInfo.Y = 0;
 		PInfo.Incline2048 = 0;
 		PInfo.Page = 1;
@@ -469,7 +469,7 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 }
 //////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-// Выделение компонент
+// Р’С‹РґРµР»РµРЅРёРµ РєРѕРјРїРѕРЅРµРЅС‚
 Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name, PRSPreProcessImage Image)
 {
 	Bool32 rc = TRUE;
@@ -504,8 +504,8 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name, PR
 		return FALSE;
 	}
 
-	// будет распознавания эвентами
-	//Andrey: опознавалка вынесена в отдельный модуль RRecCom
+	// Р±СѓРґРµС‚ СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ СЌРІРµРЅС‚Р°РјРё
+	//Andrey: РѕРїРѕР·РЅР°РІР°Р»РєР° РІС‹РЅРµСЃРµРЅР° РІ РѕС‚РґРµР»СЊРЅС‹Р№ РјРѕРґСѓР»СЊ RRecCom
 	exc.Control  = Ex_ExtraComp|/*Ex_EvnRecog|*/Ex_Picture;
     //exc.Control |= Ex_NetRecog;
 
@@ -515,9 +515,9 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name, PR
 //Andrey: without flag Ex_PictureLarge big comps aren't extracted which may cause loss of big negatives
 //    if( Image->gnPictures )
         exc.Control |= Ex_PictureLarge;
-/*//Andrey: опознавалка вынесена в отдельный модуль RRecCom
+/*//Andrey: РѕРїРѕР·РЅР°РІР°Р»РєР° РІС‹РЅРµСЃРµРЅР° РІ РѕС‚РґРµР»СЊРЅС‹Р№ РјРѕРґСѓР»СЊ RRecCom
 	if(rc && !REXC_SetEVNProperties(exc, GetModulePath(),(Word8)Image->gnLanguage) )
-	{ // инициализировать распознавание по эвентам и задать алфавит
+	{ // РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°С‚СЊ СЂР°СЃРїРѕР·РЅР°РІР°РЅРёРµ РїРѕ СЌРІРµРЅС‚Р°Рј Рё Р·Р°РґР°С‚СЊ Р°Р»С„Р°РІРёС‚
 		SetReturnCode_rstuff(REXC_GetReturnCode());
 		rc = FALSE;
 	}
@@ -532,7 +532,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name, PR
 
 //exc.Control ^= Ex_EvnRecog;
 /*
-	if(rc && !REXCExtraDIB( exc, lpdata,0,0,0,0) ) // поиск компонент в DIB-e
+	if(rc && !REXCExtraDIB( exc, lpdata,0,0,0,0) ) // РїРѕРёСЃРє РєРѕРјРїРѕРЅРµРЅС‚ РІ DIB-e
 */
     CIMAGEIMAGECALLBACK clbk;
     if(rc && !CIMAGE_GetCallbackImage(name, &clbk))
@@ -540,7 +540,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name, PR
 		SetReturnCode_rstuff(CIMAGE_GetReturnCode());
         rc = FALSE;
     }
-    if( rc && !REXCExtracomp3CB(exc, // поиск компонент by 3CallBacks
+    if( rc && !REXCExtracomp3CB(exc, // РїРѕРёСЃРє РєРѕРјРїРѕРЅРµРЅС‚ by 3CallBacks
         (TImageOpen)clbk.CIMAGE_ImageOpen,
         (TImageClose)clbk.CIMAGE_ImageClose,
         (TImageRead)clbk.CIMAGE_ImageRead)
@@ -592,11 +592,11 @@ Bool32 SearchLines ( PRSPreProcessImage Image )
 			//SetReturnCode_rstuff(RLINE_GetReturnCode());
 			//rc = FALSE;
 			*Image->pgrc_line = FALSE;
-			LDPUMA_Console("ПРЕДУПРЕЖДЕНИЕ: RLINE(0x%X) %s\n",RLINE_GetReturnCode(),RLINE_GetReturnString(RLINE_GetReturnCode()));
+			LDPUMA_Console("РџР Р•Р”РЈРџР Р•Р–Р”Р•РќРР•: RLINE(0x%X) %s\n",RLINE_GetReturnCode(),RLINE_GetReturnString(RLINE_GetReturnCode()));
 		}
 	}
 	else
-		LDPUMA_Console("Пропущен этап поиска линий.\n");
+		LDPUMA_Console("РџСЂРѕРїСѓС‰РµРЅ СЌС‚Р°Рї РїРѕРёСЃРєР° Р»РёРЅРёР№.\n");
 	return rc;
 
 }
@@ -627,10 +627,10 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 			}
 
 			if(!*Image->pgneed_clean_line)
-				LDPUMA_Console("Предупреждение: RSTUFF говорит, что снимать линии не надо.\n");
+				LDPUMA_Console("РџСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ: RSTUFF РіРѕРІРѕСЂРёС‚, С‡С‚Рѕ СЃРЅРёРјР°С‚СЊ Р»РёРЅРёРё РЅРµ РЅР°РґРѕ.\n");
 			}
 		else
-			LDPUMA_Console("Пропущен этап оценки линий.\n");
+			LDPUMA_Console("РџСЂРѕРїСѓС‰РµРЅ СЌС‚Р°Рї РѕС†РµРЅРєРё Р»РёРЅРёР№.\n");
 ////		if(LDPUMA_Skip(hDebugCancelVerifyLines))
 ////		{
 ////			Regime_VerifyLines val = gnTables ? RVL_FutuTablCorr:RVL_Default;
@@ -647,10 +647,10 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 ////				Int32  ScanQual= 0;
 ////				RLTABLE_AboutLines(hCPAGE,hCCOM, &gneed_clean_line, &BadScan, &ScanQual);			}
 ////				if(!gneed_clean_line)
-////					LDPUMA_Console("Предупреждение: RLTABLE_AboutLines говорит, что снимать линии не надо.\n");
+////					LDPUMA_Console("РџСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ: RLTABLE_AboutLines РіРѕРІРѕСЂРёС‚, С‡С‚Рѕ СЃРЅРёРјР°С‚СЊ Р»РёРЅРёРё РЅРµ РЅР°РґРѕ.\n");
 ////			}
 ////		else
-////			LDPUMA_Console("Пропущен этап оценки линий.\n");
+////			LDPUMA_Console("РџСЂРѕРїСѓС‰РµРЅ СЌС‚Р°Рї РѕС†РµРЅРєРё Р»РёРЅРёР№.\n");
 	}
 #endif //_USE_RVERLINE_
 
@@ -726,7 +726,7 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 	hBlockLine = CPAGE_GetBlockFirst (Image->hCPAGE, RLINE_BLOCK_TYPE);
 	if (!hBlockLine)
 	{
-		//sprintf (pStr, "Линии не выделялись.");
+		//sprintf (pStr, "Р›РёРЅРёРё РЅРµ РІС‹РґРµР»СЏР»РёСЃСЊ.");
 		//return RV_EMPTY;
 		bRet =  FALSE;
 	}
@@ -738,7 +738,7 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 		//Error_CPage ("[GetBlockFirst]");
 		bRet =  FALSE;
 	}
-	//берем.... что берем?
+	//Р±РµСЂРµРј.... С‡С‚Рѕ Р±РµСЂРµРј?
 	if ( bRet )
 	{
 		nReal = CPAGE_GetBlockData (Image->hCPAGE, hBlockLine, RLINE_BLOCK_TYPE, (void *)LTInfo, nTagSize);
@@ -753,17 +753,17 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 	}
 	if (LTInfo->Hor.Cnt + LTInfo->Ver.Cnt >= RStuffMaxNumLines)
 	{
-		//sprintf (pStr, "Не хватило памяти под %d линии!", LTInfo.Hor.Cnt + LTInfo.Ver.Cnt);
+		//sprintf (pStr, "РќРµ С…РІР°С‚РёР»Рѕ РїР°РјСЏС‚Рё РїРѕРґ %d Р»РёРЅРёРё!", LTInfo.Hor.Cnt + LTInfo.Ver.Cnt);
 		//return RV_DOUBT;
 		bRet = FALSE;
 	}
 	if ((LTInfo->Hor.Cnt==0)&&(LTInfo->Ver.Cnt==0))
 	{
-		//sprintf (pStr, "Линии выделялись, но ни одной не выделено.");
+		//sprintf (pStr, "Р›РёРЅРёРё РІС‹РґРµР»СЏР»РёСЃСЊ, РЅРѕ РЅРё РѕРґРЅРѕР№ РЅРµ РІС‹РґРµР»РµРЅРѕ.");
 		//return RV_EMPTY;
 		bRet = FALSE;
 	}
-	//  Горизонтальные линии
+	//  Р“РѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Рµ Р»РёРЅРёРё
 	if ( bRet && pLHor != NULL )
 	{
 		for (Int32 i=0; i<LTInfo->Hor.Cnt; i++)
@@ -794,7 +794,7 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 			hBlockLinePrev = hBlockLineHor;
 		}
 	}
-	//  Вертикальные линии
+	//  Р’РµСЂС‚РёРєР°Р»СЊРЅС‹Рµ Р»РёРЅРёРё
 	if ( bRet && pLVer != NULL )
 	{
 		for (Int32 i=0; i<LTInfo->Ver.Cnt; i++)
@@ -835,7 +835,7 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 }
 */
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// удаляем линии
+// СѓРґР°Р»СЏРµРј Р»РёРЅРёРё
 Bool32    KillLines(PRSPreProcessImage Image)
 {
 	Bool32 rc = TRUE;
@@ -860,7 +860,7 @@ Bool32    KillLines(PRSPreProcessImage Image)
 			RestorePRGTIME(prev);
 		}
 		else
-			LDPUMA_Console("Пропущен этап снятия линий.\n");
+			LDPUMA_Console("РџСЂРѕРїСѓС‰РµРЅ СЌС‚Р°Рї СЃРЅСЏС‚РёСЏ Р»РёРЅРёР№.\n");
 	}
 
 	return rc;
@@ -880,7 +880,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, PWord8 * lppDIB)
     Int32       nvict,i;
     Bool32      yes_victim = FALSE;
 	//
-	// Удалим линии
+	// РЈРґР°Р»РёРј Р»РёРЅРёРё
 	//
 	if(!LDPUMA_Skip(ObvKillLines)||(LDPUMA_Skip(hNewLine)&&LDPUMA_Skip(Image->hDebugCancelVerifyLines)))
 		rc=DeleteLines(hcpage,Image->phCLINE,PUMA_IMAGE_DELLINE);
@@ -897,7 +897,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, PWord8 * lppDIB)
 
 	LDPUMA_Skip(hPrep2);
 	//
-	// Получим изображение с удаленными линиями
+	// РџРѕР»СѓС‡РёРј РёР·РѕР±СЂР°Р¶РµРЅРёРµ СЃ СѓРґР°Р»РµРЅРЅС‹РјРё Р»РёРЅРёСЏРјРё
 	//
 	if(rc && !CIMAGE_ReadDIB((PWord8)PUMA_IMAGE_DELLINE,(Handle*)&hDIB,TRUE))
 	{
@@ -907,7 +907,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, PWord8 * lppDIB)
 	if(hDIB)
 	{
 		//
-		// Удалим компоненты и выделим их заново.
+		// РЈРґР°Р»РёРј РєРѕРјРїРѕРЅРµРЅС‚С‹ Рё РІС‹РґРµР»РёРј РёС… Р·Р°РЅРѕРІРѕ.
 		//
 		*lppDIB = (PWord8)hDIB;
 		if(rc)
@@ -971,7 +971,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, PWord8 * lppDIB)
 
                 if(!LDPUMA_Skip(hShowCheckLetters))
 	                {
-		                LDPUMA_Console("Puma_Коробки жертв  \n");
+		                LDPUMA_Console("Puma_РљРѕСЂРѕР±РєРё Р¶РµСЂС‚РІ  \n");
 		                LDPUMA_WaitUserInput(NULL, NULL);
 		                LDPUMA_DeleteRects(NULL, key);
 	                }
@@ -1000,7 +1000,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, PWord8 * lppDIB)
                 }
 			}
 			else
-				LDPUMA_Console("Пропущен этап выделения компонент после удаления линий.\n");
+				LDPUMA_Console("РџСЂРѕРїСѓС‰РµРЅ СЌС‚Р°Рї РІС‹РґРµР»РµРЅРёСЏ РєРѕРјРїРѕРЅРµРЅС‚ РїРѕСЃР»Рµ СѓРґР°Р»РµРЅРёСЏ Р»РёРЅРёР№.\n");
 		}
 	}
 return rc;
@@ -1132,7 +1132,7 @@ Bool32    SearchTables( PRSPreProcessImage Image)
 			else
 			{
 				int HowToSearch;
-////				 устанавливаем способ поиска
+////				 СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЃРїРѕСЃРѕР± РїРѕРёСЃРєР°
 				HowToSearch = SST_Default;
 				if(!RLTABLE_SetImportData(RLTABLE_DTRLTABLE_StyleOfSearchTable, (void *)(&HowToSearch)))
 				{
@@ -1150,7 +1150,7 @@ Bool32    SearchTables( PRSPreProcessImage Image)
 			}
 		}
 		else
-			LDPUMA_Console("Пропущен этап поиска таблиц.\n");
+			LDPUMA_Console("РџСЂРѕРїСѓС‰РµРЅ СЌС‚Р°Рї РїРѕРёСЃРєР° С‚Р°Р±Р»РёС†.\n");
 	}
 
 	return rc;
@@ -1182,17 +1182,17 @@ Bool32 CalcIncline(PRSPreProcessImage Image)
 
 	GetPageInfo(hCPage,&info);
 
-	/*  2. Инициализация.  */
-		/***  переменные  ***/
+	/*  2. РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ.  */
+		/***  РїРµСЂРµРјРµРЅРЅС‹Рµ  ***/
     WasLine = 0;
-		/***  организация памяти  ***/
+		/***  РѕСЂРіР°РЅРёР·Р°С†РёСЏ РїР°РјСЏС‚Рё  ***/
 	GiveMainBuff (&vMain, &SizeMain);
 	MainBuff.vBuff    = vMain;
 	MainBuff.SizeBuff = SizeMain;
 	MainBuff.vCurr    = MainBuff.vBuff;
 	MainBuff.SizeCurr = MainBuff.SizeBuff;
 	GiveWorkBuff (&cWork, &SizeWork);
-		/***  линии  ***/
+		/***  Р»РёРЅРёРё  ***/
 //	if(!LDPUMA_Skip(hUseCLine))
 		ret=LoadLinesVP_rv(hCLINE,UN_LD_LinesVP2,&MainBuff,Str,&Code);
 //	else
@@ -1203,7 +1203,7 @@ Bool32 CalcIncline(PRSPreProcessImage Image)
 		return ret;
 	}
 	WasLine = (ret==RV_TRUE);
-		/***  компоненты  ***/
+		/***  РєРѕРјРїРѕРЅРµРЅС‚С‹  ***/
 	ret = LoadComps_rv (*(Image->phCCOM), (void *)(&MainBuff), Str, 0); //t-e-d
 	if (ret==RV_DOUBT)
 	{
@@ -1239,7 +1239,7 @@ Bool32 CalcIncline(PRSPreProcessImage Image)
 	CalcMuchSkew = (!LDPUMA_Skip(hCalcMuchSkew));
 	TalkMuchSkew = (!LDPUMA_Skip(hTalkMuchSkew));
 
-//  5.1 Определяем угол наклона страницы (ее заполнения в целом).
+//  5.1 РћРїСЂРµРґРµР»СЏРµРј СѓРіРѕР» РЅР°РєР»РѕРЅР° СЃС‚СЂР°РЅРёС†С‹ (РµРµ Р·Р°РїРѕР»РЅРµРЅРёСЏ РІ С†РµР»РѕРј).
 //	if(!LDPUMA_Skip(hUseCLine))
 		ret=ConvertLinesToAM_rv (UN_LD_LinesVP2, UN_LD_LinesAM, (void *)(&MainBuff)
 			,(int *)cWork, SizeWork / sizeof (int), &RcReg, SkewReg, Str, ContWarn);
@@ -1331,7 +1331,7 @@ void checkResolution(Handle hCCOM, Handle hCPAGE)
 		SetPageInfo(hCPAGE, page_info);
 
 		if (!LDPUMA_Skip(hDebugPrintResolution))
-			LDPUMA_ConsoleN("новое разрешение: DPIX=%d, DPIY=%d", page_info.DPIX, page_info.DPIY);
+			LDPUMA_ConsoleN("РЅРѕРІРѕРµ СЂР°Р·СЂРµС€РµРЅРёРµ: DPIX=%d, DPIY=%d", page_info.DPIX, page_info.DPIY);
 	}
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////

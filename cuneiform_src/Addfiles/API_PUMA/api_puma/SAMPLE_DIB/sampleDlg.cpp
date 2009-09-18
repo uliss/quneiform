@@ -226,7 +226,7 @@ BOOL CSampleDlg::CanExit()
 	return TRUE;
 }
 
-// CT: ПОДКЛЮЧЕНИЕ ЯДРА И ОРГАНИЗАЦИЯ ПРОЦЕССА РАСПОЗНАВАНИЯ
+// CT: РџРћР”РљР›Р®Р§Р•РќРР• РЇР”Р Рђ Р РћР Р“РђРќРР—РђР¦РРЇ РџР РћР¦Р•РЎРЎРђ Р РђРЎРџРћР—РќРђР’РђРќРРЇ
 #include"tiger.h"
 #include "events.h"
 const IID DIID__IRecognitionEvents = {0x229C1071,0x829F,0x11D2,{0xBA,0x6E,0x00,0x00,0xE8,0xD9,0xFD,0xF6}};
@@ -238,7 +238,7 @@ void CSampleDlg::OnButton1()
 
     if(Puma.CreateDispatch("Cognitive.Puma"))
     {
-        // CT: Делаем необходимые действия для получения событий.
+        // CT: Р”РµР»Р°РµРј РЅРµРѕР±С…РѕРґРёРјС‹Рµ РґРµР№СЃС‚РІРёСЏ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ СЃРѕР±С‹С‚РёР№.
         LPDISPATCH lpDispatch = Puma.m_lpDispatch;
         IConnectionPointContainer * lpContainer = NULL;
         Events events(this);
@@ -249,22 +249,22 @@ void CSampleDlg::OnButton1()
             lpContainer->Release();
             if(lpContainer->FindConnectionPoint(DIID__IRecognitionEvents,&lpPoint)==S_OK)
             {
-                DWORD wdCookie;
+uint32_t wdCookie;
                 lpPoint->Advise(dynamic_cast<IUnknown *>(events.GetIDispatch(FALSE)),&wdCookie);
                 lpPoint->Release();
             }
         }
         Puma.Load();
-        Puma.SetLanguage(7);        // CT: РУССКО-АНГЛИЙСКИЙ ЯЗЫК
-        Puma.SetSpeller(m_spell);   // CT: ВКЛ/ВЫКЛ СЛОВАРНОГО ДОРАСПОЗНАВАНИЯ
+        Puma.SetLanguage(7);        // CT: Р РЈРЎРЎРљРћ-РђРќР“Р›РР™РЎРљРР™ РЇР—Р«Рљ
+        Puma.SetSpeller(m_spell);   // CT: Р’РљР›/Р’Р«РљР› РЎР›РћР’РђР РќРћР“Рћ Р”РћР РђРЎРџРћР—РќРђР’РђРќРРЇ
 
-		///работа функции RecogDIBtoMemory
+		///СЂР°Р±РѕС‚Р° С„СѓРЅРєС†РёРё RecogDIBtoMemory
 
 		HANDLE hDIB = 0;
 		//HGLOBAL buffer = 0;
 
 		/*
-		получаем hDIB
+		РїРѕР»СѓС‡Р°РµРј hDIB
 		*/
 		typedef HANDLE (__cdecl *delegate_BitmapToDIB)(HBITMAP, HPALETTE);
 		typedef HANDLE (__cdecl *delegate_LoadDIB)(LPCSTR filename);
@@ -278,7 +278,7 @@ void CSampleDlg::OnButton1()
 		delegate_CopyScreenToDIB CopyScreenToDIB = (delegate_CopyScreenToDIB)GetProcAddress(hDibApiDll,"CopyScreenToDIB");
 		delegate_SaveDIB SaveDIB = (delegate_SaveDIB)GetProcAddress(hDibApiDll,"SaveDIB");
 
-		///ВАРИАНТ 1 - получение HDIB из картинки
+		///Р’РђР РРђРќРў 1 - РїРѕР»СѓС‡РµРЅРёРµ HDIB РёР· РєР°СЂС‚РёРЅРєРё
 		hDIB = LoadDIB("c:\\Clip.bmp");
 
 		/*HINSTANCE hInst = NULL;

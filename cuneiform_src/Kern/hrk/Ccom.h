@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -152,10 +152,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         CCOM_FNIMP_WRITE,
         CCOM_FNIMP_MAKELP
         };
-// 1    CCOM_FNNEW          создать новую компоненту
+// 1    CCOM_FNNEW          СЃРѕР·РґР°С‚СЊ РЅРѕРІСѓСЋ РєРѕРјРїРѕРЅРµРЅС‚Сѓ
 typedef CCOM_comp  * (*FNCCOM_New)(CCOM_handle cont, Int32 upper, Int32 left, Int32 w, Int32 h);
 CCOM_FUNC(CCOM_comp*) CCOM_New(CCOM_handle cont,Int32 upper, Int32 left, Int32 w, Int32 h);
-// 2    CCOM_FNSTORE        записать в компоненту образ
+// 2    CCOM_FNSTORE        Р·Р°РїРёСЃР°С‚СЊ РІ РєРѕРјРїРѕРЅРµРЅС‚Сѓ РѕР±СЂР°Р·
 typedef Bool32         (*FNCCOM_Store)(CCOM_comp * comp,Int16 numcomp,
                 Int32 size_nlines, Word8 *lines,  Int16 nl,
                 Word8 free_beg, Word8 free_e,
@@ -166,108 +166,108 @@ CCOM_FUNC(Bool32)          CCOM_Store(CCOM_comp * comp,Int16 numcomp,
                 Word8 free_beg, Word8 free_e,
                 RecVersions *vers,
                 CCOM_USER_BLOCK  *ub);
-// 3    CCOM_FNSTORE        записать в компоненту образ
+// 3    CCOM_FNSTORE        Р·Р°РїРёСЃР°С‚СЊ РІ РєРѕРјРїРѕРЅРµРЅС‚Сѓ РѕР±СЂР°Р·
 typedef Bool32         (*FNCCOM_Copy)(CCOM_comp * to,CCOM_comp *from);
 CCOM_FUNC(Bool32)          CCOM_Copy(CCOM_comp * to,CCOM_comp *from);
-// 4    CCOM_FNDELETE       удалить компоненту
+// 4    CCOM_FNDELETE       СѓРґР°Р»РёС‚СЊ РєРѕРјРїРѕРЅРµРЅС‚Сѓ
 typedef Bool32       (*FNCCOM_Delete)(CCOM_handle cont, CCOM_comp * comp);
 CCOM_FUNC(Bool32)     CCOM_Delete(CCOM_handle cont, CCOM_comp * comp);
-// 5    CCOM_FNGETFIRST     дать первую компоненту из контейнера
+// 5    CCOM_FNGETFIRST     РґР°С‚СЊ РїРµСЂРІСѓСЋ РєРѕРјРїРѕРЅРµРЅС‚Сѓ РёР· РєРѕРЅС‚РµР№РЅРµСЂР°
 typedef CCOM_comp  * (*FNCCOM_GetFirst)(CCOM_handle ccom, Bool32 (*filtrate)(Int32 upper, Int32 left, Int32 w, Int32 h) );
 CCOM_FUNC(CCOM_comp*) CCOM_GetFirst(CCOM_handle ccom,Bool32 (*filtrate)(Int32 upper, Int32 left, Int32 w, Int32 h) );
-// 6    CCOM_FNGETNEXT      дать следующую компоненту
+// 6    CCOM_FNGETNEXT      РґР°С‚СЊ СЃР»РµРґСѓСЋС‰СѓСЋ РєРѕРјРїРѕРЅРµРЅС‚Сѓ
 typedef CCOM_comp  * (*FNCCOM_GetNext)(CCOM_comp * comp,Bool32 (*filtrate)(Int32 upper, Int32 left, Int32 w, Int32 h) );
 CCOM_FUNC(CCOM_comp*) CCOM_GetNext(CCOM_comp * comp, Bool32 (*filtrate)(Int32 upper, Int32 left, Int32 w, Int32 h));
-// 7    CCOM_FNGETLINE      получить интервальное представление
+// 7    CCOM_FNGETLINE      РїРѕР»СѓС‡РёС‚СЊ РёРЅС‚РµСЂРІР°Р»СЊРЅРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ
 typedef Bool32       (*FNCCOM_GetLine)(CCOM_comp * comp,CCOM_linerep  *lrep );
 CCOM_FUNC(Int16)     CCOM_GetLine(CCOM_comp * comp,CCOM_linerep  *lrep);
-// 8    CCOM_FNGETRASTER    получить рабочий растр компоненты
+// 8    CCOM_FNGETRASTER    РїРѕР»СѓС‡РёС‚СЊ СЂР°Р±РѕС‡РёР№ СЂР°СЃС‚СЂ РєРѕРјРїРѕРЅРµРЅС‚С‹
 typedef Bool32       (*FNCCOM_GetRaster)(CCOM_comp * comp,RecRaster *rec );
 CCOM_FUNC(Bool32)     CCOM_GetRaster(CCOM_comp * comp, RecRaster *rec);
-// 9    CCOM_FNGETCOLLECTION  Получить коллекцию распознавания
+// 9    CCOM_FNGETCOLLECTION  РџРѕР»СѓС‡РёС‚СЊ РєРѕР»Р»РµРєС†РёСЋ СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ
 typedef Bool32       (*FNCCOM_GetCollection)(CCOM_comp * comp,RecVersions   *vers);
 CCOM_FUNC(Bool32)     CCOM_GetCollection(CCOM_comp * comp, RecVersions   *vers);
-// 10    CCOM_FNGETUSERBLOCK Получить пользовательский блок
+// 10    CCOM_FNGETUSERBLOCK РџРѕР»СѓС‡РёС‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёР№ Р±Р»РѕРє
 typedef Bool32       (*FNCCOM_GetUserBlock)(CCOM_comp * comp,CCOM_USER_BLOCK *ub);
 CCOM_FUNC(Bool32)     CCOM_GetUserBlock(CCOM_comp * comp,CCOM_USER_BLOCK *ub);
-// 11   CCOM_FNCREATECONT   Создать новый контейнер
+// 11   CCOM_FNCREATECONT   РЎРѕР·РґР°С‚СЊ РЅРѕРІС‹Р№ РєРѕРЅС‚РµР№РЅРµСЂ
 typedef CCOM_handle (*FNCCOM_CreateContainer)(void);
 CCOM_FUNC(CCOM_handle) CCOM_CreateContainer(void);
-// 12   CCOM_FNDELETECONT   Уничтожить контейнер
+// 12   CCOM_FNDELETECONT   РЈРЅРёС‡С‚РѕР¶РёС‚СЊ РєРѕРЅС‚РµР№РЅРµСЂ
 typedef Bool32      (*FNCCOM_DeleteContainer)(CCOM_handle con);
 CCOM_FUNC(Bool32)      CCOM_DeleteContainer  (CCOM_handle con);
-// 13   CCOM_FNADDLPTORS    Добавить ЛП к растру
+// 13   CCOM_FNADDLPTORS    Р”РѕР±Р°РІРёС‚СЊ Р›Рџ Рє СЂР°СЃС‚СЂСѓ
 typedef Bool32      (*FNCCOM_AddLPToRaster)(CCOM_comp * comp, RecRaster *rec);
 CCOM_FUNC(Bool32)      CCOM_AddLPToRaster  (CCOM_comp * comp, RecRaster *rec);
-// 14   CCOM_FNMAKELP       Получить интервальное представление
+// 14   CCOM_FNMAKELP       РџРѕР»СѓС‡РёС‚СЊ РёРЅС‚РµСЂРІР°Р»СЊРЅРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ
 typedef Bool32      (*FNCCOM_MakeLP)( RecRaster   *rRaster , Word8 *lp, Int16 *lp_size, Int16 *numcomp);
 CCOM_FUNC(Bool32)      CCOM_MakeLP  ( RecRaster   *rRaster , Word8 *lp, Int16 *lp_size, Int16 *numcomp);
-// 15   CCOM_FNSETUSERBLOCK Записать пользовательский блок
+// 15   CCOM_FNSETUSERBLOCK Р—Р°РїРёСЃР°С‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёР№ Р±Р»РѕРє
 typedef Bool32       (*FNCCOM_SetUserBlock)(CCOM_comp * comp,CCOM_USER_BLOCK *ub);
 CCOM_FUNC(Bool32)     CCOM_SetUserBlock(CCOM_comp * comp, CCOM_USER_BLOCK *ub);
-// 16   CCOM_FNNEWUSERCODE  Дать код свободного пользовательского кода
+// 16   CCOM_FNNEWUSERCODE  Р”Р°С‚СЊ РєРѕРґ СЃРІРѕР±РѕРґРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕРіРѕ РєРѕРґР°
 typedef Int32     (*FNCCOM_NewUserCode)(void);
 CCOM_FUNC(Int32)      CCOM_NewUserCode (void);
-// 17   CCOM_FNVERSION      Дать номер версии
-// 18   CCOM_FNBACKUP       сохранить контейнер на диск
+// 17   CCOM_FNVERSION      Р”Р°С‚СЊ РЅРѕРјРµСЂ РІРµСЂСЃРёРё
+// 18   CCOM_FNBACKUP       СЃРѕС…СЂР°РЅРёС‚СЊ РєРѕРЅС‚РµР№РЅРµСЂ РЅР° РґРёСЃРє
 typedef Bool32  (*FNCCOM_Backup)(CCOM_handle hcont);
 CCOM_FUNC(Bool32)   CCOM_Backup (CCOM_handle hcont);
-// 19   CCOM_FNRESTORE      восстановить контейнер с диска
+// 19   CCOM_FNRESTORE      РІРѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ РєРѕРЅС‚РµР№РЅРµСЂ СЃ РґРёСЃРєР°
 typedef CCOM_handle  (*FNCCOM_Restore)(void);
 CCOM_FUNC(CCOM_handle)   CCOM_Restore (void);
-// 20   CCOM_FNDELALL       удалить все контейнеры
+// 20   CCOM_FNDELALL       СѓРґР°Р»РёС‚СЊ РІСЃРµ РєРѕРЅС‚РµР№РЅРµСЂС‹
 typedef void    (*FNCCOM_DeleteAll)(void);
 CCOM_FUNC(void)    CCOM_DeleteAll(void);
-// 21   CCOM_FNLARGENEW     создать новую компоненту с длинными интервалами
+// 21   CCOM_FNLARGENEW     СЃРѕР·РґР°С‚СЊ РЅРѕРІСѓСЋ РєРѕРјРїРѕРЅРµРЅС‚Сѓ СЃ РґР»РёРЅРЅС‹РјРё РёРЅС‚РµСЂРІР°Р»Р°РјРё
 typedef CCOM_comp   *(*FNCCOM_LargeNew)(CCOM_handle cont,Int32 upper, Int32 left, Int32 w, Int32 h, Int32 size);
 CCOM_FUNC(CCOM_comp)   *CCOM_LargeNew(CCOM_handle cont,Int32 upper, Int32 left, Int32 w, Int32 h, Int32 size);
-// 22   CCOM_FNLARGENEWLN   создать новую линию с длинными интервалами
+// 22   CCOM_FNLARGENEWLN   СЃРѕР·РґР°С‚СЊ РЅРѕРІСѓСЋ Р»РёРЅРёСЋ СЃ РґР»РёРЅРЅС‹РјРё РёРЅС‚РµСЂРІР°Р»Р°РјРё
 typedef Bool32 (*FNCCOM_LargeNewLn)(CCOM_comp   *cmp,CCOM_lnhead **lnh);
 CCOM_FUNC(Bool32) CCOM_LargeNewLn(CCOM_comp   *cmp,CCOM_lnhead **lnh);
-// 23   CCOM_FNLARGENEWINTERVAL записать новый длинный интервал
+// 23   CCOM_FNLARGENEWINTERVAL Р·Р°РїРёСЃР°С‚СЊ РЅРѕРІС‹Р№ РґР»РёРЅРЅС‹Р№ РёРЅС‚РµСЂРІР°Р»
 typedef Bool32 (*FNCCOM_LargeNewInterval)(CCOM_comp   *cmp,Int16 e,Int16 l);
 CCOM_FUNC(Bool32) CCOM_LargeNewInterval(CCOM_comp   *cmp,Int16 e,Int16 l);
-// 24   CCOM_FNLARGECLOSE   закончить обработку компоненты с длинными интервалами
+// 24   CCOM_FNLARGECLOSE   Р·Р°РєРѕРЅС‡РёС‚СЊ РѕР±СЂР°Р±РѕС‚РєСѓ РєРѕРјРїРѕРЅРµРЅС‚С‹ СЃ РґР»РёРЅРЅС‹РјРё РёРЅС‚РµСЂРІР°Р»Р°РјРё
 typedef void (*FNCCOM_LargeClose)(CCOM_comp   *cmp);
 CCOM_FUNC(void) CCOM_LargeClose(CCOM_comp   *cmp);
-// 25   CCOM_FNSETKILLEDACCESS    режим доступа к убитым
+// 25   CCOM_FNSETKILLEDACCESS    СЂРµР¶РёРј РґРѕСЃС‚СѓРїР° Рє СѓР±РёС‚С‹Рј
 typedef Bool32  (*FNCCOM_SetKilledAccess)(Bool32 ShowEnable);
 CCOM_FUNC(Bool32)   CCOM_SetKilledAccess(Bool32 ShowEnable);
-// 26   CCOM_FNKILL               удалить без уничтожения
+// 26   CCOM_FNKILL               СѓРґР°Р»РёС‚СЊ Р±РµР· СѓРЅРёС‡С‚РѕР¶РµРЅРёСЏ
 typedef Bool32  (*FNCCOM_Kill)(CCOM_comp *c);
 CCOM_FUNC(Bool32)  CCOM_Kill(CCOM_comp *c);
-// 27   CCOM_FNGETEXTRASTER    получить рабочий растр компоненты
+// 27   CCOM_FNGETEXTRASTER    РїРѕР»СѓС‡РёС‚СЊ СЂР°Р±РѕС‡РёР№ СЂР°СЃС‚СЂ РєРѕРјРїРѕРЅРµРЅС‚С‹
 typedef Bool32       (*FNCCOM_GetExtRaster)(CCOM_comp * comp,RecRaster *rec );
 CCOM_FUNC(Bool32)     CCOM_GetExtRaster(CCOM_comp * comp, RecRaster *rec);
-// 28   CCOM_FNCLEARCONTAINER    удалить все компоненты  в контейнере
+// 28   CCOM_FNCLEARCONTAINER    СѓРґР°Р»РёС‚СЊ РІСЃРµ РєРѕРјРїРѕРЅРµРЅС‚С‹  РІ РєРѕРЅС‚РµР№РЅРµСЂРµ
 typedef Bool32       (*FNCCOM_ClearContatiner)(CCOM_handle con );
 CCOM_FUNC(Bool32)     CCOM_ClearContatiner(CCOM_handle con);
-// 29   CCOM_FNGETSCALERASTER    ЛП в растр со сжатием
+// 29   CCOM_FNGETSCALERASTER    Р›Рџ РІ СЂР°СЃС‚СЂ СЃРѕ СЃР¶Р°С‚РёРµРј
 typedef Bool32 (*FNCCOM_GetScaleRaster)(CCOM_comp * comp, RecRaster *rec,Int32 scale);
 CCOM_FUNC(Bool32) CCOM_GetScaleRaster(CCOM_comp * comp, RecRaster *rec,Int32 scale);
-// 30   CCOM_COMPRESSCONTAINER  удалить мелочь
+// 30   CCOM_COMPRESSCONTAINER  СѓРґР°Р»РёС‚СЊ РјРµР»РѕС‡СЊ
 typedef Bool32     (*FNCCOM_CompressContatiner)(CCOM_handle hcont);
 CCOM_FUNC(Bool32)     CCOM_CompressContatiner(CCOM_handle hcont);
-// 31   CCOM_SETLANGUAGE        установить язык контейнера
+// 31   CCOM_SETLANGUAGE        СѓСЃС‚Р°РЅРѕРІРёС‚СЊ СЏР·С‹Рє РєРѕРЅС‚РµР№РЅРµСЂР°
 typedef Bool32     (*FNCCOM_SetLanguage)(CCOM_handle hcont,Int16 language);
 CCOM_FUNC(Bool32)     CCOM_SetLanguage(CCOM_handle hcont,Int16 language);
-// 32   CCOM_GETLANGUAGE        получить язык контейнера
+// 32   CCOM_GETLANGUAGE        РїРѕР»СѓС‡РёС‚СЊ СЏР·С‹Рє РєРѕРЅС‚РµР№РЅРµСЂР°
 typedef Bool32     (*FNCCOM_GetLanguage)(CCOM_handle hcont,Int16 *language);
 CCOM_FUNC(Bool32)     CCOM_GetLanguage(CCOM_handle hcont,Int16 *language);
-// 33   CCOM_GECONTAINERVOLUME  число компонент в контейнере
+// 33   CCOM_GECONTAINERVOLUME  С‡РёСЃР»Рѕ РєРѕРјРїРѕРЅРµРЅС‚ РІ РєРѕРЅС‚РµР№РЅРµСЂРµ
 typedef Int32      (*FNCCOM_GetContainerVolume)(CCOM_handle hcont);
 CCOM_FUNC(Int32)      CCOM_GetContainerVolume(CCOM_handle hcont);
-// 34   CCOM_YDECR:             уменьшить ординаты всех компонент контейнера на 1
+// 34   CCOM_YDECR:             СѓРјРµРЅСЊС€РёС‚СЊ РѕСЂРґРёРЅР°С‚С‹ РІСЃРµС… РєРѕРјРїРѕРЅРµРЅС‚ РєРѕРЅС‚РµР№РЅРµСЂР° РЅР° 1
 typedef Bool32      (*FNCCOM_YDecr) (CCOM_handle hcont);
 CCOM_FUNC(Bool32)     CCOM_YDecr (CCOM_handle hcont);
-// 35   CCOM_YINCR:             увеличить ординаты всех компонент контейнера на 1
+// 35   CCOM_YINCR:             СѓРІРµР»РёС‡РёС‚СЊ РѕСЂРґРёРЅР°С‚С‹ РІСЃРµС… РєРѕРјРїРѕРЅРµРЅС‚ РєРѕРЅС‚РµР№РЅРµСЂР° РЅР° 1
 typedef Bool32      (*FNCCOM_YIncr) (CCOM_handle hcont);
 CCOM_FUNC(Bool32)     CCOM_YIncr (CCOM_handle hcont);
-// 36   CCOM_FNREANIMATE               вернуть к жизни условно удалённые
+// 36   CCOM_FNREANIMATE               РІРµСЂРЅСѓС‚СЊ Рє Р¶РёР·РЅРё СѓСЃР»РѕРІРЅРѕ СѓРґР°Р»С‘РЅРЅС‹Рµ
 typedef Bool32  (*FNCCOM_Reanimate)(CCOM_comp *c);
 CCOM_FUNC(Bool32)  CCOM_Reanimate(CCOM_comp *c);
 // 37   CCOM_FNADDCOMPTORS
-// Добавить ЛП к растру -- исправленный вариант
+// Р”РѕР±Р°РІРёС‚СЊ Р›Рџ Рє СЂР°СЃС‚СЂСѓ -- РёСЃРїСЂР°РІР»РµРЅРЅС‹Р№ РІР°СЂРёР°РЅС‚
 typedef Bool32      (*FNCCOM_AddCompToRaster)(CCOM_comp * comp, Int16 relleft, Int16 relupper, RecRaster *rec);
 CCOM_FUNC(Bool32)      CCOM_AddCompToRaster(CCOM_comp * comp, Int16 relleft, Int16 relupper, RecRaster *rec);
 // error code

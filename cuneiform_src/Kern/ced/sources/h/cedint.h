@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -167,7 +167,7 @@ DEC_FUN(Handle, CED_CreateColumn,( Handle hEdSection,int width, int space));
 DEC_FUN(Handle, CED_CreateParagraph,(Handle hEdSection, Handle hObject, int align, EDRECT indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout, int  color, int  shading, int spaceBetweenLines, char spcBtwLnsMult, char  keep));
 DEC_FUN(Handle, CED_CreateLine,(Handle hEdParagraph));
 DEC_FUN(Handle, CED_CreateChar,(Handle hEdLine, EDBOX layout, int fontHeight, int fontNum, int fontStyle, letterEx* alternatives));
-DEC_FUN(Handle, CED_CreateFrame,(Handle hEdSection, Handle hObject, edBox rect, char position, DWORD borderSpace, DWORD dxfrtextx, DWORD dxfrtexty));
+DEC_FUN(Handle, CED_CreateFrame,(Handle hEdSection, Handle hObject, edBox rect, char position, uint32_t borderSpace, uint32_t dxfrtextx, uint32_t dxfrtexty));
 DEC_FUN(Handle, CED_CreateCell,(Handle hEdSection,Handle hEdTable));
 DEC_FUN(Handle, CED_CreateTable,(  Handle hEdSection, Handle hObject,EDSIZE sz, int * cx,int * cy, int * table,Bool32 * bHorShow,Bool32 * bVerShow));
 DEC_FUN(void, CED_DeletePage,(Handle hEdPage));
@@ -228,12 +228,12 @@ CEDPage * Formattedload_96(char * file,Bool32 readFromFile, Word32 bufLen);
 #pragma pack(1)
 struct pageDescr
 {
-	DWORD paperw;
-	DWORD paperh;
-	DWORD margl;
-	DWORD margr;
-	DWORD margt;
-	DWORD margb;
+        uint32_t paperw;
+        uint32_t paperh;
+        uint32_t margl;
+        uint32_t margr;
+        uint32_t margt;
+        uint32_t margb;
 	BYTE  resizeToFit;
 	BYTE  recogLang;
 };
@@ -250,13 +250,13 @@ struct fontDiscr
 #pragma pack(1)
 struct pictDescr
 {
-	DWORD size;
+        uint32_t size;
 	WORD pictNumber;
 	EDSIZE pictSize;
 	EDSIZE pictGoal;
 	BYTE pictAlign;
 	BYTE type;
-	DWORD len;
+        uint32_t len;
 };
 
 #pragma pack(1)
@@ -266,31 +266,31 @@ struct originalImageDesc
 	WORD resolutionY;
 	WORD inclune;
     WORD pageNum;
-    DWORD width;
-    DWORD height;
+    uint32_t width;
+    uint32_t height;
 	BYTE unrecogSymbol;
 };
 
 #pragma pack(1)
 struct sectParams1
 {
-    DWORD topMargin;
-    DWORD bottomMargin;
-    DWORD leftMargin;
-    DWORD rightMargin;
+    uint32_t topMargin;
+    uint32_t bottomMargin;
+    uint32_t leftMargin;
+    uint32_t rightMargin;
 	BYTE columns;
 	BYTE numSnakeCols;
-    DWORD colInterval;
+    uint32_t colInterval;
 };
 #pragma pack(1)
 struct sectParams2
 {
 	BYTE sectionBreak;
-    DWORD width;
-    DWORD height;
+    uint32_t width;
+    uint32_t height;
 	BYTE orientation;
-	DWORD headerY;
-	DWORD footerY;
+        uint32_t headerY;
+        uint32_t footerY;
 	BYTE lineBetCol;
 };
 
@@ -298,30 +298,30 @@ struct sectParams2
 struct frameParam
 {
 	BYTE position;
-    DWORD posx;
-    DWORD posy;
-    DWORD absw;
-    DWORD absh;
-	DWORD borderSpace;
-	DWORD dxfrtextx;
-	DWORD dxfrtexty;
+    uint32_t posx;
+    uint32_t posy;
+    uint32_t absw;
+    uint32_t absh;
+        uint32_t borderSpace;
+        uint32_t dxfrtextx;
+        uint32_t dxfrtexty;
 	BYTE flag;
 };
 
 #pragma pack(1)
 struct rowParam
 {
-	DWORD left;
-	DWORD rowHeight;
+        uint32_t left;
+        uint32_t rowHeight;
 	BYTE leftBrdrType;
-	DWORD leftBrdrWidth;
+        uint32_t leftBrdrWidth;
 	BYTE rightBrdrType;
-	DWORD rightBrdrWidth;
+        uint32_t rightBrdrWidth;
 	BYTE topBrdrType;
-	DWORD topBrdrWidth;
+        uint32_t topBrdrWidth;
 	BYTE bottomBrdrType;
-	DWORD bottomBrdrWidth;
-	DWORD gaph;
+        uint32_t bottomBrdrWidth;
+        uint32_t gaph;
 	BYTE position;
 	BYTE header;
 };
@@ -329,17 +329,17 @@ struct rowParam
 #pragma pack(1)
 struct cellParam
 {
-	DWORD cellX;
+        uint32_t cellX;
 	BYTE merging;
 	BYTE vertTextAlign;
 	BYTE leftBrdrType;
-	DWORD leftBrdrWidth;
+        uint32_t leftBrdrWidth;
 	BYTE rightBrdrType;
-	DWORD rightBrdrWidth;
+        uint32_t rightBrdrWidth;
 	BYTE topBrdrType;
-	DWORD topBrdrWidth;
+        uint32_t topBrdrWidth;
 	BYTE bottomBrdrType;
-	DWORD bottomBrdrWidth;
+        uint32_t bottomBrdrWidth;
 	EDBOX layout;
 	WORD shading;
 	WORD color;
@@ -349,35 +349,35 @@ struct cellParam
 #pragma pack(1)
 struct paraParams
 {
-	DWORD firstIndent;
-	DWORD leftIndent;
-    DWORD rightIndent;
+        uint32_t firstIndent;
+        uint32_t leftIndent;
+    uint32_t rightIndent;
     BYTE  alignment;
 	WORD  userNum;
 	WORD  color;
 	WORD  shading;
-    DWORD spaceBefore;
-    DWORD spaceAfter;
-    DWORD spaceBetweenLines;
+    uint32_t spaceBefore;
+    uint32_t spaceAfter;
+    uint32_t spaceBetweenLines;
 	BYTE  spcBtwLnsMult;
 	BYTE  keep;
 	BYTE leftBrdrType;
-	DWORD leftBrdrWidth;
+        uint32_t leftBrdrWidth;
 	BYTE rightBrdrType;
-	DWORD rightBrdrWidth;
+        uint32_t rightBrdrWidth;
 	BYTE topBrdrType;
-	DWORD topBrdrWidth;
+        uint32_t topBrdrWidth;
 	BYTE bottomBrdrType;
-	DWORD bottomBrdrWidth;
+        uint32_t bottomBrdrWidth;
 	BYTE brdrBtw;
 };
 
 #pragma pack(1)
 struct charParams
 {
-	DWORD fontNumber;
-	DWORD foregroundColor;
-	DWORD backgroundColor;
+        uint32_t fontNumber;
+        uint32_t foregroundColor;
+        uint32_t backgroundColor;
 };
 #pragma pack()
 

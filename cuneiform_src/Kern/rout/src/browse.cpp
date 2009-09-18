@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -64,10 +64,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "stdafx.h"
 #include "rout_own.h"
 
-// Вызов функции обхода
-// Если функция=NULL, тогда обход все равно совершается,
-// при этом подсчитывается количество объектов gHitxxx
-// FALSE означает прекратить обход и вернуть FALSE.
+// Р’С‹Р·РѕРІ С„СѓРЅРєС†РёРё РѕР±С…РѕРґР°
+// Р•СЃР»Рё С„СѓРЅРєС†РёСЏ=NULL, С‚РѕРіРґР° РѕР±С…РѕРґ РІСЃРµ СЂР°РІРЅРѕ СЃРѕРІРµСЂС€Р°РµС‚СЃСЏ,
+// РїСЂРё СЌС‚РѕРј РїРѕРґСЃС‡РёС‚С‹РІР°РµС‚СЃСЏ РєРѕР»РёС‡РµСЃС‚РІРѕ РѕР±СЉРµРєС‚РѕРІ gHitxxx
+// FALSE РѕР·РЅР°С‡Р°РµС‚ РїСЂРµРєСЂР°С‚РёС‚СЊ РѕР±С…РѕРґ Рё РІРµСЂРЅСѓС‚СЊ FALSE.
 #define BROWSE_FUNCTION(a,b) \
 		{if (BrowseFunction && \
 			!BrowseFunction(a,b)\
@@ -76,25 +76,25 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //********************************************************************
 BOOL BrowsePage(
-	FNROUT_BrowseFunction BrowseFunction, // Вызывать при обходе
-	BOOL wantSkipTableCells,	// Пропускать клетки таблиц
-	BOOL wantSkipParagraphs		// Пропускать абзацы
+	FNROUT_BrowseFunction BrowseFunction, // Р’С‹Р·С‹РІР°С‚СЊ РїСЂРё РѕР±С…РѕРґРµ
+	BOOL wantSkipTableCells,	// РџСЂРѕРїСѓСЃРєР°С‚СЊ РєР»РµС‚РєРё С‚Р°Р±Р»РёС†
+	BOOL wantSkipParagraphs		// РџСЂРѕРїСѓСЃРєР°С‚СЊ Р°Р±Р·Р°С†С‹
 	)
 {
-/* Обход страницы.
+/* РћР±С…РѕРґ СЃС‚СЂР°РЅРёС†С‹.
 
-   Для каждого объекта вызывается функция "BrowseFunction"
-   Если функция "BrowseFunction" возвращает FALSE, то
-   обход страницы прекращается и BrowsePage также возвращает FALSE.
+   Р”Р»СЏ РєР°Р¶РґРѕРіРѕ РѕР±СЉРµРєС‚Р° РІС‹Р·С‹РІР°РµС‚СЃСЏ С„СѓРЅРєС†РёСЏ "BrowseFunction"
+   Р•СЃР»Рё С„СѓРЅРєС†РёСЏ "BrowseFunction" РІРѕР·РІСЂР°С‰Р°РµС‚ FALSE, С‚Рѕ
+   РѕР±С…РѕРґ СЃС‚СЂР°РЅРёС†С‹ РїСЂРµРєСЂР°С‰Р°РµС‚СЃСЏ Рё BrowsePage С‚Р°РєР¶Рµ РІРѕР·РІСЂР°С‰Р°РµС‚ FALSE.
 
-   На обход страницы влияют флаги обхода:
-		wantSkipTableCells и
+   РќР° РѕР±С…РѕРґ СЃС‚СЂР°РЅРёС†С‹ РІР»РёСЏСЋС‚ С„Р»Р°РіРё РѕР±С…РѕРґР°:
+		wantSkipTableCells Рё
 		wantSkipParagraphs
 */
 	long sections=0, columns=0, frames=0;
 	long indexSection=0, indexColumn=0, indexFrame=0;
 
-	// Текущие объекты на всех уровнях
+	// РўРµРєСѓС‰РёРµ РѕР±СЉРµРєС‚С‹ РЅР° РІСЃРµС… СѓСЂРѕРІРЅСЏС…
 	gSectionHandle = NULL;
 	gColumnHandle = NULL;
 	gFrameHandle = NULL;
@@ -103,7 +103,7 @@ BOOL BrowsePage(
 	gParagraphHandle = NULL;
 	gLineHandle = NULL;
 
-	// Счетчики найденных объектов
+	// РЎС‡РµС‚С‡РёРєРё РЅР°Р№РґРµРЅРЅС‹С… РѕР±СЉРµРєС‚РѕРІ
 	gHitSections = 0;
 	gHitColumns = 0;
 	gHitFrames = 0;
@@ -115,39 +115,39 @@ BOOL BrowsePage(
 	gHitChars = 0;
 	gHitPictures = 0;
 
-	// Загружена ли страница
+	// Р—Р°РіСЂСѓР¶РµРЅР° Р»Рё СЃС‚СЂР°РЅРёС†Р°
 	if ( !gPageHandle )
 		{
 		PAGE_NOT_LOADED;
 		return FALSE;
 		}
 
-	// Начало страницы
+	// РќР°С‡Р°Р»Рѕ СЃС‚СЂР°РЅРёС†С‹
 	BROWSE_FUNCTION(gPageHandle,BROWSE_PAGE_START);
 
-	// Разделы
+	// Р Р°Р·РґРµР»С‹
 	sections = CED_GetCountSection(gPageHandle);
 	for (indexSection = 0; indexSection < sections; indexSection++)
 		{
 		gSectionHandle = CED_GetSection(gPageHandle,indexSection);
 
-		// Начало раздела
+		// РќР°С‡Р°Р»Рѕ СЂР°Р·РґРµР»Р°
 		ASSERT(gSectionHandle);
 		gHitSections++;
 		BROWSE_FUNCTION(gSectionHandle,BROWSE_SECTION_START);
 
-		// Колонки
+		// РљРѕР»РѕРЅРєРё
 		columns = CED_GetCountColumn(gSectionHandle);
 		for (indexColumn = 0; indexColumn < columns; indexColumn++)
 			{
 			gColumnHandle = CED_GetColumn(gSectionHandle,indexColumn);
 
-			// Начало колонки
+			// РќР°С‡Р°Р»Рѕ РєРѕР»РѕРЅРєРё
 			ASSERT(gColumnHandle);
 			gHitColumns++;
 			BROWSE_FUNCTION(gColumnHandle,BROWSE_COLUMN_START);
 
-			// Обход абзацев, таблиц и фреймов внутри колонки
+			// РћР±С…РѕРґ Р°Р±Р·Р°С†РµРІ, С‚Р°Р±Р»РёС† Рё С„СЂРµР№РјРѕРІ РІРЅСѓС‚СЂРё РєРѕР»РѕРЅРєРё
 			if (!BrowseParagraphs(gColumnHandle,
 							BrowseFunction,
 							wantSkipTableCells,
@@ -155,27 +155,27 @@ BOOL BrowsePage(
 				))
 				return FALSE;
 
-			// Конец колонки
+			// РљРѕРЅРµС† РєРѕР»РѕРЅРєРё
 			BROWSE_FUNCTION(gColumnHandle,BROWSE_COLUMN_END);
 			gColumnHandle = NULL;
 			}
 
-		// Фреймы на странице отменены, теперь они принадлежат
-		// колонке и обрабатываются в функции BrowseParagraphs()
+		// Р¤СЂРµР№РјС‹ РЅР° СЃС‚СЂР°РЅРёС†Рµ РѕС‚РјРµРЅРµРЅС‹, С‚РµРїРµСЂСЊ РѕРЅРё РїСЂРёРЅР°РґР»РµР¶Р°С‚
+		// РєРѕР»РѕРЅРєРµ Рё РѕР±СЂР°Р±Р°С‚С‹РІР°СЋС‚СЃСЏ РІ С„СѓРЅРєС†РёРё BrowseParagraphs()
 		// -- 18.10.99 E.P.
 /*
-		// Фреймы
+		// Р¤СЂРµР№РјС‹
 		frames = CED_GetCountFrame(gSectionHandle);
 		for (indexFrame = 0; indexFrame < frames; indexFrame++)
 			{
 			gFrameHandle = CED_GetFrame(gSectionHandle,indexFrame);
 
-			// Начало фрейма
+			// РќР°С‡Р°Р»Рѕ С„СЂРµР№РјР°
 			ASSERT(gFrameHandle);
 			gHitFrames++;
 			BROWSE_FUNCTION(gFrameHandle,BROWSE_FRAME_START);
 
-			// Обход абзацев, таблиц и фреймов
+			// РћР±С…РѕРґ Р°Р±Р·Р°С†РµРІ, С‚Р°Р±Р»РёС† Рё С„СЂРµР№РјРѕРІ
 			if (!BrowseParagraphs(gFrameHandle,
 							BrowseFunction,
 							wantSkipTableCells,
@@ -183,17 +183,17 @@ BOOL BrowsePage(
 				))
 				return FALSE;
 
-			// Конец фрейма
+			// РљРѕРЅРµС† С„СЂРµР№РјР°
 			BROWSE_FUNCTION(gFrameHandle,BROWSE_FRAME_END);
 			gFrameHandle = NULL;
 			}
 */
-		// Конец раздела
+		// РљРѕРЅРµС† СЂР°Р·РґРµР»Р°
 		BROWSE_FUNCTION(gSectionHandle,BROWSE_SECTION_END);
 		gSectionHandle = NULL;
 		}
 
-	// Конец страницы
+	// РљРѕРЅРµС† СЃС‚СЂР°РЅРёС†С‹
 	BROWSE_FUNCTION(gPageHandle,BROWSE_PAGE_END);
 
 	return TRUE;
@@ -201,22 +201,22 @@ BOOL BrowsePage(
 }
 //********************************************************************
 BOOL BrowseParagraphs(Handle hParentObject,
-	FNROUT_BrowseFunction BrowseFunction, // Вызывать при обходе
-	BOOL wantSkipTableCells,	// Пропускать клетки таблиц
-	BOOL wantSkipParagraphs		// Пропускать абзацы
+	FNROUT_BrowseFunction BrowseFunction, // Р’С‹Р·С‹РІР°С‚СЊ РїСЂРё РѕР±С…РѕРґРµ
+	BOOL wantSkipTableCells,	// РџСЂРѕРїСѓСЃРєР°С‚СЊ РєР»РµС‚РєРё С‚Р°Р±Р»РёС†
+	BOOL wantSkipParagraphs		// РџСЂРѕРїСѓСЃРєР°С‚СЊ Р°Р±Р·Р°С†С‹
 	)
 {
 /*
-   Обход абзацев, таблиц и фреймов в заданном
-   объекте hParentObject (колонке, фрейме, ячейке)
+   РћР±С…РѕРґ Р°Р±Р·Р°С†РµРІ, С‚Р°Р±Р»РёС† Рё С„СЂРµР№РјРѕРІ РІ Р·Р°РґР°РЅРЅРѕРј
+   РѕР±СЉРµРєС‚Рµ hParentObject (РєРѕР»РѕРЅРєРµ, С„СЂРµР№РјРµ, СЏС‡РµР№РєРµ)
 
-   Для каждого абзаца, картинки, таблицы вызывается
-   функция "BrowseFunction", а если она возвращает FALSE, то
-   обход прекращается, при этом BrowseParagraphs также
-   возвращает FALSE.
+   Р”Р»СЏ РєР°Р¶РґРѕРіРѕ Р°Р±Р·Р°С†Р°, РєР°СЂС‚РёРЅРєРё, С‚Р°Р±Р»РёС†С‹ РІС‹Р·С‹РІР°РµС‚СЃСЏ
+   С„СѓРЅРєС†РёСЏ "BrowseFunction", Р° РµСЃР»Рё РѕРЅР° РІРѕР·РІСЂР°С‰Р°РµС‚ FALSE, С‚Рѕ
+   РѕР±С…РѕРґ РїСЂРµРєСЂР°С‰Р°РµС‚СЃСЏ, РїСЂРё СЌС‚РѕРј BrowseParagraphs С‚Р°РєР¶Рµ
+   РІРѕР·РІСЂР°С‰Р°РµС‚ FALSE.
 
-   На обход влияют флаги обхода:
-		wantSkipTableCells и
+   РќР° РѕР±С…РѕРґ РІР»РёСЏСЋС‚ С„Р»Р°РіРё РѕР±С…РѕРґР°:
+		wantSkipTableCells Рё
 		wantSkipParagraphs
 */
 	long objects=0, lines=0, chars=0;
@@ -228,23 +228,23 @@ BOOL BrowseParagraphs(Handle hParentObject,
 
 	ASSERT (hParentObject);
 
-	// Цикл по всем объектам
+	// Р¦РёРєР» РїРѕ РІСЃРµРј РѕР±СЉРµРєС‚Р°Рј
 	for (hObject = CED_GetFirstObject(hParentObject);
 		 hObject;
 		 hObject = CED_GetNextObject(hObject)
 		 )
 		{
-		// Определить тип объекта
+		// РћРїСЂРµРґРµР»РёС‚СЊ С‚РёРї РѕР±СЉРµРєС‚Р°
 		if (CED_IsFrame(hObject))
 			{
-			// Фрейм
+			// Р¤СЂРµР№Рј
 			gFrameHandle = hObject;
 
-			// Начало фрейма
+			// РќР°С‡Р°Р»Рѕ С„СЂРµР№РјР°
 			gHitFrames++;
 			BROWSE_FUNCTION(gFrameHandle,BROWSE_FRAME_START);
 
-			// Обход абзацев и таблиц внутри фрейма
+			// РћР±С…РѕРґ Р°Р±Р·Р°С†РµРІ Рё С‚Р°Р±Р»РёС† РІРЅСѓС‚СЂРё С„СЂРµР№РјР°
 			if (!BrowseParagraphs(gFrameHandle,
 							BrowseFunction,
 							wantSkipTableCells,
@@ -252,7 +252,7 @@ BOOL BrowseParagraphs(Handle hParentObject,
 				))
 				return FALSE;
 
-			// Конец фрейма
+			// РљРѕРЅРµС† С„СЂРµР№РјР°
 			BROWSE_FUNCTION(gFrameHandle,BROWSE_FRAME_END);
 			gFrameHandle = NULL;
 
@@ -260,7 +260,7 @@ BOOL BrowseParagraphs(Handle hParentObject,
 
 		else if (CED_IsTable(hObject))
 			{
-			// Таблица
+			// РўР°Р±Р»РёС†Р°
 			if(gTableHandle)
 				{
 				DEBUG_PRINT("Skipping table inside table");
@@ -269,28 +269,28 @@ BOOL BrowseParagraphs(Handle hParentObject,
 
 			gTableHandle = hObject;
 
-			// Количество строк и столбцов таблицы
+			// РљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє Рё СЃС‚РѕР»Р±С†РѕРІ С‚Р°Р±Р»РёС†С‹
 			EDSIZE dim = CED_GetSize(gTableHandle);
 			gTableRows = dim.cy;
 			gTableCols = dim.cx;
 
-			// Количество логических ячеек
+			// РљРѕР»РёС‡РµСЃС‚РІРѕ Р»РѕРіРёС‡РµСЃРєРёС… СЏС‡РµРµРє
 			gTableCells = CED_GetCountLogicalCell(gTableHandle);
 
-			// Массив логических номеров ячеек
+			// РњР°СЃСЃРёРІ Р»РѕРіРёС‡РµСЃРєРёС… РЅРѕРјРµСЂРѕРІ СЏС‡РµРµРє
 			gLogicalCells = (long*)CED_GetTableOfCells(gTableHandle);
 
-			// Начало таблицы
+			// РќР°С‡Р°Р»Рѕ С‚Р°Р±Р»РёС†С‹
 			gHitTables++;
 			BROWSE_FUNCTION(gTableHandle,BROWSE_TABLE_START);
 
-			// Обход ячеек таблицы
+			// РћР±С…РѕРґ СЏС‡РµРµРє С‚Р°Р±Р»РёС†С‹
 			if (!wantSkipTableCells &&
 				!BrowseCells(BrowseFunction)
 				)
 				return FALSE;
 
-			// Конец таблицы
+			// РљРѕРЅРµС† С‚Р°Р±Р»РёС†С‹
 			BROWSE_FUNCTION(gTableHandle,BROWSE_TABLE_END);
 			gTableHandle = NULL;
 			gTableRows = 0;
@@ -301,30 +301,30 @@ BOOL BrowseParagraphs(Handle hParentObject,
 
 		else if (CED_IsParagraph(hObject))
 			{
-			// Пропускать абзацы?
+			// РџСЂРѕРїСѓСЃРєР°С‚СЊ Р°Р±Р·Р°С†С‹?
 			if (wantSkipParagraphs)
 				continue;
 
-			// Абзац
+			// РђР±Р·Р°С†
 			gParagraphHandle = hObject;
 
-			// Начало абзаца
+			// РќР°С‡Р°Р»Рѕ Р°Р±Р·Р°С†Р°
 			gHitParagraphs++;
 			BROWSE_FUNCTION(gParagraphHandle, BROWSE_PARAGRAPH_START);
 
-			// Обход строк в абзаце
+			// РћР±С…РѕРґ СЃС‚СЂРѕРє РІ Р°Р±Р·Р°С†Рµ
 			lines = CED_GetCountLine(gParagraphHandle);
 			for (indexLine = 0; indexLine < lines; indexLine++)
 				{
 				gLineHandle = CED_GetLine(gParagraphHandle,indexLine);
 
-				// Начало строки
+				// РќР°С‡Р°Р»Рѕ СЃС‚СЂРѕРєРё
 				ASSERT(gLineHandle);
 				gHitLines++;
 			    gEdLineHardBreak = CED_GetLineHardBreak(gLineHandle);
 				BROWSE_FUNCTION(gLineHandle,BROWSE_LINE_START);
 
-				// Обход символов в строке
+				// РћР±С…РѕРґ СЃРёРјРІРѕР»РѕРІ РІ СЃС‚СЂРѕРєРµ
 				chars = CED_GetCountChar(gLineHandle);
 				for (indexChar = 0; indexChar < chars; indexChar++)
 					{
@@ -334,8 +334,8 @@ BOOL BrowseParagraphs(Handle hParentObject,
 
 					if (CED_IsPicture(charHandle))
 						{
-						// Картинка
-						// Прочесть описание картинки
+						// РљР°СЂС‚РёРЅРєР°
+						// РџСЂРѕС‡РµСЃС‚СЊ РѕРїРёСЃР°РЅРёРµ РєР°СЂС‚РёРЅРєРё
 						if (!PictureFromChar(charHandle))
 							return FALSE;
 
@@ -348,10 +348,10 @@ BOOL BrowseParagraphs(Handle hParentObject,
 						}
 					else
 						{
-						// Обычный символ
+						// РћР±С‹С‡РЅС‹Р№ СЃРёРјРІРѕР»
 						gHitChars++;
 
-						// Скрытый ли символ
+						// РЎРєСЂС‹С‚С‹Р№ Р»Рё СЃРёРјРІРѕР»
 						gEdCharHidden =
 								CED_GetCharFontAttribs(charHandle) &
 								ED_HIDDEN;
@@ -360,12 +360,12 @@ BOOL BrowseParagraphs(Handle hParentObject,
 						}
 					}
 
-				// Конец строки
+				// РљРѕРЅРµС† СЃС‚СЂРѕРєРё
 				BROWSE_FUNCTION(gLineHandle,BROWSE_LINE_END);
 				gLineHandle = NULL;
 				}
 
-			// Конец абзаца
+			// РљРѕРЅРµС† Р°Р±Р·Р°С†Р°
 			BROWSE_FUNCTION(gParagraphHandle, BROWSE_PARAGRAPH_END);
 			gParagraphHandle = NULL;
 			}
@@ -381,55 +381,55 @@ BOOL BrowseParagraphs(Handle hParentObject,
 //********************************************************************
 BOOL BrowseCells(FNROUT_BrowseFunction BrowseFunction)
 {
-/* Обход ячеек таблицы gTableHandle
+/* РћР±С…РѕРґ СЏС‡РµРµРє С‚Р°Р±Р»РёС†С‹ gTableHandle
 
-   Для каждой ячейки вызывается функция "BrowseFunction"
-   и кроме того, для обхода абзацев в ячейке
-   вызывается функция BrowseParagraphs().
+   Р”Р»СЏ РєР°Р¶РґРѕР№ СЏС‡РµР№РєРё РІС‹Р·С‹РІР°РµС‚СЃСЏ С„СѓРЅРєС†РёСЏ "BrowseFunction"
+   Рё РєСЂРѕРјРµ С‚РѕРіРѕ, РґР»СЏ РѕР±С…РѕРґР° Р°Р±Р·Р°С†РµРІ РІ СЏС‡РµР№РєРµ
+   РІС‹Р·С‹РІР°РµС‚СЃСЏ С„СѓРЅРєС†РёСЏ BrowseParagraphs().
 
-   Если одна из этих функций возвращает FALSE, то
-   обход прекращается и BrowseCells также возвращает FALSE.
+   Р•СЃР»Рё РѕРґРЅР° РёР· СЌС‚РёС… С„СѓРЅРєС†РёР№ РІРѕР·РІСЂР°С‰Р°РµС‚ FALSE, С‚Рѕ
+   РѕР±С…РѕРґ РїСЂРµРєСЂР°С‰Р°РµС‚СЃСЏ Рё BrowseCells С‚Р°РєР¶Рµ РІРѕР·РІСЂР°С‰Р°РµС‚ FALSE.
 */
 
-	// Справочная обхода ячеек
+	// РЎРїСЂР°РІРѕС‡РЅР°СЏ РѕР±С…РѕРґР° СЏС‡РµРµРє
 	Byte sprav[10000];
 	ASSERT(gTableCells < sizeof(sprav));
 	memset(&sprav,0,sizeof(sprav));
 
-	// Цикл по строкам таблицы
+	// Р¦РёРєР» РїРѕ СЃС‚СЂРѕРєР°Рј С‚Р°Р±Р»РёС†С‹
 	for (gIndexTableRow = 0;
 		gIndexTableRow < gTableRows;
 		gIndexTableRow++
 		)
 		{
-		// Начало строки таблицы
+		// РќР°С‡Р°Р»Рѕ СЃС‚СЂРѕРєРё С‚Р°Р±Р»РёС†С‹
 		gRowHandle = CED_GetTableRow(gTableHandle,gIndexTableRow);
 		BROWSE_FUNCTION((Handle)gIndexTableRow, BROWSE_ROW_START);
 
-		// Цикл по столбцам таблицы
+		// Р¦РёРєР» РїРѕ СЃС‚РѕР»Р±С†Р°Рј С‚Р°Р±Р»РёС†С‹
 		for (gIndexTableCol = 0;
 			gIndexTableCol < gTableCols;
 			gIndexTableCol++
 			)
 			{
-			// Логический номер ячейки
+			// Р›РѕРіРёС‡РµСЃРєРёР№ РЅРѕРјРµСЂ СЏС‡РµР№РєРё
 			gIndexTableCell = gLogicalCells[
 								gIndexTableRow * gTableCols +
 								gIndexTableCol];
 
-			// Проверить по справочной
+			// РџСЂРѕРІРµСЂРёС‚СЊ РїРѕ СЃРїСЂР°РІРѕС‡РЅРѕР№
 			if( gIndexTableCell < 0 ||
 				sprav[gIndexTableCell]
 			  )
 				{
-				// В этой логической ячейке уже были
+				// Р’ СЌС‚РѕР№ Р»РѕРіРёС‡РµСЃРєРѕР№ СЏС‡РµР№РєРµ СѓР¶Рµ Р±С‹Р»Рё
 				gCellHandle = NULL;
 				continue;
 				}
 
 			sprav[gIndexTableCell] = 1;
 
-			// Начало ячейки
+			// РќР°С‡Р°Р»Рѕ СЏС‡РµР№РєРё
 			gCellHandle = CED_GetLogicalCell(
 							gTableHandle,
 							gIndexTableCell);
@@ -438,7 +438,7 @@ BOOL BrowseCells(FNROUT_BrowseFunction BrowseFunction)
 			gHitCells++;
 			BROWSE_FUNCTION(gCellHandle, BROWSE_CELL_START);
 
-			// Обход абзацев в ячейке
+			// РћР±С…РѕРґ Р°Р±Р·Р°С†РµРІ РІ СЏС‡РµР№РєРµ
 			if ( !BrowseParagraphs(gCellHandle,
 							BrowseFunction,
 							FALSE,	// wantSkipTableCells
@@ -446,12 +446,12 @@ BOOL BrowseCells(FNROUT_BrowseFunction BrowseFunction)
 				))
 				return FALSE;
 
-			// Конец ячейки
+			// РљРѕРЅРµС† СЏС‡РµР№РєРё
 			BROWSE_FUNCTION(gCellHandle, BROWSE_CELL_END);
 			gCellHandle = NULL;
 			}
 
-		// Конец строки таблицы
+		// РљРѕРЅРµС† СЃС‚СЂРѕРєРё С‚Р°Р±Р»РёС†С‹
 		BROWSE_FUNCTION((Handle)gIndexTableRow, BROWSE_ROW_END);
 		gRowHandle = 0;
 		}
@@ -466,16 +466,16 @@ BOOL BrowseCells(FNROUT_BrowseFunction BrowseFunction)
 //********************************************************************
 BOOL BrowseTable(FNROUT_BrowseFunction BrowseFunction)
 {
-// Обход таблицы.
+// РћР±С…РѕРґ С‚Р°Р±Р»РёС†С‹.
 
-	// Начало таблицы
+	// РќР°С‡Р°Р»Рѕ С‚Р°Р±Р»РёС†С‹
 	BROWSE_FUNCTION(gTableHandle,BROWSE_TABLE_START);
 
-	// Обход ячеек таблицы
+	// РћР±С…РѕРґ СЏС‡РµРµРє С‚Р°Р±Р»РёС†С‹
 	if ( !BrowseCells(BrowseFunction) )
 		return FALSE;
 
-	// Конец таблицы
+	// РљРѕРЅРµС† С‚Р°Р±Р»РёС†С‹
 	BROWSE_FUNCTION(gTableHandle,BROWSE_TABLE_END);
 
 	return TRUE;

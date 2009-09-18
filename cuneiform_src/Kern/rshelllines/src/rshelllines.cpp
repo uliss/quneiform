@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -91,7 +91,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define     RSL_AboutLines_SizeMyBuff    492000
 #define     RSL_AboutLines_SizeWorkMem   180000
 
-//#define     RSL_ERR_NO_MEMORY "Ошибка выделения памяти системой"
+//#define     RSL_ERR_NO_MEMORY "РћС€РёР±РєР° РІС‹РґРµР»РµРЅРёСЏ РїР°РјСЏС‚Рё СЃРёСЃС‚РµРјРѕР№"
 #define RSL_ERR_NO_MEMORY 1
 #define     MAF_GALL_GPTR              0x0010
 Char8       cCommentBuffer[CFIO_MAX_COMMENT];
@@ -159,7 +159,7 @@ typedef struct tagRSPreProcessImage
 Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, Int32 *ScanQual);
 
 //  BOOL APIENTRY DllMain( HANDLE hModule,
-//                         DWORD  ul_reason_for_call,
+//                         uint32_t  ul_reason_for_call,
 //                         LPVOID lpReserved
 //  				  )
 //  {
@@ -196,53 +196,53 @@ RSL_FUNC(Bool32) RSL_Init(Word16 wHeightCode,HANDLE hStorage)
 {
 	LDPUMA_Init(0,NULL);
 	LDPUMA_Registry(&hDebugRSL,SNAP_STUFF_RSL,NULL);
-	LDPUMA_Registry(&hPreRSL_Root, "Предварительная обработка линий", hDebugRSL);
-	LDPUMA_Registry(&hPreRSL_Debug, "Отладка работы (pre)", hPreRSL_Root);
-	LDPUMA_Registry(&hPreRSL_Control, "Контроль работы (pre)", hPreRSL_Root);
+	LDPUMA_Registry(&hPreRSL_Root, "РџСЂРµРґРІР°СЂРёС‚РµР»СЊРЅР°СЏ РѕР±СЂР°Р±РѕС‚РєР° Р»РёРЅРёР№", hDebugRSL);
+	LDPUMA_Registry(&hPreRSL_Debug, "РћС‚Р»Р°РґРєР° СЂР°Р±РѕС‚С‹ (pre)", hPreRSL_Root);
+	LDPUMA_Registry(&hPreRSL_Control, "РљРѕРЅС‚СЂРѕР»СЊ СЂР°Р±РѕС‚С‹ (pre)", hPreRSL_Root);
 
-	LDPUMA_Registry(&hSkipCheckUnderlining, "Выключить проверку подчерков", hPreRSL_Debug);
-	LDPUMA_Registry(&hPrintUnderlineTest, "Вывод результатов проверки подчеркивания", hPreRSL_Control);
-	LDPUMA_RegistryHelp(hPrintUnderlineTest, "В Console печатается количество черных точек (на 1000) в верхней части растра линии", FALSE);
-	LDPUMA_Registry(&hPrintUnderlines, "Вывод координат подчерков", hPreRSL_Control);
-	LDPUMA_RegistryHelp(hPrintUnderlines, "В Console печатаются координаты линий, определенных как подчерки", FALSE);
+	LDPUMA_Registry(&hSkipCheckUnderlining, "Р’С‹РєР»СЋС‡РёС‚СЊ РїСЂРѕРІРµСЂРєСѓ РїРѕРґС‡РµСЂРєРѕРІ", hPreRSL_Debug);
+	LDPUMA_Registry(&hPrintUnderlineTest, "Р’С‹РІРѕРґ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РїСЂРѕРІРµСЂРєРё РїРѕРґС‡РµСЂРєРёРІР°РЅРёСЏ", hPreRSL_Control);
+	LDPUMA_RegistryHelp(hPrintUnderlineTest, "Р’ Console РїРµС‡Р°С‚Р°РµС‚СЃСЏ РєРѕР»РёС‡РµСЃС‚РІРѕ С‡РµСЂРЅС‹С… С‚РѕС‡РµРє (РЅР° 1000) РІ РІРµСЂС…РЅРµР№ С‡Р°СЃС‚Рё СЂР°СЃС‚СЂР° Р»РёРЅРёРё", FALSE);
+	LDPUMA_Registry(&hPrintUnderlines, "Р’С‹РІРѕРґ РєРѕРѕСЂРґРёРЅР°С‚ РїРѕРґС‡РµСЂРєРѕРІ", hPreRSL_Control);
+	LDPUMA_RegistryHelp(hPrintUnderlines, "Р’ Console РїРµС‡Р°С‚Р°СЋС‚СЃСЏ РєРѕРѕСЂРґРёРЅР°С‚С‹ Р»РёРЅРёР№, РѕРїСЂРµРґРµР»РµРЅРЅС‹С… РєР°Рє РїРѕРґС‡РµСЂРєРё", FALSE);
 
-	LDPUMA_Registry(&hSkipCheckRaster, "Не проверять линии по растру", hPreRSL_Debug);
-	LDPUMA_RegistryHelp(hSkipCheckRaster, "Если выключить проверку линий по растру, могут подтвердиться линии, выделенные по жирному тексту", FALSE);
-	LDPUMA_Registry(&hPrintRasterCheck, "Вывод результатов проверки растра", hPreRSL_Control);
-	LDPUMA_RegistryHelp(hPrintRasterCheck, "В Console печатается количество черных точек (на 1000) в растре линии", FALSE);
+	LDPUMA_Registry(&hSkipCheckRaster, "РќРµ РїСЂРѕРІРµСЂСЏС‚СЊ Р»РёРЅРёРё РїРѕ СЂР°СЃС‚СЂСѓ", hPreRSL_Debug);
+	LDPUMA_RegistryHelp(hSkipCheckRaster, "Р•СЃР»Рё РІС‹РєР»СЋС‡РёС‚СЊ РїСЂРѕРІРµСЂРєСѓ Р»РёРЅРёР№ РїРѕ СЂР°СЃС‚СЂСѓ, РјРѕРіСѓС‚ РїРѕРґС‚РІРµСЂРґРёС‚СЊСЃСЏ Р»РёРЅРёРё, РІС‹РґРµР»РµРЅРЅС‹Рµ РїРѕ Р¶РёСЂРЅРѕРјСѓ С‚РµРєСЃС‚Сѓ", FALSE);
+	LDPUMA_Registry(&hPrintRasterCheck, "Р’С‹РІРѕРґ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РїСЂРѕРІРµСЂРєРё СЂР°СЃС‚СЂР°", hPreRSL_Control);
+	LDPUMA_RegistryHelp(hPrintRasterCheck, "Р’ Console РїРµС‡Р°С‚Р°РµС‚СЃСЏ РєРѕР»РёС‡РµСЃС‚РІРѕ С‡РµСЂРЅС‹С… С‚РѕС‡РµРє (РЅР° 1000) РІ СЂР°СЃС‚СЂРµ Р»РёРЅРёРё", FALSE);
 
-	LDPUMA_Registry(&hDebugFrag,"Поиск фрагментов линии",hDebugRSL);
-    LDPUMA_Registry(&hDebugFragOwner,"Отладка поиска фрагментов линии",hDebugFrag);
-    LDPUMA_Registry(&hDebugFragOwnerControl,"Контроль поиска фрагментов линии",hDebugFrag);
+	LDPUMA_Registry(&hDebugFrag,"РџРѕРёСЃРє С„СЂР°РіРјРµРЅС‚РѕРІ Р»РёРЅРёРё",hDebugRSL);
+    LDPUMA_Registry(&hDebugFragOwner,"РћС‚Р»Р°РґРєР° РїРѕРёСЃРєР° С„СЂР°РіРјРµРЅС‚РѕРІ Р»РёРЅРёРё",hDebugFrag);
+    LDPUMA_Registry(&hDebugFragOwnerControl,"РљРѕРЅС‚СЂРѕР»СЊ РїРѕРёСЃРєР° С„СЂР°РіРјРµРЅС‚РѕРІ Р»РёРЅРёРё",hDebugFrag);
 
-	LDPUMA_Registry(&hDebugDrowRectForRaster,"Рисуется прямоугольник линии",hDebugFragOwnerControl);
-	LDPUMA_Registry(&hSkipCorrectPolynomia,"Не корректировать 4-хугольник линии",hDebugFragOwner);
-	LDPUMA_Registry(&hPrintCorrectPolynomia,"Результат проверки 4-хугольника линии",hDebugFragOwnerControl);
-	LDPUMA_RegistryHelp(hPrintCorrectPolynomia,"Вывод на консоль результатов проверки 4-хугольника линии",FALSE);
-	LDPUMA_Registry(&hDebugDrowPolynomia,"Рисуется контур линии",hDebugFragOwnerControl);
-	LDPUMA_Registry(&hDebugDrowCleanedRaster,"Рисуется прямоугольник линии после подчистки",hDebugFragOwnerControl);
-	LDPUMA_Registry(&hDebugDrowGetCorrectedLineStripesIntervals,"Рисуется интервальное представление линии",hDebugFragOwnerControl);
+	LDPUMA_Registry(&hDebugDrowRectForRaster,"Р РёСЃСѓРµС‚СЃСЏ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРє Р»РёРЅРёРё",hDebugFragOwnerControl);
+	LDPUMA_Registry(&hSkipCorrectPolynomia,"РќРµ РєРѕСЂСЂРµРєС‚РёСЂРѕРІР°С‚СЊ 4-С…СѓРіРѕР»СЊРЅРёРє Р»РёРЅРёРё",hDebugFragOwner);
+	LDPUMA_Registry(&hPrintCorrectPolynomia,"Р РµР·СѓР»СЊС‚Р°С‚ РїСЂРѕРІРµСЂРєРё 4-С…СѓРіРѕР»СЊРЅРёРєР° Р»РёРЅРёРё",hDebugFragOwnerControl);
+	LDPUMA_RegistryHelp(hPrintCorrectPolynomia,"Р’С‹РІРѕРґ РЅР° РєРѕРЅСЃРѕР»СЊ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РїСЂРѕРІРµСЂРєРё 4-С…СѓРіРѕР»СЊРЅРёРєР° Р»РёРЅРёРё",FALSE);
+	LDPUMA_Registry(&hDebugDrowPolynomia,"Р РёСЃСѓРµС‚СЃСЏ РєРѕРЅС‚СѓСЂ Р»РёРЅРёРё",hDebugFragOwnerControl);
+	LDPUMA_Registry(&hDebugDrowCleanedRaster,"Р РёСЃСѓРµС‚СЃСЏ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРє Р»РёРЅРёРё РїРѕСЃР»Рµ РїРѕРґС‡РёСЃС‚РєРё",hDebugFragOwnerControl);
+	LDPUMA_Registry(&hDebugDrowGetCorrectedLineStripesIntervals,"Р РёСЃСѓРµС‚СЃСЏ РёРЅС‚РµСЂРІР°Р»СЊРЅРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ Р»РёРЅРёРё",hDebugFragOwnerControl);
 
-	LDPUMA_Registry(&hDebugDrowVerticalLineRaster,"Рисуется растр вертикальной линии",hDebugFragOwnerControl);
-	LDPUMA_Registry(&hDebugDrowVerticalLineStripesIntervals,"Рисуется интервальное представление вертикальной линии",hDebugFragOwnerControl);
-	LDPUMA_Registry(&hDebugDrowVerticalLineCutPoints,"Рисуется точки пересечения вертикальной линии",hDebugFragOwnerControl);
-	LDPUMA_Registry(&hDebugTypeIntervals,"Вывод на Consol координат интервалов линии",hDebugFragOwnerControl);
-	LDPUMA_Registry(&hDebugTypeStripe,"Вывод на Consol интервальное представление линии",hDebugFragOwnerControl);
-	LDPUMA_Registry(&hSkipDeleteNoiseEvents, "Не выполнять удаление шумовых фрагментов", hDebugFragOwner);
-	LDPUMA_RegistryHelp(hSkipDeleteNoiseEvents, "Не удалять шумовые фрагменты", FALSE);
-	LDPUMA_Registry(&hSkipDelFragLines, "Не удалять сильно фрагментированную линии", hDebugFragOwner);
-	LDPUMA_RegistryHelp(hSkipDelFragLines, "Не удалять линии с числом фрагментов больше 5", FALSE);
-	LDPUMA_Registry(&hPrintFragLines, "Печать результатов проверки фрагментации", hDebugFragOwnerControl);
-	LDPUMA_RegistryHelp(hPrintFragLines, "Вывод на Consol результатов проверки кандидатов на удаление", FALSE);
-	LDPUMA_Registry(&hDebugDrawLineFragmentsOwnWindow,"Рисуются фрагменты линии в отдельном окне",hDebugFragOwnerControl);
-	LDPUMA_Registry(&hDebugDroweparationPoints,"Рисуются точки деления линии в отдельном окне",hDebugFragOwnerControl);
-    LDPUMA_Registry(&hDebugDrawLineFragments,"Рисуются фрагменты линии в основном окне",hDebugFragOwnerControl);
-    LDPUMA_RegistryHelp(hDebugDrawLineFragments, "Фрагменты рисуются для каждой линии в отдельности", FALSE);
+	LDPUMA_Registry(&hDebugDrowVerticalLineRaster,"Р РёСЃСѓРµС‚СЃСЏ СЂР°СЃС‚СЂ РІРµСЂС‚РёРєР°Р»СЊРЅРѕР№ Р»РёРЅРёРё",hDebugFragOwnerControl);
+	LDPUMA_Registry(&hDebugDrowVerticalLineStripesIntervals,"Р РёСЃСѓРµС‚СЃСЏ РёРЅС‚РµСЂРІР°Р»СЊРЅРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РІРµСЂС‚РёРєР°Р»СЊРЅРѕР№ Р»РёРЅРёРё",hDebugFragOwnerControl);
+	LDPUMA_Registry(&hDebugDrowVerticalLineCutPoints,"Р РёСЃСѓРµС‚СЃСЏ С‚РѕС‡РєРё РїРµСЂРµСЃРµС‡РµРЅРёСЏ РІРµСЂС‚РёРєР°Р»СЊРЅРѕР№ Р»РёРЅРёРё",hDebugFragOwnerControl);
+	LDPUMA_Registry(&hDebugTypeIntervals,"Р’С‹РІРѕРґ РЅР° Consol РєРѕРѕСЂРґРёРЅР°С‚ РёРЅС‚РµСЂРІР°Р»РѕРІ Р»РёРЅРёРё",hDebugFragOwnerControl);
+	LDPUMA_Registry(&hDebugTypeStripe,"Р’С‹РІРѕРґ РЅР° Consol РёРЅС‚РµСЂРІР°Р»СЊРЅРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ Р»РёРЅРёРё",hDebugFragOwnerControl);
+	LDPUMA_Registry(&hSkipDeleteNoiseEvents, "РќРµ РІС‹РїРѕР»РЅСЏС‚СЊ СѓРґР°Р»РµРЅРёРµ С€СѓРјРѕРІС‹С… С„СЂР°РіРјРµРЅС‚РѕРІ", hDebugFragOwner);
+	LDPUMA_RegistryHelp(hSkipDeleteNoiseEvents, "РќРµ СѓРґР°Р»СЏС‚СЊ С€СѓРјРѕРІС‹Рµ С„СЂР°РіРјРµРЅС‚С‹", FALSE);
+	LDPUMA_Registry(&hSkipDelFragLines, "РќРµ СѓРґР°Р»СЏС‚СЊ СЃРёР»СЊРЅРѕ С„СЂР°РіРјРµРЅС‚РёСЂРѕРІР°РЅРЅСѓСЋ Р»РёРЅРёРё", hDebugFragOwner);
+	LDPUMA_RegistryHelp(hSkipDelFragLines, "РќРµ СѓРґР°Р»СЏС‚СЊ Р»РёРЅРёРё СЃ С‡РёСЃР»РѕРј С„СЂР°РіРјРµРЅС‚РѕРІ Р±РѕР»СЊС€Рµ 5", FALSE);
+	LDPUMA_Registry(&hPrintFragLines, "РџРµС‡Р°С‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РїСЂРѕРІРµСЂРєРё С„СЂР°РіРјРµРЅС‚Р°С†РёРё", hDebugFragOwnerControl);
+	LDPUMA_RegistryHelp(hPrintFragLines, "Р’С‹РІРѕРґ РЅР° Consol СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РїСЂРѕРІРµСЂРєРё РєР°РЅРґРёРґР°С‚РѕРІ РЅР° СѓРґР°Р»РµРЅРёРµ", FALSE);
+	LDPUMA_Registry(&hDebugDrawLineFragmentsOwnWindow,"Р РёСЃСѓСЋС‚СЃСЏ С„СЂР°РіРјРµРЅС‚С‹ Р»РёРЅРёРё РІ РѕС‚РґРµР»СЊРЅРѕРј РѕРєРЅРµ",hDebugFragOwnerControl);
+	LDPUMA_Registry(&hDebugDroweparationPoints,"Р РёСЃСѓСЋС‚СЃСЏ С‚РѕС‡РєРё РґРµР»РµРЅРёСЏ Р»РёРЅРёРё РІ РѕС‚РґРµР»СЊРЅРѕРј РѕРєРЅРµ",hDebugFragOwnerControl);
+    LDPUMA_Registry(&hDebugDrawLineFragments,"Р РёСЃСѓСЋС‚СЃСЏ С„СЂР°РіРјРµРЅС‚С‹ Р»РёРЅРёРё РІ РѕСЃРЅРѕРІРЅРѕРј РѕРєРЅРµ",hDebugFragOwnerControl);
+    LDPUMA_RegistryHelp(hDebugDrawLineFragments, "Р¤СЂР°РіРјРµРЅС‚С‹ СЂРёСЃСѓСЋС‚СЃСЏ РґР»СЏ РєР°Р¶РґРѕР№ Р»РёРЅРёРё РІ РѕС‚РґРµР»СЊРЅРѕСЃС‚Рё", FALSE);
 
-	LDPUMA_Registry(&hDebugAttr,"Поиск атрибутов линий",hDebugRSL);
-    LDPUMA_Registry(&hDebugAttrOwner,"Контроль поиска атрибутов линии",hDebugAttr);
-	LDPUMA_Registry(&hDebugTypeWidth,"Вывод на Consol ширины линии",hDebugAttrOwner);
-	LDPUMA_Registry(&hDebugTypeDegree,"Вывод на Consol угла наклона линии",hDebugAttrOwner);
+	LDPUMA_Registry(&hDebugAttr,"РџРѕРёСЃРє Р°С‚СЂРёР±СѓС‚РѕРІ Р»РёРЅРёР№",hDebugRSL);
+    LDPUMA_Registry(&hDebugAttrOwner,"РљРѕРЅС‚СЂРѕР»СЊ РїРѕРёСЃРєР° Р°С‚СЂРёР±СѓС‚РѕРІ Р»РёРЅРёРё",hDebugAttr);
+	LDPUMA_Registry(&hDebugTypeWidth,"Р’С‹РІРѕРґ РЅР° Consol С€РёСЂРёРЅС‹ Р»РёРЅРёРё",hDebugAttrOwner);
+	LDPUMA_Registry(&hDebugTypeDegree,"Р’С‹РІРѕРґ РЅР° Consol СѓРіР»Р° РЅР°РєР»РѕРЅР° Р»РёРЅРёРё",hDebugAttrOwner);
 
     gwHeightRC = wHeightCode;
 
@@ -431,12 +431,12 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, Int32 *ScanQual)
 		do
 		{
 			//////////////////////////////////////////////////////////////////////////////////////
-			/*  1. Контроль.  */
+			/*  1. РљРѕРЅС‚СЂРѕР»СЊ.  */
 			if ((Image->pgneed_clean_line==NULL)&&(BadScan!=NULL))
 				break;
 				//return TRUE;
 
-			/*  2. Инициализация.  */
+			/*  2. РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ.  */
 			vMain = Buffer;
 			SizeMain = RSL_AboutLines_SizeMyBuff;
 			MainBuff.vBuff    = vMain;
@@ -468,9 +468,9 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, Int32 *ScanQual)
 				if (1)
 				{
 					if (*Image->pgneed_clean_line)
-						LDPUMA_ConsoleN ("RSource: Нужно снять линии.");
+						LDPUMA_ConsoleN ("RSource: РќСѓР¶РЅРѕ СЃРЅСЏС‚СЊ Р»РёРЅРёРё.");
 					else
-						LDPUMA_ConsoleN ("RSource: Не надо снимать линии!");
+						LDPUMA_ConsoleN ("RSource: РќРµ РЅР°РґРѕ СЃРЅРёРјР°С‚СЊ Р»РёРЅРёРё!");
 				}
 			}
 //		   }
@@ -478,7 +478,7 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, Int32 *ScanQual)
 			if (BadScan!=NULL)
 			{
 				if (1)
-					LDPUMA_ConsoleN ("RSource: Качество сканирования : не умею пока определять.");
+					LDPUMA_ConsoleN ("RSource: РљР°С‡РµСЃС‚РІРѕ СЃРєР°РЅРёСЂРѕРІР°РЅРёСЏ : РЅРµ СѓРјРµСЋ РїРѕРєР° РѕРїСЂРµРґРµР»СЏС‚СЊ.");
 				*BadScan = TRUE;
 				*ScanQual = 100;
 			}

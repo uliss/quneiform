@@ -13,7 +13,7 @@
 #include <conio.h>
 
 //#include <wdm.h>
-//#include <ntddk.h>  ///для функции перевода unicode в ANSI
+//#include <ntddk.h>  ///РґР»СЏ С„СѓРЅРєС†РёРё РїРµСЂРµРІРѕРґР° unicode РІ ANSI
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -233,7 +233,7 @@ BOOL CSampleDlg::CanExit()
 	return TRUE;
 }
 
-// CT: ПОДКЛЮЧЕНИЕ ЯДРА И ОРГАНИЗАЦИЯ ПРОЦЕССА РАСПОЗНАВАНИЯ
+// CT: РџРћР”РљР›Р®Р§Р•РќРР• РЇР”Р Рђ Р РћР Р“РђРќРР—РђР¦РРЇ РџР РћР¦Р•РЎРЎРђ Р РђРЎРџРћР—РќРђР’РђРќРРЇ
 #include"tiger.h"
 #include "events.h"
 const IID DIID__IRecognitionEvents = {0x229C1071,0x829F,0x11D2,{0xBA,0x6E,0x00,0x00,0xE8,0xD9,0xFD,0xF6}};
@@ -246,7 +246,7 @@ void CSampleDlg::OnButton1()
 
     if(Puma.CreateDispatch("Cognitive.Puma"))
     {
-        // CT: Делаем необходимые действия для получения событий.
+        // CT: Р”РµР»Р°РµРј РЅРµРѕР±С…РѕРґРёРјС‹Рµ РґРµР№СЃС‚РІРёСЏ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ СЃРѕР±С‹С‚РёР№.
         LPDISPATCH lpDispatch = Puma.m_lpDispatch;
         IConnectionPointContainer * lpContainer = NULL;
         Events events(this);
@@ -257,27 +257,27 @@ void CSampleDlg::OnButton1()
             lpContainer->Release();
             if(lpContainer->FindConnectionPoint(DIID__IRecognitionEvents,&lpPoint)==S_OK)
             {
-                DWORD wdCookie;
+uint32_t wdCookie;
                 lpPoint->Advise(dynamic_cast<IUnknown *>(events.GetIDispatch(FALSE)),&wdCookie);
                 lpPoint->Release();
             }
         }
         Puma.Load();
-        Puma.SetLanguage(7);        // CT: РУССКО-АНГЛИЙСКИЙ ЯЗЫК
-        Puma.SetSpeller(m_spell);   // CT: ВКЛ/ВЫКЛ СЛОВАРНОГО ДОРАСПОЗНАВАНИЯ
+        Puma.SetLanguage(7);        // CT: Р РЈРЎРЎРљРћ-РђРќР“Р›РР™РЎРљРР™ РЇР—Р«Рљ
+        Puma.SetSpeller(m_spell);   // CT: Р’РљР›/Р’Р«РљР› РЎР›РћР’РђР РќРћР“Рћ Р”РћР РђРЎРџРћР—РќРђР’РђРќРРЇ
 		long size = Puma.GetSize();
-        Puma.RecogClipboard();      // CT: РАСПОЗНАТЬ ОБРАЗ ИЗ Clipboard
+        Puma.RecogClipboard();      // CT: Р РђРЎРџРћР—РќРђРўР¬ РћР‘Р РђР— РР— Clipboard
         Puma.Unload();
     }
 
-	///преобразование в UNICODE
+	///РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ РІ UNICODE
 	HANDLE hd_buf = GlobalAlloc(GMEM_FIXED, 128);
 	if ( !OpenClipboard() )
 	{
 		AfxMessageBox( "Cannot open the Clipboard" );
 	}
 
-	hd_buf=::GetClipboardData(CF_TEXT);//взять в hd_buf
+	hd_buf=::GetClipboardData(CF_TEXT);//РІР·СЏС‚СЊ РІ hd_buf
 
 	LPVOID pHptr = GlobalLock(hd_buf);
 	if(pHptr == 0)
@@ -297,7 +297,7 @@ void CSampleDlg::OnButton1()
 
 		//MessageBox(pBufText);
 
-		ULONG len = strlen(pBufText) + 1;
+                ulong len = strlen(pBufText) + 1;
 
 		unsigned short pBufUni;
 		LPOLESTR pBU = 0;
@@ -312,16 +312,16 @@ void CSampleDlg::OnButton1()
 		GlobalUnlock(hd_buf);
 
 		HGLOBAL clipbuffer;
-		char* buffer;	// указатель на данные
-		clipbuffer = GlobalAlloc(GMEM_DDESHARE, 128);// выделить память
-		buffer = (char*)GlobalLock(clipbuffer);	// блокировать буфер
+		char* buffer;	// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РґР°РЅРЅС‹Рµ
+		clipbuffer = GlobalAlloc(GMEM_DDESHARE, 128);// РІС‹РґРµР»РёС‚СЊ РїР°РјСЏС‚СЊ
+		buffer = (char*)GlobalLock(clipbuffer);	// Р±Р»РѕРєРёСЂРѕРІР°С‚СЊ Р±СѓС„РµСЂ
 		memcpy(buffer, pBU, 128);
-		///strcpy(buffer, uni_text);	// копировать в него данные
-		GlobalUnlock(clipbuffer);	// разблокировать
+		///strcpy(buffer, uni_text);	// РєРѕРїРёСЂРѕРІР°С‚СЊ РІ РЅРµРіРѕ РґР°РЅРЅС‹Рµ
+		GlobalUnlock(clipbuffer);	// СЂР°Р·Р±Р»РѕРєРёСЂРѕРІР°С‚СЊ
 		if(!EmptyClipboard())
 			MessageBox("wrong");
 
-		SetClipboardData(CF_UNICODETEXT, clipbuffer);	// установить данные и тип
+		SetClipboardData(CF_UNICODETEXT, clipbuffer);	// СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РґР°РЅРЅС‹Рµ Рё С‚РёРї
 
 	}
 	CloseClipboard();

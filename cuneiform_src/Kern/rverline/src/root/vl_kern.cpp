@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -54,12 +54,12 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/**********  Заголовок  **********/
-/*  Автор      :  Александр Михайлов                                          */
-/*  Редакция   :  06.09.00                                                    */
-/*  Файл       :  'VL_Kern.CPP'                                               */
-/*  Содержание :  Содержательные функции библиотеки "RVERLINE"                */
-/*  Назначение :  Стандартный диалог с другими библиотеками                   */
+/**********  Р—Р°РіРѕР»РѕРІРѕРє  **********/
+/*  РђРІС‚РѕСЂ      :  РђР»РµРєСЃР°РЅРґСЂ РњРёС…Р°Р№Р»РѕРІ                                          */
+/*  Р РµРґР°РєС†РёСЏ   :  06.09.00                                                    */
+/*  Р¤Р°Р№Р»       :  'VL_Kern.CPP'                                               */
+/*  РЎРѕРґРµСЂР¶Р°РЅРёРµ :  РЎРѕРґРµСЂР¶Р°С‚РµР»СЊРЅС‹Рµ С„СѓРЅРєС†РёРё Р±РёР±Р»РёРѕС‚РµРєРё "RVERLINE"                */
+/*  РќР°Р·РЅР°С‡РµРЅРёРµ :  РЎС‚Р°РЅРґР°СЂС‚РЅС‹Р№ РґРёР°Р»РѕРі СЃ РґСЂСѓРіРёРјРё Р±РёР±Р»РёРѕС‚РµРєР°РјРё                   */
 /*----------------------------------------------------------------------------*/
 
 #include <stdio.h>
@@ -117,7 +117,7 @@ RVERLINE_FUNC(Bool32) RVERLINE_MarkLines (Handle hCComp, Handle hCPage)
 	Word16 Code;
 //	Word32 HoriType, VertType;
 	Bool ret, AbleShortVert;
-	LinesTotalInfo  lti = {0};  // Структура хранения линий
+	LinesTotalInfo  lti = {0};  // РЎС‚СЂСѓРєС‚СѓСЂР° С…СЂР°РЅРµРЅРёСЏ Р»РёРЅРёР№
 	LineInfo LHor[MaxLines], LVer[MaxLines];
 	Regime_VerifyLines   Regime;
 	Handle myMainWindow;
@@ -136,11 +136,11 @@ RVERLINE_FUNC(Bool32) RVERLINE_MarkLines (Handle hCComp, Handle hCPage)
 		return FALSE;
 	Regime = MainRegime;
 	AbleShortVert = Regime&RVL_FutuTablCorr;
-	/*  открыть файлы отписи результатов  */
+	/*  РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»С‹ РѕС‚РїРёСЃРё СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ  */
 	if (!AM_Skip (AM_GetKeyOfRule (RU_VL_D_WrResLine)))
 		rot = AM_OpenRes_rv_fte (RU_VL_D_WrResLine, "C:\\Temp\\res_vl_");
 	file_name = AM_GetFileName (NULL);
-	sprintf (Str, "  <2 Н Страница = %s\n", file_name);
+	sprintf (Str, "  <2 Рќ РЎС‚СЂР°РЅРёС†Р° = %s\n", file_name);
 	if (!AM_Skip (AM_GetKeyOfRule (RU_VL_D_WrResLine)))
 		rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, Str);
     GetPageInfo(hCPage, &info);
@@ -152,7 +152,7 @@ RVERLINE_FUNC(Bool32) RVERLINE_MarkLines (Handle hCComp, Handle hCPage)
 	err8 = (Word8)ER_DETAIL_EMPTY_FUNC;
 	Code |= (Word16)err8;
 	SetReturnCode_rverline (Code);
-	/*  Считываю линии  */
+	/*  РЎС‡РёС‚С‹РІР°СЋ Р»РёРЅРёРё  */
 	lti.Hor.Lns = LHor;
 	lti.Ver.Lns = LVer;
 //	if(!AM_Skip(hUseCLine))
@@ -167,10 +167,10 @@ RVERLINE_FUNC(Bool32) RVERLINE_MarkLines (Handle hCComp, Handle hCPage)
 			myKeyWarn = AM_GetKeyOfRule (RU_VL_C_ContWarn);
 			if (!AM_Skip (myKeyWarn))
 				AM_ConsolN ("Rlt-WarningExternal-Abort : \
-				\n Функция верификации линий реально не исполнялась. \
-				\n Причина - отсутствие линий. \n%s", Str);
+				\n Р¤СѓРЅРєС†РёСЏ РІРµСЂРёС„РёРєР°С†РёРё Р»РёРЅРёР№ СЂРµР°Р»СЊРЅРѕ РЅРµ РёСЃРїРѕР»РЅСЏР»Р°СЃСЊ. \
+				\n РџСЂРёС‡РёРЅР° - РѕС‚СЃСѓС‚СЃС‚РІРёРµ Р»РёРЅРёР№. \n%s", Str);
 			if (!AM_Skip (AM_GetKeyOfRule (RU_VL_D_WrResLine)))
-				rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <2 К Страница\n");
+				rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <2 Рљ РЎС‚СЂР°РЅРёС†Р°\n");
 			return TRUE;
 		case RV_DOUBT :
 			err8 = (Word8)ER_ROUGH_CALL_REFUSED;
@@ -181,20 +181,20 @@ RVERLINE_FUNC(Bool32) RVERLINE_MarkLines (Handle hCComp, Handle hCPage)
 			myKeyWarn  = AM_GetKeyOfRule (RU_VL_C_ContWarn);
 			if (!AM_Skip (myKeyWarn))
 				AM_ConsolN ("Rlt-WarningCommon-Abort : \
-				\n Функция верификации линий реально не исполнялась. \
-				\n Вероятны неверное выделение линий либо неверный вызов \
-				   данной функции.\
+				\n Р¤СѓРЅРєС†РёСЏ РІРµСЂРёС„РёРєР°С†РёРё Р»РёРЅРёР№ СЂРµР°Р»СЊРЅРѕ РЅРµ РёСЃРїРѕР»РЅСЏР»Р°СЃСЊ. \
+				\n Р’РµСЂРѕСЏС‚РЅС‹ РЅРµРІРµСЂРЅРѕРµ РІС‹РґРµР»РµРЅРёРµ Р»РёРЅРёР№ Р»РёР±Рѕ РЅРµРІРµСЂРЅС‹Р№ РІС‹Р·РѕРІ \
+				   РґР°РЅРЅРѕР№ С„СѓРЅРєС†РёРё.\
 				\n%s", Str);
 			if (!AM_Skip (AM_GetKeyOfRule (RU_VL_D_WrResLine)))
-				rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <2 К Страница\n");
+				rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <2 Рљ РЎС‚СЂР°РЅРёС†Р°\n");
 			return TRUE;
 		case RV_FALSE :
 		default :
 			if (!AM_Skip (AM_GetKeyOfRule (RU_VL_D_WrResLine)))
-				rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <2 К Страница\n");
+				rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <2 Рљ РЎС‚СЂР°РЅРёС†Р°\n");
 			return FALSE;
 	}
-	/*  Считываю компоненты  */
+	/*  РЎС‡РёС‚С‹РІР°СЋ РєРѕРјРїРѕРЅРµРЅС‚С‹  */
 	pWhatDo = WhatDo;
 	pRc = Rc;
 	LimComp = MaxComps;
@@ -202,56 +202,56 @@ RVERLINE_FUNC(Bool32) RVERLINE_MarkLines (Handle hCComp, Handle hCPage)
 	if (!ret)
 	{
 		if (!AM_Skip (AM_GetKeyOfRule (RU_VL_C_ContWarn)))
-			AM_ConsolN ("Rlt-Restart : Нет, попробуем продолжить! \
-				\n Ужесточен отбор коробок компонент для верификации линий!");
+			AM_ConsolN ("Rlt-Restart : РќРµС‚, РїРѕРїСЂРѕР±СѓРµРј РїСЂРѕРґРѕР»Р¶РёС‚СЊ! \
+				\n РЈР¶РµСЃС‚РѕС‡РµРЅ РѕС‚Р±РѕСЂ РєРѕСЂРѕР±РѕРє РєРѕРјРїРѕРЅРµРЅС‚ РґР»СЏ РІРµСЂРёС„РёРєР°С†РёРё Р»РёРЅРёР№!");
 		ret = MyGetComp (hCComp, pRc, &nRC, LimComp, 3);
 	}
 	if (!ret)
 	{
 		if (!AM_Skip (AM_GetKeyOfRule (RU_VL_D_WrResLine)))
-			rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <2 К Страница\n");
+			rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <2 Рљ РЎС‚СЂР°РЅРёС†Р°\n");
 		return TRUE;
 	}
-	// Получение дескриптора моего окна
+	// РџРѕР»СѓС‡РµРЅРёРµ РґРµСЃРєСЂРёРїС‚РѕСЂР° РјРѕРµРіРѕ РѕРєРЅР°
 	myMainWindow = AM_GetWindowHandle (PUMA_IMAGE_TURN);
 	if (myMainWindow==NULL)
 		myMainWindow = AM_CreateWindow (NULL, NULL);
-	/*  Отрисовка входных данных  */
+	/*  РћС‚СЂРёСЃРѕРІРєР° РІС…РѕРґРЅС‹С… РґР°РЅРЅС‹С…  */
 	RLTDraw_O_VerifLines ((void *)(&lti), RU_VL_I_PrimLines, RU_Unknown, myMainWindow);
 	RLTDraw_I_PrimBoxes (pRc, NULL, nRC, myMainWindow, RU_VL_I_PrimBoxes);
-	/*  Содержательная часть  */
+	/*  РЎРѕРґРµСЂР¶Р°С‚РµР»СЊРЅР°СЏ С‡Р°СЃС‚СЊ  */
 	if (!AM_Skip (AM_GetKeyOfRule (RU_VL_D_WrResLine)))
-		rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <3 Н Линии\n");
+		rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <3 Рќ Р›РёРЅРёРё\n");
 	New_MarkVerifiedLines ((void *)(&lti), hCPage, pRc, pWhatDo, nRC, &nZher, iZher, MaxZherTotal, AbleShortVert);
 	ret = MyFormZhertvy (hCComp, Zhertvy, iZher, nZher, 2);
 	if (!ret)
 	{
 		if (!AM_Skip (AM_GetKeyOfRule (RU_VL_D_WrResLine)))
-			rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <3 К Линии\n");
+			rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <3 Рљ Р›РёРЅРёРё\n");
 		if (!AM_Skip (AM_GetKeyOfRule (RU_VL_D_WrResLine)))
-			rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <2 К Страница\n");
+			rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <2 Рљ РЎС‚СЂР°РЅРёС†Р°\n");
 		return FALSE;
 	}
 	ret = MySetZher (Zhertvy, nZher, hCPage);
 	if (!ret)
 	{
 		if (!AM_Skip (AM_GetKeyOfRule (RU_VL_D_WrResLine)))
-			rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <3 К Линии\n");
+			rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <3 Рљ Р›РёРЅРёРё\n");
 		if (!AM_Skip (AM_GetKeyOfRule (RU_VL_D_WrResLine)))
-			rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <2 К Страница\n");
+			rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <2 Рљ РЎС‚СЂР°РЅРёС†Р°\n");
 		return FALSE;
 	}
-	/*  Проверка
+	/*  РџСЂРѕРІРµСЂРєР°
 	ret = MyGetZher (Zhertvy, &nZher, MaxZherTotal, hCPage);
 	if (!ret)
 		return FALSE;  */
-	/*  Отписывание результатов работы  */
+	/*  РћС‚РїРёСЃС‹РІР°РЅРёРµ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ СЂР°Р±РѕС‚С‹  */
 	WriteResForLines ((void *)(&lti));
-	/*  Отрисовка результатов работы  */
+	/*  РћС‚СЂРёСЃРѕРІРєР° СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ СЂР°Р±РѕС‚С‹  */
   	RLTDraw_O_VerifLines ((void *)(&lti), RU_VL_O_VerifLines, RU_VL_O_CorrLines, myMainWindow);
 	if (nZher>0)
 		RLTDraw_VL_R_Zhertvy (Zhertvy, nZher, myMainWindow, RU_VL_O_SaveComps);
-	/*  Перезаписываю линии с проставленными флагами их верификации  */
+	/*  РџРµСЂРµР·Р°РїРёСЃС‹РІР°СЋ Р»РёРЅРёРё СЃ РїСЂРѕСЃС‚Р°РІР»РµРЅРЅС‹РјРё С„Р»Р°РіР°РјРё РёС… РІРµСЂРёС„РёРєР°С†РёРё  */
 //	if(!AM_Skip(hUseCLine))
 		ret=MyReSetLines(&lti,MaxLines,hCLINE);
 //	else
@@ -259,15 +259,15 @@ RVERLINE_FUNC(Bool32) RVERLINE_MarkLines (Handle hCComp, Handle hCPage)
 	if (!ret)
 	{
 		if (!AM_Skip (AM_GetKeyOfRule (RU_VL_D_WrResLine)))
-			rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <3 К Линии\n");
+			rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <3 Рљ Р›РёРЅРёРё\n");
 		if (!AM_Skip (AM_GetKeyOfRule (RU_VL_D_WrResLine)))
-			rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <2 К Страница\n");
+			rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <2 Рљ РЎС‚СЂР°РЅРёС†Р°\n");
 		return FALSE;
 	}
 	if (!AM_Skip (AM_GetKeyOfRule (RU_VL_D_WrResLine)))
-		rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <3 К Линии\n");
+		rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <3 Рљ Р›РёРЅРёРё\n");
 	if (!AM_Skip (AM_GetKeyOfRule (RU_VL_D_WrResLine)))
-		rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <2 К Страница\n");
+		rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <2 Рљ РЎС‚СЂР°РЅРёС†Р°\n");
 	if (!AM_Skip (AM_GetKeyOfRule (RU_VL_D_WrResLine)))
 		rot = AM_SaveRes_rv_fte  (RU_VL_D_WrResLine, "C:\\Temp\\res_vl_");
 	return TRUE;

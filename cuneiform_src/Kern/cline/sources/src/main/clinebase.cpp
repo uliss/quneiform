@@ -1,58 +1,58 @@
 /*
-Copyright (c) 1993-2008, Cognitive Technologies
-All rights reserved.
+ Copyright (c) 1993-2008, Cognitive Technologies
+ All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+ Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+ С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+ РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+ РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+ СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+ РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+ Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+ РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+ СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+ Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+ РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+ Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+ РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+ РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+ РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+ РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+ РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+ РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+ РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+ РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+ Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
 
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation
-      and/or other materials provided with the distribution.
-    * Neither the name of the Cognitive Technologies nor the names of its
-      contributors may be used to endorse or promote products derived from this
-      software without specific prior written permission.
+ * Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ * Neither the name of the Cognitive Technologies nor the names of its
+ contributors may be used to endorse or promote products derived from this
+ software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #include <assert.h>
 #include <stdlib.h>
@@ -63,46 +63,45 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-//Главная отладка
-#define SNAP_ROOT_MAIN_DEBUG                "Главная отладка"
+//Р“Р»Р°РІРЅР°СЏ РѕС‚Р»Р°РґРєР°
+#define SNAP_ROOT_MAIN_DEBUG                "Р“Р»Р°РІРЅР°СЏ РѕС‚Р»Р°РґРєР°"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-Handle Root=NULL;
-Handle MainDebug=NULL;
+Handle Root = NULL;
+Handle MainDebug = NULL;
 //Handle CLineDebug=NULL;
-Handle MemStat=NULL;
+Handle MemStat = NULL;
 
 CLINE_handle hcode;
 int CLINE_Debug;
 int CLINE_Debug_2;
-int size_inv=0;
-int size_event=0;
-int size_cupoint=0;
-int size_comp=0;
-int size_line=0;
+int size_inv = 0;
+int size_event = 0;
+int size_cupoint = 0;
+int size_comp = 0;
+int size_line = 0;
 
-int size_class_inv=0;
-int size_class_event=0;
-int size_class_cupoint=0;
-int size_class_comp=0;
-int size_class_line=0;
-int size_class_hline=0;
+int size_class_inv = 0;
+int size_class_event = 0;
+int size_class_cupoint = 0;
+int size_class_comp = 0;
+int size_class_line = 0;
+int size_class_hline = 0;
 
-int len_inv_mas=10000;
-int len_event_mas=1000;
-int len_cupoint_mas=1000;
-int len_comp_mas=100;
-int len_line_mas=100;
-int len_hline_mas=10;
+int len_inv_mas = 10000;
+int len_event_mas = 1000;
+int len_cupoint_mas = 1000;
+int len_comp_mas = 100;
+int len_line_mas = 100;
+int len_hline_mas = 10;
 
 CAllMem* pMyMem;
-CInterval* pInvMem=NULL;
-CEvent* pEventMem=NULL;
-CCutPoint* pCupointMem=NULL;
-CComponent* pCompMem=NULL;
-CLine* pLineMem=NULL;
-CHLine* pHLineMem=NULL;
-
+CInterval* pInvMem = NULL;
+CEvent* pEventMem = NULL;
+CCutPoint* pCupointMem = NULL;
+CComponent* pCompMem = NULL;
+CLine* pLineMem = NULL;
+CHLine* pHLineMem = NULL;
 
 LIST<CHLine>* pLCont;
 CHLine* pMainCont;
@@ -113,22 +112,19 @@ BOOL InitData(void);
 void DeleteData(void);
 
 /////////////////////////////////////////
-BOOL APIENTRY DllMain( HINSTANCE  hModule,
-                        DWORD ul_reason_for_call,
-                        LPVOID lpReserved )
-{
-    switch( ul_reason_for_call )
-	{
-    case DLL_PROCESS_ATTACH:
+BOOL APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
+		LPVOID lpReserved) {
+	switch (ul_reason_for_call) {
+	case DLL_PROCESS_ATTACH:
 		break;
-    case DLL_THREAD_ATTACH:
+	case DLL_THREAD_ATTACH:
 		break;
-    case DLL_THREAD_DETACH:
+	case DLL_THREAD_DETACH:
 		break;
-    case DLL_PROCESS_DETACH:
+	case DLL_PROCESS_DETACH:
 		break;
-    }
-    return TRUE;
+	}
+	return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -140,16 +136,16 @@ CLINE_FUNC(Bool32) CLINE_Init(Word16 wHeightCode,HANDLE hStorage)
 	pMainCont=NULL;
 
 	size_inv=sizeof(DInterval);
-    size_event=sizeof(DEvent);
-    size_cupoint=sizeof(DCutPoint);
-    size_comp=sizeof(DComponent);
-    size_line=sizeof(DLine);
+	size_event=sizeof(DEvent);
+	size_cupoint=sizeof(DCutPoint);
+	size_comp=sizeof(DComponent);
+	size_line=sizeof(DLine);
 
 	size_class_inv=sizeof(CInterval);
-    size_class_event=sizeof(CEvent);
-    size_class_cupoint=sizeof(CCutPoint);
-    size_class_comp=sizeof(CComponent);
-    size_class_line=sizeof(CLine);
+	size_class_event=sizeof(CEvent);
+	size_class_cupoint=sizeof(CCutPoint);
+	size_class_comp=sizeof(CComponent);
+	size_class_line=sizeof(CLine);
 	size_class_hline=sizeof(CHLine);
 
 	_ASSERT(size_class_inv!=size_class_event && size_class_inv!=size_class_cupoint && size_class_inv!=size_class_comp && size_class_inv!=size_class_line && size_class_inv!=size_class_hline);
@@ -158,34 +154,34 @@ CLINE_FUNC(Bool32) CLINE_Init(Word16 wHeightCode,HANDLE hStorage)
 	_ASSERT(size_class_comp!=size_class_line && size_class_comp!=size_class_hline);
 	_ASSERT(size_class_line!=size_class_hline);
 
-	if(!InitData())
+	if(!InitData()) {
 		return FALSE;
-
+	}
 
 	int time=clock();
 	time=abs(time);
-    hcode=(CLINE_handle)time;
+	hcode=(CLINE_handle)time;
 	CLINE_Debug=0;
 	CLINE_Debug_2=0;
 
-//    LDPUMA_Registry(&MainDebug,SNAP_ROOT_MAIN_DEBUG,NULL);
+	//    LDPUMA_Registry(&MainDebug,SNAP_ROOT_MAIN_DEBUG,NULL);
 
-	LDPUMA_Registry(&Root,"Контейнер линий",NULL);
-	LDPUMA_RegistryHelp(Root,"<Ответственный тов. Степаненков> \
-    \n Вершина отладки контейнера линий.",FALSE);
+	LDPUMA_Registry(&Root,"РљРѕРЅС‚РµР№РЅРµСЂ Р»РёРЅРёР№",NULL);
+	LDPUMA_RegistryHelp(Root,"<РћС‚РІРµС‚СЃС‚РІРµРЅРЅС‹Р№ С‚РѕРІ. РЎС‚РµРїР°РЅРµРЅРєРѕРІ> \
+                        \n Р’РµСЂС€РёРЅР° РѕС‚Р»Р°РґРєРё РєРѕРЅС‚РµР№РЅРµСЂР° Р»РёРЅРёР№.",FALSE);
 	LDPUMA_RegVariable(Root,"CLINE_DEBUG",&CLINE_Debug,"int");
 	LDPUMA_RegVariable(Root,"CLINE_DEBUG_WEAK",&CLINE_Debug_2,"int");
 
-	LDPUMA_Registry(&MemStat,"Отпись статистики по памяти",Root);
-	LDPUMA_RegistryHelp(MemStat,"Разрешить отпись статистики по памяти в файл clstat.res",FALSE);
+	LDPUMA_Registry(&MemStat,"РћС‚РїРёСЃСЊ СЃС‚Р°С‚РёСЃС‚РёРєРё РїРѕ РїР°РјСЏС‚Рё",Root);
+	LDPUMA_RegistryHelp(MemStat,"Р Р°Р·СЂРµС€РёС‚СЊ РѕС‚РїРёСЃСЊ СЃС‚Р°С‚РёСЃС‚РёРєРё РїРѕ РїР°РјСЏС‚Рё РІ С„Р°Р№Р» clstat.res",FALSE);
 
- return TRUE;
+	return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 CLINE_FUNC(Bool32) CLINE_Done()
 {
-    DeleteData();
+	DeleteData();
 	LDPUMA_Done();
 	return TRUE;
 }
@@ -199,7 +195,7 @@ CLINE_FUNC(Word32) CLINE_GetReturnCode()
 //
 CLINE_FUNC(Int8 *) CLINE_GetReturnString(Word32 dwError)
 {
-   return NULL;
+	return NULL;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -209,80 +205,80 @@ CLINE_FUNC(Bool32) CLINE_GetExportData(Word32 dwType, void * pData)
 
 #define CASE_FUNCTION(a)	case CLINE_FN##a:	*(FN##a *)pData = a; break
 
-   switch(dwType)
-   {
-	CASE_FUNCTION(CLINE_Reset);
-	CASE_FUNCTION(CLINE_CreateContainer);
-	CASE_FUNCTION(CLINE_DeleteContainer);
-	CASE_FUNCTION(CLINE_GetFirstContainer);
-	CASE_FUNCTION(CLINE_GetNextContainer);
-	CASE_FUNCTION(CLINE_GetMainContainer);
-	CASE_FUNCTION(CLINE_CleanContainer);
-	CASE_FUNCTION(CLINE_GetLineCount);
-	CASE_FUNCTION(CLINE_GetFirstLine);
-	CASE_FUNCTION(CLINE_GetNextLine);
-	CASE_FUNCTION(CLINE_AddNewLine);
-	CASE_FUNCTION(CLINE_DelLine);
-	CASE_FUNCTION(CLINE_DelAllLines);
-	CASE_FUNCTION(CLINE_GetLineData);
-	CASE_FUNCTION(CLINE_SetLineData);
-	CASE_FUNCTION(CLINE_GetEventCount);
-	CASE_FUNCTION(CLINE_GetFirstEvent);
-	CASE_FUNCTION(CLINE_GetNextEvent);
-	CASE_FUNCTION(CLINE_AddNewEvent);
-	CASE_FUNCTION(CLINE_DelEvent);
-	CASE_FUNCTION(CLINE_DelAllEvents);
-	CASE_FUNCTION(CLINE_GetEventData);
-	CASE_FUNCTION(CLINE_SetEventData);
-	CASE_FUNCTION(CLINE_GetCutPointCount);
-	CASE_FUNCTION(CLINE_GetFirstCutPoint);
-	CASE_FUNCTION(CLINE_GetNextCutPoint);
-	CASE_FUNCTION(CLINE_AddNewCutPoint);
-	CASE_FUNCTION(CLINE_DelCutPoint);
-	CASE_FUNCTION(CLINE_DelAllCutPoints);
-	CASE_FUNCTION(CLINE_GetCutPointData);
-	CASE_FUNCTION(CLINE_SetCutPointData);
-	CASE_FUNCTION(CLINE_GetCompCount);
-	CASE_FUNCTION(CLINE_GetFirstComp);
-	CASE_FUNCTION(CLINE_GetNextComp);
-	CASE_FUNCTION(CLINE_AddNewComp);
-	CASE_FUNCTION(CLINE_DelComp);
-	CASE_FUNCTION(CLINE_DelAllComps);
-	CASE_FUNCTION(CLINE_GetCompData);
-	CASE_FUNCTION(CLINE_SetCompData);
-    CASE_FUNCTION(CLINE_GetEventInvCount);
-	CASE_FUNCTION(CLINE_GetFirstEventInv);
-	CASE_FUNCTION(CLINE_GetNextEventInv);
-	CASE_FUNCTION(CLINE_AddNewEventInv);
-	CASE_FUNCTION(CLINE_DelEventInv);
-	CASE_FUNCTION(CLINE_DelAllEventInvs);
-	CASE_FUNCTION(CLINE_GetEventInvData);
-	CASE_FUNCTION(CLINE_SetEventInvData);
-    CASE_FUNCTION(CLINE_GetCutPointInvCount);
-	CASE_FUNCTION(CLINE_GetFirstCutPointInv);
-	CASE_FUNCTION(CLINE_GetNextCutPointInv);
-	CASE_FUNCTION(CLINE_AddNewCutPointInv);
-	CASE_FUNCTION(CLINE_DelCutPointInv);
-	CASE_FUNCTION(CLINE_DelAllCutPointInvs);
-	CASE_FUNCTION(CLINE_GetCutPointInvData);
-	CASE_FUNCTION(CLINE_SetCutPointInvData);
-	CASE_FUNCTION(CLINE_CopyData);
+	switch(dwType)
+	{
+		CASE_FUNCTION(CLINE_Reset);
+		CASE_FUNCTION(CLINE_CreateContainer);
+		CASE_FUNCTION(CLINE_DeleteContainer);
+		CASE_FUNCTION(CLINE_GetFirstContainer);
+		CASE_FUNCTION(CLINE_GetNextContainer);
+		CASE_FUNCTION(CLINE_GetMainContainer);
+		CASE_FUNCTION(CLINE_CleanContainer);
+		CASE_FUNCTION(CLINE_GetLineCount);
+		CASE_FUNCTION(CLINE_GetFirstLine);
+		CASE_FUNCTION(CLINE_GetNextLine);
+		CASE_FUNCTION(CLINE_AddNewLine);
+		CASE_FUNCTION(CLINE_DelLine);
+		CASE_FUNCTION(CLINE_DelAllLines);
+		CASE_FUNCTION(CLINE_GetLineData);
+		CASE_FUNCTION(CLINE_SetLineData);
+		CASE_FUNCTION(CLINE_GetEventCount);
+		CASE_FUNCTION(CLINE_GetFirstEvent);
+		CASE_FUNCTION(CLINE_GetNextEvent);
+		CASE_FUNCTION(CLINE_AddNewEvent);
+		CASE_FUNCTION(CLINE_DelEvent);
+		CASE_FUNCTION(CLINE_DelAllEvents);
+		CASE_FUNCTION(CLINE_GetEventData);
+		CASE_FUNCTION(CLINE_SetEventData);
+		CASE_FUNCTION(CLINE_GetCutPointCount);
+		CASE_FUNCTION(CLINE_GetFirstCutPoint);
+		CASE_FUNCTION(CLINE_GetNextCutPoint);
+		CASE_FUNCTION(CLINE_AddNewCutPoint);
+		CASE_FUNCTION(CLINE_DelCutPoint);
+		CASE_FUNCTION(CLINE_DelAllCutPoints);
+		CASE_FUNCTION(CLINE_GetCutPointData);
+		CASE_FUNCTION(CLINE_SetCutPointData);
+		CASE_FUNCTION(CLINE_GetCompCount);
+		CASE_FUNCTION(CLINE_GetFirstComp);
+		CASE_FUNCTION(CLINE_GetNextComp);
+		CASE_FUNCTION(CLINE_AddNewComp);
+		CASE_FUNCTION(CLINE_DelComp);
+		CASE_FUNCTION(CLINE_DelAllComps);
+		CASE_FUNCTION(CLINE_GetCompData);
+		CASE_FUNCTION(CLINE_SetCompData);
+		CASE_FUNCTION(CLINE_GetEventInvCount);
+		CASE_FUNCTION(CLINE_GetFirstEventInv);
+		CASE_FUNCTION(CLINE_GetNextEventInv);
+		CASE_FUNCTION(CLINE_AddNewEventInv);
+		CASE_FUNCTION(CLINE_DelEventInv);
+		CASE_FUNCTION(CLINE_DelAllEventInvs);
+		CASE_FUNCTION(CLINE_GetEventInvData);
+		CASE_FUNCTION(CLINE_SetEventInvData);
+		CASE_FUNCTION(CLINE_GetCutPointInvCount);
+		CASE_FUNCTION(CLINE_GetFirstCutPointInv);
+		CASE_FUNCTION(CLINE_GetNextCutPointInv);
+		CASE_FUNCTION(CLINE_AddNewCutPointInv);
+		CASE_FUNCTION(CLINE_DelCutPointInv);
+		CASE_FUNCTION(CLINE_DelAllCutPointInvs);
+		CASE_FUNCTION(CLINE_GetCutPointInvData);
+		CASE_FUNCTION(CLINE_SetCutPointInvData);
+		CASE_FUNCTION(CLINE_CopyData);
 
-	default:
+		default:
 		*(Handle *)pData = NULL;
 		rc = FALSE;
 	}
-return rc;
+	return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
 CLINE_FUNC(Bool32) CLINE_SetImportData(Word32 dwType, void * pData)
 {
-   return FALSE;
+	return FALSE;
 }
 
 CLINE_FUNC(Word32) CLINE_SetReturnCode(Word32 rc)
 {
-   return (Word32)(0);
+	return (Word32)(0);
 }
 

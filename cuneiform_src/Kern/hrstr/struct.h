@@ -1,59 +1,58 @@
 /*
-Copyright (c) 1993-2008, Cognitive Technologies
-All rights reserved.
+ Copyright (c) 1993-2008, Cognitive Technologies
+ All rights reserved.
 
-Ðàçðåøàåòñÿ ïîâòîðíîå ðàñïðîñòðàíåíèå è èñïîëüçîâàíèå êàê â âèäå èñõîäíîãî êîäà,
-òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
+ Ð Ð°Ð·Ñ€ÐµÑˆÐ°ÐµÑ‚ÑÑ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ Ð¸ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸Ðµ ÐºÐ°Ðº Ð² Ð²Ð¸Ð´Ðµ Ð¸ÑÑ…Ð¾Ð´Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð°,
+ Ñ‚Ð°Ðº Ð¸ Ð² Ð´Ð²Ð¾Ð¸Ñ‡Ð½Ð¾Ð¹ Ñ„Ð¾Ñ€Ð¼Ðµ, Ñ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸ÑÐ¼Ð¸ Ð¸Ð»Ð¸ Ð±ÐµÐ·, Ð¿Ñ€Ð¸ ÑÐ¾Ð±Ð»ÑŽÐ´ÐµÐ½Ð¸Ð¸ ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ñ… ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹:
 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
-        îòêàç îò ãàðàíòèé.
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
-        äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
-        óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
-        ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ.
+ * ÐŸÑ€Ð¸ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ð¼ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸ Ð¸ÑÑ…Ð¾Ð´Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð° Ð´Ð¾Ð»Ð¶Ð½Ñ‹ Ð¾ÑÑ‚Ð°Ð²Ð°Ñ‚ÑŒÑÑ ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð¾Ðµ
+ Ð²Ñ‹ÑˆÐµ ÑƒÐ²ÐµÐ´Ð¾Ð¼Ð»ÐµÐ½Ð¸Ðµ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÑ‚Ð¾Ñ‚ ÑÐ¿Ð¸ÑÐ¾Ðº ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹ Ð¸ Ð¿Ð¾ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹
+ Ð¾Ñ‚ÐºÐ°Ð· Ð¾Ñ‚ Ð³Ð°Ñ€Ð°Ð½Ñ‚Ð¸Ð¹.
+ * ÐŸÑ€Ð¸ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ð¼ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸ Ð´Ð²Ð¾Ð¸Ñ‡Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð° Ð² Ð´Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ð°Ñ†Ð¸Ð¸ Ð¸/Ð¸Ð»Ð¸ Ð²
+ Ð´Ñ€ÑƒÐ³Ð¸Ñ… Ð¼Ð°Ñ‚ÐµÑ€Ð¸Ð°Ð»Ð°Ñ…, Ð¿Ð¾ÑÑ‚Ð°Ð²Ð»ÑÐµÐ¼Ñ‹Ñ… Ð¿Ñ€Ð¸ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸, Ð´Ð¾Ð»Ð¶Ð½Ñ‹ ÑÐ¾Ñ…Ñ€Ð°Ð½ÑÑ‚ÑŒÑÑ
+ ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð°Ñ Ð²Ñ‹ÑˆÐµ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ñ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÑ‚Ð¾Ñ‚ ÑÐ¿Ð¸ÑÐ¾Ðº ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹ Ð¸
+ Ð¿Ð¾ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹ Ð¾Ñ‚ÐºÐ°Ð· Ð¾Ñ‚ Ð³Ð°Ñ€Ð°Ð½Ñ‚Ð¸Ð¹.
+ * ÐÐ¸ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ Cognitive Technologies, Ð½Ð¸ Ð¸Ð¼ÐµÐ½Ð° ÐµÐµ ÑÐ¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸ÐºÐ¾Ð² Ð½Ðµ Ð¼Ð¾Ð³ÑƒÑ‚
+ Ð±Ñ‹Ñ‚ÑŒ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ñ‹ Ð² ÐºÐ°Ñ‡ÐµÑÑ‚Ð²Ðµ ÑÑ€ÐµÐ´ÑÑ‚Ð²Ð° Ð¿Ð¾Ð´Ð´ÐµÑ€Ð¶ÐºÐ¸ Ð¸/Ð¸Ð»Ð¸ Ð¿Ñ€Ð¾Ð´Ð²Ð¸Ð¶ÐµÐ½Ð¸Ñ
+ Ð¿Ñ€Ð¾Ð´ÑƒÐºÑ‚Ð¾Ð², Ð¾ÑÐ½Ð¾Ð²Ð°Ð½Ð½Ñ‹Ñ… Ð½Ð° ÑÑ‚Ð¾Ð¼ ÐŸÐž, Ð±ÐµÐ· Ð¿Ñ€ÐµÐ´Ð²Ð°Ñ€Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ð³Ð¾ Ð¿Ð¸ÑÑŒÐ¼ÐµÐ½Ð½Ð¾Ð³Ð¾
+ Ñ€Ð°Ð·Ñ€ÐµÑˆÐµÐ½Ð¸Ñ.
 
-ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
-ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
-ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
+ Ð­Ð¢Ð ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ ÐŸÐ Ð•Ð”ÐžÐ¡Ð¢ÐÐ’Ð›Ð•ÐÐ Ð’Ð›ÐÐ”Ð•Ð›Ð¬Ð¦ÐÐœÐ˜ ÐÐ’Ð¢ÐžÐ Ð¡ÐšÐ˜Ð¥ ÐŸÐ ÐÐ’ Ð˜/Ð˜Ð›Ð˜ Ð”Ð Ð£Ð“Ð˜ÐœÐ˜ Ð›Ð˜Ð¦ÐÐœÐ˜ "ÐšÐÐš
+ ÐžÐÐ Ð•Ð¡Ð¢Ð¬" Ð‘Ð•Ð— ÐšÐÐšÐžÐ“Ðž-Ð›Ð˜Ð‘Ðž Ð’Ð˜Ð”Ð Ð“ÐÐ ÐÐÐ¢Ð˜Ð™, Ð’Ð«Ð ÐÐ–Ð•ÐÐÐ«Ð¥ Ð¯Ð’ÐÐž Ð˜Ð›Ð˜ ÐŸÐžÐ”Ð ÐÐ—Ð£ÐœÐ•Ð’ÐÐ•ÐœÐ«Ð¥,
+ Ð’ÐšÐ›Ð®Ð§ÐÐ¯ Ð“ÐÐ ÐÐÐ¢Ð˜Ð˜ ÐšÐžÐœÐœÐ•Ð Ð§Ð•Ð¡ÐšÐžÐ™ Ð¦Ð•ÐÐÐžÐ¡Ð¢Ð˜ Ð˜ ÐŸÐ Ð˜Ð“ÐžÐ”ÐÐžÐ¡Ð¢Ð˜ Ð”Ð›Ð¯ ÐšÐžÐÐšÐ Ð•Ð¢ÐÐžÐ™ Ð¦Ð•Ð›Ð˜, ÐÐž ÐÐ•
+ ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð˜ÐœÐ˜. ÐÐ˜ Ð’Ð›ÐÐ”Ð•Ð›Ð•Ð¦ ÐÐ’Ð¢ÐžÐ Ð¡ÐšÐ˜Ð¥ ÐŸÐ ÐÐ’ Ð˜ ÐÐ˜ ÐžÐ”ÐÐž Ð”Ð Ð£Ð“ÐžÐ• Ð›Ð˜Ð¦Ðž, ÐšÐžÐ¢ÐžÐ ÐžÐ•
+ ÐœÐžÐ–Ð•Ð¢ Ð˜Ð—ÐœÐ•ÐÐ¯Ð¢Ð¬ Ð˜/Ð˜Ð›Ð˜ ÐŸÐžÐ’Ð¢ÐžÐ ÐÐž Ð ÐÐ¡ÐŸÐ ÐžÐ¡Ð¢Ð ÐÐÐ¯Ð¢Ð¬ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ£, ÐÐ˜ Ð’ ÐšÐžÐ•Ðœ Ð¡Ð›Ð£Ð§ÐÐ• ÐÐ•
+ ÐÐ•Ð¡ÐÐ¢ ÐžÐ¢Ð’Ð•Ð¢Ð¡Ð¢Ð’Ð•ÐÐÐžÐ¡Ð¢Ð˜, Ð’ÐšÐ›Ð®Ð§ÐÐ¯ Ð›Ð®Ð‘Ð«Ð• ÐžÐ‘Ð©Ð˜Ð•, Ð¡Ð›Ð£Ð§ÐÐ™ÐÐ«Ð•, Ð¡ÐŸÐ•Ð¦Ð˜ÐÐ›Ð¬ÐÐ«Ð• Ð˜Ð›Ð˜
+ ÐŸÐžÐ¡Ð›Ð•Ð”ÐžÐ’ÐÐ’Ð¨Ð˜Ð• Ð£Ð‘Ð«Ð¢ÐšÐ˜, Ð¡Ð’Ð¯Ð—ÐÐÐÐ«Ð• Ð¡ Ð˜Ð¡ÐŸÐžÐ›Ð¬Ð—ÐžÐ’ÐÐÐ˜Ð•Ðœ Ð˜Ð›Ð˜ ÐŸÐžÐÐ•Ð¡Ð•ÐÐÐ«Ð• Ð’Ð¡Ð›Ð•Ð”Ð¡Ð¢Ð’Ð˜Ð•
+ ÐÐ•Ð’ÐžÐ—ÐœÐžÐ–ÐÐžÐ¡Ð¢Ð˜ Ð˜Ð¡ÐŸÐžÐ›Ð¬Ð—ÐžÐ’ÐÐÐ˜Ð¯ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ« (Ð’ÐšÐ›Ð®Ð§ÐÐ¯ ÐŸÐžÐ¢Ð•Ð Ð˜ Ð”ÐÐÐÐ«Ð¥, Ð˜Ð›Ð˜ Ð”ÐÐÐÐ«Ð•,
+ Ð¡Ð¢ÐÐ’Ð¨Ð˜Ð• ÐÐ•Ð“ÐžÐ”ÐÐ«ÐœÐ˜, Ð˜Ð›Ð˜ Ð£Ð‘Ð«Ð¢ÐšÐ˜ Ð˜/Ð˜Ð›Ð˜ ÐŸÐžÐ¢Ð•Ð Ð˜ Ð”ÐžÐ¥ÐžÐ”ÐžÐ’, ÐŸÐžÐÐ•Ð¡Ð•ÐÐÐ«Ð• Ð˜Ð—-Ð—Ð Ð”Ð•Ð™Ð¡Ð¢Ð’Ð˜Ð™
+ Ð¢Ð Ð•Ð¢Ð¬Ð˜Ð¥ Ð›Ð˜Ð¦ Ð˜/Ð˜Ð›Ð˜ ÐžÐ¢ÐšÐÐ—Ð ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ« Ð ÐÐ‘ÐžÐ¢ÐÐ¢Ð¬ Ð¡ÐžÐ’ÐœÐ•Ð¡Ð¢ÐÐž Ð¡ Ð”Ð Ð£Ð“Ð˜ÐœÐ˜ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐÐœÐ˜,
+ ÐÐž ÐÐ• ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð­Ð¢Ð˜ÐœÐ˜ Ð¡Ð›Ð£Ð§ÐÐ¯ÐœÐ˜), ÐÐž ÐÐ• ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð˜ÐœÐ˜, Ð”ÐÐ–Ð• Ð•Ð¡Ð›Ð˜ Ð¢ÐÐšÐžÐ™
+ Ð’Ð›ÐÐ”Ð•Ð›Ð•Ð¦ Ð˜Ð›Ð˜ Ð”Ð Ð£Ð“ÐžÐ• Ð›Ð˜Ð¦Ðž Ð‘Ð«Ð›Ð˜ Ð˜Ð—Ð’Ð•Ð©Ð•ÐÐ« Ðž Ð’ÐžÐ—ÐœÐžÐ–ÐÐžÐ¡Ð¢Ð˜ Ð¢ÐÐšÐ˜Ð¥ Ð£Ð‘Ð«Ð¢ÐšÐžÐ’ Ð˜ ÐŸÐžÐ¢Ð•Ð Ð¬.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
 
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation
-      and/or other materials provided with the distribution.
-    * Neither the name of the Cognitive Technologies nor the names of its
-      contributors may be used to endorse or promote products derived from this
-      software without specific prior written permission.
+ * Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ * Neither the name of the Cognitive Technologies nor the names of its
+ contributors may be used to endorse or promote products derived from this
+ software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #ifndef H_struct_h
 #define H_struct_h
@@ -61,13 +60,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "tuner.h"
 
 #ifdef  HUGE_IMAGE
-        #define WORLD_MAX_HEIGHT            10000
-        #define WORLD_MAX_WIDTH             10000    //7000
-        #define WORLD_MAX_RESOLUTION    800
+#define WORLD_MAX_HEIGHT            10000
+#define WORLD_MAX_WIDTH             10000    //7000
+#define WORLD_MAX_RESOLUTION    800
 #else
-        #define WORLD_MAX_HEIGHT            4096  // ordinary image
-        #define WORLD_MAX_WIDTH             4096
-        #define WORLD_MAX_RESOLUTION    400
+#define WORLD_MAX_HEIGHT            4096  // ordinary image
+#define WORLD_MAX_WIDTH             4096
+#define WORLD_MAX_RESOLUTION    400
 #endif
 
 #define LPOOL_SIZE                  8000
@@ -75,8 +74,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define RASTER_MAX_WIDTH                128
 #define SMALL_SIZE                          8
 // AK! Atention!!!!//////////////////////////////////////////////////////
-//  èìååò ñìûñë ïðè íåîáõîäèìîñòè îòëîâèòü ãëþêè òàê êàê ïàäàåò ïðè ïîïûòêå
-//  ïðèíÿòü dust çà letter
+//  Ð¸Ð¼ÐµÐµÑ‚ ÑÐ¼Ñ‹ÑÐ» Ð¿Ñ€Ð¸ Ð½ÐµÐ¾Ð±Ñ…Ð¾Ð´Ð¸Ð¼Ð¾ÑÑ‚Ð¸ Ð¾Ñ‚Ð»Ð¾Ð²Ð¸Ñ‚ÑŒ Ð³Ð»ÑŽÐºÐ¸ Ñ‚Ð°Ðº ÐºÐ°Ðº Ð¿Ð°Ð´Ð°ÐµÑ‚ Ð¿Ñ€Ð¸ Ð¿Ð¾Ð¿Ñ‹Ñ‚ÐºÐµ
+//  Ð¿Ñ€Ð¸Ð½ÑÑ‚ÑŒ dust Ð·Ð° letter
 #define err_pnlet(c)       ((c))->nextl=((c))->prevl=(cell*)(0xffff0000)//
 #define err_pnnextlet(c)   ((c))->nextl=             (cell*)(0xffff0000)//
 #define err_pnprevlet(c)   ((c))->prevl=             (cell*)(0xffff0000)//
@@ -89,44 +88,42 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // AL 900318
 //-------------------- conectivity component ---------------------
 
-struct mn_struc
- {
- void *mnfirstbox;              // address of the first box
- Int16 mncounter;                 // (was INT) number of living lines in the component
+struct mn_struc {
+	void *mnfirstbox; // address of the first box
+	Int16 mncounter; // (was INT) number of living lines in the component
 #define mnfree  mnfirstbox      // reference to next free main number
- Int16 mnupper;                   // upper bound of component
- Int16 mnlower;                   // lower bound of component
- Int16 mnboxcnt;                  // number of boxes in component
+	Int16 mnupper; // upper bound of component
+	Int16 mnlower; // lower bound of component
+	Int16 mnboxcnt; // number of boxes in component
 #define usual_box_count 20      // heuristic of number of lines in a letter
 #define great_box_count 200     // heuristic for number of boxes in a picture
- Word8 mnlines;                  // number of lines in the component
- Word8 mnbegs;                   // number of free line begins
- Word8 mnends;                   // number of free line ends
- Word8 mnflag;                   // flag byte for main number
+	Word8 mnlines; // number of lines in the component
+	Word8 mnbegs; // number of free line begins
+	Word8 mnends; // number of free line ends
+	Word8 mnflag; // flag byte for main number
 #define mnpicture 1             // component is a picture
- struct mn_struc *mnnext;       // address of next dead component
- };
+	struct mn_struc *mnnext; // address of next dead component
+};
 typedef struct mn_struc MN;
 
 //------------------- The box has a header ----------------------
 
-struct box_struct
- {
- struct box_struct *boxnext;    // chain address (zero if no next box)
- MN *               boxmain;    // component main number pointer
- Word16             boxptr;     // ptr to the empty place in the box
- Int16              boxleft;    // left boundary for line envelope
- Int16              boxright;   // right boundary for line envelope
- Int16              boxey;      // row of line end+1 ( if line ends within
-                                //    box)
- Int16              boxel;      // length of the last segment (if line ends
-                                //    within box)
- Int16              boxex;      // coordinate of last segment end (if line
-                                //    ends within box)
- Word8              boxflag;    // byte for box attributes flags
- Word8              boxwf;      // working flag (for picture compress)
- Word16             boxresw;    // reserved word (for *4 arround)
- };
+struct box_struct {
+	struct box_struct *boxnext; // chain address (zero if no next box)
+	MN * boxmain; // component main number pointer
+	Word16 boxptr; // ptr to the empty place in the box
+	Int16 boxleft; // left boundary for line envelope
+	Int16 boxright; // right boundary for line envelope
+	Int16 boxey; // row of line end+1 ( if line ends within
+	//    box)
+	Int16 boxel; // length of the last segment (if line ends
+	//    within box)
+	Int16 boxex; // coordinate of last segment end (if line
+	//    ends within box)
+	Word8 boxflag; // byte for box attributes flags
+	Word8 boxwf; // working flag (for picture compress)
+	Word16 boxresw; // reserved word (for *4 arround)
+};
 typedef struct box_struct BOX;
 
 // Values of boxflag:
@@ -141,39 +138,34 @@ typedef struct box_struct BOX;
 //      '00' - no information about begin/end in this box
 #define BOXBEG          0x10    // line start not free
 #define BOXEND          0x40    // line end not free
-
 // BOX size
 
 #define BOXHLTH (sizeof(BOX))   // the box header length
 #define BOXSIZE (BOXHLTH+32*4)  // the length of box
 #define BOXBOUNDARY (BOXSIZE-6) // the boundary control
-
-struct ldescr_struct
- {
- INT y;         // y coord. of the first interval
- INT l;         // first interval length
- INT x;         // x coord. of the end of the first interval
- };
+struct ldescr_struct {
+	INT y; // y coord. of the first interval
+	INT l; // first interval length
+	INT x; // x coord. of the end of the first interval
+};
 typedef struct ldescr_struct LNSTRT;
 
-struct box_interval
- {
- INT l;         // length of interval
- INT d;         // displacement of the end of the current interval relative
- };             //      to the previous
+struct box_interval {
+	INT l; // length of interval
+	INT d; // displacement of the end of the current interval relative
+}; //      to the previous
 typedef struct box_interval BOXINT;
 
 //-------------------- component in kit --------------------------
 
-struct comp_struc
- {
- WORD size;             // size of component in paragraphs >=3
- INT upper;             // upper boundary of component
- INT left;              // left boundary of component
- INT h;                 // height of component
- INT w;                 // width of component
- BYTE rw;               // raster width in bytes
- BYTE type;             // recognition type
+struct comp_struc {
+	WORD size; // size of component in paragraphs >=3
+	INT upper; // upper boundary of component
+	INT left; // left boundary of component
+	INT h; // height of component
+	INT w; // width of component
+	BYTE rw; // raster width in bytes
+	BYTE type; // recognition type
 #define ch_perfect    1     // perfect type defined
 #define ch_letter     2     // letter type
 #define ch_dust       4     // dust type
@@ -182,61 +174,58 @@ struct comp_struc
 #define ch_great     32     // great component
 #define ch_merge     64     // merged components
 #define ch_notltr   128     // not letter or punctuation
- BYTE cs;               // recognition case (see bellow)
- BYTE pidx;             // proportional index (ref.)
- INT nvers;             // number of alternative versions
- INT records;           // recognition records offset
- INT lines;             // ptr to line representation
- INT nl;                // number of lines
- BYTE begs;             // number of free begins
- BYTE ends;             // number of free ends
- BYTE reasno;           // proportional criteria messages
- BYTE large;            // large type
+	BYTE cs; // recognition case (see bellow)
+	BYTE pidx; // proportional index (ref.)
+	INT nvers; // number of alternative versions
+	INT records; // recognition records offset
+	INT lines; // ptr to line representation
+	INT nl; // number of lines
+	BYTE begs; // number of free begins
+	BYTE ends; // number of free ends
+	BYTE reasno; // proportional criteria messages
+	BYTE large; // large type
 #define ch_underlined   1       // component was underlined
 #define ch_taken        2       // taken to line at dust_ini
- BYTE scale;                    // scale of the component
-// union {
-// BYTE stairs[4];                // bit_map for stairs_vector components
- struct comp_struc * next;
-//       };
- };
+	BYTE scale; // scale of the component
+	// union {
+	// BYTE stairs[4];                // bit_map for stairs_vector components
+	struct comp_struc * next;
+	//       };
+};
 typedef struct comp_struc c_comp;
 
 //----------------------- cell ----------------------------------
 
 #define VERS_IN_CELL 16 // Vald. 06-04-94
-
-struct vers_struct      // versions with probabilities
- {
- BYTE let;    // character
- BYTE prob;   // probability
- };
+struct vers_struct // versions with probabilities
+{
+	BYTE let; // character
+	BYTE prob; // probability
+};
 typedef struct vers_struct version;
 //----------------------- stick -------------------------------
 
-struct stick_struct
- {
- CHAR x,y,l,w,top,bot;
- INT incl;
- };
+struct stick_struct {
+	CHAR x, y, l, w, top, bot;
+	INT incl;
+};
 typedef struct stick_struct STICK;
 
-struct cell_struc
- {
- INT row;       // ideal row of cell
- INT col;       // ideal collumn of cell
- INT h;         // height of cell
- INT w;         // width of cell
- // 8
- c_comp *env;     // envelope and line representation ptr
- struct cell_struc *next;       // next in all string
- struct cell_struc *prev;       // prev in all string
- struct cell_struc *nextl;      // next letter ( only for letters )
- struct cell_struc *prevl;      // prev letter ( only for letters )
- // 28
- CHAR bdiff;    // local base line corrective displacement
- BYTE difflg;   // local correction flg
-// baseline defined by cell:
+struct cell_struc {
+	INT row; // ideal row of cell
+	INT col; // ideal collumn of cell
+	INT h; // height of cell
+	INT w; // width of cell
+	// 8
+	c_comp *env; // envelope and line representation ptr
+	struct cell_struc *next; // next in all string
+	struct cell_struc *prev; // prev in all string
+	struct cell_struc *nextl; // next letter ( only for letters )
+	struct cell_struc *prevl; // prev letter ( only for letters )
+	// 28
+	CHAR bdiff; // local base line corrective displacement
+	BYTE difflg; // local correction flg
+	// baseline defined by cell:
 #define c_db_b1         1
 #define c_db_b2         2
 #define c_db_b3         4
@@ -245,7 +234,7 @@ struct cell_struc
 #define c_db_up     32     // base corrected 1 pixel up
 #define c_db_forbid 64     // don't take to calculate bases (abnormal pos)
 #define c_db_solid  128    // BOX_solid letter not penalized
- BYTE basflg;
+	BYTE basflg;
 #define c_bs_b1a    1      // agrees to be at  b1
 #define c_bs_b2a    2      //                  b2
 #define c_bs_bt     4      //                  't' level
@@ -254,19 +243,19 @@ struct cell_struc
 #define c_bs_round  32
 #define c_bs_cap    64     // capital shape
 #define c_bs_done   128
- CHAR bas1;
- // 32
- CHAR bas2;
- CHAR bas3;
- CHAR bas4;
- BYTE cg_flag;  // cut-to-glue message
+	CHAR bas1;
+	// 32
+	CHAR bas2;
+	CHAR bas3;
+	CHAR bas4;
+	BYTE cg_flag; // cut-to-glue message
 #define c_cg_noglue     1   // don't glue to ... ( just cut )
 #define c_cg_noenv      2       // envelope address obsolete
 #define tenv(c)         ((c)->env && !((c)->cg_flag&c_cg_noenv))
 #define c_cg_comp       4   // composed cell
 #define tsimple(c)      (tenv(c) && !((c)->cg_flag&c_cg_comp))
-//#define c_cg_rqdot      4   // dot test needed (iIl1 in versions)
-// 93.08.19  the flag uprazdnen
+	//#define c_cg_rqdot      4   // dot test needed (iIl1 in versions)
+	// 93.08.19  the flag uprazdnen
 #define c_cg_cutdone    8   // verarbeitet by cut
 #define c_cg_cutr       16  // cut at right side
 #define c_cg_cutl       32  // cut at left side
@@ -274,11 +263,11 @@ struct cell_struc
 #define c_cg_cutacc     8+16+32 // cutted accent
 #define c_cg_just       64  // just created
 #define c_cg_cutoff    128  // ignore "cutted" flags at glue attempt
- INT r_row;     // real row of cell
- INT r_col;     // real collumn of cell
- INT nvers;     // number of versions
- version vers[VERS_IN_CELL];
- WORD flg;  // flag of cell
+	INT r_row; // real row of cell
+	INT r_col; // real collumn of cell
+	INT nvers; // number of versions
+	version vers[VERS_IN_CELL];
+	WORD flg; // flag of cell
 #define c_f_let         1       // letter component
 #define c_f_bad     2   // badly recognized
 #define c_f_dust        4       // dust
@@ -288,7 +277,7 @@ struct cell_struc
 #define c_f_confirmed   64      // confirmed letter
 #define c_f_fict        128     // fictive element
 #define c_f_detouch     256     // fictive element
- BYTE cpos;     // position of component
+	BYTE cpos; // position of component
 #define ce_p_small      1
 #define ce_p_large      2
 #define ce_p_low        4
@@ -298,12 +287,12 @@ struct cell_struc
 #define ce_p_bra        64
 #define ce_p_ex         128
 #define ce_p_all        255     // all positions are possible
- BYTE reasno;    // proportional criteria messages
+	BYTE reasno; // proportional criteria messages
 #define c_rn_right      1       // right refuse by proportions
 #define c_rn_left       2       // left refuse by proportions
 #define c_rn_pi         4       // this is a dot of some 'i'
- BYTE keg;      // kegel
- BYTE font;     // font properties
+	BYTE keg; // kegel
+	BYTE font; // font properties
 #define c_fp_ser        1       // serific
 #define c_fp_gelv       2       // helvetic
 #define c_fp_bold       4       // bold
@@ -312,9 +301,9 @@ struct cell_struc
 #define c_fp_str        32      // stright
 #define c_fp_undrln     64      // underlined
 #define c_fp_narrow     128     // narrow str
-// 80
- BYTE dens;     // BOX - calculated density
- BYTE recsource;  // who and how recognized
+	// 80
+	BYTE dens; // BOX - calculated density
+	BYTE recsource; // who and how recognized
 #define c_rs_ev     1   //  events brought versions
 #define c_rs_BOX    2   //  BOX done
 #define c_rs_BOXs   4   //  BOX > "29500"
@@ -322,34 +311,34 @@ struct cell_struc
 #define c_rs_deskr  16  //  diskriminator
 #define c_rs_NCU    32  //  neural network
 #define c_rs_LEO    64  //  LEO
- INT  stick_inc;   // inc of stick
+	INT stick_inc; // inc of stick
 #define NO_INCLINE 10000 // not init incline
- c_comp *complist;   // if no envelope - list of envelopes
- // 88
- INT left;            // left  of main part (without accent)
- INT right;           // right of main part (without accent)
- BYTE bas_acc;       // cell's relations with bases
+	c_comp *complist; // if no envelope - list of envelopes
+	// 88
+	INT left; // left  of main part (without accent)
+	INT right; // right of main part (without accent)
+	BYTE bas_acc; // cell's relations with bases
 #define c_ba_b1  1    // accepted  to b1
 #define c_ba_b2  2    // accepted  to b2
 #define c_ba_killed 4 // temporary: all versions killed by linear
 #define c_ba_chance 8 // one more chance for cut version
- BYTE shape;
+	BYTE shape;
 #define c_shp_cap   1
 #define c_shp_stick 2
 #define c_shp_stb1  4
 #define c_shp_small 8
 #define c_shp_dbh   32
 #define c_shp_b1up  16
- BYTE rus_eng_word; // information for RUS/ENG manipulations
+	BYTE rus_eng_word; // information for RUS/ENG manipulations
 #define ruseng_no      0  // russian
 #define ruseng_rus     0  // russian
 #define ruseng_re      1  // russian or english
 #define ruseng_eng     2  // english
 #define ruseng_alt     3  // many alternates
- BYTE broken_II;    // II configuration
- // 96
- BYTE language;
- BYTE pos_inc;
+	BYTE broken_II; // II configuration
+	// 96
+	BYTE language;
+	BYTE pos_inc;
 #define erect_no       0   // really envelop
 #define erect_rot      1   // rotate image
 #define erect_rest     2   // restore after rotating
@@ -357,37 +346,36 @@ struct cell_struc
 #define erect_zero     8   // disable rotate and cursive study
 #define set_erection( c, inc ) if( (inc)!=NO_INCLINE&&tenv(c) ) \
              { (c)->stick_inc=inc; (c)->pos_inc=inc?erect_rot:erect_zero; }
- BYTE cg_flag_fine;        // type of cutting position
+	BYTE cg_flag_fine; // type of cutting position
 #define c_cg_cut_tl     0x01    // left top    cutten
 #define c_cg_cut_ml     0x02    // left middle cutten
 #define c_cg_cut_bl     0x04    // left bottom cutten
 #define c_cg_cut_fl     0x08    // left full   cutten
-
 #define c_cg_cut_tr     0x10   // right top    cutten
 #define c_cg_cut_mr     0x20   // right middle cutten
 #define c_cg_cut_br     0x40   // right bottom cutten
 #define c_cg_cut_fr     0x80   // right full   cutten
- BYTE   accent_leader; // leader cell in farajev complex-cell
- INT    save_stick_inc;   // save_inc of stick
- INT    clink;    // Link to the cluster
-// 104
- WORD   clu_attr;   // cluster attributes
- BYTE   bottom_accent; // was spare[1]; 16.10.97 E.P.
- BYTE   n_baton;
+	BYTE accent_leader; // leader cell in farajev complex-cell
+	INT save_stick_inc; // save_inc of stick
+	INT clink; // Link to the cluster
+	// 104
+	WORD clu_attr; // cluster attributes
+	BYTE bottom_accent; // was spare[1]; 16.10.97 E.P.
+	BYTE n_baton;
 #define MAX_BATON 3
 #define NO_BATONS 255
- struct cell_struc * dup; // ref to copy of this word; defined only in spaces
-// 112
- STICK  save_baton[MAX_BATON];
-// 24+112=136
- LONG   dupstart, dupend;
+	struct cell_struc * dup; // ref to copy of this word; defined only in spaces
+	// 112
+	STICK save_baton[MAX_BATON];
+	// 24+112=136
+	LONG dupstart, dupend;
 #define dup_default     ((cell*)0xffffffff)
-// 144
- BYTE   dlang_dup;
- BYTE   font_new;
- BYTE   history;
- BYTE   solid_no;
- DWORD  flg_new;
+	// 144
+	BYTE dlang_dup;
+	BYTE font_new;
+	BYTE history;
+	BYTE solid_no;
+	uint32_t flg_new;
 #define c_fn_shave      0x00000001 // shaved cell
 #define c_fn_acccap     0x00000002 // accent cap
 #define c_fn_under      0x00000004 // underline
@@ -403,12 +391,12 @@ struct cell_struc
 #define c_fn_stop       0x00001000 // stop cell marked
 #define c_fn_space      0x00002000 // need convert to space ' '
 #define c_fn_taken      0x00004000 // was taken from dust
-// 152
- INT    nClust;
- version pr_vers;       //version from I pass
-// 156
- BYTE   reserv[4];
-  };
+	// 152
+	INT nClust;
+	version pr_vers; //version from I pass
+	// 156
+	BYTE reserv[4];
+};
 typedef struct cell_struc cell;
 
 //-------------------- line representation ----------------------
@@ -419,61 +407,56 @@ typedef struct cell_struc cell;
 //      After last line zero word
 
 //      line header
-struct ln_head
- {
- Int16 lth;       // length of one line representation
- Int16 h;         // height of line
- Int16 row;       // relative row of line start
- Word16 flg;      // flags of free beg and free end
+struct ln_head {
+	Int16 lth; // length of one line representation
+	Int16 h; // height of line
+	Int16 row; // relative row of line start
+	Word16 flg; // flags of free beg and free end
 #define l_fbeg          0x20
 #define l_fend          0x80
 #define l_cbeg          0x02
 #define l_cend          0x08
- };
+};
 typedef struct ln_head lnhead;
 
 //      one interval
-struct int_s
- {
- BYTE l;        // length of interval
- BYTE e;        // end of interval coordinates
- };
+struct int_s {
+	BYTE l; // length of interval
+	BYTE e; // end of interval coordinates
+};
 typedef struct int_s interval;
 
-struct large_int_s
- {
- WORD l;        // length of interval
- WORD e;        // end of interval coordinates
- };
+struct large_int_s {
+	WORD l; // length of interval
+	WORD e; // end of interval coordinates
+};
 typedef struct large_int_s large_interval;
 
 //------------------- string of letters ------------------------
 
-struct str_struc
- {
- INT row;             // upper of line
- INT col;             // left of line
- INT lower;           // lower of line
- INT right;           // right of line
- WORD dust;           // end of letter ptrs
- WORD end;            // end of dust ptrs
- WORD lth;
- WORD first;
- WORD last;
- WORD scale;            // scale of the string
- INT fragment;          // fragment of the string
- BYTE language;         // language of the string
- c_comp *ccomp[1];       // array of ptrs to components
- };
+struct str_struc {
+	INT row; // upper of line
+	INT col; // left of line
+	INT lower; // lower of line
+	INT right; // right of line
+	WORD dust; // end of letter ptrs
+	WORD end; // end of dust ptrs
+	WORD lth;
+	WORD first;
+	WORD last;
+	WORD scale; // scale of the string
+	INT fragment; // fragment of the string
+	BYTE language; // language of the string
+	c_comp *ccomp[1]; // array of ptrs to components
+};
 typedef struct str_struc str;
 
 //----------------------- base lines --------------------------
 
-struct baseline_struct
- {
- INT b0,b1,b2,b3,b4,bm,ps;    // four base lines, middle line, point size
- INT n1,n2,n3,n4;
- };
+struct baseline_struct {
+	INT b0, b1, b2, b3, b4, bm, ps; // four base lines, middle line, point size
+	INT n1, n2, n3, n4;
+};
 typedef struct baseline_struct B_LINES;
 
 //------------------------- rules -----------------------------
@@ -482,20 +465,18 @@ typedef struct baseline_struct B_LINES;
 
 #include "compat_defs.h"
 
-struct rule_struct
- {
- POINT beg,end;
- BYTE width;
- BYTE type;
+struct rule_struct {
+	POINT beg, end;
+	BYTE width;
+	BYTE type;
 #define VERT_LN  0
 #define HOR_LN   1
 #define UNDRLN   2
 #define FRM_LN   4
- };
+};
 typedef struct rule_struct STRLN;
 
 #endif  // _SNAP_
-
 //-------------------------------------------------------------
 #include "cutstr.h"
 #include "embbox.h"

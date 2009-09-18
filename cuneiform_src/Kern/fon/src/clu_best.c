@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -54,11 +54,11 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// увеличить вес словарных кластеров в зависимости от
-// числа словарных символов
+// СѓРІРµР»РёС‡РёС‚СЊ РІРµСЃ СЃР»РѕРІР°СЂРЅС‹С… РєР»Р°СЃС‚РµСЂРѕРІ РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚
+// С‡РёСЃР»Р° СЃР»РѕРІР°СЂРЅС‹С… СЃРёРјРІРѕР»РѕРІ
 #define _ACTIVE_LINGVO_
-// использовать признаки курсивности и т.п.
-// при выборе кластеров
+// РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РїСЂРёР·РЅР°РєРё РєСѓСЂСЃРёРІРЅРѕСЃС‚Рё Рё С‚.Рї.
+// РїСЂРё РІС‹Р±РѕСЂРµ РєР»Р°СЃС‚РµСЂРѕРІ
 //#define _TEST_ITALIC_SERIF_
 
 //#define _OUT_COUNT_FONT_
@@ -66,20 +66,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // use ASCII (DOS-coding) !!!
 
-// дополнительная проверка колонок таблиц
+// РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ РїСЂРѕРІРµСЂРєР° РєРѕР»РѕРЅРѕРє С‚Р°Р±Р»РёС†
 #define _TEST_COLUMNS_
-// дополнительная проверка не вошедших в шрифты кластеров
+// РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ РїСЂРѕРІРµСЂРєР° РЅРµ РІРѕС€РµРґС€РёС… РІ С€СЂРёС„С‚С‹ РєР»Р°СЃС‚РµСЂРѕРІ
 #define _TEST_STAY_
 
-// базироваться в первую очередь на хорошем контексте
+// Р±Р°Р·РёСЂРѕРІР°С‚СЊСЃСЏ РІ РїРµСЂРІСѓСЋ РѕС‡РµСЂРµРґСЊ РЅР° С…РѕСЂРѕС€РµРј РєРѕРЅС‚РµРєСЃС‚Рµ
 //#define _MAIN_LINGVO_
 
-// производится попытка анализа - сколько шрифтов
-// находится в базе
+// РїСЂРѕРёР·РІРѕРґРёС‚СЃСЏ РїРѕРїС‹С‚РєР° Р°РЅР°Р»РёР·Р° - СЃРєРѕР»СЊРєРѕ С€СЂРёС„С‚РѕРІ
+// РЅР°С…РѕРґРёС‚СЃСЏ РІ Р±Р°Р·Рµ
 #define _TEST_MULTI_FONT_
 
-// имена символов указаны правильно -
-// а не с точноcтью до регистра
+// РёРјРµРЅР° СЃРёРјРІРѕР»РѕРІ СѓРєР°Р·Р°РЅС‹ РїСЂР°РІРёР»СЊРЅРѕ -
+// Р° РЅРµ СЃ С‚РѕС‡РЅРѕcС‚СЊСЋ РґРѕ СЂРµРіРёСЃС‚СЂР°
 #define _GOOD_BIG_SMALL_
 
 
@@ -90,7 +90,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define POROG_GOOD_DVA  210   // if from 2 symbols 1.10.98
 #define POROG_VERYGOOD  250   // for clusters weight 1
 
-#define POROG_360       220  //  можно взять из 3,6,0 как букву
+#define POROG_360       220  //  РјРѕР¶РЅРѕ РІР·СЏС‚СЊ РёР· 3,6,0 РєР°Рє Р±СѓРєРІСѓ
 
 #ifdef _MAIN_LINGVO_
  #define LINGVO_COUNT    128
@@ -123,7 +123,7 @@ Int32 TestItSeBoldCluster(int numCluster, InfoCluster *infoC,
 				 int sBig,int sLit,int *maxC, Word32 *fifi,
 				 FONTFIELD *ff);
 // from clu_test.c
-// проверить растр на противоречие с хорошими кластерами
+// РїСЂРѕРІРµСЂРёС‚СЊ СЂР°СЃС‚СЂ РЅР° РїСЂРѕС‚РёРІРѕСЂРµС‡РёРµ СЃ С…РѕСЂРѕС€РёРјРё РєР»Р°СЃС‚РµСЂР°РјРё
 //
 int TestClusterGood(  Nraster_header *rh, int testClus,int startNum,int count,int NumAll,
 					 int porog,  SINT *nClus, BYTE *metkaGood,BYTE *metkaValid,int nCompare);
@@ -142,7 +142,7 @@ int countCluster[256]; // how many clusters with name
 
 // if not found very good symbol - get best from bad
 static int TestFillAll  = 1;
-// в одном поле (строке)   - один шрифт
+// РІ РѕРґРЅРѕРј РїРѕР»Рµ (СЃС‚СЂРѕРєРµ)   - РѕРґРёРЅ С€СЂРёС„С‚
 static int OneFontField = 1;
 
 static int maxCluster[256];   // which   best
@@ -181,7 +181,7 @@ int dist;
 	 return dist;
 }
 ////////////////////////
-// по номеру поля выставить бит в нужном месте
+// РїРѕ РЅРѕРјРµСЂСѓ РїРѕР»СЏ РІС‹СЃС‚Р°РІРёС‚СЊ Р±РёС‚ РІ РЅСѓР¶РЅРѕРј РјРµСЃС‚Рµ
 void MakeDWORDField(int i,Word32 *fifi)
 {
   int j;
@@ -237,9 +237,9 @@ static int GetMaxFrom0(int numSymbol,Nraster_header *rh,
 }
 //////////
 //
-//  попробовать на похожесть с иными
+//  РїРѕРїСЂРѕР±РѕРІР°С‚СЊ РЅР° РїРѕС…РѕР¶РµСЃС‚СЊ СЃ РёРЅС‹РјРё
 //
-static char somnitLet[]="\x8E\xA1\x87\x4F"; // ОбЗO-eng
+static char somnitLet[]="\x8E\xA1\x87\x4F"; // РћР±Р—O-eng
 static char accordDig[]="0630";
 static int TryRename(int testCluster,int numSymbol,Nraster_header *rh,
 				     SINT *nClus,int numClus,InfoCluster *infoC )
@@ -303,9 +303,9 @@ static int TryRename(int testCluster,int numSymbol,Nraster_header *rh,
 ///////////////////
 //
 // compare clusters '0' & russian O - 142 dos
-//					'6' & russian 'б' - 161 dos
+//					'6' & russian 'Р±' - 161 dos
 // infoC.isSame=0 !
-// выбрать лучшую из 0 как букву О
+// РІС‹Р±СЂР°С‚СЊ Р»СѓС‡С€СѓСЋ РёР· 0 РєР°Рє Р±СѓРєРІСѓ Рћ
 //
 static int TestO0b6(int numSymbol,Nraster_header *rh,
 				  int clusDig,int clusLet,SINT *nClus,
@@ -389,7 +389,7 @@ void GetClusterStatistic(int numSymbol,int numCluster,Nraster_header *rh,
 
 #ifndef _GOOD_BIG_SMALL_
 	// are big & small - before were only BIG
-	// convert to big - exept a,б,e,
+	// convert to big - exept a,Р±,e,
 	if(let >= 162 && let < 176 && let != 165)
 		let-=32;
 	else if(let >=224 && let < 240)
@@ -487,11 +487,11 @@ static int FindBest(int  let,int numCluster,InfoCluster *infoC,
 		if( ( metkaValid[i] & LEO_VALID_FINAL ) == 0)
 			continue;
 
-	 // уже есть из этого поля ?
+	 // СѓР¶Рµ РµСЃС‚СЊ РёР· СЌС‚РѕРіРѕ РїРѕР»СЏ ?
 	    if( IntersectFields(usedFields[let],infoC[i].fields ) )
 		 continue;
 
-		// очень слабые не брать ... ?
+		// РѕС‡РµРЅСЊ СЃР»Р°Р±С‹Рµ РЅРµ Р±СЂР°С‚СЊ ... ?
 		if( infoC[i].prob < 130 ||
 			infoC[i].count == 1 && infoC[i].prob < 150 )
 			continue;
@@ -651,7 +651,7 @@ static int AnalyzeInfo(int numCluster,InfoCluster *infoC,
  *tipSizeLit=sizeLit ;
  *porSize   =porogSize;
 
- // можно верить ?
+ // РјРѕР¶РЅРѕ РІРµСЂРёС‚СЊ ?
  if(bestWidth[bWidth] > 3) *standWidth=bWidth;
  else *standWidth=0;
  return 1;
@@ -702,7 +702,7 @@ static void AnalyzeMetki(int numCluster,InfoCluster *infoC,
 }
 #endif
 ///////////////////
-// получить кластеры с нужными размерами букв
+// РїРѕР»СѓС‡РёС‚СЊ РєР»Р°СЃС‚РµСЂС‹ СЃ РЅСѓР¶РЅС‹РјРё СЂР°Р·РјРµСЂР°РјРё Р±СѓРєРІ
 static int GetBestClusters(int minSizeBig,int maxSizeBig,
 						   int minSizeLit,int maxSizeLit,
 						   int porogSize,
@@ -724,20 +724,20 @@ int best;
 	 if(infoC[j].invalid ) continue;
 
 #ifdef _TEST_MULTI_FONT_
-	 // уже взяли ?
+	 // СѓР¶Рµ РІР·СЏР»Рё ?
      if( infoC[j].good ) 	 continue;
 #endif
 
 	 i=infoC[j].let;
 	 if(i<0 || i>=256) continue;
 
-	 // уже есть из этого поля ?
+	 // СѓР¶Рµ РµСЃС‚СЊ РёР· СЌС‚РѕРіРѕ РїРѕР»СЏ ?
 	 if( IntersectFields(usedFields[i],infoC[j].fields ) )
 		 continue;
 
 	 if( bWidth > 0)  // bestWidth[bWidth] > 3 )
 	 {
-	 // test wide letters Ж Ш Щ Ю
+	 // test wide letters Р– РЁ Р© Р®
 		if( WideSymbol(i) )
 		{if( infoC[j].mw < bWidth - 2 )
 #ifdef _TEST_MULTI_FONT_
@@ -763,7 +763,7 @@ int best;
      {
 		 // sizeLit - porogSize
       if( infoC[j].mh < minSizeLit ) continue;
-	 // don't touch ДдЙйФфЦцЩщ
+	 // don't touch Р”РґР™Р№Р¤С„Р¦С†Р©С‰
       if( infoC[j].mh > maxSizeBig &&  !NotStandardSymbol(i) )
 		  continue;
 	 }
@@ -779,7 +779,7 @@ int best;
 	  else if( BigSymbol(i) )
       {
        if( infoC[j].mh < minSizeBig ) continue;
-	  // don't touch ДЙЦЩ
+	  // don't touch Р”Р™Р¦Р©
        if( maxSizeBig && infoC[j].mh > maxSizeBig )
         continue;
 	  }
@@ -826,7 +826,7 @@ int best;
  {
 
      if( max2[i] < 0 ) continue;
-	 // don't touch РрУуФф
+	 // don't touch Р СЂРЈСѓР¤С„
 	 if( i== 144 || i==147 || i== 148 ||
 		 i==224 || i== 227 || i==228 )
 		 continue;
@@ -886,14 +886,14 @@ static int CompareFonts(int numF,FONTFIELD *fontF,
 			}
  }
 
- // есть похожие ?
+ // РµСЃС‚СЊ РїРѕС…РѕР¶РёРµ ?
  if( best < 0 ) return -1;
 
  if( commonCount == 0 )
 	 return best;
  if( commonCount*3 < allCount )
 	 return best;
-//      пополнение ?
+//      РїРѕРїРѕР»РЅРµРЅРёРµ ?
 // if( ( (oldField | fontF[best].field) == oldField ) ||
 //	 ( (oldField | fontF[best].field) == fontF[best].field )
 //   )
@@ -902,7 +902,7 @@ static int CompareFonts(int numF,FONTFIELD *fontF,
  return -1;
 }
 ////////////////////////
-// получить кластеры из поля
+// РїРѕР»СѓС‡РёС‚СЊ РєР»Р°СЃС‚РµСЂС‹ РёР· РїРѕР»СЏ
 static int GetFieldClusters( InfoCluster *infoC, int numCluster,SINT *nClus,
 							Nraster_header *rh, int numSymbol,
 					      BYTE *metkaGood, 	int *maxC ,
@@ -928,7 +928,7 @@ Word32 oldField[NFIELDDWORD];
 //     if( metkaGood[j] < POROG_PROB_GOOD ) continue;
 	 if(infoC[j].invalid ) continue;
 
-	  // не из этого поля ?
+	  // РЅРµ РёР· СЌС‚РѕРіРѕ РїРѕР»СЏ ?
 	 if( NotEmptyField(infoC[j].fields) && (IntersectFields(testField,infoC[j].fields) == 0) )
 		 continue;
 	 if( !NotEmptyField(infoC[j].fields) &&
@@ -951,7 +951,7 @@ Word32 oldField[NFIELDDWORD];
 	   // big letters & digits
 	  if( BigSymbol(i) && !NotStandardSymbol(i)) // || BigSmall ?
       {
-	  // don't touch ДЙЦЩ
+	  // don't touch Р”Р™Р¦Р©
 	    sBig+=infoC[j].mh;
 	    nBig++;
 	  }
@@ -978,7 +978,7 @@ Word32 oldField[NFIELDDWORD];
    if(nGood <= 0)
 	 return -1;
 
-   // сомнительное поле ?
+   // СЃРѕРјРЅРёС‚РµР»СЊРЅРѕРµ РїРѕР»Рµ ?
    if( allBad > ((allGood+1)>>1)  )
 	   return -1;
 
@@ -1038,7 +1038,7 @@ Word32 oldField[NFIELDDWORD];
 	for(nOld=j=nGood=allGood=0,oldField[0]=oldField[1]=0;j<256;j++)
 	{
      if( (best=maxC[j]) < 0) continue;
-	// уже взяли раньше ?
+	// СѓР¶Рµ РІР·СЏР»Рё СЂР°РЅСЊС€Рµ ?
      if( infoC[best].good )
 	 {
 		 nOld++;
@@ -1091,11 +1091,11 @@ Word32 oldField[NFIELDDWORD];
       !OneFontField && nGood <= 1 )
        goto endNoFont;
 
-/*	// не мало новых кластеров?
+/*	// РЅРµ РјР°Р»Рѕ РЅРѕРІС‹С… РєР»Р°СЃС‚РµСЂРѕРІ?
 	if( nGood <= 5 && nOld*2 >= nGood )
 		goto endNoFont;
 
-	// не очень мало символов ?
+	// РЅРµ РѕС‡РµРЅСЊ РјР°Р»Рѕ СЃРёРјРІРѕР»РѕРІ ?
     if( allGood*2 <= inField && nGood <= 5 )
 		goto endNoFont;
 */
@@ -1110,13 +1110,13 @@ Word32 oldField[NFIELDDWORD];
 	       if( numF >= MAXFONT )
 			   goto endNoFont;
 
-		   // не мало новых - для режима в одной строке 1 шрифт?
+		   // РЅРµ РјР°Р»Рѕ РЅРѕРІС‹С… - РґР»СЏ СЂРµР¶РёРјР° РІ РѕРґРЅРѕР№ СЃС‚СЂРѕРєРµ 1 С€СЂРёС„С‚?
 		   if( OneFontField && nGood < 10 &&
 				 (nOld*2 >= nGood || allGood*2 <= inField )
 	           )
 		           goto endNoFont;
 
-		   // не мало новых - для режима в одной строке м.б. много шрифтов?
+		   // РЅРµ РјР°Р»Рѕ РЅРѕРІС‹С… - РґР»СЏ СЂРµР¶РёРјР° РІ РѕРґРЅРѕР№ СЃС‚СЂРѕРєРµ Рј.Р±. РјРЅРѕРіРѕ С€СЂРёС„С‚РѕРІ?
            if( !OneFontField && nGood < 10 &&
 				 nOld > nGood && allGood*2 <= inField
 	           )
@@ -1154,7 +1154,7 @@ int FindBestClusters(int numSymbol,int numCluster,Nraster_header *rh,
  int minLit,maxLit; // minimal,maximal small letters
  int countFont=0;   // how many fonts
  int addToFont=0;
- Word32 allField[NFIELDDWORD];   // какие поля в шрифте
+ Word32 allField[NFIELDDWORD];   // РєР°РєРёРµ РїРѕР»СЏ РІ С€СЂРёС„С‚Рµ
  Word32 curFields[NFIELDDWORD];
 
 #ifdef _TEST_MULTI_FONT_
@@ -1271,7 +1271,7 @@ int FindBestClusters(int numSymbol,int numCluster,Nraster_header *rh,
 				  metka,161);
 	}
 
-/*	// test 3 & З (Ze)
+/*	// test 3 & Р— (Ze)
 	if( (i=maxCluster['3']) >= 0 && (metkaValid[i]&LEO_VALID_DIGIT))
 	{
 	  if(maxCluster[135]>=0 ) // ze
@@ -1326,7 +1326,7 @@ fillGood:
        if( TryRename(j,numSymbol,rh,nClus, numCluster,infoCluster ) )
 		   continue;
 
-	   // проверка не подтвержденных по словарю
+	   // РїСЂРѕРІРµСЂРєР° РЅРµ РїРѕРґС‚РІРµСЂР¶РґРµРЅРЅС‹С… РїРѕ СЃР»РѕРІР°СЂСЋ
 	   if( TestFillAll == 0 &&
 		   ( infoCluster[j].valid & LEO_VALID_LINGVO ) == 0 &&
 		   infoCluster[j].count <= 3 &&  // was 2
@@ -1351,7 +1351,7 @@ fillGood:
 #endif
 	}
 
-	// достойны называться шрифтом ?
+	// РґРѕСЃС‚РѕР№РЅС‹ РЅР°Р·С‹РІР°С‚СЊСЃСЏ С€СЂРёС„С‚РѕРј ?
     if( addToFont < 10 && addToFont*2 < numCluster)
 	{
 		int ii;
@@ -1363,7 +1363,7 @@ fillGood:
             break;
 		}
 		if(ii<countFont)
-           addToFont=1; // чтобы ниже убрать метки !
+           addToFont=1; // С‡С‚РѕР±С‹ РЅРёР¶Рµ СѓР±СЂР°С‚СЊ РјРµС‚РєРё !
 	}
 
 	if( !OneFontField && addToFont > 0 && addToFont < 7 &&
@@ -1386,7 +1386,7 @@ fillGood:
 		}
 		countFont++;   // if addToFont > 5 ?
 
-			  // какие размеры остались ?
+			  // РєР°РєРёРµ СЂР°Р·РјРµСЂС‹ РѕСЃС‚Р°Р»РёСЃСЊ ?
         if(!OneFontField)
           AnalizeSizes(infoCluster, numCluster,metka,0);
 	}
@@ -1446,10 +1446,10 @@ fillGood:
 		for(i=0,addToFont=0;i<256;i++)
 		{
 		 if( (best=maxCluster[i]) < 0 )   continue;
-		 // проверить похожие буквы
+		 // РїСЂРѕРІРµСЂРёС‚СЊ РїРѕС…РѕР¶РёРµ Р±СѓРєРІС‹
 		 if( TryRename(best,numSymbol,rh,nClus, numCluster,infoCluster ) )
 		   continue;
-		 // проверка не подтвержденных по словарю
+		 // РїСЂРѕРІРµСЂРєР° РЅРµ РїРѕРґС‚РІРµСЂР¶РґРµРЅРЅС‹С… РїРѕ СЃР»РѕРІР°СЂСЋ
 	     if( TestFillAll == 0 &&
 		    ( infoCluster[best].valid & LEO_VALID_LINGVO ) == 0 &&
 		    infoCluster[best].count <= 3 &&
@@ -1460,7 +1460,7 @@ fillGood:
 		 { infoCluster[best].invalid=TRUE;
 		   continue;
 		 }
-		 // пополнить фонт ?
+		 // РїРѕРїРѕР»РЅРёС‚СЊ С„РѕРЅС‚ ?
 		 if( newFont < countFont && newFont < MAXFONT &&
 			 fontField[newFont].inFont[i] )
 		 {
@@ -1495,7 +1495,7 @@ fillGood:
 	}
 
 #ifdef _TEST_STAY_
-	// проверка - много ли осталось хорошего за бортом, добавка
+	// РїСЂРѕРІРµСЂРєР° - РјРЅРѕРіРѕ Р»Рё РѕСЃС‚Р°Р»РѕСЃСЊ С…РѕСЂРѕС€РµРіРѕ Р·Р° Р±РѕСЂС‚РѕРј, РґРѕР±Р°РІРєР°
 	if( !TestFillAll )
 	{
 	 int TestStayGood(int numCluster, int numSymbol,InfoCluster *infoC,
@@ -1520,7 +1520,7 @@ fillGood:
 	}
 #endif
 
-	// output - какие поля - к какому шрифту
+	// output - РєР°РєРёРµ РїРѕР»СЏ - Рє РєР°РєРѕРјСѓ С€СЂРёС„С‚Сѓ
 	if( ffFields )
 	{
 		for(i=0;i<maxOutFonts && i < countFont && i < MAXFONT;i++)
@@ -1937,7 +1937,7 @@ static int TestAcc(int testNum,int num,KUCHKA *ku,int *sizes,Word32 *fields)
  return num;
 }
 //////////////
-// сколько кучек и какие заслуживают внимания ?
+// СЃРєРѕР»СЊРєРѕ РєСѓС‡РµРє Рё РєР°РєРёРµ Р·Р°СЃР»СѓР¶РёРІР°СЋС‚ РІРЅРёРјР°РЅРёСЏ ?
 static int GetCountGood(int num,KUCHKA *ku,int all)
 {
 int i;
@@ -1989,11 +1989,11 @@ static int AnalizeSizes(InfoCluster *infoC,int numClus,
 
 	 i=infoC[j].let;
 
-	 	 // don't touch ДдЙйФфЦцЩщ
+	 	 // don't touch Р”РґР™Р№Р¤С„Р¦С†Р©С‰
      if(  NotStandardSymbol(i) )
 		 continue;
 
-	 	 // don't touch "бру" - or add to big ?
+	 	 // don't touch "Р±СЂСѓ" - or add to big ?
 	 if( BigSmallSymbol(i) )
 		 continue;
 
@@ -2090,7 +2090,7 @@ int i;
 	 sizeBig=GetMiddleValue(bigSizes,kuBig);
 	 sizeLit=(sizeBig*3)>>2;
 	 i=GetAccord(sizeLit,numLit,kuLit);
-     if( i >= 0 )  // есть соответствие
+     if( i >= 0 )  // РµСЃС‚СЊ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРµ
 	 {
         *minBig=kuBig[0].start;
 	    *maxBig=kuBig[0].end;
@@ -2114,8 +2114,8 @@ int i;
 		return 2;
 	 }
 
-	 // нет соответствия
-	 // искать по положениям рамок - FUTURE !!!
+	 // РЅРµС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ
+	 // РёСЃРєР°С‚СЊ РїРѕ РїРѕР»РѕР¶РµРЅРёСЏРј СЂР°РјРѕРє - FUTURE !!!
 	    *bSize=sizeBig;
         *lSize=sizeLit;
 		*pSize=(sizeBig-sizeLit+1)>>1;
@@ -2136,7 +2136,7 @@ int i;
  	 sizeLit=GetMiddleValue(litSizes,kuLit);
 	 sizeBig=(sizeLit<<2)/3;
 	 i=GetAccord(sizeBig,numBig,kuBig);
-     if( i >= 0 )  // есть соответствие
+     if( i >= 0 )  // РµСЃС‚СЊ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРµ
 	 {
 		sizeBig=GetMiddleValue(bigSizes,kuBig+i);
 
@@ -2159,7 +2159,7 @@ int i;
 		return 2;
 	 }
 
-	 // нет соответствия
+	 // РЅРµС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ
 	    *bSize=sizeBig;
         *lSize=sizeLit;
 		*pSize=(sizeBig-sizeLit+1)>>1;

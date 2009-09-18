@@ -2767,7 +2767,7 @@ return c->vers[0].prob;
 
 BOOL is_comma(cell *c, INT bases3)
 {
- DWORD    d;
+ uint32_t    d;
  INT      ll, n, h, i;
  lnhead   *line;
  interval *inter;
@@ -2794,7 +2794,7 @@ BOOL is_comma(cell *c, INT bases3)
       if( n>c->h+1 || n<=c->h-2 || n==0 )
         return FALSE;
       d /= n; // average width
-      return( d*4<=(DWORD)(c->h*3) );
+      return( d*4<=(uint32_t)(c->h*3) );
       }
     }
 return TRUE;

@@ -281,7 +281,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
                BITMAPINFOHEADER   lpBI;     // Pointer to DIB info structure
                RGBQUAD            Palette1;
                RGBQUAD            Palette2;
-	           DWORD              bfSize, dwDIBSize;
+	           uint32_t              bfSize, dwDIBSize;
 	           HANDLE             hDIB;
 	           Word8*              pDIB;
 	           Word8*              pTmpDIB;

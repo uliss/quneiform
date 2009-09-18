@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -84,58 +84,58 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 #define  INCLINE_FACTOR  2048
 #define  RELY_LET  220
-#define  V_SIZE  10000  //макс. размер страницы по вертикали
-#define  USER_FRAG       CPAGE_BLOCK_USER  //фрагмент, помеченный пользователем
-#define  UNCERTAIN_FRAG  CPAGE_BLOCK_UNCERTAIN //неопределенный (хороший или плохой)
+#define  V_SIZE  10000  //РјР°РєСЃ. СЂР°Р·РјРµСЂ СЃС‚СЂР°РЅРёС†С‹ РїРѕ РІРµСЂС‚РёРєР°Р»Рё
+#define  USER_FRAG       CPAGE_BLOCK_USER  //С„СЂР°РіРјРµРЅС‚, РїРѕРјРµС‡РµРЅРЅС‹Р№ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј
+#define  UNCERTAIN_FRAG  CPAGE_BLOCK_UNCERTAIN //РЅРµРѕРїСЂРµРґРµР»РµРЅРЅС‹Р№ (С…РѕСЂРѕС€РёР№ РёР»Рё РїР»РѕС…РѕР№)
 
-#define  MAX_KEG   127 //максимальный размер кегля в пикселах
-#define  KEG_PAGE  10  //максимальное число кеглей на странице
-#define  FRAG_PAGE MaxHorLines*MaxVerLines //максимальное число фрагментов на странице, включая ячейки таблиц
-#define  BIG_FRAG_PAGE FRAG_PAGE //максимальное число фрагментов на странице
-//#define  BIG_FRAG_PAGE 50 //максимальное число фрагментов на странице
-#define  LINE_PAGE FRAG_PAGE //максимальное число строк на странице
+#define  MAX_KEG   127 //РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РєРµРіР»СЏ РІ РїРёРєСЃРµР»Р°С…
+#define  KEG_PAGE  10  //РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ РєРµРіР»РµР№ РЅР° СЃС‚СЂР°РЅРёС†Рµ
+#define  FRAG_PAGE MaxHorLines*MaxVerLines //РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ С„СЂР°РіРјРµРЅС‚РѕРІ РЅР° СЃС‚СЂР°РЅРёС†Рµ, РІРєР»СЋС‡Р°СЏ СЏС‡РµР№РєРё С‚Р°Р±Р»РёС†
+#define  BIG_FRAG_PAGE FRAG_PAGE //РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ С„СЂР°РіРјРµРЅС‚РѕРІ РЅР° СЃС‚СЂР°РЅРёС†Рµ
+//#define  BIG_FRAG_PAGE 50 //РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ С„СЂР°РіРјРµРЅС‚РѕРІ РЅР° СЃС‚СЂР°РЅРёС†Рµ
+#define  LINE_PAGE FRAG_PAGE //РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ СЃС‚СЂРѕРє РЅР° СЃС‚СЂР°РЅРёС†Рµ
 
 typedef Word16 KegStat[MAX_KEG+2];
 
 typedef struct tagKegTabElement
 {
-  Int8  keg0;  //если keg0>0, то это надежно определенное значение,
-  Int8  keg1;  // иначе -keg0 и -keg1 - возможные значения кегл
+  Int8  keg0;  //РµСЃР»Рё keg0>0, С‚Рѕ СЌС‚Рѕ РЅР°РґРµР¶РЅРѕ РѕРїСЂРµРґРµР»РµРЅРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ,
+  Int8  keg1;  // РёРЅР°С‡Рµ -keg0 Рё -keg1 - РІРѕР·РјРѕР¶РЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ РєРµРіР»
 } KegTabElement;
 
 typedef KegTabElement KegTab[MAX_KEG+1];
 
-typedef struct tagPageWord  //слово на странице
+typedef struct tagPageWord  //СЃР»РѕРІРѕ РЅР° СЃС‚СЂР°РЅРёС†Рµ
 {
-  Int32 fragment;  //номер фрагмента
-  Int32 line;     //номер строки в фрагменте
-  Int32 word;     //номер слова в строке
-  CSTR_rast beg,end;  //растры начала и следующий за концом
+  Int32 fragment;  //РЅРѕРјРµСЂ С„СЂР°РіРјРµРЅС‚Р°
+  Int32 line;     //РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё РІ С„СЂР°РіРјРµРЅС‚Рµ
+  Int32 word;     //РЅРѕРјРµСЂ СЃР»РѕРІР° РІ СЃС‚СЂРѕРєРµ
+  CSTR_rast beg,end;  //СЂР°СЃС‚СЂС‹ РЅР°С‡Р°Р»Р° Рё СЃР»РµРґСѓСЋС‰РёР№ Р·Р° РєРѕРЅС†РѕРј
 } PageWord;
 
-typedef struct tagFontStat   //для определения серифности во фрагменте
+typedef struct tagFontStat   //РґР»СЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ СЃРµСЂРёС„РЅРѕСЃС‚Рё РІРѕ С„СЂР°РіРјРµРЅС‚Рµ
 {
-  Int32 straight;            //всего прямых символов
-  Int32 italic;              //всего курсивных
-  Int32 it_ser;              //курсивных серифных
-  Int32 it_gelv;             //курсивных несерифных
-  Int32 st_ser;              //то же для прямых
+  Int32 straight;            //РІСЃРµРіРѕ РїСЂСЏРјС‹С… СЃРёРјРІРѕР»РѕРІ
+  Int32 italic;              //РІСЃРµРіРѕ РєСѓСЂСЃРёРІРЅС‹С…
+  Int32 it_ser;              //РєСѓСЂСЃРёРІРЅС‹С… СЃРµСЂРёС„РЅС‹С…
+  Int32 it_gelv;             //РєСѓСЂСЃРёРІРЅС‹С… РЅРµСЃРµСЂРёС„РЅС‹С…
+  Int32 st_ser;              //С‚Рѕ Р¶Рµ РґР»СЏ РїСЂСЏРјС‹С…
   Int32 st_gelv;
 } FontStat;
 
-typedef struct tagFragStat   //для выявления мусора
+typedef struct tagFragStat   //РґР»СЏ РІС‹СЏРІР»РµРЅРёСЏ РјСѓСЃРѕСЂР°
 {
   Handle hBlock;
-  Rect32 rect;     //охватывающий прямоугольник
-  Int16 nsym;      //всего символов во фрагменте
-  Int16 nbig;      //больших (буквы, цифры, "?" и т.д.)
-  Int16 nstick;    //палочных
-  Int16 nlet;      //всего распознанных
-  Int16 ndig;      // -"- цифр
-  Int16 nconf;     //по эвентам или подтвержденных
-  Int16 ngood;     //надежно распознанных
-  Int16 nhigh;     //высокая оценка
-  Int16 npunct;    //знаков препинани
+  Rect32 rect;     //РѕС…РІР°С‚С‹РІР°СЋС‰РёР№ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРє
+  Int16 nsym;      //РІСЃРµРіРѕ СЃРёРјРІРѕР»РѕРІ РІРѕ С„СЂР°РіРјРµРЅС‚Рµ
+  Int16 nbig;      //Р±РѕР»СЊС€РёС… (Р±СѓРєРІС‹, С†РёС„СЂС‹, "?" Рё С‚.Рґ.)
+  Int16 nstick;    //РїР°Р»РѕС‡РЅС‹С…
+  Int16 nlet;      //РІСЃРµРіРѕ СЂР°СЃРїРѕР·РЅР°РЅРЅС‹С…
+  Int16 ndig;      // -"- С†РёС„СЂ
+  Int16 nconf;     //РїРѕ СЌРІРµРЅС‚Р°Рј РёР»Рё РїРѕРґС‚РІРµСЂР¶РґРµРЅРЅС‹С…
+  Int16 ngood;     //РЅР°РґРµР¶РЅРѕ СЂР°СЃРїРѕР·РЅР°РЅРЅС‹С…
+  Int16 nhigh;     //РІС‹СЃРѕРєР°СЏ РѕС†РµРЅРєР°
+  Int16 npunct;    //Р·РЅР°РєРѕРІ РїСЂРµРїРёРЅР°РЅРё
   Word8 min_keg;
   Word8 max_keg;
   Word8 flag;
@@ -145,16 +145,16 @@ typedef struct tagFragStat   //для выявления мусора
 #define RS_ADD  128
 } RecStat;
 
-typedef struct tagLineNumber  //строка во фрагменте
+typedef struct tagLineNumber  //СЃС‚СЂРѕРєР° РІРѕ С„СЂР°РіРјРµРЅС‚Рµ
 {
-  Int32  n;                   //номер строки на странице
-  struct tagLineNumber *next; //следующая строка фрагмента
+  Int32  n;                   //РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё РЅР° СЃС‚СЂР°РЅРёС†Рµ
+  struct tagLineNumber *next; //СЃР»РµРґСѓСЋС‰Р°СЏ СЃС‚СЂРѕРєР° С„СЂР°РіРјРµРЅС‚Р°
 } LineNumber;
 
-typedef struct tagLineList       //список строк
+typedef struct tagLineList       //СЃРїРёСЃРѕРє СЃС‚СЂРѕРє
 {
-  LineNumber pool[LINE_PAGE];    //куча
-  LineNumber *node[FRAG_PAGE+1]; //начало списка для каждого фрагмента
+  LineNumber pool[LINE_PAGE];    //РєСѓС‡Р°
+  LineNumber *node[FRAG_PAGE+1]; //РЅР°С‡Р°Р»Рѕ СЃРїРёСЃРєР° РґР»СЏ РєР°Р¶РґРѕРіРѕ С„СЂР°РіРјРµРЅС‚Р°
 } LineList;
 
 
@@ -173,21 +173,21 @@ Handle hSnapTable = 0;
 static Handle hCPAGE;
 static Int32 nIncline;
 static KegTab  keg_tab;
-static Int32 num_keg,num_keg_opt;     //количество кеглей на странице исходное и оптимальное
-static KegStat  keg_stats;            //статистика кеглей на исходной странице
-static Word8 max_keg=0,min_keg=255;   //минимальный и максимальный кегли на страницы
-static Int32 version;                 //версия строки
-static Word32 key=1;                  //для snap'а
-static Int32 skew=0;                  //поворот страницы (или строки?)
-static Int32 num_frag=0;              //число фрагментов на странице
-static Bool fr_ovf;                   //на странице больше FRAG_PAGE фрагментов
+static Int32 num_keg,num_keg_opt;     //РєРѕР»РёС‡РµСЃС‚РІРѕ РєРµРіР»РµР№ РЅР° СЃС‚СЂР°РЅРёС†Рµ РёСЃС…РѕРґРЅРѕРµ Рё РѕРїС‚РёРјР°Р»СЊРЅРѕРµ
+static KegStat  keg_stats;            //СЃС‚Р°С‚РёСЃС‚РёРєР° РєРµРіР»РµР№ РЅР° РёСЃС…РѕРґРЅРѕР№ СЃС‚СЂР°РЅРёС†Рµ
+static Word8 max_keg=0,min_keg=255;   //РјРёРЅРёРјР°Р»СЊРЅС‹Р№ Рё РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РєРµРіР»Рё РЅР° СЃС‚СЂР°РЅРёС†С‹
+static Int32 version;                 //РІРµСЂСЃРёСЏ СЃС‚СЂРѕРєРё
+static Word32 key=1;                  //РґР»СЏ snap'Р°
+static Int32 skew=0;                  //РїРѕРІРѕСЂРѕС‚ СЃС‚СЂР°РЅРёС†С‹ (РёР»Рё СЃС‚СЂРѕРєРё?)
+static Int32 num_frag=0;              //С‡РёСЃР»Рѕ С„СЂР°РіРјРµРЅС‚РѕРІ РЅР° СЃС‚СЂР°РЅРёС†Рµ
+static Bool fr_ovf;                   //РЅР° СЃС‚СЂР°РЅРёС†Рµ Р±РѕР»СЊС€Рµ FRAG_PAGE С„СЂР°РіРјРµРЅС‚РѕРІ
 static Int16 fragments[LINE_PAGE+FRAG_PAGE],*fragments_end=NULL,*cur_fragment;
-/*     структура фрагментов на странице:
-  n1    -  число строк в 1-ом фрагменте
-  i[1]  -  номер первой строки
+/*     СЃС‚СЂСѓРєС‚СѓСЂР° С„СЂР°РіРјРµРЅС‚РѕРІ РЅР° СЃС‚СЂР°РЅРёС†Рµ:
+  n1    -  С‡РёСЃР»Рѕ СЃС‚СЂРѕРє РІ 1-РѕРј С„СЂР°РіРјРµРЅС‚Рµ
+  i[1]  -  РЅРѕРјРµСЂ РїРµСЂРІРѕР№ СЃС‚СЂРѕРєРё
            . . .
-  i[n1] -  номер последней строки
-  n2    -  число строк в 2-ом фрагменте
+  i[n1] -  РЅРѕРјРµСЂ РїРѕСЃР»РµРґРЅРµР№ СЃС‚СЂРѕРєРё
+  n2    -  С‡РёСЃР»Рѕ СЃС‚СЂРѕРє РІ 2-РѕРј С„СЂР°РіРјРµРЅС‚Рµ
            . . .
 */
 static Word8 fragfont[FRAG_PAGE],*cur_font;
@@ -263,7 +263,7 @@ Bool32 CorrectKegl(Int32 ver)
 
   rtf_correct();
 
-//выравнивание по фрагментам (kegf)
+//РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ С„СЂР°РіРјРµРЅС‚Р°Рј (kegf)
   kegl_by_frag();
   draw_keg("by fragments");
   rtf_correct();
@@ -275,7 +275,7 @@ Bool32 CorrectKegl(Int32 ver)
     if (!fr_ovf)
       garbage_fragments();
     else
-      if (snap_enable)  LDPUMA_Console("Мусор не чищен: много фраментов\n");
+      if (snap_enable)  LDPUMA_Console("РњСѓСЃРѕСЂ РЅРµ С‡РёС‰РµРЅ: РјРЅРѕРіРѕ С„СЂР°РјРµРЅС‚РѕРІ\n");
   }
 
   LDPUMA_DeleteRects(NULL, key);
@@ -359,7 +359,7 @@ static Bool32 get_stats()
         CSTR_GetCollectionUni(rst,&uni);
         alt=&uni.Alt[0];   let=alt->Code[0];
 
-      //для кегл
+      //РґР»СЏ РєРµРіР»
         attr.keg=MIN(attr.keg,MAX_KEG-1);
         if(!(attr.flg & CSTR_f_space) && attr.keg && uni.lnAltCnt)
         {
@@ -370,7 +370,7 @@ static Bool32 get_stats()
         }
         CSTR_SetAttr(rst,&attr);
 
-      //для серифности
+      //РґР»СЏ СЃРµСЂРёС„РЅРѕСЃС‚Рё
         if (attr.flg & (CSTR_f_let | CSTR_f_bad) &&
             (attr.font & (CSTR_fp_ser | CSTR_fp_gelv)) != (CSTR_fp_ser | CSTR_fp_gelv))
           if (attr.font & CSTR_fp_str)
@@ -389,7 +389,7 @@ static Bool32 get_stats()
             if (attr.font & CSTR_fp_gelv)  fsti->it_gelv++;
           }
 
-      //для мусора
+      //РґР»СЏ РјСѓСЃРѕСЂР°
         if (attr.flg & (CSTR_f_let | CSTR_f_bad | CSTR_f_punct))  rsti->nsym++;
         if (attr.flg & (CSTR_f_let | CSTR_f_bad))
         {
@@ -443,7 +443,7 @@ static Bool32 get_stats()
       fragj += size+1;
     }
 
-    //определяем серифность, где есть уверенность
+    //РѕРїСЂРµРґРµР»СЏРµРј СЃРµСЂРёС„РЅРѕСЃС‚СЊ, РіРґРµ РµСЃС‚СЊ СѓРІРµСЂРµРЅРЅРѕСЃС‚СЊ
     if (fsti->straight>3 && fsti->straight > fsti->italic/3)
       if (fsti->st_ser > 2*fsti->st_gelv)
       {
@@ -459,13 +459,13 @@ static Bool32 get_stats()
   }
   fragments_end=fragj;
 
-  //серифность для оставшихся фрагментов
+  //СЃРµСЂРёС„РЅРѕСЃС‚СЊ РґР»СЏ РѕСЃС‚Р°РІС€РёС…СЃСЏ С„СЂР°РіРјРµРЅС‚РѕРІ
   for (i=0,ffi=fragfont,fsti=font_stat; i<num_frag; i++,ffi++,fsti++)
     if (*ffi==0)
     {
-      if ( (ser_fr==0)^(gelv_fr==0) )   //на странице один шрифт
+      if ( (ser_fr==0)^(gelv_fr==0) )   //РЅР° СЃС‚СЂР°РЅРёС†Рµ РѕРґРёРЅ С€СЂРёС„С‚
         *ffi = (ser_fr==0) ? CSTR_fp_gelv : CSTR_fp_ser;
-      else                              //нет единого шрифта
+      else                              //РЅРµС‚ РµРґРёРЅРѕРіРѕ С€СЂРёС„С‚Р°
         *ffi = (fsti->it_ser+fsti->st_ser > fsti->it_gelv+fsti->st_gelv) ? CSTR_fp_ser : CSTR_fp_gelv;
     }
 
@@ -484,14 +484,14 @@ static void get_keg_tab()
   Word8 rely1,rely2,extend2;
   KegTabElement *keg_tabi;
   Bool rise=TRUE;
-  Word8 temp_tab[3*KEG_PAGE]; //таблица из num_keg_opt кеглей
-  //структура temp_tab:
-  //  0 - размер кегл
-  //  1 - граница области неопределенности
-  //  2 - граница области неопределенности
-  //  3 - размер кегл
+  Word8 temp_tab[3*KEG_PAGE]; //С‚Р°Р±Р»РёС†Р° РёР· num_keg_opt РєРµРіР»РµР№
+  //СЃС‚СЂСѓРєС‚СѓСЂР° temp_tab:
+  //  0 - СЂР°Р·РјРµСЂ РєРµРіР»
+  //  1 - РіСЂР°РЅРёС†Р° РѕР±Р»Р°СЃС‚Рё РЅРµРѕРїСЂРµРґРµР»РµРЅРЅРѕСЃС‚Рё
+  //  2 - РіСЂР°РЅРёС†Р° РѕР±Р»Р°СЃС‚Рё РЅРµРѕРїСЂРµРґРµР»РµРЅРЅРѕСЃС‚Рё
+  //  3 - СЂР°Р·РјРµСЂ РєРµРіР»
   //      . . .
-  //  n - размер кегл
+  //  n - СЂР°Р·РјРµСЂ РєРµРіР»
 
   Word8 *tab=temp_tab;
 
@@ -500,7 +500,7 @@ static void get_keg_tab()
     return;
 
   for (i=0,keg_statsi=keg_stats; i<=num_keg+1 && num_keg_opt<KEG_PAGE; i++,keg_statsi++)
-  {                       //цикл включает нули по краям
+  {                       //С†РёРєР» РІРєР»СЋС‡Р°РµС‚ РЅСѓР»Рё РїРѕ РєСЂР°СЏРј
     Int32 n=*keg_statsi;
 
     if (n>prev_n)
@@ -509,14 +509,14 @@ static void get_keg_tab()
     if (n<prev_n)
     {
       if (rise)
-      {                  //найден локальный максимум
+      {                  //РЅР°Р№РґРµРЅ Р»РѕРєР°Р»СЊРЅС‹Р№ РјР°РєСЃРёРјСѓРј
         Int32 tol=MIN(prev_max_n,prev_n)/3;
         Word16 *cur_max=keg_statsi-1;
-        if (num_keg_opt>0)       //не первый кегль
+        if (num_keg_opt>0)       //РЅРµ РїРµСЂРІС‹Р№ РєРµРіР»СЊ
         {
           Bool rely_bound=FALSE;
           Int32 dk=cur_max-prev_max;
-          if (min_n<tol && (!gbFax100 || dk>4) && 10*dk >= cur_max-keg_stats)         //надежная граница
+          if (min_n<tol && (!gbFax100 || dk>4) && 10*dk >= cur_max-keg_stats)         //РЅР°РґРµР¶РЅР°СЏ РіСЂР°РЅРёС†Р°
           {
             Word16 *j;
             for (j=prev_max; j<cur_min && *j>=tol; j++);
@@ -535,7 +535,7 @@ static void get_keg_tab()
           }
           if (!rely_bound)
           {
-            if (cur_max-prev_max>3 && 8*(cur_max-prev_max)>cur_max-keg_stats)  //большой разброс - надо разделить
+            if (cur_max-prev_max>3 && 8*(cur_max-prev_max)>cur_max-keg_stats)  //Р±РѕР»СЊС€РѕР№ СЂР°Р·Р±СЂРѕСЃ - РЅР°РґРѕ СЂР°Р·РґРµР»РёС‚СЊ
             {
               *tab++=cur_min-keg_stats;
               *tab++=cur_min-keg_stats;
@@ -544,7 +544,7 @@ static void get_keg_tab()
               num_keg_opt++;
             }
             else
-            if (prev_n>prev_max_n)   //тот же кегль, заменяем размер
+            if (prev_n>prev_max_n)   //С‚РѕС‚ Р¶Рµ РєРµРіР»СЊ, Р·Р°РјРµРЅСЏРµРј СЂР°Р·РјРµСЂ
             {
               *(tab-1)=cur_max-keg_stats;
               prev_max=cur_max;  prev_max_n=prev_n;
@@ -573,7 +573,7 @@ static void get_keg_tab()
     rely2=*(tab+1)-1;  extend2=*(tab+2);  keg_tabi=keg_tab+j;
     for (k=rely1,keg_statsi=keg_stats+k; k<=rely2; k++,keg_statsi++)
       if (*keg_statsi>=tol)  { n += *keg_statsi;  keg += *keg_statsi*k; }
-//    if (n>0)  keg=keg*2/n;  //размер шрифта от верха заглавной до низа опущенной
+//    if (n>0)  keg=keg*2/n;  //СЂР°Р·РјРµСЂ С€СЂРёС„С‚Р° РѕС‚ РІРµСЂС…Р° Р·Р°РіР»Р°РІРЅРѕР№ РґРѕ РЅРёР·Р° РѕРїСѓС‰РµРЅРЅРѕР№
     if (n>0)  keg=(keg+n/2)/n;
     for ( ; j<rely1;    j++,keg_tabi++)  keg_tabi->keg1=-(Int8)keg;
     for ( ; j<=rely2;   j++,keg_tabi++)  keg_tabi->keg0= (Int8)keg;
@@ -583,8 +583,8 @@ static void get_keg_tab()
 }
 
 static Bool make_correct()
-//проставляет кегль для надежного слова (опорный) и далее влево и вправо,
-// пока в вариантах есть опорный
+//РїСЂРѕСЃС‚Р°РІР»СЏРµС‚ РєРµРіР»СЊ РґР»СЏ РЅР°РґРµР¶РЅРѕРіРѕ СЃР»РѕРІР° (РѕРїРѕСЂРЅС‹Р№) Рё РґР°Р»РµРµ РІР»РµРІРѕ Рё РІРїСЂР°РІРѕ,
+// РїРѕРєР° РІ РІР°СЂРёР°РЅС‚Р°С… РµСЃС‚СЊ РѕРїРѕСЂРЅС‹Р№
 {
   LDPUMA_DeleteRects(NULL, key);
 
@@ -603,7 +603,7 @@ static void  cor_cur_fragment()
 }
 
 static void  cor_fax_fragment()
-{  //для факсов по всему фрагменту устанавливается единый кегль
+{  //РґР»СЏ С„Р°РєСЃРѕРІ РїРѕ РІСЃРµРјСѓ С„СЂР°РіРјРµРЅС‚Сѓ СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚СЃСЏ РµРґРёРЅС‹Р№ РєРµРіР»СЊ
   PageWord beg;
   Word8 stat[2*MAX_KEG+2]={0},max_keg=0,opt_keg=0;
   Word8 keg0;
@@ -679,8 +679,8 @@ static void  cor_fax_fragment()
 static void  cor_gen_fragment()
 {
   PageWord fin,rely;
-  Word8 keg0;        //кегль, который будет присвоен слову
-  Int8  keg;         //текущий кегль
+  Word8 keg0;        //РєРµРіР»СЊ, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РїСЂРёСЃРІРѕРµРЅ СЃР»РѕРІСѓ
+  Int8  keg;         //С‚РµРєСѓС‰РёР№ РєРµРіР»СЊ
   Bool next=TRUE;
 
   fin.word=1;
@@ -688,7 +688,7 @@ static void  cor_gen_fragment()
   for (fin.line=1; fin.line<=*cur_fragment; fin.line++)
     if (set_cur_word(&fin))  break;
 
-  if (fin.line > *cur_fragment)  //пустой фрагмент
+  if (fin.line > *cur_fragment)  //РїСѓСЃС‚РѕР№ С„СЂР°РіРјРµРЅС‚
     return;
 
   keg0=get_word_keg();
@@ -699,13 +699,13 @@ static void  cor_gen_fragment()
     Bool back=keg<0;
     fin=get_cur_word();
 
-    while (keg<0 && next_word())    //до следующего надежного
+    while (keg<0 && next_word())    //РґРѕ СЃР»РµРґСѓСЋС‰РµРіРѕ РЅР°РґРµР¶РЅРѕРіРѕ
       keg=keg_tab[get_word_keg()].keg0;
 
-    if (keg<0)    //надежных нет - оставляем, как есть
+    if (keg<0)    //РЅР°РґРµР¶РЅС‹С… РЅРµС‚ - РѕСЃС‚Р°РІР»СЏРµРј, РєР°Рє РµСЃС‚СЊ
       break;
 /*
-    if (keg<0)    //оставляем, как есть, только масштабирование
+    if (keg<0)    //РѕСЃС‚Р°РІР»СЏРµРј, РєР°Рє РµСЃС‚СЊ, С‚РѕР»СЊРєРѕ РјР°СЃС€С‚Р°Р±РёСЂРѕРІР°РЅРёРµ
     {
       set_cur_word(&fin);
       do
@@ -725,7 +725,7 @@ static void  cor_gen_fragment()
 
     if (back)
     {
-      do                      //от надежного влево
+      do                      //РѕС‚ РЅР°РґРµР¶РЅРѕРіРѕ РІР»РµРІРѕ
       {
         Word8  kegw;
         prev_word();
@@ -742,7 +742,7 @@ static void  cor_gen_fragment()
       set_cur_word(&rely);
     }
 
-    while (next=next_word())         //от надежного вправо
+    while (next=next_word())         //РѕС‚ РЅР°РґРµР¶РЅРѕРіРѕ РІРїСЂР°РІРѕ
     {
       Word8 kegw=get_word_keg();
       keg=keg_tab[kegw].keg0;
@@ -979,7 +979,7 @@ static void set_word_keg(Word8 keg)
     CSTR_SetAttr(cur,&attr);
   }
 
-//тот же кегль - пробелам справа
+//С‚РѕС‚ Р¶Рµ РєРµРіР»СЊ - РїСЂРѕР±РµР»Р°Рј СЃРїСЂР°РІР°
   CSTR_GetAttr(cur,&attr);
   while (space(attr))
   {
@@ -1005,7 +1005,7 @@ static Word8 get_word_keg()
 }
 
 static Bool rtf_correct()
-//масштабирование
+//РјР°СЃС€С‚Р°Р±РёСЂРѕРІР°РЅРёРµ
 {
   CSTR_line       line;
   Int32           n,i,dpi,dpi2;
@@ -1015,7 +1015,7 @@ static Bool rtf_correct()
 
 //  Handle hCPAGE = CPAGE_GetHandlePage( CPAGE_GetCurrentPage());
   GetPageInfo(hCPAGE,&PageInfo);
-  dpi  = (WORD)PageInfo.DPIY;    //разрешение сканера по вертикали
+  dpi  = (WORD)PageInfo.DPIY;    //СЂР°Р·СЂРµС€РµРЅРёРµ СЃРєР°РЅРµСЂР° РїРѕ РІРµСЂС‚РёРєР°Р»Рё
   dpi2=2*dpi;
 
   n=CSTR_GetMaxNumber ();
@@ -1032,13 +1032,13 @@ static Bool rtf_correct()
       {
         Word8 keg;
         CSTR_GetAttr(rst,&attr);
-        keg = (Word8)((attr.keg*2*72+dpi/2)/dpi);  //размер шрифта от верха заглавной до низа опущенной в пунктах (1/72 дюйма)
+        keg = (Word8)((attr.keg*2*72+dpi/2)/dpi);  //СЂР°Р·РјРµСЂ С€СЂРёС„С‚Р° РѕС‚ РІРµСЂС…Р° Р·Р°РіР»Р°РІРЅРѕР№ РґРѕ РЅРёР·Р° РѕРїСѓС‰РµРЅРЅРѕР№ РІ РїСѓРЅРєС‚Р°С… (1/72 РґСЋР№РјР°)
 //        keg = (Word8)((attr.keg*72+dpi/2)/dpi);
 /*
         if (keg>=12)
         {
-          keg= (attr.keg*2*72+dpi)/dpi2*2;  //округление до ближайшего четного
-//          keg= (attr.keg*72+dpi)/dpi2*2;  //округление до ближайшего четного
+          keg= (attr.keg*2*72+dpi)/dpi2*2;  //РѕРєСЂСѓРіР»РµРЅРёРµ РґРѕ Р±Р»РёР¶Р°Р№С€РµРіРѕ С‡РµС‚РЅРѕРіРѕ
+//          keg= (attr.keg*72+dpi)/dpi2*2;  //РѕРєСЂСѓРіР»РµРЅРёРµ РґРѕ Р±Р»РёР¶Р°Р№С€РµРіРѕ С‡РµС‚РЅРѕРіРѕ
         }
 */
         attr.keg=attr.kegf;
@@ -1060,8 +1060,8 @@ static Bool rtf_correct()
 
 static Bool32 SomnitelnaLinia(int Nb)
 {
-			// Nbi <= 0 - ненадежная линия
-			// Nbi == 127, 128 - сомнительная линия (получена только по гистограмме)
+			// Nbi <= 0 - РЅРµРЅР°РґРµР¶РЅР°СЏ Р»РёРЅРёСЏ
+			// Nbi == 127, 128 - СЃРѕРјРЅРёС‚РµР»СЊРЅР°СЏ Р»РёРЅРёСЏ (РїРѕР»СѓС‡РµРЅР° С‚РѕР»СЊРєРѕ РїРѕ РіРёСЃС‚РѕРіСЂР°РјРјРµ)
 			// Nbi 127 - eng, 128 - rus
 
 	if( Nb <= 0 )
@@ -1103,7 +1103,7 @@ static void garbage_fragments()
     LDPUMA_DeleteLines(NULL, key);
   }
 
-//маркировка хороших фрагментов и охватывающий прямоугольник
+//РјР°СЂРєРёСЂРѕРІРєР° С…РѕСЂРѕС€РёС… С„СЂР°РіРјРµРЅС‚РѕРІ Рё РѕС…РІР°С‚С‹РІР°СЋС‰РёР№ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРє
   for (cur_fragment=fragments,rsti=recstat;
        cur_fragment<fragments_end;
        cur_fragment += (*cur_fragment)+1,rsti++)
@@ -1115,7 +1115,7 @@ static void garbage_fragments()
     if (!rsti->hBlock)  continue;
 
     bl_flg=CPAGE_GetBlockFlags(hCPAGE,rsti->hBlock);
-    if (bl_flg & USER_FRAG)           //выделен вручную
+    if (bl_flg & USER_FRAG)           //РІС‹РґРµР»РµРЅ РІСЂСѓС‡РЅСѓСЋ
       rsti->flag = RS_GOOD;
     else
     if (rsti->ngood>=G_GOOD0 ||
@@ -1129,7 +1129,7 @@ static void garbage_fragments()
     else
       CPAGE_SetBlockFlags(hCPAGE,rsti->hBlock,bl_flg | UNCERTAIN_FRAG);
 
-  //min и max кегли и охватывающий прямоугольник сегмента
+  //min Рё max РєРµРіР»Рё Рё РѕС…РІР°С‚С‹РІР°СЋС‰РёР№ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРє СЃРµРіРјРµРЅС‚Р°
     *rect=hole;
     rsti->min_keg=255;   rsti->max_keg=0;
     for (cur_line=1; cur_line<=*cur_fragment; cur_line++)
@@ -1178,10 +1178,10 @@ static void garbage_fragments()
       if (rect->top<0 || rect->top >= rect->bottom || rect->left<0 || rect->left >= rect->right)
         rsti->flag = RS_STRANGE;
 
-    //охватывающий прямоугольник и проекци
+    //РѕС…РІР°С‚С‹РІР°СЋС‰РёР№ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРє Рё РїСЂРѕРµРєС†Рё
     if (rsti->flag & RS_GOOD)
     {
-      //номер страницы?
+      //РЅРѕРјРµСЂ СЃС‚СЂР°РЅРёС†С‹?
       if (rsti->ndig>0 && rsti->ndig<=4 && rsti->ndig==rsti->nbig)
         if ( (rect->bottom<main_area.top || rect->top>main_area.bottom) &&
              rect->left>=main_area.left && rect->right<=main_area.right)
@@ -1206,7 +1206,7 @@ static void garbage_fragments()
       if (rsti->flag & RS_STRANGE)
       {
         color=wRGB(255,196,0);
- 				Snap_Console("Ошибки в атрибутах растра\n");
+ 				Snap_Console("РћС€РёР±РєРё РІ Р°С‚СЂРёР±СѓС‚Р°С… СЂР°СЃС‚СЂР°\n");
       }
       display_fragment(rsti,color,key);
     }
@@ -1219,7 +1219,7 @@ static void garbage_fragments()
 /*  if( snap_enable && !LDPUMA_SkipEx(hSnapGarbage,FALSE,TRUE,1) )
     if (line)  LDPUMA_CSTR_Monitor(hSnapGarbage,line,0,myMonitorProc);*/
 
-//добавление фрагментов
+//РґРѕР±Р°РІР»РµРЅРёРµ С„СЂР°РіРјРµРЅС‚РѕРІ
   while(1)
   {
     Int32 maxsize=0;
@@ -1230,7 +1230,7 @@ static void garbage_fragments()
 
     add=FALSE;
 
-  //выбираем максимальный фрагмент
+  //РІС‹Р±РёСЂР°РµРј РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ С„СЂР°РіРјРµРЅС‚
     for (cur_fragment=fragments,rsti=recstat;
          cur_fragment<fragments_end;
          cur_fragment += (*cur_fragment)+1,rsti++)
@@ -1248,7 +1248,7 @@ static void garbage_fragments()
 
     cur_fragment=maxfrag;  rsti=maxrst;
 
-    if (main_found)    //есть костяк из надежный фрагментов
+    if (main_found)    //РµСЃС‚СЊ РєРѕСЃС‚СЏРє РёР· РЅР°РґРµР¶РЅС‹Р№ С„СЂР°РіРјРµРЅС‚РѕРІ
     {
       rsti->flag=RS_BAD;
       if( snap_enable && !LDPUMA_SkipEx(hSnapGarbage,FALSE,TRUE,1) )
@@ -1261,11 +1261,11 @@ static void garbage_fragments()
       mainsize=MIN(main_area.right-main_area.left,main_area.bottom-main_area.top);
       ingap=in_gap(rect->top,rect->bottom,vproj);
 
-      if (main_area.top-rect->bottom>d || rect->top-main_area.bottom>d)   //далеко вверху или внизу
+      if (main_area.top-rect->bottom>d || rect->top-main_area.bottom>d)   //РґР°Р»РµРєРѕ РІРІРµСЂС…Сѓ РёР»Рё РІРЅРёР·Сѓ
       {
         Int32 d0=dist_border(rect);
         d=rect_dist(&main_area,rect);
-        if (d>d0)   //очень далеко
+        if (d>d0)   //РѕС‡РµРЅСЊ РґР°Р»РµРєРѕ
         {
           if (condition4(rsti))  rsti->flag=RS_ADD;
         }
@@ -1273,11 +1273,11 @@ static void garbage_fragments()
           if (condition2(rsti))  rsti->flag=RS_ADD;
       }
       else
-      if (main_area.left-rect->right>d || rect->left-main_area.right>d) //далеко слева или справа
+      if (main_area.left-rect->right>d || rect->left-main_area.right>d) //РґР°Р»РµРєРѕ СЃР»РµРІР° РёР»Рё СЃРїСЂР°РІР°
       {
         Int32 d0=dist_border(rect);
         d=rect_dist(&main_area,rect);
-        if (d>d0) //очень далеко
+        if (d>d0) //РѕС‡РµРЅСЊ РґР°Р»РµРєРѕ
         {
           if (condition4(rsti))  rsti->flag=RS_ADD;
         }
@@ -1287,7 +1287,7 @@ static void garbage_fragments()
           else
             if (condition3(rsti))  rsti->flag=RS_ADD;
       }
-      else  //близко или внутри
+      else  //Р±Р»РёР·РєРѕ РёР»Рё РІРЅСѓС‚СЂРё
       {
         Int32 size=MAX(rect->right-rect->left,rect->bottom-rect->top);
         if (SMALL_FRAG*size>mainsize)
@@ -1296,12 +1296,12 @@ static void garbage_fragments()
           else
           if (condition1(rsti))  rsti->flag=RS_ADD;
         }
-        else   //маленькие
+        else   //РјР°Р»РµРЅСЊРєРёРµ
         if (ingap)                    rsti->flag=RS_ADD;
         else   if (condition3(rsti))  rsti->flag=RS_ADD;
       }
 
-    //номер страницы?
+    //РЅРѕРјРµСЂ СЃС‚СЂР°РЅРёС†С‹?
       if (rsti->ndig>0 && rsti->ndig<=4 && rsti->ndig==rsti->nbig && !page_num)
       {
         if ( (rect->bottom<main_area.top || rect->top>main_area.bottom) &&
@@ -1313,7 +1313,7 @@ static void garbage_fragments()
         }
       }
     }
-    else     //надежных фрагментов нет - добавляем все сомнительные
+    else     //РЅР°РґРµР¶РЅС‹С… С„СЂР°РіРјРµРЅС‚РѕРІ РЅРµС‚ - РґРѕР±Р°РІР»СЏРµРј РІСЃРµ СЃРѕРјРЅРёС‚РµР»СЊРЅС‹Рµ
       rsti->flag=RS_ADD;
 
     if (rsti->flag & RS_ADD)
@@ -1322,7 +1322,7 @@ static void garbage_fragments()
 
       rsti->flag = RS_GOOD;
 
-  // расширение прямоугольника и коррекция проекции
+  // СЂР°СЃС€РёСЂРµРЅРёРµ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєР° Рё РєРѕСЂСЂРµРєС†РёСЏ РїСЂРѕРµРєС†РёРё
       cover_rect(&main_area,&rsti->rect);
       hmax=MIN(main_area.bottom,V_SIZE-1);
       for (j=main_area.top; j<=hmax; j++)  vproj[j]=1;
@@ -1339,7 +1339,7 @@ static void garbage_fragments()
 /*  if( snap_enable && !LDPUMA_SkipEx(hSnapGarbage,FALSE,TRUE,1) )
     if (line)  LDPUMA_CSTR_Monitor(hSnapMain,line,0,myMonitorProc);*/
 
-//удаление фрагментов
+//СѓРґР°Р»РµРЅРёРµ С„СЂР°РіРјРµРЅС‚РѕРІ
 
 	hBlock = CPAGE_GetBlockFirst(hCPAGE,TYPE_TEXT);
 	while(hBlock)
@@ -1352,7 +1352,7 @@ static void garbage_fragments()
       for (i=0,rsti=recstat; i<num_frag; i++,rsti++)
         if (hBlock==rsti->hBlock)  break;
 
-      if (i==num_frag || rsti->flag==0 || rsti->flag==RS_BAD || rsti->flag==RS_STRANGE)  //фиктивный (без строк), грязь или с ошибками
+      if (i==num_frag || rsti->flag==0 || rsti->flag==RS_BAD || rsti->flag==RS_STRANGE)  //С„РёРєС‚РёРІРЅС‹Р№ (Р±РµР· СЃС‚СЂРѕРє), РіСЂСЏР·СЊ РёР»Рё СЃ РѕС€РёР±РєР°РјРё
          CPAGE_DeleteBlock(hCPAGE,hBlock);
     }
 		hBlock = hNext;
@@ -1502,7 +1502,7 @@ static Handle find_hBlock(Int32 fragment)
   static Int32  number[BIG_FRAG_PAGE+1]; Int32  *n=number;
   static Handle handle[BIG_FRAG_PAGE+1]; Handle *h=handle;
 
-  if (fragment<0)    //инициализация
+  if (fragment<0)    //РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ
   {
     Int32 i;
 	  Handle hBlock = CPAGE_GetBlockFirst(hCPAGE,TYPE_TEXT);
@@ -1561,7 +1561,7 @@ static Int32 rect_dist(Rect32 *main, Rect32 *test)
   Int32 x2=test->left-main->right;
   Int32 y1=main->top-test->bottom;
   Int32 y2=test->top-main->bottom;
-  if (x1>0 || x2>0 || y1>0 || y2>0)   //не пересекаютс
+  if (x1>0 || x2>0 || y1>0 || y2>0)   //РЅРµ РїРµСЂРµСЃРµРєР°СЋС‚СЃ
   {
     x=MAX(x1,x2);  y=max(y1,y2);
     if (x<0)  return y;
@@ -1569,7 +1569,7 @@ static Int32 rect_dist(Rect32 *main, Rect32 *test)
     return MIN(x,y);
   }
 
-//пересекаютс
+//РїРµСЂРµСЃРµРєР°СЋС‚СЃ
   x1=main->left-test->left;
   x2=test->right-main->right;
   y1=main->top-test->top;
@@ -1624,12 +1624,12 @@ static void draw_rect(Rect32 *rect, Word32 color, Word32 key)
 static Bool add2list(LineNumber **frag_lines_list, Int32 fn, Int32 ln)
 {
   LineNumber *cur_num=*frag_lines_list;
-  if (cur_num != (LineNumber *)frag_lines_list)  //есть место
+  if (cur_num != (LineNumber *)frag_lines_list)  //РµСЃС‚СЊ РјРµСЃС‚Рѕ
   {
-    cur_num->n=ln;                  //данные
+    cur_num->n=ln;                  //РґР°РЅРЅС‹Рµ
     cur_num->next=frag_lines_list[fn];
-    frag_lines_list[fn]=cur_num;         //добавляем к списку фрагмента
-    (*frag_lines_list)++;                //свободное место
+    frag_lines_list[fn]=cur_num;         //РґРѕР±Р°РІР»СЏРµРј Рє СЃРїРёСЃРєСѓ С„СЂР°РіРјРµРЅС‚Р°
+    (*frag_lines_list)++;                //СЃРІРѕР±РѕРґРЅРѕРµ РјРµСЃС‚Рѕ
     return TRUE;
   }
   return FALSE;
@@ -1650,7 +1650,7 @@ static void draw_keg(const char *str)
     Int32 n=CSTR_GetMaxNumber();
 
     s += sprintf((char*)s,"%s\n",str);
-//      s += sprintf(s,"Фрагменты:\n");
+//      s += sprintf(s,"Р¤СЂР°РіРјРµРЅС‚С‹:\n");
 
     LDPUMA_DeleteRects(NULL, key);
     for(i=1;i<=n;i++)
@@ -1704,17 +1704,17 @@ static void draw_keg(const char *str)
 
 void kegl_snap_init()
 {
-  LDPUMA_Registry(&hSnapMain,"Коррекция кегля...",NULL);
-  LDPUMA_RegistryHelp(hSnapMain,"Коррекция кегля...",FALSE);
-  LDPUMA_Registry(&hSnapEndPage,"Конец страницы",hSnapMain);
-  LDPUMA_RegistryHelp(hSnapEndPage,"Конец страницы",FALSE);
-//  LDPUMA_Registry(&hSnapTable,"Единый кегль в таблице",hSnapMain);
-  LDPUMA_Registry(&hSnapGarbage,"Удаление мусора",NULL);
-  LDPUMA_Registry(&hSnapGarbageLine,"Просмотр строк",hSnapGarbage);
-  LDPUMA_RegistryHelp(hSnapGarbage,"Удаление мусора",FALSE);
-  LDPUMA_RegistryHelp(hSnapGarbageLine,"Остановка на каждой строке фрагмента",FALSE);
-  LDPUMA_RegVariable(hSnapGarbage,"Чистить мусор",&gbGarbage,"long");
-  LDPUMA_RegVariable(hSnapMain,"Факс",&gbFax100,"long");
+  LDPUMA_Registry(&hSnapMain,"РљРѕСЂСЂРµРєС†РёСЏ РєРµРіР»СЏ...",NULL);
+  LDPUMA_RegistryHelp(hSnapMain,"РљРѕСЂСЂРµРєС†РёСЏ РєРµРіР»СЏ...",FALSE);
+  LDPUMA_Registry(&hSnapEndPage,"РљРѕРЅРµС† СЃС‚СЂР°РЅРёС†С‹",hSnapMain);
+  LDPUMA_RegistryHelp(hSnapEndPage,"РљРѕРЅРµС† СЃС‚СЂР°РЅРёС†С‹",FALSE);
+//  LDPUMA_Registry(&hSnapTable,"Р•РґРёРЅС‹Р№ РєРµРіР»СЊ РІ С‚Р°Р±Р»РёС†Рµ",hSnapMain);
+  LDPUMA_Registry(&hSnapGarbage,"РЈРґР°Р»РµРЅРёРµ РјСѓСЃРѕСЂР°",NULL);
+  LDPUMA_Registry(&hSnapGarbageLine,"РџСЂРѕСЃРјРѕС‚СЂ СЃС‚СЂРѕРє",hSnapGarbage);
+  LDPUMA_RegistryHelp(hSnapGarbage,"РЈРґР°Р»РµРЅРёРµ РјСѓСЃРѕСЂР°",FALSE);
+  LDPUMA_RegistryHelp(hSnapGarbageLine,"РћСЃС‚Р°РЅРѕРІРєР° РЅР° РєР°Р¶РґРѕР№ СЃС‚СЂРѕРєРµ С„СЂР°РіРјРµРЅС‚Р°",FALSE);
+  LDPUMA_RegVariable(hSnapGarbage,"Р§РёСЃС‚РёС‚СЊ РјСѓСЃРѕСЂ",&gbGarbage,"long");
+  LDPUMA_RegVariable(hSnapMain,"Р¤Р°РєСЃ",&gbFax100,"long");
 }
 
 static void kegl_by_frag()

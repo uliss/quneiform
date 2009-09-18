@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -54,7 +54,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/*#include <windows.h>*/
 #include <stdio.h>
 #include <string.h>
 
@@ -88,8 +87,8 @@ Bool32 ModulesInit(Handle  ghStorage)
 		SetReturnCode_puma(CIMAGE_GetReturnCode());
 		goto lError;
 	}
-	if(!CCOM_Init(PUMA_MODULE_CCOM,NULL))   //  нужна инициализация контейнера CCOM перед
-	{               //  вызовом поиска компонент
+	if(!CCOM_Init(PUMA_MODULE_CCOM,NULL))   //  РЅСѓР¶РЅР° РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РєРѕРЅС‚РµР№РЅРµСЂР° CCOM РїРµСЂРµРґ
+	{               //  РІС‹Р·РѕРІРѕРј РїРѕРёСЃРєР° РєРѕРјРїРѕРЅРµРЅС‚
 		SetReturnCode_puma(CCOM_GetReturnCode());
 		goto lError;
 	}
@@ -104,7 +103,7 @@ Bool32 ModulesInit(Handle  ghStorage)
 		goto lError;
 	}
 	// RECOGNITIONS
-	if(!REXC_Init(PUMA_MODULE_REXC,NULL)) // инициализация библиотеки поиска компонент
+	if(!REXC_Init(PUMA_MODULE_REXC,NULL)) // РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ Р±РёР±Р»РёРѕС‚РµРєРё РїРѕРёСЃРєР° РєРѕРјРїРѕРЅРµРЅС‚
 	{
 		SetReturnCode_puma(REXC_GetReturnCode());
 		goto lError;
@@ -166,7 +165,7 @@ Bool32 ModulesInit(Handle  ghStorage)
 		SetReturnCode_puma(RIMAGE_GetReturnCode());
 		goto lError;
 	}
-	// Инициализируем виртуальные функции
+	// РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РІРёСЂС‚СѓР°Р»СЊРЅС‹Рµ С„СѓРЅРєС†РёРё
 	if(!RPSTR_Init(PUMA_MODULE_RPSTR,ghStorage))
 	{
 		SetReturnCode_puma(RPSTR_GetReturnCode());
@@ -381,22 +380,22 @@ char * GetModulesString(Word32 dwError)
 		case PUMA_MODULE_RSTR:
 			switch(low)
 			{
-				case 9: //	"User break", прервано пользователем
+				case 9: //	"User break", РїСЂРµСЂРІР°РЅРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј
 				case 1: //  "No error",
 					id = IDS_ERR_NO;
 					break;
-				case 2: //	"Not enough memory", не хватает памяти
+				case 2: //	"Not enough memory", РЅРµ С…РІР°С‚Р°РµС‚ РїР°РјСЏС‚Рё
 					id = IDS_ERR_NO_MEMORY;
 					break;
-				case 3: //	"Not implement", не поддерживаемая ф-ия
+				case 3: //	"Not implement", РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµРјР°СЏ С„-РёСЏ
 					id = IDS_ERR_NOTIMPLEMENT;
 					break;
-				case 4: //	"Null poiner assigned", нулевой указатель
-				case 5: //	"Bad value of argument", некорректный аргумент
-				case 6: //	"Internal error", грубая внутренняя ошибка
-				case 7: //	"Tools: No place in the kit", нет места во внутреннем буфере
+				case 4: //	"Null poiner assigned", РЅСѓР»РµРІРѕР№ СѓРєР°Р·Р°С‚РµР»СЊ
+				case 5: //	"Bad value of argument", РЅРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ Р°СЂРіСѓРјРµРЅС‚
+				case 6: //	"Internal error", РіСЂСѓР±Р°СЏ РІРЅСѓС‚СЂРµРЅРЅСЏСЏ РѕС€РёР±РєР°
+				case 7: //	"Tools: No place in the kit", РЅРµС‚ РјРµСЃС‚Р° РІРѕ РІРЅСѓС‚СЂРµРЅРЅРµРј Р±СѓС„РµСЂРµ
 					break;
-				case 8: //	"Can't load recog tables", нет нужной таблицы распознавания или словаря
+				case 8: //	"Can't load recog tables", РЅРµС‚ РЅСѓР¶РЅРѕР№ С‚Р°Р±Р»РёС†С‹ СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ РёР»Рё СЃР»РѕРІР°СЂСЏ
 					id = IDS_ERR_NOTABLE;
 					break;
 			}
@@ -407,39 +406,39 @@ char * GetModulesString(Word32 dwError)
 				case 1: //	"No error",
 					id = IDS_ERR_NO;
 					break;
-                case 18: //	"Not enough memory", не хватает памяти
-				case 2: //	"Not enough memory", не хватает памяти
+                case 18: //	"Not enough memory", РЅРµ С…РІР°С‚Р°РµС‚ РїР°РјСЏС‚Рё
+				case 2: //	"Not enough memory", РЅРµ С…РІР°С‚Р°РµС‚ РїР°РјСЏС‚Рё
 					id = IDS_ERR_NO_MEMORY;
 					break;
-				case 3: //	"Not inmpement", не поддерживаемая ф-ия
+				case 3: //	"Not inmpement", РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµРјР°СЏ С„-РёСЏ
 					id = IDS_ERR_NOTIMPLEMENT;
 					break;
-				case 4: //	"Internal error - call developer", грубая внутренняя ошибка
-				case 5: //	"Can't open DumpFile", устарело
-				case 6: //	"DumpFile writing error", устарело
-				case 7: //	"External CallBack error", устарело
-				case 8: //	"Bad Parameters of call", конфликт параметров вызова
-				case 12: //	"Can't import", ошибка импорта
-				case 13: //	"Can't export", ошибка экспорта
-				case 17: //	"Already init", уже проинициализировано
+				case 4: //	"Internal error - call developer", РіСЂСѓР±Р°СЏ РІРЅСѓС‚СЂРµРЅРЅСЏСЏ РѕС€РёР±РєР°
+				case 5: //	"Can't open DumpFile", СѓСЃС‚Р°СЂРµР»Рѕ
+				case 6: //	"DumpFile writing error", СѓСЃС‚Р°СЂРµР»Рѕ
+				case 7: //	"External CallBack error", СѓСЃС‚Р°СЂРµР»Рѕ
+				case 8: //	"Bad Parameters of call", РєРѕРЅС„Р»РёРєС‚ РїР°СЂР°РјРµС‚СЂРѕРІ РІС‹Р·РѕРІР°
+				case 12: //	"Can't import", РѕС€РёР±РєР° РёРјРїРѕСЂС‚Р°
+				case 13: //	"Can't export", РѕС€РёР±РєР° СЌРєСЃРїРѕСЂС‚Р°
+				case 17: //	"Already init", СѓР¶Рµ РїСЂРѕРёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅРѕ
                     break;
-/*				case 19: //	"Can't get orientation", нельзя определить ориентацию страницы
+/*				case 19: //	"Can't get orientation", РЅРµР»СЊР·СЏ РѕРїСЂРµРґРµР»РёС‚СЊ РѕСЂРёРµРЅС‚Р°С†РёСЋ СЃС‚СЂР°РЅРёС†С‹
                     id = IDS_ERR_CANNOTGETORIENTATION;
                     break;
-*/				case 20: //"Bad image information" противоречивая инф. в ВМР
+*/				case 20: //"Bad image information" РїСЂРѕС‚РёРІРѕСЂРµС‡РёРІР°СЏ РёРЅС„. РІ Р’РњР 
 					break;
-				case 9: //	"Empty Page", пустая страница
+				case 9: //	"Empty Page", РїСѓСЃС‚Р°СЏ СЃС‚СЂР°РЅРёС†Р°
 					id = IDS_ERR_EMPTYPAGE;
 					break;
-				case 10: //"Can't init eventual-library", не инициализируется эвентуальная библиотека (нет таблицы: //
-				case 15: //	"Can't init language", ошибка загрузки таблиц эвент
-				case 16: //	"Can't init networks", ошиба загрузки нейронной сети
+				case 10: //"Can't init eventual-library", РЅРµ РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚СЃСЏ СЌРІРµРЅС‚СѓР°Р»СЊРЅР°СЏ Р±РёР±Р»РёРѕС‚РµРєР° (РЅРµС‚ С‚Р°Р±Р»РёС†С‹: //
+				case 15: //	"Can't init language", РѕС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё С‚Р°Р±Р»РёС† СЌРІРµРЅС‚
+				case 16: //	"Can't init networks", РѕС€РёР±Р° Р·Р°РіСЂСѓР·РєРё РЅРµР№СЂРѕРЅРЅРѕР№ СЃРµС‚Рё
 					id = IDS_ERR_NOTABLE;
 					break;
-				case 11: //"Different versions of REXC and CCOM", расхождение версий
+				case 11: //"Different versions of REXC and CCOM", СЂР°СЃС…РѕР¶РґРµРЅРёРµ РІРµСЂСЃРёР№
 					id = IDS_ERR_DIFVERSION;
 					break;
-				case 14: //	"Language not exist", не поддерживаемый язык
+				case 14: //	"Language not exist", РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµРјС‹Р№ СЏР·С‹Рє
 					id = IDS_ERR_UNKNOWN_LANGUAGE;
 					break;
 			}
@@ -450,14 +449,14 @@ char * GetModulesString(Word32 dwError)
 				case 1: // "No error",
 					id = IDS_ERR_NO;
 					break;
-				case 2: //	"Not enough memory", не хватает памяти
+				case 2: //	"Not enough memory", РЅРµ С…РІР°С‚Р°РµС‚ РїР°РјСЏС‚Рё
 					id = IDS_ERR_NO_MEMORY;
 					break;
-				case 3: //	"Not implement", не поддерживаемая ф-ия
+				case 3: //	"Not implement", РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµРјР°СЏ С„-РёСЏ
 					id = IDS_ERR_NOTIMPLEMENT;
 					break;
-				case 4: //	"Null poiner assigned", нулевой указатель
-				case 5: //	"Bad value of argument" некорректный аргумент
+				case 4: //	"Null poiner assigned", РЅСѓР»РµРІРѕР№ СѓРєР°Р·Р°С‚РµР»СЊ
+				case 5: //	"Bad value of argument" РЅРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ Р°СЂРіСѓРјРµРЅС‚
 					break;
 			}
 			break;
@@ -467,19 +466,19 @@ char * GetModulesString(Word32 dwError)
 				case 1: // "No error",
 					id = IDS_ERR_NO;
 					break;
-				case 2: //	"Not enough memory", не хватает памяти
+				case 2: //	"Not enough memory", РЅРµ С…РІР°С‚Р°РµС‚ РїР°РјСЏС‚Рё
 					id = IDS_ERR_NO_MEMORY;
 					break;
-				case 3: //	"Not implement", не поддерживаемая ф-ия
+				case 3: //	"Not implement", РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµРјР°СЏ С„-РёСЏ
 					id = IDS_ERR_NOTIMPLEMENT;
 					break;
-				case 4: //	"Null poiner assigned", нулевой указатель
-				case 5: //	"Bad value of argument", некорректный аргумент
-				case 6: //	"Assigned Line is absent", нет указанной строки
-				case 7: //	"Can't rewrite used Line", существует строка с укзанными параметрами (при создании: //
-				case 8: //	"Structure of line has become rotten", строка испорчена (при лечении: //
-				case 9: //	"Internal error", грубая внутренняя алгоритмическая ошибка
-				case 10: //	"Can't convert to raster" нельзя конвертировать (добавить: // компоненту в растр
+				case 4: //	"Null poiner assigned", РЅСѓР»РµРІРѕР№ СѓРєР°Р·Р°С‚РµР»СЊ
+				case 5: //	"Bad value of argument", РЅРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ Р°СЂРіСѓРјРµРЅС‚
+				case 6: //	"Assigned Line is absent", РЅРµС‚ СѓРєР°Р·Р°РЅРЅРѕР№ СЃС‚СЂРѕРєРё
+				case 7: //	"Can't rewrite used Line", СЃСѓС‰РµСЃС‚РІСѓРµС‚ СЃС‚СЂРѕРєР° СЃ СѓРєР·Р°РЅРЅС‹РјРё РїР°СЂР°РјРµС‚СЂР°РјРё (РїСЂРё СЃРѕР·РґР°РЅРёРё: //
+				case 8: //	"Structure of line has become rotten", СЃС‚СЂРѕРєР° РёСЃРїРѕСЂС‡РµРЅР° (РїСЂРё Р»РµС‡РµРЅРёРё: //
+				case 9: //	"Internal error", РіСЂСѓР±Р°СЏ РІРЅСѓС‚СЂРµРЅРЅСЏСЏ Р°Р»РіРѕСЂРёС‚РјРёС‡РµСЃРєР°СЏ РѕС€РёР±РєР°
+				case 10: //	"Can't convert to raster" РЅРµР»СЊР·СЏ РєРѕРЅРІРµСЂС‚РёСЂРѕРІР°С‚СЊ (РґРѕР±Р°РІРёС‚СЊ: // РєРѕРјРїРѕРЅРµРЅС‚Сѓ РІ СЂР°СЃС‚СЂ
 					break;
 			}
 		break;
@@ -490,25 +489,25 @@ char * GetModulesString(Word32 dwError)
 		case PUMA_MODULE_CPAGE:
 			switch(low)
 			{
-			case 0://	ошибок нет
+			case 0://	РѕС€РёР±РѕРє РЅРµС‚
 					id = IDS_ERR_NO;
 					break;
-			case 1://   не реализовано
+			case 1://   РЅРµ СЂРµР°Р»РёР·РѕРІР°РЅРѕ
 					id = IDS_ERR_NOTIMPLEMENT;
 					break;
- 			case 2://   нет памяти
+ 			case 2://   РЅРµС‚ РїР°РјСЏС‚Рё
 					id = IDS_ERR_NO_MEMORY;
 					break;
- 			case 3://   внутренняя ошибка
- 			case 6://   внутренняя ошибка
+ 			case 3://   РІРЅСѓС‚СЂРµРЅРЅСЏСЏ РѕС€РёР±РєР°
+ 			case 6://   РІРЅСѓС‚СЂРµРЅРЅСЏСЏ РѕС€РёР±РєР°
 				break;
- 			case 4://   ошибка чтения файла
+ 			case 4://   РѕС€РёР±РєР° С‡С‚РµРЅРёСЏ С„Р°Р№Р»Р°
 					id = IDS_ERR_FILEREAD;
 					break;
- 			case 5://   ошибка записи файла
+ 			case 5://   РѕС€РёР±РєР° Р·Р°РїРёСЃРё С„Р°Р№Р»Р°
 					id = IDS_ERR_FILEWRITE;
 					break;
- 			case 7://   несоответсвие версий
+ 			case 7://   РЅРµСЃРѕРѕС‚РІРµС‚СЃРІРёРµ РІРµСЂСЃРёР№
 					id = IDS_ERR_DIFVERSION;
 					break;
 			}
@@ -516,16 +515,16 @@ char * GetModulesString(Word32 dwError)
 		case PUMA_MODULE_RBLOCK:
 			switch (low)
 			{
-			case 0: //IDS_ERR_NO: ошибок нет
+			case 0: //IDS_ERR_NO: РѕС€РёР±РѕРє РЅРµС‚
 					id = IDS_ERR_NO;
 					break;
-			case 1:	// IDS_ERR_NOTIMPLEMENT	Функция не реализована.
+			case 1:	// IDS_ERR_NOTIMPLEMENT	Р¤СѓРЅРєС†РёСЏ РЅРµ СЂРµР°Р»РёР·РѕРІР°РЅР°.
 					id = IDS_ERR_NOTIMPLEMENT;
 					break;
-			case 2: // IDS_ERR_NO_MEMORY	Не хватает оперативной памяти.
+			case 2: // IDS_ERR_NO_MEMORY	РќРµ С…РІР°С‚Р°РµС‚ РѕРїРµСЂР°С‚РёРІРЅРѕР№ РїР°РјСЏС‚Рё.
 					id = IDS_ERR_NO_MEMORY;
 					break;
-			case 4: //IDS_ERR_EMPTYPAGE: пустая страница
+			case 4: //IDS_ERR_EMPTYPAGE: РїСѓСЃС‚Р°СЏ СЃС‚СЂР°РЅРёС†Р°
 					id = IDS_ERR_EMPTYPAGE;
 					break;
 			}
@@ -535,32 +534,32 @@ char * GetModulesString(Word32 dwError)
 		case PUMA_MODULE_CIMAGE:
 			switch(low)
 			{
-		case 0	: // IDS_CIMAGE_ERR_NO	Ошибок нет.
+		case 0	: // IDS_CIMAGE_ERR_NO	РћС€РёР±РѕРє РЅРµС‚.
 					id = IDS_ERR_NO;
 					break;
-		case 1	: // IDS_CIMAGE_ERR_NOTIMPLEMENT	Функция не реализована.
+		case 1	: // IDS_CIMAGE_ERR_NOTIMPLEMENT	Р¤СѓРЅРєС†РёСЏ РЅРµ СЂРµР°Р»РёР·РѕРІР°РЅР°.
 					id = IDS_ERR_NOTIMPLEMENT;
 					break;
-		case 2	: // IDS_CIMAGE_ERR_NO_MEMORY	Не хватает оперативной памяти.
+		case 2	: // IDS_CIMAGE_ERR_NO_MEMORY	РќРµ С…РІР°С‚Р°РµС‚ РѕРїРµСЂР°С‚РёРІРЅРѕР№ РїР°РјСЏС‚Рё.
 					id = IDS_ERR_NO_MEMORY;
 					break;
-		case 3	: // IDS_CIMAGE_DLL_NOT_INITIALISING	Модуль не инициализирован
-		case 4	: // IDS_CIMAGE_INVALID_IMAGE_NAME	Ошибка в имени картинки
-		case 5	: // IDS_CIMAGE_INVALID_IMAGE_INFO	Ошибка в параметрах картинки
-		case 6	: // IDS_CIMAGE_INVALID_IMAGE_DATA	Ошибка в растре картинки
-		case 7	: // IDS_CIMAGE_INVALID_IMAGES_CONTAINER	Вунтренняя ошибка контейнера
-		case 8	: // IDS_CIMAGE_NO_IMAGE_FOUND	Картинка не найlена
-		case 9	: // IDS_CIMAGE_INVALID_DIB	Ошибка в DIB или неизвестный формат DIB
-		case 10	: // IDS_CIMAGE_DIB_FORMAT_NOT_SUPPORTED	Данный формат DIB не поддерживается этим контейнером
-		case 11	: // IDS_CIMAGE_UNABLE_COPY_DIB	Не удается копировать DIB
-		case 12	: // IDS_CIMAGE_INVALID_FRAME_SIZE	Неверный размер области изображения
-		case 13	: // IDS_CIMAGE_NO_SUPPORT_DIB_FORMAT_FOR_THIS_ACTION	Данную операцию с данным DIB произвести пока невозможно
-		case 14	: // IDS_CIMAGE_DIB_AND_FRAME_COLORS_CONFLICT	Несоответствие размеров пикселов
-		case 15	: // IDS_CIMAGE_UNABLE_REPLACE_DIB	Не удается заменить часть картинки DIB
-		case 16	: // IDS_CIMAGE_UNABLE_USE_IMPORT_CALLBACK	Ошибка во внешних калбэках
-		case 17	: // IDS_CIMAGE_CALLBACK_NO_PRESENT	Нет внешних калбэков
-		case 18	: // IDS_CIMAGE_INVALID_PARAMETR	Фигня в параметрах
-		case 19	: // IDS_CIMAGE_IMAGE_NAME_REPEATED	Картинка с таким именем уже есть
+		case 3	: // IDS_CIMAGE_DLL_NOT_INITIALISING	РњРѕРґСѓР»СЊ РЅРµ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ
+		case 4	: // IDS_CIMAGE_INVALID_IMAGE_NAME	РћС€РёР±РєР° РІ РёРјРµРЅРё РєР°СЂС‚РёРЅРєРё
+		case 5	: // IDS_CIMAGE_INVALID_IMAGE_INFO	РћС€РёР±РєР° РІ РїР°СЂР°РјРµС‚СЂР°С… РєР°СЂС‚РёРЅРєРё
+		case 6	: // IDS_CIMAGE_INVALID_IMAGE_DATA	РћС€РёР±РєР° РІ СЂР°СЃС‚СЂРµ РєР°СЂС‚РёРЅРєРё
+		case 7	: // IDS_CIMAGE_INVALID_IMAGES_CONTAINER	Р’СѓРЅС‚СЂРµРЅРЅСЏСЏ РѕС€РёР±РєР° РєРѕРЅС‚РµР№РЅРµСЂР°
+		case 8	: // IDS_CIMAGE_NO_IMAGE_FOUND	РљР°СЂС‚РёРЅРєР° РЅРµ РЅР°Р№lРµРЅР°
+		case 9	: // IDS_CIMAGE_INVALID_DIB	РћС€РёР±РєР° РІ DIB РёР»Рё РЅРµРёР·РІРµСЃС‚РЅС‹Р№ С„РѕСЂРјР°С‚ DIB
+		case 10	: // IDS_CIMAGE_DIB_FORMAT_NOT_SUPPORTED	Р”Р°РЅРЅС‹Р№ С„РѕСЂРјР°С‚ DIB РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚СЃСЏ СЌС‚РёРј РєРѕРЅС‚РµР№РЅРµСЂРѕРј
+		case 11	: // IDS_CIMAGE_UNABLE_COPY_DIB	РќРµ СѓРґР°РµС‚СЃСЏ РєРѕРїРёСЂРѕРІР°С‚СЊ DIB
+		case 12	: // IDS_CIMAGE_INVALID_FRAME_SIZE	РќРµРІРµСЂРЅС‹Р№ СЂР°Р·РјРµСЂ РѕР±Р»Р°СЃС‚Рё РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
+		case 13	: // IDS_CIMAGE_NO_SUPPORT_DIB_FORMAT_FOR_THIS_ACTION	Р”Р°РЅРЅСѓСЋ РѕРїРµСЂР°С†РёСЋ СЃ РґР°РЅРЅС‹Рј DIB РїСЂРѕРёР·РІРµСЃС‚Рё РїРѕРєР° РЅРµРІРѕР·РјРѕР¶РЅРѕ
+		case 14	: // IDS_CIMAGE_DIB_AND_FRAME_COLORS_CONFLICT	РќРµСЃРѕРѕС‚РІРµС‚СЃС‚РІРёРµ СЂР°Р·РјРµСЂРѕРІ РїРёРєСЃРµР»РѕРІ
+		case 15	: // IDS_CIMAGE_UNABLE_REPLACE_DIB	РќРµ СѓРґР°РµС‚СЃСЏ Р·Р°РјРµРЅРёС‚СЊ С‡Р°СЃС‚СЊ РєР°СЂС‚РёРЅРєРё DIB
+		case 16	: // IDS_CIMAGE_UNABLE_USE_IMPORT_CALLBACK	РћС€РёР±РєР° РІРѕ РІРЅРµС€РЅРёС… РєР°Р»Р±СЌРєР°С…
+		case 17	: // IDS_CIMAGE_CALLBACK_NO_PRESENT	РќРµС‚ РІРЅРµС€РЅРёС… РєР°Р»Р±СЌРєРѕРІ
+		case 18	: // IDS_CIMAGE_INVALID_PARAMETR	Р¤РёРіРЅСЏ РІ РїР°СЂР°РјРµС‚СЂР°С…
+		case 19	: // IDS_CIMAGE_IMAGE_NAME_REPEATED	РљР°СЂС‚РёРЅРєР° СЃ С‚Р°РєРёРј РёРјРµРЅРµРј СѓР¶Рµ РµСЃС‚СЊ
 			break;
 			}
 		break;
@@ -576,49 +575,49 @@ char * GetModulesString(Word32 dwError)
 		case PUMA_MODULE_RIMAGE:
 			switch(low)
 			{
-			case 0	: // IDS_RIMAGE_ERR_NO	Ошибок пока не обнаружено
+			case 0	: // IDS_RIMAGE_ERR_NO	РћС€РёР±РѕРє РїРѕРєР° РЅРµ РѕР±РЅР°СЂСѓР¶РµРЅРѕ
 					id = IDS_ERR_NO;
 					break;
-			case 1	: // IDS_RIMAGE_DLL_NOT_INITIALISING	Компонент не инициализирован
-			case 2	: // IDS_RIMAGE_ERR_NOTIMPLEMENT	Данный модуль не является источником сей ошибки
+			case 1	: // IDS_RIMAGE_DLL_NOT_INITIALISING	РљРѕРјРїРѕРЅРµРЅС‚ РЅРµ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ
+			case 2	: // IDS_RIMAGE_ERR_NOTIMPLEMENT	Р”Р°РЅРЅС‹Р№ РјРѕРґСѓР»СЊ РЅРµ СЏРІР»СЏРµС‚СЃСЏ РёСЃС‚РѕС‡РЅРёРєРѕРј СЃРµР№ РѕС€РёР±РєРё
 				break;
-			case 3	: // IDS_RIMAGE_ERR_NO_MEMORY	Не хватает памяти
+			case 3	: // IDS_RIMAGE_ERR_NO_MEMORY	РќРµ С…РІР°С‚Р°РµС‚ РїР°РјСЏС‚Рё
 					id = IDS_ERR_NO_MEMORY;
 					break;
-			case 32	: // IDS_RIMAGE_NOTSUPPORTED_INDEX_COLOR	Индексированыне цвета не могут быть бинаризованы по Кронроду
+			case 32	: // IDS_RIMAGE_NOTSUPPORTED_INDEX_COLOR	РРЅРґРµРєСЃРёСЂРѕРІР°РЅС‹РЅРµ С†РІРµС‚Р° РЅРµ РјРѕРіСѓС‚ Р±С‹С‚СЊ Р±РёРЅР°СЂРёР·РѕРІР°РЅС‹ РїРѕ РљСЂРѕРЅСЂРѕРґСѓ
                     id = IDS_ERR_UNSUPPORTED_IMAGE_FORMAT;
                     break;
-			case 4	: // IDS_RIMAGE_NO_IMAGE_FOUND	Не могу открыть картинку
-			case 5	: // IDS_RIMAGE_UNDER_CONSTRUCTION	Данная функция находится в стадии переработки
-			case 6	: // IDS_RIMAGE_INVALID_EXTERNAL_DIB	Ошибка в DIB
-			case 7	: // IDS_RIMAGE_INVALID_FUNCTION_PARAMETR	Функции передан инвалид
-			case 8	: // IDS_RIMAGE_DIB_COMPRESSION_NOT_SUPPORTED	Сжатые DIB пока не поддерживаем
-			case 9	: // IDS_RIMAGE_DIB_JPEG_NOT_SUPPORTED	DIB версии 5 со JPEG каритнкой не поддерживается
-			case 10	: // IDS_RIMAGE_INTERNAL_MODULE_ERROR	Внутренняя ошибка контейнера
-			case 11	: // IDS_RIMAGE_ONLY_ONE_DIB	Один DIB уже обрабатывается!
-			case 12	: // IDS_RIMAGE_UNABLE_WRITE_DIB	Немогу записать DIB в CIMAGE
-			case 13	: // IDS_RIMAGE_DIB_NOT_ATTACHED	Невозможно получить информацию из заголовка DIB
-			case 14	: // IDS_RIMAGE_CANNOT_CREATE_NEW_DIB	Немогу созоать новый DIB
-			case 15	: // IDS_RIMAGE_NOT_OPENED	Исходный DIB не был открыт
-			case 16	: // IDS_RIMAGE_PREPARE_TO_CREATE	Нечем создать новый DIB
-			case 17	: // IDS_RIMAGE_CANNOT_SET_DIB	Немогу передать картинки для обработки
+			case 4	: // IDS_RIMAGE_NO_IMAGE_FOUND	РќРµ РјРѕРіСѓ РѕС‚РєСЂС‹С‚СЊ РєР°СЂС‚РёРЅРєСѓ
+			case 5	: // IDS_RIMAGE_UNDER_CONSTRUCTION	Р”Р°РЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РЅР°С…РѕРґРёС‚СЃСЏ РІ СЃС‚Р°РґРёРё РїРµСЂРµСЂР°Р±РѕС‚РєРё
+			case 6	: // IDS_RIMAGE_INVALID_EXTERNAL_DIB	РћС€РёР±РєР° РІ DIB
+			case 7	: // IDS_RIMAGE_INVALID_FUNCTION_PARAMETR	Р¤СѓРЅРєС†РёРё РїРµСЂРµРґР°РЅ РёРЅРІР°Р»РёРґ
+			case 8	: // IDS_RIMAGE_DIB_COMPRESSION_NOT_SUPPORTED	РЎР¶Р°С‚С‹Рµ DIB РїРѕРєР° РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµРј
+			case 9	: // IDS_RIMAGE_DIB_JPEG_NOT_SUPPORTED	DIB РІРµСЂСЃРёРё 5 СЃРѕ JPEG РєР°СЂРёС‚РЅРєРѕР№ РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚СЃСЏ
+			case 10	: // IDS_RIMAGE_INTERNAL_MODULE_ERROR	Р’РЅСѓС‚СЂРµРЅРЅСЏСЏ РѕС€РёР±РєР° РєРѕРЅС‚РµР№РЅРµСЂР°
+			case 11	: // IDS_RIMAGE_ONLY_ONE_DIB	РћРґРёРЅ DIB СѓР¶Рµ РѕР±СЂР°Р±Р°С‚С‹РІР°РµС‚СЃСЏ!
+			case 12	: // IDS_RIMAGE_UNABLE_WRITE_DIB	РќРµРјРѕРіСѓ Р·Р°РїРёСЃР°С‚СЊ DIB РІ CIMAGE
+			case 13	: // IDS_RIMAGE_DIB_NOT_ATTACHED	РќРµРІРѕР·РјРѕР¶РЅРѕ РїРѕР»СѓС‡РёС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ РёР· Р·Р°РіРѕР»РѕРІРєР° DIB
+			case 14	: // IDS_RIMAGE_CANNOT_CREATE_NEW_DIB	РќРµРјРѕРіСѓ СЃРѕР·РѕР°С‚СЊ РЅРѕРІС‹Р№ DIB
+			case 15	: // IDS_RIMAGE_NOT_OPENED	РСЃС…РѕРґРЅС‹Р№ DIB РЅРµ Р±С‹Р» РѕС‚РєСЂС‹С‚
+			case 16	: // IDS_RIMAGE_PREPARE_TO_CREATE	РќРµС‡РµРј СЃРѕР·РґР°С‚СЊ РЅРѕРІС‹Р№ DIB
+			case 17	: // IDS_RIMAGE_CANNOT_SET_DIB	РќРµРјРѕРіСѓ РїРµСЂРµРґР°С‚СЊ РєР°СЂС‚РёРЅРєРё РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё
 				break;
-			case 18	: // IDS_RIMAGE_CANT_BINARYZE	Не могу бинаризовать картинку
+			case 18	: // IDS_RIMAGE_CANT_BINARYZE	РќРµ РјРѕРіСѓ Р±РёРЅР°СЂРёР·РѕРІР°С‚СЊ РєР°СЂС‚РёРЅРєСѓ
 						id = IDS_ERR_UNSUPPORTED_IMAGE_FORMAT;
 						break;
-			case 19	: // IDS_RIMAGE_CANNOT_INVERT_IMAGE	Не могу инвертировать картинку
-			case 20	: // IDS_RIMAGE_DIB_CANT_TO_BE_BINARISED	Такие картинки не бинаризуются
-			case 21	: // IDS_RIMAGE_DIB_OUT_FORMAT_NOT_BINARISED	Выходной формат DIB для бинаризаии не подходит
-			case 22	: // IDS_RIMAGE_OUTCOME_DIB_NOT_LINK_TO_INCOME	Выходной  DIB не соответствует исходному по размерам
-			case 23	: // IDS_RIMAGE_CANT_TURN_DIB	Неудается повернуть картинку
-			case 24	: // IDS_RIMAGE_CIMAGE_MEMORY_ERROR	Ошибка контейнера CIMAGE при освобождении памяти
-			case 25	: // IDS_RIMAGE_CANNOT_ROTATE_IMAGE	Дововорот картинки не завершен
-			case 26	: // IDS_RIMAGE_CANNT_SAVE_OUTCOMING_DIB	Полученный результат не удалось сохранитть в контейнере Cimage
-			case 27	: // IDS_RIMAGE_ANGLE_LEAST_MINIMUM	Слишком малый  угол для доворота
-			case 28	: // IDS_RIMAGE_ANGLE_GREAT_MAXIMUM	Слишком большой угол для доворота
-			case 29	: // IDS_RIMAGE_EXIT_BY_USER	Отменено вызывающим модулем
-			case 30	: // IDS_RIMAGE_UNKNOWN_ERROR	Непридвиденная ошибка. Вероятно её источник в другом модуле.
-			case 31	: // IDS_RIMAGE_ZERO_NUMERATOR_OR_DENUMERATOR	Один из двух - нумератор или денумератор - нулевой
+			case 19	: // IDS_RIMAGE_CANNOT_INVERT_IMAGE	РќРµ РјРѕРіСѓ РёРЅРІРµСЂС‚РёСЂРѕРІР°С‚СЊ РєР°СЂС‚РёРЅРєСѓ
+			case 20	: // IDS_RIMAGE_DIB_CANT_TO_BE_BINARISED	РўР°РєРёРµ РєР°СЂС‚РёРЅРєРё РЅРµ Р±РёРЅР°СЂРёР·СѓСЋС‚СЃСЏ
+			case 21	: // IDS_RIMAGE_DIB_OUT_FORMAT_NOT_BINARISED	Р’С‹С…РѕРґРЅРѕР№ С„РѕСЂРјР°С‚ DIB РґР»СЏ Р±РёРЅР°СЂРёР·Р°РёРё РЅРµ РїРѕРґС…РѕРґРёС‚
+			case 22	: // IDS_RIMAGE_OUTCOME_DIB_NOT_LINK_TO_INCOME	Р’С‹С…РѕРґРЅРѕР№  DIB РЅРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ РёСЃС…РѕРґРЅРѕРјСѓ РїРѕ СЂР°Р·РјРµСЂР°Рј
+			case 23	: // IDS_RIMAGE_CANT_TURN_DIB	РќРµСѓРґР°РµС‚СЃСЏ РїРѕРІРµСЂРЅСѓС‚СЊ РєР°СЂС‚РёРЅРєСѓ
+			case 24	: // IDS_RIMAGE_CIMAGE_MEMORY_ERROR	РћС€РёР±РєР° РєРѕРЅС‚РµР№РЅРµСЂР° CIMAGE РїСЂРё РѕСЃРІРѕР±РѕР¶РґРµРЅРёРё РїР°РјСЏС‚Рё
+			case 25	: // IDS_RIMAGE_CANNOT_ROTATE_IMAGE	Р”РѕРІРѕРІРѕСЂРѕС‚ РєР°СЂС‚РёРЅРєРё РЅРµ Р·Р°РІРµСЂС€РµРЅ
+			case 26	: // IDS_RIMAGE_CANNT_SAVE_OUTCOMING_DIB	РџРѕР»СѓС‡РµРЅРЅС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚ РЅРµ СѓРґР°Р»РѕСЃСЊ СЃРѕС…СЂР°РЅРёС‚С‚СЊ РІ РєРѕРЅС‚РµР№РЅРµСЂРµ Cimage
+			case 27	: // IDS_RIMAGE_ANGLE_LEAST_MINIMUM	РЎР»РёС€РєРѕРј РјР°Р»С‹Р№  СѓРіРѕР» РґР»СЏ РґРѕРІРѕСЂРѕС‚Р°
+			case 28	: // IDS_RIMAGE_ANGLE_GREAT_MAXIMUM	РЎР»РёС€РєРѕРј Р±РѕР»СЊС€РѕР№ СѓРіРѕР» РґР»СЏ РґРѕРІРѕСЂРѕС‚Р°
+			case 29	: // IDS_RIMAGE_EXIT_BY_USER	РћС‚РјРµРЅРµРЅРѕ РІС‹Р·С‹РІР°СЋС‰РёРј РјРѕРґСѓР»РµРј
+			case 30	: // IDS_RIMAGE_UNKNOWN_ERROR	РќРµРїСЂРёРґРІРёРґРµРЅРЅР°СЏ РѕС€РёР±РєР°. Р’РµСЂРѕСЏС‚РЅРѕ РµС‘ РёСЃС‚РѕС‡РЅРёРє РІ РґСЂСѓРіРѕРј РјРѕРґСѓР»Рµ.
+			case 31	: // IDS_RIMAGE_ZERO_NUMERATOR_OR_DENUMERATOR	РћРґРёРЅ РёР· РґРІСѓС… - РЅСѓРјРµСЂР°С‚РѕСЂ РёР»Рё РґРµРЅСѓРјРµСЂР°С‚РѕСЂ - РЅСѓР»РµРІРѕР№
 				break;
 			}
 		break;
@@ -627,13 +626,13 @@ char * GetModulesString(Word32 dwError)
 		case PUMA_MODULE_RPIC:
 			switch(low)
 			{
-			case 0	: // IDS_CIMAGE_ERR_NO	Ошибок нет.
+			case 0	: // IDS_CIMAGE_ERR_NO	РћС€РёР±РѕРє РЅРµС‚.
 					id = IDS_ERR_NO;
 					break;
-			case 1	: // IDS_CIMAGE_ERR_NOTIMPLEMENT	Функция не реализована.
+			case 1	: // IDS_CIMAGE_ERR_NOTIMPLEMENT	Р¤СѓРЅРєС†РёСЏ РЅРµ СЂРµР°Р»РёР·РѕРІР°РЅР°.
 					id = IDS_ERR_NOTIMPLEMENT;
 					break;
-			case 2	: // IDS_CIMAGE_ERR_NO_MEMORY	Не хватает оперативной памяти.
+			case 2	: // IDS_CIMAGE_ERR_NO_MEMORY	РќРµ С…РІР°С‚Р°РµС‚ РѕРїРµСЂР°С‚РёРІРЅРѕР№ РїР°РјСЏС‚Рё.
 						id = IDS_ERR_NO_MEMORY;
 						break;
 			}
@@ -641,13 +640,13 @@ char * GetModulesString(Word32 dwError)
 		case PUMA_MODULE_RANALFRM:
 			/*switch(low)
 			{
-		case 0	: // IDS_CIMAGE_ERR_NO	Ошибок нет.
+		case 0	: // IDS_CIMAGE_ERR_NO	РћС€РёР±РѕРє РЅРµС‚.
 				id = IDS_ERR_NO;
 				break;
-		case 1	: // IDS_CIMAGE_ERR_NOTIMPLEMENT	Функция не реализована.
+		case 1	: // IDS_CIMAGE_ERR_NOTIMPLEMENT	Р¤СѓРЅРєС†РёСЏ РЅРµ СЂРµР°Р»РёР·РѕРІР°РЅР°.
 				id = IDS_ERR_NOTIMPLEMENT;
 				break;
-		case 2	: // IDS_CIMAGE_ERR_NO_MEMORY	Не хватает оперативной памяти.
+		case 2	: // IDS_CIMAGE_ERR_NO_MEMORY	РќРµ С…РІР°С‚Р°РµС‚ РѕРїРµСЂР°С‚РёРІРЅРѕР№ РїР°РјСЏС‚Рё.
 					id = IDS_ERR_NO_MEMORY;
 					break;
 			}*/
@@ -665,13 +664,13 @@ char * GetModulesString(Word32 dwError)
 		case PUMA_MODULE_RNORM:
 			switch (low)
 			{
-				case 0://	ошибок нет
+				case 0://	РѕС€РёР±РѕРє РЅРµС‚
 					id = IDS_ERR_NO;
 					break;
-				case 3: //	"Not inmpement", не поддерживаемая ф-ия
+				case 3: //	"Not inmpement", РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµРјР°СЏ С„-РёСЏ
 					id = IDS_ERR_NOTIMPLEMENT;
 					break;
-				case 19: //	"Can't get orientation", нельзя определить ориентацию страницы
+				case 19: //	"Can't get orientation", РЅРµР»СЊР·СЏ РѕРїСЂРµРґРµР»РёС‚СЊ РѕСЂРёРµРЅС‚Р°С†РёСЋ СЃС‚СЂР°РЅРёС†С‹
                     id = IDS_ERR_CANNOTGETORIENTATION;
                     break;
 			}
@@ -680,10 +679,10 @@ char * GetModulesString(Word32 dwError)
 		case PUMA_MODULE_RRECCOM:
 			switch (low)
 			{
-				case 0://	ошибок нет
+				case 0://	РѕС€РёР±РѕРє РЅРµС‚
 					id = IDS_ERR_NO;
 					break;
-				case 3: //	"Not inmpement", не поддерживаемая ф-ия
+				case 3: //	"Not inmpement", РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµРјР°СЏ С„-РёСЏ
 					id = IDS_ERR_NOTIMPLEMENT;
 					break;
 			}

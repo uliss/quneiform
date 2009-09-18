@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -54,15 +54,15 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/**********  Заголовок  *******************************************************/
-/*  Автор,                                                                    */
-/*  комментарии                                                               */
-/*  и далнейшая                                                               */
-/*  правка     :  Алексей Коноплев                                            */
-/*  Редакция   :  08.06.00                                                    */
-/*  Файл       :  'dll.cpp'                                                   */
-/*  Содержание :  Интерфейс библиотеки                                        */
-/*  Назначение :                                                              */
+/**********  Р—Р°РіРѕР»РѕРІРѕРє  *******************************************************/
+/*  РђРІС‚РѕСЂ,                                                                    */
+/*  РєРѕРјРјРµРЅС‚Р°СЂРёРё                                                               */
+/*  Рё РґР°Р»РЅРµР№С€Р°СЏ                                                               */
+/*  РїСЂР°РІРєР°     :  РђР»РµРєСЃРµР№ РљРѕРЅРѕРїР»РµРІ                                            */
+/*  Р РµРґР°РєС†РёСЏ   :  08.06.00                                                    */
+/*  Р¤Р°Р№Р»       :  'dll.cpp'                                                   */
+/*  РЎРѕРґРµСЂР¶Р°РЅРёРµ :  РРЅС‚РµСЂС„РµР№СЃ Р±РёР±Р»РёРѕС‚РµРєРё                                        */
+/*  РќР°Р·РЅР°С‡РµРЅРёРµ :                                                              */
 /*----------------------------------------------------------------------------*/
 
 /*#include <windows.h>*/
@@ -150,7 +150,7 @@ extern Word8* Buffer;
 extern Word8* WorkMem;
 /////////////////////////////////////////
 BOOL APIENTRY DllMain( HINSTANCE hModule,
-                        DWORD ul_reason_for_call,
+uint32_t ul_reason_for_call,
                         LPVOID lpReserved )
 {
     switch( ul_reason_for_call )
@@ -410,102 +410,102 @@ void DebugInit (void)
 	hWndTurn=NULL;
 	LDPUMA_Registry(&hMainTime,SNAP_ROOT_MAIN_TIME_CONTROL,NULL);
 
-	LDPUMA_Registry(&hPrep,"Подготовка.",hMainTime);
-	LDPUMA_RegistryHelp(hPrep,"Автоповорот.Выделение компонент.Формирование изображения.",FALSE);
-	LDPUMA_Registry(&hSearchLine,"LNS.Поиск линий.",hMainTime);
-	LDPUMA_Registry(&hCalcIncline,"Вычисление углов наклона..",hMainTime);
-	LDPUMA_Registry(&hOrto,"Ортосдвиг страницы.",hMainTime);
-  LDPUMA_Registry(&hContBigComp,"Заполнение контейнера BigComp",hMainTime);
-	LDPUMA_Registry(&hVerOrNewLine,"Верификация или второй проход.",hMainTime);
-	LDPUMA_Registry(&hKillLine,"Снятие линий.",hMainTime);
-	LDPUMA_Registry(&hPrep2,"После снятия.",hMainTime);
-	LDPUMA_RegistryHelp(hPrep2,"Выделение компонент.Формирование изображения.",FALSE);
-	LDPUMA_Registry(&hKillLineAfter,"Доубитие линий.",hMainTime);
-	LDPUMA_Registry(&hEnd,"От RSTUFF до RMARKER",hMainTime);
+	LDPUMA_Registry(&hPrep,"РџРѕРґРіРѕС‚РѕРІРєР°.",hMainTime);
+	LDPUMA_RegistryHelp(hPrep,"РђРІС‚РѕРїРѕРІРѕСЂРѕС‚.Р’С‹РґРµР»РµРЅРёРµ РєРѕРјРїРѕРЅРµРЅС‚.Р¤РѕСЂРјРёСЂРѕРІР°РЅРёРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ.",FALSE);
+	LDPUMA_Registry(&hSearchLine,"LNS.РџРѕРёСЃРє Р»РёРЅРёР№.",hMainTime);
+	LDPUMA_Registry(&hCalcIncline,"Р’С‹С‡РёСЃР»РµРЅРёРµ СѓРіР»РѕРІ РЅР°РєР»РѕРЅР°..",hMainTime);
+	LDPUMA_Registry(&hOrto,"РћСЂС‚РѕСЃРґРІРёРі СЃС‚СЂР°РЅРёС†С‹.",hMainTime);
+  LDPUMA_Registry(&hContBigComp,"Р—Р°РїРѕР»РЅРµРЅРёРµ РєРѕРЅС‚РµР№РЅРµСЂР° BigComp",hMainTime);
+	LDPUMA_Registry(&hVerOrNewLine,"Р’РµСЂРёС„РёРєР°С†РёСЏ РёР»Рё РІС‚РѕСЂРѕР№ РїСЂРѕС…РѕРґ.",hMainTime);
+	LDPUMA_Registry(&hKillLine,"РЎРЅСЏС‚РёРµ Р»РёРЅРёР№.",hMainTime);
+	LDPUMA_Registry(&hPrep2,"РџРѕСЃР»Рµ СЃРЅСЏС‚РёСЏ.",hMainTime);
+	LDPUMA_RegistryHelp(hPrep2,"Р’С‹РґРµР»РµРЅРёРµ РєРѕРјРїРѕРЅРµРЅС‚.Р¤РѕСЂРјРёСЂРѕРІР°РЅРёРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ.",FALSE);
+	LDPUMA_Registry(&hKillLineAfter,"Р”РѕСѓР±РёС‚РёРµ Р»РёРЅРёР№.",hMainTime);
+	LDPUMA_Registry(&hEnd,"РћС‚ RSTUFF РґРѕ RMARKER",hMainTime);
 
 	 LDPUMA_Registry(&MainDebug,SNAP_ROOT_MAIN_DEBUG, NULL );
 
 	 LDPUMA_Registry(&hDebugRoot, SNAP_ROOT_STUFF, NULL);
 
 	LDPUMA_Registry(&hDebugPreprocess, SNAP_STUFF_BINARIZE, hDebugRoot);
-	LDPUMA_Registry(&hDebugPrintResolution, "Печать нового разрешения", hDebugPreprocess);
-	LDPUMA_RegistryHelp(hDebugPrintResolution, "Вывести на консоль разрешение, установленноге по компонентам, в случае его отличия от исходного", FALSE);
+	LDPUMA_Registry(&hDebugPrintResolution, "РџРµС‡Р°С‚СЊ РЅРѕРІРѕРіРѕ СЂР°Р·СЂРµС€РµРЅРёСЏ", hDebugPreprocess);
+	LDPUMA_RegistryHelp(hDebugPrintResolution, "Р’С‹РІРµСЃС‚Рё РЅР° РєРѕРЅСЃРѕР»СЊ СЂР°Р·СЂРµС€РµРЅРёРµ, СѓСЃС‚Р°РЅРѕРІР»РµРЅРЅРѕРіРµ РїРѕ РєРѕРјРїРѕРЅРµРЅС‚Р°Рј, РІ СЃР»СѓС‡Р°Рµ РµРіРѕ РѕС‚Р»РёС‡РёСЏ РѕС‚ РёСЃС…РѕРґРЅРѕРіРѕ", FALSE);
 
 	LDPUMA_Registry(&hDebugKillLines, SNAP_STUFF_KILL_LINES, hDebugRoot);
     LDPUMA_RegistryHelp(hDebugKillLines,
-            "<Ответственный: A.Коноплев> Поиск и удаление линий и прилежащих к ним компонент."
+            "<РћС‚РІРµС‚СЃС‚РІРµРЅРЅС‹Р№: A.РљРѕРЅРѕРїР»РµРІ> РџРѕРёСЃРє Рё СѓРґР°Р»РµРЅРёРµ Р»РёРЅРёР№ Рё РїСЂРёР»РµР¶Р°С‰РёС… Рє РЅРёРј РєРѕРјРїРѕРЅРµРЅС‚."
             ,FALSE);
-    LDPUMA_RegVariable(hDebugKillLines,"Убить найденышей",&gKillComponents,"unsigned");
-    LDPUMA_RegVariable(hDebugKillLines,"Зона поражения (в пикселах)",&gKillZone,"unsigned");
-    LDPUMA_RegVariable(hDebugKillLines,"Покрытие (0 - 255)",&gKillRate,"unsigned");
+    LDPUMA_RegVariable(hDebugKillLines,"РЈР±РёС‚СЊ РЅР°Р№РґРµРЅС‹С€РµР№",&gKillComponents,"unsigned");
+    LDPUMA_RegVariable(hDebugKillLines,"Р—РѕРЅР° РїРѕСЂР°Р¶РµРЅРёСЏ (РІ РїРёРєСЃРµР»Р°С…)",&gKillZone,"unsigned");
+    LDPUMA_RegVariable(hDebugKillLines,"РџРѕРєСЂС‹С‚РёРµ (0 - 255)",&gKillRate,"unsigned");
 
     LDPUMA_Registry(&hDebugKillLinesStep,SNAP_KILL_LINES_STEP, hDebugKillLines);
     LDPUMA_RegistryHelp(hDebugKillLinesStep,
-            "Пошаговый проход."
+            "РџРѕС€Р°РіРѕРІС‹Р№ РїСЂРѕС…РѕРґ."
             ,FALSE);
 
     LDPUMA_Registry(&hDebugKillLinesData,SNAP_KILL_LINES_DATA, hDebugKillLines);
     LDPUMA_RegistryHelp(hDebugKillLinesData,
-            "Сама по себе не функционирует"
+            "РЎР°РјР° РїРѕ СЃРµР±Рµ РЅРµ С„СѓРЅРєС†РёРѕРЅРёСЂСѓРµС‚"
             ,FALSE);
 
     LDPUMA_Registry(&hDebugKillLinesShowComponentsBefore,SNAP_KILL_LINES_SHOW_BEFORE, hDebugKillLines);
     LDPUMA_RegistryHelp(hDebugKillLinesData,
-            "Показывает компоненты до удаления всех линий"
+            "РџРѕРєР°Р·С‹РІР°РµС‚ РєРѕРјРїРѕРЅРµРЅС‚С‹ РґРѕ СѓРґР°Р»РµРЅРёСЏ РІСЃРµС… Р»РёРЅРёР№"
             ,FALSE);
     LDPUMA_Registry(&hDebugKillLinesShowComponentsAfter,SNAP_KILL_LINES_SHOW_AFTER, hDebugKillLines);
     LDPUMA_RegistryHelp(hDebugKillLinesData,
-            "Показывает компоненты после удаления всех линий"
+            "РџРѕРєР°Р·С‹РІР°РµС‚ РєРѕРјРїРѕРЅРµРЅС‚С‹ РїРѕСЃР»Рµ СѓРґР°Р»РµРЅРёСЏ РІСЃРµС… Р»РёРЅРёР№"
             ,FALSE);
 
-	LDPUMA_Registry(&OKL,"Тривиальное удаление линий" ,hDebugRoot);
+	LDPUMA_Registry(&OKL,"РўСЂРёРІРёР°Р»СЊРЅРѕРµ СѓРґР°Р»РµРЅРёРµ Р»РёРЅРёР№" ,hDebugRoot);
     LDPUMA_RegistryHelp(OKL,
-            "<Ответственный тов. Степаненков> \
-              \n Корневая вершина отладки тривиального удаления линий\
-			  Активизация вершины приведёт именно к этому способу их удаления.",FALSE);
+            "<РћС‚РІРµС‚СЃС‚РІРµРЅРЅС‹Р№ С‚РѕРІ. РЎС‚РµРїР°РЅРµРЅРєРѕРІ> \
+              \n РљРѕСЂРЅРµРІР°СЏ РІРµСЂС€РёРЅР° РѕС‚Р»Р°РґРєРё С‚СЂРёРІРёР°Р»СЊРЅРѕРіРѕ СѓРґР°Р»РµРЅРёСЏ Р»РёРЅРёР№\
+			  РђРєС‚РёРІРёР·Р°С†РёСЏ РІРµСЂС€РёРЅС‹ РїСЂРёРІРµРґС‘С‚ РёРјРµРЅРЅРѕ Рє СЌС‚РѕРјСѓ СЃРїРѕСЃРѕР±Сѓ РёС… СѓРґР°Р»РµРЅРёСЏ.",FALSE);
 
-    LDPUMA_Registry(&Zone,"Расширить КВО",OKL);
-    LDPUMA_RegistryHelp(Zone,"Увеличить ширину линии на 2*...",FALSE);
+    LDPUMA_Registry(&Zone,"Р Р°СЃС€РёСЂРёС‚СЊ РљР’Рћ",OKL);
+    LDPUMA_RegistryHelp(Zone,"РЈРІРµР»РёС‡РёС‚СЊ С€РёСЂРёРЅСѓ Р»РёРЅРёРё РЅР° 2*...",FALSE);
     LDPUMA_RegVariable(Zone,"Height+",&KVO,"int");
-    LDPUMA_Registry(&hNotTestAlik,"Не проверять Алика",OKL);
-    LDPUMA_RegistryHelp(hNotTestAlik,"Не проверять Алика",FALSE);
+    LDPUMA_Registry(&hNotTestAlik,"РќРµ РїСЂРѕРІРµСЂСЏС‚СЊ РђР»РёРєР°",OKL);
+    LDPUMA_RegistryHelp(hNotTestAlik,"РќРµ РїСЂРѕРІРµСЂСЏС‚СЊ РђР»РёРєР°",FALSE);
 
-//	LDPUMA_Registry(&InsideKill,"Удаление линий Алика" ,MainDebug);
-//	LDPUMA_RegistryHelp(InsideKill,"Разрешить удаление линий Алика",FALSE);
-	LDPUMA_Registry(&NotKillPointed,"Не удалять точечные линии" ,MainDebug);
-	LDPUMA_RegistryHelp(NotKillPointed,"Не удалять точечные линии",FALSE);
-	LDPUMA_Registry(&OrtMove,"Этап ортогонализующего сдвига." ,NULL);
-	LDPUMA_Registry(&ObvKillLines,"Тривиальное удаление линий." ,MainDebug);
-	LDPUMA_RegistryHelp(ObvKillLines,"Разрешить тривиальное удаление линий.",FALSE);
+//	LDPUMA_Registry(&InsideKill,"РЈРґР°Р»РµРЅРёРµ Р»РёРЅРёР№ РђР»РёРєР°" ,MainDebug);
+//	LDPUMA_RegistryHelp(InsideKill,"Р Р°Р·СЂРµС€РёС‚СЊ СѓРґР°Р»РµРЅРёРµ Р»РёРЅРёР№ РђР»РёРєР°",FALSE);
+	LDPUMA_Registry(&NotKillPointed,"РќРµ СѓРґР°Р»СЏС‚СЊ С‚РѕС‡РµС‡РЅС‹Рµ Р»РёРЅРёРё" ,MainDebug);
+	LDPUMA_RegistryHelp(NotKillPointed,"РќРµ СѓРґР°Р»СЏС‚СЊ С‚РѕС‡РµС‡РЅС‹Рµ Р»РёРЅРёРё",FALSE);
+	LDPUMA_Registry(&OrtMove,"Р­С‚Р°Рї РѕСЂС‚РѕРіРѕРЅР°Р»РёР·СѓСЋС‰РµРіРѕ СЃРґРІРёРіР°." ,NULL);
+	LDPUMA_Registry(&ObvKillLines,"РўСЂРёРІРёР°Р»СЊРЅРѕРµ СѓРґР°Р»РµРЅРёРµ Р»РёРЅРёР№." ,MainDebug);
+	LDPUMA_RegistryHelp(ObvKillLines,"Р Р°Р·СЂРµС€РёС‚СЊ С‚СЂРёРІРёР°Р»СЊРЅРѕРµ СѓРґР°Р»РµРЅРёРµ Р»РёРЅРёР№.",FALSE);
 
-    LDPUMA_Registry (&hDotLine,"Поиск точечных линий.", MainDebug);
-    LDPUMA_RegistryHelp(hDotLine, "Включить поиск точечных линий библиотекой RShellLines", FALSE);
+    LDPUMA_Registry (&hDotLine,"РџРѕРёСЃРє С‚РѕС‡РµС‡РЅС‹С… Р»РёРЅРёР№.", MainDebug);
+    LDPUMA_RegistryHelp(hDotLine, "Р’РєР»СЋС‡РёС‚СЊ РїРѕРёСЃРє С‚РѕС‡РµС‡РЅС‹С… Р»РёРЅРёР№ Р±РёР±Р»РёРѕС‚РµРєРѕР№ RShellLines", FALSE);
 
-//    LDPUMA_RegVariable(OrtMove,"Сдвиг",&move,"int");
+//    LDPUMA_RegVariable(OrtMove,"РЎРґРІРёРі",&move,"int");
 
-    LDPUMA_Registry (&hNewLine,"Верификация линий.",MainDebug);
-    LDPUMA_RegistryHelp (hNewLine,"Веривикация линий вместо второго прохода Алика", FALSE);
-//	LDPUMA_Registry (&hUseCLine,"Работа с контейнером линий",NULL);
+    LDPUMA_Registry (&hNewLine,"Р’РµСЂРёС„РёРєР°С†РёСЏ Р»РёРЅРёР№.",MainDebug);
+    LDPUMA_RegistryHelp (hNewLine,"Р’РµСЂРёРІРёРєР°С†РёСЏ Р»РёРЅРёР№ РІРјРµСЃС‚Рѕ РІС‚РѕСЂРѕРіРѕ РїСЂРѕС…РѕРґР° РђР»РёРєР°", FALSE);
+//	LDPUMA_Registry (&hUseCLine,"Р Р°Р±РѕС‚Р° СЃ РєРѕРЅС‚РµР№РЅРµСЂРѕРј Р»РёРЅРёР№",NULL);
 
-	LDPUMA_Registry(&hAngles, "Вычисление углов.",hDebugRoot);
-	LDPUMA_RegistryHelp(hAngles, "Вычисление углов.",FALSE);
-	LDPUMA_Registry(&hCalcMuchSkew, "Вычислить разные углы.",hAngles);
-	LDPUMA_RegistryHelp(hCalcMuchSkew, "Вычислить разные углы.", FALSE);
-	LDPUMA_Registry(&hTalkMuchSkew, "Рассказать о разных углах.",hAngles);
-	LDPUMA_RegistryHelp(hTalkMuchSkew, "Рассказать о разных углах.", FALSE);
+	LDPUMA_Registry(&hAngles, "Р’С‹С‡РёСЃР»РµРЅРёРµ СѓРіР»РѕРІ.",hDebugRoot);
+	LDPUMA_RegistryHelp(hAngles, "Р’С‹С‡РёСЃР»РµРЅРёРµ СѓРіР»РѕРІ.",FALSE);
+	LDPUMA_Registry(&hCalcMuchSkew, "Р’С‹С‡РёСЃР»РёС‚СЊ СЂР°Р·РЅС‹Рµ СѓРіР»С‹.",hAngles);
+	LDPUMA_RegistryHelp(hCalcMuchSkew, "Р’С‹С‡РёСЃР»РёС‚СЊ СЂР°Р·РЅС‹Рµ СѓРіР»С‹.", FALSE);
+	LDPUMA_Registry(&hTalkMuchSkew, "Р Р°СЃСЃРєР°Р·Р°С‚СЊ Рѕ СЂР°Р·РЅС‹С… СѓРіР»Р°С….",hAngles);
+	LDPUMA_RegistryHelp(hTalkMuchSkew, "Р Р°СЃСЃРєР°Р·Р°С‚СЊ Рѕ СЂР°Р·РЅС‹С… СѓРіР»Р°С….", FALSE);
 /*-Andrey: moved to RNORM
 //-----------------------
-	LDPUMA_Registry(&hDebugAutoTemplate,"Автоматическое ограничение области распознавания.",hMainTime);
-	LDPUMA_RegistryHelp(hDebugAutoTemplate,"Автоматическое ограничение области распознавания.",FALSE);
-	LDPUMA_Registry(&hAutoTemplate1,"Подробнее.",hDebugAutoTemplate);
-	LDPUMA_Registry(&hAutoTemplateWrite,"Отписать в файл.",hDebugAutoTemplate);
-	LDPUMA_RegistryHelp(hAutoTemplateWrite,"Отписать в файл.",FALSE);
-	LDPUMA_Registry(&hAutoTemplateBC,"Большие компоненты.",hDebugAutoTemplate);
-	LDPUMA_RegistryHelp(hAutoTemplateBC,"Большие компоненты.",FALSE);
-	LDPUMA_Registry(&hAutoTemplateBCShow,"Прорисовка больших компонент.",hDebugAutoTemplate);
-	LDPUMA_RegistryHelp(hAutoTemplateBCShow,"Прорисовка больших компонент.",FALSE);
-	LDPUMA_Registry(&hAutoTemplateMar,"Поля.",hDebugAutoTemplate);
-	LDPUMA_RegistryHelp(hAutoTemplateMar,"Поля.",FALSE);
+	LDPUMA_Registry(&hDebugAutoTemplate,"РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРµ РѕРіСЂР°РЅРёС‡РµРЅРёРµ РѕР±Р»Р°СЃС‚Рё СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ.",hMainTime);
+	LDPUMA_RegistryHelp(hDebugAutoTemplate,"РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРµ РѕРіСЂР°РЅРёС‡РµРЅРёРµ РѕР±Р»Р°СЃС‚Рё СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ.",FALSE);
+	LDPUMA_Registry(&hAutoTemplate1,"РџРѕРґСЂРѕР±РЅРµРµ.",hDebugAutoTemplate);
+	LDPUMA_Registry(&hAutoTemplateWrite,"РћС‚РїРёСЃР°С‚СЊ РІ С„Р°Р№Р».",hDebugAutoTemplate);
+	LDPUMA_RegistryHelp(hAutoTemplateWrite,"РћС‚РїРёСЃР°С‚СЊ РІ С„Р°Р№Р».",FALSE);
+	LDPUMA_Registry(&hAutoTemplateBC,"Р‘РѕР»СЊС€РёРµ РєРѕРјРїРѕРЅРµРЅС‚С‹.",hDebugAutoTemplate);
+	LDPUMA_RegistryHelp(hAutoTemplateBC,"Р‘РѕР»СЊС€РёРµ РєРѕРјРїРѕРЅРµРЅС‚С‹.",FALSE);
+	LDPUMA_Registry(&hAutoTemplateBCShow,"РџСЂРѕСЂРёСЃРѕРІРєР° Р±РѕР»СЊС€РёС… РєРѕРјРїРѕРЅРµРЅС‚.",hDebugAutoTemplate);
+	LDPUMA_RegistryHelp(hAutoTemplateBCShow,"РџСЂРѕСЂРёСЃРѕРІРєР° Р±РѕР»СЊС€РёС… РєРѕРјРїРѕРЅРµРЅС‚.",FALSE);
+	LDPUMA_Registry(&hAutoTemplateMar,"РџРѕР»СЏ.",hDebugAutoTemplate);
+	LDPUMA_RegistryHelp(hAutoTemplateMar,"РџРѕР»СЏ.",FALSE);
 -*/
 
 }

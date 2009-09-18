@@ -1,58 +1,58 @@
 /*
-Copyright (c) 1993-2008, Cognitive Technologies
-All rights reserved.
+ Copyright (c) 1993-2008, Cognitive Technologies
+ All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+ Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+ С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+ РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+ РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+ СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+ РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+ Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+ РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+ СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+ Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+ РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+ Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+ РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+ РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+ РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+ РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+ РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+ РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+ РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+ РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+ Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
 
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation
-      and/or other materials provided with the distribution.
-    * Neither the name of the Cognitive Technologies nor the names of its
-      contributors may be used to endorse or promote products derived from this
-      software without specific prior written permission.
+ * Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ * Neither the name of the Cognitive Technologies nor the names of its
+ contributors may be used to endorse or promote products derived from this
+ software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 // ============================================================================
 // Copyright (c) 1998 Cognitive Technology Ltd.
@@ -68,39 +68,36 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "dpuma.h"
 #include <time.h>
 //
-// Виртуальные функции
+// Р’РёСЂС‚СѓР°Р»СЊРЅС‹Рµ С„СѓРЅРєС†РёРё
 //
 FNCPAGE_HL_TableExtract CPAGE_HL_TableExtract = NULL;
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-static Word16            gwHeightRC = 0;
-static Word16            gwLowRC = 0;
-static HANDLE            ghStorage = NULL;
-static HINSTANCE         ghInst =  NULL;
+static Word16 gwHeightRC = 0;
+static Word16 gwLowRC = 0;
+static HANDLE ghStorage = NULL;
+static HINSTANCE ghInst = NULL;
 
 #ifdef DPUMA_ON
-	Handle hSnapTimerBeg = NULL;
-	Handle hSnapTimerEnd = NULL;
+Handle hSnapTimerBeg = NULL;
+Handle hSnapTimerEnd = NULL;
 #endif
 
 /////////////////////////////////////////
-BOOL APIENTRY DllMain( HINSTANCE  hModule,
-                        DWORD ul_reason_for_call,
-                        LPVOID lpReserved )
-{
-    switch( ul_reason_for_call )
-	{
-    case DLL_PROCESS_ATTACH:
+BOOL APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
+		LPVOID lpReserved) {
+	switch (ul_reason_for_call) {
+	case DLL_PROCESS_ATTACH:
 		ghInst = hModule;
 		break;
-    case DLL_THREAD_ATTACH:
+	case DLL_THREAD_ATTACH:
 		break;
-    case DLL_THREAD_DETACH:
+	case DLL_THREAD_DETACH:
 		break;
-    case DLL_PROCESS_DETACH:
+	case DLL_PROCESS_DETACH:
 		break;
-    }
-    return TRUE;
+	}
+	return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -110,22 +107,22 @@ CPAGE_FUNC(Bool32) CPAGE_Init(Word16 wHeightCode,HANDLE hStorage)
 #ifdef DPUMA_ON
 	Handle hSnap = NULL;
 	LDPUMA_Init(0,NULL);
-    LDPUMA_Registry(&hSnap,"Контейнер CPAGE", NULL);
-    LDPUMA_RegistryHelp(hSnap,
-            "<Ответственный:П.Хлебутин> Эта вершина предназначена для тестирования работы с контейнером CPAGE."
-            ,FALSE);
-    LDPUMA_Registry(&hSnapTimerBeg,"Время работы CPAGE", hSnap);
-    LDPUMA_RegistryHelp(hSnapTimerBeg,
-            "Эта вершина предназначена для определения времени работы контейнера."
-            ,FALSE);
+	LDPUMA_Registry(&hSnap,"РљРѕРЅС‚РµР№РЅРµСЂ CPAGE", NULL);
+	LDPUMA_RegistryHelp(hSnap,
+			"<РћС‚РІРµС‚СЃС‚РІРµРЅРЅС‹Р№:Рџ.РҐР»РµР±СѓС‚РёРЅ> Р­С‚Р° РІРµСЂС€РёРЅР° РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅР° РґР»СЏ С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ СЂР°Р±РѕС‚С‹ СЃ РєРѕРЅС‚РµР№РЅРµСЂРѕРј CPAGE."
+			,FALSE);
+	LDPUMA_Registry(&hSnapTimerBeg,"Р’СЂРµРјСЏ СЂР°Р±РѕС‚С‹ CPAGE", hSnap);
+	LDPUMA_RegistryHelp(hSnapTimerBeg,
+			"Р­С‚Р° РІРµСЂС€РёРЅР° РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅР° РґР»СЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ РІСЂРµРјРµРЅРё СЂР°Р±РѕС‚С‹ РєРѕРЅС‚РµР№РЅРµСЂР°."
+			,FALSE);
 	/*
-    LDPUMA_Registry(&hSnapTimerEnd,"Время работы остальных модулей.", hSnap);
-    LDPUMA_RegistryHelp(hSnapTimerEnd,
-            "Эта вершина предназначена для совместной работы с вершиной 'Время работы остальных модулей'."
-            ,FALSE);
-			*/
+	 LDPUMA_Registry(&hSnapTimerEnd,"Р’СЂРµРјСЏ СЂР°Р±РѕС‚С‹ РѕСЃС‚Р°Р»СЊРЅС‹С… РјРѕРґСѓР»РµР№.", hSnap);
+	 LDPUMA_RegistryHelp(hSnapTimerEnd,
+	 "Р­С‚Р° РІРµСЂС€РёРЅР° РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅР° РґР»СЏ СЃРѕРІРјРµСЃС‚РЅРѕР№ СЂР°Р±РѕС‚С‹ СЃ РІРµСЂС€РёРЅРѕР№ 'Р’СЂРµРјСЏ СЂР°Р±РѕС‚С‹ РѕСЃС‚Р°Р»СЊРЅС‹С… РјРѕРґСѓР»РµР№'."
+	 ,FALSE);
+	 */
 #endif
- return TRUE;
+	return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -141,11 +138,11 @@ CPAGE_FUNC(Bool32) CPAGE_Done()
 //
 CPAGE_FUNC(Word32) CPAGE_GetReturnCode()
 {
-Word32 rc = 0;
+	Word32 rc = 0;
 	if((gwLowRC - IDS_ERR_NO)>0)
-		rc = (Word32)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
+	rc = (Word32)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
 
-return rc;
+	return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -155,12 +152,12 @@ CPAGE_FUNC(Int8 *) CPAGE_GetReturnString(Word32 dwError)
 	static Int8 szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
-		gwLowRC = IDS_ERR_NOTIMPLEMENT;
+	gwLowRC = IDS_ERR_NOTIMPLEMENT;
 
 	if( rc >= IDS_ERR_NO )
-		LoadString(ghInst,rc,(char *)szBuffer,sizeof(szBuffer));
+	LoadString(ghInst,rc,(char *)szBuffer,sizeof(szBuffer));
 	else
-		return NULL;
+	return NULL;
 
 	return szBuffer;
 }
@@ -176,68 +173,68 @@ CPAGE_FUNC(Bool32) CPAGE_GetExportData(Word32 dwType, void * pData)
 
 	switch(dwType)
 	{
-	CASE_FUNCTION(CPAGE_CreatePage);
-	CASE_FUNCTION(CPAGE_DeletePage);
-	CASE_FUNCTION(CPAGE_SavePage);
-	CASE_FUNCTION(CPAGE_RestorePage);
-	CASE_FUNCTION(CPAGE_GetPageType);
-	CASE_FUNCTION(CPAGE_SetPageData);
-	CASE_FUNCTION(CPAGE_GetPageData);
-	CASE_FUNCTION(CPAGE_ClearBackUp);
-	CASE_FUNCTION(CPAGE_BackUp);
-	CASE_FUNCTION(CPAGE_Undo);
-	CASE_FUNCTION(CPAGE_Redo);
-	CASE_FUNCTION(CPAGE_GetCountPage);
-	CASE_FUNCTION(CPAGE_GetCountBlock);
-	CASE_FUNCTION(CPAGE_CreateBlock);
-	CASE_FUNCTION(CPAGE_GetBlockType);
-	CASE_FUNCTION(CPAGE_GetBlockUserNum);
-	CASE_FUNCTION(CPAGE_SetBlockUserNum);
-	CASE_FUNCTION(CPAGE_GetBlockFlags);
-	CASE_FUNCTION(CPAGE_SetBlockFlags);
-	CASE_FUNCTION(CPAGE_SetBlockData);
-	CASE_FUNCTION(CPAGE_GetBlockData);
-	CASE_FUNCTION(CPAGE_DeleteBlock);
-	CASE_FUNCTION(CPAGE_GetHandlePage);
-	CASE_FUNCTION(CPAGE_GetHandleBlock);
-	CASE_FUNCTION(CPAGE_SetConvertorPages);
-	CASE_FUNCTION(CPAGE_SetConvertorBlocks);
-	CASE_FUNCTION(CPAGE_GetUserPageType);
-	CASE_FUNCTION(CPAGE_GetUserBlockType);
-	CASE_FUNCTION(CPAGE_GetBuckUpCount);
-	CASE_FUNCTION(CPAGE_GetBuckUpHandle);
-	CASE_FUNCTION(CPAGE_GetPageFirst);
-	CASE_FUNCTION(CPAGE_GetPageNext);
-	CASE_FUNCTION(CPAGE_GetBlockFirst);
-	CASE_FUNCTION(CPAGE_GetBlockNext);
-	CASE_FUNCTION(CPAGE_DeleteAll);
-	CASE_FUNCTION(CPAGE_GetCurrentPage);
-	CASE_FUNCTION(CPAGE_SetCurrentPage);
-	CASE_FUNCTION(CPAGE_GetNumberPage);
-	CASE_FUNCTION(CPAGE_UpdateBlocks);
-	CASE_FUNCTION(CPAGE_HL_TableExtract);
-	CASE_FUNCTION(CPAGE_PictureGetFirst);
-	CASE_FUNCTION(CPAGE_PictureGetNext);
-	CASE_FUNCTION(CPAGE_PictureGetPlace);
-	CASE_FUNCTION(CPAGE_PictureGetMask);
-	CASE_FUNCTION(CPAGE_GetBlockInterNum);
-	CASE_FUNCTION(CPAGE_SetBlockInterNum);
-	CASE_FUNCTION(CPAGE_GetBlockDataPtr);
-	CASE_FUNCTION(CPAGE_GetInternalType);
-	CASE_FUNCTION(CPAGE_GetNameInternalType);
+		CASE_FUNCTION(CPAGE_CreatePage);
+		CASE_FUNCTION(CPAGE_DeletePage);
+		CASE_FUNCTION(CPAGE_SavePage);
+		CASE_FUNCTION(CPAGE_RestorePage);
+		CASE_FUNCTION(CPAGE_GetPageType);
+		CASE_FUNCTION(CPAGE_SetPageData);
+		CASE_FUNCTION(CPAGE_GetPageData);
+		CASE_FUNCTION(CPAGE_ClearBackUp);
+		CASE_FUNCTION(CPAGE_BackUp);
+		CASE_FUNCTION(CPAGE_Undo);
+		CASE_FUNCTION(CPAGE_Redo);
+		CASE_FUNCTION(CPAGE_GetCountPage);
+		CASE_FUNCTION(CPAGE_GetCountBlock);
+		CASE_FUNCTION(CPAGE_CreateBlock);
+		CASE_FUNCTION(CPAGE_GetBlockType);
+		CASE_FUNCTION(CPAGE_GetBlockUserNum);
+		CASE_FUNCTION(CPAGE_SetBlockUserNum);
+		CASE_FUNCTION(CPAGE_GetBlockFlags);
+		CASE_FUNCTION(CPAGE_SetBlockFlags);
+		CASE_FUNCTION(CPAGE_SetBlockData);
+		CASE_FUNCTION(CPAGE_GetBlockData);
+		CASE_FUNCTION(CPAGE_DeleteBlock);
+		CASE_FUNCTION(CPAGE_GetHandlePage);
+		CASE_FUNCTION(CPAGE_GetHandleBlock);
+		CASE_FUNCTION(CPAGE_SetConvertorPages);
+		CASE_FUNCTION(CPAGE_SetConvertorBlocks);
+		CASE_FUNCTION(CPAGE_GetUserPageType);
+		CASE_FUNCTION(CPAGE_GetUserBlockType);
+		CASE_FUNCTION(CPAGE_GetBuckUpCount);
+		CASE_FUNCTION(CPAGE_GetBuckUpHandle);
+		CASE_FUNCTION(CPAGE_GetPageFirst);
+		CASE_FUNCTION(CPAGE_GetPageNext);
+		CASE_FUNCTION(CPAGE_GetBlockFirst);
+		CASE_FUNCTION(CPAGE_GetBlockNext);
+		CASE_FUNCTION(CPAGE_DeleteAll);
+		CASE_FUNCTION(CPAGE_GetCurrentPage);
+		CASE_FUNCTION(CPAGE_SetCurrentPage);
+		CASE_FUNCTION(CPAGE_GetNumberPage);
+		CASE_FUNCTION(CPAGE_UpdateBlocks);
+		CASE_FUNCTION(CPAGE_HL_TableExtract);
+		CASE_FUNCTION(CPAGE_PictureGetFirst);
+		CASE_FUNCTION(CPAGE_PictureGetNext);
+		CASE_FUNCTION(CPAGE_PictureGetPlace);
+		CASE_FUNCTION(CPAGE_PictureGetMask);
+		CASE_FUNCTION(CPAGE_GetBlockInterNum);
+		CASE_FUNCTION(CPAGE_SetBlockInterNum);
+		CASE_FUNCTION(CPAGE_GetBlockDataPtr);
+		CASE_FUNCTION(CPAGE_GetInternalType);
+		CASE_FUNCTION(CPAGE_GetNameInternalType);
 
-	/* reserv
-	CASE_FUNCTION();
-	CASE_FUNCTION();
-	CASE_FUNCTION();
-	*/
-	 default:
+		/* reserv
+		 CASE_FUNCTION();
+		 CASE_FUNCTION();
+		 CASE_FUNCTION();
+		 */
+		default:
 		*(Handle *)pData = NULL;
 		gwLowRC = IDS_ERR_NOTIMPLEMENT;
 		rc = FALSE;
 	}
 #undef CASE_FUNCTION
-return rc;
+	return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -250,24 +247,22 @@ CPAGE_FUNC(Bool32) CPAGE_SetImportData(Word32 dwType, void * pData)
 
 	switch(dwType)
 	{
-	 CASE_FUNCTION(CPAGE_HL_TableExtract);
-	 default:
+		CASE_FUNCTION(CPAGE_HL_TableExtract);
+		default:
 		*(Handle *)pData = NULL;
 		gwLowRC = IDS_ERR_NOTIMPLEMENT;
 		rc = FALSE;
 	}
 #undef CASE_FUNCTION
 
-return rc;
+	return rc;
 }
 
-void SetReturnCode_cpage(Word16 rc)
-{
+void SetReturnCode_cpage(Word16 rc) {
 	gwLowRC = rc;
 }
 
-Word16 GetReturnCode_cpage()
-{
+Word16 GetReturnCode_cpage() {
 	return gwLowRC;
 }
 
@@ -277,7 +272,7 @@ Word16 GetReturnCode_cpage()
 
 static int s_prolog = 0;
 #ifdef TIMECONTROL
-	static clock_t s_tbeg = 0;
+static clock_t s_tbeg = 0;
 #endif
 
 Handle ProfileProlog()
@@ -290,12 +285,12 @@ Handle ProfileProlog()
 #endif
 		rc = LDPUMA_GetPrevSkipOwner();
 		LDPUMA_Skip(hSnapTimerBeg);
-		// Проверим - используется ли эта вершина на самом деле.
+		// РџСЂРѕРІРµСЂРёРј - РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ Р»Рё СЌС‚Р° РІРµСЂС€РёРЅР° РЅР° СЃР°РјРѕРј РґРµР»Рµ.
 		if(LDPUMA_GetPrevSkipOwner() == rc)
-			rc = NULL;// Нет. Иначе, она равнялась бы hSnapTimerBeg
+		rc = NULL;// РќРµС‚. РРЅР°С‡Рµ, РѕРЅР° СЂР°РІРЅСЏР»Р°СЃСЊ Р±С‹ hSnapTimerBeg
 	}
 	s_prolog++;
-return rc;
+	return rc;
 }
 
 void ProfileEpilog(Handle prev)

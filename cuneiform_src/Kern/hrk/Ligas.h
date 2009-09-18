@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -76,14 +76,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define liga_exm_usual  0xbc  // ! with dot
 #define liga_qm         0xbd  // ? with dot
 #define liga_end_lat    0xbd
-#define liga_inv_exm_usual    0xbe    // ­ with dot
-#define liga_inv_qm     0xbf    // Ё with dot
+#define liga_inv_exm_usual    0xbe    // В­ with dot
+#define liga_inv_qm     0xbf    // РЃ with dot
 #define ligas_end       0xbf
 
-// Макры для кодов лигатур 31.08.2000 E.P.
-// При добавлении новой макры нужно добавить в
-// space_ligas() в SPACE.C, а также
-// correct_let_tables() в ACC_TABS.C и PROPTAB.C
+// РњР°РєСЂС‹ РґР»СЏ РєРѕРґРѕРІ Р»РёРіР°С‚СѓСЂ 31.08.2000 E.P.
+// РџСЂРё РґРѕР±Р°РІР»РµРЅРёРё РЅРѕРІРѕР№ РјР°РєСЂС‹ РЅСѓР¶РЅРѕ РґРѕР±Р°РІРёС‚СЊ РІ
+// space_ligas() РІ SPACE.C, Р° С‚Р°РєР¶Рµ
+// correct_let_tables() РІ ACC_TABS.C Рё PROPTAB.C
 #define liga_i			((Word8)(is_cen_language(language)?liga_i_latin:\
 						(is_baltic_language(language)?liga_i_baltic:liga_i_usual)))
 #define liga_exm		((Word8)(is_cen_language(language)?liga_exm_latin:liga_exm_usual))
@@ -124,13 +124,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define z_inv_roof		 ((Word8)(is_baltic_language(language)?z_inv_roof_baltic:z_inv_roof_latin))
 
 
-// Лиги для cp1250 30.08.2000 E.P.
+// Р›РёРіРё РґР»СЏ cp1250 30.08.2000 E.P.
 #define liga_i_latin		  0xa0 // 0xba
 #define liga_exm_latin        0x90 // 0xbc  // ! with dot
-#define liga_inv_exm_latin    0    // 0xbe выкинуть
+#define liga_inv_exm_latin    0    // 0xbe РІС‹РєРёРЅСѓС‚СЊ
 #define right_quocket_latin   0xa2 // 0xd8  // >>
 #define liga_CC_latin         0xa9 // 0xdd  // Copyright in Circle
-#define liga_CR_latin         0xae // 0xde  // ® (R) in Circle
+#define liga_CR_latin         0xae // 0xde  // В® (R) in Circle
 #define liga_bull_latin		  0xff // 0xfe bullet
 #define liga_TM_latin		  0xa8 // 0xd0
 
@@ -141,7 +141,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define liga_ffl_latin  0x81
 #define ligas_end_latin 0x81
 
-// Новые языки 30.08.2000 E.P.
+// РќРѕРІС‹Рµ СЏР·С‹РєРё 30.08.2000 E.P.
 #define is_cen_language(language) (\
 (language)==LANG_CROATIAN||(language)==LANG_POLISH ||\
 (language)==LANG_CZECH||(language)==LANG_ROMAN ||\
@@ -150,7 +150,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define is_ligas_lat(let )  ((let)>=ligas_beg && (let)<=ligas_end)
 
-// Лиги для cp1250 30.08.2000 E.P.
+// Р›РёРіРё РґР»СЏ cp1250 30.08.2000 E.P.
 #define is_ligas_latin(let)  (\
 (let)==liga_fi|| (let)==liga_fl|| (let)==liga_ff_latin|| (let)==liga_ffi|| \
 (let)==liga_rt|| (let)==liga_ri|| (let)==liga_uperc|| (let)==liga_lperc|| \
@@ -161,7 +161,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 (let)==liga_bull_latin\
 )
 
-// Лиги для cp1257 10.07.2001 E.P.
+// Р›РёРіРё РґР»СЏ cp1257 10.07.2001 E.P.
 #define is_ligas_baltic(let)  (\
 (let)==liga_fi|| (let)==liga_fl|| (let)==liga_ff|| (let)==liga_ffi|| \
 (let)==liga_rt|| (let)==liga_ri|| (let)==liga_uperc|| (let)==liga_lperc|| \
@@ -172,7 +172,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 (let)==liga_bull_baltic\
 )
 
-// Лиги для cp1254 20.05.2002 E.P.
+// Р›РёРіРё РґР»СЏ cp1254 20.05.2002 E.P.
 #define is_ligas_turkish(let)  (\
 (let)==liga_fi|| (let)==liga_fl|| (let)==liga_ff|| (let)==liga_ffi|| \
 (let)==liga_rt|| (let)==liga_ri|| (let)==liga_uperc|| (let)==liga_lperc|| \
@@ -216,8 +216,8 @@ is_ligas_lat(let))))
                               };
 #endif
 
-#define liga_bull_usual       bEdCode[fEdCode]  // ю BULLET
-#define liga_bull_usual       bEdCode[fEdCode]  // ю BULLET
+#define liga_bull_usual       bEdCode[fEdCode]  // СЋ BULLET
+#define liga_bull_usual       bEdCode[fEdCode]  // СЋ BULLET
 
 #define left_quocket		  0xd7    // 0xab  <<
 #define right_quocket_usual   0xd8    // 0xad  >>
@@ -288,8 +288,8 @@ is_ligas_lat(let))))
 
 /****** accents ************/
 /*
-Таблица acc_tab в ACC_TABS.C теперь типа Word16, для добавления
-новых типов акцентов. См. также ACCENTS.C. 30.08.2000 E.P.
+РўР°Р±Р»РёС†Р° acc_tab РІ ACC_TABS.C С‚РµРїРµСЂСЊ С‚РёРїР° Word16, РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ
+РЅРѕРІС‹С… С‚РёРїРѕРІ Р°РєС†РµРЅС‚РѕРІ. РЎРј. С‚Р°РєР¶Рµ ACCENTS.C. 30.08.2000 E.P.
 */
 #define ACC_LEFT			1
 #define ACC_RIGHT			2
@@ -302,10 +302,10 @@ is_ligas_lat(let))))
 #define ACC_UNKNOWN		  127
 #define ACC_SUPERUP		  128
 #define ACC_ROOF_INV	  256
-#define ACC_DOUBLE_RIGHT  512	// HUNGAR 30.08.2000 E.P. Над O, U
-#define ACC_SEMICIRCLE	 1024	// ROMAN 31.08.2000 E.P. Полукруг над А.
-#define ACC_WEAK_ROOF	 2048	// ROMAN 31.05.2001 E.P. Слабый акцент над 'i'
-#define ACC_MACRON		 4096	// LATVIAN 05.07.2001 E.P. Черта сверху над AEIU
+#define ACC_DOUBLE_RIGHT  512	// HUNGAR 30.08.2000 E.P. РќР°Рґ O, U
+#define ACC_SEMICIRCLE	 1024	// ROMAN 31.08.2000 E.P. РџРѕР»СѓРєСЂСѓРі РЅР°Рґ Рђ.
+#define ACC_WEAK_ROOF	 2048	// ROMAN 31.05.2001 E.P. РЎР»Р°Р±С‹Р№ Р°РєС†РµРЅС‚ РЅР°Рґ 'i'
+#define ACC_MACRON		 4096	// LATVIAN 05.07.2001 E.P. Р§РµСЂС‚Р° СЃРІРµСЂС…Сѓ РЅР°Рґ AEIU
 
 // Russian cursiv symbols
 
@@ -320,14 +320,14 @@ is_ligas_lat(let))))
 #define r_e_2dot   0xC0    // russian e ..  = 192
 
 #ifdef WIN_FRENCH
-// ЇҐаҐЄалў ойЁҐбп бЁ¬ў®«л ­ ЎЁа Ґ¬лҐ ­  Є« ўЁ вгаҐ
-// ў аҐ¦Ё¬Ґ а бЇ®§­ ў ­Ёп да ­жг§бЄ®Ј® п§лЄ 
+// Р‡ТђР°ТђР„Р°Р»СћВ РѕР№РЃТђР±Рї Р±РЃВ¬СћВ®В«Р» В­В РЋРЃР°В ТђВ¬Р»Тђ В­В  Р„В«В СћРЃВ РІРіР°Тђ
+// Сћ Р°ТђВ¦РЃВ¬Тђ Р°В Р±Р‡В®В§В­В СћВ В­РЃРї РґР°В В­Р¶РіВ§Р±Р„В®Р€В® РїВ§Р»Р„В 
 	#define KEY_D5   0x91
 	#define KEY_D7   0x92
 	#define KEY_D8   0x93
 #endif
 
-#define liga_TM_usual  0xd0    // TM конфликт с Croatian DD_stroked 31.05.2001
+#define liga_TM_usual  0xd0    // TM РєРѕРЅС„Р»РёРєС‚ СЃ Croatian DD_stroked 31.05.2001
 #define liga_CC_usual  0xdd    // Copyright in Circle
 #define liga_CR_usual  0xde    // TM (R) in Circle
 
@@ -343,18 +343,18 @@ is_ligas_lat(let))))
 
 //       LIGATURA ASCII      ALT ANSI
 /***** serbian symbols ! intersect foreign languages symbols **************/
-#define  SERB_HH  0xD3 //211 M У Ox80 128 Ђ
-#define  SERB_hh  0xD4 //212 m Ф Ox90 144 ђ
-#define  SERB_L   0xCD //205 W Н Ox8A 138 Љ
-#define  SERB_l   0xC4 //196 w Д Ox9A 154 љ
-#define  SERB_N   0xCB //203 T Л Ox8C 140 Њ
-#define  SERB_n   0xC2 //194 t В Ox9C 156 њ
-#define  SERB_H   0xD2 //210 I Т Ox8E 142 Ћ
-#define  SERB_h   0xD1 //209 i С Ox9E 158 ћ
-#define  SERB_U   0xCA //202 B К Ox8F 143 Џ
-#define  SERB_u   0xC1 //193 b Б Ox9F 159 џ
-#define  SERB_J   0xD6 //        OxA3 163 Ј
-#define  SERB_j   0xD9 //        OxBC 188 ј
+#define  SERB_HH  0xD3 //211 M РЈ Ox80 128 Р‚
+#define  SERB_hh  0xD4 //212 m Р¤ Ox90 144 С’
+#define  SERB_L   0xCD //205 W Рќ Ox8A 138 Р‰
+#define  SERB_l   0xC4 //196 w Р” Ox9A 154 С™
+#define  SERB_N   0xCB //203 T Р› Ox8C 140 РЉ
+#define  SERB_n   0xC2 //194 t Р’ Ox9C 156 Сљ
+#define  SERB_H   0xD2 //210 I Рў Ox8E 142 Р‹
+#define  SERB_h   0xD1 //209 i РЎ Ox9E 158 С›
+#define  SERB_U   0xCA //202 B Рљ Ox8F 143 РЏ
+#define  SERB_u   0xC1 //193 b Р‘ Ox9F 159 Сџ
+#define  SERB_J   0xD6 //        OxA3 163 Р€
+#define  SERB_j   0xD9 //        OxBC 188 С
 
 
 /****** polish characters ********************************************/
@@ -420,8 +420,8 @@ is_ligas_lat(let))))
 #define SS_POS_HALF_SPACE 0x1f
 #define SS_SPACE          0x20
 
-// Новые буквы для CZECH, ROMAN, HUNGAR 30.08.2000 E.P.
-// См. также функцию fromcp1250_to_cp852() в ACC_TABS.C
+// РќРѕРІС‹Рµ Р±СѓРєРІС‹ РґР»СЏ CZECH, ROMAN, HUNGAR 30.08.2000 E.P.
+// РЎРј. С‚Р°РєР¶Рµ С„СѓРЅРєС†РёСЋ fromcp1250_to_cp852() РІ ACC_TABS.C
 #define AA_semicircle		0xC3
 #define a_semicircle		0xE3
 #define DD_inv_roof			0xCF
@@ -434,8 +434,8 @@ is_ligas_lat(let))))
 #define o_double_right		0xF5
 #define RR_inv_roof			0xD8
 #define r_inv_roof			0xF8
-#define SS_bottom_accent_latin    0xAA	// См. макрос SS_bottom_accent 18.05.2002 E.P.
-#define s_bottom_accent_latin     0xBA	// См. макрос s_bottom_accent  18.05.2002 E.P.
+#define SS_bottom_accent_latin    0xAA	// РЎРј. РјР°РєСЂРѕСЃ SS_bottom_accent 18.05.2002 E.P.
+#define s_bottom_accent_latin     0xBA	// РЎРј. РјР°РєСЂРѕСЃ s_bottom_accent  18.05.2002 E.P.
 #define TT_inv_roof			0x8D
 #define t_inv_roof			0x9D
 #define TT_bottom_accent    0xDE
@@ -448,7 +448,7 @@ is_ligas_lat(let))))
 #define y_right_accent      0xFD
 
 // ********************************************************************************
-// Балтийские языки. 05.07.2001 E.P.
+// Р‘Р°Р»С‚РёР№СЃРєРёРµ СЏР·С‹РєРё. 05.07.2001 E.P.
 
 #define is_baltic_language(language) (\
 (language)==LANG_LATVIAN||\
@@ -456,7 +456,7 @@ is_ligas_lat(let))))
 (language)==LANG_ESTONIAN\
 )
 
-// Лиги для балтийских языков. 05.07.2001 E.P.
+// Р›РёРіРё РґР»СЏ Р±Р°Р»С‚РёР№СЃРєРёС… СЏР·С‹РєРѕРІ. 05.07.2001 E.P.
 #define low_quotes_baltic	 0x84	// = low_quotes_usual
 #define liga_exm_baltic		 0xbc	// = liga_exm_usual
 #define liga_i_baltic		 0xa0	// = liga_i_latin
@@ -471,30 +471,30 @@ is_ligas_lat(let))))
 #define ligas_beg_baltic	0xb1	// except for 0xba
 #define ligas_end_baltic	0xbd	// except for 0xba
 
-// Буквы балтийских языков, cp1257. 06.07.2001 E.P.
+// Р‘СѓРєРІС‹ Р±Р°Р»С‚РёР№СЃРєРёС… СЏР·С‹РєРѕРІ, cp1257. 06.07.2001 E.P.
 /*
-#define AA_2dot_accent      0xc4	   196 = западно-европейская cp1252
-#define a_2dot_accent       0xe4	   228 = западно-европейская cp1252
+#define AA_2dot_accent      0xc4	   196 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
+#define a_2dot_accent       0xe4	   228 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
 */
-#define AA_macron			0xc2	// 194 Макрон есть черта сверху над буквой
+#define AA_macron			0xc2	// 194 РњР°РєСЂРѕРЅ РµСЃС‚СЊ С‡РµСЂС‚Р° СЃРІРµСЂС…Сѓ РЅР°Рґ Р±СѓРєРІРѕР№
 #define a_macron			0xe2	// 226
 #define AA_bottom_accent_baltic 0xc0// 192
 #define a_bottom_accent_baltic	0xe0// 224
 /*
-#define CC_inv_roof			0xc8	   200 = центрально-европейская cp1250
-#define c_inv_roof			0xe8	   232 = центрально-европейская cp1250
+#define CC_inv_roof			0xc8	   200 = С†РµРЅС‚СЂР°Р»СЊРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1250
+#define c_inv_roof			0xe8	   232 = С†РµРЅС‚СЂР°Р»СЊРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1250
 */
-#define EE_macron			0xc7	// 199 Макрон есть черта сверху над буквой
+#define EE_macron			0xc7	// 199 РњР°РєСЂРѕРЅ РµСЃС‚СЊ С‡РµСЂС‚Р° СЃРІРµСЂС…Сѓ РЅР°Рґ Р±СѓРєРІРѕР№
 #define e_macron			0xe7	// 231
 #define EE_bottom_accent_baltic 0xc6// 198
 #define e_bottom_accent_baltic	0xe6// 230
-#define EE_dot_accent		0xcb	// 203 Точка сверху, как над польской буквой ZZ_dot_accent
-#define e_dot_accent		0xeb	// 235 Точка сверху, как над польской буквой z_dot_accent
+#define EE_dot_accent		0xcb	// 203 РўРѕС‡РєР° СЃРІРµСЂС…Сѓ, РєР°Рє РЅР°Рґ РїРѕР»СЊСЃРєРѕР№ Р±СѓРєРІРѕР№ ZZ_dot_accent
+#define e_dot_accent		0xeb	// 235 РўРѕС‡РєР° СЃРІРµСЂС…Сѓ, РєР°Рє РЅР°Рґ РїРѕР»СЊСЃРєРѕР№ Р±СѓРєРІРѕР№ z_dot_accent
 
-#define GG_bottom_accent	0xcc	// 204 Акцент внизу, посередине
-#define LATVIAN_g			0xec	// 236 Акцент над g сверху, различной формы: опрокинутая
-									//     запятая, рог с правым наклоном и т.д.
-#define II_macron			0xce	// 206 Макрон есть черта сверху над буквой
+#define GG_bottom_accent	0xcc	// 204 РђРєС†РµРЅС‚ РІРЅРёР·Сѓ, РїРѕСЃРµСЂРµРґРёРЅРµ
+#define LATVIAN_g			0xec	// 236 РђРєС†РµРЅС‚ РЅР°Рґ g СЃРІРµСЂС…Сѓ, СЂР°Р·Р»РёС‡РЅРѕР№ С„РѕСЂРјС‹: РѕРїСЂРѕРєРёРЅСѓС‚Р°СЏ
+									//     Р·Р°РїСЏС‚Р°СЏ, СЂРѕРі СЃ РїСЂР°РІС‹Рј РЅР°РєР»РѕРЅРѕРј Рё С‚.Рґ.
+#define II_macron			0xce	// 206 РњР°РєСЂРѕРЅ РµСЃС‚СЊ С‡РµСЂС‚Р° СЃРІРµСЂС…Сѓ РЅР°Рґ Р±СѓРєРІРѕР№
 #define i_macron			0xee	// 238
 #define II_bottom_accent	0xc1	// 193
 #define i_bottom_accent		0xe1	// 225
@@ -508,16 +508,16 @@ is_ligas_lat(let))))
 #define NN_bottom_accent	0xd2	// 210
 #define n_bottom_accent		0xf2	// 242
 /*
-#define OO_tild_accent      0xd5	   213 = западно-европейская cp1252
-#define o_tild_accent       0xf5	   245 = западно-европейская cp1252
-#define OO_2dot_accent      0xd6	   214 = западно-европейская cp1252
-#define o_2dot_accent       0xf6	   246 = западно-европейская cp1252
+#define OO_tild_accent      0xd5	   213 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
+#define o_tild_accent       0xf5	   245 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
+#define OO_2dot_accent      0xd6	   214 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
+#define o_2dot_accent       0xf6	   246 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
 */
 #define SS_inv_roof_baltic	0xd0	// 208
 #define s_inv_roof_baltic	0xf0	// 240
 /*
-#define UU_2dot_accent      0xdc	   220 = западно-европейская cp1252
-#define u_2dot_accent       0xfc	   252 = западно-европейская cp1252
+#define UU_2dot_accent      0xdc	   220 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
+#define u_2dot_accent       0xfc	   252 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
 */
 #define UU_bottom_accent	0xd8	// 216
 #define u_bottom_accent		0xf8	// 248
@@ -528,11 +528,11 @@ is_ligas_lat(let))))
 #define z_inv_roof_baltic	0xfe	// 254
 
 // ********************************************************************************
-// Турецкий язык. 18.05.2002 E.P.
+// РўСѓСЂРµС†РєРёР№ СЏР·С‹Рє. 18.05.2002 E.P.
 
 #define is_turkish_language(language) ((language)==LANG_TURKISH)
 
-// Лиги для турецкого языка
+// Р›РёРіРё РґР»СЏ С‚СѓСЂРµС†РєРѕРіРѕ СЏР·С‹РєР°
 #define liga_TM_turkish		 0x99	// 153
 #define liga_CC_turkish		 0xa9	// = liga_CC_latin	= liga_CC_baltic
 #define liga_CR_turkish		 0xae	// = liga_CR_latin	= liga_CR_baltic
@@ -543,27 +543,27 @@ is_ligas_lat(let))))
 #define ligas_beg_turkish	0xb1	//
 #define ligas_end_turkish	0xbd	//
 
-// Буквы турецкого языка, cp1254.
+// Р‘СѓРєРІС‹ С‚СѓСЂРµС†РєРѕРіРѕ СЏР·С‹РєР°, cp1254.
 /*
-#define AA_roof_accent      0xc2	194 = западно-европейская cp1252
-#define a_roof_accent       0xe2	226 = западно-европейская cp1252
-#define CC_bottom_accent    0xC7	199 = западно-европейская cp1252
-#define c_bottom_accent     0xE7	231 = западно-европейская cp1252
-#define II_roof_accent      0xCE	206 = западно-европейская cp1252
-#define i_roof_accent       0xEE	238 = западно-европейская cp1252
+#define AA_roof_accent      0xc2	194 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
+#define a_roof_accent       0xe2	226 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
+#define CC_bottom_accent    0xC7	199 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
+#define c_bottom_accent     0xE7	231 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
+#define II_roof_accent      0xCE	206 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
+#define i_roof_accent       0xEE	238 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
 */
 #define GG_semicircle		0xd0 //	208
 #define g_semicircle		0xf0 //	240
 /*
-#define OO_2dot_accent      0xD6	214 = западно-европейская cp1252
-#define o_2dot_accent       0xF6	246 = западно-европейская cp1252
-#define UU_roof_accent      0xDB	219 = западно-европейская cp1252
-#define u_roof_accent       0xFB	251 = западно-европейская cp1252
-#define UU_2dot_accent      0xDC	220 = западно-европейская cp1252
-#define u_2dot_accent       0xFC	252 = западно-европейская cp1252
+#define OO_2dot_accent      0xD6	214 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
+#define o_2dot_accent       0xF6	246 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
+#define UU_roof_accent      0xDB	219 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
+#define u_roof_accent       0xFB	251 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
+#define UU_2dot_accent      0xDC	220 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
+#define u_2dot_accent       0xFC	252 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
 */
-#define II_dot_accent		0xdd //	221 = западно-европейская cp1252
-#define i_sans_accent		0xfd //	253 = западно-европейская cp1252
+#define II_dot_accent		0xdd //	221 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
+#define i_sans_accent		0xfd //	253 = Р·Р°РїР°РґРЅРѕ-РµРІСЂРѕРїРµР№СЃРєР°СЏ cp1252
 
 #define SS_bottom_accent_turkish    0xde // 222
 #define s_bottom_accent_turkish     0xfe // 254

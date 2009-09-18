@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <crtdbg.h>
 #include "puma.h"
 
-#define ADD_CED // Поддержка FED формата
+#define ADD_CED // РџРѕРґРґРµСЂР¶РєР° FED С„РѕСЂРјР°С‚Р°
 #ifdef  ADD_CED
 	#include "ced.h"
 #endif
@@ -292,7 +292,7 @@ void LPUMA_SetLanguage(Word32 lang)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Word32_Language,&lang))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -302,7 +302,7 @@ Bool32  LPUMA_GetSpeller()
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Bool32_Speller,&rc))
         {
-                // Ок!
+                // РћРє!
         }
 return rc;
 }
@@ -312,7 +312,7 @@ void    LPUMA_SetSpeller(Bool32 nNewValue)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Bool32_Speller,&nNewValue))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -322,7 +322,7 @@ Bool32  LPUMA_GetOneColumn()
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Bool32_OneColumn,&rc))
         {
-                // Ок!
+                // РћРє!
         }
 return rc;
 }
@@ -332,7 +332,7 @@ void    LPUMA_SetOneColumn(Bool32 nNewValue)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Bool32_OneColumn,&nNewValue))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -342,7 +342,7 @@ Bool32  LPUMA_GetFax100()
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Bool32_Fax100,&rc))
         {
-                // Ок!
+                // РћРє!
         }
 return rc;
 }
@@ -352,7 +352,7 @@ void    LPUMA_SetFax100(Bool32 nNewValue)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Bool32_Fax100,&nNewValue))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -362,7 +362,7 @@ Bool32  LPUMA_GetDotMatrix()
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Bool32_DotMatrix,&rc))
         {
-                // Ок!
+                // РћРє!
         }
 return rc;
 }
@@ -372,7 +372,7 @@ void    LPUMA_SetDotMatrix(Bool32 nNewValue)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Bool32_DotMatrix,&nNewValue))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -382,7 +382,7 @@ char *  LPUMA_GetUserDictName()
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_pchar_UserDictName,&rc))
         {
-                // Ок!
+                // РћРє!
         }
 return rc;
 }
@@ -392,7 +392,7 @@ void    LPUMA_SetUserDictName(char * lpszNewValue)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_pchar_UserDictName,lpszNewValue))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -402,7 +402,7 @@ Bool32  LPUMA_GetBold()
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Bool32_Bold,&rc))
         {
-                // Ок!
+                // РћРє!
         }
 return rc;
 }
@@ -412,7 +412,7 @@ void    LPUMA_SetBold(Bool32 nNewValue)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Bool32_Bold,&nNewValue))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -422,7 +422,7 @@ Bool32  LPUMA_GetItalic()
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Bool32_Italic,&rc))
         {
-                // Ок!
+                // РћРє!
         }
 return rc;
 }
@@ -432,7 +432,7 @@ void    LPUMA_SetItalic(Bool32 nNewValue)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Bool32_Italic,&nNewValue))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -442,7 +442,7 @@ Bool32  LPUMA_GetSize()
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Bool32_Size,&rc))
         {
-                // Ок!
+                // РћРє!
         }
 return rc;
 }
@@ -452,7 +452,7 @@ void    LPUMA_SetSize(Bool32 nNewValue)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Bool32_Size,&nNewValue))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -462,7 +462,7 @@ Bool32  LPUMA_GetFormat()
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Bool32_Format,&rc))
         {
-                // Ок!
+                // РћРє!
         }
 return rc;
 }
@@ -472,7 +472,7 @@ void    LPUMA_SetFormat(Bool32 nNewValue)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Bool32_Format,&nNewValue))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -482,7 +482,7 @@ char *  LPUMA_GetSerifName()
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_pchar_SerifName,&rc))
         {
-                // Ок!
+                // РћРє!
         }
 return rc;
 }
@@ -492,7 +492,7 @@ void    LPUMA_SetSerifName(char * lpszNewValue)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_pchar_SerifName,lpszNewValue))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -502,7 +502,7 @@ char *  LPUMA_GetSansSerifName()
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_pchar_SansSerifName,&rc))
         {
-                // Ок!
+                // РћРє!
         }
 return rc;
 }
@@ -512,7 +512,7 @@ void    LPUMA_SetSansSerifName(char * lpszNewValue)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_pchar_SansSerifName,lpszNewValue))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -522,7 +522,7 @@ char *  LPUMA_GetCourierName()
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_pchar_CourierName,&rc))
         {
-                // Ок!
+                // РћРє!
         }
 return rc;
 }
@@ -532,7 +532,7 @@ void    LPUMA_SetCourierName(char * lpszNewValue)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_pchar_CourierName,lpszNewValue))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -541,7 +541,7 @@ void    LPUMA_SetPictures(Word32 nNewValue)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Word32_Pictures,&nNewValue))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -551,7 +551,7 @@ Word32  LPUMA_GetPictures( void )
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Word32_Pictures,&rc))
         {
-                // Ок!
+                // РћРє!
         }
 return rc;
 }
@@ -561,7 +561,7 @@ void    LPUMA_SetTables(Word32 nNewValue)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Word32_Tables,&nNewValue))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -571,7 +571,7 @@ Word32  LPUMA_GetTables( void )
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Word32_Tables,&rc))
         {
-                // Ок!
+                // РћРє!
         }
 return rc;
 }
@@ -582,7 +582,7 @@ char *  LPUMA_GetVersion()
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_pchar_Version,&rc))
         {
-                // Ок!
+                // РћРє!
         }
 return rc;
 }
@@ -641,7 +641,7 @@ Word32  LPUMA_GetFormatMode()
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Word32_Format,&rc))
         {
-                // Ок!
+                // РћРє!
         }
 return rc;
 }
@@ -651,7 +651,7 @@ void    LPUMA_SetFormatMode(Word32 nNewValue)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Word32_Format,&nNewValue))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -660,7 +660,7 @@ void    LPUMA_SetUnrecogChar(Word8 nNewValue)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Word8_Format,&nNewValue))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -670,7 +670,7 @@ Word8   LPUMA_GetUnrecogChar()
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Word8_Format,&rc))
         {
-                // Ок!
+                // РћРє!
         }
 return rc;
 }
@@ -684,7 +684,7 @@ Bool32  LPUMA_SetProgressFunction(FNPUMA_ProgressStart fnStart,FNPUMA_ProgressSt
                 SetImportData(PUMA_FNPUMA_ProgressFinish,fnFinish)
                 )
         {
-                rc = TRUE;      // Ок!
+                rc = TRUE;      // РћРє!
         }
 
         return rc;
@@ -704,7 +704,7 @@ void    LPUMA_SetAutoRotate(Bool32 b)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Bool32_AutoRotate,&b))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -714,7 +714,7 @@ Bool32  LPUMA_GetAutoRotate( void )
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Bool32_AutoRotate,&rc))
         {
-                // Ок!
+                // РћРє!
         }
 return rc;
 }
@@ -725,7 +725,7 @@ void    LPUMA_SetPageSize(Word32 width, Word32 height)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Point32_PageSize,&p))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -763,7 +763,7 @@ void    LPUMA_SetCurrentEdPage(Handle hEdPage)
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Handle_CurrentEdPage,&hEdPage))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -773,7 +773,7 @@ Handle  LPUMA_GetCurrentEdPage()
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Handle_CurrentEdPage,&rc))
         {
-                // Ок!
+                // РћРє!
         }
 return rc;
 }
@@ -791,7 +791,7 @@ void    LPUMA_SetPreserveLineBreaks( Bool32 b )
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Bool32_PreserveLineBreaks,&b))
         {
-                // Ок!
+                // РћРє!
         }
 }
 //////////////////////////////////////////////////////////////////
@@ -801,7 +801,7 @@ Bool32  LPUMA_GetPreserveLineBreaks( void )
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Bool32_PreserveLineBreaks,&rc))
         {
-                // Ок!
+                // РћРє!
         }
         return rc;
 }

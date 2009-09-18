@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -190,122 +190,122 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         CSTR_FNIMP_WRITE
         };
 
-// 1    CSTR_FNNEWLINE      Образовать новую строку
+// 1    CSTR_FNNEWLINE      РћР±СЂР°Р·РѕРІР°С‚СЊ РЅРѕРІСѓСЋ СЃС‚СЂРѕРєСѓ
 typedef CSTR_line       (*FNCSTR_NewLine)(Int32  lineno, Int32 version, Int32 container);
 CSTR_FUNC(CSTR_line)    CSTR_NewLine (Int32  lineno, Int32 version, Int32 container);
-// 2    CSTR_FNDELLINE      Удалить строку
+// 2    CSTR_FNDELLINE      РЈРґР°Р»РёС‚СЊ СЃС‚СЂРѕРєСѓ
 typedef Bool32          (*FNCSTR_DeleteLine)(CSTR_line  line);
 CSTR_FUNC(Bool32)           CSTR_DeleteLine (CSTR_line  line);
-// 3    CSTR_FNSETSTRATTR   установить атрибуты текущей строки
+// 3    CSTR_FNSETSTRATTR   СѓСЃС‚Р°РЅРѕРІРёС‚СЊ Р°С‚СЂРёР±СѓС‚С‹ С‚РµРєСѓС‰РµР№ СЃС‚СЂРѕРєРё
 typedef Bool32          (*FNCSTR_SetLineAttr)(CSTR_line  line,CSTR_attr * attr);
 CSTR_FUNC(Bool32)               CSTR_SetLineAttr (CSTR_line      line,CSTR_attr * attr);
-// 4    CSTR_FNGETSTRATTR   получить атрибуты текущей строки
+// 4    CSTR_FNGETSTRATTR   РїРѕР»СѓС‡РёС‚СЊ Р°С‚СЂРёР±СѓС‚С‹ С‚РµРєСѓС‰РµР№ СЃС‚СЂРѕРєРё
 typedef Bool32          (*FNCSTR_GetLineAttr)(CSTR_line  line,CSTR_attr * attr);
 CSTR_FUNC(Bool32)           CSTR_GetLineAttr (CSTR_line  line,CSTR_attr * attr);
-// 5    CSTR_FNGETFIRST     дать хэндл первого (фиктивного) растра в строке
+// 5    CSTR_FNGETFIRST     РґР°С‚СЊ С…СЌРЅРґР» РїРµСЂРІРѕРіРѕ (С„РёРєС‚РёРІРЅРѕРіРѕ) СЂР°СЃС‚СЂР° РІ СЃС‚СЂРѕРєРµ
 typedef CSTR_rast       (*FNCSTR_GetFirstRaster)(CSTR_line      line);
 CSTR_FUNC(CSTR_rast)    CSTR_GetFirstRaster (CSTR_line  line);
-// 6    CSTR_FNGETLAST      дать хэндл последнего (фиктивного) растра в строке
+// 6    CSTR_FNGETLAST      РґР°С‚СЊ С…СЌРЅРґР» РїРѕСЃР»РµРґРЅРµРіРѕ (С„РёРєС‚РёРІРЅРѕРіРѕ) СЂР°СЃС‚СЂР° РІ СЃС‚СЂРѕРєРµ
 typedef CSTR_rast       (*FNCSTR_GetLastRaster)(CSTR_line       line);
 CSTR_FUNC(CSTR_rast)    CSTR_GetLastRaster (CSTR_line   line);
-// 7    CSTR_FNGETNEXT      дать хэндл следующего растра
+// 7    CSTR_FNGETNEXT      РґР°С‚СЊ С…СЌРЅРґР» СЃР»РµРґСѓСЋС‰РµРіРѕ СЂР°СЃС‚СЂР°
 typedef CSTR_rast       (*FNCSTR_GetNextRaster)(CSTR_rast  curr_raster, Word32 type_raster);
 CSTR_FUNC(CSTR_rast)    CSTR_GetNextRaster (CSTR_rast  curr_raster, Word32 type_raster);
-// 8    CSTR_FNGETPREV      дать хэндл предыдущего растра
+// 8    CSTR_FNGETPREV      РґР°С‚СЊ С…СЌРЅРґР» РїСЂРµРґС‹РґСѓС‰РµРіРѕ СЂР°СЃС‚СЂР°
 typedef CSTR_rast       (*FNCSTR_GetPrevRaster)(CSTR_rast  curr_raster, Word32 type_raster);
 CSTR_FUNC(CSTR_rast)    CSTR_GetPrevRaster (CSTR_rast  curr_raster, Word32 type_raster);
-// 9    CSTR_FNGETLINE      дать хэндл строки, сопряжённой с растром
+// 9    CSTR_FNGETLINE      РґР°С‚СЊ С…СЌРЅРґР» СЃС‚СЂРѕРєРё, СЃРѕРїСЂСЏР¶С‘РЅРЅРѕР№ СЃ СЂР°СЃС‚СЂРѕРј
 typedef CSTR_line       (*FNCSTR_GetLine)(CSTR_rast  curr_raster);
 CSTR_FUNC(CSTR_line)    CSTR_GetLine (CSTR_rast  curr_raster);
-// 10   CSTR_FNSTORELINE    придать растру строку
+// 10   CSTR_FNSTORELINE    РїСЂРёРґР°С‚СЊ СЂР°СЃС‚СЂСѓ СЃС‚СЂРѕРєСѓ
 typedef Bool32          (*FNCSTR_StoreLine)(CSTR_rast  curr_raster, CSTR_line line);
 CSTR_FUNC(Bool32)               CSTR_StoreLine (CSTR_rast  curr_raster, CSTR_line line);
-// 11   CSTR_FNNEWRASTER    создать новый растр в текущей строке
+// 11   CSTR_FNNEWRASTER    СЃРѕР·РґР°С‚СЊ РЅРѕРІС‹Р№ СЂР°СЃС‚СЂ РІ С‚РµРєСѓС‰РµР№ СЃС‚СЂРѕРєРµ
 typedef CSTR_rast               (*FNCSTR_NewRaster)(CSTR_line   line ,Int32 col, Int32 row, Int32 w);
 CSTR_FUNC(CSTR_rast)            CSTR_NewRaster (CSTR_line       line ,Int32 col, Int32 row, Int32 w);
-// 12   CSTR_FNSTORERASTER  запомнить растр как изображение
+// 12   CSTR_FNSTORERASTER  Р·Р°РїРѕРјРЅРёС‚СЊ СЂР°СЃС‚СЂ РєР°Рє РёР·РѕР±СЂР°Р¶РµРЅРёРµ
 typedef Bool32          (*FNCSTR_StoreRaster)(CSTR_rast  curr_raster, RecRaster *image);
 CSTR_FUNC(Bool32)               CSTR_StoreRaster (CSTR_rast  curr_raster, RecRaster *image);
-// 13   CSTR_FNSTORECOMP запомнить растр как компоненту с интервальным представлением
+// 13   CSTR_FNSTORECOMP Р·Р°РїРѕРјРЅРёС‚СЊ СЂР°СЃС‚СЂ РєР°Рє РєРѕРјРїРѕРЅРµРЅС‚Сѓ СЃ РёРЅС‚РµСЂРІР°Р»СЊРЅС‹Рј РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµРј
 typedef Bool32          (*FNCSTR_StoreComp)(CSTR_rast  curr_raster, Word8 *lp, Bool32 raster_init, Word8 scale);
 CSTR_FUNC(Bool32)               CSTR_StoreComp (CSTR_rast  curr_raster, Word8 *lp, Bool32 raster_init, Word8 scale);
-// 14   CSTR_FNSTORECOLLECTION запомнить коллекцию
+// 14   CSTR_FNSTORECOLLECTION Р·Р°РїРѕРјРЅРёС‚СЊ РєРѕР»Р»РµРєС†РёСЋ
 typedef Bool32          (*FNCSTR_StoreCollection)(CSTR_rast  curr_raster, RecVersions *collect);
 CSTR_FUNC(Bool32)                   CSTR_StoreCollection (CSTR_rast  curr_raster, RecVersions *collect);
-// 15   CSTR_FNDELRASTER    удалить растр
+// 15   CSTR_FNDELRASTER    СѓРґР°Р»РёС‚СЊ СЂР°СЃС‚СЂ
 typedef CSTR_rast   (*FNCSTR_DelRaster)(CSTR_rast  curr_raster);
 CSTR_FUNC(CSTR_rast)    CSTR_DelRaster (CSTR_rast  curr_raster);
-// 16   CSTR_FNVERIFY       отсортировать список строки
+// 16   CSTR_FNVERIFY       РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°С‚СЊ СЃРїРёСЃРѕРє СЃС‚СЂРѕРєРё
 typedef Bool32          (*FNCSTR_VerifyLine)(CSTR_line  line);
 CSTR_FUNC(Bool32)               CSTR_VerifyLine (CSTR_line      line);
-// 17   CSTR_FNGETRASTER    получить изображение (растр или интервалы)
+// 17   CSTR_FNGETRASTER    РїРѕР»СѓС‡РёС‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ (СЂР°СЃС‚СЂ РёР»Рё РёРЅС‚РµСЂРІР°Р»С‹)
 typedef Bool32          (*FNCSTR_GetImage)(CSTR_rast  curr_raster, Word8 *out_res, Word32 type_image);
 CSTR_FUNC(Bool32)               CSTR_GetImage (CSTR_rast  curr_raster, Word8 *out_res, Word32 type_image);
-// 18   CSTR_FNGETATTR      получить атрибуты растра
+// 18   CSTR_FNGETATTR      РїРѕР»СѓС‡РёС‚СЊ Р°С‚СЂРёР±СѓС‚С‹ СЂР°СЃС‚СЂР°
 typedef Bool32          (*FNCSTR_GetAttr)(CSTR_rast  curr_raster, CSTR_rast_attr * attr);
 CSTR_FUNC(Bool32)           CSTR_GetAttr (CSTR_rast  curr_raster, CSTR_rast_attr * attr);
-// 19   CSTR_FNGETCOLLECT   получить коллекцию
+// 19   CSTR_FNGETCOLLECT   РїРѕР»СѓС‡РёС‚СЊ РєРѕР»Р»РµРєС†РёСЋ
 typedef Bool32          (*FNCSTR_GetCollection)(CSTR_rast  curr_raster, RecVersions *result_collect);
 CSTR_FUNC(Bool32)                   CSTR_GetCollection (CSTR_rast  curr_raster, RecVersions *result_collect);
-// 20   CSTR_FNSETUSER      записать в растр пользовательские данные
+// 20   CSTR_FNSETUSER      Р·Р°РїРёСЃР°С‚СЊ РІ СЂР°СЃС‚СЂ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёРµ РґР°РЅРЅС‹Рµ
 typedef Bool32          (*FNCSTR_SetUserAttr)(CSTR_rast raster, CCOM_USER_BLOCK  *ub);
 CSTR_FUNC(Bool32)               CSTR_SetUserAttr (CSTR_rast raster, CCOM_USER_BLOCK  *ub);
-// 21   CSTR_FNGETUSER      прочитать из растра пользовательские данные
+// 21   CSTR_FNGETUSER      РїСЂРѕС‡РёС‚Р°С‚СЊ РёР· СЂР°СЃС‚СЂР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёРµ РґР°РЅРЅС‹Рµ
 typedef Bool32          (*FNCSTR_GetUserAttr)(CSTR_rast raster, CCOM_USER_BLOCK  *ub);
 CSTR_FUNC(Bool32)               CSTR_GetUserAttr (CSTR_rast raster, CCOM_USER_BLOCK  *ub);
-// 22   CSTR_FNSETATTR      записать атрибуты растра
+// 22   CSTR_FNSETATTR      Р·Р°РїРёСЃР°С‚СЊ Р°С‚СЂРёР±СѓС‚С‹ СЂР°СЃС‚СЂР°
 typedef Bool32          (*FNCSTR_SetAttr)(CSTR_rast  curr_raster, CSTR_rast_attr * attr);
 CSTR_FUNC(Bool32)           CSTR_SetAttr (CSTR_rast  curr_raster, CSTR_rast_attr * attr);
-// 23   CSTR_FNCOPYLINE     скопировать содержимое строки
+// 23   CSTR_FNCOPYLINE     СЃРєРѕРїРёСЂРѕРІР°С‚СЊ СЃРѕРґРµСЂР¶РёРјРѕРµ СЃС‚СЂРѕРєРё
 typedef Bool32  (*FNCSTR_CopyLine)(CSTR_line    trg,CSTR_line   src);
 CSTR_FUNC(Bool32)       CSTR_CopyLine (CSTR_line        trg,CSTR_line   src);
-// 24   CSTR_FNGETLNHND     дать хендл строки по номеру и версии
+// 24   CSTR_FNGETLNHND     РґР°С‚СЊ С…РµРЅРґР» СЃС‚СЂРѕРєРё РїРѕ РЅРѕРјРµСЂСѓ Рё РІРµСЂСЃРёРё
 typedef CSTR_line   (*FNCSTR_GetLineHandle)(Int32 line_no, Int32 version);
 CSTR_FUNC(CSTR_line )   CSTR_GetLineHandle (Int32 line_no, Int32 version);
-// 25   CSTR_FNGETCOMP      получить компонентy растра
+// 25   CSTR_FNGETCOMP      РїРѕР»СѓС‡РёС‚СЊ РєРѕРјРїРѕРЅРµРЅС‚y СЂР°СЃС‚СЂР°
 typedef CCOM_comp *     (*FNCSTR_GetComp)(CSTR_rast  curr_raster);
 CSTR_FUNC(CCOM_comp *)      CSTR_GetComp (CSTR_rast  curr_raster);
-// 26   CSTR_FNNEWUSERCODE  получить доступный код пользовательского блока
+// 26   CSTR_FNNEWUSERCODE  РїРѕР»СѓС‡РёС‚СЊ РґРѕСЃС‚СѓРїРЅС‹Р№ РєРѕРґ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕРіРѕ Р±Р»РѕРєР°
 typedef Int32      (*FNCSTR_NewUserCode) (void);
 CSTR_FUNC(Int32)       CSTR_NewUserCode (void);
-// 27   CSTR_FNVERSION      версия библиотеки
-// 28   CSTR_FNTOTXT        получить текстовый обрах строки
+// 27   CSTR_FNVERSION      РІРµСЂСЃРёСЏ Р±РёР±Р»РёРѕС‚РµРєРё
+// 28   CSTR_FNTOTXT        РїРѕР»СѓС‡РёС‚СЊ С‚РµРєСЃС‚РѕРІС‹Р№ РѕР±СЂР°С… СЃС‚СЂРѕРєРё
 typedef Bool32            (*FNCSTR_LineToTxt)(CSTR_line lin, char *txt);
 CSTR_FUNC(Bool32)                 CSTR_LineToTxt (CSTR_line     lin, char *txt);
-// 29   CSTR_FNINSRST       вставить растр после текущего
+// 29   CSTR_FNINSRST       РІСЃС‚Р°РІРёС‚СЊ СЂР°СЃС‚СЂ РїРѕСЃР»Рµ С‚РµРєСѓС‰РµРіРѕ
 typedef CSTR_rast       (*FNCSTR_InsertRaster)(CSTR_rast        curr_raster);
 CSTR_FUNC(CSTR_rast)    CSTR_InsertRaster (CSTR_rast    curr_raster);
-// 30   CSTR_FNMAXNUM       наибольший номер строки в контейнере
+// 30   CSTR_FNMAXNUM       РЅР°РёР±РѕР»СЊС€РёР№ РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё РІ РєРѕРЅС‚РµР№РЅРµСЂРµ
 typedef Int32  (*FNCSTR_GetMaxNumber)(void);
 CSTR_FUNC(Int32)   CSTR_GetMaxNumber (void);
-// 31   CSTR_FNFIRSTLN      первая строка указанной версии
+// 31   CSTR_FNFIRSTLN      РїРµСЂРІР°СЏ СЃС‚СЂРѕРєР° СѓРєР°Р·Р°РЅРЅРѕР№ РІРµСЂСЃРёРё
 typedef CSTR_line (*FNCSTR_FirstLine)( Int32 version);
 CSTR_FUNC(CSTR_line)  CSTR_FirstLine ( Int32 version);
-// 32   CSTR_FNNEXTTLN      следующая строка указанной версии
+// 32   CSTR_FNNEXTTLN      СЃР»РµРґСѓСЋС‰Р°СЏ СЃС‚СЂРѕРєР° СѓРєР°Р·Р°РЅРЅРѕР№ РІРµСЂСЃРёРё
 typedef CSTR_line (*FNCSTR_NextLine)( CSTR_line start, Int32 version);
 CSTR_FUNC(CSTR_line)  CSTR_NextLine ( CSTR_line start,Int32 version);
-// 33   CSTR_FNDELALL       удалить все строки
+// 33   CSTR_FNDELALL       СѓРґР°Р»РёС‚СЊ РІСЃРµ СЃС‚СЂРѕРєРё
 typedef void (*FNCSTR_DeleteAll)(void);
 CSTR_FUNC(void) CSTR_DeleteAll(void);
-// 34   CSTR_FNNEXT         следующий нефиктивный растр
+// 34   CSTR_FNNEXT         СЃР»РµРґСѓСЋС‰РёР№ РЅРµС„РёРєС‚РёРІРЅС‹Р№ СЂР°СЃС‚СЂ
 typedef CSTR_rast  (*FNCSTR_GetNext)(CSTR_rast rst);
 CSTR_FUNC(CSTR_rast)    CSTR_GetNext(CSTR_rast rst);
-// 35   CSTR_FNPREV         предыдущий нефиктивный растр
+// 35   CSTR_FNPREV         РїСЂРµРґС‹РґСѓС‰РёР№ РЅРµС„РёРєС‚РёРІРЅС‹Р№ СЂР°СЃС‚СЂ
 typedef CSTR_rast  (*FNCSTR_GetPrev)(CSTR_rast rst);
 CSTR_FUNC(CSTR_rast)    CSTR_GetPrev(CSTR_rast rst);
-// 36   CSTR_FNSWAP         обменять местами 2 растра
+// 36   CSTR_FNSWAP         РѕР±РјРµРЅСЏС‚СЊ РјРµСЃС‚Р°РјРё 2 СЂР°СЃС‚СЂР°
 typedef Bool32 (*FNCSTR_SwapRasters)(CSTR_rast r1, CSTR_rast r2);
 CSTR_FUNC(Bool32) CSTR_SwapRasters(CSTR_rast r1, CSTR_rast r2);
-// 37   CSTR_FNDELSAVE      удалить с сохранением
+// 37   CSTR_FNDELSAVE      СѓРґР°Р»РёС‚СЊ СЃ СЃРѕС…СЂР°РЅРµРЅРёРµРј
 typedef CSTR_rast (*FNCSTR_DelSaveRaster)(CSTR_rast c);
 CSTR_FUNC(CSTR_rast)    CSTR_DelSaveRaster(CSTR_rast c);
-// 38   CSTR_FNRESTRAST     восстановить
+// 38   CSTR_FNRESTRAST     РІРѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ
 typedef CSTR_rast (*FNCSTR_RestoreRaster)(CSTR_line ln,CSTR_rast rst);
 CSTR_FUNC(CSTR_rast) CSTR_RestoreRaster(CSTR_line ln,CSTR_rast rst);
-// 39   CSTR_FNCOMPOSE      склеить массив растров
+// 39   CSTR_FNCOMPOSE      СЃРєР»РµРёС‚СЊ РјР°СЃСЃРёРІ СЂР°СЃС‚СЂРѕРІ
 typedef CSTR_rast (*FNCSTR_compose_Cell)(Int32 n,CSTR_rast *clist, Int32 nIncline, Bool32 NeedDel);
 CSTR_FUNC(CSTR_rast) CSTR_compose_Cell(Int32 n,CSTR_rast *clist, Int32 nIncline, Bool32 NeedDel);
-// 40   CSTR_KILLIM         убить образ в растре
+// 40   CSTR_KILLIM         СѓР±РёС‚СЊ РѕР±СЂР°Р· РІ СЂР°СЃС‚СЂРµ
 typedef Bool32  (*FNCSTR_KillImage)(CSTR_rast rst);
 CSTR_FUNC(Bool32) CSTR_KillImage(CSTR_rast rst);
 // 41   CSTR_FNSAVE
@@ -317,94 +317,94 @@ CSTR_FUNC(CSTR_rast) CSTR_GetComplist(CSTR_rast rst);
 // 43   CSTR_FNSETLIST
 typedef Bool32 (*FNCSTR_SetComplist)(CSTR_rast rst, CSTR_rast complist);
 CSTR_FUNC(Bool32) CSTR_SetComplist(CSTR_rast rst, CSTR_rast complist);
-// 44   CSTR_FNGETCOLLECTIONUNI дать расширенную коллекцию
+// 44   CSTR_FNGETCOLLECTIONUNI РґР°С‚СЊ СЂР°СЃС€РёСЂРµРЅРЅСѓСЋ РєРѕР»Р»РµРєС†РёСЋ
 typedef Bool32(*FNCSTR_GetCollectionUni) (CSTR_rast  curr_raster, UniVersions *result_collect);
 CSTR_FUNC(Bool32)                   CSTR_GetCollectionUni (CSTR_rast  curr_raster, UniVersions *result_collect);
-// 45   CSTR_FNSTORECOLLECTIONUNI запомнить расширенную коллекцию
+// 45   CSTR_FNSTORECOLLECTIONUNI Р·Р°РїРѕРјРЅРёС‚СЊ СЂР°СЃС€РёСЂРµРЅРЅСѓСЋ РєРѕР»Р»РµРєС†РёСЋ
 typedef Bool32(*FNCSTR_StoreCollectionUni) (CSTR_rast  curr_raster, UniVersions *result_collect);
 CSTR_FUNC(Bool32)                   CSTR_StoreCollectionUni (CSTR_rast  curr_raster, UniVersions *result_collect);
-// 46   CSTR_FNGETCONTAINER дать хэндл контейнера строки
+// 46   CSTR_FNGETCONTAINER РґР°С‚СЊ С…СЌРЅРґР» РєРѕРЅС‚РµР№РЅРµСЂР° СЃС‚СЂРѕРєРё
 typedef CCOM_handle (*FNCSTR_GetContainer)(CSTR_line ln);
 CSTR_FUNC(CCOM_handle) CSTR_GetContainer(CSTR_line ln);
-// 47   CSTR_FNSTORESCALE   запомнить код масштабирования
+// 47   CSTR_FNSTORESCALE   Р·Р°РїРѕРјРЅРёС‚СЊ РєРѕРґ РјР°СЃС€С‚Р°Р±РёСЂРѕРІР°РЅРёСЏ
 typedef Bool32 (*FNCSTR_StoreScale)(CSTR_rast  curr_raster,Word8 scale);
 CSTR_FUNC(Bool32)               CSTR_StoreScale(CSTR_rast  curr_raster,Word8 scale);
-// 48   CSTR_GETLINEFIRST   дать хэндл первой строки данных фрагмента и версии
+// 48   CSTR_GETLINEFIRST   РґР°С‚СЊ С…СЌРЅРґР» РїРµСЂРІРѕР№ СЃС‚СЂРѕРєРё РґР°РЅРЅС‹С… С„СЂР°РіРјРµРЅС‚Р° Рё РІРµСЂСЃРёРё
 typedef CSTR_line (*FNCSTR_GetLineFirst) ( Int32 fragment_no, Int32 version);
 CSTR_FUNC(CSTR_line )   CSTR_GetLineFirst ( Int32 fragment_no, Int32 version);
-// 49   CSTR_GETLINENEXT    дать хэндл следующей строки данных фрагмента и версии
+// 49   CSTR_GETLINENEXT    РґР°С‚СЊ С…СЌРЅРґР» СЃР»РµРґСѓСЋС‰РµР№ СЃС‚СЂРѕРєРё РґР°РЅРЅС‹С… С„СЂР°РіРјРµРЅС‚Р° Рё РІРµСЂСЃРёРё
 typedef CSTR_line (*FNCSTR_GetLineNext) (CSTR_line lin, Int32 fragment_no, Int32 version);
 CSTR_FUNC(CSTR_line )   CSTR_GetLineNext (CSTR_line lin, Int32 fragment_no, Int32 version);
-// 50   CSTR_FNCLEARLINE    Удалить растры из строки
+// 50   CSTR_FNCLEARLINE    РЈРґР°Р»РёС‚СЊ СЂР°СЃС‚СЂС‹ РёР· СЃС‚СЂРѕРєРё
 typedef Bool32 (*FNCSTR_ClearLine)(CSTR_line lin,Int16 left, Int16 right);
 CSTR_FUNC(Bool32) CSTR_ClearLine(CSTR_line lin,Int16 left, Int16 right);
-// 51   CSTR_GETRASTERLINE      дать хэндл строки растра
+// 51   CSTR_GETRASTERLINE      РґР°С‚СЊ С…СЌРЅРґР» СЃС‚СЂРѕРєРё СЂР°СЃС‚СЂР°
 typedef CSTR_line  (*FNCSTR_GetRasterLine) (CSTR_rast  curr_raster);
 CSTR_FUNC(CSTR_line)    CSTR_GetRasterLine (CSTR_rast  curr_raster);
-// 52   CSTR_SETDUP             запомнить хэндл сопряжённого растра
+// 52   CSTR_SETDUP             Р·Р°РїРѕРјРЅРёС‚СЊ С…СЌРЅРґР» СЃРѕРїСЂСЏР¶С‘РЅРЅРѕРіРѕ СЂР°СЃС‚СЂР°
 typedef Bool32 (*FNCSTR_SetDup)(CSTR_rast   rus, CSTR_rast   eng);
 CSTR_FUNC(Bool32) CSTR_SetDup(CSTR_rast   rus, CSTR_rast   eng);
-// 53   CSTR_SETDUPEND          запомнить хэндл дополнительного сопряжённого растра
+// 53   CSTR_SETDUPEND          Р·Р°РїРѕРјРЅРёС‚СЊ С…СЌРЅРґР» РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕРіРѕ СЃРѕРїСЂСЏР¶С‘РЅРЅРѕРіРѕ СЂР°СЃС‚СЂР°
 typedef Bool32 (*FNCSTR_SetDupEnd)(CSTR_rast   rus,CSTR_rast    eng);
 CSTR_FUNC(Bool32) CSTR_SetDupEnd(CSTR_rast   rus,CSTR_rast    eng);
-// 54   CSTR_GETDUP             дать хэндл сопряжённого растра
+// 54   CSTR_GETDUP             РґР°С‚СЊ С…СЌРЅРґР» СЃРѕРїСЂСЏР¶С‘РЅРЅРѕРіРѕ СЂР°СЃС‚СЂР°
 typedef CSTR_rast (*FNCSTR_GetDup)(CSTR_rast rus);
 CSTR_FUNC(CSTR_rast) CSTR_GetDup(CSTR_rast rus);
-// 55   CSTR_GETDUPEND          дать хэндл дополнительного сопряжённого растра
+// 55   CSTR_GETDUPEND          РґР°С‚СЊ С…СЌРЅРґР» РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕРіРѕ СЃРѕРїСЂСЏР¶С‘РЅРЅРѕРіРѕ СЂР°СЃС‚СЂР°
 typedef CSTR_rast (*FNCSTR_GetDupEnd)(CSTR_rast rus);
 CSTR_FUNC(CSTR_rast) CSTR_GetDupEnd(CSTR_rast rus);
-// 56   CSTR_FNPACK:            удалить дублирующую информацию
+// 56   CSTR_FNPACK:            СѓРґР°Р»РёС‚СЊ РґСѓР±Р»РёСЂСѓСЋС‰СѓСЋ РёРЅС„РѕСЂРјР°С†РёСЋ
 typedef Bool32 (*FNCSTR_PackLine)(CSTR_line line);
 CSTR_FUNC(Bool32) CSTR_PackLine(CSTR_line line);
-// 57   CSTR_FNUNPACK:          восстановить дублирующую информацию
+// 57   CSTR_FNUNPACK:          РІРѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ РґСѓР±Р»РёСЂСѓСЋС‰СѓСЋ РёРЅС„РѕСЂРјР°С†РёСЋ
 typedef Bool32 (*FNCSTR_UnpackLine)(CSTR_line line);
 CSTR_FUNC(Bool32) CSTR_UnpackLine(CSTR_line line);
-// 58   CSTR_FNSORTFRAGM        отсортировать по фрагментам
+// 58   CSTR_FNSORTFRAGM        РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°С‚СЊ РїРѕ С„СЂР°РіРјРµРЅС‚Р°Рј
 typedef Bool32  (*FNCSTR_SortFragm)( Int32 version);
 CSTR_FUNC(Bool32)       CSTR_SortFragm ( Int32 version);
-// 59   CSTR_FNFIRSTLINEFRAGM   первая во фрагменте
+// 59   CSTR_FNFIRSTLINEFRAGM   РїРµСЂРІР°СЏ РІРѕ С„СЂР°РіРјРµРЅС‚Рµ
 typedef CSTR_line       (*FNCSTR_FirstLineFragm)( Int32 fragm, Int32 version );
 CSTR_FUNC(CSTR_line)    CSTR_FirstLineFragm ( Int32 fragm, Int32 version );
-// 60   CSTR_FNNEXTLINEFRAGM    следующая по фрагменту
+// 60   CSTR_FNNEXTLINEFRAGM    СЃР»РµРґСѓСЋС‰Р°СЏ РїРѕ С„СЂР°РіРјРµРЅС‚Сѓ
 typedef CSTR_line       (*FNCSTR_NextLineFragm)( CSTR_line start);
 CSTR_FUNC(CSTR_line)    CSTR_NextLineFragm ( CSTR_line start);
-// 61   CSTR_FNSTORECOMPORIGINAL    запомнить компоненту (для оригинального контейнера)
+// 61   CSTR_FNSTORECOMPORIGINAL    Р·Р°РїРѕРјРЅРёС‚СЊ РєРѕРјРїРѕРЅРµРЅС‚Сѓ (РґР»СЏ РѕСЂРёРіРёРЅР°Р»СЊРЅРѕРіРѕ РєРѕРЅС‚РµР№РЅРµСЂР°)
 typedef Bool32          (*FNCSTR_StoreCompOriginal) (CSTR_rast  curr_raster, CCOM_comp   * comp, Bool32 raster_init);
 CSTR_FUNC(Bool32)               CSTR_StoreCompOriginal (CSTR_rast  curr_raster, CCOM_comp   * comp, Bool32 raster_init);
-// 62   CSTR_FNGETMAXFRAGMENT   максимальный номер фрагмента
+// 62   CSTR_FNGETMAXFRAGMENT   РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РЅРѕРјРµСЂ С„СЂР°РіРјРµРЅС‚Р°
 typedef Int32    (*FNCSTR_GetMaxFragment)(Int32 version);
 CSTR_FUNC(Int32)    CSTR_GetMaxFragment(Int32 version);
-// 63   CSTR_SAVECONT           сохранить контейнер на диске
+// 63   CSTR_SAVECONT           СЃРѕС…СЂР°РЅРёС‚СЊ РєРѕРЅС‚РµР№РЅРµСЂ РЅР° РґРёСЃРєРµ
 typedef Bool32 (*FNCSTR_SaveCont)(char *filename);
 CSTR_FUNC(Bool32) CSTR_SaveCont(char *filename);
-// 64   CSTR_RESTORECONT        воостановить контейнер с диска
+// 64   CSTR_RESTORECONT        РІРѕРѕСЃС‚Р°РЅРѕРІРёС‚СЊ РєРѕРЅС‚РµР№РЅРµСЂ СЃ РґРёСЃРєР°
 typedef Bool32 (*FNCSTR_RestoreCont)( char *filename);
 CSTR_FUNC(Bool32) CSTR_RestoreCont(char *filename);
-// 65   CSTR_INSERTRASTERDOWN   вставить ссылку вниз
+// 65   CSTR_INSERTRASTERDOWN   РІСЃС‚Р°РІРёС‚СЊ СЃСЃС‹Р»РєСѓ РІРЅРёР·
 typedef Bool32  (*FNCSTR_InsertRasterDown) (CSTR_rast   start_raster, CSTR_rast stop_raster);
 CSTR_FUNC(CSTR_rast)            CSTR_InsertRasterDown (CSTR_rast        start_raster, CSTR_rast stop_raster);
-// 66   CSTR_COPYRASTER                 скопировать содержимое растра
+// 66   CSTR_COPYRASTER                 СЃРєРѕРїРёСЂРѕРІР°С‚СЊ СЃРѕРґРµСЂР¶РёРјРѕРµ СЂР°СЃС‚СЂР°
 typedef Bool32  (*FNCSTR_CopyRaster)(CSTR_rast  trg,CSTR_rast   src);
 CSTR_FUNC(Bool32)       CSTR_CopyRaster(CSTR_rast       trg,CSTR_rast   src);
-// 67   CSTR_DELETELOOPS                удалить обходные пути
+// 67   CSTR_DELETELOOPS                СѓРґР°Р»РёС‚СЊ РѕР±С…РѕРґРЅС‹Рµ РїСѓС‚Рё
 typedef Bool32              (*FNCSTR_DeleteLoops) (CSTR_line    lin);
 CSTR_FUNC(Bool32)                   CSTR_DeleteLoops (CSTR_line lin);
-// 68   CSTR_GETNEXTDOWN                ссылка на петлю вперёд
+// 68   CSTR_GETNEXTDOWN                СЃСЃС‹Р»РєР° РЅР° РїРµС‚Р»СЋ РІРїРµСЂС‘Рґ
 typedef CSTR_rast    (*FNCSTR_GetNextDown)(CSTR_rast rst);
 CSTR_FUNC(CSTR_rast)    CSTR_GetNextDown(CSTR_rast rst);
-// 69   CSTR_GETPREVDOWN                ссылка на петлю назад
+// 69   CSTR_GETPREVDOWN                СЃСЃС‹Р»РєР° РЅР° РїРµС‚Р»СЋ РЅР°Р·Р°Рґ
 typedef CSTR_rast    (*FNCSTR_GetPrevDown)(CSTR_rast rst);
 CSTR_FUNC(CSTR_rast)    CSTR_GetPrevDown(CSTR_rast rst);
-// 70   CSTR_GETNEXTUP                  ссылка из петли вперёд
+// 70   CSTR_GETNEXTUP                  СЃСЃС‹Р»РєР° РёР· РїРµС‚Р»Рё РІРїРµСЂС‘Рґ
 typedef CSTR_rast    (*FNCSTR_GetNextUp)(CSTR_rast rst);
 CSTR_FUNC(CSTR_rast)    CSTR_GetNextUp(CSTR_rast rst);
-// 71   CSTR_GETPREVUP                  ссылка из петли назад
+// 71   CSTR_GETPREVUP                  СЃСЃС‹Р»РєР° РёР· РїРµС‚Р»Рё РЅР°Р·Р°Рґ
 typedef CSTR_rast    (*FNCSTR_GetPrevUp)(CSTR_rast rst);
 CSTR_FUNC(CSTR_rast)    CSTR_GetPrevUp(CSTR_rast rst);
-// 72   CSTR_GETLENGTH                  длина нужного текстового буфера
+// 72   CSTR_GETLENGTH                  РґР»РёРЅР° РЅСѓР¶РЅРѕРіРѕ С‚РµРєСЃС‚РѕРІРѕРіРѕ Р±СѓС„РµСЂР°
 typedef Int32        (*FNCSTR_GetLength) (CSTR_line   lin);
 CSTR_FUNC(Int32)        CSTR_GetLength (CSTR_line   lin);
-// 73   CSTR_FNTOTXT_COORD              получить текстовый обрах строки с координатами
+// 73   CSTR_FNTOTXT_COORD              РїРѕР»СѓС‡РёС‚СЊ С‚РµРєСЃС‚РѕРІС‹Р№ РѕР±СЂР°С… СЃС‚СЂРѕРєРё СЃ РєРѕРѕСЂРґРёРЅР°С‚Р°РјРё
 typedef Bool32       (*FNCSTR_LineToTxt_Coord)(CSTR_line lin, char *txt, Int32 len);
 CSTR_FUNC(Bool32)       CSTR_LineToTxt_Coord (CSTR_line     lin, char *txt, Int32 len);
 

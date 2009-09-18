@@ -1,96 +1,102 @@
 /*
-Copyright (c) 1993-2008, Cognitive Technologies
-All rights reserved.
+ Copyright (c) 1993-2008, Cognitive Technologies
+ All rights reserved.
 
-Ğàçğåøàåòñÿ ïîâòîğíîå ğàñïğîñòğàíåíèå è èñïîëüçîâàíèå êàê â âèäå èñõîäíîãî êîäà,
-òàê è â äâîè÷íîé ôîğìå, ñ èçìåíåíèÿìè èëè áåç, ïğè ñîáëşäåíèè ñëåäóşùèõ óñëîâèé:
+ Ğ Ğ°Ğ·Ñ€ĞµÑˆĞ°ĞµÑ‚ÑÑ Ğ¿Ğ¾Ğ²Ñ‚Ğ¾Ñ€Ğ½Ğ¾Ğµ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ğµ Ğ¸ Ğ¸ÑĞ¿Ğ¾Ğ»ÑŒĞ·Ğ¾Ğ²Ğ°Ğ½Ğ¸Ğµ ĞºĞ°Ğº Ğ² Ğ²Ğ¸Ğ´Ğµ Ğ¸ÑÑ…Ğ¾Ğ´Ğ½Ğ¾Ğ³Ğ¾ ĞºĞ¾Ğ´Ğ°,
+ Ñ‚Ğ°Ğº Ğ¸ Ğ² Ğ´Ğ²Ğ¾Ğ¸Ñ‡Ğ½Ğ¾Ğ¹ Ñ„Ğ¾Ñ€Ğ¼Ğµ, Ñ Ğ¸Ğ·Ğ¼ĞµĞ½ĞµĞ½Ğ¸ÑĞ¼Ğ¸ Ğ¸Ğ»Ğ¸ Ğ±ĞµĞ·, Ğ¿Ñ€Ğ¸ ÑĞ¾Ğ±Ğ»ÑĞ´ĞµĞ½Ğ¸Ğ¸ ÑĞ»ĞµĞ´ÑƒÑÑ‰Ğ¸Ñ… ÑƒÑĞ»Ğ¾Ğ²Ğ¸Ğ¹:
 
-      * Ïğè ïîâòîğíîì ğàñïğîñòğàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîğñêîì ïğàâå, ıòîò ñïèñîê óñëîâèé è ïîñëåäóşùèé
-        îòêàç îò ãàğàíòèé.
-      * Ïğè ïîâòîğíîì ğàñïğîñòğàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
-        äğóãèõ ìàòåğèàëàõ, ïîñòàâëÿåìûõ ïğè ğàñïğîñòğàíåíèè, äîëæíû ñîõğàíÿòüñÿ
-        óêàçàííàÿ âûøå èíôîğìàöèÿ îá àâòîğñêîì ïğàâå, ıòîò ñïèñîê óñëîâèé è
-        ïîñëåäóşùèé îòêàç îò ãàğàíòèé.
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòğóäíèêîâ íå ìîãóò
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñğåäñòâà ïîääåğæêè è/èëè ïğîäâèæåíèÿ
-        ïğîäóêòîâ, îñíîâàííûõ íà ıòîì ÏÎ, áåç ïğåäâàğèòåëüíîãî ïèñüìåííîãî
-        ğàçğåøåíèÿ.
+ * ĞŸÑ€Ğ¸ Ğ¿Ğ¾Ğ²Ñ‚Ğ¾Ñ€Ğ½Ğ¾Ğ¼ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ğ¸ Ğ¸ÑÑ…Ğ¾Ğ´Ğ½Ğ¾Ğ³Ğ¾ ĞºĞ¾Ğ´Ğ° Ğ´Ğ¾Ğ»Ğ¶Ğ½Ñ‹ Ğ¾ÑÑ‚Ğ°Ğ²Ğ°Ñ‚ÑŒÑÑ ÑƒĞºĞ°Ğ·Ğ°Ğ½Ğ½Ğ¾Ğµ
+ Ğ²Ñ‹ÑˆĞµ ÑƒĞ²ĞµĞ´Ğ¾Ğ¼Ğ»ĞµĞ½Ğ¸Ğµ Ğ¾Ğ± Ğ°Ğ²Ñ‚Ğ¾Ñ€ÑĞºĞ¾Ğ¼ Ğ¿Ñ€Ğ°Ğ²Ğµ, ÑÑ‚Ğ¾Ñ‚ ÑĞ¿Ğ¸ÑĞ¾Ğº ÑƒÑĞ»Ğ¾Ğ²Ğ¸Ğ¹ Ğ¸ Ğ¿Ğ¾ÑĞ»ĞµĞ´ÑƒÑÑ‰Ğ¸Ğ¹
+ Ğ¾Ñ‚ĞºĞ°Ğ· Ğ¾Ñ‚ Ğ³Ğ°Ñ€Ğ°Ğ½Ñ‚Ğ¸Ğ¹.
+ * ĞŸÑ€Ğ¸ Ğ¿Ğ¾Ğ²Ñ‚Ğ¾Ñ€Ğ½Ğ¾Ğ¼ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ğ¸ Ğ´Ğ²Ğ¾Ğ¸Ñ‡Ğ½Ğ¾Ğ³Ğ¾ ĞºĞ¾Ğ´Ğ° Ğ² Ğ´Ğ¾ĞºÑƒĞ¼ĞµĞ½Ñ‚Ğ°Ñ†Ğ¸Ğ¸ Ğ¸/Ğ¸Ğ»Ğ¸ Ğ²
+ Ğ´Ñ€ÑƒĞ³Ğ¸Ñ… Ğ¼Ğ°Ñ‚ĞµÑ€Ğ¸Ğ°Ğ»Ğ°Ñ…, Ğ¿Ğ¾ÑÑ‚Ğ°Ğ²Ğ»ÑĞµĞ¼Ñ‹Ñ… Ğ¿Ñ€Ğ¸ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ğ¸, Ğ´Ğ¾Ğ»Ğ¶Ğ½Ñ‹ ÑĞ¾Ñ…Ñ€Ğ°Ğ½ÑÑ‚ÑŒÑÑ
+ ÑƒĞºĞ°Ğ·Ğ°Ğ½Ğ½Ğ°Ñ Ğ²Ñ‹ÑˆĞµ Ğ¸Ğ½Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ†Ğ¸Ñ Ğ¾Ğ± Ğ°Ğ²Ñ‚Ğ¾Ñ€ÑĞºĞ¾Ğ¼ Ğ¿Ñ€Ğ°Ğ²Ğµ, ÑÑ‚Ğ¾Ñ‚ ÑĞ¿Ğ¸ÑĞ¾Ğº ÑƒÑĞ»Ğ¾Ğ²Ğ¸Ğ¹ Ğ¸
+ Ğ¿Ğ¾ÑĞ»ĞµĞ´ÑƒÑÑ‰Ğ¸Ğ¹ Ğ¾Ñ‚ĞºĞ°Ğ· Ğ¾Ñ‚ Ğ³Ğ°Ñ€Ğ°Ğ½Ñ‚Ğ¸Ğ¹.
+ * ĞĞ¸ Ğ½Ğ°Ğ·Ğ²Ğ°Ğ½Ğ¸Ğµ Cognitive Technologies, Ğ½Ğ¸ Ğ¸Ğ¼ĞµĞ½Ğ° ĞµĞµ ÑĞ¾Ñ‚Ñ€ÑƒĞ´Ğ½Ğ¸ĞºĞ¾Ğ² Ğ½Ğµ Ğ¼Ğ¾Ğ³ÑƒÑ‚
+ Ğ±Ñ‹Ñ‚ÑŒ Ğ¸ÑĞ¿Ğ¾Ğ»ÑŒĞ·Ğ¾Ğ²Ğ°Ğ½Ñ‹ Ğ² ĞºĞ°Ñ‡ĞµÑÑ‚Ğ²Ğµ ÑÑ€ĞµĞ´ÑÑ‚Ğ²Ğ° Ğ¿Ğ¾Ğ´Ğ´ĞµÑ€Ğ¶ĞºĞ¸ Ğ¸/Ğ¸Ğ»Ğ¸ Ğ¿Ñ€Ğ¾Ğ´Ğ²Ğ¸Ğ¶ĞµĞ½Ğ¸Ñ
+ Ğ¿Ñ€Ğ¾Ğ´ÑƒĞºÑ‚Ğ¾Ğ², Ğ¾ÑĞ½Ğ¾Ğ²Ğ°Ğ½Ğ½Ñ‹Ñ… Ğ½Ğ° ÑÑ‚Ğ¾Ğ¼ ĞŸĞ, Ğ±ĞµĞ· Ğ¿Ñ€ĞµĞ´Ğ²Ğ°Ñ€Ğ¸Ñ‚ĞµĞ»ÑŒĞ½Ğ¾Ğ³Ğ¾ Ğ¿Ğ¸ÑÑŒĞ¼ĞµĞ½Ğ½Ğ¾Ğ³Ğ¾
+ Ñ€Ğ°Ğ·Ñ€ĞµÑˆĞµĞ½Ğ¸Ñ.
 
-İÒÀ ÏĞÎÃĞÀÌÌÀ ÏĞÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎĞÑÊÈÕ ÏĞÀÂ È/ÈËÈ ÄĞÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀĞÀÍÒÈÉ, ÂÛĞÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄĞÀÇÓÌÅÂÀÅÌÛÕ,
-ÂÊËŞ×Àß ÃÀĞÀÍÒÈÈ ÊÎÌÌÅĞ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏĞÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊĞÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃĞÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎĞÑÊÈÕ ÏĞÀÂ È ÍÈ ÎÄÍÎ ÄĞÓÃÎÅ ËÈÖÎ, ÊÎÒÎĞÎÅ
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎĞÍÎ ĞÀÑÏĞÎÑÒĞÀÍßÒÜ ÏĞÎÃĞÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËŞ×Àß ËŞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏĞÎÃĞÀÌÌÛ (ÂÊËŞ×Àß ÏÎÒÅĞÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅĞÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
-ÒĞÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏĞÎÃĞÀÌÌÛ ĞÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄĞÓÃÈÌÈ ÏĞÎÃĞÀÌÌÀÌÈ,
-ÍÎ ÍÅ ÎÃĞÀÍÈ×ÈÂÀßÑÜ İÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃĞÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
-ÂËÀÄÅËÅÖ ÈËÈ ÄĞÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅĞÜ.
+ Ğ­Ğ¢Ğ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞ ĞŸĞ Ğ•Ğ”ĞĞ¡Ğ¢ĞĞ’Ğ›Ğ•ĞĞ Ğ’Ğ›ĞĞ”Ğ•Ğ›Ğ¬Ğ¦ĞĞœĞ˜ ĞĞ’Ğ¢ĞĞ Ğ¡ĞšĞ˜Ğ¥ ĞŸĞ ĞĞ’ Ğ˜/Ğ˜Ğ›Ğ˜ Ğ”Ğ Ğ£Ğ“Ğ˜ĞœĞ˜ Ğ›Ğ˜Ğ¦ĞĞœĞ˜ "ĞšĞĞš
+ ĞĞĞ Ğ•Ğ¡Ğ¢Ğ¬" Ğ‘Ğ•Ğ— ĞšĞĞšĞĞ“Ğ-Ğ›Ğ˜Ğ‘Ğ Ğ’Ğ˜Ğ”Ğ Ğ“ĞĞ ĞĞĞ¢Ğ˜Ğ™, Ğ’Ğ«Ğ ĞĞ–Ğ•ĞĞĞ«Ğ¥ Ğ¯Ğ’ĞĞ Ğ˜Ğ›Ğ˜ ĞŸĞĞ”Ğ ĞĞ—Ğ£ĞœĞ•Ğ’ĞĞ•ĞœĞ«Ğ¥,
+ Ğ’ĞšĞ›Ğ®Ğ§ĞĞ¯ Ğ“ĞĞ ĞĞĞ¢Ğ˜Ğ˜ ĞšĞĞœĞœĞ•Ğ Ğ§Ğ•Ğ¡ĞšĞĞ™ Ğ¦Ğ•ĞĞĞĞ¡Ğ¢Ğ˜ Ğ˜ ĞŸĞ Ğ˜Ğ“ĞĞ”ĞĞĞ¡Ğ¢Ğ˜ Ğ”Ğ›Ğ¯ ĞšĞĞĞšĞ Ğ•Ğ¢ĞĞĞ™ Ğ¦Ğ•Ğ›Ğ˜, ĞĞ ĞĞ•
+ ĞĞ“Ğ ĞĞĞ˜Ğ§Ğ˜Ğ’ĞĞ¯Ğ¡Ğ¬ Ğ˜ĞœĞ˜. ĞĞ˜ Ğ’Ğ›ĞĞ”Ğ•Ğ›Ğ•Ğ¦ ĞĞ’Ğ¢ĞĞ Ğ¡ĞšĞ˜Ğ¥ ĞŸĞ ĞĞ’ Ğ˜ ĞĞ˜ ĞĞ”ĞĞ Ğ”Ğ Ğ£Ğ“ĞĞ• Ğ›Ğ˜Ğ¦Ğ, ĞšĞĞ¢ĞĞ ĞĞ•
+ ĞœĞĞ–Ğ•Ğ¢ Ğ˜Ğ—ĞœĞ•ĞĞ¯Ğ¢Ğ¬ Ğ˜/Ğ˜Ğ›Ğ˜ ĞŸĞĞ’Ğ¢ĞĞ ĞĞ Ğ ĞĞ¡ĞŸĞ ĞĞ¡Ğ¢Ğ ĞĞĞ¯Ğ¢Ğ¬ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞ£, ĞĞ˜ Ğ’ ĞšĞĞ•Ğœ Ğ¡Ğ›Ğ£Ğ§ĞĞ• ĞĞ•
+ ĞĞ•Ğ¡ĞĞ¢ ĞĞ¢Ğ’Ğ•Ğ¢Ğ¡Ğ¢Ğ’Ğ•ĞĞĞĞ¡Ğ¢Ğ˜, Ğ’ĞšĞ›Ğ®Ğ§ĞĞ¯ Ğ›Ğ®Ğ‘Ğ«Ğ• ĞĞ‘Ğ©Ğ˜Ğ•, Ğ¡Ğ›Ğ£Ğ§ĞĞ™ĞĞ«Ğ•, Ğ¡ĞŸĞ•Ğ¦Ğ˜ĞĞ›Ğ¬ĞĞ«Ğ• Ğ˜Ğ›Ğ˜
+ ĞŸĞĞ¡Ğ›Ğ•Ğ”ĞĞ’ĞĞ’Ğ¨Ğ˜Ğ• Ğ£Ğ‘Ğ«Ğ¢ĞšĞ˜, Ğ¡Ğ’Ğ¯Ğ—ĞĞĞĞ«Ğ• Ğ¡ Ğ˜Ğ¡ĞŸĞĞ›Ğ¬Ğ—ĞĞ’ĞĞĞ˜Ğ•Ğœ Ğ˜Ğ›Ğ˜ ĞŸĞĞĞ•Ğ¡Ğ•ĞĞĞ«Ğ• Ğ’Ğ¡Ğ›Ğ•Ğ”Ğ¡Ğ¢Ğ’Ğ˜Ğ•
+ ĞĞ•Ğ’ĞĞ—ĞœĞĞ–ĞĞĞ¡Ğ¢Ğ˜ Ğ˜Ğ¡ĞŸĞĞ›Ğ¬Ğ—ĞĞ’ĞĞĞ˜Ğ¯ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞ« (Ğ’ĞšĞ›Ğ®Ğ§ĞĞ¯ ĞŸĞĞ¢Ğ•Ğ Ğ˜ Ğ”ĞĞĞĞ«Ğ¥, Ğ˜Ğ›Ğ˜ Ğ”ĞĞĞĞ«Ğ•,
+ Ğ¡Ğ¢ĞĞ’Ğ¨Ğ˜Ğ• ĞĞ•Ğ“ĞĞ”ĞĞ«ĞœĞ˜, Ğ˜Ğ›Ğ˜ Ğ£Ğ‘Ğ«Ğ¢ĞšĞ˜ Ğ˜/Ğ˜Ğ›Ğ˜ ĞŸĞĞ¢Ğ•Ğ Ğ˜ Ğ”ĞĞ¥ĞĞ”ĞĞ’, ĞŸĞĞĞ•Ğ¡Ğ•ĞĞĞ«Ğ• Ğ˜Ğ—-Ğ—Ğ Ğ”Ğ•Ğ™Ğ¡Ğ¢Ğ’Ğ˜Ğ™
+ Ğ¢Ğ Ğ•Ğ¢Ğ¬Ğ˜Ğ¥ Ğ›Ğ˜Ğ¦ Ğ˜/Ğ˜Ğ›Ğ˜ ĞĞ¢ĞšĞĞ—Ğ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞ« Ğ ĞĞ‘ĞĞ¢ĞĞ¢Ğ¬ Ğ¡ĞĞ’ĞœĞ•Ğ¡Ğ¢ĞĞ Ğ¡ Ğ”Ğ Ğ£Ğ“Ğ˜ĞœĞ˜ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞĞœĞ˜,
+ ĞĞ ĞĞ• ĞĞ“Ğ ĞĞĞ˜Ğ§Ğ˜Ğ’ĞĞ¯Ğ¡Ğ¬ Ğ­Ğ¢Ğ˜ĞœĞ˜ Ğ¡Ğ›Ğ£Ğ§ĞĞ¯ĞœĞ˜), ĞĞ ĞĞ• ĞĞ“Ğ ĞĞĞ˜Ğ§Ğ˜Ğ’ĞĞ¯Ğ¡Ğ¬ Ğ˜ĞœĞ˜, Ğ”ĞĞ–Ğ• Ğ•Ğ¡Ğ›Ğ˜ Ğ¢ĞĞšĞĞ™
+ Ğ’Ğ›ĞĞ”Ğ•Ğ›Ğ•Ğ¦ Ğ˜Ğ›Ğ˜ Ğ”Ğ Ğ£Ğ“ĞĞ• Ğ›Ğ˜Ğ¦Ğ Ğ‘Ğ«Ğ›Ğ˜ Ğ˜Ğ—Ğ’Ğ•Ğ©Ğ•ĞĞ« Ğ Ğ’ĞĞ—ĞœĞĞ–ĞĞĞ¡Ğ¢Ğ˜ Ğ¢ĞĞšĞ˜Ğ¥ Ğ£Ğ‘Ğ«Ğ¢ĞšĞĞ’ Ğ˜ ĞŸĞĞ¢Ğ•Ğ Ğ¬.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
 
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation
-      and/or other materials provided with the distribution.
-    * Neither the name of the Cognitive Technologies nor the names of its
-      contributors may be used to endorse or promote products derived from this
-      software without specific prior written permission.
+ * Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ * Neither the name of the Cognitive Technologies nor the names of its
+ contributors may be used to endorse or promote products derived from this
+ software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #include "c_types.h"
 #include "struct.h"
 #include "func.h"
 
-static BYTE sqrt_tab[] = {
- 0,
- 1, 1, 1,
- 2, 2, 2, 2, 2,
- 3, 3, 3, 3, 3, 3, 3,
- 4, 4, 4, 4, 4, 4, 4, 4, 4,
- 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
- 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
- 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
- 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
- 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
-10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
-11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,
-12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
-13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,
-14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,
-15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
-};
+static BYTE sqrt_tab[] = { 0, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4,
+		4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6,
+		6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8,
+		8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9,
+		9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+		10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11,
+		11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12,
+		12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
+		12, 12, 12, 12, 12, 12, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13,
+		13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 14, 14, 14,
+		14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
+		14, 14, 14, 14, 14, 14, 14, 14, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+		15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+		15, 15, 15 };
 
-INT long_sqrt (DWORD n)
-{
- WORD w;
- DWORD d, step, lw;
- BYTE sh;
- if ((w = n >> 16) != 0) sh = 8;
- else { w = n; sh = 0; }
+INT long_sqrt(uint32_t n) {
+	WORD w;
+	uint32_t d, step, lw;
+	BYTE sh;
+	if ((w = n >> 16) != 0)
+		sh = 8;
+	else {
+		w = n;
+		sh = 0;
+	}
 
- if ( w & 0xff00 ) { sh +=4; w = w >> 8; }
- d = sqrt_tab[w]+1; d = d << sh; if ((d & 0xffff) == 0) return 0;
+	if (w & 0xff00) {
+		sh += 4;
+		w = w >> 8;
+	}
+	d = sqrt_tab[w] + 1;
+	d = d << sh;
+	if ((d & 0xffff) == 0)
+		return 0;
 
-sq_loop:
- d -= (step = (lw = (d * d - n))/ (2*d)); if (step) goto sq_loop;
- if (lw >= d-1) d--;
- return (INT) d;
+	sq_loop: d -= (step = (lw = (d * d - n)) / (2* d ));
+	if (step)
+		goto sq_loop;
+	if (lw >= d - 1)
+		d--;
+	return (INT) d;
 }

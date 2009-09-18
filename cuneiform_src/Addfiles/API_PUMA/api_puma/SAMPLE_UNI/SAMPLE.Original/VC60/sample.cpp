@@ -47,7 +47,7 @@ BOOL CSampleApp::InitInstance()
 		AfxMessageBox(IDP_OLE_INIT_FAILED);
 		return FALSE;
 	}
-// CT: ÎÒÊËÞ×ÅÍÈÅ ÄÈÀËÎÃÀ È ÑÎÎÁÙÅÍÈß ÎÁ ÈÑ×ÅÐÏÀÍÈÈ ÎÆÈÄÀÍÈß ÎÒÂÅÒÀ ÑÅÐÂÅÐÀ
+// CT: Ð½Ñ€Ð¹ÐºÑ‡Ð²ÐµÐ¼Ñ…Ðµ Ð´Ñ…ÑŽÐºÐ½Ñ†ÑŽ Ñ… ÑÐ½Ð½Ð°Ñ‹ÐµÐ¼Ñ…ÑŠ Ð½Ð° Ñ…ÑÐ²ÐµÐ¿Ð¾ÑŽÐ¼Ñ…Ñ… Ð½Ñ„Ñ…Ð´ÑŽÐ¼Ñ…ÑŠ Ð½Ñ€Ð±ÐµÑ€ÑŽ ÑÐµÐ¿Ð±ÐµÐ¿ÑŽ
     COleMessageFilter* pFilter = AfxOleGetMessageFilter();
     ASSERT_VALID(pFilter);
     pFilter->SetMessagePendingDelay( -1 );

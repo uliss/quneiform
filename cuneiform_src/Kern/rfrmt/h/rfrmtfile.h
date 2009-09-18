@@ -1,58 +1,58 @@
 /*
-Copyright (c) 1993-2008, Cognitive Technologies
-All rights reserved.
+ Copyright (c) 1993-2008, Cognitive Technologies
+ All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+ Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+ С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+ РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+ РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+ СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+ РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+ Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+ РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+ СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+ Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+ РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+ Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+ РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+ РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+ РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+ РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+ РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+ РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+ РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+ РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+ Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
 
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation
-      and/or other materials provided with the distribution.
-    * Neither the name of the Cognitive Technologies nor the names of its
-      contributors may be used to endorse or promote products derived from this
-      software without specific prior written permission.
+ * Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ * Neither the name of the Cognitive Technologies nor the names of its
+ contributors may be used to endorse or promote products derived from this
+ software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 // ============================================================================
 // Written by Shahverdiev  Alik
@@ -68,8 +68,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cstrdefs.h"
 
 BOOL CreateInternalFileForFormatter(FILE *fpInternalFileName);
-BOOL CheckComingLine( CSTR_line* Comingline );
-BOOL CheckLineForFilling( CSTR_line* Comingline );
+BOOL CheckComingLine(CSTR_line* Comingline);
+BOOL CheckLineForFilling(CSTR_line* Comingline);
 
 //BOOL CheckRect(InternalRect* Inner);
 
@@ -82,25 +82,22 @@ class CChar;
 
 class CRtfString;
 
-struct PageElementCount
-{
- WORD  Frags;
- WORD  Strings;
- WORD  Words;
- WORD  Chars;
+struct PageElementCount {
+	WORD Frags;
+	WORD Strings;
+	WORD Words;
+	WORD Chars;
 };
 
 typedef struct tagInternalRect {
- Int16 left;
- Int16 top;
- Int16 right;
- Int16 bottom;
- } InternalRect;
-
+	Int16 left;
+	Int16 top;
+	Int16 right;
+	Int16 bottom;
+} InternalRect;
 
 void VCopyRect(InternalRect* InnerR, RECT* OuterR);
 BOOL CheckRect(InternalRect* Inner);
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Page class
@@ -108,26 +105,26 @@ BOOL CheckRect(InternalRect* Inner);
 class CFPage //: public CObject
 {
 public:
-  CFPage();
- ~CFPage();
+	CFPage();
+	~CFPage();
 
-  CFragment*       GetFirstFrag();
-  CFragment*       GetNextFrag();
-  void             ProcessingComingLine( CSTR_line* line );
-		void             CreateArray_For_TextFragments( );
-  BOOL             CheckComingLine_For_TextFragments( CSTR_line* line );
-	 void             AddString( CSTR_line* line );
-  BOOL	            Write();
+	CFragment* GetFirstFrag();
+	CFragment* GetNextFrag();
+	void ProcessingComingLine(CSTR_line* line);
+	void CreateArray_For_TextFragments();
+	BOOL CheckComingLine_For_TextFragments(CSTR_line* line);
+	void AddString(CSTR_line* line);
+	BOOL Write();
 
-  /*CDWordArray*/std::vector<DWORD>      FragmentsArray;
-		PageElementCount Count;
-	 WORD             m_wDpi;
-	 std::vector<CFragment*>/*CObArray*/	        m_arFrags;
-  int		            m_nIndex;
-  int              m_nCurFragNumber;
-  int              m_nPrevFragNumber;
+	/*CDWordArray*/
+	std::vector<uint32_t> FragmentsArray;
+	PageElementCount Count;
+	WORD m_wDpi;
+	std::vector<CFragment*>/*CObArray*/m_arFrags;
+	int m_nIndex;
+	int m_nCurFragNumber;
+	int m_nPrevFragNumber;
 };
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Fragment class
@@ -135,21 +132,22 @@ public:
 class CFragment//:public CObject
 {
 public:
-  CFragment();
- ~CFragment();
+	CFragment();
+	~CFragment();
 
-  CFString*	 GetFirstString();
-  CFString*	 GetNextString();
-  void       AddString( CSTR_line* line , PageElementCount* Count );
-  BOOL	     Write();
+	CFString* GetFirstString();
+	CFString* GetNextString();
+	void AddString(CSTR_line* line, PageElementCount* Count);
+	BOOL Write();
 
-  WORD     	 m_wStringsCount;
-  /*CObArray*/ std::vector<CFString*>	 m_arStrings;
-  WORD	     m_wIndex;
-  RECT	     m_rectFrag;
-  WORD	     m_wType;
-  DWORD      m_wUserNumber;
-  DWORD      m_Flags;
+	WORD m_wStringsCount;
+	/*CObArray*/
+	std::vector<CFString*> m_arStrings;
+	WORD m_wIndex;
+	RECT m_rectFrag;
+	WORD m_wType;
+	uint32_t m_wUserNumber;
+	uint32_t m_Flags;
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -158,23 +156,24 @@ public:
 class CFString//:public CObject
 {
 public:
-  CFString();
- ~CFString();
+	CFString();
+	~CFString();
 
-  CWord*          GetFirstWord();
-  CWord*          GetNextWord();
-  void			  ExtractWordsFromString( CSTR_line* line ,  PageElementCount* Count );
-  void            ExtractNextWord( CSTR_line* line );
-  BOOL	          Write();
+	CWord* GetFirstWord();
+	CWord* GetNextWord();
+	void ExtractWordsFromString(CSTR_line* line, PageElementCount* Count);
+	void ExtractNextWord(CSTR_line* line);
+	BOOL Write();
 
-  WORD  	      m_wWordsCount;
-  /*CObArray*/ std::vector<CWord*>        m_arWords;
-  WORD	          m_wIndex;
-  CFragment*      m_Frag;
-  RECT	          m_rectString;
-  WORD	          m_wType;
-  RECT		      m_rectBaseLine;
-  Word32          S_Flags; //NEGA_STR vmk 10-06-2001
+	WORD m_wWordsCount;
+	/*CObArray*/
+	std::vector<CWord*> m_arWords;
+	WORD m_wIndex;
+	CFragment* m_Frag;
+	RECT m_rectString;
+	WORD m_wType;
+	RECT m_rectBaseLine;
+	Word32 S_Flags; //NEGA_STR vmk 10-06-2001
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -183,21 +182,23 @@ public:
 class CWord//:public CObject
 {
 public:
-  CWord();
- ~CWord();
+	CWord();
+	~CWord();
 
-  CChar*          GetFirstChar();
-  CChar*          GetNextChar();
-  void            AddLetter2Word( CSTR_rast* rast , PageElementCount* Count ,BOOL* FlagCapDrop);
-  BOOL	           Write();
+	CChar* GetFirstChar();
+	CChar* GetNextChar();
+	void AddLetter2Word(CSTR_rast* rast, PageElementCount* Count,
+			BOOL* FlagCapDrop);
+	BOOL Write();
 
-  /*CObArray*/std::vector<CChar*>        m_arChars;
-  WORD	           m_wCharsCount;
-  WORD	           m_wIndex;
-  CFString*       m_String;
-  RECT	          m_rectWord;
-  WORD	           m_wFontNumber;
-  WORD	           m_wFontPointSize;
+	/*CObArray*/
+	std::vector<CChar*> m_arChars;
+	WORD m_wCharsCount;
+	WORD m_wIndex;
+	CFString* m_String;
+	RECT m_rectWord;
+	WORD m_wFontNumber;
+	WORD m_wFontPointSize;
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -208,24 +209,23 @@ class CChar//:public CObject
 public:
 	CChar();
 	~CChar();
-	void         AddingLetter( CSTR_rast* rast , int index ,BOOL* FlagCapDrop);
-	BOOL         Write();
+	void AddingLetter(CSTR_rast* rast, int index, BOOL* FlagCapDrop);
+	BOOL Write();
 
-	RECT	       m_rectChar;
-	RECT	       m_RealRectChar;
-	struct
-	{
-		BYTE	   m_bChar;
-		BYTE	   m_bProbability;
+	RECT m_rectChar;
+	RECT m_RealRectChar;
+	struct {
+		BYTE m_bChar;
+		BYTE m_bProbability;
 	} m_chrVersions[REC_MAX_VERS];//!!! Art
-	BYTE         m_blanguage;
-	BYTE         m_bFlg_spell;
-	BYTE         m_bFlg_spell_nocarrying;
-	BYTE         m_bFlg_cup_drop;
-	WORD         m_wCountAlt;
-	WORD         m_wFontNumber;
-	WORD         m_wIndex;
- };
+	BYTE m_blanguage;
+	BYTE m_bFlg_spell;
+	BYTE m_bFlg_spell_nocarrying;
+	BYTE m_bFlg_cup_drop;
+	WORD m_wCountAlt;
+	WORD m_wFontNumber;
+	WORD m_wIndex;
+};
 
 /////////////////////////////////////////////////////////////////////////////
 

@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Ğàçğåøàåòñÿ ïîâòîğíîå ğàñïğîñòğàíåíèå è èñïîëüçîâàíèå êàê â âèäå èñõîäíîãî êîäà,
-òàê è â äâîè÷íîé ôîğìå, ñ èçìåíåíèÿìè èëè áåç, ïğè ñîáëşäåíèè ñëåäóşùèõ óñëîâèé:
+Ğ Ğ°Ğ·Ñ€ĞµÑˆĞ°ĞµÑ‚ÑÑ Ğ¿Ğ¾Ğ²Ñ‚Ğ¾Ñ€Ğ½Ğ¾Ğµ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ğµ Ğ¸ Ğ¸ÑĞ¿Ğ¾Ğ»ÑŒĞ·Ğ¾Ğ²Ğ°Ğ½Ğ¸Ğµ ĞºĞ°Ğº Ğ² Ğ²Ğ¸Ğ´Ğµ Ğ¸ÑÑ…Ğ¾Ğ´Ğ½Ğ¾Ğ³Ğ¾ ĞºĞ¾Ğ´Ğ°,
+Ñ‚Ğ°Ğº Ğ¸ Ğ² Ğ´Ğ²Ğ¾Ğ¸Ñ‡Ğ½Ğ¾Ğ¹ Ñ„Ğ¾Ñ€Ğ¼Ğµ, Ñ Ğ¸Ğ·Ğ¼ĞµĞ½ĞµĞ½Ğ¸ÑĞ¼Ğ¸ Ğ¸Ğ»Ğ¸ Ğ±ĞµĞ·, Ğ¿Ñ€Ğ¸ ÑĞ¾Ğ±Ğ»ÑĞ´ĞµĞ½Ğ¸Ğ¸ ÑĞ»ĞµĞ´ÑƒÑÑ‰Ğ¸Ñ… ÑƒÑĞ»Ğ¾Ğ²Ğ¸Ğ¹:
 
-      * Ïğè ïîâòîğíîì ğàñïğîñòğàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîğñêîì ïğàâå, ıòîò ñïèñîê óñëîâèé è ïîñëåäóşùèé
-        îòêàç îò ãàğàíòèé.
-      * Ïğè ïîâòîğíîì ğàñïğîñòğàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
-        äğóãèõ ìàòåğèàëàõ, ïîñòàâëÿåìûõ ïğè ğàñïğîñòğàíåíèè, äîëæíû ñîõğàíÿòüñÿ
-        óêàçàííàÿ âûøå èíôîğìàöèÿ îá àâòîğñêîì ïğàâå, ıòîò ñïèñîê óñëîâèé è
-        ïîñëåäóşùèé îòêàç îò ãàğàíòèé.
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòğóäíèêîâ íå ìîãóò
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñğåäñòâà ïîääåğæêè è/èëè ïğîäâèæåíèÿ
-        ïğîäóêòîâ, îñíîâàííûõ íà ıòîì ÏÎ, áåç ïğåäâàğèòåëüíîãî ïèñüìåííîãî
-        ğàçğåøåíèÿ.
+      * ĞŸÑ€Ğ¸ Ğ¿Ğ¾Ğ²Ñ‚Ğ¾Ñ€Ğ½Ğ¾Ğ¼ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ğ¸ Ğ¸ÑÑ…Ğ¾Ğ´Ğ½Ğ¾Ğ³Ğ¾ ĞºĞ¾Ğ´Ğ° Ğ´Ğ¾Ğ»Ğ¶Ğ½Ñ‹ Ğ¾ÑÑ‚Ğ°Ğ²Ğ°Ñ‚ÑŒÑÑ ÑƒĞºĞ°Ğ·Ğ°Ğ½Ğ½Ğ¾Ğµ
+        Ğ²Ñ‹ÑˆĞµ ÑƒĞ²ĞµĞ´Ğ¾Ğ¼Ğ»ĞµĞ½Ğ¸Ğµ Ğ¾Ğ± Ğ°Ğ²Ñ‚Ğ¾Ñ€ÑĞºĞ¾Ğ¼ Ğ¿Ñ€Ğ°Ğ²Ğµ, ÑÑ‚Ğ¾Ñ‚ ÑĞ¿Ğ¸ÑĞ¾Ğº ÑƒÑĞ»Ğ¾Ğ²Ğ¸Ğ¹ Ğ¸ Ğ¿Ğ¾ÑĞ»ĞµĞ´ÑƒÑÑ‰Ğ¸Ğ¹
+        Ğ¾Ñ‚ĞºĞ°Ğ· Ğ¾Ñ‚ Ğ³Ğ°Ñ€Ğ°Ğ½Ñ‚Ğ¸Ğ¹.
+      * ĞŸÑ€Ğ¸ Ğ¿Ğ¾Ğ²Ñ‚Ğ¾Ñ€Ğ½Ğ¾Ğ¼ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ğ¸ Ğ´Ğ²Ğ¾Ğ¸Ñ‡Ğ½Ğ¾Ğ³Ğ¾ ĞºĞ¾Ğ´Ğ° Ğ² Ğ´Ğ¾ĞºÑƒĞ¼ĞµĞ½Ñ‚Ğ°Ñ†Ğ¸Ğ¸ Ğ¸/Ğ¸Ğ»Ğ¸ Ğ²
+        Ğ´Ñ€ÑƒĞ³Ğ¸Ñ… Ğ¼Ğ°Ñ‚ĞµÑ€Ğ¸Ğ°Ğ»Ğ°Ñ…, Ğ¿Ğ¾ÑÑ‚Ğ°Ğ²Ğ»ÑĞµĞ¼Ñ‹Ñ… Ğ¿Ñ€Ğ¸ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ğ¸, Ğ´Ğ¾Ğ»Ğ¶Ğ½Ñ‹ ÑĞ¾Ñ…Ñ€Ğ°Ğ½ÑÑ‚ÑŒÑÑ
+        ÑƒĞºĞ°Ğ·Ğ°Ğ½Ğ½Ğ°Ñ Ğ²Ñ‹ÑˆĞµ Ğ¸Ğ½Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ†Ğ¸Ñ Ğ¾Ğ± Ğ°Ğ²Ñ‚Ğ¾Ñ€ÑĞºĞ¾Ğ¼ Ğ¿Ñ€Ğ°Ğ²Ğµ, ÑÑ‚Ğ¾Ñ‚ ÑĞ¿Ğ¸ÑĞ¾Ğº ÑƒÑĞ»Ğ¾Ğ²Ğ¸Ğ¹ Ğ¸
+        Ğ¿Ğ¾ÑĞ»ĞµĞ´ÑƒÑÑ‰Ğ¸Ğ¹ Ğ¾Ñ‚ĞºĞ°Ğ· Ğ¾Ñ‚ Ğ³Ğ°Ñ€Ğ°Ğ½Ñ‚Ğ¸Ğ¹.
+      * ĞĞ¸ Ğ½Ğ°Ğ·Ğ²Ğ°Ğ½Ğ¸Ğµ Cognitive Technologies, Ğ½Ğ¸ Ğ¸Ğ¼ĞµĞ½Ğ° ĞµĞµ ÑĞ¾Ñ‚Ñ€ÑƒĞ´Ğ½Ğ¸ĞºĞ¾Ğ² Ğ½Ğµ Ğ¼Ğ¾Ğ³ÑƒÑ‚
+        Ğ±Ñ‹Ñ‚ÑŒ Ğ¸ÑĞ¿Ğ¾Ğ»ÑŒĞ·Ğ¾Ğ²Ğ°Ğ½Ñ‹ Ğ² ĞºĞ°Ñ‡ĞµÑÑ‚Ğ²Ğµ ÑÑ€ĞµĞ´ÑÑ‚Ğ²Ğ° Ğ¿Ğ¾Ğ´Ğ´ĞµÑ€Ğ¶ĞºĞ¸ Ğ¸/Ğ¸Ğ»Ğ¸ Ğ¿Ñ€Ğ¾Ğ´Ğ²Ğ¸Ğ¶ĞµĞ½Ğ¸Ñ
+        Ğ¿Ñ€Ğ¾Ğ´ÑƒĞºÑ‚Ğ¾Ğ², Ğ¾ÑĞ½Ğ¾Ğ²Ğ°Ğ½Ğ½Ñ‹Ñ… Ğ½Ğ° ÑÑ‚Ğ¾Ğ¼ ĞŸĞ, Ğ±ĞµĞ· Ğ¿Ñ€ĞµĞ´Ğ²Ğ°Ñ€Ğ¸Ñ‚ĞµĞ»ÑŒĞ½Ğ¾Ğ³Ğ¾ Ğ¿Ğ¸ÑÑŒĞ¼ĞµĞ½Ğ½Ğ¾Ğ³Ğ¾
+        Ñ€Ğ°Ğ·Ñ€ĞµÑˆĞµĞ½Ğ¸Ñ.
 
-İÒÀ ÏĞÎÃĞÀÌÌÀ ÏĞÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎĞÑÊÈÕ ÏĞÀÂ È/ÈËÈ ÄĞÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀĞÀÍÒÈÉ, ÂÛĞÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄĞÀÇÓÌÅÂÀÅÌÛÕ,
-ÂÊËŞ×Àß ÃÀĞÀÍÒÈÈ ÊÎÌÌÅĞ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏĞÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊĞÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃĞÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎĞÑÊÈÕ ÏĞÀÂ È ÍÈ ÎÄÍÎ ÄĞÓÃÎÅ ËÈÖÎ, ÊÎÒÎĞÎÅ
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎĞÍÎ ĞÀÑÏĞÎÑÒĞÀÍßÒÜ ÏĞÎÃĞÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËŞ×Àß ËŞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏĞÎÃĞÀÌÌÛ (ÂÊËŞ×Àß ÏÎÒÅĞÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅĞÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
-ÒĞÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏĞÎÃĞÀÌÌÛ ĞÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄĞÓÃÈÌÈ ÏĞÎÃĞÀÌÌÀÌÈ,
-ÍÎ ÍÅ ÎÃĞÀÍÈ×ÈÂÀßÑÜ İÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃĞÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
-ÂËÀÄÅËÅÖ ÈËÈ ÄĞÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅĞÜ.
+Ğ­Ğ¢Ğ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞ ĞŸĞ Ğ•Ğ”ĞĞ¡Ğ¢ĞĞ’Ğ›Ğ•ĞĞ Ğ’Ğ›ĞĞ”Ğ•Ğ›Ğ¬Ğ¦ĞĞœĞ˜ ĞĞ’Ğ¢ĞĞ Ğ¡ĞšĞ˜Ğ¥ ĞŸĞ ĞĞ’ Ğ˜/Ğ˜Ğ›Ğ˜ Ğ”Ğ Ğ£Ğ“Ğ˜ĞœĞ˜ Ğ›Ğ˜Ğ¦ĞĞœĞ˜ "ĞšĞĞš
+ĞĞĞ Ğ•Ğ¡Ğ¢Ğ¬" Ğ‘Ğ•Ğ— ĞšĞĞšĞĞ“Ğ-Ğ›Ğ˜Ğ‘Ğ Ğ’Ğ˜Ğ”Ğ Ğ“ĞĞ ĞĞĞ¢Ğ˜Ğ™, Ğ’Ğ«Ğ ĞĞ–Ğ•ĞĞĞ«Ğ¥ Ğ¯Ğ’ĞĞ Ğ˜Ğ›Ğ˜ ĞŸĞĞ”Ğ ĞĞ—Ğ£ĞœĞ•Ğ’ĞĞ•ĞœĞ«Ğ¥,
+Ğ’ĞšĞ›Ğ®Ğ§ĞĞ¯ Ğ“ĞĞ ĞĞĞ¢Ğ˜Ğ˜ ĞšĞĞœĞœĞ•Ğ Ğ§Ğ•Ğ¡ĞšĞĞ™ Ğ¦Ğ•ĞĞĞĞ¡Ğ¢Ğ˜ Ğ˜ ĞŸĞ Ğ˜Ğ“ĞĞ”ĞĞĞ¡Ğ¢Ğ˜ Ğ”Ğ›Ğ¯ ĞšĞĞĞšĞ Ğ•Ğ¢ĞĞĞ™ Ğ¦Ğ•Ğ›Ğ˜, ĞĞ ĞĞ•
+ĞĞ“Ğ ĞĞĞ˜Ğ§Ğ˜Ğ’ĞĞ¯Ğ¡Ğ¬ Ğ˜ĞœĞ˜. ĞĞ˜ Ğ’Ğ›ĞĞ”Ğ•Ğ›Ğ•Ğ¦ ĞĞ’Ğ¢ĞĞ Ğ¡ĞšĞ˜Ğ¥ ĞŸĞ ĞĞ’ Ğ˜ ĞĞ˜ ĞĞ”ĞĞ Ğ”Ğ Ğ£Ğ“ĞĞ• Ğ›Ğ˜Ğ¦Ğ, ĞšĞĞ¢ĞĞ ĞĞ•
+ĞœĞĞ–Ğ•Ğ¢ Ğ˜Ğ—ĞœĞ•ĞĞ¯Ğ¢Ğ¬ Ğ˜/Ğ˜Ğ›Ğ˜ ĞŸĞĞ’Ğ¢ĞĞ ĞĞ Ğ ĞĞ¡ĞŸĞ ĞĞ¡Ğ¢Ğ ĞĞĞ¯Ğ¢Ğ¬ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞ£, ĞĞ˜ Ğ’ ĞšĞĞ•Ğœ Ğ¡Ğ›Ğ£Ğ§ĞĞ• ĞĞ•
+ĞĞ•Ğ¡ĞĞ¢ ĞĞ¢Ğ’Ğ•Ğ¢Ğ¡Ğ¢Ğ’Ğ•ĞĞĞĞ¡Ğ¢Ğ˜, Ğ’ĞšĞ›Ğ®Ğ§ĞĞ¯ Ğ›Ğ®Ğ‘Ğ«Ğ• ĞĞ‘Ğ©Ğ˜Ğ•, Ğ¡Ğ›Ğ£Ğ§ĞĞ™ĞĞ«Ğ•, Ğ¡ĞŸĞ•Ğ¦Ğ˜ĞĞ›Ğ¬ĞĞ«Ğ• Ğ˜Ğ›Ğ˜
+ĞŸĞĞ¡Ğ›Ğ•Ğ”ĞĞ’ĞĞ’Ğ¨Ğ˜Ğ• Ğ£Ğ‘Ğ«Ğ¢ĞšĞ˜, Ğ¡Ğ’Ğ¯Ğ—ĞĞĞĞ«Ğ• Ğ¡ Ğ˜Ğ¡ĞŸĞĞ›Ğ¬Ğ—ĞĞ’ĞĞĞ˜Ğ•Ğœ Ğ˜Ğ›Ğ˜ ĞŸĞĞĞ•Ğ¡Ğ•ĞĞĞ«Ğ• Ğ’Ğ¡Ğ›Ğ•Ğ”Ğ¡Ğ¢Ğ’Ğ˜Ğ•
+ĞĞ•Ğ’ĞĞ—ĞœĞĞ–ĞĞĞ¡Ğ¢Ğ˜ Ğ˜Ğ¡ĞŸĞĞ›Ğ¬Ğ—ĞĞ’ĞĞĞ˜Ğ¯ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞ« (Ğ’ĞšĞ›Ğ®Ğ§ĞĞ¯ ĞŸĞĞ¢Ğ•Ğ Ğ˜ Ğ”ĞĞĞĞ«Ğ¥, Ğ˜Ğ›Ğ˜ Ğ”ĞĞĞĞ«Ğ•,
+Ğ¡Ğ¢ĞĞ’Ğ¨Ğ˜Ğ• ĞĞ•Ğ“ĞĞ”ĞĞ«ĞœĞ˜, Ğ˜Ğ›Ğ˜ Ğ£Ğ‘Ğ«Ğ¢ĞšĞ˜ Ğ˜/Ğ˜Ğ›Ğ˜ ĞŸĞĞ¢Ğ•Ğ Ğ˜ Ğ”ĞĞ¥ĞĞ”ĞĞ’, ĞŸĞĞĞ•Ğ¡Ğ•ĞĞĞ«Ğ• Ğ˜Ğ—-Ğ—Ğ Ğ”Ğ•Ğ™Ğ¡Ğ¢Ğ’Ğ˜Ğ™
+Ğ¢Ğ Ğ•Ğ¢Ğ¬Ğ˜Ğ¥ Ğ›Ğ˜Ğ¦ Ğ˜/Ğ˜Ğ›Ğ˜ ĞĞ¢ĞšĞĞ—Ğ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞ« Ğ ĞĞ‘ĞĞ¢ĞĞ¢Ğ¬ Ğ¡ĞĞ’ĞœĞ•Ğ¡Ğ¢ĞĞ Ğ¡ Ğ”Ğ Ğ£Ğ“Ğ˜ĞœĞ˜ ĞŸĞ ĞĞ“Ğ ĞĞœĞœĞĞœĞ˜,
+ĞĞ ĞĞ• ĞĞ“Ğ ĞĞĞ˜Ğ§Ğ˜Ğ’ĞĞ¯Ğ¡Ğ¬ Ğ­Ğ¢Ğ˜ĞœĞ˜ Ğ¡Ğ›Ğ£Ğ§ĞĞ¯ĞœĞ˜), ĞĞ ĞĞ• ĞĞ“Ğ ĞĞĞ˜Ğ§Ğ˜Ğ’ĞĞ¯Ğ¡Ğ¬ Ğ˜ĞœĞ˜, Ğ”ĞĞ–Ğ• Ğ•Ğ¡Ğ›Ğ˜ Ğ¢ĞĞšĞĞ™
+Ğ’Ğ›ĞĞ”Ğ•Ğ›Ğ•Ğ¦ Ğ˜Ğ›Ğ˜ Ğ”Ğ Ğ£Ğ“ĞĞ• Ğ›Ğ˜Ğ¦Ğ Ğ‘Ğ«Ğ›Ğ˜ Ğ˜Ğ—Ğ’Ğ•Ğ©Ğ•ĞĞ« Ğ Ğ’ĞĞ—ĞœĞĞ–ĞĞĞ¡Ğ¢Ğ˜ Ğ¢ĞĞšĞ˜Ğ¥ Ğ£Ğ‘Ğ«Ğ¢ĞšĞĞ’ Ğ˜ ĞŸĞĞ¢Ğ•Ğ Ğ¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -105,21 +105,21 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr,
 	Int16     sz_Y2Arr = malloc_usable_size(p_Y2Arr) / sizeof(Int16);
 //	if(p_attr->number == 39) DebugBreak();// && p_attr->language == 0
 
-	//ãëàâíûé ìàêñèìóì
+	//Ğ³Ğ»Ğ°Ğ²Ğ½Ñ‹Ğ¹ Ğ¼Ğ°ĞºÑĞ¸Ğ¼ÑƒĞ¼
 	Int16      min_Y2Arr = p_Y2Arr[stat_index_GlobMin(p_Y2Arr,sz_Y2Arr)];
 	Int16  max_FreqY2Arr = stat_index_GlobMax(p_FreqY2Arr,sz_FreqY2Arr, G);
 
 	row_str.globMax = min_Y2Arr + max_FreqY2Arr;
 	row_str.ValGM   = p_FreqY2Arr[max_FreqY2Arr];
 
-	//ïğàâûé ìàêñèìóì (îòíîñèòåëüíî ãëàâíîãî ìàêñèìóìà)
+	//Ğ¿Ñ€Ğ°Ğ²Ñ‹Ğ¹ Ğ¼Ğ°ĞºÑĞ¸Ğ¼ÑƒĞ¼ (Ğ¾Ñ‚Ğ½Ğ¾ÑĞ¸Ñ‚ĞµĞ»ÑŒĞ½Ğ¾ Ğ³Ğ»Ğ°Ğ²Ğ½Ğ¾Ğ³Ğ¾ Ğ¼Ğ°ĞºÑĞ¸Ğ¼ÑƒĞ¼Ğ°)
 	Int16 right_diff = stat_Right_diff_from_max(p_FreqY2Arr, max_FreqY2Arr);
 
 	right_diff = MAX(3, right_diff);
 
 	Int16 rightMax_FreqY2Arr = stat_index_RightLocMax(p_FreqY2Arr, sz_FreqY2Arr,
 													max_FreqY2Arr + right_diff);
-	//ïğîâåğêà óğîâíÿ ïîëóîïóùåííûõ áóêâ
+	//Ğ¿Ñ€Ğ¾Ğ²ĞµÑ€ĞºĞ° ÑƒÑ€Ğ¾Ğ²Ğ½Ñ Ğ¿Ğ¾Ğ»ÑƒĞ¾Ğ¿ÑƒÑ‰ĞµĞ½Ğ½Ñ‹Ñ… Ğ±ÑƒĞºĞ²
 	if(p_attr->language != 0 && rightMax_FreqY2Arr != -1 &&
 		stat_control_semilevel(line, p_attr->row, min_Y2Arr + rightMax_FreqY2Arr))
 	{
@@ -132,7 +132,7 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr,
 	row_str.rightLocMax = rightMax_FreqY2Arr != -1 ? min_Y2Arr + rightMax_FreqY2Arr : -1;
 	row_str.ValRLM = rightMax_FreqY2Arr != -1 ? p_FreqY2Arr[rightMax_FreqY2Arr] : -1;
 
-	//ëåâûé ìàêñèìóì (îòíîñèòåëüíî ãëàâíîãî ìàêñèìóìà)
+	//Ğ»ĞµĞ²Ñ‹Ğ¹ Ğ¼Ğ°ĞºÑĞ¸Ğ¼ÑƒĞ¼ (Ğ¾Ñ‚Ğ½Ğ¾ÑĞ¸Ñ‚ĞµĞ»ÑŒĞ½Ğ¾ Ğ³Ğ»Ğ°Ğ²Ğ½Ğ¾Ğ³Ğ¾ Ğ¼Ğ°ĞºÑĞ¸Ğ¼ÑƒĞ¼Ğ°)
 	Int16  left_diff =  stat_Left_diff_from_max(p_FreqY2Arr, max_FreqY2Arr);
 	left_diff = MAX(left_diff, 3);
 
@@ -145,12 +145,12 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr,
 
 	if(stat_control_b3_by_recog(line, p_attr->row, &row_str) < BSL4)
 	{
-		//òğåòüÿ ëèíèÿ
+		//Ñ‚Ñ€ĞµÑ‚ÑŒÑ Ğ»Ğ¸Ğ½Ğ¸Ñ
 		p_attr->bs3 = row_str.globMax;
 		Ns3[0] = row_str.ValGM;
 		p_attr->Nb3 = (short)MIN(100,(Float32)100 * row_str.ValGM /
 																(Float32)(sz_Y2Arr * Pb3));
-		//÷åòâåğòàÿ ëèíèÿ
+		//Ñ‡ĞµÑ‚Ğ²ĞµÑ€Ñ‚Ğ°Ñ Ğ»Ğ¸Ğ½Ğ¸Ñ
 		if(row_str.rightLocMax != -1)
 		{
 			p_attr->bs4 = row_str.rightLocMax;
@@ -167,13 +167,13 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr,
 	}
 	else
 	{
-		//÷åòâåğòàÿ ëèíèÿ
+		//Ñ‡ĞµÑ‚Ğ²ĞµÑ€Ñ‚Ğ°Ñ Ğ»Ğ¸Ğ½Ğ¸Ñ
 		p_attr->bs4 = row_str.globMax;;
 		Ns4[0] = row_str.ValGM;
 		p_attr->Nb4 = (short)MIN(100,(Float32)100 * row_str.ValGM /
 																(Float32)(sz_Y2Arr * Pb4));
 
-		//òğåòüÿ ëèíèÿ
+		//Ñ‚Ñ€ĞµÑ‚ÑŒÑ Ğ»Ğ¸Ğ½Ğ¸Ñ
 		if(row_str.leftLocMax != -1)
 		{
 			p_attr->bs3 = row_str.leftLocMax;
@@ -195,7 +195,7 @@ BOOL stat_control_semilevel(CSTR_line line, Int16 ln_row, Int16 b4)
 	CSTR_attr line_attr;
 	Int16 iret = 0, iret4 = 0;
 
-	char buff[] = "\\/äÄùÙöÖ";
+	char buff[] = "\\/Ğ´Ğ”Ñ‰Ğ©Ñ†Ğ¦";
 	BOOL flg = FALSE;
 
 	if(CSTR_GetLineAttr(line,&line_attr))
@@ -255,11 +255,11 @@ BOOL stat_interp_bsl_by_boxes(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, 
 	CSTR_attr line_attr;
 	if(!CSTR_GetLineAttr(line,&line_attr)) return FALSE;
 
-	char buff[] = "\\/|<>éÉäÄùÙöÖ";
+	char buff[] = "\\/|<>Ğ¹Ğ™Ğ´Ğ”Ñ‰Ğ©Ñ†Ğ¦";
 
 	Int16 countLLM1 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0;
 
-	//èíòåğâàëû
+	//Ğ¸Ğ½Ñ‚ĞµÑ€Ğ²Ğ°Ğ»Ñ‹
 	Int16 pnt0, pnt1, pnt2, pnt3;
 
 	if(row_str->leftLocMax != -1)
@@ -290,7 +290,7 @@ BOOL stat_interp_bsl_by_boxes(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, 
 
 	if(start == NULL || stop == NULL) return FALSE;
 
-	for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let| CSTR_f_bad); //îòëàäêà
+	for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let| CSTR_f_bad); //Ğ¾Ñ‚Ğ»Ğ°Ğ´ĞºĞ°
 	curr_raster && curr_raster!=stop;
 	curr_raster = CSTR_GetNextRaster(curr_raster, CSTR_f_let | CSTR_f_bad)) //
 	{
@@ -379,12 +379,12 @@ Int16 stat_control_b3_by_recog(CSTR_line line, Int16 ln_row, ROW_STRUCT *row_str
 	char buff_eng_high[]= "ABCDEFGHIJKLMNORSTUVWXZ";
 	char buff_eng_low[] = "abcdefhiklmnorstuvwxz";//g
 
-	char buff_rus_high[]= "ÀÁÂÃÅÆÇÈÉÊËÌÍÎÏÑÒÕ×ÛÚÜİŞß";
-	char buff_rus_low[] = "àáâãåæçèéêëìíîïñòõ÷ûúüışÿ";
+	char buff_rus_high[]= "ĞĞ‘Ğ’Ğ“Ğ•Ğ–Ğ—Ğ˜Ğ™ĞšĞ›ĞœĞĞĞŸĞ¡Ğ¢Ğ¥Ğ§Ğ«ĞªĞ¬Ğ­Ğ®Ğ¯";
+	char buff_rus_low[] = "Ğ°Ğ±Ğ²Ğ³ĞµĞ¶Ğ·Ğ¸Ğ¹ĞºĞ»Ğ¼Ğ½Ğ¾Ğ¿ÑÑ‚Ñ…Ñ‡Ñ‹ÑŠÑŒÑÑÑ";
 
 	Int16 countLLM3 = 0, countGM3 = 0, countRLM3 = 0;
 
-	//èíòåğâàëû
+	//Ğ¸Ğ½Ñ‚ĞµÑ€Ğ²Ğ°Ğ»Ñ‹
 	Int16 pnt0, pnt1, pnt2, pnt3;
 
 	if(row_str->leftLocMax != -1)
@@ -606,20 +606,20 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 	char buff_eng_low1[]  = "aeimnr";
 	char buff_eng_low2[]  = "cosuvwxz";//q
 
-	char buff_rus_high1[] = "ÀÁÅáÔôĞğÓó0Î23Ç456789";
-	char buff_rus_high2[] = "ÂÃÆÈÊËÌÍÎÏÑÒÕ×ØÚÛÜİŞß";
-	char buff_rus_low1[]  = "àå";
-	char buff_rus_low2[]  = "âãæçèêëìíîïñòõ÷øúûüışÿ";
-	char buff_rus_unk[]   = "ä"; //îòëàäêà
+	char buff_rus_high1[] = "ĞĞ‘Ğ•Ğ±Ğ¤Ñ„Ğ Ñ€Ğ£Ñƒ0Ğ23Ğ—456789";
+	char buff_rus_high2[] = "Ğ’Ğ“Ğ–Ğ˜ĞšĞ›ĞœĞĞĞŸĞ¡Ğ¢Ğ¥Ğ§Ğ¨ĞªĞ«Ğ¬Ğ­Ğ®Ğ¯";
+	char buff_rus_low1[]  = "Ğ°Ğµ";
+	char buff_rus_low2[]  = "Ğ²Ğ³Ğ¶Ğ·Ğ¸ĞºĞ»Ğ¼Ğ½Ğ¾Ğ¿ÑÑ‚Ñ…Ñ‡ÑˆÑŠÑ‹ÑŒÑÑÑ";
+	char buff_rus_unk[]   = "Ğ´"; //Ğ¾Ñ‚Ğ»Ğ°Ğ´ĞºĞ°
 
-	char buff_warning[] = "\\/|<>(){}[]éÉ";
+	char buff_warning[] = "\\/|<>(){}[]Ğ¹Ğ™";
 
 	Int16 iLow1 = 0, iHigh1 = 0, iLow2 = 0, iHigh2 = 0, iLvlt = 0, iWarn = 0, iUnk = 0;
 
 	Int16 countLLM1 = 0, countLLM2 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0, countRLM1 = 0,
 		  countWarn1 = 0, countHighL1 = 0, countWarn2 = 0, countHighL2 = 0;
 
-	//èíòåğâàëû
+	//Ğ¸Ğ½Ñ‚ĞµÑ€Ğ²Ğ°Ğ»Ñ‹
 	Int16 pnt0, pnt1, pnt2, pnt3;
 
 	if(row_str->leftLocMax != -1 || row_str->ValLLM != -1)
@@ -1020,7 +1020,7 @@ BOOL stat_control_t_level(CSTR_line line, Int16 ln_row, Int16 b3, Int16 bl)
 
 				BOOL flg = FALSE;
 
-				for(int i = 0; i < 4; i++)//îòëàäêà vers.lnAltCnt
+				for(int i = 0; i < 4; i++)//Ğ¾Ñ‚Ğ»Ğ°Ğ´ĞºĞ° vers.lnAltCnt
 				{
 					char c = vers.Alt[0].Code[i];
 					if(c == 0) break;
@@ -1057,13 +1057,13 @@ BOOL stat_interp_bsl_by_b4(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, ROW
 	CSTR_attr line_attr;
 	if(!CSTR_GetLineAttr(line,&line_attr)) return FALSE;
 
-	char buff1[] = "ôÔ";
-	char buff2[] = "äÄùÙöÖ";
+	char buff1[] = "Ñ„Ğ¤";
+	char buff2[] = "Ğ´Ğ”Ñ‰Ğ©Ñ†Ğ¦";
 	char buff_warning[] = "1\\|/(){}[]";
 
 
 	Int16 countLLM1 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0;
-	//èíòåğâàëû
+	//Ğ¸Ğ½Ñ‚ĞµÑ€Ğ²Ğ°Ğ»Ñ‹
 	Int16 pnt0, pnt1, pnt2, pnt3;
 
 	if(row_str->leftLocMax != -1)
@@ -1104,7 +1104,7 @@ BOOL stat_interp_bsl_by_b4(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, ROW
 		if(CSTR_GetAttr(curr_raster, &rast_attr) &&
 		   CSTR_GetCollectionUni(curr_raster, &vers))
 		{
-			if(vers.lnAltCnt <= 0 || rast_attr.flg == CSTR_f_space) //îòëàäêà
+			if(vers.lnAltCnt <= 0 || rast_attr.flg == CSTR_f_space) //Ğ¾Ñ‚Ğ»Ğ°Ğ´ĞºĞ°
 			{
 				continue;
 			}
@@ -1113,7 +1113,7 @@ BOOL stat_interp_bsl_by_b4(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, ROW
 			Int16 drow = rast_attr.row - ln_row;
 			Int16 pnt = b3 != 0 ? (b4 - b3) / 2 : 3;
 
-			if(-pnt <= db4 && db4 <= 3)//îòëàäêà vers.Alt[0].Prob >= 230 &&
+			if(-pnt <= db4 && db4 <= 3)//Ğ¾Ñ‚Ğ»Ğ°Ğ´ĞºĞ° vers.Alt[0].Prob >= 230 &&
 			{
 				BOOL flg1 = FALSE, flg2 = FALSE, flg_warning = FALSE;
 
@@ -1149,7 +1149,7 @@ BOOL stat_interp_bsl_by_b4(CSTR_line line, Int16 ln_row, Int16 b3, Int16 b4, ROW
 				{
 					if(pnt1 <= drow && drow < pnt2)
 					{
-						if(row_str->AltGM == 1 || flg_warning) countGM1++;//îòëàäêà && row_str->leftLocMax == -1
+						if(row_str->AltGM == 1 || flg_warning) countGM1++;//Ğ¾Ñ‚Ğ»Ğ°Ğ´ĞºĞ° && row_str->leftLocMax == -1
 						else countGM2++;
 					}
 					else
@@ -1244,7 +1244,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 	Int16    min_Y1Arr = p_Y1Arr[stat_index_GlobMin(p_Y1Arr, sz_Y1Arr)];
 
 // 	if(p_attr->number == 161) DebugBreak(); // && p_attr->language == 0
-	//ãëîáàëüíûé ìàêñèìóì
+	//Ğ³Ğ»Ğ¾Ğ±Ğ°Ğ»ÑŒĞ½Ñ‹Ğ¹ Ğ¼Ğ°ĞºÑĞ¸Ğ¼ÑƒĞ¼
 	Int16 max_FreqY1Arr = stat_index_GlobMax(p_FreqY1Arr,sz_FreqY1Arr, G);
 
 	row_str.globMax = min_Y1Arr + max_FreqY1Arr;
@@ -1254,24 +1254,24 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 
 /*	switch(hipothesis)
 	{
-		case -1:  //ïîõîæàÿ ñòğîêà íå íàéäåíà;
+		case -1:  //Ğ¿Ğ¾Ñ…Ğ¾Ğ¶Ğ°Ñ ÑÑ‚Ñ€Ğ¾ĞºĞ° Ğ½Ğµ Ğ½Ğ°Ğ¹Ğ´ĞµĞ½Ğ°;
 
-		case 12:  //íàéäåíû ïîõîæèå ñòğîêè, è
-		          //ãëîáàëüíûé ìàêñèìóì ìîæåò áûòü êàê è ïåğâîé ÁË, òàê è âòîğîé ÁË;
-		case  1:  //ïîõîæàÿ ñòğîêà(è) íàéäåíà(û),
-				  //è, ïğåäïîëîæèòåëüíî, ãëîáàëüíûé ìàêñèìóì - ïåğâàÿ ÁË;
+		case 12:  //Ğ½Ğ°Ğ¹Ğ´ĞµĞ½Ñ‹ Ğ¿Ğ¾Ñ…Ğ¾Ğ¶Ğ¸Ğµ ÑÑ‚Ñ€Ğ¾ĞºĞ¸, Ğ¸
+		          //Ğ³Ğ»Ğ¾Ğ±Ğ°Ğ»ÑŒĞ½Ñ‹Ğ¹ Ğ¼Ğ°ĞºÑĞ¸Ğ¼ÑƒĞ¼ Ğ¼Ğ¾Ğ¶ĞµÑ‚ Ğ±Ñ‹Ñ‚ÑŒ ĞºĞ°Ğº Ğ¸ Ğ¿ĞµÑ€Ğ²Ğ¾Ğ¹ Ğ‘Ğ›, Ñ‚Ğ°Ğº Ğ¸ Ğ²Ñ‚Ğ¾Ñ€Ğ¾Ğ¹ Ğ‘Ğ›;
+		case  1:  //Ğ¿Ğ¾Ñ…Ğ¾Ğ¶Ğ°Ñ ÑÑ‚Ñ€Ğ¾ĞºĞ°(Ğ¸) Ğ½Ğ°Ğ¹Ğ´ĞµĞ½Ğ°(Ñ‹),
+				  //Ğ¸, Ğ¿Ñ€ĞµĞ´Ğ¿Ğ¾Ğ»Ğ¾Ğ¶Ğ¸Ñ‚ĞµĞ»ÑŒĞ½Ğ¾, Ğ³Ğ»Ğ¾Ğ±Ğ°Ğ»ÑŒĞ½Ñ‹Ğ¹ Ğ¼Ğ°ĞºÑĞ¸Ğ¼ÑƒĞ¼ - Ğ¿ĞµÑ€Ğ²Ğ°Ñ Ğ‘Ğ›;
 		case  2:
-		default: //ïîõîæàÿ ñòğîêà(è) íàéäåíà(û),
-				 //è, ïğåäïîëîæèòåëüíî, ãëîáàëüíûé ìàêñèìóì - âòîğàÿ ÁË.
+		default: //Ğ¿Ğ¾Ñ…Ğ¾Ğ¶Ğ°Ñ ÑÑ‚Ñ€Ğ¾ĞºĞ°(Ğ¸) Ğ½Ğ°Ğ¹Ğ´ĞµĞ½Ğ°(Ñ‹),
+				 //Ğ¸, Ğ¿Ñ€ĞµĞ´Ğ¿Ğ¾Ğ»Ğ¾Ğ¶Ğ¸Ñ‚ĞµĞ»ÑŒĞ½Ğ¾, Ğ³Ğ»Ğ¾Ğ±Ğ°Ğ»ÑŒĞ½Ñ‹Ğ¹ Ğ¼Ğ°ĞºÑĞ¸Ğ¼ÑƒĞ¼ - Ğ²Ñ‚Ğ¾Ñ€Ğ°Ñ Ğ‘Ğ›.
 	}
 */
 
-	//ëåâûé (îòíîñèòåëüíî ãëîáàëüíîãî) ìàêñèìóì
+	//Ğ»ĞµĞ²Ñ‹Ğ¹ (Ğ¾Ñ‚Ğ½Ğ¾ÑĞ¸Ñ‚ĞµĞ»ÑŒĞ½Ğ¾ Ğ³Ğ»Ğ¾Ğ±Ğ°Ğ»ÑŒĞ½Ğ¾Ğ³Ğ¾) Ğ¼Ğ°ĞºÑĞ¸Ğ¼ÑƒĞ¼
 	Int16  left_diff =  stat_Left_diff_from_max(p_FreqY1Arr, max_FreqY1Arr);
 	left_diff = MAX(left_diff, 3);
 
 	Int16 leftMax_FreqY1Arr = stat_index_LeftLocMax(p_FreqY1Arr, max_FreqY1Arr - left_diff);
-	//ïğîâåğêà t-óğîâíÿ
+	//Ğ¿Ñ€Ğ¾Ğ²ĞµÑ€ĞºĞ° t-ÑƒÑ€Ğ¾Ğ²Ğ½Ñ
 	if(p_attr->language == 0 && leftMax_FreqY1Arr != -1)
 	{
 		if(stat_control_t_level(line, p_attr->row, p_attr->bs3, min_Y1Arr + leftMax_FreqY1Arr)
@@ -1290,7 +1290,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 	diff_leftLocMax_GlobMax = leftMax_FreqY1Arr != -1 ?
 												  row_str.globMax - row_str.leftLocMax : -1;
 
-	//ïğîïîğöèè (b2-b1)/(b3-b2)
+	//Ğ¿Ñ€Ğ¾Ğ¿Ğ¾Ñ€Ñ†Ğ¸Ğ¸ (b2-b1)/(b3-b2)
 	if(diff_leftLocMax_GlobMax != -1 && diff_b3_GlobMax != 0)
 		row_str.leftCoeff = (Float32) diff_leftLocMax_GlobMax / diff_b3_GlobMax;
 
@@ -1302,7 +1302,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 		diff_leftLocMax_GlobMax = -1;
 	}
 
-	//ïğàâûé ìàêñèìóì
+	//Ğ¿Ñ€Ğ°Ğ²Ñ‹Ğ¹ Ğ¼Ğ°ĞºÑĞ¸Ğ¼ÑƒĞ¼
 	Int16 right_diff = stat_Right_diff_from_max(p_FreqY1Arr, max_FreqY1Arr);
 	right_diff = MAX(right_diff, 3);
 
@@ -1316,7 +1316,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 											   row_str.rightLocMax - row_str.globMax : -1;
 
 
-	//ïğîïîğöèè (b2-b1)/(b3-b2)
+	//Ğ¿Ñ€Ğ¾Ğ¿Ğ¾Ñ€Ñ†Ğ¸Ğ¸ (b2-b1)/(b3-b2)
 	if(diff_GlobMax_rightLocMax != -1 && diff_b3_GlobMax - diff_GlobMax_rightLocMax != 0)
 		row_str.rightCoeff = (Float32)
 				diff_GlobMax_rightLocMax / (diff_b3_GlobMax - diff_GlobMax_rightLocMax);
@@ -1334,7 +1334,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 		mode_diff_b2_b1 = (Int16) coeff * diff_b3_bsl;
 	}
 */
-	//èíòåğïğåòàöèÿ ìàêñèìóìîâ ãèñòîãğàììû
+	//Ğ¸Ğ½Ñ‚ĞµÑ€Ğ¿Ñ€ĞµÑ‚Ğ°Ñ†Ğ¸Ñ Ğ¼Ğ°ĞºÑĞ¸Ğ¼ÑƒĞ¼Ğ¾Ğ² Ğ³Ğ¸ÑÑ‚Ğ¾Ğ³Ñ€Ğ°Ğ¼Ğ¼Ñ‹
 
 //	if(p_attr->number == 82) DebugBreak();// && p_attr->language == 0
 
@@ -1445,7 +1445,7 @@ void stat_FormArrays(CSTR_line line, Int16 row, Int16 *p_Y1Array, Int16 *p_Y2Arr
 
 		Int16 i = 0;
 
-		for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let | CSTR_f_bad); //îòëàäêà | CSTR_f_fict
+		for(CSTR_rast curr_raster = CSTR_GetNextRaster(start, CSTR_f_let | CSTR_f_bad); //Ğ¾Ñ‚Ğ»Ğ°Ğ´ĞºĞ° | CSTR_f_fict
 		curr_raster && curr_raster!=stop;
 		curr_raster = CSTR_GetNextRaster(curr_raster, CSTR_f_let | CSTR_f_bad)) // | CSTR_f_fict
 		{
@@ -1485,7 +1485,7 @@ void stat_FormArrays(CSTR_line line, Int16 row, Int16 *p_Y1Array, Int16 *p_Y2Arr
 void StatSearchBL(CSTR_line line, CSTR_attr *p_attr,
 				  Int16 *Ns1, Int16 *Ns2, Int16 *Ns3, Int16 *Ns4)
 {
-	Int16  n = stat_LineLength(line);  //malloc_usable_size(pY1Array) / sizeof(Int16) - ğàçìåğíîñòü pY1Array è pY2Array
+	Int16  n = stat_LineLength(line);  //malloc_usable_size(pY1Array) / sizeof(Int16) - Ñ€Ğ°Ğ·Ğ¼ĞµÑ€Ğ½Ğ¾ÑÑ‚ÑŒ pY1Array Ğ¸ pY2Array
 	Int16 *pY1Array = (Int16 *) malloc(sizeof(Int16) * n);
 	Int16 *pY2Array = (Int16 *) malloc(sizeof(Int16) * n);
 
@@ -1504,7 +1504,7 @@ void StatSearchBL(CSTR_line line, CSTR_attr *p_attr,
 		return;
 	}
 
-	//çíà÷åíèÿ ãèñòîãğàììû
+	//Ğ·Ğ½Ğ°Ñ‡ĞµĞ½Ğ¸Ñ Ğ³Ğ¸ÑÑ‚Ğ¾Ğ³Ñ€Ğ°Ğ¼Ğ¼Ñ‹
 	Int16 *pFrequencyY1Array = 	stat_gistoGramma(pY1Array, n);
 	Int16 *pFrequencyY2Array =	stat_gistoGramma(pY2Array, n);
 
@@ -1513,14 +1513,14 @@ void StatSearchBL(CSTR_line line, CSTR_attr *p_attr,
 		CSTR_attr line_attr;
 		if(CSTR_GetLineAttr(line, &line_attr))
 		{
-			p_attr->number = line_attr.number;//íîìåğ òåêóùåé ñòğîêè
+			p_attr->number = line_attr.number;//Ğ½Ğ¾Ğ¼ĞµÑ€ Ñ‚ĞµĞºÑƒÑ‰ĞµĞ¹ ÑÑ‚Ñ€Ğ¾ĞºĞ¸
 			if(line == 0 || p_attr->number == 0 || p_attr->number > CSTR_GetMaxNumber())
 			{
 				p_attr = (CSTR_attr *) NULL;
 				return;
 			}
 
-			//ñîáñòâåííî ïîèñê ÁË
+			//ÑĞ¾Ğ±ÑÑ‚Ğ²ĞµĞ½Ğ½Ğ¾ Ğ¿Ğ¾Ğ¸ÑĞº Ğ‘Ğ›
 			stat_def_b3_b4(line, p_attr, pY2Array, pFrequencyY2Array, Ns3, Ns4);
 			stat_def_b1_b2(line, p_attr, pY1Array,
 				pY2Array, pFrequencyY1Array, Ns1, Ns2);
@@ -1560,7 +1560,7 @@ Int16 stat_Hypothesis(Int32 line_number, Int16 diff_b3_bsl)
 			{
 				for(Int16 l = 0; l < line_number - line_start ; l++)
 				{
-					BOOL b = abs(pCSTR_attrArray[l].bs3 - pCSTR_attrArray[l].bs2 - diff_b3_bsl) <= 2;//îòëàäêà 1
+					BOOL b = abs(pCSTR_attrArray[l].bs3 - pCSTR_attrArray[l].bs2 - diff_b3_bsl) <= 2;//Ğ¾Ñ‚Ğ»Ğ°Ğ´ĞºĞ° 1
 					if(b && pCSTR_attrArray[l].Nb2 != -1)
 						iFound_b2++;
 
@@ -1889,7 +1889,7 @@ Int16 stat_Mode_diff_b2_b3(Int32 line_number, Int16 diff, Int16 fl_b2_or_b1)
 							default:;
 						}
 
-						if(pCSTR_attrArray[l].Nb1 != -1 && pCSTR_attrArray[l].Nb2 != -1 && pCSTR_attrArray[l].bs2 != -1 && b)//îòëàäêà
+						if(pCSTR_attrArray[l].Nb1 != -1 && pCSTR_attrArray[l].Nb2 != -1 && pCSTR_attrArray[l].bs2 != -1 && b)//Ğ¾Ñ‚Ğ»Ğ°Ğ´ĞºĞ°
 						{//
 							p_diff[jCount] =
 										pCSTR_attrArray[l].bs3 - pCSTR_attrArray[l].bs2;
@@ -1935,11 +1935,11 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 	char buff_eng_high2[] = "ABDEFGHIKLMNRTbdfgklpPtyYjJ0OpPyYjJg23456789";
 	char buff_eng_low[]   = "aeimnr";//
 
-	char buff_rus_high[]  = "ÀÁÅáÔôĞÓó";
-	char buff_rus_high2[] = "ÀÁÅáÔôĞğÓó0Î23Ç456789";
-	char buff_rus_low[]   = "àå";
+	char buff_rus_high[]  = "ĞĞ‘Ğ•Ğ±Ğ¤Ñ„Ğ Ğ£Ñƒ";
+	char buff_rus_high2[] = "ĞĞ‘Ğ•Ğ±Ğ¤Ñ„Ğ Ñ€Ğ£Ñƒ0Ğ23Ğ—456789";
+	char buff_rus_low[]   = "Ğ°Ğµ";
 
-	char buff_warning[] = "\\/|<>(){}[]éÉ"; //äÄùÙöÖ
+	char buff_warning[] = "\\/|<>(){}[]Ğ¹Ğ™"; //Ğ´Ğ”Ñ‰Ğ©Ñ†Ğ¦
 
 	char *peng_low, *prus_low, *pfig, *peng_high, *prus_high,
 		 *p_high1, *p_high2, *p_low1, *p_low2, *p_warning;
@@ -1947,7 +1947,7 @@ BOOL stat_interp_bsl_by_solid_recog(CSTR_line line, Int16 ln_row, Int16 b3, ROW_
 	Int16 countLLM1 = 0, countGM1 = 0, countGM2 = 0, countRLM2 = 0, countRLM1 = 0,
 		  countWarn1 = 0, countHighL1 = 0, countWarn2 = 0, countHighL2 = 0;
 
-	//èíòåğâàëû
+	//Ğ¸Ğ½Ñ‚ĞµÑ€Ğ²Ğ°Ğ»Ñ‹
 	Int16 pnt0, pnt1, pnt2, pnt3;
 
 	if(row_str->leftLocMax != -1)

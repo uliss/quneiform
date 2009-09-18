@@ -1,58 +1,58 @@
 /*
-Copyright (c) 1993-2008, Cognitive Technologies
-All rights reserved.
+ Copyright (c) 1993-2008, Cognitive Technologies
+ All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+ Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+ С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+ РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+ РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+ СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+ РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+ Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+ РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+ СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+ Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+ РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+ Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+ РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+ РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+ РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+ РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+ РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+ РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+ РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+ РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+ Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
 
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation
-      and/or other materials provided with the distribution.
-    * Neither the name of the Cognitive Technologies nor the names of its
-      contributors may be used to endorse or promote products derived from this
-      software without specific prior written permission.
+ * Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ * Neither the name of the Cognitive Technologies nor the names of its
+ contributors may be used to endorse or promote products derived from this
+ software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #include <assert.h>
 #include <stdio.h>
@@ -63,11 +63,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 /*************************************************************************/
 /* tg_spell.c -  general spelling loop. It scans ED-file,
-   reads objects, i.e. info between reliable spaces (don't confuse
-   with suspected ones), and estimates words generated from the objects
-   to choose the only best word for each object. The best word is being
-   outputed as the first alternatives for object positions
-									 */
+ reads objects, i.e. info between reliable spaces (don't confuse
+ with suspected ones), and estimates words generated from the objects
+ to choose the only best word for each object. The best word is being
+ outputed as the first alternatives for object positions
+ */
 /*************************************************************************/
 
 //
@@ -81,30 +81,29 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // Process indicator:
 //  1. Preliminary updation. 08-13-93 06:40pm, Mike
 //
-  #include "tuner.h"
-  #include "spelmode.h"
-  #include "nt_types.h"
-  #include "tigeremulate.h"
+#include "tuner.h"
+#include "spelmode.h"
+#include "nt_types.h"
+#include "tigeremulate.h"
 /*
-  #if defined(TURBO_C)
-    #include "tc_types.h"
-    #include <dir.h>
-  #elif defined(WATCOM)
-    #include "spelwatc.h"
-  #elif defined(THINK_C)
-    #include "spelthin.h"
-  #else
-    #error   NO TOOOL SPECIFIED
-  #endif
-*/
-  #include <ctype.h>
-  #include <time.h>
+ #if defined(TURBO_C)
+ #include "tc_types.h"
+ #include <dir.h>
+ #elif defined(WATCOM)
+ #include "spelwatc.h"
+ #elif defined(THINK_C)
+ #include "spelthin.h"
+ #else
+ #error   NO TOOOL SPECIFIED
+ #endif
+ */
+#include <ctype.h>
+#include <time.h>
 
-  #include "speldefs.h"
-  #include "spelfunc.h"
+#include "speldefs.h"
+#include "spelfunc.h"
 //  #include "iolib.h"        // IO stream library
-  #include "lang.h"         // language trigger
-
+#include "lang.h"         // language trigger
 #include "compat_defs.h"
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -131,17 +130,16 @@ extern INT total_words;
 extern user_voc voc_array[];
 extern INT real_voc_no;
 
-DWORD progress_set_step (DWORD volume);
-DWORD progress_set_percent (DWORD volume);
+uint32_t progress_set_step(uint32_t volume);
+uint32_t progress_set_percent(uint32_t volume);
 ////////////////////////////////
-void	ErrorExit(int Code);
+void ErrorExit(int Code);
 ////////////////////////////////
 #ifdef SECOND_PASS
 
-
- extern RSTAT rst[];
- extern INT rst_last;
- extern BYTE ast[MAX_ARTS];
+extern RSTAT rst[];
+extern INT rst_last;
+extern BYTE ast[MAX_ARTS];
 extern ARTS artbase[];
 
 #endif
@@ -151,35 +149,35 @@ extern ARTS artbase[];
 
 
 /********DEBUG*********/
-INT db=187;
+INT db = 187;
 /*INT env; */
 /* =================================================================== */
 /*                      Functions' Definition                          */
 /* =================================================================== */
 
-  static INT batch_setup(void);
-  static INT run_page(void);
-  static INT ed_conv( struct dict_state *,user_voc *,INT);
-  static INT anal_part_wrd (SOBJ*, LTIMG**, struct dict_state*,user_voc*,INT);
+static INT batch_setup(void);
+static INT run_page(void);
+static INT ed_conv(struct dict_state *, user_voc *, INT);
+static INT anal_part_wrd(SOBJ*, LTIMG**, struct dict_state*, user_voc*, INT);
 
 /***********************************************************************/
 /*                                                                     */
 /*                  common used (global) variables                     */
 /*                                                                     */
 /***********************************************************************/
- INT back_flag=0;      /* nonzero if back_recog required */
- INT debug_obj_nmb=1;
+INT back_flag = 0; /* nonzero if back_recog required */
+INT debug_obj_nmb = 1;
 
 #ifdef TIMETEST
-static CHAR time_buf[80];     /* buff to output time */
+static CHAR time_buf[80]; /* buff to output time */
 #endif
 
-static CHAR  *q_free_alloc_mem;  /* poiter to save SPQ.free_alloc_mem */
+static CHAR *q_free_alloc_mem; /* poiter to save SPQ.free_alloc_mem */
 
-extern dQ SPQ;                    //Q;
-extern INT vocs_NOK;              // 08-13-93 07:45pm, Mike
-extern CHAR spell_buff_pool[];    // 08-13-93 07:40pm, Mike
-extern CHAR spell_buff_out[];     // 08-13-93 07:40pm, Mike
+extern dQ SPQ; //Q;
+extern INT vocs_NOK; // 08-13-93 07:45pm, Mike
+extern CHAR spell_buff_pool[]; // 08-13-93 07:40pm, Mike
+extern CHAR spell_buff_out[]; // 08-13-93 07:40pm, Mike
 
 #ifdef SECOND_PASS
 voc_state wvoc;
@@ -187,53 +185,52 @@ WSTACK wstack;
 #endif
 
 #ifdef  RUS_ENG_LANG
-extern BYTE multy_language ;
+extern BYTE multy_language;
 #endif
 
 /************************************************************************/
-INT spelling (BYTE  *beg,LONG size)
-{ INT ret;
-   SPQ.beg_alloc_mem = SPQ.free_alloc_mem=beg;
-   SPQ.end_alloc_mem = (CHAR *)beg+size*16;
-   SPQ.alloc_size    = size;
-   ret = batch_setup();
-   if (ret) return ret;
-   ret=run_page();
-   return   ret;
+INT spelling(BYTE *beg, LONG size) {
+	INT ret;
+	SPQ.beg_alloc_mem = SPQ.free_alloc_mem = beg;
+	SPQ.end_alloc_mem = (CHAR *) beg + size * 16;
+	SPQ.alloc_size = size;
+	ret = batch_setup();
+	if (ret)
+		return ret;
+	ret = run_page();
+	return ret;
 }
 /**************************************************************************/
 /*  Batch_setup                                                           */
 /**************************************************************************/
-static  INT batch_setup( void )
-{
-  #ifdef S_COMMENTS
-    initcode();             /* see spellfun : these are symb */
-    initstdn();             /*                convert tables */
-  #endif
-	    /*  Static dictionary initialisation */
+static INT batch_setup(void) {
+#ifdef S_COMMENTS
+	initcode(); /* see spellfun : these are symb */
+	initstdn(); /*                convert tables */
+#endif
+	/*  Static dictionary initialisation */
 
-  init_stat_dict(&SPQ.d_state);
+	init_stat_dict(&SPQ.d_state);
 
-  q_free_alloc_mem = SPQ.free_alloc_mem; /* SAVE ! */
+	q_free_alloc_mem = SPQ.free_alloc_mem; /* SAVE ! */
 
-// 08-13-93 07:41pm, Mike
-// SPQ.text_buff = SPQ.text_buff_pool;
-  SPQ.text_buff = spell_buff_pool;
+	// 08-13-93 07:41pm, Mike
+	// SPQ.text_buff = SPQ.text_buff_pool;
+	SPQ.text_buff = spell_buff_pool;
 
-  return 0;                      /* It's OK */
+	return 0; /* It's OK */
 }
 
 /**************************************************************************/
 /*  Run one page                                                          */
 /**************************************************************************/
-static INT run_page()       /* run one page */
+static INT run_page() /* run one page */
 {
-	INT obj_nmb=0;
+	INT obj_nmb = 0;
 
-	SPQ.free_alloc_mem = q_free_alloc_mem;   /* RESTORE ! */
+	SPQ.free_alloc_mem = q_free_alloc_mem; /* RESTORE ! */
 
-	if (begin(0)== FALSE)
-	{
+	if (begin(0) == FALSE) {
 		ErrorExit(RLING_ERROR_WRONG_ED_FILE);
 		//return WRONG_FILE;
 	}
@@ -241,14 +238,13 @@ static INT run_page()       /* run one page */
 	// !!! And now we must test ed-file  to preserve it
 	//   from secondary spelling checking (something converted to blue !)
 	// ??? ACT !!!
-	if( *find_byte_flag() & FIR_CHECKED)
-	{
+	if (*find_byte_flag() & FIR_CHECKED) {
 		ErrorExit(RLING_ERROR_ED_ALREADY_CHEKED);
 		//return(TWICE_ERR);
 	}
 
 	// TG_SPELL
-	obj_nmb=ed_conv(&SPQ.d_state, voc_array, real_voc_no);
+	obj_nmb = ed_conv(&SPQ.d_state, voc_array, real_voc_no);
 
 #ifdef  RUS_ENG_LANG
 	if (!multy_language||language!=LANG_RUSSIAN)
@@ -257,42 +253,42 @@ static INT run_page()       /* run one page */
 	*find_byte_flag() |= FIR_CHECKED;
 
 	save_ed_file(0);
-	return(0);
+	return (0);
 }
 
 #ifdef WATCOM
 
-LONG  read_all_vfile( CHAR *path, CHAR  *buff)
+LONG read_all_vfile( CHAR *path, CHAR *buff)
 {
-  int f;
-  LONG lth;
+	int f;
+	LONG lth;
 
-  f=open(path,O_RDONLY|O_BINARY,S_IREAD);
-  if(f==-1) return(-1);
-  lth=read(f,buff, filelength(f));
-  close(f);
+	f=open(path,O_RDONLY|O_BINARY,S_IREAD);
+	if(f==-1) return(-1);
+	lth=read(f,buff, filelength(f));
+	close(f);
 
-  return(lth);
+	return(lth);
 }
-LONG write_all_vfile( CHAR *path, CHAR  *buff,DWORD  lth)
+LONG write_all_vfile( CHAR *path, CHAR *buff,uint32_t lth)
 {
-  INT f;
+	INT f;
 
-  f=open(path,O_WRONLY|O_BINARY|O_CREAT|O_TRUNC,S_IWRITE);
-  if(f==-1) return(-1);
-  lth=write(f,buff,lth);
-  close(f);
+	f=open(path,O_WRONLY|O_BINARY|O_CREAT|O_TRUNC,S_IWRITE);
+	if(f==-1) return(-1);
+	lth=write(f,buff,lth);
+	close(f);
 
-  return(lth);
+	return(lth);
 }
 
-LONG  read_all_vtab( INT tabn, CHAR *buff)
+LONG read_all_vtab( INT tabn, CHAR *buff)
 {
 	int f;
 	LONG lth;
 
 	if (vocs_NOK)
-		return -1;
+	return -1;
 
 	f=TBOPEN((INT)tabn,(INT)language,(INT)(O_RDONLY|O_BINARY),(INT)(S_IREAD));
 
@@ -316,15 +312,15 @@ LONG  read_all_vtab( INT tabn, CHAR *buff)
 /*                                                                     */
 /***********************************************************************/
 
-INT  perebor_threshold;
+INT perebor_threshold;
 BYTE * tempword;
 #define MAX_PART_VARS 36
 INT part_var_counter;
 
-INT check_cancel (WORD);
+INT check_cancel( WORD);
 static INT obj_number, sp_n;
 //////////////////////////////////////////////////////////////////////////
-INT ed_conv ( struct dict_state * dict, user_voc voc_array[], INT voc_no )
+INT ed_conv(struct dict_state * dict, user_voc voc_array[], INT voc_no)
 /* extern insted of static -- from Mike */
 {
 	/* basic structure of the whole object being considered: */
@@ -337,15 +333,15 @@ INT ed_conv ( struct dict_state * dict, user_voc voc_array[], INT voc_no )
 	extern LTIMG wrdimg[MAX_WORD_SIZE];
 	extern LTIMG * wrddef[MAX_WORD_SIZE];
 
-	INT ret;                     /* return flag: check=proc results       */
+	INT ret; /* return flag: check=proc results       */
 	//INT sperc;
 
 	/* dbg_f=fopen("dbg.dbg","a");
-	fprintf(dbg_f,"ed_conv entered\n");
-	fclose(dbg_f);
-	*/
+	 fprintf(dbg_f,"ed_conv entered\n");
+	 fclose(dbg_f);
+	 */
 #ifdef V_RECOG
-	back_flag=1;              /* back_recog required                  */
+	back_flag=1; /* back_recog required                  */
 #endif
 
 #ifdef SECOND_PASS
@@ -353,98 +349,92 @@ INT ed_conv ( struct dict_state * dict, user_voc voc_array[], INT voc_no )
 	memset(ast,0,sizeof(ast));
 #endif
 
-	obj.nmb=0;
+	obj.nmb = 0;
 
 	/************************ F I R S T    P A S S  ****************************/
 
 	obj_number = 0;
 	//sperc = (INT)progress_set_step (total_words);
-	while ( readobj(S_NEWOBJ,&obj) )
-	{
-		INT bpart,epart;
+	while (readobj(S_NEWOBJ, &obj)) {
+		INT bpart, epart;
 		obj_number++;
 
 		//if (obj_number >= sperc)  sperc = progress_set_percent (obj_number);
-		genobj (&obj);             /* set object init state via its positions    */
+		genobj(&obj); /* set object init state via its positions    */
 
-		if (multy_language&&language==LANG_RUSSIAN)
-			if ((obj.type & (T_CAP|T_LOW))== 0)
+		if (multy_language && language == LANG_RUSSIAN)
+			if ((obj.type & (T_CAP | T_LOW)) == 0)
 				continue;
 		/*  printf ( "Obj # %d\n", obj.nmb ); */
 
 		TPR(genobj)
-		if (checkobj (&obj)==No)             /* object rejected */
+		if (checkobj(&obj) == No) /* object rejected */
 			continue;
 
-		obj.word = (SWORD *)&word[0];
-		tempword = (PBYTE)word + sizeof(word) -sizeof(SWORD);
+		obj.word = (SWORD *) &word[0];
+		tempword = (PBYTE) word + sizeof(word) - sizeof(SWORD);
 		TPR(chkobj=yes)
 		/*Start_part:*/
-		sp_n=0;
+		sp_n = 0;
 		part_var_counter = 0;
 
-		for (bpart=0; bpart<=obj.pos_part_nmb; bpart++)
-		{
+		for (bpart = 0; bpart <= obj.pos_part_nmb; bpart++) {
 			obj.part_beg = obj.pos_part[bpart];
 			obj.part_begi = bpart;
 
-			for (epart=obj.pos_part_nmb; epart>bpart; epart--)
-			{
-				if(++part_var_counter >= MAX_PART_VARS)
+			for (epart = obj.pos_part_nmb; epart > bpart; epart--) {
+				if (++part_var_counter >= MAX_PART_VARS)
 					goto Select;
 
 				perebor_threshold = 0;
 				obj.part_end = obj.pos_part[epart];
 				obj.part_endi = epart;
 
-				obj.type_art &= ~(T_REPL|T_GC|T_BRK);
+				obj.type_art &= ~(T_REPL | T_GC | T_BRK);
 				obj.type_orig = 0;
 
-				if (!(setpart (&obj,part)))
+				if (!(setpart(&obj, part)))
 					continue;
 
 				TPR(setp=yes)
-				obj.word->next=NULL;
+				obj.word->next = NULL;
 				obj.allowedlth = 0;
 				/* ---------------- start words generation for a given part ---------------- */
-Start_wrd_gen:
-				obj.nmb_wrdfound = 0;
+				Start_wrd_gen: obj.nmb_wrdfound = 0;
 
-				if (checkpart(&obj)==No)    /* part rejected                          */
+				if (checkpart(&obj) == No) /* part rejected                          */
 					goto No_part;
 
 				TPR(chkpart=yes)
 				/* ----- dict (static) : ----- */
-				setimg (&obj,wrdimg);       /* set part image                         */
+				setimg(&obj, wrdimg); /* set part image                         */
 				TPR(setimg)
-				setdef (wrdimg,wrddef,&(obj.lthok)); /* set part wrddef               */
+				setdef(wrdimg, wrddef, &(obj.lthok)); /* set part wrddef               */
 				TPR(setdef)
-				obj.voc_kind=2;             /* dict is currently being used           */
+				obj.voc_kind = 2; /* dict is currently being used           */
 
-				if(anal_part_wrd (&obj, wrddef, dict, voc_array, voc_no)== No)
+				if (anal_part_wrd(&obj, wrddef, dict, voc_array, voc_no) == No)
 					goto SetBlue;
 
 				TPR(analpart=yes)
-				sp_n ++;
-				ret = selectpart(&obj);  /* have we gathered smth worth ?    */
+				sp_n++;
+				ret = selectpart(&obj); /* have we gathered smth worth ?    */
 				TPR(selectpart=?)
 
-				if (ret==Ok)                  /* Yes, dynamic spelling not needed */
+				if (ret == Ok) /* Yes, dynamic spelling not needed */
 					goto Ok_part;
 
 				TPR(selectpart not ok)
 
-				if (ret==No)
-				{                                 /* No, try part change & glue-cut: */
+				if (ret == No) { /* No, try part change & glue-cut: */
 #ifdef PARTSPEC
 
 					/*  if (obj.nmb_wrdfound)     if smth found in a regular way =>      */
 					/*    goto No_part;           then don't touch it                    */
 
-
-					if (partspec(&obj,part))    /* Try to apply special replacements    */
+					if (partspec(&obj,part)) /* Try to apply special replacements    */
 					/* like "m"->"rn", "rn"->"m", ...       */
-						goto Start_wrd_gen;        /* restart the changed part treatment   */
+					goto Start_wrd_gen; /* restart the changed part treatment   */
 #endif
 
 #ifdef GLUE_CUT
@@ -454,19 +444,19 @@ Start_wrd_gen:
 					if (!(obj.type_art & T_GC)) /* 1-st glue-cut of the part => :       */
 					{
 						if (!(setpart (&obj,part))) /*alloc new part buff                  */
-							break;                     /* buff overflowed !!!                 */
+						break; /* buff overflowed !!!                 */
 						TPR(setpart glue == yes)
 					}
 
-					if (partgc(&obj,part))      /* Try to apply glue-cut of the part    */
-						goto Start_wrd_gen;        /* restart the changed part treatment   */
+					if (partgc(&obj,part)) /* Try to apply glue-cut of the part    */
+					goto Start_wrd_gen; /* restart the changed part treatment   */
 
 					TPR(partgc == no)
 
 					if(!(obj.type_art&T_BRK))
 					{
 						if (!(setpart (&obj,part))) /*alloc new part buff                  */
-							break;                     /* buff overflowed !!!                 */
+						break; /* buff overflowed !!!                 */
 
 						TPR(setpart partgc = yes)
 					}
@@ -474,46 +464,43 @@ Start_wrd_gen:
 					if(!(obj.type_sp&T_BLANK))
 					{
 						if(partbrk(&obj,part))
-							goto Start_wrd_gen;
+						goto Start_wrd_gen;
 
 						TPR(partbrk = no)
 					}
 
 #endif
-No_part:
-					TPR(NO part)
-					obj.part_max--;                     /* remove the part:             */
+					No_part: TPR(NO part)
+					obj.part_max--; /* remove the part:             */
 					continue;
-				}
-				else                               /* Ok - select-part :              */
-Ok_part:
-				{
-					TPR(OK part)
+				} else
+					/* Ok - select-part :              */
+					Ok_part: {
+						TPR(OK part)
 
-					if (obj.part_end == obj.pos_part[obj.pos_part_nmb]) /* last part ?  */
-						if (ret=selectobj (&obj, bpart, part))  /* select best parts-chain,    */
-							goto Out_obj;                      /*  ending with this part      */
-					ret=Ok;
-				}
+						if (obj.part_end == obj.pos_part[obj.pos_part_nmb]) /* last part ?  */
+							if (ret = selectobj(&obj, bpart, part)) /* select best parts-chain,    */
+								goto Out_obj;
+						/*  ending with this part      */
+						ret = Ok;
+					}
 				/* change part of complex obj and restart wrd generation : */
-			}   /* ==================== end of for loop ========================= */
-		}     /* ==================== end of for loop ========================= */
-Select:
-		ret=selectopt (&obj, part);/*find opt parts-chain, no matter entire or not*/
+			} /* ==================== end of for loop ========================= */
+		} /* ==================== end of for loop ========================= */
+		Select: ret = selectopt(&obj, part);/*find opt parts-chain, no matter entire or not*/
 		TPR(selectopt)
 
-		if (ret==Ok)          /* best part-chain found                            */
-Out_obj:
-		{
-			TPR(before outobj)
-			outobj (&obj, part); /* modify ed, if any best alts differ from originals*/
-			TPR(outobj done)
+		if (ret == Ok) /* best part-chain found                            */
+			Out_obj: {
+				TPR(before outobj)
+				outobj(&obj, part); /* modify ed, if any best alts differ from originals*/
+TPR			(outobj done)
 		}
 #ifndef SECOND_PASS
 		else
 		{
-			if (ret==No)       /* no good words found */
-SetBlue:
+			if (ret==No) /* no good words found */
+			SetBlue:
 			{
 				TPR(setblue)
 				setobj_blue (&obj); /* the object is to be blue (not reliable) */
@@ -531,9 +518,9 @@ SetBlue:
 	/* ====================== end of readobj loop =========================== */
 	ret=obj.nmb;
 	/*dbg_f=fopen("dbg.dbg","a");
-	fprintf(dbg_f,"before 2nd pass\n");
-	fclose(dbg_f);
-	*/
+	 fprintf(dbg_f,"before 2nd pass\n");
+	 fclose(dbg_f);
+	 */
 	/****************        S E C O N D     P A S S      **********************/
 
 #ifdef  SECOND_PASS
@@ -556,72 +543,63 @@ SetBlue:
 
 /*************************************************************************/
 /* This procedure generates all posiible words of a part given,
-   wrdimg & wrddef, as well.
-   Best words are selected in the part->wrd->... list.
-   A dictionary kind to be used (static, called "dict",
-   or dynamic, called "voc") is specified by obj->voc_kind.
+ wrdimg & wrddef, as well.
+ Best words are selected in the part->wrd->... list.
+ A dictionary kind to be used (static, called "dict",
+ or dynamic, called "voc") is specified by obj->voc_kind.
 
-   A decision may be currently made to stop the part-words generation,
-   if it is expected to be not worth.
-									 */
+ A decision may be currently made to stop the part-words generation,
+ if it is expected to be not worth.
+ */
 /*************************************************************************/
 #define TEMP_PEREBOR_THRESHOLD 512
 //////////////////////////////////////////////////////////////////////////////
-INT anal_part_wrd (SOBJ * obj,
-                   LTIMG * wrddef[],
-		           struct dict_state * dict,
-	               user_voc voc_array[],
-				   INT voc_no )
-{
+INT anal_part_wrd(SOBJ * obj, LTIMG * wrddef[], struct dict_state * dict,
+		user_voc voc_array[], INT voc_no) {
 	INT found;
 
 	obj->type_art &= ~T_ALTS;
 
-	do
-	{
-		if(++perebor_threshold >= TEMP_PEREBOR_THRESHOLD)
-			return  (obj -> nmb_wrdfound ) ?  Stop : No;
+	do {
+		if (++perebor_threshold >= TEMP_PEREBOR_THRESHOLD)
+			return (obj -> nmb_wrdfound) ? Stop : No;
 
-		if(!setwrd (obj,wrddef))
+		if (!setwrd(obj, wrddef))
 			continue;
 
 		/* Mike */
 		/*  printf( "%s\n", obj->wordchar ); */
 
-		if (!(genwrd (obj)))
+		if (!(genwrd(obj)))
 			continue;
 
-		switch(checkwrd (obj))
-		{
-			case Stop:
-				return Stop;       /* no worth words expected more */
+		switch (checkwrd(obj)) {
+		case Stop:
+			return Stop; /* no worth words expected more */
 
-			case No:
-				continue;       /* generate next word           */
+		case No:
+			continue; /* generate next word           */
 		}
 
-		do
-		{
-			found= (obj->word->type & T_DELIM) ?
-			       check_compound (obj,wrddef,dict,voc_array,voc_no) :
-			       check_dict_voc (obj,wrddef,dict,voc_array,voc_no);
-		}
-		while((!found)&&wordchange(obj));
+		do {
+			found = (obj->word->type & T_DELIM) ? check_compound(obj, wrddef,
+					dict, voc_array, voc_no) : check_dict_voc(obj, wrddef,
+					dict, voc_array, voc_no);
+		} while ((!found) && wordchange(obj));
 
-		if ( obj -> allowedlth <  obj -> lthok)
-			obj -> allowedlth =  obj -> lthok;
+		if (obj -> allowedlth < obj -> lthok)
+			obj -> allowedlth = obj -> lthok;
 
-		if(selectwrd (obj,wrddef)==No)
+		if (selectwrd(obj, wrddef) == No)
 			continue;
 
 		obj->part->word = obj->word;
 
-		if((PBYTE)obj ->word < tempword)
+		if ((PBYTE) obj ->word < tempword)
 			(++obj->word)->next = obj->part->word;
 		else
 			return Stop;
-	}
-	while( obj->type_art |= T_ALTS, nextwrd (obj,wrddef)!=Stop);
+	} while (obj->type_art |= T_ALTS, nextwrd(obj, wrddef) != Stop);
 
 	return (Ok);
 }
@@ -635,34 +613,34 @@ INT anal_part_wrd (SOBJ * obj,
 INT pull_to_stat(INT status,SOBJ*obj,SPART *part,
 		LTIMG wrdimg[],LTIMG *wrddef[])
 {
- register INT i;
- INT lth;
+	register INT i;
+	INT lth;
 
- if(obj->pos_part_nmb!=1)
-   return(No);
+	if(obj->pos_part_nmb!=1)
+	return(No);
 
- if(wstack.depth==MAX_WSTACK_DTH)
-     error_exit(ERR_voc,MEM_ERROR);
+	if(wstack.depth==MAX_WSTACK_DTH)
+	error_exit(ERR_voc,MEM_ERROR);
 
- lth= ( status == Ok )  ?
-     set_img_for_found(obj,part,wrdimg)
-    :
-     set_img_for_notfound(obj,part,wrdimg);
+	lth= ( status == Ok ) ?
+	set_img_for_found(obj,part,wrdimg)
+	:
+	set_img_for_notfound(obj,part,wrdimg);
 
- for(i=0;wrdimg[i].lt;i++)
-     wrddef[i]=wrdimg+i;
- wrddef[i]=NULL;
+	for(i=0;wrdimg[i].lt;i++)
+	wrddef[i]=wrdimg+i;
+	wrddef[i]=NULL;
 
- if(look_through_voc(&lth,wrddef,&wvoc,VOC_W,1,wstack.last)<0)
-   error_exit(ERR_voc,MEM_ERROR);
+	if(look_through_voc(&lth,wrddef,&wvoc,VOC_W,1,wstack.last)<0)
+	error_exit(ERR_voc,MEM_ERROR);
 
- investigate_word(status,obj,wrddef,*wstack.last);
+	investigate_word(status,obj,wrddef,*wstack.last);
 
- if((wstack.depth)&&((*(wstack.last-1))->nmb==(obj->nmb-1)))
-       set_context(*(wstack.last-1),*wstack.last);
- wstack.depth++;
- wstack.last++;
- return(Ok);
+	if((wstack.depth)&&((*(wstack.last-1))->nmb==(obj->nmb-1)))
+	set_context(*(wstack.last-1),*wstack.last);
+	wstack.depth++;
+	wstack.last++;
+	return(Ok);
 
 }
 /**************************************************************************/
@@ -670,144 +648,143 @@ INT pull_to_stat(INT status,SOBJ*obj,SPART *part,
 /*  and wrddef description.                                               */
 /**************************************************************************/
 
- void investigate_word(INT status,SOBJ *obj,LTIMG *wrddef[],
-		       WTOKEN  *token)
-{ register CHAR fst_lt=1;
-  token->nmb=obj->nmb;
-  token->segm=obj->tif_ref.segm;
-  token->symb=obj->tif_ref.symb;
-  token->voc= ( status == No ) ? 0 : obj->part->word->voc_kind;
-  token->r_cont=C_UNREC;
-  token->l_cont= (obj->type & T_STMT ) ? C_STBEG : C_UNREC;
-  token->type=0;
-  if(*wrddef)
-     do
-       switch(symcode((*wrddef)->lt))
-	   { case E_CP:      if(fst_lt)
-				   token->type|=W_NAME;
-			      else
-			       token->type|=W_CAP;
-			      break;
+void investigate_word(INT status,SOBJ *obj,LTIMG *wrddef[],
+		WTOKEN *token)
+{	register CHAR fst_lt=1;
+	token->nmb=obj->nmb;
+	token->segm=obj->tif_ref.segm;
+	token->symb=obj->tif_ref.symb;
+	token->voc= ( status == No ) ? 0 : obj->part->word->voc_kind;
+	token->r_cont=C_UNREC;
+	token->l_cont= (obj->type & T_STMT ) ? C_STBEG : C_UNREC;
+	token->type=0;
+	if(*wrddef)
+	do
+	switch(symcode((*wrddef)->lt))
+	{	case E_CP: if(fst_lt)
+		token->type|=W_NAME;
+		else
+		token->type|=W_CAP;
+		break;
 
+		case E_OD : token->type|=W_LOW;
+		break;
 
-	     case E_OD :      token->type|=W_LOW;
-			      break;
+		case _WDV:
+		case E_DL: token->type|=W_DELIM;
+		break;
 
-	     case _WDV:
-	     case E_DL:       token->type|=W_DELIM;
-			      break;
+		case _BLK: token->type|=W_BAD;
+		break;
 
-	     case _BLK:       token->type|=W_BAD;
-			      break;
+		case _DIG: token->type|=W_DIG;
+		break;
 
-	     case _DIG:       token->type|=W_DIG;
-			      break;
-
-	   }
+	}
 	while(fst_lt=0,*(++wrddef));
-  if(
-     ((token->type&W_LOW)&&(token->type&W_CAP))
-   ||
-     ((token->type&W_LOW)&&(token->type&W_DIG))
-   ||
-     ((token->type&W_CAP)&&(token->type&W_DIG))
-    )
-     { token->type&=~(W_DIG|W_CAP|W_LOW);
-       token->type|=W_MIXED;
-     }
-   if(token->type&W_CAP)
+	if(
+			((token->type&W_LOW)&&(token->type&W_CAP))
+			||
+			((token->type&W_LOW)&&(token->type&W_DIG))
+			||
+			((token->type&W_CAP)&&(token->type&W_DIG))
+	)
+	{	token->type&=~(W_DIG|W_CAP|W_LOW);
+		token->type|=W_MIXED;
+	}
+	if(token->type&W_CAP)
 	token->type&=~W_NAME;
 }
 /*****************************************************************************/
 /*  Function set_context(T1,T2) sets context flags between word 1 and 2      */
 /*****************************************************************************/
- void set_context(WTOKEN  *left,WTOKEN  *right)
- {  BYTE flags;
-  if( right->l_cont & C_STBEG )
-     left->r_cont=C_STEND;
-  else
-   {
-    right->l_cont=left->r_cont=0;
-    if( left->l_cont & C_STBEG)
-       right->l_cont|=C_FIRST;
-    flags=(left->type)&(~(W_DELIM|W_CHECK));
-   right->l_cont|=flags;
-    flags=(right->type)&(~(W_DELIM|W_CHECK));
-   left->r_cont|=flags;
+void set_context(WTOKEN *left,WTOKEN *right)
+{	BYTE flags;
+	if( right->l_cont & C_STBEG )
+	left->r_cont=C_STEND;
+	else
+	{
+		right->l_cont=left->r_cont=0;
+		if( left->l_cont & C_STBEG)
+		right->l_cont|=C_FIRST;
+		flags=(left->type)&(~(W_DELIM|W_CHECK));
+		right->l_cont|=flags;
+		flags=(right->type)&(~(W_DELIM|W_CHECK));
+		left->r_cont|=flags;
 
-   }
- }
+	}
+}
 /****************************************************************************/
 /*           set_img_for found() sets up wrdimg for word found              */
 /****************************************************************************/
 
- INT   set_img_for_found(SOBJ *obj,SPART *part,LTIMG wrdimg[])
-   { register INT in_obj,in_part=0,in_word=0;
-     INT in_art;
-     for( in_obj= part->beg; in_obj < part->end; in_obj++,in_part++,in_word++)
-      { wrdimg[in_word].blank=0;
-	wrdimg[in_word].lt=(LT *)&wrdimg[in_word].std;
-       if ( in_art=part->art[in_part] )
-	 {  wrdimg[in_word].lt->code=artbase[in_art].obj1;
-	    wrdimg[in_word].lt->attr=EOLIST;
+INT set_img_for_found(SOBJ *obj,SPART *part,LTIMG wrdimg[])
+{	register INT in_obj,in_part=0,in_word=0;
+	INT in_art;
+	for( in_obj= part->beg; in_obj < part->end; in_obj++,in_part++,in_word++)
+	{	wrdimg[in_word].blank=0;
+		wrdimg[in_word].lt=(LT *)&wrdimg[in_word].std;
+		if ( in_art=part->art[in_part] )
+		{	wrdimg[in_word].lt->code=artbase[in_art].obj1;
+			wrdimg[in_word].lt->attr=EOLIST;
 
-	    if(artbase[in_art].sr2)
-	     { in_obj++;
-	       in_part++;
-	     }
-	    if(artbase[in_art].obj2)
-	      {in_word++;
-	       wrdimg[in_word].blank=0;
-	       wrdimg[in_word].lt=(LT *)&wrdimg[in_word].std;
-	       wrdimg[in_word].lt->code=artbase[in_art].obj2;
-	       wrdimg[in_word].lt->attr=EOLIST;
-	      }
-	 }
-	  else
-	  {
-	   wrdimg[in_word].lt->code=obj->pos[in_obj].alt[
-	     part->word->altn[in_word]].orig.code;
-	   wrdimg[in_word].lt->attr=obj->pos[in_obj].alt[
-	     part->word->altn[in_word]].orig.attr|EOLIST;
+			if(artbase[in_art].sr2)
+			{	in_obj++;
+				in_part++;
+			}
+			if(artbase[in_art].obj2)
+			{	in_word++;
+				wrdimg[in_word].blank=0;
+				wrdimg[in_word].lt=(LT *)&wrdimg[in_word].std;
+				wrdimg[in_word].lt->code=artbase[in_art].obj2;
+				wrdimg[in_word].lt->attr=EOLIST;
+			}
+		}
+		else
+		{
+			wrdimg[in_word].lt->code=obj->pos[in_obj].alt[
+			part->word->altn[in_word]].orig.code;
+			wrdimg[in_word].lt->attr=obj->pos[in_obj].alt[
+			part->word->altn[in_word]].orig.attr|EOLIST;
 
-	  }
-      }
-   wrdimg[in_word].lt=NULL;
-   return in_word-1;       /* It seems it's true... */
-   }
+		}
+	}
+	wrdimg[in_word].lt=NULL;
+	return in_word-1; /* It seems it's true... */
+}
 /****************************************************************************/
 /* set_img_for_notfound() sets up wrdimg according original first           */
 /*    alternatives. BLANK is treated as ordinal letter.                     */
 /****************************************************************************/
- INT   set_img_for_notfound(SOBJ *obj,SPART *part,LTIMG wrdimg[])
- { register INT in_obj,in_word=0;
+INT set_img_for_notfound(SOBJ *obj,SPART *part,LTIMG wrdimg[])
+{	register INT in_obj,in_word=0;
 
-   for( in_obj= part->beg; in_obj < part->end; in_obj++,in_word++)
-      { wrdimg[in_word].blank=0;
-	wrdimg[in_word].lt=(LT *)&obj->pos[in_obj].orig;
-      }
-   wrdimg[in_word].lt=NULL;
-  return in_word-1;
- }
+	for( in_obj= part->beg; in_obj < part->end; in_obj++,in_word++)
+	{	wrdimg[in_word].blank=0;
+		wrdimg[in_word].lt=(LT *)&obj->pos[in_obj].orig;
+	}
+	wrdimg[in_word].lt=NULL;
+	return in_word-1;
+}
 /***************************************************************************/
 /*  stat_replacements() looks for possibility to invoke replacements of    */
 /* alternatives  occured over page.                                        */
 /***************************************************************************/
-INT  stat_replacements(SOBJ *obj)
-  { register INT in_obj,in_tab,in_pos;
-    INT ret=No;
-    for(in_obj=0;in_obj<obj->pos_part[obj->pos_part_nmb];in_obj++)
-     for(in_tab=0; in_tab<rst_last;in_tab++)
-       if( obj->pos[in_obj].orig.code==rst[in_tab].was)
-	  for(in_pos=1;in_pos<obj->pos[in_obj].alt_nmb;in_pos++)
-	    if(obj->pos[in_obj].alt[in_pos].orig.code==rst[in_tab].be)
-	      { if(obj->pos[in_obj].orig.attr-
-		   obj->pos[in_obj].alt[in_pos].orig.attr<DIF_for_stat_repl)
-		    { outpos_exch (obj,in_obj,in_pos);
-		      ret=Ok;
-		    }
+INT stat_replacements(SOBJ *obj)
+{	register INT in_obj,in_tab,in_pos;
+	INT ret=No;
+	for(in_obj=0;in_obj<obj->pos_part[obj->pos_part_nmb];in_obj++)
+	for(in_tab=0; in_tab<rst_last;in_tab++)
+	if( obj->pos[in_obj].orig.code==rst[in_tab].was)
+	for(in_pos=1;in_pos<obj->pos[in_obj].alt_nmb;in_pos++)
+	if(obj->pos[in_obj].alt[in_pos].orig.code==rst[in_tab].be)
+	{	if(obj->pos[in_obj].orig.attr-
+				obj->pos[in_obj].alt[in_pos].orig.attr<DIF_for_stat_repl)
+		{	outpos_exch (obj,in_obj,in_pos);
+			ret=Ok;
+		}
 		break;
-	      }
-   return ret;
-   }
- #endif
+	}
+	return ret;
+}
+#endif

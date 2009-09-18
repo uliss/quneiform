@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -59,7 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //********************************************************************
 //
-// Rout.cpp - экспортируемые функции модуля ROUT
+// Rout.cpp - СЌРєСЃРїРѕСЂС‚РёСЂСѓРµРјС‹Рµ С„СѓРЅРєС†РёРё РјРѕРґСѓР»СЏ ROUT
 //
 // This file creation date: 20.05.99
 // By Eugene Pliskin pliskin@cs.isa.ac.ru
@@ -80,1073 +80,1073 @@ static BOOL HaveTablesOnPage();
 
 //********************************************************************
 Bool32 ROUT_LoadEd
-		(
-		char *lpEdFile,		// Имя файла или адрес в памяти
-		Bool32 readFromFile,	// TRUE, если задано имя файла
-		Word32 bufLen		// Длина (только при readFromFile=FALSE)
-		)
+        (
+                char *lpEdFile,		// РРјСЏ С„Р°Р№Р»Р° РёР»Рё Р°РґСЂРµСЃ РІ РїР°РјСЏС‚Рё
+                Bool32 readFromFile,	// TRUE, РµСЃР»Рё Р·Р°РґР°РЅРѕ РёРјСЏ С„Р°Р№Р»Р°
+                Word32 bufLen		// Р”Р»РёРЅР° (С‚РѕР»СЊРєРѕ РїСЂРё readFromFile=FALSE)
+                )
 {
-// Загрузка ED-файла.
-// Параметры как в CED_ReadFormattedEd.
-	//DEBUG_PRINT("ROUT_LoadEd");
-	ClearError();
+    // Р—Р°РіСЂСѓР·РєР° ED-С„Р°Р№Р»Р°.
+    // РџР°СЂР°РјРµС‚СЂС‹ РєР°Рє РІ CED_ReadFormattedEd.
+    //DEBUG_PRINT("ROUT_LoadEd");
+    ClearError();
 
-	gPageHandle = CED_ReadFormattedEd(
-						lpEdFile,
-						readFromFile,
-						bufLen);
+    gPageHandle = CED_ReadFormattedEd(
+            lpEdFile,
+            readFromFile,
+            bufLen);
 
-	if ( !gPageHandle ||
-		!CED_GetCountSection(gPageHandle)
-		)
-		{
-		PAGE_NOT_LOADED;
-		return FALSE;
-		}
+    if ( !gPageHandle ||
+         !CED_GetCountSection(gPageHandle)
+         )
+    {
+        PAGE_NOT_LOADED;
+        return FALSE;
+    }
 
-	// Страница была загружена мной
-	gPageLoadedByMe = TRUE;
+    // РЎС‚СЂР°РЅРёС†Р° Р±С‹Р»Р° Р·Р°РіСЂСѓР¶РµРЅР° РјРЅРѕР№
+    gPageLoadedByMe = TRUE;
 
-	// Установить имя страницы без расширения
-	if(readFromFile)
-		{
-		char dir[_MAX_PATH],
-			 name[_MAX_PATH],ext[_MAX_EXT];
-		split_path(lpEdFile, dir, name, ext);
+    // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РёРјСЏ СЃС‚СЂР°РЅРёС†С‹ Р±РµР· СЂР°СЃС€РёСЂРµРЅРёСЏ
+    if(readFromFile)
+    {
+        char dir[_MAX_PATH],
+        name[_MAX_PATH],ext[_MAX_EXT];
+        split_path(lpEdFile, dir, name, ext);
 
-		strcpy(gPageName, dir);
-		strcat(gPageName, name);
-		}
+        strcpy(gPageName, dir);
+        strcat(gPageName, name);
+    }
 
-	//DEBUG_PRINT("ROUT_LoadEd successful");
-	return TRUE;
+    //DEBUG_PRINT("ROUT_LoadEd successful");
+    return TRUE;
 }
 //********************************************************************
 Bool32 ROUT_UnloadEd(void)
 {
-// Выгрузка ED-файла
-//	DEBUG_PRINT("ROUT_UnloadEd");
-	ClearError();
+    // Р’С‹РіСЂСѓР·РєР° ED-С„Р°Р№Р»Р°
+    //	DEBUG_PRINT("ROUT_UnloadEd");
+    ClearError();
 
-	// Страница была загружена мной?
-	if(gPageLoadedByMe)
-		{
-		CED_DeletePage(gPageHandle);
-		}
+    // РЎС‚СЂР°РЅРёС†Р° Р±С‹Р»Р° Р·Р°РіСЂСѓР¶РµРЅР° РјРЅРѕР№?
+    if(gPageLoadedByMe)
+    {
+        CED_DeletePage(gPageHandle);
+    }
 
-	gPageHandle = NULL;
-	gPageLoadedByMe = FALSE;
+    gPageHandle = NULL;
+    gPageLoadedByMe = FALSE;
 
-	return TRUE;
+    return TRUE;
 }
 //********************************************************************
-// Конвертирование в один формат и запись в файл
+// РљРѕРЅРІРµСЂС‚РёСЂРѕРІР°РЅРёРµ РІ РѕРґРёРЅ С„РѕСЂРјР°С‚ Рё Р·Р°РїРёСЃСЊ РІ С„Р°Р№Р»
 Bool32 ROUT_SaveObject(
-		Word32 objIndex,	// Индекс объекта начиная от 1
-		char *path,		// Путь до выходного файла
-		Bool32 append		// Дополнение в конец файла
-		)
+        Word32 objIndex,	// РРЅРґРµРєСЃ РѕР±СЉРµРєС‚Р° РЅР°С‡РёРЅР°СЏ РѕС‚ 1
+        char *path,		// РџСѓС‚СЊ РґРѕ РІС‹С…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р°
+        Bool32 append		// Р”РѕРїРѕР»РЅРµРЅРёРµ РІ РєРѕРЅРµС† С„Р°Р№Р»Р°
+        )
 {
-// Конвертирование в один формат и запись в файл
-//	DEBUG_PRINT("ROUT_OneFile");
-	ClearError();
+    // РљРѕРЅРІРµСЂС‚РёСЂРѕРІР°РЅРёРµ РІ РѕРґРёРЅ С„РѕСЂРјР°С‚ Рё Р·Р°РїРёСЃСЊ РІ С„Р°Р№Р»
+    //	DEBUG_PRINT("ROUT_OneFile");
+    ClearError();
 
-	// Загружена ли страница
-	if ( !gPageHandle )
-		{
-		PAGE_NOT_LOADED;
-		return FALSE;
-		}
+    // Р—Р°РіСЂСѓР¶РµРЅР° Р»Рё СЃС‚СЂР°РЅРёС†Р°
+    if ( !gPageHandle )
+    {
+        PAGE_NOT_LOADED;
+        return FALSE;
+    }
 
-	// Найти объкт
-	gTargetObjectIndex = objIndex;
-	gTargetObjectHandle = NULL;
-	BrowsePage(Static_GetTargetObject,
-				TRUE,	// wantSkipTableCells
-				TRUE	// wantSkipParagraphs
-				);
+    // РќР°Р№С‚Рё РѕР±СЉРєС‚
+    gTargetObjectIndex = objIndex;
+    gTargetObjectHandle = NULL;
+    BrowsePage(Static_GetTargetObject,
+               TRUE,	// wantSkipTableCells
+               TRUE	// wantSkipParagraphs
+               );
 
-	if ( !gTargetObjectHandle )
-		{
-		OBJECT_NOT_FOUND;
-		return FALSE;
-		}
+    if ( !gTargetObjectHandle )
+    {
+        OBJECT_NOT_FOUND;
+        return FALSE;
+    }
 
-	// Запросить память для работы
-	if ( !GetWorkMem() )
-		return FALSE;
+    // Р—Р°РїСЂРѕСЃРёС‚СЊ РїР°РјСЏС‚СЊ РґР»СЏ СЂР°Р±РѕС‚С‹
+    if ( !GetWorkMem() )
+        return FALSE;
 
-	// Выполнить конвертирование на памяти
-	long sizeMem = 0;
-	if ( !ROUT_GetObject(
-			objIndex,
-			0,	// lpMem
-			&sizeMem)	// sizeMem
-		)
-		{
-		FreeWorkMem();
-		return FALSE;
-		}
+    // Р’С‹РїРѕР»РЅРёС‚СЊ РєРѕРЅРІРµСЂС‚РёСЂРѕРІР°РЅРёРµ РЅР° РїР°РјСЏС‚Рё
+    long sizeMem = 0;
+    if ( !ROUT_GetObject(
+            objIndex,
+            0,	// lpMem
+            &sizeMem)	// sizeMem
+        )
+        {
+        FreeWorkMem();
+        return FALSE;
+    }
 
-	// Открыть файл
-	ULONG pos = 0;
+    // РћС‚РєСЂС‹С‚СЊ С„Р°Р№Р»
+    ulong pos = 0;
 
-	FILE* f = fopen(path, "wb");
-	if (!f)
-		{
-		ERR_OPEN_FILE;
-		FreeWorkMem();
-		return FALSE;
-		}
+    FILE* f = fopen(path, "wb");
+    if (!f)
+    {
+        ERR_OPEN_FILE;
+        FreeWorkMem();
+        return FALSE;
+    }
 
-	// Дополнение в конец файла
-	if (append && (gFormat == ROUT_FMT_Text ||
-				   gFormat == ROUT_FMT_SmartText ||
-				   gFormat == ROUT_FMT_TableText ||
-				   0))
-		{
-		pos = fseek(f, 0, SEEK_END);
-		if ( pos > 0 )
-			{
-			// Вставить пустую строку
-			if (fwrite(gEOL, strlen(gEOL), 1, f) != strlen(gEOL))
-				{
-				fclose(f);
-				FreeWorkMem();
-				return FALSE;
-				}
-			}
-		}
+    // Р”РѕРїРѕР»РЅРµРЅРёРµ РІ РєРѕРЅРµС† С„Р°Р№Р»Р°
+    if (append && (gFormat == ROUT_FMT_Text ||
+                   gFormat == ROUT_FMT_SmartText ||
+                   gFormat == ROUT_FMT_TableText ||
+                   0))
+    {
+        pos = fseek(f, 0, SEEK_END);
+        if ( pos > 0 )
+        {
+            // Р’СЃС‚Р°РІРёС‚СЊ РїСѓСЃС‚СѓСЋ СЃС‚СЂРѕРєСѓ
+            if (fwrite(gEOL, strlen(gEOL), 1, f) != strlen(gEOL))
+            {
+                fclose(f);
+                FreeWorkMem();
+                return FALSE;
+            }
+        }
+    }
 
-	if ( pos == -1 )
-		{
-		fclose(f);
-		FreeWorkMem();
-		return FALSE;
-		}
+    if ( pos == -1 )
+    {
+        fclose(f);
+        FreeWorkMem();
+        return FALSE;
+    }
 
-	// Записать данные из памяти
-	ULONG lth = gMemCur - gMemStart;
-	if ( fwrite((char*)gMemStart, 1, lth, f) != lth)
-		{
-		fclose(f);
-		FreeWorkMem();
-		return FALSE;
-		}
+    // Р—Р°РїРёСЃР°С‚СЊ РґР°РЅРЅС‹Рµ РёР· РїР°РјСЏС‚Рё
+    ulong lth = gMemCur - gMemStart;
+    if ( fwrite((char*)gMemStart, 1, lth, f) != lth)
+    {
+        fclose(f);
+        FreeWorkMem();
+        return FALSE;
+    }
 
-	// Закрыть файл
-	if (fclose(f))
-		{
-		ERR_CLOSE_FILE;
-		FreeWorkMem();
-		return FALSE;
-		}
+    // Р—Р°РєСЂС‹С‚СЊ С„Р°Р№Р»
+    if (fclose(f))
+    {
+        ERR_CLOSE_FILE;
+        FreeWorkMem();
+        return FALSE;
+    }
 
-	FreeWorkMem();
-	return TRUE;
+    FreeWorkMem();
+    return TRUE;
 }
 //********************************************************************
-// Конвертирование в один формат на заданной памяти
+// РљРѕРЅРІРµСЂС‚РёСЂРѕРІР°РЅРёРµ РІ РѕРґРёРЅ С„РѕСЂРјР°С‚ РЅР° Р·Р°РґР°РЅРЅРѕР№ РїР°РјСЏС‚Рё
 Bool32 ROUT_GetObject
-		(
-		Word32 objIndex,	// Индекс объекта начиная от 1
-		Byte *lpMem,	// Адрес блока памяти ( 0 - старая память)
-		long *sizeMem	// На входе: длина блока памяти
-						// На выходе: длина использованной памяти
-		)
+        (
+                Word32 objIndex,	// РРЅРґРµРєСЃ РѕР±СЉРµРєС‚Р° РЅР°С‡РёРЅР°СЏ РѕС‚ 1
+                Byte *lpMem,	// РђРґСЂРµСЃ Р±Р»РѕРєР° РїР°РјСЏС‚Рё ( 0 - СЃС‚Р°СЂР°СЏ РїР°РјСЏС‚СЊ)
+                long *sizeMem	// РќР° РІС…РѕРґРµ: РґР»РёРЅР° Р±Р»РѕРєР° РїР°РјСЏС‚Рё
+                // РќР° РІС‹С…РѕРґРµ: РґР»РёРЅР° РёСЃРїРѕР»СЊР·РѕРІР°РЅРЅРѕР№ РїР°РјСЏС‚Рё
+                )
 {
-//	DEBUG_PRINT("ROUT_OneFormat");
-	ClearError();
+    //	DEBUG_PRINT("ROUT_OneFormat");
+    ClearError();
 
-	// Загружена ли страница
-	if ( !gPageHandle )
-		{
-		PAGE_NOT_LOADED;
-		return FALSE;
-		}
+    // Р—Р°РіСЂСѓР¶РµРЅР° Р»Рё СЃС‚СЂР°РЅРёС†Р°
+    if ( !gPageHandle )
+    {
+        PAGE_NOT_LOADED;
+        return FALSE;
+    }
 
-	// Установить рабочую память
-	INIT_MEMORY(lpMem,*sizeMem);
+    // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ СЂР°Р±РѕС‡СѓСЋ РїР°РјСЏС‚СЊ
+    INIT_MEMORY(lpMem,*sizeMem);
 
-	switch(gFormat)
-		{
-		case ROUT_FMT_Text:
-		case ROUT_FMT_SmartText:
-			MakeText();
-			break;
+    switch(gFormat)
+    {
+                case ROUT_FMT_Text:
+                case ROUT_FMT_SmartText:
+        MakeText();
+        break;
 
-		case ROUT_FMT_HOCR:
- 		    MakeHOCR();
-		    break;
+                case ROUT_FMT_HOCR:
+        MakeHOCR();
+        break;
 
-		case ROUT_FMT_HTML:
-			MakeHTML();
-			break;
+                case ROUT_FMT_HTML:
+        MakeHTML();
+        break;
 
-		case ROUT_FMT_TableText:
-			MakeTableText();
-			break;
+                case ROUT_FMT_TableText:
+        MakeTableText();
+        break;
 
-		case ROUT_FMT_DBF:
-			MakeTableDBF();
-			break;
+                case ROUT_FMT_DBF:
+        MakeTableDBF();
+        break;
 
-		case ROUT_FMT_CSV:
-		case ROUT_FMT_WKS:
+                case ROUT_FMT_CSV:
+                case ROUT_FMT_WKS:
 
-		default:
-			NOT_IMPLEMENTED; break;
-		}
+                default:
+        NOT_IMPLEMENTED; break;
+    }
 
-	// Сколько использовано памяти
-	*sizeMem = gMemCur - gMemStart;
+    // РЎРєРѕР»СЊРєРѕ РёСЃРїРѕР»СЊР·РѕРІР°РЅРѕ РїР°РјСЏС‚Рё
+    *sizeMem = gMemCur - gMemStart;
 
-	return (gwLowRC_rout?FALSE:TRUE);
+    return (gwLowRC_rout?FALSE:TRUE);
 }
 //********************************************************************
 BOOL SetLanguage(long language)
 {
-// Настройка на язык распознавания.
+    // РќР°СЃС‚СЂРѕР№РєР° РЅР° СЏР·С‹Рє СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ.
 
-	// Задан ли язык
-	if ( language < 0 || language >= LANG_TOTAL )
-		{
+    // Р—Р°РґР°РЅ Р»Рё СЏР·С‹Рє
+    if ( language < 0 || language >= LANG_TOTAL )
+    {
 
-		// Язык 255 означает, что язык не задан,
-		// это используется, в частности, для пробелов
-		if (language == 255)
-			{
-			return TRUE;
-			}
-		else
-			{
-			DEBUG_PRINT ("Неправильный язык распознавания: %d",language);
-			return FALSE;
-			}
-		}
+        // РЇР·С‹Рє 255 РѕР·РЅР°С‡Р°РµС‚, С‡С‚Рѕ СЏР·С‹Рє РЅРµ Р·Р°РґР°РЅ,
+        // СЌС‚Рѕ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ, РІ С‡Р°СЃС‚РЅРѕСЃС‚Рё, РґР»СЏ РїСЂРѕР±РµР»РѕРІ
+        if (language == 255)
+        {
+            return TRUE;
+        }
+        else
+        {
+            DEBUG_PRINT ("РќРµРїСЂР°РІРёР»СЊРЅС‹Р№ СЏР·С‹Рє СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ: %d",language);
+            return FALSE;
+        }
+    }
 
-	ASSERT(LANG_UZBEK==16);
+    ASSERT(LANG_UZBEK==16);
 
-	gLanguage = language;
+    gLanguage = language;
 
-	langUzbek = ( gLanguage == LANG_UZBEK );
-	langKaz = ( gLanguage == LANG_KAZ ||
-				gLanguage == LANG_KAZ_ENG
-			  );
+    langUzbek = ( gLanguage == LANG_UZBEK );
+    langKaz = ( gLanguage == LANG_KAZ ||
+                gLanguage == LANG_KAZ_ENG
+                );
 
-	if ( !UpdateActiveAlphabet() )
-		return FALSE;
+    if ( !UpdateActiveAlphabet() )
+        return FALSE;
 
-	if ( !UpdateActiveCodeTable() )
-		return FALSE;
+    if ( !UpdateActiveCodeTable() )
+        return FALSE;
 
-	return TRUE;
+    return TRUE;
 }
 //********************************************************************
 BOOL SetFormat(long format)
 {
-// Настройка на формат
+    // РќР°СЃС‚СЂРѕР№РєР° РЅР° С„РѕСЂРјР°С‚
 
-	if ( format == ROUT_FMT_Text ||
-		 format == ROUT_FMT_SmartText ||
-		 format == ROUT_FMT_TableText ||
-		 format == ROUT_FMT_CSV ||
-		 format == ROUT_FMT_DBF ||
-		 format == ROUT_FMT_WKS ||
-		 format == ROUT_FMT_HTML ||
-		 format == ROUT_FMT_HOCR ||
-		 0)
-		{
-		gFormat = format;
-		return TRUE;
-		}
+    if ( format == ROUT_FMT_Text ||
+         format == ROUT_FMT_SmartText ||
+         format == ROUT_FMT_TableText ||
+         format == ROUT_FMT_CSV ||
+         format == ROUT_FMT_DBF ||
+         format == ROUT_FMT_WKS ||
+         format == ROUT_FMT_HTML ||
+         format == ROUT_FMT_HOCR ||
+         0)
+    {
+        gFormat = format;
+        return TRUE;
+    }
 
-	WRONG_ARGUMENT;
-	return FALSE;
+    WRONG_ARGUMENT;
+    return FALSE;
 }
 //********************************************************************
 BOOL SetActiveCode(long code)
 {
-// Настройка на выходную кодировку
+    // РќР°СЃС‚СЂРѕР№РєР° РЅР° РІС‹С…РѕРґРЅСѓСЋ РєРѕРґРёСЂРѕРІРєСѓ
 
-	if ( code < 1 || code > ROUT_CODE_MAX )
-		{
-		WRONG_ARGUMENT;
-		return FALSE;
-		}
+    if ( code < 1 || code > ROUT_CODE_MAX )
+    {
+        WRONG_ARGUMENT;
+        return FALSE;
+    }
 
-	gActiveCode = code;
+    gActiveCode = code;
 
-	UpdateActiveCodeTable();
-	return TRUE;
+    UpdateActiveCodeTable();
+    return TRUE;
 }
 //********************************************************************
-long ROUT_ListFormats(PWord8 buf, ULONG sizeBuf)
+long ROUT_ListFormats(PWord8 buf, ulong sizeBuf)
 {
-// Получение списка поддерживаемых форматов
-// Возвращает количество форматов или -1 при ошибке
-	long count = 0;
-	ROUT_ITEM *p = (ROUT_ITEM*)buf;
+    // РџРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° РїРѕРґРґРµСЂР¶РёРІР°РµРјС‹С… С„РѕСЂРјР°С‚РѕРІ
+    // Р’РѕР·РІСЂР°С‰Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ С„РѕСЂРјР°С‚РѕРІ РёР»Рё -1 РїСЂРё РѕС€РёР±РєРµ
+    long count = 0;
+    ROUT_ITEM *p = (ROUT_ITEM*)buf;
 
-	ClearError();
+    ClearError();
 
-	memset(buf, 0, sizeBuf);
-	if (sizeBuf < ROUT_FMT_COUNT * sizeof(ROUT_ITEM))
-		{
-		NO_MEMORY;
-		return -1;
-		}
+    memset(buf, 0, sizeBuf);
+    if (sizeBuf < ROUT_FMT_COUNT * sizeof(ROUT_ITEM))
+    {
+        NO_MEMORY;
+        return -1;
+    }
 
 #define ITEM(a) {\
-	p->code = ROUT_FMT_##a;\
-	LoadString((HINSTANCE)ghInst_rout, IDS_FMT_##a,\
-		p->name,sizeof(p->name));\
-	p++; count++;\
-		}
+    p->code = ROUT_FMT_##a;\
+              LoadString((HINSTANCE)ghInst_rout, IDS_FMT_##a,\
+                         p->name,sizeof(p->name));\
+              p++; count++;\
+          }
 
-	ITEM (Text);
-	//ITEM (SmartText);
-	ITEM (TableText);
-	//ITEM (CSV);
-	ITEM (DBF);
-	//ITEM (WKS);
-	ITEM (HTML);
+ITEM (Text);
+//ITEM (SmartText);
+ITEM (TableText);
+//ITEM (CSV);
+ITEM (DBF);
+//ITEM (WKS);
+ITEM (HTML);
 
 #undef ITEM
 
-	return count;
+return count;
 }
 //********************************************************************
-long ROUT_ListCodes(PWord8 buf, ULONG sizeBuf)
+long ROUT_ListCodes(PWord8 buf, ulong sizeBuf)
 {
-// Получение списка кодировок для данного формата
-// Возвращает количество кодировок или -1 при ошибке
-	long count = 0;
-	ROUT_ITEM *p = (ROUT_ITEM*)buf;
+    // РџРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° РєРѕРґРёСЂРѕРІРѕРє РґР»СЏ РґР°РЅРЅРѕРіРѕ С„РѕСЂРјР°С‚Р°
+    // Р’РѕР·РІСЂР°С‰Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ РєРѕРґРёСЂРѕРІРѕРє РёР»Рё -1 РїСЂРё РѕС€РёР±РєРµ
+    long count = 0;
+    ROUT_ITEM *p = (ROUT_ITEM*)buf;
 
-	ClearError();
+    ClearError();
 
-	memset(buf, 0, sizeBuf);
-	if (sizeBuf < ROUT_CODE_COUNT * sizeof(ROUT_ITEM))
-		{
-		NO_MEMORY;
-		return -1;
-		}
+    memset(buf, 0, sizeBuf);
+    if (sizeBuf < ROUT_CODE_COUNT * sizeof(ROUT_ITEM))
+    {
+        NO_MEMORY;
+        return -1;
+    }
 
 #define ITEM(a) {\
-	p->code = ROUT_CODE_##a;\
-	LoadString((HINSTANCE)ghInst_rout, IDS_CODE_##a,\
-		p->name,sizeof(p->name));\
-	p++; count++;\
-		}
+    p->code = ROUT_CODE_##a;\
+              LoadString((HINSTANCE)ghInst_rout, IDS_CODE_##a,\
+                         p->name,sizeof(p->name));\
+              p++; count++;\
+          }
 
-	switch(gFormat)
-		{
-		case ROUT_FMT_Text:
-		case ROUT_FMT_SmartText:
-		case ROUT_FMT_TableText:
-			ITEM(ASCII);
-			ITEM(ANSI);
-			ITEM(KOI8R);
-			ITEM(ISO);
-			break;
+switch(gFormat)
+{
+                case ROUT_FMT_Text:
+                case ROUT_FMT_SmartText:
+                case ROUT_FMT_TableText:
+    ITEM(ASCII);
+    ITEM(ANSI);
+    ITEM(KOI8R);
+    ITEM(ISO);
+    break;
 
-		case ROUT_FMT_CSV:
-		case ROUT_FMT_WKS:
-			ITEM(ANSI);
-			break;
+                case ROUT_FMT_CSV:
+                case ROUT_FMT_WKS:
+    ITEM(ANSI);
+    break;
 
-		case ROUT_FMT_DBF:
-			ITEM(ASCII);
-			ITEM(ANSI);
-			break;
+                case ROUT_FMT_DBF:
+    ITEM(ASCII);
+    ITEM(ANSI);
+    break;
 
-		case ROUT_FMT_HTML:
-		case ROUT_FMT_HOCR:
-			ITEM(ANSI);
-			ITEM(KOI8R);
-			ITEM(ISO);
-			break;
+                case ROUT_FMT_HTML:
+                case ROUT_FMT_HOCR:
+    ITEM(ANSI);
+    ITEM(KOI8R);
+    ITEM(ISO);
+    break;
 
-		default:
-			return -1;
-		}
+                default:
+    return -1;
+}
 
 #undef ITEM
 
-	return count;
+return count;
 }
 //********************************************************************
 Byte ROUT_Byte(Byte c)
 {
-// Перекодировать один байт по кодовой таблице
-	ClearError();
+    // РџРµСЂРµРєРѕРґРёСЂРѕРІР°С‚СЊ РѕРґРёРЅ Р±Р°Р№С‚ РїРѕ РєРѕРґРѕРІРѕР№ С‚Р°Р±Р»РёС†Рµ
+    ClearError();
 
-	if (!gActiveCodeTable)
-		{
-		NOT_IMPLEMENTED;
-		return c;
-		}
+    if (!gActiveCodeTable)
+    {
+        NOT_IMPLEMENTED;
+        return c;
+    }
 
-	return gActiveCodeTable[c];
+    return gActiveCodeTable[c];
 }
 //********************************************************************
 Bool32 ROUT_Block(
-		Byte *lpMem,	// Адрес блока памяти
-		long sizeMem	// Длина блока памяти
-		)
+        Byte *lpMem,	// РђРґСЂРµСЃ Р±Р»РѕРєР° РїР°РјСЏС‚Рё
+        long sizeMem	// Р”Р»РёРЅР° Р±Р»РѕРєР° РїР°РјСЏС‚Рё
+        )
 {
-// Перекодировать блок памяти по кодовой таблице
-	ClearError();
+    // РџРµСЂРµРєРѕРґРёСЂРѕРІР°С‚СЊ Р±Р»РѕРє РїР°РјСЏС‚Рё РїРѕ РєРѕРґРѕРІРѕР№ С‚Р°Р±Р»РёС†Рµ
+    ClearError();
 
-	if (!gActiveCodeTable)
-		{
-		NOT_IMPLEMENTED;
-		return FALSE;
-		}
+    if (!gActiveCodeTable)
+    {
+        NOT_IMPLEMENTED;
+        return FALSE;
+    }
 
-	while ( sizeMem-- > 0 )
-		{
-		*lpMem = gActiveCodeTable[*lpMem];
-		lpMem++;
-		}
+    while ( sizeMem-- > 0 )
+    {
+        *lpMem = gActiveCodeTable[*lpMem];
+        lpMem++;
+    }
 
-	return TRUE;
+    return TRUE;
 }
 //********************************************************************
 long ROUT_CountObjects()
 {
-// Сосчитать количество объектов на странице.
-// Предварительно рекомендуется загрузить страницу (ROUT_LoadEd)
-// и установить формат выдачи (ROUT_LONG_Format).
-//
-// Для табличных форматов выдает количество таблиц на странице,
-// а для остальных форматов выдает всегда 1.
-//
-	long count = 0;
-	ClearError();
+    // РЎРѕСЃС‡РёС‚Р°С‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ РѕР±СЉРµРєС‚РѕРІ РЅР° СЃС‚СЂР°РЅРёС†Рµ.
+    // РџСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕ СЂРµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ Р·Р°РіСЂСѓР·РёС‚СЊ СЃС‚СЂР°РЅРёС†Сѓ (ROUT_LoadEd)
+    // Рё СѓСЃС‚Р°РЅРѕРІРёС‚СЊ С„РѕСЂРјР°С‚ РІС‹РґР°С‡Рё (ROUT_LONG_Format).
+    //
+    // Р”Р»СЏ С‚Р°Р±Р»РёС‡РЅС‹С… С„РѕСЂРјР°С‚РѕРІ РІС‹РґР°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ С‚Р°Р±Р»РёС† РЅР° СЃС‚СЂР°РЅРёС†Рµ,
+    // Р° РґР»СЏ РѕСЃС‚Р°Р»СЊРЅС‹С… С„РѕСЂРјР°С‚РѕРІ РІС‹РґР°РµС‚ РІСЃРµРіРґР° 1.
+    //
+    long count = 0;
+    ClearError();
 
-	switch ( gFormat )
-		{
-		case ROUT_FMT_Text:
-		case ROUT_FMT_SmartText:
-		case ROUT_FMT_HTML:
-		case ROUT_FMT_HOCR:
-			return 1;
-			break;
+    switch ( gFormat )
+    {
+                case ROUT_FMT_Text:
+                case ROUT_FMT_SmartText:
+                case ROUT_FMT_HTML:
+                case ROUT_FMT_HOCR:
+        return 1;
+        break;
 
-		case ROUT_FMT_TableText:
-		case ROUT_FMT_CSV:
-		case ROUT_FMT_WKS:
-		case ROUT_FMT_DBF:
-			// Просмотреть страницу и вернуть
-			// количество таблиц
-			gTargetObjectIndex = LONG_MAX;
-			gTargetObjectHandle = NULL;
-			BrowsePage(NULL,
-					TRUE,	// wantSkipTableCells
-					TRUE	// wantSkipParagraphs
-					);
+                case ROUT_FMT_TableText:
+                case ROUT_FMT_CSV:
+                case ROUT_FMT_WKS:
+                case ROUT_FMT_DBF:
+        // РџСЂРѕСЃРјРѕС‚СЂРµС‚СЊ СЃС‚СЂР°РЅРёС†Сѓ Рё РІРµСЂРЅСѓС‚СЊ
+        // РєРѕР»РёС‡РµСЃС‚РІРѕ С‚Р°Р±Р»РёС†
+        gTargetObjectIndex = LONG_MAX;
+        gTargetObjectHandle = NULL;
+        BrowsePage(NULL,
+                   TRUE,	// wantSkipTableCells
+                   TRUE	// wantSkipParagraphs
+                   );
 
-			return gHitTables;
+        return gHitTables;
 
-		default:
-			{
-			DEBUG_PRINT("Wrong gFormat");
-			}
-		}
+                default:
+        {
+            DEBUG_PRINT("Wrong gFormat");
+        }
+    }
 
-	return 0;
+    return 0;
 }
 //********************************************************************
 BOOL Static_GetTargetObject(
-			Handle hObject,
-			long reason	// См. enum BROWSE_REASON
-			)
+        Handle hObject,
+        long reason	// РЎРј. enum BROWSE_REASON
+        )
 {
-// Поиск объекта на странице.
-// gTargetObjectIndex - искомый номер объекта
-// Возвращает FALSE для того чтобы прекратить поиск.
+    // РџРѕРёСЃРє РѕР±СЉРµРєС‚Р° РЅР° СЃС‚СЂР°РЅРёС†Рµ.
+    // gTargetObjectIndex - РёСЃРєРѕРјС‹Р№ РЅРѕРјРµСЂ РѕР±СЉРµРєС‚Р°
+    // Р’РѕР·РІСЂР°С‰Р°РµС‚ FALSE РґР»СЏ С‚РѕРіРѕ С‡С‚РѕР±С‹ РїСЂРµРєСЂР°С‚РёС‚СЊ РїРѕРёСЃРє.
 
-	static long countObjectsFound; // Static не удалять...
+    static long countObjectsFound; // Static РЅРµ СѓРґР°Р»СЏС‚СЊ...
 
-	if(reason == BROWSE_PAGE_START)
-		countObjectsFound = 0;
+    if(reason == BROWSE_PAGE_START)
+        countObjectsFound = 0;
 
-	switch ( gFormat )
-		{
-		case ROUT_FMT_Text:
-		case ROUT_FMT_SmartText:
-		case ROUT_FMT_HTML:
-		case ROUT_FMT_HOCR:
-			gTargetObjectHandle = gPageHandle;
-			return FALSE;	// Закончить поиск
-			break;
+    switch ( gFormat )
+    {
+                case ROUT_FMT_Text:
+                case ROUT_FMT_SmartText:
+                case ROUT_FMT_HTML:
+                case ROUT_FMT_HOCR:
+        gTargetObjectHandle = gPageHandle;
+        return FALSE;	// Р—Р°РєРѕРЅС‡РёС‚СЊ РїРѕРёСЃРє
+        break;
 
-		case ROUT_FMT_TableText:
-		case ROUT_FMT_CSV:
-		case ROUT_FMT_WKS:
-		case ROUT_FMT_DBF:
-			if (reason == BROWSE_TABLE_START)
-				{
-				gTargetObjectHandle = hObject;
+                case ROUT_FMT_TableText:
+                case ROUT_FMT_CSV:
+                case ROUT_FMT_WKS:
+                case ROUT_FMT_DBF:
+        if (reason == BROWSE_TABLE_START)
+        {
+            gTargetObjectHandle = hObject;
 
-				// Сосчитать найденный объект
-				countObjectsFound++;
-				if ( countObjectsFound >= gTargetObjectIndex )
-					return FALSE;	// Закончить поиск
-				}
-			break;
+            // РЎРѕСЃС‡РёС‚Р°С‚СЊ РЅР°Р№РґРµРЅРЅС‹Р№ РѕР±СЉРµРєС‚
+            countObjectsFound++;
+            if ( countObjectsFound >= gTargetObjectIndex )
+                return FALSE;	// Р—Р°РєРѕРЅС‡РёС‚СЊ РїРѕРёСЃРє
+        }
+        break;
 
-		default:
-			{
-			DEBUG_PRINT("Wrong gFormat");
-			}
-		}
+                default:
+        {
+            DEBUG_PRINT("Wrong gFormat");
+        }
+    }
 
-	return TRUE;	// Продолжить поиск
+    return TRUE;	// РџСЂРѕРґРѕР»Р¶РёС‚СЊ РїРѕРёСЃРє
 }
 //********************************************************************
 Bool32 ROUT_SetAlphabet(
-		Word32 sizeAlphabet,// Количество букв
-		char *upper,		// Прописные буквы
-		char *lower,		// Строчные буквы
-		char *vowels		// Гласные букы
-		)
+        Word32 sizeAlphabet,// РљРѕР»РёС‡РµСЃС‚РІРѕ Р±СѓРєРІ
+        char *upper,		// РџСЂРѕРїРёСЃРЅС‹Рµ Р±СѓРєРІС‹
+        char *lower,		// РЎС‚СЂРѕС‡РЅС‹Рµ Р±СѓРєРІС‹
+        char *vowels		// Р“Р»Р°СЃРЅС‹Рµ Р±СѓРєС‹
+        )
 {
-// Импорт алфавита, загруженного из REC6.DAT в SPELABC.C.
-	ClearError();
+    // РРјРїРѕСЂС‚ Р°Р»С„Р°РІРёС‚Р°, Р·Р°РіСЂСѓР¶РµРЅРЅРѕРіРѕ РёР· REC6.DAT РІ SPELABC.C.
+    ClearError();
 
-	gSizeAlphabet = 0;
-	memset( &gUpper[0], 0, sizeof(gUpper));
-	memset( &gLower[0], 0, sizeof(gLower));
-	memset( &gVowels[0], 0, sizeof(gVowels));
-	memset( &gAlphabetTable[0], 0, sizeof(gAlphabetTable));
+    gSizeAlphabet = 0;
+    memset( &gUpper[0], 0, sizeof(gUpper));
+    memset( &gLower[0], 0, sizeof(gLower));
+    memset( &gVowels[0], 0, sizeof(gVowels));
+    memset( &gAlphabetTable[0], 0, sizeof(gAlphabetTable));
 
-	if (strlen(upper) != sizeAlphabet ||
-		strlen(lower) != sizeAlphabet ||
-		strlen(vowels) > sizeAlphabet ||
-		sizeAlphabet > sizeof(gUpper) - 1
-		)
-		{
-		WRONG_ARGUMENT;
-		return FALSE;
-		}
+    if (strlen(upper) != sizeAlphabet ||
+        strlen(lower) != sizeAlphabet ||
+        strlen(vowels) > sizeAlphabet ||
+        sizeAlphabet > sizeof(gUpper) - 1
+        )
+    {
+        WRONG_ARGUMENT;
+        return FALSE;
+    }
 
-	gSizeAlphabet = sizeAlphabet;
-	memcpy( &gUpper[0], upper, sizeAlphabet );
-	memcpy( &gLower[0], lower, sizeAlphabet );
-	memcpy( &gVowels[0], vowels, sizeAlphabet );
+    gSizeAlphabet = sizeAlphabet;
+    memcpy( &gUpper[0], upper, sizeAlphabet );
+    memcpy( &gLower[0], lower, sizeAlphabet );
+    memcpy( &gVowels[0], vowels, sizeAlphabet );
 
-	// Добавить английские в список,
-	// но количество букв не менять
-	ASSERT(sizeAlphabet + 26 < 256);
-	strcat((char*)gUpper, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-	strcat((char*)gLower, "abcdefghijklmnopqrstuvwxyz");
-	strcat((char*)gVowels,"^bcd^fgh^^klmn^pqrst^v^x^z");
+    // Р”РѕР±Р°РІРёС‚СЊ Р°РЅРіР»РёР№СЃРєРёРµ РІ СЃРїРёСЃРѕРє,
+    // РЅРѕ РєРѕР»РёС‡РµСЃС‚РІРѕ Р±СѓРєРІ РЅРµ РјРµРЅСЏС‚СЊ
+    ASSERT(sizeAlphabet + 26 < 256);
+    strcat((char*)gUpper, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+    strcat((char*)gLower, "abcdefghijklmnopqrstuvwxyz");
+    strcat((char*)gVowels,"^bcd^fgh^^klmn^pqrst^v^x^z");
 
-	// Заполнить позиционную таблицу
-	Byte *p = NULL;
+    // Р—Р°РїРѕР»РЅРёС‚СЊ РїРѕР·РёС†РёРѕРЅРЅСѓСЋ С‚Р°Р±Р»РёС†Сѓ
+    Byte *p = NULL;
 
-	for ( p = gUpper; * p; p++)
-		gAlphabetTable[*p] |= CASE_UPPER;
+    for ( p = gUpper; * p; p++)
+        gAlphabetTable[*p] |= CASE_UPPER;
 
-	for ( p = gLower; * p; p++)
-		gAlphabetTable[*p] |= CASE_LOWER;
+    for ( p = gLower; * p; p++)
+        gAlphabetTable[*p] |= CASE_LOWER;
 
-	for ( p = gVowels; * p; p++)
-		gAlphabetTable[*p] |= CASE_VOWEL;
+    for ( p = gVowels; * p; p++)
+        gAlphabetTable[*p] |= CASE_VOWEL;
 
-	for ( p = (Byte*)"0123456789"; * p; p++)
-		gAlphabetTable[*p] |= CASE_DIGIT;
+    for ( p = (Byte*)"0123456789"; * p; p++)
+        gAlphabetTable[*p] |= CASE_DIGIT;
 
-	return TRUE;
+    return TRUE;
 }
 //********************************************************************
 char *ROUT_GetDefaultObjectName(
-		Word32 objIndex	// Индекс объекта начиная от 1
-		)
+        Word32 objIndex	// РРЅРґРµРєСЃ РѕР±СЉРµРєС‚Р° РЅР°С‡РёРЅР°СЏ РѕС‚ 1
+        )
 {
-/*
-	Сформировать имя выходного файла из имени страницы
-	для текущей комбинации формат-кодировка и для
-	заданного индекса объекта.
+    /*
+        РЎС„РѕСЂРјРёСЂРѕРІР°С‚СЊ РёРјСЏ РІС‹С…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р° РёР· РёРјРµРЅРё СЃС‚СЂР°РЅРёС†С‹
+        РґР»СЏ С‚РµРєСѓС‰РµР№ РєРѕРјР±РёРЅР°С†РёРё С„РѕСЂРјР°С‚-РєРѕРґРёСЂРѕРІРєР° Рё РґР»СЏ
+        Р·Р°РґР°РЅРЅРѕРіРѕ РёРЅРґРµРєСЃР° РѕР±СЉРµРєС‚Р°.
 */
-	char suffix[40] = "", ext[5] = "";
-	static char name[_MAX_PATH] = "";
+    char suffix[40] = "", ext[5] = "";
+    static char name[_MAX_PATH] = "";
 
-	switch(gFormat)
-		{
-		case ROUT_FMT_Text:
-			//strcpy(suffix,"");
-			strcpy(ext,".txt");
-			break;
-		case ROUT_FMT_SmartText:
-			strcpy(suffix,"_s");
-			strcpy(ext,".txt");
-			break;
+    switch(gFormat)
+    {
+                case ROUT_FMT_Text:
+        //strcpy(suffix,"");
+        strcpy(ext,".txt");
+        break;
+                case ROUT_FMT_SmartText:
+        strcpy(suffix,"_s");
+        strcpy(ext,".txt");
+        break;
 
-		case ROUT_FMT_TableText:
-			strcpy(suffix,"_b");
-			strcpy(ext,".txt");
-			break;
+                case ROUT_FMT_TableText:
+        strcpy(suffix,"_b");
+        strcpy(ext,".txt");
+        break;
 
-		case ROUT_FMT_CSV:
-			//strcpy(suffix,"");
-			strcpy(ext,".csv");
-			break;
+                case ROUT_FMT_CSV:
+        //strcpy(suffix,"");
+        strcpy(ext,".csv");
+        break;
 
-		case ROUT_FMT_DBF:
-			//strcpy(suffix,"");
-			strcpy(ext,".dbf");
-			break;
+                case ROUT_FMT_DBF:
+        //strcpy(suffix,"");
+        strcpy(ext,".dbf");
+        break;
 
-		case ROUT_FMT_WKS:
-			//strcpy(suffix,"");
-			strcpy(ext,".wks");
-			break;
+                case ROUT_FMT_WKS:
+        //strcpy(suffix,"");
+        strcpy(ext,".wks");
+        break;
 
-		case ROUT_FMT_HTML:
-		case ROUT_FMT_HOCR:
-			//strcpy(suffix,"");
-			strcpy(ext,".htm");
-			break;
+                case ROUT_FMT_HTML:
+                case ROUT_FMT_HOCR:
+        //strcpy(suffix,"");
+        strcpy(ext,".htm");
+        break;
 
-		default:
-			{
-			NOT_IMPLEMENTED;
-			return NULL;
-			}
-		}
+                default:
+        {
+            NOT_IMPLEMENTED;
+            return NULL;
+        }
+    }
 
-	switch(gActiveCode)
-		{
-		case ROUT_CODE_ASCII:
-			if ( gFormat != ROUT_FMT_Text &&
-				 gFormat != ROUT_FMT_SmartText &&
-				 gFormat != ROUT_FMT_TableText &&
-				 gFormat != ROUT_FMT_DBF
-				)
-				{
-				NOT_IMPLEMENTED;
-				return NULL;
-				}
+    switch(gActiveCode)
+    {
+                case ROUT_CODE_ASCII:
+        if ( gFormat != ROUT_FMT_Text &&
+             gFormat != ROUT_FMT_SmartText &&
+             gFormat != ROUT_FMT_TableText &&
+             gFormat != ROUT_FMT_DBF
+             )
+        {
+            NOT_IMPLEMENTED;
+            return NULL;
+        }
 
-			strcat(suffix,"_a");
-			break;
+        strcat(suffix,"_a");
+        break;
 
-		case ROUT_CODE_ANSI:
-			strcat(suffix,"_w");	// All formats
-			break;
+                case ROUT_CODE_ANSI:
+        strcat(suffix,"_w");	// All formats
+        break;
 
-		case ROUT_CODE_KOI8R:
-			if ( gFormat != ROUT_FMT_Text &&
-				 gFormat != ROUT_FMT_SmartText &&
-				 gFormat != ROUT_FMT_TableText &&
-				 gFormat != ROUT_FMT_DBF &&
-				 gFormat != ROUT_FMT_HTML &&
-				 gFormat != ROUT_FMT_HOCR
-				)
-				{
-				NOT_IMPLEMENTED;
-				return NULL;
-				}
+                case ROUT_CODE_KOI8R:
+        if ( gFormat != ROUT_FMT_Text &&
+             gFormat != ROUT_FMT_SmartText &&
+             gFormat != ROUT_FMT_TableText &&
+             gFormat != ROUT_FMT_DBF &&
+             gFormat != ROUT_FMT_HTML &&
+             gFormat != ROUT_FMT_HOCR
+             )
+        {
+            NOT_IMPLEMENTED;
+            return NULL;
+        }
 
-			strcat(suffix,"_k");
-			break;
+        strcat(suffix,"_k");
+        break;
 
-		case ROUT_CODE_ISO:
-			if ( gFormat != ROUT_FMT_Text &&
-				 gFormat != ROUT_FMT_SmartText &&
-				 gFormat != ROUT_FMT_TableText &&
-				 gFormat != ROUT_FMT_DBF &&
-				 gFormat != ROUT_FMT_HTML &&
-				 gFormat != ROUT_FMT_HOCR
-				)
-				{
-				NOT_IMPLEMENTED;
-				return NULL;
-				}
+                case ROUT_CODE_ISO:
+        if ( gFormat != ROUT_FMT_Text &&
+             gFormat != ROUT_FMT_SmartText &&
+             gFormat != ROUT_FMT_TableText &&
+             gFormat != ROUT_FMT_DBF &&
+             gFormat != ROUT_FMT_HTML &&
+             gFormat != ROUT_FMT_HOCR
+             )
+        {
+            NOT_IMPLEMENTED;
+            return NULL;
+        }
 
-			strcat(suffix,"_i");
-			break;
+        strcat(suffix,"_i");
+        break;
 
-		case ROUT_CODE_UTF8:
-			if ( gFormat != ROUT_FMT_Text &&
-				 gFormat != ROUT_FMT_SmartText &&
-				 gFormat != ROUT_FMT_TableText &&
-				 gFormat != ROUT_FMT_HTML
-				)
-				{
-				NOT_IMPLEMENTED;
-				return NULL;
-				}
+                case ROUT_CODE_UTF8:
+        if ( gFormat != ROUT_FMT_Text &&
+             gFormat != ROUT_FMT_SmartText &&
+             gFormat != ROUT_FMT_TableText &&
+             gFormat != ROUT_FMT_HTML
+             )
+        {
+            NOT_IMPLEMENTED;
+            return NULL;
+        }
 
-			strcat(suffix,"_u");
-			break;
+        strcat(suffix,"_u");
+        break;
 
-		default:
-			{
-			NOT_IMPLEMENTED;
-			return NULL;
-			}
-		}
+                default:
+        {
+            NOT_IMPLEMENTED;
+            return NULL;
+        }
+    }
 
-	strcpy(name,gPageName);	// Имя страницы без расширения
-	strcat(name,suffix);
+    strcpy(name,gPageName);	// РРјСЏ СЃС‚СЂР°РЅРёС†С‹ Р±РµР· СЂР°СЃС€РёСЂРµРЅРёСЏ
+    strcat(name,suffix);
 
-	// Добавить индекс объекта начиная от 2
-	if (objIndex > 1 )
-		sprintf(name+strlen(name),"%d",objIndex);
+    // Р”РѕР±Р°РІРёС‚СЊ РёРЅРґРµРєСЃ РѕР±СЉРµРєС‚Р° РЅР°С‡РёРЅР°СЏ РѕС‚ 2
+    if (objIndex > 1 )
+        sprintf(name+strlen(name),"%d",objIndex);
 
-	strcat(name,ext);
+    strcat(name,ext);
 
-	return name;
+    return name;
 }
 //*****************************************************************
 static BOOL GetWorkMem()
 {
-// Запросить свободный блок общей памяти
-// А если не дадут, то использовать
-// свой кусок памяти, выделенный
-// на ROUT_Init()
-//
-	Byte *p = NULL;
-	long lth = 1024<<10;	// 1M
+    // Р—Р°РїСЂРѕСЃРёС‚СЊ СЃРІРѕР±РѕРґРЅС‹Р№ Р±Р»РѕРє РѕР±С‰РµР№ РїР°РјСЏС‚Рё
+    // Рђ РµСЃР»Рё РЅРµ РґР°РґСѓС‚, С‚Рѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ
+    // СЃРІРѕР№ РєСѓСЃРѕРє РїР°РјСЏС‚Рё, РІС‹РґРµР»РµРЅРЅС‹Р№
+    // РЅР° ROUT_Init()
+    //
+    Byte *p = NULL;
+    long lth = 1024<<10;	// 1M
 
-	p = (Byte*)MyAlloc(lth, 0);
-	if (!p )
-		{
-		// Использовать собственный кусок памяти
-		p = (Byte*)gOwnMemory;
-		lth = gOwnMemorySize;
+    p = (Byte*)MyAlloc(lth, 0);
+    if (!p )
+    {
+        // РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЃРѕР±СЃС‚РІРµРЅРЅС‹Р№ РєСѓСЃРѕРє РїР°РјСЏС‚Рё
+        p = (Byte*)gOwnMemory;
+        lth = gOwnMemorySize;
 
-		DEBUG_PRINT("ROUT.CPP MyGetFreeMem: MyAlloc failed, using own memory");
-		}
+        DEBUG_PRINT("ROUT.CPP MyGetFreeMem: MyAlloc failed, using own memory");
+    }
 
-	// Установить рабочую память
-	INIT_MEMORY(p,lth);
+    // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ СЂР°Р±РѕС‡СѓСЋ РїР°РјСЏС‚СЊ
+    INIT_MEMORY(p,lth);
 
-	return TRUE;
+    return TRUE;
 
 }
 //********************************************************************
 static BOOL FreeWorkMem()
 {
-// Освободить рабочую память
-	BOOL good = TRUE;
+    // РћСЃРІРѕР±РѕРґРёС‚СЊ СЂР°Р±РѕС‡СѓСЋ РїР°РјСЏС‚СЊ
+    BOOL good = TRUE;
 
-	// Собственную память не сдавать
-	if (gMemStart &&
-		gMemStart != gOwnMemory
-		)
-		good =  MyFree(gMemStart);
+    // РЎРѕР±СЃС‚РІРµРЅРЅСѓСЋ РїР°РјСЏС‚СЊ РЅРµ СЃРґР°РІР°С‚СЊ
+    if (gMemStart &&
+        gMemStart != gOwnMemory
+        )
+        good =  MyFree(gMemStart);
 
-	// Забыть адрес памяти
-	gMemStart = NULL;
-	gMemEnd = NULL;
-	gMemCur = NULL;
+    // Р—Р°Р±С‹С‚СЊ Р°РґСЂРµСЃ РїР°РјСЏС‚Рё
+    gMemStart = NULL;
+    gMemEnd = NULL;
+    gMemCur = NULL;
 
-	return good;
+    return good;
 
 }
 //********************************************************************
 Word32 ROUT_GetObjectSize(
-		Word32 objIndex	// Индекс объекта начиная от 1
-		)
+        Word32 objIndex	// РРЅРґРµРєСЃ РѕР±СЉРµРєС‚Р° РЅР°С‡РёРЅР°СЏ РѕС‚ 1
+        )
 {
-// Гадкая функция для определения длины объекта
-	Byte *p = NULL;
-	long lth = 256<<10;		// 256K
-	long sizeMem = 0;
+    // Р“Р°РґРєР°СЏ С„СѓРЅРєС†РёСЏ РґР»СЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ РґР»РёРЅС‹ РѕР±СЉРµРєС‚Р°
+    Byte *p = NULL;
+    long lth = 256<<10;		// 256K
+    long sizeMem = 0;
 
-	ClearError();
+    ClearError();
 
-	for (long attempt = 1; attempt < 3; attempt++)
-		{
-		p = (Byte*)MyAlloc(lth,0);
-		if (!p)
-			{
-			NO_MEMORY;
-			return 0;
-			}
+    for (long attempt = 1; attempt < 3; attempt++)
+    {
+        p = (Byte*)MyAlloc(lth,0);
+        if (!p)
+        {
+            NO_MEMORY;
+            return 0;
+        }
 
-		InitMemory(p,lth);
+        InitMemory(p,lth);
 
-		// Выполнить конвертирование на памяти
-		sizeMem = lth;
-		if ( ROUT_GetObject(
-				objIndex,
-				0,	// lpMem
-				&sizeMem)	// sizeMem
-			)
-			{
-			FreeWorkMem();
-			return sizeMem + 2*gBumperSize;
-			}
+        // Р’С‹РїРѕР»РЅРёС‚СЊ РєРѕРЅРІРµСЂС‚РёСЂРѕРІР°РЅРёРµ РЅР° РїР°РјСЏС‚Рё
+        sizeMem = lth;
+        if ( ROUT_GetObject(
+                objIndex,
+                0,	// lpMem
+                &sizeMem)	// sizeMem
+            )
+            {
+            FreeWorkMem();
+            return sizeMem + 2*gBumperSize;
+        }
 
-		// Повторить попытку с большей памятью
-		FreeWorkMem();
-		lth = lth <<1 ;
-		}
+        // РџРѕРІС‚РѕСЂРёС‚СЊ РїРѕРїС‹С‚РєСѓ СЃ Р±РѕР»СЊС€РµР№ РїР°РјСЏС‚СЊСЋ
+        FreeWorkMem();
+        lth = lth <<1 ;
+    }
 
-	return 0;	// Неудача
+    return 0;	// РќРµСѓРґР°С‡Р°
 }
 //********************************************************************
 Bool32 ROUT_LoadRec6List(
-		const char *rec6AllFilename
-		)
+        const char *rec6AllFilename
+        )
 {
-/* Загрузка файла rec6all.dat, в котором
-	перечислены имена таблиц rec6xxx.dat
-	в виде:
-		0 rec6.dat
-		1 rec6grm.dat
-		... и т.д.
+    /* Р—Р°РіСЂСѓР·РєР° С„Р°Р№Р»Р° rec6all.dat, РІ РєРѕС‚РѕСЂРѕРј
+        РїРµСЂРµС‡РёСЃР»РµРЅС‹ РёРјРµРЅР° С‚Р°Р±Р»РёС† rec6xxx.dat
+        РІ РІРёРґРµ:
+                0 rec6.dat
+                1 rec6grm.dat
+                ... Рё С‚.Рґ.
 
-	Файлы rec6xxx.dat загружяются в таблицу алфавитов:
+        Р¤Р°Р№Р»С‹ rec6xxx.dat Р·Р°РіСЂСѓР¶СЏСЋС‚СЃСЏ РІ С‚Р°Р±Р»РёС†Сѓ Р°Р»С„Р°РІРёС‚РѕРІ:
 
-	gAT_sizeAlphabet[LANG_TOTAL]
-	gAT_upper[LANG_TOTAL][kMaxSizeAlphabet]
-	gAT_lower[LANG_TOTAL][kMaxSizeAlphabet]
-	gAT_vowels[LANG_TOTAL][kMaxSizeAlphabet]
+        gAT_sizeAlphabet[LANG_TOTAL]
+        gAT_upper[LANG_TOTAL][kMaxSizeAlphabet]
+        gAT_lower[LANG_TOTAL][kMaxSizeAlphabet]
+        gAT_vowels[LANG_TOTAL][kMaxSizeAlphabet]
 
 */
 
-	ClearError();
+    ClearError();
 
-	// Открыть файл со списком таблиц
-	FILE *f = NULL;
-	char buf[256] = "";
-	int fd;
+    // РћС‚РєСЂС‹С‚СЊ С„Р°Р№Р» СЃРѕ СЃРїРёСЃРєРѕРј С‚Р°Р±Р»РёС†
+    FILE *f = NULL;
+    char buf[256] = "";
+    int fd;
 
-	fd = open_data_file(rec6AllFilename, O_RDONLY); // Was "rt".
-	if(fd == -1) {
-	    ERR_LOAD_REC6LIST;
-	    return FALSE;
-	}
-	f = fdopen(fd, "rt");
-	if (!f)
-		{
-		ERR_LOAD_REC6LIST;
-		return FALSE;
-		}
+    fd = open_data_file(rec6AllFilename, O_RDONLY); // Was "rt".
+    if(fd == -1) {
+        ERR_LOAD_REC6LIST;
+        return FALSE;
+    }
+    f = fdopen(fd, "rt");
+    if (!f)
+    {
+        ERR_LOAD_REC6LIST;
+        return FALSE;
+    }
 
-	while (	fgets(buf,sizeof(buf)-1,f) )
-		{
-		int language=-1;
-		char theName[_MAX_PATH] = "";
+    while (	fgets(buf,sizeof(buf)-1,f) )
+    {
+        int language=-1;
+        char theName[_MAX_PATH] = "";
 
-		// Пустые строки и строки комментариев,
-		// начинающиеся с точки с запятой, пропускать
-		char *p = buf;
+        // РџСѓСЃС‚С‹Рµ СЃС‚СЂРѕРєРё Рё СЃС‚СЂРѕРєРё РєРѕРјРјРµРЅС‚Р°СЂРёРµРІ,
+        // РЅР°С‡РёРЅР°СЋС‰РёРµСЃСЏ СЃ С‚РѕС‡РєРё СЃ Р·Р°РїСЏС‚РѕР№, РїСЂРѕРїСѓСЃРєР°С‚СЊ
+        char *p = buf;
 
-		while (*p == ' ' || *p == '\t' )
-			p++;
+        while (*p == ' ' || *p == '\t' )
+            p++;
 
-		if ( *p == ';' || !*p || *p == 0x0d || *p == 0x0a )
-			continue;
+        if ( *p == ';' || !*p || *p == 0x0d || *p == 0x0a )
+            continue;
 
-		// Номер языка и имя таблицы rec6xxx.dat
-		sscanf(buf, "%d%s", &language, &theName[0]);
+        // РќРѕРјРµСЂ СЏР·С‹РєР° Рё РёРјСЏ С‚Р°Р±Р»РёС†С‹ rec6xxx.dat
+        sscanf(buf, "%d%s", &language, &theName[0]);
 
-		if (language <0 || language >= LANG_TOTAL ||
-			!theName[0] ||
-			!LoadAlphabet(language, theName)
-			)
-			{
-			fclose(f);
-			ERR_LOAD_REC6LIST;
-			return FALSE;
-			}
-		}
+        if (language <0 || language >= LANG_TOTAL ||
+            !theName[0] ||
+            !LoadAlphabet(language, theName)
+            )
+        {
+            fclose(f);
+            ERR_LOAD_REC6LIST;
+            return FALSE;
+        }
+    }
 
-	fclose(f);
-	return TRUE;
+    fclose(f);
+    return TRUE;
 }
 //********************************************************************
 static BOOL LoadAlphabet(
-			long language,
-			char *rec6xxxFilename)
+        long language,
+        char *rec6xxxFilename)
 {
-// Загрузка файла REC6.DAT
-	FILE *f = NULL;
-	int fd;
-	char buf[256] = "";
+    // Р—Р°РіСЂСѓР·РєР° С„Р°Р№Р»Р° REC6.DAT
+    FILE *f = NULL;
+    int fd;
+    char buf[256] = "";
 #if defined(WIN32) || defined(__CYGWIN__)
-	const char line_end = '\n';
+    const char line_end = '\n';
 #else
-	const char line_end = '\r';
+    const char line_end = '\r';
 #endif
 
-	ASSERT (language >= 0 && language < LANG_TOTAL);
+    ASSERT (language >= 0 && language < LANG_TOTAL);
 
-	long sizeAlphabet = 0;
+    long sizeAlphabet = 0;
 
-	fd = open_data_file(rec6xxxFilename, O_RDONLY);
-	if(fd == -1)
-	    return FALSE;
-	f = fdopen(fd, "rt");
-	if (!f)
-		return FALSE;
+    fd = open_data_file(rec6xxxFilename, O_RDONLY);
+    if(fd == -1)
+        return FALSE;
+    f = fdopen(fd, "rt");
+    if (!f)
+        return FALSE;
 
-	fgets(buf,sizeof(buf)-1,f);
+    fgets(buf,sizeof(buf)-1,f);
 
-	sscanf(buf,"%d",&sizeAlphabet);
+    sscanf(buf,"%d",&sizeAlphabet);
 
-	if( sizeAlphabet < 1 ||
-		sizeAlphabet > kMaxSizeAlphabet
-	  )
-		{
-		fclose(f);
-		ERR_LOAD_ALPHABET;
-		return FALSE;
-		}
+    if( sizeAlphabet < 1 ||
+        sizeAlphabet > kMaxSizeAlphabet
+        )
+    {
+        fclose(f);
+        ERR_LOAD_ALPHABET;
+        return FALSE;
+    }
 
-	gAT_sizeAlphabet[language] = sizeAlphabet;
+    gAT_sizeAlphabet[language] = sizeAlphabet;
 
-	char *upper = gAT_upper[language];
-	char *lower = gAT_lower[language];
-	char *vowels = gAT_vowels[language];
+    char *upper = gAT_upper[language];
+    char *lower = gAT_lower[language];
+    char *vowels = gAT_vowels[language];
 
-	fgets(upper,kMaxSizeAlphabet,f);
-	fgets(lower,kMaxSizeAlphabet,f);
-	fgets(vowels,kMaxSizeAlphabet,f);
+    fgets(upper,kMaxSizeAlphabet,f);
+    fgets(lower,kMaxSizeAlphabet,f);
+    fgets(vowels,kMaxSizeAlphabet,f);
 
-	fclose(f);
-	f = NULL;
+    fclose(f);
+    f = NULL;
 
-	char *p1 = strchr(upper, line_end);
-	char *p2 = strchr(lower, line_end);
-	char *p3 = strchr(vowels, line_end);
+    char *p1 = strchr(upper, line_end);
+    char *p2 = strchr(lower, line_end);
+    char *p3 = strchr(vowels, line_end);
 
-	if ( p1 ) *p1 = 0;
-	if ( p2 ) *p2 = 0;
-	if ( p3 ) *p3 = 0;
+    if ( p1 ) *p1 = 0;
+    if ( p2 ) *p2 = 0;
+    if ( p3 ) *p3 = 0;
 
-	if ( (long)strlen(upper) != sizeAlphabet ||
-		 (long)strlen(lower) != sizeAlphabet ||
-		 (long)strlen(vowels)> sizeAlphabet
-		)
-		{
-		ERR_LOAD_ALPHABET;
-		return FALSE;
-		}
+    if ( (long)strlen(upper) != sizeAlphabet ||
+         (long)strlen(lower) != sizeAlphabet ||
+         (long)strlen(vowels)> sizeAlphabet
+         )
+    {
+        ERR_LOAD_ALPHABET;
+        return FALSE;
+    }
 
-	return TRUE;
+    return TRUE;
 }
 //*****************************************************************
 static BOOL UpdateActiveAlphabet()
 {
-/*  Смена алфавита.
-	Алфавит выбирается по номеру языка gLanguage
-    из таблицы алфавитов
+    /*  РЎРјРµРЅР° Р°Р»С„Р°РІРёС‚Р°.
+        РђР»С„Р°РІРёС‚ РІС‹Р±РёСЂР°РµС‚СЃСЏ РїРѕ РЅРѕРјРµСЂСѓ СЏР·С‹РєР° gLanguage
+    РёР· С‚Р°Р±Р»РёС†С‹ Р°Р»С„Р°РІРёС‚РѕРІ
 
-	Данная функция вызывается из SetLanguage().
+        Р”Р°РЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РІС‹Р·С‹РІР°РµС‚СЃСЏ РёР· SetLanguage().
 
 */
 
-	if (!gAT_sizeAlphabet[gLanguage] ||
-		!gAT_upper[gLanguage] ||
-		!gAT_lower[gLanguage] ||
-		!gAT_vowels[gLanguage] ||
-		!ROUT_SetAlphabet(
-			gAT_sizeAlphabet[gLanguage],
-			gAT_upper[gLanguage],
-			gAT_lower[gLanguage],
-			gAT_vowels[gLanguage]
-			)
-		)
-		{
-		ERR_UPDATE_ACTIVE_ALPHABET;
-		return FALSE;
-		}
+    if (!gAT_sizeAlphabet[gLanguage] ||
+        !gAT_upper[gLanguage] ||
+        !gAT_lower[gLanguage] ||
+        !gAT_vowels[gLanguage] ||
+        !ROUT_SetAlphabet(
+                gAT_sizeAlphabet[gLanguage],
+                gAT_upper[gLanguage],
+                gAT_lower[gLanguage],
+                gAT_vowels[gLanguage]
+                )
+        )
+    {
+        ERR_UPDATE_ACTIVE_ALPHABET;
+        return FALSE;
+    }
 
-	return TRUE;
+    return TRUE;
 }
 //********************************************************************
-long ROUT_ListAvailableFormats(PWord8 buf, ULONG sizeBuf)
+long ROUT_ListAvailableFormats(PWord8 buf, ulong sizeBuf)
 {
-/*
-	Получение списка возможных форматов сохранения
-	для текущей загруженной страницы.
-	Возвращает количество форматов или -1 при ошибке
+    /*
+        РџРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° РІРѕР·РјРѕР¶РЅС‹С… С„РѕСЂРјР°С‚РѕРІ СЃРѕС…СЂР°РЅРµРЅРёСЏ
+        РґР»СЏ С‚РµРєСѓС‰РµР№ Р·Р°РіСЂСѓР¶РµРЅРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹.
+        Р’РѕР·РІСЂР°С‰Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ С„РѕСЂРјР°С‚РѕРІ РёР»Рё -1 РїСЂРё РѕС€РёР±РєРµ
 
-	Табличные форматы включаются при наличии таблиц на странице.
-	Если страница не загружена, то
-	устанавливается ошибка PAGE_NOT_LOADED
+        РўР°Р±Р»РёС‡РЅС‹Рµ С„РѕСЂРјР°С‚С‹ РІРєР»СЋС‡Р°СЋС‚СЃСЏ РїСЂРё РЅР°Р»РёС‡РёРё С‚Р°Р±Р»РёС† РЅР° СЃС‚СЂР°РЅРёС†Рµ.
+        Р•СЃР»Рё СЃС‚СЂР°РЅРёС†Р° РЅРµ Р·Р°РіСЂСѓР¶РµРЅР°, С‚Рѕ
+        СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚СЃСЏ РѕС€РёР±РєР° PAGE_NOT_LOADED
 */
 
-	long count = 0;
-	ROUT_ITEM *p = (ROUT_ITEM*)buf;
+    long count = 0;
+    ROUT_ITEM *p = (ROUT_ITEM*)buf;
 
-	ClearError();
+    ClearError();
 
-	memset(buf, 0, sizeBuf);
-	if (sizeBuf < ROUT_FMT_COUNT * sizeof(ROUT_ITEM))
-		{
-		NO_MEMORY;
-		return -1;
-		}
+    memset(buf, 0, sizeBuf);
+    if (sizeBuf < ROUT_FMT_COUNT * sizeof(ROUT_ITEM))
+    {
+        NO_MEMORY;
+        return -1;
+    }
 
-	if ( !gPageHandle )
-		{
-		PAGE_NOT_LOADED;
-		return -1;
-		}
+    if ( !gPageHandle )
+    {
+        PAGE_NOT_LOADED;
+        return -1;
+    }
 
-	// Наличие таблиц на странице
-	BOOL haveTables = HaveTablesOnPage();
+    // РќР°Р»РёС‡РёРµ С‚Р°Р±Р»РёС† РЅР° СЃС‚СЂР°РЅРёС†Рµ
+    BOOL haveTables = HaveTablesOnPage();
 
 #define ITEM(a) {\
-	p->code = ROUT_FMT_##a;\
-	LoadString((HINSTANCE)ghInst_rout, IDS_FMT_##a,\
-		p->name,sizeof(p->name));\
-	p++; count++;\
-		}
+    p->code = ROUT_FMT_##a;\
+              LoadString((HINSTANCE)ghInst_rout, IDS_FMT_##a,\
+                         p->name,sizeof(p->name));\
+              p++; count++;\
+          }
 
-	ITEM (Text);
-	//ITEM (SmartText);
-	if (haveTables )
-		{
-		ITEM (TableText);
-		//ITEM (CSV);
-		ITEM (DBF);
-		//ITEM (WKS);
-		}
-	ITEM (HTML);
+ITEM (Text);
+//ITEM (SmartText);
+if (haveTables )
+{
+    ITEM (TableText);
+    //ITEM (CSV);
+    ITEM (DBF);
+    //ITEM (WKS);
+}
+ITEM (HTML);
 
 #undef ITEM
 
-	return count;
+return count;
 }
 //********************************************************************
 BOOL Static_GetFirstTable(
-			Handle hObject,
-			long reason	// См. enum BROWSE_REASON
-			)
+        Handle hObject,
+        long reason	// РЎРј. enum BROWSE_REASON
+        )
 {
-// Поиск первой таблицы на странице.
+    // РџРѕРёСЃРє РїРµСЂРІРѕР№ С‚Р°Р±Р»РёС†С‹ РЅР° СЃС‚СЂР°РЅРёС†Рµ.
 
-	if (reason == BROWSE_TABLE_START)
-		return FALSE;	// Закончить поиск
+    if (reason == BROWSE_TABLE_START)
+        return FALSE;	// Р—Р°РєРѕРЅС‡РёС‚СЊ РїРѕРёСЃРє
 
-	return TRUE;	// Продолжить поиск
+    return TRUE;	// РџСЂРѕРґРѕР»Р¶РёС‚СЊ РїРѕРёСЃРє
 }
 //********************************************************************
 static BOOL HaveTablesOnPage()
 {
-// Наличие таблиц на странице
-	if ( !gPageHandle )
-		return FALSE;
+    // РќР°Р»РёС‡РёРµ С‚Р°Р±Р»РёС† РЅР° СЃС‚СЂР°РЅРёС†Рµ
+    if ( !gPageHandle )
+        return FALSE;
 
-	// Просмотреть страницу до первой таблицы
-	BrowsePage(Static_GetFirstTable,
-			TRUE,	// wantSkipTableCells
-			TRUE	// wantSkipParagraphs
-			);
+    // РџСЂРѕСЃРјРѕС‚СЂРµС‚СЊ СЃС‚СЂР°РЅРёС†Сѓ РґРѕ РїРµСЂРІРѕР№ С‚Р°Р±Р»РёС†С‹
+    BrowsePage(Static_GetFirstTable,
+               TRUE,	// wantSkipTableCells
+               TRUE	// wantSkipParagraphs
+               );
 
-	return (gHitTables > 0 );
+    return (gHitTables > 0 );
 
 }
 //********************************************************************

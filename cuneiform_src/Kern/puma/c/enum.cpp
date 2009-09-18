@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Ðàçðåøàåòñÿ ïîâòîðíîå ðàñïðîñòðàíåíèå è èñïîëüçîâàíèå êàê â âèäå èñõîäíîãî êîäà,
-òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
+Ð Ð°Ð·Ñ€ÐµÑˆÐ°ÐµÑ‚ÑÑ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ Ð¸ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸Ðµ ÐºÐ°Ðº Ð² Ð²Ð¸Ð´Ðµ Ð¸ÑÑ…Ð¾Ð´Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð°,
+Ñ‚Ð°Ðº Ð¸ Ð² Ð´Ð²Ð¾Ð¸Ñ‡Ð½Ð¾Ð¹ Ñ„Ð¾Ñ€Ð¼Ðµ, Ñ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸ÑÐ¼Ð¸ Ð¸Ð»Ð¸ Ð±ÐµÐ·, Ð¿Ñ€Ð¸ ÑÐ¾Ð±Ð»ÑŽÐ´ÐµÐ½Ð¸Ð¸ ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ñ… ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹:
 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
-        îòêàç îò ãàðàíòèé.
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
-        äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
-        óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
-        ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ.
+      * ÐŸÑ€Ð¸ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ð¼ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸ Ð¸ÑÑ…Ð¾Ð´Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð° Ð´Ð¾Ð»Ð¶Ð½Ñ‹ Ð¾ÑÑ‚Ð°Ð²Ð°Ñ‚ÑŒÑÑ ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð¾Ðµ
+        Ð²Ñ‹ÑˆÐµ ÑƒÐ²ÐµÐ´Ð¾Ð¼Ð»ÐµÐ½Ð¸Ðµ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÑ‚Ð¾Ñ‚ ÑÐ¿Ð¸ÑÐ¾Ðº ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹ Ð¸ Ð¿Ð¾ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹
+        Ð¾Ñ‚ÐºÐ°Ð· Ð¾Ñ‚ Ð³Ð°Ñ€Ð°Ð½Ñ‚Ð¸Ð¹.
+      * ÐŸÑ€Ð¸ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ð¼ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸ Ð´Ð²Ð¾Ð¸Ñ‡Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð° Ð² Ð´Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ð°Ñ†Ð¸Ð¸ Ð¸/Ð¸Ð»Ð¸ Ð²
+        Ð´Ñ€ÑƒÐ³Ð¸Ñ… Ð¼Ð°Ñ‚ÐµÑ€Ð¸Ð°Ð»Ð°Ñ…, Ð¿Ð¾ÑÑ‚Ð°Ð²Ð»ÑÐµÐ¼Ñ‹Ñ… Ð¿Ñ€Ð¸ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸, Ð´Ð¾Ð»Ð¶Ð½Ñ‹ ÑÐ¾Ñ…Ñ€Ð°Ð½ÑÑ‚ÑŒÑÑ
+        ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð°Ñ Ð²Ñ‹ÑˆÐµ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ñ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÑ‚Ð¾Ñ‚ ÑÐ¿Ð¸ÑÐ¾Ðº ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹ Ð¸
+        Ð¿Ð¾ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹ Ð¾Ñ‚ÐºÐ°Ð· Ð¾Ñ‚ Ð³Ð°Ñ€Ð°Ð½Ñ‚Ð¸Ð¹.
+      * ÐÐ¸ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ Cognitive Technologies, Ð½Ð¸ Ð¸Ð¼ÐµÐ½Ð° ÐµÐµ ÑÐ¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸ÐºÐ¾Ð² Ð½Ðµ Ð¼Ð¾Ð³ÑƒÑ‚
+        Ð±Ñ‹Ñ‚ÑŒ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ñ‹ Ð² ÐºÐ°Ñ‡ÐµÑÑ‚Ð²Ðµ ÑÑ€ÐµÐ´ÑÑ‚Ð²Ð° Ð¿Ð¾Ð´Ð´ÐµÑ€Ð¶ÐºÐ¸ Ð¸/Ð¸Ð»Ð¸ Ð¿Ñ€Ð¾Ð´Ð²Ð¸Ð¶ÐµÐ½Ð¸Ñ
+        Ð¿Ñ€Ð¾Ð´ÑƒÐºÑ‚Ð¾Ð², Ð¾ÑÐ½Ð¾Ð²Ð°Ð½Ð½Ñ‹Ñ… Ð½Ð° ÑÑ‚Ð¾Ð¼ ÐŸÐž, Ð±ÐµÐ· Ð¿Ñ€ÐµÐ´Ð²Ð°Ñ€Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ð³Ð¾ Ð¿Ð¸ÑÑŒÐ¼ÐµÐ½Ð½Ð¾Ð³Ð¾
+        Ñ€Ð°Ð·Ñ€ÐµÑˆÐµÐ½Ð¸Ñ.
 
-ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
-ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
-ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
+Ð­Ð¢Ð ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ ÐŸÐ Ð•Ð”ÐžÐ¡Ð¢ÐÐ’Ð›Ð•ÐÐ Ð’Ð›ÐÐ”Ð•Ð›Ð¬Ð¦ÐÐœÐ˜ ÐÐ’Ð¢ÐžÐ Ð¡ÐšÐ˜Ð¥ ÐŸÐ ÐÐ’ Ð˜/Ð˜Ð›Ð˜ Ð”Ð Ð£Ð“Ð˜ÐœÐ˜ Ð›Ð˜Ð¦ÐÐœÐ˜ "ÐšÐÐš
+ÐžÐÐ Ð•Ð¡Ð¢Ð¬" Ð‘Ð•Ð— ÐšÐÐšÐžÐ“Ðž-Ð›Ð˜Ð‘Ðž Ð’Ð˜Ð”Ð Ð“ÐÐ ÐÐÐ¢Ð˜Ð™, Ð’Ð«Ð ÐÐ–Ð•ÐÐÐ«Ð¥ Ð¯Ð’ÐÐž Ð˜Ð›Ð˜ ÐŸÐžÐ”Ð ÐÐ—Ð£ÐœÐ•Ð’ÐÐ•ÐœÐ«Ð¥,
+Ð’ÐšÐ›Ð®Ð§ÐÐ¯ Ð“ÐÐ ÐÐÐ¢Ð˜Ð˜ ÐšÐžÐœÐœÐ•Ð Ð§Ð•Ð¡ÐšÐžÐ™ Ð¦Ð•ÐÐÐžÐ¡Ð¢Ð˜ Ð˜ ÐŸÐ Ð˜Ð“ÐžÐ”ÐÐžÐ¡Ð¢Ð˜ Ð”Ð›Ð¯ ÐšÐžÐÐšÐ Ð•Ð¢ÐÐžÐ™ Ð¦Ð•Ð›Ð˜, ÐÐž ÐÐ•
+ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð˜ÐœÐ˜. ÐÐ˜ Ð’Ð›ÐÐ”Ð•Ð›Ð•Ð¦ ÐÐ’Ð¢ÐžÐ Ð¡ÐšÐ˜Ð¥ ÐŸÐ ÐÐ’ Ð˜ ÐÐ˜ ÐžÐ”ÐÐž Ð”Ð Ð£Ð“ÐžÐ• Ð›Ð˜Ð¦Ðž, ÐšÐžÐ¢ÐžÐ ÐžÐ•
+ÐœÐžÐ–Ð•Ð¢ Ð˜Ð—ÐœÐ•ÐÐ¯Ð¢Ð¬ Ð˜/Ð˜Ð›Ð˜ ÐŸÐžÐ’Ð¢ÐžÐ ÐÐž Ð ÐÐ¡ÐŸÐ ÐžÐ¡Ð¢Ð ÐÐÐ¯Ð¢Ð¬ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ£, ÐÐ˜ Ð’ ÐšÐžÐ•Ðœ Ð¡Ð›Ð£Ð§ÐÐ• ÐÐ•
+ÐÐ•Ð¡ÐÐ¢ ÐžÐ¢Ð’Ð•Ð¢Ð¡Ð¢Ð’Ð•ÐÐÐžÐ¡Ð¢Ð˜, Ð’ÐšÐ›Ð®Ð§ÐÐ¯ Ð›Ð®Ð‘Ð«Ð• ÐžÐ‘Ð©Ð˜Ð•, Ð¡Ð›Ð£Ð§ÐÐ™ÐÐ«Ð•, Ð¡ÐŸÐ•Ð¦Ð˜ÐÐ›Ð¬ÐÐ«Ð• Ð˜Ð›Ð˜
+ÐŸÐžÐ¡Ð›Ð•Ð”ÐžÐ’ÐÐ’Ð¨Ð˜Ð• Ð£Ð‘Ð«Ð¢ÐšÐ˜, Ð¡Ð’Ð¯Ð—ÐÐÐÐ«Ð• Ð¡ Ð˜Ð¡ÐŸÐžÐ›Ð¬Ð—ÐžÐ’ÐÐÐ˜Ð•Ðœ Ð˜Ð›Ð˜ ÐŸÐžÐÐ•Ð¡Ð•ÐÐÐ«Ð• Ð’Ð¡Ð›Ð•Ð”Ð¡Ð¢Ð’Ð˜Ð•
+ÐÐ•Ð’ÐžÐ—ÐœÐžÐ–ÐÐžÐ¡Ð¢Ð˜ Ð˜Ð¡ÐŸÐžÐ›Ð¬Ð—ÐžÐ’ÐÐÐ˜Ð¯ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ« (Ð’ÐšÐ›Ð®Ð§ÐÐ¯ ÐŸÐžÐ¢Ð•Ð Ð˜ Ð”ÐÐÐÐ«Ð¥, Ð˜Ð›Ð˜ Ð”ÐÐÐÐ«Ð•,
+Ð¡Ð¢ÐÐ’Ð¨Ð˜Ð• ÐÐ•Ð“ÐžÐ”ÐÐ«ÐœÐ˜, Ð˜Ð›Ð˜ Ð£Ð‘Ð«Ð¢ÐšÐ˜ Ð˜/Ð˜Ð›Ð˜ ÐŸÐžÐ¢Ð•Ð Ð˜ Ð”ÐžÐ¥ÐžÐ”ÐžÐ’, ÐŸÐžÐÐ•Ð¡Ð•ÐÐÐ«Ð• Ð˜Ð—-Ð—Ð Ð”Ð•Ð™Ð¡Ð¢Ð’Ð˜Ð™
+Ð¢Ð Ð•Ð¢Ð¬Ð˜Ð¥ Ð›Ð˜Ð¦ Ð˜/Ð˜Ð›Ð˜ ÐžÐ¢ÐšÐÐ—Ð ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ« Ð ÐÐ‘ÐžÐ¢ÐÐ¢Ð¬ Ð¡ÐžÐ’ÐœÐ•Ð¡Ð¢ÐÐž Ð¡ Ð”Ð Ð£Ð“Ð˜ÐœÐ˜ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐÐœÐ˜,
+ÐÐž ÐÐ• ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð­Ð¢Ð˜ÐœÐ˜ Ð¡Ð›Ð£Ð§ÐÐ¯ÐœÐ˜), ÐÐž ÐÐ• ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð˜ÐœÐ˜, Ð”ÐÐ–Ð• Ð•Ð¡Ð›Ð˜ Ð¢ÐÐšÐžÐ™
+Ð’Ð›ÐÐ”Ð•Ð›Ð•Ð¦ Ð˜Ð›Ð˜ Ð”Ð Ð£Ð“ÐžÐ• Ð›Ð˜Ð¦Ðž Ð‘Ð«Ð›Ð˜ Ð˜Ð—Ð’Ð•Ð©Ð•ÐÐ« Ðž Ð’ÐžÐ—ÐœÐžÐ–ÐÐžÐ¡Ð¢Ð˜ Ð¢ÐÐšÐ˜Ð¥ Ð£Ð‘Ð«Ð¢ÐšÐžÐ’ Ð˜ ÐŸÐžÐ¢Ð•Ð Ð¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -58,273 +58,272 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 static struct
 {
-	int format;
-	int code[10];
+    int format;
+    int code[10];
 }
- enumFormatCode[] = {
+enumFormatCode[] = {
 
-		PUMA_TOEDNATIVE		,
-	 {
-			 PUMA_CODE_UNKNOWN         ,
-			-1
-	 },
+    PUMA_TOEDNATIVE		,
+    {
+        PUMA_CODE_UNKNOWN         ,
+        -1
+    },
 #ifdef _DEBUG
-			PUMA_DEBUG_TOTEXT           ,
-	 {
-			 PUMA_CODE_ANSI            ,
-			-1
-	 },
+PUMA_DEBUG_TOTEXT           ,
+{
+        PUMA_CODE_ANSI            ,
+        -1
+    },
 #endif
-			PUMA_TOTEXT           ,
-	 {
-			 PUMA_CODE_ASCII           ,
-			 PUMA_CODE_ANSI            ,
-			 PUMA_CODE_KOI8            ,
-			 PUMA_CODE_ISO             ,
-			 PUMA_CODE_UTF8            ,
-			-1
-	 },
-			PUMA_TOSMARTTEXT       ,
-	 {
-			 PUMA_CODE_ASCII           ,
-			 PUMA_CODE_ANSI            ,
-			 PUMA_CODE_KOI8            ,
-			 PUMA_CODE_ISO             ,
-			 PUMA_CODE_UTF8            ,
-			-1
-	 },
-			PUMA_TORTF               ,
-	 {
-			 PUMA_CODE_ANSI            ,
-			-1
-	 },
-			PUMA_TOTABLETXT           ,
-	 {
-			 PUMA_CODE_ANSI            ,
-			-1
-	 },
-	/*		PUMA_TOTABLECSV           ,
-	 {
-			 PUMA_CODE_ANSI            ,
-			-1
-	 },*/
-			PUMA_TOTABLEDBF           ,
-	 {
-			 PUMA_CODE_ASCII           ,
-			 PUMA_CODE_ANSI            ,
-			-1
-	 },
-		/*	PUMA_TOTABLEWKS           ,
-	 {
-			 PUMA_CODE_ANSI            ,
-			-1
-	 },*/
-			PUMA_TOHTML               ,
-	 {
-			 PUMA_CODE_ANSI            ,
-			 PUMA_CODE_KOI8            ,
-			 PUMA_CODE_ISO             ,
-			 PUMA_CODE_UTF8            ,
-			-1
-	 },
-	 -1,
-	 {
-	 -1
-	 }
+PUMA_TOTEXT           ,
+{
+        PUMA_CODE_ASCII           ,
+        PUMA_CODE_ANSI            ,
+        PUMA_CODE_KOI8            ,
+        PUMA_CODE_ISO             ,
+        PUMA_CODE_UTF8            ,
+        -1
+    },
+PUMA_TOSMARTTEXT       ,
+{
+        PUMA_CODE_ASCII           ,
+        PUMA_CODE_ANSI            ,
+        PUMA_CODE_KOI8            ,
+        PUMA_CODE_ISO             ,
+        PUMA_CODE_UTF8            ,
+        -1
+    },
+PUMA_TORTF               ,
+{
+        PUMA_CODE_ANSI            ,
+        -1
+    },
+PUMA_TOTABLETXT           ,
+{
+        PUMA_CODE_ANSI            ,
+        -1
+    },
+/*		PUMA_TOTABLECSV           ,
+         {
+                         PUMA_CODE_ANSI            ,
+                        -1
+         },*/
+PUMA_TOTABLEDBF           ,
+{
+        PUMA_CODE_ASCII           ,
+        PUMA_CODE_ANSI            ,
+        -1
+    },
+/*	PUMA_TOTABLEWKS           ,
+         {
+                         PUMA_CODE_ANSI            ,
+                        -1
+         },*/
+PUMA_TOHTML               ,
+{
+        PUMA_CODE_ANSI            ,
+        PUMA_CODE_KOI8            ,
+        PUMA_CODE_ISO             ,
+        PUMA_CODE_UTF8            ,
+        -1
+    },
+-1,
+{
+        -1
+            }
 };
 
 static long _SearchFormat(long prev)
 {
-	long rc = -1;
-		for(int i=0;
-			enumFormatCode[i].format>=0 &&
-			i<sizeof(enumFormatCode)/sizeof(enumFormatCode[0]);
-			i++)
-			if(prev == enumFormatCode[i].format)
-			{
-				rc = i;
-				break;
-			}
-return rc;
+    long rc = -1;
+    for(int i=0;
+        enumFormatCode[i].format>=0 &&
+        i<sizeof(enumFormatCode)/sizeof(enumFormatCode[0]);
+    i++)
+        if(prev == enumFormatCode[i].format)
+        {
+        rc = i;
+        break;
+    }
+    return rc;
 }
 
 long	_EnumFormats(long prev)
 {
-	long rc = -1;
-	if(prev<0)
-		rc = enumFormatCode[0].format;
-	else
-	{
-		int i = _SearchFormat(prev);
-		if(i>=0)
-			rc = enumFormatCode[i+1].format;
-	}
-	return rc;
+    long rc = -1;
+    if(prev<0)
+        rc = enumFormatCode[0].format;
+    else
+    {
+        int i = _SearchFormat(prev);
+        if(i>=0)
+            rc = enumFormatCode[i+1].format;
+    }
+    return rc;
 }
 
 long	_EnumCodes(long f,long prev)
 {
 
-	long rc = -1;
-	int format = _SearchFormat(f);
-	if(format>=0)
-	{
-		if(prev<0)
-			rc = enumFormatCode[format].code[0];
-		else
-		{
-			for(int i=0;
-				enumFormatCode[format].code[i]>=0 &&
-				i<sizeof(enumFormatCode[format].code)/sizeof(enumFormatCode[format].code[0]);
-				i++)
-				if(prev == enumFormatCode[format].code[i])
-				{
-					rc = enumFormatCode[format].code[i+1];
-					break;
-				}
-		}
-	}
-	return rc;
+    long rc = -1;
+    int format = _SearchFormat(f);
+    if(format>=0)
+    {
+        if(prev<0)
+            rc = enumFormatCode[format].code[0];
+        else
+        {
+            for(int i=0;
+                enumFormatCode[format].code[i]>=0 &&
+                i<sizeof(enumFormatCode[format].code)/sizeof(enumFormatCode[format].code[0]);
+            i++)
+                if(prev == enumFormatCode[format].code[i])
+                {
+                rc = enumFormatCode[format].code[i+1];
+                break;
+            }
+        }
+    }
+    return rc;
 }
 
-static long enumLanguage[] =
-{
-	PUMA_LANG_ENGLISH   ,	// 0
-	PUMA_LANG_GERMAN    ,	// 1
-	PUMA_LANG_FRENCH    ,	// 2
-	PUMA_LANG_RUSSIAN   ,	// 3
-	PUMA_LANG_SWEDISH   ,	// 4
-	PUMA_LANG_SPANISH   ,	// 5
-	PUMA_LANG_ITALIAN   ,	// 6
-	PUMA_LANG_RUSENG    ,	// 7
-	PUMA_LANG_UKRAINIAN ,	// 8
-	PUMA_LANG_SERBIAN   ,	// 9
-	PUMA_LANG_CROATIAN  ,	// 10
-	PUMA_LANG_POLISH    ,	// 11
-	PUMA_LANG_DANISH    ,	// 12
-	PUMA_LANG_PORTUGUESE,	// 13
-	PUMA_LANG_DUTCH     ,	// 14
-	PUMA_LANG_DIG       ,	// 15
-   	PUMA_LANG_UZBEK     ,	// 16
-   	PUMA_LANG_KAZ       ,	// 17
-   	PUMA_LANG_KAZ_ENG   ,	// 18
-	PUMA_LANG_CZECH	    ,	// 19 01.09.2000 E.P.
-	PUMA_LANG_ROMAN     ,   // 20
-	PUMA_LANG_HUNGAR    ,   // 21
-	PUMA_LANG_BULGAR    ,   // 22
-	PUMA_LANG_SLOVENIAN ,	// 23 25.05.2001 E.P.
-	PUMA_LANG_LATVIAN   ,	// 24 16.07.2001 E.P.
-	PUMA_LANG_LITHUANIAN,	// 25
-	PUMA_LANG_ESTONIAN  ,	// 26
-	PUMA_LANG_TURKISH   ,	// 27
-	-1
+static long enumLanguage[] = {
+    LANG_ENGLISH   ,	// 0
+    LANG_GERMAN    ,	// 1
+    LANG_FRENCH    ,	// 2
+    LANG_RUSSIAN   ,	// 3
+    LANG_SWEDISH   ,	// 4
+    LANG_SPANISH   ,	// 5
+    LANG_ITALIAN   ,	// 6
+    LANG_RUSENG    ,	// 7
+    LANG_UKRAINIAN ,	// 8
+    LANG_SERBIAN   ,	// 9
+    LANG_CROATIAN  ,	// 10
+    LANG_POLISH    ,	// 11
+    LANG_DANISH    ,	// 12
+    LANG_PORTUGUESE,	// 13
+    LANG_DUTCH     ,	// 14
+    LANG_DIG       ,	// 15
+    LANG_UZBEK     ,	// 16
+    LANG_KAZ       ,	// 17
+    LANG_KAZ_ENG   ,	// 18
+    LANG_CZECH	    ,	// 19 01.09.2000 E.P.
+    LANG_ROMAN     ,   // 20
+    LANG_HUNGAR    ,   // 21
+    LANG_BULGAR    ,   // 22
+    LANG_SLOVENIAN ,	// 23 25.05.2001 E.P.
+    LANG_LATVIAN   ,	// 24 16.07.2001 E.P.
+    LANG_LITHUANIAN,	// 25
+    LANG_ESTONIAN  ,	// 26
+    LANG_TURKISH   ,	// 27
+    -1
 };
 
 long _EnumLanguage(long prev)
 {
-	long rc = -1;
-	if(prev<0)
-		rc = enumLanguage[0];
-	else
-	{
+    long rc = -1;
+    if(prev<0)
+        rc = enumLanguage[0];
+    else
+    {
         long next = prev;
-		for(int i=0;i<sizeof(enumLanguage)/sizeof(enumLanguage[0])-1;i++)
-		{
-    		if(enumLanguage[i]==next)
-			{
-				next = enumLanguage[i + 1];
-//              if(REXC_IsLanguage((Word8)next) && RSTR_IsLanguage((Word8)next) )
+        for(int i=0;i<sizeof(enumLanguage)/sizeof(enumLanguage[0])-1;i++)
+        {
+            if(enumLanguage[i]==next)
+            {
+                next = enumLanguage[i + 1];
+                //              if(REXC_IsLanguage((Word8)next) && RSTR_IsLanguage((Word8)next) )
                 if(RRECCOM_IsLanguage((Word8)next) && RSTR_IsLanguage((Word8)next) )
                 {
                     rc = next;
-				    break;
-                 }
+                    break;
+                }
                 else
                     rc = -1;
-			}
-		}
-	}
-	return rc;
+            }
+        }
+    }
+    return rc;
 }
 
 static long enumFormatMode[] =
 {
-	PUMA_FORMAT_NONE,
-	PUMA_FORMAT_ALL,
-//	PUMA_FORMAT_ONLY_FRAME,
-	-1
+    PUMA_FORMAT_NONE,
+    PUMA_FORMAT_ALL,
+    //	PUMA_FORMAT_ONLY_FRAME,
+    -1
 };
 
 long _EnumFormatMode(long prev)
 {
-	long rc = -1;
-	if(prev<0)
-		rc = enumFormatMode[0];
-	else
-	{
-		for(int i=0;i<sizeof(enumFormatMode)/sizeof(enumFormatMode[0]);i++)
-		{
-			if(enumFormatMode[i]==prev)
-			{
-				rc = enumFormatMode[i + 1];
-				break;
-			}
-		}
-	}
-	return rc;
+    long rc = -1;
+    if(prev<0)
+        rc = enumFormatMode[0];
+    else
+    {
+        for(int i=0;i<sizeof(enumFormatMode)/sizeof(enumFormatMode[0]);i++)
+        {
+            if(enumFormatMode[i]==prev)
+            {
+                rc = enumFormatMode[i + 1];
+                break;
+            }
+        }
+    }
+    return rc;
 }
 
 static long enumTable[] =
 {
-	PUMA_TABLE_NONE,
-	PUMA_TABLE_DEFAULT,
-/*	PUMA_TABLE_ONLY_LINE,
-	PUMA_TABLE_ONLY_TEXT,
-	PUMA_TABLE_LINE_TEXT,*/
-	-1
+    PUMA_TABLE_NONE,
+    PUMA_TABLE_DEFAULT,
+    /*	PUMA_TABLE_ONLY_LINE,
+        PUMA_TABLE_ONLY_TEXT,
+        PUMA_TABLE_LINE_TEXT,*/
+    -1
 };
 
 long _EnumTable(long prev)
 {
-	long rc = -1;
-	if(prev<0)
-		rc = enumTable[0];
-	else
-	{
-		for(int i=0;i<sizeof(enumTable)/sizeof(enumTable[0]);i++)
-		{
-			if(enumTable[i]==prev)
-			{
-				rc = enumTable[i + 1];
-				break;
-			}
-		}
-	}
-	return rc;
+    long rc = -1;
+    if(prev<0)
+        rc = enumTable[0];
+    else
+    {
+        for(int i=0;i<sizeof(enumTable)/sizeof(enumTable[0]);i++)
+        {
+            if(enumTable[i]==prev)
+            {
+                rc = enumTable[i + 1];
+                break;
+            }
+        }
+    }
+    return rc;
 }
 
 static long enumPicture[] =
 {
-	PUMA_PICTURE_NONE,
-	PUMA_PICTURE_ALL,
-	-1
+    PUMA_PICTURE_NONE,
+    PUMA_PICTURE_ALL,
+    -1
 };
 
 long _EnumPicture(long prev)
 {
-	long rc = -1;
-	if(prev<0)
-		rc = enumPicture[0];
-	else
-	{
-		for(int i=0;i<sizeof(enumPicture)/sizeof(enumPicture[0]);i++)
-		{
-			if(enumPicture[i]==prev)
-			{
-				rc = enumPicture[i + 1];
-				break;
-			}
-		}
-	}
-	return rc;
+    long rc = -1;
+    if(prev<0)
+        rc = enumPicture[0];
+    else
+    {
+        for(int i=0;i<sizeof(enumPicture)/sizeof(enumPicture[0]);i++)
+        {
+            if(enumPicture[i]==prev)
+            {
+                rc = enumPicture[i + 1];
+                break;
+            }
+        }
+    }
+    return rc;
 }

@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Ðàçðåøàåòñÿ ïîâòîðíîå ðàñïðîñòðàíåíèå è èñïîëüçîâàíèå êàê â âèäå èñõîäíîãî êîäà,
-òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
+Ð Ð°Ð·Ñ€ÐµÑˆÐ°ÐµÑ‚ÑÑ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ Ð¸ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸Ðµ ÐºÐ°Ðº Ð² Ð²Ð¸Ð´Ðµ Ð¸ÑÑ…Ð¾Ð´Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð°,
+Ñ‚Ð°Ðº Ð¸ Ð² Ð´Ð²Ð¾Ð¸Ñ‡Ð½Ð¾Ð¹ Ñ„Ð¾Ñ€Ð¼Ðµ, Ñ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸ÑÐ¼Ð¸ Ð¸Ð»Ð¸ Ð±ÐµÐ·, Ð¿Ñ€Ð¸ ÑÐ¾Ð±Ð»ÑŽÐ´ÐµÐ½Ð¸Ð¸ ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ñ… ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹:
 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
-        îòêàç îò ãàðàíòèé.
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
-        äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
-        óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
-        ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ.
+      * ÐŸÑ€Ð¸ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ð¼ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸ Ð¸ÑÑ…Ð¾Ð´Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð° Ð´Ð¾Ð»Ð¶Ð½Ñ‹ Ð¾ÑÑ‚Ð°Ð²Ð°Ñ‚ÑŒÑÑ ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð¾Ðµ
+        Ð²Ñ‹ÑˆÐµ ÑƒÐ²ÐµÐ´Ð¾Ð¼Ð»ÐµÐ½Ð¸Ðµ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÑ‚Ð¾Ñ‚ ÑÐ¿Ð¸ÑÐ¾Ðº ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹ Ð¸ Ð¿Ð¾ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹
+        Ð¾Ñ‚ÐºÐ°Ð· Ð¾Ñ‚ Ð³Ð°Ñ€Ð°Ð½Ñ‚Ð¸Ð¹.
+      * ÐŸÑ€Ð¸ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ð¼ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸ Ð´Ð²Ð¾Ð¸Ñ‡Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð° Ð² Ð´Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ð°Ñ†Ð¸Ð¸ Ð¸/Ð¸Ð»Ð¸ Ð²
+        Ð´Ñ€ÑƒÐ³Ð¸Ñ… Ð¼Ð°Ñ‚ÐµÑ€Ð¸Ð°Ð»Ð°Ñ…, Ð¿Ð¾ÑÑ‚Ð°Ð²Ð»ÑÐµÐ¼Ñ‹Ñ… Ð¿Ñ€Ð¸ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸, Ð´Ð¾Ð»Ð¶Ð½Ñ‹ ÑÐ¾Ñ…Ñ€Ð°Ð½ÑÑ‚ÑŒÑÑ
+        ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð°Ñ Ð²Ñ‹ÑˆÐµ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ñ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÑ‚Ð¾Ñ‚ ÑÐ¿Ð¸ÑÐ¾Ðº ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹ Ð¸
+        Ð¿Ð¾ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹ Ð¾Ñ‚ÐºÐ°Ð· Ð¾Ñ‚ Ð³Ð°Ñ€Ð°Ð½Ñ‚Ð¸Ð¹.
+      * ÐÐ¸ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ Cognitive Technologies, Ð½Ð¸ Ð¸Ð¼ÐµÐ½Ð° ÐµÐµ ÑÐ¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸ÐºÐ¾Ð² Ð½Ðµ Ð¼Ð¾Ð³ÑƒÑ‚
+        Ð±Ñ‹Ñ‚ÑŒ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ñ‹ Ð² ÐºÐ°Ñ‡ÐµÑÑ‚Ð²Ðµ ÑÑ€ÐµÐ´ÑÑ‚Ð²Ð° Ð¿Ð¾Ð´Ð´ÐµÑ€Ð¶ÐºÐ¸ Ð¸/Ð¸Ð»Ð¸ Ð¿Ñ€Ð¾Ð´Ð²Ð¸Ð¶ÐµÐ½Ð¸Ñ
+        Ð¿Ñ€Ð¾Ð´ÑƒÐºÑ‚Ð¾Ð², Ð¾ÑÐ½Ð¾Ð²Ð°Ð½Ð½Ñ‹Ñ… Ð½Ð° ÑÑ‚Ð¾Ð¼ ÐŸÐž, Ð±ÐµÐ· Ð¿Ñ€ÐµÐ´Ð²Ð°Ñ€Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ð³Ð¾ Ð¿Ð¸ÑÑŒÐ¼ÐµÐ½Ð½Ð¾Ð³Ð¾
+        Ñ€Ð°Ð·Ñ€ÐµÑˆÐµÐ½Ð¸Ñ.
 
-ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
-ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
-ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
+Ð­Ð¢Ð ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ ÐŸÐ Ð•Ð”ÐžÐ¡Ð¢ÐÐ’Ð›Ð•ÐÐ Ð’Ð›ÐÐ”Ð•Ð›Ð¬Ð¦ÐÐœÐ˜ ÐÐ’Ð¢ÐžÐ Ð¡ÐšÐ˜Ð¥ ÐŸÐ ÐÐ’ Ð˜/Ð˜Ð›Ð˜ Ð”Ð Ð£Ð“Ð˜ÐœÐ˜ Ð›Ð˜Ð¦ÐÐœÐ˜ "ÐšÐÐš
+ÐžÐÐ Ð•Ð¡Ð¢Ð¬" Ð‘Ð•Ð— ÐšÐÐšÐžÐ“Ðž-Ð›Ð˜Ð‘Ðž Ð’Ð˜Ð”Ð Ð“ÐÐ ÐÐÐ¢Ð˜Ð™, Ð’Ð«Ð ÐÐ–Ð•ÐÐÐ«Ð¥ Ð¯Ð’ÐÐž Ð˜Ð›Ð˜ ÐŸÐžÐ”Ð ÐÐ—Ð£ÐœÐ•Ð’ÐÐ•ÐœÐ«Ð¥,
+Ð’ÐšÐ›Ð®Ð§ÐÐ¯ Ð“ÐÐ ÐÐÐ¢Ð˜Ð˜ ÐšÐžÐœÐœÐ•Ð Ð§Ð•Ð¡ÐšÐžÐ™ Ð¦Ð•ÐÐÐžÐ¡Ð¢Ð˜ Ð˜ ÐŸÐ Ð˜Ð“ÐžÐ”ÐÐžÐ¡Ð¢Ð˜ Ð”Ð›Ð¯ ÐšÐžÐÐšÐ Ð•Ð¢ÐÐžÐ™ Ð¦Ð•Ð›Ð˜, ÐÐž ÐÐ•
+ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð˜ÐœÐ˜. ÐÐ˜ Ð’Ð›ÐÐ”Ð•Ð›Ð•Ð¦ ÐÐ’Ð¢ÐžÐ Ð¡ÐšÐ˜Ð¥ ÐŸÐ ÐÐ’ Ð˜ ÐÐ˜ ÐžÐ”ÐÐž Ð”Ð Ð£Ð“ÐžÐ• Ð›Ð˜Ð¦Ðž, ÐšÐžÐ¢ÐžÐ ÐžÐ•
+ÐœÐžÐ–Ð•Ð¢ Ð˜Ð—ÐœÐ•ÐÐ¯Ð¢Ð¬ Ð˜/Ð˜Ð›Ð˜ ÐŸÐžÐ’Ð¢ÐžÐ ÐÐž Ð ÐÐ¡ÐŸÐ ÐžÐ¡Ð¢Ð ÐÐÐ¯Ð¢Ð¬ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ£, ÐÐ˜ Ð’ ÐšÐžÐ•Ðœ Ð¡Ð›Ð£Ð§ÐÐ• ÐÐ•
+ÐÐ•Ð¡ÐÐ¢ ÐžÐ¢Ð’Ð•Ð¢Ð¡Ð¢Ð’Ð•ÐÐÐžÐ¡Ð¢Ð˜, Ð’ÐšÐ›Ð®Ð§ÐÐ¯ Ð›Ð®Ð‘Ð«Ð• ÐžÐ‘Ð©Ð˜Ð•, Ð¡Ð›Ð£Ð§ÐÐ™ÐÐ«Ð•, Ð¡ÐŸÐ•Ð¦Ð˜ÐÐ›Ð¬ÐÐ«Ð• Ð˜Ð›Ð˜
+ÐŸÐžÐ¡Ð›Ð•Ð”ÐžÐ’ÐÐ’Ð¨Ð˜Ð• Ð£Ð‘Ð«Ð¢ÐšÐ˜, Ð¡Ð’Ð¯Ð—ÐÐÐÐ«Ð• Ð¡ Ð˜Ð¡ÐŸÐžÐ›Ð¬Ð—ÐžÐ’ÐÐÐ˜Ð•Ðœ Ð˜Ð›Ð˜ ÐŸÐžÐÐ•Ð¡Ð•ÐÐÐ«Ð• Ð’Ð¡Ð›Ð•Ð”Ð¡Ð¢Ð’Ð˜Ð•
+ÐÐ•Ð’ÐžÐ—ÐœÐžÐ–ÐÐžÐ¡Ð¢Ð˜ Ð˜Ð¡ÐŸÐžÐ›Ð¬Ð—ÐžÐ’ÐÐÐ˜Ð¯ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ« (Ð’ÐšÐ›Ð®Ð§ÐÐ¯ ÐŸÐžÐ¢Ð•Ð Ð˜ Ð”ÐÐÐÐ«Ð¥, Ð˜Ð›Ð˜ Ð”ÐÐÐÐ«Ð•,
+Ð¡Ð¢ÐÐ’Ð¨Ð˜Ð• ÐÐ•Ð“ÐžÐ”ÐÐ«ÐœÐ˜, Ð˜Ð›Ð˜ Ð£Ð‘Ð«Ð¢ÐšÐ˜ Ð˜/Ð˜Ð›Ð˜ ÐŸÐžÐ¢Ð•Ð Ð˜ Ð”ÐžÐ¥ÐžÐ”ÐžÐ’, ÐŸÐžÐÐ•Ð¡Ð•ÐÐÐ«Ð• Ð˜Ð—-Ð—Ð Ð”Ð•Ð™Ð¡Ð¢Ð’Ð˜Ð™
+Ð¢Ð Ð•Ð¢Ð¬Ð˜Ð¥ Ð›Ð˜Ð¦ Ð˜/Ð˜Ð›Ð˜ ÐžÐ¢ÐšÐÐ—Ð ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ« Ð ÐÐ‘ÐžÐ¢ÐÐ¢Ð¬ Ð¡ÐžÐ’ÐœÐ•Ð¡Ð¢ÐÐž Ð¡ Ð”Ð Ð£Ð“Ð˜ÐœÐ˜ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐÐœÐ˜,
+ÐÐž ÐÐ• ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð­Ð¢Ð˜ÐœÐ˜ Ð¡Ð›Ð£Ð§ÐÐ¯ÐœÐ˜), ÐÐž ÐÐ• ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð˜ÐœÐ˜, Ð”ÐÐ–Ð• Ð•Ð¡Ð›Ð˜ Ð¢ÐÐšÐžÐ™
+Ð’Ð›ÐÐ”Ð•Ð›Ð•Ð¦ Ð˜Ð›Ð˜ Ð”Ð Ð£Ð“ÐžÐ• Ð›Ð˜Ð¦Ðž Ð‘Ð«Ð›Ð˜ Ð˜Ð—Ð’Ð•Ð©Ð•ÐÐ« Ðž Ð’ÐžÐ—ÐœÐžÐ–ÐÐžÐ¡Ð¢Ð˜ Ð¢ÐÐšÐ˜Ð¥ Ð£Ð‘Ð«Ð¢ÐšÐžÐ’ Ð˜ ÐŸÐžÐ¢Ð•Ð Ð¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*----------------------------------------------------------------------------*/
 
-//Íàñòðîéêè
+//ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸
 
 int inf_neg_h;
 int inf_neg_w;
@@ -92,7 +92,7 @@ int min_let_w;
 int inf_betw_str_h;
 int sup_square;
 /*----------------------------------------------------------------------------*/
-//Ïàðàìåòðû
+//ÐŸÐ°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹
 
 int	DPIX;
 int	DPIY;
@@ -116,7 +116,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
 {
 
  MainWindowD=NULL;
- MainWindowD=LDPUMA_GetWindowHandle ("Èçîáðàæåíèå ïîñëå ðàçâîðîòà");
+ MainWindowD=LDPUMA_GetWindowHandle ("Ð˜Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ Ð¿Ð¾ÑÐ»Ðµ Ñ€Ð°Ð·Ð²Ð¾Ñ€Ð¾Ñ‚Ð°");
  if(!MainWindowD)
     MainWindowD=LDPUMA_GetWindowHandle ("Main");
 
@@ -128,7 +128,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
 
 // LDPUMA_ConsoleN("");
  if(dpTime)
-     LDPUMA_ConsoleN("Àêòèâèçèðóåòñÿ ôóíêöèÿ ïîèñêà è ðàçïîçíîâàíèÿ íåãàòèâîâ");
+     LDPUMA_ConsoleN("ÐÐºÑ‚Ð¸Ð²Ð¸Ð·Ð¸Ñ€ÑƒÐµÑ‚ÑÑ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¿Ð¾Ð¸ÑÐºÐ° Ð¸ Ñ€Ð°Ð·Ð¿Ð¾Ð·Ð½Ð¾Ð²Ð°Ð½Ð¸Ñ Ð½ÐµÐ³Ð°Ñ‚Ð¸Ð²Ð¾Ð²");
  int time=clock();
  if(!(LDPUMA_Skip (NegSearch)) )
 	 return;
@@ -204,13 +204,13 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
 	time=clock();
  }
 
-/* Îñóùåñòâëÿåòñÿ ïîèñê êàíäèäàòîâ â íåãàòèâû ïî ðàçìåðó*/
+/* ÐžÑÑƒÑ‰ÐµÑÑ‚Ð²Ð»ÑÐµÑ‚ÑÑ Ð¿Ð¾Ð¸ÑÐº ÐºÐ°Ð½Ð´Ð¸Ð´Ð°Ñ‚Ð¾Ð² Ð² Ð½ÐµÐ³Ð°Ñ‚Ð¸Ð²Ñ‹ Ð¿Ð¾ Ñ€Ð°Ð·Ð¼ÐµÑ€Ñƒ*/
 
  if(LDPUMA_Skip (NegSearchSize) )
  {
   fl_del_mas_neg=SearchNegBySize(hCCOM,hCPage,&root,nRC);
 
-  /*Ïðîðèñîâêà íàéäåííûõ êàíäèäàòîâ â íåãàòèâû ïî ðàçìåðàì*/
+  /*ÐŸÑ€Ð¾Ñ€Ð¸ÑÐ¾Ð²ÐºÐ° Ð½Ð°Ð¹Ð´ÐµÐ½Ð½Ñ‹Ñ… ÐºÐ°Ð½Ð´Ð¸Ð´Ð°Ñ‚Ð¾Ð² Ð² Ð½ÐµÐ³Ð°Ñ‚Ð¸Ð²Ñ‹ Ð¿Ð¾ Ñ€Ð°Ð·Ð¼ÐµÑ€Ð°Ð¼*/
 
   if(nRC>0)
   {
@@ -222,7 +222,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
      NegDrawRect(MainWindowD,code_sersized,RGB(0,0,255),(now->neg).pRc[0]);
      now=now->next;
 	}
-	LDPUMA_ConsoleN("Ïî ðàçìåðàì");
+	LDPUMA_ConsoleN("ÐŸÐ¾ Ñ€Ð°Ð·Ð¼ÐµÑ€Ð°Ð¼");
     LDPUMA_WaitUserInput (NegSearchSizeD,MainWindowD);
     if(LDPUMA_Skip (NegSearchSizeDC) )
       LDPUMA_DeleteRects (MainWindowD,code_sersized);
@@ -252,13 +252,13 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
 	  now=now->next;
  }
 
-/* Îñóùåñòâëÿåòñÿ óäàëåíèå(åñëè ïîâåç¸ò) ãðÿçè, ò.å. ïðèâåäåíèå
-          íåãàòèâà ê êàíîíè÷åñêîìó âèäó*/
+/* ÐžÑÑƒÑ‰ÐµÑÑ‚Ð²Ð»ÑÐµÑ‚ÑÑ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ(ÐµÑÐ»Ð¸ Ð¿Ð¾Ð²ÐµÐ·Ñ‘Ñ‚) Ð³Ñ€ÑÐ·Ð¸, Ñ‚.Ðµ. Ð¿Ñ€Ð¸Ð²ÐµÐ´ÐµÐ½Ð¸Ðµ
+          Ð½ÐµÐ³Ð°Ñ‚Ð¸Ð²Ð° Ðº ÐºÐ°Ð½Ð¾Ð½Ð¸Ñ‡ÐµÑÐºÐ¾Ð¼Ñƒ Ð²Ð¸Ð´Ñƒ*/
 
  if(LDPUMA_Skip (NegNorm) )
  {
 
-/* Ïîâîðîò (åñëè íåîáõîäèì) íåãàòèâîâ*/
+/* ÐŸÐ¾Ð²Ð¾Ñ€Ð¾Ñ‚ (ÐµÑÐ»Ð¸ Ð½ÐµÐ¾Ð±Ñ…Ð¾Ð´Ð¸Ð¼) Ð½ÐµÐ³Ð°Ñ‚Ð¸Ð²Ð¾Ð²*/
 
   flag_rotate=NegRotate(hCPage,root,nRC,skew);
 
@@ -275,7 +275,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
    }
 
 
-/*Îáðàòíîå ïðåîáðàçîâàíèå*/
+/*ÐžÐ±Ñ€Ð°Ñ‚Ð½Ð¾Ðµ Ð¿Ñ€ÐµÐ¾Ð±Ñ€Ð°Ð·Ð¾Ð²Ð°Ð½Ð¸Ðµ*/
    if(flag_rotate)
    {
 	  now=root;
@@ -292,7 +292,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
    }
 
 
-  /* Ïðîðèñîâêà íîðìàëèçîâàííûõ êàíäèäàòîâ â íåãàòèâû*/
+  /* ÐŸÑ€Ð¾Ñ€Ð¸ÑÐ¾Ð²ÐºÐ° Ð½Ð¾Ñ€Ð¼Ð°Ð»Ð¸Ð·Ð¾Ð²Ð°Ð½Ð½Ñ‹Ñ… ÐºÐ°Ð½Ð´Ð¸Ð´Ð°Ñ‚Ð¾Ð² Ð² Ð½ÐµÐ³Ð°Ñ‚Ð¸Ð²Ñ‹*/
 
   if(nRC>0)
   {
@@ -304,7 +304,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
      NegDrawRect(MainWindowD,code_normd,RGB(0,255,0),(now->neg).pRc[0]);
      now=now->next;
 	}
-	LDPUMA_ConsoleN("Íîðìàëèçîâàííûå");
+	LDPUMA_ConsoleN("ÐÐ¾Ñ€Ð¼Ð°Ð»Ð¸Ð·Ð¾Ð²Ð°Ð½Ð½Ñ‹Ðµ");
     LDPUMA_WaitUserInput (NegNormD,MainWindowD);
     if(LDPUMA_Skip (NegNormDC) )
       LDPUMA_DeleteRects (MainWindowD,code_normd);
@@ -314,19 +314,19 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
 
 
 
-/* Ðåçêà ñëîæíûõ íåãàòèâîâ*/
+/* Ð ÐµÐ·ÐºÐ° ÑÐ»Ð¾Ð¶Ð½Ñ‹Ñ… Ð½ÐµÐ³Ð°Ñ‚Ð¸Ð²Ð¾Ð²*/
 
  if(LDPUMA_Skip (NegCut) )
  {
 
-/* Ïîâîðîò (åñëè íåîáõîäèì) íåãàòèâîâ*/
+/* ÐŸÐ¾Ð²Ð¾Ñ€Ð¾Ñ‚ (ÐµÑÐ»Ð¸ Ð½ÐµÐ¾Ð±Ñ…Ð¾Ð´Ð¸Ð¼) Ð½ÐµÐ³Ð°Ñ‚Ð¸Ð²Ð¾Ð²*/
  flag_rotate=NegRotate(hCPage,root,nRC,skew);
 
 
   CutNeg(hCPage,&root,nRC,skew);
 
 
-   /* Ïîâîðîò (åñëè íåîáõîäèì) íåãàòèâîâ*/
+   /* ÐŸÐ¾Ð²Ð¾Ñ€Ð¾Ñ‚ (ÐµÑÐ»Ð¸ Ð½ÐµÐ¾Ð±Ñ…Ð¾Ð´Ð¸Ð¼) Ð½ÐµÐ³Ð°Ñ‚Ð¸Ð²Ð¾Ð²*/
   flag_rotate=NegRotate(hCPage,root,nRC,skew);
 
 
@@ -342,7 +342,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
 	now=temp;
    }
 
-   /*Îáðàòíîå ïðåîáðàçîâàíèå*/
+   /*ÐžÐ±Ñ€Ð°Ñ‚Ð½Ð¾Ðµ Ð¿Ñ€ÐµÐ¾Ð±Ñ€Ð°Ð·Ð¾Ð²Ð°Ð½Ð¸Ðµ*/
    if(flag_rotate)
    {
 	   now=root;
@@ -359,7 +359,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
    }
 
 
-  /* Ïðîðèñîâêà ðàçðåçàííûõ íåãàòèâîâ*/
+  /* ÐŸÑ€Ð¾Ñ€Ð¸ÑÐ¾Ð²ÐºÐ° Ñ€Ð°Ð·Ñ€ÐµÐ·Ð°Ð½Ð½Ñ‹Ñ… Ð½ÐµÐ³Ð°Ñ‚Ð¸Ð²Ð¾Ð²*/
 
   if(nRC>0)
   {
@@ -371,7 +371,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
      NegDrawRect(MainWindowD,code_cutd,RGB(255,0,0),(now->neg).pRc[0]);
      now=now->next;
 	}
-	LDPUMA_ConsoleN("Ðàçðåçàííûå");
+	LDPUMA_ConsoleN("Ð Ð°Ð·Ñ€ÐµÐ·Ð°Ð½Ð½Ñ‹Ðµ");
     LDPUMA_WaitUserInput (NegCutD,MainWindowD);
     if(LDPUMA_Skip (NegCutDC) )
       LDPUMA_DeleteRects (MainWindowD,code_cutd);
@@ -389,7 +389,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
  int w;
  Rect16 Rc;
 
- /*Îòñåâ ïî ðàçìåðó*/
+ /*ÐžÑ‚ÑÐµÐ² Ð¿Ð¾ Ñ€Ð°Ð·Ð¼ÐµÑ€Ñƒ*/
  if(LDPUMA_Skip (NegSize) )
  {
   while(now)
@@ -409,7 +409,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
 		  now=now->prev;
   }
 
-  /* Ïðîðèñîâêà îòñåÿííûõ ïî ðàçìåðó*/
+  /* ÐŸÑ€Ð¾Ñ€Ð¸ÑÐ¾Ð²ÐºÐ° Ð¾Ñ‚ÑÐµÑÐ½Ð½Ñ‹Ñ… Ð¿Ð¾ Ñ€Ð°Ð·Ð¼ÐµÑ€Ñƒ*/
 
   if(nRC>0)
   {
@@ -425,7 +425,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
      NegDrawRect(MainWindowD,code_sized,RGB(255,255,0),Rc);
      now=now->next;
 	}
-	LDPUMA_ConsoleN("Îêîí÷àòåëüíàÿ ïðîðèñîâêà");
+	LDPUMA_ConsoleN("ÐžÐºÐ¾Ð½Ñ‡Ð°Ñ‚ÐµÐ»ÑŒÐ½Ð°Ñ Ð¿Ñ€Ð¾Ñ€Ð¸ÑÐ¾Ð²ÐºÐ°");
     LDPUMA_WaitUserInput (NegSizeD,MainWindowD);
     if(LDPUMA_Skip (NegSizeDC) )
       LDPUMA_DeleteRects (MainWindowD,code_sized);
@@ -434,18 +434,18 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
 
  }
 
-/* Ïîâîðîò (åñëè íåîáõîäèì) íåãàòèâîâ*/
+/* ÐŸÐ¾Ð²Ð¾Ñ€Ð¾Ñ‚ (ÐµÑÐ»Ð¸ Ð½ÐµÐ¾Ð±Ñ…Ð¾Ð´Ð¸Ð¼) Ð½ÐµÐ³Ð°Ñ‚Ð¸Ð²Ð¾Ð²*/
  flag_rotate=NegRotate(hCPage,root,nRC,skew);
 
 
-/* Îñóùåñòâëÿåòñÿ îòñåâ êàíäèäàòîâ â íåãàòèâû ïî íàñûùåííîñòè
-            ÷¸ðíîãî öâåòà*/
+/* ÐžÑÑƒÑ‰ÐµÑÑ‚Ð²Ð»ÑÐµÑ‚ÑÑ Ð¾Ñ‚ÑÐµÐ² ÐºÐ°Ð½Ð´Ð¸Ð´Ð°Ñ‚Ð¾Ð² Ð² Ð½ÐµÐ³Ð°Ñ‚Ð¸Ð²Ñ‹ Ð¿Ð¾ Ð½Ð°ÑÑ‹Ñ‰ÐµÐ½Ð½Ð¾ÑÑ‚Ð¸
+            Ñ‡Ñ‘Ñ€Ð½Ð¾Ð³Ð¾ Ñ†Ð²ÐµÑ‚Ð°*/
 
  if(LDPUMA_Skip (NegColor) )
  {
   SearchNegByBlack(hCPage,&root,nRC);
 
-  /*Ïðîðèñîâêà êàíäèäàòîâ â íåãàòèâû ïîñëå îòñåâà ïî öâåòîâîé ãàììå*/
+  /*ÐŸÑ€Ð¾Ñ€Ð¸ÑÐ¾Ð²ÐºÐ° ÐºÐ°Ð½Ð´Ð¸Ð´Ð°Ñ‚Ð¾Ð² Ð² Ð½ÐµÐ³Ð°Ñ‚Ð¸Ð²Ñ‹ Ð¿Ð¾ÑÐ»Ðµ Ð¾Ñ‚ÑÐµÐ²Ð° Ð¿Ð¾ Ñ†Ð²ÐµÑ‚Ð¾Ð²Ð¾Ð¹ Ð³Ð°Ð¼Ð¼Ðµ*/
 
   if(nRC>0)
   {
@@ -457,7 +457,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
      NegDrawRect(MainWindowD,code_colord,RGB(0,255,255),(now->neg).pRc[0]);
      now=now->next;
 	}
-	LDPUMA_ConsoleN("Îòñåÿííûå ïî öâåòîâîé ãàììå");
+	LDPUMA_ConsoleN("ÐžÑ‚ÑÐµÑÐ½Ð½Ñ‹Ðµ Ð¿Ð¾ Ñ†Ð²ÐµÑ‚Ð¾Ð²Ð¾Ð¹ Ð³Ð°Ð¼Ð¼Ðµ");
     LDPUMA_WaitUserInput (NegColorD,MainWindowD);
     if(LDPUMA_Skip (NegColorDC) )
       LDPUMA_DeleteRects (MainWindowD,code_colord);
@@ -465,7 +465,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
   }
  }
 
- /* Ðåçêà ìíîãîñòðî÷íûõ íåãàòèâîâ*/
+ /* Ð ÐµÐ·ÐºÐ° Ð¼Ð½Ð¾Ð³Ð¾ÑÑ‚Ñ€Ð¾Ñ‡Ð½Ñ‹Ñ… Ð½ÐµÐ³Ð°Ñ‚Ð¸Ð²Ð¾Ð²*/
 
 
  if(LDPUMA_Skip (NegCutStr) )
@@ -473,7 +473,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
   CutNegStr(hCPage,&root,nRC,skew);
 
 
-  /* Ïðîðèñîâêà ðàçðåçàííûõ íåãàòèâîâ*/
+  /* ÐŸÑ€Ð¾Ñ€Ð¸ÑÐ¾Ð²ÐºÐ° Ñ€Ð°Ð·Ñ€ÐµÐ·Ð°Ð½Ð½Ñ‹Ñ… Ð½ÐµÐ³Ð°Ñ‚Ð¸Ð²Ð¾Ð²*/
 
   if(nRC>0)
   {
@@ -486,7 +486,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
       NegDrawRect(MainWindowD,code_cutstrd,RGB(255,0,255),(now->neg).pRc[i]);
      now=now->next;
 	}
-	LDPUMA_ConsoleN("Ðàçðåçàííûå íà ñòðîêè");
+	LDPUMA_ConsoleN("Ð Ð°Ð·Ñ€ÐµÐ·Ð°Ð½Ð½Ñ‹Ðµ Ð½Ð° ÑÑ‚Ñ€Ð¾ÐºÐ¸");
     LDPUMA_WaitUserInput (NegCutStrD,MainWindowD);
     if(LDPUMA_Skip (NegCutStrDC) )
       LDPUMA_DeleteRects (MainWindowD,code_cutstrd);
@@ -497,7 +497,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
 
 
 
-/*Îòñåâ ïåðåñåêàþùèõñÿ*/
+/*ÐžÑ‚ÑÐµÐ² Ð¿ÐµÑ€ÐµÑÐµÐºÐ°ÑŽÑ‰Ð¸Ñ…ÑÑ*/
 
  DelIn(hCPage,&root,nRC);
 
@@ -505,7 +505,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
  if(dpTime)
    LDPUMA_ConsoleN("Time stuff=%d",time_stuff-time);
 
-/* Îñóùåñòâëÿåòñÿ ðàñïîçíîâàíèå èç ìàññèâà êàíäèäàòîâ*/
+/* ÐžÑÑƒÑ‰ÐµÑÑ‚Ð²Ð»ÑÐµÑ‚ÑÑ Ñ€Ð°ÑÐ¿Ð¾Ð·Ð½Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð¸Ð· Ð¼Ð°ÑÑÐ¸Ð²Ð° ÐºÐ°Ð½Ð´Ð¸Ð´Ð°Ñ‚Ð¾Ð²*/
  if(flag_rimage_rotate)
  {
 	 UnRotateNeg(root,skew);
@@ -539,7 +539,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
   }
  }
 
- /* Îòïèñü â CPage*/
+ /* ÐžÑ‚Ð¿Ð¸ÑÑŒ Ð² CPage*/
 
 
 
@@ -557,7 +557,7 @@ RNEG_FUNC(void) RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage,Word8* pImageName
     Rc.right=(now->neg).pRc[0].right;
     Rc.top=(now->neg).pRc[(now->neg).nRc-1].top;
     Rc.bottom=(now->neg).pRc[0].bottom;
-            block.com.type = TYPE_TEXT; //Òåêñò, Êàðòèíêà, Òàáëèöà;
+            block.com.type = TYPE_TEXT; //Ð¢ÐµÐºÑÑ‚, ÐšÐ°Ñ€Ñ‚Ð¸Ð½ÐºÐ°, Ð¢Ð°Ð±Ð»Ð¸Ñ†Ð°;
 			block.com.count = 4;
 			block.negative=TYPE_NEGATIVE;
 			block.com.Flags=NEGA;
@@ -879,7 +879,7 @@ BOOL IfNeedGlobalRotate(NegList* root,int& skew)
  nIncline=skew;
  while(now)
  {
-//Andrey 06.03.2003 - ïî-ìîåìó òóò ãëþêè: íå ìîæåò left óìåíüøèòüñÿ ïðè äîâîðîòå íà íåáîëüøîé ïîëîæèòåëüíûé óãîë
+//Andrey 06.03.2003 - Ð¿Ð¾-Ð¼Ð¾ÐµÐ¼Ñƒ Ñ‚ÑƒÑ‚ Ð³Ð»ÑŽÐºÐ¸: Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ left ÑƒÐ¼ÐµÐ½ÑŒÑˆÐ¸Ñ‚ÑŒÑÑ Ð¿Ñ€Ð¸ Ð´Ð¾Ð²Ð¾Ñ€Ð¾Ñ‚Ðµ Ð½Ð° Ð½ÐµÐ±Ð¾Ð»ÑŒÑˆÐ¾Ð¹ Ð¿Ð¾Ð»Ð¾Ð¶Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¹ ÑƒÐ³Ð¾Ð»
 /*  if(nIncline>=0)
   {
 	  now->neg.pRc->left-=pNegImage->rotate.begx[now->neg.pRc->top];
@@ -961,7 +961,7 @@ void UnRotateNeg(NegList* root,int& skew)
  now=root;
  while(now)
  {
-//Andrey 06.03.2003 - ïî-ìîåìó òóò ãëþêè: íå ìîæåò left óìåíüøèòüñÿ ïðè îòâîðîòå îò íåáîëüøîãî ïîëîæèòåëüíîãî óãîëà
+//Andrey 06.03.2003 - Ð¿Ð¾-Ð¼Ð¾ÐµÐ¼Ñƒ Ñ‚ÑƒÑ‚ Ð³Ð»ÑŽÐºÐ¸: Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ left ÑƒÐ¼ÐµÐ½ÑŒÑˆÐ¸Ñ‚ÑŒÑÑ Ð¿Ñ€Ð¸ Ð¾Ñ‚Ð²Ð¾Ñ€Ð¾Ñ‚Ðµ Ð¾Ñ‚ Ð½ÐµÐ±Ð¾Ð»ÑŒÑˆÐ¾Ð³Ð¾ Ð¿Ð¾Ð»Ð¾Ð¶Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ð³Ð¾ ÑƒÐ³Ð¾Ð»Ð°
 /*  if(nIncline>=0)
   {
 	  for(int i=0;i<now->neg.nRc;i++)

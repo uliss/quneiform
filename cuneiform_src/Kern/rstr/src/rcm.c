@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-–‡ÁÂ¯‡ÂÚÒˇ ÔÓ‚ÚÓÌÓÂ ‡ÒÔÓÒÚ‡ÌÂÌËÂ Ë ËÒÔÓÎ¸ÁÓ‚‡ÌËÂ Í‡Í ‚ ‚Ë‰Â ËÒıÓ‰ÌÓ„Ó ÍÓ‰‡,
-Ú‡Í Ë ‚ ‰‚ÓË˜ÌÓÈ ÙÓÏÂ, Ò ËÁÏÂÌÂÌËˇÏË ËÎË ·ÂÁ, ÔË ÒÓ·Î˛‰ÂÌËË ÒÎÂ‰Û˛˘Ëı ÛÒÎÓ‚ËÈ:
+–†–∞–∑—Ä–µ—à–∞–µ—Ç—Å—è –ø–æ–≤—Ç–æ—Ä–Ω–æ–µ —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω–µ–Ω–∏–µ –∏ –∏—Å–ø–æ–ª—å–∑–æ–≤–∞–Ω–∏–µ –∫–∞–∫ –≤ –≤–∏–¥–µ –∏—Å—Ö–æ–¥–Ω–æ–≥–æ –∫–æ–¥–∞,
+—Ç–∞–∫ –∏ –≤ –¥–≤–æ–∏—á–Ω–æ–π —Ñ–æ—Ä–º–µ, —Å –∏–∑–º–µ–Ω–µ–Ω–∏—è–º–∏ –∏–ª–∏ –±–µ–∑, –ø—Ä–∏ —Å–æ–±–ª—é–¥–µ–Ω–∏–∏ —Å–ª–µ–¥—É—é—â–∏—Ö —É—Å–ª–æ–≤–∏–π:
 
-      * œË ÔÓ‚ÚÓÌÓÏ ‡ÒÔÓÒÚ‡ÌÂÌËË ËÒıÓ‰ÌÓ„Ó ÍÓ‰‡ ‰ÓÎÊÌ˚ ÓÒÚ‡‚‡Ú¸Òˇ ÛÍ‡Á‡ÌÌÓÂ
-        ‚˚¯Â Û‚Â‰ÓÏÎÂÌËÂ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ˝ÚÓÚ ÒÔËÒÓÍ ÛÒÎÓ‚ËÈ Ë ÔÓÒÎÂ‰Û˛˘ËÈ
-        ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ.
-      * œË ÔÓ‚ÚÓÌÓÏ ‡ÒÔÓÒÚ‡ÌÂÌËË ‰‚ÓË˜ÌÓ„Ó ÍÓ‰‡ ‚ ‰ÓÍÛÏÂÌÚ‡ˆËË Ë/ËÎË ‚
-        ‰Û„Ëı Ï‡ÚÂË‡Î‡ı, ÔÓÒÚ‡‚ÎˇÂÏ˚ı ÔË ‡ÒÔÓÒÚ‡ÌÂÌËË, ‰ÓÎÊÌ˚ ÒÓı‡ÌˇÚ¸Òˇ
-        ÛÍ‡Á‡ÌÌ‡ˇ ‚˚¯Â ËÌÙÓÏ‡ˆËˇ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ˝ÚÓÚ ÒÔËÒÓÍ ÛÒÎÓ‚ËÈ Ë
-        ÔÓÒÎÂ‰Û˛˘ËÈ ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ.
-      * ÕË Ì‡Á‚‡ÌËÂ Cognitive Technologies, ÌË ËÏÂÌ‡ ÂÂ ÒÓÚÛ‰ÌËÍÓ‚ ÌÂ ÏÓ„ÛÚ
-        ·˚Ú¸ ËÒÔÓÎ¸ÁÓ‚‡Ì˚ ‚ Í‡˜ÂÒÚ‚Â ÒÂ‰ÒÚ‚‡ ÔÓ‰‰ÂÊÍË Ë/ËÎË ÔÓ‰‚ËÊÂÌËˇ
-        ÔÓ‰ÛÍÚÓ‚, ÓÒÌÓ‚‡ÌÌ˚ı Ì‡ ˝ÚÓÏ œŒ, ·ÂÁ ÔÂ‰‚‡ËÚÂÎ¸ÌÓ„Ó ÔËÒ¸ÏÂÌÌÓ„Ó
-        ‡ÁÂ¯ÂÌËˇ.
+      * –ü—Ä–∏ –ø–æ–≤—Ç–æ—Ä–Ω–æ–º —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω–µ–Ω–∏–∏ –∏—Å—Ö–æ–¥–Ω–æ–≥–æ –∫–æ–¥–∞ –¥–æ–ª–∂–Ω—ã –æ—Å—Ç–∞–≤–∞—Ç—å—Å—è —É–∫–∞–∑–∞–Ω–Ω–æ–µ
+        –≤—ã—à–µ —É–≤–µ–¥–æ–º–ª–µ–Ω–∏–µ –æ–± –∞–≤—Ç–æ—Ä—Å–∫–æ–º –ø—Ä–∞–≤–µ, —ç—Ç–æ—Ç —Å–ø–∏—Å–æ–∫ —É—Å–ª–æ–≤–∏–π –∏ –ø–æ—Å–ª–µ–¥—É—é—â–∏–π
+        –æ—Ç–∫–∞–∑ –æ—Ç –≥–∞—Ä–∞–Ω—Ç–∏–π.
+      * –ü—Ä–∏ –ø–æ–≤—Ç–æ—Ä–Ω–æ–º —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω–µ–Ω–∏–∏ –¥–≤–æ–∏—á–Ω–æ–≥–æ –∫–æ–¥–∞ –≤ –¥–æ–∫—É–º–µ–Ω—Ç–∞—Ü–∏–∏ –∏/–∏–ª–∏ –≤
+        –¥—Ä—É–≥–∏—Ö –º–∞—Ç–µ—Ä–∏–∞–ª–∞—Ö, –ø–æ—Å—Ç–∞–≤–ª—è–µ–º—ã—Ö –ø—Ä–∏ —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω–µ–Ω–∏–∏, –¥–æ–ª–∂–Ω—ã —Å–æ—Ö—Ä–∞–Ω—è—Ç—å—Å—è
+        —É–∫–∞–∑–∞–Ω–Ω–∞—è –≤—ã—à–µ –∏–Ω—Ñ–æ—Ä–º–∞—Ü–∏—è –æ–± –∞–≤—Ç–æ—Ä—Å–∫–æ–º –ø—Ä–∞–≤–µ, —ç—Ç–æ—Ç —Å–ø–∏—Å–æ–∫ —É—Å–ª–æ–≤–∏–π –∏
+        –ø–æ—Å–ª–µ–¥—É—é—â–∏–π –æ—Ç–∫–∞–∑ –æ—Ç –≥–∞—Ä–∞–Ω—Ç–∏–π.
+      * –ù–∏ –Ω–∞–∑–≤–∞–Ω–∏–µ Cognitive Technologies, –Ω–∏ –∏–º–µ–Ω–∞ –µ–µ —Å–æ—Ç—Ä—É–¥–Ω–∏–∫–æ–≤ –Ω–µ –º–æ–≥—É—Ç
+        –±—ã—Ç—å –∏—Å–ø–æ–ª—å–∑–æ–≤–∞–Ω—ã –≤ –∫–∞—á–µ—Å—Ç–≤–µ —Å—Ä–µ–¥—Å—Ç–≤–∞ –ø–æ–¥–¥–µ—Ä–∂–∫–∏ –∏/–∏–ª–∏ –ø—Ä–æ–¥–≤–∏–∂–µ–Ω–∏—è
+        –ø—Ä–æ–¥—É–∫—Ç–æ–≤, –æ—Å–Ω–æ–≤–∞–Ω–Ω—ã—Ö –Ω–∞ —ç—Ç–æ–º –ü–û, –±–µ–∑ –ø—Ä–µ–¥–≤–∞—Ä–∏—Ç–µ–ª—å–Ω–æ–≥–æ –ø–∏—Å—å–º–µ–Ω–Ω–æ–≥–æ
+        —Ä–∞–∑—Ä–µ—à–µ–Ω–∏—è.
 
-›“¿ œ–Œ√–¿ÃÃ¿ œ–≈ƒŒ—“¿¬À≈Õ¿ ¬À¿ƒ≈À‹÷¿Ã» ¿¬“Œ–— »’ œ–¿¬ »/»À» ƒ–”√»Ã» À»÷¿Ã» " ¿ 
-ŒÕ¿ ≈—“‹" ¡≈«  ¿ Œ√Œ-À»¡Œ ¬»ƒ¿ √¿–¿Õ“»…, ¬€–¿∆≈ÕÕ€’ ﬂ¬ÕŒ »À» œŒƒ–¿«”Ã≈¬¿≈Ã€’,
-¬ Àﬁ◊¿ﬂ √¿–¿Õ“»»  ŒÃÃ≈–◊≈— Œ… ÷≈ÕÕŒ—“» » œ–»√ŒƒÕŒ—“» ƒÀﬂ  ŒÕ –≈“ÕŒ… ÷≈À», ÕŒ Õ≈
-Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã». Õ» ¬À¿ƒ≈À≈÷ ¿¬“Œ–— »’ œ–¿¬ » Õ» ŒƒÕŒ ƒ–”√Œ≈ À»÷Œ,  Œ“Œ–Œ≈
-ÃŒ∆≈“ »«Ã≈Õﬂ“‹ »/»À» œŒ¬“Œ–ÕŒ –¿—œ–Œ—“–¿Õﬂ“‹ œ–Œ√–¿ÃÃ”, Õ» ¬  Œ≈Ã —À”◊¿≈ Õ≈
-Õ≈—®“ Œ“¬≈“—“¬≈ÕÕŒ—“», ¬ Àﬁ◊¿ﬂ Àﬁ¡€≈ Œ¡Ÿ»≈, —À”◊¿…Õ€≈, —œ≈÷»¿À‹Õ€≈ »À»
-œŒ—À≈ƒŒ¬¿¬ÿ»≈ ”¡€“ », —¬ﬂ«¿ÕÕ€≈ — »—œŒÀ‹«Œ¬¿Õ»≈Ã »À» œŒÕ≈—≈ÕÕ€≈ ¬—À≈ƒ—“¬»≈
-Õ≈¬Œ«ÃŒ∆ÕŒ—“» »—œŒÀ‹«Œ¬¿Õ»ﬂ œ–Œ√–¿ÃÃ€ (¬ Àﬁ◊¿ﬂ œŒ“≈–» ƒ¿ÕÕ€’, »À» ƒ¿ÕÕ€≈,
-—“¿¬ÿ»≈ Õ≈√ŒƒÕ€Ã», »À» ”¡€“ » »/»À» œŒ“≈–» ƒŒ’ŒƒŒ¬, œŒÕ≈—≈ÕÕ€≈ »«-«¿ ƒ≈…—“¬»…
-“–≈“‹»’ À»÷ »/»À» Œ“ ¿«¿ œ–Œ√–¿ÃÃ€ –¿¡Œ“¿“‹ —Œ¬Ã≈—“ÕŒ — ƒ–”√»Ã» œ–Œ√–¿ÃÃ¿Ã»,
-ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ ›“»Ã» —À”◊¿ﬂÃ»), ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã», ƒ¿∆≈ ≈—À» “¿ Œ…
-¬À¿ƒ≈À≈÷ »À» ƒ–”√Œ≈ À»÷Œ ¡€À» »«¬≈Ÿ≈Õ€ Œ ¬Œ«ÃŒ∆ÕŒ—“» “¿ »’ ”¡€“ Œ¬ » œŒ“≈–‹.
+–≠–¢–ê –ü–†–û–ì–†–ê–ú–ú–ê –ü–†–ï–î–û–°–¢–ê–í–õ–ï–ù–ê –í–õ–ê–î–ï–õ–¨–¶–ê–ú–ò –ê–í–¢–û–†–°–ö–ò–• –ü–†–ê–í –ò/–ò–õ–ò –î–†–£–ì–ò–ú–ò –õ–ò–¶–ê–ú–ò "–ö–ê–ö
+–û–ù–ê –ï–°–¢–¨" –ë–ï–ó –ö–ê–ö–û–ì–û-–õ–ò–ë–û –í–ò–î–ê –ì–ê–†–ê–ù–¢–ò–ô, –í–´–†–ê–ñ–ï–ù–ù–´–• –Ø–í–ù–û –ò–õ–ò –ü–û–î–†–ê–ó–£–ú–ï–í–ê–ï–ú–´–•,
+–í–ö–õ–Æ–ß–ê–Ø –ì–ê–†–ê–ù–¢–ò–ò –ö–û–ú–ú–ï–†–ß–ï–°–ö–û–ô –¶–ï–ù–ù–û–°–¢–ò –ò –ü–†–ò–ì–û–î–ù–û–°–¢–ò –î–õ–Ø –ö–û–ù–ö–†–ï–¢–ù–û–ô –¶–ï–õ–ò, –ù–û –ù–ï
+–û–ì–†–ê–ù–ò–ß–ò–í–ê–Ø–°–¨ –ò–ú–ò. –ù–ò –í–õ–ê–î–ï–õ–ï–¶ –ê–í–¢–û–†–°–ö–ò–• –ü–†–ê–í –ò –ù–ò –û–î–ù–û –î–†–£–ì–û–ï –õ–ò–¶–û, –ö–û–¢–û–†–û–ï
+–ú–û–ñ–ï–¢ –ò–ó–ú–ï–ù–Ø–¢–¨ –ò/–ò–õ–ò –ü–û–í–¢–û–†–ù–û –†–ê–°–ü–†–û–°–¢–†–ê–ù–Ø–¢–¨ –ü–†–û–ì–†–ê–ú–ú–£, –ù–ò –í –ö–û–ï–ú –°–õ–£–ß–ê–ï –ù–ï
+–ù–ï–°–Å–¢ –û–¢–í–ï–¢–°–¢–í–ï–ù–ù–û–°–¢–ò, –í–ö–õ–Æ–ß–ê–Ø –õ–Æ–ë–´–ï –û–ë–©–ò–ï, –°–õ–£–ß–ê–ô–ù–´–ï, –°–ü–ï–¶–ò–ê–õ–¨–ù–´–ï –ò–õ–ò
+–ü–û–°–õ–ï–î–û–í–ê–í–®–ò–ï –£–ë–´–¢–ö–ò, –°–í–Ø–ó–ê–ù–ù–´–ï –° –ò–°–ü–û–õ–¨–ó–û–í–ê–ù–ò–ï–ú –ò–õ–ò –ü–û–ù–ï–°–ï–ù–ù–´–ï –í–°–õ–ï–î–°–¢–í–ò–ï
+–ù–ï–í–û–ó–ú–û–ñ–ù–û–°–¢–ò –ò–°–ü–û–õ–¨–ó–û–í–ê–ù–ò–Ø –ü–†–û–ì–†–ê–ú–ú–´ (–í–ö–õ–Æ–ß–ê–Ø –ü–û–¢–ï–†–ò –î–ê–ù–ù–´–•, –ò–õ–ò –î–ê–ù–ù–´–ï,
+–°–¢–ê–í–®–ò–ï –ù–ï–ì–û–î–ù–´–ú–ò, –ò–õ–ò –£–ë–´–¢–ö–ò –ò/–ò–õ–ò –ü–û–¢–ï–†–ò –î–û–•–û–î–û–í, –ü–û–ù–ï–°–ï–ù–ù–´–ï –ò–ó-–ó–ê –î–ï–ô–°–¢–í–ò–ô
+–¢–†–ï–¢–¨–ò–• –õ–ò–¶ –ò/–ò–õ–ò –û–¢–ö–ê–ó–ê –ü–†–û–ì–†–ê–ú–ú–´ –†–ê–ë–û–¢–ê–¢–¨ –°–û–í–ú–ï–°–¢–ù–û –° –î–†–£–ì–ò–ú–ò –ü–†–û–ì–†–ê–ú–ú–ê–ú–ò,
+–ù–û –ù–ï –û–ì–†–ê–ù–ò–ß–ò–í–ê–Ø–°–¨ –≠–¢–ò–ú–ò –°–õ–£–ß–ê–Ø–ú–ò), –ù–û –ù–ï –û–ì–†–ê–ù–ò–ß–ò–í–ê–Ø–°–¨ –ò–ú–ò, –î–ê–ñ–ï –ï–°–õ–ò –¢–ê–ö–û–ô
+–í–õ–ê–î–ï–õ–ï–¶ –ò–õ–ò –î–†–£–ì–û–ï –õ–ò–¶–û –ë–´–õ–ò –ò–ó–í–ï–©–ï–ù–´ –û –í–û–ó–ú–û–ñ–ù–û–°–¢–ò –¢–ê–ö–ò–• –£–ë–´–¢–ö–û–í –ò –ü–û–¢–ï–†–¨.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -54,7 +54,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// ‰ÂÎ‡Ú¸ ÍÎ‡ÒÚÂËÁ‡ˆË˛ ‚ Ô‡ÏˇÚË - ÌÂ ‰ÂÎ‡Ú¸ .ctb
+// –¥–µ–ª–∞—Ç—å –∫–ª–∞—Å—Ç–µ—Ä–∏–∑–∞—Ü–∏—é –≤ –ø–∞–º—è—Ç–∏ - –Ω–µ –¥–µ–ª–∞—Ç—å .ctb
 #ifdef NDEBUG
 #define _FON_CLU_MEMORY_1
 #else
@@ -111,17 +111,17 @@ static void *   rstr_realloc(Word8*buf,Word32 len)    {    return realloc(buf,le
 static void *   rstr_alloc(Word32 len)    {    return calloc(len,1);    }
 static void     rstr_free(void *ptr,Word32 len) { free(ptr);};
 static void     rstr_get_colors(Int16 row,Int16 col,Int16 w,Int16 h,
-        Int32 *ColorLtr, Int32 *ColorBack)        {*ColorBack=0xFFFFFF;*ColorLtr=0;};
+                                Int32 *ColorLtr, Int32 *ColorBack)        {*ColorBack=0xFFFFFF;*ColorLtr=0;};
 static void * (*my_realloc)(Word8*buf,Word32 len)=rstr_realloc;
 static void * (*my_alloc)(Word32 len)=rstr_alloc;
 static void   (*my_free)(void *,Word32 len)=rstr_free;
 static void   (*my_get_colors)(Int16 row,Int16 col,Int16 w,Int16 h,
-        Int32 *ColorLrt, Int32 *ColorBack)=rstr_get_colors;
+                               Int32 *ColorLrt, Int32 *ColorBack)=rstr_get_colors;
 static Int32 RemoveDustIfPointLine(CSTR_line lin);
 // RSTR_CON
 Int16 rstr_cont_store1(RecRaster *r,Word8 let, Word8 nLns,Rect16 *rect,Word8 IsPrint,
-                Word8   Prob, Word8 Valid, RecVersions *v,Word8 control,
-                Word8   kegl);
+                       Word8   Prob, Word8 Valid, RecVersions *v,Word8 control,
+                       Word8   kegl);
 Bool32 rstr_open_cont1(void);
 void rstr_close_cont1(void);
 // P2_cour
@@ -179,167 +179,167 @@ STRLN   page_lines[MAX_LINE_COUNT];
 Int32   num_of_lines;
 BYTE decode_ASCII_to_[256][4]=
 {
-/*       0      1      2      3      4      5      6      7      8      9      a      b      c      d      e      f  */
-/* 0*/ "\x00","\x01","\x02","\x03","\x04","\x05","\x06","\x07","\x08","\x09","\x0a","\x0b","\x0c","\x0d","\x0e","\x0f",/* 0*/
-/* 1*/ "\x10","\x11","\x12","\x13","\x14","\x15","\x16","\x17","\x18","\x19","\x1a","\x1b","\x1c","\x1d","\x1e","\x1f",/* 1*/
-/* 2*/ "\x20","\x21","\x22","\xb9","\x24","\x25","\x26","\x27","\x28","\x29","\x2a","\x2b","\x2c","\x2d","\x2e","\x2f",/* 2*/
-/* 3*/ "\x30","\x31","\x32","\x33","\x34","\x35","\x36","\x37","\x38","\x39","\x3a","\x3b","\x3c","\x3d","\x3e","\x3f",/* 3*/
-/* 4*/ "\x40","\x41","\x42","\x43","\x44","\x45","\x46","\x47","\x48","\x49","\x4a","\x4b","\x4c","\x4d","\x4e","\x4f",/* 4*/
-/* 5*/ "\x50","\x51","\x52","\x53","\x54","\x55","\x56","\x57","\x58","\x59","\x5a","\x5b","\x5c","\x5d","\x5e","ó",   /* 5*/
-/* 6*/ "\x60","\x61","\x62","\x63","\x64","\x65","\x66","\x67","\x68","\x69","\x6a","\x6b","\x6c","\x6d","\x6e","\x6f",/* 6*/
-/* 7*/ "\x70","\x71","\x72","\x73","\x74","\x75","\x76","\x77","\x78","\x79","\x7a","\x7b","\x7c","\x7d","\x7e","\x7f",/* 7*/
-/* 8*/ "\xc0","\xc1","\xc2","\xc3","\xc4","\xc5","\xc6","\xc7","\xc8","\xc9","\xca","\xcb","\xcc","\xcd","\xce","\xcf",/* 8*/
-/* 9*/ "\xd0","\xd1","\xd2","\xd3","\xd4","\xd5","\xd6","\xd7","\xd8","\xd9","\xda","\xdb","\xdc","\xdd","\xde","\xdf",/* 9*/
-/* a*/ "\xe0","\xe1","\xe2","\xe3","\xe4","\xe5","\xe6","\xe7","\xe8","\xe9","\xea","\xeb","\xec","\xed","\xee","\xef",/* a*/
-/* b*/ "\x7e","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x21","\x3f","\x20","\x20",/* b*/
-/* c*/ "\xB8","\x20","\xbf","\x20","\x20","\xaf","\xb2","\xa5","\xA8","\xba","\x20","\x20","\xaa","\x20","\x20","\x20",/* c*/
-/* d*/ "\x99","\x20","\x20","\x20","\x20","\x22","\xb4","\xab","\xbb","\x20","\xb3","\x20","\x20","\xa9","\xae","\x20",/* d*/
-/* e*/ "\xf0","\xf1","\xf2","\xf3","\xf4","\xf5","\xf6","\xf7","\xf8","\xf9","\xfa","\xfb","\xfc","\xfd","\xfe","\xff",/* e*/
-/* f*/ "\xe4","\xe4","\x20","\x20","\x20","\xf2","\x20","\xe8","\xe3","\x20","\x20","\x20","\x20","\xe0","\x95","\x20" /* f*/
-};
+    /*       0      1      2      3      4      5      6      7      8      9      a      b      c      d      e      f  */
+    /* 0*/ "\x00","\x01","\x02","\x03","\x04","\x05","\x06","\x07","\x08","\x09","\x0a","\x0b","\x0c","\x0d","\x0e","\x0f",/* 0*/
+           /* 1*/ "\x10","\x11","\x12","\x13","\x14","\x15","\x16","\x17","\x18","\x19","\x1a","\x1b","\x1c","\x1d","\x1e","\x1f",/* 1*/
+                  /* 2*/ "\x20","\x21","\x22","\xb9","\x24","\x25","\x26","\x27","\x28","\x29","\x2a","\x2b","\x2c","\x2d","\x2e","\x2f",/* 2*/
+                         /* 3*/ "\x30","\x31","\x32","\x33","\x34","\x35","\x36","\x37","\x38","\x39","\x3a","\x3b","\x3c","\x3d","\x3e","\x3f",/* 3*/
+                                /* 4*/ "\x40","\x41","\x42","\x43","\x44","\x45","\x46","\x47","\x48","\x49","\x4a","\x4b","\x4c","\x4d","\x4e","\x4f",/* 4*/
+                                       /* 5*/ "\x50","\x51","\x52","\x53","\x54","\x55","\x56","\x57","\x58","\x59","\x5a","\x5b","\x5c","\x5d","\x5e","‚Äî",   /* 5*/
+                                              /* 6*/ "\x60","\x61","\x62","\x63","\x64","\x65","\x66","\x67","\x68","\x69","\x6a","\x6b","\x6c","\x6d","\x6e","\x6f",/* 6*/
+                                                     /* 7*/ "\x70","\x71","\x72","\x73","\x74","\x75","\x76","\x77","\x78","\x79","\x7a","\x7b","\x7c","\x7d","\x7e","\x7f",/* 7*/
+                                                            /* 8*/ "\xc0","\xc1","\xc2","\xc3","\xc4","\xc5","\xc6","\xc7","\xc8","\xc9","\xca","\xcb","\xcc","\xcd","\xce","\xcf",/* 8*/
+                                                                   /* 9*/ "\xd0","\xd1","\xd2","\xd3","\xd4","\xd5","\xd6","\xd7","\xd8","\xd9","\xda","\xdb","\xdc","\xdd","\xde","\xdf",/* 9*/
+                                                                          /* a*/ "\xe0","\xe1","\xe2","\xe3","\xe4","\xe5","\xe6","\xe7","\xe8","\xe9","\xea","\xeb","\xec","\xed","\xee","\xef",/* a*/
+                                                                                 /* b*/ "\x7e","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x21","\x3f","\x20","\x20",/* b*/
+                                                                                        /* c*/ "\xB8","\x20","\xbf","\x20","\x20","\xaf","\xb2","\xa5","\xA8","\xba","\x20","\x20","\xaa","\x20","\x20","\x20",/* c*/
+                                                                                               /* d*/ "\x99","\x20","\x20","\x20","\x20","\x22","\xb4","\xab","\xbb","\x20","\xb3","\x20","\x20","\xa9","\xae","\x20",/* d*/
+                                                                                                      /* e*/ "\xf0","\xf1","\xf2","\xf3","\xf4","\xf5","\xf6","\xf7","\xf8","\xf9","\xfa","\xfb","\xfc","\xfd","\xfe","\xff",/* e*/
+                                                                                                             /* f*/ "\xe4","\xe4","\x20","\x20","\x20","\xf2","\x20","\xe8","\xe3","\x20","\x20","\x20","\x20","\xe0","\x95","\x20" /* f*/
+                                                                                                                };
 BYTE decode_rus_ASCII_to_[256][4]=
 {
-/*       0    1      2      3      4      5      6      7      8      9      a      b      c      d      e      f  */
-/* 0*/ "\x00","\x01","\x02","\x03","\x04","\x05","\x06","\x07","\x08","\x09","\x0a","\x0b","\x0c","\x0d","\x0e","\x0f",
-/* 1*/ "\x10","\x11","\x12","\x13","\x14","\x15","\x16","\x17","\x18","\x19","\x1a","\x1b","\x1c","\x1d","\x1e","\x1f",
-/* 2*/ "\x20","\x21","\x22","\xb9","\x24","\x25","\x26","\x27","\x28","\x29","\x2a","\x2b","\x2c","\x2d","\x2e","\x2f",
-/* 3*/ "\x30","\x31","\x32","\x33","\x34","\x35","\x36","\x37","\x38","\x39","\x3a","\x3b","\x3c","\x3d","\x3e","\x3f",
-/* 4*/ "\x40","\x41","\x42","\x43","\x44","\x45","\x46","\x47","\x48","\x49","\x4a","\x4b","\x4c","\x4d","\x4e","\x4f",
-/* 5*/ "\x50","\x51","\x52","\x53","\x54","\x55","\x56","\x57","\x58","\x59","\x5a","\x5b","\x5c","\x5d","\x5e","ó",//"\x2d\x2d",
-/* 6*/ "\x60","\x61","\x62","\x63","\x64","\x65","\x66","\x67","\x68","\x69","\x6a","\x6b","\x6c","\x6d","\x6e","\x6f",
-/* 7*/ "\x70","\x71","\x72","\x73","\x74","\x75","\x76","\x77","\x78","\x79","\x7a","\x7b","\x7c","\x7d","\x7e","\x7f",
-/* 8*/ "\xc0","\xc1","\xc2","\xc3","\xc4","\xc5","\xc6","\xc7","\xc8","\xc9","\xca","\xcb","\xcc","\xcd","\xce","\xcf",
-/* 9*/ "\xd0","\xd1","\xd2","\xd3","\xd4","\xd5","\xd6","\xd7","\xd8","\xd9","\xda","\xdb","\xdc","\xdd","\xde","\xdf",
-/* a*/ "\xe0","\xe1","\xe2","\xe3","\xe4","\xe5","\xe6","\xe7","\xe8","\xe9","\xea","\xeb","\xec","\xed","\xee","\xef",
-/* b*/ "\x7e","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x21","\x3f","\x20","\x20",
-/* c*/ "\xB8","\x20","\xbf","\x20","\x20","\xaf","\xb2","\xa5","\xA8","\xba","\x20","\x20","\xaa","\x20","\x20","\x20",
-/* d*/ "\x99","\x20","\x20","\x20","\x20","\x22","\xb4","\xab","\xbb","\x20","\xb3","\x20","\x20","\xa9","\xae","\x20",
-/* e*/ "\xf0","\xf1","\xf2","\xf3","\xf4","\xf5","\xf6","\xf7","\xf8","\xf9","\xfa","\xfb","\xfc","\xfd","\xfe","\xff",
-/* f*/ "\xe4","\xe4","\x20","\x20","\x20","\xf2","\x20","\xe8","\xe3","\x20","\x20","\x20","\x20","\xe0","\x95","\x20"
-};
+    /*       0    1      2      3      4      5      6      7      8      9      a      b      c      d      e      f  */
+    /* 0*/ "\x00","\x01","\x02","\x03","\x04","\x05","\x06","\x07","\x08","\x09","\x0a","\x0b","\x0c","\x0d","\x0e","\x0f",
+           /* 1*/ "\x10","\x11","\x12","\x13","\x14","\x15","\x16","\x17","\x18","\x19","\x1a","\x1b","\x1c","\x1d","\x1e","\x1f",
+                  /* 2*/ "\x20","\x21","\x22","\xb9","\x24","\x25","\x26","\x27","\x28","\x29","\x2a","\x2b","\x2c","\x2d","\x2e","\x2f",
+                         /* 3*/ "\x30","\x31","\x32","\x33","\x34","\x35","\x36","\x37","\x38","\x39","\x3a","\x3b","\x3c","\x3d","\x3e","\x3f",
+                                /* 4*/ "\x40","\x41","\x42","\x43","\x44","\x45","\x46","\x47","\x48","\x49","\x4a","\x4b","\x4c","\x4d","\x4e","\x4f",
+                                       /* 5*/ "\x50","\x51","\x52","\x53","\x54","\x55","\x56","\x57","\x58","\x59","\x5a","\x5b","\x5c","\x5d","\x5e","‚Äî",//"\x2d\x2d",
+                                              /* 6*/ "\x60","\x61","\x62","\x63","\x64","\x65","\x66","\x67","\x68","\x69","\x6a","\x6b","\x6c","\x6d","\x6e","\x6f",
+                                                     /* 7*/ "\x70","\x71","\x72","\x73","\x74","\x75","\x76","\x77","\x78","\x79","\x7a","\x7b","\x7c","\x7d","\x7e","\x7f",
+                                                            /* 8*/ "\xc0","\xc1","\xc2","\xc3","\xc4","\xc5","\xc6","\xc7","\xc8","\xc9","\xca","\xcb","\xcc","\xcd","\xce","\xcf",
+                                                                   /* 9*/ "\xd0","\xd1","\xd2","\xd3","\xd4","\xd5","\xd6","\xd7","\xd8","\xd9","\xda","\xdb","\xdc","\xdd","\xde","\xdf",
+                                                                          /* a*/ "\xe0","\xe1","\xe2","\xe3","\xe4","\xe5","\xe6","\xe7","\xe8","\xe9","\xea","\xeb","\xec","\xed","\xee","\xef",
+                                                                                 /* b*/ "\x7e","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x20","\x21","\x3f","\x20","\x20",
+                                                                                        /* c*/ "\xB8","\x20","\xbf","\x20","\x20","\xaf","\xb2","\xa5","\xA8","\xba","\x20","\x20","\xaa","\x20","\x20","\x20",
+                                                                                               /* d*/ "\x99","\x20","\x20","\x20","\x20","\x22","\xb4","\xab","\xbb","\x20","\xb3","\x20","\x20","\xa9","\xae","\x20",
+                                                                                                      /* e*/ "\xf0","\xf1","\xf2","\xf3","\xf4","\xf5","\xf6","\xf7","\xf8","\xf9","\xfa","\xfb","\xfc","\xfd","\xfe","\xff",
+                                                                                                             /* f*/ "\xe4","\xe4","\x20","\x20","\x20","\xf2","\x20","\xe8","\xe3","\x20","\x20","\x20","\x20","\xe0","\x95","\x20"
+                                                                                                                };
 
 char alphabet[256];
 BYTE CodePages[LANG_TOTAL]={   // 29.08.2000 E.P.
-CSTR_ANSI_CHARSET            , // LANG_ENGLISH    0
-CSTR_ANSI_CHARSET            , // LANG_GERMAN     1
-CSTR_ANSI_CHARSET            , // LANG_FRENCH     2
-CSTR_RUSSIAN_CHARSET         , // LANG_RUSSIAN    3
-CSTR_ANSI_CHARSET            , // LANG_SWEDISH    4
-CSTR_ANSI_CHARSET            , // LANG_SPANISH    5
-CSTR_ANSI_CHARSET            , // LANG_ITALIAN    6
-CSTR_RUSSIAN_CHARSET         , // LANG_RUSENG     7
-CSTR_RUSSIAN_CHARSET         , // LANG_UKRAINIAN  8
-CSTR_RUSSIAN_CHARSET         , // LANG_SERBIAN    9
-CSTR_EASTEUROPE_CHARSET      , // LANG_CROATIAN   10
-CSTR_EASTEUROPE_CHARSET      , // LANG_POLISH     11
-CSTR_ANSI_CHARSET            , // LANG_DANISH     12
-CSTR_ANSI_CHARSET            , // LANG_PORTUGUESE 13
-CSTR_ANSI_CHARSET            , // LANG_DUTCH      14
-CSTR_ANSI_CHARSET            , // LANG_DIG        15
-CSTR_RUSSIAN_CHARSET         , // LANG_UZBEK	  16 // 01.09.2000 E.P.
-CSTR_RUSSIAN_CHARSET         , // LANG_KAZ	      17
-CSTR_RUSSIAN_CHARSET         , // LANG_KAZ_ENG    18
-CSTR_EASTEUROPE_CHARSET      , // LANG_CZECH	  19
-CSTR_EASTEUROPE_CHARSET      , // LANG_ROMAN	  20
-CSTR_EASTEUROPE_CHARSET      , // LANG_HUNGAR	  21
-CSTR_RUSSIAN_CHARSET         , // LANG_BULGAR	  22
-CSTR_EASTEUROPE_CHARSET	     , // LANG_SLOVENIAN  23
-BALTIC_CHARSET				 , // LANG_LATVIAN	  24
-BALTIC_CHARSET				 , // LANG_LITHUANIAN 25
-BALTIC_CHARSET				 , // LANG_ESTONIAN	  26
-TURKISH_CHARSET				   // LANG_TURKISH	  27
+    CSTR_ANSI_CHARSET            , // LANG_ENGLISH    0
+    CSTR_ANSI_CHARSET            , // LANG_GERMAN     1
+    CSTR_ANSI_CHARSET            , // LANG_FRENCH     2
+    CSTR_RUSSIAN_CHARSET         , // LANG_RUSSIAN    3
+    CSTR_ANSI_CHARSET            , // LANG_SWEDISH    4
+    CSTR_ANSI_CHARSET            , // LANG_SPANISH    5
+    CSTR_ANSI_CHARSET            , // LANG_ITALIAN    6
+    CSTR_RUSSIAN_CHARSET         , // LANG_RUSENG     7
+    CSTR_RUSSIAN_CHARSET         , // LANG_UKRAINIAN  8
+    CSTR_RUSSIAN_CHARSET         , // LANG_SERBIAN    9
+    CSTR_EASTEUROPE_CHARSET      , // LANG_CROATIAN   10
+    CSTR_EASTEUROPE_CHARSET      , // LANG_POLISH     11
+    CSTR_ANSI_CHARSET            , // LANG_DANISH     12
+    CSTR_ANSI_CHARSET            , // LANG_PORTUGUESE 13
+    CSTR_ANSI_CHARSET            , // LANG_DUTCH      14
+    CSTR_ANSI_CHARSET            , // LANG_DIG        15
+    CSTR_RUSSIAN_CHARSET         , // LANG_UZBEK	  16 // 01.09.2000 E.P.
+    CSTR_RUSSIAN_CHARSET         , // LANG_KAZ	      17
+    CSTR_RUSSIAN_CHARSET         , // LANG_KAZ_ENG    18
+    CSTR_EASTEUROPE_CHARSET      , // LANG_CZECH	  19
+    CSTR_EASTEUROPE_CHARSET      , // LANG_ROMAN	  20
+    CSTR_EASTEUROPE_CHARSET      , // LANG_HUNGAR	  21
+    CSTR_RUSSIAN_CHARSET         , // LANG_BULGAR	  22
+    CSTR_EASTEUROPE_CHARSET	     , // LANG_SLOVENIAN  23
+    BALTIC_CHARSET				 , // LANG_LATVIAN	  24
+    BALTIC_CHARSET				 , // LANG_LITHUANIAN 25
+    BALTIC_CHARSET				 , // LANG_ESTONIAN	  26
+    TURKISH_CHARSET				   // LANG_TURKISH	  27
 };
 
 static char *tab3x5[]={
-"rec3.dat",         // LANG_ENGLISH   0
-"rec3.dat",         // LANG_GERMAN    1
-"rec3.dat",         // LANG_FRENCH    2
-"rec3rus.dat",      // LANG_RUSSIAN   3
-"rec3.dat",         // LANG_SWEDISH   4
-"rec3.dat",         // LANG_SPANISH   5
-"rec3.dat",         // LANG_ITALIAN   6
-"rec3r&e.dat",      // LANG_RUSENG    7
-"rec3rus.dat",      // LANG_UKRAINIAN 8
-"rec3rus.dat",      // LANG_SERBIAN   9
-"rec3cen.dat",      // LANG_CROATIAN  10
-"rec3cen.dat",      // LANG_POLISH    11
-"rec3n.dat",        // LANG_DANISH    12
-"rec3n.dat",        // LANG_PORTUGUESE  13
-"rec3n.dat",        // LANG_DUTCH		14
-"rec3.dat",         // LANG_DIG			15
-"rec3uzb.dat",      // LANG_UZBEK		16	// 01.09.2000 E.P.
-"rec3kaz.dat",      // LANG_KAZ			17
-"rec3kaz.dat",      // LANG_KAZ_ENG		18
-"rec3cen.dat",      // LANG_CZECH		19
-"rec3cen.dat",      // LANG_ROMAN		20
-"rec3cen.dat",      // LANG_HUNGAR		21
-"rec3rus.dat",      // LANG_BULGAR		22
-"rec3cen.dat",      // LANG_SLOVENIAN	23
-"rec3blt.dat",      // LANG_LATVIAN	    24
-"rec3blt.dat",      // LANG_LITHUANIAN  25
-"rec3blt.dat",      // LANG_ESTONIAN	26
-"rec3tur.dat"       // LANG_TURKISH		27
+    "rec3.dat",         // LANG_ENGLISH   0
+    "rec3.dat",         // LANG_GERMAN    1
+    "rec3.dat",         // LANG_FRENCH    2
+    "rec3rus.dat",      // LANG_RUSSIAN   3
+    "rec3.dat",         // LANG_SWEDISH   4
+    "rec3.dat",         // LANG_SPANISH   5
+    "rec3.dat",         // LANG_ITALIAN   6
+    "rec3r&e.dat",      // LANG_RUSENG    7
+    "rec3rus.dat",      // LANG_UKRAINIAN 8
+    "rec3rus.dat",      // LANG_SERBIAN   9
+    "rec3cen.dat",      // LANG_CROATIAN  10
+    "rec3cen.dat",      // LANG_POLISH    11
+    "rec3n.dat",        // LANG_DANISH    12
+    "rec3n.dat",        // LANG_PORTUGUESE  13
+    "rec3n.dat",        // LANG_DUTCH		14
+    "rec3.dat",         // LANG_DIG			15
+    "rec3uzb.dat",      // LANG_UZBEK		16	// 01.09.2000 E.P.
+    "rec3kaz.dat",      // LANG_KAZ			17
+    "rec3kaz.dat",      // LANG_KAZ_ENG		18
+    "rec3cen.dat",      // LANG_CZECH		19
+    "rec3cen.dat",      // LANG_ROMAN		20
+    "rec3cen.dat",      // LANG_HUNGAR		21
+    "rec3rus.dat",      // LANG_BULGAR		22
+    "rec3cen.dat",      // LANG_SLOVENIAN	23
+    "rec3blt.dat",      // LANG_LATVIAN	    24
+    "rec3blt.dat",      // LANG_LITHUANIAN  25
+    "rec3blt.dat",      // LANG_ESTONIAN	26
+    "rec3tur.dat"       // LANG_TURKISH		27
 };
 
 static char *tabevn1[]={
-"rec1.dat",         // LANG_ENGLISH   0
-"rec1.dat",         // LANG_GERMAN    1
-"rec1.dat",         // LANG_FRENCH    2
-"rec1rus.dat",      // LANG_RUSSIAN   3
-"rec1.dat",         // LANG_SWEDISH   4
-"rec1.dat",         // LANG_SPANISH   5
-"rec1.dat",         // LANG_ITALIAN   6
-"rec1r&e.dat",      // LANG_RUSENG    7
-"rec1rus.dat",      // LANG_UKRAINIAN 8
-"rec1rus.dat",      // LANG_SERBIAN   9
-"rec1cen.dat",      // LANG_CROATIAN  10
-"rec1cen.dat",      // LANG_POLISH    11
-"rec1n.dat",        // LANG_DANISH    12
-"rec1n.dat",        // LANG_PORTUGUESE  13
-"rec1n.dat",        // LANG_DUTCH       14
-"rec1.dat",         // LANG_DIG         15
-"rec1uzb.dat",      // LANG_UZBEK		16	// 01.09.2000 E.P.
-"rec1kaz.dat",      // LANG_KAZ			17
-"rec1kaz.dat",      // LANG_KAZ_ENG		18
-"rec1cen.dat",      // LANG_CZECH		19
-"rec1cen.dat",      // LANG_ROMAN		20
-"rec1cen.dat",      // LANG_HUNGAR		21
-"rec1rus.dat",      // LANG_BULGAR		22
-"rec1cen.dat",      // LANG_SLOVENIAN	23
-"rec1blt.dat",      // LANG_LATVIAN	    24
-"rec1blt.dat",      // LANG_LITHUANIAN  25
-"rec1blt.dat",      // LANG_ESTONIAN	26
-"rec1tur.dat"       // LANG_TURKISH		27
+    "rec1.dat",         // LANG_ENGLISH   0
+    "rec1.dat",         // LANG_GERMAN    1
+    "rec1.dat",         // LANG_FRENCH    2
+    "rec1rus.dat",      // LANG_RUSSIAN   3
+    "rec1.dat",         // LANG_SWEDISH   4
+    "rec1.dat",         // LANG_SPANISH   5
+    "rec1.dat",         // LANG_ITALIAN   6
+    "rec1r&e.dat",      // LANG_RUSENG    7
+    "rec1rus.dat",      // LANG_UKRAINIAN 8
+    "rec1rus.dat",      // LANG_SERBIAN   9
+    "rec1cen.dat",      // LANG_CROATIAN  10
+    "rec1cen.dat",      // LANG_POLISH    11
+    "rec1n.dat",        // LANG_DANISH    12
+    "rec1n.dat",        // LANG_PORTUGUESE  13
+    "rec1n.dat",        // LANG_DUTCH       14
+    "rec1.dat",         // LANG_DIG         15
+    "rec1uzb.dat",      // LANG_UZBEK		16	// 01.09.2000 E.P.
+    "rec1kaz.dat",      // LANG_KAZ			17
+    "rec1kaz.dat",      // LANG_KAZ_ENG		18
+    "rec1cen.dat",      // LANG_CZECH		19
+    "rec1cen.dat",      // LANG_ROMAN		20
+    "rec1cen.dat",      // LANG_HUNGAR		21
+    "rec1rus.dat",      // LANG_BULGAR		22
+    "rec1cen.dat",      // LANG_SLOVENIAN	23
+    "rec1blt.dat",      // LANG_LATVIAN	    24
+    "rec1blt.dat",      // LANG_LITHUANIAN  25
+    "rec1blt.dat",      // LANG_ESTONIAN	26
+    "rec1tur.dat"       // LANG_TURKISH		27
 };
 static char *tabevn2[]={
-"rec2.dat",         // LANG_ENGLISH   0
-"rec2.dat",         // LANG_GERMAN    1
-"rec2.dat",         // LANG_FRENCH    2
-"rec2rus.dat",      // LANG_RUSSIAN   3
-"rec2.dat",         // LANG_SWEDISH   4
-"rec2.dat",         // LANG_SPANISH   5
-"rec2.dat",         // LANG_ITALIAN   6
-"rec2r&e.dat",      // LANG_RUSENG    7
-"rec2rus.dat",      // LANG_UKRAINIAN 8
-"rec2rus.dat",      // LANG_SERBIAN   9
-"rec2cen.dat",      // LANG_CROATIAN  10
-"rec2cen.dat",      // LANG_POLISH    11
-"rec2n.dat",        // LANG_DANISH    12
-"rec2n.dat",        // LANG_PORTUGUESE	13
-"rec2n.dat",        // LANG_DUTCH		14
-"rec2.dat",         // LANG_DIG			15
-"rec2uzb.dat",      // LANG_UZBEK		16 // 01.09.2000 E.P.
-"rec2kaz.dat",      // LANG_KAZ			17
-"rec2kaz.dat",      // LANG_KAZ_ENG		18
-"rec2cen.dat",      // LANG_CZECH		19
-"rec2cen.dat",      // LANG_ROMAN		20
-"rec2cen.dat",      // LANG_HUNGAR		21
-"rec2rus.dat",      // LANG_BULGAR		22
-"rec2cen.dat",      // LANG_SLOVENIAN	23
-"rec2blt.dat",      // LANG_LATVIAN	    24
-"rec2blt.dat",      // LANG_LITHUANIAN  25
-"rec2blt.dat",      // LANG_ESTONIAN	26
-"rec2tur.dat"       // LANG_TURKISH		27
+    "rec2.dat",         // LANG_ENGLISH   0
+    "rec2.dat",         // LANG_GERMAN    1
+    "rec2.dat",         // LANG_FRENCH    2
+    "rec2rus.dat",      // LANG_RUSSIAN   3
+    "rec2.dat",         // LANG_SWEDISH   4
+    "rec2.dat",         // LANG_SPANISH   5
+    "rec2.dat",         // LANG_ITALIAN   6
+    "rec2r&e.dat",      // LANG_RUSENG    7
+    "rec2rus.dat",      // LANG_UKRAINIAN 8
+    "rec2rus.dat",      // LANG_SERBIAN   9
+    "rec2cen.dat",      // LANG_CROATIAN  10
+    "rec2cen.dat",      // LANG_POLISH    11
+    "rec2n.dat",        // LANG_DANISH    12
+    "rec2n.dat",        // LANG_PORTUGUESE	13
+    "rec2n.dat",        // LANG_DUTCH		14
+    "rec2.dat",         // LANG_DIG			15
+    "rec2uzb.dat",      // LANG_UZBEK		16 // 01.09.2000 E.P.
+    "rec2kaz.dat",      // LANG_KAZ			17
+    "rec2kaz.dat",      // LANG_KAZ_ENG		18
+    "rec2cen.dat",      // LANG_CZECH		19
+    "rec2cen.dat",      // LANG_ROMAN		20
+    "rec2cen.dat",      // LANG_HUNGAR		21
+    "rec2rus.dat",      // LANG_BULGAR		22
+    "rec2cen.dat",      // LANG_SLOVENIAN	23
+    "rec2blt.dat",      // LANG_LATVIAN	    24
+    "rec2blt.dat",      // LANG_LITHUANIAN  25
+    "rec2blt.dat",      // LANG_ESTONIAN	26
+    "rec2tur.dat"       // LANG_TURKISH		27
 };
 
 BYTE *  CellsPage_rstr, *CellsPageEnd_rstr;
@@ -401,236 +401,236 @@ BYTE line_tabcell=0;
 #define MEMORY                  0x50000 //500000        //0x450000
 Bool32 read_rec_file(INT lang, PBYTE pool, PBYTE * end)
 {
- DWORD l;
- INT h;
- LONG  size;
+uint32_t l;
+    INT h;
+    LONG  size;
 
 #ifndef O_BINARY /* This is defined only in Windows. */
 #define O_BINARY 0
 #endif
 
- h=open_data_file(tab3x5[lang], O_RDONLY|O_BINARY);
- if (h==-1)
-        {
+    h=open_data_file(tab3x5[lang], O_RDONLY|O_BINARY);
+    if (h==-1)
+    {
         return FALSE;
-        }
- size=filelength(h);
- l=read(h,pool,size);
- close(h);
- l=(l+15) & -16; *end=pool+l;
- return TRUE;
+    }
+    size=filelength(h);
+    l=read(h,pool,size);
+    close(h);
+    l=(l+15) & -16; *end=pool+l;
+    return TRUE;
 }
 static PBYTE box_pool_save;
 Bool32 trees_load(void)
 {
- int lang=language;
- if( language>=LANG_TOTAL )
-    return FALSE;
- if( language==LANG_RUSSIAN && multy_language )
-    lang = LANG_RUSENG;
- //if( !EVNInitLanguage( tabevn1[lang], tabevn2[lang],language) )
- //   return FALSE;
+    int lang=language;
+    if( language>=LANG_TOTAL )
+        return FALSE;
+    if( language==LANG_RUSSIAN && multy_language )
+        lang = LANG_RUSENG;
+    //if( !EVNInitLanguage( tabevn1[lang], tabevn2[lang],language) )
+    //   return FALSE;
 
- if( !read_rec_file ((Word8)lang,  tableBOX,       &box_pool) )
-         return FALSE;
- memset( tableBOX, 0 , 32);
- box_pool_save=box_pool;
- box_pool = load_BOX(box_pool);
- box_pool += (memory_pool - box_pool) & 0xf;
- if( !EVNSetAlphabet(alphabet) )
-    return FALSE;
- EVNSetLanguage( language);
- correct_let_tables();
-return TRUE;
+    if( !read_rec_file ((Word8)lang,  tableBOX,       &box_pool) )
+        return FALSE;
+    memset( tableBOX, 0 , 32);
+    box_pool_save=box_pool;
+    box_pool = load_BOX(box_pool);
+    box_pool += (memory_pool - box_pool) & 0xf;
+    if( !EVNSetAlphabet(alphabet) )
+        return FALSE;
+    EVNSetLanguage( language);
+    correct_let_tables();
+    return TRUE;
 }
 
 Bool32 trees_load_fict(void)
 {
- correct_let_tables();
- if( !EVNSetAlphabet(alphabet) )
-    return FALSE;
- EVNSetLanguage( language);
-return TRUE;
+    correct_let_tables();
+    if( !EVNSetAlphabet(alphabet) )
+        return FALSE;
+    EVNSetLanguage( language);
+    return TRUE;
 }
 
 // call trees_load_fict() restored standart alphabet
 Bool32  set_user_alphabet(Word8 * usa_ascii)
 {
-Word8   *pusa;
-alpha_used_mode=1;
-memset(alphabet,0,256);
-for(pusa=usa_ascii;*pusa;pusa++)
+    Word8   *pusa;
+    alpha_used_mode=1;
+    memset(alphabet,0,256);
+    for(pusa=usa_ascii;*pusa;pusa++)
     {
-    alphabet[*pusa]++;
+        alphabet[*pusa]++;
     }
-EVNSetAlphabet(alphabet);
-return TRUE;
+    EVNSetAlphabet(alphabet);
+    return TRUE;
 }
 
 RSTR_FUNC(Bool32) RSTR_IsLanguage(Word8 language)
 {
-if(language<LANG_ENGLISH || language>=LANG_TOTAL )
-    return FALSE;
-chdir(lnOcrPath);
-if(data_file_exists(tabevn1[language])==-1 )
-    return FALSE;
-if(data_file_exists(tabevn2[language])==-1 )
-    return FALSE;
-if(data_file_exists(tab3x5[language])==-1 )
-    return FALSE;
-if(language==LANG_RUSSIAN || language==LANG_RUSENG )
-    {
-    if( 0 )
+    if(language<LANG_ENGLISH || language>=LANG_TOTAL )
         return FALSE;
+    chdir(lnOcrPath);
+    if(data_file_exists(tabevn1[language])==-1 )
+        return FALSE;
+    if(data_file_exists(tabevn2[language])==-1 )
+        return FALSE;
+    if(data_file_exists(tab3x5[language])==-1 )
+        return FALSE;
+    if(language==LANG_RUSSIAN || language==LANG_RUSENG )
+    {
+        if( 0 )
+            return FALSE;
     }
 #ifdef     _USE_SPELLING_
-if( language==LANG_RUSENG )
+    if( language==LANG_RUSENG )
     {
-    if( RLING_IsDictonaryAvailable( LANG_RUSSIAN , (PInt8)lnOcrLingPath)<1 ||
-        RLING_IsDictonaryAvailable( LANG_ENGLISH , (PInt8)lnOcrLingPath)<1)
-        return FALSE;
+        if( RLING_IsDictonaryAvailable( LANG_RUSSIAN , (PInt8)lnOcrLingPath)<1 ||
+            RLING_IsDictonaryAvailable( LANG_ENGLISH , (PInt8)lnOcrLingPath)<1)
+            return FALSE;
     }
-else //if( language!=LANG_DIG )
+    else //if( language!=LANG_DIG )
     {
-    if( RLING_IsDictonaryAvailable( language , (PInt8)lnOcrLingPath)<1 )
-        return FALSE;
+        if( RLING_IsDictonaryAvailable( language , (PInt8)lnOcrLingPath)<1 )
+            return FALSE;
     }
 #endif
-return TRUE;
+    return TRUE;
 }
 
 
 static void  SetAlphabet(
-                     char     char_tbl_put_to[] // char string
-                ) // Set alphabet for recognition
+        char     char_tbl_put_to[] // char string
+        ) // Set alphabet for recognition
 
- {
-   Bool digital=TRUE,Punct=FALSE;
-   char *c;
+{
+    Bool digital=TRUE,Punct=FALSE;
+    char *c;
 
-   memset(&FieldInfo.AlphaTable,0,sizeof(ALPHA_TABLE));
+    memset(&FieldInfo.AlphaTable,0,sizeof(ALPHA_TABLE));
 
-   for (c=(char *)char_tbl_put_to; *c != 0; c++)
-   {
-     digital &= ((*c) & 0xE0) == 0x20 || (*c)=='\\' || (*c)=='_' || (*c)==' ';
-     Punct |= strchr("\"*+-.,:;=<>Ñ´ª",*c) != NULL;
-     FieldInfo.AlphaTable[ (Word8)(*c) ] = 1;
-   }
-   if (digital)  FieldInfo.Style |= FIS_DIGIT;
-   if (Punct)    FieldInfo.Style |= FIS_PUNCT;
+    for (c=(char *)char_tbl_put_to; *c != 0; c++)
+    {
+        digital &= ((*c) & 0xE0) == 0x20 || (*c)=='\\' || (*c)=='_' || (*c)==' ';
+        Punct |= strchr("\"*+-.,:;=<>‚Äû¬´¬ª",*c) != NULL;
+        FieldInfo.AlphaTable[ (Word8)(*c) ] = 1;
+    }
+    if (digital)  FieldInfo.Style |= FIS_DIGIT;
+    if (Punct)    FieldInfo.Style |= FIS_PUNCT;
 
 }
 
 Bool32 rstr_kit_realloc(void)
 {
-kit_max_size=TRUE;
-kit_size *= 2;
-kit_start = my_realloc(kit_start,kit_size);
-if (kit_start==NULL)
-        {
+    kit_max_size=TRUE;
+    kit_size *= 2;
+    kit_start = my_realloc(kit_start,kit_size);
+    if (kit_start==NULL)
+    {
         wLowRC  = RSTR_ERR_NOMEMORY;
         return FALSE;
-        }
-kit_curr           = kit_start;
-kit_end            = kit_start + kit_size;
-return TRUE;
+    }
+    kit_curr           = kit_start;
+    kit_end            = kit_start + kit_size;
+    return TRUE;
 }
 
 RSTR_FUNC(Bool32)  RSTRSnapInit( void )
 {
-   snap_init();
-   snap_page_disable=FALSE;
-   return TRUE;
+    snap_init();
+    snap_page_disable=FALSE;
+    return TRUE;
 }
 
 RSTR_FUNC(Bool32)  RSTRInit( MemFunc* mem )
 {
-   snap_init();
-   local_ret_error_code=0;
-   wLowRC         = RSTR_ERR_NO;
-   line_number=0;
-   CellsPage_rstr = my_alloc(10*65536+3*R_S);
-   if (CellsPage_rstr==NULL)
-        {
+    snap_init();
+    local_ret_error_code=0;
+    wLowRC         = RSTR_ERR_NO;
+    line_number=0;
+    CellsPage_rstr = my_alloc(10*65536+3*R_S);
+    if (CellsPage_rstr==NULL) {
         wLowRC  = RSTR_ERR_NOMEMORY;
+        fprintf(stderr, "RSTR_ERR_NOMEMORY");
         return FALSE;
-        }
-   CellsPageEnd_rstr        = CellsPage_rstr + 65536*4;
-   MemForCutPoints     = CellsPageEnd_rstr ;
-   MemForCutPointsTwo  = MemForCutPoints + 65536;
-   ForRaster1          = MemForCutPointsTwo + 65536;
-   ForRaster2          = ForRaster1 + R_S;
-   ForRaster3          = ForRaster2 + R_S;
-   ED_file_bound       = ForRaster3 + R_S;
-   ED_file_end         = ED_file_bound + 65536*4;
-   kit_start = my_alloc(kit_size);
-   if (kit_start==NULL)
-        {
+    }
+    CellsPageEnd_rstr        = CellsPage_rstr + 65536*4;
+    MemForCutPoints     = CellsPageEnd_rstr ;
+    MemForCutPointsTwo  = MemForCutPoints + 65536;
+    ForRaster1          = MemForCutPointsTwo + 65536;
+    ForRaster2          = ForRaster1 + R_S;
+    ForRaster3          = ForRaster2 + R_S;
+    ED_file_bound       = ForRaster3 + R_S;
+    ED_file_end         = ED_file_bound + 65536*4;
+    kit_start = my_alloc(kit_size);
+    if (kit_start==NULL) {
         wLowRC  = RSTR_ERR_NOMEMORY;
+        fprintf(stderr, "RSTR_ERR_NOMEMORY");
         return FALSE;
-        }
-   kit_curr            = kit_start;
-   kit_end             = kit_start + kit_size;
-   num_of_lines=0;
-   Flag_Courier=FALSE;
-   snap_page_disable   = FALSE;
-   memory_length=MEMORY;
-   memory_pool=my_alloc(memory_length);
-   if (memory_pool==NULL)
-                {
-                wLowRC  = RSTR_ERR_NOMEMORY;
-                return FALSE;
-                }
-   memory_pool_end = (PBYTE)(memory_pool + memory_length);
-   tableBOX = memory_pool;
-   cell_f()->next   =cell_l();
-   cell_f()->nextl  =cell_l();
-   cell_l()->prev   =cell_f();
-   cell_l()->prevl  =cell_f();
+    }
+    kit_curr            = kit_start;
+    kit_end             = kit_start + kit_size;
+    num_of_lines=0;
+    Flag_Courier=FALSE;
+    snap_page_disable   = FALSE;
+    memory_length=MEMORY;
+    memory_pool=my_alloc(memory_length);
+    if (memory_pool==NULL) {
+        wLowRC  = RSTR_ERR_NOMEMORY;
+        fprintf(stderr, "RSTR_ERR_NOMEMORY");
+        return FALSE;
+    }
+    memory_pool_end = (PBYTE)(memory_pool + memory_length);
+    tableBOX = memory_pool;
+    cell_f()->next   =cell_l();
+    cell_f()->nextl  =cell_l();
+    cell_l()->prev   =cell_f();
+    cell_l()->prevl  =cell_f();
 #ifdef _USE_FON_
-if(0) // „ÓÚÓ‚˚È ¯ËÙÚ
-   if( FONInit(local_grey_ctb)<0 )
-        {
+    // –≥–æ—Ç–æ–≤—ã–π —à—Ä–∏—Ñ—Ç
+    if( FONInit(local_grey_ctb)<0 ) {
         //ErrorExit(RSTR_ERR_INTERNAL);
         //return FALSE;
-        }
+    }
 #endif
-chdir(lnOcrPath);
+    chdir(lnOcrPath);
 #ifdef     _USE_SPELLING_
-if (!RLING_Init( 102, NULL ))
+    if (!RLING_Init( 102, NULL ))
     {
-    wLowRC  = RSTR_ERR_NOINITRSTR;
-    local_ret_error_code=RLING_GetReturnCode();
-    local_ret_error_str =(fun_error)RLING_GetReturnString;
-    return FALSE;
+        wLowRC  = RSTR_ERR_NOINITRSTR;
+        local_ret_error_code=RLING_GetReturnCode();
+        local_ret_error_str =(fun_error)RLING_GetReturnString;
+        fprintf(stderr, "RLING - RSTR_ERR_NOINITRSTR\n");
+        return FALSE;
     }
 #endif
 #ifdef _USE_LEO_
-if( !LEOInit(0) )
-    {
-    wLowRC  = RSTR_ERR_NOINITRSTR;
-    return FALSE;
+    if( !LEOInit(0) ) {
+        wLowRC  = RSTR_ERR_NOINITRSTR;
+        fprintf(stderr, "LEO - RSTR_ERR_NOINITRSTR\n");
+        return FALSE;
     }
-LEOSetPlatform(LEOGetCPU());
+    LEOSetPlatform(LEOGetCPU());
 #endif
 #ifdef _USE_MSK_
-if( !p2_msk_init() )
-    {
-    wLowRC  = RSTR_ERR_NOINITRSTR;
-    return FALSE;
+    if( !p2_msk_init() ) {
+        wLowRC  = RSTR_ERR_NOINITRSTR;
+        fprintf(stderr, "MSK - RSTR_ERR_NOINITRSTR\n");
+        return FALSE;
     }
 #endif
 #ifdef SPEC_PROJECT1
-strcpy(decode_rus_ASCII_to_['('],"<");
-strcpy(decode_rus_ASCII_to_['{'],"<");
-strcpy(decode_rus_ASCII_to_['['],"<");
-strcpy(decode_rus_ASCII_to_[left_quocket],"<<");
-strcpy(decode_ASCII_to_['('],"<");
-strcpy(decode_ASCII_to_['{'],"<");
-strcpy(decode_ASCII_to_['['],"<");
-strcpy(decode_ASCII_to_[left_quocket],"<<");
+    strcpy(decode_rus_ASCII_to_['('],"<");
+    strcpy(decode_rus_ASCII_to_['{'],"<");
+    strcpy(decode_rus_ASCII_to_['['],"<");
+    strcpy(decode_rus_ASCII_to_[left_quocket],"<<");
+    strcpy(decode_ASCII_to_['('],"<");
+    strcpy(decode_ASCII_to_['{'],"<");
+    strcpy(decode_ASCII_to_['['],"<");
+    strcpy(decode_ASCII_to_[left_quocket],"<<");
 #endif
-return TRUE;
+    return TRUE;
 }
 
 
@@ -638,75 +638,75 @@ RSTR_FUNC(Bool32)  RSTRNewPage(Int32 resolutiony, Handle myPage )
 {
 #ifdef _USE_FON_
 #ifndef _FON_CLU_MEMORY_
-rstr_close_cont();
+    rstr_close_cont();
 #endif
 #endif
-line_number=0;
-local_ret_error_code=0;
-no_linpen=0;
-FirstField=TRUE;
-pass4_in = FALSE;
-wLowRC         = RSTR_ERR_NO;
-nResolutionY=resolutiony;
-kit_curr= kit_start;
-kit_end = kit_curr + kit_size;
-num_of_lines=0;
-prop_init();
-erect_init_global_tab();
-Flag_Courier=FALSE;
+    line_number=0;
+    local_ret_error_code=0;
+    no_linpen=0;
+    FirstField=TRUE;
+    pass4_in = FALSE;
+    wLowRC         = RSTR_ERR_NO;
+    nResolutionY=resolutiony;
+    kit_curr= kit_start;
+    kit_end = kit_curr + kit_size;
+    num_of_lines=0;
+    prop_init();
+    erect_init_global_tab();
+    Flag_Courier=FALSE;
 #ifdef _USE_FON_
 #ifndef _FON_CLU_MEMORY_
-if( !rstr_open_cont() )
+    if( !rstr_open_cont() )
     {
-    wLowRC  = RSTR_ERR_INTERNAL;
-    return FALSE;
+        wLowRC  = RSTR_ERR_INTERNAL;
+        return FALSE;
     }
 #endif
 #endif
 #ifdef _USE_CPAGE_
-if( myPage )
-  {
-   CLINE_handle hCLINE=CLINE_GetMainContainer();
+    if( myPage )
+    {
+        CLINE_handle hCLINE=CLINE_GetMainContainer();
 
-//	if(!LDPUMA_Skip(hUseCLine))
-//    {
-	 CLINE_handle hline;
-	 CPDLine cpdata;
-	 hline=CLINE_GetFirstLine(hCLINE);
-	 if(!hline)
-		 return TRUE;
-     while(hline)
-	 {
-      if(num_of_lines>=MAX_LINE_COUNT) // Anton 29.05.2001
-		  break;
-	  cpdata=CLINE_GetLineData(hline);
-      if(!cpdata)
-	  {
-            wLowRC  = RSTR_ERR_INTERNAL;
-            return FALSE;
-      }
-      else
-	  {
-        if( (cpdata->Flags  & LI_IsTrue)                 &&
-             !(cpdata->Flags & LI_IsAtTable)             &&
-             (abs(cpdata->Line.Beg_X-cpdata->Line.End_X)>
-             abs(cpdata->Line.Beg_Y-cpdata->Line.End_Y)) &&
-			 (cpdata->Dir==LD_Horiz)  )
+        //	if(!LDPUMA_Skip(hUseCLine))
+        //    {
+        CLINE_handle hline;
+        CPDLine cpdata;
+        hline=CLINE_GetFirstLine(hCLINE);
+        if(!hline)
+            return TRUE;
+        while(hline)
         {
-                page_lines[num_of_lines].beg.y=(Int16)(cpdata->Line.Beg_Y);
-                page_lines[num_of_lines].beg.x=(Int16)(cpdata->Line.Beg_X);
-                page_lines[num_of_lines].end.y=(Int16)(cpdata->Line.End_Y);
-                page_lines[num_of_lines].end.x=(Int16)(cpdata->Line.End_X);
-                page_lines[num_of_lines].type=HOR_LN;
-                page_lines[num_of_lines].width=cpdata->Line.Wid10/10;
-                num_of_lines++;
+            if(num_of_lines>=MAX_LINE_COUNT) // Anton 29.05.2001
+                break;
+            cpdata=CLINE_GetLineData(hline);
+            if(!cpdata)
+            {
+                wLowRC  = RSTR_ERR_INTERNAL;
+                return FALSE;
+            }
+            else
+            {
+                if( (cpdata->Flags  & LI_IsTrue)                 &&
+                    !(cpdata->Flags & LI_IsAtTable)             &&
+                    (abs(cpdata->Line.Beg_X-cpdata->Line.End_X)>
+                     abs(cpdata->Line.Beg_Y-cpdata->Line.End_Y)) &&
+                    (cpdata->Dir==LD_Horiz)  )
+                {
+                    page_lines[num_of_lines].beg.y=(Int16)(cpdata->Line.Beg_Y);
+                    page_lines[num_of_lines].beg.x=(Int16)(cpdata->Line.Beg_X);
+                    page_lines[num_of_lines].end.y=(Int16)(cpdata->Line.End_Y);
+                    page_lines[num_of_lines].end.x=(Int16)(cpdata->Line.End_X);
+                    page_lines[num_of_lines].type=HOR_LN;
+                    page_lines[num_of_lines].width=cpdata->Line.Wid10/10;
+                    num_of_lines++;
+                }
+                hline=CLINE_GetNextLine(hline);
+            }
         }
-		hline=CLINE_GetNextLine(hline);
-	  }
-	 }
-/*    }
+        /*    }
     else
-	{
+        {
     myBlock = CPAGE_GetBlockFirst ( myPage, RLINE_BLOCK_TYPE );
     while(myBlock)
         {
@@ -745,142 +745,142 @@ if( myPage )
             }
         myBlock = CPAGE_GetBlockNext( myPage, myBlock, RLINE_BLOCK_TYPE );
         }
-	}*/
-}
+        }*/
+    }
 #endif
 #ifdef _USE_DFON_
-DFon_NewPage(windows_tmp_dir);
+    DFon_NewPage(windows_tmp_dir);
 #endif
-p2_BoldInit(0);
+    p2_BoldInit(0);
 
-BaseLineStatisticInit();  // Nick 26.01.2001
+    BaseLineStatisticInit();  // Nick 26.01.2001
 
-return TRUE;
+    return TRUE;
 }
 
 static BOOL rcm_find(INT Ax,INT Ay,INT Bx,INT By)
 {
-INT i;
-for (i=0; i<num_of_lines; i++)
-  {
-  if(   (page_lines[i].type&UNDRLN) &&
-        page_lines[i].beg.x==Ax &&
-        page_lines[i].beg.y==Ay &&
-        page_lines[i].end.x==Bx &&
-        page_lines[i].end.y==By )
-        return TRUE;
-  }
-return FALSE;
+    INT i;
+    for (i=0; i<num_of_lines; i++)
+    {
+        if(   (page_lines[i].type&UNDRLN) &&
+              page_lines[i].beg.x==Ax &&
+              page_lines[i].beg.y==Ay &&
+              page_lines[i].end.x==Bx &&
+              page_lines[i].end.y==By )
+            return TRUE;
+    }
+    return FALSE;
 }
 
 RSTR_FUNC(Bool32)  RSTR_EndPage(  Handle myPage )
 {
-Word8 lang=language;
-snap_page_disable   = FALSE;
-db_status=0;
-if( language==LANG_RUSSIAN && langSer)
-    lang=LANG_SERBIAN;
-if( language==LANG_RUSSIAN && langUkr)
-    lang=LANG_UKRAINIAN;
-if( language==LANG_RUSSIAN && langBul) // 01.09.2000 E.P.
-    lang=LANG_BULGAR;
+    Word8 lang=language;
+    snap_page_disable   = FALSE;
+    db_status=0;
+    if( language==LANG_RUSSIAN && langSer)
+        lang=LANG_SERBIAN;
+    if( language==LANG_RUSSIAN && langUkr)
+        lang=LANG_UKRAINIAN;
+    if( language==LANG_RUSSIAN && langBul) // 01.09.2000 E.P.
+        lang=LANG_BULGAR;
 
-if( p2_active==0 )
+    if( p2_active==0 )
     {
 #ifdef _USE_FON_
 #ifndef _FON_CLU_MEMORY_
-    if( !p2_disable )
-    rstr_close_cont();
+        if( !p2_disable )
+            rstr_close_cont();
 #endif
 #endif
-    enable_pass2=TRUE;
-    line_number=0;
-if( !p2_disable )
-{
+        enable_pass2=TRUE;
+        line_number=0;
+        if( !p2_disable )
+        {
 #ifdef _USE_FON_
 #ifdef _FON_CLU_MEMORY_
-    if( FONFontClusters(NULL,NULL,
-         NULL,NULL,0,FONCLU_MultiFontRow,NULL,lang)<=0 )
-         {
-         enable_pass2=FALSE;
-         wLowRC  = RSTR_ERR_INTERNAL;
-         return TRUE;
-         }
+            if( FONFontClusters(NULL,NULL,
+                                NULL,NULL,0,FONCLU_MultiFontRow,NULL,lang)<=0 )
+            {
+                enable_pass2=FALSE;
+                wLowRC  = RSTR_ERR_INTERNAL;
+                return TRUE;
+            }
 #else
-    if( FONFontClusters(local_ctb_name,local_grey_ctb,
-         NULL,NULL,0,FONCLU_MultiFontRow,NULL,lang)<=0 )
-         {
-         enable_pass2=FALSE;
-         wLowRC  = RSTR_ERR_INTERNAL;
-         return TRUE;
-         }
+            if( FONFontClusters(local_ctb_name,local_grey_ctb,
+                                NULL,NULL,0,FONCLU_MultiFontRow,NULL,lang)<=0 )
+            {
+                enable_pass2=FALSE;
+                wLowRC  = RSTR_ERR_INTERNAL;
+                return TRUE;
+            }
 #endif
 #endif
-}
-    erect_set_global();
-if( !p2_disable )
-{
+        }
+        erect_set_global();
+        if( !p2_disable )
+        {
 #ifdef _USE_FON_
-    if( FONInit(local_grey_ctb)<=0 )
-        {
-        ErrorExit(RSTR_ERR_INTERNAL);
-        return TRUE;
-        }
-    // Nick test Couruier font
-    Flag_Courier=TestFontCourier();
-    TestFontProtocol();
-        { // Nick & Oleg - test clusters LEO
-        Int32 TestFontClusters(void); // p2_cour.c
-        TestFontClusters();
-        }
+            if( FONInit(local_grey_ctb)<=0 )
+            {
+                ErrorExit(RSTR_ERR_INTERNAL);
+                return TRUE;
+            }
+            // Nick test Couruier font
+            Flag_Courier=TestFontCourier();
+            TestFontProtocol();
+            { // Nick & Oleg - test clusters LEO
+                Int32 TestFontClusters(void); // p2_cour.c
+                TestFontClusters();
+            }
 
 
 #endif
-}
-    p2_BoldInit(1);
-#ifdef _USE_CPAGE_
-if( myPage )
-    {
-   Word32 size_line_com=sizeof(LINE_COM);
-   int size_line_data=sizeof(DLine);
-   CLINE_handle hCLINE=CLINE_GetMainContainer();
-
-//	if(!LDPUMA_Skip(hUseCLine))
-//    {
-	 CLINE_handle hline;
-	 CPDLine cpdata;
-	 DLine data;
-	 hline=CLINE_GetFirstLine(hCLINE);
-	 if(!hline)
-		 return TRUE;
-     while(hline)
-	 {
-      cpdata=CLINE_GetLineData(hline);
-      if(!cpdata)
-	  {
-            wLowRC  = RSTR_ERR_INTERNAL;
-            return FALSE;
-      }
-      else
-	  {
-        if( (cpdata->Flags  & LI_IsTrue)                    &&
-             !(cpdata->Flags & LI_IsAtTable)                &&
-             (abs(cpdata->Line.Beg_X-cpdata->Line.End_X)>
-             abs(cpdata->Line.Beg_Y-cpdata->Line.End_Y))    &&
-			 (cpdata->Dir==LD_Horiz)                        &&
-			 rcm_find((Int16)(cpdata->Line.Beg_X),(Int16)(cpdata->Line.Beg_Y),
-                      (Int16)(cpdata->Line.End_X),(Int16)(cpdata->Line.End_Y)) )
-        {
-			    CLINE_CopyData(&data,cpdata,size_line_data);
-                data.Flags |= LI_Used;
-                CLINE_SetLineData(hline,(CPDLine)(&data));
         }
-		hline=CLINE_GetNextLine(hline);
-	  }
-	 }
-/*    }
+        p2_BoldInit(1);
+#ifdef _USE_CPAGE_
+        if( myPage )
+        {
+            Word32 size_line_com=sizeof(LINE_COM);
+            int size_line_data=sizeof(DLine);
+            CLINE_handle hCLINE=CLINE_GetMainContainer();
+
+            //	if(!LDPUMA_Skip(hUseCLine))
+            //    {
+            CLINE_handle hline;
+            CPDLine cpdata;
+            DLine data;
+            hline=CLINE_GetFirstLine(hCLINE);
+            if(!hline)
+                return TRUE;
+            while(hline)
+            {
+                cpdata=CLINE_GetLineData(hline);
+                if(!cpdata)
+                {
+                    wLowRC  = RSTR_ERR_INTERNAL;
+                    return FALSE;
+                }
+                else
+                {
+                    if( (cpdata->Flags  & LI_IsTrue)                    &&
+                        !(cpdata->Flags & LI_IsAtTable)                &&
+                        (abs(cpdata->Line.Beg_X-cpdata->Line.End_X)>
+                         abs(cpdata->Line.Beg_Y-cpdata->Line.End_Y))    &&
+                        (cpdata->Dir==LD_Horiz)                        &&
+                        rcm_find((Int16)(cpdata->Line.Beg_X),(Int16)(cpdata->Line.Beg_Y),
+                                 (Int16)(cpdata->Line.End_X),(Int16)(cpdata->Line.End_Y)) )
+                    {
+                        CLINE_CopyData(&data,cpdata,size_line_data);
+                        data.Flags |= LI_Used;
+                        CLINE_SetLineData(hline,(CPDLine)(&data));
+                    }
+                    hline=CLINE_GetNextLine(hline);
+                }
+            }
+            /*    }
     else
-	{
+        {
     myBlock = CPAGE_GetBlockFirst ( myPage, RLINE_BLOCK_TYPE );
     while(myBlock)
         {
@@ -916,468 +916,468 @@ if( myPage )
             }
         myBlock = CPAGE_GetBlockNext( myPage, myBlock, RLINE_BLOCK_TYPE );
         }
-	}*/
-}
+        }*/
+        }
 #endif
     } // end if p2_active=0
-else
+    else
     {
-if( !p2_disable )
-{
+        if( !p2_disable )
+        {
 #ifdef _USE_FON_
-    FONDone();
-    FONEndSnap();
+            FONDone();
+            FONEndSnap();
 #endif
-}
+        }
 #ifdef _USE_LEO_
-    LEOFreeAlphabets();
+        LEOFreeAlphabets();
 #endif
     }
-return TRUE;
+    return TRUE;
 }
 
 RSTR_FUNC(Bool32)  RSTR_NeedPass2( void )
 {
-        return TRUE;
+    return TRUE;
 }
 
 void save_to_ctb(CSTR_line lino,Int32 type)
 {
 #ifdef _USE_CTB_
-CSTR_rast       rst;
-RecVersions     ver;
-RecAlt          Zero={0};
-UniVersions     uni;
-RecRaster       rast;
-Rect16          rect;
-CSTR_rast_attr  attr;
-Int32           i;
-Int16           key;
-Word8           flags;
-Word8           print_type;
-CSTR_attr       lattr;
+    CSTR_rast       rst;
+    RecVersions     ver;
+    RecAlt          Zero={0};
+    UniVersions     uni;
+    RecRaster       rast;
+    Rect16          rect;
+    CSTR_rast_attr  attr;
+    Int32           i;
+    Int16           key;
+    Word8           flags;
+    Word8           print_type;
+    CSTR_attr       lattr;
 
-CSTR_GetLineAttr(lino,&lattr);
-if( type==0 )
-{
-for(rst = CSTR_GetNext(CSTR_GetFirstRaster(lino));rst;rst=CSTR_GetNext(rst))
+    CSTR_GetLineAttr(lino,&lattr);
+    if( type==0 )
     {
-    if( CSTR_GetCollectionUni(rst,&uni) &&
-        CSTR_GetAttr(rst,&attr) &&
-        uni.lnAltCnt &&
-        !(line_tabcell && uni.lnAltCnt && uni.Alt[0].Liga==liga_exm) &&
-        CSTR_GetImage(rst,(Word8*)&rast,CSTR_TYPE_IMAGE_RS ) &&
-        (attr.flg&(CSTR_f_let)) &&
-        !(attr.dlang_dup&(CSTR_fd_equal|CSTR_fd_alias)) )
+        for(rst = CSTR_GetNext(CSTR_GetFirstRaster(lino));rst;rst=CSTR_GetNext(rst))
+        {
+            if( CSTR_GetCollectionUni(rst,&uni) &&
+                CSTR_GetAttr(rst,&attr) &&
+                uni.lnAltCnt &&
+                !(line_tabcell && uni.lnAltCnt && uni.Alt[0].Liga==liga_exm) &&
+                CSTR_GetImage(rst,(Word8*)&rast,CSTR_TYPE_IMAGE_RS ) &&
+                (attr.flg&(CSTR_f_let)) &&
+                !(attr.dlang_dup&(CSTR_fd_equal|CSTR_fd_alias)) )
             {
-            rect.top    = attr.row;
-            rect.bottom = attr.row+attr.h;
-            rect.left   = attr.col;
-            rect.right  = attr.col+attr.w;
-            flags=LEO_VALID_FINAL;
-            if( attr.flg & CSTR_f_solid )
-                flags|=LEO_VALID_LINGVO;
-            if( line_alphabet==ALPHA_DIGITAL_TRUE )
-                flags|=LEO_VALID_DIGIT;
-            print_type = CTB_PRINT_FONT    ;
-            if( attr.font & CSTR_fp_ser )
-                print_type |= CTB_PRINT_SERIFIC ;
-            if( attr.font & CSTR_fp_it )
-                print_type |= CTB_PRINT_ITALIC;
-            if( attr.font & CSTR_fp_bold )
-                print_type |= CTB_PRINT_BOLD ;
-            if( attr.font & CSTR_fp_gelv )
-                print_type |= CTB_PRINT_GELV;
-            if( attr.font & CSTR_fp_narrow )
-                print_type |= CTB_PRINT_NARROW;
-            for(i=0;i<uni.lnAltCnt;i++)
+                rect.top    = attr.row;
+                rect.bottom = attr.row+attr.h;
+                rect.left   = attr.col;
+                rect.right  = attr.col+attr.w;
+                flags=LEO_VALID_FINAL;
+                if( attr.flg & CSTR_f_solid )
+                    flags|=LEO_VALID_LINGVO;
+                if( line_alphabet==ALPHA_DIGITAL_TRUE )
+                    flags|=LEO_VALID_DIGIT;
+                print_type = CTB_PRINT_FONT    ;
+                if( attr.font & CSTR_fp_ser )
+                    print_type |= CTB_PRINT_SERIFIC ;
+                if( attr.font & CSTR_fp_it )
+                    print_type |= CTB_PRINT_ITALIC;
+                if( attr.font & CSTR_fp_bold )
+                    print_type |= CTB_PRINT_BOLD ;
+                if( attr.font & CSTR_fp_gelv )
+                    print_type |= CTB_PRINT_GELV;
+                if( attr.font & CSTR_fp_narrow )
+                    print_type |= CTB_PRINT_NARROW;
+                for(i=0;i<uni.lnAltCnt;i++)
                 {
-                ver.Alt[i] = Zero;
-                ver.Alt[i].Code     = uni.Alt[i].Liga;
-                ver.Alt[i].Method   = uni.Alt[i].Method;
-                ver.Alt[i].Prob     = uni.Alt[i].Prob;
+                    ver.Alt[i] = Zero;
+                    ver.Alt[i].Code     = uni.Alt[i].Liga;
+                    ver.Alt[i].Method   = uni.Alt[i].Method;
+                    ver.Alt[i].Prob     = uni.Alt[i].Prob;
                 }
-            ver.lnAltCnt =uni.lnAltCnt ;
+                ver.lnAltCnt =uni.lnAltCnt ;
 #ifdef _FON_CLU_MEMORY_
-                        key = (Int16)FONStoreRaster(&rast,ver.Alt[0].Code,
-                                print_type,ver.Alt[0].Prob, flags,line_number,
-                attr.keg,&rect, (Word8)lattr.tab_column/*, lattr.tab_number*/);
+                key = (Int16)FONStoreRaster(&rast,ver.Alt[0].Code,
+                                            print_type,ver.Alt[0].Prob, flags,line_number,
+                                            attr.keg,&rect, (Word8)lattr.tab_column/*, lattr.tab_number*/);
 #else
-            key=rstr_cont_store(&rast,ver.Alt[0].Code,
-                0, &rect, print_type,ver.Alt[0].Prob, flags, &ver, 0,
-                attr.keg, (Word8)lattr.tab_column, lattr.tab_number);
+                key=rstr_cont_store(&rast,ver.Alt[0].Code,
+                                    0, &rect, print_type,ver.Alt[0].Prob, flags, &ver, 0,
+                                    attr.keg, (Word8)lattr.tab_column, lattr.tab_number);
 #endif
 
-            if( key>0 )
+                if( key>0 )
                 {
-                for(i=0;i<uni.lnAltCnt;i++)
+                    for(i=0;i<uni.lnAltCnt;i++)
                     {
-                    uni.Alt[i].Info     =key;
+                        uni.Alt[i].Info     =key;
                     }
-                CSTR_StoreCollectionUni(rst,&uni);
+                    CSTR_StoreCollectionUni(rst,&uni);
                 }
             }
-    }
-} // end of type==0
-else
-{ // start of type==1
-for(rst = CSTR_GetNext(CSTR_GetFirstRaster(lino));rst;rst=CSTR_GetNext(rst))
-    {
-    #ifdef _STORE_LETTERS
-    rstr_open_cont1();
-    #endif
-    if( CSTR_GetCollection(rst,&ver) &&
-        CSTR_GetAttr(rst,&attr) &&
-        ver.lnAltCnt &&
-        CSTR_GetImage(rst,(Word8*)&rast,CSTR_TYPE_IMAGE_RS ) &&
-        (attr.flg&(CSTR_f_let))  )
+        }
+    } // end of type==0
+    else
+    { // start of type==1
+        for(rst = CSTR_GetNext(CSTR_GetFirstRaster(lino));rst;rst=CSTR_GetNext(rst))
+        {
+#ifdef _STORE_LETTERS
+            rstr_open_cont1();
+#endif
+            if( CSTR_GetCollection(rst,&ver) &&
+                CSTR_GetAttr(rst,&attr) &&
+                ver.lnAltCnt &&
+                CSTR_GetImage(rst,(Word8*)&rast,CSTR_TYPE_IMAGE_RS ) &&
+                (attr.flg&(CSTR_f_let))  )
             {
-            rect.top    = attr.row;
-            rect.bottom = attr.row+attr.h;
-            rect.left   = attr.col;
-            rect.right  = attr.col+attr.w;
-            flags=LEO_VALID_FINAL;
-            if( attr.flg & CSTR_f_solid )
-                flags|=LEO_VALID_LINGVO;
-            print_type = CTB_PRINT_FONT    ;
-            if( attr.font & CSTR_fp_ser )
-                print_type |= CTB_PRINT_SERIFIC ;
-            if( attr.font & CSTR_fp_it )
-                print_type |= CTB_PRINT_ITALIC;
-            if( attr.font & CSTR_fp_bold )
-                print_type |= CTB_PRINT_BOLD ;
-            if( attr.font & CSTR_fp_gelv )
-                print_type |= CTB_PRINT_GELV;
+                rect.top    = attr.row;
+                rect.bottom = attr.row+attr.h;
+                rect.left   = attr.col;
+                rect.right  = attr.col+attr.w;
+                flags=LEO_VALID_FINAL;
+                if( attr.flg & CSTR_f_solid )
+                    flags|=LEO_VALID_LINGVO;
+                print_type = CTB_PRINT_FONT    ;
+                if( attr.font & CSTR_fp_ser )
+                    print_type |= CTB_PRINT_SERIFIC ;
+                if( attr.font & CSTR_fp_it )
+                    print_type |= CTB_PRINT_ITALIC;
+                if( attr.font & CSTR_fp_bold )
+                    print_type |= CTB_PRINT_BOLD ;
+                if( attr.font & CSTR_fp_gelv )
+                    print_type |= CTB_PRINT_GELV;
 
 
 
 #ifdef _STORE_LETTERS
-            rstr_cont_store1(&rast,ver.Alt[0].Code,
-                0, &rect,
-                                print_type,ver.Alt[0].Prob, flags, &ver, 0,
-                attr.keg);
+                rstr_cont_store1(&rast,ver.Alt[0].Code,
+                                 0, &rect,
+                                 print_type,ver.Alt[0].Prob, flags, &ver, 0,
+                                 attr.keg);
 #endif
 
             }
-    }
-} // end of type==1
+        }
+    } // end of type==1
 #endif
-return;
+    return;
 }
 
 RSTR_FUNC(void)  RSTR_Save2CTB(CSTR_line lino,Int32 type, Int16 line_num)
 {
-	CSTR_attr attr;
+    CSTR_attr attr;
 
-	CSTR_GetLineAttr(lino,&attr);
+    CSTR_GetLineAttr(lino,&attr);
 
-	if( attr.Flags & CSTR_STR_Digital )
-		line_alphabet=ALPHA_DIGITAL_TRUE;
+    if( attr.Flags & CSTR_STR_Digital )
+        line_alphabet=ALPHA_DIGITAL_TRUE;
 
-	if (!(attr.Flags & CSTR_STR_PointSuspension) &&
-		( attr.Flags & CSTR_STR_DigitalFuzzy ))
-		line_alphabet=ALPHA_DIGITAL;
+    if (!(attr.Flags & CSTR_STR_PointSuspension) &&
+        ( attr.Flags & CSTR_STR_DigitalFuzzy ))
+        line_alphabet=ALPHA_DIGITAL;
 
-	if( attr.tab_number )
-		line_tabcell= attr.tab_number;
+    if( attr.tab_number )
+        line_tabcell= attr.tab_number;
 
-	line_number = line_num;
+    line_number = line_num;
 
-	save_to_ctb(lino, type);
+    save_to_ctb(lino, type);
 }
 
 void CSTR_ligas(CSTR_line lino)
 {
-CSTR_rast       rst=CSTR_GetFirstRaster(lino);
-UniVersions     uni;
-Word8           c;
-Int32           i,nconv;
+    CSTR_rast       rst=CSTR_GetFirstRaster(lino);
+    UniVersions     uni;
+    Word8           c;
+    Int32           i,nconv;
 
-for(rst = CSTR_GetNext(rst);rst;rst=CSTR_GetNext(rst))
+    for(rst = CSTR_GetNext(rst);rst;rst=CSTR_GetNext(rst))
     {
-    if( CSTR_GetCollectionUni(rst,&uni)  )
-            {
+        if( CSTR_GetCollectionUni(rst,&uni)  )
+        {
             for(nconv=i=0;i<uni.lnAltCnt;i++)
-                {
+            {
                 c = convert_eng_liga( uni.Alt[i].Liga);
                 if( c!=uni.Alt[i].Liga )
-                    {
+                {
                     uni.Alt[i].Code[0]  = c;
                     uni.Alt[i].Code[1]  = 0;
                     uni.Alt[i].Liga     = c;
                     nconv++;
-                    }
                 }
+            }
             if( nconv )
                 CSTR_StoreCollectionUni(rst,&uni);
-            }
+        }
     }
 
-return;
+    return;
 }
 
 Bool32  free_line(CSTR_line ln)
 {
-CSTR_rast   rst=CSTR_GetNext(CSTR_GetFirstRaster(ln));
-return (rst==(CSTR_rast)0);
+    CSTR_rast   rst=CSTR_GetNext(CSTR_GetFirstRaster(ln));
+    return (rst==(CSTR_rast)0);
 }
 
 static void set_empty_line(CSTR_line    ln)
 {
-CSTR_attr               attrlin={0};
-CSTR_rast       rst=CSTR_GetNext(CSTR_GetFirstRaster(ln));
+    CSTR_attr               attrlin={0};
+    CSTR_rast       rst=CSTR_GetNext(CSTR_GetFirstRaster(ln));
 
-CSTR_GetLineAttr(ln, &attrlin);
+    CSTR_GetLineAttr(ln, &attrlin);
 
-if( !rst )
+    if( !rst )
     {
-    attrlin.Flags|=CSTR_STR_EMPTY;
-    CSTR_SetLineAttr(ln, &attrlin);
+        attrlin.Flags|=CSTR_STR_EMPTY;
+        CSTR_SetLineAttr(ln, &attrlin);
     }
-return;
+    return;
 }
 
 BOOL copy_cap_drop(CSTR_line lin, CSTR_line lino)
 {
-CSTR_rast       ri, ro;
-CSTR_attr       lattr={0};
-CCOM_USER_BLOCK ub;
-CCOM_comp       *ci, *co;
-Int32           n;
-UniVersions     uvs;
-CSTR_rast_attr  attr;
+    CSTR_rast       ri, ro;
+    CSTR_attr       lattr={0};
+    CCOM_USER_BLOCK ub;
+    CCOM_comp       *ci, *co;
+    Int32           n;
+    UniVersions     uvs;
+    CSTR_rast_attr  attr;
 
-CSTR_GetLineAttr (lin, &lattr);
-CSTR_SetLineAttr (lino, &lattr);
-CSTR_CopyLine(lino,lin);
-ri=CSTR_GetNext( CSTR_GetFirstRaster(lin));
-ro=CSTR_GetNext( CSTR_GetFirstRaster(lino));
-CSTR_GetCollectionUni(ri,&uvs);
-if( !uvs.lnAltCnt )
-    return FALSE;
-strcpy(uvs.Alt[0].Code , decode_ASCII_to_[uvs.Alt[0].Liga]);
-uvs.Alt[0].Charset=CodePages[language];
-uvs.lnAltCnt=1;
-CSTR_StoreCollectionUni(ro,&uvs);
-CSTR_GetAttr(ri,&attr);
+    CSTR_GetLineAttr (lin, &lattr);
+    CSTR_SetLineAttr (lino, &lattr);
+    CSTR_CopyLine(lino,lin);
+    ri=CSTR_GetNext( CSTR_GetFirstRaster(lin));
+    ro=CSTR_GetNext( CSTR_GetFirstRaster(lino));
+    CSTR_GetCollectionUni(ri,&uvs);
+    if( !uvs.lnAltCnt )
+        return FALSE;
+    strcpy(uvs.Alt[0].Code , decode_ASCII_to_[uvs.Alt[0].Liga]);
+    uvs.Alt[0].Charset=CodePages[language];
+    uvs.lnAltCnt=1;
+    CSTR_StoreCollectionUni(ro,&uvs);
+    CSTR_GetAttr(ri,&attr);
 
-ci=CSTR_GetComp(ri);
-attr.keg=(attr.h*2/3);
-if( uvs.Alt[0].Charset==204 && !attr.language )
-    attr.language=LANG_RUSSIAN;
-CSTR_SetAttr(ro,&attr);
-co=CSTR_GetComp(ro);
-ub.code=CCOM_UB_CAPDROPLN;
-ub.data=(Word8*)&n;
-if( CCOM_GetUserBlock(ci,&ub) )
-    CCOM_SetUserBlock(co,&ub);
-return TRUE;
+    ci=CSTR_GetComp(ri);
+    attr.keg=(attr.h*2/3);
+    if( uvs.Alt[0].Charset==204 && !attr.language )
+        attr.language=LANG_RUSSIAN;
+    CSTR_SetAttr(ro,&attr);
+    co=CSTR_GetComp(ro);
+    ub.code=CCOM_UB_CAPDROPLN;
+    ub.data=(Word8*)&n;
+    if( CCOM_GetUserBlock(ci,&ub) )
+        CCOM_SetUserBlock(co,&ub);
+    return TRUE;
 }
 
-// ÔÂ‚‡ÚËÚ¸ ÛÒÒÍÛ˛ Ë ‡Ì„ÎËÈÒÍÛ˛ ÒÚÓÍË ‚ ÒÚÓÍÛ Ò ÔÂÚÎˇÏË
+// –ø—Ä–µ–≤—Ä–∞—Ç–∏—Ç—å —Ä—É—Å—Å–∫—É—é –∏ –∞–Ω–≥–ª–∏–π—Å–∫—É—é —Å—Ç—Ä–æ–∫–∏ –≤ —Å—Ç—Ä–æ–∫—É —Å –ø–µ—Ç–ª—è–º–∏
 void rstr_make_multylang_loops(CSTR_line lino)
 {
-CSTR_rast       rst, dup, dupend, eng, oldeng, start;
-CSTR_attr       lattr;
+    CSTR_rast       rst, dup, dupend, eng, oldeng, start;
+    CSTR_attr       lattr;
 
-CSTR_GetLineAttr(lino,&lattr);
-if( lattr.language!=LANG_RUSENG )
-	return;
+    CSTR_GetLineAttr(lino,&lattr);
+    if( lattr.language!=LANG_RUSENG )
+        return;
 
-for(dup=0, rst = CSTR_GetNext(CSTR_GetFirstRaster(lino));rst;rst=CSTR_GetNext(rst))
+    for(dup=0, rst = CSTR_GetNext(CSTR_GetFirstRaster(lino));rst;rst=CSTR_GetNext(rst))
     {
-	if( !dup )
-		{
-		dup=CSTR_GetDup(rst); // Ì‡˜‡ÎÓ ÒÎÓ‚‡-‰Û·ÎËÍ‡Ú‡
-		start=rst;
-		}
-    dupend=CSTR_GetDupEnd(rst); // ÍÓÌÂˆ ÒÎÓ‚‡-‰Û·ÎËÍ‡Ú‡
-	if( dup && dupend )
-		{ // ÒÎÓ‚‡-‰Û·ÎËÍ‡Ú Ì‡È‰ÂÌÓ
-		eng=CSTR_InsertRasterDown(start,rst); // dup Ó·‡ÁÓ‚‡Ú¸ ÔÂÚÎ˛
-		CSTR_CopyRaster(eng,dup);
-		if( dup!=dupend )
-		for(oldeng=CSTR_GetNext(dup);oldeng && oldeng!=dupend;oldeng=CSTR_GetNext(oldeng))
-			{
-			eng=CSTR_InsertRaster(eng); // dup+1,...,dupend-1
-			CSTR_CopyRaster(eng,oldeng);
-			}
-		if( oldeng==dupend )
-			{
-			eng=CSTR_InsertRaster(eng); // dupend ÍÓÌÂˆ ÔÂÚÎË
-			CSTR_CopyRaster(eng,oldeng);
-			}
-		dup=0;
-		}
-	}
+        if( !dup )
+        {
+            dup=CSTR_GetDup(rst); // –Ω–∞—á–∞–ª–æ —Å–ª–æ–≤–∞-–¥—É–±–ª–∏–∫–∞—Ç–∞
+            start=rst;
+        }
+        dupend=CSTR_GetDupEnd(rst); // –∫–æ–Ω–µ—Ü —Å–ª–æ–≤–∞-–¥—É–±–ª–∏–∫–∞—Ç–∞
+        if( dup && dupend )
+        { // —Å–ª–æ–≤–∞-–¥—É–±–ª–∏–∫–∞—Ç –Ω–∞–π–¥–µ–Ω–æ
+            eng=CSTR_InsertRasterDown(start,rst); // dup –æ–±—Ä–∞–∑–æ–≤–∞—Ç—å –ø–µ—Ç–ª—é
+            CSTR_CopyRaster(eng,dup);
+            if( dup!=dupend )
+                for(oldeng=CSTR_GetNext(dup);oldeng && oldeng!=dupend;oldeng=CSTR_GetNext(oldeng))
+                {
+                eng=CSTR_InsertRaster(eng); // dup+1,...,dupend-1
+                CSTR_CopyRaster(eng,oldeng);
+            }
+            if( oldeng==dupend )
+            {
+                eng=CSTR_InsertRaster(eng); // dupend –∫–æ–Ω–µ—Ü –ø–µ—Ç–ª–∏
+                CSTR_CopyRaster(eng,oldeng);
+            }
+            dup=0;
+        }
+    }
 
-return;
+    return;
 }
 
-// ÔÂ‚‡ÚËÚ¸ ÒÚÓÍÛ Ò ÔÂÚÎˇÏË ‚ ‰‚Â ÒÚÓÍË
+// –ø—Ä–µ–≤—Ä–∞—Ç–∏—Ç—å —Å—Ç—Ä–æ–∫—É —Å –ø–µ—Ç–ª—è–º–∏ –≤ –¥–≤–µ —Å—Ç—Ä–æ–∫–∏
 void rstr_make_second_line(CSTR_line lin, Int32 vers)
 {
-CSTR_line		le;
-CSTR_attr		la;
-CSTR_rast		r, re, rr, dup, dupend, start;
+    CSTR_line		le;
+    CSTR_attr		la;
+    CSTR_rast		r, re, rr, dup, dupend, start;
 
-CSTR_GetLineAttr(lin,&la);
-le = CSTR_NewLine(la.number, vers, -1);
-re = CSTR_GetFirstRaster(le);
-for(dup=0, r=CSTR_GetNext(CSTR_GetFirstRaster(lin));r;r=CSTR_GetNext(r))
-	{
-	if( !dup  )
-		{
-		dup=CSTR_GetNextDown(r); // Ì‡˜‡ÎÓ ÔÂÚÎË
-		if( dup )
-			start=r;
-		}
-	if( dup )
-		{
-		dupend=CSTR_GetPrevDown(r); // ÍÓÌÂˆ ÔÂÚÎË
-		}
-	if( dup && dupend )
-		{ // ÍÎÔËÛÂÏ ÒÎÓ‚Ó ËÁ ÔÂÚÎË ‚ ‰Û„Û˛ ÒÚÓÍÛ
-		re=CSTR_InsertRaster(re); // first
-	    CSTR_CopyRaster(re,dup);
-		CSTR_SetDup(start,re); // ‡ÒÒÚ‡‚ÎˇÂÏ dup-˚
-		if( dup!=dupend )
-		for(rr=CSTR_GetNext(dup);rr!=dupend;rr=CSTR_GetNext(rr))
-			{
-			re=CSTR_InsertRaster(re);
-			CSTR_CopyRaster(re,rr);
-			}
-		if( dup!=dupend )
-			{
-			re=CSTR_InsertRaster(re); // last
-			CSTR_CopyRaster(re,rr);
-			}
-		CSTR_SetDupEnd(r,re);
+    CSTR_GetLineAttr(lin,&la);
+    le = CSTR_NewLine(la.number, vers, -1);
+    re = CSTR_GetFirstRaster(le);
+    for(dup=0, r=CSTR_GetNext(CSTR_GetFirstRaster(lin));r;r=CSTR_GetNext(r))
+    {
+        if( !dup  )
+        {
+            dup=CSTR_GetNextDown(r); // –Ω–∞—á–∞–ª–æ –ø–µ—Ç–ª–∏
+            if( dup )
+                start=r;
+        }
+        if( dup )
+        {
+            dupend=CSTR_GetPrevDown(r); // –∫–æ–Ω–µ—Ü –ø–µ—Ç–ª–∏
+        }
+        if( dup && dupend )
+        { // –∫–ª–ø–∏—Ä—É–µ–º —Å–ª–æ–≤–æ –∏–∑ –ø–µ—Ç–ª–∏ –≤ –¥—Ä—É–≥—É—é —Å—Ç—Ä–æ–∫—É
+            re=CSTR_InsertRaster(re); // first
+            CSTR_CopyRaster(re,dup);
+            CSTR_SetDup(start,re); // —Ä–∞—Å—Å—Ç–∞–≤–ª—è–µ–º dup-—ã
+            if( dup!=dupend )
+                for(rr=CSTR_GetNext(dup);rr!=dupend;rr=CSTR_GetNext(rr))
+                {
+                re=CSTR_InsertRaster(re);
+                CSTR_CopyRaster(re,rr);
+            }
+            if( dup!=dupend )
+            {
+                re=CSTR_InsertRaster(re); // last
+                CSTR_CopyRaster(re,rr);
+            }
+            CSTR_SetDupEnd(r,re);
 
-		dup=0;
-		}
-	}
+            dup=0;
+        }
+    }
 
-CSTR_DeleteLoops(lin); // Û‰‡ÎˇÂÏ ÔÂÚÎË
-return;
+    CSTR_DeleteLoops(lin); // —É–¥–∞–ª—è–µ–º –ø–µ—Ç–ª–∏
+    return;
 }
 
 void rsrt_del_dupes(CSTR_line l)
 {
-CSTR_rast		r;
-CSTR_rast_attr	a;
-for(r=CSTR_GetNext(CSTR_GetFirstRaster(l));r;r=CSTR_GetNext(r))
-	{
-	if( CSTR_GetDup(r) )
-		{
-		CSTR_SetDup(r,(CSTR_rast)0);
-		CSTR_GetAttr(r,&a);
-		a.dlang_dup=0;
-		CSTR_SetAttr(r,&a);
-		}
-	if( CSTR_GetDupEnd(r) )
-		{
-		CSTR_SetDupEnd(r,(CSTR_rast)0);
-		CSTR_GetAttr(r,&a);
-		a.dlang_dup=0;
-		CSTR_SetAttr(r,&a);
-		}
-	}
-return;
+    CSTR_rast		r;
+    CSTR_rast_attr	a;
+    for(r=CSTR_GetNext(CSTR_GetFirstRaster(l));r;r=CSTR_GetNext(r))
+    {
+        if( CSTR_GetDup(r) )
+        {
+            CSTR_SetDup(r,(CSTR_rast)0);
+            CSTR_GetAttr(r,&a);
+            a.dlang_dup=0;
+            CSTR_SetAttr(r,&a);
+        }
+        if( CSTR_GetDupEnd(r) )
+        {
+            CSTR_SetDupEnd(r,(CSTR_rast)0);
+            CSTR_GetAttr(r,&a);
+            a.dlang_dup=0;
+            CSTR_SetAttr(r,&a);
+        }
+    }
+    return;
 }
 
 Bool32 rstr_rerecog_plusminus(CSTR_line lino)
 {
-CSTR_rast       rst;
-RecVersions     vrs ;
+    CSTR_rast       rst;
+    RecVersions     vrs ;
 
-rst = CSTR_GetNext(CSTR_GetFirstRaster(lino));
-if( CSTR_GetNext(rst) )
-    return FALSE;
-CSTR_GetCollection(rst,&vrs);
-if( !vrs.lnAltCnt )
-    return FALSE;
-if( !strchr("-+",vrs.Alt[0].Code) )
-    return FALSE;
-return TRUE;
+    rst = CSTR_GetNext(CSTR_GetFirstRaster(lino));
+    if( CSTR_GetNext(rst) )
+        return FALSE;
+    CSTR_GetCollection(rst,&vrs);
+    if( !vrs.lnAltCnt )
+        return FALSE;
+    if( !strchr("-+",vrs.Alt[0].Code) )
+        return FALSE;
+    return TRUE;
 }
 
 Bool32 rstr_is_plusminus(CSTR_line lino)
 {
-CSTR_rast       rst;
-RecVersions     vrs ;
-CSTR_attr       lattr;
+    CSTR_rast       rst;
+    RecVersions     vrs ;
+    CSTR_attr       lattr;
 
-CSTR_GetLineAttr(lino,&lattr);
-if( lattr.Flags & CSTR_STR_PlusMinus )
-    return TRUE;
-rst = CSTR_GetNext(CSTR_GetFirstRaster(lino));
-if( CSTR_GetNext(rst) )
-    return FALSE;
-CSTR_GetCollection(rst,&vrs);
-if( vrs.lnAltCnt && strchr("+-",vrs.Alt[0].Code) )
+    CSTR_GetLineAttr(lino,&lattr);
+    if( lattr.Flags & CSTR_STR_PlusMinus )
+        return TRUE;
+    rst = CSTR_GetNext(CSTR_GetFirstRaster(lino));
+    if( CSTR_GetNext(rst) )
+        return FALSE;
+    CSTR_GetCollection(rst,&vrs);
+    if( vrs.lnAltCnt && strchr("+-",vrs.Alt[0].Code) )
     {
-    lattr.Flags |= CSTR_STR_PlusMinus;
-    CSTR_SetLineAttr(lino,&lattr);
-    return TRUE;
+        lattr.Flags |= CSTR_STR_PlusMinus;
+        CSTR_SetLineAttr(lino,&lattr);
+        return TRUE;
     }
-return FALSE;
+    return FALSE;
 }
 
 void rstr_set_kegl(CSTR_line lino)
 {
-CSTR_rast       rst;
-CSTR_rast_attr  attr;
-CSTR_attr       lattr;
+    CSTR_rast       rst;
+    CSTR_rast_attr  attr;
+    CSTR_attr       lattr;
 
-CSTR_GetLineAttr(lino,&lattr);
-rst = CSTR_GetNext(CSTR_GetFirstRaster(lino));
-CSTR_GetAttr(rst,&attr);
-attr.keg = (Word8)lattr.Ps;
-CSTR_SetAttr(rst,&attr);
-return;
+    CSTR_GetLineAttr(lino,&lattr);
+    rst = CSTR_GetNext(CSTR_GetFirstRaster(lino));
+    CSTR_GetAttr(rst,&attr);
+    attr.keg = (Word8)lattr.Ps;
+    CSTR_SetAttr(rst,&attr);
+    return;
 }
 
 Bool32 rstr_bad_recog_line(CSTR_line lout)
 {
-CSTR_rast       rst;
-UniVersions     uni;
-Int32           pmax=0, pav=0, n=0, nbad=0;
+    CSTR_rast       rst;
+    UniVersions     uni;
+    Int32           pmax=0, pav=0, n=0, nbad=0;
 
-for(rst = CSTR_GetNext(CSTR_GetFirstRaster(lout));rst;rst=CSTR_GetNext(rst))
+    for(rst = CSTR_GetNext(CSTR_GetFirstRaster(lout));rst;rst=CSTR_GetNext(rst))
     {
-    CSTR_GetCollectionUni(rst,&uni);
-    if( uni.lnAltCnt )
+        CSTR_GetCollectionUni(rst,&uni);
+        if( uni.lnAltCnt )
         {
-        pav+=uni.Alt[0].Prob;
-        if( pmax<uni.Alt[0].Prob )
-            pmax=uni.Alt[0].Prob;
+            pav+=uni.Alt[0].Prob;
+            if( pmax<uni.Alt[0].Prob )
+                pmax=uni.Alt[0].Prob;
         }
-    else
-        nbad++;
-    n++;
+        else
+            nbad++;
+        n++;
     }
-if( !n )
-   //return FALSE;
-	return TRUE;  // Nick 19.03.2001 -Saus032
+    if( !n )
+        //return FALSE;
+        return TRUE;  // Nick 19.03.2001 -Saus032
 
-pav /= n;
-return (pav<140 && pmax<180 || pav<100 && pmax<200 && nbad );
+    pav /= n;
+    return (pav<140 && pmax<180 || pav<100 && pmax<200 && nbad );
 }
 
 //Int32 test_count_lines = 0;
 
 RSTR_FUNC(Bool32)  RSTRRecognize(
-      CSTR_line    lin,     // pointer to raw string
-      CSTR_line    lino  )
+        CSTR_line    lin,     // pointer to raw string
+        CSTR_line    lino  )
 {
-	RSTRRecognizeMain(lin, lino);
+    RSTRRecognizeMain(lin, lino);
 
-	RSTR_Save2CTB(lino, 0, line_number);
+    RSTR_Save2CTB(lino, 0, line_number);
 
-	RSTRRecognizePostMain(lin, lino);
+    RSTRRecognizePostMain(lin, lino);
 
-/* Andrey (10.06.2003): divided into 3 parts: 1. RSTRRecognizeMain, 2. RSTR_Save2CTB, 3. RSTRRecognizePostMain
+    /* Andrey (10.06.2003): divided into 3 parts: 1. RSTRRecognizeMain, 2. RSTR_Save2CTB, 3. RSTRRecognizePostMain
 int rc;
 Word8   lang=language;
 CSTR_attr       lattr={0};
@@ -1401,12 +1401,12 @@ if( multy_language && language==LANG_RUSSIAN )
         correct_let_tables();
     }
 if( p2_active )
-	{
-	if( free_line(lino) )
-		return TRUE;
-	if( !enable_pass2 )
-		return TRUE;
-	}
+        {
+        if( free_line(lino) )
+                return TRUE;
+        if( !enable_pass2 )
+                return TRUE;
+        }
 if( lattr.Flags & CSTR_STR_CapDrop )
     {
     line_number++;
@@ -1517,9 +1517,9 @@ else
         line_rerecog=TRUE;
         goto start; // recognize
         }
-	// Nick 14.05.2001
-	// Û‰‡ÎËÚ¸ ÏÂÎÓ˜¸, ÂÒÎË ÂÒÚ¸ ÚÓ˜Â˜Ì˚Â ÎËÌËË
-	 RemoveDustIfPointLine( lino );
+        // Nick 14.05.2001
+        // —É–¥–∞–ª–∏—Ç—å –º–µ–ª–æ—á—å, –µ—Å–ª–∏ –µ—Å—Ç—å —Ç–æ—á–µ—á–Ω—ã–µ –ª–∏–Ω–∏–∏
+         RemoveDustIfPointLine( lino );
     }
 
 set_empty_line(lino);
@@ -1529,7 +1529,7 @@ if( !p2_disable )
 #ifdef _USE_FON_
 if( !p2_active )
     {
-	save_to_ctb(lino,0);
+        save_to_ctb(lino,0);
 
     CSTR_ligas(lino);
     }
@@ -1553,327 +1553,327 @@ CSTR_GetLineAttr (lino, &lattr);
 lattr.pageSkew2048=page_nIncline;
 lattr.ResolutionY=(INT)nResolutionY;
 if( fax1x2 )
-	lattr.Flags |= CSTR_STR_Fax100x200;
+        lattr.Flags |= CSTR_STR_Fax100x200;
 if( matrix )
     lattr.Flags |= CSTR_STR_Matrix;
 CSTR_SetLineAttr (lino, &lattr);
 reset_snap();
 */
 
-return TRUE;
+    return TRUE;
 }
 
 //*********************************************
 //* part 1 of RSTRRecognize (before clusters) *
 //*********************************************
 RSTR_FUNC(Bool32)  RSTRRecognizeMain(
-      CSTR_line    lin,     // pointer to raw string
-      CSTR_line    lino  )
+        CSTR_line    lin,     // pointer to raw string
+        CSTR_line    lino  )
 {
-int rc;
-Word8   lang=language;
-CSTR_attr       lattr={0};
+    int rc;
+    Word8   lang=language;
+    CSTR_attr       lattr={0};
 
-//test_count_lines++;
+    //test_count_lines++;
 
-local_ret_error_code=0;
-line_BL=FALSE;
-line_handfragment=FALSE;
-line_rerecog=FALSE;
-CSTR_GetLineAttr (lin, &lattr);
-line_rerecog=FALSE;
-start:;
-if( multy_language && language==LANG_ENGLISH  )
-    language=LANG_RUSSIAN ;
-if( multy_language && language==LANG_RUSSIAN )
-    {
-    lang=LANG_RUSENG;
-    CSTR_SetLineAttr (lin, &lattr);
-    if( p2_active )
-        correct_let_tables();
-    }
-if( p2_active )
-	{
-	if( free_line(lino) )
-		return TRUE;
-	if( !enable_pass2 )
-		return TRUE;
-	}
-if( lattr.Flags & CSTR_STR_CapDrop )
-    {
-    line_number++;
-    if( !p2_active )
-        if( !copy_cap_drop(lin, lino) )
-            {
-            lattr.Flags -= CSTR_STR_CapDrop;
+    local_ret_error_code=0;
+    line_BL=FALSE;
+    line_handfragment=FALSE;
+    line_rerecog=FALSE;
+    CSTR_GetLineAttr (lin, &lattr);
+    line_rerecog=FALSE;
+    start:;
+        if( multy_language && language==LANG_ENGLISH  )
+            language=LANG_RUSSIAN ;
+        if( multy_language && language==LANG_RUSSIAN )
+        {
+            lang=LANG_RUSENG;
             CSTR_SetLineAttr (lin, &lattr);
-            CSTR_SetLineAttr (lino, &lattr);
+            if( p2_active )
+                correct_let_tables();
+        }
+        if( p2_active )
+        {
+            if( free_line(lino) )
+                return TRUE;
+            if( !enable_pass2 )
+                return TRUE;
+        }
+        if( lattr.Flags & CSTR_STR_CapDrop )
+        {
+            line_number++;
+            if( !p2_active )
+                if( !copy_cap_drop(lin, lino) )
+                {
+                lattr.Flags -= CSTR_STR_CapDrop;
+                CSTR_SetLineAttr (lin, &lattr);
+                CSTR_SetLineAttr (lino, &lattr);
             }
-    return TRUE;
-    }
-if((rc=setjmp(jumper)) != 0 && rc != FIELD_RESTART)
-    {
-    reset_snap();
-    if( rc == RSTR_ERR_NOPLACE )
-        { // can be warning
-        if(0)
-        if( !kit_max_size )
+            return TRUE;
+        }
+        if((rc=setjmp(jumper)) != 0 && rc != FIELD_RESTART)
+        {
+            reset_snap();
+            if( rc == RSTR_ERR_NOPLACE )
+            { // can be warning
+                if(0)
+                    if( !kit_max_size )
+                    {
+                    rstr_kit_realloc();
+                    line_number--;
+                    goto start;
+                }
+                return TRUE;
+            }
+            stop_user =( rc==RSTR_ERR_USERBREAK );
+            wLowRC         = rc;
+            set_empty_line(lino);
+            return FALSE;
+        }
+        if( p2_active )
+        {
+            if( stop_user )
+                ErrorExit(RSTR_ERR_USERBREAK);
+        }
+        stop_user = FALSE;
+        kit_curr= kit_start;
+        kit_end = kit_curr + kit_size;
+        stopcell=NULL;
+
+        line_scale=0;
+        line_minus=0;
+        line_alphabet=0;
+        line_pointsusp=0;
+        line_handfragment=FALSE;
+        line_readyBL=FALSE;
+        line_tabcell=0;
+        enable_table_recog=FALSE;
+        line_number++;
+        erection_inc=0;
+        valid_word_number=0;
+        if( line_number==1 )
+        {
+            nIncline = page_nIncline;
+            if( !p2_active )
+                snap_init_variables();
+        }
+        if( !spec_camera )
+        {
+            CSTR_UnpackLine(lin);
+            if( p2_active )
+                CSTR_UnpackLine(lino);
+        }
+        if( (lattr.Flags & CSTR_STR_PlusMinus) ||
+            (lattr.Flags & CSTR_STR_ReadyResults) )
+        {
+            if( !p2_active )
+                CSTR_CopyLine(lino,lin);
+            if( rstr_is_plusminus(lin) &&
+                (lattr.Flags & CSTR_STR_ReadyResults) )
             {
-            rstr_kit_realloc();
-            line_number--;
-            goto start;
+                rstr_set_kegl(lino);
             }
+            if( !rstr_rerecog_plusminus(lin))
+            {
+                if( !p2_active )
+                    CSTR_ClearLine(lino,-16000,32000);
+                goto step_pass3;
+            }
+
+            if( db_status && snap_activity('g') )
+            {
+                snap_show_text("end recog - plus_minus line");
+                snap_monitor_ori(&lino,1);
+            }
+        }
+        else
+        {
+            step_pass3:
+            pass3( lin, lino ); // recognize
+            if( (lattr.Flags &  (CSTR_STR_Digital |CSTR_STR_DigitalFuzzy )) &&
+                rstr_bad_recog_line(lino) )
+            {
+                CSTR_DeleteLine(CSTR_GetLineHandle(lattr.number, CSTR_LINVERS_SAVE));
+                CSTR_DeleteLine(CSTR_GetLineHandle(lattr.number, CSTR_LINVERS_ENGOUT));
+                CSTR_DeleteLine(CSTR_GetLineHandle(lattr.number, CSTR_LINVERS_ENG));
+                CSTR_DeleteLine(CSTR_GetLineHandle(lattr.number, CSTR_LINVERS_PASS2));
+                CSTR_ClearLine(CSTR_GetLineHandle(lattr.number, CSTR_LINVERS_MAINOUT),-16000,32000);
+
+                if( lattr.Flags &  CSTR_STR_Digital )
+                    lattr.Flags -=  CSTR_STR_Digital;
+                if( lattr.Flags &  CSTR_STR_DigitalFuzzy  )
+                    lattr.Flags -=  CSTR_STR_DigitalFuzzy;
+                CSTR_SetLineAttr (lin, &lattr);
+                line_number--;
+                line_rerecog=TRUE;
+                goto start; // recognize
+            }
+            // Nick 14.05.2001
+            // —É–¥–∞–ª–∏—Ç—å –º–µ–ª–æ—á—å, –µ—Å–ª–∏ –µ—Å—Ç—å —Ç–æ—á–µ—á–Ω—ã–µ –ª–∏–Ω–∏–∏
+            RemoveDustIfPointLine( lino );
+        }
+
+        set_empty_line(lino);
+        store_colors(lino);
+
+
+        if( !spec_camera )
+        {
+            CSTR_PackLine(lin);
+        }
+
+        reset_snap();
         return TRUE;
-        }
-     stop_user =( rc==RSTR_ERR_USERBREAK );
-     wLowRC         = rc;
-     set_empty_line(lino);
-         return FALSE;
-     }
-if( p2_active )
-    {
-    if( stop_user )
-        ErrorExit(RSTR_ERR_USERBREAK);
     }
-stop_user = FALSE;
-kit_curr= kit_start;
-kit_end = kit_curr + kit_size;
-stopcell=NULL;
-
-line_scale=0;
-line_minus=0;
-line_alphabet=0;
-line_pointsusp=0;
-line_handfragment=FALSE;
-line_readyBL=FALSE;
-line_tabcell=0;
-enable_table_recog=FALSE;
-line_number++;
-erection_inc=0;
-valid_word_number=0;
-if( line_number==1 )
-    {
-    nIncline = page_nIncline;
-    if( !p2_active )
-        snap_init_variables();
-    }
-if( !spec_camera )
-    {
-    CSTR_UnpackLine(lin);
-    if( p2_active )
-        CSTR_UnpackLine(lino);
-    }
-if( (lattr.Flags & CSTR_STR_PlusMinus) ||
-    (lattr.Flags & CSTR_STR_ReadyResults) )
-    {
-    if( !p2_active )
-        CSTR_CopyLine(lino,lin);
-    if( rstr_is_plusminus(lin) &&
-        (lattr.Flags & CSTR_STR_ReadyResults) )
-        {
-        rstr_set_kegl(lino);
-        }
-    if( !rstr_rerecog_plusminus(lin))
-        {
-        if( !p2_active )
-            CSTR_ClearLine(lino,-16000,32000);
-        goto step_pass3;
-        }
-
-    if( db_status && snap_activity('g') )
-        {
-        snap_show_text("end recog - plus_minus line");
-        snap_monitor_ori(&lino,1);
-        }
-    }
-else
-    {
-    step_pass3:
-    pass3( lin, lino ); // recognize
-    if( (lattr.Flags &  (CSTR_STR_Digital |CSTR_STR_DigitalFuzzy )) &&
-        rstr_bad_recog_line(lino) )
-        {
-        CSTR_DeleteLine(CSTR_GetLineHandle(lattr.number, CSTR_LINVERS_SAVE));
-        CSTR_DeleteLine(CSTR_GetLineHandle(lattr.number, CSTR_LINVERS_ENGOUT));
-        CSTR_DeleteLine(CSTR_GetLineHandle(lattr.number, CSTR_LINVERS_ENG));
-        CSTR_DeleteLine(CSTR_GetLineHandle(lattr.number, CSTR_LINVERS_PASS2));
-        CSTR_ClearLine(CSTR_GetLineHandle(lattr.number, CSTR_LINVERS_MAINOUT),-16000,32000);
-
-       if( lattr.Flags &  CSTR_STR_Digital )
-            lattr.Flags -=  CSTR_STR_Digital;
-        if( lattr.Flags &  CSTR_STR_DigitalFuzzy  )
-            lattr.Flags -=  CSTR_STR_DigitalFuzzy;
-        CSTR_SetLineAttr (lin, &lattr);
-        line_number--;
-        line_rerecog=TRUE;
-        goto start; // recognize
-        }
-	// Nick 14.05.2001
-	// Û‰‡ÎËÚ¸ ÏÂÎÓ˜¸, ÂÒÎË ÂÒÚ¸ ÚÓ˜Â˜Ì˚Â ÎËÌËË
-	 RemoveDustIfPointLine( lino );
-    }
-
-set_empty_line(lino);
-store_colors(lino);
-
-
-if( !spec_camera )
-    {
-    CSTR_PackLine(lin);
-    }
-
-reset_snap();
-return TRUE;
-}
 
 
 //********************************************
 //* part 3 of RSTRRecognize (after clusters) *
 //********************************************
 RSTR_FUNC(Bool32)  RSTRRecognizePostMain(
-      CSTR_line    lin,     // pointer to raw string
-      CSTR_line    lino  )
+        CSTR_line    lin,     // pointer to raw string
+        CSTR_line    lino  )
 {
-CSTR_attr       lattr={0};
+    CSTR_attr       lattr={0};
 
-CSTR_GetLineAttr (lin, &lattr);
+    CSTR_GetLineAttr (lin, &lattr);
 
-if( !p2_disable )
-{
+    if( !p2_disable )
+    {
 #ifdef _USE_FON_
-if( !p2_active )
-    {
-    CSTR_ligas(lino);
-    }
+        if( !p2_active )
+        {
+            CSTR_ligas(lino);
+        }
 #endif
-}
-
-if( !p2_active )
-    {
-    rstr_make_multylang_loops(lino);
-    CSTR_DeleteLine(CSTR_GetLineHandle(lattr.number, CSTR_LINVERS_ENGOUT));
-    rsrt_del_dupes(lino);
     }
 
-if( !spec_camera )
+    if( !p2_active )
     {
-    CSTR_PackLine(lino);
+        rstr_make_multylang_loops(lino);
+        CSTR_DeleteLine(CSTR_GetLineHandle(lattr.number, CSTR_LINVERS_ENGOUT));
+        rsrt_del_dupes(lino);
     }
-CSTR_GetLineAttr (lino, &lattr);
-lattr.pageSkew2048=page_nIncline;
-lattr.ResolutionY=(INT)nResolutionY;
-if( fax1x2 )
-	lattr.Flags |= CSTR_STR_Fax100x200;
-if( matrix )
-    lattr.Flags |= CSTR_STR_Matrix;
-CSTR_SetLineAttr (lino, &lattr);
-return TRUE;
+
+    if( !spec_camera )
+    {
+        CSTR_PackLine(lino);
+    }
+    CSTR_GetLineAttr (lino, &lattr);
+    lattr.pageSkew2048=page_nIncline;
+    lattr.ResolutionY=(INT)nResolutionY;
+    if( fax1x2 )
+        lattr.Flags |= CSTR_STR_Fax100x200;
+    if( matrix )
+        lattr.Flags |= CSTR_STR_Matrix;
+    CSTR_SetLineAttr (lino, &lattr);
+    return TRUE;
 }
 
 RSTR_FUNC(Bool32)  RSTRRecognizeBL(
-      CSTR_line    lin  )
+        CSTR_line    lin  )
 {
-int             rc;
-Word8           lang=language;
-CSTR_attr       lattr={0};
-Bool32          ret;
+    int             rc;
+    Word8           lang=language;
+    CSTR_attr       lattr={0};
+    Bool32          ret;
 
-local_ret_error_code=0;
-if( p2_active )
-    return FALSE;
-start:;
-if( multy_language && language==LANG_ENGLISH  )
-    language=LANG_RUSSIAN ;
-if( multy_language && language==LANG_RUSSIAN )
-    {
-    CSTR_GetLineAttr (lin, &lattr);
-    lang=LANG_RUSENG;
-    CSTR_SetLineAttr (lin, &lattr);
+    local_ret_error_code=0;
     if( p2_active )
-        correct_let_tables();
-    }
+        return FALSE;
+    start:;
+        if( multy_language && language==LANG_ENGLISH  )
+            language=LANG_RUSSIAN ;
+        if( multy_language && language==LANG_RUSSIAN )
+        {
+            CSTR_GetLineAttr (lin, &lattr);
+            lang=LANG_RUSENG;
+            CSTR_SetLineAttr (lin, &lattr);
+            if( p2_active )
+                correct_let_tables();
+        }
 
-if((rc=setjmp(jumper)) != 0 && rc != FIELD_RESTART)
-    {
-    reset_snap();
-    if( rc == RSTR_ERR_NOPLACE )
-        { // can be warning
-        if(0)
-        if( !kit_max_size )
-            {
-            rstr_kit_realloc();
-            line_number--;
-            goto start;
+        if((rc=setjmp(jumper)) != 0 && rc != FIELD_RESTART)
+        {
+            reset_snap();
+            if( rc == RSTR_ERR_NOPLACE )
+            { // can be warning
+                if(0)
+                    if( !kit_max_size )
+                    {
+                    rstr_kit_realloc();
+                    line_number--;
+                    goto start;
+                }
+                line_BL=FALSE;
+                line_handfragment=FALSE;
+                line_rerecog=FALSE;
+                return TRUE;
             }
+            stop_user =( rc==RSTR_ERR_USERBREAK );
+            wLowRC         = rc;
+            line_BL=FALSE;
+            line_handfragment=FALSE;
+            line_rerecog=FALSE;
+            return FALSE;
+        }
+        stop_user = FALSE;
+        kit_curr= kit_start;
+        kit_end = kit_curr + kit_size;
+        stopcell=NULL;
+
+        line_scale=0;
+        line_minus=0;
+        line_alphabet=0;
+        line_pointsusp=0;
+        line_handfragment=FALSE;
+        line_rerecog=FALSE;
+        line_readyBL=FALSE;
+        line_tabcell=0;
+        erection_inc=0;
+        valid_word_number=0;
+        nIncline = page_nIncline;
+
+        ret = pass3BL( lin);
+        reset_snap();
         line_BL=FALSE;
         line_handfragment=FALSE;
         line_rerecog=FALSE;
-        return TRUE;
-        }
-     stop_user =( rc==RSTR_ERR_USERBREAK );
-     wLowRC         = rc;
-     line_BL=FALSE;
-     line_handfragment=FALSE;
-     line_rerecog=FALSE;
-     return FALSE;
-     }
-stop_user = FALSE;
-kit_curr= kit_start;
-kit_end = kit_curr + kit_size;
-stopcell=NULL;
-
-line_scale=0;
-line_minus=0;
-line_alphabet=0;
-line_pointsusp=0;
-line_handfragment=FALSE;
-line_rerecog=FALSE;
-line_readyBL=FALSE;
-line_tabcell=0;
-erection_inc=0;
-valid_word_number=0;
-nIncline = page_nIncline;
-
-ret = pass3BL( lin);
-reset_snap();
-line_BL=FALSE;
-line_handfragment=FALSE;
-line_rerecog=FALSE;
-return ret;
-}
+        return ret;
+    }
 
 
 
 RSTR_FUNC(void)  RSTRDone(void)
 {
 #ifdef _USE_DFON_
-   DFON_Done();
-   FONEndSnap();
+    DFON_Done();
+    FONEndSnap();
 #endif
-   LDPUMA_Done();
-   my_free(CellsPage_rstr,0);
-   my_free(kit_start,0);
-   my_free(memory_pool,0);
-if( !p2_disable )
-{
+    LDPUMA_Done();
+    my_free(CellsPage_rstr,0);
+    my_free(kit_start,0);
+    my_free(memory_pool,0);
+    if( !p2_disable )
+    {
 #ifdef _USE_FON_
 #ifndef _FON_CLU_MEMORY_
-   rstr_close_cont();
+        rstr_close_cont();
 #endif
 #ifdef _STORE_LETTERS
-   rstr_close_cont1();
+        rstr_close_cont1();
 #endif
-   FONDone();
+        FONDone();
 #endif
-}
+    }
 #ifdef     _USE_SPELLING_
-   RLING_Done();
+    RLING_Done();
 #endif
 #ifdef _USE_LEO_
-   LEODone();
+    LEODone();
 #endif
-   p2_msk_done();
-return;
+    p2_msk_done();
+    return;
 }
 
 RSTR_FUNC(Err16) RSTRGetErr(void)
@@ -1883,358 +1883,358 @@ RSTR_FUNC(Err16) RSTRGetErr(void)
 
 void ErrorExit(int Code)
 {
-        longjmp(jumper,Code);
+    longjmp(jumper,Code);
 }
 
 void CErrorExit(int Code)
 {
-        longjmp(jumper,Code);
+    longjmp(jumper,Code);
 }
 
 
 ////// OLEG for PUMA
 RSTR_FUNC(Bool32)  RSTR_Init(Word16 wHightCode, Handle hStorage)
 {
-wHeightRC      = wHightCode;
-wLowRC         = RSTR_ERR_NO;
-return RSTRInit( NULL );
+    wHeightRC      = wHightCode;
+    wLowRC         = RSTR_ERR_NO;
+    return RSTRInit( NULL );
 }
 
 RSTR_FUNC(Bool32)  RSTR_Done(void)
 {
-RSTRDone();
-wLowRC = RSTR_ERR_NO;
-wHeightRC=0;
-return TRUE;
+    RSTRDone();
+    wLowRC = RSTR_ERR_NO;
+    wHeightRC=0;
+    return TRUE;
 }
 
 RSTR_FUNC(Word32) RSTR_GetReturnCode(void)
 {
-if( wLowRC == RSTR_ERR_NO )
-    return 0;
+    if( wLowRC == RSTR_ERR_NO )
+        return 0;
 
-return (wHeightRC<<16)|(wLowRC-RSTR_ERR_MIN);
+    return (wHeightRC<<16)|(wLowRC-RSTR_ERR_MIN);
 }
 
 RSTR_FUNC(Word8 *) RSTR_GetReturnString(Word32 dwError)
 {
-Word16 rc = (Word16)(dwError & 0xFFFF + RSTR_ERR_MIN);
-        static Word8 szBuffer[512];
+    Word16 rc = (Word16)(dwError & 0xFFFF + RSTR_ERR_MIN);
+    static Word8 szBuffer[512];
 
-if( /*wLowRC==RSTR_ERR_MIN && */local_ret_error_code )
-    return local_ret_error_str(local_ret_error_code);
+    if( /*wLowRC==RSTR_ERR_MIN && */local_ret_error_code )
+        return local_ret_error_str(local_ret_error_code);
 
-        if( dwError >> 16 != wHeightRC)
-    wLowRC = RSTR_ERR_NOTIMPLEMENT;
+    if( dwError >> 16 != wHeightRC)
+        wLowRC = RSTR_ERR_NOTIMPLEMENT;
 
-  if( rc > 0 && rc <= RSTR_ERR_MAX-RSTR_ERR_MIN  )
-    strcpy((char *)szBuffer,RSTR_error_name [rc]);
-        else
-                return NULL;
+    if( rc > 0 && rc <= RSTR_ERR_MAX-RSTR_ERR_MIN  )
+        strcpy((char *)szBuffer,RSTR_error_name [rc]);
+    else
+        return NULL;
 
-        return szBuffer;
+    return szBuffer;
 }
 
 
 RSTR_FUNC(Bool32)  RSTR_NewPage(Int32 resolutiony, Handle Page)
 {
-return RSTRNewPage( resolutiony, Page);
+    return RSTRNewPage( resolutiony, Page);
 }
 
 Bool32  Reload_lang_vocs(Word8  lang)
 {
 #ifdef     _USE_SPELLING_
-//if( lang==LANG_DIG )
-//    return TRUE;
-RLING_UnloadDictonary();
-if( lang == LANG_RUSENG )
-    lang = LANG_RUSSIAN ;
-if ( !RLING_LoadDictonary( lang , (PInt8)lnOcrLingPath) )
-        {
+    //if( lang==LANG_DIG )
+    //    return TRUE;
+    RLING_UnloadDictonary();
+    if( lang == LANG_RUSENG )
+        lang = LANG_RUSSIAN ;
+    if ( !RLING_LoadDictonary( lang , (PInt8)lnOcrLingPath) )
+    {
         wLowRC         = RSTR_ERR_NOINITRSTR;
         local_ret_error_code=RLING_GetReturnCode();
         local_ret_error_str =(fun_error)RLING_GetReturnString;
         return FALSE;
-        }
+    }
 #endif
-return TRUE;
+    return TRUE;
 }
 
 Bool32  Reload_lang_vocs_aux(Word8  language)
 {
 #ifdef     _USE_SPELLING_
-//if( language==LANG_DIG )
-//    return TRUE;
-RLING_UnloadSecDictonary();
-if( language == LANG_RUSSIAN || language == LANG_ENGLISH )
+    //if( language==LANG_DIG )
+    //    return TRUE;
+    RLING_UnloadSecDictonary();
+    if( language == LANG_RUSSIAN || language == LANG_ENGLISH )
     {
-    if ( !RLING_LoadSecDictonary( language , (PInt8)lnOcrLingPath) )
-            {
+        if ( !RLING_LoadSecDictonary( language , (PInt8)lnOcrLingPath) )
+        {
             wLowRC         = RSTR_ERR_NOINITRSTR;
             local_ret_error_code=RLING_GetReturnCode();
             local_ret_error_str =(fun_error)RLING_GetReturnString;
             return FALSE;
-            }
+        }
     }
 #endif
-return TRUE;
+    return TRUE;
 }
 
 RSTR_FUNC(Bool32)  RSTR_SetOptions (RSTR_Options *opt)
 {
-char *p;
-int i;
-Bool32  ret=TRUE;
-Word8   slanguage;
-static Word8    old_language=-1;
+    char *p;
+    int i;
+    Bool32  ret=TRUE;
+    Word8   slanguage;
+    static Word8    old_language=-1;
 
-if( opt->language )
+    if( opt->language )
     {
         p=opt->szAlphaString;
         for(i=0 ;i<256;i++)
-                if( alphabet[i] )
-        *p++ =(char)i;
+            if( alphabet[i] )
+                *p++ =(char)i;
         *p=0;
     }
-else if( opt->Alphabet )
+    else if( opt->Alphabet )
     {
-    p=opt->szAlphaString;
-    for(i=0 ;i<256;i++)
-        if( opt->Alphabet[i] )
-            *p++ =(char)i;
-    *p=0;
+        p=opt->szAlphaString;
+        for(i=0 ;i<256;i++)
+            if( opt->Alphabet[i] )
+                *p++ =(char)i;
+        *p=0;
     }
-language = opt->language;
-page_nIncline=(INT)opt->pageSkew2048;
-actual_resolution=300;
-nResolutionY=actual_resolution;
-current_fragment=0;
-fax1x2=0;
-double_fax=fax1x2;
-line_scale=0;
-line_minus=0;
-line_alphabet=0;
-line_pointsusp=0;
-line_handfragment=FALSE;
-line_rerecog=FALSE;
-line_readyBL=FALSE;
-line_tabcell=0;
-langSer=langUkr=langBul=0;	// langBul 01.09.2000 E.P.
+    language = opt->language;
+    page_nIncline=(INT)opt->pageSkew2048;
+    actual_resolution=300;
+    nResolutionY=actual_resolution;
+    current_fragment=0;
+    fax1x2=0;
+    double_fax=fax1x2;
+    line_scale=0;
+    line_minus=0;
+    line_alphabet=0;
+    line_pointsusp=0;
+    line_handfragment=FALSE;
+    line_rerecog=FALSE;
+    line_readyBL=FALSE;
+    line_tabcell=0;
+    langSer=langUkr=langBul=0;	// langBul 01.09.2000 E.P.
 
-if( mmx )
-    set_MMX_addr();
-else
-    set_all_addr();
-chdir(lnOcrPath);
-multy_language=FALSE;
-slanguage=language;
+    if( mmx )
+        set_MMX_addr();
+    else
+        set_all_addr();
+    chdir(lnOcrPath);
+    multy_language=FALSE;
+    slanguage=language;
 
-if( language==LANG_RUSENG )
+    if( language==LANG_RUSENG )
     {
-    language  = LANG_RUSSIAN;
-    multy_language=TRUE;
+        language  = LANG_RUSSIAN;
+        multy_language=TRUE;
     }
-if( language==LANG_UKRAINIAN )
+    if( language==LANG_UKRAINIAN )
     {
-    language = LANG_RUSSIAN;
-    langUkr  =TRUE;
+        language = LANG_RUSSIAN;
+        langUkr  =TRUE;
     }
-if( language==LANG_SERBIAN )
+    if( language==LANG_SERBIAN )
     {
-    language = LANG_RUSSIAN;
-    langSer  =TRUE;
+        language = LANG_RUSSIAN;
+        langSer  =TRUE;
     }
-if( language==LANG_BULGAR )	// 01.09.2000 E.P.
+    if( language==LANG_BULGAR )	// 01.09.2000 E.P.
     {
-    language = LANG_RUSSIAN;
-    langBul  =TRUE;
+        language = LANG_RUSSIAN;
+        langBul  =TRUE;
     }
 
-if( old_language!=opt->language  )
+    if( old_language!=opt->language  )
     {
-    if( !trees_load() )
+        if( !trees_load() )
         {
-        wLowRC         = RSTR_ERR_NOINITRSTR;
-        return FALSE;
-        }
-
-    if( !Reload_lang_vocs(slanguage) )
-        {
-        wLowRC         = RSTR_ERR_NOINITRSTR;
-        return FALSE;
-        }
-    if( language==LANG_RUSSIAN && multy_language )
-        {
-        if( !Reload_lang_vocs_aux(LANG_ENGLISH) )
-            {
             wLowRC         = RSTR_ERR_NOINITRSTR;
             return FALSE;
+        }
+
+        if( !Reload_lang_vocs(slanguage) )
+        {
+            wLowRC         = RSTR_ERR_NOINITRSTR;
+            return FALSE;
+        }
+        if( language==LANG_RUSSIAN && multy_language )
+        {
+            if( !Reload_lang_vocs_aux(LANG_ENGLISH) )
+            {
+                wLowRC         = RSTR_ERR_NOINITRSTR;
+                return FALSE;
             }
         }
     }
-if( language== LANG_RUSSIAN )
+    if( language== LANG_RUSSIAN )
     {
-    cuts_glues_methode = 1;
-    cuts_point_methode = 1;
+        cuts_glues_methode = 1;
+        cuts_point_methode = 1;
     }
-else
+    else
     {
-    cuts_glues_methode = 0;
-    cuts_point_methode = 0;
+        cuts_glues_methode = 0;
+        cuts_point_methode = 0;
     }
-old_language=slanguage;
-trees_load_fict();
-return ret;
+    old_language=slanguage;
+    trees_load_fict();
+    return ret;
 }
 
 RSTR_FUNC(Bool32)  RSTR_RecogBitmap (Rect16 *r, Handle bm,CSTR_line lino)
 {
-wLowRC = RSTR_ERR_NOTIMPLEMENT;
-return FALSE;
+    wLowRC = RSTR_ERR_NOTIMPLEMENT;
+    return FALSE;
 }
 
 
 RSTR_FUNC(Bool32)  RSTR_Recog (CSTR_line lini, CSTR_line lino)
 {
-return RSTRRecognize(   lini,  lino);
+    return RSTRRecognize(   lini,  lino);
 }
 
 RSTR_FUNC(Bool32)  RSTR_RecogBL (CSTR_line lini)
 {
-return RSTRRecognizeBL(   lini);
+    return RSTRRecognizeBL(   lini);
 }
 
 RSTR_FUNC(Bool32)  RSTR_RecogOneLetter (RecRaster *Rs,Word8 Language,RecVersions *Vs)
 {
-extern Bool32 RecogLEOcap(RecRaster *Rs,Word8 Language,RecVersions *Vs);
-return RecogLEOcap(Rs,Language,Vs);
+    extern Bool32 RecogLEOcap(RecRaster *Rs,Word8 Language,RecVersions *Vs);
+    return RecogLEOcap(Rs,Language,Vs);
 }
 
 RSTR_FUNC(Bool32)  RSTR_RecogOneLetter_all (RecRaster *Rs,char *letters,RecVersions *Vs,Int32 nType)
 {
-extern Bool32 RecogLEOall(RecRaster *Rs,RecVersions *Vs,Int32 nType);
-extern Bool32 RecogLEO_SetAlphabet(char *letters);
-RecogLEO_SetAlphabet(letters);
-return RecogLEOall(Rs,Vs,nType);
+    extern Bool32 RecogLEOall(RecRaster *Rs,RecVersions *Vs,Int32 nType);
+    extern Bool32 RecogLEO_SetAlphabet(char *letters);
+    RecogLEO_SetAlphabet(letters);
+    return RecogLEOall(Rs,Vs,nType);
 }
 
 RSTR_FUNC(Bool32) RSTR_TestAlphabet(RSTR_info *str,CSTR_line lin)
 {
-str_info    str0;
-int rc;
+    str_info    str0;
+    int rc;
 
-if((rc=setjmp(jumper)) != 0 && rc != FIELD_RESTART)
+    if((rc=setjmp(jumper)) != 0 && rc != FIELD_RESTART)
     {
-    stop_user =( rc==RSTR_ERR_USERBREAK );
-    wLowRC         = rc;
-    return FALSE;
+        stop_user =( rc==RSTR_ERR_USERBREAK );
+        wLowRC         = rc;
+        return FALSE;
     }
 
-stop_user = FALSE;
-kit_curr= kit_start;
-kit_end = kit_curr + kit_size;
-stopcell=NULL;
-line_scale=0;
-line_minus=0;
-line_alphabet=0;
-line_pointsusp=0;
-line_handfragment=FALSE;
-line_rerecog=FALSE;
-line_readyBL=FALSE;
-line_tabcell=0;
-str0.all        = (INT)str->nall     ;
-str0.dig        = (INT)str->ndig     ;
-str0.fuzzy_dig  = (INT)str->nfdig    ;
-str0.dollars    = (INT)str->ndollars ;
-str0.alphabet   = (INT)str->alphabet ;
-str0.pm         = (INT)str->nplus_minus;
-pass1_test_alphabet(&str0,lin);
-str->nall       = str0.all;
-str->ndig       = str0.dig;
-str->nfdig      = str0.fuzzy_dig   ;
-str->ndollars   = str0.dollars;
-str->alphabet   = str0.alphabet;
-str->nplus_minus= str0.pm;
-return TRUE;
+    stop_user = FALSE;
+    kit_curr= kit_start;
+    kit_end = kit_curr + kit_size;
+    stopcell=NULL;
+    line_scale=0;
+    line_minus=0;
+    line_alphabet=0;
+    line_pointsusp=0;
+    line_handfragment=FALSE;
+    line_rerecog=FALSE;
+    line_readyBL=FALSE;
+    line_tabcell=0;
+    str0.all        = (INT)str->nall     ;
+    str0.dig        = (INT)str->ndig     ;
+    str0.fuzzy_dig  = (INT)str->nfdig    ;
+    str0.dollars    = (INT)str->ndollars ;
+    str0.alphabet   = (INT)str->alphabet ;
+    str0.pm         = (INT)str->nplus_minus;
+    pass1_test_alphabet(&str0,lin);
+    str->nall       = str0.all;
+    str->ndig       = str0.dig;
+    str->nfdig      = str0.fuzzy_dig   ;
+    str->ndollars   = str0.dollars;
+    str->alphabet   = str0.alphabet;
+    str->nplus_minus= str0.pm;
+    return TRUE;
 }
 
 RSTR_FUNC(Bool32) RSTR_StudyAlphabet(RSTR_info *str)
 {
-str_info    str0;
-str0.all        = (INT)str->nall     ;
-str0.dig        = (INT)str->ndig     ;
-str0.fuzzy_dig  = (INT)str->nfdig    ;
-str0.dollars    = (INT)str->ndollars ;
-str0.alphabet   = (INT)str->alphabet ;
-str0.pm         = (INT)str->nplus_minus;
-set_column_alphabets(&str0,1); // 1 column
-str->nall       = str0.all;
-str->ndig       = str0.dig;
-str->nfdig      = str0.fuzzy_dig   ;
-str->ndollars   = str0.dollars;
-str->alphabet   = str0.alphabet;
-str->nplus_minus= str0.pm;
-return TRUE;
+    str_info    str0;
+    str0.all        = (INT)str->nall     ;
+    str0.dig        = (INT)str->ndig     ;
+    str0.fuzzy_dig  = (INT)str->nfdig    ;
+    str0.dollars    = (INT)str->ndollars ;
+    str0.alphabet   = (INT)str->alphabet ;
+    str0.pm         = (INT)str->nplus_minus;
+    set_column_alphabets(&str0,1); // 1 column
+    str->nall       = str0.all;
+    str->ndig       = str0.dig;
+    str->nfdig      = str0.fuzzy_dig   ;
+    str->ndollars   = str0.dollars;
+    str->alphabet   = str0.alphabet;
+    str->nplus_minus= str0.pm;
+    return TRUE;
 }
 
 ///////////////////////////////////////
 RSTR_FUNC(Bool32) RSTR_TestAlphabetPass2(RSTR_info *str,CSTR_line lin)
 {
-str_info    str0;
-int rc;
+    str_info    str0;
+    int rc;
 
-if((rc=setjmp(jumper)) != 0 && rc != FIELD_RESTART)
+    if((rc=setjmp(jumper)) != 0 && rc != FIELD_RESTART)
     {
-    stop_user =( rc==RSTR_ERR_USERBREAK );
-    wLowRC         = rc;
-    return FALSE;
+        stop_user =( rc==RSTR_ERR_USERBREAK );
+        wLowRC         = rc;
+        return FALSE;
     }
 
-stop_user = FALSE;
-kit_curr= kit_start;
-kit_end = kit_curr + kit_size;
-stopcell=NULL;
-line_scale=0;
-line_minus=0;
-line_alphabet=0;
-line_pointsusp=0;
-line_handfragment=FALSE;
-line_rerecog=FALSE;
-line_readyBL=FALSE;
-line_tabcell=0;
-str0.all        = (INT)str->nall     ;
-str0.dig        = (INT)str->ndig     ;
-str0.fuzzy_dig  = (INT)str->nfdig    ;
-str0.dollars    = (INT)str->ndollars ;
-str0.alphabet   = (INT)str->alphabet ;
-str0.pm         = (INT)str->nplus_minus;
-pass2_test_alphabet(&str0,lin);
-str->nall       = str0.all;
-str->ndig       = str0.dig;
-str->nfdig      = str0.fuzzy_dig   ;
-str->ndollars   = str0.dollars;
-str->alphabet   = str0.alphabet;
-str->nplus_minus= str0.pm;
-return TRUE;
+    stop_user = FALSE;
+    kit_curr= kit_start;
+    kit_end = kit_curr + kit_size;
+    stopcell=NULL;
+    line_scale=0;
+    line_minus=0;
+    line_alphabet=0;
+    line_pointsusp=0;
+    line_handfragment=FALSE;
+    line_rerecog=FALSE;
+    line_readyBL=FALSE;
+    line_tabcell=0;
+    str0.all        = (INT)str->nall     ;
+    str0.dig        = (INT)str->ndig     ;
+    str0.fuzzy_dig  = (INT)str->nfdig    ;
+    str0.dollars    = (INT)str->ndollars ;
+    str0.alphabet   = (INT)str->alphabet ;
+    str0.pm         = (INT)str->nplus_minus;
+    pass2_test_alphabet(&str0,lin);
+    str->nall       = str0.all;
+    str->ndig       = str0.dig;
+    str->nfdig      = str0.fuzzy_dig   ;
+    str->ndollars   = str0.dollars;
+    str->alphabet   = str0.alphabet;
+    str->nplus_minus= str0.pm;
+    return TRUE;
 }
 
 RSTR_FUNC(Bool32) RSTR_StudyAlphabetPass2(RSTR_info *str)
 {
-str_info    str0;
-str0.all        = (INT)str->nall     ;
-str0.dig        = (INT)str->ndig     ;
-str0.fuzzy_dig  = (INT)str->nfdig    ;
-str0.dollars    = (INT)str->ndollars ;
-str0.alphabet   = (INT)str->alphabet ;
-str0.pm         = (INT)str->nplus_minus;
-set_column_alphabets_pass2(&str0,1); // 1 column
-str->nall       = str0.all;
-str->ndig       = str0.dig;
-str->nfdig      = str0.fuzzy_dig   ;
-str->ndollars   = str0.dollars;
-str->alphabet   = str0.alphabet;
-str->nplus_minus= str0.pm;
-return TRUE;
+    str_info    str0;
+    str0.all        = (INT)str->nall     ;
+    str0.dig        = (INT)str->ndig     ;
+    str0.fuzzy_dig  = (INT)str->nfdig    ;
+    str0.dollars    = (INT)str->ndollars ;
+    str0.alphabet   = (INT)str->alphabet ;
+    str0.pm         = (INT)str->nplus_minus;
+    set_column_alphabets_pass2(&str0,1); // 1 column
+    str->nall       = str0.all;
+    str->ndig       = str0.dig;
+    str->nfdig      = str0.fuzzy_dig   ;
+    str->ndollars   = str0.dollars;
+    str->alphabet   = str0.alphabet;
+    str->nplus_minus= str0.pm;
+    return TRUE;
 }
 
 ///////////////////////////////////////
@@ -2242,159 +2242,159 @@ return TRUE;
 Handle hSnapMain;
 static Bool32 RecognizeStringsPass1(void)
 {
-	Bool32 rc = TRUE;
-	// ‡ÒÔÓÁÌ‡‚‡ÌËÂ ÒÚÓÍ
-	if(rc)
-	{
-		int count = CSTR_GetMaxNumber();
-		int i;
+    Bool32 rc = TRUE;
+    // —Ä–∞—Å–ø–æ–∑–Ω–∞–≤–∞–Ω–∏–µ —Å—Ç—Ä–æ–∫
+    if(rc)
+    {
+        int count = CSTR_GetMaxNumber();
+        int i;
 
-		LDPUMA_StartLoop( hSnapMain, count );
-		//if(!ProgressStep(2,GetResourceString(IDS_PRG_RECOG),0))
-		//	rc = FALSE;
+        LDPUMA_StartLoop( hSnapMain, count );
+        //if(!ProgressStep(2,GetResourceString(IDS_PRG_RECOG),0))
+        //	rc = FALSE;
 
-		for(i=1;rc && i<=count;i++)
-		{
-			CSTR_line lin_out,lin_in;
-		//	if(!ProgressStep(2,NULL,i*100/count))
-		//		rc = FALSE;
+        for(i=1;rc && i<=count;i++)
+        {
+            CSTR_line lin_out,lin_in;
+            //	if(!ProgressStep(2,NULL,i*100/count))
+            //		rc = FALSE;
 
-			LDPUMA_LoopNext( hSnapMain );
-			if(!LDPUMA_Skip(hSnapMain))
-			{
-				LDPUMA_Console("ŒÒÚ‡ÌÓ‚ËÎËÒ¸ ÔÂÂ‰ %i ÒÚÓÍÓÈ.\n",i);
-				LDPUMA_Console("Õ‡ÊÏËÚÂ Î˛·Û˛ ÍÎ‡‚Ë¯Û...\n");
-				LDPUMA_WaitUserInput(hSnapMain,NULL);
-			}
+            LDPUMA_LoopNext( hSnapMain );
+            if(!LDPUMA_Skip(hSnapMain))
+            {
+                LDPUMA_Console("–û—Å—Ç–∞–Ω–æ–≤–∏–ª–∏—Å—å –ø–µ—Ä–µ–¥ %i —Å—Ç—Ä–æ–∫–æ–π.\n",i);
+                LDPUMA_Console("–ù–∞–∂–º–∏—Ç–µ –ª—é–±—É—é –∫–ª–∞–≤–∏—à—É...\n");
+                LDPUMA_WaitUserInput(hSnapMain,NULL);
+            }
 
-			lin_out = CSTR_NewLine(i, CSTR_LINVERS_MAINOUT, -1); // OLEG
-			if(lin_out == (CSTR_line)NULL)
-			{
-				wLowRC         = RSTR_ERR_NOINITRSTR;
-				rc = FALSE;
-				break;
-			}
+            lin_out = CSTR_NewLine(i, CSTR_LINVERS_MAINOUT, -1); // OLEG
+            if(lin_out == (CSTR_line)NULL)
+            {
+                wLowRC         = RSTR_ERR_NOINITRSTR;
+                rc = FALSE;
+                break;
+            }
 
             lin_in  = CSTR_GetLineHandle (i,CSTR_LINVERS_MAIN);
             if(lin_in == (CSTR_line)NULL)
-			{
-				wLowRC         = RSTR_ERR_NOINITRSTR;
-				rc = FALSE;
-				break;
-			}
-
-			if (!RSTR_Recog(lin_in, lin_out) ) // Recognition
-			{
-				wLowRC         = RSTR_ERR_NOINITRSTR;
+            {
+                wLowRC         = RSTR_ERR_NOINITRSTR;
                 rc = FALSE;
-				break;
-			}
+                break;
+            }
 
-		}
-		LDPUMA_DestroyRasterWnd();
-	}
-	if(rc)
-	{
-		//if(!ProgressStep(2,GetResourceString(IDS_PRG_RECOG2),100))
-		//	rc = FALSE;
-		rc = RSTR_EndPage(NULL);
-		if(!rc)
-			wLowRC         = RSTR_ERR_NOINITRSTR;
-	}
+            if (!RSTR_Recog(lin_in, lin_out) ) // Recognition
+            {
+                wLowRC         = RSTR_ERR_NOINITRSTR;
+                rc = FALSE;
+                break;
+            }
 
-	return rc;
+        }
+        LDPUMA_DestroyRasterWnd();
+    }
+    if(rc)
+    {
+        //if(!ProgressStep(2,GetResourceString(IDS_PRG_RECOG2),100))
+        //	rc = FALSE;
+        rc = RSTR_EndPage(NULL);
+        if(!rc)
+            wLowRC         = RSTR_ERR_NOINITRSTR;
+    }
+
+    return rc;
 }
 //////////////////////////////////////////
 
 static Bool32 RecognizeStringsPass2()
 {
-	Bool32 rc = TRUE;
-	// ‡ÔÓÁÌ‡‚‡ÌËÂ ÒÚÓÍ
+    Bool32 rc = TRUE;
+    // —Ä–∞–ø–æ–∑–Ω–∞–≤–∞–Ω–∏–µ —Å—Ç—Ä–æ–∫
 
-//	Word8 w8 = 1;
-	int count = CSTR_GetMaxNumber();
-	int i;
+    //	Word8 w8 = 1;
+    int count = CSTR_GetMaxNumber();
+    int i;
 
     if( !p2_active )
         return TRUE;
 
 
 
-//    RSTR_SetImportData(RSTR_Word8_P2_active,&w8);
-	LDPUMA_StartLoop( hSnapMain, count );
-	//if(!ProgressStep(2,GetResourceString(IDS_PRG_RECOG2),0))
-	//	rc = FALSE;
+    //    RSTR_SetImportData(RSTR_Word8_P2_active,&w8);
+    LDPUMA_StartLoop( hSnapMain, count );
+    //if(!ProgressStep(2,GetResourceString(IDS_PRG_RECOG2),0))
+    //	rc = FALSE;
 
-	for(i=1;rc && i<=count;i++)
-	{
-		CSTR_line lin_out,lin_in;
-	//	if(!ProgressStep(2,NULL,i*100/count))
-	//		rc = FALSE;
+    for(i=1;rc && i<=count;i++)
+    {
+        CSTR_line lin_out,lin_in;
+        //	if(!ProgressStep(2,NULL,i*100/count))
+        //		rc = FALSE;
 
-		LDPUMA_LoopNext( hSnapMain );
-		if(!LDPUMA_Skip(hSnapMain))
-		{
-			LDPUMA_Console("ŒÒÚ‡ÌÓ‚ËÎËÒ¸ ÔÂÂ‰ %i ÒÚÓÍÓÈ.\n",i);
-			LDPUMA_Console("Õ‡ÊÏËÚÂ Î˛·Û˛ ÍÎ‡‚Ë¯Û...\n");
-			LDPUMA_WaitUserInput(hSnapMain,NULL);
-		}
+        LDPUMA_LoopNext( hSnapMain );
+        if(!LDPUMA_Skip(hSnapMain))
+        {
+            LDPUMA_Console("–û—Å—Ç–∞–Ω–æ–≤–∏–ª–∏—Å—å –ø–µ—Ä–µ–¥ %i —Å—Ç—Ä–æ–∫–æ–π.\n",i);
+            LDPUMA_Console("–ù–∞–∂–º–∏—Ç–µ –ª—é–±—É—é –∫–ª–∞–≤–∏—à—É...\n");
+            LDPUMA_WaitUserInput(hSnapMain,NULL);
+        }
 
         lin_out = CSTR_GetLineHandle(i, CSTR_LINVERS_MAINOUT);
         if(lin_out == (CSTR_line)NULL)
-		{
-			wLowRC         = RSTR_ERR_NOINITRSTR;
-			rc = FALSE;
-			break;
-		}
+        {
+            wLowRC         = RSTR_ERR_NOINITRSTR;
+            rc = FALSE;
+            break;
+        }
 
         lin_in  = CSTR_GetLineHandle (i,CSTR_LINVERS_MAIN);
-       if(lin_in == (CSTR_line)NULL)
-		{
-			wLowRC         = RSTR_ERR_NOINITRSTR;
-			rc = FALSE;
-			break;
-		}
+        if(lin_in == (CSTR_line)NULL)
+        {
+            wLowRC         = RSTR_ERR_NOINITRSTR;
+            rc = FALSE;
+            break;
+        }
 
-		if (!RSTR_Recog(lin_in, lin_out) ) // Recognition
-		{
-			wLowRC         = RSTR_ERR_NOINITRSTR;
-			break;
-		}
+        if (!RSTR_Recog(lin_in, lin_out) ) // Recognition
+        {
+            wLowRC         = RSTR_ERR_NOINITRSTR;
+            break;
+        }
 
-	}
-	LDPUMA_DestroyRasterWnd();
-	if(rc)
-	{
-		rc = RSTR_EndPage(NULL);
-		if(!rc)
-			wLowRC         = RSTR_ERR_NOINITRSTR;
-	}
+    }
+    LDPUMA_DestroyRasterWnd();
+    if(rc)
+    {
+        rc = RSTR_EndPage(NULL);
+        if(!rc)
+            wLowRC         = RSTR_ERR_NOINITRSTR;
+    }
 
-	return rc;
+    return rc;
 }
 //////////////////////////////////////
 RSTR_FUNC(Bool32)  RSTR_RecogContainer (void)
 {
-return RecognizeStringsPass1() && RecognizeStringsPass2();
+    return RecognizeStringsPass1() && RecognizeStringsPass2();
 }
 
 RSTR_FUNC(Bool32)  RSTR_SetSpecPrj(Word8 nSpecPrj)
 {
-	db_special_project = nSpecPrj;
-	return TRUE;
+    db_special_project = nSpecPrj;
+    return TRUE;
 }
 
 RSTR_FUNC(Bool32)  RSTR_GetExportData (Word32 dwType, void * pData)
 {
-        Bool32 rc = TRUE;
+    Bool32 rc = TRUE;
     Int32  vers = RSTR_VERSION_CODE;
 #define EXPORT(name) *(Word32*)(pData)=(Word32)name;
 
 #define CASE_DATA(a,b,c)        case a: *(b *)pData = c; break
 
-        wLowRC = RSTR_ERR_NO;
-        switch(dwType)
-        {
+    wLowRC = RSTR_ERR_NO;
+    switch(dwType)
+    {
         CASE_DATA(RSTR_Word8_Language           ,Word8,language);
         CASE_DATA(RSTR_Word16_Resolution        ,Word16,actual_resolution);
         CASE_DATA(RSTR_Word8_Fax1x2                     ,Word8,fax1x2);
@@ -2402,117 +2402,117 @@ RSTR_FUNC(Bool32)  RSTR_GetExportData (Word32 dwType, void * pData)
         CASE_DATA(RSTR_Word8_P2_active          ,Word8,p2_active);
         CASE_DATA(RSTR_Word8_Spell_check        ,Word8,spell_check);
         CASE_DATA(RSTR_pchar_user_dict_name     ,char*,user_dict_name);
-    case    RSTR_FNNEWPAGE:     //      ÌÓ‚‡ˇ ÒÚ‡ÌËˆ‡
+    case    RSTR_FNNEWPAGE:     //      –Ω–æ–≤–∞—è —Å—Ç—Ä–∞–Ω–∏—Ü–∞
         EXPORT(RSTR_NewPage );
         break;
-    case    RSTR_FNSETOPTIONS:  //      ÛÒÚ‡ÌÓ‚Í‡ ÓÔˆËÈ
+    case    RSTR_FNSETOPTIONS:  //      —É—Å—Ç–∞–Ω–æ–≤–∫–∞ –æ–ø—Ü–∏–π
         EXPORT(RSTR_SetOptions );
         break;
-    case    RSTR_FNBITMAP:      //       ‡ÒÔÓÁÌ‡Ú¸ ÔÓ ÁÓÌÂ
+    case    RSTR_FNBITMAP:      //       —Ä–∞—Å–ø–æ–∑–Ω–∞—Ç—å –ø–æ –∑–æ–Ω–µ
         EXPORT(RSTR_RecogBitmap);
         break;
-    case    RSTR_FNLINE:        //       ‡ÒÔÓÁÌ‡Ú¸
+    case    RSTR_FNLINE:        //       —Ä–∞—Å–ø–æ–∑–Ω–∞—Ç—å
         EXPORT(RSTR_Recog);
         break;
-    case    RSTR_FNVERSION:     //      ÍÓ‰ ‚ÂÒËË
+    case    RSTR_FNVERSION:     //      –∫–æ–¥ –≤–µ—Ä—Å–∏–∏
         EXPORT(vers);
         break;
-    case    REXC_FNRSTR_ISLANGUAGE: // ‚ÓÁÏÓÊÂÌ ÎË ˇÁ˚Í
+    case    REXC_FNRSTR_ISLANGUAGE: // –≤–æ–∑–º–æ–∂–µ–Ω –ª–∏ —è–∑—ã–∫
         EXPORT(RSTR_IsLanguage);
         break;
-    case    RSTR_FNSTRENDPAGE:  //  ÍÓÌÂˆ ‡ÒÔÓÁÌ‡‚‡ÌËˇ ÒÔËÒÍ‡ ÒÚÓÍ
+    case    RSTR_FNSTRENDPAGE:  //  –∫–æ–Ω–µ—Ü —Ä–∞—Å–ø–æ–∑–Ω–∞–≤–∞–Ω–∏—è —Å–ø–∏—Å–∫–∞ —Å—Ç—Ä–æ–∫
         EXPORT(RSTR_EndPage);
         break;
     case    RSTR_FNNEEDPASS2:
         EXPORT(RSTR_NeedPass2);
         break;
-    case    RSTR_FNLINEBL:      //       ‡ÒÔÓÁÌ‡Ú¸ BL
+    case    RSTR_FNLINEBL:      //       —Ä–∞—Å–ø–æ–∑–Ω–∞—Ç—å BL
         EXPORT(RSTR_RecogBL);
         break;
-    case    RSTR_FNTESTALPHABET:// Ò·Ó ‡ÎÙ‡‚ËÚÌÓÈ ÒÚ‡ÚËÒÚËÍË ‚ ÒÚÓÎ·ˆÂ
+    case    RSTR_FNTESTALPHABET:// —Å–±–æ—Ä –∞–ª—Ñ–∞–≤–∏—Ç–Ω–æ–π —Å—Ç–∞—Ç–∏—Å—Ç–∏–∫–∏ –≤ —Å—Ç–æ–ª–±—Ü–µ
         EXPORT(RSTR_TestAlphabet);
         break;
-    case    RSTR_FNSTUDYALPHABET://‚˚·Ó ‡ÎÙ‡‚ËÚ‡ ÒÚÓÎ·ˆ‡ ÔÓ ÒÚ‡ÚËÒÚËÍÂ
+    case    RSTR_FNSTUDYALPHABET://–≤—ã–±–æ—Ä –∞–ª—Ñ–∞–≤–∏—Ç–∞ —Å—Ç–æ–ª–±—Ü–∞ –ø–æ —Å—Ç–∞—Ç–∏—Å—Ç–∏–∫–µ
         EXPORT(RSTR_StudyAlphabet);
         break;
-    case    RSTR_RECONEWORD:    // ‡ÒÔÓÁÌ‡Ú¸ ÙËÍÒËÓ‚‡ÌÌÓÂ ÒÎÓ‚Ó
+    case    RSTR_RECONEWORD:    // —Ä–∞—Å–ø–æ–∑–Ω–∞—Ç—å —Ñ–∏–∫—Å–∏—Ä–æ–≤–∞–Ω–Ω–æ–µ —Å–ª–æ–≤–æ
         EXPORT(RSTR_recog_one_word);
         break;
-    case    RSTR_FNRECOGONELETTER: // ‡ÒÔÓÁÌ‡Ú¸ Í‡Í ·ÛÍ‚Û
+    case    RSTR_FNRECOGONELETTER: // —Ä–∞—Å–ø–æ–∑–Ω–∞—Ç—å –∫–∞–∫ –±—É–∫–≤—É
         EXPORT( RSTR_RecogOneLetter );
         break;
-	  case	RSTR_FNRECOGCONTAINER:	// ‡ÒÔÓÁÌ‡Ú¸ ÍÓÌÚÂÈÌÂ ÒÚÓÍ
-		      EXPORT(RSTR_RecogContainer);
-		      break;
-   case    RSTR_FNRECOGONELETTERALL: // ‡ÒÔÓÁÌ‡Ú¸ Í‡Í ·ÛÍ‚Û ËÁ ‡ÎÙ‡‚ËÚ‡
-        EXPORT( RSTR_RecogOneLetter_all );
-        break;
-   case    RSTR_FNTESTALPHABETPASS2:// Ò·Ó ‡ÎÙ‡‚ËÚÌÓÈ ÒÚ‡ÚËÒÚËÍË ‚ ÒÚÓÎ·ˆÂ ÔÂÂ‰ ‚ÚÓ˚Ï ÔÓıÓ‰ÓÏ
-        EXPORT(RSTR_TestAlphabet);
-        break;
-    case    RSTR_FNSTUDYALPHABETPASS2://‚˚·Ó ‡ÎÙ‡‚ËÚ‡ ÒÚÓÎ·ˆ‡ ÔÓ ÒÚ‡ÚËÒÚËÍÂ ÔÂÂ‰ ‚ÚÓ˚Ï ÔÓıÓ‰ÓÏ
-        EXPORT(RSTR_StudyAlphabetPass2);
-        break;
-   case    RSTR_FNCHANGELINENUMBER://ËÁÏÂÌËÚ¸ ÌÓÏÂ ÒÚÓÍË
-        EXPORT(RSTR_ChangeLineNumber);
-        break;
-   case    RSTR_SETSPECPRJ:	// ÛÒÚ‡ÌÓ‚ËÚ¸ ÔËÁÌ‡Í ÒÔÂˆ-ÔÓÂÍÚ‡
-        EXPORT(RSTR_SetSpecPrj);
-        break;
-   default:
-        wLowRC = RSTR_ERR_NOTIMPLEMENT;
+          case	RSTR_FNRECOGCONTAINER:	// —Ä–∞—Å–ø–æ–∑–Ω–∞—Ç—å –∫–æ–Ω—Ç–µ–π–Ω–µ—Ä —Å—Ç—Ä–æ–∫
+                EXPORT(RSTR_RecogContainer);
+                break;
+            case    RSTR_FNRECOGONELETTERALL: // —Ä–∞—Å–ø–æ–∑–Ω–∞—Ç—å –∫–∞–∫ –±—É–∫–≤—É –∏–∑ –∞–ª—Ñ–∞–≤–∏—Ç–∞
+                EXPORT( RSTR_RecogOneLetter_all );
+                break;
+            case    RSTR_FNTESTALPHABETPASS2:// —Å–±–æ—Ä –∞–ª—Ñ–∞–≤–∏—Ç–Ω–æ–π —Å—Ç–∞—Ç–∏—Å—Ç–∏–∫–∏ –≤ —Å—Ç–æ–ª–±—Ü–µ –ø–µ—Ä–µ–¥ –≤—Ç–æ—Ä—ã–º –ø—Ä–æ—Ö–æ–¥–æ–º
+                EXPORT(RSTR_TestAlphabet);
+                break;
+            case    RSTR_FNSTUDYALPHABETPASS2://–≤—ã–±–æ—Ä –∞–ª—Ñ–∞–≤–∏—Ç–∞ —Å—Ç–æ–ª–±—Ü–∞ –ø–æ —Å—Ç–∞—Ç–∏—Å—Ç–∏–∫–µ –ø–µ—Ä–µ–¥ –≤—Ç–æ—Ä—ã–º –ø—Ä–æ—Ö–æ–¥–æ–º
+                EXPORT(RSTR_StudyAlphabetPass2);
+                break;
+            case    RSTR_FNCHANGELINENUMBER://–∏–∑–º–µ–Ω–∏—Ç—å –Ω–æ–º–µ—Ä —Å—Ç—Ä–æ–∫–∏
+                EXPORT(RSTR_ChangeLineNumber);
+                break;
+            case    RSTR_SETSPECPRJ:	// —É—Å—Ç–∞–Ω–æ–≤–∏—Ç—å –ø—Ä–∏–∑–Ω–∞–∫ —Å–ø–µ—Ü-–ø—Ä–æ–µ–∫—Ç–∞
+                EXPORT(RSTR_SetSpecPrj);
+                break;
+            default:
+                wLowRC = RSTR_ERR_NOTIMPLEMENT;
                 rc = FALSE;
-        break;
-        }
+                break;
+            }
 #undef EXPORT
 #undef CASE_DATA
 
-return rc;
+    return rc;
 }
 
 RSTR_FUNC(Bool32)  RSTR_SetImportData (Word32 dwType, const void * pData)
 {
-        wLowRC = RSTR_ERR_NO;
+    wLowRC = RSTR_ERR_NO;
 #define CASE_DATA(a,b,c)        case a: c = *(b *)pData; break
 #define CASE_PDATA(a,b,c)       case a: c = (b)pData; break
 #define CASE_ADATA(a,c) case a: strcpy(c,(char *)pData); break
 
-switch(dwType)
+    switch(dwType)
     {
     case    RSTR_Word8_Language:
         language=*(Word8*)pData;
         multy_language=FALSE;
         if( language==LANG_RUSENG )
-            {
+        {
             language= LANG_RUSSIAN;
             multy_language=TRUE;
-            }
+        }
         if( language==LANG_SERBIAN )
-            {
+        {
             language= LANG_RUSSIAN;
             langSer=TRUE;
-            }
+        }
         if( language==LANG_UKRAINIAN )
-            {
+        {
             language= LANG_RUSSIAN;
             langUkr=TRUE;
-            }
+        }
         if( language==LANG_BULGAR ) // 01.09.2000 E.P.
-            {
+        {
             language= LANG_RUSSIAN;
             langBul=TRUE;
-            }
+        }
 
         break;
-    CASE_DATA( RSTR_Word16_Resolution               ,Word16,actual_resolution);
-    CASE_DATA( RSTR_Word8_Fax1x2,Word8              ,fax1x2);
-    CASE_DATA( RSTR_Word8_P2_disable,Word8          ,p2_disable);
-    CASE_DATA( RSTR_Word8_Matrix,Word8              ,matrix);
-    CASE_DATA( RSTR_Word8_P2_active,Word8   ,p2_active);
-    CASE_DATA( RSTR_Word8_Spell_check,Word8 ,spell_check);
-    CASE_DATA( RSTR_Word8_spec_camera,Word8 ,spec_camera);
-    CASE_DATA( RSTR_Word8_spec_nolinpen,Word8 ,no_linpen);
-    CASE_ADATA(RSTR_pchar_user_dict_name    ,user_dict_name);
+        CASE_DATA( RSTR_Word16_Resolution               ,Word16,actual_resolution);
+        CASE_DATA( RSTR_Word8_Fax1x2,Word8              ,fax1x2);
+        CASE_DATA( RSTR_Word8_P2_disable,Word8          ,p2_disable);
+        CASE_DATA( RSTR_Word8_Matrix,Word8              ,matrix);
+        CASE_DATA( RSTR_Word8_P2_active,Word8   ,p2_active);
+        CASE_DATA( RSTR_Word8_Spell_check,Word8 ,spell_check);
+        CASE_DATA( RSTR_Word8_spec_camera,Word8 ,spec_camera);
+        CASE_DATA( RSTR_Word8_spec_nolinpen,Word8 ,no_linpen);
+        CASE_ADATA(RSTR_pchar_user_dict_name    ,user_dict_name);
     case    RSTR_OcrPath:
         strcpy(lnOcrPath,(char *)pData);
         strcpy(lnOcrLingPath,(char *)pData);
@@ -2527,58 +2527,58 @@ switch(dwType)
             set_all_addr();
         break;
     case RSTR_pchar_temp_dir:
-		{
-			char tmp_dir[256] = "";
-			char* tmp_ctb_name = strrchr(local_ctb_name, '/');
-			char* tmp_gray_name = strrchr(local_grey_ctb, '/');
-			char tmp_ctb[256] = "";
-			char tmp_gray[256] = "";
-			if (strlen((char*)pData) > 256)
-			{
-				wLowRC = RSTR_ERR_VALUE;
+        {
+            char tmp_dir[256] = "";
+            char* tmp_ctb_name = strrchr(local_ctb_name, '/');
+            char* tmp_gray_name = strrchr(local_grey_ctb, '/');
+            char tmp_ctb[256] = "";
+            char tmp_gray[256] = "";
+            if (strlen((char*)pData) > 256)
+            {
+                wLowRC = RSTR_ERR_VALUE;
 
-				return FALSE;
-			}
+                return FALSE;
+            }
 
-			strcpy(tmp_dir, (char *)pData);
+            strcpy(tmp_dir, (char *)pData);
 
-	        if( tmp_dir[strlen(tmp_dir)-1]!='/' )
-			{
-				if (strlen(tmp_dir) < 255)
-					strcat(tmp_dir,"/");
-				else
-				{
-					wLowRC = RSTR_ERR_VALUE;
+            if( tmp_dir[strlen(tmp_dir)-1]!='/' )
+            {
+                if (strlen(tmp_dir) < 255)
+                    strcat(tmp_dir,"/");
+                else
+                {
+                    wLowRC = RSTR_ERR_VALUE;
 
-					return FALSE;
-				}
-			}
+                    return FALSE;
+                }
+            }
 
-			if (!tmp_ctb_name)
-				tmp_ctb_name = local_ctb_name;
-			else
-				tmp_ctb_name++;
+            if (!tmp_ctb_name)
+                tmp_ctb_name = local_ctb_name;
+            else
+                tmp_ctb_name++;
 
-			if (!tmp_gray_name)
-				tmp_gray_name = local_grey_ctb;
-			else
-				tmp_gray_name++;
+            if (!tmp_gray_name)
+                tmp_gray_name = local_grey_ctb;
+            else
+                tmp_gray_name++;
 
-			if (MAX(strlen(tmp_ctb_name), strlen(tmp_gray_name)) + strlen(tmp_dir) > 256)
-			{
-				wLowRC = RSTR_ERR_VALUE;
+            if (MAX(strlen(tmp_ctb_name), strlen(tmp_gray_name)) + strlen(tmp_dir) > 256)
+            {
+                wLowRC = RSTR_ERR_VALUE;
 
-				return FALSE;
-			}
+                return FALSE;
+            }
 
-			strcpy(tmp_ctb, tmp_ctb_name);
-			// strcpy(local_ctb_name, tmp_dir);
-			// strcat(local_ctb_name, tmp_ctb);
+            strcpy(tmp_ctb, tmp_ctb_name);
+            // strcpy(local_ctb_name, tmp_dir);
+            // strcat(local_ctb_name, tmp_ctb);
 
-			strcpy(tmp_gray, tmp_gray_name);
-			// strcpy(local_grey_ctb, tmp_dir);
-			// strcat(local_grey_ctb, tmp_gray);
-/*
+            strcpy(tmp_gray, tmp_gray_name);
+            // strcpy(local_grey_ctb, tmp_dir);
+            // strcat(local_grey_ctb, tmp_gray);
+            /*
         strcpy(local_ctb_name,(char *)pData);
         if( local_ctb_name[strlen(local_ctb_name)-1]!='\\' )
             strcat(local_ctb_name,"\\");
@@ -2589,9 +2589,9 @@ switch(dwType)
         strcat(local_grey_ctb,LOCAL_GREY_CTB);
         strcpy(windows_tmp_dir,(char *)pData);
 */
-        break;
+            break;
 
-		}
+        }
     case    RSTR_FNIMP_FREE:
         my_free=(void*)pData;
         break;
@@ -2601,80 +2601,80 @@ switch(dwType)
     case    RSTR_FNIMP_GETCOLORS:
         my_get_colors=(void*)pData;
         break;
-	case	RSTR_CTB_BASE_NAME:
-		if (strlen((char*)pData) > 256)
-		{
-			wLowRC = RSTR_ERR_VALUE;
+    case	RSTR_CTB_BASE_NAME:
+        if (strlen((char*)pData) > 256)
+        {
+            wLowRC = RSTR_ERR_VALUE;
 
-			return FALSE;
-		}
+            return FALSE;
+        }
 
         strcpy(local_ctb_name,(char *)pData);
-		break;
-	case	RSTR_CTB_GRAY_NAME:
-		if (strlen((char*)pData) > 256)
-		{
-			wLowRC = RSTR_ERR_VALUE;
+        break;
+    case	RSTR_CTB_GRAY_NAME:
+        if (strlen((char*)pData) > 256)
+        {
+            wLowRC = RSTR_ERR_VALUE;
 
-			return FALSE;
-		}
+            return FALSE;
+        }
 
         strcpy(local_grey_ctb,(char *)pData);
-		break;
+        break;
 
 
-        default:
-    wLowRC = RSTR_ERR_NOTIMPLEMENT;
-                return FALSE;
-        }
+    default:
+        wLowRC = RSTR_ERR_NOTIMPLEMENT;
+        return FALSE;
+    }
 #undef CASE_DATA
 #undef CASE_PDATA
 
-return TRUE;
+    return TRUE;
 }
 
 void store_colors(CSTR_line lino)
 {
-CSTR_rast       rst=CSTR_GetFirstRaster(lino);
-CSTR_rast_attr  attr;
+    CSTR_rast       rst=CSTR_GetFirstRaster(lino);
+    CSTR_rast_attr  attr;
 
-for(rst = CSTR_GetNext(rst);rst;rst=CSTR_GetNext(rst))
+    for(rst = CSTR_GetNext(rst);rst;rst=CSTR_GetNext(rst))
     {
-    CSTR_GetAttr(rst,&attr);
-    my_get_colors(attr.row,attr.col,attr.w,attr.h,
-        &attr.ColorLtr, &attr.ColorBack);
-    CSTR_GetAttr(rst,&attr);
+        CSTR_GetAttr(rst,&attr);
+        my_get_colors(attr.row,attr.col,attr.w,attr.h,
+                      &attr.ColorLtr, &attr.ColorBack);
+        CSTR_GetAttr(rst,&attr);
     }
 
-return;
+    return;
 }
 
 
 INT  text_findstat(CHAR * w)
 {
 #ifdef     _USE_SPELLING_
-Int32                      Check = 0;
-if( strlen(w)>32 )
-    return 0;
-if( !RLING_CheckWord((PInt8)w, &Check) )
-    return 0;
-return (INT)Check;
+    Int32                      Check = 0;
+    if( strlen(w)>32 )
+        return 0;
+    if( !RLING_CheckWord((PInt8)w, &Check) )
+        return 0;
+    return (INT)Check;
 #else
-return 0;
+    return 0;
 #endif
 }
 
 INT  text_findstat_aux(CHAR * w)
 {
 #ifdef     _USE_SPELLING_
-Int32                      Check = 0;
-if( strlen(w)>32 )
-    return 0;
-if( !RLING_CheckSecWord((PInt8)w, &Check) )
-    return 0;
-return (INT)Check;
+    Int32                      Check = 0;
+    if( strlen(w)>32 )
+        return 0;
+    if( !RLING_CheckSecWord((PInt8)w, &Check) )
+        return 0;
+    return (INT)Check;
 #else
-return 0;
+    return 0;
 #endif
 }
 
@@ -2688,51 +2688,51 @@ _JBTYPE *Control_Point()  { return  jumper; }
 /////////////
 static Int32 RemoveDustIfPointLine(CSTR_line lin)
 {
-	CSTR_attr lattr;
-	CSTR_rast rast,end;
-	CSTR_rast_attr attr;
-	Int32 ret = 0;
+    CSTR_attr lattr;
+    CSTR_rast rast,end;
+    CSTR_rast_attr attr;
+    Int32 ret = 0;
 
-	CSTR_GetLineAttr (lin, &lattr);
+    CSTR_GetLineAttr (lin, &lattr);
 
-	// Û‰‡ÎËÚ¸ ÏÂÎÓ˜¸ ÓÚ Ì‡˜‡Î‡ ‰Ó ÔÂ‚Ó„Ó ·ÓÎ¸¯Ó„Ó
-	if( lattr.Flags & CSTR_STR_BEGIN_POINTED)
-	{
-		rast = CSTR_GetNext(CSTR_GetFirstRaster(lin));
-		end = CSTR_GetLastRaster(lin);
-		for(;rast && rast!=end; )
-		{
-			CSTR_GetAttr(rast,&attr);
-			if( attr.flg & (CSTR_f_let | CSTR_f_bad) )
-				break;
-			rast = CSTR_DelRaster(rast);
-		}
+    // —É–¥–∞–ª–∏—Ç—å –º–µ–ª–æ—á—å –æ—Ç –Ω–∞—á–∞–ª–∞ –¥–æ –ø–µ—Ä–≤–æ–≥–æ –±–æ–ª—å—à–æ–≥–æ
+    if( lattr.Flags & CSTR_STR_BEGIN_POINTED)
+    {
+        rast = CSTR_GetNext(CSTR_GetFirstRaster(lin));
+        end = CSTR_GetLastRaster(lin);
+        for(;rast && rast!=end; )
+        {
+            CSTR_GetAttr(rast,&attr);
+            if( attr.flg & (CSTR_f_let | CSTR_f_bad) )
+                break;
+            rast = CSTR_DelRaster(rast);
+        }
 
-		ret++;
-	}
+        ret++;
+    }
 
-	// Û‰‡ÎËÚ¸ ÏÂÎÓ˜¸ ÓÚ ÍÓÌˆ‡ ‰Ó ÔÂ‚Ó„Ó ·ÓÎ¸¯Ó„Ó
-	if( lattr.Flags & CSTR_STR_END_POINTED)
-	{
-		rast = CSTR_GetPrev(CSTR_GetLastRaster(lin));
-		end = CSTR_GetFirstRaster(lin);
-		for(;rast && rast!=end; )
-		{
-			CSTR_GetAttr(rast,&attr);
-			if( attr.flg & (CSTR_f_let | CSTR_f_bad) )
-				break;
-			rast = CSTR_DelRaster(rast);
-			rast = CSTR_GetPrev(rast);
-		}
+    // —É–¥–∞–ª–∏—Ç—å –º–µ–ª–æ—á—å –æ—Ç –∫–æ–Ω—Ü–∞ –¥–æ –ø–µ—Ä–≤–æ–≥–æ –±–æ–ª—å—à–æ–≥–æ
+    if( lattr.Flags & CSTR_STR_END_POINTED)
+    {
+        rast = CSTR_GetPrev(CSTR_GetLastRaster(lin));
+        end = CSTR_GetFirstRaster(lin);
+        for(;rast && rast!=end; )
+        {
+            CSTR_GetAttr(rast,&attr);
+            if( attr.flg & (CSTR_f_let | CSTR_f_bad) )
+                break;
+            rast = CSTR_DelRaster(rast);
+            rast = CSTR_GetPrev(rast);
+        }
 
-		ret++;
-	}
+        ret++;
+    }
 
-	return ret;
+    return ret;
 }
 /////////////////
 RSTR_FUNC(Bool32) RSTR_ChangeLineNumber(Int32 add)
 {
-	line_number += (Int16)add;
-	return TRUE;
+    line_number += (Int16)add;
+    return TRUE;
 }

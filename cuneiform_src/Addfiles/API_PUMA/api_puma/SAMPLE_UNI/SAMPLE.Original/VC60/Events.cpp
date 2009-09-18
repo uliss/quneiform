@@ -1,6 +1,6 @@
 // Events.cpp : implementation file
 //
-// CT: ÊËÀÑÑ ÄËß ÎÐÃÀÍÈÇÀÖÈÈ ÏÐÎÃÐÅÑÑ-ÌÎÍÈÒÎÐÀ
+// CT: ÐšÐ›ÐÐ¡Ð¡ Ð”Ð›Ð¯ ÐžÐ Ð“ÐÐÐ˜Ð—ÐÐ¦Ð˜Ð˜ ÐŸÐ ÐžÐ“Ð Ð•Ð¡Ð¡-ÐœÐžÐÐ˜Ð¢ÐžÐ Ð
 #include "stdafx.h"
 #include "sample.h"
 #include "Events.h"
@@ -83,7 +83,7 @@ BOOL Events::Start()
 
 BOOL Events::Stop()
 {
-	m_dlg->m_progress="Ðàñïîçíàâàíèå çàêîí÷åíî. Ðåçóëüòàò â Clipboard";
+	m_dlg->m_progress="Ð Ð°ÑÐ¿Ð¾Ð·Ð½Ð°Ð²Ð°Ð½Ð¸Ðµ Ð·Ð°ÐºÐ¾Ð½Ñ‡ÐµÐ½Ð¾. Ð ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚ Ð² Clipboard";
     m_dlg->UpdateData(false);
     m_dlg->UpdateWindow();
 

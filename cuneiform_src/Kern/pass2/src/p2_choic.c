@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -54,15 +54,15 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// добавлять всегда версии ФОНа
+// РґРѕР±Р°РІР»СЏС‚СЊ РІСЃРµРіРґР° РІРµСЂСЃРёРё Р¤РћРќР°
 #define _ADD_FON_
 
 #define _SPECTEST_
 
-// учитывать язык предыдущего слова
+// СѓС‡РёС‚С‹РІР°С‚СЊ СЏР·С‹Рє РїСЂРµРґС‹РґСѓС‰РµРіРѕ СЃР»РѕРІР°
 #define _USE_PREV_LANG_
 
-// проверять целиком куски (пример М - iii) а не три раза М-i
+// РїСЂРѕРІРµСЂСЏС‚СЊ С†РµР»РёРєРѕРј РєСѓСЃРєРё (РїСЂРёРјРµСЂ Рњ - iii) Р° РЅРµ С‚СЂРё СЂР°Р·Р° Рњ-i
 #define _TEST_FEW_MULTI_          // 29.01.2001
 
 #include <stdlib.h>
@@ -89,8 +89,8 @@ static int StayOldPalki(RecVersions *oldVer,RecVersions *newVer,CSTR_rast_attr *
 static Bool32 TestDobavki(Word8 oldName, Word8 newName);
 /////////////////
 // from erect2.c
-static char const iInN[]="\xa8\x88\xad\x8d"; // иИнН
-static char const lLpP[]="\xab\x8b\xaf\x8f"; // лЛпП
+static char const iInN[]="\xa8\x88\xad\x8d"; // РёРРЅРќ
+static char const lLpP[]="\xab\x8b\xaf\x8f"; // Р»Р›РїРџ
 static Bool32 non_near_letters(RecVersions *v)
 {
  Word8   v0, v1, p0, p1;
@@ -201,21 +201,21 @@ if( p2globals.language != LANG_RUSSIAN &&
 
 if( fon->lnAltCnt<2 )
     return FALSE;
-if( !(leo_strchr_codes_ansi("0оО",  fon->Alt[0].Code) &&
-      leo_strchr_codes_ansi("0оО",  leo_code) &&
-      leo_strchr_codes_ansi("0оО",  fon->Alt[1].Code)) &&
-    !(leo_strchr_codes_ansi("3зЗ",  fon->Alt[0].Code) &&
-      leo_strchr_codes_ansi("3зЗ",  leo_code) &&
-      leo_strchr_codes_ansi("3зЗ",  fon->Alt[1].Code)) &&
-    !(leo_strchr_codes_ansi("пПлЛ", fon->Alt[0].Code) &&
-      leo_strchr_codes_ansi("пПлЛ", leo_code) &&
-      leo_strchr_codes_ansi("пПлЛ", fon->Alt[1].Code)) &&
-    !(leo_strchr_codes_ansi("иИнН", fon->Alt[0].Code) &&
-      leo_strchr_codes_ansi("иИнН", leo_code) &&
-      leo_strchr_codes_ansi("иИнН", fon->Alt[1].Code)) &&
-    !(leo_strchr_codes_ansi("б6", fon->Alt[0].Code) &&
-      leo_strchr_codes_ansi("б6", leo_code) &&
-      leo_strchr_codes_ansi("б6", fon->Alt[1].Code)))
+if( !(leo_strchr_codes_ansi("0РѕРћ",  fon->Alt[0].Code) &&
+      leo_strchr_codes_ansi("0РѕРћ",  leo_code) &&
+      leo_strchr_codes_ansi("0РѕРћ",  fon->Alt[1].Code)) &&
+    !(leo_strchr_codes_ansi("3Р·Р—",  fon->Alt[0].Code) &&
+      leo_strchr_codes_ansi("3Р·Р—",  leo_code) &&
+      leo_strchr_codes_ansi("3Р·Р—",  fon->Alt[1].Code)) &&
+    !(leo_strchr_codes_ansi("РїРџР»Р›", fon->Alt[0].Code) &&
+      leo_strchr_codes_ansi("РїРџР»Р›", leo_code) &&
+      leo_strchr_codes_ansi("РїРџР»Р›", fon->Alt[1].Code)) &&
+    !(leo_strchr_codes_ansi("РёРРЅРќ", fon->Alt[0].Code) &&
+      leo_strchr_codes_ansi("РёРРЅРќ", leo_code) &&
+      leo_strchr_codes_ansi("РёРРЅРќ", fon->Alt[1].Code)) &&
+    !(leo_strchr_codes_ansi("Р±6", fon->Alt[0].Code) &&
+      leo_strchr_codes_ansi("Р±6", leo_code) &&
+      leo_strchr_codes_ansi("Р±6", fon->Alt[1].Code)))
     return FALSE;
 return (fon->Alt[0].Prob-fon->Alt[1].Prob<5);
 }
@@ -266,7 +266,7 @@ if( v->lnAltCnt>1 && v->Alt[0].Prob==v->Alt[1].Prob )
 return v->lnAltCnt;
 }
 ////////////////////////
-// убрать повторы из альтернатив
+// СѓР±СЂР°С‚СЊ РїРѕРІС‚РѕСЂС‹ РёР· Р°Р»СЊС‚РµСЂРЅР°С‚РёРІ
 static void leo_compress( RecVersions *v)
 {
 Word8 alph[256];
@@ -303,7 +303,7 @@ static Bool32 IsSpecialTwins(Word8 name1,Word8 name2)
         return FALSE;
 }
 /////////////
-//        ASCII НПнп
+//        ASCII РќРџРЅРї
 static char mixedLetters[]="\x8d\x8f\xad\xaf";
 static int MixedProbs(RecVersions *old,RecVersions *ver)
 {
@@ -362,13 +362,13 @@ static int AddFonVersions(RecVersions *old,RecVersions *ver)
 
   if( old->lnAltCnt && strchr("lI",old->Alt[0].Code) )
     bI=TRUE;
-      // добавим варианты от кластерного распознавания
+      // РґРѕР±Р°РІРёРј РІР°СЂРёР°РЅС‚С‹ РѕС‚ РєР»Р°СЃС‚РµСЂРЅРѕРіРѕ СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ
   for(j=0;j<ver->lnAltCnt;j++)
   {
       if( j > 0 &&  ver->Alt[j].Prob < ver->Alt[0].Prob - 10 )
                   break;
 
-          // не добавляем от ЛЕО !
+          // РЅРµ РґРѕР±Р°РІР»СЏРµРј РѕС‚ Р›Р•Рћ !
       if( ver->Alt[j].Method != REC_METHOD_FON)
                   continue;
 
@@ -397,8 +397,8 @@ static int AddFonVersions(RecVersions *old,RecVersions *ver)
   return old->lnAltCnt;
 }
 ////////////////
-// смешать два набора альтернатив и поместить в rast
-// return 1 - за основу взят новый, 0 - старый
+// СЃРјРµС€Р°С‚СЊ РґРІР° РЅР°Р±РѕСЂР° Р°Р»СЊС‚РµСЂРЅР°С‚РёРІ Рё РїРѕРјРµСЃС‚РёС‚СЊ РІ rast
+// return 1 - Р·Р° РѕСЃРЅРѕРІСѓ РІР·СЏС‚ РЅРѕРІС‹Р№, 0 - СЃС‚Р°СЂС‹Р№
 Int32 p2_leoMixture(CSTR_rast rast,RecVersions *old,RecVersions *ver,
                                                 FontInfo *fontinfo )
 {
@@ -412,7 +412,7 @@ CSTR_rast_attr attr;
   if( ver->lnAltCnt <= 0 )
           return 0;
 
-  // проверить одинаковые оценки - 5.02.2001
+  // РїСЂРѕРІРµСЂРёС‚СЊ РѕРґРёРЅР°РєРѕРІС‹Рµ РѕС†РµРЅРєРё - 5.02.2001
   //
   if( old->lnAltCnt > 0 && ver->lnAltCnt > 0 &&
       old->Alt[0].Code != ver->Alt[0].Code
@@ -434,7 +434,7 @@ CSTR_rast_attr attr;
 
   CSTR_GetAttr(rast,&attr);
 
-  // надо изменить атрибут символа?
+  // РЅР°РґРѕ РёР·РјРµРЅРёС‚СЊ Р°С‚СЂРёР±СѓС‚ СЃРёРјРІРѕР»Р°?
   if( attr.flg & CSTR_f_bad )
   {
 		attr.flg &= ~CSTR_f_bad;
@@ -442,7 +442,7 @@ CSTR_rast_attr attr;
 		CSTR_SetAttr(rast,&attr);
   }
 
-  // оставить первопроходные палки
+  // РѕСЃС‚Р°РІРёС‚СЊ РїРµСЂРІРѕРїСЂРѕС…РѕРґРЅС‹Рµ РїР°Р»РєРё
   if( StayOldPalki(old,ver,&attr) )
   {
        if( old->Alt[0].Code == ver->Alt[0].Code )
@@ -470,7 +470,7 @@ CSTR_rast_attr attr;
 #endif
        }
 
-       return 0;  // за основу - старое
+       return 0;  // Р·Р° РѕСЃРЅРѕРІСѓ - СЃС‚Р°СЂРѕРµ
   }
 
   if( old->lnAltCnt <= 0 )
@@ -486,10 +486,10 @@ CSTR_rast_attr attr;
   if( TestDobavki( oldName, ver->Alt[0].Code ) )
   {
      p2_StoreVersions(rast,old);
-         return 0;   // только старое
+         return 0;   // С‚РѕР»СЊРєРѕ СЃС‚Р°СЂРѕРµ
   }
 
-  // смесь н - п
+  // СЃРјРµСЃСЊ РЅ - Рї
   if( MixedProbs(old,ver) )
   {
      p2_StoreVersions(rast,ver);
@@ -530,7 +530,7 @@ CSTR_rast_attr attr;
                  break;
    }
 
-   if( i >= ver->lnAltCnt)  // берем только fon
+   if( i >= ver->lnAltCnt)  // Р±РµСЂРµРј С‚РѕР»СЊРєРѕ fon
    {
            p2_StoreVersions(rast,ver);
 
@@ -608,7 +608,7 @@ CSTR_rast_attr attr;
          return 1;
   }
 
-  // старая коллекция
+  // СЃС‚Р°СЂР°СЏ РєРѕР»Р»РµРєС†РёСЏ
 
   if( old->lnAltCnt > 1 && old->Alt[0].Prob==old->Alt[1].Prob &&
           old->Alt[1].Code == ver->Alt[0].Code
@@ -658,7 +658,7 @@ CSTR_rast_attr attr;
   }
   oldProb=old->Alt[0].Prob;
 
-      // добавим варианты от кластерного распознавания
+      // РґРѕР±Р°РІРёРј РІР°СЂРёР°РЅС‚С‹ РѕС‚ РєР»Р°СЃС‚РµСЂРЅРѕРіРѕ СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ
   AddFonVersions(old,ver);
 
   if( oldProb < 254 )
@@ -674,7 +674,7 @@ CSTR_rast_attr attr;
         )
   {
 
-          // добавим вариант от кластерного распознавания
+          // РґРѕР±Р°РІРёРј РІР°СЂРёР°РЅС‚ РѕС‚ РєР»Р°СЃС‚РµСЂРЅРѕРіРѕ СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ
       for(i=1;i<old->lnAltCnt;i++)
                 if( old->Alt[i].Code == ver->Alt[0].Code) break;
       if( i< old->lnAltCnt )
@@ -743,7 +743,7 @@ static int StayOldPalki(RecVersions *oldVer,RecVersions *newVer,CSTR_rast_attr *
                 newVer->lnAltCnt <= 0 )
                 return 0;
 
-        // обе - палки?
+        // РѕР±Рµ - РїР°Р»РєРё?
     if( !IsInPalki(oldVer->Alt[0].Code) ||
                 !IsInPalki(newVer->Alt[0].Code)      )
                 return 0;
@@ -751,7 +751,7 @@ static int StayOldPalki(RecVersions *oldVer,RecVersions *newVer,CSTR_rast_attr *
         if( oldVer->Alt[0].Code == newVer->Alt[0].Code  )
                 return 1;
 
-                // сомнения на первом проходе ?
+                // СЃРѕРјРЅРµРЅРёСЏ РЅР° РїРµСЂРІРѕРј РїСЂРѕС…РѕРґРµ ?
         if( oldVer->Alt[0].Prob < POROG_1_PALKA )
                 return 0;
 
@@ -760,7 +760,7 @@ static int StayOldPalki(RecVersions *oldVer,RecVersions *newVer,CSTR_rast_attr *
          clustinfo.let = oldVer->Alt[0].Code;
      i=FONGetClustInfo( &clustinfo, i);
          if( i <= 0 )
-                 return 1;  // нет в кластерах
+                 return 1;  // РЅРµС‚ РІ РєР»Р°СЃС‚РµСЂР°С…
 
          if( abs(attr->w-clustinfo.mw) <= 4 &&
                  abs(attr->h-clustinfo.mh) <= 4
@@ -829,7 +829,7 @@ static Bool32 SpecificPalka(Word8 Code)
   case LANG_SWEDISH:
 	  return FALSE;
 
-  // Балтийские палки. 10.07.2001 E.P.
+  // Р‘Р°Р»С‚РёР№СЃРєРёРµ РїР°Р»РєРё. 10.07.2001 E.P.
   case LANG_LATVIAN:
 	  if(Code == II_macron		  || Code == i_macron ||
 		 Code == LL_bottom_accent || Code == l_bottom_accent
@@ -842,7 +842,7 @@ static Bool32 SpecificPalka(Word8 Code)
 		 return TRUE;
 	  return FALSE;
 
-  case LANG_TURKISH: // Турецкие палки 31.05.2002 E.P.
+  case LANG_TURKISH: // РўСѓСЂРµС†РєРёРµ РїР°Р»РєРё 31.05.2002 E.P.
 	  if(Code == II_roof_accent	|| Code == i_roof_accent ||
 		 Code == II_dot_accent	|| Code == i_sans_accent
 		 )
@@ -941,7 +941,7 @@ Bool32 TestNewDust(CSTR_rast fonStart,CSTR_rast fonEnd,
                 return 0;
            if( attr.flg & CSTR_f_dust )
            {
-                   if (!(attr.flg_new & CSTR_fn_bl_cut))   //отрезанные по базам dust'ы не считаем - Paul 17-11-99
+                   if (!(attr.flg_new & CSTR_fn_bl_cut))   //РѕС‚СЂРµР·Р°РЅРЅС‹Рµ РїРѕ Р±Р°Р·Р°Рј dust'С‹ РЅРµ СЃС‡РёС‚Р°РµРј - Paul 17-11-99
                      nDust++;
                    continue;
            }
@@ -962,9 +962,9 @@ Bool32 TestNewDust(CSTR_rast fonStart,CSTR_rast fonEnd,
    if( vrLeo.lnAltCnt <= 0 )
                    return 0;
 
-   // есть мусор и буквы - близнецы
-   // или не слишком большая разница оценок -
-   // берем старый вариант
+   // РµСЃС‚СЊ РјСѓСЃРѕСЂ Рё Р±СѓРєРІС‹ - Р±Р»РёР·РЅРµС†С‹
+   // РёР»Рё РЅРµ СЃР»РёС€РєРѕРј Р±РѕР»СЊС€Р°СЏ СЂР°Р·РЅРёС†Р° РѕС†РµРЅРѕРє -
+   // Р±РµСЂРµРј СЃС‚Р°СЂС‹Р№ РІР°СЂРёР°РЅС‚
 
    if(stdLeoCompareChar(vrFon.Alt[0].Code,vrLeo.Alt[0].Code) ||
           IsSpecialTwins(vrFon.Alt[0].Code,vrLeo.Alt[0].Code) ||
@@ -974,10 +974,10 @@ Bool32 TestNewDust(CSTR_rast fonStart,CSTR_rast fonEnd,
    return 0;
 }
 //////////////////
-// проверка - не склеена ли старая буква с
-// прекрасной оценкой (254)
-// Если все новые - 255 и они не палки и их несколько -
-// берем их.
+// РїСЂРѕРІРµСЂРєР° - РЅРµ СЃРєР»РµРµРЅР° Р»Рё СЃС‚Р°СЂР°СЏ Р±СѓРєРІР° СЃ
+// РїСЂРµРєСЂР°СЃРЅРѕР№ РѕС†РµРЅРєРѕР№ (254)
+// Р•СЃР»Рё РІСЃРµ РЅРѕРІС‹Рµ - 255 Рё РѕРЅРё РЅРµ РїР°Р»РєРё Рё РёС… РЅРµСЃРєРѕР»СЊРєРѕ -
+// Р±РµСЂРµРј РёС….
 // add 8.12.99 - or if old(254) but onle EVN and new >= 248
 //
 Bool32 TestWideLetter(CSTR_rast fonStart,CSTR_rast fonEnd,
@@ -1015,10 +1015,10 @@ Bool32 TestWideLetter(CSTR_rast fonStart,CSTR_rast fonEnd,
                         return 0;
            if( vrLeo.lnAltCnt <= 0 )
                    return 0;
-           // простая буква ?
+           // РїСЂРѕСЃС‚Р°СЏ Р±СѓРєРІР° ?
            if( IsInPalki(vrLeo.Alt[0].Code) )
                return 0;
-           // старый вариант лучше ?
+           // СЃС‚Р°СЂС‹Р№ РІР°СЂРёР°РЅС‚ Р»СѓС‡С€Рµ ?
        if( Prob > vrLeo.Alt[0].Prob &&
 	       (!onlyEvn ||	vrLeo.Alt[0].Prob < 248 )
 		  )
@@ -1031,9 +1031,9 @@ Bool32 TestWideLetter(CSTR_rast fonStart,CSTR_rast fonEnd,
 }
 //////////////////
 // TOPKXCBMETYOPAHKXCBMeyuoparxcnyopxca
-// ТОРКХСВМЕТУорАНкхсвмеуиорагхспуОРХСА
+// РўРћР РљРҐРЎР’РњР•РўРЈРѕСЂРђРќРєС…СЃРІРјРµСѓРёРѕСЂР°РіС…СЃРїСѓРћР РҐРЎРђ
 static const char sameEngRus[]="1234567890ABCEHKMOPTXaceopxym";
-//                                        АВСЕНКМОРТХасеорхут (т-курсив!)
+//                                        РђР’РЎР•РќРљРњРћР РўРҐР°СЃРµРѕСЂС…СѓС‚ (С‚-РєСѓСЂСЃРёРІ!)
 static const char sameRusEng[]="1234567890\x80\x82\x91\x85\x8d\x8a\x8C\x8E\x90\x92\x95\xa0\xe1\xa5\xae\xe0\xe5\xe3\xf5";
 
 // return 1 - better first word  (russian usally)
@@ -1065,7 +1065,7 @@ int     engLang = -1;
     if( !engStart )
                 return 1; // better russian
 
-        // были ли возможности у второго прохода что-то изменить
+        // Р±С‹Р»Рё Р»Рё РІРѕР·РјРѕР¶РЅРѕСЃС‚Рё Сѓ РІС‚РѕСЂРѕРіРѕ РїСЂРѕС…РѕРґР° С‡С‚Рѕ-С‚Рѕ РёР·РјРµРЅРёС‚СЊ
         for( tStart=engStart; tStart && tStart != engEnd; tStart=CSTR_GetNext (tStart) )
                 {
          if( !CSTR_GetAttr (tStart, &attrEng) )
@@ -1083,12 +1083,12 @@ int     engLang = -1;
                 }
         if( !tStart || tStart == engEnd )
 		{
-// учитывать язык предыдущего слова
+// СѓС‡РёС‚С‹РІР°С‚СЊ СЏР·С‹Рє РїСЂРµРґС‹РґСѓС‰РµРіРѕ СЃР»РѕРІР°
 #ifdef _USE_PREV_LANG_
 			if( engLang >= 0 && engLang == prevLang )
 				return 3;
 #endif
-         return 1;  // оставить как было
+         return 1;  // РѕСЃС‚Р°РІРёС‚СЊ РєР°Рє Р±С‹Р»Рѕ
 		}
 
     for( ; rusStart && rusStart!=rusEnd; )
@@ -1350,7 +1350,7 @@ int     engLang = -1;
                                 break;
                         if( !CSTR_GetAttr (rusStart, &attrRus) )
                           return -3;
-                        // надо сместить english ?
+                        // РЅР°РґРѕ СЃРјРµСЃС‚РёС‚СЊ english ?
                         if( attrRus.col + attrRus.w > attrEng.col + attrEng.w )
                                 engStart=CSTR_GetNext(engStart);
                 }
@@ -1362,7 +1362,7 @@ int     engLang = -1;
                                 break;
                         if( !CSTR_GetAttr (engStart, &attrEng) )
                           return -3;
-                        // надо сместить russian ?
+                        // РЅР°РґРѕ СЃРјРµСЃС‚РёС‚СЊ russian ?
                         if( attrRus.col + attrRus.w < attrEng.col + attrEng.w )
                                 rusStart=CSTR_GetNext(rusStart);
                 }
@@ -1387,7 +1387,7 @@ int     engLang = -1;
         else if( minrus +10 < mineng  )
 			return 2;
 
-// учитывать язык предыдущего слова
+// СѓС‡РёС‚С‹РІР°С‚СЊ СЏР·С‹Рє РїСЂРµРґС‹РґСѓС‰РµРіРѕ СЃР»РѕРІР°
 #ifdef _USE_PREV_LANG_
 			if( engLang >= 0 && engLang == prevLang )
 				return 3;

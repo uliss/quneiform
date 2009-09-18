@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -133,21 +133,21 @@ static  BYTE *snap_fict[]={
 // a    b       c       d       e       f       g       h       i       j       k        l        m         n        o
 };
 static char *snap_pass_help[]={
-/* a */"разрезание (и склеивание для русского)",
-/* b */"склеивание ( для нерусского)",
-/* c */"контекст (+выпрямление)",
-/* d */"определение базовых линий и диффы",
-/* e */"пунктуация",
-/* f */"пробелы",
-/* g */"показ финальной строки",
-/* h */"распознавание ®©",
-/* i */"распознавание курсивности",
-/* j */"распознавание жирности",
-/* k */"распознавание серифности",
-/* l */"словарная валидация",
-/* m */"второй проход",
-/* n */"цифровые строки",
-/* o */"запретить обрезание грязи по БЛ",
+/* a */"СЂР°Р·СЂРµР·Р°РЅРёРµ (Рё СЃРєР»РµРёРІР°РЅРёРµ РґР»СЏ СЂСѓСЃСЃРєРѕРіРѕ)",
+/* b */"СЃРєР»РµРёРІР°РЅРёРµ ( РґР»СЏ РЅРµСЂСѓСЃСЃРєРѕРіРѕ)",
+/* c */"РєРѕРЅС‚РµРєСЃС‚ (+РІС‹РїСЂСЏРјР»РµРЅРёРµ)",
+/* d */"РѕРїСЂРµРґРµР»РµРЅРёРµ Р±Р°Р·РѕРІС‹С… Р»РёРЅРёР№ Рё РґРёС„С„С‹",
+/* e */"РїСѓРЅРєС‚СѓР°С†РёСЏ",
+/* f */"РїСЂРѕР±РµР»С‹",
+/* g */"РїРѕРєР°Р· С„РёРЅР°Р»СЊРЅРѕР№ СЃС‚СЂРѕРєРё",
+/* h */"СЂР°СЃРїРѕР·РЅР°РІР°РЅРёРµ В®В©",
+/* i */"СЂР°СЃРїРѕР·РЅР°РІР°РЅРёРµ РєСѓСЂСЃРёРІРЅРѕСЃС‚Рё",
+/* j */"СЂР°СЃРїРѕР·РЅР°РІР°РЅРёРµ Р¶РёСЂРЅРѕСЃС‚Рё",
+/* k */"СЂР°СЃРїРѕР·РЅР°РІР°РЅРёРµ СЃРµСЂРёС„РЅРѕСЃС‚Рё",
+/* l */"СЃР»РѕРІР°СЂРЅР°СЏ РІР°Р»РёРґР°С†РёСЏ",
+/* m */"РІС‚РѕСЂРѕР№ РїСЂРѕС…РѕРґ",
+/* n */"С†РёС„СЂРѕРІС‹Рµ СЃС‚СЂРѕРєРё",
+/* o */"Р·Р°РїСЂРµС‚РёС‚СЊ РѕР±СЂРµР·Р°РЅРёРµ РіСЂСЏР·Рё РїРѕ Р‘Р›",
 ""
 };
 static char *snap_fict_help[100]={0};
@@ -164,9 +164,9 @@ static  BYTE *snap_bl[]={
 // a   b
 };
 static char *snap_bl_help[]={
-/* a */"Статистический метод определения базовых линий\x0D\x0AОстанов и прорисовка базовых линий осуществляется в режиме установки точки",
-/* b */"PUMA + cтатистический метод.\x0D\x0AСтатистический метод работает фиктивно.\x0D\x0AОстанов и прорисовка базовых линий осуществляется в режиме установки точки",
-/* c */"PUMA + cтатистический метод.\x0D\x0AСтатистический метод работает фиктивно.\x0D\x0AПоказать различия на всей странице.",
+/* a */"РЎС‚Р°С‚РёСЃС‚РёС‡РµСЃРєРёР№ РјРµС‚РѕРґ РѕРїСЂРµРґРµР»РµРЅРёСЏ Р±Р°Р·РѕРІС‹С… Р»РёРЅРёР№\x0D\x0AРћСЃС‚Р°РЅРѕРІ Рё РїСЂРѕСЂРёСЃРѕРІРєР° Р±Р°Р·РѕРІС‹С… Р»РёРЅРёР№ РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚СЃСЏ РІ СЂРµР¶РёРјРµ СѓСЃС‚Р°РЅРѕРІРєРё С‚РѕС‡РєРё",
+/* b */"PUMA + cС‚Р°С‚РёСЃС‚РёС‡РµСЃРєРёР№ РјРµС‚РѕРґ.\x0D\x0AРЎС‚Р°С‚РёСЃС‚РёС‡РµСЃРєРёР№ РјРµС‚РѕРґ СЂР°Р±РѕС‚Р°РµС‚ С„РёРєС‚РёРІРЅРѕ.\x0D\x0AРћСЃС‚Р°РЅРѕРІ Рё РїСЂРѕСЂРёСЃРѕРІРєР° Р±Р°Р·РѕРІС‹С… Р»РёРЅРёР№ РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚СЃСЏ РІ СЂРµР¶РёРјРµ СѓСЃС‚Р°РЅРѕРІРєРё С‚РѕС‡РєРё",
+/* c */"PUMA + cС‚Р°С‚РёСЃС‚РёС‡РµСЃРєРёР№ РјРµС‚РѕРґ.\x0D\x0AРЎС‚Р°С‚РёСЃС‚РёС‡РµСЃРєРёР№ РјРµС‚РѕРґ СЂР°Р±РѕС‚Р°РµС‚ С„РёРєС‚РёРІРЅРѕ.\x0D\x0AРџРѕРєР°Р·Р°С‚СЊ СЂР°Р·Р»РёС‡РёСЏ РЅР° РІСЃРµР№ СЃС‚СЂР°РЅРёС†Рµ.",
 ""
 };
 Handle hSnapLineBL[sizeof(snap_bl)/sizeof(snap_bl[0])];
@@ -206,7 +206,7 @@ static int RUS_Console(char *text)
 return Lang_Console(text,3);
 }
 
-// перекодировка
+// РїРµСЂРµРєРѕРґРёСЂРѕРІРєР°
 static BOOL ASCII2ANSI(char *ascii,char *ansi)
 {
 *ansi='\0';
@@ -217,7 +217,7 @@ for(;*ascii ;ascii++)
 return TRUE;
 }
 
-// из контейнера в cell
+// РёР· РєРѕРЅС‚РµР№РЅРµСЂР° РІ cell
 static  cell * snap_CSTR2cell(CSTR_rast rst)
 {
 cell *c;
@@ -240,7 +240,7 @@ for(c=cell_f();c!=cell_l();c=c->next)
 return NULL;
 }
 
-// из cell-a в контейнер
+// РёР· cell-a РІ РєРѕРЅС‚РµР№РЅРµСЂ
 static   CSTR_rast snap_cell2CSTR(cell *c)
 {
 CSTR_rast       rst=CSTR_GetFirstRaster(snap_line);
@@ -263,7 +263,7 @@ for(rst=CSTR_GetNext(rst);rst;rst=CSTR_GetNext(rst))
 return (CSTR_rast)NULL;
 }
 
-// позиция cell-a
+// РїРѕР·РёС†РёСЏ cell-a
 static Word32 snap_cell2pos(cell *cl)
 {
 Word32 pos;
@@ -277,7 +277,7 @@ for(pos=0,c=cell_f()->next,e=cell_l();c!=e;c=c->next,pos++)
 return pos;
 }
 
-// общая инициализаци
+// РѕР±С‰Р°СЏ РёРЅРёС†РёР°Р»РёР·Р°С†Рё
 BOOL snap_init(void)
 {
 int i;
@@ -286,9 +286,9 @@ if( init )
     return TRUE;
 init=TRUE;
 LDPUMA_Init(0,NULL);
-//LDPUMA_Registry (&hUseCLine,"Работа с контейнером линий", NULL);
+//LDPUMA_Registry (&hUseCLine,"Р Р°Р±РѕС‚Р° СЃ РєРѕРЅС‚РµР№РЅРµСЂРѕРј Р»РёРЅРёР№", NULL);
 
-LDPUMA_Registry(&hSnapMain,"Распознавание строк...",NULL);
+LDPUMA_Registry(&hSnapMain,"Р Р°СЃРїРѕР·РЅР°РІР°РЅРёРµ СЃС‚СЂРѕРє...",NULL);
 for(i=0;snap_pass[i][0];i++)
     {
     LDPUMA_Registry(&hSnapPass[i],snap_pass[i],hSnapMain);
@@ -300,8 +300,8 @@ for(i=0;i<5;i++)
     LDPUMA_Registry(&hSnapFict[i],snap_fict[i],hSnapMainFict);
         LDPUMA_RegistryHelp(hSnapFict[i],snap_fict_help[i],FALSE);
     }
-LDPUMA_Registry(&hSnapBLcut,"Запретить разрезание по базам",hSnapMain);
-LDPUMA_Registry(&hSnapLEO,"Запретить ЛЕО",hSnapMain);
+LDPUMA_Registry(&hSnapBLcut,"Р—Р°РїСЂРµС‚РёС‚СЊ СЂР°Р·СЂРµР·Р°РЅРёРµ РїРѕ Р±Р°Р·Р°Рј",hSnapMain);
+LDPUMA_Registry(&hSnapLEO,"Р—Р°РїСЂРµС‚РёС‚СЊ Р›Р•Рћ",hSnapMain);
 LDPUMA_Registry(&hSnapSerifTrace,"Serif Dispaly",hSnapPass['k'-'a']);
 LDPUMA_RegistryHelp(hSnapSerifTrace,"Draw rectangles",FALSE);
 //IGOR
@@ -311,12 +311,12 @@ for(i=0;snap_bl[i][0];i++)
         LDPUMA_RegistryHelp(hSnapLineBL[i],snap_bl_help[i],FALSE);
     }
 //IGOR
-LDPUMA_RegVariable(hSnapMain,"Трассировка",&db_trace_flag,"char");
+LDPUMA_RegVariable(hSnapMain,"РўСЂР°СЃСЃРёСЂРѕРІРєР°",&db_trace_flag,"char");
 #ifdef MATCH_WORD
-LDPUMA_RegVariable(hSnapMain,"Наложение слова",mwInput,"char *");
+LDPUMA_RegVariable(hSnapMain,"РќР°Р»РѕР¶РµРЅРёРµ СЃР»РѕРІР°",mwInput,"char *");
 #endif
-LDPUMA_Registry(&hSnapSmartCut,"Запретить кластерное разрезание/склеивание на 2-ом проходе",hSnapMain);
-LDPUMA_RegistryHelp(hSnapSmartCut,"Запретить кластерное разрезание/склеивание на 2-ом проходе",FALSE);
+LDPUMA_Registry(&hSnapSmartCut,"Р—Р°РїСЂРµС‚РёС‚СЊ РєР»Р°СЃС‚РµСЂРЅРѕРµ СЂР°Р·СЂРµР·Р°РЅРёРµ/СЃРєР»РµРёРІР°РЅРёРµ РЅР° 2-РѕРј РїСЂРѕС…РѕРґРµ",hSnapMain);
+LDPUMA_RegistryHelp(hSnapSmartCut,"Р—Р°РїСЂРµС‚РёС‚СЊ РєР»Р°СЃС‚РµСЂРЅРѕРµ СЂР°Р·СЂРµР·Р°РЅРёРµ/СЃРєР»РµРёРІР°РЅРёРµ РЅР° 2-РѕРј РїСЂРѕС…РѕРґРµ",FALSE);
 snap_page_disable = snap_disable = db_skip_client = FALSE;
 memset(internal_skip,TRUE,snap_clients*sizeof(BOOL));
 exit_enable=FALSE;
@@ -341,7 +341,7 @@ BOOL snap_fictive_skip(INT i)
 return (BOOL)LDPUMA_SkipEx(hSnapFict[i],FALSE,TRUE,1);
 }
 
-// показ распознавания эвент
+// РїРѕРєР°Р· СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ СЌРІРµРЅС‚
 static void snap_recogEVN(CSTR_rast r,cell * cl)
  {
  INT    i;
@@ -356,7 +356,7 @@ static void snap_recogEVN(CSTR_rast r,cell * cl)
   CSTR_GetImage(r,(Word8*)(&rRaster),CSTR_TYPE_IMAGE_RS);
 
   if( EVNGetRepresent( &rRaster, evn, evnr, 1)==-1  )
-    RUS_Console("Не могу получить ЛП");
+    RUS_Console("РќРµ РјРѕРіСѓ РїРѕР»СѓС‡РёС‚СЊ Р›Рџ");
   else
     {
     ASCII2ANSI(evn,evnw);
@@ -381,7 +381,7 @@ static void snap_recogEVN(CSTR_rast r,cell * cl)
  return;
  }
 
-// показ дискриминатора пропорций
+// РїРѕРєР°Р· РґРёСЃРєСЂРёРјРёРЅР°С‚РѕСЂР° РїСЂРѕРїРѕСЂС†РёР№
 static void show_prop(cell *c)
 {
 int i;
@@ -398,7 +398,7 @@ return;
 }
 
 
-// показ разных кластеров 3х5
+// РїРѕРєР°Р· СЂР°Р·РЅС‹С… РєР»Р°СЃС‚РµСЂРѕРІ 3С…5
 static void snap_recog3X5(cell *b)
  {
  s_glue GL={0};
@@ -431,7 +431,7 @@ db_pass=save_db_pass;
 return;
 }
 
-// показ батонов Фараджева
+// РїРѕРєР°Р· Р±Р°С‚РѕРЅРѕРІ Р¤Р°СЂР°РґР¶РµРІР°
 static void snap_sticks(cell *c, char *str)
  {
  INT i,n;
@@ -600,7 +600,7 @@ return -1;
 #endif
 }
 
-// действия по изменению растра
+// РґРµР№СЃС‚РІРёСЏ РїРѕ РёР·РјРµРЅРµРЅРёСЋ СЂР°СЃС‚СЂР°
 #define END_RUN_CELL(s)                                     \
     {                                                       \
     CSTR_DelRaster(r);                                      \
@@ -623,7 +623,7 @@ return -1;
   void (*DFon_Terminated)(Word32 wParam);
 #endif
 
-// обработчик  сообщений
+// РѕР±СЂР°Р±РѕС‚С‡РёРє  СЃРѕРѕР±С‰РµРЅРёР№
 Word32 myMonitorProc(Handle wnd,Handle hwnd,Word32 message,Word32 wParam,Word32 lParam)
 {
 int             ret=0;
@@ -683,7 +683,7 @@ switch(message)
                 { // setup start cut point
                             flag_cut_point = 1;
                 StopPoint = my_cut_points[ii].x;
-                sprintf(buf,"Точка разрезания (%d)",ii-1);
+                sprintf(buf,"РўРѕС‡РєР° СЂР°Р·СЂРµР·Р°РЅРёСЏ (%d)",ii-1);
                 RUS_Console(buf);
                 db_status=0;
                 ret=-1;
@@ -702,7 +702,7 @@ switch(message)
                     }
                 if( i<numpoints_show )
                     {
-                                sprintf(buf,"Точка разрезания (%d) x=%i,dh=%i,h=%i,var=%i",ii-1,
+                                sprintf(buf,"РўРѕС‡РєР° СЂР°Р·СЂРµР·Р°РЅРёСЏ (%d) x=%i,dh=%i,h=%i,var=%i",ii-1,
                         my_cut_points[ii].x,my_cut_points[ii].dh,
                         my_cut_points[ii].h,my_cut_points[ii].var);
                     RUS_Console(buf);
@@ -725,14 +725,14 @@ switch(message)
             if( c&&c->flg&(c_f_bad|c_f_let) )
                 store_spell(c);
             else
-                RUS_Console("Не буква");
+                RUS_Console("РќРµ Р±СѓРєРІР°");
             ret=1;
             break;
         case    'S':
             if( c&&c->flg&(c_f_bad|c_f_let) )
                 show_spell(c);
             else
-                RUS_Console("Не буква");
+                RUS_Console("РќРµ Р±СѓРєРІР°");
             ret=1;
             break;
         case    'X':    // ALT + X
@@ -747,7 +747,7 @@ switch(message)
                 ret=0;
                 }
             else
-                RUS_Console("Нет следующего");
+                RUS_Console("РќРµС‚ СЃР»РµРґСѓСЋС‰РµРіРѕ");
             break;
         case    'P':    // ALT + P
             if( c->prevl && !(c->prevl->flg&c_f_fict))
@@ -757,7 +757,7 @@ switch(message)
                 ret=0;
                 }
             else
-                RUS_Console("Нет предыдущего");
+                RUS_Console("РќРµС‚ РїСЂРµРґС‹РґСѓС‰РµРіРѕ");
             break;
         case    VK_F2:  // ALT + F2
             db_skip_client=1;
@@ -773,7 +773,7 @@ switch(message)
                     let = decode_ASCII_to_[let][0];
                 CSTR_GetAttr(r,&attr);
                 snap_AddRecRaster("SQPROT", &rRaster,let,attr.font);
-                RUS_Console("Отписано в SQPROT.CTB");
+                RUS_Console("РћС‚РїРёСЃР°РЅРѕ РІ SQPROT.CTB");
                 }
             break;
         default:
@@ -789,7 +789,7 @@ switch(message)
                 {
         case    VK_ESCAPE:
             snap_page_disable = TRUE;
-            RUS_Console("распознай до конца");
+            RUS_Console("СЂР°СЃРїРѕР·РЅР°Р№ РґРѕ РєРѕРЅС†Р°");
             ret=-1;
             break;
         case    VK_DELETE:
@@ -806,45 +806,45 @@ switch(message)
                 shift=0;
                 snap_sticks(c,str);
                 Snap_Console(str);
-                RUS_Console("анализ батонов");
+                RUS_Console("Р°РЅР°Р»РёР· Р±Р°С‚РѕРЅРѕРІ");
                 }
             else
                 {   // F1 : help
-                RUS_Console("ESC - до конца без снэпа");
+                RUS_Console("ESC - РґРѕ РєРѕРЅС†Р° Р±РµР· СЃРЅСЌРїР°");
 
-                RUS_Console("F1  - справка");
-                RUS_Console("F2  - новая строка");
-                RUS_Console("F3  - встать здесь");
-                RUS_Console("F4  - просмотр кластеров на 2-м проходе");
-                RUS_Console("F5  - просмотр склейки/разрезания кластерами на 2-м проходе");
-                RUS_Console("F7  - в отладчик");
-                RUS_Console("F9  - отладочное распознавание (в т.ч. на 2-м проходе)");
-                RUS_Console("F11 - задать трассировку");
-                RUS_Console("F12 - вывести адреса структур");
+                RUS_Console("F1  - СЃРїСЂР°РІРєР°");
+                RUS_Console("F2  - РЅРѕРІР°СЏ СЃС‚СЂРѕРєР°");
+                RUS_Console("F3  - РІСЃС‚Р°С‚СЊ Р·РґРµСЃСЊ");
+                RUS_Console("F4  - РїСЂРѕСЃРјРѕС‚СЂ РєР»Р°СЃС‚РµСЂРѕРІ РЅР° 2-Рј РїСЂРѕС…РѕРґРµ");
+                RUS_Console("F5  - РїСЂРѕСЃРјРѕС‚СЂ СЃРєР»РµР№РєРё/СЂР°Р·СЂРµР·Р°РЅРёСЏ РєР»Р°СЃС‚РµСЂР°РјРё РЅР° 2-Рј РїСЂРѕС…РѕРґРµ");
+                RUS_Console("F7  - РІ РѕС‚Р»Р°РґС‡РёРє");
+                RUS_Console("F9  - РѕС‚Р»Р°РґРѕС‡РЅРѕРµ СЂР°СЃРїРѕР·РЅР°РІР°РЅРёРµ (РІ С‚.С‡. РЅР° 2-Рј РїСЂРѕС…РѕРґРµ)");
+                RUS_Console("F11 - Р·Р°РґР°С‚СЊ С‚СЂР°СЃСЃРёСЂРѕРІРєСѓ");
+                RUS_Console("F12 - РІС‹РІРµСЃС‚Рё Р°РґСЂРµСЃР° СЃС‚СЂСѓРєС‚СѓСЂ");
 
-                RUS_Console("Shift+F1  - анализ батонов");
-                RUS_Console("Shift+F2  - анализ стика");
-                RUS_Console("Shift+F3  - обрить");
-                RUS_Console("Shift+F4  - анализ слов на 2-м проходе");
-                RUS_Console("Shift+F5  - выпрямить и обрить");
-                RUS_Console("Shift+F6  - снять выпярмление");
-                RUS_Console("Shift+F7  - выпрямить на брея");
-                RUS_Console("Shift+F9  - на cледующую склейку");
-                RUS_Console("Shift+F11 - снять трассировку");
+                RUS_Console("Shift+F1  - Р°РЅР°Р»РёР· Р±Р°С‚РѕРЅРѕРІ");
+                RUS_Console("Shift+F2  - Р°РЅР°Р»РёР· СЃС‚РёРєР°");
+                RUS_Console("Shift+F3  - РѕР±СЂРёС‚СЊ");
+                RUS_Console("Shift+F4  - Р°РЅР°Р»РёР· СЃР»РѕРІ РЅР° 2-Рј РїСЂРѕС…РѕРґРµ");
+                RUS_Console("Shift+F5  - РІС‹РїСЂСЏРјРёС‚СЊ Рё РѕР±СЂРёС‚СЊ");
+                RUS_Console("Shift+F6  - СЃРЅСЏС‚СЊ РІС‹РїСЏСЂРјР»РµРЅРёРµ");
+                RUS_Console("Shift+F7  - РІС‹РїСЂСЏРјРёС‚СЊ РЅР° Р±СЂРµСЏ");
+                RUS_Console("Shift+F9  - РЅР° cР»РµРґСѓСЋС‰СѓСЋ СЃРєР»РµР№РєСѓ");
+                RUS_Console("Shift+F11 - СЃРЅСЏС‚СЊ С‚СЂР°СЃСЃРёСЂРѕРІРєСѓ");
 
-                RUS_Console("Alt+F2 - следующий этап");
-                RUS_Console("Alt+F8 - запомнить образ в CTBase");
-                RUS_Console("Alt+F  - FRH для агрессивного");
-                RUS_Console("Alt+N  - следующий символ");
-                RUS_Console("Alt+P  - предыдущий символ");
-                RUS_Console("Alt+S  - словари");
-                RUS_Console("Alt+X  - прервать");
+                RUS_Console("Alt+F2 - СЃР»РµРґСѓСЋС‰РёР№ СЌС‚Р°Рї");
+                RUS_Console("Alt+F8 - Р·Р°РїРѕРјРЅРёС‚СЊ РѕР±СЂР°Р· РІ CTBase");
+                RUS_Console("Alt+F  - FRH РґР»СЏ Р°РіСЂРµСЃСЃРёРІРЅРѕРіРѕ");
+                RUS_Console("Alt+N  - СЃР»РµРґСѓСЋС‰РёР№ СЃРёРјРІРѕР»");
+                RUS_Console("Alt+P  - РїСЂРµРґС‹РґСѓС‰РёР№ СЃРёРјРІРѕР»");
+                RUS_Console("Alt+S  - СЃР»РѕРІР°СЂРё");
+                RUS_Console("Alt+X  - РїСЂРµСЂРІР°С‚СЊ");
 
-                RUS_Console("2(3,4...)- показать 2-ю(3,4...) строку");
-                RUS_Console("Home/End - начало/конец строки");
-                RUS_Console("+/- - увеличить/уменьшить шрифт");
+                RUS_Console("2(3,4...)- РїРѕРєР°Р·Р°С‚СЊ 2-СЋ(3,4...) СЃС‚СЂРѕРєСѓ");
+                RUS_Console("Home/End - РЅР°С‡Р°Р»Рѕ/РєРѕРЅРµС† СЃС‚СЂРѕРєРё");
+                RUS_Console("+/- - СѓРІРµР»РёС‡РёС‚СЊ/СѓРјРµРЅСЊС€РёС‚СЊ С€СЂРёС„С‚");
 
-                            LDPUMA_RasterText("F1 - подсказка. см. консоль.");
+                            LDPUMA_RasterText("F1 - РїРѕРґСЃРєР°Р·РєР°. СЃРј. РєРѕРЅСЃРѕР»СЊ.");
                 }
                         break;
         case VK_F2:
@@ -853,7 +853,7 @@ switch(message)
                 shift=0;
                 if( !stick_center_study(c,NULL,0) )
                     {
-                    END_RUN_CELL("анализ стика");
+                    END_RUN_CELL("Р°РЅР°Р»РёР· СЃС‚РёРєР°");
                     }
                 }
             else
@@ -867,7 +867,7 @@ switch(message)
                 {   // SHIFT + F3 : shaving
                 shift=0;
                 pimpleshave(c, 1, 1);
-                END_RUN_CELL("удаление прыщей");
+                END_RUN_CELL("СѓРґР°Р»РµРЅРёРµ РїСЂС‹С‰РµР№");
                 }
             else
                 {   // F3 : stop here
@@ -888,7 +888,7 @@ switch(message)
 #endif
                     stopcell = c;
                 ret=-1;
-                RUS_Console("точка остановки");
+                RUS_Console("С‚РѕС‡РєР° РѕСЃС‚Р°РЅРѕРІРєРё");
                 }
             break;
         case VK_F4:
@@ -907,7 +907,7 @@ switch(message)
                     }
 
                 CSTR_GetImage(r,(Word8*)(&rRaster),CSTR_TYPE_IMAGE_RS);
-                // надо повернуть ?
+                // РЅР°РґРѕ РїРѕРІРµСЂРЅСѓС‚СЊ ?
                 p2_rotate(&rRaster);
                 DFon_SendRaster( &rRaster, hwnd, (Word8)(c&&c->nvers?c->vers[0].let:'~'));
 #else
@@ -915,7 +915,7 @@ switch(message)
 #endif
                 }
             else
-                RUS_Console("дождитесь 2-го прохода");
+                RUS_Console("РґРѕР¶РґРёС‚РµСЃСЊ 2-РіРѕ РїСЂРѕС…РѕРґР°");
             }
             break;
         case VK_F5:
@@ -925,10 +925,10 @@ switch(message)
                 if( !(c->pos_inc&erect_rot) )
                     {
                     erector(c, 0, 1, 0,1);
-                    END_RUN_CELL("выпрямление с бритьём");
+                    END_RUN_CELL("РІС‹РїСЂСЏРјР»РµРЅРёРµ СЃ Р±СЂРёС‚СЊС‘Рј");
                     }
                 else
-                    RUS_Console("уже выпрямлено");
+                    RUS_Console("СѓР¶Рµ РІС‹РїСЂСЏРјР»РµРЅРѕ");
                 }
             else
                 {   // F5
@@ -946,10 +946,10 @@ switch(message)
                     erect_cell_value(c, (INT)(-c->stick_inc), 0, FALSE);
                     c->stick_inc=NO_INCLINE;
                     c->pos_inc=erect_no;
-                    END_RUN_CELL("уничтожение выпрямления");
+                    END_RUN_CELL("СѓРЅРёС‡С‚РѕР¶РµРЅРёРµ РІС‹РїСЂСЏРјР»РµРЅРёСЏ");
                     }
                 else
-                    RUS_Console("ещё не выпрямлено");
+                    RUS_Console("РµС‰С‘ РЅРµ РІС‹РїСЂСЏРјР»РµРЅРѕ");
                 }
             else
                 {   // F6
@@ -962,10 +962,10 @@ switch(message)
                 if( !(c->pos_inc&erect_rot) )
                     {
                     erector(c, 0, 0, 0,1);
-                    END_RUN_CELL("выпрямление без бритья");
+                    END_RUN_CELL("РІС‹РїСЂСЏРјР»РµРЅРёРµ Р±РµР· Р±СЂРёС‚СЊСЏ");
                     }
                 else
-                    RUS_Console("уже выпрямлено");
+                    RUS_Console("СѓР¶Рµ РІС‹РїСЂСЏРјР»РµРЅРѕ");
                 }
             else
                 {   // F7 : debug
@@ -982,7 +982,7 @@ switch(message)
                 shift=0;
                 db_status=0;
                 flag_ShiftF9=1;
-                RUS_Console("на следующую склейку");
+                RUS_Console("РЅР° СЃР»РµРґСѓСЋС‰СѓСЋ СЃРєР»РµР№РєСѓ");
                 ret=-1;
                 }
             else
@@ -1010,7 +1010,7 @@ switch(message)
                     //show_prop(c);
                     snap_recog3X5(c);
                     }
-                 RUS_Console("распознавание");
+                 RUS_Console("СЂР°СЃРїРѕР·РЅР°РІР°РЅРёРµ");
                  }
             break;
         case    VK_F10:
@@ -1021,7 +1021,7 @@ switch(message)
             else
                 {
                 snap_page_disable = TRUE;
-                RUS_Console("распознай до конца");
+                RUS_Console("СЂР°СЃРїРѕР·РЅР°Р№ РґРѕ РєРѕРЅС†Р°");
                 ret=-1;
                 }
             break;
@@ -1030,21 +1030,21 @@ switch(message)
             if( !shift )
                 {   // F11 : set tracing
                 db_trace_flag=6;
-                RUS_Console("установлена трассировка");
+                RUS_Console("СѓСЃС‚Р°РЅРѕРІР»РµРЅР° С‚СЂР°СЃСЃРёСЂРѕРІРєР°");
                 }
             else
                 {   // F11 : clear tracing
                 db_trace_flag=0;
-                RUS_Console("снятa трассировкa");
+                RUS_Console("СЃРЅСЏС‚a С‚СЂР°СЃСЃРёСЂРѕРІРєa");
                 }
             break;
         case VK_F12:    // F12 : show positions
-                        sprintf(buf,"Позиция %i из %i",pos,LDPUMA_CSTR_GetLength());
+                        sprintf(buf,"РџРѕР·РёС†РёСЏ %i РёР· %i",pos,LDPUMA_CSTR_GetLength());
             RUS_Console(buf);
-            sprintf(buf,"растр CSTR=0x%x(cell=0x%x,env=0x%x,prevl=0x%x,nextl=0x%x,prev=0x%x,next=0x%x)",
+            sprintf(buf,"СЂР°СЃС‚СЂ CSTR=0x%x(cell=0x%x,env=0x%x,prevl=0x%x,nextl=0x%x,prev=0x%x,next=0x%x)",
                 r, c,c?c->env:0,c?c->prevl:0,c?c->nextl:0,c?c->prev:0,c?c->next:0);
             RUS_Console(buf);
-                        LDPUMA_RasterText("F12 - позиция. см. консоль.");
+                        LDPUMA_RasterText("F12 - РїРѕР·РёС†РёСЏ. СЃРј. РєРѕРЅСЃРѕР»СЊ.");
                         break;
         case    '1':
             select_line=0;
@@ -1082,7 +1082,7 @@ switch(message)
 return (Word32)(ret);
 }
 
-// режим мониторинга строки и ожидания клавиши
+// СЂРµР¶РёРј РјРѕРЅРёС‚РѕСЂРёРЅРіР° СЃС‚СЂРѕРєРё Рё РѕР¶РёРґР°РЅРёСЏ РєР»Р°РІРёС€Рё
 static Int32 snap_monitor_calls=0;
 BOOL snap_monitor(void)
 {
@@ -1206,7 +1206,7 @@ return TRUE;
 }
 
 
-// вывести текст
+// РІС‹РІРµСЃС‚Рё С‚РµРєСЃС‚
 BOOL snap_show_text(BYTE *txt)
 {
 char text[256],texto[80*40];
@@ -1274,7 +1274,7 @@ return !( (p.x < r.r_col)||(p.x > r.r_col+r.r_wid )||
           );
 }
 
-// активен ли клиент
+// Р°РєС‚РёРІРµРЅ Р»Рё РєР»РёРµРЅС‚
 BOOL snap_activity(BYTE a)
 {
 Bool32 ret;
@@ -1290,7 +1290,7 @@ ret = LDPUMA_SkipEx(hSnapPass[a-'a'],FALSE,TRUE,1);
 return(!ret);
 }
 
-// активен ли хотя бы один клиент
+// Р°РєС‚РёРІРµРЅ Р»Рё С…РѕС‚СЏ Р±С‹ РѕРґРёРЅ РєР»РёРµРЅС‚
 BOOL snap_is_active(void)
 {
 int i;
@@ -1308,7 +1308,7 @@ for(i=0;i<snap_clients;i++)
 db_status=0;
 return FALSE;
 }
-// встать на клетке
+// РІСЃС‚Р°С‚СЊ РЅР° РєР»РµС‚РєРµ
 BOOL snap_newcell (cell *c)
 {
 if( snap_disable || snap_page_disable || db_skip_client )
@@ -1333,7 +1333,7 @@ for(iii=(h-1)*wb_new,ii=(h-1)*wb,i=0;i<h;i++,ii-=wb,iii-=wb_new)
 return;
 }
 
-// вывести растр
+// РІС‹РІРµСЃС‚Рё СЂР°СЃС‚СЂ
 BOOL snap_show_raster(PBYTE raster, INT height, INT width)
 {
 DPUMA_RecRaster rs={0};
@@ -1359,7 +1359,7 @@ if( stopcell && stopcell->col>currcell.col )
 return TRUE;
 }
 
-// + остановиться, если между B,E
+// + РѕСЃС‚Р°РЅРѕРІРёС‚СЊСЃСЏ, РµСЃР»Рё РјРµР¶РґСѓ B,E
 // can be call after setup stopcell (F3)
 BOOL snap_stopcell(cell *B,cell *E)
 {
@@ -1373,7 +1373,7 @@ cell*snap_get_stopcell(void)
 return stopcell;
 }
 
-// снэп из разрезания.
+// СЃРЅСЌРї РёР· СЂР°Р·СЂРµР·Р°РЅРёСЏ.
 void snap_show_cuts(cell *C, struct cut_elm *cut_points)
 {
 struct cut_elm  *cpnt;
@@ -1419,7 +1419,7 @@ my_cut_points=cut_points;
 return ;
 }
 
-// начало нового шага
+// РЅР°С‡Р°Р»Рѕ РЅРѕРІРѕРіРѕ С€Р°РіР°
 BOOL snap_newpass(BYTE pass)
 {
 if( snap_disable || snap_page_disable  )
@@ -1433,7 +1433,7 @@ flag_ShiftF9=0;
 return TRUE;
 }
 
-// задание остановки в точках разрезани
+// Р·Р°РґР°РЅРёРµ РѕСЃС‚Р°РЅРѕРІРєРё РІ С‚РѕС‡РєР°С… СЂР°Р·СЂРµР·Р°РЅРё
 void snap_stop_cuts(void)
 {
 if( snap_disable || snap_page_disable || db_skip_client )
@@ -1445,7 +1445,7 @@ if(flag_ShiftF9)
 return;
 }
 
-// флагов снэпа для перехода к следующей склейке
+// С„Р»Р°РіРѕРІ СЃРЅСЌРїР° РґР»СЏ РїРµСЂРµС…РѕРґР° Рє СЃР»РµРґСѓСЋС‰РµР№ СЃРєР»РµР№РєРµ
 void snap_newcut(void)
 {
 if( snap_disable || snap_page_disable || db_skip_client )
@@ -1455,7 +1455,7 @@ if(flag_ShiftF9)
 return;
 }
 
-// точка остановки в разрезании
+// С‚РѕС‡РєР° РѕСЃС‚Р°РЅРѕРІРєРё РІ СЂР°Р·СЂРµР·Р°РЅРёРё
 void snap_newpoint(INT i)
 {
 if( snap_disable || snap_page_disable || db_skip_client )

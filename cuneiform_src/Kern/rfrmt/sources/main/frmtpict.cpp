@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -104,7 +104,7 @@ extern	  CHAR   RtfFileName[MAX_PATH];
 #define DIB_HEADER_MARKER   ((WORD) ('M' << 8) | 'B')
 
 
-//==============   Определение кол-ва картин на странице  ======================
+//==============   РћРїСЂРµРґРµР»РµРЅРёРµ РєРѕР»-РІР° РєР°СЂС‚РёРЅ РЅР° СЃС‚СЂР°РЅРёС†Рµ  ======================
 Word32 GetPictCount(void)
 {
 	Word32 PictCount = 0;
@@ -120,7 +120,7 @@ Word32 GetPictCount(void)
 	return PictCount;
 }
 
-//=====================     Размер картинки     ===================================
+//=====================     Р Р°Р·РјРµСЂ РєР°СЂС‚РёРЅРєРё     ===================================
 BYTE GetPictRect( Word32 NumberPict , Rect16* RectPict,Word32* UserNumber )
 {
 	Word32  PictCount  = 0;
@@ -153,7 +153,7 @@ BYTE GetPictRect( Word32 NumberPict , Rect16* RectPict,Word32* UserNumber )
 	return TRUE;
 }
 
-//**************************** Запись картин ************************************
+//**************************** Р—Р°РїРёСЃСЊ РєР°СЂС‚РёРЅ ************************************
 BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictString*/, BOOL OutPutTypeFrame)
 {
 	Word32        PictNumber    = 0;
@@ -265,13 +265,13 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 
 //				(*PictString) += str;
 		}
-*/		// Получим картинку из исходного изображения задав ее контур
-		//определяем размер маски
+*/		// РџРѕР»СѓС‡РёРј РєР°СЂС‚РёРЅРєСѓ РёР· РёСЃС…РѕРґРЅРѕРіРѕ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ Р·Р°РґР°РІ РµРµ РєРѕРЅС‚СѓСЂ
+		//РѕРїСЂРµРґРµР»СЏРµРј СЂР°Р·РјРµСЂ РјР°СЃРєРё
 		BOOL rc = TRUE;
 		PInt8 pOutDIB = NULL;
 		if(CPAGE_PictureGetPlace (h_Page, h_Pict,-pinfo.Incline2048, &Lr, &Wh) )
 		{
-			//piter : Корректируем координаты из-за повернута страницы.
+			//piter : РљРѕСЂСЂРµРєС‚РёСЂСѓРµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ РёР·-Р·Р° РїРѕРІРµСЂРЅСѓС‚Р° СЃС‚СЂР°РЅРёС†С‹.
 			switch(pinfo.Angle)
 			{
 			case 0:
@@ -303,7 +303,7 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 			LDPUMA_Skip(hTestDIBData);
 			in.MaskFlag = FALSE;
 			if(CIMAGE_GetDIBData((PWord8)PUMA_IMAGE_USER,&in,&pOutDIB))
-			{// Соберем изображение
+			{// РЎРѕР±РµСЂРµРј РёР·РѕР±СЂР°Р¶РµРЅРёРµ
 				char szTurnName[]  ="RFRMT:TurnPicture";
 				char szPictName[]  ="RFRMT:Picture";
 				char szRotateName[]="RFRMT:RotatePicture";
@@ -337,7 +337,7 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 					}
 				}
 
-				// Довернем изображение на малый угол.
+				// Р”РѕРІРµСЂРЅРµРј РёР·РѕР±СЂР°Р¶РµРЅРёРµ РЅР° РјР°Р»С‹Р№ СѓРіРѕР».
 				LDPUMA_Skip(hTestRotate);
 				if(!RIMAGE_Rotate((PWord8)lpName,(PWord8)szRotateName,
 					pinfo.Incline2048,2048, 0))
@@ -351,7 +351,7 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 					lpName = szRotateName;
 				}
 
-				// Маскируем полученное изображение
+				// РњР°СЃРєРёСЂСѓРµРј РїРѕР»СѓС‡РµРЅРЅРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ
 				Point32 ptLt,ptWh;
 				if(rc && CPAGE_PictureGetPlace (h_Page, h_Pict,0, &ptLt, &ptWh) )
 				{
@@ -380,14 +380,14 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 					in.dwHeight = ptWh.y;
 					in.wByteWidth = (unsigned short)((in.dwWidth +7)/8); //?
 					in.MaskFlag = TRUE;
-					// Получим размер маски
+					// РџРѕР»СѓС‡РёРј СЂР°Р·РјРµСЂ РјР°СЃРєРё
 					Word32 nSize = 0;
 					LDPUMA_Skip(hTestGetMaskDIB);
 					if(CPAGE_PictureGetMask (h_Page,h_Pict,0,NULL,&nSize))
 					{
 						char * lpMask = (char*)malloc(sizeof(in) + nSize );
 						if(lpMask)
-						{// Получаем маску
+						{// РџРѕР»СѓС‡Р°РµРј РјР°СЃРєСѓ
 							*(PCIMAGE_InfoDataInGet)lpMask = in;
 							if(CPAGE_PictureGetMask (h_Page,h_Pict,0,lpMask + sizeof(in),&nSize))
 							{
@@ -422,8 +422,8 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 
 					pictSize.cx = int(Wh.x);
 					pictSize.cy = int(Wh.y);
-					pictGoal.cx = int((DWORD)(Twips* pTmpDIB->GetLineWidth()));
-					pictGoal.cy = int((DWORD)(Twips* pTmpDIB->GetLinesNumber()));
+					pictGoal.cx = int((uint32_t)(Twips* pTmpDIB->GetLineWidth()));
+					pictGoal.cy = int((uint32_t)(Twips* pTmpDIB->GetLinesNumber()));
 
 					Int32 iDIBSize = pTmpDIB->GetDIBSize();
 					delete pTmpDIB;
@@ -501,7 +501,7 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 					}
 				}
 				// piter
-				// освобождает память переданную по pOutDIB
+				// РѕСЃРІРѕР±РѕР¶РґР°РµС‚ РїР°РјСЏС‚СЊ РїРµСЂРµРґР°РЅРЅСѓСЋ РїРѕ pOutDIB
 				CIMAGE_DeleteImage((PWord8)lpName);
 				CIMAGE_FreeCopedDIB(pOutDIB);
 				// end piter
@@ -529,7 +529,7 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 
 
 // Piter.
-// Сохранение изображения в метафайле
+// РЎРѕС…СЂР°РЅРµРЅРёРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ РІ РјРµС‚Р°С„Р°Р№Р»Рµ
 //
 //
 static void bufcpy(char ** str, void  * mem, unsigned sz)
@@ -553,19 +553,19 @@ BOOL SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
 		WORD 	mtType;
 		WORD 	mtHeaderSize; // in words
 		WORD 	mtVersion;
-		DWORD	mtSize;       // in words
+		uint32_t	mtSize;       // in words
 		WORD  	mtNoObjects;
-		DWORD 	mtMaxRecord;
+		uint32_t 	mtMaxRecord;
 		WORD	mtNoParameters;
 	} hMF={1,9,0x0300,0,0,0,0};
 
 	struct MF_GDI_records {
-		DWORD   rdSize;
+		uint32_t   rdSize;
 		WORD    rdFunction;
 	} MF_GDI;
 
 	struct MF_StretchDlBitst_info {
-		DWORD	dwRop;
+		uint32_t	dwRop;
 		WORD	wUsage;
 		WORD	srcYExt;
 		WORD	srcXExt;
@@ -578,7 +578,7 @@ BOOL SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
 	}  MF_SI;
 #pragma pack (pop)
 
-	// Заголовок картинки
+	// Р—Р°РіРѕР»РѕРІРѕРє РєР°СЂС‚РёРЅРєРё
 	CString text;
 
 	int nPalette = 0;
@@ -598,7 +598,7 @@ BOOL SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
 		(sizeof(MF_GDI) + sizeof(MF_SI) +
 		+ SizePicture)/2L;
 
-	// 3. ђ §¬Ґа ¬Ґв д ©«  ў б«®ў е
+	// 3. С’В В§В¬ТђР° В¬ТђРІВ РґВ В©В«В  Сћ Р±В«В®СћВ Рµ
 	hMF.mtSize= sizeof(hMF)/2 +       // header
 		sizeof(MF_GDI)/2 + 2 +// SetWindowOrg
 		sizeof(MF_GDI)/2 + 2 +// SetWindowExt
@@ -608,14 +608,14 @@ BOOL SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
 		hMF.mtMaxRecord +
 		sizeof(MF_GDI)/2;     // End
 	//
-	// Создадим буфер картинки
+	// РЎРѕР·РґР°РґРёРј Р±СѓС„РµСЂ РєР°СЂС‚РёРЅРєРё
 	//
 		text.Format("{\\pict\\wmetafile8\\picw%li\\pich%li"
 			"\\picwgoal%li\\pichgoal%li\\sspicalign0 ",
-			(DWORD)(175L*Twips/100*lpDIB->biWidth),
-			(DWORD)(175L*Twips/100*lpDIB->biHeight),
-			(DWORD)(Twips* lpDIB->biWidth),
-			(DWORD)(Twips* lpDIB->biHeight)
+			(uint32_t)(175L*Twips/100*lpDIB->biWidth),
+			(uint32_t)(175L*Twips/100*lpDIB->biHeight),
+			(uint32_t)(Twips* lpDIB->biWidth),
+			(uint32_t)(Twips* lpDIB->biHeight)
 			);
 
 		*strBuf = *strBuf + text;
@@ -633,7 +633,7 @@ BOOL SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
 		MF_GDI.rdSize=5;
 		MF_GDI.rdFunction=0x20b;
 		bufcpy(&str,&MF_GDI,sizeof(MF_GDI));
-		DWORD dword=0L;
+		uint32_t dword=0L;
 		bufcpy(&str,&dword,sizeof(dword));
 		// SetWindowExt
 		MF_GDI.rdSize=5;

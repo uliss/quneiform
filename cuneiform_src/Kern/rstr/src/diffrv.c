@@ -2632,7 +2632,7 @@ BOOL check_bend_dn( cell * c )
 /*******************************************************internal_filling*/
 static WORD internal_filling(segment * segm,INT h,INT w)
 {
- DWORD  fill=0;
+ uint32_t fill=0;
  LONG start, end, col;
  LONG row,left,right,upper,lower;
 

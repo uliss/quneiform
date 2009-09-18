@@ -1,173 +1,166 @@
 /*
-Copyright (c) 1993-2008, Cognitive Technologies
-All rights reserved.
+ Copyright (c) 1993-2008, Cognitive Technologies
+ All rights reserved.
 
-–азрешаетс€ повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменени€ми или без, при соблюдении следующих условий:
+ –†–∞–Ј—А–µ—И–∞–µ—В—Б—П –њ–Њ–≤—В–Њ—А–љ–Њ–µ —А–∞—Б–њ—А–Њ—Б—В—А–∞–љ–µ–љ–Є–µ –Є –Є—Б–њ–Њ–ї—М–Ј–Њ–≤–∞–љ–Є–µ –Ї–∞–Ї –≤ –≤–Є–і–µ –Є—Б—Е–Њ–і–љ–Њ–≥–Њ –Ї–Њ–і–∞,
+ —В–∞–Ї –Є –≤ –і–≤–Њ–Є—З–љ–Њ–є —Д–Њ—А–Љ–µ, —Б –Є–Ј–Љ–µ–љ–µ–љ–Є—П–Љ–Є –Є–ї–Є –±–µ–Ј, –њ—А–Є —Б–Њ–±–ї—О–і–µ–љ–Є–Є —Б–ї–µ–і—Г—О—Й–Є—Е —Г—Б–ї–Њ–≤–Є–є:
 
-      * ѕри повторном распространении исходного кода должны оставатьс€ указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * ѕри повторном распространении двоичного кода в документации и/или в
-        других материалах, поставл€емых при распространении, должны сохран€тьс€
-        указанна€ выше информаци€ об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ќи название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижени€
-        продуктов, основанных на этом ѕќ, без предварительного письменного
-        разрешени€.
+ * –Я—А–Є –њ–Њ–≤—В–Њ—А–љ–Њ–Љ —А–∞—Б–њ—А–Њ—Б—В—А–∞–љ–µ–љ–Є–Є –Є—Б—Е–Њ–і–љ–Њ–≥–Њ –Ї–Њ–і–∞ –і–Њ–ї–ґ–љ—Л –Њ—Б—В–∞–≤–∞—В—М—Б—П —Г–Ї–∞–Ј–∞–љ–љ–Њ–µ
+ –≤—Л—И–µ —Г–≤–µ–і–Њ–Љ–ї–µ–љ–Є–µ –Њ–± –∞–≤—В–Њ—А—Б–Ї–Њ–Љ –њ—А–∞–≤–µ, —Н—В–Њ—В —Б–њ–Є—Б–Њ–Ї —Г—Б–ї–Њ–≤–Є–є –Є –њ–Њ—Б–ї–µ–і—Г—О—Й–Є–є
+ –Њ—В–Ї–∞–Ј –Њ—В –≥–∞—А–∞–љ—В–Є–є.
+ * –Я—А–Є –њ–Њ–≤—В–Њ—А–љ–Њ–Љ —А–∞—Б–њ—А–Њ—Б—В—А–∞–љ–µ–љ–Є–Є –і–≤–Њ–Є—З–љ–Њ–≥–Њ –Ї–Њ–і–∞ –≤ –і–Њ–Ї—Г–Љ–µ–љ—В–∞—Ж–Є–Є –Є/–Є–ї–Є –≤
+ –і—А—Г–≥–Є—Е –Љ–∞—В–µ—А–Є–∞–ї–∞—Е, –њ–Њ—Б—В–∞–≤–ї—П–µ–Љ—Л—Е –њ—А–Є —А–∞—Б–њ—А–Њ—Б—В—А–∞–љ–µ–љ–Є–Є, –і–Њ–ї–ґ–љ—Л —Б–Њ—Е—А–∞–љ—П—В—М—Б—П
+ —Г–Ї–∞–Ј–∞–љ–љ–∞—П –≤—Л—И–µ –Є–љ—Д–Њ—А–Љ–∞—Ж–Є—П –Њ–± –∞–≤—В–Њ—А—Б–Ї–Њ–Љ –њ—А–∞–≤–µ, —Н—В–Њ—В —Б–њ–Є—Б–Њ–Ї —Г—Б–ї–Њ–≤–Є–є –Є
+ –њ–Њ—Б–ї–µ–і—Г—О—Й–Є–є –Њ—В–Ї–∞–Ј –Њ—В –≥–∞—А–∞–љ—В–Є–є.
+ * –Э–Є –љ–∞–Ј–≤–∞–љ–Є–µ Cognitive Technologies, –љ–Є –Є–Љ–µ–љ–∞ –µ–µ —Б–Њ—В—А—Г–і–љ–Є–Ї–Њ–≤ –љ–µ –Љ–Њ–≥—Г—В
+ –±—Л—В—М –Є—Б–њ–Њ–ї—М–Ј–Њ–≤–∞–љ—Л –≤ –Ї–∞—З–µ—Б—В–≤–µ —Б—А–µ–і—Б—В–≤–∞ –њ–Њ–і–і–µ—А–ґ–Ї–Є –Є/–Є–ї–Є –њ—А–Њ–і–≤–Є–ґ–µ–љ–Є—П
+ –њ—А–Њ–і—Г–Ї—В–Њ–≤, –Њ—Б–љ–Њ–≤–∞–љ–љ—Л—Е –љ–∞ —Н—В–Њ–Љ –Я–Ю, –±–µ–Ј –њ—А–µ–і–≤–∞—А–Є—В–µ–ї—М–љ–Њ–≥–Њ –њ–Є—Б—М–Љ–µ–љ–љ–Њ–≥–Њ
+ —А–∞–Ј—А–µ—И–µ–љ–Є—П.
 
-Ё“ј ѕ–ќ√–јћћј ѕ–≈ƒќ—“ј¬Ћ≈Ќј ¬Ћјƒ≈Ћ№÷јћ» ј¬“ќ–— »’ ѕ–ј¬ »/»Ћ» ƒ–”√»ћ» Ћ»÷јћ» " ј 
-ќЌј ≈—“№" Ѕ≈«  ј ќ√ќ-Ћ»Ѕќ ¬»ƒј √ј–јЌ“»…, ¬џ–ј∆≈ЌЌџ’ я¬Ќќ »Ћ» ѕќƒ–ј«”ћ≈¬ј≈ћџ’,
-¬ Ћё„јя √ј–јЌ“»»  ќћћ≈–„≈— ќ… ÷≈ЌЌќ—“» » ѕ–»√ќƒЌќ—“» ƒЋя  ќЌ –≈“Ќќ… ÷≈Ћ», Ќќ Ќ≈
-ќ√–јЌ»„»¬јя—№ »ћ». Ќ» ¬Ћјƒ≈Ћ≈÷ ј¬“ќ–— »’ ѕ–ј¬ » Ќ» ќƒЌќ ƒ–”√ќ≈ Ћ»÷ќ,  ќ“ќ–ќ≈
-ћќ∆≈“ »«ћ≈Ќя“№ »/»Ћ» ѕќ¬“ќ–Ќќ –ј—ѕ–ќ—“–јЌя“№ ѕ–ќ√–јћћ”, Ќ» ¬  ќ≈ћ —Ћ”„ј≈ Ќ≈
-Ќ≈—®“ ќ“¬≈“—“¬≈ЌЌќ—“», ¬ Ћё„јя ЋёЅџ≈ ќЅў»≈, —Ћ”„ј…Ќџ≈, —ѕ≈÷»јЋ№Ќџ≈ »Ћ»
-ѕќ—Ћ≈ƒќ¬ј¬Ў»≈ ”Ѕџ“ », —¬я«јЌЌџ≈ — »—ѕќЋ№«ќ¬јЌ»≈ћ »Ћ» ѕќЌ≈—≈ЌЌџ≈ ¬—Ћ≈ƒ—“¬»≈
-Ќ≈¬ќ«ћќ∆Ќќ—“» »—ѕќЋ№«ќ¬јЌ»я ѕ–ќ√–јћћџ (¬ Ћё„јя ѕќ“≈–» ƒјЌЌџ’, »Ћ» ƒјЌЌџ≈,
-—“ј¬Ў»≈ Ќ≈√ќƒЌџћ», »Ћ» ”Ѕџ“ » »/»Ћ» ѕќ“≈–» ƒќ’ќƒќ¬, ѕќЌ≈—≈ЌЌџ≈ »«-«ј ƒ≈…—“¬»…
-“–≈“№»’ Ћ»÷ »/»Ћ» ќ“ ј«ј ѕ–ќ√–јћћџ –јЅќ“ј“№ —ќ¬ћ≈—“Ќќ — ƒ–”√»ћ» ѕ–ќ√–јћћјћ»,
-Ќќ Ќ≈ ќ√–јЌ»„»¬јя—№ Ё“»ћ» —Ћ”„јяћ»), Ќќ Ќ≈ ќ√–јЌ»„»¬јя—№ »ћ», ƒј∆≈ ≈—Ћ» “ј ќ…
-¬Ћјƒ≈Ћ≈÷ »Ћ» ƒ–”√ќ≈ Ћ»÷ќ ЅџЋ» »«¬≈ў≈Ќџ ќ ¬ќ«ћќ∆Ќќ—“» “ј »’ ”Ѕџ“ ќ¬ » ѕќ“≈–№.
+ –≠–Ґ–Р –Я–†–Ю–У–†–Р–Ь–Ь–Р –Я–†–Х–Ф–Ю–°–Ґ–Р–Т–Ы–Х–Э–Р –Т–Ы–Р–Ф–Х–Ы–ђ–¶–Р–Ь–Ш –Р–Т–Ґ–Ю–†–°–Ъ–Ш–• –Я–†–Р–Т –Ш/–Ш–Ы–Ш –Ф–†–£–У–Ш–Ь–Ш –Ы–Ш–¶–Р–Ь–Ш "–Ъ–Р–Ъ
+ –Ю–Э–Р –Х–°–Ґ–ђ" –С–Х–Ч –Ъ–Р–Ъ–Ю–У–Ю-–Ы–Ш–С–Ю –Т–Ш–Ф–Р –У–Р–†–Р–Э–Ґ–Ш–Щ, –Т–Ђ–†–Р–Ц–Х–Э–Э–Ђ–• –ѓ–Т–Э–Ю –Ш–Ы–Ш –Я–Ю–Ф–†–Р–Ч–£–Ь–Х–Т–Р–Х–Ь–Ђ–•,
+ –Т–Ъ–Ы–Ѓ–І–Р–ѓ –У–Р–†–Р–Э–Ґ–Ш–Ш –Ъ–Ю–Ь–Ь–Х–†–І–Х–°–Ъ–Ю–Щ –¶–Х–Э–Э–Ю–°–Ґ–Ш –Ш –Я–†–Ш–У–Ю–Ф–Э–Ю–°–Ґ–Ш –Ф–Ы–ѓ –Ъ–Ю–Э–Ъ–†–Х–Ґ–Э–Ю–Щ –¶–Х–Ы–Ш, –Э–Ю –Э–Х
+ –Ю–У–†–Р–Э–Ш–І–Ш–Т–Р–ѓ–°–ђ –Ш–Ь–Ш. –Э–Ш –Т–Ы–Р–Ф–Х–Ы–Х–¶ –Р–Т–Ґ–Ю–†–°–Ъ–Ш–• –Я–†–Р–Т –Ш –Э–Ш –Ю–Ф–Э–Ю –Ф–†–£–У–Ю–Х –Ы–Ш–¶–Ю, –Ъ–Ю–Ґ–Ю–†–Ю–Х
+ –Ь–Ю–Ц–Х–Ґ –Ш–Ч–Ь–Х–Э–ѓ–Ґ–ђ –Ш/–Ш–Ы–Ш –Я–Ю–Т–Ґ–Ю–†–Э–Ю –†–Р–°–Я–†–Ю–°–Ґ–†–Р–Э–ѓ–Ґ–ђ –Я–†–Ю–У–†–Р–Ь–Ь–£, –Э–Ш –Т –Ъ–Ю–Х–Ь –°–Ы–£–І–Р–Х –Э–Х
+ –Э–Х–°–Б–Ґ –Ю–Ґ–Т–Х–Ґ–°–Ґ–Т–Х–Э–Э–Ю–°–Ґ–Ш, –Т–Ъ–Ы–Ѓ–І–Р–ѓ –Ы–Ѓ–С–Ђ–Х –Ю–С–©–Ш–Х, –°–Ы–£–І–Р–Щ–Э–Ђ–Х, –°–Я–Х–¶–Ш–Р–Ы–ђ–Э–Ђ–Х –Ш–Ы–Ш
+ –Я–Ю–°–Ы–Х–Ф–Ю–Т–Р–Т–®–Ш–Х –£–С–Ђ–Ґ–Ъ–Ш, –°–Т–ѓ–Ч–Р–Э–Э–Ђ–Х –° –Ш–°–Я–Ю–Ы–ђ–Ч–Ю–Т–Р–Э–Ш–Х–Ь –Ш–Ы–Ш –Я–Ю–Э–Х–°–Х–Э–Э–Ђ–Х –Т–°–Ы–Х–Ф–°–Ґ–Т–Ш–Х
+ –Э–Х–Т–Ю–Ч–Ь–Ю–Ц–Э–Ю–°–Ґ–Ш –Ш–°–Я–Ю–Ы–ђ–Ч–Ю–Т–Р–Э–Ш–ѓ –Я–†–Ю–У–†–Р–Ь–Ь–Ђ (–Т–Ъ–Ы–Ѓ–І–Р–ѓ –Я–Ю–Ґ–Х–†–Ш –Ф–Р–Э–Э–Ђ–•, –Ш–Ы–Ш –Ф–Р–Э–Э–Ђ–Х,
+ –°–Ґ–Р–Т–®–Ш–Х –Э–Х–У–Ю–Ф–Э–Ђ–Ь–Ш, –Ш–Ы–Ш –£–С–Ђ–Ґ–Ъ–Ш –Ш/–Ш–Ы–Ш –Я–Ю–Ґ–Х–†–Ш –Ф–Ю–•–Ю–Ф–Ю–Т, –Я–Ю–Э–Х–°–Х–Э–Э–Ђ–Х –Ш–Ч-–Ч–Р –Ф–Х–Щ–°–Ґ–Т–Ш–Щ
+ –Ґ–†–Х–Ґ–ђ–Ш–• –Ы–Ш–¶ –Ш/–Ш–Ы–Ш –Ю–Ґ–Ъ–Р–Ч–Р –Я–†–Ю–У–†–Р–Ь–Ь–Ђ –†–Р–С–Ю–Ґ–Р–Ґ–ђ –°–Ю–Т–Ь–Х–°–Ґ–Э–Ю –° –Ф–†–£–У–Ш–Ь–Ш –Я–†–Ю–У–†–Р–Ь–Ь–Р–Ь–Ш,
+ –Э–Ю –Э–Х –Ю–У–†–Р–Э–Ш–І–Ш–Т–Р–ѓ–°–ђ –≠–Ґ–Ш–Ь–Ш –°–Ы–£–І–Р–ѓ–Ь–Ш), –Э–Ю –Э–Х –Ю–У–†–Р–Э–Ш–І–Ш–Т–Р–ѓ–°–ђ –Ш–Ь–Ш, –Ф–Р–Ц–Х –Х–°–Ы–Ш –Ґ–Р–Ъ–Ю–Щ
+ –Т–Ы–Р–Ф–Х–Ы–Х–¶ –Ш–Ы–Ш –Ф–†–£–У–Ю–Х –Ы–Ш–¶–Ю –С–Ђ–Ы–Ш –Ш–Ч–Т–Х–©–Х–Э–Ђ –Ю –Т–Ю–Ч–Ь–Ю–Ц–Э–Ю–°–Ґ–Ш –Ґ–Р–Ъ–Ш–• –£–С–Ђ–Ґ–Ъ–Ю–Т –Ш –Я–Ю–Ґ–Х–†–ђ.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
 
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation
-      and/or other materials provided with the distribution.
-    * Neither the name of the Cognitive Technologies nor the names of its
-      contributors may be used to endorse or promote products derived from this
-      software without specific prior written permission.
+ * Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ * Neither the name of the Cognitive Technologies nor the names of its
+ contributors may be used to endorse or promote products derived from this
+ software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 /*
 
-ЋЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌї
-Ї        This module is a set  user dictionary initialisation utilities       Ї
-»ЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЌЉ
-*/
- #include "spelmode.h"
+ –Ы–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э¬ї
+ —Ф        This module is a set  user dictionary initialisation utilities       —Ф
+ –Ш–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э–Э—Ш
+ */
+#include "spelmode.h"
 /////// #include <dos.h>
 #if defined (WATCOM)
-  #include "spelwatc.h"
+#include "spelwatc.h"
 #elif defined (BC_FOR_WIN)
-  #include "bcwtypes.h"
-  typedef long signed int LONG;
+#include "bcwtypes.h"
+typedef long signed int LONG;
 #elif defined(TURBO_C)
- #include "tc_types.h"
+#include "tc_types.h"
 #else
- #error No tool specified
+#error No tool specified
 #endif
 
- #include "speldefs.h"
- #include "spelfunc.h"
- #include "udicfunc.h"
+#include "speldefs.h"
+#include "spelfunc.h"
+#include "udicfunc.h"
 
- #include "tigeremulate.h"
+#include "tigeremulate.h"
 
 #include "compat_defs.h"
 
-DWORD        LoadUserDict( CHAR      *DictName,
-                           CHAR      *pool,
-			               DWORD     pool_size,
-			               voc_state *user_dict)
- {
-   LONG      size;
-   pool_size = pool_size;
-   if (_IsUserDict(DictName)!= UD_PERMITTED)     return 0;
+uint32_t LoadUserDict(CHAR *DictName, CHAR *pool, uint32_t pool_size,
+		voc_state *user_dict) {
+	LONG size;
+	pool_size = pool_size;
+	if (_IsUserDict(DictName) != UD_PERMITTED)
+		return 0;
 
 #ifdef TURBO_C
- if(TEST_PRPH(pool))
-    pool=ALI_PR(pool);
+	if(TEST_PRPH(pool))
+	pool=ALI_PR(pool);
 #endif
 
-  user_dict -> vocseg = (BYTE *)SET_VOC_ROOT(pool);
+	user_dict -> vocseg = (BYTE *) SET_VOC_ROOT(pool);
 
-  {
-    INT Fh;
-    CHAR nm[128];
-    strcpy (nm, DictName);
-    Fh = TGOPEN (VC_STREAM, nm, (INT)(O_RDONLY | O_BINARY), S_IREAD);
-    if (Fh == -1)
-        return 0;
-    if (TGFILELTH(Fh) > MAX_VOC_SIZE)
-    {
-      TGCLOSE(Fh);
-      return   0;
-    }
-    size = TGREAD(Fh, V_POINT(user_dict -> vocseg,0), TGFILELTH(Fh));
-    TGCLOSE (Fh);
-   }
-  if ( size <=0)                      return 0;
-   else
-      { voc_open(user_dict);
-        user_dict -> vocfree = (WORD)size;
-      }
-  return MAX_VOC_SIZE;
-  }
-
-DWORD InitializeNewUserDict ( CHAR *pool, DWORD pool_size, voc_state *user_dict)
-{
-#ifdef TURBO_C
- if(TEST_PRPH(pool))
-    pool=ALI_PR(pool);
-#endif
-
-  if ( pool_size < MAX_VOC_SIZE)                   return 0;
-
-  user_dict -> vocseg = SET_VOC_ROOT(pool);
-  voc_init(user_dict);
-
-  return MAX_VOC_SIZE;
+	{
+		INT Fh;
+		CHAR nm[128];
+		strcpy(nm, DictName);
+		Fh = TGOPEN(VC_STREAM, nm, (INT)(O_RDONLY | O_BINARY), S_IREAD);
+		if (Fh == -1)
+			return 0;
+		if (TGFILELTH(Fh) > MAX_VOC_SIZE) {
+			TGCLOSE(Fh);
+			return 0;
+		}
+		size = TGREAD(Fh, V_POINT(user_dict -> vocseg, 0), TGFILELTH(Fh));
+		TGCLOSE(Fh);
+	}
+	if (size <= 0)
+		return 0;
+	else {
+		voc_open(user_dict);
+		user_dict -> vocfree = (WORD) size;
+	}
+	return MAX_VOC_SIZE;
 }
 
- void ResetUserDict(voc_state * user_dict)
- {
-  user_dict ->lev = -1;
- }
+uint32_t InitializeNewUserDict(CHAR *pool, uint32_t pool_size, voc_state *user_dict) {
+#ifdef TURBO_C
+	if(TEST_PRPH(pool))
+	pool=ALI_PR(pool);
+#endif
+
+	if (pool_size < MAX_VOC_SIZE)
+		return 0;
+
+	user_dict -> vocseg = SET_VOC_ROOT(pool);
+	voc_init(user_dict);
+
+	return MAX_VOC_SIZE;
+}
+
+void ResetUserDict(voc_state * user_dict) {
+	user_dict ->lev = -1;
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //
- BOOL CloseUserDictionary (BYTE * DictName, voc_state *user_dict)
-{
-	if ( user_dict -> state & VOC_CHANGED)
-	{
+BOOL CloseUserDictionary(BYTE * DictName, voc_state *user_dict) {
+	if (user_dict -> state & VOC_CHANGED) {
 		char w[80];
 		LONG size;
 		INT h;
 
-		strcpy (w,DictName);
-		h = TGOPEN (VC_STREAM,w,O_CREAT, S_IREAD);
+		strcpy(w, DictName);
+		h = TGOPEN(VC_STREAM, w, O_CREAT, S_IREAD);
 
-		if ( h == -1)
-		{
+		if (h == -1) {
 			/* MsgBox("failed to open"); */
 			return FALSE;
 		}
 
-		size = TGWRITE (h,V_POINT(user_dict ->vocseg,0), user_dict ->vocfree  );
+		size = TGWRITE(h, V_POINT(user_dict ->vocseg, 0), user_dict ->vocfree);
 		TGCLOSE(h);
 
-		if ( size != (LONG)user_dict->vocfree )
-		{
+		if (size != (LONG) user_dict->vocfree) {
 			/* MsgBox("wrong size"); */
-			return  FALSE;
+			return FALSE;
 		}
 
 		user_dict -> state &= (~VOC_CHANGED);
 	}
-	return     TRUE;
+	return TRUE;
 }

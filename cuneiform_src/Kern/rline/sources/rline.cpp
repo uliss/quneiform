@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -190,8 +190,8 @@ Word16	  rc16;
 Word32	  rc32;
 
 	//Almi 16.05.01
-    int MinHorLenForTrue = 129;//113;//было 100
-	int MinVerLenForTrue = 94;//58; //было  50
+    int MinHorLenForTrue = 129;//113;//Р±С‹Р»Рѕ 100
+	int MinVerLenForTrue = 94;//58; //Р±С‹Р»Рѕ  50
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 void SetReturnCode_rline( Word32 );
@@ -222,152 +222,152 @@ Bool32 RLINE_SubInit ( void )
 
 	LDPUMA_Registry(&hMainDebug,SNAP_ROOT_MAIN_DEBUG,NULL);
 
-	LDPUMA_Registry(&RLINE_Root,SNAP_ROOT_LINES, NULL); // регистрация вершины отладки
+	LDPUMA_Registry(&RLINE_Root,SNAP_ROOT_LINES, NULL); // СЂРµРіРёСЃС‚СЂР°С†РёСЏ РІРµСЂС€РёРЅС‹ РѕС‚Р»Р°РґРєРё
 
 	LDPUMA_Registry(&hRLINE_Pass1, SNAP_PASS1_LINES, RLINE_Root);
 	LDPUMA_Registry(&hRLINE_Pass2, SNAP_PASS2_LINES, RLINE_Root);
-	LDPUMA_RegistryHelp(hRLINE_Pass2, "При выделении - пропустить II проход", FALSE);
-		LDPUMA_RegVariable(hRLINE_Pass2, "Почернение (%) при подтв. линии", &hRLINE_Pass2Lost1, "long");
-		LDPUMA_RegVariable(hRLINE_Pass2, "Почернение (%) без подтв. линии", &hRLINE_Pass2Lost2, "long");
+	LDPUMA_RegistryHelp(hRLINE_Pass2, "РџСЂРё РІС‹РґРµР»РµРЅРёРё - РїСЂРѕРїСѓСЃС‚РёС‚СЊ II РїСЂРѕС…РѕРґ", FALSE);
+		LDPUMA_RegVariable(hRLINE_Pass2, "РџРѕС‡РµСЂРЅРµРЅРёРµ (%) РїСЂРё РїРѕРґС‚РІ. Р»РёРЅРёРё", &hRLINE_Pass2Lost1, "long");
+		LDPUMA_RegVariable(hRLINE_Pass2, "РџРѕС‡РµСЂРЅРµРЅРёРµ (%) Р±РµР· РїРѕРґС‚РІ. Р»РёРЅРёРё", &hRLINE_Pass2Lost2, "long");
 	LDPUMA_Registry(&hRLINE_Pass3, SNAP_PASS3_LINES, RLINE_Root);
 
-	LDPUMA_Registry(&RLINE_Search,"Линии LNS", hRLINE_Pass1); // регистрация вершины отладки
+	LDPUMA_Registry(&RLINE_Search,"Р›РёРЅРёРё LNS", hRLINE_Pass1); // СЂРµРіРёСЃС‚СЂР°С†РёСЏ РІРµСЂС€РёРЅС‹ РѕС‚Р»Р°РґРєРё
 	LDPUMA_RegistryHelp(RLINE_Search,
-		"Выполнить поиск линий используя LNS32.DLL.", FALSE);
-	LDPUMA_Registry(&hRLINE_Correct, "Коррекция линий LNS", hRLINE_Pass1);
+		"Р’С‹РїРѕР»РЅРёС‚СЊ РїРѕРёСЃРє Р»РёРЅРёР№ РёСЃРїРѕР»СЊР·СѓСЏ LNS32.DLL.", FALSE);
+	LDPUMA_Registry(&hRLINE_Correct, "РљРѕСЂСЂРµРєС†РёСЏ Р»РёРЅРёР№ LNS", hRLINE_Pass1);
 	LDPUMA_RegistryHelp(hRLINE_Correct,
-		"Коррекция линий, найденных LNS.", FALSE);
+		"РљРѕСЂСЂРµРєС†РёСЏ Р»РёРЅРёР№, РЅР°Р№РґРµРЅРЅС‹С… LNS.", FALSE);
 
-	LDPUMA_Registry(&hRLINE_CorrectOutput,"Результат коррекции линий", hRLINE_Correct);
-		LDPUMA_Registry(&hRLINE_CorrectDrawLines,"Рисовать скорректированные линии (I)", hRLINE_CorrectOutput);
-		LDPUMA_Registry(&hRLINE_CorrectDrawFrags,"Рисовать фрагменты линий (I)", hRLINE_CorrectOutput);
-	LDPUMA_Registry(&hRLINE_CorrectDebug,"Отладка коррекции линий", hRLINE_Correct);
-		LDPUMA_Registry(&hRLINE_CorrectDebugFrag, "Использовать фрагментацию от LNS", hRLINE_CorrectDebug);
-		LDPUMA_RegistryHelp(hRLINE_CorrectDebugFrag, "т.е. не перефрагментировывать линию при коррекции", FALSE);
-	LDPUMA_Registry(&hRLINE_CorrectControl,"Контроль коррекции линий", hRLINE_Correct);
-	LDPUMA_Registry(&Part2,"Этапирование коррекции линий", hRLINE_Correct);
+	LDPUMA_Registry(&hRLINE_CorrectOutput,"Р РµР·СѓР»СЊС‚Р°С‚ РєРѕСЂСЂРµРєС†РёРё Р»РёРЅРёР№", hRLINE_Correct);
+		LDPUMA_Registry(&hRLINE_CorrectDrawLines,"Р РёСЃРѕРІР°С‚СЊ СЃРєРѕСЂСЂРµРєС‚РёСЂРѕРІР°РЅРЅС‹Рµ Р»РёРЅРёРё (I)", hRLINE_CorrectOutput);
+		LDPUMA_Registry(&hRLINE_CorrectDrawFrags,"Р РёСЃРѕРІР°С‚СЊ С„СЂР°РіРјРµРЅС‚С‹ Р»РёРЅРёР№ (I)", hRLINE_CorrectOutput);
+	LDPUMA_Registry(&hRLINE_CorrectDebug,"РћС‚Р»Р°РґРєР° РєРѕСЂСЂРµРєС†РёРё Р»РёРЅРёР№", hRLINE_Correct);
+		LDPUMA_Registry(&hRLINE_CorrectDebugFrag, "РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ С„СЂР°РіРјРµРЅС‚Р°С†РёСЋ РѕС‚ LNS", hRLINE_CorrectDebug);
+		LDPUMA_RegistryHelp(hRLINE_CorrectDebugFrag, "С‚.Рµ. РЅРµ РїРµСЂРµС„СЂР°РіРјРµРЅС‚РёСЂРѕРІС‹РІР°С‚СЊ Р»РёРЅРёСЋ РїСЂРё РєРѕСЂСЂРµРєС†РёРё", FALSE);
+	LDPUMA_Registry(&hRLINE_CorrectControl,"РљРѕРЅС‚СЂРѕР»СЊ РєРѕСЂСЂРµРєС†РёРё Р»РёРЅРёР№", hRLINE_Correct);
+	LDPUMA_Registry(&Part2,"Р­С‚Р°РїРёСЂРѕРІР°РЅРёРµ РєРѕСЂСЂРµРєС†РёРё Р»РёРЅРёР№", hRLINE_Correct);
 
-	LDPUMA_Registry(&hRLINE_Pass3Input,"Входные данные III прохода", hRLINE_Pass3);
-	LDPUMA_Registry(&hRLINE_Pass3Output,"Результат III прохода", hRLINE_Pass3);
-		LDPUMA_Registry(&hRLINE_Pass3DrawLines,"Рисовать линии (III)", hRLINE_Pass3Output);
-		LDPUMA_Registry(&hRLINE_Pass3DrawFrags,"Рисовать фрагменты линий (III)", hRLINE_Pass3Output);
-	LDPUMA_Registry(&hRLINE_Pass3_Control,"Контроль третьего прохода",hRLINE_Pass3);
-	LDPUMA_Registry(&Part3,"Этапирование третьего прохода",hRLINE_Pass3);
+	LDPUMA_Registry(&hRLINE_Pass3Input,"Р’С…РѕРґРЅС‹Рµ РґР°РЅРЅС‹Рµ III РїСЂРѕС…РѕРґР°", hRLINE_Pass3);
+	LDPUMA_Registry(&hRLINE_Pass3Output,"Р РµР·СѓР»СЊС‚Р°С‚ III РїСЂРѕС…РѕРґР°", hRLINE_Pass3);
+		LDPUMA_Registry(&hRLINE_Pass3DrawLines,"Р РёСЃРѕРІР°С‚СЊ Р»РёРЅРёРё (III)", hRLINE_Pass3Output);
+		LDPUMA_Registry(&hRLINE_Pass3DrawFrags,"Р РёСЃРѕРІР°С‚СЊ С„СЂР°РіРјРµРЅС‚С‹ Р»РёРЅРёР№ (III)", hRLINE_Pass3Output);
+	LDPUMA_Registry(&hRLINE_Pass3_Control,"РљРѕРЅС‚СЂРѕР»СЊ С‚СЂРµС‚СЊРµРіРѕ РїСЂРѕС…РѕРґР°",hRLINE_Pass3);
+	LDPUMA_Registry(&Part3,"Р­С‚Р°РїРёСЂРѕРІР°РЅРёРµ С‚СЂРµС‚СЊРµРіРѕ РїСЂРѕС…РѕРґР°",hRLINE_Pass3);
 
-	LDPUMA_Registry(&hRLINE_Search_Output, "Результат LNS", RLINE_Search);
-	LDPUMA_Registry(&hRLINE_Search_Debug, "Отладка LNS", RLINE_Search);
+	LDPUMA_Registry(&hRLINE_Search_Output, "Р РµР·СѓР»СЊС‚Р°С‚ LNS", RLINE_Search);
+	LDPUMA_Registry(&hRLINE_Search_Debug, "РћС‚Р»Р°РґРєР° LNS", RLINE_Search);
 
-	//LDPUMA_Registry(&RLINE_NoFillgap,"Не выполнять 'размазывание' линий", RLINE_Root); // регистрация вершины отладки
-	LDPUMA_Registry(&RLINE_NoFillgap,"Выполнить 'размазывание' линий", hRLINE_Search_Debug); // регистрация вершины отладки
+	//LDPUMA_Registry(&RLINE_NoFillgap,"РќРµ РІС‹РїРѕР»РЅСЏС‚СЊ 'СЂР°Р·РјР°Р·С‹РІР°РЅРёРµ' Р»РёРЅРёР№", RLINE_Root); // СЂРµРіРёСЃС‚СЂР°С†РёСЏ РІРµСЂС€РёРЅС‹ РѕС‚Р»Р°РґРєРё
+	LDPUMA_Registry(&RLINE_NoFillgap,"Р’С‹РїРѕР»РЅРёС‚СЊ 'СЂР°Р·РјР°Р·С‹РІР°РЅРёРµ' Р»РёРЅРёР№", hRLINE_Search_Debug); // СЂРµРіРёСЃС‚СЂР°С†РёСЏ РІРµСЂС€РёРЅС‹ РѕС‚Р»Р°РґРєРё
 	LDPUMA_RegistryHelp(RLINE_NoFillgap,
-		"Под 'размазыванием' понимается удлинение базовых линий на 3 пиксела. Этот режим используется \
-при работе с изображением от матричного принтера.", FALSE);
-	//LDPUMA_Registry(&RLINE_NoHorBorder,"Не выделять горизонтальные поля", RLINE_Root); // регистрация вершины отладки
-	LDPUMA_Registry(&RLINE_NoHorBorder,"Выделять горизонтальные поля", hRLINE_Search_Debug); // регистрация вершины отладки
+		"РџРѕРґ 'СЂР°Р·РјР°Р·С‹РІР°РЅРёРµРј' РїРѕРЅРёРјР°РµС‚СЃСЏ СѓРґР»РёРЅРµРЅРёРµ Р±Р°Р·РѕРІС‹С… Р»РёРЅРёР№ РЅР° 3 РїРёРєСЃРµР»Р°. Р­С‚РѕС‚ СЂРµР¶РёРј РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ \
+РїСЂРё СЂР°Р±РѕС‚Рµ СЃ РёР·РѕР±СЂР°Р¶РµРЅРёРµРј РѕС‚ РјР°С‚СЂРёС‡РЅРѕРіРѕ РїСЂРёРЅС‚РµСЂР°.", FALSE);
+	//LDPUMA_Registry(&RLINE_NoHorBorder,"РќРµ РІС‹РґРµР»СЏС‚СЊ РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Рµ РїРѕР»СЏ", RLINE_Root); // СЂРµРіРёСЃС‚СЂР°С†РёСЏ РІРµСЂС€РёРЅС‹ РѕС‚Р»Р°РґРєРё
+	LDPUMA_Registry(&RLINE_NoHorBorder,"Р’С‹РґРµР»СЏС‚СЊ РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Рµ РїРѕР»СЏ", hRLINE_Search_Debug); // СЂРµРіРёСЃС‚СЂР°С†РёСЏ РІРµСЂС€РёРЅС‹ РѕС‚Р»Р°РґРєРё
 	LDPUMA_RegistryHelp(RLINE_NoHorBorder,
-		"Специальный случай обработки граничных участков изображения", FALSE); // регистрация вершины отладки
-	//LDPUMA_Registry(&RLINE_NoVerBorder,"Не выделять вертикальные поля", RLINE_Root); // регистрация вершины отладки
-	LDPUMA_Registry(&RLINE_NoVerBorder,"Выделять вертикальные поля", hRLINE_Search_Debug); // регистрация вершины отладки
+		"РЎРїРµС†РёР°Р»СЊРЅС‹Р№ СЃР»СѓС‡Р°Р№ РѕР±СЂР°Р±РѕС‚РєРё РіСЂР°РЅРёС‡РЅС‹С… СѓС‡Р°СЃС‚РєРѕРІ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ", FALSE); // СЂРµРіРёСЃС‚СЂР°С†РёСЏ РІРµСЂС€РёРЅС‹ РѕС‚Р»Р°РґРєРё
+	//LDPUMA_Registry(&RLINE_NoVerBorder,"РќРµ РІС‹РґРµР»СЏС‚СЊ РІРµСЂС‚РёРєР°Р»СЊРЅС‹Рµ РїРѕР»СЏ", RLINE_Root); // СЂРµРіРёСЃС‚СЂР°С†РёСЏ РІРµСЂС€РёРЅС‹ РѕС‚Р»Р°РґРєРё
+	LDPUMA_Registry(&RLINE_NoVerBorder,"Р’С‹РґРµР»СЏС‚СЊ РІРµСЂС‚РёРєР°Р»СЊРЅС‹Рµ РїРѕР»СЏ", hRLINE_Search_Debug); // СЂРµРіРёСЃС‚СЂР°С†РёСЏ РІРµСЂС€РёРЅС‹ РѕС‚Р»Р°РґРєРё
 	LDPUMA_RegistryHelp(RLINE_NoVerBorder,
-		"Специальный случай обработки граничных участков изображения", FALSE); // регистрация вершины отладки
+		"РЎРїРµС†РёР°Р»СЊРЅС‹Р№ СЃР»СѓС‡Р°Р№ РѕР±СЂР°Р±РѕС‚РєРё РіСЂР°РЅРёС‡РЅС‹С… СѓС‡Р°СЃС‚РєРѕРІ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ", FALSE); // СЂРµРіРёСЃС‚СЂР°С†РёСЏ РІРµСЂС€РёРЅС‹ РѕС‚Р»Р°РґРєРё
 
-	LDPUMA_Registry(&RLINE_ShowLines,"Показывать линии после выделения", hRLINE_Search_Output); // регистрация вершины отладки
+	LDPUMA_Registry(&RLINE_ShowLines,"РџРѕРєР°Р·С‹РІР°С‚СЊ Р»РёРЅРёРё РїРѕСЃР»Рµ РІС‹РґРµР»РµРЅРёСЏ", hRLINE_Search_Output); // СЂРµРіРёСЃС‚СЂР°С†РёСЏ РІРµСЂС€РёРЅС‹ РѕС‚Р»Р°РґРєРё
 	LDPUMA_RegistryHelp(RLINE_ShowLines,
-		"Показывать линии после выделения", FALSE); // регистрация вершины отладки
-	LDPUMA_Registry(&hRLINE_Search_Output_ShowFrags,"Показывать фрагменты линий LNS", hRLINE_Search_Output); // регистрация вершины отладки
+		"РџРѕРєР°Р·С‹РІР°С‚СЊ Р»РёРЅРёРё РїРѕСЃР»Рµ РІС‹РґРµР»РµРЅРёСЏ", FALSE); // СЂРµРіРёСЃС‚СЂР°С†РёСЏ РІРµСЂС€РёРЅС‹ РѕС‚Р»Р°РґРєРё
+	LDPUMA_Registry(&hRLINE_Search_Output_ShowFrags,"РџРѕРєР°Р·С‹РІР°С‚СЊ С„СЂР°РіРјРµРЅС‚С‹ Р»РёРЅРёР№ LNS", hRLINE_Search_Output); // СЂРµРіРёСЃС‚СЂР°С†РёСЏ РІРµСЂС€РёРЅС‹ РѕС‚Р»Р°РґРєРё
 	LDPUMA_RegistryHelp(hRLINE_Search_Output_ShowFrags,
-		"Показывать фрагменты линий после выделения (работает, если при коррекции линий на первом проходе используется фрагментация LNS)", FALSE); // регистрация вершины отладки
+		"РџРѕРєР°Р·С‹РІР°С‚СЊ С„СЂР°РіРјРµРЅС‚С‹ Р»РёРЅРёР№ РїРѕСЃР»Рµ РІС‹РґРµР»РµРЅРёСЏ (СЂР°Р±РѕС‚Р°РµС‚, РµСЃР»Рё РїСЂРё РєРѕСЂСЂРµРєС†РёРё Р»РёРЅРёР№ РЅР° РїРµСЂРІРѕРј РїСЂРѕС…РѕРґРµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ С„СЂР°РіРјРµРЅС‚Р°С†РёСЏ LNS)", FALSE); // СЂРµРіРёСЃС‚СЂР°С†РёСЏ РІРµСЂС€РёРЅС‹ РѕС‚Р»Р°РґРєРё
 
-	LDPUMA_Registry(&hWriteLineInFile, "Отпись линий после коррекции", hRLINE_CorrectControl);
-    LDPUMA_RegistryHelp(hWriteLineInFile, "Записать результаты первого прохода в файл lines.res", FALSE);
+	LDPUMA_Registry(&hWriteLineInFile, "РћС‚РїРёСЃСЊ Р»РёРЅРёР№ РїРѕСЃР»Рµ РєРѕСЂСЂРµРєС†РёРё", hRLINE_CorrectControl);
+    LDPUMA_RegistryHelp(hWriteLineInFile, "Р—Р°РїРёСЃР°С‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚С‹ РїРµСЂРІРѕРіРѕ РїСЂРѕС…РѕРґР° РІ С„Р°Р№Р» lines.res", FALSE);
 
-    LDPUMA_Registry(&hWriteLineInFile3, "Отпись результатов работы третьего прохода по линиям", hRLINE_Pass3_Control);
-    LDPUMA_RegistryHelp(hWriteLineInFile3, "Записать результаты третьего прохода в файл lines3.res", FALSE);
+    LDPUMA_Registry(&hWriteLineInFile3, "РћС‚РїРёСЃСЊ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ СЂР°Р±РѕС‚С‹ С‚СЂРµС‚СЊРµРіРѕ РїСЂРѕС…РѕРґР° РїРѕ Р»РёРЅРёСЏРј", hRLINE_Pass3_Control);
+    LDPUMA_RegistryHelp(hWriteLineInFile3, "Р—Р°РїРёСЃР°С‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚С‹ С‚СЂРµС‚СЊРµРіРѕ РїСЂРѕС…РѕРґР° РІ С„Р°Р№Р» lines3.res", FALSE);
 
-	/*	//вершина перенесена в RStuff
-	LDPUMA_Registry(&RLINE_ShowWithoutLines,"Показать изображение после снятия линий", RLINE_Root); // регистрация вершины отладки
+	/*	//РІРµСЂС€РёРЅР° РїРµСЂРµРЅРµСЃРµРЅР° РІ RStuff
+	LDPUMA_Registry(&RLINE_ShowWithoutLines,"РџРѕРєР°Р·Р°С‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ РїРѕСЃР»Рµ СЃРЅСЏС‚РёСЏ Р»РёРЅРёР№", RLINE_Root); // СЂРµРіРёСЃС‚СЂР°С†РёСЏ РІРµСЂС€РёРЅС‹ РѕС‚Р»Р°РґРєРё
 	LDPUMA_RegistryHelp(RLINE_ShowWithoutLines,
-		"Показать изображение после снятия линий", FALSE); // регистрация вершины отладки
+		"РџРѕРєР°Р·Р°С‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ РїРѕСЃР»Рµ СЃРЅСЏС‚РёСЏ Р»РёРЅРёР№", FALSE); // СЂРµРіРёСЃС‚СЂР°С†РёСЏ РІРµСЂС€РёРЅС‹ РѕС‚Р»Р°РґРєРё
 */
-//    LDPUMA_Registry (&hUseCLine,"Работа с контейнером линий",NULL);
+//    LDPUMA_Registry (&hUseCLine,"Р Р°Р±РѕС‚Р° СЃ РєРѕРЅС‚РµР№РЅРµСЂРѕРј Р»РёРЅРёР№",NULL);
 /*
-	LDPUMA_Registry(&Parts,"Этапирование второго и третьего прохода",RLINE_Root);
-	LDPUMA_RegistryHelp(Parts,"Этапирование второго и третьего прохода по линиям",FALSE);
+	LDPUMA_Registry(&Parts,"Р­С‚Р°РїРёСЂРѕРІР°РЅРёРµ РІС‚РѕСЂРѕРіРѕ Рё С‚СЂРµС‚СЊРµРіРѕ РїСЂРѕС…РѕРґР°",RLINE_Root);
+	LDPUMA_RegistryHelp(Parts,"Р­С‚Р°РїРёСЂРѕРІР°РЅРёРµ РІС‚РѕСЂРѕРіРѕ Рё С‚СЂРµС‚СЊРµРіРѕ РїСЂРѕС…РѕРґР° РїРѕ Р»РёРЅРёСЏРј",FALSE);
 */
-//	LDPUMA_Registry(&Part2,"Второй проход",Parts);
-	LDPUMA_Registry(&Prep2,"Подготовительная часть (2)",Part2);
-	LDPUMA_Registry(&MainWork2,"Содержательная часть (2)",Part2);
-	LDPUMA_Registry(&PutContainer2,"Складка в контейнер (2)",Part2);
-    LDPUMA_Registry(&Epilog2,"Эпилог (2)",Part2);
-	LDPUMA_Registry(&Exit2,"Выход из функции (2)",Part2);
+//	LDPUMA_Registry(&Part2,"Р’С‚РѕСЂРѕР№ РїСЂРѕС…РѕРґ",Parts);
+	LDPUMA_Registry(&Prep2,"РџРѕРґРіРѕС‚РѕРІРёС‚РµР»СЊРЅР°СЏ С‡Р°СЃС‚СЊ (2)",Part2);
+	LDPUMA_Registry(&MainWork2,"РЎРѕРґРµСЂР¶Р°С‚РµР»СЊРЅР°СЏ С‡Р°СЃС‚СЊ (2)",Part2);
+	LDPUMA_Registry(&PutContainer2,"РЎРєР»Р°РґРєР° РІ РєРѕРЅС‚РµР№РЅРµСЂ (2)",Part2);
+    LDPUMA_Registry(&Epilog2,"Р­РїРёР»РѕРі (2)",Part2);
+	LDPUMA_Registry(&Exit2,"Р’С‹С…РѕРґ РёР· С„СѓРЅРєС†РёРё (2)",Part2);
 
-//	LDPUMA_Registry(&Part3,"Третий проход",Parts);
-	LDPUMA_Registry(&GetContainer3,"Взятие из контейнера (3)",Part3);
-	LDPUMA_Registry(&MainWork3,"Содержательная часть (3)",Part3);
-	LDPUMA_Registry(&PutContainer3,"Складка в контейнер (3)",Part3);
-	LDPUMA_Registry(&Exit3,"Выход из функции (3)",Part3);
+//	LDPUMA_Registry(&Part3,"РўСЂРµС‚РёР№ РїСЂРѕС…РѕРґ",Parts);
+	LDPUMA_Registry(&GetContainer3,"Р’Р·СЏС‚РёРµ РёР· РєРѕРЅС‚РµР№РЅРµСЂР° (3)",Part3);
+	LDPUMA_Registry(&MainWork3,"РЎРѕРґРµСЂР¶Р°С‚РµР»СЊРЅР°СЏ С‡Р°СЃС‚СЊ (3)",Part3);
+	LDPUMA_Registry(&PutContainer3,"РЎРєР»Р°РґРєР° РІ РєРѕРЅС‚РµР№РЅРµСЂ (3)",Part3);
+	LDPUMA_Registry(&Exit3,"Р’С‹С…РѕРґ РёР· С„СѓРЅРєС†РёРё (3)",Part3);
 
 	//Almi 16.05.01
-    LDPUMA_RegVariable(hRLINE_Correct,"Подтверждать ГорЛин НеКороче",&MinHorLenForTrue,"unsigned");
-    LDPUMA_RegVariable(hRLINE_Correct,"Подтверждать ВерЛин НеКороче",&MinVerLenForTrue,"unsigned");
+    LDPUMA_RegVariable(hRLINE_Correct,"РџРѕРґС‚РІРµСЂР¶РґР°С‚СЊ Р“РѕСЂР›РёРЅ РќРµРљРѕСЂРѕС‡Рµ",&MinHorLenForTrue,"unsigned");
+    LDPUMA_RegVariable(hRLINE_Correct,"РџРѕРґС‚РІРµСЂР¶РґР°С‚СЊ Р’РµСЂР›РёРЅ РќРµРљРѕСЂРѕС‡Рµ",&MinVerLenForTrue,"unsigned");
 
-	LDPUMA_Registry(&hDotKilledD,"Прорисовка удалённых точечных линий", hRLINE_CorrectControl);
-	LDPUMA_RegistryHelp(hDotKilledD,"Прорисовка удалённых точечных линий", FALSE);
+	LDPUMA_Registry(&hDotKilledD,"РџСЂРѕСЂРёСЃРѕРІРєР° СѓРґР°Р»С‘РЅРЅС‹С… С‚РѕС‡РµС‡РЅС‹С… Р»РёРЅРёР№", hRLINE_CorrectControl);
+	LDPUMA_RegistryHelp(hDotKilledD,"РџСЂРѕСЂРёСЃРѕРІРєР° СѓРґР°Р»С‘РЅРЅС‹С… С‚РѕС‡РµС‡РЅС‹С… Р»РёРЅРёР№", FALSE);
 
-	LDPUMA_Registry(&hSkipDelSmallLines, "НЕ удалять маленькие остатки линий", hRLINE_CorrectDebug);
-	LDPUMA_RegistryHelp(hSkipDelSmallLines, "Оставлять в контейнере короткие (длиной меньше 30) отделенные от линий остатки", FALSE);
+	LDPUMA_Registry(&hSkipDelSmallLines, "РќР• СѓРґР°Р»СЏС‚СЊ РјР°Р»РµРЅСЊРєРёРµ РѕСЃС‚Р°С‚РєРё Р»РёРЅРёР№", hRLINE_CorrectDebug);
+	LDPUMA_RegistryHelp(hSkipDelSmallLines, "РћСЃС‚Р°РІР»СЏС‚СЊ РІ РєРѕРЅС‚РµР№РЅРµСЂРµ РєРѕСЂРѕС‚РєРёРµ (РґР»РёРЅРѕР№ РјРµРЅСЊС€Рµ 30) РѕС‚РґРµР»РµРЅРЅС‹Рµ РѕС‚ Р»РёРЅРёР№ РѕСЃС‚Р°С‚РєРё", FALSE);
 
-	LDPUMA_Registry(&hRLINE_Pass2Output,"Результат II прохода", hRLINE_Pass2);
-		LDPUMA_Registry(&hRLINE_Pass2DrawLines,"Рисовать линии (II)", hRLINE_Pass2Output);
-		LDPUMA_Registry(&hRLINE_Pass2DrawFrags,"Рисовать фрагменты линий (II)", hRLINE_Pass2Output);
-	LDPUMA_Registry(&hLinesPass2, "Контроль II прохода по линиям", hRLINE_Pass2);
-	LDPUMA_RegistryHelp(hLinesPass2, "При выделении - пропустить II проход", FALSE);
-	LDPUMA_Registry(&hLinesPass2Debug, "Отладка II прохода по линиям", hRLINE_Pass2);
-		LDPUMA_Registry(&hLinesPass2DebugSkipDouble, "Пропустить коррекцию двойных", hLinesPass2Debug);
-		LDPUMA_Registry(&hLinesPass2DebugSkipGlue, "Пропустить склейку линий", hLinesPass2Debug);
-		LDPUMA_Registry(&hLinesPass2DebugSkipFindLost, "Пропустить восстановление потерянных", hLinesPass2Debug);
+	LDPUMA_Registry(&hRLINE_Pass2Output,"Р РµР·СѓР»СЊС‚Р°С‚ II РїСЂРѕС…РѕРґР°", hRLINE_Pass2);
+		LDPUMA_Registry(&hRLINE_Pass2DrawLines,"Р РёСЃРѕРІР°С‚СЊ Р»РёРЅРёРё (II)", hRLINE_Pass2Output);
+		LDPUMA_Registry(&hRLINE_Pass2DrawFrags,"Р РёСЃРѕРІР°С‚СЊ С„СЂР°РіРјРµРЅС‚С‹ Р»РёРЅРёР№ (II)", hRLINE_Pass2Output);
+	LDPUMA_Registry(&hLinesPass2, "РљРѕРЅС‚СЂРѕР»СЊ II РїСЂРѕС…РѕРґР° РїРѕ Р»РёРЅРёСЏРј", hRLINE_Pass2);
+	LDPUMA_RegistryHelp(hLinesPass2, "РџСЂРё РІС‹РґРµР»РµРЅРёРё - РїСЂРѕРїСѓСЃС‚РёС‚СЊ II РїСЂРѕС…РѕРґ", FALSE);
+	LDPUMA_Registry(&hLinesPass2Debug, "РћС‚Р»Р°РґРєР° II РїСЂРѕС…РѕРґР° РїРѕ Р»РёРЅРёСЏРј", hRLINE_Pass2);
+		LDPUMA_Registry(&hLinesPass2DebugSkipDouble, "РџСЂРѕРїСѓСЃС‚РёС‚СЊ РєРѕСЂСЂРµРєС†РёСЋ РґРІРѕР№РЅС‹С…", hLinesPass2Debug);
+		LDPUMA_Registry(&hLinesPass2DebugSkipGlue, "РџСЂРѕРїСѓСЃС‚РёС‚СЊ СЃРєР»РµР№РєСѓ Р»РёРЅРёР№", hLinesPass2Debug);
+		LDPUMA_Registry(&hLinesPass2DebugSkipFindLost, "РџСЂРѕРїСѓСЃС‚РёС‚СЊ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РїРѕС‚РµСЂСЏРЅРЅС‹С…", hLinesPass2Debug);
 
-	    LDPUMA_Registry(&hWriteLineInFile2, "Отпись результатов работы второго прохода по линиям", hLinesPass2);
-		LDPUMA_RegistryHelp(hWriteLineInFile2, "Записать результаты второго прохода в файл lines2.res", FALSE);
+	    LDPUMA_Registry(&hWriteLineInFile2, "РћС‚РїРёСЃСЊ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ СЂР°Р±РѕС‚С‹ РІС‚РѕСЂРѕРіРѕ РїСЂРѕС…РѕРґР° РїРѕ Р»РёРЅРёСЏРј", hLinesPass2);
+		LDPUMA_RegistryHelp(hWriteLineInFile2, "Р—Р°РїРёСЃР°С‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚С‹ РІС‚РѕСЂРѕРіРѕ РїСЂРѕС…РѕРґР° РІ С„Р°Р№Р» lines2.res", FALSE);
 
-	LDPUMA_RegVariable(hRLINE_Pass2, "Минимальный интервал между линиями", &hMinInterval, "unsigned");
-	LDPUMA_RegVariable(hRLINE_Pass2, "Первый интервал между линиями", &h1Interval, "unsigned");
-	LDPUMA_RegVariable(hRLINE_Pass2, "Второй интервал между линиями", &h2Interval, "unsigned");
-	LDPUMA_RegVariable(hRLINE_Pass2, "Максимальный интервал между линиями", &hMaxInterval, "unsigned");
-	LDPUMA_RegVariable(hRLINE_Pass2, "Длина маленькой линии", &hSmallLineLen, "unsigned");
-	LDPUMA_RegVariable(hRLINE_Pass2, "Длина большой линии", &hLongLineLen, "unsigned");
-	LDPUMA_RegVariable(hRLINE_Pass2, "Максимальное различие угла наклона (в сотых долях радиана)", &hMaxDegreeDiff, "unsigned");
-	LDPUMA_RegVariable(hRLINE_Pass2, "Максимальный боковой сдвиг (в квадрате)", &hMaxShift, "unsigned");
-	LDPUMA_RegVariable(hRLINE_Pass2, "Размывание растра", &hRastDelta, "unsigned");
+	LDPUMA_RegVariable(hRLINE_Pass2, "РњРёРЅРёРјР°Р»СЊРЅС‹Р№ РёРЅС‚РµСЂРІР°Р» РјРµР¶РґСѓ Р»РёРЅРёСЏРјРё", &hMinInterval, "unsigned");
+	LDPUMA_RegVariable(hRLINE_Pass2, "РџРµСЂРІС‹Р№ РёРЅС‚РµСЂРІР°Р» РјРµР¶РґСѓ Р»РёРЅРёСЏРјРё", &h1Interval, "unsigned");
+	LDPUMA_RegVariable(hRLINE_Pass2, "Р’С‚РѕСЂРѕР№ РёРЅС‚РµСЂРІР°Р» РјРµР¶РґСѓ Р»РёРЅРёСЏРјРё", &h2Interval, "unsigned");
+	LDPUMA_RegVariable(hRLINE_Pass2, "РњР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РёРЅС‚РµСЂРІР°Р» РјРµР¶РґСѓ Р»РёРЅРёСЏРјРё", &hMaxInterval, "unsigned");
+	LDPUMA_RegVariable(hRLINE_Pass2, "Р”Р»РёРЅР° РјР°Р»РµРЅСЊРєРѕР№ Р»РёРЅРёРё", &hSmallLineLen, "unsigned");
+	LDPUMA_RegVariable(hRLINE_Pass2, "Р”Р»РёРЅР° Р±РѕР»СЊС€РѕР№ Р»РёРЅРёРё", &hLongLineLen, "unsigned");
+	LDPUMA_RegVariable(hRLINE_Pass2, "РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ СЂР°Р·Р»РёС‡РёРµ СѓРіР»Р° РЅР°РєР»РѕРЅР° (РІ СЃРѕС‚С‹С… РґРѕР»СЏС… СЂР°РґРёР°РЅР°)", &hMaxDegreeDiff, "unsigned");
+	LDPUMA_RegVariable(hRLINE_Pass2, "РњР°РєСЃРёРјР°Р»СЊРЅС‹Р№ Р±РѕРєРѕРІРѕР№ СЃРґРІРёРі (РІ РєРІР°РґСЂР°С‚Рµ)", &hMaxShift, "unsigned");
+	LDPUMA_RegVariable(hRLINE_Pass2, "Р Р°Р·РјС‹РІР°РЅРёРµ СЂР°СЃС‚СЂР°", &hRastDelta, "unsigned");
 
-	LDPUMA_Registry(&hPrint1Cr, "Печать проверки 1 критерия", hLinesPass2);
-	LDPUMA_RegistryHelp(hPrint1Cr, "Печать в консоль результатов проверки 1 критерия (в случае успеха)", FALSE);
-	LDPUMA_Registry(&hPrint2Cr, "Печать проверки 2 критерия", hLinesPass2);
-	LDPUMA_RegistryHelp(hPrint2Cr, "Печать в консоль результатов проверки 2 критерия (в случае успеха)", FALSE);
-	LDPUMA_Registry(&hPrint3Cr, "Печать проверки 3 критерия", hLinesPass2);
-	LDPUMA_RegistryHelp(hPrint3Cr, "Печать в консоль результатов проверки 3 критерия (в случае успеха)", FALSE);
-	LDPUMA_Registry(&hPrint4Cr, "Печать проверки 4 критерия", hLinesPass2);
-	LDPUMA_RegistryHelp(hPrint4Cr, "Печать в консоль результатов проверки 4 критерия (в случае успеха)", FALSE);
-	LDPUMA_Registry(&hDrawCrRast, "Рисовать растр между линиями", hLinesPass2);
-	LDPUMA_RegistryHelp(hDrawCrRast, "Рисовать растр между линиями при проверке почернения", FALSE);
-	LDPUMA_Registry(&hShowCPLines, "Показать линии перед восстановлением", hLinesPass2);
-	LDPUMA_RegistryHelp(hShowCPLines, "Показать линии перед восстановлением по штырям в основном окне", FALSE);
-	LDPUMA_Registry(&hShowCP, "Показать точки пересечения", hLinesPass2);
-	LDPUMA_RegistryHelp(hShowCP, "Показать точки пересечения линий в основном окне", FALSE);
-	LDPUMA_Registry(&hShowCheckedRects, "Показать проверяемые интервалы", hLinesPass2);
-	LDPUMA_RegistryHelp(hShowCheckedRects, "Показать проверяемые прямоугольники интервалов-кандидатов на восстановление в основном окне", FALSE);
-	LDPUMA_Registry(&hPrintCheckedRects, "Печать проверки интервалов", hLinesPass2);
-	LDPUMA_RegistryHelp(hPrintCheckedRects, "Печатать в консоль результаты проверки почернения прямоугольников интервалов-кандидатов на восстановление", FALSE);
+	LDPUMA_Registry(&hPrint1Cr, "РџРµС‡Р°С‚СЊ РїСЂРѕРІРµСЂРєРё 1 РєСЂРёС‚РµСЂРёСЏ", hLinesPass2);
+	LDPUMA_RegistryHelp(hPrint1Cr, "РџРµС‡Р°С‚СЊ РІ РєРѕРЅСЃРѕР»СЊ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РїСЂРѕРІРµСЂРєРё 1 РєСЂРёС‚РµСЂРёСЏ (РІ СЃР»СѓС‡Р°Рµ СѓСЃРїРµС…Р°)", FALSE);
+	LDPUMA_Registry(&hPrint2Cr, "РџРµС‡Р°С‚СЊ РїСЂРѕРІРµСЂРєРё 2 РєСЂРёС‚РµСЂРёСЏ", hLinesPass2);
+	LDPUMA_RegistryHelp(hPrint2Cr, "РџРµС‡Р°С‚СЊ РІ РєРѕРЅСЃРѕР»СЊ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РїСЂРѕРІРµСЂРєРё 2 РєСЂРёС‚РµСЂРёСЏ (РІ СЃР»СѓС‡Р°Рµ СѓСЃРїРµС…Р°)", FALSE);
+	LDPUMA_Registry(&hPrint3Cr, "РџРµС‡Р°С‚СЊ РїСЂРѕРІРµСЂРєРё 3 РєСЂРёС‚РµСЂРёСЏ", hLinesPass2);
+	LDPUMA_RegistryHelp(hPrint3Cr, "РџРµС‡Р°С‚СЊ РІ РєРѕРЅСЃРѕР»СЊ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РїСЂРѕРІРµСЂРєРё 3 РєСЂРёС‚РµСЂРёСЏ (РІ СЃР»СѓС‡Р°Рµ СѓСЃРїРµС…Р°)", FALSE);
+	LDPUMA_Registry(&hPrint4Cr, "РџРµС‡Р°С‚СЊ РїСЂРѕРІРµСЂРєРё 4 РєСЂРёС‚РµСЂРёСЏ", hLinesPass2);
+	LDPUMA_RegistryHelp(hPrint4Cr, "РџРµС‡Р°С‚СЊ РІ РєРѕРЅСЃРѕР»СЊ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РїСЂРѕРІРµСЂРєРё 4 РєСЂРёС‚РµСЂРёСЏ (РІ СЃР»СѓС‡Р°Рµ СѓСЃРїРµС…Р°)", FALSE);
+	LDPUMA_Registry(&hDrawCrRast, "Р РёСЃРѕРІР°С‚СЊ СЂР°СЃС‚СЂ РјРµР¶РґСѓ Р»РёРЅРёСЏРјРё", hLinesPass2);
+	LDPUMA_RegistryHelp(hDrawCrRast, "Р РёСЃРѕРІР°С‚СЊ СЂР°СЃС‚СЂ РјРµР¶РґСѓ Р»РёРЅРёСЏРјРё РїСЂРё РїСЂРѕРІРµСЂРєРµ РїРѕС‡РµСЂРЅРµРЅРёСЏ", FALSE);
+	LDPUMA_Registry(&hShowCPLines, "РџРѕРєР°Р·Р°С‚СЊ Р»РёРЅРёРё РїРµСЂРµРґ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµРј", hLinesPass2);
+	LDPUMA_RegistryHelp(hShowCPLines, "РџРѕРєР°Р·Р°С‚СЊ Р»РёРЅРёРё РїРµСЂРµРґ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµРј РїРѕ С€С‚С‹СЂСЏРј РІ РѕСЃРЅРѕРІРЅРѕРј РѕРєРЅРµ", FALSE);
+	LDPUMA_Registry(&hShowCP, "РџРѕРєР°Р·Р°С‚СЊ С‚РѕС‡РєРё РїРµСЂРµСЃРµС‡РµРЅРёСЏ", hLinesPass2);
+	LDPUMA_RegistryHelp(hShowCP, "РџРѕРєР°Р·Р°С‚СЊ С‚РѕС‡РєРё РїРµСЂРµСЃРµС‡РµРЅРёСЏ Р»РёРЅРёР№ РІ РѕСЃРЅРѕРІРЅРѕРј РѕРєРЅРµ", FALSE);
+	LDPUMA_Registry(&hShowCheckedRects, "РџРѕРєР°Р·Р°С‚СЊ РїСЂРѕРІРµСЂСЏРµРјС‹Рµ РёРЅС‚РµСЂРІР°Р»С‹", hLinesPass2);
+	LDPUMA_RegistryHelp(hShowCheckedRects, "РџРѕРєР°Р·Р°С‚СЊ РїСЂРѕРІРµСЂСЏРµРјС‹Рµ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєРё РёРЅС‚РµСЂРІР°Р»РѕРІ-РєР°РЅРґРёРґР°С‚РѕРІ РЅР° РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РІ РѕСЃРЅРѕРІРЅРѕРј РѕРєРЅРµ", FALSE);
+	LDPUMA_Registry(&hPrintCheckedRects, "РџРµС‡Р°С‚СЊ РїСЂРѕРІРµСЂРєРё РёРЅС‚РµСЂРІР°Р»РѕРІ", hLinesPass2);
+	LDPUMA_RegistryHelp(hPrintCheckedRects, "РџРµС‡Р°С‚Р°С‚СЊ РІ РєРѕРЅСЃРѕР»СЊ СЂРµР·СѓР»СЊС‚Р°С‚С‹ РїСЂРѕРІРµСЂРєРё РїРѕС‡РµСЂРЅРµРЅРёСЏ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєРѕРІ РёРЅС‚РµСЂРІР°Р»РѕРІ-РєР°РЅРґРёРґР°С‚РѕРІ РЅР° РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ", FALSE);
 
-  	LDPUMA_Registry(&hDebugDrowTableZone,"Рисуются зоны таблиц после II прохода",hRLINE_Pass3Input);
-	LDPUMA_Registry(&hDebugDrowFriendLines,"Рисуются линии, попавшие в зоны таблиц",hRLINE_Pass3_Control);
-	LDPUMA_Registry(&hDebugDrowGroupOfExtensibleLines,"Рисуются группы линий(которые могут создать новую линию) в основном окне",hRLINE_Pass3_Control);
-	LDPUMA_Registry(&hDebugDrawLosedVerticalLines,"Рисуются группы вертикальных линий(которые в случае потери LNS-ом будем восстанавливать) в основном окне",hRLINE_Pass3_Control);
-	LDPUMA_Registry(&hDebugPrintCrossCheck,"Печать проверки точек пересечения кор. линий", hRLINE_Pass3_Control);
+  	LDPUMA_Registry(&hDebugDrowTableZone,"Р РёСЃСѓСЋС‚СЃСЏ Р·РѕРЅС‹ С‚Р°Р±Р»РёС† РїРѕСЃР»Рµ II РїСЂРѕС…РѕРґР°",hRLINE_Pass3Input);
+	LDPUMA_Registry(&hDebugDrowFriendLines,"Р РёСЃСѓСЋС‚СЃСЏ Р»РёРЅРёРё, РїРѕРїР°РІС€РёРµ РІ Р·РѕРЅС‹ С‚Р°Р±Р»РёС†",hRLINE_Pass3_Control);
+	LDPUMA_Registry(&hDebugDrowGroupOfExtensibleLines,"Р РёСЃСѓСЋС‚СЃСЏ РіСЂСѓРїРїС‹ Р»РёРЅРёР№(РєРѕС‚РѕСЂС‹Рµ РјРѕРіСѓС‚ СЃРѕР·РґР°С‚СЊ РЅРѕРІСѓСЋ Р»РёРЅРёСЋ) РІ РѕСЃРЅРѕРІРЅРѕРј РѕРєРЅРµ",hRLINE_Pass3_Control);
+	LDPUMA_Registry(&hDebugDrawLosedVerticalLines,"Р РёСЃСѓСЋС‚СЃСЏ РіСЂСѓРїРїС‹ РІРµСЂС‚РёРєР°Р»СЊРЅС‹С… Р»РёРЅРёР№(РєРѕС‚РѕСЂС‹Рµ РІ СЃР»СѓС‡Р°Рµ РїРѕС‚РµСЂРё LNS-РѕРј Р±СѓРґРµРј РІРѕСЃСЃС‚Р°РЅР°РІР»РёРІР°С‚СЊ) РІ РѕСЃРЅРѕРІРЅРѕРј РѕРєРЅРµ",hRLINE_Pass3_Control);
+	LDPUMA_Registry(&hDebugPrintCrossCheck,"РџРµС‡Р°С‚СЊ РїСЂРѕРІРµСЂРєРё С‚РѕС‡РµРє РїРµСЂРµСЃРµС‡РµРЅРёСЏ РєРѕСЂ. Р»РёРЅРёР№", hRLINE_Pass3_Control);
 
-	LDPUMA_Registry(&hDebugShortLinesPrint, "Вывод результатов проверки коротких линий на консоль", hRLINE_CorrectControl);
-//	LDPUMA_Registry(&hDebugShortLinesDrawRect, "Рисовать прямоугольники коротких линий", hRLINE_CorrectControl);
-//  LDPUMA_RegistryHelp(hDebugShortLinesDrawRect, "Рисовать прямоугольники растров линий или содержащих их компонент", FALSE);
+	LDPUMA_Registry(&hDebugShortLinesPrint, "Р’С‹РІРѕРґ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РїСЂРѕРІРµСЂРєРё РєРѕСЂРѕС‚РєРёС… Р»РёРЅРёР№ РЅР° РєРѕРЅСЃРѕР»СЊ", hRLINE_CorrectControl);
+//	LDPUMA_Registry(&hDebugShortLinesDrawRect, "Р РёСЃРѕРІР°С‚СЊ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєРё РєРѕСЂРѕС‚РєРёС… Р»РёРЅРёР№", hRLINE_CorrectControl);
+//  LDPUMA_RegistryHelp(hDebugShortLinesDrawRect, "Р РёСЃРѕРІР°С‚СЊ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєРё СЂР°СЃС‚СЂРѕРІ Р»РёРЅРёР№ РёР»Рё СЃРѕРґРµСЂР¶Р°С‰РёС… РёС… РєРѕРјРїРѕРЅРµРЅС‚", FALSE);
 
 #ifdef _DEBUG
 /*    ofstream outfile("lines.res", ios::out|ios::binary);
@@ -390,15 +390,15 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 
 	CLINE_handle* PHCLINE=(CLINE_handle*)phCLINE;
     CLINE_DeleteContainer(*PHCLINE);
-	LinesTotalInfo          lti;		 // Структура хранения линий
-	PAGEINFO                PInfo;  	 // Описание страницы
-	char*		            pImage;	     // Указатель на изображение
+	LinesTotalInfo          lti;		 // РЎС‚СЂСѓРєС‚СѓСЂР° С…СЂР°РЅРµРЅРёСЏ Р»РёРЅРёР№
+	PAGEINFO                PInfo;  	 // РћРїРёСЃР°РЅРёРµ СЃС‚СЂР°РЅРёС†С‹
+	char*		            pImage;	     // РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РёР·РѕР±СЂР°Р¶РµРЅРёРµ
 	LnsSetupStr				ls;
 
 	Int32  result_h_count,
 		   result_v_count;
 
-	// Получаем PAGEINFO текущей страницы
+	// РџРѕР»СѓС‡Р°РµРј PAGEINFO С‚РµРєСѓС‰РµР№ СЃС‚СЂР°РЅРёС†С‹
 	if (!CPAGE_GetPageData( lpInPage,PT_PAGEINFO,(void*)&PInfo,sizeof(PInfo)))
 	{
 		LDPUMA_Console( " Error in GetPageData " );
@@ -407,7 +407,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 		return FALSE;
 	}
 
-	// Копируем в pImage из PInfo указатель на изображение, связанное со страницей
+	// РљРѕРїРёСЂСѓРµРј РІ pImage РёР· PInfo СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РёР·РѕР±СЂР°Р¶РµРЅРёРµ, СЃРІСЏР·Р°РЅРЅРѕРµ СЃРѕ СЃС‚СЂР°РЅРёС†РµР№
 	pImage = (char*)&PInfo.szImageName;
 
 	min_h_len = (Word16)(PInfo.DPIX*40/300);
@@ -421,15 +421,15 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 		return FALSE;
 	}
 
-	imxs.f_op = DibOpen;								// Мы не можем из за разных названий одного
-	imxs.f_re = DibRead;								// и того же типа в CIMAGE и LNS32 присвоить
-	imxs.f_cl = DibClose;								// imxs->... cbk->... нужно преобразование типов.
+	imxs.f_op = DibOpen;								// РњС‹ РЅРµ РјРѕР¶РµРј РёР· Р·Р° СЂР°Р·РЅС‹С… РЅР°Р·РІР°РЅРёР№ РѕРґРЅРѕРіРѕ
+	imxs.f_re = DibRead;								// Рё С‚РѕРіРѕ Р¶Рµ С‚РёРїР° РІ CIMAGE Рё LNS32 РїСЂРёСЃРІРѕРёС‚СЊ
+	imxs.f_cl = DibClose;								// imxs->... cbk->... РЅСѓР¶РЅРѕ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ С‚РёРїРѕРІ.
 
 
-	// Подготавливаем страницу
+	// РџРѕРґРіРѕС‚Р°РІР»РёРІР°РµРј СЃС‚СЂР°РЅРёС†Сѓ
 	LnsPageStart(&imxs);
 
-	// Установка параметров работы LNS32.dll
+	// РЈСЃС‚Р°РЅРѕРІРєР° РїР°СЂР°РјРµС‚СЂРѕРІ СЂР°Р±РѕС‚С‹ LNS32.dll
 	ls.nOptions = 0;
 	LnsSetup ( &ls );
 
@@ -466,7 +466,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 	LnsSetup ( &ls );
 
 
-	// Работаем...
+	// Р Р°Р±РѕС‚Р°РµРј...
 	if (!LnsExtractLines( min_h_len, min_v_len, &result_h_count, &result_v_count ))
 	{
 		//rc16 = LnsGetError ();
@@ -529,7 +529,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 		}
 		if (lti.Hor.Cnt || lti.Ver.Cnt)
         {
-            LDPUMA_Console("Нажмите любую клавишу...\n");
+            LDPUMA_Console("РќР°Р¶РјРёС‚Рµ Р»СЋР±СѓСЋ РєР»Р°РІРёС€Сѓ...\n");
 		    LDPUMA_WaitUserInput(RLINE_ShowLines, draw_window );
             LDPUMA_DeleteLines(draw_window, 512);
         }
@@ -614,13 +614,13 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 	if(lti.Hor.Lns) free(lti.Hor.Lns);
 	if(lti.Ver.Lns) free(lti.Ver.Lns);
 
-	// Завершаем работу со страницей
+	// Р—Р°РІРµСЂС€Р°РµРј СЂР°Р±РѕС‚Сѓ СЃРѕ СЃС‚СЂР°РЅРёС†РµР№
 	LnsPageFinish();
 
 
 	if ( !LDPUMA_Skip(RLINE_Search) )
 	{
-		LDPUMA_Console("Остановка перед завершением SerachLines");
+		LDPUMA_Console("РћСЃС‚Р°РЅРѕРІРєР° РїРµСЂРµРґ Р·Р°РІРµСЂС€РµРЅРёРµРј SerachLines");
 		LDPUMA_WaitUserInput(RLINE_Search,NULL);
 	}
 
@@ -633,8 +633,8 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 {
 	LinesTotalInfo		  lti2;
-	PAGEINFO              PInfo;	 // Описание страницы
-	char*		          pImage;	 // Указатель на изображение
+	PAGEINFO              PInfo;	 // РћРїРёСЃР°РЅРёРµ СЃС‚СЂР°РЅРёС†С‹
+	char*		          pImage;	 // РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РёР·РѕР±СЂР°Р¶РµРЅРёРµ
 	LnsSetupStr			  ls;
 	int					  i;
 
@@ -645,7 +645,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 	DelAllLines = FALSE;
 	CLINE_handle hCLINE=CLINE_GetMainContainer();
 
-	// Получаем PAGEINFO текущей страницы
+	// РџРѕР»СѓС‡Р°РµРј PAGEINFO С‚РµРєСѓС‰РµР№ СЃС‚СЂР°РЅРёС†С‹
 	if (!CPAGE_GetPageData( lpInPage,PT_PAGEINFO,(void*)&PInfo,sizeof(PInfo)))
 	{
 		LDPUMA_Console( " Error in GetPageData " );
@@ -654,8 +654,8 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 		return FALSE;
 	}
 
-	// Копируем в pImage из PInfo указатель на изображение,
-	// связанное со страницей
+	// РљРѕРїРёСЂСѓРµРј РІ pImage РёР· PInfo СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РёР·РѕР±СЂР°Р¶РµРЅРёРµ,
+	// СЃРІСЏР·Р°РЅРЅРѕРµ СЃРѕ СЃС‚СЂР°РЅРёС†РµР№
 	pImage = (char*)&PInfo.szImageName;
 
 	min_h_len = (Word16)(PInfo.DPIX*40/300);
@@ -669,14 +669,14 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 		return FALSE;
 	}
 
-	imxs.f_op = DibOpen;								// Мы не можем из за разных названий одного
-	imxs.f_re = DibRead;								// и того же типа в CIMAGE и LNS32 присвоить
-	imxs.f_cl = DibClose;								// imxs->... cbk->... нужно преобразование типов.
+	imxs.f_op = DibOpen;								// РњС‹ РЅРµ РјРѕР¶РµРј РёР· Р·Р° СЂР°Р·РЅС‹С… РЅР°Р·РІР°РЅРёР№ РѕРґРЅРѕРіРѕ
+	imxs.f_re = DibRead;								// Рё С‚РѕРіРѕ Р¶Рµ С‚РёРїР° РІ CIMAGE Рё LNS32 РїСЂРёСЃРІРѕРёС‚СЊ
+	imxs.f_cl = DibClose;								// imxs->... cbk->... РЅСѓР¶РЅРѕ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ С‚РёРїРѕРІ.
 
-	// Подготавливаем страницу
+	// РџРѕРґРіРѕС‚Р°РІР»РёРІР°РµРј СЃС‚СЂР°РЅРёС†Сѓ
 	LnsPageStart(&imxs);
 
-	// Установка параметров работы LNS32.dll
+	// РЈСЃС‚Р°РЅРѕРІРєР° РїР°СЂР°РјРµС‚СЂРѕРІ СЂР°Р±РѕС‚С‹ LNS32.dll
 	ls.nOptions = 0;
 	LnsSetup ( &ls );
 
@@ -712,7 +712,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 
 	LnsSetup ( &ls );
 
-	//работаем...
+	//СЂР°Р±РѕС‚Р°РµРј...
 	if (!LnsExtractLines( min_h_len, min_v_len, &result_h_count, &result_v_count ))
 	{
 		SetReturnCode_rline( rc16 );
@@ -839,8 +839,8 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 	{
 		BITMAPINFOHEADER * lp = NULL ;
 		CIMAGE_ReadDIB((PWord8)PUMA_IMAGE_DELLINE,(Handle*)&lp,TRUE);
-		Handle hwnd = LDPUMA_CreateWindow("После снятия линий",lp);
-		LDPUMA_Console("Нажмите любую клавишу...");
+		Handle hwnd = LDPUMA_CreateWindow("РџРѕСЃР»Рµ СЃРЅСЏС‚РёСЏ Р»РёРЅРёР№",lp);
+		LDPUMA_Console("РќР°Р¶РјРёС‚Рµ Р»СЋР±СѓСЋ РєР»Р°РІРёС€Сѓ...");
 		LDPUMA_WaitUserInput(RLINE_ShowWithoutLines, hwnd );
 	}
 

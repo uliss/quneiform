@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -163,7 +163,7 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 	CTDIBRGBQUAD               cdSQuad;
 
 	//////////////////////////////////////////////////////////////////////
-	//проверка имени картинки
+	//РїСЂРѕРІРµСЂРєР° РёРјРµРЅРё РєР°СЂС‚РёРЅРєРё
 	if ( !lpName || lpName[0] == 0x0 )
 	{
 		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGE_NAME);
@@ -174,12 +174,12 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 	ImageInfo.wImageByteWidth = 0;
 	ImageInfo.wImageHeight = 0;
 	//////////////////////////////////////////////////////////////////////////////////
-	// Создаем новый DIB
+	// РЎРѕР·РґР°РµРј РЅРѕРІС‹Р№ DIB
 	if ( mCBWDestianationDIB != NULL || mCBWSourceDIB != NULL )
 	{
 		return FALSE;
 	}
-	// для проверки на выявление узких мест
+	// РґР»СЏ РїСЂРѕРІРµСЂРєРё РЅР° РІС‹СЏРІР»РµРЅРёРµ СѓР·РєРёС… РјРµСЃС‚
 	mCBWInProcess = TRUE;
 	if ( strlen( lpName ) < CIMAGE_MAX_IMAGE_NAME)
 	{
@@ -189,12 +189,12 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 	{
 		strncpy(mCBWName, lpName, CIMAGE_MAX_IMAGE_NAME - 1);
 	}
-	// этот в качестве буфера для закидывания по одной строке
+	// СЌС‚РѕС‚ РІ РєР°С‡РµСЃС‚РІРµ Р±СѓС„РµСЂР° РґР»СЏ Р·Р°РєРёРґС‹РІР°РЅРёСЏ РїРѕ РѕРґРЅРѕР№ СЃС‚СЂРѕРєРµ
 	mCBWSourceDIB       = new CTDIB;
-	// а этот будет основным
+	// Р° СЌС‚РѕС‚ Р±СѓРґРµС‚ РѕСЃРЅРѕРІРЅС‹Рј
 	mCBWDestianationDIB = new CTDIB;
 	///////////////////////////////////////////////////////////////////////////////////
-	// закачиваем информацию о создаваемом
+	// Р·Р°РєР°С‡РёРІР°РµРј РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ СЃРѕР·РґР°РІР°РµРјРѕРј
 	Ret = Cbk.CIMAGE_ImageOpen(&ImageInfo);
 
 	if ( Ret == FALSE )
@@ -210,7 +210,7 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 		mCBWInProcess = FALSE;
 		return FALSE;
 	}
-	// выделение памяти под новый DIB и под буферный
+	// РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РїРѕРґ РЅРѕРІС‹Р№ DIB Рё РїРѕРґ Р±СѓС„РµСЂРЅС‹Р№
 	if ( mCBWDestianationDIB->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock) &&
 		 mCBWSourceDIB->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock)    )
 	{
@@ -235,7 +235,7 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 				mCBWSourceDIB->SetRGBQuad(0,cdFQuad);
 				mCBWDestianationDIB->SetRGBQuad(1,cdSQuad);
 				mCBWSourceDIB->SetRGBQuad(1,cdSQuad);
-				// заполняем структурку	для замещения строк
+				// Р·Р°РїРѕР»РЅСЏРµРј СЃС‚СЂСѓРєС‚СѓСЂРєСѓ	РґР»СЏ Р·Р°РјРµС‰РµРЅРёСЏ СЃС‚СЂРѕРє
 				FrameToReplace.byBit      = (Word16)mCBWSourceDIB->GetPixelSize();
 				FrameToReplace.dwX        = 0;
 				FrameToReplace.dwY        = 0;
@@ -245,14 +245,14 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 				FrameToReplace.lpData     = (PWord8)mCBWSourceDIB->GetPtrToLine(0);
 				FrameToReplace.MaskFlag   = 0;
 
-				// Заполняем его
+				// Р—Р°РїРѕР»РЅСЏРµРј РµРіРѕ
 				for ( i = 0; i < ImageInfo.wImageHeight; i++ )
 				{
-					// вызываем второй калбэк
+					// РІС‹Р·С‹РІР°РµРј РІС‚РѕСЂРѕР№ РєР°Р»Р±СЌРє
 					Readed = Cbk.CIMAGE_ImageRead((PInt8)mCBWSourceDIB->GetPtrToLine(0),
 												  (Word16)mCBWSourceDIB->GetLineWidthInBytes());
 
-					//инвертируем битовое поле, ежели надо
+					//РёРЅРІРµСЂС‚РёСЂСѓРµРј Р±РёС‚РѕРІРѕРµ РїРѕР»Рµ, РµР¶РµР»Рё РЅР°РґРѕ
 					if ( bInvert )
 					{
 						PInt8 pBits = (PInt8)mCBWSourceDIB->GetPtrToLine(0);
@@ -264,20 +264,20 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 						}
 					}
 
-					// номер строчки
+					// РЅРѕРјРµСЂ СЃС‚СЂРѕС‡РєРё
 					FrameToReplace.dwY = i;
-					// записваем строчку в новый из буфера
+					// Р·Р°РїРёСЃРІР°РµРј СЃС‚СЂРѕС‡РєСѓ РІ РЅРѕРІС‹Р№ РёР· Р±СѓС„РµСЂР°
 					if (Readed)
 					{
 						SetFrame(mCBWSourceDIB, mCBWDestianationDIB, &FrameToReplace);
 					}
 				}
-				// Закрываем
-				// вывзываем третий калбэк
+				// Р—Р°РєСЂС‹РІР°РµРј
+				// РІС‹РІР·С‹РІР°РµРј С‚СЂРµС‚РёР№ РєР°Р»Р±СЌРє
 				Ret = Cbk.CIMAGE_ImageClose();
-				// отписываем в контейнер
+				// РѕС‚РїРёСЃС‹РІР°РµРј РІ РєРѕРЅС‚РµР№РЅРµСЂ
 				mCBWDestianationDIB->GetDIBHandle(&hNewDIB);
-				// Пишем картинку, и не каких масок!!!
+				// РџРёС€РµРј РєР°СЂС‚РёРЅРєСѓ, Рё РЅРµ РєР°РєРёС… РјР°СЃРѕРє!!!
 				mbWriteFlag = TRUE;
 				Ret = SetDIB(lpName, hNewDIB, 0);
 				mbWriteFlag = FALSE;
@@ -366,7 +366,7 @@ Bool32 CTIControl::SetDIB(PChar8  lpName, Handle hDIB, Word32 wFlag)
 	Handle  hImage = NULL;
 
 	if ( wFlag == 0 )
-	{  // создаем новую копию
+	{  // СЃРѕР·РґР°РµРј РЅРѕРІСѓСЋ РєРѕРїРёСЋ
 		if ( !CopyDIB( hDIB, &hImage) )
 		{
 			SetReturnCode_cimage(IDS_CIMAGE_UNABLE_COPY_DIB);
@@ -386,13 +386,13 @@ Bool32 CTIControl::GetDIB(PChar8  lpName, PHandle phDIB, Word32 wFlag)
 {
 	Handle  hImage = NULL;  // Handle
 
-	// открываем картинку
+	// РѕС‚РєСЂС‹РІР°РµРј РєР°СЂС‚РёРЅРєСѓ
 	if ( !OpenDIBFromList( lpName, &hImage ) )
 		return FALSE;
 
 	//ALLEX Mask
-	// ошибка не тут
-	// открываем маски (если есть)
+	// РѕС€РёР±РєР° РЅРµ С‚СѓС‚
+	// РѕС‚РєСЂС‹РІР°РµРј РјР°СЃРєРё (РµСЃР»Рё РµСЃС‚СЊ)
 	if ( !OpenMaskFromList( lpName, &mpcSrcDIBReadMask, &mbEnableDIBReadMask, "r" ) ||
 		 !OpenMaskFromList( lpName, &mpcSrcDIBWriteMask, &mbEnableDIBWriteMask, "w" )  )
 		 return FALSE;
@@ -400,7 +400,7 @@ Bool32 CTIControl::GetDIB(PChar8  lpName, PHandle phDIB, Word32 wFlag)
 
 	mbSourceDIBCopy = (wFlag == 0 );
 	if ( mbSourceDIBCopy )
-	{  // создаем новую копию
+	{  // СЃРѕР·РґР°РµРј РЅРѕРІСѓСЋ РєРѕРїРёСЋ
 		if ( CopyDIB( hImage, phDIB) )
 		{
 			return TRUE;
@@ -426,7 +426,7 @@ Bool32 CTIControl::GetImage(PChar8  lpName, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 
 	FreeBuffers();
 
-	// берем кусок диба оттедова
+	// Р±РµСЂРµРј РєСѓСЃРѕРє РґРёР±Р° РѕС‚С‚РµРґРѕРІР°
 	if ( GetDIBFromImage(lpName, lpIn, (PInt8*)&pDIBMemory ) )
 	{
 		pDscDIB = new CTDIB;
@@ -436,7 +436,7 @@ Bool32 CTIControl::GetImage(PChar8  lpName, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 			//WriteDIBtoBMP("Allex.AlmiData.bmp",pDscDIB);
 #endif
 			//////////////////////////////////////
-			// смотрим, что там на выход;
+			// СЃРјРѕС‚СЂРёРј, С‡С‚Рѕ С‚Р°Рј РЅР° РІС‹С…РѕРґ;
 			if ( lpIn->wByteWidth >= pDscDIB->GetUsedLineWidthInBytes()
 				 && lpIn->dwWidth    == pDscDIB->GetLineWidth()
 				 && lpIn->dwHeight   == pDscDIB->GetLinesNumber()
@@ -471,20 +471,20 @@ Bool32 CTIControl::GetImage(PChar8  lpName, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 				lplpOut->lpData = pOutLine = mpBitFildFromImage;
 				iY = (Int32)lpIn->dwY;
 
-			    // для Almi - заполняем белым пикселом
+			    // РґР»СЏ Almi - Р·Р°РїРѕР»РЅСЏРµРј Р±РµР»С‹Рј РїРёРєСЃРµР»РѕРј
 				/*
 				for ( ;iY < 0; iY++, lplpOut->dwHeight++ )
 				{
-					// копируем полученное в lplpOut.lpData
+					// РєРѕРїРёСЂСѓРµРј РїРѕР»СѓС‡РµРЅРЅРѕРµ РІ lplpOut.lpData
 					CIMAGE_MEMSET(pOutLine, WhiteBit, lplpOut->wByteWidth);
 					pOutLine += lplpOut->wByteWidth;
 				}
 				*/
-				//end для Almi
+				//end РґР»СЏ Almi
 
 				for ( nOutLine = 0;nOutLine < lplpOut->dwHeight; nOutLine++ )
 				{
-					// копируем полученное в lplpOut.lpData
+					// РєРѕРїРёСЂСѓРµРј РїРѕР»СѓС‡РµРЅРЅРѕРµ РІ lplpOut.lpData
 					CIMAGE_MEMCOPY(pOutLine, pDscDIB->GetPtrToLine(nOutLine), lplpOut->wByteWidth);
 					pOutLine += lplpOut->wByteWidth;
 				}
@@ -527,7 +527,7 @@ Bool32 CTIControl::ReplaceImage(PChar8  lpName, PCIMAGE_InfoDataInReplace lpIn)
 		ret =  FALSE;
 	}
 
-	//инициализируем ctdib-чики
+	//РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј ctdib-С‡РёРєРё
 	pSrcDIB = new CTDIB;
 	pDscDIB = new CTDIB;
 
@@ -546,7 +546,7 @@ Bool32 CTIControl::ReplaceImage(PChar8  lpName, PCIMAGE_InfoDataInReplace lpIn)
 
 					for ( nInLine = 0; nInLine < lpIn->dwHeight; nInLine++ )
 					{
-						// копируем полученное в lplpOut.lpData
+						// РєРѕРїРёСЂСѓРµРј РїРѕР»СѓС‡РµРЅРЅРѕРµ РІ lplpOut.lpData
 						CIMAGE_MEMCOPY( pSrcDIB->GetPtrToLine(nInLine), pInLine, lpIn->wByteWidth);
 						pInLine += lpIn->wByteWidth;
 					}
@@ -624,7 +624,7 @@ Bool32 CTIControl::CopyDIB(Handle hSrc, PHandle phCopyedDib)
 
 	DIBSize = pcSrcDIB->GetDIBSize();
 
-	// больше не нужен
+	// Р±РѕР»СЊС€Рµ РЅРµ РЅСѓР¶РµРЅ
 	delete pcSrcDIB;
 
 	hDsc = CIMAGEDAlloc(DIBSize, "Copyed DIB - CopyDIB");
@@ -638,7 +638,7 @@ Bool32 CTIControl::CopyDIB(Handle hSrc, PHandle phCopyedDib)
 	CIMAGE_MEMCOPY(pDsc, pSrc, DIBSize);
 
 	//ALLEX Mask/////////////////////////////////////
-	// ошибка тут
+	// РѕС€РёР±РєР° С‚СѓС‚
 	pcDscDIB   = new CTDIB;
 
 	if ( !pcDscDIB->SetDIBbyPtr(pDsc) )
@@ -647,7 +647,7 @@ Bool32 CTIControl::CopyDIB(Handle hSrc, PHandle phCopyedDib)
 		delete pcDscDIB;
 		return FALSE;
 	}
-	// а сюда теперь надо вставить маску на чтение для картинки
+	// Р° СЃСЋРґР° С‚РµРїРµСЂСЊ РЅР°РґРѕ РІСЃС‚Р°РІРёС‚СЊ РјР°СЃРєСѓ РЅР° С‡С‚РµРЅРёРµ РґР»СЏ РєР°СЂС‚РёРЅРєРё
 	if ( mpcSrcDIBReadMask && mbEnableDIBReadMask && mbWriteFlag == FALSE )
 	{
 		ApplayMaskToDIB(pcDscDIB, mpcSrcDIBReadMask);
@@ -677,7 +677,7 @@ Bool32 CTIControl::GetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInGe
 		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
 		return FALSE;
 	}
-	//копируем из одного диба в другой
+	//РєРѕРїРёСЂСѓРµРј РёР· РѕРґРЅРѕРіРѕ РґРёР±Р° РІ РґСЂСѓРіРѕР№
 	if ( !CopyToFrame(pSrcDIB, pDscDIB, pIn, pMask) )
 	{
 		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
@@ -685,8 +685,8 @@ Bool32 CTIControl::GetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInGe
 	}
 
 	//ALLEX Mask
-	// ошибка не тут
-	//теперь применим маску к копии
+	// РѕС€РёР±РєР° РЅРµ С‚СѓС‚
+	//С‚РµРїРµСЂСЊ РїСЂРёРјРµРЅРёРј РјР°СЃРєСѓ Рє РєРѕРїРёРё
 	if ( mpcSrcDIBReadMask && mbEnableDIBReadMask)
 	{
 		if ( !ApplayMaskToDIB(pDscDIB, mpcSrcDIBReadMask, pIn->dwX, pIn->dwY) )
@@ -720,7 +720,7 @@ Bool32 CTIControl::CopyToFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataI
 		}
 		bRet = TRUE;
 	}
-	// теперь используем битовую маску
+	// С‚РµРїРµСЂСЊ РёСЃРїРѕР»СЊР·СѓРµРј Р±РёС‚РѕРІСѓСЋ РјР°СЃРєСѓ
 	WriteDIBtoBMP("Allex.DIBCopyToFrame.Before Bit Mask.bmp", pDscDIB);
 
 	if( pMask != NULL &&
@@ -749,7 +749,7 @@ Bool32 CTIControl::CopyFromFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDat
 
 	for ( nLine = StartY; nLine < EndY; nLine++)
 	{
-		// если ширина совпадает, то
+		// РµСЃР»Рё С€РёСЂРёРЅР° СЃРѕРІРїР°РґР°РµС‚, С‚Рѕ
 		if ( pDscDIB->GetLineWidth() == pSrcDIB->GetLineWidth() )
 		{
 			if ( !pDscDIB->SetFuelLineFromDIB(pSrcDIB, dLine++, nLine, 0) )
@@ -837,8 +837,8 @@ Bool32 CTIControl::ApplayBitMaskToDIB(PWord8 pMask, PCTDIB pDIB)
 
 		///////////////////////////////////////////////////////////////////////////////////////
 		//Allex 28.01.2000
-		//ввиду неоднократных ошибок, связанных с  выделением памяти под передаваемую мне маску
-		//ввожу следующую проверку:
+		//РІРІРёРґСѓ РЅРµРѕРґРЅРѕРєСЂР°С‚РЅС‹С… РѕС€РёР±РѕРє, СЃРІСЏР·Р°РЅРЅС‹С… СЃ  РІС‹РґРµР»РµРЅРёРµРј РїР°РјСЏС‚Рё РїРѕРґ РїРµСЂРµРґР°РІР°РµРјСѓСЋ РјРЅРµ РјР°СЃРєСѓ
+		//РІРІРѕР¶Сѓ СЃР»РµРґСѓСЋС‰СѓСЋ РїСЂРѕРІРµСЂРєСѓ:
 		Word8 TestByte;
 		Word32 MaskLenght = ((Pixels + 7)/8)*Lines;
 		PWord8 pMaskBegin = pMask;
@@ -858,14 +858,14 @@ Bool32 CTIControl::ApplayBitMaskToDIB(PWord8 pMask, PCTDIB pDIB)
 			LDPUMA_Console("CImage: Mask unvailable or mask memory blok less then needed!\n        Mask not applied.\n");
 			return TRUE;
 		}
-		// конец проверки
+		// РєРѕРЅРµС† РїСЂРѕРІРµСЂРєРё
 		///////////////////////////////////////////////////////////////////////////////////////
 
 		for ( i = 0; i < (Int32)Lines; i++ )
 		{
 			pImageByte = (PWord8)pDIB->GetPtrToLine( i );
 			j = Pixels;
-			//позиционируемся на строку в маске
+			//РїРѕР·РёС†РёРѕРЅРёСЂСѓРµРјСЃСЏ РЅР° СЃС‚СЂРѕРєСѓ РІ РјР°СЃРєРµ
 			pMaskByte = pMask + ((Pixels + 7)/8)*i;
 
 			switch ( pDIB->GetPixelSize() )
@@ -977,7 +977,7 @@ Bool32 CTIControl::SetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInRe
 		SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
 		return FALSE;
 	}
-	// проверяем на ненулевость
+	// РїСЂРѕРІРµСЂСЏРµРј РЅР° РЅРµРЅСѓР»РµРІРѕСЃС‚СЊ
 	wFrameSize = (pIn->dwHeight) * (pIn->dwWidth);
 
 	if ( wFrameSize == 0 )
@@ -985,7 +985,7 @@ Bool32 CTIControl::SetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInRe
 		SetReturnCode_cimage(IDS_CIMAGE_INVALID_FRAME_SIZE);
 		return FALSE;
 	}
-	// Проверяем на соответствие размеров
+	// РџСЂРѕРІРµСЂСЏРµРј РЅР° СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРµ СЂР°Р·РјРµСЂРѕРІ
 	if ( ( pDscDIB->GetLineWidth()   < pSrcDIB->GetLineWidth() + pIn->dwX ) ||
 		 ( pDscDIB->GetLinesNumber() < pSrcDIB->GetLinesNumber() + pIn->dwY ) )
 	{
@@ -1013,7 +1013,7 @@ Bool32 CTIControl::CBImageOpen(PCIMAGE_ImageInfo lpImageInfo)
 #if defined( _TRASING ) & defined ( _DEBUG )
 	if ( wCBStep != 0 )
 	{
-		TRACE("!!!CIMAGE!!! Повторный вызов CBImageOpen для картинки %s без переинициализации CIMAGE_CBImageRead!\n",mCBName);
+		TRACE("!!!CIMAGE!!! РџРѕРІС‚РѕСЂРЅС‹Р№ РІС‹Р·РѕРІ CBImageOpen РґР»СЏ РєР°СЂС‚РёРЅРєРё %s Р±РµР· РїРµСЂРµРёРЅРёС†РёР°Р»РёР·Р°С†РёРё CIMAGE_CBImageRead!\n",mCBName);
 	}
 #endif
 
@@ -1022,7 +1022,7 @@ Bool32 CTIControl::CBImageOpen(PCIMAGE_ImageInfo lpImageInfo)
 #if defined( _TRASING ) & defined ( _DEBUG )
 	if ( mCBWInProcess == TRUE )
 	{
-		TRACE("!!!CIMAGE!!! CIMAGE_CBImageRead( %s, ...) вызывается из CIMAGE_WriteCBImage( %s, ...)!\n",mCBName,mCBWName);
+		TRACE("!!!CIMAGE!!! CIMAGE_CBImageRead( %s, ...) РІС‹Р·С‹РІР°РµС‚СЃСЏ РёР· CIMAGE_WriteCBImage( %s, ...)!\n",mCBName,mCBWName);
 	}
 #endif
 
@@ -1211,11 +1211,11 @@ Bool32 CTIControl::GetDIBFromImage(PChar8 lpName, PCIMAGE_InfoDataInGet lpIn, PI
 	Word32   wResolutionY;
 	CIMAGE_InfoDataInGet NewIn;
 
-	// в случае повторного вызова предыдущий диб стирается
+	// РІ СЃР»СѓС‡Р°Рµ РїРѕРІС‚РѕСЂРЅРѕРіРѕ РІС‹Р·РѕРІР° РїСЂРµРґС‹РґСѓС‰РёР№ РґРёР± СЃС‚РёСЂР°РµС‚СЃСЏ
 	FreeBuffers();
 
-	// при первом вызове
-	//берем указатель на картинку
+	// РїСЂРё РїРµСЂРІРѕРј РІС‹Р·РѕРІРµ
+	//Р±РµСЂРµРј СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РєР°СЂС‚РёРЅРєСѓ
 	if ( !GetDIB(lpName, &hImage, TRUE ) )
 	{
 		return bRet;
@@ -1230,14 +1230,14 @@ Bool32 CTIControl::GetDIBFromImage(PChar8 lpName, PCIMAGE_InfoDataInGet lpIn, PI
 		return bRet;
 	}
 
-	//инициализируем ctdib-чики
+	//РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј ctdib-С‡РёРєРё
 	pSrcDIB = new CTDIB;
 	mpDIBFromImage = new CTDIB;
 
 	if ( pSrcDIB->SetDIBbyPtr(pImage) &&
 		 pSrcDIB->GetResolutionDPM(&wResolutionX, &wResolutionY) )
 	{
-		// проверяем размеры картинки
+		// РїСЂРѕРІРµСЂСЏРµРј СЂР°Р·РјРµСЂС‹ РєР°СЂС‚РёРЅРєРё
 		if ( CheckInData(pSrcDIB, lpIn, &NewIn) )
 		{
 
@@ -1302,7 +1302,7 @@ Bool32 CTIControl::FreeBuffers()
 		}
 
 		mpDIBFromImage = NULL;
-		// даем знать, что мы его стерли
+		// РґР°РµРј Р·РЅР°С‚СЊ, С‡С‚Рѕ РјС‹ РµРіРѕ СЃС‚РµСЂР»Рё
 		//if ( pDIB != NULL )
 		//	*pDIB = NULL;
 		//return TRUE;
@@ -1326,23 +1326,23 @@ Bool32 CTIControl::CheckInData(PCTDIB pDIB, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 	DIBW  = (Int32)pDIB->GetLineWidth();
 	DIBH  = (Int32)pDIB->GetLinesNumber();
 
-	// копируем
+	// РєРѕРїРёСЂСѓРµРј
 	if ( lpNewIn )
 	{
 		memcpy( lpNewIn, lpIn, sizeof(CIMAGE_InfoDataInGet) );
 	}
-	//проверяем ширину
+	//РїСЂРѕРІРµСЂСЏРµРј С€РёСЂРёРЅСѓ
 	if ( *NewW  < 0 )
 	{
 		*NewW = DIBW;
 	}
-	// и высоту
+	// Рё РІС‹СЃРѕС‚Сѓ
 	if ( *NewH  < 0 )
 	{
 		*NewH = DIBH;
 	}
 
-	//проверяем X
+	//РїСЂРѕРІРµСЂСЏРµРј X
 	if ( *NewX < 0 )
 	{
 		if ( *NewW > -*NewX )
@@ -1358,7 +1358,7 @@ Bool32 CTIControl::CheckInData(PCTDIB pDIB, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 		else
 			*NewX = 0;
 	}
-	// проверяем Y
+	// РїСЂРѕРІРµСЂСЏРµРј Y
 	if ( *NewY < 0 )
 	{
 		if ( *NewH > -*NewY )
@@ -1374,7 +1374,7 @@ Bool32 CTIControl::CheckInData(PCTDIB pDIB, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 		else
 			*NewY = 0;
 	}
-	// проверяем размеры
+	// РїСЂРѕРІРµСЂСЏРµРј СЂР°Р·РјРµСЂС‹
 	if ( (*NewX + *NewW) > DIBW )
 	{
 		*NewW = DIBW - *NewX;
@@ -1433,7 +1433,7 @@ Bool32 CTIControl::OpenDIBFromList(PChar8 lpName, PHandle phImage)
 {
 	mlImages.GetImage(lpName, phImage);
 	//ALLEX Mask
-	// ошибка не тут
+	// РѕС€РёР±РєР° РЅРµ С‚СѓС‚
 	OpenMaskFromList(lpName, &(mpcSrcDIBReadMask = NULL), &mbEnableDIBReadMask, "r");
 	OpenMaskFromList(lpName, &(mpcSrcDIBWriteMask = NULL), &mbEnableDIBWriteMask, "w");
 
@@ -1484,7 +1484,7 @@ Bool32 CTIControl::OpenDIBFromList(const char *lpName, PCTDIB pcDIB)
 
 	mlImages.GetImage(lpName, &hDIB);
 	//ALLEX Mask
-	// ошибка не тут
+	// РѕС€РёР±РєР° РЅРµ С‚СѓС‚
 	OpenMaskFromList(lpName, &(mpcSrcDIBReadMask = NULL), &mbEnableDIBReadMask, "r");
 	OpenMaskFromList(lpName, &(mpcSrcDIBWriteMask = NULL), &mbEnableDIBWriteMask, "w");
 
@@ -1603,16 +1603,16 @@ Bool32 CTIControl::ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, Word32 wAtX, Wor
 
 	for ( wY = wYb; wY < wYe; wY++ )
 	{
-		//если удалось открыть маску
+		//РµСЃР»Рё СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ РјР°СЃРєСѓ
 		if ( pMask->GetLine(wY, &pcMaskLine ) )
 		{
-			// если есть линия
+			// РµСЃР»Рё РµСЃС‚СЊ Р»РёРЅРёСЏ
 			if ( pcMaskLine )
 			{
 				wSegmentsOnLine = pcMaskLine->GetSegmentsNumber();
 				wX = wXb;
 
-				// если есть сегменты на этой линии
+				// РµСЃР»Рё РµСЃС‚СЊ СЃРµРіРјРµРЅС‚С‹ РЅР° СЌС‚РѕР№ Р»РёРЅРёРё
 				if ( wSegmentsOnLine )
 					while ( wX < wXe )
 					{
@@ -1662,7 +1662,7 @@ Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm, 
 	wXb = pSegm->GetStart() - wAtX;
 	wY  = wLine - wAtY;
 
-	// проверяем на соответствие с картинкой
+	// РїСЂРѕРІРµСЂСЏРµРј РЅР° СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРµ СЃ РєР°СЂС‚РёРЅРєРѕР№
 	if ( wXb >= pcDIB->GetLineWidth() )
 		return true;
 

@@ -1,58 +1,58 @@
 /*
-Copyright (c) 1993-2008, Cognitive Technologies
-All rights reserved.
+ Copyright (c) 1993-2008, Cognitive Technologies
+ All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+ Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+ С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+ РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+ РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+ СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+ РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+ Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+ РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+ СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+ Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+ РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+ Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+ РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+ РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+ РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+ РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+ РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+ РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+ РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+ РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+ Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
 
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation
-      and/or other materials provided with the distribution.
-    * Neither the name of the Cognitive Technologies nor the names of its
-      contributors may be used to endorse or promote products derived from this
-      software without specific prior written permission.
+ * Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ * Neither the name of the Cognitive Technologies nor the names of its
+ contributors may be used to endorse or promote products derived from this
+ software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #include<stdlib.h>
 
@@ -67,21 +67,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "polyblock.h"
 //#include "rreccom.h"
 
-#define RGB(r,g,b)          ((COLORREF)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((DWORD)(BYTE)(b))<<16)))
-typedef DWORD   COLORREF;
+#define RGB(r,g,b)          ((COLORREF)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
+typedef uint32_t COLORREF;
 
-
-int inf_cut_h=15;
+int inf_cut_h = 15;
 int sup_cut_h;
-int inf_let_h_cut_comp=10;
-int sup_let_h=30;
+int inf_let_h_cut_comp = 10;
+int sup_let_h = 30;
 int medium_h;
 extern int inf_let_w;
-double coef_cut=.75;
+double coef_cut = .75;
 BOOL WasCutComp;
 extern Bool32 WasCut;
 BOOL WasDifHis;
-int code_comp_cut_d=117;
+int code_comp_cut_d = 117;
 
 extern Handle MainWindowD;
 extern Handle CutCompPrintFILE;
@@ -101,149 +100,139 @@ extern int inf_dust_h;
 extern Word32 Code_UB_Kill;
 extern Word32 Code_UB_Create;
 
-
-
-BOOL IfNeedCutComp(CCOM_comp* comp,Point32 beg,Point32 end,int& yCut);
-int GetLineY(Point32 beg,Point32 end,int x);
-BOOL CutComp(Handle hCPAGE,CCOM_handle hCCOM,CCOM_comp* comp,int bound,BOOL fl_cut);
-void CleanRaster(RecRaster* rast,Rect16* rect,int scale);
-BOOL Increase2(RecRaster* rast,CCOM_comp* comp);
+BOOL IfNeedCutComp(CCOM_comp* comp, Point32 beg, Point32 end, int& yCut);
+int GetLineY(Point32 beg, Point32 end, int x);
+BOOL CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
+		BOOL fl_cut);
+void CleanRaster(RecRaster* rast, Rect16* rect, int scale);
+BOOL Increase2(RecRaster* rast, CCOM_comp* comp);
 int GetCountNumbers(int num);
-void DrawRect(Handle wnd,Word32 OperCode,Word32 color,int top,int bottom,int left,int right);
-BOOL IfWhiteRow(RecRaster* rast,int row);
+void DrawRect(Handle wnd, Word32 OperCode, Word32 color, int top, int bottom,
+		int left, int right);
+BOOL IfWhiteRow(RecRaster* rast, int row);
 int GetMediumH(CCOM_handle hCCOM);
 void IfDifCutComp(void);
-BOOL IfEqv(char* buf1,char* buf2);
-BOOL IfEqv(Rect16 r1,Rect16 r2);
-Handle GetStrCCOM(Handle hCPage,Word8* ImageName,Rect16 Rc,BOOL neg,BOOL vertical,RecRaster* rast,int min_h);
+BOOL IfEqv(char* buf1, char* buf2);
+BOOL IfEqv(Rect16 r1, Rect16 r2);
+Handle GetStrCCOM(Handle hCPage, Word8* ImageName, Rect16 Rc, BOOL neg,
+		BOOL vertical, RecRaster* rast, int min_h);
 void MyKillComp(CCOM_comp* comp);
 void MyCreateComp(CCOM_comp* comp);
 
+BOOL IfNeedCutComp(CCOM_comp* comp, Point32 beg, Point32 end, int& yCut) {
+	int top = comp->upper;
+	int left = comp->left;
+	int right = left + comp->w - 1;
+	int bottom = top + comp->h - 1;
+	int w = comp->w;
+	int h = comp->h;
+	int medium_w = (right + left) / 2;
+	int y;
+	double coef;
+	int max_y;
+	int min_y;
 
+	if (h < inf_cut_h || h > sup_cut_h || w < inf_let_w)
+		return FALSE;
 
-BOOL IfNeedCutComp(CCOM_comp* comp,Point32 beg,Point32 end,int& yCut)
-{
- int top=comp->upper;
- int left=comp->left;
- int right=left+comp->w-1;
- int bottom=top+comp->h-1;
- int w=comp->w;
- int h=comp->h;
- int medium_w=(right+left)/2;
- int y;
- double coef;
- int max_y;
- int min_y;
+	if (beg.y >= end.y) {
+		max_y = beg.y;
+		min_y = end.y;
+	} else {
+		max_y = end.y;
+		min_y = beg.y;
+	}
 
- if(h<inf_cut_h||h>sup_cut_h||w<inf_let_w)
-	 return FALSE;
+	if ((bottom > min_y) && (top < max_y) && (medium_w >= beg.x) && (medium_w
+			<= end.x))
+		;
+	else
+		return FALSE;
 
- if(beg.y>=end.y)
- {
-	 max_y=beg.y;
-	 min_y=end.y;
- }
- else
- {
-	 max_y=end.y;
-	 min_y=beg.y;
- }
+	y = GetLineY(beg, end, medium_w);
 
- if( (bottom>min_y)&&(top<max_y)&&(medium_w>=beg.x)&&(medium_w<=end.x) )
-	  ;
- else
-	  return FALSE;
+	if (y >= bottom || y <= top)
+		return FALSE;
 
- y=GetLineY(beg,end,medium_w);
+	if (h > medium_h * 2) {
+		if ((y - top) > inf_let_h_cut_comp && (bottom - y) > inf_let_h_cut_comp) {
+			yCut = y;
+			return TRUE;
+		}
+	}
 
- if(y>=bottom||y<=top)
-	 return FALSE;
+	coef = (double) (y - top) / (double) (bottom - y);
 
- if(h>medium_h*2)
- {
-	 if((y-top)>inf_let_h_cut_comp&&(bottom-y)>inf_let_h_cut_comp)
-	 {
-		 yCut=y;
-		 return TRUE;
-	 }
- }
-
- coef=(double)(y-top)/(double)(bottom-y);
-
- if((coef<=1.&&coef>=coef_cut)||(coef>1.&&coef<=1./coef_cut))
- {
-   yCut=y;
-   return TRUE;
- }
- else
-	 return FALSE;
+	if ((coef <= 1. && coef >= coef_cut)
+			|| (coef > 1. && coef <= 1. / coef_cut)) {
+		yCut = y;
+		return TRUE;
+	} else
+		return FALSE;
 
 }
 
-int GetLineY(Point32 beg,Point32 end,int x)
-{
- int lenght=end.x-beg.x+1;
- int spusk=beg.y-end.y;
+int GetLineY(Point32 beg, Point32 end, int x) {
+	int lenght = end.x - beg.x + 1;
+	int spusk = beg.y - end.y;
 
- if(lenght<=0)
-     return beg.y;
- return beg.y-((x-beg.x+1)*spusk)/lenght;
+	if (lenght <= 0)
+		return beg.y;
+	return beg.y - ((x - beg.x + 1) * spusk) / lenght;
 }
 
-BOOL CutComp(Handle hCPAGE,CCOM_handle hCCOM,CCOM_comp* comp,int bound,BOOL fl_cut)
-{
- RecRaster rast;
- int ii;
+BOOL CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
+		BOOL fl_cut) {
+	RecRaster rast;
+	int ii;
 
- if(!CCOM_GetRaster(comp,&rast))
-	 return FALSE;
+	if (!CCOM_GetRaster(comp, &rast))
+		return FALSE;
 
- RecRaster rast2;
+	RecRaster rast2;
 
- for(ii=REC_MAX_RASTER_SIZE-1;ii;ii--)
-     rast2.Raster[ii]=0;
+	for (ii = REC_MAX_RASTER_SIZE - 1; ii; ii--)
+		rast2.Raster[ii] = 0;
 
- int rast_bound=(bound-comp->upper+1)>>(comp->scale);
- int nowbyte=0;
- int j=rast.lnPixHeight*8*((rast.lnPixWidth+63)/64);
- Rect16 rect1;
- Rect16 rect2;
- CCOM_comp* comp1;
- CCOM_comp* comp2;
- Word8* lp=NULL;
-// Word8* old;
-// Int16 lp_size;
-// Int16 numcomp;
-
-
-
- for(ii=rast_bound*8*((rast.lnPixWidth+63)/64);ii<j;ii++)
- {
-  rast2.Raster[nowbyte]=rast.Raster[ii];
-  rast.Raster[ii]=0;
-  nowbyte++;
- }
-
- rast2.lnPixHeight=rast.lnPixHeight-rast_bound;
- rast2.lnPixWidth=rast.lnPixWidth;
- rast2.lnRasterBufSize=REC_MAX_RASTER_SIZE;
- rast.lnPixHeight=rast_bound;
+	int rast_bound = (bound - comp->upper + 1) >> (comp->scale);
+	int nowbyte = 0;
+	int j = rast.lnPixHeight * 8* ( (rast.lnPixWidth+63)/64);
+	Rect16 rect1;
+	Rect16 rect2;
+	CCOM_comp* comp1;
+	CCOM_comp* comp2;
+	Word8* lp=NULL;
+	// Word8* old;
+			// Int16 lp_size;
+			// Int16 numcomp;
 
 
- rect1.top=comp->upper;
- rect1.bottom=bound;
- rect1.left=comp->left;
- rect1.right=rect1.left+comp->w-1;
+			for(ii=rast_bound*8*((rast.lnPixWidth+63)/64);ii<j;ii++)
+			{
+				rast2.Raster[nowbyte]=rast.Raster[ii];
+				rast.Raster[ii]=0;
+				nowbyte++;
+			}
 
- rect2.top=bound+1;
- rect2.bottom=comp->upper+comp->h-1;
- rect2.left=comp->left;
- rect2.right=comp->left+comp->w-1;
+			rast2.lnPixHeight=rast.lnPixHeight-rast_bound;
+			rast2.lnPixWidth=rast.lnPixWidth;
+			rast2.lnRasterBufSize=REC_MAX_RASTER_SIZE;
+			rast.lnPixHeight=rast_bound;
 
-// CleanRaster(&rast,&rect1,comp->scale);
-// CleanRaster(&rast2,&rect2,comp->scale);
+			rect1.top=comp->upper;
+			rect1.bottom=bound;
+			rect1.left=comp->left;
+			rect1.right=rect1.left+comp->w-1;
 
- comp1=CCOM_New(hCCOM,rect1.top,rect1.left,rect1.right-rect1.left+1,rect1.bottom-rect1.top+1);
+			rect2.top=bound+1;
+			rect2.bottom=comp->upper+comp->h-1;
+			rect2.left=comp->left;
+			rect2.right=comp->left+comp->w-1;
+
+			// CleanRaster(&rast,&rect1,comp->scale);
+			// CleanRaster(&rast2,&rect2,comp->scale);
+
+			comp1=CCOM_New(hCCOM,rect1.top,rect1.left,rect1.right-rect1.left+1,rect1.bottom-rect1.top+1);
  if(!comp1)
 	 return FALSE;
  comp2=CCOM_New(hCCOM,rect2.top,rect2.left,rect2.right-rect2.left+1,rect2.bottom-rect2.top+1);
@@ -477,311 +466,283 @@ BOOL CutComp(Handle hCPAGE,CCOM_handle hCCOM,CCOM_comp* comp,int bound,BOOL fl_c
 // delete[] lp;
 }
 
-
-
-void DrawRect(Handle wnd,Word32 OperCode,Word32 color,int top,int bottom,int left,int right)
-{
+void DrawRect(Handle wnd, Word32 OperCode, Word32 color, int top, int bottom,
+		int left, int right) {
 
 	Rect16 Rect;
 
-		Rect.bottom=bottom;
-		Rect.left=left;
-		Rect.right=right+1;
-		Rect.top=top-1;
+	Rect.bottom = bottom;
+	Rect.left = left;
+	Rect.right = right + 1;
+	Rect.top = top - 1;
 
-		LDPUMA_DrawRect (wnd, &(Rect),0, color, -100,OperCode );
-
-}
-
-
-int GetMediumH(CCOM_handle hCCOM)
-{
- int sum_h=0;
- int count=0;
- for(CCOM_comp* comp=CCOM_GetFirst(hCCOM,NULL);comp;comp=CCOM_GetNext(comp,NULL))
- {
-	 if(comp->h>inf_let_h_cut_comp&&comp->h<sup_let_h)
-	 {
-		 sum_h+=comp->h;
-		 count++;
-	 }
- }
- if(!count)
-	 return (inf_let_h_cut_comp*3)/2;
- else
-	 return sum_h/count;
-}
-
-void IfDifCutComp(void)
-{
- if(!f_old_cut_comp||!f_temp_cut_comp)
-	 return;
-
- char buf1[10000];
- char buf2[10000];
- fgets(buf1,10000,f_temp_cut_comp);
- BOOL fl_exist=FALSE;
-
- while(fgets(buf2,10000,f_old_cut_comp))
- {
-	 if(IfEqv(buf1,buf2))
-		 fl_exist=TRUE;
-	 if(fl_exist)
-		 break;
- }
- if(!fl_exist)
-	 return;
-
- Rect16 pOldCut[1000];
- int nOldCut=0;
- Rect16 pNewCut[1000];
- int nNewCut=0;
- BOOL fl_empty=FALSE;
-
- if(!fgets(buf2,10000,f_old_cut_comp))
-    fl_empty=TRUE;
-
- int i;
- for(i=999;i>=0;i--)
- {
-	 pNewCut[i].bottom=pOldCut[i].bottom=0;
-	 pNewCut[i].top=pOldCut[i].top=0;
-	 pNewCut[i].left=pOldCut[i].left=0;
-	 pNewCut[i].right=pOldCut[i].right=0;
- }
-
- while((buf2[1]!=':')&&(buf2[2]!='\\')&&(!fl_empty))
- {
-	 i=4;
-	 while(buf2[i]!=' ')
-	 {
-	   pOldCut[nOldCut].top*=10;
-       if(buf2[i]!='0')
-		  pOldCut[nOldCut].top+=buf2[i]-'1'+1;
-	   i++;
-	 }
-	 i=18;
-     while(buf2[i]!=' ')
-	 {
-	   pOldCut[nOldCut].bottom*=10;
-       if(buf2[i]!='0')
-		  pOldCut[nOldCut].bottom+=buf2[i]-'1'+1;
-	   i++;
-	 }
-	 i=30;
-	 while(buf2[i]!=' ')
-	 {
-	   pOldCut[nOldCut].left*=10;
-       if(buf2[i]!='0')
-		  pOldCut[nOldCut].left+=buf2[i]-'1'+1;
-	   i++;
-	 }
-	 i=43;
-	 while(buf2[i]!=' '&&buf2[i]!='\n'&&buf2[i]!='\0')
-	 {
-	   pOldCut[nOldCut].right*=10;
-       if(buf2[i]!='0')
-		  pOldCut[nOldCut].right+=buf2[i]-'1'+1;
-	   i++;
-	 }
-	 nOldCut++;
-
-  if(!fgets(buf2,10000,f_old_cut_comp))
-	  break;
- }
-
- fl_empty=FALSE;
- if(!fgets(buf1,10000,f_temp_cut_comp))
-    fl_empty=TRUE;
-
-
- while((buf1[1]!=':')&&(buf1[2]!='\\')&&(!fl_empty))
- {
-	 i=4;
-	 while(buf1[i]!=' ')
-	 {
-	   pNewCut[nNewCut].top*=10;
-       if(buf1[i]!='0')
-		  pNewCut[nNewCut].top+=buf1[i]-'1'+1;
-	   i++;
-	 }
-	 i=18;
-     while(buf1[i]!=' ')
-	 {
-	   pNewCut[nNewCut].bottom*=10;
-       if(buf1[i]!='0')
-		  pNewCut[nNewCut].bottom+=buf1[i]-'1'+1;
-	   i++;
-	 }
-	 i=30;
-	 while(buf1[i]!=' ')
-	 {
-	   pNewCut[nNewCut].left*=10;
-       if(buf1[i]!='0')
-		  pNewCut[nNewCut].left+=buf1[i]-'1'+1;
-	   i++;
-	 }
-	 i=43;
-	 while(buf1[i]!=' '&&buf1[i]!='\n'&&buf1[i]!='\0')
-	 {
-	   pNewCut[nNewCut].right*=10;
-       if(buf1[i]!='0')
-		  pNewCut[nNewCut].right+=buf1[i]-'1'+1;
-	   i++;
-	 }
-	 nNewCut++;
-
-  if(!fgets(buf1,10000,f_temp_cut_comp))
-	  break;
- }
-
- if(!nOldCut&&!nNewCut)
-	 return;
-
- int j;
-// старая резка:
- for(i=nOldCut-1;i>=0;i--)
- {
-  for(j=nNewCut-1;j>=0;j--)
-  {
-   if(IfEqv(pOldCut[i],pNewCut[j]))
-	   break;
-  }
-  if(j<0)
-  {
-	DrawRect(MainWindowD,code_comp_cut_d,RGB(0,0,255),pOldCut[i].top,pOldCut[i].bottom,pOldCut[i].left,pOldCut[i].right);
-    WasDifHis=TRUE;
-  }
- }
-// новая резка:
- for(i=nNewCut-1;i>=0;i--)
- {
-  for(j=nOldCut-1;j>=0;j--)
-  {
-   if(IfEqv(pNewCut[i],pOldCut[j]))
-	   break;
-  }
-  if(j<0)
-  {
-	DrawRect(MainWindowD,code_comp_cut_d,RGB(255,0,0),pNewCut[i].top,pNewCut[i].bottom,pNewCut[i].left,pNewCut[i].right);
-    WasDifHis=TRUE;
-  }
- }
+	LDPUMA_DrawRect(wnd, &(Rect), 0, color, -100, OperCode);
 
 }
 
-
-Handle GetStrCCOM(Handle hCPage,Word8* ImageName,Rect16 Rc,BOOL neg,BOOL vertical,RecRaster* rast,int min_h)
-{
- int min_w,max_h,max_w;
-// int j;
- PAGEINFO info = {0};
-// Word8 Name[CPAGE_MAXNAME];
- GetPageInfo(hCPage,&info);
-
-// if(ImageName)
-// {
-//	 for (j=0; j<CPAGE_MAXNAME; j++)
-//		Name[j] = ImageName[j];
-// }
-// else
-// {
-// for (j=0; j<CPAGE_MAXNAME; j++)
-//		Name[j] = info.szImageName[j];
-// }
-// Handle lpDIB;
-// if(!CIMAGE_ReadDIB(Name,&lpDIB,1))
-//	 return 0;
- ExcControl Control;
- if( vertical )
- {
-	  min_h=2;
-	  min_w=2;
-	  max_w=Rc.right-Rc.left+1;
-	  max_h=max_w*2;
-
- }
- else
- {
-	  min_w=2;
-	  max_h=Rc.bottom-Rc.top+1;
-	  max_w=Rc.right-Rc.left+1;
- }
-
- int bytewide=((rast->lnPixWidth+63)/64)*8;
- BOOL fotomet=FALSE;
- BOOL RevOv=FALSE;
-
- Control.MinCompHei=min_h;
- Control.MinCompWid=min_w;
- Control.MaxCompHei=rast->lnPixHeight+1;
- Control.MaxCompWid=bytewide*8;
- Control.MaxScale=0;
- Control.Control=Ex_ExtraComp/*|Ex_EvnRecog*/;//Andrey: опознавалка вынесена в отдельный модуль RRecCom, и кроме того, не вызвана функция REXC_SetEVNProperties для опознавания методом "Event"
-
- if(REXCExtra(Control,rast->Raster,bytewide,RevOv,bytewide*8,rast->lnPixHeight,(info.DPIX*10000)/254,(info.DPIY*10000)/254,0,0,0,0,fotomet))
- {
-/* 	 //Andrey: здесь как раз и идет опознавалка
-	RRecComControl rcontrol;
-	rcontrol.MinCompHei=min_h;
-	rcontrol.MinCompWid=min_w;
-	rcontrol.MaxCompHei=rast->lnPixHeight+1;
-	rcontrol.MaxCompWid=bytewide*8;
-	rcontrol.MaxScale=0;
-	rcontrol.flags = RECOG_EVN;
-
-	Handle hCCOM = (Handle)REXCGetContainer();
-
-	if (hCCOM)
-		//Andrey: вообще-то так делать нельзя (в смысле передавать последними 2мя параметрами то, что передается), но пока я не знаю, как здесь получить язык распознавания, поэтому вот таким образом пропускается инициализация
-		if (!RRECCOM_Recog(hCCOM, rcontrol, NULL, -1))
-			LDPUMA_ConsoleN(RRECCOM_GetReturnString(RRECCOM_GetReturnCode()));
-
-	return (Int32)hCCOM;
-*/    return REXCGetContainer();
- }
- return 0;
+int GetMediumH(CCOM_handle hCCOM) {
+	int sum_h = 0;
+	int count = 0;
+	for (CCOM_comp* comp = CCOM_GetFirst(hCCOM, NULL); comp; comp
+			= CCOM_GetNext(comp, NULL)) {
+		if (comp->h > inf_let_h_cut_comp && comp->h < sup_let_h) {
+			sum_h += comp->h;
+			count++;
+		}
+	}
+	if (!count)
+		return (inf_let_h_cut_comp * 3) / 2;
+	else
+		return sum_h / count;
 }
 
-void MyKillComp(CCOM_comp* comp)
-{
-	if(Code_UB_Kill&&Code_UB_Create)
-	{
-	 int size=sizeof(Word32);
-	 CCOM_USER_BLOCK ub;
-	 ub.code=Code_UB_Create;
-	 if(!CCOM_GetUserBlock(comp,&ub))
-	 {
-	  ub.code=Code_UB_Kill;
-	  ub.size=size;
-	  ub.data=(Word8*)(&Code_UB_Kill);
-	  CCOM_SetUserBlock(comp,&ub);
-	 }
+void IfDifCutComp(void) {
+	if (!f_old_cut_comp || !f_temp_cut_comp)
+		return;
+
+	char buf1[10000];
+	char buf2[10000];
+	fgets(buf1, 10000, f_temp_cut_comp);
+	BOOL fl_exist = FALSE;
+
+	while (fgets(buf2, 10000, f_old_cut_comp)) {
+		if (IfEqv(buf1, buf2))
+			fl_exist = TRUE;
+		if (fl_exist)
+			break;
+	}
+	if (!fl_exist)
+		return;
+
+	Rect16 pOldCut[1000];
+	int nOldCut = 0;
+	Rect16 pNewCut[1000];
+	int nNewCut = 0;
+	BOOL fl_empty = FALSE;
+
+	if (!fgets(buf2, 10000, f_old_cut_comp))
+		fl_empty = TRUE;
+
+	int i;
+	for (i = 999; i >= 0; i--) {
+		pNewCut[i].bottom = pOldCut[i].bottom = 0;
+		pNewCut[i].top = pOldCut[i].top = 0;
+		pNewCut[i].left = pOldCut[i].left = 0;
+		pNewCut[i].right = pOldCut[i].right = 0;
+	}
+
+	while ((buf2[1] != ':') && (buf2[2] != '\\') && (!fl_empty)) {
+		i = 4;
+		while (buf2[i] != ' ') {
+			pOldCut[nOldCut].top *= 10;
+			if (buf2[i] != '0')
+				pOldCut[nOldCut].top += buf2[i] - '1' + 1;
+			i++;
+		}
+		i = 18;
+		while (buf2[i] != ' ') {
+			pOldCut[nOldCut].bottom *= 10;
+			if (buf2[i] != '0')
+				pOldCut[nOldCut].bottom += buf2[i] - '1' + 1;
+			i++;
+		}
+		i = 30;
+		while (buf2[i] != ' ') {
+			pOldCut[nOldCut].left *= 10;
+			if (buf2[i] != '0')
+				pOldCut[nOldCut].left += buf2[i] - '1' + 1;
+			i++;
+		}
+		i = 43;
+		while (buf2[i] != ' ' && buf2[i] != '\n' && buf2[i] != '\0') {
+			pOldCut[nOldCut].right *= 10;
+			if (buf2[i] != '0')
+				pOldCut[nOldCut].right += buf2[i] - '1' + 1;
+			i++;
+		}
+		nOldCut++;
+
+		if (!fgets(buf2, 10000, f_old_cut_comp))
+			break;
+	}
+
+	fl_empty = FALSE;
+	if (!fgets(buf1, 10000, f_temp_cut_comp))
+		fl_empty = TRUE;
+
+	while ((buf1[1] != ':') && (buf1[2] != '\\') && (!fl_empty)) {
+		i = 4;
+		while (buf1[i] != ' ') {
+			pNewCut[nNewCut].top *= 10;
+			if (buf1[i] != '0')
+				pNewCut[nNewCut].top += buf1[i] - '1' + 1;
+			i++;
+		}
+		i = 18;
+		while (buf1[i] != ' ') {
+			pNewCut[nNewCut].bottom *= 10;
+			if (buf1[i] != '0')
+				pNewCut[nNewCut].bottom += buf1[i] - '1' + 1;
+			i++;
+		}
+		i = 30;
+		while (buf1[i] != ' ') {
+			pNewCut[nNewCut].left *= 10;
+			if (buf1[i] != '0')
+				pNewCut[nNewCut].left += buf1[i] - '1' + 1;
+			i++;
+		}
+		i = 43;
+		while (buf1[i] != ' ' && buf1[i] != '\n' && buf1[i] != '\0') {
+			pNewCut[nNewCut].right *= 10;
+			if (buf1[i] != '0')
+				pNewCut[nNewCut].right += buf1[i] - '1' + 1;
+			i++;
+		}
+		nNewCut++;
+
+		if (!fgets(buf1, 10000, f_temp_cut_comp))
+			break;
+	}
+
+	if (!nOldCut && !nNewCut)
+		return;
+
+	int j;
+	// СЃС‚Р°СЂР°СЏ СЂРµР·РєР°:
+	for (i = nOldCut - 1; i >= 0; i--) {
+		for (j = nNewCut - 1; j >= 0; j--) {
+			if (IfEqv(pOldCut[i], pNewCut[j]))
+				break;
+		}
+		if (j < 0) {
+			DrawRect(MainWindowD, code_comp_cut_d, RGB(0,0,255),
+					pOldCut[i].top, pOldCut[i].bottom, pOldCut[i].left,
+					pOldCut[i].right);
+			WasDifHis = TRUE;
+		}
+	}
+	// РЅРѕРІР°СЏ СЂРµР·РєР°:
+	for (i = nNewCut - 1; i >= 0; i--) {
+		for (j = nOldCut - 1; j >= 0; j--) {
+			if (IfEqv(pNewCut[i], pOldCut[j]))
+				break;
+		}
+		if (j < 0) {
+			DrawRect(MainWindowD, code_comp_cut_d, RGB(255,0,0),
+					pNewCut[i].top, pNewCut[i].bottom, pNewCut[i].left,
+					pNewCut[i].right);
+			WasDifHis = TRUE;
+		}
+	}
+
+}
+
+Handle GetStrCCOM(Handle hCPage, Word8* ImageName, Rect16 Rc, BOOL neg,
+		BOOL vertical, RecRaster* rast, int min_h) {
+	int min_w, max_h, max_w;
+	// int j;
+	PAGEINFO info = { 0 };
+	// Word8 Name[CPAGE_MAXNAME];
+	GetPageInfo(hCPage, &info);
+
+	// if(ImageName)
+	// {
+	//	 for (j=0; j<CPAGE_MAXNAME; j++)
+	//		Name[j] = ImageName[j];
+	// }
+	// else
+	// {
+	// for (j=0; j<CPAGE_MAXNAME; j++)
+	//		Name[j] = info.szImageName[j];
+	// }
+	// Handle lpDIB;
+	// if(!CIMAGE_ReadDIB(Name,&lpDIB,1))
+	//	 return 0;
+	ExcControl Control;
+	if (vertical) {
+		min_h = 2;
+		min_w = 2;
+		max_w = Rc.right - Rc.left + 1;
+		max_h = max_w * 2;
+
+	} else {
+		min_w = 2;
+		max_h = Rc.bottom - Rc.top + 1;
+		max_w = Rc.right - Rc.left + 1;
+	}
+
+	int bytewide = ((rast->lnPixWidth + 63) / 64) * 8;
+	BOOL fotomet = FALSE;
+	BOOL RevOv = FALSE;
+
+	Control.MinCompHei = min_h;
+	Control.MinCompWid = min_w;
+	Control.MaxCompHei = rast->lnPixHeight + 1;
+	Control.MaxCompWid = bytewide * 8;
+	Control.MaxScale = 0;
+	Control.Control = Ex_ExtraComp/*|Ex_EvnRecog*/;//Andrey: РѕРїРѕР·РЅР°РІР°Р»РєР° РІС‹РЅРµСЃРµРЅР° РІ РѕС‚РґРµР»СЊРЅС‹Р№ РјРѕРґСѓР»СЊ RRecCom, Рё РєСЂРѕРјРµ С‚РѕРіРѕ, РЅРµ РІС‹Р·РІР°РЅР° С„СѓРЅРєС†РёСЏ REXC_SetEVNProperties РґР»СЏ РѕРїРѕР·РЅР°РІР°РЅРёСЏ РјРµС‚РѕРґРѕРј "Event"
+
+	if (REXCExtra(Control, rast->Raster, bytewide, RevOv, bytewide * 8,
+			rast->lnPixHeight, (info.DPIX * 10000) / 254, (info.DPIY * 10000)
+					/ 254, 0, 0, 0, 0, fotomet)) {
+		/* 	 //Andrey: Р·РґРµСЃСЊ РєР°Рє СЂР°Р· Рё РёРґРµС‚ РѕРїРѕР·РЅР°РІР°Р»РєР°
+		 RRecComControl rcontrol;
+		 rcontrol.MinCompHei=min_h;
+		 rcontrol.MinCompWid=min_w;
+		 rcontrol.MaxCompHei=rast->lnPixHeight+1;
+		 rcontrol.MaxCompWid=bytewide*8;
+		 rcontrol.MaxScale=0;
+		 rcontrol.flags = RECOG_EVN;
+
+		 Handle hCCOM = (Handle)REXCGetContainer();
+
+		 if (hCCOM)
+		 //Andrey: РІРѕРѕР±С‰Рµ-С‚Рѕ С‚Р°Рє РґРµР»Р°С‚СЊ РЅРµР»СЊР·СЏ (РІ СЃРјС‹СЃР»Рµ РїРµСЂРµРґР°РІР°С‚СЊ РїРѕСЃР»РµРґРЅРёРјРё 2РјСЏ РїР°СЂР°РјРµС‚СЂР°РјРё С‚Рѕ, С‡С‚Рѕ РїРµСЂРµРґР°РµС‚СЃСЏ), РЅРѕ РїРѕРєР° СЏ РЅРµ Р·РЅР°СЋ, РєР°Рє Р·РґРµСЃСЊ РїРѕР»СѓС‡РёС‚СЊ СЏР·С‹Рє СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ, РїРѕСЌС‚РѕРјСѓ РІРѕС‚ С‚Р°РєРёРј РѕР±СЂР°Р·РѕРј РїСЂРѕРїСѓСЃРєР°РµС‚СЃСЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ
+		 if (!RRECCOM_Recog(hCCOM, rcontrol, NULL, -1))
+		 LDPUMA_ConsoleN(RRECCOM_GetReturnString(RRECCOM_GetReturnCode()));
+
+		 return (Int32)hCCOM;
+		 */return REXCGetContainer();
+	}
+	return 0;
+}
+
+void MyKillComp(CCOM_comp* comp) {
+	if (Code_UB_Kill && Code_UB_Create) {
+		int size = sizeof(Word32);
+		CCOM_USER_BLOCK ub;
+		ub.code = Code_UB_Create;
+		if (!CCOM_GetUserBlock(comp, &ub)) {
+			ub.code = Code_UB_Kill;
+			ub.size = size;
+			ub.data = (Word8*) (&Code_UB_Kill);
+			CCOM_SetUserBlock(comp, &ub);
+		}
 	}
 
 	CCOM_Kill(comp);
 }
 
-void MyCreateComp(CCOM_comp* comp)
-{
-	 int size=sizeof(Word32);
-	 CCOM_USER_BLOCK ub;
-	 ub.code=Code_UB_Create;
-	 ub.size=size;
-	 ub.data=(Word8*)(&Code_UB_Create);
-	 CCOM_SetUserBlock(comp,&ub);
+void MyCreateComp(CCOM_comp* comp) {
+	int size = sizeof(Word32);
+	CCOM_USER_BLOCK ub;
+	ub.code = Code_UB_Create;
+	ub.size = size;
+	ub.data = (Word8*) (&Code_UB_Create);
+	CCOM_SetUserBlock(comp, &ub);
 }
 
-void DrawComps(Handle hCCOM)
-{
-	CCOM_handle hccom=(CCOM_handle)hCCOM;
+void DrawComps(Handle hCCOM) {
+	CCOM_handle hccom = (CCOM_handle) hCCOM;
 	extern Handle hDrawComp;
 
+	CCOM_comp * comp;
+	for (comp = CCOM_GetFirst(hccom, NULL); comp; comp = CCOM_GetNext(comp,
+			NULL))
+		DrawRect(MainWindowD, 117, RGB(255,0,0), comp->upper, comp->upper
+				+ comp->h - 1, comp->left, comp->left + comp->w - 1);
 
-	CCOM_comp* comp;
-	for(comp=CCOM_GetFirst(hccom,NULL);comp;comp=CCOM_GetNext(comp,NULL))
-		DrawRect(MainWindowD,117,RGB(255,0,0),comp->upper,comp->upper+comp->h-1,comp->left,comp->left+comp->w-1);
-
-	LDPUMA_WaitUserInput(hDrawComp,MainWindowD);
-	LDPUMA_DeleteRects(MainWindowD,117);
+	LDPUMA_WaitUserInput(hDrawComp, MainWindowD);
+	LDPUMA_DeleteRects(MainWindowD, 117);
 }

@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -92,7 +92,7 @@ static HWND h_found=NULL;
 #ifdef __cplusplus
 extern "C" {
 #endif
-//---Из секции колонок---
+//---РР· СЃРµРєС†РёРё РєРѕР»РѕРЅРѕРє---
 Int16 NumCol;
 int SizeSectionCol;
 Int16 *NumStr;//[nc]
@@ -103,11 +103,11 @@ STAT_COL *StatCol;//[nc]
 int len_col,k_frm;
 //int k_colt,slope,space;
 char name[80],name1[LEN_PATH];
-int k_col[MAX_LEV+1],k_lev; LEV **knot; //Дерево
-int fl_EditStruct; //Признак несоответствия дерева терминал. колонкам
-//---Из секции имен баз---
+int k_col[MAX_LEV+1],k_lev; LEV **knot; //Р”РµСЂРµРІРѕ
+int fl_EditStruct; //РџСЂРёР·РЅР°Рє РЅРµСЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ РґРµСЂРµРІР° С‚РµСЂРјРёРЅР°Р». РєРѕР»РѕРЅРєР°Рј
+//---РР· СЃРµРєС†РёРё РёРјРµРЅ Р±Р°Р·---
 int SizeSectionFntName; char *FntName;
-//---Из секции знакомест---
+//---РР· СЃРµРєС†РёРё Р·РЅР°РєРѕРјРµСЃС‚---
 ZN ****Zn;//[nc][ns][nw][nz]
 TITLE_STR **TitleStr;//[nc][ns]
 TITLE_WORD ***TitleWord;//[nc][ns][nw]
@@ -127,9 +127,9 @@ int FlCarryStr;
 char FileParSpel[MAXFILENAME],FileParSpelOut[MAXFILENAME];
 int *Pen;
 int MaxValue;
-//--КОРРЕКТОР ПО ОДНОРОДНОСТИ
+//--РљРћР Р Р•РљРўРћР  РџРћ РћР”РќРћР РћР”РќРћРЎРўР
 FEAT_LET FeatLet[256];
-BYTE **ClustOCR;int K_Clust;//Кластеры перепутывания
+BYTE **ClustOCR;int K_Clust;//РљР»Р°СЃС‚РµСЂС‹ РїРµСЂРµРїСѓС‚С‹РІР°РЅРёСЏ
 //---WORK---
 BYTE buf[1024],buf1[1024];
 #ifdef __cplusplus
@@ -169,32 +169,32 @@ extern int ConsMess( const char* str, ... );
 #ifdef SUB_ZN
   SUB_ALLOC SubZn;
 #endif
-/* // !!! Art - устарело
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 
 #ifdef SUB_FRM
   SUB_ALLOC SubFrm;
 #endif
 int TypeDoc;
-*/ // !!! Art - устарело
+*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 Int16 MonoSpaceAllPage;
 Int16 HeiStrAllPage;
-/* // !!! Art - устарело
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 int getchW(void);
 
 FILE1 *f03;
 
-*/  // !!! Art - устарело
+*/  // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 
 
 #ifdef TIGER_CORR
 int CalcStatTiger(void);
-//void GenArrAnsiOem(void);// !!! Art - устарело
+//void GenArrAnsiOem(void);// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 //int PASC CorrTiger(char *FileNameFul,char *FileNameOut,char *FilePar,int fl_cor);
 
 int SaveFullOutTiger(char *FileName);
-//Параметры:
-//FileNameFul - имя файла Full Out Tiger
-//FileNameOut - имя выходного файла
+//РџР°СЂР°РјРµС‚СЂС‹:
+//FileNameFul - РёРјСЏ С„Р°Р№Р»Р° Full Out Tiger
+//FileNameOut - РёРјСЏ РІС‹С…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р°
 //Return: 0 - OK
 //
 WORD NumZ,NumW,NumS;
@@ -212,7 +212,7 @@ int IsB2(BYTE a)
       	return 1;
   return 0;
 }
-//==Расчет статистики
+//==Р Р°СЃС‡РµС‚ СЃС‚Р°С‚РёСЃС‚РёРєРё
 int CalcStatTiger(void)
 //==
 {
@@ -227,7 +227,7 @@ int CalcStatTiger(void)
   arrB1=(int*)malloc(maxB1*sizeof(int));
   if(Upp==NULL || Low==NULL || arrB1==NULL)
 		return NOT_ALLOC;
-  // -- Расчет глобал.размеров с учетом OCR --
+  // -- Р Р°СЃС‡РµС‚ РіР»РѕР±Р°Р».СЂР°Р·РјРµСЂРѕРІ СЃ СѓС‡РµС‚РѕРј OCR --
   numL=numU=0;
   for(nc=0; nc <= NumCol ; ++nc)
     for(ns=0; ns <= NumStr[nc]; ++ns)
@@ -235,7 +235,7 @@ int CalcStatTiger(void)
         for(nz=0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz)
         { ZN *z=&Zn[nc][ns][nw][nz];
 					     SRECT *r=&z->Title.Z_Rect;
-          if(a=Get1Alt(z,0)) //распознанно
+          if(a=Get1Alt(z,0)) //СЂР°СЃРїРѕР·РЅР°РЅРЅРѕ
           { if(IsB1(a))
             { if(numU >= maxU)
               { int MaxOld=maxU*sizeof(int); maxU*=2;
@@ -257,7 +257,7 @@ int CalcStatTiger(void)
 		   Statist(Upp,numU,&ave,&sig,(int*)&SizeYGlobUpp,&mod,0);
   if(numL > 10)
 		   Statist(Low,numL,&ave,&sig,&SizeYGlob   ,&mod,0);
-  else //Расчет глобал.размеров без учета OCR
+  else //Р Р°СЃС‡РµС‚ РіР»РѕР±Р°Р».СЂР°Р·РјРµСЂРѕРІ Р±РµР· СѓС‡РµС‚Р° OCR
   { numL=numU=0;
     for(nc=0; nc <= NumCol; ++nc)
       for(ns=0; ns <= NumStr[nc]; ++ns)
@@ -277,7 +277,7 @@ int CalcStatTiger(void)
     else
 					  return -1;
   }
-  // -- расчет колонных размеров --
+  // -- СЂР°СЃС‡РµС‚ РєРѕР»РѕРЅРЅС‹С… СЂР°Р·РјРµСЂРѕРІ --
   if(NumCol)
   { for(nc=0; nc <= NumCol; ++nc)
     { numL=numU=0;
@@ -318,9 +318,9 @@ int CalcStatTiger(void)
   {
 		StatCol[0].dy_col=StatCol[0].dy_Low=SizeYGlob;StatCol[0].dy_Upp=SizeYGlobUpp;
 	}
-  // -- расчет строчных размеров малых букв и ревизия линейки b2 --
+  // -- СЂР°СЃС‡РµС‚ СЃС‚СЂРѕС‡РЅС‹С… СЂР°Р·РјРµСЂРѕРІ РјР°Р»С‹С… Р±СѓРєРІ Рё СЂРµРІРёР·РёСЏ Р»РёРЅРµР№РєРё b2 --
   for(nc=0; nc <= NumCol; ++nc)
-  { int Dif_b1b2;//признак различия линеек b1 и b2
+  { int Dif_b1b2;//РїСЂРёР·РЅР°Рє СЂР°Р·Р»РёС‡РёСЏ Р»РёРЅРµРµРє b1 Рё b2
     ThrDif_b1b2=NORM_SCAN(3);
     ThrDif_b1b2=MAX(ThrDif_b1b2,(StatCol[nc].dy_Upp - StatCol[nc].dy_Low)/2);
     if((StatCol[nc].stat_str=(STAT_STR*)malloc((NumStr[nc]+1)*sizeof(STAT_STR)))==NULL)
@@ -338,7 +338,7 @@ int CalcStatTiger(void)
                 if((Low=(int*)realloc_m(Low,MaxOld,maxL*sizeof(int)))==NULL)return NOT_ALLOC;
               }
               Low[numL++]=r->bottom-r->top;
-              //ревизуем ли те b2, кот. отличны от b1
+              //СЂРµРІРёР·СѓРµРј Р»Рё С‚Рµ b2, РєРѕС‚. РѕС‚Р»РёС‡РЅС‹ РѕС‚ b1
               if(Dif_b1b2 && !FeatLet[a].ImUppLow)
               { TITLE_ZN *t=&z->Title; int na=t->Z_Num_Alt,flp,i;
                 flp=TRUE;
@@ -354,7 +354,7 @@ int CalcStatTiger(void)
                 }
               }
             }
-            //==ревизия b1 делаем лишь по первой альтер.,т.к. заглав.букв мало==
+            //==СЂРµРІРёР·РёСЏ b1 РґРµР»Р°РµРј Р»РёС€СЊ РїРѕ РїРµСЂРІРѕР№ Р°Р»СЊС‚РµСЂ.,С‚.Рє. Р·Р°РіР»Р°РІ.Р±СѓРєРІ РјР°Р»Рѕ==
             if(IsB1(a) && (!FeatLet[a].ImUppLow || FeatLet[a].Chif) &&
                abs(rS->left-r->top) > 1)
             { if(numB1 >= maxB1)
@@ -397,19 +397,19 @@ int CalcStatTiger(void)
         }
       }
       #endif
-      if(numU) //ревизия линейки b2
+      if(numU) //СЂРµРІРёР·РёСЏ Р»РёРЅРµР№РєРё b2
       { med=1; Statist(Upp,numU,&ave,&sig,&med,&mod,0);
         #ifdef DRAWxxx
           if(viz){setcol(14);vector_w(rr.left,med,rr.right,med);pause();}
         #endif
         rS->top=med;
       }
-      if(numB1) //ревизия линейки b2
+      if(numB1) //СЂРµРІРёР·РёСЏ Р»РёРЅРµР№РєРё b2
       { med=1; Statist(arrB1,numB1,&ave,&sig,&med,&mod,0);
         #ifdef DRAWxxx
           if(viz){setcol(15);vector_w(rr.left,med,rr.right,med);pause();}
         #endif
-        rS->left=med;//?или только если med < old b1?
+        rS->left=med;//?РёР»Рё С‚РѕР»СЊРєРѕ РµСЃР»Рё med < old b1?
       }
     }
   }
@@ -419,32 +419,32 @@ int CalcStatTiger(void)
   return 0;
 }
 
-//Формат файла:
+//Р¤РѕСЂРјР°С‚ С„Р°Р№Р»Р°:
 //Int16 ScanResolution
-//Int16 NumCol,NumZ,NumW,NumS - числа колонок, знакомест, слов и строк in all page
+//Int16 NumCol,NumZ,NumW,NumS - С‡РёСЃР»Р° РєРѕР»РѕРЅРѕРє, Р·РЅР°РєРѕРјРµСЃС‚, СЃР»РѕРІ Рё СЃС‚СЂРѕРє in all page
 //Int16 MonoSpaceAllPage - distance between left margin letters-neighdoors from one word
 //Int16 HeiStrAllPage - distance between top margin
-//Fragm[0], ..., Fragm[NumCol-1] фрагменты
-//  Fragm[nf]: один фрагмент
+//Fragm[0], ..., Fragm[NumCol-1] С„СЂР°РіРјРµРЅС‚С‹
+//  Fragm[nf]: РѕРґРёРЅ С„СЂР°РіРјРµРЅС‚
 //    Rect16 RectFragm
-//    Int16  NumStr число строк
-//    Str[0], ..., Str[NumStr-1] строки
+//    Int16  NumStr С‡РёСЃР»Рѕ СЃС‚СЂРѕРє
+//    Str[0], ..., Str[NumStr-1] СЃС‚СЂРѕРєРё
 //      Str[nf][ns]:
 //        Rect16 S_Rect // 4 base lines
-//        Int16  NumWordStr; число слов текущей строки
-//        Word[0], ..., Word[NumWordStr-1] слова
-//          Word[nf][ns][nw]: одно слово
-//            Int16 NumSym число знакомест слова (пробелов нет)
-//            Sym[0], ..., Sym[NumSym-1] знакоместа
+//        Int16  NumWordStr; С‡РёСЃР»Рѕ СЃР»РѕРІ С‚РµРєСѓС‰РµР№ СЃС‚СЂРѕРєРё
+//        Word[0], ..., Word[NumWordStr-1] СЃР»РѕРІР°
+//          Word[nf][ns][nw]: РѕРґРЅРѕ СЃР»РѕРІРѕ
+//            Int16 NumSym С‡РёСЃР»Рѕ Р·РЅР°РєРѕРјРµСЃС‚ СЃР»РѕРІР° (РїСЂРѕР±РµР»РѕРІ РЅРµС‚)
+//            Sym[0], ..., Sym[NumSym-1] Р·РЅР°РєРѕРјРµСЃС‚Р°
 //              Sym[nf][ns][nw][nz]:
-//                Rect16 Z_Rect     рамка знакоместа
-//                Int16  NumAlt     число альтернатив
-//                Alt[0], ..., Alt[NumAlt-1] альтернативы
-//                  Alt[nf][ns][nw][nz][na] одна альтернатива
-//                    BYTE Code код
-//                    BYTE Prob  вероятность
+//                Rect16 Z_Rect     СЂР°РјРєР° Р·РЅР°РєРѕРјРµСЃС‚Р°
+//                Int16  NumAlt     С‡РёСЃР»Рѕ Р°Р»СЊС‚РµСЂРЅР°С‚РёРІ
+//                Alt[0], ..., Alt[NumAlt-1] Р°Р»СЊС‚РµСЂРЅР°С‚РёРІС‹
+//                  Alt[nf][ns][nw][nz][na] РѕРґРЅР° Р°Р»СЊС‚РµСЂРЅР°С‚РёРІР°
+//                    BYTE Code РєРѕРґ
+//                    BYTE Prob  РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ
 //                    BYTE Spell check end string for -
-//                    BYTE Base  base number чтобы задавать шрифты для таблицы шрифтов RTF (семейство + имя)
+//                    BYTE Base  base number С‡С‚РѕР±С‹ Р·Р°РґР°РІР°С‚СЊ С€СЂРёС„С‚С‹ РґР»СЏ С‚Р°Р±Р»РёС†С‹ С€СЂРёС„С‚РѕРІ RTF (СЃРµРјРµР№СЃС‚РІРѕ + РёРјСЏ)
 
 // -------  paragraphs mark --------
 //if(BEG_PARAG1(Zn[nc][ns][0][0].Title.Z_Id) == 1 ||
@@ -521,7 +521,7 @@ short __cdecl  OpenFullOutTiger(FILE *in)
 #endif
   goto BadReturn;
 	}
- // *********** РАССЧИТАТЬ slope,SizeXGlob,SizeYGlob + OneColStat *********
+ // *********** Р РђРЎРЎР§РРўРђРўР¬ slope,SizeXGlob,SizeYGlob + OneColStat *********
 
 	{
 		int fl;                //---Calculate Common Size Section Zn---
@@ -558,7 +558,7 @@ short __cdecl  OpenFullOutTiger(FILE *in)
  for(nc=0; nc < NumCol; ++nc)
 	{
   fread(&RectFragm[nc],1,sizeof(Rect16),in);
-	 // *********** РАСЧЕТ КОЛОННОЙ СТАТИСТИКИ *************
+	 // *********** Р РђРЎР§Р•Рў РљРћР›РћРќРќРћР™ РЎРўРђРўРРЎРўРРљР *************
   fread(&NumStr[nc],sizeof(Int16),1,in);
   fread(&UserNumber[nc],sizeof(Word32),1,in);
   fread(&FragFlag[nc],sizeof(Word32),1,in);
@@ -584,7 +584,7 @@ short __cdecl  OpenFullOutTiger(FILE *in)
 			tmp              = t->S_Rect.right;
 			t->S_Rect.right  = t->S_Rect.bottom;
 			t->S_Rect.bottom = tmp;
-			//Реальные коор. строки!
+			//Р РµР°Р»СЊРЅС‹Рµ РєРѕРѕСЂ. СЃС‚СЂРѕРєРё!
 			//fread_m(&t->S_Real_Rect,sizeof(SRECT),1,in);
 			readSRECT(&t->S_Real_Rect, in);
 			fread(&tmp,2,1,in);
@@ -680,7 +680,7 @@ BadReturn:
 
 }
 
-/*// !!! Art - устарело
+/*// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 BYTE *AnsiOem,*OemAnsi;
 void GenArrAnsiOem(void)
 { uint i;
@@ -691,8 +691,8 @@ void GenArrAnsiOem(void)
     OemToAnsi((char*)&OemAnsi[1],(char*)&OemAnsi[1]);
   #else
   #endif
-}*/// !!! Art - устарело
-//===Коррекции Full Out
+}*/// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
+//===РљРѕСЂСЂРµРєС†РёРё Full Out
 /*
 int PASC CorrTiger(char *FileNameFul,char *FileNameOut,char *FilePar,int fl_cor)
 //==
@@ -712,9 +712,9 @@ int PASC CorrTiger(char *FileNameFul,char *FileNameOut,char *FilePar,int fl_cor)
   if((fl=OpenFullOutTiger(FileNameFul))!=0) return fl-150;
   if(fl_cor && (fl=CalcStatTiger())!=0) return fl-250;
 
-	//if(fl_cor && (fl=CorrFul()) != 0) //Корректор по однородностям
+	//if(fl_cor && (fl=CorrFul()) != 0) //РљРѕСЂСЂРµРєС‚РѕСЂ РїРѕ РѕРґРЅРѕСЂРѕРґРЅРѕСЃС‚СЏРј
 	//	return fl-200;
-  //Генерация выход.файла Full-формата и текста
+  //Р“РµРЅРµСЂР°С†РёСЏ РІС‹С…РѕРґ.С„Р°Р№Р»Р° Full-С„РѕСЂРјР°С‚Р° Рё С‚РµРєСЃС‚Р°
   SaveFullOutTiger(FileNameOut);
   free(AnsiOem); free(OemAnsi);
   return 0;
@@ -722,7 +722,7 @@ int PASC CorrTiger(char *FileNameFul,char *FileNameOut,char *FilePar,int fl_cor)
 */
 #endif
 
-//Освобождение памяти, захваченной под секции знакомест и колонок .ful-файла
+//РћСЃРІРѕР±РѕР¶РґРµРЅРёРµ РїР°РјСЏС‚Рё, Р·Р°С…РІР°С‡РµРЅРЅРѕР№ РїРѕРґ СЃРµРєС†РёРё Р·РЅР°РєРѕРјРµСЃС‚ Рё РєРѕР»РѕРЅРѕРє .ful-С„Р°Р№Р»Р°
 //================
 int FreeStructFull(void)
 //================
@@ -737,7 +737,7 @@ int FreeStructFull(void)
 	 free(StatCol);
 	 DeleteSubAlloc(&SubZn);
   #else
-   //---Секция знакомест---
+   //---РЎРµРєС†РёСЏ Р·РЅР°РєРѕРјРµСЃС‚---
    do0(nc,0,NumCol)
    {
 		 if(StatCol[nc].stat_str) free(StatCol[nc].stat_str);
@@ -773,12 +773,12 @@ int FreeStructFull(void)
   #ifndef PROF_COL
   	free(BndCol);
   #else
-  	//---Секция колонок---
+  	//---РЎРµРєС†РёСЏ РєРѕР»РѕРЅРѕРє---
   	free(BndCol);
 		free(NumStr);
 		free(StatCol);
 	  #ifndef TIGER_CORR
-	  { int nlev; //Освобождение памяти под иерархию колонок
+	  { int nlev; //РћСЃРІРѕР±РѕР¶РґРµРЅРёРµ РїР°РјСЏС‚Рё РїРѕРґ РёРµСЂР°СЂС…РёСЋ РєРѕР»РѕРЅРѕРє
 	    do0(nlev,0,k_lev)
 	    { do0(nc,0,k_col[nlev])
 	        if(knot[nlev][nc].kp >= 0)
@@ -789,7 +789,7 @@ int FreeStructFull(void)
 	  }
 		#endif
   #endif //PROF_COL
-  //---Секция имен баз---
+  //---РЎРµРєС†РёСЏ РёРјРµРЅ Р±Р°Р·---
   #ifndef TIGER_CORR
   	free(FntName);
   #endif
@@ -799,18 +799,18 @@ int FreeStructFull(void)
 #ifndef WIN_MOD
 
 	#if 0
-/* // !!! Art - устарело
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 
 	#define REWIND 0
   #define REW_SECT 2
   #define NO_REWIND 1
   static int Regim=REWIND,flSect=1;
-  FILE1 *f03; //Инициализируется в InitParTabl
+  FILE1 *f03; //РРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚СЃСЏ РІ InitParTabl
   char buf03[255];
-  //Regim = NO_REWIND - быстрый ввод без позиционирования к началу файла
-  //flSect в этом случае надо устанавливать в "1" перед началом ввода
-  //очередной секции
-  //Комплекс ф-ций, эмулирующих работу с Private-ini-файлами под Windows
+  //Regim = NO_REWIND - Р±С‹СЃС‚СЂС‹Р№ РІРІРѕРґ Р±РµР· РїРѕР·РёС†РёРѕРЅРёСЂРѕРІР°РЅРёСЏ Рє РЅР°С‡Р°Р»Сѓ С„Р°Р№Р»Р°
+  //flSect РІ СЌС‚РѕРј СЃР»СѓС‡Р°Рµ РЅР°РґРѕ СѓСЃС‚Р°РЅР°РІР»РёРІР°С‚СЊ РІ "1" РїРµСЂРµРґ РЅР°С‡Р°Р»РѕРј РІРІРѕРґР°
+  //РѕС‡РµСЂРµРґРЅРѕР№ СЃРµРєС†РёРё
+  //РљРѕРјРїР»РµРєСЃ С„-С†РёР№, СЌРјСѓР»РёСЂСѓСЋС‰РёС… СЂР°Р±РѕС‚Сѓ СЃ Private-ini-С„Р°Р№Р»Р°РјРё РїРѕРґ Windows
   char *fnexts_m(FILE1 *f, char *buf);
 
 	static int findname(char *sect, char *key, char *res)
@@ -868,31 +868,31 @@ int FreeStructFull(void)
     else {if (!findnameNoSect(sect, key, res)) strcpy(res, def);}
     return 0;
   }
-*/ // !!! Art - устарело
+*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 	#endif
 #endif
 
 #ifdef SPELL_NEW
-/* // !!! Art - устарело
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
   int b_close(void)
   { SpellClose(); LmClose(); }
   svocab far* PASC b_char(unsigned kod);
   int PASC GetWordOcr(WORD inst, WORD instb,WORD del,WORD  Else,WORD unknow,float delta1,ZN *zz,int kz);
   void PASC SetRegimDelta(int in,int Porog);
-  void PASC SetTimerOwn(DWORD NumMs);
-*/ // !!! Art - устарело
+  void PASC SetTimerOwn(uint32_t NumMs);
+*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 #endif
 
 #if !defined (LST_WWIN) && !defined (TIGER_CORR)
 /*====*/
-/* // !!! Art - устарело
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 int statis(TYPE *arr,int n,TYPE *ave1,TYPE *sig1,TYPE *med,TYPE *mod,int regim)
 //====
-//если regim > 0, усекаем края выборки вместо [0,n] - [n/regim,n-n/regim]
+//РµСЃР»Рё regim > 0, СѓСЃРµРєР°РµРј РєСЂР°СЏ РІС‹Р±РѕСЂРєРё РІРјРµСЃС‚Рѕ [0,n] - [n/regim,n-n/regim]
 { int i; long ave=0,sig=0,work;
 
-  u4sort(arr,n+1,sizeof(TYPE),(COMP_FUN)comp1); //медиана
-  if(regim) //обрезаем края выборки
+  u4sort(arr,n+1,sizeof(TYPE),(COMP_FUN)comp1); //РјРµРґРёР°РЅР°
+  if(regim) //РѕР±СЂРµР·Р°РµРј РєСЂР°СЏ РІС‹Р±РѕСЂРєРё
   { int beg=n/regim; if((n-=2*beg)<0){n+=2*beg;goto m1;}
     if(beg) do0(i,0,n) arr[i]=arr[i+beg];
   }
@@ -906,35 +906,35 @@ int statis(TYPE *arr,int n,TYPE *ave1,TYPE *sig1,TYPE *med,TYPE *mod,int regim)
   *ave1=(TYPE)ave; *sig1=(TYPE)sig;
   return 0;
 }
-*/ // !!! Art - устарело
+*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 #endif
-//Библиотека запросов к файлу FULL OUT OCR CRIPT:
-// - Чтение file.ful в рабочие структуры
-// - Конвертор file.ful в file.txt с учетом колонок и выравниванием в
-//   колонках по LeftMargin и т.п.
-//Прочитать данные из файла FileName формата .ful во внешние рабочие структуры
+//Р‘РёР±Р»РёРѕС‚РµРєР° Р·Р°РїСЂРѕСЃРѕРІ Рє С„Р°Р№Р»Сѓ FULL OUT OCR CRIPT:
+// - Р§С‚РµРЅРёРµ file.ful РІ СЂР°Р±РѕС‡РёРµ СЃС‚СЂСѓРєС‚СѓСЂС‹
+// - РљРѕРЅРІРµСЂС‚РѕСЂ file.ful РІ file.txt СЃ СѓС‡РµС‚РѕРј РєРѕР»РѕРЅРѕРє Рё РІС‹СЂР°РІРЅРёРІР°РЅРёРµРј РІ
+//   РєРѕР»РѕРЅРєР°С… РїРѕ LeftMargin Рё С‚.Рї.
+//РџСЂРѕС‡РёС‚Р°С‚СЊ РґР°РЅРЅС‹Рµ РёР· С„Р°Р№Р»Р° FileName С„РѕСЂРјР°С‚Р° .ful РІРѕ РІРЅРµС€РЅРёРµ СЂР°Р±РѕС‡РёРµ СЃС‚СЂСѓРєС‚СѓСЂС‹
 //Return:
-//0  - нормальное завершение,
-//-1 - ошибка открытия файла FileName,
-//-3 - нехватка памяти
-//-5 - ошибка структуры файла FileName,
+//0  - РЅРѕСЂРјР°Р»СЊРЅРѕРµ Р·Р°РІРµСЂС€РµРЅРёРµ,
+//-1 - РѕС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ С„Р°Р№Р»Р° FileName,
+//-3 - РЅРµС…РІР°С‚РєР° РїР°РјСЏС‚Рё
+//-5 - РѕС€РёР±РєР° СЃС‚СЂСѓРєС‚СѓСЂС‹ С„Р°Р№Р»Р° FileName,
 //=============
-/* // !!! Art - устарело
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 int OpenFullOut(char *FileName)
 //=============
 { FILE1 *in; int nc,ns,nw,nz,na,k_word,k_z,nc1,ns1,nci,nsi,i,j;
   int num,sp,Len,NumZ;
   long K_MultiComp=1000,NumW,NumS;
   if((in=fopen_m(FileName,OF_READ)) == NULL) return -1;
-  //ВВОД ЗАГОЛОВКА ФАЙЛА .ful
+  //Р’Р’РћР” Р—РђР“РћР›РћР’РљРђ Р¤РђР™Р›Рђ .ful
   fread_m(&TitleFul,sizeof(TITLE_FUL),1,in);
   #ifdef CMP
     CoorComp=(COOR_COMP*)malloc((K_MultiComp+1)*sizeof(COOR_COMP));
     NumComp=-1L;
   #endif
   #ifdef PROF_COL
-  //ВВОД СЕКЦИИ КОЛОНОК
-  //---Терминал. колонки---
+  //Р’Р’РћР” РЎР•РљР¦РР РљРћР›РћРќРћРљ
+  //---РўРµСЂРјРёРЅР°Р». РєРѕР»РѕРЅРєРё---
   fseek_m(in,TitleFul.ColOffset,SEEK_SET);
   fread_m(&SizeSectionCol,sizeof(int),1,in);
   fread_m(&NumCol,sizeof(int),1,in);
@@ -953,8 +953,8 @@ int OpenFullOut(char *FileName)
     fread_m(&StatCol[nc].dy_Upp,sizeof(int),1,in);
     fread_m(&StatCol[nc].dy_Low,sizeof(int),1,in);
   }
-  { int nlev; //---Иерархия колонок---
-    //Чтение заголовка ST-файла
+  { int nlev; //---РРµСЂР°СЂС…РёСЏ РєРѕР»РѕРЅРѕРє---
+    //Р§С‚РµРЅРёРµ Р·Р°РіРѕР»РѕРІРєР° ST-С„Р°Р№Р»Р°
     fread_m(&len_col,sizeof(uint),1,in);
     fread_m(name,20,1,in); fl_EditStruct = (name[17]=='Y');
     fread_m(name1,LEN_PATH,1,in);
@@ -963,9 +963,9 @@ int OpenFullOut(char *FileName)
     fread_m(&k_colt,sizeof(int),1,in);fread_m(&slope,sizeof(int),1,in);
     fread_m(&k_frm,sizeof(int),1,in); fread_m(&space,sizeof(int),1,in);
     fread_m(&SizeXGlob,sizeof(int),1,in); fread_m(&SizeYGlob,sizeof(int),1,in);
-    //k_colt1=-1;//счетчик терминал. колонок
+    //k_colt1=-1;//СЃС‡РµС‚С‡РёРє С‚РµСЂРјРёРЅР°Р». РєРѕР»РѕРЅРѕРє
     knot=(LEV**)malloc((k_lev+1)*sizeof(LEV*));
-    do0(nlev,0,k_lev) //чтение дерева колонок
+    do0(nlev,0,k_lev) //С‡С‚РµРЅРёРµ РґРµСЂРµРІР° РєРѕР»РѕРЅРѕРє
     { knot[nlev]=(LEV*)malloc((k_col[nlev]+1)*sizeof(LEV));
       do0(nc,0,k_col[nlev])
       { fread_m(&knot[nlev][nc].bnd,sizeof(SRECT),1,in);
@@ -982,12 +982,12 @@ int OpenFullOut(char *FileName)
     }
   }
   #endif
-  //ВВОД СЕКЦИИ ИМЕН БАЗ
+  //Р’Р’РћР” РЎР•РљР¦РР РРњР•Рќ Р‘РђР—
   fseek_m(in,TitleFul.FntNameOffset,SEEK_SET);
-  SizeSectionFntName=(int)(TitleFul.ColOffset-TitleFul.FntNameOffset);//начиная с 1
+  SizeSectionFntName=(int)(TitleFul.ColOffset-TitleFul.FntNameOffset);//РЅР°С‡РёРЅР°СЏ СЃ 1
   if((FntName=malloc(SizeSectionFntName))==NULL) return NOT_ALLOC;
   fread_m(FntName,SizeSectionFntName,1,in);
-  //ВВОД СЕКЦИИ ЗНАКОМЕСТ
+  //Р’Р’РћР” РЎР•РљР¦РР Р—РќРђРљРћРњР•РЎРў
   fseek_m(in,TitleFul.ZOffset,SEEK_SET);
   #ifdef SUB_ZN
    { int fl;//---Calculate Common Size Section Zn---
@@ -1031,7 +1031,7 @@ int OpenFullOut(char *FileName)
           return -40;
         }
 
-        do0(nci,NumC+1,NumCol) //Генерация пропущ. хвостовых колонок
+        do0(nci,NumC+1,NumCol) //Р“РµРЅРµСЂР°С†РёСЏ РїСЂРѕРїСѓС‰. С…РІРѕСЃС‚РѕРІС‹С… РєРѕР»РѕРЅРѕРє
         { TITLE_STR *ts=&TitleStr[nci][0];TITLE_WORD *tw=&TitleWord[nci][0][0];
           TITLE_ZN *tz=&Zn[nci][0][0][0].Title;ALT_ZN *Alt=Zn[nci][0][0][0].Alt;
           NumStr[nci]=0;
@@ -1093,7 +1093,7 @@ int OpenFullOut(char *FileName)
         #endif
         return -41;
       }
-      if(k_word < 0) //Пустая строка
+      if(k_word < 0) //РџСѓСЃС‚Р°СЏ СЃС‚СЂРѕРєР°
       {
         #ifndef WIN_MOD
          printf("\nEMPTY STRING");
@@ -1213,7 +1213,7 @@ int OpenFullOut(char *FileName)
               printf("\nERROR SYM1 Id.col=%d nc=%d",Zn[nc][ns][nw][nz].Title.Z_Id.col-1,nc);
               printf("\nns=%d ns1=%d",ns,ns1);
             #endif
-            if(nc==0&&ns==0) //Не с первой колонки или в первой колонке не с первой str
+            if(nc==0&&ns==0) //РќРµ СЃ РїРµСЂРІРѕР№ РєРѕР»РѕРЅРєРё РёР»Рё РІ РїРµСЂРІРѕР№ РєРѕР»РѕРЅРєРµ РЅРµ СЃ РїРµСЂРІРѕР№ str
             {
               #ifndef WIN_MOD
               printf("\nBegin Middle");
@@ -1223,7 +1223,7 @@ int OpenFullOut(char *FileName)
                 free(Zn[nc][j]); free(TitleWord[nc][j]);
               }
               free(Zn[nc]); free(TitleWord[nc]); free(TitleStr[nc]);
-              do0(nci,0,nc1-1)//Генерация пропущ.колонок
+              do0(nci,0,nc1-1)//Р“РµРЅРµСЂР°С†РёСЏ РїСЂРѕРїСѓС‰.РєРѕР»РѕРЅРѕРє
               { TITLE_STR *ts=&TitleStr[nci][0];TITLE_WORD *tw=&TitleWord[nci][0][0];
                 TITLE_ZN *tz=&Zn[nci][0][0][0].Title;ALT_ZN *Alt=&Zn[nci][0][0][0].Alt[0];
                 NumStr[nci]=0;
@@ -1269,7 +1269,7 @@ int OpenFullOut(char *FileName)
                TitleWord[nc1]=(TITLE_WORD**)malloc((NumStr[nc1]+1)*sizeof(TITLE_WORD*));
               #endif
               if(Zn[nc1]==NULL||TitleStr[nc1]==NULL||TitleWord[nc1]==NULL)return -3;
-              do0(nsi,0,ns1-1)//генерация пропущ. строк текущ. колонки
+              do0(nsi,0,ns1-1)//РіРµРЅРµСЂР°С†РёСЏ РїСЂРѕРїСѓС‰. СЃС‚СЂРѕРє С‚РµРєСѓС‰. РєРѕР»РѕРЅРєРё
               { TITLE_STR *ts=&TitleStr[nc1][nsi];TITLE_WORD *tw=&TitleWord[nc1][nsi][0];
                 TITLE_ZN *tz=&Zn[nc1][nsi][0][0].Title;ALT_ZN *Alt=&Zn[nc1][nsi][0][0].Alt[0];
                 ts->Z_Code=2;ts->S_Gen.S_NumWord=1;ts->S_Rect=BndCol[nc1];
@@ -1300,7 +1300,7 @@ int OpenFullOut(char *FileName)
             }
             { if(nc1 < nc || nc1-nc != 1)
               { if(ns1 <= ns) return -12;
-                else //Генерация пропущ. строк
+                else //Р“РµРЅРµСЂР°С†РёСЏ РїСЂРѕРїСѓС‰. СЃС‚СЂРѕРє
                 { //if(nw != 0 || nz != 0)
                   //{
                   //  #ifndef WIN_MOD
@@ -1355,7 +1355,7 @@ int OpenFullOut(char *FileName)
           alt:
           #ifdef CMP
           { int NumC=tz->Z_NumComp-1;
-            if(!NumC) //Односвязный чаще всего
+            if(!NumC) //РћРґРЅРѕСЃРІСЏР·РЅС‹Р№ С‡Р°С‰Рµ РІСЃРµРіРѕ
             { if(!fread_m(tz->CoorComp.start_pos,LEN_START,1,in)||
                  !fread_m(&tz->CoorComp.lenght,sizeof(int),1,in))
                    return -42;
@@ -1364,7 +1364,7 @@ int OpenFullOut(char *FileName)
                //  ww=ww;
                //}
             }
-            else if(NumC > 0)//Многосвязный
+            else if(NumC > 0)//РњРЅРѕРіРѕСЃРІСЏР·РЅС‹Р№
             { long w=NumComp+1;
               memmove_m(tz->CoorComp.start_pos,&w,3);
               do0(i,0,NumC)
@@ -1390,14 +1390,14 @@ int OpenFullOut(char *FileName)
                 goto end;
               }
               if(na < REC_MAX_VERS-1)
-              { do0(ii,0,na) //Фильтрация совпадающих альтернатив
+              { do0(ii,0,na) //Р¤РёР»СЊС‚СЂР°С†РёСЏ СЃРѕРІРїР°РґР°СЋС‰РёС… Р°Р»СЊС‚РµСЂРЅР°С‚РёРІ
                   if(AltZ[ii].a_Code == Alt.a_Code) goto end_alt;
                 AltZ[++na]=Alt;
                 end_alt: continue;
               }
             }
             tz->Z_Num_Alt=(BYTE)(na+1);
-            if(na > 0) //Перемещение Alt-вы с min Dist вверх
+            if(na > 0) //РџРµСЂРµРјРµС‰РµРЅРёРµ Alt-РІС‹ СЃ min Dist РІРІРµСЂС…
             { Dmin=AltZ[0].a_Dist; ii=0;
               do0(i,1,na)
                { if(AltZ[i].a_Dist < Dmin) {Dmin=AltZ[i].a_Dist; ii=i;} }
@@ -1415,17 +1415,17 @@ int OpenFullOut(char *FileName)
   end:
   fclose_m(in);
   return 0;
-}*/// !!! Art - устарело
-//==========Генерация FullOutCript
+}*/// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
+//==========Р“РµРЅРµСЂР°С†РёСЏ FullOutCript
 /*int SaveFull(char *FileName)
 //==========
 { FILE1 *in; int nc,ns,nw,nz,na,k_word,k_z,sp,num,i;
   char *err="SaveFull";
   if((in=fopen_m(FileName,OF_WRITE)) == NULL) return -1;
-  //ВЫВОД ЗАГОЛОВКА ФАЙЛА .ful
+  //Р’Р«Р’РћР” Р—РђР“РћР›РћР’РљРђ Р¤РђР™Р›Рђ .ful
   fwrite_m(&TitleFul,sizeof(TITLE_FUL),1,in);
   #ifdef PROF_COL
-    //ВЫВОД СЕКЦИИ КОЛОНОК
+    //Р’Р«Р’РћР” РЎР•РљР¦РР РљРћР›РћРќРћРљ
     fseek_m(in,TitleFul.ColOffset,SEEK_SET);
     fwrite_m(&SizeSectionCol,sizeof(int),1,in);
     fwrite_m(&NumCol,sizeof(int),1,in);
@@ -1438,7 +1438,7 @@ int OpenFullOut(char *FileName)
       fwrite_m(&StatCol[nc].dy_Upp,sizeof(int),1,in);
       fwrite_m(&StatCol[nc].dy_Low,sizeof(int),1,in);
     }
-    { int j,nlev; //---Иерархия колонок---
+    { int j,nlev; //---РРµСЂР°СЂС…РёСЏ РєРѕР»РѕРЅРѕРє---
       fwrite_m(&len_col,sizeof(uint),1,in);
       fwrite_m(name,20,1,in); fl_EditStruct = (name[17]=='Y');
       fwrite_m(name1,LEN_PATH,1,in);
@@ -1462,10 +1462,10 @@ int OpenFullOut(char *FileName)
       }
     }
   #endif
-  //ВЫВОД СЕКЦИИ ИМЕН БАЗ
+  //Р’Р«Р’РћР” РЎР•РљР¦РР РРњР•Рќ Р‘РђР—
   fseek_m(in,TitleFul.FntNameOffset,SEEK_SET);
   fwrite_m(FntName,SizeSectionFntName,1,in);
-  //ВЫВОД СЕКЦИИ ЗНАКОМЕСТ
+  //Р’Р«Р’РћР” РЎР•РљР¦РР Р—РќРђРљРћРњР•РЎРў
   fseek_m(in,TitleFul.ZOffset,SEEK_SET);
   do0(nc,0,NumCol)
   { do0(ns,0,NumStr[nc])
@@ -1495,11 +1495,11 @@ int OpenFullOut(char *FileName)
           fwrite_m(&Zn[nc][ns][nw][nz].Title,TitleFul.wZHSize,1,in);
           #ifdef CMP
           { int NumC=Zn[nc][ns][nw][nz].Title.Z_NumComp;
-            if(NumC == 1) //Односвязный чаще всего
+            if(NumC == 1) //РћРґРЅРѕСЃРІСЏР·РЅС‹Р№ С‡Р°С‰Рµ РІСЃРµРіРѕ
             { fwrite_m(Zn[nc][ns][nw][nz].Title.CoorComp.start_pos,LEN_START,1,in);
               fwrite_m(&Zn[nc][ns][nw][nz].Title.CoorComp.lenght,sizeof(int),1,in);
             }
-            else if(NumC > 1)//Многосвязный
+            else if(NumC > 1)//РњРЅРѕРіРѕСЃРІСЏР·РЅС‹Р№
             { long w=0L;
               memmove_m(&w,Zn[nc][ns][nw][nz].Title.CoorComp.start_pos,3);
               do0(i,0,NumC)
@@ -1517,20 +1517,20 @@ int OpenFullOut(char *FileName)
     }
   }
   fclose_m(in); return 0;
-}*/// !!! Art - устарело
+}*/// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 
-//=========Для нераспознан.знакоместа Return=0
-/* // !!! Art - устарело
+//=========Р”Р»СЏ РЅРµСЂР°СЃРїРѕР·РЅР°РЅ.Р·РЅР°РєРѕРјРµСЃС‚Р° Return=0
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 uchar GetAlt(int nc,int ns,int nw,int nz,int na)
 //=========
 { int ka=Zn[nc][ns][nw][nz].Title.Z_Num_Alt;
   if(ka <= 0 || na >= ka) return 0;
   else return Zn[nc][ns][nw][nz].Alt[na].a_Code;
 }
-*/ // !!! Art - устарело
+*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 
-//Вычисление максимал. расстояния до образца-символа в слове (модули)
-/* // !!! Art - устарело
+//Р’С‹С‡РёСЃР»РµРЅРёРµ РјР°РєСЃРёРјР°Р». СЂР°СЃСЃС‚РѕСЏРЅРёСЏ РґРѕ РѕР±СЂР°Р·С†Р°-СЃРёРјРІРѕР»Р° РІ СЃР»РѕРІРµ (РјРѕРґСѓР»Рё)
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 float DistMaxWord(ZN *Zn,int kz)
 { float Dmax,d; int i,j;
   Dmax=(float)0.;
@@ -1538,9 +1538,9 @@ float DistMaxWord(ZN *Zn,int kz)
      if( (d=Zn[i].Alt[j].a_Dist) > Dmax) Dmax=d;
   return Dmax;
 }
-*/ // !!! Art - устарело
-//===Выбор наилучшей SPELL-альтернативы в соответствии с альтернативами OCR
-/* // !!! Art - устарело
+*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
+//===Р’С‹Р±РѕСЂ РЅР°РёР»СѓС‡С€РµР№ SPELL-Р°Р»СЊС‚РµСЂРЅР°С‚РёРІС‹ РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р°Р»СЊС‚РµСЂРЅР°С‚РёРІР°РјРё OCR
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 int ChooseBestWord(ZN *Zn,TITLE_WORD t,char *word,float k1,float k2,
     float gam_Ins,float gam_Del)
 { int kz=t.W_Gen.W_NumSym-1,fl,i,num;
@@ -1556,10 +1556,10 @@ int ChooseBestWord(ZN *Zn,TITLE_WORD t,char *word,float k1,float k2,
     { strcpy_m(word,t.AltSpell[num].Alt); return 1; }
   else return 0;
 }
-*/ // !!! Art - устарело
-//Return - >= 0 - индекс наилучшей подсказки, < 0 - подсказки нет
-//-------------Выбор наилучшей подсказки по удаленности ее штрафа от БС
-/* // !!! Art - устарело
+*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
+//Return - >= 0 - РёРЅРґРµРєСЃ РЅР°РёР»СѓС‡С€РµР№ РїРѕРґСЃРєР°Р·РєРё, < 0 - РїРѕРґСЃРєР°Р·РєРё РЅРµС‚
+//-------------Р’С‹Р±РѕСЂ РЅР°РёР»СѓС‡С€РµР№ РїРѕРґСЃРєР°Р·РєРё РїРѕ СѓРґР°Р»РµРЅРЅРѕСЃС‚Рё РµРµ С€С‚СЂР°С„Р° РѕС‚ Р‘РЎ
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 int ChooseRelationMin(TITLE_WORD t)
 { int num=t.NumAltSpell; float Rel;
   if(num <= 0) return -1;
@@ -1567,7 +1567,7 @@ int ChooseRelationMin(TITLE_WORD t)
   else
   { Rel=((float)t.AltSpell[1].Penalty)/((float)t.AltSpell[0].Penalty);
     if(Rel > par_ful.RelKrit) return 0;
-    else //защита от одинаковости 0-ой и 1-ой подсказок с точностью до регистра
+    else //Р·Р°С‰РёС‚Р° РѕС‚ РѕРґРёРЅР°РєРѕРІРѕСЃС‚Рё 0-РѕР№ Рё 1-РѕР№ РїРѕРґСЃРєР°Р·РѕРє СЃ С‚РѕС‡РЅРѕСЃС‚СЊСЋ РґРѕ СЂРµРіРёСЃС‚СЂР°
     { int k0=strlen_m(t.AltSpell[0].Alt),k1=strlen_m(t.AltSpell[1].Alt),i;
       BYTE cod0,cod1;
       if(k0 == k1)
@@ -1582,17 +1582,17 @@ int ChooseRelationMin(TITLE_WORD t)
   }
   return -1;
 }
-*/ // !!! Art - устарело
+*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 #ifndef WIN_MOD
-/* // !!! Art - устарело
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 void AnsiToOem(const char *word1,char *word2)
 {;}
 
 void OemToAnsi(const char *word1,char *word2)
 {;}
-*/ // !!! Art - устарело
+*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 #endif
-//============Вставить в Full-структуру слово после позиции <nc,ns,nw>
+//============Р’СЃС‚Р°РІРёС‚СЊ РІ Full-СЃС‚СЂСѓРєС‚СѓСЂСѓ СЃР»РѕРІРѕ РїРѕСЃР»Рµ РїРѕР·РёС†РёРё <nc,ns,nw>
 /*
 int InsertWord(int nc,int ns,int nw,ZN *zi,int kz)
 //============
@@ -1620,22 +1620,22 @@ int InsertWord(int nc,int ns,int nw,ZN *zi,int kz)
   do0(i,0,kz) z[nw+1][i]=zi[i];
   return 0;
 }
-*/// !!! Art - устарело
-//s - входное слово(будут первые альтернативы), frm - рамки букв слова
-//Return= 0 - OK, -1 - ошибка входных параметров
-//Вставить в Full-структуру слово после позиции <nc,ns,nw>
-//====================!!Если надо вставить слово перед первым словом,то nw=-1
+*/// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
+//s - РІС…РѕРґРЅРѕРµ СЃР»РѕРІРѕ(Р±СѓРґСѓС‚ РїРµСЂРІС‹Рµ Р°Р»СЊС‚РµСЂРЅР°С‚РёРІС‹), frm - СЂР°РјРєРё Р±СѓРєРІ СЃР»РѕРІР°
+//Return= 0 - OK, -1 - РѕС€РёР±РєР° РІС…РѕРґРЅС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ
+//Р’СЃС‚Р°РІРёС‚СЊ РІ Full-СЃС‚СЂСѓРєС‚СѓСЂСѓ СЃР»РѕРІРѕ РїРѕСЃР»Рµ РїРѕР·РёС†РёРё <nc,ns,nw>
+//====================!!Р•СЃР»Рё РЅР°РґРѕ РІСЃС‚Р°РІРёС‚СЊ СЃР»РѕРІРѕ РїРµСЂРµРґ РїРµСЂРІС‹Рј СЃР»РѕРІРѕРј,С‚Рѕ nw=-1
 /*int InsertWordFirstAlt(int nc,int ns,int nw,char *s,SRECT *frm)
 //====================
 { int kz=strlen_m(s),i,num,nw1,fl;
   CONV comp,ns_curr;
   ZN *zi;
-  //---Контроль входа---
+  //---РљРѕРЅС‚СЂРѕР»СЊ РІС…РѕРґР°---
   if(nc < 0 || nc > NumCol || ns < 0 || ns > NumStr[nc] ||
      nw < -1 || nw > TitleStr[nc][ns].S_Gen.S_NumWord-1) return -1;
   zi=(ZN*)malloc(kz*sizeof(ZN));
   --kz; comp=0; ns_curr=Zn[nc][ns][0][0].Title.Z_Id.str;
-  if(nw >= 0)//Вставляем не в начало строки
+  if(nw >= 0)//Р’СЃС‚Р°РІР»СЏРµРј РЅРµ РІ РЅР°С‡Р°Р»Рѕ СЃС‚СЂРѕРєРё
   { num=TitleWord[nc][ns][nw].W_Gen.W_NumSym-1;
     comp=Zn[nc][ns][nw][num].Title.Z_Id.comp;
   }
@@ -1651,23 +1651,23 @@ int InsertWord(int nc,int ns,int nw,ZN *zi,int kz)
     zi[i].Alt[0].a_Dist=(float)0.;
     zi[i].Alt[0].a_Base=0;
   }
-  do0(nw1,nw+1,TitleStr[nc][ns].S_Gen.S_NumWord-1)//Корректировка поля Z_Id.comp
+  do0(nw1,nw+1,TitleStr[nc][ns].S_Gen.S_NumWord-1)//РљРѕСЂСЂРµРєС‚РёСЂРѕРІРєР° РїРѕР»СЏ Z_Id.comp
     do0(i,0,TitleWord[nc][ns][nw1].W_Gen.W_NumSym-1)
       Zn[nc][ns][nw1][i].Title.Z_Id.comp+=(CONV)(kz+1);
   fl=InsertWord(nc,ns,nw,zi,kz);
   free(zi); return fl;
-}*/// !!! Art - устарело
-//Удалить слово из ful-структур
-//============Return= 0 - слово удалено
-/* // !!! Art - устарело
+}*/// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
+//РЈРґР°Р»РёС‚СЊ СЃР»РѕРІРѕ РёР· ful-СЃС‚СЂСѓРєС‚СѓСЂ
+//============Return= 0 - СЃР»РѕРІРѕ СѓРґР°Р»РµРЅРѕ
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 int DelWordFul(int nc,int ns,int nw)
 { int k_word=TitleStr[nc][ns].S_Gen.S_NumWord-1,i;
   TITLE_WORD *t=TitleWord[nc][ns],t1=t[nw];
   ZN **z=Zn[nc][ns];
-  //---Контроль входа---
+  //---РљРѕРЅС‚СЂРѕР»СЊ РІС…РѕРґР°---
   if(nc < 0 || nc > NumCol || ns < 0 || ns > NumStr[nc] ||
      nw < 0 || nw > TitleStr[nc][ns].S_Gen.S_NumWord-1) return -1;
-  if(t1.NumAltSpell > 0 && t1.W_Gen.W_Spell == SPELL_CORR) //---освобождение подсказок Spell---
+  if(t1.NumAltSpell > 0 && t1.W_Gen.W_Spell == SPELL_CORR) //---РѕСЃРІРѕР±РѕР¶РґРµРЅРёРµ РїРѕРґСЃРєР°Р·РѕРє Spell---
   { do0(i,0,t1.NumAltSpell-1) free(t1.AltSpell[i].Alt);
     free(t1.AltSpell);
   }
@@ -1694,15 +1694,15 @@ int DelWordFul(int nc,int ns,int nw)
   }
   return 0;
 }
-*/ // !!! Art - устарело
+*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 #ifdef FUL
-//LastCod - последний код предыдущ. слова
-//FirstCod - первый код данного слова
-//Return: 1 - слово с большой буквы в начале предложения
-//       -1 - слово с большой буквы в середине предложения
-//       0 - слово с малой буквы
+//LastCod - РїРѕСЃР»РµРґРЅРёР№ РєРѕРґ РїСЂРµРґС‹РґСѓС‰. СЃР»РѕРІР°
+//FirstCod - РїРµСЂРІС‹Р№ РєРѕРґ РґР°РЅРЅРѕРіРѕ СЃР»РѕРІР°
+//Return: 1 - СЃР»РѕРІРѕ СЃ Р±РѕР»СЊС€РѕР№ Р±СѓРєРІС‹ РІ РЅР°С‡Р°Р»Рµ РїСЂРµРґР»РѕР¶РµРЅРёСЏ
+//       -1 - СЃР»РѕРІРѕ СЃ Р±РѕР»СЊС€РѕР№ Р±СѓРєРІС‹ РІ СЃРµСЂРµРґРёРЅРµ РїСЂРµРґР»РѕР¶РµРЅРёСЏ
+//       0 - СЃР»РѕРІРѕ СЃ РјР°Р»РѕР№ Р±СѓРєРІС‹
 //============
-/* // !!! Art - устарело
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 int TstNameOwr(uchar LastCod,uchar FirstCod)
 //============
 {
@@ -1710,10 +1710,10 @@ int TstNameOwr(uchar LastCod,uchar FirstCod)
   else if(EndSentence[(int)LastCod]==1) return 1;
   else return -1;
 }
-*/ // !!! Art - устарело
-/*// !!! Art - устарело
-#define MAX_LEN 50 //max число знаков в параметре
-#define MAX_STR 249 //max число знаков в параметре
+*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
+/*// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
+#define MAX_LEN 50 //max С‡РёСЃР»Рѕ Р·РЅР°РєРѕРІ РІ РїР°СЂР°РјРµС‚СЂРµ
+#define MAX_STR 249 //max С‡РёСЃР»Рѕ Р·РЅР°РєРѕРІ РІ РїР°СЂР°РјРµС‚СЂРµ
 
 WORD Penalty1LenWord(int n)
 { static WORD Pen[16]={ 0,2,3,3,3,6,6,8,8,8,8,8,8,8,8,8 },ii=1,i;
@@ -1726,43 +1726,43 @@ WORD Penalty1LenWord(int n)
   }
   return Pen[MIN(n,15)];
 }
-*/ // !!! Art - устарело
-/* // !!! Art - устарело
+*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 #define MAX_ZN_WORD 100
 int MaxZn=MAX_ZN_WORD; ZN *zBuf;
 
 FUNC_GEN_FULWORD FuncGenFulWord;
- */ // !!! Art - устарело
-//Иниц-ция параметров Spell для поиска одного слова - берем из оболочки адрес
-//ф-ции генерации буфера слова по его ID_SYM
+ */ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
+//РРЅРёС†-С†РёСЏ РїР°СЂР°РјРµС‚СЂРѕРІ Spell РґР»СЏ РїРѕРёСЃРєР° РѕРґРЅРѕРіРѕ СЃР»РѕРІР° - Р±РµСЂРµРј РёР· РѕР±РѕР»РѕС‡РєРё Р°РґСЂРµСЃ
+//С„-С†РёРё РіРµРЅРµСЂР°С†РёРё Р±СѓС„РµСЂР° СЃР»РѕРІР° РїРѕ РµРіРѕ ID_SYM
 //int AddrFuncGenFulWord(ID_SYM id,ZN *z,int MaxZn)
-//Return: число символов слова
+//Return: С‡РёСЃР»Рѕ СЃРёРјРІРѕР»РѕРІ СЃР»РѕРІР°
 //===
-/* // !!! Art - устарело
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 int PASC InitOneSpell(FUNC_GEN_FULWORD AddrFuncGenFulWord)
 //===
 { if((zBuf=(ZN*)malloc(MaxZn*sizeof(ZN)))==NULL) return NOT_ALLOC;
-  ExtSettings=1;//Режим внешних настроек штрафов for FindWord
+  ExtSettings=1;//Р РµР¶РёРј РІРЅРµС€РЅРёС… РЅР°СЃС‚СЂРѕРµРє С€С‚СЂР°С„РѕРІ for FindWord
   FuncGenFulWord=AddrFuncGenFulWord;  return 0;
 }
-*/ // !!! Art - устарело
-/* // !!! Art - устарело
+*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 void PASC CloseOneSpell(void)
   { free(zBuf); }
-*/ // !!! Art - устарело
+*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 #else
  //int InitSpell(char *PAthName,int cod,int TypeDoc1) {return 0;}
-/* // !!! Art - устарело
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
  int TstNameOwr(uchar LastCod,uchar FirstCod) {return 0;}
-*/ // !!! Art - устарело
+*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 #endif
-//======================Тест на знак препинания
+//======================РўРµСЃС‚ РЅР° Р·РЅР°Рє РїСЂРµРїРёРЅР°РЅРёСЏ
 /*int TestPunctuationMarks(char sym)
 //======================
   { return (int)PunctuationMarks[(int)sym]; }
-*/ // !!! Art - устарело
-//===========Иниц-ция параметров Spell
-/* // !!! Art - устарело
+*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
+//===========РРЅРёС†-С†РёСЏ РїР°СЂР°РјРµС‚СЂРѕРІ Spell
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 int PASC InitSpell(char *PathName,int cod,int TypeDoc)
 //===========
 {
@@ -1802,20 +1802,20 @@ int PASC InitSpell(char *PathName,int cod,int TypeDoc)
 //  free(f03);    //mycorr
   return 0;
 }
-*/// !!! Art - устарело
-/* // !!! Art - устарело
+*/// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 void close_f03(void)
 {
  //fclose_m(f03);
 }
-*/ // !!! Art - устарело
+*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 //==============
-// !!! Art - устарело
+// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 //
 //int Init_FeatLet(void)
 ////==============
 //{ STATIC char *p,buf[8]; int i,k;
-//  STATIC BYTE UpLine[14];//Исъыючхэш шч ярртшыр
+//  STATIC BYTE UpLine[14];//РСЃСЉС‹СЋС‡С…СЌС€ С€С‡ СЏСЂСЂС‚С€С‹СЂ
 //  STATIC BYTE DownLine[25];//
 //  STATIC BYTE Chif[25];
 //  STATIC BYTE ImUppLow[80];
@@ -1823,31 +1823,31 @@ void close_f03(void)
 //  WORD w;
 //  if(TypeDoc!=NORV)
 //  #ifdef WIN_MOD
-//  { strcpy_m((char*)UpLine,(char*)"сщфbdfhijklt");
-//    strcpy_m((char*)DownLine,(char*)"ДЦЩфруфцщQfgjpqy,;");
+//  { strcpy_m((char*)UpLine,(char*)"СЃС‰С„bdfhijklt");
+//    strcpy_m((char*)DownLine,(char*)"Р”Р¦Р©С„СЂСѓС„С†С‰Qfgjpqy,;");
 //    strcpy_m((char*)Chif,(char*)"0123456789()[]{}+-*/=.,");
-//    strcpy_m((char*)ImUppLow,(char*)"ВтГуДфЖцЗчИшЙщКъЛыМьНэОюПяРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯCcKkOoPpSsUuVvWwXxZz");
+//    strcpy_m((char*)ImUppLow,(char*)"Р’С‚Р“СѓР”С„Р–С†Р—С‡РС€Р™С‰РљСЉР›С‹РњСЊРќСЌРћСЋРџСЏР СЂРЎСЃРўС‚РЈСѓР¤С„РҐС…Р¦С†Р§С‡РЁС€Р©С‰РЄСЉР«С‹Р¬СЊР­СЌР®СЋРЇCcKkOoPpSsUuVvWwXxZz");
 //    strcpy_m((char*)DelimSubWord,"/-()[]{}\"\\'");
 //  }
 //  #else
-//  { strcpy_m((char*)UpLine,(char*)"бйфbdfhijklt");
-//    strcpy_m((char*)DownLine,(char*)"ДЦЩдруфцщQfgjpqy,;");
+//  { strcpy_m((char*)UpLine,(char*)"Р±Р№С„bdfhijklt");
+//    strcpy_m((char*)DownLine,(char*)"Р”Р¦Р©РґСЂСѓС„С†С‰Qfgjpqy,;");
 //    strcpy_m((char*)Chif,(char*)"0123456789()[]{}+-*/=.,");
-//    strcpy_m((char*)ImUppLow,(char*)"ВвГгДдЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯCcKkOoPpSsUuVvWwXxZz");
+//    strcpy_m((char*)ImUppLow,(char*)"Р’РІР“РіР”РґР–Р¶Р—Р·РРёР™Р№РљРєР›Р»РњРјРќРЅРћРѕРџРїР СЂРЎСЃРўС‚РЈСѓР¤С„РҐС…Р¦С†Р§С‡РЁС€Р©С‰РЄСЉР«С‹Р¬СЊР­СЌР®СЋРЇCcKkOoPpSsUuVvWwXxZz");
 //    strcpy_m((char*)DelimSubWord,"/-()[]{}\"\\'");
 //  }
 //  #endif
 //  else
 //  { strcpy_m((char*)UpLine,(char*)"bdfhijklt");
 //    strcpy_m((char*)Chif,(char*)"0123456789.");
-//    strcpy_m((char*)ImUppLow,(char*)"CcKkOoPpSsUuVvWwXxZzШш");
+//    strcpy_m((char*)ImUppLow,(char*)"CcKkOoPpSsUuVvWwXxZzРЁС€");
 //    strcpy_m((char*)DelimSubWord,(char*)"/-()[]\"\\'");
 //  }
 //  do0(i,0,255)
 //   FeatLet[i].Let=FeatLet[i].Chif=FeatLet[i].DelimSubWord=FeatLet[i].ImUppLow=0;
 //  #if defined (WIN_MOD) && !defined (TIGER_CORR)
 //    #ifndef SPELL_NEW
-//      b_getlang(buf);//Символьная цепочка кодов языков ("RE")
+//      b_getlang(buf);//РЎРёРјРІРѕР»СЊРЅР°СЏ С†РµРїРѕС‡РєР° РєРѕРґРѕРІ СЏР·С‹РєРѕРІ ("RE")
 //    #else
 //      SpellGetLang(buf);
 //    #endif
@@ -1855,7 +1855,7 @@ void close_f03(void)
 //    while(*p!=0)
 //    { svocab *pl=b_char(*p);
 //      #ifndef SPELL_NEW
-//       char *Lo=pl->tablet0,*Up=pl->tabletl0;//Цепочки больших и малых текущ.яз.
+//       char *Lo=pl->tablet0,*Up=pl->tabletl0;//Р¦РµРїРѕС‡РєРё Р±РѕР»СЊС€РёС… Рё РјР°Р»С‹С… С‚РµРєСѓС‰.СЏР·.
 //      #else
 //       char *LoIn,*UpIn,*Lo,*Up;
 //       if(pl==NULL) return -5;
@@ -1883,8 +1883,8 @@ void close_f03(void)
 //    { BYTE *loR=(BYTE*)malloc(40),*upR=(BYTE*)malloc(40),*Lo,*Up;
 //      BYTE *loE=(BYTE*)malloc(40),*upE=(BYTE*)malloc(40),*bLo[2],*bUp[2];
 //      k=-1; bLo[0]=loR; bUp[0]=upR; bLo[1]=loE; bUp[1]=upE;
-//      strcpy_m((char*)loR,"абвгдежзийклмнопрстуфхцчшщъыьэюя-");
-//      strcpy_m((char*)upR,"АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ-");
+//      strcpy_m((char*)loR,"Р°Р±РІРіРґРµР¶Р·РёР№РєР»РјРЅРѕРїСЂСЃС‚СѓС„С…С†С‡С€С‰СЉС‹СЊСЌСЋСЏ-");
+//      strcpy_m((char*)upR,"РђР‘Р’Р“Р”Р•Р–Р—РР™РљР›РњРќРћРџР РЎРўРЈР¤РҐР¦Р§РЁР©РЄР«Р¬Р­Р®РЇ-");
 //      strcpy_m((char*)loE,"abcdefghijklmnopqrstuvwxyz-\'");
 //      strcpy_m((char*)upE,"ABCDEFGHIJKLMNOPQRSTUVWXYZ-\'");
 //      for(i=0; i < 2; ++i)
@@ -1910,7 +1910,7 @@ void close_f03(void)
 //  k=strlen_m((char*)ImUppLow)-1; do0(i,0,k) FeatLet[ImUppLow[i]].ImUppLow=1;
 //  k=strlen_m((char*)DelimSubWord)-1;
 //  do0(i,0,k) FeatLet[DelimSubWord[i]].DelimSubWord=1;
-//  //---Чтение кластеров перепутывания---
+//  //---Р§С‚РµРЅРёРµ РєР»Р°СЃС‚РµСЂРѕРІ РїРµСЂРµРїСѓС‚С‹РІР°РЅРёСЏ---
 //  { BYTE *str=(BYTE*)malloc(50);
 //    BYTE *NameCl=(BYTE*)malloc(20);
 //    BYTE *NameClOne=(BYTE*)malloc(20);
@@ -1923,7 +1923,7 @@ void close_f03(void)
 //    K_Clust=-1;
 //    for(;;) //Common Cluster
 //    { GetPrivateProfileString("corr_word",(char *)NameCl,"",(char *)str,49,(char *)FileParSpel);
-//      if(str[0] == 0) break;//Список кластеров исчерпан
+//      if(str[0] == 0) break;//РЎРїРёСЃРѕРє РєР»Р°СЃС‚РµСЂРѕРІ РёСЃС‡РµСЂРїР°РЅ
 //      ClustOCR[++K_Clust]=(BYTE*)malloc(((k=strlen_m((char*)str))+1));
 //      --k; strcpy_m((char *)ClustOCR[K_Clust],(char *)str);
 //      do0(i,0,k)
@@ -1933,12 +1933,12 @@ void close_f03(void)
 //    }
 //    for(;;) //Cluster One Sym
 //    { GetPrivateProfileString("corr_word",(char *)NameClOne,"",(char *)str,49,FileParSpel);
-//      if(str[0] == 0) break;//Список кластеров исчерпан
+//      if(str[0] == 0) break;//РЎРїРёСЃРѕРє РєР»Р°СЃС‚РµСЂРѕРІ РёСЃС‡РµСЂРїР°РЅ
 //      do0(i,0,K_Clust) act[i]=0;
 //      k=0;while(str[++k]!=':') if(k>48) goto EndOne;
 //      s=&str[k+1]; --k;
 //      do0(i,0,k)
-//      { in=FeatLet[(BYTE)str[i]].IndCl-1;//Индекс old-cluster
+//      { in=FeatLet[(BYTE)str[i]].IndCl-1;//РРЅРґРµРєСЃ old-cluster
 //        if(in < 0) //Letter not found Cluster
 //        { ClustOCR[++K_Clust]=(BYTE*)malloc(strlen_m((char*)s)+1);
 //          strcpy_m((char *)ClustOCR[K_Clust],(char *)s);
@@ -1977,7 +1977,7 @@ void close_f03(void)
 //		free(NameCl);
 //		free(NameClOne);
 //  }
-//  //---Чтение режимов использования внеш. Alt---
+//  //---Р§С‚РµРЅРёРµ СЂРµР¶РёРјРѕРІ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РІРЅРµС€. Alt---
 //  par_ful.AllowTestChifCl=GetPrivateProfileInt("corr_word","AllowTestChifCl",0,FileParSpel);
 //  par_ful.AllowTestLangCl=GetPrivateProfileInt("corr_word","AllowTestLangCl",0,FileParSpel);
 //  par_ful.AllowCorrChifCl=GetPrivateProfileInt("corr_word","AllowCorrChifCl",0,FileParSpel);
@@ -1992,21 +1992,21 @@ void close_f03(void)
 //  par_ful.RelDistAltOCR=(float)(w/10.);
 //  return 0;
 //}
-// !!! Art - устарело
+// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 //============
-/* // !!! Art - устарело
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 int init_ful()
 //============
 { uchar Punct[22]=",.<>?/:;\"'\\[]-{}()!";int NumPunct=18,i;
   #ifdef WIN_MOD
-    uchar WordOneSymb[]="АрБсВтИшКъОюСсУуЭэЯя";
+    uchar WordOneSymb[]="РђСЂР‘СЃР’С‚РС€РљСЉРћСЋРЎСЃРЈСѓР­СЌРЇСЏ";
   #else
-    uchar WordOneSymb[]="АаБбВвИиКкОоСсУуЭэЯя";
+    uchar WordOneSymb[]="РђР°Р‘Р±Р’РІРРёРљРєРћРѕРЎСЃРЈСѓР­СЌРЇСЏ";
   #endif
   int NumOne;
   BYTE s[3];WORD w;
-  static uchar Upp[159]="АБВГДЕЖЗИЙКЛМНОПРСТУФХШЩЦЧЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  static uchar Low[159]="абвгдежзийклмнопрстуфхшщцчъыьэюяabcdefghijklmnopqrstuvwxyz";
+  static uchar Upp[159]="РђР‘Р’Р“Р”Р•Р–Р—РР™РљР›РњРќРћРџР РЎРўРЈР¤РҐРЁР©Р¦Р§РЄР«Р¬Р­Р®РЇABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  static uchar Low[159]="Р°Р±РІРіРґРµР¶Р·РёР№РєР»РјРЅРѕРїСЂСЃС‚СѓС„С…С€С‰С†С‡СЉС‹СЊСЌСЋСЏabcdefghijklmnopqrstuvwxyz";
   static uchar Punct1[5]=".!?";
   static int k=57,k1=2;
   char *p=0,buf[8];
@@ -2015,7 +2015,7 @@ int init_ful()
   do0(i,0,255) {Upper[i]=Lower[i]=EndSentence[i]=0;UppLow[i]=(uchar)i;}
   #if defined (WIN_MOD) && !defined (TIGER_CORR)
     #ifndef SPELL_NEW
-      b_getlang(buf);//Символьная цепочка кодов языков ("RE")
+      b_getlang(buf);//РЎРёРјРІРѕР»СЊРЅР°СЏ С†РµРїРѕС‡РєР° РєРѕРґРѕРІ СЏР·С‹РєРѕРІ ("RE")
     #else
       SpellGetLang(buf);
     #endif
@@ -2023,7 +2023,7 @@ int init_ful()
     while(*p!=0)
     { svocab *pl=b_char(*p);
       #ifndef SPELL_NEW
-       char *Lo=pl->tablet0,*Up=pl->tabletl0;//Цепочки больших и малых текущ.яз.
+       char *Lo=pl->tablet0,*Up=pl->tabletl0;//Р¦РµРїРѕС‡РєРё Р±РѕР»СЊС€РёС… Рё РјР°Р»С‹С… С‚РµРєСѓС‰.СЏР·.
       #else
        char *LoIn,*UpIn,*Lo,*Up;
        if(pl==NULL) return -5;
@@ -2045,8 +2045,8 @@ int init_ful()
     { BYTE *loR=(BYTE*)malloc(40),*upR=(BYTE*)malloc(40),*Lo,*Up;
       BYTE *loE=(BYTE*)malloc(40),*upE=(BYTE*)malloc(40),*bLo[2],*bUp[2];
       k=-1; bLo[0]=loR; bUp[0]=upR; bLo[1]=loE; bUp[1]=upE;
-      strcpy_m((char*)loR,"абвгдежзийклмнопрстуфхцчшщъыьэюя-");
-      strcpy_m((char*)upR,"АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ-");
+      strcpy_m((char*)loR,"Р°Р±РІРіРґРµР¶Р·РёР№РєР»РјРЅРѕРїСЂСЃС‚СѓС„С…С†С‡С€С‰СЉС‹СЊСЌСЋСЏ-");
+      strcpy_m((char*)upR,"РђР‘Р’Р“Р”Р•Р–Р—РР™РљР›РњРќРћРџР РЎРўРЈР¤РҐР¦Р§РЁР©РЄР«Р¬Р­Р®РЇ-");
       strcpy_m((char*)loE,"abcdefghijklmnopqrstuvwxyz-\'");
       strcpy_m((char*)upE,"ABCDEFGHIJKLMNOPQRSTUVWXYZ-\'");
       for(i=0; i < 2; ++i)
@@ -2095,12 +2095,12 @@ int init_ful()
   par_ful.IndexDelta=GetPrivateProfileInt("ful_txt","IndexDelta",1,FileParSpel);
   if(par_ful.IndexDelta!=2) MaxValue=MAX_VALUE;
   else MaxValue=MAX_VALUE*MAX_VALUE;
-  par_ful.IntervalTimer=(DWORD)GetPrivateProfileInt("ful_txt","IntervalTimer",32000,FileParSpel);
+  par_ful.IntervalTimer=(uint32_t)GetPrivateProfileInt("ful_txt","IntervalTimer",32000,FileParSpel);
   { //Temp filling KoderTabl R<->L coincidal tracing
     #ifdef WIN_MOD
-      BYTE *Rus=(BYTE*)"АрВЕхКъМНОюРрСсТУуХх",*Lat=(BYTE*)"AaBEeKkMHOoPpCcTYyXx";
+      BYTE *Rus=(BYTE*)"РђСЂР’Р•С…РљСЉРњРќРћСЋР СЂРЎСЃРўРЈСѓРҐС…",*Lat=(BYTE*)"AaBEeKkMHOoPpCcTYyXx";
     #else
-      BYTE *Rus=(BYTE*)"АаВЕеКкМНОоРрСсТУуХх",*Lat=(BYTE*)"AaBEeKkMHOoPpCcTYyXx";
+      BYTE *Rus=(BYTE*)"РђР°Р’Р•РµРљРєРњРќРћРѕР СЂРЎСЃРўРЈСѓРҐС…",*Lat=(BYTE*)"AaBEeKkMHOoPpCcTYyXx";
     #endif
     do0(i,0,255) KoderRus[i]=KoderLat[i]=(BYTE)i;
     if(TypeDoc!=NORV)
@@ -2108,19 +2108,19 @@ int init_ful()
   }
   return 0;
 }
-*/ // !!! Art - устарело
+*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 #ifndef BLANK
  #define SPACE_RED 4
 #else
  #define SPACE_RED 0
 #endif
-//nc - номер форматируемой колонки
-//Bnd - ее текстовая рамка (рамка в текстовых координатах)
+//nc - РЅРѕРјРµСЂ С„РѕСЂРјР°С‚РёСЂСѓРµРјРѕР№ РєРѕР»РѕРЅРєРё
+//Bnd - РµРµ С‚РµРєСЃС‚РѕРІР°СЏ СЂР°РјРєР° (СЂР°РјРєР° РІ С‚РµРєСЃС‚РѕРІС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…)
 //Return:
-// 0 - нормальное завершение,
-//-1 - ошибка параметров,
-//===========Форматирование символов в строках одной колонки
-/*// !!! Art - устарело
+// 0 - РЅРѕСЂРјР°Р»СЊРЅРѕРµ Р·Р°РІРµСЂС€РµРЅРёРµ,
+//-1 - РѕС€РёР±РєР° РїР°СЂР°РјРµС‚СЂРѕРІ,
+//===========Р¤РѕСЂРјР°С‚РёСЂРѕРІР°РЅРёРµ СЃРёРјРІРѕР»РѕРІ РІ СЃС‚СЂРѕРєР°С… РѕРґРЅРѕР№ РєРѕР»РѕРЅРєРё
+/*// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 int FormatStr(int nc,SRECT *Bnd,char ***Str,int **Ksym,int ncO)
 //===========
 {
@@ -2128,13 +2128,13 @@ int FormatStr(int nc,SRECT *Bnd,char ***Str,int **Ksym,int ncO)
       Fract,Znam=0,Chisl=0,inWord;
   uchar LastCod,sy=0;
   #ifdef PROF_COL
-    //---Расчет среднего межстроч. интервала DelStr---
+    //---Р Р°СЃС‡РµС‚ СЃСЂРµРґРЅРµРіРѕ РјРµР¶СЃС‚СЂРѕС‡. РёРЅС‚РµСЂРІР°Р»Р° DelStr---
     if(!ks)
 			DelStr=2*StatCol[nc].dy_col;
     else
     {
 			DelStr=0; k=0; fl=0;
-      do0(ns,1,ks) //расстояние м/ЦТ
+      do0(ns,1,ks) //СЂР°СЃСЃС‚РѕСЏРЅРёРµ Рј/Р¦Рў
       {
 				if(Zn[nc][ns][0][0].Title.Z_Num_Alt != 0 &&
            ((sy=Zn[nc][ns-1][0][0].Alt[0].a_Code) == '$' || sy == '#'))
@@ -2179,7 +2179,7 @@ int FormatStr(int nc,SRECT *Bnd,char ***Str,int **Ksym,int ncO)
 //		Chisl=0;
     ksy=-1;//CurrentPosition in Str
     if((kw=TitleStr[nc][ns].S_Gen.S_NumWord-1) >= 0)
-    { if(BEG_PARAG1(Zn[nc][ns][0][0].Title.Z_Id)==1)//Красная строка
+    { if(BEG_PARAG1(Zn[nc][ns][0][0].Title.Z_Id)==1)//РљСЂР°СЃРЅР°СЏ СЃС‚СЂРѕРєР°
         do0(i,0,SPACE_RED) buf[++ksy]=' ';
       do0(nw,0,kw)
       { //if(nw > 0 && TitleWord[nc][ns][nw].W_Gen.W_NumSym == 1 &&
@@ -2192,17 +2192,17 @@ int FormatStr(int nc,SRECT *Bnd,char ***Str,int **Ksym,int ncO)
           kz=TitleWord[nc][ns][nw].W_Gen.W_NumSym-1;
           do0(nz,0,kz)
           { if(INDICE1(Zn[nc][ns][nw][nz].Title.Z_Id))
-              buf[++ksy]='^'; //Индекс
+              buf[++ksy]='^'; //РРЅРґРµРєСЃ
             if(MULTI_POINT1(Zn[nc][ns][nw][nz].Title.Z_Id))
-              {buf[++ksy]=' ';buf[++ksy]='.';buf[++ksy]='.';goto END;}//Многоточие
+              {buf[++ksy]=' ';buf[++ksy]='.';buf[++ksy]='.';goto END;}//РњРЅРѕРіРѕС‚РѕС‡РёРµ
             if(FRACT1(Zn[nc][ns][nw][nz].Title.Z_Id))
-            { if(!Fract) //Числитель дроби
+            { if(!Fract) //Р§РёСЃР»РёС‚РµР»СЊ РґСЂРѕР±Рё
                 {Fract=1;buf[++ksy]='<';buf[++ksy]='<'; inWord=nw;}
-              else if(nw != inWord) {inWord=nw;buf[++ksy]='/';} //отделяем Знаменатель
+              else if(nw != inWord) {inWord=nw;buf[++ksy]='/';} //РѕС‚РґРµР»СЏРµРј Р—РЅР°РјРµРЅР°С‚РµР»СЊ
             }
             else if(Fract)
 							{ Fract=0;buf[++ksy]='>'; buf[++ksy]='>'; }
-            if(Zn[nc][ns][nw][nz].Title.Z_Num_Alt) //Знакоместо Распознанно
+            if(Zn[nc][ns][nw][nz].Title.Z_Num_Alt) //Р—РЅР°РєРѕРјРµСЃС‚Рѕ Р Р°СЃРїРѕР·РЅР°РЅРЅРѕ
               buf[++ksy]=Zn[nc][ns][nw][nz].Alt[0].a_Code;
             else
               #ifdef FUL
@@ -2217,20 +2217,20 @@ int FormatStr(int nc,SRECT *Bnd,char ***Str,int **Ksym,int ncO)
           par_ful.k1,par_ful.k2,par_ful.gam_Ins,par_ful.gam_Del);
           len=strlen_m((char*)buf1)-1;
           if((fl=TstNameOwr(LastCod,GetAlt(nc,ns,nw,0,0)))==1)
-          { //Слово с большой буквы вначале предл-я
+          { //РЎР»РѕРІРѕ СЃ Р±РѕР»СЊС€РѕР№ Р±СѓРєРІС‹ РІРЅР°С‡Р°Р»Рµ РїСЂРµРґР»-СЏ
             if(Upper[(int)buf1[0]]==0)
-              buf1[0]=UppLow[(int)buf1[0]]; //меняем регистр на заглавный
+              buf1[0]=UppLow[(int)buf1[0]]; //РјРµРЅСЏРµРј СЂРµРіРёСЃС‚СЂ РЅР° Р·Р°РіР»Р°РІРЅС‹Р№
           }
-          else if(fl == 0) //Слово с малой буквы
+          else if(fl == 0) //РЎР»РѕРІРѕ СЃ РјР°Р»РѕР№ Р±СѓРєРІС‹
           { if(Lower[(int)buf1[0]]==0)
-              buf1[0]=UppLow[(int)buf1[0]]; //меняем регистр на заглавный
+              buf1[0]=UppLow[(int)buf1[0]]; //РјРµРЅСЏРµРј СЂРµРіРёСЃС‚СЂ РЅР° Р·Р°РіР»Р°РІРЅС‹Р№
           }
           LastCod=buf1[len];
           do0(i,0,len) buf[++ksy]=buf1[i];
         }
         if(nw != kw)
         { if(!COMMA1(Zn[nc][ns][nw+1][0].Title.Z_Id) && !Fract)
-            buf[++ksy]=' '; //InterWord Space,если следом не знак препинания
+            buf[++ksy]=' '; //InterWord Space,РµСЃР»Рё СЃР»РµРґРѕРј РЅРµ Р·РЅР°Рє РїСЂРµРїРёРЅР°РЅРёСЏ
         }
       }
     END:
@@ -2252,40 +2252,40 @@ int FormatStr(int nc,SRECT *Bnd,char ***Str,int **Ksym,int ncO)
   Bnd->right+=Bnd->left;
   return 0;
 }
-*/ // !!! Art - устарело
+*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 #ifdef PROF_COL
 /* int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
- {;}*/ // !!! Art - устарело
+ {;}*/ // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 #else
-//Извлечь узел Curr из дерева без физ.удаления из списка(без занесения в ListFree)
-//back и next - соседи узла (нужны для вставки его обратно в тоже место)
+//РР·РІР»РµС‡СЊ СѓР·РµР» Curr РёР· РґРµСЂРµРІР° Р±РµР· С„РёР·.СѓРґР°Р»РµРЅРёСЏ РёР· СЃРїРёСЃРєР°(Р±РµР· Р·Р°РЅРµСЃРµРЅРёСЏ РІ ListFree)
+//back Рё next - СЃРѕСЃРµРґРё СѓР·Р»Р° (РЅСѓР¶РЅС‹ РґР»СЏ РІСЃС‚Р°РІРєРё РµРіРѕ РѕР±СЂР°С‚РЅРѕ РІ С‚РѕР¶Рµ РјРµСЃС‚Рѕ)
 //==
-/*// !!! Art - устарело
+/*// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 void ExtrKnot(KNOTT *Curr,KNOTT **back,KNOTT **next)
 //==
 { if(Curr==NULL)ERR(1,"ExtrKnot");
   *back=Curr->back; *next=Curr->next;
   if(*back)(*back)->next=*next;if(*next)(*next)->back=*back;
 }
-*/// !!! Art - устарело
-//Подцепить обратно узел Curr между узлами back и next
+*/// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
+//РџРѕРґС†РµРїРёС‚СЊ РѕР±СЂР°С‚РЅРѕ СѓР·РµР» Curr РјРµР¶РґСѓ СѓР·Р»Р°РјРё back Рё next
 //==
-/* // !!! Art - устарело
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 void ReverseInsertKnot(KNOTT *Curr,KNOTT *back,KNOTT *next)
 //==
 { if(back) back->next=Curr; Curr->back=back;
   if(next) next->back=Curr; Curr->next=next;
 }
-*/// !!! Art - устарело
-//Параметры:
-//FileNameFul - имя файла Full Out Cript
-//FileNameOut - имя выходного файла
-//Inf - дерево структуры в памяти
+*/// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
+//РџР°СЂР°РјРµС‚СЂС‹:
+//FileNameFul - РёРјСЏ С„Р°Р№Р»Р° Full Out Cript
+//FileNameOut - РёРјСЏ РІС‹С…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р°
+//Inf - РґРµСЂРµРІРѕ СЃС‚СЂСѓРєС‚СѓСЂС‹ РІ РїР°РјСЏС‚Рё
 //Return:
-// 0 - нормальное завершение
+// 0 - РЅРѕСЂРјР°Р»СЊРЅРѕРµ Р·Р°РІРµСЂС€РµРЅРёРµ
 //
-//==Генерация текстового файла из файла Full Out
-/* // !!! Art - устарело
+//==Р“РµРЅРµСЂР°С†РёСЏ С‚РµРєСЃС‚РѕРІРѕРіРѕ С„Р°Р№Р»Р° РёР· С„Р°Р№Р»Р° Full Out
+/* // !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
 //==
 {
@@ -2315,7 +2315,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
 		else
 			par_ful.AllowSpell=1;
 	#endif
-  //--обнуляем ссылку down узла HierH для единообразия обхода TERM-Cell Tree
+  //--РѕР±РЅСѓР»СЏРµРј СЃСЃС‹Р»РєСѓ down СѓР·Р»Р° HierH РґР»СЏ РµРґРёРЅРѕРѕР±СЂР°Р·РёСЏ РѕР±С…РѕРґР° TERM-Cell Tree
   if(Inf->TypeDoc == NORV)
 		Inf->HierH->down=NULL;
   //--Init Txt-Coor H- and V-Line
@@ -2331,7 +2331,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
 			tmp=Space ? (LineV[i].beg-LineV[i-1].beg)/Space + 1 : 0;
     LineV[i].BegTxt= !i ? 2 : LineV[i-1].BegTxt + MAX(2,tmp);
   }
-  //--Рассчитываем общее число TERM-Cell
+  //--Р Р°СЃСЃС‡РёС‚С‹РІР°РµРј РѕР±С‰РµРµ С‡РёСЃР»Рѕ TERM-Cell
   if(NewStack(20,&St))
 		return NOT_ALLOC;
   Curr=Root; nT=0;
@@ -2342,9 +2342,9 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
     Curr=NextKnot(Curr,&St);
   }
   ClearStack(&St);
-  //Новая интерпретация знач. полей KNOTT
-  //InBegFrm - номер терминал.ячейки в массивах Zn,...
-  //NumFrm - индекс в массиве AllT
+  //РќРѕРІР°СЏ РёРЅС‚РµСЂРїСЂРµС‚Р°С†РёСЏ Р·РЅР°С‡. РїРѕР»РµР№ KNOTT
+  //InBegFrm - РЅРѕРјРµСЂ С‚РµСЂРјРёРЅР°Р».СЏС‡РµР№РєРё РІ РјР°СЃСЃРёРІР°С… Zn,...
+  //NumFrm - РёРЅРґРµРєСЃ РІ РјР°СЃСЃРёРІРµ AllT
   AllT=(KNOTT**)malloc(nT*sizeof(PTR));
   Curr=Root; nT=-1;
   while(Curr != NULL)
@@ -2358,7 +2358,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
   }
   ++nT;
   DelStack(&St);
-  NumCol=Inf->NumT; //!!!Это индекс последней ячейки!!!
+  NumCol=Inf->NumT; //!!!Р­С‚Рѕ РёРЅРґРµРєСЃ РїРѕСЃР»РµРґРЅРµР№ СЏС‡РµР№РєРё!!!
   //for(i=0; i < nT; ++i)
   //{ if(AllT[i]->AllowOCR)
   //   {if(AllT[i]->InBegFrm > NumCol || AllT[i]->InBegFrm < 0) ERR(5,err);}
@@ -2384,7 +2384,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
 	  //~	if((fl=OpenFullOutTiger(FileNameFul))!=0)
 		//~	return fl-100;
 	#endif
-  //!!!для бланков nT - общее число TERM-ячеек, NumCol - лишь AllowOcr
+  //!!!РґР»СЏ Р±Р»Р°РЅРєРѕРІ nT - РѕР±С‰РµРµ С‡РёСЃР»Рѕ TERM-СЏС‡РµРµРє, NumCol - Р»РёС€СЊ AllowOcr
   BndColTxt=(SRECT*)malloc(nT*sizeof(SRECT));
   #ifdef SUB_FRM
    { long Num=nT*2*sizeof(PTR)+(TitleFul.nStr+(nT-NumCol)*2)*
@@ -2403,22 +2403,22 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
   if(TitleFul.ProcSpell != PROC_SPELL &&
      ((Inf->TypeDoc==NORV  && (fl=CorrFulCell(AllT,nT,Inf)) != 0) ||
       (Inf->TypeDoc==PLAIN && (fl=CorrFul()) != 0))
-    ) //Корректор по однородностям
+    ) //РљРѕСЂСЂРµРєС‚РѕСЂ РїРѕ РѕРґРЅРѕСЂРѕРґРЅРѕСЃС‚СЏРј
 			return fl-3000;
   #endif
-  //--Форматирование символов в колонках--
+  //--Р¤РѕСЂРјР°С‚РёСЂРѕРІР°РЅРёРµ СЃРёРјРІРѕР»РѕРІ РІ РєРѕР»РѕРЅРєР°С…--
   for(i=0; i < nT; ++i)
     if(fl=FormatKnot(AllT[i],&BndColTxt[i],Str,Ksym)) return fl-200;
-  //--Форматирование горизонталей и вертикалей--
+  //--Р¤РѕСЂРјР°С‚РёСЂРѕРІР°РЅРёРµ РіРѕСЂРёР·РѕРЅС‚Р°Р»РµР№ Рё РІРµСЂС‚РёРєР°Р»РµР№--
   DelLine= Inf->TypeDoc==PLAIN ? 0 : 2;
   u4sort(AllT,nT,sizeof(PTR),(COMP_FUN)compKNOTT_RectBottom);
   for(i=0; i < nT; ++i)
-  { //in - индекс данной ячейки в массивах BndColTxt,Str,Sym
-    //beg, end - индексы граничных линий ячейки
+  { //in - РёРЅРґРµРєСЃ РґР°РЅРЅРѕР№ СЏС‡РµР№РєРё РІ РјР°СЃСЃРёРІР°С… BndColTxt,Str,Sym
+    //beg, end - РёРЅРґРµРєСЃС‹ РіСЂР°РЅРёС‡РЅС‹С… Р»РёРЅРёР№ СЏС‡РµР№РєРё
     beg=AllT[i]->Rect.top;end=AllT[i]->Rect.bottom;
     if( (tmp=BndColTxt[AllT[i]->NumFrm].bottom + 2 - (LineH[end].BegTxt -
         LineH[beg].BegTxt)) > 0)
-    { for(j=end; j < nH; ++j) //раздвигаем разграфку,покуда есть перепутывание линий
+    { for(j=end; j < nH; ++j) //СЂР°Р·РґРІРёРіР°РµРј СЂР°Р·РіСЂР°С„РєСѓ,РїРѕРєСѓРґР° РµСЃС‚СЊ РїРµСЂРµРїСѓС‚С‹РІР°РЅРёРµ Р»РёРЅРёР№
       { LineH[j].BegTxt+=tmp;
         if(j < nH-1 && LineH[j].BegTxt+DelLine <= LineH[j+1].BegTxt)
 					break;
@@ -2433,7 +2433,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
   { beg=AllT[i]->Rect.left;end=AllT[i]->Rect.right;
     if( (tmp=BndColTxt[AllT[i]->NumFrm].right + 2 - (LineV[end].BegTxt -
         LineV[beg].BegTxt)) > 0)
-    { for(j=end; j < nV; ++j) //раздвигаем разграфку
+    { for(j=end; j < nV; ++j) //СЂР°Р·РґРІРёРіР°РµРј СЂР°Р·РіСЂР°С„РєСѓ
       { LineV[j].BegTxt+=tmp;
         if(j < nV-1 && LineV[j].BegTxt+DelLine <= LineV[j+1].BegTxt)
 					break;
@@ -2443,7 +2443,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
   for(i=1; i < nV; ++i)
 		if(LineV[i].BegTxt - LineV[i-1].BegTxt < DelLine)
 			ERR(9,err);
-  //--Тест достаточности разграфки для ячеек--
+  //--РўРµСЃС‚ РґРѕСЃС‚Р°С‚РѕС‡РЅРѕСЃС‚Рё СЂР°Р·РіСЂР°С„РєРё РґР»СЏ СЏС‡РµРµРє--
   for(i=0; i < nT; ++i)
   { in=AllT[i]->NumFrm;
     beg=AllT[i]->Rect.top;end=AllT[i]->Rect.bottom;
@@ -2453,7 +2453,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
     if((tmp=BndColTxt[in].right+2-(LineV[end].BegTxt - LineV[beg].BegTxt)) > 0)
 			ERR(11,err);
   }
-  //--Формирование выходного текста в буфере--
+  //--Р¤РѕСЂРјРёСЂРѕРІР°РЅРёРµ РІС‹С…РѕРґРЅРѕРіРѕ С‚РµРєСЃС‚Р° РІ Р±СѓС„РµСЂРµ--
   BndPage.left=LineV[0].BegTxt; BndPage.right=LineV[nV-1].BegTxt;
   BndPage.top =LineH[0].BegTxt; BndPage.bottom=LineH[nH-1].BegTxt;
   K_Col=BndPage.right-BndPage.left; K_Rows=BndPage.bottom-BndPage.top;
@@ -2472,7 +2472,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
     int left=LineV[Kn->Rect.left].BegTxt,right=LineV[Kn->Rect.right].BegTxt,
         top=LineH[Kn->Rect.top].BegTxt,  bottom=LineH[Kn->Rect.bottom].BegTxt;
     nc=Kn->NumFrm; dx=left-BndPage.left+1; dy=top-BndPage.top+1;
-    //--Выравнивание--
+    //--Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ--
     if(Kn->JustH == ALG_END && (tmp=right-left-1-BndColTxt[nc].right-1) > 0)
       dx+=tmp;
     if(Kn->JustH == ALG_CENTER && (tmp=(right-left-1-BndColTxt[nc].right)/2-1) > 0)
@@ -2498,23 +2498,23 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
         }
       }
     }
-    //--Оконтуривание V-линиями--
+    //--РћРєРѕРЅС‚СѓСЂРёРІР°РЅРёРµ V-Р»РёРЅРёСЏРјРё--
     beg=left-BndPage.left; charLine=ImageLineV[LineV[Kn->Rect.left].TypeLine];
     y0=top-BndPage.top; y1=bottom-BndPage.top;
     do0(ns,y0,y1) Txt[ns][beg]=charLine;
     beg=right-BndPage.left; charLine=ImageLineV[LineV[Kn->Rect.right].TypeLine];
     do0(ns,y0,y1) Txt[ns][beg]=charLine;
-    //--Оконтуривание H-линиями--
+    //--РћРєРѕРЅС‚СѓСЂРёРІР°РЅРёРµ H-Р»РёРЅРёСЏРјРё--
     beg=top-BndPage.top; charLine=ImageLineH[LineH[Kn->Rect.top].TypeLine];
     x0=left-BndPage.left; x1=right-BndPage.left;
     do0(nz,x0,x1) Txt[beg][nz]=charLine;
     beg=bottom-BndPage.top; charLine=ImageLineH[LineH[Kn->Rect.bottom].TypeLine];
     do0(nz,x0,x1) Txt[beg][nz]=charLine;
-    //--вывод текста ячейки--
+    //--РІС‹РІРѕРґ С‚РµРєСЃС‚Р° СЏС‡РµР№РєРё--
     do0(ns,0,in)
     { //if(ns+dy == top-BndPage.top || ns+dy == bottom-BndPage.top ||
       //   nz+dx == left-BndPage.left|| nz+dx == right-BndPage.left)
-      //      ERR(13,err); //Затерли разграфку
+      //      ERR(13,err); //Р—Р°С‚РµСЂР»Рё СЂР°Р·РіСЂР°С„РєСѓ
       if(Inf->TypeDoc!=NORV || MultiPoint[ns] != 1)
       { do0(nz,0,Ksym[nc][ns]) Txt[ns+dy][nz+dx]=Str[nc][ns][nz];
         if(Inf->TypeDoc==NORV && MultiPoint[ns])
@@ -2522,13 +2522,13 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
           for(nz=0; nz < NumAdd; ++nz) Txt[ns+dy][nz+dx1]='.';
         }
       }
-      else //выводим выравнивая вправо многоточие
+      else //РІС‹РІРѕРґРёРј РІС‹СЂР°РІРЅРёРІР°СЏ РІРїСЂР°РІРѕ РјРЅРѕРіРѕС‚РѕС‡РёРµ
         for(nz=right-3-BndPage.left; nz <= right-1-BndPage.left; ++nz)
           Txt[ns+dy][nz]='.';
     }
   }
   if(Inf->TypeDoc==NORV)free(MultiPoint);
-  //--Вывод выход. текста в файл--
+  //--Р’С‹РІРѕРґ РІС‹С…РѕРґ. С‚РµРєСЃС‚Р° РІ С„Р°Р№Р»--
   { FILE1 *out=fopen_m(FileNameOut,OF_WRITE);
     char Lf[2];
     Lf[0]=0x0D; Lf[1]=0x0A;
@@ -2536,11 +2536,11 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
     { fwrite_m(Txt[ns],K_Col+1,1,out); fwrite_m(Lf,2,1,out); }
     fclose_m(out);
   }
-  //--Для возможности многократ.форматирования сохраняем признак пройденности
-  //--узла если он был запорчен
+  //--Р”Р»СЏ РІРѕР·РјРѕР¶РЅРѕСЃС‚Рё РјРЅРѕРіРѕРєСЂР°С‚.С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРёСЏ СЃРѕС…СЂР°РЅСЏРµРј РїСЂРёР·РЅР°Рє РїСЂРѕР№РґРµРЅРЅРѕСЃС‚Рё
+  //--СѓР·Р»Р° РµСЃР»Рё РѕРЅ Р±С‹Р» Р·Р°РїРѕСЂС‡РµРЅ
   for(i=0; i <= Inf->NumT; ++i)
     if(Inf->ColT[i]->NumFrm == 0) Inf->ColT[i]->NumFrm=1;
-  //--Освобождение памяти--
+  //--РћСЃРІРѕР±РѕР¶РґРµРЅРёРµ РїР°РјСЏС‚Рё--
   do0(ns,0,K_Rows) free(Txt[ns]); free(Txt);
   #ifdef SUB_FRM
    DeleteSubAlloc(&SubFrm);
@@ -2561,25 +2561,25 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
    #endif
   #endif
   return 0;
-}*/// !!! Art - устарело
+}*/// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 
-// !!! Art - устарело
+// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 //int FormatKnot(KNOTT *Knot,SRECT *Bnd,char ***Str,int **Ksym)
 //{
 //	int fl;
 //
-//	if(TRUE/*Knot->AllowOCR && Knot->InBegFrm <= NumCol*/)//Узел прошедший OCR
+//	if(TRUE/*Knot->AllowOCR && Knot->InBegFrm <= NumCol*/)//РЈР·РµР» РїСЂРѕС€РµРґС€РёР№ OCR
 //  {
 //		if(fl=FormatStr(Knot->InBegFrm,Bnd,Str,Ksym,Knot->NumFrm))
 //			return fl-10;
 //	}
-//  else //Разбираем формат.строку, если она не равна NULL
+//  else //Р Р°Р·Р±РёСЂР°РµРј С„РѕСЂРјР°С‚.СЃС‚СЂРѕРєСѓ, РµСЃР»Рё РѕРЅР° РЅРµ СЂР°РІРЅР° NULL
 //  { char **str,*s;
 //		int *ks,kstr,len,ksy,Num;
 //
 //    Knot->AllowOCR=0;
 //    if(Knot->Name)
-//    { //--Рассчитываем число строк для горизонт. (kstr) и вертик. (Num) ячеек
+//    { //--Р Р°СЃСЃС‡РёС‚С‹РІР°РµРј С‡РёСЃР»Рѕ СЃС‚СЂРѕРє РґР»СЏ РіРѕСЂРёР·РѕРЅС‚. (kstr) Рё РІРµСЂС‚РёРє. (Num) СЏС‡РµРµРє
 //      s=Knot->Name; kstr=1; Num=0;
 //      while(*s) { if(*s == '\\' && *(++s) == 'n') ++kstr; ++s; ++Num; }
 //      s=Knot->Name; if(*s == '\\' && *(s+1) == 'v') kstr=Num-1;//~
@@ -2591,7 +2591,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
 //       ks=(int*)malloc(kstr*sizeof(int));
 //      #endif
 //      kstr=-1;  len=-32000; ksy=-1;
-//      if(*s == '\\' && *(s+1) == 'v') //Вертикал.надпись
+//      if(*s == '\\' && *(s+1) == 'v') //Р’РµСЂС‚РёРєР°Р».РЅР°РґРїРёСЃСЊ
 //      { s+=2;
 //        while(*s)
 //        { len=MAX(len,1);
@@ -2632,7 +2632,7 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
 //        }
 //      }
 //    }
-//    else //пустая ячейка - заводим односимвол.одностроч.ячейку
+//    else //РїСѓСЃС‚Р°СЏ СЏС‡РµР№РєР° - Р·Р°РІРѕРґРёРј РѕРґРЅРѕСЃРёРјРІРѕР».РѕРґРЅРѕСЃС‚СЂРѕС‡.СЏС‡РµР№РєСѓ
 //    {
 //      #ifdef SUB_FRM
 //       str=(char**)Submalloc(sizeof(PTR),&SubFrm);
@@ -2649,14 +2649,14 @@ int PASC GenFullTxtfromTree(char *FileNameFul,char *FileNameOut,INF_TREE *Inf)
 //    Str[Knot->NumFrm]=str; Ksym[Knot->NumFrm]=ks; return 0;
 //  }
 //  return 0;
-//}// !!! Art - устарело
+//}// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 
-// !!! Art - устарело
+// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 /*int compKNOTT_RectBottom(KNOTT **a,KNOTT **b)
   {return (*a)->Rect.bottom >= (*b)->Rect.bottom ? 1:-1;}
 int compKNOTT_RectRight(KNOTT **a,KNOTT **b)
   {return (*a)->Rect.right >= (*b)->Rect.right ? 1:-1;}
-*/// !!! Art - устарело
+*/// !!! Art - СѓСЃС‚Р°СЂРµР»Рѕ
 #endif
 
 //InitSpell()
@@ -2668,17 +2668,17 @@ int compKNOTT_RectRight(KNOTT **a,KNOTT **b)
 //      SpellDeltaScript(Porog,Fr,Fd,Fi,Fi,Fo);
 //    else
 //      ERROR;
-//    int LmSetFnt("windows.kod");//подкл.Windows-табл.кодировки
-//     //Поиск слова для текущего идентификатора языка
+//    int LmSetFnt("windows.kod");//РїРѕРґРєР».Windows-С‚Р°Р±Р».РєРѕРґРёСЂРѕРІРєРё
+//     //РџРѕРёСЃРє СЃР»РѕРІР° РґР»СЏ С‚РµРєСѓС‰РµРіРѕ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР° СЏР·С‹РєР°
 //     int SpellFindW(char *Word, char *buf, int n);
-//     //Word - слово в виде xxx\0
-//     //buf  - буфер результата.
-//     //n    - максимальное количество подсказок
-//     //вместо b_char ---->
+//     //Word - СЃР»РѕРІРѕ РІ РІРёРґРµ xxx\0
+//     //buf  - Р±СѓС„РµСЂ СЂРµР·СѓР»СЊС‚Р°С‚Р°.
+//     //n    - РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕРґСЃРєР°Р·РѕРє
+//     //РІРјРµСЃС‚Рѕ b_char ---->
 //      unsigned SpellCharC(unsigned L, unsigned Letter);
-//     //Получить характеристику символа Letter относительно языка L.
-//     //Функция возвращает: 0 - символ не входит в алфавит &0x1 - малая буква
-//     //    &0x2 - большая буква
+//     //РџРѕР»СѓС‡РёС‚СЊ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєСѓ СЃРёРјРІРѕР»Р° Letter РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ СЏР·С‹РєР° L.
+//     //Р¤СѓРЅРєС†РёСЏ РІРѕР·РІСЂР°С‰Р°РµС‚: 0 - СЃРёРјРІРѕР» РЅРµ РІС…РѕРґРёС‚ РІ Р°Р»С„Р°РІРёС‚ &0x1 - РјР°Р»Р°СЏ Р±СѓРєРІР°
+//     //    &0x2 - Р±РѕР»СЊС€Р°СЏ Р±СѓРєРІР°
 //    SpellClose();
 //    LmClose();
 //}

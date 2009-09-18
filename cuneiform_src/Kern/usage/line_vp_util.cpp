@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -54,12 +54,12 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/**********  Заголовок  **********/
-/*  Автор      :  Александр Михайлов                                          */
-/*  Редакция   :  12.03.01                                                    */
-/*  Файл       :  'Util_Line_VP.CPP'                                          */
-/*  Содержание :  Утиль работы с линиями формата LNS.                         */
-/*  Назначение :  Формальности ввода/вывода (с унифицированным буфером и без).*/
+/**********  Р—Р°РіРѕР»РѕРІРѕРє  **********/
+/*  РђРІС‚РѕСЂ      :  РђР»РµРєСЃР°РЅРґСЂ РњРёС…Р°Р№Р»РѕРІ                                          */
+/*  Р РµРґР°РєС†РёСЏ   :  12.03.01                                                    */
+/*  Р¤Р°Р№Р»       :  'Util_Line_VP.CPP'                                          */
+/*  РЎРѕРґРµСЂР¶Р°РЅРёРµ :  РЈС‚РёР»СЊ СЂР°Р±РѕС‚С‹ СЃ Р»РёРЅРёСЏРјРё С„РѕСЂРјР°С‚Р° LNS.                         */
+/*  РќР°Р·РЅР°С‡РµРЅРёРµ :  Р¤РѕСЂРјР°Р»СЊРЅРѕСЃС‚Рё РІРІРѕРґР°/РІС‹РІРѕРґР° (СЃ СѓРЅРёС„РёС†РёСЂРѕРІР°РЅРЅС‹Рј Р±СѓС„РµСЂРѕРј Рё Р±РµР·).*/
 /*----------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <math.h>
@@ -91,14 +91,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 Bool LoadLinesVP_rv (Handle hC, int Type, void *vB, char *pStr, Word16 *pCode)
 {
 	Bool ret;
-	Word32 KeyHor, KeyVer; //// а ключи надо бы запомнить!
+	Word32 KeyHor, KeyVer; //// Р° РєР»СЋС‡Рё РЅР°РґРѕ Р±С‹ Р·Р°РїРѕРјРЅРёС‚СЊ!
 	int CntHor, CntVer;
 	UN_BUFF *pB;
 	pB = (UN_BUFF *)vB;
 	switch ((UN_LOADDATA)Type)
 	{
 		case UN_LD_LinesVP :
-			/***  Общая информация о линиях  ***/
+			/***  РћР±С‰Р°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ Р»РёРЅРёСЏС…  ***/
 			ret = LoadLinesTotalInfo_rv (hC, vB, pStr); //f-t-e-d
 			if (ret!=RV_TRUE)
 			{
@@ -118,7 +118,7 @@ Bool LoadLinesVP_rv (Handle hC, int Type, void *vB, char *pStr, Word16 *pCode)
 				CleanLastDataPart (vB);
 				return ret;
 			}
-			/***  Горизонтальные линии  ***/
+			/***  Р“РѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Рµ Р»РёРЅРёРё  ***/
 			if (CntHor>0)
 			{
 				ret = LoadLinesSpecInfo (hC, vB, KeyHor, CntHor);
@@ -129,7 +129,7 @@ Bool LoadLinesVP_rv (Handle hC, int Type, void *vB, char *pStr, Word16 *pCode)
 					return ret;
 				}
 			}
-			/***  Вертикальные линии  ***/
+			/***  Р’РµСЂС‚РёРєР°Р»СЊРЅС‹Рµ Р»РёРЅРёРё  ***/
 			if (CntVer>0)
 			{
 				ret = LoadLinesSpecInfo (hC, vB, KeyVer, CntVer);
@@ -202,12 +202,12 @@ Bool GetSomeKeys_rv (void *vB, Handle *pKeyHor, Handle *pKeyVer
 	SizeNeed = (pLti->Hor.Cnt + pLti->Ver.Cnt) * sizeof (LinesTotalInfo);
 	if (SizeNeed > pB->SizeCurr)
 	{
-		sprintf (pStr, "Не хватило памяти под %d линии!", pLti->Hor.Cnt + pLti->Ver.Cnt);
+		sprintf (pStr, "РќРµ С…РІР°С‚РёР»Рѕ РїР°РјСЏС‚Рё РїРѕРґ %d Р»РёРЅРёРё!", pLti->Hor.Cnt + pLti->Ver.Cnt);
 		return RV_DOUBT;
 	}
 	if (SizeNeed==0)
 	{
-		sprintf (pStr, "Линии выделялись, но ни одной не выделено.");
+		sprintf (pStr, "Р›РёРЅРёРё РІС‹РґРµР»СЏР»РёСЃСЊ, РЅРѕ РЅРё РѕРґРЅРѕР№ РЅРµ РІС‹РґРµР»РµРЅРѕ.");
 		return RV_EMPTY;
 	}
 	*pKeyHor = pLti->Hor.Lns;
@@ -223,26 +223,26 @@ Bool LoadLinesTotalInfo_rv (Handle hC, void *vB, char *pStr)
 	Handle hBlockLine;
 	UN_BUFF *pB;
 	pB = (UN_BUFF *)vB;
-	/*  ключ к данным  */
+	/*  РєР»СЋС‡ Рє РґР°РЅРЅС‹Рј  */
 	hBlockLine = CPAGE_GetBlockFirst (hC, RLINE_BLOCK_TYPE);
 	if (!hBlockLine)
 	{
-		sprintf (pStr, "Линии не выделялись.");
+		sprintf (pStr, "Р›РёРЅРёРё РЅРµ РІС‹РґРµР»СЏР»РёСЃСЊ.");
 		return RV_EMPTY;
 	}
 	err32 = CPAGE_GetReturnCode ();
 	if (err32!=0)
 	{
        #ifdef Almi
-		AM_Console ("RLTABLE : Ошибка чужой библиотеки - [CPAGE]%s", "[GetBlockFirst]");
+		AM_Console ("RLTABLE : РћС€РёР±РєР° С‡СѓР¶РѕР№ Р±РёР±Р»РёРѕС‚РµРєРё - [CPAGE]%s", "[GetBlockFirst]");
        #endif
 		return RV_FALSE;
 	}
-	/*  собственно данные  */
+	/*  СЃРѕР±СЃС‚РІРµРЅРЅРѕ РґР°РЅРЅС‹Рµ  */
 	nTeor = sizeof (LinesTotalInfo);
 	if ((int)nTeor>pB->SizeCurr)
 	{
-		sprintf (pStr, "Не хватило памяти под 1, инфо-линии!");
+		sprintf (pStr, "РќРµ С…РІР°С‚РёР»Рѕ РїР°РјСЏС‚Рё РїРѕРґ 1, РёРЅС„Рѕ-Р»РёРЅРёРё!");
 		return RV_DOUBT;
 	}
 	nReal = CPAGE_GetBlockData (hC, hBlockLine, RLINE_BLOCK_TYPE, pB->vCurr, nTeor);
@@ -250,7 +250,7 @@ Bool LoadLinesTotalInfo_rv (Handle hC, void *vB, char *pStr)
 	if ((nReal!=nTeor)||(err32!=0))
 	{
       #ifdef Almi
-		AM_Console ("RLTABLE : Ошибка чужой библиотеки - [CPAGE]%s", "[GetBlockData]");
+		AM_Console ("RLTABLE : РћС€РёР±РєР° С‡СѓР¶РѕР№ Р±РёР±Р»РёРѕС‚РµРєРё - [CPAGE]%s", "[GetBlockData]");
       #endif
 		return RV_FALSE;
 	}
@@ -270,7 +270,7 @@ Bool LoadLinesInfo_rv (CLINE_handle hC, void *vB, char *pStr,Bool Hori)
 	Cnt=CLINE_GetLineCount(hC);
 	if(Cnt*((int)nTeor)>pB->SizeCurr)
 	{
-		sprintf (pStr, "Не хватило памяти под 1, инфо-линии!");
+		sprintf (pStr, "РќРµ С…РІР°С‚РёР»Рѕ РїР°РјСЏС‚Рё РїРѕРґ 1, РёРЅС„Рѕ-Р»РёРЅРёРё!");
 		return RV_DOUBT;
 	}
 	Cnt=0;
@@ -281,7 +281,7 @@ Bool LoadLinesInfo_rv (CLINE_handle hC, void *vB, char *pStr,Bool Hori)
 		if(!cpdata)
 		{
          #ifdef Almi
-			AM_Console ("RLTABLE : Ошибка чужой библиотеки - [CLINE]%s", "[GetLineData]");
+			AM_Console ("RLTABLE : РћС€РёР±РєР° С‡СѓР¶РѕР№ Р±РёР±Р»РёРѕС‚РµРєРё - [CLINE]%s", "[GetLineData]");
          #endif
 			return FALSE;
 		}
@@ -309,7 +309,7 @@ Bool LoadLinesSpecInfo (Handle hC, void *vB, Handle Key, int Cnt)
 	nTeor = sizeof (LineInfo);
 	for (i=0; i<Cnt; i++)
 	{
-		/*  ключ к данным  */
+		/*  РєР»СЋС‡ Рє РґР°РЅРЅС‹Рј  */
 		if (i==0)
 			hBlockLineSpec = CPAGE_GetBlockFirst (hC, Key);
 		else
@@ -319,19 +319,19 @@ Bool LoadLinesSpecInfo (Handle hC, void *vB, Handle Key, int Cnt)
 		{
          #ifdef Almi
 			if (i==0)
-				AM_Console ("RLTABLE : Ошибка чужой библиотеки - [CPAGE]%s", "[GetBlockFirst]");
+				AM_Console ("RLTABLE : РћС€РёР±РєР° С‡СѓР¶РѕР№ Р±РёР±Р»РёРѕС‚РµРєРё - [CPAGE]%s", "[GetBlockFirst]");
 			else
-				AM_Console ("RLTABLE : Ошибка чужой библиотеки - [CPAGE]%s", "[GetBlockNext]");
+				AM_Console ("RLTABLE : РћС€РёР±РєР° С‡СѓР¶РѕР№ Р±РёР±Р»РёРѕС‚РµРєРё - [CPAGE]%s", "[GetBlockNext]");
          #endif
 			return FALSE;
 		}
-		/*  собственно данные  */
+		/*  СЃРѕР±СЃС‚РІРµРЅРЅРѕ РґР°РЅРЅС‹Рµ  */
 		nReal = CPAGE_GetBlockData (hC, hBlockLineSpec, Key, (void *)vCurr, nTeor);
 		err32 = CPAGE_GetReturnCode ();
 		if ((nReal!=nTeor)||(err32!=0))
 		{
          #ifdef Almi
-			AM_Console ("RLTABLE : Ошибка чужой библиотеки - [CPAGE]%s", "[GetBlockData]");
+			AM_Console ("RLTABLE : РћС€РёР±РєР° С‡СѓР¶РѕР№ Р±РёР±Р»РёРѕС‚РµРєРё - [CPAGE]%s", "[GetBlockData]");
          #endif
 			return FALSE;
 		}
@@ -355,7 +355,7 @@ Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType
 	void *Hor, *Ver;
 	LinesTotalInfo *pLti;
 	pLti = (LinesTotalInfo *)vLti;
-	/***  Общая информация о линиях  ***/
+	/***  РћР±С‰Р°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ Р»РёРЅРёСЏС…  ***/
 	Hor = pLti->Hor.Lns;
 	Ver = pLti->Ver.Lns;
 	pLti->Hor.Lns = (LineInfo *)HoriType;
@@ -364,7 +364,7 @@ Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType
 	err32 = CPAGE_GetReturnCode ();
 	if (err32!=0)
 	{
-		sprintf (pStr, "RLTABLE : Ошибка чужой библиотеки - [CPAGE][GetBlockFirst]");
+		sprintf (pStr, "RLTABLE : РћС€РёР±РєР° С‡СѓР¶РѕР№ Р±РёР±Р»РёРѕС‚РµРєРё - [CPAGE][GetBlockFirst]");
 		return FALSE;
 	}
 	nTeor = sizeof (LinesTotalInfo);
@@ -373,12 +373,12 @@ Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType
 //	if ((nReal!=nTeor)||(err32!=0))
 	if (!nReal||(err32!=0))
 	{
-		sprintf (pStr, "RLTABLE : Ошибка чужой библиотеки - [CPAGE][SetBlockData]");
+		sprintf (pStr, "RLTABLE : РћС€РёР±РєР° С‡СѓР¶РѕР№ Р±РёР±Р»РёРѕС‚РµРєРё - [CPAGE][SetBlockData]");
 		return FALSE;
 	}
 	pLti->Hor.Lns = (LineInfo *)Hor;
 	pLti->Ver.Lns = (LineInfo *)Ver;
-	/***  Горизонтальные линии  ***/
+	/***  Р“РѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Рµ Р»РёРЅРёРё  ***/
 	for (i=0; i<pLti->Hor.Cnt; i++)
 	{
 		if (i==0)
@@ -389,9 +389,9 @@ Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType
 		if (err32!=0)
 		{
 			if (i==0)
-				sprintf (pStr, "RLTABLE : Ошибка чужой библиотеки - [CPAGE][GetBlockFirst]");
+				sprintf (pStr, "RLTABLE : РћС€РёР±РєР° С‡СѓР¶РѕР№ Р±РёР±Р»РёРѕС‚РµРєРё - [CPAGE][GetBlockFirst]");
 			else
-				sprintf (pStr, "RLTABLE : Ошибка чужой библиотеки - [CPAGE][GetBlockNext]");
+				sprintf (pStr, "RLTABLE : РћС€РёР±РєР° С‡СѓР¶РѕР№ Р±РёР±Р»РёРѕС‚РµРєРё - [CPAGE][GetBlockNext]");
 			return FALSE;
 		}
 		nTeor = sizeof (LineInfo);
@@ -400,12 +400,12 @@ Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType
 //		if ((nReal!=nTeor)||(err32!=0))
 		if (!nReal||(err32!=0))
 		{
-			sprintf (pStr, "RLTABLE : Ошибка чужой библиотеки - [CPAGE][SetBlockData]");
+			sprintf (pStr, "RLTABLE : РћС€РёР±РєР° С‡СѓР¶РѕР№ Р±РёР±Р»РёРѕС‚РµРєРё - [CPAGE][SetBlockData]");
 			return FALSE;
 		}
 		hBlockLinePrev = hBlockLineHor;
 	}
-	/***  Вертикальные линии  ***/
+	/***  Р’РµСЂС‚РёРєР°Р»СЊРЅС‹Рµ Р»РёРЅРёРё  ***/
 	for (i=0; i<pLti->Ver.Cnt; i++)
 	{
 		if (i==0)
@@ -416,9 +416,9 @@ Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType
 		if (err32!=0)
 		{
 			if (i==0)
-				sprintf (pStr, "RLTABLE : Ошибка чужой библиотеки - [CPAGE][GetBlockFirst]");
+				sprintf (pStr, "RLTABLE : РћС€РёР±РєР° С‡СѓР¶РѕР№ Р±РёР±Р»РёРѕС‚РµРєРё - [CPAGE][GetBlockFirst]");
 			else
-				sprintf (pStr, "RLTABLE : Ошибка чужой библиотеки - [CPAGE][GetBlockNext]");
+				sprintf (pStr, "RLTABLE : РћС€РёР±РєР° С‡СѓР¶РѕР№ Р±РёР±Р»РёРѕС‚РµРєРё - [CPAGE][GetBlockNext]");
 			return FALSE;
 		}
 		nTeor = sizeof (LineInfo);
@@ -427,7 +427,7 @@ Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType
 //		if ((nReal!=nTeor)||(err32!=0))
 		if (!nReal||(err32!=0))
 		{
-			sprintf (pStr, "RLTABLE : Ошибка чужой библиотеки - [CPAGE][SetBlockData]");
+			sprintf (pStr, "RLTABLE : РћС€РёР±РєР° С‡СѓР¶РѕР№ Р±РёР±Р»РёРѕС‚РµРєРё - [CPAGE][SetBlockData]");
 			return FALSE;
 		}
 		hBlockLinePrev = hBlockLineVer;
@@ -452,7 +452,7 @@ Bool MyReSetLines(void* vLines,int count,CLINE_handle hCLINE,char *pStr)
 	 cpdata=CLINE_GetLineData(hline);
 	 if(!cpdata)
 	 {
-			sprintf (pStr, "RLTABLE : Ошибка чужой библиотеки - [CLINE][SetLineData]");
+			sprintf (pStr, "RLTABLE : РћС€РёР±РєР° С‡СѓР¶РѕР№ Р±РёР±Р»РёРѕС‚РµРєРё - [CLINE][SetLineData]");
 			return FALSE;
 	 }
 	 Beg_X=cpdata->Line.Beg_X;
@@ -465,7 +465,7 @@ Bool MyReSetLines(void* vLines,int count,CLINE_handle hCLINE,char *pStr)
 	  {
 		if(!CLINE_SetLineData(hline,p))
 		{
-			sprintf (pStr, "RLTABLE : Ошибка чужой библиотеки - [CLINE][SetLineData]");
+			sprintf (pStr, "RLTABLE : РћС€РёР±РєР° С‡СѓР¶РѕР№ Р±РёР±Р»РёРѕС‚РµРєРё - [CLINE][SetLineData]");
 			return FALSE;
 		}
 		count--;
@@ -542,7 +542,7 @@ Bool IsWarnAtLine (void *vLns, Bool Hori)
 		{
 		   #ifdef Almi
 			if (!AM_Skip (FT_GetKeyOfRule (RU_FT_C_ContErr)))
-				AM_Console ("Rlt-Error-Ignore : Переданная линия не является горизонтальной! Она игнорируется.");
+				AM_Console ("Rlt-Error-Ignore : РџРµСЂРµРґР°РЅРЅР°СЏ Р»РёРЅРёСЏ РЅРµ СЏРІР»СЏРµС‚СЃСЏ РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕР№! РћРЅР° РёРіРЅРѕСЂРёСЂСѓРµС‚СЃСЏ.");
            #endif
 			return TRUE;
 		}
@@ -550,7 +550,7 @@ Bool IsWarnAtLine (void *vLns, Bool Hori)
 		{
 		   #ifdef Almi
 			if (!AM_Skip (FT_GetKeyOfRule (RU_FT_C_ContWarn)))
-				AM_Console ("Rlt-Warning-Continue : Плохо описана горизонтальная линия!");
+				AM_Console ("Rlt-Warning-Continue : РџР»РѕС…Рѕ РѕРїРёСЃР°РЅР° РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅР°СЏ Р»РёРЅРёСЏ!");
            #endif
 			return TRUE;
 		}
@@ -561,7 +561,7 @@ Bool IsWarnAtLine (void *vLns, Bool Hori)
 		{
           #ifdef Almi
 			if (!AM_Skip (FT_GetKeyOfRule (RU_FT_C_ContErr)))
-				AM_Console ("Rlt-Error-Ignore : Переданная линия не является вертикальной! Она игнорируется.");
+				AM_Console ("Rlt-Error-Ignore : РџРµСЂРµРґР°РЅРЅР°СЏ Р»РёРЅРёСЏ РЅРµ СЏРІР»СЏРµС‚СЃСЏ РІРµСЂС‚РёРєР°Р»СЊРЅРѕР№! РћРЅР° РёРіРЅРѕСЂРёСЂСѓРµС‚СЃСЏ.");
           #endif
 			return TRUE;
 		}
@@ -569,7 +569,7 @@ Bool IsWarnAtLine (void *vLns, Bool Hori)
 		{
           #ifdef Almi
 			if (!AM_Skip (FT_GetKeyOfRule (RU_FT_C_ContWarn)))
-				AM_Console ("Rlt-Warning-Continue : Плохо описана вертикальная линия!");
+				AM_Console ("Rlt-Warning-Continue : РџР»РѕС…Рѕ РѕРїРёСЃР°РЅР° РІРµСЂС‚РёРєР°Р»СЊРЅР°СЏ Р»РёРЅРёСЏ!");
           #endif
 			return TRUE;
 		}
@@ -586,7 +586,7 @@ Bool IsWarnAtLine (void *vLine,Bool Hori,Bool zero)
 		{
           #ifdef Almi
 			if (!AM_Skip (FT_GetKeyOfRule (RU_FT_C_ContErr)))
-				AM_Console ("Rlt-Error-Ignore : Переданная линия не является горизонтальной! Она игнорируется.");
+				AM_Console ("Rlt-Error-Ignore : РџРµСЂРµРґР°РЅРЅР°СЏ Р»РёРЅРёСЏ РЅРµ СЏРІР»СЏРµС‚СЃСЏ РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕР№! РћРЅР° РёРіРЅРѕСЂРёСЂСѓРµС‚СЃСЏ.");
           #endif
 			return TRUE;
 		}
@@ -594,7 +594,7 @@ Bool IsWarnAtLine (void *vLine,Bool Hori,Bool zero)
 		{
           #ifdef Almi
 			if (!AM_Skip (FT_GetKeyOfRule (RU_FT_C_ContWarn)))
-				AM_Console ("Rlt-Warning-Continue : Плохо описана горизонтальная линия!");
+				AM_Console ("Rlt-Warning-Continue : РџР»РѕС…Рѕ РѕРїРёСЃР°РЅР° РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅР°СЏ Р»РёРЅРёСЏ!");
           #endif
 			return TRUE;
 		}
@@ -605,7 +605,7 @@ Bool IsWarnAtLine (void *vLine,Bool Hori,Bool zero)
 		{
           #ifdef Almi
 			if (!AM_Skip (FT_GetKeyOfRule (RU_FT_C_ContErr)))
-				AM_Console ("Rlt-Error-Ignore : Переданная линия не является вертикальной! Она игнорируется.");
+				AM_Console ("Rlt-Error-Ignore : РџРµСЂРµРґР°РЅРЅР°СЏ Р»РёРЅРёСЏ РЅРµ СЏРІР»СЏРµС‚СЃСЏ РІРµСЂС‚РёРєР°Р»СЊРЅРѕР№! РћРЅР° РёРіРЅРѕСЂРёСЂСѓРµС‚СЃСЏ.");
           #endif
 			return TRUE;
 		}
@@ -613,7 +613,7 @@ Bool IsWarnAtLine (void *vLine,Bool Hori,Bool zero)
 		{
           #ifdef Almi
 			if (!AM_Skip (FT_GetKeyOfRule (RU_FT_C_ContWarn)))
-				AM_Console ("Rlt-Warning-Continue : Плохо описана вертикальная линия!");
+				AM_Console ("Rlt-Warning-Continue : РџР»РѕС…Рѕ РѕРїРёСЃР°РЅР° РІРµСЂС‚РёРєР°Р»СЊРЅР°СЏ Р»РёРЅРёСЏ!");
           #endif
 			return TRUE;
 		}
@@ -663,7 +663,7 @@ void MarkTableLines (void *vLti, int *pForw, int MyMaxL)
 			Lent  = (pLns->A.x - pLns->B.x) * (pLns->A.x - pLns->B.x);
 			Lent += (pLns->A.y - pLns->B.y) * (pLns->A.y - pLns->B.y);
 			Lent  = (int) sqrt ((double)Lent);
-			/*  Короткие табличные вертикальные - настоящие!  */
+			/*  РљРѕСЂРѕС‚РєРёРµ С‚Р°Р±Р»РёС‡РЅС‹Рµ РІРµСЂС‚РёРєР°Р»СЊРЅС‹Рµ - РЅР°СЃС‚РѕСЏС‰РёРµ!  */
 			if (Lent<70)
 			{
 				pLns->Flags &= AntiFalse;
@@ -722,7 +722,7 @@ void MarkTableLines (void *vHorLines,int hor_count,void *vVerLines,int ver_count
 			Lent  = (pline->Line.Beg_X - pline->Line.End_X) * (pline->Line.Beg_X - pline->Line.End_X);
 			Lent += (pline->Line.Beg_Y - pline->Line.End_Y) * (pline->Line.Beg_Y - pline->Line.End_Y);
 			Lent  = (int) sqrt ((double)Lent);
-			/*  Короткие табличные вертикальные - настоящие!  */
+			/*  РљРѕСЂРѕС‚РєРёРµ С‚Р°Р±Р»РёС‡РЅС‹Рµ РІРµСЂС‚РёРєР°Р»СЊРЅС‹Рµ - РЅР°СЃС‚РѕСЏС‰РёРµ!  */
 			if (Lent<70)
 			{
 				pline->Flags &= AntiFalse;

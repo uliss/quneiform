@@ -224,7 +224,7 @@ BOOL CSampleDlg::CanExit()
 	return TRUE;
 }
 
-// CT: œŒƒ Àﬁ◊≈Õ»≈ ﬂƒ–¿ » Œ–√¿Õ»«¿÷»ﬂ œ–Œ÷≈——¿ –¿—œŒ«Õ¿¬¿Õ»ﬂ
+// CT: –æ–Ω–¥–π–∫—á–≤–µ–º—Ö–µ —ä–¥–ø—é —Ö –Ω–ø—Ü—é–º—Ö–≥—é–∂—Ö—ä –æ–ø–Ω–∂–µ—è—è—é –ø—é—è–æ–Ω–≥–º—é–±—é–º—Ö—ä
 #include"tiger.h"
 #include "events.h"
 const IID DIID__IRecognitionEvents = {0x229C1071,0x829F,0x11D2,{0xBA,0x6E,0x00,0x00,0xE8,0xD9,0xFD,0xF6}};
@@ -237,7 +237,7 @@ void CSampleDlg::OnButton1()
 
     if(Puma.CreateDispatch("Cognitive.Puma"))
     {
-        // CT: ƒÂÎ‡ÂÏ ÌÂÓ·ıÓ‰ËÏ˚Â ‰ÂÈÒÚ‚Ëˇ ‰Îˇ ÔÓÎÛ˜ÂÌËˇ ÒÓ·˚ÚËÈ.
+        // CT: –¥–ï–ö–Æ–ï–õ –ú–ï–ù–ê–£–ù–î–•–õ–®–ï –î–ï–ò–Ø–†–ë–•–™ –î–ö–™ –û–ù–ö–°–í–ï–ú–•–™ –Ø–ù–ê–®–†–•–ò.
         LPDISPATCH lpDispatch = Puma.m_lpDispatch;
         IConnectionPointContainer * lpContainer = NULL;
         Events events(this);
@@ -248,15 +248,15 @@ void CSampleDlg::OnButton1()
             lpContainer->Release();
             if(lpContainer->FindConnectionPoint(DIID__IRecognitionEvents,&lpPoint)==S_OK)
             {
-                DWORD wdCookie;
+uint32_t wdCookie;
                 lpPoint->Advise(dynamic_cast<IUnknown *>(events.GetIDispatch(FALSE)),&wdCookie);
                 lpPoint->Release();
             }
         }
         Puma.Load();
-        Puma.SetLanguage(7);        // CT: –”—— Œ-¿Õ√À»…— »… ﬂ«€ 
-        Puma.SetSpeller(m_spell);   // CT: ¬ À/¬€ À —ÀŒ¬¿–ÕŒ√Œ ƒŒ–¿—œŒ«Õ¿¬¿Õ»ﬂ
-        Puma.RecogClipboard();      // CT: –¿—œŒ«Õ¿“‹ Œ¡–¿« »« Clipboard
+        Puma.SetLanguage(7);        // CT: –ø—Å—è—è–π–Ω-—é–º—Ü–∫—Ö–∏—è–π—Ö–∏ —ä–≥—à–π
+        Puma.SetSpeller(m_spell);   // CT: –±–π–∫/–±—à–π–∫ —è–∫–Ω–±—é–ø–º–Ω—Ü–Ω –¥–Ω–ø—é—è–æ–Ω–≥–º—é–±—é–º—Ö—ä
+        Puma.RecogClipboard();      // CT: –ø—é—è–æ–Ω–≥–º—é—Ä—ç –Ω–∞–ø—é–≥ —Ö–≥ Clipboard
         Puma.Unload();
     }
 }

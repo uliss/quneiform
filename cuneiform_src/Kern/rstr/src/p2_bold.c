@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -101,10 +101,10 @@ static Word8 SetBoldByTable(int nThick, int midThick,
  static int nFile=0;
 #endif
 ///////////////////////
-#define MIN_STAT_PAGE 5  // минимальная длина слова для
-                         // оценки статистики страницы
-#define POROG_INTERLINE 4  // если разница жирностей строк
-                           // меньше порога, установить одинаково
+#define MIN_STAT_PAGE 5  // РјРёРЅРёРјР°Р»СЊРЅР°СЏ РґР»РёРЅР° СЃР»РѕРІР° РґР»СЏ
+                         // РѕС†РµРЅРєРё СЃС‚Р°С‚РёСЃС‚РёРєРё СЃС‚СЂР°РЅРёС†С‹
+#define POROG_INTERLINE 4  // РµСЃР»Рё СЂР°Р·РЅРёС†Р° Р¶РёСЂРЅРѕСЃС‚РµР№ СЃС‚СЂРѕРє
+                           // РјРµРЅСЊС€Рµ РїРѕСЂРѕРіР°, СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РѕРґРёРЅР°РєРѕРІРѕ
 #define POROG_ONECOL  7
 #define POROG_ONECELL 9
 
@@ -152,7 +152,7 @@ static char snapText[MAXSNAP];
 #define MAXGISTHICK 50
 static int GistThickness[MAXGISTHICK];
 
-// данные по колонкам, строчкам таблиц
+// РґР°РЅРЅС‹Рµ РїРѕ РєРѕР»РѕРЅРєР°Рј, СЃС‚СЂРѕС‡РєР°Рј С‚Р°Р±Р»РёС†
 #define MAXTAB 8
 #define MAXCOL 16
 #define MAXROW 64
@@ -175,8 +175,8 @@ static Int32 LetDigSymbol(int i) // letter or digit
                 return 2;
         if( language == LANG_RUSSIAN || language == LANG_ENGLISH)
         {
-                if(             i >= 128 && i < 176  ||    // ascii A-п
-                        i >= 224 //&& i < 240      //       р-я  & Italic!
+                if(             i >= 128 && i < 176  ||    // ascii A-Рї
+                        i >= 224 //&& i < 240      //       СЂ-СЏ  & Italic!
           )
           return 2;
         }
@@ -205,11 +205,11 @@ static int BigSymbol(int i)
                 if( i >= 128 && i < 160 )
                         return 2;
 
-        // бйруфд (д-курсив!)
+        // Р±Р№СЂСѓС„Рґ (Рґ-РєСѓСЂСЃРёРІ!)
           if( i==0xa1 || i == 0xa9 || i==0xe0 || i==0xe3 || i==0xf0 )
              return 2;
 
-                // дцщ
+                // РґС†С‰
          if( i == 0xa4 || i == 0xe6 || i == 0xe9)
                  return 1;
         }
@@ -232,7 +232,7 @@ static void FillFromLine(CCOM_lnhead *linerep,int size,int *thickBuf,int add)
 
  for(line=linerep,len=0; len<size && line->lth; len+=line->lth,line=(CCOM_lnhead *)((intptr_t)line+line->lth))
   {
-         // начало линии (line->row) - нам не важно
+         // РЅР°С‡Р°Р»Рѕ Р»РёРЅРёРё (line->row) - РЅР°Рј РЅРµ РІР°Р¶РЅРѕ
    for(inter = (CCOM_interval*)(line+1), i=0; i<line->h; i++, inter++)
    {
       if(inter->l < 0)
@@ -344,7 +344,7 @@ static int GetTipicalThick(int nLet,WORDThick *LineThick,int *thickBuf,int bestH
   if( bestWidth <= 0 )
           return 0;
 
-  // поищем лучшего среди толстых
+  // РїРѕРёС‰РµРј Р»СѓС‡С€РµРіРѕ СЃСЂРµРґРё С‚РѕР»СЃС‚С‹С…
   maxThick=MIN(maxThick, bestHeight>>1);
   maxSumma=MAX(thickBuf[bestWidth-1],thickBuf[bestWidth+1]);
   maxSumma+=thickBuf[bestWidth];
@@ -365,7 +365,7 @@ static int GetTipicalThick(int nLet,WORDThick *LineThick,int *thickBuf,int bestH
   if(k>0)
           bestWidth=k;
 
-  // отличается сильно от стандарта - тест
+  // РѕС‚Р»РёС‡Р°РµС‚СЃСЏ СЃРёР»СЊРЅРѕ РѕС‚ СЃС‚Р°РЅРґР°СЂС‚Р° - С‚РµСЃС‚
   if( commonThick && commonThick->strih>0 &&
       abs(bestWidth - commonThick->strih) > 1
      )
@@ -854,7 +854,7 @@ static int SetTestBold(int nWord,WORDThick *wthick,int maxWord,WORDThick *prevLi
         }
 
 
-        // первый особый символ в строке
+        // РїРµСЂРІС‹Р№ РѕСЃРѕР±С‹Р№ СЃРёРјРІРѕР» РІ СЃС‚СЂРѕРєРµ
         if( wthick[0].nLet == 1 &&
             wthick[0].thick > wthick[1].thick + 5 &&
             wthick[0].height*2 > wthick[1].height*3 )
@@ -921,7 +921,7 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
 
 
 #ifndef _OLD_TABL_VERSION_
-		 // если таблица -
+		 // РµСЃР»Рё С‚Р°Р±Р»РёС†Р° -
 		 if( nCol > 0   && nCol <= MAXCOL &&
 			 nRow > 0   && nRow <= MAXROW &&
 			 nTabl >= 0 && nTabl < MAXTAB
@@ -949,21 +949,21 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
               snap_show_text(tmp);
 			 }
 
-			 // определено по всей строке ?
+			 // РѕРїСЂРµРґРµР»РµРЅРѕ РїРѕ РІСЃРµР№ СЃС‚СЂРѕРєРµ ?
 			 if( nRowThick == 0 && rowBold )
 			 {
                   SetAllBoldness(nWord,wthick,rowBold);
                   return rowBold;
 			 }
 
-			 // одинаково по колонке ?
+			 // РѕРґРёРЅР°РєРѕРІРѕ РїРѕ РєРѕР»РѕРЅРєРµ ?
 			 if( nThick == 0 && colBold )
 			 {
                   SetAllBoldness(nWord,wthick,colBold);
                   return colBold;
 			 }
 
-			 // одинаково по строке ?
+			 // РѕРґРёРЅР°РєРѕРІРѕ РїРѕ СЃС‚СЂРѕРєРµ ?
 			 if( minVal + POROG_ONECOL > maxVal  )
 			 {
               if( BoundLIGHT && line->thick < BoundLIGHT)
@@ -979,11 +979,11 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
 			 }
 
 
-			 // оценим по колонке
+			 // РѕС†РµРЅРёРј РїРѕ РєРѕР»РѕРЅРєРµ
 			 colBold = SetBoldByTable( nThick,
 				 thickCol[nTabl][nCol-1].thick, colBold,
 				 line->thick, minVal, maxVal);
-			 // по строке
+			 // РїРѕ СЃС‚СЂРѕРєРµ
 			 rowBold = SetBoldByTable( nRowThick,
 				 thickCol[nTabl][nRow-1].thick, rowBold,
 				 line->thick, minVal, maxVal);
@@ -995,16 +995,16 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
               snap_show_text(tmp);
 			 }
 
-			 // совпадает ?
+			 // СЃРѕРІРїР°РґР°РµС‚ ?
 			 if( colBold && colBold == rowBold )
 			 {
 				 SetAllBoldness(nWord,wthick,colBold);
                  return colBold;
 			 }
 
-			 // не сильно разнятся в ячейке?
+			 // РЅРµ СЃРёР»СЊРЅРѕ СЂР°Р·РЅСЏС‚СЃСЏ РІ СЏС‡РµР№РєРµ?
 			 if( minVal + POROG_ONECELL  > maxVal &&
-				 // есть общность по колонке или строке
+				 // РµСЃС‚СЊ РѕР±С‰РЅРѕСЃС‚СЊ РїРѕ РєРѕР»РѕРЅРєРµ РёР»Рё СЃС‚СЂРѕРєРµ
 			    (colBold || rowBold )
 			   )
 			 {
@@ -1027,7 +1027,7 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
                   return rowBold;
 			  }
 
-			 // есть предыдущие - кто ближе ?
+			 // РµСЃС‚СЊ РїСЂРµРґС‹РґСѓС‰РёРµ - РєС‚Рѕ Р±Р»РёР¶Рµ ?
 			  if ( abs(line->thick-nThick) > abs(line->thick-nRowThick) )
 					 colBold = rowBold;
 
@@ -1036,7 +1036,7 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
 			 }
 
 			 if( minVal + POROG_ONECOL  >= maxVal )
-			 // есть общность по ячейке
+			 // РµСЃС‚СЊ РѕР±С‰РЅРѕСЃС‚СЊ РїРѕ СЏС‡РµР№РєРµ
 			 {
                 colBold = thickCol[nTabl][nCol-1].bold;
 
@@ -1047,7 +1047,7 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
 				}
 			 }
 
-           // если не вышло по таблице - теперь к общей процедуре
+           // РµСЃР»Рё РЅРµ РІС‹С€Р»Рѕ РїРѕ С‚Р°Р±Р»РёС†Рµ - С‚РµРїРµСЂСЊ Рє РѕР±С‰РµР№ РїСЂРѕС†РµРґСѓСЂРµ
 		 }
 #endif
 
@@ -1062,8 +1062,8 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
                   return P2_BOLD;
                  }
 
-        // если оценки близки, нет явных болдов или тощих -
-        // особая проверка
+        // РµСЃР»Рё РѕС†РµРЅРєРё Р±Р»РёР·РєРё, РЅРµС‚ СЏРІРЅС‹С… Р±РѕР»РґРѕРІ РёР»Рё С‚РѕС‰РёС… -
+        // РѕСЃРѕР±Р°СЏ РїСЂРѕРІРµСЂРєР°
 
         if( minVal + POROG_ONELINE > maxVal  )
         {
@@ -1081,8 +1081,8 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
                  }
 
 #ifdef _OLD_TABL_VERSION_
-		 // если таблица -
-		 // сравним с предыдущей строкой в столбце
+		 // РµСЃР»Рё С‚Р°Р±Р»РёС†Р° -
+		 // СЃСЂР°РІРЅРёРј СЃ РїСЂРµРґС‹РґСѓС‰РµР№ СЃС‚СЂРѕРєРѕР№ РІ СЃС‚РѕР»Р±С†Рµ
 		 if( nCol > 0   && nCol <= MAXCOL &&
 			 nTabl >= 0 && nTabl < MAXTAB
 			)
@@ -1204,9 +1204,9 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
                         }
          }
 
-                // не вышло по строке целиком - смотрим по словам
+                // РЅРµ РІС‹С€Р»Рѕ РїРѕ СЃС‚СЂРѕРєРµ С†РµР»РёРєРѕРј - СЃРјРѕС‚СЂРёРј РїРѕ СЃР»РѕРІР°Рј
          if(pageLight==0 && pageBold==MAXTHICK)
-                          // всем - light
+                          // РІСЃРµРј - light
          {
                  SetAllBoldness(nWord,wthick,P2_LIGHT);
                  return P2_LIGHT;
@@ -1270,8 +1270,8 @@ static void PointsBoldness(CSTR_rast first,int nWord,WORDThick *wthick)
 }
 ///////////////////
 static const char   bold_word_limits[]="-.,:;'"; // OLEG
-// 0xba - обозначение для i с приклееной точкой
-static const char Palki[]="![]()1Ifilt"; // liga_i макра // 08.09.2000 E.P.
+// 0xba - РѕР±РѕР·РЅР°С‡РµРЅРёРµ РґР»СЏ i СЃ РїСЂРёРєР»РµРµРЅРѕР№ С‚РѕС‡РєРѕР№
+static const char Palki[]="![]()1Ifilt"; // liga_i РјР°РєСЂР° // 08.09.2000 E.P.
 static WORDThick  prevLineThick;
 //////////////////
 void p2_BoldInit(int p2)
@@ -1298,7 +1298,7 @@ void p2_BoldInit(int p2)
 				TestAccordRowsColumns();
 		}
 
-        // производные величины
+        // РїСЂРѕРёР·РІРѕРґРЅС‹Рµ РІРµР»РёС‡РёРЅС‹
         acceptLineLight=0;
         acceptLineBold =MAXTHICK;
 
@@ -1329,7 +1329,7 @@ int p2_SetBoldLine(CSTR_line line)
  WORDThick LineThick,*prevWord;
  int       nLet,nWord,i;
  int       bestHeight, addBestHeight = 0;
- Bool32    veryThin; // для сильно сжатого шрифта
+ Bool32    veryThin; // РґР»СЏ СЃРёР»СЊРЅРѕ СЃР¶Р°С‚РѕРіРѕ С€СЂРёС„С‚Р°
  int       nThin;
  int       corRet;
  int       nLitLet;
@@ -1337,7 +1337,7 @@ int p2_SetBoldLine(CSTR_line line)
 
  CSTR_GetLineAttr ( line, &lineAttr);
 
- // статистика по строке
+ // СЃС‚Р°С‚РёСЃС‚РёРєР° РїРѕ СЃС‚СЂРѕРєРµ
  memset(&LineThick,0,sizeof(WORDThick));
  memset(thickBuffer,0,sizeof(thickBuffer));
  memset(heiLitBuffer,0,sizeof(heiLitBuffer));
@@ -1437,7 +1437,7 @@ int p2_SetBoldLine(CSTR_line line)
    if( rv.lnAltCnt && strchr(bold_word_limits,rv.Alt[0].Code) )
            continue;
 
-   // last -  конец
+   // last -  РєРѕРЅРµС†
    for(last=CSTR_GetNext(first);last; last=CSTR_GetNext(last))
    {
          if( !CSTR_GetAttr(last,&attr) )
@@ -1513,7 +1513,7 @@ int p2_SetBoldLine(CSTR_line line)
 
  corRet=CorrectBoldness(nWord,WordThick,&LineThick,&prevLineThick,
 	 lineAttr.tab_number-1,lineAttr.tab_column,lineAttr.tab_row);
- // метки для точек и т.п.
+ // РјРµС‚РєРё РґР»СЏ С‚РѕС‡РµРє Рё С‚.Рї.
  PointsBoldness(CSTR_GetNext(CSTR_GetFirstRaster(line)),nWord,WordThick);
 
  if(snap_activity('j'))
@@ -1551,7 +1551,7 @@ int p2_SetBoldLine(CSTR_line line)
    prevLineThick=LineThick;
  }
 
- // запомним статистику по столбцу колонки
+ // Р·Р°РїРѕРјРЅРёРј СЃС‚Р°С‚РёСЃС‚РёРєСѓ РїРѕ СЃС‚РѕР»Р±С†Сѓ РєРѕР»РѕРЅРєРё
  if( lineAttr.tab_column > 0 &&
 	 lineAttr.tab_column <= MAXCOL &&
 	 lineAttr.tab_number > 0  &&
@@ -1570,7 +1570,7 @@ int p2_SetBoldLine(CSTR_line line)
        thickCol[nTab][nCol].bold=    corRet;
 	  }
 
-	  // запомним последнее по строке
+	  // Р·Р°РїРѕРјРЅРёРј РїРѕСЃР»РµРґРЅРµРµ РїРѕ СЃС‚СЂРѕРєРµ
 	  if( nRow >=0 && nRow < MAXROW &&
 		  thickRow[nTab][nRow].nThick != 0
 		 )
@@ -1668,7 +1668,7 @@ static int FindBounds(int *val,int size)
 
     minVal=MAX(pageLight,pageLineLight);
 
-        // могут плавать границы pageLight,...
+        // РјРѕРіСѓС‚ РїР»Р°РІР°С‚СЊ РіСЂР°РЅРёС†С‹ pageLight,...
 	while( minVal > 1 && val[minVal-1] && val[minVal-1] < val[minVal] )
        minVal--;
 
@@ -1727,7 +1727,7 @@ static int FindBounds(int *val,int size)
                                 minVal = i;
                 }
 
-                // есть холмик ?
+                // РµСЃС‚СЊ С…РѕР»РјРёРє ?
                 if( val[minVal] <= 1 )
                 {
                         for(;minVal>0;minVal--)
@@ -1757,10 +1757,10 @@ static int FindBounds(int *val,int size)
                                 maxVal=i;
                 }
 
-                // есть холмик ?
+                // РµСЃС‚СЊ С…РѕР»РјРёРє ?
                 if( val[maxVal] <= 1 )
                 {
-					// болды размазаны
+					// Р±РѕР»РґС‹ СЂР°Р·РјР°Р·Р°РЅС‹
                  if( val[bestMin]> 10 && val[maxVal] == 1 && val[minVal] == 0)
 				 {
                    int sum=1,ss,mimi;
@@ -1779,7 +1779,7 @@ static int FindBounds(int *val,int size)
 				   }
 				 }
 #ifdef _TEST_THIN_
-				 // пропустили начало?
+				 // РїСЂРѕРїСѓСЃС‚РёР»Рё РЅР°С‡Р°Р»Рѕ?
                  for(promMin=i=bestMin+1;i<maxVal;i++)
 				 {
                       if(val[i]>val[promMin]*2)
@@ -1903,7 +1903,7 @@ static int FindBounds(int *val,int size)
 				if( val[promMax] >= val[bestMin] )
 						bestMin = promMax;
 
-				// иная точка раздела ?
+				// РёРЅР°СЏ С‚РѕС‡РєР° СЂР°Р·РґРµР»Р° ?
 				if( val[bestMin] > val[promMin]*2 )
 					minVal = promMin;
 
@@ -1936,18 +1936,18 @@ static int FindBounds(int *val,int size)
 							break;
 				}
 
-				// расширяем область
+				// СЂР°СЃС€РёСЂСЏРµРј РѕР±Р»Р°СЃС‚СЊ
 				if( val[promMax] >= val[bestMax] )
 						bestMax = promMax;
 
-				// иная точка раздела ?
+				// РёРЅР°СЏ С‚РѕС‡РєР° СЂР°Р·РґРµР»Р° ?
 				if( val[bestMax] > val[promMin]*2 )
 					maxVal = promMin;
 
             }
         }
 
-        // есть прогиб ?
+        // РµСЃС‚СЊ РїСЂРѕРіРёР± ?
     if(  val[bestMax]*2 < val[maxVal] )
         {
                 // all - to light
@@ -1958,7 +1958,7 @@ static int FindBounds(int *val,int size)
               BoundBOLD  = bestMax;
                   return 1;
         }
-        // есть прогиб ?
+        // РµСЃС‚СЊ РїСЂРѕРіРёР± ?
     if(   val[bestMin]  < val[minVal]*2 )
         {
                 // all - to bold
@@ -2052,7 +2052,7 @@ static int TestStatsMinMax(int *stats, int *mins,int *maxs,
 		if( maxLight <= 0 )
 			return 0;
 
-		// сомнительный минимум ?
+		// СЃРѕРјРЅРёС‚РµР»СЊРЅС‹Р№ РјРёРЅРёРјСѓРј ?
 		if( mins[maxLight] > 0 )
 			return 0;
 
@@ -2206,10 +2206,10 @@ static void TestColumnsThick(void)
 		   }
 		 }
 
-// поставим основную жирность
+// РїРѕСЃС‚Р°РІРёРј РѕСЃРЅРѕРІРЅСѓСЋ Р¶РёСЂРЅРѕСЃС‚СЊ
          if( !isProgib )
 		 {
-			 // поставим - скорее всего жирность одинакова
+			 // РїРѕСЃС‚Р°РІРёРј - СЃРєРѕСЂРµРµ РІСЃРµРіРѕ Р¶РёСЂРЅРѕСЃС‚СЊ РѕРґРёРЅР°РєРѕРІР°
              thickCol[i][j].bold = commonBold;
 
 			 if( thickCol[i][j].maxThick  > thickCol[i][j].minThick +  POROG_ONECOL)
@@ -2375,7 +2375,7 @@ static void AddRowBold(int i,int midThick)
 		 if( thickRow[i][j].maxThick == 0 )
 			 continue;
 
-		// среднее значение для строки таблицы
+		// СЃСЂРµРґРЅРµРµ Р·РЅР°С‡РµРЅРёРµ РґР»СЏ СЃС‚СЂРѕРєРё С‚Р°Р±Р»РёС†С‹
 		 if( thickRow[i][j].bold == 0 )
 		 {
 			thickRow[i][j].nThick = (Word8)MAX(1,MIN(255,thickRow[i][j].thick));
@@ -2432,7 +2432,7 @@ static void TestRowsThick(void)
 		if( maxLight <= 0 )
 			continue;
 
-		// сомнительный минимум ?
+		// СЃРѕРјРЅРёС‚РµР»СЊРЅС‹Р№ РјРёРЅРёРјСѓРј ?
 		if( mins[maxLight] > 0 )
 			continue;
 
@@ -2486,9 +2486,9 @@ static Word8 SetBoldByTable(int nThick, int midThick,
 							int thick,
 							int minVal, int maxVal)
 {
-// есть предыдущий
+// РµСЃС‚СЊ РїСЂРµРґС‹РґСѓС‰РёР№
 
-		// сравним с предыдущей (средней) строкой в столбце
+		// СЃСЂР°РІРЅРёРј СЃ РїСЂРµРґС‹РґСѓС‰РµР№ (СЃСЂРµРґРЅРµР№) СЃС‚СЂРѕРєРѕР№ РІ СЃС‚РѕР»Р±С†Рµ
 	  if( colBold && abs(thick-nThick) < POROG_ONECOL ||
           colBold == P2_LIGHT &&  thick <= nThick ||
           colBold == P2_BOLD  &&  thick >= nThick
@@ -2496,7 +2496,7 @@ static Word8 SetBoldByTable(int nThick, int midThick,
 		return colBold;
 
 	  if( minVal + POROG_ONECOL  >= maxVal )
-				 // есть общность по ячейке
+				 // РµСЃС‚СЊ РѕР±С‰РЅРѕСЃС‚СЊ РїРѕ СЏС‡РµР№РєРµ
 	  {
                 if( colBold == P2_BOLD &&
 					thick + POROG_ONECOL < nThick &&

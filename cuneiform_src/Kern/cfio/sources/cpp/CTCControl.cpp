@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-Разрешается повторное распространение и использование как в виде исходного кода,
-так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
-      * При повторном распространении исходного кода должны оставаться указанное
-        выше уведомление об авторском праве, этот список условий и последующий
-        отказ от гарантий.
-      * При повторном распространении двоичного кода в документации и/или в
-        других материалах, поставляемых при распространении, должны сохраняться
-        указанная выше информация об авторском праве, этот список условий и
-        последующий отказ от гарантий.
-      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
-        быть использованы в качестве средства поддержки и/или продвижения
-        продуктов, основанных на этом ПО, без предварительного письменного
-        разрешения.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+        РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+        РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+        РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+        СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+        РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+      * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+        Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+        РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+        СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
-ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
-ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
-ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
-ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
-МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
-НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
-ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
-НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
-СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
-ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
-НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
-ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -170,7 +170,7 @@ PChar8 CTCControl::MakeNameForStorage(PChar8 FileName, CTCStorageHeader * hStora
 	if ( strlen ( FileName ) > CFIO_MAX_PATH )
 		return FileName;
 
-	// копируем папку хранилища
+	// РєРѕРїРёСЂСѓРµРј РїР°РїРєСѓ С…СЂР°РЅРёР»РёС‰Р°
 	if ( hStorageHead )
 	{
 		CFIO_STRCPY( szBuffer, hStorageHead->GetStorageFolder() );
@@ -179,11 +179,11 @@ PChar8 CTCControl::MakeNameForStorage(PChar8 FileName, CTCStorageHeader * hStora
 	{
 		GetFolder(CFIO_STORAGE_FOLDER, &szBuffer[0]);
 	}
-	//разделяем на компоненты
+	//СЂР°Р·РґРµР»СЏРµРј РЅР° РєРѕРјРїРѕРЅРµРЅС‚С‹
 	CFIO_GETFOLDERSITEMS(szBuffer, SFolder, SFile, SExtension);
-	// только путь в буфере
+	// С‚РѕР»СЊРєРѕ РїСѓС‚СЊ РІ Р±СѓС„РµСЂРµ
 	CFIO_STRCPY(szBuffer,SFolder);
-	// глупый пингвин не знает, что там был только путь
+	// РіР»СѓРїС‹Р№ РїРёРЅРіРІРёРЅ РЅРµ Р·РЅР°РµС‚, С‡С‚Рѕ С‚Р°Рј Р±С‹Р» С‚РѕР»СЊРєРѕ РїСѓС‚СЊ
 	CFIO_STRCAT(szBuffer,SFile);
 
 	i = &szBuffer[CFIO_STRLEN(szBuffer) - 1];
@@ -194,7 +194,7 @@ PChar8 CTCControl::MakeNameForStorage(PChar8 FileName, CTCStorageHeader * hStora
 
 	CFIO_GETFOLDERSITEMS(FileName, SFolder, SFile, SExtension);
 
-	//  для хранилища оставляем только имя файла с расширением
+	//  РґР»СЏ С…СЂР°РЅРёР»РёС‰Р° РѕСЃС‚Р°РІР»СЏРµРј С‚РѕР»СЊРєРѕ РёРјСЏ С„Р°Р№Р»Р° СЃ СЂР°СЃС€РёСЂРµРЅРёРµРј
 
 	CFIO_MAKEPATH(SOut, NULL, SFile, SExtension);
 
@@ -302,9 +302,9 @@ Bool32 CTCControl::DeleteStorage(PChar8 lpName)
 Bool32 CTCControl::WriteFileToStorage(Handle hStorage, Handle hFile, PChar8 lpName)
 {
 	char FileName[CFIO_MAX_PATH];
-	// берем хидер хрангилища.... или не берем, если нет
+	// Р±РµСЂРµРј С…РёРґРµСЂ С…СЂР°РЅРіРёР»РёС‰Р°.... РёР»Рё РЅРµ Р±РµСЂРµРј, РµСЃР»Рё РЅРµС‚
 	CTCStorageHeader * pStorageHeader = StorageList.GetItemHeader(hStorage);
-	// берем хидер файла ........ или не берем, ежели нема
+	// Р±РµСЂРµРј С…РёРґРµСЂ С„Р°Р№Р»Р° ........ РёР»Рё РЅРµ Р±РµСЂРµРј, РµР¶РµР»Рё РЅРµРјР°
 	CTCFileHeader * pFileHeader = FileList.GetItemHeader(hFile);
 	CTCGlobalFile * pFile;
 
@@ -329,7 +329,7 @@ Bool32 CTCControl::WriteFileToStorage(Handle hStorage, Handle hFile, PChar8 lpNa
 Handle CTCControl::ReadFileFromStorage(Handle hStorage, PChar8 lpName)
 {
 	char FileName[CFIO_MAX_PATH];
-	// берем хидер хрангилища.... или не берем, если нет
+	// Р±РµСЂРµРј С…РёРґРµСЂ С…СЂР°РЅРіРёР»РёС‰Р°.... РёР»Рё РЅРµ Р±РµСЂРµРј, РµСЃР»Рё РЅРµС‚
 	CTCStorageHeader * pStorageHeader = StorageList.GetItemHeader(hStorage);
 
 	if ( pStorageHeader )
@@ -768,9 +768,9 @@ LPVOID CTCControl::LockMemory(Handle hMemory)
 	Word32 wMemoryStatus;
 	Word32 wMemorySize;
 	LPVOID pMemory = NULL;
-	// ну , тут осталось немного. отписывать адрес в память,
-	// но пока тут падает, а так как глобальная память не используется, то и
-	// оставим это на потом
+	// РЅСѓ , С‚СѓС‚ РѕСЃС‚Р°Р»РѕСЃСЊ РЅРµРјРЅРѕРіРѕ. РѕС‚РїРёСЃС‹РІР°С‚СЊ Р°РґСЂРµСЃ РІ РїР°РјСЏС‚СЊ,
+	// РЅРѕ РїРѕРєР° С‚СѓС‚ РїР°РґР°РµС‚, Р° С‚Р°Рє РєР°Рє РіР»РѕР±Р°Р»СЊРЅР°СЏ РїР°РјСЏС‚СЊ РЅРµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ, С‚Рѕ Рё
+	// РѕСЃС‚Р°РІРёРј СЌС‚Рѕ РЅР° РїРѕС‚РѕРј
 	//PCTCMemoryHeader pMemoryHeader;
 
 	if ( TakeMemory(hMemory, &wMemorySize, &wMemoryStatus) )
@@ -828,8 +828,8 @@ Handle CTCControl::OpenFileAndAttach(PChar8 lpName, Word32 Flag, Handle Storage)
 	CTCGlobalFile * pNewFile = NULL;
 	Handle          hOpened;
 
-	// пока не используем
-	// см так же DecompliteStorage
+	// РїРѕРєР° РЅРµ РёСЃРїРѕР»СЊР·СѓРµРј
+	// СЃРј С‚Р°Рє Р¶Рµ DecompliteStorage
 	//MAKEFULLPATH(szBuffer, lpName, _MAX_PATH);
 
 	if ( CFIO_STRLEN(lpName) < _MAX_PATH )
@@ -1104,7 +1104,7 @@ Word32 CTCControl::ReadFileFromStorage(CTCStorageHeader * Storage, STORAGEITEM *
 	(*pInfo).siHeaderSize = ItemInfo.siHeaderSize;
 	FileSize = (*pInfo).siItemSize = ItemInfo.siItemSize;
 	(*pInfo).siFlag = ItemInfo.siFlag;
-	// создаем имя файла
+	// СЃРѕР·РґР°РµРј РёРјСЏ С„Р°Р№Р»Р°
 	FileNameToFolder(ItemInfo.siName, Storage->GetStorageFolder(), ItemInfo.siName, _MAX_PATH);
 	CFIO_STRCPY(pInfo->siName, ItemInfo.siName);
 
@@ -1113,7 +1113,7 @@ Word32 CTCControl::ReadFileFromStorage(CTCStorageHeader * Storage, STORAGEITEM *
 		NewFile = new CTCGlobalFile(ItemInfo.siName, CFIO_GF_CREATE|CFIO_GF_READ|ItemInfo.siFlag);
 		*pFile = NewFile;
 
-		// проверяем, что смогли открыть
+		// РїСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ СЃРјРѕРіР»Рё РѕС‚РєСЂС‹С‚СЊ
 		if ( ! NewFile->GetHandle() )
 		{
 			return 0;
@@ -1149,23 +1149,23 @@ Handle CTCControl::CompliteStorage(Handle Storage, Word32 Flag)
 	Word32             ComplitedItems = 0;
 	Word32             ComplitedSpace = 0;
 	Handle             ReStorage;
-	// удаляем старое хранилище и создаем новое  fwrite
-	// хотя надо бы просто очистить существующий файл
+	// СѓРґР°Р»СЏРµРј СЃС‚Р°СЂРѕРµ С…СЂР°РЅРёР»РёС‰Рµ Рё СЃРѕР·РґР°РµРј РЅРѕРІРѕРµ  fwrite
+	// С…РѕС‚СЏ РЅР°РґРѕ Р±С‹ РїСЂРѕСЃС‚Рѕ РѕС‡РёСЃС‚РёС‚СЊ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёР№ С„Р°Р№Р»
 	if ( pStorageHeader )
 	{
 		pStorage = pStorageHeader->GetStorage();
 		CFIO_STRCPY(StorageName,pStorage->GetFileName());
 
-		// папочка для файликов...
+		// РїР°РїРѕС‡РєР° РґР»СЏ С„Р°Р№Р»РёРєРѕРІ...
 		CFIO_STRCPY(&StorageFolder[sizeof(*FolderSize)],pStorageHeader->GetStorageFolder());
 		*FolderSize = strlen(&StorageFolder[sizeof(*FolderSize)]) + sizeof(*FolderSize);
 		StorageFlag = pStorageHeader->GetFlag();
 
-		// удаляем
+		// СѓРґР°Р»СЏРµРј
 		pStorage->SetDelete();
 		StorageList.DeleteItem(Storage);
 		//delete pStorage; // deleted at header destructor
-		// создаем новое с тем же именем
+		// СЃРѕР·РґР°РµРј РЅРѕРІРѕРµ СЃ С‚РµРј Р¶Рµ РёРјРµРЅРµРј
 		// GlobalFile
 		pStorage = new CTCGlobalFile( &StorageName[0], CFIO_GF_CREATE );
 		// Handle
@@ -1181,22 +1181,22 @@ Handle CTCControl::CompliteStorage(Handle Storage, Word32 Flag)
 			                                 (void *) StorageFolder,
 											 *FolderSize);
 
-	// собираем хранилище
+	// СЃРѕР±РёСЂР°РµРј С…СЂР°РЅРёР»РёС‰Рµ
 	while ( pItemHeader = FileList.GetItemHeader(FileList.GetAttachedFileHeader(Storage, (pItemHeader == NULL ? NULL : pItemHeader->GetNext()))) )
 	{
 		if ( pItemHeader->CanWrite() && ( Flag|CS_FILE_DELETE || Flag|CS_FILE_SAVE) )
 		{
 			pItemHeader->LockToStorage();
 		}
-		//  отписываем файл
+		//  РѕС‚РїРёСЃС‹РІР°РµРј С„Р°Р№Р»
 		ComplitedSpace += WriteFileToStorage(pStorageHeader, pItemHeader);
 		ComplitedItems++;
 
 	}
-	// вобщем бесполезная операция
+	// РІРѕР±С‰РµРј Р±РµСЃРїРѕР»РµР·РЅР°СЏ РѕРїРµСЂР°С†РёСЏ
 	pStorageHeader->AddFlag(CFIO_GF_COMPLITE);
 
-	// закрываем вновь созданное хранилище
+	// Р·Р°РєСЂС‹РІР°РµРј РІРЅРѕРІСЊ СЃРѕР·РґР°РЅРЅРѕРµ С…СЂР°РЅРёР»РёС‰Рµ
 	// StorageList.DeleteItem(ReStorage);
 	// delete pStorage; // deleted at header destructor
 
@@ -1219,7 +1219,7 @@ Word32 CTCControl::DecompileStorage(Handle Storage)
 
 	StorageSize = pStorage->Seek(0,CFIO_GF_SEEK_END);
 
-	// читаем папочку для файликов
+	// С‡РёС‚Р°РµРј РїР°РїРѕС‡РєСѓ РґР»СЏ С„Р°Р№Р»РёРєРѕРІ
 	pStorage->Seek(NextItem,CFIO_GF_SEEK_BEG);
 
 	ReadItemFromStorage(StorageHeader, (void *)StorageFolder, sizeof(*FolderSize) );
@@ -1227,10 +1227,10 @@ Word32 CTCControl::DecompileStorage(Handle Storage)
 	StorageSize -= NextItem;
 	ReadItemFromStorage(StorageHeader, (void *)&StorageFolder[sizeof(*FolderSize)], *FolderSize - sizeof(*FolderSize) );
 	StorageFolder[*FolderSize] = 0x0;
-	// заносим в хидер
-	// не заносим - будет во временной
+	// Р·Р°РЅРѕСЃРёРј РІ С…РёРґРµСЂ
+	// РЅРµ Р·Р°РЅРѕСЃРёРј - Р±СѓРґРµС‚ РІРѕ РІСЂРµРјРµРЅРЅРѕР№
 	//STRCPY(StorageHeader->GetStorageFolder(),&StorageFolder[sizeof(*FolderSize)]);
-	// и все остальное
+	// Рё РІСЃРµ РѕСЃС‚Р°Р»СЊРЅРѕРµ
 	while (StorageSize)
 	{
 		pStorage->Seek(NextItem,CFIO_GF_SEEK_BEG);
@@ -1304,7 +1304,7 @@ Handle CTCControl::OpenNewStorage(PChar8 lpName, Word32 Flag)
     return NULL;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Закрываем хранилище (если сборка не проводилась), иначе только файлы
+// Р—Р°РєСЂС‹РІР°РµРј С…СЂР°РЅРёР»РёС‰Рµ (РµСЃР»Рё СЃР±РѕСЂРєР° РЅРµ РїСЂРѕРІРѕРґРёР»Р°СЃСЊ), РёРЅР°С‡Рµ С‚РѕР»СЊРєРѕ С„Р°Р№Р»С‹
 Bool32 CTCControl::CloseStorageFile(Handle Storage, Word32 Flag)
 {
 	CTCStorageHeader * pStorageHeader = StorageList.GetItemHeader(Storage);
@@ -1323,7 +1323,7 @@ Bool32 CTCControl::CloseStorageFile(Handle Storage, Word32 Flag)
 		StorageFolder[0] = 0x0;
 	}
 
-	// закрываем хранилище
+	// Р·Р°РєСЂС‹РІР°РµРј С…СЂР°РЅРёР»РёС‰Рµ
 	if ( pStorageHeader )
 	{
 		pStorage = pStorageHeader->GetStorage();
@@ -1334,7 +1334,7 @@ Bool32 CTCControl::CloseStorageFile(Handle Storage, Word32 Flag)
 		StorageList.DeleteItem(Storage);
 		//delete pStorage; deleted at destructor
 	}
-	// закрываем файлы прикрепленные к хранилищу
+	// Р·Р°РєСЂС‹РІР°РµРј С„Р°Р№Р»С‹ РїСЂРёРєСЂРµРїР»РµРЅРЅС‹Рµ Рє С…СЂР°РЅРёР»РёС‰Сѓ
 	while ( pFileHeader = FileList.GetItemHeader(FileList.GetAttachedFileHeader(Storage/*, pFileHeader*/)) )
 	{
 		pFile = pFileHeader->GetFile();
@@ -1358,7 +1358,7 @@ Bool32 CTCControl::CloseStorageFile(Handle Storage, Word32 Flag)
 //
 Word32 CTCControl::CompliteAllStorage(Handle Storage, Word32 Flag)
 {
-	// если не указано хранилище - собираем все
+	// РµСЃР»Рё РЅРµ СѓРєР°Р·Р°РЅРѕ С…СЂР°РЅРёР»РёС‰Рµ - СЃРѕР±РёСЂР°РµРј РІСЃРµ
 	if ( Storage == NULL )
 	{
 		while ( !StorageList.IsEmpty() )
@@ -1368,7 +1368,7 @@ Word32 CTCControl::CompliteAllStorage(Handle Storage, Word32 Flag)
 
 		return StorageList.IsEmpty();
 	}
-	// если явно указано хранилище - собираем только его
+	// РµСЃР»Рё СЏРІРЅРѕ СѓРєР°Р·Р°РЅРѕ С…СЂР°РЅРёР»РёС‰Рµ - СЃРѕР±РёСЂР°РµРј С‚РѕР»СЊРєРѕ РµРіРѕ
 	else
 	{
 		return (CompliteStorage(Storage, Flag) != NULL);
@@ -1379,7 +1379,7 @@ Word32 CTCControl::CompliteAllStorage(Handle Storage, Word32 Flag)
 //
 Bool32 CTCControl::CloseAllStorageFile(Handle Storage, Word32 Flag)
 {
-	// если не указано хранилище - закрываем все
+	// РµСЃР»Рё РЅРµ СѓРєР°Р·Р°РЅРѕ С…СЂР°РЅРёР»РёС‰Рµ - Р·Р°РєСЂС‹РІР°РµРј РІСЃРµ
 	if ( Storage == NULL )
 	{
 		while ( !StorageList.IsEmpty() )
@@ -1389,7 +1389,7 @@ Bool32 CTCControl::CloseAllStorageFile(Handle Storage, Word32 Flag)
 
 		return StorageList.IsEmpty();
 	}
-	// если явно указано хранилище - закрываем только его
+	// РµСЃР»Рё СЏРІРЅРѕ СѓРєР°Р·Р°РЅРѕ С…СЂР°РЅРёР»РёС‰Рµ - Р·Р°РєСЂС‹РІР°РµРј С‚РѕР»СЊРєРѕ РµРіРѕ
 	else
 	{
 		return CloseStorageFile(Storage, Flag);

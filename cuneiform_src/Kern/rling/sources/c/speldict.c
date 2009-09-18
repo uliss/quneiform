@@ -1,112 +1,110 @@
 /*
-Copyright (c) 1993-2008, Cognitive Technologies
-All rights reserved.
+ Copyright (c) 1993-2008, Cognitive Technologies
+ All rights reserved.
 
-Ðàçðåøàåòñÿ ïîâòîðíîå ðàñïðîñòðàíåíèå è èñïîëüçîâàíèå êàê â âèäå èñõîäíîãî êîäà,
-òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
+ Ð Ð°Ð·Ñ€ÐµÑˆÐ°ÐµÑ‚ÑÑ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ Ð¸ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸Ðµ ÐºÐ°Ðº Ð² Ð²Ð¸Ð´Ðµ Ð¸ÑÑ…Ð¾Ð´Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð°,
+ Ñ‚Ð°Ðº Ð¸ Ð² Ð´Ð²Ð¾Ð¸Ñ‡Ð½Ð¾Ð¹ Ñ„Ð¾Ñ€Ð¼Ðµ, Ñ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸ÑÐ¼Ð¸ Ð¸Ð»Ð¸ Ð±ÐµÐ·, Ð¿Ñ€Ð¸ ÑÐ¾Ð±Ð»ÑŽÐ´ÐµÐ½Ð¸Ð¸ ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ñ… ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹:
 
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
-        âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
-        îòêàç îò ãàðàíòèé.
-      * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
-        äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
-        óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
-        ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
-      * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
-        áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
-        ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
-        ðàçðåøåíèÿ.
+ * ÐŸÑ€Ð¸ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ð¼ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸ Ð¸ÑÑ…Ð¾Ð´Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð° Ð´Ð¾Ð»Ð¶Ð½Ñ‹ Ð¾ÑÑ‚Ð°Ð²Ð°Ñ‚ÑŒÑÑ ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð¾Ðµ
+ Ð²Ñ‹ÑˆÐµ ÑƒÐ²ÐµÐ´Ð¾Ð¼Ð»ÐµÐ½Ð¸Ðµ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÑ‚Ð¾Ñ‚ ÑÐ¿Ð¸ÑÐ¾Ðº ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹ Ð¸ Ð¿Ð¾ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹
+ Ð¾Ñ‚ÐºÐ°Ð· Ð¾Ñ‚ Ð³Ð°Ñ€Ð°Ð½Ñ‚Ð¸Ð¹.
+ * ÐŸÑ€Ð¸ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ð¼ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸ Ð´Ð²Ð¾Ð¸Ñ‡Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð° Ð² Ð´Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ð°Ñ†Ð¸Ð¸ Ð¸/Ð¸Ð»Ð¸ Ð²
+ Ð´Ñ€ÑƒÐ³Ð¸Ñ… Ð¼Ð°Ñ‚ÐµÑ€Ð¸Ð°Ð»Ð°Ñ…, Ð¿Ð¾ÑÑ‚Ð°Ð²Ð»ÑÐµÐ¼Ñ‹Ñ… Ð¿Ñ€Ð¸ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸, Ð´Ð¾Ð»Ð¶Ð½Ñ‹ ÑÐ¾Ñ…Ñ€Ð°Ð½ÑÑ‚ÑŒÑÑ
+ ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð°Ñ Ð²Ñ‹ÑˆÐµ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ñ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÑ‚Ð¾Ñ‚ ÑÐ¿Ð¸ÑÐ¾Ðº ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹ Ð¸
+ Ð¿Ð¾ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹ Ð¾Ñ‚ÐºÐ°Ð· Ð¾Ñ‚ Ð³Ð°Ñ€Ð°Ð½Ñ‚Ð¸Ð¹.
+ * ÐÐ¸ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ Cognitive Technologies, Ð½Ð¸ Ð¸Ð¼ÐµÐ½Ð° ÐµÐµ ÑÐ¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸ÐºÐ¾Ð² Ð½Ðµ Ð¼Ð¾Ð³ÑƒÑ‚
+ Ð±Ñ‹Ñ‚ÑŒ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ñ‹ Ð² ÐºÐ°Ñ‡ÐµÑÑ‚Ð²Ðµ ÑÑ€ÐµÐ´ÑÑ‚Ð²Ð° Ð¿Ð¾Ð´Ð´ÐµÑ€Ð¶ÐºÐ¸ Ð¸/Ð¸Ð»Ð¸ Ð¿Ñ€Ð¾Ð´Ð²Ð¸Ð¶ÐµÐ½Ð¸Ñ
+ Ð¿Ñ€Ð¾Ð´ÑƒÐºÑ‚Ð¾Ð², Ð¾ÑÐ½Ð¾Ð²Ð°Ð½Ð½Ñ‹Ñ… Ð½Ð° ÑÑ‚Ð¾Ð¼ ÐŸÐž, Ð±ÐµÐ· Ð¿Ñ€ÐµÐ´Ð²Ð°Ñ€Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ð³Ð¾ Ð¿Ð¸ÑÑŒÐ¼ÐµÐ½Ð½Ð¾Ð³Ð¾
+ Ñ€Ð°Ð·Ñ€ÐµÑˆÐµÐ½Ð¸Ñ.
 
-ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
-ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
-ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
-ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
-ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
-ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
-ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
-ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
-ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
-ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
-ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
-ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
+ Ð­Ð¢Ð ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ ÐŸÐ Ð•Ð”ÐžÐ¡Ð¢ÐÐ’Ð›Ð•ÐÐ Ð’Ð›ÐÐ”Ð•Ð›Ð¬Ð¦ÐÐœÐ˜ ÐÐ’Ð¢ÐžÐ Ð¡ÐšÐ˜Ð¥ ÐŸÐ ÐÐ’ Ð˜/Ð˜Ð›Ð˜ Ð”Ð Ð£Ð“Ð˜ÐœÐ˜ Ð›Ð˜Ð¦ÐÐœÐ˜ "ÐšÐÐš
+ ÐžÐÐ Ð•Ð¡Ð¢Ð¬" Ð‘Ð•Ð— ÐšÐÐšÐžÐ“Ðž-Ð›Ð˜Ð‘Ðž Ð’Ð˜Ð”Ð Ð“ÐÐ ÐÐÐ¢Ð˜Ð™, Ð’Ð«Ð ÐÐ–Ð•ÐÐÐ«Ð¥ Ð¯Ð’ÐÐž Ð˜Ð›Ð˜ ÐŸÐžÐ”Ð ÐÐ—Ð£ÐœÐ•Ð’ÐÐ•ÐœÐ«Ð¥,
+ Ð’ÐšÐ›Ð®Ð§ÐÐ¯ Ð“ÐÐ ÐÐÐ¢Ð˜Ð˜ ÐšÐžÐœÐœÐ•Ð Ð§Ð•Ð¡ÐšÐžÐ™ Ð¦Ð•ÐÐÐžÐ¡Ð¢Ð˜ Ð˜ ÐŸÐ Ð˜Ð“ÐžÐ”ÐÐžÐ¡Ð¢Ð˜ Ð”Ð›Ð¯ ÐšÐžÐÐšÐ Ð•Ð¢ÐÐžÐ™ Ð¦Ð•Ð›Ð˜, ÐÐž ÐÐ•
+ ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð˜ÐœÐ˜. ÐÐ˜ Ð’Ð›ÐÐ”Ð•Ð›Ð•Ð¦ ÐÐ’Ð¢ÐžÐ Ð¡ÐšÐ˜Ð¥ ÐŸÐ ÐÐ’ Ð˜ ÐÐ˜ ÐžÐ”ÐÐž Ð”Ð Ð£Ð“ÐžÐ• Ð›Ð˜Ð¦Ðž, ÐšÐžÐ¢ÐžÐ ÐžÐ•
+ ÐœÐžÐ–Ð•Ð¢ Ð˜Ð—ÐœÐ•ÐÐ¯Ð¢Ð¬ Ð˜/Ð˜Ð›Ð˜ ÐŸÐžÐ’Ð¢ÐžÐ ÐÐž Ð ÐÐ¡ÐŸÐ ÐžÐ¡Ð¢Ð ÐÐÐ¯Ð¢Ð¬ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ£, ÐÐ˜ Ð’ ÐšÐžÐ•Ðœ Ð¡Ð›Ð£Ð§ÐÐ• ÐÐ•
+ ÐÐ•Ð¡ÐÐ¢ ÐžÐ¢Ð’Ð•Ð¢Ð¡Ð¢Ð’Ð•ÐÐÐžÐ¡Ð¢Ð˜, Ð’ÐšÐ›Ð®Ð§ÐÐ¯ Ð›Ð®Ð‘Ð«Ð• ÐžÐ‘Ð©Ð˜Ð•, Ð¡Ð›Ð£Ð§ÐÐ™ÐÐ«Ð•, Ð¡ÐŸÐ•Ð¦Ð˜ÐÐ›Ð¬ÐÐ«Ð• Ð˜Ð›Ð˜
+ ÐŸÐžÐ¡Ð›Ð•Ð”ÐžÐ’ÐÐ’Ð¨Ð˜Ð• Ð£Ð‘Ð«Ð¢ÐšÐ˜, Ð¡Ð’Ð¯Ð—ÐÐÐÐ«Ð• Ð¡ Ð˜Ð¡ÐŸÐžÐ›Ð¬Ð—ÐžÐ’ÐÐÐ˜Ð•Ðœ Ð˜Ð›Ð˜ ÐŸÐžÐÐ•Ð¡Ð•ÐÐÐ«Ð• Ð’Ð¡Ð›Ð•Ð”Ð¡Ð¢Ð’Ð˜Ð•
+ ÐÐ•Ð’ÐžÐ—ÐœÐžÐ–ÐÐžÐ¡Ð¢Ð˜ Ð˜Ð¡ÐŸÐžÐ›Ð¬Ð—ÐžÐ’ÐÐÐ˜Ð¯ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ« (Ð’ÐšÐ›Ð®Ð§ÐÐ¯ ÐŸÐžÐ¢Ð•Ð Ð˜ Ð”ÐÐÐÐ«Ð¥, Ð˜Ð›Ð˜ Ð”ÐÐÐÐ«Ð•,
+ Ð¡Ð¢ÐÐ’Ð¨Ð˜Ð• ÐÐ•Ð“ÐžÐ”ÐÐ«ÐœÐ˜, Ð˜Ð›Ð˜ Ð£Ð‘Ð«Ð¢ÐšÐ˜ Ð˜/Ð˜Ð›Ð˜ ÐŸÐžÐ¢Ð•Ð Ð˜ Ð”ÐžÐ¥ÐžÐ”ÐžÐ’, ÐŸÐžÐÐ•Ð¡Ð•ÐÐÐ«Ð• Ð˜Ð—-Ð—Ð Ð”Ð•Ð™Ð¡Ð¢Ð’Ð˜Ð™
+ Ð¢Ð Ð•Ð¢Ð¬Ð˜Ð¥ Ð›Ð˜Ð¦ Ð˜/Ð˜Ð›Ð˜ ÐžÐ¢ÐšÐÐ—Ð ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ« Ð ÐÐ‘ÐžÐ¢ÐÐ¢Ð¬ Ð¡ÐžÐ’ÐœÐ•Ð¡Ð¢ÐÐž Ð¡ Ð”Ð Ð£Ð“Ð˜ÐœÐ˜ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐÐœÐ˜,
+ ÐÐž ÐÐ• ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð­Ð¢Ð˜ÐœÐ˜ Ð¡Ð›Ð£Ð§ÐÐ¯ÐœÐ˜), ÐÐž ÐÐ• ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð˜ÐœÐ˜, Ð”ÐÐ–Ð• Ð•Ð¡Ð›Ð˜ Ð¢ÐÐšÐžÐ™
+ Ð’Ð›ÐÐ”Ð•Ð›Ð•Ð¦ Ð˜Ð›Ð˜ Ð”Ð Ð£Ð“ÐžÐ• Ð›Ð˜Ð¦Ðž Ð‘Ð«Ð›Ð˜ Ð˜Ð—Ð’Ð•Ð©Ð•ÐÐ« Ðž Ð’ÐžÐ—ÐœÐžÐ–ÐÐžÐ¡Ð¢Ð˜ Ð¢ÐÐšÐ˜Ð¥ Ð£Ð‘Ð«Ð¢ÐšÐžÐ’ Ð˜ ÐŸÐžÐ¢Ð•Ð Ð¬.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
 
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation
-      and/or other materials provided with the distribution.
-    * Neither the name of the Cognitive Technologies nor the names of its
-      contributors may be used to endorse or promote products derived from this
-      software without specific prior written permission.
+ * Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ * Neither the name of the Cognitive Technologies nor the names of its
+ contributors may be used to endorse or promote products derived from this
+ software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 /**********************************************************************/
 /* DICTIONARY access: search in dictionary.                           */
 /**********************************************************************/
 /**********************************************************************
-  -- Updation history. --
-  03-19-93 00:57am, Mike
-  New ( 6-bit ) dictionary format.
+ -- Updation history. --
+ 03-19-93 00:57am, Mike
+ New ( 6-bit ) dictionary format.
  04-09-93 05:33pm, Mike
-  Module taken from Lepik's new version of spelling checker.
-***********************************************************************/
+ Module taken from Lepik's new version of spelling checker.
+ ***********************************************************************/
 
-  #include "spelmode.h"
+#include "spelmode.h"
 
-  #if defined(TURBO_C)
-    #include "tc_types.h"
-  #elif defined(WATCOM) || defined(THINK_C_5)
-    #include "spelwatc.h"
-  #elif defined(THINK_C)
-    #include "spelthin.h"
-  #else
-    #error   NO TOOOL SPECIFIED
-  #endif
+#if defined(TURBO_C)
+#include "tc_types.h"
+#elif defined(WATCOM) || defined(THINK_C_5)
+#include "spelwatc.h"
+#elif defined(THINK_C)
+#include "spelthin.h"
+#else
+#error   NO TOOOL SPECIFIED
+#endif
 
-  #include "speldefs.h"
-  #include "spelfunc.h"
-  #include "tigeremulate.h"
+#include "speldefs.h"
+#include "spelfunc.h"
+#include "tigeremulate.h"
 
 /* ------ Export section. ------------------------------------------- */
 /* -- Code -- */
 
-  INT search  ( KEYTYPE *word, INT *wordsize, LTIMG * wrddef[],
-                struct dict_state  * dict );
+INT search(KEYTYPE *word, INT *wordsize, LTIMG * wrddef[],
+		struct dict_state * dict);
 
 /* -- Data -- */
-  extern BYTE    alphabet [2][ABCSIZE];
-  extern KEYTYPE codetable       [256];
-
+extern BYTE alphabet[2][ABCSIZE];
+extern KEYTYPE codetable[256];
 
 #ifdef S_COMMENTS
 
 /* 03-22-93 10:51pm, Mike                 */
 /* 03-22-93 10:52pm, Mike -- See above... */
-  BYTE alphabet[][ABCSIZE]={
-      { '\'','A','.','Ž','','.','.','’','B','C','€','D','E','.','.',
-        '.','','F','G','H','I','.','.','.','.','J','K','L','M','N',
-        '¥','O','.','™','.','.','P','Q','R','S','T','U','š','.','.',
-        '.','V','W','X','Y','.','Z' },
-      { '\'','a','ƒ','„','†','…',' ','‘','b','c','‡','d','e','ˆ','Š',
-        '‰','‚','f','g','h','i','‹','Œ','','¡','j','k','l','m','n',
-        '¤','o','“','”','•','¢','p','q','r','s','t','u','','–','—',
-        '£','v','w','x','y','˜','z' }
-    };
-
+BYTE alphabet[][ABCSIZE]= {
+	{	'\'','A','.','Ð‹','Ð','.','.','â€™','B','C','Ð‚','D','E','.','.',
+		'.','Ñ’','F','G','H','I','.','.','.','.','J','K','L','M','N',
+		'Ò','O','.','â„¢','.','.','P','Q','R','S','T','U','Ñ™','.','.',
+		'.','V','W','X','Y','.','Z'},
+	{	'\'','a','Ñ“','â€ž','â€ ','â€¦','Â ','â€˜','b','c','â€¡','d','e','â‚¬','Ð‰',
+		'â€°','â€š','f','g','h','i','â€¹','ÐŠ','ÐŒ','ÐŽ','j','k','l','m','n',
+		'Â¤','o','â€œ','â€','â€¢','Ñž','p','q','r','s','t','u','Ðƒ','â€“','â€”',
+		'Ðˆ','v','w','x','y','ï¿½','z'}
+};
 
 KEYTYPE codetable[256];
 
@@ -116,103 +114,97 @@ KEYTYPE codetable[256];
 /*************************************************************************/
 /* -- Code -- */
 
-  static INT analyse    ( INT * account, INT * wordsize,
-                          LTIMG * wrddef[], INT * found );
-  static INT next_level ( KEYTYPE ch );
-  static INT test_tail  ( BYTE  * ptr, INT * accounter,
-                          INT * tailmaxl, LTIMG * wrddef[],
-                          INT * tailfound );
+static INT
+		analyse(INT * account, INT * wordsize, LTIMG * wrddef[], INT * found);
+static INT next_level(KEYTYPE ch);
+static INT test_tail(BYTE * ptr, INT * accounter, INT * tailmaxl,
+		LTIMG * wrddef[], INT * tailfound);
 
-  static TShiftType brother2  ( BYTE  * ptr );
+static TShiftType brother2(BYTE * ptr);
 
-  static INT comp_tail  ( INT varnum, INT rest, INT cnt, KEYTYPE * wptr,
-                          INT * tailmaxl, LTIMG * wrddef[],
-                          INT * tailfound );
-  static INT fillgap    ( KEYTYPE * word, INT cnt, LTIMG * wrddef[],
-                          INT gapcont );
-  static INT tailout    ( INT cnt, INT rest, KEYTYPE * wptr,
-                          LTIMG * wrddef[], INT * tailfound,
-                          BYTE  *tailptr );
-  static INT chkfill    ( KEYTYPE * word, INT cnt, LTIMG * wrddef[],
-                          INT gapcont, INT * fillfind, BYTE symb,
-                          LT  ** gaplt );
+static INT comp_tail(INT varnum, INT rest, INT cnt, KEYTYPE * wptr,
+		INT * tailmaxl, LTIMG * wrddef[], INT * tailfound);
+static INT fillgap(KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont);
+static INT tailout(INT cnt, INT rest, KEYTYPE * wptr, LTIMG * wrddef[],
+		INT * tailfound, BYTE *tailptr);
+static INT chkfill(KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont,
+		INT * fillfind, BYTE symb, LT ** gaplt);
 
 /* -- Macro -- */
 
-  #define HAVE_BLANK 2
-
+#define HAVE_BLANK 2
 
 /* -- Data -- */
 
-  static PTDictState  dictInfo;      /* dictionary control structure  */
+static PTDictState dictInfo; /* dictionary control structure  */
 
-  static KEYTYPE *wptr;              /* pointer to working word       */
-  static INT rest;                   /* lth of word rest              */
-  static INT cnt;                    /* character counter             */
-  static TShiftType lthorshift;      /* lth of curr VERTV or shift to */
+static KEYTYPE *wptr; /* pointer to working word       */
+static INT rest; /* lth of word rest              */
+static INT cnt; /* character counter             */
+static TShiftType lthorshift; /* lth of curr VERTV or shift to */
 
-  static INT poslevel;    /* current level in pos. tree if indpos==1  */
-  static INT indpos;      /* 1-ndptr points to pos. tree,0-otherwise  */
-  static INT maxlevel;    /* max num of level in current pos. tree    */
+static INT poslevel; /* current level in pos. tree if indpos==1  */
+static INT indpos; /* 1-ndptr points to pos. tree,0-otherwise  */
+static INT maxlevel; /* max num of level in current pos. tree    */
 
-  static BYTE  *ndptr;         /* pointer to current vertex in  */
+static BYTE *ndptr; /* pointer to current vertex in  */
 
 /*************************************************************************/
 /*              Macros & constants insted of Bit Fields.                 */
 /*************************************************************************/
 /* -- Pointer tree node head fields. -------------------------------- */
 
-  #define VERTV_SIZE      1
-  #define VERTV_CONT(p)   ((WORD)((*(p))&0x01))       /* Boolean */
-  #define VERTV_NOTERM(p) ((WORD)((*(p))&0x02))       /* Boolean */
-  #define VERTV_KEY(p)    ((CHAR)((*(p)) >> 2))       /* CHAR */
+#define VERTV_SIZE      1
+#define VERTV_CONT(p)   ((WORD)((*(p))&0x01))       /* Boolean */
+#define VERTV_NOTERM(p) ((WORD)((*(p))&0x02))       /* Boolean */
+#define VERTV_KEY(p)    ((CHAR)((*(p)) >> 2))       /* CHAR */
 
 /* -- Positional tree node fields. ---------------------------------- */
 
-  #define VERTP_SIZE      3
-  #define VERTP_CONT      VERTV_CONT                  /* Boolean */
-  #define VERTP_NOTERM    VERTV_NOTERM                /* Boolean */
-  #define VERTP_EXIST(p)  ((WORD)((*(p))&0x04))       /* Boolean */
-  #define VERTP_SHIFT0(p) ((WORD)((*(p)) >> 3))       /* WORD */
-  #define VERTP_SHIFT1(p) ((WORD)(*(p+1)))            /* WORD */
-  #define VERTP_SHIFT2(p) ((WORD)(*(p+2)))            /* WORD */
+#define VERTP_SIZE      3
+#define VERTP_CONT      VERTV_CONT                  /* Boolean */
+#define VERTP_NOTERM    VERTV_NOTERM                /* Boolean */
+#define VERTP_EXIST(p)  ((WORD)((*(p))&0x04))       /* Boolean */
+#define VERTP_SHIFT0(p) ((WORD)((*(p)) >> 3))       /* WORD */
+#define VERTP_SHIFT1(p) ((WORD)(*(p+1)))            /* WORD */
+#define VERTP_SHIFT2(p) ((WORD)(*(p+2)))            /* WORD */
 
 /* -- Pointer tree node postfics fields. ---------------------------- */
 
-  #define POSTFICS_SIZE       2
-  #define POSTFICS_CONT       VERTV_CONT              /* Boolean */
-  #define POSTFICS_TAIL(p)    ((WORD)((*(p))&0x02))   /* Boolean */
-  #define POSTFICS_ACCNT(p)   ((WORD)((*(p))&0x04))   /* Boolean */
-  #define POSTFICS_ENTER0(p)  ((WORD)((*(p)) >> 3))   /* WORD    */
-  #define POSTFICS_ENTER1(p)  ((WORD)(*(p+1)))        /* WORD    */
+#define POSTFICS_SIZE       2
+#define POSTFICS_CONT       VERTV_CONT              /* Boolean */
+#define POSTFICS_TAIL(p)    ((WORD)((*(p))&0x02))   /* Boolean */
+#define POSTFICS_ACCNT(p)   ((WORD)((*(p))&0x04))   /* Boolean */
+#define POSTFICS_ENTER0(p)  ((WORD)((*(p)) >> 3))   /* WORD    */
+#define POSTFICS_ENTER1(p)  ((WORD)(*(p+1)))        /* WORD    */
 
 /* -- Pointer tree node account fields. ----------------------------- */
 
-  #define ACCOUNT_SIZE        1
-  #define ACCOUNT_CONT        VERTV_CONT              /* Boolean */
-  #define ACCOUNT_TAIL        POSTFICS_TAIL           /* Boolean */
-  #define ACCOUNT_ACCNT       POSTFICS_ACCNT          /* Boolean */
-  #define ACCOUNT_WRDTERM(p)  ((WORD)((*(p))&0x08))   /* Boolean */
-  #define ACCOUNT_FREQ(p)     ((WORD)((*(p)) >> 5))   /* WORD */
+#define ACCOUNT_SIZE        1
+#define ACCOUNT_CONT        VERTV_CONT              /* Boolean */
+#define ACCOUNT_TAIL        POSTFICS_TAIL           /* Boolean */
+#define ACCOUNT_ACCNT       POSTFICS_ACCNT          /* Boolean */
+#define ACCOUNT_WRDTERM(p)  ((WORD)((*(p))&0x08))   /* Boolean */
+#define ACCOUNT_FREQ(p)     ((WORD)((*(p)) >> 5))   /* WORD */
 
 /* -- Pointer tree relative shift to the next node in level. -------- */
 
-  /* ADDR_SIZE not a valid value!!!                              */
-  /* ADDR may be interpreted differently in the current context. */
+/* ADDR_SIZE not a valid value!!!                              */
+/* ADDR may be interpreted differently in the current context. */
 
-  #define ADDR_CONT      VERTV_CONT                   /* Boolean */
-  #define ADDR_TAIL      POSTFICS_TAIL                /* Boolean */
-  #define ADDR_LTH(p)    ((WORD)((*(p))&0x04))        /* Boolean */
-  #define ADDR_SHIFT0(p) ((WORD)((*(p)) >> 3))        /* WORD */
-  #define ADDR_LTH2(p)   ((WORD)((*((p)+1))&0x01))    /* WORD */
-  #define ADDR_SHIFT2(p) ((WORD)((*((p)+1)) >> 1))    /* WORD */
-  #define ADDR_SHIFT3(p) ((WORD)(*((p)+2)))           /* WORD */
+#define ADDR_CONT      VERTV_CONT                   /* Boolean */
+#define ADDR_TAIL      POSTFICS_TAIL                /* Boolean */
+#define ADDR_LTH(p)    ((WORD)((*(p))&0x04))        /* Boolean */
+#define ADDR_SHIFT0(p) ((WORD)((*(p)) >> 3))        /* WORD */
+#define ADDR_LTH2(p)   ((WORD)((*((p)+1))&0x01))    /* WORD */
+#define ADDR_SHIFT2(p) ((WORD)((*((p)+1)) >> 1))    /* WORD */
+#define ADDR_SHIFT3(p) ((WORD)(*((p)+2)))           /* WORD */
 
 /* -- Tailset element fields. --------------------------------------- */
 
-  #define TAILSET_SIZE 1
-  #define TAILSET_CH(p)       ((CHAR)((*(p))&0x3F))   /* CHAR */
-  #define TAILSET_TAILEND(p)  ((WORD)((*(p))&0x80))   /* Boolean */
+#define TAILSET_SIZE 1
+#define TAILSET_CH(p)       ((CHAR)((*(p))&0x3F))   /* CHAR */
+#define TAILSET_TAILEND(p)  ((WORD)((*(p))&0x80))   /* Boolean */
 
 /*************************************************************************/
 /*                                                                       */
@@ -220,58 +212,54 @@ KEYTYPE codetable[256];
 /*                                                                       */
 /*************************************************************************/
 
-INT search (
-    KEYTYPE *word,
-    INT *wordsize,
-    LTIMG * wrddef[],
-    struct dict_state  * dict
-  )
-{
-  INT found = 0;
-  INT state;                            /* state of search in dictionary */
-  INT account = 0;                      /* word statistic                */
-  INT full_size = *wordsize;            /* ATAL, save word size          */
+INT search(KEYTYPE *word, INT *wordsize, LTIMG * wrddef[],
+		struct dict_state * dict) {
+	INT found = 0;
+	INT state; /* state of search in dictionary */
+	INT account = 0; /* word statistic                */
+	INT full_size = *wordsize; /* ATAL, save word size          */
 
-  dictInfo = dict;                      /* initial values of prossess    */
-  ndptr = dict->root;
-  indpos = 1;
-  wptr = word;
-  poslevel = 0;
-  maxlevel = VERTV_KEY(ndptr);
+	dictInfo = dict; /* initial values of prossess    */
+	ndptr = dict->root;
+	indpos = 1;
+	wptr = word;
+	poslevel = 0;
+	maxlevel = VERTV_KEY(ndptr);
 
-  for( cnt = 0, rest = *wordsize ; rest >= 0 ; ++cnt,--rest ) {
-    if ( wrddef[cnt]->blank == 1 ) {
-      if ( ! fillgap( word, cnt, wrddef, found ) )
-        if( ! found ) {
-          *wordsize = cnt-1;
-          goto Fail;
-        }
-        else goto Success;
-    }
-    if ( ! next_level( word[cnt] ) ) {
-      if ( ! found ) {
-        *wordsize = cnt;
-        goto Fail;
-      }
-      else goto Success;
-    }
-    state = analyse( &account, wordsize, wrddef, &found );
-    if ( state != 0 ) {   /* -- word found or break is in need -- */
-      if( ( (state==1) && (!found) ) || state == 2 ) break;
-    }
-  }
+	for (cnt = 0, rest = *wordsize; rest >= 0; ++cnt, --rest) {
+		if (wrddef[cnt]->blank == 1) {
+			if (!fillgap(word, cnt, wrddef, found))
+				if (!found) {
+					*wordsize = cnt - 1;
+					goto Fail;
+				} else
+					goto Success;
+		}
+		if (!next_level(word[cnt])) {
+			if (!found) {
+				*wordsize = cnt;
+				goto Fail;
+			} else
+				goto Success;
+		}
+		state = analyse(&account, wordsize, wrddef, &found);
+		if (state != 0) { /* -- word found or break is in need -- */
+			if (((state == 1) && (!found)) || state == 2)
+				break;
+		}
+	}
 
-  if ( state == 1 || found )  goto Success;
-  else                        goto Fail;
+	if (state == 1 || found)
+		goto Success;
+	else
+		goto Fail;
 
-Fail:
-  return FAIL;          /* <==> return (0)        */
+	Fail: return FAIL; /* <==> return (0)        */
 
-Success:
-  while ( full_size >= 0 ) {
-    wrddef[ full_size-- ]->blank = 0;
-  }
-  return account;       /* return word statistic  */
+	Success: while (full_size >= 0) {
+		wrddef[full_size--]->blank = 0;
+	}
+	return account; /* return word statistic  */
 
 }
 
@@ -282,58 +270,57 @@ Success:
 /*  returns 1, otherwise 0 is returned.                                  */
 /*************************************************************************/
 
-INT next_level( KEYTYPE ch )
-{
-  TShiftType shift;
+INT next_level(KEYTYPE ch) {
+	TShiftType shift;
 
-Begin:
-  if ( indpos )
-    if ( poslevel != maxlevel ) {
-      if ( maxlevel > 2) {
-        register WORD i;
-        for ( i = maxlevel-poslevel-1, shift=1L ; i > 0 ; --i ) {
-          shift *= dictInfo->abcSize;
-          shift++;
-        }
-      }
-      else if ( poslevel == 0 ) {
-        shift = dictInfo->abcSize + 1L;
-        ndptr -= 2;
-      }
-      else {
-        shift = 1L;
-      }
+	Begin: if (indpos)
+		if (poslevel != maxlevel) {
+			if (maxlevel > 2) {
+				register WORD i;
+				for (i = maxlevel - poslevel - 1, shift = 1L; i > 0; --i) {
+					shift *= dictInfo->abcSize;
+					shift++;
+				}
+			} else if (poslevel == 0) {
+				shift = dictInfo->abcSize + 1L;
+				ndptr -= 2;
+			} else {
+				shift = 1L;
+			}
 
-      ndptr += ( ch * shift + 1 ) * VERTP_SIZE;
-      poslevel++;
+			ndptr += (ch * shift + 1) * VERTP_SIZE;
+			poslevel++;
 
-      if ( VERTP_EXIST(ndptr) != 0 )  goto Success;
-      else                            goto Fail;
-    }
-    else {
-      ndptr+=lthorshift;
-      indpos=0;
-      lthorshift=0L;
-      goto Begin;
-    }
-  else {                        /* -- if ( ! indpos ) -> pointer tree */
-    ndptr += lthorshift;
+			if (VERTP_EXIST(ndptr) != 0)
+				goto Success;
+			else
+				goto Fail;
+		} else {
+			ndptr += lthorshift;
+			indpos = 0;
+			lthorshift = 0L;
+			goto Begin;
+		}
+	else { /* -- if ( ! indpos ) -> pointer tree */
+		ndptr += lthorshift;
 
-    while ( VERTV_KEY(ndptr) < ch ) {
-      shift = brother2( ndptr );
-      if( shift == 0L ) goto Fail;     /* it was the last brother ? */
-      ndptr += shift;
-    }
+		while (VERTV_KEY(ndptr) < ch) {
+			shift = brother2(ndptr);
+			if (shift == 0L)
+				goto Fail;
+			/* it was the last brother ? */
+			ndptr += shift;
+		}
 
-    if( VERTV_KEY(ndptr) == ch)   goto Success;
-    else                          goto Fail;
-  }
+		if (VERTV_KEY(ndptr) == ch)
+			goto Success;
+		else
+			goto Fail;
+	}
 
-Success:
-  return OK;
+	Success: return OK;
 
-Fail:
-  return FAIL;
+	Fail: return FAIL;
 
 }
 
@@ -344,36 +331,36 @@ Fail:
 /* function cntinues searching to next(right) brother.                    */
 /**************************************************************************/
 
-TShiftType brother2 ( BYTE  * ptr )
-{
-  TShiftType shift = 0;
+TShiftType brother2(BYTE * ptr) {
+	TShiftType shift = 0;
 
-  if ( VERTV_CONT(ptr) == 0 ) {
-    return 0;                           /* continuation absent  */
-  }
+	if (VERTV_CONT(ptr) == 0) {
+		return 0; /* continuation absent  */
+	}
 
-  ptr += VERTV_SIZE;                    /* skip vertex itself */
+	ptr += VERTV_SIZE; /* skip vertex itself */
 
-  while ( POSTFICS_TAIL(ptr) != 0       /* skip account and postfics */
-          && POSTFICS_CONT(ptr) != 0 )
-  {
-    if ( POSTFICS_ACCNT(ptr) != 0 )   ptr += ACCOUNT_SIZE;
-    else                              ptr += POSTFICS_SIZE;
-  }
+	while (POSTFICS_TAIL(ptr) != 0 /* skip account and postfics */
+	&& POSTFICS_CONT(ptr) != 0) {
+		if (POSTFICS_ACCNT(ptr) != 0)
+			ptr += ACCOUNT_SIZE;
+		else
+			ptr += POSTFICS_SIZE;
+	}
 
-  if ( ADDR_TAIL(ptr) == 0 ) {
-    shift = ADDR_SHIFT0(ptr);
-    if ( ADDR_LTH(ptr) != 0 ) {
-      shift <<= 7;
-      shift += ADDR_SHIFT2 ( ptr );
-      if ( ADDR_LTH2(ptr) != 0 ) {
-        shift <<= 8;
-        shift += ADDR_SHIFT3 ( ptr );
-      }
-    }
-  }
+	if (ADDR_TAIL(ptr) == 0) {
+		shift = ADDR_SHIFT0(ptr);
+		if (ADDR_LTH(ptr) != 0) {
+			shift <<= 7;
+			shift += ADDR_SHIFT2 ( ptr );
+			if (ADDR_LTH2(ptr) != 0) {
+				shift <<= 8;
+				shift += ADDR_SHIFT3 ( ptr );
+			}
+		}
+	}
 
-  return shift;
+	return shift;
 }
 
 /*************************************************************************/
@@ -382,57 +369,50 @@ TShiftType brother2 ( BYTE  * ptr )
 /*  terminal in tree or not.                                             */
 /*************************************************************************/
 
-INT analyse (
-    INT *    account,
-    INT *    wordsize,
-    LTIMG ** wrddef,
-    INT *    found
-  )
-{
-  INT   tailmaxl = 0;
-  BYTE   * ptr;         /* serv pointer: points to vertex cont. */
+INT analyse(INT * account, INT * wordsize, LTIMG ** wrddef, INT * found) {
+	INT tailmaxl = 0;
+	BYTE * ptr; /* serv pointer: points to vertex cont. */
 
-  if ( indpos )
-    lthorshift = ( (TShiftType) VERTP_SHIFT0(ndptr) << 16 )
-                        + ( (TShiftType) VERTP_SHIFT1(ndptr) << 8 )
-                              + VERTP_SHIFT2(ndptr);
-  else
-    lthorshift = 1;           /*lth of VERTV vertex */
+	if (indpos)
+		lthorshift = ((TShiftType) VERTP_SHIFT0(ndptr) << 16)
+				+ ((TShiftType) VERTP_SHIFT1(ndptr) << 8) + VERTP_SHIFT2(ndptr);
+	else
+		lthorshift = 1; /*lth of VERTV vertex */
 
-  ptr=ndptr+lthorshift;
+	ptr = ndptr + lthorshift;
 
-  if ( VERTV_CONT(ndptr) != 0 && rest >= 0 ) {
-    INT ret = test_tail( ptr, account, &tailmaxl, wrddef, found );
-    if ( ret && ! *found ) {
-      goto Success;
-    }
-  }
+	if (VERTV_CONT(ndptr) != 0 && rest >= 0) {
+		INT ret = test_tail(ptr, account, &tailmaxl, wrddef, found);
+		if (ret && !*found) {
+			goto Success;
+		}
+	}
 
-  if ( rest == 0 ) {      /* test the end of word, if current letter  */
-    goto Fail;            /* is the last letter in the word.          */
-  }
-  else {                  /* the current letter isn't the last.       */
-    if ( VERTV_NOTERM(ndptr) != 0 ) {
-      goto GoNext;
-    }
-    else {
-      if( *found )  goto Fail;
-      else          goto Failcnt;
-    }
-  }
+	if (rest == 0) { /* test the end of word, if current letter  */
+		goto Fail;
+		/* is the last letter in the word.          */
+	} else { /* the current letter isn't the last.       */
+		if (VERTV_NOTERM(ndptr) != 0) {
+			goto GoNext;
+		} else {
+			if (*found)
+				goto Fail;
+			else
+				goto Failcnt;
+		}
+	}
 
-GoNext:  return 0;           /* go to the next vertex in tree         */
-Success: return 1;           /* the word is in dictionary             */
-Failcnt:
-  if ( ! ( VERTV_CONT(ndptr) != 0 && rest >= 0 ) )
-    *wordsize = cnt;         /* continue searching impossible         */
-  else
-    *wordsize = cnt+tailmaxl+1;
-    /* Test variant : cnt points for the current letter.
-       We test tails hence we are working with the next letter:
-       1 is in need.
-     */
-Fail:    return 2;
+	GoNext: return 0; /* go to the next vertex in tree         */
+	Success: return 1; /* the word is in dictionary             */
+	Failcnt: if (!(VERTV_CONT(ndptr) != 0 && rest >= 0))
+		*wordsize = cnt; /* continue searching impossible         */
+	else
+		*wordsize = cnt + tailmaxl + 1;
+	/* Test variant : cnt points for the current letter.
+	 We test tails hence we are working with the next letter:
+	 1 is in need.
+	 */
+	Fail: return 2;
 }
 
 /**********************************************************************/
@@ -444,68 +424,49 @@ Fail:    return 2;
 /*               ->  LONGADDR,ACCOUNT,POSTFICS !                      */
 /**********************************************************************/
 
-INT test_tail (	BYTE        * ptr,
-				INT         * accounter,
-				INT         * tailmaxl,
-				LTIMG       * wrddef[],
-				INT         * tailfound  )
-{
-	INT   contflag   = 0;
-	INT   tailscnter = 0;
-	INT   accntcnter = 0;
-	DWORD wCount     = 0;
+INT test_tail(BYTE * ptr, INT * accounter, INT * tailmaxl, LTIMG * wrddef[],
+		INT * tailfound) {
+	INT contflag = 0;
+	INT tailscnter = 0;
+	INT accntcnter = 0;
+	uint32_t wCount = 0;
 
-	do
-	{
+	do {
 		contflag = POSTFICS_CONT(ptr);
-		if ( POSTFICS_TAIL(ptr) )
-		{
-			if ( ! POSTFICS_ACCNT(ptr) )
-			{
-				if ( rest != 0 )
-				{
+		if (POSTFICS_TAIL(ptr)) {
+			if (!POSTFICS_ACCNT(ptr)) {
+				if (rest != 0) {
 					/* -- don't check tails if no rest. */
 					WORD enterNum;
-					enterNum = ( POSTFICS_ENTER0(ptr) << 8 ) + POSTFICS_ENTER1(ptr);
+					enterNum = (POSTFICS_ENTER0(ptr) << 8)
+							+ POSTFICS_ENTER1(ptr);
 
-					if ( comp_tail( enterNum, rest, cnt, wptr, tailmaxl, wrddef, tailfound) )
-					{
+					if (comp_tail(enterNum, rest, cnt, wptr, tailmaxl, wrddef,
+							tailfound)) {
 						goto Success;
 					}
 				}
 				tailscnter++;
 				ptr += POSTFICS_SIZE;
-			}
-			else
-			{
-				if ( ! *tailfound )
-				{
+			} else {
+				if (!*tailfound) {
 					*accounter = ACCOUNT_FREQ(ptr);
-					if ( rest == 0 && ACCOUNT_WRDTERM(ptr) != 0 )
-					{
+					if (rest == 0 && ACCOUNT_WRDTERM(ptr) != 0) {
 						goto Success;
 					}
 				}
 				accntcnter++;
 				ptr += ACCOUNT_SIZE;
 			}
-		}
-		else
-		{
-			if ( ADDR_LTH(ptr) == 0 )
-			{
+		} else {
+			if (ADDR_LTH(ptr) == 0) {
 				lthorshift += 1;
 				ptr += 1;
-			}
-			else
-			{
-				if ( ADDR_LTH2(ptr) == 0 )
-				{
+			} else {
+				if (ADDR_LTH2(ptr) == 0) {
 					lthorshift += 2;
 					ptr += 2;
-				}
-				else
-				{
+				} else {
 					lthorshift += 3;
 					ptr += 3;
 				}
@@ -514,18 +475,15 @@ INT test_tail (	BYTE        * ptr,
 		/////////
 		wCount++;
 		/////////
-	}
-	while ( contflag );
+	} while (contflag);
 
 	lthorshift += tailscnter * POSTFICS_SIZE + accntcnter * ACCOUNT_SIZE;
 
-	if ( *tailfound == 0 )
-	{
+	if (*tailfound == 0) {
 		return FAIL;
 	}
 
-Success:
-  return OK;
+	Success: return OK;
 }
 
 /*************************************************************************/
@@ -535,297 +493,265 @@ Success:
 
 #define MASK 0x1L
 
-INT comp_tail(
-    INT       varnum,
-    INT       rest,
-    INT       cnt,
-    KEYTYPE * wptr,
-    INT     * tailmaxl,
-    LTIMG   * wrddef[],
-    INT     * tailfound
-   )
-{
-  register INT j,k;
-  BYTE  * ptr;
-  BYTE  * tailptr;
-  DWORD mask;
+INT comp_tail(INT varnum, INT rest, INT cnt, KEYTYPE * wptr, INT * tailmaxl,
+		LTIMG * wrddef[], INT * tailfound) {
+	register INT j, k;
+	BYTE * ptr;
+	BYTE * tailptr;
+	uint32_t mask;
 
-  if ( dictInfo->vartable[varnum].maxtaillth < rest) {
-    return FAIL;
-  }
+	if (dictInfo->vartable[varnum].maxtaillth < rest) {
+		return FAIL;
+	}
 
-  ptr = dictInfo->tailset_root
-            + dictInfo->table[ dictInfo->vartable[varnum].tablenum ];
-  mask = dictInfo->vartable[varnum].tailmask;
-  for ( ; mask != 0 ; mask >>= 1 ) {
-    if( ( MASK & mask ) != 0 ) {
-      tailptr=ptr, j=cnt+1, k=rest-1;
-      do {
-        if (wrddef[j]->blank != 1 ) {
-          if ( wptr[j] != TAILSET_CH(ptr) ) {
-            if (*tailmaxl<=j-cnt-2) {
-              *tailmaxl=j-cnt-1;
-            }
-            break;
-          }
-        }
-/*-------------------------------------------------------------------------*/
-        if ( TAILSET_TAILEND(ptr) && k == 0 ) { /* end of word & tail */
-          if( tailout( cnt, rest, wptr, wrddef, tailfound,
-                       tailptr) != HAVE_BLANK )
-          {
-            return OK;
-          }
-        }
-        if ( TAILSET_TAILEND(ptr) ) {
-          break;
-        }
-/*------------------------------------------------------------------------*/
-        j++,k--,ptr++;
-      } while ( k >= 0 );
-    }
+	ptr = dictInfo->tailset_root
+			+ dictInfo->table[dictInfo->vartable[varnum].tablenum];
+	mask = dictInfo->vartable[varnum].tailmask;
+	for (; mask != 0; mask >>= 1) {
+		if ((MASK & mask) != 0) {
+			tailptr = ptr, j = cnt + 1, k = rest - 1;
+			do {
+				if (wrddef[j]->blank != 1) {
+					if (wptr[j] != TAILSET_CH(ptr)) {
+						if (*tailmaxl <= j - cnt - 2) {
+							*tailmaxl = j - cnt - 1;
+						}
+						break;
+					}
+				}
+				/*-------------------------------------------------------------------------*/
+				if (TAILSET_TAILEND(ptr) && k == 0) { /* end of word & tail */
+					if (tailout(cnt, rest, wptr, wrddef, tailfound, tailptr)
+							!= HAVE_BLANK) {
+						return OK;
+					}
+				}
+				if (TAILSET_TAILEND(ptr)) {
+					break;
+				}
+				/*------------------------------------------------------------------------*/
+				j++, k--, ptr++;
+			} while (k >= 0);
+		}
 
-    while ( TAILSET_TAILEND(ptr) == 0 )  ptr++;
-    ptr++;
-  }
+		while (TAILSET_TAILEND(ptr) == 0)
+			ptr++;
+		ptr++;
+	}
 
-  return FAIL;
+	return FAIL;
 }
 
 /*************************************************************************/
 /*                                                                       */
 /*************************************************************************/
 
-INT fillgap ( KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont )
-{
+INT fillgap(KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont) {
 
-  TShiftType shift;
+	TShiftType shift;
 
-  LT  * gaplt;
-  INT         xindpos;
-  INT         xposlevel;
-  INT         xmaxlevel;
-  TShiftType  xlthorshift;
-  BYTE  * xndptr;
+	LT * gaplt;
+	INT xindpos;
+	INT xposlevel;
+	INT xmaxlevel;
+	TShiftType xlthorshift;
+	BYTE * xndptr;
 
-  INT   fillfind = 0;
+	INT fillfind = 0;
 
-  xindpos     = indpos;
-  xposlevel   = poslevel;
-  xmaxlevel   = maxlevel;
-  xndptr      = ndptr;
-  xlthorshift = lthorshift;
+	xindpos = indpos;
+	xposlevel = poslevel;
+	xmaxlevel = maxlevel;
+	xndptr = ndptr;
+	xlthorshift = lthorshift;
 
+	if (gapcont == 0) { /* fill gap from the beginning  */
+		wrddef[cnt]->lt = (LT *) &wrddef[cnt]->std;
+		gaplt = wrddef[cnt]->lt;
+	} else { /* continue filling             */
+		gaplt = wrddef[cnt]->lt;
+		while (!(gaplt->attr & EOLIST)) {
+			++gaplt;
+		}
+		++gaplt;
+	}
 
-  if ( gapcont == 0 ) {               /* fill gap from the beginning  */
-    wrddef[cnt]->lt = (LT  *)&wrddef[cnt]->std;
-    gaplt = wrddef[cnt]->lt;
-  }
-  else {                              /* continue filling             */
-    gaplt = wrddef[cnt]->lt;
-    while ( ! ( gaplt->attr & EOLIST ) ) {
-      ++ gaplt;
-    }
-    ++ gaplt;
-  }
+	Begin:
 
-Begin:
+	if (xindpos) {
+		if (xposlevel != xmaxlevel) {
 
-  if ( xindpos ) {
-    if ( xposlevel != xmaxlevel ) {
+			register INT i;
+			WORD abcSize = dictInfo->abcSize;
+			;
 
-      register INT i;
-      WORD  abcSize = dictInfo->abcSize;;
+			if (xmaxlevel > 2) {
+				for (i = xmaxlevel - xposlevel - 1, shift = 1L; i > 0; --i) {
+					shift *= abcSize;
+					++shift;
+				}
+			} else if (xposlevel == 0) {
+				shift = abcSize + 1;
+				xndptr -= 2;
+			} else {
+				shift = 1L;
+			}
 
-      if ( xmaxlevel > 2 ) {
-        for ( i = xmaxlevel-xposlevel-1, shift=1L ; i > 0 ; --i ) {
-          shift *= abcSize;
-          ++ shift;
-        }
-      }
-      else if ( xposlevel == 0 ) {
-        shift = abcSize + 1;
-        xndptr -= 2;
-      }
-      else {
-        shift = 1L;
-      }
+			xndptr += VERTP_SIZE;
+			for (i = 0; i < abcSize; ++i) {
+				if (VERTP_EXIST(xndptr) != 0) {
+					chkfill(word, cnt, wrddef, gapcont, &fillfind,
+							alphabet[0][i], &gaplt);
+				}
+				xndptr += shift * VERTP_SIZE;
+			}
 
-      xndptr += VERTP_SIZE;
-      for ( i = 0 ; i < abcSize; ++i ) {
-        if ( VERTP_EXIST(xndptr) != 0 ) {
-          chkfill ( word, cnt, wrddef, gapcont,
-                      &fillfind, alphabet[0][i], &gaplt );
-        }
-        xndptr += shift * VERTP_SIZE;
-      }
+			if (fillfind != 0)
+				goto Success;
+			else
+				goto Fail;
+		} else {
+			xndptr += xlthorshift;
+			xindpos = 0;
+			xlthorshift = 0L;
+			goto Begin;
+		}
+	} else { /* -- if ( !xindpos ) -> pointer tree */
+		xndptr += xlthorshift;
 
-      if ( fillfind != 0 )  goto Success;
-      else                  goto Fail;
-    }
-    else {
-      xndptr += xlthorshift;
-      xindpos=0;
-      xlthorshift=0L;
-      goto Begin;
-    }
-  }
-  else {                        /* -- if ( !xindpos ) -> pointer tree */
-    xndptr += xlthorshift;
+		chkfill(word, cnt, wrddef, gapcont, &fillfind,
+				alphabet[0][VERTV_KEY(xndptr)], &gaplt);
+		while ((shift = brother2(xndptr)) != 0) {
+			xndptr += shift;
+			chkfill(word, cnt, wrddef, gapcont, &fillfind,
+					alphabet[0][VERTV_KEY(xndptr)], &gaplt);
+		}
 
-    chkfill ( word, cnt, wrddef, gapcont, &fillfind,
-                      alphabet[0][VERTV_KEY(xndptr)], &gaplt );
-    while ( ( shift = brother2( xndptr ) ) != 0 ) {
-      xndptr += shift;
-      chkfill ( word, cnt, wrddef, gapcont, &fillfind,
-                        alphabet[0][VERTV_KEY(xndptr)], &gaplt );
-    }
+		if (fillfind > 0)
+			goto Success;
+		else
+			goto Fail;
 
-    if ( fillfind > 0)  goto Success;
-    else                goto Fail;
+	} /* end if (xindpos) */
 
-  }    /* end if (xindpos) */
+	Success: wrddef[cnt]->blank = 0;
+	return OK;
 
-Success:
-  wrddef[cnt]->blank = 0;
-  return OK;
-
-Fail:
-  if ( gapcont != 0 ) {
-    wrddef[cnt]->blank=0;
-    return OK;
-  }
-  else {
-    return FAIL;
-  }
+	Fail: if (gapcont != 0) {
+		wrddef[cnt]->blank = 0;
+		return OK;
+	} else {
+		return FAIL;
+	}
 }
 
 /*************************************************************************/
 /*                                                                       */
 /*************************************************************************/
 
-INT chkfill (
-    KEYTYPE *     word,
-    INT           cnt,
-    LTIMG *       wrddef[],
-    INT           gapcont,
-    INT *         fillfind,
-    BYTE          symb,
-    LT  **  gaplt
-  )
-{
-  LT  * xxgaplt;
+INT chkfill(KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont,
+		INT * fillfind, BYTE symb, LT ** gaplt) {
+	LT * xxgaplt;
 
-  if ( gapcont == 0 ) {
-    goto Gapadd;              /* fill gap from the beginning */
-  }
+	if (gapcont == 0) {
+		goto Gapadd;
+		/* fill gap from the beginning */
+	}
 
-  xxgaplt = (LT  *) & wrddef[cnt]->std;
-  while ( xxgaplt != *gaplt ) {
-    if ( xxgaplt->code == symb ) {
-      break;
-    }
-    xxgaplt++;
-  }
+	xxgaplt = (LT *) &wrddef[cnt]->std;
+	while (xxgaplt != *gaplt) {
+		if (xxgaplt->code == symb) {
+			break;
+		}
+		xxgaplt++;
+	}
 
-  if ( xxgaplt == *gaplt ) {  /* symb not found in the available list */
-    goto Gapadd;
-  }
-  else {
-    goto CheckFirstFind;
-  }
+	if (xxgaplt == *gaplt) { /* symb not found in the available list */
+		goto Gapadd;
+	} else {
+		goto CheckFirstFind;
+	}
 
-Gapadd:
-  if ( (*gaplt) != (LT  *)&wrddef[cnt]->std ) {
-    ( (*gaplt)-1 )->attr= 0;
-  }
-  (*gaplt)->code = symb;
-  (*gaplt)->attr = 1;
-  ++(*gaplt);
+	Gapadd: if ((*gaplt) != (LT *) &wrddef[cnt]->std) {
+		((*gaplt) - 1)->attr = 0;
+	}
+	(*gaplt)->code = symb;
+	(*gaplt)->attr = 1;
+	++(*gaplt);
 
-CheckFirstFind:
-  if ( *fillfind == 0 ) {     /* 1-st find */
-    if( gapcont == 0 ) {
-      word[cnt] = codetable[symb];
-    }
-    *fillfind=1;
-  }
+	CheckFirstFind: if (*fillfind == 0) { /* 1-st find */
+		if (gapcont == 0) {
+			word[cnt] = codetable[symb];
+		}
+		*fillfind = 1;
+	}
 
- return OK;
+	return OK;
 }
 
 /*************************************************************************/
 /*             Function fills blank positions from the tail.             */
 /*************************************************************************/
 
-INT tailout (
-    INT cnt,
-    INT rest,
-    KEYTYPE * wptr,
-    LTIMG * wrddef[],
-    INT * tailfound,
-    BYTE  *tailptr
-  )
-{
+INT tailout(INT cnt, INT rest, KEYTYPE * wptr, LTIMG * wrddef[],
+		INT * tailfound, BYTE *tailptr) {
 
-  BYTE  * xxptr;
-  INT           xj;
-  LT  *   xxgaplt = NULL;
-  INT           bl_flag = 0;
-  INT           last_bl = 0;
+	BYTE * xxptr;
+	INT xj;
+	LT * xxgaplt = NULL;
+	INT bl_flag = 0;
+	INT last_bl = 0;
 
-  xj = cnt+1;
-  xxptr = tailptr;
-  do {                          /* loop to fill all wrddef, if blank  */
-    if ( wrddef[xj]->blank == 1 ) {
-      bl_flag = 1;
-      if ( *tailfound == 0 ) {
-        xxgaplt=(LT  *)&wrddef[xj]->std ;
-        /* ---------------------------------------------------------- */
-        wrddef[xj]->lt = xxgaplt;
-        xxgaplt->attr = 1;
-        xxgaplt->code = alphabet[0][TAILSET_CH(xxptr)];
-        wptr[xj] = TAILSET_CH(xxptr);   /* output ch instead of BLANK */
-      }
-      else if ( xxgaplt == NULL
-                || ( xxgaplt && last_bl != -1
-                      && (xxgaplt==(LT  *)&wrddef[last_bl]->std ))
-              )
-      {
-        xxgaplt=(LT  *)&wrddef[xj]->std ;
-        xxgaplt--;
-        do {
-          xxgaplt++;
-          if (xxgaplt->code == alphabet[0][TAILSET_CH(xxptr)]) {
-            break;
-          }
-        } while ( ! ( xxgaplt->attr & EOLIST ) );
-        if ( xxgaplt->code != alphabet[0][TAILSET_CH(xxptr)] ) {
-          (xxgaplt)->attr = 0;
-          (++xxgaplt)->attr = 1;
-          (xxgaplt)->code = alphabet[0][ TAILSET_CH(xxptr) ];
-        }
-      }
-      /* ------------------------------------------------------------ */
-      else {
-        last_bl = -1;
-      }
-      if( last_bl != -1 ) {
-        last_bl = xj;
-      }
-    }
+	xj = cnt + 1;
+	xxptr = tailptr;
+	do { /* loop to fill all wrddef, if blank  */
+		if (wrddef[xj]->blank == 1) {
+			bl_flag = 1;
+			if (*tailfound == 0) {
+				xxgaplt = (LT *) &wrddef[xj]->std;
+				/* ---------------------------------------------------------- */
+				wrddef[xj]->lt = xxgaplt;
+				xxgaplt->attr = 1;
+				xxgaplt->code = alphabet[0][TAILSET_CH(xxptr)];
+				wptr[xj] = TAILSET_CH(xxptr); /* output ch instead of BLANK */
+			} else if (xxgaplt == NULL || (xxgaplt && last_bl != -1 && (xxgaplt
+					== (LT *) &wrddef[last_bl]->std))) {
+				xxgaplt = (LT *) &wrddef[xj]->std;
+				xxgaplt--;
+				do {
+					xxgaplt++;
+					if (xxgaplt->code == alphabet[0][TAILSET_CH(xxptr)]) {
+						break;
+					}
+				} while (!(xxgaplt->attr & EOLIST));
+				if (xxgaplt->code != alphabet[0][TAILSET_CH(xxptr)]) {
+					(xxgaplt)->attr = 0;
+					(++xxgaplt)->attr = 1;
+					(xxgaplt)->code = alphabet[0][TAILSET_CH(xxptr)];
+				}
+			}
+			/* ------------------------------------------------------------ */
+			else {
+				last_bl = -1;
+			}
+			if (last_bl != -1) {
+				last_bl = xj;
+			}
+		}
 
-    ++xj, ++xxptr;
-  } while ( (--rest) != 0 );
+		++xj, ++xxptr;
+	} while ((--rest) != 0);
 
-  if( bl_flag ) {
-    *tailfound = 1;
-  }
+	if (bl_flag) {
+		*tailfound = 1;
+	}
 
-  if ( !bl_flag ) return OK;
-  else            return HAVE_BLANK;
+	if (!bl_flag)
+		return OK;
+	else
+		return HAVE_BLANK;
 
- }
+}
 /*************************************************************************/
 /*                                                                       */
 /*************************************************************************/
