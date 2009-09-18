@@ -108,10 +108,10 @@ class XStack : private XPool
 /** 22.03.97 22:07
   public:          // The obsolete methods: for backward compatibility.
 		void     flush  () {Destroy();};
-//		T      * ptr( Indx num )        { return &(*this)[num]; }
+//		T      * ptr( uint num )        { return &(*this)[num]; }
 		T      * firstPtr(void)         { return (T *)GetData();}
 		uint32_t   volume( void )         {  return MaxCnt;}
-		T      & GetLast(void)          {  return (*this)[(Indx)(CurCnt -1)];}
+		T      & GetLast(void)          {  return (*this)[(uint)(CurCnt -1)];}
 **/
 };
 
@@ -161,7 +161,7 @@ T*       XStack< T >::Push( int32_t* no ) // fix space for new element
 		T* pt = (T*)GetData();
       if (pt==NULL)
          RETNULL;
-		pt+=(Indx)CurCnt;
+		pt+=(uint)CurCnt;
       if (no)
          *no = CurCnt;
 		CurCnt++;
@@ -180,7 +180,7 @@ Bool     XStack< T >::Push( T* t, int32_t* no )
 		T* pt = (T*)GetData();
       if (pt==NULL)
          RETFALSE;
-		pt+=(Indx)CurCnt;
+		pt+=(uint)CurCnt;
 		if ( ( t!=NULL ) && !Copy( pt, t) )
 			RETFALSE;
       if (no)
@@ -196,7 +196,7 @@ T*       XStack< T >::Pop(void)
 		T* pt = (T*)GetData();
 		assert(pt!=NULL);
 		CurCnt--;
-		pt+=(Indx)CurCnt;
+		pt+=(uint)CurCnt;
 		return pt;
 	}
 
@@ -207,7 +207,7 @@ T*       XStack< T >::Top(void)
          return NULL;
 		T* pt = (T*)GetData();
 		assert(pt!=NULL);
-		pt+=(Indx)(CurCnt-1);
+		pt+=(uint)(CurCnt-1);
 		return pt;
 	}
 

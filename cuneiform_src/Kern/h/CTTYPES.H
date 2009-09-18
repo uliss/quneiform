@@ -80,7 +80,6 @@ class cls;                 \
 #endif
 
 /*** Base types ***/
-typedef unsigned int Indx;_SETTYPES( Indx )
 typedef char Int8;      _SETTYPES( Int8 )
 typedef unsigned char Word8;_SETTYPES( Word8 )
 typedef long double Float80; _SETTYPES( Float80 )
