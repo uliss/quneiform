@@ -86,6 +86,7 @@ typedef int16_t Bool16;_SETTYPES( Bool16 )
 typedef int32_t Bool32;_SETTYPES( Bool32 )
 
 typedef unsigned long ulong;
+typedef unsigned int uint;
 typedef unsigned char uchar;
 
 typedef void * pvoid;
