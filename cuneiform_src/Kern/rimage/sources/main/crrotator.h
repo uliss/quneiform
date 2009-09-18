@@ -129,8 +129,8 @@ protected:
 	Float80            mfTang;
 	PWord8             BufferForGray;
 	int32_t *             HShiftTable;
-	Puint32_t            VShiftTable;
-	Puint32_t            VShiftLenght;
+	uint32_t *            VShiftTable;
+	uint32_t *            VShiftLenght;
 };
 
 typedef CRRotator  *PCRRotator, **PPCRRotator;

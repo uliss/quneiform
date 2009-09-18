@@ -140,7 +140,7 @@ class CRLEd
 
 
 public:
-	RecVersions GetVersElement(uint32_t i, Puint32_t pNVers);
+	RecVersions GetVersElement(uint32_t i, uint32_t * pNVers);
 	Rect16 GetRectElement(uint32_t i);
 	void * GetEdPool(void) { return (void *) mpEdBuffer; };
 	void * GetEdOutPool(void) { return (void *) mpEdOutBuffer; };

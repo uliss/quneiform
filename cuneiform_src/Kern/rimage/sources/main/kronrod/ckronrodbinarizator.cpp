@@ -2049,7 +2049,7 @@ void CKronrodBinarizator::Korob_Files_Write()
 
 	buf_H [4] = Korob_Factor + (Korob_porog << 8);
 	buf_H [5] = Porog_08 + (Porog_88 << 8);
-	* (Puint32_t) (buf_H + 6) = Korob_Files_Address;
+	* (uint32_t *) (buf_H + 6) = Korob_Files_Address;
 
 	Korob_Files_Address += (uint32_t) ni * Korob_nj;
 
@@ -2417,7 +2417,7 @@ uint32_t CKronrodBinarizator::mk_1235()
 	return 0;
 }
 
-void CKronrodBinarizator::mk_hist_WORD(Puint32_t Hist_WORD, PWord8 p, uint32_t n)
+void CKronrodBinarizator::mk_hist_WORD(uint32_t * Hist_WORD, PWord8 p, uint32_t n)
 {
 	return;
 }

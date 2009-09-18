@@ -76,20 +76,20 @@ class CRLControl
 #define     RLING_ED_DECREATOR                  16
 
 public:
-	RecVersions GetSecCorrectedVersElement(uint32_t i, Puint32_t pNVers);
-	RecVersions GetCorrectedVersElemet(uint32_t i, Puint32_t pNVers);
+	RecVersions GetSecCorrectedVersElement(uint32_t i, uint32_t * pNVers);
+	RecVersions GetCorrectedVersElemet(uint32_t i, uint32_t * pNVers);
 	Rect16 GetSecCorrectedRectElement(uint32_t i);
 	Rect16 GetCorrectedRectElement(uint32_t i);
-	Bool32 CorrectSecHypWord(CSTR_rast BegF, CSTR_rast EndF, Puint32_t pLanguageF, CSTR_rast BegS, CSTR_rast EndS, Puint32_t pLanguageS, PChar8 CorrWord);
-	Bool32 CorrectHypWord(CSTR_rast BegF, CSTR_rast EndF, Puint32_t pLanguageF, CSTR_rast BegS, CSTR_rast EndS, Puint32_t pLanguageS, PChar8 CorrWord);
-	Bool32 CorrectSecWord(CSTR_rast Beg, CSTR_rast End, Puint32_t pLanguage, PChar8 CorrWord);
-	Bool32 CorrectWord(CSTR_rast Beg, CSTR_rast End, Puint32_t pLanguage, PChar8 CorrWord);
+	Bool32 CorrectSecHypWord(CSTR_rast BegF, CSTR_rast EndF, uint32_t * pLanguageF, CSTR_rast BegS, CSTR_rast EndS, uint32_t * pLanguageS, PChar8 CorrWord);
+	Bool32 CorrectHypWord(CSTR_rast BegF, CSTR_rast EndF, uint32_t * pLanguageF, CSTR_rast BegS, CSTR_rast EndS, uint32_t * pLanguageS, PChar8 CorrWord);
+	Bool32 CorrectSecWord(CSTR_rast Beg, CSTR_rast End, uint32_t * pLanguage, PChar8 CorrWord);
+	Bool32 CorrectWord(CSTR_rast Beg, CSTR_rast End, uint32_t * pLanguage, PChar8 CorrWord);
 	Bool32 UnLoadSecUserDictonary(void);
 	Bool32 UnLoadUserDictonary(void);
 	Bool32 LoadSecUserDictonary( PChar8 pUserDictonaryList, PChar8 pPoint);
 	Bool32 LoadUserDictonary(PChar8 pUserDictonaryList, PChar8 pPoint);
-	Bool32 CheckSecED(void *pEDPool, void * pEDOutPool, uint32_t wEDPoolSize, Puint32_t pwEDOutPoolSize, int32_t * pOut);
-	Bool32 CheckED(void * pEDPool, void * pEDOutPool, uint32_t wEDPoolsize, Puint32_t pwEDOutPoolSize, int32_t * pOut);
+	Bool32 CheckSecED(void *pEDPool, void * pEDOutPool, uint32_t wEDPoolSize, uint32_t * pwEDOutPoolSize, int32_t * pOut);
+	Bool32 CheckED(void * pEDPool, void * pEDOutPool, uint32_t wEDPoolsize, uint32_t * pwEDOutPoolSize, int32_t * pOut);
 	Bool32 CheckSecWord(PChar8 cWord, int32_t * pOutCheck);
 	Bool32 UnLoadSecDictonary(void);
 	Bool32 LoadSecDictonary(uint32_t wLang, PChar8 pDictPath);

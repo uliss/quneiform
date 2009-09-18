@@ -346,9 +346,9 @@ public:
 	// if 0 - DIB is JPEG format
 	RDIB_FUNC(uint32_t) GetActualColorNumber();
 	// get resolution of DIB: x,[y]
-	RDIB_FUNC(Bool32) GetResolutionDPM(Puint32_t pX_Dpm, Puint32_t pY_Dpm = 0x0);
+	RDIB_FUNC(Bool32) GetResolutionDPM(uint32_t * pX_Dpm, uint32_t * pY_Dpm = 0x0);
 	// get resolution of DIB: x,[y]
-	RDIB_FUNC(Bool32) GetResolutionDPI(Puint32_t pX_Dpi, Puint32_t pY_Dpi = 0x0);
+	RDIB_FUNC(Bool32) GetResolutionDPI(uint32_t * pX_Dpi, uint32_t * pY_Dpi = 0x0);
 	// set resolution of DIB: x,[y]. available if DIB constructed by CTDIB
 	RDIB_FUNC(Bool32) SetResolutionDPM(uint32_t X_Dpm, uint32_t Y_DPM = 0);
 	// set resolution of DIB: x,[y]. available if DIB constructed by CTDIB

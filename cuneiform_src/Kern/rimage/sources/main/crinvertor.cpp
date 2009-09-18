@@ -80,7 +80,7 @@ Bool32 CRInvertor::Invert(PCTDIB Image)
 	uint32_t   Lines;
 	uint32_t   x;
 	uint32_t   y;
-	Puint32_t  pData;
+	uint32_t *  pData;
 
 	if ( !Image )
 	{
@@ -93,7 +93,7 @@ Bool32 CRInvertor::Invert(PCTDIB Image)
 
 	for (y = 0; y < Lines; y++ )
 	{
-		pData = (Puint32_t)Image->GetPtrToLine(y);
+		pData = (uint32_t *)Image->GetPtrToLine(y);
 
 		for ( x = 0; x < LineLen; x += 4 )
 		{

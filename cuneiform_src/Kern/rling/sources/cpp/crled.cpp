@@ -362,7 +362,7 @@ Rect16 CRLEd::GetRectElement(uint32_t i)
 	return Out;
 }
 
-RecVersions CRLEd::GetVersElement(uint32_t i, Puint32_t wNVers)
+RecVersions CRLEd::GetVersElement(uint32_t i, uint32_t * wNVers)
 {
 	RecVersions Out ={0,0,0};
 

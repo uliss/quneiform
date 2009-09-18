@@ -233,7 +233,7 @@ char_proc:
 			if (!( (*(Word16*)(curr+1)) &0x8000))
 				lth=*(PWord16) (curr + (code & 0xf));
 			else
-				lth=*(Puint32_t) (curr + (code & 0xf));
+				lth=*(uint32_t *) (curr + (code & 0xf));
 		}
 	}
 	else

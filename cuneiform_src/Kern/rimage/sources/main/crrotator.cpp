@@ -935,9 +935,9 @@ void CRRotator::AllocWorkBuffers(uint32_t wStringBufferRange)
 		hHShiftTable   = RIMAGEDAlloc((mwTablesRange + 1)*4,"Rotator::AllocWorkBuffer - hor shift table");
 		HShiftTable    = (int32_t *)RIMAGELock(hHShiftTable);
 		hVShiftTable   = RIMAGEDAlloc((mwTablesRange + 1)*4,"Rotator::AllocWorkBuffer - vert shift table");
-		VShiftTable    = (Puint32_t)RIMAGELock(hVShiftTable);
+		VShiftTable    = (uint32_t *)RIMAGELock(hVShiftTable);
 		hVShiftLenght  = RIMAGEDAlloc((mwTablesRange + 1)*4,"Rotator::AllocWorkBuffer - vl shift table");
-		VShiftLenght   = (Puint32_t)RIMAGELock(hVShiftLenght);
+		VShiftLenght   = (uint32_t *)RIMAGELock(hVShiftLenght);
 	}
 
 	if ( wStringBufferRange )

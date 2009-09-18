@@ -475,7 +475,7 @@ Bool32 CTDIB::SetResolutionDPM(uint32_t X_Dpm, uint32_t Y_Dpm)
 	return TRUE;
 }
 
-Bool32 CTDIB::GetResolutionDPI(Puint32_t pX_Dpi, Puint32_t pY_Dpi)
+Bool32 CTDIB::GetResolutionDPI(uint32_t * pX_Dpi, uint32_t * pY_Dpi)
 {
 	uint32_t x_dpi;
 	uint32_t y_dpi;
@@ -495,7 +495,7 @@ Bool32 CTDIB::GetResolutionDPI(Puint32_t pX_Dpi, Puint32_t pY_Dpi)
 
 }
 
-Bool32 CTDIB::GetResolutionDPM(Puint32_t pX_Dpm, Puint32_t pY_Dpm)
+Bool32 CTDIB::GetResolutionDPM(uint32_t * pX_Dpm, uint32_t * pY_Dpm)
 {
 	PCTDIBBITMAPINFOHEADER pH;
 
@@ -659,7 +659,7 @@ uint32_t CTDIB::GetHeaderSize()
 {
 	CTDIB_IFNODIB(0);
 
-	return *((Puint32_t)(GetPtrToHeader()));
+	return *((uint32_t *)(GetPtrToHeader()));
 }
 
 uint32_t CTDIB::GetRGBPalleteSize()

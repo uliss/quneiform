@@ -801,7 +801,7 @@ extern "C" {
             fAddPointToHistogramm(hDlg,point);
     }
     //////////////////////////////////////////////
-    Bool32 LDPUMA_DoHistogramm(Handle hDlg, Puint32_t lpCurpos)
+    Bool32 LDPUMA_DoHistogramm(Handle hDlg, uint32_t * lpCurpos)
     {
         Bool32 rc = FALSE;
         if(fDoHistogramm)

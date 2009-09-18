@@ -256,7 +256,7 @@ public:
 	CKronrodBinarizator();
 	~CKronrodBinarizator();
 protected:
-	void mk_hist_WORD(Puint32_t Hist_WORD, PWord8 p, uint32_t n);
+	void mk_hist_WORD(uint32_t * Hist_WORD, PWord8 p, uint32_t n);
 	uint32_t mk_1235(void);
 	void pr_MES_3(PInt8  text, int32_t n1, int32_t n2, int32_t n3);
 	void pr_MES_2(PInt8  text, int32_t n1, int32_t n2);

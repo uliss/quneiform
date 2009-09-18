@@ -206,16 +206,16 @@ DEC_FUN(Bool32,  UnloadUserDictonary,      (void));
 DEC_FUN(Bool32,  UnloadSecUserDictonary,   (void));
 DEC_FUN(Bool32,  CheckWord,                (PInt8 , int32_t *));
 DEC_FUN(Bool32,  CheckSecWord,             (PInt8 , int32_t *));
-DEC_FUN(Bool32,  CheckED,                  (void *, void *, uint32_t, Puint32_t, int32_t *));
-DEC_FUN(Bool32,  CheckSecED,               (void *, void *, uint32_t, Puint32_t, int32_t *));
-DEC_FUN(Bool32,  CorrectWord,              (void *, void *, Puint32_t, PInt8));
-DEC_FUN(Bool32,  CorrectSecWord,           (void *, void *, Puint32_t, PInt8));
-DEC_FUN(Bool32,  CorrectHypWord,           (void *, void *, Puint32_t, void *, void *, Puint32_t, PInt8));
-DEC_FUN(Bool32,  CorrectSecHypWord,        (void *, void *, Puint32_t, void *, void *, Puint32_t, PInt8));
+DEC_FUN(Bool32,  CheckED,                  (void *, void *, uint32_t, uint32_t *, int32_t *));
+DEC_FUN(Bool32,  CheckSecED,               (void *, void *, uint32_t, uint32_t *, int32_t *));
+DEC_FUN(Bool32,  CorrectWord,              (void *, void *, uint32_t *, PInt8));
+DEC_FUN(Bool32,  CorrectSecWord,           (void *, void *, uint32_t *, PInt8));
+DEC_FUN(Bool32,  CorrectHypWord,           (void *, void *, uint32_t *, void *, void *, uint32_t *, PInt8));
+DEC_FUN(Bool32,  CorrectSecHypWord,        (void *, void *, uint32_t *, void *, void *, uint32_t *, PInt8));
 DEC_FUN(Rect16,  GetCorrectedRectElement,   (uint32_t));
 DEC_FUN(Rect16,  GetSecCorrectedRectElement,(uint32_t));
-DEC_FUN(RecVersions,  GetCorrectedVersElement,   (uint32_t, Puint32_t));
-DEC_FUN(RecVersions,  GetSecCorrectedVersElement,(uint32_t, Puint32_t));
+DEC_FUN(RecVersions,  GetCorrectedVersElement,   (uint32_t, uint32_t *));
+DEC_FUN(RecVersions,  GetSecCorrectedVersElement,(uint32_t, uint32_t *));
 //////////////////////////////////////////////////////////////////////////////////////////
 //
 #undef DEC_FUN

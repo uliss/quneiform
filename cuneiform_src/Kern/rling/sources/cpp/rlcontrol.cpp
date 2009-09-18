@@ -339,7 +339,7 @@ Bool32 CRLControl::CheckWord(PChar8 cWord, int32_t * pOutCheck)
 	return bRet;
 }
 //////////////////////////////////////////////////////////////////////////////////
-Bool32 CRLControl::CheckED(void *pEDPool, void * pEDOutPool, uint32_t wEDPoolSize, Puint32_t pwEDOutPoolSize, int32_t * pOut)
+Bool32 CRLControl::CheckED(void *pEDPool, void * pEDOutPool, uint32_t wEDPoolSize, uint32_t * pwEDOutPoolSize, int32_t * pOut)
 {
 	Bool32     bRet = FALSE;
 	uint32_t     wHexSize = RLING_ED_BUFFER_SIZE / RLING_ED_DECREATOR;
@@ -506,7 +506,7 @@ void CRLControl::FreeEDBuffer()
 	}
 }
 
-Bool32 CRLControl::CheckSecED(void *pEDPool, void *pEDOutPool, uint32_t wEDPoolSize, Puint32_t pwEDOutPoolSize, int32_t * pOut)
+Bool32 CRLControl::CheckSecED(void *pEDPool, void *pEDOutPool, uint32_t wEDPoolSize, uint32_t * pwEDOutPoolSize, int32_t * pOut)
 {
 	Bool32     bRet = FALSE;
 
@@ -607,7 +607,7 @@ Bool32 CRLControl::UnLoadSecUserDictonary()
 	return bRet;
 }
 
-Bool32 CRLControl::CorrectWord(CSTR_rast Beg, CSTR_rast End, Puint32_t pLanguage, PChar8 CorrWord)
+Bool32 CRLControl::CorrectWord(CSTR_rast Beg, CSTR_rast End, uint32_t * pLanguage, PChar8 CorrWord)
 {
 	Bool32 bRet = FALSE;
 	uint32_t wSizeOut;
@@ -625,7 +625,7 @@ Bool32 CRLControl::CorrectWord(CSTR_rast Beg, CSTR_rast End, Puint32_t pLanguage
 	return bRet;
 }
 
-Bool32 CRLControl::CorrectSecWord(CSTR_rast Beg, CSTR_rast End, Puint32_t pLanguage, PChar8 CorrWord)
+Bool32 CRLControl::CorrectSecWord(CSTR_rast Beg, CSTR_rast End, uint32_t * pLanguage, PChar8 CorrWord)
 {
 	Bool32     bRet = FALSE;
 
@@ -636,7 +636,7 @@ Bool32 CRLControl::CorrectSecWord(CSTR_rast Beg, CSTR_rast End, Puint32_t pLangu
 	return bRet;
 }
 
-Bool32 CRLControl::CorrectHypWord(CSTR_rast BegF, CSTR_rast EndF, Puint32_t pLanguageF, CSTR_rast BegS, CSTR_rast EndS, Puint32_t pLanguageS, PChar8 CorrWord)
+Bool32 CRLControl::CorrectHypWord(CSTR_rast BegF, CSTR_rast EndF, uint32_t * pLanguageF, CSTR_rast BegS, CSTR_rast EndS, uint32_t * pLanguageS, PChar8 CorrWord)
 {
 	Bool32 bRet = FALSE;
 	uint32_t wSizeOut;
@@ -658,7 +658,7 @@ Bool32 CRLControl::CorrectHypWord(CSTR_rast BegF, CSTR_rast EndF, Puint32_t pLan
 	return bRet;
 }
 
-Bool32 CRLControl::CorrectSecHypWord(CSTR_rast BegF, CSTR_rast EndF, Puint32_t pLanguageF, CSTR_rast BegS, CSTR_rast EndS, Puint32_t pLanguageS, PChar8 CorrWord)
+Bool32 CRLControl::CorrectSecHypWord(CSTR_rast BegF, CSTR_rast EndF, uint32_t * pLanguageF, CSTR_rast BegS, CSTR_rast EndS, uint32_t * pLanguageS, PChar8 CorrWord)
 {
 	Bool32     bRet = FALSE;
 
@@ -684,12 +684,12 @@ Rect16 CRLControl::GetSecCorrectedRectElement(uint32_t i)
 	return Empt;
 }
 
-RecVersions CRLControl::GetCorrectedVersElemet(uint32_t i, Puint32_t pNVers)
+RecVersions CRLControl::GetCorrectedVersElemet(uint32_t i, uint32_t * pNVers)
 {
 	return mcEderator.GetVersElement(i, pNVers);
 }
 
-RecVersions CRLControl::GetSecCorrectedVersElement(uint32_t i, Puint32_t pNVers)
+RecVersions CRLControl::GetSecCorrectedVersElement(uint32_t i, uint32_t * pNVers)
 {
 #ifndef RLING_SECONDARY
 	return RLINGS_GetCorrectedVersElement(i, pNVers);

@@ -265,7 +265,7 @@ DEC_FUNC(Bool32, DPUMA_SetConsoleProperty,(	Bool32 bold,Bool32 italic,
 	int32_t charset,	const char * name ));
 DEC_FUNC(Handle, DPUMA_CreateHistogramm,(const char *, uint32_t size, int32_t * lpVal));
 DEC_FUNC(void,	 DPUMA_AddPointToHistogramm,(Handle hDlg, uint32_t point));
-DEC_FUNC(Bool32, DPUMA_DoHistogramm,(Handle hDlg, Puint32_t lpCurpos));
+DEC_FUNC(Bool32, DPUMA_DoHistogramm,(Handle hDlg, uint32_t * lpCurpos));
 DEC_FUNC(void,	 DPUMA_DestroyHistogramm,(Handle hDlg));
 DEC_FUNC(Handle, DPUMA_TimeStamp,(const char * name,Handle hTimer));
 DEC_FUNC(Handle, DPUMA_GetWindowHandle,(const char * name));
