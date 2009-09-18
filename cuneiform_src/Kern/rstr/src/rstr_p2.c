@@ -600,7 +600,7 @@ UniVersions     uvs;
         cell2UniVers(&uvs, c);
         CSTR_StoreCollectionUni (rst, &uvs);
         if( c->env /*&& c->env->scale<2*/ )
-          CSTR_StoreComp (rst, (Word8*)((Word8*)c->env+c->env->lines),1,c->env->scale);
+          CSTR_StoreComp (rst, (uchar*)((uchar*)c->env+c->env->lines),1,c->env->scale);
         old_rst = rst;
         }
    }
@@ -742,7 +742,7 @@ static void p2_TestAccent()
 ///////////////////
 // from crit_vers in old version (Version)
 // INT crit_vers(Version v,cell * c,const s_glue * gl); // difrv
-static int32_t CritVers(cell * BC,s_glue * GL,Word8 let,Word8 prob)
+static int32_t CritVers(cell * BC,s_glue * GL,uchar let,uchar prob)
 {
 void r_criteria(cell *c, const s_glue * gl);         // difrv
 cell cc=*BC;
@@ -768,7 +768,7 @@ INT estletter(cell * BC,s_glue * GL)
 RecVersions vers;
 int32_t       i;
 c_comp *comp=BC->env;
-Word8 *lp;
+uchar *lp;
 int16_t *lt;
 int nClust=0;
 
@@ -794,7 +794,7 @@ int nClust=0;
 	if( !comp )
 	  goto endvers;
 
-    lp = (Word8 *)(comp+1);
+    lp = (uchar *)(comp+1);
     lt = (int16_t*)lp;
 //   w = comp->w
 //   h = comp->h
@@ -1114,7 +1114,7 @@ return (int32_t)(((RecAlt *)b)->Prob) - (int32_t)(((RecAlt *)a)->Prob) ;
 int32_t p2_leo_sort_vers_prob(RecVersions *v)
 {
 int i,n0,n1;
-Word8 c0,c1;
+uchar c0,c1;
 RecAlt a0,a1;
 stdQsort(v->Alt,v->lnAltCnt,sizeof(RecAlt),cmp_prob);
 if( v->lnAltCnt>1 && v->Alt[0].Prob==v->Alt[1].Prob )
@@ -1174,13 +1174,13 @@ void p2_FillTxt(CSTR_line cc,char *intxt,BOOL ansi)
 Bool32 p2_Line2Raster(c_comp *comp, RecRaster *rec)
 {
 #ifdef _USE_PASS2_
-Word8 *lp;
+uchar *lp;
 int16_t *lt;
 
   if( !comp )
 	  return FALSE;
 
-   lp = (Word8 *)(comp+1);
+   lp = (uchar *)(comp+1);
    lt = (int16_t*)lp;
 //   w = comp->w
 //   h = comp->h
@@ -1195,8 +1195,8 @@ Bool32 p2_LEOSetupField(char *letInfo,int32_t nFont,FontInfo *fontinfo)
 {
 #ifdef _USE_LEO_
   LeoFieldSetup   fs={0};
-  Word8   *aa=(Word8 *)letInfo;
-  Word8   asciiName;
+  uchar   *aa=(uchar *)letInfo;
+  uchar   asciiName;
 
     fs.nStyle = LS_PRINT;
     for(;*aa;aa++)
@@ -1273,9 +1273,9 @@ static Bool32 p2_twin(BYTE ch)
 // return 1 - есть слабый близнец
 // return 2 - есть равный близнец
 // return 3 - есть сильный близнец
-static int32_t IsTwinCluster(int nClus, Word8 name, Word8 *tName)
+static int32_t IsTwinCluster(int nClus, uchar name, uchar *tName)
 {
-  Word8 twinName=0;
+  uchar twinName=0;
   ClustInfo clustinfo;
   ClustInfo twininfo;
   int i;
@@ -1387,7 +1387,7 @@ static void InitParamSize(ParamRecogSize *param)
   param->basMin  = 0x7fff;
 }
 ///////////////
-static int AddParamSize(ParamRecogSize *param, cell *c, Word8 ch,
+static int AddParamSize(ParamRecogSize *param, cell *c, uchar ch,
 						uint32_t isBase, Bool32 isSize)
 {
   if( isBase )
@@ -1411,9 +1411,9 @@ static int AddParamSize(ParamRecogSize *param, cell *c, Word8 ch,
   return param->num;
 }
 ///////////////
-static Bool32 IsBigLetter(Word8 name)
+static Bool32 IsBigLetter(uchar name)
 {
-	Word8 ch;
+	uchar ch;
 
 	if( let_lincomp[name] == v_capital )
 		return TRUE;
@@ -1424,7 +1424,7 @@ static Bool32 IsBigLetter(Word8 name)
 	return FALSE;
 }
 ///////////////
-static Bool32 IsBigTailLetter(Word8 name)
+static Bool32 IsBigTailLetter(uchar name)
 {
 	if( let_linpos[name] == 0x12 )
 		return TRUE;
@@ -1432,9 +1432,9 @@ static Bool32 IsBigTailLetter(Word8 name)
 	return FALSE;
 }
 ///////////////
-static Bool32 IsSmallLetter(Word8 name)
+static Bool32 IsSmallLetter(uchar name)
 {
-	Word8 ch;
+	uchar ch;
 
 	if( let_lincomp[name] == v_small )
 		return TRUE;
@@ -1449,10 +1449,10 @@ static int CheckCluHeights(int heiUp, int heiDn, int basUp, int basDn)
 {
  cell *  c, *prev;
 
- Word8 ch,chTwin;
+ uchar ch,chTwin;
 
  // name - for upper, twin for lower
- Word8 name, twinName;
+ uchar name, twinName;
 
 
  for (c = cell_f()->nextl; c != cell_l(); c = c -> nextl)
@@ -1588,7 +1588,7 @@ static int CheckCluSosed(int basUp, int basDn)
 {
  cell *  c;
 
- Word8 ch,chTwin;
+ uchar ch,chTwin;
 
  int prevHei1=-1;
  int prevHei2=-1;
@@ -1597,7 +1597,7 @@ static int CheckCluSosed(int basUp, int basDn)
 
 
  // name - for upper, twin for lower
- Word8 name, twinName;
+ uchar name, twinName;
 
  // looking for first non-twin
  for (c = cell_f()->nextl; c != cell_l(); c = c -> nextl)
@@ -2010,8 +2010,8 @@ static int UpDownByHeights(int heiUp, int heiDn)
 {
  cell *c;
 
- Word8 ch;
- Word8 name;
+ uchar ch;
+ uchar name;
  int numUp,numDn;
 
  numUp=0;
@@ -2030,8 +2030,8 @@ static int UpDownByHeights(int heiUp, int heiDn)
 	if( p2_twin(name) )
 	{
 
-     if( !IsBigLetter((Word8)(is_upper(name)?name:to_upper(name))) ||
-		 !IsSmallLetter((Word8)(is_lower(name)?name:(Word8)to_lower(name)))
+     if( !IsBigLetter((uchar)(is_upper(name)?name:to_upper(name))) ||
+		 !IsSmallLetter((uchar)(is_lower(name)?name:(uchar)to_lower(name)))
 		)
 		 continue;
 
@@ -2074,8 +2074,8 @@ static int AntiUpBase(int basDn)
 {
  cell *c;
 
- Word8 ch;
- Word8 name;
+ uchar ch;
+ uchar name;
  int numUp,numDn;
  int numTwin;
 
@@ -2132,7 +2132,7 @@ static int p2_checkUpperLower(void)
 {
  cell *  c;
 
- Word8 ch;
+ uchar ch;
  int i;
 
  ParamRecogSize upS,downS;
@@ -2145,7 +2145,7 @@ static int p2_checkUpperLower(void)
  int porog;
  int numAntiCluster;  // number of clusters - not accord recog (base lines)
  Bool16 IsNice,IsConfirmed;
- Word8 name,twinName;
+ uchar name,twinName;
  int bufHeight[MAXHEI];
  int bufBase[MAXHEI];
  int minBase;
@@ -2511,9 +2511,9 @@ static int p2_checkUpperLower(void)
 /////////////
 
 // склеить и распознавать на втором проходе
-static const Word8 mask[]={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
+static const uchar mask[]={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
 
-static void StoreOneInterval( Word8 *raster, int b, int e)
+static void StoreOneInterval( uchar *raster, int b, int e)
 {
 int i;
 
@@ -2526,14 +2526,14 @@ int i;
 }
 //////////////////////////
 // from make_raster, online_comp
-static int addRaster(c_comp *w, Word8 *raster,
+static int addRaster(c_comp *w, uchar *raster,
 					 int bytesx,
 					 int startx, int starty
 					 )
 {
  lnhead * lp;
  interval *ip;
- Word8 *pp;
+ uchar *pp;
  int lpool_lth;
  int wid = bytesx<<3;
 

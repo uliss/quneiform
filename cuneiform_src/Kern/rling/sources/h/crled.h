@@ -81,14 +81,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 struct VersRef
 {
-    Word8   code;
-    Word8   prob;
+    uchar   code;
+    uchar   prob;
 };
 
 struct BitMapRef
 {
-    Word8 code;
-    Word8 pos;
+    uchar code;
+    uchar pos;
     uint16_t row;
     uint16_t col;
     uint16_t width;
@@ -97,35 +97,35 @@ struct BitMapRef
 
 struct SheetDiskDescr
 {
-    Word8 code;
-    Int8 quant_fragm;
+    uchar code;
+    char quant_fragm;
     uint16_t sheet_numb;
     uint16_t descr_lth;
-    Word8 byte_flag;
+    uchar byte_flag;
     uint16_t resolution;
     uint16_t  incline;
-    Int8 tabl[13];
+    char tabl[13];
 };
 
 struct FragmDisk
 {
-    Word8 code;
-    Word8 fragm_numb;
+    uchar code;
+    uchar fragm_numb;
     uint16_t depth;
 };
 
 struct FragmDiskDescr
 {
-    Word8 code;
+    uchar code;
     uint16_t row;
     uint16_t col;
     uint16_t height;
     uint16_t w_width;
-    Int8   type;
-    Word8  kegl;
-    Word8  font;
-    Word8  language;
-    Word8  type_underl;
+    char   type;
+    uchar  kegl;
+    uchar  font;
+    uchar  language;
+    uchar  type_underl;
 };
 
 #pragma pack ( pop )
@@ -146,8 +146,8 @@ public:
 	void * GetEdOutPool(void) { return (void *) mpEdOutBuffer; };
 	uint32_t GetEdPoolSize(void) { return mpEdFileEnd - mpEdBuffer; };
 	Bool32 ExcludeToVers(int32_t size, PChar8 pStr);
-	Bool32 AddWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage);
-	Bool32 MakeWord(CSTR_rast b, CSTR_rast e,PWord8 Language);
+	Bool32 AddWord(CSTR_rast b, CSTR_rast e, uchar * pLanguage);
+	Bool32 MakeWord(CSTR_rast b, CSTR_rast e,uchar * Language);
 	void   Init();
 	CRLEd();
 	virtual ~CRLEd();
@@ -159,11 +159,11 @@ protected:
 	int32_t miEdNVers;
 	Handle mhEdOutBuffer;
 	Handle mhEdBuffer;
-	PWord8 mpEdFileBound;
-	PWord8 mpEdFileEnd;
-	PWord8 mpEdOutBuffer;
-	PWord8 mpEdBuffer;
-	Word8  mHalfSpaces[3];
+	uchar * mpEdFileBound;
+	uchar * mpEdFileEnd;
+	uchar * mpEdOutBuffer;
+	uchar * mpEdBuffer;
+	uchar  mHalfSpaces[3];
 	struct SheetDiskDescr    mSdd;
 	struct FragmDiskDescr    mFdd;
 	struct FragmDisk         mFd;
@@ -176,7 +176,7 @@ protected:
 	//struct bit_map_ref         mBmr;
 
 private:
-	void   Write(PWord8 pP, uint16_t wSize);
+	void   Write(uchar * pP, uint16_t wSize);
 
 };
 

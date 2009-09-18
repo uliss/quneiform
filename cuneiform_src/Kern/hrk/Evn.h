@@ -103,17 +103,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       // Err16.h defined codes or one of the next
       //
 
-   EVN_FUNC(Word8*) EVNMakeLine( RecRaster   *rRaster,int32_t parm);
-   EVN_FUNC(MN *)   EVN_CLocomp (Word8* raster, int32_t bw, int32_t h,
+   EVN_FUNC(uchar*) EVNMakeLine( RecRaster   *rRaster,int32_t parm);
+   EVN_FUNC(MN *)   EVN_CLocomp (uchar* raster, int32_t bw, int32_t h,
         int16_t upper,int16_t left);
    EVN_FUNC(int32_t)  EVNGetNumComp(   RecRaster   *rRaster  )  ;
    EVN_FUNC(int32_t)  EVNGetRepresent(  RecRaster   *rRaster,
-        Word8 *evn, Word8 *evn_rot, int32_t font       );
-   EVN_FUNC(int32_t)  EVNRecog_lp( /* ExtComponent*/CCOM_comp *ec, Word8   *lp,
-        uint16_t lth, Word8   *res);
-   EVN_FUNC(Word8*) EVN_GetSegmentPool(void);
-   EVN_FUNC(Bool32) EVNInitLanguage(const char *tabevn1, const char *tabevn2, Word8 lang);
-   EVN_FUNC(Bool32) EVNSetLanguage( Word8 lang);
+        uchar *evn, uchar *evn_rot, int32_t font       );
+   EVN_FUNC(int32_t)  EVNRecog_lp( /* ExtComponent*/CCOM_comp *ec, uchar   *lp,
+        uint16_t lth, uchar   *res);
+   EVN_FUNC(uchar*) EVN_GetSegmentPool(void);
+   EVN_FUNC(Bool32) EVNInitLanguage(const char *tabevn1, const char *tabevn2, uchar lang);
+   EVN_FUNC(Bool32) EVNSetLanguage( uchar lang);
 
 // error code
 #define ER_EVN_NO_ERROR 0

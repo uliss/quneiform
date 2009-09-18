@@ -206,7 +206,7 @@ int32_t findLostLines(CLINE_handle hCLINE, PAGEINFO* info);
 //PAGEINFO gl_page_info;
 /*----------------------------------------------------------------------------*/
 
-RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBool32 pgneed_clean_line, Bool32 sdl, Word8 lang)
+RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBool32 pgneed_clean_line, Bool32 sdl, uchar lang)
 {
 //int32_t* a = new int32_t;
 
@@ -599,7 +599,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
   //финальный проход по всем линиям
   const uint32_t My_False=~LI_IsTrue;
   int32_t CountShortLines = 0;
-  Word8 debug_flags = 0;
+  uchar debug_flags = 0;
   int32_t cross_point[MAX_CROSS_POINTS];
   DCutPoint cut_point_obj;
   CLINE_handle hCutPoint;
@@ -737,7 +737,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
 }
 
 
-RLINE_FUNC(Bool32) RLINE_LinesPass3(Handle hCPAGE,CLINE_handle hCLINE, Handle hCCOM, Word8 lang)
+RLINE_FUNC(Bool32) RLINE_LinesPass3(Handle hCPAGE,CLINE_handle hCLINE, Handle hCCOM, uchar lang)
 {
  return TRUE;
 }
@@ -1431,12 +1431,12 @@ BOOL AddLenLineMas(LineInfo** ppRc,int& len,int add)
  LineInfo* dop;
  int i;
  int size=sizeof((*ppRc)[0]);
- Word8* bytein;
- Word8* byteout;
+ uchar* bytein;
+ uchar* byteout;
  if(!(InitLineMas(&dop,len)) )
 	 return FALSE;
- bytein=(Word8*)(*ppRc);
- byteout=(Word8*)(dop);
+ bytein=(uchar*)(*ppRc);
+ byteout=(uchar*)(dop);
  for(i=size*len;i>0;i--)
  {
     byteout=bytein;
@@ -1449,8 +1449,8 @@ BOOL AddLenLineMas(LineInfo** ppRc,int& len,int add)
 	 (*ppRc)=dop;
 	 return FALSE;
  }
- byteout=(Word8*)(*ppRc);
- bytein=(Word8*)(dop);
+ byteout=(uchar*)(*ppRc);
+ bytein=(uchar*)(dop);
  for(i=size*len;i>0;i--)
  {
     byteout=bytein;
@@ -3074,8 +3074,8 @@ void getLineIdealStrictRectangular(const NR_SimpLine *pdLine, Rect32* pRect, boo
 /*typedef struct tagCompressHeader
 {
 	Bool16 bCompressed;
-	Word8 cRepeater;
-	Word8 reserved;
+	uchar cRepeater;
+	uchar reserved;
 	uint32_t wCount;
 } CompressHeader;
 

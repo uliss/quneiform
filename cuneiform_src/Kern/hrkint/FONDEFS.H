@@ -77,14 +77,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	} SizesInfo;
 
 	typedef struct tagClustInfo {          // information about one cluster
-      Word8 let;     // ASCII имя
-	  Word8 weight;  // из скольких собран
-	  Word8 prob;    // оценка
-	  Word8 valid;   // валидность (LEO_VALID_...)
-	  Word8 attr;    // атрибуты (CTB_PRINT_...)
-	  Word8 mw;      // средняя ширина символов в кластере
-	  Word8 mh;      // средняя высота символов в кластере
-	  Word8 kegl;    // типичный кегль
+      uchar let;     // ASCII имя
+	  uchar weight;  // из скольких собран
+	  uchar prob;    // оценка
+	  uchar valid;   // валидность (LEO_VALID_...)
+	  uchar attr;    // атрибуты (CTB_PRINT_...)
+	  uchar mw;      // средняя ширина символов в кластере
+	  uchar mh;      // средняя высота символов в кластере
+	  uchar kegl;    // типичный кегль
       char reserved[24];
 	} ClustInfo;
 
@@ -163,42 +163,42 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 	  int16_t  nClust;      // возврат - номер лучшего кластера
 	  int16_t  countRazmaz;
-	  Word8  nLet;        // вход > 0 - имя ASCII
-	  Word8  onlySelf;
+	  uchar  nLet;        // вход > 0 - имя ASCII
+	  uchar  onlySelf;
       int16_t  h;          // вход - размеры
 	  int16_t  w;          //
-	  Word8  palkiLeo;   // вход != 0 - распознавать палки по ЛЕО
+	  uchar  palkiLeo;   // вход != 0 - распознавать палки по ЛЕО
 	} FonSpecInfo;
 
 #define MAXCHECKALT 4
 	// информация о результатах проверки символа
 	typedef struct tagFonTestInfo {
 		int16_t nClust; // какой кластер
-		Word8 prob;
-		Word8 flag;
-		Word8 kegl;
-		Word8 reserv[3];
+		uchar prob;
+		uchar flag;
+		uchar kegl;
+		uchar reserv[3];
 	} FonTestInfo;
 
 	// данные о кластерной базе в CTB-файле
 	typedef struct tagFonClusterBase{
-		Word8  oem;
-		Word8  fullX;
-		Word8  fullY;
-		Word8  let;
-		Word8  w;
-		Word8  h;
-		Word8  weight;
-		Word8  porog;
-		Word8  mw;
-		Word8  mh;
-		Word8  prob;
-		Word8  attr;
+		uchar  oem;
+		uchar  fullX;
+		uchar  fullY;
+		uchar  let;
+		uchar  w;
+		uchar  h;
+		uchar  weight;
+		uchar  porog;
+		uchar  mw;
+		uchar  mh;
+		uchar  prob;
+		uchar  attr;
 		uint16_t fill;
 		uint16_t num;
 		uint16_t invalid;
-		Word8  valid;
-		Word8  kegl;
+		uchar  valid;
+		uchar  kegl;
         int16_t  sr_col;
 		int16_t  sr_row;
 		uint32_t summa;

@@ -102,26 +102,26 @@ extern char    local_ctb_name[];
 char    local_grey_ctb[256]="page6666";
 char    local_ctb_name[256]="ct666666";
 
-Word8 * (*local_ret_error_str)(uint32_t dwError);
+uchar * (*local_ret_error_str)(uint32_t dwError);
 uint32_t  local_ret_error_code=0;
-typedef Word8 *(*fun_error)(uint32_t);
-static  Word8 lnOcrPath[256],lnOcrLingPath[256];
+typedef uchar *(*fun_error)(uint32_t);
+static  uchar lnOcrPath[256],lnOcrLingPath[256];
 static void store_colors(CSTR_line lino);
-static void *   rstr_realloc(Word8*buf,uint32_t len)    {    return realloc(buf,len);    }
+static void *   rstr_realloc(uchar*buf,uint32_t len)    {    return realloc(buf,len);    }
 static void *   rstr_alloc(uint32_t len)    {    return calloc(len,1);    }
 static void     rstr_free(void *ptr,uint32_t len) { free(ptr);};
 static void     rstr_get_colors(int16_t row,int16_t col,int16_t w,int16_t h,
                                 int32_t *ColorLtr, int32_t *ColorBack)        {*ColorBack=0xFFFFFF;*ColorLtr=0;};
-static void * (*my_realloc)(Word8*buf,uint32_t len)=rstr_realloc;
+static void * (*my_realloc)(uchar*buf,uint32_t len)=rstr_realloc;
 static void * (*my_alloc)(uint32_t len)=rstr_alloc;
 static void   (*my_free)(void *,uint32_t len)=rstr_free;
 static void   (*my_get_colors)(int16_t row,int16_t col,int16_t w,int16_t h,
                                int32_t *ColorLrt, int32_t *ColorBack)=rstr_get_colors;
 static int32_t RemoveDustIfPointLine(CSTR_line lin);
 // RSTR_CON
-int16_t rstr_cont_store1(RecRaster *r,Word8 let, Word8 nLns,Rect16 *rect,Word8 IsPrint,
-                       Word8   Prob, Word8 Valid, RecVersions *v,Word8 control,
-                       Word8   kegl);
+int16_t rstr_cont_store1(RecRaster *r,uchar let, uchar nLns,Rect16 *rect,uchar IsPrint,
+                       uchar   Prob, uchar Valid, RecVersions *v,uchar control,
+                       uchar   kegl);
 Bool32 rstr_open_cont1(void);
 void rstr_close_cont1(void);
 // P2_cour
@@ -144,13 +144,13 @@ void    correct_let_tables(void);
 extern void DFon_NewPage(char*);
 extern void DFON_Done(void);
 // from EVN.DLL
-extern Bool32   EVNInitLanguage(const char *tabevn1, const char *tabevn2, Word8 lang);
-extern Bool32   EVNSetLanguage( Word8 lang);
+extern Bool32   EVNInitLanguage(const char *tabevn1, const char *tabevn2, uchar lang);
+extern Bool32   EVNSetLanguage( uchar lang);
 extern Bool32   EVNSetAlphabet(   char*     char_tbl_put_to   );
 // from PROP.C
 extern void     prop_init(void);
 // from PASS3.C
-Word8    convert_eng_liga( Word8 c);
+uchar    convert_eng_liga( uchar c);
 #include "nt_types.h"
 #define  CREATE_STATUS
 #define  __KERNEL__
@@ -162,7 +162,7 @@ Word8    convert_eng_liga( Word8 c);
 
 Bool32  enable_pass2=TRUE;
 static  Bool32  stop_user = FALSE;
-Word8   valid_word_number=0;
+uchar   valid_word_number=0;
 version * start_rec, *rec_ptr;
 INT  text_findstat(CHAR * w);
 BYTE db_pass;
@@ -373,7 +373,7 @@ MN * main_number_ptr;
 BOX * boxchain, *dl_last_in_chain;
 c_comp wcomp;
 BYTE work_raster[2048*4], work_raster_1[2048*4];
-//Word8 language; // setup in RSTR_SetOptions
+//uchar language; // setup in RSTR_SetOptions
 FIELD_INFO FieldInfo;
 Bool FirstField;
 int32_t small_size;
@@ -431,7 +431,7 @@ Bool32 trees_load(void)
     //if( !EVNInitLanguage( tabevn1[lang], tabevn2[lang],language) )
     //   return FALSE;
 
-    if( !read_rec_file ((Word8)lang,  tableBOX,       &box_pool) )
+    if( !read_rec_file ((uchar)lang,  tableBOX,       &box_pool) )
         return FALSE;
     memset( tableBOX, 0 , 32);
     box_pool_save=box_pool;
@@ -454,9 +454,9 @@ Bool32 trees_load_fict(void)
 }
 
 // call trees_load_fict() restored standart alphabet
-Bool32  set_user_alphabet(Word8 * usa_ascii)
+Bool32  set_user_alphabet(uchar * usa_ascii)
 {
-    Word8   *pusa;
+    uchar   *pusa;
     alpha_used_mode=1;
     memset(alphabet,0,256);
     for(pusa=usa_ascii;*pusa;pusa++)
@@ -467,7 +467,7 @@ Bool32  set_user_alphabet(Word8 * usa_ascii)
     return TRUE;
 }
 
-RSTR_FUNC(Bool32) RSTR_IsLanguage(Word8 language)
+RSTR_FUNC(Bool32) RSTR_IsLanguage(uchar language)
 {
     if(language<LANG_ENGLISH || language>=LANG_TOTAL )
         return FALSE;
@@ -486,13 +486,13 @@ RSTR_FUNC(Bool32) RSTR_IsLanguage(Word8 language)
 #ifdef     _USE_SPELLING_
     if( language==LANG_RUSENG )
     {
-        if( RLING_IsDictonaryAvailable( LANG_RUSSIAN , (PInt8)lnOcrLingPath)<1 ||
-            RLING_IsDictonaryAvailable( LANG_ENGLISH , (PInt8)lnOcrLingPath)<1)
+        if( RLING_IsDictonaryAvailable( LANG_RUSSIAN , (char *)lnOcrLingPath)<1 ||
+            RLING_IsDictonaryAvailable( LANG_ENGLISH , (char *)lnOcrLingPath)<1)
             return FALSE;
     }
     else //if( language!=LANG_DIG )
     {
-        if( RLING_IsDictonaryAvailable( language , (PInt8)lnOcrLingPath)<1 )
+        if( RLING_IsDictonaryAvailable( language , (char *)lnOcrLingPath)<1 )
             return FALSE;
     }
 #endif
@@ -514,7 +514,7 @@ static void  SetAlphabet(
     {
         digital &= ((*c) & 0xE0) == 0x20 || (*c)=='\\' || (*c)=='_' || (*c)==' ';
         Punct |= strchr("\"*+-.,:;=<>„«»",*c) != NULL;
-        FieldInfo.AlphaTable[ (Word8)(*c) ] = 1;
+        FieldInfo.AlphaTable[ (uchar)(*c) ] = 1;
     }
     if (digital)  FieldInfo.Style |= FIS_DIGIT;
     if (Punct)    FieldInfo.Style |= FIS_PUNCT;
@@ -775,7 +775,7 @@ static BOOL rcm_find(INT Ax,INT Ay,INT Bx,INT By)
 
 RSTR_FUNC(Bool32)  RSTR_EndPage(  Handle myPage )
 {
-    Word8 lang=language;
+    uchar lang=language;
     snap_page_disable   = FALSE;
     db_status=0;
     if( language==LANG_RUSSIAN && langSer)
@@ -953,8 +953,8 @@ void save_to_ctb(CSTR_line lino,int32_t type)
     CSTR_rast_attr  attr;
     int32_t           i;
     int16_t           key;
-    Word8           flags;
-    Word8           print_type;
+    uchar           flags;
+    uchar           print_type;
     CSTR_attr       lattr;
 
     CSTR_GetLineAttr(lino,&lattr);
@@ -966,7 +966,7 @@ void save_to_ctb(CSTR_line lino,int32_t type)
                 CSTR_GetAttr(rst,&attr) &&
                 uni.lnAltCnt &&
                 !(line_tabcell && uni.lnAltCnt && uni.Alt[0].Liga==liga_exm) &&
-                CSTR_GetImage(rst,(Word8*)&rast,CSTR_TYPE_IMAGE_RS ) &&
+                CSTR_GetImage(rst,(uchar*)&rast,CSTR_TYPE_IMAGE_RS ) &&
                 (attr.flg&(CSTR_f_let)) &&
                 !(attr.dlang_dup&(CSTR_fd_equal|CSTR_fd_alias)) )
             {
@@ -1001,11 +1001,11 @@ void save_to_ctb(CSTR_line lino,int32_t type)
 #ifdef _FON_CLU_MEMORY_
                 key = (int16_t)FONStoreRaster(&rast,ver.Alt[0].Code,
                                             print_type,ver.Alt[0].Prob, flags,line_number,
-                                            attr.keg,&rect, (Word8)lattr.tab_column/*, lattr.tab_number*/);
+                                            attr.keg,&rect, (uchar)lattr.tab_column/*, lattr.tab_number*/);
 #else
                 key=rstr_cont_store(&rast,ver.Alt[0].Code,
                                     0, &rect, print_type,ver.Alt[0].Prob, flags, &ver, 0,
-                                    attr.keg, (Word8)lattr.tab_column, lattr.tab_number);
+                                    attr.keg, (uchar)lattr.tab_column, lattr.tab_number);
 #endif
 
                 if( key>0 )
@@ -1029,7 +1029,7 @@ void save_to_ctb(CSTR_line lino,int32_t type)
             if( CSTR_GetCollection(rst,&ver) &&
                 CSTR_GetAttr(rst,&attr) &&
                 ver.lnAltCnt &&
-                CSTR_GetImage(rst,(Word8*)&rast,CSTR_TYPE_IMAGE_RS ) &&
+                CSTR_GetImage(rst,(uchar*)&rast,CSTR_TYPE_IMAGE_RS ) &&
                 (attr.flg&(CSTR_f_let))  )
             {
                 rect.top    = attr.row;
@@ -1090,7 +1090,7 @@ void CSTR_ligas(CSTR_line lino)
 {
     CSTR_rast       rst=CSTR_GetFirstRaster(lino);
     UniVersions     uni;
-    Word8           c;
+    uchar           c;
     int32_t           i,nconv;
 
     for(rst = CSTR_GetNext(rst);rst;rst=CSTR_GetNext(rst))
@@ -1168,7 +1168,7 @@ BOOL copy_cap_drop(CSTR_line lin, CSTR_line lino)
     CSTR_SetAttr(ro,&attr);
     co=CSTR_GetComp(ro);
     ub.code=CCOM_UB_CAPDROPLN;
-    ub.data=(Word8*)&n;
+    ub.data=(uchar*)&n;
     if( CCOM_GetUserBlock(ci,&ub) )
         CCOM_SetUserBlock(co,&ub);
     return TRUE;
@@ -1333,7 +1333,7 @@ void rstr_set_kegl(CSTR_line lino)
     CSTR_GetLineAttr(lino,&lattr);
     rst = CSTR_GetNext(CSTR_GetFirstRaster(lino));
     CSTR_GetAttr(rst,&attr);
-    attr.keg = (Word8)lattr.Ps;
+    attr.keg = (uchar)lattr.Ps;
     CSTR_SetAttr(rst,&attr);
     return;
 }
@@ -1379,7 +1379,7 @@ RSTR_FUNC(Bool32)  RSTRRecognize(
 
     /* Andrey (10.06.2003): divided into 3 parts: 1. RSTRRecognizeMain, 2. RSTR_Save2CTB, 3. RSTRRecognizePostMain
 int rc;
-Word8   lang=language;
+uchar   lang=language;
 CSTR_attr       lattr={0};
 
 //test_count_lines++;
@@ -1571,7 +1571,7 @@ RSTR_FUNC(Bool32)  RSTRRecognizeMain(
         CSTR_line    lino  )
 {
     int rc;
-    Word8   lang=language;
+    uchar   lang=language;
     CSTR_attr       lattr={0};
 
     //test_count_lines++;
@@ -1774,7 +1774,7 @@ RSTR_FUNC(Bool32)  RSTRRecognizeBL(
         CSTR_line    lin  )
 {
     int             rc;
-    Word8           lang=language;
+    uchar           lang=language;
     CSTR_attr       lattr={0};
     Bool32          ret;
 
@@ -1916,10 +1916,10 @@ RSTR_FUNC(uint32_t) RSTR_GetReturnCode(void)
     return (wHeightRC<<16)|(wLowRC-RSTR_ERR_MIN);
 }
 
-RSTR_FUNC(Word8 *) RSTR_GetReturnString(uint32_t dwError)
+RSTR_FUNC(uchar *) RSTR_GetReturnString(uint32_t dwError)
 {
     uint16_t rc = (uint16_t)(dwError & 0xFFFF + RSTR_ERR_MIN);
-    static Word8 szBuffer[512];
+    static uchar szBuffer[512];
 
     if( /*wLowRC==RSTR_ERR_MIN && */local_ret_error_code )
         return local_ret_error_str(local_ret_error_code);
@@ -1941,7 +1941,7 @@ RSTR_FUNC(Bool32)  RSTR_NewPage(int32_t resolutiony, Handle Page)
     return RSTRNewPage( resolutiony, Page);
 }
 
-Bool32  Reload_lang_vocs(Word8  lang)
+Bool32  Reload_lang_vocs(uchar  lang)
 {
 #ifdef     _USE_SPELLING_
     //if( lang==LANG_DIG )
@@ -1949,7 +1949,7 @@ Bool32  Reload_lang_vocs(Word8  lang)
     RLING_UnloadDictonary();
     if( lang == LANG_RUSENG )
         lang = LANG_RUSSIAN ;
-    if ( !RLING_LoadDictonary( lang , (PInt8)lnOcrLingPath) )
+    if ( !RLING_LoadDictonary( lang , (char *)lnOcrLingPath) )
     {
         wLowRC         = RSTR_ERR_NOINITRSTR;
         local_ret_error_code=RLING_GetReturnCode();
@@ -1960,7 +1960,7 @@ Bool32  Reload_lang_vocs(Word8  lang)
     return TRUE;
 }
 
-Bool32  Reload_lang_vocs_aux(Word8  language)
+Bool32  Reload_lang_vocs_aux(uchar  language)
 {
 #ifdef     _USE_SPELLING_
     //if( language==LANG_DIG )
@@ -1968,7 +1968,7 @@ Bool32  Reload_lang_vocs_aux(Word8  language)
     RLING_UnloadSecDictonary();
     if( language == LANG_RUSSIAN || language == LANG_ENGLISH )
     {
-        if ( !RLING_LoadSecDictonary( language , (PInt8)lnOcrLingPath) )
+        if ( !RLING_LoadSecDictonary( language , (char *)lnOcrLingPath) )
         {
             wLowRC         = RSTR_ERR_NOINITRSTR;
             local_ret_error_code=RLING_GetReturnCode();
@@ -1985,8 +1985,8 @@ RSTR_FUNC(Bool32)  RSTR_SetOptions (RSTR_Options *opt)
     char *p;
     int i;
     Bool32  ret=TRUE;
-    Word8   slanguage;
-    static Word8    old_language=-1;
+    uchar   slanguage;
+    static uchar    old_language=-1;
 
     if( opt->language )
     {
@@ -2104,9 +2104,9 @@ RSTR_FUNC(Bool32)  RSTR_RecogBL (CSTR_line lini)
     return RSTRRecognizeBL(   lini);
 }
 
-RSTR_FUNC(Bool32)  RSTR_RecogOneLetter (RecRaster *Rs,Word8 Language,RecVersions *Vs)
+RSTR_FUNC(Bool32)  RSTR_RecogOneLetter (RecRaster *Rs,uchar Language,RecVersions *Vs)
 {
-    extern Bool32 RecogLEOcap(RecRaster *Rs,Word8 Language,RecVersions *Vs);
+    extern Bool32 RecogLEOcap(RecRaster *Rs,uchar Language,RecVersions *Vs);
     return RecogLEOcap(Rs,Language,Vs);
 }
 
@@ -2311,7 +2311,7 @@ static Bool32 RecognizeStringsPass2()
     Bool32 rc = TRUE;
     // рапознавание строк
 
-    //	Word8 w8 = 1;
+    //	uchar w8 = 1;
     int count = CSTR_GetMaxNumber();
     int i;
 
@@ -2378,7 +2378,7 @@ RSTR_FUNC(Bool32)  RSTR_RecogContainer (void)
     return RecognizeStringsPass1() && RecognizeStringsPass2();
 }
 
-RSTR_FUNC(Bool32)  RSTR_SetSpecPrj(Word8 nSpecPrj)
+RSTR_FUNC(Bool32)  RSTR_SetSpecPrj(uchar nSpecPrj)
 {
     db_special_project = nSpecPrj;
     return TRUE;
@@ -2395,12 +2395,12 @@ RSTR_FUNC(Bool32)  RSTR_GetExportData (uint32_t dwType, void * pData)
     wLowRC = RSTR_ERR_NO;
     switch(dwType)
     {
-        CASE_DATA(RSTR_Word8_Language           ,Word8,language);
+        CASE_DATA(RSTR_Word8_Language           ,uchar,language);
         CASE_DATA(RSTR_Word16_Resolution        ,uint16_t,actual_resolution);
-        CASE_DATA(RSTR_Word8_Fax1x2                     ,Word8,fax1x2);
-        CASE_DATA(RSTR_Word8_Matrix                     ,Word8,matrix);
-        CASE_DATA(RSTR_Word8_P2_active          ,Word8,p2_active);
-        CASE_DATA(RSTR_Word8_Spell_check        ,Word8,spell_check);
+        CASE_DATA(RSTR_Word8_Fax1x2                     ,uchar,fax1x2);
+        CASE_DATA(RSTR_Word8_Matrix                     ,uchar,matrix);
+        CASE_DATA(RSTR_Word8_P2_active          ,uchar,p2_active);
+        CASE_DATA(RSTR_Word8_Spell_check        ,uchar,spell_check);
         CASE_DATA(RSTR_pchar_user_dict_name     ,char*,user_dict_name);
     case    RSTR_FNNEWPAGE:     //      новая страница
         EXPORT(RSTR_NewPage );
@@ -2480,7 +2480,7 @@ RSTR_FUNC(Bool32)  RSTR_SetImportData (uint32_t dwType, const void * pData)
     switch(dwType)
     {
     case    RSTR_Word8_Language:
-        language=*(Word8*)pData;
+        language=*(uchar*)pData;
         multy_language=FALSE;
         if( language==LANG_RUSENG )
         {
@@ -2505,13 +2505,13 @@ RSTR_FUNC(Bool32)  RSTR_SetImportData (uint32_t dwType, const void * pData)
 
         break;
         CASE_DATA( RSTR_Word16_Resolution               ,uint16_t,actual_resolution);
-        CASE_DATA( RSTR_Word8_Fax1x2,Word8              ,fax1x2);
-        CASE_DATA( RSTR_Word8_P2_disable,Word8          ,p2_disable);
-        CASE_DATA( RSTR_Word8_Matrix,Word8              ,matrix);
-        CASE_DATA( RSTR_Word8_P2_active,Word8   ,p2_active);
-        CASE_DATA( RSTR_Word8_Spell_check,Word8 ,spell_check);
-        CASE_DATA( RSTR_Word8_spec_camera,Word8 ,spec_camera);
-        CASE_DATA( RSTR_Word8_spec_nolinpen,Word8 ,no_linpen);
+        CASE_DATA( RSTR_Word8_Fax1x2,uchar              ,fax1x2);
+        CASE_DATA( RSTR_Word8_P2_disable,uchar          ,p2_disable);
+        CASE_DATA( RSTR_Word8_Matrix,uchar              ,matrix);
+        CASE_DATA( RSTR_Word8_P2_active,uchar   ,p2_active);
+        CASE_DATA( RSTR_Word8_Spell_check,uchar ,spell_check);
+        CASE_DATA( RSTR_Word8_spec_camera,uchar ,spec_camera);
+        CASE_DATA( RSTR_Word8_spec_nolinpen,uchar ,no_linpen);
         CASE_ADATA(RSTR_pchar_user_dict_name    ,user_dict_name);
     case    RSTR_OcrPath:
         strcpy(lnOcrPath,(char *)pData);
@@ -2520,7 +2520,7 @@ RSTR_FUNC(Bool32)  RSTR_SetImportData (uint32_t dwType, const void * pData)
         strcat(lnOcrLingPath, "/");
         break;
     case    RSTR_Word8_mmx:
-        mmx=*(Word8*)pData;
+        mmx=*(uchar*)pData;
         if( mmx )
             set_MMX_addr();
         else
@@ -2656,7 +2656,7 @@ INT  text_findstat(CHAR * w)
     int32_t                      Check = 0;
     if( strlen(w)>32 )
         return 0;
-    if( !RLING_CheckWord((PInt8)w, &Check) )
+    if( !RLING_CheckWord((char *)w, &Check) )
         return 0;
     return (INT)Check;
 #else
@@ -2670,7 +2670,7 @@ INT  text_findstat_aux(CHAR * w)
     int32_t                      Check = 0;
     if( strlen(w)>32 )
         return 0;
-    if( !RLING_CheckSecWord((PInt8)w, &Check) )
+    if( !RLING_CheckSecWord((char *)w, &Check) )
         return 0;
     return (INT)Check;
 #else

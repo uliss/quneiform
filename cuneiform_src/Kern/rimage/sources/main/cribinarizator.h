@@ -88,8 +88,8 @@ class CRIBinarizator
 {
 private:
 
-	Word8          wIndex4ToGray[16];
-	Word8          wIndex8ToGray[256];
+	uchar          wIndex4ToGray[16];
+	uchar          wIndex8ToGray[256];
 	Bool32          mbIndexColor;
 	uint32_t     mwGreenK;
 	uint32_t     mwRedK;
@@ -109,12 +109,12 @@ private:
 	Bool32 DezaCloseBin(void);
 	Bool32 DezaOpenBin(uint32_t wDezaFlag);
 	Bool32 KronrodCloseGray(void);
-	Bool32 KronrodGreyFrom(PWord8 pGFrom);
-	Bool32 KronrodGreyTo(PWord8 pGTo);
+	Bool32 KronrodGreyFrom(uchar * pGFrom);
+	Bool32 KronrodGreyTo(uchar * pGTo);
 
 public:
-	int16_t  KronrodImageRead(PWord8, int16_t fstLine, int16_t nLines);
-	int32_t  KronrodImageRead(PWord8, int32_t fstLine, int32_t nLines);
+	int16_t  KronrodImageRead(uchar *, int16_t fstLine, int16_t nLines);
+	int32_t  KronrodImageRead(uchar *, int32_t fstLine, int32_t nLines);
 
 private:
 	Bool32 OnBinarizeLoop();
@@ -122,7 +122,7 @@ private:
 	Bool32 OnBinarizator( );
 	Bool32 CloseBinarizator();
 	Bool32 OpenBinarizator(uint32_t wFlag);
-	Word8           IndexPalleteToGray(PCTDIBRGBQUAD pQuad);
+	uchar           IndexPalleteToGray(PCTDIBRGBQUAD pQuad);
 	Bool32          PrepareIndexTable(PCTDIB pDIB);
 	Bool32          SupportedIndexColorImage(PCTDIB pImage);
 
@@ -132,10 +132,10 @@ private:
 	PCTDIB                 mpIncomeDIB;
 	CTBinarize             meBinType;
 	uint32_t                 mwSrcBitCount;
-	PWord8                 mpSrcBuffer;
+	uchar *                 mpSrcBuffer;
 	uint32_t                 mwLineLenght;
 	Handle                 mhszGreyBuffer;
-	PWord8                 mpszGreyBuffer;
+	uchar *                 mpszGreyBuffer;
 	Bool32                 mbKronrodInvert;
 	CTBINTigerImageInfo    mDezaImageInfo;
 	PCDezaBinarizator      mpDezaBinarizator;

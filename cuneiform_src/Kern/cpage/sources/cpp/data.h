@@ -64,8 +64,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 typedef struct tagCompressHeader
 {
 	Bool16 bCompressed;
-	Word8 cRepeater;
-	Word8 reserved;
+	uchar cRepeater;
+	uchar reserved;
 	uint32_t wCount;
 } CompressHeader;
 

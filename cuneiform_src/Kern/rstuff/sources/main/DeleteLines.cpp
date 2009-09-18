@@ -97,9 +97,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 BOOL AddLenLineMas(MyLine** ppLines,int& len,int add);
 BOOL InitLineMas(MyLine** ppLines,int len);
 void DelLineMas(MyLine *masp);
-BOOL DelOneHorLine(Word8* pmasp,const int bytewide,int num_str,int begx,int begy,int endx,int endy,int wide10);
-BOOL DelOneVerLine(Word8* pmasp,const int bytewide,int num_str,int begx,int begy,int endx,int endy,int wide10);
-BOOL DelLineFromInside(Word8* pmasp,const int bytewide,int num_str,CLINE_handle hline);
+BOOL DelOneHorLine(uchar* pmasp,const int bytewide,int num_str,int begx,int begy,int endx,int endy,int wide10);
+BOOL DelOneVerLine(uchar* pmasp,const int bytewide,int num_str,int begx,int begy,int endx,int endy,int wide10);
+BOOL DelLineFromInside(uchar* pmasp,const int bytewide,int num_str,CLINE_handle hline);
 
 
 
@@ -134,7 +134,7 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, const char* ImageDelLines)
 //	uint32_t    HorType;
 //    uint32_t    VerType;
 	BOOL fl_cont;
-    Word8 ImageName[CPAGE_MAXNAME];
+    uchar ImageName[CPAGE_MAXNAME];
 	// Получаем PAGEINFO текущей страницы
 	GetPageInfo(hCPage,&info);
 
@@ -150,22 +150,22 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, const char* ImageDelLines)
 	cbk1.CIMAGE_ImageRead  = cbk.CIMAGE_ImageRead;
 	cbk1.CIMAGE_ImageClose = cbk.CIMAGE_ImageClose;
 
-	if (!CIMAGE_WriteCallbackImage((Word8*)ImageDelLines,cbk1))
+	if (!CIMAGE_WriteCallbackImage((uchar*)ImageDelLines,cbk1))
 	{
 	    return FALSE;
 	}
 
     Handle lpDIB;
-    if(!CIMAGE_ReadDIB((Word8*)ImageDelLines,&lpDIB,1))
+    if(!CIMAGE_ReadDIB((uchar*)ImageDelLines,&lpDIB,1))
 	{
-	  CIMAGE_DeleteImage((Word8*)ImageDelLines);
+	  CIMAGE_DeleteImage((uchar*)ImageDelLines);
 	  return FALSE;
 	}
 
     CTDIB* ctdib = new CTDIB;
 	if(!ctdib)
 	{
-	  CIMAGE_DeleteImage((Word8*)ImageDelLines);
+	  CIMAGE_DeleteImage((uchar*)ImageDelLines);
 	  return FALSE;
 	}
 
@@ -173,9 +173,9 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, const char* ImageDelLines)
     const int bytewide=ctdib->GetLineWidthInBytes();
     int num_str=ctdib->GetLinesNumber ();
 //   int bytesize=ctdib->GetImageSizeInBytes ();
-    Word8* pmasp=(Word8*)(ctdib->GetPtrToBitFild());
-//	Word8* pos=(Word8*)(ctdib->GetPtrToPixel (pHorLines[0].begx,pHorLines[0].begy));
-//	Word8* pos2=(Word8*)(ctdib->GetPtrToPixel (pHorLines[0].begx,pHorLines[0].begy));
+    uchar* pmasp=(uchar*)(ctdib->GetPtrToBitFild());
+//	uchar* pos=(uchar*)(ctdib->GetPtrToPixel (pHorLines[0].begx,pHorLines[0].begy));
+//	uchar* pos2=(uchar*)(ctdib->GetPtrToPixel (pHorLines[0].begx,pHorLines[0].begy));
 
 	uint32_t size_line_com=sizeof(LINE_COM);
 	CLINE_handle hline;
@@ -201,7 +201,7 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, const char* ImageDelLines)
 	 {
 		 ctdib->ResetDIB ();
 	     delete ctdib;
-		 CIMAGE_DeleteImage((Word8*)ImageDelLines);
+		 CIMAGE_DeleteImage((uchar*)ImageDelLines);
 		 return FALSE;
 	 }
 	 if(!InitLineMas(&pVerLines,len_ver_mas))
@@ -209,7 +209,7 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, const char* ImageDelLines)
          DelLineMas(pHorLines);
 		 ctdib->ResetDIB ();
 	     delete ctdib;
-		 CIMAGE_DeleteImage((Word8*)ImageDelLines);
+		 CIMAGE_DeleteImage((uchar*)ImageDelLines);
 		 return FALSE;
 	 }
 
@@ -289,7 +289,7 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, const char* ImageDelLines)
 	  {
 		 ctdib->ResetDIB ();
 	     delete ctdib;
-		 CIMAGE_DeleteImage((Word8*)ImageDelLines);
+		 CIMAGE_DeleteImage((uchar*)ImageDelLines);
 		 return FALSE;
 	  }
 
@@ -305,7 +305,7 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, const char* ImageDelLines)
 	 {
 		 ctdib->ResetDIB ();
 	     delete ctdib;
-		 CIMAGE_DeleteImage((Word8*)ImageDelLines);
+		 CIMAGE_DeleteImage((uchar*)ImageDelLines);
 		 return FALSE;
 	 }
 
@@ -365,7 +365,7 @@ Bool32 DeleteLines(Handle hCPage,void* phCLINE, const char* ImageDelLines)
 	 {
 		 ctdib->ResetDIB ();
 	     delete ctdib;
-		 CIMAGE_DeleteImage((Word8*)ImageDelLines);
+		 CIMAGE_DeleteImage((uchar*)ImageDelLines);
 		 DelLineMas(pHorLines);
 		 return FALSE;
 	 }
@@ -489,7 +489,7 @@ BOOL AddLenLineMas(MyLine** ppLines,int& len,int add)
  return TRUE;
 }
 
-BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int endx,int endy,int wide10)
+BOOL DelOneHorLine(uchar* pmasp,int bytewide,int num_str,int begx,int begy,int endx,int endy,int wide10)
 {
  int wide;
  int x1;
@@ -546,8 +546,8 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 
  int i;
  int j=y1*bytewide+(old_x1>>3);
- Word8* now=pmasp+j;
- Word8* end;
+ uchar* now=pmasp+j;
+ uchar* end;
 
  switch(old_x1&7)
  {
@@ -798,7 +798,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
  }
  else
  {
-  Word8* end_byte = pmasp + bytewide*num_str - 1;
+  uchar* end_byte = pmasp + bytewide*num_str - 1;
   end=pmasp+y1*bytewide+startbyte;
   spusk=(w+begy-endy-1)/(begy-endy);
   for(i=y1;i>=y2 && end >= pmasp;i--)
@@ -896,7 +896,7 @@ BOOL DelOneHorLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 }
 
 
-BOOL DelOneVerLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int endx,int endy,int wide10)
+BOOL DelOneVerLine(uchar* pmasp,int bytewide,int num_str,int begx,int begy,int endx,int endy,int wide10)
 {
  int wide;
  int x1;
@@ -1052,7 +1052,7 @@ BOOL DelOneVerLine(Word8* pmasp,int bytewide,int num_str,int begx,int begy,int e
 }
 
 /*
-BOOL GetMasP(Handle hCPage,Word8* ImageName,int x1,int y1,int x2,int y2,Word8** ppmasp)
+BOOL GetMasP(Handle hCPage,uchar* ImageName,int x1,int y1,int x2,int y2,uchar** ppmasp)
 {
     int prewide;
 	int left=x1;
@@ -1090,7 +1090,7 @@ BOOL GetMasP(Handle hCPage,Word8* ImageName,int x1,int y1,int x2,int y2,Word8** 
 }
 */
 
-BOOL DelLineFromInside(Word8* pmasp,const int bytewide,int num_str,CLINE_handle hline)
+BOOL DelLineFromInside(uchar* pmasp,const int bytewide,int num_str,CLINE_handle hline)
 {
  CLINE_handle hevent;
  CLINE_handle hinv;
@@ -1100,16 +1100,16 @@ BOOL DelLineFromInside(Word8* pmasp,const int bytewide,int num_str,CLINE_handle 
  int Level;
  int Beg;
  int End;
- Word8* p;
- Word8* pUp;
- Word8* pDown;
- Word8* p0;
+ uchar* p;
+ uchar* pUp;
+ uchar* pDown;
+ uchar* p0;
  int end_str=num_str-1;
  int endw=(bytewide<<3)-1;
  int byte_count=end_str*bytewide;
  int size_t;
 // int j;
- Word8* pmaspend=pmasp+bytewide*num_str;
+ uchar* pmaspend=pmasp+bytewide*num_str;
 
  data_line=CLINE_GetLineData(hline);
 
@@ -1588,29 +1588,29 @@ Bool32 DeleteDotLines(void* phCLINE, const char* ImageDelLines)
 	CIMAGEIMAGECALLBACK         cbk;
 	CIMAGEIMAGECALLBACK         cbk1;
 
-    if (!CIMAGE_GetCallbackImage((Word8*)ImageDelLines,&cbk))
+    if (!CIMAGE_GetCallbackImage((uchar*)ImageDelLines,&cbk))
 		return FALSE;
 
 	cbk1.CIMAGE_ImageOpen  = cbk.CIMAGE_ImageOpen;
 	cbk1.CIMAGE_ImageRead  = cbk.CIMAGE_ImageRead;
 	cbk1.CIMAGE_ImageClose = cbk.CIMAGE_ImageClose;
 
-	if (!CIMAGE_WriteCallbackImage((Word8*)ImageDelLines,cbk1))
+	if (!CIMAGE_WriteCallbackImage((uchar*)ImageDelLines,cbk1))
 	{
 	    return FALSE;
 	}
 
     Handle lpDIB;
-    if(!CIMAGE_ReadDIB((Word8*)ImageDelLines,&lpDIB,1))
+    if(!CIMAGE_ReadDIB((uchar*)ImageDelLines,&lpDIB,1))
 	{
-	  CIMAGE_DeleteImage((Word8*)ImageDelLines);
+	  CIMAGE_DeleteImage((uchar*)ImageDelLines);
 	  return FALSE;
 	}
 
     CTDIB* ctdib = new CTDIB;
 	if(!ctdib)
 	{
-	  CIMAGE_DeleteImage((Word8*)ImageDelLines);
+	  CIMAGE_DeleteImage((uchar*)ImageDelLines);
 	  return FALSE;
 	}
 
@@ -1618,7 +1618,7 @@ Bool32 DeleteDotLines(void* phCLINE, const char* ImageDelLines)
     const int bytewide=ctdib->GetLineWidthInBytes();
     int num_str=ctdib->GetLinesNumber ();
 
-    Word8* pmasp=(Word8*)(ctdib->GetPtrToBitFild());
+    uchar* pmasp=(uchar*)(ctdib->GetPtrToBitFild());
 	CLINE_handle hline;
 
     for(hline=CLINE_GetFirstLine(*pCLINE);hline;hline=CLINE_GetNextLine(hline))

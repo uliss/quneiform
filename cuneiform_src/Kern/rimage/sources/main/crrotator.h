@@ -87,8 +87,8 @@ private:
 	void      AllocWorkBuffers(uint32_t wStringBufferRange);
 	void      ResetItself(void);
 	void      FreeWorkBuffers(void);
-	Bool32    AddBlackToGray(int32_t X, int32_t Y, Word8 Gray);
-	Bool32    UnmaskPixels(PWord8 pMask, PWord8 pGrayPix, int32_t X, int32_t Y, uint32_t wLineLen, int32_t ShiftX, int32_t ShiftY);
+	Bool32    AddBlackToGray(int32_t X, int32_t Y, uchar Gray);
+	Bool32    UnmaskPixels(uchar * pMask, uchar * pGrayPix, int32_t X, int32_t Y, uint32_t wLineLen, int32_t ShiftX, int32_t ShiftY);
 	Bool32    GetGrayCoord(int32_t eX, int32_t eY, int32_t * pX, int32_t * pY, int32_t * psX, int32_t * psY);
 	Bool32    RollPoint(int32_t X, int32_t Y, int32_t * pnX, int32_t * pnY);
 	Bool32    GetExtCoord(int32_t X, int32_t Y, int32_t * peX, int32_t * peY);
@@ -117,7 +117,7 @@ protected:
 	Bool32             mbEnableVSS;
 	Bool32             mbEnableVS;
 	Bool32             mbEnableHS;
-	Word8              BitFillforGray;
+	uchar              BitFillforGray;
 	uint32_t             ToY;
 	uint32_t             ToX;
 	uint32_t             AtY;
@@ -127,7 +127,7 @@ protected:
 	Float80            mfCos;
 	Float80            mfSin;
 	Float80            mfTang;
-	PWord8             BufferForGray;
+	uchar *             BufferForGray;
 	int32_t *             HShiftTable;
 	uint32_t *            VShiftTable;
 	uint32_t *            VShiftLenght;

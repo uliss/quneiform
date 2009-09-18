@@ -77,7 +77,7 @@ static uint16_t      gwHeightRC = 0;      // Уникальный номер б�
 static uint16_t      gwLowRC    = ER_ROUGH_NONE;      // Ошибки в работе библиотеки
 static HANDLE      ghStorage  = NULL;   // Указатель на хранилище
 static HANDLE      ghInst     = NULL;   // Указатель на свое окно
-static Int8 szBuffer[512];               // Для докладов наверх
+static char szBuffer[512];               // Для докладов наверх
 /*------------own functions--------------------------------------------------*/
 void   SetReturnCode_smetric (uint16_t rc);
 uint16_t GetReturnCode_smetric ();
@@ -107,30 +107,30 @@ uint32_t ul_reason_for_call,
 /*---------------------------------------------------------------------------*/
 SMetric_FUNC(Bool32) SMetric_Init (uint16_t wHeightCode, HANDLE hStorage)
 {
-	Word8 err8;
+	uchar err8;
 	Bool ret;
 	if (gwHeightRC!=0)
 	{
-		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+		err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 		gwLowRC = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_WAS_YET_INIT;
+		err8 = (uchar)ER_DETAIL_WAS_YET_INIT;
 		gwLowRC |= (uint16_t)err8;
 		return FALSE;
 	}
 	if (wHeightCode==0)
 	{
-		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+		err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 		gwLowRC = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_BAD_UNICAL_NUMBER;
+		err8 = (uchar)ER_DETAIL_BAD_UNICAL_NUMBER;
 		gwLowRC |= (uint16_t)err8;
 		return FALSE;
 	}
 	ret = AM_InitComm (wHeightCode);
 	if (!ret)
 	{
-		err8 = (Word8)ER_ROUGH_NORMAL;
+		err8 = (uchar)ER_ROUGH_NORMAL;
 		gwLowRC = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_FUNC_DPUMA;
+		err8 = (uchar)ER_DETAIL_FUNC_DPUMA;
 		gwLowRC |= (uint16_t)err8;
 		return FALSE;
 	}
@@ -142,12 +142,12 @@ SMetric_FUNC(Bool32) SMetric_Init (uint16_t wHeightCode, HANDLE hStorage)
 /*---------------------------------------------------------------------------*/
 SMetric_FUNC(Bool32) SMetric_Done()
 {
-	Word8 err8;
+	uchar err8;
 	if (gwHeightRC==0)
 	{
-		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+		err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 		gwLowRC = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
+		err8 = (uchar)ER_DETAIL_WAS_NOT_INIT;
 		gwLowRC |= (uint16_t)err8;
 		return FALSE;
 	}
@@ -160,14 +160,14 @@ SMetric_FUNC(Bool32) SMetric_Done()
 /*---------------------------------------------------------------------------*/
 SMetric_FUNC(uint32_t) SMetric_GetReturnCode()
 {
-	Word8  err8;
+	uchar  err8;
 	uint32_t err32;
 	if (gwHeightRC==0)
 	{
 		err32 = (uint32_t)(0);
-		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+		err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 		gwLowRC = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
+		err8 = (uchar)ER_DETAIL_WAS_NOT_INIT;
 		gwLowRC |= (uint16_t)err8;
 		err32 |= (uint32_t)gwLowRC;
 		return err32;
@@ -177,30 +177,30 @@ SMetric_FUNC(uint32_t) SMetric_GetReturnCode()
 	return (uint32_t)(gwHeightRC<<16)|(gwLowRC);
 }
 /*---------------------------------------------------------------------------*/
-SMetric_FUNC(Int8 *) SMetric_GetReturnString(uint32_t dwError)
+SMetric_FUNC(char *) SMetric_GetReturnString(uint32_t dwError)
 {
-	Word8  err8, err8_1;
+	uchar  err8, err8_1;
 	uint16_t err16;
 	char  Work[256];
 	if (gwHeightRC==0)
 	{
-		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+		err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 		gwLowRC = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
+		err8 = (uchar)ER_DETAIL_WAS_NOT_INIT;
 		gwLowRC |= (uint16_t)err8;
 		return NULL;
 	}
 	if (dwError >> 16 != gwHeightRC)
 	{
-		err8 = (Word8)ER_ROUGH_OTHER_LIBRARY;
+		err8 = (uchar)ER_ROUGH_OTHER_LIBRARY;
 		gwLowRC = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_NO_COMMENT;
+		err8 = (uchar)ER_DETAIL_NO_COMMENT;
 		gwLowRC |= (uint16_t)err8;
 		return NULL;
 	}
 	err16  = (uint16_t)(dwError & 0xFFFF);
-	err8   = (Word8)((err16/256) & 255);
-	err8_1 = (Word8)(err16 & 255);
+	err8   = (uchar)((err16/256) & 255);
+	err8_1 = (uchar)(err16 & 255);
 	LoadString ((HINSTANCE)ghInst, err16, (char *)szBuffer, sizeof (szBuffer));
 	switch (err8)
 	{
@@ -220,9 +220,9 @@ SMetric_FUNC(Int8 *) SMetric_GetReturnString(uint32_t dwError)
 			sprintf ((char *)szBuffer, "SMetric : Ошибка.");
 			break;
 		default :
-			err8 = (Word8)ER_ROUGH_NOT_SUCH_ERROR_CODE;
+			err8 = (uchar)ER_ROUGH_NOT_SUCH_ERROR_CODE;
 			gwLowRC = (uint16_t)(err8<<8);
-			err8 = (Word8)ER_DETAIL_NO_COMMENT;
+			err8 = (uchar)ER_DETAIL_NO_COMMENT;
 			gwLowRC |= (uint16_t)err8;
 			return NULL;
 	}
@@ -281,12 +281,12 @@ SMetric_FUNC(Int8 *) SMetric_GetReturnString(uint32_t dwError)
 /*---------------------------------------------------------------------------*/
 SMetric_FUNC(Bool32) SMetric_GetExportData(uint32_t dwType, void * pData)
 {
-	Word8 err8;
+	uchar err8;
 	if (gwHeightRC==0)
 	{
-		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+		err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 		gwLowRC = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
+		err8 = (uchar)ER_DETAIL_WAS_NOT_INIT;
 		gwLowRC |= (uint16_t)err8;
 		return FALSE;
 	}
@@ -305,9 +305,9 @@ SMetric_FUNC(Bool32) SMetric_GetExportData(uint32_t dwType, void * pData)
 			break;
 		default:
 			*(Handle *)pData = NULL;
-			err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+			err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 			gwLowRC = (uint16_t)(err8<<8);
-			err8 = (Word8)ER_DETAIL_NOT_MADE_SUCH_DATA;
+			err8 = (uchar)ER_DETAIL_NOT_MADE_SUCH_DATA;
 			gwLowRC |= (uint16_t)err8;
 			return FALSE;
 	}
@@ -316,12 +316,12 @@ SMetric_FUNC(Bool32) SMetric_GetExportData(uint32_t dwType, void * pData)
 /*----------------------------------------------------------------------------*/
 SMetric_FUNC(Bool32) SMetric_SetImportData(uint32_t dwType, void *pData)
 {
-	Word8 err8;
+	uchar err8;
 	if (gwHeightRC==0)
 	{
-		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+		err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 		gwLowRC = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
+		err8 = (uchar)ER_DETAIL_WAS_NOT_INIT;
 		gwLowRC |= (uint16_t)err8;
 		return FALSE;
 	}
@@ -341,9 +341,9 @@ SMetric_FUNC(Bool32) SMetric_SetImportData(uint32_t dwType, void *pData)
 			break;
 		case 1 :
 		default :
-			err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+			err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 			gwLowRC = (uint16_t)(err8<<8);
-			err8 = (Word8)ER_DETAIL_BAD_PARAMETRS;
+			err8 = (uchar)ER_DETAIL_BAD_PARAMETRS;
 			gwLowRC |= (uint16_t)err8;
 		return FALSE;
 	}
@@ -362,12 +362,12 @@ uint16_t GetReturnCode_smetric()
 /*---------------------------------------------------------------------------*/
 Bool WasInitSMetric ()
 {
-	Word8 err8;
+	uchar err8;
 	if (gwHeightRC==0)
 	{
-		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+		err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 		gwLowRC = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
+		err8 = (uchar)ER_DETAIL_WAS_NOT_INIT;
 		gwLowRC |= (uint16_t)err8;
 		return FALSE;
 	}

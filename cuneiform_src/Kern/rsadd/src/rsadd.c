@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "leodefs.h"
 #include <stdlib.h>
 #define etap_name 'g'
-#define BYTE    Word8
+#define BYTE    uchar
 #include "ligas.h"
 #include "minmax.h"
 
@@ -97,38 +97,38 @@ uint16_t              wLowRC         = RSADD_ERR_NO;
 
 typedef struct _RSADD_STAT
 {
-Word8   minp, maxp, minup, maxup;
+uchar   minp, maxp, minup, maxup;
 int16_t   norec, nall, nh, nm, ns;
 Bool32  var_width, var_kegl, var_dig, case_up, case_dn, case_dig;
 } RSADD_STAT;
 
-static Word8 buf_for_output1[256];
-static Word8 buf_for_output2[256];
-static Word8 buf_for_output3[256];
-static Word8 left_limit_word[] =" ./\x1e\x1f";
-static Word8 right_limit_word[]=" -.,РЭЮ\'\":/";
-static Word8 rus_similar[]="џ18$";
-static Word8 eng_similar[]="SISS";
-static Word8 rus_alias  []="ЈЇвЎ‚8";
-static Word8 eng_alias  []="rnr68B";
-static Word8 rus_equal  []="в®аЄебў¬…’“ЋђЂЌЉ•‘‚ЊҐгЁ®а еб“Ћђ•‘­Јэх123456789031";
-static Word8 eng_equal  []="TOPKXCBMETYOPAHKXCBMeyuopaxcyopxcHIam1234567890‡є";
-static Word8 rus_uni_letters[]="©‰й™д”л›¤„¦†нќпџоћЃ\xf0";
-static Word8 eng_uni_letters[]="iwWRFGLZz\xb1\xb2\xb3\xb4\xb5\xb6\xb9"; //+N
-static Word8 non_letters[]="«»()";
-static Word8 true_terms[]="/-\x5F";
+static uchar buf_for_output1[256];
+static uchar buf_for_output2[256];
+static uchar buf_for_output3[256];
+static uchar left_limit_word[] =" ./\x1e\x1f";
+static uchar right_limit_word[]=" -.,РЭЮ\'\":/";
+static uchar rus_similar[]="џ18$";
+static uchar eng_similar[]="SISS";
+static uchar rus_alias  []="ЈЇвЎ‚8";
+static uchar eng_alias  []="rnr68B";
+static uchar rus_equal  []="в®аЄебў¬…’“ЋђЂЌЉ•‘‚ЊҐгЁ®а еб“Ћђ•‘­Јэх123456789031";
+static uchar eng_equal  []="TOPKXCBMETYOPAHKXCBMeyuopaxcyopxcHIam1234567890‡є";
+static uchar rus_uni_letters[]="©‰й™д”л›¤„¦†нќпџоћЃ\xf0";
+static uchar eng_uni_letters[]="iwWRFGLZz\xb1\xb2\xb3\xb4\xb5\xb6\xb9"; //+N
+static uchar non_letters[]="«»()";
+static uchar true_terms[]="/-\x5F";
 
 static Bool16	my_snap_monitor_ori(CSTR_line *snap_line, int32_t num_lines){return FALSE;};
-static Bool16	my_snap_activity(Word8 a){return FALSE;};
-static Bool16	my_snap_show_text(Word8 *txt){return FALSE;};
+static Bool16	my_snap_activity(uchar a){return FALSE;};
+static Bool16	my_snap_show_text(uchar *txt){return FALSE;};
 
 static Bool16	(*snap_monitor_ori)(CSTR_line *snap_line, int32_t num_lines)=my_snap_monitor_ori;
-static Bool16	(*snap_activity)(Word8 a)=my_snap_activity;
-static Bool16	(*snap_show_text)(Word8 *txt)=my_snap_show_text;
-static Word8	db_status=0;
-static Word8   spec_camera=0;
+static Bool16	(*snap_activity)(uchar a)=my_snap_activity;
+static Bool16	(*snap_show_text)(uchar *txt)=my_snap_show_text;
+static uchar	db_status=0;
+static uchar   spec_camera=0;
 
-RSADD_FUNC(void) RSADD_SetRSTR( Word8 status,Word8 camera,
+RSADD_FUNC(void) RSADD_SetRSTR( uchar status,uchar camera,
                                 Handle monitor_ori,
                                 Handle activity,
                                 Handle show_text)
@@ -141,7 +141,7 @@ snap_show_text  = show_text;
 return;
 }
 
-extern  int16_t   rec_versions_triad( char *w,Word8 lang);
+extern  int16_t   rec_versions_triad( char *w,uchar lang);
 static  Bool32  tables=FALSE;
 
 static  void rsadd_clear_hide(CSTR_line lrus);
@@ -169,7 +169,7 @@ do{
 return (attr.flg&CSTR_f_fict)?(CSTR_rast)0:c;
 }
 
-static CSTR_rast rsadd_end_word(CSTR_rast cs,Word8 *str,Word8 *word_len,int16_t left_limit,int16_t right_limit, int32_t need_space,
+static CSTR_rast rsadd_end_word(CSTR_rast cs,uchar *str,uchar *word_len,int16_t left_limit,int16_t right_limit, int32_t need_space,
 								Bool32 rightTrue) //Nick 11.05.2001
 {
 CSTR_rast       c=cs, n;
@@ -236,7 +236,7 @@ if( rightTrue )
 		 c= best ? best : CSTR_GetLastRaster(CSTR_GetRasterLine(cs));
 
          *str='\0';
-         *word_len = (Word8)i;
+         *word_len = (uchar)i;
          return c;
 	}
 
@@ -321,7 +321,7 @@ if( i )
     str--;
     }
 *str='\0';
-*word_len = (Word8)i;
+*word_len = (uchar)i;
 return c;
 }
 ///////////
@@ -532,7 +532,7 @@ CSTR_rast_attr  a;
 
 
 
-static void rsadd_cstr2word(CSTR_rast be,CSTR_rast en,Word8 *str)
+static void rsadd_cstr2word(CSTR_rast be,CSTR_rast en,uchar *str)
 {
 CSTR_rast c;
 RecVersions     vers;
@@ -547,7 +547,7 @@ for(c=be;c&&c!=en;c=CSTR_GetNext(c))
 return;
 }
 
-Bool32 rsadd_is_upper(Word8 Code, Word8 language)
+Bool32 rsadd_is_upper(uchar Code, uchar language)
 {
 int32_t   code=(int32_t)Code;
 
@@ -561,7 +561,7 @@ switch( language )
 return FALSE;
 }
 
-Bool32 rsadd_is_thick(Word8 Code, Word8 language)
+Bool32 rsadd_is_thick(uchar Code, uchar language)
 {
 int32_t   code=(int32_t)Code;
 if( code>49 && code<58 || code==48 )
@@ -576,7 +576,7 @@ switch( language )
 return FALSE;
 }
 
-Bool32 rsadd_is_digit(Word8 Code)
+Bool32 rsadd_is_digit(uchar Code)
 {
 int32_t   code=(int32_t)Code;
 
@@ -669,8 +669,8 @@ for(r=beg;r && r!= end; r=CSTR_GetNext(r), nall++)
     }
 if( minp==256 )    minp=0;
 if( minup==256 )   minup=0;
-s->minp      = (Word8)minp;
-s->maxp      = (Word8)maxp;
+s->minp      = (uchar)minp;
+s->maxp      = (uchar)maxp;
 s->norec     = norec;
 s->var_width = ( maxw*2>minw*5 );
 s->var_kegl  = ( !nup_first  && nupall ||
@@ -680,8 +680,8 @@ s->var_dig   = ( ndig_first && ndig+ndig_first!=s->nall||
 s->case_up   = (s->nall==nup+nup_first);
 s->case_dn   = (nup+nup_first==0);
 s->case_dig  = (ndig+ndig_first==s->nall);
-s->maxup=(Word8)maxup;
-s->minup=(Word8)minup;
+s->maxup=(uchar)maxup;
+s->minup=(uchar)minup;
 return TRUE;
 }
 
@@ -715,7 +715,7 @@ if( sve)
 for(c=eng;c && c!=enge;c=CSTR_GetNext(c))
     {
     if( CSTR_GetAttr (c, &attr)                                 &&
-        CSTR_GetImage (c, (Word8 *)(&rs), CSTR_TYPE_IMAGE_RS)   &&
+        CSTR_GetImage (c, (uchar *)(&rs), CSTR_TYPE_IMAGE_RS)   &&
         CSTR_GetCollectionUni(c,&vr)                            &&
         (comp=CSTR_GetComp(c))!=NULL )
         {
@@ -744,7 +744,7 @@ return TRUE;
 
 
 
-static Bool32 rsadd_make_dupes(CSTR_rast   rus,CSTR_rast   ruse,CSTR_rast   eng,CSTR_rast   enge, Word8 type)
+static Bool32 rsadd_make_dupes(CSTR_rast   rus,CSTR_rast   ruse,CSTR_rast   eng,CSTR_rast   enge, uchar type)
 {
 CSTR_rast       r,re;
 CSTR_rast_attr  a;
@@ -849,9 +849,9 @@ do  {
 return (CSTR_rast)0;
 }
 
-RSADD_FUNC(Word8)    RSADD_get_alias_class(Word8 let,Word8 lang)
+RSADD_FUNC(uchar)    RSADD_get_alias_class(uchar let,uchar lang)
 {
-Word8   *fe,*fa,*fs;
+uchar   *fe,*fa,*fs;
 if( lang==LANG_RUSSIAN )
     {
     fe=rus_equal;
@@ -878,9 +878,9 @@ if( strchr(fs,let) )
 return RSADD_as_none;
 }
 
-RSADD_FUNC(Word8  *) RSADD_get_aliases( Word8 let,Word8 lang, Word8 alias_class)
+RSADD_FUNC(uchar  *) RSADD_get_aliases( uchar let,uchar lang, uchar alias_class)
 {
-Word8   *fe,*fa,*fs,*se,*sa,*ss, *out, *f,*s, *o;
+uchar   *fe,*fa,*fs,*se,*sa,*ss, *out, *f,*s, *o;
 
 if( lang==LANG_RUSSIAN )
     {
@@ -933,13 +933,13 @@ for(;*f;f++,s++)
 return o;
 }
 
-Bool32  find_in_paar_arrays(Word8 e,Word8 r,
-                    Word8 *eng,
-                    Word8 *rus)
+Bool32  find_in_paar_arrays(uchar e,uchar r,
+                    uchar *eng,
+                    uchar *rus)
 {
 int32_t   ndx;
 Bool32  comp,find;
-Word8 * p;
+uchar * p;
 
 find=comp=FALSE;
 for(ndx=0,p=eng; *p;p++,ndx++)
@@ -960,7 +960,7 @@ if( !comp || !find )
 return TRUE;
 }
 
-static Bool32 rsadd_aliases(Word8 *r,Word8 *e, Word8 mode)
+static Bool32 rsadd_aliases(uchar *r,uchar *e, uchar mode)
 {
 
 for(;*e&&*r;r++,e++)
@@ -1004,7 +1004,7 @@ for(;*e&&*r;r++,e++)
 return TRUE;
 }
 
-Bool32  rsadd_similar(Word8 *rwrd,Word8 *ewrd)
+Bool32  rsadd_similar(uchar *rwrd,uchar *ewrd)
 {
 return rsadd_aliases(rwrd,ewrd,2);
 }
@@ -1103,7 +1103,7 @@ static char *rsadd_prev_eng_group_err[]={
 "ww",
 "\0"
 };
-Bool32 rsadd_eng_group(Word8 *wrd,Word8 last)
+Bool32 rsadd_eng_group(uchar *wrd,uchar last)
 {
 int32_t   i;
 for(i=0; rsadd_prev_eng_group[i][0]!=0;i++)
@@ -1127,7 +1127,7 @@ Bool32  rsadd_eng_group_CSTR(CSTR_rast b,CSTR_rast e)
 CSTR_rast       r;
 CSTR_rast_attr  a;
 UniVersions     u;
-Word8           s[80];
+uchar           s[80];
 
 for(s[0]=0,r=b;r&&r!=e;r=CSTR_GetNext(r))
     {
@@ -1148,16 +1148,16 @@ return (rsadd_get_solid(b,e)    ||
         rsadd_eng_group_CSTR(b,e) );
 }
 
-static Word8 *russian_voc_spec[]={
+static uchar *russian_voc_spec[]={
 "Ј.",
 "\0"
 };
 
-Bool32   rsadd_is_short_form(Word8 *rwrd)
+Bool32   rsadd_is_short_form(uchar *rwrd)
 {
-Word8   russian_year[]="Ј.";
+uchar   russian_year[]="Ј.";
 int32_t   i,ii,iv;
-Word8   *p;
+uchar   *p;
 
 ii=strlen(rwrd);
 iv=strlen(russian_year);
@@ -1190,7 +1190,7 @@ return FALSE;
 }
 
 
-void rsadd_revert_lang(CSTR_rast prev,CSTR_rast start,Word8 lnew)
+void rsadd_revert_lang(CSTR_rast prev,CSTR_rast start,uchar lnew)
 {
 CSTR_rast       r;
 CSTR_rast_attr  a;
@@ -1280,18 +1280,18 @@ RSADD_FUNC(Bool32) RSADD_take(CSTR_line lrus,CSTR_line leng)
 {
 CSTR_attr       lattr;
 CSTR_rast       rus, eng, ruse, enge;
-Word8           rlen,rwrd[MAX_LEN_WORD+40];
-Word8           elen,ewrd[MAX_LEN_WORD+40],*types[]={"no","rus","eng","rus-eng"};
+uchar           rlen,rwrd[MAX_LEN_WORD+40];
+uchar           elen,ewrd[MAX_LEN_WORD+40],*types[]={"no","rus","eng","rus-eng"};
 CSTR_rast_attr  eattr,rattr, attr, tmpattr;
 int16_t           type = 0;
 //int16_t           rtri, etri;
-Word8           buf[256],buf1[256],buf2[256],buf3[256];
+uchar           buf[256],buf1[256],buf2[256],buf3[256];
 CSTR_line       sln[2]={lrus, leng};
 Bool32          rsolid, esolid, verdict, aliases,
                 enorec, rnorec, equal, similar, short_russian=FALSE,
                 need_rus_coord, end_eng_space, is_one_eword, is_one_rword,
                 hide;
-Word8           typea  ;
+uchar           typea  ;
 RSADD_STAT      estat, rstat;
 CSTR_rast       svb,sve, cn,cne, nb, ne, pruse;
 int32_t           nall,neng,num_word, BL_cap,BL_small ;
@@ -1332,7 +1332,7 @@ while(1)
     is_one_eword=( (attr.flg&CSTR_f_fict) && num_word==1 );
 
     CSTR_GetCollection(enge,&v);
-    if( rsadd_eng_group(ewrd,(Word8)((attr.flg&CSTR_f_punct)?v.Alt[0].Code:0)) )
+    if( rsadd_eng_group(ewrd,(uchar)((attr.flg&CSTR_f_punct)?v.Alt[0].Code:0)) )
         {
         enge = rsadd_end_word(eng,ewrd,&elen,-16000,32767,2,FALSE);
         need_rus_coord=TRUE;

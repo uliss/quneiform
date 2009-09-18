@@ -328,7 +328,7 @@ RNEG_FUNC(uint32_t) RNEG_GetReturnCode()
 	return (uint32_t)(0);
 }
 /*---------------------------------------------------------------------------*/
-RNEG_FUNC(Int8 *) RNEG_GetReturnString(uint32_t dwError)
+RNEG_FUNC(char *) RNEG_GetReturnString(uint32_t dwError)
 {
 	return NULL;
 }

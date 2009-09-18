@@ -100,7 +100,7 @@ void BlockHorzHystogramBuild (BLOCK *p)
     pHystogram =(int*) malloc ((nHystColumns + 1) * sizeof (int));
 
     if (pHystogram == NULL)
-        ErrorNoEnoughMemory ((Word8*)"in LTBREAK.C,BlockHorzHystogramBuild,part 1");
+        ErrorNoEnoughMemory ((uchar*)"in LTBREAK.C,BlockHorzHystogramBuild,part 1");
 
     memset (pHystogram, 0, (nHystColumns + 1) * sizeof (int));
 

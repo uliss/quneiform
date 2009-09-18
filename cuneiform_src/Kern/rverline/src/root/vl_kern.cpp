@@ -113,7 +113,7 @@ Bool MyGetZher (void **vvZher, int *nZher, int MaxZher, Handle hCPage);
 /*----------------------------------------------------------------------------*/
 RVERLINE_FUNC(Bool32) RVERLINE_MarkLines (Handle hCComp, Handle hCPage)
 {
-	Word8  err8;
+	uchar  err8;
 	uint16_t Code;
 //	uint32_t HoriType, VertType;
 	Bool ret, AbleShortVert;
@@ -147,9 +147,9 @@ RVERLINE_FUNC(Bool32) RVERLINE_MarkLines (Handle hCComp, Handle hCPage)
 	if (!AM_Skip (AM_GetKeyOfRule (RU_VL_D_Info)))
 		AM_ConsolN ("Res_X = %d  Res_Y = %d  W_page = %d  H_page = %d\n"
 				, info.DPIX, info.DPIY, info.Width, info.Height);
-	err8 = (Word8)ER_ROUGH_NORMAL;
+	err8 = (uchar)ER_ROUGH_NORMAL;
 	Code = (uint16_t)(err8<<8);
-	err8 = (Word8)ER_DETAIL_EMPTY_FUNC;
+	err8 = (uchar)ER_DETAIL_EMPTY_FUNC;
 	Code |= (uint16_t)err8;
 	SetReturnCode_rverline (Code);
 	/*  Считываю линии  */
@@ -173,9 +173,9 @@ RVERLINE_FUNC(Bool32) RVERLINE_MarkLines (Handle hCComp, Handle hCPage)
 				rot = AM_WriteRes_rv_fte (RU_VL_D_WrResLine, "  <2 К Страница\n");
 			return TRUE;
 		case RV_DOUBT :
-			err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+			err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 			Code = (uint16_t)(err8<<8);
-			err8 = (Word8)ER_DETAIL_NO_MEMORY;
+			err8 = (uchar)ER_DETAIL_NO_MEMORY;
 			Code |= (uint16_t)err8;
 			SetReturnCode_rverline (Code);
 			myKeyWarn  = AM_GetKeyOfRule (RU_VL_C_ContWarn);
@@ -275,12 +275,12 @@ RVERLINE_FUNC(Bool32) RVERLINE_MarkLines (Handle hCComp, Handle hCPage)
 /*----------------------------------------------------------------------------*/
 RVERLINE_FUNC(Bool32) RVERLINE_SetImportData(uint32_t dwType, void *pData)
 {
-	Word8 err8;
+	uchar err8;
 	if (gwHeightRC_rver==0)
 	{
-		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+		err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 		gwLowRC_rver = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
+		err8 = (uchar)ER_DETAIL_WAS_NOT_INIT;
 		gwLowRC_rver |= (uint16_t)err8;
 		return FALSE;
 	}
@@ -293,9 +293,9 @@ RVERLINE_FUNC(Bool32) RVERLINE_SetImportData(uint32_t dwType, void *pData)
 				memset (&MainRegime, 0, sizeof (Regime_VerifyLines));
 			break;
 		default :
-			err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+			err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 			gwLowRC_rver = (uint16_t)(err8<<8);
-			err8 = (Word8)ER_DETAIL_BAD_PARAMETRS;
+			err8 = (uchar)ER_DETAIL_BAD_PARAMETRS;
 			gwLowRC_rver |= (uint16_t)err8;
 		return FALSE;
 	}

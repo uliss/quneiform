@@ -149,10 +149,10 @@ uint32_t rc = 0;
 return rc;
 }
 //********************************************************************
-ROUT_FUNC(Int8 *) ROUT_GetReturnString(uint32_t dwError)
+ROUT_FUNC(char *) ROUT_GetReturnString(uint32_t dwError)
 {
 	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
-	static Int8 szBuffer[512];
+	static char szBuffer[512];
 
 	if( dwError >> 16 != gwHighRC_rout)
 		gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;

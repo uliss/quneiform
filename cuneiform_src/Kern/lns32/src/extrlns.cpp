@@ -166,7 +166,7 @@ static void _squeezeIfTooMany(  int32_t & hor_len, int32_t & ver_len,
 }
 
 //******************************* Rom 8-2-99 **************
-static void FillFragmentsCount( int32_t hnd, Bool hor, int16_t* cnt, Word8* quality)
+static void FillFragmentsCount( int32_t hnd, Bool hor, int16_t* cnt, uchar* quality)
 {
 	int16_t Romii;
    int16_t SpacesLength, TotalLength;
@@ -409,7 +409,7 @@ Bool ExtrLinesGetInfo(  LinesTotalInfo * lti,
                      )
 {
 	int16_t cnt;//******************Rom
-	Word8 Quality;//******************Rom
+	uchar Quality;//******************Rom
 
    if (hLB == NULL) return WRONG();
    if (vLB == NULL) return WRONG();

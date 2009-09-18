@@ -166,13 +166,13 @@ RLINGS_FUNC(uint32_t) RLINGS_GetReturnCode()
 //////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Int8 *) RLING_GetReturnString(uint32_t dwError)
+RLING_FUNC(char *) RLING_GetReturnString(uint32_t dwError)
 #else
-RLINGS_FUNC(Int8 *) RLINGS_GetReturnString(uint32_t dwError)
+RLINGS_FUNC(char *) RLINGS_GetReturnString(uint32_t dwError)
 #endif
 {
 	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_RLING_ERR_NO;
-	static Int8 szBuffer[512];
+	static char szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
 	gwLowRC = IDS_RLING_ERR_NOTIMPLEMENT;

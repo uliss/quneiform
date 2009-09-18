@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 RFRMT_FUNC(Bool32) RFRMT_Init(uint16_t wHeightCode,Handle hStorage);
 RFRMT_FUNC(Bool32) RFRMT_Done();
 RFRMT_FUNC(uint32_t) RFRMT_GetReturnCode();
-RFRMT_FUNC(Int8 *) RFRMT_GetReturnString(uint32_t dwError);
+RFRMT_FUNC(char *) RFRMT_GetReturnString(uint32_t dwError);
 RFRMT_FUNC(Bool32) RFRMT_GetExportData(uint32_t dwType, void * pData);
 RFRMT_FUNC(Bool32) RFRMT_SetImportData(uint32_t dwType, const void * pData);
 /////////////////////////////////////////////////////////////

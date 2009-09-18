@@ -78,7 +78,7 @@ uint16_t      gwHeightRC_rver = 0;      // Уникальный номер би�
 uint16_t      gwLowRC_rver    = ER_ROUGH_NONE;      // Ошибки в работе библиотеки
 static HANDLE      ghStorage  = NULL;   // Указатель на хранилище
 static HANDLE      ghInst     = NULL;   // Указатель на свое окно
-static Int8 szBuffer[512];               // Для докладов наверх
+static char szBuffer[512];               // Для докладов наверх
 Handle RltVertix_VL; // корневая вершина отладки для верификации линий
 /*------------extern functions------------------------------------------------*/
 Bool MyInit_CPage ();
@@ -108,30 +108,30 @@ uint32_t ul_reason_for_call,
 /*----------------------------------------------------------------------------*/
 RVERLINE_FUNC(Bool32) RVERLINE_Init (uint16_t wHeightCode, HANDLE hStorage)
 {
-	Word8 err8;
+	uchar err8;
 	Bool ret;
 	if (gwHeightRC_rver!=0)
 	{
-		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+		err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 		gwLowRC_rver = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_WAS_YET_INIT;
+		err8 = (uchar)ER_DETAIL_WAS_YET_INIT;
 		gwLowRC_rver |= (uint16_t)err8;
 		return FALSE;
 	}
 	if (wHeightCode==0)
 	{
-		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+		err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 		gwLowRC_rver = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_BAD_UNICAL_NUMBER;
+		err8 = (uchar)ER_DETAIL_BAD_UNICAL_NUMBER;
 		gwLowRC_rver |= (uint16_t)err8;
 		return FALSE;
 	}
 	ret = AM_InitComm (wHeightCode);
 	if (!ret)
 	{
-		err8 = (Word8)ER_ROUGH_NORMAL;
+		err8 = (uchar)ER_ROUGH_NORMAL;
 		gwLowRC_rver = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_FUNC_DPUMA;
+		err8 = (uchar)ER_DETAIL_FUNC_DPUMA;
 		gwLowRC_rver |= (uint16_t)err8;
 		return FALSE;
 	}
@@ -151,12 +151,12 @@ RVERLINE_FUNC(Bool32) RVERLINE_Init (uint16_t wHeightCode, HANDLE hStorage)
 /*----------------------------------------------------------------------------*/
 RVERLINE_FUNC(Bool32) RVERLINE_Done()
 {
-	Word8 err8;
+	uchar err8;
 	if (gwHeightRC_rver==0)
 	{
-		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+		err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 		gwLowRC_rver = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
+		err8 = (uchar)ER_DETAIL_WAS_NOT_INIT;
 		gwLowRC_rver |= (uint16_t)err8;
 		return FALSE;
 	}
@@ -170,14 +170,14 @@ RVERLINE_FUNC(Bool32) RVERLINE_Done()
 /*----------------------------------------------------------------------------*/
 RVERLINE_FUNC(uint32_t) RVERLINE_GetReturnCode()
 {
-	Word8  err8;
+	uchar  err8;
 	uint32_t err32;
 	if (gwHeightRC_rver==0)
 	{
 		err32 = (uint32_t)(0);
-		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+		err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 		gwLowRC_rver = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
+		err8 = (uchar)ER_DETAIL_WAS_NOT_INIT;
 		gwLowRC_rver |= (uint16_t)err8;
 		err32 |= (uint32_t)gwLowRC_rver;
 		return err32;
@@ -187,30 +187,30 @@ RVERLINE_FUNC(uint32_t) RVERLINE_GetReturnCode()
 	return (uint32_t)(gwHeightRC_rver<<16)|(gwLowRC_rver);
 }
 /*----------------------------------------------------------------------------*/
-RVERLINE_FUNC(Int8 *) RVERLINE_GetReturnString(uint32_t dwError)
+RVERLINE_FUNC(char *) RVERLINE_GetReturnString(uint32_t dwError)
 {
-	Word8  err8, err8_1;
+	uchar  err8, err8_1;
 	uint16_t err16;
 	char  Work[256];
 	if (gwHeightRC_rver==0)
 	{
-		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+		err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 		gwLowRC_rver = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
+		err8 = (uchar)ER_DETAIL_WAS_NOT_INIT;
 		gwLowRC_rver |= (uint16_t)err8;
 		return NULL;
 	}
 	if (dwError >> 16 != gwHeightRC_rver)
 	{
-		err8 = (Word8)ER_ROUGH_OTHER_LIBRARY;
+		err8 = (uchar)ER_ROUGH_OTHER_LIBRARY;
 		gwLowRC_rver = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_NO_COMMENT;
+		err8 = (uchar)ER_DETAIL_NO_COMMENT;
 		gwLowRC_rver |= (uint16_t)err8;
 		return NULL;
 	}
 	err16  = (uint16_t)(dwError & 0xFFFF);
-	err8   = (Word8)((err16/256) & 255);
-	err8_1 = (Word8)(err16 & 255);
+	err8   = (uchar)((err16/256) & 255);
+	err8_1 = (uchar)(err16 & 255);
 	LoadString ((HINSTANCE)ghInst, err16, (char *)szBuffer, sizeof (szBuffer));
 	switch (err8)
 	{
@@ -230,9 +230,9 @@ RVERLINE_FUNC(Int8 *) RVERLINE_GetReturnString(uint32_t dwError)
 			sprintf ((char *)szBuffer, "RVERLINE : Ошибка.");
 			break;
 		default :
-			err8 = (Word8)ER_ROUGH_NOT_SUCH_ERROR_CODE;
+			err8 = (uchar)ER_ROUGH_NOT_SUCH_ERROR_CODE;
 			gwLowRC_rver = (uint16_t)(err8<<8);
-			err8 = (Word8)ER_DETAIL_NO_COMMENT;
+			err8 = (uchar)ER_DETAIL_NO_COMMENT;
 			gwLowRC_rver |= (uint16_t)err8;
 			return NULL;
 	}
@@ -291,12 +291,12 @@ RVERLINE_FUNC(Int8 *) RVERLINE_GetReturnString(uint32_t dwError)
 /*----------------------------------------------------------------------------*/
 RVERLINE_FUNC(Bool32) RVERLINE_GetExportData(uint32_t dwType, void * pData)
 {
-	Word8 err8;
+	uchar err8;
 	if (gwHeightRC_rver==0)
 	{
-		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+		err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 		gwLowRC_rver = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
+		err8 = (uchar)ER_DETAIL_WAS_NOT_INIT;
 		gwLowRC_rver |= (uint16_t)err8;
 		return FALSE;
 	}
@@ -309,9 +309,9 @@ RVERLINE_FUNC(Bool32) RVERLINE_GetExportData(uint32_t dwType, void * pData)
 		CASE_FUNCTION(RVERLINE_MarkLines);
 		default:
 			*(Handle *)pData = NULL;
-			err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+			err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 			gwLowRC_rver = (uint16_t)(err8<<8);
-			err8 = (Word8)ER_DETAIL_NOT_MADE_SUCH_DATA;
+			err8 = (uchar)ER_DETAIL_NOT_MADE_SUCH_DATA;
 			gwLowRC_rver |= (uint16_t)err8;
 			return FALSE;
 	}
@@ -330,12 +330,12 @@ uint16_t GetReturnCode_rverline()
 /*----------------------------------------------------------------------------*/
 Bool WasInitRVERLINE ()
 {
-	Word8 err8;
+	uchar err8;
 	if (gwHeightRC_rver==0)
 	{
-		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
+		err8 = (uchar)ER_ROUGH_CALL_REFUSED;
 		gwLowRC_rver = (uint16_t)(err8<<8);
-		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
+		err8 = (uchar)ER_DETAIL_WAS_NOT_INIT;
 		gwLowRC_rver |= (uint16_t)err8;
 		return FALSE;
 	}

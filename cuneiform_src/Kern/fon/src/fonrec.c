@@ -193,7 +193,7 @@ static int CheckFileClu(char *name) {
 ///////////////////////
 // return == 0 - error
 static int GetCTBasWelet(CTB_handle *CTBhandle, int num, welet *wel) {
-	Word8 CTBdata[CTB_DATA_SIZE];
+	uchar CTBdata[CTB_DATA_SIZE];
 	uint16_t *pword16;
 	int16_t *pint16;
 	uint32_t *pword32;
@@ -240,7 +240,7 @@ static int GetCTBasWelet(CTB_handle *CTBhandle, int num, welet *wel) {
 /////////////
 static int LoadCTB(char *name) {
 	CTB_handle ctbhan;
-	Word8 CTBdata[CTB_DATA_SIZE];
+	uchar CTBdata[CTB_DATA_SIZE];
 	welet *wel, *twel;
 	int num;
 	int i;
@@ -371,7 +371,7 @@ static void SetFonFlags(FonSpecInfo *specInfo, RecVersions *collection,
 
 	if (!specInfo)
 		return;
-	if (!FONCheckItself((Word8) specInfo->nLet, specInfo->nInCTB,
+	if (!FONCheckItself((uchar) specInfo->nLet, specInfo->nInCTB,
 			specInfo->col, specInfo->row))
 		return;
 
@@ -673,7 +673,7 @@ FON_FUNC(int32_t) FONRecogCharTiger(RecRaster *recRast,RecVersions *collection,F
 	return collection->lnAltCnt;
 }
 ///////////////////
-FON_FUNC(Bool32) FONCheckItself(Word8 let,int32_t num,int16_t col,int16_t row)
+FON_FUNC(Bool32) FONCheckItself(uchar let,int32_t num,int16_t col,int16_t row)
 {
 	welet *wel;
 	int i;
@@ -700,7 +700,7 @@ FON_FUNC(Bool32) FONCheckItself(Word8 let,int32_t num,int16_t col,int16_t row)
 //         -1 - no such letter
 //       >=0  - how many variants
 //
-FON_FUNC(int32_t) FONTestChar(RecRaster *recRast,Word8 let,FonTestInfo *attr,int16_t nInCTB)
+FON_FUNC(int32_t) FONTestChar(RecRaster *recRast,uchar let,FonTestInfo *attr,int16_t nInCTB)
 {
 	int xbit=recRast->lnPixWidth;
 	int bytesx=((xbit+63)/64)*8;
@@ -718,7 +718,7 @@ FON_FUNC(int32_t) FONTestChar(RecRaster *recRast,Word8 let,FonTestInfo *attr,int
 	return ret;
 }
 ///////////////////
-FON_FUNC(int32_t) FONTestCharTiger(RecRaster *recRast,Word8 let,FonTestInfo *attr)
+FON_FUNC(int32_t) FONTestCharTiger(RecRaster *recRast,uchar let,FonTestInfo *attr)
 {
 	int xbit=recRast->lnPixWidth;
 	int bytesx=((xbit+63)/64)*8;
@@ -1054,7 +1054,7 @@ int CheckRaster(PBYTE r, WORD fullBytes, WORD w, WORD h, int let,
 	int rec;
 	int nAlt = 0;
 	welet *wel;
-	int AddTestAlt(Word8 prob, int numAlt, FonTestInfo *attr, welet *wel,
+	int AddTestAlt(uchar prob, int numAlt, FonTestInfo *attr, welet *wel,
 			int nClust);
 
 	if (let < 0 || let > 255)
@@ -1074,7 +1074,7 @@ int CheckRaster(PBYTE r, WORD fullBytes, WORD w, WORD h, int let,
 		num++;
 		if ((rec = recogWelet(r, fullBytes, w, h, wel)) <= POROG_GOOD)
 			continue;
-		nAlt = AddTestAlt((Word8) rec, nAlt, attr, wel, i);
+		nAlt = AddTestAlt((uchar) rec, nAlt, attr, wel, i);
 	}
 	if (num <= 0)
 		return -1;
@@ -1394,7 +1394,7 @@ FON_FUNC(int32_t) FONGetClustInfo( ClustInfo *clustinfo,
 )
 {
 	welet *wel;
-	Word8 let=clustinfo->let;
+	uchar let=clustinfo->let;
 
 	memset(clustinfo,0,sizeof(ClustInfo));
 
@@ -1418,7 +1418,7 @@ FON_FUNC(int32_t) FONGetClustInfo( ClustInfo *clustinfo,
 	clustinfo->let = wel->let;
 	clustinfo->weight = wel->weight;
 	clustinfo->prob = wel->prob;
-	clustinfo->valid = (Word8)wel->valid;
+	clustinfo->valid = (uchar)wel->valid;
 	clustinfo->mw = wel->mw;
 	clustinfo->mh = wel->mh;
 	clustinfo->kegl = wel->kegl;
@@ -1539,7 +1539,7 @@ int SetTablDigitColumn(FONBASE *fonbase, int column, int onlyDigits) {
 	int i;
 	int numDigCol; // digits in column
 	int numOther;
-	Word8 isDigit[10];
+	uchar isDigit[10];
 	welet *wel;
 
 	if (column <= 0 || column > 32)

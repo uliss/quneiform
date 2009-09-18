@@ -109,15 +109,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    LEO_FUNC(Bool32)  LEORecogId_Char(int32_t id_page, RecVersions *resin, RecVersions *resout);
    LEO_FUNC(Bool32)  LEOValidId_Char(int32_t id_page, RecVersions *resin, RecVersions *resout);
    LEO_FUNC(Bool32)  LEORecogRestore_Char(RecVersions *resin, RecVersions *resout);
-   LEO_FUNC(Word8)   LEOValidRestore_Char( RecVersions *resin,RecVersions *resout);
-   LEO_FUNC(Bool32)  LEOSetValid(int16_t id_rast,Word8 code, Word8 valid,Word8 control);
+   LEO_FUNC(uchar)   LEOValidRestore_Char( RecVersions *resin,RecVersions *resout);
+   LEO_FUNC(Bool32)  LEOSetValid(int16_t id_rast,uchar code, uchar valid,uchar control);
    LEO_FUNC(Bool32)  LEODelFinal(int16_t id_rast);
-   LEO_FUNC(int16_t)   LEO_ContStore(RecRaster *r,Word8 let, Word8 nLns,Rect16 *rect,Word8 IsPrint,
-		Word8	Prob, Word8 Valid, RecVersions *Res);
+   LEO_FUNC(int16_t)   LEO_ContStore(RecRaster *r,uchar let, uchar nLns,Rect16 *rect,uchar IsPrint,
+		uchar	Prob, uchar Valid, RecVersions *Res);
    LEO_FUNC(int32_t)   LEO_GetGlobalIncline(void);
-   LEO_FUNC(Bool32)  LEOPushAlphabetType(Word8 alpha_type, Word8 isPrint);
+   LEO_FUNC(Bool32)  LEOPushAlphabetType(uchar alpha_type, uchar isPrint);
    LEO_FUNC(Bool32)  LEO_ContRestoreObject( int16_t       idr, RecObject *object,
-                                            Word8 *alpha, Word8 *isPrint);
+                                            uchar *alpha, uchar *isPrint);
 //                                     id_page can be >0
 // to be deleted after implementation of LEOSetupField(), 28.02.97 20:50, VP
    LEO_FUNC(Bool32) LEOSetAlphabet( char*     char_tbl_put_to   );
@@ -176,7 +176,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    LEO_FUNC(int32_t)  LEO_GetLetStat(int32_t name,int32_t *sizes,int32_t *ocenka);
 
 
-   LEO_FUNC(int16_t) LEO_GetNoCutPoint(Word8 *RASTER,  int16_t WB, Word8 NWIDTH, Word8 NLENGTH);
+   LEO_FUNC(int16_t) LEO_GetNoCutPoint(uchar *RASTER,  int16_t WB, uchar NWIDTH, uchar NLENGTH);
    LEO_FUNC(int32_t)   LEO_Str2FldNo(int32_t  str_no);
    // convert string number to field number. -1 if bound error
    LEO_FUNC(Bool32) LEO_StoreCollection(RecVersions *ver);

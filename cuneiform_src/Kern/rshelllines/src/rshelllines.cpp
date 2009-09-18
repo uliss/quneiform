@@ -124,7 +124,7 @@ typedef Bool32 (*FNPUMA_XSetTemplate)(Rect32 rect);
 typedef Bool32 (*FNPUMA_XGetTemplate)(Rect32 *pRect);
 typedef struct tagRSPreProcessImage
 {
-    PWord8	*pgpRecogDIB;
+    uchar *	*pgpRecogDIB;
     Bool32	gbAutoRotate;
     Bool32  gbDotMatrix;
     Bool32  gbFax100;
@@ -275,10 +275,10 @@ RSL_FUNC(uint32_t) RSL_GetReturnCode()
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSL_FUNC(Int8 *) RSL_GetReturnString(uint32_t dwError)
+RSL_FUNC(char *) RSL_GetReturnString(uint32_t dwError)
 {
 	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
-	static Int8 szBuffer[512];
+	static char szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
 		gwLowRC = IDS_ERR_NOTIMPLEMENT;
@@ -377,7 +377,7 @@ void *	RSLAlloc(uint32_t stAllocateBlock)
         SetReturnCode_rshelllines((uint16_t)RSL_ERR_NO_MEMORY);
 #else
 
-    mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(Int8*)"RSL", (Int8*)cCommentBuffer);
+    mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(char*)"RSL", (char*)cCommentBuffer);
 
     if(!mem)
         SetReturnCode_rshelllines((uint16_t)RSL_ERR_NO_MEMORY);
@@ -699,7 +699,7 @@ RSHELLLINES_FUNC( Bool32) CheckSeparationPoints(CLINE_handle hLine, CLINE_handle
     return FALSE;
 }
 
-RSHELLLINES_FUNC( Bool) SL_GetRaster(Rect32* rect, Word8** ppData, PAGEINFO* page_info)
+RSHELLLINES_FUNC( Bool) SL_GetRaster(Rect32* rect, uchar** ppData, PAGEINFO* page_info)
 {
     return TRUE;
 }
@@ -716,7 +716,7 @@ RSHELLLINES_FUNC(void) FindGroupOfExtensibleLines(CLINE_handle hContainer, GLM* 
 {
 }
 
-RSHELLLINES_FUNC(int32_t) RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, Word8 lang, Word8 debug_flags, int32_t *cross_point)
+RSHELLLINES_FUNC(int32_t) RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, uchar lang, uchar debug_flags, int32_t *cross_point)
 {
     return 0;
 }

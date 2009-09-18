@@ -143,8 +143,8 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
 
 	gSVLBuffer.VLinefBufferA = NULL;
 	gSVLBuffer.VLinefBufferB = NULL;
-	gSVLBuffer.LineInfoA = (LinesTotalInfo*) CFIO_DAllocMemory( sizeof(LinesTotalInfo), MAF_GALL_GPTR, (PInt8)"puma", (PInt8)"SVL step I lines info pool");
-	gSVLBuffer.LineInfoB = (LinesTotalInfo*) CFIO_DAllocMemory( sizeof(LinesTotalInfo), MAF_GALL_GPTR, (PInt8)"puma", (PInt8)"SVL step II lines info pool");
+	gSVLBuffer.LineInfoA = (LinesTotalInfo*) CFIO_DAllocMemory( sizeof(LinesTotalInfo), MAF_GALL_GPTR, (char *)"puma", (char *)"SVL step I lines info pool");
+	gSVLBuffer.LineInfoB = (LinesTotalInfo*) CFIO_DAllocMemory( sizeof(LinesTotalInfo), MAF_GALL_GPTR, (char *)"puma", (char *)"SVL step II lines info pool");
 
 	if ( rc )
 	{
@@ -189,7 +189,7 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
 	if(LDPUMA_Skip(hDebugLinePass3)&&LDPUMA_Skip(hDebugVerifLine)&&LDPUMA_Skip(hDebugLinePass2))
 	{
 	 if(rc)
-		 RLINE_LinesPass3(Image->hCPAGE, Image->hCLINE, Image->hCCOM, (Word8)Image->gnLanguage);
+		 RLINE_LinesPass3(Image->hCPAGE, Image->hCLINE, Image->hCCOM, (uchar)Image->gnLanguage);
 	}
 
 	LDPUMA_Skip(hSVLP);
@@ -215,7 +215,7 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
 		rc = FALSE;
 	if(!LDPUMA_Skip(Image->hDebugLayoutFromFile))
 	{
-		Image->hCPAGE = CPAGE_RestorePage(TRUE,(PInt8)(Image->szLayoutFileName));
+		Image->hCPAGE = CPAGE_RestorePage(TRUE,(char *)(Image->szLayoutFileName));
 		if(Image->hCPAGE==NULL)
 		{
 			SetReturnCode_rmarker(CPAGE_GetReturnCode());

@@ -119,7 +119,7 @@ static int GetAddField(int num,uint32_t *ifield,int let,
 	return 1;
 }
 //////////////
-static Bool32 isAddField(Word8 name,InfoCluster *infoC,int numCluster,uint32_t *addField)
+static Bool32 isAddField(uchar name,InfoCluster *infoC,int numCluster,uint32_t *addField)
 {
  int i;
 
@@ -200,7 +200,7 @@ static int GetSameField(uint32_t *field,uint32_t *addField,int let,
         AddFields(sameField, infoC[i].fields);
 
 		if( infoC[uniqal[infoC[i].let]-1].count >= POROG_TEST &&
-			isAddField((Word8)infoC[i].let,infoC,numCluster,addField)
+			isAddField((uchar)infoC[i].let,infoC,numCluster,addField)
 		  )
 			numSame++;
 	}

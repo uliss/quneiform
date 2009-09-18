@@ -146,8 +146,8 @@ int move;
 #undef APIENRTY
 #define APIENTRY
 
-extern Word8* Buffer;
-extern Word8* WorkMem;
+extern uchar* Buffer;
+extern uchar* WorkMem;
 /////////////////////////////////////////
 BOOL APIENTRY DllMain( HINSTANCE hModule,
 uint32_t ul_reason_for_call,
@@ -178,10 +178,10 @@ RSTUFF_FUNC(Bool32) RSTUFF_Init(uint16_t wHeightCode,Handle hStorage)
 
 	LDPUMA_Init(0, NULL);
 //	Buffer=NULL;
-//	Buffer=(Word8*)RSTUFFAlloc(BufferSize*sizeof(Word8));
+//	Buffer=(uchar*)RSTUFFAlloc(BufferSize*sizeof(uchar));
 //	if(!Buffer)
 //		return FALSE;
-//	WorkMem=(Word8*)RSTUFFAlloc(WorkMemSize*sizeof(Word8));
+//	WorkMem=(uchar*)RSTUFFAlloc(WorkMemSize*sizeof(uchar));
 //	if(!WorkMem)
 //		return FALSE;
 
@@ -258,10 +258,10 @@ RSTUFF_FUNC(uint32_t) RSTUFF_GetReturnCode()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSTUFF_FUNC(Int8 *) RSTUFF_GetReturnString(uint32_t dwError)
+RSTUFF_FUNC(char *) RSTUFF_GetReturnString(uint32_t dwError)
 {
 	uint16_t rc = (uint16_t)(dwError & 0xFFFF);
-	static Int8 szBuffer[512];
+	static char szBuffer[512];
 
 	if( dwError >> 16 != RC.RC16.gwHeightRC)
 		RC.RC16.gwLowRC = IDS_RSTUFF_ERR_NOTIMPLEMENT;
@@ -511,7 +511,7 @@ void DebugInit (void)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSTUFF_FUNC(Bool32) RSTUFF_RSSetSpecPrj( Word8 NoSpecPrj)
+RSTUFF_FUNC(Bool32) RSTUFF_RSSetSpecPrj( uchar NoSpecPrj)
 {
 	db_spec_prj = NoSpecPrj;
 

@@ -109,7 +109,7 @@ EXTERN Handle               hDebugKillLinesStep                 VAL(NULL);
 EXTERN Handle               hDebugKillLinesData                 VAL(NULL);
 EXTERN Handle               hDebugKillLinesShowComponentsBefore VAL(NULL);
 EXTERN Handle               hDebugKillLinesShowComponentsAfter  VAL(NULL);
-EXTERN	Word8				db_spec_prj			VAL(0);
+EXTERN	uchar				db_spec_prj			VAL(0);
 #endif //_RSGLOBALDATA_H_
 ////////////////////////////////////////////////////////////////////////////////////
 //end of file

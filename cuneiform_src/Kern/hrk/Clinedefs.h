@@ -109,7 +109,7 @@ typedef struct CutPoint_Data_struct
 {
   Bool32           Direction;
   int32_t            Level;                            //уровень полосы
-  Word8            reserv;
+  uchar            reserv;
 } DCutPoint;
 
 typedef const DCutPoint* CPDCutPoint;

@@ -105,24 +105,24 @@ RSADD_FUNC(Bool32)  RSADD_GetExportData(uint32_t dwType, void * pData);
 typedef Bool32  (*FNRSADD_take)(CSTR_line lrus,CSTR_line leng);
 RSADD_FUNC(Bool32)  RSADD_take(CSTR_line lrus,CSTR_line leng);
 // 2	RSADD_GETALIASES	список родственных символов
-typedef Word8*  (*FNRSADD_get_aliases)( Word8 letter,   Word8 language, Word8 alias_class);
-RSADD_FUNC(Word8*)  RSADD_get_aliases( Word8 letter,   Word8 language, Word8 alias_class);
+typedef uchar*  (*FNRSADD_get_aliases)( uchar letter,   uchar language, uchar alias_class);
+RSADD_FUNC(uchar*)  RSADD_get_aliases( uchar letter,   uchar language, uchar alias_class);
 // 3	RSADD_GETALIASCLASS	класс родственных символов
 #define RSADD_as_none       0
 #define RSADD_as_equal      1
 #define RSADD_as_alias      2
 #define RSADD_as_similar    4
-typedef Word8   (*FNRSADD_get_alias_class)(Word8 letter,Word8 language);
-RSADD_FUNC(Word8)   RSADD_get_alias_class(Word8 letter,Word8 language);
+typedef uchar   (*FNRSADD_get_alias_class)(uchar letter,uchar language);
+RSADD_FUNC(uchar)   RSADD_get_alias_class(uchar letter,uchar language);
 // 4 RSADD_KILL_DUSTS		уничтожить лишние дусты
 typedef void    (*FNRSADD_kill_dusts)(CSTR_line lrus);
 RSADD_FUNC(void )   RSADD_kill_dusts(CSTR_line lrus);
 // 5 RSADD_SETRSTR			приём информации и функций из б-ки RSTR
-typedef void    (*FNRSADD_SetRSTR)( Word8 status,Word8 camera,
+typedef void    (*FNRSADD_SetRSTR)( uchar status,uchar camera,
                                 Handle monitor_ori,
                                 Handle activity,
                                 Handle show_text);
-RSADD_FUNC(void) RSADD_SetRSTR( Word8 status,Word8 camera,
+RSADD_FUNC(void) RSADD_SetRSTR( uchar status,uchar camera,
                                 Handle monitor_ori,
                                 Handle activity,
                                 Handle show_text);

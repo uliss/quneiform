@@ -115,15 +115,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		uint16_t    wImageDisplacement;
 		uint16_t    wResolutionX;
 		uint16_t    wResolutionY;
-		Word8     bFotoMetrics;
-		Word8     bUnused;
+		uchar     bFotoMetrics;
+		uchar     bUnused;
 		uint16_t    wAddX;
 		uint16_t    wAddY;
 	}
 	CIMAGE_ImageInfo, *PCIMAGE_ImageInfo, **PPCIMAGE_ImageInfo;
 
 	typedef CIMAGEBOOL16 (*PCIMAGE_Callback_ImageOpen)(PCIMAGE_ImageInfo);
-	typedef CIMAGEWORD   (*PCIMAGE_Callback_ImageRead)(PInt8 , CIMAGEWORD);
+	typedef CIMAGEWORD   (*PCIMAGE_Callback_ImageRead)(char * , CIMAGEWORD);
 	typedef CIMAGEBOOL16 (*PCIMAGE_Callback_ImageClose)(void);
 
 	typedef struct
@@ -149,8 +149,8 @@ typedef struct CIMAGEInfoDataInGet
 	uint32_t dwWidth;
 	uint32_t dwHeight;
 	uint16_t wByteWidth;
-	Word8  Reserved;
-	Word8  MaskFlag;
+	uchar  Reserved;
+	uchar  MaskFlag;
 }
 CIMAGE_InfoDataInGet, * PCIMAGE_InfoDataInGet;
 
@@ -161,7 +161,7 @@ typedef struct CIMAGEInfoDataOutGet
 	uint16_t   wByteWidth;
 	uint16_t   byBit;
 	uint32_t   wBlackBit;
-	PWord8   lpData;
+	uchar *   lpData;
 }
 CIMAGE_InfoDataOutGet, * PCIMAGE_InfoDataOutGet, ** PPCIMAGE_InfoDataOutGet;
 
@@ -173,10 +173,10 @@ typedef struct CIMAGEInfoDataInReplace
 	uint32_t   dwWidth;
 	uint32_t   dwHeight;
 	uint16_t   wByteWidth;
-	PWord8   lpData;
-	Word8    Reserved;
+	uchar *   lpData;
+	uchar    Reserved;
 	uint16_t   wReserved;
-	Word8    MaskFlag;
+	uchar    MaskFlag;
 }
 CIMAGE_InfoDataInReplace, * PCIMAGE_InfoDataInReplace;
 
@@ -210,10 +210,10 @@ CIMAGE_Rect, *PCIMAGE_Rect, **PPCIMAGE_Rect;
 
 	typedef struct tagCIMAGERGBQUAD
 	{
-			Word8    rgbBlue;
-			Word8    rgbGreen;
-			Word8    rgbRed;
-			Word8    rgbReserved;
+			uchar    rgbBlue;
+			uchar    rgbGreen;
+			uchar    rgbRed;
+			uchar    rgbReserved;
 	} CIMAGERGBQUAD, *PCIMAGERGBQUAD;
 
 #else
@@ -231,7 +231,7 @@ CIMAGE_Rect, *PCIMAGE_Rect, **PPCIMAGE_Rect;
 CIMAGE_FUNC(Bool32) CIMAGE_Init(uint16_t wHeightCode,Handle hStorage);
 CIMAGE_FUNC(Bool32) CIMAGE_Done();
 CIMAGE_FUNC(uint32_t) CIMAGE_GetReturnCode();
-CIMAGE_FUNC(Int8 *) CIMAGE_GetReturnString(uint32_t dwError);
+CIMAGE_FUNC(char *) CIMAGE_GetReturnString(uint32_t dwError);
 CIMAGE_FUNC(Bool32) CIMAGE_GetExportData(uint32_t dwType, void * pData);
 CIMAGE_FUNC(Bool32) CIMAGE_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////
@@ -261,30 +261,30 @@ typedef enum
 #define DEC_FUN(a,b,c) typedef a (*FNCIMAGE##b)c; CIMAGE_FUNC(a) CIMAGE_##b c
 //////////////////////////////////////////////////////////////////////////////////////////
 
-DEC_FUN(Bool32,  WriteCallbackImage,   (PWord8 , CIMAGEIMAGECALLBACK));
-DEC_FUN(Bool32,  GetCallbackImage,     (PWord8 , PCIMAGEIMAGECALLBACK));
-DEC_FUN(Bool32,  WriteDIB,             (PWord8 , Handle, uint32_t));
-DEC_FUN(Bool32,  ReadDIB,              (PWord8 , PHandle, uint32_t));
-DEC_FUN(Bool32,  GetData,              (PWord8 , PCIMAGE_InfoDataInGet, PCIMAGE_InfoDataOutGet));
-DEC_FUN(Bool32,  GetDIBData,           (PWord8 , PCIMAGE_InfoDataInGet, PInt8*));
-DEC_FUN(Bool32,  ReplaceData,          (PWord8 , PCIMAGE_InfoDataInReplace));
-DEC_FUN(Bool32,  GetImageInfo,         (PWord8 , PCIMAGEBITMAPINFOHEADER));
-DEC_FUN(Bool32,  DeleteImage,          (PWord8 ));
+DEC_FUN(Bool32,  WriteCallbackImage,   (uchar * , CIMAGEIMAGECALLBACK));
+DEC_FUN(Bool32,  GetCallbackImage,     (uchar * , PCIMAGEIMAGECALLBACK));
+DEC_FUN(Bool32,  WriteDIB,             (uchar * , Handle, uint32_t));
+DEC_FUN(Bool32,  ReadDIB,              (uchar * , PHandle, uint32_t));
+DEC_FUN(Bool32,  GetData,              (uchar * , PCIMAGE_InfoDataInGet, PCIMAGE_InfoDataOutGet));
+DEC_FUN(Bool32,  GetDIBData,           (uchar * , PCIMAGE_InfoDataInGet, char **));
+DEC_FUN(Bool32,  ReplaceData,          (uchar * , PCIMAGE_InfoDataInReplace));
+DEC_FUN(Bool32,  GetImageInfo,         (uchar * , PCIMAGEBITMAPINFOHEADER));
+DEC_FUN(Bool32,  DeleteImage,          (uchar * ));
 DEC_FUN(Bool32,  FreeCopedDIB,         (Handle));
 DEC_FUN(Bool32,  FreeBuffers,          (void));
 DEC_FUN(Bool32,  Reset,                (void));
-DEC_FUN(Bool32,  AddReadCloseRects,    (PWord8, uint32_t, PCIMAGE_Rect));
-DEC_FUN(Bool32,  RemoveReadCloseRects, (PWord8, uint32_t, PCIMAGE_Rect));
-DEC_FUN(Bool32,  AddWriteCloseRects,   (PWord8, uint32_t, PCIMAGE_Rect));
-DEC_FUN(Bool32,  RemoveWriteCloseRects,(PWord8, uint32_t, PCIMAGE_Rect));
-DEC_FUN(Bool32,  EnableMask,           (PWord8, PWord8, Bool32));
+DEC_FUN(Bool32,  AddReadCloseRects,    (uchar *, uint32_t, PCIMAGE_Rect));
+DEC_FUN(Bool32,  RemoveReadCloseRects, (uchar *, uint32_t, PCIMAGE_Rect));
+DEC_FUN(Bool32,  AddWriteCloseRects,   (uchar *, uint32_t, PCIMAGE_Rect));
+DEC_FUN(Bool32,  RemoveWriteCloseRects,(uchar *, uint32_t, PCIMAGE_Rect));
+DEC_FUN(Bool32,  EnableMask,           (uchar *, uchar *, Bool32));
 
 #undef DEC_FUN
 ///////////////////////////////////////////////////////////////////////////////////
 #define DEC_CB_FUN(a,b,c) typedef a (*FNCIMAGE##b)c; CIMAGE_CALLBACK_FUNC(a) CIMAGE_##b c
 
 DEC_CB_FUN(CIMAGEBOOL16, Callback_ImageOpen,  (PCIMAGE_ImageInfo lpImageInfo));
-DEC_CB_FUN(CIMAGEWORD,   Callback_ImageRead,  (PInt8  lpImage, uint16_t wMaxSize));
+DEC_CB_FUN(CIMAGEWORD,   Callback_ImageRead,  (char *  lpImage, uint16_t wMaxSize));
 DEC_CB_FUN(CIMAGEBOOL16, Callback_ImageClose, (void));
 
 #undef DEC_CB_FUN

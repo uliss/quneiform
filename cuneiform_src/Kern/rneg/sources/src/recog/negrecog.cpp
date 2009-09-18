@@ -90,7 +90,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
  NegList* root=(*proot);
  NegList* now=root;
  NegList* temp;
- Word8 Prob[3];
+ uchar Prob[3];
  double neg_str_control;
  int len_result;
  double prec;
@@ -283,9 +283,9 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
                RGBQUAD            Palette2;
 	           uint32_t              bfSize, dwDIBSize;
 	           HANDLE             hDIB;
-	           Word8*              pDIB;
-	           Word8*              pTmpDIB;
-	           Word8*              pTmpBuffer;
+	           uchar*              pDIB;
+	           uchar*              pTmpDIB;
+	           uchar*              pTmpBuffer;
                WORD               Height, Width, ByteWidth;
                CIMAGEBITMAPINFOHEADER image_info = {0};
 
@@ -304,7 +304,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
                lpBI.biBitCount       = 0x1;
                lpBI.biCompression    = 0;
                lpBI.biSizeImage      = dwDIBSize;
-               CIMAGE_GetImageInfo((PWord8)PUMA_IMAGE_USER, &image_info);
+               CIMAGE_GetImageInfo((uchar *)PUMA_IMAGE_USER, &image_info);
                lpBI.biXPelsPerMeter  = image_info.biXPelsPerMeter;
                lpBI.biYPelsPerMeter  = image_info.biYPelsPerMeter;
                lpBI.biClrUsed        = 0;
@@ -324,7 +324,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
                hDIB = calloc(1, bfSize);
  	           if (hDIB != 0)
                {
-                    pDIB = static_cast<Word8*> (hDIB);
+                    pDIB = static_cast<uchar*> (hDIB);
                     pTmpDIB = pDIB;
 
                     /////////  filling Dib   ///////////////////////////////////////////////////////////
@@ -339,7 +339,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
                     pTmpDIB += sizeof(RGBQUAD);
 
                     pTmpBuffer = rec.Raster;
-					Word8* pTempDib = pTmpDIB;
+					uchar* pTempDib = pTmpDIB;
 
                     for(int i=0; i<Height; i++ )
                     {
@@ -392,7 +392,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
          }
 
 
-         vs[j].Alt[0].Prob=(Word8)( ((int)(Prob[0])+(int)(Prob[1])/*+(int)(Prob[2])*/)/2/*3*/);
+         vs[j].Alt[0].Prob=(uchar)( ((int)(Prob[0])+(int)(Prob[1])/*+(int)(Prob[2])*/)/2/*3*/);
 
 
 	  /*else
@@ -411,7 +411,7 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
      else
 	 {
 
-	  if( !(RSTR_RecogOneLetter (&rec, (Word8)(Language), &(vs[j])) ) )
+	  if( !(RSTR_RecogOneLetter (&rec, (uchar)(Language), &(vs[j])) ) )
        vs[j].Alt[0].Prob=0;
 
 	 }
@@ -428,8 +428,8 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
    medium_w=GetMediumW(pN,nN);
    int medium_h=GetMediumH(pN,nN);
 
-   Word8* result=NULL;
-   if(!(result=new Word8[nN*2]))
+   uchar* result=NULL;
+   if(!(result=new uchar[nN*2]))
    {
     nomem=TRUE;
     DelNegMas(&pN);
@@ -755,7 +755,7 @@ void ToHoriz(Rect16* pRc,int nRc)
 	}
 }
 
-BOOL IfBadResult(Word8* result,int n)
+BOOL IfBadResult(uchar* result,int n)
 {
  int i;
  int count_q=0;
@@ -799,7 +799,7 @@ BOOL IfExistI(RecVersions vs)
 	return FALSE;
 }
 
-BOOL IfGl(Word8 c)
+BOOL IfGl(uchar c)
 {
 	if( (c==256+'À')||(c==256+'Å')||(c==256+'Ó')||(c==256+'Û')||(c==256+'Î')||(c==256+'Ý')||(c==256+'ß')||(c==256+'È')||(c==256+'Þ') )
 		return TRUE;
@@ -817,7 +817,7 @@ BOOL IfExistA(RecVersions vs)
 	}
 	return FALSE;
 }
-void NegPrintConsol(Word8* result,int len)
+void NegPrintConsol(uchar* result,int len)
 {
   int k;
 
@@ -859,7 +859,7 @@ void NegPrintConsol(double p)
   LDPUMA_ConsoleN("%d%%",i);
 }
 
-void NegMoveResult(Word8* result,int& len,int num)
+void NegMoveResult(uchar* result,int& len,int num)
 {
  int i;
  for(i=num;i<len-1;i++)
@@ -869,7 +869,7 @@ void NegMoveResult(Word8* result,int& len,int num)
 
 
 
-void NegPutLetter(Word8* result,int& len_result,RecAlt Alt,BOOL Flag)
+void NegPutLetter(uchar* result,int& len_result,RecAlt Alt,BOOL Flag)
 {
   if(Flag==TRUE)
   {
@@ -921,8 +921,8 @@ int GetMediumH(Rect16* pN,int n)
 BOOL NegGetRaster(Handle hCPage,Rect16 N,RecRaster* rec,BOOL vert)
 {
  int i,j,k;
- Word8 Data[1000];
- Word8 bytep;
+ uchar Data[1000];
+ uchar bytep;
  int h=N.bottom-N.top+1;
  int w=N.right-N.left+1;
  int bytewide=(w)/8;
@@ -931,7 +931,7 @@ BOOL NegGetRaster(Handle hCPage,Rect16 N,RecRaster* rec,BOOL vert)
  int vbytewide=(h)/8;
  if( ((h)%8) != 0)
 	 vbytewide++;
- Word8* pmasp;
+ uchar* pmasp;
  memset (Data, 0, sizeof (Data));
  pmasp=Data;
  if( !(GetMasP(&N,&pmasp)) )
@@ -963,9 +963,9 @@ BOOL NegGetRaster(Handle hCPage,Rect16 N,RecRaster* rec,BOOL vert)
 		 }
 	 }
  }
- Word8* pin;
- Word8* pfrom;
- Word8* pend;
+ uchar* pin;
+ uchar* pfrom;
+ uchar* pend;
  if( ((8*h> REC_MAX_RASTER_SIZE)&&(!vert))||((8*w> REC_MAX_RASTER_SIZE)&&vert) )
 	 return FALSE;
  if(!vert)
@@ -1127,7 +1127,7 @@ BOOL NegGetRaster(Handle hCPage,Rect16 N,RecRaster* rec,BOOL vert)
  return TRUE;
 }
 
-void TurnOverNeg(RecRaster rec, Word8* Raster)
+void TurnOverNeg(RecRaster rec, uchar* Raster)
 {
 //   int wide = (*rec).lnPixWidth;
     int hwide = rec.lnPixHeight;
@@ -1135,7 +1135,7 @@ void TurnOverNeg(RecRaster rec, Word8* Raster)
     for(int i=0; i<hwide/2; i++)
         for(int j=0; j<bytewide; j++)
         {
-            Word8 temp = Raster[i*bytewide+j];
+            uchar temp = Raster[i*bytewide+j];
             Raster[i*bytewide+j] = Raster[(hwide-i-1)*bytewide+j];
             Raster[(hwide-i-1)*bytewide+j] = temp;
         }
@@ -1156,9 +1156,9 @@ void TurnRaster(RecRaster* rec)
     for(i=0; i<bytewide/2; i++)
         for(j=0; j<hwide; j++)
         {
-            Word8 temp1 = (*rec).Raster[j*bytewide+i];
-            Word8 temp2 = (*rec).Raster[j*bytewide+bytewide-i-1];
-            Word8 rot1 = 0, rot2 = 0;
+            uchar temp1 = (*rec).Raster[j*bytewide+i];
+            uchar temp2 = (*rec).Raster[j*bytewide+bytewide-i-1];
+            uchar rot1 = 0, rot2 = 0;
             for(int k=0; k<4; k++)
             {
                 rot1 |= (temp1&(1<<k))<<(7-k*2);
@@ -1178,9 +1178,9 @@ void TurnRaster(RecRaster* rec)
         if (rest > 0)
             for(int j=0; j<wide; j++)
             {
-                Word8 t = (*rec).Raster[i*bytewide+j];
-                Word8 t1 = (*rec).Raster[i*bytewide+j+1];
-                Word8 res = 0;
+                uchar t = (*rec).Raster[i*bytewide+j];
+                uchar t1 = (*rec).Raster[i*bytewide+j+1];
+                uchar res = 0;
                 for(int k=0; k<8; k++)
                 {
                     if (7-rest-k >= 0) res |= (t&(1<<(7-k-rest)))<<rest;
@@ -1191,10 +1191,10 @@ void TurnRaster(RecRaster* rec)
     }
 }
 
-void NegAr2(Word8* pmasp,int h,int w)
+void NegAr2(uchar* pmasp,int h,int w)
 {
  int i,j;
- Word8 bytep;
+ uchar bytep;
  int newh=h/2;
  int neww=w/2;
  int newbytewide=(neww)/8;
@@ -1262,7 +1262,7 @@ Handle GetNegCCOM(Handle hCPage,Rect16* pRc,int i)
  int min_h,min_w,max_h,max_w;
  ExcControl Control;
  int j;
- Word8 Name[CPAGE_MAXNAME];
+ uchar Name[CPAGE_MAXNAME];
  for (j=0; j<CPAGE_MAXNAME; j++)
 		Name[j] = ImageName[j];
  Handle lpDIB;
@@ -1290,11 +1290,11 @@ Handle GetNegCCOM(Handle hCPage,Rect16* pRc,int i)
  Control.MaxScale=1;
  Control.Control=Ex_ExtraComp|Ex_DisableCut|Ex_Invert;
 
- if(REXCExtraDIB(Control,(Word8*)(lpDIB),pRc[i].left,pRc[i].top,pRc[i].right-pRc[i].left+1,pRc[i].bottom-pRc[i].top+1))
+ if(REXCExtraDIB(Control,(uchar*)(lpDIB),pRc[i].left,pRc[i].top,pRc[i].right-pRc[i].left+1,pRc[i].bottom-pRc[i].top+1))
     return REXCGetContainer();
  return 0;
 /*
- Word8* pmasp;
+ uchar* pmasp;
  if(!GetMasP(&(pRc[i]),&pmasp))
 	 return 0;
 

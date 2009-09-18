@@ -56,11 +56,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "ctb.h"
 
-CTB_FUNC(int32_t) CTB_AddRecRaster(char *fname, RecRaster *r,Word8 let)
+CTB_FUNC(int32_t) CTB_AddRecRaster(char *fname, RecRaster *r,uchar let)
 {
 CTB_handle  hnd;
 int32_t       num;
-Word8       raster[REC_MAX_RASTER_SIZE],data[CTB_DATA_SIZE]={0};
+uchar       raster[REC_MAX_RASTER_SIZE],data[CTB_DATA_SIZE]={0};
 int32_t       wb;
 Bool32      ret;
 
@@ -75,8 +75,8 @@ if( !CTB_open( fname, &hnd, "w") )
         return FALSE;
         }
     }
-data[1] = (Word8)r->lnPixWidth;
-data[2] = (Word8)r->lnPixHeight;
+data[1] = (uchar)r->lnPixWidth;
+data[2] = (uchar)r->lnPixHeight;
 data[3] = let;
 
 if( hnd.signums&(CTB_GRAY_SCALE|CTB_PLANE) )
@@ -96,11 +96,11 @@ CTB_close( &hnd);
 return ret?num:-1;
 }
 
-CTB_FUNC(int32_t) CTB_AddRecRaster_data(char *fname, RecRaster *r,Word8 *data)
+CTB_FUNC(int32_t) CTB_AddRecRaster_data(char *fname, RecRaster *r,uchar *data)
 {
 CTB_handle  hnd;
 int32_t       num;
-Word8       raster[REC_MAX_RASTER_SIZE];
+uchar       raster[REC_MAX_RASTER_SIZE];
 int32_t       wb;
 Bool32      ret;
 
@@ -115,8 +115,8 @@ if( !CTB_open( fname, &hnd, "w") )
         return FALSE;
         }
     }
-data[1] = (Word8)r->lnPixWidth;
-data[2] = (Word8)r->lnPixHeight;
+data[1] = (uchar)r->lnPixWidth;
+data[2] = (uchar)r->lnPixHeight;
 
 if( hnd.signums==(CTB_GRAY_SCALE|CTB_PLANE) )
     {
@@ -137,9 +137,9 @@ return ret?num:-1;
 
 
 CTB_FUNC(Bool32) CTB_ReadRecRaster(CTB_handle *hnd, int32_t num ,
-                 Word8 *let, RecRaster *r, Word8 *data )
+                 uchar *let, RecRaster *r, uchar *data )
 {
-Word8       raster[REC_MAX_RASTER_SIZE],w,h;
+uchar       raster[REC_MAX_RASTER_SIZE],w,h;
 int32_t       wb,ww,hh;
 Bool32      ret;
 
@@ -172,7 +172,7 @@ return ret;
 CTB_FUNC(Bool32) CTB_GetRecRaster(char *fname, int32_t id_rast ,
         RecRaster *r)
 {
-Word8       raster[REC_MAX_RASTER_SIZE],w,h,data[CTB_DATA_SIZE];
+uchar       raster[REC_MAX_RASTER_SIZE],w,h,data[CTB_DATA_SIZE];
 int32_t       wb,ww,hh;
 Bool32      ret;
 CTB_handle  hnd;
@@ -207,11 +207,11 @@ return ret;
 }
 
 
-CTB_FUNC(int32_t) CTB_AddRecRasterEx(char *fname, RecRasterEx *r,Word8 let)
+CTB_FUNC(int32_t) CTB_AddRecRasterEx(char *fname, RecRasterEx *r,uchar let)
 {
 CTB_handle  hnd;
 int32_t       num;
-Word8       raster[REC_MAX_RASTER_SIZE_EX],data[CTB_DATA_SIZE]={0};
+uchar       raster[REC_MAX_RASTER_SIZE_EX],data[CTB_DATA_SIZE]={0};
 int32_t       wb;
 Bool32      ret;
 
@@ -226,8 +226,8 @@ if( !CTB_open( fname, &hnd, "w") )
         return FALSE;
         }
     }
-data[1] = (Word8)r->lnPixWidth;
-data[2] = (Word8)r->lnPixHeight;
+data[1] = (uchar)r->lnPixWidth;
+data[2] = (uchar)r->lnPixHeight;
 data[3] = let;
 
 if( hnd.signums&CTB_GRAY_SCALE )

@@ -86,14 +86,14 @@ extern P2GLOBALS p2globals;
 //////////
 
 static int StayOldPalki(RecVersions *oldVer,RecVersions *newVer,CSTR_rast_attr *attr);
-static Bool32 TestDobavki(Word8 oldName, Word8 newName);
+static Bool32 TestDobavki(uchar oldName, uchar newName);
 /////////////////
 // from erect2.c
 static char const iInN[]="\xa8\x88\xad\x8d"; // иИнН
 static char const lLpP[]="\xab\x8b\xaf\x8f"; // лЛпП
 static Bool32 non_near_letters(RecVersions *v)
 {
- Word8   v0, v1, p0, p1;
+ uchar   v0, v1, p0, p1;
  if( v->lnAltCnt<2 )
     return TRUE;
  v0 = v->Alt[0].Code;
@@ -107,7 +107,7 @@ static Bool32 non_near_letters(RecVersions *v)
  return TRUE;
 }
 //////////////////
-Bool32 p2_leo_choise_fon_or_leo_absent(Word8 p_fon,Word8 p_leo)
+Bool32 p2_leo_choise_fon_or_leo_absent(uchar p_fon,uchar p_leo)
 {
 if( p_fon < 200 )
   return FALSE; // low LEO or heigh FON
@@ -130,7 +130,7 @@ if( p_fon < 200 )
 return FALSE; // low FON
 }
 /////////////////////////
-Bool32 p2_leo_choise_fon_or_leo(Word8 p_fon,Word8 p_leo)
+Bool32 p2_leo_choise_fon_or_leo(uchar p_fon,uchar p_leo)
 {
   if(p_fon > 180)
   {
@@ -182,16 +182,16 @@ for(i=1;i<n;i++)
 return;
 }
 /////////////////////
-static Word8 * leo_strchr_codes_ansi(Word8 *c1, Word8 c2)
+static uchar * leo_strchr_codes_ansi(uchar *c1, uchar c2)
 {
- Word8   *c;
+ uchar   *c;
  for(c=c1;*c;c++)
     if( stdLeoCompareChar( stdAnsiToAscii(*c), c2) )
         return c;
  return NULL;
 }
 ////////////////////
-static Bool32 leo_near_letters(RecVersions *fon,Word8 leo_code)
+static Bool32 leo_near_letters(RecVersions *fon,uchar leo_code)
 {
 	// Nick 19.06.2001
 if( p2globals.language != LANG_RUSSIAN &&
@@ -239,7 +239,7 @@ return (int32_t)(((RecAlt *)b)->Prob) - (int32_t)(((RecAlt *)a)->Prob) ;
 int32_t p2_leo_sort_vers_prob(RecVersions *v)
 {
 int i,n0,n1;
-Word8 c0,c1;
+uchar c0,c1;
 RecAlt a0,a1;
 stdQsort(v->Alt,v->lnAltCnt,sizeof(RecAlt),cmp_prob);
 if( v->lnAltCnt>1 && v->Alt[0].Prob==v->Alt[1].Prob )
@@ -269,7 +269,7 @@ return v->lnAltCnt;
 // убрать повторы из альтернатив
 static void leo_compress( RecVersions *v)
 {
-Word8 alph[256];
+uchar alph[256];
 RecVersions c;
 int i,j;
 
@@ -289,7 +289,7 @@ v->lnAltCnt = j;
 return;
 }
 ////////////////////////////
-static Bool32 IsSpecialTwins(Word8 name1,Word8 name2)
+static Bool32 IsSpecialTwins(uchar name1,uchar name2)
 {
         if( p2globals.language == LANG_RUSSIAN && p2globals.langSer)
         {
@@ -309,7 +309,7 @@ static int MixedProbs(RecVersions *old,RecVersions *ver)
 {
  int i,j;
  int prob;
- Word8 used[REC_MAX_VERS];
+ uchar used[REC_MAX_VERS];
  int oldNum=MIN(REC_MAX_VERS,old->lnAltCnt);
 
  if( oldNum <= 0 )
@@ -331,7 +331,7 @@ static int MixedProbs(RecVersions *old,RecVersions *ver)
                  {
                          prob+=old->Alt[j].Prob;
                          prob>>=1;
-             ver->Alt[i].Prob=(Word8)prob;
+             ver->Alt[i].Prob=(uchar)prob;
                          used[j]=1;
                          break;
                  }
@@ -358,7 +358,7 @@ static int AddFonVersions(RecVersions *old,RecVersions *ver)
   int oldProb=old->Alt[0].Prob;
   int j,i;
   int   bI=FALSE; //. OLEG : 17-03-00 solid stick disabled adding '!'
-  Word8 language = p2globals.language;
+  uchar language = p2globals.language;
 
   if( old->lnAltCnt && strchr("lI",old->Alt[0].Code) )
     bI=TRUE;
@@ -404,8 +404,8 @@ int32_t p2_leoMixture(CSTR_rast rast,RecVersions *old,RecVersions *ver,
 {
 Bool32   enable_let=TRUE;
 //int32_t    old_case ;
-Word8    oldProb;  //  = data[14]
-Word8    oldName;  //  = data[3]
+uchar    oldProb;  //  = data[14]
+uchar    oldName;  //  = data[3]
 int      i;
 CSTR_rast_attr attr;
 
@@ -720,9 +720,9 @@ CSTR_rast_attr attr;
 #define POROG_1_PALKA 190  // was 180
 
 static const char Palki[]="![]()1Ifiltr";
-static Bool32 IsInPalki(Word8 cc)  // 15.09.2000
+static Bool32 IsInPalki(uchar cc)  // 15.09.2000
 {
- Word8 language = p2globals.language;
+ uchar language = p2globals.language;
 
  if(strchr(Palki,cc) || cc == liga_i ||
 	  (language == LANG_TURKISH &&  // 30.05.2002 E.P.
@@ -779,7 +779,7 @@ static int StayOldPalki(RecVersions *oldVer,RecVersions *newVer,CSTR_rast_attr *
     return 0;
 }
 ////////////
-static Bool32 SpecificPalka(Word8 Code)
+static Bool32 SpecificPalka(uchar Code)
 {
  switch(p2globals.language)
  {
@@ -1291,7 +1291,7 @@ int     engLang = -1;
                             probEng=vrEng.Alt[0].Prob;
                           else
                             {
-                             if( CSTR_GetImage(engStart,(Word8*)&recRast,CSTR_TYPE_IMAGE_RS ) )
+                             if( CSTR_GetImage(engStart,(uchar*)&recRast,CSTR_TYPE_IMAGE_RS ) )
                              {
                               nAlt=FONTestChar(&recRast,vrEng.Alt[0].Code,tInfo,0);
                               if(nAlt > 0)
@@ -1303,7 +1303,7 @@ int     engLang = -1;
                                probRus=vrRus.Alt[0].Prob;
                              else
                                  {
-                                  if( CSTR_GetImage(rusStart,(Word8*)&recRast,CSTR_TYPE_IMAGE_RS ) )
+                                  if( CSTR_GetImage(rusStart,(uchar*)&recRast,CSTR_TYPE_IMAGE_RS ) )
                                     {
                                      nAlt=FONTestChar(&recRast,vrRus.Alt[0].Code,tInfo,0);
                                      if(nAlt > 0)
@@ -1395,7 +1395,7 @@ int     engLang = -1;
         return 0;
 }
 //////////////////////
-static Bool32 TestDobavki(Word8 oldName, Word8 newName)
+static Bool32 TestDobavki(uchar oldName, uchar newName)
 {
   if( p2globals.language == LANG_FRENCH )
   {

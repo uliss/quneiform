@@ -331,7 +331,7 @@ static void set_param (MatchWordPar *par)
 
 BOOL match_word_prepare(CSTR_line ln, BYTE *alpha, MatchWordPar *param);
 
-RSTR_FUNC(Bool32) RSTR_recog_one_word(CSTR_line ln, Word8 *word, Int8 *points,Word8 *res)
+RSTR_FUNC(Bool32) RSTR_recog_one_word(CSTR_line ln, uchar *word, char *points,uchar *res)
 {
 Weight      w;
 MatchWordPar param={0};
@@ -985,7 +985,7 @@ static LONG add_sect(LONG il, LONG ir, BYTE nlet, BOOL rerecog, BYTE *p)
   BYTE left_let=0;
   SVERS vers;      //версии сегмента (i1,i0)
   INT width;       //его ширина
-  Int8  gvar;       //способ сборки
+  char  gvar;       //способ сборки
 #define ROI_LEN 4
   INT ro,roi[ROI_LEN]; //ro и его составляющие
   Weight wp=prev_layer[il].weight,wc=cur_layer[ir].weight,wt;
@@ -1302,7 +1302,7 @@ static void show_layer(BYTE let, LONG prev, LONG imax)
 
 #ifdef MATCH_WORD
 
-void myCharToOem(Word8 ansi[], Word8 ascii[]);
+void myCharToOem(uchar ansi[], uchar ascii[]);
 
 void test_match_cell_word(B_LINES *my_bases, INT cut_width)
 {

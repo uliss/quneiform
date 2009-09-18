@@ -65,7 +65,7 @@ Bool32   HLiner_Init( void );
 Bool32   HLiner_Setup( Tiger_ImageInfo* pImInf);
 void     HLiner_Done( void );
 
-Bool32   HLiner_AddImageLine( Word8* pLine );
+Bool32   HLiner_AddImageLine( uchar* pLine );
 int32_t    HLiner_Analyze(); // returns count of extracted lines
 int32_t    HLiner_GetCount(void);// returns count of extracted lines
 

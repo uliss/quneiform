@@ -71,7 +71,7 @@ typedef int BOOL;
 struct BIG_IMAGE
 {
 	CCOM_handle hCCOM;
-	Word8 ImageName[CPAGE_MAXNAME];
+	uchar ImageName[CPAGE_MAXNAME];
 };
 
 

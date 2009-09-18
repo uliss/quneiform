@@ -81,9 +81,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    LOC_FUNC(void)   LOCDone(void);
    LOC_FUNC(int16_t)  LOCGetErr(void);
 
-   LOC_FUNC(MN *)   LOC_CLocomp (Word8* raster, int32_t bw, int32_t h,
+   LOC_FUNC(MN *)   LOC_CLocomp (uchar* raster, int32_t bw, int32_t h,
         int16_t upper,int16_t left);
-   LOC_FUNC(Word8*) LOC_GetSegmentPool(void);
+   LOC_FUNC(uchar*) LOC_GetSegmentPool(void);
 
 // error code
 #define ER_LOC_NO_ERROR 0

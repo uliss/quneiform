@@ -85,7 +85,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //uint16_t GetReturnCode_cimage();
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //CFIO Entries
-static void* (*pDAlloc)(uint32_t, uint32_t, PWord8, PWord8) = NULL;
+static void* (*pDAlloc)(uint32_t, uint32_t, uchar *, uchar *) = NULL;
 static void* (*pAlloc)(uint32_t, uint32_t)                  = NULL;
 static void  (*pFree)(void *)                           = NULL;
 static void* (*pLock)(void *)                           = NULL;
@@ -148,7 +148,7 @@ void *	CIMAGEAlloc(uint32_t stAllocateBlock)
 	if(!mem)
 		SetReturnCode_cimage(IDS_CIMAGE_ERR_NO_MEMORY);
 #else
-	mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(Int8*)"CImage", (Int8*)cCommentBuffer);
+	mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(char*)"CImage", (char*)cCommentBuffer);
 
 	if(!mem)
 		SetReturnCode_cimage(IDS_CIMAGE_ERR_NO_MEMORY);

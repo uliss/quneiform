@@ -86,7 +86,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 RBLOCK_FUNC(Bool32) RBLOCK_Init(uint16_t wHeightCode,Handle hStorage);
 RBLOCK_FUNC(Bool32) RBLOCK_Done();
 RBLOCK_FUNC(uint32_t) RBLOCK_GetReturnCode();
-RBLOCK_FUNC(Int8 *) RBLOCK_GetReturnString(uint32_t dwError);
+RBLOCK_FUNC(char *) RBLOCK_GetReturnString(uint32_t dwError);
 RBLOCK_FUNC(Bool32) RBLOCK_GetExportData(uint32_t dwType, void * pData);
 RBLOCK_FUNC(Bool32) RBLOCK_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////

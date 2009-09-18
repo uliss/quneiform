@@ -195,7 +195,7 @@ void RootStripsCalculate (void)
 	}// Piter
     pRootStrips =(ROOT_STRIP*) malloc (nRootStrips * sizeof (ROOT_STRIP));
     if (pRootStrips==NULL)
-            ErrorNoEnoughMemory ((Word8*)"in LTROOTS.C,RootStripsCalculate,part 1");
+            ErrorNoEnoughMemory ((uchar*)"in LTROOTS.C,RootStripsCalculate,part 1");
     memset (pRootStrips, 0, nRootStrips * sizeof (ROOT_STRIP));
 
     for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++)
@@ -327,7 +327,7 @@ void RootsSaveNonLayoutData (void)
     pRootExts = (PROOT_EXT) malloc (nRootExts * sizeof (ROOT_EXT));
 
     if (pRootExts == NULL)
-            ErrorNoEnoughMemory ((Word8*)"in LTROOTS.C,RootStripsCalculate,part 2");
+            ErrorNoEnoughMemory ((uchar*)"in LTROOTS.C,RootStripsCalculate,part 2");
 
     pAfterRootExts = pRootExts + nRootExts;
 

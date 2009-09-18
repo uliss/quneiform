@@ -156,7 +156,7 @@ RSTR_FUNC(Bool32)  RSTR_RecogContainer (void);
 RSTR_FUNC(Bool32)  RSTR_Init(uint16_t wHightCode, Handle hStorage);
 RSTR_FUNC(Bool32)  RSTR_Done(void);
 RSTR_FUNC(uint32_t)  RSTR_GetReturnCode(void);
-RSTR_FUNC(Word8 *) RSTR_GetReturnString(uint32_t dwError);
+RSTR_FUNC(uchar *) RSTR_GetReturnString(uint32_t dwError);
 RSTR_FUNC(Bool32)  RSTR_GetExportData (uint32_t dwType, void * pData);
 RSTR_FUNC(Bool32)  RSTR_SetImportData (uint32_t dwType, const void * pData);
 ///
@@ -218,8 +218,8 @@ RSTR_FUNC(Bool32)  RSTR_Recog (CSTR_line lini, CSTR_line lino);
 // 5)   RSTR_FNVERSION      версия библиотеки
 //
 // 6)   REXC_FNRSTR_ISLANGUAGE возможен ли такой язык
-typedef Bool32(*FNRSTR_IsLanguage)(Word8 language);
-RSTR_FUNC(Bool32) RSTR_IsLanguage(Word8 language);
+typedef Bool32(*FNRSTR_IsLanguage)(uchar language);
+RSTR_FUNC(Bool32) RSTR_IsLanguage(uchar language);
 // 7    RSTR_FNSTRENDPAGE    операции после после последней строки
 typedef Bool32 (*FNRSTR_EndPage)(  Handle myPage );
 RSTR_FUNC(Bool32)  RSTR_EndPage(  Handle myPage );
@@ -233,16 +233,16 @@ RSTR_FUNC(Bool32)  RSTR_RecogBL (CSTR_line lini);
 typedef Bool32 (*FNRSTR_TestAlphabet)(RSTR_info *str,CSTR_line lin);
 RSTR_FUNC(Bool32) RSTR_TestAlphabet(RSTR_info *str,CSTR_line lin);
 // 11   RSTR_RECONEWORD     распознать фиксированное слово
-typedef Bool32 (*FNRSTR_recog_one_word)(CSTR_line ln, Word8 *word, Int8 *points,Word8 *res);
-RSTR_FUNC(Bool32) RSTR_recog_one_word(CSTR_line ln, Word8 *word, Int8 *points,Word8 *res);
+typedef Bool32 (*FNRSTR_recog_one_word)(CSTR_line ln, uchar *word, char *points,uchar *res);
+RSTR_FUNC(Bool32) RSTR_recog_one_word(CSTR_line ln, uchar *word, char *points,uchar *res);
 // Первое двойное слово - три наихудшие оценки, следующее - соответствующие номера букв (нумерация с нуля),
 // последнее - оценки заказанных в points букв
 // 12   RSTR_FNSTUDYALPHABET    выбор алфавита столбца по статистике
 typedef Bool32 (*FNRSTR_StudyAlphabet)(RSTR_info *str);
 RSTR_FUNC(Bool32) RSTR_StudyAlphabet(RSTR_info *str);
 // 13   RSTR_FNRECOGONELETTER   распознать как большую английскую или русскую букву
-typedef Bool32  (*FNRSTR_RecogOneLetter) (RecRaster *Rs,Word8 Language,RecVersions *Vs);
-RSTR_FUNC(Bool32)  RSTR_RecogOneLetter (RecRaster *Rs,Word8 Language,RecVersions *Vs);
+typedef Bool32  (*FNRSTR_RecogOneLetter) (RecRaster *Rs,uchar Language,RecVersions *Vs);
+RSTR_FUNC(Bool32)  RSTR_RecogOneLetter (RecRaster *Rs,uchar Language,RecVersions *Vs);
 // 14   RSTR_FNRECOGCONTAINER   распознать контейнер строк
 typedef Bool32  (*FNRSTR_RecogContainer) (void);
 RSTR_FUNC(Bool32)  RSTR_RecogContainer (void);
@@ -259,8 +259,8 @@ RSTR_FUNC(Bool32) RSTR_StudyAlphabetPass2(RSTR_info *str);
 typedef Bool32 (*FNRSTR_ChangeLineNumber)(int32_t add);
 RSTR_FUNC(Bool32) RSTR_ChangeLineNumber(int32_t add);
 // 19   RSTR_SETSPECPRJ   установить признак спец-проекта
-typedef Bool32 (*FNRSTR_SetSpecPrj)(Word8 nSpecPrj);
-RSTR_FUNC(Bool32) RSTR_SetSpecPrj(Word8 nSpecPrj);
+typedef Bool32 (*FNRSTR_SetSpecPrj)(uchar nSpecPrj);
+RSTR_FUNC(Bool32) RSTR_SetSpecPrj(uchar nSpecPrj);
 
 //поделенный на части первый проход
 RSTR_FUNC(Bool32)  RSTRRecognizeMain(CSTR_line lin, CSTR_line lino);

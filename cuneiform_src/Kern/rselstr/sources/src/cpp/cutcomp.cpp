@@ -114,7 +114,7 @@ int GetMediumH(CCOM_handle hCCOM);
 void IfDifCutComp(void);
 BOOL IfEqv(char* buf1, char* buf2);
 BOOL IfEqv(Rect16 r1, Rect16 r2);
-Handle GetStrCCOM(Handle hCPage, Word8* ImageName, Rect16 Rc, BOOL neg,
+Handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, BOOL neg,
 		BOOL vertical, RecRaster* rast, int min_h);
 void MyKillComp(CCOM_comp* comp);
 void MyCreateComp(CCOM_comp* comp);
@@ -201,8 +201,8 @@ BOOL CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
 	Rect16 rect2;
 	CCOM_comp* comp1;
 	CCOM_comp* comp2;
-	Word8* lp=NULL;
-	// Word8* old;
+	uchar* lp=NULL;
+	// uchar* old;
 			// int16_t lp_size;
 			// int16_t numcomp;
 
@@ -638,12 +638,12 @@ void IfDifCutComp(void) {
 
 }
 
-Handle GetStrCCOM(Handle hCPage, Word8* ImageName, Rect16 Rc, BOOL neg,
+Handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, BOOL neg,
 		BOOL vertical, RecRaster* rast, int min_h) {
 	int min_w, max_h, max_w;
 	// int j;
 	PAGEINFO info = { 0 };
-	// Word8 Name[CPAGE_MAXNAME];
+	// uchar Name[CPAGE_MAXNAME];
 	GetPageInfo(hCPage, &info);
 
 	// if(ImageName)
@@ -716,7 +716,7 @@ void MyKillComp(CCOM_comp* comp) {
 		if (!CCOM_GetUserBlock(comp, &ub)) {
 			ub.code = Code_UB_Kill;
 			ub.size = size;
-			ub.data = (Word8*) (&Code_UB_Kill);
+			ub.data = (uchar*) (&Code_UB_Kill);
 			CCOM_SetUserBlock(comp, &ub);
 		}
 	}
@@ -729,7 +729,7 @@ void MyCreateComp(CCOM_comp* comp) {
 	CCOM_USER_BLOCK ub;
 	ub.code = Code_UB_Create;
 	ub.size = size;
-	ub.data = (Word8*) (&Code_UB_Create);
+	ub.data = (uchar*) (&Code_UB_Create);
 	CCOM_SetUserBlock(comp, &ub);
 }
 

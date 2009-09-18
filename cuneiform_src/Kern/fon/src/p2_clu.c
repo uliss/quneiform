@@ -172,7 +172,7 @@ static BYTE *BitHau[MAXHAU]; // big buffers
 static LONG LastBit = 0;
 Nraster_header *rh = NULL;
 SINT nClus[MAXSYM];
-Word8 language = 0, langCyrilRoman = 0;
+uchar language = 0, langCyrilRoman = 0;
 static SINT clusBuffer[MAXSYM];
 static SINT *mysteck = NULL; // == dist_wel
 
@@ -1780,8 +1780,8 @@ static SINT ReadAllFromBase(CHAR *name, SINT *nClu, CHAR *movxy, SINT AllCount) 
 	return allnum;
 }
 /////////////////////
-FON_FUNC(int32_t) FONFontClusters(char *rname,char *cluname,void *accept,Word8 *extern_buf,int32_t size,
-		uint32_t param,void *ShowProgress,Word8 lang)
+FON_FUNC(int32_t) FONFontClusters(char *rname,char *cluname,void *accept,uchar *extern_buf,int32_t size,
+		uint32_t param,void *ShowProgress,uchar lang)
 {
 	clu_info cin;
 	char szOutName[144];

@@ -66,8 +66,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 CRLEd::CRLEd()
 {
-	mpEdBuffer = (PWord8)RLINGLock(mhEdBuffer = RLINGAlloc(CRL_ED_BUFFER_SIZE));
-	mpEdOutBuffer = (PWord8)RLINGLock(mhEdOutBuffer = RLINGAlloc(CRL_ED_BUFFER_SIZE));
+	mpEdBuffer = (uchar *)RLINGLock(mhEdBuffer = RLINGAlloc(CRL_ED_BUFFER_SIZE));
+	mpEdOutBuffer = (uchar *)RLINGLock(mhEdOutBuffer = RLINGAlloc(CRL_ED_BUFFER_SIZE));
 	memcpy(mHalfSpaces,"\x1e\x1f",3);
 	memset(&mSdd, 0, sizeof(mSdd));
 	memset(&mFdd, 0, sizeof(mFdd));
@@ -87,9 +87,9 @@ void CRLEd::Init()
 	mpEdFileBound = &mpEdBuffer[CRL_ED_BUFFER_SIZE];
 }
 
-Bool32 CRLEd::MakeWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
+Bool32 CRLEd::MakeWord(CSTR_rast b, CSTR_rast e, uchar * pLanguage)
 {
-	Word8           *l,p;
+	uchar           *l,p;
 	CSTR_rast       c;
 	UniVersions     uni;
 	int16_t           k,i,n,h,wb, nlig, nl;
@@ -120,18 +120,18 @@ Bool32 CRLEd::MakeWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
     mSdd.code     =0x0a;
     mSdd.descr_lth=0x26;
     mSdd.resolution=300;
-    Write((Word8*)&mSdd,sizeof(mSdd));
+    Write((uchar*)&mSdd,sizeof(mSdd));
 	// start fragm_disk_descr
     mFdd.code=0x0b;
     mFdd.language = *pLanguage;
     mFdd.height   = h;
     mFdd.w_width  = wb;
     mFdd.kegl     = 10;
-    Write((Word8*)&mFdd,sizeof(mFdd));
+    Write((uchar*)&mFdd,sizeof(mFdd));
 
 	// start fragm_disk
     mFd.code=0x0b;
-    Write((Word8*)&mFd,sizeof(mFd));
+    Write((uchar*)&mFd,sizeof(mFd));
 
 	for(c=b;c&&c!=e;c=CSTR_GetNext(c))
     {
@@ -150,7 +150,7 @@ Bool32 CRLEd::MakeWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 
 		if( n && memchr(mHalfSpaces,uni.Alt[0].Liga,2) )
         {
-			Write((Word8*)&mBmr,sizeof(mBmr));
+			Write((uchar*)&mBmr,sizeof(mBmr));
 			p=uni.Alt[0].Prob;
 
 			if( p&1 )
@@ -159,7 +159,7 @@ Bool32 CRLEd::MakeWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 			p++;
 			mVr.code = uni.Alt[0].Liga;
 			mVr.prob = p;
-			Write((Word8*)&mVr,sizeof(mVr));
+			Write((uchar*)&mVr,sizeof(mVr));
 			continue;  // half spaces for spelling analisys
         }
 		nlig = strlen((char*)uni.Alt[0].Code);
@@ -169,7 +169,7 @@ Bool32 CRLEd::MakeWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 
 		for(nl=0;nl<nlig;nl++)
 		{
-			Write((Word8*)&mBmr,sizeof(mBmr));
+			Write((uchar*)&mBmr,sizeof(mBmr));
 
 			for(k=i=0;k<n;)
 			{
@@ -182,7 +182,7 @@ Bool32 CRLEd::MakeWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 						p = p+1; // last even propability
 					mVr.code = *l;
 					mVr.prob =  p;
-					Write((Word8*)&mVr,sizeof(mVr));
+					Write((uchar*)&mVr,sizeof(mVr));
 				}
 			}
 		}
@@ -192,9 +192,9 @@ Bool32 CRLEd::MakeWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 	return TRUE;
 }
 
-Bool32 CRLEd::AddWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
+Bool32 CRLEd::AddWord(CSTR_rast b, CSTR_rast e, uchar * pLanguage)
 {
-	Word8           *l,p;
+	uchar           *l,p;
 	CSTR_rast       c;
 	UniVersions     uni;
 	int16_t           k,i,n, nlig, nl;
@@ -226,7 +226,7 @@ Bool32 CRLEd::AddWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 
 		if( n && memchr(mHalfSpaces,uni.Alt[0].Liga,2) )
         {
-			Write((Word8*)&mBmr,sizeof(mBmr));
+			Write((uchar*)&mBmr,sizeof(mBmr));
 			p=uni.Alt[0].Prob;
 
 			if( p&1 )
@@ -235,7 +235,7 @@ Bool32 CRLEd::AddWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 			p++;
 			mVr.code = uni.Alt[0].Liga;
 			mVr.prob = p;
-			Write((Word8*)&mVr,sizeof(mVr));
+			Write((uchar*)&mVr,sizeof(mVr));
 			continue;  // half spaces for spelling analisys
         }
 		nlig = strlen((char*)uni.Alt[0].Code);
@@ -245,7 +245,7 @@ Bool32 CRLEd::AddWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 
 		for(nl=0;nl<nlig;nl++)
 		{
-			Write((Word8*)&mBmr,sizeof(mBmr));
+			Write((uchar*)&mBmr,sizeof(mBmr));
 
 			for(k=i=0;k<n;)
 			{
@@ -260,7 +260,7 @@ Bool32 CRLEd::AddWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 
 					mVr.code = *l;
 					mVr.prob =  p;
-					Write((Word8*)&mVr,sizeof(mVr));
+					Write((uchar*)&mVr,sizeof(mVr));
 				}
 			}
 		}
@@ -269,7 +269,7 @@ Bool32 CRLEd::AddWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 	return TRUE;
 }
 
-void CRLEd::Write(PWord8 pP, uint16_t wSize)
+void CRLEd::Write(uchar * pP, uint16_t wSize)
 {
 	if (mpEdFileBound -  mpEdFileEnd < wSize)
     {
@@ -282,7 +282,7 @@ void CRLEd::Write(PWord8 pP, uint16_t wSize)
 
 Bool32 CRLEd::ExcludeToVers(int32_t size, PChar8 pStr)
 {
-	Word8  *p,*pe;
+	uchar  *p,*pe;
 	//struct  vers_ref     vf;
 	//struct  bit_map_ref  bm;
 	struct  VersRef     vf;

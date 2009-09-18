@@ -94,15 +94,15 @@ extern "C" {
         uint16_t    wImageDisplacement;
         uint16_t    wResolutionX;
         uint16_t    wResolutionY;
-        Word8     bFotoMetrics;
-        Word8     bUnused;
+        uchar     bFotoMetrics;
+        uchar     bUnused;
         uint16_t    wAddX;
         uint16_t    wAddY;
     }
     PUMA_ImageInfo;
 
     typedef Bool16 (*PUMA_Callback_ImageOpen)(PUMA_ImageInfo *);
-    typedef uint16_t   (*PUMA_Callback_ImageRead)(PInt8 , uint16_t );
+    typedef uint16_t   (*PUMA_Callback_ImageRead)(char * , uint16_t );
     typedef Bool16 (*PUMA_Callback_ImageClose)(void);
 
     typedef struct
@@ -221,8 +221,8 @@ extern "C" {
     uint32_t 	LPUMA_GetFormatMode( void );      // old
     void 	LPUMA_SetFormatMode(uint32_t nNewValue);// old
 
-    void	LPUMA_SetUnrecogChar(Word8 nChar);
-    Word8	LPUMA_GetUnrecogChar( void );
+    void	LPUMA_SetUnrecogChar(uchar nChar);
+    uchar	LPUMA_GetUnrecogChar( void );
 
     Bool32  LPUMA_SetProgressFunction(FNPUMA_ProgressStart fnStart,FNPUMA_ProgressStep fnStep,FNPUMA_ProgressFinish fnFinish);
 
@@ -267,7 +267,7 @@ extern "C" {
     DEC_FUN(Bool32, PUMA_XOpenClbk,(PUMAIMAGECALLBACK CallBack,const char * lpFileName));
     DEC_FUN(uint32_t, PUMA_SaveToMemory,(Handle hEdPage, int32_t lnFormat, int32_t lnCode, char * lpMem, uint32_t size ));
     DEC_FUN(void ,  PUMA_GetSpecialBuffer,(char * szResult,int32_t *nResultLength));
-    DEC_FUN(Bool32, PUMA_SetSpecialProject,(Word8 nSpecPrj));
+    DEC_FUN(Bool32, PUMA_SetSpecialProject,(uchar nSpecPrj));
 
 #undef DEC_FUN
 

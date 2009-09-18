@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /* FIXME*/
 #define lstrlenW(a) 0
 
-static Int8 leo_case_upper[]={
+static char leo_case_upper[]={
 /* 000 */ ' ',
 /* 001 */ ' ',
 /* 002 */ ' ',
@@ -322,7 +322,7 @@ static Int8 leo_case_upper[]={
 /* ˛(254,0xfe) */ '˛',
 /* ˇ(255,0xff) */ 'ˇ'
 };
-static Int8 leo_case_lower[]={
+static char leo_case_lower[]={
 /* 000 */ ' ',
 /* 001 */ ' ',
 /* 002 */ ' ',
@@ -1412,14 +1412,14 @@ static wchar_t std_ANSI_to_UNICODE[257]=
 */
 static wchar_t std_ANSI_to_UNICODE[257];
 
-STD_FUNC(Word8) stdAsciiToAnsi( Word8 Code)
+STD_FUNC(uchar) stdAsciiToAnsi( uchar Code)
 {
 if( !Code )
     return 0;
 return    std_ASCII_to_ANSI[Code];
 }
 
-STD_FUNC(Word8) stdAnsiToAscii( Word8 Code)
+STD_FUNC(uchar) stdAnsiToAscii( uchar Code)
 {
 if( !Code )
     return 0;
@@ -1430,7 +1430,7 @@ STD_FUNC(void) stdStrAsciiToAnsi( char* Str)
 {
 	char* pStr=Str;
 	while(*pStr)
-	{	*pStr=std_ASCII_to_ANSI[(Word8)*pStr];
+	{	*pStr=std_ASCII_to_ANSI[(uchar)*pStr];
 		pStr++;
 	}
 }
@@ -1439,7 +1439,7 @@ STD_FUNC(void) stdStrAnsiToAscii( char* Str)
 {
 	char* pStr=Str;
 	while(*pStr)
-	{	*pStr=std_ANSI_to_ASCII[(Word8)*pStr];
+	{	*pStr=std_ANSI_to_ASCII[(uchar)*pStr];
 		pStr++;
 	}
 }
@@ -1449,7 +1449,7 @@ STD_FUNC(void) stdStrNAsciiToAnsi( char* Str,int32_t nLen)
 	if(nLen<=0)
 		return;
 	for(int nSymb=0;nSymb<nLen;nSymb++)
-		Str[nSymb]=std_ASCII_to_ANSI[(Word8)Str[nSymb]];
+		Str[nSymb]=std_ASCII_to_ANSI[(uchar)Str[nSymb]];
 }
 
 STD_FUNC(void) stdStrNAnsiToAscii( char* Str,int32_t nLen)
@@ -1457,10 +1457,10 @@ STD_FUNC(void) stdStrNAnsiToAscii( char* Str,int32_t nLen)
 	if(nLen<=0)
 		return;
 	for(int nSymb=0;nSymb<nLen;nSymb++)
-		Str[nSymb]=std_ANSI_to_ASCII[(Word8)Str[nSymb]];
+		Str[nSymb]=std_ANSI_to_ASCII[(uchar)Str[nSymb]];
 }
 
-STD_FUNC(uint16_t) stdAnsiToUnicode( Word8 Code)
+STD_FUNC(uint16_t) stdAnsiToUnicode( uchar Code)
 {
     return    std_ANSI_to_UNICODE[Code];
 }
@@ -1469,7 +1469,7 @@ STD_FUNC(void) stdStrAnsiToUnicode(wchar_t* pUnicode,const char* pAnsi)
 {
 	const char* pCurAnsi=pAnsi; wchar_t* pCurUnic=pUnicode;
 	while(*pCurAnsi)
-		*pCurUnic++=std_ANSI_to_UNICODE[(Word8)*pCurAnsi++];
+		*pCurUnic++=std_ANSI_to_UNICODE[(uchar)*pCurAnsi++];
     *pCurUnic=0;
 }
 
@@ -1477,7 +1477,7 @@ STD_FUNC(void) stdStrNAnsiToUnicode(wchar_t* pUnicode,const char* pAnsi,int32_t 
 {
 	const char* pCurAnsi=pAnsi; wchar_t* pCurUnic=pUnicode;
 	while(*pCurAnsi && pCurAnsi-pAnsi<=nLen)
-		*pCurUnic++=std_ANSI_to_UNICODE[(Word8)*pCurAnsi++];
+		*pCurUnic++=std_ANSI_to_UNICODE[(uchar)*pCurAnsi++];
     *pCurUnic=0;
 }
 
@@ -1488,65 +1488,65 @@ STD_FUNC(void) stdStrUnicodeToAnsi(char* pAnsi,const wchar_t* pUnicode)
   WideCharToMultiByte(CP_ACP,NULL,/*(const char*)*/pUnicode,lstrlenW(pUnicode),pAnsi,lstrlenW(pUnicode),NULL,NULL);
 }
 
-STD_FUNC(Bool32) stdLeoCompareChar(Word8 c1, Word8 c2)
+STD_FUNC(Bool32) stdLeoCompareChar(uchar c1, uchar c2)
 {
 const char *p=leo_typeface_class[c1];
-Word8   c;
+uchar   c;
 while( *p )
     {
-    c=(Word8)*p++;
+    c=(uchar)*p++;
     if( c==c2 )
         return TRUE;
     }
 return FALSE;
 }
 
-STD_FUNC(Word8 *) stdLeoGetTypeface(Word8 c)
+STD_FUNC(uchar *) stdLeoGetTypeface(uchar c)
 {
-return (Word8 *)leo_typeface_class[c];
+return (uchar *)leo_typeface_class[c];
 }
 
-STD_FUNC(Word8) stdLeoTypefaceChar(Word8 c)
+STD_FUNC(uchar) stdLeoTypefaceChar(uchar c)
 {
 return leo_typeface_one[c][0];
 }
 
 
-STD_FUNC( int32_t )   stdLeoIsCase(Word8 Code)
+STD_FUNC( int32_t )   stdLeoIsCase(uchar Code)
 {
 return leo_case[ Code ];
 }
 
-STD_FUNC( Word8)   stdLeoSetUpperCase(Word8 Code)
+STD_FUNC( uchar)   stdLeoSetUpperCase(uchar Code)
 {
-return (Word8)(leo_case_upper[ Code ]);
+return (uchar)(leo_case_upper[ Code ]);
 }
 
-STD_FUNC( Word8)   stdLeoSetLowerCase(Word8 Code)
+STD_FUNC( uchar)   stdLeoSetLowerCase(uchar Code)
 {
-return (Word8)(leo_case_lower[ Code ]);
+return (uchar)(leo_case_lower[ Code ]);
 }
 
-STD_FUNC(Word8) stdUpperAscii( Word8 c )
+STD_FUNC(uchar) stdUpperAscii( uchar c )
 {
-  if ( c >= (Word8)'a' && c <= (Word8)'z')
-    c = c - (Word8)'a' + (Word8)'A';
+  if ( c >= (uchar)'a' && c <= (uchar)'z')
+    c = c - (uchar)'a' + (uchar)'A';
 
-  if ( c >= (Word8)'†' && c <= (Word8)'Ø')
-    c = c - (Word8)'†' + (Word8)'Ä';
-  if ( c >= (Word8)'‡' && c <= (Word8)'Ô')
-    c = c - (Word8)'‡' + (Word8)'ê';
+  if ( c >= (uchar)'†' && c <= (uchar)'Ø')
+    c = c - (uchar)'†' + (uchar)'Ä';
+  if ( c >= (uchar)'‡' && c <= (uchar)'Ô')
+    c = c - (uchar)'‡' + (uchar)'ê';
 return c;
 }
 
  /* Function returns LOWER CASE variant of the letter.             */
-STD_FUNC(Word8) stdLowerAscii(Word8 c)
+STD_FUNC(uchar) stdLowerAscii(uchar c)
 {
-  if ( c >= (Word8)'A' && c <= (Word8)'Z')
-    c = c - (Word8)'A'+ (Word8)'a' ;
-  if ( c >= (Word8)'Ä' && c <= (Word8)'è')
-    c = c - (Word8)'Ä'+ (Word8)'†' ;
-  if ( c >= (Word8)'ê' && c <= (Word8)'ü')
-    c = c - (Word8)'ê'+ (Word8)'‡' ;
+  if ( c >= (uchar)'A' && c <= (uchar)'Z')
+    c = c - (uchar)'A'+ (uchar)'a' ;
+  if ( c >= (uchar)'Ä' && c <= (uchar)'è')
+    c = c - (uchar)'Ä'+ (uchar)'†' ;
+  if ( c >= (uchar)'ê' && c <= (uchar)'ü')
+    c = c - (uchar)'ê'+ (uchar)'‡' ;
 return c;
 }

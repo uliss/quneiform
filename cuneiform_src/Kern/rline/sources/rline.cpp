@@ -201,16 +201,16 @@ void CleanLineData( void* pdata,int size);
 
 Bool16 SampleImageOpen (CIMAGE_ImageInfo* lpImageInfo)
 { return swp_imxs->f_op( (Imxs_ImageInfo*)lpImageInfo ); }
-uint16_t SampleImageRead ( PInt8 lpImage, uint16_t wMaxSize)
-{ return swp_imxs->f_re( (Word8*)lpImage, wMaxSize ); }
+uint16_t SampleImageRead ( char * lpImage, uint16_t wMaxSize)
+{ return swp_imxs->f_re( (uchar*)lpImage, wMaxSize ); }
 Bool16 SampleImageClose ( void )
 { return swp_imxs->f_cl( ); }
 
 
 Bool16 DibOpen (Imxs_ImageInfo* lpImageInfo)
 { return cbk.CIMAGE_ImageOpen( (CIMAGE_ImageInfo*)lpImageInfo ); }
-int16_t  DibRead ( Word8* lpImage, uint16_t wMaxSize)
-{ return cbk.CIMAGE_ImageRead( (PInt8)lpImage, wMaxSize ); }
+int16_t  DibRead ( uchar* lpImage, uint16_t wMaxSize)
+{ return cbk.CIMAGE_ImageRead( (char *)lpImage, wMaxSize ); }
 Bool16 DibClose ( void )
 { return cbk.CIMAGE_ImageClose( ); }
 
@@ -413,7 +413,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 	min_h_len = (uint16_t)(PInfo.DPIX*40/300);
 	min_v_len = (uint16_t)(PInfo.DPIY*40/300);
 
-	if (!CIMAGE_GetCallbackImage( (PWord8)pImage, &cbk))
+	if (!CIMAGE_GetCallbackImage( (uchar *)pImage, &cbk))
 	{
 		LDPUMA_Console( " Error in GetCallbackImage " );
 		rc32 = CIMAGE_GetReturnCode();
@@ -661,7 +661,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 	min_h_len = (uint16_t)(PInfo.DPIX*40/300);
 	min_v_len = (uint16_t)(PInfo.DPIY*40/300);
 
-	if (!CIMAGE_GetCallbackImage((PWord8) pImage, &cbk))
+	if (!CIMAGE_GetCallbackImage((uchar *) pImage, &cbk))
 	{
 		LDPUMA_Console( " Error in GetCallbackImage " );
 		rc32 = CIMAGE_GetReturnCode();
@@ -818,14 +818,14 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 	cbk1.CIMAGE_ImageClose = SampleImageClose;
 
 
-	if (!CIMAGE_GetCallbackImage( (PWord8)pImage, &cbk))
+	if (!CIMAGE_GetCallbackImage( (uchar *)pImage, &cbk))
 	{
 		rc32 = CIMAGE_GetReturnCode();
 		SetReturnCode_rline( rc32 );
 		return FALSE;
 	}
 
-	if (!CIMAGE_WriteCallbackImage( (PWord8)lpOutDIB, cbk1 ))
+	if (!CIMAGE_WriteCallbackImage( (uchar *)lpOutDIB, cbk1 ))
 	{
 		rc32 = CIMAGE_GetReturnCode();
 		SetReturnCode_rline( rc32 );
@@ -838,7 +838,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 	if(!LDPUMA_Skip(RLINE_ShowWithoutLines))
 	{
 		BITMAPINFOHEADER * lp = NULL ;
-		CIMAGE_ReadDIB((PWord8)PUMA_IMAGE_DELLINE,(Handle*)&lp,TRUE);
+		CIMAGE_ReadDIB((uchar *)PUMA_IMAGE_DELLINE,(Handle*)&lp,TRUE);
 		Handle hwnd = LDPUMA_CreateWindow("После снятия линий",lp);
 		LDPUMA_Console("Нажмите любую клавишу...");
 		LDPUMA_WaitUserInput(RLINE_ShowWithoutLines, hwnd );
@@ -852,7 +852,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 
 void CleanLineData(void* pdata,int size)
 {
-	Word8* mas=(Word8*)pdata;
+	uchar* mas=(uchar*)pdata;
 	for(int i=size-1;i>=0;i--)
 	{
 		mas[i]=0;

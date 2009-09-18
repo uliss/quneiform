@@ -82,7 +82,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 RPIC_FUNC(Bool32) RPIC_Init(uint16_t wHeightCode,Handle hStorage);
 RPIC_FUNC(Bool32) RPIC_Done();
 RPIC_FUNC(uint32_t) RPIC_GetReturnCode();
-RPIC_FUNC(Int8 *) RPIC_GetReturnString(uint32_t dwError);
+RPIC_FUNC(char *) RPIC_GetReturnString(uint32_t dwError);
 RPIC_FUNC(Bool32) RPIC_GetExportData(uint32_t dwType, void * pData);
 RPIC_FUNC(Bool32) RPIC_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////

@@ -91,7 +91,7 @@ Bool32 ShortVerticalLinesProcess ( uint32_t Step, PRMPreProcessImage Image )
 		//gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns = (LineInfo *)myAlloc(sizeof(LineInfo) * PUMAMaxNumLines);
 
 		if ( gSVLBuffer.VLinefBufferA == NULL )
-			gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns = (LineInfo *)CFIO_DAllocMemory((sizeof(LineInfo) * PUMAMaxNumLines), MAF_GALL_GPTR, (PInt8)"puma", (PInt8)"SVL step I lines pool");
+			gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns = (LineInfo *)CFIO_DAllocMemory((sizeof(LineInfo) * PUMAMaxNumLines), MAF_GALL_GPTR, (char *)"puma", (char *)"SVL step I lines pool");
 
 		bRet = ReadSVLFromPageContainer( gSVLBuffer.LineInfoA, Image );
 		bClear = bRet == FALSE;
@@ -104,7 +104,7 @@ Bool32 ShortVerticalLinesProcess ( uint32_t Step, PRMPreProcessImage Image )
 		//gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns = (LineInfo *)myAlloc(sizeof(LineInfo) * PUMAMaxNumLines);
 
 		if ( gSVLBuffer.VLinefBufferB == NULL )
-			gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns = (LineInfo *)CFIO_DAllocMemory((sizeof(LineInfo) * PUMAMaxNumLines), MAF_GALL_GPTR, (PInt8)"puma", (PInt8)"SVL step II lines pool");
+			gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns = (LineInfo *)CFIO_DAllocMemory((sizeof(LineInfo) * PUMAMaxNumLines), MAF_GALL_GPTR, (char *)"puma", (char *)"SVL step II lines pool");
 
 		bRet = ReadSVLFromPageContainer( gSVLBuffer.LineInfoB, Image );
 		////////////////

@@ -94,7 +94,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM,Handle hCPage,Rec
  int16_t* begx=NULL;
  int16_t* movey=NULL;
  int* hi=NULL;
- Word8* flmovey=NULL;
+ uchar* flmovey=NULL;
 
  MainWindowD=NULL;
  MainWindowD=LDPUMA_GetWindowHandle ("Изображение после разворота");
@@ -115,7 +115,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM,Handle hCPage,Rec
 
  DPIX=info.DPIX;
  DPIY=info.DPIY;
- Word8 ImageName[CPAGE_MAXNAME];
+ uchar ImageName[CPAGE_MAXNAME];
 
 
  inf_str_h=inf_str_h*((int)(DPIY)+1)/300;
@@ -125,9 +125,9 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM,Handle hCPage,Rec
  min_let_w=min_let_w*((int)(DPIY)+1)/300;
  min_let_h=min_let_h*((int)(DPIY)+1)/300;
 
- Word8* pmaspold;
- Word8* pmasp;
- Word8 Data[1000];
+ uchar* pmaspold;
+ uchar* pmasp;
+ uchar Data[1000];
  memset (Data, 0, sizeof (Data));
 
 
@@ -209,7 +209,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM,Handle hCPage,Rec
   int w=Rc.right-Rc.left+1;
   int h=Rc.bottom-Rc.top+1;
   pmasp=NULL;
-  if(!(pmasp= new Word8[w*h/8+w+h]))
+  if(!(pmasp= new uchar[w*h/8+w+h]))
   {
    // GF: killed memory leak on 2004.01.29
 	 DelStrMas(&pRc); pRc = NULL;
@@ -691,7 +691,7 @@ Bool32 Filter(int32_t upper, int32_t left, int32_t w, int32_t h)
 }
 
 /*
-BOOL IfBadCut(Handle hCCOM,Rect16* pRc,Rect16 Rc,int nRc,Word8* pmasp,CHstr* my_str)
+BOOL IfBadCut(Handle hCCOM,Rect16* pRc,Rect16 Rc,int nRc,uchar* pmasp,CHstr* my_str)
 {
  if(my_str->neg)
 	 return FALSE;

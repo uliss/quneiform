@@ -74,12 +74,12 @@ static int  datalen = 38;
 static CTB_handle   this_ctb1={0};
 static int  datalen1 = 38;
 
-int16_t rstr_cont_store(RecRaster *r,Word8 let, Word8 nLns,Rect16 *rect,Word8 IsPrint,
-		Word8	Prob, Word8 Valid, RecVersions *v,Word8 control,
-        Word8   kegl,Word8 column, Word8 tabno)
+int16_t rstr_cont_store(RecRaster *r,uchar let, uchar nLns,Rect16 *rect,uchar IsPrint,
+		uchar	Prob, uchar Valid, RecVersions *v,uchar control,
+        uchar   kegl,uchar column, uchar tabno)
 {
 int32_t       num;
-Word8       raster[4096],data[CTB_DATA_SIZE]={0};
+uchar       raster[4096],data[CTB_DATA_SIZE]={0};
 int32_t       wb, k;
 Bool32      ret;
 RecVersions ver;
@@ -87,8 +87,8 @@ RecVersions ver;
 if( !this_ctb.bas ) // || !cont_name[0] )
     return 0;
 data[0]= CTB_OEM_CHARSET;
-data[1] = (Word8)r->lnPixWidth;
-data[2] = (Word8)r->lnPixHeight;
+data[1] = (uchar)r->lnPixWidth;
+data[2] = (uchar)r->lnPixHeight;
 data[3] = let; //stdAnsiToAscii(let);
 data[4] = 0;
 data[31] = nLns;
@@ -103,7 +103,7 @@ if( v )
     ver=*v;
     if( ver.lnAltCnt>4 )
         ver.lnAltCnt=4;
-    data[16]=(Word8)ver.lnAltCnt;
+    data[16]=(uchar)ver.lnAltCnt;
     for(k=0;k<ver.lnAltCnt;k++)
         {
         data[17+k*2]= stdAnsiToAscii(ver.Alt[k].Code);
@@ -111,7 +111,7 @@ if( v )
 		data[28+k]  = ver.Alt[k].Method;
         }
     }
-data[25] = (Word8)line_number; // !!! can be great than 255
+data[25] = (uchar)line_number; // !!! can be great than 255
 data[26] = 0;//leo_current_alpha_ndx;
 data[27] = control;
 
@@ -153,7 +153,7 @@ return;
 Bool32 rstr_open_cont(void)
 {
 #ifdef _USE_CTB_
-Word8   data[CTB_DATA_SIZE]={0};
+uchar   data[CTB_DATA_SIZE]={0};
 rstr_close_cont();
 data[0]=38;
 if( !CTB_create(local_ctb_name,data) || !CTB_open(local_ctb_name,&this_ctb,"w") )
@@ -176,7 +176,7 @@ return FALSE;
 Bool32 rstr_open_cont1(void)
 {
 #ifdef _USE_CTB_
-Word8   data[CTB_DATA_SIZE]={0};
+uchar   data[CTB_DATA_SIZE]={0};
 static  int init=1;
 if( init )
     {
@@ -193,12 +193,12 @@ return FALSE;
 #endif
 }
 
-int16_t rstr_cont_store1(RecRaster *r,Word8 let, Word8 nLns,Rect16 *rect,Word8 IsPrint,
-		Word8	Prob, Word8 Valid, RecVersions *v,Word8 control,
-        Word8   kegl)
+int16_t rstr_cont_store1(RecRaster *r,uchar let, uchar nLns,Rect16 *rect,uchar IsPrint,
+		uchar	Prob, uchar Valid, RecVersions *v,uchar control,
+        uchar   kegl)
 {
 int32_t       num;
-Word8       raster[4096],data[CTB_DATA_SIZE]={0};
+uchar       raster[4096],data[CTB_DATA_SIZE]={0};
 int32_t       wb, k;
 Bool32      ret;
 RecVersions ver;
@@ -206,8 +206,8 @@ RecVersions ver;
 if( !this_ctb1.bas ) // || !cont_name[0] )
     return 0;
 data[0]= CTB_OEM_CHARSET;
-data[1] = (Word8)r->lnPixWidth;
-data[2] = (Word8)r->lnPixHeight;
+data[1] = (uchar)r->lnPixWidth;
+data[2] = (uchar)r->lnPixHeight;
 data[3] = let; //stdAnsiToAscii(let);
 data[4] = 0;
 data[31] = nLns;
@@ -220,7 +220,7 @@ data[15] = Valid;
 if( v )
     {
     ver=*v;
-    data[16]=(Word8)ver.lnAltCnt;
+    data[16]=(uchar)ver.lnAltCnt;
     if( data[16]>4 )
         data[16]=4;
 
@@ -231,7 +231,7 @@ if( v )
 		data[28+k]  = ver.Alt[k].Method;
         }
     }
-data[25] = (Word8)line_number; // !!! can be great than 255
+data[25] = (uchar)line_number; // !!! can be great than 255
 data[26] = 0;//leo_current_alpha_ndx;
 data[27] = control;
 
@@ -239,7 +239,7 @@ if( datalen1>34 )
     data[34]=kegl;
 if( datalen1>38 && ver.lnAltCnt>4 )
     {
-    data[16]=(Word8)ver.lnAltCnt;
+    data[16]=(uchar)ver.lnAltCnt;
     for(k=4;k<data[16];k++)
         {
         data[38+k*3]= stdAnsiToAscii(ver.Alt[k].Code);

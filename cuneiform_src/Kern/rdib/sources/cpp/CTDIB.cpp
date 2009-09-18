@@ -153,8 +153,8 @@ Bool32 CTDIB::AttachDIB()
 			return !DetachDIB();
 		}
 		pDIBHeader =  pDIB;
-		pRGBQuads  = (PCTDIBRGBQUAD)((PWord8)pDIB + pSimpleHead->biSize);
-		pBitFild   = (PWord8)(pRGBQuads + GetActualColorNumber());
+		pRGBQuads  = (PCTDIBRGBQUAD)((uchar *)pDIB + pSimpleHead->biSize);
+		pBitFild   = (uchar *)(pRGBQuads + GetActualColorNumber());
 		IsAvailable = TRUE;
 		wDirect = (pSimpleHead->biHeight > 0 ? BottomUp : TopDown );
 		return TRUE;
@@ -520,7 +520,7 @@ Bool32 CTDIB::CreateDIBEnd()
 
 PVOID CTDIB::GetPtrToLine(uint32_t wLine)
 {
-	PWord8  pLine = NULL;
+	uchar *  pLine = NULL;
 
 	CTDIB_IFNODIB(NULL);
 
@@ -546,14 +546,14 @@ PVOID CTDIB::GetPtrToLine(uint32_t wLine)
 
 PVOID CTDIB::GetPtrToPixel(uint32_t wPixelX, uint32_t wPixelY)
 {
-	PWord8  pLine = NULL;
+	uchar *  pLine = NULL;
 
 	CTDIB_IFNODIB(NULL);
 
 	if ( wPixelX >= GetLineWidth() )
 		return NULL;
 
-	pLine = (PWord8)GetPtrToLine(wPixelY);
+	pLine = (uchar *)GetPtrToLine(wPixelY);
 
 	if ( !pLine )
 		return NULL;
@@ -731,9 +731,9 @@ CTDIB::CTDIBVersion CTDIB::GetVersion()
 //
 Bool32 CTDIB::SetFuelLineFromDIB(CTDIB * pSrcDIB, uint32_t nSrcLine, uint32_t nDscLine, uint32_t wSrcX)
 {
-	PWord8 pSrcStart = (PWord8)pSrcDIB->GetPtrToPixel(wSrcX, nSrcLine);
-	PWord8 pDscStart = (PWord8)this->GetPtrToLine(nDscLine);
-	PWord8 pBuffer;
+	uchar * pSrcStart = (uchar *)pSrcDIB->GetPtrToPixel(wSrcX, nSrcLine);
+	uchar * pDscStart = (uchar *)this->GetPtrToLine(nDscLine);
+	uchar * pBuffer;
 	uint32_t wShift;
 
 	if ( pSrcDIB == NULL )
@@ -753,8 +753,8 @@ Bool32 CTDIB::SetFuelLineFromDIB(CTDIB * pSrcDIB, uint32_t nSrcLine, uint32_t nD
 	{
 	case 1:
 	case 4:
-//		pBuffer = new Word8[pSrcDIB->GetUsedLineWidthInBytes() + 1];
-		pBuffer = new Word8[pSrcDIB->GetUsedLineWidthInBytes()];
+//		pBuffer = new uchar[pSrcDIB->GetUsedLineWidthInBytes() + 1];
+		pBuffer = new uchar[pSrcDIB->GetUsedLineWidthInBytes()];
 
 		if ( pBuffer == NULL )
 			return FALSE;
@@ -769,8 +769,8 @@ Bool32 CTDIB::SetFuelLineFromDIB(CTDIB * pSrcDIB, uint32_t nSrcLine, uint32_t nD
 		{
 //			uint32_t wByte  = this->GetUsedLineWidthInBytes() + 1;
 			uint32_t wByte  = this->GetUsedLineWidthInBytes() + t;
-			PWord8 pwByte = pBuffer;
-			Word8  wShiftic = 0;
+			uchar * pwByte = pBuffer;
+			uchar  wShiftic = 0;
 
 //			while ( wByte-- )
 			while ( wByte - t > 0)

@@ -82,7 +82,7 @@ extern WORD actual_resolution;
 extern BYTE let_captype[];
 extern INT line_number;
 extern BYTE fax1x2;
-extern Word8 language;
+extern uchar language;
 
 /// static variables
 

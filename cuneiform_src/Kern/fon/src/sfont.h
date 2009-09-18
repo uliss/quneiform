@@ -256,7 +256,7 @@ LONG StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf);
 void EndHausdorfDLL(void);
 int32_t GetNumMemory(void);
 void EndNumMemory(void);
-int32_t StartAddMemCluster(Word8 *metkaValid, int32_t CurClus, int16_t countFont,
+int32_t StartAddMemCluster(uchar *metkaValid, int32_t CurClus, int16_t countFont,
 		uint32_t *allFields);
 int32_t AddClusterMemFont(welet *wel);
 SINT Razmaz(BYTE *bSource, BYTE *bDest, SINT xbyte, SINT xbit, SINT yrow,

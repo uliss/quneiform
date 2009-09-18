@@ -90,7 +90,7 @@ Bool32 p2_StoreVersions(CSTR_rast rast,RecVersions *rver)
 {
 INT i;
 UniVersions cver,*ver;
-Word8 let;
+uchar let;
 INT lang=p2globals.language;
 
 if( lang==LANG_ENGLISH && p2globals.multy_language )
@@ -119,10 +119,10 @@ if( lang==LANG_ENGLISH && p2globals.multy_language )
 }
 /////////////////
 
-static void StoreOneInterval( Word8 *raster, int b, int e)
+static void StoreOneInterval( uchar *raster, int b, int e)
 {
 int i;
-Word8 mask[]={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
+uchar mask[]={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
 
 if(b < 0) b=0;
 for(i=b;i<e;i++)
@@ -148,7 +148,7 @@ static Bool32 Lines2Raster(CCOM_lnhead *linerep, int16_t size,
 
  for(line=linerep,len=0; len<size && line->lth; len+=line->lth,line=(CCOM_lnhead *)((intptr_t)line+line->lth))
   {
-   Word8 *buf=&rec->Raster[ line->row*ww ];
+   uchar *buf=&rec->Raster[ line->row*ww ];
    for(inter = (CCOM_interval*)(line+1), i=0; i<line->h; i++, inter++,buf+=ww)
     StoreOneInterval( buf, inter->e-inter->l, MIN(w,inter->e));
   }
@@ -159,15 +159,15 @@ return TRUE;
 // получить растр, возможно сжатый, из линейной компоненты
 //
 // Bool32 p2_Line2Raster(c_comp *comp, RecRaster *rec)
-//   lp = (Word8 *)(comp+1);
+//   lp = (uchar *)(comp+1);
 //   lt = *(int16_t*)lp;
 //   w = comp->w
 //   h = comp->h
-P2_FUNC(Bool32) p2_Comp2Raster(int16_t lt,Word8 *lp,int16_t w,int16_t h,
+P2_FUNC(Bool32) p2_Comp2Raster(int16_t lt,uchar *lp,int16_t w,int16_t h,
 					  RecRaster *rec)
 {
 //int16_t  w, h;
-//Word8  *lp;
+//uchar  *lp;
 //int16_t  *lt;
 Bool32 ret;
 
@@ -190,7 +190,7 @@ Bool32 ret;
 
   memset( rec->Raster, 0 , REC_GW_WORD8(rec->lnPixWidth)*rec->lnPixHeight);
 
-//  lp = (Word8 *)(comp+1);
+//  lp = (uchar *)(comp+1);
 //  lt = *(int16_t*)lp;
 //
   w=(int16_t)rec->lnPixWidth;
@@ -338,7 +338,7 @@ void MoveWindowRow1(BYTE *outrow,BYTE *inrow,int SizeByte,int fir)
 }
 ///////////////
 static void (*MoveWindowRow)(BYTE *orow,BYTE *irow,int SizeByte,int fir);
-static Word8 tmpRaster[REC_MAX_RASTER_SIZE];
+static uchar tmpRaster[REC_MAX_RASTER_SIZE];
 /////////////////
 int p2_rotateRecRaster(RecRaster *rec,int ninc)
 {
@@ -346,8 +346,8 @@ int p2_rotateRecRaster(RecRaster *rec,int ninc)
   int xbyte  = (rec->lnPixWidth+7)>>3;
   int yrow   = rec->lnPixHeight;
   int i,j,k;
-  Word8 *tmpBuf;
-  Word8 *tmpRas;
+  uchar *tmpBuf;
+  uchar *tmpRas;
   int outByte;
   int firCol,lasCol;
   int max_shift,outXbit,outXbyte;
@@ -372,7 +372,7 @@ int p2_rotateRecRaster(RecRaster *rec,int ninc)
 
         {
         int s1,s2,c;
-        Word8 *rr;
+        uchar *rr;
 
         for (tmpRas=tmpRaster,tmpBuf=rec->Raster,i=0; i < yrow ;
               i++, tmpRas+=outXbyte,  tmpBuf+=xbyte8 )
@@ -602,12 +602,12 @@ Bool32 p2_is_upperASCII(BYTE ch)
  return 0;
 }
 //////////////////
-static Word8 rus_alias  []="£ѓв°В8";  // "гптб¬8"
-static Word8 eng_alias  []="rnr68B";
+static uchar rus_alias  []="£ѓв°В8";  // "гптб¬8"
+static uchar eng_alias  []="rnr68B";
 /////////////
-Word8    p2_rsadd_get_alias_class(Word8 let,Word8 lang)
+uchar    p2_rsadd_get_alias_class(uchar let,uchar lang)
 {
- Word8   *fa;
+ uchar   *fa;
  if( lang==LANG_RUSSIAN )
     fa=rus_alias;
  else if( lang==LANG_ENGLISH )

@@ -71,7 +71,7 @@ typedef struct { int16_t row,  /* row in c_comp */
 /*----------------------------------------------------------------------*/
 typedef struct						// l->xxx, r->xxx;
 	{
-  Word8
+  uchar
 		mount[5],   /* max flag in any zone. 0 - no flag	*/
 		conc[5],    /* max concave in any zone. 0 - no concave	*/
 		m_pos[5],   /* position of max flag in zone. 0-if no flag */
@@ -102,7 +102,7 @@ typedef struct							// s->xxx;
 		base_2mk,	// MK EDITION of SECOND,
 		base_3mk,	// THIRD,
 		base_4mk;	// and FOURTH base lines	03.01.1994
-  Word8
+  uchar
 		l_f_symptom,	// special signums for letter 'f'
 		r_f_symptom,	// l:0,1,2,3 ; r : 0,1,2
 		t_TOP,		// t^ or t~;
@@ -134,10 +134,10 @@ typedef struct							// s->xxx;
 		up_dot_H,	// Hight of DOT	(0 - NO DOT !)
     down_nose_1, // special for 1 : nose belong central zone
     up_dot_W; // Width of DOT
-  Int8
+  char
 		inc_num,	// 10.12.1993 (from inc_num_EEM)
 		up_dot_dCOL;	// Displacement of DOT (use col)
-  Word8    num_lines;      /* Number of with none single interval  */
+  uchar    num_lines;      /* Number of with none single interval  */
   int16_t incline;  /* Normal tg(stick)*2048 + line_incline */
 	} STICK_SIGNUMS;	// auxiliary information for
 				// stick diskrimination
@@ -166,8 +166,8 @@ typedef struct ln_head lnhead;
 
 struct int_s
  {
- Word8 l;  // length of interval
- Word8 e;  // end of interval coordinates
+ uchar l;  // length of interval
+ uchar e;  // end of interval coordinates
  };
 typedef struct int_s interval;
 

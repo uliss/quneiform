@@ -238,7 +238,7 @@ BOOL _Open(char * hDIB, char * FileName)
 	//
 	// Запишем изображение
 	//
-	if(!CIMAGE_WriteDIB((PWord8)_IMAGE_USER,g_pDIB,1))
+	if(!CIMAGE_WriteDIB((uchar *)_IMAGE_USER,g_pDIB,1))
 	{
 		g_pRecognition->SetError((char *)CIMAGE_GetReturnString(CIMAGE_GetReturnCode()));
 		rc = FALSE;
@@ -834,8 +834,8 @@ BOOL _GetRotateDIB(long * phDIB,long * x0,long * y0)
 	//
 	if(rc)
 	{
-		if(RIMAGE_Rotate((PWord8)_IMAGE_USER,
-							(PWord8)_IMAGE_ROTATE,
+		if(RIMAGE_Rotate((uchar *)_IMAGE_USER,
+							(uchar *)_IMAGE_ROTATE,
 							info.Incline2048,2048, 0) == FALSE)
 		{
 			g_pRecognition->SetError((char *)RIMAGE_GetReturnString(RIMAGE_GetReturnCode()));
@@ -846,7 +846,7 @@ BOOL _GetRotateDIB(long * phDIB,long * x0,long * y0)
 
 	if(rc)
 	{
-		if(!CIMAGE_ReadDIB((PWord8)_IMAGE_ROTATE,(void**)phDIB,TRUE))
+		if(!CIMAGE_ReadDIB((uchar *)_IMAGE_ROTATE,(void**)phDIB,TRUE))
 		{
 			g_pRecognition->SetError((char *)CIMAGE_GetReturnString(CIMAGE_GetReturnCode()));
 			rc = FALSE;

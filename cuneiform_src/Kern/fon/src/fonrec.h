@@ -70,7 +70,7 @@ typedef struct tagFONBase
 	 uint32_t fontFields[4][NFIELDDWORD];
 	 Bool32 isFirst;
 	 uint16_t first[256];
-	 Word8  tablColumn[32];
+	 uchar  tablColumn[32];
 	}
 	FONBASE;
 

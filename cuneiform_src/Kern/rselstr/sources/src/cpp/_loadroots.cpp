@@ -432,7 +432,7 @@ int w=comp->w;
 
         if (pRoots == NULL)
         {
-            ErrorNoEnoughMemory ((Word8*)"in LTROOTS.C, AddRoot");
+            ErrorNoEnoughMemory ((uchar*)"in LTROOTS.C, AddRoot");
             nRoots = 0;
             return FALSE;
         }

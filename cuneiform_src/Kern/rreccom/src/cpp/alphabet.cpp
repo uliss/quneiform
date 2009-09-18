@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-static Word8 alph_russian[256]={
+static uchar alph_russian[256]={
 //  0 1 2 3 4 5 6 7 8 9 A B C D E F
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 0
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 1
@@ -82,7 +82,7 @@ static Word8 alph_russian[256]={
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,    // e
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0     // f
  };
-static Word8 alph_digital[256]={
+static uchar alph_digital[256]={
 //  0 1 2 3 4 5 6 7 8 9 A B C D E F
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 0
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 1
@@ -101,7 +101,7 @@ static Word8 alph_digital[256]={
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // e
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0     // f
  };
- static Word8 alph_ruseng[256]={
+ static uchar alph_ruseng[256]={
 //  0 1 2 3 4 5 6 7 8 9 A B C D E F
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 0
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 1
@@ -120,7 +120,7 @@ static Word8 alph_digital[256]={
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,    // e
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0     // f
  };
- static Word8 alph_english[256]={
+ static uchar alph_english[256]={
 //  0 1 2 3 4 5 6 7 8 9 A B C D E F
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 0
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 1
@@ -139,7 +139,7 @@ static Word8 alph_digital[256]={
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // e
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0     // f
  };
- static Word8 alph_ce[256]={
+ static uchar alph_ce[256]={
 //  0 1 2 3 4 5 6 7 8 9 A B C D E F
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 0
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // 1
@@ -158,7 +158,7 @@ static Word8 alph_digital[256]={
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    // e
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0     // f
  };
-static Word8 *alph_lang[LANG_TOTAL]={
+static uchar *alph_lang[LANG_TOTAL]={
 alph_english        , // LANG_ENGLISH    0
 alph_english        , // LANG_GERMAN     1
 alph_english        , // LANG_FRENCH     2
@@ -189,7 +189,7 @@ alph_english        , // LANG_ESTONIAN	 26
 alph_english          // LANG_TURKISH	 27
 };
 
-Bool16    rec_set_alpha(Word8 language, Word8 *alphabet)
+Bool16    rec_set_alpha(uchar language, uchar *alphabet)
 {
 if( language>=LANG_TOTAL )
     return FALSE;
@@ -218,8 +218,8 @@ if(language==LANG_RUSSIAN || language==LANG_RUSENG ||
 if(language==LANG_BULGAR)
 	{
 	alphabet[r_EE_2dot]=0;	alphabet[r_e_2dot]=0;
-	alphabet[(Word8)'Û']=0;	alphabet[(Word8)'û']=0;
-	alphabet[(Word8)'Ý']=0;	alphabet[(Word8)'ý']=0;
+	alphabet[(uchar)'Û']=0;	alphabet[(uchar)'û']=0;
+	alphabet[(uchar)'Ý']=0;	alphabet[(uchar)'ý']=0;
 	}
 
 if( language==LANG_UKRAINIAN )
@@ -570,10 +570,10 @@ if( language==LANG_LATVIAN )
      alphabet[UU_macron			]=1;	alphabet[u_macron			]=1;
      alphabet[ZZ_inv_roof_baltic]=1;	alphabet[z_inv_roof_baltic	]=1;
 
-     alphabet[(Word8)'Q'] = alphabet[(Word8)'q'] = 0;
-     alphabet[(Word8)'W'] = alphabet[(Word8)'w'] = 0;
-     alphabet[(Word8)'X'] = alphabet[(Word8)'x'] = 0;
-     alphabet[(Word8)'Y'] = alphabet[(Word8)'y'] = 0;
+     alphabet[(uchar)'Q'] = alphabet[(uchar)'q'] = 0;
+     alphabet[(uchar)'W'] = alphabet[(uchar)'w'] = 0;
+     alphabet[(uchar)'X'] = alphabet[(uchar)'x'] = 0;
+     alphabet[(uchar)'Y'] = alphabet[(uchar)'y'] = 0;
 	}
 
 if( language==LANG_LITHUANIAN )
@@ -589,9 +589,9 @@ if( language==LANG_LITHUANIAN )
      alphabet[UU_macron			]=1;	alphabet[u_macron			]=1;
      alphabet[ZZ_inv_roof_baltic]=1;	alphabet[z_inv_roof_baltic	]=1;
 
-     alphabet[(Word8)'Q'] = alphabet[(Word8)'q'] = 0;
-     alphabet[(Word8)'W'] = alphabet[(Word8)'w'] = 0;
-     alphabet[(Word8)'X'] = alphabet[(Word8)'x'] = 0;
+     alphabet[(uchar)'Q'] = alphabet[(uchar)'q'] = 0;
+     alphabet[(uchar)'W'] = alphabet[(uchar)'w'] = 0;
+     alphabet[(uchar)'X'] = alphabet[(uchar)'x'] = 0;
 	}
 
 if( language==LANG_ESTONIAN )
@@ -604,11 +604,11 @@ if( language==LANG_ESTONIAN )
      alphabet[UU_2dot_accent	]=1;	alphabet[u_2dot_accent		]=1;
      alphabet[ZZ_inv_roof_baltic]=1;	alphabet[z_inv_roof_baltic	]=1;
 
-     alphabet[(Word8)'C'] = alphabet[(Word8)'c'] = 0;
-     alphabet[(Word8)'Q'] = alphabet[(Word8)'q'] = 0;
-     alphabet[(Word8)'W'] = alphabet[(Word8)'w'] = 0;
-     alphabet[(Word8)'X'] = alphabet[(Word8)'x'] = 0;
-     alphabet[(Word8)'Y'] = alphabet[(Word8)'y'] = 0;
+     alphabet[(uchar)'C'] = alphabet[(uchar)'c'] = 0;
+     alphabet[(uchar)'Q'] = alphabet[(uchar)'q'] = 0;
+     alphabet[(uchar)'W'] = alphabet[(uchar)'w'] = 0;
+     alphabet[(uchar)'X'] = alphabet[(uchar)'x'] = 0;
+     alphabet[(uchar)'Y'] = alphabet[(uchar)'y'] = 0;
 
 	}
 
@@ -698,7 +698,7 @@ static const char *tabevn2[LANG_TOTAL]={
 "rec2tur.dat"       // LANG_TURKISH		27
 };
 
-Bool16 rec_load_tables(Word8 language) {
+Bool16 rec_load_tables(uchar language) {
     if (language >= LANG_TOTAL)
         return FALSE;
     if (!EVNInitLanguage(tabevn1[language], tabevn2[language], language))
@@ -706,7 +706,7 @@ Bool16 rec_load_tables(Word8 language) {
     return TRUE;
 }
 
-Bool16 rec_is_language(Word8 language) {
+Bool16 rec_is_language(uchar language) {
     if (language < LANG_ENGLISH || language >= LANG_TOTAL)
         return FALSE;
     if (data_file_exists(tabevn1[language]) == -1)

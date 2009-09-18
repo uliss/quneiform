@@ -100,8 +100,8 @@ Handle hVertTestCells;
 Handle hFon;
 Handle hEnd;
 Handle hSegment;
-//extern Word8* Buffer;
-//extern Word8* WorkMem;
+//extern uchar* Buffer;
+//extern uchar* WorkMem;
 
 
 RMARKER_FUNC(Bool32) RMARKER_PageMarkup(PRMPreProcessImage Image,void* vBuff,int Size,void* vWork,int SizeWork)
@@ -132,10 +132,10 @@ RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode,Handle hStorage)
  LDPUMA_Init  (0,NULL);
 
 // Buffer=NULL;
-// Buffer=(Word8*)RMARKERAlloc(BufferSize*sizeof(Word8));
+// Buffer=(uchar*)RMARKERAlloc(BufferSize*sizeof(uchar));
 // if(!Buffer)
 //	return FALSE;
-// WorkMem=(Word8*)RMARKERAlloc(WorkMemSize*sizeof(Word8));
+// WorkMem=(uchar*)RMARKERAlloc(WorkMemSize*sizeof(uchar));
 // if(!WorkMem)
 //	return FALSE;
 
@@ -252,7 +252,7 @@ RMARKER_FUNC(Bool32) RMARKER_Done()
 	return TRUE;
 }
 
-RMARKER_FUNC(Int8 *) RMARKER_GetReturnString(uint32_t dwError)
+RMARKER_FUNC(char *) RMARKER_GetReturnString(uint32_t dwError)
 {return NULL;
 }
 

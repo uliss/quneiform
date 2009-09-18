@@ -751,7 +751,7 @@ INT get_baton_inc(cell *c)
  {
  INT n, inc=0;
  STICK *res,*r;
- Word8 let;
+ uchar let;
 
 if( c->nvers<1 )
     return 0;
@@ -764,23 +764,23 @@ if( c->nvers<1 )
     {
     switch( let )
         {
-        case    (Word8)'Ï':
-        case    (Word8)'ï':
+        case    (uchar)'Ï':
+        case    (uchar)'ï':
 			if (is_russian_baltic_conflict(let))	// 17.07.2001 E.P.
 				{inc=1;break;}
 
             if( n==2 && abs(r[1].incl-r[0].incl)<50 )
                 inc=r[1].incl;
             break;
-        case    (Word8)'×':
-        case    (Word8)'÷':
+        case    (uchar)'×':
+        case    (uchar)'÷':
             if( n==2 && abs(r[1].incl-r[0].incl)<50 )
                 inc=r[1].incl;
             else if( n==1  )
                 inc=r[0].incl;
             break;
-        case    (Word8)'Ò':
-        case    (Word8)'ò':
+        case    (uchar)'Ò':
+        case    (uchar)'ò':
             if( n==1  )
                 inc=r[0].incl;
             break;

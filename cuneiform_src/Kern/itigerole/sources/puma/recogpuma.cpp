@@ -106,7 +106,7 @@ Bool32 _SetSpecialProject(long nSpecPrj)
 {
 	Bool32 rc = 0;
 
-	rc = (Bool32)LPUMA_SetSpecialProject((Word8)nSpecPrj);
+	rc = (Bool32)LPUMA_SetSpecialProject((uchar)nSpecPrj);
 
 	return rc;
 }

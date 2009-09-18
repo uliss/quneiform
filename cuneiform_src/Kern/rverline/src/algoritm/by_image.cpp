@@ -80,11 +80,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define       MaxRastrHeight         33
 #define       MaxRastrSize         1000
 /*------------extern functions-----------------------------------------------*/
-Bool MyGetRaster (Handle hCPage, VL_I_TASK *pTask, Word8 **ppData);
+Bool MyGetRaster (Handle hCPage, VL_I_TASK *pTask, uchar **ppData);
 /*------------own functions--------------------------------------------------*/
 Bool NoInvest (LineInfo *pLns, VL_I_TASK *pTask);
-void BlackAddFromOneToOth (VL_I_TASK *pTask, Word8 *pData, Bool NormPhoto, int One, int Oth);
-void MakeLightProfil (VL_I_TASK *pTask, int *Profil, Word8 *pData
+void BlackAddFromOneToOth (VL_I_TASK *pTask, uchar *pData, Bool NormPhoto, int One, int Oth);
+void MakeLightProfil (VL_I_TASK *pTask, int *Profil, uchar *pData
 					  , Bool NormPhoto, int *Beg, int *End, Bool UseSpusk);
 Bool DecisionByImage (int *Profil, int Beg, int End, int Wid, int MaxLight
 					  , int MinDark);
@@ -110,10 +110,10 @@ Bool NoInvest (LineInfo *pLns, VL_I_TASK *pTask)
 	return FALSE;
 }
 /*---------------------------------------------------------------------------*/
-void BlackAddFromOneToOth (VL_I_TASK *pTask, Word8 *pData, Bool NormPhoto, int One, int Oth)
+void BlackAddFromOneToOth (VL_I_TASK *pTask, uchar *pData, Bool NormPhoto, int One, int Oth)
 {
-	Word8 *b;
-	Word8 *c;
+	uchar *b;
+	uchar *c;
 	int j;
 	for (j=0; j<(pTask->MyExtrWidth/8); j++)
 	{
@@ -160,11 +160,11 @@ void BlackAddFromOneToOth (VL_I_TASK *pTask, Word8 *pData, Bool NormPhoto, int O
 	}
 }
 /*---------------------------------------------------------------------------*/
-void MakeLightProfil (VL_I_TASK *pTask, int *Profil, Word8 *pData
+void MakeLightProfil (VL_I_TASK *pTask, int *Profil, uchar *pData
 					  , Bool NormPhoto, int *Beg, int *End, Bool UseSpusk)
 {
-	Word8 a;
-	Word8 *b;
+	uchar a;
+	uchar *b;
 	int i, j, k, Okrug;
 	/*  1. Определяем границы гистограммы "повернутого" изображения.  */
 	if (UseSpusk)
@@ -316,8 +316,8 @@ Bool DecisionByImage (int *Profil, int Beg, int End, int Wid, int MaxLight, int 
 int InvestShortLineWithRastr_rv_pne (Handle hCPage, LineInfo *pLns)
 {
 	VL_I_TASK Task = {0};
-	Word8 Data[MaxRastrSize];
-	Word8 *Buffer;
+	uchar Data[MaxRastrSize];
+	uchar *Buffer;
 	Bool ret;
 	int i, Beg, End, Okrug;
 	int Profil[MaxRastrHeight];

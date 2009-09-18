@@ -164,18 +164,18 @@ typedef struct tagRRecComControl
    RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(uint32_t dwType, const void * pData);
 
 // 1    RRECCOM_FNRECOG   опознать компоненты
-typedef Bool32   (*FNRRECCOM_Recog)(Handle hCCOM, RRecComControl Control, char *spath, Word8 lang);
-RRECCOM_FUNC(Bool32)  RRECCOM_Recog(Handle hCCOM, RRecComControl Control, char *spath, Word8 lang);
+typedef Bool32   (*FNRRECCOM_Recog)(Handle hCCOM, RRecComControl Control, char *spath, uchar lang);
+RRECCOM_FUNC(Bool32)  RRECCOM_Recog(Handle hCCOM, RRecComControl Control, char *spath, uchar lang);
 //2		RRECCOM_FNRECOGCOMP опознать одну компоненту
-//typedef Bool32   (*FNRRECCOM_RecogComp)(RecRaster* comp_raster, RecVersions* comp_vers, Word8 lang, Bool32 need_align8 = false);
-//RRECCOM_FUNC(Bool32)  RRECCOM_RecogComp(RecRaster* comp_raster, RecVersions* comp_vers, Word8 lang, Bool32 need_align8 = false);
+//typedef Bool32   (*FNRRECCOM_RecogComp)(RecRaster* comp_raster, RecVersions* comp_vers, uchar lang, Bool32 need_align8 = false);
+//RRECCOM_FUNC(Bool32)  RRECCOM_RecogComp(RecRaster* comp_raster, RecVersions* comp_vers, uchar lang, Bool32 need_align8 = false);
 
 /*
 // 1    RRECCOM_FNEVNPROPERT   установить опции для эвент
 // setup condition for recognition all comps without Event-algoriphm
 //       and alphabet (256 ANSI indicators for any letter)
-typedef Bool32   (*FNRRECCOM_SetEVNProperties)(ExcControl ExCW,char *spath, Word8 lang);
-RRECCOM_FUNC(Bool32)  RRECCOM_SetEVNProperties(ExcControl ExCW,char *spath, Word8 lang);
+typedef Bool32   (*FNRRECCOM_SetEVNProperties)(ExcControl ExCW,char *spath, uchar lang);
+RRECCOM_FUNC(Bool32)  RRECCOM_SetEVNProperties(ExcControl ExCW,char *spath, uchar lang);
 // 2    RRECCOM_FNEXTRACOMP    найти компоненты с помощью коллбэков
 typedef Bool32 (*FNRRECCOM_Excomp)(ExcControl Control,
     TImageOpen  tio,        TImageClose tic,
@@ -185,52 +185,52 @@ RRECCOM_FUNC(int32_t)  Extracomp(ExcControl Control,
     TImageRead  tir,        Tiger_ProcComp tipc);
 // 3    RRECCOM_FNEXTRA        найти компоненты в растре
 typedef Bool32 (*FNRRECCOM_Exc)(ExcControl Control,
-    Word8 *lpRaster, int32_t BWid, Bool32 ReverseOrder,
+    uchar *lpRaster, int32_t BWid, Bool32 ReverseOrder,
     int32_t Wid, int32_t Hei,
     int32_t HRes, int32_t VRes,
     int32_t TemplCol, int32_t TemplRow, int32_t TemplWid, int32_t TemplHei);
 RRECCOM_FUNC(Bool32)  RRECCOMExtra(ExcControl Control,
-    Word8 *lpRaster, int32_t BWid, Bool32 ReverseOrder,
+    uchar *lpRaster, int32_t BWid, Bool32 ReverseOrder,
     int32_t Wid, int32_t Hei,
     int32_t HRes, int32_t VRes,
     int32_t TemplCol, int32_t TemplRow, int32_t TemplWid, int32_t TemplHei, Bool32 FotoMetr);
 // 4    RRECCOM_FNEXTRADIB     найти компоненты в ДИБе
 typedef Bool32 (*FNRRECCOM_ExcDIB)(ExcControl ExCW,
-    Word8 *lpDIB,
+    uchar *lpDIB,
     int32_t TemplCol, int32_t TemplRow, int32_t TemplWid, int32_t TemplHei);
 RRECCOM_FUNC(Bool32)  RRECCOMExtraDIB(ExcControl ExCW,
-    Word8 *lpDIB,
+    uchar *lpDIB,
     int32_t TemplCol, int32_t TemplRow, int32_t TemplWid, int32_t TemplHei);
 // 5    RRECCOM_FNGETCONTAINER   Получить код контейнера с компонентами
 typedef  int32_t (*FNRRECCOM_GetContainer)(void);
 RRECCOM_FUNC(int32_t)  RRECCOMGetContainer(void);
 // 6    RRECCOM_FNGETLENEREP     Получить интервальное представление
-typedef  Bool32  (*FNRRECCOM_MakeLP)( RecRaster   *rRaster , Word8 *lp, int16_t *lp_size, int16_t *numcomp);
-RRECCOM_FUNC(Bool32)     RRECCOMMakeLP  ( RecRaster   *rRaster , Word8 *lp, int16_t *lp_size, int16_t *numcomp);
+typedef  Bool32  (*FNRRECCOM_MakeLP)( RecRaster   *rRaster , uchar *lp, int16_t *lp_size, int16_t *numcomp);
+RRECCOM_FUNC(Bool32)     RRECCOMMakeLP  ( RecRaster   *rRaster , uchar *lp, int16_t *lp_size, int16_t *numcomp);
 // 7    RRECCOM_FNVERSION Дать версию библиотеки
 //
 //
 */
 // 8    RRECCOM_FNREX_ISLANGUAGE существует ли язык
-typedef Bool32 (*FNRRECCOM_IsLanguage)(Word8 language);
-RRECCOM_FUNC(Bool32)  RRECCOM_IsLanguage(Word8 language);
+typedef Bool32 (*FNRRECCOM_IsLanguage)(uchar language);
+RRECCOM_FUNC(Bool32)  RRECCOM_IsLanguage(uchar language);
 /*
 // 9    RRECCOM_FNGETORIENT    ориентация страницы
-//typedef Bool32 (*FNRRECCOM_GetOrient)(Word8 *ori);
-   RRECCOM_FUNC(Bool32) RRECCOM_GetOrient(Word8 *ori, Handle hCCOM);
+//typedef Bool32 (*FNRRECCOM_GetOrient)(uchar *ori);
+   RRECCOM_FUNC(Bool32) RRECCOM_GetOrient(uchar *ori, Handle hCCOM);
 
 // 10   RRECCOM_FNMN2CCOM      из MN в CCOM_comp
 typedef CCOM_comp*   (*FNRRECCOM_MN2CCOM)(Handle hCCOM,Handle hmn);
 RRECCOM_FUNC(CCOM_comp*)   RRECCOM_MN2CCOM(Handle hCCOM,Handle hmn);
 // 11   RRECCOM_FNGETINVERTION инверсный ли образ (белое на чёрном)
-typedef Bool32 (*FNRRECCOM_GetInvertion)(Word8 *inv);
-RRECCOM_FUNC(Bool32) RRECCOM_GetInvertion(Word8 *inv);
+typedef Bool32 (*FNRRECCOM_GetInvertion)(uchar *inv);
+RRECCOM_FUNC(Bool32) RRECCOM_GetInvertion(uchar *inv);
 typedef Bool32 (*FNRRECCOM_ProgressStart )(void);
 typedef Bool32 (*FNRRECCOM_ProgressStep  )(uint32_t step);
 typedef Bool32 (*FNRRECCOM_ProgressFinish)(void);
 // 12   RRECCOM_FNEVNALPHABET   установка алфавита для евент
-typedef Bool32 (*FNRRECCOM_SetEVNAlphabet)(char *spath, Word8 lang);
-RRECCOM_FUNC(Bool32) RRECCOM_SetEVNAlphabet(char *spath, Word8 lang);
+typedef Bool32 (*FNRRECCOM_SetEVNAlphabet)(char *spath, uchar lang);
+RRECCOM_FUNC(Bool32) RRECCOM_SetEVNAlphabet(char *spath, uchar lang);
 // 13   RRECCOM_FNEXTRACOMP3CB 3 коллбэка
 typedef Bool32  (*FNRRECCOMExtracomp3CB)(ExcControl ExCW,TImageOpen tio,
                                 TImageClose tic, TImageRead tir);

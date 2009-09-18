@@ -85,29 +85,29 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	}
 
 //////////////////////Functions prototypes///////////////////////////
-int16_t set_stick_char (Word8 left[], Word8 right[], int16_t hooks[],
+int16_t set_stick_char (uchar left[], uchar right[], int16_t hooks[],
        int16_t dy, int16_t dx, int16_t opt, int16_t wide, int16_t corr_mode,
        int16_t skip_ul, int16_t skip_dl, int16_t skip_ur, int16_t skip_dr,
        int16_t inc_num,
 		   STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
        int16_t *l_mode, int16_t *r_mode);
-static int16_t fun_ge(Word8 fun[],int16_t n, int16_t level);
-static int16_t fun_le(Word8 fun[],int16_t n, int16_t level);
+static int16_t fun_ge(uchar fun[],int16_t n, int16_t level);
+static int16_t fun_le(uchar fun[],int16_t n, int16_t level);
 static void calc_chars (STICK_CHARS *res, int16_t level, int16_t typ,
-          Word8 fun[], int16_t n, int16_t skip_u, int16_t skip_d);
-static int16_t study_nose_1(Word8 left[],int16_t n,int16_t level, int16_t width);
-static void set_serifs(Word8 left[],Word8 right[],
+          uchar fun[], int16_t n, int16_t skip_u, int16_t skip_d);
+static int16_t study_nose_1(uchar left[],int16_t n,int16_t level, int16_t width);
+static void set_serifs(uchar left[],uchar right[],
 		       STICK_CHARS *left_chars,STICK_CHARS *right_chars,
            int16_t skip_ul,int16_t skip_dl,int16_t skip_ur,int16_t skip_dr,
            int16_t l,int16_t r,int16_t dy,int16_t dx);
-static void correct_serifs(Word8 left[],Word8 right[],
+static void correct_serifs(uchar left[],uchar right[],
 		       STICK_CHARS *left_chars,STICK_CHARS *right_chars,
            int16_t skip_ul,int16_t skip_dl,int16_t skip_ur,int16_t skip_dr,
            int16_t l,int16_t r,int16_t dy);
 static int16_t correct_beam(STICK_CHARS *l, STICK_CHARS *r,int16_t lev,int16_t dist);
 static int16_t correct_neck(STICK_CHARS *l, STICK_CHARS *r,int16_t lev,int16_t dist);
 static void num_flag_conc (STICK_CHARS *res, int16_t width);
-static void set_near ( Word8 fun[], int16_t skip_u, int16_t skip_d,
+static void set_near ( uchar fun[], int16_t skip_u, int16_t skip_d,
        int16_t n_full, int16_t lev, int16_t lim[],
        int16_t left[], int16_t right[], int16_t l_pos[], int16_t r_pos[],
        int16_t lb_pos[], int16_t le_pos[], int16_t rb_pos[], int16_t re_pos[],
@@ -117,7 +117,7 @@ static int16_t set_flags (STICK_CHARS *res, int16_t right[], int16_t left[],
          int16_t mb_pos[], int16_t me_pos[],int16_t cb_pos[], int16_t ce_pos[],
          int16_t sum_r, int16_t sum_l, int16_t ear);
 static int16_t compress4(int16_t v);
-static void set_long(Word8 fun[],int16_t skip_u,int16_t skip_d,int16_t n,
+static void set_long(uchar fun[],int16_t skip_u,int16_t skip_d,int16_t n,
         int16_t lev,int16_t lim[], int16_t sl, int16_t sr,
         int16_t left[],int16_t right[],int16_t l_pos[],int16_t r_pos[],
               int16_t lb_pos[],int16_t le_pos[],int16_t rb_pos[],int16_t re_pos[],
@@ -125,15 +125,15 @@ static void set_long(Word8 fun[],int16_t skip_u,int16_t skip_d,int16_t n,
 static int16_t correct_two_zones(int16_t *kk,int16_t *mm,int16_t i,int16_t imax,int16_t extr_pos,
          int16_t lim[]);
 static int16_t index_arr(int16_t v,int16_t limit[],int16_t n);
-static void find_peak_new (int16_t *ind1, int16_t *ind2, Word8 fun[], int16_t nn,
-  int16_t level, int16_t sr, int16_t *extr_pos, Word8 *extr_fun);
-static int16_t typ_nose_1(Word8 left[],int16_t n,int16_t lim,int16_t lev);
-static Bool16 find_first_ne(Word8 fun[],int16_t n,int16_t direct,int16_t level);
-static void find_conc_new (int16_t *ind1, int16_t *ind2, Word8 fun[], int16_t nn,
-  int16_t level, int16_t sl, int16_t *extr_pos, Word8 *extr_fun);
+static void find_peak_new (int16_t *ind1, int16_t *ind2, uchar fun[], int16_t nn,
+  int16_t level, int16_t sr, int16_t *extr_pos, uchar *extr_fun);
+static int16_t typ_nose_1(uchar left[],int16_t n,int16_t lim,int16_t lev);
+static Bool16 find_first_ne(uchar fun[],int16_t n,int16_t direct,int16_t level);
+static void find_conc_new (int16_t *ind1, int16_t *ind2, uchar fun[], int16_t nn,
+  int16_t level, int16_t sl, int16_t *extr_pos, uchar *extr_fun);
 ///////////////////////////////////////////////////////////////////////////
 
-static Word8 tab_1[]=
+static uchar tab_1[]=
 	{
 	120,	// 0. no left upper flag and left mode > 0
 	80,	// 1. too down begin of nose
@@ -147,7 +147,7 @@ static Word8 tab_1[]=
 //////	12	// 9. MK: VERT FLAT NOSE (first 48, sec.12); PROBA 31.05.1993
 	};
 
-int16_t set_stick_char (Word8 left[], Word8 right[], int16_t hooks[],
+int16_t set_stick_char (uchar left[], uchar right[], int16_t hooks[],
        int16_t dy, int16_t dx, int16_t opt, int16_t wide, int16_t corr_mode,
        int16_t skip_ul, int16_t skip_dl, int16_t skip_ur, int16_t skip_dr,
 //////       int16_t inc,
@@ -198,7 +198,7 @@ lll_dis = study_nose_1(left,dy,lm,wide);	// 01.06.1993
 s->lll_nose_1 = lll_dis >> 8;		// 00xx or 01xx => 0 or 1
 s->dis_nose_1 = lll_dis & 0xFF;
 
-s->typ_nose_1 = (Word8)typ_nose_1(left,dy,(int16_t)((wide>4)?4:2),lm);
+s->typ_nose_1 = (uchar)typ_nose_1(left,dy,(int16_t)((wide>4)?4:2),lm);
 	/* typ_nose_1 - indicator normal (inc) nose 1 */
 
 l->up_hook    = (hooks[0]>1);	/* hooks-signums ex. right down : */
@@ -206,9 +206,9 @@ l->down_hook  = (hooks[1]>1);	/*   °                            */
 r->up_hook   = (hooks[2]>1);	/*   °  °                         */
 r->down_hook = (hooks[3]>1);	/*   °°°°                         */
 
-s->height = (Word8)dy;
+s->height = (uchar)dy;
 s->width  = dx;
-s->stick_width  =(Word8) wide;
+s->stick_width  =(uchar) wide;
 
 /*****************************	BEFORE 10.12.1993:
 //////s->inc    = inc;		// before 03.06.1993
@@ -218,7 +218,7 @@ s->inc_v16 = (char) (inc & 0xFF);	// 17.11.1993 for case inc_v16<0;
 ********************************/
 
 s->inc = (inc_num!=0);
-s->inc_num = (Int8)inc_num;	// 10.12.1993
+s->inc_num = (char)inc_num;	// 10.12.1993
 
 /* serifs checking */
 set_serifs (left, right, l, r,
@@ -238,9 +238,9 @@ num_flag_conc (l, wide);
 ///*l_mode = left_mode_EEM = (lm-corr_mode)>>2;	// 05.08.1993	SOPLI I WOPLI
 ///*r_mode = (rm-corr_mode)>>2;
     *l_mode = (lm-corr_mode)>>2;	// 07.01.1994
-    s->left_mode  = (Word8)*l_mode;
+    s->left_mode  = (uchar)*l_mode;
     *r_mode = (rm-corr_mode)>>2;
-    s->right_mode =(Word8) *r_mode;
+    s->right_mode =(uchar) *r_mode;
 //////s->full_width = l->max_flag + wide + r->max_flag;	// 07.01.1994	###
 s->full_width = (s->right_mode - s->left_mode + 1) +	// 07.01.1994
 		l->max_flag + r->max_flag;
@@ -249,7 +249,7 @@ return(1);
 }
 
 
-static int16_t fun_ge(Word8 fun[],int16_t n, int16_t level)
+static int16_t fun_ge(uchar fun[],int16_t n, int16_t level)
 {
 int16_t i,s,f;
 for(s=i=0;i<n;i++)
@@ -260,7 +260,7 @@ for(s=i=0;i<n;i++)
 return(s);
 }
 
-static int16_t fun_le(Word8 fun[],int16_t n, int16_t level)
+static int16_t fun_le(uchar fun[],int16_t n, int16_t level)
 {
 int16_t i,s,f;
 for(s=i=0;i<n;i++)
@@ -272,7 +272,7 @@ return(s);
 }
 
 static void calc_chars (STICK_CHARS *res, int16_t level, int16_t typ,
-          Word8 fun[], int16_t n, int16_t skip_u, int16_t skip_d)
+          uchar fun[], int16_t n, int16_t skip_u, int16_t skip_d)
 {
 #define SIZ 6
 int16_t r, l, sr=2, sl=2, sum_r, sum_l;
@@ -329,7 +329,7 @@ set_long (fun, skip_u, skip_d, n, level, lim, sl, sr,
 return;
 }
 
-static int16_t study_nose_1(Word8 left[],int16_t n,int16_t level, int16_t width)
+static int16_t study_nose_1(uchar left[],int16_t n,int16_t level, int16_t width)
 {
 int16_t  i = -1, ii, nn=n>>1, dis=0 ,minim, imin  ,s , lmin ;
 
@@ -422,7 +422,7 @@ if (dis==0)		// 31.05.1993	PROBA for STD-4 unlv2009,2010
 return( dis );
 }
 
-static void set_serifs(Word8 left[],Word8 right[],
+static void set_serifs(uchar left[],uchar right[],
 		       STICK_CHARS *left_chars,STICK_CHARS *right_chars,
            int16_t skip_ul,int16_t skip_dl,int16_t skip_ur,int16_t skip_dr,
            int16_t l,int16_t r,int16_t dy,int16_t dx)
@@ -477,7 +477,7 @@ else if( left[dy-1-skip_dl]<=l1 )
 return;
 }
 
-static void correct_serifs(Word8 left[],Word8 right[],
+static void correct_serifs(uchar left[],uchar right[],
 		       STICK_CHARS *left_chars,STICK_CHARS *right_chars,
            int16_t skip_ul,int16_t skip_dl,int16_t skip_ur,int16_t skip_dr,
            int16_t l,int16_t r,int16_t dy)
@@ -659,15 +659,15 @@ for(n=i=0; i<5 ;i++)
 	if(res->mount[i]>t)
 		n++;
 
-res -> num_flags =(Word8) sf;          /* number of flags      */
-res -> num_concs =(Word8) sc;          /* number of concaves   */
-res -> num_long_flags = (Word8) n;      /* number of long flags */
-res -> max_flag =(Word8) max_flag;	// 06.01.1994
+res -> num_flags =(uchar) sf;          /* number of flags      */
+res -> num_concs =(uchar) sc;          /* number of concaves   */
+res -> num_long_flags = (uchar) n;      /* number of long flags */
+res -> max_flag =(uchar) max_flag;	// 06.01.1994
 
 return;
 }
 
-static void set_near ( Word8 fun[], int16_t skip_u, int16_t skip_d,
+static void set_near ( uchar fun[], int16_t skip_u, int16_t skip_d,
 //////       int16_t n, int16_t lev, int16_t lim[],
        int16_t n_full, int16_t lev, int16_t lim[],
        int16_t left[], int16_t right[], int16_t l_pos[], int16_t r_pos[],
@@ -679,7 +679,7 @@ static void set_near ( Word8 fun[], int16_t skip_u, int16_t skip_d,
 				// and USE NOW  "nn"  ONLY!!!
 				// (TAK GOVORIL ZARATUSTRA)
 int16_t i, k, b, e, ex,  nn = n_full - skip_d;
-Word8  level=(Word8)lev, f; // NB: int16_t lev, Word8 level;
+uchar  level=(uchar)lev, f; // NB: int16_t lev, uchar level;
 int16_t nL, nR;   // 28.01.1994 (OLD l, r);
 
 ///for (l=r=0,i=skip_u;i<nn;i++) //this cykl find near mounts for any interval:
@@ -740,19 +740,19 @@ int16_t i;
 
 for(i=0;i<5;i++)
 	{
-	res->mount[i] = (Word8)compress4(right[i]);
-	res->m_pos[i] = (Word8)r_pos[i];
-	res->mb_pos[i] = (Word8)mb_pos[i];
-	res->me_pos[i] = (Word8)me_pos[i];
+	res->mount[i] = (uchar)compress4(right[i]);
+	res->m_pos[i] = (uchar)r_pos[i];
+	res->mb_pos[i] = (uchar)mb_pos[i];
+	res->me_pos[i] = (uchar)me_pos[i];
 
-	res->conc[i]  =(Word8) compress4(left[i]);
-	res->c_pos[i] =(Word8) l_pos[i];
-	res->cb_pos[i] = (Word8)cb_pos[i];
-	res->ce_pos[i] =(Word8) ce_pos[i];
+	res->conc[i]  =(uchar) compress4(left[i]);
+	res->c_pos[i] =(uchar) l_pos[i];
+	res->cb_pos[i] = (uchar)cb_pos[i];
+	res->ce_pos[i] =(uchar) ce_pos[i];
 	}
-res->m_meandr = (Word8)sum_r;
-res->c_meandr = (Word8)sum_l;
-res->main_ear = (Word8)ear  ;
+res->m_meandr = (uchar)sum_r;
+res->c_meandr = (uchar)sum_l;
+res->main_ear = (uchar)ear  ;
 
 return(1);
 }
@@ -774,14 +774,14 @@ else
 return( v );
 }
 
-static void set_long(Word8 fun[],int16_t skip_u,int16_t skip_d,int16_t n,
+static void set_long(uchar fun[],int16_t skip_u,int16_t skip_d,int16_t n,
         int16_t lev,int16_t lim[], int16_t sl, int16_t sr,
         int16_t left[],int16_t right[],int16_t l_pos[],int16_t r_pos[],
               int16_t lb_pos[],int16_t le_pos[],int16_t rb_pos[],int16_t re_pos[],
         int16_t *ll,int16_t *rr)
 {
 int16_t i,k,m,extr,imax,l,r,nn=n-skip_d;
- Word8 level=(Word8)lev,f;
+ uchar level=(uchar)lev,f;
 for(r=l=0,i=skip_u;i<nn;i++)
 	{
 	f=fun[i];
@@ -877,13 +877,13 @@ for(i=1; i<n && v>=limit[i]; i++);
 return( i-1 );
 }
 
-static void find_peak_new (int16_t *ind1, int16_t *ind2, Word8 fun[], int16_t nn,
-  int16_t level, int16_t sr, int16_t *extr_pos, Word8 *extr_fun) // MK NEW
+static void find_peak_new (int16_t *ind1, int16_t *ind2, uchar fun[], int16_t nn,
+  int16_t level, int16_t sr, int16_t *extr_pos, uchar *extr_fun) // MK NEW
 {							// 14.01.1993
 int16_t i=*ind1, extr;
-Word8  f=*extr_fun;
+uchar  f=*extr_fun;
 ///int16_t  w_of_max = right0 [i] - left0 [i];  // MK 19.01.1993
-///Word8 f_i, w_i;
+///uchar f_i, w_i;
 
 	extr=*ind2=i++ ;
 
@@ -918,7 +918,7 @@ Word8  f=*extr_fun;
 //	return;
 }
 
-static int16_t typ_nose_1(Word8 left[],int16_t n,int16_t lim,int16_t lev)
+static int16_t typ_nose_1(uchar left[],int16_t n,int16_t lim,int16_t lev)
 {                                         /* normal nose (inc+jumps) : */
 int16_t  i ,jumps, ret   ;                        /*        °°             */
 for(jumps=i=0;i<n && left[i]>=left[i+1]; i++) /*       °°°             */
@@ -937,21 +937,21 @@ if( ret )
 return( ret );
 }
 
-static Bool16 find_first_ne(Word8 fun[],int16_t n,int16_t direct,int16_t level)
+static Bool16 find_first_ne(uchar fun[],int16_t n,int16_t direct,int16_t level)
 {
 int16_t i,ind;
-Word8 lev=(Word8)level;
+uchar lev=(uchar)level;
 for(ind=i=0;i<n;i++,ind+=direct)
 	if( fun[ind]!=lev )
 		return(TRUE);
 return(FALSE);
 }
 
-static void find_conc_new (int16_t *ind1, int16_t *ind2, Word8 fun[], int16_t nn,
-  int16_t level, int16_t sl, int16_t *extr_pos, Word8 *extr_fun) // MK NEW
+static void find_conc_new (int16_t *ind1, int16_t *ind2, uchar fun[], int16_t nn,
+  int16_t level, int16_t sl, int16_t *extr_pos, uchar *extr_fun) // MK NEW
 {							// 14.01.1992
 int16_t i=*ind1, extr;
-Word8  f=*extr_fun;
+uchar  f=*extr_fun;
 	extr=*ind2=i++;
 
 	//MK: NO END && NEXT==TEK   && NEXT.NEXT==TEK  GO TO NEXT

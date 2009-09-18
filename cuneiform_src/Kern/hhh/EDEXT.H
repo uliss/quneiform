@@ -70,13 +70,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma pack(push,1)
 struct edExtention
 {
-	Word8/*unsigned char   */  	code;   /* always SS_EXTENTION <0x1C> */
+	uchar/*unsigned char   */  	code;   /* always SS_EXTENTION <0x1C> */
 	uint16_t/*unsigned short int*/      Ecode;  /* New extention code */
 	uint16_t/*unsigned short int*/      length; /* Length in bytes */
 };
 struct edExtentionNew
 {
-	Word8/*unsigned char   */  	code;   /* always SS_EXTENTION <0x1C> */
+	uchar/*unsigned char   */  	code;   /* always SS_EXTENTION <0x1C> */
 	uint16_t/*unsigned short int*/      Ecode;  /* New extention code */
 	uint32_t/*unsigned short int*/      length; /* Length in bytes */
 };

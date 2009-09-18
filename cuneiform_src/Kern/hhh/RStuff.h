@@ -96,7 +96,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 typedef struct tagRSPreProcessImage
 {
-	PWord8	*pgpRecogDIB;
+	uchar *	*pgpRecogDIB;
 	Bool32	gbAutoRotate;
 	Bool32  gbDotMatrix;
 	Bool32  gbFax100;
@@ -151,7 +151,7 @@ typedef struct tagRSCBProgressPoints
 RSTUFF_FUNC(Bool32) RSTUFF_Init(uint16_t wHeightCode,Handle hStorage);
 RSTUFF_FUNC(Bool32) RSTUFF_Done();
 RSTUFF_FUNC(uint32_t) RSTUFF_GetReturnCode();
-RSTUFF_FUNC(Int8 *) RSTUFF_GetReturnString(uint32_t dwError);
+RSTUFF_FUNC(char *) RSTUFF_GetReturnString(uint32_t dwError);
 RSTUFF_FUNC(Bool32) RSTUFF_GetExportData(uint32_t dwType, void * pData);
 RSTUFF_FUNC(Bool32) RSTUFF_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////
@@ -185,7 +185,7 @@ DEC_FUN(Bool32, RSNormalise,         (PRSPreProcessImage,void* vBuff,int Size,vo
 DEC_FUN(Bool32, RSNormVerify,        (PRSPreProcessImage));
 DEC_FUN(Bool32, RSNormRemoveLines,   (PRSPreProcessImage));
 DEC_FUN(Bool32, RSLayout,            (PRSPreProcessImage));
-DEC_FUN(Bool32, RSSetSpecPrj,          (Word8 NoSpecPrj));
+DEC_FUN(Bool32, RSSetSpecPrj,          (uchar NoSpecPrj));
 #undef DEC_FUN
 
 

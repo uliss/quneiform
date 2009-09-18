@@ -147,7 +147,7 @@ ROUT_TABLE_TEXT_ALIGN_COLUMNS = 2
 ROUT_FUNC(Bool32) ROUT_Init(uint16_t wHeightCode,Handle hStorage);
 ROUT_FUNC(Bool32) ROUT_Done();
 ROUT_FUNC(uint32_t) ROUT_GetReturnCode();
-ROUT_FUNC(Int8 *) ROUT_GetReturnString(uint32_t dwError);
+ROUT_FUNC(char *) ROUT_GetReturnString(uint32_t dwError);
 ROUT_FUNC(Bool32) ROUT_GetExportData(uint32_t dwType, void * pData);
 ROUT_FUNC(Bool32) ROUT_SetImportData(uint32_t dwType, void * pData);
 //*****************************************************************
@@ -198,7 +198,7 @@ DEC_FUN(Bool32, ROUT_UnloadEd,(void));
 // Получение списка поддерживаемых форматов
 // Возвращает количество форматов или (-1) при ошибке
 DEC_FUN(long, ROUT_ListFormats,
-	(PWord8 buf,	  // Адрес буфера для списка ROUT_ITEM
+	(uchar * buf,	  // Адрес буфера для списка ROUT_ITEM
 	uint32_t sizeBuf // Длина буфера
 	));
 
@@ -206,14 +206,14 @@ DEC_FUN(long, ROUT_ListFormats,
 // для текущей загруженной страницы.
 // Возвращает количество форматов или (-1) при ошибке
 DEC_FUN(long, ROUT_ListAvailableFormats,
-	(PWord8 buf,	// Адрес буфера для списка ROUT_ITEM
+	(uchar * buf,	// Адрес буфера для списка ROUT_ITEM
 	uint32_t sizeBuf	// Длина буфера
 	));
 
 // Получение списка кодировок для данного формата
 // Возвращает количество кодировок или -1 при ошибке
 DEC_FUN(long, ROUT_ListCodes,
-	(PWord8 buf,	// Адрес буфера для списка ROUT_ITEM
+	(uchar * buf,	// Адрес буфера для списка ROUT_ITEM
 	uint32_t sizeBuf	// Длина буфера
 	));
 

@@ -110,7 +110,7 @@ class CTableChar;
 
 void  GetFragmLines( int32_t m_NumberFragm , Point32* m_point );
 BOOL  CheckLine( CSTR_line* Comingline );
-void  AddLetter( CSTR_rast* rast , Word8*  m_ucCode , Word8* m_ucFontNumber );
+void  AddLetter( CSTR_rast* rast , uchar*  m_ucCode , uchar* m_ucFontNumber );
 void  Write_SetPhCellParam( Handle h_Page, Handle h_Table, CTableRow* rTableRow, Point32 m_TempPhPoint,
 																										 int32_t CountStrCellInPn, int32_t FlagPhisicalGroup , int32_t NumberPhysicalGroup );
 /////////////////////////////////////////////////////////////////////////////
@@ -189,7 +189,7 @@ uint32_t         m_Flags;
 
   union
   {
-	Word8		m_u8BoundsType[4];//Информация о типе границ ячейки:L,R,T,B !!!Art
+	uchar		m_u8BoundsType[4];//Информация о типе границ ячейки:L,R,T,B !!!Art
 	uint32_t		m_u32BoundsType;
   };
 };

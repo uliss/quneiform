@@ -114,7 +114,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 CFIO_FUNC(Bool32) CFIO_Init(uint16_t wHeightCode,Handle hStorage);
 CFIO_FUNC(Bool32) CFIO_Done();
 CFIO_FUNC(uint32_t) CFIO_GetReturnCode();
-CFIO_FUNC(Int8 *) CFIO_GetReturnString(uint32_t dwError);
+CFIO_FUNC(char *) CFIO_GetReturnString(uint32_t dwError);
 CFIO_FUNC(Bool32) CFIO_GetExportData(uint32_t dwType, void * pData);
 CFIO_FUNC(Bool32) CFIO_SetImportData(uint32_t dwType, void * pData);
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -165,7 +165,7 @@ enum CFIOFolders
 //typedef   Handle (*FNOpenStorage)(char *, uint32_t);
 //Handle    OpenStorage            (char * lpName,
 //								  uint32_t dwTypes);
-DEC_FUN(Handle, OpenStorage, (PInt8, uint32_t) );
+DEC_FUN(Handle, OpenStorage, (char *, uint32_t) );
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Close Storage
 #define   CS_WITHOUT_SAVE         0x01                                 // Only close
@@ -182,7 +182,7 @@ DEC_FUN(Bool32, CloseStorage, (Handle, uint32_t));
 //Delete storage from disk (don't need to be opened)
 //typedef   Bool32 (*FNDeleteStorage)(char *);
 //Bool32    DeleteStorage            (char * lpName);
-DEC_FUN(Bool32, DeleteStorage, (PInt8));
+DEC_FUN(Bool32, DeleteStorage, (char *));
 ////////////////////////////////////////////////////////////////////////////////////////////////////////Files
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Write file to storage
@@ -190,13 +190,13 @@ DEC_FUN(Bool32, DeleteStorage, (PInt8));
 //uint32_t    WriteFileToStorage            (Handle hStorage,
 //										 Handle hFile,
 //										 char * lpName);
-DEC_FUN(uint32_t, WriteFileToStorage, (Handle , Handle, PInt8 ));
+DEC_FUN(uint32_t, WriteFileToStorage, (Handle , Handle, char * ));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Read file from storage
 //typedef   Handle (*FNReadFileFromStorage)(Handle , char * );
 //Handle    ReadFileFromStorage            (Handle hStorage,
 //										  char * lpName);
-DEC_FUN(Handle, ReadFileFromStorage, (Handle , PInt8 ));
+DEC_FUN(Handle, ReadFileFromStorage, (Handle , char * ));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Open file
 #define   OSF_CREATE               0x01
@@ -210,7 +210,7 @@ DEC_FUN(Handle, ReadFileFromStorage, (Handle , PInt8 ));
 //Handle    OpenFreeFile    (Handle hFile,
 //						   char * lpName,
 //						   uint32_t dwFlag);
-DEC_FUN(Handle, OpenFreeFile, (Handle, PInt8, uint32_t));
+DEC_FUN(Handle, OpenFreeFile, (Handle, char *, uint32_t));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Close file
 #define   CSF_SAVEDISK             0x01
@@ -227,14 +227,14 @@ DEC_FUN(Bool32, CloseFreeFile, (Handle, uint32_t));
 //uint32_t    WriteToFile      (Handle hFile,
 //							char * lpData,
 //							uint32_t dwSize);
-DEC_FUN(uint32_t, WriteToFile, (Handle, PInt8, uint32_t));
+DEC_FUN(uint32_t, WriteToFile, (Handle, char *, uint32_t));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Read data from file
 //typedef   uint32_t (*FNRead)(Handle, char *, uint32_t);
 //uint32_t    ReadFromFile    (Handle hFile,
 //						   char * lpData,
 //						   uint32_t dwSize);
-DEC_FUN(uint32_t, ReadFromFile, (Handle, PInt8, uint32_t));
+DEC_FUN(uint32_t, ReadFromFile, (Handle, char *, uint32_t));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Seek pointer
 #define   FS_END                   0x01
@@ -278,7 +278,7 @@ DEC_FUN(Bool32, FlushFile, (Handle));
 //Handle    AllocMemory      (uint32_t dwSize,
 //							uint32_t dwFlag);
 DEC_FUN(Handle, AllocMemory, (uint32_t, uint32_t));
-DEC_FUN(Handle, DAllocMemory, (uint32_t, uint32_t, Int8*, Int8*));
+DEC_FUN(Handle, DAllocMemory, (uint32_t, uint32_t, char*, char*));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ReAlloc memory
 #define   MRF_NEW_MEMORY                  0x0000
@@ -311,27 +311,27 @@ DEC_FUN(Bool32, UnlockMemory, (Handle));
 //typedef   uint32_t (*FNWriteMemToFile)(Handle, char *);
 //uint32_t    WriteMemoryToFile         (Handle hMem,
 //									 char * lpName);
-DEC_FUN(uint32_t, WriteMemoryToFile, (Handle, PInt8));
+DEC_FUN(uint32_t, WriteMemoryToFile, (Handle, char *));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Read data from disk to memory
 //typedef   uint32_t (*FNReadMemFromFile)(char *, Handle *);
 //uint32_t    ReadMemoryFromFile         (char * lpName,
 //									  Handle * phMem);
-DEC_FUN(uint32_t, ReadMemoryFromFile, (PInt8, Handle *));
+DEC_FUN(uint32_t, ReadMemoryFromFile, (char *, Handle *));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Write data from memory to storage
 //typedef   uint32_t (*FNWriteMemToStorage)(Handle, Handle, char *);
 //uint32_t    WriteMemoryToStorage         (Handle hMem,
 //										Handle hStorage,
 //										char * lpName);
-DEC_FUN(uint32_t, WriteMemoryToStorage, (Handle, Handle, PInt8));
+DEC_FUN(uint32_t, WriteMemoryToStorage, (Handle, Handle, char *));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Read data from storage to memory
 //typedef   uint32_t (*FNReadMemFromStorage)(Handle, char *, Handle *);
 //uint32_t    ReadMemoryFromStorage         (Handle hStorage,
 //										 char * lpName,
 //										 Handle * phMem);
-DEC_FUN(uint32_t, ReadMemoryFromStorage, (Handle, PInt8, Handle *));
+DEC_FUN(uint32_t, ReadMemoryFromStorage, (Handle, char *, Handle *));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #undef DEC_FUN
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////

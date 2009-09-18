@@ -74,7 +74,7 @@ extern P2GLOBALS p2globals;		// 01.06.2001 E.P.
 #define P_IN   245      // зилнпэ
 
 
-static Word8 porogSelfTest[256]={
+static uchar porogSelfTest[256]={
 	P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,
 	P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,
 	P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,P_TEST,
@@ -94,7 +94,7 @@ static Word8 porogSelfTest[256]={
 };
 
 // с кем путаются буквы на первом проходе
-static Word8 *testAlts[256]={
+static uchar *testAlts[256]={
 	"","","","","","","","","","","","","","","","",
     "","","","","","","","","","","","","","","","",
 	"","","","","","","","","","","","","","","","", //32-47
@@ -121,7 +121,7 @@ static Word8 *testAlts[256]={
 int32_t p2_testSelf(RecRaster *recRast,RecVersions *vers,FonSpecInfo *specInfo,int32_t testSelf)
 {
  int nAlt,i;
- Word8 *alts;
+ uchar *alts;
  FonTestInfo testInfo[MAXCHECKALT];
 
     if( !specInfo || !specInfo->nLet )
@@ -131,7 +131,7 @@ int32_t p2_testSelf(RecRaster *recRast,RecVersions *vers,FonSpecInfo *specInfo,i
 	if( testSelf > 0 )
 	{
 		nAlt = 1;
-		testInfo[0].prob = (Word8)testSelf;
+		testInfo[0].prob = (uchar)testSelf;
 	}
     else
 	{

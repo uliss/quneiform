@@ -110,7 +110,7 @@ extern FILE* f_temp_cut;
 extern FILE* f_old_cut;
 
 int GetMediumHeight(POLY_*);
-BOOL GetMasP(Handle hCPage, Rect16 Rc, Word8** ppmasp);
+BOOL GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp);
 BOOL Increase2(RecRaster* rast, CCOM_comp* comp);
 int GetCountNumbers(int num);
 void StrDrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top,
@@ -220,9 +220,9 @@ int CutStrings(POLY_* pBlock) {
 				pBlock)) {
 			if (comp->h >= cut_h && comp->h <= medium_h * 5 && comp->w
 					>= inf_let_w - 1) {
-				Word8 Data[1000];
+				uchar Data[1000];
 				memset(Data, 0, sizeof(Data));
-				Word8* pmasp = Data;
+				uchar* pmasp = Data;
 				Rect16 Rc;
 
 				Rc.top = comp->upper;
@@ -340,7 +340,7 @@ int GetStatisticsH() {
 	return sum / count;
 }
 
-BOOL GetMasP(Handle hCPage, Rect16 Rc, Word8** ppmasp) {
+BOOL GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp) {
 	int prewide;
 	int left = Rc.left;
 	int h = Rc.bottom - Rc.top + 1;
@@ -357,7 +357,7 @@ BOOL GetMasP(Handle hCPage, Rect16 Rc, Word8** ppmasp) {
 	CIMAGEInfoDataInGet DataInto = { 0 };
 	CIMAGEInfoDataOutGet DataOut = { 0 };
 
-	Word8 Name[CPAGE_MAXNAME];
+	uchar Name[CPAGE_MAXNAME];
 	Bool ret;
 	int i;
 
@@ -396,8 +396,8 @@ BOOL Increase2(RecRaster* rast, CCOM_comp* comp) {
 	if (comp->h * ((comp->w + 7) / 8) > REC_MAX_RASTER_SIZE)
 		return FALSE;
 
-	Word8 bytep;
-	Word8 bytep2;
+	uchar bytep;
+	uchar bytep2;
 	int nowbyte = 0;
 	int nowbyte2 = 0;
 	int k;
@@ -405,7 +405,7 @@ BOOL Increase2(RecRaster* rast, CCOM_comp* comp) {
 	int count = (rast->lnPixWidth + 63) / 64;
 	int new_count = (newbytewide + 7) / 8;
 
-	Word8* str = new Word8[REC_MAX_RASTER_SIZE];
+	uchar* str = new uchar[REC_MAX_RASTER_SIZE];
 	if (!str)
 		return FALSE;
 
@@ -519,7 +519,7 @@ BOOL Increase2(RecRaster* rast, CCOM_comp* comp) {
 		}
 	}
 
-	Word8* raster = rast->Raster;
+	uchar* raster = rast->Raster;
 	for (i = REC_MAX_RASTER_SIZE - 1; i >= 0; i--)
 		raster[i] = str[i];
 

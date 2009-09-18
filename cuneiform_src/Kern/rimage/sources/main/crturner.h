@@ -99,13 +99,13 @@ private:
 
 protected:
 	uint32_t    wRightShift[8];// { 7, 6, 5, 4, 3, 2, 1, 0};
-	Word8     wRightMask[8]; // { 11111110b, 11111100b, 11111000b, 11110000b, 11100000b, 11000000b, 10000000b, 00000000b };
-	Word8     wLeftMask[8];  // { 11111110b, 11111100b, 11111000b, 11110000b, 11100000b, 11000000b, 10000000b, 00000000b };
-	Word8     wBitMask[8];  //  { 10000000b, 01000000b, 00100000b, 00010000b, 00001000b, 00000100b, 00000010b, 00000001b };
+	uchar     wRightMask[8]; // { 11111110b, 11111100b, 11111000b, 11110000b, 11100000b, 11000000b, 10000000b, 00000000b };
+	uchar     wLeftMask[8];  // { 11111110b, 11111100b, 11111000b, 11110000b, 11100000b, 11000000b, 10000000b, 00000000b };
+	uchar     wBitMask[8];  //  { 10000000b, 01000000b, 00100000b, 00010000b, 00001000b, 00000100b, 00000010b, 00000001b };
 	Handle    hLineBuffer;
-	PWord8    LineBuffer;
-	Word8     Turn1at180[256];
-	Word8     Turn1at90[132][8];
+	uchar *    LineBuffer;
+	uchar     Turn1at180[256];
+	uchar     Turn1at90[132][8];
 };
 
 typedef  CRTurner   *PCRTurner,  **PPCRTurner;

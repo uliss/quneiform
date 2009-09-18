@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 RLINE_FUNC(Bool32) RLINE_Init(uint16_t wHeightCode,void * hStorage);
 RLINE_FUNC(Bool32) RLINE_Done();
 RLINE_FUNC(uint32_t) RLINE_GetReturnCode();
-RLINE_FUNC(Int8 *) RLINE_GetReturnString(uint32_t dwError);
+RLINE_FUNC(char *) RLINE_GetReturnString(uint32_t dwError);
 RLINE_FUNC(Bool32) RLINE_GetExportData(uint32_t dwType, void * pData);
 RLINE_FUNC(Bool32) RLINE_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////
@@ -103,9 +103,9 @@ typedef enum
 
 DEC_FUN(Bool32,  RLINE_SearchLines,(void* lpInPage,void* hpCLINE));
 DEC_FUN(Bool32,  RLINE_DeleteLines,(void* lpInPage, const char* lpOutDIB));
-DEC_FUN(Bool32,  RLINE_LinesPass1, (Handle hCPage,Handle hCCOM,void* phCLINE,PBool32 pgneed_clean_line, Bool32 sdl, Word8 lang));
+DEC_FUN(Bool32,  RLINE_LinesPass1, (Handle hCPage,Handle hCCOM,void* phCLINE,PBool32 pgneed_clean_line, Bool32 sdl, uchar lang));
 DEC_FUN(Bool32,  RLINE_LinesPass2, (Handle hCCOM,void* phCLINE, Handle hCPAGE));
-DEC_FUN(Bool32,  RLINE_LinesPass3, (Handle hCPage, Handle hCLINE, Handle hCCOM, Word8 lang));
+DEC_FUN(Bool32,  RLINE_LinesPass3, (Handle hCPage, Handle hCLINE, Handle hCCOM, uchar lang));
 //DEC_FUN(Bool32,  RLINE_DeleteLines,(void* lpInName , void* lpDIB, void** lpOutName));
 
 /*

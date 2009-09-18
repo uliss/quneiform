@@ -83,7 +83,7 @@ MMX_FUNC(void)      MMX_open_image(uint16_t *_EAX);
 MMX_FUNC(void)      MMX_close_image(void);
 MMX_FUNC(uint32_t)    MMX_scalar_sq(uint16_t *_EAX,int32_t _ECX);
 MMX_FUNC(void)      MMX_scale( uint16_t *_EAX, int32_t _ECX, int32_t _EDX);
-MMX_FUNC(void)      MMX_binarize_16x16(uint16_t *rin,Word8 *rout);
+MMX_FUNC(void)      MMX_binarize_16x16(uint16_t *rin,uchar *rout);
 
 // for NET.dll
 MMX_FUNC(uint32_t)    MMX_scalarUni (int16_t * _EAX, int16_t * _EDX, int32_t num);

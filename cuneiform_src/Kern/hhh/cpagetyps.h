@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define PT_PAGEINFO CPAGE_GetInternalType("__PageInfo__")
 
 typedef struct {
-	Int8	szImageName[CPAGE_MAXNAME];// имя блока распознаваемого изображения в контейнере RIMAGE
+	char	szImageName[CPAGE_MAXNAME];// имя блока распознаваемого изображения в контейнере RIMAGE
 	uint32_t	Page; // номер страницы
 	uint32_t	DPIX;
 	uint32_t	DPIY;

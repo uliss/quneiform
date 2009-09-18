@@ -108,10 +108,10 @@ struct mn_struc
  int16_t mnboxcnt;  		// number of boxes in component
 #define usual_box_count 20 	// heuristic of number of lines in a letter
 #define great_box_count	200	// heuristic for number of boxes in a picture
- Word8 mnlines;                  // number of lines in the component
- Word8 mnbegs;           	// number of free line begins
- Word8 mnends;                   // number of free line ends
- Word8 mnflag;         	        // flag byte for main number
+ uchar mnlines;                  // number of lines in the component
+ uchar mnbegs;           	// number of free line begins
+ uchar mnends;                   // number of free line ends
+ uchar mnflag;         	        // flag byte for main number
 #define mnpicture 1		// component is a picture
  struct mn_struc *mnnext;	// address of next dead component
  };
@@ -132,8 +132,8 @@ struct box_struct
 				//    within box)
  int16_t	            boxex; 	// coordinate of last segment end (if line
 				//    ends within box)
- Word8 		    boxflag; 	// byte for box attributes flags
- Word8		    boxwf; 	// working flag (for picture compress)
+ uchar 		    boxflag; 	// byte for box attributes flags
+ uchar		    boxwf; 	// working flag (for picture compress)
  uint16_t		    boxresw; 	// reserved word (for *4 arround)
  };
 typedef struct box_struct BOX;

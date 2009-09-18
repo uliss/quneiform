@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //--------------------------GLOBAL VARIABLES------------------------
 int16_t      minrow,bbs1,bbs2,bbs3,bbs4,Nb1,Nb2,Nb3;
-Word8      language;
+uchar      language;
 
 HINSTANCE  ghInst = NULL;
 uint16_t     gwHeightRC = 0;
@@ -114,10 +114,10 @@ return rc;
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RCUTP_FUNC(Int8 *) RCUTP_GetReturnString(uint32_t dwError)
+RCUTP_FUNC(char *) RCUTP_GetReturnString(uint32_t dwError)
 {
 	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
-	static Int8 szBuffer[512];
+	static char szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
 		gwLowRC = IDS_ERR_NOTIMPLEMENT;

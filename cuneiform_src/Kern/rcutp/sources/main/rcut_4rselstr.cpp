@@ -77,9 +77,9 @@ static int sup_dust_w;
 static int min_cut_down_let_w;
 static int sup_prob_w;
 /*********************************************************************************************/
-static int GetCountCutLetters(CCOM_comp* comp, Word8* pmasp);
+static int GetCountCutLetters(CCOM_comp* comp, uchar* pmasp);
 static int IfNeedCut(CCOM_comp* comp, BOOL* type_let);
-//static BOOL GetMasP(Rect16 Rc,Word8** ppmasp);
+//static BOOL GetMasP(Rect16 Rc,uchar** ppmasp);
 static BOOL JNotInMas2(int j,int* mas,int size,int bound);
 static BOOL JNotInMas(int j,int* mas,int size,int bound);
 static BOOL IfZpt(CCOM_comp* comp);
@@ -125,7 +125,7 @@ RCUTP_FUNC(void) RCUTP_RSelStr_UnsetEnv()
 	env_set = false;
 }
 /*********************************************************************************************/
-RCUTP_FUNC(int) RCUTP_RSelStr_CP(CCOM_comp* comp, BOOL* type_let, Word8* pmasp)
+RCUTP_FUNC(int) RCUTP_RSelStr_CP(CCOM_comp* comp, BOOL* type_let, uchar* pmasp)
 {
 	if (!comp || !env_set || !pmasp) return 0;
 
@@ -134,11 +134,11 @@ RCUTP_FUNC(int) RCUTP_RSelStr_CP(CCOM_comp* comp, BOOL* type_let, Word8* pmasp)
 	return IfNeedCut(comp, type_let);
 }
 /*********************************************************************************************/
-int GetCountCutLetters(CCOM_comp* comp, Word8* pmasp)
+int GetCountCutLetters(CCOM_comp* comp, uchar* pmasp)
 {
- Word8 Data[1000];
+ uchar Data[1000];
  memset (Data, 0, sizeof (Data));
-// Word8* pmasp=Data;
+// uchar* pmasp=Data;
  Rect16 Rc;
 
 
@@ -166,7 +166,7 @@ int GetCountCutLetters(CCOM_comp* comp, Word8* pmasp)
 
  int newstr;
  int bytewide=(w+7)/8;
- Word8 bytep;
+ uchar bytep;
  int rect=128>>(7-(bytewide*8-w));
  int count_black=0;
  int i;
@@ -471,7 +471,7 @@ int ExBound(CCOM_comp* comp,int bound)
  int left_bound;
  int right_bound;
  int bytewide=((rast.lnPixWidth+63)/64)*8;
- Word8 bytep;
+ uchar bytep;
  BOOL Not_move_down=FALSE;
 
  if(rast_bound+delta>rast.lnPixHeight||rast_bound-delta<0)
@@ -709,7 +709,7 @@ void NotCutDownLetter(RecRaster* rast,int& bound,int rast_bound,int new_rast_bou
 {
  int left_bound;
  int right_bound;
- Word8 bytep;
+ uchar bytep;
  int bytewide=((rast->lnPixWidth+63)/64)*8;
  BOOL fl_cut=FALSE;
  BOOL fl_break=FALSE;
@@ -842,7 +842,7 @@ BOOL IfWhiteRow(RecRaster* rast,int row)
  int bytewide=8*((rast->lnPixWidth+63)/64);
  int byte_row=row>>3;
  int rect_row=128>>(row%8);
- Word8* Raster=rast->Raster;
+ uchar* Raster=rast->Raster;
  for(int i=rast->lnPixHeight-1;i>=0;i--)
  {
 	 if(Raster[i*bytewide+byte_row]&rect_row)

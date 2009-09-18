@@ -299,10 +299,10 @@ void LayoutFromCPAGE(Handle hCPAGE,Handle hCCOM)
 
     BOOL type_vert;
 	BOOL type_neg;
-	Word8* ImageTurn=(Word8*)PUMA_IMAGE_TURN;
-	Word8* ImageUser=(Word8*)PUMA_IMAGE_USER;
-	Word8* ImageOrto=(Word8*)PUMA_IMAGE_ORTOMOVE;
-	Word8* ImageBin = (Word8*)PUMA_IMAGE_BINARIZE;
+	uchar* ImageTurn=(uchar*)PUMA_IMAGE_TURN;
+	uchar* ImageUser=(uchar*)PUMA_IMAGE_USER;
+	uchar* ImageOrto=(uchar*)PUMA_IMAGE_ORTOMOVE;
+	uchar* ImageBin = (uchar*)PUMA_IMAGE_BINARIZE;
 	CHSTR_Objects* Hstr=NULL;
 	int nObjects=0;
 	int len_Objects=50;
@@ -525,7 +525,7 @@ if( s->nDust > s->nLetters*1 )
 					attr.r_col = com->left;
 					attr.flg   = CSTR_f_dust;
 					CSTR_SetAttr (rst, &attr);
-					CSTR_StoreComp (rst, (Word8*)com->linerep,1,com->scale);
+					CSTR_StoreComp (rst, (uchar*)com->linerep,1,com->scale);
                     if(com->vers )
 					CSTR_StoreCollection(rst, com->vers);
 					}
@@ -552,7 +552,7 @@ if( s->nDust > s->nLetters*1 )
 					attr.r_col = com->left;
 					attr.flg   = CSTR_f_let|CSTR_f_bad;
 					CSTR_SetAttr (rst, &attr);
- 					CSTR_StoreComp (rst, (Word8*)com->linerep,1,com->scale);
+ 					CSTR_StoreComp (rst, (uchar*)com->linerep,1,com->scale);
                     if( s->uFlags & CSTR_STR_CapDrop )
                         {
                         CCOM_comp       *ci=com;
@@ -561,7 +561,7 @@ if( s->nDust > s->nLetters*1 )
                         int32_t           n;
 
                         ub.code=CCOM_UB_CAPDROPLN;
-                        ub.data=(Word8*)&n;
+                        ub.data=(uchar*)&n;
                         if( CCOM_GetUserBlock(ci,&ub) )
                             CCOM_SetUserBlock(co,&ub);
                         }

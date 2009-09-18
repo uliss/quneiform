@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 2 - Digital
 // 4 - Roma digit
 //
-static Word8 typ_of_alpha[256] = {
+static uchar typ_of_alpha[256] = {
      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 //                                                         last 0f
      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -98,24 +98,24 @@ static Word8 typ_of_alpha[256] = {
    };
 
 
-static Word8 up_of_alpha[256] = {
+static uchar up_of_alpha[256] = {
      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 //                                                         last 0f
      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 //                                                         last 1f
      0,0,0,'#',0,'%',0,0,0,0,0,0,0,0,0,'/',
 //     ! "  #  $  %  & ' ( ) * + , - . /           last = 2f
-     (Word8)'0',(Word8)'1',(Word8)'2',(Word8)'3',(Word8)'4',(Word8)'5',(Word8)'6',(Word8)'7',(Word8)'8',(Word8)'9',0,0, 0,0, 0, 0, 0,
+     (uchar)'0',(uchar)'1',(uchar)'2',(uchar)'3',(uchar)'4',(uchar)'5',(uchar)'6',(uchar)'7',(uchar)'8',(uchar)'9',0,0, 0,0, 0, 0, 0,
 //    0   1   2   3   4   5   6   7   8   9 : ; <  =  >  ?  @         last = 40
      'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z', 0,0, 0,0,0,0,
 //   A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [  \  ] ^ _ `                                 last: 60
-     'a','b','C','d','e','f','g','h','i','j','k','l','m','n','O','P','q','r','S','t','u','V','W','X','Y','Z',0,(Word8)'|',0,0,0,
+     'a','b','C','d','e','f','g','h','i','j','k','l','m','n','O','P','q','r','S','t','u','V','W','X','Y','Z',0,(uchar)'|',0,0,0,
 //   a b c d e f g h i j k l m n o p q r s t u v w x y z {  |  } ~
-     (Word8)'Ä',(Word8)'Å',(Word8)'Ç',(Word8)'É',(Word8)'Ñ',(Word8)'Ö',(Word8)'Ü',(Word8)'á',(Word8)'à',(Word8)'â',(Word8)'ä',(Word8)'ã',(Word8)'å',(Word8)'ç',(Word8)'é',(Word8)'è',
+     (uchar)'Ä',(uchar)'Å',(uchar)'Ç',(uchar)'É',(uchar)'Ñ',(uchar)'Ö',(uchar)'Ü',(uchar)'á',(uchar)'à',(uchar)'â',(uchar)'ä',(uchar)'ã',(uchar)'å',(uchar)'ç',(uchar)'é',(uchar)'è',
 //    Ä   Å   Ç   É   Ñ   Ö   Ü   á   à   â   ä   ã   å   ç   é   è
-     (Word8)'ê',(Word8)'ë',(Word8)'í',(Word8)'ì',(Word8)'î',(Word8)'ï',(Word8)'ñ',(Word8)'ó',(Word8)'ò',(Word8)'ô',(Word8)'ö',(Word8)'õ',(Word8)'ú',(Word8)'ù',(Word8)'û',(Word8)'ü',
+     (uchar)'ê',(uchar)'ë',(uchar)'í',(uchar)'ì',(uchar)'î',(uchar)'ï',(uchar)'ñ',(uchar)'ó',(uchar)'ò',(uchar)'ô',(uchar)'ö',(uchar)'õ',(uchar)'ú',(uchar)'ù',(uchar)'û',(uchar)'ü',
 //    ê   ë   í   ì   î   ï   ñ   ó   ò   ô   ö   õ   ú   ù   û   ü
-     (Word8)'†',(Word8)'°',(Word8)'Ç',(Word8)'É',(Word8)'Ñ',(Word8)'•',(Word8)'Ü',(Word8)'á',(Word8)'à',(Word8)'â',(Word8)'ä',(Word8)'ã',(Word8)'å',(Word8)'ç',(Word8)'é',(Word8)'è',
+     (uchar)'†',(uchar)'°',(uchar)'Ç',(uchar)'É',(uchar)'Ñ',(uchar)'•',(uchar)'Ü',(uchar)'á',(uchar)'à',(uchar)'â',(uchar)'ä',(uchar)'ã',(uchar)'å',(uchar)'ç',(uchar)'é',(uchar)'è',
 //    †   °   ¢   £   §   •   ¶   ß   ®   ©   ™   ´   ¨   ≠   Æ   Ø
      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 //
@@ -123,13 +123,13 @@ static Word8 up_of_alpha[256] = {
 //
      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 //
-     (Word8)'ê',(Word8)'ë',(Word8)'í',(Word8)'ì',(Word8)'î',(Word8)'ï',(Word8)'ñ',(Word8)'ó',(Word8)'ò',(Word8)'ô',(Word8)'ö',(Word8)'õ',(Word8)'ú',(Word8)'ù',(Word8)'û',(Word8)'ü',
+     (uchar)'ê',(uchar)'ë',(uchar)'í',(uchar)'ì',(uchar)'î',(uchar)'ï',(uchar)'ñ',(uchar)'ó',(uchar)'ò',(uchar)'ô',(uchar)'ö',(uchar)'õ',(uchar)'ú',(uchar)'ù',(uchar)'û',(uchar)'ü',
 //    ‡   ·   ‚   „   ‰   Â   Ê   Á   Ë   È   Í   Î   Ï   Ì   Ó   Ô
      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 //
    };
 
-static Word8 leo_accepted[256]={
+static uchar leo_accepted[256]={
   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 //                                                         last 0f
      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

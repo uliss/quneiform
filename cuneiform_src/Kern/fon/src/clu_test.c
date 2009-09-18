@@ -91,7 +91,7 @@ int32_t TestClustNames(welet *wel,int numWel,
        j=FONGetClusterAsBW( NULL,i,0,&recRast);
 	   if(j<0) continue;
 
-	   dist= FONTestChar(&recRast,(Word8)n2,testInfo,0);
+	   dist= FONTestChar(&recRast,(uchar)n2,testInfo,0);
        if(dist <= 0 ||  testInfo[0].prob <= d2 )
 		     continue;
 
@@ -986,7 +986,7 @@ int TestAddFontGood(int numCluster, InfoCluster *infoC,
 	return numStay;
 }
 ////////////////
-static Word8 isInColumn[256];
+static uchar isInColumn[256];
 int AnalyzeTablColumn(welet *wel,int numWelet,int column)
 {
 	int i;

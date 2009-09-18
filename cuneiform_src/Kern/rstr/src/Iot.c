@@ -188,7 +188,7 @@ BYTE let;
    if( c->col+c->w < cap->col ||
        c->col      > cap->col+cap->w) return 0;  // not centered dust
 if(0&&!p2_active)  // OLEG
-   if( let==r_cu_u || let==(Word8)'¨' )
+   if( let==r_cu_u || let==(uchar)'¨' )
        {
         B_LINES bl;
         get_b_lines(c,&bl);

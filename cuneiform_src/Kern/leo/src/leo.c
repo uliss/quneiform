@@ -73,7 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "leo_func.h"
 #include "snptools.h"
 
-Word8 leo_alpha_type, prn_roma_regim;
+uchar leo_alpha_type, prn_roma_regim;
 //extern int nNdxHei;
 extern int32_t   GLU_all,
         GLU_rus ,
@@ -95,7 +95,7 @@ dst->lnAltCnt = i;
 return TRUE;
 }
 
-int leo_exist_code(RecVersions *ver, Word8 code)
+int leo_exist_code(RecVersions *ver, uchar code)
 {
 int i;
 for(i=0;i<ver->lnAltCnt;i++)
@@ -106,7 +106,7 @@ for(i=0;i<ver->lnAltCnt;i++)
 return -1;
 }
 
-int leo_exist_codes(RecVersions *ver, Word8 *codes)
+int leo_exist_codes(RecVersions *ver, uchar *codes)
 {
 int i;
 for(i=0;i<ver->lnAltCnt;i++)
@@ -137,7 +137,7 @@ return (int32_t)(((RecAlt *)b)->Prob) - (int32_t)(((RecAlt *)a)->Prob) ;
 int leo_sort_vers_prob(RecVersions *v)
 {
 int i,n0,n1;
-Word8 c0,c1;
+uchar c0,c1;
 RecAlt a0,a1;
 stdQsort(v->Alt,v->lnAltCnt,sizeof(RecAlt),cmp_prob);
 if( v->lnAltCnt>1 && v->Alt[0].Prob==v->Alt[1].Prob )
@@ -185,7 +185,7 @@ return;
 
 void leo_compress( RecVersions *v)
 {
-Word8 alph[256];
+uchar alph[256];
 RecVersions c;
 int i,j;
 
@@ -318,7 +318,7 @@ return;
 
 
 
-void leo_kill(RecVersions *v,Word8 *kill_list)
+void leo_kill(RecVersions *v,uchar *kill_list)
 {
 int i,l=strlen(kill_list);
 if( !v->lnAltCnt )
@@ -331,7 +331,7 @@ for(i=0;i<REC_MAX_VERS && i<v->lnAltCnt; i++)
 return;
 }
 
-void VersToAlph(RecVersions *ver,Word8 alphabet0[])
+void VersToAlph(RecVersions *ver,uchar alphabet0[])
 {
 int i;
 
@@ -341,7 +341,7 @@ return;
 }
 
 
-Word8 leo_get_prob(RecVersions *v,Word8 let)
+uchar leo_get_prob(RecVersions *v,uchar let)
 {
 int i;
 
@@ -354,7 +354,7 @@ return 0;
 
 void leo_special_iva( RecVersions *v, RecRaster   *recR )
 {
-Word8 alphabet0[256];
+uchar alphabet0[256];
 if( leo_alpha_type==ALPH_ROM )
     {
     if( v->lnAltCnt<2 || v->Alt[0].Code==v->Alt[1].Code )
@@ -398,8 +398,8 @@ ver->lnAltCnt=k;
 return;
 }
 
-int leo_expert_recog(Word8 Code,uint16_t *v3x5,
-    RecRaster *r , Word8 prob_3x5, Word8 prob_iva)
+int leo_expert_recog(uchar Code,uint16_t *v3x5,
+    RecRaster *r , uchar prob_3x5, uchar prob_iva)
 {
 
 RecVersions loc;
@@ -416,11 +416,11 @@ return prob_3x5;
 
 }
 
-int leo_expert_recog_prn(Word8 Code, RecRaster *raster,uint16_t *v3x5, Word8 prob_3x5,
+int leo_expert_recog_prn(uchar Code, RecRaster *raster,uint16_t *v3x5, uchar prob_3x5,
         Bool32 enable5x3)
 {
 RecVersions loc;
-Word8       wide_letters[] = {  134,140,148,152,153,155,158,
+uchar       wide_letters[] = {  134,140,148,152,153,155,158,
                                 166,172,228,232,233,235,238
                              };// ж   м   ф   ш   щ   ы   ю
 uint16_t      v5x3[16];
@@ -467,7 +467,7 @@ return;
 }
 
 void leo_expert_prob( RecVersions *v,uint16_t *v3x5,
-    RecRaster *r , Word8 prob_3x5[], Word8 prob_iva[], int32_t prn,Bool32 bonus, Bool32 enable5x3)
+    RecRaster *r , uchar prob_3x5[], uchar prob_iva[], int32_t prn,Bool32 bonus, Bool32 enable5x3)
 {
 int p, pold;
 
@@ -505,7 +505,7 @@ leo_set_max_vers(v,p);
 return;
 }
 
-void add_to_prob_array(Word8 prob[],RecVersions *v)
+void add_to_prob_array(uchar prob[],RecVersions *v)
 {
 int i,n;
 n= v->lnAltCnt;
@@ -518,23 +518,23 @@ for(i=0;i<n;i++)
 return;
 }
 
-int leo_comp_codes(Word8 c1, Word8 c2)
+int leo_comp_codes(uchar c1, uchar c2)
 {
 return stdLeoCompareChar(c1, c2);
 }
 
-Word8 * leo_strchr_codes(Word8 *c1, Word8 c2)
+uchar * leo_strchr_codes(uchar *c1, uchar c2)
 {
-Word8   *c;
+uchar   *c;
 for(c=c1;*c;c++)
     if( leo_comp_codes( *c, c2) )
         return c;
 return NULL;
 }
 
-Word8 * leo_strchr_codes_ansi(Word8 *c1, Word8 c2)
+uchar * leo_strchr_codes_ansi(uchar *c1, uchar c2)
 {
-Word8   *c;
+uchar   *c;
 for(c=c1;*c;c++)
     if( leo_comp_codes( stdAnsiToAscii(*c), c2) )
         return c;
@@ -658,12 +658,12 @@ if( per->lnAltCnt && iva->lnAltCnt && per->Alt[0].Prob>REC_PER_LIMIT )
 return FALSE;
 }
 
-void set_result(RecVersions *res,int ind, Word8 ch[])
+void set_result(RecVersions *res,int ind, uchar ch[])
 {
 int    leo_tab3[]={2    , 3     , 3    , 3    , 3    , 3   , 3  };
-Word8  leo_tab0[]={255  , 253   , 251  , 250  , 252  , 249 , 248};
-Word8  leo_tab1[]={ 96  ,  96   , 197  , 159  , 112  , 224 , 175};
-Word8  leo_tab2[]={  0  ,  80   , 133  , 144  ,  96  , 149 , 154};
+uchar  leo_tab0[]={255  , 253   , 251  , 250  , 252  , 249 , 248};
+uchar  leo_tab1[]={ 96  ,  96   , 197  , 159  , 112  , 224 , 175};
+uchar  leo_tab2[]={  0  ,  80   , 133  , 144  ,  96  , 149 , 154};
 int j;
 
 res->lnAltCnt      = leo_tab3[ind];
@@ -681,10 +681,10 @@ return ;
 int32_t leoMakePropability(RecVersions *per, RecVersions *sce, RecVersions *iva,
 RecVersions *res  )
 {
-Word8 per_ch1, per_pr1, per_ch2=0, per_pr2=0; // perceptron
-Word8 sce_ch1, sce_pr1, sce_ch2=0, sce_pr2=0; // sceleton
-Word8 iva_ch1, iva_pr1, iva_ch2=0, iva_pr2=0; // ivanisov
-Word8 ch[4];
+uchar per_ch1, per_pr1, per_ch2=0, per_pr2=0; // perceptron
+uchar sce_ch1, sce_pr1, sce_ch2=0, sce_pr2=0; // sceleton
+uchar iva_ch1, iva_pr1, iva_ch2=0, iva_pr2=0; // ivanisov
+uchar ch[4];
 
 res->lnAltCnt = 0;
 if( !per->lnAltCnt || !sce->lnAltCnt || !iva->lnAltCnt )
@@ -808,8 +808,8 @@ Bool32 leoRecogCharRom( RecObject*  object ,  int32_t erect)
 RecVersions ver, loc, alph, iva, sver, tmp, sce, per;
 int32_t		num_horiz_dist, hei;
 uint16_t      CompImage16x16[16*16];
-//Word8		feat[256];
-Word8       prob_3x5[256]={0}, prob_iva[256]={0};
+//uchar		feat[256];
+uchar       prob_3x5[256]={0}, prob_iva[256]={0};
 Bool32      bonus=FALSE;
 
 memset(&ver,0,sizeof(RecVersions));

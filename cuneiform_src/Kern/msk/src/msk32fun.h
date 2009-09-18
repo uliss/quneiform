@@ -59,11 +59,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "cttypes.h"
 
-int new_reco(short, short,uint16_t *, Word8 *, BYTE, BYTE,
-			 short m1,short n1,short m2,short n2, Word8 *ch, Word8 enable_1);
+int new_reco(short, short,uint16_t *, uchar *, BYTE, BYTE,
+			 short m1,short n1,short m2,short n2, uchar *ch, uchar enable_1);
 
 short recindex(short, BYTE, short, short, short *, BYTE ,
-				unsigned short  *, BYTE *, BYTE *, Word8 );
+				unsigned short  *, BYTE *, BYTE *, uchar );
 
 int det_sym_sort(short ptr_char,uint16_t pri,uint16_t abc_n1,
 				 uint16_t iobraz[],uint16_t iobraz1[],uint16_t list[],

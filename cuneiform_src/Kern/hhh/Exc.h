@@ -159,8 +159,8 @@ enum    REXCParametrs
 //       and alphabet (256 ANSI indicators for any letter)
 /*-Andrey: moved to RRecCom (recognition) and RNorm (autorotate)
 //--------------------------------------------------------------
-typedef Bool32   (*FNREXC_SetEVNProperties)(ExcControl ExCW,char *spath, Word8 lang);
-EXC_FUNC(Bool32)  REXC_SetEVNProperties(ExcControl ExCW,char *spath, Word8 lang);
+typedef Bool32   (*FNREXC_SetEVNProperties)(ExcControl ExCW,char *spath, uchar lang);
+EXC_FUNC(Bool32)  REXC_SetEVNProperties(ExcControl ExCW,char *spath, uchar lang);
 -*/
 // 2    REXC_FNEXTRACOMP    найти компоненты с помощью коллбэков
 typedef Bool32 (*FNREXC_Excomp)(ExcControl Control,
@@ -171,54 +171,54 @@ EXC_FUNC(int32_t)  Extracomp(ExcControl Control,
     TImageRead  tir,        Tiger_ProcComp tipc);
 // 3    REXC_FNEXTRA        найти компоненты в растре
 typedef Bool32 (*FNREXC_Exc)(ExcControl Control,
-    Word8 *lpRaster, int32_t BWid, Bool32 ReverseOrder,
+    uchar *lpRaster, int32_t BWid, Bool32 ReverseOrder,
     int32_t Wid, int32_t Hei,
     int32_t HRes, int32_t VRes,
     int32_t TemplCol, int32_t TemplRow, int32_t TemplWid, int32_t TemplHei);
 EXC_FUNC(Bool32)  REXCExtra(ExcControl Control,
-    Word8 *lpRaster, int32_t BWid, Bool32 ReverseOrder,
+    uchar *lpRaster, int32_t BWid, Bool32 ReverseOrder,
     int32_t Wid, int32_t Hei,
     int32_t HRes, int32_t VRes,
     int32_t TemplCol, int32_t TemplRow, int32_t TemplWid, int32_t TemplHei, Bool32 FotoMetr);
 // 4    REXC_FNEXTRADIB     найти компоненты в ДИБе
 typedef Bool32 (*FNREXC_ExcDIB)(ExcControl ExCW,
-    Word8 *lpDIB,
+    uchar *lpDIB,
     int32_t TemplCol, int32_t TemplRow, int32_t TemplWid, int32_t TemplHei);
 EXC_FUNC(Bool32)  REXCExtraDIB(ExcControl ExCW,
-    Word8 *lpDIB,
+    uchar *lpDIB,
     int32_t TemplCol, int32_t TemplRow, int32_t TemplWid, int32_t TemplHei);
 // 5    REXC_FNGETCONTAINER   Получить код контейнера с компонентами
 typedef  int32_t (*FNREXC_GetContainer)(void);
 EXC_FUNC(Handle)  REXCGetContainer(void);
 // 6    REXC_FNGETLENEREP     Получить интервальное представление
-typedef  Bool32  (*FNREXC_MakeLP)( RecRaster   *rRaster , Word8 *lp, int16_t *lp_size, int16_t *numcomp);
-EXC_FUNC(Bool32)     REXCMakeLP  ( RecRaster   *rRaster , Word8 *lp, int16_t *lp_size, int16_t *numcomp);
+typedef  Bool32  (*FNREXC_MakeLP)( RecRaster   *rRaster , uchar *lp, int16_t *lp_size, int16_t *numcomp);
+EXC_FUNC(Bool32)     REXCMakeLP  ( RecRaster   *rRaster , uchar *lp, int16_t *lp_size, int16_t *numcomp);
 // 7    REXC_FNVERSION Дать версию библиотеки
 //
 //
 /*-Andrey: moved to RRecCom (recognition) and RNorm (autorotate)
 //--------------------------------------------------------------
 // 8    REXC_FNREX_ISLANGUAGE существует ли язык
-typedef Bool32 (*FNREXC_IsLanguage)(Word8 language);
-EXC_FUNC(Bool32)  REXC_IsLanguage(Word8 language);
+typedef Bool32 (*FNREXC_IsLanguage)(uchar language);
+EXC_FUNC(Bool32)  REXC_IsLanguage(uchar language);
 // 9    REXC_FNGETORIENT    ориентация страницы
-typedef Bool32 (*FNREXC_GetOrient)(Word8 *ori);
-EXC_FUNC(Bool32) REXC_GetOrient(Word8 *ori);
+typedef Bool32 (*FNREXC_GetOrient)(uchar *ori);
+EXC_FUNC(Bool32) REXC_GetOrient(uchar *ori);
 -*/
 // 10   REXC_FNMN2CCOM      из MN в CCOM_comp
 typedef CCOM_comp*   (*FNREXC_MN2CCOM)(Handle hCCOM,Handle hmn);
 EXC_FUNC(CCOM_comp*)   REXC_MN2CCOM(Handle hCCOM,Handle hmn);
 // 11   REXC_FNGETINVERTION инверсный ли образ (белое на чёрном)
-typedef Bool32 (*FNREXC_GetInvertion)(Word8 *inv);
-EXC_FUNC(Bool32) REXC_GetInvertion(Word8 *inv);
+typedef Bool32 (*FNREXC_GetInvertion)(uchar *inv);
+EXC_FUNC(Bool32) REXC_GetInvertion(uchar *inv);
 typedef Bool32 (*FNREXC_ProgressStart )(void);
 typedef Bool32 (*FNREXC_ProgressStep  )(uint32_t step);
 typedef Bool32 (*FNREXC_ProgressFinish)(void);
 /*-Andrey: moved to RRecCom (recognition) and RNorm (autorotate)
 //--------------------------------------------------------------
 // 12   REXC_FNEVNALPHABET   установка алфавита для евент
-typedef Bool32 (*FNREXC_SetEVNAlphabet)(char *spath, Word8 lang);
-EXC_FUNC(Bool32) REXC_SetEVNAlphabet(char *spath, Word8 lang);
+typedef Bool32 (*FNREXC_SetEVNAlphabet)(char *spath, uchar lang);
+EXC_FUNC(Bool32) REXC_SetEVNAlphabet(char *spath, uchar lang);
 -*/
 // 13   REXC_FNEXTRACOMP3CB 3 коллбэка
 typedef Bool32  (*FNREXCExtracomp3CB)(ExcControl ExCW,TImageOpen tio,

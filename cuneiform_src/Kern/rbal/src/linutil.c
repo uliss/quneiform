@@ -84,7 +84,7 @@ INT  draft_cut_hyps(INT bs,INT fl);
 
 #define MAX_HEIGHT 70  // such was...  change ?
 
-extern Word8 language;
+extern uchar language;
 
 extern BYTE db_status    ;    // snap presence byte
 extern BYTE db_trace_flag;    // snap-detail presence byte

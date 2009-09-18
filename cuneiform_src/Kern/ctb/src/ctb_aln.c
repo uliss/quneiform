@@ -60,11 +60,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include "ctb.h"
 
-static  Word8   local_rst[REC_MAX_RASTER_SIZE];
-CTB_FUNC(void) CTB_align8_lines(Word8 *bin,int32_t w, int32_t h)
+static  uchar   local_rst[REC_MAX_RASTER_SIZE];
+CTB_FUNC(void) CTB_align8_lines(uchar *bin,int32_t w, int32_t h)
 {
 int i,ii,iii, wb=(w+7)/8, wb_new=((w+63)/64)*8;
-Word8   buf[256];
+uchar   buf[256];
 
 memset(buf,0,wb_new);
 for(iii=(h-1)*wb_new,ii=(h-1)*wb,i=0;i<h;i++,ii-=wb,iii-=wb_new)
@@ -76,10 +76,10 @@ for(iii=(h-1)*wb_new,ii=(h-1)*wb,i=0;i<h;i++,ii-=wb,iii-=wb_new)
 return;
 }
 
-CTB_FUNC(void) CTB_align1_lines(Word8 *bin,int32_t w, int32_t h)
+CTB_FUNC(void) CTB_align1_lines(uchar *bin,int32_t w, int32_t h)
 {
 int i,ii,iii, wb=((w+63)/64)*8, wb_new=(w+7)/8;
-Word8   buf[256];
+uchar   buf[256];
 
 memset(buf,0,wb_new);
 for(iii=ii=i=0;i<h;i++,ii+=wb,iii+=wb_new)
@@ -91,12 +91,12 @@ for(iii=ii=i=0;i<h;i++,ii+=wb,iii+=wb_new)
 return;
 }
 
-CTB_FUNC(void) CTB_align8_124lines(Word8 *bin,int32_t w, int32_t h,
-                                   int32_t alin, Word8 init)
+CTB_FUNC(void) CTB_align8_124lines(uchar *bin,int32_t w, int32_t h,
+                                   int32_t alin, uchar init)
 {
 int i, wb, wb_new;
-Word8   buf[256];
-Word8  *bout;
+uchar   buf[256];
+uchar  *bout;
 
 switch( alin )
     {
@@ -125,11 +125,11 @@ return;
 }
 
 // bin : B/W images align to 4 bytes
-CTB_FUNC(void) CTB_align41(Word8 *sbin,int32_t w, int32_t h)
+CTB_FUNC(void) CTB_align41(uchar *sbin,int32_t w, int32_t h)
 {
 int i, wb_in, wb_out;
-Word8   buf[256];
-Word8  *bout, *bin=sbin;
+uchar   buf[256];
+uchar  *bout, *bin=sbin;
 
 wb_in=(w/32+1)*4;
 wb_out=(w+7)/8;

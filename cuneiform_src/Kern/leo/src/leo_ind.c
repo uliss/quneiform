@@ -121,7 +121,7 @@ return (object->recData.recRaster.lnPixWidth<wlim ||
 static void leo_ndx_AddDigits(int Cnts[],RecVersions *v, int min_prob)
 {
 int i;
-Word8 start_let='0';
+uchar start_let='0';
 
 for(i=0;i<v->lnAltCnt;i++)
 	{
@@ -154,7 +154,7 @@ return  FALSE;
 static int leo_ndx_DigHstToVers(int Cnts[],RecVersions *v)
 {
 int i, ii;
-Word8 start_let='0';
+uchar start_let='0';
 
 for(ii=i=0;i<10;i++)
 	{
@@ -207,10 +207,10 @@ for(i=0;i<ver->lnAltCnt;i++)
 return;
 }
 
-static Word8 leo_ndx_max_prob(RecVersions *v)
+static uchar leo_ndx_max_prob(RecVersions *v)
 {
 int i;
-Word8 prob;
+uchar prob;
 
 for(prob=i=0;i<v->lnAltCnt&&i<REC_MAX_VERS;i++)
 	{
@@ -306,7 +306,7 @@ int  Cnts[10];
 char buf[256], *t;
 int  i, wlim, hlim;
 Bool32 no_vit, bad_35 ;
-Word8  let_vit;
+uchar  let_vit;
 
 if( no_init_ndx )
     {

@@ -157,13 +157,13 @@ typedef CCOM_comp  * (*FNCCOM_New)(CCOM_handle cont, int32_t upper, int32_t left
 CCOM_FUNC(CCOM_comp*) CCOM_New(CCOM_handle cont,int32_t upper, int32_t left, int32_t w, int32_t h);
 // 2    CCOM_FNSTORE        записать в компоненту образ
 typedef Bool32         (*FNCCOM_Store)(CCOM_comp * comp,int16_t numcomp,
-                int32_t size_nlines, Word8 *lines,  int16_t nl,
-                Word8 free_beg, Word8 free_e,
+                int32_t size_nlines, uchar *lines,  int16_t nl,
+                uchar free_beg, uchar free_e,
                 RecVersions *vers,
                 CCOM_USER_BLOCK  *ub);
 CCOM_FUNC(Bool32)          CCOM_Store(CCOM_comp * comp,int16_t numcomp,
-                int32_t size_nlines, Word8 *lines,  int16_t nl,
-                Word8 free_beg, Word8 free_e,
+                int32_t size_nlines, uchar *lines,  int16_t nl,
+                uchar free_beg, uchar free_e,
                 RecVersions *vers,
                 CCOM_USER_BLOCK  *ub);
 // 3    CCOM_FNSTORE        записать в компоненту образ
@@ -200,8 +200,8 @@ CCOM_FUNC(Bool32)      CCOM_DeleteContainer  (CCOM_handle con);
 typedef Bool32      (*FNCCOM_AddLPToRaster)(CCOM_comp * comp, RecRaster *rec);
 CCOM_FUNC(Bool32)      CCOM_AddLPToRaster  (CCOM_comp * comp, RecRaster *rec);
 // 14   CCOM_FNMAKELP       Получить интервальное представление
-typedef Bool32      (*FNCCOM_MakeLP)( RecRaster   *rRaster , Word8 *lp, int16_t *lp_size, int16_t *numcomp);
-CCOM_FUNC(Bool32)      CCOM_MakeLP  ( RecRaster   *rRaster , Word8 *lp, int16_t *lp_size, int16_t *numcomp);
+typedef Bool32      (*FNCCOM_MakeLP)( RecRaster   *rRaster , uchar *lp, int16_t *lp_size, int16_t *numcomp);
+CCOM_FUNC(Bool32)      CCOM_MakeLP  ( RecRaster   *rRaster , uchar *lp, int16_t *lp_size, int16_t *numcomp);
 // 15   CCOM_FNSETUSERBLOCK Записать пользовательский блок
 typedef Bool32       (*FNCCOM_SetUserBlock)(CCOM_comp * comp,CCOM_USER_BLOCK *ub);
 CCOM_FUNC(Bool32)     CCOM_SetUserBlock(CCOM_comp * comp, CCOM_USER_BLOCK *ub);

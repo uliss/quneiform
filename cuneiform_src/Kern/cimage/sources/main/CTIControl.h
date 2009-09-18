@@ -91,7 +91,7 @@ protected:
 	Char8                    mCBName[CIMAGE_MAX_IMAGE_NAME];
 	Char8                    mCBWName[CIMAGE_MAX_IMAGE_NAME];
 	Handle                   mhBitFildFromImage;
-	PWord8                   mpBitFildFromImage;
+	uchar *                   mpBitFildFromImage;
 	PCTDIB                   mpDIBFromImage;
 
 public:
@@ -110,12 +110,12 @@ private:
 	Bool32                    WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
 	Bool32                    SetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInReplace pIn);
 	Bool32                    ApplayBitMaskToFrame(PCIMAGE_InfoDataInGet pIn, PCIMAGE_InfoDataOutGet pOut);
-	Bool32                    ApplayBitMaskToDIB(PWord8 pMask, PCTDIB pDIB);
+	Bool32                    ApplayBitMaskToDIB(uchar * pMask, PCTDIB pDIB);
 	Bool32                    CopyFromFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInReplace pFrameIn);
-	Bool32                    CopyToFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInGet pFrameInfo, PWord8 pMask);
-	Bool32                    GetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInGet pIn, PWord8 pMask);
+	Bool32                    CopyToFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInGet pFrameInfo, uchar * pMask);
+	Bool32                    GetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInGet pIn, uchar * pMask);
 	Bool32                    CopyDIB(Handle hDIB, PHandle hCopyedDib);
-	Bool32                    DumpToFile(PChar8 FileName, PWord8 pData, uint32_t Size);
+	Bool32                    DumpToFile(PChar8 FileName, uchar * pData, uint32_t Size);
 	Bool32                    CheckInData(PCTDIB pDIB, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_InfoDataInGet lpNewIn = NULL);
 
 public:
@@ -126,7 +126,7 @@ public:
 	Bool32                    AddWriteRectangles(PChar8 lpName, uint32_t wNumber, PCIMAGE_Rect pFirst);
 	Bool32                    FreeBuffers(void);
 	Bool32                    FreeAlloced(Handle hDIB);
-	Bool32                    GetDIBFromImage(PChar8 lpName, PCIMAGE_InfoDataInGet lpIn, PInt8 *pDIB);
+	Bool32                    GetDIBFromImage(PChar8 lpName, PCIMAGE_InfoDataInGet lpIn, char * *pDIB);
 	Bool32                    RemoveImage(PChar8  lpName);
 	Bool32                    GetImageInfo(PChar8  lpImage, PCIMAGEBITMAPINFOHEADER lpBIH);
 	Bool32                    ReplaceImage(PChar8  lpName, PCIMAGE_InfoDataInReplace lpIn);
@@ -144,11 +144,11 @@ protected:
 	Handle mhCopyedDIB;
 	Bool32 mbWriteFlag;
 	uint32_t                    mwMemoryErrors;
-	Word8                     mwLAWhiteRightMask[8];
-	Word8                     mwLAWhiteLeftMask[8];
-	Word8                     mwLABlackRightMask[8];
-	Word8                     mwLABlackLeftMask[8];
-	Word8                     mwIndexMask[8];
+	uchar                     mwLAWhiteRightMask[8];
+	uchar                     mwLAWhiteLeftMask[8];
+	uchar                     mwLABlackRightMask[8];
+	uchar                     mwLABlackLeftMask[8];
+	uchar                     mwIndexMask[8];
 	Bool32                    mbSourceDIBCopy;
 	PCTIMask                  mpcSrcDIBReadMask;
 	PCTIMask                  mpcSrcDIBWriteMask;

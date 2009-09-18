@@ -87,7 +87,7 @@ uint16_t			wide : 1,       // wide chunk
 
 
 typedef struct tagSegmVersion {
-Word8 s;    // segment code
+uchar s;    // segment code
 #define UNREC_SEG	100
 int16_t prob; // probability
 } SegmVersion;
@@ -103,7 +103,7 @@ RecVector * chunk;
 typedef struct tagSegmRec {
 uint16_t segm;
 uint16_t let;
-Word8 prob;
+uchar prob;
 #define MAX_REC_SEG		14
 } SegmRec;
 

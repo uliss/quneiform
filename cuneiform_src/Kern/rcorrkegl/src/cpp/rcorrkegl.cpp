@@ -72,7 +72,7 @@ static uint16_t gwLowRC = 0;
 Bool32 snap_enable = TRUE;
 Bool32 exit_enable = FALSE;
 Bool32 gbFax100 = FALSE;
-Word8 language = 3;
+uchar language = 3;
 
 BOOL APIENTRY DllMain(HANDLE hModule, uint32_t ul_reason_for_call,
 		LPVOID lpReserved) {
@@ -106,10 +106,10 @@ RCK_FUNC(uint32_t) RCORRKEGL_GetReturnCode()
 	return (gwHeightRC<<16)|(gwLowRC-RCORRKEGL_ERR_MIN);
 }
 
-RCK_FUNC(Int8*) RCORRKEGL_GetReturnString(uint32_t dwError)
+RCK_FUNC(char*) RCORRKEGL_GetReturnString(uint32_t dwError)
 {
 	uint16_t rc = (uint16_t)((dwError & 0xFFFF) );
-	static Int8 szBuffer[512];
+	static char szBuffer[512];
 
 	if (dwError >> 16 != gwHeightRC) gwLowRC = RCORRKEGL_ERR_NOTIMPLEMENT;
 
@@ -131,7 +131,7 @@ RCK_FUNC(Bool32) RCORRKEGL_SetImportData(uint32_t dwType, void * pData)
 	{
 		CASE_DATA(RCORRKEGL_Bool32_Fax100,Bool32,gbFax100);
 		// 12.06.2002 E.P.
-		CASE_DATA(RCORRKEGL_FNIMP_LANGUAGE,Word8,language);
+		CASE_DATA(RCORRKEGL_FNIMP_LANGUAGE,uchar,language);
 
 		default:
 		gwLowRC = RCORRKEGL_ERR_NOTIMPLEMENT;

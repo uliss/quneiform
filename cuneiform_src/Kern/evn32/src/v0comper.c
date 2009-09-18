@@ -67,51 +67,51 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //  Internal working fields
 struct ev_vari	{
-  Word8 ln;  // line number
-  Int8 add; // additional byte:
+  uchar ln;  // line number
+  char add; // additional byte:
 		};
 typedef struct ev_vari VAR;
 // Oleg
-extern  Word8   save_eventr_txt[],save_eventr_txts[];
+extern  uchar   save_eventr_txt[],save_eventr_txts[];
 extern  Bool32  enable_save_stat;
 // Oleg
 extern c_comp wcomp;
-extern Word8 work_raster[],work_raster_1[];
+extern uchar work_raster[],work_raster_1[];
 extern version * start_rec, *rec_ptr;
-extern Word8 recors_change;
-extern Word8 lpool[];
-extern Word8* events_tree_rt;
-extern Word8 evline[], evline1[];
+extern uchar recors_change;
+extern uchar lpool[];
+extern uchar* events_tree_rt;
+extern uchar evline[], evline1[];
 extern VAR evvars[64], * evendvar;
-extern Word8 evrow_b1, evrow_b2, evrow_b3, evrow_b4;
-extern Word8 evcol_b1, evcol_b2, evcol_b3, evcol_b4, evcol_b5;
-extern Word8* seek_responce;
+extern uchar evrow_b1, evrow_b2, evrow_b3, evrow_b4;
+extern uchar evcol_b1, evcol_b2, evcol_b3, evcol_b4, evcol_b5;
+extern uchar* seek_responce;
 extern MN *main_number_ptr;
 extern BOX *boxchain, *dl_last_in_chain;
 extern char alphabet[];
 
-static Word8 ev;
+static uchar ev;
 static VAR * vp;
 
 Bool16 boxes_account();
 extern void make_raster(void);
-extern void c_rastror (Word8 *, Word8 *, int32_t, int32_t);
-extern MN *c_locomp(Word8 *,int32_t,int32_t,int32_t,int32_t);
+extern void c_rastror (uchar *, uchar *, int32_t, int32_t);
+extern MN *c_locomp(uchar *,int32_t,int32_t,int32_t,int32_t);
 
 static void save_rot_comp();
 static void rest_rot_comp();
 static int16_t net_comp (MN *mn);
 static void ev_vector_cnt();
-static int16_t seek_events(Word8* ev);
+static int16_t seek_events(uchar* ev);
 static int16_t first_var();
 static void upper_row(int16_t row);
 static void upper_col(int16_t col);
 static void lower_row(int16_t row);
 static void lower_col(int16_t col);
 void ev_lang_filter();
-static int16_t is_english(Word8 ch);
+static int16_t is_english(uchar ch);
 
-extern Word8 ev_rt_num_ln;
+extern uchar ev_rt_num_ln;
 int16_t events_recog_rt()
 {
  MN *mn;
@@ -169,7 +169,7 @@ if(0)
  ev_lang_filter();
  n = (b=rec_ptr) - start_rec;
  if (n==0) goto no_vers;  /***     AL 940112 ***/
- //snap_keep(snap_vers,(Word8*)start_rec,n);
+ //snap_keep(snap_vers,(uchar*)start_rec,n);
  return n;
 
 no_answer:
@@ -183,7 +183,7 @@ no_vers:
 static void ev_vector_cnt()
 {
  int16_t n, nd, x, y;
- Word8* ep;
+ uchar* ep;
  MN *mn;
  BOX *bp;
  LNSTRT *lp;
@@ -203,7 +203,7 @@ static void ev_vector_cnt()
  ep = evline+4; vp = evvars; evvars[0].ln = 0; bp = boxchain;
 
 loop:
- lp = (LNSTRT *) ((Word8*)bp + sizeof(BOX));
+ lp = (LNSTRT *) ((uchar*)bp + sizeof(BOX));
  if (bp->boxptr <= sizeof(BOX) + sizeof(LNSTRT) + sizeof(BOXINT) + 2)
   {
    vs = vp;
@@ -243,7 +243,7 @@ double_lab:
  upper_col (x);
 
 line_loop:
- ip = (BOXINT *)((Word8*)bp + bp->boxptr);
+ ip = (BOXINT *)((uchar*)bp + bp->boxptr);
  if ((bp->boxflag & BOXEND) == 0)
    { x = (ip-1)->l; bp = bp->boxnext; goto line_loop; }
 
@@ -252,8 +252,8 @@ line_loop:
  else
   {
    if (bp->boxptr > sizeof(BOX) + sizeof(BOXINT) + 2)
-    x = (((BOXINT *)((Word8*)ip -1)) - 2)->l;
-   x = bp->boxex - (((BOXINT *)((Word8*)ip -1)) - 1)->d - (x+1)/2;
+    x = (((BOXINT *)((uchar*)ip -1)) - 2)->l;
+   x = bp->boxex - (((BOXINT *)((uchar*)ip -1)) - 1)->d - (x+1)/2;
   }
  lower_row(bp->boxey); lower_col(x);
 
@@ -356,15 +356,15 @@ var_plus: vp->add = 1; (vp+1)->ln = vp->ln; vp++; return;
 var_minus: vp->add = -1; (vp+1)->ln = vp->ln; vp++; return;
 }
 
-extern Word8 tabb[], taba[];
+extern uchar tabb[], taba[];
 
 static uint16_t rot(uint16_t n) { return ((n<<3) + (n>>13)); }
 
-static int16_t seek_events(Word8* ep)
+static int16_t seek_events(uchar* ep)
 {
  uint16_t hash,i,nl;
  uint32_t di;
- Word8* p;
+ uchar* p;
  //if (db_status) snap_keep(snap_vector,ep,*ep+4);
  if( enable_save_stat )
  {
@@ -396,12 +396,12 @@ for(i=0;i<n;i++)
 
 }
 
-static Word8 var_answer[128];
+static uchar var_answer[128];
 
 static int16_t first_var()
 {
  VAR *p=evvars;
- Word8 *ev1, *ev2;
+ uchar *ev1, *ev2;
  uint16_t nl,n;
  int16_t var_answer_cnt=0;
 
@@ -423,7 +423,7 @@ var_loop:
 				var_answer_cnt = n; }
    else
     {
-     Word8* s = seek_responce;
+     uchar* s = seek_responce;
      while (n--) { if (memchr (var_answer,*s,var_answer_cnt) == NULL)
 			{ var_answer[var_answer_cnt++] = *s; }
 		   s++; }
@@ -467,7 +467,7 @@ void ev_lang_filter()
 {
  version *v1,*v2;
 /*
- Word8 l;
+ uchar l;
 
    for (v1=v2=start_rec; v1!=rec_ptr; v1++)
     if( (l=v1->let) != UKR_E && l != UKR_e && l != UKR_g && l != UKR_G &&
@@ -498,7 +498,7 @@ void ev_lang_filter()
    rec_ptr=v2;
 }
 
-static int16_t is_english( Word8 ch )
+static int16_t is_english( uchar ch )
 {
 return (ch >= 'a' && ch <= 'z')||(ch >= 'A' && ch <= 'Z')||
        (ch>=ligas_beg && ch<=ligas_end && ch!=liga_exm && ch!=liga_qm ) ;

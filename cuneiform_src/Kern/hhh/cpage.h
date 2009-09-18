@@ -88,7 +88,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 CPAGE_FUNC(Bool32) CPAGE_Init(uint16_t wHeightCode,Handle hStorage);
 CPAGE_FUNC(Bool32) CPAGE_Done();
 CPAGE_FUNC(uint32_t) CPAGE_GetReturnCode();
-CPAGE_FUNC(Int8 *) CPAGE_GetReturnString(uint32_t dwError);
+CPAGE_FUNC(char *) CPAGE_GetReturnString(uint32_t dwError);
 CPAGE_FUNC(Bool32) CPAGE_GetExportData(uint32_t dwType, void * pData);
 CPAGE_FUNC(Bool32) CPAGE_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////
@@ -208,8 +208,8 @@ DEC_FUN(uint32_t,  CPAGE_GetCurrentPage,( ));
 DEC_FUN(Bool32,  CPAGE_SetCurrentPage,(uint32_t page));
 DEC_FUN(uint32_t,  CPAGE_GetNumberPage,( Handle hPage ));
 
-DEC_FUN(Bool32,  CPAGE_SavePage,(Handle page,Int8 * lpName));
-DEC_FUN(Handle,  CPAGE_RestorePage,(Bool32 remove,Int8 * lpName));
+DEC_FUN(Bool32,  CPAGE_SavePage,(Handle page,char * lpName));
+DEC_FUN(Handle,  CPAGE_RestorePage,(Bool32 remove,char * lpName));
 
 
 DEC_FUN(Handle,  CPAGE_GetPageType,(Handle hPage));

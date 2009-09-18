@@ -237,7 +237,7 @@ cykl:
 #endif
 }
 
-MMX_FUNC(void) MMX_binarize_16x16(uint16_t *rin,Word8 *rout)
+MMX_FUNC(void) MMX_binarize_16x16(uint16_t *rin,uchar *rout)
 {
 #ifdef _MSC_VER
 _asm{

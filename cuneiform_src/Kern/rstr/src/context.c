@@ -1161,9 +1161,9 @@ static void contextNumberTable(void)
 	int    numDig,numAll;
 	int    isCommaDot=0;
 	int    isDig;
-	Word8  letAsDig[] ="OoIli!SsBg\x8e\xae\x87\xa7\x9d\xed\x97\xe7\xa1\x82\xa2";
+	uchar  letAsDig[] ="OoIli!SsBg\x8e\xae\x87\xa7\x9d\xed\x97\xe7\xa1\x82\xa2";
 	//                            ОоЗзЭэЧчбВв
-	Word8  accordDig[]="001111558900333344688";
+	uchar  accordDig[]="001111558900333344688";
 	char *qq;
 	int minSize,maxSize;
 
@@ -1247,7 +1247,7 @@ static void contextNumberTable(void)
 	     qq = strchr(letAsDig,cc->vers[0].let);
 
 		 if( qq )
-           cc->vers[0].let=accordDig[(Word8*)qq-letAsDig];
+           cc->vers[0].let=accordDig[(uchar*)qq-letAsDig];
 		}
 
 		if (snap_activity('c'))

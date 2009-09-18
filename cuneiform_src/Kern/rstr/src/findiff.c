@@ -490,7 +490,7 @@ static void final_bh(cell *c)
 static void final_ii_u(cell *c)
  {
  cell *c1;
- Word8 lett = u_2dot_accent;
+ uchar lett = u_2dot_accent;
 
  c1=c->nextl;
  if (c->vers[0].let=='i' ||

@@ -146,10 +146,10 @@ CPAGE_FUNC(uint32_t) CPAGE_GetReturnCode()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CPAGE_FUNC(Int8 *) CPAGE_GetReturnString(uint32_t dwError)
+CPAGE_FUNC(char *) CPAGE_GetReturnString(uint32_t dwError)
 {
 	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
-	static Int8 szBuffer[512];
+	static char szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
 	gwLowRC = IDS_ERR_NOTIMPLEMENT;

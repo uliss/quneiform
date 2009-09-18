@@ -95,7 +95,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 
-RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(Word8* pmasp,int skew,Rect16* Rc,int16_t* begx,int16_t* movey,Word8* flmovey,int inf_betw_str_h)
+RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(uchar* pmasp,int skew,Rect16* Rc,int16_t* begx,int16_t* movey,uchar* flmovey,int inf_betw_str_h)
 {
  int oldskew=skew;
  if(skew<0)
@@ -222,11 +222,11 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(Word8* pmasp,int skew,Rect16* Rc,int16
   if(neww<=0||newh<=0)
 	  return FALSE;
 
-  Word8* safe=NULL;
+  uchar* safe=NULL;
   newbytewide=((neww+7)/8);
   bytewide=(w+7)/8;
 
-  if(!(safe=new Word8[(int)(newbytewide)*(int)(newh)]))
+  if(!(safe=new uchar[(int)(newbytewide)*(int)(newh)]))
 	 return FALSE;
 
   nowbyte=0;
@@ -420,11 +420,11 @@ RSELSTR_FUNC(Bool32) RSELSTR_RotateRaster(Word8* pmasp,int skew,Rect16* Rc,int16
   for(i=newh;i<=h;i++)
 	  begx[i]=j;
 
-  Word8* safe=NULL;
+  uchar* safe=NULL;
   newbytewide=((neww+7)/8);
   bytewide=(w+7)/8;
 
-  if(!(safe=new Word8[(int)(newbytewide)*(int)(newh)]))
+  if(!(safe=new uchar[(int)(newbytewide)*(int)(newh)]))
 	 return FALSE;
 
   int my_temp_size = (int)(newbytewide)*(int)(newh);
@@ -599,7 +599,7 @@ int16_t okrug(double d)
 	return (int16_t)(d+.5);
 }
 
-RSELSTR_FUNC(Bool32) RSELSTR_UnRotateRect(int skew,Rect16* pRc,int nRc,Rect16 Rc,int16_t* begx,int16_t* movey,Word8* flmovey,int* hi)
+RSELSTR_FUNC(Bool32) RSELSTR_UnRotateRect(int skew,Rect16* pRc,int nRc,Rect16 Rc,int16_t* begx,int16_t* movey,uchar* flmovey,int* hi)
 {
  if(skew<0)
  {
@@ -646,7 +646,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_UnRotateRect(int skew,Rect16* pRc,int nRc,Rect16 Rc
  return TRUE;
 }
 
-int GetUnRotateY(int y,int h,int16_t* begx,int16_t* movey,Word8* flmovey,int skew)
+int GetUnRotateY(int y,int h,int16_t* begx,int16_t* movey,uchar* flmovey,int skew)
 {
 	int k=-1;
 	int i=0;

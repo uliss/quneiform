@@ -200,10 +200,10 @@ RFRMT_FUNC(uint32_t) RFRMT_GetReturnCode()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RFRMT_FUNC(Int8 *) RFRMT_GetReturnString(uint32_t dwError)
+RFRMT_FUNC(char *) RFRMT_GetReturnString(uint32_t dwError)
 {
  uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
- static Int8 szBuffer[512];
+ static char szBuffer[512];
 
  if( dwError >> 16 != gwHeightRC)
 	gwLowRC = IDS_ERR_NOTIMPLEMENT;
@@ -233,7 +233,7 @@ RFRMT_FUNC(Bool32) RFRMT_GetExportData(uint32_t dwType, void * pData)
 	CASE_DATA(RFRMT_Bool32_Bold,Bool32,gbBold);
 	CASE_DATA(RFRMT_Bool32_Italic,Bool32,gbItalic);
 	CASE_DATA(RFRMT_Bool32_Size,Bool32,gbSize);
-	CASE_DATA(RFRMT_Word8_UnRecogSymbol,Word8,UnRecogSymbol);
+	CASE_DATA(RFRMT_Word8_UnRecogSymbol,uchar,UnRecogSymbol);
 
 	default:
 	*(Handle *)pData = NULL;
@@ -264,7 +264,7 @@ RFRMT_FUNC(Bool32) RFRMT_SetImportData(uint32_t dwType, const void * pData)
 	CASE_PDATA(RFRMT_char_SerifName,const char *,gpSerifName);
 	CASE_PDATA(RFRMT_char_SansSerifName,const char *,gpSansSerifName);
 	CASE_PDATA(RFRMT_char_CourierName,const char *,gpCourierName);
-	CASE_DATA(RFRMT_Word8_UnRecogSymbol,Word8,UnRecogSymbol);
+	CASE_DATA(RFRMT_Word8_UnRecogSymbol,uchar,UnRecogSymbol);
 	CASE_DATA(RFRMT_Word32_Language,uint32_t,gnLanguage);// !!!Art - язык распознавания понадобился для умолчания в редактор
 	 default:
 		gwLowRC = IDS_ERR_NOTIMPLEMENT;

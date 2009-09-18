@@ -55,7 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 void error_exit     (int16_t group, int16_t element);
-void error_exit_str (int16_t group, int16_t element, Int8* s);
+void error_exit_str (int16_t group, int16_t element, char* s);
 
 #define ERR_format 0
 #define ERR_comp   1

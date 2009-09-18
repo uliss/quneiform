@@ -121,8 +121,8 @@ public:
 	Handle ReadFileFromStorage(Handle hStorage, PChar8 lpName);
 	Handle OpenFile(Handle hFile, PChar8 lpName, uint32_t dwFlag);
 	Bool32 CloseFile(Handle hFile, uint32_t dwFlag, Handle hStorage = NULL);
-	uint32_t WriteFile(Handle hFile, PInt8 lpData, uint32_t dwSize);
-	uint32_t ReadFromFile(Handle hFile, PInt8 lpData, uint32_t dwSize);
+	uint32_t WriteFile(Handle hFile, char * lpData, uint32_t dwSize);
+	uint32_t ReadFromFile(Handle hFile, char * lpData, uint32_t dwSize);
 	uint32_t Seek(Handle hFile, uint32_t dwBytes, uint32_t dwFrom);
 	uint32_t Tell(Handle hFile);
 	Bool32 Flush(Handle hFile);

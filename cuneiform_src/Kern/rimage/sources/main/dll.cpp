@@ -168,10 +168,10 @@ RIMAGE_FUNC(uint32_t) RIMAGE_GetReturnCode()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Int8 *) RIMAGE_GetReturnString(uint32_t dwError)
+RIMAGE_FUNC(char *) RIMAGE_GetReturnString(uint32_t dwError)
 {
 	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_RIMAGE_ERR_NO;
-	static Int8 szBuffer[512];
+	static char szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
 		gwLowRC = IDS_RIMAGE_ERR_NOTIMPLEMENT;

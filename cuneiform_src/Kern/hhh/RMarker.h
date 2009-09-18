@@ -93,7 +93,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode,Handle hStorage);
 RMARKER_FUNC(Bool32) RMARKER_Done();
 RMARKER_FUNC(uint32_t) RMARKER_GetReturnCode();
-RMARKER_FUNC(Int8 *) RMARKER_GetReturnString(uint32_t dwError);
+RMARKER_FUNC(char *) RMARKER_GetReturnString(uint32_t dwError);
 RMARKER_FUNC(Bool32) RMARKER_GetExportData(uint32_t dwType, void * pData);
 RMARKER_FUNC(Bool32) RMARKER_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////
@@ -101,7 +101,7 @@ RMARKER_FUNC(Bool32) RMARKER_SetImportData(uint32_t dwType, void * pData);
 ////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct tagRMPreProcessImage
 {
-	PWord8	*pgpRecogDIB;
+	uchar *	*pgpRecogDIB;
 	Bool32	gbAutoRotate;
 	Bool32  gbDotMatrix;
 	Bool32  gbFax100;

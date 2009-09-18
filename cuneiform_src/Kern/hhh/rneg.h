@@ -99,7 +99,7 @@ struct NegTemp
 RNEG_FUNC(Bool32) RNEG_Init(uint16_t wHeightCode,Handle parent);
 RNEG_FUNC(Bool32) RNEG_Done();
 RNEG_FUNC(uint32_t) RNEG_GetReturnCode();
-RNEG_FUNC(Int8 *) RNEG_GetReturnString(uint32_t dwError);
+RNEG_FUNC(char *) RNEG_GetReturnString(uint32_t dwError);
 RNEG_FUNC(Bool32) RNEG_GetExportData(uint32_t dwType, void * pData);
 RNEG_FUNC(Bool32) RNEG_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////
@@ -117,8 +117,8 @@ typedef void*  CCOM_handle;
 
 /*  Описание функций  */
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RNEG_FUNC(a) b c
-DEC_FUN(void, RNEG_RecogNeg, (CCOM_handle hCComp, Handle hCPage,Word8* pImageName,int skew));
-DEC_FUN(Bool32, RNEG_TestForNegative, (CCOM_handle hCComp, Handle hCPage,Word8* pImageName,Rect16 Rc));
+DEC_FUN(void, RNEG_RecogNeg, (CCOM_handle hCComp, Handle hCPage,uchar* pImageName,int skew));
+DEC_FUN(Bool32, RNEG_TestForNegative, (CCOM_handle hCComp, Handle hCPage,uchar* pImageName,Rect16 Rc));
 
 #undef DEC_FUN
 

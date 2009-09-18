@@ -135,7 +135,7 @@ const int line_distance = 10;
 const int size_Point32 = sizeof(Point32);
 const int size_int32_t = sizeof(int32_t);
 const int size_DLine = sizeof(DLine);
-static const Word8 bits_array[] = {128, 64, 32, 16, 8, 4, 2, 1};
+static const uchar bits_array[] = {128, 64, 32, 16, 8, 4, 2, 1};
 
 extern int32_t hRLINE_Pass2Lost1;
 extern int32_t hRLINE_Pass2Lost2;
@@ -956,7 +956,7 @@ Bool32 extractLines(const FLLData *work_data, Point32 *aCP, const int32_t nCP,
 					//get line crosses
 					//----------------
 					int32_t strip_len = finish_line.y - start_line.y + 1;
-					Word8* aStrip = new Word8[strip_len];
+					uchar* aStrip = new uchar[strip_len];
 
 					if (!aStrip)
 					{
@@ -1171,7 +1171,7 @@ int32_t getRasterBlack(NR_SimpLine* term, bool is_horiz, const FLLData* work_dat
 
 		LPSTR pRaster = NULL;
 
-		if (!SL_GetRaster(&rterm, (Word8**)&pRaster, page_info/*, NULL*/))
+		if (!SL_GetRaster(&rterm, (uchar**)&pRaster, page_info/*, NULL*/))
 		{
 #ifdef _DEBUG
 			PrintErrorString("failed to get interval raster");
@@ -1184,7 +1184,7 @@ int32_t getRasterBlack(NR_SimpLine* term, bool is_horiz, const FLLData* work_dat
 		int32_t black_byte = 0;
 
 		for (int32_t i = 0; i < rast_size; i++)
-			if ((Word8)pRaster[i] == 255)
+			if ((uchar)pRaster[i] == 255)
 				black_byte++;
 
 		if (black_byte*3 > rast_size)
@@ -1216,7 +1216,7 @@ int32_t getRasterBlack(NR_SimpLine* term, bool is_horiz, const FLLData* work_dat
 
 	LPSTR pRaster = NULL;
 
-	if (!SL_GetRaster(&rterm, (Word8**)&pRaster, page_info/*, NULL*/))
+	if (!SL_GetRaster(&rterm, (uchar**)&pRaster, page_info/*, NULL*/))
 	{
 #ifdef _DEBUG
 		PrintErrorString("failed to get interval raster");

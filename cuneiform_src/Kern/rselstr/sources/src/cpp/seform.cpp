@@ -106,7 +106,7 @@ Bool32 StringsUpdatedByBukvica()
 			CCOM_USER_BLOCK uBlock;
 
 			uBlock.code = CCOM_UB_CAPDROPLN;
-			uBlock.data = (Word8*)&data;
+			uBlock.data = (uchar*)&data;
 
 			if((p->pUp!=NULL)||(p->pDown!=NULL))
 			{

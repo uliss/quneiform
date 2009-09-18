@@ -155,7 +155,7 @@ CIMAGE_FUNC(uint32_t) CIMAGE_GetReturnCode()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(PInt8) CIMAGE_GetReturnString(uint32_t dwError)
+CIMAGE_FUNC(char *) CIMAGE_GetReturnString(uint32_t dwError)
 {
 	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_CIMAGE_ERR_NO;
 	static Char8 szBuffer[512];
@@ -168,7 +168,7 @@ CIMAGE_FUNC(PInt8) CIMAGE_GetReturnString(uint32_t dwError)
 	else
 		return NULL;
 
-	return (PInt8)szBuffer;
+	return (char *)szBuffer;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //

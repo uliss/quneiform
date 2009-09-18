@@ -381,7 +381,7 @@ BOOL SetActiveCode(long code)
     return TRUE;
 }
 //********************************************************************
-long ROUT_ListFormats(PWord8 buf, ulong sizeBuf)
+long ROUT_ListFormats(uchar * buf, ulong sizeBuf)
 {
     // Получение списка поддерживаемых форматов
     // Возвращает количество форматов или -1 при ошибке
@@ -417,7 +417,7 @@ ITEM (HTML);
 return count;
 }
 //********************************************************************
-long ROUT_ListCodes(PWord8 buf, ulong sizeBuf)
+long ROUT_ListCodes(uchar * buf, ulong sizeBuf)
 {
     // Получение списка кодировок для данного формата
     // Возвращает количество кодировок или -1 при ошибке
@@ -1065,7 +1065,7 @@ static BOOL UpdateActiveAlphabet()
     return TRUE;
 }
 //********************************************************************
-long ROUT_ListAvailableFormats(PWord8 buf, ulong sizeBuf)
+long ROUT_ListAvailableFormats(uchar * buf, ulong sizeBuf)
 {
     /*
         Получение списка возможных форматов сохранения

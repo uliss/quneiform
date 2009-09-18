@@ -395,13 +395,13 @@ Bool32 CTCControl::CloseFile(Handle hFile, uint32_t wFlag, Handle hStorage)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-uint32_t CTCControl::WriteFile(Handle hFile, PInt8 lpData, uint32_t wSize)
+uint32_t CTCControl::WriteFile(Handle hFile, char * lpData, uint32_t wSize)
 {
 	return WriteDataToFile(hFile, (void *) lpData, wSize);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-uint32_t CTCControl::ReadFromFile(Handle hFile, PInt8 lpData, uint32_t wSize)
+uint32_t CTCControl::ReadFromFile(Handle hFile, char * lpData, uint32_t wSize)
 {
 	return ReadDataFromFile(hFile, (void *)lpData, wSize);
 }
@@ -584,13 +584,13 @@ uint32_t CTCControl::WriteMemToFile(Handle hMem, PChar8 lpName)
 	uint32_t  wMemorySize;
 	uint32_t  wMemoryFlag;
 	uint32_t  Counter = 0;
-	PInt8  pMem;
+	char *  pMem;
 
 	if ( hFile && hMem)
 	{
 		MemoryList.TakeItem(hMem, &wMemorySize, &wMemoryFlag );
 		Seek(hFile, 0, FS_END);
-		pMem = (PInt8)Lock(hMem);
+		pMem = (char *)Lock(hMem);
 
 		if ( pMem )
 		{
@@ -611,7 +611,7 @@ uint32_t CTCControl::ReadMemFromFile(PChar8 lpName, Handle * phMem, uint32_t wFl
 {
 	Handle  hFile = OpenFile(NULL, lpName, OSF_READ|OSF_BINARY );
 	Handle  hMem;
-	PInt8  pMem;
+	char *  pMem;
 	uint32_t  wFileSize;
 	uint32_t  Counter = 0;
 
@@ -624,7 +624,7 @@ uint32_t CTCControl::ReadMemFromFile(PChar8 lpName, Handle * phMem, uint32_t wFl
 
 		if ( hMem )
 		{
-			pMem = (PInt8)Lock(hMem);
+			pMem = (char *)Lock(hMem);
 
 			if ( pMem )
 			{

@@ -88,7 +88,7 @@ GBW_FUNC( Bool ) OpenBinarizator  (enum TBinEnum benum,
 		  short int ImageInty   // 0 - "weak", 1- "normal", 2 -"dirty"
 //#endif
 					   );
-GBW_FUNC( uint16_t ) Binarize  ( PWord8 lpBuff, uint16_t Lth);
+GBW_FUNC( uint16_t ) Binarize  ( uchar * lpBuff, uint16_t Lth);
 /*
 	lpBuff - адрес, куда писать черно-белое
 	lth    - число байт
@@ -115,8 +115,8 @@ GBW_FUNC( HGLOBAL ) GreyToMono(enum TBinEnum benum,short int ImageInty,HGLOBAL h
 GBW_FUNC( void    ) DestroyMono(HGLOBAL hInMemory);
 
 GBW_FUNC(uint16_t)	Grey_open(enum TBinEnum benum,uint16_t Width, uint16_t Height);
-GBW_FUNC(uint16_t)	Grey_to(PWord8 pTo);
-GBW_FUNC(void)		Grey_from(PWord8 pFrom);
+GBW_FUNC(uint16_t)	Grey_to(uchar * pTo);
+GBW_FUNC(void)		Grey_from(uchar * pFrom);
 GBW_FUNC(void)		Grey_close(void);
 
 #ifndef DPITODPM

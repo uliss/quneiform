@@ -93,7 +93,7 @@ void Error_CPage (const char *str);
 Bool MyFormZhertvy (Handle hCCOM, void **vvZher, int *iZher, int nZher, int Filter);
 Bool MySetZher (void **vvZher, int nZher, Handle hCPage);
 Bool MyGetZher (void **vvZher, int *nZher, int MaxZher, Handle hCPage);
-Bool MyGetRaster (Handle hCPage, VL_I_TASK *pTask, Word8 **ppData);
+Bool MyGetRaster (Handle hCPage, VL_I_TASK *pTask, uchar **ppData);
 /*----------------------------------------------------------------------------*/
 Bool MyInit_CPage ()
 {
@@ -451,11 +451,11 @@ Bool MyReSetLines (void *vLti, int MaxNumLin, CLINE_handle hCLINE)
 /*----------------------------------------------------------------------------*/
 void Error_CPage (const char *str)
 {
-	Word8  err8;
+	uchar  err8;
 	uint16_t Code;
-	err8 = (Word8)ER_ROUGH_NORMAL;
+	err8 = (uchar)ER_ROUGH_NORMAL;
 	Code = (uint16_t)(err8<<8);
-	err8 = (Word8)ER_DETAIL_FUNC_CPAGE;
+	err8 = (uchar)ER_DETAIL_FUNC_CPAGE;
 	Code |= (uint16_t)err8;
 	SetReturnCode_rverline (Code);
 	AM_Console ("RVERLINE : Ошибка чужой библиотеки - [CPAGE]%s", str);
@@ -636,12 +636,12 @@ Bool MyGetZher (void **vvZher, int *nZher, int MaxZher, Handle hCPage)
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-Bool MyGetRaster (Handle hCPage, VL_I_TASK *pTask, Word8 **ppData)
+Bool MyGetRaster (Handle hCPage, VL_I_TASK *pTask, uchar **ppData)
 {
     PAGEINFO info = {0};
 	CIMAGEInfoDataInGet DataInto = {0};
 	CIMAGEInfoDataOutGet DataOut = {0};
-	Word8 Name[256];
+	uchar Name[256];
 	Bool ret;
 	int i;
 	/*  1. Подготовка к запросу части изображения.  */

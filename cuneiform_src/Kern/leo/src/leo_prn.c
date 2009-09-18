@@ -79,11 +79,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern Bool32 leo_Snp_In_Rect;
 extern int  LEO_error_code;
 extern int nNdxWid , nNdxHei;
-extern Word8 nIsPrint;
+extern uchar nIsPrint;
 
 // data from module LEO.C
 extern unsigned char alphabet[];
-extern Word8 leo_alpha_type, prn_roma_regim;
+extern uchar leo_alpha_type, prn_roma_regim;
 extern Bool32 leo_enable_fon_recog;
 
 // data from module LEO_DLL.C
@@ -100,7 +100,7 @@ for(i=0;i<v->lnAltCnt;i++)
 
 return;
 }
-static void leo_kill_3x5_unique(RecVersions *ver,Word8 first)
+static void leo_kill_3x5_unique(RecVersions *ver,uchar first)
 {
 do{
      if( ver->Alt[0].Prob>60 )
@@ -114,11 +114,11 @@ return;
 }
 
 // return : complemetary case letter if homotetical, otherwhise 0
-Word8 leo_reverse_case(Word8 in)
+uchar leo_reverse_case(uchar in)
 {
-Word8 sr[]="©æãª­£èé§åêäë¢¯à®«¤¦íïçá¬¨âìîŽ‡";
-Word8 cr[]="‰–“Šƒ˜™‡•š”›‚Ž‹„†Ÿ—‘Œˆ’œž03";
-Word8 *p;
+uchar sr[]="©æãª­£èé§åêäë¢¯à®«¤¦íïçá¬¨âìîŽ‡";
+uchar cr[]="‰–“Šƒ˜™‡•š”›‚Ž‹„†Ÿ—‘Œˆ’œž03";
+uchar *p;
 
 p = strchr(sr,in);
 if( p )
@@ -133,7 +133,7 @@ return 0;
 
 static void leo_b6_reverse(RecVersions *ver)
 {
-Word8 t;
+uchar t;
 if( ver->lnAltCnt<2 )
     return ;
 t=ver->Alt[1].Code;
@@ -149,13 +149,13 @@ static void leo_get_stat_bnd(int32_t *b1,int32_t *b2)
 return;
 }
 
-static int32_t leo_no_hist_leader(Word8 over[],RecVersions *ver)
+static int32_t leo_no_hist_leader(uchar over[],RecVersions *ver)
 {
-int i = 0, m = 0;Word8 c = 0;
+int i = 0, m = 0;uchar c = 0;
 for(m=i=0;i<256;i++)
     if( over[i]>m )
         {
-        m=over[i]+over[leo_reverse_case((Word8)i)];
+        m=over[i]+over[leo_reverse_case((uchar)i)];
         c=i;
         }
 if( c!=ver->Alt[0].Code )
@@ -170,13 +170,13 @@ n=ver->lnAltCnt;
 for(i=0;i<n;i++)
     switch( ver->Alt[i].Code )
         {
-        case (Word8)'Õ':
+        case (uchar)'Õ':
             ver->Alt[i].Code='X';
             break;
-        case (Word8)'1':
+        case (uchar)'1':
             ver->Alt[i].Code='I';
             break;
-        case (Word8)'Ó':
+        case (uchar)'Ó':
             ver->Alt[i].Code='V';
             break;
         default:
@@ -188,7 +188,7 @@ return;
 
 void leo_reduce_typefaces(RecVersions *v)
 {
-int i;Word8 let;
+int i;uchar let;
 
 if( v->lnAltCnt )
     {
@@ -205,7 +205,7 @@ leo_compress( v );
 return;
 }
 
-static Word8 bit_cnt[]={
+static uchar bit_cnt[]={
 		0,1,1,2,1,2,2,3,
 		1,2,2,3,2,3,3,4,
 		1,2,2,3,2,3,3,4,
@@ -300,7 +300,7 @@ for(sc=0, ii=8*6,i=6;i<12;i++,ii+=8)
 return sc;
 }
 
-static Word8 start_pos[]={
+static uchar start_pos[]={
 		8,
 		7,
 		6,6, 					/* 2 dup (6) */
@@ -391,7 +391,7 @@ int i, num, pen, r;
 for(num=i=0;i<loc->lnAltCnt;i++)
 switch( stdAsciiToAnsi(loc->Alt[i].Code) )
     {
-    case    (Word8)'Ï': case (Word8)'ï':
+    case    (uchar)'Ï': case (uchar)'ï':
         pen = 0;
         if( leo_diskr16x16_down(rr)>0 )
             pen += 80;
@@ -407,7 +407,7 @@ switch( stdAsciiToAnsi(loc->Alt[i].Code) )
             loc->Alt[i].Prob=1;
         break;
 
-    case    (Word8)'Ë': case (Word8)'ë':
+    case    (uchar)'Ë': case (uchar)'ë':
         r = pen = 0;
         if( i==1 && leo_strchr_codes_ansi("ïÏ",loc->Alt[0].Code) &&
             leo_diskr16x16_down(rr)<1 && leo_diskr16x16_right(rr)<3 )
@@ -421,7 +421,7 @@ switch( stdAsciiToAnsi(loc->Alt[i].Code) )
             loc->Alt[i].Prob=255;
         break;
 
-    case    (Word8)'Î': case (Word8)'î':
+    case    (uchar)'Î': case (uchar)'î':
         pen = 0;
         if( !(Im3x5[4]>(Im3x5[3]+Im3x5[5])/4 || Im3x5[10]>(Im3x5[9]+Im3x5[11])/4) )
         if( leo_diskr16x16_down(rr)<1 )
@@ -435,7 +435,7 @@ switch( stdAsciiToAnsi(loc->Alt[i].Code) )
             loc->Alt[i].Prob=1;
         break;
 
-    case    (Word8)'Ñ': case (Word8)'ñ':
+    case    (uchar)'Ñ': case (uchar)'ñ':
         pen = 0;
         if( leo_diskr16x16_right(rr)<2 )
             pen += 80;
@@ -446,7 +446,7 @@ switch( stdAsciiToAnsi(loc->Alt[i].Code) )
             loc->Alt[i].Prob=1;
         break;
 
-    case    (Word8)'Â': case (Word8)'â':
+    case    (uchar)'Â': case (uchar)'â':
         pen = 0;
         if( leo_diskr16x16_right_down_hole(rr)>1 )
             pen += 40;
@@ -459,7 +459,7 @@ switch( stdAsciiToAnsi(loc->Alt[i].Code) )
             loc->Alt[i].Prob=1;
         break;
 
-    case    (Word8)'Í': case (Word8)'í':
+    case    (uchar)'Í': case (uchar)'í':
         pen = 0;
         if( leo_diskr3x5_H(Im3x5) )
             pen += 80;
@@ -470,7 +470,7 @@ switch( stdAsciiToAnsi(loc->Alt[i].Code) )
             loc->Alt[i].Prob=1;
         break;
 
-    case    (Word8)'È': case (Word8)'è':
+    case    (uchar)'È': case (uchar)'è':
         pen = 0;
         if( !leo_diskr3x5_H(Im3x5) )
             pen += 80;
@@ -481,7 +481,7 @@ switch( stdAsciiToAnsi(loc->Alt[i].Code) )
             loc->Alt[i].Prob=1;
         break;
 
-    case    (Word8)'Ø': case (Word8)'ø':
+    case    (uchar)'Ø': case (uchar)'ø':
         pen = 0;
         if( !leo_diskr3x5_III(Im3x5) )
             pen += 80;
@@ -492,7 +492,7 @@ switch( stdAsciiToAnsi(loc->Alt[i].Code) )
             loc->Alt[i].Prob=1;
         break;
 
-    case    (Word8)'Ý': case (Word8)'ý':
+    case    (uchar)'Ý': case (uchar)'ý':
         pen = 0;
         if( !leo_diskr3x5_III(Im3x5) )
             pen += 80;
@@ -505,7 +505,7 @@ switch( stdAsciiToAnsi(loc->Alt[i].Code) )
             loc->Alt[i].Prob=1;
         break;
 
-    case    (Word8)'Ç': case (Word8)'ç': case   '3':
+    case    (uchar)'Ç': case (uchar)'ç': case   '3':
         pen = 0;
         if( !(Im3x5[3]<100 && Im3x5[6]<100 && Im3x5[10]<100) )
         if( leo_diskr_left_up_hole(Im3x5) )
@@ -529,7 +529,7 @@ switch( stdAsciiToAnsi(loc->Alt[i].Code) )
             loc->Alt[i].Prob=1;
         break;
 /*
-    case    (Word8)'Á':
+    case    (uchar)'Á':
         pen = 0;
         if( leo_diskr_right_up_hole(Im3x5) )
             pen += 30;
@@ -561,11 +561,11 @@ if( ver->Alt[0].Prob==ver->Alt[1].Prob+1 )
 return 0;
 }
 
-void leo_reverse_russian(RecVersions *ver, Word8 Code1, Word8 Code2)
+void leo_reverse_russian(RecVersions *ver, uchar Code1, uchar Code2)
 {
     int32_t i_1=leo_exist_code(ver,Code1),
           i_2=leo_exist_code(ver,Code2), i, i_22;
-	Word8 p;
+	uchar p;
     if( ver->lnAltCnt==REC_MAX_VERS )
         return;
     if( i_1!=-1 && i_2!=-1 && i_1>i_2 )
@@ -614,7 +614,7 @@ void leo_reverse_russian(RecVersions *ver, Word8 Code1, Word8 Code2)
 return;
 }
 
-void leo_kill_double_russian(RecVersions *ver, Word8 Code1, Word8 Code2)
+void leo_kill_double_russian(RecVersions *ver, uchar Code1, uchar Code2)
 {
     int32_t i_1=leo_exist_code(ver,Code1),
           i_2=leo_exist_code(ver,Code2);
@@ -645,7 +645,7 @@ leo_sort_vers_prob(&v);
 return;
 }
 
-Word8 leo_down_prob(Word8 prob, Word8 dis)
+uchar leo_down_prob(uchar prob, uchar dis)
 {
 if( prob>dis )
     prob -= dis;
@@ -660,7 +660,7 @@ RecVersions ver, loc, per, msk, r35;
 uint16_t      CompImage16x16[256];
 Bool32      f16x16;
 int32_t       over_bonus=0, unter=0;
-Word8       prob_3x5[256]={0}, over[256]={0};
+uchar       prob_3x5[256]={0}, over[256]={0};
 RecRaster   recR;
 Bool32      disable_dis=FALSE, disable_r35=FALSE, per_nonrec=FALSE;
 int32_t       wid, hei;
@@ -737,19 +737,19 @@ if( ver.lnAltCnt && per.lnAltCnt && per.Alt[0].Prob>80 &&
             DIFPenaltyChar( &object->recData.recRaster,  &loc);
             if( loc.Alt[0].Prob==per.Alt[0].Prob )
                 {
-                Word8 let=stdAsciiToAnsi(per.Alt[0].Code);
+                uchar let=stdAsciiToAnsi(per.Alt[0].Code);
                 per.Alt[0].Prob=255;
                 if( leo_alpha_type==ALPH_DIG )
                     {
                         switch(let)
                         {
-                        case    (Word8)'Î':
+                        case    (uchar)'Î':
                             per.Alt[0].Code='0';
                             break;
-                        case    (Word8)'Ç':
+                        case    (uchar)'Ç':
                             per.Alt[0].Code='3';
                             break;
-                        case    (Word8)'×':
+                        case    (uchar)'×':
                             per.Alt[0].Code='4';
                             break;
                         }
@@ -765,7 +765,7 @@ if( alphabet['N'] )
     {    // KNOT for recog N
     if( ver.lnAltCnt==1 )
         {
-        if( leo_exist_code(&ver, (Word8)'N')!=-1   )
+        if( leo_exist_code(&ver, (uchar)'N')!=-1   )
             {
             loc = ver;
             loc.Alt[0].Prob=255;
@@ -776,7 +776,7 @@ if( alphabet['N'] )
                 goto XOPOIII_HET3X5;
                 }
             }
-        if( leo_exist_code(&ver, (Word8)'#')!=-1 &&
+        if( leo_exist_code(&ver, (uchar)'#')!=-1 &&
             per.lnAltCnt && per.Alt[0].Prob>150  )
             {
             loc = ver;
@@ -890,25 +890,25 @@ if( ver.lnAltCnt && per.lnAltCnt && r35.lnAltCnt && msk.lnAltCnt)
     {
     if( leo_alpha_type==ALPH_ALL )
         {
-        if( alphabet[(Word8)'‡'] && alphabet['3'] )
+        if( alphabet[(uchar)'‡'] && alphabet['3'] )
             {
-            leo_kill_double_russian(&ver, (Word8)'‡', '3');
-            leo_kill_double_russian(&per, (Word8)'‡', '3');
-            leo_kill_double_russian(&r35, (Word8)'‡', '3');
-            leo_kill_double_russian(&msk, (Word8)'‡', '3');
+            leo_kill_double_russian(&ver, (uchar)'‡', '3');
+            leo_kill_double_russian(&per, (uchar)'‡', '3');
+            leo_kill_double_russian(&r35, (uchar)'‡', '3');
+            leo_kill_double_russian(&msk, (uchar)'‡', '3');
             }
-        if( alphabet[(Word8)'Ž'] && alphabet['0'] )
+        if( alphabet[(uchar)'Ž'] && alphabet['0'] )
             {
-            leo_kill_double_russian(&ver, (Word8)'Ž', '0');
-            leo_kill_double_russian(&per, (Word8)'Ž', '0');
-            leo_kill_double_russian(&r35, (Word8)'Ž', '0');
-            leo_kill_double_russian(&msk, (Word8)'Ž', '0');
+            leo_kill_double_russian(&ver, (uchar)'Ž', '0');
+            leo_kill_double_russian(&per, (uchar)'Ž', '0');
+            leo_kill_double_russian(&r35, (uchar)'Ž', '0');
+            leo_kill_double_russian(&msk, (uchar)'Ž', '0');
             }
         }
     if( ver.Alt[0].Prob>150 && ver.Alt[0].Method==REC_METHOD_3X5 &&
         ver.Alt[0].Code!=per.Alt[0].Code )
         { // kill unique alt from 3x5
-        Word8 first=per.Alt[0].Code;
+        uchar first=per.Alt[0].Code;
         int32_t i_msk=leo_exist_code(&msk,first);
         int32_t i_r35=leo_exist_code(&r35,first);
 
@@ -923,7 +923,7 @@ if( ver.lnAltCnt && per.lnAltCnt && r35.lnAltCnt && msk.lnAltCnt)
         }
 if( !leo_strchr_codes_ansi("ØÙÆÇÝ", ver.Alt[0].Code) )
     {
-    Word8 first=ver.Alt[0].Code;
+    uchar first=ver.Alt[0].Code;
     int32_t i_r35=leo_exist_code(&r35,first);
     int32_t i_msk=leo_exist_code(&msk,first);
     int32_t i_per=leo_exist_code(&per,first);
@@ -987,7 +987,7 @@ leo_snapChar(&ver,"LEO PRN disable rerecog 3x5 : ",0);
 if( over_bonus<2 && ver.lnAltCnt>1 &&
     over[ver.Alt[1].Code]>2 && ver.Alt[0].Prob<220    )
     {
-    Word8 tmp=ver.Alt[1].Code;
+    uchar tmp=ver.Alt[1].Code;
     over_bonus = over[ver.Alt[1].Code];
     ver.Alt[1].Code=ver.Alt[0].Code;
     ver.Alt[0].Code=tmp;
@@ -997,7 +997,7 @@ if( wid*3<=hei && ver.lnAltCnt>1 &&
     (   leo_strchr_codes_ansi("ÝÇ3", ver.Alt[0].Code) && ver.Alt[1].Code==')' ||
         leo_strchr_codes_ansi("C", ver.Alt[0].Code) && ver.Alt[1].Code=='(' ) )
     {
-    Word8 tmp=ver.Alt[1].Code;
+    uchar tmp=ver.Alt[1].Code;
     ver.Alt[1].Code=ver.Alt[0].Code;
     ver.Alt[0].Code=tmp;
     leo_snapChar(&ver,"LEO PRN up braces : ",0);
@@ -1054,7 +1054,7 @@ else
 
     if( !(leo_typ_of_font&(LEO_FONT_TW|LEO_FONT_MTR)) && over_bonus<3 && !disable_dis )
         {
-        Word8   pr;
+        uchar   pr;
 
         loc = ver;
         leo_snapChar(&ver,"LEO PRN BEFORE DISKRIMINATORs : ",0);
@@ -1071,7 +1071,7 @@ else
             }
         else
             { // Òóò ðàáîòà ñ ÈÍÏàìè - òî åñòü íàñòîÿùèå ïåðåñòàíîâêè
-            Word8 oldcode=ver.Alt[0].Code;
+            uchar oldcode=ver.Alt[0].Code;
             ver=loc;
             leo_sort_vers_prob( &ver );
             if( !leo_strchr_codes("()", ver.Alt[0].Code) )
@@ -1108,10 +1108,10 @@ leo_reduce_typefaces(&ver);
 leo_compress( &ver );
 if( leo_alpha_type==ALPH_ALL )
     {
-    if( alphabet[(Word8)'‡'] && alphabet['3'] )
-        leo_reverse_russian(&ver, (Word8)'‡', '3');
-    if( alphabet[(Word8)'Ž'] && alphabet['0'] )
-        leo_reverse_russian(&ver, (Word8)'Ž', '0');
+    if( alphabet[(uchar)'‡'] && alphabet['3'] )
+        leo_reverse_russian(&ver, (uchar)'‡', '3');
+    if( alphabet[(uchar)'Ž'] && alphabet['0'] )
+        leo_reverse_russian(&ver, (uchar)'Ž', '0');
     }
 if( !( leo_alpha_type==ALPH_ALL && ver.lnAltCnt && leo_strchr_codes_ansi("ÎÇ", ver.Alt[0].Code)) )
 if( per.lnAltCnt && ver.lnAltCnt && leo_comp_codes(ver.Alt[1].Code,per.Alt[0].Code) )
@@ -1210,7 +1210,7 @@ RecVersions ver, loc,  per, tmp, msk, r35;
 uint16_t      CompImage16x16[256];
 Bool32      f16x16, disable_dis, disable_r35, per_nonrec=FALSE  ;
 int32_t       over_bonus=0, not_n=0;
-Word8       prob_3x5[256]={0}, over[256]={0};
+uchar       prob_3x5[256]={0}, over[256]={0};
 RecRaster   recR,rr, rr_sm;
 
 if( R35Pack(&object->recData.recRaster, CompImage16x16,16, 16) )
@@ -1284,7 +1284,7 @@ if( alphabet['N'] )
     {    // KNOT for recog N
     if( ver.lnAltCnt )
         {
-        if( (leo_exist_code(&ver, (Word8)'N')!=-1 ) && ver.lnAltCnt==1 )
+        if( (leo_exist_code(&ver, (uchar)'N')!=-1 ) && ver.lnAltCnt==1 )
             {
             leo_snapChar(&ver,"LEO PRN MTR EVN No : ",0);
             goto XOPOIII_HET3X5;
@@ -1357,25 +1357,25 @@ if( ver.lnAltCnt && per.lnAltCnt && r35.lnAltCnt && msk.lnAltCnt)
 {
 if( leo_alpha_type==ALPH_ALL )
     {
-    if( alphabet[(Word8)'‡'] && alphabet['3'] )
+    if( alphabet[(uchar)'‡'] && alphabet['3'] )
         {
-        leo_kill_double_russian(&ver, (Word8)'‡', '3');
-        leo_kill_double_russian(&per, (Word8)'‡', '3');
-        leo_kill_double_russian(&r35, (Word8)'‡', '3');
-        leo_kill_double_russian(&msk, (Word8)'‡', '3');
+        leo_kill_double_russian(&ver, (uchar)'‡', '3');
+        leo_kill_double_russian(&per, (uchar)'‡', '3');
+        leo_kill_double_russian(&r35, (uchar)'‡', '3');
+        leo_kill_double_russian(&msk, (uchar)'‡', '3');
         }
-    if( alphabet[(Word8)'Ž'] && alphabet['0'] )
+    if( alphabet[(uchar)'Ž'] && alphabet['0'] )
         {
-        leo_kill_double_russian(&ver, (Word8)'Ž', '0');
-        leo_kill_double_russian(&per, (Word8)'Ž', '0');
-        leo_kill_double_russian(&r35, (Word8)'Ž', '0');
-        leo_kill_double_russian(&msk, (Word8)'Ž', '0');
+        leo_kill_double_russian(&ver, (uchar)'Ž', '0');
+        leo_kill_double_russian(&per, (uchar)'Ž', '0');
+        leo_kill_double_russian(&r35, (uchar)'Ž', '0');
+        leo_kill_double_russian(&msk, (uchar)'Ž', '0');
         }
     }
 if( ver.Alt[0].Prob>150 && ver.Alt[0].Method==REC_METHOD_3X5 &&
     ver.Alt[0].Code!=per.Alt[0].Code )
     { // kill unique alt from 3x5
-    Word8 first=per.Alt[0].Code;
+    uchar first=per.Alt[0].Code;
     int32_t i_msk=leo_exist_code(&msk,first);
 
     if( i_msk==0 || i_msk==1 && msk.Alt[0].Prob==msk.Alt[1].Prob && per.Alt[0].Prob>100)
@@ -1387,7 +1387,7 @@ if( ver.Alt[0].Prob>150 && ver.Alt[0].Method==REC_METHOD_3X5 &&
 
 if( !leo_strchr_codes_ansi("ØÙÆ", ver.Alt[0].Code) )
     {
-    Word8 first=ver.Alt[0].Code;
+    uchar first=ver.Alt[0].Code;
     int32_t i_r35=leo_exist_code(&r35,first);
     int32_t i_msk=leo_exist_code(&msk,first);
     int32_t i_per=leo_exist_code(&per,first);
@@ -1431,7 +1431,7 @@ if( disable_r35 )
 over_bonus = leo_no_hist_leader(over,&ver);
 if( over_bonus<2 && ver.lnAltCnt>1 && over[ver.Alt[1].Code]>2 )
     {
-    Word8 tmp=ver.Alt[1].Code;
+    uchar tmp=ver.Alt[1].Code;
     over_bonus = over[ver.Alt[1].Code];
     ver.Alt[1].Code=ver.Alt[0].Code;
     ver.Alt[0].Code=tmp;
@@ -1499,10 +1499,10 @@ leo_reduce_typefaces(&ver);
 leo_compress( &ver );
 if( leo_alpha_type==ALPH_ALL )
     {
-    if( alphabet[(Word8)'‡'] && alphabet['3'] )
-        leo_reverse_russian(&ver, (Word8)'‡', '3');
-    if( alphabet[(Word8)'Ž'] && alphabet['0'] )
-        leo_reverse_russian(&ver, (Word8)'Ž', '0');
+    if( alphabet[(uchar)'‡'] && alphabet['3'] )
+        leo_reverse_russian(&ver, (uchar)'‡', '3');
+    if( alphabet[(uchar)'Ž'] && alphabet['0'] )
+        leo_reverse_russian(&ver, (uchar)'Ž', '0');
     }
 if( per_nonrec && ver.lnAltCnt && ver.Alt[0].Prob>10 )
     {

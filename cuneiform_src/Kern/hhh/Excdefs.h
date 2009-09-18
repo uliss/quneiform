@@ -81,8 +81,8 @@ typedef struct tagExtComponent
  int16_t h;                 // height of component
  int16_t w;                 // width of component
  ///////////////////////////////////////////////////////////////
- Word8 rw;               // raster width in bytes  == (w+7)/8
- Word8 type;             // recognition type
+ uchar rw;               // raster width in bytes  == (w+7)/8
+ uchar type;             // recognition type
 #define ch_perfect    1     // perfect type defined
 #define ch_letter     2     // letter type
 #define ch_dust       4     // dust type
@@ -91,17 +91,17 @@ typedef struct tagExtComponent
 #define ch_great     32     // great component
 #define ch_merge     64     // merged components
 #define ch_notltr   128     // not letter or punctuation
- Word8 cs;              // recognition case (see bellow)        *
- Word8 pidx;            // proportional index (ref.)            *
+ uchar cs;              // recognition case (see bellow)        *
+ uchar pidx;            // proportional index (ref.)            *
  int16_t nvers;           // number of alternative versions, 0 - none !!
  int16_t records;         // recognition records offset, 0 - none     !!
  int16_t lines;           // ptr to line representation, 0 - never
                         // p_body == (char*)p_comp + lines;
  int16_t nl;               // number of lines
- Word8 begs;             // number of free begins
- Word8 ends;             // number of free ends
- Word8 reasno;           // proportional criteria messages
- Word8 large;            // large type
+ uchar begs;             // number of free begins
+ uchar ends;             // number of free ends
+ uchar reasno;           // proportional criteria messages
+ uchar large;            // large type
 #define REXC_ch_underlined   0x01       // component was underlined
 #define REXC_ch_taken        0x02       // taken to line at dust_ini
 // Almi added //
@@ -115,8 +115,8 @@ typedef struct tagExtComponent
 //#define el_vert_big      32     // more than anyone letter
 //#define el_hori_big      64     // extremely long
 ////////////////
- Word8 scale;                    // scale of the component
- Word8 begends;
+ uchar scale;                    // scale of the component
+ uchar begends;
  int32_t dens;
 } ExtComponent;
 
@@ -135,9 +135,9 @@ typedef struct tagExtCompDust // currently not used
   uint16_t size;            // =1
   int16_t  upper;
   int16_t  left;
-  Word8 h;               // >0
-  Word8 w;               // >0
-  Word8 raster[8];
+  uchar h;               // >0
+  uchar w;               // >0
+  uchar raster[8];
 } ExtCompDust;
 
 
@@ -168,8 +168,8 @@ typedef struct tagExtLnHead
 //      one interval
 typedef struct tagExtInterval
 {
- Word8 l;        // length of interval
- Word8 e;        // end of interval from left bound of comp in pixels
+ uchar l;        // length of interval
+ uchar e;        // end of interval from left bound of comp in pixels
                  // so, start == e-l, relatively to left bound of comp
          //beg = inter->e - inter->l;
          //end = inter->e - 1;
@@ -263,10 +263,10 @@ typedef struct tagREXC_DIB
       }
    REXC_DIB;
 typedef struct tagREXC_RGBQUAD { // rgbq
-    Word8    rgbBlue;
-    Word8    rgbGreen;
-    Word8    rgbRed;
-    Word8    rgbReserved;
+    uchar    rgbBlue;
+    uchar    rgbGreen;
+    uchar    rgbRed;
+    uchar    rgbReserved;
 } REXC_RGBQUAD;
 
 #define MAX_NUM_CUTPN 2048

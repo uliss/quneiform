@@ -114,7 +114,7 @@ static INT long_lines_ff(cell *);
 // static INT not_1(cell *);
 // static INT not_no(cell *);
 static INT upper_right_line(cell *);
-uint32_t check_letter(cell *c, Word8 let); // 18.06.2002 E.P.
+uint32_t check_letter(cell *c, uchar let); // 18.06.2002 E.P.
 
 void criteries()
  {
@@ -1268,7 +1268,7 @@ static INT upper_right_line(cell *c)
  return 0;
  }
 
-uint32_t check_letter(cell *c, Word8 let)
+uint32_t check_letter(cell *c, uchar let)
 {
 // Проверяет наличие версии. 18.06.2002 E.P.
 version *p = c->vers;

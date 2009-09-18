@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define __LEO_FUNC_H__
 // functions from module leo.c
-void    leo_kill(RecVersions *v,Word8 *kill_list);
+void    leo_kill(RecVersions *v,uchar *kill_list);
 void    leo_reduce_typefaces(RecVersions *v);
 void    leo_clear( RecVersions *v);
 int     leo_sort_vers_prob(RecVersions *v);
@@ -70,17 +70,17 @@ void    LeoAddPVers(int Probs[],RecVersions *v);
 void    leoProbsToVer_expert(int Probs[],RecVersions *v,RecVersions *mod);
 void    LeoProbsToVer(int Probs[],RecVersions *v);
 Bool32  leo_add_vers(RecVersions *dst, RecVersions *src);
-int     leo_exist_code(RecVersions *ver, Word8 code);
+int     leo_exist_code(RecVersions *ver, uchar code);
 void    leo_set_max_vers(RecVersions *v,int p);
-int     leo_comp_codes(Word8 c1, Word8 c2);
-Word8 * leo_strchr_codes(Word8 *c1, Word8 c2);
-Word8 * leo_strchr_codes_ansi(Word8 *c1, Word8 c2);
+int     leo_comp_codes(uchar c1, uchar c2);
+uchar * leo_strchr_codes(uchar *c1, uchar c2);
+uchar * leo_strchr_codes_ansi(uchar *c1, uchar c2);
 void    leo_over( RecVersions *ver, RecVersions *alph);
-int     leo_exist_codes(RecVersions *ver, Word8 *codes);
-void    add_to_prob_array(Word8 prob[],RecVersions *v);
-void    VersToAlph(RecVersions *ver,Word8 alphabet0[]);
+int     leo_exist_codes(RecVersions *ver, uchar *codes);
+void    add_to_prob_array(uchar prob[],RecVersions *v);
+void    VersToAlph(RecVersions *ver,uchar alphabet0[]);
 void    leo_expert_prob( RecVersions *v,uint16_t *v3x5, RecRaster *r ,
-                         Word8 prob_3x5[], Word8 prob_iva[], int32_t prn,
+                         uchar prob_3x5[], uchar prob_iva[], int32_t prn,
                          Bool32 bonus, Bool32 enable5x3);
 
 /// functions from module leo_stick
@@ -104,12 +104,12 @@ void    leo_diskrim_stick(RecVersions *ver);
 /// functions from module leo_cont
 void    leo_close_cont(void);
 Bool32  leo_cont_new_page(int32_t id_page);
-int16_t   leo_cont_store(RecRaster *r,Word8 let, Word8 nLns,Rect16 *rect, Word8 IsPrn,
-		Word8 Prob, Word8 Valid, RecVersions *ver,Word8 control);
-Bool32  leo_cont_restore(RecRaster *r, int32_t id_page, int16_t id_rast, Word8 *nLns,Rect16 *rect, Word8 *IsPrn,Word8 *datao);
+int16_t   leo_cont_store(RecRaster *r,uchar let, uchar nLns,Rect16 *rect, uchar IsPrn,
+		uchar Prob, uchar Valid, RecVersions *ver,uchar control);
+Bool32  leo_cont_restore(RecRaster *r, int32_t id_page, int16_t id_rast, uchar *nLns,Rect16 *rect, uchar *IsPrn,uchar *datao);
 void    leo_close_cont_temp(void);
 int     leo_open_cont_temp(void);
-Bool32  leo_cont_set_valid(int32_t id_page, int16_t id_rast,Word8 code, Word8 valid,Word8 control);
+Bool32  leo_cont_set_valid(int32_t id_page, int16_t id_rast,uchar code, uchar valid,uchar control);
 Bool32  leo_cont_del_final(int32_t id_page, int16_t id_rast);
 Bool32  leo_cont_store_collection(RecVersions *ver);
 
@@ -131,7 +131,7 @@ void    leo_snapSimpleKey(char *str, SnpTreeNode *stnRecog);
 Bool32  leo_init_prn(void);
 
 // function from module LEO_SIZE.C
-Word8 leo_proport_penalty(Word8 let,Word8 prob, int32_t w, int32_t h);
-Word8 leo_sizes_penalty( int32_t w, int32_t h);
+uchar leo_proport_penalty(uchar let,uchar prob, int32_t w, int32_t h);
+uchar leo_sizes_penalty( int32_t w, int32_t h);
 void  leo_sizes_init_stat(void);
 #endif

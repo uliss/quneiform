@@ -61,13 +61,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ctb.h"
 
 // Level for Binarizing Gray image(wx,wy)
-CTB_FUNC(Word8)  CTB_BestLevelInGray(Word8 *image,int wx,int wy)
+CTB_FUNC(uchar)  CTB_BestLevelInGray(uchar *image,int wx,int wy)
 {
     int     GrayHist16Buf[16],GrayHist16Buf1[16];
     int     GrayHist16[16];
     int     m1,im1,m,im=-1;
     int     i,j;
-    Word8   *p;
+    uchar   *p;
 
     memset(GrayHist16, 0, 16*sizeof(int));
     for(p=image,j=0;j<wy;j++)
@@ -167,7 +167,7 @@ static Bool32 CTB_GrayBoundRight(RecRasterEx *PaintRaster,int GLevel)
 {
     int i,j,h=PaintRaster->lnPixHeight,w=PaintRaster->lnPixWidth, w16;
     int dist, max_dist, ww;
-    Word8   PRRaster[256];
+    uchar   PRRaster[256];
     w16 = w;
     for(max_dist=i=0;i<h;i++)
     {

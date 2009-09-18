@@ -311,7 +311,7 @@ RSELSTR_FUNC(uint32_t) RSELSTR_GetReturnCode()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSELSTR_FUNC(Int8 *) RSELSTR_GetReturnString(uint32_t dwError)
+RSELSTR_FUNC(char *) RSELSTR_GetReturnString(uint32_t dwError)
 {
 return NULL;
 }

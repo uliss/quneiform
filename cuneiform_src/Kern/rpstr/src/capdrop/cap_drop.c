@@ -135,9 +135,9 @@ do
 return FALSE;
 }
 
-Word8   eng_let[]       =   "ETYOPAHKXCBM";
-Word8   rus_let[]       =   "ЕТУОРАНКХСВМ";
-Word8   rus_let_ascii[] =   "…’“ЋђЂЌЉ•‘‚Њ";
+uchar   eng_let[]       =   "ETYOPAHKXCBM";
+uchar   rus_let[]       =   "ЕТУОРАНКХСВМ";
+uchar   rus_let_ascii[] =   "…’“ЋђЂЌЉ•‘‚Њ";
 void	capdrop_collection(int32_t version,int32_t i,CSTR_line ln_cd,CSTR_line ln_main)
 {
 CSTR_rast       mrst, crst;
@@ -156,7 +156,7 @@ if( crst )
     if( mrst )
         {
         CSTR_GetAttr(crst,&attr);
-        if( CSTR_GetImage (crst, (Word8 *)(&rs), CSTR_TYPE_IMAGE_RS) )
+        if( CSTR_GetImage (crst, (uchar *)(&rs), CSTR_TYPE_IMAGE_RS) )
             {
             CSTR_GetCollectionUni(crst,&uvr) ;
             comp=CSTR_GetComp(crst);

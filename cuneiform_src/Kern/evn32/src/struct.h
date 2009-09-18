@@ -95,10 +95,10 @@ struct mn_struc
  int16_t mnboxcnt;      // number of boxes in component
 #define usual_box_count 20 	// heuristic of number of lines in a letter
 #define great_box_count	200	// heuristic for number of boxes in a picture
- Word8 mnlines;                  // number of lines in the component
- Word8 mnbegs;             // number of free line begins
- Word8 mnends;                   // number of free line ends
- Word8 mnflag;                   // flag byte for main number
+ uchar mnlines;                  // number of lines in the component
+ uchar mnbegs;             // number of free line begins
+ uchar mnends;                   // number of free line ends
+ uchar mnflag;                   // flag byte for main number
 #define mnpicture 1		// component is a picture
  struct mn_struc *mnnext;	// address of next dead component
  };
@@ -121,8 +121,8 @@ struct box_struct
 				//    within box)
  int16_t              boxex;  // coordinate of last segment end (if line
 				//    ends within box)
- Word8         boxflag;  // byte for box attributes flags
- Word8       boxwf;  // working flag (for picture compress)
+ uchar         boxflag;  // byte for box attributes flags
+ uchar       boxwf;  // working flag (for picture compress)
  uint16_t       boxresw;  // reserved word (for *4 arround)
  };
 typedef struct box_struct BOX;
@@ -170,8 +170,8 @@ struct comp_struc
  int16_t left;    // left boundary of component
  int16_t h;     // height of component
  int16_t w;           // width of component
- Word8 rw;               // raster width in bytes
- Word8 type;       // recognition type
+ uchar rw;               // raster width in bytes
+ uchar type;       // recognition type
 #define ch_perfect    1	    // perfect type defined
 #define ch_letter     2	    // letter type
 #define ch_dust       4	    // dust type
@@ -180,21 +180,21 @@ struct comp_struc
 #define ch_great     32	    // great component
 #define ch_merge     64	    // merged components
 #define ch_notltr   128	    // not letter or punctuation
- Word8 cs;         // recognition case (see bellow)
- Word8 pidx;         // proportional index (ref.)
+ uchar cs;         // recognition case (see bellow)
+ uchar pidx;         // proportional index (ref.)
  int16_t nvers;   // number of alternative versions
  int16_t records;   // recognition records offset
  int16_t lines;   // ptr to line representation
  int16_t nl;    // number of lines
- Word8 begs;       // number of free begins
- Word8 ends;         // number of free ends
- Word8 reasno;           // proportional criteria messages
- Word8 large;    // large type
+ uchar begs;       // number of free begins
+ uchar ends;         // number of free ends
+ uchar reasno;           // proportional criteria messages
+ uchar large;    // large type
 #define ch_underlined	1	// component was underlined
 #define ch_taken	2	// taken to line at dust_ini
- Word8 scale;      // scale of the component
+ uchar scale;      // scale of the component
 // union {
-// Word8 stairs[4];                // bit_map for stairs_vector components
+// uchar stairs[4];                // bit_map for stairs_vector components
  struct comp_struc * next;
 //       };
  };
@@ -206,8 +206,8 @@ typedef struct comp_struc c_comp;
 
 struct vers_struct  	// versions with probabilities
  {
- Word8 let;    // character
- Word8 prob;   // probability
+ uchar let;    // character
+ uchar prob;   // probability
  };
 typedef struct vers_struct version;
 
@@ -235,8 +235,8 @@ typedef struct ln_head lnhead;
 //	one interval
 struct int_s
  {
- Word8 l;//int16_t l;  // length of interval
- Word8 e;//int16_t e;  // end of interval coordinates
+ uchar l;//int16_t l;  // length of interval
+ uchar e;//int16_t e;  // end of interval coordinates
  };
 typedef struct int_s interval;
 

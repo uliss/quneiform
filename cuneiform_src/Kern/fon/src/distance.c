@@ -91,7 +91,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ctbdefs.h"
 #include "ligas.h"    // 13.09.2000
 
-extern Word8 language;
+extern uchar language;
 
 
 WORD cmp(PBYTE r,WORD fullwb,WORD w,WORD h,welet * wl);
@@ -698,10 +698,10 @@ static int LookBestClusters(int w,int h,BYTE *buf,BYTE *bufrazmaz,
 
 ///////////////////////
 
-int AddTestAlt(Word8 prob,int numAlt,FonTestInfo *attr,
+int AddTestAlt(uchar prob,int numAlt,FonTestInfo *attr,
 			   welet *wel,int nClust)
 {
-    Word8 flg =CTB_PRINT_FONT;
+    uchar flg =CTB_PRINT_FONT;
 	int j,k;
 
 	if(wel->attr & FON_CLU_ITALIC)
@@ -782,7 +782,7 @@ static SINT CheckLetter(SINT w,SINT h,BYTE *buf,BYTE *bufrazmaz,
 
   if(dist <= porog)
   {
-   Word8 prob=MAX(0,255-STRAFPOINT*dist);
+   uchar prob=MAX(0,255-STRAFPOINT*dist);
    numAlt = AddTestAlt( prob,numAlt,attr,wel,i);
   }
 

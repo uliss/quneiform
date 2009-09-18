@@ -82,7 +82,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 RVERLINE_FUNC(Bool32) RVERLINE_Init(uint16_t wHeightCode,Handle hStorage);
 RVERLINE_FUNC(Bool32) RVERLINE_Done();
 RVERLINE_FUNC(uint32_t) RVERLINE_GetReturnCode();
-RVERLINE_FUNC(Int8 *) RVERLINE_GetReturnString(uint32_t dwError);
+RVERLINE_FUNC(char *) RVERLINE_GetReturnString(uint32_t dwError);
 RVERLINE_FUNC(Bool32) RVERLINE_GetExportData(uint32_t dwType, void * pData);
 RVERLINE_FUNC(Bool32) RVERLINE_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////

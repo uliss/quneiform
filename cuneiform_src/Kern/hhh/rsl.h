@@ -79,7 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 RSL_FUNC(Bool32) RSL_Init(uint16_t wHeightCode,Handle hStorage);
 RSL_FUNC(Bool32) RSL_Done();
 RSL_FUNC(uint32_t) RSL_GetReturnCode();
-RSL_FUNC(Int8 *) RSL_GetReturnString(uint32_t dwError);
+RSL_FUNC(char *) RSL_GetReturnString(uint32_t dwError);
 RSL_FUNC(Bool32) RSL_SetImportData(uint32_t dwType, void * pData);
 
 

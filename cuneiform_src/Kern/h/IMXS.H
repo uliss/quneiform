@@ -74,8 +74,8 @@ typedef struct tagImxs_ImageInfo
                                     /*   image line in pixels, usually 0  */
     uint16_t  wResolutionX;           /* Resolution by X-axe */
     uint16_t  wResolutionY;           /* Resolution by Y-axe */
-    Word8   bFotoMetrics;             /* White pixel */
-    Word8   bUnused;                  /* not used; for alignment purpose only */
+    uchar   bFotoMetrics;             /* White pixel */
+    uchar   bUnused;                  /* not used; for alignment purpose only */
 
     uint16_t  wAddX;
     uint16_t  wAddY;
@@ -86,9 +86,9 @@ typedef struct tagImxs_ImageInfo
 	#ifdef __cplusplus
 	extern "C"  {
 	#endif
-		typedef int16_t  (*TImageGetBlock )(Word8* lpBuff, int16_t fstLine, int16_t nLines);
+		typedef int16_t  (*TImageGetBlock )(uchar* lpBuff, int16_t fstLine, int16_t nLines);
       typedef Bool16 (*TImageOpen     )(Imxs_ImageInfo* lpImageInfo);
-		typedef int16_t  (*TImageRead     )(Word8* lpImage, uint16_t wMaxSize);
+		typedef int16_t  (*TImageRead     )(uchar* lpImage, uint16_t wMaxSize);
 		typedef Bool16 (*TImageClose    )(void);
 	#ifdef __cplusplus
 	}

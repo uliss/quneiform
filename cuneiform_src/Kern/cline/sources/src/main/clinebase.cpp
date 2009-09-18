@@ -193,7 +193,7 @@ CLINE_FUNC(uint32_t) CLINE_GetReturnCode()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CLINE_FUNC(Int8 *) CLINE_GetReturnString(uint32_t dwError)
+CLINE_FUNC(char *) CLINE_GetReturnString(uint32_t dwError)
 {
 	return NULL;
 }

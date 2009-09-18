@@ -75,11 +75,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // extern data
 extern unsigned char alphabet[];
-extern Word8 nIsPrint;
+extern uchar nIsPrint;
 extern int32_t  leo_typ_of_font;
 
 // from module LEO.C
-extern Word8    leo_alpha_type,prn_roma_regim;
+extern uchar    leo_alpha_type,prn_roma_regim;
 
 // ‰Îˇ ÓÒÏ˚ÒÎÂÌÌÓÒÚË assert
 int32_t try_call_vec = 0;
@@ -90,7 +90,7 @@ int leo_incline=ERECT_ENABLE;
 static int leo_av_inc=0, leo_av_inc_n=0,leo_av_inc1=0, leo_av_inc_n1=0, is_pool=0, save_w, save_h;
 static uint16_t save_pool[4096];
 
-static Word8 sqrt_tab[] = {
+static uchar sqrt_tab[] = {
  0,
  1, 1, 1,
  2, 2, 2, 2, 2,
@@ -119,9 +119,9 @@ static uint16_t * leo_rest_rl(void);
 static int32_t    leo_num_of_long_sticks(RecVector *vSticks,int Cnt, int h);
 static Bool32   leo_wide_stick(RecVector *vSticks,int Cnt, int h, int w);
 static Bool32   leo_test_inclinable(RecVersions *v);
-static int      leo_get_first_pixel(Word8 *r,int d);
-static int      leo_get_last_pixel(Word8 *r,int d);
-static int      leo_shift_raster(   Word8 *raster, int dx, int dy,
+static int      leo_get_first_pixel(uchar *r,int d);
+static int      leo_get_last_pixel(uchar *r,int d);
+static int      leo_shift_raster(   uchar *raster, int dx, int dy,
                         int tab_angle[]);
 static int      leo_current_slash_level(void);
 static int32_t    leo_get_incline(RecObject*  object);
@@ -129,7 +129,7 @@ static int32_t    leo_get_incline(RecObject*  object);
 Bool32 similar_i(RecRaster *rs)
 {
 int w=rs->lnPixWidth,wb,h=rs->lnPixHeight,i, le,ri, lem,rim;
-Word8 *r=rs->Raster;
+uchar *r=rs->Raster;
 
 wb=REC_GW_WORD8(rs->lnPixWidth);
 for(lem=rim=256,i=0;i<h;i++,r+=wb)
@@ -275,7 +275,7 @@ return save_pool;
 int32_t leo_recog_stick(uint16_t *lpool, int w, int h)
 {
 int16_t   len,hei,row,flg;
-Word8   il, ie, *loc;
+uchar   il, ie, *loc;
 uint16_t *lp;
 int     i, n, ir, n_2, n_0, wa,wm,rm,wmm,rmm;
 int     jmp, or, ol, lim;
@@ -298,7 +298,7 @@ while(1)  {
     n = hei;
     for(i=0;i<n;i++)
         {
-        loc = (Word8 *)lpool;
+        loc = (uchar *)lpool;
         il = *loc++;
         ie = *loc++;
         lpool++;
@@ -612,7 +612,7 @@ else
 	    }
 	}
 
-if( alphabet['|']||nIsPrint&&alphabet[stdAnsiToAscii(((Word8)'˚'))] )
+if( alphabet['|']||nIsPrint&&alphabet[stdAnsiToAscii(((uchar)'˚'))] )
 	        {
 	        ver->Alt[ver->lnAltCnt].Code='|';
             ver->Alt[ver->lnAltCnt].CodeExt=0;
@@ -626,7 +626,7 @@ return;
 
 
 void leo_set_simple_sticks_print(RecVersions *ver,
-                      unsigned char alphabet[], Word8 prob_stick)
+                      unsigned char alphabet[], uchar prob_stick)
 {
 ver->lnAltCnt=0;
 ver->lnAltMax=REC_MAX_VERS;
@@ -704,7 +704,7 @@ RecVersions loc;
 if( is_pool && ver->lnAltCnt )
     {
     loc = *ver;
-    if( DIFStick_expert( (int16_t)save_w, (int16_t)save_h, (Word8*)save_pool, &loc ) )
+    if( DIFStick_expert( (int16_t)save_w, (int16_t)save_h, (uchar*)save_pool, &loc ) )
         {
         *ver = loc;
         leo_sort_vers_prob(ver);
@@ -734,7 +734,7 @@ for(j=0;j<len32;j++)
 void FiltrateRaster(RecRaster *rin, RecRaster *rout)
 {
 int i,n,wb;
-Word8 *po, *pc;
+uchar *po, *pc;
 
 memcpy( rout, rin, sizeof(RecRaster) );
 wb=REC_GW_WORD8(rout->lnPixWidth);
@@ -779,7 +779,7 @@ RecRaster  *rr, rthis;
 rstick = 0;
 
 rr = &object->recData.recRaster;
-if( alphabet[(Word8)'/'] && !nIsPrint && object->recData.lwCompCnt<3 )
+if( alphabet[(uchar)'/'] && !nIsPrint && object->recData.lwCompCnt<3 )
     {
     rr = &rthis;
     FiltrateRaster(&object->recData.recRaster,rr);
@@ -799,7 +799,7 @@ if( lpool )
     }
 if( nIsPrint && w*4>=h*3 )
     {
-    if( w<=h && alphabet[(Word8)'/'] && nIsPrint &&
+    if( w<=h && alphabet[(uchar)'/'] && nIsPrint &&
         leo_one_line(lpool) )
         {
         r.lnAltCnt=0;
@@ -810,7 +810,7 @@ if( nIsPrint && w*4>=h*3 )
         r.Alt[r.lnAltCnt].Method=REC_METHOD_FINAL;
         r.Alt[r.lnAltCnt].CodeExt=0;
         r.lnAltCnt++;
-        if( DIFStick_expert( (int16_t)w, (int16_t)h, (Word8*)lpool, &r ))
+        if( DIFStick_expert( (int16_t)w, (int16_t)h, (uchar*)lpool, &r ))
             {
             if( r.Alt[0].Prob>240 )
                 {
@@ -894,7 +894,7 @@ if( ( (n==1 && (w*4<=h*3||!nIsPrint)) || (n==2 && w*2<=h) ) &&   lpool)
             r.lnAltCnt++;
             }
 
-        if( DIFStick_expert( (int16_t)w, (int16_t)h, (Word8*)lpool, &r ))
+        if( DIFStick_expert( (int16_t)w, (int16_t)h, (uchar*)lpool, &r ))
             {
 
             leo_sort_vers_prob( &r );
@@ -919,7 +919,7 @@ if( ( (n==1 && (w*4<=h*3||!nIsPrint)) || (n==2 && w*2<=h) ) &&   lpool)
         r.lnAltCnt=0;
         r.lnAltMax=REC_MAX_VERS;
 
-        //if( alphabet[(Word8)'|'] )
+        //if( alphabet[(uchar)'|'] )
         if( leo_alpha_type!=ALPH_DIG )
             {
             r.Alt[r.lnAltCnt].Code='|';
@@ -928,7 +928,7 @@ if( ( (n==1 && (w*4<=h*3||!nIsPrint)) || (n==2 && w*2<=h) ) &&   lpool)
             r.Alt[r.lnAltCnt].Method=REC_METHOD_FINAL;
             r.lnAltCnt++;
             }
-        if( alphabet[(Word8)'1'] )
+        if( alphabet[(uchar)'1'] )
             {
             r.Alt[r.lnAltCnt].Code='1';
             r.Alt[r.lnAltCnt].CodeExt=0;
@@ -936,7 +936,7 @@ if( ( (n==1 && (w*4<=h*3||!nIsPrint)) || (n==2 && w*2<=h) ) &&   lpool)
             r.Alt[r.lnAltCnt].Method=REC_METHOD_FINAL;
             r.lnAltCnt++;
             }
-        if( alphabet[(Word8)'/'] )
+        if( alphabet[(uchar)'/'] )
             {
             r.Alt[r.lnAltCnt].Code='/';
             r.Alt[r.lnAltCnt].CodeExt=0;
@@ -965,7 +965,7 @@ if( ( (n==1 && (w*4<=h*3||!nIsPrint)) || (n==2 && w*2<=h) ) &&   lpool)
             reg_lat=TRUE;
             }
 */
-        if( DIFStick_expert( (int16_t)w, (int16_t)h, (Word8*)lpool, &r ))
+        if( DIFStick_expert( (int16_t)w, (int16_t)h, (uchar*)lpool, &r ))
             {
             if( prn_roma_regim )
                 {
@@ -1056,7 +1056,7 @@ return FALSE;
 
 static Bool32 leo_test_inclinable(RecVersions *v)
 {
-Word8   inc_let[]="1…÷≈Õ√ÿŸ€¬œ–◊»“‹¡ﬁ";
+uchar   inc_let[]="1…÷≈Õ√ÿŸ€¬œ–◊»“‹¡ﬁ";
 if( v->lnAltCnt<1 )
     return FALSE;
 return (memchr(inc_let,v->Alt[0].Code,sizeof(inc_let))!=NULL) ;
@@ -1072,7 +1072,7 @@ return;
 
 
 
-static int leo_get_first_pixel(Word8 *r,int d)
+static int leo_get_first_pixel(uchar *r,int d)
 {
 int i;
 
@@ -1084,7 +1084,7 @@ if( i==d )
 return( (i<<3)+start_pos[*r] );
 }
 
-static int leo_get_last_pixel(Word8 *r,int d)
+static int leo_get_last_pixel(uchar *r,int d)
 {
 int i;
 
@@ -1101,14 +1101,14 @@ return( (i<<3)+last_pos[*r] );
 /* shift any row of raster[dy][(dx+7)>>3] to tab_angle[i]  */
 /*      max_shift - max offset of string                   */
 /* result : raster *res, return : new width of raster      */
-static int leo_shift_raster(   Word8 *raster, int dx, int dy,
+static int leo_shift_raster(   uchar *raster, int dx, int dy,
                         int tab_angle[])
 {
 int  i = 0, ii = 0, j = 0, Dx = 0, d = 0, dd = 0, c = 0, db = 0;
-Word8     *r, *rr, s1, s2, s3;
+uchar     *r, *rr, s1, s2, s3;
 int max_shift,left;
 int dir = tab_angle[0];
-Word8   res[REC_MAX_RASTER_SIZE];
+uchar   res[REC_MAX_RASTER_SIZE];
 
 d  = REC_GW_WORD8 (dx);
 db = (dx+7)/8;
@@ -1268,7 +1268,7 @@ return s;
 
 void leo_add_inc(RecObject*  object)
 {
-Word8   inc_let[]="1…÷≈Õ√ÿŸ€¬œ–◊»“‹¡ﬁ";
+uchar   inc_let[]="1…÷≈Õ√ÿŸ€¬œ–◊»“‹¡ﬁ";
 RecVersions *v;
 int inc;
 

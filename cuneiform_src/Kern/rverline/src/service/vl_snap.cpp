@@ -259,11 +259,11 @@ void RLTDraw_I_PrimBoxes (Rect16 *pRc, int *pNote, int nRc, Handle myWindow, int
 void MyErrorNoMem (const char *pStr)
 {
 	Handle myKeyErr;
-	Word8  err8;
+	uchar  err8;
 	uint16_t Code;
-	err8 = (Word8)ER_ROUGH_NORMAL;
+	err8 = (uchar)ER_ROUGH_NORMAL;
 	Code = (uint16_t)(err8<<8);
-	err8 = (Word8)ER_DETAIL_NO_MEMORY;
+	err8 = (uchar)ER_DETAIL_NO_MEMORY;
 	Code |= (uint16_t)err8;
 	SetReturnCode_rverline (Code);
 	myKeyErr  = AM_GetKeyOfRule (RU_VL_C_ContErr);
@@ -274,11 +274,11 @@ void MyErrorNoMem (const char *pStr)
 void MyErrorNoComment (char *pStr)
 {
 	Handle myKeyErr;
-	Word8  err8;
+	uchar  err8;
 	uint16_t Code;
-	err8 = (Word8)ER_ROUGH_NORMAL;
+	err8 = (uchar)ER_ROUGH_NORMAL;
 	Code = (uint16_t)(err8<<8);
-	err8 = (Word8)ER_DETAIL_NO_COMMENT;
+	err8 = (uchar)ER_DETAIL_NO_COMMENT;
 	Code |= (uint16_t)err8;
 	SetReturnCode_rverline (Code);
 	myKeyErr  = AM_GetKeyOfRule (RU_VL_C_ContErr);

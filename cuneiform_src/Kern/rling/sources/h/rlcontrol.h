@@ -113,12 +113,12 @@ protected:
 	CRLEd   mcEderator;
 	Handle  m_hLastEDOutPool;
 	Handle  m_hLastEDWorkPool;
-	PWord8  m_LastEDOutPool;
-	PWord8  m_LastEDWorkPool;
+	uchar *  m_LastEDOutPool;
+	uchar *  m_LastEDWorkPool;
 	uint32_t  m_LastEDPoolSize;
 	uint32_t  m_LastEDOutPoolSize;
 	uint32_t  m_LastEDWorkPoolSize;
-	PWord8  m_LastEDPool;
+	uchar *  m_LastEDPool;
 	//Char8   m_SecLastWord[RLING_MAX_WORD_LENGHT + 4];
 	//int32_t   m_SecLastCheck;
 	//Char8   m_SecLastDictonaryPath[512];
