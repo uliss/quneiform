@@ -69,8 +69,8 @@
 #endif // _MSC_VER > 1000
 /*** TG_SPELL ***/
 
-LONG read_all_file(PSTR name, char *buff); /* atal  .lib */
-LONG write_all_file(PSTR name, char *, uint32_t size);
+int read_all_file(PSTR name, char *buff); /* atal  .lib */
+int write_all_file(PSTR name, char *, uint32_t size);
 /*** SPELABC  ***/
 
 void initcode(void);
@@ -189,7 +189,7 @@ BYTE * load_stat_dict(char *point);
 // Return type has been changed.
 void load_user_dicts(PSTR list_name, char * point);
 
-LONG read_all_voc(INT seqn, char *name, char *p);
+int read_all_voc(INT seqn, char *name, char *p);
 
 #ifdef SECOND_PASS
 

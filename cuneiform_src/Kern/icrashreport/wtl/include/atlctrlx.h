@@ -1487,7 +1487,7 @@ uint32_t dwStyle = GetStyle() & 0x000000FF;
         if(m_bPaintLabel)
         {
             ATL::CRegKey rk;
-            LONG lRet = rk.Open(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Settings"));
+            int lRet = rk.Open(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Settings"));
             if(lRet == 0)
             {
                 const int cchValue = 12;
@@ -2819,7 +2819,7 @@ enum
     LVCOLSORT_NONE,
     LVCOLSORT_TEXT,   // default
     LVCOLSORT_TEXTNOCASE,
-    LVCOLSORT_LONG,
+    LVCOLSORT_int,
     LVCOLSORT_DOUBLE,
     LVCOLSORT_DECIMAL,
     LVCOLSORT_DATETIME,
@@ -3056,7 +3056,7 @@ uint32_t dwPrevStyle = m_dwSortLVExtendedStyle;
                 bStrValue = true;
             }
             break;
-                case LVCOLSORT_LONG:
+                case LVCOLSORT_int:
             {
                 pFunc = (PFNLVCOMPARE)pT->LVCompareLong;
                 for(int i = 0; i < nCount; i++)
@@ -3505,9 +3505,9 @@ uint32_t dwFlags = LOCALE_NOUSEROVERRIDE;
                 // Keep the multiplier representable in 32bit
                 scaleDiff = largestPower;
             }
-            DWORDLONG power = powersOfTen[scaleDiff - 1];
+            DWORDint power = powersOfTen[scaleDiff - 1];
             // Multiply temp's mantissa by power
-            DWORDLONG product = temp.Lo32 * power;
+            DWORDint product = temp.Lo32 * power;
             ulong carry = static_cast<ulong>(product >> 32);
             temp.Lo32  = static_cast<ulong>(product);
             product = temp.Mid32 * power + carry;

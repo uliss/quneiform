@@ -326,7 +326,7 @@ static void SetRptDlgButtonsPlacement(HWND hWnd,int32_t nBtns,HWND* pBtns)
 static void VisualizeWindow(HWND hWnd,Bool32 bVisualize)
 {
 #if 0
-    LONG ws=::GetWindowLong(hWnd,GWL_STYLE);
+    int ws=::GetWindowLong(hWnd,GWL_STYLE);
     if(bVisualize)
         ws|=WS_VISIBLE;
     else
@@ -503,7 +503,7 @@ STD_FUNC( int32_t ) stdRptMessageBox(
 		return pRptMap->GetShowProps(szKey ? szKey : szMessageText) & ~RDM_UNREP;
     int nRes=::DialogBoxParam(hModule,
         MAKEINTRESOURCE(IDD_REP_DLG),
-        ::GetActiveWindow(),&DialogProc,(LONG)&parms);
+        ::GetActiveWindow(),&DialogProc,(int)&parms);
 	if(hIcon)
 		::DestroyIcon(hIcon);
 	if(bNoRepeat==1)

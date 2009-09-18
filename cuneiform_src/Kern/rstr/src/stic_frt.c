@@ -682,7 +682,7 @@ if( l->m_meandr==1 && l->num_flags==1 && l->mount[4] &&
 	dis += tab_t[27];   /* head : similar to 'f' */			// 40
 
 /*......................................................................*/
-{				// MK: TOO LONG HOOK: for "t." ==> 't'
+{				// MK: TOO int HOOK: for "t." ==> 't'
 ///INT	n1, n2;			// NB: tab_t[29]=80 (fax12/32 "document.")
 ///	n1 = MAX (wid, (lm+rm));
 //////	n2 = (n1<4) ? (n1+4) : (n1*2);	// 4 - MK VOLUNTAR.	before 9.3.1993

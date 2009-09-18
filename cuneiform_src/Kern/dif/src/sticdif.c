@@ -1955,7 +1955,7 @@ if( l->m_meandr==1 && l->num_flags==1 && l->mount[4] &&
 	dis += tab_t[27];   /* head : similar to 'f' */			// 40
 
 /*......................................................................*/
-{				// MK: TOO LONG HOOK: for "t." ==> 't'
+{				// MK: TOO int HOOK: for "t." ==> 't'
 
 	if ((r->mount[4]>=lm+wid+rm) &&		// 10.03.1993
 	    (r->m_pos[4]+wid+3 > dy))		// 11.03.1993 no big hook

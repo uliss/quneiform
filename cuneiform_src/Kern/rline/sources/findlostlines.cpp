@@ -81,24 +81,24 @@ using namespace std;
 
 # define IDEAL_XY(x, y)   \
          {\
-             y = (INT) (y - (LONG) x * nIncline / INCLINE_FACTOR);\
-             x = (INT) (x + (LONG) y * nIncline / INCLINE_FACTOR);\
+             y = (INT) (y - (int) x * nIncline / INCLINE_FACTOR);\
+             x = (INT) (x + (int) y * nIncline / INCLINE_FACTOR);\
          }
 
 # define IDEAL_X(x, y)   \
          {\
-             x = (INT) (x + (LONG) y * nIncline / INCLINE_FACTOR);\
+             x = (INT) (x + (int) y * nIncline / INCLINE_FACTOR);\
          }
 
 # define IDEAL_Y(x, y)   \
          {\
-             y = (INT) (y - (LONG) x * nIncline / INCLINE_FACTOR);\
+             y = (INT) (y - (int) x * nIncline / INCLINE_FACTOR);\
          }
 
 # define REAL_XY(x, y)   \
          {\
-             x = (INT) (x - (LONG) y * nIncline / INCLINE_FACTOR);\
-             y = (INT) (y + (LONG) x * nIncline / INCLINE_FACTOR);\
+             x = (INT) (x - (int) y * nIncline / INCLINE_FACTOR);\
+             y = (INT) (y + (int) x * nIncline / INCLINE_FACTOR);\
 		}
 /***********************************************************************************************/
 typedef struct tagLineData

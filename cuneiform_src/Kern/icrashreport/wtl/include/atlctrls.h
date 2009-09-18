@@ -612,7 +612,7 @@ public:
 	int SetCaretIndex(int nIndex, Bool bScroll = TRUE)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (int)::SendMessage(m_hWnd, LB_SETCARETINDEX, nIndex, MAKELONG(bScroll, 0));
+		return (int)::SendMessage(m_hWnd, LB_SETCARETINDEX, nIndex, MAKEint(bScroll, 0));
 	}
 
 	// for listbox items
@@ -711,7 +711,7 @@ public:
 	int SetItemHeight(int nIndex, UINT cyItemHeight)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (int)::SendMessage(m_hWnd, LB_SETITEMHEIGHT, nIndex, MAKELONG(cyItemHeight, 0));
+		return (int)::SendMessage(m_hWnd, LB_SETITEMHEIGHT, nIndex, MAKEint(cyItemHeight, 0));
 	}
 
 	// Settable only attributes
@@ -960,7 +960,7 @@ public:
 	Bool SetEditSel(int nStartChar, int nEndChar)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (Bool)::SendMessage(m_hWnd, CB_SETEDITSEL, 0, MAKELONG(nStartChar, nEndChar));
+		return (Bool)::SendMessage(m_hWnd, CB_SETEDITSEL, 0, MAKEint(nStartChar, nEndChar));
 	}
 
 	// for combobox item
@@ -1051,7 +1051,7 @@ public:
 	int SetItemHeight(int nIndex, UINT cyItemHeight)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (int)::SendMessage(m_hWnd, CB_SETITEMHEIGHT, nIndex, MAKELONG(cyItemHeight, 0));
+		return (int)::SendMessage(m_hWnd, CB_SETITEMHEIGHT, nIndex, MAKEint(cyItemHeight, 0));
 	}
 
 	Bool GetExtendedUI() const
@@ -1310,7 +1310,7 @@ public:
 	void SetMargins(UINT nLeft, UINT nRight)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		::SendMessage(m_hWnd, EM_SETMARGINS, EC_LEFTMARGIN|EC_RIGHTMARGIN, MAKELONG(nLeft, nRight));
+		::SendMessage(m_hWnd, EM_SETMARGINS, EC_LEFTMARGIN|EC_RIGHTMARGIN, MAKEint(nLeft, nRight));
 	}
 
 	UINT GetLimitText() const
@@ -7378,7 +7378,7 @@ public:
 		return (Bool)::SendMessage(m_hWnd, EM_CANPASTE, nFormat, 0L);
 	}
 
-	void GetSel(LONG& nStartChar, LONG& nEndChar) const
+	void GetSel(int& nStartChar, int& nEndChar) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		CHARRANGE cr = { 0, 0 };
@@ -7393,7 +7393,7 @@ public:
 		::SendMessage(m_hWnd, EM_EXGETSEL, 0, (LPARAM)&cr);
 	}
 
-	int SetSel(LONG nStartChar, LONG nEndChar)
+	int SetSel(int nStartChar, int nEndChar)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		CHARRANGE cr = { nStartChar, nEndChar };
@@ -7436,10 +7436,10 @@ public:
 		return (DWORD)::SendMessage(m_hWnd, EM_GETEVENTMASK, 0, 0L);
 	}
 
-	LONG GetLimitText() const
+	int GetLimitText() const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (LONG)::SendMessage(m_hWnd, EM_GETLIMITTEXT, 0, 0L);
+		return (int)::SendMessage(m_hWnd, EM_GETLIMITTEXT, 0, 0L);
 	}
 
 	DWORD GetParaFormat(PARAFORMAT& pf) const
@@ -7450,17 +7450,17 @@ public:
 	}
 
 #if (_RICHEDIT_VER >= 0x0200)
-	LONG GetSelText(LPTSTR lpstrBuff) const
+	int GetSelText(LPTSTR lpstrBuff) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (LONG)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrBuff);
+		return (int)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrBuff);
 	}
 #else // !(_RICHEDIT_VER >= 0x0200)
 	// RichEdit 1.0 EM_GETSELTEXT is ANSI only
-	LONG GetSelText(LPSTR lpstrBuff) const
+	int GetSelText(LPSTR lpstrBuff) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (LONG)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrBuff);
+		return (int)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrBuff);
 	}
 #endif // !(_RICHEDIT_VER >= 0x0200)
 
@@ -7499,7 +7499,7 @@ public:
 #endif // !_ATL_NO_COM
 
 #if defined(_WTL_USE_CSTRING) || defined(__ATLSTR_H__)
-	LONG GetSelText(_CSTRING_NS::CString& strText) const
+	int GetSelText(_CSTRING_NS::CString& strText) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 
@@ -7507,11 +7507,11 @@ public:
 		::SendMessage(m_hWnd, EM_EXGETSEL, 0, (LPARAM)&cr);
 
 #if (_RICHEDIT_VER >= 0x0200)
-		LONG lLen = 0;
+		int lLen = 0;
 		LPTSTR lpstrText = strText.GetBufferSetLength(cr.cpMax - cr.cpMin);
 		if(lpstrText != NULL)
 		{
-			lLen = (LONG)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrText);
+			lLen = (int)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrText);
 			strText.ReleaseBuffer();
 		}
 #else // !(_RICHEDIT_VER >= 0x0200)
@@ -7519,7 +7519,7 @@ public:
 		LPSTR lpstrText = buff.Allocate(cr.cpMax - cr.cpMin + 1);
 		if(lpstrText == NULL)
 			return 0;
-		LONG lLen = (LONG)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrText);
+		int lLen = (int)::SendMessage(m_hWnd, EM_GETSELTEXT, 0, (LPARAM)lpstrText);
 		if(lLen == 0)
 			return 0;
 
@@ -7633,7 +7633,7 @@ public:
 	}
 
 #if (_RICHEDIT_VER >= 0x0200)
-	int GetTextRange(LONG nStartChar, LONG nEndChar, LPTSTR lpstrText) const
+	int GetTextRange(int nStartChar, int nEndChar, LPTSTR lpstrText) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		TEXTRANGE tr = { 0 };
@@ -7644,7 +7644,7 @@ public:
 	}
 #else // !(_RICHEDIT_VER >= 0x0200)
 
-	int GetTextRange(LONG nStartChar, LONG nEndChar, LPSTR lpstrText) const
+	int GetTextRange(int nStartChar, int nEndChar, LPSTR lpstrText) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		TEXTRANGE tr = { 0 };
@@ -7876,19 +7876,19 @@ public:
 #endif // (_RICHEDIT_VER >= 0x0300)
 
 // Operations
-	void LimitText(LONG nChars = 0)
+	void LimitText(int nChars = 0)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		::SendMessage(m_hWnd, EM_EXLIMITTEXT, 0, nChars);
 	}
 
-	int LineFromChar(LONG nIndex) const
+	int LineFromChar(int nIndex) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (int)::SendMessage(m_hWnd, EM_EXLINEFROMchar, 0, nIndex);
 	}
 
-	POINT PosFromChar(LONG nChar) const
+	POINT PosFromChar(int nChar) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		POINT point = { 0, 0 };
@@ -7945,36 +7945,36 @@ public:
 		return (Bool)::SendMessage(m_hWnd, EM_DISPLAYBAND, 0, (LPARAM)pDisplayRect);
 	}
 
-	LONG FindText(DWORD dwFlags, FINDTEXT& ft) const
+	int FindText(DWORD dwFlags, FINDTEXT& ft) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 #if (_RICHEDIT_VER >= 0x0200) && defined(_UNICODE)
-		return (LONG)::SendMessage(m_hWnd, EM_FINDTEXTW, dwFlags, (LPARAM)&ft);
+		return (int)::SendMessage(m_hWnd, EM_FINDTEXTW, dwFlags, (LPARAM)&ft);
 #else
-		return (LONG)::SendMessage(m_hWnd, EM_FINDTEXT, dwFlags, (LPARAM)&ft);
+		return (int)::SendMessage(m_hWnd, EM_FINDTEXT, dwFlags, (LPARAM)&ft);
 #endif
 	}
 
-	LONG FindText(DWORD dwFlags, FINDTEXTEX& ft) const
+	int FindText(DWORD dwFlags, FINDTEXTEX& ft) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 #if (_RICHEDIT_VER >= 0x0200) && defined(_UNICODE)
-		return (LONG)::SendMessage(m_hWnd, EM_FINDTEXTEXW, dwFlags, (LPARAM)&ft);
+		return (int)::SendMessage(m_hWnd, EM_FINDTEXTEXW, dwFlags, (LPARAM)&ft);
 #else
-		return (LONG)::SendMessage(m_hWnd, EM_FINDTEXTEX, dwFlags, (LPARAM)&ft);
+		return (int)::SendMessage(m_hWnd, EM_FINDTEXTEX, dwFlags, (LPARAM)&ft);
 #endif
 	}
 
-	LONG FormatRange(FORMATRANGE& fr, Bool bDisplay = TRUE)
+	int FormatRange(FORMATRANGE& fr, Bool bDisplay = TRUE)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (LONG)::SendMessage(m_hWnd, EM_FORMATRANGE, bDisplay, (LPARAM)&fr);
+		return (int)::SendMessage(m_hWnd, EM_FORMATRANGE, bDisplay, (LPARAM)&fr);
 	}
 
-	LONG FormatRange(FORMATRANGE* pFormatRange, Bool bDisplay = TRUE)
+	int FormatRange(FORMATRANGE* pFormatRange, Bool bDisplay = TRUE)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (LONG)::SendMessage(m_hWnd, EM_FORMATRANGE, bDisplay, (LPARAM)pFormatRange);
+		return (int)::SendMessage(m_hWnd, EM_FORMATRANGE, bDisplay, (LPARAM)pFormatRange);
 	}
 
 	void HideSelection(Bool bHide = TRUE, Bool bChangeStyle = FALSE)
@@ -7996,19 +7996,19 @@ public:
 		::SendMessage(m_hWnd, EM_REQUESTRESIZE, 0, 0L);
 	}
 
-	LONG StreamIn(UINT uFormat, EDITSTREAM& es)
+	int StreamIn(UINT uFormat, EDITSTREAM& es)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (LONG)::SendMessage(m_hWnd, EM_STREAMIN, uFormat, (LPARAM)&es);
+		return (int)::SendMessage(m_hWnd, EM_STREAMIN, uFormat, (LPARAM)&es);
 	}
 
-	LONG StreamOut(UINT uFormat, EDITSTREAM& es)
+	int StreamOut(UINT uFormat, EDITSTREAM& es)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return (LONG)::SendMessage(m_hWnd, EM_STREAMOUT, uFormat, (LPARAM)&es);
+		return (int)::SendMessage(m_hWnd, EM_STREAMOUT, uFormat, (LPARAM)&es);
 	}
 
-	DWORD FindWordBreak(int nCode, LONG nStartChar)
+	DWORD FindWordBreak(int nCode, int nStartChar)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (DWORD)::SendMessage(m_hWnd, EM_FINDWORDBREAK, nCode, nStartChar);

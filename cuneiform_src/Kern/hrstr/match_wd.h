@@ -56,8 +56,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef struct tagWeight
 {
-  LONG meas;  //measure
-  LONG nlet;  //letter's numbers
+  int meas;  //measure
+  int nlet;  //letter's numbers
 } Weight;
 
 typedef struct tagMatchWordPar

@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     #include "tc_types.h"
   #elif defined (BC_FOR_WIN)
     #include "bcwtypes.h"
-    typedef long signed int LONG;
+    typedef long signed int int;
   #elif defined (WATCOM)
     #include "spelwatc.h"
   #elif defined(THINK_C)
@@ -265,7 +265,7 @@ INT _IsUserDict (char * name)
 {
   char buff[128];
   INT f;
-  LONG ret;
+  int ret;
 
   f = TGOPEN( (INT)VC_STREAM, name, (INT)(O_RDONLY|O_BINARY), S_IREAD );
   if ( f ==-1) {

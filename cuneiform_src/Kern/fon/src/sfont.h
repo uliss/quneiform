@@ -142,7 +142,7 @@ typedef struct tag_clu_info {
 	WORD nsolid;
 	WORD ninvalid;
 	WORD ntwins;
-	LONG memused; // memory were used
+	int memused; // memory were used
 	SINT rc; // return code
 } clu_info;
 
@@ -252,7 +252,7 @@ SINT Razmaz2xByte(BYTE *bSource, BYTE *bDest, SINT xbyteAll, SINT xbit,
 		SINT yrow, SINT porogX, SINT porogY);
 int TestFromGoodRaster(int start, Nraster_header *rh, int NumAll, int NumClus,
 		SINT *nClus, InfoCluster *infoC, int porog);
-LONG StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf);
+int StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf);
 void EndHausdorfDLL(void);
 int32_t GetNumMemory(void);
 void EndNumMemory(void);

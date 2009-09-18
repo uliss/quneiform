@@ -462,19 +462,19 @@ public:
 			lfHeight -= iScale;
 	}
 
-	void SetHeight(LONG nPointSize, HDC hDC = NULL)
+	void SetHeight(int nPointSize, HDC hDC = NULL)
 	{
 		// For MM_TEXT mapping mode
 		lfHeight = -::MulDiv(nPointSize, ::GetDeviceCaps(hDC, LOGPIXELSY), 72);
 	}
 
-	LONG GetHeight(HDC hDC = NULL) const
+	int GetHeight(HDC hDC = NULL) const
 	{
 		// For MM_TEXT mapping mode
 		return ::MulDiv(-lfHeight, 72, ::GetDeviceCaps(hDC, LOGPIXELSY));
 	}
 
-	LONG GetDeciPointHeight(HDC hDC = NULL) const
+	int GetDeciPointHeight(HDC hDC = NULL) const
 	{
 #ifndef _WIN32_WCE
 		POINT ptOrg = { 0, 0 };
@@ -489,7 +489,7 @@ public:
 #endif // _WIN32_WCE
 	}
 
-	void SetHeightFromDeciPoint(LONG nDeciPtHeight, HDC hDC = NULL)
+	void SetHeightFromDeciPoint(int nDeciPtHeight, HDC hDC = NULL)
 	{
 #ifndef _WIN32_WCE
 		POINT pt = { 0, 0 };
@@ -2522,7 +2522,7 @@ public:
 		ATLASSERT(m_hDC != NULL);
 		if(nCount == -1)
 			nCount = lstrlen(lpszString);
-		LONG lRes = ::TabbedTextOut(m_hDC, x, y, lpszString, nCount, nTabPositions, lpnTabStopPositions, nTabOrigin);
+		int lRes = ::TabbedTextOut(m_hDC, x, y, lpszString, nCount, nTabPositions, lpnTabStopPositions, nTabOrigin);
 		SIZE size = { GET_X_LPARAM(lRes), GET_Y_LPARAM(lRes) };
 		return size;
 	}

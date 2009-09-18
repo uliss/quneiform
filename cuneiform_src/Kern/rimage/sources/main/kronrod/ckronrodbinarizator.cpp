@@ -149,7 +149,7 @@ void CKronrodBinarizator::grey_open(uint32_t H, uint32_t N) {
 
 			if (NJ>MaxNJ)
 			{
-				pr_ERR_1((char *)("GREY: TOO LONG LINE (%d)"), NJ);
+				pr_ERR_1((char *)("GREY: TOO int LINE (%d)"), NJ);
 				return;
 			}
 

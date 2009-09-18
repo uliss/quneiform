@@ -171,7 +171,7 @@ void make_abris(s_glue *GL, cell *cl)
         {
             BYTE bhm = (BYTE)hm;
             BYTE bfl = fullh-hm;
-            LONG i, e = intend;
+            int i, e = intend;
             for (i=intbeg; i<e; i++)
             {
                 if ((BYTE)bhm < (BYTE)top[i] ) top[i]=bhm;
@@ -888,7 +888,7 @@ BYTE test_against_convex( PBYTE func, BYTE from, BYTE to )
 {
 INT  x, i, dx;
 BYTE pen, cnt;
-LONG    total;
+int    total;
 
     pen = 0;
     total = 0;

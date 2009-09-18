@@ -3122,7 +3122,7 @@ public:
 		ATL::CRegKey rkParent;
 		ATL::CRegKey rk;
 
-		LONG lRet = rkParent.Open(HKEY_CURRENT_USER, lpstrRegKey);
+		int lRet = rkParent.Open(HKEY_CURRENT_USER, lpstrRegKey);
 		if(lRet != ERROR_SUCCESS)
 			return FALSE;
 		lRet = rk.Open(rkParent, pT->GetRegKeyName());
@@ -3175,7 +3175,7 @@ public:
 		ATL::CRegKey rkParent;
 		ATL::CRegKey rk;
 
-		LONG lRet = rkParent.Create(HKEY_CURRENT_USER, lpstrRegKey);
+		int lRet = rkParent.Create(HKEY_CURRENT_USER, lpstrRegKey);
 		if(lRet != ERROR_SUCCESS)
 			return FALSE;
 		lRet = rk.Create(rkParent, pT->GetRegKeyName());
@@ -3344,7 +3344,7 @@ public:
 	}
 
 // Attributes
-        ulongLONG GetFileSize() const
+        ulongint GetFileSize() const
 	{
 		ATLASSERT(m_hFind != NULL);
 

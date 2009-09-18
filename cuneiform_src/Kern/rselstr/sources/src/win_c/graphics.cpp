@@ -144,14 +144,14 @@ void _setlinestyle (int style) {}
 #ifndef WIN32
 typedef struct tagBITMAPINFOHEADER{
 uint32_t      biSize;
-        LONG       biWidth;
-        LONG       biHeight;
+        int       biWidth;
+        int       biHeight;
         WORD       biPlanes;
         WORD       biBitCount;
 uint32_t      biCompression;
 uint32_t      biSizeImage;
-        LONG       biXPelsPerMeter;
-        LONG       biYPelsPerMeter;
+        int       biXPelsPerMeter;
+        int       biYPelsPerMeter;
 uint32_t      biClrUsed;
 uint32_t      biClrImportant;
 } BITMAPINFOHEADER, *LPBITMAPINFOHEADER, *PBITMAPINFOHEADER;

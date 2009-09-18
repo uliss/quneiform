@@ -1890,7 +1890,7 @@ INT dbsum(INT filter)
 // собственно поиск БЛ
 INT calc_base()
 {
- INT j, iret; LONG w1, w2;
+ INT j, iret; int w1, w2;
 
  Nb2=Ns2; Nb3=Ns3; Nb1=Ns1; Nb4=Ns4;
  iret = 0;

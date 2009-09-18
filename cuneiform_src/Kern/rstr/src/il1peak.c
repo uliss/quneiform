@@ -93,7 +93,7 @@ void extremum (char * func, INT n_func, INT from, INT to, INT threshold,
  INT i;
  INT minway,maxway;
  INT gmin,gmax;
- LONG f,t;
+ int f,t;
  INT r,l;
  INT j,k;
  INT width;

@@ -346,7 +346,7 @@ INT check_and_look (INT *lth,LTIMG **wrddef,
 #ifdef OVERVOC
  if(CHECKVOC)
   {
-   LONG size;
+   int size;
    size=read_all_file((char *)Q.temp_voc_file,V_POINT(Q.v_state.vocseg,0));
    unlink(Q.temp_voc_file);
    if ( size != -1 )

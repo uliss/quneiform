@@ -79,7 +79,7 @@ extern uchar *EVN_GetSegmentPool (void);
 
 extern BYTE digital_string_penalty;
 //AK for debug
-static LONG * AK_deb;
+static int * AK_deb;
 /*============ Import functions ==================*/
 Bool test_alphabet_elem(BYTE let);
 
@@ -257,13 +257,13 @@ void r_criteria(cell *c, const s_glue * gl)              //10.02.97
 {
  extern Bool TM_check_active;
  version *v0;
- LONG    d,d_ang,d_cun,d_abris,i,dd;                       //change from INT
+ int    d,d_ang,d_cun,d_abris,i,dd;                       //change from INT
  char    snap[380],*s=snap;
  struct rst _rst;
  MN *    mn;
  cell *  cc=NULL;
  BYTE    pen_m=0,flag_m=0,maxprob;
- LONG     inc=0 ;                                          //change from INT
+ int     inc=0 ;                                          //change from INT
  version    save[VERS_IN_CELL];
  INT    snvers;
 
@@ -2633,8 +2633,8 @@ Bool check_bend_dn( cell * c )
 static WORD internal_filling(segment * segm,INT h,INT w)
 {
  uint32_t fill=0;
- LONG start, end, col;
- LONG row,left,right,upper,lower;
+ int start, end, col;
+ int row,left,right,upper,lower;
 
  if (h <= 4 || w <= 4) return 0;
 
@@ -3038,7 +3038,7 @@ return;
 void make_white_hist(PBYTE pint,INT height)
 {
  segment * segm;
- LONG i;                                                 //change from INT
+ int i;                                                 //change from INT
 
  memset(hist_white,0,height<<1);
  for(i=0,segm = (segment*)pint,segm++;i < height;i++)

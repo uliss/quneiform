@@ -407,7 +407,7 @@ struct file_descr
  INT file_handle;                     /* file handle */
  char file_name[40];                  /* file name */
  char  *pool_start;               /* adrress of pool for page */
- LONG  pool_lth;                 /* Q.w_lenth of pool (in bytes) */
+ int  pool_lth;                 /* Q.w_lenth of pool (in bytes) */
  INT n_free;                   /* number of free segments in pool */
  char  *pool_free;      /* address of first free block in pool */
 };
@@ -713,12 +713,12 @@ typedef struct super
   struct segm  *new_segm;
   char atr;
   char bgc;
-  LONG buff_l;
-  LONG l;                               /*length of done way in next_symb*/
+  int buff_l;
+  int l;                               /*length of done way in next_symb*/
   WORD new_s;                       /*sign of new segm of curr line*/
   char ed_fname[6];
   INT ed_file;
-  LONG file_lth;
+  int file_lth;
   INT start_sheet_number;
   char  *str_ptr;
   WORD ram_change_status;
@@ -770,7 +770,7 @@ typedef struct super
   struct sheet_disk_descr *sheet_disk_descr_ptr;
   struct sheet_disk_descr  *h_sheet_disk_descr_ptr;
   struct state_stack_elem  *stack;
-  LONG alloc_size;
+  int alloc_size;
   INT shift_status;
   INT key;
   struct segm  *ns_segm;        /* segm_ptr corresponding to next_symb() */

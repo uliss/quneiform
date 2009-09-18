@@ -76,7 +76,7 @@
 //    unload_user_dicts(void) > have been added after Joe.
 // 3. Function < void load_user_dicts ( PSTR list_name, char  *
 //    point) > has been rewritten after Joe.
-// 4. Function < LONG read_all_voc( INT seqn, char *name, char  *p ) >
+// 4. Function < int read_all_voc( INT seqn, char *name, char  *p ) >
 //    has been removed with new streams technology.
 //
 // 08-14-93 06:01pm, Mike
@@ -149,7 +149,7 @@ void load_user_dicts(PSTR list_name, char * point);
 void unload_user_dicts(void);
 
 // 08-13-93 06:35pm, Mike after Joe...
-extern LONG read_all_vtab(INT seqn, char *p);
+extern int read_all_vtab(INT seqn, char *p);
 
 /* -- Data -- */
 
@@ -185,7 +185,7 @@ extern char tiger_dir[40];
 /* -- Code -- */
 
 // 08-13-93 06:32pm, Mike
-//  LONG  read_all_voc(INT seqn, char *name, char  *p);
+//  int  read_all_voc(INT seqn, char *name, char  *p);
 //    /*-----------------17-02-93 02:27pm-----------------
 //     Function reads an dictionary file with name <name>
 //     or with number <seqn> into far memory location <p>.
@@ -206,7 +206,7 @@ BYTE * load_stat_dict(char *point)
  Returns far pointer to the next available memory block.
  --------------------------------------------------*/
 {
-	LONG size;
+	int size;
 	PTDictState dict;
 	PTDictHeaderMask dictHdr;
 	char nearBuf[65];
@@ -288,7 +288,7 @@ BYTE * load_stat_dict(char *point)
 	size = treeLength + tailsLength + rulesLength + hushLength
 			+ sizeof(TDictHeaderMask);
 
-	if ((LONG) dict->size != size) {
+	if ((int) dict->size != size) {
 		return (BYTE *) dict;
 	}
 
@@ -327,13 +327,13 @@ BYTE * load_stat_dict(char *point)
 // 08-13-93 05:37pm, Mike
 // Not needed with IOLIB.H
 //
-//LONG read_all_voc( INT seqn, char *name, char  *p )
+//int read_all_voc( INT seqn, char *name, char  *p )
 //    /*-----------------17-02-93 02:27pm-----------------
 //     Function reads an dictionary file with name <name>
 //     or with number <seqn> into far memory location <p>.
 //     --------------------------------------------------*/
 //{
-//  LONG l;
+//  int l;
 //  BYTE w[MAXPATH];
 //
 //  full_name( w, (PBYTE)name );

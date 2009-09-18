@@ -294,8 +294,8 @@ TIGERLOC(BOOL16)   TigerLayout_Undo           (LPBOOL16 lpbUndoBufferEmpty);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)   TigerLayout_Redo           (LPBOOL16 lpbCantRedo);
 //////////////////////////////////////////////////////////////////////////////
-# define IdealXY(x,y,Num,Den) { x -= (((LONG)y)*Num)/Den; y += (((LONG)x)*Num)/Den; }
-# define RealXY(x,y,Num,Den)  { y -= (((LONG)y)*Num)/Den; x += (((LONG)y)*Num)/Den; }
+# define IdealXY(x,y,Num,Den) { x -= (((int)y)*Num)/Den; y += (((int)x)*Num)/Den; }
+# define RealXY(x,y,Num,Den)  { y -= (((int)y)*Num)/Den; x += (((int)y)*Num)/Den; }
 //////////////////////////////////////////////////////////////////////////////
 //   ED-file access functions                                               //
 //////////////////////////////////////////////////////////////////////////////

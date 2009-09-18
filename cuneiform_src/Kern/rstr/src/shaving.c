@@ -92,9 +92,9 @@ typedef unsigned short int near *	PWORD;
 
 /*			Double word size data				*/
 
-typedef signed long int			LONG;
+typedef signed long int			int;
 typedef unsigned long int		DWORD;
-typedef signed long int near *		PLONG;
+typedef signed long int near *		Pint;
 typedef unsigned long int near *	PDWORD;
 
 # define LEFT    0x4b

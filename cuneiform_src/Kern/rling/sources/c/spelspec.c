@@ -90,7 +90,7 @@ ArtFH  *        SpABCroot;
 
 /* ------------------------------------------------------------------ */
 
-extern LONG read_all_vtab(INT,char  *);
+extern int read_all_vtab(INT,char  *);
 
 BYTE  * load_specABC (BYTE  *point, INT Country)
 {

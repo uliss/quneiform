@@ -84,7 +84,7 @@ INT nw;
 
 static void italic(cell *);
 static INT linerev(INT,INT *);
-static LONG inclin(INT,INT *);
+static int inclin(INT,INT *);
 static void serif(cell *);
 static void underline();
 static BYTE keg_word(cell *,cell *,INT,B_LINES *);
@@ -373,7 +373,7 @@ INT letincl(cell *c)
  INT left[KEGMAX],right[KEGMAX];
  lnhead *line;
  interval *intv0,*intv,*intve;
- LONG s;
+ int s;
 
  let=let_sans_acc[c->vers[0].let];
  //if( language==LANG_RUSSIAN || language==LANG_ENGLISH )
@@ -432,10 +432,10 @@ static INT linerev(INT n,INT *line)
  return end-beg+1;
  }
 
-static LONG inclin(INT n,INT *line)
+static int inclin(INT n,INT *line)
  {
  INT x;
- LONG sy,sxy,inc;
+ int sy,sxy,inc;
 
  for (sxy=sy=x=0; x<n; x++)
   {sy+=line[x]; sxy+=x*line[x];}
@@ -553,7 +553,7 @@ static INT pitch()
  cell *c;
  BYTE let;
  INT nl,nc,ng,n,n1,n2,h,w,ww,wmin,wmax,i,j,sp,bad,d,p,mg;
- LONG s,min;
+ int s,min;
  WORD center[LSTRMAX],left[LSTRMAX],right[LSTRMAX];
 
  for (nl=nc=ng=0,c=(cell_f())->next; c->next!=NULL; c=c->next)
@@ -1114,8 +1114,8 @@ extern int32_t num_of_lines;
   by=lines[i].beg.y>>line_scale;
   ex=lines[i].end.x>>line_scale;
   ey=lines[i].end.y>>line_scale;
-  by-=(INT)((LONG)nIncline*bx/2048);
-  ey-=(INT)((LONG)nIncline*ex/2048);
+  by-=(INT)((int)nIncline*bx/2048);
+  ey-=(INT)((int)nIncline*ex/2048);
   if (MIN(by,ey)<bl.b3 || MAX(by,ey)>bl.b3+bl.ps/2 ||
       cf->r_col-bl.ps>bx || cl->r_col+cl->w+bl.ps<ex)
     continue;
@@ -1322,7 +1322,7 @@ static char aver_dens;
 void avdens()
  {
  //str *ln;
- LONG /*l,*/s,n;
+ int /*l,*/s,n;
  //c_comp **curr,**last,*cmp;
  lnhead *line;
  interval *ic,*ie;
@@ -1358,7 +1358,7 @@ for (c=c1,n=s=0; c!=c2; c=c->next)// Piter add init s=0
    cmp=*curr;
    if (cmp->size==1 && !((file_comp *)cmp)->h && !((file_comp *)cmp)->w)
     {
-    l=((LONG)((file_comp *)cmp)->lth)<<4;
+    l=((int)((file_comp *)cmp)->lth)<<4;
     if ((comp_curr-comp_file+l)>>4>comp_lth)
      error_exit(ERR_comp,2);
     read_comp(((file_comp *)cmp)->offset,comp_curr,l);

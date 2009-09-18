@@ -69,7 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "p2libr.h"
 #include "ccomdefs.h"
 
-LONG  EVNRecog_lp(/*c_comp*/CCOM_comp *ec, BYTE * lp, INT lth, BYTE *res    );
+int  EVNRecog_lp(/*c_comp*/CCOM_comp *ec, BYTE * lp, INT lth, BYTE *res    );
 extern BYTE db_status;	// snap presence byte
 extern BYTE db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
 extern char db_pass;
@@ -392,7 +392,7 @@ version *pv;
 extern BYTE *CellsPage_rstr, *CellsPageEnd_rstr;
 void setup_string()
 {
-LONG    number_of_cells=((LONG)CellsPageEnd_rstr-(LONG)CellsPage_rstr)/sizeof (cell);
+int    number_of_cells=((int)CellsPageEnd_rstr-(int)CellsPage_rstr)/sizeof (cell);
  empty_cell=(cell *) (CellsPage_rstr);
  cell_boundary = empty_cell + number_of_cells;//NUMBER_OF_CELLS;
  free_cell_chain=NULL;
@@ -606,8 +606,8 @@ Bool compose_cell(INT n,cell **clist,cell *c)
      c->h=bot-top;
      c->r_col=left;
      c->w=right-left;
-     c->row=c->r_row-(INT)((LONG)nIncline*c->r_col/2048);
-     c->col=c->r_col+(INT)((LONG)nIncline*c->r_row/2048);
+     c->row=c->r_row-(INT)((int)nIncline*c->r_col/2048);
+     c->col=c->r_col+(INT)((int)nIncline*c->r_row/2048);
      c->env=compose_comp(i,elist);
      c->cg_flag|=c_cg_comp;
      }
@@ -671,8 +671,8 @@ Bool compose_cell_save(INT n,cell **clist,cell *c)
      c->h=bot-top;
      c->r_col=left;
      c->w=right-left;
-     c->row=c->r_row-(INT)((LONG)nIncline*c->r_col/2048);
-     c->col=c->r_col+(INT)((LONG)nIncline*c->r_row/2048);
+     c->row=c->r_row-(INT)((int)nIncline*c->r_col/2048);
+     c->col=c->r_col+(INT)((int)nIncline*c->r_row/2048);
      c->env=compose_comp(i,elist);
      c->cg_flag|=c_cg_comp;
      }

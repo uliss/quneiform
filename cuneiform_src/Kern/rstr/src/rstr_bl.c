@@ -86,7 +86,7 @@ extern uchar decode_ASCII_to_[256][4];
 
 
 INT     minrow,mincol, maxrow, maxcol;
-INT     bs_got=0;     // in baton.c - LONG - error!?
+INT     bs_got=0;     // in baton.c - int - error!?
 
 INT			  bbs0,bbs1, bbs2, bbs3, bbs4, bbsm;  // bbst,
 INT           bsdust_upper, bsdust_lower, bsdust_ps;
@@ -228,10 +228,10 @@ void get_b_lines(cell *C, B_LINES *bas)
  bas->n4=Nb4;
  }
 ///////////////////////////
-LONG get_size()                                                   //16.01.97
+int get_size()                                                   //16.01.97
  { if (multi_bas & 128)
       def_locbas(NULL);
-   return (LONG) Ps;                                              //16.01.97
+   return (int) Ps;                                              //16.01.97
  }
 ///////////////////////
 //

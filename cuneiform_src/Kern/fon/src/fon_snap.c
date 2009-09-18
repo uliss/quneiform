@@ -288,7 +288,7 @@ FON_FUNC(int32_t) FONShowSnap(void)
 /*
  * Handle messages for the application window
  */
-LONG PASCAL GluFonWindowProc(HWND win, UINT msg, WPARAM wparam, LPARAM lparam) {
+int PASCAL GluFonWindowProc(HWND win, UINT msg, WPARAM wparam, LPARAM lparam) {
 	PAINTSTRUCT ps;
 
 	switch (msg) {

@@ -90,13 +90,13 @@
 
 SINT SetAccessTab(SINT fl, void *buf);
 SINT CheckAccessTab(SINT fh, void *buf);
-typedef LONG (* MKFAM)(raster_header * rh, WORD nclu);
+typedef int (* MKFAM)(raster_header * rh, WORD nclu);
 WORD PutSymbolRaster(BYTE *pHau, char *rast, SINT rbyte, SINT xbits,
 		SINT xbyte, SINT yrow);
 //SINT FindDistanceWr(welet *wel,welet *outwel);
 void init11(void);
 SINT SaveCluster(SINT fh, SINT clus, SINT NumAll, BYTE *m1, BYTE *m2);
-LONG StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf);
+int StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf);
 void EndHausdorfDLL(void);
 SINT MakeClusters(SINT fir, SINT NumAll, SINT CurClus, SINT porog,
 		SINT AllCount);
@@ -153,7 +153,7 @@ static uint32_t MaxSizeBuf2 = 0; // space in buffer for bitmaps
 static SINT IsRhHauBuf2 = 0;
 static SWEL *swel = NULL;
 
-static LONG StartHausdorfDLL2(int num, void *ExternBuf, uint32_t SizeExternBuf);
+static int StartHausdorfDLL2(int num, void *ExternBuf, uint32_t SizeExternBuf);
 static void EndHausdorfDLL2(void);
 static SINT FindBestClusterMemory(SINT let, SINT w, SINT h, BYTE *buf,
 		BYTE *bufrazmaz, SINT NumClus, SINT porog, SINT xcen, SINT ycen,
@@ -286,8 +286,8 @@ void EndHausdorfDLL2(void) {
 // use ExternBuf - if not NULL && SizeExternBuf > 0
 //  return > 0 - how many memory alloccated
 //
-LONG StartHausdorfDLL2(int num, void *ExternBuf, uint32_t SizeExternBuf) {
-	LONG size = 0;
+int StartHausdorfDLL2(int num, void *ExternBuf, uint32_t SizeExternBuf) {
+	int size = 0;
 
 #ifdef _NONFLAT_
 	IsRhHauBuf2=2;
@@ -340,7 +340,7 @@ LONG StartHausdorfDLL2(int num, void *ExternBuf, uint32_t SizeExternBuf) {
 	return size;
 }
 /***********************/
-SINT AddBuffer2(LONG sizebitmap) {
+SINT AddBuffer2(int sizebitmap) {
 
 	if (LastWel + sizebitmap > MaxSizeBuf2) {
 		// get new buffer
@@ -370,7 +370,7 @@ static SINT AddRaster(SWEL *sw, welet *wl) {
 		return i;
 	stx = (WR_MAX_WIDTH - w) / 2;
 	sty = (WR_MAX_HEIGHT - h) / 2;
-	ras = wl->raster + (LONG) sty * WR_MAX_WIDTH + stx;
+	ras = wl->raster + (int) sty * WR_MAX_WIDTH + stx;
 
 	sw->w = w; // new width,height - with frame!!
 	sw->h = h;
@@ -390,7 +390,7 @@ static SINT AddRaster(SWEL *sw, welet *wl) {
 	rr = sw->raster = WelHau[NumWelHau - 1] + LastWel;
 	for (i = 0; i < h; i++, ras += WR_MAX_WIDTH, rr += w)
 		memcpy(rr, ras, w);
-	LastWel += (LONG) w * h;
+	LastWel += (int) w * h;
 	return 0;
 }
 ////////////////
@@ -658,8 +658,8 @@ SINT SaveAddCluster(SINT fh, SINT clus, SINT firCl, SINT lastCl, welet *wel,
 	SINT startx, starty;
 	SINT sdvigx, sdvigy;
 	SINT wei = wel->weight;
-	LONG summax = wel->mw;
-	LONG summay = wel->mh;
+	int summax = wel->mw;
+	int summay = wel->mh;
 
 	wel->attr &= ~FON_CLU_FIXED;
 
@@ -750,8 +750,8 @@ SINT SaveAddCluster(SINT fh, SINT clus, SINT firCl, SINT lastCl, welet *wel,
 // put clusters in special form
 //
 static SINT StartWeightedClusters(char *nameClu, PBYTE extern_buf,
-		LONG size_extern, clu_info *cin, int sizeCluster) {
-	LONG size;
+		int size_extern, clu_info *cin, int sizeCluster) {
+	int size;
 	SINT fh, i;
 	SINT ret;
 	SINT NumClus; // how many clusters
@@ -810,14 +810,14 @@ static SINT StartWeightedClusters(char *nameClu, PBYTE extern_buf,
 // NumAll - number of symbols
 // results - in nClus ,
 SINT AddClusterHausdorf(char *NameWr, char *szOutName, SINT porog, SINT porog2,
-		MKFAM accept, PBYTE extern_buf, LONG size_extern, clu_info *cin) {
+		MKFAM accept, PBYTE extern_buf, int size_extern, clu_info *cin) {
 	SINT i, j, k;
 	SINT CurClus = 0;
 	SINT NumAll;
 	SINT NumClus;
 	SINT fh, fold;
 	SINT ret = 0;
-	LONG size;
+	int size;
 	char *movxy;
 #ifdef _GETTIME_
 	clock_t cl1=clock(),cl2,cl3,cl4,cl5,cl22;

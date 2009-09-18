@@ -214,11 +214,11 @@ void StringCalculateParameters (STRING *pString)
     }
 
     pString -> nTopDispersion =
-        (int) long_sqrt ((LONG) (nSumTopDispersion
+        (int) long_sqrt ((int) (nSumTopDispersion
                       / (pString -> nLetters - pString -> nSpecialsLetters)));
 
     pString -> nBottomDispersion =
-        (int) long_sqrt ((LONG) (nSumBottomDispersion
+        (int) long_sqrt ((int) (nSumBottomDispersion
                       / (pString -> nLetters - pString -> nSpecialsLetters)));
 
     pString -> yMin = pString -> yMiddleTop

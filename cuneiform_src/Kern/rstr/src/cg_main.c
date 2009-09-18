@@ -1354,8 +1354,8 @@ static INT compose_raster(raster *r, cell **clist, INT N)
  c->h=bot-top;
  c->r_col=left;
  c->w=right-left;
- c->row=c->r_row-(INT)((LONG)nIncline*c->r_col/2048);
- c->col=c->r_col+(INT)((LONG)nIncline*c->r_row/2048);
+ c->row=c->r_row-(INT)((int)nIncline*c->r_col/2048);
+ c->col=c->r_col+(INT)((int)nIncline*c->r_row/2048);
   insert_cell1(c,clist[0]);
   if ( c->w > 128 || c->h > 63 )
   {
@@ -2173,7 +2173,7 @@ static BYTE accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
   cut_fl= ( seci0->dh != 0 ) ? c_cg_cutr : 0; //разрез справа
   mn1=cut_rast(&r0->pict,r0->w,r0->h,r0->top,r0->left,cut_list,(char)i0,1,
                csv0,&cpos0);
-  d_row=(LONG)nIncline*(r0->left+x0)/2048;
+  d_row=(int)nIncline*(r0->left+x0)/2048;
   cpos0.row1 -= d_row;  cpos0.row2 -= d_row;   //для forbid_stick_cut
 
   if ( seci1->dh != 0 ) cut_fl |= c_cg_cutl; //разрез слева

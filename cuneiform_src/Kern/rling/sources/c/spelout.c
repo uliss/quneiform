@@ -108,7 +108,7 @@ extern BYTE multy_language ;
   static INT outpos_context ( SPART * part, INT pos, BYTE * c);
   static INT  getpos_bel (SOBJ * obj, INT pos, LT  ** beg,
                           LT  ** end, INT * lth );
-  static INT corrpos_lt (SOBJ * obj, INT pos, LONG lth);
+  static INT corrpos_lt (SOBJ * obj, INT pos, int lth);
   static INT shift_left(INT v_s,struct segm * cur_segm,
                           char * cur_symb);
   static INT outpos_ins_shift (SOBJ * obj, INT pos, BYTE cnew);
@@ -562,7 +562,7 @@ INT outpos_ins_shift (SOBJ * obj, INT pos, BYTE cnew)
  LT  * lt;        /* beg of pos,after which to insert       */
  INT lth=0;
  /*struct segm  *tmp;*/
- LONG shift=0;
+ int shift=0;
  INT endposp, endpos;
  INT pi;                         /* curr pos                               */
 
@@ -586,7 +586,7 @@ INT outpos_ins_shift (SOBJ * obj, INT pos, BYTE cnew)
 				/* either insert in old segm or not: */
   {                                 /* old segm is full, set newsegm       */
 				    /* everywhere after the pos inserted:  */
-   shift= (LONG)(SPQ.ns_symb-(BYTE  *)(lt));
+   shift= (int)(SPQ.ns_symb-(BYTE  *)(lt));
    for(pi=pos+1; pi<endpos; pi++)
     {
      if(obj->pos[pi].tif_ref.segm!=segm) /* other segm then in ins-pos ?   */
@@ -613,7 +613,7 @@ INT outpos_ins_shift (SOBJ * obj, INT pos, BYTE cnew)
      if (obj->pos[pi].tif_ref.segm!=segm) /* other segm then in ins-pos ?  */
       break;
      else
-      corrpos_lt (obj, pi, (LONG)(sizeof(LT))); /* correct lt   */
+      corrpos_lt (obj, pi, (int)(sizeof(LT))); /* correct lt   */
     }
    SPQ.ns_segm = savesegm;
    SPQ.ns_symb = savesymb + ((segm==savesegm)? sizeof(LT):0);
@@ -648,7 +648,7 @@ return(OK);
  for (pi=pos+1; pi<endpos; pi++)
   {
    if (obj->pos[pi].tif_ref.segm == segm)   /* if the same segm => shift : */
-    corrpos_lt (obj, pi, -((LONG)(lth)));   /* correct lt of pos & alts    */
+    corrpos_lt (obj, pi, -((int)(lth)));   /* correct lt of pos & alts    */
    else
     break;
   }
@@ -666,7 +666,7 @@ return(OK);
     obj->pos[pos].alt[..].lt
 									  */
 /* ********************************************************************** */
-INT corrpos_lt (SOBJ * obj, INT pos, LONG lth)
+INT corrpos_lt (SOBJ * obj, INT pos, int lth)
 
 {
  INT ai;

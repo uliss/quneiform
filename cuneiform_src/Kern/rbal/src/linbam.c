@@ -321,7 +321,7 @@ void bring_dust(INT arg)
 //////////////////
 */
 void stand_bas()
-{ INT i, j; LONG  w1, w2;
+{ INT i, j; int  w1, w2;
  // b3 assured
  Nb2=Ns2; Nb1=Ns1; Nb4=Ns4;
  if (Ns1) bbs1=(sbs1+(Ns1>>1))/Ns1; else Nb1=-1;

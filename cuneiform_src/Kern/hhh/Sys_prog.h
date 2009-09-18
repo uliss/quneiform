@@ -138,7 +138,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  #define MAXINT      0x7FFF*/
   #ifndef WIN32
     #define MAXSHORT    0x7FFF
-    #define MAXLONG     0x7FFFFFFFL
+    #define MAXint     0x7FFFFFFFL
   #endif
 #else
 
@@ -153,7 +153,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef WIN_MOD
   typedef unsigned char BYTE;
   typedef unsigned int WORD;
-  typedef signed long LONG;
+  typedef signed long int;
   typedef unsigned long DWORD;
   typedef int Bool;
   #ifndef PASCAL
@@ -162,7 +162,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #ifndef LPSTR
      typedef char * LPSTR;
   #endif
-  #define MAKELONG(a,b) ((DWORD)(((WORD)(a)) | (((DWORD)((WORD)(b))) << 16)))
+  #define MAKEint(a,b) ((DWORD)(((WORD)(a)) | (((DWORD)((WORD)(b))) << 16)))
   #define LOWORD(l) ((WORD)(l))
   #define HIWORD(l) ((WORD)(((DWORD)(l) >> 16) & 0xFFFF))
   typedef int HFILE;
@@ -178,7 +178,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     //#define CALLBACK FAR PASCAL
     typedef unsigned int UINT;
     typedef UINT WPARAM;
-    typedef LONG LPARAM;
+    typedef int LPARAM;
   #endif
   #ifndef WIN32
     #ifdef DLL_MOD

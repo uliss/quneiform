@@ -108,8 +108,8 @@ int32_t   TE_file_length   (int16_t);
 typedef  struct
 {
    BYTE  let;
-   LONG  tr1;
-   LONG  tr2;
+   int  tr1;
+   int  tr2;
 }
 StructTree;
 ////////////////////////////////////////////////////////////////////////////////////

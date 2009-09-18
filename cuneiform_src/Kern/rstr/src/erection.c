@@ -119,7 +119,7 @@ static Bool add_versions(cell *c, version *save_versions, INT save_nvers);
 static Bool no_bad_alias(cell *c);
 static cell * convert_to_cells(cell *c);
 static Bool mode_incline( INT inc);
-static LONG calc_dens(cell *c);
+static int calc_dens(cell *c);
 static INT  get_incline_of_word(cell *b, cell *e);
 static INT  erection_incline_word(cell *b, cell *e, INT base_3,INT n_call);
 static void shift_word( cell *c, cell *e, INT shift );
@@ -237,7 +237,7 @@ for (i=0; i<dy; i++)
 
 if( inc<0 )
   {  //  rotate without shaving
-  LONG oldw = c->w;
+  int oldw = c->w;
   cw = fict_shift_intervals(&cc, tab_angle);
   if( c->dens!=255 )
     c->dens = (c->dens*oldw)/cw;
@@ -411,7 +411,7 @@ if( shave || inc )
     c->dens     = 255          ; // undef
   else
     {
-    LONG dens   = calc_dens(c);
+    int dens   = calc_dens(c);
     c->dens     = (dens*32)/(res_cell.w*res_cell.h);
     }
   c->w          = res_cell.w   ;
@@ -549,7 +549,7 @@ if( shave || inc)
     c->dens     = 255          ; // undef
   else
     {
-    LONG dens   = calc_dens(c);
+    int dens   = calc_dens(c);
     c->dens     = (dens*32)/(res_cell.w*res_cell.h);
     }
   c->w          = res_cell.w   ;
@@ -1035,7 +1035,7 @@ return TRUE;
 INT get_incline_of_word(cell *b, cell *e)
 {
 cell *c                       ;
-LONG  inc, inc1, n1           ;
+int  inc, inc1, n1           ;
 INT   i, n, mn, all, zeromn   ;
 INT   inc_list[MAX_LEN_WORD]  ;
 INT   norm_list[MAX_LEN_WORD] ;
@@ -1184,10 +1184,10 @@ if( inc==0 && all<2 && num_extr )
 return (INT)inc;
 }
 
-static void erect_rotate_bl(cell *tmp, INT base_3, LONG inc, INT dir)
+static void erect_rotate_bl(cell *tmp, INT base_3, int inc, INT dir)
 {
 INT     h1, h2;
-LONG    d;
+int    d;
 h1 = tmp->row-base_3;
 h2 = base_3 - tmp->row-tmp->h;
 if( h2>0 )      d =  h2;
@@ -1229,7 +1229,7 @@ for (i=0; i<dy; i++)
 return fict_shift_left_intervals(c, tab_angle);
 }
 
-Bool    test_incline_of_word(cell *b,cell *e,LONG inc)
+Bool    test_incline_of_word(cell *b,cell *e,int inc)
 {
 //Bool    ret=TRUE;
 cell  * c;
@@ -1264,7 +1264,7 @@ return !(up*2>let&&let>2);
 INT erection_incline_word(cell *b, cell *e, INT base_3, INT n_call)
 {
 cell  *c, *tmp, *cnext                  ;
-LONG  inc,    i                         ;
+int  inc,    i                         ;
 INT   shave=(erection_enable==2)        ;
 version save_versions[VERS_IN_CELL]     ;
 INT   save_nvers                        ;
@@ -1358,7 +1358,7 @@ return (INT)inc;
 INT erection_incline_word_set(cell *b, cell *e)
 {
 cell  *c                  ;
-LONG  inc                 ;
+int  inc                 ;
 
 if( (inc=get_incline_of_word(b,e))==0 )
   {
@@ -1494,7 +1494,7 @@ for(c=b;c!=e;c=c->next)
     {
     c->save_stick_inc =  c->stick_inc;
     erect_cell_value(c, (INT)(-c->stick_inc), 0, FALSE);
-    erect_rotate_bl(c,(INT)((p2_active&&line_scale)?(bl.b3>>line_scale):bl.b3),(LONG)(-c->stick_inc),+1);
+    erect_rotate_bl(c,(INT)((p2_active&&line_scale)?(bl.b3>>line_scale):bl.b3),(int)(-c->stick_inc),+1);
     c->stick_inc = NO_INCLINE;
     c->pos_inc   = erect_rest;
     c->left      = c->col;
@@ -1528,7 +1528,7 @@ B_LINES bl;
     {
 		c = erect_cell_value(c, c->save_stick_inc, 0, FALSE);
 
-		erect_rotate_bl(c,(INT)((p2_active&&line_scale)?(bl.b3>>line_scale):bl.b3),(LONG)(c->save_stick_inc),-1);
+		erect_rotate_bl(c,(INT)((p2_active&&line_scale)?(bl.b3>>line_scale):bl.b3),(int)(c->save_stick_inc),-1);
     }
  }
 return;
@@ -1596,7 +1596,7 @@ return lmax;
 INT erection_compose_inc(INT n,cell **clist)
 {
 INT i;
-LONG inc; INT ninc;
+int inc; INT ninc;
 
 for ( ninc=0,inc=i=0; i<n && i<NCOMPMAX; i++)
   if( clist[i]->pos_inc&erect_rot )
@@ -1616,9 +1616,9 @@ inc = ninc ? inc/ninc:NO_INCLINE;
 return (INT)inc;
 }
 
-LONG calc_dens(cell *c)
+int calc_dens(cell *c)
 {
-LONG dens=0l;
+int dens=0l;
 INT      ll, h ;
 interval *inter;
 lnhead   *line;

@@ -188,7 +188,7 @@ typedef long Bool;
 
 #ifndef _LONG_DEFINED
 #define _LONG_DEFINED
-typedef long LONG;
+typedef long int;
 
 #endif // !_LONG_DEFINED
 #ifndef _WPARAM_DEFINED
@@ -198,12 +198,12 @@ typedef UINT WPARAM;
 #endif // _WPARAM_DEFINED
 #ifndef _LPARAM_DEFINED
 #define _LPARAM_DEFINED
-typedef LONG LPARAM;
+typedef int LPARAM;
 
 #endif // !_LPARAM_DEFINED
 #ifndef _LRESULT_DEFINED
 #define _LRESULT_DEFINED
-typedef LONG LRESULT;
+typedef int LRESULT;
 
 #endif // !_LRESULT_DEFINED
 typedef void __RPC_FAR *HANDLE;
@@ -319,10 +319,10 @@ typedef HANDLE __RPC_FAR *LPHANDLE;
 
 typedef struct  _RECTL
     {
-    LONG left;
-    LONG top;
-    LONG right;
-    LONG bottom;
+    int left;
+    int top;
+    int right;
+    int bottom;
     }	RECTL;
 
 typedef struct _RECTL __RPC_FAR *PRECTL;
@@ -331,8 +331,8 @@ typedef struct _RECTL __RPC_FAR *LPRECTL;
 
 typedef struct  tagPOINT
     {
-    LONG x;
-    LONG y;
+    int x;
+    int y;
     }	POINT;
 
 typedef struct tagPOINT __RPC_FAR *PPOINT;
@@ -341,8 +341,8 @@ typedef struct tagPOINT __RPC_FAR *LPPOINT;
 
 typedef struct  _POINTL
     {
-    LONG x;
-    LONG y;
+    int x;
+    int y;
     }	POINTL;
 
 typedef struct _POINTL __RPC_FAR *PPOINTL;
@@ -350,8 +350,8 @@ typedef struct _POINTL __RPC_FAR *PPOINTL;
 #ifndef WIN16
 typedef struct  tagSIZE
     {
-    LONG cx;
-    LONG cy;
+    int cx;
+    int cy;
     }	SIZE;
 
 typedef struct tagSIZE __RPC_FAR *PSIZE;
@@ -367,8 +367,8 @@ typedef struct tagSIZE
 #endif // WIN16
 typedef struct  tagSIZEL
     {
-    LONG cx;
-    LONG cy;
+    int cx;
+    int cy;
     }	SIZEL;
 
 typedef struct tagSIZEL __RPC_FAR *PSIZEL;
@@ -404,10 +404,10 @@ typedef float FLOAT;
 
 typedef struct  tagRECT
     {
-    LONG left;
-    LONG top;
-    LONG right;
-    LONG bottom;
+    int left;
+    int top;
+    int right;
+    int bottom;
     }	RECT;
 
 typedef struct tagRECT __RPC_FAR *PRECT;
@@ -426,32 +426,32 @@ typedef unsigned short USHORT;
 typedef double DOUBLE;
 
 #ifndef _DWORDLONG_
-typedef MIDL_uhyper DWORDLONG;
+typedef MIDL_uhyper DWORDint;
 
-typedef DWORDLONG __RPC_FAR *PDWORDLONG;
+typedef DWORDint __RPC_FAR *PDWORDint;
 
 #endif // !_DWORDLONG_
 #ifndef _ULONGLONG_
-typedef hyper LONGLONG;
+typedef hyper LONGint;
 
-typedef MIDL_uhyper ULONGLONG;
+typedef MIDL_uhyper ULONGint;
 
-typedef LONGLONG __RPC_FAR *PLONGLONG;
+typedef LONGint __RPC_FAR *PLONGint;
 
-typedef ULONGLONG __RPC_FAR *PULONGLONG;
+typedef ULONGint __RPC_FAR *PULONGint;
 
 #endif // _ULONGLONG_
 #if 0
 typedef struct  _LARGE_INTEGER
     {
-    LONGLONG QuadPart;
+    LONGint QuadPart;
     }	LARGE_INTEGER;
 
 typedef LARGE_INTEGER __RPC_FAR *PLARGE_INTEGER;
 
 typedef struct  _ULARGE_INTEGER
     {
-    ULONGLONG QuadPart;
+    ULONGint QuadPart;
     }	ULARGE_INTEGER;
 
 #endif // 0
@@ -538,11 +538,11 @@ typedef struct _SECURITY_DESCRIPTOR __RPC_FAR *PISECURITY_DESCRIPTOR;
 typedef struct  _COAUTHIDENTITY
     {
     /* [size_is] */ USHORT __RPC_FAR *User;
-    ULONG UserLength;
+    Uint UserLength;
     /* [size_is] */ USHORT __RPC_FAR *Domain;
-    ULONG DomainLength;
+    Uint DomainLength;
     /* [size_is] */ USHORT __RPC_FAR *Password;
-    ULONG PasswordLength;
+    Uint PasswordLength;
     ulong Flags;
     }	COAUTHIDENTITY;
 
@@ -557,11 +557,11 @@ uint32_t dwImpersonationLevel;
 uint32_t dwCapabilities;
     }	COAUTHINFO;
 
-typedef LONG SCODE;
+typedef int SCODE;
 
 #ifndef _HRESULT_DEFINED
 #define _HRESULT_DEFINED
-typedef LONG HRESULT;
+typedef int HRESULT;
 
 #endif // !_HRESULT_DEFINED
 typedef SCODE __RPC_FAR *PSCODE;
@@ -893,10 +893,10 @@ typedef struct  _userHENHMETAFILE
 
 typedef struct  _userBITMAP
     {
-    LONG bmType;
-    LONG bmWidth;
-    LONG bmHeight;
-    LONG bmWidthBytes;
+    int bmType;
+    int bmWidth;
+    int bmHeight;
+    int bmWidthBytes;
     WORD bmPlanes;
     WORD bmBitsPixel;
     ulong cbSize;
@@ -979,17 +979,17 @@ typedef HICON HCURSOR;
 /* tagTEXTMETRICW was copied from wingdi.h for MIDL */
 typedef struct  tagTEXTMETRICW
     {
-    LONG tmHeight;
-    LONG tmAscent;
-    LONG tmDescent;
-    LONG tmInternalLeading;
-    LONG tmExternalLeading;
-    LONG tmAveCharWidth;
-    LONG tmMaxCharWidth;
-    LONG tmWeight;
-    LONG tmOverhang;
-    LONG tmDigitizedAspectX;
-    LONG tmDigitizedAspectY;
+    int tmHeight;
+    int tmAscent;
+    int tmDescent;
+    int tmInternalLeading;
+    int tmExternalLeading;
+    int tmAveCharWidth;
+    int tmMaxCharWidth;
+    int tmWeight;
+    int tmOverhang;
+    int tmDigitizedAspectX;
+    int tmDigitizedAspectY;
     Wchar tmFirstChar;
     Wchar tmLastChar;
     Wchar tmDefaultChar;
@@ -1075,7 +1075,7 @@ typedef double DATE;
 /* what RPC knows how to remote */
 typedef struct  tagCY
     {
-    LONGLONG int64;
+    LONGint int64;
     }	CY;
 
 #else /* 0 */
@@ -1090,7 +1090,7 @@ typedef union tagCY {
         long      Hi;
 #endif
     };
-    LONGLONG int64;
+    LONGint int64;
 } CY;
 #endif /* 0 */
 #endif /* _tagCY_DEFINED */
@@ -1105,7 +1105,7 @@ typedef struct  tagDEC
     BYTE scale;
     BYTE sign;
     ulong Hi32;
-    ULONGLONG Lo64;
+    ULONGint Lo64;
     }	DECIMAL;
 
 #else /* _tagDEC_DEFINED */
@@ -1130,7 +1130,7 @@ typedef struct tagDEC {
             ulong Mid32;
 #endif
         };
-        ULONGLONG Lo64;
+        ULONGint Lo64;
     };
 } DECIMAL;
 #define DECIMAL_NEG ((BYTE)0x80)
@@ -1327,7 +1327,7 @@ typedef struct  _SID
     Uchar Revision;
     Uchar SubAuthorityCount;
     SID_IDENTIFIER_AUTHORITY IdentifierAuthority;
-    /* [size_is] */ ULONG SubAuthority[ 1 ];
+    /* [size_is] */ Uint SubAuthority[ 1 ];
     }	SID;
 
 typedef struct _SID __RPC_FAR *PISID;
@@ -1445,7 +1445,7 @@ uint32_t dwContext;
     LCID Locale;
 uint32_t dwVersionHi;
 uint32_t dwVersionLo;
-    ULONGLONG Usn;
+    ULONGint Usn;
 uint32_t cApps;
     /* [size_is] */ APPDETAIL __RPC_FAR *pAppDetail;
     }	PACKAGEDETAIL;

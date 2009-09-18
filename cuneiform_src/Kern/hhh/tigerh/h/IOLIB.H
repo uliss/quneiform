@@ -137,15 +137,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern "C" {
 #endif
 
-LONG my_filelth (INT);                      /* / handle    */
+int my_filelth (INT);                      /* / handle    */
 INT  my_open    (INT, char *, INT, INT);    /* / stream, name, ... */
 FILE *my_fopen  (INT, char *, char *);      /* / stream, name, ... */
 void my_file_rem (INT, char *);             /* / stream, name      */
 INT  my_close   (INT);                      /* / handle            */
-LONG my_read    (INT, char *, LONG);        /* / handle, addr, lth */
-LONG my_write   (INT, char *, LONG);        /* / handle, addr, lth */
-LONG my_seek    (INT, LONG, INT);           /* / handle, addr, type*/
-INT  my_chsize  (INT, LONG);                /* / handle, addr      */
+int my_read    (INT, char *, int);        /* / handle, addr, lth */
+int my_write   (INT, char *, int);        /* / handle, addr, lth */
+int my_seek    (INT, int, INT);           /* / handle, addr, type*/
+INT  my_chsize  (INT, int);                /* / handle, addr      */
 Bool save_dir   (INT, void * );             /* / stream, name      */
 INT  is_open    (INT);                      /* / stream            */
 void set_name_ext   (char *);               /* / stream=TX; extention  */

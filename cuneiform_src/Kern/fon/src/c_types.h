@@ -74,7 +74,7 @@ typedef unsigned char *	PBYTE;
 typedef signed   short int	SINT;
 typedef unsigned short int  WORD;
 
-typedef signed   long int	LONG;
+typedef signed   long int	int;
 typedef unsigned long int   DWORD;
 /*----------------- Strings long prototypes ----------------------------*/
 

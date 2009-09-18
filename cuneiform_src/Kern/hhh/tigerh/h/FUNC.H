@@ -108,7 +108,7 @@ void short_undln();
 void del_root(INT, INT, INT, INT);
 
 // module rulsh.c
-LONG rules_shaving(MN *, INT);
+int rules_shaving(MN *, INT);
 INT shaving_let();
 
 // module rulbr.c
@@ -118,7 +118,7 @@ void cutoffs();
 void sweeper_ini();
 WORD sweeper(INT);
 void sweeper_end();
-void read_comp(uint32_t, char *, LONG);
+void read_comp(uint32_t, char *, int);
 void comp_file_close();
 INT delgarb();
 void del_shav();
@@ -191,8 +191,8 @@ void cell_by_base();
 void cell_position(cell *);
 INT levcut(cell *, INT);
 void get_b_lines(cell *, B_LINES *);
-LONG get_size();
-INT get_bsm(); //AK 04.03.97 ? to LONG
+int get_size();
+INT get_bsm(); //AK 04.03.97 ? to int
 INT is_defis(cell *);
 void basedraft(str *);
 void basefin(str *);
@@ -228,7 +228,7 @@ INT cell_is_BOX_solid(cell*);
 
 // module locomp.asm
 /*#define c_locomp(a, b, c, d, e)        EVN_CLocomp((a), (b), (c), (d), (e))*/
-MN *c_locomp(PBYTE, LONG, LONG, INT, INT);
+MN *c_locomp(PBYTE, int, int, INT, INT);
 
 // module v0compgl.asm
 void invert_tiff(PBYTE c, WORD lth);
@@ -270,7 +270,7 @@ void embBOXF(servBOX *, INT, Bool);
 // module scalar.asm
 INT proport(WORD, WORD, WORD, INT, INT);
 extern WORD (*scalarf)(PWORD, PWORD, WORD);
-extern LONG (*scalar)(PWORD, PWORD);
+extern int (*scalar)(PWORD, PWORD);
 INT long_sqrt(uint32_t);
 
 // module funcBOX.asm
@@ -450,7 +450,7 @@ INT ed_scan(Bool(*)(PBYTE, INT), Bool(*)(PBYTE, INT), PBYTE, PBYTE);
 Bool scan_skip(PBYTE p, INT lth);
 
 // module edp.c
-void edp_main(PBYTE memory, LONG lth);
+void edp_main(PBYTE memory, int lth);
 
 // module edpsave.c
 void save_ed(void);
@@ -471,7 +471,7 @@ PBYTE il1_pool_ptr();
 PBYTE t_raster();
 c_comp * comp_vers_to_kit(MN * mn, c_comp *c);
 c_comp * dust_to_kit(dust_comp *);
-c_comp * comp_from_file(uint32_t, LONG);
+c_comp * comp_from_file(uint32_t, int);
 c_comp * compose_comp(INT, c_comp **);
 Bool compose_cell(INT, cell **, cell *);
 Bool compose_cell_save(INT, cell **, cell *);
@@ -582,7 +582,7 @@ PBYTE compress_dust_component(c_comp *c, BYTE scale);
 INT filling_MN(MN *mn, WORD h, WORD w);
 
 // 	module tg_spell
-INT spelling(PBYTE memory, LONG size);
+INT spelling(PBYTE memory, int size);
 
 // module in_treei.c
 BYTE * load_stat_dict(PBYTE ptr);
@@ -593,14 +593,14 @@ void user_voc_init(void);
 void discrim_un(cell *, s_glue *, INT);
 
 // module rtf.c
-void rtf_main(PBYTE memory, LONG memory_lth);
+void rtf_main(PBYTE memory, int memory_lth);
 
 // module rtfdebug.c
 void print_fragments();
 
 // module ascisave.c
-void smart_ascii_save(PBYTE pool, LONG lth);
-void ascii_save(PBYTE pool, LONG lth);
+void smart_ascii_save(PBYTE pool, int lth);
+void ascii_save(PBYTE pool, int lth);
 
 // module writepro
 void write_prot(cell *);
@@ -658,7 +658,7 @@ void c_rastror(PBYTE, PBYTE, WORD, WORD);
 lnhead *c_boxln(MN *);
 
 // module html.c
-void html_main(PBYTE memory, LONG memory_lth);
+void html_main(PBYTE memory, int memory_lth);
 
 // virtual function...
 WORD Tiger_BIOSKEY(WORD);

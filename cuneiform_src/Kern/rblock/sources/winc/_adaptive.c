@@ -153,7 +153,7 @@ static INT comp_max_w = 128, comp_min_w = 0, comp_max_h = 64, comp_min_h = 0;
  * in locompmn.c.
  */
 /*
- MN * c_locomp (PBYTE raster, LONG bw, LONG h, INT upper, INT left)
+ MN * c_locomp (PBYTE raster, int bw, int h, INT upper, INT left)
  {
  return LOC_CLocomp (raster, bw, h, upper, left);
  }

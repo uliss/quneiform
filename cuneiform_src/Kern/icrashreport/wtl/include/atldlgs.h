@@ -1933,7 +1933,7 @@ public:
 		if((cf.dwMask & CFM_SIZE) != 0)
 		{
 			HDC hDC = ::CreateDC(_T("DISPLAY"), NULL, NULL, NULL);
-			LONG yPerInch = ::GetDeviceCaps(hDC, LOGPIXELSY);
+			int yPerInch = ::GetDeviceCaps(hDC, LOGPIXELSY);
 			m_lf.lfHeight = -(int)((cf.yHeight * yPerInch) / 1440);
 		}
 		else

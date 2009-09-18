@@ -239,7 +239,7 @@ INT is_square(cell *a)
  INT  intbeg, intend, intlth, flsq, dens;
  INT  addinc, addinc8, cellh, cellw, cellwa8, cellha8,
       Ln, lc1, lineh, hcur, hcur8, hrest, hrest8, hint;
- LONG wrkl, cellsq, sumlth;
+ int wrkl, cellsq, sumlth;
  BYTE was_here;
 
  was_here=0;

@@ -85,14 +85,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # define IDEAL_XY(x, y)   \
          {\
-             y = (INT) (y - (LONG) x * nIncline / INCLINE_FACTOR);\
-             x = (INT) (x + (LONG) y * nIncline / INCLINE_FACTOR);\
+             y = (INT) (y - (int) x * nIncline / INCLINE_FACTOR);\
+             x = (INT) (x + (int) y * nIncline / INCLINE_FACTOR);\
          }
 
 # define REAL_XY(x, y)   \
          {\
-             x = (INT) (x - (LONG) y * nIncline / INCLINE_FACTOR);\
-             y = (INT) (y + (LONG) x * nIncline / INCLINE_FACTOR);\
+             x = (INT) (x - (int) y * nIncline / INCLINE_FACTOR);\
+             y = (INT) (y + (int) x * nIncline / INCLINE_FACTOR);\
 		}
 
 #define SHORT_EVENT 50

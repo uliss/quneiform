@@ -126,7 +126,7 @@ extern void   russian_english_context(void);
 void    correct_let_tables(void);
 Bool    is_russian_language(BYTE lang);
 
-extern LONG Flag_Courier;
+extern int Flag_Courier;
 extern INT line_number;
 extern FILE *dbg_f;
 extern BYTE prop_in_trouble;
@@ -1543,8 +1543,8 @@ static void pass_start()
 #define PROPMAX   25
 void DeskewCell(cell *c, CCOM_comp *cmp, INT nIncline, INT shift)
 {
-c->row=cmp->upper-(INT)((LONG)nIncline*cmp->left/2048);
-c->col=cmp->left+(INT)((LONG)nIncline*cmp->upper/2048);
+c->row=cmp->upper-(INT)((int)nIncline*cmp->left/2048);
+c->col=cmp->left+(INT)((int)nIncline*cmp->upper/2048);
 if( shift )
     {
     c->row>>=shift;
@@ -1960,8 +1960,8 @@ void letters_ini(CSTR_line lin, Bool enable_scaling)
  c2=cell_l();
  c1->next=c1->nextl=c2;
  c2->prev=c2->prevl=c1;
- c2->dupstart=0/*(LONG)CSTR_GetDup(curr)*/;
- c2->dupend  =0/*(LONG)CSTR_GetDupEnd(curr)*/;
+ c2->dupstart=0/*(int)CSTR_GetDup(curr)*/;
+ c2->dupend  =0/*(int)CSTR_GetDupEnd(curr)*/;
 
 if( line_alphabet==ALPHA_DIGITAL_TRUE )
         language=sl;
@@ -2086,8 +2086,8 @@ void dust_ini(CSTR_line lin)
   c2->env->large |= ch_taken;
   c2->reasno=0;
   c2->bdiff=(char)(obtain_diff(c2->col));
-  c2->dupstart=(LONG)CSTR_GetDup(curr);
-  c2->dupend  =(LONG)CSTR_GetDupEnd(curr);
+  c2->dupstart=(int)CSTR_GetDup(curr);
+  c2->dupend  =(int)CSTR_GetDupEnd(curr);
 
   c2->flg_new |= c_fn_taken; // Nick 13.02.2001
 
@@ -2685,8 +2685,8 @@ void accept_cell(cell *c,c_comp *cmp)
  c->r_col=cmp->left;
  c->reasno=cmp->reasno;
  c->cpos=c->keg=c->font=0;
- c->row=cmp->upper-(INT)((LONG)nIncline*cmp->left/2048);
- c->col=cmp->left+(INT)((LONG)nIncline*cmp->upper/2048);
+ c->row=cmp->upper-(INT)((int)nIncline*cmp->left/2048);
+ c->col=cmp->left+(INT)((int)nIncline*cmp->upper/2048);
  if ((c->nvers=cmp->nvers)>0)
   {
   memcpy(c->vers,(char *)cmp+cmp->records,c->nvers*sizeof(version));
@@ -2885,7 +2885,7 @@ return;
 void import_lines_features(void)
 {
 cell *c,*b=cell_f()->next, *e=cell_l();
-LONG i,dy,dx;
+int i,dy,dx;
 INT up, uploc;
 
 for(i=0;i<num_of_lines;i++)
@@ -3411,7 +3411,7 @@ cell *  c;
 char    lets[]="weuoaszxcvnmª¥­£è§åêë¢ ¯®«¦íïçá¬¨âì¡î";
 //			   "weuoaszxcvnmêåíãøçõúûâàïîëæýÿ÷ñìèòüáþ"
 
-LONG    s2,s1,n,h,s12,na,nl;
+int    s2,s1,n,h,s12,na,nl;
 
 for(s1=s2=na=nl=n=0,c=cell_f()->nextl;c!=cell_l();c=c->nextl,na++)
     {
@@ -3454,7 +3454,7 @@ cell *  c;
 char    lets_up[]="WERTYUOPQASDFGHJKLZXCVBNM‰“Š…ƒ˜‡•š”›‚€Ž‹†Ÿ—‘Œˆ’œž012234567890";
 //				  "WERTYUOPQASDFGHJKLZXCVBNMÉÓÊÅÍÃØÇÕÚÔÛÂÀÏÐÎËÆÝß×ÑÌÈÒÜÁÞ012234567890";
 
-LONG    s2,s1,n,h,s12,na,nl;
+int    s2,s1,n,h,s12,na,nl;
 
 for(s1=s2=na=nl=n=0,c=cell_f()->nextl;c!=cell_l();c=c->nextl,na++)
     {

@@ -309,7 +309,7 @@ uint32_t   dynmem_size;                // Total count of dynamic memory size
     // Line RTF buffer uses memory for graph during scan of ED file
     BYTE   *rtfbeg;            // Address of buffer= address of graph
     BYTE   *rtfcur;            // Pointer to free space in the buffer
-    LONG    rtflth;            // Length of text in buffer
+    int    rtflth;            // Length of text in buffer
     BYTE   *rtffree;
     BYTE   *rtfend;
     BYTE   rtfspec;

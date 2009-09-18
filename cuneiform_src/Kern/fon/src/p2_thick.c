@@ -124,10 +124,10 @@ static BYTE const maska[8]={0,128,192,224,240,248,252,254};
 
 static Bool VeryFat(BYTE *bSource,SINT xbit,SINT yrow,SINT xbyte)
 {
- LONG i=(LONG)xbyte*yrow,summa;
+ int i=(int)xbyte*yrow,summa;
 
  for(summa=0;i>0;i--,bSource++) summa+=Num11[*bSource];
- if(summa*100 >= (LONG)xbit*yrow*75) return TRUE;
+ if(summa*100 >= (int)xbit*yrow*75) return TRUE;
  return FALSE;
 }
 //////////////////////

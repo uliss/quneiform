@@ -162,10 +162,10 @@ extern int HFILE_ERROR;
 typedef int HFILE;
 
 typedef struct tagRECT {
-	LONG left;
-	LONG right;
-	LONG top;
-	LONG bottom;
+	int left;
+	int right;
+	int top;
+	int bottom;
 } RECT;
 
 typedef RECT* LPRECT;
@@ -197,14 +197,14 @@ typedef struct {
 
 typedef struct tagBITMAPINFOHEADER {
 	uint32_t biSize;
-	LONG biWidth;
-	LONG biHeight;
+	int biWidth;
+	int biHeight;
 	WORD biPlanes;
 	WORD biBitCount;
 	uint32_t biCompression;
 	uint32_t biSizeImage;
-	LONG biXPelsPerMeter;
-	LONG biYPelsPerMeter;
+	int biXPelsPerMeter;
+	int biYPelsPerMeter;
 	uint32_t biClrUsed;
 	uint32_t biClrImportant;
 } BITMAPINFOHEADER, *PBITMAPINFOHEADER;
@@ -293,13 +293,13 @@ typedef struct tagPAINTSTRUCT {
 } PAINTSTRUCT, *PPAINTSTRUCT;
 
 typedef struct tagPOINT {
-	LONG x;
-	LONG y;
+	int x;
+	int y;
 } POINT, *PPOINT;
 
 typedef struct tagSIZE {
-	LONG cx;
-	LONG cy;
+	int cx;
+	int cy;
 } SIZE;
 
 #pragma pack(push, 2)

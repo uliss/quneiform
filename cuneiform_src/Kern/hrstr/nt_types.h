@@ -70,7 +70,7 @@ typedef signed short int  *         _PINT;
 typedef unsigned short int  *       PWORD;
 #define PSTR  char *
 
-typedef signed long int  *          PLONG;
+typedef signed long int  *          Pint;
 */
 /* The original contents of this file follow for future reference. */
 #if 0
@@ -117,9 +117,9 @@ typedef unsigned short int  *       PWORD;
 
 /*                      Double word size data                      */
 
-typedef signed long int                 LONG;
+typedef signed long int                 int;
 typedef unsigned long int               DWORD;
-typedef signed long int  *          PLONG;
+typedef signed long int  *          Pint;
 typedef unsigned long int  *        PDWORD;
 
 #endif
