@@ -1776,7 +1776,7 @@ WORD	buf_B [2550];	//////////////////////////////////////////////////
 
 	buf_H [4] = Korob_Factor + (Korob_porog << 8);
 	buf_H [5] = Porog_08 + (Porog_88 << 8);
-	* (LPint) (buf_H + 6) = Korob_Files_Address;
+	* (Lpint) (buf_H + 6) = Korob_Files_Address;
 
 	Korob_Files_Address += (int) ni * Korob_nj;
 

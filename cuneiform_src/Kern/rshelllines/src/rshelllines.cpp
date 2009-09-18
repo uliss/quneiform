@@ -160,7 +160,7 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
 
 //  Bool APIENTRY DllMain( HANDLE hModule,
 //                         uint32_t  ul_reason_for_call,
-//                         LPVOID lpReserved
+//                         pvoid lpReserved
 //  				  )
 //  {
 //      switch (ul_reason_for_call)

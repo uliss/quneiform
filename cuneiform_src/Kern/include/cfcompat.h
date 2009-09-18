@@ -119,7 +119,7 @@ CFCOMPAT_FUNC(HWND) CreateWindow(
 		HWND hWndParent,
 		HMENU hMenu,
 		HINSTANCE hInstance,
-		LPVOID lpParam
+		pvoid lpParam
 );
 
 CFCOMPAT_FUNC(HGDIOBJ) SelectObject(HDC hdc, HGDIOBJ hgdiobj);
@@ -140,9 +140,9 @@ CFCOMPAT_FUNC(HWND) GetFocus();
 CFCOMPAT_FUNC(int) MessageBox(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType);
 
 CFCOMPAT_FUNC(int) WINAPI GlobalSize(HGLOBAL hMem);
-CFCOMPAT_FUNC(LPVOID) GlobalLock(HGLOBAL hMem);
+CFCOMPAT_FUNC(pvoid) GlobalLock(HGLOBAL hMem);
 CFCOMPAT_FUNC(Bool) GlobalUnlock(HGLOBAL hMem);
-CFCOMPAT_FUNC(Bool) IsBadWritePtr(LPVOID lp, int ucb);
+CFCOMPAT_FUNC(Bool) IsBadWritePtr(pvoid lp, int ucb);
 CFCOMPAT_FUNC(void) OutputDebugString(LPCTSTR lpOutputString);
 CFCOMPAT_FUNC(Bool) SetRect(LPRECT lprc, int xLeft, int yTop,
 		int xRight, int yBottom);

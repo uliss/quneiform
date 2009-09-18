@@ -156,7 +156,7 @@ void CRecognition::SetError(char * str)
 		pErr->SetDescription(T2OLE(str));
 		pErr->SetGUID(IID_IRecognition);
 		pErr->SetSource(T2OLE("Cognitive.Tiger"));
-		hr = pErr->QueryInterface(IID_IErrorInfo, (LPVOID FAR*) &perrinfo);
+		hr = pErr->QueryInterface(IID_IErrorInfo, (pvoid FAR*) &perrinfo);
 		if (SUCCEEDED(hr))
 		{
 			SetErrorInfo(0, perrinfo);

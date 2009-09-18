@@ -81,7 +81,7 @@ Bool32 InitCFIOInterface(Bool32 Status);
 /////////////////////////////////////////
 Bool APIENTRY DllMain( HINSTANCE hModule,
                         uint32_t ul_reason_for_call,
-                        LPVOID lpReserved )
+                        pvoid lpReserved )
 {
     switch( ul_reason_for_call )
 	{

@@ -68,7 +68,7 @@ uchar*  lnOcrPath = NULL;
 /*********************************************************************************************/
 Bool APIENTRY DllMain( HANDLE hModule,
 uint32_t  ul_reason_for_call,
-                       LPVOID lpReserved
+                       pvoid lpReserved
 					 )
 {
     return TRUE;

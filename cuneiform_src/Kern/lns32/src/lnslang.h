@@ -80,7 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #define _LOWORD(l)      ((uint16_t)(l))
    #define _HIWORD(l)      ((uint16_t)((uint32_t)(l) >> 16))
    #define SWAPBYTES(w)    ((uint16_t)(((w)<<8) | (((uint16_t)(w))>>8)))
-   #define SWAPint(l)     \
+   #define SWApint(l)     \
       ((( (int32_t)SWAPBYTES(_LOWORD(l))) <<16) | ( (int32_t)SWAPBYTES(_HIWORD(l))) )
 
 #ifndef FALSE

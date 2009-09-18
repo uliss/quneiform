@@ -70,7 +70,7 @@ typedef signed short int  *         _PINT;
 typedef unsigned short int  *       PWORD;
 #define PSTR  char *
 
-typedef signed long int  *          Pint;
+typedef signed long int  *          pint;
 */
 /* The original contents of this file follow for future reference. */
 #if 0
@@ -119,7 +119,7 @@ typedef unsigned short int  *       PWORD;
 
 typedef signed long int                 int;
 typedef unsigned long int               DWORD;
-typedef signed long int  *          Pint;
+typedef signed long int  *          pint;
 typedef unsigned long int  *        PDWORD;
 
 #endif

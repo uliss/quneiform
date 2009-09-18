@@ -190,8 +190,8 @@ static int line_to_hist(lnhead *line)
  {
  int x,/* xm, */y,ym,i,h;                                        //20.02.97
  interval *v;
- Pint ph/* ,pr */;                                               //20.02.97
- Pint pt;
+ pint ph/* ,pr */;                                               //20.02.97
+ pint pt;
 
  for (v=(interval *)((char *)line+sizeof(lnhead)),
                            ym=(y=H-1-line->row)-line->h;
@@ -237,7 +237,7 @@ static int line_to_hist(lnhead *line)
 static int sticks_find()
  {
  int i,x,hh,max;                                                 //20.02.97
- Pint ph;                                                        //20.02.97
+ pint ph;                                                        //20.02.97
 
 /* for (i=0; i<NINCL; i++)
   {
@@ -279,7 +279,7 @@ static int sticks_find()
 
 static int test_extr(int i,int x,int hh)
  {
- Pint ph,ph1;                                                    //20.02.97
+ pint ph,ph1;                                                    //20.02.97
  int hh1;                                                        //20.02.97
 
  ph=hist+i*horsz+x;

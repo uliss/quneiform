@@ -79,7 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace CrashHandler
 {
 
-CRASHRPTAPI LPVOID Install(LPGETLOGFILE pfn, LPCTSTR lpcszTo, LPCTSTR lpcszSubject)
+CRASHRPTAPI pvoid Install(LPGETLOGFILE pfn, LPCTSTR lpcszTo, LPCTSTR lpcszSubject)
 {
    CCrashHandler *pImpl = new CCrashHandler(pfn, lpcszTo, lpcszSubject, true);
    CRASH_ASSERT(pImpl);
@@ -87,7 +87,7 @@ CRASHRPTAPI LPVOID Install(LPGETLOGFILE pfn, LPCTSTR lpcszTo, LPCTSTR lpcszSubje
    return pImpl;
 }
 
-CRASHRPTAPI void Uninstall(LPVOID lpState)
+CRASHRPTAPI void Uninstall(pvoid lpState)
 {
    CCrashHandler *pImpl = (CCrashHandler*)lpState;
    CRASH_ASSERT(pImpl);
@@ -95,7 +95,7 @@ CRASHRPTAPI void Uninstall(LPVOID lpState)
    delete pImpl;
 }
 
-CRASHRPTAPI void AddFile(LPVOID lpState, LPCTSTR lpFile, LPCTSTR lpDesc)
+CRASHRPTAPI void AddFile(pvoid lpState, LPCTSTR lpFile, LPCTSTR lpDesc)
 {
    CCrashHandler *pImpl = (CCrashHandler*)lpState;
    CRASH_ASSERT(pImpl);
@@ -103,7 +103,7 @@ CRASHRPTAPI void AddFile(LPVOID lpState, LPCTSTR lpFile, LPCTSTR lpDesc)
    pImpl->AddFile(lpFile, lpDesc);
 }
 
-CRASHRPTAPI void GenerateErrorReport(LPVOID lpState, PEXCEPTION_POINTERS pExInfo)
+CRASHRPTAPI void GenerateErrorReport(pvoid lpState, PEXCEPTION_POINTERS pExInfo)
 {
    CCrashHandler *pImpl = (CCrashHandler*)lpState;
    CRASH_ASSERT(pImpl);

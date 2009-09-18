@@ -129,7 +129,7 @@ CTCStorageHeader::CTCStorageHeader(CTCGlobalFile * pNewStorage,
 #ifdef _DEBUG
             uint32_t Err = GetLastError();
             // попробуем сообщить об ошибке  №№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№
-			LPVOID lpMsgBuf;
+			pvoid lpMsgBuf;
 
 			FormatMessage(
 				FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,

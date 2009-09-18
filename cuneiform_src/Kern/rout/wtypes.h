@@ -398,7 +398,7 @@ typedef const RECTL __RPC_FAR *LPCRECTL;
 
 typedef void __RPC_FAR *PVOID;
 
-typedef void __RPC_FAR *LPVOID;
+typedef void __RPC_FAR *pvoid;
 
 typedef float FLOAT;
 
@@ -493,7 +493,7 @@ typedef struct _SYSTEMTIME __RPC_FAR *LPSYSTEMTIME;
 typedef struct  _SECURITY_ATTRIBUTES
     {
 uint32_t nLength;
-    /* [size_is] */ LPVOID lpSecurityDescriptor;
+    /* [size_is] */ pvoid lpSecurityDescriptor;
     Bool bInheritHandle;
     }	SECURITY_ATTRIBUTES;
 

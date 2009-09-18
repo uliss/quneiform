@@ -393,7 +393,7 @@ Bool TSegBambuk::vUpdateFirst(   int32_t* new_line,
 			/* process started segments */
 			if ( ( was_born_dword = (~(*cur16)) ) != 0){      // 1(W) at prev; 0(B) at cur;
 #ifdef BIG_ENDIAN
-            was_born_dword = SWAPint(was_born_dword);
+            was_born_dword = SWApint(was_born_dword);
 #endif
 				if ( (was_born = (uchar)was_born_dword ) != 0){  // first byte
 					col = i << 5;   // i*32
@@ -464,7 +464,7 @@ Bool TSegBambuk::vUpdateFirst(   int32_t* new_line,
 			/* process ended segments */
 			if ( (has_died_dword = (~(*cur16) & (*new_line)) ) != 0 ){   // 0(B) at cur; 1(W) at new_line;
 #ifdef BIG_ENDIAN
-            has_died_dword= SWAPint(has_died_dword);
+            has_died_dword= SWApint(has_died_dword);
 #endif
 				if ((has_died = (uchar)has_died_dword ) != 0){   // first byte
 					col = i << 5;   // i*32
@@ -568,7 +568,7 @@ Bool TSegBambuk::vUpdateLast(    int32_t* cur16,
 			/* process started segments */
 			if ( (was_born_dword = ((*last16) & ~(*cur16)) ) != 0 ){      // 1(W) at prev; 0(B) at cur;
 #ifdef BIG_ENDIAN
-            was_born_dword = SWAPint(was_born_dword);
+            was_born_dword = SWApint(was_born_dword);
 #endif
 				if ((was_born = (uchar)was_born_dword) != 0){  // first byte
 					col = i << 5;   // i*32
@@ -639,7 +639,7 @@ Bool TSegBambuk::vUpdateLast(    int32_t* cur16,
 			/* process ended segments */
 			if ( ( has_died_dword = ~(*cur16) ) != 0){   // 0(B) at cur; 1(W) at new_line;
 #ifdef BIG_ENDIAN
-            has_died_dword= SWAPint(has_died_dword);
+            has_died_dword= SWApint(has_died_dword);
 #endif
 				if ( (has_died = (uchar)has_died_dword ) != 0){   // first byte
 					col = i << 5;   // i*32

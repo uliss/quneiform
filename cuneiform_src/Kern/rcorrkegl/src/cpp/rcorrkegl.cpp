@@ -75,7 +75,7 @@ Bool32 gbFax100 = FALSE;
 uchar language = 3;
 
 Bool APIENTRY DllMain(HANDLE hModule, uint32_t ul_reason_for_call,
-		LPVOID lpReserved) {
+		pvoid lpReserved) {
 	return TRUE;
 }
 

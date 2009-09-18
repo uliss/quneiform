@@ -860,7 +860,7 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	DWORD GetBitmapBits(DWORD dwCount, LPVOID lpBits) const
+	DWORD GetBitmapBits(DWORD dwCount, pvoid lpBits) const
 	{
 		ATLASSERT(m_hBitmap != NULL);
 		return ::GetBitmapBits(m_hBitmap, dwCount, lpBits);
@@ -905,7 +905,7 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	int GetDIBits(HDC hDC, UINT uStartScan, UINT cScanLines,  LPVOID lpvBits, LPBITMAPINFO lpbmi, UINT uColorUse) const
+	int GetDIBits(HDC hDC, UINT uStartScan, UINT cScanLines,  pvoid lpvBits, LPBITMAPINFO lpbmi, UINT uColorUse) const
 	{
 		ATLASSERT(m_hBitmap != NULL);
 		return ::GetDIBits(hDC, m_hBitmap, uStartScan, cScanLines,  lpvBits, lpbmi, uColorUse);
@@ -1412,13 +1412,13 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	int EnumObjects(int nObjectType, int (CALLBACK* lpfn)(LPVOID, LPARAM), LPARAM lpData)
+	int EnumObjects(int nObjectType, int (CALLBACK* lpfn)(pvoid, LPARAM), LPARAM lpData)
 	{
 		ATLASSERT(m_hDC != NULL);
 #ifdef STRICT
 		return ::EnumObjects(m_hDC, nObjectType, (GOBJENUMPROC)lpfn, lpData);
 #else
-		return ::EnumObjects(m_hDC, nObjectType, (GOBJENUMPROC)lpfn, (LPVOID)lpData);
+		return ::EnumObjects(m_hDC, nObjectType, (GOBJENUMPROC)lpfn, (pvoid)lpData);
 #endif
 	}
 #endif // !_WIN32_WCE
@@ -2753,7 +2753,7 @@ public:
 		return ::GetCharABCWidths(m_hDC, nFirstChar, nLastChar, lpabc);
 	}
 
-	DWORD GetFontData(DWORD dwTable, DWORD dwOffset, LPVOID lpData, DWORD cbData) const
+	DWORD GetFontData(DWORD dwTable, DWORD dwOffset, pvoid lpData, DWORD cbData) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetFontData(m_hDC, dwTable, dwOffset, lpData, cbData);
@@ -2771,7 +2771,7 @@ public:
 		return ::GetOutlineTextMetrics(m_hDC, cbData, lpotm);
 	}
 
-	DWORD GetGlyphOutline(UINT nChar, UINT nFormat, LPGLYPHMETRICS lpgm, DWORD cbBuffer, LPVOID lpBuffer, const MAT2* lpmat2) const
+	DWORD GetGlyphOutline(UINT nChar, UINT nFormat, LPGLYPHMETRICS lpgm, DWORD cbBuffer, pvoid lpBuffer, const MAT2* lpmat2) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetGlyphOutline(m_hDC, nChar, nFormat, lpgm, cbBuffer, lpBuffer, lpmat2);
@@ -2792,7 +2792,7 @@ public:
 
 // Printer/Device Escape Functions
 #ifndef _WIN32_WCE
-	int Escape(int nEscape, int nCount, LPCSTR lpszInData, LPVOID lpOutData)
+	int Escape(int nEscape, int nCount, LPCSTR lpszInData, pvoid lpOutData)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::Escape(m_hDC, nEscape, nCount, lpszInData, lpOutData);
@@ -3795,7 +3795,7 @@ inline HBITMAP AtlCopyBitmap(HBITMAP hbm , SIZE sizeDst, bool bAsBitmap = false)
 	else
 	{
 		DIBINFO16 dib16(sizeDst);
-		LPVOID pBits = NULL;
+		pvoid pBits = NULL;
 		bmNew = CreateDIBSection(hdcDst, (const BITMAPINFO*)&dib16, DIB_RGB_COLORS, &pBits, NULL, NULL);
 	}
 

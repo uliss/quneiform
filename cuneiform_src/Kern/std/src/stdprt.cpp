@@ -271,7 +271,7 @@ Bool32 stdPrtConsole::SendTextToConsole(char *text, int len)
       RET_FALSE;
    HANDLE hMessageText = 0;
    hMessageText = ::GlobalAlloc(GPTR,(len+1)*sizeof(char));
-   LPVOID lpText = ::GlobalLock(hMessageText);
+   pvoid lpText = ::GlobalLock(hMessageText);
    memset(lpText,0,sizeof(char)*(len+1));
    if(!lpText)
       RET_FALSE;

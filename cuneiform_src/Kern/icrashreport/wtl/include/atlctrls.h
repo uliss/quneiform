@@ -182,7 +182,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -278,7 +278,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -471,7 +471,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -860,7 +860,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -1234,7 +1234,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -1810,7 +1810,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -2315,7 +2315,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -2644,7 +2644,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -2854,7 +2854,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -3895,7 +3895,7 @@ public:
 		return (int)::SendMessage(m_hWnd, LVM_ENABLEGROUPVIEW, bEnable, 0L);
 	}
 
-	int SortGroups(PFNLVGROUPCOMPARE pCompareFunc, LPVOID lpVoid = NULL)
+	int SortGroups(PFNLVGROUPCOMPARE pCompareFunc, pvoid lpVoid = NULL)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (int)::SendMessage(m_hWnd, LVM_SORTGROUPS, (WPARAM)pCompareFunc, (LPARAM)lpVoid);
@@ -4010,7 +4010,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -5334,7 +5334,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -6053,7 +6053,7 @@ public:
 		return (Bool)::SendMessage(m_hWnd, TB_MOVEBUTTON, nOldPos, nNewPos);
 	}
 
-	HRESULT GetObject(REFIID iid, LPVOID* ppvObject)
+	HRESULT GetObject(REFIID iid, pvoid* ppvObject)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (HRESULT)::SendMessage(m_hWnd, TB_GETOBJECT, (WPARAM)&iid, (LPARAM)ppvObject);
@@ -6084,7 +6084,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -6292,7 +6292,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -6566,7 +6566,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -6840,7 +6840,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -6991,7 +6991,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -7146,7 +7146,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -7210,7 +7210,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -7296,7 +7296,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -8212,7 +8212,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		HWND hWnd = TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 		if(hWnd != NULL)
@@ -8346,7 +8346,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -8731,7 +8731,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -9025,7 +9025,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -9264,7 +9264,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -9511,7 +9511,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -9591,7 +9591,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}
@@ -9710,7 +9710,7 @@ public:
 
 	HWND Create(HWND hWndParent, ATL::_U_RECT rect = NULL, LPCTSTR szWindowName = NULL,
 			DWORD dwStyle = 0, DWORD dwExStyle = 0,
-			ATL::_U_MENUorID MenuOrID = 0U, LPVOID lpCreateParam = NULL)
+			ATL::_U_MENUorID MenuOrID = 0U, pvoid lpCreateParam = NULL)
 	{
 		return TBase::Create(GetWndClassName(), hWndParent, rect.m_lpRect, szWindowName, dwStyle, dwExStyle, MenuOrID.m_hMenu, lpCreateParam);
 	}

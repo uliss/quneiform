@@ -1190,11 +1190,11 @@ public:
 		return ::SizeofResource(ModuleHelper::GetResourceInstance(), m_hResource);
 	}
 
-	LPVOID Lock()
+	pvoid Lock()
 	{
 		ATLASSERT(m_hResource != NULL);
 		ATLASSERT(m_hGlobal != NULL);
-		LPVOID pVoid = ::LockResource(m_hGlobal);
+		pvoid pVoid = ::LockResource(m_hGlobal);
 		ATLASSERT(pVoid != NULL);
 		return pVoid;
 	}

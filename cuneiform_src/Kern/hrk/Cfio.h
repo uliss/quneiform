@@ -102,9 +102,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //	typedef void *Handle, **PHandle;
 //#endif
 
-#ifndef LPVOID
-    //#define LPVOID     void *
-	typedef void   *PVOID, *LPVOID;
+#ifndef pvoid
+    //#define pvoid     void *
+	typedef void   *PVOID, *pvoid;
 #endif
 ///////////////////////////////////////////////////////////////////////////////////////////////
 #define CFIO_MAX_PATH          256

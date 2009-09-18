@@ -125,7 +125,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
   typedef signed long int			int;
   typedef unsigned long int		    DWORD;
-  typedef signed long int near *	Pint;
+  typedef signed long int near *	pint;
   typedef unsigned long int near *	PDWORD;
 
 /*								 */

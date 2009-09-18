@@ -94,8 +94,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#define ASSERT(a)              a
 //////////////////////////////////////////////////////////////////////////////////
 // for provide functions for temporary file/folder names
-#ifdef LPVOID
-#undef LPVOID
+#ifdef pvoid
+#undef pvoid
 #endif
 //////////////////////////////////////////////////////
 typedef char        Char8, *PChar8, **PPChar8;
