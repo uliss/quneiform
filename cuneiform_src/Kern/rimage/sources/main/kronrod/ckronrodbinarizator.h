@@ -122,10 +122,10 @@ private:
 	PWord8               aBufPass;
 	Handle               hBufPass;
 	Word8                szTempTiffName[256];
-	Int8                  szScanFullName[256];
-	Int8                  szScanDriverName[32];
-	Int8                  Main_Dir_Name [128];    // H:\CUNEI  (see zB SCANTAB.C)
-	PInt8                 MainDir;
+	char                  szScanFullName[256];
+	char                  szScanDriverName[32];
+	char                  Main_Dir_Name [128];    // H:\CUNEI  (see zB SCANTAB.C)
+	pchar                 MainDir;
 	Word8                szValidNames[256];
     Word32                MaxNI;
     Word32                MaxNJ;
@@ -195,7 +195,7 @@ private:
 	Word8				Porog_78;
 	Word8				Diapazon_16;
 	//----------------------------------------------------------------------//
-	Int8 				mkText[256];					//ARRAYs
+	char 				mkText[256];					//ARRAYs
 	int32_t				Hist_tek[256];
 	int32_t				Hist_glad[256];
 	//----------------------------------------------------------------------
@@ -258,14 +258,14 @@ public:
 protected:
 	void mk_hist_WORD(PWord32 Hist_WORD, PWord8 p, Word32 n);
 	Word32 mk_1235(void);
-	void pr_MES_3(PInt8  text, int32_t n1, int32_t n2, int32_t n3);
-	void pr_MES_2(PInt8  text, int32_t n1, int32_t n2);
-	void pr_MES_1(PInt8  text, int32_t n1);
-	void pr_MES(PInt8  text);
-	void pr_ERR_3(PInt8  text, int32_t n1, int32_t n2, int32_t n3);
-	void pr_ERR_2(PInt8  text, int32_t n1, int32_t n2);
-	void pr_ERR_1(PInt8  text, int32_t n1);
-	void pr_ERR(PInt8  text);
+	void pr_MES_3(pchar  text, int32_t n1, int32_t n2, int32_t n3);
+	void pr_MES_2(pchar  text, int32_t n1, int32_t n2);
+	void pr_MES_1(pchar  text, int32_t n1);
+	void pr_MES(pchar  text);
+	void pr_ERR_3(pchar  text, int32_t n1, int32_t n2, int32_t n3);
+	void pr_ERR_2(pchar  text, int32_t n1, int32_t n2);
+	void pr_ERR_1(pchar  text, int32_t n1);
+	void pr_ERR(pchar  text);
 	void memory_free(void);
 	void memory_alloc_from_body(void);
 	void memory_allocation(void);

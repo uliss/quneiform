@@ -193,7 +193,7 @@ CLINE_FUNC(Word32) CLINE_GetReturnCode()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CLINE_FUNC(Int8 *) CLINE_GetReturnString(Word32 dwError)
+CLINE_FUNC(char *) CLINE_GetReturnString(Word32 dwError)
 {
 	return NULL;
 }

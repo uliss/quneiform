@@ -148,7 +148,7 @@ void *	CIMAGEAlloc(Word32 stAllocateBlock)
 	if(!mem)
 		SetReturnCode_cimage(IDS_CIMAGE_ERR_NO_MEMORY);
 #else
-	mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(Int8*)"CImage", (Int8*)cCommentBuffer);
+	mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(char*)"CImage", (char*)cCommentBuffer);
 
 	if(!mem)
 		SetReturnCode_cimage(IDS_CIMAGE_ERR_NO_MEMORY);

@@ -114,7 +114,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 CFIO_FUNC(Bool32) CFIO_Init(Word16 wHeightCode,Handle hStorage);
 CFIO_FUNC(Bool32) CFIO_Done();
 CFIO_FUNC(Word32) CFIO_GetReturnCode();
-CFIO_FUNC(Int8 *) CFIO_GetReturnString(Word32 dwError);
+CFIO_FUNC(char *) CFIO_GetReturnString(Word32 dwError);
 CFIO_FUNC(Bool32) CFIO_GetExportData(Word32 dwType, void * pData);
 CFIO_FUNC(Bool32) CFIO_SetImportData(Word32 dwType, void * pData);
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -165,7 +165,7 @@ enum CFIOFolders
 //typedef   Handle (*FNOpenStorage)(char *, Word32);
 //Handle    OpenStorage            (char * lpName,
 //								  Word32 dwTypes);
-DEC_FUN(Handle, OpenStorage, (PInt8, Word32) );
+DEC_FUN(Handle, OpenStorage, (pchar, Word32) );
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Close Storage
 #define   CS_WITHOUT_SAVE         0x01                                 // Only close
@@ -182,7 +182,7 @@ DEC_FUN(Bool32, CloseStorage, (Handle, Word32));
 //Delete storage from disk (don't need to be opened)
 //typedef   Bool32 (*FNDeleteStorage)(char *);
 //Bool32    DeleteStorage            (char * lpName);
-DEC_FUN(Bool32, DeleteStorage, (PInt8));
+DEC_FUN(Bool32, DeleteStorage, (pchar));
 ////////////////////////////////////////////////////////////////////////////////////////////////////////Files
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Write file to storage
@@ -190,13 +190,13 @@ DEC_FUN(Bool32, DeleteStorage, (PInt8));
 //Word32    WriteFileToStorage            (Handle hStorage,
 //										 Handle hFile,
 //										 char * lpName);
-DEC_FUN(Word32, WriteFileToStorage, (Handle , Handle, PInt8 ));
+DEC_FUN(Word32, WriteFileToStorage, (Handle , Handle, pchar ));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Read file from storage
 //typedef   Handle (*FNReadFileFromStorage)(Handle , char * );
 //Handle    ReadFileFromStorage            (Handle hStorage,
 //										  char * lpName);
-DEC_FUN(Handle, ReadFileFromStorage, (Handle , PInt8 ));
+DEC_FUN(Handle, ReadFileFromStorage, (Handle , pchar ));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Open file
 #define   OSF_CREATE               0x01
@@ -210,7 +210,7 @@ DEC_FUN(Handle, ReadFileFromStorage, (Handle , PInt8 ));
 //Handle    OpenFreeFile    (Handle hFile,
 //						   char * lpName,
 //						   Word32 dwFlag);
-DEC_FUN(Handle, OpenFreeFile, (Handle, PInt8, Word32));
+DEC_FUN(Handle, OpenFreeFile, (Handle, pchar, Word32));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Close file
 #define   CSF_SAVEDISK             0x01
@@ -227,14 +227,14 @@ DEC_FUN(Bool32, CloseFreeFile, (Handle, Word32));
 //Word32    WriteToFile      (Handle hFile,
 //							char * lpData,
 //							Word32 dwSize);
-DEC_FUN(Word32, WriteToFile, (Handle, PInt8, Word32));
+DEC_FUN(Word32, WriteToFile, (Handle, pchar, Word32));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Read data from file
 //typedef   Word32 (*FNRead)(Handle, char *, Word32);
 //Word32    ReadFromFile    (Handle hFile,
 //						   char * lpData,
 //						   Word32 dwSize);
-DEC_FUN(Word32, ReadFromFile, (Handle, PInt8, Word32));
+DEC_FUN(Word32, ReadFromFile, (Handle, pchar, Word32));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Seek pointer
 #define   FS_END                   0x01
@@ -278,7 +278,7 @@ DEC_FUN(Bool32, FlushFile, (Handle));
 //Handle    AllocMemory      (Word32 dwSize,
 //							Word32 dwFlag);
 DEC_FUN(Handle, AllocMemory, (Word32, Word32));
-DEC_FUN(Handle, DAllocMemory, (Word32, Word32, Int8*, Int8*));
+DEC_FUN(Handle, DAllocMemory, (Word32, Word32, char*, char*));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ReAlloc memory
 #define   MRF_NEW_MEMORY                  0x0000
@@ -311,27 +311,27 @@ DEC_FUN(Bool32, UnlockMemory, (Handle));
 //typedef   Word32 (*FNWriteMemToFile)(Handle, char *);
 //Word32    WriteMemoryToFile         (Handle hMem,
 //									 char * lpName);
-DEC_FUN(Word32, WriteMemoryToFile, (Handle, PInt8));
+DEC_FUN(Word32, WriteMemoryToFile, (Handle, pchar));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Read data from disk to memory
 //typedef   Word32 (*FNReadMemFromFile)(char *, Handle *);
 //Word32    ReadMemoryFromFile         (char * lpName,
 //									  Handle * phMem);
-DEC_FUN(Word32, ReadMemoryFromFile, (PInt8, Handle *));
+DEC_FUN(Word32, ReadMemoryFromFile, (pchar, Handle *));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Write data from memory to storage
 //typedef   Word32 (*FNWriteMemToStorage)(Handle, Handle, char *);
 //Word32    WriteMemoryToStorage         (Handle hMem,
 //										Handle hStorage,
 //										char * lpName);
-DEC_FUN(Word32, WriteMemoryToStorage, (Handle, Handle, PInt8));
+DEC_FUN(Word32, WriteMemoryToStorage, (Handle, Handle, pchar));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Read data from storage to memory
 //typedef   Word32 (*FNReadMemFromStorage)(Handle, char *, Handle *);
 //Word32    ReadMemoryFromStorage         (Handle hStorage,
 //										 char * lpName,
 //										 Handle * phMem);
-DEC_FUN(Word32, ReadMemoryFromStorage, (Handle, PInt8, Handle *));
+DEC_FUN(Word32, ReadMemoryFromStorage, (Handle, pchar, Handle *));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #undef DEC_FUN
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////

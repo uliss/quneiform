@@ -155,7 +155,7 @@ CIMAGE_FUNC(Word32) CIMAGE_GetReturnCode()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(PInt8) CIMAGE_GetReturnString(Word32 dwError)
+CIMAGE_FUNC(pchar) CIMAGE_GetReturnString(Word32 dwError)
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_CIMAGE_ERR_NO;
 	static Char8 szBuffer[512];
@@ -168,7 +168,7 @@ CIMAGE_FUNC(PInt8) CIMAGE_GetReturnString(Word32 dwError)
 	else
 		return NULL;
 
-	return (PInt8)szBuffer;
+	return (pchar)szBuffer;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //

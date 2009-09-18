@@ -147,7 +147,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_GetData(PWord8                     lpName,
 //
 CIMAGE_FUNC(Bool32) CIMAGE_GetDIBData(PWord8                      lpName,
 								      PCIMAGE_InfoDataInGet       lpIn,
-								      PInt8                       *lpDIB)
+								      pchar                       *lpDIB)
 {
 	Bool32 A = FALSE;
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
@@ -322,7 +322,7 @@ CIMAGE_CALLBACK_FUNC(CIMAGEBOOL16) CIMAGE_Callback_ImageOpen(PCIMAGE_ImageInfo l
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_CALLBACK_FUNC(CIMAGEWORD)   CIMAGE_Callback_ImageRead(PInt8  lpImage, Word16 wMaxSize)
+CIMAGE_CALLBACK_FUNC(CIMAGEWORD)   CIMAGE_Callback_ImageRead(pchar  lpImage, Word16 wMaxSize)
 {
 	if ( !Control_cti )
 	{

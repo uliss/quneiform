@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /* FIXME*/
 #define lstrlenW(a) 0
 
-static Int8 leo_case_upper[]={
+static char leo_case_upper[]={
 /* 000 */ ' ',
 /* 001 */ ' ',
 /* 002 */ ' ',
@@ -322,7 +322,7 @@ static Int8 leo_case_upper[]={
 /* þ(254,0xfe) */ 'þ',
 /* ÿ(255,0xff) */ 'ÿ'
 };
-static Int8 leo_case_lower[]={
+static char leo_case_lower[]={
 /* 000 */ ' ',
 /* 001 */ ' ',
 /* 002 */ ' ',

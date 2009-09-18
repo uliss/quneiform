@@ -94,7 +94,7 @@ static  Word8   ed_half_spaces[3]="\x1e\x1f";
 static  Word8   multy_language;
 extern  Bool32  skip_line, snap_enable ;
 extern  Handle  hSnapSpell,hSnapMatch,hSnapEndWord,hSnapStartWord;
-extern  Int8*   sp_err;
+extern  char*   sp_err;
 
 Word8   language;
 static  Word8   ed_buffer[32000], edo_buffer[32000], *MED_file_bound, *MED_file_end ;
@@ -926,7 +926,7 @@ Bool32 rpstr_txt_spell(char * s,Word8 lang)
 int32_t                      Check = 0;
 if( lang==LANG_ENGLISH && multy_language )
     { // second dict
-    if( !RLING_CheckSecWord((PInt8)s, &Check) )
+    if( !RLING_CheckSecWord((pchar)s, &Check) )
         {
         sp_err=RLING_GetReturnString(RLING_GetReturnCode());
         return FALSE;
@@ -934,7 +934,7 @@ if( lang==LANG_ENGLISH && multy_language )
     }
 else
     { // first dict
-    if( !RLING_CheckWord((PInt8)s, &Check) )
+    if( !RLING_CheckWord((pchar)s, &Check) )
         {
         sp_err=RLING_GetReturnString(RLING_GetReturnCode());
         return FALSE;
@@ -1012,7 +1012,7 @@ Word32          sizeout;
 int32_t                   Check = 0;
 if( !language && multy_language )
     { // second dict
-    if( !RLING_CheckSecED((PInt8)ed_buffer,(PInt8)edo_buffer,
+    if( !RLING_CheckSecED((pchar)ed_buffer,(pchar)edo_buffer,
             (Word32)(MED_file_end-ed_buffer), &sizeout,
             &Check) )
         {
@@ -1022,7 +1022,7 @@ if( !language && multy_language )
     }
 else
     { // first dict
-    if( !RLING_CheckED((PInt8)ed_buffer,(PInt8)edo_buffer,
+    if( !RLING_CheckED((pchar)ed_buffer,(pchar)edo_buffer,
             (Word32)(MED_file_end-ed_buffer), &sizeout,
             &Check) )
         {

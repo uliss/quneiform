@@ -134,7 +134,7 @@ typedef struct							// s->xxx;
 		up_dot_H,	// Hight of DOT	(0 - NO DOT !)
     down_nose_1, // special for 1 : nose belong central zone
     up_dot_W; // Width of DOT
-  Int8
+  char
 		inc_num,	// 10.12.1993 (from inc_num_EEM)
 		up_dot_dCOL;	// Displacement of DOT (use col)
   Word8    num_lines;      /* Number of with none single interval  */

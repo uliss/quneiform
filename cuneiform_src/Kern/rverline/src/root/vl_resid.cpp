@@ -78,7 +78,7 @@ Word16      gwHeightRC_rver = 0;      // Уникальный номер биб�
 Word16      gwLowRC_rver    = ER_ROUGH_NONE;      // Ошибки в работе библиотеки
 static HANDLE      ghStorage  = NULL;   // Указатель на хранилище
 static HANDLE      ghInst     = NULL;   // Указатель на свое окно
-static Int8 szBuffer[512];               // Для докладов наверх
+static char szBuffer[512];               // Для докладов наверх
 Handle RltVertix_VL; // корневая вершина отладки для верификации линий
 /*------------extern functions------------------------------------------------*/
 Bool MyInit_CPage ();
@@ -187,7 +187,7 @@ RVERLINE_FUNC(Word32) RVERLINE_GetReturnCode()
 	return (Word32)(gwHeightRC_rver<<16)|(gwLowRC_rver);
 }
 /*----------------------------------------------------------------------------*/
-RVERLINE_FUNC(Int8 *) RVERLINE_GetReturnString(Word32 dwError)
+RVERLINE_FUNC(char *) RVERLINE_GetReturnString(Word32 dwError)
 {
 	Word8  err8, err8_1;
 	Word16 err16;

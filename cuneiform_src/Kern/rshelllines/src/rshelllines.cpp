@@ -275,10 +275,10 @@ RSL_FUNC(Word32) RSL_GetReturnCode()
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSL_FUNC(Int8 *) RSL_GetReturnString(Word32 dwError)
+RSL_FUNC(char *) RSL_GetReturnString(Word32 dwError)
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
-	static Int8 szBuffer[512];
+	static char szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
 		gwLowRC = IDS_ERR_NOTIMPLEMENT;
@@ -377,7 +377,7 @@ void *	RSLAlloc(Word32 stAllocateBlock)
         SetReturnCode_rshelllines((Word16)RSL_ERR_NO_MEMORY);
 #else
 
-    mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(Int8*)"RSL", (Int8*)cCommentBuffer);
+    mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(char*)"RSL", (char*)cCommentBuffer);
 
     if(!mem)
         SetReturnCode_rshelllines((Word16)RSL_ERR_NO_MEMORY);

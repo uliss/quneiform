@@ -147,13 +147,13 @@ void CKronrodBinarizator::grey_open(Word32 H, Word32 N)
 
 	if (NI>MaxNI)
 	{
-		pr_ERR_1((PInt8)("GREY: TOO MANY LINES (%d)"),NI);
+		pr_ERR_1((pchar)("GREY: TOO MANY LINES (%d)"),NI);
 		return;
 	}
 
 	if (NJ>MaxNJ)
 	{
-		pr_ERR_1((PInt8)("GREY: TOO LONG LINE (%d)"), NJ);
+		pr_ERR_1((pchar)("GREY: TOO LONG LINE (%d)"), NJ);
 		return;
 	}
 
@@ -190,9 +190,9 @@ void CKronrodBinarizator::grey_open_init_flags()
 	// 02.11.1992
 	Word32	k, kk/*, n*/;
 	//Word8	b1, b2, bb, cc;
-	Int8 	Full_Name_GREY_INI [33];
-	Int8 	Name_GREY_INI[]="\\grey.ini";	// 10 chars, include 00
-	//Int8 	buf[888];
+	char 	Full_Name_GREY_INI [33];
+	char 	Name_GREY_INI[]="\\grey.ini";	// 10 chars, include 00
+	//char 	buf[888];
 
 	for (k=0; k<22; k++)
 	    if ((Full_Name_GREY_INI[k]=Main_Dir_Name[k])==0)  break;
@@ -236,9 +236,9 @@ void CKronrodBinarizator::grey_open_init_MEM()
 	N_Lines_per_8_MEMs = N_Lines_per_1_MEM * 8;	//200
 
 	if (N_Lines_per_1_MEM==0)
-		pr_ERR ((PInt8)("GREY: NLpOM==0"));
+		pr_ERR ((pchar)("GREY: NLpOM==0"));
 	if (N_Bytes_FROM==0)
-		pr_ERR ((PInt8)("GREY: NBF==0"));
+		pr_ERR ((pchar)("GREY: NBF==0"));
 
 	N_Bytes_in_MBIT_Line = (NJ + 7) / 8;	// 2550 -> 319 => 63800
 	N_Bytes_in_all_MBIT = N_Bytes_in_MBIT_Line * N_Lines_per_8_MEMs;
@@ -273,12 +273,12 @@ Word32 CKronrodBinarizator::grey_to(PWord8 pKogo)
 
 	if (Flag_OPEN==FALSE)
 	{
-		pr_ERR_2 ((PInt8)("GREY TO:\nNOT OPEN %d,%d"), I_to, Itek);
+		pr_ERR_2 ((pchar)("GREY TO:\nNOT OPEN %d,%d"), I_to, Itek);
 		return 0;
 	}
 
 	if (I_to==NI)
-	{ pr_ERR_2 ((PInt8)("GREY TO:\nTOO MANY LINES %d,%d"), I_to,Itek);
+	{ pr_ERR_2 ((pchar)("GREY TO:\nTOO MANY LINES %d,%d"), I_to,Itek);
 					return 0; }
 	memcpy (pMem_kuda, pKogo, NJ);
 
@@ -288,7 +288,7 @@ Word32 CKronrodBinarizator::grey_to(PWord8 pKogo)
 
 	grey_to_memory_monitor ();
 
-	if (ppMem[I_to]==NULL)  { pr_ERR ((PInt8)("GREY TO: NULL"));  return 0; }
+	if (ppMem[I_to]==NULL)  { pr_ERR ((pchar)("GREY TO: NULL"));  return 0; }
 
 	I_to++;
 	// здддддддддддддддддддддддддддддддддддд©
@@ -1222,7 +1222,7 @@ m_err:
 		goto  m_err_OK;
 
 	KEY
-		pr_ERR_1 ((PInt8)("GREY: unknown Left Max (nkR=%02X)"), KmaxR);
+		pr_ERR_1 ((pchar)("GREY: unknown Left Max (nkR=%02X)"), KmaxR);
 
 	Flag_ERR_Hist_L = TRUE;
 
@@ -2358,55 +2358,55 @@ void CKronrodBinarizator::memory_free()
 	hPPMEM = 0;
 }
 
-void CKronrodBinarizator::pr_ERR(PInt8 text)
+void CKronrodBinarizator::pr_ERR(pchar text)
 {
 	wsprintf ((char *)(mkText), (char *)text);
 	MMM;
 	//////	MessageBox (GetFocus(), mkText, 0, MB_SYSTEMMODAL);
 }
 
-void CKronrodBinarizator::pr_ERR_1(PInt8 text, int32_t n1)
+void CKronrodBinarizator::pr_ERR_1(pchar text, int32_t n1)
 {
 	//////	wsprintf (mkText, "MK GREY MESSAGE [1] %s %d", text, n1);
 	wsprintf ((char *)mkText, (char *)text, n1);
 	MMM;
 }
 
-void CKronrodBinarizator::pr_ERR_2(PInt8 text, int32_t n1, int32_t n2)
+void CKronrodBinarizator::pr_ERR_2(pchar text, int32_t n1, int32_t n2)
 {
 	//////	wsprintf (mkText, "MK GREY MESSAGE [2] %s %d,%d", text, n1, n2);
 	wsprintf ((char *)mkText, (char *)text, n1, n2);
 	MMM;
 }
 
-void CKronrodBinarizator::pr_ERR_3(PInt8 text, int32_t n1, int32_t n2, int32_t n3)
+void CKronrodBinarizator::pr_ERR_3(pchar text, int32_t n1, int32_t n2, int32_t n3)
 {
 	wsprintf ((char *)mkText, (char *)text, n1, n2, n3);
 	MMM;
 }
 
-void CKronrodBinarizator::pr_MES(PInt8 text)
+void CKronrodBinarizator::pr_MES(pchar text)
 {
 	wsprintf ((char *)mkText, (char *)text);
 	MMM_NP;
 	//////	MessageBox (GetFocus(), mkText, 0, 0);
 }
 
-void CKronrodBinarizator::pr_MES_1(PInt8 text, int32_t n1)
+void CKronrodBinarizator::pr_MES_1(pchar text, int32_t n1)
 {
 	//////	wsprintf (mkText, "MK GREY MESSAGE [1] %s %d", text, n1);
 	wsprintf ((char *)mkText, (char *)text, n1);
 	MMM_NP;
 }
 
-void CKronrodBinarizator::pr_MES_2(PInt8 text, int32_t n1, int32_t n2)
+void CKronrodBinarizator::pr_MES_2(pchar text, int32_t n1, int32_t n2)
 {
 	//////	wsprintf (mkText, "MK GREY MESSAGE [2] %s %d,%d", text, n1, n2);
 	wsprintf ((char *)mkText, (char *)text, n1, n2);
 	MMM_NP;
 }
 
-void CKronrodBinarizator::pr_MES_3(PInt8 text, int32_t n1, int32_t n2, int32_t n3)
+void CKronrodBinarizator::pr_MES_3(pchar text, int32_t n1, int32_t n2, int32_t n3)
 {
 	wsprintf ((char *)mkText, (char *)text, n1, n2, n3);
 	MMM_NP;

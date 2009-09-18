@@ -233,8 +233,8 @@ RSTR_FUNC(Bool32)  RSTR_RecogBL (CSTR_line lini);
 typedef Bool32 (*FNRSTR_TestAlphabet)(RSTR_info *str,CSTR_line lin);
 RSTR_FUNC(Bool32) RSTR_TestAlphabet(RSTR_info *str,CSTR_line lin);
 // 11   RSTR_RECONEWORD     распознать фиксированное слово
-typedef Bool32 (*FNRSTR_recog_one_word)(CSTR_line ln, Word8 *word, Int8 *points,Word8 *res);
-RSTR_FUNC(Bool32) RSTR_recog_one_word(CSTR_line ln, Word8 *word, Int8 *points,Word8 *res);
+typedef Bool32 (*FNRSTR_recog_one_word)(CSTR_line ln, Word8 *word, char *points,Word8 *res);
+RSTR_FUNC(Bool32) RSTR_recog_one_word(CSTR_line ln, Word8 *word, char *points,Word8 *res);
 // Первое двойное слово - три наихудшие оценки, следующее - соответствующие номера букв (нумерация с нуля),
 // последнее - оценки заказанных в points букв
 // 12   RSTR_FNSTUDYALPHABET    выбор алфавита столбца по статистике

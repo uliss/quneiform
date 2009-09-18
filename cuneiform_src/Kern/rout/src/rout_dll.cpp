@@ -149,10 +149,10 @@ Word32 rc = 0;
 return rc;
 }
 //********************************************************************
-ROUT_FUNC(Int8 *) ROUT_GetReturnString(Word32 dwError)
+ROUT_FUNC(char *) ROUT_GetReturnString(Word32 dwError)
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
-	static Int8 szBuffer[512];
+	static char szBuffer[512];
 
 	if( dwError >> 16 != gwHighRC_rout)
 		gwLowRC_rout = IDS_ERR_NOTIMPLEMENT;

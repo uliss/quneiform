@@ -146,10 +146,10 @@ CPAGE_FUNC(Word32) CPAGE_GetReturnCode()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CPAGE_FUNC(Int8 *) CPAGE_GetReturnString(Word32 dwError)
+CPAGE_FUNC(char *) CPAGE_GetReturnString(Word32 dwError)
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
-	static Int8 szBuffer[512];
+	static char szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
 	gwLowRC = IDS_ERR_NOTIMPLEMENT;

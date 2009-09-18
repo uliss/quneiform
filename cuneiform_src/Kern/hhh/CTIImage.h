@@ -123,7 +123,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	CIMAGE_ImageInfo, *PCIMAGE_ImageInfo, **PPCIMAGE_ImageInfo;
 
 	typedef CIMAGEBOOL16 (*PCIMAGE_Callback_ImageOpen)(PCIMAGE_ImageInfo);
-	typedef CIMAGEWORD   (*PCIMAGE_Callback_ImageRead)(PInt8 , CIMAGEWORD);
+	typedef CIMAGEWORD   (*PCIMAGE_Callback_ImageRead)(pchar , CIMAGEWORD);
 	typedef CIMAGEBOOL16 (*PCIMAGE_Callback_ImageClose)(void);
 
 	typedef struct
@@ -231,7 +231,7 @@ CIMAGE_Rect, *PCIMAGE_Rect, **PPCIMAGE_Rect;
 CIMAGE_FUNC(Bool32) CIMAGE_Init(Word16 wHeightCode,Handle hStorage);
 CIMAGE_FUNC(Bool32) CIMAGE_Done();
 CIMAGE_FUNC(Word32) CIMAGE_GetReturnCode();
-CIMAGE_FUNC(Int8 *) CIMAGE_GetReturnString(Word32 dwError);
+CIMAGE_FUNC(char *) CIMAGE_GetReturnString(Word32 dwError);
 CIMAGE_FUNC(Bool32) CIMAGE_GetExportData(Word32 dwType, void * pData);
 CIMAGE_FUNC(Bool32) CIMAGE_SetImportData(Word32 dwType, void * pData);
 /////////////////////////////////////////////////////////////
@@ -266,7 +266,7 @@ DEC_FUN(Bool32,  GetCallbackImage,     (PWord8 , PCIMAGEIMAGECALLBACK));
 DEC_FUN(Bool32,  WriteDIB,             (PWord8 , Handle, Word32));
 DEC_FUN(Bool32,  ReadDIB,              (PWord8 , PHandle, Word32));
 DEC_FUN(Bool32,  GetData,              (PWord8 , PCIMAGE_InfoDataInGet, PCIMAGE_InfoDataOutGet));
-DEC_FUN(Bool32,  GetDIBData,           (PWord8 , PCIMAGE_InfoDataInGet, PInt8*));
+DEC_FUN(Bool32,  GetDIBData,           (PWord8 , PCIMAGE_InfoDataInGet, pchar*));
 DEC_FUN(Bool32,  ReplaceData,          (PWord8 , PCIMAGE_InfoDataInReplace));
 DEC_FUN(Bool32,  GetImageInfo,         (PWord8 , PCIMAGEBITMAPINFOHEADER));
 DEC_FUN(Bool32,  DeleteImage,          (PWord8 ));
@@ -284,7 +284,7 @@ DEC_FUN(Bool32,  EnableMask,           (PWord8, PWord8, Bool32));
 #define DEC_CB_FUN(a,b,c) typedef a (*FNCIMAGE##b)c; CIMAGE_CALLBACK_FUNC(a) CIMAGE_##b c
 
 DEC_CB_FUN(CIMAGEBOOL16, Callback_ImageOpen,  (PCIMAGE_ImageInfo lpImageInfo));
-DEC_CB_FUN(CIMAGEWORD,   Callback_ImageRead,  (PInt8  lpImage, Word16 wMaxSize));
+DEC_CB_FUN(CIMAGEWORD,   Callback_ImageRead,  (pchar  lpImage, Word16 wMaxSize));
 DEC_CB_FUN(CIMAGEBOOL16, Callback_ImageClose, (void));
 
 #undef DEC_CB_FUN

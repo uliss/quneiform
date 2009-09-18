@@ -199,7 +199,7 @@ struct table_conform_sizes
  {
  Word8 code;
  Word8 store;
- Int8 tab_val_A [9*2];                   /* table of sizes of letter A  */
+ char tab_val_A [9*2];                   /* table of sizes of letter A  */
  };              			 /*     for kegles from 4 to 12 */
 
 
@@ -265,14 +265,14 @@ struct pos_half_space
 struct sheet_disk_descr
  {
  Word8 code;
- Int8 quant_fragm;
+ char quant_fragm;
  Word16 sheet_numb;
  Word16 descr_lth;
  Word8 byte_flag;
  Word16 resolution;
  Word16  incline;
  Word16 version;
- Int8 tabl[11];
+ char tabl[11];
  };
 
 struct fragm_disk_descr
@@ -282,7 +282,7 @@ struct fragm_disk_descr
  Word16 col;                             /* angle of fragment's frame  */
  Word16 height;                          /* height of fragment         */
  Word16 w_width;                         /* Q.w_width of fragment      */
- Int8 type;
+ char type;
 #define FD_TYPE_TEXT 0
 #define FD_TYPE_PICT 1
 #define FD_TYPE_TABLE 2

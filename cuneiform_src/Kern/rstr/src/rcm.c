@@ -486,13 +486,13 @@ RSTR_FUNC(Bool32) RSTR_IsLanguage(Word8 language)
 #ifdef     _USE_SPELLING_
     if( language==LANG_RUSENG )
     {
-        if( RLING_IsDictonaryAvailable( LANG_RUSSIAN , (PInt8)lnOcrLingPath)<1 ||
-            RLING_IsDictonaryAvailable( LANG_ENGLISH , (PInt8)lnOcrLingPath)<1)
+        if( RLING_IsDictonaryAvailable( LANG_RUSSIAN , (pchar)lnOcrLingPath)<1 ||
+            RLING_IsDictonaryAvailable( LANG_ENGLISH , (pchar)lnOcrLingPath)<1)
             return FALSE;
     }
     else //if( language!=LANG_DIG )
     {
-        if( RLING_IsDictonaryAvailable( language , (PInt8)lnOcrLingPath)<1 )
+        if( RLING_IsDictonaryAvailable( language , (pchar)lnOcrLingPath)<1 )
             return FALSE;
     }
 #endif
@@ -1949,7 +1949,7 @@ Bool32  Reload_lang_vocs(Word8  lang)
     RLING_UnloadDictonary();
     if( lang == LANG_RUSENG )
         lang = LANG_RUSSIAN ;
-    if ( !RLING_LoadDictonary( lang , (PInt8)lnOcrLingPath) )
+    if ( !RLING_LoadDictonary( lang , (pchar)lnOcrLingPath) )
     {
         wLowRC         = RSTR_ERR_NOINITRSTR;
         local_ret_error_code=RLING_GetReturnCode();
@@ -1968,7 +1968,7 @@ Bool32  Reload_lang_vocs_aux(Word8  language)
     RLING_UnloadSecDictonary();
     if( language == LANG_RUSSIAN || language == LANG_ENGLISH )
     {
-        if ( !RLING_LoadSecDictonary( language , (PInt8)lnOcrLingPath) )
+        if ( !RLING_LoadSecDictonary( language , (pchar)lnOcrLingPath) )
         {
             wLowRC         = RSTR_ERR_NOINITRSTR;
             local_ret_error_code=RLING_GetReturnCode();
@@ -2656,7 +2656,7 @@ INT  text_findstat(CHAR * w)
     int32_t                      Check = 0;
     if( strlen(w)>32 )
         return 0;
-    if( !RLING_CheckWord((PInt8)w, &Check) )
+    if( !RLING_CheckWord((pchar)w, &Check) )
         return 0;
     return (INT)Check;
 #else
@@ -2670,7 +2670,7 @@ INT  text_findstat_aux(CHAR * w)
     int32_t                      Check = 0;
     if( strlen(w)>32 )
         return 0;
-    if( !RLING_CheckSecWord((PInt8)w, &Check) )
+    if( !RLING_CheckSecWord((pchar)w, &Check) )
         return 0;
     return (INT)Check;
 #else

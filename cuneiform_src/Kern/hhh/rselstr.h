@@ -84,7 +84,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 RSELSTR_FUNC(Bool32) RSELSTR_Init(Word16 wHeightCode,Handle hStorage);
 RSELSTR_FUNC(Bool32) RSELSTR_Done();
 RSELSTR_FUNC(Word32) RSELSTR_GetReturnCode();
-RSELSTR_FUNC(Int8 *) RSELSTR_GetReturnString(Word32 dwError);
+RSELSTR_FUNC(char *) RSELSTR_GetReturnString(Word32 dwError);
 RSELSTR_FUNC(Bool32) RSELSTR_GetExportData(Word32 dwType, void * pData);
 RSELSTR_FUNC(Bool32) RSELSTR_SetImportData(Word32 dwType, void * pData);
 /////////////////////////////////////////////////////////////

@@ -87,7 +87,7 @@ struct fragm_disk_descr
     Word16 col;
     Word16 height;
     Word16 w_width;
-    Int8   type;
+    char   type;
     Word8  kegl;
     Word8  font;
     Word8  language;
@@ -97,13 +97,13 @@ struct fragm_disk_descr
 struct sheet_disk_descr
     {
     Word8 code;
-    Int8 quant_fragm;
+    char quant_fragm;
     Word16 sheet_numb;
     Word16 descr_lth;
     Word8 byte_flag;
     Word16 resolution;
     Word16  incline;
-    Int8 tabl[13];
+    char tabl[13];
     } ;
 
 #endif

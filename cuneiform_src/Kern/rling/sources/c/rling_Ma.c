@@ -120,8 +120,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 void * (*my_alloc)(Word32 )= RLINGAlloc;                  //rling_alloc;
 void   (*my_free)(void * )= RLINGFree;             //rling_free;
 void   user_voc_init(void);
-void GetRecFileName(Int16 tab,Int16 lang, PInt8 wname);
-void   append_by_lang (Int16 lang, PInt8 src, PInt8 dst);
+void GetRecFileName(Int16 tab,Int16 lang, pchar wname);
+void   append_by_lang (Int16 lang, pchar src, pchar dst);
 //Word32 LoadUserDict(PChar8 DictName, PChar8 pool, Word32 pool_size, voc_state *user_dict);
 ///////////////////////////////////////////////////////////
 Int16 to_voc();
@@ -165,13 +165,13 @@ static PROOT     root_file       = NULL;                /* start of the root fil
 static PWord8    full_list[512];
 static PWord8    font_full_list[512];
 static PWord8    omni_full_list[512];
-static Int8      seq_name[]            = "rec0";
-Int8      own_dir[256]          = {"./"};
-static Int8      txt_ext[16]           = {"txt"};
+static char      seq_name[]            = "rec0";
+char      own_dir[256]          = {"./"};
+static char      txt_ext[16]           = {"txt"};
 static Int16     file_handle[16]       = { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
 static Int16     file_stream[16]       = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 static Int16     stream_op[10]         = {0,0,0,0,0,0,0,0,0,0};
-static Int8 *lang_suff[] =
+static char *lang_suff[] =
 {
 "","grm","frn","rus","swe","spa","ita","r&e","ukr","ser","cro","pol","dan","por","dut","dig",
 "uzb","kaz","kaz",			// 04.09.2000 E.P.
@@ -197,9 +197,9 @@ void ErrorExit(int Code)
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //
-void TE_make_name (Int16 stream, PInt8 name, PInt8 wname)
+void TE_make_name (Int16 stream, pchar name, pchar wname)
 {
-  PInt8 pn;
+  pchar pn;
   Int16 l;
 
         switch (stream)
@@ -253,7 +253,7 @@ void TE_make_name (Int16 stream, PInt8 name, PInt8 wname)
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //
-void GetRecFileName(Int16 tab,Int16 lang, PInt8 wname)
+void GetRecFileName(Int16 tab,Int16 lang, pchar wname)
 {
         seq_name[3] = tab + '0';
         append_by_lang (lang, seq_name, wname);
@@ -277,7 +277,7 @@ Int16 to_voc()
 */
 ////////////////////////////////////////////////////////////////////////////////////
 //
-void append_by_lang (Int16 lang, PInt8 src, PInt8 dst)
+void append_by_lang (Int16 lang, pchar src, pchar dst)
 {
         strcpy(dst,src);
 
@@ -298,9 +298,9 @@ void append_by_lang (Int16 lang, PInt8 src, PInt8 dst)
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //
-Int16 TE_open(Int16 Stream, PInt8 Name, Int16 Type, Int16 SubType)
+Int16 TE_open(Int16 Stream, pchar Name, Int16 Type, Int16 SubType)
 {
-        Int8 Wname[160];
+        char Wname[160];
         Int16 i;
         Int16 fn;
 
@@ -339,13 +339,13 @@ Int16 TE_write(Int16 File, PWord8 Data, Word32 Size)
 //
 Int16 TE_table_op(Int16 Stream, Int16 Language, Int16 Type, Int16 SubType)
 {
-        Int8 Wname[20];
+        char Wname[20];
 
         GetRecFileName(Stream,Language,Wname);
         return TE_open (TB_STREAM, Wname, Type, SubType);
 }
 
-int32_t TE_read(Int16 File, PInt8 Buffer, int32_t Size)
+int32_t TE_read(Int16 File, pchar Buffer, int32_t Size)
 {
         Int16 i;
 
@@ -373,10 +373,10 @@ Int16 TE_close(Int16 File)
         return 0;
 }
 
-PInt8 TE_handle_fgets  ( Int16 Handle, PInt8 Buff, Int16 Lenght )
+pchar TE_handle_fgets  ( Int16 Handle, pchar Buff, Int16 Lenght )
 {
-        Int8 ch;
-        PInt8 ptr = Buff;
+        char ch;
+        pchar ptr = Buff;
         Int16  ret;
 
         if ( Handle <= 0 || Buff == NULL || Lenght < 1 )

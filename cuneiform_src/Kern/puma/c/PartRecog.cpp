@@ -480,7 +480,7 @@ Bool32 Recognize()
         CPAGE_ClearBackUp(hCPAGE);
 #endif
 //
-		if(!CPAGE_SavePage(hCPAGE,(Int8*)szLayoutFileName))
+		if(!CPAGE_SavePage(hCPAGE,(char*)szLayoutFileName))
 		{
 			SetReturnCode_puma(CPAGE_GetReturnCode());
 			return FALSE;
@@ -493,7 +493,7 @@ Bool32 Recognize()
 	//
 	if(!LDPUMA_Skip(hDebugLayoutFromFile))
 	{
-		hCPAGE = CPAGE_RestorePage(TRUE,(Int8*)szLayoutFileName);
+		hCPAGE = CPAGE_RestorePage(TRUE,(char*)szLayoutFileName);
 		if(hCPAGE==NULL)
 		{
 			SetReturnCode_puma(CPAGE_GetReturnCode());

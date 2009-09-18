@@ -104,7 +104,7 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, Bool merge)
 	HANDLE oldRtfHndl;
 	if (merge)
 	{
-		rtf->oldFileLen=MemFromFile((PInt8)fileName,&oldRtfHndl);
+		rtf->oldFileLen=MemFromFile((pchar)fileName,&oldRtfHndl);
 		if (rtf->oldFileLen==0)
 		{
 			SetReturnCode_ced(CFIO_GetReturnCode());
@@ -123,7 +123,7 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, Bool merge)
 	else
 	{
 		//open new rtf
-		rtf->hFile=Open(0, (PInt8)fileName,OSF_CREATE|OSF_BINARY);
+		rtf->hFile=Open(0, (pchar)fileName,OSF_CREATE|OSF_BINARY);
 
 		if (!rtf->hFile)
 		{
@@ -661,7 +661,7 @@ Bool FlushRtfLine(struct StrRtfOut far *rtf)
 
 
     if (rtf->hFile) {    // write to file
-       if (HFILE_ERROR==(HFILE)Write(rtf->hFile,(Int8*)rtf->text,rtf->TextLen)) {
+       if (HFILE_ERROR==(HFILE)Write(rtf->hFile,(char*)rtf->text,rtf->TextLen)) {
           return 0;//PrintError(w,MSG_ERR_FILE_WRITE,"FlushRtfLine");
        }
     }
@@ -1916,10 +1916,10 @@ Bool WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
 	}
     Bool ret=TRUE;
 	//remove old file - it is similar to rtf
-	rtf->hFile=Open(0, (PInt8)name,OSF_CREATE|OSF_BINARY);
+	rtf->hFile=Open(0, (pchar)name,OSF_CREATE|OSF_BINARY);
 	if (!rtf->hFile) goto END_HDR;
 
-	if (HFILE_ERROR==(HFILE)Write(rtf->hFile,(Int8*)rtf->oldFile,rtf->TextIndex-1)) goto END_HDR;
+	if (HFILE_ERROR==(HFILE)Write(rtf->hFile,(char*)rtf->oldFile,rtf->TextIndex-1)) goto END_HDR;
 	if (!WriteRtfFont(rtf,FALSE)) goto END_HDR;
     if (!FlushRtfLine(rtf)) goto END_HDR;    // flush the rtf line to the output
 
@@ -1947,11 +1947,11 @@ Bool WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
 		rtf->TextIndex++;
 		head=TRUE;
 	}
-    if (HFILE_ERROR==(HFILE)Write(rtf->hFile,((Int8*)rtf->oldFile)+oldIndex-1,rtf->TextIndex-oldIndex)) goto END_HDR;
+    if (HFILE_ERROR==(HFILE)Write(rtf->hFile,((char*)rtf->oldFile)+oldIndex-1,rtf->TextIndex-oldIndex)) goto END_HDR;
 	if (!WriteRtfColor(rtf,head)) goto END_HDR;
     if (!FlushRtfLine(rtf)) goto END_HDR;    // flush the rtf line to the output
 
-    if (HFILE_ERROR==(HFILE)Write(rtf->hFile,((Int8*)rtf->oldFile)+rtf->TextIndex-1,rtf->oldFileLen-(rtf->TextIndex+2))) goto END_HDR;
+    if (HFILE_ERROR==(HFILE)Write(rtf->hFile,((char*)rtf->oldFile)+rtf->TextIndex-1,rtf->oldFileLen-(rtf->TextIndex+2))) goto END_HDR;
 
 	// end the previous section
 	if (!WriteRtfControl(rtf,"sect",PARAM_NONE,0)) goto END_HDR;

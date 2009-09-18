@@ -166,13 +166,13 @@ RLINGS_FUNC(Word32) RLINGS_GetReturnCode()
 //////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Int8 *) RLING_GetReturnString(Word32 dwError)
+RLING_FUNC(char *) RLING_GetReturnString(Word32 dwError)
 #else
-RLINGS_FUNC(Int8 *) RLINGS_GetReturnString(Word32 dwError)
+RLINGS_FUNC(char *) RLINGS_GetReturnString(Word32 dwError)
 #endif
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_RLING_ERR_NO;
-	static Int8 szBuffer[512];
+	static char szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
 	gwLowRC = IDS_RLING_ERR_NOTIMPLEMENT;

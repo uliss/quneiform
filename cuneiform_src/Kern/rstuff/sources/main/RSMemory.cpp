@@ -170,7 +170,7 @@ void *	RSTUFFAlloc(Word32 stAllocateBlock)
 		SetReturnCode_rstuff((Word16)IDS_RSTUFF_ERR_NO_MEMORY);
 #else
 
-	mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(Int8*)"RSTUFF", (Int8*)cCommentBuffer);
+	mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(char*)"RSTUFF", (char*)cCommentBuffer);
 
 	if(!mem)
 		SetReturnCode_rstuff((Word16)IDS_RSTUFF_ERR_NO_MEMORY);

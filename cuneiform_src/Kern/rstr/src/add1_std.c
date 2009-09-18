@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _USE_STD_
 #include "std.h"
 
-static Int8 leo_case_upper[]={
+static char leo_case_upper[]={
 /* 000 */ ' ',
 /* 001 */ ' ',
 /* 002 */ ' ',
@@ -316,7 +316,7 @@ static Int8 leo_case_upper[]={
 /* Ч(254,0xfe) */ 'Ч',
 /* Ъ(255,0xff) */ 'Ъ'
 };
-static Int8 leo_case_lower[]={
+static char leo_case_lower[]={
 /* 000 */ ' ',
 /* 001 */ ' ',
 /* 002 */ ' ',

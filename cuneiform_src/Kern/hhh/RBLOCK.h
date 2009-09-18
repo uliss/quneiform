@@ -86,7 +86,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 RBLOCK_FUNC(Bool32) RBLOCK_Init(Word16 wHeightCode,Handle hStorage);
 RBLOCK_FUNC(Bool32) RBLOCK_Done();
 RBLOCK_FUNC(Word32) RBLOCK_GetReturnCode();
-RBLOCK_FUNC(Int8 *) RBLOCK_GetReturnString(Word32 dwError);
+RBLOCK_FUNC(char *) RBLOCK_GetReturnString(Word32 dwError);
 RBLOCK_FUNC(Bool32) RBLOCK_GetExportData(Word32 dwType, void * pData);
 RBLOCK_FUNC(Bool32) RBLOCK_SetImportData(Word32 dwType, void * pData);
 /////////////////////////////////////////////////////////////

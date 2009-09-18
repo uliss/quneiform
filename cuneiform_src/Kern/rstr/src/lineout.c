@@ -99,7 +99,7 @@ Word16 row;
 Word16 col;
 Word16 height;
 Word16 w_width;
-Int8 type;
+char type;
 Word8 kegl;
 Word8 font;
 Word8 language;//reserv;
@@ -109,13 +109,13 @@ Word8 type_underl;
 struct sheet_disk_descr
 {
 Word8 code;
-Int8 quant_fragm;
+char quant_fragm;
 Word16 sheet_numb;
 Word16 descr_lth;
 Word8 byte_flag;
 Word16 resolution;
 Word16  incline;
-Int8 tabl[13];
+char tabl[13];
 };
 */
 for(top=10000,bottom=0,left=10000,right=0,c=b;c&&c!=e;c=CSTR_GetNext(c))

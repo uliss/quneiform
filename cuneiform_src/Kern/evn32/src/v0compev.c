@@ -85,7 +85,7 @@ static void ev_vector_cnt();
 static Word16 seek_events(Word8* ev);
 static Int16 first_var();
 static void double_events(Word16 row, Word16 col);
-static void varset (Int8 add);
+static void varset (char add);
 static void upper_row(Int16 row);
 static void upper_col(Int16 col);
 static void lower_row(Int16 row);
@@ -95,7 +95,7 @@ static void lower_col(Int16 col);
 //	Internal working fields
 struct ev_vari	{
   Word8 ln;  // line number
-  Int8 add; // additional byte:
+  char add; // additional byte:
 		};
 typedef struct ev_vari VAR;
 
@@ -246,7 +246,7 @@ static void double_events(Word16 row, Word16 col)
  while (wvp != vp) { wvp->add += wvp->add >> 4; wvp++;}
 }
 
-static void varset (Int8 add)
+static void varset (char add)
 {
  vp->add = add; (vp+1)->ln = vp->ln; vp++;
 }

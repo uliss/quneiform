@@ -82,7 +82,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 RCK_FUNC(Bool32) RCORRKEGL_Init(Word16 wHeightCode,Handle hStorage);
 RCK_FUNC(Bool32) RCORRKEGL_Done();
 RCK_FUNC(Word32) RCORRKEGL_GetReturnCode();
-RCK_FUNC(Int8 *) RCORRKEGL_GetReturnString(Word32 dwError);
+RCK_FUNC(char *) RCORRKEGL_GetReturnString(Word32 dwError);
 RCK_FUNC(Bool32) RCORRKEGL_SetImportData(Word32 dwType, void * pData);
 
 RCK_FUNC(Bool32) RCORRKEGL_CorrectKegl(int32_t version);

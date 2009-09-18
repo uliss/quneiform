@@ -201,7 +201,7 @@ void CleanLineData( void* pdata,int size);
 
 Bool16 SampleImageOpen (CIMAGE_ImageInfo* lpImageInfo)
 { return swp_imxs->f_op( (Imxs_ImageInfo*)lpImageInfo ); }
-Word16 SampleImageRead ( PInt8 lpImage, Word16 wMaxSize)
+Word16 SampleImageRead ( pchar lpImage, Word16 wMaxSize)
 { return swp_imxs->f_re( (Word8*)lpImage, wMaxSize ); }
 Bool16 SampleImageClose ( void )
 { return swp_imxs->f_cl( ); }
@@ -210,7 +210,7 @@ Bool16 SampleImageClose ( void )
 Bool16 DibOpen (Imxs_ImageInfo* lpImageInfo)
 { return cbk.CIMAGE_ImageOpen( (CIMAGE_ImageInfo*)lpImageInfo ); }
 Int16  DibRead ( Word8* lpImage, Word16 wMaxSize)
-{ return cbk.CIMAGE_ImageRead( (PInt8)lpImage, wMaxSize ); }
+{ return cbk.CIMAGE_ImageRead( (pchar)lpImage, wMaxSize ); }
 Bool16 DibClose ( void )
 { return cbk.CIMAGE_ImageClose( ); }
 

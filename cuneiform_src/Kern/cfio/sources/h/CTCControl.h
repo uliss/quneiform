@@ -121,8 +121,8 @@ public:
 	Handle ReadFileFromStorage(Handle hStorage, PChar8 lpName);
 	Handle OpenFile(Handle hFile, PChar8 lpName, Word32 dwFlag);
 	Bool32 CloseFile(Handle hFile, Word32 dwFlag, Handle hStorage = NULL);
-	Word32 WriteFile(Handle hFile, PInt8 lpData, Word32 dwSize);
-	Word32 ReadFromFile(Handle hFile, PInt8 lpData, Word32 dwSize);
+	Word32 WriteFile(Handle hFile, pchar lpData, Word32 dwSize);
+	Word32 ReadFromFile(Handle hFile, pchar lpData, Word32 dwSize);
 	Word32 Seek(Handle hFile, Word32 dwBytes, Word32 dwFrom);
 	Word32 Tell(Handle hFile);
 	Bool32 Flush(Handle hFile);

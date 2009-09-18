@@ -88,7 +88,7 @@ extern "C"
 {
 	// global variables
 	extern    Word8     language;
-	extern    Int8      own_dir[];
+	extern    char      own_dir[];
 	extern    PWord8    svbox_pool;
 	extern    PWord8    ED_file_start;
 	extern    PWord8    ED_file_end;
@@ -259,7 +259,7 @@ Bool32 CRLControl::LoadSecDictonary(Word32 wLang, PChar8 pDictPath)
 	Bool32 bRet = FALSE;
 
 #ifndef RLING_SECONDARY
-	bRet = RLINGS_LoadDictonary(wLang, (PInt8)pDictPath);
+	bRet = RLINGS_LoadDictonary(wLang, (pchar)pDictPath);
 #endif
 
 	return bRet;
@@ -411,7 +411,7 @@ Bool32 CRLControl::CheckSecWord(PChar8 cWord, int32_t * pOutCheck)
 	Bool32     bRet = FALSE;
 
 #ifndef RLING_SECONDARY
-	bRet = RLINGS_CheckWord((PInt8)cWord, pOutCheck);
+	bRet = RLINGS_CheckWord((pchar)cWord, pOutCheck);
 #endif
 
 	return bRet;
@@ -541,7 +541,7 @@ Bool32 CRLControl::LoadSecUserDictonary(PChar8 pUserDictonaryList, PChar8 pPoint
 	Bool32     bRet = FALSE;
 
 #ifndef RLING_SECONDARY
-	bRet = RLINGS_LoadUserDictonary((PInt8)pUserDictonaryList, (PInt8)pPoint);
+	bRet = RLINGS_LoadUserDictonary((pchar)pUserDictonaryList, (pchar)pPoint);
 #endif
 
 	return bRet;
@@ -630,7 +630,7 @@ Bool32 CRLControl::CorrectSecWord(CSTR_rast Beg, CSTR_rast End, PWord32 pLanguag
 	Bool32     bRet = FALSE;
 
 #ifndef RLING_SECONDARY
-	bRet = RLINGS_CorrectWord(Beg, End, pLanguage, (PInt8)CorrWord);
+	bRet = RLINGS_CorrectWord(Beg, End, pLanguage, (pchar)CorrWord);
 #endif
 
 	return bRet;
@@ -663,7 +663,7 @@ Bool32 CRLControl::CorrectSecHypWord(CSTR_rast BegF, CSTR_rast EndF, PWord32 pLa
 	Bool32     bRet = FALSE;
 
 #ifndef RLING_SECONDARY
-	bRet = RLINGS_CorrectHypWord(BegF, EndF, pLanguageF, BegS, EndS, pLanguageS, (PInt8)CorrWord);
+	bRet = RLINGS_CorrectHypWord(BegF, EndF, pLanguageF, BegS, EndS, pLanguageS, (pchar)CorrWord);
 #endif
 
 	return bRet;

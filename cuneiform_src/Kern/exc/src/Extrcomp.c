@@ -144,7 +144,7 @@ Int16  image_lth     ;  // bytes per line
 Word8 image_black   ;  // mask for black pixels adding
 Word8 image_white   ;  // mask for wite pixels adding
 
-static Int8 image_file_status = -1;
+static char image_file_status = -1;
 static Word8 image_invert = 0;
 //========== Global func ==========
 void extrcomp(void);

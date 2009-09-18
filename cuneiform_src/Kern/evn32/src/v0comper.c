@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  Internal working fields
 struct ev_vari	{
   Word8 ln;  // line number
-  Int8 add; // additional byte:
+  char add; // additional byte:
 		};
 typedef struct ev_vari VAR;
 // Oleg

@@ -168,10 +168,10 @@ RIMAGE_FUNC(Word32) RIMAGE_GetReturnCode()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Int8 *) RIMAGE_GetReturnString(Word32 dwError)
+RIMAGE_FUNC(char *) RIMAGE_GetReturnString(Word32 dwError)
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_RIMAGE_ERR_NO;
-	static Int8 szBuffer[512];
+	static char szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
 		gwLowRC = IDS_RIMAGE_ERR_NOTIMPLEMENT;

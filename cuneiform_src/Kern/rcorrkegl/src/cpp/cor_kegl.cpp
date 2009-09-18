@@ -99,8 +99,8 @@ typedef Word16 KegStat[MAX_KEG+2];
 
 typedef struct tagKegTabElement
 {
-  Int8  keg0;  //если keg0>0, то это надежно определенное значение,
-  Int8  keg1;  // иначе -keg0 и -keg1 - возможные значения кегл
+  char  keg0;  //если keg0>0, то это надежно определенное значение,
+  char  keg1;  // иначе -keg0 и -keg1 - возможные значения кегл
 } KegTabElement;
 
 typedef KegTabElement KegTab[MAX_KEG+1];
@@ -568,16 +568,16 @@ static void get_keg_tab()
   rely1=0;
   for (i=1; i<=num_keg_opt; i++,tab += 3)
   {
-    int32_t tol=(Int8)(keg_stats[*tab])/3;
+    int32_t tol=(char)(keg_stats[*tab])/3;
     int32_t keg=0,n=0,k;
     rely2=*(tab+1)-1;  extend2=*(tab+2);  keg_tabi=keg_tab+j;
     for (k=rely1,keg_statsi=keg_stats+k; k<=rely2; k++,keg_statsi++)
       if (*keg_statsi>=tol)  { n += *keg_statsi;  keg += *keg_statsi*k; }
 //    if (n>0)  keg=keg*2/n;  //размер шрифта от верха заглавной до низа опущенной
     if (n>0)  keg=(keg+n/2)/n;
-    for ( ; j<rely1;    j++,keg_tabi++)  keg_tabi->keg1=-(Int8)keg;
-    for ( ; j<=rely2;   j++,keg_tabi++)  keg_tabi->keg0= (Int8)keg;
-    for ( ; j<=extend2; j++,keg_tabi++)  keg_tabi->keg0=-(Int8)keg;
+    for ( ; j<rely1;    j++,keg_tabi++)  keg_tabi->keg1=-(char)keg;
+    for ( ; j<=rely2;   j++,keg_tabi++)  keg_tabi->keg0= (char)keg;
+    for ( ; j<=extend2; j++,keg_tabi++)  keg_tabi->keg0=-(char)keg;
     rely1=extend2+1;  j=rely2+1;
   }
 }
@@ -607,7 +607,7 @@ static void  cor_fax_fragment()
   PageWord beg;
   Word8 stat[2*MAX_KEG+2]={0},max_keg=0,opt_keg=0;
   Word8 keg0;
-  Int8  keg;
+  char  keg;
   int32_t i,max_n=0;
 
   beg.word=1;
@@ -680,7 +680,7 @@ static void  cor_gen_fragment()
 {
   PageWord fin,rely;
   Word8 keg0;        //кегль, который будет присвоен слову
-  Int8  keg;         //текущий кегль
+  char  keg;         //текущий кегль
   Bool next=TRUE;
 
   fin.word=1;

@@ -151,7 +151,7 @@ typedef struct tagRSCBProgressPoints
 RSTUFF_FUNC(Bool32) RSTUFF_Init(Word16 wHeightCode,Handle hStorage);
 RSTUFF_FUNC(Bool32) RSTUFF_Done();
 RSTUFF_FUNC(Word32) RSTUFF_GetReturnCode();
-RSTUFF_FUNC(Int8 *) RSTUFF_GetReturnString(Word32 dwError);
+RSTUFF_FUNC(char *) RSTUFF_GetReturnString(Word32 dwError);
 RSTUFF_FUNC(Bool32) RSTUFF_GetExportData(Word32 dwType, void * pData);
 RSTUFF_FUNC(Bool32) RSTUFF_SetImportData(Word32 dwType, void * pData);
 /////////////////////////////////////////////////////////////

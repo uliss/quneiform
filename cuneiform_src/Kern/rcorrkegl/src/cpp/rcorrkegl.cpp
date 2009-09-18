@@ -106,10 +106,10 @@ RCK_FUNC(Word32) RCORRKEGL_GetReturnCode()
 	return (gwHeightRC<<16)|(gwLowRC-RCORRKEGL_ERR_MIN);
 }
 
-RCK_FUNC(Int8*) RCORRKEGL_GetReturnString(Word32 dwError)
+RCK_FUNC(char*) RCORRKEGL_GetReturnString(Word32 dwError)
 {
 	Word16 rc = (Word16)((dwError & 0xFFFF) );
-	static Int8 szBuffer[512];
+	static char szBuffer[512];
 
 	if (dwError >> 16 != gwHeightRC) gwLowRC = RCORRKEGL_ERR_NOTIMPLEMENT;
 

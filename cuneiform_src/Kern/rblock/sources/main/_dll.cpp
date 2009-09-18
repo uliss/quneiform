@@ -135,7 +135,7 @@ RBLOCK_FUNC(Word32) RBLOCK_GetReturnCode()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RBLOCK_FUNC(Int8 *) RBLOCK_GetReturnString(Word32 dwError)
+RBLOCK_FUNC(char *) RBLOCK_GetReturnString(Word32 dwError)
 {
 	static char szBuffer[512];
 	Word16 low = (Word16)(dwError &  0xFFFF);
@@ -151,7 +151,7 @@ RBLOCK_FUNC(Int8 *) RBLOCK_GetReturnString(Word32 dwError)
 		LoadString(ghInst,IDS_ERR_NOTIMPLEMENT,(char *)szBuffer,sizeof(szBuffer));
 	}
 
-	return (Int8*)szBuffer;
+	return (char*)szBuffer;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //

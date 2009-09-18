@@ -218,7 +218,7 @@ s->inc_v16 = (char) (inc & 0xFF);	// 17.11.1993 for case inc_v16<0;
 ********************************/
 
 s->inc = (inc_num!=0);
-s->inc_num = (Int8)inc_num;	// 10.12.1993
+s->inc_num = (char)inc_num;	// 10.12.1993
 
 /* serifs checking */
 set_serifs (left, right, l, r,

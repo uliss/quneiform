@@ -147,7 +147,7 @@ ROUT_TABLE_TEXT_ALIGN_COLUMNS = 2
 ROUT_FUNC(Bool32) ROUT_Init(Word16 wHeightCode,Handle hStorage);
 ROUT_FUNC(Bool32) ROUT_Done();
 ROUT_FUNC(Word32) ROUT_GetReturnCode();
-ROUT_FUNC(Int8 *) ROUT_GetReturnString(Word32 dwError);
+ROUT_FUNC(char *) ROUT_GetReturnString(Word32 dwError);
 ROUT_FUNC(Bool32) ROUT_GetExportData(Word32 dwType, void * pData);
 ROUT_FUNC(Bool32) ROUT_SetImportData(Word32 dwType, void * pData);
 //*****************************************************************

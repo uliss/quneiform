@@ -258,10 +258,10 @@ RSTUFF_FUNC(Word32) RSTUFF_GetReturnCode()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSTUFF_FUNC(Int8 *) RSTUFF_GetReturnString(Word32 dwError)
+RSTUFF_FUNC(char *) RSTUFF_GetReturnString(Word32 dwError)
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF);
-	static Int8 szBuffer[512];
+	static char szBuffer[512];
 
 	if( dwError >> 16 != RC.RC16.gwHeightRC)
 		RC.RC16.gwLowRC = IDS_RSTUFF_ERR_NOTIMPLEMENT;

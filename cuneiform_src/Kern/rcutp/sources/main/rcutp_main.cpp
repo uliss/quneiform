@@ -114,10 +114,10 @@ return rc;
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RCUTP_FUNC(Int8 *) RCUTP_GetReturnString(Word32 dwError)
+RCUTP_FUNC(char *) RCUTP_GetReturnString(Word32 dwError)
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
-	static Int8 szBuffer[512];
+	static char szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
 		gwLowRC = IDS_ERR_NOTIMPLEMENT;

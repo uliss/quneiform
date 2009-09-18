@@ -71,7 +71,7 @@ class CTIImageHeader
 {
 private:
 	CTIImageHeader *          pNext;
-	Int8                      ImageName[CIMAGE_MAX_IMAGE_NAME];
+	char                      ImageName[CIMAGE_MAX_IMAGE_NAME];
 	PCIMAGEBITMAPINFOHEADER   ImageInfo;
 	void *                    Image;
 	PCTIMask                  WriteMask;

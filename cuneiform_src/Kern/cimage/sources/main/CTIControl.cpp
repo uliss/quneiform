@@ -249,13 +249,13 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 				for ( i = 0; i < ImageInfo.wImageHeight; i++ )
 				{
 					// вызываем второй калбэк
-					Readed = Cbk.CIMAGE_ImageRead((PInt8)mCBWSourceDIB->GetPtrToLine(0),
+					Readed = Cbk.CIMAGE_ImageRead((pchar)mCBWSourceDIB->GetPtrToLine(0),
 												  (Word16)mCBWSourceDIB->GetLineWidthInBytes());
 
 					//инвертируем битовое поле, ежели надо
 					if ( bInvert )
 					{
-						PInt8 pBits = (PInt8)mCBWSourceDIB->GetPtrToLine(0);
+						pchar pBits = (pchar)mCBWSourceDIB->GetPtrToLine(0);
 						int32_t Ii;
 
 						for ( Ii = 0; Ii < (Word16)mCBWSourceDIB->GetLineWidthInBytes(); Ii++ )
@@ -427,7 +427,7 @@ Bool32 CTIControl::GetImage(PChar8  lpName, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 	FreeBuffers();
 
 	// берем кусок диба оттедова
-	if ( GetDIBFromImage(lpName, lpIn, (PInt8*)&pDIBMemory ) )
+	if ( GetDIBFromImage(lpName, lpIn, (pchar*)&pDIBMemory ) )
 	{
 		pDscDIB = new CTDIB;
 		if ( pDscDIB->SetDIBbyPtr(pDIBMemory) )
@@ -1201,7 +1201,7 @@ Bool32 CTIControl::DumpToFile(PChar8 FileName, PWord8 pData, Word32 Size)
 	return TRUE;
 }
 
-Bool32 CTIControl::GetDIBFromImage(PChar8 lpName, PCIMAGE_InfoDataInGet lpIn, PInt8 *pDIB)
+Bool32 CTIControl::GetDIBFromImage(PChar8 lpName, PCIMAGE_InfoDataInGet lpIn, pchar *pDIB)
 {
 	Handle hImage = NULL;
 	void * pImage = NULL;

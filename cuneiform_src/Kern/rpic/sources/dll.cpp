@@ -118,10 +118,10 @@ RPIC_FUNC(Word32) RPIC_GetReturnCode()
 	return rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
-RPIC_FUNC(Int8 *) RPIC_GetReturnString(Word32 dwError)
+RPIC_FUNC(char *) RPIC_GetReturnString(Word32 dwError)
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
-	static Int8 szBuffer[512];
+	static char szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
 		gwLowRC = IDS_ERR_NOTIMPLEMENT;

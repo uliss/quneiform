@@ -268,7 +268,7 @@ Bool WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 */		// Получим картинку из исходного изображения задав ее контур
 		//определяем размер маски
 		Bool rc = TRUE;
-		PInt8 pOutDIB = NULL;
+		pchar pOutDIB = NULL;
 		if(CPAGE_PictureGetPlace (h_Page, h_Pict,-pinfo.Incline2048, &Lr, &Wh) )
 		{
 			//piter : Корректируем координаты из-за повернута страницы.

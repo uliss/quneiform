@@ -200,10 +200,10 @@ RFRMT_FUNC(Word32) RFRMT_GetReturnCode()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RFRMT_FUNC(Int8 *) RFRMT_GetReturnString(Word32 dwError)
+RFRMT_FUNC(char *) RFRMT_GetReturnString(Word32 dwError)
 {
  Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
- static Int8 szBuffer[512];
+ static char szBuffer[512];
 
  if( dwError >> 16 != gwHeightRC)
 	gwLowRC = IDS_ERR_NOTIMPLEMENT;

@@ -328,7 +328,7 @@ RNEG_FUNC(Word32) RNEG_GetReturnCode()
 	return (Word32)(0);
 }
 /*---------------------------------------------------------------------------*/
-RNEG_FUNC(Int8 *) RNEG_GetReturnString(Word32 dwError)
+RNEG_FUNC(char *) RNEG_GetReturnString(Word32 dwError)
 {
 	return NULL;
 }

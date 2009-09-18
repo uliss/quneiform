@@ -311,7 +311,7 @@ RSELSTR_FUNC(Word32) RSELSTR_GetReturnCode()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSELSTR_FUNC(Int8 *) RSELSTR_GetReturnString(Word32 dwError)
+RSELSTR_FUNC(char *) RSELSTR_GetReturnString(Word32 dwError)
 {
 return NULL;
 }

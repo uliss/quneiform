@@ -93,7 +93,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 RMARKER_FUNC(Bool32) RMARKER_Init(Word16 wHeightCode,Handle hStorage);
 RMARKER_FUNC(Bool32) RMARKER_Done();
 RMARKER_FUNC(Word32) RMARKER_GetReturnCode();
-RMARKER_FUNC(Int8 *) RMARKER_GetReturnString(Word32 dwError);
+RMARKER_FUNC(char *) RMARKER_GetReturnString(Word32 dwError);
 RMARKER_FUNC(Bool32) RMARKER_GetExportData(Word32 dwType, void * pData);
 RMARKER_FUNC(Bool32) RMARKER_SetImportData(Word32 dwType, void * pData);
 /////////////////////////////////////////////////////////////

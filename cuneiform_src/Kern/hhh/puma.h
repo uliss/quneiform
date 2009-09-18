@@ -102,7 +102,7 @@ extern "C" {
     PUMA_ImageInfo;
 
     typedef Bool16 (*PUMA_Callback_ImageOpen)(PUMA_ImageInfo *);
-    typedef Word16   (*PUMA_Callback_ImageRead)(PInt8 , Word16 );
+    typedef Word16   (*PUMA_Callback_ImageRead)(pchar , Word16 );
     typedef Bool16 (*PUMA_Callback_ImageClose)(void);
 
     typedef struct

@@ -77,7 +77,7 @@ static Word16      gwHeightRC = 0;      // Уникальный номер би�
 static Word16      gwLowRC    = ER_ROUGH_NONE;      // Ошибки в работе библиотеки
 static HANDLE      ghStorage  = NULL;   // Указатель на хранилище
 static HANDLE      ghInst     = NULL;   // Указатель на свое окно
-static Int8 szBuffer[512];               // Для докладов наверх
+static char szBuffer[512];               // Для докладов наверх
 /*------------own functions--------------------------------------------------*/
 void   SetReturnCode_smetric (Word16 rc);
 Word16 GetReturnCode_smetric ();
@@ -177,7 +177,7 @@ SMetric_FUNC(Word32) SMetric_GetReturnCode()
 	return (Word32)(gwHeightRC<<16)|(gwLowRC);
 }
 /*---------------------------------------------------------------------------*/
-SMetric_FUNC(Int8 *) SMetric_GetReturnString(Word32 dwError)
+SMetric_FUNC(char *) SMetric_GetReturnString(Word32 dwError)
 {
 	Word8  err8, err8_1;
 	Word16 err16;

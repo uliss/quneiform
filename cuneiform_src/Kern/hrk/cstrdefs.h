@@ -69,7 +69,7 @@ typedef Handle CSTR_line;
 
 typedef struct tagCSTR_stick
  {
- Int8  x,y,l,w,top,bot;
+ char  x,y,l,w,top,bot;
  Int16 incl;
  }CSTR_stick;
 
@@ -145,7 +145,7 @@ typedef struct strucCSTR_rast_attr{
     Int16 h;    // height of cell
     Int16 w;    // width of cell
 //// 8
-    Int8  bdiff;    // local base line corrective displacement
+    char  bdiff;    // local base line corrective displacement
     Word8 difflg;   // local correction flg
 // baseline defined by cell:
 #define CSTR_db_b1      1
@@ -170,10 +170,10 @@ typedef struct strucCSTR_rast_attr{
     Int16 r_row;    // real row of cell
     Int16 r_col;        // real collumn of cell
 //// 16
-    Int8 bas1;
-    Int8 bas2;
-    Int8 bas3;
-    Int8 bas4;
+    char bas1;
+    char bas2;
+    char bas3;
+    char bas4;
 //// 20
     Word8 cg_flag;  // cut-to-glue message
 #define CSTR_cg_noglue     1   // don't glue to ... ( just cut )

@@ -110,7 +110,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_Init(Word16 wHeightCode,Handle hStorage);
 RIMAGE_FUNC(Bool32) RIMAGE_Done();
 RIMAGE_FUNC(Bool32) RIMAGE_Reset();
 RIMAGE_FUNC(Word32) RIMAGE_GetReturnCode();
-RIMAGE_FUNC(Int8 *) RIMAGE_GetReturnString(Word32 dwError);
+RIMAGE_FUNC(char *) RIMAGE_GetReturnString(Word32 dwError);
 RIMAGE_FUNC(Bool32) RIMAGE_GetExportData(Word32 dwType, void * pData);
 RIMAGE_FUNC(Bool32) RIMAGE_SetImportData(Word32 dwType, void * pData);
 /////////////////////////////////////////////////////////////

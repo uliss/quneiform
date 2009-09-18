@@ -90,7 +90,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     #include "rcorrkegl.h"
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     //
-    #define BYTE Int8
+    #define BYTE char
 
     // predefined
     #ifdef __PUMA_CPP__

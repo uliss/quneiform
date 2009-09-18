@@ -80,7 +80,7 @@ Handle      hSnapEndWord=NULL,hSnapStartWord=NULL;
 Handle      hVertCompD;
 Bool32      gbFax100 = FALSE;
 Bool32      gbGarbage = TRUE;
-Int8*       sp_err="no spell errors";
+char*       sp_err="no spell errors";
 // from COR_SPEL.C
 Bool32 correct_line_spell(CSTR_line line, CSTR_rast* re, CSTR_rast* rb, int32_t line_num,
 						  Bool32 disable_new_dict, Bool32 disable_check_word, int32_t* rf);

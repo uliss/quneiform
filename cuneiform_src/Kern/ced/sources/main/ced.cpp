@@ -159,7 +159,7 @@ RDProced=proc;
 
 	if (readFromFile)
 	{
-		ret=MemFromFile((PInt8)file,&PedHandle);
+		ret=MemFromFile((pchar)file,&PedHandle);
 		if (ret==0)
 			return 0;
 		start = (PWord8)Lock(PedHandle);

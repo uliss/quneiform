@@ -179,7 +179,7 @@ DPUMA_FNDPUMA_DrawRectTip
 DEC_FUNC(Bool32,  DPUMA_Init,(Word16 wHightCode, Handle hStorage));
 DEC_FUNC(Bool32,  DPUMA_Done,());
 DEC_FUNC(Word32,  DPUMA_GetErrorCode,(void));
-DEC_FUNC(Int8 *,  DPUMA_GetErrorString,(Word32 wError));
+DEC_FUNC(char *,  DPUMA_GetErrorString,(Word32 wError));
 DEC_FUNC(Bool32,  DPUMA_SetImportData,(Word32 wType, void * pData));
 DEC_FUNC(Bool32,  DPUMA_GetExportData,(Word32 wType, void * pData));
 

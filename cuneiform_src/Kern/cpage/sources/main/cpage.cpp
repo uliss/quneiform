@@ -358,7 +358,7 @@ CPAGE_FUNC(void)  CPAGE_DeleteBlock(Handle page,Handle block)
 #define VERSION_FILE            0xF002
 #define VERSION_FILE_COMPRESSED 0xF003
 
-CPAGE_FUNC(Bool32)  CPAGE_SavePage(Handle page,Int8 * lpName)
+CPAGE_FUNC(Bool32)  CPAGE_SavePage(Handle page,char * lpName)
 {
 	PROLOG;
 	Bool32 rc = FALSE;
@@ -402,7 +402,7 @@ CPAGE_FUNC(Bool32)  CPAGE_SavePage(Handle page,Int8 * lpName)
 	return rc;
 }
 //###########################################
-CPAGE_FUNC(Handle)  CPAGE_RestorePage(Bool32 remove,Int8 * lpName)
+CPAGE_FUNC(Handle)  CPAGE_RestorePage(Bool32 remove,char * lpName)
 {
 	PROLOG;
 	Handle rc = NULL;

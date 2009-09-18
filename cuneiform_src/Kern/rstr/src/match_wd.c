@@ -331,7 +331,7 @@ static void set_param (MatchWordPar *par)
 
 Bool match_word_prepare(CSTR_line ln, BYTE *alpha, MatchWordPar *param);
 
-RSTR_FUNC(Bool32) RSTR_recog_one_word(CSTR_line ln, Word8 *word, Int8 *points,Word8 *res)
+RSTR_FUNC(Bool32) RSTR_recog_one_word(CSTR_line ln, Word8 *word, char *points,Word8 *res)
 {
 Weight      w;
 MatchWordPar param={0};
@@ -985,7 +985,7 @@ static LONG add_sect(LONG il, LONG ir, BYTE nlet, Bool rerecog, BYTE *p)
   BYTE left_let=0;
   SVERS vers;      //версии сегмента (i1,i0)
   INT width;       //его ширина
-  Int8  gvar;       //способ сборки
+  char  gvar;       //способ сборки
 #define ROI_LEN 4
   INT ro,roi[ROI_LEN]; //ro и его составляющие
   Weight wp=prev_layer[il].weight,wc=cur_layer[ir].weight,wt;

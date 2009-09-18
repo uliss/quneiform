@@ -143,8 +143,8 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
 
 	gSVLBuffer.VLinefBufferA = NULL;
 	gSVLBuffer.VLinefBufferB = NULL;
-	gSVLBuffer.LineInfoA = (LinesTotalInfo*) CFIO_DAllocMemory( sizeof(LinesTotalInfo), MAF_GALL_GPTR, (PInt8)"puma", (PInt8)"SVL step I lines info pool");
-	gSVLBuffer.LineInfoB = (LinesTotalInfo*) CFIO_DAllocMemory( sizeof(LinesTotalInfo), MAF_GALL_GPTR, (PInt8)"puma", (PInt8)"SVL step II lines info pool");
+	gSVLBuffer.LineInfoA = (LinesTotalInfo*) CFIO_DAllocMemory( sizeof(LinesTotalInfo), MAF_GALL_GPTR, (pchar)"puma", (pchar)"SVL step I lines info pool");
+	gSVLBuffer.LineInfoB = (LinesTotalInfo*) CFIO_DAllocMemory( sizeof(LinesTotalInfo), MAF_GALL_GPTR, (pchar)"puma", (pchar)"SVL step II lines info pool");
 
 	if ( rc )
 	{
@@ -215,7 +215,7 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
 		rc = FALSE;
 	if(!LDPUMA_Skip(Image->hDebugLayoutFromFile))
 	{
-		Image->hCPAGE = CPAGE_RestorePage(TRUE,(PInt8)(Image->szLayoutFileName));
+		Image->hCPAGE = CPAGE_RestorePage(TRUE,(pchar)(Image->szLayoutFileName));
 		if(Image->hCPAGE==NULL)
 		{
 			SetReturnCode_rmarker(CPAGE_GetReturnCode());

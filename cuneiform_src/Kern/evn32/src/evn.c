@@ -169,7 +169,7 @@ int32_t evn_tab_init( void )
     return 0;
     }
   size=GetFileLength(h);
-  events_tree_rth=(Int8 *)my_alloc( size );
+  events_tree_rth=(char *)my_alloc( size );
   if( !events_tree_rth )
     {
     evn_error_code = ER_EVN_MEMORY;
@@ -202,7 +202,7 @@ int32_t evn_tab_init_prn(const char *file1, const char *file2 )
     return 0;
     }
   size=GetFileLength(h);
-  events_treep=(Int8 *)my_alloc( size );
+  events_treep=(char *)my_alloc( size );
   if( !events_treep )
     {
     evn_error_code = ER_EVN_MEMORY;
@@ -227,7 +227,7 @@ int32_t evn_tab_init_prn(const char *file1, const char *file2 )
     return 0;
     }
   size=GetFileLength(h);
-  events_tree_rtp=(Int8 *)my_alloc( size );
+  events_tree_rtp=(char *)my_alloc( size );
   if( !events_tree_rtp )
     {
     evn_error_code = ER_EVN_MEMORY;

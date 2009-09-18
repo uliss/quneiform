@@ -84,7 +84,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 CLINE_FUNC(Bool32) CLINE_Init(Word16 wHeightCode,Handle parent);
 CLINE_FUNC(Bool32) CLINE_Done();
 CLINE_FUNC(Word32) CLINE_GetReturnCode();
-CLINE_FUNC(Int8 *) CLINE_GetReturnString(Word32 dwError);
+CLINE_FUNC(char *) CLINE_GetReturnString(Word32 dwError);
 CLINE_FUNC(Bool32) CLINE_GetExportData(Word32 dwType, void * pData);
 CLINE_FUNC(Bool32) CLINE_SetImportData(Word32 dwType, void * pData);
 /////////////////////////////////////////////////////////////

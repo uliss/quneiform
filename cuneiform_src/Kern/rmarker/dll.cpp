@@ -252,7 +252,7 @@ RMARKER_FUNC(Bool32) RMARKER_Done()
 	return TRUE;
 }
 
-RMARKER_FUNC(Int8 *) RMARKER_GetReturnString(Word32 dwError)
+RMARKER_FUNC(char *) RMARKER_GetReturnString(Word32 dwError)
 {return NULL;
 }
 

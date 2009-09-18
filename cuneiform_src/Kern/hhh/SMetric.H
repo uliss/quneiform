@@ -83,7 +83,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 SMetric_FUNC(Bool32) SMetric_Init(Word16 wHeightCode,Handle hStorage);
 SMetric_FUNC(Bool32) SMetric_Done();
 SMetric_FUNC(Word32) SMetric_GetReturnCode();
-SMetric_FUNC(Int8 *) SMetric_GetReturnString(Word32 dwError);
+SMetric_FUNC(char *) SMetric_GetReturnString(Word32 dwError);
 SMetric_FUNC(Bool32) SMetric_GetExportData(Word32 dwType, void * pData);
 SMetric_FUNC(Bool32) SMetric_SetImportData(Word32 dwType, void * pData);
 /////////////////////////////////////////////////////////////

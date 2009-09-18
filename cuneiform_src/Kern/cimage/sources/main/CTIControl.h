@@ -126,7 +126,7 @@ public:
 	Bool32                    AddWriteRectangles(PChar8 lpName, Word32 wNumber, PCIMAGE_Rect pFirst);
 	Bool32                    FreeBuffers(void);
 	Bool32                    FreeAlloced(Handle hDIB);
-	Bool32                    GetDIBFromImage(PChar8 lpName, PCIMAGE_InfoDataInGet lpIn, PInt8 *pDIB);
+	Bool32                    GetDIBFromImage(PChar8 lpName, PCIMAGE_InfoDataInGet lpIn, pchar *pDIB);
 	Bool32                    RemoveImage(PChar8  lpName);
 	Bool32                    GetImageInfo(PChar8  lpImage, PCIMAGEBITMAPINFOHEADER lpBIH);
 	Bool32                    ReplaceImage(PChar8  lpName, PCIMAGE_InfoDataInReplace lpIn);
