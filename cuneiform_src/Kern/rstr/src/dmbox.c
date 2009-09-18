@@ -308,9 +308,9 @@ INT dmiBOX(cell *A, s_glue *GL, INT fl2)
  version *dv1, *dv2;
  WORD wcos, beste, best3, *pb1, *pb2;
  BYTE c, c_acc, pb, wc; INT flit;
- CHAR scg, vx, px, pl, flnu, flag_m, flag_rtf, stick;
- CHAR wbuf[256]; // 06-09-94 09:59pm
- CHAR flag_stick=0;  // Oleg : 31.08.92.
+ char scg, vx, px, pl, flnu, flag_m, flag_rtf, stick;
+ char wbuf[256]; // 06-09-94 09:59pm
+ char flag_stick=0;  // Oleg : 31.08.92.
 
  Z=&string;
  my_Ps = def_locbas(A);
@@ -364,7 +364,7 @@ INT dmiBOX(cell *A, s_glue *GL, INT fl2)
       )
    {
      if (db_status && (db_trace_flag & 4))
-     { CHAR wrk[32];
+     { char wrk[32];
        sprintf (wrk,
        language == LANG_RUSSIAN ? "best %d > 30300" : "best %d > 29500",
        best_answer_BOX);
@@ -435,7 +435,7 @@ makeans:
     if (upper < lower) flnu=1; else flnu=2;
   }
  while ((c=v->ltr) != 0)
-  { CHAR wrkb[20];
+  { char wrkb[20];
     wcos=v->iprob;
 
     if (db_status && (db_trace_flag & 4))
@@ -554,7 +554,7 @@ makeans:
                 w1 = proport(wcos,*pb1,*pb2,*pi1,*pi2);
 
          if( db_status && snap_activity('a') ){
-            CHAR snap[80],*s=snap;
+            char snap[80],*s=snap;
             snap_newcell(BC);
             s += sprintf(s,"5x3 : vers = %c(%3d)  3x5 : (%3d)",c,w1,dv1[i].prob);
             snap_show_text(snap);
@@ -930,7 +930,7 @@ if( 0&&spec_camera )
 return ret;
 }
 
-CHAR dust_in_pattern;
+char dust_in_pattern;
 INT crepat(cell *A, s_glue *GL, INT var, INT flag)
  {
  cell *BC, *DC;
@@ -1062,7 +1062,7 @@ void static_to_SBOX()
    SBOX.rast_h=sv_h;
    SBOX.math_row=sv_mr;
    SBOX.math_col=sv_mc;
-   SBOX.dens=(CHAR)sv_dens;
+   SBOX.dens=(char)sv_dens;
  }
 void GL_to_SBOX(s_glue *g)
  { SBOX.up_row=g->c_r;
@@ -1071,7 +1071,7 @@ void GL_to_SBOX(s_glue *g)
    SBOX.rast_h=g->c_h;
    SBOX.math_row=g->c_mr;
    SBOX.math_col=g->c_mc;
-   SBOX.dens=(CHAR)g->c_dens;
+   SBOX.dens=(char)g->c_dens;
  }
 
 void dens_to_cell(cell *c)
@@ -1135,7 +1135,7 @@ static INT many_legs(s_glue *GL)
  {
  cell *A;
  lnhead  *Lp1;
- CHAR   n1, h1, h2;
+ char   n1, h1, h2;
  BYTE  *wb;
  INT nc, Lc1,lc1,nleg;
  struct comp_struc *cp1;
@@ -1158,7 +1158,7 @@ static INT many_legs(s_glue *GL)
   for (lc1=0; lc1 < Lc1; lc1++)
    {
    n1=Lp1->h-1;
-   h1=(CHAR)Lp1->row;
+   h1=(char)Lp1->row;
    h2=h1+n1;
    if ((h1 < (bm-2)) && (h2 > (bm+2)))
     {
@@ -1166,7 +1166,7 @@ static INT many_legs(s_glue *GL)
     if (nleg > 4)
     return 1;
     }
-   Lp1=(lnhead *) ((CHAR *)Lp1+Lp1->lth);       // next line
+   Lp1=(lnhead *) ((char *)Lp1+Lp1->lth);       // next line
    }
   }
  }
@@ -1228,7 +1228,7 @@ servBOX *make_broken_raster(s_glue *GL, INT rq)
   }
  else for (s=0,p=mBOX; p != mBOX+15; p++) s+=*p;
 
- bw=SBOX.dens =(CHAR)(32*s/t);                  // in 1/32 - units
+ bw=SBOX.dens =(char)(32*s/t);                  // in 1/32 - units
  bw=0;                                 // USE black table
  if (bw)
   {
@@ -1271,7 +1271,7 @@ INT  simpleBOX( cell *C, INT typl ) //(cell,128) for full exept 1l
    embBOXF(&SBOX,typl,(Bool)((C->pos_inc&erect_rot)!=0));
 /*
    if( db_status && snap_activity('h') ){
-      CHAR  snap[80],*s=snap;
+      char  snap[80],*s=snap;
       INT   i,n=0;
 
       for(i=0;i<VERS_IN_CELL-1;i++){

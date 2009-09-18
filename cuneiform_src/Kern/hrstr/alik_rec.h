@@ -121,7 +121,7 @@ BYTE Alik_gde_i_kak_naxodjatsa_tochki(BYTE,struct own_cut *,INT,INT);
 
 // module alcutfun.c
 void Alik_del_equal_hole(PINT,PCHAR,PINT,INT,INT,INT);
-void Alik_del_p_cut(PCHAR,PINT,INT,INT,INT,CHAR);
+void Alik_del_p_cut(PCHAR,PINT,INT,INT,INT,char);
 void Alik_del_3_cut(PCHAR,PINT,INT,INT,INT,PBYTE);
 void Alik_del_y_cut(PCHAR,INT,PINT,INT);
 void Alik_del_equal(PINT);

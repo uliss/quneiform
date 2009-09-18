@@ -85,9 +85,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 //------------------ Name fields -------------------------
-Edef  CHAR group_name[5]      VAL("PAGE");  // group of files name
+Edef  char group_name[5]      VAL("PAGE");  // group of files name
 Edef  INT  page_number        VAL(1);       // current page number
-Edef  CHAR group_dir[30]      VAL("");      // directory for pages group
+Edef  char group_dir[30]      VAL("");      // directory for pages group
 
 //---------- Source and target identification ------------
 #define S_Scaner  1                   // Scaner
@@ -182,9 +182,9 @@ Edef BYTE langBul               VAL(0);	// BULGAR 31.08.2000 E.P.
 Edef BYTE multi_page_mode       VAL(0);
 Edef BYTE multy_language        VAL(0);
 Edef BYTE pictures_recog        VAL(0);
-Edef CHAR windows_tmp_dir[256]  VAL(""); // system directory
+Edef char windows_tmp_dir[256]  VAL(""); // system directory
 Edef BYTE enable_table_recog    VAL(0);
-Edef CHAR user_dict_name[256]   VAL("");
+Edef char user_dict_name[256]   VAL("");
 Edef BYTE cuts_glues_methode    VAL(1);
 Edef BYTE erection_enable       VAL(2);
 Edef BYTE cuts_point_methode    VAL(1);
@@ -203,11 +203,11 @@ Edef BYTE spec_camera           VAL(0);
 Edef BYTE no_linpen             VAL(0);
 Edef BYTE p2_disable            VAL(0);
 Edef BYTE db_end_parm VAL(0);
-Edef CHAR windows_dir[256]      VAL(""); // windows directory for protect
-Edef CHAR mashine_name[32]      VAL(""); // network mashine name
+Edef char windows_dir[256]      VAL(""); // windows directory for protect
+Edef char mashine_name[32]      VAL(""); // network mashine name
 ///////////////////////////////////////////////////////////////////////////////////////////////
 #ifdef _SR_NO_ED_FILE_
-Edef CHAR DisableEdFile         VAL(0);
+Edef char DisableEdFile         VAL(0);
 #endif
 ///////////////////////////////////////////////////////////////////////////////////////////////
 Edef BYTE ED_File_Emulate       VAL(1);

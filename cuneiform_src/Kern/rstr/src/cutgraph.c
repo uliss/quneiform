@@ -445,7 +445,7 @@ static INT next_edge()
 //	from vertex path[path_lth-1].
 //
 {
-	CHAR *mp;
+	char *mp;
 	INT n;
 
 	n = path[path_lth] + 1; // 1 + older son of path[path_lth-1]
@@ -508,7 +508,7 @@ void excl_connect()
 	edge++; // start search from next vertex
 	goto edge_search;
 
-	up_stack: less_vertices[stp->vert].n_connect = (CHAR) stp->ncp; // set a component number
+	up_stack: less_vertices[stp->vert].n_connect = (char) stp->ncp; // set a component number
 	// for the vertex
 
 	if (!stp->vert)
@@ -645,9 +645,9 @@ void excl_connect()
 
  static INT concomp(int nv)
  {
- CHAR mark[MAX_LINES];
+ char mark[MAX_LINES];
  INT ncp;
- CHAR vert_list[MAX_LINES];
+ char vert_list[MAX_LINES];
  INT beg,end;
  PCHAR mc,mp;
  INT n;

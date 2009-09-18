@@ -118,11 +118,11 @@ void p_prot(INT x)
 #endif
 
 
-void li_snap(CHAR *t)
+void li_snap(char *t)
 {
  int n1, n2, n3, n4;
  CSTR_rast C;
- CHAR ww[128];
+ char ww[128];
 
  C=cell_f();
  //C=C->nextl;
@@ -352,25 +352,25 @@ char tbsn[]={0x11,0x16,0x16,0x11,0x46,0x46,0,0x14,0x04,0x35,0x35};
 //              &    $    /    %    (    ) +    !    #    {    }
 //
 
-char tblt[]={(CHAR)0x11,(CHAR)0x11,(CHAR)0x11,(CHAR)0x16,(CHAR)0x10,(CHAR)0x16,(CHAR)0x11,(CHAR)0x16,(CHAR)0x11,(CHAR)0x16,
+char tblt[]={(char)0x11,(char)0x11,(char)0x11,(char)0x16,(char)0x10,(char)0x16,(char)0x11,(char)0x16,(char)0x11,(char)0x16,
 //           0    1    2    3    4 ?? 5    6    7    8    9
 //
-	       00,  00,(CHAR)0x01, 00,(CHAR)0x01,(CHAR)0x14,(CHAR)0x11,
+	       00,  00,(char)0x01, 00,(char)0x01,(char)0x14,(char)0x11,
 //	        :    ;    <   =    >    ?    @
 //
-  (CHAR)0x11,(CHAR)0x11,(CHAR)0x11,(CHAR)0x11,(CHAR)0x11,(CHAR)0x11,(CHAR)0x11,(CHAR)0x11,(CHAR)0x11,(CHAR)0x16,(CHAR)0x11,(CHAR)0x11,(CHAR)0x11,(CHAR)0x11,
+  (char)0x11,(char)0x11,(char)0x11,(char)0x11,(char)0x11,(char)0x11,(char)0x11,(char)0x11,(char)0x11,(char)0x16,(char)0x11,(char)0x11,(char)0x11,(char)0x11,
 //   A    B    C    D    E    F    G    H    I    J    K    L    M    N
 //
-  (CHAR)0x11,(CHAR)0x11,(CHAR)0x16,(CHAR)0x11,(CHAR)0x11,(CHAR)0x11,(CHAR)0x11,(CHAR)0x11,(CHAR)0x11,(CHAR)0x11,(CHAR)0x11,(CHAR)0x11,
+  (char)0x11,(char)0x11,(char)0x16,(char)0x11,(char)0x11,(char)0x11,(char)0x11,(char)0x11,(char)0x11,(char)0x11,(char)0x11,(char)0x11,
 //   O    P    Q    R    S    T    U    V    W    X    Y    Z
 //
-	     (CHAR)0x35,(CHAR)0x10,(CHAR)0x35,00,00,00,
+	     (char)0x35,(char)0x10,(char)0x35,00,00,00,
 //	        [    \    ]  ^  _  '
 
-  (CHAR)0x21,(CHAR)0x11,(CHAR)0x21,(CHAR)0x11,(CHAR)0x21,(CHAR)0x16,(CHAR)0x52,(CHAR)0x11,(CHAR)0x21,(CHAR)0xa2,(CHAR)0x11,(CHAR)0x11,(CHAR)0x21,(CHAR)0x21,
+  (char)0x21,(char)0x11,(char)0x21,(char)0x11,(char)0x21,(char)0x16,(char)0x52,(char)0x11,(char)0x21,(char)0xa2,(char)0x11,(char)0x11,(char)0x21,(char)0x21,
 //   a    b    c    d    e    f    g    h    i    j    k    l    m    n
 //
-  (CHAR)0x21,(CHAR)0x53,(CHAR)0x22,(CHAR)0x21,(CHAR)0x21,(CHAR)0x31,(CHAR)0x21,(CHAR)0x21,(CHAR)0x21,(CHAR)0x21,(CHAR)0xa2,(CHAR)0x21};
+  (char)0x21,(char)0x53,(char)0x22,(char)0x21,(char)0x21,(char)0x31,(char)0x21,(char)0x21,(char)0x21,(char)0x21,(char)0xa2,(char)0x21};
 //   o    p    q    r    s    t    u    v    w    x    y    z
 //
 //
@@ -1402,7 +1402,7 @@ void gen_reset()
 
 void basedraft(CSTR_line ln)
 {
- CHAR riter1, riter0;
+ char riter1, riter0;
  INT i;
  CSTR_rast C;
 
@@ -1721,7 +1721,7 @@ p_prot (11001);
 //   if (db_status) li_snap("cut:");
    if (db_status)
    {
-     CHAR txt[128];
+     char txt[128];
      sprintf(txt,"cut=%d killed=%d/%d dead=%d",ncut_mult,killed_box,sum_n,dead_cells);
      li_snap(txt);
    }
@@ -2280,7 +2280,7 @@ void interdif(CSTR_rast P, CSTR_rast N, CSTR_rast B1)
 	   goto retcv;
    }
 
-   attrB.bdiff = (CHAR)wdn  ;
+   attrB.bdiff = (char)wdn  ;
    if (attrB.flg & (CSTR_f_let|CSTR_f_bad))
    {
      switch (bsn-bsc)
@@ -2301,7 +2301,7 @@ void interdif(CSTR_rast P, CSTR_rast N, CSTR_rast B1)
  if (attrN.flg & CSTR_f_fict)
  {
    wdn = 0;
-   attrB.bdiff = (CHAR)wdp;
+   attrB.bdiff = (char)wdp;
    if (attrB.flg & (CSTR_f_let|CSTR_f_bad))
    {
      switch (bsp-bsc)
@@ -2331,7 +2331,7 @@ void interdif(CSTR_rast P, CSTR_rast N, CSTR_rast B1)
    case -1: attrB.bdiff = wdp+1;
 	   attrB.difflg |= CSTR_db_down;
 	   goto retcv;
-   case  0: attrB.bdiff = (CHAR)wdp  ;
+   case  0: attrB.bdiff = (char)wdp  ;
 	   goto retcv;
  }
 
@@ -2343,7 +2343,7 @@ void interdif(CSTR_rast P, CSTR_rast N, CSTR_rast B1)
    case -1: attrB.bdiff = wdn+1;
 	   attrB.difflg |= CSTR_db_down;
 	   goto retcv;
-   case  0: attrB.bdiff = (CHAR)wdn  ;
+   case  0: attrB.bdiff = (char)wdn  ;
 	   goto retcv;
  }
 
@@ -2351,15 +2351,15 @@ void interdif(CSTR_rast P, CSTR_rast N, CSTR_rast B1)
 interpol:
  if (wdp==wdn)
  {
-	 attrB.bdiff=(CHAR)wdn;
+	 attrB.bdiff=(char)wdn;
 	 goto retcv;
  }
 
  // set diff of whoever is closer to cell
  if ((clc-clp) > (cln-clc))
-   attrB.bdiff=(CHAR)wdn;
+   attrB.bdiff=(char)wdn;
  else
-   attrB.bdiff=(CHAR)wdp;
+   attrB.bdiff=(char)wdp;
 
 retcv:
   CSTR_SetAttr(B1,&attrB);

@@ -98,15 +98,15 @@ struct andrew
  {
 // char dum[prot_size];
 
- CHAR a_Totalth;
- CHAR a_bestc, a_best, a_bestx, a_bestxr, a_bestxh;
- CHAR a_Exbn, a_Exbx, a_Exfn, a_Exhn, a_Eahn, a_Eafn;
- CHAR a_Extrem, a_ExtreM, a_Extrex, a_ExtreX,
+ char a_Totalth;
+ char a_bestc, a_best, a_bestx, a_bestxr, a_bestxh;
+ char a_Exbn, a_Exbx, a_Exfn, a_Exhn, a_Eahn, a_Eafn;
+ char a_Extrem, a_ExtreM, a_Extrex, a_ExtreX,
       a_Exbm, a_ExbM, a_ExfM, a_Exfm, a_ExhM, a_Exhm;
- CHAR a_Lbnd, a_lbnd, a_Rbnd, a_rbnd, a_lwpnt, a_rwpnt;
- CHAR a_nmax1, a_nmax2, a_bsnx;
- CHAR a_Startp, a_Endp, a_botflag;
- CHAR a_FlM, a_Nmb, a_lastmax, a_NBmax;
+ char a_Lbnd, a_lbnd, a_Rbnd, a_rbnd, a_lwpnt, a_rwpnt;
+ char a_nmax1, a_nmax2, a_bsnx;
+ char a_Startp, a_Endp, a_botflag;
+ char a_FlM, a_Nmb, a_lastmax, a_NBmax;
  struct extrem_elem *a_extrp;
  struct extrem_elem *a_extrc;
  struct extrem_elem *a_extrn;
@@ -115,11 +115,11 @@ struct andrew
  struct extrem_elem a_Exbody[MAX_HOR/2];
  struct extrem_elem a_Exfoot[MAX_HOR/2];
  struct extrem_elem a_Exhead[MAX_HOR/2];
- CHAR a_bodies[MAX_HOR];
- CHAR a_footes[MAX_HOR];
- CHAR a_heades[MAX_HOR];
- CHAR a_linums[MAX_HOR];
- CHAR a_linumsx[MAX_HOR];
+ char a_bodies[MAX_HOR];
+ char a_footes[MAX_HOR];
+ char a_heades[MAX_HOR];
+ char a_linums[MAX_HOR];
+ char a_linumsx[MAX_HOR];
  };
 
 struct common
@@ -128,13 +128,13 @@ struct common
  struct own_cut *c_odrans;
  INT  c_pa8;
  INT  c_path_lth;
- CHAR c_S_flag;		// flag of "S"-case
+ char c_S_flag;		// flag of "S"-case
  INT  c_s_width,c_s_width_b,c_s_height;
  INT  c_t_width,c_t_width_b,c_t_height;
  MN   *c_t_comp_ptr;   	// pointer to component header
  INT  c_t_left_shift;
- CHAR c_cut_flag;
- CHAR c_best_cut_point;
+ char c_cut_flag;
+ char c_best_cut_point;
  lnhead *c_t_line_ptr;
  INT  c_max_line;
  BYTE *c_s_raster;
@@ -152,10 +152,10 @@ struct edik
  struct short_line_header *e_fl_ptr, *e_sl_ptr;
  struct segment *e_segm_ptr;
  struct vertex_header *e_vert_ptr;
- CHAR e_meet_flag;
- CHAR e_wr_vertex_flag;
+ char e_meet_flag;
+ char e_wr_vertex_flag;
  struct vertex_header e_verts[MAX_LINES];
- CHAR e_adj_matrix[MAX_LINES][MAX_LINES];
+ char e_adj_matrix[MAX_LINES][MAX_LINES];
  };
 
 union Work
@@ -164,9 +164,9 @@ union Work
   {
   BYTE w_rast[1024];
   BYTE a_sum[32];
-  CHAR a_end[3][32], a_lth[3][32],
+  char a_end[3][32], a_lth[3][32],
        a_dif0[32], a_dif1[32], a_dif2[32];
-  CHAR a_roof[128];
+  char a_roof[128];
   } ct;
 
  struct

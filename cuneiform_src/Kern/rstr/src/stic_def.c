@@ -104,7 +104,7 @@ void full_snap (cell *c,
 		INT tab_angle[],
 		INT left_mode, INT right_mode, INT opt, INT wide,
 		INT inc_v, INT t);
-void short_snap (CHAR *s, INT t);
+void short_snap (char *s, INT t);
 /*----------------------------------------------------------------------*/
 						// STIC_MAK.C MODULES:
 
@@ -593,7 +593,7 @@ INT	let_0=c->vers[0].let;
 		prob_new = (l->conc[2] + r->conc[2]) >= ((wid+1)>>1) ?
 			   MIN (prob_0+2, 254) : MAX (prob_0-2, 2);
 //////		add_stick_vers (c, liga_exm, 254);	// ST_TOOLS.C
-		add_stick_vers (c, (CHAR)liga_exm, (BYTE)prob_new);
+		add_stick_vers (c, (char)liga_exm, (BYTE)prob_new);
 //////		sort_vers (c);
 		}
 					// NOTA BENE: without TEST of LINEAR;

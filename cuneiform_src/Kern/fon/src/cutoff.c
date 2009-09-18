@@ -75,7 +75,7 @@ SINT NewFx=0,NewFy=0;
 SINT MakeIdeal(welet *wel,SINT porog)
 {
  SINT i,j;
- CHAR *rr,*rr1;
+ char *rr,*rr1;
  SINT sx=wel->w;
  SINT sy=wel->h;
  SINT fx=sx;  // first x
@@ -349,7 +349,7 @@ SINT FindDistanceWr(welet *wel,welet *outwel)
 #ifdef _WEIDIST_
  WORD koef;
  BYTE ckoef,maxvei;
- CHAR *ras,*cras;
+ char *ras,*cras;
 #else
  SINT b2;
  BYTE *fullout;
@@ -516,7 +516,7 @@ SINT FindDistanceWr(welet *wel,welet *outwel)
 FON_FUNC(int32_t) FONCutOffClusters(welet *ww,Int16 num)
 {
 SINT TestFat(welet *wel,SINT porog,SINT porog_fat);
-CHAR porog;
+char porog;
 welet tmp_wel;
 
  if(!ww) return 0;

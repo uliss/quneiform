@@ -66,7 +66,7 @@
 //            28-June-93 ). Release has been received from Joe by FEDERAL
 //            mail.
 //
-// 1. Function < BYTE * load_stat_dict ( CHAR  *point ) > has
+// 1. Function < BYTE * load_stat_dict ( char  *point ) > has
 //    been rewritten to use new strems technology.
 //    Parameter CountryCode in the load_stat_dict has been removed.
 //    The global variable BYTE language is used now to check current
@@ -74,14 +74,14 @@
 //    data streams from IOLIB.H.
 // 2. Functions < void user_voc_init (void) > and < static void
 //    unload_user_dicts(void) > have been added after Joe.
-// 3. Function < void load_user_dicts ( PSTR list_name, CHAR  *
+// 3. Function < void load_user_dicts ( PSTR list_name, char  *
 //    point) > has been rewritten after Joe.
-// 4. Function < LONG read_all_voc( INT seqn, CHAR *name, CHAR  *p ) >
+// 4. Function < LONG read_all_voc( INT seqn, char *name, char  *p ) >
 //    has been removed with new streams technology.
 //
 // 08-14-93 06:01pm, Mike
 //
-// 5. Function < BYTE * load_stat_dict ( CHAR  *point ) > has
+// 5. Function < BYTE * load_stat_dict ( char  *point ) > has
 //    been changed to load ALL tables at once. Speller's standalone module
 //    MAIN.C need to be changed !!!
 //
@@ -122,9 +122,9 @@
 void * (*my_alloc)(Word32 len);
 void (*my_free)(void *);
 void ErrorExit(int Code);
-//uint32_t  LoadUserDict( CHAR*, CHAR*, uint32_t, voc_state*);
+//uint32_t  LoadUserDict( char*, char*, uint32_t, voc_state*);
 
-BYTE * load_stat_dict(CHAR *point);
+BYTE * load_stat_dict(char *point);
 /*---------- Updated : 04-01-93 09:46pm, Mike ------
  Function loads static dictionary file into far memory location
  <point> The side effect is initialization of decoder table
@@ -141,7 +141,7 @@ void init_stat_dict(struct dict_state * dict);
 
 // 08-13-93 08:55pm, Mike
 // Return type has been changed from <BYTE  *> to <void>
-void load_user_dicts(PSTR list_name, CHAR * point);
+void load_user_dicts(PSTR list_name, char * point);
 /*-----------------17-02-93 03:30pm-----------------
  Function loads user's dictionaries into memory by
  list of vocs.
@@ -149,7 +149,7 @@ void load_user_dicts(PSTR list_name, CHAR * point);
 void unload_user_dicts(void);
 
 // 08-13-93 06:35pm, Mike after Joe...
-extern LONG read_all_vtab(INT seqn, CHAR *p);
+extern LONG read_all_vtab(INT seqn, char *p);
 
 /* -- Data -- */
 
@@ -177,7 +177,7 @@ PCHAR full_name(PBYTE w, PBYTE n);
 
 extern BYTE alphabet[][ABCSIZE];
 
-extern CHAR tiger_dir[40];
+extern char tiger_dir[40];
 
 /**************************************************************************/
 /***********      Locals section.     *************************************/
@@ -185,7 +185,7 @@ extern CHAR tiger_dir[40];
 /* -- Code -- */
 
 // 08-13-93 06:32pm, Mike
-//  LONG  read_all_voc(INT seqn, CHAR *name, CHAR  *p);
+//  LONG  read_all_voc(INT seqn, char *name, char  *p);
 //    /*-----------------17-02-93 02:27pm-----------------
 //     Function reads an dictionary file with name <name>
 //     or with number <seqn> into far memory location <p>.
@@ -197,7 +197,7 @@ static INT parce_voc_list_record(PSTR w, PSTR nm, INT *type);
 /***********      Code section.      **************************************/
 /**************************************************************************/
 
-BYTE * load_stat_dict(CHAR *point)
+BYTE * load_stat_dict(char *point)
 /*---------- Updated : 04-01-93 09:46pm, Mike ------
  Function loads static dictionary file into far memory location
  <point> The side effect is initialization of decoder table
@@ -209,7 +209,7 @@ BYTE * load_stat_dict(CHAR *point)
 	LONG size;
 	PTDictState dict;
 	PTDictHeaderMask dictHdr;
-	CHAR nearBuf[65];
+	char nearBuf[65];
 	uint32_t treeLength, tailsLength;
 	uint32_t rulesLength, hushLength;
 
@@ -327,7 +327,7 @@ BYTE * load_stat_dict(CHAR *point)
 // 08-13-93 05:37pm, Mike
 // Not needed with IOLIB.H
 //
-//LONG read_all_voc( INT seqn, CHAR *name, CHAR  *p )
+//LONG read_all_voc( INT seqn, char *name, char  *p )
 //    /*-----------------17-02-93 02:27pm-----------------
 //     Function reads an dictionary file with name <name>
 //     or with number <seqn> into far memory location <p>.
@@ -382,13 +382,13 @@ void unload_user_dicts(void) {
 #define VOCMEMSIZE 0x10000L     /* 64K */
 // old version : read list of vocs from disk file USER.LST
 
-void load_user_dicts_kzl(PSTR list_name, CHAR * point)
+void load_user_dicts_kzl(PSTR list_name, char * point)
 /*-----------------17-02-93 03:30pm-----------------
  Function loads user's dictionaries into memory by
  list of vocs.
  --------------------------------------------------*/
 {
-	CHAR w[MAXPATH], nm[MAXPATH];
+	char w[MAXPATH], nm[MAXPATH];
 	FILE * lst;
 	INT type;
 	INT errorNo = 0;
@@ -439,10 +439,10 @@ void load_user_dicts_kzl(PSTR list_name, CHAR * point)
  Function loads user's dictionaries into memory using
  list of names of vocabularies(in list_of_names).
  --------------------------------------------------*/
-void load_user_dicts(PSTR list_of_names, CHAR * point) {
+void load_user_dicts(PSTR list_of_names, char * point) {
 	INT type;
 	INT errorNo = 0;
-	CHAR nm[MAXPATH];
+	char nm[MAXPATH];
 
 	unload_user_dicts();
 

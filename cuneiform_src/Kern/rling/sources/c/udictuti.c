@@ -261,9 +261,9 @@ Bool ispermitted (BYTE a)
 			 - UD_PERMITTED  - file has a CTC user dict header.
 */
 
-INT _IsUserDict (CHAR * name)
+INT _IsUserDict (char * name)
 {
-  CHAR buff[128];
+  char buff[128];
   INT f;
   LONG ret;
 

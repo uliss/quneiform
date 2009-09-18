@@ -121,8 +121,8 @@ static BYTE *hist[N_HIST]; // histograms:
 
 static BYTE *funcs[MAX_NEW_FUNC];
 static INT  nfunc=1;
-static CHAR recog_res[10];
-static CHAR *R;
+static char recog_res[10];
+static char *R;
 static INT  dx,dy;
 static cell * ec_c;
 static INT  oaprop;
@@ -132,8 +132,8 @@ static INT  ecprop;
 static INT bon_a,mon_c;
 static INT  gmax_y, gmin_y;
 static BYTE maxprob;
-static CHAR text_string  [256];
-static CHAR text_string1 [256];
+static char text_string  [256];
+static char text_string1 [256];
 struct nose_struct
 {
     INT peak;
@@ -408,8 +408,8 @@ static void eccell (cell *C)
     }
  }
 
-static CHAR vrot[] = {0, 0, 0, 0, 1, 2, 2, 3, 3};
-static CHAR vrot_small[] =
+static char vrot[] = {0, 0, 0, 0, 1, 2, 2, 3, 3};
+static char vrot_small[] =
    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 2, 3, 3};
 //  0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17
 static void NHcell (cell *C)
@@ -524,7 +524,7 @@ static void GCcell( cell * C )
 extern  servBOX SBOX;
 s_glue  GL;
 WORD wup, wbot;
-CHAR wc;
+char wc;
 INT pnl, wd, op;
 
     pnl = 0;  op = 0;

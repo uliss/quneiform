@@ -132,7 +132,7 @@ dQ *vz=&SPQ;           //Q;
 static INT check_and_look(INT *,LTIMG **,
                    voc_state *,INT ,INT );
 
-INT check_art_dict (CHAR word[], INT * wordlth, INT * vockind);
+INT check_art_dict (char word[], INT * wordlth, INT * vockind);
 
 
 /****************************************************************************/
@@ -154,9 +154,9 @@ INT check_compound (SOBJ   *    obj,
 {INT    insect, depth= 0, prob = 1024;
  INT    wordlth;
  INT    lth;
- CHAR   save_word [sizeof(obj->wordchar)+1];
+ char   save_word [sizeof(obj->wordchar)+1];
  INT    beg=0,   loclth=0;
- CHAR                *out;
+ char                *out;
  SWORD   *wrd;
  wrd = obj -> word;
  lth =  wrd -> lth;
@@ -175,7 +175,7 @@ INT check_compound (SOBJ   *    obj,
  out = obj -> wordchar;
  save_word[lth] = '.';
  for ( insect = 0; insect <= lth; insect++)
-    switch ( symcode((CHAR  *) (save_word + insect)))
+    switch ( symcode((char  *) (save_word + insect)))
      {
       case    E_DL:
       case    _TRM:
@@ -347,7 +347,7 @@ INT check_and_look (INT *lth,LTIMG **wrddef,
  if(CHECKVOC)
   {
    LONG size;
-   size=read_all_file((CHAR *)Q.temp_voc_file,V_POINT(Q.v_state.vocseg,0));
+   size=read_all_file((char *)Q.temp_voc_file,V_POINT(Q.v_state.vocseg,0));
    unlink(Q.temp_voc_file);
    if ( size != -1 )
     {
@@ -382,7 +382,7 @@ INT setimg (SOBJ * obj,
    memset (&(wrdimg[ii]),0,sizeof(LTIMG));/*init state of wrdimg item */
    wrdimg[ii].lt=(LT  *)&wrdimg[ii].std;  /*allways alt-list in std !  */
    wrdimg[ii].lt+=0;                            /* normalize !               */
-     wrdimg[ii].source =(CHAR *) &(obj->pos[pi].orig);
+     wrdimg[ii].source =(char *) &(obj->pos[pi].orig);
    if (obj->pos[pi].type_sp & T_BLANK)  /* blank in this position    */
     {
      memcpy(&wrdimg[ii].std,&std,sizeof(STD));
@@ -456,7 +456,7 @@ INT setwrd (SOBJ * obj,
    obj->word->pos[i] = &(obj->pos[pi]);        /* ref to pos-item of obj */
    if (obj->word->pos[i]->type_sp & T_BLANK)   /* the pos is BLANK ?     */
     {    /* BLANK => direct access to STD alt-list in obj->pos[]->alt[]: */
-     ai = getstdn((CHAR *)&(wrddef[i]->lt->code));
+     ai = getstdn((char *)&(wrddef[i]->lt->code));
      /*  AL 122892 */
      /* was:
      if (obj->word->pos[i]->alt[ai].lt->code == wrddef[i]->lt->code)

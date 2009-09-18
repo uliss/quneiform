@@ -83,9 +83,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 extern   float      Twips;
 extern   Word32     FlagMode;
-extern   CHAR       lpMyNameSerif[MAX_PATH];
-extern   CHAR       lpMyNameNonSerif[MAX_PATH];
-extern   CHAR       lpMyNameMono[MAX_PATH];
+extern   char       lpMyNameSerif[MAX_PATH];
+extern   char       lpMyNameNonSerif[MAX_PATH];
+extern   char       lpMyNameMono[MAX_PATH];
 extern   Int16      get_font_name(Int16 FontNumber);
 
 #ifdef __cplusplus

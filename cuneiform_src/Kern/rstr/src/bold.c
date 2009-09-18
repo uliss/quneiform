@@ -67,8 +67,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "func.h"
 
 cell *SHAVE_CELL;
-CHAR *SHAVE_RASTER;
-CHAR *SHAVE_FLAGS;
+char *SHAVE_RASTER;
+char *SHAVE_FLAGS;
 INT SHAVE_HEIGHT;
 INT SHAVE_WIDTH ;
 
@@ -79,7 +79,7 @@ Bool boldshave(cell *C,INT method)
  {
  MN *mn;
  cell *D;
- INT bd; CHAR df;
+ INT bd; char df;
  BYTE sv[sizeof(D->nvers)+sizeof(D->vers)];
  BYTE svf;
 // cell c;
@@ -98,7 +98,7 @@ Bool boldshave(cell *C,INT method)
  D=C->prev;
  bd=C->bdiff; df = C->difflg & 0xf0;
  del_cell(C);
- C=create_cell(mn,D,(CHAR)bd, df);
+ C=create_cell(mn,D,(char)bd, df);
  // memcpy (C,&c,sizeof(c));
  memcpy (&C->nvers,sv,sizeof(C->nvers)+sizeof(C->vers));
  C->flg = svf;
@@ -364,7 +364,7 @@ Bool pimpleshave(cell *C, INT shave, INT incline)
  MN   *mn;
  cell *CC,*WW;
  INT   bd;
- CHAR df;
+ char df;
  BYTE  svf;
 
  Z=&string;
@@ -383,7 +383,7 @@ if( shave )
  mn=c_locomp(SHAVE_RASTER,(INT)((C->w+7)/8),C->h,C->r_row,C->r_col);
  if (!mn) return 0;
 
- WW=create_cell(mn,C,(CHAR)bd, df);
+ WW=create_cell(mn,C,(char)bd, df);
  // FIRST SHAVING
 
  SHAVE_RASTER=save_raster(WW);
@@ -401,13 +401,13 @@ if( shave )
  mn=c_locomp(t_raster(),t_width_b,t_height,0,(INT)(-t_left_shift));
 			      // extraction components from t_raster
  if (!mn) {del_cell(WW);return 0;}
- CC=create_cell(mn,WW,(CHAR)bd, df);
+ CC=create_cell(mn,WW,(char)bd, df);
  pimples_deleting(CC,0); // modify SHAVE_RASTER
  del_cell(CC);
  mn=c_locomp(SHAVE_RASTER,(INT)((WW->w+7)/8),WW->h,WW->r_row,WW->r_col);
  del_cell(WW);
  if (!mn) return 0;
- WW=create_cell(mn,C,(CHAR)bd, df);
+ WW=create_cell(mn,C,(char)bd, df);
  if( C->flg!=c_f_dust && WW->w<MAX_DUST_WIDTH && WW->h<MAX_DUST_HEIGHT )
   return 0;
  // SECOND SHAVING
@@ -417,7 +417,7 @@ if( shave )
   mn=c_locomp(SHAVE_RASTER,(INT)((C->w+7)/8),C->h,C->r_row,C->r_col);
   if (!mn)
     return 0;
-  WW=create_cell(mn,C,(CHAR)bd, df);
+  WW=create_cell(mn,C,(char)bd, df);
   if( C->flg!=c_f_dust && WW->w<MAX_DUST_WIDTH && WW->h<MAX_DUST_HEIGHT )
     return 0;
   }

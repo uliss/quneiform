@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define MAX_DUST_CELLS 12
 //extern BYTE accent_tab[];
 extern BYTE db_pass;
-static CHAR b1b2;
+static char b1b2;
 static cell *LET, *I1;
 static INT n_news;
 static cell *new_cells[MAX_DUST_CELLS];

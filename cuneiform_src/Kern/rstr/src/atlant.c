@@ -80,20 +80,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define pen_roof_itun 32
 #define pen_roof_itm  64
 extern BYTE db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
-extern CHAR db_status;
-extern CHAR db_pass;
+extern char db_status;
+extern char db_pass;
 static int fl_sort_vers;
-static CHAR leg_midw, leg_uneven, leg_maxpos, leg_minpos, leg_botw, pen_ne,
+static char leg_midw, leg_uneven, leg_maxpos, leg_minpos, leg_botw, pen_ne,
             unev1, unev2, unev3, unev12, unev23,
             botw1, botw2, botw3, botw12, botw23,
             sumw1, sumw2, sumw3, sumw12, sumw23;
 static INT leg_sumw;
-static CHAR mn_err, des, mhh, shh, ehh, hhh;
+static char mn_err, des, mhh, shh, ehh, hhh;
 static BYTE at_sum[64];
 static BYTE at_sum[64];
-static CHAR at_end[3][64], at_lth[3][64];
-static CHAR at_dif0[64], at_dif1[64], at_dif2[64];
-static CHAR at_roof[128];
+static char at_end[3][64], at_lth[3][64];
+static char at_dif0[64], at_dif1[64], at_dif2[64];
+static char at_roof[128];
 
 static BYTE pens_leg[32] = {
 100,
@@ -122,7 +122,7 @@ static char *legs_err[]={
 static char roof_incompl[]={"incomplete roof/floor"};
 static char roof_hole[]={"gap not in place"};
 
-void est_snap(CHAR user,cell *C,PCHAR txt);
+void est_snap(char user,cell *C,PCHAR txt);
 static BYTE pen_roofm[8]={0,2,4,12,24,36,48,100};
 static BYTE pen_roofn[8]={0,2,4,12,24,36,48,100};
 static BYTE pen_iroofn[8]={0,0,0,0,12,36,48,100};
@@ -141,23 +141,23 @@ void atlant(cell *AA, s_glue *GL, INT flag, INT flag_m)
 //
  {
  cell *A, *WC;
- CHAR *at, *rp, ri;
+ char *at, *rp, ri;
  INT  df0, df1, df2, wdf, awdf;
- CHAR *lp0=NULL, *lp1=NULL, *lp2=NULL, *e0=NULL, *e1=NULL, *e2=NULL;
- CHAR bw0, bw1, bw2, un0, un1, un2, sm0, sm1, sm2,
+ char *lp0=NULL, *lp1=NULL, *lp2=NULL, *e0=NULL, *e1=NULL, *e2=NULL;
+ char bw0, bw1, bw2, un0, un1, un2, sm0, sm1, sm2,
       l0, l1, l2, l3, l4, l5;
- CHAR la0, la1, la2;
- CHAR beg0[3], end0[3];
- CHAR pen_roof, pen_leg, eleg, nleg, nlegm, fleg;
- CHAR R01, R02, H0, wt1, wt2, hhmin, hhmax,
+ char la0, la1, la2;
+ char beg0[3], end0[3];
+ char pen_roof, pen_leg, eleg, nleg, nlegm, fleg;
+ char R01, R02, H0, wt1, wt2, hhmin, hhmax,
       hhi1, hhi2, hh1, hh2, hhw, hzone, hbase, thmdle,
       nok, uok, hw, h1, h2, hc, hclow, hchigh,
       hm, mr1, mr2, mrw1, mrw2, fl_short, fl_shln;
  INT nc, mcol, mrow, Mrow;
- CHAR vers;
+ char vers;
  lnhead *Lp1, *Lp2;
- CHAR     n1, nw1, y1;
- CHAR   *botp, bott[128],
+ char     n1, nw1, y1;
+ char   *botp, bott[128],
 	*rofp, roof[128],
      minroof, minrx, minr1, minr2, minr3, minr4,
      roofl, roofr, roofd, rooftl, rooftr,
@@ -167,7 +167,7 @@ void atlant(cell *AA, s_glue *GL, INT flag, INT flag_m)
  INT Lc1,lc1;
  interval *int1;
  c_comp *cp1;
-/** static INT testi(cell *,CHAR); **/
+/** static INT testi(cell *,char); **/
 
  Z=&string;
  discrim_un( AA, GL, flag_m );
@@ -204,7 +204,7 @@ void atlant(cell *AA, s_glue *GL, INT flag, INT flag_m)
     rowd=WC->row - mrow;
     cp1 = WC->env;
     Lc1=cp1->nl;	    // number of lines in component
-    Lp1=(lnhead *) ( (CHAR *)cp1 + cp1->lines + 2); // beginning of first line
+    Lp1=(lnhead *) ( (char *)cp1 + cp1->lines + 2); // beginning of first line
     Lp2=Lp1;
     for (lc1=0; lc1 < Lc1; lc1++)
     { INT hl;
@@ -220,7 +220,7 @@ void atlant(cell *AA, s_glue *GL, INT flag, INT flag_m)
       if (hh2 < hw)    hh2 = hw;
 
     nextl1:
-      Lp2=Lp1=(lnhead *) ((CHAR *)Lp2+Lp2->lth);   // next line
+      Lp2=Lp1=(lnhead *) ((char *)Lp2+Lp2->lth);   // next line
     }                                            // for all lines
   }                                             // while all cells
 
@@ -237,7 +237,7 @@ void atlant(cell *AA, s_glue *GL, INT flag, INT flag_m)
 
   if (flag_m == 0) goto retsort;
   i=at_sum[H0];
-  wt1=(CHAR)i;   // to be replaced by medium
+  wt1=(char)i;   // to be replaced by medium
   j=0;
  again_h1h2:
   hhi1=hh1; hhi2=hh2;
@@ -270,7 +270,7 @@ void atlant(cell *AA, s_glue *GL, INT flag, INT flag_m)
   j=hh2-hh1;
   if (j==0) goto h1h2_done;
   i = (i+j-1)/j;
-  wt2 = (CHAR)i;
+  wt2 = (char)i;
   j=1;
   goto again_h1h2;
  h1h2_done:
@@ -286,7 +286,7 @@ void atlant(cell *AA, s_glue *GL, INT flag, INT flag_m)
     rowd=WC->row - mrow;
     cp1 = WC->env;
     Lc1=cp1->nl;	    // number of lines in component
-    Lp1=(lnhead *) ( (CHAR *)cp1 + cp1->lines + 2); // beginning of first line
+    Lp1=(lnhead *) ( (char *)cp1 + cp1->lines + 2); // beginning of first line
     Lp2=Lp1;
     for (lc1=0; lc1 < Lc1; lc1++)
      {
@@ -299,12 +299,12 @@ void atlant(cell *AA, s_glue *GL, INT flag, INT flag_m)
         {
           if ((hw1 <= h1) && (hw2 >= h2))  // interesting line (leg) obtained
           {
-            if (hw1 > hhmin)  hhmin = (CHAR)hw1;
-            if (hw2 < hhmax)  hhmax = (CHAR)hw2;
+            if (hw1 > hhmin)  hhmin = (char)hw1;
+            if (hw2 < hhmax)  hhmax = (char)hw2;
           }
         }
       }
-      Lp2=Lp1=(lnhead *) ((CHAR *)Lp2+Lp2->lth);   // next line
+      Lp2=Lp1=(lnhead *) ((char *)Lp2+Lp2->lth);   // next line
      }                                            // for all lines
    }                                             // while all cells
 
@@ -341,7 +341,7 @@ get_lines:
    rowd=WC->row - mrow;
    cp1=WC->env;
    Lc1=cp1->nl;			        // number of lines in component
-   Lp1=(lnhead *)( (CHAR *)cp1 + cp1->lines + 2); // beginning of first line
+   Lp1=(lnhead *)( (char *)cp1 + cp1->lines + 2); // beginning of first line
    Lp2=Lp1;
    for (lc1=0; lc1 < Lc1; lc1++)
    {
@@ -418,8 +418,8 @@ get_lines:
              {
                if ((nbeg-cend) < 2)
                {
-                 at_end[cleg][ch]=(CHAR)nend;
-                 at_lth[cleg][ch]=(CHAR)(nend-cbeg);
+                 at_end[cleg][ch]=(char)nend;
+                 at_lth[cleg][ch]=(char)(nend-cbeg);
                  goto next_short_int;
                }
              }
@@ -437,7 +437,7 @@ get_lines:
          }   // for intervals of hort line
        }     // IF fl_short
 skip:
-     Lp2=Lp1=(lnhead *)((CHAR *)Lp2+Lp2->lth);  // next line
+     Lp2=Lp1=(lnhead *)((char *)Lp2+Lp2->lth);  // next line
    }   // for all lines
  }     // while all cells
 
@@ -503,10 +503,10 @@ mn_again:
  ital_un = 0;
  pen_leg = 100;
  pen_ne = 0;
- l1 = la0 = (CHAR)analeg(at_lth[0]);
+ l1 = la0 = (char)analeg(at_lth[0]);
  un0 = leg_uneven;
  bw0 = leg_botw;
- sm0 = (CHAR)leg_sumw;
+ sm0 = (char)leg_sumw;
 
  // before 10/25:  leg_botw   = leg_maxpos - leg_minpos;
  //                    uneven = max - min;
@@ -514,10 +514,10 @@ mn_again:
  // if (leg_uneven <= 2)  return leg_midw;
  // if ((leg_botw > 0) && fl) return (-leg_midw);  // wider at bottom
 
- l3=la1 = (CHAR)analeg(at_lth[1]);
+ l3=la1 = (char)analeg(at_lth[1]);
  un1 = leg_uneven;
  bw1 = leg_botw;
- sm1 = (CHAR)leg_sumw;
+ sm1 = (char)leg_sumw;
 
  if (nleg==2)                 // 2-leg versions
  {
@@ -549,10 +549,10 @@ mn_again:
      zone_err(3,3)       // backslash-like left leg
    for (i=0; i< hzone; i++)
      at_dif1[i]=e1[i]-e0[i]-lp1[i];
-   l2=(CHAR)analeg(at_dif1);
+   l2=(char)analeg(at_dif1);
    unev12 = leg_uneven;
    botw12 = leg_botw;
-   sumw12 = (CHAR)leg_sumw;
+   sumw12 = (char)leg_sumw;
 
    if (AA->w - e1[thmdle] > l2 + 2)        // 2nd leg far from right end
      zone_err(3,18)
@@ -632,10 +632,10 @@ mn_again:
  {
   // nleg = 3  // 'm' version only
 
-  l5=la2=(CHAR)analeg(at_lth[2]);
+  l5=la2=(char)analeg(at_lth[2]);
   bw2 = leg_botw;
   un2 = leg_uneven;
-  sm2 = (CHAR)leg_sumw;
+  sm2 = (char)leg_sumw;
 
   // sort 3 legs in left-to-right order
   if ((end0[0]<end0[1]) && (end0[1]<end0[2]))
@@ -714,17 +714,17 @@ wrk3:
     df2+=(at_dif2[i]=e2[i]-e1[i]-lp2[i]);
   }
 
-  l2=(CHAR)analeg(at_dif1);      // left interleg
+  l2=(char)analeg(at_dif1);      // left interleg
   unev12 = leg_uneven;
   botw12 = leg_botw;
-  sumw12 = (CHAR)leg_sumw;
+  sumw12 = (char)leg_sumw;
 
-  l4=(CHAR)analeg(at_dif2);      // right interleg
+  l4=(char)analeg(at_dif2);      // right interleg
   unev23 = leg_uneven;
   botw23 = leg_botw;
-  sumw23 = (CHAR)leg_sumw;
+  sumw23 = (char)leg_sumw;
 
-  l0=(CHAR)analeg(at_dif0);      // before left leg
+  l0=(char)analeg(at_dif0);      // before left leg
 
   if ( (e2[ehh-1] - lp2[ehh-1] - e2[shh] +lp2[shh] >= 2) &&
        (e2[ehh-1] - e2[shh]  >= 2)
@@ -780,7 +780,7 @@ wrk3:
      //93.01.28
      wdf=df1-df2;
 	 awdf = abs(wdf);
-	 pen_ne = (CHAR)awdf;
+	 pen_ne = (char)awdf;
      if (awdf >=  2*hhh )          // > 2 pnts
        zone_err(3,19)
       /// 93.01.28
@@ -808,7 +808,7 @@ wrk3:
 
      wdf=df1-df2;
      awdf = abs(wdf);
-     pen_ne = (CHAR)awdf;
+     pen_ne = (char)awdf;
      if (awdf >=  2*hhh )          // > 2 pnts
        zone_err(3,19)
      else
@@ -819,7 +819,7 @@ wrk3:
          wdf = wdf - at_dif1[shh] - at_dif1[ehh-1]
 	       + at_dif2[shh] + at_dif2[ehh-1];
          awdf = abs(wdf);
-		 pen_ne = (CHAR)awdf;
+		 pen_ne = (char)awdf;
          hhh-=2;
          if (awdf >= 2*hhh)
            zone_err(3,19)
@@ -845,12 +845,12 @@ wrk3:
     legd = WC->col-mcol;
     cp1=WC->env;
     Lc1=cp1->nl;                            // number of lines in component
-    Lp1=(lnhead *) ((CHAR *)cp1 + cp1->lines + 2); // beginning of first line
+    Lp1=(lnhead *) ((char *)cp1 + cp1->lines + 2); // beginning of first line
     Lp2=Lp1;
     for (lc1=0; lc1 < Lc1; lc1++)
      {
       n1=Lp1->h-1;
-      h1=(CHAR)Lp1->row;
+      h1=(char)Lp1->row;
       h2=h1+n1;
       y1=0;
       int1=(interval *)(Lp1+1);		  // ptr to current interval
@@ -869,7 +869,7 @@ wrk3:
 	     if (*botp > (AA->h - h1)) *botp=AA->h-h1;
 	   }
        }   // all intervals of line
-      Lp2=Lp1=(lnhead *)((CHAR *)Lp2+Lp2->lth); // next line
+      Lp2=Lp1=(lnhead *)((char *)Lp2+Lp2->lth); // next line
      }     // all lines of component
    }       // while component
   if (flag_m & 1) goto horizm;
@@ -911,7 +911,7 @@ wrk3:
   for (i=minr1=e0[thmdle]-lp0[thmdle]/2, rofp=&roof[i];
        i < minr3 - lp1[thmdle]/2; i++, rofp++)
     if (minroof < *rofp)
-	{ minroof=*rofp; minrx=(CHAR)i; }
+	{ minroof=*rofp; minrx=(char)i; }
   while (1)
     if ((mr1=roof[minr1++]) != 127) break;
   while (1)
@@ -991,7 +991,7 @@ horizu:
   for (i=minr1=e0[thmdle]-lp0[thmdle]/2, botp=&bott[i];
        i < (minr2=e1[thmdle])-lp1[thmdle]/2; i++, botp++)
     if (minroof > *botp)
-	{ minroof=*botp; minrx=(CHAR)i; }
+	{ minroof=*botp; minrx=(char)i; }
   while (1)
     if ((mr1=roof[minr1++]) != 127) break;
   while (1)
@@ -1059,7 +1059,7 @@ horizm:
        i < (minr3=(e1[thmdle]+e2[thmdle]-lp2[thmdle])/2);
        i++, rofp++)
     if ((*rofp != 127)  && (minroof < *rofp))
-      { minroof=*rofp; minrx=(CHAR)i; }
+      { minroof=*rofp; minrx=(char)i; }
   if (minroof <= 3) goto retsort;     // not too deep gap
   if (2*minrx > (2*e1[thmdle] - lp1[thmdle]-2)) goto retsort;
   pen_roof = 32;   // not at right side of 2nd leg
@@ -1074,9 +1074,9 @@ retsort:
   if (fl_sort_vers) sort_vers(AA);
  }
 
-static INT analeg (CHAR *l)
+static INT analeg (char *l)
 {
- CHAR *sp, *ep, *cp, *sp1, *ep1, min, max, w;
+ char *sp, *ep, *cp, *sp1, *ep1, min, max, w;
  min=127; max=0;
  leg_sumw=0;
  sp=&l[shh];

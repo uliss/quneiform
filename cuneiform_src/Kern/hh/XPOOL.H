@@ -150,7 +150,7 @@ public:
    //XPool&   operator += ( XPool const & mp );   // concatenation
    //operator PByte() const  {  return (PByte)Data; };
    //operator PVoid() const  {  return (PVoid)Data; };
-   //PByte    operator + (Indx i) const { return ((PByte)Data)+i; };
+   //PByte    operator + (uint i) const { return ((PByte)Data)+i; };
 
    void*    VPtr( int32_t i=0 ) const    { return (void*)(((Word8*)Data)+i);};
    Word8*   BPtr( int32_t i=0 ) const    { return        (((Word8*)Data)+i);};
@@ -175,7 +175,7 @@ public:
 		assert(size>=0);
 		if (((Word32)size) > Volume)
             size = Volume;
-         if (size) memcpy(Data, src, (Indx)size);
+         if (size) memcpy(Data, src, (uint)size);
       };
    void     CopyTo(void* dst, int32_t size = -1 )
       {  assert(dst);
@@ -184,7 +184,7 @@ public:
 		assert(size >=0);
 		 if (((Word32)size) > Volume)
             size = Volume;
-			if (size) memcpy(dst, Data, (Indx)size);
+			if (size) memcpy(dst, Data, (uint)size);
 		};
 */
 };

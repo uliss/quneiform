@@ -360,7 +360,7 @@ if( shave || inc )
 
   for(i=0; sh_mn && i<MAX_CELLS_IN_LIST; i++, sh_mn = sh_mn->mnnext)
     {
-    if( (sh_cell[i]=create_cell (sh_mn, c, c->bdiff, (CHAR)(c->difflg&0xf0)))==NULL )
+    if( (sh_cell[i]=create_cell (sh_mn, c, c->bdiff, (char)(c->difflg&0xf0)))==NULL )
       return c;
     if( sh_cell[i]->w>RASTER_MAX_WIDTH || sh_cell[i]->h>RASTER_MAX_HEIGHT ||
 		!sh_cell[i]->env
@@ -509,7 +509,7 @@ if( shave || inc)
 
   for(i=0; sh_mn && i<MAX_CELLS_IN_LIST; i++, sh_mn = sh_mn->mnnext)
     {
-    if( (sh_cell[i]=create_cell (sh_mn, c, c->bdiff, (CHAR)(c->difflg&0xf0)))==NULL )
+    if( (sh_cell[i]=create_cell (sh_mn, c, c->bdiff, (char)(c->difflg&0xf0)))==NULL )
       return NULL;
     sh_cell[i]->stick_inc = NO_INCLINE; // rotate disabled
     }
@@ -635,8 +635,8 @@ BYTE wrd[MAX_LEN_WORD+40], word_len ;
 Bool inc, incline, no_res           ;
 B_LINES bl                          ;
 #ifdef STEND_INC
-static CHAR  oldstr[256]="c:\\";
-CHAR         str[256]      ;
+static char  oldstr[256]="c:\\";
+char         str[256]      ;
 static INT   oldline=-1    ;
 FILE         *fp           ;
 static INT   first=1       ;
@@ -1644,7 +1644,7 @@ if( (sh_mn = c_locomp (raster, (INT)(bytlen(start->w)), start->h, 0, 0))==NULL )
 for(i=0; sh_mn && i<MAX_CELLS_IN_LIST; i++, sh_mn = sh_mn->mnnext)
     {
     if( (sh_cell=create_cell_work(sh_mn, start,
-                              start->bdiff, (CHAR)(start->difflg&0xf0)))==NULL )
+                              start->bdiff, (char)(start->difflg&0xf0)))==NULL )
       return NULL;
 
     levcut(sh_cell,1);

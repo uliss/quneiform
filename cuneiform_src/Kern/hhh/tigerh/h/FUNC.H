@@ -207,16 +207,16 @@ INT try_cut_bot_accent(cell *C1, B_LINES *my_bases, INT flag);
 void dm1();
 INT discrid(cell *, INT);
 INT decidust(cell *);
-INT estcomp(CHAR, cell *, SVERS *, INT, INT, INT, s_glue *, cut_pos*, cut_pos*,
-		CHAR, CHAR, CHAR);
+INT estcomp(char, cell *, SVERS *, INT, INT, INT, s_glue *, cut_pos*, cut_pos*,
+		char, char, char);
 void snBOX(cell *);
-void est_snap(CHAR user, cell *C, PCHAR txt);
+void est_snap(char user, cell *C, PCHAR txt);
 void promote(BYTE, cell *, BYTE, INT);
 void collect_pat(cell *, s_glue *, cell *);
 
 // module dm2.c
 void dm2();
-void glsnap(CHAR, cell *, PCHAR);
+void glsnap(char, cell *, PCHAR);
 
 // module dms.c
 void save_vers(cell *, SVERS *);
@@ -241,7 +241,7 @@ void find_path();
 // module cutpoint.c
 INT cut_points(INT, INT, PBYTE, struct cut_elm *);
 INT Alik_cut_points(INT, INT, PBYTE, struct cut_elm *, INT);
-MN* cut_rast(PBYTE, INT, INT, INT, INT, struct cut_elm *, CHAR, CHAR, PCHAR,
+MN* cut_rast(PBYTE, INT, INT, INT, INT, struct cut_elm *, char, char, PCHAR,
 		cut_pos*);
 
 // module alcutfun.c
@@ -308,9 +308,9 @@ INT find_minimum(BYTE fun[], INT n, BYTE *_imin);
 void new_vers(cell *c, BYTE vers, BYTE prob);
 void down_all_versions(cell *c, INT monus);
 void filtr_shave(BYTE fun[], INT len);
-Bool set_prob(cell *c, CHAR let, BYTE prob);
-Bool check_let(cell *c, CHAR let);
-void add_stick_vers(cell *c, CHAR let, BYTE prob);
+Bool set_prob(cell *c, char let, BYTE prob);
+Bool check_let(cell *c, char let);
+void add_stick_vers(cell *c, char let, BYTE prob);
 void filtr_short(BYTE fun[], INT n, INT lev);
 void filtr121(BYTE fun[], INT n);
 void filtr_bullet(BYTE fun[], INT len);
@@ -329,14 +329,14 @@ INT shift_raster(BYTE *r, INT dy, INT dx, INT tab[], INT max_shift, BYTE *res,
  INT tab_angle[],
  INT left_mode,INT right_mode,INT opt,INT wide,
  INT inc_v,INT t);
- void short_snap(CHAR *s,INT t);
+ void short_snap(char *s,INT t);
  *******************************/
 
 // module dis_stic.c
 INT discrim_all_sticks(cell *c, STICK_CHARS *left_chars,
 		STICK_CHARS *right_chars, STICK_SIGNUMS *signums);
 INT discrim_stick(BYTE, STICK_CHARS *, STICK_CHARS *, STICK_SIGNUMS *, INT);
-INT del_sticks(cell *c, CHAR let);
+INT del_sticks(cell *c, char let);
 INT similar_0xBA(STICK_CHARS *, STICK_CHARS *, STICK_SIGNUMS *);
 INT similar_0xBB(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
 INT similar_1(STICK_CHARS *, STICK_CHARS *, STICK_SIGNUMS *);
@@ -396,7 +396,7 @@ void recover_dusts(void);
 void hide_dusts(BYTE reg);
 
 // module il1peak.c
-void extremum(PCHAR, INT, INT, INT, INT, CHAR, CHAR);
+void extremum(PCHAR, INT, INT, INT, INT, char, char);
 
 // module il1tg.c
 void il1();
@@ -493,9 +493,9 @@ void free_cell(cell *c);
 void insert_cell(cell *c, cell *ci);
 void insert_cell1(cell *c, cell *ci);
 void adjust_links(cell *c);
-cell *create_cell(MN *, cell *, CHAR, CHAR);
-cell *create_cell1(MN *, cell *, CHAR, CHAR);
-cell *create_cell_work(MN * mn, cell * ci, CHAR bdiff, CHAR dflag);
+cell *create_cell(MN *, cell *, char, char);
+cell *create_cell1(MN *, cell *, char, char);
+cell *create_cell_work(MN * mn, cell * ci, char bdiff, char dflag);
 INT short_recog_cell(cell *);
 INT recog_cell(cell *);
 INT recop_cell(cell *);
@@ -507,7 +507,7 @@ void add_vers(cell *, version *);
 void del_version(cell *c, BYTE let);
 void online_comp(c_comp *);
 Bool save_MN(MN *);
-void cell_bonus_let(cell *C, CHAR Let, INT BonVal);
+void cell_bonus_let(cell *C, char Let, INT BonVal);
 void cell_bonus(cell *C, version *pVer, INT BonVal);
 
 // module baton.c

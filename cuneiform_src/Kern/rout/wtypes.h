@@ -253,11 +253,11 @@ typedef WORD __RPC_FAR *LPWORD;
 typedef uint32_t __RPC_FAR *LPDWORD;
 
 #endif // !_LPDWORD_DEFINED
-typedef char CHAR;
+typedef char char;
 
-typedef /* [string] */ CHAR __RPC_FAR *LPSTR;
+typedef /* [string] */ char __RPC_FAR *LPSTR;
 
-typedef /* [string] */ const CHAR __RPC_FAR *LPCSTR;
+typedef /* [string] */ const char __RPC_FAR *LPCSTR;
 
 #ifndef _WCHAR_DEFINED
 #define _WCHAR_DEFINED

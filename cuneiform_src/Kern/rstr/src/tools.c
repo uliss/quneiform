@@ -72,7 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 LONG  EVNRecog_lp(/*c_comp*/CCOM_comp *ec, BYTE * lp, INT lth, BYTE *res    );
 extern BYTE db_status;	// snap presence byte
 extern BYTE db_trace_flag;  // 2 - more detailed estimate (ALT-F7)
-extern CHAR db_pass;
+extern char db_pass;
 extern INT nIncline;
 extern void ErrorExit(int Code);
 //#define NUMBER_OF_CELLS (0x30000/sizeof (cell))
@@ -95,7 +95,7 @@ static void comp_from_kit(cell *c);
 
 static BYTE il1_pool[8192]={0};	// 19.07.2001 E.P.
 
-CHAR deb_messages[]="Virtal shape set\0Skeleton match got\0"
+char deb_messages[]="Virtal shape set\0Skeleton match got\0"
 				"Create scaled shape\0"
 				"Vectorization in progress\0"
 				"Pattern matching: est = %d\0"
@@ -379,7 +379,7 @@ INT wp,wp1;
   }
 }
 
-void cell_bonus_let(cell *C, CHAR Let, INT BonVal)
+void cell_bonus_let(cell *C, char Let, INT BonVal)
 {
 version *pv;
  for (pv=C->vers; pv->let != 0 ; pv++)
@@ -933,7 +933,7 @@ void adjust_links (cell *c)
  cn->prevl = c;
 }
 
-cell * create_cell(MN * mn, cell * ci, CHAR bdiff, CHAR dflag)
+cell * create_cell(MN * mn, cell * ci, char bdiff, char dflag)
 {
  cell * c = new_cell();
  accept_cell (c,(c_comp *)comp_to_kit(mn));
@@ -957,7 +957,7 @@ cell * create_cell(MN * mn, cell * ci, CHAR bdiff, CHAR dflag)
  return c;
 }
 
-cell * create_cell1(MN * mn, cell * ci, CHAR bdiff, CHAR dflag)
+cell * create_cell1(MN * mn, cell * ci, char bdiff, char dflag)
 {
  cell * c = new_cell();
  accept_cell (c,(c_comp *)comp_to_kit(mn));
@@ -981,7 +981,7 @@ cell * create_cell1(MN * mn, cell * ci, CHAR bdiff, CHAR dflag)
  return c;
 }
 
-cell * create_cell_work(MN * mn, cell * ci, CHAR bdiff, CHAR dflag)
+cell * create_cell_work(MN * mn, cell * ci, char bdiff, char dflag)
 {
  cell * c = new_cell();
  accept_cell (c,(c_comp *)comp_to_kit(mn));

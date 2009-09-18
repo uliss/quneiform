@@ -258,7 +258,7 @@ void r_criteria(cell *c, const s_glue * gl)              //10.02.97
  extern Bool TM_check_active;
  version *v0;
  LONG    d,d_ang,d_cun,d_abris,i,dd;                       //change from INT
- CHAR    snap[380],*s=snap;
+ char    snap[380],*s=snap;
  struct rst _rst;
  MN *    mn;
  cell *  cc=NULL;
@@ -825,7 +825,7 @@ INT chkquocks2(cell * c,PBYTE rstr,INT h,INT w,INT d)
 INT i,i1,i2,extr1,ln,ln1,h1,h2;
 INT tanx,tany,sum1,sum2;
 MN *mn;
-CHAR buf[200],tmp[200];
+char buf[200],tmp[200];
   mn = c_locomp(rstr,(INT)((w + 7)>>3),h,0,0);
   if(mn){
   segment_pool = EVN_GetSegmentPool();
@@ -1043,7 +1043,7 @@ static INT nstickLP;
 
 WORD check_pl( cell * c, cell * ci,BYTE let,struct rst * const rst )
 {
-CHAR  maxL=0,maxR=0;
+char  maxL=0,maxR=0;
 INT i,j1,j2,j,sym,nInvest;
 WORD penL=0,penP=0,pen=0,top=0,meanLetter,meanLetter0;
 WORD left=0,right=0,mean=0,D_X;
@@ -1425,7 +1425,7 @@ return pen;
 WORD check_tg( cell * c, BYTE let, PBYTE RASTR, INT dx, INT dy )
 {
 BYTE  j,n4=dy>>2,D_X=(dx+7)/8;
-CHAR  beg,end;
+char  beg,end;
 INT   i,k,piece2=0,piece3=0;
 INT   left=0,right=0,sum=0,tg=0;
 BYTE  *RAST;
@@ -2721,7 +2721,7 @@ if( c && !check_bend_dn(c) && corner_type(corners[3]) == CURVE) pen_a += 60;
  tresh = h/10 + h%10/5;  smooth=0;
  /* find  left pad */
        if( let == (BYTE)'¢' ){
-       CHAR jm1,jm2,jm3,jm4,pn;
+       char jm1,jm2,jm3,jm4,pn;
             jm1=jm2=jm3=jm4=pn=0;
        for(i=h/4+h%4/2,cnt=0;i< h*3/4-1;i++)
         if(l_abris[i+1] - l_abris[i] > 0 )

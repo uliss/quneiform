@@ -1186,7 +1186,7 @@ FON_FUNC(int32_t) FONGetClusterAsBW(int32_t *name,int32_t number,int32_t porog,R
 {
 	int xbit,yrow;
 	int bytesx;
-	CHAR *rr;
+	char *rr;
 	int startx;
 	int starty;
 	int i,j;

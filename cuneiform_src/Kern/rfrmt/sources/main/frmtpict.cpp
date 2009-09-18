@@ -95,7 +95,7 @@ extern   Word32 FlagMode;
 extern   Word32 RtfWriteMode;
 extern   POINT  TemplateOffset;
 
-extern	  CHAR   RtfFileName[MAX_PATH];
+extern	  char   RtfFileName[MAX_PATH];
 //Bool SaveMetafile(CString * str, /*CIMAGE*/BITMAPINFOHEADER * lpDIB);
 
 /*

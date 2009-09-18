@@ -260,7 +260,7 @@ PCHAR * message_groups[]={format_msg,comp_msg,image_msg,run_msg,
 //---------------------- Errors processing ------------------
 extern jmp_buf fatal_error_exit;
 static WORD status_code = 0;
-static CHAR mess[512],add_mess[256];
+static char mess[512],add_mess[256];
 //	Fatal error break processing
 
 static void msg_err (INT group, INT element)

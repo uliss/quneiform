@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "struct.h"
 #include "func.h"
 
-struct pairs {INT x,y; CHAR f;};
+struct pairs {INT x,y; char f;};
 typedef struct pairs pairs;
 
 extern INT nIncline;

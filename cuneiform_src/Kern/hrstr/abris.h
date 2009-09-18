@@ -128,8 +128,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /****** Global Variables: *************/
 extern BYTE fax1x2;
-extern CHAR db_pass;
-extern CHAR fbg;
+extern char db_pass;
+extern char fbg;
 extern INT line_number;
 
 /***** Common variables and functions **********/
@@ -137,7 +137,7 @@ extern INT line_number;
 ABRIS_EXTERN B_LINES bases;
 ABRIS_EXTERN INT wint;   // work integer variable
 ABRIS_EXTERN BYTE wbyte;   // work BYTE variable
-ABRIS_EXTERN CHAR let_mon[let_monN], mon_fl;
+ABRIS_EXTERN char let_mon[let_monN], mon_fl;
 ABRIS_EXTERN INT abriflag, ncells, fullh, midh, midw, fullw, cprob;
 ABRIS_EXTERN INT gl_mincol, gl_minrow, gl_maxcol, gl_maxrow;
 ABRIS_EXTERN BYTE lmax, lmin1, lmin2, lxmin11, lxmin12, lxmin21, lxmin22,
@@ -174,7 +174,7 @@ BYTE    rb_corner();
 BYTE    round_rb_corner();
 BYTE    new_prob( INT penalty );
 BYTE    test_bottom_corner( PBYTE abris, INT *size );
-INT     Let_bint_index( CHAR Let );
+INT     Let_bint_index( char Let );
 INT     two_int_over_b2 ( cell *curc, INT *loc_2_int);
 BYTE    r_tail ( BYTE );
 INT     gap_in_side(BYTE from, BYTE to, BYTE code_func, INT tresh, BYTE *flit);

@@ -114,18 +114,18 @@ void    Cleaning_LI_FRMT_Used_Flag(void);
 float   Twips;
 Int16   K_TwipsInInch=1440;
 WORD    FlagWriteRtfCoordinates =1 ;
-CHAR    WriteRtfPageNumber[MAX_PATH]="1";
+char    WriteRtfPageNumber[MAX_PATH]="1";
 Word8   Frmt_CharSet = (Word8)204;
 
 extern  Word32 FlagMode;
 extern  char   UnRecogSymbol;
 extern  Word32   gnLanguage;
 
-extern  CHAR   lpMyNameSerif[MAX_PATH];
-extern  CHAR   lpMyNameNonSerif[MAX_PATH];
-extern  CHAR   lpMyNameMono[MAX_PATH];
-extern	 CHAR   WriteRtfImageName[MAX_PATH];
-extern	 CHAR   RtfFileName[MAX_PATH];
+extern  char   lpMyNameSerif[MAX_PATH];
+extern  char   lpMyNameNonSerif[MAX_PATH];
+extern  char   lpMyNameMono[MAX_PATH];
+extern	 char   WriteRtfImageName[MAX_PATH];
+extern	 char   RtfFileName[MAX_PATH];
 extern  Word32 CountPict;
 extern  Word32 CountTable;
 extern  Word32 RtfWriteMode;
@@ -283,8 +283,8 @@ void CRtfPage::Rtf_CED_CreatePage(void)
 void CRtfPage::Rtf_CED_WriteFormattedEd(const char* RtfFileName, Handle* hEdTree)
 {
 #ifdef EdWrite
-CHAR lpEdFileName[MAX_PATH];
-CHAR lpEdTestFileName[MAX_PATH];
+char lpEdFileName[MAX_PATH];
+char lpEdTestFileName[MAX_PATH];
 
 	if(RtfWriteMode)
 	{

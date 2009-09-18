@@ -177,7 +177,7 @@ void analysis_words(void)
 {
 	INT   left,right,flag=0,flag_qual;
 	cell  *WB,*WE,*cl;
-	CHAR  snap[380],*buf=snap;
+	char  snap[380],*buf=snap;
 
 	left=right=0;
 	WB=clbeg;
@@ -330,11 +330,11 @@ PBYTE raster;
 
 #ifdef AlikSevron
 INT   b1,b2,b3,b4,r1,r2;
-CHAR  snap[380],*buf=snap;
+char  snap[380],*buf=snap;
   buf+=sprintf(buf,"step0: let=%c,w=%d,h=%d \n ",c->vers[0].let,c->w,c->h);
 #endif
 #ifdef _bc_
-CHAR  snap[380],*buf=snap;
+char  snap[380],*buf=snap;
 #endif
 
  width=c->w; hgt=c->h;

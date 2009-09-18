@@ -94,11 +94,11 @@ Word32   FlagMode;
 Word32   ExFlagMode;
 
 Word32   RtfWriteMode;
-CHAR     RtfFileName[MAX_PATH];
-CHAR     WriteRtfImageName[MAX_PATH];
-CHAR     lpMyNameSerif[MAX_PATH];
-CHAR     lpMyNameNonSerif[MAX_PATH];
-CHAR     lpMyNameMono[MAX_PATH];
+char     RtfFileName[MAX_PATH];
+char     WriteRtfImageName[MAX_PATH];
+char     lpMyNameSerif[MAX_PATH];
+char     lpMyNameNonSerif[MAX_PATH];
+char     lpMyNameMono[MAX_PATH];
 
 Bool32   FlagChangeSizeKegl;
 Bool32   FlagLineTransfer;

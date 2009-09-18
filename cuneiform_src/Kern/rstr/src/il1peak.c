@@ -82,7 +82,7 @@ extern INT n_peak[NFUNC];
 extern PCHAR peak_vect[NFUNC];
 
 void extremum (PCHAR func, INT n_func, INT from, INT to, INT threshold,
-	       CHAR f2, CHAR fbound)
+	       char f2, char fbound)
  {
  INT x;
  INT min,max;

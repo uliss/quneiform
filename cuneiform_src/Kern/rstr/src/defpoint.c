@@ -103,7 +103,7 @@ INT Alik_define_cut_points(
  PBYTE  IntBuf,CountCut,UpBlackPoint;
  struct own_cut *ans_ptr;
 #ifdef AlikBl
-CHAR snap[380],*buf=snap;
+char snap[380],*buf=snap;
 #endif
 
  Z=Z;
@@ -220,7 +220,7 @@ if(CP)
      Alik_del_equal(cut_points);
      Alik_del_3_cut(adrw,cut_points,nshort,ver_byte,dx,CountCut);
     if(abs((row+dy)-(minrow+bbs3))>3)
-     Alik_del_p_cut(adrw,cut_points,dx,dy,nshort,(CHAR)(bl_dw-bl_up-3));
+     Alik_del_p_cut(adrw,cut_points,dx,dy,nshort,(char)(bl_dw-bl_up-3));
     if(language==LANG_RUSSIAN)
      Alik_Check_Rus_D(raster_frag,SourceRaster,dy,dx,cut_points,IntBuf,row,
                       product,product_two,penalty,CountCut);
@@ -245,7 +245,7 @@ if(CP)
  	 cut_points=penalty+3*(CP-1)+1;
  	 for (j=CP; j>0; j--, cut_points-=4,stek++)
       {
-       *stek=(CHAR)*cut_points++;
+       *stek=(char)*cut_points++;
        if (*stek) (*stek)--;
        *++stek=dy-*cut_points;
        if (*stek) (*stek)--;
@@ -254,7 +254,7 @@ if(CP)
 
    for(j=CP-1,i=0; j>=0; j--,i+=2)
     {
-     ans_ptr->x   = (CHAR)*((PINT)adr_cut_points+j);
+     ans_ptr->x   = (char)*((PINT)adr_cut_points+j);
      ans_ptr->h   = dy - *(trace+i);
      ans_ptr->dh  = dy+1 - *(trace+i+1)-*(trace+i);
      ans_ptr->dh  = MIN(ans_ptr->dh,dy);
@@ -308,8 +308,8 @@ INT i,j,count,min_pen,min_prod,real_x,Ix,IIx;
      if(real_x>MINCOL && real_x<dx-MINCOL)
       {
        ptr->x   = real_x+1;
-       ptr->h   = (CHAR)dy;
-       ptr->dh  = (CHAR)dy;
+       ptr->h   = (char)dy;
+       ptr->dh  = (char)dy;
        ptr->var = 40;
        ++ptr; (*CP)++;
       }
@@ -330,8 +330,8 @@ INT i,Count;
      (ans->x>1 && *(pen+ans->x-1)<0) ||
      (ans->x<dx-1 && *(pen+ans->x+1)<0))
      {
-      ans->h   = (CHAR)dy;
-      ans->dh  = (CHAR)dy;
+      ans->h   = (char)dy;
+      ans->dh  = (char)dy;
       ans->var = 40;
      }
   }
@@ -374,7 +374,7 @@ struct own_cut oct[STK_H],*ptr;
    if(CountGrupElem<=3)
    {                                        // OLEG : case CountGrupElem==0 ????
      gde=Alik_gde_i_kak_naxodjatsa_tochki((BYTE)(CountGrupElem-1),&oct[i],dy,min_dh);
-     for(m=i;m<=j;m++)  oct[m].var=(CHAR)GDE_KAK[gde][m-i];
+     for(m=i;m<=j;m++)  oct[m].var=(char)GDE_KAK[gde][m-i];
     }
    else
     {

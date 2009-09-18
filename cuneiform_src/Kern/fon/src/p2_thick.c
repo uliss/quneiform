@@ -448,7 +448,7 @@ SINT RazmazHalf(BYTE *bSource,BYTE *bDest,SINT xbit,SINT yrow)
 // distance from bitmap to raster
 // dist1 = minimal distance not used as invalid  (-summa/fill)
 SINT DistBitRas(PBYTE r,SINT w,SINT h,     // b/w bitmap
-		 PCHAR wr,SINT ww,SINT wh,CHAR dist1,  // grey raster
+		 PCHAR wr,SINT ww,SINT wh,char dist1,  // grey raster
 		 SINT xo,SINT yo,SINT bdist)
 {
 PCHAR curr;
@@ -523,7 +523,7 @@ PBYTE rr;
 // for razmaz   -  ищем точки, которые вылазят в wel
 //
 SINT DistRasBit(PBYTE r,SINT w,SINT h,     // b/w bitmap
-		 PCHAR wr,SINT ww,SINT wh,CHAR wei,  // grey raster
+		 PCHAR wr,SINT ww,SINT wh,char wei,  // grey raster
 		 SINT xo,SINT yo,SINT bdist)
 {
 PCHAR curr;
@@ -604,7 +604,7 @@ PBYTE rr;
 static SINT CountFill(welet *wel,SINT porog)
 {
  SINT i,j;
- CHAR *rr;
+ char *rr;
  SINT sx=wel->w;
  SINT sy=wel->h;
  SINT fx=sx;  // first x
@@ -661,7 +661,7 @@ SINT last=wel->weight-1;
 
    if(porog > last) porog=last;
    if( i == 0 && porog > 0) porog--;
-   wel->porog = (CHAR)porog;
+   wel->porog = (char)porog;
    return porog;
 }
 ///////////

@@ -249,7 +249,7 @@ static void make_roma_num    (void);
 static INT best_estimation  (void);
 static void estimate_chain  (INT);
 static void estimate_letter (cell *, INT);
-static INT class_of_letter  (CHAR);
+static INT class_of_letter  (char);
 static void setup_complex   (void);
 static INT make_best_choice (INT);
 /*******************

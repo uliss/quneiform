@@ -105,7 +105,7 @@ extern LONG  EVNRecogCharPRN(   RecRaster  * rRaster,
 // from RCM.C
 extern  void    ErrorExit(int Code);
 extern  BYTE    decode_ASCII_to_[256][4];
-extern  CHAR    StopPoint;
+extern  char    StopPoint;
 extern  BYTE    CodePages[];
 //extern  INT     gbCol1,gbCol2;
 

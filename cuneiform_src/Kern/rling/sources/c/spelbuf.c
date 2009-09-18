@@ -56,5 +56,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # include "nt_types.h"
 #define BUFFSIZE 8192
-CHAR spell_buff_pool[BUFFSIZE];
-//CHAR spell_buff_out [BUFFSIZE];
+char spell_buff_pool[BUFFSIZE];
+//char spell_buff_out [BUFFSIZE];

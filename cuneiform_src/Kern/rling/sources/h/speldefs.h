@@ -319,7 +319,7 @@ struct  tabl_conform_sizes
 {
  byte code;
  byte store;
- CHAR tab_val_A [9*2];                 /*tab_val_A-table of sizes*/
+ char tab_val_A [9*2];                 /*tab_val_A-table of sizes*/
 };                                      /*   of letter A for kegles */
                     /*  from 4 to 12 */
 struct fragm_disk
@@ -365,7 +365,7 @@ struct pos_half_space
 
 struct segm
  {                                     /* dynamic memory segment's header */
-  CHAR el_type;                        /* = 4 */
+  char el_type;                        /* = 4 */
   struct segm  *next_in_fragm;     /* next segment in fragment */
   struct segm  *prev_in_fragm;     /* previous segment in fragment */
   struct segm  *next_in_sheet;
@@ -374,21 +374,21 @@ struct segm
   INT string_lth;                      /* length of string in segm */
   INT q_vis_symb;                      /* quantity of visibal symbols*/
   INT q_v_s_l;                         /* the same in line*/
-  CHAR type;                           /* 1- tail of line in the next segm
+  char type;                           /* 1- tail of line in the next segm
                                           2- that's tail of line */
   INT font;                            /* font */
-  CHAR kegl;                           /* kegl */
-  CHAR font_type;                      /* type of font */
-  CHAR density;                        /* printing density */
+  char kegl;                           /* kegl */
+  char font_type;                      /* type of font */
+  char density;                        /* printing density */
   struct bit_map_ref  map_ref;          /* reference to bit-map */
   INT line_ref;                  /* reference to the line of schedule */
-  CHAR store[3];                       /* expand */
+  char store[3];                       /* expand */
   BYTE string[1];                      /* text itself */
  };
 
 struct sheet_descr
 {                                     /* sheet header */
- CHAR el_type;                        /* = 2 */
+ char el_type;                        /* = 2 */
  INT sheet_numb;                      /* sheet number */
  struct segm  *first_segm;      /* address of first segment of first
                                          line in sheet */
@@ -402,14 +402,14 @@ struct sheet_descr
 
 struct file_descr
 {                                     /* file header */
- CHAR el_type;                        /* = 1 */
+ char el_type;                        /* = 1 */
  struct sheet_descr * first_sheet;  /* address of first sheet of file */
  INT file_handle;                     /* file handle */
- CHAR file_name[40];                  /* file name */
- CHAR  *pool_start;               /* adrress of pool for page */
+ char file_name[40];                  /* file name */
+ char  *pool_start;               /* adrress of pool for page */
  LONG  pool_lth;                 /* Q.w_lenth of pool (in bytes) */
  INT n_free;                   /* number of free segments in pool */
- CHAR  *pool_free;      /* address of first free block in pool */
+ char  *pool_free;      /* address of first free block in pool */
 };
 
 struct sheet_disk_descr
@@ -419,7 +419,7 @@ struct sheet_disk_descr
  INT sheet_numb;
  INT descr_lth;
  BYTE byte_flag;
- CHAR tabl[17];
+ char tabl[17];
 };
 
 #define FD_TYPE_TEXT 0
@@ -429,12 +429,12 @@ struct sheet_disk_descr
 
 struct fragm_descr
  {                                     /* fragment header */
-  CHAR el_type;                        /* = 3 */
+  char el_type;                        /* = 3 */
   INT row;                             /* coordinates of left upper */
   INT col;                             /* angle of fragment's frame */
   INT height;                          /* height of fragment */
   INT w_width;                         /* Q.w_width of fragment */
-  CHAR type;                           /* fragment's type */
+  char type;                           /* fragment's type */
   byte kegl;
   byte font;
   byte font_type;
@@ -449,7 +449,7 @@ struct fragm_disk_descr
   INT col;                             /* angle of fragment's frame */
   INT height;                          /* height of fragment */
   INT w_width;                         /* Q.w_width of fragment */
-  CHAR type;
+  char type;
   byte kegl;                           /*kegl for following fragm*/
   byte font;                            /*font name number~~~~~~~~*/
   byte language;                        // 03-29-94 02:42pm,Pit
@@ -466,15 +466,15 @@ struct int_row_col
 
 struct state_stack_elem
  {                                     /* element of state_stack */
-  CHAR stack_type;                     /* ??????? */
+  char stack_type;                     /* ??????? */
   INT line_row;                        /* ??????? */
   INT position;
   byte font;                            /* font */
   byte language;                        // language for fragment
-  CHAR kegl;                           /* kegl */
-  CHAR font_type;                      /* font type */
-  CHAR density;                        /* printing density */
-  CHAR underline;                      /* presence of underline */
+  char kegl;                           /* kegl */
+  char font_type;                      /* font type */
+  char density;                        /* printing density */
+  char underline;                      /* presence of underline */
   struct bit_map_ref map_ref;          /* address of cur_symb in bit_map */
  BYTE  *ns_ref_ptr;       /*address of current map_ref*/
   INT letter_ref;                      /* ??????? */
@@ -494,8 +494,8 @@ typedef struct state
  {                        /* description of state characteristics */
   struct segm *cur_segm;          /* address of current segm */
   BYTE  *cur_symb;            /* address of current non control symbol */
-  CHAR stack_level;           /* level of state stack */
-  CHAR size_tab[18];                   /* values of tabulation */
+  char stack_level;           /* level of state stack */
+  char size_tab[18];                   /* values of tabulation */
   INT position;                        /* ?????? */
   INT pos_line;                   /* number of symb including all symb. */
   struct file_descr  *file;        /* ?????? */
@@ -555,7 +555,7 @@ typedef struct word_descr_in_voc
      {  WORD                 next;
     INT                   nmb;
     struct segm   *segm;
-    CHAR          *symb;
+    char          *symb;
     BYTE                 type;
     BYTE              type_sp;
     BYTE                  voc;
@@ -630,7 +630,7 @@ typedef struct vstate voc_state;
 
 typedef struct
 {
-  CHAR       voc_name[1];
+  char       voc_name[1];
   voc_state  voc;
   INT        type;
 
@@ -694,13 +694,13 @@ typedef struct super
   WORD last_altern;
   BYTE text_line[sizeof(struct letter)*MAX_STRING_LTH];  //  2 * 80
   dt  *tab_ptr;
-  CHAR * text_buff;
-  //////// CHAR text_buff_pool[BUFSIZE];   // 8192
-  CHAR ins_status;
-  CHAR  *beg_alloc_mem;
-  CHAR  *end_alloc_mem;
-  CHAR  *free_alloc_mem;
-  CHAR  *ptr_tab;
+  char * text_buff;
+  //////// char text_buff_pool[BUFSIZE];   // 8192
+  char ins_status;
+  char  *beg_alloc_mem;
+  char  *end_alloc_mem;
+  char  *free_alloc_mem;
+  char  *ptr_tab;
   WORD  cur_fragm;
   WORD qt_fm;
   WORD  cur_sheet;
@@ -711,16 +711,16 @@ typedef struct super
   struct segm  *ptr_next_segm;
   BYTE *buff_ptr;
   struct segm  *new_segm;
-  CHAR atr;
-  CHAR bgc;
+  char atr;
+  char bgc;
   LONG buff_l;
   LONG l;                               /*length of done way in next_symb*/
   WORD new_s;                       /*sign of new segm of curr line*/
-  CHAR ed_fname[6];
+  char ed_fname[6];
   INT ed_file;
   LONG file_lth;
   INT start_sheet_number;
-  CHAR  *str_ptr;
+  char  *str_ptr;
   WORD ram_change_status;
   WORD end_l;
   WORD end_s;
@@ -737,7 +737,7 @@ typedef struct super
   WORD tif_width;
   WORD tif_height;
   INT tif_file;
-  CHAR tif_file_name[40];
+  char tif_file_name[40];
   INT tif_line_lth;
   INT tif_n_lines;
   WORD large_height;
@@ -745,8 +745,8 @@ typedef struct super
   INT q_pg_right; /* quantity of pages that we have passed moving right */
   WORD sw_symb;/* sw_symb = 1 shows that was recurs. call of next_symb()*/
   WORD esc_n_s;
-  CHAR fragm_flag[MAX_FRAGM];
-  CHAR sheet_flag[MAX_SHEET];
+  char fragm_flag[MAX_FRAGM];
+  char sheet_flag[MAX_SHEET];
   struct bit_map_ref *bit_map_ref_ptr;
   struct bit_map_ref  *h_bit_map_ref_ptr;
   struct text_ref *text_ref_ptr;
@@ -777,9 +777,9 @@ typedef struct super
   BYTE  *ns_symb;      /* symbol corresponding to next_symb() */
   INT skip_line_x;
   INT flag_out;
-  CHAR edit_file_name[40];
+  char edit_file_name[40];
   INT end_page_numb;
-  CHAR stack_change_flag;
+  char stack_change_flag;
   INT word_attr;
   INT tiny_small_height;
   INT tiny_w_x;
@@ -808,18 +808,18 @@ typedef struct super
   INT save_flag;
   struct dict_state d_state;
  /* voc_state v_state;      */
- /* CHAR vocfile [40];      */
- /* CHAR temp_voc_file[40]; */
+ /* char vocfile [40];      */
+ /* char temp_voc_file[40]; */
   INT conv_call;
-  CHAR  *w_c;
-  CHAR check_word[40];
-  CHAR right_part[20];
-  CHAR* r_p;
-  CHAR *buff_out;
+  char  *w_c;
+  char check_word[40];
+  char right_part[20];
+  char* r_p;
+  char *buff_out;
   INT ed_out;
-  ////// CHAR text_buff_out[BUFSIZE];  // 8192
-  CHAR word_out[6][20];
-  CHAR* w_out;
+  ////// char text_buff_out[BUFSIZE];  // 8192
+  char word_out[6][20];
+  char* w_out;
   dst st;
   dt   t;
   struct super_ed E;
@@ -841,7 +841,7 @@ typedef struct super
      WORD             font;
      WORD             kegl;
      WORD        font_type;
-     CHAR      file_name[40];
+     char      file_name[40];
      BYTE *   buf;
      WORD         buf_size;
      WORD              lth;
@@ -876,7 +876,7 @@ typedef struct super
 
 #define FIR_CHECKED 1               /*             spelling is done    */
 
-CHAR  *find_byte_flag(void);
+char  *find_byte_flag(void);
 
 /* ======================== */
   /* max size of an object view field (max nmb of positions) : */
@@ -920,7 +920,7 @@ struct tifref
   WORD height;                /*  ...                    */
   BYTE *env_ref;    /* ref to envelope specification in tif */
   struct segm * segm;        /*        Q.ns.segm        */
-  CHAR *symb;               /*        Q.ns.symb        */
+  char *symb;               /*        Q.ns.symb        */
  };
 
 /* ===================================================================== */

@@ -188,7 +188,7 @@ typedef struct  perc_struct
 static INT search_perc_vers();
 static INT search_left_dust();
 static INT search_right_dust(INT like_o);
-static INT compare_bound(cell *,CHAR);
+static INT compare_bound(cell *,char);
 static INT rec_O0(cell *);
 static INT change_vers();
 static void collect_cell(cell *mainc, cell *c2);
@@ -572,7 +572,7 @@ static cell *collect_cell_save(cell *mainc, cell *c2)
   return mainc;
 } /*------------------------------------------------------------------*/
 
-static INT compare_bound(cell *pc, CHAR rorl)
+static INT compare_bound(cell *pc, char rorl)
 {
 bnd_allowed ldbnd;
 

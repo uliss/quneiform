@@ -177,7 +177,7 @@ return;
 
 /* set letter (let) propability to (prob) if prob > old propability */
 /* return FALSE if letter (let) not exist in cell *c                */
-Bool set_prob(cell *c, CHAR let, BYTE prob)
+Bool set_prob(cell *c, char let, BYTE prob)
 {
 INT i,n=c->nvers;
 for(i=0;i<n;i++)
@@ -216,7 +216,7 @@ return;
 }
 
 /* add version (let,prob) if she not exist, else correct propability */
-void add_stick_vers(cell *c,CHAR let,BYTE prob)
+void add_stick_vers(cell *c,char let,BYTE prob)
 {
 if( !check_let(c,let) )
 	new_vers(c,let,prob);	/* adding new version */
@@ -225,7 +225,7 @@ else
 return;
 }
 
-Bool check_let(cell *c, CHAR let )
+Bool check_let(cell *c, char let )
 {
 BYTE i,l=(BYTE)let,n=(BYTE)c->nvers;
 version *bv;
@@ -236,7 +236,7 @@ for(bv=c->vers,i=0;i<n;i++,bv++)
 return(FALSE);
 }
 /*----------------------------------------------------------------------*/
-INT del_sticks (cell *c, CHAR let)  {			// 26.10.1993
+INT del_sticks (cell *c, char let)  {			// 26.10.1993
 INT	i, n=c->nvers;
 INT	prob;
 INT	dis_CUT=0;
@@ -308,7 +308,7 @@ for(i=0;i<n;i++)
 static INT kill_stick(version *v)
 {
 BYTE let = v->let ;			// A.A.LEMAN from 28.06.1993
-CHAR stick_list[]="frtIJT1l!ij/[]{}LFY";	// 22.11.1993		//17/19
+char stick_list[]="frtIJT1l!ij/[]{}LFY";	// 22.11.1993		//17/19
 if( memchr(stick_list, let,17)!=NULL             ||
     ( language == LANG_CROATIAN && (let==CROAT_d||let=='d') ) ||
     ( language == LANG_POLISH && let==POLISH_l ) ||
@@ -565,8 +565,8 @@ if (c->nvers>=2 && c->vers[1].let=='l')  prob_l = c->vers[1].prob;  // 'l' #1;
 if (s->neck==3)					// 16.12.1993  ADD ╨ FIRST:
 //////	add_stick_vers (c, liga_i, cut_by_pos(c,liga_i,prob,1,1));
 if(language != LANG_RUSSIAN)
-	add_stick_vers (c, (CHAR)liga_i,	// 17.01.1994, 140 for der Laterne:
-			(BYTE)cut_by_pos(c,liga_i,(CHAR)(MAX(prob,140)),1,1));
+	add_stick_vers (c, (char)liga_i,	// 17.01.1994, 140 for der Laterne:
+			(BYTE)cut_by_pos(c,liga_i,(char)(MAX(prob,140)),1,1));
 
 if( !inc &&  wide<<1<=dx &&				// ADD ╨ SECOND:
     s->neck && typ_snap &&
@@ -574,13 +574,13 @@ if( !inc &&  wide<<1<=dx &&				// ADD ╨ SECOND:
 	/* no inc; exist neck; thin stick; similar '╨' */
 //////	add_stick_vers (c,'╨',cut_by_pos(c,'╨',prob,1,1));
 if(language != LANG_RUSSIAN)
-	add_stick_vers (c, (CHAR)liga_i, (BYTE)cut_by_pos(c,liga_i,prob,1,1));
+	add_stick_vers (c, (char)liga_i, (BYTE)cut_by_pos(c,liga_i,prob,1,1));
 
 if( inc<2 &&         // ADD ╩ SECOND:
     s->neck && typ_snap &&
     similar_0xBB (l, r, s) )
 if(language != LANG_RUSSIAN)
-  add_stick_vers (c, (CHAR)liga_j, (BYTE)cut_by_pos(c,liga_j,prob,1,1));
+  add_stick_vers (c, (char)liga_j, (BYTE)cut_by_pos(c,liga_j,prob,1,1));
 
 if( !(c->cg_flag & c_cg_cutl ) && (dot_ij(c)==NULL) && typ_snap )  // ╨,1 ???
 	{                   /* not left cut and not i-dot */
@@ -588,21 +588,21 @@ if( !(c->cg_flag & c_cg_cutl ) && (dot_ij(c)==NULL) && typ_snap )  // ╨,1 ???
 	    if (c->nvers==0  ||  c->vers[0].let != '/')	// PROBA 25.06.1993
 //////		add_stick_vers(c,'╨',cut_by_pos(c,'╨',prob,1,1));
 if(language != LANG_RUSSIAN)
-		add_stick_vers (c, (CHAR)liga_i, (BYTE)cut_by_pos(c,liga_i,prob,1,1));
+		add_stick_vers (c, (char)liga_i, (BYTE)cut_by_pos(c,liga_i,prob,1,1));
 /*......................................................................*/
 	if( (check_let(c,'l')||check_let(c,'I')) &&		// ADD '1'
 	    (!check_let(c,'1')) &&			// 08.07.1993 MK !!!
 	    similar_1 (l, r, s)
 	  )
-		add_stick_vers (c,(CHAR)'1',
+		add_stick_vers (c,(char)'1',
 			(BYTE)cut_by_pos(c,'1',prob,1,1) );
 
   if( language == LANG_POLISH  &&
       (check_let(c,'t') || check_let(c,'1') ) &&   // ADD '1'
-      (!check_let(c,(CHAR)POLISH_l)) &&      // 08.07.1993 MK !!!
+      (!check_let(c,(char)POLISH_l)) &&      // 08.07.1993 MK !!!
       similar_l_stroked (l, r, s)
 	)
-		add_stick_vers (c,(CHAR)POLISH_l,
+		add_stick_vers (c,(char)POLISH_l,
 			(BYTE)cut_by_pos(c,POLISH_l,prob,1,1) );
 
   }
@@ -622,7 +622,7 @@ if( !(c->cg_flag & c_cg_cut) && typ_snap )	// ADD '!'
 			B_LINES bl;
 			get_b_lines(c,&bl);
 			if( c->nvers>0 && c->row<bl.bm )
-				add_stick_vers(c,(CHAR)liga_exm,(BYTE)pr);
+				add_stick_vers(c,(char)liga_exm,(BYTE)pr);
 			}
 		}
 	else if( language == LANG_RUSSIAN &&  !line_tabcell && dot_excl(c)==NULL &&
@@ -631,7 +631,7 @@ if( !(c->cg_flag & c_cg_cut) && typ_snap )	// ADD '!'
 		B_LINES bl;
 		get_b_lines(c,&bl);
 		if( c->nvers>0 && c->row<bl.bm )
-			add_stick_vers(c,(CHAR)liga_exm,(BYTE)pr);
+			add_stick_vers(c,(char)liga_exm,(BYTE)pr);
 		}
 	}
 
@@ -686,7 +686,7 @@ if ((s->right_mode - s->left_mode < 5)  &&	// 07.01.1994
 			    prob_new += 2;			// MORE;
 		    if (s->neck)  prob_new -= 2;		// LESS; (ENTE);
 		    if (prob_new>254)  prob_new = 254;	// CENSURE;
-		    add_stick_vers (c, (CHAR)liga_exm, (BYTE)prob_new);
+		    add_stick_vers (c, (char)liga_exm, (BYTE)prob_new);
             //////		sort_vers (c);			// VERY VERY OLD (COPY OF...);
             //////		mk_dis_for_liga_exm = 2;	// 06.01.1994
 		    mk_dis_for_liga_exm = (prob_l==254) ? 2 : 0;	// l 254->252;
@@ -699,7 +699,7 @@ if (language == LANG_SPANISH	&&		// 03.01.1994  INVERS EXM !
     s->base_3mk+2 < s->height	&&
     l->num_long_flags + r->num_long_flags == 0)  {
 //////		add_stick_vers (c, invers_exm, pr);
-		add_stick_vers (c, (CHAR)invers_exm, (BYTE)prob);	// ????????????
+		add_stick_vers (c, (char)invers_exm, (BYTE)prob);	// ????????????
 		}
 
 return;
@@ -815,7 +815,7 @@ return( prob);
 
 
 /* out text string */
-void short_snap(CHAR *s,INT typ_snap)
+void short_snap(char *s,INT typ_snap)
 {
 //////mk_INT_short_snap_last_typ = typ_snap;	// DELETE 24.06.1993
 if ( db_status && ( typ_snap==0 ||
@@ -841,7 +841,7 @@ INT	dx=c->w, dy=c->h;
 MN	*sh_mn;
 cell	*sh_cell;
 c_comp	*buf_cell;
-CHAR	buf[1024],*pbuf;
+char	buf[1024],*pbuf;
 PBYTE	raster;
 BYTE	sh_raster[1024];
 INT	i, d_x, off, buf_w, c_f;
@@ -850,7 +850,7 @@ BYTE	cUR = (r->up_hook)   ? '~' : ' ',  dUR = r->up_serif;
 BYTE	cDL = (l->down_hook) ? '_' : ' ',  dDL = l->down_serif;
 BYTE	cDR = (r->down_hook) ? '_' : ' ',  dDR = r->down_serif;
 INT	cut_0123;
-static	CHAR	*vars_cut_0123 [] =  {	"NO CUT",	// 0
+static	char	*vars_cut_0123 [] =  {	"NO CUT",	// 0
 					"CUT R",	// 1
 					"CUT L",	// 2
 					"CUT L,R" };	// 3
@@ -875,7 +875,7 @@ if (db_status && (typ_snap==0 ||
 		left_mode  -= off;
 		opt        -= off<<2;
 		sh_mn = c_locomp (sh_raster, (INT)(bytlen(d_x)), dy, 0, 0);
-		sh_cell = create_cell (sh_mn, c, c->bdiff, (CHAR)(c->difflg & 0xf0));
+		sh_cell = create_cell (sh_mn, c, c->bdiff, (char)(c->difflg & 0xf0));
 
 		buf_cell = c->env;
 		buf_w = c->w;

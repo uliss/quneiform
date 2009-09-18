@@ -591,7 +591,7 @@ INT multi_hist(INT p)
  CSTR_rast BC;
  CSTR_rast_attr attr;
 
- CHAR txt[32];
+ char txt[32];
  stand_bas();
  txt[0]=0;
  if (db_status) sprintf(txt,"mult: %d",p);

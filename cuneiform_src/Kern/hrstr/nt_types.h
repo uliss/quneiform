@@ -89,7 +89,7 @@ typedef signed long int  *          PLONG;
 		typedef unsigned char           _BYTE;
         typedef unsigned char  *    _PBYTE;
 
-        #define CHAR  _CHAR
+        #define char  _CHAR
         #define PCHAR _PCHAR
 		#define PSTR  _PCHAR
 		#define BYTE  _BYTE

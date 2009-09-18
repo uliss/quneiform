@@ -156,7 +156,7 @@ INT save_ed_file(BYTE batch_run)
 INT read_file( BYTE batch_run )
 {
 	INT  i;
-	CHAR ret;
+	char ret;
 	LONG shift;
 	INT  read_cnt;
 	LT   safeGuard = { 0x20, 0xF };

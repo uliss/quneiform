@@ -216,7 +216,7 @@ static INT find_and_class_word(cell *first_C)
 //		  returns number of letters in word.
 //
 {
- CHAR fl_beg;
+ char fl_beg;
  BYTE class, wf;
  cell *wc, *C;
 
@@ -581,7 +581,7 @@ static void negspace()
  {
  cell *C,*D,*E;
  version *v;
- CHAR fl;
+ char fl;
  INT i;
 
  C=cell_f();
@@ -847,7 +847,7 @@ static void estimate_letter(cell *C, INT pos)
 stloop:;
  }
 
-static INT class_of_letter(CHAR c)
+static INT class_of_letter(char c)
  {
  if (check_upper(c)) return L_BIG;
  if (check_lower(c)) return L_SMALL;

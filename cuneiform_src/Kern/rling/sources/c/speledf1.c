@@ -91,9 +91,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /******** L o k a l    f u n c t i o n s   p r o t o t y p e s ********/
 /**********************************************************************/
  static INT mvbuf(WORD l);
- static INT set_descr(CHAR c);
+ static INT set_descr(char c);
  static INT do_fragm(void);
- static void move_from_near_to_huge(CHAR  *a, CHAR *b, INT l);
+ static void move_from_near_to_huge(char  *a, char *b, INT l);
  static INT create_segm(struct segm *prev_adr,WORD segm_size,WORD type);
  static INT n_l(void);
  static INT p_l(void);
@@ -182,7 +182,7 @@ define_lth(BYTE  *symb)
   return(n);
  }
 /***********************************************************************/
- struct segm  *next_line(CHAR tt,struct segm  *cur_segm)
+ struct segm  *next_line(char tt,struct segm  *cur_segm)
 /*
     This procedure gives address of next line.
 */
@@ -333,7 +333,7 @@ void fill_fragm(INT n_fragm)
  }                                     /* end of fill_fragm */
 
 /************************************************************************/
-INT set_descr(CHAR c)
+INT set_descr(char c)
 /*
     This procedure sets up sheet_descr or head of line.
     c=SHEET means sheet_descriptor; c=LINE means line_descriptor.
@@ -341,7 +341,7 @@ INT set_descr(CHAR c)
  {
   INT i  /*,k*/;
   struct segm  *segm_ptr;
-  /* CHAR * return_str_ptr;*/
+  /* char * return_str_ptr;*/
   check_free_mem();
   if (c == SHEET)
    {                                   /* sheet */
@@ -377,7 +377,7 @@ INT set_descr(CHAR c)
       return(NO);
     SPQ.ptr_next_segm=(struct segm *)SPQ.free_alloc_mem;
     SPQ.str_ptr=SPQ.ptr_next_segm->string;
-    SPQ.free_alloc_mem=( CHAR  *)(SPQ.ptr_next_segm+1);
+    SPQ.free_alloc_mem=( char  *)(SPQ.ptr_next_segm+1);
     segm_ptr=(struct segm *) SPQ.tab_ptr->
 		tab_fragm[SPQ.cur_sheet][SPQ.cur_fragm].last_segm;
     segm_ptr->next_in_fragm=SPQ.ptr_next_segm;
@@ -421,7 +421,7 @@ INT do_fragm(void)
   SPQ.ptr_next_segm=(struct segm  *)SPQ.free_alloc_mem;
   SPQ.str_ptr=SPQ.ptr_next_segm->string;
   SPQ.st.cur_segm->next_in_fragm=SPQ.ptr_next_segm;
-  SPQ.free_alloc_mem=(CHAR  *)(SPQ.ptr_next_segm+1);
+  SPQ.free_alloc_mem=(char  *)(SPQ.ptr_next_segm+1);
   SPQ.ptr_next_segm->prev_in_fragm=
 	    SPQ.tab_ptr->tab_fragm[SPQ.cur_sheet][SPQ.cur_fragm].last_segm;
   if ((SPQ.sheet_flag[SPQ.cur_sheet] == EXIST) &&
@@ -451,7 +451,7 @@ INT do_fragm(void)
 /*
     This procedure gives address of first segment in current line.
 */
-struct segm  *cur_line(CHAR tt, struct segm * cur_segm)
+struct segm  *cur_line(char tt, struct segm * cur_segm)
  {
   if (tt == FRAGM)
    {                                   /* fragm */
@@ -529,11 +529,11 @@ void skip_letter_in_line(struct segm  *segm_ptr,INT x)
     SPQ.skip_line_x=0;
  }
 /*****************************************************/
-void move_from_near_to_huge(CHAR  *a, CHAR *b, INT l)
+void move_from_near_to_huge(char  *a, char *b, INT l)
 {
  while (l--) *a++=*b++;
 }
-void move_from_cur_to_new(struct segm  *cur_segm, CHAR  *cur_symb)
+void move_from_cur_to_new(struct segm  *cur_segm, char  *cur_symb)
 /*
     This procedure relocates string from current segm to new,
     as well as changes busy and string lengths & SPQ.free_alloc_mem
@@ -560,7 +560,7 @@ void move_from_cur_to_new(struct segm  *cur_segm, CHAR  *cur_symb)
    }
  }
  /*------------------------*/
-void shift(CHAR dir,INT v_s,struct segm *cur_segm,CHAR *cur_symb)
+void shift(char dir,INT v_s,struct segm *cur_segm,char *cur_symb)
 /*
     This procedure transfers text.
     dir - RIGHT/LEFT.
@@ -568,11 +568,11 @@ void shift(CHAR dir,INT v_s,struct segm *cur_segm,CHAR *cur_symb)
     cur_symb - address of cut.
 */
  {
-  CHAR  *c;
+  char  *c;
   /*INT l;*/
-  CHAR  *from;
-  CHAR  *to;
-  CHAR  *end;
+  char  *from;
+  char  *to;
+  char  *end;
 
   c=cur_symb;
   if (c == NULL)
@@ -584,7 +584,7 @@ void shift(CHAR dir,INT v_s,struct segm *cur_segm,CHAR *cur_symb)
    }
   if (dir == RIGHT)
    {
-    from=(CHAR  *)cur_segm;
+    from=(char  *)cur_segm;
     from+=sizeof(struct segm)+cur_segm->busy_lth-1;
     to=from+v_s;
     while (from >= cur_symb)
@@ -593,9 +593,9 @@ void shift(CHAR dir,INT v_s,struct segm *cur_segm,CHAR *cur_symb)
    }
   else
    {
-    end=(CHAR  *)cur_segm;
+    end=(char  *)cur_segm;
     end+=sizeof(struct segm)+cur_segm->busy_lth;
-    from=(CHAR  *)cur_symb;
+    from=(char  *)cur_symb;
     to=from-v_s;
     while (from < end)
       *to++=*from++;
@@ -637,7 +637,7 @@ void shift(CHAR dir,INT v_s,struct segm *cur_segm,CHAR *cur_symb)
   sNew->prev_in_sheet=prev_adr;
   sNew->string_lth=segm_size;
   sNew->busy_lth=0;
-  sNew->type=(CHAR)type;
+  sNew->type=(char)type;
   SPQ.new_segm=sNew;
   SPQ.free_alloc_mem += sizeof(struct segm)+segm_size;
   return(YES);
@@ -652,11 +652,11 @@ INT insert_symb(cur_segm, cur_symb,new_symb)
     cur_segm & cur_symb addresse ,that new symb'll be placed after it.
 */
  struct segm  *cur_segm;
- CHAR  * cur_symb;
+ char  * cur_symb;
  LT  *new_symb;
  {
   INT l;
-  CHAR shift_flag;
+  char shift_flag;
  LT  *new_symb1;
   INT flag_n;
   INT flag_b;
@@ -680,7 +680,7 @@ INT insert_symb(cur_segm, cur_symb,new_symb)
    flag_b=YES;
     create_segm(cur_segm,SIZE_NEW_SEGM,2);
     SPQ.ns_segm=SPQ.new_segm;
-    SPQ.ns_symb=(CHAR *)(SPQ.ns_segm->string);
+    SPQ.ns_symb=(char *)(SPQ.ns_segm->string);
     SPQ.ns_symb+=0;
     flag_n=YES;
     shift_flag=NO;
@@ -724,7 +724,7 @@ move_to_first( INT dir,BYTE let,INT num)
  num =YES means that we searches in all lines.
  */
 {
- /*CHAR  *symb;*/
+ /*char  *symb;*/
 /* INT rec;*/
  SPQ.E.miss=NO;
  if(dir== RIGHT)

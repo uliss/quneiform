@@ -85,13 +85,13 @@ typedef struct eltab
 
 struct res_recog
  {
- CHAR best_lets[NBBOX+1];      // best letters
- CHAR best_font[NBBOX+1];
+ char best_lets[NBBOX+1];      // best letters
+ char best_font[NBBOX+1];
  WORD ibest_cosinus[NBBOX+1];  // best cosinus
  WORD icurr_cosinus;
  BYTE curr_ltr;
  BYTE curr_font;
- CHAR n_rsn[NBBOX+1]; // number of letter from all same letters
+ char n_rsn[NBBOX+1]; // number of letter from all same letters
  };
 
 struct t_m_3_5
@@ -106,7 +106,7 @@ struct str_servBOX
  INT up_row,left_col;       // left upper corner coordinates
  INT math_row, math_col;    // same after deskewing
  INT rast_h,rast_w;         // height, width
- CHAR dens;                 // density in 1/8-ths
+ char dens;                 // density in 1/8-ths
  t_mBOX matrBOX;
  t_answer best_BOX[NBBOX+1];
  };
