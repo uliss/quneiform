@@ -76,12 +76,12 @@ typedef struct tagROW_STRUCT
 	int16_t rightLocMax;
 	int16_t ValRLM;
 	int16_t AltRLM;
-	Float32 rightCoeff;
+	float rightCoeff;
 
 	int16_t leftLocMax;
 	int16_t ValLLM;
 	int16_t AltLLM;
-	Float32 leftCoeff;
+	float leftCoeff;
 
 }	ROW_STRUCT;
 

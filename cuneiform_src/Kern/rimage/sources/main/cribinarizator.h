@@ -94,9 +94,9 @@ private:
 	uint32_t     mwGreenK;
 	uint32_t     mwRedK;
 	uint32_t     mwBlueK;
-	Float32    mfGreenK;
-	Float32    mfRedK;
-	Float32    mfBlueK;
+	float    mfGreenK;
+	float    mfRedK;
+	float    mfBlueK;
 
 public:
 	Bool32 Binarize(CTBinarize eBinType, uint32_t wFlag);

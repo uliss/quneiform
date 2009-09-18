@@ -82,9 +82,9 @@ CRIBinarizator::CRIBinarizator()
 	mpProgressor      = NULL;
     //mhszGreyBuffer
 	mbIndexColor      = FALSE;
-	mfBlueK  = ((Float32)(mwBlueK = 70)) / 255;
-	mfGreenK = ((Float32)(mwGreenK = 130)) / 255;
-	mfRedK   = ((Float32)(mwRedK = 220)) / 255;
+	mfBlueK  = ((float)(mwBlueK = 70)) / 255;
+	mfGreenK = ((float)(mwGreenK = 130)) / 255;
+	mfRedK   = ((float)(mwRedK = 220)) / 255;
 }
 
 CRIBinarizator::CRIBinarizator( PCRProgressor pProgressIndicator)
@@ -617,9 +617,9 @@ Bool32 CRIBinarizator::PrepareIndexTable(PCTDIB pDIB)
 //#include <math.h>
 Word8 CRIBinarizator::IndexPalleteToGray(PCTDIBRGBQUAD pQuad)
 {
-	Float32 b = ((Float32)(pQuad->rgbBlue) * 70 ) / 255;
-	Float32 g = ((Float32)(pQuad->rgbGreen) * 220 ) / 255;
-	Float32 r = ((Float32)(pQuad->rgbRed) * 130 ) / 255;
+	float b = ((float)(pQuad->rgbBlue) * 70 ) / 255;
+	float g = ((float)(pQuad->rgbGreen) * 220 ) / 255;
+	float r = ((float)(pQuad->rgbRed) * 130 ) / 255;
 
 	return (Word8)sqrt((((b * b) + (g * g) + (r * r)) / 70200 ) * 65025  );
 
