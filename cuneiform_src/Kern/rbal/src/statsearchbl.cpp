@@ -148,15 +148,15 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr,
 		//третья линия
 		p_attr->bs3 = row_str.globMax;
 		Ns3[0] = row_str.ValGM;
-		p_attr->Nb3 = (short)MIN(100,(Float32)100 * row_str.ValGM /
-																(Float32)(sz_Y2Arr * Pb3));
+		p_attr->Nb3 = (short)MIN(100,(float)100 * row_str.ValGM /
+																(float)(sz_Y2Arr * Pb3));
 		//четвертая линия
 		if(row_str.rightLocMax != -1)
 		{
 			p_attr->bs4 = row_str.rightLocMax;
 			Ns4[0] = row_str.ValRLM;
-			p_attr->Nb4 = (short)MIN(100, (Float32)100 * row_str.ValRLM /
-															(Float32)(sz_Y2Arr * Pb4));
+			p_attr->Nb4 = (short)MIN(100, (float)100 * row_str.ValRLM /
+															(float)(sz_Y2Arr * Pb4));
 		}
 		else
 		{
@@ -170,16 +170,16 @@ void stat_def_b3_b4(CSTR_line line, CSTR_attr *p_attr,
 		//четвертая линия
 		p_attr->bs4 = row_str.globMax;;
 		Ns4[0] = row_str.ValGM;
-		p_attr->Nb4 = (short)MIN(100,(Float32)100 * row_str.ValGM /
-																(Float32)(sz_Y2Arr * Pb4));
+		p_attr->Nb4 = (short)MIN(100,(float)100 * row_str.ValGM /
+																(float)(sz_Y2Arr * Pb4));
 
 		//третья линия
 		if(row_str.leftLocMax != -1)
 		{
 			p_attr->bs3 = row_str.leftLocMax;
 			Ns3[0] = row_str.ValLLM;
-			p_attr->Nb3 = (short)MIN(100,(Float32)100 * row_str.ValLLM /
-																(Float32)(sz_Y2Arr * Pb3));
+			p_attr->Nb3 = (short)MIN(100,(float)100 * row_str.ValLLM /
+																(float)(sz_Y2Arr * Pb3));
 		}
 		else
 		{
@@ -468,7 +468,7 @@ Int16 stat_control_b3_by_recog(CSTR_line line, Int16 ln_row, ROW_STRUCT *row_str
 
 				if(iWl > 0)
 				{
-					if((Float32)iNl / (Float32)iWl <= 2) flg = FALSE;
+					if((float)iNl / (float)iWl <= 2) flg = FALSE;
 				}
 
 				if(flg)
@@ -1292,7 +1292,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 
 	//пропорции (b2-b1)/(b3-b2)
 	if(diff_leftLocMax_GlobMax != -1 && diff_b3_GlobMax != 0)
-		row_str.leftCoeff = (Float32) diff_leftLocMax_GlobMax / diff_b3_GlobMax;
+		row_str.leftCoeff = (float) diff_leftLocMax_GlobMax / diff_b3_GlobMax;
 
 	if(row_str.leftCoeff != -1 && row_str.leftCoeff < 0.15)
 	{
@@ -1318,7 +1318,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 
 	//пропорции (b2-b1)/(b3-b2)
 	if(diff_GlobMax_rightLocMax != -1 && diff_b3_GlobMax - diff_GlobMax_rightLocMax != 0)
-		row_str.rightCoeff = (Float32)
+		row_str.rightCoeff = (float)
 				diff_GlobMax_rightLocMax / (diff_b3_GlobMax - diff_GlobMax_rightLocMax);
 
 	if(row_str.rightCoeff != -1 && row_str.rightCoeff < 0.2)
@@ -1330,7 +1330,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 	}
 /*	if(coeff > 1)
 	{
-		coeff = (Float32)0.2;
+		coeff = (float)0.2;
 		mode_diff_b2_b1 = (Int16) coeff * diff_b3_bsl;
 	}
 */
@@ -1345,7 +1345,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 			case 1:	p_attr->bs1 = row_str.globMax;
  					Ns1[0] = row_str.ValGM;
 					p_attr->Nb1 = (Int16)MIN(100,
-									(Float32)100 * row_str.ValGM/(Float32)(sz_Y1Arr * Pb1));
+									(float)100 * row_str.ValGM/(float)(sz_Y1Arr * Pb1));
 
 					if(row_str.ValRLM != -1 &&
 						0.2 <= row_str.rightCoeff && row_str.rightCoeff <= 1)
@@ -1353,7 +1353,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 						p_attr->bs2 = row_str.rightLocMax;
 						Ns2[0] = row_str.ValRLM;
 						p_attr->Nb2 = (Int16)MIN(100,
-								   (Float32)100 * row_str.ValRLM/(Float32)(sz_Y1Arr * Pb2));
+								   (float)100 * row_str.ValRLM/(float)(sz_Y1Arr * Pb2));
 					}
 					else
 					{
@@ -1366,7 +1366,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 			default:p_attr->bs2 = row_str.globMax;
  					Ns2[0] = row_str.ValGM;
 					p_attr->Nb2 = (Int16)MIN(100,
-									(Float32)100 * row_str.ValGM/(Float32)(sz_Y1Arr * Pb2));
+									(float)100 * row_str.ValGM/(float)(sz_Y1Arr * Pb2));
 
 					if(row_str.ValLLM != -1 &&
 						0.2 <= row_str.leftCoeff && row_str.leftCoeff <= 1)
@@ -1374,7 +1374,7 @@ void stat_def_b1_b2(CSTR_line line, CSTR_attr *p_attr, Int16 *p_Y1Arr,
 						p_attr->bs1 = row_str.leftLocMax;
 						Ns1[0] = row_str.ValLLM;
 						p_attr->Nb1 = (Int16)MIN(100,
-								   (Float32)100 * row_str.ValLLM/(Float32)(sz_Y1Arr * Pb1));
+								   (float)100 * row_str.ValLLM/(float)(sz_Y1Arr * Pb1));
 					}
 					else
 					{
@@ -1613,7 +1613,7 @@ void stat_def_imaginary_bl(CSTR_attr *p_attr, Int16 *Ns1, Int16 *Ns2, Int16 *Ns4
 		if(mode_diff_b2_b1 != -1)
 		{
 			Int16 bs1 = p_attr->bs2 - mode_diff_b2_b1;
-			//(Float32)(p_attr->bs2 - mode_diff_b2_b1)/(Float32)(p_attr->bs3 - p_attr->bs2)
+			//(float)(p_attr->bs2 - mode_diff_b2_b1)/(float)(p_attr->bs3 - p_attr->bs2)
 			p_attr->bs1 = bs1 != -1 ? bs1 : 0;
 		}
 		else
@@ -1638,10 +1638,10 @@ void stat_def_imaginary_bl(CSTR_attr *p_attr, Int16 *Ns1, Int16 *Ns2, Int16 *Ns4
 
 	if(p_attr->bs4 != -1 && p_attr->bs2 != -1)
 	{
-		Float32 coeff = 0;
+		float coeff = 0;
 		Int16 diff_b3_b2 = p_attr->bs3 - p_attr->bs2;
 		if(diff_b3_b2 != 0)
-			coeff = (Float32)(p_attr->bs4 - p_attr->bs3) / (Float32) (diff_b3_b2);
+			coeff = (float)(p_attr->bs4 - p_attr->bs3) / (float) (diff_b3_b2);
 		if(coeff < 0.2)
 			p_attr->bs4 = (short)(p_attr->bs3 + 0.4 * (p_attr->bs3 - p_attr->bs2));
 	}

@@ -94,9 +94,9 @@ private:
 	Word32     mwGreenK;
 	Word32     mwRedK;
 	Word32     mwBlueK;
-	Float32    mfGreenK;
-	Float32    mfRedK;
-	Float32    mfBlueK;
+	float    mfGreenK;
+	float    mfRedK;
+	float    mfBlueK;
 
 public:
 	Bool32 Binarize(CTBinarize eBinType, Word32 wFlag);

@@ -212,9 +212,9 @@ void   Get_all_term_fragms1( KNOTT* ptr,Int16* Colt,Int16* iv,Int16 NumCol,FRAME
 Int16  term_col_seriated(Int16* term_ind,Int16 Count_Term_Col,Int16* K_Ver_Flag_Term);
 Int16  OrderingAndRecalcCol(Int16 Nsector,Int16 Ncol,Int16 H0,Int16 L0,Int16 *W_P,Int16 *H_P,
 																											Int16 dist_col,KNOTT *pRoot,FRAME **frm,
-																											Float32 Max_koof_for_width,Float32 Max_koof_for_height);
+																											float Max_koof_for_width,float Max_koof_for_height);
 Int16  RecalcRect(Int16 L,Int16 H,Int16 *w,Int16 *h,KNOTT *ptrc,FRAME **frm,
-        								 Float32 Max_koof_for_width,Float32 Max_koof_for_height);
+        								 float Max_koof_for_width,float Max_koof_for_height);
 Int16 GetOffsetVerticalCell(Int16 L,Int16 H,Int16 *w,Int16 *h,KNOTT *ptrc,FRAME **frm);
 void RtfUnionRect_CRect_SRect(tagRECT *s1,SRECT *s2);
 void RtfUnionRect_CRect_CRect(tagRECT *s1,tagRECT *s2);

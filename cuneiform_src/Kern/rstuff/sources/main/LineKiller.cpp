@@ -501,7 +501,7 @@ Bool32 ChekComponentAndLine(LineInfo *Line, Rect16 *Rect, Word32 KillZone)
 
 	if ( ! bRet )
 	{
-		Float32 temp = (Float32)(Line->A.x - Line->B.x) / (Float32)(Line->A.y - Line->B.y);
+		float temp = (float)(Line->A.x - Line->B.x) / (float)(Line->A.y - Line->B.y);
 		int32_t iTemp;
 		Word32 SecondHand = 1;
 
@@ -574,8 +574,8 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 {
 	Bool32 bRet = FALSE;
 
-	Float32 temp;
-	Float32 Halfs = 1.0;
+	float temp;
+	float Halfs = 1.0;
 	int32_t LineType;
 	Rect32 S;
 	Word32 SRect;
@@ -598,7 +598,7 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 			LineType = -1;
 		else
 		{
-			temp = (Float32)(Line->A.x - Line->B.x) / (Float32)(Line->A.y - Line->B.y);
+			temp = (float)(Line->A.x - Line->B.x) / (float)(Line->A.y - Line->B.y);
 			LineType = (temp > -1) && (temp < 1 ) ? -1 : 1;
 		}
 
@@ -641,8 +641,8 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 			S.right  = S.left; //End Almi
 
 
-		S.bottom = S.top = B0 - (int32_t)( ( (Float32)Bs / (Float32)As ) * (Float32)(A0 - S.left) );
-		iTemp = B0 - (int32_t)( ( (Float32)Bs / (Float32)As ) * (Float32)(A0 - S.right) );
+		S.bottom = S.top = B0 - (int32_t)( ( (float)Bs / (float)As ) * (float)(A0 - S.left) );
+		iTemp = B0 - (int32_t)( ( (float)Bs / (float)As ) * (float)(A0 - S.right) );
 
 		S.top = S.top < iTemp ? S.top - Thick : iTemp - Thick;
 		S.bottom = S.bottom > iTemp ? S.bottom + Thick : iTemp + Thick;
@@ -656,7 +656,7 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 		if ( !(Rect->top <= S.bottom && Rect->bottom >= S.bottom) )
 		{
 			S.bottom = Rect->bottom;
-			Halfs = (Float32)(Halfs < 1.0 ? 0 : 0.5);
+			Halfs = (float)(Halfs < 1.0 ? 0 : 0.5);
 		}*/ //Всё неправильно! Almi 01.12.00
 		if (S.top <= Rect->top)
 			S.top = Rect->top;
@@ -675,14 +675,14 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 		SLine = 1 + (iTemp < 0 ? -iTemp : iTemp);
 		iTemp = S.right - S.left;
 		SLine *= 1 + (iTemp < 0 ? -iTemp : iTemp);
-/*		iTemp = (int32_t)(Halfs * (Float32)iTemp / temp);
+/*		iTemp = (int32_t)(Halfs * (float)iTemp / temp);
 		SLine -= iTemp < 0 ? -iTemp : iTemp;*/
 
 		// отношение
 		if ( SLine != 0 )
 		{
-			temp = (Float32) SLine / (Float32) SRect;
-			temp *= (Float32)255;
+			temp = (float) SLine / (float) SRect;
+			temp *= (float)255;
 
 			if ( (Word32)temp >= Rate )
 				bRet = TRUE;
@@ -724,8 +724,8 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 		if (S.bottom <= S.top)
 			S.bottom  = S.top; //End Almi
 
-		S.left = S.right = A0 - (int32_t)( ( (Float32)As / (Float32)Bs ) * (Float32)(B0 - S.top) );
-		iTemp = A0 - (int32_t)( ( (Float32)As / (Float32)Bs ) * (Float32)(B0 - S.bottom) );
+		S.left = S.right = A0 - (int32_t)( ( (float)As / (float)Bs ) * (float)(B0 - S.top) );
+		iTemp = A0 - (int32_t)( ( (float)As / (float)Bs ) * (float)(B0 - S.bottom) );
 
 		S.left = S.left < iTemp ? S.left - Thick : iTemp - Thick;
 		S.right = S.right > iTemp ? S.right + Thick : iTemp + Thick;
@@ -739,7 +739,7 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 		if ( !(Rect->left <= S.right && Rect->right >= S.right) )
 		{
 			S.right = Rect->right;
-			Halfs = (Float32)(Halfs < 1.0 ? 0 : 0.5);
+			Halfs = (float)(Halfs < 1.0 ? 0 : 0.5);
 		}*/ //Всё неправильно! Almi 01.12.00
 		if (S.left <= Rect->left)
 			S.left = Rect->left;
@@ -758,14 +758,14 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, Word32 KillZone, Word32 Rate)
 		SLine = 1 + iTemp < 0 ? -iTemp : iTemp;
 		iTemp = 1 + S.bottom - S.top;
 		SLine *= iTemp < 0 ? -iTemp : iTemp;
-/*		iTemp = (int32_t)(Halfs * (Float32)iTemp / temp);
+/*		iTemp = (int32_t)(Halfs * (float)iTemp / temp);
 		SLine -= iTemp < 0 ? -iTemp : iTemp;*/ //Almi
 
 		// отношение
 		if ( SLine != 0 )
 		{
-			temp = (Float32) SLine / (Float32) SRect;
-			temp *= (Float32)255;
+			temp = (float) SLine / (float) SRect;
+			temp *= (float)255;
 
 			if ( (Word32)temp >= Rate )
 				bRet = TRUE;
