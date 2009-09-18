@@ -73,7 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "fonrec.h"
 
 WORD cmp(PBYTE r,WORD fullwb,WORD w,WORD h,welet * wl);
-SINT RazmazHalf(BYTE *bSource,BYTE *bDest,SINT xbit,SINT yrow);
+int16_t RazmazHalf(BYTE *bSource,BYTE *bDest,int16_t xbit,int16_t yrow);
 
 static int LookLeft(int *startRow,int yrow,int bits,int height,
 					int *outHeight);
@@ -292,11 +292,11 @@ int lastColumn;
 static int DistWeletRazmazBound(PBYTE r,int fullByte,int  w,int  h,welet * wl,
 					 int  xo,int  yo, int porog,int *bou)
 {
-SINT ww=wl->w, hh=wl->h;
+int16_t ww=wl->w, hh=wl->h;
 char * curr;
-SINT i,j;
+int16_t i,j;
 BYTE  cbyte,cc;
-SINT rbyte;
+int16_t rbyte;
 int dist;
 int startx; // =(WR_MAX_WIDTH-w)/2;
 int starty=(WR_MAX_HEIGHT-h)/2;
@@ -586,8 +586,8 @@ static int FindBestClustersBound(int w,int h,BYTE *buf,BYTE *bufrazmaz,
 			  int *leftStart,
 			  int col, int row, int nInCTB,int countRazmaz)
 {
- SINT i;
- SINT dist;
+ int16_t i;
+ int16_t dist;
  int num=0;
  int xbyte=(w+7)>>3;
  int xbyteRazmaz=(w+9)>>3;
@@ -695,8 +695,8 @@ static BYTE bufrazmaz[2*REC_MAX_RASTER_SIZE];
 static int StartInRow[WR_MAX_HEIGHT];
 
 // bounds - massiv yyrow*maxNames
-SINT RecogCluBound(BYTE *rast,SINT xbyte,SINT xbit,SINT yyrow,BYTE *names,
-			 BYTE *probs,SINT maxNames,welet *wl,int numWel,
+int16_t RecogCluBound(BYTE *rast,int16_t xbyte,int16_t xbit,int16_t yyrow,BYTE *names,
+			 BYTE *probs,int16_t maxNames,welet *wl,int numWel,
 			 int *bounds, int countRazmaz)
 {
  int i,numAlt;
@@ -720,8 +720,8 @@ SINT RecogCluBound(BYTE *rast,SINT xbyte,SINT xbit,SINT yyrow,BYTE *names,
 // if( xbit < POROG_HALF_WIDTH && yrow < POROG_HALF_HEIGHT )
 //   RazmazHalf(buf,bufrazmaz,xbit,yrow);
 
-  Razmaz2(buf,bufrazmaz,xbit,(SINT)yrow,0,
-          (SINT)POROG_ANGLES);
+  Razmaz2(buf,bufrazmaz,xbit,(int16_t)yrow,0,
+          (int16_t)POROG_ANGLES);
    //  - threshold add angles
 
   // left bound
@@ -1088,8 +1088,8 @@ static int FindFirstClusterPorog(int w,int h,
 			  int porog, int *outBou ,int *outDist,
 			  int *yFir,int *yHei)
 {
- SINT i,j;
- SINT dist;
+ int16_t i,j;
+ int16_t dist;
  int xbyte=(w+7)>>3;
  int xbyteRazmaz=(w+9)>>3;
  int yStart,yHeight;
@@ -1303,8 +1303,8 @@ int  heiY;
  if( yrow > WR_MAX_HEIGHT-2)
         yrow = WR_MAX_HEIGHT-2;
 
-// SINT RecogCluBound(BYTE *rast,SINT xbyte,SINT xbit,SINT yyrow,BYTE *names,
-//			 BYTE *probs,SINT maxNames,welet *wl,int numWel,
+// int16_t RecogCluBound(BYTE *rast,int16_t xbyte,int16_t xbit,int16_t yyrow,BYTE *names,
+//			 BYTE *probs,int16_t maxNames,welet *wl,int numWel,
 //			 int *bounds);
 
  TekInStack=0;
@@ -1322,8 +1322,8 @@ int  heiY;
 	 if(  startX + POROG_STOP < xbit)
 	 {
 
-         Razmaz2(buf,bufrazmaz,(SINT)(outBit),(SINT)yrow,
-			 (SINT)0,(SINT)POROG_ANGLES);
+         Razmaz2(buf,bufrazmaz,(int16_t)(outBit),(int16_t)yrow,
+			 (int16_t)0,(int16_t)POROG_ANGLES);
 
  // left bound
          FillLeft(buf,outByte,yrow,outByte<<3,StartInRow);
@@ -1802,8 +1802,8 @@ FON_FUNC(int) FONRecogGlue(CSTR_rast firLeo,CSTR_rast lasLeo,
 	 if(  startX + POROG_STOP < xbit)
 	 {
 
-         Razmaz2(buf,bufrazmaz,(SINT)(outBit),(SINT)yrow,
-			 (SINT)0,(SINT)POROG_ANGLES);
+         Razmaz2(buf,bufrazmaz,(int16_t)(outBit),(int16_t)yrow,
+			 (int16_t)0,(int16_t)POROG_ANGLES);
 
  // left bound
          FillLeft(buf,outByte,yrow,outByte<<3,StartInRow);
@@ -1920,8 +1920,8 @@ FON_FUNC(int32_t) FONRecog2Glue(CSTR_rast firLeo,CSTR_rast lasLeo,
 					  buf,&outBit,NULL);
  outByte = (outBit+7)>>3;
 
- Razmaz2(buf,bufrazmaz,(SINT)(outBit),(SINT)yrow,
-			 (SINT)0,(SINT)POROG_ANGLES);
+ Razmaz2(buf,bufrazmaz,(int16_t)(outBit),(int16_t)yrow,
+			 (int16_t)0,(int16_t)POROG_ANGLES);
 
  FillLeft(buf,outByte,yrow,outByte<<3,StartInRow);
 

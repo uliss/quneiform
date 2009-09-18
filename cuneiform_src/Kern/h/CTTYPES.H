@@ -178,8 +178,6 @@ typedef const char* LPCTSTR;
 typedef unsigned char BYTE;
 typedef unsigned char * PBYTE;
 
-typedef int16_t SINT;
-
 typedef uint32_t * PDWORD;
 
 typedef int16_t _INT;
@@ -191,7 +189,6 @@ typedef WORD * PWORD;
 typedef BYTE* LPBYTE;
 typedef uint32_t * LPDWORD;
 typedef Bool* LPBool;
-typedef int* Lpint;
 
 #define PSTR  char *
 

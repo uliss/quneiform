@@ -68,15 +68,15 @@ extern int Num11[256];
 /**************************************/
 //
 //  Всюду считаем - размер картинки влазит
-//  в MAXSINT !
+//  в MAXint16_t !
 //  Черная точка == 1  !!!
 //
-SINT MoveUpDownBitmap(BYTE *bSource,SINT xbyte,SINT yrow,BYTE *bDest)
+int16_t MoveUpDownBitmap(BYTE *bSource,int16_t xbyte,int16_t yrow,BYTE *bDest)
 {
- register SINT i;
+ register int16_t i;
  BYTE *b1;
  BYTE *b2;
- SINT size=xbyte*yrow;
+ int16_t size=xbyte*yrow;
 
 	 // размажем вниз
  b2=bDest+xbyte;
@@ -92,9 +92,9 @@ SINT MoveUpDownBitmap(BYTE *bSource,SINT xbyte,SINT yrow,BYTE *bDest)
  return 0;
 }
 /***********************/
-SINT MoveLeftRightBitmap(BYTE *bSource,SINT xbyte,SINT yrow)
+int16_t MoveLeftRightBitmap(BYTE *bSource,int16_t xbyte,int16_t yrow)
 {
- register SINT i,j;
+ register int16_t i,j;
  BYTE stay,stay1;
  BYTE stay2;
  BYTE *b1;
@@ -122,7 +122,7 @@ SINT MoveLeftRightBitmap(BYTE *bSource,SINT xbyte,SINT yrow)
 /***********************/
 static BYTE const maska[8]={0,128,192,224,240,248,252,254};
 
-static Bool VeryFat(BYTE *bSource,SINT xbit,SINT yrow,SINT xbyte)
+static Bool VeryFat(BYTE *bSource,int16_t xbit,int16_t yrow,int16_t xbyte)
 {
  int i=(int)xbyte*yrow,summa;
 
@@ -131,9 +131,9 @@ static Bool VeryFat(BYTE *bSource,SINT xbit,SINT yrow,SINT xbyte)
  return FALSE;
 }
 //////////////////////
-SINT Razmaz(BYTE *bSource,BYTE *bDest,SINT xbyte,SINT xbit,SINT yrow,BYTE fat)
+int16_t Razmaz(BYTE *bSource,BYTE *bDest,int16_t xbyte,int16_t xbit,int16_t yrow,BYTE fat)
 {
- SINT i,j;
+ int16_t i,j;
  BYTE   mas;
  BYTE *b1;
 
@@ -177,7 +177,7 @@ SINT Razmaz(BYTE *bSource,BYTE *bDest,SINT xbyte,SINT xbit,SINT yrow,BYTE fat)
   //  вверх-вниз
  MoveUpDownBitmap(bSource,xbyte,yrow,bDest);
   // и вправо-влево
- MoveLeftRightBitmap(bDest,xbyte,(SINT)(yrow+1));
+ MoveLeftRightBitmap(bDest,xbyte,(int16_t)(yrow+1));
 #ifdef _SPECSMALL_
  }
 #endif
@@ -192,16 +192,16 @@ SINT Razmaz(BYTE *bSource,BYTE *bDest,SINT xbyte,SINT xbit,SINT yrow,BYTE fat)
 /**************************************/
 //
 //  Всюду считаем - размер картинки влазит
-//  в MAXSINT !
+//  в MAXint16_t !
 //  Черная точка == 1  !!!
 //
 static BYTE tmpbuf[(WR_MAX_WIDTH>>3)*WR_MAX_HEIGHT];
-SINT MoveUpDownBitmap2(SINT xbyte,SINT yrow,BYTE *bDest)
+int16_t MoveUpDownBitmap2(int16_t xbyte,int16_t yrow,BYTE *bDest)
 {
- SINT i;
+ int16_t i;
  BYTE *b1;
  BYTE *b2;
- SINT size=xbyte*yrow;
+ int16_t size=xbyte*yrow;
  BYTE *bSource=tmpbuf;
 
 
@@ -220,14 +220,14 @@ SINT MoveUpDownBitmap2(SINT xbyte,SINT yrow,BYTE *bDest)
  return 0;
 }
 /////////////////////
-static SINT MoveUpDownNoAngle(BYTE *bSource,SINT xbyte1,
-					  SINT xbyte2,SINT yrow,BYTE *bDest)
+static int16_t MoveUpDownNoAngle(BYTE *bSource,int16_t xbyte1,
+					  int16_t xbyte2,int16_t yrow,BYTE *bDest)
 {
- SINT i,j;
+ int16_t i,j;
  BYTE *b1;
  BYTE *b2;
  BYTE stay;
- SINT xbyte=MIN(xbyte1,xbyte2);
+ int16_t xbyte=MIN(xbyte1,xbyte2);
 
 	 // размажем вниз
  b2=bDest;
@@ -252,9 +252,9 @@ static SINT MoveUpDownNoAngle(BYTE *bSource,SINT xbyte1,
 }
 /***********************/
 // bSource - wide picture ! (if xbits in real picture xbits+2 in razmaz!)
-static SINT MoveLeftRightBitmap2(BYTE *bSource,SINT xbyte,SINT yrow)
+static int16_t MoveLeftRightBitmap2(BYTE *bSource,int16_t xbyte,int16_t yrow)
 {
- SINT i,j;
+ int16_t i,j;
  BYTE stay,stay1;
  BYTE *b1;
 
@@ -276,13 +276,13 @@ static SINT MoveLeftRightBitmap2(BYTE *bSource,SINT xbyte,SINT yrow)
  return 0;
 }
 /***********************/
-SINT Razmaz2(BYTE *bSource,BYTE *bDest,SINT xbit,SINT yrow,SINT porogX,SINT porogY)
+int16_t Razmaz2(BYTE *bSource,BYTE *bDest,int16_t xbit,int16_t yrow,int16_t porogX,int16_t porogY)
 {
- register SINT i,j;
+ register int16_t i,j;
  BYTE   mas;
  BYTE *b1,*b2;
- SINT  xbyte=(xbit+7)>>3;   // bytes in row bSource
- SINT  xbyte2=(xbit+9)>>3;  // bytes in row bDest
+ int16_t  xbyte=(xbit+7)>>3;   // bytes in row bSource
+ int16_t  xbyte2=(xbit+9)>>3;  // bytes in row bDest
 
   //  обнулим  хвост в источнике - вдруг не был пустым?
  j=xbit&7;
@@ -324,14 +324,14 @@ SINT Razmaz2(BYTE *bSource,BYTE *bDest,SINT xbit,SINT yrow,SINT porogX,SINT poro
 }
 //////////////////////////
 /***********************/
-SINT Razmaz2xByte(BYTE *bSource,BYTE *bDest,SINT xbyteAll,SINT xbit,SINT yrow,
-				 SINT porogX,SINT porogY)
+int16_t Razmaz2xByte(BYTE *bSource,BYTE *bDest,int16_t xbyteAll,int16_t xbit,int16_t yrow,
+				 int16_t porogX,int16_t porogY)
 {
- register SINT i,j;
+ register int16_t i,j;
  BYTE   mas;
  BYTE *b1,*b2;
- SINT  xbyte=(xbit+7)>>3;   // actual bytes in row bSource
- SINT  xbyte2=(xbit+9)>>3;  // bytes in row bDest
+ int16_t  xbyte=(xbit+7)>>3;   // actual bytes in row bSource
+ int16_t  xbyte2=(xbit+9)>>3;  // bytes in row bDest
 
   //  обнулим  хвост в источнике - вдруг не был пустым?
  j=xbit&7;
@@ -375,9 +375,9 @@ SINT Razmaz2xByte(BYTE *bSource,BYTE *bDest,SINT xbyteAll,SINT xbit,SINT yrow,
 //
 // move right+down on 1 pixel
 //
-static void MoveDownBitmap(BYTE *bSource,SINT xbyte,SINT yrow,BYTE *bDest,SINT xbyte2)
+static void MoveDownBitmap(BYTE *bSource,int16_t xbyte,int16_t yrow,BYTE *bDest,int16_t xbyte2)
 {
- SINT i;
+ int16_t i;
  BYTE *b1;
  BYTE *b2;
 
@@ -390,9 +390,9 @@ static void MoveDownBitmap(BYTE *bSource,SINT xbyte,SINT yrow,BYTE *bDest,SINT x
  return;
 }
 /***********************/
-static void MoveRightBitmap(BYTE *b1,SINT xbyte,SINT yrow)
+static void MoveRightBitmap(BYTE *b1,int16_t xbyte,int16_t yrow)
 {
- SINT j;
+ int16_t j;
  BYTE stay1;
  BYTE stay2;
 
@@ -409,13 +409,13 @@ static void MoveRightBitmap(BYTE *b1,SINT xbyte,SINT yrow)
  return ;
 }
 /***********************/
-SINT RazmazHalf(BYTE *bSource,BYTE *bDest,SINT xbit,SINT yrow)
+int16_t RazmazHalf(BYTE *bSource,BYTE *bDest,int16_t xbit,int16_t yrow)
 {
- SINT i,j;
+ int16_t i,j;
  BYTE   mas;
  BYTE *b1,*b2;
- SINT xbyte=(xbit+7)>>3;
- SINT xbyte2=(xbit>>3)+1;
+ int16_t xbyte=(xbit+7)>>3;
+ int16_t xbyte2=(xbit>>3)+1;
 
  j=xbit&7;
  if( j != 0 )
@@ -447,17 +447,17 @@ SINT RazmazHalf(BYTE *bSource,BYTE *bDest,SINT xbit,SINT yrow)
 //////////////////////
 // distance from bitmap to raster
 // dist1 = minimal distance not used as invalid  (-summa/fill)
-SINT DistBitRas(PBYTE r,SINT w,SINT h,     // b/w bitmap
-		 char * wr,SINT ww,SINT wh,char dist1,  // grey raster
-		 SINT xo,SINT yo,SINT bdist)
+int16_t DistBitRas(PBYTE r,int16_t w,int16_t h,     // b/w bitmap
+		 char * wr,int16_t ww,int16_t wh,char dist1,  // grey raster
+		 int16_t xo,int16_t yo,int16_t bdist)
 {
 char * curr;
-SINT i,j;
+int16_t i,j;
 BYTE  cbyte,cc;
-SINT rbyte;
-SINT dist;
-SINT stx,sty,startx,starty;
-SINT lastx,lasty;
+int16_t rbyte;
+int16_t dist;
+int16_t stx,sty,startx,starty;
+int16_t lastx,lasty;
 PBYTE rr;
 
  startx=(WR_MAX_WIDTH-w)/2;  // start b/w
@@ -522,17 +522,17 @@ PBYTE rr;
 //
 // for razmaz   -  ищем точки, которые вылазят в wel
 //
-SINT DistRasBit(PBYTE r,SINT w,SINT h,     // b/w bitmap
-		 char * wr,SINT ww,SINT wh,char wei,  // grey raster
-		 SINT xo,SINT yo,SINT bdist)
+int16_t DistRasBit(PBYTE r,int16_t w,int16_t h,     // b/w bitmap
+		 char * wr,int16_t ww,int16_t wh,char wei,  // grey raster
+		 int16_t xo,int16_t yo,int16_t bdist)
 {
 char * curr;
-SINT i,j;
+int16_t i,j;
 BYTE  cbyte,cc,initCC;
-SINT rbyte;
-SINT dist;
-SINT stx,sty,startx,starty;
-SINT lastx,lasty;
+int16_t rbyte;
+int16_t dist;
+int16_t stx,sty,startx,starty;
+int16_t lastx,lasty;
 PBYTE rr;
 
  startx=(WR_MAX_WIDTH-w)/2;
@@ -601,19 +601,19 @@ PBYTE rr;
 // return  % weighted > porog
 //  (fill*100) /(sx*sy)
 //
-static SINT CountFill(welet *wel,SINT porog)
+static int16_t CountFill(welet *wel,int16_t porog)
 {
- SINT i,j;
+ int16_t i,j;
  char *rr;
- SINT sx=wel->w;
- SINT sy=wel->h;
- SINT fx=sx;  // first x
- SINT lx=0;   // last  x
- SINT fy=sy;  // first y
- SINT ly=0;   // last  y
- SINT summa;  // how many weighted points > porog
- SINT startx=(WR_MAX_WIDTH-wel->w)/2;
- SINT starty=(WR_MAX_HEIGHT-wel->h)/2;
+ int16_t sx=wel->w;
+ int16_t sy=wel->h;
+ int16_t fx=sx;  // first x
+ int16_t lx=0;   // last  x
+ int16_t fy=sy;  // first y
+ int16_t ly=0;   // last  y
+ int16_t summa;  // how many weighted points > porog
+ int16_t startx=(WR_MAX_WIDTH-wel->w)/2;
+ int16_t starty=(WR_MAX_HEIGHT-wel->h)/2;
 
   rr=wel->raster+starty*WR_MAX_WIDTH+startx;
 
@@ -635,11 +635,11 @@ static SINT CountFill(welet *wel,SINT porog)
   return ( (summa*100l)/ ((long)(lx-fx+1)*(ly-fy+1)) );
 }
 /////////////////
-SINT TestFat(welet *wel,SINT porog,SINT porog_fat)
+int16_t TestFat(welet *wel,int16_t porog,int16_t porog_fat)
 {
-SINT i;
-//SINT last=wel->weight/3;
-SINT last=wel->weight-1;
+int16_t i;
+//int16_t last=wel->weight/3;
+int16_t last=wel->weight-1;
 
 /*  if( wel->weight == 2)
   {

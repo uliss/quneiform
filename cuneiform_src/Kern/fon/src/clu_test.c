@@ -120,8 +120,8 @@ int32_t GetNearestClusters (int num, welet *wel,int numWel ,
 	xbit=recRast.lnPixWidth;
 	bytesx=((xbit+63)/64)*8;
 
-    ret=RecogClu(recRast.Raster,(SINT)bytesx,(SINT)xbit,(SINT)recRast.lnPixHeight,
-	  recres,(SINT)REC_MAX_VERS, wel,numWel,-1, 0,-1024,-1024, 1 );
+    ret=RecogClu(recRast.Raster,(int16_t)bytesx,(int16_t)xbit,(int16_t)recRast.lnPixHeight,
+	  recres,(int16_t)REC_MAX_VERS, wel,numWel,-1, 0,-1024,-1024, 1 );
 
     if(ret <= 0) return 0;
 
@@ -250,8 +250,8 @@ int   ylast=MIN(h,yrow2-ymove-1);
 //
 extern welet *welBuf;
 int TestMoveRaster(int start,Nraster_header *rh,int NumAll,
-				   int NumClus, SINT *nClus,
-				   SINT  *LasIn, SINT *NumIn,
+				   int NumClus, int16_t *nClus,
+				   int16_t  *LasIn, int16_t *NumIn,
 				   int porog)
 {
  BYTE *tmpbuf=(BYTE *)welBuf;
@@ -322,8 +322,8 @@ int TestMoveRaster(int start,Nraster_header *rh,int NumAll,
     for(k=0;k<NumAll;k++)
 	  if(nClus[k]>j) nClus[k]--;
     NumClus--;
-    memcpy(LasIn+j,LasIn+j+1,(NumClus-j)*sizeof(SINT));
-    memcpy(NumIn+j,NumIn+j+1,(NumClus-j)*sizeof(SINT));
+    memcpy(LasIn+j,LasIn+j+1,(NumClus-j)*sizeof(int16_t));
+    memcpy(NumIn+j,NumIn+j+1,(NumClus-j)*sizeof(int16_t));
 	if(LasIn[nClus[start]] < i)
 		LasIn[nClus[start]] = i;
 	numAdded++;
@@ -334,7 +334,7 @@ int TestMoveRaster(int start,Nraster_header *rh,int NumAll,
 }
 ///////////////
 int TestFromGoodRaster(int start,Nraster_header *rh,int NumAll,
-				   int NumClus, SINT *nClus,
+				   int NumClus, int16_t *nClus,
 				   InfoCluster *infoC,
 				   int porog)
 {
@@ -413,7 +413,7 @@ static const char twinLet2[] ="l!!\xAB";
 ////////////////
 static int TestSymbolGood(  Nraster_header *rh,
 					 int start,int NumAll,
-					 int porog,  SINT *nClus,
+					 int porog,  int16_t *nClus,
 					 BYTE *metkaGood,BYTE *metkaValid,int nCompare
 					 )
 {
@@ -503,7 +503,7 @@ static int TestSymbolGood(  Nraster_header *rh,
 ///////////////
 int TestClusterGood(  Nraster_header *rh,
 					 int testClus,int start,int inCluster,
-					 int NumAll, int porog,  SINT *nClus,
+					 int NumAll, int porog,  int16_t *nClus,
 					 BYTE *metkaGood,BYTE *metkaValid,
 					 int nCompare
 					 )
@@ -1028,7 +1028,7 @@ int AnalyzeTablColumn(welet *wel,int numWelet,int column)
 ////////////
 int TectTablColumn(InfoCluster *infoCluster,int numCluster,int i,
 				   Nraster_header *rh,int numAll,
-				   SINT *nClus)
+				   int16_t *nClus)
 {
 	int j,k;
 
