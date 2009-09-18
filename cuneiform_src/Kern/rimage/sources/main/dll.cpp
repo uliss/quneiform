@@ -70,8 +70,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-static Word16            gwHeightRC = 0;
-static Word16            gwLowRC = 0;
+static uint16_t            gwHeightRC = 0;
+static uint16_t            gwLowRC = 0;
 static Handle            ghStorage = NULL;
 static Handle            ghInst =  NULL;
 CRIControl *      Control_cri = NULL;
@@ -99,7 +99,7 @@ BOOL APIENTRY DllMain( HINSTANCE hModule,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_Init(Word16 wHeightCode,Handle hStorage)
+RIMAGE_FUNC(Bool32) RIMAGE_Init(uint16_t wHeightCode,Handle hStorage)
 {
 
 	if ( !Control_cri )
@@ -170,7 +170,7 @@ RIMAGE_FUNC(uint32_t) RIMAGE_GetReturnCode()
 //
 RIMAGE_FUNC(Int8 *) RIMAGE_GetReturnString(uint32_t dwError)
 {
-	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_RIMAGE_ERR_NO;
+	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_RIMAGE_ERR_NO;
 	static Int8 szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
@@ -241,14 +241,14 @@ RIMAGE_FUNC(Bool32) RIMAGE_SetImportData(uint32_t dwType, void * pData)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void SetReturnCode_rimage(Word16 rc)
+void SetReturnCode_rimage(uint16_t rc)
 {
 	if ( rc == IDS_RIMAGE_ERR_NO || gwLowRC == IDS_RIMAGE_ERR_NO )
 		gwLowRC = rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Word16 GetReturnCode_rimage()
+uint16_t GetReturnCode_rimage()
 {
 	return gwLowRC;
 }

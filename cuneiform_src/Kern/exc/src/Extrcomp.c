@@ -136,7 +136,7 @@ if( fnProgressStep_exc )
 return step;
 }
  //------------------ Image attributes ---------------------
-Word16 image_disp_byte, image_disp_end;
+uint16_t image_disp_byte, image_disp_end;
 Word8 image_disp_mask;
 int16_t  image_blth    ;  // pixels per line
 int16_t  image_height  ;  // lines in file number
@@ -149,8 +149,8 @@ static Word8 image_invert = 0;
 //========== Global func ==========
 void extrcomp(void);
 void save_component(ExtComponent *c, version *vs, version *ve,
-                           Word8 *lp, Word16 lpl);
-void invert_tiff (Word8 *p, Word16 lth);
+                           Word8 *lp, uint16_t lpl);
+void invert_tiff (Word8 *p, uint16_t lth);
 void image_file_close(void);
 Bool image_file_open (void);
 int16_t source_read(Word8 *start, Word8 *ptr, Word8 *end);
@@ -177,7 +177,7 @@ extern int32_t    rexc_gra_type_rec(Word8 lang);
 extern void     exc_ori_recog(RecVersions *v);
 -*/
 // from MATRIX.C
-extern int16_t  matrix_read(Word8 *buff, Word16 lth);
+extern int16_t  matrix_read(Word8 *buff, uint16_t lth);
 extern void matrix_open ();
 extern void matrix_close();
 extern void matrix_reset();
@@ -193,7 +193,7 @@ static Bool extrcomp_setup_memory(void);
 //========== Import data
 extern struct main_memory_str Q;
 extern ExtComponent wcomp;
-extern Word16 lpool_lth;
+extern uint16_t lpool_lth;
 extern Word8 lpool[];
 extern Word8 work_raster[];
 extern int32_t sz_work_raster, sz_work_raster_1;
@@ -208,8 +208,8 @@ TImageClose Tiger_ImageClose;
 Tiger_ProcComp    Tiger_ProcessComp;
 int32_t   box_number=BOX_NUMBER;
 Word8   fax1x2=0,matrix=0;
-Word16  actual_resolution;
-Word16  comp_max_h, comp_max_w, comp_min_h, comp_min_w;
+uint16_t  actual_resolution;
+uint16_t  comp_max_h, comp_max_w, comp_min_h, comp_min_w;
 Word8   alphabet[256];
 int16_t   nBlack,nAll,nWid;
 int32_t ExControl;
@@ -221,8 +221,8 @@ static Word8 cache[CACHESIZE],*cache_end,*cache_curr;
 static char dumpfile[]= EXC_DUMP_FILE;
 static int16_t  MaxScale;
 static jmp_buf jumper;
-static Word16            wHeightRC =                         0;
-static Word16            wLowRC =                            REXC_ERR_NO;;
+static uint16_t            wHeightRC =                         0;
+static uint16_t            wLowRC =                            REXC_ERR_NO;;
 
 //============= Source CODE =============
 
@@ -408,18 +408,18 @@ Bool16  EXC_DIBOpen(Tiger_ImageInfo *lpImageInfo)
 if( !rasterDIB4 )
     return FALSE;
 memset(lpImageInfo,0,sizeof(Tiger_ImageInfo));
-lpImageInfo -> wImageHeight       = (Word16)DIB_Hei;
-lpImageInfo -> wImageWidth        = (Word16)DIB_Wid;
+lpImageInfo -> wImageHeight       = (uint16_t)DIB_Hei;
+lpImageInfo -> wImageWidth        = (uint16_t)DIB_Wid;
 
 lpImageInfo -> wImageByteWidth    = (lpImageInfo -> wImageWidth + 7) / 8;
-lpImageInfo -> wResolutionX       = (Word16)DIB_HRes;
-lpImageInfo -> wResolutionY       = (Word16)DIB_VRes;
+lpImageInfo -> wResolutionX       = (uint16_t)DIB_HRes;
+lpImageInfo -> wResolutionY       = (uint16_t)DIB_VRes;
 lpImageInfo -> bFotoMetrics       = (Word8)DIB_FM; // inverted tiff image
 
 return TRUE;
 }
 
-int16_t   EXC_DIBRead(Word8 *lpImage, Word16 wMaxSize)
+int16_t   EXC_DIBRead(Word8 *lpImage, uint16_t wMaxSize)
 {
 int     d = (DIB_Wid+7)/8, len;
 
@@ -464,7 +464,7 @@ else
 return len;
 }
 // reverse order of string. DIB
-int16_t   EXC_DIBReadReverse(Word8 *lpImage, Word16 wMaxSize)
+int16_t   EXC_DIBReadReverse(Word8 *lpImage, uint16_t wMaxSize)
 {
 int     d = (DIB_Wid+7)/8, len;
 if( !EnableTemplate )
@@ -510,7 +510,7 @@ return len;
 /////////////////////
 // OUTPUT CALLBACKs
 /////////////////////
-Word16          push_box_to_container(ExcBox *  g)
+uint16_t          push_box_to_container(ExcBox *  g)
 {
 CCOM_New(NumContainer ,g->row, g->col, g->w, g->h);
 return 1;
@@ -530,17 +530,17 @@ for(    g = (ExcBox*)pool, ge = (ExcBox*)((char*)pool+size)  ;
 return TRUE;
 }
 
-Word16          push_comp_to_container(ExtComponent *  g)
+uint16_t          push_comp_to_container(ExtComponent *  g)
 {
 Word8           res[16];
 int             nvers, i;
 RecVersions     vers={0};
 CCOM_comp    *  curr_comp;
 CCOM_USER_BLOCK ublock[3];
-Word16          lth;
+uint16_t          lth;
 Word8        *  lpool;
 
-lth = *((Word16*)((Word8*)g + sizeof(ExtComponent))); // size
+lth = *((uint16_t*)((Word8*)g + sizeof(ExtComponent))); // size
 lpool = (Word8*) ((Word8*)g + g->lines); // linerepesentation
 if( g->nvers )
     {
@@ -610,13 +610,13 @@ return lth ;
 Bool    AcceptComps(void * pool, uint32_t size)
 {
 ExtComponent *  g , *ge;
-Word16          lth;
+uint16_t          lth;
 
 for( g = (ExtComponent*)pool, ge = (ExtComponent*)((char*)pool+size);
 g<ge    ;
-g=(ExtComponent*)((char*)g+sizeof(Word16)+sizeof(ExtComponent)+lth+g->nvers))
+g=(ExtComponent*)((char*)g+sizeof(uint16_t)+sizeof(ExtComponent)+lth+g->nvers))
     {
-    lth = *((Word16*)((Word8*)g + sizeof(ExtComponent))); // size
+    lth = *((uint16_t*)((Word8*)g + sizeof(ExtComponent))); // size
        //push_comp_to_container(g);
     }
 return TRUE;
@@ -925,7 +925,7 @@ void alone_comp(void)
         save_gcomp(&wcomp);
 }
 
-void save_component(ExtComponent *c, version *vs, version *ve, Word8* lp, Word16 lpl)
+void save_component(ExtComponent *c, version *vs, version *ve, Word8* lp, uint16_t lpl)
 {
 char pool[64*1024];
 char *p=pool;
@@ -944,7 +944,7 @@ if( acc==OLEG_DEBUG )
         }
 #endif
  vs=ve; /* avoid warn */
- c->size = sizeof(ExtComponent)+sizeof(Word16)+lpl;
+ c->size = sizeof(ExtComponent)+sizeof(uint16_t)+lpl;
  c->lines= sizeof(ExtComponent);
  if( lpl>sizeof(pool)-10 )
         {
@@ -965,7 +965,7 @@ if(  c->scale<3 && (c->w>>c->scale)<comp_max_w && (c->h>>c->scale)<comp_max_h )
         c->rw  =(c->w+7)/8;
         }
     c->nvers=  (int16_t)EVNRecog_lp(  (ExtComponent *)c, lp, lpl, evn_res   );
-    c->records = (int16_t)(sizeof(ExtComponent)+sizeof(Word16)+lpl);
+    c->records = (int16_t)(sizeof(ExtComponent)+sizeof(uint16_t)+lpl);
     mkrs=FALSE;
 
     if( ((ExControl & Ex_NetRecog)||c->scale) &&
@@ -1015,7 +1015,7 @@ if( c->scale )
     c->begends=original_begends;
     }
 memcpy(p,c   ,sizeof(ExtComponent));  p += sizeof(ExtComponent);
-memcpy(p,&lpl,sizeof(Word16));  p += sizeof(Word16);
+memcpy(p,&lpl,sizeof(uint16_t));  p += sizeof(uint16_t);
 memcpy(p,lp,lpl);               p += lpl;
 /*-
 if( (ExControl & Ex_EvnRecog) && c->nvers>0 )
@@ -1183,7 +1183,7 @@ EXC_FUNC(Bool32) REXC_GetExportData(uint32_t dwType, void * pData)
         {
         CASE_DATA(REXC_Word8_Matrix                     ,Word8,matrix);
         CASE_DATA(REXC_Word8_Fax1x2                     ,Word8,fax1x2);
-        CASE_DATA(REXC_Word16_ActualResolution  ,Word16,actual_resolution);
+        CASE_DATA(REXC_Word16_ActualResolution  ,uint16_t,actual_resolution);
 /*-Andrey: moved to RRecCom (recognition) and RNorm (autorotate)
 //--------------------------------------------------------------
         case REXC_FNEVNPROPERT:
@@ -1260,7 +1260,7 @@ switch(dwType)
     {
         CASE_DATA(REXC_Word8_Matrix             ,Word8,matrix);
         CASE_DATA(REXC_Word8_Fax1x2             ,Word8,fax1x2);
-    CASE_DATA(REXC_Word16_ActualResolution,Word16,actual_resolution);
+    CASE_DATA(REXC_Word16_ActualResolution,uint16_t,actual_resolution);
     CASE_PDATA(REXC_ProgressStart,      FNREXC_ProgressStart, fnProgressStart_exc);
         CASE_PDATA(REXC_ProgressStep,   FNREXC_ProgressStep,  fnProgressStep_exc);
         CASE_PDATA(REXC_ProgressFinish, FNREXC_ProgressFinish,fnProgressFinish_exc);
@@ -1283,7 +1283,7 @@ return (wHeightRC<<16)|(wLowRC-REXC_ERR_MIN);
 
 EXC_FUNC(char*)   REXC_GetReturnString(uint32_t dwError)
 {
-        Word16 rc = (Word16)((dwError & 0xFFFF) );
+        uint16_t rc = (uint16_t)((dwError & 0xFFFF) );
         static char szBuffer[512];
 
         if( dwError >> 16 != wHeightRC)
@@ -1297,7 +1297,7 @@ EXC_FUNC(char*)   REXC_GetReturnString(uint32_t dwError)
         return szBuffer;
 }
 
-EXC_FUNC(Bool32) REXC_Init(Word16 wHeightCode, Handle hStorage)
+EXC_FUNC(Bool32) REXC_Init(uint16_t wHeightCode, Handle hStorage)
 {
 if(Q.boxstart)
     {
@@ -1335,7 +1335,7 @@ struct big_merge_struct
  int16_t vh[2*RASTER_MAX_HEIGHT+2];
  char eh[MAX_NUM_CUTPN];
  char sh[MAX_NUM_CUTPN];
- Word16 np;
+ uint16_t np;
  int16_t min_est;
  CP cp[MAX_NUM_CUTPN];
 };
@@ -1416,10 +1416,10 @@ next_box:;
 
 static Bool16 frame_check()
 {
- Word16 hist[2*RASTER_MAX_HEIGHT+2];
- Word16 s,bound,i;
+ uint16_t hist[2*RASTER_MAX_HEIGHT+2];
+ uint16_t s,bound,i;
  Word8* pe,*pb;
- Word16 out_4max;
+ uint16_t out_4max;
  memset (hist,0,sizeof(hist));
  pb = W.sh; pe = W.sh+wcomp.w;
  while (pb != pe) hist[*(pb++)]++;

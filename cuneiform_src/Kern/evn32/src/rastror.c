@@ -59,14 +59,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 #include "recdefs.h"
 
-static Word16 wb, hb;
+static uint16_t wb, hb;
 
 static void rotate_8(Word8* sr, Word8* tr);
 
-void c_rastror (Word8* sr, Word8* tr, Word16 w, Word16 h)
+void c_rastror (Word8* sr, Word8* tr, uint16_t w, uint16_t h)
 {
  Word8* p;
- Word16 l, ws, hs, loop1, loop2;
+ uint16_t l, ws, hs, loop1, loop2;
  wb = (w+7)/8; hb = (h+7)/8;
  p = sr + wb * h; l = wb * (hb*8 - h);
  if (l) memset (p,0,l);	// clear bottom of source raster

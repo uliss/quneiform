@@ -149,7 +149,7 @@ enum    REXCParametrs
     // Closing of the library.
    EXC_FUNC(uint32_t) REXC_GetReturnCode(void);
    EXC_FUNC(char*)  REXC_GetReturnString(uint32_t dwError);
-   EXC_FUNC(Bool32) REXC_Init(Word16 wHeightCode, Handle hStorage);
+   EXC_FUNC(Bool32) REXC_Init(uint16_t wHeightCode, Handle hStorage);
    EXC_FUNC(void)   REXC_Done(void);
    EXC_FUNC(Bool32) REXC_GetExportData(uint32_t dwType, void * pData);
    EXC_FUNC(Bool32) REXC_SetImportData(uint32_t dwType, void * pData);

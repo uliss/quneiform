@@ -127,7 +127,7 @@ Bool32 p2_accept_Cell( cell *c,CSTR_rast_attr *rst, CCOM_comp *cmp, INT scale)
 {
  c_comp ec={0};
  INT shift=scale?scale:0;
- Word16 zero=0;
+ uint16_t zero=0;
 
  if( c )
     c->env=0;
@@ -693,7 +693,7 @@ static void p2_TestAccent()
  const char *accents;
  version vers[VERS_IN_CELL];
  int savNum;
- Word16 savFlg;
+ uint16_t savFlg;
 
  if( language == LANG_LITHUANIAN )
 	 accents = lithvanianAccent;

@@ -1944,7 +1944,7 @@ int  lang=p2globals.language;
 int  firClink = 0;
 CSTR_rast prev;
 int  nReGlue=0;
-Word16 firConf=0;
+uint16_t firConf=0;
 Word8  firCut=0;
 
    if( lang==LANG_ENGLISH && p2globals.multy_language )

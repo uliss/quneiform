@@ -92,10 +92,10 @@ Bool32 CheckAreaForComps(Handle hCCOM, Handle hCCOM_big, Rect32 rect, int32_t He
 
 	if(!LDPUMA_Skip(hShowCheckLetters))
 	{
-		rect1.top = (Word16)rect.top;
-		rect1.left = (Word16)rect.left;
-		rect1.bottom = (Word16)rect.bottom;
-		rect1.right = (Word16)rect.right;
+		rect1.top = (uint16_t)rect.top;
+		rect1.left = (uint16_t)rect.left;
+		rect1.bottom = (uint16_t)rect.bottom;
+		rect1.right = (uint16_t)rect.right;
 		LDPUMA_DrawRect(MainWindowD, &rect1, 0, 23635, 4, key);
 	}
 
@@ -225,7 +225,7 @@ Bool32 SearchRectanglePictures(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 	uint32_t i,j;
 	CCOM_comp pic;
 	CCOM_comp * comp;
-	Word16 pLocalHystogram[MaxHeightOfLetter];
+	uint16_t pLocalHystogram[MaxHeightOfLetter];
 	uint32_t nLocalComps;
 	uint32_t MaxLocal, nMaxLocal;
 	uint32_t Result1, Result2, Result3, Result4, tmp1, tmp2;

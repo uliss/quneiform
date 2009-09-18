@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-static Word16 gwHeightRC = 0;
+static uint16_t gwHeightRC = 0;
 static uint32_t gwRC = 0;
 static HANDLE ghStorage = NULL;
 static HINSTANCE ghInst =  NULL;
@@ -142,7 +142,7 @@ uint32_t ul_reason_for_call,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSELSTR_FUNC(Bool32) RSELSTR_Init(Word16 wHeightCode,HANDLE hStorage)
+RSELSTR_FUNC(Bool32) RSELSTR_Init(uint16_t wHeightCode,HANDLE hStorage)
 {
 	gwHeightRC = wHeightCode;
 	LDPUMA_Init(0,NULL);
@@ -375,8 +375,8 @@ return (uint32_t)(0);
 
 void SetReturnCode_rselstr(uint32_t rc)
 {
-Word16 low = (Word16)(rc &  0xFFFF);
-Word16 hei = (Word16)(rc >> 16);
+uint16_t low = (uint16_t)(rc &  0xFFFF);
+uint16_t hei = (uint16_t)(rc >> 16);
 
 	if(hei)
 		gwRC = rc;
@@ -392,8 +392,8 @@ Word16 hei = (Word16)(rc >> 16);
 uint32_t GetReturnCode_rselstr()
 {
 uint32_t rc = gwRC;
-Word16 low = (Word16)(gwRC &  0xFFFF);
-Word16 hei = (Word16)(gwRC >> 16);
+uint16_t low = (uint16_t)(gwRC &  0xFFFF);
+uint16_t hei = (uint16_t)(gwRC >> 16);
 
 	if(hei == gwHeightRC || hei == 0)
 		rc = low + IDS_ERR_NO;

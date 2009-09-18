@@ -96,7 +96,7 @@ struct NegTemp
  //       #define Handle void *
 //#endif
 
-RNEG_FUNC(Bool32) RNEG_Init(Word16 wHeightCode,Handle parent);
+RNEG_FUNC(Bool32) RNEG_Init(uint16_t wHeightCode,Handle parent);
 RNEG_FUNC(Bool32) RNEG_Done();
 RNEG_FUNC(uint32_t) RNEG_GetReturnCode();
 RNEG_FUNC(Int8 *) RNEG_GetReturnString(uint32_t dwError);

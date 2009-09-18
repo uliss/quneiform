@@ -80,7 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         #define Handle void *
 #endif
 
-SMetric_FUNC(Bool32) SMetric_Init(Word16 wHeightCode,Handle hStorage);
+SMetric_FUNC(Bool32) SMetric_Init(uint16_t wHeightCode,Handle hStorage);
 SMetric_FUNC(Bool32) SMetric_Done();
 SMetric_FUNC(uint32_t) SMetric_GetReturnCode();
 SMetric_FUNC(Int8 *) SMetric_GetReturnString(uint32_t dwError);

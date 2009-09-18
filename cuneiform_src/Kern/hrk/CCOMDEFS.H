@@ -134,7 +134,7 @@ typedef struct _lnhead
  int16_t lth; // length of one line representation
  int16_t h;   // height of line
  int16_t row; // relative row of line start
- Word16 flg;  // flags of free beg and free end
+ uint16_t flg;  // flags of free beg and free end
 #define CCOM_l_fbeg     0x20
 #define CCOM_l_fend     0x80
 #define CCOM_l_cbeg     0x02
@@ -151,8 +151,8 @@ typedef struct _interval
 
  typedef struct _interval16
  {
- Word16 l;  // length of interval
- Word16 e;  // end of interval coordinates
+ uint16_t l;  // length of interval
+ uint16_t e;  // end of interval coordinates
  } CCOM_interval16;
 
 typedef struct _CCOM_cont

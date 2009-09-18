@@ -121,7 +121,7 @@ static int  rpstr_test_21( CSTR_rast eng, CSTR_rast enge,
 						   char *ewrd, int lang );
 
 ///////////////
-static void ed_write(Word8* p, Word16 size)
+static void ed_write(Word8* p, uint16_t size)
 {
 if (MED_file_bound -  MED_file_end < size)
     {
@@ -212,7 +212,7 @@ CSTR_rast       c;
 UniVersions     vrs;
 int32_t           i,j,n;
 Bool32          change_rect;
-Word16          loc_language=35535, loc_charset=35535 ;
+uint16_t          loc_language=35535, loc_charset=35535 ;
 
 for(c=b,i=0;c && c!=e ;c=CSTR_GetNext(c))
     {
@@ -291,7 +291,7 @@ UniVersions     vrs={0};
 int32_t           i,j,n,mincol,maxcol,minrow,maxrow,avwid ;
 int32_t           mincolr,maxcolr,minrowr,maxrowr,avwidr ;
 CSTR_line       line;
-Word16          loc_language=35535, loc_charset=35535, loc_battr=35535 ;
+uint16_t          loc_language=35535, loc_charset=35535, loc_battr=35535 ;
 
 CSTR_GetAttr(b,&battr);
 line=CSTR_GetRasterLine(b);
@@ -1175,7 +1175,7 @@ CSTR_rast_attr  attr;
 CSTR_rast       c;
 UniVersions     vrs;
 int32_t           i,j,n;
-Word16          loc_language=35535, loc_charset=35535 ;
+uint16_t          loc_language=35535, loc_charset=35535 ;
 
 for(c=b,i=0;c && c!=e ;c=CSTR_GetNext(c))
     {
@@ -2620,7 +2620,7 @@ static int	ReplacePartWord(CSTR_rast eng, CSTR_rast enge,
 	UniVersions     vers={0};
 	int32_t           mincol,maxcol,minrow,maxrow,avwid ;
 	int32_t           ii, mincolr,maxcolr,avwidr ;
-	Word16          loc_charset=35535, loc_battr=35535 ;
+	uint16_t          loc_charset=35535, loc_battr=35535 ;
 	int oldLen = strlen(oldPart), newLen=strlen(newPart);
 	CSTR_rast first, last;
 	int midProb;

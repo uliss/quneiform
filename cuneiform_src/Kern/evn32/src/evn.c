@@ -98,7 +98,7 @@ extern Word8 evline[], evline1[];
 extern MN * c_locomp (Word8* raster, int32_t bw, int32_t h, int16_t upper, int16_t left);
 extern void MN_to_line(MN *);
 extern int32_t recog_letter(void);
-extern int32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, Word8 *lp,Word16 lth);
+extern int32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, Word8 *lp,uint16_t lth);
 
 
 static void *EvnAlloc(uint32_t len) { return malloc(len); }
@@ -437,7 +437,7 @@ EVN_FUNC(Word8 *)  EVNMakeLine( RecRaster   *rRaster , int32_t parm)
 {
 MN *mn=NULL;
 Word8  *lp, *lpin, *lpend=(Word8*)(evn_multy_lpool+6000);
-Word16  len,lall;
+uint16_t  len,lall;
 
 mn = c_locomp(rRaster->Raster,REC_GW_WORD8(rRaster->lnPixWidth),rRaster->lnPixHeight,0,0);
 if( parm==1 )
@@ -449,7 +449,7 @@ if( parm==1 )
         MN_to_line(mn);
         while(1){
             lpin[4] += (Word8)mn->mnupper;
-            len = *((Word16*)lpin);
+            len = *((uint16_t*)lpin);
             if( len==0 )
                 break;
             if( lp+len>=lpend )
@@ -474,7 +474,7 @@ else if( parm==0 )
             MN_to_line(mn);
             while(1)    {
                 lpin[4] += (Word8)mn->mnupper;
-                len = *((Word16*)lpin);
+                len = *((uint16_t*)lpin);
                 if( len==0 )
                     break;
                 if( lp+len>=lpend )
@@ -502,7 +502,7 @@ else if( parm==2 )
             MN_to_line(mn);
             while(1)    {
                 lpin[4] += (Word8)mn->mnupper;
-                len = *((Word16*)lpin);
+                len = *((uint16_t*)lpin);
                 if( len==0 )
                     break;
                 if( lp+len>=lpend )
@@ -518,7 +518,7 @@ else if( parm==2 )
         lp[3]=lp[2]=0;
         //lp[5]=lp[4]=0;
         lp = (Word8*)evn_multy_lpool;
-        *((Word16*)lp)=lall+2 ;
+        *((uint16_t*)lp)=lall+2 ;
         }
     else
         lp = NULL;
@@ -595,7 +595,7 @@ for(nvers1=0,i=0;i<nvers;i++)
 return nvers1;
 }
 
-EVN_FUNC(int32_t)  EVNRecog_lp(  /*ExtComponent*/CCOM_comp *ec, Word8   *lp, Word16 lth,
+EVN_FUNC(int32_t)  EVNRecog_lp(  /*ExtComponent*/CCOM_comp *ec, Word8   *lp, uint16_t lth,
                                Word8   *res    )
 {
 int32_t     nvers, i, ii;

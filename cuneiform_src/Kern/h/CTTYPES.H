@@ -81,8 +81,6 @@ class cls;                 \
 
 /*** Base types ***/
 typedef unsigned int Indx;_SETTYPES( Indx )
-//typedef int16_t int16_t;  _SETTYPES( int16_t )
-typedef uint16_t Word16;_SETTYPES( Word16 )
 typedef char Int8;      _SETTYPES( Int8 )
 typedef unsigned char Word8;_SETTYPES( Word8 )
 typedef float Float32;  _SETTYPES( Float32 )

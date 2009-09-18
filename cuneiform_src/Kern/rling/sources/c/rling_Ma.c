@@ -434,7 +434,7 @@ int32_t TE_file_length(int16_t fn)
         return filelength (i);
 }
 
-void ed_out_write(PWord8 p, Word16 size)
+void ed_out_write(PWord8 p, uint16_t size)
 {
         if ( ED_out_end )
         {

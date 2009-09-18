@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 static Word8 language;
 static Word8    ed_buffer[64000], *MED_file_bound, *MED_file_end ;
 
-static void ed_write(Word8* p, Word16 size);
+static void ed_write(Word8* p, uint16_t size);
 
 void ed_init()
  {
@@ -89,16 +89,16 @@ struct fragm_disk
 {
 Word8 code;
 Word8 fragm_numb;
-Word16 depth;
+uint16_t depth;
 };
 
 struct fragm_disk_descr
 {
 Word8 code;
-Word16 row;
-Word16 col;
-Word16 height;
-Word16 w_width;
+uint16_t row;
+uint16_t col;
+uint16_t height;
+uint16_t w_width;
 Int8 type;
 Word8 kegl;
 Word8 font;
@@ -110,11 +110,11 @@ struct sheet_disk_descr
 {
 Word8 code;
 Int8 quant_fragm;
-Word16 sheet_numb;
-Word16 descr_lth;
+uint16_t sheet_numb;
+uint16_t descr_lth;
 Word8 byte_flag;
-Word16 resolution;
-Word16  incline;
+uint16_t resolution;
+uint16_t  incline;
 Int8 tabl[13];
 };
 */
@@ -207,7 +207,7 @@ return;
 
 //********************** ED-file management *****************************
 
-static void ed_write(Word8* p, Word16 size)
+static void ed_write(Word8* p, uint16_t size)
 {
 if (MED_file_bound -  MED_file_end < size)
     {

@@ -96,12 +96,12 @@ typedef struct tagSaveString  // str in H\struct.h OLD TIGER
  int16_t col;             // left  bound of line box (in real coord)
  int16_t lower;           // lower bound of line box (in real coord)
  int16_t right;           // right bound of line box (in real coord)
- Word16 dust;           // c_comp offset to first dust ptr (in bytes)
- Word16 end;            // offset to end end of dust ptrs (in bytes)
- Word16 lth;            // total size of struc 'end == lth'  (in bytes)
- Word16 first;          // unused now
- Word16 last;           // unused now
- Word16 scale;          // scale of the string (unused now)
+ uint16_t dust;           // c_comp offset to first dust ptr (in bytes)
+ uint16_t end;            // offset to end end of dust ptrs (in bytes)
+ uint16_t lth;            // total size of struc 'end == lth'  (in bytes)
+ uint16_t first;          // unused now
+ uint16_t last;           // unused now
+ uint16_t scale;          // scale of the string (unused now)
  int16_t fragment;        // fragment of the string (unused now)
  Word8 language;        // language of the string (unused now)
  int32_t nSkew;		// string's skew (recalculated, not page!)

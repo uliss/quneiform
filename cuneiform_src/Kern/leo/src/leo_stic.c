@@ -88,7 +88,7 @@ int32_t   leo_stick_nose_1;
 
 int leo_incline=ERECT_ENABLE;
 static int leo_av_inc=0, leo_av_inc_n=0,leo_av_inc1=0, leo_av_inc_n1=0, is_pool=0, save_w, save_h;
-static Word16 save_pool[4096];
+static uint16_t save_pool[4096];
 
 static Word8 sqrt_tab[] = {
  0,
@@ -114,8 +114,8 @@ static int      leo_current_1_level(void);
 static Bool32   leo_stick_thin_prop(RecRaster *r,int ang[],int num, int den);
 static Bool32   leo_stick_thin(RecRaster *r,int inc,int num, int den);
 static Bool32   leo_stick_make_tab(int inc, int h, int     tab_angle[]);
-static void     leo_save_rl(Word16 *lpool);
-static Word16 * leo_rest_rl(void);
+static void     leo_save_rl(uint16_t *lpool);
+static uint16_t * leo_rest_rl(void);
 static int32_t    leo_num_of_long_sticks(RecVector *vSticks,int Cnt, int h);
 static Bool32   leo_wide_stick(RecVector *vSticks,int Cnt, int h, int w);
 static Bool32   leo_test_inclinable(RecVersions *v);
@@ -230,9 +230,9 @@ if( !leo_stick_make_tab(inc, r->lnPixHeight, ang) )
 return leo_stick_thin_prop(r,ang,num,den);
 }
 
-static void leo_save_rl(Word16 *lpool)
+static void leo_save_rl(uint16_t *lpool)
 {
-Word16 *lp, *lop;
+uint16_t *lp, *lop;
 int16_t   len, hei, row, flg,  il_ie;
 
 lop = save_pool;
@@ -260,7 +260,7 @@ while(1)  {
 return;
 }
 
-static Word16 * leo_rest_rl(void)
+static uint16_t * leo_rest_rl(void)
 {
 return save_pool;
 }
@@ -272,11 +272,11 @@ return save_pool;
 //          3 - handprinted 1
 //          4 - fine printed stick
 //          5 - dark printed stick
-int32_t leo_recog_stick(Word16 *lpool, int w, int h)
+int32_t leo_recog_stick(uint16_t *lpool, int w, int h)
 {
 int16_t   len,hei,row,flg;
 Word8   il, ie, *loc;
-Word16 *lp;
+uint16_t *lp;
 int     i, n, ir, n_2, n_0, wa,wm,rm,wmm,rmm;
 int     jmp, or, ol, lim;
 
@@ -748,10 +748,10 @@ for(pc=&rin->Raster[wb], po=&rout->Raster[wb], i=1;i<n;i++,po+=wb, pc+=wb )
 return;
 }
 
-Bool32 leo_one_line(Word16*lpool)
+Bool32 leo_one_line(uint16_t*lpool)
 {
 int16_t len, num;
-Word16*lp;
+uint16_t*lp;
 
 if( !lpool )
     return FALSE;
@@ -771,7 +771,7 @@ Bool32 leo_is_stick(RecObject*  object)
 {
 RecVersions ver;
 int32_t       ret, rret, yx, w,h, n;
-Word16     *lpool;
+uint16_t     *lpool;
 Bool32      rstick;
 RecVersions r;
 RecRaster  *rr, rthis;
@@ -788,7 +788,7 @@ w = rr->lnPixWidth;
 h = rr->lnPixHeight;
 n = object->recData.lwCompCnt;
 leo_stick_nose_1=0;
-lpool=(Word16*) EVNMakeLine(rr,object->recData.lwCompCnt>1?0:1 );
+lpool=(uint16_t*) EVNMakeLine(rr,object->recData.lwCompCnt>1?0:1 );
 is_pool=0;
 if( lpool )
     {

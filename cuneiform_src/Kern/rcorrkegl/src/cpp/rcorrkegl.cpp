@@ -67,8 +67,8 @@
 Bool32 CorrectKegl(int32_t version);
 void kegl_snap_init();
 
-static Word16 gwHeightRC = 0;
-static Word16 gwLowRC = 0;
+static uint16_t gwHeightRC = 0;
+static uint16_t gwLowRC = 0;
 Bool32 snap_enable = TRUE;
 Bool32 exit_enable = FALSE;
 Bool32 gbFax100 = FALSE;
@@ -79,7 +79,7 @@ BOOL APIENTRY DllMain(HANDLE hModule, uint32_t ul_reason_for_call,
 	return TRUE;
 }
 
-RCK_FUNC(Bool32) RCORRKEGL_Init(Word16 wHeightCode,HANDLE hStorage)
+RCK_FUNC(Bool32) RCORRKEGL_Init(uint16_t wHeightCode,HANDLE hStorage)
 {
 	gwHeightRC = wHeightCode;
 	snap_enable = TRUE;
@@ -108,7 +108,7 @@ RCK_FUNC(uint32_t) RCORRKEGL_GetReturnCode()
 
 RCK_FUNC(Int8*) RCORRKEGL_GetReturnString(uint32_t dwError)
 {
-	Word16 rc = (Word16)((dwError & 0xFFFF) );
+	uint16_t rc = (uint16_t)((dwError & 0xFFFF) );
 	static Int8 szBuffer[512];
 
 	if (dwError >> 16 != gwHeightRC) gwLowRC = RCORRKEGL_ERR_NOTIMPLEMENT;

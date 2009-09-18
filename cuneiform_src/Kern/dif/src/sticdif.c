@@ -2192,10 +2192,10 @@ return(dis_l_stroked(l,r,s)<MAX_ADD_DIS);
 //     return : propabilites letters 'f','r','t'  ( 0b00ttrrff or 0 )
 //              tt,rr,ff = 01(bad),10(good),11(verybad)
 //////////////////////////////////////////////////////////////////////
-Word16 typ_thin_stick(lnhead *lin,int16_t dy,int16_t dx)
+uint16_t typ_thin_stick(lnhead *lin,int16_t dy,int16_t dx)
 {
 int16_t wide,opt,left_mode,right_mode,inc_v, nc, num_angles,f_a;
-Word16 ret=0;
+uint16_t ret=0;
 STICK_CHARS left_chars,right_chars;
 STICK_SIGNUMS signums;
 

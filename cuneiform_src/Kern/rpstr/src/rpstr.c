@@ -71,8 +71,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define  MAX_KEG    40
 #define  KEG_RANGE  34
-Word16              wHeightRC      = 0;
-Word16              wLowRC         = RPSTR_ERR_NO;
+uint16_t              wHeightRC      = 0;
+uint16_t              wLowRC         = RPSTR_ERR_NO;
 Bool32      snap_enable = TRUE;
 Bool32      exit_enable = FALSE, skip_line=FALSE;;
 Handle      hSnapSpell = 0,hSnapWordSpell = 0,hSnapMatch = 0, hSnapCapDrop = 0;
@@ -242,7 +242,7 @@ return (uint32_t)(ret);
 /////////////////////
 //void kegl_snap_init();
 
-RPSTR_FUNC(Bool32)  RPSTR_Init( Word16 wHeightCode , Handle hStorage)
+RPSTR_FUNC(Bool32)  RPSTR_Init( uint16_t wHeightCode , Handle hStorage)
 {
 wHeightRC = wHeightCode;
 wLowRC    = RPSTR_ERR_NO;
@@ -289,7 +289,7 @@ return (wHeightRC<<16)|(wLowRC-RPSTR_ERR_MIN);
 
 RPSTR_FUNC(char*)   RPSTR_GetReturnString(uint32_t dwError)
 {
-  Word16 rc = (Word16)(dwError & 0xFFFF + RPSTR_ERR_MIN);
+  uint16_t rc = (uint16_t)(dwError & 0xFFFF + RPSTR_ERR_MIN);
 	static char szBuffer[512];
 
 	if( dwError >> 16 != wHeightRC)

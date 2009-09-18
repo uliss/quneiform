@@ -241,7 +241,7 @@ typedef struct tagFontField {
 	uint32_t testField[NFIELDDWORD];
 	int16_t sBig;
 	int16_t sLit;
-	Word16 inFont[256];
+	uint16_t inFont[256];
 } FONTFIELD;
 
 #define METKA_VALID 0x80  // get as good in font

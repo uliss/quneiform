@@ -1069,7 +1069,7 @@ BOOL GetMasP(Handle hCPage,Word8* ImageName,int x1,int y1,int x2,int y2,Word8** 
 
 	DataInto.dwHeight   = (uint32_t)(h);
 	DataInto.dwWidth    = (uint32_t)(prewide);
-	DataInto.wByteWidth = (Word16)(prewide/8);
+	DataInto.wByteWidth = (uint16_t)(prewide/8);
 	DataInto.dwX        = left;
 	DataInto.dwY        = upper;
 	DataInto.MaskFlag   = 0x00;
@@ -1078,7 +1078,7 @@ BOOL GetMasP(Handle hCPage,Word8* ImageName,int x1,int y1,int x2,int y2,Word8** 
 	DataOut.dwWidth    = DataInto.dwWidth;
 	DataOut.dwHeight   = DataInto.dwHeight;
 	DataOut.wByteWidth = DataInto.wByteWidth;
-	DataOut.byBit      = (Word16)info.BitPerPixel;
+	DataOut.byBit      = (uint16_t)info.BitPerPixel;
 	DataOut.lpData     = *ppmasp;
 	ret = CIMAGE_GetData (ImageName, &DataInto, &DataOut);
 	if (!ret)

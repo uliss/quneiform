@@ -110,7 +110,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    EVN_FUNC(int32_t)  EVNGetRepresent(  RecRaster   *rRaster,
         Word8 *evn, Word8 *evn_rot, int32_t font       );
    EVN_FUNC(int32_t)  EVNRecog_lp( /* ExtComponent*/CCOM_comp *ec, Word8   *lp,
-        Word16 lth, Word8   *res);
+        uint16_t lth, Word8   *res);
    EVN_FUNC(Word8*) EVN_GetSegmentPool(void);
    EVN_FUNC(Bool32) EVNInitLanguage(const char *tabevn1, const char *tabevn2, Word8 lang);
    EVN_FUNC(Bool32) EVNSetLanguage( Word8 lang);

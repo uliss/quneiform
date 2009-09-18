@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include "extrcomp.h"
 
 //	Function description
-//void snap_keep (Word8 code, Word8* arg1, Word16 arg2);
+//void snap_keep (Word8 code, Word8* arg1, uint16_t arg2);
 
 //		Common variables
 // Oleg
@@ -80,11 +80,11 @@ extern Word8 lpool[];
 extern Word8* events_tree;
 extern void ev_lang_filter();
 //	Internal function description
-static Word16 net_comp_count();
+static uint16_t net_comp_count();
 static void ev_vector_cnt();
-static Word16 seek_events(Word8* ev);
+static uint16_t seek_events(Word8* ev);
 static int16_t first_var();
-static void double_events(Word16 row, Word16 col);
+static void double_events(uint16_t row, uint16_t col);
 static void varset (Int8 add);
 static void upper_row(int16_t row);
 static void upper_col(int16_t col);
@@ -101,8 +101,8 @@ typedef struct ev_vari VAR;
 
 Word8 evline[3+12], evline1[3+12];
 VAR evvars[64], * evendvar;
-Word16 evrow_b1, evrow_b2, evrow_b3, evrow_b4;
-Word16 evcol_b1, evcol_b2, evcol_b3, evcol_b4, evcol_b5;
+uint16_t evrow_b1, evrow_b2, evrow_b3, evrow_b4;
+uint16_t evcol_b1, evcol_b2, evcol_b3, evcol_b4, evcol_b5;
 Word8* seek_responce;
 extern int16_t evfulln;
 static Word8 ev;
@@ -114,10 +114,10 @@ static VAR * vp;
 //
 //
 
-Word16 events_recog()
+uint16_t events_recog()
 {
  int16_t nv;
- Word16 i,k;
+ uint16_t i,k;
  Word8* p;
  version *v;
  //snap_keep (snap_stright,NULL,0);
@@ -205,7 +205,7 @@ static void ev_vector_cnt()
      else
       {
 by_beg:
-       double_events((Word16)lp->row, (Word16)(ip->e - (ip->l + 1)/2));
+       double_events((uint16_t)lp->row, (uint16_t)(ip->e - (ip->l + 1)/2));
        *ep++ = ev; lp = (lnhead *)((Word8*)lp + lp->lth); continue;
       }
     }
@@ -215,7 +215,7 @@ by_beg:
      if (lp->flg & l_fbeg) goto by_beg;
      else
       {
-       double_events((Word16)(lp->row + 2),(Word16)((ip+1)->e - ((ip+1)->l + 1)/2));
+       double_events((uint16_t)(lp->row + 2),(uint16_t)((ip+1)->e - ((ip+1)->l + 1)/2));
        *ep++ = ev; lp =(lnhead *)((Word8*)lp + lp->lth); continue;
       }
     }
@@ -223,21 +223,21 @@ by_beg:
    vp->ln++;
    upper_row (lp->row);
    if (lp->flg & l_fbeg)
-      upper_col ((Word16)(ip->e - (ip->l + 1)/2));
+      upper_col ((uint16_t)(ip->e - (ip->l + 1)/2));
    else
-      upper_col ((Word16)((ip+1)->e - ((ip+1)->l + 1)/2));
-   lower_row ((Word16)(lp->row + lp->h));
+      upper_col ((uint16_t)((ip+1)->e - ((ip+1)->l + 1)/2));
+   lower_row ((uint16_t)(lp->row + lp->h));
    ip += lp->h;
    if (lp->flg & l_fend)
-    lower_col ((Word16)((ip-1)->e - ((ip-1)->l + 1)/2));
+    lower_col ((uint16_t)((ip-1)->e - ((ip-1)->l + 1)/2));
    else
-    lower_col ((Word16)((ip-2)->e - ((ip-2)->l + 1)/2));
+    lower_col ((uint16_t)((ip-2)->e - ((ip-2)->l + 1)/2));
    *ep++ = ev; lp = (lnhead *)(ip+1);
   }
  evendvar = vp;
 }
 
-static void double_events(Word16 row, Word16 col)
+static void double_events(uint16_t row, uint16_t col)
 {
  VAR * wvp;
  vp->ln++;	wvp = vp;
@@ -318,10 +318,10 @@ static void lower_col(int16_t col)
  if (col+1 == evcol_b1) varset(1); return;
 }
 
-static Word16 net_comp_count()
+static uint16_t net_comp_count()
 {
  lnhead * p = (lnhead *)lpool;
- Word16 s = 0;
+ uint16_t s = 0;
  while (p->lth)
   {
    if ((p->h != 1) ||
@@ -346,11 +346,11 @@ static Word16 net_comp_count()
 Word8 taba[] = {0,1,3,6,10,15,21,28,36,45,55};
 Word8 tabb[] = {0,255,0,3,9,19,34,55,83,119,164,219};
 
-static Word16 rot(Word16 n) { return ((n<<3) + (n>>13)); }
+static uint16_t rot(uint16_t n) { return ((n<<3) + (n>>13)); }
 
-static Word16 seek_events (Word8* ep)
+static uint16_t seek_events (Word8* ep)
 {
- Word16 hash,i,nl;
+ uint16_t hash,i,nl;
  uint32_t di;
  Word8* p;
 
@@ -370,7 +370,7 @@ for(i=0;i<n;i++)
  i = nl;
  p=ep+4;
  while (i--)
- { hash = rot(hash) ^ (Word16)(*(p++));
+ { hash = rot(hash) ^ (uint16_t)(*(p++));
  }
  hash = (hash & 0xff) ^ (hash >> 8);
  p = ((nl-1) * 256 + hash) * sizeof(uint32_t) + events_tree;
@@ -395,7 +395,7 @@ static int16_t first_var()
 {
  VAR *p=evvars;
  Word8 *ev1, *ev2;
- Word16 nl,n;
+ uint16_t nl,n;
  if (p == evendvar) return -1;
  memcpy (evline1,evline,4); ev1 = evline+4; ev2 = evline1+4; nl =1;
 var_loop:

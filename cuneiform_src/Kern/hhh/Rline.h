@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __XTYPES_H
 #define RLINE_BLOCK_TYPE CPAGE_GetInternalType("RLINE_BLOCK_TYPE")
 
-RLINE_FUNC(Bool32) RLINE_Init(Word16 wHeightCode,void * hStorage);
+RLINE_FUNC(Bool32) RLINE_Init(uint16_t wHeightCode,void * hStorage);
 RLINE_FUNC(Bool32) RLINE_Done();
 RLINE_FUNC(uint32_t) RLINE_GetReturnCode();
 RLINE_FUNC(Int8 *) RLINE_GetReturnString(uint32_t dwError);

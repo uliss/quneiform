@@ -516,8 +516,8 @@ Bool32 CRTurner::Turn90GC(PCTDIB pIn, PCTDIB pOut)
 	int32_t   sLine;
 	PWord8  sPix8;
 	PWord8  dPix8;
-	PWord16 sPix16;
-	PWord16 dPix16;
+	uint16_t * sPix16;
+	uint16_t * dPix16;
 	uint32_t * sPix32;
 	uint32_t * dPix32;
 	uint32_t  dLines = pOut->GetLinesNumber();
@@ -543,11 +543,11 @@ Bool32 CRTurner::Turn90GC(PCTDIB pIn, PCTDIB pOut)
 	case 2:
 		for( dLine = 0, sX = 0;  dLine < (int32_t)dLines; dLine++, sX++ )
 		{
-			CONTINUEPIXEL(dPix16 = (PWord16)pOut->GetPtrToLine( dLine ));
+			CONTINUEPIXEL(dPix16 = (uint16_t *)pOut->GetPtrToLine( dLine ));
 
 			for ( sLine = sLines - 1, dX = 0; dX < (int32_t)sLines; sLine--, dX++, dPix16++ )
 			{
-				CONTINUEPIXEL(sPix16 = (PWord16)pIn->GetPtrToPixel( sX, sLine));
+				CONTINUEPIXEL(sPix16 = (uint16_t *)pIn->GetPtrToPixel( sX, sLine));
 				*dPix16 = *sPix16;
 			}
 		}
@@ -599,8 +599,8 @@ Bool32 CRTurner::Turn180GC(PCTDIB pIn, PCTDIB pOut)
 	uint32_t  wPix;
 	PWord8  sPix8;
 	PWord8  dPix8;
-	PWord16 sPix16;
-	PWord16 dPix16;
+	uint16_t * sPix16;
+	uint16_t * dPix16;
 	uint32_t * sPix32;
 	uint32_t * dPix32;
 	uint32_t  wPixSize = pIn->GetPixelSize() / 8;
@@ -626,8 +626,8 @@ Bool32 CRTurner::Turn180GC(PCTDIB pIn, PCTDIB pOut)
 	case 2:
 		for( dLine = 0, sLine = wLines - 1; dLine < wLines; dLine++, sLine--)
 		{
-			sPix16 = (PWord16)pIn->GetPtrToPixel( sLineWidth - 1, sLine);
-			dPix16 = (PWord16)pOut->GetPtrToLine( dLine );
+			sPix16 = (uint16_t *)pIn->GetPtrToPixel( sLineWidth - 1, sLine);
+			dPix16 = (uint16_t *)pOut->GetPtrToLine( dLine );
 
 			for ( wPix = 0; wPix < sLineWidth; wPix++, sPix16 --, dPix16 ++ )
 			{
@@ -683,8 +683,8 @@ Bool32 CRTurner::Turn270GC(PCTDIB pIn, PCTDIB pOut)
 	int32_t   sLine;
 	PWord8  sPix8;
 	PWord8  dPix8;
-	PWord16 sPix16;
-	PWord16 dPix16;
+	uint16_t * sPix16;
+	uint16_t * dPix16;
 	uint32_t * sPix32;
 	uint32_t * dPix32;
 	uint32_t  dLines = pOut->GetLinesNumber();
@@ -710,11 +710,11 @@ Bool32 CRTurner::Turn270GC(PCTDIB pIn, PCTDIB pOut)
 	case 2:
 		for( dLine = 0, sX = dLines - 1;  dLine < (int32_t)dLines; dLine++, sX-- )
 		{
-			CONTINUEPIXEL(dPix16 = (PWord16)pOut->GetPtrToLine( dLine ));
+			CONTINUEPIXEL(dPix16 = (uint16_t *)pOut->GetPtrToLine( dLine ));
 
 			for ( sLine = 0, dX = 0; sLine < (int32_t)sLines; sLine++, dX++, dPix16++ )
 			{
-				CONTINUEPIXEL(sPix16 = (PWord16)pIn->GetPtrToPixel( sX, sLine));
+				CONTINUEPIXEL(sPix16 = (uint16_t *)pIn->GetPtrToPixel( sX, sLine));
 				*dPix16 = *sPix16;
 			}
 		}

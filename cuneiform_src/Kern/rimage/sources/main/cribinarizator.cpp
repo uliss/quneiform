@@ -295,7 +295,7 @@ Bool32 CRIBinarizator::OnBinarizeLoop()
 			if ( !pLALine )
 				break;
 		}
-		while ( mpDezaBinarizator->GetBinarized(pLALine, (Word16)(mpOutcomeDIB->GetUsedLineWidthInBytes())) );          // was Outcome
+		while ( mpDezaBinarizator->GetBinarized(pLALine, (uint16_t)(mpOutcomeDIB->GetUsedLineWidthInBytes())) );          // was Outcome
 
 		bRet = ( i == ( (int32_t)nLines + 1 ) );
 		break;
@@ -349,8 +349,8 @@ Bool32 CRIBinarizator::OnBinarizeLoop()
 	#define FUN_IMPO(a)    a
 	extern "C"
 	{
-		FUN_IMPO(void)   grey_open(Word16 Width, Word16 Height);
-		FUN_IMPO(Word16) grey_to(PWord8);
+		FUN_IMPO(void)   grey_open(uint16_t Width, uint16_t Height);
+		FUN_IMPO(uint16_t) grey_to(PWord8);
 		FUN_IMPO(void)   grey_from(PWord8);
 		FUN_IMPO(void)   grey_close(void);
 	}
@@ -364,7 +364,7 @@ Bool32 CRIBinarizator::KronrodOpenBin(uint32_t wHeight, uint32_t wWeidth)
 		return FALSE;
 	*/
 	//mpKronrodBinarizator->grey_open(wHeight, wWeidth);
-	grey_open((Word16)wHeight, (Word16)wWeidth);
+	grey_open((uint16_t)wHeight, (uint16_t)wWeidth);
 	mbKronrodInvert = TRUE;
 	return TRUE;
 }
@@ -517,26 +517,26 @@ Bool32 CRIBinarizator::DezaOpenBin(uint32_t wDezaFlag)
 #ifdef DEZA_TIG_IMAGEINFO
 	TIG_IMAGEINFO    DezaImageInfo;
 
-	DezaImageInfo.wImageHeight       = (Word16)mpIncomeDIB->GetLinesNumber();
-	DezaImageInfo.wImageWidth        = (Word16)mpIncomeDIB->GetLineWidth();
-	DezaImageInfo.wImageByteWidth    = (Word16)mpIncomeDIB->GetUsedLineWidthInBytes();
+	DezaImageInfo.wImageHeight       = (uint16_t)mpIncomeDIB->GetLinesNumber();
+	DezaImageInfo.wImageWidth        = (uint16_t)mpIncomeDIB->GetLineWidth();
+	DezaImageInfo.wImageByteWidth    = (uint16_t)mpIncomeDIB->GetUsedLineWidthInBytes();
 	DezaImageInfo.wImageDisplacement = 0;
 	mpIncomeDIB->GetResolutionDPI(&wDpiX, &wDpiY);
-	DezaImageInfo.wResolutionX       = (Word16)wDpiX;
-	DezaImageInfo.wResolutionY       = (Word16)wDpiY;
+	DezaImageInfo.wResolutionX       = (uint16_t)wDpiX;
+	DezaImageInfo.wResolutionY       = (uint16_t)wDpiY;
 	DezaImageInfo.bFotoMetrics       = 1;
 	DezaImageInfo.wAddX              = 0;
 	DezaImageInfo.wAddY              = 0;
 
-	return OpenTrackBin(&DezaImageInfo, fGetGreyBlock, (Word16)wDezaFlag);
+	return OpenTrackBin(&DezaImageInfo, fGetGreyBlock, (uint16_t)wDezaFlag);
 #else
-	mDezaImageInfo.wImageHeight       = (Word16)mpIncomeDIB->GetLinesNumber();
-	mDezaImageInfo.wImageWidth        = (Word16)mpIncomeDIB->GetLineWidth();
-	mDezaImageInfo.wImageByteWidth    = (Word16)mpIncomeDIB->GetUsedLineWidthInBytes();
+	mDezaImageInfo.wImageHeight       = (uint16_t)mpIncomeDIB->GetLinesNumber();
+	mDezaImageInfo.wImageWidth        = (uint16_t)mpIncomeDIB->GetLineWidth();
+	mDezaImageInfo.wImageByteWidth    = (uint16_t)mpIncomeDIB->GetUsedLineWidthInBytes();
 	mDezaImageInfo.wImageDisplacement = 0;
 	mpIncomeDIB->GetResolutionDPI(&wDpiX, &wDpiY);
-	mDezaImageInfo.wResolutionX       = (Word16)wDpiX;
-	mDezaImageInfo.wResolutionY       = (Word16)wDpiY;
+	mDezaImageInfo.wResolutionX       = (uint16_t)wDpiX;
+	mDezaImageInfo.wResolutionY       = (uint16_t)wDpiY;
 	mDezaImageInfo.bFotoMetrics       = 1;
 	mDezaImageInfo.wAddX              = 0;
 	mDezaImageInfo.wAddY              = 0;

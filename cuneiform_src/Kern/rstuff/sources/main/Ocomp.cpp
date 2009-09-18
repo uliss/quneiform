@@ -334,7 +334,7 @@ Bool32 Ocomp::FillIntervals()
 	if (pComp->scale & CCOM_LONGLINES)
 	{
 		CCOM_lnhead  *lnhead;
-		lnhead = (CCOM_lnhead*)(pComp->linerep + sizeof(Word16));
+		lnhead = (CCOM_lnhead*)(pComp->linerep + sizeof(uint16_t));
 		while( lnhead->lth )						// по линиям
 		{
 			int16_t cInter = lnhead->row;
@@ -353,7 +353,7 @@ Bool32 Ocomp::FillIntervals()
 	else
 	{
 		CCOM_lnhead  *lnhead;
-		lnhead = (CCOM_lnhead*)(pComp->linerep + sizeof(Word16));
+		lnhead = (CCOM_lnhead*)(pComp->linerep + sizeof(uint16_t));
 		while( lnhead->lth )						// по линиям
 		{
 			int16_t cInter = lnhead->row;
@@ -515,7 +515,7 @@ Bool32 OOcomp::FillIntervals()
 	if (pComp->scale & CCOM_LONGLINES)
 	{
 		CCOM_lnhead  *lnhead;
-		lnhead = (CCOM_lnhead*)(pComp->linerep + sizeof(Word16));
+		lnhead = (CCOM_lnhead*)(pComp->linerep + sizeof(uint16_t));
 		while( lnhead->lth )						// по линиям
 		{
 			int16_t cInter = lnhead->row;
@@ -535,7 +535,7 @@ Bool32 OOcomp::FillIntervals()
 	else
 	{
 		CCOM_lnhead  *lnhead;
-		lnhead = (CCOM_lnhead*)(pComp->linerep + sizeof(Word16));
+		lnhead = (CCOM_lnhead*)(pComp->linerep + sizeof(uint16_t));
 		while( lnhead->lth )						// по линиям
 		{
 			int16_t cInter = lnhead->row;

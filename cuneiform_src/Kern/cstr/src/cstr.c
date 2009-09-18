@@ -66,8 +66,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 static  CSTR_head head, tail;
 static  int32_t     num_lines      = 0,num_fragments0=0,num_fragments1 = 0;
 static  int32_t     user_number = 0xFFFFFF+1;
-Word16           wHeightRC      = 0;
-Word16           wLowRC         = CSTR_ERR_NO;
+uint16_t           wHeightRC      = 0;
+uint16_t           wLowRC         = CSTR_ERR_NO;
 static  CSTR_line *FragmFirst0=NULL, *FragmLast0=NULL;
 static  CSTR_line *FragmFirst1=NULL, *FragmLast1=NULL;
 static  int32_t FragmMin[2], FragmMax[2];
@@ -91,7 +91,7 @@ static Bool32 RecRaster2rst(RecRaster *recr,CSTR_cell  *cell);
 /////////////////////
 // common functions
 /////////////////////
-CSTR_FUNC(Bool32)  CSTR_Init( Word16 wHeightCode , Handle hStorage)
+CSTR_FUNC(Bool32)  CSTR_Init( uint16_t wHeightCode , Handle hStorage)
 {
 wHeightRC = wHeightCode;
 wLowRC=CSTR_ERR_NO;
@@ -166,7 +166,7 @@ return (wHeightRC<<16)|(wLowRC-CSTR_ERR_MIN);
 
 CSTR_FUNC(char*)   CSTR_GetReturnString(uint32_t dwError)
 {
-  Word16 rc = (Word16)(dwError & 0xFFFF + CSTR_ERR_MIN);
+  uint16_t rc = (uint16_t)(dwError & 0xFFFF + CSTR_ERR_MIN);
         static char szBuffer[512];
 
         if( dwError >> 16 != wHeightRC)

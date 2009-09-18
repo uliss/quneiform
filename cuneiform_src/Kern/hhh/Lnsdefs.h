@@ -169,7 +169,7 @@ typedef struct tagLineInfo
 
    //========= Привязка к выделителю (для последующего снятия,...) =====
    int32_t          ExtrDllHnd;    // внутренний номер линии от выделителя
-   Word16         Extractor;     // библиотека, выделившая линию
+   uint16_t         Extractor;     // библиотека, выделившая линию
       #define LI_UNKNOWN   0
       #define LI_LNSDLL    1
       #define LI_DOTDLL    2

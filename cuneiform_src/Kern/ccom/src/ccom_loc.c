@@ -61,7 +61,7 @@ static Word8 make_fill[] = {0, 1, 3, 7, 15, 31, 63, 127, 255};
 static Bool32 StoreOneInterval( Word8 *p, int end , int len,Word8 *pe)
 {
 int16_t     sh;
-Word16    w;
+uint16_t    w;
 p = p + (end>>3);
 if( p>=pe )
     return FALSE;

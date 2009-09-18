@@ -72,7 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //-------------------- component in kit --------------------------
 typedef struct tagExtComponent
 {
- Word16 size;             // size of component in bytes (head + body)
+ uint16_t size;             // size of component in bytes (head + body)
                           // NOTE: in tiger.dll - in paragraphs >=3
                           // can be used to step to next comp
  /////////////////////////////////// in image coords, not ideal
@@ -132,7 +132,7 @@ typedef struct tagExtComponent
 // dust_comp in H\struct.h OLD TIGER
 typedef struct tagExtCompDust // currently not used
 {
-  Word16 size;            // =1
+  uint16_t size;            // =1
   int16_t  upper;
   int16_t  left;
   Word8 h;               // >0
@@ -156,7 +156,7 @@ typedef struct tagExtLnHead
  int16_t h;         // height of line == count of intervals
  int16_t row;       // relative row of line start
                   // (offset in pixels from top bound of comp, 0 based)
- Word16 flg;       // flags of free beg and free end
+ uint16_t flg;       // flags of free beg and free end
 #define l_fbeg          0x20
 #define l_fend          0x80
 #define l_cbeg          0x02
@@ -181,7 +181,7 @@ typedef struct tagExtInterval
 // pool:
 // 1. if    Ex_ExtraComp pool has following structure:
 //      <ExtComponent>
-//      <unused Word16>
+//      <unused uint16_t>
 //      <ExtLnHead>, <interval[]>
 //      <ExtLnHead>, <interval[]>
 //      ......................
@@ -229,11 +229,11 @@ typedef struct tagExcControl
          #define Ex_NoContainer          0x00000400
             // not used container CCOM
 
-   Word16 MaxCompWid;  // if comp width > MaxCompWid => ignored; 0 - not init
-   Word16 MaxCompHei;  // =""= by height
-   Word16 MinCompWid;  // if comp width <= MinCompWid => ignored; 0 - not init
-   Word16 MinCompHei;  // =""= by width
-   Word16 MaxScale;    // if scaling > => use long intervals
+   uint16_t MaxCompWid;  // if comp width > MaxCompWid => ignored; 0 - not init
+   uint16_t MaxCompHei;  // =""= by height
+   uint16_t MinCompWid;  // if comp width <= MinCompWid => ignored; 0 - not init
+   uint16_t MinCompHei;  // =""= by width
+   uint16_t MaxScale;    // if scaling > => use long intervals
 } ExcControl;
 
 typedef struct tagExcBox
@@ -242,7 +242,7 @@ typedef struct tagExcBox
  int16_t   col;       // real column of  comp
  int16_t   h;         // height of  comp
  int16_t   w;         // width of  comp
- Word16  flag;     // some logical info
+ uint16_t  flag;     // some logical info
  int32_t   user;     // working var for user
 } ExcBox;
 
@@ -252,8 +252,8 @@ typedef struct tagREXC_DIB
       uint32_t       biSize;
       int32_t        biWidth;
       int32_t        biHeight;
-      Word16        biPlanes;
-      Word16        biBitCount;
+      uint16_t        biPlanes;
+      uint16_t        biBitCount;
       uint32_t       biCompression;
       uint32_t       biSizeImage;
       int32_t        biXPelsPerMeter;
@@ -279,7 +279,7 @@ struct big_merge_struct
  int16_t vh[2*RASTER_MAX_HEIGHT+2];
  char eh[MAX_NUM_CUTPN];
  char sh[MAX_NUM_CUTPN];
- Word16 np;
+ uint16_t np;
  int16_t min_est;
  CP cp[MAX_NUM_CUTPN];
 };

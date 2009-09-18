@@ -284,8 +284,8 @@ if( !LDPUMA_Skip(hDebugEnableSaveJtl) )
 #ifdef _DEBUG
 char * GetModulesString(uint32_t dwError)
 {
-	Word16 low = (Word16)(dwError &  0xFFFF);
-	Word16 hei = (Word16)(dwError >> 16);
+	uint16_t low = (uint16_t)(dwError &  0xFFFF);
+	uint16_t hei = (uint16_t)(dwError >> 16);
 	static char szString[512] ;
 	sprintf(szString,"Unknown code error 0x%X",dwError);
 
@@ -369,8 +369,8 @@ char * GetModulesString(uint32_t dwError)
 //////////////////////////////////////////////////////////////////////
 char * GetModulesString(uint32_t dwError)
 {
-	Word16 low = (Word16)(dwError &  0xFFFF);
-	Word16 hei = (Word16)(dwError >> 16);
+	uint16_t low = (uint16_t)(dwError &  0xFFFF);
+	uint16_t hei = (uint16_t)(dwError >> 16);
 	static char szString[512];
 	uint32_t 	id = IDS_ERR_UNKNOWN;
 

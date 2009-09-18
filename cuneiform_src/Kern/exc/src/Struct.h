@@ -99,7 +99,7 @@ struct box_struct
  {
  struct box_struct *boxnext;    // chain address (zero if no next box)
  MN *               boxmain;    // component main number pointer
- Word16               boxptr;     // ptr to the empty place in the box
+ uint16_t               boxptr;     // ptr to the empty place in the box
  int16_t                boxleft;    // left boundary for line envelope
  int16_t                boxright;   // right boundary for line envelope
  int16_t                boxey;      // row of line end+1 ( if line ends within
@@ -110,7 +110,7 @@ struct box_struct
                                 //    ends within box)
  Word8               boxflag;    // byte for box attributes flags
  Word8               boxwf;      // working flag (for picture compress)
- Word16               boxresw;    // reserved word (for *4 arround)
+ uint16_t               boxresw;    // reserved word (for *4 arround)
  };
 typedef struct box_struct BOX;
 
@@ -152,7 +152,7 @@ typedef struct box_interval BOXINT;
 
 struct comp_struc
  {
- Word16 size;             // size of component in paragraphs >=3
+ uint16_t size;             // size of component in paragraphs >=3
  int16_t upper;             // upper boundary of component
  int16_t left;              // left boundary of component
  int16_t h;                 // height of component
@@ -191,7 +191,7 @@ typedef struct comp_struc c_comp;
 
 struct dust_comp_struc
  {
-  Word16 size;            // =1
+  uint16_t size;            // =1
   int16_t  upper;
   int16_t  left;
   Word8 h;               // >0
@@ -202,13 +202,13 @@ typedef struct dust_comp_struc dust_comp;
 
 struct file_comp_struct
  {
- Word16  size;           // =1
+ uint16_t  size;           // =1
  int16_t   upper;
  int16_t   left;
  Word8  h;              // =0
  Word8  w;              // =0
  uint32_t offset;
- Word16  lth;
+ uint16_t  lth;
  Word8 scale;
  Word8 reserv;
  };
@@ -220,7 +220,7 @@ struct ln_head
  int16_t lth;       // length of one line representation
  int16_t h;         // height of line
  int16_t row;       // relative row of line start
- Word16 flg;      // flags of free beg and free end
+ uint16_t flg;      // flags of free beg and free end
 #define l_fbeg          0x20
 #define l_fend          0x80
 #define l_cbeg          0x02
@@ -238,8 +238,8 @@ typedef struct int_s interval;
 
 struct large_int_s
  {
- Word16 l;        // length of interval
- Word16 e;        // end of interval coordinates
+ uint16_t l;        // length of interval
+ uint16_t e;        // end of interval coordinates
  };
 typedef struct large_int_s large_interval;
 
@@ -249,7 +249,7 @@ typedef struct  // == ExcBox from ExcDefs.h
  int16_t col;       // real column of  comp
  int16_t h;         // height of  comp
  int16_t w;         // width of  comp
- Word16 flag;     // some logical info
+ uint16_t flag;     // some logical info
  int32_t user;     // working var for user
 } gcomp;
 

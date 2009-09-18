@@ -110,7 +110,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   DIF_FUNC(void)  DIFClearRightZone(Word8 *RASTER, int16_t NWIDTH, int16_t WBYTE, int16_t NHEIGHT);
   DIF_FUNC(int16_t) DIF_GetNoCutPoint(Word8 *RASTER, int16_t Wb, Word8 NWIDTH, Word8 NLENGTH);
   DIF_FUNC(Bool32) DIF_SetLanguage(Word8 lang);
-  DIF_FUNC(Word16) DIF_typ_thin_stick(Word8 *lin,int16_t dy,int16_t dx);
+  DIF_FUNC(uint16_t) DIF_typ_thin_stick(Word8 *lin,int16_t dy,int16_t dx);
    #ifdef __cplusplus
             }
    #endif

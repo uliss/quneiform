@@ -95,7 +95,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#define  BIG_FRAG_PAGE 50 //максимальное число фрагментов на странице
 #define  LINE_PAGE FRAG_PAGE //максимальное число строк на странице
 
-typedef Word16 KegStat[MAX_KEG+2];
+typedef uint16_t KegStat[MAX_KEG+2];
 
 typedef struct tagKegTabElement
 {
@@ -477,7 +477,7 @@ static Bool32 get_stats()
 
 static void get_keg_tab()
 {
-  Word16 *prev_max=NULL,*cur_min=NULL,*keg_statsi=NULL;
+  uint16_t *prev_max=NULL,*cur_min=NULL,*keg_statsi=NULL;
   int32_t prev_max_n=0,min_n=INT_MAX,prev_n=0;
 //  int32_t prev_size=0,i_prev=0;
   int32_t i,j;
@@ -511,14 +511,14 @@ static void get_keg_tab()
       if (rise)
       {                  //найден локальный максимум
         int32_t tol=MIN(prev_max_n,prev_n)/3;
-        Word16 *cur_max=keg_statsi-1;
+        uint16_t *cur_max=keg_statsi-1;
         if (num_keg_opt>0)       //не первый кегль
         {
           Bool rely_bound=FALSE;
           int32_t dk=cur_max-prev_max;
           if (min_n<tol && (!gbFax100 || dk>4) && 10*dk >= cur_max-keg_stats)         //надежная граница
           {
-            Word16 *j;
+            uint16_t *j;
             for (j=prev_max; j<cur_min && *j>=tol; j++);
             *tab++=j-keg_stats;
             for (j=cur_max; j>cur_min && *j>=tol; j--);

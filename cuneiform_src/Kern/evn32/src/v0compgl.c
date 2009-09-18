@@ -784,7 +784,7 @@ comm_after_white:
 
 }
 
-void invert_tiff (Word8* p, Word16 lth)
+void invert_tiff (Word8* p, uint16_t lth)
 {
  while (lth--) {*p = ~*p; p++;}
 }

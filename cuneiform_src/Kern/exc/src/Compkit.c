@@ -64,11 +64,11 @@ extern c_comp wcomp;
 extern MN * main_number_ptr;
 extern BOX * boxchain, *dl_last_in_chain;
 extern Word8 lpool[];
-extern Word16 lpool_lth;
+extern uint16_t lpool_lth;
 extern Word8 work_raster[];
 extern version * start_rec, * rec_ptr;
 extern Word8 records_change;
-extern Word16 comp_max_h, comp_max_w, comp_min_h, comp_min_w; // defined in extrcomp.c
+extern uint16_t comp_max_h, comp_max_w, comp_min_h, comp_min_w; // defined in extrcomp.c
 
 static void boxes_to_line();
 
@@ -168,7 +168,7 @@ static Word8 make_fill[] = {0, 1, 3, 7, 15, 31, 63, 127, 255};
 void WriteInterval ( Word8 *p, int end , int len)
 {
 int16_t     sh;
-Word16    w;
+uint16_t    w;
 p = p + (end>>3);
 sh = end & 7;
 while (len > 8)   { w = 0xff00 >> sh;*p |= w & 0xff; *(--p) |= w>>8; len-=8; }
@@ -182,7 +182,7 @@ Word8* make_raster()
  interval *ip;
  Word8 *p, *pp;
  int16_t x, l, sh;
- Word16 w;
+ uint16_t w;
 
  memset (work_raster,0,wcomp.rw*wcomp.h);
  lp = (lnhead *)lpool;
@@ -208,7 +208,7 @@ Word8* make_extended_raster(c_comp *cp)
  large_interval *ip;
  Word8 *p, *pp;
  int16_t x, l, sh;
- Word16 wd,w;
+ uint16_t wd,w;
 
  memset (work_raster,0,cp->rw * cp->h); wd = cp->rw;
  lp = (lnhead *)((Word8*)cp + cp->lines + sizeof(uint32_t));
@@ -222,7 +222,7 @@ Word8* make_extended_raster(c_comp *cp)
      w = make_fill[l]; w = w << (8-sh); *p |= w & 0xff; *(p-1) |= w >> 8;
      pp += wd;
     }
-   lp = (lnhead *)((Word8*)ip - sizeof(Word16));
+   lp = (lnhead *)((Word8*)ip - sizeof(uint16_t));
   }
  return work_raster;
 }
@@ -246,13 +246,13 @@ int16_t MN_to_line(MN * mn)
  return 0;
 }
 
-void save_component(c_comp *,version *,version *,Word8*,Word16);
+void save_component(c_comp *,version *,version *,Word8*,uint16_t);
 void save_wcomp()
 {
  save_component(&wcomp,start_rec,rec_ptr,lpool,lpool_lth);
 }
 
-Word16 length_table[] = {0x100, 0x300, 0x700,0xf00,0x1f00,0x3f00,0x7f00,0xff00};
+uint16_t length_table[] = {0x100, 0x300, 0x700,0xf00,0x1f00,0x3f00,0x7f00,0xff00};
 
 void save_dust_comp (dust_comp * dp, c_comp *cp, Word8 *lp)
 {
@@ -303,10 +303,10 @@ int16_t read_dust_comp (dust_comp *cp, Word8 *p)
  return lth + sizeof(lp->lth);
 }
 
-Word16 sort_events_vers()
+uint16_t sort_events_vers()
 {
  version * v, *a;
- Word16 n;
+ uint16_t n;
  Word8 let, prob;
 
  if (records_change == 0) goto ret;

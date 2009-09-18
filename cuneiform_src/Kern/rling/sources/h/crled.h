@@ -89,21 +89,21 @@ struct BitMapRef
 {
     Word8 code;
     Word8 pos;
-    Word16 row;
-    Word16 col;
-    Word16 width;
-    Word16 height;
+    uint16_t row;
+    uint16_t col;
+    uint16_t width;
+    uint16_t height;
 };
 
 struct SheetDiskDescr
 {
     Word8 code;
     Int8 quant_fragm;
-    Word16 sheet_numb;
-    Word16 descr_lth;
+    uint16_t sheet_numb;
+    uint16_t descr_lth;
     Word8 byte_flag;
-    Word16 resolution;
-    Word16  incline;
+    uint16_t resolution;
+    uint16_t  incline;
     Int8 tabl[13];
 };
 
@@ -111,16 +111,16 @@ struct FragmDisk
 {
     Word8 code;
     Word8 fragm_numb;
-    Word16 depth;
+    uint16_t depth;
 };
 
 struct FragmDiskDescr
 {
     Word8 code;
-    Word16 row;
-    Word16 col;
-    Word16 height;
-    Word16 w_width;
+    uint16_t row;
+    uint16_t col;
+    uint16_t height;
+    uint16_t w_width;
     Int8   type;
     Word8  kegl;
     Word8  font;
@@ -176,7 +176,7 @@ protected:
 	//struct bit_map_ref         mBmr;
 
 private:
-	void   Write(PWord8 pP, Word16 wSize);
+	void   Write(PWord8 pP, uint16_t wSize);
 
 };
 

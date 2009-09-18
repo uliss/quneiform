@@ -211,7 +211,7 @@ Bool32 PicturesSecondStage(Handle hCCOM,Handle hCPAGE)
 	uint32_t i,j;
 	CCOM_comp pic;
 	CCOM_comp * comp;
-	Word16 pLocalHystogram[MaxHeightOfLetter];
+	uint16_t pLocalHystogram[MaxHeightOfLetter];
 	uint32_t nLocalComps;
 	uint32_t MaxLocal, nMaxLocal;
 	uint32_t Result1, Result2;
@@ -618,7 +618,7 @@ Bool32 ReadRoots(Handle hCCOM, Bool32 BLOCKS)
 
 	for(i=0;i<MaxHeightOfLetter;i++)
 	{
-		pBlockHystogram[i] = 0; //Word16[]
+		pBlockHystogram[i] = 0; //uint16_t[]
 	}
 
 

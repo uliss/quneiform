@@ -126,7 +126,7 @@ RMARKER_FUNC(Bool32) RMARKER_SetImportData(uint32_t dwType, void * pData)
 	return rc;
 }
 
-RMARKER_FUNC(Bool32) RMARKER_Init(Word16 wHeightCode,Handle hStorage)
+RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode,Handle hStorage)
 {
 
  LDPUMA_Init  (0,NULL);

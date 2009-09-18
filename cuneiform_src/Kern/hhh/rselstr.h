@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 
-RSELSTR_FUNC(Bool32) RSELSTR_Init(Word16 wHeightCode,Handle hStorage);
+RSELSTR_FUNC(Bool32) RSELSTR_Init(uint16_t wHeightCode,Handle hStorage);
 RSELSTR_FUNC(Bool32) RSELSTR_Done();
 RSELSTR_FUNC(uint32_t) RSELSTR_GetReturnCode();
 RSELSTR_FUNC(Int8 *) RSELSTR_GetReturnString(uint32_t dwError);

@@ -85,16 +85,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define       MaxLines        2000
 #define       MaxZherTotal    100
 /*------------extern objects--------------------------------------------------*/
-extern Word16      gwHeightRC_rver;
-extern Word16      gwLowRC_rver;
+extern uint16_t      gwHeightRC_rver;
+extern uint16_t      gwLowRC_rver;
 //extern Handle      hUseCLine;
 /*------------own objects-----------------------------------------------------*/
 static Regime_VerifyLines   MainRegime;
 static Rect16 Rc[MaxComps];
 static int WhatDo[MaxComps];
 /*------------extern functions------------------------------------------------*/
-void   SetReturnCode_rverline (Word16 rc);
-Word16 GetReturnCode_rverline ();
+void   SetReturnCode_rverline (uint16_t rc);
+uint16_t GetReturnCode_rverline ();
 Bool WasInitRVERLINE ();
 void GiveMemFor_FWP_Inst (int **ppWhatDo, int *nLimComp);
 Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage, uint32_t *pHoriType, uint32_t *pVertType, char *pStr);
@@ -114,7 +114,7 @@ Bool MyGetZher (void **vvZher, int *nZher, int MaxZher, Handle hCPage);
 RVERLINE_FUNC(Bool32) RVERLINE_MarkLines (Handle hCComp, Handle hCPage)
 {
 	Word8  err8;
-	Word16 Code;
+	uint16_t Code;
 //	uint32_t HoriType, VertType;
 	Bool ret, AbleShortVert;
 	LinesTotalInfo  lti = {0};  // Структура хранения линий
@@ -148,9 +148,9 @@ RVERLINE_FUNC(Bool32) RVERLINE_MarkLines (Handle hCComp, Handle hCPage)
 		AM_ConsolN ("Res_X = %d  Res_Y = %d  W_page = %d  H_page = %d\n"
 				, info.DPIX, info.DPIY, info.Width, info.Height);
 	err8 = (Word8)ER_ROUGH_NORMAL;
-	Code = (Word16)(err8<<8);
+	Code = (uint16_t)(err8<<8);
 	err8 = (Word8)ER_DETAIL_EMPTY_FUNC;
-	Code |= (Word16)err8;
+	Code |= (uint16_t)err8;
 	SetReturnCode_rverline (Code);
 	/*  Считываю линии  */
 	lti.Hor.Lns = LHor;
@@ -174,9 +174,9 @@ RVERLINE_FUNC(Bool32) RVERLINE_MarkLines (Handle hCComp, Handle hCPage)
 			return TRUE;
 		case RV_DOUBT :
 			err8 = (Word8)ER_ROUGH_CALL_REFUSED;
-			Code = (Word16)(err8<<8);
+			Code = (uint16_t)(err8<<8);
 			err8 = (Word8)ER_DETAIL_NO_MEMORY;
-			Code |= (Word16)err8;
+			Code |= (uint16_t)err8;
 			SetReturnCode_rverline (Code);
 			myKeyWarn  = AM_GetKeyOfRule (RU_VL_C_ContWarn);
 			if (!AM_Skip (myKeyWarn))
@@ -279,9 +279,9 @@ RVERLINE_FUNC(Bool32) RVERLINE_SetImportData(uint32_t dwType, void *pData)
 	if (gwHeightRC_rver==0)
 	{
 		err8 = (Word8)ER_ROUGH_CALL_REFUSED;
-		gwLowRC_rver = (Word16)(err8<<8);
+		gwLowRC_rver = (uint16_t)(err8<<8);
 		err8 = (Word8)ER_DETAIL_WAS_NOT_INIT;
-		gwLowRC_rver |= (Word16)err8;
+		gwLowRC_rver |= (uint16_t)err8;
 		return FALSE;
 	}
 	switch (dwType)
@@ -294,9 +294,9 @@ RVERLINE_FUNC(Bool32) RVERLINE_SetImportData(uint32_t dwType, void *pData)
 			break;
 		default :
 			err8 = (Word8)ER_ROUGH_CALL_REFUSED;
-			gwLowRC_rver = (Word16)(err8<<8);
+			gwLowRC_rver = (uint16_t)(err8<<8);
 			err8 = (Word8)ER_DETAIL_BAD_PARAMETRS;
-			gwLowRC_rver |= (Word16)err8;
+			gwLowRC_rver |= (uint16_t)err8;
 		return FALSE;
 	}
 	return TRUE;

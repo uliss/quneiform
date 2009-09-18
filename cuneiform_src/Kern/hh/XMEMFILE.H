@@ -172,8 +172,8 @@ public:
    Bool     Put( Int8& t ) { return Put( &t, sizeof(Int8) ); }
    Bool     Get( uint32_t& t ) { return Get( &t, sizeof(uint32_t) ); }
    Bool     Put( uint32_t& t ) { return Put( &t, sizeof(uint32_t) ); }
-   Bool     Get( Word16& t ) { return Get( &t, sizeof(Word16) ); }
-   Bool     Put( Word16& t ) { return Put( &t, sizeof(Word16) ); }
+   Bool     Get( uint16_t& t ) { return Get( &t, sizeof(uint16_t) ); }
+   Bool     Put( uint16_t& t ) { return Put( &t, sizeof(uint16_t) ); }
    Bool     Get( Word8& t ) { return Get( &t, sizeof(Word8) ); }
    Bool     Put( Word8& t ) { return Put( &t, sizeof(Word8) ); }
    Bool     Get( Rect16& t ) { return Get( &t, sizeof(Rect16) ); }

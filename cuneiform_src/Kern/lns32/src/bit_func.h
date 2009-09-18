@@ -63,8 +63,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 extern const Word8 bit_byte[8];
 extern const Word8 lbit_byte[8];
-extern const Word16 bit_word[16];
-extern const Word16 lbit_word[16];
+extern const uint16_t bit_word[16];
+extern const uint16_t lbit_word[16];
 extern const Word8 right_0[256];
 extern const Word8 left_0[256];
 extern const Word8 bit0_cnt[256];
@@ -80,7 +80,7 @@ extern const Word8 first_bit1_pos[256];
 #define low_byte( some_word )    ( *( ((Word8*)&some_word) +1 )    )
 #endif
 **/
-#define hi_byte( some_word )     (    ((Word16)some_word)>>8       )
+#define hi_byte( some_word )     (    ((uint16_t)some_word)>>8       )
 #define low_byte( some_word )    (    (Word8)some_word             )
 
 #define left_byte( some_word )      ( low_byte( some_word )       )

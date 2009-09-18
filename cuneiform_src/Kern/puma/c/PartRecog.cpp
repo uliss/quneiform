@@ -173,7 +173,7 @@ static Bool32 RecognizeSetup(int language)
 		Word8 w8 = (Word8)gnLanguage;
 		RSTR_SetImportData(RSTR_Word8_Language,&w8);
 
-		Word16 w16 = (Word16)info.DPIY;//300;
+		uint16_t w16 = (uint16_t)info.DPIY;//300;
 		RSTR_SetImportData(RSTR_Word16_Resolution,&w16);
 
 		w8 = (Word8)gbFax100;

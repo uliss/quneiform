@@ -75,7 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 static Word8 *grim1 = NULL, *grim2;	// Pointer to internal buffer
 static int16_t ls, nsb1;		// Length of string and strings per buffer
-static Word16 rest;		// Length of rest in the buffer after previous read
+static uint16_t rest;		// Length of rest in the buffer after previous read
 static Word8 reserv[2048];
 extern int16_t image_lth     ;  // bytes per line
 static void matrix_process ();
@@ -106,7 +106,7 @@ void matrix_reset ()
  matrix_close();
 }
 
-int16_t matrix_read(Word8 *buff, Word16 lth)
+int16_t matrix_read(Word8 *buff, uint16_t lth)
  {
  int16_t lmax, l;
  Word8 *pc, *pwr;

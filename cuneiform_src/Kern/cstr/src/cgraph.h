@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern "C" {
 #endif
 
-extern Word16 wLowRC;
+extern uint16_t wLowRC;
 
 #ifdef __cplusplus
 }
@@ -94,8 +94,8 @@ typedef struct CGRAPH_Data
 //32
 typedef struct CGRAPH_FileData
 {
-	Word16	FileVer;
-	Word16	MaxLineVer;
+	uint16_t	FileVer;
+	uint16_t	MaxLineVer;
 
 	Word8	Reserved[28];
 }FileData;

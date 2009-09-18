@@ -1558,7 +1558,7 @@ extern PBYTE kit_curr, kit_end;
 static void accept_Cell( cell *c,CSTR_rast_attr *rst, CCOM_comp *cmp, BOOL shift)
  {
  c_comp ec={0};
- Word16 zero=0;
+ uint16_t zero=0;
 
 if( !cmp )
     return;
@@ -3292,7 +3292,7 @@ return ret;
 void add_vers_underlined(void)
 {
 cell *  c;
-Word16  flg;
+uint16_t  flg;
 for(c=cell_f()->nextl;c!=cell_l();c=c->nextl)
     {
     if( c->nvers && ((c->flg_new&CSTR_fn_under)||(c->font&c_fp_undrln)) )

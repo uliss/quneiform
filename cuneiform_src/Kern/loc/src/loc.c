@@ -87,7 +87,7 @@ extern Word8 evline[], evline1[];
 extern MN * c_locomp (Word8* raster, int32_t bw, int32_t h, int16_t upper, int16_t left);
 extern void MN_to_line(MN *);
 extern int32_t recog_letter(void);
-extern int32_t recog_letter_lp(ExtComponent *ec, Word8 *lp,Word16 lth);
+extern int32_t recog_letter_lp(ExtComponent *ec, Word8 *lp,uint16_t lth);
 
 
 static void *EvnAlloc(uint32_t len) { return malloc(len); }

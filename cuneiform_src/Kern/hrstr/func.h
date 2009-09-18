@@ -76,7 +76,7 @@
 
 extern BYTE *let_linpos, *let_lindef, *let_lincomp, *let_linshape,
 		*let_sans_acc, *let_lindef3;
-extern Word16 *accent_tab; // 30.08.2000 E.P.
+extern uint16_t *accent_tab; // 30.08.2000 E.P.
 
 // module diffrv.c
 void r_criteria(cell *c, const s_glue * gl);

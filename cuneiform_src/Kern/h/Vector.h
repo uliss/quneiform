@@ -77,7 +77,7 @@ int32_t			area;		// area in pixels
 int16_t			height,
 			yline;		// y offset of chunk in letter box
 int16_t			nintervals;	// number of intervals
-Word16			wide : 1,       // wide chunk
+uint16_t			wide : 1,       // wide chunk
 			v_deleted : 1;  // chunk was deleted
 #define MAX_CHUNK	64
 } Chunk;
@@ -111,8 +111,8 @@ Vector * chunk;
 
 
 typedef struct tagSegmRec {
-Word16 segm;
-Word16 let;
+uint16_t segm;
+uint16_t let;
 Word8 prob;
 #define MAX_REC_SEG		14
 } SegmRec;

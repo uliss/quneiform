@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef	__RECDEFS_H
 typedef unsigned char       Word8;
-typedef unsigned short int  Word16;
+typedef unsigned short int  uint16_t;
 typedef short int           int16_t;
 typedef int                 int32_t;
 typedef int                 Bool32;

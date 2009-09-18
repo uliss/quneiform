@@ -194,13 +194,13 @@ static void unpack_segments( Word8* dstprev, Word8* dst, Word8* dstnext, int32_t
 	}
 }
 
-int16_t Sweeper_ImageRead (Word8* lpImage, Word16 wMaxSize)
+int16_t Sweeper_ImageRead (Word8* lpImage, uint16_t wMaxSize)
 {
 	if (!Ready)
       return 0;
 
    int32_t max_read_rqst = BUF_LEN - 4*ImageInfo.wImageByteWidth;
-   int32_t size_read = (int32_t)Tiger_Callback_ImageRead( (Word8*)lpImage, (Word16) MIN( wMaxSize, max_read_rqst ) );
+   int32_t size_read = (int32_t)Tiger_Callback_ImageRead( (Word8*)lpImage, (uint16_t) MIN( wMaxSize, max_read_rqst ) );
 	if (size_read ==0)
 		return 0;
 	assert( size_read <= max_read_rqst );

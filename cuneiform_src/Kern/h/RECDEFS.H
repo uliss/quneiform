@@ -120,7 +120,7 @@ typedef struct tagRecAlt
       Word8    CodeExt;        // for unicode
       Word8    Method;         // recognize method
       Word8    Prob;
-      Word16   Info;
+      uint16_t   Info;
    }  RecAlt;
 typedef struct tagUniAlt
    {
@@ -129,7 +129,7 @@ typedef struct tagUniAlt
       Word8    Method;         // recognize method
       Word8    Prob;
       Word8    Charset;
-      Word16   Info;
+      uint16_t   Info;
    }  UniAlt;
 
 typedef struct tagClustAlt
@@ -171,7 +171,7 @@ typedef struct tagRecData
 	uint32_t    lwStatus;
 
 	RecRaster recRaster;       // basic raster. Can be not changed
-	Word16    v3x5[16];        // normalizeted image 3x5
+	uint16_t    v3x5[16];        // normalizeted image 3x5
 	uint32_t    lwCompCnt;       // number of components, 0 - not counted
 	Rect16    rect;
   RecVector    vSticks[MAX_VECT];

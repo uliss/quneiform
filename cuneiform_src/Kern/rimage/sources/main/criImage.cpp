@@ -64,8 +64,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // exteren globals
 extern CRIControl * Control_cri;
 // extern functions
-void SetReturnCode_rimage(Word16 rc);
-Word16 GetReturnCode_rimage();
+void SetReturnCode_rimage(uint16_t rc);
+uint16_t GetReturnCode_rimage();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

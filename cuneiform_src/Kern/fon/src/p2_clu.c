@@ -1182,7 +1182,7 @@ SINT SaveCluster(SINT fh, CTB_handle *CTBfile, SINT fhSnap,
 	welBuf->sr_row = rh[fir].sr_row;
 
 	if (IsCTBBase && metkaGood) {
-		Word16 meme = METKA_VALID;
+		uint16_t meme = METKA_VALID;
 		welBuf->prob = metkaGood[clus - 1];
 		welBuf->valid = metkaValid[clus - 1] & (~meme);
 	}

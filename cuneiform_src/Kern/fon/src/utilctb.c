@@ -114,7 +114,7 @@ Word8 CTBdata[CTB_DATA_SIZE];
 int fullX;
 int fullY;
 BYTE *bufCTB;
-Word16 *pword16;
+uint16_t *pword16;
 uint32_t *pword32;
 int16_t  *pint16;
 static  num=0;
@@ -154,7 +154,7 @@ int i;
 	CTBdata[11]=(Word8)wel->attr;   // for attributes
 
 	// now put words
-    pword16=(Word16 *)(CTBdata+12);
+    pword16=(uint16_t *)(CTBdata+12);
 	pword16[0]=wel->fill;
 	pword16[1]=wel->num;
 	pword16[2]=wel->invalid;

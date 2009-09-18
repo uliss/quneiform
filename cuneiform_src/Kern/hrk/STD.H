@@ -260,7 +260,7 @@ STD_FUNC( Bool32 ) stdMoveFile(
 
     STD_FUNC( Word8 ) stdAnsiToAscii( Word8 Code); // WIN => DOS
     STD_FUNC( Word8 ) stdAsciiToAnsi( Word8 Code); // DOS => WIN
-    STD_FUNC(Word16) stdAnsiToUnicode( Word8 Code);
+    STD_FUNC(uint16_t) stdAnsiToUnicode( Word8 Code);
     STD_FUNC(void) stdStrUnicodeToAnsi(char* pAnsi,const wchar_t* pUnicode);
 
     STD_FUNC( Word8 ) stdUpperAscii ( Word8 Code);

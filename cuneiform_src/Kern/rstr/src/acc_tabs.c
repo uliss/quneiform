@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // RCM.C
 extern  BYTE alpha_used_mode;
 
-	Word16	// BYTE=>Word16 30.08.2000 E.P.
+	uint16_t	// BYTE=>uint16_t 30.08.2000 E.P.
 	   accent_tab_lat[256] = {
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 // 0
@@ -104,7 +104,7 @@ extern  BYTE alpha_used_mode;
 //    n~ o` o' o^ o~ o:        u` u' u^ u:  y'    y:
    };
 
-	Word16	// BYTE=>Word16 30.08.2000 E.P.
+	uint16_t	// BYTE=>uint16_t 30.08.2000 E.P.
 accent_tab_rus[256] = {
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 // 0
@@ -700,7 +700,7 @@ static BYTE let_sans_acc_rus[257] = {
 BYTE    *let_linpos,    *let_lindef,
         *let_lincomp,   *let_linshape,
         *let_sans_acc,  *let_lindef3;
-Word16 *accent_tab; // 30.08.2000 E.P.
+uint16_t *accent_tab; // 30.08.2000 E.P.
 
  static BYTE alph_russian[256]={
 

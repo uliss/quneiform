@@ -177,7 +177,7 @@ extern "C" {
     }
 
     //////////////////////////////////////////////
-    Bool32   LDPUMA_Init(Word16 wHightCode, Handle hStorage)
+    Bool32   LDPUMA_Init(uint16_t wHightCode, Handle hStorage)
     {
         Bool32 rc = FALSE;
 #ifdef _DEBUG

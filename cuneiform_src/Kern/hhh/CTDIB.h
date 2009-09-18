@@ -90,8 +90,8 @@ typedef struct tagCTDIBBITMAPINFOHEADER
 	uint32_t        biSize;
     int32_t         biWidth;
 	int32_t         biHeight;
-	Word16        biPlanes;
-    Word16        biBitCount;
+	uint16_t        biPlanes;
+    uint16_t        biBitCount;
     uint32_t        biCompression;
     uint32_t        biSizeImage;
     int32_t         biXPelsPerMeter;
@@ -120,8 +120,8 @@ typedef struct tagCTDIBBITMAPV4HEADER
 {   uint32_t             bV4Size;
 	int32_t              bV4Width;
     int32_t              bV4Height;
-	Word16             bV4Planes;
-    Word16             bV4BitCount;
+	uint16_t             bV4Planes;
+    uint16_t             bV4BitCount;
 	uint32_t             bV4V4Compression;
     uint32_t             bV4SizeImage;
 	int32_t              bV4XPelsPerMeter;
@@ -145,8 +145,8 @@ typedef struct tagCTDIBBITMAPV5HEADER
 	uint32_t             bV5Size;
 	int32_t              bV5Width;
     int32_t              bV5Height;
-	Word16             bV5Planes;
-    Word16             bV5BitCount;
+	uint16_t             bV5Planes;
+    uint16_t             bV5BitCount;
 	uint32_t             bV5Compression;
     uint32_t             bV5SizeImage;
 	int32_t              bV5XPelsPerMeter;

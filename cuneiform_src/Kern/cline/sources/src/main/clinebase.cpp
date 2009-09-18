@@ -128,7 +128,7 @@ BOOL APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CLINE_FUNC(Bool32) CLINE_Init(Word16 wHeightCode,HANDLE hStorage)
+CLINE_FUNC(Bool32) CLINE_Init(uint16_t wHeightCode,HANDLE hStorage)
 {
 	LDPUMA_Init(0,NULL);
 

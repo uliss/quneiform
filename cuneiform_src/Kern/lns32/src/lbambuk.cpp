@@ -549,7 +549,7 @@ void TLinesBambuk::computeHRasters( TRasterBambuk* rb, TSegBambuk* sb ){
    }
 ///////////////////
 
-   fragmentsCount = (Word16)frag_handle;  // count of line fragments
+   fragmentsCount = (uint16_t)frag_handle;  // count of line fragments
 	if (fragmentsCount > 0 && sum_len > 0)
    {
 		averagePhi = (sum_phi) / (double)(sum_len);

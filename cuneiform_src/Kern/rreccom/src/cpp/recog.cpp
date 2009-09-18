@@ -75,13 +75,13 @@ const int32_t max_raster = REC_MAX_RASTER_SIZE;//2048*32;
 
 Word8 alphabet[256];
 int32_t gra_type_rec = -1;
-Word16 comp_max_h, comp_max_w, comp_min_h, comp_min_w;
+uint16_t comp_max_h, comp_max_w, comp_min_h, comp_min_w;
 int16_t MaxScale;
 Word8 work_raster[max_raster];
 
 static Word8 make_fill[] = {0, 1, 3, 7, 15, 31, 63, 127, 255};
 
-extern Word16 gwLowRC_rrec;
+extern uint16_t gwLowRC_rrec;
 extern Word8*  lnOcrPath;
 /*********************************************************************************************/
 Bool32 rec_init(RRecComControl control, char *spath, Word8 lang);
@@ -245,7 +245,7 @@ void make_raster(CCOM_comp* pcomp)
 	CCOM_interval* ip;
 	Word8 *p, *pp;
 	int16_t x, l, sh;
-	Word16 w;
+	uint16_t w;
 
 	memset (work_raster, 0, pcomp->rw*pcomp->h);
 	lp = (CCOM_lnhead*)((char *)pcomp->linerep + sizeof(int16_t));

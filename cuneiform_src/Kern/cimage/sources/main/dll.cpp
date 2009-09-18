@@ -71,8 +71,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-static Word16            gwHeightRC = 0;
-static Word16            gwLowRC =    0;
+static uint16_t            gwHeightRC = 0;
+static uint16_t            gwLowRC =    0;
 static HINSTANCE         ghInst =     NULL;
 CTIControl *      Control_cti =    NULL;
 static int32_t             InitCount =  0;
@@ -100,7 +100,7 @@ BOOL APIENTRY DllMain( HINSTANCE  hModule,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_Init(Word16 wHeightCode,Handle hStorage)
+CIMAGE_FUNC(Bool32) CIMAGE_Init(uint16_t wHeightCode,Handle hStorage)
 {
 	gwHeightRC = wHeightCode;
 
@@ -157,7 +157,7 @@ CIMAGE_FUNC(uint32_t) CIMAGE_GetReturnCode()
 //
 CIMAGE_FUNC(PInt8) CIMAGE_GetReturnString(uint32_t dwError)
 {
-	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_CIMAGE_ERR_NO;
+	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_CIMAGE_ERR_NO;
 	static Char8 szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
@@ -220,14 +220,14 @@ CIMAGE_FUNC(Bool32) CIMAGE_SetImportData(uint32_t dwType, void * pData)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void SetReturnCode_cimage(Word16 rc)
+void SetReturnCode_cimage(uint16_t rc)
 {
 	if ( rc == IDS_CIMAGE_ERR_NO || gwLowRC == IDS_CIMAGE_ERR_NO )
 		gwLowRC = rc;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Word16 GetReturnCode_cimage()
+uint16_t GetReturnCode_cimage()
 {
 	return gwLowRC;
 }

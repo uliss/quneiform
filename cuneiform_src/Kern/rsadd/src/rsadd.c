@@ -92,8 +92,8 @@ static int16_t   crsadd_equa1=100;
 static int16_t   crsadd_equa2=100;
 #define MAX_LEN_WORD  68
 
-Word16              wHeightRC      = 0;
-Word16              wLowRC         = RSADD_ERR_NO;
+uint16_t              wHeightRC      = 0;
+uint16_t              wLowRC         = RSADD_ERR_NO;
 
 typedef struct _RSADD_STAT
 {
@@ -588,7 +588,7 @@ Bool32 rsadd_study_word(CSTR_rast beg, CSTR_rast end,RSADD_STAT *s)
 CSTR_rast_attr  a;
 CSTR_rast       r, re;
 UniVersions     u;
-Word16          minp, maxp, minup, maxup, minw, maxw;
+uint16_t          minp, maxp, minup, maxup, minw, maxw;
 int16_t           norec, ndig, ndig_first, nup, nup_first, nupall, nall;
 Bool32          unilet;
 
@@ -1791,7 +1791,7 @@ return (hide>0);
 
 
 
-RSADD_FUNC(Bool32)  RSADD_Init( Word16 wHeightCode, Handle hStorage )
+RSADD_FUNC(Bool32)  RSADD_Init( uint16_t wHeightCode, Handle hStorage )
 {
 wHeightRC = wHeightCode;
 wLowRC=RSADD_ERR_NO;
@@ -1814,7 +1814,7 @@ return (wHeightRC<<16)|(wLowRC-RSADD_ERR_MIN);
 
 RSADD_FUNC(char*)   RSADD_GetReturnString(uint32_t dwError)
 {
-	Word16 rc = (Word16)(dwError & 0xFFFF + RSADD_ERR_MIN);
+	uint16_t rc = (uint16_t)(dwError & 0xFFFF + RSADD_ERR_MIN);
 	static char szBuffer[512];
 
 	if( dwError >> 16 != wHeightRC)

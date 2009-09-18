@@ -351,8 +351,8 @@ BYTE *  ED_file_bound,*ED_file_end;
 PBYTE   kit_curr, kit_end, kit_start;
 LONG    kit_size=65536*4;
 Bool32  kit_max_size=FALSE;
-Word16           wHeightRC      = 0;
-Word16           wLowRC         = RSTR_ERR_NO;
+uint16_t           wHeightRC      = 0;
+uint16_t           wLowRC         = RSTR_ERR_NO;
 
 #define FIELD_RESTART 1
 void ErrorExit(int Code);
@@ -1893,7 +1893,7 @@ void CErrorExit(int Code)
 
 
 ////// OLEG for PUMA
-RSTR_FUNC(Bool32)  RSTR_Init(Word16 wHightCode, Handle hStorage)
+RSTR_FUNC(Bool32)  RSTR_Init(uint16_t wHightCode, Handle hStorage)
 {
     wHeightRC      = wHightCode;
     wLowRC         = RSTR_ERR_NO;
@@ -1918,7 +1918,7 @@ RSTR_FUNC(uint32_t) RSTR_GetReturnCode(void)
 
 RSTR_FUNC(Word8 *) RSTR_GetReturnString(uint32_t dwError)
 {
-    Word16 rc = (Word16)(dwError & 0xFFFF + RSTR_ERR_MIN);
+    uint16_t rc = (uint16_t)(dwError & 0xFFFF + RSTR_ERR_MIN);
     static Word8 szBuffer[512];
 
     if( /*wLowRC==RSTR_ERR_MIN && */local_ret_error_code )
@@ -2396,7 +2396,7 @@ RSTR_FUNC(Bool32)  RSTR_GetExportData (uint32_t dwType, void * pData)
     switch(dwType)
     {
         CASE_DATA(RSTR_Word8_Language           ,Word8,language);
-        CASE_DATA(RSTR_Word16_Resolution        ,Word16,actual_resolution);
+        CASE_DATA(RSTR_Word16_Resolution        ,uint16_t,actual_resolution);
         CASE_DATA(RSTR_Word8_Fax1x2                     ,Word8,fax1x2);
         CASE_DATA(RSTR_Word8_Matrix                     ,Word8,matrix);
         CASE_DATA(RSTR_Word8_P2_active          ,Word8,p2_active);
@@ -2504,7 +2504,7 @@ RSTR_FUNC(Bool32)  RSTR_SetImportData (uint32_t dwType, const void * pData)
         }
 
         break;
-        CASE_DATA( RSTR_Word16_Resolution               ,Word16,actual_resolution);
+        CASE_DATA( RSTR_Word16_Resolution               ,uint16_t,actual_resolution);
         CASE_DATA( RSTR_Word8_Fax1x2,Word8              ,fax1x2);
         CASE_DATA( RSTR_Word8_P2_disable,Word8          ,p2_disable);
         CASE_DATA( RSTR_Word8_Matrix,Word8              ,matrix);

@@ -84,7 +84,7 @@ FNCPAGE_GetBlockNext GetBlockNext;
 FNCPAGE_GetBlockData GetBlockData;
 /*------------extern functions------------------------------------------------*/
 void MyErrorNoMem (const char* str);
-void   SetReturnCode_rverline (Word16 rc);
+void   SetReturnCode_rverline (uint16_t rc);
 /*------------own functions---------------------------------------------------*/
 Bool MyInit_CPage ();
 Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage, uint32_t *pHoriType, uint32_t *pVertType, char *pStr);
@@ -452,11 +452,11 @@ Bool MyReSetLines (void *vLti, int MaxNumLin, CLINE_handle hCLINE)
 void Error_CPage (const char *str)
 {
 	Word8  err8;
-	Word16 Code;
+	uint16_t Code;
 	err8 = (Word8)ER_ROUGH_NORMAL;
-	Code = (Word16)(err8<<8);
+	Code = (uint16_t)(err8<<8);
 	err8 = (Word8)ER_DETAIL_FUNC_CPAGE;
-	Code |= (Word16)err8;
+	Code |= (uint16_t)err8;
 	SetReturnCode_rverline (Code);
 	AM_Console ("RVERLINE : Ошибка чужой библиотеки - [CPAGE]%s", str);
 }
@@ -657,7 +657,7 @@ Bool MyGetRaster (Handle hCPage, VL_I_TASK *pTask, Word8 **ppData)
 	DataOut.dwWidth    = DataInto.dwWidth;
 	DataOut.dwHeight   = DataInto.dwHeight;
 	DataOut.wByteWidth = DataInto.wByteWidth;
-	DataOut.byBit      = (Word16)info.BitPerPixel;
+	DataOut.byBit      = (uint16_t)info.BitPerPixel;
 	DataOut.lpData     = *ppData;
 	/*  5. Чтение части изображения.  */
 	ret = CIMAGE_GetData (Name, &DataInto, &DataOut);

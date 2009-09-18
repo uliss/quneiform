@@ -94,7 +94,7 @@ enum RSADDFunctionsExt
 		RSADD_SETRSTR
 		};
 
-RSADD_FUNC(Bool32)  RSADD_Init( Word16 wHeightCode, Handle hStorage );
+RSADD_FUNC(Bool32)  RSADD_Init( uint16_t wHeightCode, Handle hStorage );
 RSADD_FUNC(void)    RSADD_Done(void);
 RSADD_FUNC(uint32_t)  RSADD_GetReturnCode(void);
 RSADD_FUNC(char*)   RSADD_GetReturnString(uint32_t dwError);

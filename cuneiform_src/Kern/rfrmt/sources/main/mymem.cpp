@@ -67,8 +67,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 // extern functions
-void SetReturnCode_rfrmt(Word16 rc);
-Word16 GetReturnCode_rfrmt();
+void SetReturnCode_rfrmt(uint16_t rc);
+uint16_t GetReturnCode_rfrmt();
 
 //####################################
 void *	myAlloc(size_t stAllocateBlock)

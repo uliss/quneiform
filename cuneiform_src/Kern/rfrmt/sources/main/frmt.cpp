@@ -114,8 +114,8 @@ extern   const char*    gpCourierName;
 extern   uint32_t   CountTable;
 
 // extern functions
-void    SetReturnCode_rfrmt(Word16 rc);
-Word16  GetReturnCode_rfrmt();
+void    SetReturnCode_rfrmt(uint16_t rc);
+uint16_t  GetReturnCode_rfrmt();
 
 #ifdef alDebug
 std::vector <tagRECT>   *pInputArray;

@@ -57,18 +57,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __SWABYTES
 #define __SWABYTES
 
-   inline   Word16   __SwapWord16( Word16 w)
+   inline   uint16_t   __Swapuint16_t( uint16_t w)
       {  return (w>>8) | (w<<8); }
 
    inline   uint32_t   __Swapuint32_t( uint32_t ww)
-      {  return   ( uint32_t(__SwapWord16( Word16(ww >> 16) ))  )  |
-                  ( uint32_t(__SwapWord16( Word16(ww) )) << 16  );
+      {  return   ( uint32_t(__Swapuint16_t( uint16_t(ww >> 16) ))  )  |
+                  ( uint32_t(__Swapuint16_t( uint16_t(ww) )) << 16  );
       }
 
-   #define __SWAP16(x) x=__SwapWord16((Word16)x)
+   #define __SWAP16(x) x=__Swapuint16_t((uint16_t)x)
    #define __SWAP32(x) x=__Swapuint32_t((uint32_t)x)
 
-   inline void SwapWord16(Word16 & x)  { __SWAP16(x); }
+   inline void Swapuint16_t(uint16_t & x)  { __SWAP16(x); }
    inline void Swapuint32_t(uint32_t & x)  { __SWAP32(x); }
    inline void Swapint16_t(int16_t & x)    { __SWAP16(x); }
    inline void Swapint32_t(int32_t & x)    { __SWAP32(x); }

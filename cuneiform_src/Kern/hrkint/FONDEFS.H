@@ -194,9 +194,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		Word8  mh;
 		Word8  prob;
 		Word8  attr;
-		Word16 fill;
-		Word16 num;
-		Word16 invalid;
+		uint16_t fill;
+		uint16_t num;
+		uint16_t invalid;
 		Word8  valid;
 		Word8  kegl;
         int16_t  sr_col;

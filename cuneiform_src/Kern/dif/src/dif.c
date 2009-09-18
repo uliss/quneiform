@@ -67,7 +67,7 @@ extern Word8 lnhead_stick_center_study(lnhead *lin,int16_t dy,int16_t dx,
         STICK_SIGNUMS *res_signums);
 extern int32_t lnhead_stick_get_incline(lnhead *pool ,int dy, int dx );
 extern void  clear_right_bites(Word8 *RASTER, int16_t NWIDTH, int16_t WBYTE, int16_t NHEIGHT);
-extern  Word16 typ_thin_stick(lnhead *lin,int16_t dy,int16_t dx);
+extern  uint16_t typ_thin_stick(lnhead *lin,int16_t dy,int16_t dx);
 extern  int16_t LeftDistance(Word8 *RASTER, int16_t NWIDTH);
 extern  int16_t RightDistance(Word8 *RASTER, int16_t NWIDTH);
 
@@ -378,7 +378,7 @@ return TRUE;
 }
 
 
-DIF_FUNC(Word16) DIF_typ_thin_stick(Word8 *lin,int16_t dy,int16_t dx)
+DIF_FUNC(uint16_t) DIF_typ_thin_stick(Word8 *lin,int16_t dy,int16_t dx)
 {
 return  typ_thin_stick((lnhead *)lin, dy, dx);
 }

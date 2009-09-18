@@ -110,7 +110,7 @@ uint32_t ul_reason_for_call,
     return TRUE;
 }
 //********************************************************************
-ROUT_FUNC(Bool32) ROUT_Init(Word16 wHighCode,HANDLE hStorage)
+ROUT_FUNC(Bool32) ROUT_Init(uint16_t wHighCode,HANDLE hStorage)
 {
 //	DEBUG_PRINT("ROUT_Init(%d,%d)",wHighCode,hStorage);
 
@@ -151,7 +151,7 @@ return rc;
 //********************************************************************
 ROUT_FUNC(Int8 *) ROUT_GetReturnString(uint32_t dwError)
 {
-	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
+	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
 	static Int8 szBuffer[512];
 
 	if( dwError >> 16 != gwHighRC_rout)
@@ -327,12 +327,12 @@ ROUT_FUNC(Bool32) ROUT_SetImportData(uint32_t dwType, void * pData)
 return rc;
 }
 //********************************************************************
-void SetReturnCode_rout(Word16 rc)
+void SetReturnCode_rout(uint16_t rc)
 {
 	gwLowRC_rout = rc;
 }
 //********************************************************************
-Word16 GetReturnCode_rout()
+uint16_t GetReturnCode_rout()
 {
 	return gwLowRC_rout;
 }

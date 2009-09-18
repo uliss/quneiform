@@ -159,7 +159,7 @@ Bool32 LastCheck(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 	uint32_t i,j;
 	CCOM_comp pic;
 	CCOM_comp * comp;
-	Word16 pLocalHystogram[MaxHeightOfLetter];
+	uint16_t pLocalHystogram[MaxHeightOfLetter];
 	uint32_t nLocalComps;
 	uint32_t MaxLocal, nMaxLocal;
 	uint32_t Result1, Result2;

@@ -809,7 +809,7 @@ Bool makeRasterC( c_comp* comp, RecRaster** rast )
    if (4*width32*workRaster.lnPixHeight > REC_MAX_RASTER_SIZE)
 	   return FALSE;
 
-   plnhead = (lnhead*)((char*)comp + sizeof(c_comp) + sizeof(Word16));
+   plnhead = (lnhead*)((char*)comp + sizeof(c_comp) + sizeof(uint16_t));
    while( plnhead->lth ){
       cInter = plnhead->row;
       inter = (interval*)(plnhead+1);

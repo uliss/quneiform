@@ -74,7 +74,7 @@ extern BYTE fax1x2;
 extern Word8 language;
 extern BYTE multy_language;
 
-extern Word16 actual_resolution;
+extern uint16_t actual_resolution;
 extern BOOL   line_BL;
 extern Word8  spec_camera;
 extern Word8  no_linpen;
@@ -875,13 +875,13 @@ static void SetBalGlobals(BAL_INOUT_GLOBALS  *balGlob)
 }
 //////////////////////
 static CSTR_head *llRaw=(CSTR_head *)NULL;
-static Word16 SetNoScaleLine(CSTR_line ln )
+static uint16_t SetNoScaleLine(CSTR_line ln )
 {
 	CSTR_attr lattr;
 	CSTR_rast rast;
 	CSTR_rast_attr attr;
 	CCOM_comp *cmp;
-	Word16 scale;
+	uint16_t scale;
 
     llRaw = (CSTR_head *)ln;
 
@@ -927,7 +927,7 @@ static Word16 SetNoScaleLine(CSTR_line ln )
 }
 ///////////////
 //////////////////////
-static Word16 RestoreScaleLine(CSTR_line ln , Word16 scale)
+static uint16_t RestoreScaleLine(CSTR_line ln , uint16_t scale)
 {
 	CSTR_attr lattr;
 	CSTR_rast rast;
@@ -984,7 +984,7 @@ void basedraft(CSTR_line ln)
  int  i;
  CSTR_rast rast;
  int  ret;
- Word16 saveScale;
+ uint16_t saveScale;
  Bool32 retBaseDraft;
  CSTR_attr lattr,lattr_bal;
 
@@ -1131,7 +1131,7 @@ void basefin(CSTR_line ln)
  CSTR_line line_bal=(CSTR_line)NULL;
  int  i;
  int  ret;
- Word16 saveScale;
+ uint16_t saveScale;
 
    lin_str = ln;
 
@@ -1182,7 +1182,7 @@ void linpos(CSTR_line ln)
  CSTR_line line_bal=(CSTR_line)NULL;
  int  i;
  int  ret;
- Word16 saveScale;
+ uint16_t saveScale;
 
    lin_str = ln;
 

@@ -398,7 +398,7 @@ ver->lnAltCnt=k;
 return;
 }
 
-int leo_expert_recog(Word8 Code,Word16 *v3x5,
+int leo_expert_recog(Word8 Code,uint16_t *v3x5,
     RecRaster *r , Word8 prob_3x5, Word8 prob_iva)
 {
 
@@ -416,14 +416,14 @@ return prob_3x5;
 
 }
 
-int leo_expert_recog_prn(Word8 Code, RecRaster *raster,Word16 *v3x5, Word8 prob_3x5,
+int leo_expert_recog_prn(Word8 Code, RecRaster *raster,uint16_t *v3x5, Word8 prob_3x5,
         Bool32 enable5x3)
 {
 RecVersions loc;
 Word8       wide_letters[] = {  134,140,148,152,153,155,158,
                                 166,172,228,232,233,235,238
                              };// ж   м   ф   ш   щ   ы   ю
-Word16      v5x3[16];
+uint16_t      v5x3[16];
 loc.lnAltMax = REC_MAX_VERS;
 loc.Alt[0].Code=Code;
 loc.lnAltCnt=1;
@@ -466,7 +466,7 @@ for(i=1;i<n;i++)
 return;
 }
 
-void leo_expert_prob( RecVersions *v,Word16 *v3x5,
+void leo_expert_prob( RecVersions *v,uint16_t *v3x5,
     RecRaster *r , Word8 prob_3x5[], Word8 prob_iva[], int32_t prn,Bool32 bonus, Bool32 enable5x3)
 {
 int p, pold;
@@ -558,7 +558,7 @@ return;
 }
 
 void leo_evn_pass(  RecObject*  object,
-                    Word16 CompImage16x16[],
+                    uint16_t CompImage16x16[],
                     RecVersions *alphr)
 {
 int32_t   r;
@@ -807,7 +807,7 @@ Bool32 leoRecogCharRom( RecObject*  object ,  int32_t erect)
 {
 RecVersions ver, loc, alph, iva, sver, tmp, sce, per;
 int32_t		num_horiz_dist, hei;
-Word16      CompImage16x16[16*16];
+uint16_t      CompImage16x16[16*16];
 //Word8		feat[256];
 Word8       prob_3x5[256]={0}, prob_iva[256]={0};
 Bool32      bonus=FALSE;

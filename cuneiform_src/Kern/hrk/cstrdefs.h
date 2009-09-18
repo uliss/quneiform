@@ -296,11 +296,11 @@ typedef struct strucCSTR_rast_attr{
         uint32_t  RecogPass                   ;
 //// 76
     int16_t   clink               ; // link to cluster
-    Word16  clu_attr            ; // cluster attributes
+    uint16_t  clu_attr            ; // cluster attributes
 //// 80
     int32_t   ColorLtr, ColorBack ; // colors of letters and background
 //// 88
-    Word16   flg;  // flag of cell
+    uint16_t   flg;  // flag of cell
 #define CSTR_f_no           0   // not init
 #define CSTR_f_let          1   // letter component
 #define CSTR_f_bad          2   // badly recognized

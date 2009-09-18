@@ -69,7 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "pumadef.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-static Word16            gwHeightRC = 0;
+static uint16_t            gwHeightRC = 0;
 static uint32_t            gwRC = 0;
 //static uint32_t			length=0;		//length of current block
 static HINSTANCE            ghInst =  NULL;
@@ -94,7 +94,7 @@ Bool32 APIENTRY DllMain( HINSTANCE hModule,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CED_FUNC(Bool32) CED_Init(Word16 wHeightCode,HANDLE hStorage)
+CED_FUNC(Bool32) CED_Init(uint16_t wHeightCode,HANDLE hStorage)
 {
 	gwHeightRC = wHeightCode;
 //define stub functions
@@ -131,7 +131,7 @@ DEC_FUN(void, CED_Letter,(const letter* pt,const uint32_t alternatives));
 #undef DEC_FUN
 
 #define	ReadFunction(a,b) if(!CFIO_GetExportData(a, &b)) \
-		SetReturnCode_ced((Word16)CFIO_GetReturnCode());
+		SetReturnCode_ced((uint16_t)CFIO_GetReturnCode());
 
 ReadFunction(CFIO_FNReadMemoryFromFile,MemFromFile);
 ReadFunction(CFIO_FNLockMemory,Lock);
@@ -164,8 +164,8 @@ CED_FUNC(uint32_t) CED_GetReturnCode()
 CED_FUNC(char *) CED_GetReturnString(uint32_t dwError)
 {
 	static char szBuffer[512];
-	Word16 low = (Word16)(dwError &  0xFFFF);
-	Word16 hei = (Word16)(dwError >> 16);
+	uint16_t low = (uint16_t)(dwError &  0xFFFF);
+	uint16_t hei = (uint16_t)(dwError >> 16);
 
 	if(hei == gwHeightRC)
 	{
@@ -349,8 +349,8 @@ return rc;
 
 void SetReturnCode_ced(uint32_t rc)
 {
-Word16 low = (Word16)(rc &  0xFFFF);
-Word16 hei = (Word16)(rc >> 16);
+uint16_t low = (uint16_t)(rc &  0xFFFF);
+uint16_t hei = (uint16_t)(rc >> 16);
 
 	if(hei)
 		gwRC = rc;
@@ -367,8 +367,8 @@ Word16 hei = (Word16)(rc >> 16);
 uint32_t GetReturnCode_ced()
 {
 uint32_t rc = gwRC;
-Word16 low = (Word16)(gwRC &  0xFFFF);
-Word16 hei = (Word16)(gwRC >> 16);
+uint16_t low = (uint16_t)(gwRC &  0xFFFF);
+uint16_t hei = (uint16_t)(gwRC >> 16);
 
 	if(hei == gwHeightRC || hei == 0)
 		rc = low + IDS_ERR_NO;
@@ -378,7 +378,7 @@ return rc;
 
 char * GetModulesString(uint32_t dwError)
 {
-	Word16 hei = (Word16)(dwError >> 16);
+	uint16_t hei = (uint16_t)(dwError >> 16);
 	static char szString[512] ;
 	sprintf(szString,"Unknown code error 0x%X",dwError);
 

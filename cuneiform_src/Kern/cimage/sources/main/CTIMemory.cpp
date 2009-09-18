@@ -81,8 +81,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  #define CFIO_MAX_COMMENT       48
 #endif
 // extern functions
-//void SetReturnCode_cimage(Word16 rc);
-//Word16 GetReturnCode_cimage();
+//void SetReturnCode_cimage(uint16_t rc);
+//uint16_t GetReturnCode_cimage();
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //CFIO Entries
 static void* (*pDAlloc)(uint32_t, uint32_t, PWord8, PWord8) = NULL;

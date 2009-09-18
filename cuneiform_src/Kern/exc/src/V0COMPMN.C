@@ -67,8 +67,8 @@ extern  int32_t   box_number;
 
 extern Word8 double_fax;
 extern Word8 image_disp_mask;
-extern Word16 image_disp_end;
-extern Word16 image_disp_byte;
+extern uint16_t image_disp_end;
+extern uint16_t image_disp_byte;
 
 extern int16_t image_blth    ;  // pixels per line
 extern int16_t  image_height  ;  // lines in file number
@@ -90,7 +90,7 @@ static void enough_memory();
 static void initdsect();
 static void allocboxes();
 static void begin();
-static Word16 readline();
+static uint16_t readline();
 static void exchangelines();
 static void fax_double();
 static int16_t fax_test();
@@ -213,7 +213,7 @@ static void exchangelines()
  p = Q.oldline; Q.oldline = Q.newline; Q.newline = p;
 }
 
-static Word16 readline()
+static uint16_t readline()
 {
  Word8* p;
  int16_t i;

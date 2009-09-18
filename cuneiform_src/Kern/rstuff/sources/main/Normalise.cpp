@@ -1170,7 +1170,7 @@ Bool32 CalcIncline(PRSPreProcessImage Image)
 	char Str[256];
 	Bool ret, WasLine, ManyComp;
 	Bool CalcMuchSkew, TalkMuchSkew;
-	Word16 Code;
+	uint16_t Code;
 	int32_t SkewReg, Skew, SkewLocVerLin;
 	Rect16 RcReg;
     PAGEINFO info = {0};

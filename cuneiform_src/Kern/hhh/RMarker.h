@@ -90,7 +90,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-RMARKER_FUNC(Bool32) RMARKER_Init(Word16 wHeightCode,Handle hStorage);
+RMARKER_FUNC(Bool32) RMARKER_Init(uint16_t wHeightCode,Handle hStorage);
 RMARKER_FUNC(Bool32) RMARKER_Done();
 RMARKER_FUNC(uint32_t) RMARKER_GetReturnCode();
 RMARKER_FUNC(Int8 *) RMARKER_GetReturnString(uint32_t dwError);

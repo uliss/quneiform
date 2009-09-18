@@ -657,7 +657,7 @@ return prob;
 Bool32 leoRecogPrintAllChar( RecObject*  object )
 {
 RecVersions ver, loc, per, msk, r35;
-Word16      CompImage16x16[256];
+uint16_t      CompImage16x16[256];
 Bool32      f16x16;
 int32_t       over_bonus=0, unter=0;
 Word8       prob_3x5[256]={0}, over[256]={0};
@@ -1184,7 +1184,7 @@ return TRUE;
 void leo_smoothing16(RecRaster *rr,RecRaster *rr_sm)
 {
 int i,ii;
-Word16 p,n,c;
+uint16_t p,n,c;
 rr_sm->lnPixWidth= rr->lnPixWidth;
 rr_sm->lnPixHeight=rr->lnPixHeight;
 rr_sm->lnRasterBufSize=rr->lnRasterBufSize;
@@ -1207,7 +1207,7 @@ return;
 Bool32 leoRecogPrintDotChar( RecObject*  object )
 {
 RecVersions ver, loc,  per, tmp, msk, r35;
-Word16      CompImage16x16[256];
+uint16_t      CompImage16x16[256];
 Bool32      f16x16, disable_dis, disable_r35, per_nonrec=FALSE  ;
 int32_t       over_bonus=0, not_n=0;
 Word8       prob_3x5[256]={0}, over[256]={0};
@@ -1535,9 +1535,9 @@ Bool32 leoRecogCharPRN_expert(RecRaster*  recRaster,
             RecVersions* over)
 {
 RecVersions ver;
-Word16      Im3x5[16];
+uint16_t      Im3x5[16];
 RecRaster   recR;
-Word16      CompImage[32*32];
+uint16_t      CompImage[32*32];
 int		    Cnts[256];
 
 
@@ -1582,7 +1582,7 @@ return TRUE;
 LEO_FUNC(Bool32)  LEORecogPrnMethod( RecObject*  object , int Method, int type)
 {
 RecVersions ver;
-Word16      CompImage16x16[16*16];
+uint16_t      CompImage16x16[16*16];
 
 leo_init_prn();
 memset(&ver,0,sizeof(RecVersions));
@@ -1614,7 +1614,7 @@ return TRUE;
 void    leo_cuneiform(RecObject *object)
 {
 RecVersions ver;
-Word16      CompImage16x16[16*16];
+uint16_t      CompImage16x16[16*16];
 
 
 memset(&ver,0,sizeof(RecVersions));

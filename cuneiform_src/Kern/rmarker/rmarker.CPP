@@ -119,7 +119,7 @@ extern Handle hFon;
 extern Handle hEnd;
 
 static HINSTANCE ghInst =  NULL;
-static Word16 gwHeightRC = 0;
+static uint16_t gwHeightRC = 0;
 static uint32_t gwRC = 0;
 BOOL dpDebugUpDown;
 

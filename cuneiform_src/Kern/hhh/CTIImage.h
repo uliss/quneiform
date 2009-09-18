@@ -100,7 +100,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 # define    CIMAGEBOOL16          Bool16
-# define    CIMAGEWORD            Word16
+# define    CIMAGEWORD            uint16_t
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #ifndef __CIMAGE_STRUCT_H_
@@ -109,16 +109,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef CIMAGE_CALLBACK
 	typedef struct
 	{
-		Word16    wImageHeight;
-		Word16    wImageWidth;
-		Word16    wImageByteWidth;
-		Word16    wImageDisplacement;
-		Word16    wResolutionX;
-		Word16    wResolutionY;
+		uint16_t    wImageHeight;
+		uint16_t    wImageWidth;
+		uint16_t    wImageByteWidth;
+		uint16_t    wImageDisplacement;
+		uint16_t    wResolutionX;
+		uint16_t    wResolutionY;
 		Word8     bFotoMetrics;
 		Word8     bUnused;
-		Word16    wAddX;
-		Word16    wAddY;
+		uint16_t    wAddX;
+		uint16_t    wAddY;
 	}
 	CIMAGE_ImageInfo, *PCIMAGE_ImageInfo, **PPCIMAGE_ImageInfo;
 
@@ -148,7 +148,7 @@ typedef struct CIMAGEInfoDataInGet
 	uint32_t dwY;
 	uint32_t dwWidth;
 	uint32_t dwHeight;
-	Word16 wByteWidth;
+	uint16_t wByteWidth;
 	Word8  Reserved;
 	Word8  MaskFlag;
 }
@@ -158,8 +158,8 @@ typedef struct CIMAGEInfoDataOutGet
 {
 	uint32_t   dwWidth;
 	uint32_t   dwHeight;
-	Word16   wByteWidth;
-	Word16   byBit;
+	uint16_t   wByteWidth;
+	uint16_t   byBit;
 	uint32_t   wBlackBit;
 	PWord8   lpData;
 }
@@ -167,15 +167,15 @@ CIMAGE_InfoDataOutGet, * PCIMAGE_InfoDataOutGet, ** PPCIMAGE_InfoDataOutGet;
 
 typedef struct CIMAGEInfoDataInReplace
 {
-	Word16   byBit;
+	uint16_t   byBit;
 	uint32_t   dwX;
 	uint32_t   dwY;
 	uint32_t   dwWidth;
 	uint32_t   dwHeight;
-	Word16   wByteWidth;
+	uint16_t   wByteWidth;
 	PWord8   lpData;
 	Word8    Reserved;
-	Word16   wReserved;
+	uint16_t   wReserved;
 	Word8    MaskFlag;
 }
 CIMAGE_InfoDataInReplace, * PCIMAGE_InfoDataInReplace;
@@ -198,8 +198,8 @@ CIMAGE_Rect, *PCIMAGE_Rect, **PPCIMAGE_Rect;
 		uint32_t      biSize;
 		int32_t       biWidth;
 		int32_t       biHeight;
-		Word16      biPlanes;
-		Word16      biBitCount;
+		uint16_t      biPlanes;
+		uint16_t      biBitCount;
 		uint32_t      biCompression;
 		uint32_t      biSizeImage;
 		int32_t       biXPelsPerMeter;
@@ -228,7 +228,7 @@ CIMAGE_Rect, *PCIMAGE_Rect, **PPCIMAGE_Rect;
 #endif  //__CIMAGE_STRUCT_H_
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_Init(Word16 wHeightCode,Handle hStorage);
+CIMAGE_FUNC(Bool32) CIMAGE_Init(uint16_t wHeightCode,Handle hStorage);
 CIMAGE_FUNC(Bool32) CIMAGE_Done();
 CIMAGE_FUNC(uint32_t) CIMAGE_GetReturnCode();
 CIMAGE_FUNC(Int8 *) CIMAGE_GetReturnString(uint32_t dwError);
@@ -284,7 +284,7 @@ DEC_FUN(Bool32,  EnableMask,           (PWord8, PWord8, Bool32));
 #define DEC_CB_FUN(a,b,c) typedef a (*FNCIMAGE##b)c; CIMAGE_CALLBACK_FUNC(a) CIMAGE_##b c
 
 DEC_CB_FUN(CIMAGEBOOL16, Callback_ImageOpen,  (PCIMAGE_ImageInfo lpImageInfo));
-DEC_CB_FUN(CIMAGEWORD,   Callback_ImageRead,  (PInt8  lpImage, Word16 wMaxSize));
+DEC_CB_FUN(CIMAGEWORD,   Callback_ImageRead,  (PInt8  lpImage, uint16_t wMaxSize));
 DEC_CB_FUN(CIMAGEBOOL16, Callback_ImageClose, (void));
 
 #undef DEC_CB_FUN

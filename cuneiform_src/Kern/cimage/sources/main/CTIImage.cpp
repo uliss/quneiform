@@ -64,8 +64,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // exteren globals
 extern CTIControl * Control_cti;
 // extern functions
-void SetReturnCode_cimage(Word16 rc);
-Word16 GetReturnCode_cimage();
+void SetReturnCode_cimage(uint16_t rc);
+uint16_t GetReturnCode_cimage();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -322,7 +322,7 @@ CIMAGE_CALLBACK_FUNC(CIMAGEBOOL16) CIMAGE_Callback_ImageOpen(PCIMAGE_ImageInfo l
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_CALLBACK_FUNC(CIMAGEWORD)   CIMAGE_Callback_ImageRead(PInt8  lpImage, Word16 wMaxSize)
+CIMAGE_CALLBACK_FUNC(CIMAGEWORD)   CIMAGE_Callback_ImageRead(PInt8  lpImage, uint16_t wMaxSize)
 {
 	if ( !Control_cti )
 	{

@@ -65,7 +65,7 @@ Word8 work_raster[2048*32], work_raster_1[2048*32];
 struct main_memory_str Q;
 version * start_rec, *rec_ptr;
 //Word8 string[8192];
-Word16 lpool_lth;
+uint16_t lpool_lth;
 Word8 lpool[6000];
 Word8 records_change;
 int16_t evfulln;

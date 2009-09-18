@@ -79,7 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma pack (push,8)
 
 
-RPIC_FUNC(Bool32) RPIC_Init(Word16 wHeightCode,Handle hStorage);
+RPIC_FUNC(Bool32) RPIC_Init(uint16_t wHeightCode,Handle hStorage);
 RPIC_FUNC(Bool32) RPIC_Done();
 RPIC_FUNC(uint32_t) RPIC_GetReturnCode();
 RPIC_FUNC(Int8 *) RPIC_GetReturnString(uint32_t dwError);

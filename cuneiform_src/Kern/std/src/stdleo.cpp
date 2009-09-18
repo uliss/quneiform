@@ -1460,7 +1460,7 @@ STD_FUNC(void) stdStrNAnsiToAscii( char* Str,int32_t nLen)
 		Str[nSymb]=std_ANSI_to_ASCII[(Word8)Str[nSymb]];
 }
 
-STD_FUNC(Word16) stdAnsiToUnicode( Word8 Code)
+STD_FUNC(uint16_t) stdAnsiToUnicode( Word8 Code)
 {
     return    std_ANSI_to_UNICODE[Code];
 }

@@ -104,7 +104,7 @@ Word8 language=3;
 int16_t line_number = 0;
 
 Word8  fax1x2=0;
-Word16 actual_resolution=300;
+uint16_t actual_resolution=300;
 Word8  fEdCode = 0;  // ASCII
 BOOL   line_BL=FALSE;
 Word8  spec_camera = 0;
@@ -692,7 +692,7 @@ static void GetRstrGlobals(BAL_RSTR_GLOBALS  *rstrGlob)
 	language    = (Word8)rstrGlob->language;
 	line_number = (int16_t)rstrGlob->line_number;
 	fax1x2      = (Word8)rstrGlob->fax1x2;
-	actual_resolution = (Word16) rstrGlob->actual_resolution;
+	actual_resolution = (uint16_t) rstrGlob->actual_resolution;
     fEdCode           = (Word8)rstrGlob->fEdCode;  // ASCII
     line_BL           = (int16_t)rstrGlob->line_BL;
     spec_camera       = (Word8)rstrGlob->spec_camera;

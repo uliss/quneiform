@@ -94,7 +94,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#include "cttypext.h"
 //////////////////////////////AK"
 
-   CCOM_FUNC(Bool32)  CCOM_Init( Word16 wHeightCode, Handle hStorage );
+   CCOM_FUNC(Bool32)  CCOM_Init( uint16_t wHeightCode, Handle hStorage );
    CCOM_FUNC(void)    CCOM_Done(void);
    CCOM_FUNC(uint32_t)  CCOM_GetReturnCode(void);
    CCOM_FUNC(char*)   CCOM_GetReturnString(uint32_t dwError);

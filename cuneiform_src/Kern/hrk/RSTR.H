@@ -153,7 +153,7 @@ RSTR_FUNC(Bool32)  RSTR_RecogContainer (void);
 #include "cttypext.h"
 ///////////////////////////////AK
 
-RSTR_FUNC(Bool32)  RSTR_Init(Word16 wHightCode, Handle hStorage);
+RSTR_FUNC(Bool32)  RSTR_Init(uint16_t wHightCode, Handle hStorage);
 RSTR_FUNC(Bool32)  RSTR_Done(void);
 RSTR_FUNC(uint32_t)  RSTR_GetReturnCode(void);
 RSTR_FUNC(Word8 *) RSTR_GetReturnString(uint32_t dwError);

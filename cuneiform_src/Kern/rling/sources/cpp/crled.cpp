@@ -269,7 +269,7 @@ Bool32 CRLEd::AddWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage)
 	return TRUE;
 }
 
-void CRLEd::Write(PWord8 pP, Word16 wSize)
+void CRLEd::Write(PWord8 pP, uint16_t wSize)
 {
 	if (mpEdFileBound -  mpEdFileEnd < wSize)
     {

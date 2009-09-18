@@ -99,8 +99,8 @@ Char8       cCommentBuffer[CFIO_MAX_COMMENT];
 static char *Buffer = NULL;
 static char *WorkMem = NULL;
 
-static Word16            gwHeightRC = 0;
-static Word16            gwLowRC = 0;
+static uint16_t            gwHeightRC = 0;
+static uint16_t            gwLowRC = 0;
 static HANDLE            ghStorage = NULL;
 static HINSTANCE         ghInst =  NULL;
 //DVP DLine*             tempLine;
@@ -192,7 +192,7 @@ RSHELLLINES_FUNC(Bool32) FindLineAttr(CLINE_handle line, DLine* pCLine, Bool32 A
 }
 
 ///////////////////////////////////////////////////////////////
-RSL_FUNC(Bool32) RSL_Init(Word16 wHeightCode,HANDLE hStorage)
+RSL_FUNC(Bool32) RSL_Init(uint16_t wHeightCode,HANDLE hStorage)
 {
 	LDPUMA_Init(0,NULL);
 	LDPUMA_Registry(&hDebugRSL,SNAP_STUFF_RSL,NULL);
@@ -249,7 +249,7 @@ RSL_FUNC(Bool32) RSL_Init(Word16 wHeightCode,HANDLE hStorage)
     return RESULT;
 }
 
-void SetReturnCode_rshelllines(Word16 rc)
+void SetReturnCode_rshelllines(uint16_t rc)
 {
     gwLowRC = rc;
 }
@@ -277,7 +277,7 @@ RSL_FUNC(uint32_t) RSL_GetReturnCode()
 //
 RSL_FUNC(Int8 *) RSL_GetReturnString(uint32_t dwError)
 {
-	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
+	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
 	static Int8 szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
@@ -332,7 +332,7 @@ RSL_FUNC(Bool32) RSL_SetImportData(uint32_t dwType, void * pData)
             if( !RVERLINE_SetImportData(RVERLINE_DTRVERLINE_RegimeOfVerifyLines,&val)||
                 !RVERLINE_MarkLines(*Image->phCCOM, Image->hCPAGE))
             {
-                SetReturnCode_rshelllines((Word16)RVERLINE_GetReturnCode());
+                SetReturnCode_rshelllines((uint16_t)RVERLINE_GetReturnCode());
                 rc = FALSE;
             }
             else
@@ -374,13 +374,13 @@ void *	RSLAlloc(uint32_t stAllocateBlock)
 #endif
 
     if(!mem)
-        SetReturnCode_rshelllines((Word16)RSL_ERR_NO_MEMORY);
+        SetReturnCode_rshelllines((uint16_t)RSL_ERR_NO_MEMORY);
 #else
 
     mem = (char *)CFIO_DAllocMemory(stAllocateBlock,MAF_GALL_GPTR,(Int8*)"RSL", (Int8*)cCommentBuffer);
 
     if(!mem)
-        SetReturnCode_rshelllines((Word16)RSL_ERR_NO_MEMORY);
+        SetReturnCode_rshelllines((uint16_t)RSL_ERR_NO_MEMORY);
 
 #endif
 
@@ -423,7 +423,7 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
 
 	if (Buffer == NULL || WorkMem == NULL )
 	{
-		SetReturnCode_rshelllines((Word16)RSL_ERR_NO_MEMORY);
+		SetReturnCode_rshelllines((uint16_t)RSL_ERR_NO_MEMORY);
 		bRc =  FALSE;
 	}
 
@@ -492,7 +492,7 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-Word16 GetReturnCode_rshelllines()
+uint16_t GetReturnCode_rshelllines()
 {
 	return gwLowRC;
 }

@@ -849,11 +849,11 @@ int best;
 //////////////////
 ///////////////////
 #if defined (_TEST_MULTI_FONT_) && defined(_GOOD_BIG_SMALL_)
-static Word16 inNewField[256];
+static uint16_t inNewField[256];
 
 static int CompareFonts(int numF,FONTFIELD *fontF,
 						uint32_t *oldField, int allCount,
-						int sBig,int sLit,Word16 *inFont)
+						int sBig,int sLit,uint16_t *inFont)
 {
  int i,j;
  int best=-1,bestCount;

@@ -358,11 +358,11 @@ var_minus: vp->add = -1; (vp+1)->ln = vp->ln; vp++; return;
 
 extern Word8 tabb[], taba[];
 
-static Word16 rot(Word16 n) { return ((n<<3) + (n>>13)); }
+static uint16_t rot(uint16_t n) { return ((n<<3) + (n>>13)); }
 
 static int16_t seek_events(Word8* ep)
 {
- Word16 hash,i,nl;
+ uint16_t hash,i,nl;
  uint32_t di;
  Word8* p;
  //if (db_status) snap_keep(snap_vector,ep,*ep+4);
@@ -378,7 +378,7 @@ for(i=0;i<n;i++)
  nl = *ep;
  if( !nl )	return 0; // OLEG
  hash = *(ep+3) = (tabb[nl] + taba[nl-*(ep+1)] + *(ep+2)) & 0xff;
- i = nl; p=ep+4; while (i--) hash = rot(hash) ^ (Word16)(*(p++));
+ i = nl; p=ep+4; while (i--) hash = rot(hash) ^ (uint16_t)(*(p++));
  hash = (hash & 0xff) ^ (hash >> 8);
  p = ((nl-1) * 256 + hash) * sizeof(uint32_t) + events_tree_rt;
  di = *((uint32_t *)p); if (di==0) return 0; p = events_tree_rt+di;
@@ -402,7 +402,7 @@ static int16_t first_var()
 {
  VAR *p=evvars;
  Word8 *ev1, *ev2;
- Word16 nl,n;
+ uint16_t nl,n;
  int16_t var_answer_cnt=0;
 
  if (p == evendvar) return -1;

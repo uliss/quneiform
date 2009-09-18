@@ -89,7 +89,7 @@ typedef struct mn_struc MN;
 
 struct tagLPOOL
 {
-  Word16 lpool_lth;
+  uint16_t lpool_lth;
   Word8 *lpool;
 };
 typedef struct tagLPOOL LPOOL;

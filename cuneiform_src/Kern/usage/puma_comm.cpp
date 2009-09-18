@@ -159,7 +159,7 @@ void CloseAllRes ()
 	}
 }
 /*----------------------------------------------------------------------------*/
-Bool AM_InitComm (Word16 wRltOwnCode)
+Bool AM_InitComm (uint16_t wRltOwnCode)
 {
 	int i;
 	wRltMainCode = (uint32_t)(wRltOwnCode<<16);
@@ -182,7 +182,7 @@ void AM_DoneComm ()
 	return;
 }
 /*----------------------------------------------------------------------------*/
-uint32_t AM_GetOperCode (Word16 wLocCode)
+uint32_t AM_GetOperCode (uint16_t wLocCode)
 {
 	return (wRltMainCode|(wLocCode<<16));
 }

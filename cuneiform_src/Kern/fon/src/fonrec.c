@@ -122,12 +122,12 @@ FONBASE *GetStaticFonbase(void) {
 static void SetFirstNext(void) {
 	int i;
 	welet *wel;
-	Word16 tek[256];
+	uint16_t tek[256];
 
 	if (fonbase.isFirst)
 		return;
 
-	memset(&fonbase.first[0], 0, 256* sizeof (Word16));
+	memset(&fonbase.first[0], 0, 256* sizeof (uint16_t));
 
 	for(i=1,wel=fonbase.start;i<=fonbase.inBase;i++,wel++)
 	{
@@ -194,7 +194,7 @@ static int CheckFileClu(char *name) {
 // return == 0 - error
 static int GetCTBasWelet(CTB_handle *CTBhandle, int num, welet *wel) {
 	Word8 CTBdata[CTB_DATA_SIZE];
-	Word16 *pword16;
+	uint16_t *pword16;
 	int16_t *pint16;
 	uint32_t *pword32;
 
@@ -212,7 +212,7 @@ static int GetCTBasWelet(CTB_handle *CTBhandle, int num, welet *wel) {
 	wel->attr = CTBdata[11];
 
 	// now put words
-	pword16 = (Word16 *) (CTBdata + 12);
+	pword16 = (uint16_t *) (CTBdata + 12);
 	wel->fill = pword16[0];
 	wel->num = pword16[1];
 	wel->invalid = pword16[2];

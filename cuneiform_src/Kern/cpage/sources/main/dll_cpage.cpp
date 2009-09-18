@@ -73,8 +73,8 @@
 FNCPAGE_HL_TableExtract CPAGE_HL_TableExtract = NULL;
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-static Word16 gwHeightRC = 0;
-static Word16 gwLowRC = 0;
+static uint16_t gwHeightRC = 0;
+static uint16_t gwLowRC = 0;
 static HANDLE ghStorage = NULL;
 static HINSTANCE ghInst = NULL;
 
@@ -101,7 +101,7 @@ BOOL APIENTRY DllMain(HINSTANCE hModule, uint32_t ul_reason_for_call,
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-CPAGE_FUNC(Bool32) CPAGE_Init(Word16 wHeightCode,HANDLE hStorage)
+CPAGE_FUNC(Bool32) CPAGE_Init(uint16_t wHeightCode,HANDLE hStorage)
 {
 	gwHeightRC = wHeightCode;
 #ifdef DPUMA_ON
@@ -148,7 +148,7 @@ CPAGE_FUNC(uint32_t) CPAGE_GetReturnCode()
 //
 CPAGE_FUNC(Int8 *) CPAGE_GetReturnString(uint32_t dwError)
 {
-	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
+	uint16_t rc = (uint16_t)(dwError & 0xFFFF) + IDS_ERR_NO;
 	static Int8 szBuffer[512];
 
 	if( dwError >> 16 != gwHeightRC)
@@ -258,11 +258,11 @@ CPAGE_FUNC(Bool32) CPAGE_SetImportData(uint32_t dwType, void * pData)
 	return rc;
 }
 
-void SetReturnCode_cpage(Word16 rc) {
+void SetReturnCode_cpage(uint16_t rc) {
 	gwLowRC = rc;
 }
 
-Word16 GetReturnCode_cpage() {
+uint16_t GetReturnCode_cpage() {
 	return gwLowRC;
 }
 

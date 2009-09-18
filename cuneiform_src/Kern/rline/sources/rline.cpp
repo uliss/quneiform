@@ -184,9 +184,9 @@ Imxs* swp_imxs;
 Imxs imxs;
 
 
-Word16    min_h_len = 40,
+uint16_t    min_h_len = 40,
 	      min_v_len = 40;
-Word16	  rc16;
+uint16_t	  rc16;
 uint32_t	  rc32;
 
 	//Almi 16.05.01
@@ -195,13 +195,13 @@ uint32_t	  rc32;
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 void SetReturnCode_rline( uint32_t );
-void SetReturnCode_rline( Word16 );
+void SetReturnCode_rline( uint16_t );
 void CleanLineData( void* pdata,int size);
 
 
 Bool16 SampleImageOpen (CIMAGE_ImageInfo* lpImageInfo)
 { return swp_imxs->f_op( (Imxs_ImageInfo*)lpImageInfo ); }
-Word16 SampleImageRead ( PInt8 lpImage, Word16 wMaxSize)
+uint16_t SampleImageRead ( PInt8 lpImage, uint16_t wMaxSize)
 { return swp_imxs->f_re( (Word8*)lpImage, wMaxSize ); }
 Bool16 SampleImageClose ( void )
 { return swp_imxs->f_cl( ); }
@@ -209,7 +209,7 @@ Bool16 SampleImageClose ( void )
 
 Bool16 DibOpen (Imxs_ImageInfo* lpImageInfo)
 { return cbk.CIMAGE_ImageOpen( (CIMAGE_ImageInfo*)lpImageInfo ); }
-int16_t  DibRead ( Word8* lpImage, Word16 wMaxSize)
+int16_t  DibRead ( Word8* lpImage, uint16_t wMaxSize)
 { return cbk.CIMAGE_ImageRead( (PInt8)lpImage, wMaxSize ); }
 Bool16 DibClose ( void )
 { return cbk.CIMAGE_ImageClose( ); }
@@ -410,8 +410,8 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 	// Копируем в pImage из PInfo указатель на изображение, связанное со страницей
 	pImage = (char*)&PInfo.szImageName;
 
-	min_h_len = (Word16)(PInfo.DPIX*40/300);
-	min_v_len = (Word16)(PInfo.DPIY*40/300);
+	min_h_len = (uint16_t)(PInfo.DPIX*40/300);
+	min_v_len = (uint16_t)(PInfo.DPIY*40/300);
 
 	if (!CIMAGE_GetCallbackImage( (PWord8)pImage, &cbk))
 	{
@@ -658,8 +658,8 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB)
 	// связанное со страницей
 	pImage = (char*)&PInfo.szImageName;
 
-	min_h_len = (Word16)(PInfo.DPIX*40/300);
-	min_v_len = (Word16)(PInfo.DPIY*40/300);
+	min_h_len = (uint16_t)(PInfo.DPIX*40/300);
+	min_v_len = (uint16_t)(PInfo.DPIY*40/300);
 
 	if (!CIMAGE_GetCallbackImage((PWord8) pImage, &cbk))
 	{

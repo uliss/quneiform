@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			0x08, 0x04, 0x02,	0x01
 		};
 
-   extern const Word16 bit_word[16] =
+   extern const uint16_t bit_word[16] =
 		{
 			0x0001,	0x0002,	0x0004,	0x0008,
 			0x0010,	0x0020,	0x0040,	0x0080,
@@ -76,7 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			0x1000,	0x2000,	0x4000,	0x8000
 		};
 
-   extern const Word16 lbit_word[16] =
+   extern const uint16_t lbit_word[16] =
 		{
 			0x0080, 0x0040,	0x0020,	0x0010,
 			0x0008,	0x0004,	0x0002,	0x0001,
@@ -84,7 +84,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			0x0800, 0x0400, 0x0200,	0x0100
 		};
 
-	extern const Word16 lbit_word0[16] =
+	extern const uint16_t lbit_word0[16] =
 		{
 			0xFF7F, 	0xFFBF,	0xFFDF,	0xFFEF,
 			0xFFF7,	0xFFFB,	0xFFFD,	0xFFFE,

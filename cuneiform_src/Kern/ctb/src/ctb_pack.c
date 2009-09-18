@@ -83,8 +83,8 @@ return(0);
 int16_t encLine(Word8 *inBuff, int16_t inLen,Word8 *buf, int16_t outLen)
 {
 Word8 curr,last;
-Word16 scrIndex;
-Word16 total;
+uint16_t scrIndex;
+uint16_t total;
 Word8 runCount;
 
 total    = 0;

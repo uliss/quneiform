@@ -176,7 +176,7 @@ DPUMA_FNDPUMA_DrawRectTip
 						DPUMA_FUNC(a) b (c,const char * lpFormat,char * marker); \
 						a L##b (c,const char * lpFormat,...)
 
-DEC_FUNC(Bool32,  DPUMA_Init,(Word16 wHightCode, Handle hStorage));
+DEC_FUNC(Bool32,  DPUMA_Init,(uint16_t wHightCode, Handle hStorage));
 DEC_FUNC(Bool32,  DPUMA_Done,());
 DEC_FUNC(uint32_t,  DPUMA_GetErrorCode,(void));
 DEC_FUNC(Int8 *,  DPUMA_GetErrorString,(uint32_t wError));

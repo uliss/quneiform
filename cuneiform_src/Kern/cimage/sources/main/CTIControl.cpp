@@ -236,12 +236,12 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 				mCBWDestianationDIB->SetRGBQuad(1,cdSQuad);
 				mCBWSourceDIB->SetRGBQuad(1,cdSQuad);
 				// заполняем структурку	для замещения строк
-				FrameToReplace.byBit      = (Word16)mCBWSourceDIB->GetPixelSize();
+				FrameToReplace.byBit      = (uint16_t)mCBWSourceDIB->GetPixelSize();
 				FrameToReplace.dwX        = 0;
 				FrameToReplace.dwY        = 0;
-				FrameToReplace.dwWidth    = (Word16)mCBWSourceDIB->GetLineWidth();
-				FrameToReplace.dwHeight   = (Word16)mCBWSourceDIB->GetLinesNumber();
-				FrameToReplace.wByteWidth = (Word16)mCBWSourceDIB->GetLineWidthInBytes();
+				FrameToReplace.dwWidth    = (uint16_t)mCBWSourceDIB->GetLineWidth();
+				FrameToReplace.dwHeight   = (uint16_t)mCBWSourceDIB->GetLinesNumber();
+				FrameToReplace.wByteWidth = (uint16_t)mCBWSourceDIB->GetLineWidthInBytes();
 				FrameToReplace.lpData     = (PWord8)mCBWSourceDIB->GetPtrToLine(0);
 				FrameToReplace.MaskFlag   = 0;
 
@@ -250,7 +250,7 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 				{
 					// вызываем второй калбэк
 					Readed = Cbk.CIMAGE_ImageRead((PInt8)mCBWSourceDIB->GetPtrToLine(0),
-												  (Word16)mCBWSourceDIB->GetLineWidthInBytes());
+												  (uint16_t)mCBWSourceDIB->GetLineWidthInBytes());
 
 					//инвертируем битовое поле, ежели надо
 					if ( bInvert )
@@ -258,7 +258,7 @@ Bool32 CTIControl::WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk )
 						PInt8 pBits = (PInt8)mCBWSourceDIB->GetPtrToLine(0);
 						int32_t Ii;
 
-						for ( Ii = 0; Ii < (Word16)mCBWSourceDIB->GetLineWidthInBytes(); Ii++ )
+						for ( Ii = 0; Ii < (uint16_t)mCBWSourceDIB->GetLineWidthInBytes(); Ii++ )
 						{
 							*pBits++ = ~(*pBits);
 						}
@@ -446,10 +446,10 @@ Bool32 CTIControl::GetImage(PChar8  lpName, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_
 				PWord8 pOutLine;
 				Word8  WhiteBit;
 
-				lplpOut->byBit      = (Word16)pDscDIB->GetPixelSize();
+				lplpOut->byBit      = (uint16_t)pDscDIB->GetPixelSize();
 				lplpOut->dwHeight   = pDscDIB->GetLinesNumber();
 				lplpOut->dwWidth    = pDscDIB->GetLineWidth();
-				lplpOut->wByteWidth = (Word16)pDscDIB->GetUsedLineWidthInBytes();
+				lplpOut->wByteWidth = (uint16_t)pDscDIB->GetUsedLineWidthInBytes();
 
 				lplpOut->wBlackBit  = pDscDIB->GetBlackPixel();
 
@@ -1055,14 +1055,14 @@ Bool32 CTIControl::CBImageOpen(PCIMAGE_ImageInfo lpImageInfo)
 		{
 			wCBLines	= mCBSourceDIB->GetLinesNumber();
 
-			lpImageInfo->wImageWidth        = (Word16)mCBSourceDIB->GetLineWidth();
-			lpImageInfo->wImageHeight       = (Word16)wCBLines;
-			lpImageInfo->wImageByteWidth    = (Word16)wCBBufferSize;
+			lpImageInfo->wImageWidth        = (uint16_t)mCBSourceDIB->GetLineWidth();
+			lpImageInfo->wImageHeight       = (uint16_t)wCBLines;
+			lpImageInfo->wImageByteWidth    = (uint16_t)wCBBufferSize;
 			lpImageInfo->wImageDisplacement = 0;
 
 			mCBSourceDIB->GetResolutionDPI(&wFrgb, &wSrgb);
-			lpImageInfo->wResolutionX       = (Word16)wFrgb;
-			lpImageInfo->wResolutionY       = (Word16)wSrgb;
+			lpImageInfo->wResolutionX       = (uint16_t)wFrgb;
+			lpImageInfo->wResolutionY       = (uint16_t)wSrgb;
 
 			lpImageInfo->bFotoMetrics       = (Word8)mCBSourceDIB->GetWhitePixel();
 
@@ -1101,7 +1101,7 @@ uint32_t CTIControl::CBImageRead(PChar8  lpBuff, uint32_t wMaxSize)
 			InFrame.dwX        = 0;
 			InFrame.dwWidth    = mCBDestianationDIB->GetLineWidth();
 			InFrame.dwHeight   = mCBDestianationDIB->GetLinesNumber();
-			InFrame.wByteWidth = (Word16)(wCBBufferSize);
+			InFrame.wByteWidth = (uint16_t)(wCBBufferSize);
 			InFrame.MaskFlag   = 0;
 
 			for ( nOutLine = 0;nOutLine < LinesAtOnce; nOutLine++ )

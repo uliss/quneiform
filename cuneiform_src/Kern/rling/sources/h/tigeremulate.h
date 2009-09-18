@@ -184,7 +184,7 @@ struct box_struct
 {
 	struct box_struct *boxnext; 	// chain address (zero if no next box)
 	MN *		    boxmain; 	// component main number pointer
-	Word16		    boxptr; 	// ptr to the empty place in the box
+	uint16_t		    boxptr; 	// ptr to the empty place in the box
 	int16_t	        boxleft; 	// left boundary for line envelope
 	int16_t		    boxright; 	// right boundary for line envelope
 	int16_t 		    boxey; 	// row of line end+1 ( if line ends within
@@ -195,7 +195,7 @@ struct box_struct
 				//    ends within box)
 	Word8 		    boxflag; 	// byte for box attributes flags
 	Word8		    boxwf; 	// working flag (for picture compress)
-	Word16		    boxresw; 	// reserved word (for *4 arround)
+	uint16_t		    boxresw; 	// reserved word (for *4 arround)
 };
 typedef struct box_struct BOX;
 

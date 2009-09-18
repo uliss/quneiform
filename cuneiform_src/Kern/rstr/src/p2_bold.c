@@ -123,7 +123,7 @@ typedef struct tagThick {
 } WORDThick;
 
 typedef struct tagThickColumn {
-	Word16 thick;
+	uint16_t thick;
 	int16_t nLet;  //  also mark for first not-empty
 	Word8 nThick;
 	Word8 bold;

@@ -91,8 +91,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	extern "C" {
 #endif
 ///////////////////////////////////////////////////////////////////////////////////
-//void SetReturnCode_rstuff(Word16 rc);
-//Word16 GetReturnCode_rstuff();
+//void SetReturnCode_rstuff(uint16_t rc);
+//uint16_t GetReturnCode_rstuff();
 /////////////////////////////////////////////////////////////////////////////////////////
 //
 void    RSTUFFComment(const char * Comment);

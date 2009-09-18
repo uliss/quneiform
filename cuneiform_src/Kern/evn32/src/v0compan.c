@@ -241,7 +241,7 @@ static void merge_lines()
  BOX *bp, *bpp;
  MN *mn, *mnn, *mnw;
  BOXINT *ip;
- Word16 n;
+ uint16_t n;
 
  bp = op->box; ip = (BOXINT *)((Word8*)bp + (bp->boxptr)++); ip->l = 0;
  bp->boxflag |= BOXEND;
@@ -273,7 +273,7 @@ static void dead_line()
  BOX *bp, *bpp;
  BOXINT *ip;
  MN *mn;
- Word16 lnum;
+ uint16_t lnum;
  Bool16 lcomp;
 
 //      Double Fax preprocessing
@@ -332,7 +332,7 @@ static void no_box()
  MN *mn, *mmax;
  LNSTRT *lp;
  int16_t left, right;
- Word16 n, i;
+ uint16_t n, i;
  //     Clear references to box in the new line
  bwp = np; do bwp->box = NULL; while ((bwp++)->w > 0);
  //     Look for main number with maximal box number

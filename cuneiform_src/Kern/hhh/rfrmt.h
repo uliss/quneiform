@@ -75,7 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define RFRMT_MAXNAME 260
 
-RFRMT_FUNC(Bool32) RFRMT_Init(Word16 wHeightCode,Handle hStorage);
+RFRMT_FUNC(Bool32) RFRMT_Init(uint16_t wHeightCode,Handle hStorage);
 RFRMT_FUNC(Bool32) RFRMT_Done();
 RFRMT_FUNC(uint32_t) RFRMT_GetReturnCode();
 RFRMT_FUNC(Int8 *) RFRMT_GetReturnString(uint32_t dwError);
