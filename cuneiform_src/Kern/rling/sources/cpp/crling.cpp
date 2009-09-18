@@ -211,9 +211,9 @@ RLINGS_FUNC(Bool32) RLINGS_UnloadSecUserDictonary(void)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_CheckWord(PInt8 pWord, Pint32_t pOutCheck)
+RLING_FUNC(Bool32) RLING_CheckWord(PInt8 pWord, int32_t * pOutCheck)
 #else
-RLINGS_FUNC(Bool32) RLINGS_CheckWord(PInt8 pWord, Pint32_t pOutCheck)
+RLINGS_FUNC(Bool32) RLINGS_CheckWord(PInt8 pWord, int32_t * pOutCheck)
 #endif
 {
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
@@ -227,9 +227,9 @@ RLINGS_FUNC(Bool32) RLINGS_CheckWord(PInt8 pWord, Pint32_t pOutCheck)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_CheckSecWord(PInt8 pWord, Pint32_t pOutCheck)
+RLING_FUNC(Bool32) RLING_CheckSecWord(PInt8 pWord, int32_t * pOutCheck)
 #else
-RLINGS_FUNC(Bool32) RLINGS_CheckSecWord(PInt8 pWord, Pint32_t pOutCheck)
+RLINGS_FUNC(Bool32) RLINGS_CheckSecWord(PInt8 pWord, int32_t * pOutCheck)
 #endif
 {
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
@@ -244,9 +244,9 @@ RLINGS_FUNC(Bool32) RLINGS_CheckSecWord(PInt8 pWord, Pint32_t pOutCheck)
 //
 /*
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_CheckFile(PInt8 pFile, Pint32_t pOutCheck)
+RLING_FUNC(Bool32) RLING_CheckFile(PInt8 pFile, int32_t * pOutCheck)
 #else
-RLINGS_FUNC(Bool32) RLINGS_CheckFile(PInt8 pFile, Pint32_t pOutCheck)
+RLINGS_FUNC(Bool32) RLINGS_CheckFile(PInt8 pFile, int32_t * pOutCheck)
 #endif
 {
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
@@ -261,9 +261,9 @@ RLINGS_FUNC(Bool32) RLINGS_CheckFile(PInt8 pFile, Pint32_t pOutCheck)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_CheckED(void * pEDPool, void * pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, Pint32_t pOutCheck)
+RLING_FUNC(Bool32) RLING_CheckED(void * pEDPool, void * pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, int32_t * pOutCheck)
 #else
-RLINGS_FUNC(Bool32) RLINGS_CheckED(void * pEDPool, void * pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, Pint32_t pOutCheck)
+RLINGS_FUNC(Bool32) RLINGS_CheckED(void * pEDPool, void * pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, int32_t * pOutCheck)
 #endif
 {
 	SetReturnCode_rling(IDS_RLING_ERR_NO);
@@ -277,9 +277,9 @@ RLINGS_FUNC(Bool32) RLINGS_CheckED(void * pEDPool, void * pEDOutPool, Word32 wED
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #if defined( __RLING__ )
-RLING_FUNC(Bool32) RLING_CheckSecED(void * pEDPool, void * pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, Pint32_t pOutCheck)
+RLING_FUNC(Bool32) RLING_CheckSecED(void * pEDPool, void * pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, int32_t * pOutCheck)
 #else
-RLINGS_FUNC(Bool32) RLINGS_CheckSecED(void * pEDPool, void * pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, Pint32_t pOutCheck)
+RLINGS_FUNC(Bool32) RLINGS_CheckSecED(void * pEDPool, void * pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, int32_t * pOutCheck)
 #endif
 {
 	SetReturnCode_rling(IDS_RLING_ERR_NO);

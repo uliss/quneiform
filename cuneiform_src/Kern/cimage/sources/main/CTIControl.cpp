@@ -1313,10 +1313,10 @@ Bool32 CTIControl::FreeBuffers()
 
 Bool32 CTIControl::CheckInData(PCTDIB pDIB, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_InfoDataInGet lpNewIn)
 {
-	Pint32_t NewX = (Pint32_t)(lpNewIn ? &lpNewIn->dwX : &lpIn->dwX);
-	Pint32_t NewY = (Pint32_t)(lpNewIn ? &lpNewIn->dwY : &lpIn->dwY);
-	Pint32_t NewH = (Pint32_t)(lpNewIn ? &lpNewIn->dwHeight : &lpIn->dwHeight);
-	Pint32_t NewW = (Pint32_t)(lpNewIn ? &lpNewIn->dwWidth  : &lpIn->dwWidth);
+	int32_t * NewX = (int32_t *)(lpNewIn ? &lpNewIn->dwX : &lpIn->dwX);
+	int32_t * NewY = (int32_t *)(lpNewIn ? &lpNewIn->dwY : &lpIn->dwY);
+	int32_t * NewH = (int32_t *)(lpNewIn ? &lpNewIn->dwHeight : &lpIn->dwHeight);
+	int32_t * NewW = (int32_t *)(lpNewIn ? &lpNewIn->dwWidth  : &lpIn->dwWidth);
 	int32_t DIBW;  //= (int32_t)pDIB->GetLineWidth();
 	int32_t DIBH;  //= (int32_t)pDIB->GetLinesNumber();
 

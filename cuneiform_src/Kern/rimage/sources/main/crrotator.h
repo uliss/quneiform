@@ -75,7 +75,7 @@ class CRRotator
 #define   CTROTATOR_MAX_TANG             0.2
 //	static Word32    LAtoBytes[512];
 public:
-	Bool32 RotatePoint(int32_t iX, int32_t iY, Pint32_t prX, Pint32_t prY);
+	Bool32 RotatePoint(int32_t iX, int32_t iY, int32_t * prX, int32_t * prY);
 	CRRotator( PCRProgressor pProgressIndicator);
 	Bool32 Roll(PCTDIB cDIBIn, PCTDIB cDIBOut, int32_t Num, int32_t Denum);
 	Bool32 Rotate(PCTDIB cDIBIn, PCTDIB cDIBOut, int32_t Num, int32_t Denum);
@@ -89,9 +89,9 @@ private:
 	void      FreeWorkBuffers(void);
 	Bool32    AddBlackToGray(int32_t X, int32_t Y, Word8 Gray);
 	Bool32    UnmaskPixels(PWord8 pMask, PWord8 pGrayPix, int32_t X, int32_t Y, Word32 wLineLen, int32_t ShiftX, int32_t ShiftY);
-	Bool32    GetGrayCoord(int32_t eX, int32_t eY, Pint32_t pX, Pint32_t pY, Pint32_t psX, Pint32_t psY);
-	Bool32    RollPoint(int32_t X, int32_t Y, Pint32_t pnX, Pint32_t pnY);
-	Bool32    GetExtCoord(int32_t X, int32_t Y, Pint32_t peX, Pint32_t peY);
+	Bool32    GetGrayCoord(int32_t eX, int32_t eY, int32_t * pX, int32_t * pY, int32_t * psX, int32_t * psY);
+	Bool32    RollPoint(int32_t X, int32_t Y, int32_t * pnX, int32_t * pnY);
+	Bool32    GetExtCoord(int32_t X, int32_t Y, int32_t * peX, int32_t * peY);
 	Bool32    DescewGray(PCTDIB cDIBIn, PCTDIB cDIBOut);
 	Bool32    ConstructOutDIB(PCTDIB cDIBIn, PCTDIB cDIBOut, Bool32 Gray);
 	void      ComposeLineLA(PCTDIB cDIBIn, int32_t iDirect, Word32 wLine, Word32 wBuffLen);
@@ -128,7 +128,7 @@ protected:
 	Float80            mfSin;
 	Float80            mfTang;
 	PWord8             BufferForGray;
-	Pint32_t             HShiftTable;
+	int32_t *             HShiftTable;
 	PWord32            VShiftTable;
 	PWord32            VShiftLenght;
 };

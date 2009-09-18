@@ -81,7 +81,6 @@ class cls;                 \
 
 /*** Base types ***/
 typedef unsigned int Indx;_SETTYPES( Indx )
-_SETTYPES(int32_t)
 typedef uint32_t Word32;_SETTYPES( Word32 )
 typedef int16_t Int16;  _SETTYPES( Int16 )
 typedef uint16_t Word16;_SETTYPES( Word16 )
@@ -159,19 +158,14 @@ typedef Bool16 (* CFTBool16_Word32)(Word32);
 typedef Bool32 (* CFTBool32_Word32)(Word32);
 }
 #endif   // __cplusplus
+
 /* These definitions were originally scattered about the code tree.
  * Consolidating them all here.
  */
 
-#ifdef WIN32
-#include <windows.h>
-#else
-
-/* These elements are defined in Windows headers. */
+#ifndef WIN32
 
 typedef int32_t LONG;
-//typedef uint32_t uint32_t;
-
 typedef uint16_t WORD;
 typedef uint32_t UINT;
 

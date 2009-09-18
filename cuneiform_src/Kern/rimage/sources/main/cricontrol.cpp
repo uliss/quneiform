@@ -750,7 +750,7 @@ Bool32 CRIControl::StartProgress()
 	return mcProgress.Start();
 }
 
-Bool32 CRIControl::RotatePoint(PChar8 cDIB, int32_t iX, int32_t iY, Pint32_t prX, Pint32_t prY)
+Bool32 CRIControl::RotatePoint(PChar8 cDIB, int32_t iX, int32_t iY, int32_t * prX, int32_t * prY)
 {
 	Bool32 bRet = FALSE;
 

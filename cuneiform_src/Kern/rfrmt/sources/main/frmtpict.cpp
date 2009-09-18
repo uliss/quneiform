@@ -370,7 +370,7 @@ BOOL WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 					}
 					if(!RIMAGE_RotatePoint((PWord8)lpName,
 						in.dwX,in.dwY,
-						(Pint32_t)&in.dwX,(Pint32_t)&in.dwY))
+						(int32_t *)&in.dwX,(int32_t *)&in.dwY))
 					{
 						in.dwX = 0;
 						in.dwY = 0;

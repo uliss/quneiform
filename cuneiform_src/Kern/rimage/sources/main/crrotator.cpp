@@ -831,7 +831,7 @@ Bool32 CRRotator::DescewGray(PCTDIB cDIBIn, PCTDIB cDIBOut)
 	return bRet;
 }
 
-Bool32 CRRotator::GetExtCoord(int32_t X, int32_t Y, Pint32_t peX, Pint32_t peY)
+Bool32 CRRotator::GetExtCoord(int32_t X, int32_t Y, int32_t * peX, int32_t * peY)
 {
 	if ( peX )
 	{
@@ -846,7 +846,7 @@ Bool32 CRRotator::GetExtCoord(int32_t X, int32_t Y, Pint32_t peX, Pint32_t peY)
 	return TRUE;
 }
 
-Bool32 CRRotator::RollPoint(int32_t X, int32_t Y, Pint32_t pnX, Pint32_t pnY)
+Bool32 CRRotator::RollPoint(int32_t X, int32_t Y, int32_t * pnX, int32_t * pnY)
 {
 	if ( pnX )
 	{
@@ -861,7 +861,7 @@ Bool32 CRRotator::RollPoint(int32_t X, int32_t Y, Pint32_t pnX, Pint32_t pnY)
 	return TRUE;
 }
 
-Bool32 CRRotator::GetGrayCoord(int32_t eX, int32_t eY, Pint32_t pgX, Pint32_t pgY, Pint32_t psX, Pint32_t psY)
+Bool32 CRRotator::GetGrayCoord(int32_t eX, int32_t eY, int32_t * pgX, int32_t * pgY, int32_t * psX, int32_t * psY)
 {
 	if ( pgX )
 	{
@@ -933,7 +933,7 @@ void CRRotator::AllocWorkBuffers(Word32 wStringBufferRange)
 	if (mwTablesRange)
 	{
 		hHShiftTable   = RIMAGEDAlloc((mwTablesRange + 1)*4,"Rotator::AllocWorkBuffer - hor shift table");
-		HShiftTable    = (Pint32_t)RIMAGELock(hHShiftTable);
+		HShiftTable    = (int32_t *)RIMAGELock(hHShiftTable);
 		hVShiftTable   = RIMAGEDAlloc((mwTablesRange + 1)*4,"Rotator::AllocWorkBuffer - vert shift table");
 		VShiftTable    = (PWord32)RIMAGELock(hVShiftTable);
 		hVShiftLenght  = RIMAGEDAlloc((mwTablesRange + 1)*4,"Rotator::AllocWorkBuffer - vl shift table");
@@ -983,7 +983,7 @@ void CRRotator::FreeWorkBuffers()
 	}
 }
 
-Bool32 CRRotator::RotatePoint(int32_t iX, int32_t iY, Pint32_t prX, Pint32_t prY)
+Bool32 CRRotator::RotatePoint(int32_t iX, int32_t iY, int32_t * prX, int32_t * prY)
 {
 	int32_t tY;
 

@@ -117,7 +117,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_Rotate(PWord8 cDIBIn, PWord8 cDIBOut, int32_t High, i
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_RotatePoint( PWord8 cDIBIn, int32_t wX, int32_t wY, Pint32_t prX, Pint32_t prY)
+RIMAGE_FUNC(Bool32) RIMAGE_RotatePoint( PWord8 cDIBIn, int32_t wX, int32_t wY, int32_t * prX, int32_t * prY)
 {
 	SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 

@@ -1247,7 +1247,7 @@ void CKronrodBinarizator::Korobs_init()
 {
 	// 11.09.1992
 	Word32	k;
-	Pint32_t 	KR = (Pint32_t) pMREF;	// KOROBS REFERENCES
+	int32_t * 	KR = (int32_t *) pMREF;	// KOROBS REFERENCES
 
 	for (k=0; k<NJx3; k++)
 		KR[k] = 9999;	// OTL: "ERROR" INDICATION
@@ -1469,7 +1469,7 @@ void CKronrodBinarizator::Korobs_CLEAR_and_GLUE()
 	Word32	c, ccc;	// NEXT for BASE
 	Word32	d;	// NEXT for NEXT
 	int32_t	bi2;
-	Pint32_t  KR = (Pint32_t) pMREF;	// KOROBS REFERENCES
+	int32_t *  KR = (int32_t *) pMREF;	// KOROBS REFERENCES
 
 	b = 1;
 m1:

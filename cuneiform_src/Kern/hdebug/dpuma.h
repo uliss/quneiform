@@ -263,7 +263,7 @@ DEC_FUNC(Bool32, DPUMA_ProgressStep		,(Word32 step, const char * name, Word32 pe
 DEC_FUNC(Bool32, DPUMA_SetConsoleProperty,(	Bool32 bold,Bool32 italic,
 	Bool32 strikeout,Bool32 underline,int32_t height,	int32_t offset,	Word32 textcolor,
 	int32_t charset,	const char * name ));
-DEC_FUNC(Handle, DPUMA_CreateHistogramm,(const char *, Word32 size, Pint32_t lpVal));
+DEC_FUNC(Handle, DPUMA_CreateHistogramm,(const char *, Word32 size, int32_t * lpVal));
 DEC_FUNC(void,	 DPUMA_AddPointToHistogramm,(Handle hDlg, Word32 point));
 DEC_FUNC(Bool32, DPUMA_DoHistogramm,(Handle hDlg, PWord32 lpCurpos));
 DEC_FUNC(void,	 DPUMA_DestroyHistogramm,(Handle hDlg));

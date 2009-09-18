@@ -126,7 +126,7 @@ private:
 	Bool32          ReadDIB(PChar8   cDIB, PHandle phDIB);
 
 public:
-	Bool32                    RotatePoint(PChar8 cDIB, int32_t iX, int32_t iY, Pint32_t prX, Pint32_t prY);
+	Bool32                    RotatePoint(PChar8 cDIB, int32_t iX, int32_t iY, int32_t * prX, int32_t * prY);
 	Bool32                    StartProgress(void);
 	Bool32                    SetProgressCallBacks(PRIMAGECBPRogressStart pcbStart, PRIMAGECBPRogressStep pcbStep, PRIMAGECBPRogressFinish pcbFinish);
 	Bool32                    SetMargins(PRIMAGEMARGINS pMargins);

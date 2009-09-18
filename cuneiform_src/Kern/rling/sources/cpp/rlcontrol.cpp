@@ -298,7 +298,7 @@ Bool32 CRLControl::UnLoadSecDictonary()
 	return bRet;
 }
 //////////////////////////////////////////////////////////////////////////////////
-Bool32 CRLControl::CheckWord(PChar8 cWord, Pint32_t pOutCheck)
+Bool32 CRLControl::CheckWord(PChar8 cWord, int32_t * pOutCheck)
 {
 	Bool32     bRet = FALSE;
 
@@ -339,7 +339,7 @@ Bool32 CRLControl::CheckWord(PChar8 cWord, Pint32_t pOutCheck)
 	return bRet;
 }
 //////////////////////////////////////////////////////////////////////////////////
-Bool32 CRLControl::CheckED(void *pEDPool, void * pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, Pint32_t pOut)
+Bool32 CRLControl::CheckED(void *pEDPool, void * pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, int32_t * pOut)
 {
 	Bool32     bRet = FALSE;
 	Word32     wHexSize = RLING_ED_BUFFER_SIZE / RLING_ED_DECREATOR;
@@ -406,7 +406,7 @@ Bool32 CRLControl::CheckED(void *pEDPool, void * pEDOutPool, Word32 wEDPoolSize,
 	return bRet;
 }
 //////////////////////////////////////////////////////////////////////////////////
-Bool32 CRLControl::CheckSecWord(PChar8 cWord, Pint32_t pOutCheck)
+Bool32 CRLControl::CheckSecWord(PChar8 cWord, int32_t * pOutCheck)
 {
 	Bool32     bRet = FALSE;
 
@@ -417,7 +417,7 @@ Bool32 CRLControl::CheckSecWord(PChar8 cWord, Pint32_t pOutCheck)
 	return bRet;
 }
 //////////////////////////////////////////////////////////////////////////////////
-Bool32 CRLControl::CheckFile(PChar8 pFile, Pint32_t pCheck)
+Bool32 CRLControl::CheckFile(PChar8 pFile, int32_t * pCheck)
 {
 	Bool32     bRet = FALSE;
 	m_LastCheck = 0;
@@ -506,7 +506,7 @@ void CRLControl::FreeEDBuffer()
 	}
 }
 
-Bool32 CRLControl::CheckSecED(void *pEDPool, void *pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, Pint32_t pOut)
+Bool32 CRLControl::CheckSecED(void *pEDPool, void *pEDOutPool, Word32 wEDPoolSize, PWord32 pwEDOutPoolSize, int32_t * pOut)
 {
 	Bool32     bRet = FALSE;
 

@@ -787,7 +787,7 @@ extern "C" {
         return rc;
     }
     ///////////////////////////////////////
-    Handle LDPUMA_CreateHistogramm(const char * name, Word32 size, Pint32_t lpVal)
+    Handle LDPUMA_CreateHistogramm(const char * name, Word32 size, int32_t * lpVal)
     {
         Handle rc = NULL;
         if(fCreateHistogramm)
