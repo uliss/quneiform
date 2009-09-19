@@ -61,15 +61,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "recdefs.h"
 
 #define CTB_VERSION 7
-
-#ifndef	__RECDEFS_H
-typedef unsigned char       uchar;
-typedef unsigned short int  uint16_t;
-typedef short int           int16_t;
-typedef int                 int32_t;
-typedef int                 Bool32;
-#endif
-
 #include <stdio.h>
 /***********************   header structure ****************************/
 #define CTB_DATA_SIZE    256

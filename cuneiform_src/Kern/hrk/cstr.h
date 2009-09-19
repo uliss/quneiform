@@ -67,7 +67,6 @@
 #define __CSTR_H
 
 #include "globus.h"
-
 #include "ccomdefs.h"
 #include "cstrdefs.h"
 
