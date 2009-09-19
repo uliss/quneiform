@@ -92,7 +92,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //*********************************************************************
 Bool APIENTRY DllMain( HANDLE hModule,
 uint32_t ul_reason_for_call,
-                        LPVOID lpReserved )
+                        pvoid lpReserved )
 {
     switch( ul_reason_for_call )
 		{

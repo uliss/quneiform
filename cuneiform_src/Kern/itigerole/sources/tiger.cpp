@@ -80,7 +80,7 @@ END_OBJECT_MAP()
 // DLL Entry Point
 
 extern "C"
-Bool WINAPI DllMain(HINSTANCE hInstance, uint32_t dwReason, LPVOID /*lpReserved*/)
+Bool WINAPI DllMain(HINSTANCE hInstance, uint32_t dwReason, pvoid /*lpReserved*/)
 {
     if (dwReason == DLL_PROCESS_ATTACH)
     {
@@ -107,7 +107,7 @@ STDAPI DllCanUnloadNow(void)
 /////////////////////////////////////////////////////////////////////////////
 // Returns a class factory to create an object of the requested type
 
-STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv)
+STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, pvoid* ppv)
 {
     return _Module.GetClassObject(rclsid, riid, ppv);
 }

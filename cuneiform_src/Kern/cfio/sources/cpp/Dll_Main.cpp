@@ -87,7 +87,7 @@ static Bool32            InitDone =                          FALSE;
 //
 Bool APIENTRY DllMain( Handle hModule,
                         uint32_t ul_reason_for_call,
-                        LPVOID lpReserved )
+                        pvoid lpReserved )
 {
     switch( ul_reason_for_call )
 	{

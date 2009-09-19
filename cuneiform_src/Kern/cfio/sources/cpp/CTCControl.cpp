@@ -566,7 +566,7 @@ Bool32 CTCControl::Free(Handle hMem)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-LPVOID CTCControl::Lock(Handle hMem)
+pvoid CTCControl::Lock(Handle hMem)
 {
 	return LockMemory(hMem);
 }
@@ -763,11 +763,11 @@ Bool32 CTCControl::FreeMemory(Handle hMemory, uint32_t wFlag)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-LPVOID CTCControl::LockMemory(Handle hMemory)
+pvoid CTCControl::LockMemory(Handle hMemory)
 {
 	uint32_t wMemoryStatus;
 	uint32_t wMemorySize;
-	LPVOID pMemory = NULL;
+	pvoid pMemory = NULL;
 	// ну , тут осталось немного. отписывать адрес в память,
 	// но пока тут падает, а так как глобальная память не используется, то и
 	// оставим это на потом

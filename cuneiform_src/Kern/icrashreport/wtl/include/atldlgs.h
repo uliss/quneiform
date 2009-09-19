@@ -278,7 +278,7 @@ public:
 		return (int)GetFileDialogWindow().SendMessage(CDM_GETFILEPATH, nLength, (LPARAM)lpstrFilePath);
 	}
 
-	int GetFolderIDList(LPVOID lpBuff, int nLength) const
+	int GetFolderIDList(pvoid lpBuff, int nLength) const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT((m_ofn.Flags & OFN_EXPLORER) != 0);
@@ -1662,7 +1662,7 @@ public:
 	}
 
 // Implementation - try to override these, to prevent errors
-	HWND Create(HWND, ATL::_U_RECT, LPCTSTR, DWORD, DWORD, ATL::_U_MENUorID, ATOM, LPVOID)
+	HWND Create(HWND, ATL::_U_RECT, LPCTSTR, DWORD, DWORD, ATL::_U_MENUorID, ATOM, pvoid)
 	{
 		ATLASSERT(FALSE);   // should not be called
 		return NULL;
@@ -3751,7 +3751,7 @@ public:
 #endif // (_WIN32_IE >= 0x0500) && !defined(_WIN32_WCE)
 
 // Implementation - override to prevent usage
-	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, LPVOID = NULL)
+	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, pvoid = NULL)
 	{
 		ATLASSERT(FALSE);
 		return NULL;
@@ -4230,7 +4230,7 @@ public:
 	}
 
 // Implementation - overrides to prevent usage
-	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, LPVOID = NULL)
+	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, pvoid = NULL)
 	{
 		ATLASSERT(FALSE);
 		return NULL;
@@ -5166,7 +5166,7 @@ public:
 	}
 
 // Implementation - override to prevent usage
-	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, LPVOID = NULL)
+	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, pvoid = NULL)
 	{
 		ATLASSERT(FALSE);
 		return NULL;
@@ -5342,7 +5342,7 @@ public:
 	}
 
 // Implementation - overrides to prevent usage
-	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, LPVOID = NULL)
+	HWND Create(LPCTSTR, HWND, ATL::_U_RECT = NULL, LPCTSTR = NULL, DWORD = 0, DWORD = 0, ATL::_U_MENUorID = 0U, pvoid = NULL)
 	{
 		ATLASSERT(FALSE);
 		return NULL;

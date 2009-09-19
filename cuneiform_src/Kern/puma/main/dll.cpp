@@ -86,7 +86,7 @@ static char				 szStorage[_MAX_PATH];
 /////////////////////////////////////////
 Bool APIENTRY DllMain( HINSTANCE  hModule,
 uint32_t ul_reason_for_call,
-                        LPVOID lpReserved )
+                        pvoid lpReserved )
 {
 	char * p;
 

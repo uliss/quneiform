@@ -129,7 +129,7 @@ public:
 	Handle Alloc(uint32_t dwSize, uint32_t dwFlag, const char *cOwner, const char *Coment);
 	Handle ReAlloc(Handle hMemory, uint32_t wNewSize, uint32_t wFlag);
 	Bool32 Free(Handle hMem);
-	LPVOID Lock(Handle hMem);
+	pvoid Lock(Handle hMem);
 	Bool32 Unlock(Handle hMem);
 	uint32_t WriteMemToFile(Handle hMem, PChar8 lpName);
 	uint32_t ReadMemFromFile(PChar8 lpName, Handle * phMem, uint32_t wFlag = MAF_GALL_GHND);
@@ -145,7 +145,7 @@ private:
 	Bool32 TakeMemory(Handle hMemory, uint32_t * wMemorySize, uint32_t * wMemoryFlag);
 	Bool32 GetMemory(Handle hMemory, PPCTCMemoryHeader pHeader);
 	Bool32 DeleteMemoryFromList(Handle hMemory);
-	LPVOID LockMemory(Handle hMemory);
+	pvoid LockMemory(Handle hMemory);
 	Bool32 UnlockMemory(Handle hMemory);
 	Bool32 LockatorMemoryInList(Handle hMemory, Bool32 bLock);
 	Bool32 AttachFileToStorage(Handle File, Handle Storage, uint32_t Flag);

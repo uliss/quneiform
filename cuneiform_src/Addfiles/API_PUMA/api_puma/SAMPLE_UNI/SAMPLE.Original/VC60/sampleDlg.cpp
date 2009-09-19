@@ -279,7 +279,7 @@ uint32_t wdCookie;
 
 	hd_buf=::GetClipboardData(CF_TEXT);//взять в hd_buf
 
-	LPVOID pHptr = GlobalLock(hd_buf);
+	pvoid pHptr = GlobalLock(hd_buf);
 	if(pHptr == 0)
 	{
 		MessageBox("wrong resolution ");

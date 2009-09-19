@@ -285,7 +285,7 @@ uint32_t wdCookie;
 		LPBITMAPINFOHEADER lpb = NULL;
 		HBITMAP hBmp = (HBITMAP)LoadImage(hInst, "c:\\Clib.bmp", IMAGE_BITMAP, 0, 0, LR_DEFAULTSIZE|LR_LOADFROMFILE);
         BITMAP bmp = {0};
-		GetObject(hBmp, sizeof(bmp), (LPVOID)&bmp);*/
+		GetObject(hBmp, sizeof(bmp), (pvoid)&bmp);*/
 
 		long buf = 0;
 		short format = 2;

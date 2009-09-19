@@ -735,7 +735,7 @@ Bool InitStrMas(Rect16** ppRc,int len)
 	if (NULL != *ppRc)
 	{
       // проверка корректности заплатки (вызов IsBadWritePtr() специфичен для платформы Windows)
-			if ( IsBadWritePtr( (LPVOID)(*ppRc), sizeof(Rect16) ) )
+			if ( IsBadWritePtr( (pvoid)(*ppRc), sizeof(Rect16) ) )
 			{
 					// если мы здесь, то где-то перед вызовом InitStrMas()
 					// (*ppRc) объявлен, но не обнулен (надо найти, где и обнулить)
