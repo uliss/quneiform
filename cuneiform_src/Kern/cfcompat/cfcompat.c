@@ -177,12 +177,12 @@ Bool GetComputerName(LPTSTR lpBuffer, long unsigned int *lpnSize) {
 	return TRUE;
 }
 
-LONG RegOpenKeyEx(HKEY hKey, LPCTSTR lpSubKey, uint32_t ulOptions,
+int32_t RegOpenKeyEx(HKEY hKey, LPCTSTR lpSubKey, uint32_t ulOptions,
 		REGSAM samDesired, PHKEY phkResult) {
 	return 0;
 }
 
-LONG RegQueryValueEx(HKEY hKey, LPCTSTR lpValueName, LPDWORD lpReserved,
+int32_t RegQueryValueEx(HKEY hKey, LPCTSTR lpValueName, LPDWORD lpReserved,
 		LPDWORD lpType, LPBYTE lpData, LPDWORD lpcbData) {
 	return 0;
 }
@@ -455,7 +455,7 @@ LRESULT DefWindowProc(HWND hWnd, uint Msg, WPARAM wParam, LPARAM lParam) {
 	return 0;
 }
 
-LONG GetWindowLong(HWND hWnd, int nIndex) {
+int32_t GetWindowLong(HWND hWnd, int nIndex) {
 	return 0;
 }
 

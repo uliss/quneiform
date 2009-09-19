@@ -91,32 +91,32 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern int16_t bs_got;
 
 static STICK cane[NSTICKMAX];
-static LONG hist[ /*** HORSZMAX*NINCL ***/  4000 ];    // 4000
+static int32_t hist[ /*** HORSZMAX*NINCL ***/  4000 ];    // 4000
 //static uchar raster[VERTMAX*HORMAX/8];                  // 1024
 static uchar raster[VERTMAX*HORMAX];                      //O.S.
-static struct val {LONG b,e,y,c;} val[NVALMAX];
+static struct val {int32_t b,e,y,c;} val[NVALMAX];
 static struct extr {uchar x,incl,h;} extr[NEXTRMAX];
-static LONG ps,H,W,/*lr,*/mdl,dl,dr,horsz,MD,nval,nextr,nstick;
+static int32_t ps,H,W,/*lr,*/mdl,dl,dr,horsz,MD,nval,nextr,nstick;
 struct pairs {uchar b,e;};
 
-static LONG line_to_hist(lnhead *);
-static LONG sticks_find();
-static LONG test_extr(LONG,LONG,LONG);
+static int32_t line_to_hist(lnhead *);
+static int32_t sticks_find();
+static int32_t test_extr(int32_t,int32_t,int32_t);
 static void ordextr();
 static Bool is_stick(struct extr*);
-static LONG typend(STICK *,LONG);
-static LONG bend(LONG,struct pairs *);
+static int32_t typend(STICK *,int32_t);
+static int32_t bend(int32_t,struct pairs *);
 static void ordsticks();
 
-LONG tab_incl[VERTMAX*NINCLMAX];
-LONG n_incl=NINCL;
-LONG d_incl=DELINCL;
-LONG b_incl=INCLMIN;
+int32_t tab_incl[VERTMAX*NINCLMAX];
+int32_t n_incl=NINCL;
+int32_t d_incl=DELINCL;
+int32_t b_incl=INCLMIN;
 
 void set_tab_incl()
  {
- LONG i,h;                                                        //20.01.97
- LONG incl,d;
+ int32_t i,h;                                                        //20.01.97
+ int32_t incl,d;
 
  for (i=0; i<n_incl; i++)
   {
@@ -150,7 +150,7 @@ int16_t sticks_in_letter(cell *c,int16_t mode,STICK **res)
  {
  c_comp *cmp;
  lnhead *line;
- LONG l;                                                          //20.02.97
+ int32_t l;                                                          //20.02.97
  int16_t    ret;
 
  if (!bs_got) return -1;
@@ -164,8 +164,8 @@ int16_t sticks_in_letter(cell *c,int16_t mode,STICK **res)
  ps=get_size();
  H=c->h; W=c->w; MD=mode; /* lr=(W+7)/8 */;
  mdl=H/2;
- dl=((LONG)H/2*(-INCLMIN)+(MASHINCL/4))/(MASHINCL/2);
- dr=((LONG)H/2*INCLMAX+(MASHINCL/4))/(MASHINCL/2);
+ dl=((int32_t)H/2*(-INCLMIN)+(MASHINCL/4))/(MASHINCL/2);
+ dr=((int32_t)H/2*INCLMAX+(MASHINCL/4))/(MASHINCL/2);
  horsz=2*W+1+dl+dr;
  memset(hist,0,horsz*NINCL*sizeof(*hist));
  memset(raster,0,lr*H*sizeof(*raster));
@@ -185,9 +185,9 @@ int16_t sticks_in_letter(cell *c,int16_t mode,STICK **res)
  return ret;
  }
 
-static LONG line_to_hist(lnhead *line)
+static int32_t line_to_hist(lnhead *line)
  {
- LONG x,/* xm, */y,ym,i,h;                                        //20.02.97
+ int32_t x,/* xm, */y,ym,i,h;                                        //20.02.97
  interval *v;
  PLONG ph/* ,pr */;                                               //20.02.97
  PLONG pt;
@@ -233,9 +233,9 @@ static LONG line_to_hist(lnhead *line)
  return TRUE;
  }
 
-static LONG sticks_find()
+static int32_t sticks_find()
  {
- LONG i,x,hh,max;                                                 //20.02.97
+ int32_t i,x,hh,max;                                                 //20.02.97
  PLONG ph;                                                        //20.02.97
 
 /* for (i=0; i<NINCL; i++)
@@ -276,10 +276,10 @@ static LONG sticks_find()
  return nstick;
  }
 
-static LONG test_extr(LONG i,LONG x,LONG hh)
+static int32_t test_extr(int32_t i,int32_t x,int32_t hh)
  {
  PLONG ph,ph1;                                                    //20.02.97
- LONG hh1;                                                        //20.02.97
+ int32_t hh1;                                                        //20.02.97
 
  ph=hist+i*horsz+x;
  if (x>1 &&
@@ -320,8 +320,8 @@ static LONG test_extr(LONG i,LONG x,LONG hh)
 
 static void ordextr()
  {
- LONG i1,i2;                                                      //20.02.97
- LONG w;                                                          //20.02.97
+ int32_t i1,i2;                                                      //20.02.97
+ int32_t w;                                                          //20.02.97
 
  for (i1=1; i1<nextr; i1++)
   for (i2=i1; i2<nextr; i2++)
@@ -338,10 +338,10 @@ static void ordextr()
 
 static Bool is_stick(struct extr *ex)
  {
- LONG incl,incl1,i,n,x0,x,x1,y,y1,ymi,yma,ym,w,w1,m,f,h;          //20.02.97
- LONG line[VERTMAX];                                              //20.02.97
- LONG hw[HORMAX+1];                                               //20.02.97
- LONG aval[VERTMAX];                                              //20.02.97
+ int32_t incl,incl1,i,n,x0,x,x1,y,y1,ymi,yma,ym,w,w1,m,f,h;          //20.02.97
+ int32_t line[VERTMAX];                                              //20.02.97
+ int32_t hw[HORMAX+1];                                               //20.02.97
+ int32_t aval[VERTMAX];                                              //20.02.97
 
  memset(line,0,H*sizeof(*line));
  memset(hw,0,(W+1)*sizeof(*hw));
@@ -356,7 +356,7 @@ static Bool is_stick(struct extr *ex)
     x=x0+*(tab_incl+h+ex->incl);
    else
     x=x0-*(tab_incl-h+ex->incl);
-   if (abs((LONG)(val[i].b+val[i].e)-x)<=2)                       //20.02.97
+   if (abs((int32_t)(val[i].b+val[i].e)-x)<=2)                       //20.02.97
     {
     if( y>=0 ) // OLEG : cam crashing
         line[y]=1;
@@ -453,7 +453,7 @@ ok:
  return TRUE;
  }
 
-static LONG typend(STICK *st,LONG mode)
+static int32_t typend(STICK *st,int32_t mode)
 // returned value    -2 - left bend
 //                   -1 - about left bend
 //                    0 - straitgh stick
@@ -461,8 +461,8 @@ static LONG typend(STICK *st,LONG mode)
 //                    2 - right bend
  {
  struct pairs val[VERTMAX/3];
- LONG l,ll,y,yb,ye,dy,x,x0,xm,dx,i,incl,h;                        //20.02.97
- LONG r;                                                          //20.02.97
+ int32_t l,ll,y,yb,ye,dy,x,x0,xm,dx,i,incl,h;                        //20.02.97
+ int32_t r;                                                          //20.02.97
 
  incl=(st->incl-b_incl)/d_incl;
  l=st->l/3; if (l<7) l=7; if (l>st->l/2) l=st->l/2;
@@ -505,9 +505,9 @@ static LONG typend(STICK *st,LONG mode)
  return r;
  }
 
-static LONG bend(LONG l,struct pairs *val)
+static int32_t bend(int32_t l,struct pairs *val)
  {
- LONG r,s,i,x;                                                    //20.02.97
+ int32_t r,s,i,x;                                                    //20.02.97
 
  for (r=s=0,x=val[0].b,i=1; i<l; i++)
   if (val[i].b>x)
@@ -524,7 +524,7 @@ static LONG bend(LONG l,struct pairs *val)
 static void ordsticks()
  {
  STICK s;
- LONG i,j;                                                        //20.02.97
+ int32_t i,j;                                                        //20.02.97
 
  for (i=1; i<nstick; i++)
   for (j=i; j<nstick; j++)

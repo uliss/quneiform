@@ -157,7 +157,7 @@ int16_t read_file( uchar batch_run )
 {
 	int16_t  i;
 	char ret;
-	LONG shift;
+	int32_t shift;
 	int16_t  read_cnt;
 	LT   safeGuard = { 0x20, 0xF };
 

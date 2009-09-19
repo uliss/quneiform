@@ -140,7 +140,7 @@ static Bool CalculateLetterRepresentativeHeight (void)
             int nOldHeightesAllocated = nHeightesAllocated;
 
             nHeightesAllocated = (int)
-                ((LONG) (iHeight + HEIGHTES_MEMORY_ALLOCATION_QUANTUM)
+                ((int32_t) (iHeight + HEIGHTES_MEMORY_ALLOCATION_QUANTUM)
                         * HEIGHTES_MEMORY_ALLOCATION_QUANTUM
                         / HEIGHTES_MEMORY_ALLOCATION_QUANTUM);
 
@@ -229,7 +229,7 @@ Bool FindString (int iFirst, int *piAfter, int *piLastBar)
         {
             int nOldBarRecords = nBarRecords;
 
-            nBarRecords = (int) ((LONG) (iBar + BAR_MEMORY_ALLOCATION_QUANTUM)
+            nBarRecords = (int) ((int32_t) (iBar + BAR_MEMORY_ALLOCATION_QUANTUM)
                                         * BAR_MEMORY_ALLOCATION_QUANTUM
                                         / BAR_MEMORY_ALLOCATION_QUANTUM);
             pBar = realloc (pBar,
@@ -258,9 +258,9 @@ Bool FindString (int iFirst, int *piAfter, int *piLastBar)
 int CalculateIncline (int dy, int dx)
 {
     if ((dx >= 0) == (dy >= 0))
-        return (int)( ( (LONG) dy * INCLINE_FACTOR + dx / 2) / dx  );
+        return (int)( ( (int32_t) dy * INCLINE_FACTOR + dx / 2) / dx  );
     else
-        return (int)( ( (LONG) dy * INCLINE_FACTOR - dx / 2) / dx  );
+        return (int)( ( (int32_t) dy * INCLINE_FACTOR - dx / 2) / dx  );
 }
 
 Bool SelectStringAndCalculateIncline (int iStart)
@@ -343,9 +343,9 @@ void MakeShadow (int *pShadow, int nLength, int nMS_Incline)
              abs (pRoots [i].nHeight - nLetterRepresentativeHeight)// New two string.
                    <= MAX_EQUAL_HEIGHTES_DIFFERENCE)               //
         {
-            iProjection = (int) ((LONG) nPageOffset
-                + (LONG) (pRoots [i].yRow + pRoots [i].nHeight)
-                - (LONG) pRoots [i].xColumn * nMS_Incline / INCLINE_FACTOR);
+            iProjection = (int) ((int32_t) nPageOffset
+                + (int32_t) (pRoots [i].yRow + pRoots [i].nHeight)
+                - (int32_t) pRoots [i].xColumn * nMS_Incline / INCLINE_FACTOR);
 
             if (iProjection >= 0 && iProjection < nLength)
                 pShadow [iProjection]++;
@@ -353,10 +353,10 @@ void MakeShadow (int *pShadow, int nLength, int nMS_Incline)
     }
 }
 
-LONG CalculateShadowSum (int *pShadow, int nLength)
+int32_t CalculateShadowSum (int *pShadow, int nLength)
 {
     int i;
-    LONG lResult;
+    int32_t lResult;
 
     lResult = 0;
 
@@ -372,9 +372,9 @@ Bool CorrectIncline (int nRoughIncline, int *pnIncline)
 {
     int  *pShadow;
     int  dIncline;
-    LONG lStartShadowSum;
-    LONG lPreviousShadowSum;
-    LONG lShadowSum;
+    int32_t lStartShadowSum;
+    int32_t lPreviousShadowSum;
+    int32_t lShadowSum;
 
     pShadow = malloc (nSuitablePageHeight * sizeof (int));
 
@@ -517,16 +517,16 @@ Bool InclinesAccount (void)
 
 void IdealXY (int16_t x, int16_t y, int16_t *px, int16_t *py)
 {
-    *px = (int16_t) (x + (LONG) y * nIncline / INCLINE_FACTOR);
-    //*py = (int16_t) (y - (LONG) *px * nIncline / INCLINE_FACTOR);
-	*py = (int16_t) (y - (LONG) x * nIncline / INCLINE_FACTOR); // Piter
+    *px = (int16_t) (x + (int32_t) y * nIncline / INCLINE_FACTOR);
+    //*py = (int16_t) (y - (int32_t) *px * nIncline / INCLINE_FACTOR);
+	*py = (int16_t) (y - (int32_t) x * nIncline / INCLINE_FACTOR); // Piter
 }
 
 void RealXY (int16_t x, int16_t y, int16_t *px, int16_t *py)
 {
-    *py = (int16_t) (y + (LONG) x * nIncline / INCLINE_FACTOR);
-    //*px = (int16_t) (x - (LONG) *py * nIncline / INCLINE_FACTOR);
-    *px = (int16_t) (x - (LONG) y * nIncline / INCLINE_FACTOR); // Piter
+    *py = (int16_t) (y + (int32_t) x * nIncline / INCLINE_FACTOR);
+    //*px = (int16_t) (x - (int32_t) *py * nIncline / INCLINE_FACTOR);
+    *px = (int16_t) (x - (int32_t) y * nIncline / INCLINE_FACTOR); // Piter
 }
 
 void RotatePageToIdeal (void)

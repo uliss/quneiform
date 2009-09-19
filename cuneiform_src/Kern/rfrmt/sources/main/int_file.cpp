@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "compat_defs.h"
 
-LONG filelength_m(FILE *stream)
+int32_t filelength_m(FILE *stream)
 {
    long pos=fseek(stream, 0L, SEEK_END);
    fseek(stream, 0L, SEEK_SET);
@@ -76,7 +76,7 @@ LONG filelength_m(FILE *stream)
 static uint cr=13,lf=10;
 /*==Return:
     -1 - END_OF_FILE,
-    -2 - LONG STRING,
+    -2 - int32_t STRING,
     >=0 - длина строки,если NULL_STRING,=0 (нормал. выход)
   Параметры:
     str - буфер строки,
@@ -91,7 +91,7 @@ int fgets_m(char *str,int max_len,FILE *f)
     if(len && (uint)str[len-1] == cr && (uint)str[len] == lf)
       { str[--len]=0; return len; }
   }
-  str[len-1]=0; return -2; /*LONG STRING*/
+  str[len-1]=0; return -2; /*int32_t STRING*/
 }
 /*=========Return: >0 - код символа, 0 - END_OF_FILE*/
 char get_kod(FILE *f)
@@ -102,7 +102,7 @@ char get_kod(FILE *f)
 }
 /*==Return:
     -1 - END_OF_FILE,
-    -2 - LONG STRING,
+    -2 - int32_t STRING,
     >=0 - длина строки,если NULL_STRING,=0 (нормал. выход)
   Параметры:
     str - буфер строки,
@@ -118,7 +118,7 @@ int fgets1_m(char *str,int max_len,FILE *f)
     if(len && (uint)str[len-1] == cr && (uint)str[len] == lf)
       { str[--len]=0; return len; }
   }
-  str[len-1]=0; return -2; /*LONG STRING*/
+  str[len-1]=0; return -2; /*int32_t STRING*/
 }
 #define SIZE_BLOC 512
 /*=========Return: >0 - код символа, 0 - END_OF_FILE*/

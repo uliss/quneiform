@@ -142,7 +142,7 @@ typedef struct tag_clu_info {
 	uint16_t nsolid;
 	uint16_t ninvalid;
 	uint16_t ntwins;
-	LONG memused; // memory were used
+	int32_t memused; // memory were used
 	int16_t rc; // return code
 } clu_info;
 
@@ -252,7 +252,7 @@ int16_t Razmaz2xByte(uchar *bSource, uchar *bDest, int16_t xbyteAll, int16_t xbi
 		int16_t yrow, int16_t porogX, int16_t porogY);
 int TestFromGoodRaster(int start, Nraster_header *rh, int NumAll, int NumClus,
 		int16_t *nClus, InfoCluster *infoC, int porog);
-LONG StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf);
+int32_t StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf);
 void EndHausdorfDLL(void);
 int32_t GetNumMemory(void);
 void EndNumMemory(void);

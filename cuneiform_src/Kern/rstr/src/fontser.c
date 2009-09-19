@@ -132,11 +132,11 @@ static uint16_t tabvserif[256]={
 static uint32_t key=2;                  //для snap'а
 
 static cell *serif_word(cell *c);
-static LONG new_serif(cell *c);
-static LONG fon_test(cell *c);
-static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm);
-static LONG downserif(c_comp *env, uchar shape, int16_t H, STICK *st);
-static LONG upserif(c_comp *env, uchar shape, int16_t H, STICK *st);
+static int32_t new_serif(cell *c);
+static int32_t fon_test(cell *c);
+static void find_serif(cell *c, uint16_t map, int32_t *meas, int32_t *np, int32_t *nm);
+static int32_t downserif(c_comp *env, uchar shape, int16_t H, STICK *st);
+static int32_t upserif(c_comp *env, uchar shape, int16_t H, STICK *st);
 static interval *interval_fit(int16_t i, lnhead *line, int16_t H, STICK *st);
 static void ideal2rc(Point16 *p);
 static void bound_cell(cell *c, uint32_t color);
@@ -150,10 +150,10 @@ void serif_let()
 
 static cell *serif_word(cell *c)
 {
-  LONG np=0,nm=0,meas=0;
-  LONG serif=0;
+  int32_t np=0,nm=0,meas=0;
+  int32_t serif=0;
   Bool reliable;
-//  LONG tol;
+//  int32_t tol;
   cell *beg=c,*end;
   B_LINES my_bases; //Ў §®ўлҐ «Ё­ЁЁ
 
@@ -180,7 +180,7 @@ static cell *serif_word(cell *c)
 			!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 		 )
       {
-        LONG m=new_serif(c);
+        int32_t m=new_serif(c);
         if (m>0)  np++;
         else
         if (m<0)  nm++;
@@ -223,7 +223,7 @@ static cell *serif_word(cell *c)
 					!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 		   )
         {
-          LONG m=fon_test(c);
+          int32_t m=fon_test(c);
           if (m==0)            //no match found, use old flags
           {
             if (c->font & c_fp_ser)  m++;
@@ -273,11 +273,11 @@ static cell *serif_word(cell *c)
   return c;
 }
 
-static LONG new_serif(cell *c)
+static int32_t new_serif(cell *c)
 {
   uchar let=let_sans_acc[c->vers[0].let];
   uint16_t map=tabserif[let];
-  LONG meas=0,np=0,nm=0;
+  int32_t meas=0,np=0,nm=0;
 
   if (map==0)
     return 0;
@@ -314,7 +314,7 @@ static LONG new_serif(cell *c)
 /*
   else
   {
-    LONG nmin=(np,nm),nmax=MAX(np,nm);
+    int32_t nmin=(np,nm),nmax=MAX(np,nm);
     if (nmin>1 || nmax-nmin<2)
       return 0;
 
@@ -324,13 +324,13 @@ static LONG new_serif(cell *c)
 */
 }
 
-static LONG fon_test(cell *c)
+static int32_t fon_test(cell *c)
 {
   FonTestInfo testInfo[MAXCHECKALT];
   RecRaster recRast;
   uchar let=let_sans_acc[c->vers[0].let];
   uint16_t map=tabserif[let];
-  LONG i,nitem=0,serific,nbit=8*sizeof(map);
+  int32_t i,nitem=0,serific,nbit=8*sizeof(map);
 
   if (map==0)
     return 0;
@@ -365,7 +365,7 @@ static LONG fon_test(cell *c)
   return (serific>=0) ? nitem : -nitem;
 }
 
-static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm)
+static void find_serif(cell *c, uint16_t map, int32_t *meas, int32_t *np, int32_t *nm)
 {
   STICK *st,*sti;
   int16_t i,nstick;
@@ -405,7 +405,7 @@ static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm)
     sti=st+nstick-1;
     if (sti->y<=2 && w23 < sti->x && sti->x < c->w)
     {
-      LONG m=downserif(c->env,shape,c->h,sti);
+      int32_t m=downserif(c->env,shape,c->h,sti);
       if (m>0)  (*np)++;
       else
       if (m<0)  (*nm)++;
@@ -420,7 +420,7 @@ static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm)
     for (i=0,sti=st; i<nstick; i++,sti++)
       if (sti->y<=2 && w3 <= sti->x && sti->x < w23)
       {
-        LONG m=downserif(c->env,shape,c->h,sti);
+        int32_t m=downserif(c->env,shape,c->h,sti);
         if (m>0)  (*np)++;
         else
         if (m<0)  (*nm)++;
@@ -436,7 +436,7 @@ static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm)
     sti=st;
     if (sti->y<=2 && sti->x < w3)
     {
-      LONG m=downserif(c->env,shape,c->h,sti);
+      int32_t m=downserif(c->env,shape,c->h,sti);
       if (m>0)  (*np)++;
       else
       if (m<0)  (*nm)++;
@@ -448,7 +448,7 @@ static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm)
   shape=map&3;
   if (shape && nstick==1)  //stick like
   {
-    LONG m=downserif(c->env,shape,c->h,st);
+    int32_t m=downserif(c->env,shape,c->h,st);
     if (m>0)  (*np)++;
     else
     if (m<0)  (*nm)++;
@@ -465,7 +465,7 @@ static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm)
       int16_t x=sti->x+sti->l*sti->incl/INCL_FAC-dw;
       if (w23 < x && x < c->w)
       {
-        LONG m=upserif(c->env,shape,c->h,sti);
+        int32_t m=upserif(c->env,shape,c->h,sti);
         if (m>0)  (*np)++;
         else
         if (m<0)  (*nm)++;
@@ -484,7 +484,7 @@ static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm)
         int16_t x=sti->x+sti->l*sti->incl/INCL_FAC-dw;
         if (w3 <= x && x < w23)
         {
-          LONG m=upserif(c->env,shape,c->h,sti);
+          int32_t m=upserif(c->env,shape,c->h,sti);
           if (m>0)  (*np)++;
           else
           if (m<0)  (*nm)++;
@@ -504,7 +504,7 @@ static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm)
         int16_t x=sti->x+sti->l*sti->incl/INCL_FAC-dw;
         if (x < w3)
         {
-          LONG m=upserif(c->env,shape,c->h,sti);
+          int32_t m=upserif(c->env,shape,c->h,sti);
           if (m>0)  (*np)++;
           else
           if (m<0)  (*nm)++;
@@ -518,7 +518,7 @@ static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm)
   shape=map&3;
   if (shape && nstick==1)  //stick like
   {
-    LONG m=upserif(c->env,shape,c->h,st);
+    int32_t m=upserif(c->env,shape,c->h,st);
     if (m>0)  (*np)++;
     else
     if (m<0)  (*nm)++;
@@ -526,11 +526,11 @@ static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm)
   }
 }
 
-static LONG downserif(c_comp *env, uchar shape, int16_t H, STICK *st)
+static int32_t downserif(c_comp *env, uchar shape, int16_t H, STICK *st)
 {
   int16_t h,H8=H/8,H3=H/3;
   lnhead *line;
-  LONG rv=0;
+  int32_t rv=0;
 
   for (line=(lnhead *)((pchar)(env)+env->lines+sizeof(int16_t));
 			 line->lth>0;
@@ -538,7 +538,7 @@ static LONG downserif(c_comp *env, uchar shape, int16_t H, STICK *st)
     if (line->flg&l_fend && (h=line->h) > H3 && line->row+h+2 >= H)
     {
       int16_t x1,x2,i,i0=h-H3-1,in,begl=0,begr=0;
-      LONG lsum=0,rsum=0,imaxl=0,vmaxl=0,imaxr=0,vmaxr=0;
+      int32_t lsum=0,rsum=0,imaxl=0,vmaxl=0,imaxr=0,vmaxr=0;
       interval *intv;
 
       i0=MAX(i0,0);
@@ -628,11 +628,11 @@ static LONG downserif(c_comp *env, uchar shape, int16_t H, STICK *st)
   return 0;
 }
 
-static LONG upserif(c_comp *env, uchar shape, int16_t H, STICK *st)
+static int32_t upserif(c_comp *env, uchar shape, int16_t H, STICK *st)
 {
   int16_t h,H8=H/8,H3=H/3;
   lnhead *line;
-  LONG rv=0;
+  int32_t rv=0;
 
   for (line=(lnhead *)((pchar)(env)+env->lines+sizeof(int16_t));
 			 line->lth>0;
@@ -640,7 +640,7 @@ static LONG upserif(c_comp *env, uchar shape, int16_t H, STICK *st)
     if (line->flg&l_fbeg && (h=line->h) > H3 && line->row <= 2)
     {
       int16_t x1,x2,i,i0=MIN(H3,h),begl=0,begr=0;
-      LONG lsum=0,rsum=0,imaxl=0,vmaxl=0,imaxr=0,vmaxr=0;
+      int32_t lsum=0,rsum=0,imaxl=0,vmaxl=0,imaxr=0,vmaxr=0;
       interval *intv;
 
       i=H8+1;                //from line top
@@ -763,8 +763,8 @@ static interval *interval_fit(int16_t i, lnhead *line, int16_t H, STICK *st)
 static void ideal2rc(Point16 *p)
 {
   int16_t y=p->y;
-  p->y=y+(int16_t)((LONG)nIncline*p->x/2048);
-  p->x=p->x-(int16_t)((LONG)nIncline*y/2048);
+  p->y=y+(int16_t)((int32_t)nIncline*p->x/2048);
+  p->x=p->x-(int16_t)((int32_t)nIncline*y/2048);
 }
 
 static void bound_cell(cell *c, uint32_t color)

@@ -92,7 +92,7 @@ typedef unsigned short int near *	PWORD;
 
 /*			Double word size data				*/
 
-typedef signed long int			LONG;
+typedef signed long int			int32_t;
 typedef unsigned long int		DWORD;
 typedef signed long int near *		PLONG;
 typedef unsigned long int near *	PDWORD;

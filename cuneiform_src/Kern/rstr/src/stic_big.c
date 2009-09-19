@@ -511,7 +511,7 @@ if (MAX (r->mount[3], r->mount[4]) - l->mount[4] <		// 28.07.1993
 			// j1/44  "TAJ MAHAL"		32*35	14/21	###
 			// h10/11 "C R I S T A L"	28*28	8/19	###
 if ((MIN(wid,6) + wid + r->mount[4]) > s->height)		// 12.10.1993
-	dis += tab_L[7];	// too LONG right down flag		// 100
+	dis += tab_L[7];	// too int32_t right down flag		// 100
 	*********************************************************************/
 
 					// 12.10.1993 j1/21 "McCULL", first 'L'

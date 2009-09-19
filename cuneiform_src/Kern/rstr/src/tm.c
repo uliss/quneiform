@@ -239,7 +239,7 @@ int16_t is_square(cell *a)
  int16_t  intbeg, intend, intlth, flsq, dens;
  int16_t  addinc, addinc8, cellh, cellw, cellwa8, cellha8,
       Ln, lc1, lineh, hcur, hcur8, hrest, hrest8, hint;
- LONG wrkl, cellsq, sumlth;
+ int32_t wrkl, cellsq, sumlth;
  uchar was_here;
 
  was_here=0;

@@ -75,9 +75,9 @@ CFCOMPAT_FUNC(long) _tell(int handle);
 
 CFCOMPAT_FUNC(Bool) GetComputerName(LPTSTR lpBuffer, long unsigned int *lpnSize);
 
-CFCOMPAT_FUNC(LONG) RegOpenKeyEx(HKEY hKey, LPCTSTR lpSubKey, uint32_t ulOptions,
+CFCOMPAT_FUNC(int32_t) RegOpenKeyEx(HKEY hKey, LPCTSTR lpSubKey, uint32_t ulOptions,
 		REGSAM samDesired, PHKEY phkResult);
-CFCOMPAT_FUNC(LONG) RegQueryValueEx(HKEY hKey, LPCTSTR lpValueName,
+CFCOMPAT_FUNC(int32_t) RegQueryValueEx(HKEY hKey, LPCTSTR lpValueName,
 		LPDWORD lpReserved, LPDWORD lpType, LPBYTE lpData,
 		LPDWORD lpcbData);
 
@@ -168,7 +168,7 @@ CFCOMPAT_FUNC(HGDIOBJ) GetStockObject(int fnObject);
 CFCOMPAT_FUNC(Bool) IsWindowVisible(HWND hWnd);
 CFCOMPAT_FUNC(LRESULT) DefWindowProc(HWND hWnd, uint Msg, WPARAM wParam,
 		LPARAM lParam);
-CFCOMPAT_FUNC(LONG) GetWindowLong(HWND hWnd, int nIndex);
+CFCOMPAT_FUNC(int32_t) GetWindowLong(HWND hWnd, int nIndex);
 CFCOMPAT_FUNC(Bool) RegisterClass(const WNDCLASS *lpWndClass);
 CFCOMPAT_FUNC(HMODULE) GetModuleHandle(LPCTSTR lpModuleName);
 CFCOMPAT_FUNC(HICON) LoadIcon(HINSTANCE hInstance, LPCTSTR lpIconName);

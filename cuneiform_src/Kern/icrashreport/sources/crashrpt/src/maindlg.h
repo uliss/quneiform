@@ -81,10 +81,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 // RTF load callback
 //
-uint32_t CALLBACK LoadRTFString(DWORD dwCookie, LPBYTE pbBuff, LONG cb, LONG *pcb)
+uint32_t CALLBACK LoadRTFString(DWORD dwCookie, LPBYTE pbBuff, int32_t cb, int32_t *pcb)
 {
    CString *sText = (CString*)dwCookie;
-   LONG lLen = sText->GetLength();
+   int32_t lLen = sText->GetLength();
 
    for (*pcb = 0; *pcb < cb && *pcb < lLen; (*pcb)++)
    {

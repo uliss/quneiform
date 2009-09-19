@@ -80,7 +80,7 @@ uint32_t v;
  return (uint16_t)(v/norm);
 }
 
-LONG all_scalar (PWORD v1, PWORD v2)               //AK 14.07.97
+int32_t all_scalar (PWORD v1, PWORD v2)               //AK 14.07.97
 {                                 //definition from scalar.asm
 uint32_t v;
  v = ((uint32_t)(*(v1+0)))  * (*(v2+0))  +
@@ -98,7 +98,7 @@ uint32_t v;
      ((uint32_t)(*(v1+12))) * (*(v2+12)) +
      ((uint32_t)(*(v1+13))) * (*(v2+13)) +
      ((uint32_t)(*(v1+14))) * (*(v2+14));
- return (LONG)v;
+ return (int32_t)v;
 }
 
 static uchar sqrt_tab[] = {

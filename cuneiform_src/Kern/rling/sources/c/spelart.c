@@ -213,7 +213,7 @@ Bool loadArtBase (int16_t CountryCode)
 	//memset( artbase+i, 0, sizeof(ARTS)*(MAX_ARTS-i) ); // Bound
 	memset( &artbase[i], 0, (&artbase[MAX_ARTS] - &artbase[i]) ); // Bound
 
-	if ( TGREAD( h, (char *) (artbase+i), sizeof(ARTS)*f.rep_no ) != (LONG)(sizeof(ARTS)*f.rep_no) )
+	if ( TGREAD( h, (char *) (artbase+i), sizeof(ARTS)*f.rep_no ) != (int32_t)(sizeof(ARTS)*f.rep_no) )
 	{
 		TGCLOSE(h);
 		return FALSE;

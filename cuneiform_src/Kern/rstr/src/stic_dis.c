@@ -401,7 +401,7 @@ if( i )  {	// (2) pitch font
 	    l->down_serif==2 && r->down_serif==2 && l->mount[0]>1 &&
 	    l->mount[4]>1 && r->mount[4]>1 )
 		dis += tab_0xBA[21];  /* similar '1' */			// 50
-}	// (1) EXIST LONG FLAGS
+}	// (1) EXIST int32_t FLAGS
 /*......................................................................*/
 else	{	// (1) small flags
 	if( rt>lt && ( lt>0 || lt==0 && rt>1) )
@@ -498,9 +498,9 @@ if ( s->neck < 2  &&  r->down_serif  &&	// 16.02.1993  fax9/20(19) "tool"
      (l->mb_pos[0] != l->me_pos[0] || l->mount[0] > 1) )	// stdm14/24(26) "Union"
 		dis += tab_0xBA[22];					// 50
 
-				// similar TOO LONG 'L' (h3/32) "L. Steele"
+				// similar TOO int32_t 'L' (h3/32) "L. Steele"
 if ((MIN(wid,6) + wid + r->mount[4]) > dy)			// 12.10.1993
-	dis += 100;		// too LONG right down flag		// 100
+	dis += 100;		// too int32_t right down flag		// 100
 
 				// 16.01.1994	PROBA dis/=2 for NECK==3;
 	if (s->neck==3)  dis = (dis >> 2) << 1;		// DIVIDE DIS / 2;

@@ -109,10 +109,10 @@ typedef struct tagGraphNode
 
 typedef struct tagStrRaster   //растр строки
 {
-  LONG w;       //ширина
-  LONG h;       //высота
-  LONG top;     //строка левого верхнего угла
-  LONG left;    //столбец  -""-
+  int32_t w;       //ширина
+  int32_t h;       //высота
+  int32_t top;     //строка левого верхнего угла
+  int32_t left;    //столбец  -""-
   uchar pict[LINE_WIDTH*LINE_HEIGHT/8];  //растр
 } StrRaster;
 
@@ -122,7 +122,7 @@ typedef struct tagCutAdd
   int16_t left;
   int16_t right;
   int16_t bottom;
-  LONG nbig;
+  int32_t nbig;
   SVERS vers; //его версии
 } CutAdd;
 
@@ -133,7 +133,7 @@ static void make_alphabet(uchar *word);
 static int16_t compose_inc(cell *wb, cell *we);
 static Bool  make_str_raster(cell *wb, cell *we, StrRaster *raster);
 static void comptorast(c_comp *cp1, StrRaster *raster);
-static void inttorast( StrRaster *r, LONG h, LONG end, LONG lth);
+static void inttorast( StrRaster *r, int32_t h, int32_t end, int32_t lth);
 static Bool calc_cut_points(cell *wb, cell *we, int16_t rastlc, int16_t rastdr);
 static void fict_sect(CutPoint *sec, CutAdd *sec_add, GraphNode *node, int16_t x, int16_t px);
 static void close_ds(CutPoint *sec, CutAdd *sec_add, GraphNode *node, int16_t x, int16_t px);
@@ -142,32 +142,32 @@ static int16_t get_points (cell *C, CutPoint *listn, int16_t nmax );
 static void save_alpha_vers(cell *C, SVERS *svers);
 static int16_t cut_by_alpha(int16_t n, version vers[]);
 static Weight match(uchar *word);
-static Bool test_set(LONG prev, LONG h0, uchar nlet, LONG tol, Bool rerecog, LONG *imax, LONG *pmax);
-static LONG inc(CutPoint **cutp, LONG i, LONG ie, LONG set);
-static LONG dec(CutPoint **cutp, LONG i, LONG ie, LONG set);
-static LONG add_sect(LONG il, LONG ir, uchar nlet, Bool rerecog, uchar *p);
+static Bool test_set(int32_t prev, int32_t h0, uchar nlet, int32_t tol, Bool rerecog, int32_t *imax, int32_t *pmax);
+static int32_t inc(CutPoint **cutp, int32_t i, int32_t ie, int32_t set);
+static int32_t dec(CutPoint **cutp, int32_t i, int32_t ie, int32_t set);
+static int32_t add_sect(int32_t il, int32_t ir, uchar nlet, Bool rerecog, uchar *p);
 static version *find_in_vers(SVERS *svers, uchar let);
 static Bool equal(uchar let1, uchar let2);
-static LONG select_cells(LONG il, LONG ir, uchar cut_fl, cell **cells);
+static int32_t select_cells(int32_t il, int32_t ir, uchar cut_fl, cell **cells);
 static void set_bad_vers(SVERS *c);
 static Weight add_weight(Weight *wp, uchar ro, uchar nlet);
-static void add_monitors(LONG il, LONG ir, uchar nlet, uchar pb);
+static void add_monitors(int32_t il, int32_t ir, uchar nlet, uchar pb);
 
 static void mw_show_rast();
-static void show_layer(uchar let, LONG prev, LONG imax);
+static void show_layer(uchar let, int32_t prev, int32_t imax);
 
 
 StrRaster str_raster;
 #define MAX_CUT_POINT LINE_WIDTH/8
 static CutPoint cut_list[MAX_CUT_POINT];
 static GraphNode   layer1[MAX_CUT_POINT],layer2[MAX_CUT_POINT],*cur_layer=layer1,*prev_layer=layer2;
-static LONG ncut;
+static int32_t ncut;
 static uchar *templ,alpha[256]={0};
 static int16_t com_inc;
 struct dp_vers_struct vers_pool;   //куча версий dp
 #define vers_list (vers_pool.node)
-static LONG min_cut_width=0;  //при ширине > min_cut_width можно резать
-static LONG wmin;
+static int32_t min_cut_width=0;  //при ширине > min_cut_width можно резать
+static int32_t wmin;
 static MatchWordPar *param;
 
 static struct
@@ -256,9 +256,9 @@ static void  CBS_Calc() {}
 static void  letToDust(Bool exact) {}
 static Bool LINDefineLines(cell *f, cell *l)  { return FALSE; }
 static Bool SetBases ()   { return FALSE; }
-static void StrRec(uchar *alphabet, LONG mode) {}
+static void StrRec(uchar *alphabet, int32_t mode) {}
 
-LONG match_word(CSTR_rast wb, CSTR_rast we, uchar *word, MatchWordPar *param)
+int32_t match_word(CSTR_rast wb, CSTR_rast we, uchar *word, MatchWordPar *param)
 //match word to line fragment from wb to we (not include)
 //returns weight ( < 0, if error occur
 {
@@ -423,7 +423,7 @@ static uchar *make_alphabet(uchar *word)
   *a=0;
   do
   {
-    LONG let=256;
+    int32_t let=256;
     for (w=word; *w; w++)
       if (*w>*a && *w<let)  let=*w;
     *(++a)=(uchar)(let & 0xFF);
@@ -448,7 +448,7 @@ static void make_alphabet(uchar *word)
 
   for (w=word; *w; w++)
   {
-    LONG add=eq_let[*w];
+    int32_t add=eq_let[*w];
     if (add<0)
       alpha[*w]=1;
     else
@@ -479,10 +479,10 @@ static Bool  make_str_raster(cell *wb, cell *we, StrRaster *str_raster)
     left=MIN(left,c->r_col);
     right=MAX(right,c->r_col+c->w);
   }
-  str_raster->left=(LONG)left;
-  str_raster->top =(LONG)top;
-  str_raster->w=(LONG)(right-left);
-  str_raster->h=(LONG)(bottom-top);
+  str_raster->left=(int32_t)left;
+  str_raster->top =(int32_t)top;
+  str_raster->w=(int32_t)(right-left);
+  str_raster->h=(int32_t)(bottom-top);
 
   if (str_raster->w > LINE_WIDTH || str_raster->h > LINE_HEIGHT)
     return FALSE;
@@ -498,8 +498,8 @@ static Bool  make_str_raster(cell *wb, cell *we, StrRaster *str_raster)
 
 static void comptorast(c_comp *cp1, StrRaster *str_raster)
 {
- LONG Lc1=cp1->nl;   // number of lines in component
- LONG lc1,h1,y1;
+ int32_t Lc1=cp1->nl;   // number of lines in component
+ int32_t lc1,h1,y1;
  lnhead *lp1;
  interval *int1;
 
@@ -508,15 +508,15 @@ static void comptorast(c_comp *cp1, StrRaster *str_raster)
  {
    h1=lp1->row+cp1->upper-str_raster->top;
    int1=(interval *)(lp1+1);       // ptr to current interval
-   for (y1=0; y1 < (LONG)lp1->h; y1++, int1++, h1++)
-     inttorast(str_raster,h1,(LONG)(int1->e+cp1->left-str_raster->left),int1->l);
+   for (y1=0; y1 < (int32_t)lp1->h; y1++, int1++, h1++)
+     inttorast(str_raster,h1,(int32_t)(int1->e+cp1->left-str_raster->left),int1->l);
    lp1=(lnhead *) ((char *)lp1+lp1->lth);   // next line
  }
 }
 
-static void inttorast( StrRaster *r, LONG h, LONG end, LONG lth)
+static void inttorast( StrRaster *r, int32_t h, int32_t end, int32_t lth)
  {
- LONG j,je,me,ib,jb,mb,head=(r->w+7)/8*h;
+ int32_t j,je,me,ib,jb,mb,head=(r->w+7)/8*h;
  uchar *str_raster=r->pict;
 
  ib=end-lth;
@@ -784,7 +784,7 @@ static int16_t cut_by_alpha(int16_t n, version vers[])
 
 static Weight match(uchar *word)
 {
-  LONG i,l,prev=0,curh=my_bases.ps;
+  int32_t i,l,prev=0,curh=my_bases.ps;
   Weight weight;
   uchar *bt;
   GraphNode *nodei;
@@ -803,7 +803,7 @@ static Weight match(uchar *word)
   for (l=0; templ[l] && l<256; l++)
   {
     GraphNode *layer=prev_layer;
-    LONG imax,pmax=-1;
+    int32_t imax,pmax=-1;
     Bool rerecog=FALSE;
     uint32_t numbers=param->monitors;
     uchar l1=(uchar)(l+1);
@@ -824,12 +824,12 @@ static Weight match(uchar *word)
 
     if (!test_set(prev,curh,(uchar)l,RELY,rerecog,&imax,&pmax))   //first from prev
     {
-      LONG il=prev-1,ir=prev+1;
-      LONG ile=MAX(0,il-1),ire=MIN(ncut-1,ir+1);
-      LONG x=cut_list[prev].x;
+      int32_t il=prev-1,ir=prev+1;
+      int32_t ile=MAX(0,il-1),ire=MIN(ncut-1,ir+1);
+      int32_t x=cut_list[prev].x;
       while (il>=ile || ir<ire)
       {
-        LONG i0;
+        int32_t i0;
         if (il<ile)  i0=ir++;
         else
         if (ir>ire)  i0=il--;
@@ -852,23 +852,23 @@ static Weight match(uchar *word)
   else
   {
     if (param->monitors)
-      param->monitors=(LONG)prev_layer[prev].monitors;
+      param->monitors=(int32_t)prev_layer[prev].monitors;
     weight=prev_layer[prev].weight;
     for (i=0,bt=(uchar *)&weight.meas; i<3; i++,bt++)  *bt=255-(*bt);
   }
   return  weight;
 }
 
-static Bool test_set(LONG prev, LONG h0, uchar nlet, LONG tol, Bool rerecog, LONG *imax, LONG *pmax)
+static Bool test_set(int32_t prev, int32_t h0, uchar nlet, int32_t tol, Bool rerecog, int32_t *imax, int32_t *pmax)
 {
   uchar let=templ[nlet];
   CutPoint *cut,*cute=cut_list+ncut,*cutr,*cutl;
-  LONG let2=let*2;
-  LONG prmin=letters_pidx_table[let2],prmax=letters_pidx_table[let2+1],pr=(prmin+prmax)/2;
-  LONG w0 = (pr<=64) ? pr*h0/64 : h0*64/(128-pr);
-  LONG xb=cut_list[prev].x,x0=xb+w0;
-  LONG set,cc;
-  LONG  il,ir;
+  int32_t let2=let*2;
+  int32_t prmin=letters_pidx_table[let2],prmax=letters_pidx_table[let2+1],pr=(prmin+prmax)/2;
+  int32_t w0 = (pr<=64) ? pr*h0/64 : h0*64/(128-pr);
+  int32_t xb=cut_list[prev].x,x0=xb+w0;
+  int32_t set,cc;
+  int32_t  il,ir;
   uchar p;
   Bool rv=FALSE;
 
@@ -879,7 +879,7 @@ static Bool test_set(LONG prev, LONG h0, uchar nlet, LONG tol, Bool rerecog, LON
   for (set=1; set<=4; set++)
   {
   //первый разрез на расстоянии около w0 далее смещаемся в обе стороны
-    LONG i=prev+1; cut=cut_list+i; il=ir=-128;
+    int32_t i=prev+1; cut=cut_list+i; il=ir=-128;
     while (cut<cute)
     {
       uchar var=cut->var & 0x7F;
@@ -943,7 +943,7 @@ ret:
   return rv;
 }
 
-static LONG inc(CutPoint **cutp, LONG i, LONG ie, LONG set)
+static int32_t inc(CutPoint **cutp, int32_t i, int32_t ie, int32_t set)
 {
   if (i>=ie) return -128;
   (*cutp)++; i++;
@@ -956,7 +956,7 @@ static LONG inc(CutPoint **cutp, LONG i, LONG ie, LONG set)
   return -128;
 }
 
-static LONG dec(CutPoint **cutp, LONG i, LONG ie, LONG set)
+static int32_t dec(CutPoint **cutp, int32_t i, int32_t ie, int32_t set)
 {
   if (i<=ie) return -128;
   (*cutp)--; i--;
@@ -969,7 +969,7 @@ static LONG dec(CutPoint **cutp, LONG i, LONG ie, LONG set)
   return -128;
 }
 
-static LONG add_sect(LONG il, LONG ir, uchar nlet, Bool rerecog, uchar *p)
+static int32_t add_sect(int32_t il, int32_t ir, uchar nlet, Bool rerecog, uchar *p)
 {
   uchar let=templ[nlet];
   version *v;
@@ -977,9 +977,9 @@ static LONG add_sect(LONG il, LONG ir, uchar nlet, Bool rerecog, uchar *p)
   cell *cells[MAX_CUTS];
   cell **cp,*lc;
   CutPoint *cutl=cut_list+il,*cutr=cut_list+ir;
-  LONG xl=cutl->x,xr=cutr->x;
-  LONG dh;
-  LONG n;
+  int32_t xl=cutl->x,xr=cutr->x;
+  int32_t dh;
+  int32_t n;
   uchar cut_fl = (( cutl->dh != 0 ) ? c_cg_cutl : 0) +
                  (( cutr->dh != 0 ) ? c_cg_cutr : 0);
   uchar left_let=0;
@@ -1072,7 +1072,7 @@ result:
     if (debug_on && det_trace)
     {
       uchar msg[80];
-      LONG wpm=wp.meas,wcm=wc.meas;
+      int32_t wpm=wp.meas,wcm=wc.meas;
 
       sprintf(msg,"%c p=%d (%d) %d %d %d (%d) %d %d %d\n",let,*p,
               il,wpm>>16,(wpm>>8)&0xFF,wpm&0xFF,ir,wcm>>16,(wcm>>8)&0xFF,wcm&0xFF);
@@ -1090,7 +1090,7 @@ result:
 static version *find_in_vers(SVERS *svers, uchar let)
 {
   version *v=&svers->vers[0];
-  LONG i;
+  int32_t i;
   for (i=0; i<svers->nvers; i++,v++)
     if (equal(v->let,let))
       return v;
@@ -1103,7 +1103,7 @@ static Bool equal(uchar let1, uchar let2)
     return TRUE;
   else
   {
-    LONG offset=eq_let[let1];
+    int32_t offset=eq_let[let1];
     if (offset<0)
       return FALSE;
     return strchr(eq_list.d+offset,let2) != 0;
@@ -1112,21 +1112,21 @@ static Bool equal(uchar let1, uchar let2)
 
 
 
-static LONG select_cells(LONG il, LONG ir, uchar cut_fl, cell **cells)
+static int32_t select_cells(int32_t il, int32_t ir, uchar cut_fl, cell **cells)
 {
-  LONG i;
+  int32_t i;
   cell *CI=cell_f();
   int16_t minrow=my_bases.b2;
   CutPoint *cuti;
   uchar csv[32];       //параметры сечения
   cut_pos    cpos={0};
   struct cut_elm  cutl,cutr;
-  LONG xl=cut_list[il].x,xr=cut_list[ir].x;
-  LONG xla=str_raster.left+xl,xra=str_raster.left+xr;
+  int32_t xl=cut_list[il].x,xr=cut_list[ir].x;
+  int32_t xla=str_raster.left+xl,xra=str_raster.left+xr;
   uchar seg_rast[RASTER_WIDTH*RASTER_HEIGHT/8],*sr=seg_rast,*wr;
-  LONG rwb,wwb=(str_raster.w+7)/8;
-  LONG beg=(LONG)xl/8-1,end=(LONG)(xr+7)/8+1;
-  LONG row,col;
+  int32_t rwb,wwb=(str_raster.w+7)/8;
+  int32_t beg=(int32_t)xl/8-1,end=(int32_t)(xr+7)/8+1;
+  int32_t row,col;
   MN *mn;
   beg=MAX(0,beg);  end=MIN(end,wwb-1);
   rwb=end-beg+1;
@@ -1185,7 +1185,7 @@ static Weight add_weight(Weight *w0, uchar ro, uchar nlet)
 
   if (ro > *wi)
   {
-    LONG i;
+    int32_t i;
     uchar *w1=wi+1,*l1=li+1;
     *wi=ro;  *li=nlet;
     for (i=0; i<2; i++,wi++,w1++,li++,l1++)
@@ -1200,7 +1200,7 @@ static Weight add_weight(Weight *w0, uchar ro, uchar nlet)
   return wp;
 }
 
-static void add_monitors(LONG il, LONG ir, uchar nlet, uchar pb)
+static void add_monitors(int32_t il, int32_t ir, uchar nlet, uchar pb)
 {
   uint32_t numbers=param->monitors;
   if (numbers)
@@ -1234,7 +1234,7 @@ static void mw_show_rast()
 {
   raster r;
   struct cut_elm cut_el[MAX_CUTS];
-  LONG i;
+  int32_t i;
   cell *c=cell_f()->next;
 
   if (str_raster.w>128 || str_raster.h>64)
@@ -1270,11 +1270,11 @@ static void mw_show_rast()
   cg_show_rast(c,&r,"",cut_el);
 }
 
-static void show_layer(uchar let, LONG prev, LONG imax)
+static void show_layer(uchar let, int32_t prev, int32_t imax)
 {
   char msg[600],*s=msg;
   GraphNode *layer=prev_layer;
-  LONG i2=imax+3,i1,i,j,shift;
+  int32_t i2=imax+3,i1,i,j,shift;
   i2=MIN(i2,ncut-1);
   i1=i2-15;  i1=MAX(i1,0);
 
@@ -1288,7 +1288,7 @@ static void show_layer(uchar let, LONG prev, LONG imax)
     {
       for (i=i1; i<=i2; i++)
       {
-        LONG w=layer[i].weight.meas;
+        int32_t w=layer[i].weight.meas;
         if (w>0) w = (w>>shift) & 0xFF;
         s += sprintf(s,"%4d",w);
       }
@@ -1309,7 +1309,7 @@ void test_match_cell_word(B_LINES *my_bases, int16_t cut_width)
   uchar *e,*b,msg[36];
   int16_t col1=-10000,col2=-10000;
   Weight match;
-  LONG m,n;
+  int32_t m,n;
   cell *wb=cell_f()->next,*we;
   MatchWordPar  param;
   char wascii[80];

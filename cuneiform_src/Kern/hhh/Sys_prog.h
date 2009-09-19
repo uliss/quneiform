@@ -153,7 +153,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef WIN_MOD
   typedef unsigned char uchar;
   typedef unsigned int uint16_t;
-  typedef signed long LONG;
+  typedef signed long int32_t;
   typedef unsigned long DWORD;
   typedef int Bool;
   #ifndef PASCAL
@@ -178,7 +178,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     //#define CALLBACK FAR PASCAL
     typedef unsigned int uint;
     typedef uint WPARAM;
-    typedef LONG LPARAM;
+    typedef int32_t LPARAM;
   #endif
   #ifndef WIN32
     #ifdef DLL_MOD

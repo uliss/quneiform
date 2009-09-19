@@ -273,7 +273,7 @@ void WSB_BuildPoints (void)
         }
 
         Point.yAverage = (int) long_sqrt
-            ((LONG) Point.yAverage / (Point.xEnd - Point.xBegin + 1));
+            ((int32_t) Point.yAverage / (Point.xEnd - Point.xBegin + 1));
 
         if (bPeakFromLeft)
         {
@@ -543,7 +543,7 @@ Bool WSB_CutUpperLine (BLOCK * p, WSB_POINT Point)
         yAverageHystHeight += pHystogram [ixColumn] * pHystogram [ixColumn];
 
     yAverageHystHeight =
-        (int) long_sqrt ((LONG) yAverageHystHeight / nHystColumns);
+        (int) long_sqrt ((int32_t) yAverageHystHeight / nHystColumns);
 
     /**
      **  2.2. Find interval of block hystogram minimum

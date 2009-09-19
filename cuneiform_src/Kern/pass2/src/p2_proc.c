@@ -634,7 +634,7 @@ static int32_t p2_processWord(CSTR_line lineRaw, CSTR_line lineFon,
 		{
 			CSTR_rast firOld = (CSTR_rast) NULL, lasOld;
 
-			//B->r_row-(int16_t)((LONG)nIncline*B->r_col/2048);
+			//B->r_row-(int16_t)((int32_t)nIncline*B->r_col/2048);
 			// возьмем нужный кусок сырой строки
 			FindAccordLine(lineRaw, &firOld, &lasOld, first, last,
 					(int) p2globals.nIncline);
@@ -1759,8 +1759,8 @@ static int FindEqualLine(CSTR_line lineRaw, CSTR_rast *firOld,
 			return 0;
 
 		if (naklon) {
-			attr.row = attr.r_row - (int16_t)((LONG) naklon * attr.r_col / 2048);
-			attr.col = attr.r_col + (int16_t)((LONG) naklon * attr.r_row / 2048);
+			attr.row = attr.r_row - (int16_t)((int32_t) naklon * attr.r_col / 2048);
+			attr.col = attr.r_col + (int16_t)((int32_t) naklon * attr.r_row / 2048);
 		}
 
 		if (attr.col < bLeft)
@@ -2317,8 +2317,8 @@ static void FindAccordLine(CSTR_line lineRaw, CSTR_rast *firOld,
 			return;
 		}
 		if (naklon) {
-			attr.row = attr.r_row - (int16_t)((LONG) naklon * attr.r_col / 2048);
-			attr.col = attr.r_col + (int16_t)((LONG) naklon * attr.r_row / 2048);
+			attr.row = attr.r_row - (int16_t)((int32_t) naklon * attr.r_col / 2048);
+			attr.col = attr.r_col + (int16_t)((int32_t) naklon * attr.r_row / 2048);
 		}
 
 		if (attr.col + attr.w - maxX >= maxX - attr.col && attr.col > minX)
@@ -2380,9 +2380,9 @@ static CSTR_rast AddRastersLine(CSTR_rast fRast, CSTR_rast eRast,
 				attr.pos_inc = CSTR_erect_no;
 			}
 			if (nNaklon) {
-				attr.row = attr.r_row - (int16_t)((LONG) nNaklon * attr.r_col
+				attr.row = attr.r_row - (int16_t)((int32_t) nNaklon * attr.r_col
 						/ 2048);
-				attr.col = attr.r_col + (int16_t)((LONG) nNaklon * attr.r_row
+				attr.col = attr.r_col + (int16_t)((int32_t) nNaklon * attr.r_row
 						/ 2048);
 			}
 

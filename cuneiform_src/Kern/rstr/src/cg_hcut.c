@@ -141,7 +141,7 @@ static Bool dirt_frag(cell **B,cell **E)
 }
 */
 
-LONG testDirt(CSTR_rast *beg, CSTR_rast *end)
+int32_t testDirt(CSTR_rast *beg, CSTR_rast *end)
 {
   CSTR_rast rst=*beg,first=rst,last=CSTR_GetNext(*end);
   CSTR_rast capb=0,cape=0;
@@ -334,7 +334,7 @@ static int16_t dirt_frag(cell **B, cell **E, cell *first, cell *last, Bool stop_
       if (d2 || d3)
       {
         ClustInfo cli;
-        LONG nc=FONGetNumCluster(c->r_clink);
+        int32_t nc=FONGetNumCluster(c->r_clink);
 	      FONGetClustInfo(&cli,nc);
         if (cli.prob>=trs2)
         {

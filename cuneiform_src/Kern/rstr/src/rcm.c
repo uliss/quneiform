@@ -169,7 +169,7 @@ uchar db_pass;
 uchar string[8192];
 uint16_t lpool_lth;
 uchar lpool[LPOOL_SIZE];
-LONG Flag_Courier=FALSE;
+int32_t Flag_Courier=FALSE;
 uchar evfulln;
 uchar double_fax;            // setup in RSTR_SetOptions
 uchar db_trace_flag;
@@ -349,7 +349,7 @@ uchar *  ForRaster2;
 uchar *  ForRaster3;
 uchar *  ED_file_bound,*ED_file_end;
 puchar   kit_curr, kit_end, kit_start;
-LONG    kit_size=65536*4;
+int32_t    kit_size=65536*4;
 Bool32  kit_max_size=FALSE;
 uint16_t           wHeightRC      = 0;
 uint16_t           wLowRC         = RSTR_ERR_NO;
@@ -392,7 +392,7 @@ puchar tableBOX=NULL;        /* BOX table memory start */
 puchar box_pool=NULL;        /* boxes pool for extr_comp */
 puchar memory_pool=NULL,memory_pool_end=NULL;
 extern puchar load_BOX (puchar end);
-LONG    memory_length;
+int32_t    memory_length;
 puchar fontBOX=NULL;
 uchar line_scale=0, line_alphabet=0, line_minus=0, line_pointsusp=0; // need setup after calculation in ExStr
 Bool line_readyBL=FALSE,line_BL=FALSE,line_handfragment=FALSE,line_rerecog=FALSE;
@@ -403,7 +403,7 @@ Bool32 read_rec_file(int16_t lang, puchar pool, puchar * end)
 {
 uint32_t l;
     int16_t h;
-    LONG  size;
+    int32_t  size;
 
 #ifndef O_BINARY /* This is defined only in Windows. */
 #define O_BINARY 0

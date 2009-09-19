@@ -314,7 +314,7 @@ CSTR_rast def_init_cell() {
  */
 void stand_bas() {
 	int16_t i, j;
-	LONG w1, w2;
+	int32_t w1, w2;
 	// b3 assured
 	Nb2 = Ns2;
 	Nb1 = Ns1;

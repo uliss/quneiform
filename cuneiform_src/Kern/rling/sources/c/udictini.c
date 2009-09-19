@@ -66,7 +66,7 @@
 #include "spelwatc.h"
 #elif defined (BC_FOR_WIN)
 #include "bcwtypes.h"
-typedef long signed int LONG;
+typedef long signed int int32_t;
 #elif defined(TURBO_C)
 #include "tc_types.h"
 #else
@@ -83,7 +83,7 @@ typedef long signed int LONG;
 
 uint32_t LoadUserDict(char *DictName, char *pool, uint32_t pool_size,
 		voc_state *user_dict) {
-	LONG size;
+	int32_t size;
 	pool_size = pool_size;
 	if (_IsUserDict(DictName) != UD_PERMITTED)
 		return 0;
@@ -141,7 +141,7 @@ void ResetUserDict(voc_state * user_dict) {
 Bool CloseUserDictionary(uchar * DictName, voc_state *user_dict) {
 	if (user_dict -> state & VOC_CHANGED) {
 		char w[80];
-		LONG size;
+		int32_t size;
 		int16_t h;
 
 		strcpy(w, DictName);
@@ -155,7 +155,7 @@ Bool CloseUserDictionary(uchar * DictName, voc_state *user_dict) {
 		size = TGWRITE(h, V_POINT(user_dict ->vocseg, 0), user_dict ->vocfree);
 		TGCLOSE(h);
 
-		if (size != (LONG) user_dict->vocfree) {
+		if (size != (int32_t) user_dict->vocfree) {
 			/* MsgBox("wrong size"); */
 			return FALSE;
 		}

@@ -137,15 +137,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern "C" {
 #endif
 
-LONG my_filelth (int16_t);                      /* / handle    */
+int32_t my_filelth (int16_t);                      /* / handle    */
 int16_t  my_open    (int16_t, char *, int16_t, int16_t);    /* / stream, name, ... */
 FILE *my_fopen  (int16_t, char *, char *);      /* / stream, name, ... */
 void my_file_rem (int16_t, char *);             /* / stream, name      */
 int16_t  my_close   (int16_t);                      /* / handle            */
-LONG my_read    (int16_t, char *, LONG);        /* / handle, addr, lth */
-LONG my_write   (int16_t, char *, LONG);        /* / handle, addr, lth */
-LONG my_seek    (int16_t, LONG, int16_t);           /* / handle, addr, type*/
-int16_t  my_chsize  (int16_t, LONG);                /* / handle, addr      */
+int32_t my_read    (int16_t, char *, int32_t);        /* / handle, addr, lth */
+int32_t my_write   (int16_t, char *, int32_t);        /* / handle, addr, lth */
+int32_t my_seek    (int16_t, int32_t, int16_t);           /* / handle, addr, type*/
+int16_t  my_chsize  (int16_t, int32_t);                /* / handle, addr      */
 Bool save_dir   (int16_t, void * );             /* / stream, name      */
 int16_t  is_open    (int16_t);                      /* / stream            */
 void set_name_ext   (char *);               /* / stream=TX; extention  */

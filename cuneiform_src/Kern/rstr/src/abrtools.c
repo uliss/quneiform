@@ -171,7 +171,7 @@ void make_abris(s_glue *GL, cell *cl)
         {
             uchar bhm = (uchar)hm;
             uchar bfl = fullh-hm;
-            LONG i, e = intend;
+            int32_t i, e = intend;
             for (i=intbeg; i<e; i++)
             {
                 if ((uchar)bhm < (uchar)top[i] ) top[i]=bhm;
@@ -888,7 +888,7 @@ uchar test_against_convex( puchar func, uchar from, uchar to )
 {
 int16_t  x, i, dx;
 uchar pen, cnt;
-LONG    total;
+int32_t    total;
 
     pen = 0;
     total = 0;

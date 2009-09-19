@@ -98,9 +98,9 @@ extern  void    Cells2CSTR(CSTR_line lin,CSTR_line lino,cell *cur,Bool32 enable_
 extern  void    CopyAttr2CSTR(CSTR_rast_attr *attr, cell *c);
 extern  int     cell2UniVers(UniVersions *ver, cell *c);
 // from EVN32.DLL
-extern LONG EVNGetRepresent( RecRaster   *rRaster,
+extern int32_t EVNGetRepresent( RecRaster   *rRaster,
     uchar *evn, uchar *evn_rot, int32_t font);
-extern LONG  EVNRecogCharPRN(   RecRaster  * rRaster,
+extern int32_t  EVNRecogCharPRN(   RecRaster  * rRaster,
       RecVersions* EVNres       );
 // from RCM.C
 extern  void    ErrorExit(int Code);

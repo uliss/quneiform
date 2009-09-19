@@ -1536,7 +1536,7 @@ void approve_bases()
 void linpos(CSTR_line ln)
 {
  int16_t riter1;
- LONG sumbox;
+ int32_t sumbox;
  int16_t sum_n, finCSTR_n, dead_cells=0,v_prom;
 
  lin_str = ln;
@@ -2664,11 +2664,11 @@ int16_t get_bsm()
  { return (bbsm+minrow); }
 
 /////////////
-LONG get_size()                                                   //16.01.97
+int32_t get_size()                                                   //16.01.97
  {
    if (multi_bas & 128)
       def_locbas(NULL);
-   return (LONG) Ps;                                              //16.01.97
+   return (int32_t) Ps;                                              //16.01.97
  }
 ///////////
 

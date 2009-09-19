@@ -888,7 +888,7 @@ make_full:
 }
 
 #include "p2libr.h"
-extern  LONG    all_probs, good_probs, zero_probs;
+extern  int32_t    all_probs, good_probs, zero_probs;
 int16_t dmBOX(cell *BC, s_glue *GL)
 {int16_t ret=0;
 if(pass4_in)
@@ -1175,7 +1175,7 @@ servBOX *make_broken_raster(s_glue *GL, int16_t rq)
 //      This procedure makes joint raster for several components.
 //
  {
- int16_t i, bw; LONG m, t,s; uint16_t *p;
+ int16_t i, bw; int32_t m, t,s; uint16_t *p;
  c_comp  **cp;
  c_comp  *cp1;
  cell **celist;

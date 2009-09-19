@@ -200,14 +200,14 @@ void RotatePageToIdeal (void);
 
 # define IDEAL_XY(x, y)   \
          {\
-             x = (int16_t) (x + (LONG) y * nIncline / INCLINE_FACTOR);\
-             y = (int16_t) (y - (LONG) x * nIncline / INCLINE_FACTOR);\
+             x = (int16_t) (x + (int32_t) y * nIncline / INCLINE_FACTOR);\
+             y = (int16_t) (y - (int32_t) x * nIncline / INCLINE_FACTOR);\
          }
 
 # define REAL_XY(x, y)   \
          {\
-             y = (int16_t) (y + (LONG) x * nIncline / INCLINE_FACTOR);\
-             x = (int16_t) (x - (LONG) y * nIncline / INCLINE_FACTOR);\
+             y = (int16_t) (y + (int32_t) x * nIncline / INCLINE_FACTOR);\
+             x = (int16_t) (x - (int32_t) y * nIncline / INCLINE_FACTOR);\
          }
 
 /****************************************************************************

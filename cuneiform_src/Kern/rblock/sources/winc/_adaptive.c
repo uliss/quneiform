@@ -153,7 +153,7 @@ static int16_t comp_max_w = 128, comp_min_w = 0, comp_max_h = 64, comp_min_h = 0
  * in locompmn.c.
  */
 /*
- MN * c_locomp (puchar raster, LONG bw, LONG h, int16_t upper, int16_t left)
+ MN * c_locomp (puchar raster, int32_t bw, int32_t h, int16_t upper, int16_t left)
  {
  return LOC_CLocomp (raster, bw, h, upper, left);
  }

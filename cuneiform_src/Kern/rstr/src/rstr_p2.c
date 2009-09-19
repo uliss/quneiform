@@ -435,8 +435,8 @@ int32_t p2_Cstr2Cell( CSTR_line lin,CSTR_rast first,CSTR_rast last,Bool32 needVe
   c1=c2;
 
   // Nick add
-  c2->dupstart=(LONG)CSTR_GetDup(curr);
-  c2->dupend  =(LONG)CSTR_GetDupEnd(curr);
+  c2->dupstart=(int32_t)CSTR_GetDup(curr);
+  c2->dupend  =(int32_t)CSTR_GetDupEnd(curr);
 
   numCell++;
  }
@@ -459,8 +459,8 @@ static void p2_CopyAttr2CSTR(CSTR_rast_attr *attr, cell *c)
         attr->r_row = c->r_row   ;
         attr->r_col = c->r_col   ;
 
-  //attr->row=attr->r_row-(int16_t)((LONG)nIncline*attr->r_col/2048);
-  //attr->col=attr->r_col+(int16_t)((LONG)nIncline*attr->r_row/2048);
+  //attr->row=attr->r_row-(int16_t)((int32_t)nIncline*attr->r_col/2048);
+  //attr->col=attr->r_col+(int16_t)((int32_t)nIncline*attr->r_row/2048);
         attr->row=c->row;
         attr->col=c->col;
 
@@ -976,7 +976,7 @@ int32_t p2_setBasLines(CSTR_line lineIn)
             CSTR_GetAttr(rst,&attr);
             if( attr.flg&(CSTR_f_let|CSTR_f_punct|CSTR_f_bad) )
                 {
-                row = attr.row-(int16_t)((LONG)nIncline*attr.col/2048);
+                row = attr.row-(int16_t)((int32_t)nIncline*attr.col/2048);
                 if( minr>row )
                     minr=row;
                 }

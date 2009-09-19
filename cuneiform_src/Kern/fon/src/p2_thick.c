@@ -121,11 +121,11 @@ int16_t MoveLeftRightBitmap(uchar *bSource, int16_t xbyte, int16_t yrow) {
 static uchar const maska[8] = { 0, 128, 192, 224, 240, 248, 252, 254 };
 
 static Bool VeryFat(uchar *bSource, int16_t xbit, int16_t yrow, int16_t xbyte) {
-	LONG i = (LONG) xbyte * yrow, summa;
+	int32_t i = (int32_t) xbyte * yrow, summa;
 
 	for (summa = 0; i > 0; i--, bSource++)
 		summa += Num11[*bSource];
-	if (summa * 100 >= (LONG) xbit * yrow * 75)
+	if (summa * 100 >= (int32_t) xbit * yrow * 75)
 		return TRUE;
 	return FALSE;
 }

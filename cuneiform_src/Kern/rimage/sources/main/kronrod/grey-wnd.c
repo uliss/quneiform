@@ -271,7 +271,7 @@ uint16_t	k;
 		   NI, NJ);	PR_END
 
 	if (NI>MAX_NI) { pr_ERR_1("GREY: TOO MANY LINES (%d)",NI); return; }
-	if (NJ>MAX_NJ) { pr_ERR_1("GREY: TOO LONG LINE (%d)", NJ); return; }
+	if (NJ>MAX_NJ) { pr_ERR_1("GREY: TOO int32_t LINE (%d)", NJ); return; }
 
 	grey_open_init_MEM ();
 
@@ -1778,7 +1778,7 @@ uint16_t	buf_B [2550];	//////////////////////////////////////////////////
 	buf_H [5] = Porog_08 + (Porog_88 << 8);
 	* (LPLONG) (buf_H + 6) = Korob_Files_Address;
 
-	Korob_Files_Address += (LONG) ni * Korob_nj;
+	Korob_Files_Address += (int32_t) ni * Korob_nj;
 
 
 	n = fwrite (buf_H, 2, 8, mkFile_KOROBS_HEADS);

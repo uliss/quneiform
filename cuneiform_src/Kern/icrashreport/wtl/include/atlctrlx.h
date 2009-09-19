@@ -1487,7 +1487,7 @@ uint32_t dwStyle = GetStyle() & 0x000000FF;
         if(m_bPaintLabel)
         {
             ATL::CRegKey rk;
-            LONG lRet = rk.Open(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Settings"));
+            int32_t lRet = rk.Open(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Settings"));
             if(lRet == 0)
             {
                 const int cchValue = 12;

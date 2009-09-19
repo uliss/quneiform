@@ -895,7 +895,7 @@ static  back_recog(SOBJ * obj,
  int16_t i,j;
  char fl=0;
  int16_t code;
- LONG isq = 0;        /* the eBOX structure item */
+ int32_t isq = 0;        /* the eBOX structure item */
  uint16_t icosinus;
  struct tifref * wt;
  char hyp[10];
@@ -1060,10 +1060,10 @@ form_raster(SOBJ * obj, SPOS * pos)
     )
 #endif
   {
-   LONG sh;
+   int32_t sh;
    if (!adjust_tif(obj,pos))
     return (No);
-   sh=(LONG)tif_st.shift*Q.tif_line_lth;
+   sh=(int32_t)tif_st.shift*Q.tif_line_lth;
    trseek(sh);
    if (seek_and_read(Q.tif_file,tif_st.lth,tif_st.buf,sh) == -1)
     return (No);
@@ -1228,7 +1228,7 @@ static int16_t fill_raster(char raster[], char  *tif_buf,
    c=raster;
    for  ( ty_map=y_map; ty_map < y_map+t_hght; ty_map++) /* tiff lines*/
     {
-     tt=tif_buf+(LONG)ty_map*(LONG)tif_line_lth+tx_map;
+     tt=tif_buf+(int32_t)ty_map*(int32_t)tif_line_lth+tx_map;
      for  ( xx=0; xx < tx_wth; xx++,c++,tt++)        /* tiff bytes*/
       {
        cc=&two;

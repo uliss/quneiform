@@ -218,8 +218,8 @@ void ideal_rc(CSTR_rast c) {
 
 	CSTR_GetAttr(c, &attr);
 
-	attr.row = attr.r_row - (int16_t)((LONG) nIncline * attr.r_col / 2048);
-	attr.col = attr.r_col + (int16_t)((LONG) nIncline * attr.r_row / 2048);
+	attr.row = attr.r_row - (int16_t)((int32_t) nIncline * attr.r_col / 2048);
+	attr.col = attr.r_col + (int16_t)((int32_t) nIncline * attr.r_row / 2048);
 
 	CSTR_SetAttr(c, &attr);
 }

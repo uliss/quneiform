@@ -98,12 +98,12 @@ struct strucAlternative
 
 typedef  struct{
    uchar  let;
-   LONG  tr1,tr2;
+   int32_t  tr1,tr2;
 }  StructTree;
 
 
 
-LONG  read_auto_tree( uchar );
+int32_t  read_auto_tree( uchar );
 pchar tree_start( int16_t n );
 int16_t copy_raster( puchar in, int16_t dy, int16_t dx,puchar out,int16_t row,int16_t col );
 void  errorExit( pchar str );

@@ -116,7 +116,7 @@ void short_undln();
 void del_root(int16_t, int16_t, int16_t, int16_t);
 
 // module rulsh.c
-LONG rules_shaving(MN *, int16_t);
+int32_t rules_shaving(MN *, int16_t);
 int16_t shaving_let();
 
 // module rulbr.c
@@ -126,7 +126,7 @@ void cutoffs();
 void sweeper_ini();
 uint16_t sweeper(int16_t);
 void sweeper_end();
-void read_comp(uint32_t, pchar, LONG);
+void read_comp(uint32_t, pchar, int32_t);
 void comp_file_close();
 int16_t delgarb();
 void del_shav();
@@ -215,8 +215,8 @@ void cell_by_base();
 void cell_position(cell *);
 int16_t levcut(cell *, int16_t);
 void get_b_lines(cell *, B_LINES *);
-LONG get_size();
-int16_t get_bsm(); //AK 04.03.97 ? to LONG
+int32_t get_size();
+int16_t get_bsm(); //AK 04.03.97 ? to int32_t
 int16_t is_defis(cell *);
 void basedraft(CSTR_line);
 void basefin(CSTR_line);
@@ -251,7 +251,7 @@ int16_t compare_vect(v_val *, v_val *);
 int16_t cell_is_BOX_solid(cell*);
 
 // module locomp.asm
-MN* c_locomp(puchar, LONG, LONG, int16_t, int16_t);
+MN* c_locomp(puchar, int32_t, int32_t, int16_t, int16_t);
 
 // module v0compgl.asm
 void invert_tiff(puchar c, uint16_t lth);
@@ -293,7 +293,7 @@ void embBOXF(servBOX *, int16_t, Bool);
 // module scalar.asm
 int16_t proport(uint16_t, uint16_t, uint16_t, int16_t, int16_t);
 extern uint16_t (*scalarf)(PWORD, PWORD, uint16_t);
-extern LONG (*scalar)(PWORD, PWORD);
+extern int32_t (*scalar)(PWORD, PWORD);
 int16_t long_sqrt(uint32_t);
 
 // module funcBOX.asm
@@ -478,7 +478,7 @@ int16_t ed_scan(Bool(*)(puchar, int16_t), Bool(*)(puchar, int16_t), puchar, puch
 Bool scan_skip(puchar p, int16_t lth);
 
 // module edp.c
-void edp_main(puchar memory, LONG lth);
+void edp_main(puchar memory, int32_t lth);
 
 // module edpsave.c
 void save_ed(void);
@@ -499,7 +499,7 @@ void kit_init();
 puchar il1_pool_ptr();
 puchar t_raster();
 c_comp * comp_vers_to_kit(MN * mn, c_comp *c);
-c_comp * comp_from_file(uint32_t, LONG);
+c_comp * comp_from_file(uint32_t, int32_t);
 c_comp * compose_comp(int16_t, c_comp **);
 Bool compose_cell(int16_t, cell **, cell *);
 Bool compose_cell_save(int16_t, cell **, cell *);
@@ -608,7 +608,7 @@ puchar compress_dust_component(c_comp *c, uchar scale);
 int16_t filling_MN(MN *mn, uint16_t h, uint16_t w);
 
 //      module tg_spell
-int16_t spelling(puchar memory, LONG size);
+int16_t spelling(puchar memory, int32_t size);
 
 // module in_treei.c
 uchar * load_stat_dict(puchar ptr);
@@ -619,14 +619,14 @@ void user_voc_init(void);
 void discrim_un(cell *, s_glue *, int16_t);
 
 // module rtf.c
-void rtf_main(puchar memory, LONG memory_lth);
+void rtf_main(puchar memory, int32_t memory_lth);
 
 // module rtfdebug.c
 void print_fragments();
 
 // module ascisave.c
-void smart_ascii_save(puchar pool, LONG lth);
-void ascii_save(puchar pool, LONG lth);
+void smart_ascii_save(puchar pool, int32_t lth);
+void ascii_save(puchar pool, int32_t lth);
 
 // module writepro
 void write_prot(cell *);

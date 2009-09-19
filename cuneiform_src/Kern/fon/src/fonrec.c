@@ -870,7 +870,7 @@ FON_FUNC(int32_t) FONSizesInfo(SizesInfo *sizeinfo,int num)
 
 ///////////////////////
 int16_t cmp0(puchar r, uint16_t fullByte, uint16_t w, uint16_t h, welet * wl, int16_t xo, int16_t yo) {
-	LONG n, ac, np;
+	int32_t n, ac, np;
 	pchar curr;
 	int16_t i, j, jj;
 	uchar cbyte, cc;

@@ -83,7 +83,7 @@ uint32_t progress_set_percent (uint32_t volume);
 int16_t source_read(uchar* start, uchar* ptr, uchar* end);
 
 //---------------------- Internal working fields
-// TGCV static LONG progress_next;
+// TGCV static int32_t progress_next;
 
 //--------------------- Internal functions
 static void enough_memory();

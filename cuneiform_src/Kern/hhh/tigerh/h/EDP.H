@@ -299,7 +299,7 @@ typedef struct {
 	// Line RTF buffer uses memory for graph during scan of ED file
 	uchar *rtfbeg; // Address of buffer= address of graph
 	uchar *rtfcur; // Pointer to free space in the buffer
-	LONG rtflth; // Length of text in buffer
+	int32_t rtflth; // Length of text in buffer
 	uchar *rtffree;
 	uchar *rtfend;
 	uchar rtfspec;

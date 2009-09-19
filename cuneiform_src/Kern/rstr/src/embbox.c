@@ -361,7 +361,7 @@ memset(&RR,0,sizeof(RR));
 indp = (indBOX *) tableBOX;
 matr = (elmBOX *) (tableBOX+1024);
 for(i=0;i<15;i++)
-    vect[i] = (((LONG)SBOX->matrBOX.vect[i])<<15)/SBOX->matrBOX.isq_rt;
+    vect[i] = (((int32_t)SBOX->matrBOX.vect[i])<<15)/SBOX->matrBOX.isq_rt;
 
 fll=0;                                // all hypotesa not in BOX tab
 best_answer_BOX=0;
@@ -466,7 +466,7 @@ memset(&RR,0,sizeof(RR));
 vectp=SBOX->matrBOX.vect;
 norm=SBOX->matrBOX.isq_rt;
 for(i=0;i<15;i++)
-    vect[i] = (uint16_t)((((LONG)vectp[i])<<15)/norm);
+    vect[i] = (uint16_t)((((int32_t)vectp[i])<<15)/norm);
 list = full_list[typl];
 nAll = 0;
 
@@ -777,7 +777,7 @@ void load_font( int16_t  font )
 puchar  preload_font_BOX( puchar free )
 {
  int16_t   i;
-// LONG  l;
+// int32_t  l;
 // uchar  workLetter;
 // StructTree *tmp=(StructTree *)auto_pool;               //AK
 

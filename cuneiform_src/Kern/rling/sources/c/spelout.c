@@ -108,7 +108,7 @@ extern uchar multy_language ;
   static int16_t outpos_context ( SPART * part, int16_t pos, uchar * c);
   static int16_t  getpos_bel (SOBJ * obj, int16_t pos, LT  ** beg,
                           LT  ** end, int16_t * lth );
-  static int16_t corrpos_lt (SOBJ * obj, int16_t pos, LONG lth);
+  static int16_t corrpos_lt (SOBJ * obj, int16_t pos, int32_t lth);
   static int16_t shift_left(int16_t v_s,struct segm * cur_segm,
                           char * cur_symb);
   static int16_t outpos_ins_shift (SOBJ * obj, int16_t pos, uchar cnew);
@@ -562,7 +562,7 @@ int16_t outpos_ins_shift (SOBJ * obj, int16_t pos, uchar cnew)
  LT  * lt;        /* beg of pos,after which to insert       */
  int16_t lth=0;
  /*struct segm  *tmp;*/
- LONG shift=0;
+ int32_t shift=0;
  int16_t endposp, endpos;
  int16_t pi;                         /* curr pos                               */
 
@@ -586,7 +586,7 @@ int16_t outpos_ins_shift (SOBJ * obj, int16_t pos, uchar cnew)
 				/* either insert in old segm or not: */
   {                                 /* old segm is full, set newsegm       */
 				    /* everywhere after the pos inserted:  */
-   shift= (LONG)(SPQ.ns_symb-(uchar  *)(lt));
+   shift= (int32_t)(SPQ.ns_symb-(uchar  *)(lt));
    for(pi=pos+1; pi<endpos; pi++)
     {
      if(obj->pos[pi].tif_ref.segm!=segm) /* other segm then in ins-pos ?   */
@@ -613,7 +613,7 @@ int16_t outpos_ins_shift (SOBJ * obj, int16_t pos, uchar cnew)
      if (obj->pos[pi].tif_ref.segm!=segm) /* other segm then in ins-pos ?  */
       break;
      else
-      corrpos_lt (obj, pi, (LONG)(sizeof(LT))); /* correct lt   */
+      corrpos_lt (obj, pi, (int32_t)(sizeof(LT))); /* correct lt   */
     }
    SPQ.ns_segm = savesegm;
    SPQ.ns_symb = savesymb + ((segm==savesegm)? sizeof(LT):0);
@@ -648,7 +648,7 @@ return(OK);
  for (pi=pos+1; pi<endpos; pi++)
   {
    if (obj->pos[pi].tif_ref.segm == segm)   /* if the same segm => shift : */
-    corrpos_lt (obj, pi, -((LONG)(lth)));   /* correct lt of pos & alts    */
+    corrpos_lt (obj, pi, -((int32_t)(lth)));   /* correct lt of pos & alts    */
    else
     break;
   }
@@ -666,7 +666,7 @@ return(OK);
     obj->pos[pos].alt[..].lt
 									  */
 /* ********************************************************************** */
-int16_t corrpos_lt (SOBJ * obj, int16_t pos, LONG lth)
+int16_t corrpos_lt (SOBJ * obj, int16_t pos, int32_t lth)
 
 {
  int16_t ai;

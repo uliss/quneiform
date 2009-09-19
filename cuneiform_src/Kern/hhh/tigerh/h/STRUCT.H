@@ -393,7 +393,7 @@ struct cell_struc
 #define c_cg_cut_mr     0x20   // right middle cutten
 #define c_cg_cut_br     0x40   // right bottom cutten
 #define c_cg_cut_fr     0x80   // right full   cutten
- LONG clink;		// Link to the cluster
+ int32_t clink;		// Link to the cluster
  struct cell_struc * dup; // ref to copy of this word; defined only in spaces
 #define dup_default	((cell*)0xffffffff)
 #define MAX_BATON 3

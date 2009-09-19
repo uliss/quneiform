@@ -64,7 +64,7 @@ class CProxy_IRecognitionEvents : public IConnectionPointImpl<T, &DIID__IRecogni
 {
 	//Warning this class may be recreated by the wizard.
 public:
-	LONG Fire_ProgressStart()
+	int32_t Fire_ProgressStart()
 	{
 		CComVariant varResult;
 		T* pT = static_cast<T*>(this);
@@ -88,7 +88,7 @@ public:
 		return varResult.lVal;
 
 	}
-	LONG Fire_ProgressFinish()
+	int32_t Fire_ProgressFinish()
 	{
 		CComVariant varResult;
 		T* pT = static_cast<T*>(this);
@@ -112,7 +112,7 @@ public:
 		return varResult.lVal;
 
 	}
-	LONG Fire_ProgressStep(LONG lStep, BSTR btName, LONG lPercent)
+	int32_t Fire_ProgressStep(int32_t lStep, BSTR btName, int32_t lPercent)
 	{
 		CComVariant varResult;
 		T* pT = static_cast<T*>(this);
@@ -141,7 +141,7 @@ public:
 		return varResult.lVal;
 
 	}
-	HRESULT Fire_EndThread(LONG rc, LONG context)
+	HRESULT Fire_EndThread(int32_t rc, int32_t context)
 	{
 		CComVariant varResult;
 		T* pT = static_cast<T*>(this);

@@ -164,25 +164,21 @@ typedef Bool32 (* CFTBool32_Word32)(uint32_t);
  */
 
 #ifndef WIN32
-
-typedef int32_t LONG;
-
 typedef char* LPSTR;
 typedef char* LPTSTR;
 typedef const char* LPCSTR;
 typedef const char* LPCWSTR;
 typedef const char* LPCTSTR;
-
 #endif
 
-typedef LONG * PLONG;
+typedef int32_t * PLONG;
 typedef uint32_t * PDWORD;
 typedef uint16_t * PWORD;
 
 typedef uchar* LPBYTE;
 typedef uint32_t * LPDWORD;
 typedef Bool* LPBOOL;
-typedef LONG* LPLONG;
+typedef int32_t* LPLONG;
 
 #include "cttypext.h"
 

@@ -539,7 +539,7 @@ welet tmp_wel;
 #ifdef _TEST_FAT_
   if( ww->weight > 1 && ww->fixed==0 )
   {
- //   if( ((ww->summa*100L)/((LONG)ww->mw*ww->mh*ww->weight)) < 75 )
+ //   if( ((ww->summa*100L)/((int32_t)ww->mw*ww->mh*ww->weight)) < 75 )
 	   porog=TestFat(ww,porog,_POROG_FAT_);
   }
 #endif

@@ -304,8 +304,8 @@ public:
 uint32_t                m_wInternalNumber;
 uint32_t                m_wUserNumber;
 uint32_t                m_wUserNumberForFormattedMode;
-  LONG                 m_LeftOffsetFragmentFromVerticalColumn;
-  LONG                 m_RightOffsetFragmentFromVerticalColumn;
+  int32_t                 m_LeftOffsetFragmentFromVerticalColumn;
+  int32_t                 m_RightOffsetFragmentFromVerticalColumn;
   uint16_t                 m_wOffsetFromPrevTextFragment;
 
   uint16_t                 m_wBegStr;

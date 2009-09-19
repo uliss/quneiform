@@ -106,8 +106,8 @@ int32_t TE_file_length(int16_t);
 
 typedef struct {
 	uchar let;
-	LONG tr1;
-	LONG tr2;
+	int32_t tr1;
+	int32_t tr2;
 } StructTree;
 ////////////////////////////////////////////////////////////////////////////////////
 typedef struct elidx {

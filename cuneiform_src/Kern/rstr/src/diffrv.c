@@ -76,7 +76,7 @@ extern uchar *EVN_GetSegmentPool (void);
 
 extern uchar digital_string_penalty;
 //AK for debug
-static LONG * AK_deb;
+static int32_t * AK_deb;
 /*============ Import functions ==================*/
 Bool test_alphabet_elem(uchar let);
 
@@ -254,13 +254,13 @@ void r_criteria(cell *c, const s_glue * gl)              //10.02.97
 {
  extern Bool TM_check_active;
  version *v0;
- LONG    d,d_ang,d_cun,d_abris,i,dd;                       //change from int16_t
+ int32_t    d,d_ang,d_cun,d_abris,i,dd;                       //change from int16_t
  char    snap[380],*s=snap;
  struct rst _rst;
  MN *    mn;
  cell *  cc=NULL;
  uchar    pen_m=0,flag_m=0,maxprob;
- LONG     inc=0 ;                                          //change from int16_t
+ int32_t     inc=0 ;                                          //change from int16_t
  version    save[VERS_IN_CELL];
  int16_t    snvers;
 
@@ -2630,8 +2630,8 @@ Bool check_bend_dn( cell * c )
 static uint16_t internal_filling(segment * segm,int16_t h,int16_t w)
 {
  uint32_t fill=0;
- LONG start, end, col;
- LONG row,left,right,upper,lower;
+ int32_t start, end, col;
+ int32_t row,left,right,upper,lower;
 
  if (h <= 4 || w <= 4) return 0;
 
@@ -3035,7 +3035,7 @@ return;
 void make_white_hist(puchar pint,int16_t height)
 {
  segment * segm;
- LONG i;                                                 //change from int16_t
+ int32_t i;                                                 //change from int16_t
 
  memset(hist_white,0,height<<1);
  for(i=0,segm = (segment*)pint,segm++;i < height;i++)

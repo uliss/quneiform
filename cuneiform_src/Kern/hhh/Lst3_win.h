@@ -752,7 +752,7 @@ int OrtFoure(float *y, float *Re, float *Im, float *ys, float *Err, int k,
 		int p, int na, int beg, int end);
 
 #ifndef V_LOCK
-LONG filelength_m(FILE *stream);
+int32_t filelength_m(FILE *stream);
 
 int hread_m(void *buf, int size, int count, FILE *stream);
 int CopyFile_my(char *NameIn, char *NameOut);

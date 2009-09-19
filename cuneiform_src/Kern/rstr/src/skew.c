@@ -215,15 +215,15 @@ static int16_t skew_pool_refill2(CSTR_line ln,pairs *pool)
 static int16_t incl_init(int16_t n,pairs *pool)
  {
  int16_t i,incl,shift,m,d;
- LONG sx,sy,sxy,sx2,w,sigma,dd;
+ int32_t sx,sy,sxy,sx2,w,sigma,dd;
  pairs *p;
 
  for (p=pool,sx=sy=sxy=sx2=i=0; i<n; i++,p++)
   {
   sx+=p->x;
   sy+=p->y;
-  sxy+=((LONG)p->x)*(p->y);
-  sx2+=((LONG)p->x)*(p->x);
+  sxy+=((int32_t)p->x)*(p->y);
+  sx2+=((int32_t)p->x)*(p->x);
   }
  w=(n*((sx2+128)/256)-((sx+8)/16)*((sx+8)/16));
  if (w<=0)
@@ -233,7 +233,7 @@ static int16_t incl_init(int16_t n,pairs *pool)
  shift=(int16_t)((((sx2+128)/256)*sy-((sxy+8)/16)*((sx+8)/16)+w/2)/w);
  for (p=pool,w=i=0; i<n; i++,p++)
   {
-  dd=(LONG)incl*p->x;
+  dd=(int32_t)incl*p->x;
   d=p->y-(int16_t)((dd+((dd>0)?1024:-1024))/2048)-shift;
   if (abs(d)>100)
    d=100;
@@ -250,14 +250,14 @@ static int16_t incl_init(int16_t n,pairs *pool)
   }
  for (p=pool,sx=sy=sxy=sx2=m=i=0; i<n; i++,p++)
   {
-  dd=(LONG)incl*p->x;
+  dd=(int32_t)incl*p->x;
   d=p->y-(int16_t)((dd+((dd>0)?1024:-1024))/2048)-shift;
   if (abs(d)<100 && d*d<=sigma)
    {
    sx+=p->x;
    sy+=p->y;
-   sxy+=((LONG)p->x)*(p->y);
-   sx2+=((LONG)p->x)*(p->x);
+   sxy+=((int32_t)p->x)*(p->y);
+   sx2+=((int32_t)p->x)*(p->x);
    p->f=1;
    m++;
    }
@@ -272,7 +272,7 @@ static int16_t incl_init(int16_t n,pairs *pool)
   for (p=pool,w=i=0; i<n; i++,p++)
    if (p->f)
     {
-    dd=(LONG)incl*p->x;
+    dd=(int32_t)incl*p->x;
     d=p->y-(int16_t)((dd+((dd>0)?1024:-1024))/2048)-shift;
     if (abs(d)>100)
      d=100;
@@ -305,7 +305,7 @@ static uint16_t skew_stat(int16_t incl,CSTR_line ln,int16_t pool_n,pairs *pool)
  memset(hist,0,HIMAX);// Piter change im) for HIMAX;
  for (i=0; i<pool_n; i++)
   {
-  d=im/2+pool[i].y-(int16_t)((LONG)incl*pool[i].x/2048);
+  d=im/2+pool[i].y-(int16_t)((int32_t)incl*pool[i].x/2048);
   if (d>0 && d<HIMAX) hist[d]++;
   }
  for (l=i=0; i<im; i++)
@@ -334,6 +334,6 @@ void skew_end()
 
 void ideal_rc(cell *c)
  {
- c->row=c->r_row-(int16_t)((LONG)nIncline*c->r_col/2048);
- c->col=c->r_col+(int16_t)((LONG)nIncline*c->r_row/2048);
+ c->row=c->r_row-(int16_t)((int32_t)nIncline*c->r_col/2048);
+ c->col=c->r_col+(int16_t)((int32_t)nIncline*c->r_row/2048);
  }

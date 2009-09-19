@@ -111,7 +111,7 @@ static int16_t ReadAllFromBase(char *name, int16_t *nClu, char *movxy, int16_t A
 #define SIGNAL_SAVE     40
 void Signal(void);
 
-typedef LONG (* MKFAM)(raster_header * rh, uint16_t nclu);
+typedef int32_t (* MKFAM)(raster_header * rh, uint16_t nclu);
 
 // now - common number of symbols <= MAXSYM
 // number in one weighted raster <= MAXINCLUS (127)
@@ -151,7 +151,7 @@ int MultiFindBestClusters(int numSymbol, int numCluster, Nraster_header *rh,
 int GetProbValid(int numSymbol, int numCluster, Nraster_header *rh,
 		int16_t *nClus, uchar *metkaGood, uchar *metkaValid);
 int16_t AddClusterHausdorf(char *NameWr, char *szOutName, int16_t porog, int16_t porog2,
-		MKFAM accept, puchar extern_buf, LONG size_extern, clu_info *cin);
+		MKFAM accept, puchar extern_buf, int32_t size_extern, clu_info *cin);
 int16_t SetAccessTab(int16_t fl, void *buf);
 int16_t CheckAccessTab(int16_t fh, void *buf);
 static int16_t ReOrderClusters(int16_t NumClus, int16_t NumAll, clu_info *cin);
@@ -169,7 +169,7 @@ int16_t SaveCluster(int16_t fh, CTB_handle *cc, int16_t fhh, CTB_handle *ccc, in
 
 int16_t NumHauBit = 0; // number of bitmap buffers
 static uchar *BitHau[MAXHAU]; // big buffers
-static LONG LastBit = 0;
+static int32_t LastBit = 0;
 Nraster_header *rh = NULL;
 int16_t nClus[MAXSYM];
 uchar language = 0, langCyrilRoman = 0;
@@ -234,8 +234,8 @@ void EndHausdorfDLL(void) {
 // use ExternBuf - if not NULL && SizeExternBuf > 0
 //  return > 0 - how many memory alloccated
 //
-LONG StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf) {
-	LONG size = 0;
+int32_t StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf) {
+	int32_t size = 0;
 
 #ifdef _NONFLAT_
 	IsRhHauBuf=2;
@@ -291,7 +291,7 @@ LONG StartHausdorfDLL(int num, void *ExternBuf, uint32_t SizeExternBuf) {
 }
 
 /***********************/
-uchar *AddBuffer(LONG sizebitmap) {
+uchar *AddBuffer(int32_t sizebitmap) {
 	uchar *bubu;
 
 	if ((uint32_t) (LastBit + sizebitmap) > MaxSizeBuf) {
@@ -354,7 +354,7 @@ static int16_t MakeBitmapsDLL(Nraster_header *rhh, uchar *pp, int16_t num, int16
 		char *movxy) {
 	int16_t j, i;
 	int16_t sx = rhh->w, sy = rhh->h, sxbyte;
-	LONG sizebitmap;
+	int32_t sizebitmap;
 	uchar *pic;
 
 	// make good and razmaz pictures
@@ -524,7 +524,7 @@ int16_t SaveSym(char *NameWr, int16_t NumAll, uchar *buf, int16_t size, MKFAM ac
 	int16_t num;
 	int16_t csize;
 	raster_header *rh;
-	LONG position = 0;
+	int32_t position = 0;
 
 	if (IsCTBBase)
 		return 0;
@@ -667,13 +667,13 @@ int16_t MakeClusters(int16_t fir, int16_t NumAll, int16_t CurClus, int16_t porog
 // NumAll - number of symbols
 // results - in nClus ,
 static int16_t ClusterHausdorfDLL(char *NameWr, int16_t porog, char *szOutName,
-		MKFAM accept, puchar extern_buf, LONG size_extern, clu_info *cin) {
+		MKFAM accept, puchar extern_buf, int32_t size_extern, clu_info *cin) {
 	int16_t i;
 	int16_t CurClus = 0;
 	int16_t NumAll;
 	int16_t fh;
 	int16_t ret = 0;
-	LONG position;
+	int32_t position;
 	int16_t Clus2 = 0; // start non-solid clusters
 	int16_t Pass2 = 0;
 	int16_t AllCount = 0; // how many times Signal
@@ -997,8 +997,8 @@ int16_t SaveCluster(int16_t fh, CTB_handle *CTBfile, int16_t fhSnap,
 		uchar *metkaValid) {
 	int16_t i, j;
 	uchar *rast;
-	LONG summax;
-	LONG summay;
+	int32_t summax;
+	int32_t summay;
 	int16_t maxx, maxy;
 	int16_t fir, fat;
 	int16_t *NextInClus;
@@ -1701,7 +1701,7 @@ int16_t SetAccessTab(int16_t fh, void *buf) {
 //
 //       >=0 - number of clusters
 //
-clu_info make_font(pchar rname, MKFAM accept, puchar extern_buf, LONG size) {
+clu_info make_font(pchar rname, MKFAM accept, puchar extern_buf, int32_t size) {
 	char szOutName[144];
 	int16_t ret;
 	clu_info cin;

@@ -103,7 +103,7 @@ static uchar dist[300];
 
 static int16_t sm,sp,spmin,spmax;
 static uint16_t n;
-static LONG H;
+static int32_t H;
 static Bool italic;
 static int16_t  gap;
 
@@ -121,7 +121,7 @@ void space_size(int16_t h)
 {
  int16_t nh,nh1,i,j,d,pl,sss,dd,sv;
  uint16_t s,ss,s1,n1,n2,x[128],y[128],hist[128];
- LONG S;
+ int32_t S;
  cell *c1,*c2,*c;
  uchar str[2100],let1,let2,fl;
 

@@ -83,7 +83,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 09.03.1993	tab_f[14]: 100=>60 (PROBA)
 // 10.03.1993	tab_t[29]: 80=>100 (PROBA)
 // 24.03.1993	divide it to STIC-MAC.H, STIC-TAB.H, & STIC-TB.H
-//		tab_r[16] for TOO LONG LEFT.UP
+//		tab_r[16] for TOO int32_t LEFT.UP
 // 09.06.1993	tab_l[19] about thin '(' or ')'
 // 18.10.1993	tab_t[32]
 // 19.10.1993	to FARA-078

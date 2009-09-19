@@ -92,7 +92,7 @@ void extremum (pchar func, int16_t n_func, int16_t from, int16_t to, int16_t thr
  int16_t i;
  int16_t minway,maxway;
  int16_t gmin,gmax;
- LONG f,t;
+ int32_t f,t;
  int16_t r,l;
  int16_t j,k;
  int16_t width;

@@ -1884,7 +1884,7 @@ int16_t dbsum(int16_t filter) {
 // собственно поиск БЛ
 int16_t calc_base() {
 	int16_t j, iret;
-	LONG w1, w2;
+	int32_t w1, w2;
 
 	Nb2 = Ns2;
 	Nb3 = Ns3;

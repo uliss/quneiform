@@ -1707,15 +1707,15 @@ static int PutNewRasters(uchar *inBuf,int xbit,int yrow,CSTR_rast outFir,
 	   {
         attr.row = rect.top+posLineY;
 	    attr.col = rect.left+posLineX;
-	    attr.r_row =attr.row+(short)((LONG)nNaklon*attr.col/2048);
-        attr.r_col =attr.col-(short)((LONG)nNaklon*attr.row/2048);
+	    attr.r_row =attr.row+(short)((int32_t)nNaklon*attr.col/2048);
+        attr.r_col =attr.col-(short)((int32_t)nNaklon*attr.row/2048);
 	   }
 	   else
 	   {
 		attr.r_row = rect.top+posLineY;
 	    attr.r_col = rect.left+posLineX;
-	    attr.row =attr.r_row-(short)((LONG)nNaklon*attr.r_col/2048);
-        attr.col =attr.r_col+(short)((LONG)nNaklon*attr.r_row/2048);
+	    attr.row =attr.r_row-(short)((int32_t)nNaklon*attr.r_col/2048);
+        attr.col =attr.r_col+(short)((int32_t)nNaklon*attr.r_row/2048);
 	   }
 
 
@@ -2150,15 +2150,15 @@ FON_FUNC(int32_t) FONRecogBroken(CSTR_rast firLeo,CSTR_rast lasLeo,
 	   {
         attr.row = wordRect.top;
 	    attr.col = wordRect.left;
-	    attr.r_row =attr.row+(short)((LONG)nNaklon*attr.col/2048);
-        attr.r_col =attr.col-(short)((LONG)nNaklon*attr.row/2048);
+	    attr.r_row =attr.row+(short)((int32_t)nNaklon*attr.col/2048);
+        attr.r_col =attr.col-(short)((int32_t)nNaklon*attr.row/2048);
 	   }
    else
 	   {
 		attr.r_row = wordRect.top;
 		attr.r_col = wordRect.left;
-		attr.row =attr.r_row-(short)((LONG)nNaklon*attr.r_col/2048);
-		attr.col =attr.r_col+(short)((LONG)nNaklon*attr.r_row/2048);
+		attr.row =attr.r_row-(short)((int32_t)nNaklon*attr.r_col/2048);
+		attr.col =attr.r_col+(short)((int32_t)nNaklon*attr.r_row/2048);
 	   }
 
                         // нельзя NewRaster - вставится после пробела,

@@ -101,8 +101,8 @@ cell *comp_to_cell(cell *C, c_comp **list, int16_t N, char bdiff, uchar dflag)
   B->h=bot-top;
   B->r_col=left;
   B->w=right-left;
-  B->row=B->r_row-(int16_t)((LONG)nIncline*B->r_col/2048);
-  B->col=B->r_col+(int16_t)((LONG)nIncline*B->r_row/2048);
+  B->row=B->r_row-(int16_t)((int32_t)nIncline*B->r_col/2048);
+  B->col=B->r_col+(int16_t)((int32_t)nIncline*B->r_row/2048);
   B->env=compose_comp(i,list);
   if ( N>1 ) B->cg_flag=c_cg_comp;
   if ( if_dust(B) & 0x0c )  set_dust(B);
@@ -143,8 +143,8 @@ cell *col_to_one(cell **clist, int16_t n)
  c->h=bot-top;
  c->r_col=left;
  c->w=right-left;
- c->row=c->r_row-(int16_t)((LONG)nIncline*c->r_col/2048);
- c->col=c->r_col+(int16_t)((LONG)nIncline*c->r_row/2048);
+ c->row=c->r_row-(int16_t)((int32_t)nIncline*c->r_col/2048);
+ c->col=c->r_col+(int16_t)((int32_t)nIncline*c->r_row/2048);
   if ( if_dust(c) & 0x0c )  set_dust(c);
   else                      set_bad(c);
   set_bad_cell(c);

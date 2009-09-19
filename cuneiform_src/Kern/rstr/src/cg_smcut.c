@@ -1194,7 +1194,7 @@ static void spec_pairs()
 				 !is_russian_turkish_conflict(let) &&	// 21.05.2002 E.P.
 				 (letp==(uchar)'£' || letp==(uchar)'ƒ'))	// ãÃ
                {
-                m_row=my_bases.bm+(int16_t)((LONG)nIncline*(r->left+cut->x)/2048);
+                m_row=my_bases.bm+(int16_t)((int32_t)nIncline*(r->left+cut->x)/2048);
                 x0=right_bound(r,0,cut->x,(int16_t)(m_row-r->top+1),(int16_t)(r->h-1));
                }
               else
@@ -1202,7 +1202,7 @@ static void spec_pairs()
 					!is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
 				    (letp==(uchar)'¯' || letp==(uchar)''))
                   {
-                   m_row=my_bases.bm+(int16_t)((LONG)nIncline*(r->left+cut->x)/2048);
+                   m_row=my_bases.bm+(int16_t)((int32_t)nIncline*(r->left+cut->x)/2048);
                    x0=right_bound(r,0,cut->x,0,(int16_t)(m_row-r->top));
                   }
                  else

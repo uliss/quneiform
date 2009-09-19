@@ -90,7 +90,7 @@ ArtFH  *        SpABCroot;
 
 /* ------------------------------------------------------------------ */
 
-extern LONG read_all_vtab(int16_t,char  *);
+extern int32_t read_all_vtab(int16_t,char  *);
 
 uchar  * load_specABC (uchar  *point, int16_t Country)
 {

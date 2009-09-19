@@ -1411,7 +1411,7 @@ if( n_less==0 ) {  // not find neck belong diapason base,base+3 (base correct)
 	if( ((right[i2] - left[i2])  >> 2) < mode-1 )	return(1);
 	if( ((right[i1m]- left[i1m]) >> 2) < mode-1 )	return(1);
 
-					// 12.02.1993  LONG NECK:
+					// 12.02.1993  int32_t NECK:
 	if ( n_eq==2 &&			// fax36/9(38) "images"
 	     ((right[i1m] - left[i1m]) >> 2) > (mode + 2) &&
 	     ((right[i2]  - left[i2])  >> 2) > (mode + 2) )

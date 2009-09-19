@@ -188,7 +188,7 @@ typedef long Bool;
 
 #ifndef _LONG_DEFINED
 #define _LONG_DEFINED
-typedef long LONG;
+typedef long int32_t;
 
 #endif // !_LONG_DEFINED
 #ifndef _WPARAM_DEFINED
@@ -198,12 +198,12 @@ typedef uint WPARAM;
 #endif // _WPARAM_DEFINED
 #ifndef _LPARAM_DEFINED
 #define _LPARAM_DEFINED
-typedef LONG LPARAM;
+typedef int32_t LPARAM;
 
 #endif // !_LPARAM_DEFINED
 #ifndef _LRESULT_DEFINED
 #define _LRESULT_DEFINED
-typedef LONG LRESULT;
+typedef int32_t LRESULT;
 
 #endif // !_LRESULT_DEFINED
 typedef void __RPC_FAR *HANDLE;
@@ -319,10 +319,10 @@ typedef HANDLE __RPC_FAR *LPHANDLE;
 
 typedef struct  _RECTL
     {
-    LONG left;
-    LONG top;
-    LONG right;
-    LONG bottom;
+    int32_t left;
+    int32_t top;
+    int32_t right;
+    int32_t bottom;
     }	RECTL;
 
 typedef struct _RECTL __RPC_FAR *PRECTL;
@@ -331,8 +331,8 @@ typedef struct _RECTL __RPC_FAR *LPRECTL;
 
 typedef struct  tagPOINT
     {
-    LONG x;
-    LONG y;
+    int32_t x;
+    int32_t y;
     }	POINT;
 
 typedef struct tagPOINT __RPC_FAR *PPOINT;
@@ -341,8 +341,8 @@ typedef struct tagPOINT __RPC_FAR *LPPOINT;
 
 typedef struct  _POINTL
     {
-    LONG x;
-    LONG y;
+    int32_t x;
+    int32_t y;
     }	POINTL;
 
 typedef struct _POINTL __RPC_FAR *PPOINTL;
@@ -350,8 +350,8 @@ typedef struct _POINTL __RPC_FAR *PPOINTL;
 #ifndef WIN16
 typedef struct  tagSIZE
     {
-    LONG cx;
-    LONG cy;
+    int32_t cx;
+    int32_t cy;
     }	SIZE;
 
 typedef struct tagSIZE __RPC_FAR *PSIZE;
@@ -367,8 +367,8 @@ typedef struct tagSIZE
 #endif // WIN16
 typedef struct  tagSIZEL
     {
-    LONG cx;
-    LONG cy;
+    int32_t cx;
+    int32_t cy;
     }	SIZEL;
 
 typedef struct tagSIZEL __RPC_FAR *PSIZEL;
@@ -404,10 +404,10 @@ typedef float FLOAT;
 
 typedef struct  tagRECT
     {
-    LONG left;
-    LONG top;
-    LONG right;
-    LONG bottom;
+    int32_t left;
+    int32_t top;
+    int32_t right;
+    int32_t bottom;
     }	RECT;
 
 typedef struct tagRECT __RPC_FAR *PRECT;
@@ -557,11 +557,11 @@ uint32_t dwImpersonationLevel;
 uint32_t dwCapabilities;
     }	COAUTHINFO;
 
-typedef LONG SCODE;
+typedef int32_t SCODE;
 
 #ifndef _HRESULT_DEFINED
 #define _HRESULT_DEFINED
-typedef LONG HRESULT;
+typedef int32_t HRESULT;
 
 #endif // !_HRESULT_DEFINED
 typedef SCODE __RPC_FAR *PSCODE;
@@ -893,10 +893,10 @@ typedef struct  _userHENHMETAFILE
 
 typedef struct  _userBITMAP
     {
-    LONG bmType;
-    LONG bmWidth;
-    LONG bmHeight;
-    LONG bmWidthBytes;
+    int32_t bmType;
+    int32_t bmWidth;
+    int32_t bmHeight;
+    int32_t bmWidthBytes;
     uint16_t bmPlanes;
     uint16_t bmBitsPixel;
     ulong cbSize;
@@ -979,17 +979,17 @@ typedef HICON HCURSOR;
 /* tagTEXTMETRICW was copied from wingdi.h for MIDL */
 typedef struct  tagTEXTMETRICW
     {
-    LONG tmHeight;
-    LONG tmAscent;
-    LONG tmDescent;
-    LONG tmInternalLeading;
-    LONG tmExternalLeading;
-    LONG tmAveCharWidth;
-    LONG tmMaxCharWidth;
-    LONG tmWeight;
-    LONG tmOverhang;
-    LONG tmDigitizedAspectX;
-    LONG tmDigitizedAspectY;
+    int32_t tmHeight;
+    int32_t tmAscent;
+    int32_t tmDescent;
+    int32_t tmInternalLeading;
+    int32_t tmExternalLeading;
+    int32_t tmAveCharWidth;
+    int32_t tmMaxCharWidth;
+    int32_t tmWeight;
+    int32_t tmOverhang;
+    int32_t tmDigitizedAspectX;
+    int32_t tmDigitizedAspectY;
     WCHAR tmFirstChar;
     WCHAR tmLastChar;
     WCHAR tmDefaultChar;

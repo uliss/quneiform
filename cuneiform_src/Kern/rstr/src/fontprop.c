@@ -83,7 +83,7 @@ int16_t nw;
 
 static void italic(cell *);
 static int16_t linerev(int16_t,int16_t *);
-static LONG inclin(int16_t,int16_t *);
+static int32_t inclin(int16_t,int16_t *);
 static void serif(cell *);
 static void underline();
 static uchar keg_word(cell *,cell *,int16_t,B_LINES *);
@@ -372,7 +372,7 @@ int16_t letincl(cell *c)
  int16_t left[KEGMAX],right[KEGMAX];
  lnhead *line;
  interval *intv0,*intv,*intve;
- LONG s;
+ int32_t s;
 
  let=let_sans_acc[c->vers[0].let];
  //if( language==LANG_RUSSIAN || language==LANG_ENGLISH )
@@ -431,10 +431,10 @@ static int16_t linerev(int16_t n,int16_t *line)
  return end-beg+1;
  }
 
-static LONG inclin(int16_t n,int16_t *line)
+static int32_t inclin(int16_t n,int16_t *line)
  {
  int16_t x;
- LONG sy,sxy,inc;
+ int32_t sy,sxy,inc;
 
  for (sxy=sy=x=0; x<n; x++)
   {sy+=line[x]; sxy+=x*line[x];}
@@ -552,7 +552,7 @@ static int16_t pitch()
  cell *c;
  uchar let;
  int16_t nl,nc,ng,n,n1,n2,h,w,ww,wmin,wmax,i,j,sp,bad,d,p,mg;
- LONG s,min;
+ int32_t s,min;
  uint16_t center[LSTRMAX],left[LSTRMAX],right[LSTRMAX];
 
  for (nl=nc=ng=0,c=(cell_f())->next; c->next!=NULL; c=c->next)
@@ -1113,8 +1113,8 @@ extern int32_t num_of_lines;
   by=lines[i].beg.y>>line_scale;
   ex=lines[i].end.x>>line_scale;
   ey=lines[i].end.y>>line_scale;
-  by-=(int16_t)((LONG)nIncline*bx/2048);
-  ey-=(int16_t)((LONG)nIncline*ex/2048);
+  by-=(int16_t)((int32_t)nIncline*bx/2048);
+  ey-=(int16_t)((int32_t)nIncline*ex/2048);
   if (MIN(by,ey)<bl.b3 || MAX(by,ey)>bl.b3+bl.ps/2 ||
       cf->r_col-bl.ps>bx || cl->r_col+cl->w+bl.ps<ex)
     continue;
@@ -1321,7 +1321,7 @@ static char aver_dens;
 void avdens()
  {
  //str *ln;
- LONG /*l,*/s,n;
+ int32_t /*l,*/s,n;
  //c_comp **curr,**last,*cmp;
  lnhead *line;
  interval *ic,*ie;
@@ -1357,7 +1357,7 @@ for (c=c1,n=s=0; c!=c2; c=c->next)// Piter add init s=0
    cmp=*curr;
    if (cmp->size==1 && !((file_comp *)cmp)->h && !((file_comp *)cmp)->w)
     {
-    l=((LONG)((file_comp *)cmp)->lth)<<4;
+    l=((int32_t)((file_comp *)cmp)->lth)<<4;
     if ((comp_curr-comp_file+l)>>4>comp_lth)
      error_exit(ERR_comp,2);
     read_comp(((file_comp *)cmp)->offset,comp_curr,l);

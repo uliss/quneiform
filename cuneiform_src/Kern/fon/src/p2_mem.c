@@ -85,11 +85,11 @@ void EndNumMemory(void)
 static int16_t MakeBitmapsRecRaster(Nraster_header  *rhh,
 								 RecRaster *r)
 {
-uchar *AddBuffer(LONG sizebitmap);
+uchar *AddBuffer(int32_t sizebitmap);
 
  int16_t j,i;
  int16_t sx=rhh->w,sy=rhh->h,sxbyte;
- LONG sizebitmap;
+ int32_t sizebitmap;
  uchar *pic,*pp;
  int32_t wb = ((r->lnPixWidth+63)/64)*8;
 
