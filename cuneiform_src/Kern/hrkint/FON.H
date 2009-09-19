@@ -101,8 +101,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	//     атрибутами с непустыми оценками
 	//    в testInfo - результаты
 	//      атрибуты кластера Italic,Bold,Serif
-	FON_FUNC(int32_t) FONTestChar(RecRaster *recRast,Word8 let,FonTestInfo *testInfo,Int16 nInCTB);
-	FON_FUNC(int32_t) FONTestCharTiger(RecRaster *recRast,Word8 let,FonTestInfo *testInfo);
+	FON_FUNC(int32_t) FONTestChar(RecRaster *recRast,uchar let,FonTestInfo *testInfo,Int16 nInCTB);
+	FON_FUNC(int32_t) FONTestCharTiger(RecRaster *recRast,uchar let,FonTestInfo *testInfo);
     // оценка по кластеру  numWelet
 	// movx,movy - смещение
 	FON_FUNC(int32_t) FONCompareRasterCluster(RecRaster *recRast,int numWelet,
@@ -177,8 +177,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	// возвращает номер
 	// <0 - ошибка (нет памяти)
 	//  0 - растр не взят по какой-то причине (плохой...)
-	FON_FUNC(int32_t) FONStoreRaster(RecRaster *r,Word8 let, Word8 IsPrint,
-		Word8 Prob, Word8 Valid, Int16 line_number, Word8 kegl,Rect16 *rect,Word8 column);
+	FON_FUNC(int32_t) FONStoreRaster(RecRaster *r,uchar let, uchar IsPrint,
+		uchar Prob, uchar Valid, Int16 line_number, uchar kegl,Rect16 *rect,uchar column);
 
     //
 	// return < 0 - error
@@ -215,10 +215,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     //    accept,extern_buf, ShowProgress  may be NULL
     //  standard usage (FormReader) FONFontClusters(CTBname,cluname,NULL,NULL,0,0,NULL);
 	//  standard usage (Puma) FONFontClusters(CTBname,cluname,NULL,NULL,0,0x2000,NULL);
-    FON_FUNC(int32_t) FONFontClusters(char *CTBname,char *cluname,void *accept,Word8 *extern_buf,int32_t size,
-					 			    uint32_t param,void *ShowProgress,Word8 language);
+    FON_FUNC(int32_t) FONFontClusters(char *CTBname,char *cluname,void *accept,uchar *extern_buf,int32_t size,
+					 			    uint32_t param,void *ShowProgress,uchar language);
 	FON_FUNC(int32_t) FONCutOffClusters(welet *ww,Int16 numWelet);
-    FON_FUNC(Bool32) FONCheckItself(Word8 let,int32_t num,Int16 col,Int16 row);
+    FON_FUNC(Bool32) FONCheckItself(uchar let,int32_t num,Int16 col,Int16 row);
 ////////////////////
 	// функции для разрезания
 	FON_FUNC(int32_t) FONRecogCharBound(RecRaster *recRast,RecVersions *collection,

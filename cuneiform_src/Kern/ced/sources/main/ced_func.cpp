@@ -73,7 +73,7 @@ static int		font,kegl,lang;
 static int foregroundColor,backgroundColor,fontNum;
 static char * verInfo;
 
-static void ExtDataProc(Word8* _ptr, uint32_t lth);
+static void ExtDataProc(uchar* _ptr, uint32_t lth);
 void NewFormattedSDD(const sheet_disk_descr* pt);
 void NewFormattedFDD(const fragm_disk_descr* pt);
 void NewFormattedTR(const text_ref* pt);
@@ -131,7 +131,7 @@ CEDPage * CED_FormattedLoad (char * file,Bool32 readFromFile, uint32_t bufLen)
 }
 
 //Put non-recognized codes to the corresponding field of extData
-void ExtDataProc(Word8* _ptr, uint32_t lth)
+void ExtDataProc(uchar* _ptr, uint32_t lth)
 {}
 
 void NewFormattedSDD(const sheet_disk_descr* pt)
@@ -1158,14 +1158,14 @@ uint32_t CED_IsEdFile (char * file,Bool32 readFromFile, uint32_t bufLen)
 {
 	HANDLE PedHandle;
 	uint32_t len;
-	PWord8 start;
+	puchar start;
 
 	if (readFromFile)
 	{
 		len=MemFromFile((pchar)file,&PedHandle);
 		if (len==0)
 			return 0;
-		start = (PWord8)Lock(PedHandle);
+		start = (puchar)Lock(PedHandle);
 		if ( !start )
 		{
 			Unlock(PedHandle);
@@ -1175,7 +1175,7 @@ uint32_t CED_IsEdFile (char * file,Bool32 readFromFile, uint32_t bufLen)
 	}
 	else
 	{
-		start =(Word8*)file;
+		start =(uchar*)file;
 		len=bufLen;
 	}
 	Bool32 ret=96;

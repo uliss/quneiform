@@ -112,29 +112,29 @@ Bool HystogramAllocateBody (void)
     pHystogram =(int*) malloc (nMaxValue * sizeof (int));
 
     if (pHystogram == NULL)
-        ErrorNoEnoughMemory ((Word8*)"in LTHYST.C,HystogramAllocateBody,part 1");
+        ErrorNoEnoughMemory ((uchar*)"in LTHYST.C,HystogramAllocateBody,part 1");
 
     if (bOptionPointSizeAnalysis)
     {
         pHystVertHeightesSum =(int*) malloc (nMaxValue * sizeof (int));
 
         if (pHystVertHeightesSum == NULL)
-        ErrorNoEnoughMemory ((Word8*)"in LTHYST.C,HystogramAllocateBody,part 2");
+        ErrorNoEnoughMemory ((uchar*)"in LTHYST.C,HystogramAllocateBody,part 2");
 
         pHystHorzHeightesSum =(int*) malloc (nMaxValue * sizeof (int));
 
         if (pHystHorzHeightesSum == NULL)
-        ErrorNoEnoughMemory ((Word8*)"in LTHYST.C,HystogramAllocateBody,part 3");
+        ErrorNoEnoughMemory ((uchar*)"in LTHYST.C,HystogramAllocateBody,part 3");
 
         pHystInt1 =(int*) malloc (nMaxValue * sizeof (int));
 
         if (pHystInt1 == NULL)
-        ErrorNoEnoughMemory ((Word8*)"in LTHYST.C,HystogramAllocateBody,part 4");
+        ErrorNoEnoughMemory ((uchar*)"in LTHYST.C,HystogramAllocateBody,part 4");
 
         pHystInt2 = (int*)malloc (nMaxValue * sizeof (int));
 
         if (pHystInt2 == NULL)
-        ErrorNoEnoughMemory ((Word8*)"in LTHYST.C,HystogramAllocateBody,part 5");
+        ErrorNoEnoughMemory ((uchar*)"in LTHYST.C,HystogramAllocateBody,part 5");
     }
 
     if (bOptionSpecialHorizontalCutting)
@@ -142,12 +142,12 @@ Bool HystogramAllocateBody (void)
         pHystTops =(int*) malloc (nMaxValue * sizeof (int));
 
         if (pHystTops == NULL)
-        ErrorNoEnoughMemory ((Word8*)"in LTHYST.C,HystogramAllocateBody,part 6");
+        ErrorNoEnoughMemory ((uchar*)"in LTHYST.C,HystogramAllocateBody,part 6");
 
         pHystBottoms =(int*) malloc (nMaxValue * sizeof (int));
 
         if (pHystBottoms == NULL)
-        ErrorNoEnoughMemory ((Word8*)"in LTHYST.C,HystogramAllocateBody,part 7");
+        ErrorNoEnoughMemory ((uchar*)"in LTHYST.C,HystogramAllocateBody,part 7");
     }
 
     return (TRUE);

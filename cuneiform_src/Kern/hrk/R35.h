@@ -91,7 +91,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    R35_FUNC(Bool32)   R35Binarize(RecRaster *rRaster,
 							   Word16 *CompImage,int32_t dx, int32_t dy);
    R35_FUNC(Bool32)   R35Binarize8(RecRaster *rRaster,
-							   Word8 *CompImage,int32_t dx, int32_t dy);
+							   uchar *CompImage,int32_t dx, int32_t dy);
 
    R35_FUNC(void)  R35SetPlatform( int32_t cpu );
    R35_FUNC(Bool32)   R35Pack(
@@ -138,14 +138,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
    R35_FUNC(Int16) R35GetErr(void);
       // Err16.h defined codes or one of the next
-  R35_FUNC(Bool32)  R35Init_learn( int32_t num, Word8 level, int32_t FontType );
+  R35_FUNC(Bool32)  R35Init_learn( int32_t num, uchar level, int32_t FontType );
   R35_FUNC(void)    R35Done_learn( int32_t FontType);
   R35_FUNC(Bool32)  R35RecogCharIm3x5_learn(
-			Word8 Code,Word16* Im3x5/*, Bool32 r5x3*/, int32_t FontType  );
+			uchar Code,Word16* Im3x5/*, Bool32 r5x3*/, int32_t FontType  );
   R35_FUNC(Bool32)  R35RecogCharIm3x5_learn_expert(
-            Word8 Code,Word16* Im3x5)  ;
-  R35_FUNC(Bool32) R35Delete(Word8    let, int32_t num_del);
-  R35_FUNC(Bool32) R35Add(Word8    let,Word16* Im3x5, int32_t FontType);
+            uchar Code,Word16* Im3x5)  ;
+  R35_FUNC(Bool32) R35Delete(uchar    let, int32_t num_del);
+  R35_FUNC(Bool32) R35Add(uchar    let,Word16* Im3x5, int32_t FontType);
   R35_FUNC(void)   R35SetMTR(int fnt) ;
 
 // error code

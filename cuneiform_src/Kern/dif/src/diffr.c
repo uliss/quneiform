@@ -62,49 +62,49 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "difdefs.h"
 #include "dif.h"
 #include "minmax.h"
-extern  Word8 broken_flag;
-  Word8 rec5_flag=1,font_type=0,omni=1;
-Int16  NumVertInterval(Word8 *RASTER,Int16 D_X, Int16 dy, Int16 i);
-Int16  VertSum(Word8 *rastr,Int16 D_X, Int16 dy, Int16 i);
-Int16  SumBits(Word8 *rastr,Int16 D_X);
-Int16  NumHorizInterval(Word8 *,Int16);
-Int16  FOOT(Word8 *raster,Int16 DX,Word8 dx,Word8 Ly,
-    Word8 sign_filter);
-Int16 FOOT3( Word8 *RASTER, Int16 Wx, Word8 START, Word8 NWIDTH, Word8 NLENGTH, Int16 SHIFT);
-Int16 EndBlackInterval(Word8 *RASTER, Int16 NWIDTH);
-Int16 FOOT3_2( Word8 *RASTER, Int16 Wx, Word8 NWIDTH, Word8 NLENGTH);
-Int16 FOOT_HEI( Word8 *RASTER, Int16 Wx, Word8 NWIDTH, Word8 NLENGTH);
+extern  uchar broken_flag;
+  uchar rec5_flag=1,font_type=0,omni=1;
+Int16  NumVertInterval(uchar *RASTER,Int16 D_X, Int16 dy, Int16 i);
+Int16  VertSum(uchar *rastr,Int16 D_X, Int16 dy, Int16 i);
+Int16  SumBits(uchar *rastr,Int16 D_X);
+Int16  NumHorizInterval(uchar *,Int16);
+Int16  FOOT(uchar *raster,Int16 DX,uchar dx,uchar Ly,
+    uchar sign_filter);
+Int16 FOOT3( uchar *RASTER, Int16 Wx, uchar START, uchar NWIDTH, uchar NLENGTH, Int16 SHIFT);
+Int16 EndBlackInterval(uchar *RASTER, Int16 NWIDTH);
+Int16 FOOT3_2( uchar *RASTER, Int16 Wx, uchar NWIDTH, uchar NLENGTH);
+Int16 FOOT_HEI( uchar *RASTER, Int16 Wx, uchar NWIDTH, uchar NLENGTH);
 
-Int16 MinMaxLeft( Word8 *RASTER, Int16 Wx, Word8 NWIDTH, Word8 NHEIGHT,
+Int16 MinMaxLeft( uchar *RASTER, Int16 Wx, uchar NWIDTH, uchar NHEIGHT,
 		Int16 *Pmin, Int16 *Pmax);
-Int16 MinMaxRight( Word8 *RASTER, Int16 Wx, Word8 NWIDTH, Word8 NHEIGHT,
+Int16 MinMaxRight( uchar *RASTER, Int16 Wx, uchar NWIDTH, uchar NHEIGHT,
 		Int16 *Pmin, Int16 *Pmax);
-Int16 DiskrRight(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 L);
-Int16 Num2Interval(Word8 *r,Int16 D_X,Int16 dx,Int16 dy);
-Int16 broken_M(Word8 * r,Int16 D_X,Int16 dy,Int16 left_lim,Int16 ll);
-Int16  FOOT_A(Word8 *raster,Int16 DX,Word8 dx,Word8 Ly);
-Int16 fill_center_zone(Word8 *raster,Int16 D_X,Int16 dy,
+Int16 DiskrRight(uchar *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 L);
+Int16 Num2Interval(uchar *r,Int16 D_X,Int16 dx,Int16 dy);
+Int16 broken_M(uchar * r,Int16 D_X,Int16 dy,Int16 left_lim,Int16 ll);
+Int16  FOOT_A(uchar *raster,Int16 DX,uchar dx,uchar Ly);
+Int16 fill_center_zone(uchar *raster,Int16 D_X,Int16 dy,
       Int16 beg, Int16 end, Int16 II);
-Int16 up_down_hist_M(Word8 *rastr,Int16 D_X, Int16 Dx,Int16 dy);
-Int16 small_density(Word8 *RAST,Int16 n,Int16 D_X,Int16 bw);
-Int16  LeftDistance(Word8 *RASTER,Int16 dx);
-Int16  RightDistance(Word8 *RASTER,Int16 dx);
-Int16  SumIntervalBits(Word8 *RASTER,Int16 bx,Int16 ex);
-Int16  CenterVertInterval(Word8 *,Int16 ,Int16 ,Int16, Int16 *,Int16 *);
-void init_diskrim(Word8* raster,Int16 height ,Int16 width);
-Int16 DiskrLeftBig(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 dy, Int16 L);
-Int16 DiskrRightBig(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 L);
+Int16 up_down_hist_M(uchar *rastr,Int16 D_X, Int16 Dx,Int16 dy);
+Int16 small_density(uchar *RAST,Int16 n,Int16 D_X,Int16 bw);
+Int16  LeftDistance(uchar *RASTER,Int16 dx);
+Int16  RightDistance(uchar *RASTER,Int16 dx);
+Int16  SumIntervalBits(uchar *RASTER,Int16 bx,Int16 ex);
+Int16  CenterVertInterval(uchar *,Int16 ,Int16 ,Int16, Int16 *,Int16 *);
+void init_diskrim(uchar* raster,Int16 height ,Int16 width);
+Int16 DiskrLeftBig(uchar *RASTR,Int16 D_X,Int16 dx,Int16 dy, Int16 L);
+Int16 DiskrRightBig(uchar *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 L);
 
-static void DiskrIN(Word8 *RASTR,Int16 D_X,Int16 dy, Int16 wb,Int16 dx);
-static Int16 DiskrHorizIN(Word8 *RASTR,Int16 D_X,Int16 dy);
-Int16 no_serific(Word8 *RASTR,Int16 dy,Int16 dx,Int16 wb);
+static void DiskrIN(uchar *RASTR,Int16 D_X,Int16 dy, Int16 wb,Int16 dx);
+static Int16 DiskrHorizIN(uchar *RASTR,Int16 D_X,Int16 dy);
+Int16 no_serific(uchar *RASTR,Int16 dy,Int16 dx,Int16 wb);
 
 #define bytlen(bits)  (REC_GW_WORD8(bits))
 
-extern Word8 BUFFER[256];        /* вертикальная   прoекция              */
-extern Word8 LOCAL[50];          /* координаты     ног             */
-extern Word8 LOCAL_W[50];        /* ширины         ног             */
-extern Word8 end1,beg2;          /* конец 1 и начало 2-ой ног инп  */
+extern uchar BUFFER[256];        /* вертикальная   прoекция              */
+extern uchar LOCAL[50];          /* координаты     ног             */
+extern uchar LOCAL_W[50];        /* ширины         ног             */
+extern uchar end1,beg2;          /* конец 1 и начало 2-ой ног инп  */
 extern broken_ii;		/* флаг двух палок			*/
 extern Int16 dnri_hook; // bottom right hook in small russian italic II,III
 extern Int16 uple_hook; // bottom left  hook in small russian italic II,III
@@ -126,35 +126,35 @@ Int16 av_tl, av_bl,av_br, rotate;
    h-Х, ja-Я, z-З, ee-Э, d-Д, ce-Ц  */
 Int16 fill_center,up_down_serif,up_down_serif_B,IN_horiz_dis,broken_M_pen;
 
-static Int16 DiskrSymSh( Word8 *RASTER, Int16 Wx, Word8 NWIDTH, Word8 NLENGTH);
-static Int16 DiskrSh(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 Ly);
-static Int16 DiskrLeft(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 dy, Int16 L);
-static Int16 DiskrSh0(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 dx0);
-static Int16 DiskrJ0(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 Ly,Int16 lim);
-static Int16 DiskrJ(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 dy);
-static Int16 DiskrTsh(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 Dx);
-static Int16 average_br_angle(Word8 *RASTER, Int16 D_X, Int16 dx, Int16 dy,Int16 t);
-static Int16 average_angle(Word8 *RASTER, Int16 D_X, Int16 dx, Int16 dy,
-       Int16  (*Distance)(Word8 *, Int16), Int16 t);
-static Int16 DiskrJu(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 Ly);
-static Int16 DiskrimM1(Word8 *RAST,Int16 D_X,Int16 dx,Int16 dy);
-static Int16 DiskrimM(Word8 *RAST,Int16 D_X,Int16 dx,Int16 dy);
-static Int16 whiteMeanBitRight(Word8 *RAST,Int16 D_X,Int16 dx,Int16 meanBit);
-static Int16 whiteMeanBitLeft(Word8 *RAST,Int16 D_X,Int16 meanBit);
-static Int16 up_down_zones(Word8 *raster, Int16 D_X, Int16 dx, Int16 dx0,
+static Int16 DiskrSymSh( uchar *RASTER, Int16 Wx, uchar NWIDTH, uchar NLENGTH);
+static Int16 DiskrSh(uchar *RASTR,Int16 D_X,Int16 dx,Int16 Ly);
+static Int16 DiskrLeft(uchar *RASTR,Int16 D_X,Int16 dx,Int16 dy, Int16 L);
+static Int16 DiskrSh0(uchar *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 dx0);
+static Int16 DiskrJ0(uchar *RASTR,Int16 D_X,Int16 dx,Int16 Ly,Int16 lim);
+static Int16 DiskrJ(uchar *RASTR,Int16 D_X,Int16 dx,Int16 dy);
+static Int16 DiskrTsh(uchar *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 Dx);
+static Int16 average_br_angle(uchar *RASTER, Int16 D_X, Int16 dx, Int16 dy,Int16 t);
+static Int16 average_angle(uchar *RASTER, Int16 D_X, Int16 dx, Int16 dy,
+       Int16  (*Distance)(uchar *, Int16), Int16 t);
+static Int16 DiskrJu(uchar *RASTR,Int16 D_X,Int16 dx,Int16 Ly);
+static Int16 DiskrimM1(uchar *RAST,Int16 D_X,Int16 dx,Int16 dy);
+static Int16 DiskrimM(uchar *RAST,Int16 D_X,Int16 dx,Int16 dy);
+static Int16 whiteMeanBitRight(uchar *RAST,Int16 D_X,Int16 dx,Int16 meanBit);
+static Int16 whiteMeanBitLeft(uchar *RAST,Int16 D_X,Int16 meanBit);
+static Int16 up_down_zones(uchar *raster, Int16 D_X, Int16 dx, Int16 dx0,
       Int16 start1, Int16 stop1,   Int16 start2, Int16 stop2);
-static Int16 DiskrVertCE(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 X,
-                        Word8 let, Word8 inc);
-static Int16 AngleBottomRight(Word8 *raster,Int16 D_X,Int16 hei);
-static Int16 AngleTopRight(Word8 *raster,Int16 D_X,Int16 hei);
-static Int16 BonusAnglesCurve(Word8 *raster,Int16 D_X,Int16 dy);
+static Int16 DiskrVertCE(uchar *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 X,
+                        uchar let, uchar inc);
+static Int16 AngleBottomRight(uchar *raster,Int16 D_X,Int16 hei);
+static Int16 AngleTopRight(uchar *raster,Int16 D_X,Int16 hei);
+static Int16 BonusAnglesCurve(uchar *raster,Int16 D_X,Int16 dy);
 static Bool32 DiskrJuCut(Int16 nfoot, Int16 dx);
 
 /*  clear diskrimination flags */
-void init_diskrim(Word8* raster,Int16 height ,Int16 width)
+void init_diskrim(uchar* raster,Int16 height ,Int16 width)
 {
 Int16 i, D_X=bytlen(width);
-Word8* r;
+uchar* r;
 
 rotate=0;
 diskr_f2=diskr_ii=
@@ -187,7 +187,7 @@ lower_skip_lines = i;
 return;
 }
 
-Bool32 LeftHole(Word8 *rastr, Int16 D_X, Int16 Dx, Int16 Hy)
+Bool32 LeftHole(uchar *rastr, Int16 D_X, Int16 Dx, Int16 Hy)
 {
 int i,n,t, mi, ma;
 
@@ -234,11 +234,11 @@ return (mi>Dx/2 && abs(mi-ma)<i);
 /*   RETURN :   0 - good letter                            */
 /*	       >0 - decreasing code                        */
 
-Int16 Diskrim(Word8 let,Word8* raster,
-      Int16 D_X,Int16 dx,Int16 dy,Word8 cg_flag, Int16 inc)
+Int16 Diskrim(uchar let,uchar* raster,
+      Int16 D_X,Int16 dx,Int16 dy,uchar cg_flag, Int16 inc)
 {
 Int16 P=0,F=0,Dx,Hy,bw, n, r;
-Word8 *rastr,*rastr0;
+uchar *rastr,*rastr0;
 Int16 d_l, d_r;
 Int16 X=0, Y=0;
 #define  step_diskr 20
@@ -269,8 +269,8 @@ d_r = ((bytlen(Dx))<<3)-dx-(X&7)+(dx>>2);
 switch( let ){
 // russian small & capital E, Ze, 3
 case '3' :
-case (Word8)'З' :  case (Word8)'з' :
-case (Word8)'Э' :  case (Word8)'э' :
+case (uchar)'З' :  case (uchar)'з' :
+case (uchar)'Э' :  case (uchar)'э' :
     if( diskr_3<0 )
        {
        if( LeftHole(rastr, D_X, Dx, Hy) )
@@ -283,7 +283,7 @@ case (Word8)'Э' :  case (Word8)'э' :
        else P = diskr_3;
     break;
 // russian small & capital B
-case (Word8)'В' :      case (Word8)'в' :
+case (uchar)'В' :      case (uchar)'в' :
     if( diskr_b<0 )
        {
        if( !DiskrRight(rastr0, D_X, Dx, dy,1) )
@@ -299,10 +299,10 @@ case (Word8)'В' :      case (Word8)'в' :
        else P = diskr_b;
     break;
 // russian e
-case (Word8)'е' :
+case (uchar)'е' :
     if( diskr_e<0 )
        {
-       if( (n=DiskrVertCE(rastr0, D_X, dx, dy, X,(Word8)'е',(Word8)inc))>2  )
+       if( (n=DiskrVertCE(rastr0, D_X, dx, dy, X,(uchar)'е',(uchar)inc))>2  )
         P+=(n-2)*step_diskr;
        diskr_e = P;
        }
@@ -310,7 +310,7 @@ case (Word8)'е' :
     break;
 // russian o,O
 //  case '0' :
-  case (Word8)'О' :  case (Word8)'о' :
+  case (uchar)'О' :  case (uchar)'о' :
     if( diskr_o<0 )
        {
        if( DiskrRight(rastr0, D_X, Dx, dy, 2) )
@@ -320,35 +320,35 @@ case (Word8)'е' :
        else  P = diskr_o;
     break;
 // russian c,C
-  case (Word8)'С' :  case (Word8)'с' :
+  case (uchar)'С' :  case (uchar)'с' :
     if( diskr_c<0 )
        {
        if( !DiskrRight(rastr0, D_X, Dx, dy, 2) )
         P = step_diskr;
-        if( (n=DiskrVertCE(rastr0, D_X, dx, dy, X,(Word8)'с',(Word8)inc))!=0 )
+        if( (n=DiskrVertCE(rastr0, D_X, dx, dy, X,(uchar)'с',(uchar)inc))!=0 )
           P+=n*step_diskr;
        diskr_c = P;
        }
        else  P = diskr_c;
     break;
 // capital N
-  case (Word8)'N' :
+  case (uchar)'N' :
 		if( diskr_N<0 )
 		{
-        Word8 rasterN[4096];
+        uchar rasterN[4096];
         int i,ii,iii;
 
         for(iii=D_X*(dy-1),ii=i=0;i<dy;i++,ii+=D_X,iii-=D_X)
             memcpy(rasterN+iii,raster+ii,D_X);
         rastr0= rasterN + Y*D_X+(X>>3);
         rastr = rastr0 + D_X*(dy>>2);
-        F = FOOT(rastr, D_X,(Word8)Dx, (Word8)Hy,1);
+        F = FOOT(rastr, D_X,(uchar)Dx, (uchar)Hy,1);
 		if( F!=2 || MIN(LOCAL_W[0],LOCAL_W[1])>3 && beg2-end1<3 )
 			{
 			if( dy>13 )
-				F=FOOT(rastr0+2*D_X, D_X,(Word8)Dx, (Word8)(dy-4),0);
+				F=FOOT(rastr0+2*D_X, D_X,(uchar)Dx, (uchar)(dy-4),0);
 			else
-				F=FOOT(rastr0, D_X,(Word8)Dx, (Word8)dy,0);
+				F=FOOT(rastr0, D_X,(uchar)Dx, (uchar)dy,0);
 			}
 		if( F!=2 )
 			{
@@ -387,10 +387,10 @@ case (Word8)'е' :
 		break;
 
 // capital & small I/I
-  case (Word8)'И' :  case (Word8)'и' :
+  case (uchar)'И' :  case (uchar)'и' :
 		if( diskr_i<0 )
 		{
-		F = FOOT(rastr, D_X,(Word8)Dx, (Word8)Hy,1);
+		F = FOOT(rastr, D_X,(uchar)Dx, (uchar)Hy,1);
         if( F==2 && LOCAL[1]*2<=Dx )
             {
             diskr_i = P=120;
@@ -399,9 +399,9 @@ case (Word8)'е' :
 		if( F!=2 || MIN(LOCAL_W[0],LOCAL_W[1])>3 && beg2-end1<3 )
 			{
 			if( dy>13 )
-				F=FOOT(rastr0+2*D_X, D_X,(Word8)Dx, (Word8)(dy-4),0);
+				F=FOOT(rastr0+2*D_X, D_X,(uchar)Dx, (uchar)(dy-4),0);
 			else
-				F=FOOT(rastr0, D_X,(Word8)Dx, (Word8)dy,0);
+				F=FOOT(rastr0, D_X,(uchar)Dx, (uchar)dy,0);
 			}
 		if( F!=2 )
 			{
@@ -464,16 +464,16 @@ case (Word8)'е' :
 		else P=diskr_i;
 		break;
 // capital & small H
-  case (Word8)'Н' :  case (Word8)'н' :
+  case (uchar)'Н' :  case (uchar)'н' :
 		if( diskr_n<0 )
 		{
-		F =FOOT(rastr, D_X,(Word8)Dx, (Word8)Hy,1);
+		F =FOOT(rastr, D_X,(uchar)Dx, (uchar)Hy,1);
 		if( F!=2 || MIN(LOCAL_W[0],LOCAL_W[1])>3 && beg2-end1<3 )
 			{
 			if( dy>13 )
-				F=FOOT(rastr0+2*D_X, D_X,(Word8)Dx,(Word8)(dy-4),0);
+				F=FOOT(rastr0+2*D_X, D_X,(uchar)Dx,(uchar)(dy-4),0);
 			else
-				F=FOOT(rastr0, D_X,(Word8)Dx, (Word8)dy,0);
+				F=FOOT(rastr0, D_X,(uchar)Dx, (uchar)dy,0);
 			}
 		if( F!=2 )
 			P = 6*step_diskr;
@@ -527,13 +527,13 @@ case (Word8)'е' :
 		else P=diskr_n;
 		break;
 // capital & small II
-  case (Word8)'П' :  case (Word8)'п' :
+  case (uchar)'П' :  case (uchar)'п' :
     if( diskr_p )
       {
       if( dy>13 )
-        F=FOOT(rastr0+2*D_X, D_X,(Word8)Dx, (Word8)(dy-4),0);
+        F=FOOT(rastr0+2*D_X, D_X,(uchar)Dx, (uchar)(dy-4),0);
       else
-        F=FOOT(rastr0, D_X,(Word8)Dx, (Word8)dy,0);
+        F=FOOT(rastr0, D_X,(uchar)Dx, (uchar)dy,0);
       if( F!=2 )
         P = 6*step_diskr;
       else
@@ -579,10 +579,10 @@ case (Word8)'е' :
     else P = diskr_p;
     break;
 // capital & small III
-  case (Word8)'Ш' :  case (Word8)'ш' :
+  case (uchar)'Ш' :  case (uchar)'ш' :
     if( diskr_sh<0 )
        {
-       FOOT(rastr, D_X,(Word8)Dx, (Word8)Hy,0);
+       FOOT(rastr, D_X,(uchar)Dx, (uchar)Hy,0);
        if( rotate ) // OLEG : ERECTION conditions : 09-20-95
         {
 /*
@@ -594,14 +594,14 @@ case (Word8)'е' :
         }
       else
         {
-        if( (F=FOOT3(rastr, D_X, 0, (Word8)Dx, (Word8)Hy,2))!=3 )
+        if( (F=FOOT3(rastr, D_X, 0, (uchar)Dx, (uchar)Hy,2))!=3 )
           P  = 10*step_diskr;
         else
-          P += (step_diskr>>1)*DiskrSymSh(rastr, D_X, (Word8)Dx, (Word8)Hy);
+          P += (step_diskr>>1)*DiskrSymSh(rastr, D_X, (uchar)Dx, (uchar)Hy);
         }
        if( inc<=0 && !broken_flag && DiskrSh0(rastr0, D_X, Dx, dy, dx)==0 )
         P +=step_diskr;
-       F = FOOT(rastr, D_X,(Word8)Dx, (Word8)Hy,0);
+       F = FOOT(rastr, D_X,(uchar)Dx, (uchar)Hy,0);
        // OLEG : ERECTION conditions : 09-20-95 08:34pm
        if( inc>0 && dnri_hook )
         {
@@ -619,7 +619,7 @@ case (Word8)'е' :
         P += step_diskr/2;
        if( DiskrRight(rastr0, D_X, Dx, dy,2) )
         P += step_diskr/2;
-       if( FOOT3_2(rastr0,D_X,(Word8)Dx,(Word8)dy) )
+       if( FOOT3_2(rastr0,D_X,(uchar)Dx,(uchar)dy) )
         P += step_diskr*3;
        diskr_sh = P;
        P=MAX(P,0);
@@ -627,14 +627,14 @@ case (Word8)'е' :
        else  P = diskr_sh;
     break;
 // capital & small >I<
-    case (Word8)'Ж' :  case (Word8)'ж' :
+    case (uchar)'Ж' :  case (uchar)'ж' :
     if( diskr_g<0 )
        {
        if( !DiskrLeftBig(rastr0, D_X, Dx, dy,2) )
         P+=3*step_diskr;
        if( !DiskrRightBig(rastr0, D_X, Dx, dy,2) )
         P+=3*step_diskr;
-       F = FOOT(rastr, D_X,(Word8)Dx, (Word8)Hy,0);
+       F = FOOT(rastr, D_X,(uchar)Dx, (uchar)Hy,0);
        if( F!=3 && (n=DiskrJ0(rastr, D_X, Dx, Hy,(Int16)(dy<18?4:5)))!=0 )
         { /* middle tail have'nt 3-interval lines */
         if( !DiskrJ(rastr0, D_X, Dx, dy) )
@@ -650,15 +650,15 @@ case (Word8)'е' :
        else P = diskr_g;
     break;
 // capital & small III,
-    case (Word8)'Щ' :  case (Word8)'щ' :
+    case (uchar)'Щ' :  case (uchar)'щ' :
     if( diskr_tsh<0 )
        {
-       F= ((Word8)let==(Word8)'Щ' )?4:2;
-       if( (F=FOOT(rastr0+F*D_X, D_X,(Word8)Dx,(Word8)Hy,0))!=3 )
+       F= ((uchar)let==(uchar)'Щ' )?4:2;
+       if( (F=FOOT(rastr0+F*D_X, D_X,(uchar)Dx,(uchar)Hy,0))!=3 )
         P = 10*step_diskr;
        else
         {
-        P += (step_diskr>>1)*DiskrSymSh(rastr, D_X, (Word8)Dx, (Word8)Hy);
+        P += (step_diskr>>1)*DiskrSymSh(rastr, D_X, (uchar)Dx, (uchar)Hy);
         if( DiskrTsh(rastr0+D_X,D_X,dx,dy,Dx)==1 )
           P += 3*step_diskr ;
         }
@@ -670,13 +670,13 @@ case (Word8)'е' :
     else  P = diskr_tsh;
     break;
 // capiatl & small IO
-    case (Word8)'Ю' :  case (Word8)'ю' :
+    case (uchar)'Ю' :  case (uchar)'ю' :
 		//{
-		//int32_t ret=DIF_GetNoCutPoint(rastr0, (Word8)dx, (Word8)dy);
+		//int32_t ret=DIF_GetNoCutPoint(rastr0, (uchar)dx, (uchar)dy);
 		//}
     if( diskr_ju<0 )
        {
-       r=FOOT_HEI( rastr0, D_X, (Word8)dx, (Word8)dy);
+       r=FOOT_HEI( rastr0, D_X, (uchar)dx, (uchar)dy);
        if( DiskrJuCut(r,dx) && r>1)
             P += 3*step_diskr;
        if( DiskrLeft(rastr0, D_X, Dx, dy,2) )
@@ -690,7 +690,7 @@ case (Word8)'е' :
        else P = diskr_ju;
     break;
 // capital & small M
-    case (Word8)'М' :  case (Word8)'м' :
+    case (uchar)'М' :  case (uchar)'м' :
       if( diskr_m<0 )
       {
       if( mii<-100 ){
@@ -705,9 +705,9 @@ case (Word8)'е' :
              P+= 5*step_diskr;
 
     if( dy>13 )
-      F=FOOT(rastr0+2*D_X, D_X,(Word8)Dx, (Word8)(dy-4),0);
+      F=FOOT(rastr0+2*D_X, D_X,(uchar)Dx, (uchar)(dy-4),0);
     else
-      F=FOOT(rastr0, D_X, (Word8)Dx, (Word8)dy,0);
+      F=FOOT(rastr0, D_X, (uchar)Dx, (uchar)dy,0);
 
                    if( F==2 )
       {
@@ -722,7 +722,7 @@ case (Word8)'е' :
     else  P = diskr_m;
     break;
 // capital & small bl
-    case (Word8)'Ы' :  case (Word8)'ы' :
+    case (uchar)'Ы' :  case (uchar)'ы' :
     if( diskr_ii<0 )
       {
       if( mii<-100 )
@@ -749,7 +749,7 @@ return(P & 0xFFFF);
 
 
 
-Int16 small_density(Word8 *RAST,Int16 n,Int16 D_X,Int16 bw)
+Int16 small_density(uchar *RAST,Int16 n,Int16 D_X,Int16 bw)
 {
 Int16 i,l,w,d;
 Int16 b = bw << 3;
@@ -767,7 +767,7 @@ for(l=i=0;i<n;i++,RAST+=D_X)
 return( l<=(n/3) );
 }
 
-Int16 no_serific(Word8 *RASTR,Int16 dy,Int16 dx,Int16 wb)
+Int16 no_serific(uchar *RASTR,Int16 dy,Int16 dx,Int16 wb)
 {
 Int16 l0=VertSum(RASTR,wb,dy,0);
 Int16 l1=VertSum(RASTR,wb,dy,1);
@@ -805,19 +805,19 @@ return ( jmp );
 /*  возвращает   оценку возрастания середин интервалов перкладины ИН       */
 /*                                                                         */
 /***************************************************************************/
-static void DiskrIN(Word8 *RASTR,Int16 D_X,Int16 dy,Int16 bw,Int16 dx)
+static void DiskrIN(uchar *RASTR,Int16 D_X,Int16 dy,Int16 bw,Int16 dx)
 /***************************************************************************/
 /****     *RASTR     указатель   на  массив                         ********/
 /****	   dy        kоличество  строк                              ********/
 /****      D_X       количество  байтов  в  строке                  ********/
 /***************************************************************************/
-{  Word8  n[256],hist[256];
+{  uchar  n[256],hist[256];
    Int16   ua[256],da[256];
    Int16  i,n2=dy-2*(dy>>2),n4,mean,fine;
    Int16  incr,decr,old,neue,equ;
    Int16  l=beg2-end1-1,l_real,t,jump,rmin,rmax;
    Int16  ol=1,or=1;  /* зазор слева и справа */
-   Word8 *RAST ,*R;
+   uchar *RAST ,*R;
 
 
 n4 = MAX(dy/4,(LOCAL_W[0]+LOCAL_W[1])/4);
@@ -861,7 +861,7 @@ Int16 up_fill=0,down_fill=0,d;
 for(R=RAST,i=n4;i<=dy-2;i++,R+=D_X)
 	{
 	d=SumIntervalBits(R,(Int16)(end1+ol),(Int16)(beg2-or+1))/3;
-	hist[i]=(Word8)d;
+	hist[i]=(uchar)d;
 	if( d==l && !up_fill )
 		up_fill=i;
 	if( d==l && i<n4+n2 )
@@ -939,16 +939,16 @@ if( no_serific(RASTR,dy,dx,bw) )
 memset(ua,0xFF,dy<<1);
 memset(da,0xFF,dy<<1);
 i = end1+ol-1;
-n[i] =(Word8) CenterVertInterval( RAST, D_X, n2, i,&ua[i],&da[i] );
+n[i] =(uchar) CenterVertInterval( RAST, D_X, n2, i,&ua[i],&da[i] );
 				/* запасной левый отсчет 		*/
 for(mean=l_real=0,i=end1+ol;i<=beg2-or;i++)
 	{	/* таблица отчетов середин вертикальных интервалов 	*/
-	n[i] =(Word8)CenterVertInterval( RAST, D_X, n2, i,&ua[i],&da[i] );
+	n[i] =(uchar)CenterVertInterval( RAST, D_X, n2, i,&ua[i],&da[i] );
 	mean += n[i];
 	if( n[i] )              /* mean	  - сумма   отсчетов		*/
 		l_real++;	/* l_real - число ненулевых отсчетов 	*/
 	}
-n[i] = (Word8)CenterVertInterval( RAST, D_X, n2, i,&ua[i],&da[i]);
+n[i] = (uchar)CenterVertInterval( RAST, D_X, n2, i,&ua[i],&da[i]);
 				/* запасной отсчет 			*/
 if( l!=l_real && (l_real==2 || (n[end1]|n[end1+1]) && (n[beg2]|n[beg2-1])) )
 	{           	/* отсутствие перекладины 			*/
@@ -1023,7 +1023,7 @@ if( l_real<4 )
 if( l_real<=1 )
 {
 Int16 dy1=n2/*dy>>1*/,nn,mm,mm1,minup,mindown,zaz;
-Word8 *rrrr,*rrrr1;
+uchar *rrrr,*rrrr1;
 zaz = beg2 - end1;
 for(	minup=mindown=zaz, rrrr=RASTR, rrrr1=RASTR+(dy-1)*D_X, i=0;
 	i<3;	i++, rrrr+=D_X, rrrr1-=D_X)
@@ -1110,14 +1110,14 @@ if( !fill_center && l_real<=4 || l_real<=3 )
 			if( abs(an[i]-dy1)>2 )
 				an[i]=-1;
 			else
-				n[end1+i]=(Word8)dy1,ll++;
+				n[end1+i]=(uchar)dy1,ll++;
 			}
 		if( en[i]>0 )
 			{
 			if( abs(en[i]-dy1)>2 )
 				en[i]=-1;
 			else
-				n[beg2-i]=(Word8)dy1,ll++;
+				n[beg2-i]=(uchar)dy1,ll++;
 			}
 		}
 	if( IN_I_Bonus==2 && ll==1 )
@@ -1127,9 +1127,9 @@ if( !fill_center && l_real<=4 || l_real<=3 )
 		for(i=0;i<2;i++)
 			{
 			if( an[i]>0 )
-				n[end1+i]=(Word8)dy1;
+				n[end1+i]=(uchar)dy1;
 			if( en[i]>0 )
-				n[beg2-i]=(Word8)dy1;
+				n[beg2-i]=(uchar)dy1;
 			}
 		mean =  dy1;
 		fill_center=1;
@@ -1140,8 +1140,8 @@ if( !fill_center && l_real<=4 || l_real<=3 )
 		{
 		for(i=0;i<2;i++)
 			{
-			n[beg2-i]=(Word8)sen[i];
-			n[end1+i]=(Word8)san[i];
+			n[beg2-i]=(uchar)sen[i];
+			n[end1+i]=(uchar)san[i];
 			}
 	/* поиск прыщей от 'И' по разные стороны от середины высоты */
 		an[0]=n[end1];
@@ -1453,16 +1453,16 @@ return;
 } 			/* 		DiskrIN 		*/
 
 /***************************************************************************/
-Int16 DiskrHorizIN(Word8 *RASTR,Int16 D_X,Int16 dy)
+Int16 DiskrHorizIN(uchar *RASTR,Int16 D_X,Int16 dy)
 /***************************************************************************/
 /****     *RASTR     указатель   на  массив                         ********/
 /****	   dy        kоличество  строк                              ********/
 /****      D_X       количество  байтов  в  строке                  ********/
 /***************************************************************************/
-{  Word8 n[256];
+{  uchar n[256];
    Int16  i,j,n2=dy-2*(dy>>2),n4=dy>>2,imax,nmax,kmax;
    Int16 l = beg2 - end1 ,h;
-   Word8 *RAST = RASTR+D_X*n4;
+   uchar *RAST = RASTR+D_X*n4;
 
 
 if( IN_horiz_dis>=0 )
@@ -1500,11 +1500,11 @@ else
 return (IN_horiz_dis= (h&&l) ) ;
 } 			/* 		DiskrHorizIN 		*/
 
-Int16 fill_center_zone(Word8 *raster,Int16 D_X,Int16 dy,
+Int16 fill_center_zone(uchar *raster,Int16 D_X,Int16 dy,
       Int16 beg, Int16 end, Int16 II)
 {
 Int16 i,num,l,ny,d=((end-beg)>>1),p, white, w;
-Word8 *r=raster;
+uchar *r=raster;
 
 #ifdef INTERSEPTOR
 end--;beg++;
@@ -1561,10 +1561,10 @@ else
 return( fill_center );
 }
 
-Int16 up_down_hist_M(Word8 *rastr,Int16 D_X, Int16 Dx,Int16 dy)
+Int16 up_down_hist_M(uchar *rastr,Int16 D_X, Int16 Dx,Int16 dy)
 {
 Int16 i,j,d,h=dy>>1,s,t,n;
-Word8 *r;
+uchar *r;
 
 Dx =  bytlen(Dx);
 for(s=j=0,i=0,r=rastr+i*D_X;i<h;j++,i++,r+=D_X)
@@ -1592,10 +1592,10 @@ if( s>3 && t>3 )		return( 8 );
 return(4);
 }
 
-Int16 broken_M(Word8 * r,Int16 D_X,Int16 dy,Int16 left_lim,Int16 ll)
+Int16 broken_M(uchar * r,Int16 D_X,Int16 dy,Int16 left_lim,Int16 ll)
 {
 Int16 i,old,neue,dest,sign,fc,maxd,incr;
-Word8 *rr;
+uchar *rr;
 if( broken_M_pen>=0 )
 	return broken_M_pen;
 old=RightDistance(r,D_X);
@@ -1638,7 +1638,7 @@ return(broken_M_pen= ((dest>left_lim ||
 }
 
 
-Int16 Num2Interval(Word8 *r,Int16 D_X,Int16 dx,Int16 dy)
+Int16 Num2Interval(uchar *r,Int16 D_X,Int16 dx,Int16 dy)
 {
 Int16 i,n2,p,d;
 d = bytlen(dx);
@@ -1655,11 +1655,11 @@ for(n2=i=0;i<dy; i++, r+=D_X )
 return ( n2==dy );
 }
 /* DiskrRight : check left hole */
-Int16 DiskrRight(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 L)
+Int16 DiskrRight(uchar *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 L)
 {
 Int16 sum,p,x,dl,Ly,i,p_old,curr_sum,h;
 Int16 minr,maxr,ddy;
-Word8 *RASTER=RASTR+D_X*(dy>>2),*R;
+uchar *RASTER=RASTR+D_X*(dy>>2),*R;
 if( right_dist[L]>=0 )
 	return( right_dist[L] );
 
@@ -1669,7 +1669,7 @@ R=RASTER;
 
 dl=(((dx+7)>>3)<<3);
 ddy = dy>30 ? (dy>>3):(dy>>2);
-MinMaxRight(RASTER,D_X,(Word8)dx,(Word8)Ly,&minr,&maxr);
+MinMaxRight(RASTER,D_X,(uchar)dx,(uchar)Ly,&minr,&maxr);
 x = maxr - minr;
 if( maxr-((dx&7)?(8-(dx&7)):0)>(dx>>1) )
 	{
@@ -1713,10 +1713,10 @@ return( right_dist[L] );
 }
 
 
-static Int16 DiskrSymSh( Word8 *RASTER, Int16 Wx, Word8 NWIDTH, Word8 NLENGTH)
+static Int16 DiskrSymSh( uchar *RASTER, Int16 Wx, uchar NWIDTH, uchar NLENGTH)
 {
   Int16 i,old,l,k,d;
-  Word8 c,w,minw=255,maxw=0;
+  uchar c,w,minw=255,maxw=0;
 
   FOOT_A(RASTER,Wx,NWIDTH,NLENGTH);   /* projection to horiz axes */
 
@@ -1757,9 +1757,9 @@ for(old=l=k=i=0;i<=NWIDTH;i++)
   return(i);
 }
 
-static Int16 DiskrSh(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 Ly)
+static Int16 DiskrSh(uchar *RASTR,Int16 D_X,Int16 dx,Int16 Ly)
 {
-Word8 *RASTER=RASTR;
+uchar *RASTER=RASTR;
 Int16 i,num,n2,p,ddx;
 ddx = bytlen(dx);
 for(n2=num=i=0;i<Ly; i++, RASTER+=D_X )
@@ -1787,9 +1787,9 @@ return( num>2?num-2:0 );
 }
 
 /* for letters III */
-static Int16 DiskrSh0(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 dx0)
+static Int16 DiskrSh0(uchar *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 dx0)
 {
-Word8 *RASTER=RASTR+D_X*(dy-(dy>>2));
+uchar *RASTER=RASTR+D_X*(dy-(dy>>2));
 Int16 i,num,l=dx0-(dx0>>2);
 if( lower_long_line<0 )
 {
@@ -1803,18 +1803,18 @@ return( lower_long_line );
 }
 
 /*  DiskrLeft : check left hole */
-Int16 DiskrLeft(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 dy, Int16 L)
+Int16 DiskrLeft(uchar *RASTR,Int16 D_X,Int16 dx,Int16 dy, Int16 L)
 {
 Int16 sum,p,x,i,Ly,p_old,curr_sum,h;
 Int16 minr,maxr;
-Word8 *RASTER=RASTR+D_X*(dy>>2),*R;
+uchar *RASTER=RASTR+D_X*(dy>>2),*R;
 if( left_dist[L]>=0 )
   return( left_dist[L] );
 Ly=dy-2*(dy>>2);
 h=Ly;
 R=RASTER;
 
-MinMaxLeft(RASTER,D_X,(Word8)dx,(Word8)Ly,&minr,&maxr);
+MinMaxLeft(RASTER,D_X,(uchar)dx,(uchar)Ly,&minr,&maxr);
 if( minr && maxr )
   {
   minr--; maxr--;
@@ -1861,11 +1861,11 @@ return( left_dist[L] );
 }
 
 /*  DiskrLeftBig : check big left holeа */
-Int16 DiskrLeftBig(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 dy, Int16 L)
+Int16 DiskrLeftBig(uchar *RASTR,Int16 D_X,Int16 dx,Int16 dy, Int16 L)
 {
 Int16 sum,p,x,i,Ly,p_old,curr_sum,h;
 Int16 minr,maxr;
-Word8 *RASTER=RASTR+D_X,*R;
+uchar *RASTER=RASTR+D_X,*R;
 if( left_dist_big[L]>=0 )
   return( left_dist_big[L] );
 
@@ -1873,7 +1873,7 @@ Ly=dy-2;
 h =  dy ;
 R =  RASTR;
 
-MinMaxLeft(RASTER,D_X,(Word8)dx,(Word8)Ly,&minr,&maxr);
+MinMaxLeft(RASTER,D_X,(uchar)dx,(uchar)Ly,&minr,&maxr);
 if( minr && maxr )
   {
   minr--; maxr--;
@@ -1911,11 +1911,11 @@ return( left_dist_big[L] );
 }
 
 /*  DiskrRightBig : check big right hole */
-Int16 DiskrRightBig(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 L)
+Int16 DiskrRightBig(uchar *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 L)
 {
 Int16 sum,p,x,dl,Ly,i,p_old,curr_sum,h;
 Int16 minr,maxr;
-Word8 *RASTER=RASTR+D_X,*R;
+uchar *RASTER=RASTR+D_X,*R;
 if( right_dist_big[L]<0 )
 {
 Ly=dy-2;
@@ -1923,7 +1923,7 @@ h =  dy ;
 R =  RASTR;
 
 dl=(((dx+7)>>3)<<3);
-MinMaxRight(RASTER,D_X,(Word8)dx,(Word8)Ly,&minr,&maxr);
+MinMaxRight(RASTER,D_X,(uchar)dx,(uchar)Ly,&minr,&maxr);
 x = maxr - minr;
 right_dist_big[L] = ( x>=L );
 if( right_dist_big[L] )       /* big hole */
@@ -1966,9 +1966,9 @@ return( right_dist_big[L] );
 }
 
 /* for letters >|< */
-static Int16 DiskrJ0(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 Ly,Int16 lim)
+static Int16 DiskrJ0(uchar *RASTR,Int16 D_X,Int16 dx,Int16 Ly,Int16 lim)
 {
-Word8 *RASTER=RASTR;
+uchar *RASTER=RASTR;
 Int16 i,three,n,all,ret,one;
 
 dx = bytlen(dx);
@@ -1999,7 +1999,7 @@ if( lim<=3 && ret && one+all>Ly-3 )
 return( ret );
 }
 
-static Int16 DiskrJ(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 dy)
+static Int16 DiskrJ(uchar *RASTR,Int16 D_X,Int16 dx,Int16 dy)
 {
 Int16 i,t,tu,td,Ly=dy>>2,ly=dy-2*Ly,p,l=dy>>1;
 dx = bytlen(dx);
@@ -2026,11 +2026,11 @@ return  (
 //***************************************************************************
 //*   return       1 if stick glued to rusian D, otherwise 0                *
 //***************************************************************************
-static Int16 DiskrTsh(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 Dx)
-{  Word8  j,n4=dy>>2,bool_foot=1;
-   Word8  bit0,bit1,bit2;
+static Int16 DiskrTsh(uchar *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 Dx)
+{  uchar  j,n4=dy>>2,bool_foot=1;
+   uchar  bit0,bit1,bit2;
    Int16            i,fine=0;
-   Word8  *RAST;
+   uchar  *RAST;
 
 //****************   check existance two hooks  ******************
 
@@ -2038,7 +2038,7 @@ static Int16 DiskrTsh(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 Dx)
    for (RAST=RASTR+(dy-3)*D_X,i=dy-3;;i--,RAST-=D_X){
       j=SumIntervalBits( RAST,(Int16)0,(Int16)dx )/3 ;
       if(  (j > 5*D_X) || (i<2*n4) ) break;
-      j=(Word8)NumHorizInterval( RAST, D_X );
+      j=(uchar)NumHorizInterval( RAST, D_X );
       if( j > 1 )  fine+=20;
    }
    if( fine < 30 ){     return ( 0 );   }
@@ -2061,7 +2061,7 @@ fine=0;
 
 //******************  make histogramm   ********************************
 
-   FOOT_A(RASTR, D_X, (Word8)Dx, (Word8)n4); bool_foot=0;
+   FOOT_A(RASTR, D_X, (uchar)Dx, (uchar)n4); bool_foot=0;
 
    for(i=bit0+1;i<bit1+1;i++){
       if(BUFFER[i]==0)  goto   bbb;//* breaking
@@ -2080,7 +2080,7 @@ bbb:fine=0;
 
 //******************  make histogramm  ********************************
 
-   if( bool_foot ) FOOT_A(RASTR, D_X, (Word8)Dx, (Word8)n4);
+   if( bool_foot ) FOOT_A(RASTR, D_X, (uchar)Dx, (uchar)n4);
    for(i=bit1+1;i<bit2+1;i++){
       if(BUFFER[i]==0)  goto   end; // breaking
    }
@@ -2091,7 +2091,7 @@ end: return ( 0 );
 }  // DiskrTsh
 
 
-static Int16 average_br_angle(Word8 *RASTER, Int16 D_X, Int16 dx, Int16 dy,
+static Int16 average_br_angle(uchar *RASTER, Int16 D_X, Int16 dx, Int16 dy,
         Int16 t)
 {
 if( av_br<0 )
@@ -2100,8 +2100,8 @@ if( av_br<0 )
 return(av_br);
 }
 
-static Int16 average_angle(Word8 *RASTER, Int16 D_X, Int16 dx, Int16 dy,
-       Int16  (*Distance)(Word8 *, Int16), Int16 t)
+static Int16 average_angle(uchar *RASTER, Int16 D_X, Int16 dx, Int16 dy,
+       Int16  (*Distance)(uchar *, Int16), Int16 t)
 {
 Int16 i=0,n,p,H;
 if( t==0 )
@@ -2121,9 +2121,9 @@ for(H=n=0;i<dy; i++,RASTER+=D_X)
 return(H?n/H:-1);
 }
 
-static Int16 DiskrJu(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 Ly)
+static Int16 DiskrJu(uchar *RASTR,Int16 D_X,Int16 dx,Int16 Ly)
 {
-Word8 *RASTER=RASTR;
+uchar *RASTER=RASTR;
 Int16 i,ret,r,s2,s3,n;
 dx = bytlen(dx);
 
@@ -2142,12 +2142,12 @@ if( !broken_flag && s2==0 ) ret += 2;
 return  (ret) ;
 }
 
-static Int16 DiskrimM1(Word8 *RAST,Int16 D_X,Int16 dx,Int16 dy)
+static Int16 DiskrimM1(uchar *RAST,Int16 D_X,Int16 dx,Int16 dy)
 {
    Int16    n2,n4=dy>>2,meanBit=dx>>1; /* Oleg & Vova 09.03.94 */
    Int16    i,j,k,up=0,down=0,cUp=0,cDown=0;
    Int16    prev=0,byte=0;
-   Word8   *r;
+   uchar   *r;
 
 /*  calculate  mean  of  hole  */
    for(r=RAST+D_X,i=0;i<n4;i++,r+=D_X){
@@ -2217,12 +2217,12 @@ static Int16 DiskrimM1(Word8 *RAST,Int16 D_X,Int16 dx,Int16 dy)
    return(0);
 }  /* DiskrM1 */
 
-static Int16 DiskrimM(Word8 *RAST,Int16 D_X,Int16 dx,Int16 dy)
+static Int16 DiskrimM(uchar *RAST,Int16 D_X,Int16 dx,Int16 dy)
 {
    Int16    n2,n4=dy>>2,meanBit=dx>>1; /* Oleg & Vova 09.03.94 */
    Int16    i,j,k,up=0,down=0,cUp=0,cDown=0;
    Int16    prev=0,byte=0;
-   Word8   *r;
+   uchar   *r;
 
 /*  calculate  mean  of  hole  */
    for(r=RAST+D_X,i=0;i<n4;i++,r+=D_X){
@@ -2294,7 +2294,7 @@ if( down==0 && up==0 )  return(2); /* M - hole is absent */
 }  /* DiskrM */
 
 
-static Int16 whiteMeanBitLeft(Word8 *RAST,Int16 D_X,Int16 meanBit)
+static Int16 whiteMeanBitLeft(uchar *RAST,Int16 D_X,Int16 meanBit)
 {
    Int16    meanByte, byte;
    Int16    i,counter=0;
@@ -2332,7 +2332,7 @@ static Int16 whiteMeanBitLeft(Word8 *RAST,Int16 D_X,Int16 meanBit)
    return( counter );
 }  /* whiteMeanBitLeft */
 
-static Int16 whiteMeanBitRight(Word8 *RAST,Int16 D_X,Int16 dx,Int16 meanBit)
+static Int16 whiteMeanBitRight(uchar *RAST,Int16 D_X,Int16 dx,Int16 meanBit)
 {
    Int16    meanByte, byte;
    Int16    i,counter=0;
@@ -2371,12 +2371,12 @@ static Int16 whiteMeanBitRight(Word8 *RAST,Int16 D_X,Int16 dx,Int16 meanBit)
 }  /* whiteMeanBitRight */
 
 // check gluing roof and down zone for russian capital & small II
-Int16 up_down_zones(Word8 *raster, Int16 D_X, Int16 dx, Int16 dx0,
+Int16 up_down_zones(uchar *raster, Int16 D_X, Int16 dx, Int16 dx0,
       Int16 start1, Int16 stop1,
       Int16 start2, Int16 stop2)
 {
 Int16 i,num1,num2,l=dx0-(dx0>>3);
-Word8 *r=raster;
+uchar *r=raster;
 if( up_down_serif>=0 )
   return( up_down_serif );
 
@@ -2403,13 +2403,13 @@ return( (up_down_serif=0) );
 }
 
 /* for letters 'C','c','e' */
-static Int16 DiskrVertCE(Word8 *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 X,
-                        Word8 let, Word8 inc)
+static Int16 DiskrVertCE(uchar *RASTR,Int16 D_X,Int16 dx,Int16 dy,Int16 X,
+                        uchar let, uchar inc)
 {
-Word8 *RASTER=RASTR;
+uchar *RASTER=RASTR;
 Int16 i,p,n,s3,d=dx>>2,wid=bytlen(dx);
 Int16 ody=dy>>2;
-  Word8 *r=RASTR+ody*D_X;
+  uchar *r=RASTR+ody*D_X;
   Int16 t1,t2,t3,num1,num2,num3,minnum,n2;
   Int16 l = dy -(ody<<1),num,z=dx-(dx>>3);
   Int16 nn[7];
@@ -2447,7 +2447,7 @@ if( c_or_e<0 )
     d_e = 0;
     d_c = num;
     if( num3 ) d_c += (minnum==1?4:3);
-    return( (let==(Word8)'е')?d_e:d_c );
+    return( (let==(uchar)'е')?d_e:d_c );
     }
 if( num==0 && num1==0  && num2==0 && dy<24 )
 {       /* ищу прыщ напротив конца правого рога */
@@ -2490,7 +2490,7 @@ if( t3>2 && t2>t1 && num1>=0 && num2<7 )
   c_or_e = 1;     /* или набор залитых строк       */
   d_e = 0;
   d_c = 1+t2-t1;
-  if( (let==(Word8)'е') )
+  if( (let==(uchar)'е') )
   return( d_e );
   }
 }
@@ -2516,14 +2516,14 @@ if( t3>2 && t2>t1 && num1>=0 && num2<7 )
     d_e = 4;
   d_c = MAX(d_c,(s3>n)?s3-n+1:0);
   }
-return( (let==(Word8)'е')?d_e:d_c );
+return( (let==(uchar)'е')?d_e:d_c );
 }
 
 
-Int16 AngleBottomRight(Word8 *raster,Int16 D_X,Int16 hei)
+Int16 AngleBottomRight(uchar *raster,Int16 D_X,Int16 hei)
 {
 int i,old,neue,inc;
-Word8 *r;
+uchar *r;
 
 raster += D_X * (hei-2);
 hei >>= 2;
@@ -2539,10 +2539,10 @@ for(inc=0,r=raster-D_X,i=1;i<hei;i++,r-=D_X)
 return inc;
 }
 
-Int16 AngleTopRight(Word8 *raster,Int16 D_X,Int16 hei)
+Int16 AngleTopRight(uchar *raster,Int16 D_X,Int16 hei)
 {
 int i,old,neue,inc;
-Word8 *r;
+uchar *r;
 
 raster += D_X;
 hei >>= 2;
@@ -2558,7 +2558,7 @@ for(inc=0,r=raster+D_X,i=1;i<hei;i++,r+=D_X)
 return inc;
 }
 
-Int16 BonusAnglesCurve(Word8 *raster,Int16 D_X,Int16 hei)
+Int16 BonusAnglesCurve(uchar *raster,Int16 D_X,Int16 hei)
 {
 int pen=0,inc;
 
@@ -2582,7 +2582,7 @@ if( LOCAL[i]>l && LOCAL_W[i]>d )
 return FALSE;
 }
 
-DIF_FUNC(Int16) DIF_GetNoCutPoint(Word8 *RASTER, Int16 Wx, Word8 NWIDTH, Word8 NLENGTH)
+DIF_FUNC(Int16) DIF_GetNoCutPoint(uchar *RASTER, Int16 Wx, uchar NWIDTH, uchar NLENGTH)
 {
 Int16 f=FOOT_HEI( RASTER, Wx, NWIDTH, NLENGTH);
 if( f!=2 || f==2 && (LOCAL[0]-(LOCAL_W[0]+1)/2)>(LOCAL_W[0]+1)/2 )

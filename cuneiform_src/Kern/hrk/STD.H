@@ -258,13 +258,13 @@ STD_FUNC( Bool32 ) stdMoveFile(
       const char * szKey DEFAULT_NULL //if ommited then key is szMessageText
       );	//return value: defined in windows.h or wmb.h
 
-    STD_FUNC( Word8 ) stdAnsiToAscii( Word8 Code); // WIN => DOS
-    STD_FUNC( Word8 ) stdAsciiToAnsi( Word8 Code); // DOS => WIN
-    STD_FUNC(Word16) stdAnsiToUnicode( Word8 Code);
+    STD_FUNC( uchar ) stdAnsiToAscii( uchar Code); // WIN => DOS
+    STD_FUNC( uchar ) stdAsciiToAnsi( uchar Code); // DOS => WIN
+    STD_FUNC(Word16) stdAnsiToUnicode( uchar Code);
     STD_FUNC(void) stdStrUnicodeToAnsi(char* pAnsi,const wchar_t* pUnicode);
 
-    STD_FUNC( Word8 ) stdUpperAscii ( Word8 Code);
-    STD_FUNC( Word8 ) stdLowerAscii ( Word8 Code);
+    STD_FUNC( uchar ) stdUpperAscii ( uchar Code);
+    STD_FUNC( uchar ) stdLowerAscii ( uchar Code);
 	//String WIN<->DOS converters
 	STD_FUNC(void) stdStrAsciiToAnsi( char* Str);
 	STD_FUNC(void) stdStrAnsiToAscii( char* Str);
@@ -274,21 +274,21 @@ STD_FUNC( Bool32 ) stdMoveFile(
     STD_FUNC(void) stdStrNAnsiToUnicode(wchar_t* pUnicode,const char* pAnsi,int32_t nLen);
 
 
-    STD_FUNC( Bool32) stdLeoCompareChar(Word8 c1, Word8 c2);
+    STD_FUNC( Bool32) stdLeoCompareChar(uchar c1, uchar c2);
       // ('A'rus, 'A'lat) => TRUE; ('A', 'B') => FALSE
-    STD_FUNC( Word8 ) stdLeoTypefaceChar(Word8 c);
+    STD_FUNC( uchar ) stdLeoTypefaceChar(uchar c);
       // 'A'lat => 'A'rus (conversion to dominant letter)
 
 #define     STD_LEO_CASE_NONE   0
 #define     STD_LEO_CASE_LOWER  1
 #define     STD_LEO_CASE_UPPER  2
-    STD_FUNC( int32_t ) stdLeoIsCase(Word8 Code);
+    STD_FUNC( int32_t ) stdLeoIsCase(uchar Code);
       // upper, lower or nondefined
-    STD_FUNC( Word8)  stdLeoSetUpperCase(Word8 Code);
+    STD_FUNC( uchar)  stdLeoSetUpperCase(uchar Code);
       // 'A'lat => 'A'lat, 'o'rus => 'O'rus, 'e'rus => 'e'rus
-    STD_FUNC( Word8)  stdLeoSetLowerCase(Word8 Code);
+    STD_FUNC( uchar)  stdLeoSetLowerCase(uchar Code);
       // 'C'lat => 'C'lat, 'O'rus => 'o'rus, 'A'rus => 'A'rus
-    STD_FUNC(Word8 *) stdLeoGetTypeface(Word8 c);
+    STD_FUNC(uchar *) stdLeoGetTypeface(uchar c);
 
     STD_FUNC(void) stdQsort(void *pMas,int32_t Num, int32_t width,
 			  int32_t (*compare)(const void *elm1,const void *elm2) );
@@ -349,7 +349,7 @@ STD_FUNC(const char*) stdGetProperty(const char* pKey);
 #ifndef NO_STDBITS
 
 	 STD_FUNC(int) stdBits2Ints(
-		Word8*   pBits,
+		uchar*   pBits,
 		int      nByteWidth,
 		int32_t*   pIntervals  // pointer to intervals buffer,
 									// should have length (in bytes) == (nByteWidth*4)*4

@@ -263,7 +263,7 @@ void save_rast_vers(CSTR_rast C, SVERS *S)
 // S->bottom_accent = attr.bottom_accent; - у CSTR нет
  S->bottom_accent = 0;
 
- S->history       = (Word8)attr.RecogHistory; // Nick
+ S->history       = (uchar)attr.RecogHistory; // Nick
  S->clink         = attr.clink;   // Nick
  S->clu_attr      = attr.clu_attr;   // Nick
  S->nClust        = attr.nClust;   // Nick

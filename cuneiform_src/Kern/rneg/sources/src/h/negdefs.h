@@ -64,10 +64,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 struct Rotating
 {
 	Rect16 Rc;
-	Word8* pmasp;
+	uchar* pmasp;
 	Int16* begx;
 	Int16* movey;
-	Word8* flmovey;
+	uchar* flmovey;
 	int* hi;
 	Rotating()
 	{
@@ -151,7 +151,7 @@ struct RotImageFlags
 	Rect16 Rc;
 	Int16* begx;
 	Int16* movey;
-	Word8* fl_movey;
+	uchar* fl_movey;
 	int* hi;
 	RotImageFlags()
 	{
@@ -174,13 +174,13 @@ struct NegImage
 	int Wide;
 	int Height;
 	int bytewide;
-	Word8* lp;
+	uchar* lp;
 	Bool fl_delete;
-	Word8* pmasp;
+	uchar* pmasp;
 	int size_mas;
 	RotImageFlags rotate;
 	NegImage();
 	~NegImage();
-	Bool SetDibPtr(Word8* lpDibData,int wide,int heght,int bwide);
-	Word8* GetPmasp(Rect16* pRc);
+	Bool SetDibPtr(uchar* lpDibData,int wide,int heght,int bwide);
+	uchar* GetPmasp(Rect16* pRc);
 };

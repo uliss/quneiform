@@ -1394,14 +1394,14 @@ static char std_ANSI_to_ASCII[257]={
 /*F*/    "ЮАБЦДЕФГХИЙКЛМНО"
 };
 
-Word8 stdAsciiToAnsi( Word8 Code)
+uchar stdAsciiToAnsi( uchar Code)
 {
 if( !Code )
     return 0;
 return    std_ASCII_to_ANSI[Code];
 }
 
-Word8 stdAnsiToAscii( Word8 Code)
+uchar stdAnsiToAscii( uchar Code)
 {
 if( !Code )
     return 0;
@@ -1409,66 +1409,66 @@ return    std_ANSI_to_ASCII[Code];
 }
 
 
-Bool32 stdLeoCompareChar(Word8 c1, Word8 c2)
+Bool32 stdLeoCompareChar(uchar c1, uchar c2)
 {
 char *p=leo_typeface_class[c1];
-Word8   c;
+uchar   c;
 while( *p )
     {
-    c=(Word8)*p++;
+    c=(uchar)*p++;
     if( c==c2 )
         return TRUE;
     }
 return FALSE;
 }
 
-Word8 * stdLeoGetTypeface(Word8 c)
+uchar * stdLeoGetTypeface(uchar c)
 {
-return (Word8 *)leo_typeface_class[c];
+return (uchar *)leo_typeface_class[c];
 }
 
-Word8 stdLeoTypefaceChar(Word8 c)
+uchar stdLeoTypefaceChar(uchar c)
 {
 return leo_typeface_one[c][0];
 }
 
 
- int32_t    stdLeoIsCase(Word8 Code)
+ int32_t    stdLeoIsCase(uchar Code)
 {
 return leo_case[ Code ];
 }
 
- Word8   stdLeoSetUpperCase(Word8 Code)
+ uchar   stdLeoSetUpperCase(uchar Code)
 {
-return (Word8)(leo_case_upper[ Code ]);
+return (uchar)(leo_case_upper[ Code ]);
 }
 
- Word8   stdLeoSetLowerCase(Word8 Code)
+ uchar   stdLeoSetLowerCase(uchar Code)
 {
-return (Word8)(leo_case_lower[ Code ]);
+return (uchar)(leo_case_lower[ Code ]);
 }
 
-Word8 stdUpperAscii( Word8 c )
+uchar stdUpperAscii( uchar c )
 {
-  if ( c >= (Word8)'a' && c <= (Word8)'z')
-    c = c - (Word8)'a' + (Word8)'A';
+  if ( c >= (uchar)'a' && c <= (uchar)'z')
+    c = c - (uchar)'a' + (uchar)'A';
 
-  if ( c >= (Word8)'═' && c <= (Word8)'╞')
-    c = c - (Word8)'═' + (Word8)'─';
-  if ( c >= (Word8)'Ю' && c <= (Word8)'О')
-    c = c - (Word8)'Ю' + (Word8)'░';
+  if ( c >= (uchar)'═' && c <= (uchar)'╞')
+    c = c - (uchar)'═' + (uchar)'─';
+  if ( c >= (uchar)'Ю' && c <= (uchar)'О')
+    c = c - (uchar)'Ю' + (uchar)'░';
 return c;
 }
 
  /* Function returns LOWER CASE variant of the letter.             */
-Word8 stdLowerAscii(Word8 c)
+uchar stdLowerAscii(uchar c)
 {
-  if ( c >= (Word8)'A' && c <= (Word8)'Z')
-    c = c - (Word8)'A'+ (Word8)'a' ;
-  if ( c >= (Word8)'─' && c <= (Word8)'▐')
-    c = c - (Word8)'─'+ (Word8)'═' ;
-  if ( c >= (Word8)'░' && c <= (Word8)'÷')
-    c = c - (Word8)'░'+ (Word8)'Ю' ;
+  if ( c >= (uchar)'A' && c <= (uchar)'Z')
+    c = c - (uchar)'A'+ (uchar)'a' ;
+  if ( c >= (uchar)'─' && c <= (uchar)'▐')
+    c = c - (uchar)'─'+ (uchar)'═' ;
+  if ( c >= (uchar)'░' && c <= (uchar)'÷')
+    c = c - (uchar)'░'+ (uchar)'Ю' ;
 return c;
 }
 #endif

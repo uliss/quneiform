@@ -725,7 +725,7 @@ if( !typ_inc && dx<5 && language!=LANG_RUSSIAN )
 	      l->conc[0]+l->conc[1] &&
 	      !l->mount[0] &&
 	      !l->mount[4] &&
-          !check_let(c,(Word8)t_inv_roof)
+          !check_let(c,(uchar)t_inv_roof)
         )
 	   new_vers(c,t_inv_roof,(BYTE)cut_by_pos(c,t_inv_roof,prob,1,1) );
 	}
@@ -735,7 +735,7 @@ if( !typ_inc && dx<5 && language!=LANG_RUSSIAN )
 	{
       get_b_lines(c,&basL);
 	  if( dy > dx*2 &&
-		  !check_let(c,(Word8)t_bottom_accent) &&
+		  !check_let(c,(uchar)t_bottom_accent) &&
           r->mount[0] + r->mount[1] &&
 		  l->mount[0] + l->mount[1] &&
 		  c->row < basL.b2 &&

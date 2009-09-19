@@ -99,14 +99,14 @@ struct CLineImage
 	int Wide;
 	int Height;
 	int bytewide;
-	Word8* lp;
+	uchar* lp;
 	int fl_delete;
-	Word8* pmasp;
+	uchar* pmasp;
 	int size_mas;
 	CLineImage();
 	~CLineImage();
-	int SetDibPtr(Word8* lpDibData,int wide,int heght,int bwide);
-	Word8* GetPmasp(Rect32* pRc);
+	int SetDibPtr(uchar* lpDibData,int wide,int heght,int bwide);
+	uchar* GetPmasp(Rect32* pRc);
 };
 */
 struct DOT_STRUCT
@@ -518,8 +518,8 @@ RSHELLLINES_FUNC(Bool32)    RSL_SplitLine(CLINE_handle hLine, CLINE_handle hCont
 
 #define MAX_CROSS_POINTS 4
 
-RSHELLLINES_FUNC(int32_t)    RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, Word8 lang, Word8 debug_flags, int32_t *cross_point = NULL);
-RSHELLLINES_FUNC(Bool)  SL_GetRaster(Rect32* rect, Word8** ppData, PAGEINFO* page_info/*, CIMAGEBITMAPINFOHEADER* image_info*/); //
+RSHELLLINES_FUNC(int32_t)    RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, uchar lang, uchar debug_flags, int32_t *cross_point = NULL);
+RSHELLLINES_FUNC(Bool)  SL_GetRaster(Rect32* rect, uchar** ppData, PAGEINFO* page_info/*, CIMAGEBITMAPINFOHEADER* image_info*/); //
 
 
 //}

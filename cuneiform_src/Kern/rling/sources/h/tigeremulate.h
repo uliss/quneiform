@@ -86,7 +86,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define DIRSEP        '\\'
 
 INT    TE_open          (INT, char *, INT, INT);    /* / stream, name, ... */
-Int16    TE_write         (Int16, PWord8, uint32_t);    /* / stream, name, ... */
+Int16    TE_write         (Int16, puchar, uint32_t);    /* / stream, name, ... */
 INT    TE_table_op      (INT, INT, INT, INT);      /* / table #, ...          */
 int32_t   TE_read          (Int16, pchar, int32_t);        /* / handle, addr, lth */
 INT    TE_close         (INT);                      /* / handle            */
@@ -141,10 +141,10 @@ struct mn_struc
 	Int16 mnboxcnt;  		// number of boxes in component
 #define usual_box_count 20 	// heuristic of number of lines in a letter
 #define great_box_count	200	// heuristic for number of boxes in a picture
-	Word8 mnlines;                  // number of lines in the component
-	Word8 mnbegs;           	// number of free line begins
-	Word8 mnends;                   // number of free line ends
-	Word8 mnflag;         	        // flag byte for main number
+	uchar mnlines;                  // number of lines in the component
+	uchar mnbegs;           	// number of free line begins
+	uchar mnends;                   // number of free line ends
+	uchar mnflag;         	        // flag byte for main number
 #define mnpicture 1		// component is a picture
 	struct mn_struc *mnnext;	// address of next dead component
  };
@@ -193,8 +193,8 @@ struct box_struct
 				//    within box)
 	Int16	            boxex; 	// coordinate of last segment end (if line
 				//    ends within box)
-	Word8 		    boxflag; 	// byte for box attributes flags
-	Word8		    boxwf; 	// working flag (for picture compress)
+	uchar 		    boxflag; 	// byte for box attributes flags
+	uchar		    boxwf; 	// working flag (for picture compress)
 	Word16		    boxresw; 	// reserved word (for *4 arround)
 };
 typedef struct box_struct BOX;

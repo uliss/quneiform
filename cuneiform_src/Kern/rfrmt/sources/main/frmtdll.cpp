@@ -233,7 +233,7 @@ RFRMT_FUNC(Bool32) RFRMT_GetExportData(uint32_t dwType, void * pData)
 	CASE_DATA(RFRMT_Bool32_Bold,Bool32,gbBold);
 	CASE_DATA(RFRMT_Bool32_Italic,Bool32,gbItalic);
 	CASE_DATA(RFRMT_Bool32_Size,Bool32,gbSize);
-	CASE_DATA(RFRMT_Word8_UnRecogSymbol,Word8,UnRecogSymbol);
+	CASE_DATA(RFRMT_Word8_UnRecogSymbol,uchar,UnRecogSymbol);
 
 	default:
 	*(Handle *)pData = NULL;
@@ -264,7 +264,7 @@ RFRMT_FUNC(Bool32) RFRMT_SetImportData(uint32_t dwType, const void * pData)
 	CASE_PDATA(RFRMT_char_SerifName,const char *,gpSerifName);
 	CASE_PDATA(RFRMT_char_SansSerifName,const char *,gpSansSerifName);
 	CASE_PDATA(RFRMT_char_CourierName,const char *,gpCourierName);
-	CASE_DATA(RFRMT_Word8_UnRecogSymbol,Word8,UnRecogSymbol);
+	CASE_DATA(RFRMT_Word8_UnRecogSymbol,uchar,UnRecogSymbol);
 	CASE_DATA(RFRMT_Word32_Language,uint32_t,gnLanguage);// !!!Art - язык распознавания понадобился для умолчания в редактор
 	 default:
 		gwLowRC = IDS_ERR_NOTIMPLEMENT;

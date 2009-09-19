@@ -74,15 +74,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class XMemFile : public XPool
 {
    int32_t    nFileLength;  // count of bytes in use (put into)
-   Word8*   pCur;        // current ptr
+   uchar*   pCur;        // current ptr
 
 public:
    XMemFile( int32_t init_size = 0 )
       : XPool(init_size)
-      { pCur=(Word8*)Data; nFileLength = 0; };
+      { pCur=(uchar*)Data; nFileLength = 0; };
 
    int32_t    Tell()
-      { return pCur - (Word8*)Data; };
+      { return pCur - (uchar*)Data; };
 
    int32_t    FileLength()
       { return nFileLength; };
@@ -93,12 +93,12 @@ public:
    Bool     Seek( int32_t nOffset )
       {  if ((nOffset > nFileLength)||(nOffset < 0))
             RET_FALSE;
-         pCur= ((Word8*)Data)+nOffset;
+         pCur= ((uchar*)Data)+nOffset;
          return TRUE;
       };
 
-   void     SeekToStart( void ) {  pCur= ((Word8*)Data); };
-   void     SeekToFinish( void ) {  pCur= ((Word8*)Data)+nFileLength; };
+   void     SeekToStart( void ) {  pCur= ((uchar*)Data); };
+   void     SeekToFinish( void ) {  pCur= ((uchar*)Data)+nFileLength; };
 
    void     Reset() { nFileLength = 0; SeekToStart(); };
 
@@ -126,7 +126,7 @@ public:
 	 if (pNext==NULL)
             return NULL;
          char* ret = (char*)pCur;
-         pCur = (Word8*)pNext; pCur++;
+         pCur = (uchar*)pNext; pCur++;
          return ret;
       };
 
@@ -174,8 +174,8 @@ public:
    Bool     Put( uint32_t& t ) { return Put( &t, sizeof(uint32_t) ); }
    Bool     Get( Word16& t ) { return Get( &t, sizeof(Word16) ); }
    Bool     Put( Word16& t ) { return Put( &t, sizeof(Word16) ); }
-   Bool     Get( Word8& t ) { return Get( &t, sizeof(Word8) ); }
-   Bool     Put( Word8& t ) { return Put( &t, sizeof(Word8) ); }
+   Bool     Get( uchar& t ) { return Get( &t, sizeof(uchar) ); }
+   Bool     Put( uchar& t ) { return Put( &t, sizeof(uchar) ); }
    Bool     Get( Rect16& t ) { return Get( &t, sizeof(Rect16) ); }
    Bool     Put( Rect16& t ) { return Put( &t, sizeof(Rect16) ); }
    Bool     Get( Point16& t ) { return Get( &t, sizeof(Point16) ); }

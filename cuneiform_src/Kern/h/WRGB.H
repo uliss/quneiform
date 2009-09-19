@@ -59,6 +59,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #ifdef RGB
       #define wRGB RGB
    #else
-      #define wRGB(r,g,b) ((uint32_t)(((Word8)(r)|((Word16)((Word8)(g))<<8))|(((uint32_t)(Word8)(b))<<16)))
+      #define wRGB(r,g,b) ((uint32_t)(((uchar)(r)|((Word16)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
    #endif
 #endif

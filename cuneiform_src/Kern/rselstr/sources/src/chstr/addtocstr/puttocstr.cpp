@@ -100,7 +100,7 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
  Int16* begx=NULL;
  Int16* movey=NULL;
  int* hi=NULL;
- Word8* flmovey=NULL;
+ uchar* flmovey=NULL;
 
  MainWindowD=NULL;
  MainWindowD=LDPUMA_GetWindowHandle ("Изображение после разворота");
@@ -122,8 +122,8 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
 
  DPIX=info.DPIX;
  DPIY=info.DPIY;
- Word8 ImageName[CPAGE_MAXNAME];
-// Word8 RotateImageName[CPAGE_MAXNAME];
+ uchar ImageName[CPAGE_MAXNAME];
+// uchar RotateImageName[CPAGE_MAXNAME];
 
 
  inf_str_h=inf_str_h*((int)(DPIY)+1)/300;
@@ -133,9 +133,9 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
  min_let_w=min_let_w*((int)(DPIY)+1)/300;
  min_let_h=min_let_h*((int)(DPIY)+1)/300;
 
- Word8* pmaspold;
- Word8* pmasp;
- Word8 Data[1000];
+ uchar* pmaspold;
+ uchar* pmasp;
+ uchar Data[1000];
  memset (Data, 0, sizeof (Data));
 
 
@@ -229,7 +229,7 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
    int w=Rc.right-Rc.left+1;
    int h=Rc.bottom-Rc.top+1;
    pmasp=NULL;
-   if(!(pmasp= new Word8[w*h/8+w+h]))
+   if(!(pmasp= new uchar[w*h/8+w+h]))
    {
    // GF: killed memory leak on 2004.01.29
 	 DelStrMas(&pRc); pRc = NULL;
@@ -504,7 +504,7 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
    scale=GetStrScale(pN,nN,my_str->vertical);
    if(CSTR_GetLineAttr(string,&attr))
    {
-	attr.scale=(Word8)(scale);
+	attr.scale=(uchar)(scale);
     attr.incline=skew;
     attr.fragment=my_str->m_num_frag;
 	if(my_str->vertical)
@@ -603,7 +603,7 @@ Bool32 GetObjects (Handle hCCOM,Handle hCPage)
         CSTR_DelRaster(rast);
 	else
 	{
-	    rast->env->scale=(Word8)(scale);
+	    rast->env->scale=(uchar)(scale);
 	}
 
    }
@@ -691,15 +691,15 @@ void CleanCont()
 
 
 
-Bool StrGetRaster(Handle hCPage,Word8* ImageName,Rect16 N,CCOM_comp* comp,RecRaster* rec,Bool vert,Bool neg,int scale)
+Bool StrGetRaster(Handle hCPage,uchar* ImageName,Rect16 N,CCOM_comp* comp,RecRaster* rec,Bool vert,Bool neg,int scale)
 {
 	//Andrey - 05.03.2003 - в структуру RecRaster больше, чем REC_MAX_RASTER_SIZE, не влезет
 	if (comp->h*REC_GW_WORD8(((comp->w + (1<<comp->scale) - 1)>>comp->scale)) > REC_MAX_RASTER_SIZE)
 		return FALSE;
 
  int i,j,k;
-// Word8 Data[1000];
- Word8 bytep;
+// uchar Data[1000];
+ uchar bytep;
  int h=N.bottom-N.top+1;
  int w=N.right-N.left+1;
  int bytewide=(w)/8;
@@ -708,7 +708,7 @@ Bool StrGetRaster(Handle hCPage,Word8* ImageName,Rect16 N,CCOM_comp* comp,RecRas
  int vbytewide=(h)/8;
  if( ((h)%8) != 0)
 	 vbytewide++;
- Word8 pmasp[REC_MAX_RASTER_SIZE];
+ uchar pmasp[REC_MAX_RASTER_SIZE];
  for(i=REC_MAX_RASTER_SIZE-1;i>=0;i--)
 	 pmasp[i]=0;
 /* memset (Data, 0, sizeof (Data));
@@ -875,10 +875,10 @@ Bool StrGetRaster(Handle hCPage,Word8* ImageName,Rect16 N,CCOM_comp* comp,RecRas
 }
 
 
-void StrAr2(Word8* pmasp,int h,int w)
+void StrAr2(uchar* pmasp,int h,int w)
 {
  int i,j;
- Word8 bytep;
+ uchar bytep;
  int newh=h/2;
  int neww=w/2;
  int newbytewide=(neww)/8;
@@ -940,7 +940,7 @@ void Invert(RecRaster* rec)
 }
 
 
-Bool MyRotateImage(Word8* ImageName,Word8* RotateImageName,int skew,Rect16* Rc,Bool vertical,int code,MATRIX* rot,MATRIX* unrot)
+Bool MyRotateImage(uchar* ImageName,uchar* RotateImageName,int skew,Rect16* Rc,Bool vertical,int code,MATRIX* rot,MATRIX* unrot)
 {
  int w;
  int own_skew=skew;
@@ -983,13 +983,13 @@ Bool MyRotateImage(Word8* ImageName,Word8* RotateImageName,int skew,Rect16* Rc,B
  return TRUE;
 }
 
-void InitRotateImageName(Word8* RotateImageName,Word8* ImageName)
+void InitRotateImageName(uchar* RotateImageName,uchar* ImageName)
 {
 	for(int i=0;i<CPAGE_MAXNAME;i++)
 		RotateImageName[i]=ImageName[i];
 }
 
-void InitRotateImageName(Word8* RotateImageName,int code)
+void InitRotateImageName(uchar* RotateImageName,int code)
 {
 	RotateImageName[0]='C';
 	RotateImageName[1]='H';
@@ -1026,7 +1026,7 @@ void InitRotateImageName(Word8* RotateImageName,int code)
 	RotateImageName[num]='\0';
 }
 
-void GetRasterRect(Word8* UnRotateImageName,Rect16 N,Rect16* Rc,CSTR_attr* attr,Bool fl_rotate)
+void GetRasterRect(uchar* UnRotateImageName,Rect16 N,Rect16* Rc,CSTR_attr* attr,Bool fl_rotate)
 {
  int top;
  int bottom;
@@ -1088,7 +1088,7 @@ int GetStrScale(Rect16* pRc,int nRc,Bool vertical)
  return max_scale;
 }
 
-Bool InitRotateMas(Rect16 Rc,Int16** ppbegx,Int16** ppmovey,Word8** ppflmovey)
+Bool InitRotateMas(Rect16 Rc,Int16** ppbegx,Int16** ppmovey,uchar** ppflmovey)
 {
 	int w=Rc.right-Rc.left+1;
 	int h=Rc.bottom-Rc.top+1;
@@ -1100,7 +1100,7 @@ Bool InitRotateMas(Rect16 Rc,Int16** ppbegx,Int16** ppmovey,Word8** ppflmovey)
 		(*ppbegx)=NULL;
 		return FALSE;
 	}
-	if(!( (*ppflmovey)=new Word8[w+1]))
+	if(!( (*ppflmovey)=new uchar[w+1]))
 	{
 		delete[] (*ppbegx);
 		(*ppbegx)=NULL;
@@ -1119,7 +1119,7 @@ Bool InitRotateMas(int** pphi,int n)
 	    return TRUE;
 }
 
-void DeleteRotateMas(Int16* pbegx,Int16* pmovey,Word8* pflmovey,int* phi)
+void DeleteRotateMas(Int16* pbegx,Int16* pmovey,uchar* pflmovey,int* phi)
 {
 	delete[] pbegx;
 	pbegx=NULL;

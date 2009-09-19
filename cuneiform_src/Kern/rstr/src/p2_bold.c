@@ -92,8 +92,8 @@ void p2_TextWord(CSTR_rast  c,CSTR_rast stop, char *intxt,Bool ansi);
 extern INT  line_number;
 
 static int FindBounds(int *val,int size);
-static Word8 SetBoldByTable(int nThick, int midThick,
-							Word8 colBold, int thick,
+static uchar SetBoldByTable(int nThick, int midThick,
+							uchar colBold, int thick,
 							int minVal, int maxVal);
 
 #ifdef _PRINT_BOLD_
@@ -116,19 +116,19 @@ typedef struct tagThick {
         CSTR_rast last;
         Int16 height;
         Int16 thick;
-        Word8 strih;
-        Word8 bold;
-        Word8 nLet;
-        Word8 nDig;
+        uchar strih;
+        uchar bold;
+        uchar nLet;
+        uchar nDig;
 } WORDThick;
 
 typedef struct tagThickColumn {
 	Word16 thick;
 	Int16 nLet;  //  also mark for first not-empty
-	Word8 nThick;
-	Word8 bold;
-	Word8 minThick;
-	Word8 maxThick;
+	uchar nThick;
+	uchar bold;
+	uchar minThick;
+	uchar maxThick;
 }
 THICKparam;
 
@@ -246,7 +246,7 @@ static void FillFromLine(CCOM_lnhead *linerep,int size,int *thickBuf,int add)
 ///////////////////
 static Bool32 FillThickBuffer(CCOM_comp *comp,int *thickBuf,int *height)
 {
- Word8 *pWord8;
+ uchar *pWord8;
  Int16 *pInt16;
  int w,h;
 
@@ -282,7 +282,7 @@ static Bool32 FillThickBuffer(CCOM_comp *comp,int *thickBuf,int *height)
 #define POROG_BOLD  33      // 31-32
 //
 ////////////////
-static int AddThickStat(CSTR_rast first,Word8 name,int *thickBuffer)
+static int AddThickStat(CSTR_rast first,uchar name,int *thickBuffer)
 {
  CCOM_comp *comp=CSTR_GetComp(first);
  int i,k,dig;
@@ -414,7 +414,7 @@ static int GetTipicalThick(int nLet,WORDThick *LineThick,int *thickBuf,int bestH
   else
    k=(bestWidth*1000)/adjustedHeight;
 
-  LineThick->strih =(Word8)MIN(MAXTHICK-1,bestWidth);
+  LineThick->strih =(uchar)MIN(MAXTHICK-1,bestWidth);
   LineThick->height=bestHeight;
   LineThick->thick =k;
   LineThick->nLet  =nLet;
@@ -581,7 +581,7 @@ static void SetBoldness(int i,CSTR_rast first,CSTR_rast last)
 {
  CSTR_rast       fRast;
  CSTR_rast_attr  attr;
- Word8     maskaAnd,maskaOr;
+ uchar     maskaAnd,maskaOr;
 
   if(i==P2_BOLD)
   {
@@ -927,8 +927,8 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
 			 nTabl >= 0 && nTabl < MAXTAB
 			)
 		 {
-			 Word8 colBold = thickCol[nTabl][nCol-1].bold;
-			 Word8 rowBold = thickRow[nTabl][nRow-1].bold;
+			 uchar colBold = thickCol[nTabl][nCol-1].bold;
+			 uchar rowBold = thickRow[nTabl][nRow-1].bold;
 			 int   nThick = thickCol[nTabl][nCol-1].nThick;
 			 int   nRowThick = thickRow[nTabl][nRow-1].nThick;
 
@@ -1087,7 +1087,7 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
 			 nTabl >= 0 && nTabl < MAXTAB
 			)
 		 {
-			 Word8 colBold = thickCol[nTabl][nCol-1].bold;
+			 uchar colBold = thickCol[nTabl][nCol-1].bold;
 
 			 if( thickCol[nTabl][nCol-1].maxThick > 0)
 			 {
@@ -1234,9 +1234,9 @@ static int CorrectBoldness(int nWord,WORDThick *wthick,WORDThick *line,WORDThick
     return 3;
 }
 /////////////////
-static void PutBoldness(CSTR_rast fRast,CSTR_rast last,Word8 bold)
+static void PutBoldness(CSTR_rast fRast,CSTR_rast last,uchar bold)
 {
- Word8 maskaAnd=~(CSTR_fp_bold | CSTR_fp_light);
+ uchar maskaAnd=~(CSTR_fp_bold | CSTR_fp_light);
  CSTR_rast_attr  attr;
 
  for(; fRast && fRast != last; fRast=CSTR_GetNext(fRast) )
@@ -1251,22 +1251,22 @@ static void PutBoldness(CSTR_rast fRast,CSTR_rast last,Word8 bold)
 static void PointsBoldness(CSTR_rast first,int nWord,WORDThick *wthick)
 {
  CSTR_rast_attr  attr;
- Word8           maska = CSTR_fp_bold | CSTR_fp_light;
+ uchar           maska = CSTR_fp_bold | CSTR_fp_light;
  int             i;
 
   if( nWord <= 0)
                 return ;
 
   CSTR_GetAttr (wthick[0].first, &attr);
-  PutBoldness(first,wthick[0].first,(Word8)(attr.font & maska));
+  PutBoldness(first,wthick[0].first,(uchar)(attr.font & maska));
 
   for(i=0;i<nWord-1;i++)
   {
-    PutBoldness( wthick[i].last, wthick[i+1].first,(Word8)(attr.font & maska));
+    PutBoldness( wthick[i].last, wthick[i+1].first,(uchar)(attr.font & maska));
         CSTR_GetAttr (wthick[i+1].first, &attr);
   }
 
-  PutBoldness( wthick[nWord-1].last, NULL, (Word8)(attr.font & maska));
+  PutBoldness( wthick[nWord-1].last, NULL, (uchar)(attr.font & maska));
 }
 ///////////////////
 static const char   bold_word_limits[]="-.,:;'"; // OLEG
@@ -1566,7 +1566,7 @@ int p2_SetBoldLine(CSTR_line line)
 	 {
 	  if(  thickCol[nTab][nCol].nThick != 0  )
 	  {
-       thickCol[nTab][nCol].nThick= (Word8)LineThick.thick;
+       thickCol[nTab][nCol].nThick= (uchar)LineThick.thick;
        thickCol[nTab][nCol].bold=    corRet;
 	  }
 
@@ -1575,7 +1575,7 @@ int p2_SetBoldLine(CSTR_line line)
 		  thickRow[nTab][nRow].nThick != 0
 		 )
 	  {
-		  thickRow[nTab][nRow].nThick= (Word8)LineThick.thick;
+		  thickRow[nTab][nRow].nThick= (uchar)LineThick.thick;
           thickRow[nTab][nRow].bold = corRet;
 	  }
 	 }
@@ -1584,9 +1584,9 @@ int p2_SetBoldLine(CSTR_line line)
 		 if(thickCol[nTab][nCol].minThick==0 ||
 			LineThick.thick < thickCol[nTab][nCol].minThick
 		   )
-          thickCol[nTab][nCol].minThick=(Word8)LineThick.thick;
+          thickCol[nTab][nCol].minThick=(uchar)LineThick.thick;
 		 if( LineThick.thick > thickCol[nTab][nCol].maxThick )
-          thickCol[nTab][nCol].maxThick=(Word8)LineThick.thick;
+          thickCol[nTab][nCol].maxThick=(uchar)LineThick.thick;
 
 		 thickCol[nTab][nCol].nLet  += LineThick.nLet;
 		 thickCol[nTab][nCol].thick += LineThick.nLet*LineThick.thick;
@@ -1598,10 +1598,10 @@ int p2_SetBoldLine(CSTR_line line)
 		  if(thickRow[nTab][nRow].minThick==0 ||
 			LineThick.thick < thickRow[nTab][nRow].minThick
 		   )
-          thickRow[nTab][nRow].minThick=(Word8)LineThick.thick;
+          thickRow[nTab][nRow].minThick=(uchar)LineThick.thick;
 
 		  if( LineThick.thick > thickRow[nTab][nRow].maxThick )
-           thickRow[nTab][nRow].maxThick=(Word8)LineThick.thick;
+           thickRow[nTab][nRow].maxThick=(uchar)LineThick.thick;
 
 		  thickRow[nTab][nRow].nLet  += LineThick.nLet;
 		  thickRow[nTab][nRow].thick += LineThick.nLet*LineThick.thick;
@@ -2076,7 +2076,7 @@ static void TestColumnsThick(void)
 	int32_t allThick;
 	int32_t allNum;
 	int32_t commonThick;
-	Word8 commonBold=0;
+	uchar commonBold=0;
 
 
 	for(i=0;i<MAXTAB;i++)
@@ -2378,7 +2378,7 @@ static void AddRowBold(int i,int midThick)
 		// среднее значение для строки таблицы
 		 if( thickRow[i][j].bold == 0 )
 		 {
-			thickRow[i][j].nThick = (Word8)MAX(1,MIN(255,thickRow[i][j].thick));
+			thickRow[i][j].nThick = (uchar)MAX(1,MIN(255,thickRow[i][j].thick));
 			if( thickRow[i][j].thick <= midThick )
 				thickRow[i][j].bold = P2_LIGHT;
 			else
@@ -2481,8 +2481,8 @@ static void TestRowsThick(void)
 
 }
 /////////////////
-static Word8 SetBoldByTable(int nThick, int midThick,
-							Word8 colBold,
+static uchar SetBoldByTable(int nThick, int midThick,
+							uchar colBold,
 							int thick,
 							int minVal, int maxVal)
 {
@@ -2535,7 +2535,7 @@ static Word8 SetBoldByTable(int nThick, int midThick,
 static void TestAccordRowsColumns(void)
 {
 	int i,j;
-	Word8 bold;
+	uchar bold;
 
 	for(i=0;i<MAXTAB;i++)
 	{
@@ -2558,7 +2558,7 @@ static void TestAccordRowsColumns(void)
 				continue;
 
 			if( thickRow[i][j].bold != bold )
-				thickRow[i][j].nThick = (Word8)MAX(1,MIN(255,thickRow[i][j].thick));
+				thickRow[i][j].nThick = (uchar)MAX(1,MIN(255,thickRow[i][j].thick));
 		}
 	}
 }

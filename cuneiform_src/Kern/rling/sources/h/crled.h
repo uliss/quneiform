@@ -81,14 +81,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 struct VersRef
 {
-    Word8   code;
-    Word8   prob;
+    uchar   code;
+    uchar   prob;
 };
 
 struct BitMapRef
 {
-    Word8 code;
-    Word8 pos;
+    uchar code;
+    uchar pos;
     Word16 row;
     Word16 col;
     Word16 width;
@@ -97,11 +97,11 @@ struct BitMapRef
 
 struct SheetDiskDescr
 {
-    Word8 code;
+    uchar code;
     char quant_fragm;
     Word16 sheet_numb;
     Word16 descr_lth;
-    Word8 byte_flag;
+    uchar byte_flag;
     Word16 resolution;
     Word16  incline;
     char tabl[13];
@@ -109,23 +109,23 @@ struct SheetDiskDescr
 
 struct FragmDisk
 {
-    Word8 code;
-    Word8 fragm_numb;
+    uchar code;
+    uchar fragm_numb;
     Word16 depth;
 };
 
 struct FragmDiskDescr
 {
-    Word8 code;
+    uchar code;
     Word16 row;
     Word16 col;
     Word16 height;
     Word16 w_width;
     char   type;
-    Word8  kegl;
-    Word8  font;
-    Word8  language;
-    Word8  type_underl;
+    uchar  kegl;
+    uchar  font;
+    uchar  language;
+    uchar  type_underl;
 };
 
 #pragma pack ( pop )
@@ -146,8 +146,8 @@ public:
 	void * GetEdOutPool(void) { return (void *) mpEdOutBuffer; };
 	uint32_t GetEdPoolSize(void) { return mpEdFileEnd - mpEdBuffer; };
 	Bool32 ExcludeToVers(int32_t size, PChar8 pStr);
-	Bool32 AddWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage);
-	Bool32 MakeWord(CSTR_rast b, CSTR_rast e,PWord8 Language);
+	Bool32 AddWord(CSTR_rast b, CSTR_rast e, puchar pLanguage);
+	Bool32 MakeWord(CSTR_rast b, CSTR_rast e,puchar Language);
 	void   Init();
 	CRLEd();
 	virtual ~CRLEd();
@@ -159,11 +159,11 @@ protected:
 	int32_t miEdNVers;
 	Handle mhEdOutBuffer;
 	Handle mhEdBuffer;
-	PWord8 mpEdFileBound;
-	PWord8 mpEdFileEnd;
-	PWord8 mpEdOutBuffer;
-	PWord8 mpEdBuffer;
-	Word8  mHalfSpaces[3];
+	puchar mpEdFileBound;
+	puchar mpEdFileEnd;
+	puchar mpEdOutBuffer;
+	puchar mpEdBuffer;
+	uchar  mHalfSpaces[3];
 	struct SheetDiskDescr    mSdd;
 	struct FragmDiskDescr    mFdd;
 	struct FragmDisk         mFd;
@@ -176,7 +176,7 @@ protected:
 	//struct bit_map_ref         mBmr;
 
 private:
-	void   Write(PWord8 pP, Word16 wSize);
+	void   Write(puchar pP, Word16 wSize);
 
 };
 

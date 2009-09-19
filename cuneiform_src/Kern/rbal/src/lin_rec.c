@@ -72,7 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //////
 extern Int16  prop_l_delta, prop_r_delta;
-extern Word8 *letters_pidx_table;
+extern uchar *letters_pidx_table;
 //////////////
 // proport.c    - no more !!
 WORD el_pidx_crit(WORD t_let,INT pidx)
@@ -228,7 +228,7 @@ INT short_recog_cell (CSTR_rast c, int line_scale)
  CCOM_comp *comp;
 // ExtComponent ec;
  Int16 *pint16;
- Word8 *lpool;
+ uchar *lpool;
  UniVersions vers={0};
 
   CSTR_GetAttr(c,&attr);

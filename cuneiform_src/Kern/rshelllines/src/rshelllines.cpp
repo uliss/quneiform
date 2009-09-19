@@ -124,7 +124,7 @@ typedef Bool32 (*FNPUMA_XSetTemplate)(Rect32 rect);
 typedef Bool32 (*FNPUMA_XGetTemplate)(Rect32 *pRect);
 typedef struct tagRSPreProcessImage
 {
-    PWord8	*pgpRecogDIB;
+    puchar	*pgpRecogDIB;
     Bool32	gbAutoRotate;
     Bool32  gbDotMatrix;
     Bool32  gbFax100;
@@ -699,7 +699,7 @@ RSHELLLINES_FUNC( Bool32) CheckSeparationPoints(CLINE_handle hLine, CLINE_handle
     return FALSE;
 }
 
-RSHELLLINES_FUNC( Bool) SL_GetRaster(Rect32* rect, Word8** ppData, PAGEINFO* page_info)
+RSHELLLINES_FUNC( Bool) SL_GetRaster(Rect32* rect, uchar** ppData, PAGEINFO* page_info)
 {
     return TRUE;
 }
@@ -716,7 +716,7 @@ RSHELLLINES_FUNC(void) FindGroupOfExtensibleLines(CLINE_handle hContainer, GLM* 
 {
 }
 
-RSHELLLINES_FUNC(int32_t) RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, Word8 lang, Word8 debug_flags, int32_t *cross_point)
+RSHELLLINES_FUNC(int32_t) RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info, uchar lang, uchar debug_flags, int32_t *cross_point)
 {
     return 0;
 }

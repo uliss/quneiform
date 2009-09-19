@@ -210,7 +210,7 @@ Bool WritePict( uint32_t IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictSt
 		Point32 WhN = {0};
 		WORD    FrameOffset=0;
 
-		if(CIMAGE_GetImageInfo((PWord8)pinfo.szImageName,&image_info)==FALSE)
+		if(CIMAGE_GetImageInfo((puchar)pinfo.szImageName,&image_info)==FALSE)
 			return 0;
 		CPAGE_PictureGetPlace (h_Page, h_Pict, 0, &Lr, &Wh);
 		CPAGE_PictureGetPlace (h_Page, h_Pict,-pinfo.Incline2048, &LrN, &WhN);
@@ -302,7 +302,7 @@ Bool WritePict( uint32_t IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictSt
 			// end piter
 			LDPUMA_Skip(hTestDIBData);
 			in.MaskFlag = FALSE;
-			if(CIMAGE_GetDIBData((PWord8)PUMA_IMAGE_USER,&in,&pOutDIB))
+			if(CIMAGE_GetDIBData((puchar)PUMA_IMAGE_USER,&in,&pOutDIB))
 			{// Соберем изображение
 				char szTurnName[]  ="RFRMT:TurnPicture";
 				char szPictName[]  ="RFRMT:Picture";
@@ -311,23 +311,23 @@ Bool WritePict( uint32_t IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictSt
 
 
 				LDPUMA_Skip(hTestTurn);
-				if(CIMAGE_WriteDIB((PWord8)szPictName,pOutDIB,TRUE))
+				if(CIMAGE_WriteDIB((puchar)szPictName,pOutDIB,TRUE))
 				{
 					switch(pinfo.Angle)
 					{
 					case 90:
-						rc = RIMAGE_Turn((PWord8)szPictName,(PWord8)szTurnName,RIMAGE_TURN_90,FALSE);
-						CIMAGE_DeleteImage((PWord8)lpName);
+						rc = RIMAGE_Turn((puchar)szPictName,(puchar)szTurnName,RIMAGE_TURN_90,FALSE);
+						CIMAGE_DeleteImage((puchar)lpName);
 						lpName = szTurnName;
 						break;
 					case 180:
-						rc = RIMAGE_Turn((PWord8)szPictName,(PWord8)szTurnName,RIMAGE_TURN_180,FALSE);
-						CIMAGE_DeleteImage((PWord8)lpName);
+						rc = RIMAGE_Turn((puchar)szPictName,(puchar)szTurnName,RIMAGE_TURN_180,FALSE);
+						CIMAGE_DeleteImage((puchar)lpName);
 						lpName = szTurnName;
 						break;
 					case 270:
-						rc = RIMAGE_Turn((PWord8)szPictName,(PWord8)szTurnName,RIMAGE_TURN_270,FALSE);
-						CIMAGE_DeleteImage((PWord8)lpName);
+						rc = RIMAGE_Turn((puchar)szPictName,(puchar)szTurnName,RIMAGE_TURN_270,FALSE);
+						CIMAGE_DeleteImage((puchar)lpName);
 						lpName = szTurnName;
 						break;
 					}
@@ -339,7 +339,7 @@ Bool WritePict( uint32_t IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictSt
 
 				// Довернем изображение на малый угол.
 				LDPUMA_Skip(hTestRotate);
-				if(!RIMAGE_Rotate((PWord8)lpName,(PWord8)szRotateName,
+				if(!RIMAGE_Rotate((puchar)lpName,(puchar)szRotateName,
 					pinfo.Incline2048,2048, 0))
 				{
 					char * lp = (char*)RIMAGE_GetReturnString(RIMAGE_GetReturnCode());
@@ -347,7 +347,7 @@ Bool WritePict( uint32_t IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictSt
 				}
 				else
 				{
-					CIMAGE_DeleteImage((PWord8)lpName);
+					CIMAGE_DeleteImage((puchar)lpName);
 					lpName = szRotateName;
 				}
 
@@ -368,7 +368,7 @@ Bool WritePict( uint32_t IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictSt
 						in.dwY = (-ptWh.x*pinfo.Incline2048/2048);
 						//  End of Almi Corr
 					}
-					if(!RIMAGE_RotatePoint((PWord8)lpName,
+					if(!RIMAGE_RotatePoint((puchar)lpName,
 						in.dwX,in.dwY,
 						(int32_t *)&in.dwX,(int32_t *)&in.dwY))
 					{
@@ -391,7 +391,7 @@ Bool WritePict( uint32_t IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictSt
 							*(PCIMAGE_InfoDataInGet)lpMask = in;
 							if(CPAGE_PictureGetMask (h_Page,h_Pict,0,lpMask + sizeof(in),&nSize))
 							{
-								if(!CIMAGE_GetDIBData((PWord8)lpName,(PCIMAGE_InfoDataInGet)lpMask,&pOutDIB))
+								if(!CIMAGE_GetDIBData((puchar)lpName,(PCIMAGE_InfoDataInGet)lpMask,&pOutDIB))
 								{
 									rc = FALSE;
 								}
@@ -502,7 +502,7 @@ Bool WritePict( uint32_t IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictSt
 				}
 				// piter
 				// освобождает память переданную по pOutDIB
-				CIMAGE_DeleteImage((PWord8)lpName);
+				CIMAGE_DeleteImage((puchar)lpName);
 				CIMAGE_FreeCopedDIB(pOutDIB);
 				// end piter
 			}

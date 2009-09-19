@@ -83,33 +83,33 @@ static uint32_t BitsInHalfByte[16] =
  //	0x0c        0x0d        0x0e        0x0f
 	0xffff0000, 0xffff00ff, 0xffffff00, 0xffffffff,
 };
-static Word8 FourBytestoLeftHalfByte[16] =
+static uchar FourBytestoLeftHalfByte[16] =
 { 0x00, 0x10, 0x20, 0x30,
   0x40, 0x50, 0x60, 0x70,
   0x80, 0x90, 0xa0, 0xb0,
   0xc0, 0xd0, 0xe0, 0xf0
 };
-static Word8 FourBytestoRightHalfByte[16] =
+static uchar FourBytestoRightHalfByte[16] =
 { 0x00, 0x01, 0x02, 0x03,
   0x04, 0x05, 0x06, 0x07,
   0x08, 0x09, 0x0a, 0x0b,
   0x0c, 0x0d, 0x0e, 0x0f
 };
-static Word8 MaskForRightShift[9] =
+static uchar MaskForRightShift[9] =
 {
 //  00000000   00000001   00000011   00000111   00001111
 	0x00,      0x01,      0x03,      0x07,      0xf,
 //  00011111   00111111   01111111   11111111
 	0x1f,      0x3f,      0x7f,      0xff
 };
-static Word8 MaskForLeftShift[9] =
+static uchar MaskForLeftShift[9] =
 {
 //  00000000   10000000   11000000   11100000   11110000
 	0x00,      0x80,      0xc0,      0xe0,      0xf0,
 //  11111000   11111100   11111110   11111111
 	0xf8,      0xfc,      0xfe,      0xff
 };
-static Word8 OneBitMask[8] =
+static uchar OneBitMask[8] =
 {
 //  1-й вариант
 //  00000001   00000010   00000100   00001000
@@ -254,7 +254,7 @@ Bool32 CRRotator::Descew(PCTDIB cDIBIn, PCTDIB cDIBOut )
 	uint32_t HorisontalShiftInBytes = (((wBitLenght * HorisontalShift) + 7) / 8);
 	int32_t  Direction = (mfTang > 0 ? 1 : -1);
 	int32_t  ToShift;
-	PWord8 pToCopy;
+	puchar pToCopy;
 
 	mwOriginalHeight = cDIBIn->GetLinesNumber();
 	mwOriginalWidth  = cDIBIn->GetLineWidth();
@@ -309,7 +309,7 @@ Bool32 CRRotator::Descew(PCTDIB cDIBIn, PCTDIB cDIBOut )
 			break;
 		}
 			// копируем строку в конечный диб
-		pToCopy = (PWord8)(Direction > 0 ? cDIBOut->GetPtrToLine(Line) :
+		pToCopy = (puchar)(Direction > 0 ? cDIBOut->GetPtrToLine(Line) :
 		                                   cDIBOut->GetPtrToLine(mwDescewedHeight - Line - 1));
 		if (pToCopy )
 		{
@@ -331,8 +331,8 @@ void CRRotator::ComposeLineLA(PCTDIB cDIBIn, int32_t iDirect, uint32_t wLine, ui
 	uint32_t Bits;
 	int32_t  PosInBuff;
 	uint32_t Copy = 0;
-	PWord8 PixFrom;
-	Word8  LastByte;
+	puchar PixFrom;
+	uchar  LastByte;
 	uint32_t wLines = cDIBIn->GetLinesNumber();
 
 	for ( j = 0; j < wBuffLen; )
@@ -358,11 +358,11 @@ void CRRotator::ComposeLineLA(PCTDIB cDIBIn, int32_t iDirect, uint32_t wLine, ui
 		{
 			if ( iDirect > 0 )
 			{
-				PixFrom = (PWord8)cDIBIn->GetPtrToPixel(j,wLine + VShiftTable[j] - AtY);
+				PixFrom = (puchar)cDIBIn->GetPtrToPixel(j,wLine + VShiftTable[j] - AtY);
 			}
 			else
 			{
-				PixFrom = (PWord8)cDIBIn->GetPtrToPixel(j,wLines - (wLine + VShiftTable[j] - AtY));
+				PixFrom = (puchar)cDIBIn->GetPtrToPixel(j,wLines - (wLine + VShiftTable[j] - AtY));
 			}
 		}
 		//перед копированием дальше запоминаем первый байт
@@ -408,8 +408,8 @@ void CRRotator::ComposeLine4(PCTDIB cDIBIn, int32_t iDirect, uint32_t wLine, uin
 	uint32_t Pixels;
 	int32_t  PosInBuff;
 	uint32_t Copy = 0;
-	PWord8 PixFrom;
-	Word8  LastByte;
+	puchar PixFrom;
+	uchar  LastByte;
 	uint32_t wLines = cDIBIn->GetLinesNumber();
 
 	for ( j = 0; j < wBuffLen; )
@@ -435,11 +435,11 @@ void CRRotator::ComposeLine4(PCTDIB cDIBIn, int32_t iDirect, uint32_t wLine, uin
 		{
 			if ( iDirect > 0 )
 			{
-				PixFrom = (PWord8)cDIBIn->GetPtrToPixel(j,wLine + VShiftTable[j] - AtY);
+				PixFrom = (puchar)cDIBIn->GetPtrToPixel(j,wLine + VShiftTable[j] - AtY);
 			}
 			else
 			{
-				PixFrom = (PWord8)cDIBIn->GetPtrToPixel(j,wLines - (wLine + VShiftTable[j] - AtY));
+				PixFrom = (puchar)cDIBIn->GetPtrToPixel(j,wLines - (wLine + VShiftTable[j] - AtY));
 			}
 		}
 		//перед копированием дальше запоминаем первый байт
@@ -475,7 +475,7 @@ void CRRotator::SetEndLineLA(uint32_t Line, uint32_t wLineW, uint32_t wLineBytes
 	uint32_t StartByte = wLineW/8 + HShiftTable[Line]/8;
 	uint32_t EndByte   = wLineBytes;
 	uint32_t Bits      = wLineW + (HShiftTable[Line]/8)*8 - StartByte*8;
-	Word8  LastByte;
+	uchar  LastByte;
 
 	if ( Bits > 0 )
 	{
@@ -634,7 +634,7 @@ Bool32 CRRotator::ConstructOutDIB(PCTDIB cDIBIn, PCTDIB cDIBOut, Bool32 Gray)
 
 	cDIBOut->CopyPalleteFromDIB(cDIBIn);
 
-	BitFillforGray   = (Word8)cDIBIn->GetWhitePixel();
+	BitFillforGray   = (uchar)cDIBIn->GetWhitePixel();
 
 	//для однобитного изображения растягиваем его на весь байт
 	if ( cDIBOut->GetPixelSize() == 1 )
@@ -652,7 +652,7 @@ Bool32 CRRotator::ConstructOutDIB(PCTDIB cDIBIn, PCTDIB cDIBOut, Bool32 Gray)
 
 		for ( wQuadN = 255; wQuadN >= 0; wQuadN--)
 		{
-			Quad.rgbBlue = Quad.rgbGreen = Quad.rgbRed = (Word8)wQuadN;
+			Quad.rgbBlue = Quad.rgbGreen = Quad.rgbRed = (uchar)wQuadN;
 			cDIBOut->SetRGBQuad(wQuadN,Quad);
 		}
 	}
@@ -680,18 +680,18 @@ Bool32 CRRotator::DescewGray(PCTDIB cDIBIn, PCTDIB cDIBOut)
 	int32_t          GShiftX;
 	int32_t          GShiftY;
 	// пикселы
-	PWord8         pLAPix = NULL;
-	PWord8         pGrayPix = NULL;
-	PWord8         pGrayLine = NULL;
+	puchar         pLAPix = NULL;
+	puchar         pGrayPix = NULL;
+	puchar         pGrayLine = NULL;
 	uint32_t         LABitInByte;
-	Word8          Decrement;
-	Word8          Corner = 1;
+	uchar          Decrement;
+	uchar          Corner = 1;
 	// маска
 	Handle         hMask = NULL;
-	PWord8         pMask = NULL;
+	puchar         pMask = NULL;
 
 	hMask = RIMAGEDAlloc(OutLineLenght * OunLines, "Rotator::DescewGray - mask");
-	pMask = (PWord8)RIMAGELock(hMask);
+	pMask = (puchar)RIMAGELock(hMask);
 
 
 	if ( cDIBOut->GetPixelSize() != 8 )
@@ -703,7 +703,7 @@ Bool32 CRRotator::DescewGray(PCTDIB cDIBIn, PCTDIB cDIBOut)
 	{
 		for ( CurrGY = OunLines - 1; CurrGY >= 0; CurrGY-- )
 		{
-			pGrayLine = (PWord8)cDIBOut->GetPtrToLine(CurrGY);
+			pGrayLine = (puchar)cDIBOut->GetPtrToLine(CurrGY);
 			memset(pGrayLine, 127, OutLineLenght);
 			memset((pMask + (CurrGY * OutLineLenght)), 1, OutLineLenght);
 		}
@@ -712,7 +712,7 @@ Bool32 CRRotator::DescewGray(PCTDIB cDIBIn, PCTDIB cDIBOut)
 	{
 		for ( CurrGY = OunLines - 1; CurrGY >= 0; CurrGY-- )
 		{
-			pGrayLine = (PWord8)cDIBOut->GetPtrToLine(CurrGY);
+			pGrayLine = (puchar)cDIBOut->GetPtrToLine(CurrGY);
 			memset(pGrayLine, 255, OutLineLenght);
 		}
 	}
@@ -735,7 +735,7 @@ Bool32 CRRotator::DescewGray(PCTDIB cDIBIn, PCTDIB cDIBOut)
 			if ( CurrGX < (int32_t)OutLineLenght &&
 				 CurrGY < (int32_t)OunLines)
 			{
-				pGrayPix = (PWord8)cDIBOut->GetPtrToPixel(CurrGX, CurrGY);
+				pGrayPix = (puchar)cDIBOut->GetPtrToPixel(CurrGX, CurrGY);
 
 				if ( !pGrayPix )
 					continue;
@@ -752,7 +752,7 @@ Bool32 CRRotator::DescewGray(PCTDIB cDIBIn, PCTDIB cDIBOut)
 			if ( CurrLAX < (int32_t)InLineLenght &&
 				 CurrLAY < (int32_t)InLines)
 			{
-				pLAPix = (PWord8)cDIBIn->GetPtrToPixel(CurrLAX, CurrLAY);
+				pLAPix = (puchar)cDIBIn->GetPtrToPixel(CurrLAX, CurrLAY);
 
 				if ( !pLAPix )
 					continue;
@@ -884,7 +884,7 @@ Bool32 CRRotator::GetGrayCoord(int32_t eX, int32_t eY, int32_t * pgX, int32_t * 
 
 
 
-Bool32 CRRotator::UnmaskPixels(PWord8 pMask, PWord8 pGaryPix, int32_t X, int32_t Y, uint32_t wLineLen, int32_t ShiftX, int32_t ShiftY)
+Bool32 CRRotator::UnmaskPixels(puchar pMask, puchar pGaryPix, int32_t X, int32_t Y, uint32_t wLineLen, int32_t ShiftX, int32_t ShiftY)
 {
 	if ( *(pMask + (Y * wLineLen + X)) )
 	{
@@ -913,11 +913,11 @@ Bool32 CRRotator::UnmaskPixels(PWord8 pMask, PWord8 pGaryPix, int32_t X, int32_t
 	return TRUE;
 }
 
-Bool32 CRRotator::AddBlackToGray(int32_t X, int32_t Y, Word8 Gray)
+Bool32 CRRotator::AddBlackToGray(int32_t X, int32_t Y, uchar Gray)
 {
-	static PWord8 pGrayPixel;
+	static puchar pGrayPixel;
 
-	pGrayPixel = (PWord8)mdDIBOut->GetPtrToPixel(X, Y);
+	pGrayPixel = (puchar)mdDIBOut->GetPtrToPixel(X, Y);
 
 	if ( pGrayPixel )
 	{
@@ -944,7 +944,7 @@ void CRRotator::AllocWorkBuffers(uint32_t wStringBufferRange)
 	{
 		//hBufferForGray = RIMAGEAlloc( wLineBytesWTo + HorisontalShiftInBytes * 2 + ( VShiftLenght[0] * 2 )  );     //буфер для конечной картинки
 		hBufferForGray = RIMAGEDAlloc( wWorkGrayBufferLenght = ( mwDescewedWidth * 4 ), "Rotator::AllocWorkBuffer - buffer for gray");     //буфер для конечной картинки
-		BufferForGray  = (PWord8)RIMAGELock(hBufferForGray);
+		BufferForGray  = (puchar)RIMAGELock(hBufferForGray);
 	}
 
 }
@@ -1038,7 +1038,7 @@ void CRRotator::ComposeLineG(PCTDIB cDIBIn, int32_t iDirect, uint32_t wLine, uin
 	uint32_t PixelSize = cDIBIn->GetPixelSize() / 8;
 	int32_t  PosInBuff;
 	uint32_t Copy = 0;
-	PWord8 PixFrom;
+	puchar PixFrom;
 	uint32_t wLines = cDIBIn->GetLinesNumber();
 
 	for ( j = 0; j < wBuffLen; )
@@ -1062,11 +1062,11 @@ void CRRotator::ComposeLineG(PCTDIB cDIBIn, int32_t iDirect, uint32_t wLine, uin
 		{
 			if ( iDirect > 0 )
 			{
-				PixFrom = (PWord8)cDIBIn->GetPtrToPixel(j,wLine + VShiftTable[j] - AtY);
+				PixFrom = (puchar)cDIBIn->GetPtrToPixel(j,wLine + VShiftTable[j] - AtY);
 			}
 			else
 			{
-				PixFrom = (PWord8)cDIBIn->GetPtrToPixel(j,wLines - (wLine + VShiftTable[j] - AtY));
+				PixFrom = (puchar)cDIBIn->GetPtrToPixel(j,wLines - (wLine + VShiftTable[j] - AtY));
 			}
 		}
         // Allex  27.03.00

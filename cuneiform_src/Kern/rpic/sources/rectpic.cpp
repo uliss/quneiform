@@ -382,7 +382,7 @@ Bool32 SearchRectanglePictures(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 		uBlock.code = CCOM_UB_BEGENDS;
 		if( CCOM_GetUserBlock(&pPics[i], &uBlock) )
 		{
-			if(*(Word8*)uBlock.data > 100)
+			if(*(uchar*)uBlock.data > 100)
 			{
 				continue;
 			}
@@ -516,7 +516,7 @@ Bool32 SearchRectanglePictures(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 			{
 				if( CCOM_GetRaster(&pPics[i], &rec) &&
 					CCOM_GetLanguage(hCCOM, &Language) &&
-					RSTR_RecogOneLetter (&rec, (Word8)(Language), &vs) )
+					RSTR_RecogOneLetter (&rec, (uchar)(Language), &vs) )
 				{
 
 					if( (vs.lnAltCnt > 0)&&

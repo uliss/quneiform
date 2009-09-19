@@ -61,27 +61,27 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #  include "lnslang.h"
 #endif
 
-extern const Word8 bit_byte[8];
-extern const Word8 lbit_byte[8];
+extern const uchar bit_byte[8];
+extern const uchar lbit_byte[8];
 extern const Word16 bit_word[16];
 extern const Word16 lbit_word[16];
-extern const Word8 right_0[256];
-extern const Word8 left_0[256];
-extern const Word8 bit0_cnt[256];
-extern const Word8 bit1_cnt[256];
-extern const Word8 first_bit0_pos[256];
-extern const Word8 first_bit1_pos[256];
+extern const uchar right_0[256];
+extern const uchar left_0[256];
+extern const uchar bit0_cnt[256];
+extern const uchar bit1_cnt[256];
+extern const uchar first_bit0_pos[256];
+extern const uchar first_bit1_pos[256];
 /**
 #ifndef BIG_ENDIAN
-#define hi_byte( some_word )     ( *( ((Word8*)&some_word) +1 )    )
-#define low_byte( some_word )    (    (Word8)some_word             )
+#define hi_byte( some_word )     ( *( ((uchar*)&some_word) +1 )    )
+#define low_byte( some_word )    (    (uchar)some_word             )
 #else
-#define hi_byte( some_word )     (    (Word8)some_word             )
-#define low_byte( some_word )    ( *( ((Word8*)&some_word) +1 )    )
+#define hi_byte( some_word )     (    (uchar)some_word             )
+#define low_byte( some_word )    ( *( ((uchar*)&some_word) +1 )    )
 #endif
 **/
 #define hi_byte( some_word )     (    ((Word16)some_word)>>8       )
-#define low_byte( some_word )    (    (Word8)some_word             )
+#define low_byte( some_word )    (    (uchar)some_word             )
 
 #define left_byte( some_word )      ( low_byte( some_word )       )
 #define right_byte( some_word )     ( hi_byte( some_word ) 			)

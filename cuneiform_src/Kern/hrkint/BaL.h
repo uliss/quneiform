@@ -79,7 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #endif
 
 
-  BAL_FUNC(Bool32) BAL_basedraft(CSTR_line ln, Word8 isDust,
+  BAL_FUNC(Bool32) BAL_basedraft(CSTR_line ln, uchar isDust,
 						 BAL_RSTR_GLOBALS  *rstrGlob,
 						 BAL_INOUT_GLOBALS *blinGlob,
 						 BAL_bas_ln *blin_bases);

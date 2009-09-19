@@ -87,7 +87,7 @@ Word16			wide : 1,       // wide chunk
 
 
 typedef struct tagSegmVersion {
-Word8 s;    // segment code
+uchar s;    // segment code
 #define UNREC_SEG	100
 Int16 prob; // probability
 } SegmVersion;
@@ -103,7 +103,7 @@ RecVector * chunk;
 typedef struct tagSegmRec {
 Word16 segm;
 Word16 let;
-Word8 prob;
+uchar prob;
 #define MAX_REC_SEG		14
 } SegmRec;
 

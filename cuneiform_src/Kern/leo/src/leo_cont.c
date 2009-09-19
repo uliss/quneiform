@@ -66,8 +66,8 @@ static char         cont_name[256];
 static CTB_handle   this_ctb={0};
 
 extern int  LEO_error_code;
-extern  Word8 field_number;
-extern  Word8 leo_current_alpha_ndx;
+extern  uchar field_number;
+extern  uchar leo_current_alpha_ndx;
 void leo_close_cont(void)
 {
 if( this_ctb.bas )
@@ -137,11 +137,11 @@ return TRUE;
 }
 
 // save to current page = CTB_file_name
-Int16 leo_cont_store(RecRaster *r,Word8 let, Word8 nLns,Rect16 *rect,Word8 IsPrint,
-		Word8	Prob, Word8 Valid, RecVersions *v,Word8 control)
+Int16 leo_cont_store(RecRaster *r,uchar let, uchar nLns,Rect16 *rect,uchar IsPrint,
+		uchar	Prob, uchar Valid, RecVersions *v,uchar control)
 {
 int32_t       num;
-Word8       raster[4096],data[CTB_DATA_SIZE]={0};
+uchar       raster[4096],data[CTB_DATA_SIZE]={0};
 int32_t       wb, k;
 Bool32      ret;
 RecVersions ver;
@@ -149,8 +149,8 @@ RecVersions ver;
 if( !cont_name[0] || !this_ctb.bas )
     return 0;
 data[0] = CTB_OEM_CHARSET;
-data[1] = (Word8)r->lnPixWidth;
-data[2] = (Word8)r->lnPixHeight;
+data[1] = (uchar)r->lnPixWidth;
+data[2] = (uchar)r->lnPixHeight;
 data[3] = stdAnsiToAscii(let);
 #if CTB_VERSION==7
 data[32]         = nLns;
@@ -168,7 +168,7 @@ if( v )
     ver=*v;
     if( ver.lnAltCnt>4 )
         ver.lnAltCnt=4;
-    data[16]=(Word8)ver.lnAltCnt;
+    data[16]=(uchar)ver.lnAltCnt;
     for(k=1;k<ver.lnAltCnt;k++)
         {
         data[17+k*2]= stdAnsiToAscii(ver.Alt[k].Code);
@@ -190,9 +190,9 @@ num = this_ctb.num;
 return (Int16)num;  // id_rast = last sequentaly saved raster+1
 }
 
-Bool32 leo_cont_restore(RecRaster *r, int32_t id_page, Int16 id_rast, Word8 *nLns,Rect16 *rect,Word8 *IsPrint, Word8 *datao)
+Bool32 leo_cont_restore(RecRaster *r, int32_t id_page, Int16 id_rast, uchar *nLns,Rect16 *rect,uchar *IsPrint, uchar *datao)
 {
-Word8       raster[4096],w,h,data[CTB_DATA_SIZE];
+uchar       raster[4096],w,h,data[CTB_DATA_SIZE];
 int32_t       wb,ww,hh;
 Bool32      ret;
 if( !id_page )
@@ -225,9 +225,9 @@ return ret;
 }
 
 
-Bool32 leo_cont_set_valid(int32_t id_page, Int16 id_rast, Word8 code, Word8 valid,Word8 control)
+Bool32 leo_cont_set_valid(int32_t id_page, Int16 id_rast, uchar code, uchar valid,uchar control)
 {
-Word8       raster[4096],data[CTB_DATA_SIZE];
+uchar       raster[4096],data[CTB_DATA_SIZE];
 Bool32      ret;
 if( !id_page )
     return FALSE;
@@ -252,7 +252,7 @@ return ret;
 
 Bool32 leo_cont_del_final(int32_t id_page, Int16 id_rast)
 {
-Word8       raster[4096],data[CTB_DATA_SIZE];
+uchar       raster[4096],data[CTB_DATA_SIZE];
 Bool32      ret;
 if( !id_page || !id_rast)
     return FALSE;
@@ -270,7 +270,7 @@ Bool32 leo_cont_store_collection(RecVersions *ver)
 {
 Int16       id_rast;
 int32_t       k;
-Word8       data[CTB_DATA_SIZE]={0};
+uchar       data[CTB_DATA_SIZE]={0};
 
 if( !cont_name[0] || !this_ctb.bas || ver->lnAltCnt<1 )
     return FALSE;
@@ -287,7 +287,7 @@ data[14] = ver->Alt[0].Prob;
 data[28] = ver->Alt[0].Method;
 if( ver->lnAltCnt>4 )
    ver->lnAltCnt=4;
-data[16]=(Word8)ver->lnAltCnt;
+data[16]=(uchar)ver->lnAltCnt;
 for(k=1;k<ver->lnAltCnt;k++)
    {
    data[17+k*2]= stdAnsiToAscii(ver->Alt[k].Code);

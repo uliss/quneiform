@@ -64,10 +64,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include "cstr.h"
 
-static Word8 language;
-static Word8    ed_buffer[64000], *MED_file_bound, *MED_file_end ;
+static uchar language;
+static uchar    ed_buffer[64000], *MED_file_bound, *MED_file_end ;
 
-static void ed_write(Word8* p, Word16 size);
+static void ed_write(uchar* p, Word16 size);
 
 void ed_init()
  {
@@ -78,7 +78,7 @@ void ed_init()
 
 void ed_make_word(CSTR_rast b, CSTR_rast e)
 {
-Word8           *l,p;
+uchar           *l,p;
 CSTR_rast       c;
 UniVersions     uni;
 Int16           k,i,n,h,wb;
@@ -87,32 +87,32 @@ Int16           top,bottom,left,right;
 /*
 struct fragm_disk
 {
-Word8 code;
-Word8 fragm_numb;
+uchar code;
+uchar fragm_numb;
 Word16 depth;
 };
 
 struct fragm_disk_descr
 {
-Word8 code;
+uchar code;
 Word16 row;
 Word16 col;
 Word16 height;
 Word16 w_width;
 char type;
-Word8 kegl;
-Word8 font;
-Word8 language;//reserv;
-Word8 type_underl;
+uchar kegl;
+uchar font;
+uchar language;//reserv;
+uchar type_underl;
 };
 
 struct sheet_disk_descr
 {
-Word8 code;
+uchar code;
 char quant_fragm;
 Word16 sheet_numb;
 Word16 descr_lth;
-Word8 byte_flag;
+uchar byte_flag;
 Word16 resolution;
 Word16  incline;
 char tabl[13];
@@ -137,37 +137,37 @@ for(top=10000,bottom=0,left=10000,right=0,c=b;c&&c!=e;c=CSTR_GetNext(c))
 h = bottom-top-1;
 wb= (right-left-1+7)/8;
 //    start sheet_disk_descr
-    p   =0x0a/*SS_SHEET_DESCR*//*f.code*/; ed_write((Word8*)&p,1);
-    p   =1/*f.quant_fragm*/; ed_write((Word8*)&p,1);
-    n   =0/*f.sheet_numb*/;  ed_write((Word8*)&n,2);
-    n   =0x26/*f.descr_lth*/;  ed_write((Word8*)&n,2);
-    p   =0/*f.byte_flag*/; ed_write((Word8*)&p,1);
-    n   =300/*f.resolution*/;  ed_write((Word8*)&n,2);
-    n   =0/*f.incline*/;  ed_write((Word8*)&n,2);
-    p   =0/*f.res1*/; ed_write((Word8*)&p,1);
-    n   =0/*f.res2-3*/;  ed_write((Word8*)&n,2);
-    n   =0/*f.res4-5*/;  ed_write((Word8*)&n,2);
-    n   =0/*f.res6-7*/;  ed_write((Word8*)&n,2);
-    n   =0/*f.res8-9*/;  ed_write((Word8*)&n,2);
-    n   =0/*f.res10-11*/;  ed_write((Word8*)&n,2);
-    n   =0/*f.res12-13*/;  ed_write((Word8*)&n,2);
+    p   =0x0a/*SS_SHEET_DESCR*//*f.code*/; ed_write((uchar*)&p,1);
+    p   =1/*f.quant_fragm*/; ed_write((uchar*)&p,1);
+    n   =0/*f.sheet_numb*/;  ed_write((uchar*)&n,2);
+    n   =0x26/*f.descr_lth*/;  ed_write((uchar*)&n,2);
+    p   =0/*f.byte_flag*/; ed_write((uchar*)&p,1);
+    n   =300/*f.resolution*/;  ed_write((uchar*)&n,2);
+    n   =0/*f.incline*/;  ed_write((uchar*)&n,2);
+    p   =0/*f.res1*/; ed_write((uchar*)&p,1);
+    n   =0/*f.res2-3*/;  ed_write((uchar*)&n,2);
+    n   =0/*f.res4-5*/;  ed_write((uchar*)&n,2);
+    n   =0/*f.res6-7*/;  ed_write((uchar*)&n,2);
+    n   =0/*f.res8-9*/;  ed_write((uchar*)&n,2);
+    n   =0/*f.res10-11*/;  ed_write((uchar*)&n,2);
+    n   =0/*f.res12-13*/;  ed_write((uchar*)&n,2);
 
 // start fragm_disk_descr
-    p   =0x0b/*SS_FRAGMENT*//*f.code*/; ed_write((Word8*)&p,1);
-    n   =0/*f.row*/;       ed_write((Word8*)&n,2);
-    n   =0/*f.col*/;       ed_write((Word8*)&n,2);
-    n   =h/*f.heigh*/;     ed_write((Word8*)&n,2);
-    n   =wb/*f.w_width*/;  ed_write((Word8*)&n,2);
-    p   =0/*FD_TYPE_TEXT*//*f.type*/; ed_write((Word8*)&p,1);
-    p   =10/*f.kegl*/;     ed_write((Word8*)&p,1);
-    p   =0/*f.font*/;      ed_write((Word8*)&p,1);
-    p   = language;        ed_write((Word8*)&p,1);
-    p   =0/*f.type_underl*/;  ed_write((Word8*)&p,1);
+    p   =0x0b/*SS_FRAGMENT*//*f.code*/; ed_write((uchar*)&p,1);
+    n   =0/*f.row*/;       ed_write((uchar*)&n,2);
+    n   =0/*f.col*/;       ed_write((uchar*)&n,2);
+    n   =h/*f.heigh*/;     ed_write((uchar*)&n,2);
+    n   =wb/*f.w_width*/;  ed_write((uchar*)&n,2);
+    p   =0/*FD_TYPE_TEXT*//*f.type*/; ed_write((uchar*)&p,1);
+    p   =10/*f.kegl*/;     ed_write((uchar*)&p,1);
+    p   =0/*f.font*/;      ed_write((uchar*)&p,1);
+    p   = language;        ed_write((uchar*)&p,1);
+    p   =0/*f.type_underl*/;  ed_write((uchar*)&p,1);
 
  // start fragm_disk
-    p   =0x0b/*SS_FRAGMENT*//*f.code*/; ed_write((Word8*)&p,1);
-    p   =0/*f.fragm_numb*/;  ed_write((Word8*)&p,1);
-    n   =0/*f.depth*/;       ed_write((Word8*)&n,2);
+    p   =0x0b/*SS_FRAGMENT*//*f.code*/; ed_write((uchar*)&p,1);
+    p   =0/*f.fragm_numb*/;  ed_write((uchar*)&p,1);
+    n   =0/*f.depth*/;       ed_write((uchar*)&n,2);
  for(c=b;c&&c!=e;c=CSTR_GetNext(c))
     {
     CSTR_GetCollectionUni(c,&uni);
@@ -175,12 +175,12 @@ wb= (right-left-1+7)/8;
         continue;
     CSTR_GetAttr(c,&a);
     // start bitmap ref
-    p   =0/*SS_BITMAP_REF*/; ed_write((Word8*)&p,1);
-    p   =a.cpos;        ed_write((Word8*)&p,1);
-    n   =a.r_row;       ed_write((Word8*)&n,2);
-    n   =a.r_col;       ed_write((Word8*)&n,2);
-    n   =a.h;           ed_write((Word8*)&n,2);
-    n   =a.w;           ed_write((Word8*)&n,2);
+    p   =0/*SS_BITMAP_REF*/; ed_write((uchar*)&p,1);
+    p   =a.cpos;        ed_write((uchar*)&p,1);
+    n   =a.r_row;       ed_write((uchar*)&n,2);
+    n   =a.r_col;       ed_write((uchar*)&n,2);
+    n   =a.h;           ed_write((uchar*)&n,2);
+    n   =a.w;           ed_write((uchar*)&n,2);
     // stop bitmap ref
     n=(Int16)uni.lnAltCnt;
     if(n>7) n=7;
@@ -207,7 +207,7 @@ return;
 
 //********************** ED-file management *****************************
 
-static void ed_write(Word8* p, Word16 size)
+static void ed_write(uchar* p, Word16 size)
 {
 if (MED_file_bound -  MED_file_end < size)
     {
@@ -228,8 +228,8 @@ fclose(fp);
 
 // dublicate with PASSE.C
 #define MAX_LEN_WORD  48
-static Word8 left_limit_word[] =" .";
-static Word8 right_limit_word[]=" -.РЭЮ";
+static uchar left_limit_word[] =" .";
+static uchar right_limit_word[]=" -.РЭЮ";
 
 static CSTR_rast ed_next_word(CSTR_rast cs)
 {
@@ -250,7 +250,7 @@ do{
 return (attr.flg&CSTR_f_fict)?(CSTR_rast)0:c;
 }
 
-static CSTR_rast ed_end_word(CSTR_rast cs,Word8 *str,Word8 *word_len)
+static CSTR_rast ed_end_word(CSTR_rast cs,uchar *str,uchar *word_len)
 {
 CSTR_rast       c=cs;
 CSTR_rast_attr  attr;
@@ -275,14 +275,14 @@ if( i )
     str--;
     }
 *str='\0';
-*word_len = (Word8)i;
+*word_len = (uchar)i;
 return c;
 }
 
 Bool32 ed_cstr_string(CSTR_line ln)
 {
 CSTR_rast       eng, enge;
-Word8           elen,ewrd[MAX_LEN_WORD+40];
+uchar           elen,ewrd[MAX_LEN_WORD+40];
 
 eng = CSTR_GetFirstRaster(ln);
 while(1)

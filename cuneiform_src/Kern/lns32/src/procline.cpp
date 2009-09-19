@@ -210,12 +210,12 @@ void ConvertBWLine(  void*      image_line_ptr
 #error Wow, !BLACK_IS_ZERO, Correct, me please!
 #endif
 
-   image_line_ptr = FillGap3_SubstLine( (Word8*)image_line_ptr );
+   image_line_ptr = FillGap3_SubstLine( (uchar*)image_line_ptr );
 
-	register Word8* pb = (Word8*)image_line_ptr + left_pixel_/8;
-   Word8* pfirst = (Word8*)image_line_ptr;
-   Word8* plast  = (Word8*)image_line_ptr + right_pixel_/8;
-	Word8 last_byte = *plast;
+	register uchar* pb = (uchar*)image_line_ptr + left_pixel_/8;
+   uchar* pfirst = (uchar*)image_line_ptr;
+   uchar* plast  = (uchar*)image_line_ptr + right_pixel_/8;
+	uchar last_byte = *plast;
    int left, right;
    line_start();
 #ifdef NO_DOTMATRIX

@@ -265,7 +265,7 @@ if( s->nDust > s->nLetters*1 )
 					attr.r_col = com->left;
 					attr.flg   = CSTR_f_dust;
 					CSTR_SetAttr (rst, &attr);
-					CSTR_StoreComp (rst, (Word8*)com->linerep,1,com->scale);
+					CSTR_StoreComp (rst, (uchar*)com->linerep,1,com->scale);
                     if(com->vers )
 					CSTR_StoreCollection(rst, com->vers);
 					}
@@ -285,7 +285,7 @@ if( s->nDust > s->nLetters*1 )
 					attr.r_col = com->left;
 					attr.flg   = CSTR_f_let|CSTR_f_bad;
 					CSTR_SetAttr (rst, &attr);
- 					CSTR_StoreComp (rst, (Word8*)com->linerep,1,com->scale);
+ 					CSTR_StoreComp (rst, (uchar*)com->linerep,1,com->scale);
                     if( s->uFlags & CSTR_STR_CapDrop )
                         {
                         CCOM_comp       *ci=com;
@@ -294,7 +294,7 @@ if( s->nDust > s->nLetters*1 )
                         int32_t           n;
 
                         ub.code=CCOM_UB_CAPDROPLN;
-                        ub.data=(Word8*)&n;
+                        ub.data=(uchar*)&n;
                         if( CCOM_GetUserBlock(ci,&ub) )
                             CCOM_SetUserBlock(co,&ub);
                         }

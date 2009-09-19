@@ -88,20 +88,20 @@ Bool32 correct_line_spell(CSTR_line line, CSTR_rast* re, CSTR_rast* rb, int32_t 
 extern Bool32   rpstr_correct_spell(CSTR_line ln,
     CSTR_rast *addbeg, CSTR_rast *addend, int32_t *linefrag,
     int32_t num_ln,Bool32 disable_new_dict, Bool32 disable_check_word);
-extern Bool32 rpstr_txt_spell(char * s,Word8 lang);
+extern Bool32 rpstr_txt_spell(char * s,uchar lang);
 
 extern int Snap_Console(char *text);;
-Word8    language=3;
+uchar    language=3;
 
-static Word8   s_lang4page = -1;
+static uchar   s_lang4page = -1;
 
-static Word8 set_lang4page(const Word8 lang)
+static uchar set_lang4page(const uchar lang)
 {
    s_lang4page = lang;
    return s_lang4page;
 }
 
-static Word8 get_lang4page()
+static uchar get_lang4page()
 {
    return s_lang4page;
 }
@@ -125,7 +125,7 @@ static void * (*my_realloc)(void *,uint32_t len)=rpstr_realloc;
 
 static void show_spell(CSTR_rast c)
 {
-Word8   wrd[80],buf[160],*w=wrd, lang;
+uchar   wrd[80],buf[160],*w=wrd, lang;
 Bool32  nonrec=FALSE;
 CSTR_rast_attr  attr;
 UniVersions     uni;
@@ -575,7 +575,7 @@ RPSTR_FUNC(Bool32) RPSTR_SetImportData(uint32_t dwType, void * pData)
 
 	// 12.06.2002 E.P.
     case    RPSTR_FNIMP_LANGUAGE:
-        language=*(Word8*)pData;
+        language=*(uchar*)pData;
         set_lang4page(language);
         break;
 

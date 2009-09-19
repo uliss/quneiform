@@ -101,10 +101,10 @@ short *ptr_ind , *Hnd_ptr_ind[11];
 static void MMX_setup_obraz(uint32_t *obraz, Word16 *iobraz,
                             Word16 *iobraz2);
 
-Word8   *tmp_ptr;
+uchar   *tmp_ptr;
 static void all_open(int32_t *image)
 {
-    tmp_ptr = (Word8*)image;
+    tmp_ptr = (uchar*)image;
     return;
 }
 
@@ -429,7 +429,7 @@ MSK_FUNC(Bool32)  MSKRecogChar(
         RecRaster  *recraster, // raster description
         RecVersions *Indres           )
 {
-    Word8*    p1616=NULL;
+    uchar*    p1616=NULL;
     short i;
     short hor;		// ширина в пикселах по горизонтали (кратно 64).
     short ver;		// количество строк во всем изображении.
@@ -438,7 +438,7 @@ MSK_FUNC(Bool32)  MSKRecogChar(
     //  касательные.
     Word16  *buff_image;
     int ii;
-    Word8 io_char;
+    uchar io_char;
 
     if( MSKSetHndTab(HndTab) == -1 )
         return FALSE;
@@ -478,7 +478,7 @@ MSK_FUNC(Bool32)  MSKRecogCharExp(
         RecRaster  *recraster, // raster description
         RecVersions *Indres           )
 {
-    Word8*    p1616=NULL, io_char;
+    uchar*    p1616=NULL, io_char;
     short i, hor, ver, lett_coo[4];
     Word16  *buff_image;
     int let;
@@ -500,7 +500,7 @@ MSK_FUNC(Bool32)  MSKRecogCharExp(
         let=ptr_ind[257]=Indres->Alt[i].Code;
         ptr_ind[258]=-1; nm=0;
 
-        if( abc_ind[let].vol == 0  ||  !alphabet[(Word8)let] )
+        if( abc_ind[let].vol == 0  ||  !alphabet[(uchar)let] )
             Indres->Alt[i].Prob = 1;
         else{
             err=(Int16) recindex (257, (BYTE)(0) ,hor, ver, lett_coo,
@@ -522,7 +522,7 @@ MSK_FUNC(Bool32)  MSKRecogCharExpPuma(
         RecVersions *Indres,
         uint32_t    Flags           )
 {
-    Word8*    p1616=NULL, io_char;
+    uchar*    p1616=NULL, io_char;
     short i, hor, ver, lett_coo[4];
     Word16  *buff_image;
     int let;
@@ -544,11 +544,11 @@ MSK_FUNC(Bool32)  MSKRecogCharExpPuma(
         let=ptr_ind[257]=Indres->Alt[i].Code;
         ptr_ind[258]=-1; nm=0;
 
-        if( abc_ind[let].vol == 0  ||  !alphabet[(Word8)let] )
+        if( abc_ind[let].vol == 0  ||  !alphabet[(uchar)let] )
             Indres->Alt[i].Prob = 1;
         else{
             err=(Int16) recindex (257, (BYTE)(0) ,hor, ver, lett_coo,
-                                  (BYTE)(0),buff_image, p1616, &io_char, (Word8)((Flags&1)?FALSE:TRUE) );
+                                  (BYTE)(0),buff_image, p1616, &io_char, (uchar)((Flags&1)?FALSE:TRUE) );
             if( err!=-1 )
                 Indres->Alt[i].Prob = ((LIMI-ms[0])*255)/LIMI;
             else
@@ -706,9 +706,9 @@ short recindex
          short *lett_coo,      // input
          BYTE buff_col,      // input
          Word16  *buff_image,    // input
-         Word8  *p1616,
-         Word8  *io_char,       // output
-         Word8  enable_1
+         uchar  *p1616,
+         uchar  *io_char,       // output
+         uchar  enable_1
          )
 {
     if ( (lett_coo[0]+8>lett_coo[2] &&  lett_coo[1]+8>lett_coo[3] )
@@ -762,8 +762,8 @@ short recindexNDX
 #define MIN_WID_PERC  33
 #define MAX_WID_PERC 460
 int new_reco(short ptr_char, short hor,Word16  *bgf,
-             Word8  *p1616, BYTE bgf_col, BYTE pri, short m1,
-             short n1,short m2,short n2, Word8 *ch, Word8 enable_1)
+             uchar  *p1616, BYTE bgf_col, BYTE pri, short m1,
+             short n1,short m2,short n2, uchar *ch, uchar enable_1)
 {
     short rt/*,i,jj*/;
     Word16 k ;
@@ -816,7 +816,7 @@ int new_reco(short ptr_char, short hor,Word16  *bgf,
         else k=2;
     }
 
-    rt=1; ch[0]=(Word8)abc[list[0]].let;
+    rt=1; ch[0]=(uchar)abc[list[0]].let;
     bd:
     if (k!=1)
     {

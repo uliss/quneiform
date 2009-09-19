@@ -118,15 +118,15 @@ class CKronrodBinarizator
 	//
 private:
 	Handle               hAppWnd;
-	PWord8               BufZone; // [BUFSZ];
-	PWord8               aBufPass;
+	puchar               BufZone; // [BUFSZ];
+	puchar               aBufPass;
 	Handle               hBufPass;
-	Word8                szTempTiffName[256];
+	uchar                szTempTiffName[256];
 	char                  szScanFullName[256];
 	char                  szScanDriverName[32];
 	char                  Main_Dir_Name [128];    // H:\CUNEI  (see zB SCANTAB.C)
 	pchar                 MainDir;
-	Word8                szValidNames[256];
+	uchar                szValidNames[256];
     uint32_t                MaxNI;
     uint32_t                MaxNJ;
 //	uint32_t               Itek;                   /////////////////// OTLADKA ONLY
@@ -155,45 +155,45 @@ private:
 	uint32_t				N_Lines_in_TEK_MEM;
 	uint32_t				N_tek_Line_in_MBIT;
 
-	Word8				IER;
-	Word8				Flag_ERR_Hist_L;
-	Word8				Flag_ERR_Hist_R;
-	Word8				mk_Key;		// -Key		MK KEY for OTLADKA PRINTS
-	Word8				Flag_3x3;	// +3x3		enable any work 3*3;
-	Word8				Flag_5work;	// +5work	Work with 5x, 5y;
-	Word8				Flag_d8P;	// +d8P		Porog +- Diapazon_8 (for Speed)
-	Word8				Flag_GLUE;	// +Glue 	make Korob (right + 2);
-	Word8				Flag_Hor;	// +Hor		Hor. SEDLO;
-	Word8				Flag_Lapl;	// +Laplas	Laplas 3*3 Contour
-	Word8				Flag_MAX;	// +MAX		for new POROG QUANT 1x3 (use D_16)
-	Word8				Flag_musor;	// +musor1x5	DELETE small Korobs
-	Word8				Flag_0musor;	// +0musor	DELETE Korobs more 8*8 with F=0
-	Word8				Flag_PLAN;	// +Plan	"Plan" 3*3 Contour
-	Word8				Flag_T;		// -T		SHAVE (not used now);
-	Word8				Flag_Vert;	// +Vert        Vert. SEDLO;
-	Word8				Flag_VERB;	// +Verblud	Porog with GORB;	// OLD WERB
-	Word8				Flag_WrKor;	// +WrKor	Write 2 Korob Files
-	Word8				Flag_Xverb;	// +Xverblud	for TIMES ROMAN
-	Word8				Flag_Z;		// -Z		RAZREZ (not used now);
-	Word8				Flag_Draw;
-	Word8				Flag_see;	 // for OTLADKA only
-	Word8				Flag_STAT;	 // for OTLADKA: Statistic
-	Word8				Flag_FactPR;
-	Word8				Flag_grHist; // for OTLADKA only
-	Word8				Flag_OTL;	 // can be used for any non-destructive OTLADKA  M.K.
-	Word8				Flag_ERR_DISK;
-	Word8				Flag_Korob_OK;
-	Word8				Flag_Mem_123;
-	Word8				Flag_OPEN;
-	Word8				Porog_12;
-	Word8				Porog_34;
-	Word8				Porog_08;
-	Word8				Porog_88;  // for OTLADKA
-	Word8				Diapazon_8;
-	Word8				Porog_38;
-	Word8				Porog_58;
-	Word8				Porog_78;
-	Word8				Diapazon_16;
+	uchar				IER;
+	uchar				Flag_ERR_Hist_L;
+	uchar				Flag_ERR_Hist_R;
+	uchar				mk_Key;		// -Key		MK KEY for OTLADKA PRINTS
+	uchar				Flag_3x3;	// +3x3		enable any work 3*3;
+	uchar				Flag_5work;	// +5work	Work with 5x, 5y;
+	uchar				Flag_d8P;	// +d8P		Porog +- Diapazon_8 (for Speed)
+	uchar				Flag_GLUE;	// +Glue 	make Korob (right + 2);
+	uchar				Flag_Hor;	// +Hor		Hor. SEDLO;
+	uchar				Flag_Lapl;	// +Laplas	Laplas 3*3 Contour
+	uchar				Flag_MAX;	// +MAX		for new POROG QUANT 1x3 (use D_16)
+	uchar				Flag_musor;	// +musor1x5	DELETE small Korobs
+	uchar				Flag_0musor;	// +0musor	DELETE Korobs more 8*8 with F=0
+	uchar				Flag_PLAN;	// +Plan	"Plan" 3*3 Contour
+	uchar				Flag_T;		// -T		SHAVE (not used now);
+	uchar				Flag_Vert;	// +Vert        Vert. SEDLO;
+	uchar				Flag_VERB;	// +Verblud	Porog with GORB;	// OLD WERB
+	uchar				Flag_WrKor;	// +WrKor	Write 2 Korob Files
+	uchar				Flag_Xverb;	// +Xverblud	for TIMES ROMAN
+	uchar				Flag_Z;		// -Z		RAZREZ (not used now);
+	uchar				Flag_Draw;
+	uchar				Flag_see;	 // for OTLADKA only
+	uchar				Flag_STAT;	 // for OTLADKA: Statistic
+	uchar				Flag_FactPR;
+	uchar				Flag_grHist; // for OTLADKA only
+	uchar				Flag_OTL;	 // can be used for any non-destructive OTLADKA  M.K.
+	uchar				Flag_ERR_DISK;
+	uchar				Flag_Korob_OK;
+	uchar				Flag_Mem_123;
+	uchar				Flag_OPEN;
+	uchar				Porog_12;
+	uchar				Porog_34;
+	uchar				Porog_08;
+	uchar				Porog_88;  // for OTLADKA
+	uchar				Diapazon_8;
+	uchar				Porog_38;
+	uchar				Porog_58;
+	uchar				Porog_78;
+	uchar				Diapazon_16;
 	//----------------------------------------------------------------------//
 	char 				mkText[256];					//ARRAYs
 	int32_t				Hist_tek[256];
@@ -209,13 +209,13 @@ private:
 	Handle				hMREF;
 	Handle				hPPMEM;
 	//----------------------------------------------------------------------
-	PWord8				pMem08[8];	// ARRAY for 8 MEMs			//POINTERs
-	PWord8				pMBIT;
-	PWord8				pMBIT_tek;
-	PWord8				pMREF;		// for KOROBS REFERENCES
-	PWord8				pMem_TEK;
-	PWord8				pMem_kuda;
-	PWord8				*ppMem;	//Array of FAR Pointers
+	puchar				pMem08[8];	// ARRAY for 8 MEMs			//POINTERs
+	puchar				pMBIT;
+	puchar				pMBIT_tek;
+	puchar				pMREF;		// for KOROBS REFERENCES
+	puchar				pMem_TEK;
+	puchar				pMem_kuda;
+	puchar				*ppMem;	//Array of FAR Pointers
 	//----------------------------------------------------------------------
 								// KOROB VARIABLES
 	uint32_t				Korob_i1;		// ==Itek !!!
@@ -225,7 +225,7 @@ private:
 	uint32_t				Korob_Factor;
 	int32_t				Korob_x;
 	int32_t				Korob_y;
-	Word8				Korob_porog;
+	uchar				Korob_porog;
 	//----------------------------------------------------------------------
 	uint32_t				N_Korob;					// KOROBS STATISTIC
 	int32_t				LS_Korobs;
@@ -244,19 +244,19 @@ private:
 public:
 	/*
 	KRONROD_EXPORT(void)   grey_open (uint32_t H, uint32_t N);
-	KRONROD_EXPORT(uint32_t) grey_to   (PWord8 pKogo);        //returns n_lines_ready
-	KRONROD_EXPORT(void)   grey_from (PWord8 pKuda);
+	KRONROD_EXPORT(uint32_t) grey_to   (puchar pKogo);        //returns n_lines_ready
+	KRONROD_EXPORT(void)   grey_from (puchar pKuda);
 	KRONROD_EXPORT(uint32_t) grey_close (void);      //returns n_lines_ready
 */
 public:
 	uint32_t	grey_close(void);
-	void	grey_from(PWord8 pKuda);
-	uint32_t	grey_to(PWord8 pKogo);
+	void	grey_from(puchar pKuda);
+	uint32_t	grey_to(puchar pKogo);
 	void	grey_open(uint32_t H, uint32_t N);
 	CKronrodBinarizator();
 	~CKronrodBinarizator();
 protected:
-	void mk_hist_WORD(uint32_t * Hist_WORD, PWord8 p, uint32_t n);
+	void mk_hist_WORD(uint32_t * Hist_WORD, puchar p, uint32_t n);
 	uint32_t mk_1235(void);
 	void pr_MES_3(pchar  text, int32_t n1, int32_t n2, int32_t n3);
 	void pr_MES_2(pchar  text, int32_t n1, int32_t n2);
@@ -285,7 +285,7 @@ protected:
 	void Korobs_init(void);
 	void hist_MIN_MAX(void);
 	void hist_glad_8_121(void);
-	void hist_add(PWord8 p, uint32_t N_Lines);
+	void hist_add(puchar p, uint32_t N_Lines);
 	void grey_PR_BYTE(uint32_t ibeg, uint32_t jbeg, uint32_t value);
 	void grey_quant_KOROB_PR_Factor(void);
 	void grey_quant_KOROB_graph_Hist(void);

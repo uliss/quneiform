@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //* CTB_pack : PCX pack-unpack functions *********************************//
 //************************************************************************//
 #include "ctb.h"
-Int16 encput( Word8 byt, Word8 cnt,Word8 *save)
+Int16 encput( uchar byt, uchar cnt,uchar *save)
 {
 if( cnt )
 	{
@@ -80,12 +80,12 @@ return(0);
 
 
 // PACKING //
-Int16 encLine(Word8 *inBuff, Int16 inLen,Word8 *buf, Int16 outLen)
+Int16 encLine(uchar *inBuff, Int16 inLen,uchar *buf, Int16 outLen)
 {
-Word8 curr,last;
+uchar curr,last;
 Word16 scrIndex;
 Word16 total;
-Word8 runCount;
+uchar runCount;
 
 total    = 0;
 runCount = 1;
@@ -122,9 +122,9 @@ return total;
 // UNPACKING //
 // exist analog asm_delLine in assembler LINE.ASM //
 
-Int16 decLine(Word8 *inBuffer, Int16 inLen, Word8 *outBuffer)
+Int16 decLine(uchar *inBuffer, Int16 inLen, uchar *outBuffer)
 {
-Word8 cnt, *inB, *inE;
+uchar cnt, *inB, *inE;
 
 for( inB=inBuffer, inE=inBuffer+inLen ; inB<inE ; inB++)
 	{	// increment by cnt bellow	//

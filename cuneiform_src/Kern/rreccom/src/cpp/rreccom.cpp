@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*********************************************************************************************/
 static Word16 gwHeightRC = 0;
 Word16 gwLowRC_rrec = RRECCOM_ERR_NO; /* Not static since it is accessed in recog.cpp. */
-Word8*  lnOcrPath = NULL;
+uchar*  lnOcrPath = NULL;
 /*********************************************************************************************/
 /*********************************************************************************************/
 Bool APIENTRY DllMain( HANDLE hModule,
@@ -88,8 +88,8 @@ RRECCOM_FUNC(Bool32) RRECCOM_GetExportData(uint32_t dwType, void * pData)
 		CASE_DATA(RRECCOM_FNREX_ISLANGUAGE, Bool32, (uint32_t)RRECCOM_IsLanguage);
 //		CASE_DATA(RRECCOM_FNRECOGCOMP, Bool32, (uint32_t)RRECCOM_RecogComp);
 
-/*        CASE_DATA(RRECCOM_Word8_Matrix                     ,Word8,matrix);
-        CASE_DATA(RRECCOM_Word8_Fax1x2                     ,Word8,fax1x2);
+/*        CASE_DATA(RRECCOM_Word8_Matrix                     ,uchar,matrix);
+        CASE_DATA(RRECCOM_Word8_Fax1x2                     ,uchar,fax1x2);
         CASE_DATA(RRECCOM_Word16_ActualResolution  ,Word16,actual_resolution);
         case RRECCOM_FNEVNPROPERT:
             *(uint32_t*)pData =          (uint32_t)RRECCOM_SetEVNProperties;
@@ -158,14 +158,14 @@ RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(uint32_t dwType, const void * pData)
 
 	switch(dwType)
     {
-/*        CASE_DATA(RRECCOM_Word8_Matrix             ,Word8,matrix);
-        CASE_DATA(RRECCOM_Word8_Fax1x2             ,Word8,fax1x2);
+/*        CASE_DATA(RRECCOM_Word8_Matrix             ,uchar,matrix);
+        CASE_DATA(RRECCOM_Word8_Fax1x2             ,uchar,fax1x2);
     CASE_DATA(RRECCOM_Word16_ActualResolution,Word16,actual_resolution);
     CASE_PDATA(RRECCOM_ProgressStart,      FNRRECCOM_ProgressStart, fnProgressStart);
         CASE_PDATA(RRECCOM_ProgressStep,   FNRRECCOM_ProgressStep,  fnProgressStep);
         CASE_PDATA(RRECCOM_ProgressFinish, FNRRECCOM_ProgressFinish,fnProgressFinish);
 */
-    CASE_PDATA(RRECCOM_OcrPath,    Word8*, lnOcrPath);
+    CASE_PDATA(RRECCOM_OcrPath,    uchar*, lnOcrPath);
 		default:
 				gwLowRC_rrec = RRECCOM_ERR_NOTIMPLEMENT;
 				return FALSE;

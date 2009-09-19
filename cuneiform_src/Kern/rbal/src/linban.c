@@ -93,7 +93,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 //IGOR
-extern Word8 language;
+extern uchar language;
 extern CSTR_line lin_str;
 extern int32_t  nIncline;
 //IGOR

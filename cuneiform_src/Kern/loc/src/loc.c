@@ -71,23 +71,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 static evn_error_code=ER_LOC_NO_ERROR;
 char alphabet[256];
-Word8   language;
+uchar   language;
 Bool32  enable_save_stat=FALSE;
-Word8   save_event_txt[36],save_eventr_txt[36];
-Word8   save_event_txts[80],save_eventr_txts[80];
-Word8 *events_treeh=NULL, *events_tree_rth=NULL;  // event tables hnd
-Word8 *events_treep=NULL, *events_tree_rtp=NULL;  // event tables prn
-Word8 *events_tree=NULL,  *events_tree_rt=NULL;  // event tables
-Word8 ev_rt_num_ln,ev_num_ln;
+uchar   save_event_txt[36],save_eventr_txt[36];
+uchar   save_event_txts[80],save_eventr_txts[80];
+uchar *events_treeh=NULL, *events_tree_rth=NULL;  // event tables hnd
+uchar *events_treep=NULL, *events_tree_rtp=NULL;  // event tables prn
+uchar *events_tree=NULL,  *events_tree_rt=NULL;  // event tables
+uchar ev_rt_num_ln,ev_num_ln;
 extern c_comp wcomp;         // working component structure
 extern version* start_rec;   // ptr to answer
-extern Word8 lpool[];
-extern Word8 evline[], evline1[];
+extern uchar lpool[];
+extern uchar evline[], evline1[];
 
-extern MN * c_locomp (Word8* raster, int32_t bw, int32_t h, Int16 upper, Int16 left);
+extern MN * c_locomp (uchar* raster, int32_t bw, int32_t h, Int16 upper, Int16 left);
 extern void MN_to_line(MN *);
 extern int32_t recog_letter(void);
-extern int32_t recog_letter_lp(ExtComponent *ec, Word8 *lp,Word16 lth);
+extern int32_t recog_letter_lp(ExtComponent *ec, uchar *lp,Word16 lth);
 
 
 static void *EvnAlloc(uint32_t len) { return malloc(len); }
@@ -122,16 +122,16 @@ return evn_error_code;
 
 
 
-Word8 evn_multy_lpool[6000+2];
+uchar evn_multy_lpool[6000+2];
 
 
-LOC_FUNC(MN *) LOC_CLocomp (Word8* raster, int32_t bw, int32_t h, Int16 upper, Int16 left)
+LOC_FUNC(MN *) LOC_CLocomp (uchar* raster, int32_t bw, int32_t h, Int16 upper, Int16 left)
 {
   return c_locomp (raster,bw,h,upper,left);
 }
-extern Word8* segment_pool;
+extern uchar* segment_pool;
 
-LOC_FUNC(Word8*) LOC_GetSegmentPool(void)
+LOC_FUNC(uchar*) LOC_GetSegmentPool(void)
 {
 return segment_pool;
 }

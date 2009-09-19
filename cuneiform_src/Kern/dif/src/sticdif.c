@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 
 #define MAX_ADD_DIS  30		/* max discrim for adding 'є','1'	*/
-static Word8 tab_t[]=					// dis_t
+static uchar tab_t[]=					// dis_t
 	{
 	40,  /* 0.  no flags                                  */
 	20,  /* 1.  no beam : exist only one flags>1          */
@@ -102,7 +102,7 @@ static Word8 tab_t[]=					// dis_t
 	};
 
 
-static Word8 tab_l[]=					// dis_l
+static uchar tab_l[]=					// dis_l
 	{
 	2,	// 0. right upper flag > left or no left
 	8,	// 1. -- // -- + long right flag
@@ -125,13 +125,13 @@ static Word8 tab_l[]=					// dis_l
 	SI,	// 18. thin LEG exist
 	6	// 19. about thin '(' or ')'	09.06.1993
 	};
-static Word8 tab_slash[] =
+static uchar tab_slash[] =
 	{
 	20, /* 0. for long central flag       */
 	0,  /* 1. for near central flag       */
 	40  /* 2. central beam                */
 	};
-static Word8 tab_I[]=				// dis_I
+static uchar tab_I[]=				// dis_I
 	{
 	20,	// 0. long halfserif
 	8, 	// 1. too different flaghs
@@ -153,7 +153,7 @@ static Word8 tab_I[]=				// dis_I
 	6	// 17. about thin '(' or ')'	09.06.1993
 	};
 
-static Word8 tab_1[]=					// dis_1
+static uchar tab_1[]=					// dis_1
 	{
 	60,  /* 0. no left upper flag : zones 0, 1        */
 	2,   /* 1. for right upper flag : zone  0         */
@@ -178,7 +178,7 @@ static Word8 tab_1[]=					// dis_1
 	BP   /* 20. bad proportions                       */
 	};
 
-static Word8 tab_circle_brace[]=
+static uchar tab_circle_brace[]=
   {
   70, /* 0. up or down serif                 */
   10, /* 1. '(' similar    't'               */
@@ -189,7 +189,7 @@ static Word8 tab_circle_brace[]=
   28  /* 6. bad budgles                      */
   };
 
-static Word8 tab_sq_brace[]=
+static uchar tab_sq_brace[]=
   {
   44,  /* 0. no flag : В  MK: 44 from 29.09.1993 (old 4)  */
   8,   /* 1. bad paar flags : ВД  for ], ДВ for [         */
@@ -203,35 +203,35 @@ static Word8 tab_sq_brace[]=
 
 /*----------------------------------------------------------------------*/
 						// GLOBAL VARIABLES :
-Word8 GL_hist [2*LIMIT_HEIGHT];			/* array for histogramm	*/
+uchar GL_hist [2*LIMIT_HEIGHT];			/* array for histogramm	*/
 
 center_interval GL_cent [LIMIT_HEIGHT];		/* center of intervals	*/
 
 center_interval GL_center [LIMIT_CENTER];	// center of c_comp-intervals
 
-	Word8 GL_left1 [LIMIT_HEIGHT],	/* auxiliary left and		*/
+	uchar GL_left1 [LIMIT_HEIGHT],	/* auxiliary left and		*/
 	     GL_right1[LIMIT_HEIGHT];	/*    right abris-arrays	*/
 
 static Int16  GL_hooks[4];		/* array of "hooks"		*/
 static Int16  GL_hist_int[LIMIT_HEIGHT];	/* number of intervals in any row */
 
-	Word8 GL_left0 [LIMIT_HEIGHT],	/* left and right abris-arrays	*/
+	uchar GL_left0 [LIMIT_HEIGHT],	/* left and right abris-arrays	*/
 	     GL_right0[LIMIT_HEIGHT];	// NO STATIC from 19.01.1993
 
 static Int16 GL_tab_angle [LIMIT_HEIGHT];		/* optimal center inc line */
 static Int16 num_lines;
 Int16 nIncline=0;
-extern Word8 language;
+extern uchar language;
 
 ////////////////////Functions prototypes/////////////////////////////
-Word8 lnhead_stick_center_study(lnhead *lin,Int16 dy,Int16 dx,
+uchar lnhead_stick_center_study(lnhead *lin,Int16 dy,Int16 dx,
         STICK_CHARS *res_left_chars,STICK_CHARS *res_right_chars,
         STICK_SIGNUMS *res_signums);
 static Int16 lnhead_to_centers(lnhead *lin, Int16 wid,
-        center_interval center[],Word8 left[], Word8 right[]);
+        center_interval center[],uchar left[], uchar right[]);
 static Int16 num_of_lines(center_interval center[],Int16 nc,Int16 dy,Int16 hist[]);
 static Int16 first_tg(INC_BASE *tab_inc[], Int16 num_inc, Int16 tg2048 );
-static Int16 abris_expansion (Word8 left[], Word8 right[],
+static Int16 abris_expansion (uchar left[], uchar right[],
           Int16 dy, Int16 dx, Int16 tab_angle[]);
 static Int16 dis_slash (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, Int16 typ_add);
 static Int16 dis_I (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
@@ -245,28 +245,28 @@ static Int16 dis_l_sq_brace(STICK_CHARS *l,STICK_CHARS *r, STICK_SIGNUMS *s);
 static Int16 find_neck (STICK_CHARS *l, STICK_CHARS *r,Int16 lim_long);
 static Int16 find_beam (STICK_CHARS *l, STICK_CHARS *r,Int16 lim_long);
 
-extern Int16 set_stick_char (Word8 left[], Word8 right[], Int16 hooks[],
+extern Int16 set_stick_char (uchar left[], uchar right[], Int16 hooks[],
        Int16 dy, Int16 dx, Int16 opt, Int16 wide, Int16 corr_mode,
        Int16 skip_ul, Int16 skip_dl, Int16 skip_ur, Int16 skip_dr,
        Int16 inc_num,
 		   STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
        Int16 *l_mode, Int16 *r_mode);
 extern Int16 make_center_line_dif (center_interval center[], Int16 nc,
-       Word8 left[], Word8 right[],
+       uchar left[], uchar right[],
        Int16  dy, Int16 dx, INC_BASE *angles[], Int16 num_angles,
        Int16  tab_angle[],
        Bool16 comp_wide, Bool16 sig_T, Bool16 sig_f, Bool16 sig_r,
-       Int16  *wide, Int16 hooks[], Int16 *inc_v, Word8 enable_correct);
+       Int16  *wide, Int16 hooks[], Int16 *inc_v, uchar enable_correct);
 extern Bool32  digit_mode, dif_adding_mode ;
 //////////////////////////////////////////////////////////////////////////
 
 
-Word8 lnhead_stick_center_study(lnhead *lin,Int16 dy,Int16 dx,
+uchar lnhead_stick_center_study(lnhead *lin,Int16 dy,Int16 dx,
         STICK_CHARS *res_left_chars,STICK_CHARS *res_right_chars,
         STICK_SIGNUMS *res_signums)
 {
 Int16 wide,opt,left_mode,right_mode,inc_v, nc, num_angles,f_a;
-Word8 ret_br=0;
+uchar ret_br=0;
 STICK_CHARS left_chars,right_chars;
 STICK_SIGNUMS signums;
 
@@ -284,7 +284,7 @@ f_a=first_tg(stick_inc, num_angles,nIncline );
 num_angles=MIN( (dx*2048/dy)>800?LIMIT_OF_ANGLES+4:LIMIT_OF_ANGLES,
            (Int16)(sizeof(stick_inc)/sizeof(stick_inc[0])-f_a-1));
 
-if( (ret_br=(Word8)make_center_line_dif(GL_center,(Int16)(nc-(GL_center[nc-1].len==1)),
+if( (ret_br=(uchar)make_center_line_dif(GL_center,(Int16)(nc-(GL_center[nc-1].len==1)),
 		     GL_left0, GL_right0,dy, dx,
 		     &stick_inc[f_a], num_angles, GL_tab_angle,
          0, 0, 1, 0, &wide, GL_hooks, &inc_v, 1)) ) // with correct
@@ -321,38 +321,38 @@ signums.inc = (inc_v>256);
 return 1;
 }
 
-Word8   stick_recog(Word8 let, STICK_CHARS *l, STICK_CHARS *r,
+uchar   stick_recog(uchar let, STICK_CHARS *l, STICK_CHARS *r,
                 STICK_SIGNUMS *s)
 {
    Int16 dis=0;
-   Word8 ret;
+   uchar ret;
 switch( let )
   {
-  case (Word8)'l':
+  case (uchar)'l':
     dis=dis_l(l,r, s);
     break;
-  case (Word8)'t':
+  case (uchar)'t':
     dis=dis_t(l,r, s, 0/*sign_f*/);
     break;
-  case (Word8)'1':
-    dis=dis_1(l,r, s,(Word8)dif_adding_mode);
+  case (uchar)'1':
+    dis=dis_1(l,r, s,(uchar)dif_adding_mode);
     break;
-  case (Word8)'|':
+  case (uchar)'|':
     dis=dis_I(l,r, s);
     break;
-  case (Word8)'/':
-    dis=dis_slash(l,r, s,(Word8)dif_adding_mode);
+  case (uchar)'/':
+    dis=dis_slash(l,r, s,(uchar)dif_adding_mode);
     break;
-  case (Word8)'(':
+  case (uchar)'(':
     dis=dis_circle_brace(l,r, s,1);
     break;
-  case (Word8)')':
+  case (uchar)')':
     dis=dis_circle_brace(l,r, s,0);
     break;
-  case (Word8)']':
+  case (uchar)']':
     dis_r_sq_brace(l,r, s);
     break;
-  case (Word8)'[':
+  case (uchar)'[':
     dis_l_sq_brace(l,r, s);
     break;
   default :
@@ -406,21 +406,21 @@ return signums.incline;
 
 
 static Int16 lnhead_to_centers(lnhead *lin, Int16 wid,
-        center_interval center[],Word8 left[], Word8 right[])
+        center_interval center[],uchar left[], uchar right[])
 {
  Int16 ll,ind,n;
  lnhead   *line;
  interval *inter;
- Word8 l,r,h;
+ uchar l,r,h;
  center_interval *p_center=&center[0];
 
-for (n=0,line=lin; (ll=line->lth)>0; line=(lnhead *)((Word8*)line+ll))
+for (n=0,line=lin; (ll=line->lth)>0; line=(lnhead *)((uchar*)line+ll))
 	{
-	h=(Word8)line->h;
+	h=(uchar)line->h;
 	n += h;
 	if( n>=LIMIT_CENTER )
 		return( 0 );
-  for( ind=line->row,inter=(interval *)((Word8*)line+sizeof(lnhead));
+  for( ind=line->row,inter=(interval *)((uchar*)line+sizeof(lnhead));
       h ;ind++,h--,inter++)     /* one line    */
 		{
     Int16 inter_e, inter_l;
@@ -494,7 +494,7 @@ else
 return(i);
 }
 
-static Int16 abris_expansion (Word8 left[], Word8 right[],
+static Int16 abris_expansion (uchar left[], uchar right[],
           Int16 dy, Int16 dx, Int16 tab_angle[])  {
 							// 09.12.1993
 Int16 i, opt;
@@ -510,10 +510,10 @@ for (i=0; i<dy; i++) {	/* dilate (step=4) and shift (inc = tab_angle) */
 		k = opt + (left [i] << 2) - tab_angle [i];	// 09.12.1993
 //////		if (k<0)  k = 0;	// NEGAT CASE (It is possible !!!!!!)
 		if (k<0)  if (max_negat_left>k)  max_negat_left = k;
-		left [i] = (Word8)k;
+		left [i] = (uchar)k;
 		}
         else
-		left[i] = (Word8)opt;  /* empty string */
+		left[i] = (uchar)opt;  /* empty string */
 
 	if ( right[i]!=0xFF )  {
 		/******************************	BEFORE 09.12.1993
@@ -523,17 +523,17 @@ for (i=0; i<dy; i++) {	/* dilate (step=4) and shift (inc = tab_angle) */
 		k = opt + ((dx - 1 - right[i]) << 2) - tab_angle [i];
 //////		if (k<0)  k = 0;	// NEGAT CASE (It is possible !!!!!!)
 		if (k<0)  if (max_negat_right>k)  max_negat_right = k;
-		right [i] = (Word8)k;
+		right [i] = (uchar)k;
 		}
 	else
-		right[i] = (Word8)opt; /* empty string  */
+		right[i] = (uchar)opt; /* empty string  */
 	}
 /*......................................................................*/
 if (max_negat_left)					// 09.12.1993
-  for (i=0; i<dy; i++)  left [i] -= (Word8) max_negat_left;
+  for (i=0; i<dy; i++)  left [i] -= (uchar) max_negat_left;
 
 if (max_negat_right)
-  for (i=0; i<dy; i++)  right [i] -= (Word8) max_negat_right;
+  for (i=0; i<dy; i++)  right [i] -= (uchar) max_negat_right;
 
 return(1);
 }
@@ -2113,9 +2113,9 @@ return(dis);
 }
 
 /* rough propability of letter 'f' */
-static Word8 config_f( STICK_CHARS *l,STICK_CHARS *r)
+static uchar config_f( STICK_CHARS *l,STICK_CHARS *r)
 {
-Word8 ret=3,lf=(l->mount[0]!=0)+(l->mount[1]!=0)+(l->mount[2]!=0),
+uchar ret=3,lf=(l->mount[0]!=0)+(l->mount[1]!=0)+(l->mount[2]!=0),
 	rf=(r->mount[0]!=0)+(r->mount[1]!=0)+(r->mount[2]!=0),
 	br_l=(r->mount[0]&&r->mount[4]&&l->mount[2]);
 if( rf<2 && r->m_meandr==2 && r->mount[4]==0 && r->mount[3]==0 )
@@ -2132,9 +2132,9 @@ return(ret);
 }
 /*----------------------------------------------------------------------*/
 /* rough propability of letter 'r' */
-static Word8 config_r( STICK_CHARS *l,STICK_CHARS *r)
+static uchar config_r( STICK_CHARS *l,STICK_CHARS *r)
 {
-Word8 ret=3,lf=(l->mount[0]!=0)+(l->mount[1]!=0)+(l->mount[2]!=0),
+uchar ret=3,lf=(l->mount[0]!=0)+(l->mount[1]!=0)+(l->mount[2]!=0),
 	rf=(r->mount[0]!=0)+(r->mount[1]!=0);
 if( lf==0 && rf==1 )
 	ret=r->mount[0]?2:1;
@@ -2144,9 +2144,9 @@ return(ret);
 }
 /*----------------------------------------------------------------------*/
 /* rough propability of letter 't' */
-static Word8 config_t( STICK_CHARS *l,STICK_CHARS *r)
+static uchar config_t( STICK_CHARS *l,STICK_CHARS *r)
 {
-Word8 ret=3,lf=(l->mount[0]!=0)+(l->mount[1]!=0)+(l->mount[2]!=0),
+uchar ret=3,lf=(l->mount[0]!=0)+(l->mount[1]!=0)+(l->mount[2]!=0),
 	rf=(r->mount[0]!=0)+(r->mount[1]!=0)+(r->mount[2]!=0);
 
 if( lf==1 && l->m_meandr==1 && rf==1 )
@@ -2157,9 +2157,9 @@ return(ret);
 }
 /*----------------------------------------------------------------------*/
 /* rough propability of letter '1' */
-static Word8 config_1( STICK_CHARS *l,STICK_CHARS *r)
+static uchar config_1( STICK_CHARS *l,STICK_CHARS *r)
 {
-Word8 ret=3;
+uchar ret=3;
 
 if( r->mount[0]==0 && r->mount[1]==0 && r->mount[2]==0 &&
     r->mount[3]==0 && r->mount[4]==0 && l->mount[2]==0 &&
@@ -2172,9 +2172,9 @@ if( r->mount[0]==0 && r->mount[1]==0 && r->mount[2]==0 &&
     }
 return(ret);
 }
-Word8 similar_wide_frt1(STICK_CHARS *left_chars,STICK_CHARS *right_chars)
+uchar similar_wide_frt1(STICK_CHARS *left_chars,STICK_CHARS *right_chars)
 {
-Word8 ret=0;
+uchar ret=0;
 ret |= config_f(left_chars,right_chars);
 ret |= config_r(left_chars,right_chars)<<2;
 ret |= config_t(left_chars,right_chars)<<4;

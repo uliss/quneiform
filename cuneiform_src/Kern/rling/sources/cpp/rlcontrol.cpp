@@ -87,12 +87,12 @@ typedef void(*pExitByCatchFunc)(int32_t);
 extern "C"
 {
 	// global variables
-	extern    Word8     language;
+	extern    uchar     language;
 	extern    char      own_dir[];
-	extern    PWord8    svbox_pool;
-	extern    PWord8    ED_file_start;
-	extern    PWord8    ED_file_end;
-	extern    PWord8    ED_out_end;
+	extern    puchar    svbox_pool;
+	extern    puchar    ED_file_start;
+	extern    puchar    ED_file_end;
+	extern    puchar    ED_out_end;
 	extern    Int16     CheckOpenBinType;
 	extern    Int16     CheckOpenTxtType;
 	extern    Int16     CheckOpenSubType;
@@ -102,7 +102,7 @@ extern "C"
 	Int16     TE_close(Int16);
 	void      trees_load_rling(void);
 	Int16     text_findstat_rling(PChar8);
-	Int16     spelling(PWord8, int32_t);
+	Int16     spelling(puchar, int32_t);
 	void      load_user_dicts (PChar8, PChar8);
 	void      unload_user_dicts(void);
 }
@@ -162,7 +162,7 @@ int32_t  CRLControl::IsDictonaryAvailable(uint32_t wLang, PChar8 pDictPath)
 
 	if ( iRet == 0 )
 	{
-		language = (Word8) wLang;
+		language = (uchar) wLang;
 		//////////////////////////////////////////////////////////////////////
 		try
 		{
@@ -225,7 +225,7 @@ Bool32 CRLControl::LoadDictonary(uint32_t wLang, PChar8 pDictPath)
 	if ( svbox_pool == NULL )
 	{
 		m_TablePool = RLINGAlloc(SizeTables);
-		svbox_pool  = (PWord8)RLINGLock(m_TablePool);
+		svbox_pool  = (puchar)RLINGLock(m_TablePool);
 	}
 	else
 	{
@@ -234,7 +234,7 @@ Bool32 CRLControl::LoadDictonary(uint32_t wLang, PChar8 pDictPath)
 
 	if ( bRet == TRUE )
 	{
-		language = (Word8) m_Language;
+		language = (uchar) m_Language;
 		//////////////////////////////////////////////////////////////////////
 		try
 		{
@@ -352,7 +352,7 @@ Bool32 CRLControl::CheckED(void *pEDPool, void * pEDOutPool, uint32_t wEDPoolSiz
 		return FALSE;
 	}
 
-	m_LastEDPool = (PWord8)pEDPool;
+	m_LastEDPool = (puchar)pEDPool;
 	m_LastEDPoolSize = wEDPoolSize;
 
 	if ( !AllocEDBuffer() )
@@ -388,7 +388,7 @@ Bool32 CRLControl::CheckED(void *pEDPool, void * pEDOutPool, uint32_t wEDPoolSiz
 		try
 		{
 			*pwEDOutPoolSize = 0;
-			m_LastCheck = spelling((PWord8)m_LastEDWorkPool, wHexSize/*m_LastEDWorkPoolSize*/);
+			m_LastCheck = spelling((puchar)m_LastEDWorkPool, wHexSize/*m_LastEDWorkPoolSize*/);
 			m_LastEDOutPoolSize = ED_out_end - m_LastEDOutPool;
 			*pwEDOutPoolSize = m_LastEDOutPoolSize;
 			memcpy(pEDOutPool, m_LastEDOutPool, m_LastEDOutPoolSize);
@@ -459,7 +459,7 @@ Bool32 CRLControl::AllocEDBuffer()
 			}
 			else
 			{
-				m_LastEDOutPool  = (PWord8)RLINGLock(m_hLastEDOutPool);
+				m_LastEDOutPool  = (puchar)RLINGLock(m_hLastEDOutPool);
 			}
 		}
 		else
@@ -478,7 +478,7 @@ Bool32 CRLControl::AllocEDBuffer()
 			}
 			else
 			{
-				m_LastEDWorkPool = (PWord8)RLINGLock(m_hLastEDWorkPool);
+				m_LastEDWorkPool = (puchar)RLINGLock(m_hLastEDWorkPool);
 			}
 		}
 		else
@@ -615,7 +615,7 @@ Bool32 CRLControl::CorrectWord(CSTR_rast Beg, CSTR_rast End, uint32_t * pLanguag
 
 	mcEderator.Init();
 
-	if ( mcEderator.MakeWord(Beg, End, (PWord8)pLanguage) )
+	if ( mcEderator.MakeWord(Beg, End, (puchar)pLanguage) )
 	{
 		if ( CheckED(mcEderator.GetEdPool(), mcEderator.GetEdOutPool(), mcEderator.GetEdPoolSize(), &wSizeOut, &iOut) )
 		{
@@ -644,8 +644,8 @@ Bool32 CRLControl::CorrectHypWord(CSTR_rast BegF, CSTR_rast EndF, uint32_t * pLa
 
 	mcEderator.Init();
 
-	if ( mcEderator.MakeWord(BegF, EndF, (PWord8)pLanguageF) &&
-		 mcEderator.AddWord(BegS, EndS, (PWord8)pLanguageS)    )
+	if ( mcEderator.MakeWord(BegF, EndF, (puchar)pLanguageF) &&
+		 mcEderator.AddWord(BegS, EndS, (puchar)pLanguageS)    )
 	{
 		// Это уже делается в CheckED
 		//PumaMemoryToFileDumper Dmp(mcEderator.GetEdPool(), mcEderator.GetEdPoolSize(), "RLingMakeHypWord.ed");

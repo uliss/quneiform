@@ -92,8 +92,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 struct bit_map_ref
  {
- Word8 code;
- Word8 pos;
+ uchar code;
+ uchar pos;
  Word16 row;
  Word16 col;
  Word16 width;
@@ -102,48 +102,48 @@ struct bit_map_ref
 
 struct text_ref
  {                                     /* 0 - letter */
- Word8 code;                            /* 1 -        */
- Word8 type;                            /* 2 - word   */
+ uchar code;                            /* 1 -        */
+ uchar type;                            /* 2 - word   */
  Word16 object;                           /* 3 - string */
  };
 
 struct font_kegl                       /*  1 - serific     */
  {                                     /*  2 - gelvetic    */
- Word8 code;                            /*  4 - bold        */
- Word8 new_kegl;                        /*  8 - light       */
+ uchar code;                            /*  4 - bold        */
+ uchar new_kegl;                        /*  8 - light       */
  Word16 new_font;                        /* 16 - italic      */
-// Word8 reserv;                          /* 32 - straight    */
+// uchar reserv;                          /* 32 - straight    */
  };                                    /* 64 - underlined  */
 
 struct kegl
  {
- Word8 code;
- Word8 new_kegl;
+ uchar code;
+ uchar new_kegl;
  };
 
 struct EdTagLanguage //for russian-english recognize
  {
- Word8 code; // 0x0F
- Word8 language;
+ uchar code; // 0x0F
+ uchar language;
  };
 
 struct shift
  {
- Word8 code;
- Word8 kegl;
+ uchar code;
+ uchar kegl;
  Word16 clearance;                         /* value of lift or descent */
  };                                     /* lift positive            */
 					/* descent negative         */
 struct retrieve_level
  {
- Word8 code;
- Word8 kegl;
+ uchar code;
+ uchar kegl;
  };
 
 struct underline
  {                                     /* 0 - thin straight       */
- Word8 code;                            /* 1- half thick straight  */
- Word8 type;                            /* 2- thick straight       */
+ uchar code;                            /* 1- half thick straight  */
+ uchar type;                            /* 2- thick straight       */
  };                                    /* 3- thin cursive         */
 				       /* 4- half thick cursive   */
 				       /* 5- thick cursive        */
@@ -151,76 +151,76 @@ struct underline
 				       /* 7- end of underline     */
 struct dens_print
  {
- Word8 code;
- Word8 dens_atr;                         /* attribute of print's    */
+ uchar code;
+ uchar dens_atr;                         /* attribute of print's    */
  };				        /*                 density */
 
 struct tabul
  {
- Word8 code;
- Word8 numb_in_tab_tabul;                /* number of position in        */
+ uchar code;
+ uchar numb_in_tab_tabul;                /* number of position in        */
  };                                     /*         table of tabulation  */
 
 struct tabl_tabul
  {
- Word8 code;
- Word8 lth;                              /* scale of arow               */
+ uchar code;
+ uchar lth;                              /* scale of arow               */
  Word16 arow_pos[1] ;
  };
 
 struct fragm_disk
  {
- Word8 code;
- Word8 fragm_numb;
+ uchar code;
+ uchar fragm_numb;
  Word16 depth;
  };
 
 struct step_back
  {
- Word8 code;
- Word8 Step_back;                        // value of backstep //AK 18.03.97 step -> Step
+ uchar code;
+ uchar Step_back;                        // value of backstep //AK 18.03.97 step -> Step
  };
 
 struct line_beg
  {
- Word8 code;
- Word8 height;
+ uchar code;
+ uchar height;
  Word16 base_line;                         /* displacement for current         */
  };                                     /*     line to upper frame of fragm */
 
 struct position
  {
- Word8 code;
- Word8 store;
+ uchar code;
+ uchar store;
  Word16 pos;                               /* position in line for      */
  };                                     /*     left frame of  fragm  */
 
 struct table_conform_sizes
  {
- Word8 code;
- Word8 store;
+ uchar code;
+ uchar store;
  char tab_val_A [9*2];                   /* table of sizes of letter A  */
  };              			 /*     for kegles from 4 to 12 */
 
 
 struct group_words
  {
- Word8 code;
- Word8  gr_wd_type;                     	  /* 0 - beg of group             */
+ uchar code;
+ uchar  gr_wd_type;                     	  /* 0 - beg of group             */
  };			                  /* 1 - cur. word of group       */
 					  /* 2 - end                      */
 					  /* 3 - partition between groups */
 
 struct group_symbols
  {
- Word8 code;
- Word8 gr_sb_type;
+ uchar code;
+ uchar gr_sb_type;
  };
 
 struct border
     {
-    Word8 code;          /* 0x16 SS_BORDER             */
-    Word8 type;          /* 1 - left                   */
+    uchar code;          /* 0x16 SS_BORDER             */
+    uchar type;          /* 1 - left                   */
 #define b_vert 1	/* 2 - right                  */
 #define b_hor  4	/* 4 - top                    */
 			/* 8 - bottom                 */
@@ -230,45 +230,45 @@ struct border
 
 struct table_header
     {
-    Word8    code;       /* 0x17 SS_TABLE_HEADER                   */
-    Word8    cols;       /* Number of columns                      */
+    uchar    code;       /* 0x17 SS_TABLE_HEADER                   */
+    uchar    cols;       /* Number of columns                      */
     Word16     lth;        /* Total length of record                 */
     Word16     nfrag[1];    /* List of fragments in header of table   */
     };
 
 struct list_of_fragments
     {
-    Word8    code;       /* 0x18 SS_LIST_OF_FRAGMENTS    */
-    Word8    cols;       /* Number of columns            */
+    uchar    code;       /* 0x18 SS_LIST_OF_FRAGMENTS    */
+    uchar    cols;       /* Number of columns            */
     Word16     lth;        /* Total length of record       */
     Word16     nfrag[1];   /* List of fragments in table   */
     };
 
 struct aksant
  {
- Word8 code1;
- Word8 code;
+ uchar code1;
+ uchar code;
  };
 
 struct neg_half_space
  {
- Word8 code;
- Word8 authenticity_degree;
+ uchar code;
+ uchar authenticity_degree;
  };
 
 struct pos_half_space
  {
- Word8 code;
- Word8 authenticity_degree;
+ uchar code;
+ uchar authenticity_degree;
  };
 
 struct sheet_disk_descr
  {
- Word8 code;
+ uchar code;
  char quant_fragm;
  Word16 sheet_numb;
  Word16 descr_lth;
- Word8 byte_flag;
+ uchar byte_flag;
  Word16 resolution;
  Word16  incline;
  Word16 version;
@@ -277,7 +277,7 @@ struct sheet_disk_descr
 
 struct fragm_disk_descr
  {
- Word8 code;
+ uchar code;
  Word16 row;                             /* coordinates of left upper  */
  Word16 col;                             /* angle of fragment's frame  */
  Word16 height;                          /* height of fragment         */
@@ -288,10 +288,10 @@ struct fragm_disk_descr
 #define FD_TYPE_TABLE 2
 #define FD_TYPE_EMPTY 3
 
- Word8 kegl;                           /* kegl for following fragm    */
- Word8 font;                            /* font ~~~~~~~~~~~~~~~~~~    */
- Word8 language;//reserv;              /* language for fragment       03-29-94 02:21pm,Pit*/
- Word8 type_underl;                    /* type specifications of font    */
+ uchar kegl;                           /* kegl for following fragm    */
+ uchar font;                            /* font ~~~~~~~~~~~~~~~~~~    */
+ uchar language;//reserv;              /* language for fragment       03-29-94 02:21pm,Pit*/
+ uchar type_underl;                    /* type specifications of font    */
  };				      /*     for additional information */
 				      /*     look at underline          */
 
@@ -300,14 +300,14 @@ typedef struct text_ref	EDREM;
 
 struct letter
 {
-    Word8    bType;          //  ASCII code.  >= ' '.
-    Word8    bAttrib;
+    uchar    bType;          //  ASCII code.  >= ' '.
+    uchar    bAttrib;
 };
 
 typedef struct letterEx
 {
-    Word8    alternative;          //  ASCII code.  >= ' '.
-    Word8    probability;
+    uchar    alternative;          //  ASCII code.  >= ' '.
+    uchar    probability;
 }LETTER;
 
 #define SSR_HUGE		0    /* Internal remark about huge letter */

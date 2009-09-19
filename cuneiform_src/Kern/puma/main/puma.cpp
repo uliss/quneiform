@@ -96,7 +96,7 @@ Bool32 BinariseImage()
 
     /////////////////////////////////////////////////////Allex
     //CIMAGEBITMAPINFOHEADER info;
-    if(!CIMAGE_GetImageInfo((PWord8)PUMA_IMAGE_USER,&info))
+    if(!CIMAGE_GetImageInfo((puchar)PUMA_IMAGE_USER,&info))
     {
         SetReturnCode_puma(CIMAGE_GetReturnCode());
         rc = FALSE;
@@ -109,14 +109,14 @@ Bool32 BinariseImage()
     if(rc && LDPUMA_Skip(hDebugCancelBinarize) && info.biBitCount>1)
     {
         PRGTIME prev = StorePRGTIME(10, 100);
-        if(!RIMAGE_Binarise((PWord8 )PUMA_IMAGE_USER,(PWord8)PUMA_IMAGE_BINARIZE,4,0))//RIMAGE_BINARISE_KRONROD
+        if(!RIMAGE_Binarise((puchar )PUMA_IMAGE_USER,(puchar)PUMA_IMAGE_BINARIZE,4,0))//RIMAGE_BINARISE_KRONROD
         {
             SetReturnCode_puma(RIMAGE_GetReturnCode());
             rc = FALSE;
         }
         else
         {
-            if(!CIMAGE_ReadDIB((PWord8 )PUMA_IMAGE_BINARIZE,(Handle*)&gpRecogDIB,TRUE))
+            if(!CIMAGE_ReadDIB((puchar )PUMA_IMAGE_BINARIZE,(Handle*)&gpRecogDIB,TRUE))
             {
                 SetReturnCode_puma(CIMAGE_GetReturnCode());
                 rc = FALSE;
@@ -185,7 +185,7 @@ Bool32 PreProcessImage()
     //	lpRecogName = PUMA_IMAGE_USER;
     //
     //	CIMAGEBITMAPINFOHEADER info;
-    //	if(!CIMAGE_GetImageInfo((PWord8)PUMA_IMAGE_USER,&info))
+    //	if(!CIMAGE_GetImageInfo((puchar)PUMA_IMAGE_USER,&info))
     //	{
     //		SetReturnCode_puma(CIMAGE_GetReturnCode());
     //		rc = FALSE;
@@ -198,14 +198,14 @@ Bool32 PreProcessImage()
     //	if(rc && LDPUMA_Skip(hDebugCancelBinarize) && info.biBitCount>1)
     //	{
     //		PRGTIME prev = StorePRGTIME(10, 60);
-    //		if(!RIMAGE_Binarise((PWord8 )PUMA_IMAGE_USER,(PWord8)PUMA_IMAGE_BINARIZE,4,0))//RIMAGE_BINARISE_KRONROD
+    //		if(!RIMAGE_Binarise((puchar )PUMA_IMAGE_USER,(puchar)PUMA_IMAGE_BINARIZE,4,0))//RIMAGE_BINARISE_KRONROD
     //		{
     //			SetReturnCode_puma(RIMAGE_GetReturnCode());
     //			rc = FALSE;
     //		}
     //		else
     //		{
-    //			if(!CIMAGE_ReadDIB((PWord8 )PUMA_IMAGE_BINARIZE,(Handle*)&gpRecogDIB,TRUE))
+    //			if(!CIMAGE_ReadDIB((puchar )PUMA_IMAGE_BINARIZE,(Handle*)&gpRecogDIB,TRUE))
     //			{
     //				SetReturnCode_puma(CIMAGE_GetReturnCode());
     //				rc = FALSE;
@@ -241,7 +241,7 @@ Bool32 PreProcessImage()
     //	//
     //	//      if(rc)
     //	//      {
-    //	//              if(!CIMAGE_WriteDIB((PWord8)PUMA_IMAGE_BINARIZE,gpRecogDIB,TRUE))
+    //	//              if(!CIMAGE_WriteDIB((puchar)PUMA_IMAGE_BINARIZE,gpRecogDIB,TRUE))
     //	//              {
     //	//                      SetReturnCode_puma(CIMAGE_GetReturnCode());
     //	//                      rc = FALSE;
@@ -259,7 +259,7 @@ Bool32 PreProcessImage()
         if(LDPUMA_Skip(hDebugCancelComponent))
         {
             PRGTIME prev = StorePRGTIME(65, 85);
-            rc = ExtractComponents( gbAutoRotate, NULL, (PWord8)glpRecogName);
+            rc = ExtractComponents( gbAutoRotate, NULL, (puchar)glpRecogName);
             RestorePRGTIME(prev);
 
             if(!ProgressStep(2,NULL,100))
@@ -372,7 +372,7 @@ static Bool32  PostOpenInitialize(const char * lpFileName)
     CIMAGEBITMAPINFOHEADER info;
     if(lpFileName)
         LDPUMA_SetFileName(NULL, lpFileName);
-    if(!CIMAGE_GetImageInfo((PWord8)PUMA_IMAGE_USER,&info))
+    if(!CIMAGE_GetImageInfo((puchar)PUMA_IMAGE_USER,&info))
     {
         SetReturnCode_puma(CIMAGE_GetReturnCode());
         rc = FALSE;
@@ -409,12 +409,12 @@ PUMA_FUNC(bool) PUMA_XOpen(void * pDIB, const std::string& filename)
         rc = false;
     }
     else
-        gpInputDIB = (PWord8)pDIB;
+        gpInputDIB = (puchar)pDIB;
     //
     // Запишем изображение
     //
     if(rc) {
-        if(!CIMAGE_WriteDIB((PWord8)PUMA_IMAGE_USER,pDIB,1))
+        if(!CIMAGE_WriteDIB((puchar)PUMA_IMAGE_USER,pDIB,1))
         {
             SetReturnCode_puma(CIMAGE_GetReturnCode());
             rc = false;
@@ -444,19 +444,19 @@ PUMA_FUNC(Bool32) PUMA_XOpenClbk(PUMAIMAGECALLBACK CallBack,const char * lpFileN
     //
     if(rc)
     {
-        if(!CIMAGE_WriteCallbackImage((PWord8)PUMA_IMAGE_USER,*(CIMAGEIMAGECALLBACK*)lpCallBack))
+        if(!CIMAGE_WriteCallbackImage((puchar)PUMA_IMAGE_USER,*(CIMAGEIMAGECALLBACK*)lpCallBack))
         {
             SetReturnCode_puma(CIMAGE_GetReturnCode());
             rc = FALSE;
         }
         else
         {
-            if(!CIMAGE_ReadDIB((PWord8)PUMA_IMAGE_USER,(Handle *)&gpInputDIB,1))
+            if(!CIMAGE_ReadDIB((puchar)PUMA_IMAGE_USER,(Handle *)&gpInputDIB,1))
             {
                 SetReturnCode_puma(CIMAGE_GetReturnCode());
                 rc = FALSE;
             }
-            //gpInputDIB = (PWord8)pDIB;
+            //gpInputDIB = (puchar)pDIB;
         }
     }
     if(rc)
@@ -466,7 +466,7 @@ PUMA_FUNC(Bool32) PUMA_XOpenClbk(PUMAIMAGECALLBACK CallBack,const char * lpFileN
 PUMA_FUNC(Bool32) PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p)
 {
     Bool32 rc = TRUE;
-    PWord8 lpImage = (PWord8)PUMA_IMAGE_USER;
+    puchar lpImage = (puchar)PUMA_IMAGE_USER;
     //
     // Определим угол поворота страницы
     //
@@ -485,7 +485,7 @@ PUMA_FUNC(Bool32) PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p)
     {
         CIMAGEBITMAPINFOHEADER info;
         if(PInfo.BitPerPixel>1)
-            lpImage = (PWord8)PUMA_IMAGE_BINARIZE;
+            lpImage = (puchar)PUMA_IMAGE_BINARIZE;
 
         if(CIMAGE_GetImageInfo(lpImage,&info))
         {
@@ -514,11 +514,11 @@ PUMA_FUNC(Bool32) PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p)
         PAGEINFO           PInfo = {0};
         GetPageInfo(hCPAGE,&PInfo);
 
-        CIMAGE_DeleteImage((PWord8)PUMA_IMAGE_ROTATE	);
+        CIMAGE_DeleteImage((puchar)PUMA_IMAGE_ROTATE	);
 
-        CIMAGE_EnableMask(lpImage,(PWord8)"r",FALSE);
+        CIMAGE_EnableMask(lpImage,(puchar)"r",FALSE);
         if(!RIMAGE_Rotate(lpImage,
-                          (PWord8)PUMA_IMAGE_ROTATE,
+                          (puchar)PUMA_IMAGE_ROTATE,
                           PInfo.Incline2048,2048, 0))
         {
             SetReturnCode_puma(RIMAGE_GetReturnCode());
@@ -527,13 +527,13 @@ PUMA_FUNC(Bool32) PUMA_XGetRotateDIB(void ** lpDIB, Point32 * p)
 
         if(rc)
         {
-            if(!CIMAGE_ReadDIB((PWord8)PUMA_IMAGE_ROTATE,lpDIB,TRUE))
+            if(!CIMAGE_ReadDIB((puchar)PUMA_IMAGE_ROTATE,lpDIB,TRUE))
             {
                 SetReturnCode_puma(CIMAGE_GetReturnCode());
                 rc = FALSE;
             }
         }
-        CIMAGE_EnableMask(lpImage,(PWord8)"r",TRUE);
+        CIMAGE_EnableMask(lpImage,(puchar)"r",TRUE);
         PInfo.Images|=IMAGE_ROTATE;
         SetPageInfo(hCPAGE,PInfo);
     }
@@ -776,7 +776,7 @@ PUMA_FUNC(Bool32) PUMA_XSetTemplate(Rect32 rect)
     Bool32 rc = FALSE;
     CIMAGEBITMAPINFOHEADER info = {0};
 
-    if(CIMAGE_GetImageInfo((PWord8)PUMA_IMAGE_USER,&info))
+    if(CIMAGE_GetImageInfo((puchar)PUMA_IMAGE_USER,&info))
     {
         CIMAGE_Rect full = {0,0,info.biWidth,info.biHeight};
         PAGEINFO           PInfo = {0};
@@ -803,7 +803,7 @@ PUMA_FUNC(Bool32) PUMA_XSetTemplate(Rect32 rect)
             SetPageInfo(hCPAGE,PInfo);
             return TRUE;
         }
-        if(CIMAGE_AddReadCloseRects((PWord8)PUMA_IMAGE_USER,1, &full))
+        if(CIMAGE_AddReadCloseRects((puchar)PUMA_IMAGE_USER,1, &full))
         {
             if(rect.left>=0 && rect.top>=0 &&
                (rect.right-rect.left)<=info.biWidth &&
@@ -811,14 +811,14 @@ PUMA_FUNC(Bool32) PUMA_XSetTemplate(Rect32 rect)
 
             {
                 CIMAGE_Rect r = {rect.left,rect.top,rect.right-rect.left,rect.bottom-rect.top};
-                rc = CIMAGE_RemoveReadCloseRects((PWord8)PUMA_IMAGE_USER,1, &r);
+                rc = CIMAGE_RemoveReadCloseRects((puchar)PUMA_IMAGE_USER,1, &r);
                 PInfo.X = rect.left;
                 PInfo.Y = rect.top;
             }
             else
             {
                 CIMAGE_Rect r = {0,0,info.biWidth-1,info.biHeight-1};
-                rc = CIMAGE_RemoveReadCloseRects((PWord8)PUMA_IMAGE_USER,1, &r);
+                rc = CIMAGE_RemoveReadCloseRects((puchar)PUMA_IMAGE_USER,1, &r);
                 PInfo.X = 0;
                 PInfo.Y = 0;
             }
@@ -847,7 +847,7 @@ PUMA_FUNC(void) PUMA_GetSpecialBuffer(char * szResult,int32_t *nResultLength)
     }
 }
 
-PUMA_FUNC(Bool32) PUMA_SetSpecialProject(Word8 nSpecialProject)
+PUMA_FUNC(Bool32) PUMA_SetSpecialProject(uchar nSpecialProject)
 {
 
     gnSpecialProject = nSpecialProject;

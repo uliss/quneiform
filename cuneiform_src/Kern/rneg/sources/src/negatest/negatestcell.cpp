@@ -77,12 +77,12 @@ extern int	DPIX;
 extern int	DPIY;
 extern int Height;
 extern int Width;
-extern Word8 ImageName[CPAGE_MAXNAME];
+extern uchar ImageName[CPAGE_MAXNAME];
 
 /*----------------------------------------------------------------------------*/
 
 
-RNEG_FUNC(Bool32) RNEG_TestForNegative(CCOM_handle hCCOM,Handle hCPage,Word8* pImageName,Rect16 Rc)
+RNEG_FUNC(Bool32) RNEG_TestForNegative(CCOM_handle hCCOM,Handle hCPage,uchar* pImageName,Rect16 Rc)
 {
  MainWindowD=NULL;
  MainWindowD=LDPUMA_GetWindowHandle ("Изображение после разворота");

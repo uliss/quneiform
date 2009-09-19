@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //--------------------------GLOBAL VARIABLES------------------------
 Int16      minrow,bbs1,bbs2,bbs3,bbs4,Nb1,Nb2,Nb3;
-Word8      language;
+uchar      language;
 
 HINSTANCE  ghInst = NULL;
 Word16     gwHeightRC = 0;

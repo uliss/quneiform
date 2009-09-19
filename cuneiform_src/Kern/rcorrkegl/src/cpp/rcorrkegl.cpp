@@ -72,7 +72,7 @@ static Word16 gwLowRC = 0;
 Bool32 snap_enable = TRUE;
 Bool32 exit_enable = FALSE;
 Bool32 gbFax100 = FALSE;
-Word8 language = 3;
+uchar language = 3;
 
 Bool APIENTRY DllMain(HANDLE hModule, uint32_t ul_reason_for_call,
 		LPVOID lpReserved) {
@@ -131,7 +131,7 @@ RCK_FUNC(Bool32) RCORRKEGL_SetImportData(uint32_t dwType, void * pData)
 	{
 		CASE_DATA(RCORRKEGL_Bool32_Fax100,Bool32,gbFax100);
 		// 12.06.2002 E.P.
-		CASE_DATA(RCORRKEGL_FNIMP_LANGUAGE,Word8,language);
+		CASE_DATA(RCORRKEGL_FNIMP_LANGUAGE,uchar,language);
 
 		default:
 		gwLowRC = RCORRKEGL_ERR_NOTIMPLEMENT;

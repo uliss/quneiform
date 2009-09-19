@@ -144,13 +144,13 @@ typedef enum
 #define       RIMAGE_USE_MARGINS       TRUE
 #define       RIMAGE_WITHOUT_MARGINS   FALSE
 DEC_FUN(Bool32,  SetMargins,           (PRIMAGEMARGINS));
-DEC_FUN(Bool32,  Binarise,             (PWord8 , PWord8 , uint32_t, uint32_t));
-DEC_FUN(Bool32,  Rotate,               (PWord8 , PWord8 , int32_t, int32_t, uint32_t));
-DEC_FUN(Bool32,  Roll,                 (PWord8 , PWord8 , int32_t, int32_t, uint32_t));
-DEC_FUN(Bool32,  Turn,                 (PWord8 , PWord8 , uint32_t, uint32_t));
-DEC_FUN(Bool32,  Inverse,              (PWord8 , PWord8 , uint32_t));
+DEC_FUN(Bool32,  Binarise,             (puchar , puchar , uint32_t, uint32_t));
+DEC_FUN(Bool32,  Rotate,               (puchar , puchar , int32_t, int32_t, uint32_t));
+DEC_FUN(Bool32,  Roll,                 (puchar , puchar , int32_t, int32_t, uint32_t));
+DEC_FUN(Bool32,  Turn,                 (puchar , puchar , uint32_t, uint32_t));
+DEC_FUN(Bool32,  Inverse,              (puchar , puchar , uint32_t));
 DEC_FUN(Bool32,  SetProgressCB,        (PRIMAGECBPRogressStart, PRIMAGECBPRogressStep , PRIMAGECBPRogressFinish));
-DEC_FUN(Bool32,  RotatePoint,          (PWord8 , int32_t, int32_t, int32_t *, int32_t *));
+DEC_FUN(Bool32,  RotatePoint,          (puchar , int32_t, int32_t, int32_t *, int32_t *));
 //////////////////////////////////////////////////////////////////////////////////////////
 //
 #undef DEC_FUN

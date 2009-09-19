@@ -96,7 +96,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 typedef struct tagRSPreProcessImage
 {
-	PWord8	*pgpRecogDIB;
+	puchar	*pgpRecogDIB;
 	Bool32	gbAutoRotate;
 	Bool32  gbDotMatrix;
 	Bool32  gbFax100;
@@ -185,7 +185,7 @@ DEC_FUN(Bool32, RSNormalise,         (PRSPreProcessImage,void* vBuff,int Size,vo
 DEC_FUN(Bool32, RSNormVerify,        (PRSPreProcessImage));
 DEC_FUN(Bool32, RSNormRemoveLines,   (PRSPreProcessImage));
 DEC_FUN(Bool32, RSLayout,            (PRSPreProcessImage));
-DEC_FUN(Bool32, RSSetSpecPrj,          (Word8 NoSpecPrj));
+DEC_FUN(Bool32, RSSetSpecPrj,          (uchar NoSpecPrj));
 #undef DEC_FUN
 
 

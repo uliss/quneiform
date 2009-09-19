@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ligas.h"
 #include "linutil.h"
 #include "tuner.h"
-extern Word8 *EVN_GetSegmentPool (void);
+extern uchar *EVN_GetSegmentPool (void);
 //#include "Autofont.H"
 #include "tm.h"  //NB 4.4.95
 #include "diffrb.h"

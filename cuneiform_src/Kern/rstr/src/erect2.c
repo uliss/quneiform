@@ -74,24 +74,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // SMAP.C
 extern	Bool16	snap_monitor_ori(CSTR_line *snap_line, int32_t num_lines);
-extern	Bool16	snap_activity(Word8 a);
-extern	Word8	db_status;
-extern	Bool16	snap_show_text(Word8 *txt);
+extern	Bool16	snap_activity(uchar a);
+extern	uchar	db_status;
+extern	Bool16	snap_show_text(uchar *txt);
 // ERECTION.C
 extern  Int16   erect_get_global(void);
 extern  Int16   erect_get_represent(void);
 extern  Int16   erect_get_words(void);
 // RCM.C
-extern Word8 decode_ASCII_to_[256][4];
-extern Word8 line_tabcell;
+extern uchar decode_ASCII_to_[256][4];
+extern uchar line_tabcell;
 // p2_cour.c
 extern Bool32   p2_msk_inc(CSTR_rast    rst);
 #define etap_name 'i'
 
 #define MAX_LEN_WORD  48
 
-static Word8 left_limit_word[] =" .";
-static Word8 right_limit_word[]=" .,"
+static uchar left_limit_word[] =" .";
+static uchar right_limit_word[]=" .,"
 "Р"
    "ЭЮ\'\":/\x1f";
 static CSTR_rast erect_next_word(CSTR_rast cs)
@@ -114,7 +114,7 @@ do{
 return (attr.flg&CSTR_f_fict)?(CSTR_rast)0:c;
 }
 
-static CSTR_rast erect_end_word(CSTR_rast cs,Word8 *str,Word8 *word_len,Int16 right_limit, Bool32 need_space)
+static CSTR_rast erect_end_word(CSTR_rast cs,uchar *str,uchar *word_len,Int16 right_limit, Bool32 need_space)
 {
 CSTR_rast       c=cs, n;
 CSTR_rast_attr  attr, nattr;
@@ -171,7 +171,7 @@ if( i )
     str--;
     }
 *str='\0';
-*word_len = (Word8)i;
+*word_len = (uchar)i;
 return c;
 }
 
@@ -214,7 +214,7 @@ for(nalt=nall=nval=0,r=beg;r && r!=end; r=CSTR_GetNext(r))
     if( !(attr.flg & CSTR_f_let) )
         continue;
     CSTR_GetCollectionUni(r,&u);
-    CSTR_GetImage(r,(Word8*)&recRast, CSTR_TYPE_IMAGE_RS);
+    CSTR_GetImage(r,(uchar*)&recRast, CSTR_TYPE_IMAGE_RS);
     if( u.lnAltCnt &&
         (na=FONTestChar(&recRast,u.Alt[0].Liga, &Attribut[0],u.Alt[0].Info))>0 &&
         Attribut[0].prob>180  )
@@ -328,7 +328,7 @@ Bool32	cstr_erection_pass2(CSTR_line lout)
 {
 Bool32      ret=FALSE;
 CSTR_rast   beg,end;
-Word8       len, wrd[MAX_LEN_WORD+40];
+uchar       len, wrd[MAX_LEN_WORD+40];
 Int16       ginc = erect_get_global();
 Int16       gninc= erect_get_represent();
 Int16       gall = erect_get_words();
@@ -411,7 +411,7 @@ return ret;
 
 Bool32 non_near_letters(RecVersions *v)
 {
-Word8   v0, v1, p0, p1;
+uchar   v0, v1, p0, p1;
 
 // 21.05.2002 E.P.
 if (is_baltic_language(language) ||
@@ -454,11 +454,11 @@ for(r=CSTR_GetNext(CSTR_GetFirstRaster(ln));r ; r=CSTR_GetNext(r))
         a.clink>200 )
         {
         p0 = u.Alt[0].Prob;
-        u.Alt[0].Prob = (Word8)a.clink ;
+        u.Alt[0].Prob = (uchar)a.clink ;
         for(i=1;i<u.lnAltCnt;i++)
             {
             p=u.Alt[i].Prob;
-            u.Alt[i].Prob = (Word8)(p*a.clink/p0);
+            u.Alt[i].Prob = (uchar)(p*a.clink/p0);
             }
         CSTR_StoreCollectionUni(r,&u);
         }
@@ -469,11 +469,11 @@ for(r=CSTR_GetNext(CSTR_GetFirstRaster(ln));r ; r=CSTR_GetNext(r))
         a.RecogHistory |= CSTR_hi_fon;
         CSTR_SetAttr(r,&a);
         p0 = u.Alt[0].Prob;
-        u.Alt[0].Prob = (Word8)a.clink ;
+        u.Alt[0].Prob = (uchar)a.clink ;
         for(i=1;i<u.lnAltCnt;i++)
             {
             p=u.Alt[i].Prob;
-            u.Alt[i].Prob = (Word8)(p*a.clink/p0);
+            u.Alt[i].Prob = (uchar)(p*a.clink/p0);
             }
         CSTR_StoreCollectionUni(r,&u);
         }

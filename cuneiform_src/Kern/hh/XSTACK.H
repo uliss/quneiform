@@ -94,7 +94,7 @@ class XStack : private XPool
       Err16    Read( XFile & bf, Bool32 swap_bytes = FALSE );
       Bool     Write( XFile & bf ) const;
 
-      void     MemSet( Word8 pattern ){ XPool::MemSet(pattern); };
+      void     MemSet( uchar pattern ){ XPool::MemSet(pattern); };
 
    private:
                int32_t   MaxCnt;

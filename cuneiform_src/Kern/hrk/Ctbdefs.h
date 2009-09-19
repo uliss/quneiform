@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define CTB_VERSION 7
 
 #ifndef	__RECDEFS_H
-typedef unsigned char       Word8;
+typedef unsigned char       uchar;
 typedef unsigned short int  Word16;
 typedef short int           Int16;
 typedef int                 int32_t;
@@ -84,81 +84,81 @@ typedef int                 Bool32;
 #define CTB_PRINT_STRIGHT   0x40
 #define CTB_PRINT_LIGHT     0x80
 typedef struct  {
-	Word8   charset;        // 0) font charset
-	Word8   width;          // 1) 0-255
-	Word8   height;         // 2) 0-127
-	Word8   let;            // 3) letters or ligature
-    Word8   typedface;      // 4) typeface. 0 for standart letter
-    Word8   IsPrint;        // 5) print type of font (and others feats)
-	Word8   reserved[CTB_DATA_SIZE-6];
+	uchar   charset;        // 0) font charset
+	uchar   width;          // 1) 0-255
+	uchar   height;         // 2) 0-127
+	uchar   let;            // 3) letters or ligature
+    uchar   typedface;      // 4) typeface. 0 for standart letter
+    uchar   IsPrint;        // 5) print type of font (and others feats)
+	uchar   reserved[CTB_DATA_SIZE-6];
 	} CTB_data_standart;
 
 typedef struct  {
-	Word8   charset;        // 0) not free for version <=5
-	Word8   width;          // 1) 0-255
-	Word8   height;         // 2) 0-127
-	Word8   let;            // 3) letters or ligature      Alt[0].Code
-    Word8   nLns;           // 4) num of lines
-    Word8   IsPrint;        // 5) print type of font (and others feats)
-    Word8   rect16[8];      // 6-13) rectangle16 - box on the image
-    Word8   Prob;           // 14) Alt[0].Prob
-    Word8   Valid;          // 15) main validate code
-    Word8   lnAltCnt;       // 16) number of alternates
-    Word8   Alt0Code;       // 17) Alt[0].Code
-    Word8   Alt0Prob;       // 18) Alt[0].Prob
-    Word8   Alt1Code;       // 19) Alt[1].Code
-    Word8   Alt1Prob;       // 20) Alt[1].Prob
-    Word8   Alt2Code;       // 21) Alt[2].Code
-    Word8   Alt2Prob;       // 22) Alt[2].Prob
-    Word8   Alt3Code;       // 23) Alt[3].Code
-    Word8   Alt3Prob;       // 24) Alt[3].Prob
-    Word8   field_number;   // 25) number of recognized field
-    Word8   alphabet;       // 26) number of alpha in local table
-    Word8   CaseType;       // 27) control for case change
-    Word8   Alt0Method;     // 28) Alt[0].Method
-    Word8   Alt1Method;     // 29) Alt[1].Method
-    Word8   Alt2Method;     // 30) Alt[2].Method
-    Word8   Alt3Method;     // 31) Alt[3].Method
+	uchar   charset;        // 0) not free for version <=5
+	uchar   width;          // 1) 0-255
+	uchar   height;         // 2) 0-127
+	uchar   let;            // 3) letters or ligature      Alt[0].Code
+    uchar   nLns;           // 4) num of lines
+    uchar   IsPrint;        // 5) print type of font (and others feats)
+    uchar   rect16[8];      // 6-13) rectangle16 - box on the image
+    uchar   Prob;           // 14) Alt[0].Prob
+    uchar   Valid;          // 15) main validate code
+    uchar   lnAltCnt;       // 16) number of alternates
+    uchar   Alt0Code;       // 17) Alt[0].Code
+    uchar   Alt0Prob;       // 18) Alt[0].Prob
+    uchar   Alt1Code;       // 19) Alt[1].Code
+    uchar   Alt1Prob;       // 20) Alt[1].Prob
+    uchar   Alt2Code;       // 21) Alt[2].Code
+    uchar   Alt2Prob;       // 22) Alt[2].Prob
+    uchar   Alt3Code;       // 23) Alt[3].Code
+    uchar   Alt3Prob;       // 24) Alt[3].Prob
+    uchar   field_number;   // 25) number of recognized field
+    uchar   alphabet;       // 26) number of alpha in local table
+    uchar   CaseType;       // 27) control for case change
+    uchar   Alt0Method;     // 28) Alt[0].Method
+    uchar   Alt1Method;     // 29) Alt[1].Method
+    uchar   Alt2Method;     // 30) Alt[2].Method
+    uchar   Alt3Method;     // 31) Alt[3].Method
 	} CTB_data_container5;
 
 
 typedef struct  {
-	Word8   charset;        // 0) not free for version <=5
-	Word8   width;          // 1) 0-255
-	Word8   height;         // 2) 0-127
-	Word8   let;            // 3) letters or ligature      Alt[0].Code
-    Word8   typedface;      // 4) typeface. 0 for standart letter
-    Word8   IsPrint;        // 5) print type of font (and others feats)
-    Word8   rect16[8];      // 6-13) rectangle16 - box on the image
-    Word8   Prob;           // 14) Alt[0].Prob
-    Word8   Valid;          // 15) main validate code
-    Word8   lnAltCnt;       // 16) number of alternates
-    Word8   Alt0Code;       // 17) Alt[0].Code
-    Word8   Alt0Prob;       // 18) Alt[0].Prob
-    Word8   Alt1Code;       // 19) Alt[1].Code
-    Word8   Alt1Prob;       // 20) Alt[1].Prob
-    Word8   Alt2Code;       // 21) Alt[2].Code
-    Word8   Alt2Prob;       // 22) Alt[2].Prob
-    Word8   Alt3Code;       // 23) Alt[3].Code
-    Word8   Alt3Prob;       // 24) Alt[3].Prob
-    Word8   field_number;   // 25) number of recognized field
-    Word8   alphabet;       // 26) number of alpha in local table
-    Word8   CaseType;       // 27) control for case change
-    Word8   Alt0Method;     // 28) Alt[0].Method
-    Word8   Alt1Method;     // 29) Alt[1].Method
-    Word8   Alt2Method;     // 30) Alt[2].Method
-    Word8   Alt3Method;     // 31) Alt[3].Method
-    Word8   nLns;           // 32) num of lines
-    Word8   res;            // 33) num of lines
+	uchar   charset;        // 0) not free for version <=5
+	uchar   width;          // 1) 0-255
+	uchar   height;         // 2) 0-127
+	uchar   let;            // 3) letters or ligature      Alt[0].Code
+    uchar   typedface;      // 4) typeface. 0 for standart letter
+    uchar   IsPrint;        // 5) print type of font (and others feats)
+    uchar   rect16[8];      // 6-13) rectangle16 - box on the image
+    uchar   Prob;           // 14) Alt[0].Prob
+    uchar   Valid;          // 15) main validate code
+    uchar   lnAltCnt;       // 16) number of alternates
+    uchar   Alt0Code;       // 17) Alt[0].Code
+    uchar   Alt0Prob;       // 18) Alt[0].Prob
+    uchar   Alt1Code;       // 19) Alt[1].Code
+    uchar   Alt1Prob;       // 20) Alt[1].Prob
+    uchar   Alt2Code;       // 21) Alt[2].Code
+    uchar   Alt2Prob;       // 22) Alt[2].Prob
+    uchar   Alt3Code;       // 23) Alt[3].Code
+    uchar   Alt3Prob;       // 24) Alt[3].Prob
+    uchar   field_number;   // 25) number of recognized field
+    uchar   alphabet;       // 26) number of alpha in local table
+    uchar   CaseType;       // 27) control for case change
+    uchar   Alt0Method;     // 28) Alt[0].Method
+    uchar   Alt1Method;     // 29) Alt[1].Method
+    uchar   Alt2Method;     // 30) Alt[2].Method
+    uchar   Alt3Method;     // 31) Alt[3].Method
+    uchar   nLns;           // 32) num of lines
+    uchar   res;            // 33) num of lines
 	} CTB_data_container7;
 
 typedef struct  {
-	Word8   charset;        // 0)    not free for version <=5
-	Word8   width;          // 1)    0-255
-	Word8   height;         // 2)    0-127
-	Word8   let;            // 3)    letters or ligature      Alt[0].Code
-    Word8   typedface;      // 4)    typeface. 0 for standart letter
-    Word8   IsPrint;        // 5)    print type of font (and others feats)
+	uchar   charset;        // 0)    not free for version <=5
+	uchar   width;          // 1)    0-255
+	uchar   height;         // 2)    0-127
+	uchar   let;            // 3)    letters or ligature      Alt[0].Code
+    uchar   typedface;      // 4)    typeface. 0 for standart letter
+    uchar   IsPrint;        // 5)    print type of font (and others feats)
     Int16   b0;             // 6,7
     Int16   b1;             // 8,9   firts base lines
     Int16   b2;             // 10,11 second base lines
@@ -173,20 +173,20 @@ typedef struct  {
     } CTB_data_container7_puma; // saved from PUMA-snap (key Alt_F8)
 
 typedef struct  {
-	Word8	attr_size;      // Number of attributes
-	Word8	label[CTB_DATA_SIZE-1];
+	uchar	attr_size;      // Number of attributes
+	uchar	label[CTB_DATA_SIZE-1];
 	} CTB_global_data;
 
 typedef struct 	{
-    Word8 sign[2];          // can be "CT"
+    uchar sign[2];          // can be "CT"
     Int16 version;          // version number
     Int16 size_x, size_y;   // frame sizes
-    Word8 dot_per_byte;
+    uchar dot_per_byte;
     int32_t volume;           // number of images
-    Word8 signums;          // special bits
-    Word8 need_compress;    // need_comp-bit 1, sort -2
-    Word8 attr_size;        // num of attributes
-    Word8 data[CTB_DATA_SIZE]; // global attributes
+    uchar signums;          // special bits
+    uchar need_compress;    // need_comp-bit 1, sort -2
+    uchar attr_size;        // num of attributes
+    uchar data[CTB_DATA_SIZE]; // global attributes
     } H_CTB_file;
 
 
@@ -265,11 +265,11 @@ typedef struct 	{
     int32_t  len;           // length of binary frame
     Int16  type;          // type : sizes & resolution
     Int16  width,height,colors,version,dpb;
-    Word8  signums;       // global attributes
-    Word8  need_compress; // need call compress()
-    Word8  attr;          // 'r' or 'w'
-    Word8  is_sort;       // base is sorted
-    Word8  attr_size;     // number of attributes
+    uchar  signums;       // global attributes
+    uchar  need_compress; // need call compress()
+    uchar  attr;          // 'r' or 'w'
+    uchar  is_sort;       // base is sorted
+    uchar  attr_size;     // number of attributes
     } CTB_handle;
 #define CTB_ANSI_CHARSET            0
 #define CTB_DEFAULT_CHARSET         1

@@ -103,7 +103,7 @@ const int MIN_BIG_W=30;
 struct BIG_IMAGE
 {
 	CCOM_handle hCCOM;
-	Word8 ImageName[CPAGE_MAXNAME];
+	uchar ImageName[CPAGE_MAXNAME];
 };
 
 #define RSL_VERLINE CPAGE_GetInternalType("RVL_VERIFY")
@@ -227,7 +227,7 @@ Bool32 SearchNewLines( PRSPreProcessImage Image )
 
     if(LDPUMA_Skip(Image->hDebugCancelVerifyLines))
     {
-        ret=RLINE_LinesPass1(Image->hCPAGE,*(Image->phCCOM),Image->phCLINE,Image->pgneed_clean_line, searchlines, (Word8)Image->gnLanguage);
+        ret=RLINE_LinesPass1(Image->hCPAGE,*(Image->phCCOM),Image->phCLINE,Image->pgneed_clean_line, searchlines, (uchar)Image->gnLanguage);
 
         if (ret && !gbRSLT)
             ret = RLINE_LinesPass2(*(Image->phCCOM),Image->phCLINE, Image->hCPAGE);
@@ -306,7 +306,7 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 {
 
 	Bool32 gbAutoRotate          = Image->gbAutoRotate;
-	PWord8 *gpRecogDIB           = Image->pgpRecogDIB;
+	puchar *gpRecogDIB           = Image->pgpRecogDIB;
 	Handle hCPAGE                = Image->hCPAGE;
 	const char * glpRecogName    = *Image->pglpRecogName;
 	PCIMAGEBITMAPINFOHEADER info = (PCIMAGEBITMAPINFOHEADER)Image->pinfo;
@@ -357,9 +357,9 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 	{
 		if(LDPUMA_Skip(Image->hDebugCancelComponent)/*DPumaSkipComponent()*/)
 		{
-//			Word8 ori;
+//			uchar ori;
 			PRGTIME prev = StorePRGTIME(65, 85);
-			rc = ExtractComponents( gbAutoRotate, NULL, (PWord8)glpRecogName, Image);
+			rc = ExtractComponents( gbAutoRotate, NULL, (puchar)glpRecogName, Image);
 			RestorePRGTIME(prev);
 /*			if(rc && gbAutoRotate)
 			{
@@ -394,7 +394,7 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 
 						if( LDPUMA_Skip(Image->hDebugCancelTurn) /*umaSkipTurn()*/ /*)
 						{
-							if(!RIMAGE_Turn((PWord8)glpRecogName,(PWord8)PUMA_IMAGE_TURN,dwTurn,0))
+							if(!RIMAGE_Turn((puchar)glpRecogName,(puchar)PUMA_IMAGE_TURN,dwTurn,0))
 							{
 								SetReturnCode_rstuff_rstuff(RIMAGE_GetReturnCode());
 								rc = FALSE;
@@ -402,7 +402,7 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 							else
 							{
 
-								if(!CIMAGE_ReadDIB((PWord8)PUMA_IMAGE_TURN,(Handle*)gpRecogDIB,TRUE))
+								if(!CIMAGE_ReadDIB((puchar)PUMA_IMAGE_TURN,(Handle*)gpRecogDIB,TRUE))
 								{
 									SetReturnCode_rstuff_rstuff(CIMAGE_GetReturnCode());
 									rc = FALSE;
@@ -415,7 +415,7 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 									glpRecogName = PUMA_IMAGE_TURN;
 									hWndTurn = LDPUMA_CreateWindow(PUMA_IMAGE_TURN,(*gpRecogDIB));
 									PRGTIME prev = StorePRGTIME(85, 100);
-									rc = ExtractComponents( FALSE, NULL, (PWord8)glpRecogName, Image);
+									rc = ExtractComponents( FALSE, NULL, (puchar)glpRecogName, Image);
 									PAGEINFO info = {0};
 		                            GetPageInfo(hCPAGE,&info);
 									info.Images|=IMAGE_TURN;
@@ -470,7 +470,7 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 //////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 // Выделение компонент
-Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name, PRSPreProcessImage Image)
+Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, puchar name, PRSPreProcessImage Image)
 {
 	Bool32 rc = TRUE;
 	ExcControl      exc = {0};
@@ -516,17 +516,17 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name, PR
 //    if( Image->gnPictures )
         exc.Control |= Ex_PictureLarge;
 /*//Andrey: опознавалка вынесена в отдельный модуль RRecCom
-	if(rc && !REXC_SetEVNProperties(exc, GetModulePath(),(Word8)Image->gnLanguage) )
+	if(rc && !REXC_SetEVNProperties(exc, GetModulePath(),(uchar)Image->gnLanguage) )
 	{ // инициализировать распознавание по эвентам и задать алфавит
 		SetReturnCode_rstuff(REXC_GetReturnCode());
 		rc = FALSE;
 	}
 	else
 */	{
-		Word8 w8 = (Word8)Image->gbDotMatrix;
+		uchar w8 = (uchar)Image->gbDotMatrix;
 			REXC_SetImportData(REXC_Word8_Matrix,&w8);
 
-		w8 = (Word8)Image->gbFax100;
+		w8 = (uchar)Image->gbFax100;
 			REXC_SetImportData(REXC_Word8_Fax1x2,&w8);
 	}
 
@@ -563,7 +563,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name, PR
 		memset(&rec_control, 0, sizeof(RRecComControl));
 		rec_control.flags = RECOG_EVN;
 
-		if (!RRECCOM_Recog(*(Image->phCCOM), rec_control, GetModulePath(), (Word8)Image->gnLanguage))
+		if (!RRECCOM_Recog(*(Image->phCCOM), rec_control, GetModulePath(), (uchar)Image->gnLanguage))
 		{
 			SetReturnCode_rstuff(RRECCOM_GetReturnCode());
 			rc = FALSE;
@@ -847,7 +847,7 @@ Bool32    KillLines(PRSPreProcessImage Image)
 	{
 		if(LDPUMA_Skip(Image->hDebugCancelRemoveLines)	)
 		{
-			PWord8 pDIB = NULL;
+			puchar pDIB = NULL;
 			PRGTIME	prev = StorePRGTIME(30, 40);
 
 			rc = RemoveLines(Image, &pDIB);
@@ -867,13 +867,13 @@ Bool32    KillLines(PRSPreProcessImage Image)
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 RemoveLines(PRSPreProcessImage Image, PWord8 * lppDIB)
+Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB)
 {
 	Handle hccom = *Image->phCCOM;
 	Handle hcpage = Image->hCPAGE;
 	Handle *hLinesCCOM = Image->phLinesCCOM;
 
-	PWord8 hDIB = NULL;
+	puchar hDIB = NULL;
 	Bool32 rc = TRUE;
     *hLinesCCOM = NULL;
     CCOM_comp   *victim[100];
@@ -899,7 +899,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, PWord8 * lppDIB)
 	//
 	// Получим изображение с удаленными линиями
 	//
-	if(rc && !CIMAGE_ReadDIB((PWord8)PUMA_IMAGE_DELLINE,(Handle*)&hDIB,TRUE))
+	if(rc && !CIMAGE_ReadDIB((puchar)PUMA_IMAGE_DELLINE,(Handle*)&hDIB,TRUE))
 	{
 		SetReturnCode_rstuff(CIMAGE_GetReturnCode());
 		rc = FALSE;
@@ -909,7 +909,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, PWord8 * lppDIB)
 		//
 		// Удалим компоненты и выделим их заново.
 		//
-		*lppDIB = (PWord8)hDIB;
+		*lppDIB = (puchar)hDIB;
 		if(rc)
 		{
 		//if( CCOM_GetContainerVolume((CCOM_handle)*Image->phCCOM)>30000 )
@@ -924,7 +924,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, PWord8 * lppDIB)
             *Image->phCCOM = 0;
             }
 
-		if(!ExtractComponents(FALSE, hLinesCCOM, (PWord8)PUMA_IMAGE_DELLINE, Image))
+		if(!ExtractComponents(FALSE, hLinesCCOM, (puchar)PUMA_IMAGE_DELLINE, Image))
 		{
 				rc = FALSE;
 		}

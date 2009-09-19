@@ -81,7 +81,7 @@ extern int inf_betw_str_h;
 
 
 Int16 okrug(double);
-int GetUnRotateY(int,int,Int16*,Int16*,Word8*,int);
+int GetUnRotateY(int,int,Int16*,Int16*,uchar*,int);
 void StrMoveMas(Rect16*,int&,int);
 void StrMoveMas(CCOM_comp**,int&,int);
 

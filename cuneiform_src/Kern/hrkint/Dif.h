@@ -94,10 +94,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
   DIF_FUNC(Bool32)  DIFStick_expert(
       Int16 dx, Int16 dy,    // raster description
-      Word8*      pool,
+      uchar*      pool,
       RecVersions* DIFres );  // acuracy
 
-  DIF_FUNC(int32_t)  DIFGet_incline( RecRaster*  r, Word8 *pool);
+  DIF_FUNC(int32_t)  DIFGet_incline( RecRaster*  r, uchar *pool);
 
    DIF_FUNC(void)  DIFDone(void);
       // Stop function. Call after DIFInit()
@@ -105,12 +105,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    DIF_FUNC(Int16) DIFGetErr(void);
       // Err16.h defined codes or one of the next
 
-  DIF_FUNC(Int16) DIFLeftDistance(Word8 *RASTER, Int16 NWIDTH);
-  DIF_FUNC(Int16) DIFRightDistance(Word8 *RASTER, Int16 NWIDTH);
-  DIF_FUNC(void)  DIFClearRightZone(Word8 *RASTER, Int16 NWIDTH, Int16 WBYTE, Int16 NHEIGHT);
-  DIF_FUNC(Int16) DIF_GetNoCutPoint(Word8 *RASTER, Int16 Wb, Word8 NWIDTH, Word8 NLENGTH);
-  DIF_FUNC(Bool32) DIF_SetLanguage(Word8 lang);
-  DIF_FUNC(Word16) DIF_typ_thin_stick(Word8 *lin,Int16 dy,Int16 dx);
+  DIF_FUNC(Int16) DIFLeftDistance(uchar *RASTER, Int16 NWIDTH);
+  DIF_FUNC(Int16) DIFRightDistance(uchar *RASTER, Int16 NWIDTH);
+  DIF_FUNC(void)  DIFClearRightZone(uchar *RASTER, Int16 NWIDTH, Int16 WBYTE, Int16 NHEIGHT);
+  DIF_FUNC(Int16) DIF_GetNoCutPoint(uchar *RASTER, Int16 Wb, uchar NWIDTH, uchar NLENGTH);
+  DIF_FUNC(Bool32) DIF_SetLanguage(uchar lang);
+  DIF_FUNC(Word16) DIF_typ_thin_stick(uchar *lin,Int16 dy,Int16 dx);
    #ifdef __cplusplus
             }
    #endif

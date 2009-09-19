@@ -90,7 +90,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////
 typedef struct struct_CHSTR_Objects
 {
-	Word8 ImageName[CPAGE_MAXNAME];
+	uchar ImageName[CPAGE_MAXNAME];
 	Rect16 Rc;
 	Bool32 type_vert;
 	Bool32 type_neg;
@@ -121,9 +121,9 @@ typedef enum
 
 DEC_FUN(Bool32, RSELSTR_ExtractTextStrings,(Handle hCCOM,Handle hCPAGE));
 DEC_FUN(Bool32, RSELSTR_PutObjects, (Handle hCPage,Handle hCCOM,CHSTR_Objects* pObjects,int nObjects));
-DEC_FUN(Bool32, RSELSTR_CutStr, (Rect16** ppRc,int& nRc,int& len_mas_Rc,Word8* pRast,int DPIX,int DPIY,int str_w));
-DEC_FUN(Bool32, RSELSTR_RotateRaster, (Word8* pmasp,int skew,Rect16* Rc,Int16* begx,Int16* movey,Word8* flmovey,int betw_str));
-DEC_FUN(Bool32, RSELSTR_UnRotateRect, (int skew,Rect16* pRc,int nRc,Rect16 Rc,Int16* begx,Int16* movey,Word8* flmovey,int* hi));
+DEC_FUN(Bool32, RSELSTR_CutStr, (Rect16** ppRc,int& nRc,int& len_mas_Rc,uchar* pRast,int DPIX,int DPIY,int str_w));
+DEC_FUN(Bool32, RSELSTR_RotateRaster, (uchar* pmasp,int skew,Rect16* Rc,Int16* begx,Int16* movey,uchar* flmovey,int betw_str));
+DEC_FUN(Bool32, RSELSTR_UnRotateRect, (int skew,Rect16* pRc,int nRc,Rect16 Rc,Int16* begx,Int16* movey,uchar* flmovey,int* hi));
 DEC_FUN(void, RSELSTR_CleanStr, (Rect16* pN,CCOM_comp** pC,int& nN,int top,int left,int h,int w,int skew,Bool32 vertical));
 DEC_FUN(Bool32, RSELSTR_TestForVertical, (CCOM_handle hCCOM,Handle hCPage,Rect16 RC,Bool32 neg,int param));
 DEC_FUN(void, RSELSTR_CutCompInTableZones, (Handle hCPAGE,CCOM_handle hCCOM));

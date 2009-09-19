@@ -655,7 +655,7 @@ void    LPUMA_SetFormatMode(uint32_t nNewValue)
         }
 }
 //////////////////////////////////////////////////////////////////
-void    LPUMA_SetUnrecogChar(Word8 nNewValue)
+void    LPUMA_SetUnrecogChar(uchar nNewValue)
 {
         if(s_hLib && SetImportData &&
            SetImportData(PUMA_Word8_Format,&nNewValue))
@@ -664,9 +664,9 @@ void    LPUMA_SetUnrecogChar(Word8 nNewValue)
         }
 }
 //////////////////////////////////////////////////////////////////
-Word8   LPUMA_GetUnrecogChar()
+uchar   LPUMA_GetUnrecogChar()
 {
-        Word8 rc = 0;
+        uchar rc = 0;
         if(s_hLib && GetExportData &&
                 GetExportData(PUMA_Word8_Format,&rc))
         {
@@ -850,7 +850,7 @@ void    LPUMA_GetSpecialBuffer(char * szResult,int32_t *nResultLength)
 
 }
 
-Bool32    LPUMA_SetSpecialProject(Word8 nSpecPrj)
+Bool32    LPUMA_SetSpecialProject(uchar nSpecPrj)
 {
         if(s_hLib && fnSetSpecialProject)
         {

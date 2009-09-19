@@ -61,11 +61,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 static Word16 wb, hb;
 
-static void rotate_8(Word8* sr, Word8* tr);
+static void rotate_8(uchar* sr, uchar* tr);
 
-void c_rastror (Word8* sr, Word8* tr, Word16 w, Word16 h)
+void c_rastror (uchar* sr, uchar* tr, Word16 w, Word16 h)
 {
- Word8* p;
+ uchar* p;
  Word16 l, ws, hs, loop1, loop2;
  wb = (w+7)/8; hb = (h+7)/8;
  p = sr + wb * h; l = wb * (hb*8 - h);
@@ -83,7 +83,7 @@ enter_loop:
  tr--; if (loop1--) goto loop_1;
 }
 
-static Word8 subst1[256] = {
+static uchar subst1[256] = {
  0x00, 0x08, 0x80, 0x88, 0x04, 0x0C, 0x84, 0x8C, // 0x00
  0x40, 0x48, 0xC0, 0xC8, 0x44, 0x4C, 0xC4, 0xCC, // 0x08
  0x02, 0x0A, 0x82, 0x8A, 0x06, 0x0E, 0x86, 0x8E, // 0x10
@@ -118,7 +118,7 @@ static Word8 subst1[256] = {
  0x73, 0x7B, 0xF3, 0xFB, 0x77, 0x7F, 0xF7, 0xFF  // 0xF8
 };
 
-static Word8 subst2[256] = {
+static uchar subst2[256] = {
  0x00, 0x01, 0x02, 0x03, 0x10, 0x11, 0x12, 0x13, // 0x00
  0x20, 0x21, 0x22, 0x23, 0x30, 0x31, 0x32, 0x33, // 0x08
  0x04, 0x05, 0x06, 0x07, 0x14, 0x15, 0x16, 0x17, // 0x10
@@ -153,10 +153,10 @@ static Word8 subst2[256] = {
  0xEC, 0xED, 0xEE, 0xEF, 0xFC, 0xFD, 0xFE, 0xFF  // 0xF8
  };
 
-static void rotate_8 (Word8* sr, Word8* tr)
+static void rotate_8 (uchar* sr, uchar* tr)
 {
- Word8 w1, w2, w3, w4;
- Word8 b1, b2, b3, b4, b5, b6, b7, b8;
+ uchar w1, w2, w3, w4;
+ uchar b1, b2, b3, b4, b5, b6, b7, b8;
  b1=*sr; sr+=wb;
  b2=*sr; sr+=wb;
  b3=*sr; sr+=wb;

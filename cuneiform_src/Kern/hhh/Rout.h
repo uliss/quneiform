@@ -198,7 +198,7 @@ DEC_FUN(Bool32, ROUT_UnloadEd,(void));
 // Получение списка поддерживаемых форматов
 // Возвращает количество форматов или (-1) при ошибке
 DEC_FUN(long, ROUT_ListFormats,
-	(PWord8 buf,	  // Адрес буфера для списка ROUT_ITEM
+	(puchar buf,	  // Адрес буфера для списка ROUT_ITEM
 	uint32_t sizeBuf // Длина буфера
 	));
 
@@ -206,14 +206,14 @@ DEC_FUN(long, ROUT_ListFormats,
 // для текущей загруженной страницы.
 // Возвращает количество форматов или (-1) при ошибке
 DEC_FUN(long, ROUT_ListAvailableFormats,
-	(PWord8 buf,	// Адрес буфера для списка ROUT_ITEM
+	(puchar buf,	// Адрес буфера для списка ROUT_ITEM
 	uint32_t sizeBuf	// Длина буфера
 	));
 
 // Получение списка кодировок для данного формата
 // Возвращает количество кодировок или -1 при ошибке
 DEC_FUN(long, ROUT_ListCodes,
-	(PWord8 buf,	// Адрес буфера для списка ROUT_ITEM
+	(puchar buf,	// Адрес буфера для списка ROUT_ITEM
 	uint32_t sizeBuf	// Длина буфера
 	));
 

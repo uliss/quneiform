@@ -86,19 +86,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "diskrtab.h"       /* таблицы      */
 
-Word8 BUFFER[256];   /* вертикальная проекция  */
-Word8 LOCAL[50];     /* список центров ног     */
-Word8 LOCAL_W[50];   /* список ширин   ног     */
-Word8 beg2, end1;    /* начало 2-ой, конец 1-ой ног  */
+uchar BUFFER[256];   /* вертикальная проекция  */
+uchar LOCAL[50];     /* список центров ног     */
+uchar LOCAL_W[50];   /* список ширин   ног     */
+uchar beg2, end1;    /* начало 2-ой, конец 1-ой ног  */
 
 #define bytlen(bits)  (REC_GW_WORD8(bits))
 
 Int16 dnri_hook,broken_ii=0;
-Word8 broken_flag=0;
+uchar broken_flag=0;
 
 
 /* LeftDistance - расстояние до первого слева бита			*/
-Int16 LeftDistance(Word8 *RASTER, Int16 NWIDTH)
+Int16 LeftDistance(uchar *RASTER, Int16 NWIDTH)
 {
 Int16 i;
 
@@ -111,7 +111,7 @@ return( (i<<3)+start_pos[*RASTER] );
 }
 
 /* RightDistance -расстояние до первого справа бита			*/
-Int16 RightDistance(Word8 *RASTER, Int16 NWIDTH)
+Int16 RightDistance(uchar *RASTER, Int16 NWIDTH)
 {
 Int16 i;
 
@@ -126,7 +126,7 @@ return( (i<<3)+last_pos[*RASTER] );
 }
 
 /* SumIntervalBits  - посчитать сумму бит (начало и конец - биты ) 	*/
-Int16 SumIntervalBits( Word8 *RASTER, Int16 n1, Int16 n2)
+Int16 SumIntervalBits( uchar *RASTER, Int16 n1, Int16 n2)
 {
 Int16 i,d,l;
 
@@ -146,7 +146,7 @@ return(3*d);
 }
 
 /* SumBits - посчитать сумму бит в строке байт 				*/
-Int16 SumBits( Word8 *RASTER, Int16 NWIDTH)
+Int16 SumBits( uchar *RASTER, Int16 NWIDTH)
 {
 Int16 i,s;
 
@@ -156,10 +156,10 @@ return(s);
 }
 
 /* VertSum - посчитать сумму бит в столбце  				*/
-Int16 VertSum( Word8 *RASTER, Int16 Wx, Int16 NHEIGHT, Int16 Column)
+Int16 VertSum( uchar *RASTER, Int16 Wx, Int16 NHEIGHT, Int16 Column)
 {
 Int16 i,d;
-Word8 mask=mask_byte[Column&7];
+uchar mask=mask_byte[Column&7];
 
 RASTER += (Column>>3);
 
@@ -171,10 +171,10 @@ return(d);
 
 
 /* NumHorizInterval - число интервалов в строке 			*/
-Int16 NumHorizInterval( Word8 *RASTER, Int16 NWIDTH)
+Int16 NumHorizInterval( uchar *RASTER, Int16 NWIDTH)
 {
 Int16 i,d;
-Word8 c,old;
+uchar c,old;
 
 for( i=d=old=0;i<NWIDTH;i++,RASTER++)
 	{
@@ -189,10 +189,10 @@ return(d);
 }
 
 /* NumVertInterval - число интервалов в столбце 			*/
-Int16 NumVertInterval( Word8 *RASTER, Int16 Wx, Int16 NHEIGHT, Int16 Column)
+Int16 NumVertInterval( uchar *RASTER, Int16 Wx, Int16 NHEIGHT, Int16 Column)
 {
 Int16 i,d;
-Word8 c,old,mask=mask_byte[Column&7];
+uchar c,old,mask=mask_byte[Column&7];
 
 RASTER += (Column>>3);
 
@@ -211,10 +211,10 @@ return(d);
 }
 
 /* FOOT_A - вычислить вертикальную проекцию растра 			*/
-Int16 FOOT_A( Word8 *RASTER, Int16 Wx, Word8 NWIDTH, Word8 NLENGTH)
+Int16 FOOT_A( uchar *RASTER, Int16 Wx, uchar NWIDTH, uchar NLENGTH)
 {
 Int16 i,j,k,d;
-Word8 *p,c;
+uchar *p,c;
 
 d=bytlen(NWIDTH);
 memset(BUFFER,0,NWIDTH);
@@ -247,11 +247,11 @@ return(0);
 
 
 /* FOOT - вычислить число ног  						*/
-Int16 FOOT( Word8 *RASTER, Int16 Wx, Word8 NWIDTH, Word8 NLENGTH,
-    Word8 HARD_FILTER)
+Int16 FOOT( uchar *RASTER, Int16 Wx, uchar NWIDTH, uchar NLENGTH,
+    uchar HARD_FILTER)
 {
 Int16 i,old,d,l,k;
-Word8 c,curr,first,second;
+uchar c,curr,first,second;
 memset(LOCAL,0,50);
 memset(LOCAL_W,0,50);
 FOOT_A(RASTER,Wx,NWIDTH,NLENGTH);       /* проекция */
@@ -346,20 +346,20 @@ if( d!=2 )
 for(i=1;i<NWIDTH;i++)
 	if( BUFFER[i]==0 && BUFFER[i-1]==1 )
 		break;
-end1 = (Word8)i;	 /* конец 1-ой ноги */
+end1 = (uchar)i;	 /* конец 1-ой ноги */
 for(i=NWIDTH-2;i>=0;i--)
 	if( BUFFER[i]==0 && BUFFER[i+1]==1 )
 		break;
-beg2 =(Word8) i;	 /* начало 2-ой ноги */
+beg2 =(uchar) i;	 /* начало 2-ой ноги */
 
 return(2);
 }
 
 /* CenterVertInterval - середина интервала в столбце 			*/
-Int16 CenterVertInterval( Word8 *RASTER, Int16 Wx, Int16 NHEIGHT, Int16 Column,
+Int16 CenterVertInterval( uchar *RASTER, Int16 Wx, Int16 NHEIGHT, Int16 Column,
       Int16 *up, Int16 *down)
 {
-Word8 mask = mask_byte[Column&7], c, old;
+uchar mask = mask_byte[Column&7], c, old;
 Int16 i,num,center,up_center;
 
 *up=*down=-1;
@@ -411,7 +411,7 @@ switch( num )
 return( (NHEIGHT<<1)-center);	/* удвоенное расстояние от низа растра */
 }
 
-Int16 MinMaxLeft( Word8 *RASTER, Int16 Wx, Word8 NWIDTH, Word8 NHEIGHT,
+Int16 MinMaxLeft( uchar *RASTER, Int16 Wx, uchar NWIDTH, uchar NHEIGHT,
 		Int16 *Pmin, Int16 *Pmax)
 {
 Int16 maxr=0,minr=100,r,i;
@@ -432,14 +432,14 @@ return(0);
 }
 
 /* MinMaxRight - найти min и max расстояние на правом абрисе 		*/
-Int16 MinMaxRight( Word8 *RASTER, Int16 Wx, Word8 NWIDTH, Word8 NHEIGHT,
+Int16 MinMaxRight( uchar *RASTER, Int16 Wx, uchar NWIDTH, uchar NHEIGHT,
 		Int16 *Pmin, Int16 *Pmax)
 {
 Int16 maxr=0,minr=100,r,i, end;
 
 r = bytlen(NWIDTH);
 end = (r-((NWIDTH+7)/8))*8;
-NWIDTH = (Word8)r;
+NWIDTH = (uchar)r;
 for( i=0;i<NHEIGHT;i++,RASTER+=Wx)
 	{
 	r = RightDistance(RASTER,NWIDTH)-end;
@@ -457,11 +457,11 @@ return(0);
 
 /* FOOT3_2 - вычислить число ног ( ожидается 3-ногая буква)     */
 /*           в верхней и нижней половинах                       */
-Int16 FOOT3_2( Word8 *RASTER, Int16 Wx, Word8 NWIDTH, Word8 NLENGTH)
+Int16 FOOT3_2( uchar *RASTER, Int16 Wx, uchar NWIDTH, uchar NLENGTH)
 {
 Int16 i,old,du,dd;
-Word8 c;
-FOOT_A(RASTER,Wx,NWIDTH,(Word8)(NLENGTH/2)); /* проекция */
+uchar c;
+FOOT_A(RASTER,Wx,NWIDTH,(uchar)(NLENGTH/2)); /* проекция */
 
 for(i=0;i<NWIDTH;i++)
   BUFFER[i] = (BUFFER[i]>0); /* бинаризация */
@@ -477,7 +477,7 @@ if( old )
   du++;
 du >>= 1;  /* du - число скачков вверху */
 
-  FOOT_A(RASTER+(NLENGTH/2)*Wx,Wx,NWIDTH,(Word8)(NLENGTH/2)); /* проекция */
+  FOOT_A(RASTER+(NLENGTH/2)*Wx,Wx,NWIDTH,(uchar)(NLENGTH/2)); /* проекция */
 
 for(i=0;i<NWIDTH;i++)
   BUFFER[i] = (BUFFER[i]>0); /* бинаризация */
@@ -496,10 +496,10 @@ return(dd==3&&du!=3);
 }
 
 /* FOOT3 - вычислить число ног ( ожидается 3-ногая буква)     */
-Int16 FOOT3( Word8 *RASTER, Int16 Wx, Word8 START, Word8 NWIDTH, Word8 NLENGTH, Int16 SHIFT)
+Int16 FOOT3( uchar *RASTER, Int16 Wx, uchar START, uchar NWIDTH, uchar NLENGTH, Int16 SHIFT)
 {
 Int16 i,old,d;
-Word8 c;
+uchar c;
 FOOT_A(RASTER,Wx,NWIDTH,NLENGTH); /* проекция */
 
 d=NLENGTH;
@@ -522,7 +522,7 @@ return(d);
 
 /* EndBlackInterval - номер последнего черного бита   */
 /* в первой слева пачке черных бит      */
-Int16 EndBlackInterval(Word8 *RASTER, Int16 NWIDTH)
+Int16 EndBlackInterval(uchar *RASTER, Int16 NWIDTH)
 {
 Int16 i;
 
@@ -540,7 +540,7 @@ if(   i<NWIDTH-1 && ((*RASTER)&0x01)==1 && piece_cnt[*RASTER]==1 &&
 return( (i<<3)+tab_last_black_bit[*RASTER] );
 }
 
-void clear_right_bites(Word8 *RASTER, Int16 NWIDTH, Int16 WBYTE, Int16 NHEIGHT)
+void clear_right_bites(uchar *RASTER, Int16 NWIDTH, Int16 WBYTE, Int16 NHEIGHT)
 {
 int w = NWIDTH&7, ww = (NWIDTH+7)/8, i;
 RASTER += ww;
@@ -563,10 +563,10 @@ else
 return;
 }
 
-Int16 FOOT_HEI( Word8 *RASTER, Int16 Wx, Word8 NWIDTH, Word8 NLENGTH)
+Int16 FOOT_HEI( uchar *RASTER, Int16 Wx, uchar NWIDTH, uchar NLENGTH)
 {
 Int16 i,old,d,l,k;
-Word8 c,curr,first,second;
+uchar c,curr,first,second;
 memset(LOCAL,0,50);
 memset(LOCAL_W,0,50);
 FOOT_A(RASTER,Wx,NWIDTH,NLENGTH);       /* проекция */

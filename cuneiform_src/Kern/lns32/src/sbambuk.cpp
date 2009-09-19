@@ -72,7 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    #include "smooth.h"
    static int _smooth_height=0;
 
-	static Word8 bytebit0[8] = {
+	static uchar bytebit0[8] = {
 		0x7F, 0xBF,	0xDF,	0xEF,
 		0xF7,	0xFB,	0xFD,	0xFE
 	};
@@ -154,7 +154,7 @@ Bool THVSegBambuk::makeIt(   TigerReader * reader,
 		assert( filter );
 		assert( filter->isOk() );
 
-      Word8*   new_line = NULL;
+      uchar*   new_line = NULL;
 		int 		cur_row = 0;
 //      int width_byte = reader->lineWidthByte(); assert(width_byte > 0);
 
@@ -162,7 +162,7 @@ Bool THVSegBambuk::makeIt(   TigerReader * reader,
 
 		if (height() < 17) {
 			for (cur_row = bottom; cur_row <= top; cur_row++) {
-            new_line = (Word8*)(reader->getLine());
+            new_line = (uchar*)(reader->getLine());
             if (new_line == NULL)
             {
                errCode = ER_CANTREAD;
@@ -186,7 +186,7 @@ Bool THVSegBambuk::makeIt(   TigerReader * reader,
 		/* process first 16 lines - extract horisontal and fill buffer*/
 		for (cur_row = bottom; cur_row < bottom + 16; cur_row++)
       {
-         new_line = (Word8*)(reader->getLine());
+         new_line = (uchar*)(reader->getLine());
          if (new_line == NULL)
          {
             errCode = ER_CANTREAD;
@@ -206,7 +206,7 @@ Bool THVSegBambuk::makeIt(   TigerReader * reader,
 		#ifndef NDEBUG_SBAMBUK
 			started_ = 0;
 		#endif
-      new_line = (Word8*)(reader->getLine());
+      new_line = (uchar*)(reader->getLine());
       if (new_line == NULL)
       {
          errCode = ER_CANTREAD;
@@ -248,7 +248,7 @@ Bool THVSegBambuk::makeIt(   TigerReader * reader,
 		/* main loop */
 		for (cur_row = bottom + 17; cur_row <= top  ; cur_row++)
       {
-         new_line = (Word8*)(reader->getLine());
+         new_line = (uchar*)(reader->getLine());
          if (new_line == NULL)
          {
             errCode = ER_CANTREAD;
@@ -262,7 +262,7 @@ Bool THVSegBambuk::makeIt(   TigerReader * reader,
 				return WRONG();
 			};
 #ifdef SMOOTH98
-         new_line = (Word8*)smooth_update((int32_t*)new_line);
+         new_line = (uchar*)smooth_update((int32_t*)new_line);
 #endif
          if (!vBambuk.vUpdate( (int32_t*)new_line,
                                (int32_t*)filter->cur16,
@@ -319,14 +319,14 @@ Bool TSegBambuk::vUpdate(  int32_t* new_line,
 
    int nbytes = width_byte_-1;
 
-   Word8* cur_byte = (Word8*)cur16;
-   Word8* prev_byte = (Word8*)prev16;
-   Word8* new_byte = (Word8*)new_line;
+   uchar* cur_byte = (uchar*)cur16;
+   uchar* prev_byte = (uchar*)prev16;
+   uchar* new_byte = (uchar*)new_line;
 
 	for ( int i = 0; i < nbytes; i++ )
    {
 		/* 1. process started segments */
-      Word8 was_born = (*prev_byte) & ~(*cur_byte);
+      uchar was_born = (*prev_byte) & ~(*cur_byte);
       if (was_born)
       {
 			col = i << 3; // i*8;
@@ -347,7 +347,7 @@ Bool TSegBambuk::vUpdate(  int32_t* new_line,
       }
 
 		/* 2. process ended segments */
-      Word8 has_died = ~(*cur_byte) & (*new_byte);
+      uchar has_died = ~(*cur_byte) & (*new_byte);
    	if (has_died)
       {
 			col = i << 3;   // i*8
@@ -386,7 +386,7 @@ Bool TSegBambuk::vUpdateFirst(   int32_t* new_line,
 
       int32_t was_born_dword;
       int32_t has_died_dword;
-		Word8 was_born, has_died;
+		uchar was_born, has_died;
 		int j, col;
 
 		for ( int i = 0; i < width_dword_ - 1; i++ ){
@@ -395,7 +395,7 @@ Bool TSegBambuk::vUpdateFirst(   int32_t* new_line,
 #ifdef BIG_ENDIAN
             was_born_dword = SWAPLONG(was_born_dword);
 #endif
-				if ( (was_born = (Word8)was_born_dword ) != 0){  // first byte
+				if ( (was_born = (uchar)was_born_dword ) != 0){  // first byte
 					col = i << 5;   // i*32
 					do {
 							segCount++;
@@ -411,7 +411,7 @@ Bool TSegBambuk::vUpdateFirst(   int32_t* new_line,
 							#endif
 					} while ( was_born &= bytebit0[j]);
 				};
-				if ( (was_born = (Word8)(was_born_dword >> 8) ) != 0){  // second byte
+				if ( (was_born = (uchar)(was_born_dword >> 8) ) != 0){  // second byte
 					col = (i << 5) + 8;   // i*32 + 8
 					do {
 							segCount++;
@@ -427,7 +427,7 @@ Bool TSegBambuk::vUpdateFirst(   int32_t* new_line,
 							#endif
 					} while ( was_born &= bytebit0[j]);
 				};
-				if ( (was_born = (Word8)(was_born_dword >> 16) ) != 0){  // third byte
+				if ( (was_born = (uchar)(was_born_dword >> 16) ) != 0){  // third byte
 					col = (i << 5) + 16;   // i*32 + 8
 					do {
 							segCount++;
@@ -443,7 +443,7 @@ Bool TSegBambuk::vUpdateFirst(   int32_t* new_line,
 							#endif
 					} while ( was_born &= bytebit0[j]);
 				};
-				if ( (was_born = (Word8)(was_born_dword >> 24) ) != 0){  // forth byte
+				if ( (was_born = (uchar)(was_born_dword >> 24) ) != 0){  // forth byte
 					col = (i << 5) + 24;   // i*32 + 24
 					do {
 							segCount++;
@@ -466,7 +466,7 @@ Bool TSegBambuk::vUpdateFirst(   int32_t* new_line,
 #ifdef BIG_ENDIAN
             has_died_dword= SWAPLONG(has_died_dword);
 #endif
-				if ((has_died = (Word8)has_died_dword ) != 0){   // first byte
+				if ((has_died = (uchar)has_died_dword ) != 0){   // first byte
 					col = i << 5;   // i*32
 					do {
 							seg_handle = lastEntryMember( col+
@@ -485,7 +485,7 @@ Bool TSegBambuk::vUpdateFirst(   int32_t* new_line,
 #endif
 					} while ( has_died &= bytebit0[j]);
 				};
-				if ((has_died = (Word8)(has_died_dword>>8) ) != 0){   // second byte
+				if ((has_died = (uchar)(has_died_dword>>8) ) != 0){   // second byte
 					col = (i << 5) + 8;   // i*32
 					do {
 							seg_handle = lastEntryMember( col+
@@ -504,7 +504,7 @@ Bool TSegBambuk::vUpdateFirst(   int32_t* new_line,
 #endif
 					} while ( has_died &= bytebit0[j]);
 				};
-				if ( (has_died = (Word8)(has_died_dword>>16) ) != 0){   // third byte
+				if ( (has_died = (uchar)(has_died_dword>>16) ) != 0){   // third byte
 					col = (i << 5) + 16;   // i*32
 					do {
 							seg_handle = lastEntryMember( col+
@@ -523,7 +523,7 @@ Bool TSegBambuk::vUpdateFirst(   int32_t* new_line,
 #endif
 					} while ( has_died &= bytebit0[j]);
 				};
-				if ( (has_died = (Word8)(has_died_dword>>24) ) != 0){   // forth byte
+				if ( (has_died = (uchar)(has_died_dword>>24) ) != 0){   // forth byte
 					col = (i << 5) + 24;   // i*32
 					do {
 							seg_handle = lastEntryMember( col+
@@ -561,7 +561,7 @@ Bool TSegBambuk::vUpdateLast(    int32_t* cur16,
 
       int32_t was_born_dword;
       int32_t has_died_dword;
-		Word8 was_born, has_died;
+		uchar was_born, has_died;
 		int j, col;
 
 		for ( int i = 0; i < width_dword_ - 1; i++ ){
@@ -570,7 +570,7 @@ Bool TSegBambuk::vUpdateLast(    int32_t* cur16,
 #ifdef BIG_ENDIAN
             was_born_dword = SWAPLONG(was_born_dword);
 #endif
-				if ((was_born = (Word8)was_born_dword) != 0){  // first byte
+				if ((was_born = (uchar)was_born_dword) != 0){  // first byte
 					col = i << 5;   // i*32
 					do {
 							segCount++;
@@ -586,7 +586,7 @@ Bool TSegBambuk::vUpdateLast(    int32_t* cur16,
 							#endif
 					} while ( was_born &= bytebit0[j]);
 				};
-				if ((was_born = (Word8)(was_born_dword >> 8)) != 0){  // second byte
+				if ((was_born = (uchar)(was_born_dword >> 8)) != 0){  // second byte
 					col = (i << 5) + 8;   // i*32 + 8
 					do {
 							segCount++;
@@ -602,7 +602,7 @@ Bool TSegBambuk::vUpdateLast(    int32_t* cur16,
 							#endif
 					} while ( was_born &= bytebit0[j]);
 				};
-				if ( (was_born = (Word8)(was_born_dword >> 16) ) != 0){  // third byte
+				if ( (was_born = (uchar)(was_born_dword >> 16) ) != 0){  // third byte
 					col = (i << 5) + 16;   // i*32 + 8
 					do {
 							segCount++;
@@ -618,7 +618,7 @@ Bool TSegBambuk::vUpdateLast(    int32_t* cur16,
 							#endif
 					} while ( was_born &= bytebit0[j]);
 				};
-				if ( (was_born = (Word8)(was_born_dword >> 24)) != 0){  // forth byte
+				if ( (was_born = (uchar)(was_born_dword >> 24)) != 0){  // forth byte
 					col = (i << 5) + 24;   // i*32 + 24
 					do {
 							segCount++;
@@ -641,7 +641,7 @@ Bool TSegBambuk::vUpdateLast(    int32_t* cur16,
 #ifdef BIG_ENDIAN
             has_died_dword= SWAPLONG(has_died_dword);
 #endif
-				if ( (has_died = (Word8)has_died_dword ) != 0){   // first byte
+				if ( (has_died = (uchar)has_died_dword ) != 0){   // first byte
 					col = i << 5;   // i*32
 					do {
 							seg_handle = lastEntryMember( col+
@@ -660,7 +660,7 @@ Bool TSegBambuk::vUpdateLast(    int32_t* cur16,
 #endif
 					} while ( has_died &= bytebit0[j]);
 				};
-				if ( ( has_died = (Word8)(has_died_dword>>8) ) != 0){   // second byte
+				if ( ( has_died = (uchar)(has_died_dword>>8) ) != 0){   // second byte
 					col = (i << 5) + 8;   // i*32
 					do {
 							seg_handle = lastEntryMember( col+
@@ -679,7 +679,7 @@ Bool TSegBambuk::vUpdateLast(    int32_t* cur16,
 #endif
 					} while ( has_died &= bytebit0[j]);
 				};
-				if ( ( has_died = (Word8)(has_died_dword>>16) ) != 0){   // third byte
+				if ( ( has_died = (uchar)(has_died_dword>>16) ) != 0){   // third byte
 					col = (i << 5) + 16;   // i*32
 					do {
 							seg_handle = lastEntryMember( col+
@@ -698,7 +698,7 @@ Bool TSegBambuk::vUpdateLast(    int32_t* cur16,
 #endif
 					} while ( has_died &= bytebit0[j]);
 				};
-				if ( ( has_died = (Word8)(has_died_dword>>24) ) != 0){   // forth byte
+				if ( ( has_died = (uchar)(has_died_dword>>24) ) != 0){   // forth byte
 					col = (i << 5) + 24;   // i*32
 					do {
 							seg_handle = lastEntryMember( col+

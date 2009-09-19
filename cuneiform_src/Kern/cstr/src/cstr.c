@@ -277,7 +277,7 @@ CCOM_comp    *  comp;
 for(c=be;c&&c!=e;c=CSTR_GetNext(c))
     {
     if( CSTR_GetAttr ((CSTR_rast)c, &attr) &&
-        CSTR_GetImage ((CSTR_rast)c, (Word8 *)&rs, CSTR_TYPE_IMAGE_RS) &&
+        CSTR_GetImage ((CSTR_rast)c, (uchar *)&rs, CSTR_TYPE_IMAGE_RS) &&
         CSTR_GetCollectionUni((CSTR_rast)c,&vr) &&
         (comp=CSTR_GetComp(c))!=NULL )
         {
@@ -336,7 +336,7 @@ CSTR_SetLineAttr(trg,&lattr);
 for(c=CSTR_GetNextRaster (start,CSTR_f_all); c && c!=stop; c=CSTR_GetNextRaster (c,CSTR_f_all))
     {
     if( CSTR_GetAttr (c, &attr) &&
-        CSTR_GetImage (c, (Word8 *)&rs, CSTR_TYPE_IMAGE_RS) &&
+        CSTR_GetImage (c, (uchar *)&rs, CSTR_TYPE_IMAGE_RS) &&
         CSTR_GetCollectionUni(c,&vr) &&
         (comp=CSTR_GetComp(c))!=NULL )
         {
@@ -853,7 +853,7 @@ CSTR_FUNC(Bool32)               CSTR_SetUserAttr (CSTR_rast raster, CCOM_USER_BL
 {
 CCOM_USER_BLOCK  *ub;
 uint32_t      UserCode = ubl->code;
-Word8   *   UserData = ubl->data;
+uchar   *   UserData = ubl->data;
 int32_t       UserSize = ubl->size;
 CSTR_cell *cell  ;
 if( raster==(CSTR_rast)0 )
@@ -876,7 +876,7 @@ while( ub )
     {
     if( ub->data && ub->size )
       my_free(ub->data, ub->size);
-    ub->data = (Word8*)my_alloc(UserSize);
+    ub->data = (uchar*)my_alloc(UserSize);
     if( !ub->data )
       return FALSE;
     ub->size = UserSize;
@@ -892,7 +892,7 @@ if( !ub )
     wLowRC=CSTR_ERR_NOMEMORY        ;
     return FALSE;
     }
-ub->data = (Word8*)my_alloc(UserSize);
+ub->data = (uchar*)my_alloc(UserSize);
 if( !ub->data )
     {
     wLowRC=CSTR_ERR_NOMEMORY        ;
@@ -941,7 +941,7 @@ return FALSE;
 Bool32 RecRaster2rst(RecRaster *recr,CSTR_cell  *cell)
 {
 int     n,n8,w,h;
-Word8  *in, *out, *nin;
+uchar  *in, *out, *nin;
 
 w=recr->lnPixWidth;
 h=recr->lnPixHeight;
@@ -970,8 +970,8 @@ return TRUE;
 Bool32 rst2RecRaster(CSTR_cell  *cell, RecRaster *recr)
 {
 int     n,n8,w,h;
-Word8  *in, *out, *nin;
-Word8   buf[256]={0};
+uchar  *in, *out, *nin;
+uchar   buf[256]={0};
 
 w=cell->lnPixWidth;
 h=cell->lnPixHeight;
@@ -998,7 +998,7 @@ CSTR_FUNC(Bool32)               CSTR_StoreRaster (CSTR_rast curr_raster, RecRast
 {
 CSTR_cell   * cell = (CSTR_cell*)curr_raster;
 CSTR_head   * line;
-Word8         lp[6000];
+uchar         lp[6000];
 Int16         lp_size;
 Int16         multy;
 
@@ -1024,7 +1024,7 @@ CCOM_Store(cell->env,multy,lp_size, lp,  0, 0, 0, NULL,NULL);
 return TRUE;
 }
 
-CSTR_FUNC(Bool32)               CSTR_StoreComp (CSTR_rast  curr_raster, Word8 *lp, Bool32 raster_init, Word8 scale)
+CSTR_FUNC(Bool32)               CSTR_StoreComp (CSTR_rast  curr_raster, uchar *lp, Bool32 raster_init, uchar scale)
 {
 CSTR_cell   * cell = (CSTR_cell*)curr_raster;
 CCOM_comp   * comp;
@@ -1032,7 +1032,7 @@ CSTR_head   * line;
 RecRaster     rs;
 Int16        len, numc,num_ln;
 Int16       *llen;
-Word8       *l=lp;
+uchar       *l=lp;
 CCOM_lnhead *ln;
 
 if( curr_raster==(CSTR_rast)0 )
@@ -1097,7 +1097,7 @@ CSTR_FUNC(Bool32)               CSTR_StoreCompOriginal (CSTR_rast  curr_raster, 
 {
 CSTR_cell   * cell = (CSTR_cell*)curr_raster;
 RecRaster     rs;
-Word8        scale=comp->scale;
+uchar        scale=comp->scale;
 
 if( curr_raster==(CSTR_rast)0 )
     {
@@ -1134,7 +1134,7 @@ RecRaster2rst(&rs,cell);
 return TRUE;
 }
 
-CSTR_FUNC(Bool32)               CSTR_StoreScale(CSTR_rast  curr_raster,Word8 scale)
+CSTR_FUNC(Bool32)               CSTR_StoreScale(CSTR_rast  curr_raster,uchar scale)
 {
 CSTR_cell   * cell = (CSTR_cell*)curr_raster;
 CCOM_comp   * comp;
@@ -1154,7 +1154,7 @@ comp->scale = scale;
 return TRUE;
 }
 
-CSTR_FUNC(Bool32)               CSTR_GetImage (CSTR_rast  curr_raster, Word8 *out_res, uint32_t type_image)
+CSTR_FUNC(Bool32)               CSTR_GetImage (CSTR_rast  curr_raster, uchar *out_res, uint32_t type_image)
 {
 CSTR_cell   * cell = (CSTR_cell*)curr_raster;
 if( curr_raster==(CSTR_rast)0 )
@@ -1717,7 +1717,7 @@ if( !ln )
     }
 
 if( CSTR_GetAttr  (c, &attr) &&
-    CSTR_GetImage (c, (Word8 *)&rs, CSTR_TYPE_IMAGE_RS) &&
+    CSTR_GetImage (c, (uchar *)&rs, CSTR_TYPE_IMAGE_RS) &&
     CSTR_GetCollection(c,&vr) )
     {
     if( !(rn=CSTR_NewRaster (ln ,attr.col, attr.row,attr.w)) )
@@ -1753,7 +1753,7 @@ if( !rst || !ln )
     }
 
 if( CSTR_GetAttr  (rst, &attr) &&
-    CSTR_GetImage (rst, (Word8 *)&rs, CSTR_TYPE_IMAGE_RS) &&
+    CSTR_GetImage (rst, (uchar *)&rs, CSTR_TYPE_IMAGE_RS) &&
     CSTR_GetCollection(rst,&vr) )
     {
     if( !(rn=CSTR_NewRaster (ln ,attr.col, attr.row,attr.w)) )
@@ -2167,7 +2167,7 @@ if( !CSTR_GetAttr (src, &attr) )
         return FALSE;
 if( !CSTR_SetAttr (trg, &attr) )
     return FALSE;
-if(  CSTR_GetImage (src, (Word8 *)&rs, CSTR_TYPE_IMAGE_RS) &&
+if(  CSTR_GetImage (src, (uchar *)&rs, CSTR_TYPE_IMAGE_RS) &&
     (comp=CSTR_GetComp(src))!=NULL )
         {
         if( !CSTR_StoreRaster (trg, &rs) )

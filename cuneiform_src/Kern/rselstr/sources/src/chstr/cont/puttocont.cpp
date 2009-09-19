@@ -69,7 +69,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_PutObjects (Handle hCPage,Handle hCCOM,CHSTR_Object
 
 
  CHstr* string;
- Word8* ImageName;
+ uchar* ImageName;
 
  for(int i=0;i<nObjects;i++)
  {
@@ -83,7 +83,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_PutObjects (Handle hCPage,Handle hCCOM,CHSTR_Object
 
   if(pObjects[i].ImageName[0]!='\0')
   {
-	if(string->ImageName= new Word8[CPAGE_MAXNAME] )
+	if(string->ImageName= new uchar[CPAGE_MAXNAME] )
 	{
 	    int j;
 		for(j=0;j<CPAGE_MAXNAME&&ImageName[j]!='\0';j++)

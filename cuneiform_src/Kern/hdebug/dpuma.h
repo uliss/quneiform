@@ -86,7 +86,7 @@ typedef struct DPUMA_tagRecRaster
       int32_t    lnPixWidth;
       int32_t    lnPixHeight;
       int32_t    lnRasterBufSize;				// maximum of raster length
-      Word8    Raster[DPUMA_REC_MAX_RASTER_SIZE];	// image
+      uchar    Raster[DPUMA_REC_MAX_RASTER_SIZE];	// image
    }  DPUMA_RecRaster;
 
 enum DPUMA_EXPORT
@@ -271,7 +271,7 @@ DEC_FUNC(Handle, DPUMA_TimeStamp,(const char * name,Handle hTimer));
 DEC_FUNC(Handle, DPUMA_GetWindowHandle,(const char * name));
 DEC_FUNC(Handle, DPUMA_GetPrevSkipOwner,());
 DEC_FUNC(int32_t,  DPUMA_AllocHook,( int32_t allocType, Handle userData, uint32_t size, uint32_t prevSize,
-		 int32_t blockType, int32_t requestNumber, PWord8 filename, int32_t lineNumber));
+		 int32_t blockType, int32_t requestNumber, puchar filename, int32_t lineNumber));
 DEC_FUNC(void,	 DPUMA_ConsoleClear,(int32_t fromline));
 DEC_FUNC(int32_t,  DPUMA_ConsoleGetCurLine,());
 

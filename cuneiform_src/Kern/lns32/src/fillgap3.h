@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __FILLGAP3_H
 
 Bool     FillGap3_Init(int wImageByteWidth);
-Word8*   FillGap3_SubstLine( Word8* line );
+uchar*   FillGap3_SubstLine( uchar* line );
 void     FillGap3_Done();
 
 #endif

@@ -86,7 +86,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //Word16 GetReturnCode_rimage();
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //CFIO Entries
-static void* (*pDAlloc)(uint32_t, uint32_t, PWord8, PWord8) = NULL;
+static void* (*pDAlloc)(uint32_t, uint32_t, puchar, puchar) = NULL;
 static void* (*pAlloc)(uint32_t, uint32_t)                  = NULL;
 static void  (*pFree)(void *)                           = NULL;
 static void* (*pLock)(void *)                           = NULL;

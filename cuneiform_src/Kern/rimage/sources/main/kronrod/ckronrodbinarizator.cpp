@@ -189,7 +189,7 @@ void CKronrodBinarizator::grey_open_init_flags()
 {
 	// 02.11.1992
 	uint32_t	k, kk/*, n*/;
-	//Word8	b1, b2, bb, cc;
+	//uchar	b1, b2, bb, cc;
 	char 	Full_Name_GREY_INI [33];
 	char 	Name_GREY_INI[]="\\grey.ini";	// 10 chars, include 00
 	//char 	buf[888];
@@ -267,7 +267,7 @@ void CKronrodBinarizator::grey_open_init_MEM()
 	//////	I_beg = I_end = 0;
 }
 
-uint32_t CKronrodBinarizator::grey_to(PWord8 pKogo)
+uint32_t CKronrodBinarizator::grey_to(puchar pKogo)
 {
 	uint32_t	n_acc, n_from;	// really it is N_lines_will_be_ready;
 
@@ -357,7 +357,7 @@ void CKronrodBinarizator::grey_to_monitor_MBIT(uint32_t n_from)
 	if (Flag_grHist) grey_quant_KOROB_graph_Hist ();
 }
 
-void CKronrodBinarizator::grey_from(PWord8 pKuda)
+void CKronrodBinarizator::grey_from(puchar pKuda)
 {
 	if (Flag_OPEN==FALSE)
 		return;	////////////	really ERROR
@@ -445,9 +445,9 @@ void CKronrodBinarizator::grey_quant_KOROB_1x1()
 	uint32_t	i, i1, i2;					// SIMPLE VARIANT
 	uint32_t	j, j1, nj, j7;
 	int32_t	porog_tek;
-	Word8	b, mask_left, mask;
-	PWord8	pkuda_beg, pkuda;
-	PWord8	pkogo;
+	uchar	b, mask_left, mask;
+	puchar	pkuda_beg, pkuda;
+	puchar	pkogo;
 
 	i1 = Korob_i1;
 	i2 = Korob_i2;
@@ -492,9 +492,9 @@ void CKronrodBinarizator::grey_quant_KOROB_1x3_MAX()
 	uint32_t	nj_8;					// Vers-34: NO for 8 El. L/R
 	int32_t	porog_tek, porog_max, delta;
 	int32_t	nL, nC, nR;
-	Word8	b, mask_left, mask;
-	PWord8	pkuda_beg, pkuda;
-	PWord8	pkogo;
+	uchar	b, mask_left, mask;
+	puchar	pkuda_beg, pkuda;
+	puchar	pkogo;
 
 	i1 = Korob_i1;
 	i2 = Korob_i2;
@@ -563,9 +563,9 @@ void CKronrodBinarizator::grey_quant_KOROB_1x5work()
 	uint32_t	j_beg, j_end;			// NB: spec work for 2 left & 2 right
 	int32_t	porog_tek;
 	int32_t	nLL, nL, nC, nR, nRR, nCmod;
-	Word8	b, mask_left, mask;
-	PWord8	pkuda_beg, pkuda;
-	PWord8	pkogo;
+	uchar	b, mask_left, mask;
+	puchar	pkuda_beg, pkuda;
+	puchar	pkogo;
 
 	if (Korob_nj<5)
 		return;	// BBB
@@ -670,11 +670,11 @@ void CKronrodBinarizator::grey_quant_KOROB_3x3()
 	int32_t	nL,  nC, nR;
 	int32_t	nDL, nD, nDR;
 	int32_t	k_plan;
-	Word8	b, mask_left, mask;
-	Word8	here_Laplas, here_Plan, here_Hor, here_Vert;
+	uchar	b, mask_left, mask;
+	uchar	here_Laplas, here_Plan, here_Hor, here_Vert;
 	int32_t	L_kp_D8;
-	PWord8	pkuda_beg, pkuda;
-	PWord8	pU, pC, pD;		// Up, Centre, Down
+	puchar	pkuda_beg, pkuda;
+	puchar	pU, pC, pD;		// Up, Centre, Down
 
 	i1 = Korob_i1;
 	i2 = Korob_i2;
@@ -859,9 +859,9 @@ void CKronrodBinarizator::grey_quant_KOROB_3x3_VERB()
 	int32_t	nL,  nC, nR;
 	int32_t	nDL, nD, nDR;
 	int32_t	lapl;
-	Word8	b, mask_left, mask;
-	PWord8	pkuda_beg, pkuda;
-	PWord8	pU, pC, pD;		// Up, Centre, Down
+	uchar	b, mask_left, mask;
+	puchar	pkuda_beg, pkuda;
+	puchar	pU, pC, pD;		// Up, Centre, Down
 
 	i1 = Korob_i1;
 	i2 = Korob_i2;
@@ -943,8 +943,8 @@ void CKronrodBinarizator::grey_quant_KOROB_draw_RAMKA()
 {
 	uint32_t	i, i1, i2;
 	uint32_t	j, j1, nj, j2;
-	Word8	mask, mask_L, mask_R;
-	PWord8	pU, pD, pL, pR;		// Up, Down, Left, Right
+	uchar	mask, mask_L, mask_R;
+	puchar	pU, pD, pL, pR;		// Up, Down, Left, Right
 
 	i1 = Korob_i1;
 	i2 = Korob_i2;
@@ -1025,8 +1025,8 @@ void CKronrodBinarizator::grey_PR_BYTE(uint32_t ibeg, uint32_t jbeg, uint32_t va
 {
 	uint32_t	i, j, k;
 	uint32_t	cifra, scale;
-	Word8	mask;
-	PWord8	p;
+	uchar	mask;
+	puchar	p;
 	//......................................................................
 	cifra = value / 16;
 	for (k=0; k<2; k++)
@@ -1057,7 +1057,7 @@ void CKronrodBinarizator::grey_PR_BYTE(uint32_t ibeg, uint32_t jbeg, uint32_t va
 	} // FOR K
 }
 
-void CKronrodBinarizator::hist_add(PWord8 p, uint32_t N_Lines)
+void CKronrodBinarizator::hist_add(puchar p, uint32_t N_Lines)
 {
 	uint32_t	k, n;
 	uint32_t	Hist_WORD [256];
@@ -1272,7 +1272,7 @@ void CKronrodBinarizator::Korobs()
 	uint32_t	f, fff;	// NEXT for NEXT// Ё the number of last busy line.	Ё
 	uint32_t	b_old;			// Ё    New KOROB included to it. The	Ё
 	int32_t	ai2, ei2;		// Ё simplest case - if KOROB is inter 	Ё
-	PWord8	pC;			// Ё free interval. But it can be lefts	Ё
+	puchar	pC;			// Ё free interval. But it can be lefts	Ё
 
 	#define KRType        Int16
 	PInt16 	KR = (PInt16)pMREF;// Ё from left boundary or rights from 	Ё
@@ -1541,8 +1541,8 @@ void CKronrodBinarizator::Korob_calc_BOX(uint32_t j)
 	uint32_t	i1,i2, ni, i_down;
 	uint32_t	j1,j2, nj;
 	uint32_t	n_0_2, n_j_empty;	/* for RIGHT +0 (U-) or +2 (U+) GLUE  */
-	Word8	 FlagD, FlagL/*FlagR,*//*, Flag_DOWN_100*/;
-	PWord8	p;
+	uchar	 FlagD, FlagL/*FlagR,*//*, Flag_DOWN_100*/;
+	puchar	p;
 	int32_t	count_5555 = 5555;	// BBB for OTLADKA
 
 	i1 = i2 = Itek;
@@ -1721,8 +1721,8 @@ void CKronrodBinarizator::Korob_calc_Factor()
 	int32_t	LNblack, LNdiff, LNinter;
 	uint32_t	i1,i2, j1,nj, nj_1;
 	uint32_t	i, j;
-	Word8	por_tek;
-	PWord8	pU, pC, pD;	/* Up, Centre, Down */
+	uchar	por_tek;
+	puchar	pU, pC, pD;	/* Up, Centre, Down */
 
 	i1 = Korob_i1;
 	j1 = Korob_j1;
@@ -1796,7 +1796,7 @@ void CKronrodBinarizator::Korob_calc_TdP()
 {
 	int32_t	i1,i2, j1,nj, Factor;				/* OTLADKA ONLY	*/
 	int32_t	i, j;
-	Word8	mkMax, nn/*, dd*/;
+	uchar	mkMax, nn/*, dd*/;
 
 	if (Flag_T==FALSE)
 		return;
@@ -2103,7 +2103,7 @@ void CKronrodBinarizator::Korob_statistic()
 	uint32_t	i, j;
 	int32_t	nC, nL, nR;
 	int32_t	por_tek;
-	PWord8	pC;
+	puchar	pC;
 	/*......................................................................*/
 	LS_Korobs += (Korob_i2 - Korob_i1 + 1) * (int32_t) Korob_nj;
 	LSH_Korobs += (Korob_i2 - Korob_i1 + 1);
@@ -2214,16 +2214,16 @@ void CKronrodBinarizator::memory_allocation()
 	/*......................................................................*/
 	for (k=0; k<8; k++)
 	{
-	    pMem08[k] = (PWord8)KRONROD_LOCK(hMem08[k]); //GlobalLock (hMem08 [k]);
+	    pMem08[k] = (puchar)KRONROD_LOCK(hMem08[k]); //GlobalLock (hMem08 [k]);
 
 		if (pMem08[k]==NULL)
 			PR_BEG "pMem08[%d] = NULL", k);  PR_END
 	}
 
-	pMBIT = (PWord8)KRONROD_LOCK(hMBIT); //GlobalLock (hMBIT);	// BITMAP
+	pMBIT = (puchar)KRONROD_LOCK(hMBIT); //GlobalLock (hMBIT);	// BITMAP
 	if (pMBIT==NULL)  PR_BEG "pMBIT = NULL", k);  PR_END
 
-	pMREF = (PWord8)KRONROD_LOCK(hMREF); //GlobalLock (hMREF);	// KOROBS REFERENCES
+	pMREF = (puchar)KRONROD_LOCK(hMREF); //GlobalLock (hMREF);	// KOROBS REFERENCES
 	if (pMREF==NULL)  PR_BEG "pMREF = NULL", k);  PR_END
 
 	ppMem = (BYTE far * far *) KRONROD_LOCK(hPPMEM); //GlobalLock (hPPMEM);	// POINTERS to LINES
@@ -2289,20 +2289,20 @@ void CKronrodBinarizator::memory_alloc_from_body()
 	/*......................................................................*/
 	for (k=0; k<8; k++)
 	{
-	    pMem08 [k] = (PWord8)KRONROD_LOCK(hMem08[k]); //GlobalLock (hMem08 [k]);
+	    pMem08 [k] = (puchar)KRONROD_LOCK(hMem08[k]); //GlobalLock (hMem08 [k]);
 	    if (pMem08[k]==NULL)
 			PR_BEG
 				"pMem08 [%d] = NULL", k);
 			PR_END
 	}
 
-	pMBIT = (PWord8)KRONROD_LOCK(hMBIT); //GlobalLock (hMBIT);	// BITMAP
+	pMBIT = (puchar)KRONROD_LOCK(hMBIT); //GlobalLock (hMBIT);	// BITMAP
 	if (pMBIT==NULL)
 		PR_BEG
 			"pMBIT = NULL", k);
 		PR_END
 
-	pMREF = (PWord8)KRONROD_LOCK(hMREF); //GlobalLock (hMREF);	// KOROBS REFERENCES
+	pMREF = (puchar)KRONROD_LOCK(hMREF); //GlobalLock (hMREF);	// KOROBS REFERENCES
 	if (pMREF==NULL)
 		PR_BEG
 			"pMREF = NULL", k);
@@ -2417,7 +2417,7 @@ uint32_t CKronrodBinarizator::mk_1235()
 	return 0;
 }
 
-void CKronrodBinarizator::mk_hist_WORD(uint32_t * Hist_WORD, PWord8 p, uint32_t n)
+void CKronrodBinarizator::mk_hist_WORD(uint32_t * Hist_WORD, puchar p, uint32_t n)
 {
 	return;
 }

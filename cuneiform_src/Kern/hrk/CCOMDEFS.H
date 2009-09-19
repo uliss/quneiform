@@ -67,7 +67,7 @@ struct _USER_BLOCK
 {
 uint32_t  code;
 int32_t   size;
-Word8 * data;
+uchar * data;
 struct _USER_BLOCK * next_block;
 };
 typedef struct _USER_BLOCK CCOM_USER_BLOCK;
@@ -85,8 +85,8 @@ struct _CCOM_comp
  Int16 h;                       // height of component
  Int16 w;                       // width of component
 // 8
- Word8 rw;                      // raster width in bytes
- Word8 type;                    // recognition type :
+ uchar rw;                      // raster width in bytes
+ uchar type;                    // recognition type :
 #define CCOM_CH_PERFECT    1      // perfect type defined
 #define CCOM_CH_LETTER     2      // letter type
 #define CCOM_CH_DUST       4      // dust type
@@ -97,20 +97,20 @@ struct _CCOM_comp
 #define CCOM_CH_NOTLTR   128      // not letter or punctuation
  Int16 nl;                      // number of lines
  Int16        size_linerep;     // sizeof to line representation
- Word8  *     linerep;          // linear (inteval) representation
- Word8 begs;                    // number of free begins
+ uchar  *     linerep;          // linear (inteval) representation
+ uchar begs;                    // number of free begins
 // 16
- Word8 ends;                    // number of free ends
- Word8 large;                   // large type :
+ uchar ends;                    // number of free ends
+ uchar large;                   // large type :
 #define CCOM_LR_UNDERLINED  1   // component was underlined
 #define CCOM_LR_TAKEN       2   // taken to line at dust_ini
 #define CCOM_LR_LINEREP     4   // store line representation
 #define CCOM_LR_KILLED      8   // killed component
- Word8 scale;                   // scale of the component
+ uchar scale;                   // scale of the component
 #define CCOM_LONGLINES      128 // int16 end, int16 len
- Word8  cs;                     // respond from events
- Word8 pidx;            // proportional index (ref.)            *
- Word8 reasno;           // proportional criteria messages
+ uchar  cs;                     // respond from events
+ uchar pidx;            // proportional index (ref.)            *
+ uchar reasno;           // proportional criteria messages
  Int16 numcomp;
  CCOM_USER_BLOCK   * user_block ; // user information
 // 24
@@ -145,8 +145,8 @@ typedef struct _lnhead CCOM_linerep; // alias
 //	one interval
 typedef struct _interval
  {
- Word8 l;  // length of interval
- Word8 e;  // end of interval coordinates
+ uchar l;  // length of interval
+ uchar e;  // end of interval coordinates
  } CCOM_interval;
 
  typedef struct _interval16

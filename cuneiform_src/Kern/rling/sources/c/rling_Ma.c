@@ -127,44 +127,44 @@ void   append_by_lang (Int16 lang, pchar src, pchar dst);
 Int16 to_voc();
 ///////////////////////////////////////////////////////////
 void trees_load_rling(void);
-static void read_rec_file(Int16 fileno, PWord8 pool, PWord8 * end);
-static PWord8 preload_font_BOX( PWord8 free );
-static PWord8 load_BOX(PWord8 free);
-static PWord8 preload_font_BOX( PWord8 free );
+static void read_rec_file(Int16 fileno, puchar pool, puchar * end);
+static puchar preload_font_BOX( puchar free );
+static puchar load_BOX(puchar free);
+static puchar preload_font_BOX( puchar free );
 static void reload_lang_vocs();
 static void correct_let_tables(void); // ўл§лў Ґвбп ў д ©«Ґ EMBBOX.C: load_BOX()
 static void correct_letters_pidx_table(void);
-static PWord8 list_BOX(PWord8 free, Int16 typl);
-static void straight_BOX(PWord8 free);
+static puchar list_BOX(puchar free, Int16 typl);
+static void straight_BOX(puchar free);
 
-Word8            language;
-Word8            multy_language;
+uchar            language;
+uchar            multy_language;
 Int16            vocs_NOK;
-Word8            fax1x2;
+uchar            fax1x2;
 Bool16           FlagMixedText;
-PWord8           ED_file_start   = NULL;
-PWord8           ED_file_end     = NULL;
-PWord8           ED_out_end      = NULL;
-PWord8           svbox_pool      = NULL;
+puchar           ED_file_start   = NULL;
+puchar           ED_file_end     = NULL;
+puchar           ED_out_end      = NULL;
+puchar           svbox_pool      = NULL;
 Int16            CheckOpenBinType = (Int16)(O_RDONLY | O_BINARY);
 Int16            CheckOpenTxtType = (Int16)(O_RDONLY | O_TEXT);
 Int16            CheckOpenSubType = (Int16)(S_IREAD);
-static PWord8    memory_pool     = NULL;       /* start of memory pool */
-static PWord8    memory_pool_end = NULL;           /* end of memory pool */
-static PWord8    auto_pool       = NULL;       /* boxes pool for auto & font tables */
-static PWord8    box_pool        = NULL;       /* boxes pool for extr_comp */
-static PWord8    events_tree     = NULL;
-static PWord8    events_tree_rt  = NULL;       /* events tree memory start */
-static Word8     sv_lang         = 255;
-static PWord8    tableBOX        = NULL;       /* BOX table memory start */
-static Word8     all_loaded      = 0;
-static PWord8    fontBOX         = NULL;        /* BOX table for font  */
-static PWord8    omniBOX         = NULL;        /* BOX save table for omni  */
+static puchar    memory_pool     = NULL;       /* start of memory pool */
+static puchar    memory_pool_end = NULL;           /* end of memory pool */
+static puchar    auto_pool       = NULL;       /* boxes pool for auto & font tables */
+static puchar    box_pool        = NULL;       /* boxes pool for extr_comp */
+static puchar    events_tree     = NULL;
+static puchar    events_tree_rt  = NULL;       /* events tree memory start */
+static uchar     sv_lang         = 255;
+static puchar    tableBOX        = NULL;       /* BOX table memory start */
+static uchar     all_loaded      = 0;
+static puchar    fontBOX         = NULL;        /* BOX table for font  */
+static puchar    omniBOX         = NULL;        /* BOX save table for omni  */
 static int32_t     box_n           = BOX_NUM0;
 static PROOT     root_file       = NULL;                /* start of the root file */
-static PWord8    full_list[512];
-static PWord8    font_full_list[512];
-static PWord8    omni_full_list[512];
+static puchar    full_list[512];
+static puchar    font_full_list[512];
+static puchar    omni_full_list[512];
 static char      seq_name[]            = "rec0";
 char      own_dir[256]          = {"./"};
 static char      txt_ext[16]           = {"txt"};
@@ -326,7 +326,7 @@ Int16 TE_open(Int16 Stream, pchar Name, Int16 Type, Int16 SubType)
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //
-Int16 TE_write(Int16 File, PWord8 Data, uint32_t Size)
+Int16 TE_write(Int16 File, puchar Data, uint32_t Size)
 {
         Int16 i;
 
@@ -434,7 +434,7 @@ int32_t TE_file_length(Int16 fn)
         return filelength (i);
 }
 
-void ed_out_write(PWord8 p, Word16 size)
+void ed_out_write(puchar p, Word16 size)
 {
         if ( ED_out_end )
         {
@@ -460,7 +460,7 @@ void trees_load_rling()
 }
 ////////////////////////////////////////////////////////
 //
-void read_rec_file(Int16 fileno, PWord8 pool, PWord8 * end)
+void read_rec_file(Int16 fileno, puchar pool, puchar * end)
 {
         uint32_t l;
         Int16 h;
@@ -502,9 +502,9 @@ void reload_lang_vocs()
 
 //      roots_lth = box_n;
 //      roots_lth *= BOXSIZE;
-//      root_file = (PROOT)((PWord8)box_pool + roots_lth);
+//      root_file = (PROOT)((puchar)box_pool + roots_lth);
 
-//      if (memory_pool_end <= (PWord8)root_file)
+//      if (memory_pool_end <= (puchar)root_file)
 //              ErrorExit(9);
 }
 ////////////////////////////////////////////////////////////////////////////////////////

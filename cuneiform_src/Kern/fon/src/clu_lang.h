@@ -60,4 +60,4 @@ Bool32 BigSmallSymbol(int i);
 Bool32 SmallSymbol(int i);
 Bool32 NotStandardSymbol(int i);
 Bool32 WideSymbol(int i);
-Word8 TestCursivName(Word8 let);
+uchar TestCursivName(uchar let);

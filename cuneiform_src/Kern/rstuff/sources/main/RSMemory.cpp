@@ -93,14 +93,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //Word16 GetReturnCode_rstuff();
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //CFIO Entries
-static void* (*pDAlloc)(uint32_t, uint32_t, PWord8, PWord8) = NULL;
+static void* (*pDAlloc)(uint32_t, uint32_t, puchar, puchar) = NULL;
 static void* (*pAlloc)(uint32_t, uint32_t)                  = NULL;
 static void  (*pFree)(void *)                           = NULL;
 static void* (*pLock)(void *)                           = NULL;
 static void  (*pUnlock)(void *)                         = NULL;
 
-Word8* Buffer=NULL;
-Word8* WorkMem=NULL;
+uchar* Buffer=NULL;
+uchar* WorkMem=NULL;
 int BufferSize=0;
 int WorkMemSize=0;
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -324,13 +324,13 @@ void GiveWorkBuff (char **ccBuff, int *Size)
 
 void SetMainBuff(void *vBuff, int Size)
 {
-	Buffer=(Word8*)vBuff;
+	Buffer=(uchar*)vBuff;
 	BufferSize=Size;
 }
 
 void SetWorkBuff(void *vBuff, int Size)
 {
-	WorkMem=(Word8*)vBuff;
+	WorkMem=(uchar*)vBuff;
 	WorkMemSize=Size;
 }
 

@@ -68,10 +68,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef struct   tagImgRGB
 {
-	Word8 bRed;
-	Word8 bGreen;
-	Word8 bBlue;
-   Word8 breserved;
+	uchar bRed;
+	uchar bGreen;
+	uchar bBlue;
+   uchar breserved;
 } TImgRGB;
 
 _SETTYPES(TImgRGB)
@@ -86,9 +86,9 @@ typedef struct tagImgInfo
 
     Word16  wResolutionX;            // in dpi
     Word16  wResolutionY;            // in dpi
-    Word8  bFotoMetrics;             // 1, if white is highest number,
+    uchar  bFotoMetrics;             // 1, if white is highest number,
                                      // 0 -if white is lowest number.
-    Word8  bCompression;             // compression of delivered strips
+    uchar  bCompression;             // compression of delivered strips
 #define CM_UNCOMPRESSED    0x0010
 #define CM_GROUP4          0x0020
 #define CM_JPEG            0x0040
@@ -98,21 +98,21 @@ typedef struct tagImgInfo
     Word16  wAddX;                   //  "real"  coordinates of
     Word16  wAddY;                   //   upper-left corner (in pixels).
 
-    Word8   bSamplesPerPixel;
-    Word8   bBitsPerSample;
-    Word8   bPlanes;
-    Word8   LinesOrder;              // 0 - as DDB, 1 as DIB.
+    uchar   bSamplesPerPixel;
+    uchar   bBitsPerSample;
+    uchar   bPlanes;
+    uchar   LinesOrder;              // 0 - as DDB, 1 as DIB.
 #define LO_FIRSTFIRST 0
 #define LO_FIRSTLAST  1
     Int16   PaletteSize;
     TImgRGB* Palette;
 
-    Word8    ByteAlign;
+    uchar    ByteAlign;
 #define      BA_COMPACT     1
 #define      BA_TWOBYTE     2
 #define      BA_FOURBYTE    3
 
-    Word8   spare[15];   // reserved for future.
+    uchar   spare[15];   // reserved for future.
     Err16   error;
     Int16   step;  // step of sender/receiver conversation.
 #define CS_QUEST   0x0000   // struct has no information;
@@ -212,8 +212,8 @@ inline   EImageType GetImageType (TImgInfo *info)
 // Import callbacks prototypes:
 
 typedef Bool  (*TImpImgOpen) (TImgInfo * lpImageInfo);
-typedef int32_t (*TImpImgRead) (Word8* lpImage, int32_t wMaxSize);
-typedef Int16 (*TImpImgGetBlock)(Word8* lpBuff, Int16 fstLine, Int16 nLines);
+typedef int32_t (*TImpImgRead) (uchar* lpImage, int32_t wMaxSize);
+typedef Int16 (*TImpImgGetBlock)(uchar* lpBuff, Int16 fstLine, Int16 nLines);
 typedef Bool  (*TImpImgClose)(void);
 
 //
@@ -230,8 +230,8 @@ _SETTYPES(TImgImport)
 // Export callbacks   prototypes:
 
 typedef Bool  (*TExpImgOpen)    (TImgInfo * lpImageInfo);
-typedef int32_t (*TExpImgWrite)   (Word8* lpImage, int32_t wMaxSize);
-typedef Int16 (*TExpImgSetBlock)(Word8* lpBuff, Int16 fstLine, Int16 nLines);
+typedef int32_t (*TExpImgWrite)   (uchar* lpImage, int32_t wMaxSize);
+typedef Int16 (*TExpImgSetBlock)(uchar* lpBuff, Int16 fstLine, Int16 nLines);
 typedef Bool  (*TExpImgClose)   (void);
 
 //
@@ -268,8 +268,8 @@ typedef struct tagTiger_ImageInfo
                                     /*   image line in pixels, usually 0  */
     Word16  wResolutionX;           /* Resolution by X-axe */
     Word16  wResolutionY;           /* Resolution by Y-axe */
-    Word8   bFotoMetrics;             /* White pixel */
-    Word8   bUnused;                  /* not used; for alignment purpose only */
+    uchar   bFotoMetrics;             /* White pixel */
+    uchar   bUnused;                  /* not used; for alignment purpose only */
 
     Word16  wAddX;
     Word16  wAddY;
@@ -283,16 +283,16 @@ typedef Tiger_ImageInfo* LPTIGER_IMAGEINFO;
 
 #if defined( _MSC_VER ) && ( _MSC_VER == 800 ) /* MSVC 1.5  */
   typedef Bool16 (_far _pascal _export *TImageOpen     )(Tiger_ImageInfo* lpImageInfo);
-  typedef Int16  (_far _pascal _export *TImageRead     )(Word8* lpImage, Word16 wMaxSize);
-  typedef Int16  (_far _pascal _export *TImageGetBlock )(Word8* lpBuff, Int16 fstLine, Int16 nLines);
+  typedef Int16  (_far _pascal _export *TImageRead     )(uchar* lpImage, Word16 wMaxSize);
+  typedef Int16  (_far _pascal _export *TImageGetBlock )(uchar* lpBuff, Int16 fstLine, Int16 nLines);
   typedef Bool16 (_far _pascal _export *TImageClose    )(void);
 #else
 	#ifdef __cplusplus
 	extern "C"  {
 	#endif
-		typedef Int16  (*TImageGetBlock )(Word8* lpBuff, Int16 fstLine, Int16 nLines);
+		typedef Int16  (*TImageGetBlock )(uchar* lpBuff, Int16 fstLine, Int16 nLines);
 		typedef Bool16 (*TImageOpen     )(Tiger_ImageInfo* lpImageInfo);
-		typedef Int16  (*TImageRead     )(Word8* lpImage, Word16 wMaxSize);
+		typedef Int16  (*TImageRead     )(uchar* lpImage, Word16 wMaxSize);
 		typedef Bool16 (*TImageClose    )(void);
 	#ifdef __cplusplus
 	}

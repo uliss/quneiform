@@ -172,10 +172,10 @@ typedef struct tagCTDIBBITMAPV5HEADER
 //
 typedef struct tagCTDIBRGBQUAD
 { // rgbq
-	Word8    rgbBlue;
-	Word8    rgbGreen;
-    Word8    rgbRed;
-	Word8    rgbReserved;
+	uchar    rgbBlue;
+	uchar    rgbGreen;
+    uchar    rgbRed;
+	uchar    rgbReserved;
 } CTDIBRGBQUAD, *PCTDIBRGBQUAD, **PPCTDIBRGBQUAD;
 #endif //   !defined(WIN32) | !defined(CTDIB_USE_WIN32_API)
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -250,7 +250,7 @@ private:
 	// pointer to first RGBQUAD 32 bit fild
 	PCTDIBRGBQUAD       pRGBQuads;
 	// pointer to BitFild
-	PWord8              pBitFild;
+	puchar              pBitFild;
 	// version of DIB - 3,4 or 5
 	CTDIBVersion        wVersion;
 	// DIB Direction

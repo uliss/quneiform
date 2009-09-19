@@ -694,14 +694,14 @@ void c_rastror(PBYTE, PBYTE, WORD, WORD);
 lnhead *c_boxln(MN *);
 
 // rstr_con.c
-Int16 rstr_cont_store(RecRaster *r, Word8 let, Word8 nLns, Rect16 *rect,
-		Word8 IsPrint, Word8 Prob, Word8 Valid, RecVersions *v, Word8 control,
-		Word8 kegl, Word8 column, Word8 tabno);
+Int16 rstr_cont_store(RecRaster *r, uchar let, uchar nLns, Rect16 *rect,
+		uchar IsPrint, uchar Prob, uchar Valid, RecVersions *v, uchar control,
+		uchar kegl, uchar column, uchar tabno);
 void rstr_close_cont(void);
 Bool32 rstr_open_cont(void);
 // rcm.c
-Bool32 Reload_lang_vocs(Word8 language);
-Bool32 set_user_alphabet(Word8 * usa_ascii);
+Bool32 Reload_lang_vocs(uchar language);
+Bool32 set_user_alphabet(uchar * usa_ascii);
 void ErrorExit(int Code);
 #ifndef _JBTYPE
 #define _JBTYPE jmp_buf

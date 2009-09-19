@@ -759,7 +759,7 @@ else
         c=cell_f()->next;
         rst=CSTR_GetNextRaster(CSTR_GetFirstRaster(ln),CSTR_f_bad|CSTR_f_let);
 
-        if( rst && CSTR_GetImage(rst,(Word8 *)&rrst,CSTR_TYPE_IMAGE_RS))
+        if( rst && CSTR_GetImage(rst,(uchar *)&rrst,CSTR_TYPE_IMAGE_RS))
             {
             if( c->w>c->h*5
 				|| c->w>c->h*3 && c->env && c->env->nl == 1 // Nick 18.01.2002

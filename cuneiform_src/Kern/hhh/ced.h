@@ -265,7 +265,7 @@ enum CED_IMPORT_ENTRIES
 	CED_FNCED_ExtentionNew
 };
 
-typedef void (*FNRDProc)(Word8* ptr, uint32_t lth);
+typedef void (*FNRDProc)(uchar* ptr, uint32_t lth);
 
 //Для CreatePicture
 #define ED_ALIGN_BOT            0        // align picture bottom to base line

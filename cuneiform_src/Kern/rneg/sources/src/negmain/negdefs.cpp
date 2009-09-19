@@ -121,7 +121,7 @@ NegImage::~NegImage()
 		delete[] lp;
 }
 
-Bool NegImage::SetDibPtr(Word8* lpDibData,int wide,int height,int bwide)
+Bool NegImage::SetDibPtr(uchar* lpDibData,int wide,int height,int bwide)
 {
 	if(lp!=NULL||lpDibData==NULL)
 		return FALSE;
@@ -135,7 +135,7 @@ Bool NegImage::SetDibPtr(Word8* lpDibData,int wide,int height,int bwide)
 	return TRUE;
 }
 
-Word8* NegImage::GetPmasp(Rect16* pRc)
+uchar* NegImage::GetPmasp(Rect16* pRc)
 {
 	int left=pRc->left;
 	int right=pRc->right;
@@ -154,7 +154,7 @@ Word8* NegImage::GetPmasp(Rect16* pRc)
 	{
 		size_mas=(bytewide+1)*Height;
 		delete[] pmasp;
-		pmasp = new Word8[size_mas];
+		pmasp = new uchar[size_mas];
 		if(!pmasp)
 		{
 			size_mas=0;
@@ -162,9 +162,9 @@ Word8* NegImage::GetPmasp(Rect16* pRc)
 		}
 	}
 
-	register Word8* to=pmasp;
-	register Word8* from=lp+(Height-top-1)*cbytewide+(left>>3);
-	register Word8* now;
+	register uchar* to=pmasp;
+	register uchar* from=lp+(Height-top-1)*cbytewide+(left>>3);
+	register uchar* now;
 	register int i;
 	register int j;
 	switch(left&7)

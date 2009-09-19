@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //define variables and stubs
 FNRDProc RDProced=0;//points to unstructured data processor
-#define DEC_FUN(a,b,c)  FN##b b; a My##b c {} a MyRawData##b c {RDProced((Word8*)pt,sizeof(*pt));}
+#define DEC_FUN(a,b,c)  FN##b b; a My##b c {} a MyRawData##b c {RDProced((uchar*)pt,sizeof(*pt));}
 //points to structured data processor; functions map structured data into unstructured one
 
 DEC_FUN(void, CED_BitmapRef,(const bit_map_ref* pt))
@@ -92,11 +92,11 @@ DEC_FUN(void, CED_Aksant,(const aksant* pt))
 
 #undef DEC_FUN
 
-#define DEC_FUN(a,b,c)  FN##b b; a My##b c {} a MyRawData##b c {RDProced((Word8*)pt,alternatives*2);}
+#define DEC_FUN(a,b,c)  FN##b b; a My##b c {} a MyRawData##b c {RDProced((uchar*)pt,alternatives*2);}
 //the same for symbols
     DEC_FUN(void, CED_Letter,(const letter* pt,const uint32_t alternatives))
 #undef DEC_FUN
-#define DEC_FUN(a,b,c)  FN##b b; a My##b c {} a MyRawData##b c {RDProced((Word8*)pt,pt->length);}
+#define DEC_FUN(a,b,c)  FN##b b; a My##b c {} a MyRawData##b c {RDProced((uchar*)pt,pt->length);}
 //the same for special codes
     DEC_FUN(void, CED_Extention,(const edExtention* pt,const void* ptExt))
     DEC_FUN(void, CED_ExtentionNew,(const edExtentionNew* pt,const void* ptExt))
@@ -113,7 +113,7 @@ struct lin
 static CEDPage * mainPage;
 static edBox		refBox;
 static int		font,kegl,lang;
-static Word8	level;		//level in a structure, where we put ExtData
+static uchar	level;		//level in a structure, where we put ExtData
 					//0-CEDPage,1-Section,2-Para,3-Line,4-Char
 static lin* array;//array for rearrangement of rows
 static int arPosition,arLen;//position and length in array
@@ -122,7 +122,7 @@ static text_ref * TRarray;//put all text_ref-s here
 static int TRPosition,TRLen;//position and length in array
 
 
-static void ExtDataProc(Word8* _ptr, uint32_t lth);
+static void ExtDataProc(uchar* _ptr, uint32_t lth);
 void FormattedSDD(const sheet_disk_descr* pt);
 void FormattedFDD(const fragm_disk_descr* pt);
 void FormattedTR(const text_ref* pt);

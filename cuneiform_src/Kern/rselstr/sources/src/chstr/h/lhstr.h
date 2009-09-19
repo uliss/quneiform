@@ -68,7 +68,7 @@ class CHstr
 {
  public:
   CHstr* next;
-  Word8* ImageName;
+  uchar* ImageName;
   int m_num_frag;
   Bool vertical;
   Bool neg;
@@ -104,7 +104,7 @@ class CPrepHstr
 {
  public:
   CPrepHstr* next;
-  Word8 ImageName[CPAGE_MAXNAME];
+  uchar ImageName[CPAGE_MAXNAME];
   int m_num_frag;
   Bool vertical;
   Bool neg;
@@ -123,7 +123,7 @@ class CPrepHstr
   Rect16 unrotRc;
   Int16* begx;
   Int16* movey;
-  Word8* flmovey;
+  uchar* flmovey;
 
  public:
   CPrepHstr();

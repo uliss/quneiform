@@ -170,16 +170,16 @@ static Bool32 RecognizeSetup(int language)
 	else
 	{
 		// Настройка параметров
-		Word8 w8 = (Word8)gnLanguage;
+		uchar w8 = (uchar)gnLanguage;
 		RSTR_SetImportData(RSTR_Word8_Language,&w8);
 
 		Word16 w16 = (Word16)info.DPIY;//300;
 		RSTR_SetImportData(RSTR_Word16_Resolution,&w16);
 
-		w8 = (Word8)gbFax100;
+		w8 = (uchar)gbFax100;
 		RSTR_SetImportData(RSTR_Word8_Fax1x2,&w8);
 
-		w8 = (Word8)gbDotMatrix;
+		w8 = (uchar)gbDotMatrix;
 		RSTR_SetImportData(RSTR_Word8_Matrix,&w8);
 
 		w8 = 0;
@@ -189,7 +189,7 @@ static Bool32 RecognizeSetup(int language)
         if(!LDPUMA_Skip(hDebugCancelStringsPass2))
             RSTR_SetImportData(RSTR_Word8_P2_disable,&w8);
 
-		w8 = (Word8)gbSpeller;
+		w8 = (uchar)gbSpeller;
 		RSTR_SetImportData(RSTR_Word8_Spell_check,&w8);
 
 		RSTR_SetImportData(RSTR_pchar_user_dict_name,gpUserDictName);
@@ -197,7 +197,7 @@ static Bool32 RecognizeSetup(int language)
 		// Передать язык в словарный контроль. 12.06.2002 E.P.
 		// причем всегда 08.02.2008 DVP
 		{
-			Word8 w8 = (Word8)language;
+			uchar w8 = (uchar)language;
 			RPSTR_SetImportData(RPSTR_FNIMP_LANGUAGE, &w8);
 			RCORRKEGL_SetImportData(RCORRKEGL_FNIMP_LANGUAGE, &w8);
 		}
@@ -312,7 +312,7 @@ static Bool32 RecognizeStringsPass2()
 	Bool32 rc = TRUE;
 	// рапознавание строк
 
-	Word8 w8 = 1;
+	uchar w8 = 1;
 	RSTR_SetImportData(RSTR_Word8_P2_active,&w8);
 
 	int count = CSTR_GetMaxNumber();
@@ -408,7 +408,7 @@ int             i;
         CSTR_rast_attr  attr;
         Point32         point,size;
         uint32_t          lpColor[10];
-        Word8           lpMask[4096];
+        uchar           lpMask[4096];
 
 		  for(rst=CSTR_GetNext(rst);rst;rst=CSTR_GetNext(rst))
 		  {
@@ -427,8 +427,8 @@ int             i;
 		  rc = FALSE;
 		  return rc;
 		  }
-		  attr.ColorLtr   = *((Word8*)lpColor);
-		  attr.ColorBack  = *(((Word8*)lpColor)+1);
+		  attr.ColorLtr   = *((uchar*)lpColor);
+		  attr.ColorBack  = *(((uchar*)lpColor)+1);
 		  CSTR_SetAttr(rst,&attr);
 		  }
 		  }
@@ -515,7 +515,7 @@ Bool32 Recognize()
 			PAGEINFO info = {0};
 			if(GetPageInfo(hCPAGE,&info))
 			{
-				rc = ExtractComponents( FALSE , NULL, (PWord8)info.szImageName);
+				rc = ExtractComponents( FALSE , NULL, (puchar)info.szImageName);
 			}
 			else
 			{

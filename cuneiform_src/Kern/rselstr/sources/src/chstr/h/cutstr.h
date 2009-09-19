@@ -94,11 +94,11 @@ extern Handle SkewFromRLTABLE;
 
 /*-------------------------------------------------------------------------------------*/
 
-void Invert(Rect16*, Word8*);
-void CopyP(Rect16*, Word8*, Word8*);
-void ToHorizont(Rect16*, Word8*, Word8*);
-Bool IfNewStr(Word8*, int, int, int, int, int&, int);
-int GetStrW(Word8*, int, int, int, int, int&, int&);
+void Invert(Rect16*, uchar*);
+void CopyP(Rect16*, uchar*, uchar*);
+void ToHorizont(Rect16*, uchar*, uchar*);
+Bool IfNewStr(uchar*, int, int, int, int, int&, int);
+int GetStrW(uchar*, int, int, int, int, int&, int&);
 void StrDrawRect(Handle, uint32_t, uint32_t, Rect16*, int, Bool, Rect16);
 void StrDrawRect(Handle, uint32_t, uint32_t, Rect16);
 void SortLetter(CCOM_comp** ppComp, int, Bool);
@@ -106,8 +106,8 @@ int IfStr(Rect16*, int, Bool);
 void StrMoveMas(Rect16*, int&, int);
 void StrMoveMas(int*, int&, int);
 void StrMoveMasR(Rect16*, int&, int);
-Bool GetMasP(Handle, Word8*, Rect16, Word8**);
-Handle GetStrCCOM(Handle, Word8*, Rect16, Bool, Bool);
+Bool GetMasP(Handle, uchar*, Rect16, uchar**);
+Handle GetStrCCOM(Handle, uchar*, Rect16, Bool, Bool);
 Bool InitStrMas(Rect16**, int);
 void InitRc(Rect16*, int, CCOM_comp *);
 //void DelStrMas(Rect16*);

@@ -1629,7 +1629,7 @@ p_prot (11001);
 		   CSTR_rast_attr attr2;
 		   INT weight;
 		   UniVersions vers;
-		   Word8 chr;
+		   uchar chr;
 
 //  no scaling h,w,... - we scaled on input to BAL !
            weight = RSTR_rast_is_BOX_solid(wc,0);     // solid BOX estimate -- killed

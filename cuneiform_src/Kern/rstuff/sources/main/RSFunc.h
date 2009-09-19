@@ -112,8 +112,8 @@ Bool32    ChekComponentAndLine ( LineInfo*, Rect16*, uint32_t);
 Bool32    CheckSquare          ( LineInfo*, Rect16*, uint32_t, uint32_t);
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32    ExtractComponents    ( Bool32, Handle *, PWord8, PRSPreProcessImage );
-Bool32    RemoveLines          ( PRSPreProcessImage, PWord8 *);
+Bool32    ExtractComponents    ( Bool32, Handle *, puchar, PRSPreProcessImage );
+Bool32    RemoveLines          ( PRSPreProcessImage, puchar *);
 Bool32    MyGetZher            ( void **, int32_t *, int32_t, Handle );
 Bool32    remove_overlayed     ( CCOM_comp *,CCOM_handle );
 Bool32    comp_over            ( CCOM_comp *,CCOM_comp * );

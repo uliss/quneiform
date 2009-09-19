@@ -82,7 +82,6 @@ class cls;                 \
 /*** Base types ***/
 typedef int16_t Int16;  _SETTYPES( Int16 )
 typedef uint16_t Word16;_SETTYPES( Word16 )
-typedef unsigned char Word8;_SETTYPES( Word8 )
 typedef long double Float80; _SETTYPES( Float80 )
 
 typedef int16_t Bool16;
@@ -91,6 +90,7 @@ typedef int32_t Bool32;_SETTYPES( Bool32 )
 typedef int Bool;
 
 typedef char * pchar;
+typedef unsigned char * puchar;
 typedef unsigned long ulong;
 typedef unsigned int uint;
 typedef unsigned char uchar;

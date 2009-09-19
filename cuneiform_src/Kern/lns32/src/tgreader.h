@@ -73,8 +73,8 @@ class TigerReader :
 		public Tiger_ImageInfo,
 		public TErrObj
 {
-   Word8* line_buf;
-   Word8* cur_line;
+   uchar* line_buf;
+   uchar* cur_line;
    int lines_count;  // unreaded lines count
    int32_t  dword_len;  // buf len in dwords
 public:

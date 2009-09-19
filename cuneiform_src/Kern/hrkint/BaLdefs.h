@@ -78,18 +78,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       Int16  prop_l_delta;
 	  Int16  prop_r_delta;
 
-	  Word8 *let_lindef3;
-      Word8 *let_lindef;
-      Word8 *let_linpos;
-      Word8 *let_linshape;
-      Word8 *let_sans_acc;          // [257]
-      Word8 *letters_pidx_table;    // 512
-      Word8 *decode_ASCII_to_;      // [256][4]
+	  uchar *let_lindef3;
+      uchar *let_lindef;
+      uchar *let_linpos;
+      uchar *let_linshape;
+      uchar *let_sans_acc;          // [257]
+      uchar *letters_pidx_table;    // 512
+      uchar *decode_ASCII_to_;      // [256][4]
 	  Handle skew_corr;
 	  Handle rast_is_BOX_solid;
 
-	  Word8 db_status;
-	  Word8 db_pass;
+	  uchar db_status;
+	  uchar db_pass;
 	  Handle snap_monitor;
 	  Handle snap_show_text;
 	  Handle snap_activity;

@@ -101,7 +101,7 @@ RMARKER_FUNC(Bool32) RMARKER_SetImportData(uint32_t dwType, void * pData);
 ////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct tagRMPreProcessImage
 {
-	PWord8	*pgpRecogDIB;
+	puchar	*pgpRecogDIB;
 	Bool32	gbAutoRotate;
 	Bool32  gbDotMatrix;
 	Bool32  gbFax100;

@@ -82,13 +82,13 @@ typedef struct CGRAPH_Data
         Int16	numcomp;
         Int16	size_linerep;
 
-        Word8	scale;
+        uchar	scale;
 
         Bool32	uvers;
 		Bool32	env;
 		Bool32	loop;
 
-		Word8	Reserved[7];
+		uchar	Reserved[7];
 }data;
 
 //32
@@ -97,7 +97,7 @@ typedef struct CGRAPH_FileData
 	Word16	FileVer;
 	Word16	MaxLineVer;
 
-	Word8	Reserved[28];
+	uchar	Reserved[28];
 }FileData;
 
 typedef struct ALoop

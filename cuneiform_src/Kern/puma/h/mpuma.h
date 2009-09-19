@@ -124,7 +124,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     EXTERN uint32_t gnFormat				VAL(1);
     EXTERN Bool32 gnPreserveLineBreaks  VAL(FALSE);
 
-    EXTERN Word8  gnUnrecogChar			VAL('~');
+    EXTERN uchar  gnUnrecogChar			VAL('~');
 
     EXTERN uint32_t gnPictures			VAL(1);
     EXTERN uint32_t gnTables				VAL(1);
@@ -135,8 +135,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     EXTERN const char * gpCourierName			VAL("Courier New");
 
     EXTERN char	  szInputFileName[260];
-    EXTERN PWord8 gpInputDIB			VAL(NULL);
-    EXTERN PWord8 gpRecogDIB			VAL(NULL);
+    EXTERN puchar gpInputDIB			VAL(NULL);
+    EXTERN puchar gpRecogDIB			VAL(NULL);
     EXTERN Bool32 gbAutoRotate			VAL(FALSE);
     EXTERN Point32 gPageSize			VAL2(209,295); // формат А4 в миллиметрах
     EXTERN Rect32 gRectTemplate			VAL4(-1,-1,-1,-1);
@@ -246,7 +246,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     EXTERN Bool32                   grc_line                        VAL(TRUE);
     EXTERN Bool32                   gneed_clean_line                VAL(FALSE);
     EXTERN Bool32                   gKillVSLComponents              VAL(TRUE);
-    EXTERN Word8  gnSpecialProject			VAL(0);
+    EXTERN uchar  gnSpecialProject			VAL(0);
 
     //allex
     #ifdef _DEBUG
@@ -324,7 +324,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     Bool32 ModulesDone(Handle  ghStorage);
     char * GetModulesString(uint32_t dwError);
 
-    Bool32 Layout(PWord8 lpdata);
+    Bool32 Layout(puchar lpdata);
     Bool32 Recognize();
 
     void InitDebug();
@@ -347,8 +347,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     // common.cpp
     void	ClearAll( void );
     Bool32  rexcProgressStep  (uint32_t);
-    Bool32  ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom , PWord8 name);
-    Bool32  RemoveLines(Handle hccom,Handle hcpage,PWord8 * pDIB);
+    Bool32  ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom , puchar name);
+    Bool32  RemoveLines(Handle hccom,Handle hcpage,puchar * pDIB);
     void    SetOptionsToFRMT( void );
     Bool32  SaveToText(char * lpOutFileName,int code);
 //    Bool32  HL_TableExtract( Handle hPAGE, uint32_t type, Rect32 rect );

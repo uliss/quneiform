@@ -63,8 +63,8 @@
 //#include "edfile.h"
 //#include "edext.h"
 
-Bool32 func_char(PWord8 p, uint32_t lth);
-Bool32 func_spec(PWord8 p, uint32_t lth);
+Bool32 func_char(puchar p, uint32_t lth);
+Bool32 func_spec(puchar p, uint32_t lth);
 
 FNCFIOReadMemoryFromFile MemFromFile;
 FNCFIOLockMemory Lock;
@@ -148,27 +148,27 @@ void CED_SetRawDataProc(FNRDProc proc) {
 
 /*CED_FUNC(*/uint32_t/*)*/CED_ReadED(char * file, Bool32 readFromFile,
 		uint32_t bufLen) {
-	Word8 code;
+	uchar code;
 	HANDLE PedHandle;
 	uint32_t lth, ret;
-	PWord8 start, edscan_stop;
+	puchar start, edscan_stop;
 
 	if (readFromFile) {
 		ret = MemFromFile((pchar) file, &PedHandle);
 		if (ret == 0)
 			return 0;
-		start = (PWord8) Lock(PedHandle);
+		start = (puchar) Lock(PedHandle);
 		if (!start) {
 			Unlock(PedHandle);
 			Free(PedHandle);
 			return 0;
 		}
 	} else {
-		start = (Word8*) file;
+		start = (uchar*) file;
 		ret = bufLen;
 	}
-	PWord8 curr = edscan_stop = start;
-	PWord8 end = start + ret;
+	puchar curr = edscan_stop = start;
+	puchar end = start + ret;
 
 	next_symb: if (curr >= end)
 		goto quit;
@@ -213,7 +213,7 @@ void CED_SetRawDataProc(FNRDProc proc) {
 
 	if (code & 0x80) {
 		//SS_EXTENTION can be either 16 or 32 bit.
-		if (*(Word8*) curr != SS_EXTENTION)
+		if (*(uchar*) curr != SS_EXTENTION)
 			lth = *(PWord16)(curr + (code & 0xf));
 		else {
 			if (!((*(Word16*) (curr + 1)) & 0x8000))
@@ -222,7 +222,7 @@ void CED_SetRawDataProc(FNRDProc proc) {
 				lth = *(uint32_t*)(curr + (code & 0xf));
 		}
 	} else
-		lth = *(PWord8)(curr + (code & 0xf));
+		lth = *(puchar)(curr + (code & 0xf));
 
 	if (lth == 0) {
 		curr += sizeof(*curr);
@@ -248,13 +248,13 @@ void CED_SetRawDataProc(FNRDProc proc) {
 	return ret;
 }
 
-Bool32 func_char(PWord8 p, uint32_t lth) {
+Bool32 func_char(puchar p, uint32_t lth) {
 	const struct letter *pt = (struct letter*) p;
 	CED_Letter(pt, lth / 2);
 	return TRUE;
 }
 
-Bool32 func_spec(PWord8 p, uint32_t lth) {
+Bool32 func_spec(puchar p, uint32_t lth) {
 
 	switch (*p) {
 	case SS_BITMAP_REF: {

@@ -331,7 +331,7 @@ static void set_param (MatchWordPar *par)
 
 Bool match_word_prepare(CSTR_line ln, BYTE *alpha, MatchWordPar *param);
 
-RSTR_FUNC(Bool32) RSTR_recog_one_word(CSTR_line ln, Word8 *word, char *points,Word8 *res)
+RSTR_FUNC(Bool32) RSTR_recog_one_word(CSTR_line ln, uchar *word, char *points,uchar *res)
 {
 Weight      w;
 MatchWordPar param={0};
@@ -1302,7 +1302,7 @@ static void show_layer(BYTE let, LONG prev, LONG imax)
 
 #ifdef MATCH_WORD
 
-void myCharToOem(Word8 ansi[], Word8 ascii[]);
+void myCharToOem(uchar ansi[], uchar ascii[]);
 
 void test_match_cell_word(B_LINES *my_bases, INT cut_width)
 {

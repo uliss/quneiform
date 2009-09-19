@@ -84,11 +84,11 @@ static int32_t nLine=0;
 
 //static Bool  bReady = FALSE;
 
-static XMatrix< Word8 > xmImageMap;
+static XMatrix< uchar > xmImageMap;
 static XStack<Line16>   xsLines;
-extern const Word8 bit1_cnt[256];
-extern const Word8 bit0_cnt[256];
-static const Word8* BlackBitsCountTbl=bit1_cnt;
+extern const uchar bit1_cnt[256];
+extern const uchar bit0_cnt[256];
+static const uchar* BlackBitsCountTbl=bit1_cnt;
 static Tiger_ImageInfo ImageInfo={0};
 
 
@@ -124,17 +124,17 @@ void     HLiner_Done( void )
    nLine=0;
 }
 
-inline Word8* GetMapLine( int n )
+inline uchar* GetMapLine( int n )
 {
    return &(xmImageMap.Get( n, 0 ));
 }
 
-Bool32   HLiner_AddImageLine( Word8* pLine )
+Bool32   HLiner_AddImageLine( uchar* pLine )
 {
    if (nLine < 0 || nLine > ImageInfo.wImageHeight-1)
       RET_FALSE;
 
-   Word8* res = GetMapLine(nLine/2);
+   uchar* res = GetMapLine(nLine/2);
    int nWords = (ImageInfo.wImageWidth+15) / 16; //Almi: Вася нашёл эту ошибку 21 mar 2002 - было: = ImageInfo.wImageByteWidth >> 1;
    while (nWords--)
    {
@@ -217,9 +217,9 @@ int32_t    HLiner_Analyze(void) // returns count of extracted lines
    int i(0);
    for (i=gap; i<nHeight-gap-1; i++)  // by lines
    {
-      Word8* line_hi = GetMapLine(i - gap);
-      Word8* line_on = GetMapLine(i);
-      Word8* line_lo = GetMapLine(i + gap);
+      uchar* line_hi = GetMapLine(i - gap);
+      uchar* line_on = GetMapLine(i);
+      uchar* line_lo = GetMapLine(i + gap);
       for (int j=wid; j<nWidth-wid-1; j++)  // first column
       {
          if (!line_on[j])
@@ -241,7 +241,7 @@ int32_t    HLiner_Analyze(void) // returns count of extracted lines
    // замазываем дырки и убиваем одиночек
    for (i=gap; i<nHeight-gap-1; i++)  // by lines
    {
-      Word8* line_on = GetMapLine(i);
+      uchar* line_on = GetMapLine(i);
       for (int j=wid; j<nWidth-wid-1; j++)  // first column
       {
          if (line_on[j] == 100)
@@ -261,11 +261,11 @@ int32_t    HLiner_Analyze(void) // returns count of extracted lines
 
    // now link lines from start to end
    //
-   Word8* line_on = NULL;
+   uchar* line_on = NULL;
    Line16 ln={0};
    for (i=gap; i<nHeight-gap-1; i++)  // by lines
    {
-      Word8* line_on = GetMapLine(i);
+      uchar* line_on = GetMapLine(i);
       for (int j=wid; j<nWidth-wid-1; j++)  // first column
       {
          if (line_on[j] != 100)

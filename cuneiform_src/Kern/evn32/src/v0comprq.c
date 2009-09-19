@@ -57,7 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "struct.h"
 #include "recdefs.h"
-extern Word8 lpool[];
+extern uchar lpool[];
 extern Word16 lpool_lth;
 #include<string.h>
 //#include"excdefs.h"
@@ -65,15 +65,15 @@ extern Word16 lpool_lth;
 #include "ligas.h"	// 04.06.2002 E.P.
 #include "ccomdefs.h"
 //------------------ FROM DIF.DLL
-extern Word16 DIF_typ_thin_stick(Word8 *lin,Int16 dy,Int16 dx);
+extern Word16 DIF_typ_thin_stick(uchar *lin,Int16 dy,Int16 dx);
 //------------------ Common working fields
 extern c_comp wcomp;
-extern Word8 records_change;
+extern uchar records_change;
 extern Int16 evfulln;
 extern version *start_rec, *rec_ptr;
 static version records[128];
-extern Word8 work_raster[];
-extern  Word8 language;
+extern uchar work_raster[];
+extern  uchar language;
 
 //------------------ Common definitions
 #define PURE_DUST_HEIGHT 3
@@ -89,7 +89,7 @@ void save_wcomp();
 Int16 stick_w_4();
 
 //------------------ Internal functions
-static void setvers (Word8* p);
+static void setvers (uchar* p);
 void recog_one();
 
 //------------------ Recognition cases
@@ -121,10 +121,10 @@ void recog_one();
 #define cs_comma_dot		38	// determined as comma or dot by
 					// comma_dot criterium
 
-static Word8 v_dash_defis[] = {ch_punct,cs_dash_defis_size,0};
-static Word8 v_side_punct[] = {ch_punct,cs_punct_sw_size,0};
-static Word8 v_up_punct[] = {ch_punct,cs_punct_up_size,0};
-static Word8 v_sq_punct[] = {ch_punct,cs_punct_sq_size,0};
+static uchar v_dash_defis[] = {ch_punct,cs_dash_defis_size,0};
+static uchar v_side_punct[] = {ch_punct,cs_punct_sw_size,0};
+static uchar v_up_punct[] = {ch_punct,cs_punct_up_size,0};
+static uchar v_sq_punct[] = {ch_punct,cs_punct_sq_size,0};
 //static BYTE v_small_stick[] = {ch_letter,cs_stick_by_size,
 //		'l','i','I','!','j','f','t',0};
 //static BYTE v_stick_by_size[] = {ch_letter,cs_stick_by_size,
@@ -133,7 +133,7 @@ static Word8 v_sq_punct[] = {ch_punct,cs_punct_sq_size,0};
 //static BYTE v_comma_dot[] = {ch_punct,cs_comma_dot,0};
 
 static uint32_t check_iIl1();	// 04.06.2002 E.P.
-static uint32_t check_letter(Word8 let); // 18.06.2002 E.P.
+static uint32_t check_letter(uchar let); // 18.06.2002 E.P.
 
 
 void recog_save_maden()
@@ -275,7 +275,7 @@ not_letter:
  wcomp.type = ch_merge; wcomp.cs = cs_net_cut; return;
 }
 
-static void setvers(Word8* p)
+static void setvers(uchar* p)
 {
  version *v = start_rec;
  wcomp.type = *p++; wcomp.cs = *p++;
@@ -290,7 +290,7 @@ uint32_t recog_letter()
 }
 
 
-uint32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, Word8 * lp,Word16 lth)
+uint32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, uchar * lp,Word16 lth)
 {
 memset(&wcomp,0,sizeof(wcomp));
 wcomp.h=      ec->h;
@@ -326,7 +326,7 @@ while ( p < rec_ptr )
 return n;
 }
 
-uint32_t check_letter(Word8 let)
+uint32_t check_letter(uchar let)
 {
 // Проверяет наличие версии. 18.06.2002 E.P.
 version *p = start_rec;

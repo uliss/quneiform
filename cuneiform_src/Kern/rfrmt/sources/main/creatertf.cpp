@@ -115,7 +115,7 @@ float   Twips;
 Int16   K_TwipsInInch=1440;
 WORD    FlagWriteRtfCoordinates =1 ;
 char    WriteRtfPageNumber[MAX_PATH]="1";
-Word8   Frmt_CharSet = (Word8)204;
+uchar   Frmt_CharSet = (uchar)204;
 
 extern  uint32_t FlagMode;
 extern  char   UnRecogSymbol;

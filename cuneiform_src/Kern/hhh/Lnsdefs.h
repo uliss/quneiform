@@ -158,8 +158,8 @@ typedef struct tagLineInfo
 */
 	/**********************************************/
    Int16          SegCnt;        // число сегментов в составной линии, 0-неинициализировано
-   Word8          Quality;       // 0-255; 255 == good line
-   Word8          Thickness;     // средняя толщина линии/штриха
+   uchar          Quality;       // 0-255; 255 == good line
+   uchar          Thickness;     // средняя толщина линии/штриха
 
    //========= Групповые характеристики ============================
    AdjacentLst    Adj;           // потенциальное расширение на уровне
@@ -182,7 +182,7 @@ typedef struct tagLineInfo
    //================================================================
    Int16          IndCover;      // valid only for LI_COVERED-lines
    uint32_t         pFrmLineAtom;  // link to form description
-   Word8          __buf[32];      // Зарезервировано, заполнено 0
+   uchar          __buf[32];      // Зарезервировано, заполнено 0
    int32_t          TmpUsage;      // поле для временного использования
 
 }  LineInfo;
@@ -232,7 +232,7 @@ typedef struct tagLinesTotalInfo
    Point16          ImgSize;
    Point16          ImgResolution;
    LCSetup           LCS;
-   Word8             __buf[32];
+   uchar             __buf[32];
 }  LinesTotalInfo;
 
 #ifdef __cplusplus

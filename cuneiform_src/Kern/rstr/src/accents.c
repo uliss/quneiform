@@ -1753,7 +1753,7 @@ static Bool32 IsProgib(PBYTE r,int w,int h)
 {
 	int i,j;
 	int wb=(w+7)>>3;
-	Word8 cc;
+	uchar cc;
 	int tek;
 	int buffer[128],bufUp[128],bufDn[128];
 	int left,right,best;
@@ -2625,7 +2625,7 @@ static Bool NotEmptyInside(PBYTE r, INT w, INT h)
 {
 	int i,j,sum,allSum;
 	int wb = (w+7)>>3;
-	Word8 cc;
+	uchar cc;
 	PBYTE rr;
 
 	for(i=0,allSum=0;i<h;i++,r+=wb)

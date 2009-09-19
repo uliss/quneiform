@@ -86,13 +86,13 @@ void ClearAll( void )
 	SetPageInfo(hCPAGE,PInfo);
 
 	CCOM_DeleteAll();  hCCOM = NULL;
-	CIMAGE_DeleteImage((PWord8)PUMA_IMAGE_BINARIZE );
-	CIMAGE_DeleteImage((PWord8)PUMA_IMAGE_DELLINE	);
+	CIMAGE_DeleteImage((puchar)PUMA_IMAGE_BINARIZE );
+	CIMAGE_DeleteImage((puchar)PUMA_IMAGE_DELLINE	);
 //  Повернутое изображение ( PUMA_IMAGE_ROTATE) удалять нельзя, как и исходное,
 //  поскольку оно отображается в интерфейсе. Его нужно удалять
 //  либо при получении нового довернутого изображения, либо при
 //  закрытии файла
-	CIMAGE_DeleteImage((PWord8)PUMA_IMAGE_TURN		);
+	CIMAGE_DeleteImage((puchar)PUMA_IMAGE_TURN		);
 	/*
 	if(hCPAGE && CPAGE_GetCountBlock(hCPAGE))
 	{
@@ -113,7 +113,7 @@ Bool32 rexcProgressStep  (uint32_t step)
 	return ProgressStep(2,NULL,step);
 }
 ///////////////////////////////////////////////////////
-Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name)
+Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, puchar name)
 {
 	Bool32 rc = TRUE;
 	ExcControl      exc = {0};
@@ -144,7 +144,7 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name)
     if( gnPictures )
         exc.Control |= Ex_PictureLarge;
 /*
-	if(rc && !REXC_SetEVNProperties(exc, GetModulePath(),(Word8)gnLanguage) )
+	if(rc && !REXC_SetEVNProperties(exc, GetModulePath(),(uchar)gnLanguage) )
 	{ // инициализировать распознавание по эвентам и задать алфавит
 		SetReturnCode_puma(REXC_GetReturnCode());
 		rc = FALSE;
@@ -152,10 +152,10 @@ Bool32  ExtractComponents( Bool32 bIsRotate, Handle * prev_ccom, PWord8 name)
 	else
 */
 	{
-		Word8 w8 = (Word8)gbDotMatrix;
+		uchar w8 = (uchar)gbDotMatrix;
 			REXC_SetImportData(REXC_Word8_Matrix,&w8);
 
-		w8 = (Word8)gbFax100;
+		w8 = (uchar)gbFax100;
 			REXC_SetImportData(REXC_Word8_Fax1x2,&w8);
 	}
 /*
@@ -307,9 +307,9 @@ Bool32 MyGetZher (void **vvZher, int32_t *nZher, int32_t MaxZher, Handle hCPage)
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 // будет перенесено в RSource.dll
-Bool32 RemoveLines(Handle hccom,Handle hcpage,PWord8 * lppDIB)
+Bool32 RemoveLines(Handle hccom,Handle hcpage,puchar * lppDIB)
 {
-	PWord8 hDIB = NULL;
+	puchar hDIB = NULL;
 	Bool32 rc = TRUE;
     hLinesCCOM = NULL;
     CCOM_comp   *victim[100];
@@ -326,7 +326,7 @@ Bool32 RemoveLines(Handle hccom,Handle hcpage,PWord8 * lppDIB)
 //
 //	 Получим изображение с удаленными линиями
 //
-	if(rc && !CIMAGE_ReadDIB((PWord8)PUMA_IMAGE_DELLINE,(Handle*)&hDIB,TRUE))
+	if(rc && !CIMAGE_ReadDIB((puchar)PUMA_IMAGE_DELLINE,(Handle*)&hDIB,TRUE))
 	{
 		SetReturnCode_puma(CIMAGE_GetReturnCode());
 		rc = FALSE;
@@ -336,7 +336,7 @@ Bool32 RemoveLines(Handle hccom,Handle hcpage,PWord8 * lppDIB)
 //
 //		 Удалим компоненты и выделим их заново.
 //
-		*lppDIB = (PWord8)hDIB;
+		*lppDIB = (puchar)hDIB;
 		if(rc)
 		{
         if( CCOM_GetContainerVolume((CCOM_handle)hCCOM)<60000 &&
@@ -349,7 +349,7 @@ Bool32 RemoveLines(Handle hccom,Handle hcpage,PWord8 * lppDIB)
             hCCOM=0;
             }
 
-		if(!ExtractComponents(FALSE,&hLinesCCOM,(PWord8)PUMA_IMAGE_DELLINE))
+		if(!ExtractComponents(FALSE,&hLinesCCOM,(puchar)PUMA_IMAGE_DELLINE))
 		{
 				rc = FALSE;
 		}

@@ -68,7 +68,7 @@ BYTE   p2_to_upperASCII( BYTE c );
 BYTE   p2_to_lowerASCII( BYTE c );
 Bool32 p2_is_upperASCII( BYTE c );
 Bool32 p2_is_lowerASCII( BYTE c );
-Word8    p2_rsadd_get_alias_class(Word8 let,Word8 lang);
+uchar    p2_rsadd_get_alias_class(uchar let,uchar lang);
 //Int16   estletter	(cell * BC,s_glue * GL);
 void	p2_init		(void);
 //int32_t   p2_rotate(RecRaster *recRast);
@@ -76,7 +76,7 @@ void	p2_init		(void);
 // p2_choice.c
 int32_t  p2_leoMixture(CSTR_rast rast,RecVersions *old,RecVersions *ver,
 						FontInfo *fontinfo );
-Bool32 p2_leo_choise_fon_or_leo(Word8 p_fon,Word8 p_leo);
+Bool32 p2_leo_choise_fon_or_leo(uchar p_fon,uchar p_leo);
 int32_t  p2_leo_sort_vers_prob(RecVersions *v);
 //============ Global Data ============
 //extern Bool pass4_in;

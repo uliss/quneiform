@@ -169,7 +169,7 @@ extern "C" {
 #endif
 			if(LDPUMA_IsActive())
 			rc = fAllocHook(allocType,userData,size,prevSize,blockType,
-					requestNumber,(PWord8)filename, lineNumber);
+					requestNumber,(puchar)filename, lineNumber);
 		}
 		return rc;
 	}

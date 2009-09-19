@@ -83,7 +83,7 @@ static void snap_del_line_stat(Handle wnd, uint32_t key);//IGOR
 static Bool snap_show_text_stat(BYTE *txt);
 static Bool snap_activity_stat(BYTE a);
 
-static Word8 let_linempty[512]={0};
+static uchar let_linempty[512]={0};
 
 Int16 (*RSTR_skew_corr)(CSTR_line ln, INT pool_src)=skew_corr_stat;
 Int16 (*RSTR_rast_is_BOX_solid) (CSTR_rast B1,Int16 scale) = rast_is_BOX_solid;
@@ -100,28 +100,28 @@ void (*snap_del_line_rbal)(Handle wnd, uint32_t key) = snap_del_line_stat;//IGOR
 
 CSTR_line lin_str=(CSTR_line)NULL;
 
-Word8 language=3;
+uchar language=3;
 Int16 line_number = 0;
 
-Word8  fax1x2=0;
+uchar  fax1x2=0;
 Word16 actual_resolution=300;
-Word8  fEdCode = 0;  // ASCII
+uchar  fEdCode = 0;  // ASCII
 Bool   line_BL=FALSE;
-Word8  spec_camera = 0;
+uchar  spec_camera = 0;
 int32_t  nIncline=0;
-Word8  no_linpen=0;
+uchar  no_linpen=0;
 Int16  prop_l_delta=0, prop_r_delta=0;
 
-Word8 db_status=0;
-Word8 db_pass=0;
+uchar db_status=0;
+uchar db_pass=0;
 
-Word8 *let_lindef3 =&let_linempty[0];
-Word8 *let_lindef  =&let_linempty[0];
-Word8 *let_linpos  =&let_linempty[0];
-Word8 *let_linshape=&let_linempty[0];
-Word8 *let_sans_acc=&let_linempty[0];          // [257]
-Word8 *letters_pidx_table = &let_linempty[0];  // 512
-Word8 decode_ASCII_to_[256][4] = {0};
+uchar *let_lindef3 =&let_linempty[0];
+uchar *let_lindef  =&let_linempty[0];
+uchar *let_linpos  =&let_linempty[0];
+uchar *let_linshape=&let_linempty[0];
+uchar *let_sans_acc=&let_linempty[0];          // [257]
+uchar *letters_pidx_table = &let_linempty[0];  // 512
+uchar decode_ASCII_to_[256][4] = {0};
 
 ///////////////////////////////
 CSTR_rast cell_f()
@@ -391,7 +391,7 @@ static Bool32 CopyRasterToLine(CSTR_rast c, CSTR_line trg)
 	 return FALSE;
 
   if( CSTR_GetAttr (c, &attr) &&
-      CSTR_GetImage (c, (Word8 *)&rs, CSTR_TYPE_IMAGE_RS) &&
+      CSTR_GetImage (c, (uchar *)&rs, CSTR_TYPE_IMAGE_RS) &&
       CSTR_GetCollectionUni(c,&vr) &&
       (comp=CSTR_GetComp(c))!=NULL )
      {
@@ -524,7 +524,7 @@ static void test_dust(void)     // INT arg)
 // Вход ln, 1
 // Вход ln, 2
 //
-static int basedraft(CSTR_line ln, Word8 isDust)
+static int basedraft(CSTR_line ln, uchar isDust)
 {
 // char riter1, riter0;
  int riter1;
@@ -689,14 +689,14 @@ drfin:
 //////////////////////
 static void GetRstrGlobals(BAL_RSTR_GLOBALS  *rstrGlob)
 {
-	language    = (Word8)rstrGlob->language;
+	language    = (uchar)rstrGlob->language;
 	line_number = (Int16)rstrGlob->line_number;
-	fax1x2      = (Word8)rstrGlob->fax1x2;
+	fax1x2      = (uchar)rstrGlob->fax1x2;
 	actual_resolution = (Word16) rstrGlob->actual_resolution;
-    fEdCode           = (Word8)rstrGlob->fEdCode;  // ASCII
+    fEdCode           = (uchar)rstrGlob->fEdCode;  // ASCII
     line_BL           = (Int16)rstrGlob->line_BL;
-    spec_camera       = (Word8)rstrGlob->spec_camera;
-    no_linpen         = (Word8)rstrGlob->no_linpen;
+    spec_camera       = (uchar)rstrGlob->spec_camera;
+    no_linpen         = (uchar)rstrGlob->no_linpen;
 
     prop_l_delta = rstrGlob->prop_l_delta;
 	prop_r_delta = rstrGlob->prop_r_delta;
@@ -821,7 +821,7 @@ static void SetBalBases(BAL_bas_ln *bal_bases)
 	}
 }
 /////////////////////
-BAL_FUNC(Bool32) BAL_basedraft(CSTR_line ln, Word8 isDust,
+BAL_FUNC(Bool32) BAL_basedraft(CSTR_line ln, uchar isDust,
 						 BAL_RSTR_GLOBALS  *rstrGlob,
 						 BAL_INOUT_GLOBALS *balGlob,
 						 BAL_bas_ln *bal_bases)

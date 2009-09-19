@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //Для использования в других файлах должна быть объявлена как
 //           extern "C" FIELD_INFO FieldInfo;
 
-typedef Word8 ALPHA_TABLE[256];
+typedef uchar ALPHA_TABLE[256];
 
 typedef struct tagFIELD_INFO
 {

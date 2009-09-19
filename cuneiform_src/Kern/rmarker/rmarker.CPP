@@ -189,7 +189,7 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
 	if(LDPUMA_Skip(hDebugLinePass3)&&LDPUMA_Skip(hDebugVerifLine)&&LDPUMA_Skip(hDebugLinePass2))
 	{
 	 if(rc)
-		 RLINE_LinesPass3(Image->hCPAGE, Image->hCLINE, Image->hCCOM, (Word8)Image->gnLanguage);
+		 RLINE_LinesPass3(Image->hCPAGE, Image->hCLINE, Image->hCCOM, (uchar)Image->gnLanguage);
 	}
 
 	LDPUMA_Skip(hSVLP);

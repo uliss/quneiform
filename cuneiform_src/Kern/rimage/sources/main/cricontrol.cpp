@@ -419,7 +419,7 @@ Bool32 CRIControl::Inverse(PChar8  cDIBIn, PChar8  cDIBOut, uint32_t UseMargins)
 Bool32 CRIControl::GetDIB(PChar8  cDIB, PHandle phDIB)
 {
 	// берем с копированием, что б маска была!
-	if ( CIMAGE_ReadDIB((PWord8)cDIB, phDIB, TRUE) )
+	if ( CIMAGE_ReadDIB((puchar)cDIB, phDIB, TRUE) )
 		return TRUE;
 
 	SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
@@ -430,7 +430,7 @@ Bool32 CRIControl::GetDIB(PChar8  cDIB, PHandle phDIB)
 // положить без копировыания
 Bool32 CRIControl::SetDIB(PChar8  cDIB, Handle hDIB)
 {
-	if ( CIMAGE_WriteDIB((PWord8)cDIB, hDIB, TRUE) )
+	if ( CIMAGE_WriteDIB((puchar)cDIB, hDIB, TRUE) )
 		return TRUE;
 
 	SetReturnCode_rimage(IDS_RIMAGE_UNABLE_WRITE_DIB);
@@ -440,7 +440,7 @@ Bool32 CRIControl::SetDIB(PChar8  cDIB, Handle hDIB)
 // положитьь c копировыанием
 Bool32 CRIControl::WriteDIB(PChar8  cDIB, Handle hDIB)
 {
-	if ( CIMAGE_WriteDIB((PWord8)cDIB, hDIB, FALSE) )
+	if ( CIMAGE_WriteDIB((puchar)cDIB, hDIB, FALSE) )
 		return TRUE;
 
 	SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
@@ -450,7 +450,7 @@ Bool32 CRIControl::WriteDIB(PChar8  cDIB, Handle hDIB)
 // взять с копировыанием
 Bool32 CRIControl::ReadDIB(PChar8  cDIB, PHandle phDIB)
 {
-	if ( CIMAGE_ReadDIB((PWord8)cDIB, phDIB, FALSE) )
+	if ( CIMAGE_ReadDIB((puchar)cDIB, phDIB, FALSE) )
 		return TRUE;
 
 	SetReturnCode_rimage(IDS_RIMAGE_UNABLE_WRITE_DIB);

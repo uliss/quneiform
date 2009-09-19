@@ -70,12 +70,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "rcutp_prot.h"
 extern Int16 minrow,bbs1,bbs2,bbs3,bbs4,Nb1,Nb2,Nb3;
-extern Word8 language;
+extern uchar language;
 
 //-------------------------------------------------------
 RCUTP_FUNC(Bool32)  RCUTP_SetBL_for_CutPoints(
                                     Int16  minrow0,Int16  bbs10,Int16  bbs20,Int16  bbs30,Int16  bbs40,
-                                    Int16  Nb10,Int16  Nb20,Int16  Nb30, Word8 language0)
+                                    Int16  Nb10,Int16  Nb20,Int16  Nb30, uchar language0)
 {
 minrow=minrow0 ;
 bbs1  =bbs10   ;
@@ -90,7 +90,7 @@ return TRUE;
 }
 
 
-RCUTP_FUNC(Bool32)  RCUTP_CutPoints(Word8 *raster,struct own_cut *ans, Int16 w, Int16 h, Int16 row)
+RCUTP_FUNC(Bool32)  RCUTP_CutPoints(uchar *raster,struct own_cut *ans, Int16 w, Int16 h, Int16 row)
 {
   Alik_define_cut_points((PCHAR)raster, ans, w, h, row);
 

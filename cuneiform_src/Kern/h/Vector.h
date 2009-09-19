@@ -90,14 +90,14 @@ int32_t  len;  // -1 - It isn't vector;  metric Eucleede ы xэ + yэ
 int32_t Mx,My;
 int32_t Cx,Cy;  // debug purposes
 int32_t area;
-Word8 Mn; // normalized moment
-Word8 reserve[3];
+uchar Mn; // normalized moment
+uchar reserve[3];
 #define MAX_VECT	64
 #define NORMA_FACTOR	12
 }  Vector;
 
 typedef struct tagSegmVersion {
-Word8 s;    // segment code
+uchar s;    // segment code
 #define UNREC_SEG	100
 Int16 prob; // probability
 } SegmVersion;
@@ -113,7 +113,7 @@ Vector * chunk;
 typedef struct tagSegmRec {
 Word16 segm;
 Word16 let;
-Word8 prob;
+uchar prob;
 #define MAX_REC_SEG		14
 } SegmRec;
 

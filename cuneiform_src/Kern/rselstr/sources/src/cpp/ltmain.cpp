@@ -163,7 +163,7 @@ uint32_t i;
 # endif
 
     if (nRoots == 0)
-//        ErrorInternal ((Word8*)"Page is empty");
+//        ErrorInternal ((uchar*)"Page is empty");
 		ErrorEmptyPage();
 
     nNextBlockNumber = FIRST_REGULAR_BLOCK_NUMBER;

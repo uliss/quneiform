@@ -64,12 +64,12 @@ Bool16 boxes_account();
 extern c_comp wcomp;
 extern MN * main_number_ptr;
 extern BOX * boxchain, *dl_last_in_chain;
-extern Word8 lpool[];
+extern uchar lpool[];
 extern Word16 lpool_lth;
-extern Word8 work_raster[];
+extern uchar work_raster[];
 extern version * start_rec, * rec_ptr;
-extern Word8 records_change;
-extern Word8  *events_tree, *events_tree_rt;
+extern uchar records_change;
+extern uchar  *events_tree, *events_tree_rt;
 static void boxes_to_line();
 Bool16 init_event_trees(void);
 void event_close(void);
@@ -150,20 +150,20 @@ cont_box:
   }
   ip->e = 0; // Vald for compability with asm prototype
  (ip++)->l = 0;
- lnp->lth = (Word8*)ip - (Word8*)lnp;
+ lnp->lth = (uchar*)ip - (uchar*)lnp;
  lnp->h = (lnp->lth - sizeof(*lnp) - sizeof(*ip))/sizeof(*ip);
  lnp->flg |= bp->boxflag; lnp = (lnhead *)ip;
  if (bp != dl_last_in_chain) goto next_line;
  lnp->lth = 0;
- lpool_lth = (Word8*)lnp - lpool + sizeof (lnp->lth);
+ lpool_lth = (uchar*)lnp - lpool + sizeof (lnp->lth);
 }
 
-static Word8 make_fill[] = {0, 1, 3, 7, 15, 31, 63, 127, 255};
-Word8* make_raster()
+static uchar make_fill[] = {0, 1, 3, 7, 15, 31, 63, 127, 255};
+uchar* make_raster()
 {
  lnhead * lp;
  interval *ip;
- Word8 *p,*pp;
+ uchar *p,*pp;
  Int16 x, l, sh, h, new_h;
  Word16 w;
 
@@ -192,16 +192,16 @@ Word8* make_raster()
 }
 
 
-Word8* make_extended_raster(c_comp *cp)
+uchar* make_extended_raster(c_comp *cp)
 {
  lnhead * lp;
  large_interval *ip;
- Word8 *p, *pp;
+ uchar *p, *pp;
  Int16 x, l, sh;
  Word16 wd,w;
 
  memset (work_raster,0,cp->rw * cp->h); wd = cp->rw;
- lp = (lnhead *)((Word8*)cp + cp->lines + sizeof(uint32_t));
+ lp = (lnhead *)((uchar*)cp + cp->lines + sizeof(uint32_t));
  while (lp->lth)
   {
    pp = work_raster + lp->row * wd; ip = (large_interval *) (lp+1);
@@ -212,7 +212,7 @@ Word8* make_extended_raster(c_comp *cp)
      w = make_fill[l]; w = w << (8-sh); *p |= w & 0xff; *(p-1) |= w >> 8;
      pp += wd;
     }
-   lp = (lnhead *)((Word8*)ip - sizeof(Word16));
+   lp = (lnhead *)((uchar*)ip - sizeof(Word16));
   }
  return work_raster;
 }
@@ -234,7 +234,7 @@ Int16 MN_to_line(MN * mn)
  return 0;
 }
 
-//void save_component(c_comp *,version *,version *,Word8*,Word16);
+//void save_component(c_comp *,version *,version *,uchar*,Word16);
 void save_wcomp()
 {
 // save_component(&wcomp,start_rec,rec_ptr,lpool,lpool_lth);
@@ -242,7 +242,7 @@ void save_wcomp()
 
 Word16 length_table[] = {0x100, 0x300, 0x700,0xf00,0x1f00,0x3f00,0x7f00,0xff00};
 
-Word8 byte_seg_size[256] = {
+uchar byte_seg_size[256] = {
 // 0   1    2    3    4    5    6    7    8    9    a    b    c    d    e    f
 0x00,0x18,0x17,0x28,0x16,0x00,0x27,0x38,0x15,0x00,0x00,0x00,0x26,0x00,0x37,0x48,        // 0
 0x14,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x25,0x00,0x00,0x00,0x36,0x00,0x47,0x58,        // 1
@@ -266,7 +266,7 @@ Word16 sort_events_vers()
 {
  version * v, *a;
  Word16 n;
- Word8 let, prob;
+ uchar let, prob;
 
  if (records_change == 0) goto ret;
  for (n=1, v = start_rec + 1; n < wcomp.nvers; n++, v++)

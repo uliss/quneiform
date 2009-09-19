@@ -106,7 +106,7 @@ class CDezaBinarizator
 
 public:
 	int32_t CloseTrackBin(void);
-	int32_t GetBinarized(PWord8 ptbl, uint32_t lenbl);
+	int32_t GetBinarized(puchar ptbl, uint32_t lenbl);
 	uint32_t OpenTrackBin(PCTBINTigerImageInfo Info, CRIBinarizator * pCaller, uint32_t wdezaFlag);
 	CDezaBinarizator();
 	virtual ~CDezaBinarizator();
@@ -118,7 +118,7 @@ private:
 	int32_t Grey_black(void);
 	int32_t Xygo(int32_t, int32_t);
 	int32_t Our1(int32_t);
-	PWord8 Black_file(PWord8, int32_t);
+	puchar Black_file(puchar, int32_t);
 
 private:
 	void Ras1_pred(int32_t);
@@ -129,11 +129,11 @@ private:
 	int32_t bWhitePixel;
 	int32_t colall;
 	int32_t chet_color[SB];
-	Word8 lg0;
-	PWord8 ptbtek;
-	PWord8 ptbosn;
-	PWord8 ptb;
-	PWord8 ptgrey;
+	uchar lg0;
+	puchar ptbtek;
+	puchar ptbosn;
+	puchar ptb;
+	puchar ptgrey;
 	uint32_t indend;
 	uint32_t indbeg;
 	int32_t nstrb;
