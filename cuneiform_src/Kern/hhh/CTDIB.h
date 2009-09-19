@@ -182,7 +182,7 @@ typedef struct tagCTDIBRGBQUAD
 //
 	typedef Handle (*PCTDIBMemAlloc)(uint32_t);
 	typedef void   (*PCTDIBMemFree)(Handle);
-	typedef PVOID  (*PCTDIBMemLock)(Handle);
+	typedef pvoid  (*PCTDIBMemLock)(Handle);
 	typedef void   (*PCTDIBMemUnlock)(Handle);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -244,9 +244,9 @@ private:
 	// Hangle of DIB (Global memory)
 	Handle              hDIB;
 	// pointer to DIB (CRC memory)
-	PVOID               pDIB;
+	pvoid               pDIB;
 	// pointer to DIB header
-	PVOID               pDIBHeader;
+	pvoid               pDIBHeader;
 	// pointer to first RGBQUAD 32 bit fild
 	PCTDIBRGBQUAD       pRGBQuads;
 	// pointer to BitFild
@@ -298,7 +298,7 @@ public:
 	// get 4 external function for class:
 	// Handle (*PCTDIBMemAlloc)(uint32_t);
 	// void   (*PCTDIBMemFree)(Handle);
-	// PVOID  (*PCTDIBMemLock)(Handle);
+	// pvoid  (*PCTDIBMemLock)(Handle);
 	// void   (*PCTDIBMemUnlock)(Handle);
 	RDIB_FUNC(Bool32) SetExternals(PCTDIBMemAlloc pfAlloc, PCTDIBMemFree pfFree, PCTDIBMemLock pfLock, PCTDIBMemUnlock pfUnlock);
 	// start to create new DIB
@@ -311,7 +311,7 @@ public:
 	// set DIB by global handle
 	RDIB_FUNC(Bool32) SetDIBbyHandle(Handle hDIB);
 	// set DIB by memory ptr
-	RDIB_FUNC(Bool32) SetDIBbyPtr(PVOID pDIB);
+	RDIB_FUNC(Bool32) SetDIBbyPtr(pvoid pDIB);
 	// remove DIB and set to ready for new once
 	RDIB_FUNC(Bool32) ResetDIB(void);
 	///////////////////////////////////////////////////////////////////
@@ -321,7 +321,7 @@ public:
 	//Get DIB header memory allocation size
 	RDIB_FUNC(uint32_t) GetHeaderSize(void);
 	// get pointer to DIB header
-	RDIB_FUNC(PVOID) GetPtrToHeader();
+	RDIB_FUNC(pvoid) GetPtrToHeader();
 	// get version of DIB
 	RDIB_FUNC(uint32_t) GetDIBVersion();
 	// return image width in pixels
@@ -358,26 +358,26 @@ public:
 	//Get used by DIB RGB Quads memory allocation size
 	RDIB_FUNC(uint32_t) GetRGBPalleteSize(void);
 	// get HANDLE to DIB
-	RDIB_FUNC(Bool32) GetDIBHandle(PHandle phDIB);
+	RDIB_FUNC(Bool32) GetDIBHandle(Handle* phDIB);
 	// Set Handle for DIB if it not attached
 	RDIB_FUNC(Bool32) SetDIBHandle(Handle hDIB);
 	// get pointer to DIB
-	RDIB_FUNC(Bool32) GetDIBPtr(PPVOID ppDIB);
+	RDIB_FUNC(Bool32) GetDIBPtr(pvoid* ppDIB);
 	////////////////////////////////////////////////////////Pallette Data
 	// get pointer to first RGBQuad of RGB Quads ( or Triads)
-	RDIB_FUNC(PVOID)  GetPtrToRGB();
+	RDIB_FUNC(pvoid)  GetPtrToRGB();
 	// Get RGBQuad[wQuad]
 	RDIB_FUNC(Bool32) GetRGBQuad(uint32_t wQuad, PCTDIBRGBQUAD pQuad);
 	// set RGBQuad
 	RDIB_FUNC(Bool32) SetRGBQuad(uint32_t wQuad, CTDIBRGBQUAD Quad);
 	////////////////////////////////////////////////////////BitFild Data
 	// Get pointer to BitFild data;
-	RDIB_FUNC(PVOID)  GetPtrToBitFild(void);
+	RDIB_FUNC(pvoid)  GetPtrToBitFild(void);
 	// get pointer to Line (from 0 to |biHeight|-1)
-	RDIB_FUNC(PVOID)  GetPtrToLine(uint32_t wLine);
+	RDIB_FUNC(pvoid)  GetPtrToLine(uint32_t wLine);
 	// get ptr to BitFild memory on pixel(x,y)
 	// if PixelSize < 8 - ptr to byte where its pixel
-	RDIB_FUNC(PVOID)  GetPtrToPixel(uint32_t wPixelX, uint32_t wPixelY);
+	RDIB_FUNC(pvoid)  GetPtrToPixel(uint32_t wPixelX, uint32_t wPixelY);
 	// Get bit position in byte of image fild for pixel
 	RDIB_FUNC(uint32_t) GetPixelShiftInByte(uint32_t dwX);
 	// Check Externals Memory functions

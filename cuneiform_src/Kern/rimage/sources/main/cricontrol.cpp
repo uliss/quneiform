@@ -234,7 +234,7 @@ Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, int32_t High, int32_t
 // !!! Art Изменил - теперь она заносит не хендлы, а указатели, а то память утекала
 //почему-то...
 		//		Handle hDIBtoSet;
-		PVOID  pDIBtoSet;
+		pvoid  pDIBtoSet;
 
 		if ( (wRet == IDS_RIMAGE_ZERO_NUMERATOR_OR_DENUMERATOR ||
 			  wRet == IDS_RIMAGE_ANGLE_LEAST_MINIMUM )         &&
@@ -416,7 +416,7 @@ Bool32 CRIControl::Inverse(PChar8  cDIBIn, PChar8  cDIBOut, uint32_t UseMargins)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // взять без копировыания
-Bool32 CRIControl::GetDIB(PChar8  cDIB, PHandle phDIB)
+Bool32 CRIControl::GetDIB(PChar8  cDIB, Handle* phDIB)
 {
 	// берем с копированием, что б маска была!
 	if ( CIMAGE_ReadDIB((puchar)cDIB, phDIB, TRUE) )
@@ -448,7 +448,7 @@ Bool32 CRIControl::WriteDIB(PChar8  cDIB, Handle hDIB)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // взять с копировыанием
-Bool32 CRIControl::ReadDIB(PChar8  cDIB, PHandle phDIB)
+Bool32 CRIControl::ReadDIB(PChar8  cDIB, Handle* phDIB)
 {
 	if ( CIMAGE_ReadDIB((puchar)cDIB, phDIB, FALSE) )
 		return TRUE;
@@ -484,7 +484,7 @@ Bool32 CRIControl::CloseSourceDIB()
 Bool32 CRIControl::OpenSourceDIB(PChar8  cDIBName)
 {
 	Handle  hDIBIn;
-	PVOID   pDIB;
+	pvoid   pDIB;
 
 	if ( !ReadDIB(cDIBName, &hDIBIn) )
 	{
@@ -515,7 +515,7 @@ Bool32 CRIControl::OpenSourceDIB(PChar8  cDIBName)
 Bool32 CRIControl::CloseDestinationDIB(PChar8  cDIBName)
 {
 	Handle hDIB = NULL;
-	PVOID  pDIB = NULL;
+	pvoid  pDIB = NULL;
 
 	if ( DIBOpeningType == TRUE )
 	{
@@ -628,7 +628,7 @@ Bool32 CRIControl::CreateDestinatonDIB(uint32_t BitCount)
 Bool32 CRIControl::OpenDestinationDIBfromSource(PChar8  cDIBName)
 {
 	Handle  hDIBIn;
-	PVOID   pDIB;
+	pvoid   pDIB;
 
 	if ( mpSourceDIB != NULL )
 		return FALSE;

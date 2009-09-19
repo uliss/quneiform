@@ -2163,7 +2163,7 @@ public:
 #endif // !_WIN32_WCE
 
 #if (_WIN32_WINNT >= 0x0501)
-	static HRESULT ReadEx(DWORD dwFlags, LPSTREAM lpStream, REFIID riid, PVOID* ppv)
+	static HRESULT ReadEx(DWORD dwFlags, LPSTREAM lpStream, REFIID riid, pvoid* ppv)
 	{
 		return ImageList_ReadEx(dwFlags, lpStream, riid, ppv);
 	}

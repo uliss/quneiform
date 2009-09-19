@@ -396,7 +396,7 @@ typedef LPCSTR    LPCOLESTR;
 #ifndef _WINDEF_
 typedef const RECTL __RPC_FAR *LPCRECTL;
 
-typedef void __RPC_FAR *PVOID;
+typedef void __RPC_FAR *pvoid;
 
 typedef void __RPC_FAR *pvoid;
 
@@ -507,7 +507,7 @@ typedef USHORT SECURITY_DESCRIPTOR_CONTROL;
 
 typedef USHORT __RPC_FAR *PSECURITY_DESCRIPTOR_CONTROL;
 
-typedef PVOID PSID;
+typedef pvoid PSID;
 
 typedef struct  _ACL
     {

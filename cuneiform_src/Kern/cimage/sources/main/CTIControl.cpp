@@ -382,7 +382,7 @@ Bool32 CTIControl::SetDIB(PChar8  lpName, Handle hDIB, uint32_t wFlag)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::GetDIB(PChar8  lpName, PHandle phDIB, uint32_t wFlag)
+Bool32 CTIControl::GetDIB(PChar8  lpName, Handle* phDIB, uint32_t wFlag)
 {
 	Handle  hImage = NULL;  // Handle
 
@@ -597,7 +597,7 @@ Bool32 CTIControl::RemoveImage(PChar8  lpName)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::CopyDIB(Handle hSrc, PHandle phCopyedDib)
+Bool32 CTIControl::CopyDIB(Handle hSrc, Handle* phCopyedDib)
 {
 	void *         pSrc = NULL;
 	void *         pDsc = NULL;
@@ -1429,7 +1429,7 @@ Bool32 CTIControl::RemoveReadRectangles(PChar8 lpName, uint32_t wNumber, PCIMAGE
 	return RemoveRectsFromMask(lpName, wNumber, pFirst, "r");
 }
 
-Bool32 CTIControl::OpenDIBFromList(PChar8 lpName, PHandle phImage)
+Bool32 CTIControl::OpenDIBFromList(PChar8 lpName, Handle* phImage)
 {
 	mlImages.GetImage(lpName, phImage);
 	//ALLEX Mask

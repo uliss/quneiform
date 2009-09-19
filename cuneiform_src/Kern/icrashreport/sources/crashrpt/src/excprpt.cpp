@@ -794,7 +794,7 @@ CleanUp:
 // eventually used to create the <modules> node in the XML log file.
 //
 Bool CALLBACK
-CExceptionReport::miniDumpCallback(PVOID,
+CExceptionReport::miniDumpCallback(pvoid,
                                    CONST PMINIDUMP_CALLBACK_INPUT CallbackInput,
                                    PMINIDUMP_CALLBACK_OUTPUT)
 {

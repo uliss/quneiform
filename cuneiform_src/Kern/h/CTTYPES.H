@@ -93,6 +93,8 @@ typedef unsigned char * puchar;
 typedef void * pvoid;
 typedef int16_t * pint16_t;
 
+typedef void * Handle;
+
 #ifndef   FALSE
 #define FALSE               0
 #endif

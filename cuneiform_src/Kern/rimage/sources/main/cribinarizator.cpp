@@ -510,9 +510,9 @@ Bool32 CRIBinarizator::KronrodCloseGray()
 Bool32 CRIBinarizator::DezaOpenBin(uint32_t wDezaFlag)
 {
 	uint32_t  wDpiX, wDpiY;
-	PVOID fGetGreyBlock;
+	pvoid fGetGreyBlock;
 
-	fGetGreyBlock = (PVOID)this;
+	fGetGreyBlock = (pvoid)this;
 
 #ifdef DEZA_TIG_IMAGEINFO
 	TIG_IMAGEINFO    DezaImageInfo;

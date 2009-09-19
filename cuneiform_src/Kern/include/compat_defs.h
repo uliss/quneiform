@@ -316,7 +316,7 @@ typedef struct tagBITMAPFILEHEADER {
 typedef struct tagCOPYDATASTRUCT {
 	ulong dwData;
 	uint32_t cbData;
-	PVOID lpData;
+	pvoid lpData;
 } COPYDATASTRUCT, *PCOPYDATASTRUCT;
 
 typedef POINT* LPPOINT;

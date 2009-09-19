@@ -114,7 +114,7 @@ private:
 
 private:
 	Bool32          WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
-	Bool32          GetDIB(PChar8   cDIB, PHandle phDIB);
+	Bool32          GetDIB(PChar8   cDIB, Handle* phDIB);
 	Bool32          CloseSourceDIB();
 	Bool32          CreateDestinatonDIB(uint32_t BitCount);
 	Bool32          SetDestinationDIBtoStorage(PChar8  cDIBName);
@@ -123,7 +123,7 @@ private:
 	Bool32          OpenSourceDIB(PChar8   cDIBName);
 	Bool32          SetDIB(PChar8   cDIB, Handle hDIB);
 	Bool32          WriteDIB(PChar8   cDIB, Handle hDIB);
-	Bool32          ReadDIB(PChar8   cDIB, PHandle phDIB);
+	Bool32          ReadDIB(PChar8   cDIB, Handle* phDIB);
 
 public:
 	Bool32                    RotatePoint(PChar8 cDIB, int32_t iX, int32_t iY, int32_t * prX, int32_t * prY);

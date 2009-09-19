@@ -106,7 +106,7 @@ private:
 	Bool32                    OpenDIBFromList(const char *lpName, PCTDIB pDIB);
 	Bool32                    SetMaskToList(PChar8 pName, PCTIMask pMask, PChar8 pcType);
 	Bool32                    OpenMaskFromList(const char *lpName, PPCTIMask ppMask, PBool32 pEnMask, const char *pcType);
-	Bool32                    OpenDIBFromList(PChar8 lpName, PHandle phImage);
+	Bool32                    OpenDIBFromList(PChar8 lpName, Handle* phImage);
 	Bool32                    WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
 	Bool32                    SetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInReplace pIn);
 	Bool32                    ApplayBitMaskToFrame(PCIMAGE_InfoDataInGet pIn, PCIMAGE_InfoDataOutGet pOut);
@@ -114,7 +114,7 @@ private:
 	Bool32                    CopyFromFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInReplace pFrameIn);
 	Bool32                    CopyToFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInGet pFrameInfo, puchar pMask);
 	Bool32                    GetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, PCIMAGE_InfoDataInGet pIn, puchar pMask);
-	Bool32                    CopyDIB(Handle hDIB, PHandle hCopyedDib);
+	Bool32                    CopyDIB(Handle hDIB, Handle* hCopyedDib);
 	Bool32                    DumpToFile(PChar8 FileName, puchar pData, uint32_t Size);
 	Bool32                    CheckInData(PCTDIB pDIB, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_InfoDataInGet lpNewIn = NULL);
 
@@ -131,7 +131,7 @@ public:
 	Bool32                    GetImageInfo(PChar8  lpImage, PCIMAGEBITMAPINFOHEADER lpBIH);
 	Bool32                    ReplaceImage(PChar8  lpName, PCIMAGE_InfoDataInReplace lpIn);
 	Bool32                    GetImage(PChar8  lpName, PCIMAGE_InfoDataInGet lpIn, PCIMAGE_InfoDataOutGet lplpOut);
-	Bool32                    GetDIB(PChar8  lpName, PHandle phDIB, uint32_t wFlag = 0);
+	Bool32                    GetDIB(PChar8  lpName, Handle* phDIB, uint32_t wFlag = 0);
 	Bool32                    SetDIB(PChar8  lpName, Handle hDIB, uint32_t wFlag = 0);
 	Bool32                    GetCBImage (PChar8  lpName, PCIMAGEIMAGECALLBACK pCbk);
 	Bool32                    WriteCBImage(PChar8  lpName, CIMAGEIMAGECALLBACK Cbk );

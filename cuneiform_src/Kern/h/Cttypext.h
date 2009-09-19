@@ -59,11 +59,6 @@
 
 #include "globus.h"
 
-//AK add:
-typedef void * Handle;
-_SETTYPES( Handle)
-typedef void * PVOID;
-_SETTYPES( PVOID)
 // for except collision with windows defined Char structure
 //      ansi char
 typedef char Char8;

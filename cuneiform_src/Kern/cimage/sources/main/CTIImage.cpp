@@ -114,7 +114,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_WriteDIB(puchar    lpName,
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 CIMAGE_FUNC(Bool32) CIMAGE_ReadDIB(puchar     lpName,
-								   PHandle  lplpDIB,
+								   Handle*  lplpDIB,
 								   uint32_t   wFlag)
 {
 	Bool32 A = FALSE;

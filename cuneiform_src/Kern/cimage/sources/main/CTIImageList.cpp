@@ -135,7 +135,7 @@ Bool32 CTIImageList::AddImage(const char *lpName, Handle hDIB, uint32_t wFlag)
 	return TRUE;
 }
 
-Bool32 CTIImageList::GetImage(const char *lpName, PHandle phDIB)
+Bool32 CTIImageList::GetImage(const char *lpName, Handle* phDIB)
 {
 	CTIImageHeader * Image = FindImage(lpName);
 

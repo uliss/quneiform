@@ -62,17 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif // _MSC_VER > 1000
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-#ifndef __GLOBUS_H
- #include "globus.h"
-#endif
-///////////////////////////////////////////////////////////////////////////////////////////////
-//#include"CTIDefines.h"
-/*
-#ifndef __RECDEFS_H
-   #include "recdefs.h"
-#endif
-   #include "memfunc.h"
-*/
+#include "globus.h"
 ///////////////////////////////////////////////////////////////////////////////////////////////
 #ifdef __CIMAGE__
   #define CIMAGE_FUNC  FUN_EXPO
@@ -80,7 +70,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #define CIMAGE_FUNC  FUN_IMPO
 #endif
 ///////////////////////////////////////////////////////////////////////////////////////////////
-//#define     CIMAGE_CALLBACK_FUNC(a)         CIMAGE_FUNC(a)
 #define     CIMAGE_CALLBACK_FUNC(a)         a
 ///////////////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
@@ -91,17 +80,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ///////////////////////////////////////////////////////////////////////////////////////////////
 #define CIMAGE_MAXNAME 260
 ///////////////////////////////////////////////////////////////////////////////////////////////
-#if !defined(Handle) & ! defined(PHandle)
-	typedef void *Handle, **PHandle;
-#endif
-#if defined(Handle) & !defined(PHandle)
-	typedef void **PHandle;
-#endif
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 # define    CIMAGEBOOL16          Bool16
 # define    CIMAGEWORD            uint16_t
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
 //
 #ifndef __CIMAGE_STRUCT_H_
 #define __CIMAGE_STRUCT_H_
@@ -264,7 +246,7 @@ typedef enum
 DEC_FUN(Bool32,  WriteCallbackImage,   (puchar , CIMAGEIMAGECALLBACK));
 DEC_FUN(Bool32,  GetCallbackImage,     (puchar , PCIMAGEIMAGECALLBACK));
 DEC_FUN(Bool32,  WriteDIB,             (puchar , Handle, uint32_t));
-DEC_FUN(Bool32,  ReadDIB,              (puchar , PHandle, uint32_t));
+DEC_FUN(Bool32,  ReadDIB,              (puchar , Handle*, uint32_t));
 DEC_FUN(Bool32,  GetData,              (puchar , PCIMAGE_InfoDataInGet, PCIMAGE_InfoDataOutGet));
 DEC_FUN(Bool32,  GetDIBData,           (puchar , PCIMAGE_InfoDataInGet, pchar*));
 DEC_FUN(Bool32,  ReplaceData,          (puchar , PCIMAGE_InfoDataInReplace));
