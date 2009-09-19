@@ -91,8 +91,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define  USE_NONE              0x0040   // no formatting
 
-extern   Word32 FlagMode;
-extern   Word32 RtfWriteMode;
+extern   uint32_t FlagMode;
+extern   uint32_t RtfWriteMode;
 extern   POINT  TemplateOffset;
 
 extern	  char   RtfFileName[MAX_PATH];
@@ -105,10 +105,10 @@ extern	  char   RtfFileName[MAX_PATH];
 
 
 //==============   Определение кол-ва картин на странице  ======================
-Word32 GetPictCount(void)
+uint32_t GetPictCount(void)
 {
-	Word32 PictCount = 0;
-	Word32 NumberPage = CPAGE_GetCurrentPage();
+	uint32_t PictCount = 0;
+	uint32_t NumberPage = CPAGE_GetCurrentPage();
 	Handle h_Page = CPAGE_GetHandlePage(NumberPage);
 
 	Handle h_Pict = CPAGE_PictureGetFirst(h_Page);
@@ -121,12 +121,12 @@ Word32 GetPictCount(void)
 }
 
 //=====================     Размер картинки     ===================================
-BYTE GetPictRect( Word32 NumberPict , Rect16* RectPict,Word32* UserNumber )
+BYTE GetPictRect( uint32_t NumberPict , Rect16* RectPict,uint32_t* UserNumber )
 {
-	Word32  PictCount  = 0;
+	uint32_t  PictCount  = 0;
 	Point32 Lr = {0};
 	Point32 Wh = {0};
-	Word32  NumberPage = CPAGE_GetCurrentPage();
+	uint32_t  NumberPage = CPAGE_GetCurrentPage();
 	Handle  h_Page     = CPAGE_GetHandlePage(NumberPage);
 	Handle  h_Pict     = CPAGE_PictureGetFirst(h_Page);
 
@@ -140,7 +140,7 @@ BYTE GetPictRect( Word32 NumberPict , Rect16* RectPict,Word32* UserNumber )
 		return FALSE;
 
 
-	*UserNumber = (Word32)CPAGE_GetBlockUserNum( h_Page, h_Pict  );
+	*UserNumber = (uint32_t)CPAGE_GetBlockUserNum( h_Page, h_Pict  );
 
 
 	if(CPAGE_PictureGetPlace (h_Page, h_Pict, 0, &Lr, &Wh))
@@ -154,9 +154,9 @@ BYTE GetPictRect( Word32 NumberPict , Rect16* RectPict,Word32* UserNumber )
 }
 
 //**************************** Запись картин ************************************
-Bool WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictString*/, Bool OutPutTypeFrame)
+Bool WritePict( uint32_t IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictString*/, Bool OutPutTypeFrame)
 {
-	Word32        PictNumber    = 0;
+	uint32_t        PictNumber    = 0;
 //	int           Realx,Realy;
 	Point32       RtfLt = {0};
 	CPAGE_PICTURE pict = {0};
@@ -179,7 +179,7 @@ Bool WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 	Handle   hPrevObject;
 #endif
 
-	Word32   NumberPage    = CPAGE_GetCurrentPage();
+	uint32_t   NumberPage    = CPAGE_GetCurrentPage();
 	Handle   h_Page        = CPAGE_GetHandlePage(NumberPage);
 	Handle   h_Pict        = CPAGE_PictureGetFirst(h_Page);
 //	CString  str;
@@ -202,7 +202,7 @@ Bool WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 	{
 		CIMAGE_InfoDataInGet in = {0};
 		CIMAGEBITMAPINFOHEADER image_info = {0};
-		Word32 nSize = 0;
+		uint32_t nSize = 0;
 		Point32 Lr = {0};
 		Point32 Wh = {0};
 		Point32 PLr = {0};
@@ -224,7 +224,7 @@ Bool WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 /*
  	if(CPAGE_GetBlockData(h_Page,h_Pict,TYPE_CPAGE_PICTURE,&pict,sizeof(pict))==sizeof(pict))
 	 {
-		 for(Word32 i = 0; i<pict.Number;i++)
+		 for(uint32_t i = 0; i<pict.Number;i++)
 		 {
 				RtfLt.x = pict.Corner[i].x;
 				RtfLt.y = pict.Corner[i].y;
@@ -381,7 +381,7 @@ Bool WritePict( Word32 IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictStri
 					in.wByteWidth = (unsigned short)((in.dwWidth +7)/8); //?
 					in.MaskFlag = TRUE;
 					// Получим размер маски
-					Word32 nSize = 0;
+					uint32_t nSize = 0;
 					LDPUMA_Skip(hTestGetMaskDIB);
 					if(CPAGE_PictureGetMask (h_Page,h_Pict,0,NULL,&nSize))
 					{

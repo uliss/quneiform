@@ -226,7 +226,7 @@ static void leo_ndx_snapSimpleKey(char *str, SnpTreeNode *stnRecog)
 SnpLog("%s",str);
 SnpLog("");
 Ind_SnpWaitUserInput(stnRecog); // pass control to user
-SnpHideRects((Word32)stnRecog);
+SnpHideRects((uint32_t)stnRecog);
 return;
 }
 
@@ -237,7 +237,7 @@ SnpDrawRect(&object->recData.rect,
      0, //Skew - zero to real coords
      wRGB(0,0,255),
      -16, // one image pixel width
-     (Word32)stnRecog    );
+     (uint32_t)stnRecog    );
 
 SnpDrawRaster( &object->recData.recRaster );
 return;
@@ -375,7 +375,7 @@ if( object->recResults.Alt[0].Prob==255 )
 			SnpLog("%s","MAX VITA");
 			SnpLog("");
 			Ind_SnpWaitUserInput(&stnNdxRecog); // pass control to user
-			SnpHideRects((Word32)&stnNdxRecog);
+			SnpHideRects((uint32_t)&stnNdxRecog);
 			}
 	return TRUE;
 	}
@@ -397,7 +397,7 @@ else if( leo_ndx_max_prob(&object->recResults)>=MIN_REC_VIT )
             leo_ndx_snapRaster(object, &stnNdxRecog);
 			SnpLog("%s","");
 			Ind_SnpWaitUserInput(&stnNdxRecog); // pass control to user
-			SnpHideRects((Word32)&stnNdxRecog);
+			SnpHideRects((uint32_t)&stnNdxRecog);
 			}
 
 		return TRUE;
@@ -483,7 +483,7 @@ if (!SnpSkip(&stnNdxRecog)|| leo_ndx_in_rect)
 				Ind_SnpWaitUserInput(&stnSnapNdxRecog); // pass control to user
 				stnSnapNdxRecog.Status &= ~(STN_DRAW|STN_STOP);
 				}
-	  SnpHideRects((Word32)&stnNdxRecog);
+	  SnpHideRects((uint32_t)&stnNdxRecog);
       }
 leo_ndx_in_rect=FALSE;
 return TRUE;

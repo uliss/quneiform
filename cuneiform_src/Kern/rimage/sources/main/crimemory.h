@@ -93,8 +93,8 @@ Word16 GetReturnCode_rimage();
 /////////////////////////////////////////////////////////////////////////////////////////
 //
 void    RIMAGEComment(const char *Comment);
-void *	RIMAGEAlloc(Word32 stAllocateBlock);
-void *	RIMAGEDAlloc(Word32 stAllocateBlock, const char *Comment);
+void *	RIMAGEAlloc(uint32_t stAllocateBlock);
+void *	RIMAGEDAlloc(uint32_t stAllocateBlock, const char *Comment);
 void	RIMAGEFree(void * mem);
 void *  RIMAGELock(void * mem);
 void    RIMAGEUnlock(void * mem);

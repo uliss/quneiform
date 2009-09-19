@@ -78,9 +78,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 RSL_FUNC(Bool32) RSL_Init(Word16 wHeightCode,Handle hStorage);
 RSL_FUNC(Bool32) RSL_Done();
-RSL_FUNC(Word32) RSL_GetReturnCode();
-RSL_FUNC(char *) RSL_GetReturnString(Word32 dwError);
-RSL_FUNC(Bool32) RSL_SetImportData(Word32 dwType, void * pData);
+RSL_FUNC(uint32_t) RSL_GetReturnCode();
+RSL_FUNC(char *) RSL_GetReturnString(uint32_t dwError);
+RSL_FUNC(Bool32) RSL_SetImportData(uint32_t dwType, void * pData);
 
 
 #pragma pack (pop)

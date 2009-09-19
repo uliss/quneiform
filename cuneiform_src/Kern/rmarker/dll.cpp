@@ -113,12 +113,12 @@ RMARKER_FUNC(Bool32) RMARKER_PageMarkup(PRMPreProcessImage Image,void* vBuff,int
 	return rc;
 }
 
-RMARKER_FUNC(Bool32) RMARKER_SearchTableInZone(Handle hPage,Handle hCCOM,Word32 perc,Rect32 rect)
+RMARKER_FUNC(Bool32) RMARKER_SearchTableInZone(Handle hPage,Handle hCCOM,uint32_t perc,Rect32 rect)
 {
 	return TRUE;
 }
 
-RMARKER_FUNC(Bool32) RMARKER_SetImportData(Word32 dwType, void * pData)
+RMARKER_FUNC(Bool32) RMARKER_SetImportData(uint32_t dwType, void * pData)
 {
 	Bool rc = FALSE;
 
@@ -148,7 +148,7 @@ RMARKER_FUNC(Bool32) RMARKER_Init(Word16 wHeightCode,Handle hStorage)
 #ifdef _USE_RFILL_
 	if (!RFILL_Init())
 	{
-		Word32  retCode = RFILL_GetReturnCode   ();
+		uint32_t  retCode = RFILL_GetReturnCode   ();
 		char   *pszMsg  = RFILL_GetReturnString (retCode);
 		return  FALSE;
 	}
@@ -241,7 +241,7 @@ RMARKER_FUNC(Bool32) RMARKER_Done()
 #ifdef _USE_RFILL_
     if (!RFILL_Done())
 	{
-		Word32  retCode = RFILL_GetReturnCode   ();
+		uint32_t  retCode = RFILL_GetReturnCode   ();
 		char   *pszMsg  = RFILL_GetReturnString (retCode);
 		return  FALSE;
 	}
@@ -252,15 +252,15 @@ RMARKER_FUNC(Bool32) RMARKER_Done()
 	return TRUE;
 }
 
-RMARKER_FUNC(char *) RMARKER_GetReturnString(Word32 dwError)
+RMARKER_FUNC(char *) RMARKER_GetReturnString(uint32_t dwError)
 {return NULL;
 }
 
-RMARKER_FUNC(Bool32) RMARKER_GetExportData(Word32 dwType, void * pData)
+RMARKER_FUNC(Bool32) RMARKER_GetExportData(uint32_t dwType, void * pData)
 {return FALSE;
 }
 
-Word32 RMARKER_GetReturnCode(void)
+uint32_t RMARKER_GetReturnCode(void)
 {
 	return GetReturnCode_rmarker();
 }

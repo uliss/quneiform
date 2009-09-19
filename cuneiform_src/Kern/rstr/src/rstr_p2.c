@@ -275,7 +275,7 @@ return;
 // перевести в cell от first < last
 // if(first == NULL ) -> first= первый в lin
 //
-int32_t p2_Cstr2Cell( CSTR_line lin,CSTR_rast first,CSTR_rast last,Bool32 needVers, Word32 disable )
+int32_t p2_Cstr2Cell( CSTR_line lin,CSTR_rast first,CSTR_rast last,Bool32 needVers, uint32_t disable )
 {
  cell           *c1,*c2, *next;
  CSTR_rast_attr  cur;
@@ -1388,7 +1388,7 @@ static void InitParamSize(ParamRecogSize *param)
 }
 ///////////////
 static int AddParamSize(ParamRecogSize *param, cell *c, Word8 ch,
-						Word32 isBase, Bool32 isSize)
+						uint32_t isBase, Bool32 isSize)
 {
   if( isBase )
   {

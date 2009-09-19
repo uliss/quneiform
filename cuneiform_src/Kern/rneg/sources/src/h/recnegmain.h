@@ -135,7 +135,7 @@ Bool SearchNegBySize(CCOM_handle,Handle,NegList**,int&);
 void SearchNegByBlack(Handle,NegList**,int&);
 void NegRecog(Handle,NegList**,int&,int);
 void NegMoveMas(Rect16*,int&,int);
-void NegDrawRect(Handle,Word32,Word32,Rect16);
+void NegDrawRect(Handle,uint32_t,uint32_t,Rect16);
 void NegPrintInFile(FILE*,NegList*,int);
 int NegGetCountOfStr(Rect16*,int);
 Bool NegRotate(Handle,NegList*,int,int);

@@ -61,9 +61,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "resource.h"
 
 // Конверторы преобразования из TYPE_PICTURE в CPAGE_PICTURE
-Word32 TYPE_PICTURE_to_CPAGE_PICTURE(POLY_ * lpDataIn,Word32 SizeIn,CPAGE_PICTURE* LpDataOut,Word32 SizeOut)
+uint32_t TYPE_PICTURE_to_CPAGE_PICTURE(POLY_ * lpDataIn,uint32_t SizeIn,CPAGE_PICTURE* LpDataOut,uint32_t SizeOut)
 {
-	Word32 rc = 0;
+	uint32_t rc = 0;
 	if(LpDataOut == NULL)
 		return sizeof(CPAGE_PICTURE);
 
@@ -79,7 +79,7 @@ Word32 TYPE_PICTURE_to_CPAGE_PICTURE(POLY_ * lpDataIn,Word32 SizeIn,CPAGE_PICTUR
 	CPAGE_PICTURE pict = {0};
 
 	pict.Number = desc.com.count;
-	for(Word32 i=0;i<pict.Number;i++)
+	for(uint32_t i=0;i<pict.Number;i++)
 	{
 		pict.Corner[i] = desc.com.Vertex[i];
 	}
@@ -90,9 +90,9 @@ Word32 TYPE_PICTURE_to_CPAGE_PICTURE(POLY_ * lpDataIn,Word32 SizeIn,CPAGE_PICTUR
 	return rc;
 }
 //##########################################################
-Word32 CPAGE_PICTURE_to_TYPE_PICTURE( CPAGE_PICTURE * lpDataIn,Word32 SizeIn,POLY_ * LpDataOut,Word32 SizeOut)
+uint32_t CPAGE_PICTURE_to_TYPE_PICTURE( CPAGE_PICTURE * lpDataIn,uint32_t SizeIn,POLY_ * LpDataOut,uint32_t SizeOut)
 {
-	Word32 rc = 0;
+	uint32_t rc = 0;
 
 	if(LpDataOut == NULL)
 			return sizeof(POLY_);
@@ -109,7 +109,7 @@ Word32 CPAGE_PICTURE_to_TYPE_PICTURE( CPAGE_PICTURE * lpDataIn,Word32 SizeIn,POL
 	CPAGE_PICTURE pict = *lpDataIn;
 
 	desc.com.count = pict.Number;
-	for(Word32 i=0;i<pict.Number;i++)
+	for(uint32_t i=0;i<pict.Number;i++)
 	{
 		desc.com.Vertex[i] = pict.Corner[i];
 	}

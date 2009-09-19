@@ -64,24 +64,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class BLOCK: public DATA
 {
 public:
-	Word32 UserNum;
-	Word32 Flags;
-	Word32 InterNum;
+	uint32_t UserNum;
+	uint32_t Flags;
+	uint32_t InterNum;
 
 
 public:
 	BLOCK();
 	virtual ~BLOCK();
 
-	Bool32  Create(Handle Type, Word32 UserNum = 0, Word32 Flags = 0,void * lpData = NULL, Word32 Size = 0);
+	Bool32  Create(Handle Type, uint32_t UserNum = 0, uint32_t Flags = 0,void * lpData = NULL, uint32_t Size = 0);
 
 	Handle  GetType() { return DATA::GetType();};
-	Word32  GetUserNum() { return UserNum;};
-	void    SetUserNum(Word32 user) { UserNum = user;};
-	Word32  GetFlags() { return Flags;};
-	void    SetFlags(Word32 flags) { Flags = flags;};
-	Word32  GetInterNum() { return InterNum;};
-	void    SetInterNum(Word32 user) { InterNum = user;};
+	uint32_t  GetUserNum() { return UserNum;};
+	void    SetUserNum(uint32_t user) { UserNum = user;};
+	uint32_t  GetFlags() { return Flags;};
+	void    SetFlags(uint32_t flags) { Flags = flags;};
+	uint32_t  GetInterNum() { return InterNum;};
+	void    SetInterNum(uint32_t user) { InterNum = user;};
 
 	BLOCK & operator = (BLOCK & Block);
 	Bool32  operator == (BLOCK & Block);
@@ -91,7 +91,7 @@ public:
 	Bool32 SaveCompress(Handle to);
 	Bool32 RestoreCompress(Handle from);
 
-	virtual Word32 Convert(Handle type,void * lpdata,Word32 size);
+	virtual uint32_t Convert(Handle type,void * lpdata,uint32_t size);
 };
 
 	CPAGE_CONVERTOR SetConvertorBlocks(CPAGE_CONVERTOR convertor);

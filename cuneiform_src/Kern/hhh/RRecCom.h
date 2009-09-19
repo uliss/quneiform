@@ -102,7 +102,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define ExRc_IncorrectParam     -20     // Compatible with Err16.h
 #define ExRc_NotEnoughMemory    4
 
-typedef Bool  (* Tiger_ProcComp)    (void * pool,Word32 size);
+typedef Bool  (* Tiger_ProcComp)    (void * pool,uint32_t size);
 */
 #ifndef Handle
 typedef void * Handle ;
@@ -140,7 +140,7 @@ enum    RRECCOMParametrs
 
 typedef struct tagRRecComControl
 {
-        Word32 flags;
+        uint32_t flags;
 #define RECOG_EVN 1 //опознание с помошью метода "Event"
 #define RECOG_GRA 2 //опознание с помошью нейросети
 
@@ -156,12 +156,12 @@ typedef struct tagRRecComControl
     // Can new call after closing the library without ExtrcompDone
 //   RRECCOM_FUNC(void)   ExtrcompDone(void);
     // Closing of the library.
-   RRECCOM_FUNC(Word32) RRECCOM_GetReturnCode(void);
-   RRECCOM_FUNC(char*)  RRECCOM_GetReturnString(Word32 dwError);
+   RRECCOM_FUNC(uint32_t) RRECCOM_GetReturnCode(void);
+   RRECCOM_FUNC(char*)  RRECCOM_GetReturnString(uint32_t dwError);
    RRECCOM_FUNC(Bool32) RRECCOM_Init(Word16 wHeightCode, Handle hStorage);
    RRECCOM_FUNC(Bool32) RRECCOM_Done(void);
-   RRECCOM_FUNC(Bool32) RRECCOM_GetExportData(Word32 dwType, void * pData);
-   RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(Word32 dwType, const void * pData);
+   RRECCOM_FUNC(Bool32) RRECCOM_GetExportData(uint32_t dwType, void * pData);
+   RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(uint32_t dwType, const void * pData);
 
 // 1    RRECCOM_FNRECOG   опознать компоненты
 typedef Bool32   (*FNRRECCOM_Recog)(Handle hCCOM, RRecComControl Control, char *spath, Word8 lang);
@@ -226,7 +226,7 @@ RRECCOM_FUNC(CCOM_comp*)   RRECCOM_MN2CCOM(Handle hCCOM,Handle hmn);
 typedef Bool32 (*FNRRECCOM_GetInvertion)(Word8 *inv);
 RRECCOM_FUNC(Bool32) RRECCOM_GetInvertion(Word8 *inv);
 typedef Bool32 (*FNRRECCOM_ProgressStart )(void);
-typedef Bool32 (*FNRRECCOM_ProgressStep  )(Word32 step);
+typedef Bool32 (*FNRRECCOM_ProgressStep  )(uint32_t step);
 typedef Bool32 (*FNRRECCOM_ProgressFinish)(void);
 // 12   RRECCOM_FNEVNALPHABET   установка алфавита для евент
 typedef Bool32 (*FNRRECCOM_SetEVNAlphabet)(char *spath, Word8 lang);

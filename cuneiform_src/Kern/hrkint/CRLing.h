@@ -115,19 +115,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef __RLING__
 RLING_FUNC(Bool32) RLING_Init(Word16 wHeightCode,Handle hStorage);
 RLING_FUNC(Bool32) RLING_Done();
-RLING_FUNC(Word32) RLING_GetReturnCode();
-RLING_FUNC(char *) RLING_GetReturnString(Word32 dwError);
-RLING_FUNC(Bool32) RLING_GetExportData(Word32 dwType, void * pData);
-RLING_FUNC(Bool32) RLING_SetImportData(Word32 dwType, void * pData);
+RLING_FUNC(uint32_t) RLING_GetReturnCode();
+RLING_FUNC(char *) RLING_GetReturnString(uint32_t dwError);
+RLING_FUNC(Bool32) RLING_GetExportData(uint32_t dwType, void * pData);
+RLING_FUNC(Bool32) RLING_SetImportData(uint32_t dwType, void * pData);
 #endif
 /////////////////////////////////////////////////////////////////////////////////////////
 #ifdef __RLINGS__
 RLINGS_FUNC(Bool32) RLINGS_Init(Word16 wHeightCode,Handle hStorage);
 RLINGS_FUNC(Bool32) RLINGS_Done();
-RLINGS_FUNC(Word32) RLINGS_GetReturnCode();
-RLINGS_FUNC(char *) RLINGS_GetReturnString(Word32 dwError);
-RLINGS_FUNC(Bool32) RLINGS_GetExportData(Word32 dwType, void * pData);
-RLINGS_FUNC(Bool32) RLINGS_SetImportData(Word32 dwType, void * pData);
+RLINGS_FUNC(uint32_t) RLINGS_GetReturnCode();
+RLINGS_FUNC(char *) RLINGS_GetReturnString(uint32_t dwError);
+RLINGS_FUNC(Bool32) RLINGS_GetExportData(uint32_t dwType, void * pData);
+RLINGS_FUNC(Bool32) RLINGS_SetImportData(uint32_t dwType, void * pData);
 #endif
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -195,9 +195,9 @@ typedef enum
 #endif
 //////////////////////////////////////////////////////////////////////////////////////////
 //
-DEC_FUN(Bool32,  IsDictonaryAvailable,     (Word32, pchar));
-DEC_FUN(Bool32,  LoadDictonary,            (Word32, pchar));
-DEC_FUN(Bool32,  LoadSecDictonary,         (Word32, pchar));
+DEC_FUN(Bool32,  IsDictonaryAvailable,     (uint32_t, pchar));
+DEC_FUN(Bool32,  LoadDictonary,            (uint32_t, pchar));
+DEC_FUN(Bool32,  LoadSecDictonary,         (uint32_t, pchar));
 DEC_FUN(Bool32,  LoadUserDictonary,        (pchar, pchar));
 DEC_FUN(Bool32,  LoadSecUserDictonary,     (pchar, pchar));
 DEC_FUN(Bool32,  UnloadDictonary,          (void));
@@ -206,16 +206,16 @@ DEC_FUN(Bool32,  UnloadUserDictonary,      (void));
 DEC_FUN(Bool32,  UnloadSecUserDictonary,   (void));
 DEC_FUN(Bool32,  CheckWord,                (pchar , int32_t *));
 DEC_FUN(Bool32,  CheckSecWord,             (pchar , int32_t *));
-DEC_FUN(Bool32,  CheckED,                  (void *, void *, Word32, PWord32, int32_t *));
-DEC_FUN(Bool32,  CheckSecED,               (void *, void *, Word32, PWord32, int32_t *));
-DEC_FUN(Bool32,  CorrectWord,              (void *, void *, PWord32, pchar));
-DEC_FUN(Bool32,  CorrectSecWord,           (void *, void *, PWord32, pchar));
-DEC_FUN(Bool32,  CorrectHypWord,           (void *, void *, PWord32, void *, void *, PWord32, pchar));
-DEC_FUN(Bool32,  CorrectSecHypWord,        (void *, void *, PWord32, void *, void *, PWord32, pchar));
-DEC_FUN(Rect16,  GetCorrectedRectElement,   (Word32));
-DEC_FUN(Rect16,  GetSecCorrectedRectElement,(Word32));
-DEC_FUN(RecVersions,  GetCorrectedVersElement,   (Word32, PWord32));
-DEC_FUN(RecVersions,  GetSecCorrectedVersElement,(Word32, PWord32));
+DEC_FUN(Bool32,  CheckED,                  (void *, void *, uint32_t, uint32_t *, int32_t *));
+DEC_FUN(Bool32,  CheckSecED,               (void *, void *, uint32_t, uint32_t *, int32_t *));
+DEC_FUN(Bool32,  CorrectWord,              (void *, void *, uint32_t *, pchar));
+DEC_FUN(Bool32,  CorrectSecWord,           (void *, void *, uint32_t *, pchar));
+DEC_FUN(Bool32,  CorrectHypWord,           (void *, void *, uint32_t *, void *, void *, uint32_t *, pchar));
+DEC_FUN(Bool32,  CorrectSecHypWord,        (void *, void *, uint32_t *, void *, void *, uint32_t *, pchar));
+DEC_FUN(Rect16,  GetCorrectedRectElement,   (uint32_t));
+DEC_FUN(Rect16,  GetSecCorrectedRectElement,(uint32_t));
+DEC_FUN(RecVersions,  GetCorrectedVersElement,   (uint32_t, uint32_t *));
+DEC_FUN(RecVersions,  GetSecCorrectedVersElement,(uint32_t, uint32_t *));
 //////////////////////////////////////////////////////////////////////////////////////////
 //
 #undef DEC_FUN

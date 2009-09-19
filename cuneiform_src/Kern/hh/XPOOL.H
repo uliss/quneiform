@@ -173,7 +173,7 @@ public:
          if (size == -1)
             size = Volume;
 		assert(size>=0);
-		if (((Word32)size) > Volume)
+		if (((uint32_t)size) > Volume)
             size = Volume;
          if (size) memcpy(Data, src, (uint)size);
       };
@@ -182,7 +182,7 @@ public:
          if (size == -1)
             size = Volume;
 		assert(size >=0);
-		 if (((Word32)size) > Volume)
+		 if (((uint32_t)size) > Volume)
             size = Volume;
 			if (size) memcpy(dst, Data, (uint)size);
 		};

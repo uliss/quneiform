@@ -73,8 +73,8 @@ extern Bool dpRecOneLetter;
 
 void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
 {
- Word32 code_recd=512<<19;
- Word32 code_resd=512<<19+512<<16;
+ uint32_t code_recd=512<<19;
+ uint32_t code_resd=512<<19+512<<16;
  CCOM_handle hNegCCOM;
  CCOM_comp * pcomp;
  Rect16* pN;
@@ -1392,7 +1392,7 @@ void SortLetter(Rect16 *pRc,int n,Bool vert)
  }
 }
 
-void NegDrawRect(Handle wnd,Word32 OperCode,Word32 color,Rect16 Rc)
+void NegDrawRect(Handle wnd,uint32_t OperCode,uint32_t color,Rect16 Rc)
 {
 
 	Rect16 Rect;

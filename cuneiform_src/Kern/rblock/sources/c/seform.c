@@ -87,8 +87,8 @@ Bool32 StringsUpdatedByBukvica()
 	STRING* p;
 	int nString;
 //	Rect16  rect1;
-	Word32 key = 111;
-	Word32 color = 23000;
+	uint32_t key = 111;
+	uint32_t color = 23000;
 
 	for (nString = 0, p = pStringsUpList; p != NULL; p = p -> pDown, nString++)
     {

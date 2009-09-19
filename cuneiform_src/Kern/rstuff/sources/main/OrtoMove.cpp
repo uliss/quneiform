@@ -78,7 +78,7 @@ extern int move;
 extern Handle OrtMove;
 void CopyMove(Word8* newpmasp,Word8* oldpmasp,int newbytewide,int oldbytewide,int num_str,int move);
 void MasCopy(Word8* oldpmasp,Word8* pmasp,int oldbytewide,int num_str);
-void* MyMemAlloc(Word32 size);
+void* MyMemAlloc(uint32_t size);
 void MyMemDelete(void* mem);
 void *  MyMemLock(void* mem);
 void MyMemUnLock(void* mem);
@@ -160,8 +160,8 @@ Bool32 OrtoMove(PRSPreProcessImage Image)
 	 delete newdib;
 	 return TRUE;
  }
- Word32 X_DPM=0;
- Word32 Y_DPM=0;
+ uint32_t X_DPM=0;
+ uint32_t Y_DPM=0;
  olddib->GetResolutionDPM(&X_DPM,&Y_DPM);
  newdib->SetResolutionDPI(info.DPIX,info.DPIY);
  newdib->SetResolutionDPM(X_DPM,Y_DPM);
@@ -406,7 +406,7 @@ void  MasCopy(Word8* oldpmasp,Word8* pmasp,int oldbytewide,int num_str)
 		oldpmasp[i]=pmasp[i];
 }
 
-void* MyMemAlloc(Word32 size)
+void* MyMemAlloc(uint32_t size)
 {
 	return malloc(size);
 }

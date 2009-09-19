@@ -98,26 +98,26 @@ private:
 #define LINE_REALY	0x00000001 // Реальный элемент линии
 #define LINE_VISUAL	0x00000003 // Видимый элемент линии ( всегда реальный !!)
 
-	PtrName<Word32> m_lpProperty; // свойства элементов линии
+	PtrName<uint32_t> m_lpProperty; // свойства элементов линии
 
 public:
 	TableLine();
 	~TableLine();
 
-	Bool32	Create(int32_t nCoord,Word32 nItems);
+	Bool32	Create(int32_t nCoord,uint32_t nItems);
 	void	Delete();
 
 	Bool32	Attach(Handle hPage);
 	Bool32	Store(Handle hPage);
 	void    Remove(Handle hPage);
 
-	inline void   SetRealy(Word32 nItem,Bool32 b){
+	inline void   SetRealy(uint32_t nItem,Bool32 b){
 		if(b)
 			m_lpProperty[nItem] |= LINE_REALY;
 		else
 			m_lpProperty[nItem] &= ~LINE_REALY;
 		}
-	inline void   SetVisual(Word32 nItem,Bool32 b){
+	inline void   SetVisual(uint32_t nItem,Bool32 b){
 		if(b)
 			m_lpProperty[nItem] |= LINE_VISUAL;
 		else {
@@ -126,20 +126,20 @@ public:
 			}
 		}
 
-	inline Bool32 IsRealy(Word32 nItem){ return m_lpProperty[nItem] & LINE_REALY; };
-	inline Bool32 IsVisual(Word32 nItem){ return m_lpProperty[nItem] & LINE_VISUAL; };
+	inline Bool32 IsRealy(uint32_t nItem){ return m_lpProperty[nItem] & LINE_REALY; };
+	inline Bool32 IsVisual(uint32_t nItem){ return m_lpProperty[nItem] & LINE_VISUAL; };
 	inline operator int32_t(){ return m_nCoord;};
 };
 ///////////////////////////////////////////////////////
 class TableClass
 {
 private:
-	//Word32		m_nVer;			// число вертикальных линий
-	//Word32		m_nHor;			// число горизонтальных линий
+	//uint32_t		m_nVer;			// число вертикальных линий
+	//uint32_t		m_nHor;			// число горизонтальных линий
 	int32_t		m_nSkew2048;	// наклон таблицы
 	Handle		m_hBlock;
 	Handle      m_hPage;
-	Word32      m_nPhNumber;    // число физических ячеек
+	uint32_t      m_nPhNumber;    // число физических ячеек
 
 	PtrName<TableLine> m_lpVerLines;// горизонтальные координаты вертикальных линий
 	PtrName<TableLine> m_lpHorLines;// вертикальные координаты горизонтальных линий
@@ -149,7 +149,7 @@ public:
 	TableClass();
 	~TableClass();
 
-	Bool32			Create(int32_t Skew2048, Word32 nVer,int32_t * lpVCor, Word32 nHor,int32_t * lpHCor);// Создать таблицу
+	Bool32			Create(int32_t Skew2048, uint32_t nVer,int32_t * lpVCor, uint32_t nHor,int32_t * lpHCor);// Создать таблицу
 	void			Delete();// Освободить занимаемую память.
 	void			Update();// Создать внутренние связи.
 
@@ -160,27 +160,27 @@ public:
 
 
 
-	inline Word32 GetNumberGeCell(){ return GetNumberColumn()*GetNumberRow();};
-	inline Word32 GetNumberPhCell(){ return GetNumberGeCell();};
+	inline uint32_t GetNumberGeCell(){ return GetNumberColumn()*GetNumberRow();};
+	inline uint32_t GetNumberPhCell(){ return GetNumberGeCell();};
 
 	inline int32_t GetSkew2048(){ return m_nSkew2048;};
 	inline void  SetSkew2048(int32_t nSkew){ m_nSkew2048 = nSkew ;};
 
-	inline Word32 GetNumberColumn() { return m_lpVerLines.GetSize() - 1;};
-	inline Word32 GetNumberRow()	{ return m_lpHorLines.GetSize() - 1;};
+	inline uint32_t GetNumberColumn() { return m_lpVerLines.GetSize() - 1;};
+	inline uint32_t GetNumberRow()	{ return m_lpHorLines.GetSize() - 1;};
 
-	inline TableLine & GetHLine(Word32 nLine)	{
+	inline TableLine & GetHLine(uint32_t nLine)	{
 		_ASSERT(nLine>=0 && nLine<m_lpHorLines.GetSize());
 		return m_lpHorLines[nLine];
 		}
 
-	inline TableLine & GetVLine(Word32 nLine)	{
+	inline TableLine & GetVLine(uint32_t nLine)	{
 		_ASSERT(nLine>=0 && nLine<m_lpVerLines.GetSize());
 		return m_lpVerLines[nLine];
 		}
 	inline TableCell & GetCell(Point32 pt){
-		_ASSERT(GetNumberRow()>(Word32)pt.y &&
-				GetNumberColumn()>(Word32)pt.x &&
+		_ASSERT(GetNumberRow()>(uint32_t)pt.y &&
+				GetNumberColumn()>(uint32_t)pt.x &&
 				pt.y>=0 &&
 				pt.x>=0);
 		return m_lpCell[pt.y*GetNumberColumn() + pt.x];

@@ -89,9 +89,9 @@ void PageLayoutPart2 (void);
 void PageLayoutBlocks(Handle hCCOM);
 void PageLayoutStrings(Handle hCCOM,Handle hCPAGE);
 
-void SetReturnCode_rblock(Word32 rc);
-Word32 GetReturnCode_rblock( void );
-char * GetModulesString(Word32 dwError);
+void SetReturnCode_rblock(uint32_t rc);
+uint32_t GetReturnCode_rblock( void );
+char * GetModulesString(uint32_t dwError);
 
 Bool32 OutputFragments( Handle hPage );
 void CalculatePageIncline(Handle hCCOM, int32_t * lpNominator, int32_t * lpDenominator);

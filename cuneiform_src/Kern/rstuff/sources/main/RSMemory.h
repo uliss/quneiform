@@ -96,8 +96,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /////////////////////////////////////////////////////////////////////////////////////////
 //
 void    RSTUFFComment(const char * Comment);
-void *	RSTUFFAlloc(Word32 stAllocateBlock);
-void *	RSTUFFDAlloc(Word32 stAllocateBlock, const char * Comment);
+void *	RSTUFFAlloc(uint32_t stAllocateBlock);
+void *	RSTUFFDAlloc(uint32_t stAllocateBlock, const char * Comment);
 void	RSTUFFFree(void * mem);
 void *  RSTUFFLock(void * mem);
 void    RSTUFFUnlock(void * mem);

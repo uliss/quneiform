@@ -522,7 +522,7 @@ int32_t p2_TextProb(CSTR_line cc,CSTR_rast  first,CSTR_rast last, char *intxt,in
   return strlen(intxt);
 }
 //////////////////
-static Word32 oddEvenFlag=CSTR_fn_val2odd;
+static uint32_t oddEvenFlag=CSTR_fn_val2odd;
 int32_t p2_setOddEvenFlag(CSTR_rast first,CSTR_rast last)
 {
   int numCell;

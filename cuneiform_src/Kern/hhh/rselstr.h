@@ -83,10 +83,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 RSELSTR_FUNC(Bool32) RSELSTR_Init(Word16 wHeightCode,Handle hStorage);
 RSELSTR_FUNC(Bool32) RSELSTR_Done();
-RSELSTR_FUNC(Word32) RSELSTR_GetReturnCode();
-RSELSTR_FUNC(char *) RSELSTR_GetReturnString(Word32 dwError);
-RSELSTR_FUNC(Bool32) RSELSTR_GetExportData(Word32 dwType, void * pData);
-RSELSTR_FUNC(Bool32) RSELSTR_SetImportData(Word32 dwType, void * pData);
+RSELSTR_FUNC(uint32_t) RSELSTR_GetReturnCode();
+RSELSTR_FUNC(char *) RSELSTR_GetReturnString(uint32_t dwError);
+RSELSTR_FUNC(Bool32) RSELSTR_GetExportData(uint32_t dwType, void * pData);
+RSELSTR_FUNC(Bool32) RSELSTR_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////
 typedef struct struct_CHSTR_Objects
 {
@@ -131,7 +131,7 @@ DEC_FUN(void, RSELSTR_CutCompInTableZones, (Handle hCPAGE,CCOM_handle hCCOM));
 #undef DEC_FUN
 
 typedef void   (*FNRSELSTR_ProgressStart)( void );
-typedef	Bool32 (*FNRSELSTR_ProgressStep)(Word32 perc);
+typedef	Bool32 (*FNRSELSTR_ProgressStep)(uint32_t perc);
 typedef	void   (*FNRSELSTR_ProgressFinish)( void );
 
 

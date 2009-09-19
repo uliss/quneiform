@@ -76,7 +76,7 @@ uint32_t  ul_reason_for_call,
 /*********************************************************************************************/
 // JussiP: This function is never called anywhere.
 #if 0
-RRECCOM_FUNC(Bool32) RRECCOM_GetExportData(Word32 dwType, void * pData)
+RRECCOM_FUNC(Bool32) RRECCOM_GetExportData(uint32_t dwType, void * pData)
 {
 #define CASE_DATA(a,b,c)        case a: *(b *)pData = c; break
 
@@ -84,59 +84,59 @@ RRECCOM_FUNC(Bool32) RRECCOM_GetExportData(Word32 dwType, void * pData)
 
 	switch(dwType)
     {
-		CASE_DATA(RRECCOM_FNRECOG, Bool32, (Word32)RRECCOM_Recog);
-		CASE_DATA(RRECCOM_FNREX_ISLANGUAGE, Bool32, (Word32)RRECCOM_IsLanguage);
-//		CASE_DATA(RRECCOM_FNRECOGCOMP, Bool32, (Word32)RRECCOM_RecogComp);
+		CASE_DATA(RRECCOM_FNRECOG, Bool32, (uint32_t)RRECCOM_Recog);
+		CASE_DATA(RRECCOM_FNREX_ISLANGUAGE, Bool32, (uint32_t)RRECCOM_IsLanguage);
+//		CASE_DATA(RRECCOM_FNRECOGCOMP, Bool32, (uint32_t)RRECCOM_RecogComp);
 
 /*        CASE_DATA(RRECCOM_Word8_Matrix                     ,Word8,matrix);
         CASE_DATA(RRECCOM_Word8_Fax1x2                     ,Word8,fax1x2);
         CASE_DATA(RRECCOM_Word16_ActualResolution  ,Word16,actual_resolution);
         case RRECCOM_FNEVNPROPERT:
-            *(Word32*)pData =          (Word32)RRECCOM_SetEVNProperties;
+            *(uint32_t*)pData =          (uint32_t)RRECCOM_SetEVNProperties;
             break;
         case RRECCOM_FNEXTRACOMP :
-            *(Word32*)pData =          (Word32)RRECCOMExtracomp;
+            *(uint32_t*)pData =          (uint32_t)RRECCOMExtracomp;
             break;
         case RRECCOM_FNEXTRA :
-            *(Word32*)pData =          (Word32)RRECCOMExtra;
+            *(uint32_t*)pData =          (uint32_t)RRECCOMExtra;
             break;
         case RRECCOM_FNEXTRADIB:
-            *(Word32*)pData =          (Word32)RRECCOMExtraDIB;
+            *(uint32_t*)pData =          (uint32_t)RRECCOMExtraDIB;
             break;
 
         case    RRECCOM_FNGETCONTAINER:
-            *(Word32*)pData =          (Word32)RRECCOMGetContainer;
+            *(uint32_t*)pData =          (uint32_t)RRECCOMGetContainer;
             break;
 
         case    RRECCOM_FNGETLENEREP:
-            *(Word32*)pData =          (Word32)RRECCOMMakeLP;
+            *(uint32_t*)pData =          (uint32_t)RRECCOMMakeLP;
             break;
         case    RRECCOM_FNVERSION:
-            *(Word32*)pData =          (Word32)RRECCOM_VERSION_CODE;
+            *(uint32_t*)pData =          (uint32_t)RRECCOM_VERSION_CODE;
             break;
         case    RRECCOM_FNREX_ISLANGUAGE:
-            *(Word32*)pData =          (Word32)RRECCOM_IsLanguage;
+            *(uint32_t*)pData =          (uint32_t)RRECCOM_IsLanguage;
             break;
         case    RRECCOM_FNGETORIENT:
-            *(Word32*)pData =          (Word32)RRECCOM_GetOrient;
+            *(uint32_t*)pData =          (uint32_t)RRECCOM_GetOrient;
             break;
         case    RRECCOM_FNMN2CCOM:
-            *(Word32*)pData =          (Word32)RRECCOM_MN2CCOM;
+            *(uint32_t*)pData =          (uint32_t)RRECCOM_MN2CCOM;
             break;
         case    RRECCOM_FNGETINVERTION:
-            *(Word32*)pData =          (Word32)RRECCOM_GetInvertion;
+            *(uint32_t*)pData =          (uint32_t)RRECCOM_GetInvertion;
             break;
         case    RRECCOM_FNEVNALPHABET:     // установка алфавита для евент
-            *(Word32*)pData =          (Word32)RRECCOM_SetEVNAlphabet;
+            *(uint32_t*)pData =          (uint32_t)RRECCOM_SetEVNAlphabet;
             break;
         case    RRECCOM_FNEXTRACOMP3CB:    // 3 коллбэка
-            *(Word32*)pData =          (Word32)RRECCOMExtracomp3CB;
+            *(uint32_t*)pData =          (uint32_t)RRECCOMExtracomp3CB;
             break;
         case    RRECCOM_FNEXTGETRECRASTERORIENT: // ориентация рабочего растра
-            *(Word32*)pData =          (Word32)exc_get_rec_raster_orient;
+            *(uint32_t*)pData =          (uint32_t)exc_get_rec_raster_orient;
             break;
         case    RRECCOM_FNSETALLALPHAGRA: // алфавит нейронной сети
-            *(Word32*)pData =          (Word32)exc_set_all_alphabet_gra;
+            *(uint32_t*)pData =          (uint32_t)exc_set_all_alphabet_gra;
             break;*/
 		default:
                 gwLowRC_rrec = RRECCOM_ERR_NOTIMPLEMENT;
@@ -149,7 +149,7 @@ RRECCOM_FUNC(Bool32) RRECCOM_GetExportData(Word32 dwType, void * pData)
 }
 #endif
 /*********************************************************************************************/
-RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(Word32 dwType, const void * pData)
+RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(uint32_t dwType, const void * pData)
 {
 //#define CASE_DATA(a,b,c)        case a: c = *(b *)pData; break
 #define CASE_PDATA(a,b,c)       case a: c = (b)pData;    break
@@ -178,14 +178,14 @@ RRECCOM_FUNC(Bool32) RRECCOM_SetImportData(Word32 dwType, const void * pData)
 
 }
 /*********************************************************************************************/
-RRECCOM_FUNC(Word32)   RRECCOM_GetReturnCode(void)
+RRECCOM_FUNC(uint32_t)   RRECCOM_GetReturnCode(void)
 {
 	if(gwLowRC_rrec == RRECCOM_ERR_NO) return 0;
 
 	return (gwHeightRC<<16)|(gwLowRC_rrec-RRECCOM_ERR_MIN);
 }
 /*********************************************************************************************/
-RRECCOM_FUNC(char*)   RRECCOM_GetReturnString(Word32 dwError)
+RRECCOM_FUNC(char*)   RRECCOM_GetReturnString(uint32_t dwError)
 {
 	Word16 rc = (Word16)((dwError & 0xFFFF) );
     static char szBuffer[512];

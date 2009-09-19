@@ -226,8 +226,8 @@ for(i=0;i<NLENGTH;i++,RASTER+=Wx)
 		c=*p++;
 
 #ifndef __MAC__
-    *((Word32 *)&BUFFER[k])   += tab_4bits_to_DWORD[c>>4];
-    *((Word32 *)&BUFFER[k+4]) += tab_4bits_to_DWORD[c&15];
+    *((uint32_t *)&BUFFER[k])   += tab_4bits_to_DWORD[c>>4];
+    *((uint32_t *)&BUFFER[k+4]) += tab_4bits_to_DWORD[c&15];
 
 #else
 		BUFFER[k+7] += ((c&0x01)!=0);

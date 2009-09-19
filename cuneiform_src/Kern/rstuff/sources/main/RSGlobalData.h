@@ -94,9 +94,9 @@ EXTERN LinesTotalInfo       *gLTInfo            VAL(NULL);
 
 EXTERN RSLinesBuffer        gLinesData          VALM(NULL);
 
-EXTERN Word32               gKillComponents     VAL(1);
-EXTERN Word32               gKillZone           VAL(1);
-EXTERN Word32               gKillRate           VAL(127);
+EXTERN uint32_t               gKillComponents     VAL(1);
+EXTERN uint32_t               gKillZone           VAL(1);
+EXTERN uint32_t               gKillRate           VAL(127);
 EXTERN int32_t                gComponentRange     VAL(0);
 EXTERN int32_t                bShowLineDebug      VAL(FALSE);
 EXTERN int32_t                bShowStepLineDebug  VAL(FALSE);

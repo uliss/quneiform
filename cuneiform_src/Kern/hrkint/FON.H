@@ -216,7 +216,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     //  standard usage (FormReader) FONFontClusters(CTBname,cluname,NULL,NULL,0,0,NULL);
 	//  standard usage (Puma) FONFontClusters(CTBname,cluname,NULL,NULL,0,0x2000,NULL);
     FON_FUNC(int32_t) FONFontClusters(char *CTBname,char *cluname,void *accept,Word8 *extern_buf,int32_t size,
-					 			    Word32 param,void *ShowProgress,Word8 language);
+					 			    uint32_t param,void *ShowProgress,Word8 language);
 	FON_FUNC(int32_t) FONCutOffClusters(welet *ww,Int16 numWelet);
     FON_FUNC(Bool32) FONCheckItself(Word8 let,int32_t num,Int16 col,Int16 row);
 ////////////////////

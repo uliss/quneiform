@@ -140,11 +140,11 @@ class CRLEd
 
 
 public:
-	RecVersions GetVersElement(Word32 i, PWord32 pNVers);
-	Rect16 GetRectElement(Word32 i);
+	RecVersions GetVersElement(uint32_t i, uint32_t * pNVers);
+	Rect16 GetRectElement(uint32_t i);
 	void * GetEdPool(void) { return (void *) mpEdBuffer; };
 	void * GetEdOutPool(void) { return (void *) mpEdOutBuffer; };
-	Word32 GetEdPoolSize(void) { return mpEdFileEnd - mpEdBuffer; };
+	uint32_t GetEdPoolSize(void) { return mpEdFileEnd - mpEdBuffer; };
 	Bool32 ExcludeToVers(int32_t size, PChar8 pStr);
 	Bool32 AddWord(CSTR_rast b, CSTR_rast e, PWord8 pLanguage);
 	Bool32 MakeWord(CSTR_rast b, CSTR_rast e,PWord8 Language);

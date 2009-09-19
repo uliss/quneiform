@@ -73,7 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "am_comm.h"  // Own functions
 #include "un_err.h"
 /*------------own objects-----------------------------------------------------*/
-static Word32 wRltMainCode;
+static uint32_t wRltMainCode;
 #define     MaxResCodes   3
 static FILE *fRes[MaxResCodes];
 static int   cRes[MaxResCodes];
@@ -162,7 +162,7 @@ void CloseAllRes ()
 Bool AM_InitComm (Word16 wRltOwnCode)
 {
 	int i;
-	wRltMainCode = (Word32)(wRltOwnCode<<16);
+	wRltMainCode = (uint32_t)(wRltOwnCode<<16);
 	LDPUMA_Init(0,NULL);
 	AM_Console = (FN_AM_Console)LDPUMA_Console;
 	AM_ConsolN = (FN_AM_Console)LDPUMA_ConsoleN;
@@ -182,7 +182,7 @@ void AM_DoneComm ()
 	return;
 }
 /*----------------------------------------------------------------------------*/
-Word32 AM_GetOperCode (Word16 wLocCode)
+uint32_t AM_GetOperCode (Word16 wLocCode)
 {
 	return (wRltMainCode|(wLocCode<<16));
 }
@@ -202,27 +202,27 @@ void AM_RegiHelp (Handle owner, char *lpName, Bool32 bAppend)
 	LDPUMA_RegistryHelp (owner, lpName, bAppend);
 }
 /*----------------------------------------------------------------------------*/
-Word32  AM_WaitUserInput (Handle owner, Handle wnd)
+uint32_t  AM_WaitUserInput (Handle owner, Handle wnd)
 {
 	return LDPUMA_WaitUserInput (owner, wnd);
 }
 /*----------------------------------------------------------------------------*/
-void  AM_DrawLine (Handle wnd, Point16 *start, Point16 *end, int32_t skew, Word32 rgb, Int16 pen, Word32 key)
+void  AM_DrawLine (Handle wnd, Point16 *start, Point16 *end, int32_t skew, uint32_t rgb, Int16 pen, uint32_t key)
 {
 	LDPUMA_DrawLine (wnd, start, end, skew, rgb, pen, key);
 }
 /*----------------------------------------------------------------------------*/
-void  AM_DrawRect (Handle wnd, Rect16 *pRc, int32_t skew, Word32 rgb, Int16 pen, Word32 key)
+void  AM_DrawRect (Handle wnd, Rect16 *pRc, int32_t skew, uint32_t rgb, Int16 pen, uint32_t key)
 {
 	LDPUMA_DrawRect (wnd, pRc, skew, rgb, pen, key);
 }
 /*----------------------------------------------------------------------------*/
-void  AM_DeleteLines (Handle wnd, Word32 key)
+void  AM_DeleteLines (Handle wnd, uint32_t key)
 {
 	LDPUMA_DeleteLines (wnd, key);
 }
 /*----------------------------------------------------------------------------*/
-void  AM_DeleteRects (Handle wnd, Word32 key)
+void  AM_DeleteRects (Handle wnd, uint32_t key)
 {
 	LDPUMA_DeleteRects (wnd, key);
 }

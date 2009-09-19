@@ -77,7 +77,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 static char				 s_szVersion[] = "Version OCR Puma "__DATE__".";
 static Word16            gwHeightRC = 0;
-static Word32            gwRC = 0;
+static uint32_t            gwRC = 0;
 static HANDLE            ghStorage = NULL;
 static HINSTANCE         ghInst =  NULL;
 static char				 szPath[_MAX_PATH] = ".";
@@ -147,13 +147,13 @@ Bool32 rc = ModulesDone((void*)ghStorage);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-PUMA_FUNC(Word32) PUMA_GetReturnCode()
+PUMA_FUNC(uint32_t) PUMA_GetReturnCode()
 {
 	return gwRC;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-PUMA_FUNC(char *) PUMA_GetReturnString(Word32 dwError)
+PUMA_FUNC(char *) PUMA_GetReturnString(uint32_t dwError)
 {
 	static char szBuffer[512];
 	Word16 low = (Word16)(dwError &  0xFFFF);
@@ -177,7 +177,7 @@ PUMA_FUNC(char *) PUMA_GetReturnString(Word32 dwError)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-PUMA_FUNC(Bool32) PUMA_GetExportData(Word32 dwType, void * pData)
+PUMA_FUNC(Bool32) PUMA_GetExportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -196,7 +196,7 @@ PUMA_FUNC(Bool32) PUMA_GetExportData(Word32 dwType, void * pData)
 	CASE_FUNCTION(PUMA_EnumLanguages);
 	CASE_FUNCTION(PUMA_EnumFormats);
 	CASE_FUNCTION(PUMA_EnumCodes);
-	CASE_DATA(PUMA_Word32_Language,Word32,gnLanguage);
+	CASE_DATA(PUMA_Word32_Language,uint32_t,gnLanguage);
 	CASE_DATA(PUMA_Bool32_Speller,Bool32,gbSpeller);
 	CASE_DATA(PUMA_Bool32_OneColumn,Bool32,gbOneColumn);
 	CASE_DATA(PUMA_Bool32_Fax100,Bool32,gbFax100);
@@ -209,8 +209,8 @@ PUMA_FUNC(Bool32) PUMA_GetExportData(Word32 dwType, void * pData)
 	CASE_DATA(PUMA_pchar_SerifName,const char *,gpSerifName);
 	CASE_DATA(PUMA_pchar_SansSerifName,const char *,gpSansSerifName);
 	CASE_DATA(PUMA_pchar_CourierName,const char *,gpCourierName);
-	CASE_DATA(PUMA_Word32_Pictures,Word32,gnPictures);
-	CASE_DATA(PUMA_Word32_Tables,Word32,gnTables);
+	CASE_DATA(PUMA_Word32_Pictures,uint32_t,gnPictures);
+	CASE_DATA(PUMA_Word32_Tables,uint32_t,gnTables);
 	CASE_DATA(PUMA_pchar_Version,char *,s_szVersion);
 	CASE_DATA(PUMA_Word32_Format,Bool32,gnFormat);
 	CASE_FUNCTION(PUMA_EnumFormatMode);
@@ -263,7 +263,7 @@ return rc;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-PUMA_FUNC(Bool32) PUMA_SetImportData(Word32 dwType, void * pData)
+PUMA_FUNC(Bool32) PUMA_SetImportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -275,7 +275,7 @@ PUMA_FUNC(Bool32) PUMA_SetImportData(Word32 dwType, void * pData)
 
 	switch(dwType)
 	{
-	CASE_DATAUP(PUMA_Word32_Language,Word32,gnLanguage,FLG_UPDATE_CCOM);
+	CASE_DATAUP(PUMA_Word32_Language,uint32_t,gnLanguage,FLG_UPDATE_CCOM);
 	CASE_DATA(PUMA_Bool32_Speller,Bool32,gbSpeller);
 	CASE_DATAUP(PUMA_Bool32_OneColumn,Bool32,gbOneColumn,FLG_UPDATE_CPAGE);
 	CASE_DATAUP(PUMA_Bool32_Fax100,Bool32,gbFax100,FLG_UPDATE_CCOM);
@@ -288,8 +288,8 @@ PUMA_FUNC(Bool32) PUMA_SetImportData(Word32 dwType, void * pData)
 	CASE_PDATA(PUMA_pchar_SerifName,char *,gpSerifName);
 	CASE_PDATA(PUMA_pchar_SansSerifName,char *,gpSansSerifName);
 	CASE_PDATA(PUMA_pchar_CourierName,char *,gpCourierName);
-	CASE_DATAUP(PUMA_Word32_Pictures,Word32,gnPictures,FLG_UPDATE_CPAGE);
-	CASE_DATAUP(PUMA_Word32_Tables,Word32,gnTables,FLG_UPDATE_CPAGE);
+	CASE_DATAUP(PUMA_Word32_Pictures,uint32_t,gnPictures,FLG_UPDATE_CPAGE);
+	CASE_DATAUP(PUMA_Word32_Tables,uint32_t,gnTables,FLG_UPDATE_CPAGE);
 	CASE_DATA(PUMA_Word32_Format,Bool32,gnFormat);
 	CASE_DATA(PUMA_Word8_Format,Word8,gnUnrecogChar);
 	CASE_PDATA(PUMA_FNPUMA_ProgressStart, FNPUMA_ProgressStart ,fnProgressStart);
@@ -318,7 +318,7 @@ PUMA_FUNC(Bool32) PUMA_SetImportData(Word32 dwType, void * pData)
 return rc;
 }
 
-void SetReturnCode_puma(Word32 rc)
+void SetReturnCode_puma(uint32_t rc)
 {
 Word16 low = (Word16)(rc &  0xFFFF);
 Word16 hei = (Word16)(rc >> 16);
@@ -328,7 +328,7 @@ Word16 hei = (Word16)(rc >> 16);
 	else
 	{
 		if(low >= IDS_ERR_NO)
-			gwRC = (Word32)(gwHeightRC<<16)|(low - IDS_ERR_NO);
+			gwRC = (uint32_t)(gwHeightRC<<16)|(low - IDS_ERR_NO);
 		else
 			gwRC = low;
 	}
@@ -341,9 +341,9 @@ Word16 hei = (Word16)(rc >> 16);
 			LDPUMA_Stop();
 }
 
-Word32 GetReturnCode_puma()
+uint32_t GetReturnCode_puma()
 {
-Word32 rc = gwRC;
+uint32_t rc = gwRC;
 Word16 low = (Word16)(gwRC &  0xFFFF);
 Word16 hei = (Word16)(gwRC >> 16);
 
@@ -363,7 +363,7 @@ char *	GetModuleTempPath()
 	return szTempPath;
 }
 ////////////////////////////////////////////////////////////
-char * GetResourceString(Word32 id)
+char * GetResourceString(uint32_t id)
 {
     static char szBuffer[1024] = "";
 	LoadString(ghInst,id,szBuffer,sizeof(szBuffer));

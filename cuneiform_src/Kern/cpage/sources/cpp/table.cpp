@@ -61,9 +61,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "resource.h"
 
 // Конверторы преобразования из TYPE_DESC в CPAGE_TABLE
-Word32 TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn,Word32 SizeIn,CPAGE_TABLE * lpDataOut,Word32 SizeOut)
+uint32_t TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn,uint32_t SizeIn,CPAGE_TABLE * lpDataOut,uint32_t SizeOut)
 {
-	Word32 rc = 0;
+	uint32_t rc = 0;
 	if(lpDataOut == NULL)
 		return sizeof(CPAGE_TABLE);
 
@@ -119,9 +119,9 @@ Word32 TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn,Word32 SizeIn,CPAGE_TABLE 
 	return rc;
 }
 //##########################################################
-Word32 CPAGE_TABLE_to_TYPE_DESK( CPAGE_TABLE * lpDataIn,Word32 SizeIn,TABLE_DESC * LpDataOut,Word32 SizeOut)
+uint32_t CPAGE_TABLE_to_TYPE_DESK( CPAGE_TABLE * lpDataIn,uint32_t SizeIn,TABLE_DESC * LpDataOut,uint32_t SizeOut)
 {
-	Word32 rc = 0;
+	uint32_t rc = 0;
 
 	if(LpDataOut == NULL)
 			return sizeof(TABLE_DESC);

@@ -72,7 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "dpuma.h"
 
 extern float  Twips;
-extern Word32 FlagMode;
+extern uint32_t FlagMode;
 extern Bool32 FlagLineTransfer;
 extern Bool32 FlagDebugAlign;
 

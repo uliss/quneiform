@@ -91,7 +91,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 Bool LoadLinesVP_rv (Handle hC, int Type, void *vB, char *pStr, Word16 *pCode)
 {
 	Bool ret;
-	Word32 KeyHor, KeyVer; //// а ключи надо бы запомнить!
+	uint32_t KeyHor, KeyVer; //// а ключи надо бы запомнить!
 	int CntHor, CntVer;
 	UN_BUFF *pB;
 	pB = (UN_BUFF *)vB;
@@ -219,7 +219,7 @@ Bool GetSomeKeys_rv (void *vB, Handle *pKeyHor, Handle *pKeyVer
 /*---------------------------------------------------------------------------*/
 Bool LoadLinesTotalInfo_rv (Handle hC, void *vB, char *pStr)
 {
-	Word32 err32, nTeor, nReal;
+	uint32_t err32, nTeor, nReal;
 	Handle hBlockLine;
 	UN_BUFF *pB;
 	pB = (UN_BUFF *)vB;
@@ -261,7 +261,7 @@ Bool LoadLinesTotalInfo_rv (Handle hC, void *vB, char *pStr)
 Bool LoadLinesInfo_rv (CLINE_handle hC, void *vB, char *pStr,Bool Hori)
 {
 	int Cnt;
-	Word32 err32, nTeor;
+	uint32_t err32, nTeor;
 	UN_BUFF *pB;
 	char *vCurr;
 	pB = (UN_BUFF *)vB;
@@ -299,7 +299,7 @@ Bool LoadLinesInfo_rv (CLINE_handle hC, void *vB, char *pStr,Bool Hori)
 Bool LoadLinesSpecInfo (Handle hC, void *vB, Handle Key, int Cnt)
 {
 	int i;
-	Word32 err32, nTeor, nReal;
+	uint32_t err32, nTeor, nReal;
 	Handle hBlockLineSpec;
 	Handle hBlockLinePrev;
 	UN_BUFF *pB;
@@ -346,7 +346,7 @@ Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType
 				   , Handle VertType, char *pStr)
 {
 	int i;
-	Word32 err32, nTeor;//, nReal;
+	uint32_t err32, nTeor;//, nReal;
 	Bool32 nReal;//differ
 	Handle hBlockLine;
 	Handle hBlockLineHor;
@@ -437,7 +437,7 @@ Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType
 /*----------------------------------------------------------------------------*/
 Bool MyReSetLines(void* vLines,int count,CLINE_handle hCLINE,char *pStr)
 {
-	Word32 nTeor;
+	uint32_t nTeor;
 	nTeor=sizeof(DLine);
 	DLine* pbeg=(DLine*)vLines;
 	DLine* pend=&(pbeg[count]);
@@ -626,7 +626,7 @@ void MarkTableLines (void *vLti, int *pForw, int MyMaxL)
 	int i, n, Lent;
 	LineInfo *pLns;
 	LinesTotalInfo *pLti;
-	Word32 AntiFalse, AntiTrue, AntiIsAtTable, AntiIsNotAtTable;
+	uint32_t AntiFalse, AntiTrue, AntiIsAtTable, AntiIsNotAtTable;
 	AntiFalse         = 0xFFFFFFFF;
 	AntiFalse        ^= LI_IsFalse;
 	AntiTrue          = 0xFFFFFFFF;
@@ -685,7 +685,7 @@ void MarkTableLines (void *vHorLines,int hor_count,void *vVerLines,int ver_count
 	int i;
 	DLine* pline;
 	int line_size=sizeof(DLine);
-	Word32 AntiFalse, AntiTrue, AntiIsAtTable, AntiIsNotAtTable;
+	uint32_t AntiFalse, AntiTrue, AntiIsAtTable, AntiIsNotAtTable;
 	AntiFalse         = 0xFFFFFFFF;
 	AntiFalse        ^= LI_IsFalse;
 	AntiTrue          = 0xFFFFFFFF;

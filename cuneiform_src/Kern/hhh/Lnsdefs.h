@@ -120,7 +120,7 @@ typedef struct tagLineInfo
    Point16       Bnew;          // end for sweep: if set LI_NOTWHOLE (real cords)
 
    //========= Специальные характеристики ==========================
-	Word32         Flags;         // common use info
+	uint32_t         Flags;         // common use info
 //все флаги вынесены в LineDefs.h
 /*
       #define LI_NOISE      0x00000001   // is a noise line
@@ -181,7 +181,7 @@ typedef struct tagLineInfo
 
    //================================================================
    Int16          IndCover;      // valid only for LI_COVERED-lines
-   Word32         pFrmLineAtom;  // link to form description
+   uint32_t         pFrmLineAtom;  // link to form description
    Word8          __buf[32];      // Зарезервировано, заполнено 0
    int32_t          TmpUsage;      // поле для временного использования
 

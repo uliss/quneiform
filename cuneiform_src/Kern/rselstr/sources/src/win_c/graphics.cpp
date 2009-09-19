@@ -79,12 +79,12 @@ void _clearscreen (int mode)
 	LDPUMA_DeleteStrings(NULL,PUMA_MODULE_RBLOCK);
 }
 
-static Word32 swColor = 0;
+static uint32_t swColor = 0;
 
 void _setcolor (int color)
 {
-	#define __RGB__(r,g,b)          ((Word32)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
-	Word32 clr[16] =
+	#define __RGB__(r,g,b)          ((uint32_t)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
+	uint32_t clr[16] =
 	{
 		__RGB__(0,0,0),// 0 черный
 		__RGB__(0,0,127),// 1 синий
@@ -167,7 +167,7 @@ void _gettextsettings (struct textsettings *ts)
 	}
 }
 
-static Word32 swAlign = 0;
+static uint32_t swAlign = 0;
 void _settextalign (int right,int top)
 {
 	swAlign = 0;

@@ -76,7 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 CRTurner::CRTurner()
 {
-	Word32 i,j;
+	uint32_t i,j;
 	Word8 mask, mask2;
 
 	hLineBuffer = 0x00000000;   //NULL;
@@ -129,7 +129,7 @@ CRTurner::~CRTurner()
 
 }
 
-void * CRTurner::TurnDIB(void *pDIB, Word32 wAngle)
+void * CRTurner::TurnDIB(void *pDIB, uint32_t wAngle)
 {
     return NULL;
 }
@@ -139,7 +139,7 @@ Bool32 CRTurner::FreeDIB(void *pDIB)
 	return TRUE;
 }
 
-Bool32 CRTurner::TurnDIB(PCTDIB pInDIB, PCTDIB pOutDIB, Word32 wAngle)
+Bool32 CRTurner::TurnDIB(PCTDIB pInDIB, PCTDIB pOutDIB, uint32_t wAngle)
 {
 	Bool32 bRet;
 
@@ -253,17 +253,17 @@ Bool32 CRTurner::Turn270(PCTDIB pInDIB, PCTDIB pOutDIB)
 Bool32 CRTurner::Turn180LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 {
 	Bool32 bRet = FALSE;
-	Word32 nLine;
-	Word32 sLine;
-	Word32 sLineSize;
-	Word32 sShift;
-	Word32 rShift;
+	uint32_t nLine;
+	uint32_t sLine;
+	uint32_t sLineSize;
+	uint32_t sShift;
+	uint32_t rShift;
 	PWord8 sPix;
 	PWord8 nPix;
-	Word32 wLines = pInDIB->GetLinesNumber();
-	Word32 sLineWidth = pInDIB->GetLineWidth();
-	Word32 sBytesPerLine = pOutDIB->GetUsedLineWidthInBytes();
-	Word32 cByte;
+	uint32_t wLines = pInDIB->GetLinesNumber();
+	uint32_t sLineWidth = pInDIB->GetLineWidth();
+	uint32_t sBytesPerLine = pOutDIB->GetUsedLineWidthInBytes();
+	uint32_t cByte;
 
 	FreeBuffers();
 
@@ -357,17 +357,17 @@ Bool32 CRTurner::CheckInAndOut90(PCTDIB pIn, PCTDIB pOut)
 
 Bool32 CRTurner::Turn90LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 {
-	Word32 dLines = pOutDIB->GetLinesNumber();
-	Word32 sLines = pInDIB->GetLinesNumber();  //
+	uint32_t dLines = pOutDIB->GetLinesNumber();
+	uint32_t sLines = pInDIB->GetLinesNumber();  //
 	int32_t  sX;
 	int32_t  dX;
 	int32_t  dLine;
 	int32_t  sLine;
 	PWord8 sPix;
 	PWord8 dPix;
-	Word32 sBytesPerLine = pOutDIB->GetLineWidth()/8;
-	Word32 cByte;
-	Word32 sShift;
+	uint32_t sBytesPerLine = pOutDIB->GetLineWidth()/8;
+	uint32_t cByte;
+	uint32_t sShift;
 
 	for ( dLine = 0, sX = 0; dLine < (int32_t)dLines; dLine++, sX++ )
 	{
@@ -432,17 +432,17 @@ Bool32 CRTurner::Turn90LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 
 Bool32 CRTurner::Turn270LA(PCTDIB pInDIB, PCTDIB pOutDIB)
 {
-	Word32 dLines = pOutDIB->GetLinesNumber();
-	Word32 sLines = pInDIB->GetLinesNumber();  //
+	uint32_t dLines = pOutDIB->GetLinesNumber();
+	uint32_t sLines = pInDIB->GetLinesNumber();  //
 	int32_t  sX;
 	int32_t  dX;
 	int32_t  dLine;
 	int32_t  sLine;
 	PWord8 sPix;
 	PWord8 dPix;
-	Word32 sBytesPerLine = pOutDIB->GetLineWidth()/8;
-	Word32 cByte;
-	Word32 sShift;
+	uint32_t sBytesPerLine = pOutDIB->GetLineWidth()/8;
+	uint32_t cByte;
+	uint32_t sShift;
 
 	for ( dLine = 0, sX = dLines - 1; dLine < (int32_t)dLines; dLine++, sX-- )
 	{
@@ -518,11 +518,11 @@ Bool32 CRTurner::Turn90GC(PCTDIB pIn, PCTDIB pOut)
 	PWord8  dPix8;
 	PWord16 sPix16;
 	PWord16 dPix16;
-	PWord32 sPix32;
-	PWord32 dPix32;
-	Word32  dLines = pOut->GetLinesNumber();
-	Word32  sLines = pIn->GetLinesNumber();  //
-	Word32  wPixSize = pIn->GetPixelSize() / 8;
+	uint32_t * sPix32;
+	uint32_t * dPix32;
+	uint32_t  dLines = pOut->GetLinesNumber();
+	uint32_t  sLines = pIn->GetLinesNumber();  //
+	uint32_t  wPixSize = pIn->GetPixelSize() / 8;
 
 	switch (wPixSize)
 	{
@@ -573,11 +573,11 @@ Bool32 CRTurner::Turn90GC(PCTDIB pIn, PCTDIB pOut)
 	case 4:
 		for( dLine = 0, sX = 0;  dLine < (int32_t)dLines; dLine++, sX++ )
 		{
-			CONTINUEPIXEL(dPix32 = (PWord32)pOut->GetPtrToLine( dLine ));
+			CONTINUEPIXEL(dPix32 = (uint32_t *)pOut->GetPtrToLine( dLine ));
 
 			for ( sLine = sLines - 1, dX = 0; dX < (int32_t)sLines; sLine--, dX++, dPix32++ )
 			{
-				CONTINUEPIXEL(sPix32 = (PWord32)pIn->GetPtrToPixel( sX, sLine));
+				CONTINUEPIXEL(sPix32 = (uint32_t *)pIn->GetPtrToPixel( sX, sLine));
 				*dPix32 = *sPix32;
 			}
 		}
@@ -594,18 +594,18 @@ Bool32 CRTurner::Turn90GC(PCTDIB pIn, PCTDIB pOut)
 Bool32 CRTurner::Turn180GC(PCTDIB pIn, PCTDIB pOut)
 {
 	Bool32  bRet = FALSE;
-	Word32  dLine;
-	Word32  sLine;
-	Word32  wPix;
+	uint32_t  dLine;
+	uint32_t  sLine;
+	uint32_t  wPix;
 	PWord8  sPix8;
 	PWord8  dPix8;
 	PWord16 sPix16;
 	PWord16 dPix16;
-	PWord32 sPix32;
-	PWord32 dPix32;
-	Word32  wPixSize = pIn->GetPixelSize() / 8;
-	Word32  wLines = pIn->GetLinesNumber();
-	Word32  sLineWidth = pIn->GetLineWidth();
+	uint32_t * sPix32;
+	uint32_t * dPix32;
+	uint32_t  wPixSize = pIn->GetPixelSize() / 8;
+	uint32_t  wLines = pIn->GetLinesNumber();
+	uint32_t  sLineWidth = pIn->GetLineWidth();
 
 	switch (wPixSize)
 	{
@@ -656,8 +656,8 @@ Bool32 CRTurner::Turn180GC(PCTDIB pIn, PCTDIB pOut)
 	case 4:
 		for( dLine = 0, sLine = wLines - 1; dLine < wLines; dLine++, sLine--)
 		{
-			sPix32 = (PWord32)pIn->GetPtrToPixel( sLineWidth - 1, sLine);
-			dPix32 = (PWord32)pOut->GetPtrToLine( dLine );
+			sPix32 = (uint32_t *)pIn->GetPtrToPixel( sLineWidth - 1, sLine);
+			dPix32 = (uint32_t *)pOut->GetPtrToLine( dLine );
 
 			for ( wPix = 0; wPix < sLineWidth; wPix++, sPix32--, dPix32++ )
 			{
@@ -685,11 +685,11 @@ Bool32 CRTurner::Turn270GC(PCTDIB pIn, PCTDIB pOut)
 	PWord8  dPix8;
 	PWord16 sPix16;
 	PWord16 dPix16;
-	PWord32 sPix32;
-	PWord32 dPix32;
-	Word32  dLines = pOut->GetLinesNumber();
-	Word32  sLines = pIn->GetLinesNumber();  //
-	Word32  wPixSize = pIn->GetPixelSize() / 8;
+	uint32_t * sPix32;
+	uint32_t * dPix32;
+	uint32_t  dLines = pOut->GetLinesNumber();
+	uint32_t  sLines = pIn->GetLinesNumber();  //
+	uint32_t  wPixSize = pIn->GetPixelSize() / 8;
 
 	switch (wPixSize)
 	{
@@ -740,11 +740,11 @@ Bool32 CRTurner::Turn270GC(PCTDIB pIn, PCTDIB pOut)
 	case 4:
 		for( dLine = 0, sX = dLines - 1;  dLine < (int32_t)dLines; dLine++, sX-- )
 		{
-			CONTINUEPIXEL(dPix32 = (PWord32)pOut->GetPtrToLine( dLine ));
+			CONTINUEPIXEL(dPix32 = (uint32_t *)pOut->GetPtrToLine( dLine ));
 
 			for ( sLine = 0, dX = 0; sLine < (int32_t)sLines; sLine++, dX++, dPix32++ )
 			{
-				CONTINUEPIXEL(sPix32 = (PWord32)pIn->GetPtrToPixel( sX, sLine));
+				CONTINUEPIXEL(sPix32 = (uint32_t *)pIn->GetPtrToPixel( sX, sLine));
 				*dPix32 = *sPix32;
 			}
 		}
@@ -761,7 +761,7 @@ Bool32 CRTurner::Turn270GC(PCTDIB pIn, PCTDIB pOut)
 Bool32 CRTurner::WriteDIBtoBMP(const char *cName, PCTDIB pDIB)
 {
 #ifdef RIMAGE_DUMP_TO_FILE
-	Word32  wBMPSize = pDIB->GetDIBSize() + 14;
+	uint32_t  wBMPSize = pDIB->GetDIBSize() + 14;
 	PumaMemoryToFileDumper BMPDump(cName);
 
 	BMPDump.AddDump("BM",2);

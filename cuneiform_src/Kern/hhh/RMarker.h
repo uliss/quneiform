@@ -92,10 +92,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ///////////////////////////////////////////////////////////////////////////////////////////
 RMARKER_FUNC(Bool32) RMARKER_Init(Word16 wHeightCode,Handle hStorage);
 RMARKER_FUNC(Bool32) RMARKER_Done();
-RMARKER_FUNC(Word32) RMARKER_GetReturnCode();
-RMARKER_FUNC(char *) RMARKER_GetReturnString(Word32 dwError);
-RMARKER_FUNC(Bool32) RMARKER_GetExportData(Word32 dwType, void * pData);
-RMARKER_FUNC(Bool32) RMARKER_SetImportData(Word32 dwType, void * pData);
+RMARKER_FUNC(uint32_t) RMARKER_GetReturnCode();
+RMARKER_FUNC(char *) RMARKER_GetReturnString(uint32_t dwError);
+RMARKER_FUNC(Bool32) RMARKER_GetExportData(uint32_t dwType, void * pData);
+RMARKER_FUNC(Bool32) RMARKER_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -107,8 +107,8 @@ typedef struct tagRMPreProcessImage
 	Bool32  gbFax100;
 	Bool32  gbOneColumn;
 	Bool32  gKillVSLComponents;
-	Word32  gnLanguage;
-	Word32  gnTables;
+	uint32_t  gnLanguage;
+	uint32_t  gnTables;
 	Handle	hCPAGE;
 	Handle  hCCOM;
 	Handle  hCLINE;
@@ -134,7 +134,7 @@ typedef struct tagRMPreProcessImage
 	Handle* phLinesCCOM;
 	PBool32 pgneed_clean_line;
 	int32_t *  pgnNumberTables;
-	Word32  gnPictures;
+	uint32_t  gnPictures;
 	Bool32* pgrc_line;
 } RMPreProcessImage, *PRMPreProcessImage;
 
@@ -165,7 +165,7 @@ typedef struct tagRMCBProgressPoints
 ////////////////////////////////////////////////////////////////////////////////////////////////
 #define DEC_FUN(a,b,c) typedef a (*FNRMARKER##b)c; RMARKER_FUNC(a) RMARKER_##b c
 DEC_FUN(Bool32, PageMarkup,          (PRMPreProcessImage,void*,int,void*,int));
-DEC_FUN(Bool32, SearchTableInZone,    (Handle hPage,Handle hCCOM,Word32 perc,Rect32 rect));
+DEC_FUN(Bool32, SearchTableInZone,    (Handle hPage,Handle hCCOM,uint32_t perc,Rect32 rect));
 #undef DEC_FUN
 
 ///////////////

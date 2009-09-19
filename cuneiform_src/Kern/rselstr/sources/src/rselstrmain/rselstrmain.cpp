@@ -100,7 +100,7 @@ struct PL
 
 /////////////////////////////////
 
-# define __RGB__(r,g,b)          ((Word32)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
+# define __RGB__(r,g,b)          ((uint32_t)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
 
 /////////////////////////////////
 
@@ -132,7 +132,7 @@ void BlocksExtract (void);
 Bool32 ReadRoots(Handle hCCOM);
 void EnableDebug(void);
 void progress_finish(void);
-void DrawRect(Handle wnd,Word32 OperCode,Word32 color,int top,int bottom,int left,int right);
+void DrawRect(Handle wnd,uint32_t OperCode,uint32_t color,int top,int bottom,int left,int right);
 Bool InitHstrMas(CHSTR_Objects** ppRc,int len);
 void DelHstrMas(CHSTR_Objects *masp);
 Bool AddLenHstrMas(CHSTR_Objects** ppRc,int& len,int add);
@@ -224,7 +224,7 @@ void LayoutFromCPAGE(Handle hCPAGE,Handle hCCOM)
 	int nBlocks = FIRST_REGULAR_BLOCK_NUMBER;
 	Point16 pLeftTop, pRightTop, pLeftBottom, pRightBottom;
 	ROOT * pRoot = NULL;
-	Word32 BlockNumber;
+	uint32_t BlockNumber;
 	Bool WasVertCells=FALSE;
 	Bool WasNegaCells=FALSE;
 	Bool dpShowVertCells=!LDPUMA_Skip(ShowVertCells);
@@ -251,7 +251,7 @@ void LayoutFromCPAGE(Handle hCPAGE,Handle hCCOM)
 	h!=NULL;
 	h = CPAGE_GetBlockNext(hCPAGE,h,TYPE_TEXT))
 	{
-        Word32 f = CPAGE_GetBlockFlags(hCPAGE,h);
+        uint32_t f = CPAGE_GetBlockFlags(hCPAGE,h);
 		if(CPAGE_GetBlockData(hCPAGE,h,TYPE_TEXT, &block, sizeof(block))!=sizeof(block))
 		{
 			SetReturnCode_rselstr(CPAGE_GetReturnCode());

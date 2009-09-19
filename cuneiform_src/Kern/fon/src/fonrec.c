@@ -196,7 +196,7 @@ static int GetCTBasWelet(CTB_handle *CTBhandle, int num, welet *wel) {
 	Word8 CTBdata[CTB_DATA_SIZE];
 	Word16 *pword16;
 	Int16 *pint16;
-	Word32 *pword32;
+	uint32_t *pword32;
 
 	if (CTB_read(CTBhandle, num, wel->raster, CTBdata) == FALSE)
 		return 0;
@@ -226,13 +226,13 @@ static int GetCTBasWelet(CTB_handle *CTBhandle, int num, welet *wel) {
 	wel->sr_row = pint16[1];
 
 	// now dword
-	pword32 = (Word32 *) (CTBdata + 24);
+	pword32 = (uint32_t *) (CTBdata + 24);
 	wel->summa = pword32[0];
 	SetFields(wel->fields,(pword32+1));
 
-	pint16 = (Int16 *) (CTBdata + 28 + NFIELDDWORD * sizeof(Word32));
+	pint16 = (Int16 *) (CTBdata + 28 + NFIELDDWORD * sizeof(uint32_t));
 	wel->nInCTB = pint16[0];
-	pword32 = (Word32 *) (pint16 + 1);
+	pword32 = (uint32_t *) (pint16 + 1);
 	wel->tablColumn = pword32[0];
 
 	return 1;
@@ -245,7 +245,7 @@ static int LoadCTB(char *name) {
 	int num;
 	int i;
 	Int16 *pint16;
-	Word32 *pword32;
+	uint32_t *pword32;
 
 	// process CTB-file
 	if (CTB_open(name, &ctbhan, "r") == FALSE) { // MessageBox(GetActiveWindow(),name,"Error open CTB-base",MB_OK);
@@ -284,7 +284,7 @@ static int LoadCTB(char *name) {
 	// now to static
 	memset(&fonbase, 0, sizeof(FONBASE));
 	pint16 = (Int16 *) (CTBdata + 6);
-	pword32 = (Word32 *) (CTBdata + 8);
+	pword32 = (uint32_t *) (CTBdata + 8);
 	fonbase.start = wel;
 	fonbase.inBase = num;
 	fonbase.ace = NULL;
@@ -351,7 +351,7 @@ FON_FUNC(int32_t) FONInit(char *name)
 #define POROG_HEI_REJECT 3
 
 // получить поле в виде DWORD[2]
-static int32_t GetBaseField(Int16 nField, FONBASE *fbase, Word32 *field) {
+static int32_t GetBaseField(Int16 nField, FONBASE *fbase, uint32_t *field) {
 	if (nField <= 0 || nField > MAXFIELD)
 		return 0;
 	ClearFields(field);
@@ -366,7 +366,7 @@ static void SetFonFlags(FonSpecInfo *specInfo, RecVersions *collection,
 		RecRaster *recRast) {
 	int i, j;
 	welet *wel;
-	Word32 nField[NFIELDDWORD];
+	uint32_t nField[NFIELDDWORD];
 	Bool isInField;
 
 	if (!specInfo)

@@ -80,17 +80,20 @@ class cls;                 \
 #endif
 
 /*** Base types ***/
-typedef uint32_t Word32;_SETTYPES( Word32 )
 typedef int16_t Int16;  _SETTYPES( Int16 )
 typedef uint16_t Word16;_SETTYPES( Word16 )
 typedef unsigned char Word8;_SETTYPES( Word8 )
 typedef long double Float80; _SETTYPES( Float80 )
-typedef int Bool; _SETTYPES( Bool )
-typedef int16_t Bool16;_SETTYPES( Bool16 )
+
+typedef int16_t Bool16;
 typedef int32_t Bool32;_SETTYPES( Bool32 )
 
+typedef int Bool;
+
 typedef char * pchar;
+typedef unsigned long ulong;
 typedef unsigned int uint;
+typedef unsigned char uchar;
 
 #ifndef   FALSE
 #define FALSE               0
@@ -130,11 +133,11 @@ typedef Bool (* FTBool_PVoid)(void*);
 typedef Bool16 (* FTBool16_PVoid)(void*);
 typedef Bool32 (* FTBool32_PVoid)(void*);
 
-typedef void (* FTVoid_Word32)(Word32);
-typedef void* (* FTPVoid_Word32)(Word32);
-typedef Bool (* FTBool_Word32)(Word32);
-typedef Bool16 (* FTBool16_Word32)(Word32);
-typedef Bool32 (* FTBool32_Word32)(Word32);
+typedef void (* FTVoid_Word32)(uint32_t);
+typedef void* (* FTPVoid_Word32)(uint32_t);
+typedef Bool (* FTBool_Word32)(uint32_t);
+typedef Bool16 (* FTBool16_Word32)(uint32_t);
+typedef Bool32 (* FTBool32_Word32)(uint32_t);
 
 #ifdef __cplusplus
 extern "C" {
@@ -150,11 +153,11 @@ typedef Bool (* CFTBool_PVoid)(void*);
 typedef Bool16 (* CFTBool16_PVoid)(void*);
 typedef Bool32 (* CFTBool32_PVoid)(void*);
 
-typedef void (* CFTVoid_Word32)(Word32);
-typedef void* (* CFTPVoid_Word32)(Word32);
-typedef Bool (* CFTBool_Word32)(Word32);
-typedef Bool16 (* CFTBool16_Word32)(Word32);
-typedef Bool32 (* CFTBool32_Word32)(Word32);
+typedef void (* CFTVoid_Word32)(uint32_t);
+typedef void* (* CFTPVoid_Word32)(uint32_t);
+typedef Bool (* CFTBool_Word32)(uint32_t);
+typedef Bool16 (* CFTBool16_Word32)(uint32_t);
+typedef Bool32 (* CFTBool32_Word32)(uint32_t);
 }
 #endif   // __cplusplus
 
@@ -199,9 +202,6 @@ typedef LONG* LPLONG;
 typedef void* LPVOID;
 
 #define PSTR  PCHAR
-
-typedef unsigned long ulong;
-typedef unsigned char uchar;
 
 #include "cttypext.h"
 

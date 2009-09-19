@@ -132,8 +132,8 @@ static Word8 v_sq_punct[] = {ch_punct,cs_punct_sq_size,0};
 //static BYTE v_temp_one_line[] = {ch_stick,cs_one_line_ltr,0};
 //static BYTE v_comma_dot[] = {ch_punct,cs_comma_dot,0};
 
-static Word32 check_iIl1();	// 04.06.2002 E.P.
-static Word32 check_letter(Word8 let); // 18.06.2002 E.P.
+static uint32_t check_iIl1();	// 04.06.2002 E.P.
+static uint32_t check_letter(Word8 let); // 18.06.2002 E.P.
 
 
 void recog_save_maden()
@@ -283,14 +283,14 @@ static void setvers(Word8* p)
  wcomp.nvers = (rec_ptr = v) - start_rec;
 }
 
-Word32 recog_letter()
+uint32_t recog_letter()
 {
  recog_one();
  return wcomp.nvers;
 }
 
 
-Word32 recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, Word8 * lp,Word16 lth)
+uint32_t recog_letter_lp(/*ExtComponent*/CCOM_comp *ec, Word8 * lp,Word16 lth)
 {
 memset(&wcomp,0,sizeof(wcomp));
 wcomp.h=      ec->h;
@@ -309,7 +309,7 @@ return wcomp.nvers;
 }
 
 
-Word32 check_iIl1()
+uint32_t check_iIl1()
 {
 // Выдает количество палочных версий iIl1
 version *p = start_rec;
@@ -326,7 +326,7 @@ while ( p < rec_ptr )
 return n;
 }
 
-Word32 check_letter(Word8 let)
+uint32_t check_letter(Word8 let)
 {
 // Проверяет наличие версии. 18.06.2002 E.P.
 version *p = start_rec;

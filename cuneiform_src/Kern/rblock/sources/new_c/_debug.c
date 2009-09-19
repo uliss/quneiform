@@ -89,7 +89,7 @@ Handle hNotUseAntonCross = NULL;
 Handle hSetTrivAverHeight = NULL;//George, 12.11.01 (dd.mm.yy)
 
 
-Word32 ZagolovokBreakingCoeff = 3;
+uint32_t ZagolovokBreakingCoeff = 3;
 //////////////////////////////////
 void InitDebug()
 {

@@ -173,7 +173,7 @@ public:
 	RECT m_rectString;
 	WORD m_wType;
 	RECT m_rectBaseLine;
-	Word32 S_Flags; //NEGA_STR vmk 10-06-2001
+	uint32_t S_Flags; //NEGA_STR vmk 10-06-2001
 };
 
 /////////////////////////////////////////////////////////////////////////////

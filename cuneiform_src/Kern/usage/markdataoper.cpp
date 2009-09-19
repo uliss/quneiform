@@ -217,7 +217,7 @@ Bool MakeRectFromPict (Rect16 *pCurr, void *vPict)
 Bool LoadPicts_rv (Handle hC, void *vB, char *pStr)
 {
 	int SizeCurr, Deficit, nRc;
-	Word32 err32, nTeor, nReal;
+	uint32_t err32, nTeor, nReal;
 	Bool ret;
 	POLY_ Pict;
 	Handle hBlockPictSpec;

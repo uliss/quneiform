@@ -90,7 +90,7 @@ struct tagRC16
 union  RCode
 {
 	tagRC16           RC16;
-	Word32            gwRC;
+	uint32_t            gwRC;
 };
 
 static RCode  RC = {0};
@@ -252,13 +252,13 @@ RSTUFF_FUNC(Bool32)RSTUFF_Reset()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSTUFF_FUNC(Word32) RSTUFF_GetReturnCode()
+RSTUFF_FUNC(uint32_t) RSTUFF_GetReturnCode()
 {
 	return RC.gwRC;
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSTUFF_FUNC(char *) RSTUFF_GetReturnString(Word32 dwError)
+RSTUFF_FUNC(char *) RSTUFF_GetReturnString(uint32_t dwError)
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF);
 	static char szBuffer[512];
@@ -278,7 +278,7 @@ RSTUFF_FUNC(char *) RSTUFF_GetReturnString(Word32 dwError)
 #define CASE_FUNCTION(a)	case RSTUFF_FN_##a:	*(FNRSTUFF##a *)pData = RSTUFF_##a; break
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSTUFF_FUNC(Bool32) RSTUFF_GetExportData(Word32 dwType, void * pData)
+RSTUFF_FUNC(Bool32) RSTUFF_GetExportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -301,7 +301,7 @@ RSTUFF_FUNC(Bool32) RSTUFF_GetExportData(Word32 dwType, void * pData)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSTUFF_FUNC(Bool32) RSTUFF_SetImportData(Word32 dwType, void * pData)
+RSTUFF_FUNC(Bool32) RSTUFF_SetImportData(uint32_t dwType, void * pData)
 {
 	Bool rc = FALSE;
 	RC.gwRC = 0;
@@ -392,7 +392,7 @@ void SetReturnCode_rstuff(Word16 rc)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-void SetReturnCode_rstuff(Word32 rc)
+void SetReturnCode_rstuff(uint32_t rc)
 {
 	RC.gwRC=rc;
 //	Word16 low = (Word16)(rc &  0xFFFF);

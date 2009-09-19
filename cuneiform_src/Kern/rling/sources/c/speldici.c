@@ -119,7 +119,7 @@
 // Parameter CountryCode has been removed.
 // 12-09-93 ATAL
 // This function have tu return proper pointer, never NULL !
-void * (*my_alloc)(Word32 len);
+void * (*my_alloc)(uint32_t len);
 void (*my_free)(void *);
 void ErrorExit(int Code);
 //uint32_t  LoadUserDict( char*, char*, uint32_t, voc_state*);

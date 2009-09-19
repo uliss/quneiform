@@ -131,7 +131,7 @@ static WORD tabvserif[256]={
 //      а б      в г д е ж з и й к л м н о п
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};                       // 240 - 255
 //      р с т у ф х ц ч ш щ ъ ы ь э ю
-static Word32 key=2;                  //для snap'а
+static uint32_t key=2;                  //для snap'а
 
 static cell *serif_word(cell *c);
 static LONG new_serif(cell *c);
@@ -141,7 +141,7 @@ static LONG downserif(c_comp *env, BYTE shape, INT H, STICK *st);
 static LONG upserif(c_comp *env, BYTE shape, INT H, STICK *st);
 static interval *interval_fit(INT i, lnhead *line, INT H, STICK *st);
 static void ideal2rc(Point16 *p);
-static void bound_cell(cell *c, Word32 color);
+static void bound_cell(cell *c, uint32_t color);
 
 void serif_let()
 {
@@ -769,7 +769,7 @@ static void ideal2rc(Point16 *p)
   p->x=p->x-(INT)((LONG)nIncline*y/2048);
 }
 
-static void bound_cell(cell *c, Word32 color)
+static void bound_cell(cell *c, uint32_t color)
 {
   Rect16 box;
   Point16 pa={c->col,c->row},pb={c->col+c->w-1,c->row+c->h-1};

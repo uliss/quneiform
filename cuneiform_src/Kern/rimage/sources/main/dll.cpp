@@ -159,16 +159,16 @@ RIMAGE_FUNC(Bool32)RIMAGE_Reset()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Word32) RIMAGE_GetReturnCode()
+RIMAGE_FUNC(uint32_t) RIMAGE_GetReturnCode()
 {
 	if ( !gwLowRC )
 		return 0;
 
-	return (Word32)(gwHeightRC<<16)|(gwLowRC - IDS_RIMAGE_ERR_NO);
+	return (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_RIMAGE_ERR_NO);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(char *) RIMAGE_GetReturnString(Word32 dwError)
+RIMAGE_FUNC(char *) RIMAGE_GetReturnString(uint32_t dwError)
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_RIMAGE_ERR_NO;
 	static char szBuffer[512];
@@ -188,7 +188,7 @@ RIMAGE_FUNC(char *) RIMAGE_GetReturnString(Word32 dwError)
 #define CASE_FUNCTION(a)	case RIMAGE_FN_##a:	*(FNRIMAGE##a *)pData = RIMAGE_##a; break
 //////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_GetExportData(Word32 dwType, void * pData)
+RIMAGE_FUNC(Bool32) RIMAGE_GetExportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -213,7 +213,7 @@ RIMAGE_FUNC(Bool32) RIMAGE_GetExportData(Word32 dwType, void * pData)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_SetImportData(Word32 dwType, void * pData)
+RIMAGE_FUNC(Bool32) RIMAGE_SetImportData(uint32_t dwType, void * pData)
 {
 	Bool rc = FALSE;
 	gwLowRC = IDS_RIMAGE_ERR_NOTIMPLEMENT;

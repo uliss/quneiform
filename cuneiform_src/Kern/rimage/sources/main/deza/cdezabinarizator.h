@@ -106,8 +106,8 @@ class CDezaBinarizator
 
 public:
 	int32_t CloseTrackBin(void);
-	int32_t GetBinarized(PWord8 ptbl, Word32 lenbl);
-	Word32 OpenTrackBin(PCTBINTigerImageInfo Info, CRIBinarizator * pCaller, Word32 wdezaFlag);
+	int32_t GetBinarized(PWord8 ptbl, uint32_t lenbl);
+	uint32_t OpenTrackBin(PCTBINTigerImageInfo Info, CRIBinarizator * pCaller, uint32_t wdezaFlag);
 	CDezaBinarizator();
 	virtual ~CDezaBinarizator();
 
@@ -134,8 +134,8 @@ private:
 	PWord8 ptbosn;
 	PWord8 ptb;
 	PWord8 ptgrey;
-	Word32 indend;
-	Word32 indbeg;
+	uint32_t indend;
+	uint32_t indbeg;
 	int32_t nstrb;
 	int32_t nstr;
 	int32_t sy1;

@@ -98,7 +98,7 @@ RCK_FUNC(Bool32) RCORRKEGL_Done()
 	return TRUE;
 }
 
-RCK_FUNC(Word32) RCORRKEGL_GetReturnCode()
+RCK_FUNC(uint32_t) RCORRKEGL_GetReturnCode()
 {
 	if(gwLowRC == RCORRKEGL_ERR_NO)
 	return 0;
@@ -106,7 +106,7 @@ RCK_FUNC(Word32) RCORRKEGL_GetReturnCode()
 	return (gwHeightRC<<16)|(gwLowRC-RCORRKEGL_ERR_MIN);
 }
 
-RCK_FUNC(char*) RCORRKEGL_GetReturnString(Word32 dwError)
+RCK_FUNC(char*) RCORRKEGL_GetReturnString(uint32_t dwError)
 {
 	Word16 rc = (Word16)((dwError & 0xFFFF) );
 	static char szBuffer[512];
@@ -121,7 +121,7 @@ RCK_FUNC(char*) RCORRKEGL_GetReturnString(Word32 dwError)
 	return szBuffer;
 }
 
-RCK_FUNC(Bool32) RCORRKEGL_SetImportData(Word32 dwType, void * pData)
+RCK_FUNC(Bool32) RCORRKEGL_SetImportData(uint32_t dwType, void * pData)
 {
 
 	gwLowRC = RCORRKEGL_ERR_NO;

@@ -88,7 +88,7 @@ TableLine::~TableLine()
 {
 }
 //////////////////////////////////////////////////////////////////////
-Bool32 TableLine::Create(int32_t nCoord,Word32 nItems)
+Bool32 TableLine::Create(int32_t nCoord,uint32_t nItems)
 {
 	Bool32 rc = FALSE;
 
@@ -144,14 +144,14 @@ TableClass::~TableClass()
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
-Bool32 TableClass::Create(int32_t Skew2048,Word32 nVer,int32_t * lpVCor, Word32 nHor,int32_t * lpHCor)
+Bool32 TableClass::Create(int32_t Skew2048,uint32_t nVer,int32_t * lpVCor, uint32_t nHor,int32_t * lpHCor)
 {
 	Bool32 rc = FALSE;
 	m_nSkew2048 = Skew2048;
 
 	if(nVer && nHor)
 	{
-		Word32 i = 0;
+		uint32_t i = 0;
 		rc = m_lpVerLines.Create(nVer);
 		for(i=0;i<nVer && lpVCor;i++)
 			rc &= m_lpVerLines[i].Create(lpVCor[i],nHor);
@@ -171,7 +171,7 @@ void	TableClass::Delete()
 {
 	if(m_lpVerLines.GetSize() && m_lpHorLines.GetSize())
 	{
-		Word32 i = 0;
+		uint32_t i = 0;
 		for(i=0;i<m_lpVerLines.GetSize() ;i++)
 			m_lpVerLines[i].Delete();
 		m_lpVerLines.Delete();
@@ -196,7 +196,7 @@ TableClass * TableClass::Attach(Handle hPage,Handle hBlock)
 		rc->m_lpVerLines.GetSize() &&
 		rc->m_lpHorLines.GetSize())
 	{
-		Word32 i = 0;
+		uint32_t i = 0;
 		rc->m_lpVerLines.Attach(hPage);
 		for(i=0;i<rc->m_lpVerLines.GetSize() ;i++)
 			rc->m_lpVerLines[i].Attach(hPage);
@@ -221,7 +221,7 @@ Handle	TableClass::Store(Handle hPage)
 		m_lpVerLines.GetSize() &&
 		m_lpHorLines.GetSize())
 	{
-		Word32 i = 0;
+		uint32_t i = 0;
 		res = m_lpVerLines.Store(hPage);
 		for(i=0;i<m_lpVerLines.GetSize() ;i++)
 			res &= m_lpVerLines[i].Store(hPage);
@@ -243,7 +243,7 @@ void    TableClass::Remove()
 {
 	if(m_lpVerLines.GetSize() && m_lpHorLines.GetSize())
 	{
-		Word32 i = 0;
+		uint32_t i = 0;
 		for(i=0;i<m_lpVerLines.GetSize() ;i++)
 			m_lpVerLines[i].Remove(m_hPage);
 		m_lpVerLines.Remove(m_hPage);

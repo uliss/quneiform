@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "polyblock.h"
 #include "resource.h"
 
-void CleanData(Handle Type,void * lpData,Word32 Size)
+void CleanData(Handle Type,void * lpData,uint32_t Size)
 // Неиспользуемые части массивов заполняем нулями для лучшей упаковки
 {
     if(Type == TYPE_TEXT || Type == TYPE_IMAGE)
@@ -88,11 +88,11 @@ void CleanData(Handle Type,void * lpData,Word32 Size)
 	}
 }
 
-Bool32 ComplianceVersions(Handle Type, char ** lpData, Word32 *Size)
+Bool32 ComplianceVersions(Handle Type, char ** lpData, uint32_t *Size)
 //Сравнивает размер блока данных с размером структуры;
 // если структура больше - дополняется нулями, если меньше - ошибка
 {
-	Word32 NewSize=*Size;
+	uint32_t NewSize=*Size;
 	if (Type==TYPE_TEXT  ||  Type==TYPE_IMAGE)
 		 NewSize = sizeof(POLY_);
 	else
@@ -113,7 +113,7 @@ Bool32 ComplianceVersions(Handle Type, char ** lpData, Word32 *Size)
 	return TRUE;
 }
 
-Bool32 Compress(char * lpData, Word32 Size, char ** compressedData, Word32 * compressedSize)
+Bool32 Compress(char * lpData, uint32_t Size, char ** compressedData, uint32_t * compressedSize)
 {
 // Заменяем группу из не менее MIN_REPEAT одинаковых символов на счетчик повторений
 #define MIN_REPEAT 2*sizeof(CompressHeader)
@@ -132,7 +132,7 @@ Bool32 Compress(char * lpData, Word32 Size, char ** compressedData, Word32 * com
 		 * end=ordinary+Size;
 	do
 	{
-		Word32 count=1;
+		uint32_t count=1;
 		char * current=ordinary+1,
 			 * repeating=ordinary; //фрагмент, заполненный одинаковыми символами;
 		while (current<end)
@@ -174,7 +174,7 @@ Bool32 Compress(char * lpData, Word32 Size, char ** compressedData, Word32 * com
 }
 
 //#################################
-Bool32 Decompress(char * lpData, Word32 Size, char ** decomData, Word32 * decomSize)
+Bool32 Decompress(char * lpData, uint32_t Size, char ** decomData, uint32_t * decomSize)
 {
 	if (Size==0)
 		return FALSE;
@@ -182,7 +182,7 @@ Bool32 Decompress(char * lpData, Word32 Size, char ** decomData, Word32 * decomS
 	char * old=lpData, *end=lpData+Size;
 
 	//Определяем размер после декомпрессии
-	Word32 newSize=0;
+	uint32_t newSize=0;
 	while (old<end)
 	{
 		CompressHeader *head = (CompressHeader *)old;

@@ -95,11 +95,11 @@ CTIMaskLineSegment::CTIMaskLineSegment(PCTIMaskLineSegment pSegm)
 {
 }
 
-Word32 CTIMaskLineSegment::IsIntersectWith(PCTIMaskLineSegment pSegm)
+uint32_t CTIMaskLineSegment::IsIntersectWith(PCTIMaskLineSegment pSegm)
 {
-	Word32 Intrsct = 0;
-	Word32 S;
-	Word32 E;
+	uint32_t Intrsct = 0;
+	uint32_t S;
+	uint32_t E;
 	int32_t  iDS;
 	int32_t  iDE;
 
@@ -234,7 +234,7 @@ Bool32 CTIMaskLineSegment::CutRightTo(PCTIMaskLineSegment pSegm)
 	return bRet;
 }
 
-int32_t CTIMaskLineSegment::GetPointDirect(Word32 X)
+int32_t CTIMaskLineSegment::GetPointDirect(uint32_t X)
 {
 	int32_t iRet = CTIMLSEGMPOINTIN;
 

@@ -71,15 +71,15 @@ extern Handle hShowCheckLetters;
 
 
 ////////////////////////////////////////////////////////////////////////////////
-Bool32 CheckAreaForComps(Handle hCCOM, Handle hCCOM_big, Rect32 rect, int32_t Height, Word32 *Result1, Word32 *Result2)
+Bool32 CheckAreaForComps(Handle hCCOM, Handle hCCOM_big, Rect32 rect, int32_t Height, uint32_t *Result1, uint32_t *Result2)
 {
 	CCOM_comp * comp;
-	Word32 i;
+	uint32_t i;
 	comp =  NULL;
 
 	Rect16 rect1;
-	Word32 key = 111;
-	Word32 color = 23000;
+	uint32_t key = 111;
+	uint32_t color = 23000;
 
 	Handle MainWindowD=NULL;
     MainWindowD=LDPUMA_GetWindowHandle ("Изображение после разворота");
@@ -222,13 +222,13 @@ lNextComp:
 ////////////////////////////////////////////////////////////////////////////////
 Bool32 SearchRectanglePictures(Handle hCCOM, Handle hCCOM_big,Handle hCPAGE)
 {
-	Word32 i,j;
+	uint32_t i,j;
 	CCOM_comp pic;
 	CCOM_comp * comp;
 	Word16 pLocalHystogram[MaxHeightOfLetter];
-	Word32 nLocalComps;
-	Word32 MaxLocal, nMaxLocal;
-	Word32 Result1, Result2, Result3, Result4, tmp1, tmp2;
+	uint32_t nLocalComps;
+	uint32_t MaxLocal, nMaxLocal;
+	uint32_t Result1, Result2, Result3, Result4, tmp1, tmp2;
 	Rect32 rect;
 	int32_t LengthTotal,LengthByIntervals;
 	Handle BlockType;

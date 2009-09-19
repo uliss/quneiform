@@ -85,18 +85,18 @@ void   SetReturnCode_rverline (Word16 rc);
 /*---------------------------------------------------------------------------*/
 void My_WaitUserInput (Handle myKey, Handle myWindow)
 {
-	Word32 Key;
+	uint32_t Key;
 //	if (AM_Skip (AM_GetKeyOfRule (RU_FT_D_StopUnderHL)))
 		Key = AM_WaitUserInput (myKey, myWindow);
 //	else
 //		AM_MessageBoxOk ("Ok!");
 }
 /*---------------------------------------------------------------------------*/
-void Draw_Lines_Verif (LinesTotalInfo *pLti, Word32 OperCode, Handle myWindow
+void Draw_Lines_Verif (LinesTotalInfo *pLti, uint32_t OperCode, Handle myWindow
 					   , Handle myKey)
 {
 	int i, n;
-	Word32 ColorLine;
+	uint32_t ColorLine;
 	LineInfo *pLns;
 	n = pLti->Hor.Cnt;
 	pLns = pLti->Hor.Lns;
@@ -143,10 +143,10 @@ void Draw_Lines_Verif (LinesTotalInfo *pLti, Word32 OperCode, Handle myWindow
 	}
 }
 /*---------------------------------------------------------------------------*/
-void Draw_Lines_Corrected (LinesTotalInfo *pLti, Word32 OperCode, Handle myWindow)
+void Draw_Lines_Corrected (LinesTotalInfo *pLti, uint32_t OperCode, Handle myWindow)
 {
 	int i, n;
-	Word32 ColorLine;
+	uint32_t ColorLine;
 	LineInfo *pLns;
 	ColorLine = RGB(  0,255,  0); //зеленый
 	n = pLti->Hor.Cnt;
@@ -171,7 +171,7 @@ void RLTDraw_O_VerifLines (void *vLti, int Code_1, int Code_2, Handle myWindow)
 {
 	LinesTotalInfo *pLti;
 	Bool16 NoSnap1, NoSnap2;
-	Word32 OperCode1, OperCode2;
+	uint32_t OperCode1, OperCode2;
 	Handle myKey = NULL;
 	Handle myKey1;
 	Handle myKey2;
@@ -211,7 +211,7 @@ void RLTDraw_VL_R_Zhertvy (void **vvZher, int nZher, Handle myWindow, int Code)
 {
 	int i;
 	Bool16 NoSnap;
-	Word32 ColorBox, OperCode;
+	uint32_t ColorBox, OperCode;
 	Handle myKey;
 	CCOM_comp *pZher;
 	Rect16 Rc;
@@ -238,7 +238,7 @@ void RLTDraw_I_PrimBoxes (Rect16 *pRc, int *pNote, int nRc, Handle myWindow, int
 {
 	int i;
 	Bool16 NoSnap;
-	Word32 ColorBox, OperCode;
+	uint32_t ColorBox, OperCode;
 	Handle myKey;
 	myKey = AM_GetKeyOfRule ((VL_RULES)Code);
 	NoSnap = AM_Skip (myKey);

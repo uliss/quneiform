@@ -80,10 +80,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 RLINE_FUNC(Bool32) RLINE_Init(Word16 wHeightCode,void * hStorage);
 RLINE_FUNC(Bool32) RLINE_Done();
-RLINE_FUNC(Word32) RLINE_GetReturnCode();
-RLINE_FUNC(char *) RLINE_GetReturnString(Word32 dwError);
-RLINE_FUNC(Bool32) RLINE_GetExportData(Word32 dwType, void * pData);
-RLINE_FUNC(Bool32) RLINE_SetImportData(Word32 dwType, void * pData);
+RLINE_FUNC(uint32_t) RLINE_GetReturnCode();
+RLINE_FUNC(char *) RLINE_GetReturnString(uint32_t dwError);
+RLINE_FUNC(Bool32) RLINE_GetExportData(uint32_t dwType, void * pData);
+RLINE_FUNC(Bool32) RLINE_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////
 
 typedef enum

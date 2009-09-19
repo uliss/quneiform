@@ -67,7 +67,7 @@ typedef struct tagFONBase
 	 access_tab *ace;
 	 Int16 countFont;
 	 Int16 reserv;
-	 Word32 fontFields[4][NFIELDDWORD];
+	 uint32_t fontFields[4][NFIELDDWORD];
 	 Bool32 isFirst;
 	 Word16 first[256];
 	 Word8  tablColumn[32];

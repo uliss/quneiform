@@ -82,7 +82,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define  TG_EDW_NARROW        128     // user defined
 
 extern   float      Twips;
-extern   Word32     FlagMode;
+extern   uint32_t     FlagMode;
 extern   char       lpMyNameSerif[MAX_PATH];
 extern   char       lpMyNameNonSerif[MAX_PATH];
 extern   char       lpMyNameMono[MAX_PATH];
@@ -92,10 +92,10 @@ extern   Int16      get_font_name(Int16 FontNumber);
 	extern "C" {
 #endif
 
-Word32 GetTablCount(void);
+uint32_t GetTablCount(void);
 void   ViewTable(void);
-void   GetTableRect( Word32 NumberTable , Rect16* RectTable,Word32* UserNumber );
-Bool   WriteTable( Word32 IndexTable, RtfSectorInfo* SectorInfo/*, CString* TableString*/ ,Bool OutPutMode );
+void   GetTableRect( uint32_t NumberTable , Rect16* RectTable,uint32_t* UserNumber );
+Bool   WriteTable( uint32_t IndexTable, RtfSectorInfo* SectorInfo/*, CString* TableString*/ ,Bool OutPutMode );
 //void   TablePutChar( CString* TableString, BYTE sym );
 
 #ifdef __cplusplus
@@ -190,7 +190,7 @@ uint32_t         m_Flags;
   union
   {
 	Word8		m_u8BoundsType[4];//Информация о типе границ ячейки:L,R,T,B !!!Art
-	Word32		m_u32BoundsType;
+	uint32_t		m_u32BoundsType;
   };
 };
 

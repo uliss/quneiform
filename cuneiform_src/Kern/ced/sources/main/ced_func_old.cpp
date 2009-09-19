@@ -94,7 +94,7 @@ DEC_FUN(void, CED_Aksant,(const aksant* pt))
 
 #define DEC_FUN(a,b,c)  FN##b b; a My##b c {} a MyRawData##b c {RDProced((Word8*)pt,alternatives*2);}
 //the same for symbols
-    DEC_FUN(void, CED_Letter,(const letter* pt,const Word32 alternatives))
+    DEC_FUN(void, CED_Letter,(const letter* pt,const uint32_t alternatives))
 #undef DEC_FUN
 #define DEC_FUN(a,b,c)  FN##b b; a My##b c {} a MyRawData##b c {RDProced((Word8*)pt,pt->length);}
 //the same for special codes
@@ -122,13 +122,13 @@ static text_ref * TRarray;//put all text_ref-s here
 static int TRPosition,TRLen;//position and length in array
 
 
-static void ExtDataProc(Word8* _ptr, Word32 lth);
+static void ExtDataProc(Word8* _ptr, uint32_t lth);
 void FormattedSDD(const sheet_disk_descr* pt);
 void FormattedFDD(const fragm_disk_descr* pt);
 void FormattedTR(const text_ref* pt);
 void FormattedFD(const fragm_disk* pt);
 void FormattedLB(const line_beg* pt);
-void FormattedL(const letter* pt,const Word32 alternatives);
+void FormattedL(const letter* pt,const uint32_t alternatives);
 void FormattedBMR(const bit_map_ref * pt);
 void FormattedFK(const font_kegl * pt);
 void FormattedE(const edExtention* pt,const void* ptExt);
@@ -137,7 +137,7 @@ void FormattedLang(const EdTagLanguage* pt);
 void StripLines();
 void RecreateFrames();
 
-CEDPage * Formattedload_96(char * file,Bool32 readFromFile, Word32 bufLen)
+CEDPage * Formattedload_96(char * file,Bool32 readFromFile, uint32_t bufLen)
 {
 	return 0;
 	CED_SheetDiskDescr=FormattedSDD;
@@ -363,7 +363,7 @@ void FormattedLB(const line_beg* pt)
 	mainPage->GetCurSection()->GetCurParagraph()->InsertLine();
 }
 
-void FormattedL(const letter* pt,const Word32 alternatives)
+void FormattedL(const letter* pt,const uint32_t alternatives)
 {
 	if(!mainPage->GetCurSection())
 		mainPage->InsertSection()->CreateColumn();//In case of wrong 'ed', such that symbols are before the definition of fragment

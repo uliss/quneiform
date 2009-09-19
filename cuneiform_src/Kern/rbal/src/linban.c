@@ -1728,7 +1728,7 @@ INT dbsum(INT filter)
 	{
 		Point16 rs, re, rsm, rem;
 		Int16 startx, endx, mc;
-		Word32 rgb;
+		uint32_t rgb;
 		CSTR_attr line_attr;
 
 		if(CSTR_GetLineAttr(lin_str, &line_attr))

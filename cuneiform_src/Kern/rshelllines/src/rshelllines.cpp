@@ -128,8 +128,8 @@ typedef struct tagRSPreProcessImage
     Bool32	gbAutoRotate;
     Bool32  gbDotMatrix;
     Bool32  gbFax100;
-    Word32  gnLanguage;
-    Word32  gnTables;
+    uint32_t  gnLanguage;
+    uint32_t  gnTables;
     Handle	hCPAGE;
     Handle  hDebugCancelSearchPictures;
     Handle  hDebugCancelComponent;
@@ -148,7 +148,7 @@ typedef struct tagRSPreProcessImage
     void *  phCLINE;
     PBool32 pgneed_clean_line;
     int32_t *  pgnNumberTables;
-    Word32  gnPictures;
+    uint32_t  gnPictures;
     Bool32* pgrc_line;
     Rect32  gRectTemplate;
     FNPUMA_XSetTemplate fnXSetTemplate;
@@ -264,18 +264,18 @@ RSL_FUNC(Bool32) RSL_Done()
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSL_FUNC(Word32) RSL_GetReturnCode()
+RSL_FUNC(uint32_t) RSL_GetReturnCode()
 {
-    Word32 rc = 0;
+    uint32_t rc = 0;
     if((gwLowRC - IDS_ERR_NO)>0)
-        rc = (Word32)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
+        rc = (uint32_t)(gwHeightRC<<16)|(gwLowRC - IDS_ERR_NO);
 
     return rc;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSL_FUNC(char *) RSL_GetReturnString(Word32 dwError)
+RSL_FUNC(char *) RSL_GetReturnString(uint32_t dwError)
 {
 	Word16 rc = (Word16)(dwError & 0xFFFF) + IDS_ERR_NO;
 	static char szBuffer[512];
@@ -294,7 +294,7 @@ RSL_FUNC(char *) RSL_GetReturnString(Word32 dwError)
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSL_FUNC(Bool32) RSL_GetExportData(Word32 dwType, void * pData)
+RSL_FUNC(Bool32) RSL_GetExportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;
 
@@ -303,7 +303,7 @@ return rc;
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSL_FUNC(Bool32) RSL_SetImportData(Word32 dwType, void * pData)
+RSL_FUNC(Bool32) RSL_SetImportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = RESULT;
 
@@ -315,11 +315,11 @@ RSL_FUNC(Bool32) RSL_SetImportData(Word32 dwType, void * pData)
     RSPreProcessImage IImage;
     PRSPreProcessImage Image = &IImage;
 
-    Word32 nTeor = sizeof (RSPreProcessImage);
+    uint32_t nTeor = sizeof (RSPreProcessImage);
     Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
     Handle VerifyN = CPAGE_GetBlockFirst (*phCPage, RSL_VERLINE);//hPage, RSL_VERLINE);
-    Word32 nReal = CPAGE_GetBlockData (*phCPage, VerifyN, RSL_VERLINE, Image, nTeor);
-//     Word32 err32 = CPAGE_GetReturnCode ();
+    uint32_t nReal = CPAGE_GetBlockData (*phCPage, VerifyN, RSL_VERLINE, Image, nTeor);
+//     uint32_t err32 = CPAGE_GetReturnCode ();
 //     if (err32)
 //         return FALSE;
 
@@ -356,7 +356,7 @@ RSL_FUNC(Bool32) RSL_SetImportData(Word32 dwType, void * pData)
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-void *	RSLAlloc(Word32 stAllocateBlock)
+void *	RSLAlloc(uint32_t stAllocateBlock)
 {
     char * mem = NULL;
 

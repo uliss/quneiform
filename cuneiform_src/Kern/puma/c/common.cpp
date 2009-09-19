@@ -108,7 +108,7 @@ void ClearAll( void )
 }
 ///////////////////////////////////////////////////////
 // Функции прогресс индикатора
-Bool32 rexcProgressStep  (Word32 step)
+Bool32 rexcProgressStep  (uint32_t step)
 {
 	return ProgressStep(2,NULL,step);
 }
@@ -267,7 +267,7 @@ return (over>0);
 // авторство принадлежит AlMi
 Bool32 MyGetZher (void **vvZher, int32_t *nZher, int32_t MaxZher, Handle hCPage)
 {
-	Word32 err32, nTeor, nReal;
+	uint32_t err32, nTeor, nReal;
 	Handle hBlockZher;
 	Handle hBlockPrev;
 	int i;
@@ -382,7 +382,7 @@ Bool32 RemoveLines(Handle hccom,Handle hcpage,PWord8 * lppDIB)
                 {
                 /*
                 Rect16 rect1;
-	            Word32 key = 111;
+	            uint32_t key = 111;
                 for(i=0;i<nvict;i++)
                     {
                     exa = victim[i];
@@ -516,15 +516,15 @@ void ProgressFinish()
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 ProgressStep(Word32 step,char*name,Word32 percent)
+Bool32 ProgressStep(uint32_t step,char*name,uint32_t percent)
 {
 	Bool32 rc = TRUE;
-	static Word32 old = 0;
+	static uint32_t old = 0;
 
 	g_PrgTime.dwStep = step;
 	g_PrgTime.name = name ? name : g_PrgTime.name;
 
-	Word32 perc = g_PrgTime.dwBeg + percent*(g_PrgTime.dwEnd - g_PrgTime.dwBeg)/100;
+	uint32_t perc = g_PrgTime.dwBeg + percent*(g_PrgTime.dwEnd - g_PrgTime.dwBeg)/100;
 	rc = LDPUMA_ProgressStep(step,g_PrgTime.name,perc);
 //	_ASSERT(perc>=old);
 	if(fnProgressStep)
@@ -535,34 +535,34 @@ Bool32 ProgressStep(Word32 step,char*name,Word32 percent)
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 ProgressStepLayout(Word32 step,Word32 percent)
+Bool32 ProgressStepLayout(uint32_t step,uint32_t percent)
 {
 	return ProgressStep(step, GetResourceString(IDS_PRG_OPEN), percent);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 ProgressStepLines(Word32 step,Word32 percent)
+Bool32 ProgressStepLines(uint32_t step,uint32_t percent)
 {
 	return ProgressStep(step, GetResourceString(IDS_REMOVELINE), percent);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 ProgressStepTables(Word32 step,Word32 percent)
+Bool32 ProgressStepTables(uint32_t step,uint32_t percent)
 {
 	return ProgressStep(step, GetResourceString(IDS_REMOVELINE), percent);
 }
 //////////////////////////////////////////////////////
-Bool32 ProgressStepSearchTables(Word32 step,Word32 percent)
+Bool32 ProgressStepSearchTables(uint32_t step,uint32_t percent)
 {
 	return ProgressStep(step, GetResourceString(IDS_SEARCHTABLE), percent);
 }
 //////////////////////////////////////////////////////
-Bool32 ProgressStepAutoLayout(Word32 step,Word32 percent)
+Bool32 ProgressStepAutoLayout(uint32_t step,uint32_t percent)
 {
 	return ProgressStep(step, GetResourceString(IDS_AUTOLAYOUT), percent);
 }
 
-static Word32 bInitPrgTime = 0;
+static uint32_t bInitPrgTime = 0;
 void ResetPRGTIME()
 {
 	bInitPrgTime = 0;
@@ -596,12 +596,12 @@ Bool32  InitPRGTIME()
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-PRGTIME	 StorePRGTIME(Word32 beg, Word32 end)
+PRGTIME	 StorePRGTIME(uint32_t beg, uint32_t end)
 {
 	PRGTIME rc = g_PrgTime;
 
-	Word32 newBeg = g_PrgTime.dwBeg + (g_PrgTime.dwEnd - g_PrgTime.dwBeg)*beg/100;
-	Word32 newEnd = g_PrgTime.dwBeg + (g_PrgTime.dwEnd - g_PrgTime.dwBeg)*end/100;
+	uint32_t newBeg = g_PrgTime.dwBeg + (g_PrgTime.dwEnd - g_PrgTime.dwBeg)*beg/100;
+	uint32_t newEnd = g_PrgTime.dwBeg + (g_PrgTime.dwEnd - g_PrgTime.dwBeg)*end/100;
 
 	g_PrgTime.dwBeg = newBeg;
 	g_PrgTime.dwEnd = newEnd;
@@ -630,11 +630,11 @@ Bool32 PrintResult(int num,CSTR_line lout,Handle hCPAGE)
 	Bool32 underline = 0;
 	int32_t height = 0;
 	int32_t offset = 0;
-	Word32 textcolor = 0;
+	uint32_t textcolor = 0;
 	int charset = RUSSIAN_CHARSET;
 	const char * name = NULL;
 	static int32_t  nFragment = -1;
-	static Word32 deftextcolor = 0;
+	static uint32_t deftextcolor = 0;
 	Bool32 bOutputKegl = TRUE;
 
 	CSTR_GetLineAttr (lout,&line_attr);
@@ -646,7 +646,7 @@ Bool32 PrintResult(int num,CSTR_line lout,Handle hCPAGE)
 		Handle hBlock = CPAGE_GetBlockFirst(hCPAGE,0);
 		while(hBlock)
 		{
-			if(CPAGE_GetBlockInterNum(hCPAGE,hBlock) == (Word32)line_attr.fragment)
+			if(CPAGE_GetBlockInterNum(hCPAGE,hBlock) == (uint32_t)line_attr.fragment)
 			{
 				nFragment = line_attr.fragment;
 				goto lNext;
@@ -753,18 +753,18 @@ lNext:
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32  HL_TableExtractEx( Handle hPAGE, Word32 perc, Rect32 rect )
+Bool32  HL_TableExtractEx( Handle hPAGE, uint32_t perc, Rect32 rect )
 {
 	return RMARKER_SearchTableInZone(hPAGE,hCCOM,perc,rect);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 IsUpdate(Word32 flg)
+Bool32 IsUpdate(uint32_t flg)
 {
 	return (g_flgUpdate & flg) > 0;
 }
 
-void   SetUpdate(Word32 flgAdd,Word32 flgRemove)
+void   SetUpdate(uint32_t flgAdd,uint32_t flgRemove)
 {
 	g_flgUpdate = (g_flgUpdate | flgAdd) & ~flgRemove;
 }

@@ -86,10 +86,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 extern "C" Bool  FullRtf( FILE *fpFileNameIn, const char *FileNameOut ,Handle* hEdTree);
 extern "C" Bool  PageTree(FILE *fpFileNameIn, CRtfPage* RtfPage, const char *FileNameOut);
-extern "C" Bool	 WriteTable( Word32 IndexTable, RtfSectorInfo* SectorInfo, /*CString* TableString ,*/Bool OutPutMode);
-extern "C" Bool	 WritePict( Word32 IndexPict, RtfSectorInfo* SectorInfo/*, CString* PictString*/, Bool OutPutTypeFrame);
-extern "C" { void GetTableRect( Word32 NumberTable , Rect16* RectTable,Word32* UserNumber ); }
-extern "C" { BYTE GetPictRect ( Word32 NumberPict  , Rect16* RectPict ,Word32* UserNumber ); }
+extern "C" Bool	 WriteTable( uint32_t IndexTable, RtfSectorInfo* SectorInfo, /*CString* TableString ,*/Bool OutPutMode);
+extern "C" Bool	 WritePict( uint32_t IndexPict, RtfSectorInfo* SectorInfo/*, CString* PictString*/, Bool OutPutTypeFrame);
+extern "C" { void GetTableRect( uint32_t NumberTable , Rect16* RectTable,uint32_t* UserNumber ); }
+extern "C" { BYTE GetPictRect ( uint32_t NumberPict  , Rect16* RectPict ,uint32_t* UserNumber ); }
 extern  void RtfAssignRect_CRect_Rect16(RECT *s1,Rect16 *s2);
 extern  void	RtfCalcRectSizeInTwips(RECT *s1, float Twips);
 extern  void RtfUnionRect_CRect_CRect(RECT *s1,RECT *s2);
@@ -117,18 +117,18 @@ WORD    FlagWriteRtfCoordinates =1 ;
 char    WriteRtfPageNumber[MAX_PATH]="1";
 Word8   Frmt_CharSet = (Word8)204;
 
-extern  Word32 FlagMode;
+extern  uint32_t FlagMode;
 extern  char   UnRecogSymbol;
-extern  Word32   gnLanguage;
+extern  uint32_t   gnLanguage;
 
 extern  char   lpMyNameSerif[MAX_PATH];
 extern  char   lpMyNameNonSerif[MAX_PATH];
 extern  char   lpMyNameMono[MAX_PATH];
 extern	 char   WriteRtfImageName[MAX_PATH];
 extern	 char   RtfFileName[MAX_PATH];
-extern  Word32 CountPict;
-extern  Word32 CountTable;
-extern  Word32 RtfWriteMode;
+extern  uint32_t CountPict;
+extern  uint32_t CountTable;
+extern  uint32_t RtfWriteMode;
 extern  POINT  TemplateOffset;
 
 #define  TwipsToEMU_Koef (360000 * 2.54)/1440
@@ -209,7 +209,7 @@ CRtfPage::~CRtfPage()
 {
 /* CRtfFragment* cFrag;
  CRtfSector*   cSector;
- Word32 wCount, i;
+ uint32_t wCount, i;
 
 	wCount = m_arSectors.GetSize();
 	for( i=0; i<wCount; i++)
@@ -309,7 +309,7 @@ char lpEdTestFileName[MAX_PATH];
 void CRtfPage::CRtfPageDelFragments(void)
 {
 /* CRtfFragment* cFrag;
- Word32 wCount, i;
+ uint32_t wCount, i;
 
 	wCount = m_arFragments.GetSize();
 	for( i=0; i<wCount; i++)
@@ -404,7 +404,7 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage)
 
 	Int16  nc,ns,nw,nz,i;
 	Int16  tmp;
-	Word32 wtmp;
+	uint32_t wtmp;
 	Rect16 RectFragm;
 	Rect16  SRect;
 
@@ -452,7 +452,7 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage)
 			fread(&tmp,2,1,in);
 			pRtfString->m_wWordsCount = tmp;
 
-			fread(&tmp,sizeof(Word32),1,in);//NEGA_STR
+			fread(&tmp,sizeof(uint32_t),1,in);//NEGA_STR
  			for(nw=0; nw < pRtfString->m_wWordsCount; ++nw)
 			{
 				pRtfWord = pRtfString->GetNextWord();
@@ -528,10 +528,10 @@ void CRtfPage::SetTwips(void)
  Rect16  RectPict;
 
 	Count.RtfTableFragments = (WORD)CountTable;
- for(Word32 i=0; i < (int)CountTable; i++ )
+ for(uint32_t i=0; i < (int)CountTable; i++ )
 	{
   pRtfFragment = GetNextFragment();
-  GetTableRect( i, &RectPict, (Word32*)&pRtfFragment->m_wUserNumber );
+  GetTableRect( i, &RectPict, (uint32_t*)&pRtfFragment->m_wUserNumber );
   RtfAssignRect_CRect_Rect16(&pRtfFragment->m_rect, &RectPict);
 		RtfCalcRectSizeInTwips(&pRtfFragment->m_rect, Twips);
   pRtfFragment->m_wType = FT_TABLE;
@@ -555,7 +555,7 @@ void CRtfPage::AddPictures(void)
  for(int i=0; i < (int)CountPict; i++ )
 	{
   pRtfFragment = GetNextFragment();
-  GetPictRect( i, &RectPict, (Word32*)&pRtfFragment->m_wUserNumber );
+  GetPictRect( i, &RectPict, (uint32_t*)&pRtfFragment->m_wUserNumber );
   RtfAssignRect_CRect_Rect16(&pRtfFragment->m_rect, &RectPict);
 		RtfCalcRectSizeInTwips(&pRtfFragment->m_rect, Twips);
   pRtfFragment->m_wType = FT_PICTURE;
@@ -627,7 +627,7 @@ void	CRtfPage::SortUserNumber(void)
 {
 	CRtfFragment* pRtfFragment;
 	BYTE FlagChange;
- Word32 mas[500],MinUserNumber=32000;
+ uint32_t mas[500],MinUserNumber=32000;
  int indexMinUserNumber,i,j;
  Int16 CountFragments;
 
@@ -1632,7 +1632,7 @@ Int16 CRtfPage::GetFlagAndNumberFragment( BYTE* FragmentType, Int16* InGroupNumb
   for(j=0; j<CountTTP; j++ )
 		{
    pRtfFragment = (CRtfFragment*)m_arFragments[j];
-   if((Word32)(i+1) == pRtfFragment->m_wUserNumber)
+   if((uint32_t)(i+1) == pRtfFragment->m_wUserNumber)
 			{
 				i=j;
 				break;
@@ -3023,7 +3023,7 @@ CRtfVerticalColumn::~CRtfVerticalColumn()
 	CRtfFragment* cFrag;
 
 	m_wFragmentsCount = m_arFragments.size();
-	for(Word32 i=0; i<m_wFragmentsCount; i++)
+	for(uint32_t i=0; i<m_wFragmentsCount; i++)
 	{
 		cFrag = m_arFragments[i];
 		delete cFrag;
@@ -3666,11 +3666,11 @@ void CRtfFragment::InitFragment(RtfSectorInfo* SectorInfo)
 Bool CRtfFragment::FWriteTable(Int16 NumberCurrentFragment,RtfSectorInfo *SectorInfo, Bool OutPutType)
 {
 // CString  TableString;
-//	Word32   CountTableElem;
-//	Word32   Tindex;
+//	uint32_t   CountTableElem;
+//	uint32_t   Tindex;
 //	char     Tsym;
 
-//	WriteTable((Word32)NumberCurrentFragment, SectorInfo/*, &TableString */, OutPutType);
+//	WriteTable((uint32_t)NumberCurrentFragment, SectorInfo/*, &TableString */, OutPutType);
 /*	if(RtfWriteMode)
 	{
 		CountTableElem = TableString.GetLength();
@@ -3690,11 +3690,11 @@ Bool CRtfFragment::FWriteTable(Int16 NumberCurrentFragment,RtfSectorInfo *Sector
 Bool CRtfFragment::FWritePicture(Int16 NumberCurrentFragment,RtfSectorInfo *SectorInfo, Bool OutPutType)
 {
 //	CString  PictString;
-//	Word32   Pindex;
-//	Word32  CountPictElem;
+//	uint32_t   Pindex;
+//	uint32_t  CountPictElem;
 //	char     Psym;
 
-	WritePict( (Word32)NumberCurrentFragment, SectorInfo,/* &PictString,*/ OutPutType );
+	WritePict( (uint32_t)NumberCurrentFragment, SectorInfo,/* &PictString,*/ OutPutType );
 /*	if(RtfWriteMode)
 	{
 		CountPictElem = PictString.GetLength();
@@ -4333,12 +4333,12 @@ Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo)
 // LinesTotalInfo     lti;
 // Handle             hVH;
 // Handle             hBlock;
-// Word32             size;
+// uint32_t             size;
 // LineInfo           lineinfo;
  Handle             hPage;
  int32_t              VCentre,HCentre;
 // extern Handle hUseCLine;
- Word32 size_line_com=sizeof(LINE_COM);
+ uint32_t size_line_com=sizeof(LINE_COM);
 
 	 if(FlagVer==TRUE && Rect->bottom-Rect->top<LMin/2)
    return FALSE;
@@ -4413,16 +4413,16 @@ Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo)
 			{ return FALSE; }
 
 			if(FlagVer)
-    hVH = CPAGE_GetBlockFirst ( hPage, (Word32)lti.Ver.Lns );
+    hVH = CPAGE_GetBlockFirst ( hPage, (uint32_t)lti.Ver.Lns );
 			else
-    hVH = CPAGE_GetBlockFirst ( hPage, (Word32)lti.Hor.Lns );
+    hVH = CPAGE_GetBlockFirst ( hPage, (uint32_t)lti.Hor.Lns );
 
     while(hVH)
 			{
  			if(FlagVer)
-     size = CPAGE_GetBlockData( hPage, hVH, (Word32)lti.Ver.Lns, &lineinfo, sizeof(lineinfo));
+     size = CPAGE_GetBlockData( hPage, hVH, (uint32_t)lti.Ver.Lns, &lineinfo, sizeof(lineinfo));
 				else
-     size = CPAGE_GetBlockData( hPage, hVH, (Word32)lti.Hor.Lns, &lineinfo, sizeof(lineinfo));
+     size = CPAGE_GetBlockData( hPage, hVH, (uint32_t)lti.Hor.Lns, &lineinfo, sizeof(lineinfo));
 
     if ( size!=sizeof(lineinfo) )
 				{ return FALSE;	}
@@ -4452,14 +4452,14 @@ Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo)
 					   Rect->top = (int32_t)(lineinfo.A.y*Twips);
 								Rect->bottom = (int32_t)(lineinfo.A.y*Twips+10);
 								lineinfo.Flags |= LI_FRMT_Used;
-        CPAGE_SetBlockData( hPage, hVH, (Word32)lti.Hor.Lns, &lineinfo, sizeof(lineinfo));
+        CPAGE_SetBlockData( hPage, hVH, (uint32_t)lti.Hor.Lns, &lineinfo, sizeof(lineinfo));
 							}
 							else
        {
 					   Rect->top = (int32_t)(lineinfo.B.y*Twips);
 								Rect->bottom = (int32_t)(lineinfo.B.y*Twips+10);
         lineinfo.Flags |= LI_FRMT_Used;
-        CPAGE_SetBlockData( hPage, hVH, (Word32)lti.Hor.Lns, &lineinfo, sizeof(lineinfo));
+        CPAGE_SetBlockData( hPage, hVH, (uint32_t)lti.Hor.Lns, &lineinfo, sizeof(lineinfo));
 							}
        return TRUE;
 						}
@@ -4467,9 +4467,9 @@ Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo)
 				}
 
  			if(FlagVer)
-     hVH = CPAGE_GetBlockNext ( hPage,hVH, (Word32)lti.Ver.Lns );
+     hVH = CPAGE_GetBlockNext ( hPage,hVH, (uint32_t)lti.Ver.Lns );
 				else
-     hVH = CPAGE_GetBlockNext ( hPage,hVH, (Word32)lti.Hor.Lns );
+     hVH = CPAGE_GetBlockNext ( hPage,hVH, (uint32_t)lti.Hor.Lns );
 			}
    hBlock = CPAGE_GetBlockNext( hPage, hBlock, RLINE_BLOCK_TYPE );
 		}
@@ -4486,11 +4486,11 @@ void Cleaning_LI_FRMT_Used_Flag(void)
 // LinesTotalInfo     lti;
 // Handle             hVH;
 // Handle             hBlock;
-// Word32             size;
+// uint32_t             size;
 // LineInfo           lineinfo;
  Handle             hPage;
 // extern Handle hUseCLine;
- Word32 size_line_com=sizeof(LINE_COM);
+ uint32_t size_line_com=sizeof(LINE_COM);
 
  hPage  = CPAGE_GetHandlePage ( CPAGE_GetCurrentPage()  );
  CLINE_handle hCLINE=CLINE_GetMainContainer();
@@ -4530,20 +4530,20 @@ void Cleaning_LI_FRMT_Used_Flag(void)
    if ( size!=sizeof(LinesTotalInfo) )
 			{ return; }
 
-    hVH = CPAGE_GetBlockFirst ( hPage, (Word32)lti.Hor.Lns );
+    hVH = CPAGE_GetBlockFirst ( hPage, (uint32_t)lti.Hor.Lns );
 
     while(hVH)
 			 {
-     size = CPAGE_GetBlockData( hPage, hVH, (Word32)lti.Hor.Lns, &lineinfo, sizeof(lineinfo));
+     size = CPAGE_GetBlockData( hPage, hVH, (uint32_t)lti.Hor.Lns, &lineinfo, sizeof(lineinfo));
      if ( size!=sizeof(lineinfo) )
 				  return;
 
      if(lineinfo.Flags & LI_FRMT_Used)
 				 {
       lineinfo.Flags &= 0xffff7fff;
-      CPAGE_SetBlockData( hPage, hVH, (Word32)lti.Hor.Lns, &lineinfo, sizeof(lineinfo));
+      CPAGE_SetBlockData( hPage, hVH, (uint32_t)lti.Hor.Lns, &lineinfo, sizeof(lineinfo));
 				 }
-     hVH = CPAGE_GetBlockNext ( hPage,hVH, (Word32)lti.Hor.Lns );
+     hVH = CPAGE_GetBlockNext ( hPage,hVH, (uint32_t)lti.Hor.Lns );
 				}
 	   hBlock = CPAGE_GetBlockNext( hPage, hBlock, RLINE_BLOCK_TYPE );
 		}

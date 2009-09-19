@@ -313,7 +313,7 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 	/////////////////////////////////
 	Bool32 rc = TRUE;
 	//char * lpRecogName = NULL;
-	Word32 Angle = 0;
+	uint32_t Angle = 0;
 
 	hWndTurn = 0;
 
@@ -375,7 +375,7 @@ Bool32 PreProcessImage( PRSPreProcessImage Image )
 					//if(ori)
 					if(ori && !(db_spec_prj==SPEC_PRJ_GIP&&ori==4))
 					{
-						Word32 dwTurn = 0;
+						uint32_t dwTurn = 0;
 						switch(ori)
 						{
 						case 1:
@@ -659,7 +659,7 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-/*Bool32 ShortVerticalLinesProcess ( PRSPreProcessImage Image, Word32 Step )
+/*Bool32 ShortVerticalLinesProcess ( PRSPreProcessImage Image, uint32_t Step )
 {
 	Bool32 bRet = FALSE;
 
@@ -715,9 +715,9 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 	Handle         hBlockLineHor;
 	Handle         hBlockLineVer;
 	Handle         hBlockLinePrev;
-	Word32         nTagSize;
-	Word32         nReal;
-	Word32         wErr32;
+	uint32_t         nTagSize;
+	uint32_t         nReal;
+	uint32_t         wErr32;
 
 	nTagSize = sizeof (LinesTotalInfo);
 	pLHor = LTInfo->Hor.Lns;
@@ -769,9 +769,9 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 		for (int32_t i=0; i<LTInfo->Hor.Cnt; i++)
 		{
 			if (i==0)
-				hBlockLineHor = CPAGE_GetBlockFirst (Image->hCPAGE, (Word32)(LTInfo->Hor.Lns));
+				hBlockLineHor = CPAGE_GetBlockFirst (Image->hCPAGE, (uint32_t)(LTInfo->Hor.Lns));
 			else
-				hBlockLineHor = CPAGE_GetBlockNext (Image->hCPAGE, hBlockLinePrev, (Word32)(LTInfo->Hor.Lns));
+				hBlockLineHor = CPAGE_GetBlockNext (Image->hCPAGE, hBlockLinePrev, (uint32_t)(LTInfo->Hor.Lns));
 			wErr32 = CPAGE_GetReturnCode ();
 			if (wErr32!=0)
 			{
@@ -783,7 +783,7 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 				break;
 			}
 			nTagSize = sizeof (LineInfo);
-			nReal = CPAGE_GetBlockData (Image->hCPAGE, hBlockLineHor, (Word32)(LTInfo->Hor.Lns), (void *)&(pLHor[i]), nTagSize);
+			nReal = CPAGE_GetBlockData (Image->hCPAGE, hBlockLineHor, (uint32_t)(LTInfo->Hor.Lns), (void *)&(pLHor[i]), nTagSize);
 			wErr32 = CPAGE_GetReturnCode ();
 			if ((nReal!=nTagSize)||(wErr32!=0))
 			{
@@ -800,9 +800,9 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 		for (int32_t i=0; i<LTInfo->Ver.Cnt; i++)
 		{
 			if (i==0)
-				hBlockLineVer = CPAGE_GetBlockFirst (Image->hCPAGE, (Word32)(LTInfo->Ver.Lns));
+				hBlockLineVer = CPAGE_GetBlockFirst (Image->hCPAGE, (uint32_t)(LTInfo->Ver.Lns));
 			else
-				hBlockLineVer = CPAGE_GetBlockNext (Image->hCPAGE, hBlockLinePrev, (Word32)(LTInfo->Ver.Lns));
+				hBlockLineVer = CPAGE_GetBlockNext (Image->hCPAGE, hBlockLinePrev, (uint32_t)(LTInfo->Ver.Lns));
 			wErr32 = CPAGE_GetReturnCode ();
 			if (wErr32!=0)
 			{
@@ -814,7 +814,7 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 				break;
 			}
 			nTagSize = sizeof (LineInfo);
-			nReal = CPAGE_GetBlockData (Image->hCPAGE, hBlockLineVer, (Word32)(LTInfo->Ver.Lns), (void *)&(pLVer[i]), nTagSize);
+			nReal = CPAGE_GetBlockData (Image->hCPAGE, hBlockLineVer, (uint32_t)(LTInfo->Ver.Lns), (void *)&(pLVer[i]), nTagSize);
 			wErr32 = CPAGE_GetReturnCode ();
 			if ((nReal!=nTagSize)||(wErr32!=0))
 			{
@@ -826,8 +826,8 @@ Bool32 VerifyLines ( PRSPreProcessImage Image )
 		}
 	}
 
-	//*pHoriType = (Word32)LTInfo.Hor.Lns;
-	//*pVertType = (Word32)LTInfo.Ver.Lns;
+	//*pHoriType = (uint32_t)LTInfo.Hor.Lns;
+	//*pVertType = (uint32_t)LTInfo.Ver.Lns;
 	//LTInfo->Hor.Lns = pLHor;
 	//LTInfo->Ver.Lns = pLVer;
 
@@ -958,7 +958,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, PWord8 * lppDIB)
                 {
                 /*
                 Rect16 rect1;
-	            Word32 key = 111;
+	            uint32_t key = 111;
                 for(i=0;i<nvict;i++)
                     {
                     exa = victim[i];
@@ -1009,7 +1009,7 @@ return rc;
 //
 Bool32 MyGetZher (void **vvZher, int32_t *nZher, int32_t MaxZher, Handle hCPage)
 {
-	Word32 err32, nTeor, nReal;
+	uint32_t err32, nTeor, nReal;
 	Handle hBlockZher;
 	Handle hBlockPrev;
 	int i;

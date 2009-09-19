@@ -120,7 +120,7 @@ static void CorrectSizes(int *minBig,int *maxBig,int *minLit,int *maxLit,int bSi
 
 // from clu_ita.c
 int32_t TestItSeBoldCluster(int numCluster, InfoCluster *infoC,
-				 int sBig,int sLit,int *maxC, Word32 *fifi,
+				 int sBig,int sLit,int *maxC, uint32_t *fifi,
 				 FONTFIELD *ff);
 // from clu_test.c
 // проверить растр на противоречие с хорошими кластерами
@@ -134,7 +134,7 @@ static int AnalizeSizes(InfoCluster *infoC,int numClus,
 static int GetNextFont(int *bSize,int *lSize,int *pSize,
 					   int *minBig,int *maxBig,
 					   int *minLit,int *maxLit,
-					   Word32 *fields);
+					   uint32_t *fields);
 
 // //////////
 InfoCluster infoClusterStat[MAXWEICLUS];
@@ -150,7 +150,7 @@ static int max2Cluster[256];   // small or big - name same in examples!
 static int bestSizes[MAX_HEIGHT];
 static int bestWidth[MAX_WIDTH];
 
-static Word32    usedFields[256][NFIELDDWORD];
+static uint32_t    usedFields[256][NFIELDDWORD];
 static FONTFIELD fontField[MAXFONT];
 
 
@@ -182,26 +182,26 @@ int dist;
 }
 ////////////////////////
 // по номеру поля выставить бит в нужном месте
-void MakeDWORDField(int i,Word32 *fifi)
+void MakeDWORDField(int i,uint32_t *fifi)
 {
   int j;
 
-	memset(fifi,0,NFIELDDWORD*sizeof(Word32));
+	memset(fifi,0,NFIELDDWORD*sizeof(uint32_t));
 
 	if(i<=0 || i > MAXFIELD)
 		return;
 	j=(i-1)>>5;     // 32
-    fifi[j]=((Word32)1)<<(i-j*32-1);
+    fifi[j]=((uint32_t)1)<<(i-j*32-1);
 }
 /////////////////////////
-void AddDWORDField(int i,Word32 *fifi)
+void AddDWORDField(int i,uint32_t *fifi)
 {
   int j;
 
 	if(i<=0 || i > MAXFIELD)
 		return;
 	j=(i-1)>>5;     // 32
-    fifi[j]|=((Word32)1)<<(i-j*32-1);
+    fifi[j]|=((uint32_t)1)<<(i-j*32-1);
 }
 /////////////////////////
 //
@@ -370,7 +370,7 @@ void GetClusterStatistic(int numSymbol,int numCluster,Nraster_header *rh,
  int i;
  int curClus;
  int let;
- Word32 odin = 1;
+ uint32_t odin = 1;
 
  memset(countC,0,256*sizeof(int));
  memset(infoC,0,numCluster*sizeof(InfoCluster));
@@ -709,7 +709,7 @@ static int GetBestClusters(int minSizeBig,int maxSizeBig,
 					int bWidth ,
 					InfoCluster *infoC, int *countC, int numCluster,
 					BYTE *metkaGood,
-					int *maxC,int *max2,Word32 *curFields)
+					int *maxC,int *max2,uint32_t *curFields)
 {
 int i,j;
 int best;
@@ -852,7 +852,7 @@ int best;
 static Word16 inNewField[256];
 
 static int CompareFonts(int numF,FONTFIELD *fontF,
-						Word32 *oldField, int allCount,
+						uint32_t *oldField, int allCount,
 						int sBig,int sLit,Word16 *inFont)
 {
  int i,j;
@@ -906,7 +906,7 @@ static int CompareFonts(int numF,FONTFIELD *fontF,
 static int GetFieldClusters( InfoCluster *infoC, int numCluster,SINT *nClus,
 							Nraster_header *rh, int numSymbol,
 					      BYTE *metkaGood, 	int *maxC ,
-						  Word32 *testField,
+						  uint32_t *testField,
 						  FONTFIELD *fontF,int numF,int inField)
 {
 int i,j;
@@ -916,7 +916,7 @@ int sLit=0,nLit=0;
 int nGood=0,nOld;
 int allGood=0, allBad=0;
 int porogS;
-Word32 oldField[NFIELDDWORD];
+uint32_t oldField[NFIELDDWORD];
 
 // get maximal clusters
 
@@ -1141,7 +1141,7 @@ endNoFont:
 
 int FindBestClusters(int numSymbol,int numCluster,Nraster_header *rh,
 					 SINT *nClus,BYTE *metka,BYTE *metkaValid,
-					 int maxOutFonts,Word32 *ffFields)
+					 int maxOutFonts,uint32_t *ffFields)
 {
  int i,j;
  int bSize;  // tipical size of big letter
@@ -1154,14 +1154,14 @@ int FindBestClusters(int numSymbol,int numCluster,Nraster_header *rh,
  int minLit,maxLit; // minimal,maximal small letters
  int countFont=0;   // how many fonts
  int addToFont=0;
- Word32 allField[NFIELDDWORD];   // какие поля в шрифте
- Word32 curFields[NFIELDDWORD];
+ uint32_t allField[NFIELDDWORD];   // какие поля в шрифте
+ uint32_t curFields[NFIELDDWORD];
 
 #ifdef _TEST_MULTI_FONT_
  int curFont;
 #endif
 
- if( ffFields ) memset(ffFields,0,maxOutFonts*sizeof(Word32)*NFIELDDWORD);
+ if( ffFields ) memset(ffFields,0,maxOutFonts*sizeof(uint32_t)*NFIELDDWORD);
 
  if(numCluster < MAXWEICLUS ) infoCluster=infoClusterStat;
  else
@@ -1175,7 +1175,7 @@ int FindBestClusters(int numSymbol,int numCluster,Nraster_header *rh,
 
     memset(metka,0,numCluster);
     memset(metkaValid,0,numCluster);
-    memset(usedFields,0,256*sizeof(Word32)*NFIELDDWORD);
+    memset(usedFields,0,256*sizeof(uint32_t)*NFIELDDWORD);
 
 	GetClusterStatistic(numSymbol,numCluster,rh,nClus,infoCluster,countCluster,
 		metka,metkaValid,TRUE);
@@ -1398,7 +1398,7 @@ fillGood:
 // 10.12.98
 #if defined(_TEST_MULTI_FONT_) && defined(_GOOD_BIG_SMALL_)
    {
-     Word32 fifi[NFIELDDWORD];
+     uint32_t fifi[NFIELDDWORD];
 	 int fld,newFont,inField,best;
 	 int32_t FieldCount[MAXFIELD];
 
@@ -1423,7 +1423,7 @@ fillGood:
 		if( !OneFontField && newFont < MAXFONT )
 		{
 			int TestAddFontGood(int numCluster, InfoCluster *infoC,
-				 int sBig,int sLit,int *maxC,int fromAll,Word32 *fif);
+				 int sBig,int sLit,int *maxC,int fromAll,uint32_t *fif);
 			int add;
 			add = TestAddFontGood( numCluster, infoCluster,
 				  fontField[newFont].sBig,
@@ -1544,7 +1544,7 @@ fillGood:
 	  FILE *fin=fopen(".\\tmp\\name_tif.tmp","rt");
 	  char name[256];
 	  int  len,jj,i1;
-	  Word32 ii;
+	  uint32_t ii;
 
 	  if(fin != NULL)
 	  {
@@ -1703,18 +1703,18 @@ typedef struct tagKuchka
 	Int16 start;
 	Int16 end;
 	int count;
-	Word32 field[NFIELDDWORD];
+	uint32_t field[NFIELDDWORD];
 } KUCHKA;
 
 #ifdef _TEST_MULTI_FONT_
-static int GetKuchki(int *bSizes,Word32 *fifi,int size, KUCHKA *ku,
+static int GetKuchki(int *bSizes,uint32_t *fifi,int size, KUCHKA *ku,
 					 int maxAlt,int minCount)
 {
 int numBest;
 int i,j;
 int isKuchka;
 int start,count;
-Word32 fields[NFIELDDWORD]={0,0};
+uint32_t fields[NFIELDDWORD]={0,0};
 
  for(i=0,count=numBest=0,isKuchka=0;i<size;i++)
  {
@@ -1776,8 +1776,8 @@ Word32 fields[NFIELDDWORD]={0,0};
 //////////////
 static int bigSizes[WR_MAX_HEIGHT];
 static int litSizes[WR_MAX_HEIGHT];
-static Word32 bigFields[WR_MAX_HEIGHT][NFIELDDWORD];
-static Word32 litFields[WR_MAX_HEIGHT][NFIELDDWORD];
+static uint32_t bigFields[WR_MAX_HEIGHT][NFIELDDWORD];
+static uint32_t litFields[WR_MAX_HEIGHT][NFIELDDWORD];
 
 static KUCHKA kuBig[MAXFONT];
 static KUCHKA kuLit[MAXFONT];
@@ -1872,7 +1872,7 @@ static int ProgibFun(int *hhh,int GreyLev,int *valProg)
  return(best);
 }
 ////////////////////
-static int TestAcc(int testNum,int num,KUCHKA *ku,int *sizes,Word32 *fields)
+static int TestAcc(int testNum,int num,KUCHKA *ku,int *sizes,uint32_t *fields)
 {
  int i,j;
  int progib,valProg;
@@ -1942,7 +1942,7 @@ static int GetCountGood(int num,KUCHKA *ku,int all)
 {
 int i;
 int    count;
-Word32 usedFields[NFIELDDWORD];
+uint32_t usedFields[NFIELDDWORD];
 KUCHKA tmpKuch;
 
     if(num <= 0) return 0;
@@ -1974,8 +1974,8 @@ static int AnalizeSizes(InfoCluster *infoC,int numClus,
  numBig=numLit=0;
  memset(bigSizes,0,WR_MAX_HEIGHT*sizeof(int));
  memset(litSizes,0,WR_MAX_HEIGHT*sizeof(int));
- memset(bigFields,0,WR_MAX_HEIGHT*sizeof(Word32)*NFIELDDWORD);
- memset(litFields,0,WR_MAX_HEIGHT*sizeof(Word32)*NFIELDDWORD);
+ memset(bigFields,0,WR_MAX_HEIGHT*sizeof(uint32_t)*NFIELDDWORD);
+ memset(litFields,0,WR_MAX_HEIGHT*sizeof(uint32_t)*NFIELDDWORD);
 
  if( fir) allBig=allLit=0;
 
@@ -2051,7 +2051,7 @@ static int AnalizeSizes(InfoCluster *infoC,int numClus,
 static int GetNextFont(int *bSize,int *lSize,int *pSize,
 					   int *minBig,int *maxBig,
 					   int *minLit,int *maxLit,
-					   Word32 *fields)
+					   uint32_t *fields)
 {
 int sizeBig,sizeLit;
 int i;

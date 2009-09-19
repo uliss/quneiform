@@ -93,7 +93,7 @@ CTCStorageHeader::CTCStorageHeader():CTCGlobalHeader()
 //////////////////////////////////////////////////////////////////////////////////
 //
 CTCStorageHeader::CTCStorageHeader(CTCGlobalFile * pNewStorage,
-								   Word32 wNewFlag,
+								   uint32_t wNewFlag,
 								   const char *pcNewStorageFolder )
 								   :CTCGlobalHeader(pNewStorage,NULL,0,wNewFlag)//, Contents()
 {
@@ -127,7 +127,7 @@ CTCStorageHeader::CTCStorageHeader(CTCGlobalFile * pNewStorage,
 		else
 		{
 #ifdef _DEBUG
-            Word32 Err = GetLastError();
+            uint32_t Err = GetLastError();
             // попробуем сообщить об ошибке  №№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№
 			LPVOID lpMsgBuf;
 
@@ -171,7 +171,7 @@ CTCStorageHeader::~CTCStorageHeader()
 //////////////////////////////////////////////////////////////////////////////////
 //
 /*
-Bool32 CTCStorageHeader::AddItemToStorage(Handle hNewItem, Word32 wID, Word32 wNewSize)
+Bool32 CTCStorageHeader::AddItemToStorage(Handle hNewItem, uint32_t wID, uint32_t wNewSize)
 {
 	CTCStorageContents * pCurrent, * New;
 
@@ -245,7 +245,7 @@ CTCStorageList::~CTCStorageList()
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Handle CTCStorageList::AddItem(CTCGlobalFile * pNewStorage, Word32 wNewFlag)
+Handle CTCStorageList::AddItem(CTCGlobalFile * pNewStorage, uint32_t wNewFlag)
 {
 	CTCStorageHeader * Current, * NewBlock = NULL;
 	Handle NewHandle = pNewStorage->GetFileHandle();
@@ -268,10 +268,10 @@ Handle CTCStorageList::AddItem(CTCGlobalFile * pNewStorage, Word32 wNewFlag)
 }
 //////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTCStorageList::DeleteItem(Handle Storage, Word32 Flag)
+Bool32 CTCStorageList::DeleteItem(Handle Storage, uint32_t Flag)
 {
 	CTCStorageHeader * Current, * Last, * EraseBlock;
-	Word32 IsOK    = 0;
+	uint32_t IsOK    = 0;
 
 	for ( Last = Current = pFirst(); Current != pLast(); Current = Current->GetNext() )
 	{

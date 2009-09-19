@@ -80,7 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifdef PC_TYPE
 
-static void   MMX_normalize_res(Word32 res_comp[],Word16 res[],int32_t numx);
+static void   MMX_normalize_res(uint32_t res_comp[],Word16 res[],int32_t numx);
 #endif
 static int32_t  scalar_all(Int16 Im3x5_1[],Int16 Im3x5_2[]);
 static void   ALL_open_image(Word16 Im3x5[]);
@@ -91,11 +91,11 @@ static void  (*open_image)(Word16 Im3x5[])=ALL_open_image;
 static void  (*close_image)(void)=ALL_close_image;
 
 
-static void* r35_alloc(Word32 len){return malloc(len);}
-static void  r35_free(void *ptr,Word32 len){ free(ptr);}
+static void* r35_alloc(uint32_t len){return malloc(len);}
+static void  r35_free(void *ptr,uint32_t len){ free(ptr);}
 
-static void* (*my_alloc)(Word32 len)=r35_alloc;
-static void  (*my_free)(void *,Word32 len)=r35_free;
+static void* (*my_alloc)(uint32_t len)=r35_alloc;
+static void  (*my_free)(void *,uint32_t len)=r35_free;
 /***********************************/
 /************* COMPRESS ************/
 /***********************************/
@@ -163,9 +163,9 @@ static void r35_recog(Word16 Im3x5[],VERSION vers[], int32_t nvers, Bool32 r5x3)
 /***********************************/
 /************* COMPRESS ************/
 /***********************************/
-static void   ALL_normalize_res(Word32 res_comp[],Word16 res[],int32_t numx);
-static void   normalize_res_3x5(Word32 res_comp[],Word16 res[],int32_t numx);
-static void   (*normalize_res)(Word32 res_comp[],Word16 res[],int32_t numx)=ALL_normalize_res;
+static void   ALL_normalize_res(uint32_t res_comp[],Word16 res[],int32_t numx);
+static void   normalize_res_3x5(uint32_t res_comp[],Word16 res[],int32_t numx);
+static void   (*normalize_res)(uint32_t res_comp[],Word16 res[],int32_t numx)=ALL_normalize_res;
 static Bool32 delete_elm3x5(Word8 let, int32_t   num_del);
 static int32_t  MakeScale(int32_t Xcut[],int32_t Xval[],int32_t L,int32_t dL);
 
@@ -178,21 +178,21 @@ static void   (*compress_line)(Word8 *lin,int32_t nx,
 							   int32_t Xcut[],int32_t Xval[])=
 							   ALL_compress_line;
 
-static void   ALL_addcomp(Word32 res_comp[],int32_t buf_comp[],int32_t numx,int32_t numy);
-static void   (*addcomp)(Word32 res_comp[],int32_t buf_comp[],
+static void   ALL_addcomp(uint32_t res_comp[],int32_t buf_comp[],int32_t numx,int32_t numy);
+static void   (*addcomp)(uint32_t res_comp[],int32_t buf_comp[],
 						 int32_t numx,int32_t numy)=ALL_addcomp;
 
 /* ******************************* */
-static const Word32 mask_word32[] =
+static const uint32_t mask_word32[] =
 	{128,     64,   32,   16,    8,    4,    2,   1};
 static const Word8 mask_byte[]   =
 	{128,     64,   32,   16,    8,    4,    2,   1};
-static const Word32 mask_l[]     =
+static const uint32_t mask_l[]     =
 	{255,    127,   63,   31,   15,    7,    3,   1};
-static const Word32 mask_r[]     =
+static const uint32_t mask_r[]     =
 	{  0,    128,  192,  224,  240,  248,  252,  254};
 
-static const Word32 bit_cnt[]  ={
+static const uint32_t bit_cnt[]  ={
 0,1,1,2,1,2,2,3,    1,2,2,3,2,3,3,4,    1,2,2,3,2,3,3,4,
 2,3,3,4,3,4,4,5,	1,2,2,3,2,3,3,4,	2,3,3,4,3,4,4,5,	2,3,3,4,3,4,4,5,
 3,4,4,5,4,5,5,6,	1,2,2,3,2,3,3,4,	2,3,3,4,3,4,4,5,	2,3,3,4,3,4,4,5,
@@ -318,7 +318,7 @@ return;
 }
 
 
-void ALL_addcomp(Word32 res_comp[],int32_t buf_comp[],int32_t numx,int32_t numy) {
+void ALL_addcomp(uint32_t res_comp[],int32_t buf_comp[],int32_t numx,int32_t numy) {
 	int32_t i;
 
 	for(i=0;i<numx;i++)
@@ -326,11 +326,11 @@ void ALL_addcomp(Word32 res_comp[],int32_t buf_comp[],int32_t numx,int32_t numy)
 	return;
 }
 
-void ALL_normalize_res(Word32 res_comp[],Word16 res[],int32_t numx)
+void ALL_normalize_res(uint32_t res_comp[],Word16 res[],int32_t numx)
 {
 int32_t i;
-Word32 amax=0, div;
-Word32 mod;
+uint32_t amax=0, div;
+uint32_t mod;
 for(i=0;i<numx;i++)
     if( res_comp[i] )
         amax += res_comp[i]*res_comp[i];
@@ -351,11 +351,11 @@ if( !div )
 return;
 }
 
-void normalize_res_3x5(Word32 res_comp[],Word16 res[],int32_t numx)
+void normalize_res_3x5(uint32_t res_comp[],Word16 res[],int32_t numx)
 {
 int32_t i;
-Word32 amax=0, div;
-Word32 mod;
+uint32_t amax=0, div;
+uint32_t mod;
 for(i=0;i<numx;i++)
     if( res_comp[i] )
         amax += res_comp[i]*res_comp[i];
@@ -371,10 +371,10 @@ return;
 }
 
 #ifdef PC_TYPE
-void MMX_normalize_res(Word32 res_comp[],Word16 res[],int32_t numx)
+void MMX_normalize_res(uint32_t res_comp[],Word16 res[],int32_t numx)
 {
 int32_t i,n;
-Word32 amax, div;
+uint32_t amax, div;
 n = ((numx+7)/8)*8;
 for(i=0;i<n;i++)
     res[i] = (Word16)res_comp[i];
@@ -402,7 +402,7 @@ int32_t       k, kx, num, t, len8, len;
 #define SIZE_TO     128*63
 int32_t       Ycut[SIZE_FROM],Yval[SIZE_FROM],Xcut[SIZE_FROM],
             Xval[SIZE_FROM],buf_comp[SIZE_FROM];
-Word32      res_comp[SIZE_TO];
+uint32_t      res_comp[SIZE_TO];
 
 if( TO_X>SIZE_FROM || TO_Y>SIZE_FROM )
     return 0;
@@ -452,7 +452,7 @@ int32_t r35_pack_gray(Word8 *raster,int32_t d_x,int32_t SX,int32_t SY,int32_t dx
 Word8      *rast ;
 int32_t       k, kx, num, t, len, len8;
 int32_t       Ycut[128],Yval[128],Xcut[128],Xval[128],buf_comp[128];
-Word32      res_comp[32*32];
+uint32_t      res_comp[32*32];
 
 if( TO_X>128 || TO_Y>128 )
     return 0;
@@ -529,7 +529,7 @@ return;
 Bool32 r35_init(char *name,elm3x5 **tab3x5this, ind3x5 **header3x5this)
 {
 int32_t f=open_data_file(name, O_BINARY|O_RDONLY); /* , S_IREAD */
-Word32 num;
+uint32_t num;
 
 r35_error_code = ER_R35_NO_ERROR;
 if( f==-1 )
@@ -635,7 +635,7 @@ return 1;
 /************************************/
 
 int32_t scalar_all(Int16 Im3x5_1[], Int16 Im3x5_2[]) {
-    Word32 s = 0;
+    uint32_t s = 0;
     int i;
     for (i = 0; i < 3 * 5; i++)
         s += Im3x5_1[i] * Im3x5_2[i];
@@ -802,7 +802,7 @@ return;
 Word8 recode_prob( int32_t prob )
 {
 int32_t start[]={32767, 32113, 31455, 30475, 29200,0,0}, i, res;
-Word32 stop[]={255,   230,   190,   110,   50,   0}  ;
+uint32_t stop[]={255,   230,   190,   110,   50,   0}  ;
 
 prob >>= 15;
 if( prob>=32767 )
@@ -1640,7 +1640,7 @@ return TRUE;
 typedef struct Cluster_
 {
 Word8   ltr;        // Name of Cluster
-Word32   num;        // number of accepted images
+uint32_t   num;        // number of accepted images
 Word16  vect[16];   // ideal image
 double  vsum[16];   // sum of all images
 struct  Cluster_ * next;
@@ -1687,7 +1687,7 @@ return j==num ? curr : NULL;
 void    ClusterAdd(Cluster *clu,Word16 vect[])
 {
 int     i;
-Word32  sq;
+uint32_t  sq;
 // adding
 for(i=0;i<15;i++)
     clu->vsum[i]+=(double)vect[i];
@@ -1764,7 +1764,7 @@ Bool32    ClusterTo3x5(int32_t FontType)
 {
 Cluster *curr;
 elm3x5  *curr3x5;
-Word32  lim = (FontType>-1)?FontType:1;
+uint32_t  lim = (FontType>-1)?FontType:1;
 
 if( !First3x5 )
     return FALSE;

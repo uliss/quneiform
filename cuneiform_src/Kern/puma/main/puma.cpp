@@ -69,7 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern "C"
 {
     Bool32 rcolorStart( void )      { return TRUE; }
-    Bool32 rcolorStep(Word32 perc)  {return ProgressStep(1,NULL,perc); }
+    Bool32 rcolorStep(uint32_t perc)  {return ProgressStep(1,NULL,perc); }
     void rcolorFinish( void ) {}
 }
 //////////////////////////////////////////////////////////////////
@@ -164,7 +164,7 @@ Bool32 PreProcessImage()
 {
     Bool32 rc = TRUE;
     char * lpRecogName = NULL;
-    Word32 Angle = 0;
+    uint32_t Angle = 0;
 
     if(InitPRGTIME())
         ProgressStart();
@@ -685,7 +685,7 @@ PUMA_FUNC(Bool32) PUMA_Save(Handle hEdPage, const char * lpOutFileName, int32_t 
     return rc;
 }
 /////////////////////////////////////////////////////////////////////////
-PUMA_FUNC(Word32) PUMA_SaveToMemory(Handle hEdPage, int32_t lnFormat, int32_t lnCode, char * lpMem, Word32 size )
+PUMA_FUNC(uint32_t) PUMA_SaveToMemory(Handle hEdPage, int32_t lnFormat, int32_t lnCode, char * lpMem, uint32_t size )
 {
     Bool32 rc = 0;
     Handle prevEdPage = ghEdPage;

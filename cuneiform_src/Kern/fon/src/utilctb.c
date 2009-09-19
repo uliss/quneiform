@@ -77,21 +77,21 @@ void EndCTB(CTB_handle *CTBFile)
 }
 /////////////////
 int StartCTB(char *outname,CTB_handle *CTBFile,Int16 countFont,
-			 Word32 *fields)
+			 uint32_t *fields)
 {
 Word8 CTBdata[CTB_DATA_SIZE];
 Int16  *pint16=(Int16 *)(CTBdata+6);
-Word32 *pword32=(Word32 *)(CTBdata+8);
+uint32_t *pword32=(uint32_t *)(CTBdata+8);
 int i;
 
  memset(CTBdata,0,CTB_DATA_SIZE);
  memcpy(&CTBdata[1],ParolBase,5);
  *pint16=countFont;
  i=MIN(countFont,4);
- memcpy(pword32,fields,i*NFIELDDWORD*sizeof(Word32));
+ memcpy(pword32,fields,i*NFIELDDWORD*sizeof(uint32_t));
 
- CTBdata[0]=MAX(8+4*NFIELDDWORD*sizeof(Word32),
-	           34+NFIELDDWORD*sizeof(Word32));
+ CTBdata[0]=MAX(8+4*NFIELDDWORD*sizeof(uint32_t),
+	           34+NFIELDDWORD*sizeof(uint32_t));
 
  if( CTB_create_gray(outname,CTBdata) == FALSE )
    {
@@ -115,7 +115,7 @@ int fullX;
 int fullY;
 BYTE *bufCTB;
 Word16 *pword16;
-Word32 *pword32;
+uint32_t *pword32;
 Int16  *pint16;
 static  num=0;
 int i;
@@ -168,16 +168,16 @@ int i;
 	pint16[1]=wel->sr_row;
 
 	// now dword
-	pword32=(Word32 *)(CTBdata+24);
+	pword32=(uint32_t *)(CTBdata+24);
 	pword32[0]=wel->summa;
 
 	for(i=0;i<NFIELDDWORD;i++)
 	 pword32[1+i]=wel->fields[i];
 
-	pint16=(Int16 *)(CTBdata+28+NFIELDDWORD*sizeof(Word32));
+	pint16=(Int16 *)(CTBdata+28+NFIELDDWORD*sizeof(uint32_t));
 	pint16[0]=wel->nInCTB;
 
-	pword32=(Word32 *)(pint16+1);
+	pword32=(uint32_t *)(pint16+1);
     pword32[0]=wel->tablColumn;
 
    if( CTB_write(CTBFile,-1,bufCTB,CTBdata) == FALSE )

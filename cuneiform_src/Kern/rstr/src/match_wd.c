@@ -1239,7 +1239,7 @@ static void mw_show_rast()
 
   if (str_raster.w>128 || str_raster.h>64)
   {
-    Word32 key=1;
+    uint32_t key=1;
     for (i=1; i<ncut-1; i++)
     {
       Point16 vh,vl;

@@ -97,8 +97,8 @@ extern FILE* f_old_cut;
 extern int inf_let_h;
 extern Bool type_let;
 extern int inf_dust_h;
-extern Word32 Code_UB_Kill;
-extern Word32 Code_UB_Create;
+extern uint32_t Code_UB_Kill;
+extern uint32_t Code_UB_Create;
 
 Bool IfNeedCutComp(CCOM_comp* comp, Point32 beg, Point32 end, int& yCut);
 int GetLineY(Point32 beg, Point32 end, int x);
@@ -107,7 +107,7 @@ Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
 void CleanRaster(RecRaster* rast, Rect16* rect, int scale);
 Bool Increase2(RecRaster* rast, CCOM_comp* comp);
 int GetCountNumbers(int num);
-void DrawRect(Handle wnd, Word32 OperCode, Word32 color, int top, int bottom,
+void DrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top, int bottom,
 		int left, int right);
 Bool IfWhiteRow(RecRaster* rast, int row);
 int GetMediumH(CCOM_handle hCCOM);
@@ -466,7 +466,7 @@ Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
 // delete[] lp;
 }
 
-void DrawRect(Handle wnd, Word32 OperCode, Word32 color, int top, int bottom,
+void DrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top, int bottom,
 		int left, int right) {
 
 	Rect16 Rect;
@@ -710,7 +710,7 @@ Handle GetStrCCOM(Handle hCPage, Word8* ImageName, Rect16 Rc, Bool neg,
 
 void MyKillComp(CCOM_comp* comp) {
 	if (Code_UB_Kill && Code_UB_Create) {
-		int size = sizeof(Word32);
+		int size = sizeof(uint32_t);
 		CCOM_USER_BLOCK ub;
 		ub.code = Code_UB_Create;
 		if (!CCOM_GetUserBlock(comp, &ub)) {
@@ -725,7 +725,7 @@ void MyKillComp(CCOM_comp* comp) {
 }
 
 void MyCreateComp(CCOM_comp* comp) {
-	int size = sizeof(Word32);
+	int size = sizeof(uint32_t);
 	CCOM_USER_BLOCK ub;
 	ub.code = Code_UB_Create;
 	ub.size = size;

@@ -99,7 +99,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_GetCallbackImage(PWord8                  lpName,
 //
 CIMAGE_FUNC(Bool32) CIMAGE_WriteDIB(PWord8    lpName,
 									Handle  lpDIB,
-									Word32  wFlag)
+									uint32_t  wFlag)
 {
 	Bool32 A = FALSE;
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
@@ -115,7 +115,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_WriteDIB(PWord8    lpName,
 //
 CIMAGE_FUNC(Bool32) CIMAGE_ReadDIB(PWord8     lpName,
 								   PHandle  lplpDIB,
-								   Word32   wFlag)
+								   uint32_t   wFlag)
 {
 	Bool32 A = FALSE;
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
@@ -246,7 +246,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_Reset(void)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_AddReadCloseRects(PWord8 lpName, Word32 wCount, PCIMAGE_Rect pFirst)
+CIMAGE_FUNC(Bool32) CIMAGE_AddReadCloseRects(PWord8 lpName, uint32_t wCount, PCIMAGE_Rect pFirst)
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
@@ -258,7 +258,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_AddReadCloseRects(PWord8 lpName, Word32 wCount, PCIMA
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_RemoveReadCloseRects(PWord8 lpName, Word32 wCount, PCIMAGE_Rect pFirst)
+CIMAGE_FUNC(Bool32) CIMAGE_RemoveReadCloseRects(PWord8 lpName, uint32_t wCount, PCIMAGE_Rect pFirst)
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
@@ -270,7 +270,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_RemoveReadCloseRects(PWord8 lpName, Word32 wCount, PC
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_AddWriteCloseRects(PWord8 lpName, Word32 wCount, PCIMAGE_Rect pFirst)
+CIMAGE_FUNC(Bool32) CIMAGE_AddWriteCloseRects(PWord8 lpName, uint32_t wCount, PCIMAGE_Rect pFirst)
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 
@@ -282,7 +282,7 @@ CIMAGE_FUNC(Bool32) CIMAGE_AddWriteCloseRects(PWord8 lpName, Word32 wCount, PCIM
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CIMAGE_FUNC(Bool32) CIMAGE_RemoveWriteCloseRects(PWord8 lpName, Word32 wCount, PCIMAGE_Rect pFirst)
+CIMAGE_FUNC(Bool32) CIMAGE_RemoveWriteCloseRects(PWord8 lpName, uint32_t wCount, PCIMAGE_Rect pFirst)
 {
 	SetReturnCode_cimage(IDS_CIMAGE_ERR_NO);
 

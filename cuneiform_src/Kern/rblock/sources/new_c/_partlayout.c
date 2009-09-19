@@ -96,9 +96,9 @@ static int IsInPoly(Point32 a, POLY_ * pPoly);
 Handle hCcom;
 
 ////////////////////////////////////
-Word32 NumberOfLettersInArea(Rect32 rect, int Number)
+uint32_t NumberOfLettersInArea(Rect32 rect, int Number)
 {
-	Word32 Result = 0;
+	uint32_t Result = 0;
 	ROOT *pRoot;
 	//int i;
 
@@ -752,7 +752,7 @@ Bool32 OutputFragments(Handle hPage)
 	BLOCK * p = NULL;
 	Bool32 rc = TRUE;
 	int    count;
-	Word32 BlockNumber;
+	uint32_t BlockNumber;
 	int32_t  Min, PrevMin;
 	Handle hBlock = NULL; // ***** Rom 01-03-99
 	Handle h;

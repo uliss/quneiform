@@ -192,7 +192,7 @@ public:
   CInterval*      GetInterval(int i);
   CInterval*      GetNewInterval(void);
 */
-  void            SetEventWidth(CLINE_handle hEvent, DEvent* pEvent, Word32* LineHist, Word32 RectBegin, Word32 LineLength); //
+  void            SetEventWidth(CLINE_handle hEvent, DEvent* pEvent, uint32_t* LineHist, uint32_t RectBegin, uint32_t LineLength); //
 /*};
 */
 /////////////////////////////////////////////////////////////////////////////
@@ -300,8 +300,8 @@ public:
  ~CLine();
 */
 RSHELLLINES_FUNC(void)            InitLine(DLine* linedata);  //
-/*  Word32          Flags;                   // common use info
-  Word32          Tail;                    // остаток линии за таблицой
+/*  uint32_t          Flags;                   // common use info
+  uint32_t          Tail;                    // остаток линии за таблицой
   Point32         BeginPoint;
   Point32         EndPoint;
   Rect32          rect;                    // прямоугольник линии

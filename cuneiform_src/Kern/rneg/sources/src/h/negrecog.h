@@ -143,7 +143,7 @@ Bool IfExistDef(RecVersions);
 Bool IfExistI(RecVersions);
 Bool IfBadResult(Word8*,int);
 Bool IfNegIn(NegList*,int,int,int,int,int);
-void NegDrawRect(Handle,Word32,Word32,Rect16);
+void NegDrawRect(Handle,uint32_t,uint32_t,Rect16);
 void NegAr2(Word8*,int,int);
 double NegStrControl(Rect16*,int,Bool,Rect16*);
 double NegRecControl(int);

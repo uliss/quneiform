@@ -132,7 +132,7 @@ Bool32 CRIControl::SetMargins(PRIMAGEMARGINS pMargins)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRIControl::Binarise(PChar8 cDIBIn, PChar8 cDIBOut, Word32 wFlag, Word32 UseMargins)
+Bool32 CRIControl::Binarise(PChar8 cDIBIn, PChar8 cDIBOut, uint32_t wFlag, uint32_t UseMargins)
 {
 	Bool32 Ret = TRUE;
 	CTBinarize bType = CTBIN_UNKNOWN;
@@ -200,7 +200,7 @@ Bool32 CRIControl::Binarise(PChar8 cDIBIn, PChar8 cDIBOut, Word32 wFlag, Word32 
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, int32_t High, int32_t Low, Word32 UseMargins)
+Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins)
 {
 	Bool32 Ret = TRUE;
 	Bool32 NoDest = FALSE;
@@ -280,7 +280,7 @@ Bool32 CRIControl::Rotate(PChar8  cDIBIn, PChar8  cDIBOut, int32_t High, int32_t
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, Word32 wFlag, Word32 UseMargins)
+Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, uint32_t wFlag, uint32_t UseMargins)
 {
 	int32_t     NewWidth;
 	int32_t     NewHeight;
@@ -382,7 +382,7 @@ Bool32 CRIControl::Turn(PChar8  cDIBIn, PChar8  cDIBOut, Word32 wFlag, Word32 Us
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRIControl::Inverse(PChar8  cDIBIn, PChar8  cDIBOut, Word32 UseMargins)
+Bool32 CRIControl::Inverse(PChar8  cDIBIn, PChar8  cDIBOut, uint32_t UseMargins)
 {
 	Bool32    bErrors = TRUE;
 	// копируем из исходного DIB в обрабатываемый
@@ -568,12 +568,12 @@ Bool32 CRIControl::CloseDestinationDIB(PChar8  cDIBName)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Creating new DIB by CTDIB class and 4 RIMAGE functions
-Bool32 CRIControl::CreateDestinatonDIB(Word32 BitCount)
+Bool32 CRIControl::CreateDestinatonDIB(uint32_t BitCount)
 {
-	Word32 wNewHeight;
-	Word32 wNewWidth;
-	Word32 wXResolution;
-	Word32 wYResolution;
+	uint32_t wNewHeight;
+	uint32_t wNewWidth;
+	uint32_t wXResolution;
+	uint32_t wYResolution;
 	CTDIBRGBQUAD       BWQuads[2] = {{0x00,0x00,0x00,0x00},{0xff,0xff,0xff,0x00} };
 
 
@@ -695,7 +695,7 @@ Bool32 CRIControl::SetDestinationDIBtoStorage(PChar8  cDIBName)
 	return bErrors;
 }
 
-Bool32 CRIControl::Roll(PChar8 cDIBIn, PChar8 cDIBOut, int32_t Num, int32_t Denum, Word32 bUseMargins)
+Bool32 CRIControl::Roll(PChar8 cDIBIn, PChar8 cDIBOut, int32_t Num, int32_t Denum, uint32_t bUseMargins)
 {
 	Bool32 Ret = TRUE;
 
@@ -766,7 +766,7 @@ Bool32 CRIControl::WriteDIBtoBMP(const char *cName, PCTDIB pDIB)
 {
 #ifdef RIMAGE_DUMP_ENABLE
 
-	Word32  wBMPSize = pDIB->GetDIBSize() + 14;
+	uint32_t  wBMPSize = pDIB->GetDIBSize() + 14;
 	PumaMemoryToFileDumper BMPDump(cName);
 
 	BMPDump.AddDump("BM",2);

@@ -66,7 +66,7 @@ typedef struct tagFIELD_INFO
 {
   Bool LINret;          //флаг: базовые линии определены LINDefineLines
   Bool HandRec;         //рукописное распознавание
-  Word32 Style;
+  uint32_t Style;
 #define FIS_DONT_GLUE      1  //не клеить
 #define FIS_DONT_CUT       2  //не резать
 #define FIS_PRINTED        4  //печатное поле

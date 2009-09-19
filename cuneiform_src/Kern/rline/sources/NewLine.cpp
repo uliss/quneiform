@@ -161,7 +161,7 @@ extern Handle hShowCPLines;
 extern Bool32 gbRSLT;
 // struct VerLine
 // {
-//     Word32 wTbl;
+//     uint32_t wTbl;
 //     Handle hCCOM;
 //     Handle hCPAGE;
 //     PBool32 pneed_clean;
@@ -202,7 +202,7 @@ int32_t findFirstComp(CCOM_comp* pCompMass, int32_t CountComp, Rect32 RastRect, 
 Bool32 CorrectDoubleLines(CLINE_handle hContainer);
 void getLineIdealStrictRectangular(const NR_SimpLine *pdLine, Rect32* pRect, bool is_horiz, int32_t nIncline, int32_t spread = 0);
 int32_t findLostLines(CLINE_handle hCLINE, PAGEINFO* info);
-//Bool32 writeBin(char* file_name, int32_t nIncline, Rect16* aRect, Word32* aType, Word32* aNumber, int32_t aCount);
+//Bool32 writeBin(char* file_name, int32_t nIncline, Rect16* aRect, uint32_t* aType, uint32_t* aNumber, int32_t aCount);
 //PAGEINFO gl_page_info;
 /*----------------------------------------------------------------------------*/
 
@@ -218,7 +218,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
 /// BogDmitry
  if(gbRSLT)
  {
-     Word32 type = RSL_HANDLE;
+     uint32_t type = RSL_HANDLE;
      Handle* phCPAGE = &hCPage;
      void* aa = (void*) phCPAGE;
      RSL_SetImportData(type, aa);
@@ -597,7 +597,7 @@ RLINE_FUNC(Bool32) RLINE_LinesPass1(Handle hCPage,Handle hCCOM,void* phCLINE,PBo
 	  }
 
   //финальный проход по всем линиям
-  const Word32 My_False=~LI_IsTrue;
+  const uint32_t My_False=~LI_IsTrue;
   int32_t CountShortLines = 0;
   Word8 debug_flags = 0;
   int32_t cross_point[MAX_CROSS_POINTS];
@@ -878,11 +878,11 @@ Bool MyGetLines(/*CLINE_handle linecontainer, Handle hCPage, */CLINE_handle hCLI
 /* }
  else
  {
-	Word32    HorType;
-    Word32    VerType;
+	uint32_t    HorType;
+    uint32_t    VerType;
 	Handle    pBlock;
-	Word32	  size32;
-	Word32 size_lineinfo=sizeof(LineInfo);
+	uint32_t	  size32;
+	uint32_t size_lineinfo=sizeof(LineInfo);
 
     pBlock=NULL;
 	pBlock = CPAGE_GetBlockFirst (hCPage, RLINE_BLOCK_TYPE );
@@ -893,8 +893,8 @@ Bool MyGetLines(/*CLINE_handle linecontainer, Handle hCPage, */CLINE_handle hCLI
 	if (size32 != sizeof(LinesTotalInfo) )
 		return TRUE;
 
-	HorType = (Word32)pLti->Hor.Lns;
-	VerType = (Word32)pLti->Ver.Lns;
+	HorType = (uint32_t)pLti->Hor.Lns;
+	VerType = (uint32_t)pLti->Ver.Lns;
 
 	pLti->Hor.Lns=NULL;
 	pLti->Ver.Lns=NULL;
@@ -1079,7 +1079,7 @@ Bool MyPutLines(CLINE_handle hContainerOut,CLINE_handle hCLINE,Bool dotline)
 		continue;
 
     //DEBUG
-//    Word32 hhh = (Word32)line;
+//    uint32_t hhh = (uint32_t)line;
 //    DLine* ddl = (DLine*)hhh;
 
     if (!LDPUMA_Skip(hWriteLineInFile))
@@ -1670,7 +1670,7 @@ void DeleteBadDotLine(CLINE_handle hCLINE,CCOM_handle hCCOM,Handle hCPAGE)
  Bool fl_break;
  CCOM_comp* comp=NULL;
  DLine data;
- const Word32 size_line=sizeof(DLine);
+ const uint32_t size_line=sizeof(DLine);
 
  for(CLINE_handle hline=CLINE_GetFirstLine(hCLINE);hline;hline=CLINE_GetNextLine(hline))
  {
@@ -2029,7 +2029,7 @@ Bool32 CorrectDoubleLines(CLINE_handle hContainer)
 
 	CLINE_handle hLine1, hLine2;
 	CPDLine cpLine1, cpLine2;
-	Word32 PageNumber = CPAGE_GetCurrentPage();
+	uint32_t PageNumber = CPAGE_GetCurrentPage();
 	Handle h_Page = CPAGE_GetHandlePage(PageNumber);
 	PAGEINFO page_info = {0};
 
@@ -2362,7 +2362,7 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, int32_t CountLines, CLINE_handle h
 	CPDLine pLine, pLineExt;
 	CLINE_handle hLineExt = NULL;
 	int32_t LineBeg, LineEnd, LineBegS, LineEndS, LineLen, spread = 0, simple_shift = 0;
-	Word32 PageNumber = CPAGE_GetCurrentPage();
+	uint32_t PageNumber = CPAGE_GetCurrentPage();
 	Handle h_Page = CPAGE_GetHandlePage(PageNumber);
 	PAGEINFO page_info = {0};
 	int32_t dpi;
@@ -3076,10 +3076,10 @@ void getLineIdealStrictRectangular(const NR_SimpLine *pdLine, Rect32* pRect, boo
 	Bool16 bCompressed;
 	Word8 cRepeater;
 	Word8 reserved;
-	Word32 wCount;
+	uint32_t wCount;
 } CompressHeader;
 
-Bool32 Compress(char * lpData, Word32 Size, char ** compressedData, Word32 * compressedSize)
+Bool32 Compress(char * lpData, uint32_t Size, char ** compressedData, uint32_t * compressedSize)
 {
 // Заменяем группу из не менее MIN_REPEAT одинаковых символов на счетчик повторений
 #define MIN_REPEAT 2*sizeof(CompressHeader)
@@ -3098,7 +3098,7 @@ Bool32 Compress(char * lpData, Word32 Size, char ** compressedData, Word32 * com
 		 * end=ordinary+Size;
 	do
 	{
-		Word32 count=1;
+		uint32_t count=1;
 		char * current=ordinary+1,
 			 * repeating=ordinary; //фрагмент, заполненный одинаковыми символами;
 		while (current<end)
@@ -3154,23 +3154,23 @@ Bool32 mywrite(void* of, const void* lpdata, int32_t size)
 #define TYPE_text				"TYPE_TEXT"
 #define TYPE_image				"TYPE_IMAGE"
 #define TYPE_page				"__PageInfo__"
-const Word32 type_text_len = strlen(TYPE_text) + 1;
-const Word32 type_image_len = strlen(TYPE_image) + 1;
-const Word32 type_page_len = strlen(TYPE_page) + 1;
-const Word32 data_size = sizeof(POLY_);
-const Word32 page_size = sizeof(PAGEINFO);
+const uint32_t type_text_len = strlen(TYPE_text) + 1;
+const uint32_t type_image_len = strlen(TYPE_image) + 1;
+const uint32_t type_page_len = strlen(TYPE_page) + 1;
+const uint32_t data_size = sizeof(POLY_);
+const uint32_t page_size = sizeof(PAGEINFO);
 
-Bool32 writeBin(char* file_name, int32_t nIncline, Rect16* aRect, Word32* aType, Word32* aNumber, int32_t aCount)
+Bool32 writeBin(char* file_name, int32_t nIncline, Rect16* aRect, uint32_t* aType, uint32_t* aNumber, int32_t aCount)
 {
 	ofstream bin_file(file_name, ios::out|ios::binary);
 
 	if (bin_file.fail())
 		return FALSE;
 
-	Word32 vers = VERSION_FILE_COMPRESSED;
+	uint32_t vers = VERSION_FILE_COMPRESSED;
 	Bool32 rc =	mywrite(&bin_file, &vers, sizeof(vers));
 	int count = 1;//number of pages
-	Word32 flags = 0;
+	uint32_t flags = 0;
 
 	if (rc)
 		rc = mywrite(&bin_file, &count, sizeof(count));
@@ -3214,7 +3214,7 @@ Bool32 writeBin(char* file_name, int32_t nIncline, Rect16* aRect, Word32* aType,
 			if (rc)
 			{
 				char* compressed_data;
-				Word32 compressed_size;
+				uint32_t compressed_size;
 
 				POLY_ block;
 
@@ -3259,7 +3259,7 @@ Bool32 writeBin(char* file_name, int32_t nIncline, Rect16* aRect, Word32* aType,
 	{//from PAGEINFO
 		PAGEINFO info;
 		char* compressed_data;
-		Word32 compressed_size;
+		uint32_t compressed_size;
 
 		memset(&info, 0, page_size);
 

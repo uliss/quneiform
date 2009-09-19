@@ -363,7 +363,7 @@ static Word16 rot(Word16 n) { return ((n<<3) + (n>>13)); }
 static Int16 seek_events(Word8* ep)
 {
  Word16 hash,i,nl;
- Word32 di;
+ uint32_t di;
  Word8* p;
  //if (db_status) snap_keep(snap_vector,ep,*ep+4);
  if( enable_save_stat )
@@ -380,8 +380,8 @@ for(i=0;i<n;i++)
  hash = *(ep+3) = (tabb[nl] + taba[nl-*(ep+1)] + *(ep+2)) & 0xff;
  i = nl; p=ep+4; while (i--) hash = rot(hash) ^ (Word16)(*(p++));
  hash = (hash & 0xff) ^ (hash >> 8);
- p = ((nl-1) * 256 + hash) * sizeof(Word32) + events_tree_rt;
- di = *((Word32 *)p); if (di==0) return 0; p = events_tree_rt+di;
+ p = ((nl-1) * 256 + hash) * sizeof(uint32_t) + events_tree_rt;
+ di = *((uint32_t *)p); if (di==0) return 0; p = events_tree_rt+di;
  nl++;
  while (*p)
   {

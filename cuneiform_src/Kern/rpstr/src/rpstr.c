@@ -107,7 +107,7 @@ static Word8 get_lang4page()
 }
 
 // memory funct
-static void *   rpstr_alloc(Word32 len)
+static void *   rpstr_alloc(uint32_t len)
     {
     void *ma = malloc(len);
     if( !ma )
@@ -115,11 +115,11 @@ static void *   rpstr_alloc(Word32 len)
     memset(ma,0,len);
     return ma;
     }
-static void     rpstr_free(void *ptr,Word32 len) { free(ptr);};
-static void *   rpstr_realloc(void *ptr,Word32 len) { return realloc(ptr,len);};
-static void * (*my_alloc)(Word32 len)=rpstr_alloc;
-static void   (*my_free)(void *,Word32 len)=rpstr_free;
-static void * (*my_realloc)(void *,Word32 len)=rpstr_realloc;
+static void     rpstr_free(void *ptr,uint32_t len) { free(ptr);};
+static void *   rpstr_realloc(void *ptr,uint32_t len) { return realloc(ptr,len);};
+static void * (*my_alloc)(uint32_t len)=rpstr_alloc;
+static void   (*my_free)(void *,uint32_t len)=rpstr_free;
+static void * (*my_realloc)(void *,uint32_t len)=rpstr_realloc;
 
 
 
@@ -163,14 +163,14 @@ Snap_Console(buf);
 return;
 }
 
-Word32 myMonitorProc(Handle wnd,Handle hwnd,Word32 message,Word32 wParam,Word32 lParam)
+uint32_t myMonitorProc(Handle wnd,Handle hwnd,uint32_t message,uint32_t wParam,uint32_t lParam)
 {
 int             ret=0;
-Word32          pos;
+uint32_t          pos;
 CSTR_rast       r=(CSTR_rast)0;
 CSTR_rast_attr  attr;
 
-pos=LDPUMA_CSTR_GetPosition((Word32 *)&r);
+pos=LDPUMA_CSTR_GetPosition((uint32_t *)&r);
 
 if (!is_turkish_language(language)) // 12.06.2002 E.P.
 	language=3;
@@ -234,7 +234,7 @@ switch(message)
 		break;
 	}
 
-return (Word32)(ret);
+return (uint32_t)(ret);
 }
 
 /////////////////////
@@ -280,14 +280,14 @@ return;
 }
 
 
-RPSTR_FUNC(Word32)   RPSTR_GetReturnCode(void)
+RPSTR_FUNC(uint32_t)   RPSTR_GetReturnCode(void)
 {
 if( wLowRC == RPSTR_ERR_NO )
     return 0;
 return (wHeightRC<<16)|(wLowRC-RPSTR_ERR_MIN);
 }
 
-RPSTR_FUNC(char*)   RPSTR_GetReturnString(Word32 dwError)
+RPSTR_FUNC(char*)   RPSTR_GetReturnString(uint32_t dwError)
 {
   Word16 rc = (Word16)(dwError & 0xFFFF + RPSTR_ERR_MIN);
 	static char szBuffer[512];
@@ -514,12 +514,12 @@ for(i=0;i<=n;i++)
 return TRUE;
 }
 
-RPSTR_FUNC(Bool32) RPSTR_GetExportData(Word32 dwType, void * pData)
+RPSTR_FUNC(Bool32) RPSTR_GetExportData(uint32_t dwType, void * pData)
 {
 	Bool32 rc = TRUE;
   #define RPSTR_VERSION_CODE 1
     int32_t  vers = RPSTR_VERSION_CODE;
-#define EXPORT(name) *(Word32*)(pData)=(Word32)name;
+#define EXPORT(name) *(uint32_t*)(pData)=(uint32_t)name;
   wLowRC = RPSTR_ERR_NO;
 	switch(dwType)
 	{
@@ -554,7 +554,7 @@ RPSTR_FUNC(Bool32) RPSTR_GetExportData(Word32 dwType, void * pData)
 return rc;
 }
 
-RPSTR_FUNC(Bool32) RPSTR_SetImportData(Word32 dwType, void * pData)
+RPSTR_FUNC(Bool32) RPSTR_SetImportData(uint32_t dwType, void * pData)
 {
 
   wLowRC = RPSTR_ERR_NO;

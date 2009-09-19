@@ -207,7 +207,7 @@ struct file_comp_struct
  Int16   left;
  Word8  h;              // =0
  Word8  w;              // =0
- Word32 offset;
+ uint32_t offset;
  Word16  lth;
  Word8 scale;
  Word8 reserv;

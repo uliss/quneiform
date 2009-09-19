@@ -94,11 +94,11 @@ extern Handle DifferenCutToHistory;
 extern Handle hTime;
 int medium_statistics_h;
 extern int medium_h;
-Word32 code_str_cut_d = 117;
+uint32_t code_str_cut_d = 117;
 Bool32 WasCut = FALSE;
 Bool32 WasDif = FALSE;
-Word32 Code_UB_Kill = 0;
-Word32 Code_UB_Create = 0;
+uint32_t Code_UB_Kill = 0;
+uint32_t Code_UB_Create = 0;
 
 int CutStrings(POLY_* pBLOCK);
 int GetStatisticsH(void);
@@ -113,7 +113,7 @@ int GetMediumHeight(POLY_*);
 Bool GetMasP(Handle hCPage, Rect16 Rc, Word8** ppmasp);
 Bool Increase2(RecRaster* rast, CCOM_comp* comp);
 int GetCountNumbers(int num);
-void StrDrawRect(Handle wnd, Word32 OperCode, Word32 color, int top,
+void StrDrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top,
 		int bottom, int left, int right);
 Bool IfEqv(char* buf1, char* buf2);
 Bool IfEqv(Rect16 r1, Rect16 r2);
@@ -138,7 +138,7 @@ void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect32* Rc) {
 
 	for (comp = CCOM_GetFirst(hCCOM, NULL); comp; comp = CCOM_GetNext(comp,
 			NULL)) {
-		int size = sizeof(Word32);
+		int size = sizeof(uint32_t);
 
 		if (comp->upper >= top && comp->left >= left && comp->upper + comp->h
 				<= bottom && comp->left + comp->w <= right) {
@@ -146,7 +146,7 @@ void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect32* Rc) {
 				ub.code = Code_UB_Kill;
 				if (CCOM_GetUserBlock(comp, &ub)) {
 					if (ub.size == size) {
-						if (*((Word32*) (ub.data)) == Code_UB_Kill)
+						if (*((uint32_t*) (ub.data)) == Code_UB_Kill)
 							CCOM_Reanimate(comp);
 					}
 				}
@@ -154,7 +154,7 @@ void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect32* Rc) {
 				ub.code = Code_UB_Create;
 				if (CCOM_GetUserBlock(comp, &ub)) {
 					if (ub.size == size) {
-						if (*((Word32*) (ub.data)) == Code_UB_Create)
+						if (*((uint32_t*) (ub.data)) == Code_UB_Create)
 							CCOM_Kill(comp);
 					}
 				}
@@ -362,8 +362,8 @@ Bool GetMasP(Handle hCPage, Rect16 Rc, Word8** ppmasp) {
 	int i;
 
 	//  1. Подготовка к запросу части изображения.
-	DataInto.dwHeight = (Word32)(h);
-	DataInto.dwWidth = (Word32)(prewide);
+	DataInto.dwHeight = (uint32_t)(h);
+	DataInto.dwWidth = (uint32_t)(prewide);
 	DataInto.wByteWidth = (Word16)(prewide / 8);
 	DataInto.dwX = left;
 	DataInto.dwY = upper;
@@ -582,7 +582,7 @@ int GetCountNumbers(int num) {
 	return count;
 }
 
-void StrDrawRect(Handle wnd, Word32 OperCode, Word32 color, int top,
+void StrDrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top,
 		int bottom, int left, int right) {
 
 	Rect16 Rect;

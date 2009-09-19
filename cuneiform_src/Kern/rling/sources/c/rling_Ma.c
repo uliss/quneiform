@@ -117,12 +117,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //      4)      call function spelling
 
 
-void * (*my_alloc)(Word32 )= RLINGAlloc;                  //rling_alloc;
+void * (*my_alloc)(uint32_t )= RLINGAlloc;                  //rling_alloc;
 void   (*my_free)(void * )= RLINGFree;             //rling_free;
 void   user_voc_init(void);
 void GetRecFileName(Int16 tab,Int16 lang, pchar wname);
 void   append_by_lang (Int16 lang, pchar src, pchar dst);
-//Word32 LoadUserDict(PChar8 DictName, PChar8 pool, Word32 pool_size, voc_state *user_dict);
+//uint32_t LoadUserDict(PChar8 DictName, PChar8 pool, uint32_t pool_size, voc_state *user_dict);
 ///////////////////////////////////////////////////////////
 Int16 to_voc();
 ///////////////////////////////////////////////////////////
@@ -326,7 +326,7 @@ Int16 TE_open(Int16 Stream, pchar Name, Int16 Type, Int16 SubType)
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //
-Int16 TE_write(Int16 File, PWord8 Data, Word32 Size)
+Int16 TE_write(Int16 File, PWord8 Data, uint32_t Size)
 {
         Int16 i;
 
@@ -462,7 +462,7 @@ void trees_load_rling()
 //
 void read_rec_file(Int16 fileno, PWord8 pool, PWord8 * end)
 {
-        Word32 l;
+        uint32_t l;
         Int16 h;
 
         h = TBOPEN(fileno,-1,(Int16)(O_RDONLY|O_BINARY), 0);

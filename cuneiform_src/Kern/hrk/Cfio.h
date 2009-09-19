@@ -113,10 +113,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ///////////////////////////////////////////////////////////////////////////////////////////////
 CFIO_FUNC(Bool32) CFIO_Init(Word16 wHeightCode,Handle hStorage);
 CFIO_FUNC(Bool32) CFIO_Done();
-CFIO_FUNC(Word32) CFIO_GetReturnCode();
-CFIO_FUNC(char *) CFIO_GetReturnString(Word32 dwError);
-CFIO_FUNC(Bool32) CFIO_GetExportData(Word32 dwType, void * pData);
-CFIO_FUNC(Bool32) CFIO_SetImportData(Word32 dwType, void * pData);
+CFIO_FUNC(uint32_t) CFIO_GetReturnCode();
+CFIO_FUNC(char *) CFIO_GetReturnString(uint32_t dwError);
+CFIO_FUNC(Bool32) CFIO_GetExportData(uint32_t dwType, void * pData);
+CFIO_FUNC(Bool32) CFIO_SetImportData(uint32_t dwType, void * pData);
 ///////////////////////////////////////////////////////////////////////////////////////////////
 enum Parameters
 {
@@ -162,10 +162,10 @@ enum CFIOFolders
 //Open storage
 #define   OS_CREATE               0x01
 #define   OS_OPEN                 0x02
-//typedef   Handle (*FNOpenStorage)(char *, Word32);
+//typedef   Handle (*FNOpenStorage)(char *, uint32_t);
 //Handle    OpenStorage            (char * lpName,
-//								  Word32 dwTypes);
-DEC_FUN(Handle, OpenStorage, (pchar, Word32) );
+//								  uint32_t dwTypes);
+DEC_FUN(Handle, OpenStorage, (pchar, uint32_t) );
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Close Storage
 #define   CS_WITHOUT_SAVE         0x01                                 // Only close
@@ -174,10 +174,10 @@ DEC_FUN(Handle, OpenStorage, (pchar, Word32) );
 #define   CS_SAVE                 0x08                                 // Save storage at current state
 #define   CS_FILE_SAVE            0x10                                 // Save all attached files
 #define   CS_ALL                  0x20                                 // Close all open storages
-//typedef   Bool32 (*FNCloseStorage)(Handle, Word32);
+//typedef   Bool32 (*FNCloseStorage)(Handle, uint32_t);
 //Bool32    CloseStorage            (Handle  hStorage,
-//								   Word32  dwFlag);
-DEC_FUN(Bool32, CloseStorage, (Handle, Word32));
+//								   uint32_t  dwFlag);
+DEC_FUN(Bool32, CloseStorage, (Handle, uint32_t));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Delete storage from disk (don't need to be opened)
 //typedef   Bool32 (*FNDeleteStorage)(char *);
@@ -186,11 +186,11 @@ DEC_FUN(Bool32, DeleteStorage, (pchar));
 ////////////////////////////////////////////////////////////////////////////////////////////////////////Files
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Write file to storage
-//typedef   Word32 (*FNWriteFileToStorage)(Handle , Handle, char * );
-//Word32    WriteFileToStorage            (Handle hStorage,
+//typedef   uint32_t (*FNWriteFileToStorage)(Handle , Handle, char * );
+//uint32_t    WriteFileToStorage            (Handle hStorage,
 //										 Handle hFile,
 //										 char * lpName);
-DEC_FUN(Word32, WriteFileToStorage, (Handle , Handle, pchar ));
+DEC_FUN(uint32_t, WriteFileToStorage, (Handle , Handle, pchar ));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Read file from storage
 //typedef   Handle (*FNReadFileFromStorage)(Handle , char * );
@@ -206,50 +206,50 @@ DEC_FUN(Handle, ReadFileFromStorage, (Handle , pchar ));
 #define   OSF_BINARY               0x10
 #define   OSF_IN_MEMORY            0x20
 #define   OSF_TEMPORARY            0x40
-//typedef   Handle (*FNOpen)(Handle, char *, Word32);
+//typedef   Handle (*FNOpen)(Handle, char *, uint32_t);
 //Handle    OpenFreeFile    (Handle hFile,
 //						   char * lpName,
-//						   Word32 dwFlag);
-DEC_FUN(Handle, OpenFreeFile, (Handle, pchar, Word32));
+//						   uint32_t dwFlag);
+DEC_FUN(Handle, OpenFreeFile, (Handle, pchar, uint32_t));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Close file
 #define   CSF_SAVEDISK             0x01
 #define   CSF_SAVESTORAGE          0x02
 #define   CSF_DELETE               0x04
 #define   CSF_WRITE                0x08
-//typedef   Bool32 (*FNClose)(Handle, Word32);
+//typedef   Bool32 (*FNClose)(Handle, uint32_t);
 //Bool32    CloseFreeFile    (Handle hFile,
-//							Word32 dwFlag);
-DEC_FUN(Bool32, CloseFreeFile, (Handle, Word32));
+//							uint32_t dwFlag);
+DEC_FUN(Bool32, CloseFreeFile, (Handle, uint32_t));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Write data to file
-//typedef   Word32 (*FNWrite)(Handle, char *, Word32);
-//Word32    WriteToFile      (Handle hFile,
+//typedef   uint32_t (*FNWrite)(Handle, char *, uint32_t);
+//uint32_t    WriteToFile      (Handle hFile,
 //							char * lpData,
-//							Word32 dwSize);
-DEC_FUN(Word32, WriteToFile, (Handle, pchar, Word32));
+//							uint32_t dwSize);
+DEC_FUN(uint32_t, WriteToFile, (Handle, pchar, uint32_t));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Read data from file
-//typedef   Word32 (*FNRead)(Handle, char *, Word32);
-//Word32    ReadFromFile    (Handle hFile,
+//typedef   uint32_t (*FNRead)(Handle, char *, uint32_t);
+//uint32_t    ReadFromFile    (Handle hFile,
 //						   char * lpData,
-//						   Word32 dwSize);
-DEC_FUN(Word32, ReadFromFile, (Handle, pchar, Word32));
+//						   uint32_t dwSize);
+DEC_FUN(uint32_t, ReadFromFile, (Handle, pchar, uint32_t));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Seek pointer
 #define   FS_END                   0x01
 #define   FS_BEGIN                 0x02
 #define   FS_CUR                   0x04
-//typedef   Word32 (*FNSeek)(Handle, Word32, Word32);
-//Word32    SeekFilePointer (Handle hFile,
-//						   Word32 dwBytes,
-//						   Word32 dwFrom);
-DEC_FUN(Word32, SeekFilePointer, (Handle, Word32, Word32));
+//typedef   uint32_t (*FNSeek)(Handle, uint32_t, uint32_t);
+//uint32_t    SeekFilePointer (Handle hFile,
+//						   uint32_t dwBytes,
+//						   uint32_t dwFrom);
+DEC_FUN(uint32_t, SeekFilePointer, (Handle, uint32_t, uint32_t));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Tell pointer
-//typedef   Word32 (*FNTell)(Handle);
-//Word32    TellFilePointer (Handle hFile);
-DEC_FUN(Word32, TellFilePointer, (Handle));
+//typedef   uint32_t (*FNTell)(Handle);
+//uint32_t    TellFilePointer (Handle hFile);
+DEC_FUN(uint32_t, TellFilePointer, (Handle));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Flash data from buffer
 //typedef   Bool32 (*FNFlush)(Handle);
@@ -274,11 +274,11 @@ DEC_FUN(Bool32, FlushFile, (Handle));
 #define   MAF_GALL_GMEM_SHARE        0x2000
 #define   MAF_GALL_GMEM_ZEROINIT     0x4000
 #define   MAF_GALL_GMEM_RESERVED     0x8000
-//typedef   Handle (*FNAlloc)(Word32, Word32);
-//Handle    AllocMemory      (Word32 dwSize,
-//							Word32 dwFlag);
-DEC_FUN(Handle, AllocMemory, (Word32, Word32));
-DEC_FUN(Handle, DAllocMemory, (Word32, Word32, char*, char*));
+//typedef   Handle (*FNAlloc)(uint32_t, uint32_t);
+//Handle    AllocMemory      (uint32_t dwSize,
+//							uint32_t dwFlag);
+DEC_FUN(Handle, AllocMemory, (uint32_t, uint32_t));
+DEC_FUN(Handle, DAllocMemory, (uint32_t, uint32_t, char*, char*));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ReAlloc memory
 #define   MRF_NEW_MEMORY                  0x0000
@@ -286,11 +286,11 @@ DEC_FUN(Handle, DAllocMemory, (Word32, Word32, char*, char*));
 #define   MRF_GALL_GMEM_MOVEABLE          0x0002
 #define   MRF_GALL_GMEM_NOCOMPACT         0x0004
 #define   MRF_GALL_GMEM_ZEROINIT          0x0008
-//typedef   Handle (*FNReAlloc)(Handle, Word32, Word32);
+//typedef   Handle (*FNReAlloc)(Handle, uint32_t, uint32_t);
 //Handle    ReAllocMemory      (Handle hMemory,
-//							  Word32 dwSize,
-//							  Word32 dwFlag);
-DEC_FUN(Handle, ReAllocMemory, (Handle, Word32, Word32));
+//							  uint32_t dwSize,
+//							  uint32_t dwFlag);
+DEC_FUN(Handle, ReAllocMemory, (Handle, uint32_t, uint32_t));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Free memory
 //typedef   Bool32 (*FNFree);
@@ -308,30 +308,30 @@ DEC_FUN(Handle, LockMemory, (Handle));
 DEC_FUN(Bool32, UnlockMemory, (Handle));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Write from memory to disk
-//typedef   Word32 (*FNWriteMemToFile)(Handle, char *);
-//Word32    WriteMemoryToFile         (Handle hMem,
+//typedef   uint32_t (*FNWriteMemToFile)(Handle, char *);
+//uint32_t    WriteMemoryToFile         (Handle hMem,
 //									 char * lpName);
-DEC_FUN(Word32, WriteMemoryToFile, (Handle, pchar));
+DEC_FUN(uint32_t, WriteMemoryToFile, (Handle, pchar));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Read data from disk to memory
-//typedef   Word32 (*FNReadMemFromFile)(char *, Handle *);
-//Word32    ReadMemoryFromFile         (char * lpName,
+//typedef   uint32_t (*FNReadMemFromFile)(char *, Handle *);
+//uint32_t    ReadMemoryFromFile         (char * lpName,
 //									  Handle * phMem);
-DEC_FUN(Word32, ReadMemoryFromFile, (pchar, Handle *));
+DEC_FUN(uint32_t, ReadMemoryFromFile, (pchar, Handle *));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Write data from memory to storage
-//typedef   Word32 (*FNWriteMemToStorage)(Handle, Handle, char *);
-//Word32    WriteMemoryToStorage         (Handle hMem,
+//typedef   uint32_t (*FNWriteMemToStorage)(Handle, Handle, char *);
+//uint32_t    WriteMemoryToStorage         (Handle hMem,
 //										Handle hStorage,
 //										char * lpName);
-DEC_FUN(Word32, WriteMemoryToStorage, (Handle, Handle, pchar));
+DEC_FUN(uint32_t, WriteMemoryToStorage, (Handle, Handle, pchar));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Read data from storage to memory
-//typedef   Word32 (*FNReadMemFromStorage)(Handle, char *, Handle *);
-//Word32    ReadMemoryFromStorage         (Handle hStorage,
+//typedef   uint32_t (*FNReadMemFromStorage)(Handle, char *, Handle *);
+//uint32_t    ReadMemoryFromStorage         (Handle hStorage,
 //										 char * lpName,
 //										 Handle * phMem);
-DEC_FUN(Word32, ReadMemoryFromStorage, (Handle, pchar, Handle *));
+DEC_FUN(uint32_t, ReadMemoryFromStorage, (Handle, pchar, Handle *));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #undef DEC_FUN
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////

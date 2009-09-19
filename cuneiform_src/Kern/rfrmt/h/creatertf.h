@@ -515,7 +515,7 @@ public:
   BYTE                 m_FirstChar;
   BYTE                 m_Attr;
   BYTE                 m_FlagCarry;
-  Word32               S_Flags; //NEGA_STR vmk 10-06-2001
+  uint32_t               S_Flags; //NEGA_STR vmk 10-06-2001
 };
 
 /////////////////////////////////////////////////////////////////////////////

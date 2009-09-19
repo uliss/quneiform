@@ -945,7 +945,7 @@ Bool MyRotateImage(Word8* ImageName,Word8* RotateImageName,int skew,Rect16* Rc,B
  int w;
  int own_skew=skew;
  int time;
- Word32 use_marg;
+ uint32_t use_marg;
  if(vertical)
 	 w=Rc->bottom-Rc->top+1;
  else

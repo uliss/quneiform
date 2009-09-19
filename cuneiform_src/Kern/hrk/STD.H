@@ -169,8 +169,8 @@ typedef struct tagStdMemInfo
    STD_FUNC( Bool32 ) stdCopyDirectory(
       const char * lpDirNameDst,const char * lpDirNameSrc);
 
-  STD_FUNC( Word32 ) stdGetCurrentDirectory(
-      Word32 nBufferLength,   // size, in characters, of directory buffer
+  STD_FUNC( uint32_t ) stdGetCurrentDirectory(
+      uint32_t nBufferLength,   // size, in characters, of directory buffer
       char * lpBuffer   // address of buffer for current directory
       ); // Win32 ::GetCurrentDirectory() analog
 

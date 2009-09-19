@@ -274,10 +274,10 @@ void * hrealloc_m(void *ptr_old, long size_old, long size_new);
 	#include "globus.h"
 #include "wind32.h"
 
-void  free_t(void *ptr, Word32 size);
-void* malloc_t(Word32 size);
-void* malloc_u(Word32 size);
-void  free_u(void *ptr, Word32 size);
+void  free_t(void *ptr, uint32_t size);
+void* malloc_t(uint32_t size);
+void* malloc_u(uint32_t size);
+void  free_u(void *ptr, uint32_t size);
 void  ProjectRect1024(Rect16 *r,int32_t Skew1024);
 void ProjectPoint1024(Point16 *r,int32_t Skew1024);
 void  ProjectPoint(Point16 *r,float tg_ang);

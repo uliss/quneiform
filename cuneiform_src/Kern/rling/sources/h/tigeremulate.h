@@ -86,7 +86,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define DIRSEP        '\\'
 
 INT    TE_open          (INT, char *, INT, INT);    /* / stream, name, ... */
-Int16    TE_write         (Int16, PWord8, Word32);    /* / stream, name, ... */
+Int16    TE_write         (Int16, PWord8, uint32_t);    /* / stream, name, ... */
 INT    TE_table_op      (INT, INT, INT, INT);      /* / table #, ...          */
 int32_t   TE_read          (Int16, pchar, int32_t);        /* / handle, addr, lth */
 INT    TE_close         (INT);                      /* / handle            */

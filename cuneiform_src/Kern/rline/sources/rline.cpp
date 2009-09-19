@@ -158,8 +158,8 @@ int32_t hRLINE_Pass2Lost1 = 75;
 int32_t hRLINE_Pass2Lost2 = 95;
 //Handle    hUseCLine;
 void *    hTmpDIB;
-Word32    HorType;
-Word32    VerType;
+uint32_t    HorType;
+uint32_t    VerType;
 
 Handle Parts;
 Handle Part2;
@@ -187,14 +187,14 @@ Imxs imxs;
 Word16    min_h_len = 40,
 	      min_v_len = 40;
 Word16	  rc16;
-Word32	  rc32;
+uint32_t	  rc32;
 
 	//Almi 16.05.01
     int MinHorLenForTrue = 129;//113;//было 100
 	int MinVerLenForTrue = 94;//58; //было  50
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-void SetReturnCode_rline( Word32 );
+void SetReturnCode_rline( uint32_t );
 void SetReturnCode_rline( Word16 );
 void CleanLineData( void* pdata,int size);
 
@@ -512,7 +512,7 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 		if (!draw_window) draw_window = LDPUMA_GetWindowHandle (PUMA_IMAGE_TURN);
         if (!draw_window) draw_window = LDPUMA_CreateWindow(NULL, NULL);
 
-        Word32 x = 255<<8;
+        uint32_t x = 255<<8;
 		int32_t temp;
 		int i;
 		for(i=0;i<lti.Hor.Cnt;i++)

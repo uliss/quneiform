@@ -137,8 +137,8 @@ typedef const DLns* CPDLns;
 
 typedef struct Line_Data_struct
 {
-  Word32          Flags;                   // common use info
-  Word32          Tail;                    // остаток линии за таблицой
+  uint32_t          Flags;                   // common use info
+  uint32_t          Tail;                    // остаток линии за таблицой
   Rect32          rect;                    // прямоугольник линии
   Bool32          ProcessingType;          // тип обработки линии(гор. или верт.)
   int32_t           LineEventsLength;        // сумма черных точек линии

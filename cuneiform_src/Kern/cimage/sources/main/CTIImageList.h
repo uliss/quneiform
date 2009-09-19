@@ -76,7 +76,7 @@ private:
 public:
 	Bool32 DeleteImage(const char * lpName);
 	Bool32 GetImage(const char *lpName, PHandle phDIB);
-	Bool32 AddImage(const char *lpName, Handle hDIB, Word32 wFlag);
+	Bool32 AddImage(const char *lpName, Handle hDIB, uint32_t wFlag);
 	Bool32           FindHandle(Handle hImage);
 	CTIImageList();
 	~CTIImageList();

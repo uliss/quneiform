@@ -90,7 +90,7 @@ void SetReturnCode_rling(Word16 rc);
 Word16 GetReturnCode_rling();
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-void *	RLINGAlloc(Word32 stAllocateBlock);
+void *	RLINGAlloc(uint32_t stAllocateBlock);
 void	RLINGFree(void * mem);
 void *  RLINGLock(void * mem);
 void    RLINGUnlock(void * mem);

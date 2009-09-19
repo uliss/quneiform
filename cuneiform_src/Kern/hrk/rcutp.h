@@ -91,10 +91,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 RCUTP_FUNC(Bool32) RCUTP_Init(Word16 wHeightCode,Handle hStorage);
 RCUTP_FUNC(Bool32) RCUTP_Done();
-RCUTP_FUNC(Word32) RCUTP_GetReturnCode();
-RCUTP_FUNC(char *) RCUTP_GetReturnString(Word32 dwError);
-RCUTP_FUNC(Bool32) RCUTP_GetExportData(Word32 dwType, void * pData);
-RCUTP_FUNC(Bool32) RCUTP_SetImportData(Word32 dwType, void * pData);
+RCUTP_FUNC(uint32_t) RCUTP_GetReturnCode();
+RCUTP_FUNC(char *) RCUTP_GetReturnString(uint32_t dwError);
+RCUTP_FUNC(Bool32) RCUTP_GetExportData(uint32_t dwType, void * pData);
+RCUTP_FUNC(Bool32) RCUTP_SetImportData(uint32_t dwType, void * pData);
 
 /////////////////////////////////////////////////////////////
 typedef enum

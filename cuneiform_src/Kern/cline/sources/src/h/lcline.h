@@ -155,7 +155,7 @@ public:
 	LIST<CLine>                   m_line;
 
 	CHLine* next;
-	Word32 reserv;
+	uint32_t reserv;
 
 	CHLine(){next=NULL;}
 	~CHLine(){}

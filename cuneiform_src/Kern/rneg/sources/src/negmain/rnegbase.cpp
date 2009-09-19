@@ -323,17 +323,17 @@ RNEG_FUNC(Bool32) RNEG_Done()
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-RNEG_FUNC(Word32) RNEG_GetReturnCode()
+RNEG_FUNC(uint32_t) RNEG_GetReturnCode()
 {
-	return (Word32)(0);
+	return (uint32_t)(0);
 }
 /*---------------------------------------------------------------------------*/
-RNEG_FUNC(char *) RNEG_GetReturnString(Word32 dwError)
+RNEG_FUNC(char *) RNEG_GetReturnString(uint32_t dwError)
 {
 	return NULL;
 }
 /*---------------------------------------------------------------------------*/
-RNEG_FUNC(Bool32) RNEG_GetExportData(Word32 dwType, void * pData)
+RNEG_FUNC(Bool32) RNEG_GetExportData(uint32_t dwType, void * pData)
 {
 
 
@@ -352,7 +352,7 @@ RNEG_FUNC(Bool32) RNEG_GetExportData(Word32 dwType, void * pData)
 }
 
 /*---------------------------------------------------------------------------*/
-RNEG_FUNC(Bool32) RNEG_SetImportData(Word32 dwType, void *pData)
+RNEG_FUNC(Bool32) RNEG_SetImportData(uint32_t dwType, void *pData)
 {
 
 	return FALSE;

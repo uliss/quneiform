@@ -87,7 +87,7 @@ void MyErrorNoMem (const char* str);
 void   SetReturnCode_rverline (Word16 rc);
 /*------------own functions---------------------------------------------------*/
 Bool MyInit_CPage ();
-Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage, Word32 *pHoriType, Word32 *pVertType, char *pStr);
+Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage, uint32_t *pHoriType, uint32_t *pVertType, char *pStr);
 Bool MyGetComp (Handle hCCOM, Rect16 *pRc, int *nRC, int MyMaxC, int Filter);
 void Error_CPage (const char *str);
 Bool MyFormZhertvy (Handle hCCOM, void **vvZher, int *iZher, int nZher, int Filter);
@@ -122,7 +122,7 @@ Bool MyInit_CPage ()
 Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin, Handle *hCPage, Handle *pHoriType, Handle *pVertType, char *pStr)
 {
 	int i;
-	Word32 err32, nTeor, nReal;
+	uint32_t err32, nTeor, nReal;
 	Handle hBlockLine;
 	Handle hBlockLineHor;
 	Handle hBlockLineVer;
@@ -292,7 +292,7 @@ Bool MyGetLines (LinesTotalInfo *pLti, int MaxNumLin,CLINE_handle hCLINE,char *p
 Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType, Handle VertType)
 {
 	int i;
-	Word32 err32, nTeor;//, nReal;
+	uint32_t err32, nTeor;//, nReal;
 	Bool32 nReal;//differ
 	Handle hBlockLine;
 	Handle hBlockLineHor;
@@ -568,7 +568,7 @@ Bool MyFormZhertvy (Handle hCCOM, void **vvZher, int *iZher, int nZher, int Filt
 /*----------------------------------------------------------------------------*/
 Bool MySetZher (void **vvZher, int nZher, Handle hCPage)
 {
-	Word32 err32, nTeor;//, nReal;//dwTableType
+	uint32_t err32, nTeor;//, nReal;//dwTableType
 	Handle hBlockZher;
 	int i;
 	nTeor = sizeof (void *);
@@ -596,7 +596,7 @@ Bool MySetZher (void **vvZher, int nZher, Handle hCPage)
 /*----------------------------------------------------------------------------*/
 Bool MyGetZher (void **vvZher, int *nZher, int MaxZher, Handle hCPage)
 {
-	Word32 err32, nTeor, nReal;
+	uint32_t err32, nTeor, nReal;
 	Handle hBlockZher;
 	Handle hBlockPrev;
 	int i;
@@ -645,7 +645,7 @@ Bool MyGetRaster (Handle hCPage, VL_I_TASK *pTask, Word8 **ppData)
 	Bool ret;
 	int i;
 	/*  1. Подготовка к запросу части изображения.  */
-	DataInto.dwHeight   = (Word32)pTask->MyHeight;
+	DataInto.dwHeight   = (uint32_t)pTask->MyHeight;
 	DataInto.dwWidth    = pTask->MyExtrWidth;
 	DataInto.wByteWidth = (Int16)((pTask->MyExtrWidth+7)/8);//06.09.00
 	DataInto.dwX        = pTask->MyLeft;
