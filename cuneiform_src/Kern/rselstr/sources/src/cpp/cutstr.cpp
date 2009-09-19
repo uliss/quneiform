@@ -68,7 +68,7 @@
 #include "polyblock.h"
 #include "rcutp.h"
 
-#define RGB(r,g,b)          ((COLORREF)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
+#define RGB(r,g,b)          ((COLORREF)(((BYTE)(r)|((uint16_t)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
 typedef uint32_t COLORREF;
 
 #define TYPE_NormalZone		CPAGE_GetInternalType("TYPE_NormalZone")

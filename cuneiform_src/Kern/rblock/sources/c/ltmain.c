@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#define LT_DUMP 1
 //#pragma message(__FILE__"(34): здесь закомментировать '#define LT_DUMP 1'")
 
-extern WORD run_options;
+extern uint16_t run_options;
 
 /*********************************/
 extern Handle hPageBeforeEditing ;

@@ -445,7 +445,7 @@ DRR_Ret:
 INT prop_index(INT h, INT w)
 {
  if (fax1x2)	h+=2;
- if (w <= h)   	return ((WORD)w << 6) / h;
- else		return 128 - ((WORD)h << 6) / w;
+ if (w <= h)   	return ((uint16_t)w << 6) / h;
+ else		return 128 - ((uint16_t)h << 6) / w;
 }
 

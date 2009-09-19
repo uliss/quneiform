@@ -174,7 +174,7 @@ public:
    //
    //
    //
-   LRESULT OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
+   LRESULT OnInitDialog(uint /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
 	{
       int i = 0;
 
@@ -296,7 +296,7 @@ public:
    //
    //
    //
-   LRESULT OnSysCommand(UINT, WPARAM wParam, LPARAM , Bool& bHandled)
+   LRESULT OnSysCommand(uint, WPARAM wParam, LPARAM , Bool& bHandled)
    {
       bHandled = FALSE;
 
@@ -315,7 +315,7 @@ public:
    //
    // Force white background for read-only rich edit control
    //
-   LRESULT OnCtlColor(UINT, WPARAM, LPARAM lParam, Bool& bHandled)
+   LRESULT OnCtlColor(uint, WPARAM, LPARAM lParam, Bool& bHandled)
    {
       LRESULT res = 0;
       if ((HWND)lParam == GetDlgItem(IDC_FILE_EDIT))
@@ -332,7 +332,7 @@ public:
    //
    //
    //
-   LRESULT OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, Bool& /*bHandled*/)
+   LRESULT OnOK(uint16_t /*wNotifyCode*/, uint16_t wID, HWND /*hWndCtl*/, Bool& /*bHandled*/)
 	{
 		EndDialog(wID);
 		return 0;

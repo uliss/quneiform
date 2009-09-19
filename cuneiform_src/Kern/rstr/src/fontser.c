@@ -80,7 +80,7 @@ extern BYTE   p2_active;
 
 Bool32 p2_Line2Raster(c_comp *comp, RecRaster *rec);
 
-static WORD tabserif[256]={
+static uint16_t tabserif[256]={
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,        //  0-23
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,        // 24-47
 //                        ! " # $ % & ' ( ) * + , - . /
@@ -106,7 +106,7 @@ static WORD tabserif[256]={
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};                       // 240 - 255
 //      р с т у ф х ц ч ш щ ъ ы ь э ю
 
-static WORD tabvserif[256]={
+static uint16_t tabvserif[256]={
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,        //  0-23
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,        // 24-47
 //                        ! " # $ % & ' ( ) * + , - . /
@@ -136,7 +136,7 @@ static uint32_t key=2;                  //для snap'а
 static cell *serif_word(cell *c);
 static LONG new_serif(cell *c);
 static LONG fon_test(cell *c);
-static void find_serif(cell *c, WORD map, LONG *meas, LONG *np, LONG *nm);
+static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm);
 static LONG downserif(c_comp *env, BYTE shape, INT H, STICK *st);
 static LONG upserif(c_comp *env, BYTE shape, INT H, STICK *st);
 static interval *interval_fit(INT i, lnhead *line, INT H, STICK *st);
@@ -278,7 +278,7 @@ static cell *serif_word(cell *c)
 static LONG new_serif(cell *c)
 {
   BYTE let=let_sans_acc[c->vers[0].let];
-  WORD map=tabserif[let];
+  uint16_t map=tabserif[let];
   LONG meas=0,np=0,nm=0;
 
   if (map==0)
@@ -331,7 +331,7 @@ static LONG fon_test(cell *c)
   FonTestInfo testInfo[MAXCHECKALT];
   RecRaster recRast;
   BYTE let=let_sans_acc[c->vers[0].let];
-  WORD map=tabserif[let];
+  uint16_t map=tabserif[let];
   LONG i,nitem=0,serific,nbit=8*sizeof(map);
 
   if (map==0)
@@ -367,7 +367,7 @@ static LONG fon_test(cell *c)
   return (serific>=0) ? nitem : -nitem;
 }
 
-static void find_serif(cell *c, WORD map, LONG *meas, LONG *np, LONG *nm)
+static void find_serif(cell *c, uint16_t map, LONG *meas, LONG *np, LONG *nm)
 {
   STICK *st,*sti;
   INT i,nstick;

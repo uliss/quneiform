@@ -69,7 +69,7 @@
 //	Kernel functions
 Bool kernel_init(void);
 Bool bcr_init(void);
-void kernel_run_options(WORD options);
+void kernel_run_options(uint16_t options);
 Bool recognize(PBYTE ed_file_name);
 Bool page_analysis(void);
 Bool final_recognition(PBYTE ed_file_name);
@@ -83,14 +83,14 @@ Bool kernel_set_enable_table_recog(BYTE table_recog);
 Bool kernel_set_user_dict(BYTE *user_dict);
 
 //  Error status functions
-PCHAR get_message(WORD code);
-WORD get_error_status(void);
+PCHAR get_message(uint16_t code);
+uint16_t get_error_status(void);
 Bool bool_status(void);
-void set_error_status(WORD group, WORD element);
+void set_error_status(uint16_t group, uint16_t element);
 void clear_error_status(void);
 
 //	Convetrt to text
-Bool convert_to_text(PBYTE edfile, PBYTE textfile, WORD options, WORD codepage,
+Bool convert_to_text(PBYTE edfile, PBYTE textfile, uint16_t options, uint16_t codepage,
 		BYTE badchar);
 #define SAVE_TEXT_ED            0x01
 #define SAVE_TEXT_ASCII         0x02
@@ -128,29 +128,29 @@ void write_text(BYTE);
 //	Image read functions
 
 struct AttrImage {
-	WORD PixelHeight;
-	WORD PixelWidth;
-	WORD ByteWidth;
-	WORD LeftDisplacement;
-	WORD Resolution_X;
-	WORD Resolution_Y;
+	uint16_t PixelHeight;
+	uint16_t PixelWidth;
+	uint16_t ByteWidth;
+	uint16_t LeftDisplacement;
+	uint16_t Resolution_X;
+	uint16_t Resolution_Y;
 	BYTE FotoMetrics;
 	BYTE bUnused;
-	WORD AddX;
-	WORD AddY;
+	uint16_t AddX;
+	uint16_t AddY;
 };
 
 Bool Tiger_ImageOpen(struct AttrImage * p);
-Bool Tiger_ImageOpen_xy(struct AttrImage * p, WORD x, WORD y, WORD w, WORD h);
+Bool Tiger_ImageOpen_xy(struct AttrImage * p, uint16_t x, uint16_t y, uint16_t w, uint16_t h);
 Bool Tiger_ImageClose(void);
-INT Tiger_ImageRead(PBYTE buffer, WORD lth);
+INT Tiger_ImageRead(PBYTE buffer, uint16_t lth);
 uint32_t Tiger_ProcessPictures(PBYTE buffer, uint32_t lth);
 
 //	Immediate error report
-void Tiger_ReportError(WORD status, PBYTE message);
+void Tiger_ReportError(uint16_t status, PBYTE message);
 
 // Progress Monitor
 Bool Tiger_ProgressStart(void);
 Bool Tiger_ProgressFinish(void);
-Bool Tiger_ProgressSetPercentage(WORD wPercent);
-Bool Tiger_ProgressSetStage(WORD wStageNumber, PBYTE pStageName, WORD wVolume);
+Bool Tiger_ProgressSetPercentage(uint16_t wPercent);
+Bool Tiger_ProgressSetStage(uint16_t wStageNumber, PBYTE pStageName, uint16_t wVolume);

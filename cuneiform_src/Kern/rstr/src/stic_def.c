@@ -76,10 +76,10 @@ extern int  mk_dis_for_liga_exm;	// 06.01.1994
 extern BYTE left_letter_EEM;	// 17.01.1994
 /*......................................................................*/
 #ifdef	MKPRINT_ENABLE				// MK OTLADKA Variables
-extern WORD	mkm1, mkm2, mkm3, mkm4, mkm5;
-extern WORD	mkma, mkmb, mkmc, mkmd, mkme;
-extern WORD	d,d0,d1,d2,d3,d4,d5,d6,d7,d8,d9,d10;
-extern	WORD	mkFlag_Dump;
+extern uint16_t	mkm1, mkm2, mkm3, mkm4, mkm5;
+extern uint16_t	mkma, mkmb, mkmc, mkmd, mkme;
+extern uint16_t	d,d0,d1,d2,d3,d4,d5,d6,d7,d8,d9,d10;
+extern	uint16_t	mkFlag_Dump;
 #endif
 /*----------------------------------------------------------------------*/
 #ifdef	MKPRINT_ENABLE				// MK MACROS for PRINT:
@@ -143,8 +143,8 @@ static void calc_discrim_braces(BYTE left[], BYTE right[], INT dy, INT dx,
 static void filtrate_abris( BYTE left[],BYTE right[],INT dy,INT dx,INT wide,
 		      INT hooks[],INT ul,INT ur,INT dl,INT dr,INT inc);
 static INT calc_T_config(INT hist_int[],INT n,INT up_lim,INT lev);
-static WORD calc_T_2_3 (INT hist_int[],INT n);	//MK 21.01.1993 (old Y_config)
-static WORD abris_leap_new(BYTE left[], BYTE right[], INT n, INT wide); // MK
+static uint16_t calc_T_2_3 (INT hist_int[],INT n);	//MK 21.01.1993 (old Y_config)
+static uint16_t abris_leap_new(BYTE left[], BYTE right[], INT n, INT wide); // MK
 static Bool T_roof(INT hist_int[],BYTE left[],BYTE right[],INT n,INT w);
 static void add_stick_vers_a_posteriory (cell *c,
 		STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
@@ -302,8 +302,8 @@ INT stick_center_study (cell *c, s_glue *GLU, INT typ_snap )
 {
 INT dis_left_brace=0,dis_right_brace=0; /* discrim value for braces   */
 INT	dis_slash=0, l_f_sym=0, r_f_sym=0, typ_inc, typ_T;
-///WORD	T_2_3, T_skok;			// OLD  typ_Y  for  Y_config
-WORD	T_2_3, T_skok_LR;		// OLD  typ_Y  for  Y_config
+///uint16_t	T_2_3, T_skok;			// OLD  typ_Y  for  Y_config
+uint16_t	T_2_3, T_skok_LR;		// OLD  typ_Y  for  Y_config
 INT typ,wide,opt,prob,left_mode,right_mode,inc_v;
 INT skip_ul,skip_dl,skip_ur,skip_dr;
 INT nc,num_angles,f_a,wide_up;
@@ -570,7 +570,7 @@ if( c->pos_inc&erect_zero )
   {
   c->stick_inc=1;  /* versions in cell discrim ! */
   }
-/* c->stick_inc - information for next passes ( COMPLEX WORD ) */
+/* c->stick_inc - information for next passes ( COMPLEX uint16_t ) */
 /*......................................................................*/
 return(0);   /* normal return */
 }
@@ -657,7 +657,7 @@ return(FALSE);
 /*----------------------------------------------------------------------*/
 /* abris 'Y' hav'nt long jumps in upper zone */		// 21.01.1993	MK
 /////static Bool abris_leap_new (BYTE left[], BYTE right[], INT n, INT wide)  {
-static WORD abris_leap_new (BYTE left[], BYTE right[], INT n, INT wide)  {
+static uint16_t abris_leap_new (BYTE left[], BYTE right[], INT n, INT wide)  {
 							// 17.02.1993
 ////INT	i, porog = MAX (wide, 4) << 2, d, dL=0, dR=0;
 INT	i, porog = MAX (wide-2, 4) << 2, d, dL=0, dR=0;
@@ -674,7 +674,7 @@ INT	i, porog = MAX (wide-2, 4) << 2, d, dL=0, dR=0;
 	return ( (dL<<8) | dR );
 }
 /*----------------------------------------------------------------------*/
-static WORD calc_T_2_3 (INT hist_int[], INT n)  {	// 21.01.1993
+static uint16_t calc_T_2_3 (INT hist_int[], INT n)  {	// 21.01.1993
 INT	i, k, n2=0, n3=0;
 							// OLD Y_config
 	/* number of rows with >2 intervals : Y hav upper pit, T - no */
@@ -1132,10 +1132,10 @@ return(n);
 /*     return : propabilites letters 'f','r','t'  ( 0b00ttrrff or 0 )	*/
 /*              tt,rr,ff = 01(bad),10(good),11(verybad)			*/
 			// here was DEBUG_GRAPH
-WORD typ_thin_stick(lnhead *lin,INT dy,INT dx)
+uint16_t typ_thin_stick(lnhead *lin,INT dy,INT dx)
 {
 INT wide,opt,left_mode,right_mode,inc_v, nc, num_angles,f_a;
-WORD ret=0;
+uint16_t ret=0;
 STICK_CHARS left_chars,right_chars;
 STICK_SIGNUMS signums;
 

@@ -448,7 +448,7 @@ static Bool compadd(cell *c)
  extern PCHAR tableBOX;
  cell *cc;
  INT i,n;
- WORD max,prob;
+ uint16_t max,prob;
 
  for (i=0,cc=c->prevl->next;
 	 !(cc->flg&(c_f_let|c_f_bad|c_f_fict)) || cc->col<c->col+c->w;

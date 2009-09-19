@@ -112,10 +112,10 @@ PBYTE dcodeend;	// end of read line buffer ptr
 //								lth=12
 //		Line service
 //
-WORD dotlength;		// number of dots in the line
-WORD bytelength;	// length of the line in bytes
-WORD lineno;		// line counter
-WORD reserv_v1comp;	// arround byte
+uint16_t dotlength;		// number of dots in the line
+uint16_t bytelength;	// length of the line in bytes
+uint16_t lineno;		// line counter
+uint16_t reserv_v1comp;	// arround byte
 //								lth=7
 //
 //		Big tables size counting and its allocation

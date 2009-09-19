@@ -138,14 +138,14 @@ class  CRtfChar;
 
 struct RtfPageElementCount
 {
- WORD  RtfSectors;
- WORD  RtfTextFragments;
-	WORD  RtfFrameTextFragments;
- WORD  RtfPictureFragments;
- WORD  RtfTableFragments;
- WORD  RtfStrings;
- WORD  RtfWords;
- WORD  RtfChars;
+ uint16_t  RtfSectors;
+ uint16_t  RtfTextFragments;
+	uint16_t  RtfFrameTextFragments;
+ uint16_t  RtfPictureFragments;
+ uint16_t  RtfTableFragments;
+ uint16_t  RtfStrings;
+ uint16_t  RtfWords;
+ uint16_t  RtfChars;
 };
 
 typedef struct tagKEGL {
@@ -202,7 +202,7 @@ public:
   void                 ToPlacePicturesAndTables(void);
   void                 Rtf_CED_CreatePage(void);
   void                 Rtf_CED_WriteFormattedEd( const char* FileNameOut, Handle* );
-  WORD                 GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector* pRtfNextSector);
+  uint16_t                 GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector* pRtfNextSector);
   void                 SetPaperSize(int32_t LeftPos,int32_t RightPos,int32_t TopPos,int32_t BottomPos,int32_t* PaperW,int32_t* PaperH,
 																												        int32_t* MargL,int32_t* MargR,int32_t* MargT,int32_t* MargB);
 
@@ -211,7 +211,7 @@ public:
   /*CArray <KEGL,KEGL>*/std::vector<KEGL>   arKegls;
 
 		RtfPageElementCount  Count;
-	 WORD                 m_wDpi;
+	 uint16_t                 m_wDpi;
 		float                m_fTwips;
   RECT	               m_rect;
   RECT	               m_rectReal;
@@ -283,7 +283,7 @@ public:
   void                 CorrectIndents(int beg, int end);
   void                 SetParagraphAlignment(int beg, int end, int AlignType);
   void                 CalculationLengthAndCount(CRtfString* pRtfString, int32_t* CountChars, int32_t* LengthChars);
-  void                 GetCountEqual(int beg, int end, WORD* Count, int AlignType);
+  void                 GetCountEqual(int beg, int end, uint16_t* Count, int AlignType);
   Bool                 GetFlagCarry(int beg, int end);
   Bool                 GetFlagLeft(int beg, int end);
   Bool                 GetFlagStrongLeft(int beg, int end);
@@ -295,21 +295,21 @@ public:
 
   /*CObArray*/std::vector<CRtfString*>	           m_arStrings;
 
-  WORD     	           m_wStringsCount;
-  WORD	               m_wIndex;
+  uint16_t     	           m_wStringsCount;
+  uint16_t	               m_wIndex;
   RECT	               m_rect;
   RECT	               m_rectReal;
   RECT                m_rectFree;
-  WORD	               m_wType;
+  uint16_t	               m_wType;
 uint32_t                m_wInternalNumber;
 uint32_t                m_wUserNumber;
 uint32_t                m_wUserNumberForFormattedMode;
   LONG                 m_LeftOffsetFragmentFromVerticalColumn;
   LONG                 m_RightOffsetFragmentFromVerticalColumn;
-  WORD                 m_wOffsetFromPrevTextFragment;
+  uint16_t                 m_wOffsetFromPrevTextFragment;
 
-  WORD                 m_wBegStr;
-  WORD                 m_wEndStr;
+  uint16_t                 m_wBegStr;
+  uint16_t                 m_wEndStr;
 
   Bool                 m_bFlagObjectInColumn;
   Bool                 m_bFlagUsed;
@@ -320,18 +320,18 @@ uint32_t                m_wUserNumberForFormattedMode;
   Bool                 m_bflag_new_line;
   Bool                 m_bflag_change;
   Bool                 m_bflag_LineTransfer;
-  WORD                 m_wprev_font_name;
-  WORD                 m_wprev_Underline;
-  WORD                 m_wprev_Bold;
-  WORD                 m_wprev_Italic;
-  WORD                 m_wprev_lang;
-  WORD                 m_wprev_font_size;
-  WORD                 m_wvid_parag;
+  uint16_t                 m_wprev_font_name;
+  uint16_t                 m_wprev_Underline;
+  uint16_t                 m_wprev_Bold;
+  uint16_t                 m_wprev_Italic;
+  uint16_t                 m_wprev_lang;
+  uint16_t                 m_wprev_font_size;
+  uint16_t                 m_wvid_parag;
 
-  WORD                 m_CountLeftEqual;
-  WORD                 m_CountRightEqual;
-  WORD                 m_CountLeftRightEqual;
-  WORD                 m_CountCentreEqual;
+  uint16_t                 m_CountLeftEqual;
+  uint16_t                 m_CountRightEqual;
+  uint16_t                 m_CountLeftRightEqual;
+  uint16_t                 m_CountCentreEqual;
 
   int16_t                m_l_fragment;
   int16_t                m_r_fragment;
@@ -389,15 +389,15 @@ public:
 		vectorWord/*CWordArray*/           m_arWidthTerminalColumns;
   RtfSectorInfo        SectorInfo;
 
-  WORD     	           m_wHorizontalColumnsCount;
-  WORD     	           m_wFragmentsCount;
-  WORD     	           m_wTextFragmentsCount;
-  WORD     	           m_wPictureFragmentsCount;
-  WORD     	           m_wTableFragmentsCount;
-  WORD	                m_wIndex;
+  uint16_t     	           m_wHorizontalColumnsCount;
+  uint16_t     	           m_wFragmentsCount;
+  uint16_t     	           m_wTextFragmentsCount;
+  uint16_t     	           m_wPictureFragmentsCount;
+  uint16_t     	           m_wTableFragmentsCount;
+  uint16_t	                m_wIndex;
   RECT	               m_rect;
   RECT	               m_rectReal;
-  WORD	                m_wType;
+  uint16_t	                m_wType;
   Handle               m_hEDSector;
 		Bool                 m_FlagOneString;
 		Bool                 m_bFlagLine;
@@ -430,8 +430,8 @@ public:
   void                 ToPlacePicturesAndTables(CRtfFragment* Frament);
   Bool	                CheckTermColumn(void);
   void                 SortFragments(void);
-  WORD                 GetFreeSpaceBetweenPrevAndCurrentFragments(int TopPosCurFrag, RtfSectorInfo *SectorInfo);
-  WORD                 GetOffsetFromPrevTextFragment(CRtfFragment *pRtfFragment);
+  uint16_t                 GetFreeSpaceBetweenPrevAndCurrentFragments(int TopPosCurFrag, RtfSectorInfo *SectorInfo);
+  uint16_t                 GetOffsetFromPrevTextFragment(CRtfFragment *pRtfFragment);
   Bool                 GetOverLayedFlag(int CurFragmentNumber);
   void                 SetFlagObjectInColumnForPageFragment( CRtfFragment* CurFragment );
 
@@ -441,11 +441,11 @@ public:
   /*CWordArray*/vectorWord           m_arSpacePlace;
 		/*CByteArray*/std::vector<BYTE>           m_arOrderingNumber;
 
-  WORD     	           m_wVerticalColumnsCount;
-  WORD	                m_wIndex;
+  uint16_t     	           m_wVerticalColumnsCount;
+  uint16_t	                m_wIndex;
   RECT	               m_rect;
   RECT	               m_rectReal;
-  WORD	                m_wType;
+  uint16_t	                m_wType;
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -462,12 +462,12 @@ public:
   /*CObArray*/std::vector<CRtfFragment*>	            m_arFragments;
 	 CRtfPage             *m_PagePtr;
 
-  WORD     	           m_wFragmentsCount;
-  WORD	                m_wIndex;
+  uint16_t     	           m_wFragmentsCount;
+  uint16_t	                m_wIndex;
 		Bool                 m_bSortFlag;
   RECT	               m_rect;
   RECT	               m_rectReal;
-  WORD	                m_wType;
+  uint16_t	                m_wType;
   Bool                 m_bFlagObjectInColumn;
 		Bool                 m_bFlagSmall;
 };
@@ -483,30 +483,30 @@ public:
   CRtfWord*            GetFirstWord           (void);
   CRtfWord*            GetNextWord            (void);
   Bool	               Write                  (void);
-  WORD                 get_max_font_size      (void);
+  uint16_t                 get_max_font_size      (void);
   int16_t                GetStringSizeInTwips   (void);
-  WORD                 GetRealStringSize      (void);
+  uint16_t                 GetRealStringSize      (void);
 
   /*CObArray*/std::vector<CRtfWord*>             m_arWords;
 
-  WORD  	           m_wWordsCount;
-  WORD	               m_wIndex;
+  uint16_t  	           m_wWordsCount;
+  uint16_t	               m_wIndex;
   CRtfFragment*        m_Frag;
   RECT	               m_rect;
-  WORD	               m_wType;
+  uint16_t	               m_wType;
 
 
   int32_t                m_LeftBorder;
   int32_t                m_RightBorder;
-  WORD	               m_wLeftIndent;
-  WORD	               m_wRightIndent;
-  WORD	               m_wCentre;
-  WORD	               m_wFirstIndent;
-  WORD	               m_wFlagBeginParagraph;
-  WORD	               m_wAlignment;
-  WORD	               m_wPrevAlignment;
-  WORD	               m_LengthStringInTwips;
-  WORD	               m_wSpaceBefore;
+  uint16_t	               m_wLeftIndent;
+  uint16_t	               m_wRightIndent;
+  uint16_t	               m_wCentre;
+  uint16_t	               m_wFirstIndent;
+  uint16_t	               m_wFlagBeginParagraph;
+  uint16_t	               m_wAlignment;
+  uint16_t	               m_wPrevAlignment;
+  uint16_t	               m_LengthStringInTwips;
+  uint16_t	               m_wSpaceBefore;
   BYTE                 m_wLeftBorderEqual;
   BYTE                 m_wRightBorderEqual;
   BYTE                 m_wCentreEqual;
@@ -533,8 +533,8 @@ public:
 
   /*CObArray*/std::vector<CRtfChar*>             m_arChars;
 
-		WORD	                m_wCharsCount;
-  WORD	                m_wIndex;
+		uint16_t	                m_wCharsCount;
+  uint16_t	                m_wIndex;
   CRtfString*          m_String;
   RECT	               m_rect;
 
@@ -545,9 +545,9 @@ public:
   int16_t                m_wcs;
   int16_t                m_wcp;
 
-  WORD	                m_wFontNumber;
-  WORD	                m_wIdealFontPointSize;
-  WORD	                m_wRealFontPointSize;
+  uint16_t	                m_wFontNumber;
+  uint16_t	                m_wIdealFontPointSize;
+  uint16_t	                m_wRealFontPointSize;
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -570,10 +570,10 @@ public:
 		BYTE                 m_bFlg_spell;
 		BYTE                 m_bFlg_spell_nocarrying;
 		BYTE                 m_bFlg_cup_drop;
-	 WORD                 m_wCountAlt;
-	 WORD                 m_wFontNumber;
-  WORD                 m_wFontPointSize;
-  WORD	                m_wIndex;
+	 uint16_t                 m_wCountAlt;
+	 uint16_t                 m_wFontNumber;
+  uint16_t                 m_wFontPointSize;
+  uint16_t	                m_wIndex;
  };
 
 #endif // __CreateRtf_h__

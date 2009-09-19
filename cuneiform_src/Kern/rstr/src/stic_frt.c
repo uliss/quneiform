@@ -80,12 +80,12 @@ extern int  inc_num_EEM;	// in ST_TOOLS.C
 extern int  dis_LIMIT_EEM;	// in ST_TOOLS.C;
 /*......................................................................*/
 #ifdef	MKPRINT_ENABLE				// MK OTLADKA Variables
-extern WORD	mkm1, mkm2, mkm3, mkm4, mkm5;
-extern WORD	mkma, mkmb, mkmc, mkmd;
-///extern WORD	d,d0,d1,d2,d3,d4,d5,d6,d7,d8,d9;
+extern uint16_t	mkm1, mkm2, mkm3, mkm4, mkm5;
+extern uint16_t	mkma, mkmb, mkmc, mkmd;
+///extern uint16_t	d,d0,d1,d2,d3,d4,d5,d6,d7,d8,d9;
 #endif
 /*......................................................................*/
-extern	WORD	left_mode_EEM;	// NOTA BENE:  NEPORJADOK; see ST_TOOLS, CHA;
+extern	uint16_t	left_mode_EEM;	// NOTA BENE:  NEPORJADOK; see ST_TOOLS, CHA;
 /*......................................................................*/
 #define MIN_ADD_DIS  10		/* max discrim for adding '(',')','!'	*/
 #define MAX_ADD_DIS  30		/* max discrim for adding '╨','1'	*/

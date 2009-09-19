@@ -101,7 +101,7 @@ extern	  char   RtfFileName[MAX_PATH];
 /*
 * Dib Header Marker - used in writing DIBs to files
 */
-#define DIB_HEADER_MARKER   ((WORD) ('M' << 8) | 'B')
+#define DIB_HEADER_MARKER   ((uint16_t) ('M' << 8) | 'B')
 
 
 //==============   Определение кол-ва картин на странице  ======================
@@ -208,7 +208,7 @@ Bool WritePict( uint32_t IndexPict,RtfSectorInfo* SectorInfo /*, CString* PictSt
 		Point32 PLr = {0};
 		Point32 LrN = {0};
 		Point32 WhN = {0};
-		WORD    FrameOffset=0;
+		uint16_t    FrameOffset=0;
 
 		if(CIMAGE_GetImageInfo((puchar)pinfo.szImageName,&image_info)==FALSE)
 			return 0;
@@ -550,31 +550,31 @@ Bool SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
 
 #pragma pack (push,1)
 	struct MF_header {
-		WORD 	mtType;
-		WORD 	mtHeaderSize; // in words
-		WORD 	mtVersion;
+		uint16_t 	mtType;
+		uint16_t 	mtHeaderSize; // in words
+		uint16_t 	mtVersion;
 		uint32_t	mtSize;       // in words
-		WORD  	mtNoObjects;
+		uint16_t  	mtNoObjects;
 		uint32_t 	mtMaxRecord;
-		WORD	mtNoParameters;
+		uint16_t	mtNoParameters;
 	} hMF={1,9,0x0300,0,0,0,0};
 
 	struct MF_GDI_records {
 		uint32_t   rdSize;
-		WORD    rdFunction;
+		uint16_t    rdFunction;
 	} MF_GDI;
 
 	struct MF_StretchDlBitst_info {
 		uint32_t	dwRop;
-		WORD	wUsage;
-		WORD	srcYExt;
-		WORD	srcXExt;
-		WORD 	srcY;
-		WORD	srcX;
-		WORD	dstYExt;
-		WORD	dstXExt;
-		WORD	dstY;
-		WORD	dstX;
+		uint16_t	wUsage;
+		uint16_t	srcYExt;
+		uint16_t	srcXExt;
+		uint16_t 	srcY;
+		uint16_t	srcX;
+		uint16_t	dstYExt;
+		uint16_t	dstXExt;
+		uint16_t	dstY;
+		uint16_t	dstX;
 	}  MF_SI;
 #pragma pack (pop)
 
@@ -639,9 +639,9 @@ Bool SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
 		MF_GDI.rdSize=5;
 		MF_GDI.rdFunction=0x20c;
 		bufcpy(&str,&MF_GDI,sizeof(MF_GDI));
-		WORD word=(WORD)lpDIB->biHeight;
+		uint16_t word=(uint16_t)lpDIB->biHeight;
 		bufcpy(&str,&word,sizeof(word));
-		word=(WORD)lpDIB->biWidth;
+		word=(uint16_t)lpDIB->biWidth;
 		bufcpy(&str,&word,sizeof(word));
 		// SetTextColor
 		MF_GDI.rdSize=5;
@@ -668,12 +668,12 @@ Bool SaveMetafile(CString * strBuf, BITMAPINFOHEADER * lpDIB)
 
 		MF_SI.dwRop	=0x00cc0020L;
 		MF_SI.wUsage	=0;
-		MF_SI.srcYExt	=(WORD)lpDIB->biHeight;
-		MF_SI.srcXExt	=(WORD)lpDIB->biWidth ;
+		MF_SI.srcYExt	=(uint16_t)lpDIB->biHeight;
+		MF_SI.srcXExt	=(uint16_t)lpDIB->biWidth ;
 		MF_SI.srcY	=0;
 		MF_SI.srcX	=0;
-		MF_SI.dstYExt	=(WORD)lpDIB->biHeight;
-		MF_SI.dstXExt	=(WORD)lpDIB->biWidth ;
+		MF_SI.dstYExt	=(uint16_t)lpDIB->biHeight;
+		MF_SI.dstXExt	=(uint16_t)lpDIB->biWidth ;
 		MF_SI.dstY	=0;
 		MF_SI.dstX	=0;
 		bufcpy(&str,&MF_SI,sizeof(MF_SI));

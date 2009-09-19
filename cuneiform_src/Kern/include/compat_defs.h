@@ -199,8 +199,8 @@ typedef struct tagBITMAPINFOHEADER {
 	uint32_t biSize;
 	LONG biWidth;
 	LONG biHeight;
-	WORD biPlanes;
-	WORD biBitCount;
+	uint16_t biPlanes;
+	uint16_t biBitCount;
 	uint32_t biCompression;
 	uint32_t biSizeImage;
 	LONG biXPelsPerMeter;
@@ -211,10 +211,10 @@ typedef struct tagBITMAPINFOHEADER {
 
 typedef struct tagBITMAPCOREHEADER {
 	uint32_t bcSize;
-	WORD bcWidth;
-	WORD bcHeight;
-	WORD bcPlanes;
-	WORD bcBitCount;
+	uint16_t bcWidth;
+	uint16_t bcHeight;
+	uint16_t bcPlanes;
+	uint16_t bcBitCount;
 } BITMAPCOREHEADER, *PBITMAPCOREHEADER;
 
 #pragma pack(pop)
@@ -251,13 +251,13 @@ typedef BITMAPINFOHEADER* LPBITMAPINFOHEADER;
 typedef BITMAPINFO* LPBITMAPINFO;
 
 typedef struct tagMETAHEADER {
-	WORD mtType;
-	WORD mtHeaderSize;
-	WORD mtVersion;
+	uint16_t mtType;
+	uint16_t mtHeaderSize;
+	uint16_t mtVersion;
 	uint32_t mtSize;
-	WORD mtNoObjects;
+	uint16_t mtNoObjects;
 	uint32_t mtMaxRecord;
-	WORD mtNoParameters;
+	uint16_t mtNoParameters;
 } METAHEADER, *PMETAHEADER;
 
 typedef struct tagPALETTEENTRY {
@@ -268,8 +268,8 @@ typedef struct tagPALETTEENTRY {
 } PALETTEENTRY;
 
 typedef struct tagLOGPALETTE {
-	WORD palVersion;
-	WORD palNumEntries;
+	uint16_t palVersion;
+	uint16_t palNumEntries;
 	PALETTEENTRY palPalEntry[1];
 } LOGPALETTE;
 
@@ -304,10 +304,10 @@ typedef struct tagSIZE {
 
 #pragma pack(push, 2)
 typedef struct tagBITMAPFILEHEADER {
-	WORD bfType;
+	uint16_t bfType;
 	uint32_t bfSize;
-	WORD bfReserved1;
-	WORD bfReserved2;
+	uint16_t bfReserved1;
+	uint16_t bfReserved2;
 	uint32_t bfOffBits;
 } BITMAPFILEHEADER, *PBITMAPFILEHEADER;
 

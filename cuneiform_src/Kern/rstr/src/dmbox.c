@@ -99,7 +99,7 @@ static INT Proi[][6]=
   {255,220,160,100,60, 0},             // 1il   NOT VERY BAD
  };
 
-static WORD prob[7]={32768, 32113, 31455, 30475, 29200, 0,0};
+static uint16_t prob[7]={32768, 32113, 31455, 30475, 29200, 0,0};
 //                    100     98     96     93
 
 static INT many_legs(s_glue *);
@@ -114,10 +114,10 @@ static void make_box_raster5x3(PWORD matr, c_comp * cp,
      INT row, INT col, INT h, INT w, lnhead * lp);
 
 static void comp_to_box5x3(PWORD matr, c_comp * cp,
-        WORD row, WORD col, WORD h, WORD w)
+        uint16_t row, uint16_t col, uint16_t h, uint16_t w)
 {
  make_box_raster5x3(matr, cp, row, (INT)((cp->left - col)*5), h, w,
-   (lnhead *)((PBYTE)cp + cp->lines + sizeof(WORD)));
+   (lnhead *)((PBYTE)cp + cp->lines + sizeof(uint16_t)));
 }
 
 
@@ -306,7 +306,7 @@ INT dmiBOX(cell *A, s_glue *GL, INT fl2)
  INT *pi1, *pi2;
  SVERS svers, fsvers;
  version *dv1, *dv2;
- WORD wcos, beste, best3, *pb1, *pb2;
+ uint16_t wcos, beste, best3, *pb1, *pb2;
  BYTE c, c_acc, pb, wc; INT flit;
  char scg, vx, px, pl, flnu, flag_m, flag_rtf, stick;
  char wbuf[256]; // 06-09-94 09:59pm
@@ -1176,7 +1176,7 @@ servBOX *make_broken_raster(s_glue *GL, INT rq)
 //      This procedure makes joint raster for several components.
 //
  {
- INT i, bw; LONG m, t,s; WORD *p;
+ INT i, bw; LONG m, t,s; uint16_t *p;
  c_comp  **cp;
  c_comp  *cp1;
  cell **celist;
@@ -1224,7 +1224,7 @@ servBOX *make_broken_raster(s_glue *GL, INT rq)
    i=*mBOX + *(mBOX+1) + *(mBOX+2) +  *(mBOX+3) + *(mBOX+4) +
      *(mBOX+5) + *(mBOX+6) + *(mBOX+7) + *(mBOX+8) + *(mBOX+9) +
      *(mBOX+10) + *(mBOX+11) + *(mBOX+12) + *(mBOX+13) + *(mBOX+14);
-   s=(WORD) i;
+   s=(uint16_t) i;
   }
  else for (s=0,p=mBOX; p != mBOX+15; p++) s+=*p;
 

@@ -95,7 +95,7 @@
 
 CFCOMPAT_FUNC(int) HFILE_ERROR;
 
-int LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax) {
+int LoadString(HINSTANCE hInstance, uint uID, LPTSTR lpBuffer, int nBufferMax) {
 	return 0;
 }
 
@@ -115,7 +115,7 @@ int RemoveDirectory(const char *d) {
 	return rmdir(d);
 }
 
-void* GlobalAlloc(UINT uFlags, int dwBytes) {
+void* GlobalAlloc(uint uFlags, int dwBytes) {
 	if (uFlags & GMEM_ZEROINIT)
 		return calloc(dwBytes, 1);
 	return malloc(dwBytes);
@@ -126,11 +126,11 @@ HGLOBAL GlobalFree(void *f) {
 	return NULL;
 }
 
-void* GlobalReAlloc(void* hMem, int dwBytes, UINT uFlags) {
+void* GlobalReAlloc(void* hMem, int dwBytes, uint uFlags) {
 	return realloc(hMem, dwBytes); // Should init to zero on uFlags & GMEM_ZEROINIT.
 }
 
-int GetTempFileName(LPCTSTR lpPathName, LPCTSTR lpPrefixString, UINT uUnique,
+int GetTempFileName(LPCTSTR lpPathName, LPCTSTR lpPrefixString, uint uUnique,
 		LPTSTR lpTempFileName) {
 	return -1;
 }
@@ -160,7 +160,7 @@ HWND FindWindow(LPCTSTR lpClassName, LPCTSTR lpWindowName) {
 	return 0;
 }
 
-UINT RegisterWindowMessage(LPCTSTR lpString) {
+uint RegisterWindowMessage(LPCTSTR lpString) {
 	return 0;
 }
 
@@ -202,12 +202,12 @@ uint32_t GetPrivateProfileString(LPCTSTR lpAppName, LPCTSTR lpKeyName,
 	return 0;
 }
 
-UINT GetPrivateProfileInt(LPCTSTR lpAppName, LPCTSTR lpKeyName, INT nDefault,
+uint GetPrivateProfileInt(LPCTSTR lpAppName, LPCTSTR lpKeyName, INT nDefault,
 		LPCTSTR lpFileName) {
 	return 0;
 }
 
-int WideCharToMultiByte(UINT CodePage, uint32_t dwFlags,
+int WideCharToMultiByte(uint CodePage, uint32_t dwFlags,
 		const wchar_t *lpWideCharStr, int cchWideChar, LPSTR lpMultiByteStr,
 		int cbMultiByte, LPCSTR lpDefaultChar, LPBOOL lpUsedDefaultChar) {
 	return 0;
@@ -265,7 +265,7 @@ HDC BeginPaint(HWND hwnd, ...) {
 	return 0;
 }
 
-LRESULT SendMessage(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
+LRESULT SendMessage(HWND hWnd, uint Msg, WPARAM wParam, LPARAM lParam) {
 	return 0;
 }
 
@@ -325,7 +325,7 @@ HWND GetFocus() {
 	return NULL;
 }
 
-int MessageBox(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType) {
+int MessageBox(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, uint uType) {
 	fprintf(stderr, "MessageBox %s: %s\n", lpCaption, lpText);
 	return 0;
 }
@@ -451,7 +451,7 @@ Bool IsWindowVisible(HWND hWnd) {
 	return 0;
 }
 
-LRESULT DefWindowProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
+LRESULT DefWindowProc(HWND hWnd, uint Msg, WPARAM wParam, LPARAM lParam) {
 	return 0;
 }
 

@@ -109,8 +109,8 @@ struct _Root
         {
             struct
             {
-                WORD  wSegmentPtr;
-                WORD  wLength;
+                uint16_t  wSegmentPtr;
+                uint16_t  wLength;
             } u2;
 
             ROOT *pNext;
@@ -131,8 +131,8 @@ typedef struct _RootExt *PROOT_EXT;
 
 struct _RootExt
     {
-        WORD  wSegmentPtr;
-        WORD  wLength;
+        uint16_t  wSegmentPtr;
+        uint16_t  wLength;
     };
 
 typedef struct

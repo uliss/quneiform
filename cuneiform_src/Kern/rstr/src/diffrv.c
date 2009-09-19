@@ -96,7 +96,7 @@ INT  cut_by_pos_ii(s_glue * gl,BYTE let);
 
 /*============ Export functions ==================*/
 
-segment * go_line(segment * seg_pool,WORD ln);
+segment * go_line(segment * seg_pool,uint16_t ln);
 void proc_bI(INT pass); // glue 'ы'
 INT  chkquocks2(cell * c,PBYTE r,INT h,INT w,INT d);
 void c_add_raster(PBYTE target,INT wb,INT y,INT col,PBYTE source,
@@ -122,10 +122,10 @@ static void calc_data(PBYTE pint,INT height,INT width );
 static INT  discr_iot(cell * c,BYTE let,INT upper);
 static void _init_(void);
 static INT  sym_italic( cell * c,BYTE let );
-static Bool valid_inc( WORD inc );
-static WORD check_inc_foots(cell * c,INT nums);
+static Bool valid_inc( uint16_t inc );
+static uint16_t check_inc_foots(cell * c,INT nums);
 static INT  calc_dest_foot(INT h,INT w,INT *dest_foot,INT wid_foot);
-static WORD check_num_foots(INT nums,INT h);
+static uint16_t check_num_foots(INT nums,INT h);
 static INT  check_cursiv_inp(BYTE *rast,INT w,INT h,INT foot_wid,INT dest,BYTE let);
 static Bool check_bend_up( cell * c );
 static Bool check_bend_dn( cell * c );
@@ -137,7 +137,7 @@ static void calc_abris(PBYTE pint,INT height );
 static Bool valid_line(segment * segm);
 static INT  triangle_bottom(BYTE *raster,INT dx, INT dy, INT wid);
 static INT  triangle_top(BYTE *raster,INT dx, INT dy, INT wid);
-static WORD internal_filling(segment * segm,INT h,INT w);
+static uint16_t internal_filling(segment * segm,INT h,INT w);
 static Bool stick_online(cell * c);
 static Bool suspect_italic_iee(void);
 static Bool suspect_italic_tche(void);
@@ -148,31 +148,31 @@ static Bool suspect_italic_ce(cell *c);
 static Bool suspect_italic_III_bend(cell * c);
 static INT  o_symmetric(INT h,INT w);
 /*----*/
-static WORD check_III(cell *c,INT foot_wid,INT dest[]);
-static WORD check_III_bend(cell *c,INT dest[]);
-static WORD check_futuris_aa(struct rst * const rst);
-static WORD check_EK(BYTE let,cell * c);
-static WORD check_tg( cell * c, BYTE let, PBYTE RASTR, INT dx, INT dy );
-static WORD check_ya( cell * c);
-static WORD check_zz( cell * c);
-static WORD check_xX( cell * c);
-static WORD check_xk(INT h,BYTE let) ;
-static WORD check_pl( cell * cc, cell * ci,BYTE let,struct rst * const rst);
-static WORD check_iee( cell * c,BYTE let);
-static WORD check_oa( cell * c,BYTE let,struct rst * const rst);
-static WORD check_ee( cell * c);
-static WORD check_uu( cell * c,INT h);
-//static WORD check_ss(cell * c,PBYTE pint,INT height);
-static WORD check_veza(cell * c,segment * segm,INT h,INT w,BYTE let);
-static WORD check_nn(cell * c);
-static WORD check_m( cell * c);
-static WORD check_AL(cell * c,BYTE let);
-static WORD check_stick( cell * c,BYTE let );
-static WORD check_cursiv( cell * c,BYTE let,INT old_diskr,BYTE *rast);
-static WORD stick_bI(cell * cl);
+static uint16_t check_III(cell *c,INT foot_wid,INT dest[]);
+static uint16_t check_III_bend(cell *c,INT dest[]);
+static uint16_t check_futuris_aa(struct rst * const rst);
+static uint16_t check_EK(BYTE let,cell * c);
+static uint16_t check_tg( cell * c, BYTE let, PBYTE RASTR, INT dx, INT dy );
+static uint16_t check_ya( cell * c);
+static uint16_t check_zz( cell * c);
+static uint16_t check_xX( cell * c);
+static uint16_t check_xk(INT h,BYTE let) ;
+static uint16_t check_pl( cell * cc, cell * ci,BYTE let,struct rst * const rst);
+static uint16_t check_iee( cell * c,BYTE let);
+static uint16_t check_oa( cell * c,BYTE let,struct rst * const rst);
+static uint16_t check_ee( cell * c);
+static uint16_t check_uu( cell * c,INT h);
+//static uint16_t check_ss(cell * c,PBYTE pint,INT height);
+static uint16_t check_veza(cell * c,segment * segm,INT h,INT w,BYTE let);
+static uint16_t check_nn(cell * c);
+static uint16_t check_m( cell * c);
+static uint16_t check_AL(cell * c,BYTE let);
+static uint16_t check_stick( cell * c,BYTE let );
+static uint16_t check_cursiv( cell * c,BYTE let,INT old_diskr,BYTE *rast);
+static uint16_t stick_bI(cell * cl);
 static INT  check_italic_ch(INT h);
-static WORD check_I_dot(cell * c,BYTE let);    // !
-static WORD check_bb(void);
+static uint16_t check_I_dot(cell * c,BYTE let);    // !
+static uint16_t check_bb(void);
 
 /*========== Import global data ===================*/
 
@@ -202,7 +202,7 @@ static BYTE emu_like[]="x"; // "oOx"
 static STICK *stick; // pointer to array of stick if NULL no calculated stick
 static STICK stic[30];
 static INT   nstick;       // number of sticks in letter
-static WORD dens;
+static uint16_t dens;
 static s_glue glc;
 //AK!
 static INT l_abris[80],r_abris[80];
@@ -684,11 +684,11 @@ if( comp_versions(c->vers,save,c->nvers,snvers) )
 /************************************************end r_criteria**/
 /*=============== Discriminators for letters =====================*/
 
-WORD check_xX(cell * c)
+uint16_t check_xX(cell * c)
 {
 lnhead *line;
 INT l;
-WORD nl=0,pen=0;
+uint16_t nl=0,pen=0;
 
  for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
 			(l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
@@ -698,9 +698,9 @@ WORD nl=0,pen=0;
 }
 ///////////////////////////////////////////////////////////////////
 // check 'k','x' abris
-WORD check_xk(INT h,BYTE let)
+uint16_t check_xk(INT h,BYTE let)
 {
- WORD max,index,pen_lx,pen_lk,pen_rk,pen_rx;
+ uint16_t max,index,pen_lx,pen_lk,pen_rk,pen_rx;
  BYTE hist[128];
  INT jump[128]={0};
  INT i,smooth,mono;
@@ -810,7 +810,7 @@ WORD check_xk(INT h,BYTE let)
 }
 /////////////////////////////////////////////////////////////////////
 // 'ь' refuse with 'a' that have no upper bend
-WORD check_bb(void)
+uint16_t check_bb(void)
 {
 if( dens > 210 ) return 80;
 else if( dens >= BOLD ) return 60;
@@ -909,9 +909,9 @@ return (sum1 && sum2);
 }
 
 // Addition to atlant
-WORD check_m( cell * c)
+uint16_t check_m( cell * c)
 {
-WORD pen=0;
+uint16_t pen=0;
 INT i;
     stick_online(c);
    if( nstick < 0 ) return 0;
@@ -934,11 +934,11 @@ INT i;
  return pen;
 }
 /*
-WORD check_ss(cell * c,PBYTE pint,INT height)
+uint16_t check_ss(cell * c,PBYTE pint,INT height)
 {
 segment * segm;
 INT i,j,col,prev_col;
-WORD d=0,gaps=0;
+uint16_t d=0,gaps=0;
 
   if( c ) // 'c' mustn't have a hole
   gaps = ((c_comp*)c->env)->nl - ((c_comp*)c->env)->begs - ((c_comp*)c->env)->ends + 1;
@@ -961,7 +961,7 @@ for(i=0,segm = (segment*)pint,segm++;i < height/2 - j;i++) // set active line
  return d;
 }
 */
-WORD check_AL(cell * c,BYTE let)
+uint16_t check_AL(cell * c,BYTE let)
 {
 INT gaps;
 lnhead *line;
@@ -979,11 +979,11 @@ INT l;
   return 0;
 }
 
-WORD check_EK(BYTE let,cell * c)
+uint16_t check_EK(BYTE let,cell * c)
 {
  lnhead *line;
  INT l;
- WORD pen_E=0,pen_K=0;
+ uint16_t pen_E=0,pen_K=0;
 
  if(((c_comp*)c->env)->nl == 1) pen_K = 200;
 
@@ -1000,11 +1000,11 @@ WORD check_EK(BYTE let,cell * c)
   return 0;
 }
 // ы
-WORD check_iee(cell * c,BYTE let)
+uint16_t check_iee(cell * c,BYTE let)
 {
  lnhead *line;
  INT l;
- WORD pen=0,gaps;
+ uint16_t pen=0,gaps;
 
   gaps = ((c_comp*)c->env)->nl - ((c_comp*)c->env)->begs - ((c_comp*)c->env)->ends + 1;
   if( gaps == 0 && let == (BYTE)'ы') return 10;
@@ -1019,11 +1019,11 @@ WORD check_iee(cell * c,BYTE let)
   return pen;
 }
 
-WORD check_ya( cell * c)
+uint16_t check_ya( cell * c)
 {
  lnhead *line;
  INT l,suspect=0,strong=0;
- WORD pen=0,gaps;
+ uint16_t pen=0,gaps;
    gaps = ((c_comp*)c->env)->nl - ((c_comp*)c->env)->begs - ((c_comp*)c->env)->ends + 1;
  for (line=(lnhead *)((PCHAR)(c->env)+c->env->lines+sizeof(INT));
 			(l=line->lth)>0; line=(lnhead *)((PCHAR)line+l))
@@ -1041,12 +1041,12 @@ WORD check_ya( cell * c)
 static STICK st[30],*stickLP;
 static INT nstickLP;
 
-WORD check_pl( cell * c, cell * ci,BYTE let,struct rst * const rst )
+uint16_t check_pl( cell * c, cell * ci,BYTE let,struct rst * const rst )
 {
 char  maxL=0,maxR=0;
 INT i,j1,j2,j,sym,nInvest;
-WORD penL=0,penP=0,pen=0,top=0,meanLetter,meanLetter0;
-WORD left=0,right=0,mean=0,D_X;
+uint16_t penL=0,penP=0,pen=0,top=0,meanLetter,meanLetter0;
+uint16_t left=0,right=0,mean=0,D_X;
 INT begin0,begin;
 BYTE  *RAST,*RASTR,saveR[5];
 MN *mn;
@@ -1422,7 +1422,7 @@ switch( let )
 return pen;
 }/*check_pl*/
 
-WORD check_tg( cell * c, BYTE let, PBYTE RASTR, INT dx, INT dy )
+uint16_t check_tg( cell * c, BYTE let, PBYTE RASTR, INT dx, INT dy )
 {
 BYTE  j,n4=dy>>2,D_X=(dx+7)/8;
 char  beg,end;
@@ -1513,10 +1513,10 @@ return( tg );
 
 // End of Andrew zone
 
-WORD check_zz( cell * c)
+uint16_t check_zz( cell * c)
 {
 INT i;
-WORD pen=0;
+uint16_t pen=0;
       stick_online(c);
      if( nstick <= 0 ) return 0; // error or no sticks
 
@@ -1526,9 +1526,9 @@ WORD pen=0;
   return pen;
 }
 
-WORD check_uu( cell * c,INT h)
+uint16_t check_uu( cell * c,INT h)
 {
-WORD pen;
+uint16_t pen;
  lnhead *line;
  INT l,cnt=0;
    pen  = check_num_foots(2,h);
@@ -1849,9 +1849,9 @@ for(cs=i=0;i<2;i++)
 return (cs>0);
 }
 
-WORD check_cursiv( cell * c,BYTE let,INT old_diskr,BYTE *rast)
+uint16_t check_cursiv( cell * c,BYTE let,INT old_diskr,BYTE *rast)
 {
-WORD pen=0;
+uint16_t pen=0;
 INT i,j,foot_wid,ind,t;   /* средняя ширина ноги */
 INT dest_foot[4]={0};
 
@@ -1943,9 +1943,9 @@ if( nstick==2 || nstick_broken==2)
 return pen;
 }
 
-WORD check_III_bend(cell *c,INT dest_foot[])
+uint16_t check_III_bend(cell *c,INT dest_foot[])
 {
-WORD pen=0;
+uint16_t pen=0;
 INT w=c->w,h=c->h,i,j,hh=c->h>>1,num;
 if( broken_flag )
 	return 0;
@@ -1982,12 +1982,12 @@ for(num=j=0,i=h-1;i>hh;i--,j++)
   return pen;
 }
 
-WORD check_III(cell *c,INT wid_foot,INT dest_foot[])
+uint16_t check_III(cell *c,INT wid_foot,INT dest_foot[])
 {
 INT dy=c->h;
 INT i=dy*3/8;
 INT h=dy-dy*3/8,s2,ss,d;
-WORD pen=0;
+uint16_t pen=0;
 
 stick_online(c);
 if( nstick != 3 && !broken_flag) return 60;
@@ -2397,7 +2397,7 @@ return n_3>=lim ? 120 : 0;
 
 
 // End of Oleg zone
-WORD check_inc_foots(cell * c,INT nums)
+uint16_t check_inc_foots(cell * c,INT nums)
 {
 INT i,dis=0;
 
@@ -2408,7 +2408,7 @@ INT i,dis=0;
   return dis;
 }
 
-WORD check_num_foots(INT nums,INT dy)
+uint16_t check_num_foots(INT nums,INT dy)
 {
 INT i=dy/3,dis=0;
 INT h=i+dy/3,s2,ss;
@@ -2426,10 +2426,10 @@ for(s2=ss=0;i < h;i++)
 
 // a, cursiv a and o heuristic
 
-WORD check_oa( cell * c,BYTE let,struct rst * const rst)
+uint16_t check_oa( cell * c,BYTE let,struct rst * const rst)
 {
 INT r,gaps;
-WORD pen_a=0,pen_o=0,futuris=0;
+uint16_t pen_a=0,pen_o=0,futuris=0;
 
 gaps = ((c_comp*)c->env)->nl - ((c_comp*)c->env)->begs - ((c_comp*)c->env)->ends + 1;
 if( gaps > 1 ) return 0;
@@ -2504,7 +2504,7 @@ void calc_abris(PBYTE pint,INT height )
 ////////////////////////////////////////////////////////////////////
 Bool valid_line(segment * segm)
 {
-WORD vl=0;
+uint16_t vl=0;
 
 do
  if(segm->segblack > 1) vl++;
@@ -2514,10 +2514,10 @@ return (vl > 0);
 
 static BYTE futuris[]={ 30,90,140,210 };
 
-WORD check_futuris_aa(struct rst * const rst)
+uint16_t check_futuris_aa(struct rst * const rst)
 {
 INT i,pen=0,h,max_value;
-WORD max,index;
+uint16_t max,index;
 BYTE hist[128]={0};
         if( ! abris_online ){ abris_online = TRUE;
 	  calc_abris(segment_pool,rst->h);
@@ -2630,7 +2630,7 @@ Bool check_bend_dn( cell * c )
 
 /* return dens = black*256/(black+white) */
 /*******************************************************internal_filling*/
-static WORD internal_filling(segment * segm,INT h,INT w)
+static uint16_t internal_filling(segment * segm,INT h,INT w)
 {
  uint32_t fill=0;
  LONG start, end, col;
@@ -2674,15 +2674,15 @@ for(row=0,end=0,col=0,start=0,segm++;
      }
  }
  row=(h-2) * (w-left*left);
- if ( fill >= 0x1000 ) return (WORD)(fill/(row >> 8));
- if ( fill >= 0x100) return (WORD)((fill<<4)/(row>>4));
- return (WORD)(( ( (WORD)fill ) << 8)/row); // (WORD)
+ if ( fill >= 0x1000 ) return (uint16_t)(fill/(row >> 8));
+ if ( fill >= 0x100) return (uint16_t)((fill<<4)/(row>>4));
+ return (uint16_t)(( ( (uint16_t)fill ) << 8)/row); // (uint16_t)
 }
 /**********************************************end of internal_filling*/
 
-WORD check_veza(cell * c,segment * segm,INT h,INT w,BYTE let)
+uint16_t check_veza(cell * c,segment * segm,INT h,INT w,BYTE let)
 {
-WORD pen_a,pen_e,pen_z,pen_v,pen_ie;
+uint16_t pen_a,pen_e,pen_z,pen_v,pen_ie;
 INT gaps=-1,l;
 INT i,tresh,smooth,cnt;
 lnhead *line;
@@ -2776,7 +2776,7 @@ ret:
     }
 }
 
-static WORD check_ee( cell * c)
+static uint16_t check_ee( cell * c)
 {
 INT    i, num;
 
@@ -2788,7 +2788,7 @@ return( (num>(c->h*3)/4)?100:0 );
 
 
 
-WORD check_nn(cell * c)
+uint16_t check_nn(cell * c)
 {
 INT gaps=-1,pen=0;
 
@@ -2804,7 +2804,7 @@ INT gaps=-1,pen=0;
 /*============== Sources level 2 ========================*/
 
 
-static Bool valid_inc( WORD inc )
+static Bool valid_inc( uint16_t inc )
 {
 INT ret=0;
  if( inc == 0 || inc > 800) ret = 0;
@@ -2868,7 +2868,7 @@ if( c->n_baton==NO_BATONS )
 return stick != NULL;
 }
 
-segment * go_line(segment * seg_pool,WORD ln)
+segment * go_line(segment * seg_pool,uint16_t ln)
 {
 INT i;
 for(i=0,seg_pool++;i < ln;i++) // skip lines
@@ -3060,7 +3060,7 @@ void make_white_hist(PBYTE pint,INT height)
 /**************************************** end of make_white_hist */
 
 // Miscellaneous
-WORD stick_bI(cell * cl)
+uint16_t stick_bI(cell * cl)
 {
 cell *  c, sc;
 INT     dist;
@@ -3141,7 +3141,7 @@ while((c=c->nextl) != NULL )
 return;
 }
 
-WORD check_I_dot(cell * c,BYTE let)
+uint16_t check_I_dot(cell * c,BYTE let)
 {
  switch( let ){ // !,1,! with dot :  can't be pasted
  case '1'       : return (c->cg_flag & c_cg_cut) ? 80  : 0;

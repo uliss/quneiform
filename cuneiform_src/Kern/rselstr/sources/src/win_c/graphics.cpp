@@ -83,7 +83,7 @@ static uint32_t swColor = 0;
 
 void _setcolor (int color)
 {
-	#define __RGB__(r,g,b)          ((uint32_t)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
+	#define __RGB__(r,g,b)          ((uint32_t)(((BYTE)(r)|((uint16_t)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
 	uint32_t clr[16] =
 	{
 		__RGB__(0,0,0),// 0 черный
@@ -146,8 +146,8 @@ typedef struct tagBITMAPINFOHEADER{
 uint32_t      biSize;
         LONG       biWidth;
         LONG       biHeight;
-        WORD       biPlanes;
-        WORD       biBitCount;
+        uint16_t       biPlanes;
+        uint16_t       biBitCount;
 uint32_t      biCompression;
 uint32_t      biSizeImage;
         LONG       biXPelsPerMeter;

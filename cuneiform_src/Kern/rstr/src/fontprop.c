@@ -75,7 +75,7 @@ extern BYTE p2_active;
 extern INT  nIncline;
 extern INT  page_nIncline;
 extern BYTE line_scale;
-extern WORD actual_resolution;
+extern uint16_t actual_resolution;
 extern BYTE fax1x2;
 
 #define WORDMAX  100
@@ -104,7 +104,7 @@ static BYTE one_italic[]="╒╙";	// "БЙ"
 struct B { INT mid; // Е═Ю═╙Б╔Ю╗АБ╗╙═
            INT real;
            INT max,min;
-           WORD n; // Г╗А╚╝ А╗╛╒╝╚╝╒
+           uint16_t n; // Г╗А╚╝ А╗╛╒╝╚╝╒
            };
 typedef struct B STAT;
 
@@ -185,7 +185,7 @@ static void italic(cell *c)
  BYTE let;
  PBYTE          twins;
  char font[2*NVAR];
- WORD i,prob[2*NVAR];
+ uint16_t i,prob[2*NVAR];
  INT nansw,maxi,maxni,l;
  extern PCHAR tableBOX;
  INT sv_pos_inc , sv_stick_inc, sv_save_stick_inc;
@@ -554,7 +554,7 @@ static INT pitch()
  BYTE let;
  INT nl,nc,ng,n,n1,n2,h,w,ww,wmin,wmax,i,j,sp,bad,d,p,mg;
  LONG s,min;
- WORD center[LSTRMAX],left[LSTRMAX],right[LSTRMAX];
+ uint16_t center[LSTRMAX],left[LSTRMAX],right[LSTRMAX];
 
  for (nl=nc=ng=0,c=(cell_f())->next; c->next!=NULL; c=c->next)
   if (c->flg&(c_f_let|c_f_bad))
@@ -1328,7 +1328,7 @@ void avdens()
  interval *ic,*ie;
  //extern PBYTE box_pool,string_curr;
  //extern PBYTE comp_file,comp_curr;
- //extern WORD comp_lth;
+ //extern uint16_t comp_lth;
  cell *c,*c1=cell_f(),*c2=cell_l();
 
  total_pitch=0;  // =0 Nick 04.01.2002 was =-1

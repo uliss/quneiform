@@ -139,7 +139,7 @@ public:
 class stdPrtConsole
 {
    mutable HWND hConsoleOutput;
-   UINT uiMesasageHandle;
+   uint uiMesasageHandle;
    Bool32 bUseConsole;
 public:
    //operator HANDLE (void) const { return bUseConsole ? hConsoleOutput = FindWindow( NULL, "PrtConsole") : 0; };

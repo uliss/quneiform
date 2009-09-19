@@ -167,13 +167,13 @@ version * start_rec, *rec_ptr;
 INT  text_findstat(char * w);
 BYTE db_pass;
 BYTE string[8192];
-WORD lpool_lth;
+uint16_t lpool_lth;
 BYTE lpool[LPOOL_SIZE];
 LONG Flag_Courier=FALSE;
 BYTE evfulln;
 BYTE double_fax;            // setup in RSTR_SetOptions
 BYTE db_trace_flag;
-WORD actual_resolution=300; // setup in RSTR_SetOptions
+uint16_t actual_resolution=300; // setup in RSTR_SetOptions
 #define MAX_LINE_COUNT 5000
 STRLN   page_lines[MAX_LINE_COUNT];
 int32_t   num_of_lines;

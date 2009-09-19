@@ -69,7 +69,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "minmax.h"
 
-#define RGB(r,g,b)          ((COLORREF)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
+#define RGB(r,g,b)          ((COLORREF)(((BYTE)(r)|((uint16_t)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
 typedef uint32_t   COLORREF;
 
 #define max_po_li 1000
@@ -100,11 +100,11 @@ struct PL
 
 /////////////////////////////////
 
-# define __RGB__(r,g,b)          ((uint32_t)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
+# define __RGB__(r,g,b)          ((uint32_t)(((BYTE)(r)|((uint16_t)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
 
 /////////////////////////////////
 
-extern WORD run_options;
+extern uint16_t run_options;
 extern Handle MainWindowD;
 extern Handle hShowString;
 extern Handle hShowCells;

@@ -614,7 +614,7 @@ Bool compose_cell(INT n,cell **clist,cell *c)
  else if( imax!=-1 && c!=clist[imax] )
     {
     cell *n=c->next,*p=c->prev,*nl=c->nextl,*pl=c->prevl;
-    WORD    flg=c->flg;
+    uint16_t    flg=c->flg;
     *c=*clist[imax];
     c->next=n;
     c->prev=p;
@@ -679,7 +679,7 @@ Bool compose_cell_save(INT n,cell **clist,cell *c)
   else if( imax!=-1 && c!=clist[imax] )
     {
     cell *n=c->next,*p=c->prev,*nl=c->nextl,*pl=c->prevl;
-    WORD    flg=c->flg;
+    uint16_t    flg=c->flg;
     *c=*clist[imax];
     c->next=n;
     c->prev=p;

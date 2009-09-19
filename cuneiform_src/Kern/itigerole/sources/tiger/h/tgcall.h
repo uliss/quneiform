@@ -146,7 +146,7 @@ TIGERLOC(BOOL16)          Tiger_Reset           (void);
 //////////////////////////////////////////////////////////////////////////////
 //  Recognition and page analysis                                           //
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          Tiger_SetRecognitionOptions (WORD wOptions);
+TIGERLOC(BOOL16)          Tiger_SetRecognitionOptions (uint16_t wOptions);
 //////////////////////////////////////////////////////////////////////////////
 # define TSRO_SPELLER            1
 # define TSRO_FORCE_ONE_COLUMN   2
@@ -165,24 +165,24 @@ TIGERLOC(BOOL16)          Tiger_PageAnalysis     (void);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          Tiger_FinalRecognition (LPSTR lpEdFileName);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(WORD)            Tiger_Status           (void);
+TIGERLOC(uint16_t)            Tiger_Status           (void);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(LPSTR)           Tiger_ErrorMessage     (WORD wError);
+TIGERLOC(LPSTR)           Tiger_ErrorMessage     (uint16_t wError);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          Tiger_SetLanguage      (WORD wLanguage);
+TIGERLOC(BOOL16)          Tiger_SetLanguage      (uint16_t wLanguage);
 //////////////////////////////////////////////////////////////////////////////
 //   Convertion of ED-file to text file                                     //
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          Tiger_EdToText        (LPSTR lpEdFileName,
 												 LPSTR lpTextFileName,
-												 WORD wOptions,
-												 WORD wBadChar);
+												 uint16_t wOptions,
+												 uint16_t wBadChar);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          Tiger_ExtEdToText     (LPSTR lpEdFileName,
 												 LPSTR lpTextFileName,
-												 WORD wOptions,
-												 WORD wCodePage,
-												 WORD wBadChar);
+												 uint16_t wOptions,
+												 uint16_t wCodePage,
+												 uint16_t wBadChar);
 //////////////////////////////////////////////////////////////////////////////
 //      wOptions values                                                     //
 //////////////////////////////////////////////////////////////////////////////
@@ -210,13 +210,13 @@ TIGERLOC(BOOL16)          Tiger_ExtEdToText     (LPSTR lpEdFileName,
 //////////////////////////////////////////////////////////////////////////////
 //       Progress List                                                      //
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(WORD) Tiger_ProgressList (LPWORD lpwList, WORD wMode);
+TIGERLOC(uint16_t) Tiger_ProgressList (LPWORD lpwList, uint16_t wMode);
 //////////////////////////////////////////////////////////////////////////////
 //       Manual layout server layout functions                              //
 //////////////////////////////////////////////////////////////////////////////
 struct  Tiger_LayoutBlock
 {
-	WORD  Number;
+	uint16_t  Number;
 	INT16 xLeft;
 	INT16 yTop;
 	INT16 xRight;
@@ -266,26 +266,26 @@ TIGERLOC(BOOL16)   TigerLayout_VertSplitBlocks(POINT Begin,
 TIGERLOC(BOOL16)   TigerLayout_ExtractRectBlock(RECT r,
 											   LPBOOL16 lpbSuccess);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)   TigerLayout_GlueBlocks     (WORD iBlock1,
-											   WORD iBlock2,
+TIGERLOC(BOOL16)   TigerLayout_GlueBlocks     (uint16_t iBlock1,
+											   uint16_t iBlock2,
 											   LPBOOL16 lpbSuccess);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)   TigerLayout_DeleteBlock    (WORD iBlock,
+TIGERLOC(BOOL16)   TigerLayout_DeleteBlock    (uint16_t iBlock,
 											   LPBOOL16 lpbSuccess);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)   TigerLayout_EnglishBlock   (WORD iBlock,
+TIGERLOC(BOOL16)   TigerLayout_EnglishBlock   (uint16_t iBlock,
 											   LPBOOL16 lpbSuccess);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)   TigerLayout_ExtractPicture (RECT r,
 											   LPBOOL16 lpbSuccess);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)   Layout_UpdatePictures      (LPSTR lpPictures,
-											   WORD wLength);
+											   uint16_t wLength);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)   TigerLayout_UpdateSheets   (WORD FuncNumber,
+TIGERLOC(BOOL16)   TigerLayout_UpdateSheets   (uint16_t FuncNumber,
 											   LPINT16 * lplpSheets);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)   Tiger_RW_Options           (WORD FuncNumber,
+TIGERLOC(BOOL16)   Tiger_RW_Options           (uint16_t FuncNumber,
 											   LPSTR lpData);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)   TigerLayout_Backup         (LPBOOL16 lpbBackupStackOverflow);
@@ -313,11 +313,11 @@ typedef LPED_RECT TIGERFAR * LPLPED_RECT;
 //////////////////////////////////////////////////////////////////////////////
 struct ED_Page
 {
-    WORD    wFragmentCount;      // Number of fragments in the page
+    uint16_t    wFragmentCount;      // Number of fragments in the page
     ED_RECT rFrame;              // Rectangle around the page
     INT16   nInclineNumerator;   // Numerator of the page incline
-    WORD    wInclineDenominator; // Denominator of the page incline
-    WORD    wDpi;                // Resolution of the source image in dpi
+    uint16_t    wInclineDenominator; // Denominator of the page incline
+    uint16_t    wDpi;                // Resolution of the source image in dpi
 };
 //////////////////////////////////////////////////////////////////////////////
 typedef struct ED_Page ED_PAGE;
@@ -326,12 +326,12 @@ typedef LPED_PAGE TIGERFAR * LPLPED_PAGE;
 //////////////////////////////////////////////////////////////////////////////
 struct ED_Fragment
 {
-    WORD    wFragmentNumber;       // Fragment number
+    uint16_t    wFragmentNumber;       // Fragment number
     ED_RECT rFrame;                // Rectangle around the fragment
-    WORD    wStringCount;          // Number of strings in the fragment
-    WORD    wType;                 // Fragment type
-    WORD    wBaseDistanceFromLeft; // Base distance from left side
-    WORD    wCenterFragmentNumber; // Number of the fragment accordingly to
+    uint16_t    wStringCount;          // Number of strings in the fragment
+    uint16_t    wType;                 // Fragment type
+    uint16_t    wBaseDistanceFromLeft; // Base distance from left side
+    uint16_t    wCenterFragmentNumber; // Number of the fragment accordingly to
                                    // which current is centered
 };
 //////////////////////////////////////////////////////////////////////////////
@@ -348,13 +348,13 @@ typedef LPED_FRAGMENT TIGERFAR * LPLPED_FRAGMENT;
 //////////////////////////////////////////////////////////////////////////////
 struct ED_String
 {
-    WORD    wStringNumber; // String number
+    uint16_t    wStringNumber; // String number
     ED_RECT rFrame;        // Frame of the string
-    WORD    wWordCount;    // Number of words within string
-    WORD    wType;         // Type of the string
+    uint16_t    wWordCount;    // Number of words within string
+    uint16_t    wType;         // Type of the string
     INT16   nIndent;       // Indent of the string
                            //  (relative to the fragment's base)
-    WORD    wBulletIndent; // Additional indent for bullet
+    uint16_t    wBulletIndent; // Additional indent for bullet
     INT16   nBaseLine;     // Y-coordinate for base line of the string
 };
 //////////////////////////////////////////////////////////////////////////////
@@ -370,11 +370,11 @@ typedef LPED_STRING TIGERFAR * LPLPED_STRING;
 //////////////////////////////////////////////////////////////////////////////
 struct ED_Word
 {
-    WORD    wWordNumber;      // Word number
+    uint16_t    wWordNumber;      // Word number
     ED_RECT rFrame;           // Frame of the word
-    WORD    wCharacterCount;  // Number of characters in the word
-    WORD    wFont;            // Font characteristics
-    WORD    wPointSize;       // Point size
+    uint16_t    wCharacterCount;  // Number of characters in the word
+    uint16_t    wFont;            // Font characteristics
+    uint16_t    wPointSize;       // Point size
 };
 //////////////////////////////////////////////////////////////////////////////
 typedef struct ED_Word  ED_WORD;
@@ -392,7 +392,7 @@ typedef LPED_WORD TIGERFAR * LPLPED_WORD;
 //////////////////////////////////////////////////////////////////////////////
 struct ED_Character
 {
-    WORD    wCharNumber;  // Character number
+    uint16_t    wCharNumber;  // Character number
     ED_RECT rFrame;       // Character frame
     BYTE    bCharacter;   // Character itself
     BYTE    bProbability; // Character recognition quality
@@ -411,23 +411,23 @@ TIGERLOC(BOOL16)          Tiger_OpenEdFile      (LPSTR lpFilename);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          Tiger_GetEdPage       (LPED_PAGE lpEdPage);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          Tiger_GetEdFragment   (WORD wFragmentID,
+TIGERLOC(BOOL16)          Tiger_GetEdFragment   (uint16_t wFragmentID,
 												 LPED_FRAGMENT lpEdFragment);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          Tiger_GetEdString     (WORD wStringID,
+TIGERLOC(BOOL16)          Tiger_GetEdString     (uint16_t wStringID,
 												 LPED_STRING lpEdString);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          Tiger_GetEdWord       (WORD wWordID,
+TIGERLOC(BOOL16)          Tiger_GetEdWord       (uint16_t wWordID,
 												 LPED_WORD lpEdWord);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)          Tiger_GetEdCharacter  (WORD wCharacterID,
+TIGERLOC(BOOL16)          Tiger_GetEdCharacter  (uint16_t wCharacterID,
 												 LPED_CHARACTER lpEdCharacter);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          Tiger_CloseEdFile     (void);
 //////////////////////////////////////////////////////////////////////////////
 #define SIZEofBUF         (0 + 256*sizeof(int))
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(BOOL16)       Tiger_SetEdSaveRtfOptions(WORD wFrame,
+TIGERLOC(BOOL16)       Tiger_SetEdSaveRtfOptions(uint16_t wFrame,
 												 LPSTR lpNameSerif,
 												 LPSTR lpNameNoSerif,
 												 LPSTR lpNameMono,
@@ -453,9 +453,9 @@ TIGERLOC(BOOL16)       Tiger_SetEdSaveRtfOptions(WORD wFrame,
 #define FUNC_DELETE_TEMP_FILES      16
 // duplicate in file ..\USER\TGCALL.H
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(WORD)            Tiger_GetLanguage     (void);
+TIGERLOC(uint16_t)            Tiger_GetLanguage     (void);
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(WORD)            Tiger_EnumLanguage    (WORD prev);
+TIGERLOC(uint16_t)            Tiger_EnumLanguage    (uint16_t prev);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          Tiger_RunWithDIB      (void *, void *);
 //////////////////////////////////////////////////////////////////////////////

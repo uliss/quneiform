@@ -1168,7 +1168,7 @@ INT def_upper_side(void)
   CSTR_rast c;
   CSTR_rast_attr attr;
   INT i,max,max_sn,ind,ind_sn;
-  WORD h_size,n_def,n_sn;
+  uint16_t h_size,n_def,n_sn;
 
   INT h_top[RASTER_MAX_HEIGHT*2]={0},h_sunk[RASTER_MAX_HEIGHT*2]={0};
 
@@ -1286,7 +1286,7 @@ void tell_for_b3(INT hist_array[])
 
 INT flood_peak(INT *Hh,INT ind)
 {
- WORD Num,Den,t,t1;
+ uint16_t Num,Den,t,t1;
 
  if(ind > 1)
       t=Hh[ind-2]*(ind-2);

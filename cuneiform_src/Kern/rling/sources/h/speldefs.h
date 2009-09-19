@@ -552,7 +552,7 @@ struct ltimg {
 /********  Word description in voc structure                      **********/
 /***************************************************************************/
 typedef struct word_descr_in_voc
-     {  WORD                 next;
+     {  uint16_t                 next;
     INT                   nmb;
     struct segm   *segm;
     char          *symb;
@@ -574,7 +574,7 @@ typedef struct word_descr_in_voc
 #define  C_MIXED  0x40        /* Left/right word consists of Cap,low,digits*/
 #define  C_DIG    0x80        /* Left/right word is pure digital           */
 
-/***********************      WORD   FLAGS     *****************************/
+/***********************      uint16_t   FLAGS     *****************************/
 
 #define  W_BAD    0x01       /*  Word has unrecognized symbols             */
 #define  W_DELIM  0x02       /*  Word has delimeters                       */
@@ -596,10 +596,10 @@ struct v {
   BYTE key;                  /*  key of vertex                    */
   BYTE wrdterm :1;            /*  flag of word termination         */
   BYTE accnt :7;              /*  statistics account               */
-  WORD left;                  /*  pointer to left brother          */
-  WORD right;                 /*  pointer to right brother         */
-  WORD down;                  /*  pointer to down brother ( son )  */
-  WORD wtoken;
+  uint16_t left;                  /*  pointer to left brother          */
+  uint16_t right;                 /*  pointer to right brother         */
+  uint16_t down;                  /*  pointer to down brother ( son )  */
+  uint16_t wtoken;
     };
 
 typedef struct v vert;                /* type of vocabulary vertexes       */
@@ -613,11 +613,11 @@ typedef struct v vert;                /* type of vocabulary vertexes       */
 struct vstate
 {
 	INT lev;                            /* current level in voc. 0 : M_W_S-1 */
-	WORD path [MAX_WORD_SIZE];  /* path from root to current vertex  */
-	/*  WORD vocseg;    */        /* base register of vocabulary       */
+	uint16_t path [MAX_WORD_SIZE];  /* path from root to current vertex  */
+	/*  uint16_t vocseg;    */        /* base register of vocabulary       */
 
 	BYTE * vocseg;
-	WORD vocfree;               /* size of unused space in voc.      */
+	uint16_t vocfree;               /* size of unused space in voc.      */
 	BYTE state;
 };
                   /*           Voc states definitions */
@@ -666,32 +666,32 @@ typedef struct
 
   struct super_next
   {
-   WORD rec;
-   WORD beg_next;
-   WORD last_altern;
-   WORD end_altern;
-   WORD st;
+   uint16_t rec;
+   uint16_t beg_next;
+   uint16_t last_altern;
+   uint16_t end_altern;
+   uint16_t st;
    };
 
 
 
 typedef struct super
  {
-  WORD tif_top_y;
-  WORD tif_small_top_y;
+  uint16_t tif_top_y;
+  uint16_t tif_small_top_y;
   struct int_row_col tif_pos;
-  WORD active_window;
-  WORD beg_sheet;
-  WORD beg_next;
-  WORD real_num;
-  WORD move;
+  uint16_t active_window;
+  uint16_t beg_sheet;
+  uint16_t beg_next;
+  uint16_t real_num;
+  uint16_t move;
   INT add_row;
   INT add_col;
   INT add_width;
   INT add_height;
-  WORD corner;
-   WORD end_altern;
-  WORD last_altern;
+  uint16_t corner;
+   uint16_t end_altern;
+  uint16_t last_altern;
   BYTE text_line[sizeof(struct letter)*MAX_STRING_LTH];  //  2 * 80
   dt  *tab_ptr;
   char * text_buff;
@@ -701,11 +701,11 @@ typedef struct super
   char  *end_alloc_mem;
   char  *free_alloc_mem;
   char  *ptr_tab;
-  WORD  cur_fragm;
-  WORD qt_fm;
-  WORD  cur_sheet;
-  WORD  cur_sheet_number;
-  WORD  stack_level;
+  uint16_t  cur_fragm;
+  uint16_t qt_fm;
+  uint16_t  cur_sheet;
+  uint16_t  cur_sheet_number;
+  uint16_t  stack_level;
   struct segm  * last_del_line;
   struct segm  *ptr_cur_segm;
   struct segm  *ptr_next_segm;
@@ -715,36 +715,36 @@ typedef struct super
   char bgc;
   LONG buff_l;
   LONG l;                               /*length of done way in next_symb*/
-  WORD new_s;                       /*sign of new segm of curr line*/
+  uint16_t new_s;                       /*sign of new segm of curr line*/
   char ed_fname[6];
   INT ed_file;
   LONG file_lth;
   INT start_sheet_number;
   char  *str_ptr;
-  WORD ram_change_status;
-  WORD end_l;
-  WORD end_s;
-  WORD curs_x_a;
-  WORD curs_y_a;
-  WORD curs_x_w;
-  WORD curs_y_w;
-  WORD w_x;
-  WORD w_y;
-  WORD w_width;
-  WORD w_height;
-  WORD tif_x;                      /*coordinates of tif window */
-  WORD tif_y;
-  WORD tif_width;
-  WORD tif_height;
+  uint16_t ram_change_status;
+  uint16_t end_l;
+  uint16_t end_s;
+  uint16_t curs_x_a;
+  uint16_t curs_y_a;
+  uint16_t curs_x_w;
+  uint16_t curs_y_w;
+  uint16_t w_x;
+  uint16_t w_y;
+  uint16_t w_width;
+  uint16_t w_height;
+  uint16_t tif_x;                      /*coordinates of tif window */
+  uint16_t tif_y;
+  uint16_t tif_width;
+  uint16_t tif_height;
   INT tif_file;
   char tif_file_name[40];
   INT tif_line_lth;
   INT tif_n_lines;
-  WORD large_height;
-  WORD small_height;
+  uint16_t large_height;
+  uint16_t small_height;
   INT q_pg_right; /* quantity of pages that we have passed moving right */
-  WORD sw_symb;/* sw_symb = 1 shows that was recurs. call of next_symb()*/
-  WORD esc_n_s;
+  uint16_t sw_symb;/* sw_symb = 1 shows that was recurs. call of next_symb()*/
+  uint16_t esc_n_s;
   char fragm_flag[MAX_FRAGM];
   char sheet_flag[MAX_SHEET];
   struct bit_map_ref *bit_map_ref_ptr;
@@ -838,21 +838,21 @@ typedef struct super
  /**************************************************************************/
  struct tre_state
         {
-     WORD             font;
-     WORD             kegl;
-     WORD        font_type;
+     uint16_t             font;
+     uint16_t             kegl;
+     uint16_t        font_type;
      char      file_name[40];
      BYTE *   buf;
-     WORD         buf_size;
-     WORD              lth;
+     uint16_t         buf_size;
+     uint16_t              lth;
         };
 #define TRE_BUF_SIZE 0xA000
   struct tif_state
           {
-       WORD          shift;    /*  shift (in tif lines ) */
+       uint16_t          shift;    /*  shift (in tif lines ) */
        BYTE  *buf;
-       WORD       buf_size;
-       WORD            lth;
+       uint16_t       buf_size;
+       uint16_t            lth;
      } ;
 #define TIF_BUF_SIZE 0x7000
 #ifdef OVERVOC
@@ -914,10 +914,10 @@ char  *find_byte_flag(void);
 
 struct tifref
  {
-  WORD row;                   /* envelope specification  */
-  WORD col;                   /*  ...                    */
-  WORD width;                 /*  ...                    */
-  WORD height;                /*  ...                    */
+  uint16_t row;                   /* envelope specification  */
+  uint16_t col;                   /*  ...                    */
+  uint16_t width;                 /*  ...                    */
+  uint16_t height;                /*  ...                    */
   BYTE *env_ref;    /* ref to envelope specification in tif */
   struct segm * segm;        /*        Q.ns.segm        */
   char *symb;               /*        Q.ns.symb        */
@@ -1072,7 +1072,7 @@ struct tifref
                    /* 0, if was not available (then generated) */
     INT dif_wt;            /* weight of discrepancy with orig alts     */
 /* ???
-    WORD prob_BOX;
+    uint16_t prob_BOX;
    ??? */
     BYTE type;
                    /* T_ALPHA - alphabetic   */

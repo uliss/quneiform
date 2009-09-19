@@ -194,8 +194,8 @@ Bool InitializeAlphabet (INT CountryCode)
 
   TGCLOSE(h);
 
-  if ( (strlen(alphabet[0]) != (WORD)ABCSize)
-        || (strlen(alphabet[1])!=(WORD)ABCSize))
+  if ( (strlen(alphabet[0]) != (uint16_t)ABCSize)
+        || (strlen(alphabet[1])!=(uint16_t)ABCSize))
   {
     return FALSE;
   }
@@ -237,7 +237,7 @@ Bool InitializeAlphabet (INT CountryCode)
 void dectable_init(void)
 {
   INT i,j;
-  WORD index;
+  uint16_t index;
 
   memset(codetable,0,sizeof(codetable));
   memset(codepermit,0,sizeof(codepermit));

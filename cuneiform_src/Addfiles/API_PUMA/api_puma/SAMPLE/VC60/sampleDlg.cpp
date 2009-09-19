@@ -137,7 +137,7 @@ Bool CSampleDlg::OnInitDialog()
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
-void CSampleDlg::OnSysCommand(UINT nID, LPARAM lParam)
+void CSampleDlg::OnSysCommand(uint nID, LPARAM lParam)
 {
 	if ((nID & 0xFFF0) == IDM_ABOUTBOX)
 	{

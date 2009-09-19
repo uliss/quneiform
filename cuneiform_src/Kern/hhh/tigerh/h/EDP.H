@@ -130,7 +130,7 @@ typedef struct d_df
     INT          num;       // Number of fragment givet automatically
     INT          user_num;  // Number of fragment given by user
     INT          lplain;    // Width of fragment in ED text mode
-    WORD         type;
+    uint16_t         type;
 #define ONE_LINE      0x0001
 #define LEFT_ALLIGN   0x0002
 #define RIGHT_ALLIGN  0x0004
@@ -176,7 +176,7 @@ typedef struct d_dl
 #define BUL_PAR  0x2        // paragraph with bullet
     INT         indent;     // size of indent (only if paragraph)
     INT         bulind;     // size of bullet indent (only if bullet)
-    WORD        type;       // 0 for deleted line
+    uint16_t        type;       // 0 for deleted line
 #define DL_HUGE_XW   0x1      // XW changed due to huge letter
 #define DL_HUGE      0x2      // Huge letter
 #define DL_ASSEMBLY  0x4      // Line assembled from pieces
@@ -206,11 +206,11 @@ struct line_ref
   DL * line;
   INT finy;
   INT x;
-  WORD width;
-  WORD indent;
-  WORD base;
+  uint16_t width;
+  uint16_t indent;
+  uint16_t base;
   BYTE flag;
-  WORD type;		// Copy of fragment's type
+  uint16_t type;		// Copy of fragment's type
   BYTE paragraph;
   BYTE res[3];
  };
@@ -278,18 +278,18 @@ uint32_t   dynmem_size;                // Total count of dynamic memory size
 
 
     // Follow coordinates in TIFF
-    WORD page_pix_width;		// page width in pixels
-    WORD page_width;			// page width in twips
-    WORD column_width;			// current column width
-    WORD column_width_save;		// column width saved
-    WORD columns_quant;			// number of columns
+    uint16_t page_pix_width;		// page width in pixels
+    uint16_t page_width;			// page width in twips
+    uint16_t column_width;			// current column width
+    uint16_t column_width_save;		// column width saved
+    uint16_t columns_quant;			// number of columns
 
     // Tables support
     PWORD cells_w;			// cell widthes array
     PWORD cells_x;			// x of cells
     PWORD cells_g;			// gaps of cells
-    WORD cells_quant;			// number of cells
-    WORD current_cell;			// current cell number
+    uint16_t cells_quant;			// number of cells
+    uint16_t current_cell;			// current cell number
     BYTE section_fill;			// non empty section flag
     BYTE table_flag;			// table flag
 
@@ -298,7 +298,7 @@ uint32_t   dynmem_size;                // Total count of dynamic memory size
     INT Xmax;		// Maximal right coordinate of all fragments
     PWORD char_tab;	// Tabulation table pointer
     DF ** sort_frag;	// List of sorted by upper fragment
-    WORD cn;		// Local fragment counter for sortlist
+    uint16_t cn;		// Local fragment counter for sortlist
     INT cy;		// Current 'y' for plank
     INT finy;		// Minimal of rows to finish active lines
     LREF * cfirst;	// First fictive element in lines chain

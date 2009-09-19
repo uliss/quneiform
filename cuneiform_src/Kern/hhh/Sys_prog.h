@@ -152,7 +152,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*
 #ifndef WIN_MOD
   typedef unsigned char BYTE;
-  typedef unsigned int WORD;
+  typedef unsigned int uint16_t;
   typedef signed long LONG;
   typedef unsigned long DWORD;
   typedef int Bool;
@@ -162,9 +162,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #ifndef LPSTR
      typedef char * LPSTR;
   #endif
-  #define MAKELONG(a,b) ((DWORD)(((WORD)(a)) | (((DWORD)((WORD)(b))) << 16)))
-  #define LOWORD(l) ((WORD)(l))
-  #define HIWORD(l) ((WORD)(((DWORD)(l) >> 16) & 0xFFFF))
+  #define MAKELONG(a,b) ((DWORD)(((uint16_t)(a)) | (((DWORD)((uint16_t)(b))) << 16)))
+  #define LOWORD(l) ((uint16_t)(l))
+  #define HIWORD(l) ((uint16_t)(((DWORD)(l) >> 16) & 0xFFFF))
   typedef int HFILE;
 #endif
 */
@@ -176,8 +176,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
   #ifdef TC_MOD
     //#define CALLBACK FAR PASCAL
-    typedef unsigned int UINT;
-    typedef UINT WPARAM;
+    typedef unsigned int uint;
+    typedef uint WPARAM;
     typedef LONG LPARAM;
   #endif
   #ifndef WIN32

@@ -169,7 +169,7 @@ extern INT vocs_NOK;
 /**************************************************************************/
 /* -- Code -- */
 
-INT cond_open(INT seqn, PBYTE name, WORD b1, WORD b2);
+INT cond_open(INT seqn, PBYTE name, uint16_t b1, uint16_t b2);
 PBYTE seq_nam(INT seqn);
 PCHAR full_name(PBYTE w, PBYTE n);
 
@@ -263,7 +263,7 @@ BYTE * load_stat_dict(char *point)
 	if (size > 64) {
 		return (BYTE *) dict;
 	} else {
-		dict->abcSize = (WORD) size;
+		dict->abcSize = (uint16_t) size;
 	}
 
 	/*  -- Load decode tables. -- NEED TO THINK ABOUT !!!

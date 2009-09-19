@@ -66,7 +66,7 @@ BYTE work_raster[2048], work_raster_1[2048];
 struct main_memory_str Q;
 version * start_rec, *rec_ptr;
 BYTE string[8192];
-WORD lpool_lth;
+uint16_t lpool_lth;
 BYTE lpool[6000];
 BYTE records_change;
 BYTE evfulln;

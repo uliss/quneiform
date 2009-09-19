@@ -126,7 +126,7 @@ public:
 
   Rect32        RectTable;
   std::vector<CTableRow*>/*CObArray*/	    m_arTableRows;
-  WORD          m_wIndex;
+  uint16_t          m_wIndex;
   int32_t         m_CountRows;
   int32_t         m_CountColumns;
 };
@@ -143,11 +143,11 @@ public:
   void	        Write(/*CString* TableString,*/RtfSectorInfo* SectorInfo);
 
   std::vector<CTablePhCell*>/*CObArray*/	    m_arPhCells;
-  WORD		    m_wHeight;
-  WORD          m_wPosX;
-  WORD          m_wPosY;
-  WORD          m_wIndex;
-  WORD          m_wCountPhCells;
+  uint16_t		    m_wHeight;
+  uint16_t          m_wPosX;
+  uint16_t          m_wPosY;
+  uint16_t          m_wIndex;
+  uint16_t          m_wCountPhCells;
   Handle        m_hEdTableRow;
 };
 
@@ -175,13 +175,13 @@ public:
   Rect32        RectTable;
   Point32       m_PhCellPoint;
 
-  WORD	        m_wIndex;
+  uint16_t	        m_wIndex;
   Bool32	    m_FlagTerminalPhCell;
   Bool32        m_FlagPhisicalGroup;
   int32_t         m_NumberPhysicalGroup;
   int32_t         m_FragmentNumber;
   int32_t         m_LeftIndent;
-  WORD     	    m_wCountStrings;
+  uint16_t     	    m_wCountStrings;
   Bool32        m_PhCellFragmentFormatting;       //Hor. formatting
   Bool32        m_PhCellFragmentAlignment;        //Ver. formatting
   Handle        m_hEdTableCell;
@@ -211,8 +211,8 @@ public:
 
   /*CObArray*/std::vector<CTableWord*>      m_arWords;
 
-  WORD	        m_wIndex;
-  WORD          m_wCountWords;
+  uint16_t	        m_wIndex;
+  uint16_t          m_wCountWords;
 uint32_t         m_Flags;
 };
 
@@ -233,15 +233,15 @@ public:
   std::vector<CTableChar*>/*CObArray*/      m_arChars;
   RECT	        m_rectWord;
 
-  WORD	        m_wCountChars;
-  WORD	        m_wIndex;
-  WORD	        m_wEDIndex;
-  WORD	        m_wFontNumber;
-  WORD	        m_wFontPointSize;
-  WORD          m_wUnderline;
-  WORD          m_wBold;
-  WORD          m_wItalic;
-  WORD          m_wProb;
+  uint16_t	        m_wCountChars;
+  uint16_t	        m_wIndex;
+  uint16_t	        m_wEDIndex;
+  uint16_t	        m_wFontNumber;
+  uint16_t	        m_wFontPointSize;
+  uint16_t          m_wUnderline;
+  uint16_t          m_wBold;
+  uint16_t          m_wItalic;
+  uint16_t          m_wProb;
   BYTE          m_bSpell;
 uint32_t         m_Flags;
 };
@@ -265,9 +265,9 @@ public:
   } m_chrVersions[REC_MAX_VERS];//!!! Art
   BYTE          m_blanguage;
   BYTE          m_bFlg_spell;
-  WORD          m_wCountAlt;
-  WORD          m_wFontNumber;
-  WORD	        m_wIndex;
+  uint16_t          m_wCountAlt;
+  uint16_t          m_wFontNumber;
+  uint16_t	        m_wIndex;
 uint32_t         m_Flags;
  };
 

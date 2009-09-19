@@ -1109,7 +1109,7 @@ public:
 		ATLVERIFY(SUCCEEDED(hRet));
 	}
 
-	void _Init(LPCWSTR lpszFileName, DWORD dwOptions, LPCWSTR lpszDefExt, const COMDLG_FILTERSPEC* arrFilterSpec, UINT uFilterSpecCount)
+	void _Init(LPCWSTR lpszFileName, DWORD dwOptions, LPCWSTR lpszDefExt, const COMDLG_FILTERSPEC* arrFilterSpec, uint uFilterSpecCount)
 	{
 		T* pT = static_cast<T*>(this);
 		ATLASSERT(pT->m_spFileDlg != NULL);
@@ -1273,7 +1273,7 @@ public:
 	                         DWORD dwOptions = FOS_FORCEFILESYSTEM | FOS_PATHMUSTEXIST | FOS_FILEMUSTEXIST,
 	                         LPCWSTR lpszDefExt = NULL,
 	                         const COMDLG_FILTERSPEC* arrFilterSpec = NULL,
-	                         UINT uFilterSpecCount = 0U)
+	                         uint uFilterSpecCount = 0U)
 	{
 		HRESULT hRet = m_spFileDlg.CoCreateInstance(CLSID_FileOpenDialog);
 
@@ -1298,7 +1298,7 @@ public:
 	                     DWORD dwOptions = FOS_FORCEFILESYSTEM | FOS_PATHMUSTEXIST | FOS_FILEMUSTEXIST,
 	                     LPCWSTR lpszDefExt = NULL,
 	                     const COMDLG_FILTERSPEC* arrFilterSpec = NULL,
-	                     UINT uFilterSpecCount = 0U) : CShellFileOpenDialogImpl<CShellFileOpenDialog>(lpszFileName, dwOptions, lpszDefExt, arrFilterSpec, uFilterSpecCount)
+	                     uint uFilterSpecCount = 0U) : CShellFileOpenDialogImpl<CShellFileOpenDialog>(lpszFileName, dwOptions, lpszDefExt, arrFilterSpec, uFilterSpecCount)
 	{ }
 
 // Implementation (remove _Advise/_Unadvise code using template magic)
@@ -1323,7 +1323,7 @@ public:
 	                         DWORD dwOptions = FOS_FORCEFILESYSTEM | FOS_PATHMUSTEXIST | FOS_OVERWRITEPROMPT,
 	                         LPCWSTR lpszDefExt = NULL,
 	                         const COMDLG_FILTERSPEC* arrFilterSpec = NULL,
-	                         UINT uFilterSpecCount = 0U)
+	                         uint uFilterSpecCount = 0U)
 	{
 		HRESULT hRet = m_spFileDlg.CoCreateInstance(CLSID_FileSaveDialog);
 
@@ -1348,7 +1348,7 @@ public:
 	                     DWORD dwOptions = FOS_FORCEFILESYSTEM | FOS_PATHMUSTEXIST | FOS_OVERWRITEPROMPT,
 	                     LPCWSTR lpszDefExt = NULL,
 	                     const COMDLG_FILTERSPEC* arrFilterSpec = NULL,
-	                     UINT uFilterSpecCount = 0U) : CShellFileSaveDialogImpl<CShellFileSaveDialog>(lpszFileName, dwOptions, lpszDefExt, arrFilterSpec, uFilterSpecCount)
+	                     uint uFilterSpecCount = 0U) : CShellFileSaveDialogImpl<CShellFileSaveDialog>(lpszFileName, dwOptions, lpszDefExt, arrFilterSpec, uFilterSpecCount)
 	{ }
 
 // Implementation (remove _Advise/_Unadvise code using template magic)
@@ -1381,7 +1381,7 @@ public:
 	HWND m_hWnd;   // used only in the callback function
 
 // Constructor
-	CFolderDialogImpl(HWND hWndParent = NULL, LPCTSTR lpstrTitle = NULL, UINT uFlags = BIF_RETURNONLYFSDIRS) :
+	CFolderDialogImpl(HWND hWndParent = NULL, LPCTSTR lpstrTitle = NULL, uint uFlags = BIF_RETURNONLYFSDIRS) :
 			m_lpstrInitialFolder(NULL), m_pidlInitialSelection(NULL), m_bExpandInitialSelection(false), m_pidlSelected(NULL), m_hWnd(NULL)
 	{
 		memset(&m_bi, 0, sizeof(m_bi)); // initialize structure to 0/NULL
@@ -1473,7 +1473,7 @@ public:
 	}
 
 // Callback function and overrideables
-	static int CALLBACK BrowseCallbackProc(HWND hWnd, UINT uMsg, LPARAM lParam, LPARAM lpData)
+	static int CALLBACK BrowseCallbackProc(HWND hWnd, uint uMsg, LPARAM lParam, LPARAM lpData)
 	{
 #ifndef BFFM_VALIDATEFAILED
   #ifdef UNICODE
@@ -1486,7 +1486,7 @@ public:
 		const int BFFM_IUNKNOWN = 5;
 #endif // !BFFM_IUNKNOWN
 #ifndef BIF_NEWDIALOGSTYLE
-		const UINT BIF_NEWDIALOGSTYLE = 0x0040;
+		const uint BIF_NEWDIALOGSTYLE = 0x0040;
 #endif // !BIF_NEWDIALOGSTYLE
 
 		int nRet = 0;
@@ -1586,7 +1586,7 @@ public:
 	void SetOKText(LPCTSTR lpstrOKText)
 	{
 #ifndef BFFM_SETOKTEXT
-		const UINT BFFM_SETOKTEXT = WM_USER + 105;
+		const uint BFFM_SETOKTEXT = WM_USER + 105;
 #endif
 		ATLASSERT(m_hWnd != NULL);
 		USES_CONVERSION;
@@ -1597,7 +1597,7 @@ public:
 	void SetExpanded(LPCITEMIDLIST pItemIDList)
 	{
 #ifndef BFFM_SETEXPANDED
-		const UINT BFFM_SETEXPANDED = WM_USER + 106;
+		const uint BFFM_SETEXPANDED = WM_USER + 106;
 #endif
 		ATLASSERT(m_hWnd != NULL);
 		::SendMessage(m_hWnd, BFFM_SETEXPANDED, FALSE, (LPARAM)pItemIDList);
@@ -1606,7 +1606,7 @@ public:
 	void SetExpanded(LPCTSTR lpstrFolderPath)
 	{
 #ifndef BFFM_SETEXPANDED
-		const UINT BFFM_SETEXPANDED = WM_USER + 106;
+		const uint BFFM_SETEXPANDED = WM_USER + 106;
 #endif
 		ATLASSERT(m_hWnd != NULL);
 		USES_CONVERSION;
@@ -1618,7 +1618,7 @@ public:
 class CFolderDialog : public CFolderDialogImpl<CFolderDialog>
 {
 public:
-	CFolderDialog(HWND hWndParent = NULL, LPCTSTR lpstrTitle = NULL, UINT uFlags = BIF_RETURNONLYFSDIRS)
+	CFolderDialog(HWND hWndParent = NULL, LPCTSTR lpstrTitle = NULL, uint uFlags = BIF_RETURNONLYFSDIRS)
 		: CFolderDialogImpl<CFolderDialog>(hWndParent, lpstrTitle, uFlags)
 	{ }
 };
@@ -1632,7 +1632,7 @@ public:
 class ATL_NO_VTABLE CCommonDialogImplBase : public ATL::CWindowImplBase
 {
 public:
-	static UINT_PTR APIENTRY HookProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+	static UINT_PTR APIENTRY HookProc(HWND hWnd, uint uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		if(uMsg != WM_INITDIALOG)
 			return 0;
@@ -1668,7 +1668,7 @@ public:
 		return NULL;
 	}
 
-	static LRESULT CALLBACK StartWindowProc(HWND /*hWnd*/, UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/)
+	static LRESULT CALLBACK StartWindowProc(HWND /*hWnd*/, uint /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/)
 	{
 		ATLASSERT(FALSE);   // should not be called
 		return 0;
@@ -1765,7 +1765,7 @@ public:
 	{
 		ATLASSERT(lplf != NULL);
 #ifndef WM_CHOOSEFONT_SETLOGFONT
-		const UINT WM_CHOOSEFONT_SETLOGFONT = (WM_USER + 101);
+		const uint WM_CHOOSEFONT_SETLOGFONT = (WM_USER + 101);
 #endif
 		if(m_hWnd != NULL)
 		{
@@ -1781,7 +1781,7 @@ public:
 	void SetFlags(DWORD dwFlags)
 	{
 #ifndef WM_CHOOSEFONT_SETFLAGS
-		const UINT WM_CHOOSEFONT_SETFLAGS = (WM_USER + 102);
+		const uint WM_CHOOSEFONT_SETFLAGS = (WM_USER + 102);
 #endif
 		if(m_hWnd != NULL)
 		{
@@ -2082,7 +2082,7 @@ public:
 	}
 
 // Special override for the color dialog
-	static UINT_PTR APIENTRY HookProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+	static UINT_PTR APIENTRY HookProc(HWND hWnd, uint uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		if(uMsg != WM_INITDIALOG && uMsg != _GetColorOKMessage())
 			return 0;
@@ -2136,9 +2136,9 @@ public:
 		return rgbCustomColors;
 	}
 
-	static UINT _GetSetRGBMessage()
+	static uint _GetSetRGBMessage()
 	{
-		static UINT uSetRGBMessage = 0;
+		static uint uSetRGBMessage = 0;
 		if(uSetRGBMessage == 0)
 		{
 			CStaticDataInitCriticalSectionLock lock;
@@ -2158,9 +2158,9 @@ public:
 		return uSetRGBMessage;
 	}
 
-	static UINT _GetColorOKMessage()
+	static uint _GetColorOKMessage()
 	{
-		static UINT uColorOKMessage = 0;
+		static uint uColorOKMessage = 0;
 		if(uColorOKMessage == 0)
 		{
 			CStaticDataInitCriticalSectionLock lock;
@@ -2185,7 +2185,7 @@ public:
 		MESSAGE_HANDLER(_GetColorOKMessage(), _OnColorOK)
 	END_MSG_MAP()
 
-	LRESULT _OnColorOK(UINT, WPARAM, LPARAM, Bool&)
+	LRESULT _OnColorOK(uint, WPARAM, LPARAM, Bool&)
 	{
 		T* pT = static_cast<T*>(this);
 		return pT->OnColorOK();
@@ -2424,7 +2424,7 @@ public:
 #endif // !psh1
 	END_MSG_MAP()
 
-	LRESULT OnPrintSetup(WORD wNotifyCode, WORD wID, HWND hWndCtl, Bool& /*bHandled*/)
+	LRESULT OnPrintSetup(uint16_t wNotifyCode, uint16_t wID, HWND hWndCtl, Bool& /*bHandled*/)
 	{
 		T dlgSetup(m_pd);
 		ModuleHelper::AddCreateWndData(&dlgSetup.m_thunk.cd, (CCommonDialogImplBase*)&dlgSetup);
@@ -2668,7 +2668,7 @@ public:
 		return S_FALSE;
 	}
 
-	STDMETHOD(HandleMessage)(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT* plResult)
+	STDMETHOD(HandleMessage)(HWND hWnd, uint uMsg, WPARAM wParam, LPARAM lParam, LRESULT* plResult)
 	{
 		// set up m_hWnd the first time
 		if(m_hWnd == NULL)
@@ -2811,7 +2811,7 @@ public:
 	}
 
 // Implementation
-	static UINT_PTR CALLBACK PaintHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+	static UINT_PTR CALLBACK PaintHookProc(HWND hWnd, uint uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		T* pT = (T*)hWnd;
 		UINT_PTR uRet = 0;
@@ -2836,13 +2836,13 @@ public:
 	}
 
 // Overridables
-	UINT_PTR PreDrawPage(WORD /*wPaper*/, WORD /*wFlags*/, LPPAGESETUPDLG /*pPSD*/)
+	UINT_PTR PreDrawPage(uint16_t /*wPaper*/, uint16_t /*wFlags*/, LPPAGESETUPDLG /*pPSD*/)
 	{
 		// return 1 to prevent any more drawing
 		return 0;
 	}
 
-	UINT_PTR OnDrawPage(UINT /*uMsg*/, HDC /*hDC*/, LPRECT /*lpRect*/)
+	UINT_PTR OnDrawPage(uint /*uMsg*/, HDC /*hDC*/, LPRECT /*lpRect*/)
 	{
 		return 0; // do the default
 	}
@@ -2856,7 +2856,7 @@ public:
 	{ }
 
 	// override PaintHookProc and references to handlers
-	static UINT_PTR CALLBACK PaintHookProc(HWND, UINT, WPARAM, LPARAM)
+	static UINT_PTR CALLBACK PaintHookProc(HWND, uint, WPARAM, LPARAM)
 	{
 		return 0;
 	}
@@ -2939,9 +2939,9 @@ public:
 		return hWnd;
 	}
 
-	static const UINT GetFindReplaceMsg()
+	static const uint GetFindReplaceMsg()
 	{
-		static const UINT nMsgFindReplace = ::RegisterWindowMessage(FINDMSGSTRING);
+		static const uint nMsgFindReplace = ::RegisterWindowMessage(FINDMSGSTRING);
 		return nMsgFindReplace;
 	}
 	// call while handling FINDMSGSTRING registered message
@@ -3025,7 +3025,7 @@ struct DLGITEMTEMPLATEEX
 	short y;
 	short cx;
 	short cy;
-	WORD id;
+	uint16_t id;
 };
 #pragma pack(pop)
 #endif // (_ATL_VER >= 0x800)
@@ -3086,7 +3086,7 @@ public:
 	}
 
 	void Create(bool bDlgEx, LPCTSTR lpszCaption, short nX, short nY, short nWidth, short nHeight, DWORD dwStyle = 0, DWORD dwExStyle = 0,
-	            LPCTSTR lpstrFontName = NULL, WORD wFontSize = 0, WORD wWeight = 0, BYTE bItalic = 0, BYTE bCharset = 0, DWORD dwHelpID = 0,
+	            LPCTSTR lpstrFontName = NULL, uint16_t wFontSize = 0, uint16_t wWeight = 0, BYTE bItalic = 0, BYTE bCharset = 0, DWORD dwHelpID = 0,
 				ATL::_U_STRINGorID ClassName = 0U, ATL::_U_STRINGorID Menu = 0U)
 	{
 		// Should have DS_SETFONT style to set the dialog font name and size
@@ -3113,12 +3113,12 @@ public:
 #ifndef _WIN32_WCE
 		if (Menu.m_lpstr == NULL)
 		{
-			WORD menuData = 0;
-			AddData(&menuData, sizeof(WORD));
+			uint16_t menuData = 0;
+			AddData(&menuData, sizeof(uint16_t));
 		}
 		else if (IS_INTRESOURCE(Menu.m_lpstr))
 		{
-			WORD menuData[] = {0xFFFF, (WORD)Menu.m_lpstr};
+			uint16_t menuData[] = {0xFFFF, (uint16_t)Menu.m_lpstr};
 			AddData(menuData, sizeof(menuData));
 		}
 		else
@@ -3129,18 +3129,18 @@ public:
 		// Windows CE doesn't support the addition of menus to a dialog box
 		ATLASSERT(Menu.m_lpstr == NULL);
 		Menu.m_lpstr;   // avoid level 4 warning
-		WORD menuData = 0;
-		AddData(&menuData, sizeof(WORD));
+		uint16_t menuData = 0;
+		AddData(&menuData, sizeof(uint16_t));
 #endif // _WIN32_WCE
 
 		if (ClassName.m_lpstr == NULL)
 		{
-			WORD classData = 0;
-			AddData(&classData, sizeof(WORD));
+			uint16_t classData = 0;
+			AddData(&classData, sizeof(uint16_t));
 		}
 		else if (IS_INTRESOURCE(ClassName.m_lpstr))
 		{
-			WORD classData[] = {0xFFFF, (WORD)ClassName.m_lpstr};
+			uint16_t classData[] = {0xFFFF, (uint16_t)ClassName.m_lpstr};
 			AddData(classData, sizeof(classData));
 		}
 		else
@@ -3166,8 +3166,8 @@ public:
 		}
 	}
 
-	void AddControl(ATL::_U_STRINGorID ClassName, WORD wId, short nX, short nY, short nWidth, short nHeight, DWORD dwStyle, DWORD dwExStyle,
-	                ATL::_U_STRINGorID Text, const WORD* pCreationData = NULL, WORD nCreationData = 0, DWORD dwHelpID = 0)
+	void AddControl(ATL::_U_STRINGorID ClassName, uint16_t wId, short nX, short nY, short nWidth, short nHeight, DWORD dwStyle, DWORD dwExStyle,
+	                ATL::_U_STRINGorID Text, const uint16_t* pCreationData = NULL, uint16_t nCreationData = 0, DWORD dwHelpID = 0)
 	{
 		ATLASSERT(IsValid());
 
@@ -3194,7 +3194,7 @@ public:
 		ATLASSERT(ClassName.m_lpstr != NULL);
 		if (IS_INTRESOURCE(ClassName.m_lpstr))
 		{
-			WORD wData[] = {0xFFFF, (WORD)ClassName.m_lpstr};
+			uint16_t wData[] = {0xFFFF, (uint16_t)ClassName.m_lpstr};
 			AddData(wData, sizeof(wData));
 		}
 		else
@@ -3204,12 +3204,12 @@ public:
 
 		if (Text.m_lpstr == NULL)
 		{
-			WORD classData = 0;
-			AddData(&classData, sizeof(WORD));
+			uint16_t classData = 0;
+			AddData(&classData, sizeof(uint16_t));
 		}
 		else if (IS_INTRESOURCE(Text.m_lpstr))
 		{
-			WORD wData[] = {0xFFFF, (WORD)Text.m_lpstr};
+			uint16_t wData[] = {0xFFFF, (uint16_t)Text.m_lpstr};
 			AddData(wData, sizeof(wData));
 		}
 		else
@@ -3222,12 +3222,12 @@ public:
 		if ((nCreationData != 0))
 		{
 			ATLASSERT(pCreationData != NULL);
-			AddData(pCreationData, nCreationData * sizeof(WORD));
+			AddData(pCreationData, nCreationData * sizeof(uint16_t));
 		}
 	}
 
-	void AddStdControl(StdCtrlType CtrlType, WORD wId, short nX, short nY, short nWidth, short nHeight,
-	                   DWORD dwStyle, DWORD dwExStyle, ATL::_U_STRINGorID Text, const WORD* pCreationData = NULL, WORD nCreationData = 0, DWORD dwHelpID = 0)
+	void AddStdControl(StdCtrlType CtrlType, uint16_t wId, short nX, short nY, short nWidth, short nHeight,
+	                   DWORD dwStyle, DWORD dwExStyle, ATL::_U_STRINGorID Text, const uint16_t* pCreationData = NULL, uint16_t nCreationData = 0, DWORD dwHelpID = 0)
 	{
 		AddControl(CtrlType, wId, nX, nY, nWidth, nHeight, dwStyle, dwExStyle, Text, pCreationData, nCreationData, dwHelpID);
 	}
@@ -3294,8 +3294,8 @@ protected:
 		DWORD dwStyle = WS_POPUP | WS_BORDER | WS_SYSMENU; \
 		DWORD dwExStyle = 0; \
 		LPCTSTR szFontName = NULL; \
-		WORD wFontSize = 0; \
-		WORD wWeight = 0; \
+		uint16_t wFontSize = 0; \
+		uint16_t wWeight = 0; \
 		BYTE bItalic = 0; \
 		BYTE bCharset = 0; \
 		DWORD dwHelpID = 0; \
@@ -3312,8 +3312,8 @@ protected:
 		DWORD dwStyle = WS_POPUP | WS_BORDER | WS_SYSMENU; \
 		DWORD dwExStyle = 0; \
 		LPCTSTR szFontName = NULL; \
-		WORD wFontSize = 0; \
-		WORD wWeight = 0; \
+		uint16_t wFontSize = 0; \
+		uint16_t wWeight = 0; \
 		BYTE bItalic = 0; \
 		BYTE bCharset = 0; \
 		DWORD dwHelpID = helpID; \
@@ -3354,45 +3354,45 @@ protected:
 
 
 #define CONTROL_LTEXT(text, id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_STATIC, (WORD)id, x, y, width, height, style | SS_LEFT | WS_GROUP, exStyle, text, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_STATIC, (uint16_t)id, x, y, width, height, style | SS_LEFT | WS_GROUP, exStyle, text, NULL, 0);
 #define CONTROL_CTEXT(text, id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_STATIC, (WORD)id, x, y, width, height, style | SS_CENTER | WS_GROUP, exStyle, text, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_STATIC, (uint16_t)id, x, y, width, height, style | SS_CENTER | WS_GROUP, exStyle, text, NULL, 0);
 #define CONTROL_RTEXT(text, id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_STATIC, (WORD)id, x, y, width, height, style | SS_RIGHT | WS_GROUP, exStyle, text, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_STATIC, (uint16_t)id, x, y, width, height, style | SS_RIGHT | WS_GROUP, exStyle, text, NULL, 0);
 #define CONTROL_PUSHBUTTON(text, id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (WORD)id, x, y, width, height, style | BS_PUSHBUTTON | WS_TABSTOP, exStyle, text, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (uint16_t)id, x, y, width, height, style | BS_PUSHBUTTON | WS_TABSTOP, exStyle, text, NULL, 0);
 #define CONTROL_DEFPUSHBUTTON(text, id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (WORD)id, x, y, width, height, style | BS_DEFPUSHBUTTON | WS_TABSTOP, exStyle, text, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (uint16_t)id, x, y, width, height, style | BS_DEFPUSHBUTTON | WS_TABSTOP, exStyle, text, NULL, 0);
 #ifndef _WIN32_WCE
 #define CONTROL_PUSHBOX(text, id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (WORD)id, x, y, width, height, style | BS_PUSHBOX | WS_TABSTOP, exStyle, text, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (uint16_t)id, x, y, width, height, style | BS_PUSHBOX | WS_TABSTOP, exStyle, text, NULL, 0);
 #endif // !_WIN32_WCE
 #define CONTROL_STATE3(text, id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (WORD)id, x, y, width, height, style | BS_3STATE | WS_TABSTOP, exStyle, text, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (uint16_t)id, x, y, width, height, style | BS_3STATE | WS_TABSTOP, exStyle, text, NULL, 0);
 #define CONTROL_AUTO3STATE(text, id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (WORD)id, x, y, width, height, style | BS_AUTO3STATE | WS_TABSTOP, exStyle, text, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (uint16_t)id, x, y, width, height, style | BS_AUTO3STATE | WS_TABSTOP, exStyle, text, NULL, 0);
 #define CONTROL_CHECKBOX(text, id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (WORD)id, x, y, width, height, style | BS_CHECKBOX | WS_TABSTOP, exStyle, text, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (uint16_t)id, x, y, width, height, style | BS_CHECKBOX | WS_TABSTOP, exStyle, text, NULL, 0);
 #define CONTROL_AUTOCHECKBOX(text, id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (WORD)id, x, y, width, height, style | BS_AUTOCHECKBOX | WS_TABSTOP, exStyle, text, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (uint16_t)id, x, y, width, height, style | BS_AUTOCHECKBOX | WS_TABSTOP, exStyle, text, NULL, 0);
 #define CONTROL_RADIOBUTTON(text, id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (WORD)id, x, y, width, height, style | BS_RADIOBUTTON | WS_TABSTOP, exStyle, text, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (uint16_t)id, x, y, width, height, style | BS_RADIOBUTTON | WS_TABSTOP, exStyle, text, NULL, 0);
 #define CONTROL_AUTORADIOBUTTON(text, id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (WORD)id, x, y, width, height, style | BS_AUTORADIOBUTTON | WS_TABSTOP, exStyle, text, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (uint16_t)id, x, y, width, height, style | BS_AUTORADIOBUTTON | WS_TABSTOP, exStyle, text, NULL, 0);
 #define CONTROL_COMBOBOX(id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_COMBOBOX, (WORD)id, x, y, width, height, style | CBS_DROPDOWN | WS_TABSTOP, exStyle, (LPCTSTR)NULL, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_COMBOBOX, (uint16_t)id, x, y, width, height, style | CBS_DROPDOWN | WS_TABSTOP, exStyle, (LPCTSTR)NULL, NULL, 0);
 #define CONTROL_EDITTEXT(id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_EDIT, (WORD)id, x, y, width, height, style | ES_LEFT | WS_BORDER | WS_TABSTOP, exStyle, (LPCTSTR)NULL, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_EDIT, (uint16_t)id, x, y, width, height, style | ES_LEFT | WS_BORDER | WS_TABSTOP, exStyle, (LPCTSTR)NULL, NULL, 0);
 #define CONTROL_GROUPBOX(text, id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (WORD)id, x, y, width, height, style | BS_GROUPBOX, exStyle, text, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_BUTTON, (uint16_t)id, x, y, width, height, style | BS_GROUPBOX, exStyle, text, NULL, 0);
 #define CONTROL_LISTBOX(id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_LISTBOX, (WORD)id, x, y, width, height, style | LBS_NOTIFY | WS_BORDER, exStyle, (LPCTSTR)NULL, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_LISTBOX, (uint16_t)id, x, y, width, height, style | LBS_NOTIFY | WS_BORDER, exStyle, (LPCTSTR)NULL, NULL, 0);
 #define CONTROL_SCROLLBAR(id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_SCROLLBAR, (WORD)id, x, y, width, height, style | SBS_HORZ, exStyle, (LPCTSTR)NULL, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_SCROLLBAR, (uint16_t)id, x, y, width, height, style | SBS_HORZ, exStyle, (LPCTSTR)NULL, NULL, 0);
 #define CONTROL_ICON(text, id, x, y, width, height, style, exStyle) \
-	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_STATIC, (WORD)id, x, y, width, height, style | SS_ICON, exStyle, text, NULL, 0);
+	m_Template.AddStdControl(WTL::CMemDlgTemplate::CTRL_STATIC, (uint16_t)id, x, y, width, height, style | SS_ICON, exStyle, text, NULL, 0);
 #define CONTROL_CONTROL(text, id, className, style, x, y, width, height, exStyle) \
-	m_Template.AddControl(className, (WORD)id, x, y, width, height, style, exStyle, text, NULL, 0);
+	m_Template.AddControl(className, (uint16_t)id, x, y, width, height, style, exStyle, text, NULL, 0);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -3545,7 +3545,7 @@ public:
 		return (Bool)::SendMessage(m_hWnd, PSM_SETCURSELID, 0, nPageID);
 	}
 
-	void SetTitle(LPCTSTR lpszText, UINT nStyle = 0)
+	void SetTitle(LPCTSTR lpszText, uint nStyle = 0)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT((nStyle & ~PSH_PROPTITLE) == 0); // only PSH_PROPTITLE is valid
@@ -3660,7 +3660,7 @@ public:
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT(::IsWindow(hWndPage));
-		UINT uMsg = bChanged ? PSM_CHANGED : PSM_UNCHANGED;
+		uint uMsg = bChanged ? PSM_CHANGED : PSM_UNCHANGED;
 		::SendMessage(m_hWnd, uMsg, (WPARAM)hWndPage, 0L);
 	}
 
@@ -3778,7 +3778,7 @@ public:
 #endif // defined(_AYGSHELL_H_) || defined(__AYGSHELL_H__)
 
 // Construction/Destruction
-	CPropertySheetImpl(ATL::_U_STRINGorID title = (LPCTSTR)NULL, UINT uStartPage = 0, HWND hWndParent = NULL)
+	CPropertySheetImpl(ATL::_U_STRINGorID title = (LPCTSTR)NULL, uint uStartPage = 0, HWND hWndParent = NULL)
 	{
 		memset(&m_psh, 0, sizeof(PROPSHEETHEADER));
 		m_psh.dwSize = sizeof(PROPSHEETHEADER);
@@ -3807,7 +3807,7 @@ public:
 	}
 
 // Callback function and overrideables
-	static int CALLBACK PropSheetCallback(HWND hWnd, UINT uMsg, LPARAM lParam)
+	static int CALLBACK PropSheetCallback(HWND hWnd, uint uMsg, LPARAM lParam)
 	{
 		lParam;   // avoid level 4 warning
 		int nRet = 0;
@@ -3968,7 +3968,7 @@ public:
 
 	}
 
-	void SetTitle(LPCTSTR lpszText, UINT nStyle = 0)
+	void SetTitle(LPCTSTR lpszText, uint nStyle = 0)
 	{
 		ATLASSERT((nStyle & ~PSH_PROPTITLE) == 0);   // only PSH_PROPTITLE is valid
 		ATLASSERT(lpszText != NULL);
@@ -4120,7 +4120,7 @@ public:
 		MESSAGE_HANDLER(WM_SYSCOMMAND, OnSysCommand)
 	END_MSG_MAP()
 
-	LRESULT OnCommand(UINT uMsg, WPARAM wParam, LPARAM lParam, Bool& /*bHandled*/)
+	LRESULT OnCommand(uint uMsg, WPARAM wParam, LPARAM lParam, Bool& /*bHandled*/)
 	{
 		LRESULT lRet = DefWindowProc(uMsg, wParam, lParam);
 		if(HIWORD(wParam) == BN_CLICKED && (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL) &&
@@ -4129,7 +4129,7 @@ public:
 		return lRet;
 	}
 
-	LRESULT OnSysCommand(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, Bool& bHandled)
+	LRESULT OnSysCommand(uint /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, Bool& bHandled)
 	{
 		if(((m_psh.dwFlags & PSH_MODELESS) == PSH_MODELESS) && ((wParam & 0xFFF0) == SC_CLOSE))
 			SendMessage(WM_CLOSE);
@@ -4150,7 +4150,7 @@ LPCWSTR CPropertySheetImpl<T,TBase>::m_pszLink = NULL;
 class CPropertySheet : public CPropertySheetImpl<CPropertySheet>
 {
 public:
-	CPropertySheet(ATL::_U_STRINGorID title = (LPCTSTR)NULL, UINT uStartPage = 0, HWND hWndParent = NULL)
+	CPropertySheet(ATL::_U_STRINGorID title = (LPCTSTR)NULL, uint uStartPage = 0, HWND hWndParent = NULL)
 		: CPropertySheetImpl<CPropertySheet>(title, uStartPage, hWndParent)
 	{ }
 };
@@ -4267,12 +4267,12 @@ public:
 	}
 
 // Callback function and overrideables
-	static UINT CALLBACK PropPageCallback(HWND hWnd, UINT uMsg, LPPROPSHEETPAGE ppsp)
+	static uint CALLBACK PropPageCallback(HWND hWnd, uint uMsg, LPPROPSHEETPAGE ppsp)
 	{
 		hWnd;   // avoid level 4 warning
 		ATLASSERT(hWnd == NULL);
 		T* pT = (T*)ppsp->lParam;
-		UINT uRet = 0;
+		uint uRet = 0;
 
 		switch(uMsg)
 		{
@@ -4355,7 +4355,7 @@ public:
 
 	// NOTE: Define _WTL_NEW_PAGE_NOTIFY_HANDLERS to use new notification
 	// handlers that return direct values without any restrictions
-	LRESULT OnNotify(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, Bool& bHandled)
+	LRESULT OnNotify(uint /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, Bool& bHandled)
 	{
 #ifndef _WIN32_WCE
 		// This notification is sometimes received on Windows CE after the window is already destroyed
@@ -4653,7 +4653,7 @@ public:
 };
 
 // for non-customized pages
-template <WORD t_wDlgTemplateID>
+template <uint16_t t_wDlgTemplateID>
 class CPropertyPage : public CPropertyPageImpl<CPropertyPage<t_wDlgTemplateID> >
 {
 public:
@@ -4798,7 +4798,7 @@ public:
 		return DialogProc;
 	}
 
-	static INT_PTR CALLBACK DialogProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+	static INT_PTR CALLBACK DialogProc(HWND hWnd, uint uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		CAxPropertyPageImpl< T, TBase >* pThis = (CAxPropertyPageImpl< T, TBase >*)hWnd;
 		if (uMsg == WM_INITDIALOG)
@@ -4814,7 +4814,7 @@ public:
 	}
 
 // ActiveX controls creation
-	virtual HRESULT CreateActiveXControls(UINT nID)
+	virtual HRESULT CreateActiveXControls(uint nID)
 	{
 		// Load dialog template and InitData
 		HRSRC hDlgInit = ::FindResource(ATL::_AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE(nID), (LPTSTR)_ATL_RT_DLGINIT);
@@ -4840,14 +4840,14 @@ public:
 				{
 					// Get first control on the template
 					Bool bDialogEx = ATL::_DialogSplitHelper::IsDialogEx(pDlg);
-					WORD nItems = ATL::_DialogSplitHelper::DlgTemplateItemCount(pDlg);
+					uint16_t nItems = ATL::_DialogSplitHelper::DlgTemplateItemCount(pDlg);
 
 					// Get first control on the dialog
 					DLGITEMTEMPLATE* pItem = ATL::_DialogSplitHelper::FindFirstDlgItem(pDlg);
 					HWND hWndPrev = GetWindow(GW_CHILD);
 
 					// Create all ActiveX cotnrols in the dialog template and place them in the correct tab order (z-order)
-					for (WORD nItem = 0; nItem < nItems; nItem++)
+					for (uint16_t nItem = 0; nItem < nItems; nItem++)
 					{
 						DWORD wID = bDialogEx ? ((ATL::_DialogSplitHelper::DLGITEMTEMPLATEEX*)pItem)->id : pItem->id;
 						if (ATL::_DialogSplitHelper::IsActiveXControl(pItem, bDialogEx))
@@ -4986,7 +4986,7 @@ public:
 		CHAIN_MSG_MAP(_baseClass)
 	END_MSG_MAP()
 
-	LRESULT OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& bHandled)
+	LRESULT OnInitDialog(uint /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& bHandled)
 	{
 		// initialize controls in dialog with DLGINIT resource section
 		ExecuteDlgInit(static_cast<T*>(this)->IDD);
@@ -4995,7 +4995,7 @@ public:
 		return 1;
 	}
 
-	LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& bHandled)
+	LRESULT OnDestroy(uint /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& bHandled)
 	{
 		AdviseSinkMap(false);
 		bHandled = FALSE;
@@ -5005,7 +5005,7 @@ public:
 };
 
 // for non-customized pages
-template <WORD t_wDlgTemplateID>
+template <uint16_t t_wDlgTemplateID>
 class CAxPropertyPage : public CAxPropertyPageImpl<CAxPropertyPage<t_wDlgTemplateID> >
 {
 public:
@@ -5121,9 +5121,9 @@ public:
 	}
 
 // Helpers
-	static UINT GetMessage_GetExteriorPageTitleFont()
+	static uint GetMessage_GetExteriorPageTitleFont()
 	{
-		static UINT uGetExteriorPageTitleFont = 0;
+		static uint uGetExteriorPageTitleFont = 0;
 		if(uGetExteriorPageTitleFont == 0)
 		{
 			CStaticDataInitCriticalSectionLock lock;
@@ -5143,9 +5143,9 @@ public:
 		return uGetExteriorPageTitleFont;
 	}
 
-	static UINT GetMessage_GetBulletFont()
+	static uint GetMessage_GetBulletFont()
 	{
-		static UINT uGetBulletFont = 0;
+		static uint uGetBulletFont = 0;
 		if(uGetBulletFont == 0)
 		{
 			CStaticDataInitCriticalSectionLock lock;
@@ -5191,7 +5191,7 @@ protected:
 	bool m_bReceivedFirstSizeMessage;
 
 public:
-	CWizard97SheetImpl(ATL::_U_STRINGorID title, ATL::_U_STRINGorID headerBitmap, ATL::_U_STRINGorID watermarkBitmap, UINT uStartPage = 0, HWND hWndParent = NULL) :
+	CWizard97SheetImpl(ATL::_U_STRINGorID title, ATL::_U_STRINGorID headerBitmap, ATL::_U_STRINGorID watermarkBitmap, uint uStartPage = 0, HWND hWndParent = NULL) :
 			baseClass(title, uStartPage, hWndParent),
 			m_bReceivedFirstSizeMessage(false)
 	{
@@ -5257,17 +5257,17 @@ public:
 		CHAIN_MSG_MAP(baseClass)
 	END_MSG_MAP()
 
-	LRESULT OnGetExteriorPageTitleFont(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
+	LRESULT OnGetExteriorPageTitleFont(uint /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
 	{
 		return (LRESULT)(HFONT)m_fontExteriorPageTitle;
 	}
 
-	LRESULT OnGetBulletFont(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
+	LRESULT OnGetBulletFont(uint /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
 	{
 		return (LRESULT)(HFONT)m_fontBullet;
 	}
 
-	LRESULT OnSize(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& bHandled)
+	LRESULT OnSize(uint /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& bHandled)
 	{
 		if(!m_bReceivedFirstSizeMessage)
 		{
@@ -5289,7 +5289,7 @@ protected:
 	typedef CWizard97SheetImpl<CWizard97Sheet> baseClass;
 
 public:
-	CWizard97Sheet(ATL::_U_STRINGorID title, ATL::_U_STRINGorID headerBitmap, ATL::_U_STRINGorID watermarkBitmap, UINT uStartPage = 0, HWND hWndParent = NULL) :
+	CWizard97Sheet(ATL::_U_STRINGorID title, ATL::_U_STRINGorID headerBitmap, ATL::_U_STRINGorID watermarkBitmap, uint uStartPage = 0, HWND hWndParent = NULL) :
 		baseClass(title, headerBitmap, watermarkBitmap, uStartPage, hWndParent)
 	{ }
 
@@ -5489,7 +5489,7 @@ class ATL_NO_VTABLE CAeroWizardFrameImpl : public CPropertySheetImpl<T, TBase >
 {
 public:
 // Constructor
-	CAeroWizardFrameImpl(ATL::_U_STRINGorID title = (LPCTSTR)NULL, UINT uStartPage = 0, HWND hWndParent = NULL) :
+	CAeroWizardFrameImpl(ATL::_U_STRINGorID title = (LPCTSTR)NULL, uint uStartPage = 0, HWND hWndParent = NULL) :
 		CPropertySheetImpl<T, TBase >(title, uStartPage, hWndParent)
 	{
 		m_psh.dwFlags |= PSH_WIZARD | PSH_AEROWIZARD;
@@ -5529,7 +5529,7 @@ public:
 class CAeroWizardFrame : public CAeroWizardFrameImpl<CAeroWizardFrame>
 {
 public:
-	CAeroWizardFrame(ATL::_U_STRINGorID title = (LPCTSTR)NULL, UINT uStartPage = 0, HWND hWndParent = NULL)
+	CAeroWizardFrame(ATL::_U_STRINGorID title = (LPCTSTR)NULL, uint uStartPage = 0, HWND hWndParent = NULL)
 		: CAeroWizardFrameImpl<CAeroWizardFrame>(title, uStartPage, hWndParent)
 	{ }
 
@@ -5609,7 +5609,7 @@ public:
 ///////////////////////////////////////////////////////////////////////////////
 // CAeroWizardPage - for non-customized pages
 
-template <WORD t_wDlgTemplateID>
+template <uint16_t t_wDlgTemplateID>
 class CAeroWizardPage : public CAeroWizardPageImpl<CAeroWizardPage<t_wDlgTemplateID> >
 {
 public:
@@ -5641,7 +5641,7 @@ public:
 ///////////////////////////////////////////////////////////////////////////////
 // CAeroWizardAxPage - for non-customized pages
 
-template <WORD t_wDlgTemplateID>
+template <uint16_t t_wDlgTemplateID>
 class CAeroWizardAxPage : public CAeroWizardAxPageImpl<CAeroWizardAxPage<t_wDlgTemplateID> >
 {
 public:
@@ -5733,7 +5733,7 @@ public:
 	}
 
 	// window title text
-	void SetWindowTitle(UINT nID)
+	void SetWindowTitle(uint nID)
 	{
 		this->pszWindowTitle = MAKEINTRESOURCEW(nID);
 	}
@@ -5750,7 +5750,7 @@ public:
 		this->hMainIcon = hIcon;
 	}
 
-	void SetMainIcon(UINT nID)
+	void SetMainIcon(uint nID)
 	{
 		this->dwFlags &= ~TDF_USE_HICON_MAIN;
 		this->pszMainIcon = MAKEINTRESOURCEW(nID);
@@ -5763,7 +5763,7 @@ public:
 	}
 
 	// main instruction text
-	void SetMainInstructionText(UINT nID)
+	void SetMainInstructionText(uint nID)
 	{
 		this->pszMainInstruction = MAKEINTRESOURCEW(nID);
 	}
@@ -5774,7 +5774,7 @@ public:
 	}
 
 	// content text
-	void SetContentText(UINT nID)
+	void SetContentText(uint nID)
 	{
 		this->pszContent = MAKEINTRESOURCEW(nID);
 	}
@@ -5785,7 +5785,7 @@ public:
 	}
 
 	// buttons
-	void SetButtons(const TASKDIALOG_BUTTON* pButtons, UINT cButtons, int nDefaultButton = 0)
+	void SetButtons(const TASKDIALOG_BUTTON* pButtons, uint cButtons, int nDefaultButton = 0)
 	{
 		this->pButtons = pButtons;
 		this->cButtons = cButtons;
@@ -5799,7 +5799,7 @@ public:
 	}
 
 	// radio buttons
-	void SetRadioButtons(const TASKDIALOG_BUTTON* pRadioButtons, UINT cRadioButtons, int nDefaultRadioButton = 0)
+	void SetRadioButtons(const TASKDIALOG_BUTTON* pRadioButtons, uint cRadioButtons, int nDefaultRadioButton = 0)
 	{
 		this->pRadioButtons = pRadioButtons;
 		this->cRadioButtons = cRadioButtons;
@@ -5813,7 +5813,7 @@ public:
 	}
 
 	// verification text
-	void SetVerificationText(UINT nID)
+	void SetVerificationText(uint nID)
 	{
 		this->pszVerificationText = MAKEINTRESOURCEW(nID);
 	}
@@ -5824,7 +5824,7 @@ public:
 	}
 
 	// expanded information text
-	void SetExpandedInformationText(UINT nID)
+	void SetExpandedInformationText(uint nID)
 	{
 		this->pszExpandedInformation = MAKEINTRESOURCEW(nID);
 	}
@@ -5835,7 +5835,7 @@ public:
 	}
 
 	// expanded control text
-	void SetExpandedControlText(UINT nID)
+	void SetExpandedControlText(uint nID)
 	{
 		this->pszExpandedControlText = MAKEINTRESOURCEW(nID);
 	}
@@ -5846,7 +5846,7 @@ public:
 	}
 
 	// collapsed control text
-	void SetCollapsedControlText(UINT nID)
+	void SetCollapsedControlText(uint nID)
 	{
 		this->pszCollapsedControlText = MAKEINTRESOURCEW(nID);
 	}
@@ -5863,7 +5863,7 @@ public:
 		this->hFooterIcon = hIcon;
 	}
 
-	void SetFooterIcon(UINT nID)
+	void SetFooterIcon(uint nID)
 	{
 		this->dwFlags &= ~TDF_USE_HICON_FOOTER;
 		this->pszFooterIcon = MAKEINTRESOURCEW(nID);
@@ -5876,7 +5876,7 @@ public:
 	}
 
 	// footer text
-	void SetFooterText(UINT nID)
+	void SetFooterText(uint nID)
 	{
 		this->pszFooter = MAKEINTRESOURCEW(nID);
 	}
@@ -5887,7 +5887,7 @@ public:
 	}
 
 	// width (in DLUs)
-	void SetWidth(UINT cxWidth)
+	void SetWidth(uint cxWidth)
 	{
 		this->cxWidth = cxWidth;
 	}
@@ -5951,78 +5951,78 @@ public:
 	void SetCommonButtons(TASKDIALOG_COMMON_BUTTON_FLAGS dwCommonButtons)
 	{	m_tdc.SetCommonButtons(dwCommonButtons); }
 	// window title text
-	void SetWindowTitle(UINT nID)
+	void SetWindowTitle(uint nID)
 	{	m_tdc.SetWindowTitle(nID); }
 	void SetWindowTitle(LPCWSTR lpstrWindowTitle)
 	{	m_tdc.SetWindowTitle(lpstrWindowTitle); }
 	// main icon
 	void SetMainIcon(HICON hIcon)
 	{	m_tdc.SetMainIcon(hIcon); }
-	void SetMainIcon(UINT nID)
+	void SetMainIcon(uint nID)
 	{	m_tdc.SetMainIcon(nID); }
 	void SetMainIcon(LPCWSTR lpstrMainIcon)
 	{	m_tdc.SetMainIcon(lpstrMainIcon); }
 	// main instruction text
-	void SetMainInstructionText(UINT nID)
+	void SetMainInstructionText(uint nID)
 	{	m_tdc.SetMainInstructionText(nID); }
 	void SetMainInstructionText(LPCWSTR lpstrMainInstruction)
 	{	m_tdc.SetMainInstructionText(lpstrMainInstruction); }
 	// content text
-	void SetContentText(UINT nID)
+	void SetContentText(uint nID)
 	{	m_tdc.SetContentText(nID); }
 	void SetContentText(LPCWSTR lpstrContent)
 	{	m_tdc.SetContentText(lpstrContent); }
 	// buttons
-	void SetButtons(const TASKDIALOG_BUTTON* pButtons, UINT cButtons, int nDefaultButton = 0)
+	void SetButtons(const TASKDIALOG_BUTTON* pButtons, uint cButtons, int nDefaultButton = 0)
 	{	m_tdc.SetButtons(pButtons, cButtons, nDefaultButton); }
 	void SetDefaultButton(int nDefaultButton)
 	{	m_tdc.SetDefaultButton(nDefaultButton); }
 	// radio buttons
-	void SetRadioButtons(const TASKDIALOG_BUTTON* pRadioButtons, UINT cRadioButtons, int nDefaultRadioButton = 0)
+	void SetRadioButtons(const TASKDIALOG_BUTTON* pRadioButtons, uint cRadioButtons, int nDefaultRadioButton = 0)
 	{	m_tdc.SetRadioButtons(pRadioButtons, cRadioButtons, nDefaultRadioButton); }
 	void SetDefaultRadioButton(int nDefaultRadioButton)
 	{	m_tdc.SetDefaultRadioButton(nDefaultRadioButton); }
 	// verification text
-	void SetVerificationText(UINT nID)
+	void SetVerificationText(uint nID)
 	{	m_tdc.SetVerificationText(nID); }
 	void SetVerificationText(LPCWSTR lpstrVerificationText)
 	{	m_tdc.SetVerificationText(lpstrVerificationText); }
 	// expanded information text
-	void SetExpandedInformationText(UINT nID)
+	void SetExpandedInformationText(uint nID)
 	{	m_tdc.SetExpandedInformationText(nID); }
 	void SetExpandedInformationText(LPCWSTR lpstrExpandedInformation)
 	{	m_tdc.SetExpandedInformationText(lpstrExpandedInformation); }
 	// expanded control text
-	void SetExpandedControlText(UINT nID)
+	void SetExpandedControlText(uint nID)
 	{	m_tdc.SetExpandedControlText(nID); }
 	void SetExpandedControlText(LPCWSTR lpstrExpandedControlText)
 	{	m_tdc.SetExpandedControlText(lpstrExpandedControlText); }
 	// collapsed control text
-	void SetCollapsedControlText(UINT nID)
+	void SetCollapsedControlText(uint nID)
 	{	m_tdc.SetCollapsedControlText(nID); }
 	void SetCollapsedControlText(LPCWSTR lpstrCollapsedControlText)
 	{	m_tdc.SetCollapsedControlText(lpstrCollapsedControlText); }
 	// footer icon
 	void SetFooterIcon(HICON hIcon)
 	{	m_tdc.SetFooterIcon(hIcon); }
-	void SetFooterIcon(UINT nID)
+	void SetFooterIcon(uint nID)
 	{	m_tdc.SetFooterIcon(nID); }
 	void SetFooterIcon(LPCWSTR lpstrFooterIcon)
 	{	m_tdc.SetFooterIcon(lpstrFooterIcon); }
 	// footer text
-	void SetFooterText(UINT nID)
+	void SetFooterText(uint nID)
 	{	m_tdc.SetFooterText(nID); }
 	void SetFooterText(LPCWSTR lpstrFooterText)
 	{	m_tdc.SetFooterText(lpstrFooterText); }
 	// width (in DLUs)
-	void SetWidth(UINT cxWidth)
+	void SetWidth(uint cxWidth)
 	{	m_tdc.SetWidth(cxWidth); }
 	// modify flags
 	void ModifyFlags(DWORD dwRemove, DWORD dwAdd)
 	{	m_tdc.ModifyFlags(dwRemove, dwAdd); }
 
 // Implementation
-	static HRESULT CALLBACK TaskDialogCallback(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LONG_PTR lpRefData)
+	static HRESULT CALLBACK TaskDialogCallback(HWND hWnd, uint uMsg, WPARAM wParam, LPARAM lParam, LONG_PTR lpRefData)
 	{
 		T* pT = (T*)lpRefData;
 		ATLASSERT(pT->m_hWnd == NULL || pT->m_hWnd == hWnd);
@@ -6172,7 +6172,7 @@ public:
 		return (int)::SendMessage(m_hWnd, TDM_SET_PROGRESS_BAR_POS, nNewPos, 0L);
 	}
 
-	Bool SetProgressBarMarquee(Bool bMarquee, UINT uSpeed)
+	Bool SetProgressBarMarquee(Bool bMarquee, uint uSpeed)
 	{
 		ATLASSERT(m_hWnd != NULL);
 		return (Bool)::SendMessage(m_hWnd, TDM_SET_PROGRESS_BAR_MARQUEE, bMarquee, uSpeed);

@@ -82,7 +82,7 @@ Bool32	CEDPage::FormattedWriteRtf(const char * fileName, Bool merge)
 //	Bool inFrm=FALSE;
 
 //	Bool result;
-//    UINT AllocType;
+//    uint AllocType;
 //    OFSTRUCT OpenBuf;
 
 //       WriteBegRow=0;
@@ -884,7 +884,7 @@ Bool WriteRtfCharFmt(struct StrRtfOut far *rtf,CEDChar* curChar)
 {
 //    BYTE CurTypeFace[32],PrevTypeFace[32];
     BYTE CurFamily,PrevFamily;
-    UINT CurStyle,PrevStyle;
+    uint CurStyle,PrevStyle;
 //    int  CurCharSID,PrevCharSID;
     int  /*i,*/CurPointSize,PrevPointSize/*,CurFieldId,PrevFieldId*/;
     Bool result;
@@ -1005,7 +1005,7 @@ Bool WriteRtfCharFmt(struct StrRtfOut far *rtf,CEDChar* curChar)
       && CurPointSize==24
       && (CurTextColor==0||CurTextColor==-1)
       && (CurTextBkColor==TextDefBkColor||CurTextBkColor==-1)
-      && CurStyle/*&(~((UINT)(FNOTEALL)))*/==0
+      && CurStyle/*&(~((uint)(FNOTEALL)))*/==0
 //      && CurFieldId==0
 //      && CurCharSID==1
 /*	  && CurCharSet==0*/)
@@ -1149,7 +1149,7 @@ Bool WriteRtfParaFmt(struct StrRtfOut far *rtf,CEDParagraph* NewPfmt,CEDParagrap
     int CurRightIndent,PrevRightIndent=0;
     int CurFirstIndent,PrevFirstIndent=0;
 //    int CurTabId,PrevTabId=0;
-//    UINT CurFlags,PrevFlags=0,NoValueFlags;
+//    uint CurFlags,PrevFlags=0,NoValueFlags;
 //    int CurCellId,PrevCellId=0;
 //    int CurRowId,PrevRowId=0;
     int CurShading,PrevShading=0;

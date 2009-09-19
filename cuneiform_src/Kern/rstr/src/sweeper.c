@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ligas.h"
 #include "lang.h"
 
-extern WORD actual_resolution;
+extern uint16_t actual_resolution;
 extern INT idshv;
 
 static INT nx,ny,mstb;
@@ -79,8 +79,8 @@ static BYTE work_state=0;
 static uint32_t offset;
 
 static void stat_garb(PWORD);
-static WORD delete(PWORD);
-static WORD to_file();
+static uint16_t delete(PWORD);
+static uint16_t to_file();
 static void open_comp_file();
 static void write_comp(PCHAR,LONG);
 

@@ -197,7 +197,7 @@ int SaveFullOutTiger(char *FileName);
 //FileNameOut - имя выходного файла
 //Return: 0 - OK
 //
-WORD NumZ,NumW,NumS;
+uint16_t NumZ,NumW,NumS;
 int16_t SizeYGlobUpp;
 int IsB1(BYTE a)
 { if((FeatLet[a].Chif && a != ',' && a != '.' && a != '-') ||
@@ -466,11 +466,11 @@ short __cdecl  OpenFullOutTiger(FILE *in)
 
 	rewind(in);
 
- fread(&ScanResolution,sizeof(WORD),1,in);
- fread(&NumCol,sizeof(WORD),1,in);
- fread(&NumZ,sizeof(WORD),1,in);
- fread(&NumW,sizeof(WORD),1,in);
- fread(&NumS,sizeof(WORD),1,in);
+ fread(&ScanResolution,sizeof(uint16_t),1,in);
+ fread(&NumCol,sizeof(uint16_t),1,in);
+ fread(&NumZ,sizeof(uint16_t),1,in);
+ fread(&NumW,sizeof(uint16_t),1,in);
+ fread(&NumS,sizeof(uint16_t),1,in);
 
 #ifdef alDebug
 		if(dets)	{ ConsMess("OpenFullOutTiger ScanResolution=%d ",ScanResolution); }
@@ -609,10 +609,10 @@ short __cdecl  OpenFullOutTiger(FILE *in)
 				k_z=tw->W_Gen.W_NumSym-1;
 
 				fread(&tmp, sizeof(int16_t), 1, in);
-				tw->W_Gen.FontNumber=(WORD)tmp;
+				tw->W_Gen.FontNumber=(uint16_t)tmp;
 
 				fread(&tmp, sizeof(int16_t), 1, in);
-				tw->W_Gen.FontSize=(WORD)tmp;
+				tw->W_Gen.FontSize=(uint16_t)tmp;
 
 				if((Zn[nc][ns][nw]=(ZN*)Submalloc((k_z+1)*sizeof(ZN),&SubZn))==NULL)
 					goto BadReturn;
@@ -877,7 +877,7 @@ int FreeStructFull(void)
   int b_close(void)
   { SpellClose(); LmClose(); }
   svocab far* PASC b_char(unsigned kod);
-  int PASC GetWordOcr(WORD inst, WORD instb,WORD del,WORD  Else,WORD unknow,float delta1,ZN *zz,int kz);
+  int PASC GetWordOcr(uint16_t inst, uint16_t instb,uint16_t del,uint16_t  Else,uint16_t unknow,float delta1,ZN *zz,int kz);
   void PASC SetRegimDelta(int in,int Porog);
   void PASC SetTimerOwn(uint32_t NumMs);
 */ // !!! Art - устарело
@@ -969,7 +969,7 @@ int OpenFullOut(char *FileName)
     { knot[nlev]=(LEV*)malloc((k_col[nlev]+1)*sizeof(LEV));
       do0(nc,0,k_col[nlev])
       { fread_m(&knot[nlev][nc].bnd,sizeof(SRECT),1,in);
-        fread_m(&knot[nlev][nc].SpecInt,sizeof(WORD),1,in);
+        fread_m(&knot[nlev][nc].SpecInt,sizeof(uint16_t),1,in);
         fread_m(&knot[nlev][nc].kp,sizeof(int),1,in);
         if(knot[nlev][nc].kp >= 0)
         { knot[nlev][nc].Addr=(ADDR*)malloc((knot[nlev][nc].kp+1)*sizeof(ADDR));
@@ -1151,7 +1151,7 @@ int OpenFullOut(char *FileName)
           do0(i,0,num-1)
           { BYTE w; ALT_SPELL *AltS=&tw->AltSpell[i];
             fread_m(&AltS->Len,sizeof(BYTE),1,in);
-            fread_m(&w,sizeof(BYTE),1,in);fread_m(&AltS->Penalty,sizeof(WORD),1,in);
+            fread_m(&w,sizeof(BYTE),1,in);fread_m(&AltS->Penalty,sizeof(uint16_t),1,in);
             Len=(int)AltS->Len;
             #ifndef SUB_ZN
              if((AltS->Alt=(char*)malloc(Len))==NULL)return NOT_ALLOC;
@@ -1450,7 +1450,7 @@ int OpenFullOut(char *FileName)
       do0(nlev,0,k_lev)
       { do0(nc,0,k_col[nlev])
         { fwrite_m(&knot[nlev][nc].bnd,sizeof(SRECT),1,in);
-          fwrite_m(&knot[nlev][nc].SpecInt,sizeof(WORD),1,in);
+          fwrite_m(&knot[nlev][nc].SpecInt,sizeof(uint16_t),1,in);
           fwrite_m(&knot[nlev][nc].kp,sizeof(int),1,in);
           if(knot[nlev][nc].kp >= 0)
           { do0(i,0,knot[nlev][nc].kp)
@@ -1481,7 +1481,7 @@ int OpenFullOut(char *FileName)
           { BYTE w;
             fwrite_m(&TitleWord[nc][ns][nw].AltSpell[i].Len ,sizeof(BYTE),1,in);
             fwrite_m(&w ,sizeof(BYTE),1,in);
-            fwrite_m(&TitleWord[nc][ns][nw].AltSpell[i].Penalty,sizeof(WORD),1,in);
+            fwrite_m(&TitleWord[nc][ns][nw].AltSpell[i].Penalty,sizeof(uint16_t),1,in);
             fwrite_m(TitleWord[nc][ns][nw].AltSpell[i].Alt,(int)TitleWord[nc][ns][nw].AltSpell[i].Len,1,in);
           }
         }
@@ -1715,13 +1715,13 @@ int TstNameOwr(uchar LastCod,uchar FirstCod)
 #define MAX_LEN 50 //max число знаков в параметре
 #define MAX_STR 249 //max число знаков в параметре
 
-WORD Penalty1LenWord(int n)
-{ static WORD Pen[16]={ 0,2,3,3,3,6,6,8,8,8,8,8,8,8,8,8 },ii=1,i;
+uint16_t Penalty1LenWord(int n)
+{ static uint16_t Pen[16]={ 0,2,3,3,3,6,6,8,8,8,8,8,8,8,8,8 },ii=1,i;
   if(n < 0)
   { char *str=malloc(250),param[MAX_LEN+1],*s,*err="Penalty1LenWord";
     ii=0; s=str;
     GetPrivateProfileString("orfo","REMAX","",s,100,FileParSpel);
-    do0(i,0,15) {s=get_param(s,param,MAX_LEN-1); Pen[i]=(WORD)atoi(param);}
+    do0(i,0,15) {s=get_param(s,param,MAX_LEN-1); Pen[i]=(uint16_t)atoi(param);}
     free(str); return 0;
   }
   return Pen[MIN(n,15)];
@@ -1820,7 +1820,7 @@ void close_f03(void)
 //  STATIC BYTE Chif[25];
 //  STATIC BYTE ImUppLow[80];
 //  STATIC BYTE DelimSubWord[16];
-//  WORD w;
+//  uint16_t w;
 //  if(TypeDoc!=NORV)
 //  #ifdef WIN_MOD
 //  { strcpy_m((char*)UpLine,(char*)"сщфbdfhijklt");
@@ -1988,7 +1988,7 @@ void close_f03(void)
 //  par_ful.AllowCorrRusLat=GetPrivateProfileInt("corr_word","AllowCorrRusLat",0,FileParSpel);
 //  par_ful.AllowCorrFnt=GetPrivateProfileInt("corr_word","AllowCorrFnt",0,FileParSpel);
 //  par_ful.DelStick=(float)(GetPrivateProfileInt("corr_word","DelStick",0,FileParSpel)/100.);
-//  w=(WORD)GetPrivateProfileInt("ful_txt","RelDistAltOCR",(int)10,FileParSpel);
+//  w=(uint16_t)GetPrivateProfileInt("ful_txt","RelDistAltOCR",(int)10,FileParSpel);
 //  par_ful.RelDistAltOCR=(float)(w/10.);
 //  return 0;
 //}
@@ -2004,7 +2004,7 @@ int init_ful()
     uchar WordOneSymb[]="АаБбВвИиКкОоСсУуЭэЯя";
   #endif
   int NumOne;
-  BYTE s[3];WORD w;
+  BYTE s[3];uint16_t w;
   static uchar Upp[159]="АБВГДЕЖЗИЙКЛМНОПРСТУФХШЩЦЧЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ";
   static uchar Low[159]="абвгдежзийклмнопрстуфхшщцчъыьэюяabcdefghijklmnopqrstuvwxyz";
   static uchar Punct1[5]=".!?";
@@ -2090,7 +2090,7 @@ int init_ful()
   GetPrivateProfileString("ful_txt","KodNoRecogOut","@",(char*)s,2,FileParSpel);
   par_ful.KodNoRecogOut=s[0];
   par_ful.NumAlt=GetPrivateProfileInt("ful_txt","NumAlt",2,FileParSpel);
-  w=(WORD)GetPrivateProfileInt("ful_txt","RelKrit",(int)10,FileParSpel);
+  w=(uint16_t)GetPrivateProfileInt("ful_txt","RelKrit",(int)10,FileParSpel);
   par_ful.RelKrit=(float)(w/10.);
   par_ful.IndexDelta=GetPrivateProfileInt("ful_txt","IndexDelta",1,FileParSpel);
   if(par_ful.IndexDelta!=2) MaxValue=MAX_VALUE;

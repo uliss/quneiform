@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    optional functions responsible for
    artificial changes of words and parts.
 
-   The following kinds of changes can be applied to a WORD:
+   The following kinds of changes can be applied to a uint16_t:
    1. Try to remove special tails ( "'", "'s", ...).
       No ed-file changes will result.
 

@@ -679,7 +679,7 @@ INT selectwrd (SOBJ * obj, LTIMG ** wrddef)
 #ifdef WORDPR
 #ifdef WORDPR_REJECT
 		prtwrd(obj,wrd,0,val);
-		PRINTF ("-----SELECTWRD: WORD REJECTED -----");
+		PRINTF ("-----SELECTWRD: uint16_t REJECTED -----");
 #endif
 #endif
 		return (No);
@@ -732,7 +732,7 @@ INT selectwrd (SOBJ * obj, LTIMG ** wrddef)
 #ifdef WORDPR
 #ifdef WORDPR_ACCEPT
 		prtwrd(obj,wrd,wrd->mark,val);
-		PRINTF ("*****SELECTWRD: WORD ACCEPTED *****");
+		PRINTF ("*****SELECTWRD: uint16_t ACCEPTED *****");
 #endif
 #endif
 		return (Ok);
@@ -742,7 +742,7 @@ INT selectwrd (SOBJ * obj, LTIMG ** wrddef)
 #ifdef WORDPR
 #ifdef WORDPR_REJECT
 		prtwrd(obj,wrd,wrd->mark,val);
-		PRINTF ("-----SELECTWRD: WORD REJECTED -----");
+		PRINTF ("-----SELECTWRD: uint16_t REJECTED -----");
 #endif
 #endif
 		return (No);
@@ -896,7 +896,7 @@ static  back_recog(SOBJ * obj,
  char fl=0;
  INT code;
  LONG isq = 0;        /* the eBOX structure item */
- WORD icosinus;
+ uint16_t icosinus;
  struct tifref * wt;
  char hyp[10];
  t_answer ans[10];
@@ -975,10 +975,10 @@ static INT Proi[][6]=       /* the Discriminating Table:     */
   {255,230,200,120,70, 0},  /* all MEDIUM       	 */
   {255,240,220,150,70, 0}   /* /   RELIABLE 		 */
   };
-static WORD prob[7]={32768, 32113, 31455, 30475, 29200, 0,0};
+static uint16_t prob[7]={32768, 32113, 31455, 30475, 29200, 0,0};
 
 /* ??? old static Proi independent of symbs (no discrimination) :
-static WORD mark[7]={32767,32685,30474, 29491, 27525, 0, 0};
+static uint16_t mark[7]={32767,32685,30474, 29491, 27525, 0, 0};
 static INT Proi[7]={255, 240,200,150,50,0,0};
    ??? */
 
@@ -989,11 +989,11 @@ static INT Proi[7]={255, 240,200,150,50,0,0};
    "discriminating") table Proi
 									    */
 /****************************************************************************/
-static INT make_probBOXf(INT ltr, WORD  *fi)
+static INT make_probBOXf(INT ltr, uint16_t  *fi)
 {
  INT result=0;
  INT  px, *pi1, *pi2;
- WORD wcos, *pb1, *pb2;
+ uint16_t wcos, *pb1, *pb2;
  char pl;
  INT  w1;
 
@@ -1026,10 +1026,10 @@ Discret:
    a symbol being recognized. Isn't used more
 									    */
 /****************************************************************************/
-static INT make_probBOXf_old (WORD  *fi)
+static INT make_probBOXf_old (uint16_t  *fi)
  {
   INT prob, px, *pi1, *pi2;
-  WORD wcos, *pb1, *pb2;
+  uint16_t wcos, *pb1, *pb2;
   wcos = *fi;
       for (px=0,pb1=mark,pi1=Proi,pb2=pb1+1,pi2=pi1+1;
 	   px<5; px++, pi1++, pb1++,pi2++,pb2++)
@@ -1081,7 +1081,7 @@ form_raster(SOBJ * obj, SPOS * pos)
 /****************************************************************************/
 adjust_tif(SOBJ * obj, SPOS * pos)
  {
-  WORD  min,max;
+  uint16_t  min,max;
 
   set_tif_strip(pos->tif_ref.segm,pos->tif_ref.symb,&min,&max);
   tif_st.shift=min;
@@ -1213,7 +1213,7 @@ static INT fill_raster(char raster[], char  *tif_buf,
    INT dest;     /* destination: x_map%8                          */
 		 /* it will be used for tiff shift (left) while   */
 		 /* move to raster                                */
-   WORD two; /* the two bytes to use for shift & move     */
+   uint16_t two; /* the two bytes to use for shift & move     */
    BYTE *c,*cc;
    BYTE  *tt;
 

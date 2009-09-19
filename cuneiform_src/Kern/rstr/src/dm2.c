@@ -184,7 +184,7 @@ static INT is_bad_turkish_glue(BYTE c1, BYTE c2, BYTE c3); // 27.06.2002 E.P.
 void make_all_glues()
  {
  cell *BC;
- WORD i;
+ uint16_t i;
 
  sticks_left_to_bad[0] = liga_i;	// 10.09.2000 E.P.
  sticks_left_to_bad[1] = liga_exm;	// 10.09.2000 E.P.
@@ -532,7 +532,7 @@ static void glue_let_bad()
  {
  INT   i, j, dist, ndist, wdg, bdiff, trsuccess;
  char dflag, gtofl;
- WORD  p1, p2, pt;
+ uint16_t  p1, p2, pt;
  BYTE  *tx1, *tx2, **rp1, *rp2, *rps, c2, c3, cw, flb;
  BYTE  rus_iee;
  cell  *B1, *B2, *BP, *BD, *BC, *EC, *WS;

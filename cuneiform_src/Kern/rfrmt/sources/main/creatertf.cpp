@@ -113,7 +113,7 @@ void    Cleaning_LI_FRMT_Used_Flag(void);
 
 float   Twips;
 int16_t   K_TwipsInInch=1440;
-WORD    FlagWriteRtfCoordinates =1 ;
+uint16_t    FlagWriteRtfCoordinates =1 ;
 char    WriteRtfPageNumber[MAX_PATH]="1";
 uchar   Frmt_CharSet = (uchar)204;
 
@@ -459,13 +459,13 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage)
 				fread(&tmp,2,1,in);
 				pRtfWord->m_wCharsCount=tmp;
 				fread(&tmp,2,1,in);
-				pRtfWord->m_wFontNumber = (WORD)tmp;
+				pRtfWord->m_wFontNumber = (uint16_t)tmp;
 				fread(&tmp,2,1,in);
-				pRtfWord->m_wIdealFontPointSize = (WORD)tmp;
+				pRtfWord->m_wIdealFontPointSize = (uint16_t)tmp;
 
 				for(nz=0; nz < pRtfWord->m_wCharsCount; ++nz)
 				{
-					WORD num;
+					uint16_t num;
      #pragma pack(1)
        struct ALT_TIGER1  {unsigned char let, prob;} alt1;
        struct ALT_TIGER2  {unsigned char language, spellnocarrying, FlagCapDrop, spell, base;} alt2;
@@ -484,7 +484,7 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage)
 					pRtfChar->m_Realrect.right           = SRect.right;
 					pRtfChar->m_Realrect.bottom          = SRect.bottom;
 
-					fread(&num,sizeof(WORD),1,in);
+					fread(&num,sizeof(uint16_t),1,in);
 					assert(num<=REC_MAX_VERS);
 					pRtfChar->m_wCountAlt=MIN(num,REC_MAX_VERS);
 					for(i=0; i<num; i++)
@@ -527,7 +527,7 @@ void CRtfPage::SetTwips(void)
 	CRtfFragment* pRtfFragment;
  Rect16  RectPict;
 
-	Count.RtfTableFragments = (WORD)CountTable;
+	Count.RtfTableFragments = (uint16_t)CountTable;
  for(uint32_t i=0; i < (int)CountTable; i++ )
 	{
   pRtfFragment = GetNextFragment();
@@ -551,7 +551,7 @@ void CRtfPage::AddPictures(void)
 	CRtfFragment* pRtfFragment;
  Rect16  RectPict;
 
- Count.RtfPictureFragments = (WORD)CountPict;
+ Count.RtfPictureFragments = (uint16_t)CountPict;
  for(int i=0; i < (int)CountPict; i++ )
 	{
   pRtfFragment = GetNextFragment();
@@ -808,10 +808,10 @@ void CRtfPage::CorrectKegl(void)
 	CRtfWord*       pRtfWord;
 	CRtfChar        *pRtfChar,*pLastChar,*pFirstChar;
 
-	WORD CountTextFragments;
-	WORD CountStrings;
-	WORD CountWords;
-	WORD CountChars;
+	uint16_t CountTextFragments;
+	uint16_t CountStrings;
+	uint16_t CountWords;
+	uint16_t CountChars;
 	int16_t LenghtStr,Real_Size_Kegl;
 	char tmp_str[MAX_BUFFER_SIZE] ;
 
@@ -878,9 +878,9 @@ void CRtfPage::ChangeKegl(void)
  CRtfString*     pRtfString;
  CRtfWord*       pRtfWord;
 
-	WORD  CountTextFragments;
- WORD  CountStrings;
-	WORD  CountWords;
+	uint16_t  CountTextFragments;
+ uint16_t  CountStrings;
+	uint16_t  CountWords;
 
 	CountTextFragments = Count.RtfTextFragments + Count.RtfFrameTextFragments;
 // по частоте встречаемости выбираем преобразование из реал. в идеал. кегль
@@ -1321,7 +1321,7 @@ Bool CRtfPage::Write_USE_FRAME_AND_COLUMN()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                       GetFreeSpaceBetweenSectors                                               //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-WORD CRtfPage::GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector* pRtfNextSector)
+uint16_t CRtfPage::GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector* pRtfNextSector)
 {
 	CRtfFragment       *pRtfFragment;
 	RECT              FreePlace;
@@ -1349,7 +1349,7 @@ WORD CRtfPage::GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector* pR
 
 	FreePlaceHeight = MAX(0,FreePlace.bottom - FreePlace.top);
 
-	return (WORD)FreePlaceHeight;
+	return (uint16_t)FreePlaceHeight;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1358,7 +1358,7 @@ WORD CRtfPage::GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector* pR
 Bool CRtfPage::WriteHeaderRtf(void)
 {
  int16_t  NumFont = 4, i;
-	WORD cr=13/*0x0d*/,lf=10/*0x0a*/;
+	uint16_t cr=13/*0x0d*/,lf=10/*0x0a*/;
 	const char *TitleRtf="\\rtf1\\ansi\\deff0\\deflang1024",*NameStyle="PUMA";
 	char  Eol[3],Nname[260];
 
@@ -1811,7 +1811,7 @@ void CRtfSector::WriteTerminalColumns(void)
 		{
 			TerminalColumnNumber = m_arHTerminalColumnsIndex[i];
 			pRtfHorizontalColumn = m_arHorizontalColumns[TerminalColumnNumber];
-			SectorInfo.VerticalOffsetColumnFromSector =(WORD)(pRtfHorizontalColumn->m_rect.top - m_rect.top);
+			SectorInfo.VerticalOffsetColumnFromSector =(uint16_t)(pRtfHorizontalColumn->m_rect.top - m_rect.top);
 			pRtfHorizontalColumn->m_PagePtr = this->m_PagePtr;
 			pRtfHorizontalColumn->WriteTerminalColumns(&m_arRightBoundTerminalColumns, &m_VTerminalColumnNumber,
 				                                          CountVTerminalColumns,&SectorInfo);
@@ -1966,7 +1966,7 @@ CRtfHorizontalColumn::CRtfHorizontalColumn()
 CRtfHorizontalColumn::~CRtfHorizontalColumn()
 {
 	CRtfVerticalColumn* cVerticalColumn;
-	WORD Count;
+	uint16_t Count;
 	int i;
 	m_wVerticalColumnsCount = m_arVerticalColumns.size();
 	for(i=0; i<m_wVerticalColumnsCount; i++ )
@@ -2303,7 +2303,7 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void)
 void CRtfHorizontalColumn::FillingVTerminalColumnsIndex(void)
 {
 	int                 i,j,FlagChange;
-	WORD		              index,Number;
+	uint16_t		              index,Number;
 	int32_t               Top;
 	CRtfVerticalColumn *pRtfVerticalColumn;
 	vectorWord         *pGroup,*pGroupNew;
@@ -2393,13 +2393,13 @@ int32_t CRtfHorizontalColumn::GetCountAndRightBoundVTerminalColumns(vectorWord* 
 {
 	int32_t               CountVTerminalColumns=0;
 	CRtfVerticalColumn *pRtfVerticalColumn;
-	WORD                RightBound,index,WidthColumn,tmp;
+	uint16_t                RightBound,index,WidthColumn,tmp;
 	vectorWord         *pGroup;
 
 	if(m_wType==HC_SingleTerminal || m_wType==HC_AllTerminal)
 	{
-		RightBound = (WORD)MAX(m_rectReal.left,0);
-		WidthColumn = (WORD)(m_rectReal.right - m_rectReal.left);
+		RightBound = (uint16_t)MAX(m_rectReal.left,0);
+		WidthColumn = (uint16_t)(m_rectReal.right - m_rectReal.left);
 		arRightBoundTerminalColumns->push_back(RightBound);
 		arWidthTerminalColumns->push_back(WidthColumn);
 		CountVTerminalColumns = 1;
@@ -2422,7 +2422,7 @@ int32_t CRtfHorizontalColumn::GetCountAndRightBoundVTerminalColumns(vectorWord* 
 				tmp = MAX(pRtfVerticalColumn->m_rectReal.left,0);
 				RightBound = MIN(RightBound,tmp);
   				WidthColumn = MAX(WidthColumn,
-				               (WORD)(pRtfVerticalColumn->m_rectReal.right - pRtfVerticalColumn->m_rectReal.left));
+				               (uint16_t)(pRtfVerticalColumn->m_rectReal.right - pRtfVerticalColumn->m_rectReal.left));
 			}
 			arRightBoundTerminalColumns->push_back(RightBound);
 			arWidthTerminalColumns->push_back(WidthColumn);
@@ -2496,7 +2496,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminal
 	CRtfVerticalColumn *pRtfVerticalColumn;
 	CRtfFragment       *pRtfFragment;
 	vectorWord         *pGroup;
-	WORD                FreeSpace;
+	uint16_t                FreeSpace;
 	int                 number;
 	Bool                FlagFirstTerminalFragment = FALSE;
 	int32_t               TopPositionFirstTerminalFragment;
@@ -2685,7 +2685,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminal
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                       GetFreeSpaceBetweenPrevAndCurrentFragments                               //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-WORD CRtfHorizontalColumn::GetFreeSpaceBetweenPrevAndCurrentFragments(int TopPosCurFragment, RtfSectorInfo *SectorInfo)
+uint16_t CRtfHorizontalColumn::GetFreeSpaceBetweenPrevAndCurrentFragments(int TopPosCurFragment, RtfSectorInfo *SectorInfo)
 {
 	CRtfFragment       *pRtfFragment;
 	RECT              FreePlace;
@@ -2713,7 +2713,7 @@ WORD CRtfHorizontalColumn::GetFreeSpaceBetweenPrevAndCurrentFragments(int TopPos
 	}
   FreePlaceHeight = MAX(0,FreePlace.bottom - FreePlace.top);
 
-		return (WORD)FreePlaceHeight;
+		return (uint16_t)FreePlaceHeight;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2815,7 +2815,7 @@ void CRtfHorizontalColumn::SortFragments()
 									pRtfFragment->m_rect.top < pRtfFragmentFirst->m_rect.bottom)
 					{
    						m_arOrderingNumber.insert(m_arOrderingNumber.begin()+ m, i );
-						pRtfFragment->m_wOffsetFromPrevTextFragment = (WORD)(pRtfFragment->m_rect.top - pRtfFragmentFirst->m_rect.top);
+						pRtfFragment->m_wOffsetFromPrevTextFragment = (uint16_t)(pRtfFragment->m_rect.top - pRtfFragmentFirst->m_rect.top);
 						FlagInserted = TRUE;
 						break;
 					}
@@ -2854,17 +2854,17 @@ void CRtfHorizontalColumn::SortFragments()
 		{
 			//вычитаем 2 высоты - фикт. абзаца и разрыва
 			//если меньше, чем высота разрава, то чтобы он не упрыгнул вниз
-			pRtfFragment->m_wOffsetFromPrevTextFragment = (WORD)MAX(brkHeight,pRtfFragment->m_rect.top - pRtfFragmentFirst->m_rect.bottom-brkHeight-parHeight);
+			pRtfFragment->m_wOffsetFromPrevTextFragment = (uint16_t)MAX(brkHeight,pRtfFragment->m_rect.top - pRtfFragmentFirst->m_rect.bottom-brkHeight-parHeight);
 		}
 	}
 */}
 
-WORD CRtfHorizontalColumn::GetOffsetFromPrevTextFragment(CRtfFragment *pRtfFragment)
+uint16_t CRtfHorizontalColumn::GetOffsetFromPrevTextFragment(CRtfFragment *pRtfFragment)
 {
 	int32_t               CountFrameInTerminalColumn;
 	CRtfVerticalColumn *pRtfVerticalColumn;
 	CRtfFragment       *pRtfFragmentNext;
-	WORD                VerOffset=0;
+	uint16_t                VerOffset=0;
 	CountFrameInTerminalColumn = m_arVerticalColumns.size();
 	for(int i=0; i<CountFrameInTerminalColumn; i++)
 	{
@@ -2874,7 +2874,7 @@ WORD CRtfHorizontalColumn::GetOffsetFromPrevTextFragment(CRtfFragment *pRtfFragm
 		if(	pRtfFragmentNext->m_wType == FT_TEXT                                &&
 			pRtfFragment->m_rect.top  >= pRtfFragmentNext->m_rect.top           &&
 							pRtfFragment->m_rect.top  <  pRtfFragmentNext->m_rect.bottom)
-			VerOffset = (WORD)(pRtfFragment->m_rect.top - pRtfFragmentNext->m_rect.top);
+			VerOffset = (uint16_t)(pRtfFragment->m_rect.top - pRtfFragmentNext->m_rect.top);
 	}
 	return VerOffset;
 }
@@ -3196,8 +3196,8 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment,RtfSectorInfo *Secto
 	CRtfWord*   pRtfWord;
 	CRtfString* pRtfString;
 	CRtfChar*   pRtfChar;
-	WORD        CountWords;
-	WORD        CountChars;
+	uint16_t        CountWords;
+	uint16_t        CountChars;
 	int16_t       flag_end_word_with_hiphen;
 	int16_t       tmp_font_name;
 	Bool        boPrevNega, boNega;
@@ -3851,7 +3851,7 @@ int16_t CRtfString::GetStringSizeInTwips()
 {
  CRtfWord*       pRtfWord;
  CRtfChar        *pLastChar,*pFirstChar;
-	WORD CountChars;
+	uint16_t CountChars;
 
 	pRtfWord   = (CRtfWord*)m_arWords[0];
  pFirstChar = (CRtfChar*)pRtfWord->m_arChars[0];
@@ -3862,14 +3862,14 @@ int16_t CRtfString::GetStringSizeInTwips()
 	return LenghtStr;
 }
 
-WORD CRtfString::GetRealStringSize(void)
+uint16_t CRtfString::GetRealStringSize(void)
 {
 //	CString         TmpString;
 	char tmp_str[MAX_BUFFER_SIZE] ;
 	CRtfWord*       pRtfWord;
 	CRtfChar        *pRtfChar;
 
-	WORD  CountChars,RealSize;
+	uint16_t  CountChars,RealSize;
 	int16_t strHeight;
 	int   index=0;
 
@@ -3900,9 +3900,9 @@ CRtfWord* CRtfString::GetNextWord()
 	return m_arWords.back();
 }
 
-WORD CRtfString:: get_max_font_size()
+uint16_t CRtfString:: get_max_font_size()
 {
- WORD nw,str_max_font=3;
+ uint16_t nw,str_max_font=3;
  CRtfWord* pRtfWord;
 
  for(nw=0; nw<m_wWordsCount; nw++ )
@@ -4002,7 +4002,7 @@ void CRtfWord::get_coordinates_and_probability()
 int16_t GetRealSizeKegl( /*CString**/const char* str, int16_t width, int16_t FontPointSize, int16_t FontNumber )
 {
 	char*  sz;
-	WORD  PenaltyKeglForString=0;
+	uint16_t  PenaltyKeglForString=0;
 	int16_t strHeight;
 	float koef=1.;
 
@@ -4189,7 +4189,7 @@ int16_t CreateEmptyRtfFile(void)
 		"Times New Roman Cyr"  , "froman",     // Serif
 		"Courier Cyr"          , "fmodern"     // Fixed_Pitch
 	};
-	WORD cr=13/*0x0d*/,lf=10/*0x0a*/;
+	uint16_t cr=13/*0x0d*/,lf=10/*0x0a*/;
  if(RtfWriteMode)
  {
 	Eol[0]=(char)cr; Eol[1]=(char)lf; Eol[2]=0;

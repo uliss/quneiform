@@ -103,7 +103,7 @@ public:
    //
    //
    //
-   LRESULT OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
+   LRESULT OnInitDialog(uint /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
 	{
 		// center the dialog on the screen
 		CenterWindow();
@@ -122,7 +122,7 @@ public:
       return TRUE;
 	}
 
-	LRESULT OnEmailClick(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, Bool& /*bHandled*/)
+	LRESULT OnEmailClick(uint16_t /*wNotifyCode*/, uint16_t wID, HWND /*hWndCtl*/, Bool& /*bHandled*/)
 	{
       CMailMsg msg;
       msg
@@ -133,7 +133,7 @@ public:
       return 0;
    }
 
-   LRESULT OnLicenseClick(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, Bool& /*bHandled*/)
+   LRESULT OnLicenseClick(uint16_t /*wNotifyCode*/, uint16_t wID, HWND /*hWndCtl*/, Bool& /*bHandled*/)
 	{
       HRSRC hrsrc = NULL;
       HGLOBAL hgres = NULL;
@@ -149,7 +149,7 @@ public:
       return 0;
    }
 
-   LRESULT OnOk(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, Bool& /*bHandled*/)
+   LRESULT OnOk(uint16_t /*wNotifyCode*/, uint16_t wID, HWND /*hWndCtl*/, Bool& /*bHandled*/)
 	{
       EndDialog(wID);
 

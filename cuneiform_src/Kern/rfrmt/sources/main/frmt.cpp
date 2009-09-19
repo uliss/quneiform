@@ -123,9 +123,9 @@ std::vector <tagRECT>   *pTheGeomStep1;
 std::vector <tagRECT>   *pTheGeomStep2;
 std::vector <tagRECT>   *pTheGeomTemp ;
 vectorWord             *pFragRectColor;
-WORD                   *CountRect;
-WORD                    Draw_Step;
-WORD                    Draw_Cycle;
+uint16_t                   *CountRect;
+uint16_t                    Draw_Step;
+uint16_t                    Draw_Cycle;
 #endif
 ///////////////////////////////////////////////////////////////
 

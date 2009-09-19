@@ -259,7 +259,7 @@ PCHAR * message_groups[]={format_msg,comp_msg,image_msg,run_msg,
 
 //---------------------- Errors processing ------------------
 extern jmp_buf fatal_error_exit;
-static WORD status_code = 0;
+static uint16_t status_code = 0;
 static char mess[512],add_mess[256];
 //	Fatal error break processing
 
@@ -298,7 +298,7 @@ void error_exit_asm (INT element)
 }
 
 //	External manipulation with error status
-PCHAR get_message (WORD code)
+PCHAR get_message (uint16_t code)
 {
     PCHAR c=mess;
     if (code == 0) return "OK.";
@@ -317,7 +317,7 @@ PCHAR get_message (WORD code)
     return c;
 }
 
-WORD get_error_status()
+uint16_t get_error_status()
 {
     return status_code;
 }
@@ -332,7 +332,7 @@ Bool bool_status()
     return ((status_code) ? FALSE : TRUE);
 }
 
-void set_error_status (WORD group, WORD element)
+void set_error_status (uint16_t group, uint16_t element)
 {
     msg_err (group, element);
 }

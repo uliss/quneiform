@@ -137,7 +137,7 @@ public:
    //
    //
    //
-   LRESULT OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
+   LRESULT OnInitDialog(uint /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, Bool& /*bHandled*/)
 	{
 		// center the dialog on the screen
 		CenterWindow();
@@ -202,7 +202,7 @@ public:
    //
    // Display details dialog instead of opening URL
    //
-   LRESULT OnLinkClick(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, Bool& /*bHandled*/)
+   LRESULT OnLinkClick(uint16_t /*wNotifyCode*/, uint16_t wID, HWND /*hWndCtl*/, Bool& /*bHandled*/)
    {
       CDetailDlg dlg;
       dlg.m_pUDFiles = m_pUDFiles;
@@ -215,7 +215,7 @@ public:
    //
    //
    //
-   LRESULT OnSysCommand(UINT, WPARAM wParam, LPARAM , Bool& bHandled)
+   LRESULT OnSysCommand(uint, WPARAM wParam, LPARAM , Bool& bHandled)
    {
       bHandled = FALSE;
 
@@ -235,7 +235,7 @@ public:
    //
    // Send handler, validates email address entered, if one, and returns.
    //
-   LRESULT OnSend(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, Bool& /*bHandled*/)
+   LRESULT OnSend(uint16_t /*wNotifyCode*/, uint16_t wID, HWND /*hWndCtl*/, Bool& /*bHandled*/)
 	{
       HWND     hWndEmail = GetDlgItem(IDC_EMAIL);
       HWND     hWndDesc = GetDlgItem(IDC_DESCRIPTION);
@@ -279,7 +279,7 @@ public:
    //
    //
    //
-   LRESULT OnCancel(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, Bool& /*bHandled*/)
+   LRESULT OnCancel(uint16_t /*wNotifyCode*/, uint16_t wID, HWND /*hWndCtl*/, Bool& /*bHandled*/)
 	{
       EndDialog(wID);
 		return 0;

@@ -90,11 +90,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**********************************************************************/
 /******** L o k a l    f u n c t i o n s   p r o t o t y p e s ********/
 /**********************************************************************/
- static INT mvbuf(WORD l);
+ static INT mvbuf(uint16_t l);
  static INT set_descr(char c);
  static INT do_fragm(void);
  static void move_from_near_to_huge(char  *a, char *b, INT l);
- static INT create_segm(struct segm *prev_adr,WORD segm_size,WORD type);
+ static INT create_segm(struct segm *prev_adr,uint16_t segm_size,uint16_t type);
  static INT n_l(void);
  static INT p_l(void);
  static INT prev_letter(void);
@@ -109,8 +109,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 INT begin(BYTE batch_run)
 {
 	/* INT  *p;*/
-	WORD i;
-	WORD i1;
+	uint16_t i;
+	uint16_t i1;
 	/*  uint32_t l;*/
 
 	SPQ.real_num        = 0;
@@ -244,7 +244,7 @@ INT processEdSymb(void)
 							else
 							 {
 								n=*(SPQ.buff_ptr+1); /* length of tabl */
-								ret=mvbuf((WORD)(n+1));
+								ret=mvbuf((uint16_t)(n+1));
 							 }
 							break;
 		case SS_SHEET_DESCR:
@@ -272,9 +272,9 @@ INT processEdSymb(void)
 							break;
 		default           :
 				if(*SPQ.buff_ptr<0x20)
-				  ret=mvbuf((WORD)(ED_LREC(SPQ.buff_ptr)));
+				  ret=mvbuf((uint16_t)(ED_LREC(SPQ.buff_ptr)));
 				else
-				  ret=mvbuf((WORD)(sizeof(LT)));/* letter */
+				  ret=mvbuf((uint16_t)(sizeof(LT)));/* letter */
 							break;
        }                             /* end of switch */
 
@@ -293,7 +293,7 @@ void puff_last_segm(void)
  check_free_mem();
 }
 /************************************************************************/
-INT mvbuf(WORD l)
+INT mvbuf(uint16_t l)
 /*
      This subroutine is in charge with setting down symbols
      into string of concerned segm.
@@ -603,7 +603,7 @@ void shift(char dir,INT v_s,struct segm *cur_segm,char *cur_symb)
    }
  }
 
- INT create_segm(struct segm *prev_adr,WORD segm_size,WORD type)
+ INT create_segm(struct segm *prev_adr,uint16_t segm_size,uint16_t type)
 /*
     This procedure allocates new segment and connects it with old ones.
 */

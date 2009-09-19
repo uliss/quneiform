@@ -291,7 +291,7 @@ Bool CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo)
 		if(ns==0)
 		{
 			if(pRtfString->m_wLeftIndent>m_max_dist/2)
-				pRtfString->m_wFirstIndent = (WORD)(m_max_dist*Twips);
+				pRtfString->m_wFirstIndent = (uint16_t)(m_max_dist*Twips);
 			else
 				pRtfString->m_wFirstIndent = 0;
 
@@ -307,7 +307,7 @@ Bool CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo)
 			if((pRtfString->m_wLeftIndent-pRtfStringPrev->m_wLeftIndent)>(m_max_dist/2))
 			{
     pRtfString->m_wLeftIndent         = 0;
-				pRtfString->m_wFirstIndent        = (WORD)(m_max_dist*Twips);
+				pRtfString->m_wFirstIndent        = (uint16_t)(m_max_dist*Twips);
  	 	pRtfString->m_wFlagBeginParagraph = TRUE;
 			}
 		}
@@ -318,7 +318,7 @@ Bool CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo)
 				   ((pRtfString->m_wLeftIndent - pRtfStringNext->m_wLeftIndent)>(m_max_dist/2)) )
 				{
      pRtfString->m_wLeftIndent         = 0;
-					pRtfString->m_wFirstIndent        = (WORD)(m_max_dist*Twips);
+					pRtfString->m_wFirstIndent        = (uint16_t)(m_max_dist*Twips);
  	 		pRtfString->m_wFlagBeginParagraph = TRUE;
 				}
   }
@@ -351,9 +351,9 @@ Bool CRtfFragment::CheckLeftRightJustification(int beg, int end)
 {
  CRtfString  *pRtfString;
  int          Count = 0;
- WORD         CountLeftRightEqual=0;
- WORD         CountCentreEqual=0;
- WORD         CountLeftEqual=0;
+ uint16_t         CountLeftRightEqual=0;
+ uint16_t         CountCentreEqual=0;
+ uint16_t         CountLeftEqual=0;
 
  GetCountEqual(beg, end, &CountCentreEqual, RTF_TP_CENTER);
  GetCountEqual(beg, end, &CountLeftEqual, RTF_TP_LEFT_ALLIGN);
@@ -423,7 +423,7 @@ Bool CRtfFragment::CheckLeftRightJustification(int beg, int end)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 GetCountEqual
 
-void CRtfFragment::GetCountEqual(int beg, int end, WORD* Count, int AlignType)
+void CRtfFragment::GetCountEqual(int beg, int end, uint16_t* Count, int AlignType)
 {
  CRtfString  *pRtfString;
 
@@ -611,10 +611,10 @@ Bool CRtfFragment::DeterminationOfLeftJustification(int beg, int end, Bool direc
 
 Bool CRtfFragment::CheckLeftJustification(int beg, int end)
 {
- WORD CountLeftEqual=0;
- WORD CountRightEqual=0;
- WORD CountLeftRightEqual=0;
- WORD CountCentreEqual=0;
+ uint16_t CountLeftEqual=0;
+ uint16_t CountRightEqual=0;
+ uint16_t CountLeftRightEqual=0;
+ uint16_t CountCentreEqual=0;
 
  GetCountEqual(beg, end, &CountLeftEqual,      RTF_TP_LEFT_ALLIGN);
  GetCountEqual(beg, end, &CountRightEqual,     RTF_TP_RIGHT_ALLIGN);
@@ -640,7 +640,7 @@ void CRtfFragment::SetFlagBeginParagraphForLeftJustification(int beg, int end)
  CRtfString  *pRtfString;
  BYTE        FlagStringParagraph=FALSE;
  BYTE        FlagStringParagraphSoft=FALSE;
- WORD        Count=0;
+ uint16_t        Count=0;
  int16_t       LeftFragm, RightFragm;
  int16_t       LeftDif,RightDif;
 
@@ -694,10 +694,10 @@ Bool CRtfFragment::DeterminationOfCentreJustification(int beg, int end)
 {
  CRtfString  *pRtfString;
 
- WORD CountLeftEqual=0;
- WORD CountRightEqual=0;
- WORD CountLeftRightEqual=0;
- WORD CountCentreEqual=0;
+ uint16_t CountLeftEqual=0;
+ uint16_t CountRightEqual=0;
+ uint16_t CountLeftRightEqual=0;
+ uint16_t CountCentreEqual=0;
 
  GetCountEqual(beg, end, &CountLeftEqual,      RTF_TP_LEFT_ALLIGN);
  GetCountEqual(beg, end, &CountRightEqual,     RTF_TP_RIGHT_ALLIGN);
@@ -730,10 +730,10 @@ Bool CRtfFragment::DeterminationOfRightJustification(int beg, int end)
  CRtfString  *pRtfStringPrev;
  CRtfString  *pRtfString;
 
- WORD CountLeftEqual=0;
- WORD CountRightEqual=0;
- WORD CountLeftRightEqual=0;
- WORD CountCentreEqual=0;
+ uint16_t CountLeftEqual=0;
+ uint16_t CountRightEqual=0;
+ uint16_t CountLeftRightEqual=0;
+ uint16_t CountCentreEqual=0;
 
   m_FlagCarry=GetFlagCarry(beg, end);
   if(m_FlagCarry && m_FlagRight==FALSE) return FALSE;
@@ -783,7 +783,7 @@ Bool CRtfFragment::DeterminationOfListType(int beg, int end)
 	BYTE        FlagListParagraph = 0;
  int32_t       MinLeft,MaxLeft,MaxRight;
  int32_t       CountMinLeft=0, CountMaxLeft=0, CountMaxRight=0;
- WORD        CountCentreEqual=0;
+ uint16_t        CountCentreEqual=0;
 
   GetCountEqual(beg, end, &CountCentreEqual, RTF_TP_CENTER);
 
@@ -930,7 +930,7 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end)
   				pRtfWord      = (CRtfWord*)pRtfString->m_arWords[0];
 				pRtfCharFirst = (CRtfChar*)pRtfWord->m_arChars[0];
 				bottom = pRtfCharFirst->m_Idealrect.top;
-				pRtfString->m_wSpaceBefore =(WORD)(bottom - top);
+				pRtfString->m_wSpaceBefore =(uint16_t)(bottom - top);
 			}
 			pRtfString->m_wFlagBeginParagraph = TRUE;
 		}
@@ -1046,8 +1046,8 @@ void CRtfFragment::CalculationLengthAndCount(CRtfString* pRtfString, int32_t* Co
 {
  CRtfWord    *pRtfWord;
 	CRtfChar    *pRtfChar;
-	WORD         CountWords;
-	WORD         WCountChars;
+	uint16_t         CountWords;
+	uint16_t         WCountChars;
 
   CountWords = pRtfString->m_wWordsCount;
   for(int i=0; i<CountWords; i++)
@@ -1074,8 +1074,8 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph()
 	CRtfWord    *pRtfWordPrev;
 	CRtfWord    *pRtfWord;
 	CRtfChar    *pRtfChar;
-	WORD         CountWords;
-	WORD         CountChars;
+	uint16_t         CountWords;
+	uint16_t         CountChars;
 
     int ns(0);
 	for(ns=1; ns < m_wStringsCount; ns++ )
@@ -1325,7 +1325,7 @@ Bool CRtfFragment::GetFlagLeft(int beg, int end)
 {
  CRtfString*  pRtfString;
  int          Count=0;
- WORD         CountLeftEqual=0;
+ uint16_t         CountLeftEqual=0;
  Bool         PriznakLeft=FALSE;
 
 
@@ -1518,7 +1518,7 @@ void CRtfFragment::PrintTheResult(const char* header_str)
 	CRtfChar    *pRtfCharFirst;
 	CString     str;
 	char* str;
-	WORD        CountWord,CountChar;
+	uint16_t        CountWord,CountChar;
 
 	if( FlagDebugAlign )
 	{

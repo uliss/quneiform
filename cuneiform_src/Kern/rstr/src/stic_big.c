@@ -83,9 +83,9 @@ extern int  dis_LIMIT_EEM;	// in ST_TOOLS.C;
 extern int  mk_dis_for_liga_exm;	// 06.01.1994
 /*......................................................................*/
 #ifdef	MKPRINT_ENABLE				// MK OTLADKA Variables
-extern WORD	mkm1, mkm2, mkm3, mkm4, mkm5;
-extern WORD	mkma, mkmb, mkmc, mkmd;
-///extern WORD	d,d0,d1,d2,d3,d4,d5,d6,d7,d8,d9;
+extern uint16_t	mkm1, mkm2, mkm3, mkm4, mkm5;
+extern uint16_t	mkma, mkmb, mkmc, mkmd;
+///extern uint16_t	d,d0,d1,d2,d3,d4,d5,d6,d7,d8,d9;
 #endif
 /*......................................................................*/
 #define MIN_ADD_DIS  10		/* max discrim for adding '(',')','!'	*/
@@ -132,7 +132,7 @@ INT	porog = MAX (s->stick_width, 4);	// NB: 4 - MK VOLUNTARY
 	// NB: porog used 2 times !!!
 /*......................................................................*/
 				// 03.01.1993	PROBA USE f_symptoms:
-//mk5555 = (((WORD) s->l_f_symptom)<<8) + tab_F[s->l_f_symptom];
+//mk5555 = (((uint16_t) s->l_f_symptom)<<8) + tab_F[s->l_f_symptom];
 //	return (tab_F [s->l_f_symptom]); // 0,1,2,3 -> 0,50,100,150
 /*......................................................................*/
 				// 12.10.1993	SECOND PROBA USE f_symptoms:

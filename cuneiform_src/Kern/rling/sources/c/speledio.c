@@ -102,7 +102,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "compat_defs.h"
 // --------------------------------------------------------------------
   void	ErrorExit(int Code);
-  void ed_out_write(PBYTE p, WORD size);
+  void ed_out_write(PBYTE p, uint16_t size);
 
   //AK kill all stupid macros
   //#define t  SPQ.t

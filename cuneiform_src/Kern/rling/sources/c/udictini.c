@@ -113,7 +113,7 @@ uint32_t LoadUserDict(char *DictName, char *pool, uint32_t pool_size,
 		return 0;
 	else {
 		voc_open(user_dict);
-		user_dict -> vocfree = (WORD) size;
+		user_dict -> vocfree = (uint16_t) size;
 	}
 	return MAX_VOC_SIZE;
 }

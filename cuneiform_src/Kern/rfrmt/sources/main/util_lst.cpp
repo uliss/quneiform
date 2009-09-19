@@ -572,7 +572,7 @@ KNOTT *NextKnot(KNOTT *Curr,STACK *St)
 }
 //---Общий сценарий работы с эмулятором:---
 //1.InitSubAlloc(&SubAlloc)
-//2.Ptr=SubMalloc(WORD size,&SubAlloc)
+//2.Ptr=SubMalloc(uint16_t size,&SubAlloc)
 //3.DeleteSubAlloc(&SubAlloc)
 //---Особенности: ---
 //1.При нехватке памяти в первоначальном массиве сегментов он наращивается

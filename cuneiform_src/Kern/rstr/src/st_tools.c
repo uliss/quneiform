@@ -104,16 +104,16 @@ static INT kill_version( BYTE prob);
   extern BYTE enable_table_recog; // Oleg : 10-02-95 09:05pm : sheet version
   extern Bool test_alphabet_elem(BYTE let);
 /*......................................................................*/
-WORD	mkm1=0x1111, mkm2=0x2222, mkm3=0x3333,	// MK Variables
+uint16_t	mkm1=0x1111, mkm2=0x2222, mkm3=0x3333,	// MK Variables
 	mkm4=0x4444, mkm5=0x5555;
 #ifdef	MKPRINT_ENABLE
-WORD	mkma=0xAAAA, mkmb=0xBBBB, mkmc=0xCCCC, mkmd=0xDDDD, mkme=0xEEEE;
-WORD	d,d0,d1,d2,d3,d4,d5,d6,d7,d8,d9,d10;	// MK OTLADKA
+uint16_t	mkma=0xAAAA, mkmb=0xBBBB, mkmc=0xCCCC, mkmd=0xDDDD, mkme=0xEEEE;
+uint16_t	d,d0,d1,d2,d3,d4,d5,d6,d7,d8,d9,d10;	// MK OTLADKA
 #endif
-WORD	mkFlag_Dump = FALSE;
+uint16_t	mkFlag_Dump = FALSE;
 //////static	INT	mk_INT_short_snap_last_typ;	// 18.06.1993	SOPLI
-WORD	N_eq_Neck;					// 28.07.1993
-WORD	left_mode_EEM;	// NOTA BENE:  NEPORJADOK; see CHA, DEF, DIS;
+uint16_t	N_eq_Neck;					// 28.07.1993
+uint16_t	left_mode_EEM;	// NOTA BENE:  NEPORJADOK; see CHA, DEF, DIS;
 int	inc_num_EEM;	// 15.11.1993;  formed in STIC_MAK.C;
 BYTE	inc_char_EEM;	// 16.11.1993 for SNAP only;  formed in STIC_MAK.C;
 int	dis_LIMIT_EEM;	// 18.11.1993;

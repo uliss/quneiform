@@ -119,8 +119,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace WTL
 {
 
-inline LRESULT WtlReflectNotificationsFiltered(HWND hWndParent, UINT uMsg, WPARAM wParam, LPARAM lParam, Bool& bHandled,
-                                               UINT uMsgFilter = WM_NULL, UINT_PTR idFromFilter = 0, HWND hWndChildFilter = NULL)
+inline LRESULT WtlReflectNotificationsFiltered(HWND hWndParent, uint uMsg, WPARAM wParam, LPARAM lParam, Bool& bHandled,
+                                               uint uMsgFilter = WM_NULL, UINT_PTR idFromFilter = 0, HWND hWndChildFilter = NULL)
 {
 	if((uMsgFilter != WM_NULL) && (uMsgFilter != uMsg))
 	{
@@ -504,7 +504,7 @@ class _U_MENUorID
 public:
 	_U_MENUorID(HMENU hMenu) : m_hMenu(hMenu)
 	{ }
-	_U_MENUorID(UINT nID) : m_hMenu((HMENU)LongToHandle(nID))
+	_U_MENUorID(uint nID) : m_hMenu((HMENU)LongToHandle(nID))
 	{ }
 	HMENU m_hMenu;
 };
@@ -514,7 +514,7 @@ class _U_STRINGorID
 public:
 	_U_STRINGorID(LPCTSTR lpString) : m_lpstr(lpString)
 	{ }
-	_U_STRINGorID(UINT nID) : m_lpstr(MAKEINTRESOURCE(nID))
+	_U_STRINGorID(uint nID) : m_lpstr(MAKEINTRESOURCE(nID))
 	{ }
 	LPCTSTR m_lpstr;
 };
@@ -541,7 +541,7 @@ namespace WTL
 			return TRUE; \
 	}
 
-static LRESULT Atl3ForwardNotifications(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, Bool& bHandled)
+static LRESULT Atl3ForwardNotifications(HWND hWnd, uint uMsg, WPARAM wParam, LPARAM lParam, Bool& bHandled)
 {
 	LRESULT lResult = 0;
 	switch(uMsg)

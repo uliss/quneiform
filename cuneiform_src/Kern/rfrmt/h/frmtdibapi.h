@@ -85,8 +85,8 @@ DECLARE_HANDLE(HDIB);
 LPSTR     WINAPI  FindDIBBits (LPSTR lpbi);
 uint32_t     WINAPI  DIBWidth (LPSTR lpDIB);
 uint32_t     WINAPI  DIBHeight (LPSTR lpDIB);
-WORD      WINAPI  PaletteSize (LPSTR lpbi);
-WORD      WINAPI  DIBNumColors (LPSTR lpbi);
+uint16_t      WINAPI  PaletteSize (LPSTR lpbi);
+uint16_t      WINAPI  DIBNumColors (LPSTR lpbi);
 HGLOBAL   WINAPI  CopyHandle (HGLOBAL h);
 
 //Bool       WINAPI       SaveDIB (Handle hDib, CFile& file);//!!! Art - устарело

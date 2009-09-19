@@ -878,7 +878,7 @@ public:
 		Init();
 		if (lpsz != NULL && HIWORD(lpsz) == NULL)
 		{
-			UINT nID = LOWORD((DWORD_PTR)lpsz);
+			uint nID = LOWORD((DWORD_PTR)lpsz);
 			if (!LoadString(nID))
 				ATLTRACE2(atlTraceUI, 0, _T("Warning: implicit LoadString(%u) in CString failed\n"), nID);
 		}
@@ -1711,7 +1711,7 @@ public:
 		return bRet;
 	}
 
-	Bool __cdecl Format(UINT nFormatID, ...)
+	Bool __cdecl Format(uint nFormatID, ...)
 	{
 		CString strFormat;
 		Bool bRet = strFormat.LoadString(nFormatID);
@@ -2060,7 +2060,7 @@ public:
 		return bRet;
 	}
 
-	Bool __cdecl FormatMessage(UINT nFormatID, ...)
+	Bool __cdecl FormatMessage(uint nFormatID, ...)
 	{
 		// get format string from string table
 		CString strFormat;
@@ -2086,7 +2086,7 @@ public:
 	}
 
 	// Windows support
-	Bool LoadString(UINT nID)   // load from string resource (255 chars max.)
+	Bool LoadString(uint nID)   // load from string resource (255 chars max.)
 	{
 #ifdef _UNICODE
 		const int CHAR_FUDGE = 1;   // one TCHAR unused is good enough
@@ -2471,7 +2471,7 @@ protected:
 		return (lpsz == NULL) ? 0 : lstrlen(lpsz);
 	}
 
-	static int __stdcall _LoadString(UINT nID, LPTSTR lpszBuf, UINT nMaxBuf)
+	static int __stdcall _LoadString(uint nID, LPTSTR lpszBuf, uint nMaxBuf)
 	{
 #ifdef _DEBUG
 		// LoadString without annoying warning from the Debug kernel if the
@@ -2656,14 +2656,14 @@ protected:
 
 	static int _cstrisdigit(TCHAR ch)
 	{
-		WORD type;
+		uint16_t type;
 		GetStringTypeEx(GetThreadLocale(), CT_CTYPE1, &ch, 1, &type);
 		return (type & C1_DIGIT) == C1_DIGIT;
 	}
 
 	static int _cstrisspace(TCHAR ch)
 	{
-		WORD type;
+		uint16_t type;
 		GetStringTypeEx(GetThreadLocale(), CT_CTYPE1, &ch, 1, &type);
 		return (type & C1_SPACE) == C1_SPACE;
 	}
@@ -3760,7 +3760,7 @@ inline HBITMAP AtlLoadBitmap(ATL::_U_STRINGorID bitmap)
 inline HBITMAP AtlLoadSysBitmap(ATL::_U_STRINGorID bitmap)
 {
 #ifdef _DEBUG
-	WORD wID = (WORD)bitmap.m_lpstr;
+	uint16_t wID = (uint16_t)bitmap.m_lpstr;
 	ATLASSERT(wID >= 32734 && wID <= 32767);
 #endif // _DEBUG
 	return ::LoadBitmap(NULL, bitmap.m_lpstr);
@@ -3811,23 +3811,23 @@ inline HICON AtlLoadSysIcon(LPCTSTR lpIconName)
 }
 #endif // !_WIN32_WCE
 
-inline HBITMAP AtlLoadBitmapImage(ATL::_U_STRINGorID bitmap, UINT fuLoad = LR_DEFAULTCOLOR)
+inline HBITMAP AtlLoadBitmapImage(ATL::_U_STRINGorID bitmap, uint fuLoad = LR_DEFAULTCOLOR)
 {
 	return (HBITMAP)::LoadImage(ModuleHelper::GetResourceInstance(), bitmap.m_lpstr, IMAGE_BITMAP, 0, 0, fuLoad);
 }
 
-inline HCURSOR AtlLoadCursorImage(ATL::_U_STRINGorID cursor, UINT fuLoad = LR_DEFAULTCOLOR | LR_DEFAULTSIZE, int cxDesired = 0, int cyDesired = 0)
+inline HCURSOR AtlLoadCursorImage(ATL::_U_STRINGorID cursor, uint fuLoad = LR_DEFAULTCOLOR | LR_DEFAULTSIZE, int cxDesired = 0, int cyDesired = 0)
 {
 	return (HCURSOR)::LoadImage(ModuleHelper::GetResourceInstance(), cursor.m_lpstr, IMAGE_CURSOR, cxDesired, cyDesired, fuLoad);
 }
 
-inline HICON AtlLoadIconImage(ATL::_U_STRINGorID icon, UINT fuLoad = LR_DEFAULTCOLOR | LR_DEFAULTSIZE, int cxDesired = 0, int cyDesired = 0)
+inline HICON AtlLoadIconImage(ATL::_U_STRINGorID icon, uint fuLoad = LR_DEFAULTCOLOR | LR_DEFAULTSIZE, int cxDesired = 0, int cyDesired = 0)
 {
 	return (HICON)::LoadImage(ModuleHelper::GetResourceInstance(), icon.m_lpstr, IMAGE_ICON, cxDesired, cyDesired, fuLoad);
 }
 
 #ifdef OEMRESOURCE
-inline HBITMAP AtlLoadSysBitmapImage(WORD wBitmapID, UINT fuLoad = LR_DEFAULTCOLOR)
+inline HBITMAP AtlLoadSysBitmapImage(uint16_t wBitmapID, uint fuLoad = LR_DEFAULTCOLOR)
 {
 	ATLASSERT(wBitmapID >= 32734 && wBitmapID <= 32767);
 	ATLASSERT((fuLoad & LR_LOADFROMFILE) == 0);   // this one doesn't load from a file
@@ -3835,20 +3835,20 @@ inline HBITMAP AtlLoadSysBitmapImage(WORD wBitmapID, UINT fuLoad = LR_DEFAULTCOL
 }
 #endif // OEMRESOURCE
 
-inline HCURSOR AtlLoadSysCursorImage(ATL::_U_STRINGorID cursor, UINT fuLoad = LR_DEFAULTCOLOR | LR_DEFAULTSIZE, int cxDesired = 0, int cyDesired = 0)
+inline HCURSOR AtlLoadSysCursorImage(ATL::_U_STRINGorID cursor, uint fuLoad = LR_DEFAULTCOLOR | LR_DEFAULTSIZE, int cxDesired = 0, int cyDesired = 0)
 {
 #ifdef _DEBUG
-	WORD wID = (WORD)cursor.m_lpstr;
+	uint16_t wID = (uint16_t)cursor.m_lpstr;
 	ATLASSERT((wID >= 32512 && wID <= 32516) || (wID >= 32640 && wID <= 32648) || (wID == 32650) || (wID == 32651));
 	ATLASSERT((fuLoad & LR_LOADFROMFILE) == 0);   // this one doesn't load from a file
 #endif // _DEBUG
 	return (HCURSOR)::LoadImage(NULL, cursor.m_lpstr, IMAGE_CURSOR, cxDesired, cyDesired, fuLoad);
 }
 
-inline HICON AtlLoadSysIconImage(ATL::_U_STRINGorID icon, UINT fuLoad = LR_DEFAULTCOLOR | LR_DEFAULTSIZE, int cxDesired = 0, int cyDesired = 0)
+inline HICON AtlLoadSysIconImage(ATL::_U_STRINGorID icon, uint fuLoad = LR_DEFAULTCOLOR | LR_DEFAULTSIZE, int cxDesired = 0, int cyDesired = 0)
 {
 #ifdef _DEBUG
-	WORD wID = (WORD)icon.m_lpstr;
+	uint16_t wID = (uint16_t)icon.m_lpstr;
 	ATLASSERT(wID >= 32512 && wID <= 32517);
 	ATLASSERT((fuLoad & LR_LOADFROMFILE) == 0);   // this one doesn't load from a file
 #endif // _DEBUG
@@ -3856,26 +3856,26 @@ inline HICON AtlLoadSysIconImage(ATL::_U_STRINGorID icon, UINT fuLoad = LR_DEFAU
 }
 
 #if (_ATL_VER < 0x0700)
-inline int AtlLoadString(UINT uID, LPTSTR lpBuffer, int nBufferMax)
+inline int AtlLoadString(uint uID, LPTSTR lpBuffer, int nBufferMax)
 {
 	return ::LoadString(_Module.GetResourceInstance(), uID, lpBuffer, nBufferMax);
 }
 #endif // (_ATL_VER < 0x0700)
 
 #ifdef _WIN32_WCE // CE only direct access to the resource
-inline LPCTSTR AtlLoadString(UINT uID)
+inline LPCTSTR AtlLoadString(uint uID)
 {
 	LPCTSTR s = (LPCTSTR)::LoadString(ModuleHelper::GetResourceInstance(), uID, NULL, 0);
 #ifdef DEBUG // Check for null-termination
 	if(s != NULL)
 		// Note: RC -n <file.rc> compiles null-terminated resource strings
-		ATLASSERT(s[*((WORD*)s -1) - 1] == L'\0');
+		ATLASSERT(s[*((uint16_t*)s -1) - 1] == L'\0');
 #endif
 	return s;
 }
 #endif // _WIN32_WCE
 
-inline bool AtlLoadString(UINT uID, BSTR& bstrText)
+inline bool AtlLoadString(uint uID, BSTR& bstrText)
 {
 	USES_CONVERSION;
 	ATLASSERT(bstrText == NULL);

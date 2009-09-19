@@ -347,7 +347,7 @@ SINT FindDistanceWr(welet *wel,welet *outwel)
  SINT fill;
  BYTE *cout;
 #ifdef _WEIDIST_
- WORD koef;
+ uint16_t koef;
  BYTE ckoef,maxvei;
  char *ras,*cras;
 #else
@@ -369,7 +369,7 @@ SINT FindDistanceWr(welet *wel,welet *outwel)
 #ifdef _WEIDIST_
 
  if(fill <= 0) fill=1;
- koef=(WORD) (wel->summa/fill);
+ koef=(uint16_t) (wel->summa/fill);
 
  if(koef < 1 ) koef=1;
 

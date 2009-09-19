@@ -1015,7 +1015,7 @@ static Bool rtf_correct()
 
 //  Handle hCPAGE = CPAGE_GetHandlePage( CPAGE_GetCurrentPage());
   GetPageInfo(hCPAGE,&PageInfo);
-  dpi  = (WORD)PageInfo.DPIY;    //разрешение сканера по вертикали
+  dpi  = (uint16_t)PageInfo.DPIY;    //разрешение сканера по вертикали
   dpi2=2*dpi;
 
   n=CSTR_GetMaxNumber ();

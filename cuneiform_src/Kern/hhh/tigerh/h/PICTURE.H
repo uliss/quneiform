@@ -58,8 +58,8 @@
 #define _PICTURE_H_
 
 struct env {
-	WORD left, top;
-	WORD h, w;
+	uint16_t left, top;
+	uint16_t h, w;
 };
 typedef struct env envelope;
 
@@ -68,7 +68,7 @@ typedef struct env envelope;
 #define pic_interlace_merge	4 // if interlaced merge
 Bool shutdown_pictures(void);
 Bool del_picture(INT handle);
-INT new_picture(INT top, INT left, INT h, INT w, WORD mod);
+INT new_picture(INT top, INT left, INT h, INT w, uint16_t mod);
 uint32_t update_pictures(BYTE ** pool);
 PBYTE get_picture(INT handle);
 INT merge_pictures(INT ha1, INT ha2);

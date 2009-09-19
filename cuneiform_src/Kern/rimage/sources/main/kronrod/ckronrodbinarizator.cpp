@@ -311,7 +311,7 @@ uint32_t CKronrodBinarizator::grey_to(puchar pKogo)
 		n_from = 2*N_Lines_per_1_MEM;    goto m1;	// FIRST PORTION !!!
 	}
 				// MIDDLE PORTION ?
-	if (n_acc < (WORD) (6 * N_Lines_per_1_MEM))  return 0;	// NO READY
+	if (n_acc < (uint16_t) (6 * N_Lines_per_1_MEM))  return 0;	// NO READY
 	n_from = 2 * N_Lines_per_1_MEM;			// MIDDLE PORTION !!!
 
 m1:
@@ -1821,7 +1821,7 @@ void CKronrodBinarizator::Korob_calc_TdP()
 		}
 		///////	    dd = (mkMax>=Porog_34)  ?  0 : (Porog_34 - mkMax)/8;  ???????????
 		//	    if (mkMax>=Porog_34)                          // commented by D.L.3.4.94 as never used
-		//		  dd = (BYTE) (((WORD) (Porog_34 - mkMax) / 8));// commented by D.L.3.4.94 as never used
+		//		  dd = (BYTE) (((uint16_t) (Porog_34 - mkMax) / 8));// commented by D.L.3.4.94 as never used
 		//	    else  dd = 0;// commented by D.L.3.4.94 as never used
 		///////	    Buf_TdP [j1 + j] = dd;
 	}
@@ -2156,7 +2156,7 @@ void CKronrodBinarizator::Korob_statistic_print()
 {
 	uint32_t	percent;
 
-	percent = (WORD) (LS_Korobs * 100L / (NI * (int32_t) NJ));
+	percent = (uint16_t) (LS_Korobs * 100L / (NI * (int32_t) NJ));
 	PR_BEG
 		"%d Korobs;  S=%ld (%d)\n"
 		"SH=%ld SL=%ld\n"

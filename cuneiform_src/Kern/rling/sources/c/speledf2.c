@@ -112,10 +112,10 @@ BYTE  *next_symb(INT i, INT j, INT k,
  //struct segm  *cur_segm;
  //BYTE  *cur_symb;
  {
-  WORD ret;
+  uint16_t ret;
   BYTE l;
   void * NsCache[8];
-  WORD NsCount = 0;
+  uint16_t NsCount = 0;
   /* struct segm  *segm_ptr; */
 
   if (cur_symb == NULL)

@@ -573,7 +573,7 @@ lrdo:;
 				//    move it right untill thick enough
 
  v1=bodyes[rbnd];
- while ((WORD)rbnd < totalh)
+ while ((uint16_t)rbnd < totalh)
   {
   if ((bodyes[rbnd]<<2)  < 3*v1) break;
   rbnd++;
@@ -863,7 +863,7 @@ lbnd++;
 			   // rbnd - the same to the right of the pnt
 			   //   move it right untill thick enough
  v1=bodyes[rbnd];
- while ((WORD)rbnd < totalh)
+ while ((uint16_t)rbnd < totalh)
   {
   if ((bodyes[rbnd]<<2)  < 3*v1) break;
   rbnd++;

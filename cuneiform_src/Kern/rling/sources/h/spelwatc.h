@@ -75,7 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /************************* Bitfield types *****************************/
 
 #define BIT_BYTE    BYTE
-#define BIT_WORD    WORD
+#define BIT_WORD    uint16_t
 #define BIT_DWORD   DWORD
 
 //--------------- Allocation memory stuff ------------------------------

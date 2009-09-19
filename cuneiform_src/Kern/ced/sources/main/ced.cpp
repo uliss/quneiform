@@ -182,7 +182,7 @@ void CED_SetRawDataProc(FNRDProc proc) {
 		edscan_stop = start;
 		goto quit;
 
-		char_proc: if (func_char(start, (WORD)(curr - start)))
+		char_proc: if (func_char(start, (uint16_t)(curr - start)))
 			goto next_symb;
 		edscan_stop = start;
 		goto quit;

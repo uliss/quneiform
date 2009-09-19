@@ -119,8 +119,8 @@ struct _String
            int      xRight;
            int      yBottom;
 
-           WORD     wFirst;
-           WORD     wLast;
+           uint16_t     wFirst;
+           uint16_t     wLast;
 
            int      *pLettersList;
            int      nLetters;

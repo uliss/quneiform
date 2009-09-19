@@ -155,8 +155,8 @@ static BYTE *ndptr; /* pointer to current vertex in  */
 /* -- Pointer tree node head fields. -------------------------------- */
 
 #define VERTV_SIZE      1
-#define VERTV_CONT(p)   ((WORD)((*(p))&0x01))       /* Boolean */
-#define VERTV_NOTERM(p) ((WORD)((*(p))&0x02))       /* Boolean */
+#define VERTV_CONT(p)   ((uint16_t)((*(p))&0x01))       /* Boolean */
+#define VERTV_NOTERM(p) ((uint16_t)((*(p))&0x02))       /* Boolean */
 #define VERTV_KEY(p)    ((char)((*(p)) >> 2))       /* char */
 
 /* -- Positional tree node fields. ---------------------------------- */
@@ -164,19 +164,19 @@ static BYTE *ndptr; /* pointer to current vertex in  */
 #define VERTP_SIZE      3
 #define VERTP_CONT      VERTV_CONT                  /* Boolean */
 #define VERTP_NOTERM    VERTV_NOTERM                /* Boolean */
-#define VERTP_EXIST(p)  ((WORD)((*(p))&0x04))       /* Boolean */
-#define VERTP_SHIFT0(p) ((WORD)((*(p)) >> 3))       /* WORD */
-#define VERTP_SHIFT1(p) ((WORD)(*(p+1)))            /* WORD */
-#define VERTP_SHIFT2(p) ((WORD)(*(p+2)))            /* WORD */
+#define VERTP_EXIST(p)  ((uint16_t)((*(p))&0x04))       /* Boolean */
+#define VERTP_SHIFT0(p) ((uint16_t)((*(p)) >> 3))       /* uint16_t */
+#define VERTP_SHIFT1(p) ((uint16_t)(*(p+1)))            /* uint16_t */
+#define VERTP_SHIFT2(p) ((uint16_t)(*(p+2)))            /* uint16_t */
 
 /* -- Pointer tree node postfics fields. ---------------------------- */
 
 #define POSTFICS_SIZE       2
 #define POSTFICS_CONT       VERTV_CONT              /* Boolean */
-#define POSTFICS_TAIL(p)    ((WORD)((*(p))&0x02))   /* Boolean */
-#define POSTFICS_ACCNT(p)   ((WORD)((*(p))&0x04))   /* Boolean */
-#define POSTFICS_ENTER0(p)  ((WORD)((*(p)) >> 3))   /* WORD    */
-#define POSTFICS_ENTER1(p)  ((WORD)(*(p+1)))        /* WORD    */
+#define POSTFICS_TAIL(p)    ((uint16_t)((*(p))&0x02))   /* Boolean */
+#define POSTFICS_ACCNT(p)   ((uint16_t)((*(p))&0x04))   /* Boolean */
+#define POSTFICS_ENTER0(p)  ((uint16_t)((*(p)) >> 3))   /* uint16_t    */
+#define POSTFICS_ENTER1(p)  ((uint16_t)(*(p+1)))        /* uint16_t    */
 
 /* -- Pointer tree node account fields. ----------------------------- */
 
@@ -184,8 +184,8 @@ static BYTE *ndptr; /* pointer to current vertex in  */
 #define ACCOUNT_CONT        VERTV_CONT              /* Boolean */
 #define ACCOUNT_TAIL        POSTFICS_TAIL           /* Boolean */
 #define ACCOUNT_ACCNT       POSTFICS_ACCNT          /* Boolean */
-#define ACCOUNT_WRDTERM(p)  ((WORD)((*(p))&0x08))   /* Boolean */
-#define ACCOUNT_FREQ(p)     ((WORD)((*(p)) >> 5))   /* WORD */
+#define ACCOUNT_WRDTERM(p)  ((uint16_t)((*(p))&0x08))   /* Boolean */
+#define ACCOUNT_FREQ(p)     ((uint16_t)((*(p)) >> 5))   /* uint16_t */
 
 /* -- Pointer tree relative shift to the next node in level. -------- */
 
@@ -194,17 +194,17 @@ static BYTE *ndptr; /* pointer to current vertex in  */
 
 #define ADDR_CONT      VERTV_CONT                   /* Boolean */
 #define ADDR_TAIL      POSTFICS_TAIL                /* Boolean */
-#define ADDR_LTH(p)    ((WORD)((*(p))&0x04))        /* Boolean */
-#define ADDR_SHIFT0(p) ((WORD)((*(p)) >> 3))        /* WORD */
-#define ADDR_LTH2(p)   ((WORD)((*((p)+1))&0x01))    /* WORD */
-#define ADDR_SHIFT2(p) ((WORD)((*((p)+1)) >> 1))    /* WORD */
-#define ADDR_SHIFT3(p) ((WORD)(*((p)+2)))           /* WORD */
+#define ADDR_LTH(p)    ((uint16_t)((*(p))&0x04))        /* Boolean */
+#define ADDR_SHIFT0(p) ((uint16_t)((*(p)) >> 3))        /* uint16_t */
+#define ADDR_LTH2(p)   ((uint16_t)((*((p)+1))&0x01))    /* uint16_t */
+#define ADDR_SHIFT2(p) ((uint16_t)((*((p)+1)) >> 1))    /* uint16_t */
+#define ADDR_SHIFT3(p) ((uint16_t)(*((p)+2)))           /* uint16_t */
 
 /* -- Tailset element fields. --------------------------------------- */
 
 #define TAILSET_SIZE 1
 #define TAILSET_CH(p)       ((char)((*(p))&0x3F))   /* char */
-#define TAILSET_TAILEND(p)  ((WORD)((*(p))&0x80))   /* Boolean */
+#define TAILSET_TAILEND(p)  ((uint16_t)((*(p))&0x80))   /* Boolean */
 
 /*************************************************************************/
 /*                                                                       */
@@ -276,7 +276,7 @@ INT next_level(KEYTYPE ch) {
 	Begin: if (indpos)
 		if (poslevel != maxlevel) {
 			if (maxlevel > 2) {
-				register WORD i;
+				register uint16_t i;
 				for (i = maxlevel - poslevel - 1, shift = 1L; i > 0; --i) {
 					shift *= dictInfo->abcSize;
 					shift++;
@@ -437,7 +437,7 @@ INT test_tail(BYTE * ptr, INT * accounter, INT * tailmaxl, LTIMG * wrddef[],
 			if (!POSTFICS_ACCNT(ptr)) {
 				if (rest != 0) {
 					/* -- don't check tails if no rest. */
-					WORD enterNum;
+					uint16_t enterNum;
 					enterNum = (POSTFICS_ENTER0(ptr) << 8)
 							+ POSTFICS_ENTER1(ptr);
 
@@ -582,7 +582,7 @@ INT fillgap(KEYTYPE * word, INT cnt, LTIMG * wrddef[], INT gapcont) {
 		if (xposlevel != xmaxlevel) {
 
 			register INT i;
-			WORD abcSize = dictInfo->abcSize;
+			uint16_t abcSize = dictInfo->abcSize;
 			;
 
 			if (xmaxlevel > 2) {

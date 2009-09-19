@@ -47,16 +47,16 @@
 #include<wchar.h>
 #include "compat_defs.h"
 
-CFCOMPAT_FUNC(int) LoadString(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax);
+CFCOMPAT_FUNC(int) LoadString(HINSTANCE hInstance, uint uID, LPTSTR lpBuffer, int nBufferMax);
 
 CFCOMPAT_FUNC(int) CreateDirectory(const char *dir, void *dummy);
 CFCOMPAT_FUNC(uint32_t) GetTempPath(uint32_t nBufferLength, LPTSTR lpBuffer);
 CFCOMPAT_FUNC(int) RemoveDirectory(const char *d);
-CFCOMPAT_FUNC(void*) GlobalAlloc(UINT uFlags, int dwBytes);
+CFCOMPAT_FUNC(void*) GlobalAlloc(uint uFlags, int dwBytes);
 CFCOMPAT_FUNC(HGLOBAL) GlobalFree(void *f);
-CFCOMPAT_FUNC(void*) GlobalReAlloc(void* hMem, int dwBytes, UINT uFlags);
+CFCOMPAT_FUNC(void*) GlobalReAlloc(void* hMem, int dwBytes, uint uFlags);
 CFCOMPAT_FUNC(int) GetTempFileName(LPCTSTR lpPathName, LPCTSTR lpPrefixString,
-		UINT uUnique, LPTSTR lpTempFileName);
+		uint uUnique, LPTSTR lpTempFileName);
 CFCOMPAT_FUNC(int) GetLastError();
 
 CFCOMPAT_FUNC(uint32_t) GetModuleFileName(HMODULE hModule, LPTSTR lpFilename, uint32_t nSize);
@@ -66,7 +66,7 @@ CFCOMPAT_FUNC(HANDLE) CreateFile(LPCTSTR lpFileName, uint32_t dwDesiredAccess,
 		uint32_t dwCreationDisposition, uint32_t dwFlagsAndAttributes, HANDLE hTemplateFile);
 
 CFCOMPAT_FUNC(HWND) FindWindow(LPCTSTR lpClassName, LPCTSTR lpWindowName);
-CFCOMPAT_FUNC(UINT) RegisterWindowMessage(LPCTSTR lpString);
+CFCOMPAT_FUNC(uint) RegisterWindowMessage(LPCTSTR lpString);
 
 CFCOMPAT_FUNC(int) _findclose(long handle);
 CFCOMPAT_FUNC(long) _findfirst(const char *filespec, struct _finddata_t *fileinfo);
@@ -86,10 +86,10 @@ CFCOMPAT_FUNC(Bool) WritePrivateProfileString(LPCTSTR lpAppName,
 		LPCTSTR lpKeyName, LPCTSTR lpString, LPCTSTR lpFileName);
 CFCOMPAT_FUNC(uint32_t) GetPrivateProfileString(LPCTSTR lpAppName, LPCTSTR lpKeyName,
 		LPCTSTR lpDefault, LPTSTR lpReturnedString, uint32_t nSize, LPCTSTR lpFileName);
-CFCOMPAT_FUNC(UINT) GetPrivateProfileInt(LPCTSTR lpAppName,
+CFCOMPAT_FUNC(uint) GetPrivateProfileInt(LPCTSTR lpAppName,
 		LPCTSTR lpKeyName, INT nDefault, LPCTSTR lpFileName);
 
-CFCOMPAT_FUNC(int) WideCharToMultiByte(UINT CodePage, uint32_t dwFlags, const wchar_t *lpWideCharStr,
+CFCOMPAT_FUNC(int) WideCharToMultiByte(uint CodePage, uint32_t dwFlags, const wchar_t *lpWideCharStr,
 		int cchWideChar, LPSTR lpMultiByteStr, int cbMultiByte,
 		LPCSTR lpDefaultChar, LPBOOL lpUsedDefaultChar);
 
@@ -104,7 +104,7 @@ CFCOMPAT_FUNC(Bool) IsIconic(HWND hWnd);
 CFCOMPAT_FUNC(HDC) GetDC(HWND hWnd);
 CFCOMPAT_FUNC(Bool) EndPaint(HWND hWnd, ...);
 CFCOMPAT_FUNC(HDC) BeginPaint(HWND hwnd,...);
-CFCOMPAT_FUNC(LRESULT) SendMessage(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
+CFCOMPAT_FUNC(LRESULT) SendMessage(HWND hWnd, uint Msg, WPARAM wParam, LPARAM lParam);
 #ifndef __CYGWIN__
 CFCOMPAT_FUNC(void) strlwr(char *foo);
 #endif
@@ -132,12 +132,12 @@ CFCOMPAT_FUNC(int) lstrcmpi(LPCTSTR lpString1, LPCTSTR lpString2);
 
 CFCOMPAT_FUNC(Bool) DeleteObject(HGDIOBJ hObject);
 
-#define GetGValue(rgb) ((BYTE) (((WORD) (rgb)) >> 8))
+#define GetGValue(rgb) ((BYTE) (((uint16_t) (rgb)) >> 8))
 #define GetBValue(rgb) ((BYTE) ((rgb) >> 16))
 #define GetRValue(rgb) ((BYTE) (rgb))
 
 CFCOMPAT_FUNC(HWND) GetFocus();
-CFCOMPAT_FUNC(int) MessageBox(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType);
+CFCOMPAT_FUNC(int) MessageBox(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, uint uType);
 
 CFCOMPAT_FUNC(int) WINAPI GlobalSize(HGLOBAL hMem);
 CFCOMPAT_FUNC(LPVOID) GlobalLock(HGLOBAL hMem);
@@ -166,7 +166,7 @@ CFCOMPAT_FUNC(void*) GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 
 CFCOMPAT_FUNC(HGDIOBJ) GetStockObject(int fnObject);
 CFCOMPAT_FUNC(Bool) IsWindowVisible(HWND hWnd);
-CFCOMPAT_FUNC(LRESULT) DefWindowProc(HWND hWnd, UINT Msg, WPARAM wParam,
+CFCOMPAT_FUNC(LRESULT) DefWindowProc(HWND hWnd, uint Msg, WPARAM wParam,
 		LPARAM lParam);
 CFCOMPAT_FUNC(LONG) GetWindowLong(HWND hWnd, int nIndex);
 CFCOMPAT_FUNC(Bool) RegisterClass(const WNDCLASS *lpWndClass);

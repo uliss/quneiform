@@ -79,12 +79,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 /////////////////////////////////
 
-# define __RGB__(r,g,b)          ((uint32_t)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
+# define __RGB__(r,g,b)          ((uint32_t)(((BYTE)(r)|((uint16_t)((BYTE)(g))<<8))|(((uint32_t)(BYTE)(b))<<16)))
 
 /////////////////////////////////
 extern jmp_buf fatal_error_exit;	// For error handling
 extern INT nStrings;
-extern WORD run_options;
+extern uint16_t run_options;
 
 extern Handle hShowString;
 extern Handle hShowCells;
@@ -128,7 +128,7 @@ uint32_t myMonitorProc(Handle wnd,Handle hwnd,uint32_t message,uint32_t wParam,u
 	{
 	case WM_LBUTTONDBLCLK:
 		{
-			Point32 p = { (WORD)lParam, (WORD)(lParam>>16)};  // vertical position of cursor  }
+			Point32 p = { (uint16_t)lParam, (uint16_t)(lParam>>16)};  // vertical position of cursor  }
 			p = LDPUMA_GetRasterPixel(wnd,p);
 			LDPUMA_Console("Растр [%i,%i].",p.x,p.y);
 		}

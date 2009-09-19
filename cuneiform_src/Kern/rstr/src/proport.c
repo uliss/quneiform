@@ -81,7 +81,7 @@ void pidx_crit ()
  INT pidx;
  version *v;
  INT i;
- WORD let;
+ uint16_t let;
  pidx = prop_index (wcomp.h, wcomp.w);
  wcomp.pidx = (BYTE)pidx;
  for (i=0, v=start_rec; i<wcomp.nvers; i++, v++)
@@ -103,7 +103,7 @@ void v2_pidx_crit (cell *c)
 {
  INT pidx;
  version *v, *wv;
- WORD let;
+ uint16_t let;
  // Paul 07-12-99
  if (c->nvers==0)
    return;
@@ -134,7 +134,7 @@ void v2_pidx_crit (cell *c)
 Bool pidx_skip(INT h, INT w,BYTE t_let)
 {
   INT pidx;
-  WORD let;
+  uint16_t let;
 
   pidx=prop_index(h,w);
   let = t_let <<1;
@@ -143,9 +143,9 @@ Bool pidx_skip(INT h, INT w,BYTE t_let)
   else return TRUE;
 }
 
-WORD el_pidx_crit(WORD t_let,INT pidx)
+uint16_t el_pidx_crit(uint16_t t_let,INT pidx)
 {
-  WORD let;
+  uint16_t let;
 
   let = (BYTE)t_let * 2;
   if( (pidx + prop_l_delta < letters_pidx_table[let]) ||

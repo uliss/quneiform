@@ -519,13 +519,13 @@ Bool32 RLINE_SearchLines( void* lpInPage,void* phCLINE)
 		{
 			temp = (-100)*lti.Hor.Lns[i].Thickness;
 			_ASSERT(lti.Hor.Lns[i].Thickness>0);
-			LDPUMA_DrawLine(draw_window, &lti.Hor.Lns[i].A, &lti.Hor.Lns[i].B, 0, x, (WORD)temp, 512);
+			LDPUMA_DrawLine(draw_window, &lti.Hor.Lns[i].A, &lti.Hor.Lns[i].B, 0, x, (uint16_t)temp, 512);
 		}
 		for(i=0;i<lti.Ver.Cnt;i++)
 		{
 			temp = (-100)*lti.Ver.Lns[i].Thickness;
 			_ASSERT(lti.Ver.Lns[i].Thickness>0);
-			LDPUMA_DrawLine(draw_window, &lti.Ver.Lns[i].A, &lti.Ver.Lns[i].B, 0, x, (WORD)temp, 512);
+			LDPUMA_DrawLine(draw_window, &lti.Ver.Lns[i].A, &lti.Ver.Lns[i].B, 0, x, (uint16_t)temp, 512);
 		}
 		if (lti.Hor.Cnt || lti.Ver.Cnt)
         {

@@ -375,7 +375,7 @@ for(i=0;i<n;i++)
  hash = (hash & 0xff) ^ (hash >> 8);
  p = ((nl-1) * 256 + hash) * sizeof(uint32_t) + events_tree;
  di = *((uint32_t *)p); if (di==0) return 0; p = events_tree+di;
- /* Oleg : 17-08-1994 : changed WORD */
+ /* Oleg : 17-08-1994 : changed uint16_t */
  nl++;
  while (*p)
   {

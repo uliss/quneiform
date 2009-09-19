@@ -94,7 +94,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern uchar language;
 
 
-WORD cmp(PBYTE r,WORD fullwb,WORD w,WORD h,welet * wl);
+uint16_t cmp(PBYTE r,uint16_t fullwb,uint16_t w,uint16_t h,welet * wl);
 SINT RazmazHalf(BYTE *bSource,BYTE *bDest,SINT xbit,SINT yrow);
 ///////////////////////
 //
@@ -536,7 +536,7 @@ int w2,h2;
 ////////////
 int distWelet(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int porog,int countRazmaz)
 {
- WORD best,east,west,north,south,center;
+ uint16_t best,east,west,north,south,center;
  int   lbest;   // local best
  int bound=140; //2*MIN(50,w+h);
  int initPorog=porog;
@@ -838,7 +838,7 @@ SINT RecogClu(BYTE *rast,SINT xbyte,SINT xbit,SINT yrow,
   if( i > 1 &&
 	  recres[0].prob - 3 <= recres[1].prob )
   {
-   int CheckRaster(PBYTE r,WORD fullBytes,WORD w,WORD h,
+   int CheckRaster(PBYTE r,uint16_t fullBytes,uint16_t w,uint16_t h,
 				welet *wel,int inBase,int let);
    int prob0,prob1;
    prob0= CheckRaster(buf,rbyte,xbit,yrow,wl,numWel,recres[0].name);
@@ -1203,7 +1203,7 @@ int dist,j;
 
 static int distWeletOkr(BYTE *buf,BYTE *razmaz,int w,int h,welet * wl,int porog,int okr,int proc)
 {
- WORD best,east,west,north,south,center;
+ uint16_t best,east,west,north,south,center;
  int   lbest;   // local best
  int bound=200; //2*MIN(50,w+h);
  int initPorog=porog;

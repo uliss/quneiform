@@ -1361,7 +1361,7 @@ static INT chkdash(INT h,INT dp,cell *c)
 
 static INT chkquot(INT h,INT dp,cell *c)
  {
- WORD ls,i,j,k,i1,j1,k1,min,l,s,r,lu,ru,ld,rd;
+ uint16_t ls,i,j,k,i1,j1,k1,min,l,s,r,lu,ru,ld,rd;
  BYTE str[80];
 
  if (snap_activity('e'))

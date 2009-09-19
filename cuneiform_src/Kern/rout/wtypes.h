@@ -177,10 +177,10 @@ typedef unsigned char BYTE;
 #endif // !_BYTE_DEFINED
 #ifndef _WORD_DEFINED
 #define _WORD_DEFINED
-typedef unsigned short WORD;
+typedef unsigned short uint16_t;
 
 #endif // !_WORD_DEFINED
-typedef unsigned int UINT;
+typedef unsigned int uint;
 
 typedef int INT;
 
@@ -193,7 +193,7 @@ typedef long LONG;
 #endif // !_LONG_DEFINED
 #ifndef _WPARAM_DEFINED
 #define _WPARAM_DEFINED
-typedef UINT WPARAM;
+typedef uint WPARAM;
 
 #endif // _WPARAM_DEFINED
 #ifndef _LPARAM_DEFINED
@@ -245,7 +245,7 @@ typedef INT HFILE;
 #endif // !_HFILE_DEFINED
 #ifndef _LPWORD_DEFINED
 #define _LPWORD_DEFINED
-typedef WORD __RPC_FAR *LPWORD;
+typedef uint16_t __RPC_FAR *LPWORD;
 
 #endif // !_LPWORD_DEFINED
 #ifndef _LPDWORD_DEFINED
@@ -289,8 +289,8 @@ typedef struct tagPALETTEENTRY __RPC_FAR *LPPALETTEENTRY;
 #if 0
 typedef struct  tagLOGPALETTE
     {
-    WORD palVersion;
-    WORD palNumEntries;
+    uint16_t palVersion;
+    uint16_t palNumEntries;
     /* [size_is] */ PALETTEENTRY palPalEntry[ 1 ];
     }	LOGPALETTE;
 
@@ -300,8 +300,8 @@ typedef struct tagLOGPALETTE __RPC_FAR *LPLOGPALETTE;
 
 #else
 typedef struct tagLOGPALETTE {
-    WORD        palVersion;
-    WORD        palNumEntries;
+    uint16_t        palVersion;
+    uint16_t        palNumEntries;
     PALETTEENTRY        palPalEntry[1];
 } LOGPALETTE, *PLOGPALETTE, *LPLOGPALETTE;
 #endif
@@ -473,14 +473,14 @@ typedef struct _FILETIME __RPC_FAR *LPFILETIME;
 #define _SYSTEMTIME_
 typedef struct  _SYSTEMTIME
     {
-    WORD wYear;
-    WORD wMonth;
-    WORD wDayOfWeek;
-    WORD wDay;
-    WORD wHour;
-    WORD wMinute;
-    WORD wSecond;
-    WORD wMilliseconds;
+    uint16_t wYear;
+    uint16_t wMonth;
+    uint16_t wDayOfWeek;
+    uint16_t wDay;
+    uint16_t wHour;
+    uint16_t wMinute;
+    uint16_t wSecond;
+    uint16_t wMilliseconds;
     }	SYSTEMTIME;
 
 typedef struct _SYSTEMTIME __RPC_FAR *PSYSTEMTIME;
@@ -571,8 +571,8 @@ typedef SCODE __RPC_FAR *PSCODE;
 typedef struct  _GUID
     {
 uint32_t Data1;
-    WORD Data2;
-    WORD Data3;
+    uint16_t Data2;
+    uint16_t Data3;
     BYTE Data4[ 8 ];
     }	GUID;
 
@@ -825,7 +825,7 @@ typedef struct  _userCLIPFORMAT
 
 typedef /* [unique] */ userCLIPFORMAT __RPC_FAR *wireCLIPFORMAT;
 
-typedef /* [wire_marshal] */ WORD CLIPFORMAT;
+typedef /* [wire_marshal] */ uint16_t CLIPFORMAT;
 
 typedef struct  _GDI_NONREMOTE
     {
@@ -897,8 +897,8 @@ typedef struct  _userBITMAP
     LONG bmWidth;
     LONG bmHeight;
     LONG bmWidthBytes;
-    WORD bmPlanes;
-    WORD bmBitsPixel;
+    uint16_t bmPlanes;
+    uint16_t bmBitsPixel;
     ulong cbSize;
     /* [size_is] */ byte pBuffer[ 1 ];
     }	userBITMAP;
@@ -916,8 +916,8 @@ typedef struct  _userHBITMAP
 
 typedef struct  tagrpcLOGPALETTE
     {
-    WORD palVersion;
-    WORD palNumEntries;
+    uint16_t palVersion;
+    uint16_t palNumEntries;
     /* [size_is] */ PALETTEENTRY palPalEntry[ 1 ];
     }	rpcLOGPALETTE;
 
@@ -1007,7 +1007,7 @@ typedef struct  tagTEXTMETRICW
 typedef struct  tagMSG
     {
     HWND hwnd;
-    UINT message;
+    uint message;
     WPARAM wParam;
     LPARAM lParam;
 uint32_t time;

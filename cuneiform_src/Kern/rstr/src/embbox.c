@@ -115,10 +115,10 @@ struct list_BOX
  {
   BYTE let;
   BYTE flag;
-  WORD res;
+  uint16_t res;
  };
 typedef struct list_BOX LST;
-static void store_new_bests(WORD ibcos, char pl, char ff,char n_rsn);
+static void store_new_bests(uint16_t ibcos, char pl, char ff,char n_rsn);
 
 
 INT  isKlasterFull( INT typl )
@@ -129,7 +129,7 @@ INT  isKlasterFull( INT typl )
    return  0;
 }/*isWideLetter*/
 
-static void store_many(WORD ibcos, char let, char ff, INT typl)
+static void store_many(uint16_t ibcos, char let, char ff, INT typl)
 {
      if(language==LANG_RUSSIAN) return;
   switch (let)
@@ -185,7 +185,7 @@ static void store_many(WORD ibcos, char let, char ff, INT typl)
 }
 
 
-static void store_new_bests(WORD ibcos, char pl, char ff,char n_rsn)
+static void store_new_bests(uint16_t ibcos, char pl, char ff,char n_rsn)
 //
 //	This procedure stores best NBEST answers in rec_recog.
 //
@@ -349,9 +349,9 @@ void embBOX(servBOX *SBOX, SVERS *tvers, Bool erection)
 {
 INT i, hyp,  fll,cnt;
 version *hypa;
-WORD probest;
+uint16_t probest;
 BYTE ocurlet;
-WORD vect[16];
+uint16_t vect[16];
 elmBOX  *matr,  *wmatr;
 PBYTE klist;
 
@@ -390,10 +390,10 @@ relet:           // repeat for "similar" letter[s]
         {
         while( (wmatr = *(elmBOX **)klist) != NULL )
             {
-            probest=(WORD)((*scalar)(wmatr->vect,vect)>>15);
-            if (probest > (WORD) (ans_ptr->iprob))
+            probest=(uint16_t)((*scalar)(wmatr->vect,vect)>>15);
+            if (probest > (uint16_t) (ans_ptr->iprob))
                {
-               if (probest > (WORD) best_answer_BOX) best_answer_BOX=probest;
+               if (probest > (uint16_t) best_answer_BOX) best_answer_BOX=probest;
                ans_ptr->fnt=wmatr->fnt;
                ans_ptr->iprob=probest;
                ans_ptr->n_rsn=(char)cnt;
@@ -408,10 +408,10 @@ relet:           // repeat for "similar" letter[s]
             {
             if( !(wmatr->bnd&0x200) )
                 {
-                probest=(WORD)((*scalar)(wmatr->vect,vect)>>15);
-                if (probest > (WORD) (ans_ptr->iprob))
+                probest=(uint16_t)((*scalar)(wmatr->vect,vect)>>15);
+                if (probest > (uint16_t) (ans_ptr->iprob))
                     {
-                    if (probest > (WORD) best_answer_BOX)
+                    if (probest > (uint16_t) best_answer_BOX)
                         best_answer_BOX=probest;
                     ans_ptr->fnt=wmatr->fnt;
                     ans_ptr->iprob=probest;
@@ -451,15 +451,15 @@ void embBOXF(servBOX *SBOX, INT typl, Bool erection)
 {
 INT i, flp, flprop;
 BYTE curr_font;
-WORD curr_cosinus;
+uint16_t curr_cosinus;
 PWORD vectp;
 uint32_t norm;
 PBYTE list;
 char cnt,n_rsn;
 elmBOX *wmatr;
 t_answer *ans_ptr;
-WORD vect[16];
-WORD  nAll;
+uint16_t vect[16];
+uint16_t  nAll;
 
 Z=&string;
 
@@ -467,7 +467,7 @@ memset(&RR,0,sizeof(RR));
 vectp=SBOX->matrBOX.vect;
 norm=SBOX->matrBOX.isq_rt;
 for(i=0;i<15;i++)
-    vect[i] = (WORD)((((LONG)vectp[i])<<15)/norm);
+    vect[i] = (uint16_t)((((LONG)vectp[i])<<15)/norm);
 list = full_list[typl];
 nAll = 0;
 
@@ -487,11 +487,11 @@ while ((curlet = ((LST *)list)->let) != 0)
                 nAll++;
                 i = (INT)((*scalar)(wmatr->vect,vect)>>15);
 
-                if ((WORD)i > (WORD)curr_cosinus)
+                if ((uint16_t)i > (uint16_t)curr_cosinus)
                     {
-                    if ((WORD)i == 32767)
+                    if ((uint16_t)i == 32767)
                         i=32766;
-                    if ((WORD)i > 32767)
+                    if ((uint16_t)i > 32767)
                         i=32767;
                     *(PBYTE)(&curr_font)=wmatr->fnt;
                     *(PWORD)(&curr_cosinus)=i;
@@ -511,10 +511,10 @@ while ((curlet = ((LST *)list)->let) != 0)
                 nAll++;
                 i = (INT)((*scalar)(wmatr->vect,vect)>>15);
 
-                if ((WORD)i > (WORD)curr_cosinus)
+                if ((uint16_t)i > (uint16_t)curr_cosinus)
                     {
-                    if ((WORD)i == 32767)i=32766;
-                    if ((WORD)i > 32767) i=32767;
+                    if ((uint16_t)i == 32767)i=32766;
+                    if ((uint16_t)i > 32767) i=32767;
                     *(PBYTE)(&curr_font)=wmatr->fnt;
                     *(PWORD)(&curr_cosinus)=i;
                     n_rsn=cnt;
@@ -554,8 +554,8 @@ void sort_events_box (PWORD list, INT nl)
 {
  PWORD lend, lcur, lcp;
  PWORD ncur, ncp;
- WORD ev_marks[100], probest;
- WORD vector[15], norm;
+ uint16_t ev_marks[100], probest;
+ uint16_t vector[15], norm;
  BYTE ocurlet;
  elmBOX  *matr,  *wmatr;
 
@@ -618,7 +618,7 @@ static PBYTE list_BOX(PBYTE free, INT typl)
  INT flp;
  BYTE tlw;
  register unsigned ocurlet;
- WORD list;
+ uint16_t list;
  indBOX *owiptr;
  elmBOX *matr, *wmatr;
 

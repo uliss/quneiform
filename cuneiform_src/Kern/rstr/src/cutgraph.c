@@ -461,7 +461,7 @@ struct conn {
 	PBYTE adje; // end of the edges list
 	uint32_t vert; // number of vertex (identifier)
 	INT covers; // crossing vertexes starts counter
-	WORD ncp; // components counter
+	uint16_t ncp; // components counter
 };
 
 void excl_connect()

@@ -151,7 +151,7 @@ void Alik_find_brus(PCHAR,PCHAR,PCHAR,INT,INT,INT,PCHAR,PCHAR,PINT,PINT,PBYTE,PB
 void Alik_rus_bad_c(PCHAR,PCHAR,INT,INT,PCHAR,PCHAR,PINT,PINT,PBYTE,PBYTE);
 BYTE Alik_find_black_interval(PBYTE str,BYTE len,PBYTE intrvl);
 
-void Alik_form_bound(PCHAR,WORD,WORD,WORD,PCHAR,WORD);
+void Alik_form_bound(PCHAR,uint16_t,uint16_t,uint16_t,PCHAR,uint16_t);
 void Alik_my_correct_base_lines(PINT,PINT,INT,INT,INT,PBYTE,PWORD,PBYTE);
 void Alik_correct_base_lines(PCHAR,INT,INT,INT*,INT*);
 INT  Alik_sort(PINT,PINT,INT);

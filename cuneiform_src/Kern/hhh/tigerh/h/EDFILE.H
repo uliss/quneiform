@@ -272,7 +272,7 @@ struct sheet_disk_descr
  INT sheet_numb;
  INT descr_lth;
  BYTE byte_flag;
- WORD resolution;
+ uint16_t resolution;
  INT  incline;
  char tabl[13];
  };

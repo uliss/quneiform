@@ -109,7 +109,7 @@ EXTERN  BYTE         szValidNames[144];
 							// 03.08.1993 MK:
 //EXTERN int     cun_wparm;
 //EXTERN char     far *cun_lparm;
-EXTERN WORD    Itek;   /////////////////// OTLADKA ONLY
+EXTERN uint16_t    Itek;   /////////////////// OTLADKA ONLY
 //EXTERN int     brt_ans;
 //EXTERN char    auto_flag INIT(0);
 

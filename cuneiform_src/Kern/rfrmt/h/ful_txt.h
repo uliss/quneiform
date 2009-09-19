@@ -149,11 +149,11 @@ ZN { TITLE_ZN Title;     //Заголовок знакоместа
      ALT_ZN Alt[REC_MAX_VERS];//Альтернативы
    };
 
-W_GEN { WORD W_NumSym; //Число символов
+W_GEN { uint16_t W_NumSym; //Число символов
         BYTE W_Spell;  //Spell-Check
         BYTE Reserv[2];
-		WORD FontNumber;
-		WORD FontSize;
+		uint16_t FontNumber;
+		uint16_t FontSize;
       };
 ALT_SPELL { BYTE Len; //Длина подсказки с завершающим \0 (счет - с 1)
             BYTE Reserv;
@@ -167,14 +167,14 @@ TITLE_WORD { BYTE Z_Code; //Опознавательный код заголов
              int NumAltSpell; //Число подсказок
              int PosFirstCorr;//позиция первой правки типа Ins,Del
              ALT_SPELL *AltSpell;//Подсказки
-             WORD W_Attr; //Атрибуты слова
+             uint16_t W_Attr; //Атрибуты слова
              #ifndef ID4
               BYTE Dummy[DELTA_TITLE];
              #endif
            };
 
 S_GEN {
-			WORD S_NumWord;//Число слов в строке
+			uint16_t S_NumWord;//Число слов в строке
 		    BYTE HeadLine;
 			BYTE Reserv[2];
       };
@@ -184,7 +184,7 @@ TITLE_STR {
             S_GEN    S_Gen;        //Родословная строки
             SRECT    S_Rect;       //Base Line
 			SRECT    S_Real_Rect;  //Координаты строки
-            WORD     S_Attr;       //Атрибуты строки
+            uint16_t     S_Attr;       //Атрибуты строки
 			uint32_t   S_Flags;      //NEGA_STR vmk 10-06-2001
             #ifndef ID4
 				BYTE Dummy[DELTA_TITLE];
@@ -203,14 +203,14 @@ typedef struct h_addrXX
 
 typedef struct h_lev
 {
-	SRECT bnd; WORD SpecInt;
+	SRECT bnd; uint16_t SpecInt;
 	int kp;
 	ADDR *Addr;/*[kp+1],если kp>=0*/
 } LEV;
 
 TITLE_FUL
-{ WORD wFHSize; //Размер заголовка файла
-  WORD wZHSize; //Размер локал.заголовка знакоместа, слова или строки
+{ uint16_t wFHSize; //Размер заголовка файла
+  uint16_t wZHSize; //Размер локал.заголовка знакоместа, слова или строки
 uint32_t dNumZ;  //Количество знакомест в файле
   char StrLogo[16];
   char StrVer[2];//Номер версии без точки
@@ -220,8 +220,8 @@ uint32_t ColOffset;//Смещение секции колонок в файле
 uint32_t ZOffset;  //Смещение секции знакомест в файле
   BYTE ProcSpell;//Признак обработки Spell
   BYTE Reserv_1;
-  WORD nWord;    // Число слов
-  WORD nStr;     // Число строк
+  uint16_t nWord;    // Число слов
+  uint16_t nStr;     // Число строк
   BYTE Reserv[26];
   //BYTE *Reserv;//malloc(size=wFHSize-46)
 };
@@ -297,7 +297,7 @@ int TstCarry(int nc,int ns,int nw);
 //int init_ful();
 int AllowWordLang(uchar *word,int CodLang);
 int TstCarry(int nc,int ns,int nw);
-int PutStructAltSpell(BYTE *buf,WORD  *Dist,TITLE_WORD *t);
+int PutStructAltSpell(BYTE *buf,uint16_t  *Dist,TITLE_WORD *t);
 int InsertWord(int nc,int ns,int nw,ZN *zi,int kz);
 //int TstNameOwr(uchar LastCod,uchar FirstCod);
 //uchar GetAlt(int nc,int ns,int nw,int nz,int na);
@@ -306,13 +306,13 @@ int InsertWord(int nc,int ns,int nw,ZN *zi,int kz);
 //void AnsiToOem(const char *word1,char *word2);
 //void OemToAnsi(const char *word1,char *word2);
 #endif
-//WORD Penalty1LenWord(int n);
-int NormParSpellOCR(ZN *z,int kz,int flo,WORD *reinst,WORD *reinstb,WORD *redel,
-    WORD *reelse,WORD *reunknow,float *del,WORD *porog);
-int Norm2ParSpellOCR(ZN *z,int kz,int flo,WORD *reinst,WORD *reinstb,WORD *redel,
-    WORD *reelse,WORD *reunknow,float *del,WORD *porog);
-int FindWord(int flo,ZN *z,BYTE *word,BYTE *buf,WORD *DistMin,WORD *porog1,
-TITLE_WORD *t,WORD MaxAltSpell);
+//uint16_t Penalty1LenWord(int n);
+int NormParSpellOCR(ZN *z,int kz,int flo,uint16_t *reinst,uint16_t *reinstb,uint16_t *redel,
+    uint16_t *reelse,uint16_t *reunknow,float *del,uint16_t *porog);
+int Norm2ParSpellOCR(ZN *z,int kz,int flo,uint16_t *reinst,uint16_t *reinstb,uint16_t *redel,
+    uint16_t *reelse,uint16_t *reunknow,float *del,uint16_t *porog);
+int FindWord(int flo,ZN *z,BYTE *word,BYTE *buf,uint16_t *DistMin,uint16_t *porog1,
+TITLE_WORD *t,uint16_t MaxAltSpell);
 //void SetTimerOwn(DWORD NumMs);
 //int PASCAL _export killOwn(void);
 //--SpelOneWord--
@@ -532,7 +532,7 @@ int CorrCol5_7(int nc);
 //             int NumAltSpell; //Число подсказок
 //             int PosFirstCorr;//позиция первой правки типа Ins,Del
 //             ALT_SPELL *AltSpell;//Подсказки
-//             WORD W_Attr; //Атрибуты слова
+//             uint16_t W_Attr; //Атрибуты слова
 //           };
 //ALT_SPELL { BYTE Len; //Длина подсказки с завершающим \0 (счет - с 1)
 //            BYTE Reserv;

@@ -137,7 +137,7 @@ CRecognition::~CRecognition()
 		Unload();
 }
 
-void CRecognition::SetError(UINT nID)
+void CRecognition::SetError(uint nID)
 {
 	char str[1024];
 	if(LoadString(_Module.GetResourceInstance(),nID,str,sizeof(str))>0)
@@ -624,7 +624,7 @@ STDMETHODIMP CRecognition::RecogDIBtoMemory(long hDIB,long *lphMem, short Format
 		 FILE * f = fopen(TempFile,"rb");
 		 if(f)
 		 {
-			UINT size = _filelength(f->_file);
+			uint size = _filelength(f->_file);
 
 			*lphMem = (long)GlobalAlloc(GMEM_MOVEABLE|GMEM_DDESHARE,size+1);
 			if(*lphMem)

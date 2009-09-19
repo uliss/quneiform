@@ -90,8 +90,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 SINT SetAccessTab(SINT fl,void *buf);
 SINT CheckAccessTab(SINT fh,void *buf);
-typedef LONG (* MKFAM) (raster_header * rh,WORD nclu);
-WORD PutSymbolRaster(BYTE *pHau,char *rast,SINT rbyte,
+typedef LONG (* MKFAM) (raster_header * rh,uint16_t nclu);
+uint16_t PutSymbolRaster(BYTE *pHau,char *rast,SINT rbyte,
 		 SINT xbits,SINT xbyte,SINT yrow);
 //SINT FindDistanceWr(welet *wel,welet *outwel);
 void init11(void);
@@ -126,10 +126,10 @@ void   Signal(void);
  #define MAXINCLUS 255
 #endif
 typedef struct tagSWEL
-    { WORD let;
+    { uint16_t let;
       SINT w;
       SINT h;
-      WORD invalid;  // invalid ?
+      uint16_t invalid;  // invalid ?
       PCHAR raster;
       char  wei;
       char  dist1;
@@ -694,8 +694,8 @@ SINT SaveAddCluster(SINT fh,SINT clus,SINT firCl,SINT lastCl,welet *wel,welet *d
  if(j ==0 ) {/*wel->attr &= ~FON_CLU_UPDATE;*/ goto lsave;}  // nothing add
 
   // middle width,height
- wel->mw=(BYTE)( (summax+((WORD)wei/2)) /(WORD)wei );
- wel->mh=(BYTE)( (summay+((WORD)wei/2)) /(WORD)wei );
+ wel->mw=(BYTE)( (summax+((uint16_t)wei/2)) /(uint16_t)wei );
+ wel->mh=(BYTE)( (summay+((uint16_t)wei/2)) /(uint16_t)wei );
 
  // check new center of weighted raster
  // get new sizes:

@@ -96,7 +96,7 @@ void  u4sort(void *base2, int  num, int  width, int  (*compare)())
    quick_sort( (char *) base2, num ) ;
 }
 
-#define LOWORD(l) ((WORD)(l))
+#define LOWORD(l) ((uint16_t)(l))
 int compare(TYPE *a,TYPE *b) { return (*a >= *b ? 1:-1);}
 int comp_left(FRAME **a,FRAME **b) { return ((*a)->left >= (*b)->left ? 1:-1);}
 int comp_vert(FRAME **a,FRAME **b) { return ((*a)->up >= (*b)->up ? 1:-1);}

@@ -87,7 +87,7 @@
 
 #include "compat_defs.h"
 
-static int recog_raster(BYTE *r, WORD fullBytes, WORD w, WORD h,
+static int recog_raster(BYTE *r, uint16_t fullBytes, uint16_t w, uint16_t h,
 		FONBASE *fonba, RECRESULT *recres, int maxNames, int inCTB, int col,
 		int row);
 static int DiskriminatorTest(void);
@@ -619,7 +619,7 @@ FON_FUNC(int32_t) FONRecogCharTiger(RecRaster *recRast,RecVersions *collection,F
 			xbit > WR_MAX_WIDTH -2 )
 	return 0;
 
-	ret=recog_raster(recRast->Raster,(WORD)bytesx,(WORD)xbit,(WORD)recRast->lnPixHeight,
+	ret=recog_raster(recRast->Raster,(uint16_t)bytesx,(uint16_t)xbit,(uint16_t)recRast->lnPixHeight,
 			&fonbase,recres,REC_MAX_VERS,nInCTB,col,row);
 
 	if(ret <= 0) return 0;
@@ -723,14 +723,14 @@ FON_FUNC(int32_t) FONTestCharTiger(RecRaster *recRast,uchar let,FonTestInfo *att
 	int xbit=recRast->lnPixWidth;
 	int bytesx=((xbit+63)/64)*8;
 	int ret;
-	int CheckRaster(PBYTE r,WORD fullBytes,WORD w,WORD h,
+	int CheckRaster(PBYTE r,uint16_t fullBytes,uint16_t w,uint16_t h,
 			int let,FonTestInfo *attr);
 
 	if( recRast->lnPixHeight > WR_MAX_HEIGHT-2 ||
 			xbit > WR_MAX_WIDTH -2 )
 	return -2;
 
-	ret=CheckRaster(recRast->Raster,(WORD)bytesx,(WORD)xbit,(WORD)recRast->lnPixHeight,
+	ret=CheckRaster(recRast->Raster,(uint16_t)bytesx,(uint16_t)xbit,(uint16_t)recRast->lnPixHeight,
 			let,attr);
 
 	return ret;
@@ -866,10 +866,10 @@ FON_FUNC(int32_t) FONSizesInfo(SizesInfo *sizeinfo,int num)
 //  Recognition itself
 //
 ////////////////////////////////////////////
-//static WORD  (*_cmp)(PBYTE r,WORD h,WORD w,welet * wl,INT xo,INT yo);
+//static uint16_t  (*_cmp)(PBYTE r,uint16_t h,uint16_t w,welet * wl,INT xo,INT yo);
 
 ///////////////////////
-SINT cmp0(PBYTE r, WORD fullByte, WORD w, WORD h, welet * wl, SINT xo, SINT yo) {
+SINT cmp0(PBYTE r, uint16_t fullByte, uint16_t w, uint16_t h, welet * wl, SINT xo, SINT yo) {
 	LONG n, ac, np;
 	PCHAR curr;
 	SINT i, j, jj;
@@ -913,11 +913,11 @@ SINT cmp0(PBYTE r, WORD fullByte, WORD w, WORD h, welet * wl, SINT xo, SINT yo) 
 }
 ///////////////////////
 // _cmp = cmpMMX  - was in Tiger
-static SINT (*_cmp)(PBYTE r, WORD fullw, WORD w, WORD h, welet * wl, SINT xo,
+static SINT (*_cmp)(PBYTE r, uint16_t fullw, uint16_t w, uint16_t h, welet * wl, SINT xo,
 		SINT yo) = cmp0;
 ///////////
-WORD cmp(PBYTE r, WORD fullwb, WORD w, WORD h, welet * wl) {
-	WORD best, east, west, north, south, center;
+uint16_t cmp(PBYTE r, uint16_t fullwb, uint16_t w, uint16_t h, welet * wl) {
+	uint16_t best, east, west, north, south, center;
 	int lbest; // local best
 
 	best = east = west = north = south = center = lbest = 0;
@@ -958,7 +958,7 @@ WORD cmp(PBYTE r, WORD fullwb, WORD w, WORD h, welet * wl) {
 }
 
 ///////////////////////////
-int recogWelet(PBYTE r, WORD fullRow, WORD w, WORD h, welet * wl) {
+int recogWelet(PBYTE r, uint16_t fullRow, uint16_t w, uint16_t h, welet * wl) {
 	if (!(wl->attr & FON_CLU_SOLID))
 		return 0; // suspect cluster
 		//   if(! can_compare(wl))          return ver; // prevent rec letter by itself
@@ -1022,7 +1022,7 @@ int AddVersion(RECRESULT *recres, BYTE let, BYTE rec, int nClust, int num,
 	return num;
 }
 //////////////
-int recog_raster(PBYTE r, WORD fullBytes, WORD w, WORD h, FONBASE *fonba,
+int recog_raster(PBYTE r, uint16_t fullBytes, uint16_t w, uint16_t h, FONBASE *fonba,
 		RECRESULT *recres, int maxNames, int inCTB, int col, int row) {
 	int i;
 	welet *wel;
@@ -1047,7 +1047,7 @@ int recog_raster(PBYTE r, WORD fullBytes, WORD w, WORD h, FONBASE *fonba,
 	return num;
 }
 /////////////////////
-int CheckRaster(PBYTE r, WORD fullBytes, WORD w, WORD h, int let,
+int CheckRaster(PBYTE r, uint16_t fullBytes, uint16_t w, uint16_t h, int let,
 		FonTestInfo *attr) {
 	int i;
 	int num = 0;
@@ -1082,9 +1082,9 @@ int CheckRaster(PBYTE r, WORD fullBytes, WORD w, WORD h, int let,
 }
 /////////////////////
 /*
- static WORD id=1971;
+ static uint16_t id=1971;
  welet * wl;
- WORD nvers=0,nrec;
+ uint16_t nvers=0,nrec;
  BYTE index[16],*ndx;
  PWORD lp;
 
@@ -1465,7 +1465,7 @@ FON_FUNC(int32_t) FONGetNearestClusters( RecRaster* recRast, // symbol
 			fonbase.start,fonbase.inBase,
 			nDistLevel,0,-1024,-1024,1);
 
-	//  ret=recog_raster(recRast->Raster,(WORD)bytesx,(WORD)xbit,(WORD)recRast->lnPixHeight,
+	//  ret=recog_raster(recRast->Raster,(uint16_t)bytesx,(uint16_t)xbit,(uint16_t)recRast->lnPixHeight,
 	//				  &fonbase,recres,nClustAltLen);
 
 	if(ret <= 0) return 0;

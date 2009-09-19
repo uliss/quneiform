@@ -374,7 +374,7 @@ typedef struct tagDlgProcParms
 #if 0
 static int32_t bNoRepeat=-1;
 static HICON hIcon=NULL;
-static Bool WINAPI DialogProc( HWND hwndDlg,UINT uMsg,WPARAM wParam,LPARAM lParam)
+static Bool WINAPI DialogProc( HWND hwndDlg,uint uMsg,WPARAM wParam,LPARAM lParam)
 {
     float fXScale=1,fYScale=1;
     GetDlgUnitsScale(fXScale,fYScale,hwndDlg);

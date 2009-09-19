@@ -64,12 +64,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "status.h"
 #include "lang.h"
 #include "ligas.h"
+#include <stdint.h>
 
 // RCM.C
 extern  BYTE alpha_used_mode;
 
-	uint16_t	// BYTE=>uint16_t 30.08.2000 E.P.
-	   accent_tab_lat[256] = {
+uint16_t accent_tab_lat[256] =
+	{
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 // 0
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -104,8 +105,7 @@ extern  BYTE alpha_used_mode;
 //    n~ o` o' o^ o~ o:        u` u' u^ u:  y'    y:
    };
 
-	uint16_t	// BYTE=>uint16_t 30.08.2000 E.P.
-accent_tab_rus[256] = {
+	uint16_t accent_tab_rus[256] = {
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 // 0
    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

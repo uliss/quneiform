@@ -71,7 +71,7 @@ struct save_vers
   BYTE bottom_accent;   // 16.10.97 E.P.
   BYTE history;      // Nick  18.6.99
   INT  clink;        // Nick  18.6.99
-  WORD clu_attr;     // Nick  18.6.99
+  uint16_t clu_attr;     // Nick  18.6.99
   INT  nClust;
   version pr_vers;
   };
@@ -126,7 +126,7 @@ struct st_answer
  {
  char ltr;
  char fnt;
- WORD iprob;
+ uint16_t iprob;
  char n_rsn; // number of letter from list of same letters
  };
 typedef struct st_answer t_answer;
@@ -158,8 +158,8 @@ struct extrem_elem
 struct linehdr
  {
  INT  lth;
- WORD  dy;
- WORD  y0;
+ uint16_t  dy;
+ uint16_t  y0;
  char flag;
  };
 

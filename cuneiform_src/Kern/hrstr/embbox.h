@@ -71,24 +71,24 @@ typedef struct elidx
  {
  BYTE ltr;                  // the letter
  BYTE vnum;                 // the number of the classes
- WORD numel;                // the number of the first class
+ uint16_t numel;                // the number of the first class
  } indBOX;
 
 typedef struct eltab
  {
  BYTE ltr;                  // the letter
  BYTE fnt;                  // the font number
- WORD list;                 // next of same letter
- WORD bnd;                  // the bound of the typeface
- WORD vect[15];             // the vector of the letter
+ uint16_t list;                 // next of same letter
+ uint16_t bnd;                  // the bound of the typeface
+ uint16_t vect[15];             // the vector of the letter
  } elmBOX;
 
 struct res_recog
  {
  char best_lets[NBBOX+1];      // best letters
  char best_font[NBBOX+1];
- WORD ibest_cosinus[NBBOX+1];  // best cosinus
- WORD icurr_cosinus;
+ uint16_t ibest_cosinus[NBBOX+1];  // best cosinus
+ uint16_t icurr_cosinus;
  BYTE curr_ltr;
  BYTE curr_font;
  char n_rsn[NBBOX+1]; // number of letter from all same letters
@@ -96,8 +96,8 @@ struct res_recog
 
 struct t_m_3_5
  {
- WORD isq_rt;
- WORD vect[WBOX*HBOX];
+ uint16_t isq_rt;
+ uint16_t vect[WBOX*HBOX];
  };
 typedef struct t_m_3_5 t_mBOX;
 

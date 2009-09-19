@@ -174,9 +174,9 @@ static INT line_width (PBYTE func, INT beg, INT end)
     return lines_value;
 }
 
-static WORD integral (PBYTE func, INT from, INT to, INT threshold)
+static uint16_t integral (PBYTE func, INT from, INT to, INT threshold)
 {
-    WORD  s;
+    uint16_t  s;
     uint32_t i;
 
     s = 0;
@@ -187,7 +187,7 @@ static WORD integral (PBYTE func, INT from, INT to, INT threshold)
 
 static INT gmax (PBYTE func, INT from, INT to)
 {
-    WORD s;
+    uint16_t s;
     INT  i;
 
     s = 0;
@@ -198,7 +198,7 @@ static INT gmax (PBYTE func, INT from, INT to)
 
 static INT gmin (PBYTE func, INT from, INT to)
 {
-    WORD s;
+    uint16_t s;
     INT  i;
 
     s = MAX_HOR_IL1;

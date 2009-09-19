@@ -401,8 +401,8 @@ public:
   double          Degree;                  // +- 0.05
   Bool            ProcessingType;          // тип обработки линий(гор. или верт.)
   int             RelationshipIndex;       // индекс коробки компонент
-  WORD            m_top;
-  WORD            m_bottom;
+  uint16_t            m_top;
+  uint16_t            m_bottom;
 
   int             GetCountOfFriendLines(void);
 };

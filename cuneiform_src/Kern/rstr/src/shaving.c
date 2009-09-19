@@ -86,7 +86,7 @@ typedef unsigned char near *	PBYTE;
 /*			Word size data					*/
 
 typedef signed short int		INT;
-typedef unsigned short int		WORD;
+typedef unsigned short int		uint16_t;
 typedef signed short int near *		PINT;
 typedef unsigned short int near *	PWORD;
 

@@ -88,18 +88,18 @@ typedef short int INT16;
 //////////////////////////////////////////////////////////////////////////////
 struct Tiger_ImageInfo
 {
-    WORD  wImageHeight;           // Height of the image in lines
-    WORD  wImageWidth;            // Width of the image in pixels
-    WORD  wImageByteWidth;        // Size of the image line in bytes
-    WORD  wImageDisplacement;     // Displacement of the first pixel of
+    uint16_t  wImageHeight;           // Height of the image in lines
+    uint16_t  wImageWidth;            // Width of the image in pixels
+    uint16_t  wImageByteWidth;        // Size of the image line in bytes
+    uint16_t  wImageDisplacement;     // Displacement of the first pixel of
                                   //   image line in pixels, usually 0
-    WORD  wResolutionX;           // Resolution by X-axe
-    WORD  wResolutionY;           // Resolution by Y-axe
+    uint16_t  wResolutionX;           // Resolution by X-axe
+    uint16_t  wResolutionY;           // Resolution by Y-axe
     BYTE  bFotoMetrics;           // White pixel
     BYTE  bUnused;                // not used; for alignment purpose only
 
-    WORD  wAddX;
-    WORD  wAddY;
+    uint16_t  wAddX;
+    uint16_t  wAddY;
 };
 //////////////////////////////////////////////////////////////////////////////
 typedef struct Tiger_ImageInfo	TIGER_IMAGEINFO;
@@ -108,16 +108,16 @@ typedef TIGER_IMAGEINFO TIGERFAR *   LPTIGER_IMAGEINFO;
 FNBOOL16               Tiger_Callback_ImageOpen (LPTIGER_IMAGEINFO lpImageInfo);
 //////////////////////////////////////////////////////////////////////////////
 FNBOOL16            Tiger_Callback_ImageOpen_xy (LPTIGER_IMAGEINFO lpImageInfo,
-												 WORD x,
-												 WORD y,
-												 WORD w,
-												 WORD h);
+												 uint16_t x,
+												 uint16_t y,
+												 uint16_t w,
+												 uint16_t h);
 //////////////////////////////////////////////////////////////////////////////
 FNDWORD          Tiger_Callback_ProcessPictures (LPSTR buf,
 												 DWORD lth);
 //////////////////////////////////////////////////////////////////////////////
 FNWORD                 Tiger_Callback_ImageRead (LPSTR lpImage,
-												 WORD wMaxSize);
+												 uint16_t wMaxSize);
 //////////////////////////////////////////////////////////////////////////////
 FNBOOL16              Tiger_Callback_ImageClose (void);
 //////////////////////////////////////////////////////////////////////////////
@@ -128,7 +128,7 @@ FNBOOL16              Tiger_Callback_ImageClose (void);
 //////////////////////////////////////////////////////////////////////////////
 //   Intermediate error message                                             //
 //////////////////////////////////////////////////////////////////////////////
-FNVOID               Tiger_Callback_ReportError (WORD wStatus,
+FNVOID               Tiger_Callback_ReportError (uint16_t wStatus,
 												 LPSTR lpMessage);
 //////////////////////////////////////////////////////////////////////////////
 //   Progress Monitor                                                       //
@@ -140,37 +140,37 @@ FNBOOL16           Tiger_Callback_ProgressStart (void);
 //////////////////////////////////////////////////////////////////////////////
 FNBOOL16          Tiger_Callback_ProgressFinish (void);
 //////////////////////////////////////////////////////////////////////////////
-FNBOOL16         Tiger_Callback_ProgressSetPerc (WORD wPercent);
+FNBOOL16         Tiger_Callback_ProgressSetPerc (uint16_t wPercent);
 //////////////////////////////////////////////////////////////////////////////
-FNBOOL16        Tiger_Callback_ProgressSetStage (WORD wStageNumber,
+FNBOOL16        Tiger_Callback_ProgressSetStage (uint16_t wStageNumber,
 												 LPSTR lpStageName,
-												 WORD wVolume);
+												 uint16_t wVolume);
 //////////////////////////////////////////////////////////////////////////////
 FNBOOL              Tiger_Callback_Get_One_Word (LPSTR Buffer );
 //////////////////////////////////////////////////////////////////////////////
 FNBOOL16                  Swp_ImageOpen         (LPTIGER_IMAGEINFO lpImageInfo);
 //////////////////////////////////////////////////////////////////////////////
 FNWORD                    Swp_ImageRead         (LPSTR lpImage,
-												 WORD wMaxSize);
+												 uint16_t wMaxSize);
 //////////////////////////////////////////////////////////////////////////////
 FNBOOL16                  Swp_ImageClose        (void);
 //////////////////////////////////////////////////////////////////////////////
 #ifndef _MSC_VER
 FNBOOL16                  Tiger_FindLinesInTiff (LPSTR name,
-												 WORD x,
-												 WORD y,
+												 uint16_t x,
+												 uint16_t y,
 												 BOOL16 TIGERFUN(*)(LPTIGER_IMAGEINFO),
-												 WORD   TIGERFUN(*)(LPSTR *,WORD ),
+												 uint16_t   TIGERFUN(*)(LPSTR *,uint16_t ),
 												 BOOL16 TIGERFUN(*)());
 //////////////////////////////////////////////////////////////////////////////
 FNVOID                    Tiger_FindLinesClose  (void);
 //////////////////////////////////////////////////////////////////////////////
 #else
 FNBOOL16                  Tiger_FindLinesInTiff (LPSTR name,
-												 WORD x,
-												 WORD y,
+												 uint16_t x,
+												 uint16_t y,
 												 BOOL16 (TIGERFUN(*))(LPTIGER_IMAGEINFO),
-												 WORD   (TIGERFUN(*))(LPSTR *,WORD ),
+												 uint16_t   (TIGERFUN(*))(LPSTR *,uint16_t ),
 												 BOOL16 (TIGERFUN(*))());
 //////////////////////////////////////////////////////////////////////////////
 FNVOID                    Tiger_FindLinesClose  (void);

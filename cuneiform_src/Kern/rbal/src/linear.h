@@ -237,7 +237,7 @@ INT prop_index(INT h, INT w);
 void ideal_rc(CSTR_rast c);
 void dust_ini(CSTR_line lin);
 INT short_recog_cell (CSTR_rast c, int line_scale);
-WORD el_pidx_crit(WORD t_let,INT pidx);
+uint16_t el_pidx_crit(uint16_t t_let,INT pidx);
 
 // added for snap
 Bool (*snap_monitor_rbal)(void);

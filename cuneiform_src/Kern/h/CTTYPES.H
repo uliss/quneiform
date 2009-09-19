@@ -80,7 +80,6 @@ class cls;                 \
 #endif
 
 /*** Base types ***/
-
 typedef int Bool;
 typedef int16_t Bool16;
 typedef int32_t Bool32;_SETTYPES( Bool32 )
@@ -165,8 +164,6 @@ typedef Bool32 (* CFTBool32_Word32)(uint32_t);
 #ifndef WIN32
 
 typedef int32_t LONG;
-typedef uint16_t WORD;
-typedef uint32_t UINT;
 
 typedef char* LPSTR;
 typedef char* LPTSTR;
@@ -190,7 +187,7 @@ typedef int16_t _INT;
 typedef int16_t * _PINT;
 #define INT  _INT
 #define PINT _PINT
-typedef WORD * PWORD;
+typedef uint16_t * PWORD;
 
 typedef BYTE* LPBYTE;
 typedef uint32_t * LPDWORD;

@@ -305,7 +305,7 @@ static CWndClassInfo& GetWndClassInfo() \
 #endif // _MAX_FNAME
 
 #if (_WIN32_WCE < 400)
-  #define MAKEINTATOM(i)  (LPTSTR)((ULONG_PTR)((WORD)(i)))
+  #define MAKEINTATOM(i)  (LPTSTR)((ULONG_PTR)((uint16_t)(i)))
 #endif // (_WIN32_WCE < 400)
 
 #if (_WIN32_WCE < 410)
@@ -423,7 +423,7 @@ static CWndClassInfo& GetWndClassInfo() \
     #define PtrToLong( p ) ((LONG)(LONG_PTR) (p) )
   #endif
   #ifndef PtrToUint
-    #define PtrToUint( p ) ((UINT)(UINT_PTR) (p) )
+    #define PtrToUint( p ) ((uint)(UINT_PTR) (p) )
   #endif
   #ifndef PtrToInt
     #define PtrToInt( p ) ((INT)(INT_PTR) (p) )
@@ -1445,13 +1445,13 @@ public:
 			memset(this, 0, sizeof(_ATL_EMPTY_DLGTEMPLATE));
 			style = WS_POPUP;
 		}
-		WORD wMenu, wClass, wTitle;
+		uint16_t wMenu, wClass, wTitle;
 	};
 
 #ifdef _WIN64
-	static INT_PTR CALLBACK _SettingChangeDlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+	static INT_PTR CALLBACK _SettingChangeDlgProc(HWND hWnd, uint uMsg, WPARAM wParam, LPARAM lParam)
 #else
-	static Bool CALLBACK _SettingChangeDlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+	static Bool CALLBACK _SettingChangeDlgProc(HWND hWnd, uint uMsg, WPARAM wParam, LPARAM lParam)
 #endif
 	{
 		if(uMsg == WM_SETTINGCHANGE)
@@ -1464,7 +1464,7 @@ public:
 #endif
 			ATLASSERT(pModule != NULL);
 			ATLASSERT(pModule->m_pSettingChangeNotify != NULL);
-			const UINT uTimeout = 1500;   // ms
+			const uint uTimeout = 1500;   // ms
 			for(int i = 1; i < pModule->m_pSettingChangeNotify->GetSize(); i++)
 			{
 #if !defined(_WIN32_WCE)
@@ -1557,7 +1557,7 @@ public:
 			return false;
 		DWORD dwThreadID = 0;
 #if !defined(_ATL_MIN_CRT) && defined(_MT) && !defined(_WIN32_WCE)
-		HANDLE hThread = (HANDLE)_beginthreadex(NULL, 0, (UINT (WINAPI*)(void*))MonitorProc, this, 0, (UINT*)&dwThreadID);
+		HANDLE hThread = (HANDLE)_beginthreadex(NULL, 0, (uint (WINAPI*)(void*))MonitorProc, this, 0, (uint*)&dwThreadID);
 #else
 		HANDLE hThread = ::CreateThread(NULL, 0, MonitorProc, this, 0, &dwThreadID);
 #endif

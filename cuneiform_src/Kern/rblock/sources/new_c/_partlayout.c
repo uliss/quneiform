@@ -80,7 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "new_c.h"
 #include "minmax.h"
 /////////////////////////////////////
-//extern WORD run_options;
+//extern uint16_t run_options;
 //extern int nComps;
 //extern CCOM_comp *pComps;
 //extern BYTE *CellsPage; // *** Rom 03-03-99

@@ -432,7 +432,7 @@ void ProjectPoint1024(Point16 *r,int32_t Skew1024)
 	extern MemFunc mem;
 	void* malloc_t(uint32_t size)         { return (*mem.alloc)(size); }
 	void free_t(void *ptr, uint32_t size) { (*mem.free)(ptr,size); }
-	void* malloc_u(uint32_t size)         {return malloc_m((WORD)size);}
+	void* malloc_u(uint32_t size)         {return malloc_m((uint16_t)size);}
 	void free_u(void *ptr, uint32_t size) {free_m(ptr);}
 #endif
 

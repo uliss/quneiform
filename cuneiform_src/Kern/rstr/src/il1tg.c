@@ -158,7 +158,7 @@ static void make_hor_vert           (cell *);
 static void make_hist               (void);
 static void make_func               (void);
 static INT  line_width              (PBYTE, INT, INT);
-static WORD integral                (PBYTE, INT, INT, INT);
+static uint16_t integral                (PBYTE, INT, INT, INT);
 static INT  gmax                    (PBYTE, INT, INT);
 static INT  gmin                    (PBYTE, INT, INT);
 static INT  vertsym                 (INT);
@@ -523,7 +523,7 @@ static void GCcell( cell * C )
 {
 extern  servBOX SBOX;
 s_glue  GL;
-WORD wup, wbot;
+uint16_t wup, wbot;
 char wc;
 INT pnl, wd, op;
 
@@ -1252,7 +1252,7 @@ static BYTE filled_head()
 {
 extern  servBOX SBOX;
 s_glue  GL;
-WORD wup, wbot;
+uint16_t wup, wbot;
 
      // prepare GL-structure to call the function "make_broken_raster"
         GL.celist   [0] = ec_c;

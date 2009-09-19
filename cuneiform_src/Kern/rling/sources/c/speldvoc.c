@@ -87,7 +87,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*             Preliminary functions definition                          */
 /*************************************************************************/
 
-static WORD voc_alloc ( voc_state *, INT );
+static uint16_t voc_alloc ( voc_state *, INT );
 static INT voc_read ( voc_state *, LTIMG **, INT * );
 static INT voc_write ( voc_state *, LTIMG **, INT * );
 static INT make_tail ( voc_state *, LTIMG **, INT * );
@@ -535,7 +535,7 @@ Fail    : return( VOC_MEM_OVERFLOW );
 /* input : voc_state * voc - structure of current state of vocabulary    */
 /*         INT dcount      - delta value of accnt field                  */
 /*                                                                       */
-/* output: new value of account field in range 0:0x7F ( 7 bits, WORD)*/
+/* output: new value of account field in range 0:0x7F ( 7 bits, uint16_t)*/
 /*   if new value will be more 0x7f, returned VOC_ACCNTOVERFLOW ( < 0 ). */
 /*   if new value will be less 0, returned VOC_ACCNTZERO ( < 0 ).        */
 /*************************************************************************/
@@ -580,11 +580,11 @@ static INT set_voc_accnt( voc_state * voc,INT dcount)
 /*                                                                       */
 /*************************************************************************/
 
-static WORD voc_alloc (
+static uint16_t voc_alloc (
 	voc_state * voc,
         INT size
 	)
-{ WORD pointer;
+{ uint16_t pointer;
 
   if ( voc->vocfree+size > MAX_VOC_SIZE ) return 0;
   else
@@ -677,7 +677,7 @@ Fail:     if ( gapcont != 0 ) { wrddef[cnt]->blank=0;
 
  WTOKEN  * alloc_wtoken(voc_state *voc)
  {
-  WORD wtoken,w;
+  uint16_t wtoken,w;
   WTOKEN  *wp;
    wtoken=((vert  *)V_POINT(voc->vocseg,voc->path[voc->lev]))->wtoken;
    if(wtoken)

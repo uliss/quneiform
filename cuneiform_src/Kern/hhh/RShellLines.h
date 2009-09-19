@@ -95,10 +95,10 @@ void   DrowVerticalLineRaster(DLine* pCLine, LPSTR Buffer, CIMAGEBITMAPINFOHEADE
 void   Transpose_bit_matrixes(PCHAR buf_in,PCHAR buf_out, Rect32* rect); //
 Bool   GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, PCHAR  pRaster, Bool FlagVerticalLine); //
 //Bool   GetCorrectedLineStripesIntervals(CLine* pCLine);
-void   FillingStripes(CLINE_handle line, int y, INT Count, WORD* pIntervals, Bool FlagVerticalLine, DLine* pCLine); //
+void   FillingStripes(CLINE_handle line, int y, INT Count, uint16_t* pIntervals, Bool FlagVerticalLine, DLine* pCLine); //
 void   CheckDotLines(DLine* pCLine, Bool FlagVerticalLine); //
 int    Bits2Ints(uchar* pBits, int nByteWidth, int32_t* pIntervals); //
-void   TypeIntervals(int y, INT Count, WORD* pIntervals); //
+void   TypeIntervals(int y, INT Count, uint16_t* pIntervals); //
 void   TypeStripe(CLINE_handle hStripe, DEvent* pStripe); //
 Bool   GetLineFragments(CLINE_handle line, DLine* pCLine); //
 Handle DrawLineFragments(CLINE_handle line, CPDLine pCLine, Handle HndMyWindow, int ColorIndex, Bool32 ForAllLines = FALSE); //

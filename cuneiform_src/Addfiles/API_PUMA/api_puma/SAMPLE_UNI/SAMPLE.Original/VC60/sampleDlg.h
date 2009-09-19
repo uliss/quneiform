@@ -46,7 +46,7 @@ protected:
 	// Generated message map functions
 	//{{AFX_MSG(CSampleDlg)
 	virtual Bool OnInitDialog();
-	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
+	afx_msg void OnSysCommand(uint nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	afx_msg void OnClose();

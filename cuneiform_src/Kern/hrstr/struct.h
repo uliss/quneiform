@@ -159,7 +159,7 @@ typedef struct box_interval BOXINT;
 //-------------------- component in kit --------------------------
 
 struct comp_struc {
-	WORD size; // size of component in paragraphs >=3
+	uint16_t size; // size of component in paragraphs >=3
 	INT upper; // upper boundary of component
 	INT left; // left boundary of component
 	INT h; // height of component
@@ -267,7 +267,7 @@ struct cell_struc {
 	INT r_col; // real collumn of cell
 	INT nvers; // number of versions
 	version vers[VERS_IN_CELL];
-	WORD flg; // flag of cell
+	uint16_t flg; // flag of cell
 #define c_f_let         1       // letter component
 #define c_f_bad     2   // badly recognized
 #define c_f_dust        4       // dust
@@ -359,7 +359,7 @@ struct cell_struc {
 	INT save_stick_inc; // save_inc of stick
 	INT clink; // Link to the cluster
 	// 104
-	WORD clu_attr; // cluster attributes
+	uint16_t clu_attr; // cluster attributes
 	BYTE bottom_accent; // was spare[1]; 16.10.97 E.P.
 	BYTE n_baton;
 #define MAX_BATON 3
@@ -427,8 +427,8 @@ struct int_s {
 typedef struct int_s interval;
 
 struct large_int_s {
-	WORD l; // length of interval
-	WORD e; // end of interval coordinates
+	uint16_t l; // length of interval
+	uint16_t e; // end of interval coordinates
 };
 typedef struct large_int_s large_interval;
 
@@ -439,12 +439,12 @@ struct str_struc {
 	INT col; // left of line
 	INT lower; // lower of line
 	INT right; // right of line
-	WORD dust; // end of letter ptrs
-	WORD end; // end of dust ptrs
-	WORD lth;
-	WORD first;
-	WORD last;
-	WORD scale; // scale of the string
+	uint16_t dust; // end of letter ptrs
+	uint16_t end; // end of dust ptrs
+	uint16_t lth;
+	uint16_t first;
+	uint16_t last;
+	uint16_t scale; // scale of the string
 	INT fragment; // fragment of the string
 	BYTE language; // language of the string
 	c_comp *ccomp[1]; // array of ptrs to components

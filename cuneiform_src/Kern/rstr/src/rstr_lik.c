@@ -78,7 +78,7 @@ extern BYTE   pass2;
 void   save_dust(void);
 void   restore_dust(void);
 
-extern WORD actual_resolution;
+extern uint16_t actual_resolution;
 extern BYTE let_captype[];
 extern INT line_number;
 extern BYTE fax1x2;

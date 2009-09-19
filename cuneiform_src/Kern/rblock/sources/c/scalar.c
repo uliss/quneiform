@@ -81,11 +81,11 @@ static BYTE sqrt_tab[] = {
 
 INT long_sqrt (uint32_t n)
 {
- WORD w;
+ uint16_t w;
 uint32_t d, step, lw;
  BYTE sh;
  if ((w = n >> 16) != 0) sh = 8;
- else { w = (WORD)n; sh = 0; }
+ else { w = (uint16_t)n; sh = 0; }
 
  if ( w & 0xff00 ) { sh +=4; w = w >> 8; }
  d = sqrt_tab[w]+1; d = d << sh; if ((d & 0xffff) == 0) return 0;

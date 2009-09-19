@@ -135,7 +135,7 @@ extern  std::vector <tagRECT> *pTheGeomStep2;
 extern  std::vector <tagRECT> *pTheGeomTemp ;
 extern  vectorWord           *pFragRectColor;
 extern  void MyDrawForDebug(void);
-extern  WORD                 *CountRect;
+extern  uint16_t                 *CountRect;
 
 #else
 	#define CONS_MESS1 1 ? 0 : ConsMess
@@ -2021,7 +2021,7 @@ Bool PageTree( FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
 		NumCol=0;
 	}
 
- 	//converter from Inf, где лежит дерево, в трехуровневую WORD-схему
+ 	//converter from Inf, где лежит дерево, в трехуровневую uint16_t-схему
 	 //представления иерархии колонок:
 	 // K_Sect
 	 // 		K_Hor[K_Sect]

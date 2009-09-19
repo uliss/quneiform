@@ -286,11 +286,11 @@ void NegRecog(Handle hCPage,NegList** proot,int& nRC,int skew)
 	           uchar*              pDIB;
 	           uchar*              pTmpDIB;
 	           uchar*              pTmpBuffer;
-               WORD               Height, Width, ByteWidth;
+               uint16_t               Height, Width, ByteWidth;
                CIMAGEBITMAPINFOHEADER image_info = {0};
 
-               Height    = (WORD)rec.lnPixHeight;
-               Width     = (WORD)rec.lnPixWidth;
+               Height    = (uint16_t)rec.lnPixHeight;
+               Width     = (uint16_t)rec.lnPixWidth;
 
                ByteWidth = (Width+7)/8;
                dwDIBSize = 64 * Height;

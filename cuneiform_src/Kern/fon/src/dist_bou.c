@@ -72,7 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "sfont.h"
 #include "fonrec.h"
 
-WORD cmp(PBYTE r,WORD fullwb,WORD w,WORD h,welet * wl);
+uint16_t cmp(PBYTE r,uint16_t fullwb,uint16_t w,uint16_t h,welet * wl);
 SINT RazmazHalf(BYTE *bSource,BYTE *bDest,SINT xbit,SINT yrow);
 
 static int LookLeft(int *startRow,int yrow,int bits,int height,
@@ -396,7 +396,7 @@ int dist,j;
 static int distWeletBound(BYTE *buf,BYTE *bufraz,int w,int h,welet * wl,int porog,
 						  int *bou,RECBOU *recBou, int countRazmaz)
 {
- WORD best,east,west,north,south,center;
+ uint16_t best,east,west,north,south,center;
  int   lbest; // local best
  int bound=2*MIN(50,w+h);
  int initPorog=porog;

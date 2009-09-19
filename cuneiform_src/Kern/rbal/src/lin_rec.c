@@ -75,9 +75,9 @@ extern int16_t  prop_l_delta, prop_r_delta;
 extern uchar *letters_pidx_table;
 //////////////
 // proport.c    - no more !!
-WORD el_pidx_crit(WORD t_let,INT pidx)
+uint16_t el_pidx_crit(uint16_t t_let,INT pidx)
 {
-  WORD let;
+  uint16_t let;
 
   let = (BYTE)t_let * 2;
   if( (pidx + prop_l_delta < letters_pidx_table[let]) ||
@@ -96,9 +96,9 @@ INT prop_index(INT h, INT w)
 	 w = 1;
 
  if (w <= h)
-	 return ((WORD)w << 6) / h;
+	 return ((uint16_t)w << 6) / h;
  else
-	 return 128 - ((WORD)h << 6) / w;
+	 return 128 - ((uint16_t)h << 6) / w;
 }
 /////////////////
 static void v2_pidx_crit (CSTR_rast c)
@@ -106,7 +106,7 @@ static void v2_pidx_crit (CSTR_rast c)
  INT pidx;
 // version *v, *wv;
  UniVersions vers,wvers={0};
- WORD let;
+ uint16_t let;
  int i,j;
  CSTR_rast_attr attr;
 
@@ -127,7 +127,7 @@ static void v2_pidx_crit (CSTR_rast c)
   {
    if( is_cen_language( language) && !attr.accent_leader )
     //let = (wv->let=v->let) * 2;
-    let = ((WORD)vers.Alt[i].Liga) * 2;
+    let = ((uint16_t)vers.Alt[i].Liga) * 2;
    else
     //let = (let_sans_acc[wv->let=v->let]) * 2;
     let = (let_sans_acc[vers.Alt[i].Liga]) * 2;

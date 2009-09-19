@@ -74,7 +74,7 @@ INT w,h,u;
 };
 
 typedef struct {
- WORD     segblack,
+ uint16_t     segblack,
           segwhite;
  PBYTE    segbox;
                }  segment;

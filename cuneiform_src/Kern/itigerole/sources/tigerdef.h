@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#error Unknown defined: __TIGER__ or __PUMA__ !
 #endif
 
-EXTERN UINT g_uiLanguage				VAL(7);
+EXTERN uint g_uiLanguage				VAL(7);
 
 EXTERN Bool32 g_bSpeller					VAL(TRUE);
 EXTERN Bool32 g_bOneColumn				VAL(FALSE);

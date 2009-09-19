@@ -241,7 +241,7 @@ struct pageDescr
 #pragma pack(1)
 struct fontDiscr
 {
-	WORD size;
+	uint16_t size;
     BYTE fontNumber;
     BYTE fontPitchAndFamily;
     BYTE fontCharset;
@@ -251,7 +251,7 @@ struct fontDiscr
 struct pictDescr
 {
         uint32_t size;
-	WORD pictNumber;
+	uint16_t pictNumber;
 	EDSIZE pictSize;
 	EDSIZE pictGoal;
 	BYTE pictAlign;
@@ -262,10 +262,10 @@ struct pictDescr
 #pragma pack(1)
 struct originalImageDesc
 {
-	WORD resolutionX;
-	WORD resolutionY;
-	WORD inclune;
-    WORD pageNum;
+	uint16_t resolutionX;
+	uint16_t resolutionY;
+	uint16_t inclune;
+    uint16_t pageNum;
     uint32_t width;
     uint32_t height;
 	BYTE unrecogSymbol;
@@ -341,8 +341,8 @@ struct cellParam
 	BYTE bottomBrdrType;
         uint32_t bottomBrdrWidth;
 	EDBOX layout;
-	WORD shading;
-	WORD color;
+	uint16_t shading;
+	uint16_t color;
 	BYTE flag;
 };
 
@@ -353,9 +353,9 @@ struct paraParams
         uint32_t leftIndent;
     uint32_t rightIndent;
     BYTE  alignment;
-	WORD  userNum;
-	WORD  color;
-	WORD  shading;
+	uint16_t  userNum;
+	uint16_t  color;
+	uint16_t  shading;
     uint32_t spaceBefore;
     uint32_t spaceAfter;
     uint32_t spaceBetweenLines;
@@ -402,7 +402,7 @@ struct StrRtfOut {                        // Rtf output file processing block
       struct StrRtfColor *color;      // rtf color table pointer
       int  TotalColors;                   // total colors in the color table
       int  GroupLevel;
-      UINT flags;                         // ROFLAG_ flags
+      uint flags;                         // ROFLAG_ flags
 	  int RtfInHdrFtr;
 	  Bool RtfInTable;
 	  Bool RtfInFrame;

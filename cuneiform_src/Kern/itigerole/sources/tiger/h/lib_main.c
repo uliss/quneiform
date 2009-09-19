@@ -86,14 +86,14 @@ static char * strErrorMessage[] =
 //////////////////////////////////////////////////////////////////////////////
 static BOOL16 	Init   = FALSE;
 static HMODULE  hTiger = NULL;
-static WORD 	wStatus = ST_OK ;
+static uint16_t 	wStatus = ST_OK ;
 //////////////////////////////////////////////////////////////////////////////
-static void Tiger_SetStatus(WORD wStat)
+static void Tiger_SetStatus(uint16_t wStat)
 {
 	wStatus =  wStat;
 }
 //////////////////////////////////////////////////////////////////////////////
-static LPSTR Tiger_Message(WORD wStat)
+static LPSTR Tiger_Message(uint16_t wStat)
 {
 return strErrorMessage[wStat];
 }
@@ -183,9 +183,9 @@ proc  = (fpTiger_Reset)GetProcAddress(hTiger,TIGER_RESET_FN);
 return (*proc)();
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-FNBOOL16 Tiger_SetRecognitionOptions (WORD wOptions)
+FNBOOL16 Tiger_SetRecognitionOptions (uint16_t wOptions)
 {
-typedef BOOL16  (TIGERFUN(*)fpTiger_SetRecognitionOptions) (WORD);
+typedef BOOL16  (TIGERFUN(*)fpTiger_SetRecognitionOptions) (uint16_t);
 fpTiger_SetRecognitionOptions proc;
 
 if(!hTiger || !Init)
@@ -260,7 +260,7 @@ return (*proc) (lpEdFileName);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 FNWORD Tiger_Status (void)
 {
-typedef WORD  (TIGERFUN(*)fpTiger_Status) (void);
+typedef uint16_t  (TIGERFUN(*)fpTiger_Status) (void);
 fpTiger_Status proc;
 
 if(!hTiger)
@@ -277,9 +277,9 @@ if(!hTiger)
 return (*proc)();
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-FNLPSTR Tiger_ErrorMessage (WORD wErrorNumber)
+FNLPSTR Tiger_ErrorMessage (uint16_t wErrorNumber)
 {
-typedef LPSTR  (TIGERFUN(*)lpTiger_ErrorMessage) (WORD);
+typedef LPSTR  (TIGERFUN(*)lpTiger_ErrorMessage) (uint16_t);
 lpTiger_ErrorMessage proc;
 
 if(!hTiger)
@@ -304,11 +304,11 @@ FNBOOL16 Tiger_EdToText
 (
     LPSTR lpEdFileName,
     LPSTR lpTextFileName,
-    WORD wOptions,
-    WORD wBadCharacter
+    uint16_t wOptions,
+    uint16_t wBadCharacter
 )
 {
-typedef BOOL16  (TIGERFUN(*)fpTiger_EdToText)(LPSTR ,LPSTR, WORD ,WORD );
+typedef BOOL16  (TIGERFUN(*)fpTiger_EdToText)(LPSTR ,LPSTR, uint16_t ,uint16_t );
 fpTiger_EdToText proc;
 
 if(!hTiger || !Init)
@@ -329,12 +329,12 @@ FNBOOL16 Tiger_ExtEdToText
 (
     LPSTR lpEdFileName,
     LPSTR lpTextFileName,
-    WORD wOptions,
-    WORD wCodePage,
-    WORD wBadCharacter
+    uint16_t wOptions,
+    uint16_t wCodePage,
+    uint16_t wBadCharacter
 )
 {
-typedef BOOL16  (TIGERFUN(*)fpTiger_ExtEdToText)(LPSTR ,LPSTR, WORD, WORD ,WORD );
+typedef BOOL16  (TIGERFUN(*)fpTiger_ExtEdToText)(LPSTR ,LPSTR, uint16_t, uint16_t ,uint16_t );
 fpTiger_ExtEdToText proc;
 
 if(!hTiger || !Init)
@@ -351,9 +351,9 @@ if(!hTiger || !Init)
 return (*proc)(lpEdFileName,lpTextFileName,wOptions,wCodePage,wBadCharacter);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-FNWORD Tiger_ProgressList (LPWORD lpList, WORD wMode)
+FNWORD Tiger_ProgressList (LPWORD lpList, uint16_t wMode)
 {
-typedef WORD  (TIGERFUN(*)fpTiger_ProgressList) (LPWORD, WORD );
+typedef uint16_t  (TIGERFUN(*)fpTiger_ProgressList) (LPWORD, uint16_t );
 fpTiger_ProgressList proc;
 
 if(!hTiger || !Init)
@@ -412,7 +412,7 @@ FNBOOL16 TigerLayout_HorzSplitBlocks
 (    POINT w1, POINT w2, LPBOOL16 lpSuccess)
 {
 typedef BOOL16  (TIGERFUN(*)lpTigerLayout_HorzSplitBlocks)
-				(WORD ,WORD ,WORD ,WORD ,LPSTR );
+				(uint16_t ,uint16_t ,uint16_t ,uint16_t ,LPSTR );
 lpTigerLayout_HorzSplitBlocks  proc;
 
 if(!hTiger || !Init)
@@ -426,14 +426,14 @@ if(!hTiger || !Init)
 	return FALSE;
    	}
 
-return (*proc)((WORD)w1.x,(WORD)w1.y,(WORD)w2.x,(WORD)w2.y,(LPSTR)lpSuccess);
+return (*proc)((uint16_t)w1.x,(uint16_t)w1.y,(uint16_t)w2.x,(uint16_t)w2.y,(LPSTR)lpSuccess);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 FNBOOL16 TigerLayout_VertSplitBlocks
 (    POINT w1,POINT w2, LPBOOL16 lpSuccess)
 {
 typedef BOOL16  (TIGERFUN(*)lpTigerLayout_VertSplitBlocks)
-				(WORD ,WORD ,WORD ,WORD ,LPSTR );
+				(uint16_t ,uint16_t ,uint16_t ,uint16_t ,LPSTR );
 lpTigerLayout_VertSplitBlocks  proc;
 
 if(!hTiger || !Init)
@@ -448,15 +448,15 @@ if(!hTiger || !Init)
    	}
 
 
-return (*proc)((WORD)w1.x,(WORD)w1.y,(WORD)w2.x,(WORD)w2.y,(LPSTR)lpSuccess);
+return (*proc)((uint16_t)w1.x,(uint16_t)w1.y,(uint16_t)w2.x,(uint16_t)w2.y,(LPSTR)lpSuccess);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 FNBOOL16 TigerLayout_ExtractRectBlock(RECT rect, LPBOOL16 lpSuccess)
 {
-   WORD l,t,r,b;
+   uint16_t l,t,r,b;
    typedef BOOL16    (TIGERFUN(*)fpTigerLayout_ExtractRectBlock)
-                                      (WORD ,WORD ,WORD ,WORD ,LPSTR );
+                                      (uint16_t ,uint16_t ,uint16_t ,uint16_t ,LPSTR );
 fpTigerLayout_ExtractRectBlock proc;
 
 if(!hTiger || !Init)
@@ -469,7 +469,7 @@ if(!hTiger || !Init)
   	Tiger_SetStatus(ST_ENTRY_NOT_FOUND);
 	return FALSE;
    	}
-   l=(WORD)rect.left;t=(WORD)rect.top;r=(WORD)rect.right;b=(WORD)rect.bottom;
+   l=(uint16_t)rect.left;t=(uint16_t)rect.top;r=(uint16_t)rect.right;b=(uint16_t)rect.bottom;
 /**
 { char buf[256];
 sprintf(buf, "ERB: %u %u %u %u", l,t,r,b);
@@ -483,7 +483,7 @@ return (*proc)( l,t,r,b, (LPSTR)lpSuccess);
 FNBOOL16 TigerLayout_ExtractPicture (RECT rect,LPBOOL16 lpSuccess)
 {
 typedef BOOL16    (TIGERFUN(*)fpTigerLayout_ExtractPicture)
-                                      (WORD ,WORD ,WORD ,WORD ,LPSTR );
+                                      (uint16_t ,uint16_t ,uint16_t ,uint16_t ,LPSTR );
 fpTigerLayout_ExtractPicture proc;
 
 if(!hTiger || !Init)
@@ -498,15 +498,15 @@ if(!hTiger || !Init)
    	}
 
 
-return (*proc)((WORD)rect.left,(WORD)rect.top,(WORD)rect.right,
-               (WORD)rect.bottom,(LPSTR)lpSuccess);
+return (*proc)((uint16_t)rect.left,(uint16_t)rect.top,(uint16_t)rect.right,
+               (uint16_t)rect.bottom,(LPSTR)lpSuccess);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-FNBOOL16 TigerLayout_GlueBlocks (WORD iBlock1, WORD iBlock2,
+FNBOOL16 TigerLayout_GlueBlocks (uint16_t iBlock1, uint16_t iBlock2,
  LPBOOL16 lpSuccess)
 {
-typedef BOOL16    (TIGERFUN(*)fpTigerLayout_GlueBlocks) (WORD, WORD , LPSTR );
+typedef BOOL16    (TIGERFUN(*)fpTigerLayout_GlueBlocks) (uint16_t, uint16_t , LPSTR );
 fpTigerLayout_GlueBlocks proc;
 
 if(!hTiger || !Init)
@@ -520,13 +520,13 @@ if(!hTiger || !Init)
 	return FALSE;
    	}
 
-return (*proc)((WORD)iBlock1,(WORD)iBlock2,(LPSTR)lpSuccess);
+return (*proc)((uint16_t)iBlock1,(uint16_t)iBlock2,(LPSTR)lpSuccess);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-FNBOOL16 TigerLayout_DeleteBlock (WORD iBlock, LPBOOL16 lpSuccess)
+FNBOOL16 TigerLayout_DeleteBlock (uint16_t iBlock, LPBOOL16 lpSuccess)
 {
-typedef BOOL16    (TIGERFUN(*)fpTigerLayout_DeleteBlock) (WORD , LPSTR );
+typedef BOOL16    (TIGERFUN(*)fpTigerLayout_DeleteBlock) (uint16_t , LPSTR );
 fpTigerLayout_DeleteBlock proc;
 
 if(!hTiger || !Init)
@@ -540,13 +540,13 @@ if(!hTiger || !Init)
 	return FALSE;
    	}
 
-return (*proc)((WORD)iBlock,(LPSTR)lpSuccess);
+return (*proc)((uint16_t)iBlock,(LPSTR)lpSuccess);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-FNBOOL16 TigerLayout_EnglishBlock (WORD iBlock, LPBOOL16 lpSuccess)
+FNBOOL16 TigerLayout_EnglishBlock (uint16_t iBlock, LPBOOL16 lpSuccess)
 {
-typedef BOOL16    (TIGERFUN(*)fpTigerLayout_EnglishBlock) (WORD , LPSTR );
+typedef BOOL16    (TIGERFUN(*)fpTigerLayout_EnglishBlock) (uint16_t , LPSTR );
 fpTigerLayout_EnglishBlock proc;
 
 if(!hTiger || !Init)
@@ -560,7 +560,7 @@ if(!hTiger || !Init)
 	return FALSE;
    	}
 
-return (*proc)((WORD)iBlock,(LPSTR)lpSuccess);
+return (*proc)((uint16_t)iBlock,(LPSTR)lpSuccess);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -627,9 +627,9 @@ return (*proc)((LPSTR)lpbError);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-FNBOOL16 Tiger_SetLanguage(WORD lng)
+FNBOOL16 Tiger_SetLanguage(uint16_t lng)
 {
-typedef BOOL16    (TIGERFUN(*)fpTiger_SetLanguage)(WORD);
+typedef BOOL16    (TIGERFUN(*)fpTiger_SetLanguage)(uint16_t);
 fpTiger_SetLanguage proc;
 
 if(!hTiger || !Init)
@@ -680,10 +680,10 @@ return (*proc)((LPSTR)lpEdPage);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-FNBOOL16 Tiger_GetEdFragment (WORD wFragmentID,
+FNBOOL16 Tiger_GetEdFragment (uint16_t wFragmentID,
 LPED_FRAGMENT  lpEdFragment)
 {
-typedef BOOL16    (TIGERFUN(*)fpTiger_GetEdFragment) (WORD, LPSTR );
+typedef BOOL16    (TIGERFUN(*)fpTiger_GetEdFragment) (uint16_t, LPSTR );
 fpTiger_GetEdFragment proc;
 
 if(!hTiger || !Init)
@@ -700,10 +700,10 @@ return (*proc)(wFragmentID,(LPSTR)lpEdFragment);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-FNBOOL16  Tiger_GetEdString (WORD wStringID,
+FNBOOL16  Tiger_GetEdString (uint16_t wStringID,
 LPED_STRING  lpEdString)
 {
-typedef BOOL16    (TIGERFUN(*)fpTiger_GetEdString) (WORD, LPSTR );
+typedef BOOL16    (TIGERFUN(*)fpTiger_GetEdString) (uint16_t, LPSTR );
 fpTiger_GetEdString proc;
 
 if(!hTiger || !Init)
@@ -721,9 +721,9 @@ if(!hTiger || !Init)
 return (*proc)(wStringID,(LPSTR) lpEdString);
 }
 
-FNBOOL16 Tiger_GetEdWord (WORD wWordID,LPED_WORD  lpEdWord)
+FNBOOL16 Tiger_GetEdWord (uint16_t wWordID,LPED_WORD  lpEdWord)
 {
-typedef BOOL16    (TIGERFUN(*)fpTiger_GetEdWord) (WORD, LPSTR );
+typedef BOOL16    (TIGERFUN(*)fpTiger_GetEdWord) (uint16_t, LPSTR );
 fpTiger_GetEdWord proc;
 
 if(!hTiger || !Init)
@@ -740,10 +740,10 @@ return (*proc)(wWordID,(LPSTR)lpEdWord);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-FNBOOL16 Tiger_GetEdCharacter (WORD wCharacterID,
+FNBOOL16 Tiger_GetEdCharacter (uint16_t wCharacterID,
 LPED_CHARACTER  lpEdCharacter)
 {
-typedef BOOL16    (TIGERFUN(*)fpTiger_GetEdCharacter) (WORD , LPSTR );
+typedef BOOL16    (TIGERFUN(*)fpTiger_GetEdCharacter) (uint16_t , LPSTR );
 fpTiger_GetEdCharacter proc;
 
 if(!hTiger || !Init)
@@ -781,7 +781,7 @@ return (*proc)();
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 FNBOOL16 Tiger_SetEdSaveRtfOptions (
-	WORD wFrame,
+	uint16_t wFrame,
 	LPSTR lpNameSerif,
 	LPSTR lpNameNonSerif,
 	LPSTR lpNameMono,
@@ -791,7 +791,7 @@ FNBOOL16 Tiger_SetEdSaveRtfOptions (
 	)
 {
 typedef BOOL16    (TIGERFUN(*)fpTiger_SetEdSaveRtfOptions) (
-			WORD ,LPSTR ,LPSTR ,LPSTR ,LPSTR ,LPSTR ,LPSTR);
+			uint16_t ,LPSTR ,LPSTR ,LPSTR ,LPSTR ,LPSTR ,LPSTR);
 fpTiger_SetEdSaveRtfOptions proc;
 if(!hTiger || !Init)
     return FALSE;
@@ -810,9 +810,9 @@ return (*proc)(wFrame,lpNameSerif,lpNameNonSerif,
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-FNBOOL16 TigerLayout_UpdateSheets (WORD FuncNumber, LPINT16 * lplpSheets)
+FNBOOL16 TigerLayout_UpdateSheets (uint16_t FuncNumber, LPINT16 * lplpSheets)
 {
-typedef BOOL16    (TIGERFUN(*)fpTigerLayout_UpdateSheets) (WORD, LPSTR );
+typedef BOOL16    (TIGERFUN(*)fpTigerLayout_UpdateSheets) (uint16_t, LPSTR );
 fpTigerLayout_UpdateSheets proc;
 
 if(!hTiger || !Init)
@@ -830,9 +830,9 @@ return (*proc)(FuncNumber,(LPSTR)lplpSheets);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-FNBOOL16 Tiger_RW_Options (WORD FuncNumber, LPSTR lpData)
+FNBOOL16 Tiger_RW_Options (uint16_t FuncNumber, LPSTR lpData)
 {
-typedef BOOL16    (TIGERFUN(*)fpTiger_RW_Options) (WORD, LPSTR );
+typedef BOOL16    (TIGERFUN(*)fpTiger_RW_Options) (uint16_t, LPSTR );
 fpTiger_RW_Options proc;
 
 if(!hTiger || !Init)
@@ -933,7 +933,7 @@ return ret;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Call Back entries
-CBDWORD Tiger_CallBack (WORD wFuncNumber, LPDWORD lpParams)
+CBDWORD Tiger_CallBack (uint16_t wFuncNumber, LPDWORD lpParams)
 {
     switch (wFuncNumber)
     {
@@ -944,10 +944,10 @@ CBDWORD Tiger_CallBack (WORD wFuncNumber, LPDWORD lpParams)
             return ((uint32_t) Tiger_Callback_ImageOpen_xy
                             (
                                 (LPTIGER_IMAGEINFO) lpParams [0],
-                                (WORD)              lpParams [1],
-                                (WORD)              lpParams [2],
-                                (WORD)              lpParams [3],
-                                (WORD)              lpParams [4]
+                                (uint16_t)              lpParams [1],
+                                (uint16_t)              lpParams [2],
+                                (uint16_t)              lpParams [3],
+                                (uint16_t)              lpParams [4]
                             ));
         case TCB_PROCESS_PICTURES: // Valdemar
             return ((uint32_t) Tiger_Callback_ProcessPictures
@@ -966,14 +966,14 @@ CBDWORD Tiger_CallBack (WORD wFuncNumber, LPDWORD lpParams)
             return ((uint32_t) Tiger_Callback_ImageRead
                             (
                                 (LPSTR)  lpParams [0],
-                                (WORD)   lpParams [1]
+                                (uint16_t)   lpParams [1]
                             ));
 
         case TCB_IMAGE_CLOSE:
             return ((uint32_t) Tiger_Callback_ImageClose ());
 
         case TCB_REPORT_ERROR:
-            Tiger_Callback_ReportError ((WORD) lpParams [0], (LPSTR) lpParams [1]);
+            Tiger_Callback_ReportError ((uint16_t) lpParams [0], (LPSTR) lpParams [1]);
             return ((uint32_t) TRUE);
 
         case TCB_PROGRESS_START:
@@ -983,14 +983,14 @@ CBDWORD Tiger_CallBack (WORD wFuncNumber, LPDWORD lpParams)
             return ((uint32_t) Tiger_Callback_ProgressFinish ());
 
         case TCB_PROGRESS_SET_PERCENTAGE:
-            return ((uint32_t) Tiger_Callback_ProgressSetPerc ((WORD) lpParams [0]));
+            return ((uint32_t) Tiger_Callback_ProgressSetPerc ((uint16_t) lpParams [0]));
 
         case TCB_PROGRESS_SET_STAGE:
             return ((uint32_t) Tiger_Callback_ProgressSetStage
                             (
-                                (WORD)  lpParams [0],
+                                (uint16_t)  lpParams [0],
                                 (LPSTR) lpParams [1],
-                                (WORD)  lpParams [2]
+                                (uint16_t)  lpParams [2]
                             ));
 		case TCB_TIGER_GET_WORD:
 			return ((uint32_t) Tiger_Callback_Get_One_Word( (LPSTR) lpParams[0] ));
@@ -1000,51 +1000,51 @@ CBDWORD Tiger_CallBack (WORD wFuncNumber, LPDWORD lpParams)
 //
 FNWORD Tiger_GetLanguage()
 {
-typedef WORD (TIGERFUN(*)fpTiger_GetLanguage)();
+typedef uint16_t (TIGERFUN(*)fpTiger_GetLanguage)();
 fpTiger_GetLanguage proc;
 
 if(!hTiger || !Init)
-    return (WORD)-1;
+    return (uint16_t)-1;
 
  proc = (fpTiger_GetLanguage)GetProcAddress(hTiger,
                                 TIGER_GET_LANG_FN);
  if(proc==NULL)
 	{
   	Tiger_SetStatus(ST_ENTRY_NOT_FOUND);
-        return (WORD)-1;
+        return (uint16_t)-1;
    	}
 
 return (*proc)();
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-FNWORD Tiger_EnumLanguage(WORD prev)
+FNWORD Tiger_EnumLanguage(uint16_t prev)
 {
-typedef WORD (TIGERFUN(*)fpTiger_EnumLanguage)(WORD);
+typedef uint16_t (TIGERFUN(*)fpTiger_EnumLanguage)(uint16_t);
 fpTiger_EnumLanguage proc;
 
 if(!hTiger || !Init)
-    return (WORD)-1;
+    return (uint16_t)-1;
 
  proc = (fpTiger_EnumLanguage)GetProcAddress(hTiger,
                                 TIGER_ENUM_LANG_FN);
  if(proc==NULL)
 	{
   	Tiger_SetStatus(ST_ENTRY_NOT_FOUND);
-        return (WORD)-1;
+        return (uint16_t)-1;
    	}
 
 return (*proc)(prev);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-FNBOOL Tiger_SpellerExist(WORD language)
+FNBOOL Tiger_SpellerExist(uint16_t language)
 {
-typedef Bool (TIGERFUN(*)fpTiger_SpellerExist)(WORD);
+typedef Bool (TIGERFUN(*)fpTiger_SpellerExist)(uint16_t);
 fpTiger_SpellerExist proc;
 
 if(!hTiger || !Init)
-    return (WORD)-1;
+    return (uint16_t)-1;
 
  proc = (fpTiger_SpellerExist)GetProcAddress(hTiger,
                                 TIGER_SPELL_EXIST_FN);
@@ -1064,7 +1064,7 @@ FNBOOL16 Tiger_RunWithDIB( void * lpDIB, void * lpRes )
 	fpTigerRunWithDIB proc;
 
 	if ( !hTiger || !Init )
-		return (WORD) -1;
+		return (uint16_t) -1;
 
 	proc = (fpTigerRunWithDIB)GetProcAddress(hTiger,
 		                                     TIGER_RUN_WITH_DIB_FN);

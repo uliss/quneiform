@@ -81,8 +81,8 @@ typedef unsigned long intLU;
   //for default Bool = short
     //#define Bool short
     //typedef __int16 Bool;
-  //for default UINT = short
-    #define UINT UINT16
+  //for default uint = short
+    #define uint UINT16
   //for combination "unsigned int" -> intU
   //for combination "unsigned long" -> intLU
 #endif

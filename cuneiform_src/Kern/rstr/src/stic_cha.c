@@ -79,12 +79,12 @@ extern BYTE fax1x2;	// MK NEW 06.01.1993
 //////extern BYTE left0[], right0[];	// MK NEW 19.01.1993
 /*......................................................................*/
 #ifdef	MKPRINT_ENABLE				// MK OTLADKA Variables
-extern	WORD	mkm1, mkm2, mkm3, mkm4, mkm5;
-extern	WORD	mkma, mkmb, mkmc, mkmd, mkme;
-extern	WORD	d,d0,d1,d2,d3,d4,d5,d6,d7,d8,d9;
+extern	uint16_t	mkm1, mkm2, mkm3, mkm4, mkm5;
+extern	uint16_t	mkma, mkmb, mkmc, mkmd, mkme;
+extern	uint16_t	d,d0,d1,d2,d3,d4,d5,d6,d7,d8,d9;
 #endif
-extern	WORD	N_eq_Neck;	// for sign_neck;  see ST_TOOLS.C;
-extern	WORD	left_mode_EEM;	// NOTA BENE:  NEPORJADOK; see ST_TOOLS.C;
+extern	uint16_t	N_eq_Neck;	// for sign_neck;  see ST_TOOLS.C;
+extern	uint16_t	left_mode_EEM;	// NOTA BENE:  NEPORJADOK; see ST_TOOLS.C;
 /*......................................................................*/
 
 static INT fun_ge(BYTE fun[],INT n, INT level);
@@ -1237,7 +1237,7 @@ void set_stick_aux_signums (cell *c, BYTE left[], BYTE right[],
 		INT dis_left_brace, INT dis_right_brace, INT dis_slash,
 		INT l_f_sym, INT r_f_sym,
 //////		INT T_config, INT Y_config,
-		INT T_config, WORD T_2_3, WORD T_skok,
+		INT T_config, uint16_t T_2_3, uint16_t T_skok,
 		B_LINES *bl,INT num_lines, INT normal_incline)
 {
 INT	wid_up_here=wide_up;	// it was "wid";  BBB: change name 05.08.1993

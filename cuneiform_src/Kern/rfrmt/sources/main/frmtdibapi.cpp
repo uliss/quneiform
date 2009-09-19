@@ -187,7 +187,7 @@ uint32_t WINAPI DIBHeight(LPSTR lpDIB) {
  *
  * Return Value:
  *
- * WORD             - size of the color palette of the DIB
+ * uint16_t             - size of the color palette of the DIB
  *
  * Description:
  *
@@ -198,12 +198,12 @@ uint32_t WINAPI DIBHeight(LPSTR lpDIB) {
  *
  ************************************************************************/
 
-WORD WINAPI PaletteSize(LPSTR lpbi) {
+uint16_t WINAPI PaletteSize(LPSTR lpbi) {
 	/* calculate the size required by the palette */
 	if (IS_WIN30_DIB(lpbi))
-		return (WORD)(::DIBNumColors(lpbi) * sizeof(RGBQUAD));
+		return (uint16_t)(::DIBNumColors(lpbi) * sizeof(RGBQUAD));
 	else
-		return (WORD)(::DIBNumColors(lpbi) * sizeof(RGBTRIPLE));
+		return (uint16_t)(::DIBNumColors(lpbi) * sizeof(RGBTRIPLE));
 }
 
 /*************************************************************************
@@ -216,7 +216,7 @@ WORD WINAPI PaletteSize(LPSTR lpbi) {
  *
  * Return Value:
  *
- * WORD             - number of colors in the color table
+ * uint16_t             - number of colors in the color table
  *
  * Description:
  *
@@ -227,8 +227,8 @@ WORD WINAPI PaletteSize(LPSTR lpbi) {
  *
  ************************************************************************/
 
-WORD WINAPI DIBNumColors(LPSTR lpbi) {
-	WORD wBitCount; // DIB bit count
+uint16_t WINAPI DIBNumColors(LPSTR lpbi) {
+	uint16_t wBitCount; // DIB bit count
 
 	/*  If this is a Windows-style DIB, the number of colors in the
 	 *  color table can be less than the number of bits per pixel
@@ -241,7 +241,7 @@ WORD WINAPI DIBNumColors(LPSTR lpbi) {
 
 		dwClrUsed = ((LPBITMAPINFOHEADER) lpbi)->biClrUsed;
 		if (dwClrUsed != 0)
-			return (WORD) dwClrUsed;
+			return (uint16_t) dwClrUsed;
 	}
 
 	/*  Calculate the number of colors in the color table based on

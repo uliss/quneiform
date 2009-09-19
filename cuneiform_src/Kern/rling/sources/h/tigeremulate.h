@@ -117,7 +117,7 @@ typedef struct elidx
 {
 	BYTE ltr;                  // the letter
 	BYTE vnum;                 // the number of the classes
-	WORD numel;                // the number of the first class
+	uint16_t numel;                // the number of the first class
 }
  indBOX;
 ////////////////////////////////////////////////////////////////////////////////////
@@ -125,9 +125,9 @@ typedef struct eltab
 {
 	BYTE ltr;                  // the letter
 	BYTE fnt;                  // the font number
-	WORD list;                 // next of same letter
-	WORD bnd;                  // the bound of the typeface
-	WORD vect[15];             // the vector of the letter
+	uint16_t list;                 // next of same letter
+	uint16_t bnd;                  // the bound of the typeface
+	uint16_t vect[15];             // the vector of the letter
 }
 elmBOX;
 ///////////////////////////////////////////////////////////////////////////////////
@@ -162,8 +162,8 @@ struct _Root
 	{
 		struct
 		{
-			WORD  wSegmentPtr;
-			WORD  wLength;
+			uint16_t  wSegmentPtr;
+			uint16_t  wLength;
 		}
 		u2;
 

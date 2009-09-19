@@ -72,7 +72,7 @@ typedef unsigned char	BYTE;
 typedef unsigned char *	PBYTE;
 
 typedef signed   short int	SINT;
-typedef unsigned short int  WORD;
+typedef unsigned short int  uint16_t;
 
 typedef signed   long int	LONG;
 typedef unsigned long int   DWORD;

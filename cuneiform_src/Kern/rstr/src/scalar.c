@@ -59,7 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "struct.h"
 #include "func.h"
 
-WORD all_scalarf (PWORD v1, PWORD v2, WORD norm)      //AK 14.03.97
+uint16_t all_scalarf (PWORD v1, PWORD v2, uint16_t norm)      //AK 14.03.97
 {                              //AK definition from scalar.asm
 uint32_t v;
  v = ((uint32_t)(*(v1+0)))  * (*(v2+0))  +
@@ -77,7 +77,7 @@ uint32_t v;
      ((uint32_t)(*(v1+12))) * (*(v2+12)) +
      ((uint32_t)(*(v1+13))) * (*(v2+13)) +
      ((uint32_t)(*(v1+14))) * (*(v2+14));
- return (WORD)(v/norm);
+ return (uint16_t)(v/norm);
 }
 
 LONG all_scalar (PWORD v1, PWORD v2)               //AK 14.07.97
@@ -122,11 +122,11 @@ static BYTE sqrt_tab[] = {
 
 INT long_sqrt (uint32_t n)
 {
- WORD w;
+ uint16_t w;
 uint32_t d, step, lw;
  BYTE sh;
- if ((w = (WORD)(n >> 16)) != 0) sh = 8;
- else { w = (WORD)n; sh = 0; }
+ if ((w = (uint16_t)(n >> 16)) != 0) sh = 8;
+ else { w = (uint16_t)n; sh = 0; }
 
  if ( w & 0xff00 ) { sh +=4; w = w >> 8; }
  d = sqrt_tab[w]+1; d = d << sh; if ((d & 0xffff) == 0) return 0;
@@ -148,10 +148,10 @@ static void make_box_raster(PWORD matr, c_comp * cp,
 
 
 void comp_to_box (PWORD matr, c_comp * cp,
-	WORD row, WORD col, WORD h, WORD w)
+	uint16_t row, uint16_t col, uint16_t h, uint16_t w)
 {
  make_box_raster (matr, cp, row, (INT)((cp->left - col)*3), h, w,
-   (lnhead *)((PBYTE)cp + cp->lines + sizeof(WORD)));
+   (lnhead *)((PBYTE)cp + cp->lines + sizeof(uint16_t)));
 }
 
 void wcomp_to_box (PWORD matr)
@@ -215,7 +215,7 @@ fint:;
  if (lp->lth != 0) goto next_line;
 }
 
-INT proport(WORD best_cos,WORD next_cos,WORD prev_cos,
+INT proport(uint16_t best_cos,uint16_t next_cos,uint16_t prev_cos,
 		INT next_res,INT full_res)
 {
  return

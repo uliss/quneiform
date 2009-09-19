@@ -74,7 +74,7 @@ static BYTE sqrt_tab[] = { 0, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4,
 		15, 15, 15 };
 
 INT long_sqrt(uint32_t n) {
-	WORD w;
+	uint16_t w;
 	uint32_t d, step, lw;
 	BYTE sh;
 	if ((w = n >> 16) != 0)

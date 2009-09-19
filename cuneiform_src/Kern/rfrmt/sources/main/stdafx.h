@@ -75,7 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma warning(disable:4786)
 
 #include <vector>
-typedef std::vector<WORD> vectorWord;
+typedef std::vector<uint16_t> vectorWord;
 
 #include <assert.h>
 

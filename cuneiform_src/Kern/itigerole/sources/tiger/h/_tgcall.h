@@ -102,7 +102,7 @@ TIGERLOC(BOOL16)          __BCR_Load            (DWORD dwTigerCallBack,
 //////////////////////////////////////////////////////////////////////////////
 #pragma warning ( disable : 4229 )
 //////////////////////////////////////////////////////////////////////////////
-typedef DWORD (TIGERFUN(*)fpTiger_Callback) (WORD wFuncNumber, LPDWORD lpParams);
+typedef DWORD (TIGERFUN(*)fpTiger_Callback) (uint16_t wFuncNumber, LPDWORD lpParams);
 //////////////////////////////////////////////////////////////////////////////
 TIGERLOC(BOOL16)          __Tiger_Load          (fpTiger_Callback fpCallback,
 												 LPSTR lpPath);
@@ -114,15 +114,15 @@ TIGERLOC(BOOL16)          __BCR_Load            (fpTiger_Callback fpCallback,
 TIGERLOC(BOOL16)          __Tiger_Unload        (void);
 //////////////////////////////////////////////////////////////////////////////
 #ifndef __NT__
-TIGERLOC(DWORD)           Tiger_CallBack        (WORD wFuncNumber,
+TIGERLOC(DWORD)           Tiger_CallBack        (uint16_t wFuncNumber,
 												 LPDWORD lpParams);
 //////////////////////////////////////////////////////////////////////////////
 #else
-CBDWORD                   Tiger_CallBack        (WORD wFuncNumber,
+CBDWORD                   Tiger_CallBack        (uint16_t wFuncNumber,
 												 LPDWORD lpParams);
 #endif
 //////////////////////////////////////////////////////////////////////////////
-TIGERLOC(DWORD)           __Tiger_CallBack      (WORD wFuncNumber);
+TIGERLOC(DWORD)           __Tiger_CallBack      (uint16_t wFuncNumber);
 //////////////////////////////////////////////////////////////////////////////
 # define GMEM_FIX              (GMEM_FIXED | GMEM_NOCOMPACT | GMEM_NODISCARD)
 # define COMMON_BUFFER_SIZE    (32 * 1024L)

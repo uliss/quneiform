@@ -155,7 +155,7 @@ typedef struct h_BMPL
   BYTE **bmp; //bmp[NumBuf][64000]
 } BMPL;
 //typedef int (*FUN_POMP)(void);
-//typedef void (*FUN_MESS)(WORD wPar,DWORD lPar);
+//typedef void (*FUN_MESS)(uint16_t wPar,DWORD lPar);
 
 #include "undef32.h"
 

@@ -145,7 +145,7 @@ typedef struct fontEntry
 }FONTENTRY;
 typedef struct pictEntry
 {
-	WORD pictNumber;
+	uint16_t pictNumber;
 	EDSIZE pictSize;
 	EDSIZE pictGoal;
 	BYTE pictAlign;

@@ -59,14 +59,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "struct.h"
 #include "func.h"
 
-static WORD wb, hb;
+static uint16_t wb, hb;
 
 static void rotate_8(PBYTE sr, PBYTE tr);
 
-void c_rastror (PBYTE sr, PBYTE tr, WORD w, WORD h)
+void c_rastror (PBYTE sr, PBYTE tr, uint16_t w, uint16_t h)
 {
  PBYTE p;
- WORD l, ws, hs, loop1, loop2;
+ uint16_t l, ws, hs, loop1, loop2;
  wb = (w+7)/8; hb = (h+7)/8;
  p = sr + wb * h; l = wb * (hb*8 - h);
  if (l) memset (p,0,l);	// clear bottom of source raster

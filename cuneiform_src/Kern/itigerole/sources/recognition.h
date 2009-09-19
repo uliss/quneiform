@@ -94,7 +94,7 @@ public:
 	inline Bool IsLoad(){ return bIsLoad;};
 	inline Bool IsOpen(){ return bIsOpen;};
 
-	void SetError(UINT nID);
+	void SetError(uint nID);
 	void SetError(char * str);
 	int  PassException(LPEXCEPTION_POINTERS  rc);
 

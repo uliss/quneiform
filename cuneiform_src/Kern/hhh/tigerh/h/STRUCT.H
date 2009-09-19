@@ -176,7 +176,7 @@ typedef struct box_interval BOXINT;
 
 struct comp_struc
  {
- WORD size;     	// size of component in paragraphs >=3
+ uint16_t size;     	// size of component in paragraphs >=3
  INT upper;		// upper boundary of component
  INT left;		// left boundary of component
  INT h; 		// height of component
@@ -213,7 +213,7 @@ typedef struct comp_struc c_comp;
 
 struct dust_comp_struc
  {
-  WORD size;            // =1
+  uint16_t size;            // =1
   INT  upper;
   INT  left;
   BYTE h;               // >0
@@ -224,13 +224,13 @@ typedef struct dust_comp_struc dust_comp;
 
 struct file_comp_struct
  {
- WORD  size;           // =1
+ uint16_t  size;           // =1
  INT   upper;
  INT   left;
  BYTE  h;              // =0
  BYTE  w;              // =0
 uint32_t offset;
- WORD  lth;
+ uint16_t  lth;
  BYTE scale;
  BYTE reserv;
  };
@@ -310,7 +310,7 @@ struct cell_struc
 #define c_cg_cutacc     8+16+32 // cutted accent
 #define c_cg_just       64  // just created
 #define c_cg_cutoff    128  // ignore "cutted" flags at glue attempt
-  WORD flg;  // flag of cell
+  uint16_t flg;  // flag of cell
 #define c_f_let	 	1	// letter component
 #define c_f_bad     2   // badly recognized
 #define c_f_dust	4	// dust
@@ -436,8 +436,8 @@ typedef struct int_s interval;
 
 struct large_int_s
  {
- WORD l;	// length of interval
- WORD e;	// end of interval coordinates
+ uint16_t l;	// length of interval
+ uint16_t e;	// end of interval coordinates
  };
 typedef struct large_int_s large_interval;
 
@@ -449,12 +449,12 @@ struct str_struc
  INT col;             // left of line
  INT lower;           // lower of line
  INT right;           // right of line
- WORD dust;           // end of letter ptrs
- WORD end;            // end of dust ptrs
- WORD lth;
- WORD first;
- WORD last;
- WORD scale;		// scale of the string
+ uint16_t dust;           // end of letter ptrs
+ uint16_t end;            // end of dust ptrs
+ uint16_t lth;
+ uint16_t first;
+ uint16_t last;
+ uint16_t scale;		// scale of the string
  INT fragment;		// fragment of the string
  BYTE language;         // language of the string
  c_comp *c__comp[1];       // array of ptrs to components

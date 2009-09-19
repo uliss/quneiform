@@ -94,7 +94,7 @@ void dif_II( void )
 
    cp = workI.c->env;
    for(;cp!=NULL;cp=cp->next){
-      lp = (lnhead *)((PBYTE)cp + cp->lines + sizeof(WORD));
+      lp = (lnhead *)((PBYTE)cp + cp->lines + sizeof(uint16_t));
       while( lp->lth != 0 ){
          if( lp->row <= workI.c->h/8 ){
             ii++;

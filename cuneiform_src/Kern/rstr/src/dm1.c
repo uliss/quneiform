@@ -1480,7 +1480,7 @@ void make_all_cuts()
  INT  av_dens, ndens, gv0, gf0, N, mw, mh, mrr, mrc, i, rpn;
  BYTE c0, c1, c3, *rp1, *rp2, already_cut;
  BYTE acc_p;
- WORD fo1, fo2, fo3, sp0;
+ uint16_t fo1, fo2, fo3, sp0;
  INT  p0, p1, p2, p3;
  v_val pe;
  cut_pos cpos1, cpos2, cposd, cposc;  // place of cut for 1st, 2nd points and dummy

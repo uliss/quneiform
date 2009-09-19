@@ -153,7 +153,7 @@ long _Status()
 char * _ErrorMessage(long rc)
 {
 	char * p;
-		p = Tiger_ErrorMessage( (WORD)rc );
+		p = Tiger_ErrorMessage( (uint16_t)rc );
 	return p;
 }
 
@@ -287,7 +287,7 @@ Bool rc = FALSE;
 
 	InitPRGTIME();
 
-	WORD wOptions = TSRO_PICTURES_NO;
+	uint16_t wOptions = TSRO_PICTURES_NO;
 		 wOptions |= g_bSpeller ? TSRO_SPELLER : 0 ;
 		 wOptions |= g_bOneColumn ? TSRO_FORCE_ONE_COLUMN : 0 ;
 		 wOptions |= g_bFax100 ? TSRO_FAX100 : 0 ;
@@ -326,7 +326,7 @@ Bool _Save(void * hEdPage,char * lpFileName,long format, long code, Bool32 bAppe
 	#define NOFORMAT	0x0008
 	#define NOSIZE		0x0010
 
-	WORD wOptions = (int)!g_bBold   & NOBOLD |
+	uint16_t wOptions = (int)!g_bBold   & NOBOLD |
 			   (int)!g_bItalic & NOCURSIV |
 			   (int)!g_bSize   & NOSIZE |
 			   (int)!g_bFormat & NOFORMAT;
@@ -349,7 +349,7 @@ Bool _Save(void * hEdPage,char * lpFileName,long format, long code, Bool32 bAppe
 Bool _PageAnalysis(Bool bUpdateCPAGE)
 {
 	Bool rc;
-	WORD wOptions = TSRO_PICTURES_NO;
+	uint16_t wOptions = TSRO_PICTURES_NO;
 		 wOptions |= g_bSpeller ? TSRO_SPELLER : 0 ;
 		 wOptions |= g_bOneColumn ? TSRO_FORCE_ONE_COLUMN : 0 ;
 		 wOptions |= g_bFax100 ? TSRO_FAX100 : 0 ;

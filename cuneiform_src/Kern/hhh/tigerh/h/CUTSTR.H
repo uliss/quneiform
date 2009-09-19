@@ -130,7 +130,7 @@ struct st_answer
  {
  char ltr;
  char fnt;
- WORD iprob;
+ uint16_t iprob;
  char n_rsn; // number of letter from list of same letters
  };
 typedef struct st_answer t_answer;
@@ -162,8 +162,8 @@ struct extrem_elem
 struct linehdr
  {
  INT  lth;
- WORD  dy;
- WORD  y0;
+ uint16_t  dy;
+ uint16_t  y0;
  char flag;
  };
 

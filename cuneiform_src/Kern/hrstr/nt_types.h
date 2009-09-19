@@ -101,7 +101,7 @@ typedef signed long int  *          PLONG;
         #define INT  _INT
         #define PINT _PINT
 
-typedef unsigned short int              WORD;
+typedef unsigned short int              uint16_t;
 typedef unsigned short int  *       PWORD;
 
 /*                      Boolean data                            */

@@ -73,7 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /************************************************************/
 extern INT  LeftDistance(BYTE *RASTER,INT dx);
 extern INT  RightDistance(BYTE *RASTER,INT dx);
-extern segment * go_line(segment *s,WORD num);
+extern segment * go_line(segment *s,uint16_t num);
 
 /************************************************************/
 static INT long_line( PBYTE seg,INT w,INT line,INT part);

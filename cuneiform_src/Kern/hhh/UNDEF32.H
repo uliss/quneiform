@@ -66,5 +66,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #undef RECT
   #undef POINT
   //#undef Bool
-  #undef UINT
+  #undef uint
 #endif

@@ -1049,8 +1049,8 @@ Bool32 WriteTiffDescr(HANDLE hFile, CEDPage* page)
 	fond.width=page->sizeOfImage.cx;
 	fond.pageNum=page->pageNumber;
 	fond.inclune=page->turn;
-	fond.resolutionX=(WORD)page->dpi.cx;
-	fond.resolutionY=(WORD)page->dpi.cy;
+	fond.resolutionX=(uint16_t)page->dpi.cx;
+	fond.resolutionY=(uint16_t)page->dpi.cy;
 	fond.unrecogSymbol=page->unrecogChar;
 	if (!WriteExtCode(hFile,EDEXT_TIFF_DESC,&fond,sizeof(fond),strlen(page->imageName)+1)) return FALSE;
 	if (!Write(hFile,(pchar)page->imageName,strlen(page->imageName)+1)) return FALSE;

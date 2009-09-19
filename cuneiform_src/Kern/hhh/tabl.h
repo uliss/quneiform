@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   typedef struct {int i;} STAT_STR;
   typedef struct {STAT_STR *stat_str; int dx_col,dy_col,dsym_col,dy_Low,dy_Upp;} STAT_COL;
   typedef int (*FUN_POMP)(void);
-  typedef void (*FUN_MESS)(WORD wPar,DWORD lPar);
+  typedef void (*FUN_MESS)(uint16_t wPar,DWORD lPar);
   typedef struct hSTRET
   { short xn,xk,yn,yk;
     float k;

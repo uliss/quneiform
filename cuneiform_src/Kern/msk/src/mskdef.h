@@ -83,7 +83,7 @@ typedef struct
 #if pc_16_32 == 16
 	#define i_16(istr,i)     ( (istr) & (ist0[i]) )
 #else
-	#define i_16(istr,i)  (WORD) ( ( ( istr & ist0[i] ) & 0xffffffff)==0?0:1 )
+	#define i_16(istr,i)  (uint16_t) ( ( ( istr & ist0[i] ) & 0xffffffff)==0?0:1 )
 #endif
 
 #define ij_16(is,i,p) ( is=((p)? ((is)|ist0[i]) : ((is)&ist1[i])) )

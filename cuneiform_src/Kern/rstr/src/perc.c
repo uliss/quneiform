@@ -622,7 +622,7 @@ static void compute_bnd_lbox(cell *pc,bnd_allowed *bnd)
 static INT test_O0(cell *pc)
 {
 BYTE rc=0;
-WORD save_c_flg;
+uint16_t save_c_flg;
 INT  saveN;
 BYTE saveV[VERS_IN_CELL*sizeof(version)];
 version *v;
@@ -660,7 +660,7 @@ version *v;
 static INT rec_O0(cell *pc)
 {
 INT wi,rc;
-WORD save_c_flg;
+uint16_t save_c_flg;
 INT  saveN;
 BYTE saveV[VERS_IN_CELL*sizeof(version)];
 

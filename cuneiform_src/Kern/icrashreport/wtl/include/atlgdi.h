@@ -146,14 +146,14 @@ inline LPBITMAPINFOHEADER AtlGetBitmapResourceInfo(HMODULE hModule, ATL::_U_STRI
 	return pBitmapInfoHeader;
 }
 
-inline WORD AtlGetBitmapResourceBitsPerPixel(HMODULE hModule, ATL::_U_STRINGorID image)
+inline uint16_t AtlGetBitmapResourceBitsPerPixel(HMODULE hModule, ATL::_U_STRINGorID image)
 {
 	LPBITMAPINFOHEADER pBitmapInfoHeader = AtlGetBitmapResourceInfo(hModule, image);
 	ATLASSERT(pBitmapInfoHeader != NULL);
 	return pBitmapInfoHeader->biBitCount;
 }
 
-inline WORD AtlGetBitmapResourceBitsPerPixel(ATL::_U_STRINGorID image)
+inline uint16_t AtlGetBitmapResourceBitsPerPixel(ATL::_U_STRINGorID image)
 {
 	return AtlGetBitmapResourceBitsPerPixel(ModuleHelper::GetResourceInstance(), image);
 }
@@ -361,7 +361,7 @@ public:
 		return m_hBrush;
 	}
 
-	HBRUSH CreateDIBPatternBrush(HGLOBAL hPackedDIB, UINT nUsage)
+	HBRUSH CreateDIBPatternBrush(HGLOBAL hPackedDIB, uint nUsage)
 	{
 		ATLASSERT(hPackedDIB != NULL);
 		const void* lpPackedDIB = GlobalLock(hPackedDIB);
@@ -371,7 +371,7 @@ public:
 		return m_hBrush;
 	}
 
-	HBRUSH CreateDIBPatternBrush(const void* lpPackedDIB, UINT nUsage)
+	HBRUSH CreateDIBPatternBrush(const void* lpPackedDIB, uint nUsage)
 	{
 		ATLASSERT(m_hBrush == NULL);
 		m_hBrush = ::CreateDIBPatternBrushPt(lpPackedDIB, nUsage);
@@ -778,7 +778,7 @@ public:
 		return m_hBitmap;
 	}
 
-	HBITMAP LoadOEMBitmap(UINT nIDBitmap) // for OBM_/OCR_/OIC_
+	HBITMAP LoadOEMBitmap(uint nIDBitmap) // for OBM_/OCR_/OIC_
 	{
 		ATLASSERT(m_hBitmap == NULL);
 		m_hBitmap = ::LoadBitmap(NULL, MAKEINTRESOURCE(nIDBitmap));
@@ -786,15 +786,15 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	HBITMAP LoadMappedBitmap(UINT nIDBitmap, UINT nFlags = 0, LPCOLORMAP lpColorMap = NULL, int nMapSize = 0)
+	HBITMAP LoadMappedBitmap(uint nIDBitmap, uint nFlags = 0, LPCOLORMAP lpColorMap = NULL, int nMapSize = 0)
 	{
 		ATLASSERT(m_hBitmap == NULL);
-		m_hBitmap = ::CreateMappedBitmap(ModuleHelper::GetResourceInstance(), nIDBitmap, (WORD)nFlags, lpColorMap, nMapSize);
+		m_hBitmap = ::CreateMappedBitmap(ModuleHelper::GetResourceInstance(), nIDBitmap, (uint16_t)nFlags, lpColorMap, nMapSize);
 		return m_hBitmap;
 	}
 #endif // !_WIN32_WCE
 
-	HBITMAP CreateBitmap(int nWidth, int nHeight, UINT nPlanes, UINT nBitsPerPixel, const void* lpBits)
+	HBITMAP CreateBitmap(int nWidth, int nHeight, uint nPlanes, uint nBitsPerPixel, const void* lpBits)
 	{
 		ATLASSERT(m_hBitmap == NULL);
 		m_hBitmap = ::CreateBitmap(nWidth, nHeight, nPlanes, nBitsPerPixel, lpBits);
@@ -889,7 +889,7 @@ public:
 	}
 
 // DIB support
-	HBITMAP CreateDIBitmap(HDC hDC, CONST BITMAPINFOHEADER* lpbmih, DWORD dwInit, CONST VOID* lpbInit, CONST BITMAPINFO* lpbmi, UINT uColorUse)
+	HBITMAP CreateDIBitmap(HDC hDC, CONST BITMAPINFOHEADER* lpbmih, DWORD dwInit, CONST VOID* lpbInit, CONST BITMAPINFO* lpbmi, uint uColorUse)
 	{
 		ATLASSERT(m_hBitmap == NULL);
 		m_hBitmap = ::CreateDIBitmap(hDC, lpbmih, dwInit, lpbInit, lpbmi, uColorUse);
@@ -897,7 +897,7 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	HBITMAP CreateDIBSection(HDC hDC, CONST BITMAPINFO* lpbmi, UINT uColorUse, VOID** ppvBits, HANDLE hSection, DWORD dwOffset)
+	HBITMAP CreateDIBSection(HDC hDC, CONST BITMAPINFO* lpbmi, uint uColorUse, VOID** ppvBits, HANDLE hSection, DWORD dwOffset)
 	{
 		ATLASSERT(m_hBitmap == NULL);
 		m_hBitmap = ::CreateDIBSection(hDC, lpbmi, uColorUse, ppvBits, hSection, dwOffset);
@@ -905,13 +905,13 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	int GetDIBits(HDC hDC, UINT uStartScan, UINT cScanLines,  LPVOID lpvBits, LPBITMAPINFO lpbmi, UINT uColorUse) const
+	int GetDIBits(HDC hDC, uint uStartScan, uint cScanLines,  LPVOID lpvBits, LPBITMAPINFO lpbmi, uint uColorUse) const
 	{
 		ATLASSERT(m_hBitmap != NULL);
 		return ::GetDIBits(hDC, m_hBitmap, uStartScan, cScanLines,  lpvBits, lpbmi, uColorUse);
 	}
 
-	int SetDIBits(HDC hDC, UINT uStartScan, UINT cScanLines, CONST VOID* lpvBits, CONST BITMAPINFO* lpbmi, UINT uColorUse)
+	int SetDIBits(HDC hDC, uint uStartScan, uint cScanLines, CONST VOID* lpvBits, CONST BITMAPINFO* lpbmi, uint uColorUse)
 	{
 		ATLASSERT(m_hBitmap != NULL);
 		return ::SetDIBits(hDC, m_hBitmap, uStartScan, cScanLines, lpvBits, lpbmi, uColorUse);
@@ -998,18 +998,18 @@ public:
 	int GetEntryCount() const
 	{
 		ATLASSERT(m_hPalette != NULL);
-		WORD nEntries = 0;
-		::GetObject(m_hPalette, sizeof(WORD), &nEntries);
+		uint16_t nEntries = 0;
+		::GetObject(m_hPalette, sizeof(uint16_t), &nEntries);
 		return (int)nEntries;
 	}
 
-	UINT GetPaletteEntries(UINT nStartIndex, UINT nNumEntries, LPPALETTEENTRY lpPaletteColors) const
+	uint GetPaletteEntries(uint nStartIndex, uint nNumEntries, LPPALETTEENTRY lpPaletteColors) const
 	{
 		ATLASSERT(m_hPalette != NULL);
 		return ::GetPaletteEntries(m_hPalette, nStartIndex, nNumEntries, lpPaletteColors);
 	}
 
-	UINT SetPaletteEntries(UINT nStartIndex, UINT nNumEntries, LPPALETTEENTRY lpPaletteColors)
+	uint SetPaletteEntries(uint nStartIndex, uint nNumEntries, LPPALETTEENTRY lpPaletteColors)
 	{
 		ATLASSERT(m_hPalette != NULL);
 		return ::SetPaletteEntries(m_hPalette, nStartIndex, nNumEntries, lpPaletteColors);
@@ -1017,20 +1017,20 @@ public:
 
 // Operations
 #ifndef _WIN32_WCE
-	void AnimatePalette(UINT nStartIndex, UINT nNumEntries, LPPALETTEENTRY lpPaletteColors)
+	void AnimatePalette(uint nStartIndex, uint nNumEntries, LPPALETTEENTRY lpPaletteColors)
 	{
 		ATLASSERT(m_hPalette != NULL);
 		::AnimatePalette(m_hPalette, nStartIndex, nNumEntries, lpPaletteColors);
 	}
 
-	Bool ResizePalette(UINT nNumEntries)
+	Bool ResizePalette(uint nNumEntries)
 	{
 		ATLASSERT(m_hPalette != NULL);
 		return ::ResizePalette(m_hPalette, nNumEntries);
 	}
 #endif // !_WIN32_WCE
 
-	UINT GetNearestPaletteIndex(COLORREF crColor) const
+	uint GetNearestPaletteIndex(COLORREF crColor) const
 	{
 		ATLASSERT(m_hPalette != NULL);
 		return ::GetNearestPaletteIndex(m_hPalette, crColor);
@@ -1373,13 +1373,13 @@ public:
 	}
 
 #ifndef _WIN32_WCE
-	UINT SetBoundsRect(LPCRECT lpRectBounds, UINT flags)
+	uint SetBoundsRect(LPCRECT lpRectBounds, uint flags)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::SetBoundsRect(m_hDC, lpRectBounds, flags);
 	}
 
-	UINT GetBoundsRect(LPRECT lpRectBounds, UINT flags) const
+	uint GetBoundsRect(LPRECT lpRectBounds, uint flags) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetBoundsRect(m_hDC, lpRectBounds, flags);
@@ -1515,7 +1515,7 @@ public:
 		return ::SelectPalette(m_hDC, hPalette, bForceBackground);
 	}
 
-	UINT RealizePalette()
+	uint RealizePalette()
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::RealizePalette(m_hDC);
@@ -2146,38 +2146,38 @@ public:
 #endif // _WIN32_WCE
 	}
 
-	Bool DrawIconEx(int x, int y, HICON hIcon, int cxWidth, int cyWidth, UINT uStepIfAniCur = 0, HBRUSH hbrFlickerFreeDraw = NULL, UINT uFlags = DI_NORMAL)
+	Bool DrawIconEx(int x, int y, HICON hIcon, int cxWidth, int cyWidth, uint uStepIfAniCur = 0, HBRUSH hbrFlickerFreeDraw = NULL, uint uFlags = DI_NORMAL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawIconEx(m_hDC, x, y, hIcon, cxWidth, cyWidth, uStepIfAniCur, hbrFlickerFreeDraw, uFlags);
 	}
 
-	Bool DrawIconEx(POINT point, HICON hIcon, SIZE size, UINT uStepIfAniCur = 0, HBRUSH hbrFlickerFreeDraw = NULL, UINT uFlags = DI_NORMAL)
+	Bool DrawIconEx(POINT point, HICON hIcon, SIZE size, uint uStepIfAniCur = 0, HBRUSH hbrFlickerFreeDraw = NULL, uint uFlags = DI_NORMAL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawIconEx(m_hDC, point.x, point.y, hIcon, size.cx, size.cy, uStepIfAniCur, hbrFlickerFreeDraw, uFlags);
 	}
 
 #ifndef _WIN32_WCE
-	Bool DrawState(POINT pt, SIZE size, HBITMAP hBitmap, UINT nFlags, HBRUSH hBrush = NULL)
+	Bool DrawState(POINT pt, SIZE size, HBITMAP hBitmap, uint nFlags, HBRUSH hBrush = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawState(m_hDC, hBrush, NULL, (LPARAM)hBitmap, 0, pt.x, pt.y, size.cx, size.cy, nFlags | DST_BITMAP);
 	}
 
-	Bool DrawState(POINT pt, SIZE size, HICON hIcon, UINT nFlags, HBRUSH hBrush = NULL)
+	Bool DrawState(POINT pt, SIZE size, HICON hIcon, uint nFlags, HBRUSH hBrush = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawState(m_hDC, hBrush, NULL, (LPARAM)hIcon, 0, pt.x, pt.y, size.cx, size.cy, nFlags | DST_ICON);
 	}
 
-	Bool DrawState(POINT pt, SIZE size, LPCTSTR lpszText, UINT nFlags, Bool bPrefixText = TRUE, int nTextLen = 0, HBRUSH hBrush = NULL)
+	Bool DrawState(POINT pt, SIZE size, LPCTSTR lpszText, uint nFlags, Bool bPrefixText = TRUE, int nTextLen = 0, HBRUSH hBrush = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawState(m_hDC, hBrush, NULL, (LPARAM)lpszText, (WPARAM)nTextLen, pt.x, pt.y, size.cx, size.cy, nFlags | (bPrefixText ? DST_PREFIXTEXT : DST_TEXT));
 	}
 
-	Bool DrawState(POINT pt, SIZE size, DRAWSTATEPROC lpDrawProc, LPARAM lData, UINT nFlags, HBRUSH hBrush = NULL)
+	Bool DrawState(POINT pt, SIZE size, DRAWSTATEPROC lpDrawProc, LPARAM lData, uint nFlags, HBRUSH hBrush = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawState(m_hDC, hBrush, lpDrawProc, lData, 0, pt.x, pt.y, size.cx, size.cy, nFlags | DST_COMPLEX);
@@ -2320,7 +2320,7 @@ public:
 		return ::FloodFill(m_hDC, x, y, crColor);
 	}
 
-	Bool ExtFloodFill(int x, int y, COLORREF crColor, UINT nFillType)
+	Bool ExtFloodFill(int x, int y, COLORREF crColor, uint nFillType)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::ExtFloodFill(m_hDC, x, y, crColor, nFillType);
@@ -2355,13 +2355,13 @@ public:
 
 #if !defined(_ATL_NO_MSIMG) || defined(_WIN32_WCE)
 #ifndef _WIN32_WCE
-	Bool TransparentBlt(int x, int y, int nWidth, int nHeight, HDC hSrcDC, int xSrc, int ySrc, int nSrcWidth, int nSrcHeight, UINT crTransparent)
+	Bool TransparentBlt(int x, int y, int nWidth, int nHeight, HDC hSrcDC, int xSrc, int ySrc, int nSrcWidth, int nSrcHeight, uint crTransparent)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::TransparentBlt(m_hDC, x, y, nWidth, nHeight, hSrcDC, xSrc, ySrc, nSrcWidth, nSrcHeight, crTransparent);
 	}
 #else // CE specific
-	Bool TransparentImage(int x, int y, int nWidth, int nHeight, HDC hSrcDC, int xSrc, int ySrc, int nSrcWidth, int nSrcHeight, UINT crTransparent)
+	Bool TransparentImage(int x, int y, int nWidth, int nHeight, HDC hSrcDC, int xSrc, int ySrc, int nSrcWidth, int nSrcHeight, uint crTransparent)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::TransparentImage(m_hDC, x, y, nWidth, nHeight, hSrcDC, xSrc, ySrc, nSrcWidth, nSrcHeight, crTransparent);
@@ -2508,7 +2508,7 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	Bool ExtTextOut(int x, int y, UINT nOptions, LPCRECT lpRect, LPCTSTR lpszString, UINT nCount = -1, LPINT lpDxWidths = NULL)
+	Bool ExtTextOut(int x, int y, uint nOptions, LPCRECT lpRect, LPCTSTR lpszString, uint nCount = -1, LPINT lpDxWidths = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		if(nCount == -1)
@@ -2528,7 +2528,7 @@ public:
 	}
 #endif // !_WIN32_WCE
 
-	int DrawText(LPCTSTR lpstrText, int cchText, LPRECT lpRect, UINT uFormat)
+	int DrawText(LPCTSTR lpstrText, int cchText, LPRECT lpRect, uint uFormat)
 	{
 		ATLASSERT(m_hDC != NULL);
 #ifndef _WIN32_WCE
@@ -2537,14 +2537,14 @@ public:
 		return ::DrawText(m_hDC, lpstrText, cchText, lpRect, uFormat);
 	}
 
-	int DrawText(LPTSTR lpstrText, int cchText, LPRECT lpRect, UINT uFormat)
+	int DrawText(LPTSTR lpstrText, int cchText, LPRECT lpRect, uint uFormat)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawText(m_hDC, lpstrText, cchText, lpRect, uFormat);
 	}
 
 #ifndef _WIN32_WCE
-	int DrawTextEx(LPTSTR lpstrText, int cchText, LPRECT lpRect, UINT uFormat, LPDRAWTEXTPARAMS lpDTParams = NULL)
+	int DrawTextEx(LPTSTR lpstrText, int cchText, LPRECT lpRect, uint uFormat, LPDRAWTEXTPARAMS lpDTParams = NULL)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawTextEx(m_hDC, lpstrText, cchText, lpRect, uFormat, lpDTParams);
@@ -2563,7 +2563,7 @@ public:
 		ATLASSERT(hCommCtrlDLL != NULL);
 		if(hCommCtrlDLL != NULL)
 		{
-			typedef int (WINAPI *PFN_DrawShadowText)(HDC hDC, LPCWSTR lpstrText, UINT cchText, LPRECT lpRect, DWORD dwFlags, COLORREF clrText, COLORREF clrShadow, int xOffset, int yOffset);
+			typedef int (WINAPI *PFN_DrawShadowText)(HDC hDC, LPCWSTR lpstrText, uint cchText, LPRECT lpRect, DWORD dwFlags, COLORREF clrText, COLORREF clrShadow, int xOffset, int yOffset);
 			PFN_DrawShadowText pfnDrawShadowText = (PFN_DrawShadowText)::GetProcAddress(hCommCtrlDLL, "DrawShadowText");
 			ATLASSERT(pfnDrawShadowText != NULL);   // this function requires CommCtrl6
 			if(pfnDrawShadowText != NULL)
@@ -2605,13 +2605,13 @@ public:
 #endif // !_WIN32_WCE
 
 #if !defined(_WIN32_WCE) || (_WIN32_WCE >= 400)
-	UINT GetTextAlign() const
+	uint GetTextAlign() const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetTextAlign(m_hDC);
 	}
 
-	UINT SetTextAlign(UINT nFlags)
+	uint SetTextAlign(uint nFlags)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::SetTextAlign(m_hDC, nFlags);
@@ -2701,13 +2701,13 @@ public:
 #endif // !_WIN32_WCE
 
 // Advanced Drawing
-	Bool DrawEdge(LPRECT lpRect, UINT nEdge, UINT nFlags)
+	Bool DrawEdge(LPRECT lpRect, uint nEdge, uint nFlags)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawEdge(m_hDC, lpRect, nEdge, nFlags);
 	}
 
-	Bool DrawFrameControl(LPRECT lpRect, UINT nType, UINT nState)
+	Bool DrawFrameControl(LPRECT lpRect, uint nType, uint nState)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DrawFrameControl(m_hDC, lpRect, nType, nState);
@@ -2722,14 +2722,14 @@ public:
 
 // Font Functions
 #ifndef _WIN32_WCE
-	Bool GetCharWidth(UINT nFirstChar, UINT nLastChar, LPINT lpBuffer) const
+	Bool GetCharWidth(uint nFirstChar, uint nLastChar, LPINT lpBuffer) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetCharWidth(m_hDC, nFirstChar, nLastChar, lpBuffer);
 	}
 
 	// GetCharWidth32 is not supported under Win9x
-	Bool GetCharWidth32(UINT nFirstChar, UINT nLastChar, LPINT lpBuffer) const
+	Bool GetCharWidth32(uint nFirstChar, uint nLastChar, LPINT lpBuffer) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetCharWidth32(m_hDC, nFirstChar, nLastChar, lpBuffer);
@@ -2747,7 +2747,7 @@ public:
 		return ::GetAspectRatioFilterEx(m_hDC, lpSize);
 	}
 
-	Bool GetCharABCWidths(UINT nFirstChar, UINT nLastChar, LPABC lpabc) const
+	Bool GetCharABCWidths(uint nFirstChar, uint nLastChar, LPABC lpabc) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetCharABCWidths(m_hDC, nFirstChar, nLastChar, lpabc);
@@ -2765,25 +2765,25 @@ public:
 		return ::GetKerningPairs(m_hDC, nPairs, lpkrnpair);
 	}
 
-	UINT GetOutlineTextMetrics(UINT cbData, LPOUTLINETEXTMETRIC lpotm) const
+	uint GetOutlineTextMetrics(uint cbData, LPOUTLINETEXTMETRIC lpotm) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetOutlineTextMetrics(m_hDC, cbData, lpotm);
 	}
 
-	DWORD GetGlyphOutline(UINT nChar, UINT nFormat, LPGLYPHMETRICS lpgm, DWORD cbBuffer, LPVOID lpBuffer, const MAT2* lpmat2) const
+	DWORD GetGlyphOutline(uint nChar, uint nFormat, LPGLYPHMETRICS lpgm, DWORD cbBuffer, LPVOID lpBuffer, const MAT2* lpmat2) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetGlyphOutline(m_hDC, nChar, nFormat, lpgm, cbBuffer, lpBuffer, lpmat2);
 	}
 
-	Bool GetCharABCWidths(UINT nFirstChar, UINT nLastChar, LPABCFLOAT lpABCF) const
+	Bool GetCharABCWidths(uint nFirstChar, uint nLastChar, LPABCFLOAT lpABCF) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetCharABCWidthsFloat(m_hDC, nFirstChar, nLastChar, lpABCF);
 	}
 
-	Bool GetCharWidth(UINT nFirstChar, UINT nLastChar, float* lpFloatBuffer) const
+	Bool GetCharWidth(uint nFirstChar, uint nLastChar, float* lpFloatBuffer) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetCharWidthFloat(m_hDC, nFirstChar, nLastChar, lpFloatBuffer);
@@ -2882,7 +2882,7 @@ public:
 		return ::PlayEnhMetaFile(m_hDC, hEnhMetaFile, lpBounds);
 	}
 
-	Bool AddMetaFileComment(UINT nDataSize, const BYTE* pCommentData) // can be used for enhanced metafiles only
+	Bool AddMetaFileComment(uint nDataSize, const BYTE* pCommentData) // can be used for enhanced metafiles only
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GdiComment(m_hDC, nDataSize, pCommentData);
@@ -2938,7 +2938,7 @@ public:
 		case META_SELECTOBJECT:
 			{
 				HGDIOBJ hObject = pHandleTable->objectHandle[pMetaRec->rdParm[0]];
-				UINT nObjType = ::GetObjectType(hObject);
+				uint nObjType = ::GetObjectType(hObject);
 				if(nObjType == 0)
 				{
 					// object type is unknown, determine if it is a font
@@ -3062,9 +3062,9 @@ public:
 	static CBrushHandle PASCAL GetHalftoneBrush()
 	{
 		HBRUSH halftoneBrush = NULL;
-		WORD grayPattern[8];
+		uint16_t grayPattern[8];
 		for(int i = 0; i < 8; i++)
-			grayPattern[i] = (WORD)(0x5555 << (i & 1));
+			grayPattern[i] = (uint16_t)(0x5555 << (i & 1));
 		HBITMAP grayBitmap = CreateBitmap(8, 8, 1, 1, &grayPattern);
 		if(grayBitmap != NULL)
 		{
@@ -3175,7 +3175,7 @@ public:
 
 // DIB support
 #if !defined(_WIN32_WCE) || (_WIN32_WCE >= 410)
-	int SetDIBitsToDevice(int x, int y, DWORD dwWidth, DWORD dwHeight, int xSrc, int ySrc, UINT uStartScan, UINT cScanLines, CONST VOID* lpvBits, CONST BITMAPINFO* lpbmi, UINT uColorUse)
+	int SetDIBitsToDevice(int x, int y, DWORD dwWidth, DWORD dwHeight, int xSrc, int ySrc, uint uStartScan, uint cScanLines, CONST VOID* lpvBits, CONST BITMAPINFO* lpbmi, uint uColorUse)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::SetDIBitsToDevice(m_hDC, x, y, dwWidth, dwHeight, xSrc, ySrc, uStartScan, cScanLines, lpvBits, lpbmi, uColorUse);
@@ -3183,19 +3183,19 @@ public:
 #endif // !defined(_WIN32_WCE) || (_WIN32_WCE >= 410)
 
 #if !defined(_WIN32_WCE) || (_WIN32_WCE >= 400)
-	int StretchDIBits(int x, int y, int nWidth, int nHeight, int xSrc, int ySrc, int nSrcWidth, int nSrcHeight, CONST VOID* lpvBits, CONST BITMAPINFO* lpbmi, UINT uColorUse, DWORD dwRop)
+	int StretchDIBits(int x, int y, int nWidth, int nHeight, int xSrc, int ySrc, int nSrcWidth, int nSrcHeight, CONST VOID* lpvBits, CONST BITMAPINFO* lpbmi, uint uColorUse, DWORD dwRop)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::StretchDIBits(m_hDC, x, y, nWidth, nHeight, xSrc, ySrc, nSrcWidth, nSrcHeight, lpvBits, lpbmi, uColorUse, dwRop);
 	}
 
-	UINT GetDIBColorTable(UINT uStartIndex, UINT cEntries, RGBQUAD* pColors) const
+	uint GetDIBColorTable(uint uStartIndex, uint cEntries, RGBQUAD* pColors) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetDIBColorTable(m_hDC, uStartIndex, cEntries, pColors);
 	}
 
-	UINT SetDIBColorTable(UINT uStartIndex, UINT cEntries, CONST RGBQUAD* pColors)
+	uint SetDIBColorTable(uint uStartIndex, uint cEntries, CONST RGBQUAD* pColors)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::SetDIBColorTable(m_hDC, uStartIndex, cEntries, pColors);
@@ -3210,7 +3210,7 @@ public:
 		return ::ChoosePixelFormat(m_hDC, ppfd);
 	}
 
-	int DescribePixelFormat(int iPixelFormat, UINT nBytes, LPPIXELFORMATDESCRIPTOR ppfd)
+	int DescribePixelFormat(int iPixelFormat, uint nBytes, LPPIXELFORMATDESCRIPTOR ppfd)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::DescribePixelFormat(m_hDC, iPixelFormat, nBytes, ppfd);
@@ -3264,7 +3264,7 @@ public:
 		return ::wglUseFontOutlines(m_hDC, dwFirst, dwCount, listBase, deviation, extrusion, format, lpgmf);
 	}
 
-	Bool wglDescribeLayerPlane(int iPixelFormat, int iLayerPlane, UINT nBytes, LPLAYERPLANEDESCRIPTOR plpd)
+	Bool wglDescribeLayerPlane(int iPixelFormat, int iLayerPlane, uint nBytes, LPLAYERPLANEDESCRIPTOR plpd)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::wglDescribeLayerPlane(m_hDC, iPixelFormat, iLayerPlane, nBytes, plpd);
@@ -3288,7 +3288,7 @@ public:
 		return ::wglRealizeLayerPalette(m_hDC, iLayerPlane, bRealize);
 	}
 
-	Bool wglSwapLayerBuffers(UINT uPlanes)
+	Bool wglSwapLayerBuffers(uint uPlanes)
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::wglSwapLayerBuffers(m_hDC, uPlanes);
@@ -3347,13 +3347,13 @@ public:
 		return ::GetTextExtentExPointI(m_hDC, pgiIn, cgi, nMaxExtent, lpnFit, alpDx, lpSize);
 	}
 
-	Bool GetCharWidthI(UINT giFirst, UINT cgi, LPWORD pgi, LPINT lpBuffer) const
+	Bool GetCharWidthI(uint giFirst, uint cgi, LPWORD pgi, LPINT lpBuffer) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetCharWidthI(m_hDC, giFirst, cgi, pgi, lpBuffer);
 	}
 
-	Bool GetCharABCWidthsI(UINT giFirst, UINT cgi, LPWORD pgi, LPABC lpabc) const
+	Bool GetCharABCWidthsI(uint giFirst, uint cgi, LPWORD pgi, LPABC lpabc) const
 	{
 		ATLASSERT(m_hDC != NULL);
 		return ::GetCharABCWidthsI(m_hDC, giFirst, cgi, pgi, lpabc);
@@ -3501,7 +3501,7 @@ public:
 	BYTE* GetEnhMetaFileBits()
 	{
 		ATLASSERT(m_hEMF != NULL);
-		UINT nBytes = ::GetEnhMetaFileBits(m_hEMF, 0, NULL);
+		uint nBytes = ::GetEnhMetaFileBits(m_hEMF, 0, NULL);
 		delete [] m_pBits;
 		m_pBits = NULL;
 		ATLTRY(m_pBits = new BYTE[nBytes]);
@@ -3513,7 +3513,7 @@ public:
 	LPTSTR GetEnhMetaFileDescription()
 	{
 		ATLASSERT(m_hEMF != NULL);
-		UINT nLen = ::GetEnhMetaFileDescription(m_hEMF, 0, NULL);
+		uint nLen = ::GetEnhMetaFileDescription(m_hEMF, 0, NULL);
 		delete [] m_pDesc;
 		m_pDesc = NULL;
 		ATLTRY(m_pDesc = new TCHAR[nLen]);
@@ -3528,7 +3528,7 @@ public:
 		memset(&m_header, 0, sizeof(m_header));
 		m_header.iType = EMR_HEADER;
 		m_header.nSize = sizeof(ENHMETAHEADER);
-		UINT n = ::GetEnhMetaFileHeader(m_hEMF, sizeof(ENHMETAHEADER), &m_header);
+		uint n = ::GetEnhMetaFileHeader(m_hEMF, sizeof(ENHMETAHEADER), &m_header);
 		return (n != 0) ? &m_header : NULL;
 	}
 
@@ -3536,7 +3536,7 @@ public:
 	{
 		ATLASSERT(m_hEMF != NULL);
 		memset(&m_pfd, 0, sizeof(m_pfd));
-		UINT n = ::GetEnhMetaFilePixelFormat(m_hEMF, sizeof(m_pfd), &m_pfd);
+		uint n = ::GetEnhMetaFilePixelFormat(m_hEMF, sizeof(m_pfd), &m_pfd);
 		return (n != 0) ? &m_pfd : NULL;
 	}
 };
@@ -3593,19 +3593,19 @@ public:
 		return bRet;
 	}
 
-	UINT GetEnhMetaFileBits(UINT cbBuffer, LPBYTE lpbBuffer) const
+	uint GetEnhMetaFileBits(uint cbBuffer, LPBYTE lpbBuffer) const
 	{
 		ATLASSERT(m_hEMF != NULL);
 		return ::GetEnhMetaFileBits(m_hEMF, cbBuffer, lpbBuffer);
 	}
 
-	UINT GetEnhMetaFileDescription(UINT cchBuffer, LPTSTR lpszDescription) const
+	uint GetEnhMetaFileDescription(uint cchBuffer, LPTSTR lpszDescription) const
 	{
 		ATLASSERT(m_hEMF != NULL);
 		return ::GetEnhMetaFileDescription(m_hEMF, cchBuffer, lpszDescription);
 	}
 
-	UINT GetEnhMetaFileHeader(LPENHMETAHEADER lpemh) const
+	uint GetEnhMetaFileHeader(LPENHMETAHEADER lpemh) const
 	{
 		ATLASSERT(m_hEMF != NULL);
 		lpemh->iType = EMR_HEADER;
@@ -3613,13 +3613,13 @@ public:
 		return ::GetEnhMetaFileHeader(m_hEMF, sizeof(ENHMETAHEADER), lpemh);
 	}
 
-	UINT GetEnhMetaFilePaletteEntries(UINT cEntries, LPPALETTEENTRY lppe) const
+	uint GetEnhMetaFilePaletteEntries(uint cEntries, LPPALETTEENTRY lppe) const
 	{
 		ATLASSERT(m_hEMF != NULL);
 		return ::GetEnhMetaFilePaletteEntries(m_hEMF, cEntries, lppe);
 	}
 
-	UINT GetEnhMetaFilePixelFormat(DWORD cbBuffer, PIXELFORMATDESCRIPTOR* ppfd) const
+	uint GetEnhMetaFilePixelFormat(DWORD cbBuffer, PIXELFORMATDESCRIPTOR* ppfd) const
 	{
 		ATLASSERT(m_hEMF != NULL);
 		return ::GetEnhMetaFilePixelFormat(m_hEMF, cbBuffer, ppfd);

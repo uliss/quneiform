@@ -122,7 +122,7 @@ FRAME {
 #define TYPE int /*тип расстояний между FRAME*/
 
 typedef int (*FUN_POMP)(void);
-typedef void (*FUN_MESS)(WORD wPar, uint32_t lPar);
+typedef void (*FUN_MESS)(uint16_t wPar, uint32_t lPar);
 typedef int(*COMP_FUN)(void);
 typedef TYPE (*DistFrame)(FRAME*, FRAME*);
 
@@ -511,7 +511,7 @@ int analys_key(int *fl);
 int hist_int(char *name, int *x, int n, int Xmin, int Xmax, int reg, int *y,
 		int k);
 void mess(char *s1, char *s2, char *s3, char *s4);
-uint32_t SendMessage_m(WORD wParam, uint32_t lParam);
+uint32_t SendMessage_m(uint16_t wParam, uint32_t lParam);
 int chk_string(FRAME ***str, int *ksym, int k_str, FRAME **frms);
 int chk_ptr(void *ptr);
 #ifdef ZAGL
@@ -547,7 +547,7 @@ typedef unsigned short PRS_ONE;
 #define PRS_ONE struct h_prs_one
 PRS_ONE1 {
 	BYTE code;
-	WORD metri;
+	uint16_t metri;
 };
 PRS_ONE {
 	uint typ :2, het :1, scob :1, dummi :12;
@@ -694,7 +694,7 @@ int CutComp(FRAME ***str, int *ksym, int k_str, FRAME **frms, FRAME **frm,
 		int *k_frm);
 int FindCutComp(FRAME ***str, int *ksym, int k_str, FRAME **frms, int SizeY);
 int breath(int **pprs, int j, int *jj);
-//int CutVertComp(WORD **pprs,int *num,int up,int down,
+//int CutVertComp(uint16_t **pprs,int *num,int up,int down,
 //    int *LineCut,int reg,int dir,int *nn_alt,int *nCurrA,int *found_max);
 int CutVertComp(int **pprs, int *num, int up, int down, int *LineCut, int reg,
 		int dir, int *num_alt, int *nCurrA, int *found_max);
@@ -788,7 +788,7 @@ extern float AveNumCrossCol,AveNumCross1Col,AveThickCol,AveThick1Col;
 extern int KbAll;
 extern int CountCol,Percent1,Percent2,Percent3,NumColt;
 extern char FileParStr[MAXFILENAME];
-extern WORD ScanResolution;extern float MulScanRes;
+extern uint16_t ScanResolution;extern float MulScanRes;
 extern int Break_on;
 extern FUN_POMP pump;
 extern FUN_MESS FunMessage;
@@ -819,7 +819,7 @@ float AveNumCrossCol,AveNumCross1Col,AveThickCol,AveThick1Col;
 int KbAll;
 int CountCol,Percent1=5,Percent2=55,Percent3=40,NumColt;
 char FileParStr[MAXFILENAME];
-WORD ScanResolution;float MulScanRes;//Разрешения сканера и нормир.множитель
+uint16_t ScanResolution;float MulScanRes;//Разрешения сканера и нормир.множитель
 int Break_on=0; // if == 1 => break process
 FUN_POMP pump; // вставляем в цикле
 FUN_MESS FunMessage; //в режиме DLL вместо SendMessage

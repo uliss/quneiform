@@ -65,7 +65,7 @@ extern c_comp wcomp;
 extern MN * main_number_ptr;
 extern BOX * boxchain, *dl_last_in_chain;
 extern BYTE lpool[];
-extern WORD lpool_lth;
+extern uint16_t lpool_lth;
 extern BYTE work_raster[];
 //extern version * start_rec, * rec_ptr;
 extern BYTE records_change;
@@ -181,7 +181,7 @@ PBYTE make_raster() {
 	interval *ip;
 	PBYTE p, pp;
 	INT x, l, sh;
-	WORD w;
+	uint16_t w;
 
 	memset(work_raster, 0, wcomp.rw * wcomp.h);
 	lp = (lnhead *) lpool;
@@ -213,7 +213,7 @@ PBYTE make_extended_raster(c_comp *cp) {
 	large_interval *ip;
 	PBYTE p, pp;
 	INT x, l, sh;
-	WORD wd, w;
+	uint16_t wd, w;
 
 	memset(work_raster, 0, cp->rw * cp->h);
 	wd = cp->rw;
@@ -236,7 +236,7 @@ PBYTE make_extended_raster(c_comp *cp) {
 			*(p - 1) |= w >> 8;
 			pp += wd;
 		}
-		lp = (lnhead *) ((PBYTE) ip - sizeof(WORD));
+		lp = (lnhead *) ((PBYTE) ip - sizeof(uint16_t));
 	}
 	return work_raster;
 }
@@ -256,7 +256,7 @@ INT MN_to_line(MN * mn) {
 	return 0;
 }
 
-WORD length_table[] = { 0x100, 0x300, 0x700, 0xf00, 0x1f00, 0x3f00, 0x7f00,
+uint16_t length_table[] = { 0x100, 0x300, 0x700, 0xf00, 0x1f00, 0x3f00, 0x7f00,
 		0xff00 };
 
 BYTE byte_seg_size[256] = {

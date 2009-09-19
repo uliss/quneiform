@@ -91,7 +91,7 @@ extern B_LINES my_bases;
 //cut point - graph node in dynamic matching
 typedef struct tagCutPoint
 {
-  WORD    x;  //position
+  uint16_t    x;  //position
   BYTE    dh;  //cut lehgth
   BYTE     h;  //cut begin from raster bottom
   BYTE   var;  //cut point type
@@ -101,7 +101,7 @@ typedef struct tagCutPoint
 
 typedef struct tagGraphNode
 {
-  WORD   prev;  //previous node in this path
+  uint16_t   prev;  //previous node in this path
   Weight weight;   //accrued weight to current node
   uint32_t  monitors; //rates of monitoring letters
 // SVERS  vers;  //versions for segment from prev to current
@@ -1061,7 +1061,7 @@ result:
   wt = add_weight(&wp,(BYTE)ro,nlet);
   if (wc.meas<0 || wc.meas>wt.meas)
   {
-    wc=wt;  cur_layer[ir].prev=(WORD)il;  add_monitors(il,ir,(BYTE)(nlet+1),(*p));
+    wc=wt;  cur_layer[ir].prev=(uint16_t)il;  add_monitors(il,ir,(BYTE)(nlet+1),(*p));
   }
   else
     change=FALSE;

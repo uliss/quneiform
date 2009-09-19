@@ -66,20 +66,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /***************************/
 /**** standart address *****/
 /***************************/
-extern WORD all_scalarf(PWORD,PWORD,WORD);
+extern uint16_t all_scalarf(PWORD,PWORD,uint16_t);
 extern LONG all_scalar (PWORD,PWORD);
 #ifdef PC_TYPE
 /***************************/
 /****   MMX address    *****/
 /***************************/
-extern LONG MMX_scalarf(PWORD,PWORD,WORD);
+extern LONG MMX_scalarf(PWORD,PWORD,uint16_t);
 extern LONG MMX_scalar (PWORD,PWORD);
 
 #endif
 /*******************************/
 /**** set standart address *****/
 /*******************************/
-WORD (*scalarf)(PWORD,PWORD,WORD)=all_scalarf;   //AK 14.03.97
+uint16_t (*scalarf)(PWORD,PWORD,uint16_t)=all_scalarf;   //AK 14.03.97
 LONG (*scalar) (PWORD,PWORD)=all_scalar;
 
 

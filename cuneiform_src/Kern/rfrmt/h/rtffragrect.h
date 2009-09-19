@@ -79,9 +79,9 @@ class CRtfFragRect// : public CObject
    std::vector<RECT> m_arGeomFragRectStep2;
    std::vector<RECT> m_arGeomFragRectTemp;
    vectorWord          m_arGeomFragRectColor;
-   WORD                m_wFragCount;
-   WORD	               m_nIndex;
-   WORD	               m_Cycle;
-   WORD                m_Step;
-   WORD                m_GeomFragCountRect;
+   uint16_t                m_wFragCount;
+   uint16_t	               m_nIndex;
+   uint16_t	               m_Cycle;
+   uint16_t                m_Step;
+   uint16_t                m_GeomFragCountRect;
 };

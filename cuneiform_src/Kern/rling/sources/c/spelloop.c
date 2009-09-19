@@ -317,7 +317,7 @@ BYTE * tempword;
 #define MAX_PART_VARS 36
 INT part_var_counter;
 
-INT check_cancel( WORD);
+INT check_cancel( uint16_t);
 static INT obj_number, sp_n;
 //////////////////////////////////////////////////////////////////////////
 INT ed_conv(struct dict_state * dict, user_voc voc_array[], INT voc_no)

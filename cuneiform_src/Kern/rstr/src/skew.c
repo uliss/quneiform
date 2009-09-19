@@ -84,7 +84,7 @@ static INT skew_pool_refill(CSTR_line ln,pairs *pool);
 static INT skew_pool_refill2(CSTR_line ln,pairs *pool);
 
 static INT incl_init(INT,pairs *);
-static WORD skew_stat(INT,CSTR_line,INT,pairs *);
+static uint16_t skew_stat(INT,CSTR_line,INT,pairs *);
 static void total_skew();
 
 #define DINCL  10
@@ -96,7 +96,7 @@ static void total_skew();
 int16_t skew_corr(CSTR_line ln, INT pool_src)
  {
  INT skew_pool_n=0,inclini;
- WORD l,l1;
+ uint16_t l,l1;
  pairs skew_pool[255];
 
  if (pool_src==0)
@@ -292,10 +292,10 @@ static INT incl_init(INT n,pairs *pool)
 
 #define HIMAX  1000
 
-static WORD skew_stat(INT incl,CSTR_line ln,INT pool_n,pairs *pool)
+static uint16_t skew_stat(INT incl,CSTR_line ln,INT pool_n,pairs *pool)
  {
  INT i,im,d;
- WORD l;
+ uint16_t l;
  BYTE hist[HIMAX];
  CSTR_attr		attrlin;
 
@@ -309,7 +309,7 @@ static WORD skew_stat(INT incl,CSTR_line ln,INT pool_n,pairs *pool)
   if (d>0 && d<HIMAX) hist[d]++;
   }
  for (l=i=0; i<im; i++)
-  l+=(WORD)hist[i]*hist[i];
+  l+=(uint16_t)hist[i]*hist[i];
  return l;
  }
 

@@ -97,7 +97,7 @@ void progress_finish(void);
 // module matrix.c
 void matrix_open();
 void matrix_close();
-INT matrix_read(PBYTE buff, WORD lth);
+INT matrix_read(PBYTE buff, uint16_t lth);
 
 // module rules.c
 void rules_open();
@@ -116,7 +116,7 @@ void cutoffs();
 
 // module sweeper.c
 void sweeper_ini();
-WORD sweeper(INT);
+uint16_t sweeper(INT);
 void sweeper_end();
 void read_comp(uint32_t, PCHAR, LONG);
 void comp_file_close();
@@ -231,7 +231,7 @@ INT cell_is_BOX_solid(cell*);
 MN *c_locomp(PBYTE, LONG, LONG, INT, INT);
 
 // module v0compgl.asm
-void invert_tiff(PBYTE c, WORD lth);
+void invert_tiff(PBYTE c, uint16_t lth);
 
 // module cutgraph.c
 INT make_graph();
@@ -268,13 +268,13 @@ void embBOX(servBOX *, SVERS *, Bool);
 void embBOXF(servBOX *, INT, Bool);
 
 // module scalar.asm
-INT proport(WORD, WORD, WORD, INT, INT);
-extern WORD (*scalarf)(PWORD, PWORD, WORD);
+INT proport(uint16_t, uint16_t, uint16_t, INT, INT);
+extern uint16_t (*scalarf)(PWORD, PWORD, uint16_t);
 extern LONG (*scalar)(PWORD, PWORD);
 INT long_sqrt(uint32_t);
 
 // module funcBOX.asm
-void comp_to_box(PWORD, c_comp *, WORD, WORD, WORD, WORD);
+void comp_to_box(PWORD, c_comp *, uint16_t, uint16_t, uint16_t, uint16_t);
 
 // module abris.c
 void abris_reset();
@@ -349,7 +349,7 @@ BYTE similar_wide_frt1(STICK_CHARS *left_chars, STICK_CHARS *right_chars);
 
 // module def_stic.c
 INT stick_center_study(cell *c, s_glue *GL, INT typ);
-WORD typ_thin_stick(lnhead *lin, INT dy, INT dx);
+uint16_t typ_thin_stick(lnhead *lin, INT dy, INT dx);
 INT erector(cell *c, INT enable_erect, INT enable_shave, INT enable_snap);
 
 // module cha_stic.c
@@ -366,8 +366,8 @@ void num_of_skip_line(BYTE left[], BYTE right[], INT dy, INT opt, INT wide,
 void set_stick_aux_signums(cell *c, BYTE left[], BYTE right[], INT dy,
 		INT wide_up, STICK_CHARS *left_chars, STICK_CHARS *right_chars,
 		STICK_SIGNUMS *signums, INT dis_left_brace, INT dis_right_brace,
-		INT dis_slash, INT l_f_sym, INT r_f_sym, INT T_c, WORD T_2_3,
-		WORD T_skok, B_LINES *bl, INT nlines, INT incline);
+		INT dis_slash, INT l_f_sym, INT r_f_sym, INT T_c, uint16_t T_2_3,
+		uint16_t T_skok, B_LINES *bl, INT nlines, INT incline);
 
 void
 		calc_skipped_lines(INT hist_int[], BYTE left[], BYTE right[], INT dy,
@@ -525,7 +525,7 @@ void maden_comp(PBYTE, INT, INT, INT, INT);
 c_comp *get_comp(PROOT);
 void Pass2(void);
 void read_rec_file(INT seqn, PBYTE pool, PBYTE * end);
-///////////////////INT cond_open(INT seqn, PCHAR name, WORD b1, WORD b2);
+///////////////////INT cond_open(INT seqn, PCHAR name, uint16_t b1, uint16_t b2);
 PBYTE seq_nam(INT seqn);
 INT to_voc(void);
 void to_edp(void);
@@ -545,7 +545,7 @@ void snap_events(cell *);
 void write_events(cell *);
 void * snap_ev_res();
 void snap_ev_reset();
-void snap_keep(BYTE user, PBYTE addr, WORD lth);
+void snap_keep(BYTE user, PBYTE addr, uint16_t lth);
 void snap_sticks(cell *);
 
 // module v0compmn.asm
@@ -559,7 +559,7 @@ void recog_save_maden();
 void v2_pidx_crit(cell *);
 void pidx_crit();
 Bool pidx_skip(INT h, INT w, BYTE t_let);
-WORD el_pidx_crit(WORD t_let, INT pidx);
+uint16_t el_pidx_crit(uint16_t t_let, INT pidx);
 
 // module lang_fil.c
 void ev_lang_filter();
@@ -579,7 +579,7 @@ INT scaled(INT value, BYTE scale);
 PBYTE compress_component(c_comp *c, BYTE scale);
 PBYTE compress_large_component(c_comp *c, BYTE scale);
 PBYTE compress_dust_component(c_comp *c, BYTE scale);
-INT filling_MN(MN *mn, WORD h, WORD w);
+INT filling_MN(MN *mn, uint16_t h, uint16_t w);
 
 // 	module tg_spell
 INT spelling(PBYTE memory, LONG size);
@@ -607,7 +607,7 @@ void write_prot(cell *);
 
 // module scanjet
 INT give_scan_handle(void);
-WORD scan_close(void);
+uint16_t scan_close(void);
 
 // module dllentry or run
 void write_text(BYTE);
@@ -645,7 +645,7 @@ INT erect_raster_value(BYTE *raster, INT dx, INT dy, INT inc);
 void shevron(cell*);
 /*-------------------------- Extern -------------------*/
 
-Bool check_cancel(WORD perc);
+Bool check_cancel(uint16_t perc);
 
 MN *cell_cut(cell *);
 
@@ -653,7 +653,7 @@ void set_page_name(PBYTE);
 
 void setdrmode(INT);
 
-void c_rastror(PBYTE, PBYTE, WORD, WORD);
+void c_rastror(PBYTE, PBYTE, uint16_t, uint16_t);
 
 lnhead *c_boxln(MN *);
 
@@ -661,5 +661,5 @@ lnhead *c_boxln(MN *);
 void html_main(PBYTE memory, LONG memory_lth);
 
 // virtual function...
-WORD Tiger_BIOSKEY(WORD);
+uint16_t Tiger_BIOSKEY(uint16_t);
 #endif

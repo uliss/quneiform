@@ -77,7 +77,7 @@ struct RtfSectorInfo
  POINT   OffsetFromColumn;
  RECT   m_rectFree;
 
- WORD    CountFragments;
+ uint16_t    CountFragments;
  Handle  hEDPage;
  Handle  hEDSector;
 	Handle  hColumn;
@@ -89,10 +89,10 @@ struct RtfSectorInfo
 	Handle  hEdTableParagraph;
 	Handle  hEdTableString;
 	int     userNum;
- WORD    VerticalOffsetColumnFromSector;
-	WORD    VerticalOffsetFragmentInColumn;
-	WORD    FlagInColumn;
-	WORD    InterSectorDist;
+ uint16_t    VerticalOffsetColumnFromSector;
+	uint16_t    VerticalOffsetFragmentInColumn;
+	uint16_t    FlagInColumn;
+	uint16_t    InterSectorDist;
 	Bool    FlagFictiveParagraph;
  int32_t   MargL;
 	int32_t   MargR;

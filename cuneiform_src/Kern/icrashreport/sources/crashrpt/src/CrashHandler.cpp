@@ -247,7 +247,7 @@ void CCrashHandler::GenerateErrorReport(PEXCEPTION_POINTERS pExInfo)
    m_files[rpt.getCrashLog()] = CString((LPCTSTR)IDS_CRASH_LOG);
 
    // add symbol files to report
-   for (i = 0; i < (UINT)rpt.getNumSymbolFiles(); i++)
+   for (i = 0; i < (uint)rpt.getNumSymbolFiles(); i++)
       m_files[(LPCTSTR)rpt.getSymbolFile(i)] =
       CString((LPCTSTR)IDS_SYMBOL_FILE);
 
@@ -268,7 +268,7 @@ void CCrashHandler::GenerateErrorReport(PEXCEPTION_POINTERS pExInfo)
 	   mainDlg.m_pUDFiles = &m_files;
 
 	   //Сохраняем флаги по исключениям с плавающей точкой - кто-то их злобно сбрасывает при показе диалога
-	   UINT oldFpState = _controlfp(0, 0);
+	   uint oldFpState = _controlfp(0, 0);
 	   if (IDOK == mainDlg.DoModal())
 	   {
 	      if (m_sTo.IsEmpty() ||

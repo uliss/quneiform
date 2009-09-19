@@ -660,7 +660,7 @@ static void final_Il_1(cell *c)
  indBOX *h;
  elmBOX *elm;
  extern PCHAR tableBOX;
- WORD max,prob;
+ uint16_t max,prob;
  INT i;
 
  GL.celist[0]=c;

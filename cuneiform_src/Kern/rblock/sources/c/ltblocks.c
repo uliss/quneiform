@@ -475,8 +475,8 @@ FOUND:
 PBYTE           pbPicStrip;
 PBYTE           pbPic;
 INT             i;
-WORD            right;
-WORD            wSizeStrip;
+uint16_t            right;
+uint16_t            wSizeStrip;
 strip *         pStrip;
 strip_header  * pStrips;
 

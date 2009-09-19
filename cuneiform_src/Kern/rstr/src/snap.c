@@ -1477,7 +1477,7 @@ return FALSE;
 }
 
 // knot for EVENT snap
-void snap_keep(BYTE user, PBYTE addr, WORD lth)
+void snap_keep(BYTE user, PBYTE addr, uint16_t lth)
 {
 if( snap_disable || snap_page_disable || db_skip_client)
     return ;
