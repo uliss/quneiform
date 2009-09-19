@@ -65,7 +65,6 @@
 #pragma once
 #endif // _MSC_VER > 1000
 #include "globus.h"
-#include "cttypext.h"
 #include "crlmemory.h"
 #include "crled.h"	// Added by ClassView
 class CRLControl {
@@ -80,10 +79,9 @@ public:
 	Bool32 CorrectSecHypWord(CSTR_rast BegF, CSTR_rast EndF,
 			uint32_t * pLanguageF, CSTR_rast BegS, CSTR_rast EndS,
 			uint32_t * pLanguageS, char* CorrWord);
-	Bool32
-			CorrectHypWord(CSTR_rast BegF, CSTR_rast EndF, uint32_t * pLanguageF,
-					CSTR_rast BegS, CSTR_rast EndS, uint32_t * pLanguageS,
-					char* CorrWord);
+	Bool32 CorrectHypWord(CSTR_rast BegF, CSTR_rast EndF,
+			uint32_t * pLanguageF, CSTR_rast BegS, CSTR_rast EndS,
+			uint32_t * pLanguageS, char* CorrWord);
 	Bool32 CorrectSecWord(CSTR_rast Beg, CSTR_rast End, uint32_t * pLanguage,
 			char* CorrWord);
 	Bool32 CorrectWord(CSTR_rast Beg, CSTR_rast End, uint32_t * pLanguage,

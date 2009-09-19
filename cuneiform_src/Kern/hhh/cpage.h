@@ -57,16 +57,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __CPAGE_H
 #define __CPAGE_H
 
-#ifndef __GLOBUS_H
 #include "globus.h"
-#endif
-#include "cttypext.h"
-/*
-#ifndef __RECDEFS_H
-   #include "recdefs.h"
-#endif
-   #include "memfunc.h"
-*/
+#include "cttypes.h"
+
 #ifdef __CPAGE__
   #define CPAGE_FUNC  FUN_EXPO
 #else

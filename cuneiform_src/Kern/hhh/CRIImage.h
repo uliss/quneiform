@@ -57,18 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __CRIMAGE_HEADER_
 #define __CRIMAGE_HEADER_
 
-#ifndef __GLOBUS_H
- #include "globus.h"
-#endif
- #include "cttypext.h"
-///////////////////////////////////////////////////////////////////////////////////////////////
-//#include"CTIDefines.h"
-/*
-#ifndef __RECDEFS_H
-   #include "recdefs.h"
-#endif
-   #include "memfunc.h"
-*/
+#include "globus.h"
 ///////////////////////////////////////////////////////////////////////////////////////////////
 #ifdef __RIMAGE__
   #define RIMAGE_FUNC(a)  FUN_EXPO(a)
@@ -76,7 +65,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #define RIMAGE_FUNC(a)  FUN_IMPO(a)
 #endif
 ///////////////////////////////////////////////////////////////////////////////////////////////
-//#define     CIMAGE_CALLBACK_FUNC(a)         CIMAGE_FUNC(a)
 #define     RIMAGE_CALLBACK_FUNC(a)         a
 ///////////////////////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus

@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "resource.h"
 #include "cridefines.h"
-#include "cttypext.h"
+#include "cttypes.h"
 #include "criimage.h"
 #include "ctiimage.h"
 #include "crinvertor.h"	// Added by ClassView
